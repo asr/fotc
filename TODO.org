@@ -1,0 +1,15 @@
+* TODO To prevent non-desirable evaluation
+
+From Peter's email:
+
+Another important thing might be to use the "abstract" construct in
+Agda to prevent non-desirable evaluation. For example, the definition
+of And is done in terms of Sigma in the standard library. This is not
+good for translation, because we want to translate And in Agda into
+And in predicate logic. If And in Agda is translated into Sigma during
+normalizationk, then this won't happen.
+
+See Agda patch: don't inline definitions for COMPILED functions
+
+* DONE To check as Agda represents internally the precedence and
+the associativity of the operators.
