@@ -229,6 +229,7 @@ termToFOLTerm term@(Def (QName _ name) args) = do
   case cName of
     C.NoName{} -> __IMPOSSIBLE__
 
+    -- The term Def doesn't have holes.
     C.Name _ [C.Id strName] ->
         case args of
           [] -> -- The term Def is a constructor.
