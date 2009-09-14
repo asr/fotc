@@ -244,7 +244,7 @@ termToFOLTerm term@(Def (QName _ name) args) = do
     -- The term Def is a function with two holes, e.g. _+_.
     C.Name _ [C.Hole, C.Id strName, C.Hole] -> appArgs strName args
 
-    -- The term Def is a function with tree holes, e.g. if_then_else_.
+    -- The term Def is a function with three holes, e.g. if_then_else_.
     C.Name _ [ C.Id strName1
              , C.Hole
              , C.Id strName2
