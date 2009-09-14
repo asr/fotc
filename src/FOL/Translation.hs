@@ -239,20 +239,13 @@ termToFOLTerm term@(Def (QName _ name) args) = do
           _ -> -- The term Def is a function with arguments.
                appArgs strName args
 
-    -- ToDo: The general case for holes.
-
-    -- The term Def is a function with two holes, e.g. _+_.
-    C.Name _ [C.Hole, C.Id strName, C.Hole] -> appArgs strName args
-
-    -- The term Def is a function with three holes, e.g. if_then_else_.
-    C.Name _ [ C.Id strName1
-             , C.Hole
-             , C.Id strName2
-             , C.Hole
-             , C.Id strName3
-             , C.Hole
-             ] -> appArgs (strName1 ++ strName2 ++ strName3) args
-
-    _ -> __IMPOSSIBLE__
+    -- The term Def has holes.
+    -- We use the parts of the name to produce a new function name,
+    -- e.g. the function 'if_then_else_' is called 'ifthenelse'.
+    C.Name _ nameParts -> appArgs (concatMap takeIds nameParts) args
+       where
+         takeIds :: C.NamePart -> String
+         takeIds C.Hole = []
+         takeIds (C.Id strName) = strName
 
 termToFOLTerm _ = error "termToFOLTerm: not implemented"
