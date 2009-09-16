@@ -11,6 +11,17 @@ import Agda.Interaction.Options
     )
 import Agda.Syntax.Internal ( QName, Type )
 import Agda.TypeChecking.Monad.Base
+    ( axExternalDef
+    , Defn(Axiom)
+    , Definition
+    , Definitions
+    , defType
+    , Interface
+    , iSignature
+    , runTCM
+    , Signature(sigDefinitions)
+    , theDef
+    )
 import Agda.TypeChecking.Monad.Options
     ( makeIncludeDirsAbsolute
     , setCommandLineOptions
