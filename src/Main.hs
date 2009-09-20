@@ -52,7 +52,6 @@ import System.Directory ( getCurrentDirectory )
 import System.Environment
 import System.Exit
 import qualified System.IO.UTF8 as UTF8
-import System.IO.Unsafe ( unsafePerformIO )
 
 printListLn :: Show a => [a] -> IO ()
 printListLn []       = return ()
@@ -82,16 +81,19 @@ agdaExternalsToFOL i = do
   let externalQnames :: Definitions
       externalQnames = getExternalDefinitions i
   -- UTF8.print $ Map.keys externalQnames
+
   let qNamesTypes :: Map QName Type
       qNamesTypes = Map.map defType externalQnames
 
   liftIO $ UTF8.putStrLn "Types:"
   liftIO $ printListLn $ Map.toList qNamesTypes
 
+  formulas <- liftIO $
+              mapM (\ty -> runReaderT (typeToFormula ty) (opts, initialVars))
+                   (Map.elems qNamesTypes)
+
   let qNamesFOLFormulas :: Map QName Formula
-      qNamesFOLFormulas =
-          Map.map (\ty -> unsafePerformIO $ runReaderT (typeToFormula ty) (opts, initialVars))
-                  qNamesTypes
+      qNamesFOLFormulas = Map.fromList $ zip (Map.keys qNamesTypes) formulas
 
   liftIO $ UTF8.putStrLn "FOL formulas:"
   liftIO $ printListLn $ Map.toList qNamesFOLFormulas
