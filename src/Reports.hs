@@ -12,8 +12,7 @@ import Monad ( T )
 
 import Options ( Options, optVerbose )
 
-import qualified System.IO.UTF8 as UTF8
-
+import qualified Agda.Utils.IO.Locale as LocIO
 import Agda.Utils.Trie ( Trie )
 import qualified Agda.Utils.Trie as Trie
 
@@ -42,4 +41,4 @@ verboseS k n action | n < 0     =  __IMPOSSIBLE__
     when (n <= m) action
 
 reportLn :: VerboseKey -> Int -> String -> T ()
-reportLn k n s = verboseS k n $ liftIO $ UTF8.putStrLn (s ++ "\n")
+reportLn k n s = verboseS k n $ liftIO $ LocIO.putStrLn (s ++ "\n")

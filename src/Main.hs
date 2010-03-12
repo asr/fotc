@@ -29,6 +29,8 @@ import Agda.TypeChecking.Monad.Options
     )
 import Agda.Utils.FileName ( absolute, filePath, mkAbsolute )
 import Agda.Utils.Impossible ( catchImpossible )
+import qualified Agda.Utils.IO.Locale as LocIO
+
 -- import Agda.Utils.Pretty
 
 import Control.Monad.Reader
@@ -51,11 +53,10 @@ import Prelude hiding ( print, putStr, putStrLn )
 import System.Directory ( getCurrentDirectory )
 import System.Environment
 import System.Exit
-import qualified System.IO.UTF8 as UTF8
 
 printListLn :: Show a => [a] -> IO ()
 printListLn []       = return ()
-printListLn (x : xs) = do UTF8.putStrLn $ show x ++ "\n"
+printListLn (x : xs) = do LocIO.putStrLn $ show x ++ "\n"
                           printListLn xs
 
 isQNameExternal :: Definition -> Bool
@@ -80,12 +81,12 @@ agdaExternalsToFOL i = do
 
   let externalQnames :: Definitions
       externalQnames = getExternalDefinitions i
-  -- UTF8.print $ Map.keys externalQnames
+  -- LocIO.print $ Map.keys externalQnames
 
   let qNamesTypes :: Map QName Type
       qNamesTypes = Map.map defType externalQnames
 
-  liftIO $ UTF8.putStrLn "Types:"
+  liftIO $ LocIO.putStrLn "Types:"
   liftIO $ printListLn $ Map.toList qNamesTypes
 
   formulas <- liftIO $
@@ -95,7 +96,7 @@ agdaExternalsToFOL i = do
   let qNamesFOLFormulas :: Map QName Formula
       qNamesFOLFormulas = Map.fromList $ zip (Map.keys qNamesTypes) formulas
 
-  liftIO $ UTF8.putStrLn "FOL formulas:"
+  liftIO $ LocIO.putStrLn "FOL formulas:"
   liftIO $ printListLn $ Map.toList qNamesFOLFormulas
 
 
@@ -134,5 +135,5 @@ runAgdaATP = do
 
 main :: IO ()
 main = catchImpossible runAgdaATP $
-         \e -> do UTF8.putStr $ show e
+         \e -> do LocIO.putStr $ show e
                   exitFailure
