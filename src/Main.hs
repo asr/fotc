@@ -32,7 +32,7 @@ import Agda.Utils.Impossible ( catchImpossible )
 -- import Agda.Utils.Pretty
 
 import Control.Monad.Reader
-import Control.Monad.Trans
+-- import Control.Monad.Trans
 
 import Data.Map ( Map )
 import qualified Data.Map as Map

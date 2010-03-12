@@ -12,7 +12,7 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 
 -- import Control.Monad.State ( get, put )
 import Control.Monad.Reader ( ask, local )
-import Control.Monad.State
+-- import Control.Monad.State
 
 import FOL.Constants
 import FOL.Primitives ( app, equal )
