@@ -6,6 +6,7 @@ module FOL.Translation where
 import Agda.Syntax.Common
 import qualified Agda.Syntax.Concrete.Name as C
 import Agda.Syntax.Internal
+import Agda.Syntax.Literal
 import Agda.Syntax.Position ( noRange )
 import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 
@@ -160,11 +161,11 @@ termToFormula term@(Pi tyArg (Abs strName tyAbs)) = do
   -- so we need create the list in the same "order".
   f <- local (\(a, vars) -> (a, strName : vars)) $ typeToFormula tyAbs
   case unArg tyArg of
-    (El (Type 0) _) -> -- The varible bound has type below Set (e.g. D : Set).
+     -- The varible bound has type below Set (e.g. D : Set).
+    (El (Type (Lit (LitLevel _ 0))) _) ->
                        return $ ForAll strName (\_  -> f)
-
-    (El (Type 1) _) -> -- The variable bound has type Set, i.e. a
-                       -- propositional constant.
+    -- The variable bound has type Set, i.e. a propositional constant.
+    (El (Type (Lit (LitLevel _ 1))) _) ->
                        return f
 
     _               -> __IMPOSSIBLE__

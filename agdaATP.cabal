@@ -4,21 +4,19 @@ build-type:         Simple
 cabal-version:      >= 1.2 && < 2
 author:             Ana Bove, Peter Dybjer, and Andrés Sicard-Ramírez
 maintainer:         Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
-tested-with:        GHC == 6.10.4
+tested-with:        GHC == 6.12.1
 extra-source-files: src/undefined.h
 
 executable agda-atp
   main-is:        Main.hs
   hs-source-dirs: src
 
-  build-depends:  base >= 4.1 && < 4.2,
-                  Agda == 5.0.0,
-                  -- Agda == 2.2.3,
-                  utf8-string >= 0.3 && < 0.4,
-                  containers >= 0.2 && < 0.3,
-                  mtl >= 1.1.0.2 && < 1.2,
-                  directory >= 1.0.0.3 && < 1.1
-
+  build-depends:  base == 4.2.*
+                  , Agda == 5.0.0
+                  , utf8-string >= 0.3 && < 0.4
+                  , containers == 0.3.*
+                  , mtl >= 1.1.0.2 && < 1.2
+                  , directory >= 1.0.0.3 && < 1.1
 
   other-modules:  FOL.Constants
                   FOL.Primitives
@@ -35,4 +33,5 @@ executable agda-atp
                -fwarn-monomorphism-restriction
                -fwarn-simple-patterns
                -fwarn-tabs
+               -fwarn-unused-do-bind
                -- -Werror
