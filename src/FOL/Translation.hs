@@ -170,7 +170,6 @@ termToFormula term@(Pi tyArg (Abs strName tyAbs)) = do
 
     _               -> __IMPOSSIBLE__
 
-
 termToFormula term@(Var n _) = do
   reportLn "termToFormula" 10 $ "Processing term Var: " ++ show term
 
@@ -181,7 +180,6 @@ termToFormula term@(Var n _) = do
      else return $ Predicate (vars !! fromIntegral n) []
 
 termToFormula _ = error "termToFormula: not implemented"
-
 
 -- Translate 'fn x1 ... xn' to 'kApp (... kApp (kApp(fn, x1), x2), ..., xn)'.
 appArgs :: String -> Args -> T FOLTerm
@@ -197,7 +195,6 @@ termToFOLTerm (Var n _) = do
   if length vars <= fromIntegral n
      then __IMPOSSIBLE__
      else return $ FOLVar (vars !! fromIntegral n)
-
 
 -- Remark: The code for the cases Con and Def is very similar.
 termToFOLTerm term@(Con (QName _ name) args)  = do
