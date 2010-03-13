@@ -74,8 +74,8 @@ getExternalDefinitions :: Interface -> Definitions
 getExternalDefinitions i =
     Map.filter isQNameExternal $ sigDefinitions $ iSignature i
 
-agdaExternalsToFOL :: Interface -> ReaderT Options IO ()
-agdaExternalsToFOL i = do
+externalToFOL :: Interface -> ReaderT Options IO ()
+externalToFOL i = do
 
   opts <- ask
 
@@ -131,7 +131,7 @@ runAgdaATP = do
   -- Gettting the interface.
   i <- getInterface $ head names
 
-  runReaderT (agdaExternalsToFOL i) opts
+  runReaderT (externalToFOL i) opts
 
 main :: IO ()
 main = catchImpossible runAgdaATP $
