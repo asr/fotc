@@ -18,7 +18,7 @@ folOr      = "Or"
 folEquiv   = "Equiv"
 folExists  = "Exists"
 folForAll  = "ForAll"
-folEquals  = "=="
+folEquals  = "≡"
 
 {-
 folConstants = [  fol_And, fol_Or, fol_Implies, fol_Equiv
