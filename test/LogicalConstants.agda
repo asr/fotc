@@ -8,7 +8,7 @@ infixl 40 _Equiv_
 
 postulate
   True False                   : Set
-  Not                          : Set -> Set
-  _And_ _Implies_ _Or_ _Equiv_ : Set -> Set -> Set
+  Not                          : Set → Set
+  _And_ _Implies_ _Or_ _Equiv_ : Set → Set → Set
 
-  Exists ForAll : (D -> Set) -> Set
+  Exists ForAll : (D → Set) → Set
