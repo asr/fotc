@@ -1,7 +1,9 @@
-{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE CPP, FlexibleInstances #-}
 
 module Main where
 
+------------------------------------------------------------------------------
+-- Agda library imports
 import Agda.Interaction.FindFile ( toIFile )
 import Agda.Interaction.Imports ( readInterface )
 import Agda.Interaction.Options
@@ -10,29 +12,34 @@ import Agda.Interaction.Options
     , optInputFile
     )
 import Agda.Syntax.Internal ( QName, Type )
+
 import Agda.TypeChecking.Monad.Base
     ( axExternalDef
     , Defn(Axiom)
     , Definition
     , Definitions
     , defType
+    , ExternalRole
     , Interface
     , iSignature
     , runTCM
     , Signature(sigDefinitions)
     , theDef
     )
-import Agda.TypeChecking.Monad.Options
-    ( makeIncludeDirsAbsolute
-    , setCommandLineOptions
-    , Target(PersistentOptions)
-    )
+import Agda.TypeChecking.Monad.Options ( makeIncludeDirsAbsolute
+                                       , setCommandLineOptions
+                                       , Target(PersistentOptions)
+                                       )
+
 import Agda.Utils.FileName ( absolute, filePath, mkAbsolute )
-import Agda.Utils.Impossible ( catchImpossible )
+import Agda.Utils.Impossible ( catchImpossible
+                             , Impossible(..)
+                             , throwImpossible
+                             )
 import qualified Agda.Utils.IO.Locale as LocIO
 
--- import Agda.Utils.Pretty
-
+------------------------------------------------------------------------------
+-- Haskell imports
 import Control.Monad.Reader
 -- import Control.Monad.Trans
 
@@ -40,19 +47,25 @@ import Data.Map ( Map )
 import qualified Data.Map as Map
 -- import Data.Maybe
 
--- import FOL.Pretty
-import FOL.Translation
-import FOL.Types
-
-import Monad ( initialVars )
-
-import Options ( Options, parseOptions )
-
 import Prelude hiding ( print, putStr, putStrLn )
 
 import System.Directory ( getCurrentDirectory )
 import System.Environment
 import System.Exit
+
+#include "undefined.h"
+
+------------------------------------------------------------------------------
+-- Local imports
+-- import FOL.Pretty
+import FOL.Translation
+import FOL.Types
+import Monad ( initialVars )
+import Options ( Options, parseOptions )
+import TPTP.Translation
+import TPTP.Types
+
+------------------------------------------------------------------------------
 
 printListLn :: Show a => [a] -> IO ()
 printListLn []       = return ()
@@ -65,26 +78,39 @@ isQNameExternal def =
       Axiom{} -> case axExternalDef defn of
                    Just _   -> True
                    Nothing  -> False
+
       _       -> False  -- Only the postulates can be EXTERNAL.
 
     where defn :: Defn
           defn = theDef def
 
-getExternalDefinitions :: Interface -> Definitions
-getExternalDefinitions i =
+getExternalRole :: Definition -> ExternalRole
+getExternalRole def =
+    case defn of
+      Axiom{} -> case axExternalDef defn of
+                   Just role   -> role
+                   Nothing  -> __IMPOSSIBLE__
+
+      _       -> __IMPOSSIBLE__
+
+    where defn :: Defn
+          defn = theDef def
+
+getExternals :: Interface -> Definitions
+getExternals i =
     Map.filter isQNameExternal $ sigDefinitions $ iSignature i
 
-externalToFOL :: Interface -> ReaderT Options IO ()
-externalToFOL i = do
+externalsToFOLs :: Interface -> ReaderT Options IO ()
+externalsToFOLs i = do
 
   opts <- ask
 
-  let externalQnames :: Definitions
-      externalQnames = getExternalDefinitions i
+  let externalsQnames :: Definitions
+      externalsQnames = getExternals i
   -- LocIO.print $ Map.keys externalQnames
 
   let qNamesTypes :: Map QName Type
-      qNamesTypes = Map.map defType externalQnames
+      qNamesTypes = Map.map defType externalsQnames
 
   liftIO $ LocIO.putStrLn "Types:"
   liftIO $ printListLn $ Map.toList qNamesTypes
@@ -99,6 +125,17 @@ externalToFOL i = do
   liftIO $ LocIO.putStrLn "FOL formulas:"
   liftIO $ printListLn $ Map.toList qNamesFOLFormulas
 
+  let qNamesExternalsRole :: Map QName ExternalRole
+      qNamesExternalsRole = Map.map getExternalRole externalsQnames
+
+  let linesTPTP :: [LineTPTP]
+      linesTPTP = map (\(a, b, c) -> externalToTPTP a b c) $
+                      zip3 (Map.keys qNamesFOLFormulas)
+                           (Map.elems qNamesExternalsRole)
+                           (Map.elems qNamesFOLFormulas)
+
+  liftIO $ LocIO.putStrLn "TPTP formulas:"
+  liftIO $ LocIO.print linesTPTP
 
 getInterface :: FilePath -> IO Interface
 getInterface agdaFile = do
@@ -131,7 +168,7 @@ runAgdaATP = do
   -- Gettting the interface.
   i <- getInterface $ head names
 
-  runReaderT (externalToFOL i) opts
+  runReaderT (externalsToFOLs i) opts
 
 main :: IO ()
 main = catchImpossible runAgdaATP $

@@ -1,12 +1,21 @@
+------------------------------------------------------------------------------
+-- FOL types
+------------------------------------------------------------------------------
+
 {-# LANGUAGE StandaloneDeriving
            , FlexibleInstances
  #-}
 
--- Adapted from AgdaLight (Plugins.FOL.Types).
-
 module FOL.Types where
 
+-- Haskell imports
+import Data.Char
+
+------------------------------------------------------------------------------
+
 {-| FOL propositions -}
+-- Adapted from AgdaLight (Plugins.FOL.Types).
+
 data FOLTerm = FOLFun String [FOLTerm]
              | FOLVar String
              | FOLConst String -- AgdaLight hasn't them.
@@ -24,7 +33,7 @@ data Formula = Predicate String [FOLTerm]
              | FALSE
 
 instance Show Formula where
-    show (Predicate str terms) = " Predicate " ++ str ++ " " ++ show terms
+    show (Predicate name terms) = " Predicate " ++ name ++ " " ++ show terms
     show (And f1 f2)           = " And " ++ show f1 ++ show f2
     show (Or f1 f2)            = " Or " ++ show f1 ++ show f2
     show (Not f)               = " Not " ++ show f
@@ -34,3 +43,30 @@ instance Show Formula where
     show (Exists var f)        = " Exists " ++ var ++ (show $ f (FOLVar var))
     show TRUE                  = " TRUE "
     show FALSE                 = " FALSE "
+
+class ShowTPTP a where
+    showTPTP :: a -> String
+
+instance ShowTPTP Formula where
+    showTPTP (Predicate name terms) =  name ++ "(" ++ showTPTP terms ++ ")"
+    showTPTP (And f1 f2)            = " And " ++ showTPTP f1 ++ showTPTP f2
+    showTPTP (Or f1 f2)             = " Or " ++ showTPTP f1 ++ showTPTP f2
+    showTPTP (Not f)                = " Not " ++ showTPTP f
+    showTPTP (Implies f1 f2)        = " Implies " ++ showTPTP f1 ++ showTPTP f2
+    showTPTP (Equiv f1 f2)          = " Equiv " ++ showTPTP f1 ++ showTPTP f2
+    showTPTP (ForAll var f)         = "( ! [" ++ (map toUpper var) ++ "]: " ++
+                                      (showTPTP $ f (FOLVar var)) ++ ")"
+    showTPTP (Exists var f)         = " Exists " ++ var ++ (showTPTP $ f (FOLVar var))
+    showTPTP TRUE                   = " TRUE "
+    showTPTP FALSE                  = " FALSE "
+
+instance ShowTPTP FOLTerm where
+    showTPTP (FOLFun name [])    = name
+    showTPTP (FOLFun name terms) = name ++ "(" ++ showTPTP terms ++ ")"
+    showTPTP (FOLVar name)       = map toUpper name
+    showTPTP (FOLConst name)     = map toLower name
+
+instance (ShowTPTP a) => ShowTPTP [a] where
+    showTPTP [] = []
+    showTPTP (a : []) = showTPTP a
+    showTPTP (a : as) = showTPTP a ++ "," ++ showTPTP as

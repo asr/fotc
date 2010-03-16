@@ -26,6 +26,8 @@ executable agda-atp
                   -- Names
                   Options
                   Reports
+                  TPTP.Translation
+                  TPTP.Types
 
   ghc-options: -Wall
                -fwarn-incomplete-record-updates
