@@ -20,11 +20,11 @@ postulate
  f70 : (x : D) → x ≡ x
  f80 : ForAll (λ (x : D) → Exists ( λ (y : D) → x ≡ y))
 
-{-# EXTERNAL Equinox f10 #-}
-{-# EXTERNAL Equinox f20 #-}
-{-# EXTERNAL Equinox f30 #-}
-{-# EXTERNAL Equinox f40 #-}
-{-# EXTERNAL Equinox f50 #-}
-{-# EXTERNAL Equinox f60 #-}
-{-# EXTERNAL Equinox f70 #-}
-{-# EXTERNAL Equinox f80 #-}
+{-# EXTERNAL axiom f10 #-}
+{-# EXTERNAL axiom f20 #-}
+{-# EXTERNAL axiom f30 #-}
+{-# EXTERNAL axiom f40 #-}
+{-# EXTERNAL axiom f50 #-}
+{-# EXTERNAL axiom f60 #-}
+{-# EXTERNAL axiom f70 #-}
+{-# EXTERNAL axiom f80 #-}
