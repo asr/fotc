@@ -158,7 +158,7 @@ termToFormula term@(Pi tyArg (Abs strName tyAbs)) = do
 
   -- The de Bruijn indexes are assigned from "right to left", e.g.
   -- in '(A B C : Set) -> ...', A is 2, B is 1, and C is 0,
-  -- so we need create the list in the same "order".
+  -- so we need create the list in the same order.
   f <- local (\(a, vars) -> (a, strName : vars)) $ typeToFormula tyAbs
   case unArg tyArg of
      -- The varible bound has type below Set (e.g. D : Set).
