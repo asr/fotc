@@ -48,17 +48,34 @@ class ShowTPTP a where
     showTPTP :: a -> String
 
 instance ShowTPTP Formula where
-    showTPTP (Predicate name terms) =  name ++ "(" ++ showTPTP terms ++ ")"
-    showTPTP (And f1 f2)            = " And " ++ showTPTP f1 ++ showTPTP f2
-    showTPTP (Or f1 f2)             = " Or " ++ showTPTP f1 ++ showTPTP f2
-    showTPTP (Not f)                = " Not " ++ showTPTP f
-    showTPTP (Implies f1 f2)        = " Implies " ++ showTPTP f1 ++ showTPTP f2
-    showTPTP (Equiv f1 f2)          = " Equiv " ++ showTPTP f1 ++ showTPTP f2
-    showTPTP (ForAll var f)         = "( ! [" ++ (map toUpper var) ++ "]: " ++
-                                      (showTPTP $ f (FOLVar var)) ++ ")"
-    showTPTP (Exists var f)         = " Exists " ++ var ++ (showTPTP $ f (FOLVar var))
-    showTPTP TRUE                   = " TRUE "
-    showTPTP FALSE                  = " FALSE "
+    showTPTP (Predicate name terms) =
+        (map toLower name) ++ "(" ++ showTPTP terms ++ ")"
+
+    showTPTP (And f1 f2) =
+        "( " ++ showTPTP f1 ++ " & " ++ showTPTP f2 ++ " )"
+    showTPTP (Or f1 f2) =
+        "( " ++ showTPTP f1 ++ " | " ++ showTPTP f2 ++ " )"
+
+    showTPTP (Not f) = "~" ++ showTPTP f
+
+    showTPTP (Implies f1 f2) =
+        "( " ++ showTPTP f1 ++ " => " ++ showTPTP f2 ++ " )"
+
+    showTPTP (Equiv f1 f2) =
+        "( " ++ showTPTP f1 ++ " <=> " ++ showTPTP f2 ++ " )"
+
+    showTPTP (ForAll var f) =
+        "( ! [" ++ (map toUpper var) ++ "]: " ++
+                    "( " ++ (showTPTP $ f (FOLVar var)) ++ " )" ++
+        " )"
+
+    showTPTP (Exists var f) =
+        "( ! [" ++ (map toUpper var) ++ "?: " ++
+                    "( " ++ (showTPTP $ f (FOLVar var)) ++ " )" ++
+        " )"
+
+    showTPTP TRUE  = "$true "
+    showTPTP FALSE = "$false "
 
 instance ShowTPTP FOLTerm where
     showTPTP (FOLFun name [])    = name
