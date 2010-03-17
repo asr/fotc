@@ -107,7 +107,13 @@ termToFormula term@(Def (QName _ name) args) = do
                              then return $ Exists x $ \_ -> fm
                              else return $ ForAll x $ \_ -> fm
 
-                   | otherwise -> __IMPOSSIBLE__
+                   | otherwise -> do
+                      -- In this guard we translate the inductive predicates
+                      -- (e.g. the LTC natural numbers N).
+                      -- ToDo: To test if 'termToFOLTerm (unArg a)' works with
+                      -- implicit arguments.
+                      arg <- argTermToFOLTerm a
+                      return $ Predicate (show cName) [arg]
 
             (a1:a2:[])
                 | isCNameFOLConstTwoHoles folAnd -> binConst And a1 a2
@@ -124,9 +130,15 @@ termToFormula term@(Def (QName _ name) args) = do
                           t2 <- argTermToFOLTerm a2
                           return $ equal [t1, t2]
 
-                | otherwise -> __IMPOSSIBLE__
+                | otherwise ->
+                    -- In this guard it seems we would use a similar code
+                    -- to the otherwise guard in the case (a:[]).
+                    __IMPOSSIBLE__
 
-            _ ->  __IMPOSSIBLE__
+            _ ->
+               -- In this case it seems we would use a similar code
+               -- to the otherwise guard in the case (a:[]).
+               __IMPOSSIBLE__
 
           where
             isCNameFOLConst :: String -> Bool
