@@ -18,6 +18,7 @@ executable agda-atp
                   , directory >= 1.0.0.3 && < 1.1
 
   other-modules:  FOL.Constants
+                  FOL.FOL2TPTP
                   FOL.Primitives
                   FOL.Translation
                   -- FOL.Substitution

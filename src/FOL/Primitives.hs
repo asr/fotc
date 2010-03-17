@@ -13,9 +13,9 @@ app  = FunFOL kApp
 kApp :: String
 kApp = "kApp"
 
--- This refers to the predefined equality in the ATP.
+-- This will refer to the predefined equality in the ATP.
 equal :: [TermFOL] -> Formula
 equal   = Predicate kEqual
 
 kEqual :: String
-kEqual = "equal"
+kEqual = "kEqual"

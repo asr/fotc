@@ -8,12 +8,7 @@
 
 module FOL.Types where
 
--- Haskell imports
-import Data.Char
-
-------------------------------------------------------------------------------
-
-{-| FOL propositions -}
+{-| FOL formulas -}
 -- Adapted from AgdaLight (Plugins.FOL.Types).
 
 data TermFOL = FunFOL String [TermFOL]
@@ -43,47 +38,3 @@ instance Show Formula where
     show (Exists var f)        = " Exists " ++ var ++ (show $ f (VarFOL var))
     show TRUE                  = " TRUE "
     show FALSE                 = " FALSE "
-
-class ShowTPTP a where
-    showTPTP :: a -> String
-
-instance ShowTPTP Formula where
-    showTPTP (Predicate name terms) =
-        (map toLower name) ++ "(" ++ showTPTP terms ++ ")"
-
-    showTPTP (And f1 f2) =
-        "( " ++ showTPTP f1 ++ " & " ++ showTPTP f2 ++ " )"
-    showTPTP (Or f1 f2) =
-        "( " ++ showTPTP f1 ++ " | " ++ showTPTP f2 ++ " )"
-
-    showTPTP (Not f) = "~" ++ showTPTP f
-
-    showTPTP (Implies f1 f2) =
-        "( " ++ showTPTP f1 ++ " => " ++ showTPTP f2 ++ " )"
-
-    showTPTP (Equiv f1 f2) =
-        "( " ++ showTPTP f1 ++ " <=> " ++ showTPTP f2 ++ " )"
-
-    showTPTP (ForAll var f) =
-        "( ! [" ++ (map toUpper var) ++ "]: " ++
-                    "( " ++ (showTPTP $ f (VarFOL var)) ++ " )" ++
-        " )"
-
-    showTPTP (Exists var f) =
-        "( ! [" ++ (map toUpper var) ++ "?: " ++
-                    "( " ++ (showTPTP $ f (VarFOL var)) ++ " )" ++
-        " )"
-
-    showTPTP TRUE  = "$true "
-    showTPTP FALSE = "$false "
-
-instance ShowTPTP TermFOL where
-    showTPTP (FunFOL name [])    = name
-    showTPTP (FunFOL name terms) = name ++ "(" ++ showTPTP terms ++ ")"
-    showTPTP (VarFOL name)       = map toUpper name
-    showTPTP (ConstFOL name)     = map toLower name
-
-instance (ShowTPTP a) => ShowTPTP [a] where
-    showTPTP [] = []
-    showTPTP (a : []) = showTPTP a
-    showTPTP (a : as) = showTPTP a ++ "," ++ showTPTP as

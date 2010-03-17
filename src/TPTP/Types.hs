@@ -9,6 +9,7 @@ module TPTP.Types where
 
 -- Local imports
 import FOL.Types
+import FOL.FOL2TPTP
 
 ------------------------------------------------------------------------------
 
