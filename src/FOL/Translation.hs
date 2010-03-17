@@ -51,10 +51,10 @@ argTermToFormula Arg {argHiding = NotHidden, unArg = term} = termToFormula term
 argTermToFormula Arg {argHiding = Hidden} =
     error "argTermToFormula: not implemented"
 
-argTermToFOLTerm :: Arg AgdaTerm -> T FOLTerm
-argTermToFOLTerm Arg {argHiding = NotHidden, unArg = term} = termToFOLTerm term
-argTermToFOLTerm Arg {argHiding = Hidden} =
-    error "argTermToFOLTerm: not implemented"
+argTermToTermFOL :: Arg AgdaTerm -> T TermFOL
+argTermToTermFOL Arg {argHiding = NotHidden, unArg = term} = termToTermFOL term
+argTermToTermFOL Arg {argHiding = Hidden} =
+    error "argTermToTermFOL: not implemented"
 
 binConst :: (Formula -> Formula -> Formula)
             -> Arg AgdaTerm
@@ -76,18 +76,18 @@ termToFormula term@(Def (QName _ name) args) = do
 
       C.Name{} ->
           case args of
-            [] | isCNameFOLConst folTrue  -> return TRUE
+            [] | isCNameConstFOL folTrue  -> return TRUE
 
-               | isCNameFOLConst folFalse -> return FALSE
+               | isCNameConstFOL folFalse -> return FALSE
 
                | otherwise                -> __IMPOSSIBLE__
 
-            (a:[]) | isCNameFOLConst folNot ->
+            (a:[]) | isCNameConstFOL folNot ->
                          do f <- argTermToFormula a
                             return $ Not f
 
-                   | (isCNameFOLConst folExists ||
-                      isCNameFOLConst folForAll)  ->
+                   | (isCNameConstFOL folExists ||
+                      isCNameConstFOL folForAll)  ->
                      -- Note: AgdaLight (Plugins.FOL.Translation) binds
                      -- a new variable to handle the quantifiers. We
                      -- didn't do it because we took the variable name
@@ -103,31 +103,31 @@ termToFormula term@(Def (QName _ name) args) = do
 
                           fm <- termToFormula p
 
-                          if isCNameFOLConst folExists
+                          if isCNameConstFOL folExists
                              then return $ Exists x $ \_ -> fm
                              else return $ ForAll x $ \_ -> fm
 
                    | otherwise -> do
                       -- In this guard we translate the inductive predicates
                       -- (e.g. the LTC natural numbers N).
-                      -- ToDo: To test if 'termToFOLTerm (unArg a)' works with
+                      -- ToDo: To test if 'termToTermFOL (unArg a)' works with
                       -- implicit arguments.
-                      arg <- argTermToFOLTerm a
+                      arg <- argTermToTermFOL a
                       return $ Predicate (show cName) [arg]
 
             (a1:a2:[])
-                | isCNameFOLConstTwoHoles folAnd -> binConst And a1 a2
+                | isCNameConstFOLTwoHoles folAnd -> binConst And a1 a2
 
-                | isCNameFOLConstTwoHoles folImplies -> binConst Implies a1 a2
+                | isCNameConstFOLTwoHoles folImplies -> binConst Implies a1 a2
 
-                | isCNameFOLConstTwoHoles folOr -> binConst Or a1 a2
+                | isCNameConstFOLTwoHoles folOr -> binConst Or a1 a2
 
-                | isCNameFOLConstTwoHoles folEquiv -> binConst Equiv a1 a2
+                | isCNameConstFOLTwoHoles folEquiv -> binConst Equiv a1 a2
 
-                | isCNameFOLConstTwoHoles folEquals
+                | isCNameConstFOLTwoHoles folEquals
                     -> do reportLn "termToFormula" 20 $ "Processing equals"
-                          t1 <- argTermToFOLTerm a1
-                          t2 <- argTermToFOLTerm a2
+                          t1 <- argTermToTermFOL a1
+                          t2 <- argTermToTermFOL a2
                           return $ equal [t1, t2]
 
                 | otherwise ->
@@ -141,14 +141,14 @@ termToFormula term@(Def (QName _ name) args) = do
                __IMPOSSIBLE__
 
           where
-            isCNameFOLConst :: String -> Bool
-            isCNameFOLConst folConst =
+            isCNameConstFOL :: String -> Bool
+            isCNameConstFOL folConst =
                 -- The equality on the data type C.Name is defined
                 -- to ignore ranges, so we use noRange.
                 cName == C.Name noRange [C.Id folConst]
 
-            isCNameFOLConstTwoHoles :: String -> Bool
-            isCNameFOLConstTwoHoles folConst =
+            isCNameConstFOLTwoHoles :: String -> Bool
+            isCNameConstFOLTwoHoles folConst =
                 -- The operators are represented by a list with Hole's.
                 -- See the documentation for C.Name.
                 cName == C.Name noRange [C.Hole, C.Id folConst, C.Hole]
@@ -194,23 +194,23 @@ termToFormula term@(Var n _) = do
 termToFormula _ = error "termToFormula: not implemented"
 
 -- Translate 'fn x1 ... xn' to 'kApp (... kApp (kApp(fn, x1), x2), ..., xn)'.
-appArgs :: String -> Args -> T FOLTerm
+appArgs :: String -> Args -> T TermFOL
 appArgs fn args = do
-  folTerms <- mapM argTermToFOLTerm args
-  return $ foldl (\x y -> app [x,y]) (FOLFun fn []) folTerms
+  folTerms <- mapM argTermToTermFOL args
+  return $ foldl (\x y -> app [x,y]) (FunFOL fn []) folTerms
 
 -- Translate an Agda term to an FOL term
-termToFOLTerm :: AgdaTerm -> T FOLTerm
-termToFOLTerm (Var n _) = do
+termToTermFOL :: AgdaTerm -> T TermFOL
+termToTermFOL (Var n _) = do
   (_, vars) <- ask
 
   if length vars <= fromIntegral n
      then __IMPOSSIBLE__
-     else return $ FOLVar (vars !! fromIntegral n)
+     else return $ VarFOL (vars !! fromIntegral n)
 
 -- Remark: The code for the cases Con and Def is very similar.
-termToFOLTerm term@(Con (QName _ name) args)  = do
-  reportLn "termToFOLTerm" 10 $ "Processing term Con:\n" ++ show term
+termToTermFOL term@(Con (QName _ name) args)  = do
+  reportLn "termToTermFOL" 10 $ "Processing term Con:\n" ++ show term
 
   let cName :: C.Name
       cName = nameConcrete name
@@ -222,7 +222,7 @@ termToFOLTerm term@(Con (QName _ name) args)  = do
         case args of
           [] -> -- The term Con is a data constructor without arguments.
                 -- It is translated as a FOL constant.
-                return $ FOLConst strName
+                return $ ConstFOL strName
 
           _ -> -- The term Con is a data constructor with arguments.
                -- The term is translated as a FOL function.
@@ -230,8 +230,8 @@ termToFOLTerm term@(Con (QName _ name) args)  = do
 
     _ -> __IMPOSSIBLE__
 
-termToFOLTerm term@(Def (QName _ name) args) = do
-  reportLn "termToFOLTerm" 10 $ "Processing term Def:\n" ++ show term
+termToTermFOL term@(Def (QName _ name) args) = do
+  reportLn "termToTermFOL" 10 $ "Processing term Def:\n" ++ show term
 
   let cName :: C.Name
       cName = nameConcrete name
@@ -244,7 +244,7 @@ termToFOLTerm term@(Def (QName _ name) args) = do
         case args of
           [] -> -- The term Def is a constructor.
                 -- It is translated as a FOL constant.
-                return $ FOLConst strName
+                return $ ConstFOL strName
 
           _ -> -- The term Def is a function with arguments.
                appArgs strName args
@@ -258,4 +258,4 @@ termToFOLTerm term@(Def (QName _ name) args) = do
          takeIds C.Hole = []
          takeIds (C.Id strName) = strName
 
-termToFOLTerm _ = error "termToFOLTerm: not implemented"
+termToTermFOL _ = error "termToTermFOL: not implemented"
