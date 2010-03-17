@@ -54,12 +54,12 @@ instance ShowTPTP Formula where
         "( " ++ showTPTP f1 ++ " <=> " ++ showTPTP f2 ++ " )"
 
     showTPTP (ForAll var f) =
-        "( ! [" ++ (map toUpper var) ++ "]: " ++
+        "( ! [" ++ (map toUpper var) ++ "] : " ++
                     "( " ++ (showTPTP $ f (VarFOL var)) ++ " )" ++
         " )"
 
     showTPTP (Exists var f) =
-        "( ! [" ++ (map toUpper var) ++ "?: " ++
+        "( ! [" ++ (map toUpper var) ++ "? : " ++
                     "( " ++ (showTPTP $ f (VarFOL var)) ++ " )" ++
         " )"
 
