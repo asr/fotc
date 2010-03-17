@@ -174,13 +174,12 @@ termToFormula term@(Pi tyArg (Abs strName tyAbs)) = do
   f <- local (\(a, vars) -> (a, strName : vars)) $ typeToFormula tyAbs
   case unArg tyArg of
      -- The varible bound has type below Set (e.g. D : Set).
-    (El (Type (Lit (LitLevel _ 0))) _) ->
-                       return $ ForAll strName (\_  -> f)
-    -- The variable bound has type Set, i.e. a propositional constant.
-    (El (Type (Lit (LitLevel _ 1))) _) ->
-                       return f
+    (El (Type (Lit (LitLevel _ 0))) _) -> return $ ForAll strName (\_  -> f)
 
-    _               -> __IMPOSSIBLE__
+    -- The variable bound has type Set, i.e. a propositional constant.
+    (El (Type (Lit (LitLevel _ 1))) _) -> return f
+
+    _                                  -> __IMPOSSIBLE__
 
 termToFormula term@(Var n _) = do
   reportLn "termToFormula" 10 $ "Processing term Var: " ++ show term
