@@ -1,24 +1,29 @@
+-----------------------------------------------------------------------------
+-- Reports via the verbose option.
+-----------------------------------------------------------------------------
+
 {-# LANGUAGE CPP #-}
 
 module Reports where
 
+-- Haskell imports
 import Control.Monad ( when )
 import Control.Monad.Reader ( ask )
 import Control.Monad.Trans ( liftIO )
 
+-- Agda library imports
 import Agda.Utils.Impossible ( Impossible (Impossible), throwImpossible )
-
-import Monad ( T )
-
-import Options ( Options, optVerbose )
-
 import qualified Agda.Utils.IO.Locale as LocIO
 import Agda.Utils.Trie ( Trie )
 import qualified Agda.Utils.Trie as Trie
-
 import Agda.Utils.List ( wordsBy )
 
+-- Local imports
+import Monad ( T )
+import Options ( Options, optVerbose )
+
 #include "undefined.h"
+
 -----------------------------------------------------------------------------
 -- Nice way to report things via the verbose option.
 -- Adapted from Agda.TypeChecking.Monad.Options.

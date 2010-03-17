@@ -13,11 +13,11 @@ import Agda.Utils.Impossible ( Impossible(..)
                              , throwImpossible
                              )
 
-#include "../undefined.h"
-
 -- Local imports
 import FOL.Types
 import TPTP.Types
+
+#include "../undefined.h"
 
 ------------------------------------------------------------------------------
 

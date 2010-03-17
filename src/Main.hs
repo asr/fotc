@@ -3,6 +3,21 @@
 module Main where
 
 ------------------------------------------------------------------------------
+-- Haskell imports
+import Control.Monad.Reader
+-- import Control.Monad.Trans
+
+import Data.Map ( Map )
+import qualified Data.Map as Map
+-- import Data.Maybe
+
+import Prelude hiding ( print, putStr, putStrLn )
+
+import System.Directory ( getCurrentDirectory )
+import System.Environment
+import System.Exit
+
+------------------------------------------------------------------------------
 -- Agda library imports
 import Agda.Interaction.FindFile ( toIFile )
 import Agda.Interaction.Imports ( readInterface )
@@ -39,23 +54,6 @@ import Agda.Utils.Impossible ( catchImpossible
 import qualified Agda.Utils.IO.Locale as LocIO
 
 ------------------------------------------------------------------------------
--- Haskell imports
-import Control.Monad.Reader
--- import Control.Monad.Trans
-
-import Data.Map ( Map )
-import qualified Data.Map as Map
--- import Data.Maybe
-
-import Prelude hiding ( print, putStr, putStrLn )
-
-import System.Directory ( getCurrentDirectory )
-import System.Environment
-import System.Exit
-
-#include "undefined.h"
-
-------------------------------------------------------------------------------
 -- Local imports
 -- import FOL.Pretty
 import FOL.Translation
@@ -64,6 +62,8 @@ import Monad ( initialVars )
 import Options ( Options, parseOptions )
 import TPTP.Translation
 import TPTP.Types
+
+#include "undefined.h"
 
 ------------------------------------------------------------------------------
 

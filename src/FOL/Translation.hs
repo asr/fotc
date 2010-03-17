@@ -1,7 +1,17 @@
+------------------------------------------------------------------------------
+-- Translation from Agda types to FOL formulas
+------------------------------------------------------------------------------
+
 {-# LANGUAGE CPP #-}
 
 module FOL.Translation where
 
+-- Haskell imports
+-- import Control.Monad.State ( get, put )
+import Control.Monad.Reader ( ask, local )
+-- import Control.Monad.State
+
+-- Agda library imports
 -- import Agda.Syntax.Abstract.Name as A
 import Agda.Syntax.Common
 import qualified Agda.Syntax.Concrete.Name as C
@@ -10,19 +20,16 @@ import Agda.Syntax.Literal
 import Agda.Syntax.Position ( noRange )
 import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 
--- import Control.Monad.State ( get, put )
-import Control.Monad.Reader ( ask, local )
--- import Control.Monad.State
-
+-- Local imports
 import FOL.Constants
 import FOL.Primitives ( app, equal )
 import FOL.Types
-
 import Monad
-
 import Reports ( reportLn )
 
 #include "../undefined.h"
+
+------------------------------------------------------------------------------
 
 type AgdaType = Type
 type AgdaTerm = Term

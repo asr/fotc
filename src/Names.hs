@@ -2,13 +2,18 @@
 
 module Names where
 
-import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
-
+-- Haskell imports
 import Control.Monad.Reader ( ask, local )
 
+-- Agda library imports
+import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
+
+-- Local imports
 import Monad ( T )
 
 #include "undefined.h"
+
+------------------------------------------------------------------------------
 
 -- The set of free names for variables (a, b, ..., aa, ab, ...).
 chars :: String
