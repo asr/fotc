@@ -24,7 +24,7 @@ data LineTPTP = AFormula String RoleTPTP Formula
 instance Show LineTPTP where
     show (AFormula name role formula) =
         "fof(" ++
-        show name ++ ", " ++
+        name ++ ", " ++
         show role ++ ", " ++
         showTPTP formula ++
         ")." ++ "\n"
