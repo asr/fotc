@@ -22,6 +22,6 @@ import TPTP.Types
 ------------------------------------------------------------------------------
 
 externalToTPTP :: QName -> ExternalRole -> Formula -> LineTPTP
-externalToTPTP qName "axiom"   for = AFormula (show qName) AxiomTPTP for
-externalToTPTP qName "theorem" for = AFormula (show qName) ConjectureTPTP for
+externalToTPTP qName "axiom"   for = MkLineTPTP (show qName) AxiomTPTP for
+externalToTPTP qName "theorem" for = MkLineTPTP (show qName) ConjectureTPTP for
 externalToTPTP _     _         _   = __IMPOSSIBLE__

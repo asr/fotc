@@ -19,10 +19,10 @@ instance Show RoleTPTP where
     show AxiomTPTP      = "axiom"
     show ConjectureTPTP = "conjecture"
 
-data LineTPTP = AFormula String RoleTPTP Formula
+data LineTPTP = MkLineTPTP String RoleTPTP Formula
 
 instance Show LineTPTP where
-    show (AFormula name role formula) =
+    show (MkLineTPTP name role formula) =
         "fof(" ++
         name ++ ", " ++
         show role ++ ", " ++
