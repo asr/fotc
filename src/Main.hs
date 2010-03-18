@@ -60,6 +60,7 @@ import FOL.Translation
 import FOL.Types
 import Monad ( initialVars )
 import Options ( Options, parseOptions )
+import TPTP.Files
 import TPTP.Translation
 import TPTP.Types
 
@@ -135,8 +136,11 @@ externalsToFOLs i = do
                    (Map.elems qNamesExternalsRole)
                    (Map.elems qNamesFOLFormulas)
 
-  liftIO $ LocIO.putStrLn "TPTP formulas:"
-  liftIO $ LocIO.print linesTPTP
+  -- liftIO $ LocIO.putStrLn "TPTP formulas:"
+  -- liftIO $ LocIO.print linesTPTP
+
+  liftIO $ createFilesTPTP linesTPTP
+
 
 getInterface :: FilePath -> IO Interface
 getInterface agdaFile = do

@@ -28,6 +28,7 @@ executable agda-atp
                   -- Names
                   Options
                   Reports
+                  TPTP.Files
                   TPTP.Translation
                   TPTP.Types
 
