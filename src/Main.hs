@@ -129,10 +129,11 @@ externalsToFOLs i = do
       qNamesExternalsRole = Map.map getExternalRole externalsQnames
 
   let linesTPTP :: [LineTPTP]
-      linesTPTP = map (\(a, b, c) -> externalToTPTP a b c) $
-                      zip3 (Map.keys qNamesFOLFormulas)
-                           (Map.elems qNamesExternalsRole)
-                           (Map.elems qNamesFOLFormulas)
+      linesTPTP =
+          map (\(qName, role, formula) -> externalToTPTP qName role formula) $
+              zip3 (Map.keys qNamesFOLFormulas)
+                   (Map.elems qNamesExternalsRole)
+                   (Map.elems qNamesFOLFormulas)
 
   liftIO $ LocIO.putStrLn "TPTP formulas:"
   liftIO $ LocIO.print linesTPTP

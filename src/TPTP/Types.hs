@@ -22,9 +22,9 @@ instance Show RoleTPTP where
 data LineTPTP = MkLineTPTP String RoleTPTP Formula
 
 instance Show LineTPTP where
-    show (MkLineTPTP name role formula) =
+    show (MkLineTPTP name roleTPTP formula) =
         "fof(" ++
         name ++ ", " ++
-        show role ++ ", " ++
+        show roleTPTP ++ ", " ++
         showTPTP formula ++
         ")." ++ "\n"
