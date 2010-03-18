@@ -34,8 +34,8 @@ nameTPTP qName = case (replace "." "_" $ show qName) of
                    []       -> __IMPOSSIBLE__
                    (x : xs) -> toLower x : xs
 
-externalToTPTP :: QName -> ExternalRole -> Formula -> LineTPTP
-externalToTPTP qName externalRole for = MkLineTPTP (nameTPTP qName) roleTPTP for
+externalToTPTP :: QName -> ExternalRole -> Formula -> AnnotatedFormula
+externalToTPTP qName externalRole f = AF (nameTPTP qName) roleTPTP f
     where roleTPTP :: RoleTPTP
           roleTPTP = case externalRole of
                        "axiom"   -> AxiomTPTP

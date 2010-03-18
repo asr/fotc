@@ -129,18 +129,17 @@ externalsToFOLs i = do
   let qNamesExternalsRole :: Map QName ExternalRole
       qNamesExternalsRole = Map.map getExternalRole externalsQnames
 
-  let linesTPTP :: [LineTPTP]
-      linesTPTP =
+  let afs :: [AnnotatedFormula]
+      afs =
           map (\(qName, role, formula) -> externalToTPTP qName role formula) $
               zip3 (Map.keys qNamesFOLFormulas)
                    (Map.elems qNamesExternalsRole)
                    (Map.elems qNamesFOLFormulas)
 
   -- liftIO $ LocIO.putStrLn "TPTP formulas:"
-  -- liftIO $ LocIO.print linesTPTP
+  -- liftIO $ LocIO.print afs
 
-  liftIO $ createFilesTPTP linesTPTP
-
+  liftIO $ createFilesTPTP afs
 
 getInterface :: FilePath -> IO Interface
 getInterface agdaFile = do

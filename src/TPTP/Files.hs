@@ -50,30 +50,30 @@ footerTheorem =
     communFooter ++
     "% End EXTERNAL theorem.\n"
 
-addAxiom :: LineTPTP -> IO ()
-addAxiom line@(MkLineTPTP  _ AxiomTPTP _ ) = appendFile axiomsFile (show line)
-addAxiom _                                 = return ()
+addAxiom :: AnnotatedFormula -> IO ()
+addAxiom af@(AF  _ AxiomTPTP _ ) = appendFile axiomsFile (show af)
+addAxiom _                       = return ()
 
-createAxiomsFile :: [LineTPTP] -> IO ()
-createAxiomsFile linesTPTP = do
+createAxiomsFile :: [AnnotatedFormula] -> IO ()
+createAxiomsFile afs = do
   _ <- writeFile axiomsFile headerAxioms
-  _ <- mapM_ addAxiom linesTPTP
+  _ <- mapM_ addAxiom afs
   _ <- appendFile axiomsFile footerAxioms
   return ()
 
-createTheoremFile :: LineTPTP -> IO ()
-createTheoremFile line@(MkLineTPTP  name ConjectureTPTP _ ) = do
+createTheoremFile :: AnnotatedFormula -> IO ()
+createTheoremFile af@(AF name ConjectureTPTP _ ) = do
   let theoremFile = addExtension ("/tmp/" ++ name) extTPTP
   _ <- writeFile theoremFile headerTheorem
-  _ <- appendFile theoremFile (show line)
+  _ <- appendFile theoremFile (show af)
   _ <- appendFile theoremFile footerTheorem
   return ()
 createTheoremFile _ = return ()
 
 -- We create a file with all the EXTERNAL axioms and we create a file
 -- for each EXTERNAL theorem.
-createFilesTPTP :: [LineTPTP] -> IO ()
-createFilesTPTP linesTPTP = do
-  _ <- createAxiomsFile linesTPTP
-  _ <- mapM_ createTheoremFile linesTPTP
+createFilesTPTP :: [AnnotatedFormula] -> IO ()
+createFilesTPTP afs = do
+  _ <- createAxiomsFile afs
+  _ <- mapM_ createTheoremFile afs
   return ()
