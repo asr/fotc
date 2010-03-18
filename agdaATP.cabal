@@ -15,6 +15,7 @@ executable agda-atp
                   , Agda == 5.0.0
                   , containers == 0.3.*
                   , directory >= 1.0.0.3 && < 1.1
+                  , filepath >= 1.1.0.3 && < 1.2
                   , mtl >= 1.1.0.2 && < 1.2
                   , utility-ht >= 0.0.5.1 && < 0.1
 
