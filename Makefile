@@ -5,3 +5,4 @@ TAGS : $(src_files)
 
 clean :
 	rm -f test/*.agdai
+	rm -f /tmp/*.tptp
