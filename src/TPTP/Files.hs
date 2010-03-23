@@ -42,7 +42,7 @@ headerTheorem :: String
 headerTheorem =
     communHeader ++
   "% This file corresponds to an EXTERNAL theorem.\n\n" ++
-  "% We include the EXTERNAL axioms file. \n" ++
+  "% We include the EXTERNAL axioms file.\n" ++
   "include('" ++ axiomsFile ++ "').\n\n"
 
 footerTheorem :: String
