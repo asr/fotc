@@ -21,6 +21,14 @@ import FOL.Types
 
 ------------------------------------------------------------------------------
 
+-- ToDo: It is necessary generalize this function.
+nameTPTP :: String -> String
+nameTPTP "+"   = "add"
+nameTPTP "-"   = "minus"
+nameTPTP "_>_" = "gt"
+nameTPTP "_≤_" = "le"
+nameTPTP name  = map toLower name
+
 class ShowTPTP a where
     showTPTP :: a -> String
 
@@ -38,7 +46,7 @@ instance ShowTPTP Formula where
     showTPTP (Predicate "kEqual" _) = __IMPOSSIBLE__
 
     showTPTP (Predicate name terms) =
-        (map toLower name) ++ "(" ++ showTPTP terms ++ ")"
+        nameTPTP name ++ "(" ++ showTPTP terms ++ ")"
 
     showTPTP (And f1 f2) =
         "( " ++ showTPTP f1 ++ " & " ++ showTPTP f2 ++ " )"
@@ -67,7 +75,7 @@ instance ShowTPTP Formula where
     showTPTP FALSE = "$false "
 
 instance ShowTPTP TermFOL where
-    showTPTP (FunFOL name [])    = name
-    showTPTP (FunFOL name terms) = name ++ "(" ++ showTPTP terms ++ ")"
+    showTPTP (FunFOL name [])    = nameTPTP name
+    showTPTP (FunFOL name terms) = nameTPTP name ++ "(" ++ showTPTP terms ++ ")"
     showTPTP (VarFOL name)       = map toUpper name
     showTPTP (ConstFOL name)     = map toLower name
