@@ -36,7 +36,7 @@ type AgdaTerm = Term
 
 varInTerm :: AgdaTerm -> [String]
 varInTerm (Pi _ (Abs strName (El _ _))) = [strName]
-varInTerm _                          = __IMPOSSIBLE__
+varInTerm _                             = __IMPOSSIBLE__
 
 varInType :: AgdaType -> [String]
 varInType (El (Type _ ) term) = varInTerm term
