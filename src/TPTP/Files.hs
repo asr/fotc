@@ -15,7 +15,7 @@ extTPTP :: String
 extTPTP = ".tptp"
 
 axiomsFile :: String
-axiomsFile = addExtension "/tmp/externalAxioms" extTPTP
+axiomsFile = addExtension "/tmp/axioms" extTPTP
 
 communHeader :: String
 communHeader =
