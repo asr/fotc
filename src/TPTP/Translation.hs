@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Translation from FOL formulas to TPTP formulas
+-- Translation of Agda EXTERNAL pragmas to TPTP formulas
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
@@ -7,8 +7,7 @@
 module TPTP.Translation where
 
 -- Haskell imports
-import Data.Char ( toLower )
-import Data.List.HT ( replace )
+import Data.Char ( isAlphaNum, toLower )
 
 -- Agda library imports
 import Agda.Syntax.Internal ( QName )
@@ -25,12 +24,13 @@ import TPTP.Types
 
 ------------------------------------------------------------------------------
 
--- A QName is a qualify name (e.g. A.B.x). We replace the dots by
--- underscores and we convert the first letter of the name to lower
--- case which is a valid TPTP syntax.
--- N.B. Agda adds an underscore to the names inside a where clause.
+-- A QName is a qualify name (e.g. A.B.x). A valid TPTP name is
+-- compose of letters, numbers, and underscores, begging with a lower
+-- case letter or with a digit. We removed all non-valid TPTP symbols
+-- and we convert the first letter to uppercase.
+
 nameTPTP :: QName -> String
-nameTPTP qName = case (replace "." "_" $ show qName) of
+nameTPTP qName = case filter isAlphaNum $ show qName of
                    []       -> __IMPOSSIBLE__
                    (x : xs) -> toLower x : xs
 
