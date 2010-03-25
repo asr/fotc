@@ -28,7 +28,7 @@ import TPTP.Types
 -- A QName is a qualify name (e.g. A.B.x). We replace the dots by
 -- underscores and we convert the first letter of the name to lower
 -- case which is a valid TPTP syntax.
--- N.B. Agda adds an underscore to the names inside a clausura where.
+-- N.B. Agda adds an underscore to the names inside a where clause.
 nameTPTP :: QName -> String
 nameTPTP qName = case (replace "." "_" $ show qName) of
                    []       -> __IMPOSSIBLE__
