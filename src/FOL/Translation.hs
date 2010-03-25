@@ -137,10 +137,10 @@ termToFormula term@(Def (QName _ name) args) = do
                           t2 <- argTermToTermFOL a2
                           return $ equal [t1, t2]
 
-                | otherwise ->
-                    -- In this guard it seems we would use a similar code
-                    -- to the otherwise guard in the case (a:[]).
-                    __IMPOSSIBLE__
+                | otherwise -> do
+                      arg1 <- argTermToTermFOL a1
+                      arg2 <- argTermToTermFOL a2
+                      return $ Predicate (show cName) [arg1, arg2]
 
             _ ->
                -- In this case it seems we would use a similar code
