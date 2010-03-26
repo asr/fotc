@@ -30,4 +30,4 @@ instance Show AnnotatedFormula where
         name ++ ", " ++
         show roleTPTP ++ ", " ++
         showTPTP formula ++
-        ")." ++ "\n"
+        ")." ++ "\n\n"
