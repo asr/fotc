@@ -22,9 +22,9 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 
 -- Local imports
 import FOL.Constants
+import FOL.Monad
 import FOL.Primitives ( app, equal )
 import FOL.Types
-import Monad
 import Reports ( reportLn )
 
 #include "../undefined.h"

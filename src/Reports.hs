@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------------
--- Reports via the verbose option.
+-- Reports via the verbose option
 -----------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
@@ -19,7 +19,7 @@ import qualified Agda.Utils.Trie as Trie
 import Agda.Utils.List ( wordsBy )
 
 -- Local imports
-import Monad ( T )
+import FOL.Monad ( T )
 import Options ( Options, optVerbose )
 
 #include "undefined.h"

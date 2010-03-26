@@ -21,11 +21,11 @@ executable agda-atp
 
   other-modules:  FOL.Constants
                   FOL.FOL2TPTP
+                  FOL.Monad
                   FOL.Primitives
                   FOL.Translation
                   -- FOL.Substitution
                   FOL.Types
-                  Monad
                   Names
                   Options
                   Reports

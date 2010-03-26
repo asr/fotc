@@ -58,9 +58,9 @@ import qualified Agda.Utils.IO.Locale as LocIO
 ------------------------------------------------------------------------------
 -- Local imports
 -- import FOL.Pretty
+import FOL.Monad ( initialVars )
 import FOL.Translation
 import FOL.Types
-import Monad ( initialVars )
 import Options ( Options, parseOptions )
 import TPTP.Files
 import TPTP.Monad
