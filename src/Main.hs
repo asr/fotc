@@ -5,6 +5,8 @@ module Main where
 ------------------------------------------------------------------------------
 -- Haskell imports
 import Control.Monad.Reader
+import Control.Monad.State.Lazy
+
 -- import Control.Monad.Trans
 
 import Data.Map ( Map )
@@ -61,6 +63,7 @@ import FOL.Types
 import Monad ( initialVars )
 import Options ( Options, parseOptions )
 import TPTP.Files
+import TPTP.Monad
 import TPTP.Translation
 import TPTP.Types
 
@@ -130,11 +133,14 @@ externalsToFOLs i = do
       qNamesExternalsRole = Map.map getExternalRole externalsQnames
 
   let afs :: [AnnotatedFormula]
-      afs =
-          map (\(qName, role, formula) -> externalToTPTP qName role formula) $
-              zip3 (Map.keys qNamesFOLFormulas)
-                   (Map.elems qNamesExternalsRole)
-                   (Map.elems qNamesFOLFormulas)
+      afs = evalState
+              (mapM (\(qName, role, formula) ->
+                       (externalToTPTP qName role formula))
+                    (zip3 (Map.keys qNamesFOLFormulas)
+                         (Map.elems qNamesExternalsRole)
+                         (Map.elems qNamesFOLFormulas)))
+              initialNames
+
 
   -- liftIO $ LocIO.putStrLn "TPTP formulas:"
   -- liftIO $ LocIO.print afs

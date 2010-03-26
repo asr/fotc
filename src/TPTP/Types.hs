@@ -13,6 +13,8 @@ import FOL.FOL2TPTP
 
 ------------------------------------------------------------------------------
 
+type NameTPTP = String
+
 data RoleTPTP = AxiomTPTP | ConjectureTPTP
 
 instance Show RoleTPTP where

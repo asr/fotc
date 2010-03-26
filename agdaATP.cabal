@@ -26,10 +26,11 @@ executable agda-atp
                   -- FOL.Substitution
                   FOL.Types
                   Monad
-                  -- Names
+                  Names
                   Options
                   Reports
                   TPTP.Files
+                  TPTP.Monad
                   TPTP.Translation
                   TPTP.Types
 

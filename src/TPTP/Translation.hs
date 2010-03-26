@@ -18,6 +18,8 @@ import Agda.Utils.Impossible ( Impossible(..)
 
 -- Local imports
 import FOL.Types
+import Names
+import TPTP.Monad
 import TPTP.Types
 
 #include "../undefined.h"
@@ -26,18 +28,27 @@ import TPTP.Types
 
 -- A QName is a qualify name (e.g. A.B.x). A valid TPTP name is
 -- compose of letters, numbers, and underscores, begging with a lower
--- case letter or with a digit. We removed all non-valid TPTP symbols
--- and we convert the first letter to uppercase.
+-- case letter or with a digit. We removed all non-valid TPTP symbols,
+-- we convert the first letter to uppercase, and we add a fresh
+-- part to avoid name clashing.
 
-nameTPTP :: QName -> String
-nameTPTP qName = case filter isAlphaNum $ show qName of
-                   []       -> __IMPOSSIBLE__
-                   (x : xs) -> toLower x : xs
+nameTPTP :: QName -> N String
+nameTPTP qName = do
+  partName <- freshName
 
-externalToTPTP :: QName -> ExternalRole -> Formula -> AnnotatedFormula
-externalToTPTP qName externalRole f = AF (nameTPTP qName) roleTPTP f
-    where roleTPTP :: RoleTPTP
-          roleTPTP = case externalRole of
-                       "axiom"   -> AxiomTPTP
-                       "theorem" -> ConjectureTPTP
-                       _         -> __IMPOSSIBLE__
+  case filter isAlphaNum (show qName) of
+    []       -> __IMPOSSIBLE__
+    (x : xs) -> return $ (toLower x : xs) ++ "_" ++ partName
+
+externalToTPTP :: QName -> ExternalRole -> Formula ->
+                  N AnnotatedFormula
+externalToTPTP qName externalRole f = do
+  name <- nameTPTP qName
+
+  let roleTPTP :: RoleTPTP
+      roleTPTP = case externalRole of
+                   "axiom"   -> AxiomTPTP
+                   "theorem" -> ConjectureTPTP
+                   _         -> __IMPOSSIBLE__
+
+  return $ AF name roleTPTP f

@@ -3,22 +3,24 @@
 module Names where
 
 -- Haskell imports
-import Control.Monad.Reader ( ask, local )
+-- import Control.Monad.Reader ( ask, Reader )
+import Control.Monad.State.Class ( get, put )
+import Control.Monad.State.Lazy ( State )
 
 -- Agda library imports
 import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 
--- Local imports
-import Monad ( T )
-
 #include "undefined.h"
+
+-- Local imports
+-- import Monad ( T )
 
 ------------------------------------------------------------------------------
 
--- The set of free names for variables (a, b, ..., aa, ab, ...).
 chars :: String
 chars = ['a'..'z']
 
+-- The set of free names for variables (a, b, ..., aa, ab, ...).
 freeNames :: [String]
 freeNames = map (:[]) chars ++ [ s ++ [c] | s <- freeNames, c <- chars ]
 
@@ -27,10 +29,14 @@ findFreeName _         []     = __IMPOSSIBLE__
 findFreeName usedNames (x:xs) = if x `elem` usedNames
                                  then findFreeName usedNames xs
                                  else x
-freshVar :: T String
-freshVar = do
-  (_, vars) <- ask
-  return $ findFreeName vars freeNames
 
-bindVar :: String -> T a -> T a
-bindVar name = local $ \(o, vars) -> (o, name : vars)
+freshName :: State [String] String
+freshName = do
+  names <- get
+  let newName :: String
+      newName = findFreeName names freeNames
+  put (newName : names)
+  return newName
+
+-- bindVar :: String -> T a -> T a
+-- bindVar name = local $ \(o, vars) -> (o, name : vars)
