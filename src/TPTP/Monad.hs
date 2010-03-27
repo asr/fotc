@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- The translation monad from Agda EXTERNAL pragmas to TPTP annotated formulas
+-- The translation monad from Agda ATP pragmas to TPTP annotated formulas
 ------------------------------------------------------------------------------
 
 module TPTP.Monad where

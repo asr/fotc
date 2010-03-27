@@ -26,24 +26,24 @@ communHeader =
 headerAxioms :: String
 headerAxioms =
     communHeader ++
-    "% This file corresponds to the EXTERNAL axioms.\n\n"
+    "% This file corresponds to the ATP pragmas axioms.\n\n"
 
 footerAxioms :: String
 footerAxioms =
     "%-----------------------------------------------------------------------------\n" ++
-    "% End EXTERNAL axioms.\n"
+    "% End ATP pragmas axioms.\n"
 
 headerTheorem :: String
 headerTheorem =
     communHeader ++
-    "% This file corresponds to an EXTERNAL theorem.\n\n" ++
-    "% We include the EXTERNAL axioms file.\n" ++
+    "% This file corresponds to an ATP pragma theorem.\n\n" ++
+    "% We include the ATP pragma axioms file.\n" ++
     "include('" ++ axiomsFile ++ "').\n\n"
 
 footerTheorem :: String
 footerTheorem =
     "%-----------------------------------------------------------------------------\n" ++
-    "% End EXTERNAL theorem.\n"
+    "% End ATP pragma theorem.\n"
 
 addAxiom :: AnnotatedFormula -> IO ()
 addAxiom af@(AF  _ AxiomTPTP _ ) = appendFile axiomsFile (show af)
@@ -65,8 +65,8 @@ createTheoremFile af@(AF name ConjectureTPTP _ ) = do
   return ()
 createTheoremFile _ = return ()
 
--- We create a file with all the EXTERNAL axioms and we create a file
--- for each EXTERNAL theorem.
+-- We create a file with all the ATP pragmas axioms and we create a file
+-- for each ATP pragma theorem.
 createFilesTPTP :: [AnnotatedFormula] -> IO ()
 createFilesTPTP afs = do
   _ <- createAxiomsFile afs

@@ -29,11 +29,11 @@ import Agda.Interaction.Options
     , defaultOptions
     , optInputFile
     )
-import Agda.Syntax.Common ( ExternalRole )
+import Agda.Syntax.Common ( RoleATP )
 import Agda.Syntax.Internal ( QName, Type )
 
 import Agda.TypeChecking.Monad.Base
-    ( axExternalPostulate
+    ( axATP
     , Defn(Axiom)
     , Definition
     , Definitions
@@ -77,22 +77,22 @@ printListLn []       = return ()
 printListLn (x : xs) = do LocIO.putStrLn $ show x ++ "\n"
                           printListLn xs
 
-isQNameExternal :: Definition -> Bool
-isQNameExternal def =
+isQNamePragma :: Definition -> Bool
+isQNamePragma def =
     case defn of
-      Axiom{} -> case axExternalPostulate defn of
+      Axiom{} -> case axATP defn of
                    Just _   -> True
                    Nothing  -> False
 
-      _       -> False  -- Only the postulates can be EXTERNAL.
+      _       -> False  -- Only the postulates can be a ATP pragma.
 
     where defn :: Defn
           defn = theDef def
 
-getExternalRole :: Definition -> ExternalRole
-getExternalRole def =
+getPragmaRole :: Definition -> RoleATP
+getPragmaRole def =
     case defn of
-      Axiom{} -> case axExternalPostulate defn of
+      Axiom{} -> case axATP defn of
                    Just (role, _) -> role
                    Nothing        -> __IMPOSSIBLE__
 
@@ -101,49 +101,49 @@ getExternalRole def =
     where defn :: Defn
           defn = theDef def
 
-getExternals :: Interface -> Definitions
-getExternals i =
-    Map.filter isQNameExternal $ sigDefinitions $ iSignature i
+getPragmas :: Interface -> Definitions
+getPragmas i =
+    Map.filter isQNamePragma $ sigDefinitions $ iSignature i
 
-externalsToFOLs :: Interface -> ReaderT Options IO ()
-externalsToFOLs i = do
+pragmaToFOLs :: Interface -> ReaderT Options IO ()
+pragmaToFOLs i = do
 
   opts <- ask
 
-  -- We get the external QNames
-  let externalsQnames :: Definitions
-      externalsQnames = getExternals i
-  -- LocIO.print $ Map.keys externalQnames
+  -- We get the ATP pragma QNames
+  let pragmaQnames :: Definitions
+      pragmaQnames = getPragmas i
+  -- LocIO.print $ Map.keys pragmaQnames
 
-  -- We get the types of the external QNames.
+  -- We get the types of the ATP pragma QNames.
   let qNamesTypes :: Map QName Type
-      qNamesTypes = Map.map defType externalsQnames
+      qNamesTypes = Map.map defType pragmaQnames
 
   liftIO $ LocIO.putStrLn "Types:"
   liftIO $ printListLn $ Map.toList qNamesTypes
 
-  -- The Agda types of the external QNames are translated to FOL formulas.
+  -- The Agda types of the ATP pragmas QNames are translated to FOL formulas.
   formulas <- liftIO $
               mapM (\ty -> runReaderT (typeToFormula ty) (opts, initialVars))
                    (Map.elems qNamesTypes)
 
-  -- The external QNames are associated with their FOL formulas.
+  -- The ATP pragmas QNames are associated with their FOL formulas.
   let qNamesFOLFormulas :: Map QName Formula
       qNamesFOLFormulas = Map.fromList $ zip (Map.keys qNamesTypes) formulas
 
   liftIO $ LocIO.putStrLn "FOL formulas:"
   liftIO $ printListLn $ Map.toList qNamesFOLFormulas
 
-  -- The external QNames are associated with their roles.
-  let qNamesExternalsRole :: Map QName ExternalRole
-      qNamesExternalsRole = Map.map getExternalRole externalsQnames
+  -- The ATP pragmas QNames are associated with their roles.
+  let qNamesPragmaRole :: Map QName RoleATP
+      qNamesPragmaRole = Map.map getPragmaRole pragmaQnames
 
   let afs :: [AnnotatedFormula]
       afs = evalState
               (mapM (\(qName, role, formula) ->
-                       (externalToTPTP qName role formula))
+                       (pragmaToTPTP qName role formula))
                     (zip3 (Map.keys qNamesFOLFormulas)
-                         (Map.elems qNamesExternalsRole)
+                         (Map.elems qNamesPragmaRole)
                          (Map.elems qNamesFOLFormulas)))
               initialNames
 
@@ -184,7 +184,7 @@ runAgdaATP = do
   -- Gettting the interface.
   i <- getInterface $ head names
 
-  runReaderT (externalsToFOLs i) opts
+  runReaderT (pragmaToFOLs i) opts
 
 main :: IO ()
 main = catchImpossible runAgdaATP $
