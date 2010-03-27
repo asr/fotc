@@ -20,13 +20,13 @@ axiomsFile = addExtension "/tmp/axioms" extTPTP
 communHeader :: String
 communHeader =
     "%-----------------------------------------------------------------------------\n" ++
-  "% This file was generated automatically.\n" ++
-  "%-----------------------------------------------------------------------------\n\n"
+    "% This file was generated automatically.\n" ++
+    "%-----------------------------------------------------------------------------\n\n"
 
 headerAxioms :: String
 headerAxioms =
-  communHeader ++
-  "% This file corresponds to the EXTERNAL axioms.\n\n"
+    communHeader ++
+    "% This file corresponds to the EXTERNAL axioms.\n\n"
 
 footerAxioms :: String
 footerAxioms =
@@ -36,9 +36,9 @@ footerAxioms =
 headerTheorem :: String
 headerTheorem =
     communHeader ++
-  "% This file corresponds to an EXTERNAL theorem.\n\n" ++
-  "% We include the EXTERNAL axioms file.\n" ++
-  "include('" ++ axiomsFile ++ "').\n\n"
+    "% This file corresponds to an EXTERNAL theorem.\n\n" ++
+    "% We include the EXTERNAL axioms file.\n" ++
+    "include('" ++ axiomsFile ++ "').\n\n"
 
 footerTheorem :: String
 footerTheorem =
