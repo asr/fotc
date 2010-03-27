@@ -28,15 +28,15 @@ import Agda.Interaction.Options
     , defaultOptions
     , optInputFile
     )
+import Agda.Syntax.Common ( ExternalRole )
 import Agda.Syntax.Internal ( QName, Type )
 
 import Agda.TypeChecking.Monad.Base
-    ( axExternalDef
+    ( axExternalPostulate
     , Defn(Axiom)
     , Definition
     , Definitions
     , defType
-    , ExternalRole
     , Interface
     , iSignature
     , runTCM
@@ -79,7 +79,7 @@ printListLn (x : xs) = do LocIO.putStrLn $ show x ++ "\n"
 isQNameExternal :: Definition -> Bool
 isQNameExternal def =
     case defn of
-      Axiom{} -> case axExternalDef defn of
+      Axiom{} -> case axExternalPostulate defn of
                    Just _   -> True
                    Nothing  -> False
 
@@ -91,9 +91,9 @@ isQNameExternal def =
 getExternalRole :: Definition -> ExternalRole
 getExternalRole def =
     case defn of
-      Axiom{} -> case axExternalDef defn of
-                   Just role   -> role
-                   Nothing  -> __IMPOSSIBLE__
+      Axiom{} -> case axExternalPostulate defn of
+                   Just (role, _) -> role
+                   Nothing        -> __IMPOSSIBLE__
 
       _       -> __IMPOSSIBLE__
 
@@ -109,26 +109,31 @@ externalsToFOLs i = do
 
   opts <- ask
 
+  -- We get the external QNames
   let externalsQnames :: Definitions
       externalsQnames = getExternals i
   -- LocIO.print $ Map.keys externalQnames
 
+  -- We get the types of the external QNames.
   let qNamesTypes :: Map QName Type
       qNamesTypes = Map.map defType externalsQnames
 
   liftIO $ LocIO.putStrLn "Types:"
   liftIO $ printListLn $ Map.toList qNamesTypes
 
+  -- The Agda types of the external QNames are translated to FOL formulas.
   formulas <- liftIO $
               mapM (\ty -> runReaderT (typeToFormula ty) (opts, initialVars))
                    (Map.elems qNamesTypes)
 
+  -- The external QNames are associated with their FOL formulas.
   let qNamesFOLFormulas :: Map QName Formula
       qNamesFOLFormulas = Map.fromList $ zip (Map.keys qNamesTypes) formulas
 
   liftIO $ LocIO.putStrLn "FOL formulas:"
   liftIO $ printListLn $ Map.toList qNamesFOLFormulas
 
+  -- The external QNames are associated with their roles.
   let qNamesExternalsRole :: Map QName ExternalRole
       qNamesExternalsRole = Map.map getExternalRole externalsQnames
 

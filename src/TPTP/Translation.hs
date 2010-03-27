@@ -10,8 +10,8 @@ module TPTP.Translation where
 import Data.Char ( isAlphaNum, toLower )
 
 -- Agda library imports
+import Agda.Syntax.Common ( ExternalRole )
 import Agda.Syntax.Internal ( QName )
-import Agda.TypeChecking.Monad.Base ( ExternalRole )
 import Agda.Utils.Impossible ( Impossible(..)
                              , throwImpossible
                              )
