@@ -8,8 +8,8 @@ module Reports where
 
 -- Haskell imports
 import Control.Monad ( when )
-import Control.Monad.Reader ( ask )
-import Control.Monad.Trans ( liftIO )
+import Control.Monad.Trans.Reader ( ask )
+import Control.Monad.IO.Class ( liftIO )
 
 -- Agda library imports
 import Agda.Utils.Impossible ( Impossible (Impossible), throwImpossible )

@@ -8,7 +8,7 @@ module FOL.Translation where
 
 -- Haskell imports
 -- import Control.Monad.State ( get, put )
-import Control.Monad.Reader ( ask, local )
+import Control.Monad.Trans.Reader ( ask, local )
 -- import Control.Monad.State
 
 -- Agda library imports

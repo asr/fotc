@@ -4,8 +4,9 @@ module Main where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
-import Control.Monad.Reader
-import Control.Monad.State.Lazy
+import Control.Monad.IO.Class ( liftIO )
+import Control.Monad.Trans.Reader ( ask, ReaderT, runReaderT )
+import Control.Monad.Trans.State ( evalState )
 
 -- import Control.Monad.Trans
 

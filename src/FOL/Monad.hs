@@ -5,7 +5,7 @@
 module FOL.Monad where
 
 -- Haskell imports
-import Control.Monad.Reader ( ReaderT )
+import Control.Monad.Trans.Reader ( ReaderT )
 
 -- Local imports
 import Options ( Options )

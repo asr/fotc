@@ -5,7 +5,7 @@
 module TPTP.Monad where
 
 -- Haskell imports
-import Control.Monad.State.Lazy ( State )
+import Control.Monad.Trans.State ( State )
 
 -- Local imports
 import TPTP.Types

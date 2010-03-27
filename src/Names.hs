@@ -4,8 +4,7 @@ module Names where
 
 -- Haskell imports
 -- import Control.Monad.Reader ( ask, Reader )
-import Control.Monad.State.Class ( get, put )
-import Control.Monad.State.Lazy ( State )
+import Control.Monad.Trans.State ( get, put, State )
 
 -- Agda library imports
 import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
