@@ -23,11 +23,6 @@ communHeader =
   "% This file was generated automatically.\n" ++
   "%-----------------------------------------------------------------------------\n\n"
 
-communFooter :: String
-communFooter =
-  "\n" ++
-  "%-----------------------------------------------------------------------------\n"
-
 headerAxioms :: String
 headerAxioms =
   communHeader ++
@@ -35,7 +30,7 @@ headerAxioms =
 
 footerAxioms :: String
 footerAxioms =
-    communFooter ++
+    "%-----------------------------------------------------------------------------\n" ++
     "% End EXTERNAL axioms.\n"
 
 headerTheorem :: String
@@ -47,7 +42,7 @@ headerTheorem =
 
 footerTheorem :: String
 footerTheorem =
-    communFooter ++
+    "%-----------------------------------------------------------------------------\n" ++
     "% End EXTERNAL theorem.\n"
 
 addAxiom :: AnnotatedFormula -> IO ()
