@@ -30,7 +30,7 @@ import Agda.Interaction.Options
     , optInputFile
     )
 import Agda.Syntax.Common ( RoleATP )
-import Agda.Syntax.Internal ( QName, Type )
+import Agda.Syntax.Internal ( Type )
 
 import Agda.TypeChecking.Monad.Base
     ( axATP
@@ -59,6 +59,7 @@ import qualified Agda.Utils.IO.Locale as LocIO
 ------------------------------------------------------------------------------
 -- Local imports
 -- import FOL.Pretty
+import Common.Types ( PostulateName )
 import FOL.Monad ( initialVars )
 import FOL.Translation
 import FOL.Types
@@ -77,8 +78,8 @@ printListLn []       = return ()
 printListLn (x : xs) = do LocIO.putStrLn $ show x ++ "\n"
                           printListLn xs
 
-isQNamePragma :: Definition -> Bool
-isQNamePragma def =
+isPostulatePragmaATP :: Definition -> Bool
+isPostulatePragmaATP def =
     case defn of
       Axiom{} -> case axATP defn of
                    Just _   -> True
@@ -89,8 +90,8 @@ isQNamePragma def =
     where defn :: Defn
           defn = theDef def
 
-getPragmaRole :: Definition -> RoleATP
-getPragmaRole def =
+getPostulateRole :: Definition -> RoleATP
+getPostulateRole def =
     case defn of
       Axiom{} -> case axATP defn of
                    Just (role, _) -> role
@@ -101,50 +102,50 @@ getPragmaRole def =
     where defn :: Defn
           defn = theDef def
 
-getPragmas :: Interface -> Definitions
-getPragmas i =
-    Map.filter isQNamePragma $ sigDefinitions $ iSignature i
+getPostulates :: Interface -> Definitions
+getPostulates i =
+    Map.filter isPostulatePragmaATP $ sigDefinitions $ iSignature i
 
-pragmaToFOLs :: Interface -> ReaderT Options IO ()
-pragmaToFOLs i = do
+postulatesToFOLs :: Interface -> ReaderT Options IO ()
+postulatesToFOLs i = do
 
   opts <- ask
 
-  -- We get the ATP pragma QNames
-  let pragmaQnames :: Definitions
-      pragmaQnames = getPragmas i
-  -- LocIO.print $ Map.keys pragmaQnames
+  -- We get the ATP pragmas postulates.
+  let postulatesDefs :: Definitions
+      postulatesDefs = getPostulates i
+  -- LocIO.print $ Map.keys postulatesDef
 
-  -- We get the types of the ATP pragma QNames.
-  let qNamesTypes :: Map QName Type
-      qNamesTypes = Map.map defType pragmaQnames
+  -- We get the types of the postulates.
+  let postulatesTypes :: Map PostulateName Type
+      postulatesTypes = Map.map defType postulatesDefs
 
-  liftIO $ LocIO.putStrLn "Types:"
-  liftIO $ printListLn $ Map.toList qNamesTypes
+  liftIO $ LocIO.putStrLn "Postulates types:"
+  liftIO $ printListLn $ Map.toList postulatesTypes
 
-  -- The Agda types of the ATP pragmas QNames are translated to FOL formulas.
+  -- The postulates types are translated to FOL formulas.
   formulas <- liftIO $
               mapM (\ty -> runReaderT (typeToFormula ty) (opts, initialVars))
-                   (Map.elems qNamesTypes)
+                   (Map.elems postulatesTypes)
 
-  -- The ATP pragmas QNames are associated with their FOL formulas.
-  let qNamesFOLFormulas :: Map QName Formula
-      qNamesFOLFormulas = Map.fromList $ zip (Map.keys qNamesTypes) formulas
+  -- The postulates are associated with their FOL formulas.
+  let postulatesFormulas :: Map PostulateName Formula
+      postulatesFormulas = Map.fromList $ zip (Map.keys postulatesTypes) formulas
 
   liftIO $ LocIO.putStrLn "FOL formulas:"
-  liftIO $ printListLn $ Map.toList qNamesFOLFormulas
+  liftIO $ printListLn $ Map.toList postulatesFormulas
 
-  -- The ATP pragmas QNames are associated with their roles.
-  let qNamesPragmaRole :: Map QName RoleATP
-      qNamesPragmaRole = Map.map getPragmaRole pragmaQnames
+  -- The postulates are associated with their roles.
+  let postulatesRoles :: Map PostulateName RoleATP
+      postulatesRoles = Map.map getPostulateRole postulatesDefs
 
   let afs :: [AnnotatedFormula]
       afs = evalState
-              (mapM (\(qName, role, formula) ->
-                       (pragmaToTPTP qName role formula))
-                    (zip3 (Map.keys qNamesFOLFormulas)
-                         (Map.elems qNamesPragmaRole)
-                         (Map.elems qNamesFOLFormulas)))
+              (mapM (\(pName, role, formula) ->
+                       (postulateToTPTP pName role formula))
+                    (zip3 (Map.keys postulatesFormulas)
+                         (Map.elems postulatesRoles)
+                         (Map.elems postulatesFormulas)))
               initialNames
 
 
@@ -184,7 +185,7 @@ runAgdaATP = do
   -- Gettting the interface.
   i <- getInterface $ head names
 
-  runReaderT (pragmaToFOLs i) opts
+  runReaderT (postulatesToFOLs i) opts
 
 main :: IO ()
 main = catchImpossible runAgdaATP $

@@ -17,6 +17,7 @@ import Agda.Utils.Impossible ( Impossible(..)
                              )
 
 -- Local imports
+import Common.Types
 import FOL.Types
 import Names
 import TPTP.Monad
@@ -26,11 +27,11 @@ import TPTP.Types
 
 ------------------------------------------------------------------------------
 
--- A QName is a qualify name (e.g. A.B.x). A valid TPTP name is
--- compose of letters, numbers, and underscores, begging with a lower
--- case letter or with a digit. We removed all non-valid TPTP symbols,
--- we convert the first letter to uppercase, and we add a fresh
--- part to avoid name clashing.
+-- A QName (see Agda.Syntax.Abstract.Name) a qualify name
+-- (e.g. A.B.x). A valid TPTP name is compose of letters, numbers, and
+-- underscores, begging with a lower case letter or with a digit. We
+-- removed all non-valid TPTP symbols, we convert the first letter to
+-- uppercase, and we add a fresh part to avoid name clashing.
 
 nameTPTP :: QName -> N String
 nameTPTP qName = do
@@ -40,9 +41,9 @@ nameTPTP qName = do
     []       -> __IMPOSSIBLE__
     (x : xs) -> return $ (toLower x : xs) ++ "_" ++ partName
 
-pragmaToTPTP :: QName -> RoleATP -> Formula -> N AnnotatedFormula
-pragmaToTPTP qName role f = do
-  name <- nameTPTP qName
+postulateToTPTP :: PostulateName -> RoleATP -> Formula -> N AnnotatedFormula
+postulateToTPTP pName role f = do
+  name <- nameTPTP pName
 
   let roleTPTP :: RoleTPTP
       roleTPTP = case role of
