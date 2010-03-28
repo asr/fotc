@@ -59,7 +59,7 @@ import qualified Agda.Utils.IO.Locale as LocIO
 ------------------------------------------------------------------------------
 -- Local imports
 -- import FOL.Pretty
-import Common.Types ( PostulateName )
+import Common.Types ( HintName, PostulateName )
 import FOL.Monad ( initialVars )
 import FOL.Translation
 import FOL.Types
@@ -90,12 +90,39 @@ isPostulatePragmaATP def =
     where defn :: Defn
           defn = theDef def
 
+isPostulateTheorem :: Definition -> Bool
+isPostulateTheorem def =
+    case defn of
+      Axiom{} -> case axATP defn of
+                   Just ("theorem", _)   -> True
+                   Just _                -> False
+                   Nothing               -> __IMPOSSIBLE__
+
+      _       -> __IMPOSSIBLE__
+
+    where defn :: Defn
+          defn = theDef def
+
 getPostulateRole :: Definition -> RoleATP
 getPostulateRole def =
     case defn of
       Axiom{} -> case axATP defn of
                    Just (role, _) -> role
                    Nothing        -> __IMPOSSIBLE__
+
+      _       -> __IMPOSSIBLE__
+
+    where defn :: Defn
+          defn = theDef def
+
+-- Only the theorems have associated hints.
+getPostulateHints :: Definition -> [HintName]
+getPostulateHints def =
+    case defn of
+      Axiom{} -> case axATP defn of
+                   Just ("theorem", hints) -> hints
+                   Just _                  -> __IMPOSSIBLE__
+                   Nothing                 -> __IMPOSSIBLE__
 
       _       -> __IMPOSSIBLE__
 
@@ -151,6 +178,15 @@ postulatesToFOLs i = do
 
   -- liftIO $ LocIO.putStrLn "TPTP formulas:"
   -- liftIO $ LocIO.print afs
+
+  -- The postulates (which are theorems) are associated with their hints.
+  let postulatesHints :: Map PostulateName [HintName]
+      postulatesHints =
+          Map.map getPostulateHints $
+             Map.filter isPostulateTheorem postulatesDefs
+
+  liftIO $ LocIO.putStrLn "Hints:"
+  liftIO $ LocIO.print postulatesHints
 
   liftIO $ createFilesTPTP afs
 
