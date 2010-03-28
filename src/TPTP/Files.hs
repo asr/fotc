@@ -37,7 +37,7 @@ headerTheorem :: String
 headerTheorem =
     communHeader ++
     "% This file corresponds to an ATP pragma theorem.\n\n" ++
-    "% We include the ATP pragma axioms file.\n" ++
+    "% We include the ATP pragmas axioms file.\n" ++
     "include('" ++ axiomsFile ++ "').\n\n"
 
 footerTheorem :: String
