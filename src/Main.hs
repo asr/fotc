@@ -46,12 +46,13 @@ import qualified Agda.Utils.IO.Locale as LocIO
 -- Local imports
 -- import FOL.Pretty
 import Common.Types ( HintName, PostulateName )
-import FOL.Monad ( initialVars )
+import FOL.Monad ( initialVars, T )
 import FOL.Translation
 import FOL.Types
 import MyAgda.Interface ( getAxiomsATP, getImportedModules, getInterface )
 import MyAgda.Syntax.Abstract.Name ( moduleNameToFilePath )
 import Options ( Options, parseOptions )
+import Reports ( reportLn )
 import TPTP.Files
 import TPTP.Monad
 import TPTP.Translation
@@ -180,22 +181,20 @@ postulatesToFOLs i = do
 
 
 -- We translate the ATP pragma axioms in an interface file to FOL formulas.
-axiomsToFOLs :: Interface -> ReaderT Options IO [AnnotatedFormula]
+axiomsToFOLs :: Interface -> T [AnnotatedFormula]
 axiomsToFOLs i = do
 
-  opts <- ask
+  (opts, _) <- ask
 
   -- We get the ATP pragmas axioms
   let axiomsDefs :: Definitions
       axiomsDefs = getAxiomsATP i
-  liftIO $ LocIO.print $ Map.keys axiomsDefs
+  reportLn "axiomsToFOLs" 20 $ "Axioms:\n" ++ (show $ Map.keys axiomsDefs)
 
   -- We get the types of the axioms.
   let axiomsTypes :: Map PostulateName Type
       axiomsTypes = Map.map defType axiomsDefs
-
-  liftIO $ LocIO.putStrLn "Axioms types:"
-  liftIO $ printListLn $ Map.toList axiomsTypes
+  reportLn "axiomsToFOLs" 20 $ "Axioms types:\n" ++ (show axiomsTypes)
 
   -- The axioms types are translated to FOL formulas.
   formulas <- liftIO $
@@ -205,9 +204,7 @@ axiomsToFOLs i = do
   -- The axioms are associated with their FOL formulas.
   let axiomsFormulas :: Map PostulateName Formula
       axiomsFormulas = Map.fromList $ zip (Map.keys axiomsTypes) formulas
-
-  liftIO $ LocIO.putStrLn "FOL formulas:"
-  liftIO $ printListLn $ Map.toList axiomsFormulas
+  reportLn "axiomsToFOLs" 20 $ "FOL formulas:\n" ++ (show axiomsFormulas)
 
   let afs :: [AnnotatedFormula]
       afs = evalState
@@ -216,16 +213,14 @@ axiomsToFOLs i = do
                     (zip (Map.keys axiomsFormulas)
                          (Map.elems axiomsFormulas)))
               initialNames
-
-
-  liftIO $ LocIO.putStrLn "TPTP formulas:"
-  liftIO $ LocIO.print afs
+  reportLn "axiomsToFOLs" 20 $ "TPTP formulas:\n" ++ (show afs)
 
   return afs
 
 -- We translate all the ATP pragma axioms of current module and of all
 -- the imported modules.
-axiomsToFOLsXXX :: Interface -> ReaderT Options IO ()
+-- ToDo: We are using the monad T because we want to use reportLn.
+axiomsToFOLsXXX :: Interface -> T ()
 axiomsToFOLsXXX i = do
 
   let importedModules = getImportedModules i
@@ -248,7 +243,7 @@ runAgdaATP = do
   i <- getInterface $ head names
 
   -- runReaderT (postulatesToFOLs i) opts
-  runReaderT (axiomsToFOLsXXX i) opts
+  runReaderT (axiomsToFOLsXXX i) (opts, [])
 
 main :: IO ()
 main = catchImpossible runAgdaATP $
