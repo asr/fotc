@@ -8,7 +8,7 @@ module FOL.Monad where
 import Control.Monad.Trans.Reader ( ReaderT )
 
 -- Local imports
-import Options ( Options )
+import Reports ( R )
 
 ------------------------------------------------------------------------------
 
@@ -22,4 +22,4 @@ initialVars = []
 
 {-| The translation monad from Agda types to FOL formulas.
 -}
-type T a = ReaderT (Options, Vars) IO a
+type T a = ReaderT Vars R a

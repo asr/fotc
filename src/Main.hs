@@ -42,7 +42,7 @@ import qualified Agda.Utils.IO.Locale as LocIO
 -- Local imports
 -- import FOL.Pretty
 import Common.Types ( HintName, PostulateName )
-import FOL.Monad ( initialVars, T )
+import FOL.Monad ( initialVars )
 import FOL.Translation
 import FOL.Types
 import MyAgda.Interface
@@ -53,7 +53,7 @@ import MyAgda.Interface
     )
 import MyAgda.Syntax.Abstract.Name ( moduleNameToFilePath )
 import Options ( parseOptions )
-import Reports ( reportLn )
+import Reports ( R, reportLn )
 import TPTP.Files
 import TPTP.Monad
 import TPTP.Translation
@@ -64,10 +64,10 @@ import TPTP.Types ( AnnotatedFormula )
 ------------------------------------------------------------------------------
 
 -- We translate the ATP pragma axioms in an interface file to FOL formulas.
-axiomsToFOLs :: Interface -> T [AnnotatedFormula]
+axiomsToFOLs :: Interface -> R [AnnotatedFormula]
 axiomsToFOLs i = do
 
-  (opts, _) <- ask
+  opts <- ask
 
   -- We get the ATP pragmas axioms
   let axiomsDefs :: Definitions
@@ -81,7 +81,7 @@ axiomsToFOLs i = do
 
   -- The axioms types are translated to FOL formulas.
   formulas <- liftIO $
-              mapM (\ty -> runReaderT (typeToFormula ty) (opts, initialVars))
+              mapM (\ty -> runReaderT (runReaderT (typeToFormula ty) initialVars) opts)
                    (Map.elems axiomsTypes)
 
   -- The axioms are associated with their FOL formulas.
@@ -102,10 +102,10 @@ axiomsToFOLs i = do
 
 -- We translate the ATP pragma theorems in an interface file to FOL formulas.
 -- ToDo: Unify with 'axiomsToFOLs'
-theoremsToFOLs :: Interface -> T [AnnotatedFormula]
+theoremsToFOLs :: Interface -> R [AnnotatedFormula]
 theoremsToFOLs i = do
 
-  (opts, _) <- ask
+  opts <- ask
 
   -- We get the ATP pragmas theorems
   let theoremsDefs :: Definitions
@@ -119,7 +119,7 @@ theoremsToFOLs i = do
 
   -- The theorems types are translated to FOL formulas.
   formulas <- liftIO $
-              mapM (\ty -> runReaderT (typeToFormula ty) (opts, initialVars))
+              mapM (\ty -> runReaderT (runReaderT (typeToFormula ty) initialVars) opts)
                    (Map.elems theoremsTypes)
 
   -- The theorems are associated with their FOL formulas.
@@ -138,8 +138,7 @@ theoremsToFOLs i = do
 
   return afs
 
--- ToDo: We are using the monad T because we want to use reportLn.
-translation :: Interface -> T ()
+translation :: Interface -> R ()
 translation i = do
 
   -- We translate the ATP pragma axioms of current module and of all
@@ -172,7 +171,7 @@ runAgdaATP = do
   i <- getInterface $ head names
 
   -- runReaderT (postulatesToFOLs i) opts
-  runReaderT (translation i) (opts, [])
+  runReaderT (translation i) opts
 
 main :: IO ()
 main = catchImpossible runAgdaATP $

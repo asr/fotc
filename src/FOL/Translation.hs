@@ -8,6 +8,7 @@ module FOL.Translation where
 
 -- Haskell imports
 -- import Control.Monad.State ( get, put )
+import Control.Monad.Trans.Class ( lift )
 import Control.Monad.Trans.Reader ( ask, local )
 -- import Control.Monad.State
 
@@ -44,7 +45,7 @@ varInType _                   = __IMPOSSIBLE__
 
 typeToFormula :: AgdaType -> T Formula
 typeToFormula ty@(El (Type _ ) term) =
-    do reportLn "typeToFormula" 10 $ "Processing type ty:\n" ++ show ty
+    do lift $ reportLn "typeToFormula" 10 $ "Processing type ty:\n" ++ show ty
        termToFormula term
 typeToFormula _                   = __IMPOSSIBLE__
 
@@ -73,7 +74,7 @@ binConst op arg1 arg2 = do f1 <- argTermToFormula arg1
 
 termToFormula :: AgdaTerm -> T Formula
 termToFormula term@(Def (QName _ name) args) = do
-    reportLn "termToFormula" 10 $ "Processing term Def:\n" ++ show term
+    lift $ reportLn "termToFormula" 10 $ "Processing term Def:\n" ++ show term
 
     let cName :: C.Name
         cName = nameConcrete name
@@ -132,7 +133,7 @@ termToFormula term@(Def (QName _ name) args) = do
                 | isCNameConstFOLTwoHoles folEquiv -> binConst Equiv a1 a2
 
                 | isCNameConstFOLTwoHoles folEquals
-                    -> do reportLn "termToFormula" 20 $ "Processing equals"
+                    -> do lift $ reportLn "termToFormula" 20 $ "Processing equals"
                           t1 <- argTermToTermFOL a1
                           t2 <- argTermToTermFOL a2
                           return $ equal [t1, t2]
@@ -161,24 +162,24 @@ termToFormula term@(Def (QName _ name) args) = do
                 cName == C.Name noRange [C.Hole, C.Id folConst, C.Hole]
 
 termToFormula term@(Fun tyArg ty) = do
-  reportLn "termToFormula" 10 $ "Processing term Fun:\n" ++ show term
+  lift $ reportLn "termToFormula" 10 $ "Processing term Fun:\n" ++ show term
   f1 <- argTypeToFormula tyArg
   f2 <- typeToFormula ty
   return $ Implies f1 f2
 
 termToFormula term@(Lam _ (Abs strName termLam)) = do
-  reportLn "termToFormula" 10 $ "Processing term Lam:\n" ++ show term
+  lift $ reportLn "termToFormula" 10 $ "Processing term Lam:\n" ++ show term
 
-  f <- local (\(a, vars) -> (a, strName : vars)) $ termToFormula termLam
+  f <- local (\vars -> strName : vars) $ termToFormula termLam
   return f
 
 termToFormula term@(Pi tyArg (Abs strName tyAbs)) = do
-  reportLn "termToFormula" 10 $ "Processing term Pi:\n" ++ show term
+  lift $ reportLn "termToFormula" 10 $ "Processing term Pi:\n" ++ show term
 
   -- The de Bruijn indexes are assigned from "right to left", e.g.
   -- in '(A B C : Set) -> ...', A is 2, B is 1, and C is 0,
   -- so we need create the list in the same order.
-  f <- local (\(a, vars) -> (a, strName : vars)) $ typeToFormula tyAbs
+  f <- local (\vars -> strName : vars) $ typeToFormula tyAbs
   case unArg tyArg of
      -- The varible bound has type below Set (e.g. D : Set).
     (El (Type (Lit (LitLevel _ 0))) _) -> return $ ForAll strName (\_  -> f)
@@ -189,9 +190,9 @@ termToFormula term@(Pi tyArg (Abs strName tyAbs)) = do
     _                                  -> __IMPOSSIBLE__
 
 termToFormula term@(Var n _) = do
-  reportLn "termToFormula" 10 $ "Processing term Var: " ++ show term
+  lift $ reportLn "termToFormula" 10 $ "Processing term Var: " ++ show term
 
-  (_, vars) <- ask
+  vars <- ask
 
   if length vars <= fromIntegral n
      then __IMPOSSIBLE__
@@ -208,7 +209,7 @@ appArgs fn args = do
 -- Translate an Agda term to an FOL term
 termToTermFOL :: AgdaTerm -> T TermFOL
 termToTermFOL (Var n _) = do
-  (_, vars) <- ask
+  vars <- ask
 
   if length vars <= fromIntegral n
      then __IMPOSSIBLE__
@@ -216,7 +217,7 @@ termToTermFOL (Var n _) = do
 
 -- Remark: The code for the cases Con and Def is very similar.
 termToTermFOL term@(Con (QName _ name) args)  = do
-  reportLn "termToTermFOL" 10 $ "Processing term Con:\n" ++ show term
+  lift $ reportLn "termToTermFOL" 10 $ "Processing term Con:\n" ++ show term
 
   let cName :: C.Name
       cName = nameConcrete name
@@ -237,7 +238,7 @@ termToTermFOL term@(Con (QName _ name) args)  = do
     _ -> __IMPOSSIBLE__
 
 termToTermFOL term@(Def (QName _ name) args) = do
-  reportLn "termToTermFOL" 10 $ "Processing term Def:\n" ++ show term
+  lift $ reportLn "termToTermFOL" 10 $ "Processing term Def:\n" ++ show term
 
   let cName :: C.Name
       cName = nameConcrete name
