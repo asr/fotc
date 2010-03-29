@@ -46,6 +46,10 @@ getAxiomsATP :: Interface -> Definitions
 getAxiomsATP i =
     Map.filter isAxiomATP $ sigDefinitions $ iSignature i
 
+getTheoremsATP :: Interface -> Definitions
+getTheoremsATP i =
+    Map.filter isTheoremATP $ sigDefinitions $ iSignature i
+
 getImportedModules :: Interface -> [ModuleName]
 getImportedModules i = iImportedModules i
 
@@ -73,7 +77,21 @@ isAxiomATP :: Definition -> Bool
 isAxiomATP def =
     case defn of
       Axiom{} -> case axATP defn of
-                   Just ("axiom", _)   -> True
+                   Just ("axiom", _) -> True
+                   Just _            -> False
+                   Nothing           -> False
+
+      _       -> False
+
+    where defn :: Defn
+          defn = theDef def
+
+-- ToDo: Unify with 'isAxiomATP'
+isTheoremATP :: Definition -> Bool
+isTheoremATP def =
+    case defn of
+      Axiom{} -> case axATP defn of
+                   Just ("theorem", _) -> True
                    Just _              -> False
                    Nothing             -> False
 
@@ -81,4 +99,3 @@ isAxiomATP def =
 
     where defn :: Defn
           defn = theDef def
-

@@ -1,4 +1,4 @@
-{-# LANGUAGE CPP, FlexibleInstances #-}
+{-# LANGUAGE CPP, FlexibleInstances, ScopedTypeVariables #-}
 
 module Main where
 
@@ -21,19 +21,15 @@ import System.Exit
 
 ------------------------------------------------------------------------------
 -- Agda library imports
+import Agda.Syntax.Abstract ( ModuleName )
 import Agda.Syntax.Common ( RoleATP )
 import Agda.Syntax.Internal ( Type )
 
 import Agda.TypeChecking.Monad.Base
-    ( axATP
-    , Defn(Axiom)
-    , Definition
+    ( Definition
     , Definitions
     , defType
     , Interface
-    , iSignature
-    , Signature(sigDefinitions)
-    , theDef
     )
 
 import Agda.Utils.Impossible ( catchImpossible
@@ -49,136 +45,23 @@ import Common.Types ( HintName, PostulateName )
 import FOL.Monad ( initialVars, T )
 import FOL.Translation
 import FOL.Types
-import MyAgda.Interface ( getAxiomsATP, getImportedModules, getInterface )
+import MyAgda.Interface
+    ( getAxiomsATP
+    , getImportedModules
+    , getInterface
+    , getTheoremsATP
+    )
 import MyAgda.Syntax.Abstract.Name ( moduleNameToFilePath )
-import Options ( Options, parseOptions )
+import Options ( parseOptions )
 import Reports ( reportLn )
 import TPTP.Files
 import TPTP.Monad
 import TPTP.Translation
-import TPTP.Types
+import TPTP.Types ( AnnotatedFormula )
 
 #include "undefined.h"
 
 ------------------------------------------------------------------------------
-
-printListLn :: Show a => [a] -> IO ()
-printListLn []       = return ()
-printListLn (x : xs) = do LocIO.putStrLn $ show x ++ "\n"
-                          printListLn xs
-
-isPostulatePragmaATP :: Definition -> Bool
-isPostulatePragmaATP def =
-    case defn of
-      Axiom{} -> case axATP defn of
-                   Just _   -> True
-                   Nothing  -> False
-
-      _       -> False  -- Only the postulates can be a ATP pragma.
-
-    where defn :: Defn
-          defn = theDef def
-
-isPostulateTheorem :: Definition -> Bool
-isPostulateTheorem def =
-    case defn of
-      Axiom{} -> case axATP defn of
-                   Just ("theorem", _)   -> True
-                   Just _                -> False
-                   Nothing               -> __IMPOSSIBLE__
-
-      _       -> __IMPOSSIBLE__
-
-    where defn :: Defn
-          defn = theDef def
-
-getPostulateRole :: Definition -> RoleATP
-getPostulateRole def =
-    case defn of
-      Axiom{} -> case axATP defn of
-                   Just (role, _) -> role
-                   Nothing        -> __IMPOSSIBLE__
-
-      _       -> __IMPOSSIBLE__
-
-    where defn :: Defn
-          defn = theDef def
-
--- Only the theorems have associated hints.
-getPostulateHints :: Definition -> [HintName]
-getPostulateHints def =
-    case defn of
-      Axiom{} -> case axATP defn of
-                   Just ("theorem", hints) -> hints
-                   Just _                  -> __IMPOSSIBLE__
-                   Nothing                 -> __IMPOSSIBLE__
-
-      _       -> __IMPOSSIBLE__
-
-    where defn :: Defn
-          defn = theDef def
-
-getPostulates :: Interface -> Definitions
-getPostulates i =
-    Map.filter isPostulatePragmaATP $ sigDefinitions $ iSignature i
-
-postulatesToFOLs :: Interface -> ReaderT Options IO ()
-postulatesToFOLs i = do
-
-  opts <- ask
-
-  -- We get the ATP pragmas postulates.
-  let postulatesDefs :: Definitions
-      postulatesDefs = getPostulates i
-  -- LocIO.print $ Map.keys postulatesDef
-
-  -- We get the types of the postulates.
-  let postulatesTypes :: Map PostulateName Type
-      postulatesTypes = Map.map defType postulatesDefs
-
-  liftIO $ LocIO.putStrLn "Postulates types:"
-  liftIO $ printListLn $ Map.toList postulatesTypes
-
-  -- The postulates types are translated to FOL formulas.
-  formulas <- liftIO $
-              mapM (\ty -> runReaderT (typeToFormula ty) (opts, initialVars))
-                   (Map.elems postulatesTypes)
-
-  -- The postulates are associated with their FOL formulas.
-  let postulatesFormulas :: Map PostulateName Formula
-      postulatesFormulas = Map.fromList $ zip (Map.keys postulatesTypes) formulas
-
-  liftIO $ LocIO.putStrLn "FOL formulas:"
-  liftIO $ printListLn $ Map.toList postulatesFormulas
-
-  -- The postulates are associated with their roles.
-  let postulatesRoles :: Map PostulateName RoleATP
-      postulatesRoles = Map.map getPostulateRole postulatesDefs
-
-  let afs :: [AnnotatedFormula]
-      afs = evalState
-              (mapM (\(pName, role, formula) ->
-                       (postulateToTPTP pName role formula))
-                    (zip3 (Map.keys postulatesFormulas)
-                         (Map.elems postulatesRoles)
-                         (Map.elems postulatesFormulas)))
-              initialNames
-
-
-  -- liftIO $ LocIO.putStrLn "TPTP formulas:"
-  -- liftIO $ LocIO.print afs
-
-  -- The postulates (which are theorems) are associated with their hints.
-  let postulatesHints :: Map PostulateName [HintName]
-      postulatesHints =
-          Map.map getPostulateHints $
-             Map.filter isPostulateTheorem postulatesDefs
-
-  liftIO $ LocIO.putStrLn "Hints:"
-  liftIO $ LocIO.print postulatesHints
-
-  liftIO $ createFilesTPTP afs
-
 
 -- We translate the ATP pragma axioms in an interface file to FOL formulas.
 axiomsToFOLs :: Interface -> T [AnnotatedFormula]
@@ -217,19 +100,65 @@ axiomsToFOLs i = do
 
   return afs
 
--- We translate all the ATP pragma axioms of current module and of all
--- the imported modules.
+-- We translate the ATP pragma theorems in an interface file to FOL formulas.
+-- ToDo: Unify with 'axiomsToFOLs'
+theoremsToFOLs :: Interface -> T [AnnotatedFormula]
+theoremsToFOLs i = do
+
+  (opts, _) <- ask
+
+  -- We get the ATP pragmas theorems
+  let theoremsDefs :: Definitions
+      theoremsDefs = getTheoremsATP i
+  reportLn "theoremsToFOLs" 20 $ "Theorems:\n" ++ (show $ Map.keys theoremsDefs)
+
+  -- We get the types of the theorems.
+  let theoremsTypes :: Map PostulateName Type
+      theoremsTypes = Map.map defType theoremsDefs
+  reportLn "theoremsToFOLs" 20 $ "Theorems types:\n" ++ (show theoremsTypes)
+
+  -- The theorems types are translated to FOL formulas.
+  formulas <- liftIO $
+              mapM (\ty -> runReaderT (typeToFormula ty) (opts, initialVars))
+                   (Map.elems theoremsTypes)
+
+  -- The theorems are associated with their FOL formulas.
+  let theoremsFormulas :: Map PostulateName Formula
+      theoremsFormulas = Map.fromList $ zip (Map.keys theoremsTypes) formulas
+  reportLn "theoremsToFOLs" 20 $ "FOL formulas:\n" ++ (show theoremsFormulas)
+
+  let afs :: [AnnotatedFormula]
+      afs = evalState
+              (mapM (\(aName, formula) ->
+                       (postulateToTPTP aName "theorem" formula))
+                    (zip (Map.keys theoremsFormulas)
+                         (Map.elems theoremsFormulas)))
+              initialNames
+  reportLn "theoremsToFOLs" 20 $ "TPTP formulas:\n" ++ (show afs)
+
+  return afs
+
 -- ToDo: We are using the monad T because we want to use reportLn.
-axiomsToFOLsXXX :: Interface -> T ()
-axiomsToFOLsXXX i = do
+translation :: Interface -> T ()
+translation i = do
 
-  let importedModules = getImportedModules i
+  -- We translate the ATP pragma axioms of current module and of all
+  -- the imported modules.
 
-  is <- liftIO $ mapM getInterface (map moduleNameToFilePath importedModules)
+  let importedModules :: [ModuleName]
+      importedModules = getImportedModules i
 
-  afss <- mapM axiomsToFOLs (i : is)
+  ( is :: [Interface] ) <-
+      liftIO $ mapM getInterface (map moduleNameToFilePath importedModules)
 
-  liftIO $ createFilesTPTP $ concat afss
+  ( axiomsAFss :: [[AnnotatedFormula]] ) <- mapM axiomsToFOLs (i : is)
+
+  -- We translate the ATP pragma theorems of current module.
+
+  ( theoremsAFs :: [AnnotatedFormula] ) <- theoremsToFOLs i
+
+  -- We create the TPTP files.
+  liftIO $ createFilesTPTP $ (concat axiomsAFss ++ theoremsAFs)
 
 runAgdaATP :: IO ()
 runAgdaATP = do
@@ -243,7 +172,7 @@ runAgdaATP = do
   i <- getInterface $ head names
 
   -- runReaderT (postulatesToFOLs i) opts
-  runReaderT (axiomsToFOLsXXX i) (opts, [])
+  runReaderT (translation i) (opts, [])
 
 main :: IO ()
 main = catchImpossible runAgdaATP $
