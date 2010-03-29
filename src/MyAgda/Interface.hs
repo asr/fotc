@@ -19,7 +19,7 @@ import Agda.Interaction.Options
     , defaultOptions
     , optInputFile
     )
-import Agda.Syntax.Abstract ( ModuleName )
+import Agda.Syntax.Abstract ( ModuleName, QName )
 import Agda.TypeChecking.Monad.Base
     ( axATP
     , Defn(Axiom)
@@ -36,8 +36,13 @@ import Agda.TypeChecking.Monad.Options ( makeIncludeDirsAbsolute
                                        , Target(PersistentOptions)
                                        )
 import Agda.Utils.FileName ( absolute, filePath, mkAbsolute )
+import Agda.Utils.Impossible ( Impossible(..)
+                             , throwImpossible
+                             )
 
 -- Local imports
+import Common.Types ( HintName )
+
 #include "../undefined.h"
 
 ------------------------------------------------------------------------------
@@ -49,6 +54,20 @@ getAxiomsATP i =
 getTheoremsATP :: Interface -> Definitions
 getTheoremsATP i =
     Map.filter isTheoremATP $ sigDefinitions $ iSignature i
+
+
+getHints :: Definition -> [HintName]
+getHints def =
+    case defn of
+      Axiom{} -> case axATP defn of
+                   Just ("theorem", hints) -> hints
+                   Just _                  -> __IMPOSSIBLE__
+                   Nothing                 -> __IMPOSSIBLE__
+
+      _       -> __IMPOSSIBLE__
+
+    where defn :: Defn
+          defn = theDef def
 
 getImportedModules :: Interface -> [ModuleName]
 getImportedModules i = iImportedModules i
@@ -99,3 +118,6 @@ isTheoremATP def =
 
     where defn :: Defn
           defn = theDef def
+
+getQNameDefinition :: Interface -> QName -> Maybe Definition
+getQNameDefinition i qName = Map.lookup qName $ sigDefinitions $ iSignature i

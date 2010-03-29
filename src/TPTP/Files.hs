@@ -26,7 +26,8 @@ communHeader =
 headerAxioms :: String
 headerAxioms =
     communHeader ++
-    "% This file corresponds to the ATP pragmas axioms.\n\n"
+    "% This file corresponds to the ATP pragmas axioms and the hints for the ATP\n" ++
+    "% pragmas theorems.\n\n"
 
 footerAxioms :: String
 footerAxioms =
