@@ -27,6 +27,7 @@ executable agda-atp
                   FOL.Translation
                   -- FOL.Substitution
                   FOL.Types
+                  MyAgda.Interface
                   Names
                   Options
                   Reports

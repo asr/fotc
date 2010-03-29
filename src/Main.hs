@@ -16,19 +16,11 @@ import qualified Data.Map as Map
 
 import Prelude hiding ( print, putStr, putStrLn )
 
-import System.Directory ( getCurrentDirectory )
 import System.Environment
 import System.Exit
 
 ------------------------------------------------------------------------------
 -- Agda library imports
-import Agda.Interaction.FindFile ( toIFile )
-import Agda.Interaction.Imports ( readInterface )
-import Agda.Interaction.Options
-    ( CommandLineOptions
-    , defaultOptions
-    , optInputFile
-    )
 import Agda.Syntax.Common ( RoleATP )
 import Agda.Syntax.Internal ( Type )
 
@@ -40,16 +32,10 @@ import Agda.TypeChecking.Monad.Base
     , defType
     , Interface
     , iSignature
-    , runTCM
     , Signature(sigDefinitions)
     , theDef
     )
-import Agda.TypeChecking.Monad.Options ( makeIncludeDirsAbsolute
-                                       , setCommandLineOptions
-                                       , Target(PersistentOptions)
-                                       )
 
-import Agda.Utils.FileName ( absolute, filePath, mkAbsolute )
 import Agda.Utils.Impossible ( catchImpossible
                              , Impossible(..)
                              , throwImpossible
@@ -63,6 +49,7 @@ import Common.Types ( HintName, PostulateName )
 import FOL.Monad ( initialVars )
 import FOL.Translation
 import FOL.Types
+import MyAgda.Interface ( getInterface )
 import Options ( Options, parseOptions )
 import TPTP.Files
 import TPTP.Monad
@@ -189,26 +176,6 @@ postulatesToFOLs i = do
   liftIO $ LocIO.print postulatesHints
 
   liftIO $ createFilesTPTP afs
-
-getInterface :: FilePath -> IO Interface
-getInterface agdaFile = do
-  let opts :: CommandLineOptions
-      opts = defaultOptions { optInputFile = Just agdaFile }
-
-  aFile <- absolute agdaFile
-  currentDir   <- getCurrentDirectory
-  let iFile :: FilePath
-      iFile  = filePath $ toIFile aFile
-
-  r <- runTCM $ do
-         setCommandLineOptions PersistentOptions opts
-         makeIncludeDirsAbsolute $ mkAbsolute currentDir
-         readInterface iFile
-
-  case r of
-        Right (Just i) -> return i
-        Right Nothing  -> error $ "Error reading the interface file " ++ iFile
-        Left _         -> error "Error from runTCM"
 
 runAgdaATP :: IO ()
 runAgdaATP = do
