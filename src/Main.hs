@@ -81,7 +81,8 @@ axiomsToFOLs i = do
 
   -- The axioms types are translated to FOL formulas.
   formulas <- liftIO $
-              mapM (\ty -> runReaderT (runReaderT (typeToFormula ty) initialVars) opts)
+              mapM (\ty -> runReaderT
+                             (runReaderT (typeToFormula ty) initialVars) opts)
                    (Map.elems axiomsTypes)
 
   -- The axioms are associated with their FOL formulas.
@@ -119,7 +120,8 @@ theoremsToFOLs i = do
 
   -- The theorems types are translated to FOL formulas.
   formulas <- liftIO $
-              mapM (\ty -> runReaderT (runReaderT (typeToFormula ty) initialVars) opts)
+              mapM (\ty -> runReaderT
+                             (runReaderT (typeToFormula ty) initialVars) opts)
                    (Map.elems theoremsTypes)
 
   -- The theorems are associated with their FOL formulas.
@@ -129,8 +131,8 @@ theoremsToFOLs i = do
 
   let afs :: [AnnotatedFormula]
       afs = evalState
-              (mapM (\(aName, formula) ->
-                       (postulateToTPTP aName "theorem" formula))
+              (mapM (\(tName, formula) ->
+                       (postulateToTPTP tName "theorem" formula))
                     (zip (Map.keys theoremsFormulas)
                          (Map.elems theoremsFormulas)))
               initialNames
