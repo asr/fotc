@@ -55,7 +55,7 @@ import MyAgda.Interface
 import MyAgda.Syntax.Abstract.Name ( moduleNameToFilePath )
 import Options ( parseOptions )
 import Reports ( R, reportLn )
-import TPTP.Files
+import TPTP.Files ( createAxiomsFile, createTheoremFile )
 import TPTP.Monad
 import TPTP.Translation
 import TPTP.Types ( AnnotatedFormula )
@@ -102,9 +102,11 @@ axiomsToFOLs i = do
 
   return afs
 
--- We translate the ATP pragma theorems in an interface file to FOL formulas.
--- ToDo: Unify with 'axiomsToFOLs'
-theoremsToFOLs :: Interface -> R [AnnotatedFormula]
+-- We translate the ATP pragma theorems and their hints in an
+-- interface file to FOL formulas. For each theorem we return its
+-- tranlation and a list of the translatation of its hints, i.e. we
+-- return a pair ( AnnotatedFormula, [AnnotatedFormula] ).
+theoremsToFOLs :: Interface -> R [ (AnnotatedFormula, [AnnotatedFormula]) ]
 theoremsToFOLs i = do
 
   opts <- ask
@@ -130,6 +132,14 @@ theoremsToFOLs i = do
       theoremsFormulas = Map.fromList $ zip (Map.keys theoremsTypes) formulas
   reportLn "theoremsToFOLs" 20 $ "FOL formulas:\n" ++ (show theoremsFormulas)
 
+
+  -- We translate the hints associated with each ATP pragma theorem to
+  -- TPTP formulas.
+  ( hintsAFss :: [[AnnotatedFormula]] ) <-
+      mapM hintsToFOLs $ Map.elems theoremsDefs
+
+  -- We translate the FOL formula associated with each ATP pragma
+  -- theorem to a TPTP formula.
   let afs :: [AnnotatedFormula]
       afs = evalState
               (mapM (\(tName, formula) ->
@@ -139,7 +149,7 @@ theoremsToFOLs i = do
               initialNames
   reportLn "theoremsToFOLs" 20 $ "TPTP formulas:\n" ++ (show afs)
 
-  return afs
+  return $ zip afs hintsAFss
 
 -- We translate an hint to a FOL formula.
 hintToFOL :: HintName -> R AnnotatedFormula
@@ -193,20 +203,13 @@ translation i = do
 
   ( axiomsAFss :: [[AnnotatedFormula]] ) <- mapM axiomsToFOLs (i : is)
 
-  -- We translate the ATP pragma theorems of current module.
-  ( theoremsAFs :: [AnnotatedFormula] ) <- theoremsToFOLs i
-
-  -- We translate the hints associated with each ATP pragma theorem of
-  -- current module.
-  let theoremsDefs :: Definitions
-      theoremsDefs = getTheoremsATP i
-
-  ( hintsAFss :: [[AnnotatedFormula]] ) <-
-      mapM hintsToFOLs $ Map.elems theoremsDefs
+  -- We translate the ATP pragma theorems and their associated hints
+  -- of current module.
+  theoremsAFs <- theoremsToFOLs i
 
   -- We create the TPTP files.
-  liftIO $
-    createFilesTPTP $ concat axiomsAFss ++ theoremsAFs ++ concat hintsAFss
+  liftIO $ createAxiomsFile $ concat axiomsAFss
+  liftIO $ mapM_ createTheoremFile theoremsAFs -- ++ concat hintsAFss
 
 runAgdaATP :: IO ()
 runAgdaATP = do

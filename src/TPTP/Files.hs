@@ -7,14 +7,18 @@ module TPTP.Files where
 -- Haskell imports
 import System.FilePath
 
+-- Agda library imports
+import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
 -- Local imports
 import TPTP.Types
+
+#include "../undefined.h"
 
 ------------------------------------------------------------------------------
 extTPTP :: String
 extTPTP = ".tptp"
 
-axiomsFile :: String
+axiomsFile :: FilePath
 axiomsFile = addExtension "/tmp/axioms" extTPTP
 
 communHeader :: String
@@ -26,8 +30,7 @@ communHeader =
 headerAxioms :: String
 headerAxioms =
     communHeader ++
-    "% This file corresponds to the ATP pragmas axioms and the hints for the ATP\n" ++
-    "% pragmas theorems.\n\n"
+    "% This file corresponds to the ATP pragmas axioms.\n"
 
 footerAxioms :: String
 footerAxioms =
@@ -46,30 +49,23 @@ footerTheorem =
     "%-----------------------------------------------------------------------------\n" ++
     "% End ATP pragma theorem.\n"
 
-addAxiom :: AnnotatedFormula -> IO ()
-addAxiom af@(AF  _ AxiomTPTP _ ) = appendFile axiomsFile (show af)
-addAxiom _                       = return ()
+addAxiom :: AnnotatedFormula -> FilePath -> IO ()
+addAxiom af@(AF  _ AxiomTPTP _ ) file = appendFile file (show af)
+addAxiom _                       _    = __IMPOSSIBLE__
 
 createAxiomsFile :: [AnnotatedFormula] -> IO ()
 createAxiomsFile afs = do
   _ <- writeFile axiomsFile headerAxioms
-  _ <- mapM_ addAxiom afs
+  _ <- mapM_ (flip addAxiom axiomsFile) afs
   _ <- appendFile axiomsFile footerAxioms
   return ()
 
-createTheoremFile :: AnnotatedFormula -> IO ()
-createTheoremFile af@(AF name ConjectureTPTP _ ) = do
-  let theoremFile = addExtension ("/tmp/" ++ name) extTPTP
-  _ <- writeFile theoremFile headerTheorem
-  _ <- appendFile theoremFile (show af)
-  _ <- appendFile theoremFile footerTheorem
+createTheoremFile :: (AnnotatedFormula, [AnnotatedFormula]) -> IO ()
+createTheoremFile (af@(AF name ConjectureTPTP _ ), hints) = do
+  let file = addExtension ("/tmp/" ++ name) extTPTP
+  _ <- writeFile file headerTheorem
+  _ <- mapM_ (flip addAxiom file) hints
+  _ <- appendFile file (show af)
+  _ <- appendFile file footerTheorem
   return ()
-createTheoremFile _ = return ()
-
--- We create a file with all the ATP pragmas axioms and we create a file
--- for each ATP pragma theorem.
-createFilesTPTP :: [AnnotatedFormula] -> IO ()
-createFilesTPTP afs = do
-  _ <- createAxiomsFile afs
-  _ <- mapM_ createTheoremFile afs
-  return ()
+createTheoremFile _ = __IMPOSSIBLE__
