@@ -49,19 +49,14 @@ footerConjecture =
     "%-----------------------------------------------------------------------------\n" ++
     "% End ATP pragma conjecture.\n"
 
-addAxiom :: AnnotatedFormula -> IO ()
-addAxiom af@(AF  _ AxiomTPTP _ ) = appendFile axiomsFile (show af)
-addAxiom _                       = __IMPOSSIBLE__
-
-addTheorem :: AnnotatedFormula -> FilePath -> IO ()
-addTheorem af@(AF  _ TheoremTPTP _ ) file = appendFile file (show af)
-addTheorem _                       _    = __IMPOSSIBLE__
-
+addAxiom :: AnnotatedFormula -> FilePath -> IO ()
+addAxiom af@(AF  _ AxiomTPTP _ ) file = appendFile file (show af)
+addAxiom _                       _    = __IMPOSSIBLE__
 
 createAxiomsFile :: [AnnotatedFormula] -> IO ()
 createAxiomsFile afs = do
   _ <- writeFile axiomsFile headerAxioms
-  _ <- mapM_ addAxiom afs
+  _ <- mapM_ (flip addAxiom axiomsFile) afs
   _ <- appendFile axiomsFile footerAxioms
   return ()
 
@@ -69,7 +64,7 @@ createConjectureFile :: (AnnotatedFormula, [AnnotatedFormula]) -> IO ()
 createConjectureFile (af@(AF name ConjectureTPTP _ ), hints) = do
   let file = addExtension ("/tmp/" ++ name) extTPTP
   _ <- writeFile file headerConjecture
-  _ <- mapM_ (flip addTheorem file) hints
+  _ <- mapM_ (flip addAxiom file) hints
   _ <- appendFile file (show af)
   _ <- appendFile file footerConjecture
   return ()

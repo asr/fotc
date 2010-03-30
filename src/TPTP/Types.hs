@@ -15,12 +15,11 @@ import FOL.FOL2TPTP
 
 type NameTPTP = String
 
-data RoleTPTP = AxiomTPTP | ConjectureTPTP | TheoremTPTP
+data RoleTPTP = AxiomTPTP | ConjectureTPTP
 
 instance Show RoleTPTP where
     show AxiomTPTP      = "axiom"
     show ConjectureTPTP = "conjecture"
-    show TheoremTPTP    = "theorem"
 
 -- The TPTP annotated formulas
 data AnnotatedFormula = AF String RoleTPTP Formula
