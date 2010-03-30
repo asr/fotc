@@ -143,7 +143,7 @@ conjecturesToFOLs i = do
   let afs :: [AnnotatedFormula]
       afs = evalState
               (mapM (\(tName, formula) ->
-                       (postulateToTPTP tName "conjecture" formula))
+                       (postulateToTPTP tName "prove" formula))
                     (zip (Map.keys conjecturesFormulas)
                          (Map.elems conjecturesFormulas)))
               initialNames

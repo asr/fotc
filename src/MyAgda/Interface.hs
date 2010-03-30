@@ -60,9 +60,9 @@ getHints :: Definition -> [HintName]
 getHints def =
     case defn of
       Axiom{} -> case axATP defn of
-                   Just ("conjecture", hints) -> hints
-                   Just _                  -> __IMPOSSIBLE__
-                   Nothing                 -> __IMPOSSIBLE__
+                   Just ("prove", hints) -> hints
+                   Just _                -> __IMPOSSIBLE__
+                   Nothing               -> __IMPOSSIBLE__
 
       _       -> __IMPOSSIBLE__
 
@@ -110,9 +110,9 @@ isConjectureATP :: Definition -> Bool
 isConjectureATP def =
     case defn of
       Axiom{} -> case axATP defn of
-                   Just ("conjecture", _) -> True
-                   Just _                 -> False
-                   Nothing                -> False
+                   Just ("prove", _) -> True
+                   Just _            -> False
+                   Nothing           -> False
 
       _       -> False
 
