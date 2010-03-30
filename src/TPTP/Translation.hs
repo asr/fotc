@@ -49,6 +49,7 @@ postulateToTPTP pName role f = do
       roleTPTP = case role of
                    "axiom"      -> AxiomTPTP
                    "conjecture" -> ConjectureTPTP
+                   "theorem"    -> TheoremTPTP
                    _            -> __IMPOSSIBLE__
 
   return $ AF name roleTPTP f

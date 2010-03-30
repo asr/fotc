@@ -172,7 +172,7 @@ hintToFOL hName = do
                         (runReaderT (typeToFormula hType) initialVars) opts
 
   let af :: AnnotatedFormula
-      af = evalState (postulateToTPTP hName "axiom" formula) initialNames
+      af = evalState (postulateToTPTP hName "theorem" formula) initialNames
 
   return af
 
