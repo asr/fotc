@@ -37,17 +37,17 @@ footerAxioms =
     "%-----------------------------------------------------------------------------\n" ++
     "% End ATP pragmas axioms.\n"
 
-headerTheorem :: String
-headerTheorem =
+headerConjecture :: String
+headerConjecture =
     communHeader ++
-    "% This file corresponds to an ATP pragma theorem.\n\n" ++
+    "% This file corresponds to an ATP pragma conjecture and its hints.\n\n" ++
     "% We include the ATP pragmas axioms file.\n" ++
     "include('" ++ axiomsFile ++ "').\n\n"
 
-footerTheorem :: String
-footerTheorem =
+footerConjecture :: String
+footerConjecture =
     "%-----------------------------------------------------------------------------\n" ++
-    "% End ATP pragma theorem.\n"
+    "% End ATP pragma conjecture.\n"
 
 addAxiom :: AnnotatedFormula -> FilePath -> IO ()
 addAxiom af@(AF  _ AxiomTPTP _ ) file = appendFile file (show af)
@@ -60,12 +60,12 @@ createAxiomsFile afs = do
   _ <- appendFile axiomsFile footerAxioms
   return ()
 
-createTheoremFile :: (AnnotatedFormula, [AnnotatedFormula]) -> IO ()
-createTheoremFile (af@(AF name ConjectureTPTP _ ), hints) = do
+createConjectureFile :: (AnnotatedFormula, [AnnotatedFormula]) -> IO ()
+createConjectureFile (af@(AF name ConjectureTPTP _ ), hints) = do
   let file = addExtension ("/tmp/" ++ name) extTPTP
-  _ <- writeFile file headerTheorem
+  _ <- writeFile file headerConjecture
   _ <- mapM_ (flip addAxiom file) hints
   _ <- appendFile file (show af)
-  _ <- appendFile file footerTheorem
+  _ <- appendFile file footerConjecture
   return ()
-createTheoremFile _ = __IMPOSSIBLE__
+createConjectureFile _ = __IMPOSSIBLE__

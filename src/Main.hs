@@ -50,12 +50,12 @@ import MyAgda.Interface
     , getHints
     , getInterface
     , getQNameDefinition
-    , getTheoremsATP
+    , getConjecturesATP
     )
 import MyAgda.Syntax.Abstract.Name ( moduleNameToFilePath )
 import Options ( parseOptions )
 import Reports ( R, reportLn )
-import TPTP.Files ( createAxiomsFile, createTheoremFile )
+import TPTP.Files ( createAxiomsFile, createConjectureFile )
 import TPTP.Monad
 import TPTP.Translation
 import TPTP.Types ( AnnotatedFormula )
@@ -102,52 +102,52 @@ axiomsToFOLs i = do
 
   return afs
 
--- We translate the ATP pragma theorems and their hints in an
--- interface file to FOL formulas. For each theorem we return its
+-- We translate the ATP pragma conjectures and their hints in an
+-- interface file to FOL formulas. For each conjecture we return its
 -- tranlation and a list of the translatation of its hints, i.e. we
 -- return a pair ( AnnotatedFormula, [AnnotatedFormula] ).
-theoremsToFOLs :: Interface -> R [ (AnnotatedFormula, [AnnotatedFormula]) ]
-theoremsToFOLs i = do
+conjecturesToFOLs :: Interface -> R [ (AnnotatedFormula, [AnnotatedFormula]) ]
+conjecturesToFOLs i = do
 
   opts <- ask
 
-  -- We get the ATP pragmas theorems
-  let theoremsDefs :: Definitions
-      theoremsDefs = getTheoremsATP i
-  reportLn "theoremsToFOLs" 20 $ "Theorems:\n" ++ (show $ Map.keys theoremsDefs)
+  -- We get the ATP pragmas conjectures
+  let conjecturesDefs :: Definitions
+      conjecturesDefs = getConjecturesATP i
+  reportLn "conjecturesToFOLs" 20 $ "Conjectures:\n" ++ (show $ Map.keys conjecturesDefs)
 
-  -- We get the types of the theorems.
-  let theoremsTypes :: Map PostulateName Type
-      theoremsTypes = Map.map defType theoremsDefs
-  reportLn "theoremsToFOLs" 20 $ "Theorems types:\n" ++ (show theoremsTypes)
+  -- We get the types of the conjectures.
+  let conjecturesTypes :: Map PostulateName Type
+      conjecturesTypes = Map.map defType conjecturesDefs
+  reportLn "conjecturesToFOLs" 20 $ "Conjectures types:\n" ++ (show conjecturesTypes)
 
-  -- The theorems types are translated to FOL formulas.
+  -- The conjectures types are translated to FOL formulas.
   formulas <- liftIO $
               mapM (\ty -> runReaderT
                              (runReaderT (typeToFormula ty) initialVars) opts)
-                   (Map.elems theoremsTypes)
+                   (Map.elems conjecturesTypes)
 
-  -- The theorems are associated with their FOL formulas.
-  let theoremsFormulas :: Map PostulateName Formula
-      theoremsFormulas = Map.fromList $ zip (Map.keys theoremsTypes) formulas
-  reportLn "theoremsToFOLs" 20 $ "FOL formulas:\n" ++ (show theoremsFormulas)
+  -- The conjectures are associated with their FOL formulas.
+  let conjecturesFormulas :: Map PostulateName Formula
+      conjecturesFormulas = Map.fromList $ zip (Map.keys conjecturesTypes) formulas
+  reportLn "conjecturesToFOLs" 20 $ "FOL formulas:\n" ++ (show conjecturesFormulas)
 
 
-  -- We translate the hints associated with each ATP pragma theorem to
+  -- We translate the hints associated with each ATP pragma conjecture to
   -- TPTP formulas.
   ( hintsAFss :: [[AnnotatedFormula]] ) <-
-      mapM hintsToFOLs $ Map.elems theoremsDefs
+      mapM hintsToFOLs $ Map.elems conjecturesDefs
 
   -- We translate the FOL formula associated with each ATP pragma
-  -- theorem to a TPTP formula.
+  -- conjecture to a TPTP formula.
   let afs :: [AnnotatedFormula]
       afs = evalState
               (mapM (\(tName, formula) ->
-                       (postulateToTPTP tName "theorem" formula))
-                    (zip (Map.keys theoremsFormulas)
-                         (Map.elems theoremsFormulas)))
+                       (postulateToTPTP tName "conjecture" formula))
+                    (zip (Map.keys conjecturesFormulas)
+                         (Map.elems conjecturesFormulas)))
               initialNames
-  reportLn "theoremsToFOLs" 20 $ "TPTP formulas:\n" ++ (show afs)
+  reportLn "conjecturesToFOLs" 20 $ "TPTP formulas:\n" ++ (show afs)
 
   return $ zip afs hintsAFss
 
@@ -176,14 +176,14 @@ hintToFOL hName = do
 
   return af
 
--- We translate the hints of an ATP pragma theorem to FOL formulas.
--- Invariant: The Definition should be an ATP pragma theorem
+-- We translate the hints of an ATP pragma conjecture to FOL formulas.
+-- Invariant: The Definition should be an ATP pragma conjecture
 hintsToFOLs :: Definition -> R [AnnotatedFormula]
-hintsToFOLs theoremDef = do
+hintsToFOLs conjectureDef = do
 
   let hints :: [HintName]
-      hints = getHints theoremDef
-  reportLn "hintsToFOLs" 20 $ "The hints for the theorem " ++ show theoremDef ++
+      hints = getHints conjectureDef
+  reportLn "hintsToFOLs" 20 $ "The hints for the conjecture " ++ show conjectureDef ++
            " are " ++ show hints
 
   ( afs :: [AnnotatedFormula] ) <- mapM hintToFOL hints
@@ -203,13 +203,13 @@ translation i = do
 
   ( axiomsAFss :: [[AnnotatedFormula]] ) <- mapM axiomsToFOLs (i : is)
 
-  -- We translate the ATP pragma theorems and their associated hints
+  -- We translate the ATP pragma conjectures and their associated hints
   -- of current module.
-  theoremsAFs <- theoremsToFOLs i
+  conjecturesAFs <- conjecturesToFOLs i
 
   -- We create the TPTP files.
   liftIO $ createAxiomsFile $ concat axiomsAFss
-  liftIO $ mapM_ createTheoremFile theoremsAFs -- ++ concat hintsAFss
+  liftIO $ mapM_ createConjectureFile conjecturesAFs -- ++ concat hintsAFss
 
 runAgdaATP :: IO ()
 runAgdaATP = do

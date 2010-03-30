@@ -51,16 +51,16 @@ getAxiomsATP :: Interface -> Definitions
 getAxiomsATP i =
     Map.filter isAxiomATP $ sigDefinitions $ iSignature i
 
-getTheoremsATP :: Interface -> Definitions
-getTheoremsATP i =
-    Map.filter isTheoremATP $ sigDefinitions $ iSignature i
+getConjecturesATP :: Interface -> Definitions
+getConjecturesATP i =
+    Map.filter isConjectureATP $ sigDefinitions $ iSignature i
 
 
 getHints :: Definition -> [HintName]
 getHints def =
     case defn of
       Axiom{} -> case axATP defn of
-                   Just ("theorem", hints) -> hints
+                   Just ("conjecture", hints) -> hints
                    Just _                  -> __IMPOSSIBLE__
                    Nothing                 -> __IMPOSSIBLE__
 
@@ -106,13 +106,13 @@ isAxiomATP def =
           defn = theDef def
 
 -- ToDo: Unify with 'isAxiomATP'
-isTheoremATP :: Definition -> Bool
-isTheoremATP def =
+isConjectureATP :: Definition -> Bool
+isConjectureATP def =
     case defn of
       Axiom{} -> case axATP defn of
-                   Just ("theorem", _) -> True
-                   Just _              -> False
-                   Nothing             -> False
+                   Just ("conjecture", _) -> True
+                   Just _                 -> False
+                   Nothing                -> False
 
       _       -> False
 
