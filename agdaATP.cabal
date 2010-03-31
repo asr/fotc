@@ -23,7 +23,6 @@ executable agda-atp
 
   other-modules:  Common.Types
                   FOL.Constants
-                  FOL.FOL2TPTP
                   FOL.Monad
                   FOL.Primitives
                   FOL.Translation
