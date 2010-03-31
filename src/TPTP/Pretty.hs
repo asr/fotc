@@ -4,6 +4,9 @@
 
 module TPTP.Pretty where
 
+-- Haskell imports
+import Data.Char ( isAlphaNum, ord )
+
 -- Agda library imports
 import Agda.Syntax.Abstract ( Name, ModuleName(..), QName(..))
 
@@ -20,8 +23,12 @@ instance PrettyTPTP RoleTPTP where
     prettyTPTP AxiomTPTP      = "axiom"
     prettyTPTP ConjectureTPTP = "conjecture"
 
+instance PrettyTPTP Char where
+    prettyTPTP c | isAlphaNum c = [c]
+                 | otherwise    = show $ ord c
+
 instance PrettyTPTP Name where
-    prettyTPTP name = show name
+    prettyTPTP name = concat $ map prettyTPTP $ show name
 
 instance PrettyTPTP ModuleName where
     prettyTPTP (MName names) = concat $ map prettyTPTP names
