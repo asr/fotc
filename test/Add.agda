@@ -1,27 +1,50 @@
-module Add where
+module test.Add where
 
-infixl 60 _+_
-infix  30 _==_
-
-data ℕ : Set where
-  zero : ℕ
-  succ : ℕ -> ℕ
+infixl 6 _+_
+infix  4 _≡_
 
 postulate
- _==_ : ℕ -> ℕ -> Set
+  D      : Set
+  zero   : D
+  succ   : D → D
 
-_+_ : ℕ -> ℕ -> ℕ
-x + zero   = x
-x + succ y = succ (x + y)
+-- The LTC natural numbers type.
+data N : D → Set where
+  zN : N zero
+  sN : {n : D} → N n → N (succ n)
+
+-- Induction principle for N (elimination rule).
+indN : (P : D → Set) →
+       P zero →
+       ({n : D} → N n → P n → P (succ n)) →
+       {n : D} → N n → P n
+indN P p0 h zN      = p0
+indN P p0 h (sN Nn) = h Nn (indN P p0 h Nn)
+
+-- The identity type.
+data _≡_ (x : D) : D → Set where
+  refl : x ≡ x
 
 postulate
- idLeft+0  : zero + zero == zero
- -- idLeft+IS1 : (x : ℕ) -> zero + x == x -> zero + succ x == succ x
- idLeft+IS2 : (x : ℕ) -> zero + x == x -> succ (zero + x) == succ x
+  _+_    : D → D → D
+  add-x0 : (n : D) → n + zero     ≡ n
+  add-xS : (m n : D) → m + succ n ≡ succ (m + n)
 
-idLeft+ : (x : ℕ) -> zero + x == x
-idLeft+ zero     = idLeft+0
-idLeft+ (succ x) = idLeft+IS2 x (idLeft+ x)
+{-# ATP axiom add-x0 #-}
+{-# ATP axiom add-xS #-}
 
-{-# EXTERNAL Equinox idLeft+0 #-}
-{-# EXTERNAL Equinox idLeft+IS2 #-}
+-- Left identify for addition using the induction principle for N and
+-- calling the ATP for the base case and the induction step.
+addLeftIdentity : {n : D} → N n → zero + n ≡ n
+addLeftIdentity {n} = indN (λ i → P i) P0 iStep
+    where
+      P : D → Set
+      P i = zero + i ≡ i
+
+      postulate
+        P0 : zero + zero ≡ zero
+      {-# ATP prove P0 #-}
+
+      postulate
+        iStep : {i : D} → N i → zero + i ≡ i → zero + (succ i) ≡ succ i
+      {-# ATP prove iStep #-}
