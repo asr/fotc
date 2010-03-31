@@ -54,8 +54,16 @@ footerConjecture =
     "% End ATP pragma conjecture.\n"
 
 addAxiom :: AnnotatedFormula -> FilePath -> IO ()
-addAxiom af@(AF  _ AxiomTPTP _ ) file = appendFile file (prettyTPTP af)
-addAxiom _                       _    = __IMPOSSIBLE__
+addAxiom af@(AF qName AxiomTPTP _ ) file = do
+  appendFile file $ "% The original Agda axiom/hint name was " ++ show qName ++ ".\n"
+  appendFile file (prettyTPTP af)
+addAxiom _ _ = __IMPOSSIBLE__
+
+addConjecture :: AnnotatedFormula -> FilePath -> IO ()
+addConjecture af@(AF qName ConjectureTPTP _ ) file = do
+  appendFile file $ "% The original Agda postulate name was " ++ show qName ++ ".\n"
+  appendFile file (prettyTPTP af)
+addConjecture _ _ = __IMPOSSIBLE__
 
 createAxiomsFile :: [AnnotatedFormula] -> IO ()
 createAxiomsFile afs = do
@@ -65,11 +73,10 @@ createAxiomsFile afs = do
   return ()
 
 createConjectureFile :: (AnnotatedFormula, [AnnotatedFormula]) -> IO ()
-createConjectureFile (af@(AF qName ConjectureTPTP _ ), hints) = do
+createConjectureFile (af@(AF qName _ _ ), hints) = do
   let file = addExtension ("/tmp/" ++ show qName) extTPTP
   _ <- writeFile file headerConjecture
   _ <- mapM_ (flip addAxiom file) hints
-  _ <- appendFile file (prettyTPTP af)
+  _ <- addConjecture af file
   _ <- appendFile file footerConjecture
   return ()
-createConjectureFile _ = __IMPOSSIBLE__
