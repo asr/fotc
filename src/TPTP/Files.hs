@@ -11,7 +11,9 @@ import System.FilePath
 
 -- Agda library imports
 import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
+
 -- Local imports
+import TPTP.Pretty
 import TPTP.Types
 
 #include "../undefined.h"
@@ -52,7 +54,7 @@ footerConjecture =
     "% End ATP pragma conjecture.\n"
 
 addAxiom :: AnnotatedFormula -> FilePath -> IO ()
-addAxiom af@(AF  _ AxiomTPTP _ ) file = appendFile file (show af)
+addAxiom af@(AF  _ AxiomTPTP _ ) file = appendFile file (prettyTPTP af)
 addAxiom _                       _    = __IMPOSSIBLE__
 
 createAxiomsFile :: [AnnotatedFormula] -> IO ()
@@ -67,7 +69,7 @@ createConjectureFile (af@(AF qName ConjectureTPTP _ ), hints) = do
   let file = addExtension ("/tmp/" ++ show qName) extTPTP
   _ <- writeFile file headerConjecture
   _ <- mapM_ (flip addAxiom file) hints
-  _ <- appendFile file (show af)
+  _ <- appendFile file (prettyTPTP af)
   _ <- appendFile file footerConjecture
   return ()
 createConjectureFile _ = __IMPOSSIBLE__

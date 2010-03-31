@@ -57,6 +57,7 @@ import Options ( parseOptions )
 import Reports ( R, reportLn )
 import TPTP.Files ( createAxiomsFile, createConjectureFile )
 import TPTP.Monad
+-- import TPTP.Pretty
 import TPTP.Translation
 import TPTP.Types ( AnnotatedFormula )
 
@@ -98,7 +99,7 @@ axiomsToFOLs i = do
                     (zip (Map.keys axiomsFormulas)
                          (Map.elems axiomsFormulas)))
               initialNames
-  reportLn "axiomsToFOLs" 20 $ "TPTP formulas:\n" ++ (show afs)
+  -- reportLn "axiomsToFOLs" 20 $ "TPTP formulas:\n" ++ prettyTPTP afs
 
   return afs
 
@@ -147,7 +148,7 @@ conjecturesToFOLs i = do
                     (zip (Map.keys conjecturesFormulas)
                          (Map.elems conjecturesFormulas)))
               initialNames
-  reportLn "conjecturesToFOLs" 20 $ "TPTP formulas:\n" ++ (show afs)
+  -- reportLn "conjecturesToFOLs" 20 $ "TPTP formulas:\n" ++ (prettyTPTP afs)
 
   return $ zip afs hintsAFss
 

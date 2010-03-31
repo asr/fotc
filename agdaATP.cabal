@@ -36,6 +36,7 @@ executable agda-atp
                   Reports
                   TPTP.Files
                   TPTP.Monad
+                  TPTP.Pretty
                   TPTP.Translation
                   TPTP.Types
 
