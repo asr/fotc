@@ -65,7 +65,7 @@ import TPTP.Types ( AnnotatedFormula )
 ------------------------------------------------------------------------------
 
 -- We translate the ATP pragma axioms in an interface file to FOL formulas.
-axiomsToFOLs :: Interface -> R (Map PostulateName AnnotatedFormula)
+axiomsToFOLs :: Interface -> R [AnnotatedFormula]
 axiomsToFOLs i = do
 
   opts <- ask
@@ -100,11 +100,7 @@ axiomsToFOLs i = do
               initialNames
   reportLn "axiomsToFOLs" 20 $ "TPTP formulas:\n" ++ (show afs)
 
-  -- The axioms are associated with their TPTP formulas.
-  let axiomsFormulasTPTP :: Map PostulateName AnnotatedFormula
-      axiomsFormulasTPTP = Map.fromList $ zip (Map.keys axiomsFormulas) afs
-
-  return axiomsFormulasTPTP
+  return afs
 
 -- We translate the ATP pragma conjectures and their hints in an
 -- interface file to FOL formulas. For each conjecture we return its
@@ -205,15 +201,14 @@ translation i = do
   ( is :: [Interface] ) <-
       liftIO $ mapM getInterface (map moduleNameToFilePath importedModules)
 
-  ( axiomsAFss :: [Map PostulateName AnnotatedFormula] ) <-
-      mapM axiomsToFOLs (i : is)
+  ( axiomsAFss :: [[AnnotatedFormula]] ) <- mapM axiomsToFOLs (i : is)
 
   -- We translate the ATP pragma conjectures and their associated hints
   -- of current module.
   conjecturesAFs <- conjecturesToFOLs i
 
   -- We create the TPTP files.
-  liftIO $ createAxiomsFile $ Map.unions axiomsAFss
+  liftIO $ createAxiomsFile $ concat axiomsAFss
   liftIO $ mapM_ createConjectureFile conjecturesAFs -- ++ concat hintsAFss
 
 runAgdaATP :: IO ()
