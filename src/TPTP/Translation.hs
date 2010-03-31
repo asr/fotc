@@ -42,8 +42,8 @@ nameTPTP qName = do
     (x : xs) -> return $ (toLower x : xs) ++ "_" ++ partName
 
 postulateToTPTP :: PostulateName -> RoleATP -> Formula -> N AnnotatedFormula
-postulateToTPTP pName role f = do
-  name <- nameTPTP pName
+postulateToTPTP qName role f = do
+  -- name <- nameTPTP pName
 
   let roleTPTP :: RoleTPTP
       roleTPTP = case role of
@@ -51,4 +51,4 @@ postulateToTPTP pName role f = do
                    "prove" -> ConjectureTPTP
                    _       -> __IMPOSSIBLE__
 
-  return $ AF name roleTPTP f
+  return $ AF qName roleTPTP f

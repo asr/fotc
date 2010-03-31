@@ -63,8 +63,8 @@ createAxiomsFile afs = do
   return ()
 
 createConjectureFile :: (AnnotatedFormula, [AnnotatedFormula]) -> IO ()
-createConjectureFile (af@(AF name ConjectureTPTP _ ), hints) = do
-  let file = addExtension ("/tmp/" ++ name) extTPTP
+createConjectureFile (af@(AF qName ConjectureTPTP _ ), hints) = do
+  let file = addExtension ("/tmp/" ++ show qName) extTPTP
   _ <- writeFile file headerConjecture
   _ <- mapM_ (flip addAxiom file) hints
   _ <- appendFile file (show af)

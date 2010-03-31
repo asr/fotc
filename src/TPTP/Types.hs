@@ -5,6 +5,8 @@
 module TPTP.Types where
 
 -- Agda library imports
+import Agda.Syntax.Abstract ( QName )
+
 -- import qualified Agda.Utils.IO.Locale as LocIO
 
 -- Local imports
@@ -22,12 +24,12 @@ instance Show RoleTPTP where
     show ConjectureTPTP = "conjecture"
 
 -- The TPTP annotated formulas
-data AnnotatedFormula = AF String RoleTPTP Formula
+data AnnotatedFormula = AF QName RoleTPTP Formula
 
 instance Show AnnotatedFormula where
-    show (AF name roleTPTP formula) =
+    show (AF qName roleTPTP formula) =
         "fof(" ++
-        name ++ ", " ++
+        show qName ++ ", " ++
         show roleTPTP ++ ", " ++
         showTPTP formula ++
         ")." ++ "\n\n"
