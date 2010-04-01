@@ -7,7 +7,7 @@
 module TPTP.Pretty where
 
 -- Haskell imports
-import Data.Char ( isAlphaNum, ord, toUpper, toLower )
+import Data.Char
 
 -- Agda library imports
 import Agda.Syntax.Abstract ( Name, ModuleName(..), QName(..))
@@ -26,8 +26,12 @@ class PrettyTPTP a where
     prettyTPTP :: a -> TPTP
 
 instance PrettyTPTP Char where
-    prettyTPTP c | isAlphaNum c = [c]
-                 | otherwise    = show $ ord c
+    prettyTPTP c
+        | c == '-' = "_"
+        -- The character is a subscript number (i.e. ₀, ₁, ₂, ...).
+        | ord c `elem` [8320 .. 8329] = [chr ((ord c) - 8272)]
+        | isDigit c || isAsciiUpper c || isAsciiLower c = [c]
+        | otherwise = show $ ord c
 
 ------------------------------------------------------------------------------
 -- Pretty-printer for Agda types.
