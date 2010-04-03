@@ -19,8 +19,17 @@ import Agda.Interaction.Options
     , defaultOptions
     , optInputFile
     )
-import Agda.Syntax.Abstract ( ModuleName, QName )
+import Agda.Syntax.Abstract.Name
+    ( ModuleName
+    , Name(nameBindingSite)
+    , QName(qnameName)
+    )
 import Agda.Syntax.Common ( RoleATP(..))
+import Agda.Syntax.Position
+    ( Interval(iStart)
+    , Position(posLine)
+    , rangeToInterval
+    )
 import Agda.TypeChecking.Monad.Base
     ( axATP
     , conATP
@@ -145,3 +154,10 @@ isHintATP def =
 
 getQNameDefinition :: Interface -> QName -> Maybe Definition
 getQNameDefinition i qName = Map.lookup qName $ sigDefinitions $ iSignature i
+
+-- The line where a QNname is defined.
+qNameLine :: QName -> Int
+qNameLine q =
+    case rangeToInterval $ nameBindingSite $ qnameName q of
+      Nothing -> __IMPOSSIBLE__
+      Just i  -> posLine $ iStart i

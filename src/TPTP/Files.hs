@@ -12,10 +12,15 @@ import Data.Char ( chr, ord )
 import System.FilePath
 
 -- Agda library imports
+import Agda.Syntax.Abstract.Name
+    ( Name(nameBindingSite)
+    , QName(qnameName)
+    )
 import Agda.Syntax.Common ( RoleATP(..) )
 import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
 
 -- Local imports
+import MyAgda.Interface ( qNameLine )
 import TPTP.Pretty
 import TPTP.Types
 
@@ -70,16 +75,23 @@ footerConjecture =
     "%-----------------------------------------------------------------------------\n" ++
     "% End ATP pragma conjecture.\n"
 
+agdaOriginalTerm :: QName -> String
+agdaOriginalTerm qName =
+    "% The original Agda term was\n" ++
+    "% name:\t\t" ++ show qName ++ "\n" ++
+    "% position:\t" ++
+    (show $ nameBindingSite $ qnameName qName) ++ "\n"
+
 addAxiom :: AnnotatedFormula -> FilePath -> IO ()
 addAxiom af@(AF qName AxiomATP _ ) file = do
-  appendFile file $ "% The original Agda axiom/hint name was " ++ show qName ++ ".\n"
-  appendFile file (prettyTPTP af)
+  appendFile file $ agdaOriginalTerm qName
+  appendFile file $ prettyTPTP af
 addAxiom _ _ = __IMPOSSIBLE__
 
 addConjecture :: AnnotatedFormula -> FilePath -> IO ()
 addConjecture af@(AF qName ConjectureATP _ ) file = do
-  appendFile file $ "% The original Agda postulate name was " ++ show qName ++ ".\n"
-  appendFile file (prettyTPTP af)
+  appendFile file $ agdaOriginalTerm qName
+  appendFile file $ prettyTPTP af
 addConjecture _ _ = __IMPOSSIBLE__
 
 createAxiomsAndHintsFile :: [AnnotatedFormula] -> IO ()
@@ -91,7 +103,12 @@ createAxiomsAndHintsFile afs = do
 
 createConjectureFile :: (AnnotatedFormula, [AnnotatedFormula]) -> IO ()
 createConjectureFile (af@(AF qName _ _ ), hints) = do
-  let file = addExtension ("/tmp/" ++ (validFileName $ show qName)) extTPTP
+  -- To avoid clash names with the terms inside a where clause, we
+  -- added the line number where the term was defined to the file
+  -- name.
+  let f = "/tmp/" ++
+          (validFileName $ show qName) ++ "_" ++ (show $ qNameLine qName)
+  let file = addExtension f extTPTP
   _ <- writeFile file headerConjecture
   _ <- mapM_ (flip addAxiom file) hints
   _ <- addConjecture af file

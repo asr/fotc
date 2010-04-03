@@ -23,7 +23,7 @@ import System.Exit
 
 ------------------------------------------------------------------------------
 -- Agda library imports
-import Agda.Syntax.Abstract ( ModuleName, QName(..) )
+import Agda.Syntax.Abstract.Name ( ModuleName, QName(..) )
 import Agda.Syntax.Common ( RoleATP(..) )
 import Agda.Syntax.Internal ( Type )
 
@@ -132,7 +132,7 @@ conjecturesToFOLs i = do
   let conjecturesDefs :: Definitions
       conjecturesDefs = getRoleATP ConjectureATP i
   reportLn "conjecturesToFOLs" 20 $
-               "Conjectures:\n" ++ (show $ Map.keys conjecturesDefs)
+    "Conjectures:\n" ++ (show $ Map.keys conjecturesDefs)
 
   -- We get the types of the conjectures.
   let conjecturesTypes :: Map PostulateName Type
