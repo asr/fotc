@@ -48,7 +48,7 @@ import FOL.Types
 import MyAgda.Interface
     ( getAxiomsATP
     , getImportedModules
-    , getHints
+    , getConjectureHints
     , getInterface
     , getQNameDefinition
     , getConjecturesATP
@@ -138,7 +138,7 @@ conjecturesToFOLs i = do
   -- We translate the hints associated with each ATP pragma conjecture to
   -- TPTP formulas.
   ( hintsAFss :: [[AnnotatedFormula]] ) <-
-      mapM hintsToFOLs $ Map.elems conjecturesDefs
+      mapM conjecturaHintsToFOLs $ Map.elems conjecturesDefs
 
   -- We translate the FOL formula associated with each ATP pragma
   -- conjecture to a TPTP formula.
@@ -180,11 +180,11 @@ hintToFOL hName = do
 
 -- We translate the hints of an ATP pragma conjecture to FOL formulas.
 -- Invariant: The Definition should be an ATP pragma conjecture
-hintsToFOLs :: Definition -> R [AnnotatedFormula]
-hintsToFOLs conjectureDef = do
+conjecturaHintsToFOLs :: Definition -> R [AnnotatedFormula]
+conjecturaHintsToFOLs conjectureDef = do
 
   let hints :: [HintName]
-      hints = getHints conjectureDef
+      hints = getConjectureHints conjectureDef
   reportLn "hintsToFOLs" 20 $ "The hints for the conjecture " ++ show conjectureDef ++
            " are " ++ show hints
 

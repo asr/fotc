@@ -56,8 +56,9 @@ getConjecturesATP :: Interface -> Definitions
 getConjecturesATP i =
     Map.filter isConjectureATP $ sigDefinitions $ iSignature i
 
-getHints :: Definition -> [HintName]
-getHints def =
+-- Invariant: The definition must correspond to an ATP conjecture
+getConjectureHints :: Definition -> [HintName]
+getConjectureHints def =
     case defn of
       Axiom{} -> case axATP defn of
                    Just (ConjectureATP, hints) -> hints
