@@ -1,9 +1,9 @@
-{-# LANGUAGE CPP #-}
-{-# LANGUAGE TypeSynonymInstances #-}
-
 ------------------------------------------------------------------------------
 -- Creation of the TPTP files
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE TypeSynonymInstances #-}
 
 module TPTP.Files where
 

@@ -1,8 +1,10 @@
-{-# LANGUAGE CPP, FlexibleInstances, TypeSynonymInstances #-}
-
 ------------------------------------------------------------------------------
 -- Pretty printer for TPTP
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE TypeSynonymInstances #-}
 
 module TPTP.Pretty where
 

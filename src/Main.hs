@@ -1,4 +1,6 @@
-{-# LANGUAGE CPP, FlexibleInstances, ScopedTypeVariables #-}
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 
 module Main where
 
