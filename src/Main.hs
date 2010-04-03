@@ -131,12 +131,14 @@ conjecturesToFOLs i = do
   -- We get the ATP pragmas conjectures
   let conjecturesDefs :: Definitions
       conjecturesDefs = getRoleATP ConjectureATP i
-  reportLn "conjecturesToFOLs" 20 $ "Conjectures:\n" ++ (show $ Map.keys conjecturesDefs)
+  reportLn "conjecturesToFOLs" 20 $
+               "Conjectures:\n" ++ (show $ Map.keys conjecturesDefs)
 
   -- We get the types of the conjectures.
   let conjecturesTypes :: Map PostulateName Type
       conjecturesTypes = Map.map defType conjecturesDefs
-  reportLn "conjecturesToFOLs" 20 $ "Conjectures types:\n" ++ (show conjecturesTypes)
+  reportLn "conjecturesToFOLs" 20 $
+               "Conjectures types:\n" ++ (show conjecturesTypes)
 
   -- The conjectures types are translated to FOL formulas.
   formulas <- liftIO $
@@ -147,7 +149,8 @@ conjecturesToFOLs i = do
   -- The conjectures are associated with their FOL formulas.
   let conjecturesFormulas :: Map PostulateName Formula
       conjecturesFormulas = Map.fromList $ zip (Map.keys conjecturesTypes) formulas
-  reportLn "conjecturesToFOLs" 20 $ "FOL formulas:\n" ++ (show conjecturesFormulas)
+  reportLn "conjecturesToFOLs" 20 $
+               "FOL formulas:\n" ++ (show conjecturesFormulas)
 
 
   -- We translate the hints associated with each ATP pragma conjecture to
