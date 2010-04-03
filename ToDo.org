@@ -1,7 +1,9 @@
+* TODO Process all the imported modules recursively
+* TODO The correct translation of
+  sN : {n : D} → (Nn : N n) → N (succ n)
 * TODO The translation inside where clauses is incorrect
   (i.e. LTC.Function.Arithmetic.Properties.minus-N)
 * TODO Different terms inside a where clause (i.e. P0 and iStep) generate the same TPTP file
-
 * TODO To prevent non-desirable evaluation
 
 From Peter's email:
@@ -15,5 +17,3 @@ normalizationk, then this won't happen.
 
 See Agda patch: don't inline definitions for COMPILED functions
 
-* DONE To check as Agda represents internally the precedence and
-the associativity of the operators.
