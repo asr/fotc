@@ -1,4 +1,5 @@
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE TypeSynonymInstances #-}
 
 ------------------------------------------------------------------------------
 -- Creation of the TPTP files
@@ -7,6 +8,7 @@
 module TPTP.Files where
 
 -- Haskell imports
+import Data.Char ( chr, ord )
 import System.FilePath
 
 -- Agda library imports
@@ -20,6 +22,20 @@ import TPTP.Types
 #include "../undefined.h"
 
 ------------------------------------------------------------------------------
+
+class ValidFileName a where
+    validFileName :: a -> FilePath
+
+instance ValidFileName Char where
+    validFileName c
+        -- The character is a subscript number (i.e. ₀, ₁, ₂, ...).
+        | ord c `elem` [8320 .. 8329] = [chr ((ord c) - 8272)]
+        | otherwise                   = [c]
+
+-- Requires TypeSynonymInstances
+instance ValidFileName String where
+    validFileName s = concat $ map validFileName s
+
 extTPTP :: String
 extTPTP = ".tptp"
 
@@ -75,7 +91,7 @@ createAxiomsAndHintsFile afs = do
 
 createConjectureFile :: (AnnotatedFormula, [AnnotatedFormula]) -> IO ()
 createConjectureFile (af@(AF qName _ _ ), hints) = do
-  let file = addExtension ("/tmp/" ++ show qName) extTPTP
+  let file = addExtension ("/tmp/" ++ (validFileName $ show qName)) extTPTP
   _ <- writeFile file headerConjecture
   _ <- mapM_ (flip addAxiom file) hints
   _ <- addConjecture af file
