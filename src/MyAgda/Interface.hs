@@ -24,10 +24,11 @@ import Agda.Syntax.Common ( RoleATP(..))
 import Agda.TypeChecking.Monad.Base
     ( axATP
     , conATP
-    , Defn(Axiom, Constructor)
+    , Defn(Axiom, Constructor, Function)
     , Interface(iImportedModules)
     , Definition
     , Definitions
+    , funATP
     , iSignature
     , runTCM
     , Signature(sigDefinitions)
@@ -128,6 +129,11 @@ isHintATP :: Definition -> Bool
 isHintATP def =
     case defn of
       Constructor{} -> case conATP defn of
+                         Just HintATP -> True
+                         Just _       -> __IMPOSSIBLE__
+                         Nothing      -> False
+
+      Function{}    -> case funATP defn of
                          Just HintATP -> True
                          Just _       -> __IMPOSSIBLE__
                          Nothing      -> False
