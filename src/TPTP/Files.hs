@@ -23,8 +23,8 @@ import TPTP.Types
 extTPTP :: String
 extTPTP = ".tptp"
 
-axiomsFile :: FilePath
-axiomsFile = addExtension "/tmp/axioms" extTPTP
+axiomsAndHintsFile :: FilePath
+axiomsAndHintsFile = addExtension "/tmp/axioms" extTPTP
 
 communHeader :: String
 communHeader =
@@ -32,22 +32,22 @@ communHeader =
     "% This file was generated automatically.\n" ++
     "%-----------------------------------------------------------------------------\n\n"
 
-headerAxioms :: String
-headerAxioms =
+headerAxiomsAndHints :: String
+headerAxiomsAndHints =
     communHeader ++
-    "% This file corresponds to the ATP pragmas axioms.\n\n"
+    "% This file corresponds to the ATP axioms and general hints.\n\n"
 
-footerAxioms :: String
-footerAxioms =
+footerAxiomsAndHints :: String
+footerAxiomsAndHints  =
     "%-----------------------------------------------------------------------------\n" ++
-    "% End ATP pragmas axioms.\n"
+    "% End ATP axioms and general hints.\n"
 
 headerConjecture :: String
 headerConjecture =
     communHeader ++
     "% This file corresponds to an ATP pragma conjecture and its hints.\n\n" ++
     "% We include the ATP pragmas axioms file.\n" ++
-    "include('" ++ axiomsFile ++ "').\n\n"
+    "include('" ++ axiomsAndHintsFile ++ "').\n\n"
 
 footerConjecture :: String
 footerConjecture =
@@ -66,11 +66,11 @@ addConjecture af@(AF qName ConjectureATP _ ) file = do
   appendFile file (prettyTPTP af)
 addConjecture _ _ = __IMPOSSIBLE__
 
-createAxiomsFile :: [AnnotatedFormula] -> IO ()
-createAxiomsFile afs = do
-  _ <- writeFile axiomsFile headerAxioms
-  _ <- mapM_ (flip addAxiom axiomsFile) afs
-  _ <- appendFile axiomsFile footerAxioms
+createAxiomsAndHintsFile :: [AnnotatedFormula] -> IO ()
+createAxiomsAndHintsFile afs = do
+  _ <- writeFile axiomsAndHintsFile headerAxiomsAndHints
+  _ <- mapM_ (flip addAxiom axiomsAndHintsFile) afs
+  _ <- appendFile axiomsAndHintsFile footerAxiomsAndHints
   return ()
 
 createConjectureFile :: (AnnotatedFormula, [AnnotatedFormula]) -> IO ()

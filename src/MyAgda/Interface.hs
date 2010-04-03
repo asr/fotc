@@ -23,7 +23,8 @@ import Agda.Syntax.Abstract ( ModuleName, QName )
 import Agda.Syntax.Common ( RoleATP(..))
 import Agda.TypeChecking.Monad.Base
     ( axATP
-    , Defn(Axiom)
+    , conATP
+    , Defn(Axiom, Constructor)
     , Interface(iImportedModules)
     , Definition
     , Definitions
@@ -48,13 +49,16 @@ import Common.Types ( HintName )
 
 ------------------------------------------------------------------------------
 
-getAxiomsATP :: Interface -> Definitions
-getAxiomsATP i =
-    Map.filter isAxiomATP $ sigDefinitions $ iSignature i
+getRoleATP :: RoleATP -> Interface -> Definitions
+getRoleATP role i = Map.filter (isRole role) $ sigDefinitions $ iSignature i
+    where isRole :: RoleATP -> Definition -> Bool
+          isRole AxiomATP      = isAxiomATP
+          isRole ConjectureATP = isConjectureATP
+          isRole HintATP       = isHintATP
 
-getConjecturesATP :: Interface -> Definitions
-getConjecturesATP i =
-    Map.filter isConjectureATP $ sigDefinitions $ iSignature i
+getHintsATP :: Interface -> Definitions
+getHintsATP i =
+    Map.filter isAxiomATP $ sigDefinitions $ iSignature i
 
 -- Invariant: The definition must correspond to an ATP conjecture
 getConjectureHints :: Definition -> [HintName]
@@ -116,6 +120,19 @@ isConjectureATP def =
                    Nothing                 -> False
 
       _       -> False
+
+    where defn :: Defn
+          defn = theDef def
+
+isHintATP :: Definition -> Bool
+isHintATP def =
+    case defn of
+      Constructor{} -> case conATP defn of
+                         Just HintATP -> True
+                         Just _       -> __IMPOSSIBLE__
+                         Nothing      -> False
+
+      _             -> False
 
     where defn :: Defn
           defn = theDef def

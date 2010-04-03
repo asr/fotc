@@ -46,17 +46,16 @@ import FOL.Monad ( initialVars )
 import FOL.Translation
 import FOL.Types
 import MyAgda.Interface
-    ( getAxiomsATP
-    , getImportedModules
+    ( getImportedModules
     , getConjectureHints
     , getInterface
     , getQNameDefinition
-    , getConjecturesATP
+    , getRoleATP
     )
 import MyAgda.Syntax.Abstract.Name ( moduleNameToFilePath )
 import Options ( parseOptions )
 import Reports ( R, reportLn )
-import TPTP.Files ( createAxiomsFile, createConjectureFile )
+import TPTP.Files ( createAxiomsAndHintsFile, createConjectureFile )
 import TPTP.Monad
 -- import TPTP.Pretty
 import TPTP.Translation
@@ -66,41 +65,55 @@ import TPTP.Types ( AnnotatedFormula )
 
 ------------------------------------------------------------------------------
 
--- We translate the ATP pragma axioms in an interface file to FOL formulas.
-axiomsToFOLs :: Interface -> R [AnnotatedFormula]
-axiomsToFOLs i = do
+-- We translate the ATP axioms and general hints in an
+-- interface file to FOL formulas.
+axiomsAndHintsToFOLs :: Interface -> R [AnnotatedFormula]
+axiomsAndHintsToFOLs i = do
 
   opts <- ask
 
-  -- We get the ATP pragmas axioms
+  -- We get the ATP axioms
   let axiomsDefs :: Definitions
-      axiomsDefs = getAxiomsATP i
-  reportLn "axiomsToFOLs" 20 $ "Axioms:\n" ++ (show $ Map.keys axiomsDefs)
+      axiomsDefs = getRoleATP AxiomATP i
+  reportLn "axiomsAndHintsToFOLs" 20 $ "Axioms:\n" ++ (show $ Map.keys axiomsDefs)
 
-  -- We get the types of the axioms.
-  let axiomsTypes :: Map PostulateName Type
-      axiomsTypes = Map.map defType axiomsDefs
-  reportLn "axiomsToFOLs" 20 $ "Axioms types:\n" ++ (show axiomsTypes)
+  -- We get the ATP general hints
+  let hintsDefs :: Definitions
+      hintsDefs = getRoleATP HintATP i
+  reportLn "axiomsAndHintsToFOLs" 20 $ "Hints:\n" ++ (show $ Map.keys hintsDefs)
 
-  -- The axioms types are translated to FOL formulas.
+  -- Todo: What happen when are duplicates keys?
+  let axiomsAndHintsDefs :: Definitions
+      axiomsAndHintsDefs = Map.union axiomsDefs hintsDefs
+
+  -- We get the types of the axioms/hints.
+  let axiomsAndHintsTypes :: Map QName Type
+      axiomsAndHintsTypes = Map.map defType axiomsAndHintsDefs
+  reportLn "axiomsAndHintsToFOLs" 20 $ "Axioms/hints types:\n" ++
+               (show axiomsAndHintsTypes)
+
+  -- The axioms/hints types are translated to FOL formulas.
   formulas <- liftIO $
               mapM (\ty -> runReaderT
                              (runReaderT (typeToFormula ty) initialVars) opts)
-                   (Map.elems axiomsTypes)
+                   (Map.elems axiomsAndHintsTypes)
 
-  -- The axioms are associated with their FOL formulas.
-  let axiomsFormulas :: Map PostulateName Formula
-      axiomsFormulas = Map.fromList $ zip (Map.keys axiomsTypes) formulas
-  reportLn "axiomsToFOLs" 20 $ "FOL formulas:\n" ++ (show axiomsFormulas)
+  -- The axioms/hints are associated with their FOL formulas.
+  let axiomsAndHintsFormulas :: Map QName Formula
+      axiomsAndHintsFormulas = Map.fromList $
+                               zip (Map.keys axiomsAndHintsTypes) formulas
+  reportLn "axiomsAndHintsToFOLs" 20 $ "FOL formulas:\n" ++
+               (show axiomsAndHintsFormulas)
 
+  -- The FOL formulas are translated to TPTP formulas
   let afs :: [AnnotatedFormula]
       afs = evalState
-              (mapM (\(aName, formula) ->
-                       (postulateToTPTP aName AxiomATP formula))
-                    (zip (Map.keys axiomsFormulas)
-                         (Map.elems axiomsFormulas)))
+              (mapM (\(ahName, formula) ->
+                       (postulateToTPTP ahName AxiomATP formula))
+                    (zip (Map.keys axiomsAndHintsFormulas)
+                         (Map.elems axiomsAndHintsFormulas)))
               initialNames
-  -- reportLn "axiomsToFOLs" 20 $ "TPTP formulas:\n" ++ prettyTPTP afs
+  -- reportLn "axiomsAndHintsToFOLs" 20 $ "TPTP formulas:\n" ++ prettyTPTP afs
 
   return afs
 
@@ -115,7 +128,7 @@ conjecturesToFOLs i = do
 
   -- We get the ATP pragmas conjectures
   let conjecturesDefs :: Definitions
-      conjecturesDefs = getConjecturesATP i
+      conjecturesDefs = getRoleATP ConjectureATP i
   reportLn "conjecturesToFOLs" 20 $ "Conjectures:\n" ++ (show $ Map.keys conjecturesDefs)
 
   -- We get the types of the conjectures.
@@ -154,8 +167,8 @@ conjecturesToFOLs i = do
   return $ zip afs hintsAFss
 
 -- We translate an hint to a FOL formula.
-hintToFOL :: HintName -> R AnnotatedFormula
-hintToFOL hName = do
+conjectureHintToFOL :: HintName -> R AnnotatedFormula
+conjectureHintToFOL hName = do
 
   opts <- ask
 
@@ -178,7 +191,7 @@ hintToFOL hName = do
 
   return af
 
--- We translate the hints of an ATP pragma conjecture to FOL formulas.
+-- We translate the hints of an ATP conjecture to FOL formulas.
 -- Invariant: The Definition should be an ATP pragma conjecture
 conjecturaHintsToFOLs :: Definition -> R [AnnotatedFormula]
 conjecturaHintsToFOLs conjectureDef = do
@@ -188,29 +201,30 @@ conjecturaHintsToFOLs conjectureDef = do
   reportLn "hintsToFOLs" 20 $ "The hints for the conjecture " ++ show conjectureDef ++
            " are " ++ show hints
 
-  ( afs :: [AnnotatedFormula] ) <- mapM hintToFOL hints
+  ( afs :: [AnnotatedFormula] ) <- mapM conjectureHintToFOL hints
 
   return afs
 
 translation :: Interface -> R ()
 translation i = do
 
-  -- We translate the ATP pragma axioms of current module and of all
-  -- the imported modules.
   let importedModules :: [ModuleName]
       importedModules = getImportedModules i
 
   ( is :: [Interface] ) <-
       liftIO $ mapM getInterface (map moduleNameToFilePath importedModules)
 
-  ( axiomsAFss :: [[AnnotatedFormula]] ) <- mapM axiomsToFOLs (i : is)
+  -- We translate the ATP axioms and general hints of current module
+  -- and of all the imported modules.
+  ( axiomsAndHintsAFss :: [[AnnotatedFormula]] ) <-
+      mapM axiomsAndHintsToFOLs (i : is)
 
   -- We translate the ATP pragma conjectures and their associated hints
   -- of current module.
   conjecturesAFs <- conjecturesToFOLs i
 
   -- We create the TPTP files.
-  liftIO $ createAxiomsFile $ concat axiomsAFss
+  liftIO $ createAxiomsAndHintsFile $ concat axiomsAndHintsAFss
   liftIO $ mapM_ createConjectureFile conjecturesAFs -- ++ concat hintsAFss
 
 runAgdaATP :: IO ()
