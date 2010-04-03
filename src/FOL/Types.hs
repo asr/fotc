@@ -2,9 +2,7 @@
 -- FOL types
 ------------------------------------------------------------------------------
 
-{-# LANGUAGE StandaloneDeriving
-           , FlexibleInstances
- #-}
+{-# LANGUAGE FlexibleInstances #-}
 
 module FOL.Types where
 
@@ -34,7 +32,7 @@ instance Show Formula where
     show (Not f)               = " Not " ++ show f
     show (Implies f1 f2)       = " Implies " ++ show f1 ++ show f2
     show (Equiv f1 f2)         = " Equiv " ++ show f1 ++ show f2
-    show (ForAll var f)        = " ForAll " ++ var ++ (show $ f (VarFOL var))
-    show (Exists var f)        = " Exists " ++ var ++ (show $ f (VarFOL var))
+    show (ForAll var f)        = " ForAll " ++ var ++ show (f $ VarFOL var)
+    show (Exists var f)        = " Exists " ++ var ++ show (f $ VarFOL var)
     show TRUE                  = " TRUE "
     show FALSE                 = " FALSE "

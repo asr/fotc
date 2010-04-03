@@ -50,7 +50,7 @@ options =
   ]
 
 parseOptions :: [String] -> String -> IO (Options, [String])
-parseOptions argv _prgName = do
+parseOptions argv _prgName =
   case getOpt Permute options argv of
     ([],   [], [])      -> error "parseOptions: not implemented"
     (o, names, [])      -> return (foldl (flip id) defaultOptions o, names)

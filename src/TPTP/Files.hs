@@ -34,7 +34,7 @@ class ValidFileName a where
 instance ValidFileName Char where
     validFileName c
         -- The character is a subscript number (i.e. ₀, ₁, ₂, ...).
-        | ord c `elem` [8320 .. 8329] = [chr ((ord c) - 8272)]
+        | ord c `elem` [8320 .. 8329] = [chr (ord c - 8272)]
         | otherwise                   = [c]
 
 -- Requires TypeSynonymInstances
@@ -80,7 +80,7 @@ agdaOriginalTerm qName =
     "% The original Agda term was\n" ++
     "% name:\t\t" ++ show qName ++ "\n" ++
     "% position:\t" ++
-    (show $ nameBindingSite $ qnameName qName) ++ "\n"
+    show (nameBindingSite $ qnameName qName) ++ "\n"
 
 addAxiom :: AnnotatedFormula -> FilePath -> IO ()
 addAxiom af@(AF qName AxiomATP _ ) file = do
@@ -107,7 +107,7 @@ createConjectureFile (af@(AF qName _ _ ), hints) = do
   -- added the line number where the term was defined to the file
   -- name.
   let f = "/tmp/" ++
-          (validFileName $ show qName) ++ "_" ++ (show $ qNameLine qName)
+          validFileName (show qName) ++ "_" ++ show (qNameLine qName)
   let file = addExtension f extTPTP
   _ <- writeFile file headerConjecture
   _ <- mapM_ (flip addAxiom file) hints

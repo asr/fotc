@@ -35,7 +35,7 @@ instance PrettyTPTP Char where
     prettyTPTP c
         | c == '-' = "_"
         -- The character is a subscript number (i.e. ₀, ₁, ₂, ...).
-        | ord c `elem` [8320 .. 8329] = [chr ((ord c) - 8272)]
+        | ord c `elem` [8320 .. 8329] = [chr (ord c - 8272)]
         | isDigit c || isAsciiUpper c || isAsciiLower c = [c]
         | otherwise = show $ ord c
 
@@ -46,7 +46,7 @@ instance PrettyTPTP NameId where
     prettyTPTP n = replace "@" "_" $ show n
 
 instance PrettyTPTP QName where
-    prettyTPTP (QName _ name) = prettyTPTP $ nameId $ name
+    prettyTPTP (QName _ name) = prettyTPTP $ nameId name
 
 ------------------------------------------------------------------------------
 -- Pretty-printer for FOL formulas
@@ -85,7 +85,7 @@ instance PrettyTPTP Formula where
     prettyTPTP (Or f1 f2) =
         "( " ++ prettyTPTP f1 ++ " | " ++ prettyTPTP f2 ++ " )"
 
-    prettyTPTP (Not f) = "~" ++ prettyTPTP f
+    prettyTPTP (Not f) = '~' : prettyTPTP f
 
     prettyTPTP (Implies f1 f2) =
         "( " ++ prettyTPTP f1 ++ " => " ++ prettyTPTP f2 ++ " )"
@@ -94,13 +94,13 @@ instance PrettyTPTP Formula where
         "( " ++ prettyTPTP f1 ++ " <=> " ++ prettyTPTP f2 ++ " )"
 
     prettyTPTP (ForAll var f) =
-        "( ! [" ++ (map toUpper var) ++ "] : " ++
-                    "( " ++ (prettyTPTP $ f (VarFOL var)) ++ " )" ++
+        "( ! [" ++ map toUpper var ++ "] : " ++
+                    "( " ++ prettyTPTP (f (VarFOL var)) ++ " )" ++
         " )"
 
     prettyTPTP (Exists var f) =
-        "( ! [" ++ (map toUpper var) ++ "? : " ++
-                    "( " ++ (prettyTPTP $ f (VarFOL var)) ++ " )" ++
+        "( ! [" ++ map toUpper var ++ "? : " ++
+                    "( " ++ prettyTPTP (f (VarFOL var)) ++ " )" ++
         " )"
 
     prettyTPTP TRUE  = "$true "

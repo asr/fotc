@@ -133,7 +133,7 @@ termToFormula term@(Def (QName _ name) args) = do
                 | isCNameConstFOLTwoHoles folEquiv -> binConst Equiv a1 a2
 
                 | isCNameConstFOLTwoHoles folEquals
-                    -> do lift $ reportLn "termToFormula" 20 $ "Processing equals"
+                    -> do lift $ reportLn "termToFormula" 20 "Processing equals"
                           t1 <- argTermToTermFOL a1
                           t2 <- argTermToTermFOL a2
                           return $ equal [t1, t2]

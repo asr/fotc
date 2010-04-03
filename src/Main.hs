@@ -76,12 +76,13 @@ axiomsAndHintsToFOLs i = do
   -- We get the ATP axioms
   let axiomsDefs :: Definitions
       axiomsDefs = getRoleATP AxiomATP i
-  reportLn "axiomsAndHintsToFOLs" 20 $ "Axioms:\n" ++ (show $ Map.keys axiomsDefs)
+  reportLn "axiomsAndHintsToFOLs" 20 $
+               "Axioms:\n" ++ show (Map.keys axiomsDefs)
 
   -- We get the ATP general hints
   let hintsDefs :: Definitions
       hintsDefs = getRoleATP HintATP i
-  reportLn "axiomsAndHintsToFOLs" 20 $ "Hints:\n" ++ (show $ Map.keys hintsDefs)
+  reportLn "axiomsAndHintsToFOLs" 20 $ "Hints:\n" ++ show (Map.keys hintsDefs)
 
   -- Todo: What happen when are duplicates keys?
   let axiomsAndHintsDefs :: Definitions
@@ -90,8 +91,8 @@ axiomsAndHintsToFOLs i = do
   -- We get the types of the axioms/hints.
   let axiomsAndHintsTypes :: Map QName Type
       axiomsAndHintsTypes = Map.map defType axiomsAndHintsDefs
-  reportLn "axiomsAndHintsToFOLs" 20 $ "Axioms/hints types:\n" ++
-               (show axiomsAndHintsTypes)
+  reportLn "axiomsAndHintsToFOLs" 20 $
+               "Axioms/hints types:\n" ++ show axiomsAndHintsTypes
 
   -- The axioms/hints types are translated to FOL formulas.
   formulas <- liftIO $
@@ -103,8 +104,8 @@ axiomsAndHintsToFOLs i = do
   let axiomsAndHintsFormulas :: Map QName Formula
       axiomsAndHintsFormulas = Map.fromList $
                                zip (Map.keys axiomsAndHintsTypes) formulas
-  reportLn "axiomsAndHintsToFOLs" 20 $ "FOL formulas:\n" ++
-               (show axiomsAndHintsFormulas)
+  reportLn "axiomsAndHintsToFOLs" 20 $
+               "FOL formulas:\n" ++ show axiomsAndHintsFormulas
 
   -- The FOL formulas are translated to TPTP formulas
   let afs :: [AnnotatedFormula]
@@ -131,13 +132,13 @@ conjecturesToFOLs i = do
   let conjecturesDefs :: Definitions
       conjecturesDefs = getRoleATP ConjectureATP i
   reportLn "conjecturesToFOLs" 20 $
-    "Conjectures:\n" ++ (show $ Map.keys conjecturesDefs)
+    "Conjectures:\n" ++ show (Map.keys conjecturesDefs)
 
   -- We get the types of the conjectures.
   let conjecturesTypes :: Map PostulateName Type
       conjecturesTypes = Map.map defType conjecturesDefs
   reportLn "conjecturesToFOLs" 20 $
-               "Conjectures types:\n" ++ (show conjecturesTypes)
+               "Conjectures types:\n" ++ show conjecturesTypes
 
   -- The conjectures types are translated to FOL formulas.
   formulas <- liftIO $
@@ -149,7 +150,7 @@ conjecturesToFOLs i = do
   let conjecturesFormulas :: Map PostulateName Formula
       conjecturesFormulas = Map.fromList $ zip (Map.keys conjecturesTypes) formulas
   reportLn "conjecturesToFOLs" 20 $
-               "FOL formulas:\n" ++ (show conjecturesFormulas)
+               "FOL formulas:\n" ++ show conjecturesFormulas
 
 
   -- We translate the hints associated with each ATP pragma conjecture to
@@ -216,7 +217,7 @@ translation i = do
       importedModules = iImportedModules i
 
   ( is :: [Interface] ) <-
-      liftIO $ mapM getInterface (map moduleNameToFilePath importedModules)
+      liftIO $ mapM (getInterface . moduleNameToFilePath) importedModules
 
   -- We translate the ATP axioms and general hints of current module
   -- and of all the imported modules.
