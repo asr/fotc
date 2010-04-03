@@ -1,4 +1,4 @@
-module test.Add where
+module Test.Add where
 
 infixl 6 _+_
 infix  4 _≡_
