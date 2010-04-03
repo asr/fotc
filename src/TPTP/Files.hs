@@ -10,6 +10,7 @@ module TPTP.Files where
 import System.FilePath
 
 -- Agda library imports
+import Agda.Syntax.Common ( RoleATP(..) )
 import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
 
 -- Local imports
@@ -54,13 +55,13 @@ footerConjecture =
     "% End ATP pragma conjecture.\n"
 
 addAxiom :: AnnotatedFormula -> FilePath -> IO ()
-addAxiom af@(AF qName AxiomTPTP _ ) file = do
+addAxiom af@(AF qName AxiomATP _ ) file = do
   appendFile file $ "% The original Agda axiom/hint name was " ++ show qName ++ ".\n"
   appendFile file (prettyTPTP af)
 addAxiom _ _ = __IMPOSSIBLE__
 
 addConjecture :: AnnotatedFormula -> FilePath -> IO ()
-addConjecture af@(AF qName ConjectureTPTP _ ) file = do
+addConjecture af@(AF qName ConjectureATP _ ) file = do
   appendFile file $ "% The original Agda postulate name was " ++ show qName ++ ".\n"
   appendFile file (prettyTPTP af)
 addConjecture _ _ = __IMPOSSIBLE__

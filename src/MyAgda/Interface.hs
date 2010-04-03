@@ -20,6 +20,7 @@ import Agda.Interaction.Options
     , optInputFile
     )
 import Agda.Syntax.Abstract ( ModuleName, QName )
+import Agda.Syntax.Common ( RoleATP(..))
 import Agda.TypeChecking.Monad.Base
     ( axATP
     , Defn(Axiom)
@@ -55,14 +56,13 @@ getConjecturesATP :: Interface -> Definitions
 getConjecturesATP i =
     Map.filter isConjectureATP $ sigDefinitions $ iSignature i
 
-
 getHints :: Definition -> [HintName]
 getHints def =
     case defn of
       Axiom{} -> case axATP defn of
-                   Just ("prove", hints) -> hints
-                   Just _                -> __IMPOSSIBLE__
-                   Nothing               -> __IMPOSSIBLE__
+                   Just (ConjectureATP, hints) -> hints
+                   Just _                      -> __IMPOSSIBLE__
+                   Nothing                     -> __IMPOSSIBLE__
 
       _       -> __IMPOSSIBLE__
 
@@ -96,9 +96,9 @@ isAxiomATP :: Definition -> Bool
 isAxiomATP def =
     case defn of
       Axiom{} -> case axATP defn of
-                   Just ("axiom", _) -> True
-                   Just _            -> False
-                   Nothing           -> False
+                   Just (AxiomATP, _) -> True
+                   Just _             -> False
+                   Nothing            -> False
 
       _       -> False
 
@@ -110,9 +110,9 @@ isConjectureATP :: Definition -> Bool
 isConjectureATP def =
     case defn of
       Axiom{} -> case axATP defn of
-                   Just ("prove", _) -> True
-                   Just _            -> False
-                   Nothing           -> False
+                   Just (ConjectureATP, _) -> True
+                   Just _                  -> False
+                   Nothing                 -> False
 
       _       -> False
 

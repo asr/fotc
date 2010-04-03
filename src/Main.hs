@@ -22,6 +22,7 @@ import System.Exit
 ------------------------------------------------------------------------------
 -- Agda library imports
 import Agda.Syntax.Abstract ( ModuleName, QName(..) )
+import Agda.Syntax.Common ( RoleATP(..) )
 import Agda.Syntax.Internal ( Type )
 
 import Agda.TypeChecking.Monad.Base
@@ -95,7 +96,7 @@ axiomsToFOLs i = do
   let afs :: [AnnotatedFormula]
       afs = evalState
               (mapM (\(aName, formula) ->
-                       (postulateToTPTP aName "axiom" formula))
+                       (postulateToTPTP aName AxiomATP formula))
                     (zip (Map.keys axiomsFormulas)
                          (Map.elems axiomsFormulas)))
               initialNames
@@ -144,7 +145,7 @@ conjecturesToFOLs i = do
   let afs :: [AnnotatedFormula]
       afs = evalState
               (mapM (\(tName, formula) ->
-                       (postulateToTPTP tName "prove" formula))
+                       (postulateToTPTP tName ConjectureATP formula))
                     (zip (Map.keys conjecturesFormulas)
                          (Map.elems conjecturesFormulas)))
               initialNames
@@ -173,7 +174,7 @@ hintToFOL hName = do
                         (runReaderT (typeToFormula hType) initialVars) opts
 
   let af :: AnnotatedFormula
-      af = evalState (postulateToTPTP hName "axiom" formula) initialNames
+      af = evalState (postulateToTPTP hName AxiomATP formula) initialNames
 
   return af
 

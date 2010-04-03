@@ -10,12 +10,13 @@ module TPTP.Pretty where
 import Data.Char
 
 -- Agda library imports
+import Agda.Syntax.Common ( RoleATP(..) )
 import Agda.Syntax.Abstract ( Name, ModuleName(..), QName(..))
 import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
 
 -- Local import
 import FOL.Types
-import TPTP.Types ( AnnotatedFormula(..), RoleTPTP(..) )
+import TPTP.Types ( AnnotatedFormula(..) )
 #include "../undefined.h"
 
 ------------------------------------------------------------------------------
@@ -106,14 +107,15 @@ instance PrettyTPTP Formula where
 ------------------------------------------------------------------------------
 -- Pretty-printer for annotated formulas
 
-instance PrettyTPTP RoleTPTP where
-    prettyTPTP AxiomTPTP      = "axiom"
-    prettyTPTP ConjectureTPTP = "conjecture"
+instance PrettyTPTP RoleATP where
+    prettyTPTP AxiomATP      = "axiom"
+    prettyTPTP ConjectureATP = "conjecture"
+    prettyTPTP HintATP       = "axiom"
 
 instance PrettyTPTP AnnotatedFormula where
-    prettyTPTP (AF qName roleTPTP formula) =
+    prettyTPTP (AF qName roleATP formula) =
         "fof(" ++
         prettyTPTP qName ++ ", " ++
-        prettyTPTP roleTPTP ++ ", " ++
+        prettyTPTP roleATP ++ ", " ++
         prettyTPTP formula ++
         ")." ++ "\n\n"
