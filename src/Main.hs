@@ -31,7 +31,7 @@ import Agda.TypeChecking.Monad.Base
     ( Definition
     , Definitions
     , defType
-    , Interface
+    , Interface(iImportedModules)
     )
 
 import Agda.Utils.Impossible ( catchImpossible
@@ -48,8 +48,7 @@ import FOL.Monad ( initialVars )
 import FOL.Translation
 import FOL.Types
 import MyAgda.Interface
-    ( getImportedModules
-    , getConjectureHints
+    ( getConjectureHints
     , getInterface
     , getQNameDefinition
     , getRoleATP
@@ -214,7 +213,7 @@ translation :: Interface -> R ()
 translation i = do
 
   let importedModules :: [ModuleName]
-      importedModules = getImportedModules i
+      importedModules = iImportedModules i
 
   ( is :: [Interface] ) <-
       liftIO $ mapM getInterface (map moduleNameToFilePath importedModules)

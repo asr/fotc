@@ -20,8 +20,7 @@ import Agda.Interaction.Options
     , optInputFile
     )
 import Agda.Syntax.Abstract.Name
-    ( ModuleName
-    , Name(nameBindingSite)
+    ( Name(nameBindingSite)
     , QName(qnameName)
     )
 import Agda.Syntax.Common ( RoleATP(..))
@@ -34,7 +33,7 @@ import Agda.TypeChecking.Monad.Base
     ( axATP
     , conATP
     , Defn(Axiom, Constructor, Function)
-    , Interface(iImportedModules)
+    , Interface
     , Definition
     , Definitions
     , funATP
@@ -84,8 +83,8 @@ getConjectureHints def =
     where defn :: Defn
           defn = theDef def
 
-getImportedModules :: Interface -> [ModuleName]
-getImportedModules i = iImportedModules i
+-- getImportedModules :: Interface -> [ModuleName]
+-- getImportedModules i = iImportedModules i
 
 getInterface :: FilePath -> IO Interface
 getInterface file = do
