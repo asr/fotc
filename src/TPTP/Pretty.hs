@@ -28,6 +28,16 @@ type TPTP = String
 class PrettyTPTP a where
     prettyTPTP :: a -> TPTP
 
+changeCaseFirstSymbol :: TPTP -> (Char -> Char) -> TPTP
+changeCaseFirstSymbol []       _ = __IMPOSSIBLE__
+changeCaseFirstSymbol (x : xs) f = f x : xs
+
+changeToUpper :: TPTP -> TPTP
+changeToUpper name = changeCaseFirstSymbol (prettyTPTP name) toUpper
+
+changeToLower :: TPTP -> TPTP
+changeToLower name = changeCaseFirstSymbol (prettyTPTP name) toLower
+
 ------------------------------------------------------------------------------
 -- Pretty-printer for Haskell types
 
@@ -60,10 +70,11 @@ instance PrettyTPTP String where
     prettyTPTP s = concat $ map prettyTPTP s
 
 instance PrettyTPTP TermFOL where
-    prettyTPTP (FunFOL name [])    = prettyTPTP name
-    prettyTPTP (FunFOL name terms) = prettyTPTP name ++ "(" ++ prettyTPTP terms ++ ")"
-    prettyTPTP (VarFOL name)       = map toUpper $ prettyTPTP name
-    prettyTPTP (ConstFOL name)     = map toLower $ prettyTPTP name
+    prettyTPTP (FunFOL name [])    = changeToLower name
+    prettyTPTP (FunFOL name terms) = changeToLower name ++
+                                     "(" ++ prettyTPTP terms ++ ")"
+    prettyTPTP (VarFOL name)       = changeToUpper name
+    prettyTPTP (ConstFOL name)     = changeToLower name
 
 instance PrettyTPTP [TermFOL] where
     prettyTPTP [] = []
@@ -79,7 +90,7 @@ instance PrettyTPTP Formula where
     prettyTPTP (Predicate "kEqual" _) = __IMPOSSIBLE__
 
     prettyTPTP (Predicate name terms) =
-        prettyTPTP (map toLower name) ++ "(" ++ prettyTPTP terms ++ ")"
+        changeToLower name ++ "(" ++ prettyTPTP terms ++ ")"
 
     prettyTPTP (And f1 f2) =
         "( " ++ prettyTPTP f1 ++ " & " ++ prettyTPTP f2 ++ " )"
@@ -95,12 +106,12 @@ instance PrettyTPTP Formula where
         "( " ++ prettyTPTP f1 ++ " <=> " ++ prettyTPTP f2 ++ " )"
 
     prettyTPTP (ForAll var f) =
-        "( ! [" ++ map toUpper (prettyTPTP var) ++ "] : " ++
+        "( ! [" ++ changeToUpper var ++ "] : " ++
                     "( " ++ prettyTPTP (f (VarFOL var)) ++ " )" ++
         " )"
 
     prettyTPTP (Exists var f) =
-        "( ! [" ++ map toUpper (prettyTPTP var) ++ "? : " ++
+        "( ! [" ++ changeToUpper var ++ "? : " ++
                     "( " ++ prettyTPTP (f (VarFOL var)) ++ " )" ++
         " )"
 

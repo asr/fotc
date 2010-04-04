@@ -7,6 +7,7 @@ TAGS : $(haskell_files)
 test : Test/Add.agda \
 	Test/Hints.agda \
 	Test/ImplicitArguments.agda \
+	Test/Names.agda \
 	Test/Where.agda \
 	Test/RemoveQuantificationOverProofs.agda
 
