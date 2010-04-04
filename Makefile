@@ -4,15 +4,14 @@ agda_files = $(shell find src/ -name '*.agda')
 TAGS : $(haskell_files)
 	hasktags -e $(haskell_files)
 
-test : $(agda_files)
-	@make clean
-	agda Test/Add.agda
-	agda-atp Test/Add.agda
-	@find  /tmp/ -maxdepth 1 -name 'Test*.tptp' -execdir equinox '{}' ';'
-	@make clean
-	agda Test/Where.agda
-	agda-atp Test/Where.agda
-	@find  /tmp/ -maxdepth 1 -name 'Test*.tptp' -execdir equinox '{}' ';'
+test : Test/Add.agda Test/Where.agda Test/Hints.agda
+	@for file in $^; \
+	 do \
+		make clean; \
+		agda $$file; \
+		agda-atp $$file; \
+		find  /tmp/ -maxdepth 1 -name 'Test*.tptp' -execdir equinox '{}' ';';\
+	done
 
 clean :
 	@rm -f Test/*.agdai
