@@ -34,6 +34,7 @@ class PrettyTPTP a where
 instance PrettyTPTP Char where
     prettyTPTP c
         | c == '-' = "_"
+        | c == '.' = ""
         -- The character is a subscript number (i.e. ₀, ₁, ₂, ...).
         | ord c `elem` [8320 .. 8329] = [chr (ord c - 8272)]
         | isDigit c || isAsciiUpper c || isAsciiLower c = [c]
@@ -61,8 +62,8 @@ instance PrettyTPTP String where
 instance PrettyTPTP TermFOL where
     prettyTPTP (FunFOL name [])    = prettyTPTP name
     prettyTPTP (FunFOL name terms) = prettyTPTP name ++ "(" ++ prettyTPTP terms ++ ")"
-    prettyTPTP (VarFOL name)       = map toUpper name
-    prettyTPTP (ConstFOL name)     = map toLower name
+    prettyTPTP (VarFOL name)       = map toUpper $ prettyTPTP name
+    prettyTPTP (ConstFOL name)     = map toLower $ prettyTPTP name
 
 instance PrettyTPTP [TermFOL] where
     prettyTPTP [] = []
@@ -94,12 +95,12 @@ instance PrettyTPTP Formula where
         "( " ++ prettyTPTP f1 ++ " <=> " ++ prettyTPTP f2 ++ " )"
 
     prettyTPTP (ForAll var f) =
-        "( ! [" ++ map toUpper var ++ "] : " ++
+        "( ! [" ++ map toUpper (prettyTPTP var) ++ "] : " ++
                     "( " ++ prettyTPTP (f (VarFOL var)) ++ " )" ++
         " )"
 
     prettyTPTP (Exists var f) =
-        "( ! [" ++ map toUpper var ++ "? : " ++
+        "( ! [" ++ map toUpper (prettyTPTP var) ++ "? : " ++
                     "( " ++ prettyTPTP (f (VarFOL var)) ++ " )" ++
         " )"
 

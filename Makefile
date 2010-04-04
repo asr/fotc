@@ -4,8 +4,12 @@ agda_files = $(shell find src/ -name '*.agda')
 TAGS : $(haskell_files)
 	hasktags -e $(haskell_files)
 
-test : Test/Add.agda Test/Where.agda Test/Hints.agda \
+test : Test/Add.agda \
+	Test/Hints.agda \
+	Test/ImplicitArguments.agda \
+	Test/Where.agda \
 	Test/RemoveQuantificationOverProofs.agda
+
 	@for file in $^; \
 	 do \
 		make clean; \
