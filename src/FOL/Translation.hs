@@ -13,19 +13,33 @@ import Control.Monad.Trans.Reader ( ask, local )
 -- import Control.Monad.State
 
 -- Agda library imports
--- import Agda.Syntax.Abstract.Name as A
+import Agda.Syntax.Abstract.Name ( nameConcrete, QName(QName) )
 import Agda.Syntax.Common
+    ( Arg(Arg)
+    , argHiding
+    , Hiding(Hidden, NotHidden)
+    , unArg
+    )
 import qualified Agda.Syntax.Concrete.Name as C
+    ( Name(Name, NoName)
+    , NamePart(Id, Hole)
+    )
 import Agda.Syntax.Internal
-import Agda.Syntax.Literal
+    ( Abs(Abs)
+    , Args
+    , Sort(Type)
+    , Term(Con, Def, Fun, Lam, Lit, Pi, Var)
+    , Type(El)
+    )
+import Agda.Syntax.Literal ( Literal(LitLevel) )
 import Agda.Syntax.Position ( noRange )
 import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 
 -- Local imports
 import FOL.Constants
-import FOL.Monad
+import FOL.Monad ( T )
 import FOL.Primitives ( app, equal )
-import FOL.Types
+import FOL.Types ( Formula(..), TermFOL(..))
 import Reports ( reportLn )
 
 #include "../undefined.h"
