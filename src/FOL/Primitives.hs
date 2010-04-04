@@ -1,3 +1,7 @@
+------------------------------------------------------------------------------
+-- FOL names hard-coded in the translation from Agda types to FOL formulas
+------------------------------------------------------------------------------
+
 -- Adapted from agdaLight (Plugins.FOL.Primitive).
 
 module FOL.Primitives where
