@@ -134,8 +134,8 @@ termToFormula term@(Def (QName _ name) args) = do
                       -- (e.g. the LTC natural numbers N).
                       -- ToDo: To test if 'termToTermFOL (unArg a)' works with
                       -- implicit arguments.
-                      arg <- argTermToTermFOL a
-                      return $ Predicate (show cName) [arg]
+                      t <- argTermToTermFOL a
+                      return $ Predicate (show cName) [t]
 
             (a1:a2:[])
                 | isCNameConstFOLTwoHoles folAnd     -> binConst And a1 a2
@@ -155,9 +155,9 @@ termToFormula term@(Def (QName _ name) args) = do
                 | otherwise -> do
                       lift $ reportLn "termToFormula" 20
                                "Processing a definition with two arguments"
-                      arg1 <- argTermToTermFOL a1
-                      arg2 <- argTermToTermFOL a2
-                      return $ Predicate (show cName) [arg1, arg2]
+                      t1 <- argTermToTermFOL a1
+                      t2 <- argTermToTermFOL a2
+                      return $ Predicate (show cName) [t1, t2]
 
             _ ->
                -- In this case it seems we would use a similar code
