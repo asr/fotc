@@ -138,13 +138,13 @@ termToFormula term@(Def (QName _ name) args) = do
                       return $ Predicate (show cName) [arg]
 
             (a1:a2:[])
-                | isCNameConstFOLTwoHoles folAnd -> binConst And a1 a2
+                | isCNameConstFOLTwoHoles folAnd     -> binConst And a1 a2
 
                 | isCNameConstFOLTwoHoles folImplies -> binConst Implies a1 a2
 
-                | isCNameConstFOLTwoHoles folOr -> binConst Or a1 a2
+                | isCNameConstFOLTwoHoles folOr      -> binConst Or a1 a2
 
-                | isCNameConstFOLTwoHoles folEquiv -> binConst Equiv a1 a2
+                | isCNameConstFOLTwoHoles folEquiv   -> binConst Equiv a1 a2
 
                 | isCNameConstFOLTwoHoles folEquals
                     -> do lift $ reportLn "termToFormula" 20 "Processing equals"
