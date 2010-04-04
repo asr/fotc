@@ -193,15 +193,30 @@ termToFormula term@(Pi tyArg (Abs strName tyAbs)) = do
   -- The de Bruijn indexes are assigned from "right to left", e.g.
   -- in '(A B C : Set) -> ...', A is 2, B is 1, and C is 0,
   -- so we need create the list in the same order.
-  f <- local (\vars -> strName : vars) $ typeToFormula tyAbs
+  f2 <- local (\vars -> strName : vars) $ typeToFormula tyAbs
   case unArg tyArg of
-     -- The varible bound has type below Set (e.g. D : Set).
-    (El (Type (Lit (LitLevel _ 0))) _) -> return $ ForAll strName (\_  -> f)
+     -- The varible bound has type below Set and this type doesn't
+     -- have indices (e.g. D : Set).
+    El (Type (Lit (LitLevel _ 0))) (Def _ []) -> do
+                     return $ ForAll strName (\_ -> f2)
 
+    -- The varible bound has type below Set and this type has have
+    -- indices (e.g. N n : Set). In this case, we erase the
+    -- quantification and try it as a function type.
+    -- This solve the problem the translation of
+    -- sN : {n : D} → (Nn : N n) → N (succ n)
+    El (Type (Lit (LitLevel _ 0))) (Def _ _) -> do
+       f1 <- argTypeToFormula tyArg
+       return $ Implies f1 f2
+
+    El (Type (Lit (LitLevel _ 0))) _ -> __IMPOSSIBLE__
+
+    -- ToDo: Check it
     -- The variable bound has type Set, i.e. a propositional constant.
-    (El (Type (Lit (LitLevel _ 1))) _) -> return f
+    El (Type (Lit (LitLevel _ 1))) _ ->
+        return $ ForAll strName (\_ -> f2)
 
-    _                                  -> __IMPOSSIBLE__
+    _                                -> __IMPOSSIBLE__
 
 termToFormula term@(Var n _) = do
   lift $ reportLn "termToFormula" 10 $ "Processing term Var: " ++ show term

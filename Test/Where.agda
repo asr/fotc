@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-
-1. Two conjectures with the *same name* inside two different where
+Two conjectures with the *same name* inside two different where
 clauses should be generate two different TPTP files.
 -}
 
