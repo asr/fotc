@@ -153,8 +153,9 @@ termToFormula term@(Def (QName _ name) args) = do
                           return $ equal [t1, t2]
 
                 | otherwise -> do
-                      lift $ reportLn "termToFormula" 20
-                               "Processing a definition with two arguments"
+                      lift $ reportLn "termToFormula" 20 $
+                               "Processing a definition with two arguments which " ++
+                               "is not a FOL constant"
                       t1 <- argTermToTermFOL a1
                       t2 <- argTermToTermFOL a2
                       return $ Predicate (show cName) [t1, t2]
