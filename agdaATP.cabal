@@ -39,6 +39,7 @@ executable agda-atp
                   TPTP.Pretty
                   TPTP.Translation
                   TPTP.Types
+                  Utils
                   Version
 
   ghc-options: -Wall

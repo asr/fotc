@@ -51,11 +51,12 @@ import MyAgda.Interface
     , getRoleATP
     )
 import MyAgda.Syntax.Abstract.Name ( moduleNameToFilePath )
-import Options ( Options(optVersion), parseOptions )
+import Options ( Options(optHelp, optVersion), parseOptions, usage )
 import Reports ( R, reportLn )
 import TPTP.Files ( createAxiomsAndHintsFile, createConjectureFile )
 import TPTP.Translation ( toAF )
 import TPTP.Types ( AnnotatedFormula )
+import Utils ( bye )
 import Version ( version )
 
 #include "undefined.h"
@@ -230,9 +231,9 @@ runAgdaATP = do
   -- Reading the command line options.
   (opts, names) <- parseOptions argv prgName
 
-  when (optVersion opts) $ do
-         putStrLn $ prgName ++ " version " ++ version ++ "\n"
-         exitSuccess
+  when (optVersion opts) $ bye $ prgName ++ " version " ++ version ++ "\n"
+
+  when (optHelp opts) $ bye $ usage prgName
 
   -- Gettting the interface.
   i <- getInterface $ head names
