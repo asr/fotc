@@ -39,7 +39,7 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 import FOL.Constants
 import FOL.Monad ( T )
 import FOL.Primitives ( app, equal )
-import FOL.Types ( Formula(..), TermFOL(..))
+import FOL.Types ( FormulaFOL(..), TermFOL(..))
 import Reports ( reportLn )
 
 #include "../undefined.h"
@@ -57,18 +57,18 @@ varInType :: AgdaType -> [String]
 varInType (El (Type _ ) term) = varInTerm term
 varInType _                   = __IMPOSSIBLE__
 
-typeToFormula :: AgdaType -> T Formula
+typeToFormula :: AgdaType -> T FormulaFOL
 typeToFormula ty@(El (Type _ ) term) =
     do lift $ reportLn "typeToFormula" 10 $ "Processing type ty:\n" ++ show ty
        termToFormula term
 typeToFormula _                   = __IMPOSSIBLE__
 
-argTypeToFormula :: Arg AgdaType -> T Formula
+argTypeToFormula :: Arg AgdaType -> T FormulaFOL
 argTypeToFormula Arg {argHiding = NotHidden, unArg = ty} = typeToFormula ty
 argTypeToFormula Arg {argHiding = Hidden} =
     error "argTypeToFormula: not implemented"
 
-argTermToFormula :: Arg AgdaTerm -> T Formula
+argTermToFormula :: Arg AgdaTerm -> T FormulaFOL
 argTermToFormula Arg {argHiding = NotHidden, unArg = term} = termToFormula term
 argTermToFormula Arg {argHiding = Hidden} =
     error "argTermToFormula: not implemented"
@@ -78,15 +78,15 @@ argTermToTermFOL Arg {argHiding = NotHidden, unArg = term} = termToTermFOL term
 argTermToTermFOL Arg {argHiding = Hidden} =
     error "argTermToTermFOL: not implemented"
 
-binConst :: (Formula -> Formula -> Formula)
+binConst :: (FormulaFOL -> FormulaFOL -> FormulaFOL)
             -> Arg AgdaTerm
             -> Arg AgdaTerm
-            -> T Formula
+            -> T FormulaFOL
 binConst op arg1 arg2 = do f1 <- argTermToFormula arg1
                            f2 <- argTermToFormula arg2
                            return $ op f1 f2
 
-termToFormula :: AgdaTerm -> T Formula
+termToFormula :: AgdaTerm -> T FormulaFOL
 termToFormula term@(Def (QName _ name) args) = do
     lift $ reportLn "termToFormula" 10 $ "Processing term Def:\n" ++ show term
 

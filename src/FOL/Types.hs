@@ -14,18 +14,18 @@ data TermFOL = FunFOL String [TermFOL]
              | ConstFOL String -- AgdaLight hasn't them.
                deriving ( Show )
 
-data Formula = Predicate String [TermFOL]
-                | And Formula Formula
-                | Or Formula Formula
-                | Not Formula
-                | Implies Formula Formula
-                | Equiv Formula Formula
-                | ForAll String (TermFOL -> Formula)
-                | Exists String (TermFOL -> Formula)
+data FormulaFOL = Predicate String [TermFOL]
+                | And FormulaFOL FormulaFOL
+                | Or FormulaFOL FormulaFOL
+                | Not FormulaFOL
+                | Implies FormulaFOL FormulaFOL
+                | Equiv FormulaFOL FormulaFOL
+                | ForAll String (TermFOL -> FormulaFOL)
+                | Exists String (TermFOL -> FormulaFOL)
                 | TRUE
                 | FALSE
 
-instance Show Formula where
+instance Show FormulaFOL where
     show (Predicate name terms) = " Predicate " ++ name ++ " " ++ show terms
     show (And f1 f2)           = " And " ++ show f1 ++ show f2
     show (Or f1 f2)            = " Or " ++ show f1 ++ show f2

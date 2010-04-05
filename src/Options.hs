@@ -35,7 +35,7 @@ verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
     where (k, n) :: ([String], Int) = parseVerbose str
           parseVerbose :: String -> ([String], Int)
           parseVerbose s = case wordsBy (`elem` ":.") s of
-            []  -> error -- ToDo: We should be use 'msgError'.
+            []  -> error
                      "argument to verbose should be on the form x.y.z:N or N"
             ss  -> let m :: Int
                        m = read $ last ss

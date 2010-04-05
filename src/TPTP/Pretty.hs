@@ -81,7 +81,7 @@ instance PrettyTPTP [TermFOL] where
     prettyTPTP (a : []) = prettyTPTP a
     prettyTPTP (a : as) = prettyTPTP a ++ "," ++ prettyTPTP as
 
-instance PrettyTPTP Formula where
+instance PrettyTPTP FormulaFOL where
     -- We translate the hard-code FOL predicate kEqual as the
     -- predefined equality in the ATP.
     prettyTPTP (Predicate "kEqual" [t1, t2] ) =

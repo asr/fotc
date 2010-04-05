@@ -9,7 +9,6 @@ module Main where
 import Control.Monad ( when )
 import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Reader ( ask, ReaderT, runReaderT )
-import Control.Monad.Trans.State ( evalState )
 
 -- import Control.Monad.Trans
 import Data.Map ( Map )
@@ -44,7 +43,7 @@ import Agda.Utils.Impossible ( catchImpossible
 import Common.Types ( HintName, PostulateName )
 import FOL.Monad ( initialVars )
 import FOL.Translation ( typeToFormula )
-import FOL.Types ( Formula )
+import FOL.Types ( FormulaFOL )
 import MyAgda.Interface
     ( getConjectureHints
     , getInterface
@@ -55,9 +54,7 @@ import MyAgda.Syntax.Abstract.Name ( moduleNameToFilePath )
 import Options ( Options(optVersion), parseOptions )
 import Reports ( R, reportLn )
 import TPTP.Files ( createAxiomsAndHintsFile, createConjectureFile )
-import TPTP.Monad ( initialNames )
--- import TPTP.Pretty
-import TPTP.Translation ( postulateToTPTP )
+import TPTP.Translation ( toAF )
 import TPTP.Types ( AnnotatedFormula )
 import Version ( version )
 
@@ -100,20 +97,17 @@ axiomsAndHintsToFOLs i = do
                    (Map.elems axiomsAndHintsTypes)
 
   -- The axioms/hints are associated with their FOL formulas.
-  let axiomsAndHintsFormulas :: Map QName Formula
+  let axiomsAndHintsFormulas :: Map QName FormulaFOL
       axiomsAndHintsFormulas = Map.fromList $
                                zip (Map.keys axiomsAndHintsTypes) formulas
   reportLn "axiomsAndHintsToFOLs" 20 $
                "FOL formulas:\n" ++ show axiomsAndHintsFormulas
 
-  -- The FOL formulas are translated to TPTP formulas
+  -- The FOL formulas are translated to annotated formulas
   let afs :: [AnnotatedFormula]
-      afs = evalState
-              (mapM (\(ahName, formula) ->
-                       (postulateToTPTP ahName AxiomATP formula))
-                    (zip (Map.keys axiomsAndHintsFormulas)
-                         (Map.elems axiomsAndHintsFormulas)))
-              initialNames
+      afs = map (\(ahName, formula) -> (toAF ahName AxiomATP formula))
+                (zip (Map.keys axiomsAndHintsFormulas)
+                     (Map.elems axiomsAndHintsFormulas))
   -- reportLn "axiomsAndHintsToFOLs" 20 $ "TPTP formulas:\n" ++ prettyTPTP afs
 
   return afs
@@ -146,7 +140,7 @@ conjecturesToFOLs i = do
                    (Map.elems conjecturesTypes)
 
   -- The conjectures are associated with their FOL formulas.
-  let conjecturesFormulas :: Map PostulateName Formula
+  let conjecturesFormulas :: Map PostulateName FormulaFOL
       conjecturesFormulas = Map.fromList $ zip (Map.keys conjecturesTypes) formulas
   reportLn "conjecturesToFOLs" 20 $
                "FOL formulas:\n" ++ show conjecturesFormulas
@@ -158,14 +152,11 @@ conjecturesToFOLs i = do
       mapM conjecturaHintsToFOLs $ Map.elems conjecturesDefs
 
   -- We translate the FOL formula associated with each ATP pragma
-  -- conjecture to a TPTP formula.
+  -- conjecture to a annotated formula.
   let afs :: [AnnotatedFormula]
-      afs = evalState
-              (mapM (\(tName, formula) ->
-                       (postulateToTPTP tName ConjectureATP formula))
-                    (zip (Map.keys conjecturesFormulas)
-                         (Map.elems conjecturesFormulas)))
-              initialNames
+      afs = map (\(tName, formula) -> (toAF tName ConjectureATP formula))
+                (zip (Map.keys conjecturesFormulas)
+                     (Map.elems conjecturesFormulas))
   -- reportLn "conjecturesToFOLs" 20 $ "TPTP formulas:\n" ++ (prettyTPTP afs)
 
   return $ zip afs hintsAFss
@@ -191,7 +182,7 @@ conjectureHintToFOL hName = do
                         (runReaderT (typeToFormula hType) initialVars) opts
 
   let af :: AnnotatedFormula
-      af = evalState (postulateToTPTP hName AxiomATP formula) initialNames
+      af = toAF hName AxiomATP formula
 
   return af
 

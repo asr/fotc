@@ -10,11 +10,11 @@ import Agda.Syntax.Common ( RoleATP )
 -- import qualified Agda.Utils.IO.Locale as LocIO
 
 -- Local imports
-import FOL.Types
+import FOL.Types ( FormulaFOL )
 
 ------------------------------------------------------------------------------
 
-type NameTPTP = String
-
--- The TPTP annotated formulas
-data AnnotatedFormula = AF QName RoleATP Formula
+-- The TPTP annotated formulas.
+-- N.B. The annotated are not in TPTP syntax. We get this syntax via
+-- a pretty-printer.
+data AnnotatedFormula = AF QName RoleATP FormulaFOL

@@ -2,44 +2,17 @@
 -- Translation of Agda ATP pragmas to TPTP formulas
 ------------------------------------------------------------------------------
 
-{-# LANGUAGE CPP #-}
-
 module TPTP.Translation where
-
--- Haskell imports
-import Data.Char ( isAlphaNum, toLower )
 
 -- Agda library imports
 import Agda.Syntax.Common ( RoleATP )
 import Agda.Syntax.Internal ( QName )
-import Agda.Utils.Impossible ( Impossible(..)
-                             , throwImpossible
-                             )
 
 -- Local imports
-import Common.Types
-import FOL.Types
-import Names
-import TPTP.Monad
-import TPTP.Types
-
-#include "../undefined.h"
+import FOL.Types ( FormulaFOL )
+import TPTP.Types ( AnnotatedFormula(AF) )
 
 ------------------------------------------------------------------------------
 
--- A QName (see Agda.Syntax.Abstract.Name) a qualify name
--- (e.g. A.B.x). A valid TPTP name is compose of letters, numbers, and
--- underscores, begging with a lower case letter or with a digit. We
--- removed all non-valid TPTP symbols, we convert the first letter to
--- uppercase, and we add a fresh part to avoid name clashing.
-
-nameTPTP :: QName -> N String
-nameTPTP qName = do
-  partName <- freshName
-
-  case filter isAlphaNum (show qName) of
-    []       -> __IMPOSSIBLE__
-    (x : xs) -> return $ (toLower x : xs) ++ "_" ++ partName
-
-postulateToTPTP :: PostulateName -> RoleATP -> Formula -> N AnnotatedFormula
-postulateToTPTP qName role f = return $ AF qName role f
+toAF :: QName -> RoleATP -> FormulaFOL -> AnnotatedFormula
+toAF qName role f = AF qName role f

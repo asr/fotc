@@ -6,7 +6,7 @@
 
 module FOL.Primitives where
 
-import FOL.Types ( TermFOL(FunFOL), Formula(Predicate) )
+import FOL.Types ( TermFOL(FunFOL), FormulaFOL(Predicate) )
 
 -- This is just an arbitrary constant which we hope doesn't
 -- conflict with user constants.
@@ -18,7 +18,7 @@ kApp :: String
 kApp = "kApp"
 
 -- This will refer to the predefined equality in the ATP.
-equal :: [TermFOL] -> Formula
+equal :: [TermFOL] -> FormulaFOL
 equal   = Predicate kEqual
 
 kEqual :: String

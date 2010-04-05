@@ -30,12 +30,12 @@ executable agda-atp
                   FOL.Types
                   MyAgda.Interface
                   MyAgda.Syntax.Abstract.Name
-                  Names
+                  -- Names
                   Options
                   Paths_agdaATP
                   Reports
                   TPTP.Files
-                  TPTP.Monad
+                  -- TPTP.Monad
                   TPTP.Pretty
                   TPTP.Translation
                   TPTP.Types
