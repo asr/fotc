@@ -255,7 +255,7 @@ termToTermFOL term@(Con (QName _ name) args)  = do
       cName = nameConcrete name
 
   case cName of
-    C.NoName{}              -> __IMPOSSIBLE__
+    C.NoName{} -> __IMPOSSIBLE__
 
     C.Name _ [C.Id strName] ->
         case args of
