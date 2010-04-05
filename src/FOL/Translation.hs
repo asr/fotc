@@ -98,18 +98,18 @@ termToFormula term@(Def (QName _ name) args) = do
 
       C.Name{} ->
           case args of
-            [] | isCNameConstFOL folTrue  -> return TRUE
+            [] | isCNameConstFOL trueFOL  -> return TRUE
 
-               | isCNameConstFOL folFalse -> return FALSE
+               | isCNameConstFOL falseFOL -> return FALSE
 
                | otherwise                -> __IMPOSSIBLE__
 
-            (a:[]) | isCNameConstFOL folNot ->
+            (a:[]) | isCNameConstFOL notFOL ->
                          do f <- argTermToFormula a
                             return $ Not f
 
-                   | (isCNameConstFOL folExists ||
-                      isCNameConstFOL folForAll)  ->
+                   | (isCNameConstFOL existsFOL ||
+                      isCNameConstFOL forAllFOL)  ->
                      -- Note: AgdaLight (Plugins.FOL.Translation) binds
                      -- a new variable to handle the quantifiers. We
                      -- didn't do it because we took the variable name
@@ -125,7 +125,7 @@ termToFormula term@(Def (QName _ name) args) = do
 
                           fm <- termToFormula p
 
-                          if isCNameConstFOL folExists
+                          if isCNameConstFOL existsFOL
                              then return $ Exists x $ \_ -> fm
                              else return $ ForAll x $ \_ -> fm
 
@@ -138,15 +138,15 @@ termToFormula term@(Def (QName _ name) args) = do
                       return $ Predicate (show cName) [t]
 
             (a1:a2:[])
-                | isCNameConstFOLTwoHoles folAnd     -> binConst And a1 a2
+                | isCNameConstFOLTwoHoles andFOL     -> binConst And a1 a2
 
-                | isCNameConstFOLTwoHoles folImplies -> binConst Implies a1 a2
+                | isCNameConstFOLTwoHoles impliesFOL -> binConst Implies a1 a2
 
-                | isCNameConstFOLTwoHoles folOr      -> binConst Or a1 a2
+                | isCNameConstFOLTwoHoles orFOL      -> binConst Or a1 a2
 
-                | isCNameConstFOLTwoHoles folEquiv   -> binConst Equiv a1 a2
+                | isCNameConstFOLTwoHoles equivFOL   -> binConst Equiv a1 a2
 
-                | isCNameConstFOLTwoHoles folEquals
+                | isCNameConstFOLTwoHoles equalsFOL
                     -> do lift $ reportLn "termToFormula" 20 "Processing equals"
                           t1 <- argTermToTermFOL a1
                           t2 <- argTermToTermFOL a2
@@ -167,16 +167,16 @@ termToFormula term@(Def (QName _ name) args) = do
 
           where
             isCNameConstFOL :: String -> Bool
-            isCNameConstFOL folConst =
+            isCNameConstFOL constFOL =
                 -- The equality on the data type C.Name is defined
                 -- to ignore ranges, so we use noRange.
-                cName == C.Name noRange [C.Id folConst]
+                cName == C.Name noRange [C.Id constFOL]
 
             isCNameConstFOLTwoHoles :: String -> Bool
-            isCNameConstFOLTwoHoles folConst =
+            isCNameConstFOLTwoHoles constFOL =
                 -- The operators are represented by a list with Hole's.
                 -- See the documentation for C.Name.
-                cName == C.Name noRange [C.Hole, C.Id folConst, C.Hole]
+                cName == C.Name noRange [C.Hole, C.Id constFOL, C.Hole]
 
 termToFormula term@(Fun tyArg ty) = do
   lift $ reportLn "termToFormula" 10 $ "Processing term Fun:\n" ++ show term
@@ -235,8 +235,8 @@ termToFormula _ = error "termToFormula: not implemented"
 -- Translate 'fn x1 ... xn' to 'kApp (... kApp (kApp(fn, x1), x2), ..., xn)'.
 appArgs :: String -> Args -> T TermFOL
 appArgs fn args = do
-  folTerms <- mapM argTermToTermFOL args
-  return $ foldl (\x y -> app [x,y]) (FunFOL fn []) folTerms
+  termsFOL <- mapM argTermToTermFOL args
+  return $ foldl (\x y -> app [x,y]) (FunFOL fn []) termsFOL
 
 -- Translate an Agda term to an FOL term
 termToTermFOL :: AgdaTerm -> T TermFOL

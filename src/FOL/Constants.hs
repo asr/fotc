@@ -6,19 +6,19 @@ module FOL.Constants where
 
 -- FOL constant names -----------------------------------------------------
 
-folTrue, folFalse, folNot, folAnd, folImplies, folOr, folEquiv :: String
-folForAll, folExists, folEquals :: String
+trueFOL, falseFOL, notFOL, andFOL, impliesFOL, orFOL, equivFOL :: String
+forAllFOL, existsFOL, equalsFOL :: String
 
-folTrue    = "True"
-folFalse   = "False"
-folNot     = "Not"
-folAnd     = "And"
-folImplies = "Implies"
-folOr      = "Or"
-folEquiv   = "Equiv"
-folExists  = "Exists"
-folForAll  = "ForAll"
-folEquals  = "≡"
+trueFOL    = "True"
+falseFOL   = "False"
+notFOL     = "Not"
+andFOL     = "And"
+impliesFOL = "Implies"
+orFOL      = "Or"
+equivFOL   = "Equiv"
+existsFOL  = "Exists"
+forAllFOL  = "ForAll"
+equalsFOL  = "≡"
 
 {-
 folConstants = [  fol_And, fol_Or, fol_Implies, fol_Equiv
