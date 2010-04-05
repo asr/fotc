@@ -37,6 +37,14 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 
 -- Local imports
 import FOL.Constants
+    ( trueFOL
+    , falseFOL
+    , notFOL
+    , andFOL
+    , orFOL
+    , existsFOL
+    , equalsFOL
+    )
 import FOL.Monad ( T )
 import FOL.Primitives ( app, equal )
 import FOL.Types ( FormulaFOL(..), TermFOL(..))
@@ -108,8 +116,12 @@ termToFormula term@(Def (QName _ name) args) = do
                          do f <- argTermToFormula a
                             return $ Not f
 
-                   | (isCNameConstFOL existsFOL ||
-                      isCNameConstFOL forAllFOL)  ->
+                   | isCNameConstFOL existsFOL  ->
+                     -- N.B. We should use the following guard if we use the
+                     -- the FOL constant forAllFOL
+                     -- ( isCNameConstFOL existsFOL ||
+                     --   isCNameConstFOL forAllFOL )
+
                      -- Note: AgdaLight (Plugins.FOL.Translation) binds
                      -- a new variable to handle the quantifiers. We
                      -- didn't do it because we took the variable name
@@ -125,9 +137,13 @@ termToFormula term@(Def (QName _ name) args) = do
 
                           fm <- termToFormula p
 
-                          if isCNameConstFOL existsFOL
-                             then return $ Exists x $ \_ -> fm
-                             else return $ ForAll x $ \_ -> fm
+                          -- N.B. We should use the following test if
+                          -- we use the the FOL constant forAllFOL
+                          -- if isCNameConstFOL existsFOL
+                          --    then return $ Exists x $ \_ -> fm
+                          --    else return $ ForAll x $ \_ -> fm
+
+                          return $ Exists x $ \_ -> fm
 
                    | otherwise -> do
                       -- In this guard we translate the inductive predicates
@@ -140,11 +156,13 @@ termToFormula term@(Def (QName _ name) args) = do
             (a1:a2:[])
                 | isCNameConstFOLTwoHoles andFOL     -> binConst And a1 a2
 
-                | isCNameConstFOLTwoHoles impliesFOL -> binConst Implies a1 a2
+                -- We are not using the FOL constants impliesFOL
+                -- isCNameConstFOLTwoHoles impliesFOL -> binConst Implies a1 a2
 
                 | isCNameConstFOLTwoHoles orFOL      -> binConst Or a1 a2
 
-                | isCNameConstFOLTwoHoles equivFOL   -> binConst Equiv a1 a2
+                -- We are not using the FOL constants equivFOL
+                -- isCNameConstFOLTwoHoles equivFOL   -> binConst Equiv a1 a2
 
                 | isCNameConstFOLTwoHoles equalsFOL
                     -> do lift $ reportLn "termToFormula" 20 "Processing equals"

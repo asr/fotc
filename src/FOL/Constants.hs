@@ -6,19 +6,21 @@ module FOL.Constants where
 
 -- FOL constant names -----------------------------------------------------
 
-trueFOL, falseFOL, notFOL, andFOL, impliesFOL, orFOL, equivFOL :: String
-forAllFOL, existsFOL, equalsFOL :: String
-
+trueFOL, falseFOL, notFOL, andFOL, orFOL, existsFOL, equalsFOL :: String
 trueFOL    = "True"
 falseFOL   = "False"
 notFOL     = "Not"
 andFOL     = "And"
-impliesFOL = "Implies"
 orFOL      = "Or"
-equivFOL   = "Equiv"
 existsFOL  = "Exists"
-forAllFOL  = "ForAll"
 equalsFOL  = "≡"
+
+-- These FOL constanst are not used because we use the Agda versions.
+
+-- impliesFOL, equivFOL , forAllFOL :: String
+-- impliesFOL = "Implies"
+-- equivFOL   = "Equiv"
+-- forAllFOL  = "ForAll"
 
 {-
 folConstants = [  fol_And, fol_Or, fol_Implies, fol_Equiv
