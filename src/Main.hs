@@ -43,8 +43,8 @@ import Agda.Utils.Impossible ( catchImpossible
 -- import FOL.Pretty
 import Common.Types ( HintName, PostulateName )
 import FOL.Monad ( initialVars )
-import FOL.Translation
-import FOL.Types
+import FOL.Translation ( typeToFormula )
+import FOL.Types ( Formula )
 import MyAgda.Interface
     ( getConjectureHints
     , getInterface
@@ -55,9 +55,9 @@ import MyAgda.Syntax.Abstract.Name ( moduleNameToFilePath )
 import Options ( Options(optVersion), parseOptions )
 import Reports ( R, reportLn )
 import TPTP.Files ( createAxiomsAndHintsFile, createConjectureFile )
-import TPTP.Monad
+import TPTP.Monad ( initialNames )
 -- import TPTP.Pretty
-import TPTP.Translation
+import TPTP.Translation ( postulateToTPTP )
 import TPTP.Types ( AnnotatedFormula )
 import Version ( version )
 
