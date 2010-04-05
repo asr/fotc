@@ -7,6 +7,7 @@ TAGS : $(haskell_files)
 test : Test/Succeed/Add.agda \
 	Test/Succeed/Hints.agda \
 	Test/Succeed/ImplicitArguments.agda \
+	Test/Succeed/LogicalConstants.agda \
 	Test/Succeed/Names.agda \
 	Test/Succeed/Where.agda \
 	Test/Succeed/RemoveQuantificationOverProofs.agda
