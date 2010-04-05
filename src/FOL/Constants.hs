@@ -10,7 +10,7 @@ trueFOL, falseFOL, notFOL, andFOL, orFOL, existsFOL, equalsFOL :: String
 trueFOL    = "True"
 falseFOL   = "False"
 notFOL     = "Not"
-andFOL     = "And"
+andFOL     = "∧"
 orFOL      = "Or"
 existsFOL  = "Exists"
 equalsFOL  = "≡"
