@@ -16,8 +16,6 @@ import Data.Map ( Map )
 import qualified Data.Map as Map
 -- import Data.Maybe
 
-import Prelude hiding ( print, putStr, putStrLn )
-
 import System.Environment
 import System.Exit
 
@@ -38,7 +36,7 @@ import Agda.Utils.Impossible ( catchImpossible
                              , Impossible(..)
                              , throwImpossible
                              )
-import qualified Agda.Utils.IO.Locale as LocIO
+-- import qualified Agda.Utils.IO.Locale as LocIO
 
 ------------------------------------------------------------------------------
 -- Local imports
@@ -248,5 +246,5 @@ runAgdaATP = do
 
 main :: IO ()
 main = catchImpossible runAgdaATP $
-         \e -> do LocIO.putStr $ show e
+         \e -> do putStr $ show e
                   exitFailure
