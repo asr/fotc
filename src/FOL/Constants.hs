@@ -7,13 +7,13 @@ module FOL.Constants where
 -- FOL constant names -----------------------------------------------------
 
 trueFOL, falseFOL, notFOL, andFOL, orFOL, existsFOL, equalsFOL :: String
-trueFOL    = "True"
-falseFOL   = "False"
-notFOL     = "Not"
-andFOL     = "∧"
-orFOL      = "Or"
-existsFOL  = "Exists"
-equalsFOL  = "≡"
+trueFOL   = "True"
+falseFOL  = "False"
+notFOL    = "Not"
+andFOL    = "∧"
+orFOL     = "Or"
+existsFOL = "Exists"
+equalsFOL = "≡"
 
 -- These FOL constanst are not used because we use the Agda versions.
 
