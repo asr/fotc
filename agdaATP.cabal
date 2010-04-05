@@ -1,5 +1,5 @@
 name:               agdaATP
-version:            0.0.1
+version:            0.9
 build-type:         Simple
 cabal-version:      >= 1.2 && < 2
 author:             Ana Bove, Peter Dybjer, and Andrés Sicard-Ramírez
