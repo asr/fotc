@@ -32,12 +32,14 @@ executable agda-atp
                   MyAgda.Syntax.Abstract.Name
                   Names
                   Options
+                  Paths_agdaATP
                   Reports
                   TPTP.Files
                   TPTP.Monad
                   TPTP.Pretty
                   TPTP.Translation
                   TPTP.Types
+                  Version
 
   ghc-options: -Wall
                -fwarn-incomplete-record-updates

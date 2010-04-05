@@ -14,17 +14,20 @@ import Agda.Utils.Trie ( Trie )
 import qualified Agda.Utils.Trie as Trie
 
 data Options = MkOptions
-    { -- optVersion   :: Bool
+    { optVersion   :: Bool
     -- , optHelp      :: Bool
-    optVerbose   :: Trie String Int
+    , optVerbose   :: Trie String Int
     } deriving ( Show )
 
 defaultOptions :: Options
 defaultOptions = MkOptions
-  { -- optVersion   = False
+  { optVersion   = False
   -- , optHelp      = False
-  optVerbose   = Trie.singleton [] 1
+  , optVerbose   = Trie.singleton [] 1
   }
+
+versionOpt :: Options -> Options
+versionOpt opts = opts { optVersion = True }
 
 -- Adapted from: Agda.Interaction.Options.verboseFlag.
 verboseOpt :: String -> Options -> Options
@@ -40,11 +43,11 @@ verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
 
 options :: [OptDescr (Options -> Options)]
 options =
-  [ -- Option ['V'] ["version"] (NoArg versionOpt)
-    --             "show version number"
+  [ Option ['V'] ["version"] (NoArg versionOpt)
+                 "show version number"
   -- , Option ['h'] ["help"] (NoArg helpOpt)
   --               "show help"
-  Option ['v'] ["verbose"] (ReqArg verboseOpt "N")
+  , Option ['v'] ["verbose"] (ReqArg verboseOpt "N")
                   "set verbosity level to N"
   ]
 

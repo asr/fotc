@@ -6,12 +6,12 @@ module Main where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
+import Control.Monad ( when )
 import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Reader ( ask, ReaderT, runReaderT )
 import Control.Monad.Trans.State ( evalState )
 
 -- import Control.Monad.Trans
-import Data.List
 import Data.Map ( Map )
 import qualified Data.Map as Map
 -- import Data.Maybe
@@ -52,13 +52,14 @@ import MyAgda.Interface
     , getRoleATP
     )
 import MyAgda.Syntax.Abstract.Name ( moduleNameToFilePath )
-import Options ( parseOptions )
+import Options ( Options(optVersion), parseOptions )
 import Reports ( R, reportLn )
 import TPTP.Files ( createAxiomsAndHintsFile, createConjectureFile )
 import TPTP.Monad
 -- import TPTP.Pretty
 import TPTP.Translation
 import TPTP.Types ( AnnotatedFormula )
+import Version ( version )
 
 #include "undefined.h"
 
@@ -237,6 +238,10 @@ runAgdaATP = do
 
   -- Reading the command line options.
   (opts, names) <- parseOptions argv prgName
+
+  when (optVersion opts) $ do
+         putStrLn $ prgName ++ " version " ++ version ++ "\n"
+         exitSuccess
 
   -- Gettting the interface.
   i <- getInterface $ head names
