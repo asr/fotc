@@ -1,3 +1,5 @@
+{-# LANGUAGE ScopedTypeVariables #-}
+
 module Options where
 
 import System.Console.GetOpt ( ArgDescr(..)
@@ -27,10 +29,7 @@ defaultOptions = MkOptions
 -- Adapted from: Agda.Interaction.Options.verboseFlag.
 verboseOpt :: String -> Options -> Options
 verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
-    where -- TODO: Why is not posibble to assign the signature
-          --       (k, n) :: ([String], Int)?
-          (k, n) = parseVerbose str
-
+    where (k, n) :: ([String], Int) = parseVerbose str
           parseVerbose :: String -> ([String], Int)
           parseVerbose s = case wordsBy (`elem` ":.") s of
             []  -> error -- ToDo: We should be use 'msgError'.
