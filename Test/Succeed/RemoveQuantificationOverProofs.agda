@@ -2,7 +2,7 @@
 -- Testing the removal of the quantification over proofs of formulas
 ------------------------------------------------------------------------------
 
-module Test.RemoveQuantificationOverProofs where
+module Test.Succeed.RemoveQuantificationOverProofs where
 
 postulate
   D      : Set

@@ -1,13 +1,4 @@
-------------------------------------------------------------------------------
--- Testing the conjectures inside a where clause
-------------------------------------------------------------------------------
-
-{-
-Two conjectures with the *same name* inside two different where
-clauses should be generate two different TPTP files.
--}
-
-module Test.Where where
+module Test.Succeed.Add where
 
 infixl 6 _+_
 infix  4 _≡_
@@ -57,22 +48,3 @@ addLeftIdentity {n} = indN (λ i → P i) P0 iStep
       postulate
         iStep : {i : D} → N i → zero + i ≡ i → zero + (succ i) ≡ succ i
       {-# ATP prove iStep #-}
-
-------------------------------------------------------------------------------
--- Associativity of addition using the induction principle for N and
--- calling the ATP for the base case and the induction step.
-addAssoc : {m n o : D} → N m → N n → N o → (m + n) + o ≡ m + (n + o)
-addAssoc {m} {n} {o} Nm Nn No = indN (λ i → P i) P0 iStep No
-  where
-    P : D → Set
-    P i = m + n + i ≡ m + (n + i)
-
-    postulate
-      P0 : m + n + zero ≡ m + (n + zero)
-    {-# ATP prove P0 #-}
-
-    postulate
-      iStep : {i : D} → N i →
-              m + n + i ≡ m + (n + i) →
-              m + n + succ i ≡ m + (n + succ i)
-    {-# ATP prove iStep #-}

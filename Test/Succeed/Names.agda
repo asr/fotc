@@ -9,7 +9,7 @@
 -- functors either start with lower case and contain alphanumerics and
 -- underscore ...
 
-module Test.Names where
+module Test.Succeed.Names where
 
 infix  4 _≡_
 

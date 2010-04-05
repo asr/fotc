@@ -1,4 +1,4 @@
-module test.NestedAxioms.C where
+module Test.Fail.NestedAxioms.C where
 
 {-
 Process this file should be genereate a file axioms.tptp with the
@@ -9,7 +9,7 @@ fof(..., axiom, ( b = c )).
 fof(..., axiom, ( c = d )).
 -}
 
-open import test.NestedAxioms.B
+open import Test.Fail.NestedAxioms.B
 
 postulate
   c≡d : c ≡ d

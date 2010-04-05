@@ -4,12 +4,12 @@ agda_files = $(shell find src/ -name '*.agda')
 TAGS : $(haskell_files)
 	hasktags -e $(haskell_files)
 
-test : Test/Add.agda \
-	Test/Hints.agda \
-	Test/ImplicitArguments.agda \
-	Test/Names.agda \
-	Test/Where.agda \
-	Test/RemoveQuantificationOverProofs.agda
+test : Test/Succeed/Add.agda \
+	Test/Succeed/Hints.agda \
+	Test/Succeed/ImplicitArguments.agda \
+	Test/Succeed/Names.agda \
+	Test/Succeed/Where.agda \
+	Test/Succeed/RemoveQuantificationOverProofs.agda
 
 	@for file in $^; \
 	 do \
@@ -20,5 +20,5 @@ test : Test/Add.agda \
 	done
 
 clean :
-	@rm -f Test/*.agdai
+	@find -name '*.agdai' | xargs rm
 	@rm -f /tmp/*.tptp

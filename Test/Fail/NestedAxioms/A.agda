@@ -1,4 +1,4 @@
-module test.NestedAxioms.A where
+module Test.Fail.NestedAxioms.A where
 
 infix 4 _≡_
 

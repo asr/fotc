@@ -2,7 +2,7 @@
 -- Testing the use of general hints
 ------------------------------------------------------------------------------
 
-module Test.Hints where
+module Test.Succeed.Hints where
 
 infix  4 _≡_
 
