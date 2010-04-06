@@ -81,7 +81,7 @@ axiomsAndHintsToFOLs i = do
       hintsDefs = getRoleATP HintATP i
   reportLn "axiomsAndHintsToFOLs" 20 $ "Hints:\n" ++ show (Map.keys hintsDefs)
 
-  -- Todo: What happen when are duplicates keys?
+  -- ToDo: What happen when are duplicates keys?
   let axiomsAndHintsDefs :: Definitions
       axiomsAndHintsDefs = Map.union axiomsDefs hintsDefs
 
