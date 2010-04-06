@@ -4,7 +4,7 @@ module Version ( version ) where
 import Data.Version ( showVersion )
 
 -- Local imports
-import qualified Paths_agdaATP as P ( version )
+import qualified Paths_agda2atp as P ( version )
 
 version :: String
 version = showVersion P.version

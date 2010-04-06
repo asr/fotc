@@ -223,8 +223,8 @@ translation i = do
   liftIO $ createAxiomsAndHintsFile $ concat axiomsAndHintsAFss
   liftIO $ mapM_ createConjectureFile conjecturesAFs -- ++ concat hintsAFss
 
-runAgdaATP :: IO ()
-runAgdaATP = do
+runAgda2ATP :: IO ()
+runAgda2ATP = do
   prgName <- getProgName
   argv <- getArgs --fmap head $ liftIO getArgs
 
@@ -242,6 +242,6 @@ runAgdaATP = do
   runReaderT (translation i) opts
 
 main :: IO ()
-main = catchImpossible runAgdaATP $
+main = catchImpossible runAgda2ATP $
          \e -> do putStr $ show e
                   exitFailure

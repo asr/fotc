@@ -18,7 +18,7 @@ test : $(test_path)/Add.agda \
 	 do \
 		make clean; \
 		agda $$file; \
-		agda-atp $$file; \
+		agda2atp $$file; \
 		find  /tmp/ -maxdepth 1 -name 'Test*.tptp' -execdir $(ATP) '{}' ';';\
 	done
 
