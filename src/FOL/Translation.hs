@@ -9,10 +9,9 @@ module FOL.Translation where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
--- import Control.Monad.State ( get, put )
 import Control.Monad.Trans.Class ( lift )
 import Control.Monad.Trans.Reader ( ask, local )
--- import Control.Monad.State
+import Control.Monad.Trans.State ( evalState )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
@@ -52,6 +51,7 @@ import FOL.Constants
 import FOL.Monad ( T )
 import FOL.Primitives ( app, equal )
 import FOL.Types ( FormulaFOL(..), TermFOL(..))
+import Names ( freshName )
 import Reports ( reportLn )
 
 #include "../undefined.h"
@@ -131,6 +131,8 @@ termToFormula term@(Def (QName _ name) args) = do
                      -- didn't do it because we took the variable name
                      -- from the term Lam.
 
+                     -- ToDo: Fix the possible name clash
+
                        do let p :: AgdaTerm
                               p = unArg a
 
@@ -206,24 +208,37 @@ termToFormula term@(Fun tyArg ty) = do
   f2 <- typeToFormula ty
   return $ Implies f1 f2
 
-termToFormula term@(Lam _ (Abs var termLam)) = do
+termToFormula term@(Lam _ (Abs _ termLam)) = do
   lift $ reportLn "termToFormula" 10 $ "Processing term Lam:\n" ++ show term
 
-  f <- local (\vars -> var : vars) $ termToFormula termLam
+  vars <- ask
+
+  let freshVar :: String
+      freshVar = evalState freshName vars
+
+  -- See the reason for the order in the enviroment in
+  -- termToFormula term@(Pi ... )
+  f <- local (\varNames -> freshVar : varNames) $ termToFormula termLam
   return f
 
-termToFormula term@(Pi tyArg (Abs var tyAbs)) = do
+termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   lift $ reportLn "termToFormula" 10 $ "Processing term Pi:\n" ++ show term
+
+  vars <- ask
+
+  let freshVar :: String
+      freshVar = evalState freshName vars
 
   -- The de Bruijn indexes are assigned from "right to left", e.g.
   -- in '(A B C : Set) -> ...', A is 2, B is 1, and C is 0,
   -- so we need create the list in the same order.
-  f2 <- local (\vars -> var : vars) $ typeToFormula tyAbs
+  f2 <- local (\varNames -> freshVar : varNames) $ typeToFormula tyAbs
+
   case unArg tyArg of
      -- The varible bound has type below Set and this type doesn't
      -- have indices (e.g. D : Set).
     El (Type (Lit (LitLevel _ 0))) (Def _ []) -> do
-                     return $ ForAll var (\_ -> f2)
+                     return $ ForAll freshVar (\_ -> f2)
 
     -- The varible bound has type below Set and this type has have
     -- indices (e.g. N n : Set). In this case, we erase the
@@ -239,7 +254,7 @@ termToFormula term@(Pi tyArg (Abs var tyAbs)) = do
     -- ToDo: Check it
     -- The variable bound has type Set, i.e. a propositional constant.
     El (Type (Lit (LitLevel _ 1))) _ ->
-        return $ ForAll var (\_ -> f2)
+        return $ ForAll freshVar (\_ -> f2)
 
     _                                -> __IMPOSSIBLE__
 

@@ -30,7 +30,7 @@ executable agda2atp
                   FOL.Types
                   MyAgda.Interface
                   MyAgda.Syntax.Abstract.Name
-                  -- Names
+                  Names
                   Options
                   Paths_agda2atp
                   Reports

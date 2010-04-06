@@ -11,6 +11,7 @@ test : $(test_path)/Add.agda \
 	$(test_path)/ImplicitArguments.agda \
 	$(test_path)/LogicalConstants.agda \
 	$(test_path)/Names.agda \
+	$(test_path)/VariableNamesClash.agda \
 	$(test_path)/Where.agda \
 	$(test_path)/RemoveQuantificationOverProofs.agda
 
