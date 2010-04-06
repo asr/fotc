@@ -42,7 +42,7 @@ import Agda.Utils.Impossible ( catchImpossible
 -- import FOL.Pretty
 import Common.Types ( HintName, PostulateName )
 import FOL.Monad ( iVarNames )
-import FOL.Translation ( typeToFormula )
+import FOL.Translation.Types ( typeToFormula )
 import FOL.Types ( FormulaFOL )
 import MyAgda.Interface
     ( getConjectureHints

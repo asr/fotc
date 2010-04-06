@@ -25,7 +25,8 @@ executable agda2atp
                   FOL.Constants
                   FOL.Monad
                   FOL.Primitives
-                  FOL.Translation
+                  FOL.Translation.Terms
+                  FOL.Translation.Types
                   -- FOL.Substitution
                   FOL.Types
                   MyAgda.Interface

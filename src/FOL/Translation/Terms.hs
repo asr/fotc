@@ -1,10 +1,10 @@
 ------------------------------------------------------------------------------
--- Translation from Agda types to FOL formulas
+-- Translation from Agda *internal* terms to FOL formulas
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
 
-module FOL.Translation where
+module FOL.Translation.Terms where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
@@ -50,35 +50,21 @@ import FOL.Constants
     )
 import FOL.Monad ( T )
 import FOL.Primitives ( app, equal )
+import {-# source #-} FOL.Translation.Types ( argTypeToFormula, typeToFormula )
 import FOL.Types ( FormulaFOL(..), TermFOL(..))
 import Names ( freshName )
 import Reports ( reportLn )
 
-#include "../undefined.h"
+#include "../../undefined.h"
 
 ------------------------------------------------------------------------------
 
-type AgdaType = Type
+-- type AgdaType = Type
 type AgdaTerm = Term
 
 varInTerm :: AgdaTerm -> [String]
 varInTerm (Pi _ (Abs var (El _ _))) = [var]
 varInTerm _                         = __IMPOSSIBLE__
-
-varInType :: AgdaType -> [String]
-varInType (El (Type _ ) term) = varInTerm term
-varInType _                   = __IMPOSSIBLE__
-
-typeToFormula :: AgdaType -> T FormulaFOL
-typeToFormula ty@(El (Type _ ) term) =
-    do lift $ reportLn "typeToFormula" 10 $ "Processing type ty:\n" ++ show ty
-       termToFormula term
-typeToFormula _                   = __IMPOSSIBLE__
-
-argTypeToFormula :: Arg AgdaType -> T FormulaFOL
-argTypeToFormula Arg {argHiding = NotHidden, unArg = ty} = typeToFormula ty
-argTypeToFormula Arg {argHiding = Hidden} =
-    error "argTypeToFormula: not implemented"
 
 argTermToFormula :: Arg AgdaTerm -> T FormulaFOL
 argTermToFormula Arg {argHiding = NotHidden, unArg = term} = termToFormula term
