@@ -41,7 +41,7 @@ import Agda.Utils.Impossible ( catchImpossible
 -- Local imports
 -- import FOL.Pretty
 import Common.Types ( HintName, PostulateName )
-import FOL.Monad ( initialVars )
+import FOL.Monad ( iVarNames )
 import FOL.Translation ( typeToFormula )
 import FOL.Types ( FormulaFOL )
 import MyAgda.Interface
@@ -93,9 +93,9 @@ axiomsAndHintsToFOLs i = do
 
   -- The axioms/hints types are translated to FOL formulas.
   formulas <- liftIO $
-              mapM (\ty -> runReaderT
-                             (runReaderT (typeToFormula ty) initialVars) opts)
-                   (Map.elems axiomsAndHintsTypes)
+    mapM (\ty -> runReaderT
+                   (runReaderT (typeToFormula ty) iVarNames) opts)
+         (Map.elems axiomsAndHintsTypes)
 
   -- The axioms/hints are associated with their FOL formulas.
   let axiomsAndHintsFormulas :: Map QName FormulaFOL
@@ -137,7 +137,7 @@ conjecturesToFOLs i = do
   -- The conjectures types are translated to FOL formulas.
   formulas <- liftIO $
               mapM (\ty -> runReaderT
-                             (runReaderT (typeToFormula ty) initialVars) opts)
+                             (runReaderT (typeToFormula ty) iVarNames) opts)
                    (Map.elems conjecturesTypes)
 
   -- The conjectures are associated with their FOL formulas.
@@ -180,7 +180,7 @@ conjectureHintToFOL hName = do
       hType =  defType hDef
 
   formula <- liftIO $ runReaderT
-                        (runReaderT (typeToFormula hType) initialVars) opts
+                        (runReaderT (typeToFormula hType) iVarNames) opts
 
   let af :: AnnotatedFormula
       af = toAF hName AxiomATP formula

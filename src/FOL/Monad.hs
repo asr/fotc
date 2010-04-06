@@ -17,8 +17,9 @@ import Reports ( R )
 
 type Vars = [String]
 
-initialVars :: Vars
-initialVars = []
+-- The initial enviroment.
+iVarNames :: Vars
+iVarNames = []
 
 {-| The translation monad from Agda types to FOL formulas.
 -}

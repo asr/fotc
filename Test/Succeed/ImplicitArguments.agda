@@ -7,8 +7,8 @@
 module Test.Succeed.ImplicitArguments where
 
 postulate
-  D      : Set
-  a b    : D
+  D   : Set
+  a b : D
 
 -- The identity type.
 data _≡_ (x : D) : D → Set where
