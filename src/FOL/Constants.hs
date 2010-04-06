@@ -8,7 +8,7 @@ module FOL.Constants where
 
 trueFOL, falseFOL, notFOL, andFOL, orFOL, existsFOL, equalsFOL :: String
 trueFOL   = "True"
-falseFOL  = "False"
+falseFOL  = "⊥"
 notFOL    = "¬"
 andFOL    = "∧"
 orFOL     = "Or"

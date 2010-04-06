@@ -2,3 +2,4 @@
   FOL equality    : ≡
   FOL conjunction : ∧
   FOL negation    : ¬
+  FOL false       : ⊥
