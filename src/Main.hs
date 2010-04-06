@@ -142,7 +142,8 @@ conjecturesToFOLs i = do
 
   -- The conjectures are associated with their FOL formulas.
   let conjecturesFormulas :: Map PostulateName FormulaFOL
-      conjecturesFormulas = Map.fromList $ zip (Map.keys conjecturesTypes) formulas
+      conjecturesFormulas =
+          Map.fromList $ zip (Map.keys conjecturesTypes) formulas
   reportLn "conjecturesToFOLs" 20 $
                "FOL formulas:\n" ++ show conjecturesFormulas
 
@@ -194,8 +195,9 @@ conjecturaHintsToFOLs conjectureDef = do
 
   let hints :: [HintName]
       hints = getConjectureHints conjectureDef
-  reportLn "hintsToFOLs" 20 $ "The hints for the conjecture " ++ show conjectureDef ++
-           " are " ++ show hints
+  reportLn "hintsToFOLs" 20 $
+    "The hints for the conjecture " ++ show conjectureDef ++
+    " are " ++ show hints
 
   ( afs :: [AnnotatedFormula] ) <- mapM conjectureHintToFOL hints
 
