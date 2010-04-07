@@ -51,7 +51,7 @@ import FOL.Monad ( T )
 import FOL.Primitives ( app, equal )
 import {-# source #-} FOL.Translation.Types ( argTypeToFormula, typeToFormula )
 import FOL.Types ( FormulaFOL(..), TermFOL(..))
-import Names ( freshName )
+import Utils.Names ( freshName )
 import Reports ( reportLn )
 
 #include "../../undefined.h"

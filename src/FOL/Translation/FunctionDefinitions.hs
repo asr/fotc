@@ -20,7 +20,7 @@ import FOL.Monad ( T )
 import FOL.Translation.Internal ( clauseBodyToFormula )
 -- import FOL.Translation.Terms ( termToFormula )
 import FOL.Types ( FormulaFOL(ForAll) )
-import Names ( freshName )
+import Utils.Names ( freshName )
 
 #include "../../undefined.h"
 

@@ -1,4 +1,4 @@
-module Version ( version ) where
+module Utils.Version ( version ) where
 
 -- Haskell imports
 import Data.Version ( showVersion )

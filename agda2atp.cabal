@@ -21,8 +21,7 @@ executable agda2atp
                   , transformers >= 0.2.0.0 && < 0.3
                   , utility-ht >= 0.0.5.1 && < 0.1
 
-  other-modules:  Common.Types
-                  FOL.Constants
+  other-modules:  FOL.Constants
                   FOL.Monad
                   FOL.Primitives
                   FOL.Translation.Internal
@@ -33,7 +32,6 @@ executable agda2atp
                   FOL.Types
                   MyAgda.Interface
                   MyAgda.Syntax.Abstract.Name
-                  Names
                   Options
                   Paths_agda2atp
                   Reports
@@ -42,8 +40,9 @@ executable agda2atp
                   TPTP.Pretty
                   TPTP.Translation
                   TPTP.Types
-                  Utils
-                  Version
+                  Utils.IO
+                  Utils.Names
+                  Utils.Version
 
   ghc-options: -Wall
                -fwarn-incomplete-record-updates

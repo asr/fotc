@@ -54,8 +54,6 @@ import Agda.Utils.Impossible ( Impossible(..)
                              )
 
 -- Local imports
-import Common.Types ( HintName )
-
 #include "../undefined.h"
 
 ------------------------------------------------------------------------------
@@ -73,7 +71,7 @@ getHintsATP i =
     Map.filter isAxiomATP $ sigDefinitions $ iSignature i
 
 -- Invariant: The definition must correspond to an ATP conjecture
-getConjectureHints :: Definition -> [HintName]
+getConjectureHints :: Definition -> [QName]
 getConjectureHints def =
   let defn :: Defn
       defn = theDef def

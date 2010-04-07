@@ -20,7 +20,7 @@ import Agda.Utils.Trie ( Trie )
 import qualified Agda.Utils.Trie as Trie
 
 -- Local imports
-import Utils ( bye )
+import Utils.IO ( bye )
 
 -----------------------------------------------------------------------------
 

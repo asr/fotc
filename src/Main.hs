@@ -40,7 +40,6 @@ import Agda.Utils.Impossible ( catchImpossible
 ------------------------------------------------------------------------------
 -- Local imports
 -- import FOL.Pretty
-import Common.Types ( HintName, PostulateName )
 import FOL.Monad ( iVarNames )
 import FOL.Translation.FunctionDefinitions ( fnDefToFormula )
 import FOL.Translation.Types ( typeToFormula )
@@ -58,8 +57,8 @@ import Reports ( R, reportLn )
 import TPTP.Files ( createAxiomsAndHintsFile, createConjectureFile )
 import TPTP.Translation ( toAF )
 import TPTP.Types ( AnnotatedFormula )
-import Utils ( bye )
-import Version ( version )
+import Utils.IO ( bye )
+import Utils.Version ( version )
 
 #include "undefined.h"
 
@@ -131,7 +130,7 @@ conjecturesToFOLs i = do
     "Conjectures:\n" ++ show (Map.keys conjecturesDefs)
 
   -- We get the types of the conjectures.
-  let conjecturesTypes :: Map PostulateName Type
+  let conjecturesTypes :: Map QName Type
       conjecturesTypes = Map.map defType conjecturesDefs
   reportLn "conjecturesToFOLs" 20 $
                "Conjectures types:\n" ++ show conjecturesTypes
@@ -143,7 +142,7 @@ conjecturesToFOLs i = do
                    (Map.elems conjecturesTypes)
 
   -- The conjectures are associated with their FOL formulas.
-  let conjecturesFormulas :: Map PostulateName FormulaFOL
+  let conjecturesFormulas :: Map QName FormulaFOL
       conjecturesFormulas =
           Map.fromList $ zip (Map.keys conjecturesTypes) formulas
   reportLn "conjecturesToFOLs" 20 $
@@ -165,7 +164,7 @@ conjecturesToFOLs i = do
   return $ zip afs hintsAFss
 
 -- We translate an hint to a FOL formula.
-conjectureHintToFOL :: HintName -> R AnnotatedFormula
+conjectureHintToFOL :: QName -> R AnnotatedFormula
 conjectureHintToFOL hName = do
 
   opts <- ask
@@ -194,7 +193,7 @@ conjectureHintToFOL hName = do
 conjecturaHintsToFOLs :: Definition -> R [AnnotatedFormula]
 conjecturaHintsToFOLs conjectureDef = do
 
-  let hints :: [HintName]
+  let hints :: [QName]
       hints = getConjectureHints conjectureDef
   reportLn "hintsToFOLs" 20 $
     "The hints for the conjecture " ++ show conjectureDef ++

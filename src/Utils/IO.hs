@@ -1,4 +1,4 @@
-module Utils where
+module Utils.IO where
 
 -- Haskell imports
 import System.Exit ( exitSuccess )
