@@ -59,12 +59,7 @@ import Reports ( reportLn )
 
 ------------------------------------------------------------------------------
 
--- type AgdaType = Type
 type AgdaTerm = Term
-
-varInTerm :: AgdaTerm -> [String]
-varInTerm (Pi _ (Abs var (El _ _))) = [var]
-varInTerm _                         = __IMPOSSIBLE__
 
 argTermToFormula :: Arg AgdaTerm -> T FormulaFOL
 argTermToFormula Arg {argHiding = NotHidden, unArg = term} = termToFormula term
