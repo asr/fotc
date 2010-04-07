@@ -72,16 +72,15 @@ getHintsATP i =
 -- Invariant: The definition must correspond to an ATP conjecture
 getConjectureHints :: Definition -> [HintName]
 getConjectureHints def =
-    case defn of
-      Axiom{} -> case axATP defn of
-                   Just (ConjectureATP, hints) -> hints
-                   Just _                      -> __IMPOSSIBLE__
-                   Nothing                     -> __IMPOSSIBLE__
+  let defn :: Defn
+      defn = theDef def
+  in case defn of
+       Axiom{} -> case axATP defn of
+                    Just (ConjectureATP, hints) -> hints
+                    Just _                      -> __IMPOSSIBLE__
+                    Nothing                     -> __IMPOSSIBLE__
 
-      _       -> __IMPOSSIBLE__
-
-    where defn :: Defn
-          defn = theDef def
+       _       -> __IMPOSSIBLE__
 
 -- getImportedModules :: Interface -> [ModuleName]
 -- getImportedModules i = iImportedModules i
@@ -108,48 +107,61 @@ getInterface file = do
 
 isAxiomATP :: Definition -> Bool
 isAxiomATP def =
-    case defn of
-      Axiom{} -> case axATP defn of
-                   Just (AxiomATP, _) -> True
-                   Just _             -> False
-                   Nothing            -> False
+  let defn :: Defn
+      defn = theDef def
+  in case defn of
+       Axiom{} -> case axATP defn of
+                    Just (AxiomATP, _)      -> True
+                    Just (ConjectureATP, _) -> False
+                    Just _                  -> __IMPOSSIBLE__
+                    Nothing                 -> False
 
-      _       -> False
-
-    where defn :: Defn
-          defn = theDef def
+       _       -> False
 
 -- ToDo: Unify with 'isAxiomATP'
 isConjectureATP :: Definition -> Bool
 isConjectureATP def =
-    case defn of
-      Axiom{} -> case axATP defn of
-                   Just (ConjectureATP, _) -> True
-                   Just _                  -> False
-                   Nothing                 -> False
+  let defn :: Defn
+      defn = theDef def
+  in case defn of
+       Axiom{} -> case axATP defn of
+                    Just (AxiomATP, _)      -> False
+                    Just (ConjectureATP, _) -> True
+                    Just _                  -> __IMPOSSIBLE__
+                    Nothing                 -> False
 
-      _       -> False
+       _       -> False
 
-    where defn :: Defn
-          defn = theDef def
+isDefinitionATP :: Definition -> Bool
+isDefinitionATP def =
+  let defn :: Defn
+      defn = theDef def
+  in case defn of
+       Function{}    -> case funATP defn of
+                          Just DefinitionATP -> True
+                          Just HintATP       -> False
+                          Just _             -> __IMPOSSIBLE__
+                          Nothing            -> False
+
+       _             -> False
 
 isHintATP :: Definition -> Bool
 isHintATP def =
-    case defn of
-      Constructor{} -> case conATP defn of
-                         Just HintATP -> True
-                         Just _       -> __IMPOSSIBLE__
-                         Nothing      -> False
+  let defn :: Defn
+      defn = theDef def
+  in case defn of
+       Constructor{} -> case conATP defn of
+                          Just HintATP       -> True
+                          Just _             -> __IMPOSSIBLE__
+                          Nothing            -> False
 
-      Function{}    -> case funATP defn of
-                         Just HintATP -> True
-                         Just _       -> __IMPOSSIBLE__
-                         Nothing      -> False
+       Function{}    -> case funATP defn of
+                          Just DefinitionATP -> False
+                          Just HintATP       -> True
+                          Just _             -> __IMPOSSIBLE__
+                          Nothing            -> False
 
-      _             -> False
-
-    where defn :: Defn
-          defn = theDef def
+       _             -> False
 
 getQNameDefinition :: Interface -> QName -> Maybe Definition
 getQNameDefinition i qName = Map.lookup qName $ sigDefinitions $ iSignature i
