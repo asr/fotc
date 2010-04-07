@@ -253,7 +253,7 @@ termToFormula _ = error "termToFormula: not implemented"
 appArgs :: String -> Args -> T TermFOL
 appArgs fn args = do
   termsFOL <- mapM argTermToTermFOL args
-  return $ foldl (\x y -> app [x,y]) (FunFOL fn []) termsFOL
+  return $ foldl (\x y -> app [x, y]) (FunFOL fn []) termsFOL
 
 -- Translate an Agda term to an FOL term
 termToTermFOL :: AgdaTerm -> T TermFOL
