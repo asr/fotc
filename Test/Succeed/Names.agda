@@ -11,14 +11,11 @@
 
 module Test.Succeed.Names where
 
-infix  4 _≡_
+infix 4 _≡_
 
 postulate
-  D    : Set
-
--- The identity type.
-data _≡_ (x : D) : D → Set where
-  refl : x ≡ x
+  D   : Set
+  _≡_ : D → D → Set
 
 -- A funny function name.
 postulate
