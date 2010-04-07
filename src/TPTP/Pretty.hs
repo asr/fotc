@@ -124,6 +124,7 @@ instance PrettyTPTP FormulaFOL where
 instance PrettyTPTP RoleATP where
     prettyTPTP AxiomATP      = "axiom"
     prettyTPTP ConjectureATP = "conjecture"
+    prettyTPTP DefinitionATP = "axiom"
     prettyTPTP HintATP       = "axiom"
 
 instance PrettyTPTP AnnotatedFormula where

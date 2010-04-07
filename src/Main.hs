@@ -6,7 +6,7 @@ module Main where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
-import Control.Monad ( when )
+import Control.Monad ( when, zipWithM )
 import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Reader ( ask, ReaderT, runReaderT )
 
@@ -22,7 +22,7 @@ import System.Exit
 -- Agda library imports
 import Agda.Syntax.Abstract.Name ( ModuleName, QName(..) )
 import Agda.Syntax.Common ( RoleATP(..) )
-import Agda.Syntax.Internal ( Type )
+import Agda.Syntax.Internal ( Clause, Type )
 
 import Agda.TypeChecking.Monad.Base
     ( Definition
@@ -42,10 +42,12 @@ import Agda.Utils.Impossible ( catchImpossible
 -- import FOL.Pretty
 import Common.Types ( HintName, PostulateName )
 import FOL.Monad ( iVarNames )
+import FOL.Translation.FunctionDefinitions ( fnDefToFormula )
 import FOL.Translation.Types ( typeToFormula )
 import FOL.Types ( FormulaFOL )
 import MyAgda.Interface
-    ( getConjectureHints
+    ( getClauses
+    , getConjectureHints
     , getInterface
     , getQNameDefinition
     , getRoleATP
@@ -147,7 +149,6 @@ conjecturesToFOLs i = do
   reportLn "conjecturesToFOLs" 20 $
                "FOL formulas:\n" ++ show conjecturesFormulas
 
-
   -- We translate the hints associated with each ATP pragma conjecture to
   -- TPTP formulas.
   ( hintsAFss :: [[AnnotatedFormula]] ) <-
@@ -203,6 +204,54 @@ conjecturaHintsToFOLs conjectureDef = do
 
   return afs
 
+-- We translate the ATP definitions in an interface file to FOL
+-- formulas.
+symbolsToFOLs :: Interface -> R [AnnotatedFormula]
+symbolsToFOLs i = do
+
+  opts <- ask
+
+  -- We get the ATP definitions
+  let symbolsDefs :: Definitions
+      symbolsDefs = getRoleATP DefinitionATP i
+  reportLn "symbolsToFOLs" 20 $
+               "Symbols:\n" ++ show (Map.keys symbolsDefs)
+
+  -- We get the clauses that define the symbol
+  -- (All the symbols must be functions)
+  let symbolsClauses :: Map QName [Clause]
+      symbolsClauses = Map.map getClauses symbolsDefs
+  reportLn "symbolsToFOLs" 20 $
+               "Symbols' clauses:\n" ++ show symbolsClauses
+
+  -- The symbols are translated to FOL formulas.
+  formulas <- liftIO $
+    zipWithM (\(qname :: QName) (cls :: [Clause]) ->
+                  runReaderT
+                    (runReaderT (fnDefToFormula qname cls) iVarNames) opts)
+             (Map.keys symbolsClauses)
+             (Map.elems symbolsClauses)
+
+  reportLn "symbolsToFOLs" 20 $
+               "FOL formulas:\n" ++ show formulas
+
+  -- -- The symbols are associated with their FOL formulas.
+  -- let symbolsFormulas :: Map QName [FormulaFOL]
+  --     symbolsFormulas = Map.fromList $
+  --                              zip (Map.keys symbolsClauses) formulas
+  -- reportLn "symbolsToFOLs" 20 $
+  --              "FOL formulas:\n" ++ show symbolsFormulas
+
+  -- -- The FOL formulas are translated to annotated formulas
+  -- let afs :: [AnnotatedFormula]
+  --     afs = map (\(ahName, formula) -> (toAF ahName AxiomATP formula))
+  --               (zip (Map.keys axiomsAndHintsFormulas)
+  --                    (Map.elems axiomsAndHintsFormulas))
+  -- -- reportLn "axiomsAndHintsToFOLs" 20 $ "TPTP formulas:\n" ++ prettyTPTP afs
+
+  -- return afs
+  return []
+
 translation :: Interface -> R ()
 translation i = do
 
@@ -217,9 +266,12 @@ translation i = do
   ( axiomsAndHintsAFss :: [[AnnotatedFormula]] ) <-
       mapM axiomsAndHintsToFOLs (i : is)
 
+  ( _symbolsAFss :: [[AnnotatedFormula]] ) <- mapM symbolsToFOLs (i : is)
+
   -- We translate the ATP pragma conjectures and their associated hints
   -- of current module.
   conjecturesAFs <- conjecturesToFOLs i
+
 
   -- We create the TPTP files.
   liftIO $ createAxiomsAndHintsFile $ concat axiomsAndHintsAFss

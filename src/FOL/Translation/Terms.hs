@@ -8,7 +8,6 @@ module FOL.Translation.Terms where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
-
 import Control.Monad.Trans.Class ( lift )
 import Control.Monad.Trans.Reader ( ask, local )
 import Control.Monad.Trans.State ( evalState )

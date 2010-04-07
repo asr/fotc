@@ -24,6 +24,7 @@ import Agda.Syntax.Abstract.Name
     , QName(qnameName)
     )
 import Agda.Syntax.Common ( RoleATP(..))
+import Agda.Syntax.Internal ( Clause )
 import Agda.Syntax.Position
     ( Interval(iStart)
     , Position(posLine)
@@ -37,6 +38,7 @@ import Agda.TypeChecking.Monad.Base
     , Definition
     , Definitions
     , funATP
+    , funClauses
     , iSignature
     , runTCM
     , Signature(sigDefinitions)
@@ -63,6 +65,7 @@ getRoleATP role i = Map.filter (isRole role) $ sigDefinitions $ iSignature i
     where isRole :: RoleATP -> Definition -> Bool
           isRole AxiomATP      = isAxiomATP
           isRole ConjectureATP = isConjectureATP
+          isRole DefinitionATP = isDefinitionATP
           isRole HintATP       = isHintATP
 
 getHintsATP :: Interface -> Definitions
@@ -172,3 +175,11 @@ qNameLine q =
     case rangeToInterval $ nameBindingSite $ qnameName q of
       Nothing -> __IMPOSSIBLE__
       Just i  -> posLine $ iStart i
+
+getClauses :: Definition -> [Clause]
+getClauses def =
+  let defn :: Defn
+      defn = theDef def
+  in case defn of
+       Function{} -> funClauses defn
+       _          -> __IMPOSSIBLE__
