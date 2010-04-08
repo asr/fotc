@@ -1,0 +1,2 @@
+axiom, ( a = a )
+axiom, ( ! \[A\] : ( ( A = A ) ) )
