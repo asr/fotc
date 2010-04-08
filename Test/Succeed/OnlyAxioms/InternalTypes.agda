@@ -38,12 +38,17 @@ module Test.Succeed.OnlyAxioms.InternalTypes where
 postulate
   D    : Set
   _≡_  : D → D → Set
-  a    : D
+  a b  : D
 
 -- Testing data Term = Def ...
 postulate
   termDef : a ≡ a
 {-# ATP axiom termDef #-}
+
+-- Testing data Term = Fun ...
+postulate
+  termFun : a ≡ b → b ≡ a
+{-# ATP axiom termFun #-}
 
 -- Testing data Term = Pi ...
 postulate

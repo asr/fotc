@@ -1,2 +1,3 @@
 axiom, ( a = a )
+axiom, ( ( a = b ) => ( b = a ) ))
 axiom, ( ! \[A\] : ( ( A = A ) ) )
