@@ -28,7 +28,7 @@ import Agda.TypeChecking.Monad.Base
     ( Definition
     , Definitions
     , defType
-    , Interface(iImportedModules)
+    , Interface(iImportedModules, iModuleName)
     )
 
 import Agda.Utils.Impossible ( catchImpossible
@@ -253,6 +253,7 @@ symbolsToFOLs i = do
 
 translation :: Interface -> R ()
 translation i = do
+  reportLn "" 1 $ "Translating " ++ show (iModuleName i)
 
   let importedModules :: [ModuleName]
       importedModules = iImportedModules i
