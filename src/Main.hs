@@ -292,7 +292,6 @@ runAgda2ATP = do
   -- Gettting the interface.
   i <- getInterface $ head names
 
-  -- runReaderT (postulatesToFOLs i) opts
   runReaderT (translation i) opts
 
 main :: IO ()
