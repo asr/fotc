@@ -10,7 +10,10 @@ ATP = equinox
 TAGS : $(haskellFiles)
 	hasktags -e $(haskellFiles)
 
-testAxioms : $(testAxiomsPath)/InternalTypes.agda
+testAxioms : $(testAxiomsPath)/Hints.agda \
+	$(testAxiomsPath)/InternalTypes.agda \
+	$(testAxiomsPath)/RemoveQuantificationOverProofs.agda
+
 	@for file in $(basename $^); do \
 		agda $$file.agda; \
 		if [ $$? != 0 ]; then \
@@ -32,13 +35,11 @@ testAxioms : $(testAxiomsPath)/InternalTypes.agda
 	done
 
 testConjectures : $(testPath)/Add.agda \
-	$(testPath)/Hints.agda \
 	$(testPath)/ImplicitArguments.agda \
 	$(testPath)/LogicalConstants.agda \
 	$(testPath)/Names.agda \
 	$(testPath)/VariableNamesClash.agda \
 	$(testPath)/Where.agda \
-	$(testPath)/RemoveQuantificationOverProofs.agda
 
 	@for file in $^; \
 	 do \

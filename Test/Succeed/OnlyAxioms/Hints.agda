@@ -2,17 +2,17 @@
 -- Testing the use of general hints
 ------------------------------------------------------------------------------
 
-module Test.Succeed.Hints where
+module Test.Succeed.OnlyAxioms.Hints where
 
 postulate
   D    : Set
   zero : D
+  succ : D → D
 
 data N : D → Set where
   zN : N zero
--- A general hint
-{-# ATP hint zN #-}
+  sN : (n : D) → N n → N (succ n)
 
-postulate
-  p₁ : N zero
-{-# ATP prove p₁ #-}
+-- A general hints. They are translate as axioms.
+{-# ATP hint zN #-}
+{-# ATP hint sN #-}
