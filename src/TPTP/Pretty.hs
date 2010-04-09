@@ -90,14 +90,14 @@ instance PrettyTPTP FormulaFOL where
     prettyTPTP (Predicate "kEqual" _) = __IMPOSSIBLE__
 
     prettyTPTP (Predicate name terms) =
-        changeToLower name ++ "(" ++ prettyTPTP terms ++ ")"
+        "( " ++ changeToLower name ++ "(" ++ prettyTPTP terms ++ ")" ++ " )"
 
     prettyTPTP (And f1 f2) =
         "( " ++ prettyTPTP f1 ++ " & " ++ prettyTPTP f2 ++ " )"
     prettyTPTP (Or f1 f2) =
         "( " ++ prettyTPTP f1 ++ " | " ++ prettyTPTP f2 ++ " )"
 
-    prettyTPTP (Not f) = '~' : prettyTPTP f
+    prettyTPTP (Not f) = "( " ++ '~' : prettyTPTP f ++ " )"
 
     prettyTPTP (Implies f1 f2) =
         "( " ++ prettyTPTP f1 ++ " => " ++ prettyTPTP f2 ++ " )"
@@ -107,16 +107,16 @@ instance PrettyTPTP FormulaFOL where
 
     prettyTPTP (ForAll var f) =
         "( ! [" ++ changeToUpper var ++ "] : " ++
-                    "( " ++ prettyTPTP (f (VarFOL var)) ++ " )" ++
+                prettyTPTP (f (VarFOL var)) ++
         " )"
 
     prettyTPTP (Exists var f) =
         "( ! [" ++ changeToUpper var ++ "? : " ++
-                    "( " ++ prettyTPTP (f (VarFOL var)) ++ " )" ++
+                    prettyTPTP (f (VarFOL var)) ++
         " )"
 
-    prettyTPTP TRUE  = "$true "
-    prettyTPTP FALSE = "$false "
+    prettyTPTP TRUE  = "( " ++ "$true" ++ " )"
+    prettyTPTP FALSE = "( " ++ "$false " ++ " ) "
 
 ------------------------------------------------------------------------------
 -- Pretty-printer for annotated formulas
