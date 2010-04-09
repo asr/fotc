@@ -27,17 +27,16 @@ $(axiomsFiles) : % : %.agda
 	done
 
 $(conjecturesFiles) : % : %.agda
-	make clean
 	@if ! ( agda $< ); then exit 1; fi
 	@if ! ( agda2atp $< ); then exit 1; fi
-	find  /tmp/ -maxdepth 1 -name 'Test*.tptp' -execdir $(ATP) '{}' ';'
+	@for file in /tmp/$(subst /,.,$@)*.tptp; do \
+		if ! ( $(ATP) $$file ) then exit 1; fi \
+	done
 
 axiomsTest : $(axiomsFiles)
 conjecturesTest : $(conjecturesFiles)
 
-allTests :
-	make axiomsTest
-	make conjecturesTest
+allTests : axiomsTest conjecturesTest
 
 clean :
 	@find -name '*.agdai' | xargs rm
