@@ -1,2 +1,2 @@
-axiom, n(zero)
-axiom, ( ! \[A\] : ( ( n(A) => n(kApp(succ,A)) ) ) )
+axiom, ( n(zero) )
+axiom, ( ! \[A\] : ( ( n(A) ) => ( n(kApp(succ,A)) ) ) )
