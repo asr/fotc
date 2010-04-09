@@ -1,3 +1,7 @@
+* TODO Fix problem with eprove
+* TODO Fix problem with the Makefile
+In testAxiom, there is an 'exit' inside pipeline, therefore it is not
+a full exit.
 * TODO Process all the imported modules recursively
 * TODO To prevent non-desirable evaluation
 

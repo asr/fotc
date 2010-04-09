@@ -188,6 +188,7 @@ termToFormula term@(Fun tyArg ty) = do
   f2 <- typeToFormula ty
   return $ Implies f1 f2
 
+-- ToDo: To add test for this case.
 termToFormula term@(Lam _ (Abs _ termLam)) = do
   lift $ reportLn "termToFormula" 10 $ "Processing term Lam:\n" ++ show term
 
@@ -238,6 +239,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
 
     _                                -> __IMPOSSIBLE__
 
+-- ToDo: To add test for this case.
 termToFormula term@(Var n _) = do
   lift $ reportLn "termToFormula" 10 $ "Processing term Var: " ++ show term
 
