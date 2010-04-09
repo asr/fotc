@@ -15,23 +15,20 @@ testAxioms : $(testAxiomsPath)/Hints.agda \
 	$(testAxiomsPath)/RemoveQuantificationOverProofs.agda
 
 	@for file in $(basename $^); do \
-		agda $$file.agda; \
-		if [ $$? != 0 ]; then \
+		if ! ( agda $$file.agda ) ; then \
 			echo "Testing error: agda"; \
 			exit 1; \
 		fi; \
-		agda2atp $$file.agda; \
-		if [ $$? != 0 ]; then \
+		if ! ( agda2atp $$file.agda ) ; then \
 		 	echo "Testing error: agda2atp"; \
 		  	exit 1; \
 		fi; \
 		cat $$file.test | while read -r line; do \
-			grep --silent "$$line" $(axiomsFile); \
-			if [ $$? != 0 ]; then \
+			if ! ( grep --silent "$$line" $(axiomsFile) ) ; then \
 				echo "Testing error. Translation to: $$line"; \
 		 		exit 1; \
 		 	fi; \
-		done; \
+		done \
 	done
 
 testConjectures : $(testPath)/Add.agda \
