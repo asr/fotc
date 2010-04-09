@@ -1,50 +1,39 @@
 haskellFiles = $(shell find src/ -name '*.hs')
 
-testPath = Test/Succeed
-axiomsTestPath = $(testPath)/OnlyAxioms
+conjecturesPath = Test/Succeed
+axiomsPath = Test/Succeed/OnlyAxioms
 
-axiomsFile = /tmp/axioms.tptp
+axiomsTPTP = /tmp/axioms.tptp
+
+axiomsFiles = $(patsubst %.agda,%,$(shell find $(axiomsPath) -name "*.agda"))
+
+# We need avoid the files inside the $(axiomsPath) directory
+conjecturesFiles = $(patsubst %.agda,%, \
+	$(shell find $(conjecturesPath) -path '$(axiomsPath)' -prune , -name "*.agda"))
 
 ATP = equinox
 
 TAGS : $(haskellFiles)
 	hasktags -e $(haskellFiles)
 
-axiomsTest : $(axiomsTestPath)/Hints.agda \
-	$(axiomsTestPath)/InternalTypes.agda \
-	$(axiomsTestPath)/RemoveQuantificationOverProofs.agda
-
-	@for file in $(basename $^); do \
-		if ! ( agda $$file.agda ) ; then \
-			echo "Testing error: agda"; \
+$(axiomsFiles) : % : %.agda
+	@if ! ( agda $< ); then exit 1; fi
+	@if ! ( agda2atp $< ); then exit 1; fi
+	@cat $@.test | while read -r line; do \
+		if ! ( grep --silent "$$line" $(axiomsTPTP) ) ; then \
+			 echo "Testing error. Translation to: $$line"; \
 			exit 1; \
 		fi; \
-		if ! ( agda2atp $$file.agda ) ; then \
-		 	echo "Testing error: agda2atp"; \
-		  	exit 1; \
-		fi; \
-		cat $$file.test | while read -r line; do \
-			if ! ( grep --silent "$$line" $(axiomsFile) ) ; then \
-				echo "Testing error. Translation to: $$line"; \
-		 		exit 1; \
-		 	fi; \
-		done \
 	done
 
-conjecturesTest : $(testPath)/Add.agda \
-	$(testPath)/ImplicitArguments.agda \
-	$(testPath)/LogicalConstants.agda \
-	$(testPath)/Names.agda \
-	$(testPath)/VariableNamesClash.agda \
-	$(testPath)/Where.agda \
+$(conjecturesFiles) : % : %.agda
+	make clean
+	@if ! ( agda $< ); then exit 1; fi
+	@if ! ( agda2atp $< ); then exit 1; fi
+	find  /tmp/ -maxdepth 1 -name 'Test*.tptp' -execdir $(ATP) '{}' ';'
 
-	@for file in $^; \
-	 do \
-		make clean; \
-		agda $$file; \
-		agda2atp $$file; \
-		find  /tmp/ -maxdepth 1 -name 'Test*.tptp' -execdir $(ATP) '{}' ';';\
-	done
+axiomsTest : $(axiomsFiles)
+conjecturesTest : $(conjecturesFiles)
 
 allTests :
 	make axiomsTest
