@@ -10,9 +10,9 @@ module TPTP.Pretty where
 
 -- Haskell imports
 import Data.Char
-import Data.List.HT ( replace )
+-- import Data.List.HT ( replace )
 -- Agda library imports
-import Agda.Syntax.Common ( NameId, RoleATP(..) )
+import Agda.Syntax.Common ( NameId(NameId), RoleATP(..) )
 import Agda.Syntax.Abstract.Name ( Name(nameId), QName(..))
 import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
 
@@ -54,7 +54,13 @@ instance PrettyTPTP Char where
 -- Pretty-printer for Agda types
 
 instance PrettyTPTP NameId where
-    prettyTPTP n = replace "@" "_" $ show n
+    -- The Show instance (Agda.Syntax.Abstract.Name) separates the
+    -- unique identifier of the top-level module (the second argument)
+    -- with '@'. We use '_' because '@' is not TPTP valid.
+
+    -- We prefixed the name with 'n' because E does not accept names
+    -- starting with digits.
+    prettyTPTP  (NameId x i)  = "n" ++ show x ++ "_" ++ show i
 
 instance PrettyTPTP QName where
     prettyTPTP (QName _ name) = prettyTPTP $ nameId name
