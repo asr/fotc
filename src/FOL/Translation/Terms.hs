@@ -52,7 +52,7 @@ import FOL.Primitives ( app, equal )
 import {-# source #-} FOL.Translation.Types ( argTypeToFormula, typeToFormula )
 import FOL.Types ( FormulaFOL(..), TermFOL(..))
 import Utils.Names ( freshName )
-import Reports ( reportLn )
+import Reports ( reportSLn )
 
 #include "../../undefined.h"
 
@@ -80,7 +80,7 @@ binConst op arg1 arg2 = do f1 <- argTermToFormula arg1
 
 termToFormula :: AgdaTerm -> T FormulaFOL
 termToFormula term@(Def (QName _ name) args) = do
-    lift $ reportLn "termToFormula" 10 $ "Processing term Def:\n" ++ show term
+    lift $ reportSLn "termToFormula" 10 $ "Processing term Def:\n" ++ show term
 
     let cName :: C.Name
         cName = nameConcrete name
@@ -151,13 +151,13 @@ termToFormula term@(Def (QName _ name) args) = do
                 -- isCNameConstFOLTwoHoles equivFOL   -> binConst Equiv a1 a2
 
                 | isCNameConstFOLTwoHoles equalsFOL
-                    -> do lift $ reportLn "termToFormula" 20 "Processing equals"
+                    -> do lift $ reportSLn "termToFormula" 20 "Processing equals"
                           t1 <- argTermToTermFOL a1
                           t2 <- argTermToTermFOL a2
                           return $ equal [t1, t2]
 
                 | otherwise -> do
-                      lift $ reportLn "termToFormula" 20 $
+                      lift $ reportSLn "termToFormula" 20 $
                                "Processing a definition with two arguments which " ++
                                "is not a FOL constant"
                       t1 <- argTermToTermFOL a1
@@ -183,14 +183,14 @@ termToFormula term@(Def (QName _ name) args) = do
                 cName == C.Name noRange [C.Hole, C.Id constFOL, C.Hole]
 
 termToFormula term@(Fun tyArg ty) = do
-  lift $ reportLn "termToFormula" 10 $ "Processing term Fun:\n" ++ show term
+  lift $ reportSLn "termToFormula" 10 $ "Processing term Fun:\n" ++ show term
   f1 <- argTypeToFormula tyArg
   f2 <- typeToFormula ty
   return $ Implies f1 f2
 
 -- ToDo: To add test for this case.
 termToFormula term@(Lam _ (Abs _ termLam)) = do
-  lift $ reportLn "termToFormula" 10 $ "Processing term Lam:\n" ++ show term
+  lift $ reportSLn "termToFormula" 10 $ "Processing term Lam:\n" ++ show term
 
   vars <- ask
 
@@ -203,7 +203,7 @@ termToFormula term@(Lam _ (Abs _ termLam)) = do
   return f
 
 termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
-  lift $ reportLn "termToFormula" 10 $ "Processing term Pi:\n" ++ show term
+  lift $ reportSLn "termToFormula" 10 $ "Processing term Pi:\n" ++ show term
 
   vars <- ask
 
@@ -241,7 +241,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
 
 -- ToDo: To add test for this case.
 termToFormula term@(Var n _) = do
-  lift $ reportLn "termToFormula" 10 $ "Processing term Var: " ++ show term
+  lift $ reportSLn "termToFormula" 10 $ "Processing term Var: " ++ show term
 
   vars <- ask
 
@@ -268,7 +268,7 @@ termToTermFOL (Var n _) = do
 
 -- Remark: The code for the cases Con and Def is very similar.
 termToTermFOL term@(Con (QName _ name) args)  = do
-  lift $ reportLn "termToTermFOL" 10 $ "Processing term Con:\n" ++ show term
+  lift $ reportSLn "termToTermFOL" 10 $ "Processing term Con:\n" ++ show term
 
   let cName :: C.Name
       cName = nameConcrete name
@@ -289,7 +289,7 @@ termToTermFOL term@(Con (QName _ name) args)  = do
     _ -> __IMPOSSIBLE__
 
 termToTermFOL term@(Def (QName _ name) args) = do
-  lift $ reportLn "termToTermFOL" 10 $ "Processing term Def:\n" ++ show term
+  lift $ reportSLn "termToTermFOL" 10 $ "Processing term Def:\n" ++ show term
 
   let cName :: C.Name
       cName = nameConcrete name

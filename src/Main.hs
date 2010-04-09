@@ -53,7 +53,7 @@ import MyAgda.Interface
     )
 import MyAgda.Syntax.Abstract.Name ( moduleNameToFilePath )
 import Options ( Options(optHelp, optVersion), parseOptions, usage )
-import Reports ( R, reportLn )
+import Reports ( R, reportS, reportSLn )
 import TPTP.Files ( createAxiomsAndHintsFile, createConjectureFile )
 import TPTP.Translation ( toAF )
 import TPTP.Types ( AnnotatedFormula )
@@ -74,13 +74,13 @@ axiomsAndHintsToFOLs i = do
   -- We get the ATP axioms
   let axiomsDefs :: Definitions
       axiomsDefs = getRoleATP AxiomATP i
-  reportLn "axiomsAndHintsToFOLs" 20 $
+  reportSLn "axiomsAndHintsToFOLs" 20 $
                "Axioms:\n" ++ show (Map.keys axiomsDefs)
 
   -- We get the ATP general hints
   let hintsDefs :: Definitions
       hintsDefs = getRoleATP HintATP i
-  reportLn "axiomsAndHintsToFOLs" 20 $ "Hints:\n" ++ show (Map.keys hintsDefs)
+  reportSLn "axiomsAndHintsToFOLs" 20 $ "Hints:\n" ++ show (Map.keys hintsDefs)
 
   -- ToDo: What happen when are duplicates keys?
   let axiomsAndHintsDefs :: Definitions
@@ -89,7 +89,7 @@ axiomsAndHintsToFOLs i = do
   -- We get the types of the axioms/hints.
   let axiomsAndHintsTypes :: Map QName Type
       axiomsAndHintsTypes = Map.map defType axiomsAndHintsDefs
-  reportLn "axiomsAndHintsToFOLs" 20 $
+  reportSLn "axiomsAndHintsToFOLs" 20 $
                "Axioms/hints types:\n" ++ show axiomsAndHintsTypes
 
   -- The axioms/hints types are translated to FOL formulas.
@@ -102,7 +102,7 @@ axiomsAndHintsToFOLs i = do
   let axiomsAndHintsFormulas :: Map QName FormulaFOL
       axiomsAndHintsFormulas = Map.fromList $
                                zip (Map.keys axiomsAndHintsTypes) formulas
-  reportLn "axiomsAndHintsToFOLs" 20 $
+  reportSLn "axiomsAndHintsToFOLs" 20 $
                "FOL formulas:\n" ++ show axiomsAndHintsFormulas
 
   -- The FOL formulas are translated to annotated formulas
@@ -110,7 +110,7 @@ axiomsAndHintsToFOLs i = do
       afs = map (\(ahName, formula) -> (toAF ahName AxiomATP formula))
                 (zip (Map.keys axiomsAndHintsFormulas)
                      (Map.elems axiomsAndHintsFormulas))
-  -- reportLn "axiomsAndHintsToFOLs" 20 $ "TPTP formulas:\n" ++ prettyTPTP afs
+  -- reportSLn "axiomsAndHintsToFOLs" 20 $ "TPTP formulas:\n" ++ prettyTPTP afs
 
   return afs
 
@@ -126,13 +126,13 @@ conjecturesToFOLs i = do
   -- We get the ATP pragmas conjectures
   let conjecturesDefs :: Definitions
       conjecturesDefs = getRoleATP ConjectureATP i
-  reportLn "conjecturesToFOLs" 20 $
+  reportSLn "conjecturesToFOLs" 20 $
     "Conjectures:\n" ++ show (Map.keys conjecturesDefs)
 
   -- We get the types of the conjectures.
   let conjecturesTypes :: Map QName Type
       conjecturesTypes = Map.map defType conjecturesDefs
-  reportLn "conjecturesToFOLs" 20 $
+  reportSLn "conjecturesToFOLs" 20 $
                "Conjectures types:\n" ++ show conjecturesTypes
 
   -- The conjectures types are translated to FOL formulas.
@@ -145,7 +145,7 @@ conjecturesToFOLs i = do
   let conjecturesFormulas :: Map QName FormulaFOL
       conjecturesFormulas =
           Map.fromList $ zip (Map.keys conjecturesTypes) formulas
-  reportLn "conjecturesToFOLs" 20 $
+  reportSLn "conjecturesToFOLs" 20 $
                "FOL formulas:\n" ++ show conjecturesFormulas
 
   -- We translate the hints associated with each ATP pragma conjecture to
@@ -159,7 +159,7 @@ conjecturesToFOLs i = do
       afs = map (\(tName, formula) -> (toAF tName ConjectureATP formula))
                 (zip (Map.keys conjecturesFormulas)
                      (Map.elems conjecturesFormulas))
-  -- reportLn "conjecturesToFOLs" 20 $ "TPTP formulas:\n" ++ (prettyTPTP afs)
+  -- reportSLn "conjecturesToFOLs" 20 $ "TPTP formulas:\n" ++ (prettyTPTP afs)
 
   return $ zip afs hintsAFss
 
@@ -195,7 +195,7 @@ conjecturaHintsToFOLs conjectureDef = do
 
   let hints :: [QName]
       hints = getConjectureHints conjectureDef
-  reportLn "hintsToFOLs" 20 $
+  reportSLn "hintsToFOLs" 20 $
     "The hints for the conjecture " ++ show conjectureDef ++
     " are " ++ show hints
 
@@ -213,14 +213,14 @@ symbolsToFOLs i = do
   -- We get the ATP definitions
   let symbolsDefs :: Definitions
       symbolsDefs = getRoleATP DefinitionATP i
-  reportLn "symbolsToFOLs" 20 $
+  reportSLn "symbolsToFOLs" 20 $
                "Symbols:\n" ++ show (Map.keys symbolsDefs)
 
   -- We get the clauses that define the symbol
   -- (All the symbols must be functions)
   let symbolsClauses :: Map QName [Clause]
       symbolsClauses = Map.map getClauses symbolsDefs
-  reportLn "symbolsToFOLs" 20 $
+  reportSLn "symbolsToFOLs" 20 $
                "Symbols' clauses:\n" ++ show symbolsClauses
 
   -- The symbols are translated to FOL formulas.
@@ -231,14 +231,14 @@ symbolsToFOLs i = do
              (Map.keys symbolsClauses)
              (Map.elems symbolsClauses)
 
-  reportLn "symbolsToFOLs" 20 $
+  reportSLn "symbolsToFOLs" 20 $
                "FOL formulas:\n" ++ show formulas
 
   -- -- The symbols are associated with their FOL formulas.
   -- let symbolsFormulas :: Map QName [FormulaFOL]
   --     symbolsFormulas = Map.fromList $
   --                              zip (Map.keys symbolsClauses) formulas
-  -- reportLn "symbolsToFOLs" 20 $
+  -- reportSLn "symbolsToFOLs" 20 $
   --              "FOL formulas:\n" ++ show symbolsFormulas
 
   -- -- The FOL formulas are translated to annotated formulas
@@ -246,14 +246,14 @@ symbolsToFOLs i = do
   --     afs = map (\(ahName, formula) -> (toAF ahName AxiomATP formula))
   --               (zip (Map.keys axiomsAndHintsFormulas)
   --                    (Map.elems axiomsAndHintsFormulas))
-  -- -- reportLn "axiomsAndHintsToFOLs" 20 $ "TPTP formulas:\n" ++ prettyTPTP afs
+  -- -- reportSLn "axiomsAndHintsToFOLs" 20 $ "TPTP formulas:\n" ++ prettyTPTP afs
 
   -- return afs
   return []
 
 translation :: Interface -> R ()
 translation i = do
-  reportLn "" 1 $ "Translating " ++ show (iModuleName i)
+  reportS "" 1 $ "Translating " ++ show (iModuleName i)
 
   let importedModules :: [ModuleName]
       importedModules = iImportedModules i

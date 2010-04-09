@@ -13,7 +13,7 @@ import Control.Monad.IO.Class ( liftIO )
 
 -- Agda library imports
 import Agda.Utils.Impossible ( Impossible (Impossible), throwImpossible )
-import qualified Agda.Utils.IO.Locale as LocIO
+-- import qualified Agda.Utils.IO.Locale as LocIO
 import Agda.Utils.Trie ( Trie )
 import qualified Agda.Utils.Trie as Trie
 import Agda.Utils.List ( wordsBy )
@@ -47,5 +47,8 @@ verboseS k n action | n < 0     =  __IMPOSSIBLE__
         m  = maximum $ 0 : Trie.lookupPath ks t
     when (n <= m) action
 
-reportLn :: VerboseKey -> Int -> String -> R ()
-reportLn k n s = verboseS k n $ liftIO $ LocIO.putStrLn (s ++ "\n")
+reportS :: VerboseKey -> Int -> String -> R ()
+reportS k n s = verboseS k n $ liftIO $ putStr (s ++ "\n")
+
+reportSLn :: VerboseKey -> Int -> String -> R ()
+reportSLn k n s = verboseS k n $ liftIO $ putStrLn (s ++ "\n")
