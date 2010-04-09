@@ -31,7 +31,7 @@ $(conjecturesFiles) : % : %.agda
 	@if ! ( agda $< ); then exit 1; fi
 	@if ! ( agda2atp $< ); then exit 1; fi
 	@for file in /tmp/$(subst /,.,$@)*.tptp; do \
-		if ! ( $(ATP1) $$file ); then exit 1; fi \
+	 	if ! ( $(ATP1) $$file ); then exit 1; fi \
 	done
 	@for file in /tmp/$(subst /,.,$@)*.tptp; do \
 		if ! ( $(ATP2) $$file ); then exit 1; fi \

@@ -15,6 +15,6 @@ import FOL.Types ( FormulaFOL )
 ------------------------------------------------------------------------------
 
 -- The TPTP annotated formulas.
--- N.B. The annotated are not in TPTP syntax. We get this syntax via
+-- N.B. The annotated formulas are not in TPTP syntax. We get this syntax via
 -- a pretty-printer.
 data AnnotatedFormula = AF QName RoleATP FormulaFOL

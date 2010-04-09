@@ -44,8 +44,8 @@ instance ValidFileName String where
 extTPTP :: String
 extTPTP = ".tptp"
 
-axiomsAndHintsFile :: FilePath
-axiomsAndHintsFile = addExtension "/tmp/axioms" extTPTP
+axiomsFile :: FilePath
+axiomsFile = addExtension "/tmp/axioms" extTPTP
 
 communHeader :: String
 communHeader =
@@ -53,52 +53,57 @@ communHeader =
     "% This file was generated automatically.\n" ++
     "%-----------------------------------------------------------------------------\n\n"
 
-headerAxiomsAndHints :: String
-headerAxiomsAndHints =
+headerAxioms :: String
+headerAxioms =
     communHeader ++
-    "% This file corresponds to the ATP axioms and general hints.\n\n"
+    "% This file corresponds to the ATP axioms, general hints and definitions.\n\n"
 
-footerAxiomsAndHints :: String
-footerAxiomsAndHints  =
+footerAxioms :: String
+footerAxioms  =
     "%-----------------------------------------------------------------------------\n" ++
-    "% End ATP axioms and general hints.\n"
+    "% End ATP axioms file.\n"
 
 headerConjecture :: String
 headerConjecture =
     communHeader ++
-    "% This file corresponds to an ATP pragma conjecture and its hints.\n\n" ++
+    "% This file corresponds to an ATP conjecture and its hints.\n\n" ++
     "% We include the ATP pragmas axioms file.\n" ++
-    "include('" ++ axiomsAndHintsFile ++ "').\n\n"
+    "include('" ++ axiomsFile ++ "').\n\n"
 
 footerConjecture :: String
 footerConjecture =
     "%-----------------------------------------------------------------------------\n" ++
-    "% End ATP pragma conjecture.\n"
+    "% End ATP conjecture file.\n"
 
-agdaOriginalTerm :: QName -> String
-agdaOriginalTerm qName =
-    "% The original Agda term was\n" ++
+agdaOriginalTerm :: QName -> RoleATP -> String
+agdaOriginalTerm qName role =
+    "% The original Agda term was:\n" ++
     "% name:\t\t" ++ show qName ++ "\n" ++
-    "% position:\t" ++
-    show (nameBindingSite $ qnameName qName) ++ "\n"
+    "% ATP role:\t" ++ show role ++ "\n" ++
+    "% position:\t" ++ show (nameBindingSite $ qnameName qName) ++ "\n"
 
 addAxiom :: AnnotatedFormula -> FilePath -> IO ()
-addAxiom af@(AF qName AxiomATP _ ) file = do
-  appendFile file $ agdaOriginalTerm qName
-  appendFile file $ prettyTPTP af
-addAxiom _ _ = __IMPOSSIBLE__
+addAxiom af file = do
+  case af of
+    (AF qName AxiomATP _ ) -> do
+                     appendFile file $ agdaOriginalTerm qName AxiomATP
+                     appendFile file $ prettyTPTP af
+    _ -> __IMPOSSIBLE__
 
 addConjecture :: AnnotatedFormula -> FilePath -> IO ()
-addConjecture af@(AF qName ConjectureATP _ ) file = do
-  appendFile file $ agdaOriginalTerm qName
-  appendFile file $ prettyTPTP af
-addConjecture _ _ = __IMPOSSIBLE__
+addConjecture af file = do
+  case af of
+    (AF qName ConjectureATP _ ) -> do
+          appendFile file $ agdaOriginalTerm qName ConjectureATP
+          appendFile file $ prettyTPTP af
 
-createAxiomsAndHintsFile :: [AnnotatedFormula] -> IO ()
-createAxiomsAndHintsFile afs = do
-  _ <- writeFile axiomsAndHintsFile headerAxiomsAndHints
-  _ <- mapM_ (flip addAxiom axiomsAndHintsFile) afs
-  _ <- appendFile axiomsAndHintsFile footerAxiomsAndHints
+    _ -> __IMPOSSIBLE__
+
+createAxiomsFile :: [AnnotatedFormula] -> IO ()
+createAxiomsFile afs = do
+  _ <- writeFile axiomsFile headerAxioms
+  _ <- mapM_ (flip addAxiom axiomsFile) afs
+  _ <- appendFile axiomsFile footerAxioms
   return ()
 
 createConjectureFile :: (AnnotatedFormula, [AnnotatedFormula]) -> IO ()

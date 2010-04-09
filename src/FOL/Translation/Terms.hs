@@ -49,6 +49,7 @@ import FOL.Constants
     )
 import FOL.Monad ( T )
 import FOL.Primitives ( app, equal )
+import FOL.Translation.Common ( AgdaTerm )
 import {-# source #-} FOL.Translation.Types ( argTypeToFormula, typeToFormula )
 import FOL.Types ( FormulaFOL(..), TermFOL(..))
 import Utils.Names ( freshName )
@@ -57,8 +58,6 @@ import Reports ( reportSLn )
 #include "../../undefined.h"
 
 ------------------------------------------------------------------------------
-
-type AgdaTerm = Term
 
 argTermToFormula :: Arg AgdaTerm -> T FormulaFOL
 argTermToFormula Arg {argHiding = NotHidden, unArg = term} = termToFormula term
@@ -94,7 +93,7 @@ termToFormula term@(Def (QName _ name) args) = do
 
                | isCNameConstFOL falseFOL -> return FALSE
 
-               | otherwise                -> __IMPOSSIBLE__
+               | otherwise                -> return $ Predicate (show cName) []
 
             (a:[]) | isCNameConstFOL notFOL ->
                          do f <- argTermToFormula a

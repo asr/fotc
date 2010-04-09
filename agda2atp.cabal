@@ -24,8 +24,9 @@ executable agda2atp
   other-modules:  FOL.Constants
                   FOL.Monad
                   FOL.Primitives
+                  FOL.Translation.Common
                   FOL.Translation.Internal
-                  FOL.Translation.FunctionDefinitions
+                  FOL.Translation.SymbolDefinitions
                   FOL.Translation.Terms
                   FOL.Translation.Types
                   -- FOL.Substitution

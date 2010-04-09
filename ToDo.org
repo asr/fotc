@@ -1,6 +1,7 @@
+* TODO Fix the problem with the definitions inside a where clause
+* TODO Fix: Role name in the TPTP files.
 * TODO Fix problem with the Makefile
-In testAxiom, there is an 'exit' inside pipeline, therefore it is not
-a full exit.
+We need exit if cat fail
 * TODO Process all the imported modules recursively
 * TODO To prevent non-desirable evaluation
 
@@ -15,35 +16,3 @@ normalizationk, then this won't happen.
 
 See Agda patch: don't inline definitions for COMPILED functions
 
-* TODO TPTP definitions
-
-It is possible to translate predicates inside conjectures?
-
-(see file Test.Fail.UsingPredicatesWithConjectures)
-
-From an Peter's email:
-
-You should postulate
-
-forall i. i + zero ≡ i
-
-because this is one of the recursion equations, and this should be
-enough. There must be a way to add definitions like
-
-P i = zero + i ≡ i
-
-in Equinox. Maybe it's simply by adding a postulate
-
-forall i. P i <=> zero + i ≡ i
-
-or it could also be that there is a special command for "macros". You
-should not need to add special cases like P zero separately.
-
-
-From an Peter's email:
-
-It ought to be more efficient to add a definition as a "macro"
-(abbreviation) then as an equivalence axiom. A macro would be expanded
-immediately, whereas an equivalence axiom may be treated
-differently. This must be a very common problem for people who use
-ATP, and there is probably a standard solution.

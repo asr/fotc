@@ -24,6 +24,7 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 ------------------------------------------------------------------------------
 -- Local imports
 import FOL.Monad ( T )
+import FOL.Translation.Common ( AgdaType )
 import FOL.Translation.Terms ( termToFormula )
 import FOL.Types ( FormulaFOL )
 import Reports ( reportSLn )
@@ -31,8 +32,6 @@ import Reports ( reportSLn )
 #include "../../undefined.h"
 
 ------------------------------------------------------------------------------
-
-type AgdaType = Type
 
 typeToFormula :: AgdaType -> T FormulaFOL
 typeToFormula ty@(El (Type _ ) term) =
