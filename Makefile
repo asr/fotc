@@ -1,7 +1,7 @@
 haskellFiles = $(shell find src/ -name '*.hs')
 
 testPath = Test/Succeed
-testAxiomsPath = $(testPath)/OnlyAxioms
+axiomsTestPath = $(testPath)/OnlyAxioms
 
 axiomsFile = /tmp/axioms.tptp
 
@@ -10,9 +10,9 @@ ATP = equinox
 TAGS : $(haskellFiles)
 	hasktags -e $(haskellFiles)
 
-testAxioms : $(testAxiomsPath)/Hints.agda \
-	$(testAxiomsPath)/InternalTypes.agda \
-	$(testAxiomsPath)/RemoveQuantificationOverProofs.agda
+axiomsTest : $(axiomsTestPath)/Hints.agda \
+	$(axiomsTestPath)/InternalTypes.agda \
+	$(axiomsTestPath)/RemoveQuantificationOverProofs.agda
 
 	@for file in $(basename $^); do \
 		if ! ( agda $$file.agda ) ; then \
@@ -31,7 +31,7 @@ testAxioms : $(testAxiomsPath)/Hints.agda \
 		done \
 	done
 
-testConjectures : $(testPath)/Add.agda \
+conjecturesTest : $(testPath)/Add.agda \
 	$(testPath)/ImplicitArguments.agda \
 	$(testPath)/LogicalConstants.agda \
 	$(testPath)/Names.agda \
@@ -47,8 +47,8 @@ testConjectures : $(testPath)/Add.agda \
 	done
 
 allTests :
-	make testAxioms
-	make testConjectures
+	make axiomsTest
+	make conjecturesTest
 
 clean :
 	@find -name '*.agdai' | xargs rm
