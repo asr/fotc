@@ -51,7 +51,6 @@ changeToLower name = changeCaseFirstSymbol (prettyTPTP name) toLower
 
 instance PrettyTPTP Char where
     prettyTPTP c
-        | c == '-' = "_"
         | c == '.' = ""
         -- The character is a subscript number (i.e. ₀, ₁, ₂, ...).
         | ord c `elem` [8320 .. 8329] = [chr (ord c - 8272)]
