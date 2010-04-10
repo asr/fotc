@@ -163,10 +163,9 @@ termToFormula term@(Def (QName _ name) args) = do
                       t2 <- argTermToTermFOL a2
                       return $ Predicate (show cName) [t1, t2]
 
-            _ ->
-               -- In this case it seems we would use a similar code
-               -- to the otherwise guard in the case (a:[]).
-               __IMPOSSIBLE__
+            threeOrMore -> do
+                      terms <- mapM argTermToTermFOL threeOrMore
+                      return $ Predicate (show cName) terms
 
           where
             isCNameConstFOL :: String -> Bool
