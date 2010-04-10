@@ -222,7 +222,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     -- indices (e.g. N n : Set). In this case, we erase the
     -- quantification and try it as a function type.
     -- This solve the problem the translation of
-    -- sN : {n : D} → (Nn : N n) → N (succ n)
+    -- sN : {n : D} → (Nn : N n) → N (succ n).
     El (Type (Lit (LitLevel _ 0))) (Def _ _) -> do
        f1 <- argTypeToFormula tyArg
        return $ Implies f1 f2

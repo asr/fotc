@@ -71,9 +71,8 @@ symbolToAF qName def = do
   let cls :: [Clause]
       cls = getClauses def
 
-  reportSLn "symbolToAF" 20 $
-                "Symbol: " ++ show qName ++ "\n" ++
-                "Clauses: " ++ show cls
+  reportSLn "symbolToAF" 10 $
+                "Symbol: " ++ show qName ++ "\n" ++ "Clauses: " ++ show cls
 
   for <- liftIO $
          runReaderT (runReaderT (symDefToFormula qName cls) iVarNames) opts

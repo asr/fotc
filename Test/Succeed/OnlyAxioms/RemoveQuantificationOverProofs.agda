@@ -7,6 +7,7 @@ module Test.Succeed.OnlyAxioms.RemoveQuantificationOverProofs where
 postulate
   D    : Set
   succ : D → D
+  _≡_  : D → D → Set
 
 data N : D → Set where
   -- zN : N zero
@@ -53,3 +54,14 @@ El (Type (Lit (LitLevel  0)))
        )
    )
 -}
+
+
+-- We need to remove the quantification over proofs inside a where
+-- clause. The translation of P must be '∀ x. ∀ y. p(x, y) ↔ y = x',
+-- i.e. we must remove the quantification on N n.
+foo : (n : D) → N n → Set
+foo n Nn = P n
+  where
+    P : D → Set
+    P m = m ≡ n
+    {-# ATP definition P #-}
