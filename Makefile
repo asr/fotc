@@ -20,7 +20,7 @@ TAGS : $(haskellFiles)
 $(axiomsFiles) : % : %.agda
 	@if ! ( agda $< ); then exit 1; fi
 	@if ! ( agda2atp $< ); then exit 1; fi
-	@cat $@.test | while read -r line; do \
+	@cat $@.ax | while read -r line; do \
 		if ! ( grep --silent "$$line" $(axiomsTPTP) ) ; then \
 			 echo "Testing error. Translation to: $$line"; \
 			exit 1; \
