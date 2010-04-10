@@ -1,5 +1,4 @@
 * TODO Fix the problem with the definitions inside a where clause
-* TODO Fix: Role name in the TPTP files.
 * TODO Fix problem with the Makefile
 We need exit if cat fail
 * TODO Process all the imported modules recursively

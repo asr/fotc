@@ -242,10 +242,8 @@ symbolsToFOLs i = do
                "FOL formulas:\n" ++ show symFormulas
 
   -- The FOL formulas are translated to annotated formulas.
-  -- N.B. We are using the TPTP role AxiomATP. We should use the role
-  -- 'definition' but Equinox doesn't support it.
   let afs :: [AnnotatedFormula]
-      afs = map (\(sName, formula) -> (toAF sName AxiomATP formula))
+      afs = map (\(sName, formula) -> (toAF sName DefinitionATP formula))
                 (zip (Map.keys symFormulas)
                      (Map.elems symFormulas))
   -- reportSLn "symbolsToFOLs" 20 $ "TPTP formulas:\n" ++ prettyTPTP afs

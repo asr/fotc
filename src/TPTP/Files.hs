@@ -83,12 +83,15 @@ agdaOriginalTerm qName role =
     "% position:\t" ++ show (nameBindingSite $ qnameName qName) ++ "\n"
 
 addAxiom :: AnnotatedFormula -> FilePath -> IO ()
-addAxiom af file = do
-  case af of
-    (AF qName AxiomATP _ ) -> do
-                     appendFile file $ agdaOriginalTerm qName AxiomATP
-                     appendFile file $ prettyTPTP af
-    _ -> __IMPOSSIBLE__
+addAxiom af@(AF qName role _ ) file
+  | role == AxiomATP ||
+    role == DefinitionATP ||
+    role == HintATP =
+        do
+          appendFile file $ agdaOriginalTerm qName role
+          appendFile file $ prettyTPTP af
+
+  | otherwise = __IMPOSSIBLE__
 
 addConjecture :: AnnotatedFormula -> FilePath -> IO ()
 addConjecture af file = do
