@@ -56,7 +56,7 @@ communHeader =
 headerAxioms :: String
 headerAxioms =
     communHeader ++
-    "% This file corresponds to the ATP axioms, general hints and definitions.\n\n"
+    "% This file corresponds to the ATP axioms, general hints, and definitions.\n\n"
 
 footerAxioms :: String
 footerAxioms  =
@@ -82,7 +82,7 @@ agdaOriginalTerm qName role =
     "% ATP role:\t" ++ show role ++ "\n" ++
     "% position:\t" ++ show (nameBindingSite $ qnameName qName) ++ "\n"
 
-addAxiom :: AnnotatedFormula -> FilePath -> IO ()
+addAxiom :: AF -> FilePath -> IO ()
 addAxiom af@(AF qName role _ ) file
   | role == AxiomATP ||
     role == DefinitionATP ||
@@ -93,7 +93,7 @@ addAxiom af@(AF qName role _ ) file
 
   | otherwise = __IMPOSSIBLE__
 
-addConjecture :: AnnotatedFormula -> FilePath -> IO ()
+addConjecture :: AF -> FilePath -> IO ()
 addConjecture af file = do
   case af of
     (AF qName ConjectureATP _ ) -> do
@@ -102,14 +102,14 @@ addConjecture af file = do
 
     _ -> __IMPOSSIBLE__
 
-createAxiomsFile :: [AnnotatedFormula] -> IO ()
+createAxiomsFile :: [AF] -> IO ()
 createAxiomsFile afs = do
   _ <- writeFile axiomsFile headerAxioms
   _ <- mapM_ (flip addAxiom axiomsFile) afs
   _ <- appendFile axiomsFile footerAxioms
   return ()
 
-createConjectureFile :: (AnnotatedFormula, [AnnotatedFormula]) -> IO ()
+createConjectureFile :: (AF, [AF]) -> IO ()
 createConjectureFile (af@(AF qName _ _ ), hints) = do
   -- To avoid clash names with the terms inside a where clause, we
   -- added the line number where the term was defined to the file

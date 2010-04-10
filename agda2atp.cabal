@@ -20,6 +20,7 @@ executable agda2atp
                   , filepath >= 1.1.0.3 && < 1.2
                   , transformers >= 0.2.0.0 && < 0.3
                   -- , utility-ht >= 0.0.5.1 && < 0.1
+                  , ghc >= 6.12 && < 6.14
 
   other-modules:  FOL.Constants
                   FOL.Monad

@@ -11,8 +11,8 @@ axiomsFiles = $(patsubst %.agda,%,$(shell find $(axiomsPath) -name "*.agda"))
 conjecturesFiles = $(patsubst %.agda,%, \
 	$(shell find $(conjecturesPath) -path '$(axiomsPath)' -prune , -name "*.agda"))
 
-ATP1 = eprover --tstp-format
-ATP2 = equinox
+# ATP = eprover --tstp-format
+ATP = equinox
 
 TAGS : $(haskellFiles)
 	hasktags -e $(haskellFiles)
@@ -31,10 +31,7 @@ $(conjecturesFiles) : % : %.agda
 	@if ! ( agda $< ); then exit 1; fi
 	@if ! ( agda2atp $< ); then exit 1; fi
 	@for file in /tmp/$(subst /,.,$@)*.tptp; do \
-	 	if ! ( $(ATP1) $$file ); then exit 1; fi \
-	done
-	@for file in /tmp/$(subst /,.,$@)*.tptp; do \
-		if ! ( $(ATP2) $$file ); then exit 1; fi \
+	 	if ! ( $(ATP) $$file ); then exit 1; fi \
 	done
 
 axiomsTest : $(axiomsFiles)

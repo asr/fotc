@@ -18,7 +18,7 @@ import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
 
 -- Local import
 import FOL.Types
-import TPTP.Types ( AnnotatedFormula(..) )
+import TPTP.Types ( AF(..) )
 #include "../undefined.h"
 
 ------------------------------------------------------------------------------
@@ -135,7 +135,7 @@ instance PrettyTPTP RoleATP where
     prettyTPTP DefinitionATP = "axiom"
     prettyTPTP HintATP       = "axiom"
 
-instance PrettyTPTP AnnotatedFormula where
+instance PrettyTPTP AF where
     prettyTPTP (AF qName roleATP formula) =
         "fof(" ++
         prettyTPTP qName ++ ", " ++
