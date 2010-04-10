@@ -1,4 +1,4 @@
-* TODO Fix the problem with the definitions inside a where clause
+* TODO Fix: Remove the quantification over proofs inside where clauses
 * TODO Fix problem with the Makefile
 We need exit if cat fail
 * TODO Process all the imported modules recursively

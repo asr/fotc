@@ -65,9 +65,7 @@ argTermToFormula Arg {argHiding = Hidden} =
     error "argTermToFormula: not implemented"
 
 argTermToTermFOL :: Arg AgdaTerm -> T TermFOL
-argTermToTermFOL Arg {argHiding = NotHidden, unArg = term} = termToTermFOL term
-argTermToTermFOL Arg {argHiding = Hidden} =
-    error "argTermToTermFOL: not implemented"
+argTermToTermFOL (Arg _ agdaTerm) = termToTermFOL agdaTerm
 
 binConst :: (FormulaFOL -> FormulaFOL -> FormulaFOL)
             -> Arg AgdaTerm
@@ -131,10 +129,11 @@ termToFormula term@(Def (QName _ name) args) = do
                           return $ Exists x $ \_ -> fm
 
                    | otherwise -> do
-                      -- In this guard we translate the inductive predicates
-                      -- (e.g. the LTC natural numbers N).
-                      -- ToDo: To test if 'termToTermFOL (unArg a)' works with
-                      -- implicit arguments.
+                      -- In this guard we translate predicates with
+                      -- one argument (e.x. P : D -> Set).
+
+                      -- ToDo: To test if 'termToTermFOL (unArg a)'
+                      -- works with implicit arguments.
                       t <- argTermToTermFOL a
                       return $ Predicate (show cName) [t]
 
