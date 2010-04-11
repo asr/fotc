@@ -127,7 +127,7 @@ instance PrettyTPTP FormulaFOL where
         " )"
 
     prettyTPTP TRUE  = "( " ++ "$true" ++ " )"
-    prettyTPTP FALSE = "( " ++ "$false " ++ " ) "
+    prettyTPTP FALSE = "( " ++ "$false" ++ " )"
 
 ------------------------------------------------------------------------------
 -- Pretty-printer for annotated formulas
