@@ -12,12 +12,7 @@ import Control.Monad.Trans.Class ( lift )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
-import Agda.Syntax.Common
-    ( Arg(Arg)
-    , argHiding
-    , Hiding(Hidden, NotHidden)
-    , unArg
-    )
+import Agda.Syntax.Common ( Arg(Arg) )
 import Agda.Syntax.Internal ( Sort(Type) , Type(El) )
 import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 
@@ -40,6 +35,4 @@ typeToFormula ty@(El (Type _ ) term) =
 typeToFormula _                   = __IMPOSSIBLE__
 
 argTypeToFormula :: Arg AgdaType -> T FormulaFOL
-argTypeToFormula Arg {argHiding = NotHidden, unArg = ty} = typeToFormula ty
-argTypeToFormula Arg {argHiding = Hidden} =
-    error "argTypeToFormula: not implemented"
+argTypeToFormula (Arg _ ty) = typeToFormula ty

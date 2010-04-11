@@ -29,7 +29,7 @@ import Agda.Syntax.Internal
     ( Abs(Abs)
     , Args
     , Sort(Type)
-    , Term(Con, Def, Fun, Lam, Lit, Pi, Var)
+    , Term(Con, Def, Fun, Lam, Lit, Pi, Sort, Var)
     , Type(El)
     )
 import Agda.Syntax.Literal ( Literal(LitLevel) )
@@ -65,7 +65,7 @@ argTermToFormula Arg {argHiding = Hidden} =
     error "argTermToFormula: not implemented"
 
 argTermToTermFOL :: Arg AgdaTerm -> T TermFOL
-argTermToTermFOL (Arg _ agdaTerm) = termToTermFOL agdaTerm
+argTermToTermFOL (Arg _ term) = termToTermFOL term
 
 binConst :: (FormulaFOL -> FormulaFOL -> FormulaFOL)
             -> Arg AgdaTerm
@@ -210,31 +210,51 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   -- The de Bruijn indexes are assigned from "right to left", e.g.
   -- in '(A B C : Set) -> ...', A is 2, B is 1, and C is 0,
   -- so we need create the list in the same order.
+
+  lift $ reportSLn "termToFormula" 20
+           "Starting processing in local enviroment ..."
   f2 <- local (\varNames -> freshVar : varNames) $ typeToFormula tyAbs
+  lift $ reportSLn "termToFormula" 20
+           "Finalized processing in local enviroment"
 
   case unArg tyArg of
-     -- The varible bound has type below Set and this type doesn't
-     -- have indices (e.g. D : Set).
+    -- The bounded variable is quantified on a Set (e.g. D : Set ⊢ d : D), so
+    -- we translate without any problem.
+    -- N.B. The pattern matching on (Def _ []).
     El (Type (Lit (LitLevel _ 0))) (Def _ []) -> do
                      return $ ForAll freshVar (\_ -> f2)
 
-    -- The varible bound has type below Set and this type has have
-    -- indices (e.g. N n : Set). In this case, we erase the
-    -- quantification and try it as a function type.
-    -- This solve the problem the translation of
+    -- The bound variable is quantified on a Predicate
+    -- (e.g. D : Set, n : D, N : D → Set ⊢ Nn : N n).
+    -- In this case, we erase the quantification and try it as a
+    -- function type.  This solve the problem the translation of
     -- sN : {n : D} → (Nn : N n) → N (succ n).
+    -- N.B. The pattern matching on (Def _ _).
     El (Type (Lit (LitLevel _ 0))) (Def _ _) -> do
        f1 <- argTypeToFormula tyArg
        return $ Implies f1 f2
 
     El (Type (Lit (LitLevel _ 0))) _ -> __IMPOSSIBLE__
 
+    -- Old version
     -- ToDo: Check it
     -- The variable bound has type Set, i.e. a propositional constant.
-    El (Type (Lit (LitLevel _ 1))) _ ->
-        return $ ForAll freshVar (\_ -> f2)
+    -- El (Type (Lit (LitLevel _ 1))) _ ->
+        -- return $ ForAll freshVar (\_ -> f2)
+
+    -- The bound variable is quantified on a Set₁ (e.g. A : Set).
+    -- In this case, we erase the quantification and try it as a
+    -- function type.
+    El (Type (Lit (LitLevel _ 1))) (Sort _)  -> do
+       lift $ reportSLn "termToFormula" 20 $
+            "The type tyArg is: " ++ show tyArg
+       return f2
+
+    El (Type (Lit (LitLevel _ 1))) _ -> __IMPOSSIBLE__
 
     _                                -> __IMPOSSIBLE__
+
+termToFormula (Sort _) = __IMPOSSIBLE__
 
 -- ToDo: To add test for this case.
 termToFormula term@(Var n _) = do
