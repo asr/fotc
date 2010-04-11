@@ -40,5 +40,5 @@ conjecturesTest : $(conjecturesFiles)
 allTests : axiomsTest conjecturesTest
 
 clean :
-	@find -name '*.agdai' | xargs rm
-	@rm -f /tmp/*.tptp
+	find -name '*.agdai' | xargs rm -f
+	rm -f /tmp/*.tptp
