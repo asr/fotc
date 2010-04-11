@@ -62,7 +62,7 @@ symClauseToFormula :: QName -> Clause -> T FormulaFOL
 -- on an equal number of variables to length [Arg Pattern].
 symClauseToFormula qname (Clause r tel perm (_ : pats) cBody ) = do
   case tel of
-    -- The binding variable is quantified on a Set (e.g. D : Set ⊢ d : D), so
+    -- The bounded variable is quantified on a Set (e.g. D : Set ⊢ d : D), so
     -- we translate without any problem.
     -- N.B. The pattern matching on (Def _ []).
     ExtendTel
@@ -80,7 +80,7 @@ symClauseToFormula qname (Clause r tel perm (_ : pats) cBody ) = do
 
           return $ ForAll freshVar (\_ -> f)
 
-    -- The binding variable is quantified on a Predicate
+    -- The bound variable is quantified on a Predicate
     -- (e.g. D : Set, n : D, N : D → Set ⊢ Nn : N n)
     -- so we need remove this quantification.
     -- N.B. The pattern matching on (Def _ _).
