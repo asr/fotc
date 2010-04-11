@@ -2,7 +2,7 @@
 -- Testing the removal of the quantification over proofs of formulas
 ------------------------------------------------------------------------------
 
-module Test.Succeed.OnlyAxioms.RemoveQuantificationOverProofs where
+module Test.Succeed.OnlyAxioms.EraseQuantificationOverProofs where
 
 postulate
   D    : Set
@@ -15,7 +15,7 @@ data N : D → Set where
   sN₂ : {n : D} → (Nn : N n) → N (succ n)
 
 -- The data constructors sN₁ and sN₂ must have the same translation,
--- i.e. we must remove the quantification of the variable Nn on N n.
+-- i.e. we must erase the quantification of the variable Nn on N n.
 
 {-# ATP hint sN₂ #-}
 
@@ -58,7 +58,7 @@ El (Type (Lit (LitLevel  0)))
 
 -- We need to remove the quantification over proofs inside a where
 -- clause. The translation of P must be '∀ x. ∀ y. p(x, y) ↔ y = x',
--- i.e. we must remove the quantification on N n.
+-- i.e. we must erase the quantification on N n.
 foo : (n : D) → N n → Set
 foo n Nn = P n
   where

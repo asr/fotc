@@ -1,4 +1,4 @@
-module Test.Succeed.RemoveQuantificationOnSet1 where
+module Test.Succeed.EraseQuantificationOnSet where
 
 data ⊥ : Set where
 
@@ -21,7 +21,7 @@ foo : {A : Set} → a ≡ b → A
 foo a≡b  = ⊥-elim prf
   where
     postulate
-      -- The translation must remove the quantification on Set,
+      -- The translation must erase the quantification on Set,
       -- i.e. the translation must be 'a = b → $false'.
       prf : ⊥
     {-# ATP prove prf #-}
