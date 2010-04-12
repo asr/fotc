@@ -29,7 +29,7 @@ import Agda.Syntax.Internal
     ( Abs(Abs)
     , Args
     , Sort(Type)
-    , Term(Con, Def, Fun, Lam, Lit, Pi, Sort, Var)
+    , Term(Con, Def, Fun, Lam, Lit, MetaV, Pi, Sort, Var)
     , Type(El)
     )
 import Agda.Syntax.Literal ( Literal(LitLevel) )
@@ -254,8 +254,6 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
 
     _                                -> __IMPOSSIBLE__
 
-termToFormula (Sort _) = __IMPOSSIBLE__
-
 -- ToDo: To add test for this case.
 termToFormula term@(Var n _) = do
   lift $ reportSLn "termToFormula" 10 $ "Processing term Var: " ++ show term
@@ -266,7 +264,10 @@ termToFormula term@(Var n _) = do
      then __IMPOSSIBLE__
      else return $ Predicate (vars !! fromIntegral n) []
 
-termToFormula _ = error "termToFormula: not implemented"
+termToFormula (Con _ _)   = __IMPOSSIBLE__
+termToFormula (Lit _)     = __IMPOSSIBLE__
+termToFormula (MetaV _ _) = __IMPOSSIBLE__
+termToFormula (Sort _)    = __IMPOSSIBLE__
 
 -- Translate 'fn x1 ... xn' to 'kApp (... kApp (kApp(fn, x1), x2), ..., xn)'.
 appArgs :: String -> Args -> T TermFOL
@@ -274,15 +275,8 @@ appArgs fn args = do
   termsFOL <- mapM argTermToTermFOL args
   return $ foldl (\x y -> app [x, y]) (FunFOL fn []) termsFOL
 
--- Translate an Agda term to an FOL term
+-- Translate an Agda term to an FOL term.
 termToTermFOL :: AgdaTerm -> T TermFOL
-termToTermFOL (Var n _) = do
-  vars <- ask
-
-  if length vars <= fromIntegral n
-     then __IMPOSSIBLE__
-     else return $ VarFOL (vars !! fromIntegral n)
-
 -- Remark: The code for the cases Con and Def is very similar.
 termToTermFOL term@(Con (QName _ name) args)  = do
   lift $ reportSLn "termToTermFOL" 10 $ "Processing term Con:\n" ++ show term
@@ -333,4 +327,16 @@ termToTermFOL term@(Def (QName _ name) args) = do
          takeIds C.Hole = []
          takeIds (C.Id strName) = strName
 
-termToTermFOL _ = error "termToTermFOL: not implemented"
+termToTermFOL (Var n _) = do
+  vars <- ask
+
+  if length vars <= fromIntegral n
+     then __IMPOSSIBLE__
+     else return $ VarFOL (vars !! fromIntegral n)
+
+termToTermFOL (Fun _ _)   = __IMPOSSIBLE__
+termToTermFOL (Lam _ _)   = __IMPOSSIBLE__
+termToTermFOL (Lit _)     = __IMPOSSIBLE__
+termToTermFOL (MetaV _ _) = __IMPOSSIBLE__
+termToTermFOL (Pi _ _)    = __IMPOSSIBLE__
+termToTermFOL (Sort _)    = __IMPOSSIBLE__
