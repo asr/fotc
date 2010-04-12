@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- hs-boot file for FOL.Translation.Types
+-- hs-boot file for FOL.Translation.Syntax.Internal.Types
 ------------------------------------------------------------------------------
 
-module FOL.Translation.Types where
+module FOL.Translation.Internal.Types where
 
 -- Agda library imports
 import Agda.Syntax.Common ( Arg )
@@ -16,4 +16,3 @@ import FOL.Types ( FormulaFOL )
 
 argTypeToFormula :: Arg AgdaType -> T FormulaFOL
 typeToFormula    :: AgdaType -> T FormulaFOL
-

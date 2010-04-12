@@ -4,7 +4,7 @@
 
 {-# LANGUAGE CPP #-}
 
-module FOL.Translation.Terms where
+module FOL.Translation.Internal.Terms where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
@@ -50,12 +50,15 @@ import FOL.Constants
 import FOL.Monad ( T )
 import FOL.Primitives ( app, equal )
 import FOL.Translation.Common ( AgdaTerm )
-import {-# source #-} FOL.Translation.Types ( argTypeToFormula, typeToFormula )
+import {-# source #-} FOL.Translation.Internal.Types
+    ( argTypeToFormula
+    , typeToFormula
+    )
 import FOL.Types ( FormulaFOL(..), TermFOL(..))
 import Utils.Names ( freshName )
 import Reports ( reportSLn )
 
-#include "../../undefined.h"
+#include "../../../undefined.h"
 
 ------------------------------------------------------------------------------
 

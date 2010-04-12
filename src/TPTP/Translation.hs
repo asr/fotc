@@ -31,8 +31,8 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 -- Local imports
 import FOL.Monad ( iVarNames )
 import FOL.Translation.Common ( AgdaType )
+import FOL.Translation.Internal.Types ( typeToFormula )
 import FOL.Translation.SymbolDefinitions ( symDefToFormula )
-import FOL.Translation.Types ( typeToFormula )
 import MyAgda.Syntax.Abstract.Name ( moduleNameToFilePath )
 import MyAgda.Interface
     ( getClauses

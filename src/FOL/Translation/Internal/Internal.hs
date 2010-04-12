@@ -1,10 +1,10 @@
 ------------------------------------------------------------------------------
--- Translation of Agda internal types to FOL formulas
+-- Translation of Agda internal syntax entities to FOL formulas
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
 
-module FOL.Translation.Internal where
+module FOL.Translation.Internal.Internal where
 
 -- Haskell imports
 -- import Control.Monad.Trans.Reader ( ask, local )
@@ -22,11 +22,11 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 
 -- Local imports
 import FOL.Monad ( T )
-import FOL.Translation.Terms ( termToFormula, termToTermFOL )
-import FOL.Translation.Types ( argTypeToFormula )
+import FOL.Translation.Internal.Terms ( termToFormula, termToTermFOL )
+import FOL.Translation.Internal.Types ( argTypeToFormula )
 import FOL.Types ( FormulaFOL, TermFOL )
 
-#include "../../undefined.h"
+#include "../../../undefined.h"
 
 ------------------------------------------------------------------------------
 

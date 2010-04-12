@@ -26,10 +26,10 @@ executable agda2atp
                   FOL.Monad
                   FOL.Primitives
                   FOL.Translation.Common
-                  FOL.Translation.Internal
+                  FOL.Translation.Internal.Internal
+                  FOL.Translation.Internal.Terms
+                  FOL.Translation.Internal.Types
                   FOL.Translation.SymbolDefinitions
-                  FOL.Translation.Terms
-                  FOL.Translation.Types
                   -- FOL.Substitution
                   FOL.Types
                   MyAgda.Interface

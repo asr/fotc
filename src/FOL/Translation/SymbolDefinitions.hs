@@ -29,12 +29,12 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 import FOL.Monad ( T )
 import FOL.Primitives ( equal )
 import FOL.Translation.Common ( AgdaTerm, AgdaType, varsToArgs )
-import FOL.Translation.Internal
+import FOL.Translation.Internal.Internal
     ( cBodyToFormula
     , cBodyToTermFOL
     , removeQuantificationOnCBody
     )
-import FOL.Translation.Terms ( termToFormula, termToTermFOL )
+import FOL.Translation.Internal.Terms ( termToFormula, termToTermFOL )
 import FOL.Types ( FormulaFOL(Equiv, ForAll) )
 import Utils.Names ( freshName )
 
