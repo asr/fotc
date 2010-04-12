@@ -22,23 +22,27 @@ $(axiomsFiles) : % : %.agda
 	@if ! ( agda2atp $< ); then exit 1; fi
 	@cat $@.ax | while read -r line; do \
 		if ! ( grep --silent "$$line" $(axiomsTPTP) ) ; then \
-			 echo "Testing error. Translation to: $$line"; \
+			echo "Testing error. Translation to: $$line"; \
 			exit 1; \
-		fi; \
+		fi \
 	done
 
 $(conjecturesFiles) : % : %.agda
 	@if ! ( agda $< ); then exit 1; fi
 	@if ! ( agda2atp $< ); then exit 1; fi
 	@for file in /tmp/$(subst /,.,$@)*.tptp; do \
-	 	if ! ( $(ATP) $$file ); then exit 1; fi \
+		${ATP} $${file} > $${file}.output; \
+		if ! ( grep --silent "+++ RESULT: Theorem" $${file}.output ); then \
+			echo "Testing error in file $${file}"; \
+			exit 1; \
+		fi \
 	done
 
-axiomsTest : $(axiomsFiles)
-conjecturesTest : $(conjecturesFiles)
+testAxioms : $(axiomsFiles)
+testConjectures : $(conjecturesFiles)
 
-allTests : axiomsTest conjecturesTest
+test : testAxioms conjecturesTest
 
 clean :
 	find -name '*.agdai' | xargs rm -f
-	rm -f /tmp/*.tptp
+	rm -f /tmp/*.tptp /tmp/*.output
