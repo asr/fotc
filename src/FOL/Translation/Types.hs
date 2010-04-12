@@ -13,7 +13,8 @@ import Control.Monad.Trans.Class ( lift )
 ------------------------------------------------------------------------------
 -- Agda library imports
 import Agda.Syntax.Common ( Arg(Arg) )
-import Agda.Syntax.Internal ( Sort(Type) , Type(El) )
+import Agda.Syntax.Internal ( Sort(Type) , Term(Lit), Type(El) )
+import Agda.Syntax.Literal ( Literal(LitLevel) )
 import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 
 ------------------------------------------------------------------------------
@@ -29,10 +30,12 @@ import Reports ( reportSLn )
 ------------------------------------------------------------------------------
 
 typeToFormula :: AgdaType -> T FormulaFOL
-typeToFormula ty@(El (Type _ ) term) =
-    do lift $ reportSLn "typeToFormula" 10 $ "Processing type ty:\n" ++ show ty
+typeToFormula ty@(El (Type (Lit (LitLevel _ n))) term)
+    | n == 0 || n == 1 = do
+       lift $ reportSLn "typeToFormula" 10 $ "Processing type ty:\n" ++ show ty
        termToFormula term
-typeToFormula _                   = __IMPOSSIBLE__
+    | otherwise = __IMPOSSIBLE__
+typeToFormula _ = __IMPOSSIBLE__
 
 argTypeToFormula :: Arg AgdaType -> T FormulaFOL
 argTypeToFormula (Arg _ ty) = typeToFormula ty
