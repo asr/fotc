@@ -8,6 +8,7 @@ module MyAgda.Interface where
 
 -- Haskell imports
 -- import Data.Map ( Map )
+import Data.Int ( Int32 )
 import qualified Data.Map as Map
 import System.Directory ( getCurrentDirectory )
 
@@ -168,7 +169,7 @@ getQNameDefinition :: Interface -> QName -> Maybe Definition
 getQNameDefinition i qName = Map.lookup qName $ sigDefinitions $ iSignature i
 
 -- The line where a QNname is defined.
-qNameLine :: QName -> Int
+qNameLine :: QName -> Int32
 qNameLine q =
     case rangeToInterval $ nameBindingSite $ qnameName q of
       Nothing -> __IMPOSSIBLE__
