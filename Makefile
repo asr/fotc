@@ -14,11 +14,13 @@ conjecturesFiles = $(patsubst %.agda,%, \
 # ATP = eprover --tstp-format
 ATP = equinox
 
+AGDA = agda -v 0
+
 TAGS : $(haskellFiles)
 	hasktags -e $(haskellFiles)
 
 $(axiomsFiles) : % : %.agda
-	@if ! ( agda $< ); then exit 1; fi
+	@if ! ( $(AGDA) $< ); then exit 1; fi
 	@if ! ( agda2atp $< ); then exit 1; fi
 	@cat $@.ax | while read -r line; do \
 		if ! ( grep --silent "$$line" $(axiomsTPTP) ) ; then \
@@ -28,7 +30,7 @@ $(axiomsFiles) : % : %.agda
 	done
 
 $(conjecturesFiles) : % : %.agda
-	@if ! ( agda $< ); then exit 1; fi
+	@if ! ( $(AGDA) $< ); then exit 1; fi
 	@if ! ( agda2atp $< ); then exit 1; fi
 	@for file in /tmp/$(subst /,.,$@)*.tptp; do \
 		${ATP} $${file} > $${file}.output; \
