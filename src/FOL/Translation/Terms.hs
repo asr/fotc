@@ -85,6 +85,8 @@ termToFormula term@(Def (QName _ name) args) = do
     case cName of
       C.NoName{} -> __IMPOSSIBLE__
 
+      C.Name _ [] -> __IMPOSSIBLE__
+
       C.Name{} ->
           case args of
             [] | isCNameConstFOL trueFOL  -> return TRUE
@@ -287,15 +289,17 @@ termToTermFOL term@(Con (QName _ name) args)  = do
   case cName of
     C.NoName{} -> __IMPOSSIBLE__
 
-    C.Name _ [C.Id strName] ->
+    C.Name _ [] -> __IMPOSSIBLE__
+
+    C.Name _ [C.Id str] ->
         case args of
           [] -> -- The term Con is a data constructor without arguments.
                 -- It is translated as a FOL constant.
-                return $ ConstFOL strName
+                return $ ConstFOL str
 
           _ -> -- The term Con is a data constructor with arguments.
-               -- The term is translated as a FOL function.
-               appArgs strName args
+               -- It is translated as a FOL function.
+               appArgs str args
 
     _ -> __IMPOSSIBLE__
 
@@ -308,15 +312,17 @@ termToTermFOL term@(Def (QName _ name) args) = do
   case cName of
     C.NoName{} -> __IMPOSSIBLE__
 
+    C.Name _ [] -> __IMPOSSIBLE__
+
     -- The term Def doesn't have holes.
-    C.Name _ [C.Id strName] ->
+    C.Name _ [C.Id str] ->
         case args of
           [] -> -- The term Def is a constructor.
                 -- It is translated as a FOL constant.
-                return $ ConstFOL strName
+                return $ ConstFOL str
 
           _ -> -- The term Def is a function with arguments.
-               appArgs strName args
+               appArgs str args
 
     -- The term Def has holes.
     -- We use the parts of the name to produce a new function name,
