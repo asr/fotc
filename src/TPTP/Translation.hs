@@ -66,6 +66,10 @@ symbolToAF qName def = do
 
   opts <- ask
 
+  let ty :: AgdaType
+      ty = defType def
+  reportSLn "symbolToAF" 10 $ "Symbol: " ++ show qName ++ "\n" ++ "Type: " ++ show ty
+
   -- We get the clauses that define the symbol
   -- (All the symbols must be functions)
   let cls :: [Clause]
@@ -75,7 +79,7 @@ symbolToAF qName def = do
                 "Symbol: " ++ show qName ++ "\n" ++ "Clauses: " ++ show cls
 
   for <- liftIO $
-         runReaderT (runReaderT (symDefToFormula qName cls) iVarNames) opts
+         runReaderT (runReaderT (symDefToFormula qName ty cls) iVarNames) opts
 
   return $ AF qName DefinitionATP for
 

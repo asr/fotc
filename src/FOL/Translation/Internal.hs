@@ -22,9 +22,9 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 
 -- Local imports
 import FOL.Monad ( T )
-import FOL.Translation.Terms ( termToFormula )
+import FOL.Translation.Terms ( termToFormula, termToTermFOL )
 import FOL.Translation.Types ( argTypeToFormula )
-import FOL.Types ( FormulaFOL )
+import FOL.Types ( FormulaFOL, TermFOL )
 
 #include "../../undefined.h"
 
@@ -38,6 +38,11 @@ cBodyToFormula :: ClauseBody -> T FormulaFOL
 cBodyToFormula (Body term )         = termToFormula term
 cBodyToFormula (Bind (Abs _ cBody)) = cBodyToFormula cBody
 cBodyToFormula _                    = __IMPOSSIBLE__
+
+cBodyToTermFOL :: ClauseBody -> T TermFOL
+cBodyToTermFOL (Body term )         = termToTermFOL term
+cBodyToTermFOL (Bind (Abs _ cBody)) = cBodyToTermFOL cBody
+cBodyToTermFOL _                    = __IMPOSSIBLE__
 
 ------------------------------------------------------------------------------
 -- To remove the quantification over on proof term

@@ -1,1 +1,3 @@
 ( ! \[A\] : ( ! \[B\] : ( ( p(A,B) ) <=> ( A = B ) ) ) )
+axiom, ( ! \[A\] : ( ! \[B\] : ( kApp(kApp(oof,A),B) = kApp(kApp(foo,B),A) ) ) )
+

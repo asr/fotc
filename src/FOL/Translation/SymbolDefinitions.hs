@@ -27,12 +27,14 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 
 -- Local imports
 import FOL.Monad ( T )
-import FOL.Translation.Common ( AgdaTerm, varsToArgs )
+import FOL.Primitives ( equal )
+import FOL.Translation.Common ( AgdaTerm, AgdaType, varsToArgs )
 import FOL.Translation.Internal
     ( cBodyToFormula
+    , cBodyToTermFOL
     , removeQuantificationOnCBody
     )
-import FOL.Translation.Terms ( termToFormula )
+import FOL.Translation.Terms ( termToFormula, termToTermFOL )
 import FOL.Types ( FormulaFOL(Equiv, ForAll) )
 import Utils.Names ( freshName )
 
@@ -42,11 +44,10 @@ import Utils.Names ( freshName )
 
 -- ToDo: At the moment, it is only allowed to translate symbols with
 -- one clause.
-symDefToFormula :: QName -> [Clause] -> T FormulaFOL
-symDefToFormula _      []        = __IMPOSSIBLE__
-symDefToFormula qname  (cl : []) = symClauseToFormula qname cl
-symDefToFormula _      _         = __IMPOSSIBLE__
-
+symDefToFormula :: QName -> Type -> [Clause] -> T FormulaFOL
+symDefToFormula _      _  []        = __IMPOSSIBLE__
+symDefToFormula qName  ty (cl : []) = symClauseToFormula qName ty cl
+symDefToFormula _      _  _         = __IMPOSSIBLE__
 
 -- A clause is defined by (Agda.Syntax.Internal)
 -- data Clause = Clause
@@ -57,10 +58,10 @@ symDefToFormula _      _         = __IMPOSSIBLE__
 --     , clauseBody      :: ClauseBody
 --     }
 
-symClauseToFormula :: QName -> Clause -> T FormulaFOL
+symClauseToFormula :: QName -> AgdaType -> Clause -> T FormulaFOL
 -- In this equation we generate an universal quantification
 -- on an equal number of variables to length [Arg Pattern].
-symClauseToFormula qname (Clause r tel perm (_ : pats) cBody ) = do
+symClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) = do
   case tel of
     -- The bounded variable is quantified on a Set (e.g. D : Set ⊢ d : D), so
     -- we translate without any problem.
@@ -76,7 +77,7 @@ symClauseToFormula qname (Clause r tel perm (_ : pats) cBody ) = do
           -- See the reason for the order in the enviroment in
           -- FOL.Translation.Terms.termToFormula term@(Pi ... )
           f <- local (\varNames -> freshVar : varNames) $
-               symClauseToFormula qname (Clause r tels perm pats cBody )
+               symClauseToFormula qName ty (Clause r tels perm pats cBody )
 
           return $ ForAll freshVar (\_ -> f)
 
@@ -89,24 +90,40 @@ symClauseToFormula qname (Clause r tel perm (_ : pats) cBody ) = do
       (Abs var tels) -> do
              let newBody :: ClauseBody
                  newBody = removeQuantificationOnCBody cBody var
-             symClauseToFormula qname (Clause r tels perm pats newBody )
+             symClauseToFormula qName ty (Clause r tels perm pats newBody )
 
     _ -> __IMPOSSIBLE__
 
-symClauseToFormula qname (Clause _ _ _ [] cBody ) = do
+symClauseToFormula qName ty (Clause _ _ _ [] cBody ) = do
 
   vars <- ask
 
   -- We create the Agda term corresponds to the LHS of the symbol's
   -- definition.
   let lhs :: AgdaTerm
-      lhs = Def qname $ varsToArgs $ fromIntegral $ length vars
+      lhs = Def qName $ varsToArgs $ fromIntegral $ length vars
 
-  lhsF <- termToFormula lhs
+  case ty of
+    -- The defined symbol is a predicate
+    El (Type (Lit (LitLevel _ 1))) _ -> do
+            lhsF <- termToFormula lhs
 
-  -- The RHS is the body of the clause
-  rhsF <- cBodyToFormula cBody
+            -- The RHS is the body of the clause
+            rhsF <- cBodyToFormula cBody
 
-  -- The LHS and RHS terms are related via an equivalence logic.
-  -- ToDo: What happens if the symbol is a function definition?
-  return $ Equiv lhsF rhsF
+            -- Because the LHS and RHS are formulas, they are
+            -- related via an equivalence logic.
+            return $ Equiv lhsF rhsF
+
+    -- The defined symbol is a function
+    El (Type (Lit (LitLevel _ 0))) _ -> do
+            lhsT <- termToTermFOL lhs
+
+            -- The RHS is the body of the clause
+            rhsT <- cBodyToTermFOL cBody
+
+            -- Because the LHS and RHS are terms, they are related via
+            -- the equality.
+            return $ equal [lhsT, rhsT]
+
+    _ -> __IMPOSSIBLE__
