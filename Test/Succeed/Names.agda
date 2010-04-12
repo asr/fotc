@@ -3,9 +3,9 @@
 ------------------------------------------------------------------------------
 
 -- From the technical manual of TPTP
--- http://www.cs.miami.edu/~tptp/TPTP/TR/TPTPTR.shtml
+-- (http://www.cs.miami.edu/~tptp/TPTP/TR/TPTPTR.shtml)
 
--- variables start with upper case letters, ... predicates and
+-- ... variables start with upper case letters, ... predicates and
 -- functors either start with lower case and contain alphanumerics and
 -- underscore ...
 
