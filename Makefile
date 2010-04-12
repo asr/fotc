@@ -41,7 +41,7 @@ $(conjecturesFiles) : % : %.agda
 testAxioms : $(axiomsFiles)
 testConjectures : $(conjecturesFiles)
 
-test : testAxioms conjecturesTest
+test : testAxioms testConjectures
 
 clean :
 	find -name '*.agdai' | xargs rm -f
