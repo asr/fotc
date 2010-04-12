@@ -28,28 +28,21 @@ module Conjunction where
   A ∧ B = A × B
 
   postulate
-    pred : D → D → Set
+    P : D → Set
 
   -- Testing the conjunction data constructor
   postulate
-    testAndDataConstructor : {m n : D} →
-                             (pred m m) →
-                             (pred n n) →
-                             (pred m m ) ∧ (pred n n)
+    testAndDataConstructor : {m n : D} → P m → P n → P m ∧ P n
   {-# ATP prove testAndDataConstructor #-}
 
   -- Testing the first projection
   postulate
-    testProj₁ : {m n : D} →
-                (pred m m ) ∧ (pred n n) →
-                (pred m m)
+    testProj₁ : {m n : D} → P m ∧ P n → P m
   {-# ATP prove testProj₁ #-}
 
 -- Testing the second projection
   postulate
-    testProj₂ : {m n : D} →
-                (pred m m ) ∧ (pred n n) →
-                (pred n n)
+    testProj₂ : {m n : D} → P m ∧ P n → P n
   {-# ATP prove testProj₂ #-}
 
 ------------------------------------------------------------------------------
