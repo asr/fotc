@@ -1,0 +1,16 @@
+* The following symbols are hard-coded, i.e. they should not changed
+  FOL equality    : ≡
+  FOL conjunction : ∧
+  FOL negation    : ¬
+  FOL false       : ⊥
+
+* To the paper:
+** The handling of ATP stuff inside where clauses
+*** The problems
+*** This facilitate the writes of ATP axioms. e.g.
+
+LTC.Examples.GCD.Extra.S≤0-elim : {A : Set}{d : D} → succ d ≤ zero → A
+
+** The difference between predicates' definitions and functions' definitions
+From Agda internal representation of clauses, both definitions are
+equal, the only difference is in the type of the symbol.

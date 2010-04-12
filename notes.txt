@@ -1,5 +1,0 @@
-* The following symbols are hard-coded, i.e. they should not changed
-  FOL equality    : ≡
-  FOL conjunction : ∧
-  FOL negation    : ¬
-  FOL false       : ⊥
