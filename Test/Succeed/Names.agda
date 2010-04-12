@@ -13,30 +13,38 @@ module Test.Succeed.Names where
 
 infix 4 _≡_
 
-postulate
-  D   : Set
-  _≡_ : D → D → Set
+------------------------------------------------------------------------------
+-- Testing funny names
 
--- A funny function name.
 postulate
-  FUN! : D → D
+  D     : Set
+  _≡_   : D → D → Set
+  FUN!  : D → D   -- A funny function name
+  PRED! : D → Set -- A funny predicate name
 
 postulate
   -- Using a funny function and variable name
-  a₁ : (nx∎ : D) → FUN! nx∎ ≡ nx∎
-{-# ATP axiom a₁ #-}
+  funnyFV  : (nx∎ : D) → FUN! nx∎ ≡ nx∎
+{-# ATP axiom funnyFV #-}
 
 postulate
-  foo : (n : D) → FUN! n ≡ n
-{-# ATP prove foo #-}
+  -- Using a funny predicate name
+  funnyP : (n : D) → PRED! n
+{-# ATP axiom funnyP #-}
 
--- A funny predicate name
-data PRED! : D → Set where
+------------------------------------------------------------------------------
+-- Testing a data constructor with holes
 
+data _×_ ( A B : Set) : Set where
+  _,_ : A → B → A × B
+
+data ConHoles : D × D → Set where
+  conHoles : (x y : D) → ConHoles ( x , y )
+{-# ATP hint conHoles #-}
+
+------------------------------------------------------------------------------
+
+-- We are only testing the translation of names, so we prove a tautology.
 postulate
-  a₂ : (n : D) → PRED! n
-{-# ATP axiom a₂ #-}
-
-postulate
-  bar : (n : D) → PRED! n
-{-# ATP prove bar #-}
+  t : (d : D) → d ≡ d
+{-# ATP prove t #-}

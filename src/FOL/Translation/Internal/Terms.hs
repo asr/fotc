@@ -50,6 +50,7 @@ import FOL.Constants
 import FOL.Monad ( T )
 import FOL.Primitives ( app, equal )
 import FOL.Translation.Common ( AgdaTerm )
+import FOL.Translation.Concrete.Name ( concatName )
 import {-# source #-} FOL.Translation.Internal.Types
     ( argTypeToFormula
     , typeToFormula
@@ -282,7 +283,7 @@ appArgs fn args = do
 
 -- Translate an Agda term to an FOL term.
 termToTermFOL :: AgdaTerm -> T TermFOL
--- Remark: The code for the cases Con and Def is very similar.
+-- ToDo: The code for the cases Con and Def is similar.
 termToTermFOL term@(Con (QName _ name) args)  = do
   lift $ reportSLn "termToTermFOL" 10 $ "Processing term Con:\n" ++ show term
 
@@ -290,10 +291,11 @@ termToTermFOL term@(Con (QName _ name) args)  = do
       cName = nameConcrete name
 
   case cName of
-    C.NoName{} -> __IMPOSSIBLE__
+    C.NoName{}  -> __IMPOSSIBLE__
 
     C.Name _ [] -> __IMPOSSIBLE__
 
+    -- The term Con doesn't have holes.
     C.Name _ [C.Id str] ->
         case args of
           [] -> -- The term Con is a data constructor without arguments.
@@ -304,7 +306,11 @@ termToTermFOL term@(Con (QName _ name) args)  = do
                -- It is translated as a FOL function.
                appArgs str args
 
-    _ -> __IMPOSSIBLE__
+    -- The term Con has holes. It is translated as a FOL function.
+    C.Name _ parts -> do
+      case args of
+        [] -> __IMPOSSIBLE__
+        _  -> appArgs (concatName parts) args
 
 termToTermFOL term@(Def (QName _ name) args) = do
   lift $ reportSLn "termToTermFOL" 10 $ "Processing term Def:\n" ++ show term
@@ -313,7 +319,7 @@ termToTermFOL term@(Def (QName _ name) args) = do
       cName = nameConcrete name
 
   case cName of
-    C.NoName{} -> __IMPOSSIBLE__
+    C.NoName{}  -> __IMPOSSIBLE__
 
     C.Name _ [] -> __IMPOSSIBLE__
 
@@ -325,16 +331,14 @@ termToTermFOL term@(Def (QName _ name) args) = do
                 return $ ConstFOL str
 
           _ -> -- The term Def is a function with arguments.
+               -- It is translated as a FOL function.
                appArgs str args
 
-    -- The term Def has holes.
-    -- We use the parts of the name to produce a new function name,
-    -- e.g. the function 'if_then_else_' is called 'ifthenelse'.
-    C.Name _ nameParts -> appArgs (concatMap takeIds nameParts) args
-       where
-         takeIds :: C.NamePart -> String
-         takeIds C.Hole = []
-         takeIds (C.Id strName) = strName
+    -- The term Def has holes. It is translated as a FOL function.
+    C.Name _ parts -> do
+      case args of
+        [] -> __IMPOSSIBLE__
+        _  -> appArgs (concatName parts) args
 
 termToTermFOL (Var n _) = do
   vars <- ask

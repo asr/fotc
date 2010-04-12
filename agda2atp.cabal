@@ -26,6 +26,7 @@ executable agda2atp
                   FOL.Monad
                   FOL.Primitives
                   FOL.Translation.Common
+                  FOL.Translation.Concrete.Name
                   FOL.Translation.Internal.Internal
                   FOL.Translation.Internal.Terms
                   FOL.Translation.Internal.Types
