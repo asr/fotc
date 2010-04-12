@@ -1,4 +1,4 @@
-* Fix ( $false  )  ). See Test/Succeed/RemoveQuantificationOnSet1.agda
+* TODO Fix the clash names (e.g 'gT and GT' will clash)
 * TODO Fix problem with the Makefile
 We need exit if cat fail
 * TODO Process all the imported modules recursively
