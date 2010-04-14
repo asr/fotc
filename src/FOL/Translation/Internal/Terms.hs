@@ -236,7 +236,9 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     -- function type.  This solve the problem the translation of
     -- sN : {n : D} → (Nn : N n) → N (succ n).
     -- N.B. The pattern matching on (Def _ _).
-    El (Type (Lit (LitLevel _ 0))) (Def _ _) -> do
+    El (Type (Lit (LitLevel _ 0))) def@(Def _ _) -> do
+       lift $ reportSLn "termToFormula" 20 $
+           "Removing a quantification on the predicate " ++ show def
        f1 <- argTypeToFormula tyArg
        return $ Implies f1 f2
 
