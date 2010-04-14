@@ -40,8 +40,8 @@ $(conjecturesFiles) : % : %.agda
 		fi \
 	done
 
-testAxioms : $(axiomsFiles)
-testConjectures : $(conjecturesFiles)
+testAxioms : clean $(axiomsFiles)
+testConjectures : clean $(conjecturesFiles)
 
 test : testAxioms testConjectures
 
