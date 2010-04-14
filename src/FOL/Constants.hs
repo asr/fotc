@@ -11,7 +11,7 @@ trueFOL   = "True"
 falseFOL  = "⊥"
 notFOL    = "¬"
 andFOL    = "∧"
-orFOL     = "Or"
+orFOL     = "∨"
 existsFOL = "Exists"
 equalsFOL = "≡"
 

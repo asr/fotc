@@ -1,8 +1,9 @@
-* TODO Fix the clash names (e.g 'gT and GT' will clash)
-* TODO Fix problem with the Makefile
+* Review the tests of the logical constants
+* Fix the clash names (e.g 'gT and GT' will clash)
+* Fix problem with the Makefile
 We need exit if cat fail
-* TODO Process all the imported modules recursively
-* TODO To prevent non-desirable evaluation
+* Process all the imported modules recursively
+* To prevent non-desirable evaluation
 
 From Peter's email:
 

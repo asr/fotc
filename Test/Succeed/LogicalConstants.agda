@@ -69,3 +69,38 @@ module Negation where
   postulate
     testContradiction : (d : D) → true ≡ false → d ≡ true
   {-# ATP prove testContradiction #-}
+
+------------------------------------------------------------------------------
+-- The disjunction data type
+
+module Disjunction where
+  infixr 1 _∨_
+
+  -- N.B. It is not necessary to add the constructors inj₁ and inj₂
+  -- nor the elimantion [_,_] as hints, because the ATP implements it.
+
+  data _∨_ (A B : Set) : Set where
+    inj₁ : (x : A) → A ∨ B
+    inj₂ : (y : B) → A ∨ B
+
+  [_,_] : {A B C : Set} → (A → C) → (B → C) → A ∨ B → C
+  [ f , g ] (inj₁ x) = f x
+  [ f , g ] (inj₂ y) = g y
+
+  postulate
+    P   : D → Set
+    d e f : D
+
+  -- Testing the disjunction data constructors
+  postulate
+    inj₁Or : P d → P d ∨ P e
+    inj₂Or : P e → P d ∨ P e
+  {-# ATP prove inj₁Or #-}
+  {-# ATP prove inj₂Or #-}
+
+  -- Testing the disjunction elimination
+  postulate
+    A : Set
+    B : Set
+    orElim :  (P d → P f) → (P e → P f) → P d ∨ P e → P f
+  {-# ATP prove orElim #-}
