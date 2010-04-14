@@ -40,7 +40,7 @@ module Conjunction where
     testProj₁ : {m n : D} → P m ∧ P n → P m
   {-# ATP prove testProj₁ #-}
 
--- Testing the second projection
+  -- Testing the second projection
   postulate
     testProj₂ : {m n : D} → P m ∧ P n → P n
   {-# ATP prove testProj₂ #-}
