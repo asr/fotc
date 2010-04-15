@@ -8,6 +8,7 @@
 module TPTP.Files where
 
 -- Haskell imports
+import Control.Monad.IO.Class ( liftIO )
 import Data.Char ( chr, ord )
 import System.FilePath
 
@@ -22,6 +23,7 @@ import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
 -- Local imports
 import MyAgda.Interface ( qNameLine )
 import TPTP.Pretty
+import Reports ( R, reportSLn )
 import TPTP.Types
 
 #include "../undefined.h"
@@ -93,23 +95,25 @@ addAxiom af@(AF qName role _ ) file
 
   | otherwise = __IMPOSSIBLE__
 
-addConjecture :: AF -> FilePath -> IO ()
+addConjecture :: AF -> FilePath -> R ()
 addConjecture af file = do
   case af of
     (AF qName ConjectureATP _ ) -> do
-          appendFile file $ agdaOriginalTerm qName ConjectureATP
-          appendFile file $ prettyTPTP af
+          liftIO $ appendFile file $ agdaOriginalTerm qName ConjectureATP
+          liftIO $ appendFile file $ prettyTPTP af
 
     _ -> __IMPOSSIBLE__
 
-createAxiomsFile :: [AF] -> IO ()
+createAxiomsFile :: [AF] -> R ()
 createAxiomsFile afs = do
-  _ <- writeFile axiomsFile headerAxioms
-  _ <- mapM_ (flip addAxiom axiomsFile) afs
-  _ <- appendFile axiomsFile footerAxioms
-  return ()
+  reportSLn "createAxiomsFile" 20 $ "Creating the general axioms file ... "
+  liftIO $ do
+    _ <- writeFile axiomsFile headerAxioms
+    _ <- mapM_ (flip addAxiom axiomsFile) afs
+    _ <- appendFile axiomsFile footerAxioms
+    return ()
 
-createConjectureFile :: (AF, [AF]) -> IO ()
+createConjectureFile :: (AF, [AF]) -> R ()
 createConjectureFile (af@(AF qName _ _ ), hints) = do
   -- To avoid clash names with the terms inside a where clause, we
   -- added the line number where the term was defined to the file
@@ -117,8 +121,12 @@ createConjectureFile (af@(AF qName _ _ ), hints) = do
   let f = "/tmp/" ++
           validFileName (show qName) ++ "_" ++ show (qNameLine qName)
   let file = addExtension f extTPTP
-  _ <- writeFile file headerConjecture
-  _ <- mapM_ (flip addAxiom file) hints
-  _ <- addConjecture af file
-  _ <- appendFile file footerConjecture
-  return ()
+  reportSLn "createConjectureFile" 20 $
+                "Creating the conjecture file " ++ show file ++ "..."
+  liftIO $ do
+    _ <- writeFile file headerConjecture
+    _ <- mapM_ (flip addAxiom file) hints
+    return ()
+
+  addConjecture af file
+  liftIO $ appendFile file footerConjecture

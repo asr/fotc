@@ -53,7 +53,7 @@ import Utils.Version ( version )
 
 translation :: Interface -> R ()
 translation i = do
-  reportS "" 1 $ "Translating " ++ show (iModuleName i)
+  reportS "" 1 $ "Translating " ++ show (iModuleName i) ++ " ..."
 
   let importedModules :: [ModuleName]
       importedModules = iImportedModules i
@@ -72,11 +72,9 @@ translation i = do
   -- of current module.
   conjecturesAFs <- conjecturesToAFs i
 
-
   -- We create the TPTP files.
-  liftIO $ createAxiomsFile $
-         concat axiomsGeneralHintsAFss ++ concat symbolsAFss
-  liftIO $ mapM_ createConjectureFile conjecturesAFs -- ++ concat hintsAFss
+  createAxiomsFile $ concat axiomsGeneralHintsAFss ++ concat symbolsAFss
+  mapM_ createConjectureFile conjecturesAFs -- ++ concat hintsAFss
 
 runAgda2ATP :: IO ()
 runAgda2ATP = do

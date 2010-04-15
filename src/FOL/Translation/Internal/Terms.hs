@@ -103,7 +103,8 @@ termToFormula term@(Def (QName _ name) args) = do
                          do f <- argTermToFormula a
                             return $ Not f
 
-                   | isCNameConstFOL existsFOL  ->
+                   | isCNameConstFOL existsFOL  -> do
+                       lift $ reportSLn "termToFormula" 20 "The cName is existsFOL"
                      -- N.B. We should use the following guard if we use the
                      -- the FOL constant forAllFOL
                      -- ( isCNameConstFOL existsFOL ||
@@ -116,23 +117,23 @@ termToFormula term@(Def (QName _ name) args) = do
 
                      -- ToDo: Fix the possible name clash
 
-                       do let p :: AgdaTerm
-                              p = unArg a
+                       let p :: AgdaTerm
+                           p = unArg a
 
-                          let x :: String
-                              x = case p of
-                                    (Lam NotHidden (Abs sName _)) -> sName
-                                    _ -> __IMPOSSIBLE__
+                       let x :: String
+                           x = case p of
+                                 (Lam NotHidden (Abs sName _)) -> sName
+                                 _ -> __IMPOSSIBLE__
 
-                          fm <- termToFormula p
+                       fm <- termToFormula p
 
-                          -- N.B. We should use the following test if
-                          -- we use the the FOL constant forAllFOL
-                          -- if isCNameConstFOL existsFOL
-                          --    then return $ Exists x $ \_ -> fm
-                          --    else return $ ForAll x $ \_ -> fm
+                       -- N.B. We should use the following test if
+                       -- we use the the FOL constant forAllFOL
+                       -- if isCNameConstFOL existsFOL
+                       --    then return $ Exists x $ \_ -> fm
+                       --    else return $ ForAll x $ \_ -> fm
 
-                          return $ Exists x $ \_ -> fm
+                       return $ Exists x $ \_ -> fm
 
                    | otherwise -> do
                       -- In this guard we translate predicates with
@@ -217,11 +218,14 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   -- in '(A B C : Set) -> ...', A is 2, B is 1, and C is 0,
   -- so we need create the list in the same order.
 
-  lift $ reportSLn "termToFormula" 20
-           "Starting processing in local enviroment ..."
+  lift $ reportSLn "termToFormula" 20 $
+           "Starting processing in local enviroment using the type:\n" ++
+           show tyAbs
+
   f2 <- local (\varNames -> freshVar : varNames) $ typeToFormula tyAbs
-  lift $ reportSLn "termToFormula" 20
-           "Finalized processing in local enviroment"
+  lift $ reportSLn "termToFormula" 20 $
+           "Finalized processing in local enviroment using the type:\n" ++
+           show tyAbs
 
   case unArg tyArg of
     -- The bounded variable is quantified on a Set (e.g. D : Set ⊢ d : D), so
