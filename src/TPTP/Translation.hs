@@ -159,7 +159,6 @@ conjecturesToAFs i = do
   afs <- zipWithM conjectureToAF
                   (Map.keys conjecturesDefs)
                   (Map.elems conjecturesDefs)
-
   return afs
 
 -- We translate the ATP definitions in an interface file to FOL
