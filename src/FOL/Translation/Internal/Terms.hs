@@ -52,10 +52,7 @@ import FOL.Monad ( T )
 import FOL.Primitives ( app, equal )
 import FOL.Translation.Common ( AgdaTerm )
 import FOL.Translation.Concrete.Name ( concatName )
-import {-# source #-} FOL.Translation.Internal.Types
-    ( argTypeToFormula
-    , typeToFormula
-    )
+import {-# source #-} FOL.Translation.Internal.Types ( typeToFormula )
 import FOL.Types ( FormulaFOL(..), TermFOL(..))
 import Utils.Names ( freshName )
 import Reports ( reportSLn )
@@ -68,9 +65,6 @@ argTermToFormula :: Arg AgdaTerm -> T FormulaFOL
 argTermToFormula Arg {argHiding = NotHidden, unArg = term} = termToFormula term
 argTermToFormula Arg {argHiding = Hidden} =
     error "argTermToFormula: not implemented"
-
-argTermToTermFOL :: Arg AgdaTerm -> T TermFOL
-argTermToTermFOL (Arg _ term) = termToTermFOL term
 
 binConst :: (FormulaFOL -> FormulaFOL -> FormulaFOL)
             -> Arg AgdaTerm
@@ -132,7 +126,7 @@ termToFormula term@(Def (QName _ name) args) = do
 
                       -- ToDo: To test if 'termToTermFOL (unArg a)'
                       -- works with implicit arguments.
-                      t <- argTermToTermFOL a
+                      t <- termToTermFOL $ unArg a
                       return $ Predicate (show cName) [t]
 
             (a1:a2:[])
@@ -148,20 +142,20 @@ termToFormula term@(Def (QName _ name) args) = do
 
                 | isCNameConstFOLTwoHoles equalsFOL
                     -> do lift $ reportSLn "termToFormula" 20 "Processing equals"
-                          t1 <- argTermToTermFOL a1
-                          t2 <- argTermToTermFOL a2
+                          t1 <- termToTermFOL $ unArg a1
+                          t2 <- termToTermFOL $ unArg a2
                           return $ equal [t1, t2]
 
                 | otherwise -> do
                       lift $ reportSLn "termToFormula" 20 $
                                "Processing a definition with two arguments which " ++
                                "is not a FOL constant"
-                      t1 <- argTermToTermFOL a1
-                      t2 <- argTermToTermFOL a2
+                      t1 <- termToTermFOL $ unArg a1
+                      t2 <- termToTermFOL $ unArg a2
                       return $ Predicate (show cName) [t1, t2]
 
             threeOrMore -> do
-                      terms <- mapM argTermToTermFOL threeOrMore
+                      terms <- mapM (termToTermFOL . unArg ) threeOrMore
                       return $ Predicate (show cName) terms
 
           where
@@ -179,7 +173,7 @@ termToFormula term@(Def (QName _ name) args) = do
 
 termToFormula term@(Fun tyArg ty) = do
   lift $ reportSLn "termToFormula" 10 $ "Processing term Fun:\n" ++ show term
-  f1 <- argTypeToFormula tyArg
+  f1 <- typeToFormula $ unArg tyArg
   f2 <- typeToFormula ty
   return $ Implies f1 f2
 
@@ -234,7 +228,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     El (Type (Lit (LitLevel _ 0))) def@(Def _ _) -> do
        lift $ reportSLn "termToFormula" 20 $
            "Removing a quantification on the predicate " ++ show def
-       f1 <- argTypeToFormula tyArg
+       f1 <- typeToFormula $ unArg tyArg
        return $ Implies f1 f2
 
     El (Type (Lit (LitLevel _ 0))) _ -> __IMPOSSIBLE__
@@ -275,7 +269,7 @@ termToFormula (Sort _)    = __IMPOSSIBLE__
 -- Translate 'fn x1 ... xn' to 'kApp (... kApp (kApp(fn, x1), x2), ..., xn)'.
 appArgs :: String -> Args -> T TermFOL
 appArgs fn args = do
-  termsFOL <- mapM argTermToTermFOL args
+  termsFOL <- mapM (termToTermFOL . unArg) args
   return $ foldl (\x y -> app [x, y]) (FunFOL fn []) termsFOL
 
 -- Translate an Agda term to an FOL term.

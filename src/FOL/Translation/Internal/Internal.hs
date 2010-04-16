@@ -11,7 +11,7 @@ module FOL.Translation.Internal.Internal where
 -- import Control.Monad.Trans.State ( evalState )
 
 -- Agda library imports
-import Agda.Syntax.Common ( Arg(Arg), Nat )
+import Agda.Syntax.Common ( Arg(Arg), Nat, unArg )
 import Agda.Syntax.Internal
     ( Abs(Abs)
     , ClauseBody(Bind,Body)
@@ -23,7 +23,7 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 -- Local imports
 import FOL.Monad ( T )
 import FOL.Translation.Internal.Terms ( termToFormula, termToTermFOL )
-import FOL.Translation.Internal.Types ( argTypeToFormula )
+import FOL.Translation.Internal.Types ( typeToFormula )
 import FOL.Types ( FormulaFOL, TermFOL )
 
 #include "../../../undefined.h"
@@ -32,7 +32,7 @@ import FOL.Types ( FormulaFOL, TermFOL )
 
 telescopeToFormula :: Telescope -> T FormulaFOL
 telescopeToFormula EmptyTel             = __IMPOSSIBLE__
-telescopeToFormula (ExtendTel tyArg _ ) = argTypeToFormula tyArg
+telescopeToFormula (ExtendTel tyArg _ ) = typeToFormula $ unArg tyArg
 
 cBodyToFormula :: ClauseBody -> T FormulaFOL
 cBodyToFormula (Body term )         = termToFormula term

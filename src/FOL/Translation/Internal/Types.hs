@@ -12,7 +12,6 @@ import Control.Monad.Trans.Class ( lift )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
-import Agda.Syntax.Common ( Arg(Arg) )
 import Agda.Syntax.Internal ( Sort(Type) , Term(Lit), Type(El) )
 import Agda.Syntax.Literal ( Literal(LitLevel) )
 import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
@@ -36,6 +35,3 @@ typeToFormula ty@(El (Type (Lit (LitLevel _ n))) term)
        termToFormula term
     | otherwise = __IMPOSSIBLE__
 typeToFormula _ = __IMPOSSIBLE__
-
-argTypeToFormula :: Arg AgdaType -> T FormulaFOL
-argTypeToFormula (Arg _ ty) = typeToFormula ty
