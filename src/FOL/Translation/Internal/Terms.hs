@@ -8,6 +8,7 @@ module FOL.Translation.Internal.Terms where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
+-- import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Class ( lift )
 import Control.Monad.Trans.Reader ( ask, local )
 import Control.Monad.Trans.State ( evalState )
@@ -110,30 +111,20 @@ termToFormula term@(Def (QName _ name) args) = do
                      -- ( isCNameConstFOL existsFOL ||
                      --   isCNameConstFOL forAllFOL )
 
-                     -- Note: AgdaLight (Plugins.FOL.Translation) binds
-                     -- a new variable to handle the quantifiers. We
-                     -- didn't do it because we took the variable name
-                     -- from the term Lam.
-
-                     -- ToDo: Fix the possible name clash
-
-                       let p :: AgdaTerm
-                           p = unArg a
-
-                       let x :: String
-                           x = case p of
-                                 (Lam NotHidden (Abs sName _)) -> sName
-                                 _ -> __IMPOSSIBLE__
-
-                       fm <- termToFormula p
+                       fm <- termToFormula $ unArg a
 
                        -- N.B. We should use the following test if
                        -- we use the the FOL constant forAllFOL
                        -- if isCNameConstFOL existsFOL
-                       --    then return $ Exists x $ \_ -> fm
-                       --    else return $ ForAll x $ \_ -> fm
+                       --    then return $ Exists freshVar $ \_ -> fm
+                       --    else return $ ForAll freshVar $ \_ -> fm
 
-                       return $ Exists x $ \_ -> fm
+                       vars <- ask
+
+                       let freshVar :: String
+                           freshVar = evalState freshName vars
+
+                       return $ Exists freshVar $ \_ -> fm
 
                    | otherwise -> do
                       -- In this guard we translate predicates with

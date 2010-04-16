@@ -12,7 +12,7 @@ falseFOL  = "⊥"
 notFOL    = "¬"
 andFOL    = "∧"
 orFOL     = "∨"
-existsFOL = "Exists"
+existsFOL = "∃D"
 equalsFOL = "≡"
 
 -- These FOL constanst are not used because we use the Agda versions.

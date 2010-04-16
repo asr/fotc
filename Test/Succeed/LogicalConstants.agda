@@ -104,3 +104,15 @@ module Disjunction where
     B : Set
     orElim :  (P d → P f) → (P e → P f) → P d ∨ P e → P f
   {-# ATP prove orElim #-}
+
+------------------------------------------------------------------------------
+-- The existential type of D
+
+  module ExistentialQuantifier where
+
+    data ∃D (P : D → Set) : Set where
+
+    postulate
+      test1 : (d : D) → ∃D (λ e → e ≡ d)
+    {-# ATP prove test1 #-}
+

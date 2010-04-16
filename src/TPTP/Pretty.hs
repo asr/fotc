@@ -122,7 +122,7 @@ instance PrettyTPTP FormulaFOL where
         " )"
 
     prettyTPTP (Exists var f) =
-        "( ! [" ++ changeToUpper var ++ "? : " ++
+        "( ? [" ++ changeToUpper var ++ "] : " ++
                     prettyTPTP (f (VarFOL var)) ++
         " )"
 
