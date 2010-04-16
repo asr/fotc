@@ -37,31 +37,47 @@ module Test.Succeed.OnlyAxioms.InternalTypes where
 
 postulate
   D     : Set
-  P₁    : D → Set
-  P₃    : D → D → D → Set
-  a b c : D
 
 ------------------------------------------------------------------------------
 -- Testing data Term = Def ...
 
--- A definition with one argument
-postulate
-  termDef₁ : P₁ a
-{-# ATP axiom termDef₁ #-}
+module Def where
 
--- A definition with three or more arguments
-postulate
-  termDef₃ : P₃ a b c
-{-# ATP axiom termDef₃ #-}
+  postulate
+    P₁    : D → Set
+    P₃    : D → D → D → Set
+    a b c : D
+
+    -- A definition with one argument
+  postulate
+    termDef₁ : P₁ a
+  {-# ATP axiom termDef₁ #-}
+
+  -- A definition with three or more arguments
+  postulate
+    termDef₃ : P₃ a b c
+  {-# ATP axiom termDef₃ #-}
 
 ------------------------------------------------------------------------------
 -- Testing data Term = Fun ...
-postulate
-  termFun : P₁ a  → P₁ a
-{-# ATP axiom termFun #-}
+
+module Fun where
+
+  postulate
+    P : D → Set
+    a : D
+
+  postulate
+    termFun : P a  → P a
+  {-# ATP axiom termFun #-}
 
 ------------------------------------------------------------------------------
 -- Testing data Term = Pi ...
-postulate
-  termPi : (d : D) → P₁ d
-{-# ATP axiom termPi #-}
+
+module Pi where
+  postulate
+    P : D → Set
+
+  postulate
+    termPi : (d : D) → P d
+  {-# ATP axiom termPi #-}

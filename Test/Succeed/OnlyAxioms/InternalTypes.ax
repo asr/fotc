@@ -1,4 +1,4 @@
 axiom, ( p1(a) )
 axiom, ( p3(a,b,c) )
-axiom, ( ( p1(a) ) => ( p1(a) ) )
-axiom, ( ! \[A\] : ( p1(A) ) )
+axiom, ( ( p(a) ) => ( p(a) ) )
+axiom, ( ! \[A\] : ( p(A) ) )
