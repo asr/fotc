@@ -122,7 +122,7 @@ createConjectureFile (af@(AF qName _ _ ), hints) = do
           validFileName (show qName) ++ "_" ++ show (qNameLine qName)
   let file = addExtension f extTPTP
   reportSLn "createConjectureFile" 20 $
-                "Creating the conjecture file " ++ show file ++ "..."
+                "Creating the conjecture file " ++ show file ++ " ..."
   liftIO $ do
     _ <- writeFile file headerConjecture
     _ <- mapM_ (flip addAxiom file) hints
