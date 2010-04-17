@@ -37,7 +37,7 @@ import MyAgda.Syntax.Abstract.Name ( moduleNameToFilePath )
 import MyAgda.Interface
     ( getClauses
     , getConjectureHints
-    , getInterface
+    , myReadInterface
     , getQNameDefinition
     , getRoleATP
     )
@@ -93,7 +93,7 @@ symbolToAF qName def = do
 conjectureHintToAF :: QName -> R AF
 conjectureHintToAF qName = do
 
-  i <- liftIO $ getInterface $ moduleNameToFilePath $ qnameModule qName
+  i <- liftIO $ myReadInterface $ moduleNameToFilePath $ qnameModule qName
 
   let def :: Definition
       def = case getQNameDefinition i qName of

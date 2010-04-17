@@ -34,7 +34,7 @@ import Agda.Utils.Impossible ( catchImpossible
 -- Local imports
 -- import FOL.Pretty
 import MyAgda.Syntax.Abstract.Name ( moduleNameToFilePath )
-import MyAgda.Interface ( getInterface )
+import MyAgda.Interface ( myReadInterface )
 import Options ( Options(optHelp, optVersion), parseOptions, usage )
 import Reports ( R, reportS )
 import TPTP.Files ( createAxiomsFile, createConjectureFile )
@@ -59,7 +59,7 @@ translation i = do
       importedModules = iImportedModules i
 
   ( is :: [Interface] ) <-
-      liftIO $ mapM (getInterface . moduleNameToFilePath) importedModules
+      liftIO $ mapM (myReadInterface . moduleNameToFilePath) importedModules
 
   -- We translate the ATP axioms and general hints of current module
   -- and of all the imported modules.
@@ -89,7 +89,7 @@ runAgda2ATP = do
   when (optHelp opts) $ bye $ usage prgName
 
   -- Gettting the interface.
-  i <- getInterface $ head names
+  i <- myReadInterface $ head names
 
   runReaderT (translation i) opts
 

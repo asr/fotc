@@ -18,7 +18,8 @@ import Agda.Interaction.Imports ( readInterface )
 import Agda.Interaction.Options
     ( CommandLineOptions
     , defaultOptions
-    , optInputFile
+--    , optInputFile
+    , optIncludeDirs
     )
 import Agda.Syntax.Abstract.Name
     ( Name(nameBindingSite)
@@ -45,11 +46,14 @@ import Agda.TypeChecking.Monad.Base
     , Signature(sigDefinitions)
     , theDef
     )
-import Agda.TypeChecking.Monad.Options ( makeIncludeDirsAbsolute
-                                       , setCommandLineOptions
+import Agda.TypeChecking.Monad.Options ( -- makeIncludeDirsAbsolute
+                                         setCommandLineOptions
                                        , Target(PersistentOptions)
                                        )
-import Agda.Utils.FileName ( absolute, filePath, mkAbsolute )
+import Agda.Utils.FileName ( absolute
+                           , filePath
+                           -- , mkAbsolute
+                           )
 import Agda.Utils.Impossible ( Impossible(..)
                              , throwImpossible
                              )
@@ -87,19 +91,25 @@ getConjectureHints def =
 -- getImportedModules :: Interface -> [ModuleName]
 -- getImportedModules i = iImportedModules i
 
-getInterface :: FilePath -> IO Interface
-getInterface file = do
-  let opts :: CommandLineOptions
-      opts = defaultOptions { optInputFile = Just file }
+myReadInterface :: FilePath -> IO Interface
+myReadInterface file = do
 
   aFile <- absolute file
   currentDir   <- getCurrentDirectory
+
+  let opts :: CommandLineOptions
+      opts = defaultOptions
+             { optIncludeDirs = [ currentDir
+            --                  , "/home/asr/Agda/std-lib/src/"
+                                ]
+             }
+
   let iFile :: FilePath
       iFile  = filePath $ toIFile aFile
 
   r <- runTCM $ do
          setCommandLineOptions PersistentOptions opts
-         makeIncludeDirsAbsolute $ mkAbsolute currentDir
+--         makeIncludeDirsAbsolute $ mkAbsolute currentDir
          readInterface iFile
 
   case r of
