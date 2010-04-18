@@ -6,13 +6,19 @@
 
 module MyAgda.Interface where
 
+------------------------------------------------------------------------------
 -- Haskell imports
+
 -- import Data.Map ( Map )
+import Control.Monad.IO.Class ( liftIO )
+import Control.Monad.Trans.State ( execStateT, get, put, StateT )
 import Data.Int ( Int32 )
 import qualified Data.Map as Map
 import System.Directory ( getCurrentDirectory )
 
+------------------------------------------------------------------------------
 -- Agda library imports
+
 import Agda.Interaction.FindFile ( toIFile )
 import Agda.Interaction.Imports ( readInterface )
 import Agda.Interaction.Options
@@ -22,7 +28,8 @@ import Agda.Interaction.Options
     , optIncludeDirs
     )
 import Agda.Syntax.Abstract.Name
-    ( Name(nameBindingSite)
+    ( ModuleName
+    , Name(nameBindingSite)
     , QName(qnameName)
     )
 import Agda.Syntax.Common ( RoleATP(..))
@@ -36,7 +43,7 @@ import Agda.TypeChecking.Monad.Base
     ( axATP
     , conATP
     , Defn(Axiom, Constructor, Function)
-    , Interface
+    , Interface(iImportedModules)
     , Definition
     , Definitions
     , funATP
@@ -58,7 +65,10 @@ import Agda.Utils.Impossible ( Impossible(..)
                              , throwImpossible
                              )
 
+------------------------------------------------------------------------------
 -- Local imports
+
+import MyAgda.Syntax.Abstract.Name ( moduleNameToFilePath )
 #include "../undefined.h"
 
 ------------------------------------------------------------------------------
@@ -87,9 +97,6 @@ getConjectureHints def =
                     Nothing                     -> __IMPOSSIBLE__
 
        _       -> __IMPOSSIBLE__
-
--- getImportedModules :: Interface -> [ModuleName]
--- getImportedModules i = iImportedModules i
 
 myReadInterface :: FilePath -> IO Interface
 myReadInterface file = do
@@ -192,3 +199,39 @@ getClauses def =
   in case defn of
        Function{} -> funClauses defn
        _          -> __IMPOSSIBLE__
+
+------------------------------------------------------------------------------
+-- Imported modules
+
+-- Return the files paths of the modules recursively imported by a
+-- module m. The first name in the the state is the file path of the module
+-- m.
+allModules :: FilePath -> StateT [FilePath] IO ()
+allModules file = do
+
+  visitedFiles <- get
+
+  case (file `elem` visitedFiles) of
+    False -> do
+
+      i <- liftIO $ myReadInterface file
+
+      let iModules :: [ModuleName]
+          iModules = iImportedModules i
+
+      let iModulesPaths :: [FilePath]
+          iModulesPaths = map moduleNameToFilePath iModules
+
+      put ( visitedFiles ++ [file] )
+      mapM_ allModules iModulesPaths
+
+    True -> return ()
+
+-- Return the files paths of the modules recursively imported by a
+-- module.
+getImportedModules :: FilePath -> IO [FilePath]
+getImportedModules file = do
+  modules <- execStateT (allModules file) []
+  return $ tail modules
+
+------------------------------------------------------------------------------

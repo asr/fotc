@@ -20,11 +20,8 @@ import System.Exit
 
 ------------------------------------------------------------------------------
 -- Agda library imports
-import Agda.Syntax.Abstract.Name ( ModuleName )
-import Agda.TypeChecking.Monad.Base
-    ( Interface(iImportedModules, iModuleName)
-    )
-
+-- import Agda.Syntax.Abstract.Name ( ModuleName )
+-- import Agda.TypeChecking.Monad.Base ( Interface(iModuleName) )
 import Agda.Utils.Impossible ( catchImpossible
 --                              , Impossible(..)
 --                              , throwImpossible
@@ -33,8 +30,7 @@ import Agda.Utils.Impossible ( catchImpossible
 ------------------------------------------------------------------------------
 -- Local imports
 -- import FOL.Pretty
-import MyAgda.Syntax.Abstract.Name ( moduleNameToFilePath )
-import MyAgda.Interface ( myReadInterface )
+import MyAgda.Interface ( getImportedModules, myReadInterface )
 import Options ( Options(optHelp, optVersion), parseOptions, usage )
 import Reports ( R, reportS )
 import TPTP.Files ( createAxiomsFile, createConjectureFile )
@@ -51,30 +47,48 @@ import Utils.Version ( version )
 
 ------------------------------------------------------------------------------
 
-translation :: Interface -> R ()
-translation i = do
-  reportS "" 1 $ "Translating " ++ show (iModuleName i) ++ " ..."
+-- We translate the ATP axioms, general hints, and definitions for a file.
+translationGeneralAxioms :: FilePath -> R [AF]
+translationGeneralAxioms file = do
 
-  let importedModules :: [ModuleName]
-      importedModules = iImportedModules i
+  -- Gettting the interface.
+  i <- liftIO $ myReadInterface file
 
-  ( is :: [Interface] ) <-
-      liftIO $ mapM (myReadInterface . moduleNameToFilePath) importedModules
+  -- Gettting the ATP axioms and general hints.
+  axiomsGeneralHints <- axiomsGeneralHintsToAFs i
 
-  -- We translate the ATP axioms and general hints of current module
-  -- and of all the imported modules.
-  ( axiomsGeneralHintsAFss :: [[AF]] ) <-
-      mapM axiomsGeneralHintsToAFs (i : is)
+  -- Getting the ATP definitions.
+  symbols <- symbolsToAFs i
 
-  ( symbolsAFss :: [[AF]] ) <- mapM symbolsToAFs (i : is)
+  return (axiomsGeneralHints ++ symbols )
+
+
+-- ToDo: It is not clear if we should use the interface or the file
+-- name as the principal argument. In the case of the function
+-- getImportedModules is much better to use the file name because we
+-- avoid read some interfaces files unnecessary.
+translation :: FilePath -> R ()
+translation file = do
+  reportS "" 1 $ "Translating " ++ show file ++ " ..."
+
+  iModulesPaths <- liftIO $ getImportedModules file
+
+  generalAxiomsCurrentFile <- translationGeneralAxioms file
+  generalAxiomsImportedFiles <- mapM translationGeneralAxioms iModulesPaths
+
+  -- We create the general axioms TPTP file
+  createAxiomsFile $
+    concat generalAxiomsImportedFiles ++ generalAxiomsCurrentFile
+
+  -- Gettting the interface.
+  i <- liftIO $ myReadInterface file
 
   -- We translate the ATP pragma conjectures and their associated hints
   -- of current module.
-  conjecturesAFs <- conjecturesToAFs i
+  conjectures <- conjecturesToAFs i
 
-  -- We create the TPTP files.
-  createAxiomsFile $ concat axiomsGeneralHintsAFss ++ concat symbolsAFss
-  mapM_ createConjectureFile conjecturesAFs -- ++ concat hintsAFss
+  -- We create the conjectures TPTP files
+  mapM_ createConjectureFile conjectures
 
 runAgda2ATP :: IO ()
 runAgda2ATP = do
@@ -88,10 +102,7 @@ runAgda2ATP = do
 
   when (optHelp opts) $ bye $ usage prgName
 
-  -- Gettting the interface.
-  i <- myReadInterface $ head names
-
-  runReaderT (translation i) opts
+  runReaderT (translation $ head names) opts
 
 main :: IO ()
 main = catchImpossible runAgda2ATP $

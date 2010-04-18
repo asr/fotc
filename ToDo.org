@@ -2,7 +2,6 @@
 * Fix the clash names (e.g 'gT and GT' will clash)
 * Fix problem with the Makefile
 We need exit if cat fail
-* Process all the imported modules recursively
 * To prevent non-desirable evaluation
 
 From Peter's email:

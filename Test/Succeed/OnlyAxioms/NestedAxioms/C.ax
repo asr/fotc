@@ -1,0 +1,3 @@
+axiom, ( a = b )
+axiom, ( b = c )
+axiom, ( c = d )
