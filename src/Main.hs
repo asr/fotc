@@ -63,7 +63,7 @@ translationGeneralAxioms file = do
   return (axiomsGeneralHints ++ symbols )
 
 
--- ToDo: It is not clear if we should use the interface or the file
+-- TODO: It is not clear if we should use the interface or the file
 -- name as the principal argument. In the case of the function
 -- getImportedModules is much better to use the file name because we
 -- avoid read some interfaces files unnecessary.

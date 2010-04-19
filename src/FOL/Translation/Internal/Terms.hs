@@ -124,7 +124,7 @@ termToFormula term@(Def (QName _ name) args) = do
                       -- In this guard we translate predicates with
                       -- one argument (e.x. P : D -> Set).
 
-                      -- ToDo: To test if 'termToTermFOL (unArg a)'
+                      -- TODO: To test if 'termToTermFOL (unArg a)'
                       -- works with implicit arguments.
                       t <- termToTermFOL $ unArg a
                       return $ Predicate (show cName) [t]
@@ -177,7 +177,7 @@ termToFormula term@(Fun tyArg ty) = do
   f2 <- typeToFormula ty
   return $ Implies f1 f2
 
--- ToDo: To add test for this case.
+-- TODO: To add test for this case.
 termToFormula term@(Lam _ (Abs _ termLam)) = do
   lift $ reportSLn "termToFormula" 10 $ "Processing term Lam:\n" ++ show term
 
@@ -234,7 +234,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     El (Type (Lit (LitLevel _ 0))) _ -> __IMPOSSIBLE__
 
     -- Old version
-    -- ToDo: Check it
+    -- TODO: Check it
     -- The variable bound has type Set, i.e. a propositional constant.
     -- El (Type (Lit (LitLevel _ 1))) _ ->
         -- return $ ForAll freshVar (\_ -> f2)
@@ -251,7 +251,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
 
     _                                -> __IMPOSSIBLE__
 
--- ToDo: To add test for this case.
+-- TODO: To add test for this case.
 termToFormula term@(Var n _) = do
   lift $ reportSLn "termToFormula" 10 $ "Processing term Var: " ++ show term
 
@@ -274,7 +274,7 @@ appArgs fn args = do
 
 -- Translate an Agda term to an FOL term.
 termToTermFOL :: AgdaTerm -> T TermFOL
--- ToDo: The code for the cases Con and Def is similar.
+-- TODO: The code for the cases Con and Def is similar.
 termToTermFOL term@(Con (QName _ name) args)  = do
   lift $ reportSLn "termToTermFOL" 10 $ "Processing term Con:\n" ++ show term
 

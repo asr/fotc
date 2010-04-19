@@ -42,7 +42,7 @@ import Utils.Names ( freshName )
 
 ------------------------------------------------------------------------------
 
--- ToDo: At the moment, it is only allowed to translate symbols with
+-- TODO: At the moment, it is only allowed to translate symbols with
 -- one clause.
 symDefToFormula :: QName -> Type -> [Clause] -> T FormulaFOL
 symDefToFormula _      _  []        = __IMPOSSIBLE__
