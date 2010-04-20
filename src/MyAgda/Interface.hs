@@ -101,8 +101,7 @@ getConjectureHints def =
 myReadInterface :: FilePath -> IO Interface
 myReadInterface file = do
 
-  aFile <- absolute file
-  currentDir   <- getCurrentDirectory
+  currentDir <- getCurrentDirectory
 
   let opts :: CommandLineOptions
       opts = defaultOptions
@@ -111,8 +110,8 @@ myReadInterface file = do
                                 ]
              }
 
-  let iFile :: FilePath
-      iFile  = filePath $ toIFile aFile
+  -- The physical interface file.
+  iFile <- fmap (filePath . toIFile) (absolute file)
 
   r <- runTCM $ do
          setCommandLineOptions PersistentOptions opts

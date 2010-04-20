@@ -7,6 +7,7 @@
 
 module TPTP.Translation where
 
+------------------------------------------------------------------------------
 -- Haskell imports
 import Control.Monad ( zipWithM )
 import Control.Monad.IO.Class ( liftIO )
@@ -15,8 +16,11 @@ import Control.Monad.Trans.Reader ( ask, runReaderT )
 -- import Data.Map ( Map )
 import qualified Data.Map as Map
 import MonadUtils ( zipWith3M )
+import System.Directory ( doesFileExist )
 
+------------------------------------------------------------------------------
 -- Agda library imports
+import Agda.Interaction.FindFile ( toIFile )
 import Agda.Syntax.Abstract.Name ( QName(..) )
 import Agda.Syntax.Common ( RoleATP(..) )
 import Agda.Syntax.Internal ( Clause )
@@ -26,14 +30,20 @@ import Agda.TypeChecking.Monad.Base
     , defType
     , Interface
     )
+import Agda.Utils.FileName ( absolute , filePath )
 import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
+-- import Agda.Utils.Monad ( ifM )
 
+------------------------------------------------------------------------------
 -- Local imports
 import FOL.Monad ( iVarNames )
 import FOL.Translation.Common ( AgdaType )
 import FOL.Translation.Internal.Types ( typeToFormula )
 import FOL.Translation.SymbolDefinitions ( symDefToFormula )
-import MyAgda.Syntax.Abstract.Name ( moduleNameToFilePath )
+import MyAgda.Syntax.Abstract.Name
+    ( moduleNameToFilePath
+    , removeLastNameModuleName
+    )
 import MyAgda.Interface
     ( getClauses
     , getConjectureHints
@@ -93,7 +103,27 @@ symbolToAF qName def = do
 conjectureHintToAF :: QName -> R AF
 conjectureHintToAF qName = do
 
-  i <- liftIO $ myReadInterface $ moduleNameToFilePath $ qnameModule qName
+  -- Hack: In the current version of Agda the datatypes and records
+  -- also introduce modules, therefore we need to test if the module
+  -- name in QName has the information about the datatypes/record and
+  -- remove it.
+
+  let file :: FilePath
+      file = moduleNameToFilePath $ qnameModule qName
+
+  -- The physical interface file.
+  iFile <- liftIO $ fmap (filePath . toIFile) (absolute file)
+
+  i <- liftIO $ do
+         b <- doesFileExist iFile
+         case b of
+           True  -> myReadInterface file
+           False -> do
+                  -- The module name ends in a datatype/record name.
+                  let file' :: FilePath
+                      file' = moduleNameToFilePath $
+                                removeLastNameModuleName $ qnameModule qName
+                  myReadInterface file'
 
   let def :: Definition
       def = case getQNameDefinition i qName of

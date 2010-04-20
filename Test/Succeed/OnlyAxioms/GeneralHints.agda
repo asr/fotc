@@ -2,7 +2,7 @@
 -- Testing the use of general hints
 ------------------------------------------------------------------------------
 
-module Test.Succeed.OnlyAxioms.Hints where
+module Test.Succeed.OnlyAxioms.GeneralHints where
 
 postulate
   D    : Set

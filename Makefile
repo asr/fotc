@@ -33,6 +33,7 @@ $(conjecturesFiles) : % : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
 	@if ! ( agda2atp $< ); then exit 1; fi
 	@for file in /tmp/$(subst /,.,$@)*.tptp; do \
+		echo "Proving $${file} ..."; \
 		${ATP} $${file} > $${file}.output; \
 		if ! ( grep --silent "+++ RESULT: Theorem" $${file}.output ); then \
 			echo "Testing error in file $${file}"; \
