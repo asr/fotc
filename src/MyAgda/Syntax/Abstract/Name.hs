@@ -8,7 +8,7 @@ module MyAgda.Syntax.Abstract.Name where
 import Data.List
 
 -- Agda library imports
-import Agda.Syntax.Abstract ( ModuleName(..))
+import Agda.Syntax.Abstract.Name ( ModuleName(mnameToList))
 
 ------------------------------------------------------------------------------
 
