@@ -149,7 +149,7 @@ termToFormula term@(Def (QName _ name) args) = do
                 | otherwise -> do
                       lift $ reportSLn "termToFormula" 20 $
                                "Processing a definition with two arguments which " ++
-                               "is not a FOL constant"
+                               "is not a FOL constant: " ++ show cName
                       t1 <- termToTermFOL $ unArg a1
                       t2 <- termToTermFOL $ unArg a2
                       return $ Predicate (show cName) [t1, t2]
@@ -208,6 +208,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
            show tyAbs
 
   f2 <- local (\varNames -> freshVar : varNames) $ typeToFormula tyAbs
+
   lift $ reportSLn "termToFormula" 20 $
            "Finalized processing in local enviroment using the type:\n" ++
            show tyAbs
