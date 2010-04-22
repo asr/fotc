@@ -1,2 +1,3 @@
+axiom, ( a = a )
 axiom, ( ! \[A\] : ( ( n(A) ) => ( n(kApp(succ,A)) ) ) )
 axiom, ( ! \[A\] : ( ! \[B\] : ( ( p(A,B) ) <=> ( B = A ) ) ) )
