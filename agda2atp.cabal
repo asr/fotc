@@ -4,7 +4,7 @@ build-type:         Simple
 cabal-version:      >= 1.2 && < 2
 author:             Ana Bove, Peter Dybjer, and Andrés Sicard-Ramírez
 maintainer:         Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
-tested-with:        GHC == 6.12.1
+tested-with:        GHC == 6.12.2
 extra-source-files: src/undefined.h
 
 executable agda2atp
