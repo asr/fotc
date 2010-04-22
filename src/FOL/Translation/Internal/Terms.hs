@@ -228,7 +228,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     -- N.B. The pattern matching on (Def _ _).
     El (Type (Lit (LitLevel _ 0))) def@(Def _ _) -> do
        lift $ reportSLn "termToFormula" 20 $
-           "Removing a quantification on the predicate " ++ show def
+           "Removing a quantification on the predicate:\n" ++ show def
        f1 <- typeToFormula $ unArg tyArg
        return $ Implies f1 f2
 

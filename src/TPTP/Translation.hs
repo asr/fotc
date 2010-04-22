@@ -27,6 +27,7 @@ import Agda.Syntax.Internal ( Clause )
 import Agda.TypeChecking.Monad.Base
     ( Definition
     , Definitions
+    , defName
     , defType
     , Interface
     )
@@ -142,8 +143,8 @@ conjectureHintsToAFs def = do
   let hints :: [QName]
       hints = getConjectureHints def
   reportSLn "hintsToFOLs" 20 $
-    "The hints for the conjecture " ++ show def ++
-    " are " ++ show hints
+    "The local hints for the conjecture " ++ (show $ defName def) ++
+    " are:\n" ++ show hints
 
   ( afs :: [AF] ) <- mapM conjectureHintToAF hints
 
