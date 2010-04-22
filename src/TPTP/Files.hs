@@ -9,7 +9,7 @@ module TPTP.Files where
 
 -- Haskell imports
 import Control.Monad.IO.Class ( liftIO )
-import Data.Char ( chr, ord )
+import Data.Char ( chr, isAsciiUpper, isAsciiLower, isDigit, ord )
 import System.FilePath
 
 -- Agda library imports
@@ -35,9 +35,11 @@ class ValidFileName a where
 
 instance ValidFileName Char where
     validFileName c
+        | c `elem` ['.', '_', '-'] = [c]
         -- The character is a subscript number (i.e. ₀, ₁, ₂, ...).
         | ord c `elem` [8320 .. 8329] = [chr (ord c - 8272)]
-        | otherwise                   = [c]
+        | isDigit c || isAsciiUpper c || isAsciiLower c = [c]
+        | otherwise = show $ ord c
 
 -- Requires TypeSynonymInstances
 instance ValidFileName String where
