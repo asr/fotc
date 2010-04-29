@@ -1,0 +1,6 @@
+axiom, ( ! \[A\] : ( kApp(kApp(n43,zero),A) = A ) )
+axiom, ( ! \[A\] : ( ! \[B\] : ( kApp(kApp(n43,kApp(succ,A)),B) = kApp(succ,kApp(kApp(n43,A),B)) ) ) )
+axiom, ( ! \[A\] : ( kApp(kApp(n45,A),zero) = A ) )
+axiom, ( ! \[A\] : ( ! \[B\] : ( kApp(kApp(n45,A),kApp(succ,B)) = kApp(pred,kApp(kApp(n45,A),B)) ) ) )
+axiom, ( ! \[A\] : ( kApp(kApp(n42,zero),A) = zero ) )
+axiom, ( ! \[A\] : ( ! \[B\] : ( kApp(kApp(n42,kApp(succ,A)),B) = kApp(kApp(n43,B),kApp(kApp(n42,A),B)) ) ) )

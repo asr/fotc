@@ -1,0 +1,5 @@
+axiom, ( kApp(kApp(gcd,zero),zero) = error )
+axiom, ( ! \[A\] : ( kApp(kApp(gcd,kApp(succ,A)),zero) = kApp(succ,A) ) )
+axiom, ( ! \[A\] : ( kApp(kApp(gcd,zero),kApp(succ,A)) = kApp(succ,A) ) )
+axiom, ( ! \[A\] : ( ! \[B\] : ( ( gT(kApp(succ,A),kApp(succ,B)) ) => ( kApp(kApp(gcd,kApp(succ,A)),kApp(succ,B)) = kApp(kApp(gcd,kApp(kApp(n45,kApp(succ,A)),kApp(succ,B))),kApp(succ,B)) ) ) ) )
+axiom, ( ! \[A\] : ( ! \[B\] : ( ( lE(kApp(succ,A),kApp(succ,B)) ) => ( kApp(kApp(gcd,kApp(succ,A)),kApp(succ,B)) = kApp(kApp(gcd,kApp(succ,A)),kApp(kApp(n45,kApp(succ,B)),kApp(succ,A))) ) ) ) )

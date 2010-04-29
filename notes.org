@@ -1,0 +1,7 @@
+* Possible next paper:
+** Using reflection.
+From Ulf comments in AIMX
+(http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Main.AIMX)
+
+<Ulf: magic function Set → FOL is hopeless. reflection is so much
+better>

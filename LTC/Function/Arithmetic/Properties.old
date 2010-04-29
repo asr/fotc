@@ -1,0 +1,45 @@
+{-
+
+-- Left identify for addition using the induction principle for N and
+-- calling the ATP for the base case and the induction step.
+
+addLeftIdentity : {n : D} → N n → zero + n ≡ n
+addLeftIdentity Nn = indN (λ i → P i) P0 iStep Nn
+  where
+    P : D → Set
+    P i = zero + i ≡ i
+
+    postulate
+      -- ToDo: We cannnot use predicates in postulates
+      -- P0 : P zero
+      P0 : zero + zero ≡ zero
+    {-# ATP prove P0 #-}
+
+    postulate
+      -- ToDo: We cannnot use predicates in postulates
+      -- iStep : {i : D} → N i → P i → P (succ i)
+      iStep : {i : D} → N i → zero + i ≡ i → zero + (succ i) ≡ succ i
+    {-# ATP prove iStep #-}
+
+-- {-# ATP hint addLeftIdentity #-}
+
+------------------------------------------------------------------------------
+-- Associativity of addition using the induction principle for N and
+-- calling the ATP for the base case and the induction step.
+addAssoc : {m n o : D} → N m → N n → N o → (m + n) + o ≡ m + (n + o)
+addAssoc {m} {n} {o} Nm Nn No = indN (λ i → P i) addAssocP0 addAssocIStep No
+  where
+    P : D → Set
+    P i = m + n + i ≡ m + (n + i)
+
+    postulate
+      addAssocP0 : m + n + zero ≡ m + (n + zero)
+    {-# ATP prove addAssocP0 #-}
+
+    postulate
+      addAssocIStep : {i : D} → N i
+                      → m + n + i ≡ m + (n + i)
+                      → m + n + succ i ≡ m + (n + succ i)
+    {-# ATP prove addAssocIStep #-}
+
+-}
