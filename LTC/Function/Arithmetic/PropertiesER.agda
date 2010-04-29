@@ -64,7 +64,7 @@ minus-N     (sN {m} Nm) (sN {n} Nn) = subst (λ t → N t)
                                          refl
                                 ⟩
     succ (m + n) - (succ m + o) ≡⟨ subst (λ t → succ (m + n) - (succ m + o) ≡
-                                                 succ (m + n) - t)
+                                                succ (m + n) - t)
                                          (+-Sx m o)
                                          refl ⟩
     succ (m + n) - succ (m + o) ≡⟨ minus-SS (m + n) (m + o) ⟩
@@ -76,8 +76,8 @@ minus-N     (sN {m} Nm) (sN {n} Nn) = subst (λ t → N t)
 [x-y]z≡xz*yz {m} .{zero} {o} Nm zN No =
   begin
     (m - zero) * o   ≡⟨ subst (λ t → (m - zero) * o ≡ t * o)
-                        (minus-x0 m)
-                        refl
+                              (minus-x0 m)
+                              refl
                       ⟩
     m * o            ≡⟨ sym (minus-x0 (m * o)) ⟩
     m * o - zero     ≡⟨ subst (λ t → m * o - zero ≡ m * o - t)
@@ -108,7 +108,7 @@ minus-N     (sN {m} Nm) (sN {n} Nn) = subst (λ t → N t)
     zero * (succ m - succ n)      ≡⟨ *-0x (succ m - succ n) ⟩
     zero                          ≡⟨ sym (minus-0x (*-N (sN Nn) zN)) ⟩
     zero - succ n * zero          ≡⟨ subst (λ t → zero - succ n * zero ≡
-                                              t - succ n * zero)
+                                                  t - succ n * zero)
                                            (sym (*-0x (succ m)))
                                            refl
                                   ⟩
