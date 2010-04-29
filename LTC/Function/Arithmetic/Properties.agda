@@ -33,10 +33,15 @@ minus-N {m} Nm zN = prf
   postulate prf : N (m - zero)
   {-# ATP prove prf #-}
 
-minus-N {m} Nm (sN {n} Nn) = prf $ minus-N Nm Nn
+minus-N zN (sN {n} Nn) = prf
   where
-  postulate prf : N (m - n) → N (m - succ n)
-  {-# ATP prove prf pred-N #-}
+  postulate prf : N (zero - succ n)
+  {-# ATP prove prf zN #-}
+
+minus-N (sN {m} Nm) (sN {n} Nn) = prf $ minus-N Nm Nn
+  where
+  postulate prf : N (m - n) → N (succ m - succ n)
+  {-# ATP prove prf #-}
 
 ------------------------------------------------------------------------------
 

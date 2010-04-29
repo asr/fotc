@@ -20,10 +20,12 @@ postulate
 
 postulate
   _-_      : D → D → D
-  minus-x0 : (d : D) →   d - zero   ≡ d
-  minus-xS : (d e : D) → d - succ e ≡ pred (d - e)
+  minus-x0 : (d : D) →   d      - zero   ≡ d
+  minus-0S : (d : D) →   zero   - succ d ≡ zero
+  minus-SS : (d e : D) → succ d - succ e ≡ d - e
 {-# ATP axiom minus-x0 #-}
-{-# ATP axiom minus-xS #-}
+{-# ATP axiom minus-0S #-}
+{-# ATP axiom minus-SS #-}
 
 postulate
   _*_ : D → D → D

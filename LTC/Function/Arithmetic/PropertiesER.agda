@@ -24,9 +24,11 @@ pred-N zN          = subst (λ t → N t) (sym cP₁) zN
 pred-N (sN {n} Nn) = subst (λ t → N t) (sym (cP₂ n)) Nn
 
 minus-N : {m n : D} → N m → N n → N (m - n)
-minus-N {m} Nm zN = subst (λ t → N t) (sym (minus-x0 m)) Nm
-minus-N {m} Nm (sN {n} Nn) =
-  subst (λ t → N t) (sym (minus-xS m n)) (pred-N (minus-N Nm Nn))
+minus-N {m} Nm zN                   = subst (λ t → N t) (sym (minus-x0 m)) Nm
+minus-N     zN (sN {n} Nn)          = subst (λ t → N t) (sym (minus-0S n)) zN
+minus-N     (sN {m} Nm) (sN {n} Nn) = subst (λ t → N t)
+                                            (sym (minus-SS m n))
+                                            (minus-N Nm Nn)
 
 +-N : {m n : D} → N m → N n → N (m + n)
 +-N zN Nn = subst (λ t → N t) (sym (+-leftIdentity Nn)) Nn
