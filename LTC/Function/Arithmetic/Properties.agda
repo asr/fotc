@@ -43,8 +43,6 @@ minus-N (sN {m} Nm) (sN {n} Nn) = prf $ minus-N Nm Nn
   postulate prf : N (m - n) → N (succ m - succ n)
   {-# ATP prove prf #-}
 
-------------------------------------------------------------------------------
-
 +-N : {m n : D} → N m → N n → N (m + n)
 +-N {n = n} zN Nn = prf
   where
@@ -67,7 +65,7 @@ minus-N (sN {m} Nm) (sN {n} Nn) = prf $ minus-N Nm Nn
 
 ------------------------------------------------------------------------------
 
--- The proofs are based on the proofs in the standard library
+-- Some proofs are based on the proofs in the standard library
 
 +-leftIdentity : {n : D} → N n → zero + n ≡ n
 +-leftIdentity {n} _ = +-0x n
@@ -110,6 +108,10 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn = prf (x+1+y≡1+x+y Nm Nn)
   where
   postulate prf : m + n ≡ n + m → succ m + n ≡ n + succ m
   {-# ATP prove prf x+1+y≡1+x+y #-}
+
+minus-0x : {n : D} → N n → zero - n  ≡ zero
+minus-0x zN          = minus-x0 zero
+minus-0x (sN {n} Nn) = minus-0S n
 
 *-leftZero : {n : D} → N n → zero * n ≡ zero
 *-leftZero {n} _ = *-0x n
