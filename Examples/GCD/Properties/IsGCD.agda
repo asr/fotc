@@ -13,8 +13,8 @@ open import Examples.GCD.Properties.IsDivisible
 open import Examples.GCD.Properties.IsN
 
 open import LTC.Data.N
-open import LTC.Relation.Divisibility.Postulates
-open import LTC.Relation.Divisibility.Properties using ( 0∤x )
+open import LTC.Relation.Divisibility.Postulates using ( x∣S→x≤S )
+open import LTC.Relation.Divisibility.Properties
 open import LTC.Relation.Inequalities
 
 ---------------------------------------------------------------------------

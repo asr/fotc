@@ -11,7 +11,7 @@ open import Examples.GCD
 open import Examples.GCD.Properties.IsN-ER
 
 open import LTC.Data.N
-open import LTC.Data.N.Postulates
+open import LTC.Data.N.Postulates using ( wf₂-indN )
 open import LTC.Function.Arithmetic
 open import LTC.Function.Arithmetic.PropertiesER
 open import LTC.Relation.Divisibility
@@ -21,6 +21,11 @@ open import LTC.Relation.Divisibility.PropertiesER
 open import LTC.Relation.Equalities.PropertiesER
 open import LTC.Relation.Inequalities
 open import LTC.Relation.Inequalities.Postulates
+  using ( x>y→x-y+y≡x
+        ; x≤y→y-x+x≡y
+        ; Sx>Sy→[Sx-Sy,Sy]<₂[Sx,Sy]
+        ; Sx≤Sy→[Sx,Sy-Sx]<₂[Sx,Sy]
+        )
 open import LTC.Relation.Inequalities.PropertiesER
 
 open import MyStdLib.Function

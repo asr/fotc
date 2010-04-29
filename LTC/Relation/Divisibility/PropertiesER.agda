@@ -9,7 +9,6 @@ open import LTC.MinimalER
 
 open import LTC.Data.N
 open import LTC.Function.Arithmetic
-open import LTC.Function.Arithmetic.Postulates
 open import LTC.Function.Arithmetic.Properties using ( *-leftIdentity )
 open import LTC.Function.Arithmetic.PropertiesER
 open import LTC.Relation.Divisibility
@@ -24,6 +23,10 @@ open module DPER = MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 S∣0 : {n : D} → N n → succ n ∣ zero
 S∣0 {n} Nn = (  ¬S≡0 ,
                ( zero , zN , sym (*-0x (succ n))))
+
+-- 0 doesn't divide any number.
+0∤x : {d : D} → ¬ (zero ∣ d)
+0∤x ( 0≠0 , _ ) = ⊥-elim $ 0≠0 refl
 
 -- The divisibility relation is reflexive for positive numbers.
 ∣-refl-S : {n : D} → N n → succ n ∣ succ n

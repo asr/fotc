@@ -11,12 +11,13 @@ open import LTC.Minimal
 open import Examples.GCD
 
 open import LTC.Data.N
-open import LTC.Data.N.Postulates
+open import LTC.Data.N.Postulates using ( wf₂-indN )
 open import LTC.Function.Arithmetic
 open import LTC.Function.Arithmetic.Properties
 open import LTC.Relation.Equalities.Properties
 open import LTC.Relation.Inequalities
 open import LTC.Relation.Inequalities.Postulates
+  using ( Sx>Sy→[Sx-Sy,Sy]<₂[Sx,Sy] ; Sx≤Sy→[Sx,Sy-Sx]<₂[Sx,Sy] )
 open import LTC.Relation.Inequalities.Properties
 
 open import MyStdLib.Data.Sum

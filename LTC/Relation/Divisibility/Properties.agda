@@ -8,7 +8,7 @@ open import LTC.Minimal
 
 open import LTC.Data.N
 open import LTC.Function.Arithmetic
-open import LTC.Function.Arithmetic.Postulates
+open import LTC.Function.Arithmetic.Postulates using ( [x-y]z≡xz*yz )
 open import LTC.Function.Arithmetic.Properties
 open import LTC.Relation.Divisibility
 open import LTC.Relation.Equalities.Properties
