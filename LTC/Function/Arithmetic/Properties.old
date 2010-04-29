@@ -1,4 +1,3 @@
-{-
 
 -- Left identify for addition using the induction principle for N and
 -- calling the ATP for the base case and the induction step.
@@ -42,4 +41,58 @@ addAssoc {m} {n} {o} Nm Nn No = indN (λ i → P i) addAssocP0 addAssocIStep No
                       → m + n + succ i ≡ m + (n + succ i)
     {-# ATP prove addAssocIStep #-}
 
--}
+-- Associativity of addition using pattern matching.
+addAssoc1 : (m n o : D) → N m → N n → N o → m + n + o ≡ m + (n + o)
+addAssoc1 m n .zero _ _ zN =
+  begin
+    m + n + zero ≡⟨ add-x0 (m + n) ⟩
+    m + n        ≡⟨ subst (λ t → m + t ≡ m + (n + zero))
+                          (add-x0 n)
+                          refl
+                 ⟩
+    m + (n + zero)
+  ∎
+
+addAssoc1 m n .(succ o) Nm Nn (sN {o} No) =
+  begin
+    (m + n) + (succ o) ≡⟨ add-xS (m + n) o ⟩
+    succ (m + n + o)   ≡⟨ subst (λ t → succ t ≡ succ (m + (n + o)))
+                                (sym (addAssoc1 m n o Nm Nn No))
+                                refl
+                       ⟩
+    succ (m + (n + o)) ≡⟨ sym (add-xS m (n + o)) ⟩
+    m + (succ (n + o)) ≡⟨ subst (λ t → m + t ≡ m + (n + succ o))
+                                (add-xS n o)
+                                refl
+                       ⟩
+    m + (n + succ o)
+  ∎
+
+
+
+
+-- *-leftZero : {n : D} → N n → zero * n ≡ zero
+-- *-leftZero zN          = *-x0 zero
+-- *-leftZero (sN {n} Nn) =
+--   begin
+--     zero * succ n   ≡⟨ *-xS zero n ⟩
+--     zero * n + zero ≡⟨ subst (λ t → t + zero ≡ zero + zero)
+--                              (sym (*-leftZero Nn))
+--                              refl
+--                      ⟩
+--     zero + zero     ≡⟨ +-leftIdentity zN ⟩
+--     zero
+--   ∎
+
+-- *-comm : {m n : D} → N m → N n → m * n ≡ n * m
+-- *-comm Nm zN = trans (*-rightZero Nm) $ sym $ *-leftZero Nm
+-- *-comm {m} Nm (sN {n} Nn) =
+--   begin
+--     m * succ n   ≡⟨ *-xS m n ⟩
+--     m * n + m    ≡⟨ subst (λ t → t + m ≡ n * m + m)
+--                           (*-comm Nn Nm)
+--                           refl
+--                   ⟩
+--     n * m + m     ≡⟨  mn+n≡m+1*n n m ⟩
+--     succ n * m
+--   ∎
