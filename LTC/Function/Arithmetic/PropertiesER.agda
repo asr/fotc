@@ -9,7 +9,6 @@ open import LTC.MinimalER
 
 open import LTC.Data.N
 open import LTC.Function.Arithmetic
-open import LTC.Function.Arithmetic.Postulates using ( [x+y]-[x+z]≡y-z )
 open import LTC.Function.Arithmetic.Properties
   using ( +-leftIdentity ; *-leftZero ; *-comm ; minus-0x )
 
@@ -42,6 +41,36 @@ minus-N     (sN {m} Nm) (sN {n} Nn) = subst (λ t → N t)
   subst (λ t → N t) (sym (*-Sx m n)) (+-N Nn (*-N Nm Nn))
 
 ------------------------------------------------------------------------------
+
+[x+y]-[x+z]≡y-z : {m n o : D} → N m → N n → N o →
+                  (m + n) - (m + o) ≡ n - o
+[x+y]-[x+z]≡y-z {n = n} {o = o} zN Nn No =
+  begin
+    (zero + n) - (zero + o) ≡⟨ subst (λ t → (zero + n) - (zero + o) ≡
+                                            t - (zero + o))
+                                      (+-0x n) refl
+                            ⟩
+     n - (zero + o)         ≡⟨ subst (λ t → n - (zero + o) ≡ n - t)
+                                     (+-0x o)
+                                     refl ⟩
+    n - o
+  ∎
+
+[x+y]-[x+z]≡y-z {n = n} {o = o} (sN {m} Nm) Nn No =
+  begin
+    (succ m + n) - (succ m + o) ≡⟨ subst (λ t → succ m + n - (succ m + o) ≡
+                                                t - (succ m + o))
+                                         (+-Sx m n)
+                                         refl
+                                ⟩
+    succ (m + n) - (succ m + o) ≡⟨ subst (λ t → succ (m + n) - (succ m + o) ≡
+                                                 succ (m + n) - t)
+                                         (+-Sx m o)
+                                         refl ⟩
+    succ (m + n) - succ (m + o) ≡⟨ minus-SS (m + n) (m + o) ⟩
+    (m + n) - (m + o) ≡⟨ [x+y]-[x+z]≡y-z Nm Nn No ⟩
+    n - o
+  ∎
 
 [x-y]z≡xz*yz : {m n o : D} → N m → N n → N o → (m - n) * o ≡ m * o - n * o
 [x-y]z≡xz*yz {m} .{zero} {o} Nm zN No =
