@@ -113,6 +113,21 @@ minus-0x : {n : D} → N n → zero - n  ≡ zero
 minus-0x zN          = minus-x0 zero
 minus-0x (sN {n} Nn) = minus-0S n
 
+[x+y]-[x+z]≡y-z : {m n o : D} → N m → N n → N o →
+                  (m + n) - (m + o) ≡ n - o
+[x+y]-[x+z]≡y-z {n = n} {o = o} zN Nn No = prf
+  where
+  postulate prf : (zero + n) - (zero + o) ≡ n - o
+  {-# ATP prove prf #-}
+
+-- Nice proof by the ATP.
+[x+y]-[x+z]≡y-z {n = n} {o = o} (sN {m} Nm) Nn No =
+  prf ([x+y]-[x+z]≡y-z Nm Nn No)
+  where
+  postulate prf : (m + n) - (m + o) ≡ n - o →
+                  (succ m + n) - (succ m + o) ≡ n - o
+  {-# ATP prove prf #-}
+
 *-leftZero : {n : D} → N n → zero * n ≡ zero
 *-leftZero {n} _ = *-0x n
 
