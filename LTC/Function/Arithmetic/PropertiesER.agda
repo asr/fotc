@@ -24,8 +24,8 @@ pred-N zN          = subst (λ t → N t) (sym cP₁) zN
 pred-N (sN {n} Nn) = subst (λ t → N t) (sym (cP₂ n)) Nn
 
 minus-N : {m n : D} → N m → N n → N (m - n)
-minus-N {m} Nm zN                   = subst (λ t → N t) (sym (minus-x0 m)) Nm
-minus-N     zN (sN {n} Nn)          = subst (λ t → N t) (sym (minus-0S n)) zN
+minus-N {m} Nm          zN          = subst (λ t → N t) (sym (minus-x0 m)) Nm
+minus-N     zN          (sN {n} Nn) = subst (λ t → N t) (sym (minus-0S n)) zN
 minus-N     (sN {m} Nm) (sN {n} Nn) = subst (λ t → N t)
                                             (sym (minus-SS m n))
                                             (minus-N Nm Nn)
@@ -33,7 +33,7 @@ minus-N     (sN {m} Nm) (sN {n} Nn) = subst (λ t → N t)
 +-N : {m n : D} → N m → N n → N (m + n)
 +-N zN Nn = subst (λ t → N t) (sym (+-leftIdentity Nn)) Nn
 +-N {n = n} (sN {m} Nm ) Nn =
-  subst ((λ t → N t)) (sym (+-Sx m n)) (sN (+-N Nm Nn))
+  subst (λ t → N t) (sym (+-Sx m n)) (sN (+-N Nm Nn))
 
 *-N : {m n : D} → N m → N n → N (m * n)
 *-N zN Nn = subst (λ t → N t) (sym (*-leftZero Nn)) zN
@@ -48,7 +48,7 @@ minus-0x (sN {n} Nn) = minus-0S n
 
 [x+y]-[x+z]≡y-z : {m n o : D} → N m → N n → N o →
                   (m + n) - (m + o) ≡ n - o
-[x+y]-[x+z]≡y-z {n = n} {o = o} zN Nn No =
+[x+y]-[x+z]≡y-z {n = n} {o} zN Nn No =
   begin
     (zero + n) - (zero + o) ≡⟨ subst (λ t → (zero + n) - (zero + o) ≡
                                             t - (zero + o))
@@ -60,7 +60,7 @@ minus-0x (sN {n} Nn) = minus-0S n
     n - o
   ∎
 
-[x+y]-[x+z]≡y-z {n = n} {o = o} (sN {m} Nm) Nn No =
+[x+y]-[x+z]≡y-z {n = n} {o} (sN {m} Nm) Nn No =
   begin
     (succ m + n) - (succ m + o) ≡⟨ subst (λ t → succ m + n - (succ m + o) ≡
                                                 t - (succ m + o))
@@ -77,7 +77,7 @@ minus-0x (sN {n} Nn) = minus-0S n
   ∎
 
 [x-y]z≡xz*yz : {m n o : D} → N m → N n → N o → (m - n) * o ≡ m * o - n * o
-[x-y]z≡xz*yz {m} .{zero} {o} Nm zN No =
+[x-y]z≡xz*yz {m} {o = o} Nm zN No =
   begin
     (m - zero) * o   ≡⟨ subst (λ t → (m - zero) * o ≡ t * o)
                               (minus-x0 m)
