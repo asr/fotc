@@ -15,8 +15,6 @@ open import LTC.Data.N.Postulates using ( wf₂-indN )
 open import LTC.Function.Arithmetic
 open import LTC.Function.Arithmetic.PropertiesER
 open import LTC.Relation.Divisibility
-open import LTC.Relation.Divisibility.Postulates
-  using ( x∣y→x∣z→x∣y+z )
 open import LTC.Relation.Divisibility.PropertiesER
 open import LTC.Relation.Equalities.PropertiesER
 open import LTC.Relation.Inequalities
