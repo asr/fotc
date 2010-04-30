@@ -15,7 +15,6 @@ open import LTC.Function.Arithmetic
 open import LTC.Function.Arithmetic.Properties
 open import LTC.Relation.Divisibility
 open import LTC.Relation.Divisibility.Properties
-open import LTC.Relation.Divisibility.Postulates using ( x∣y→x∣z→x∣y+z )
 open import LTC.Relation.Equalities.Properties
 open import LTC.Relation.Inequalities
 open import LTC.Relation.Inequalities.Postulates

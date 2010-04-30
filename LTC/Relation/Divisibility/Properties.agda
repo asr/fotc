@@ -8,6 +8,7 @@ open import LTC.Minimal
 
 open import LTC.Data.N
 open import LTC.Function.Arithmetic
+open import LTC.Function.Arithmetic.Postulates using ( [x+y]z≡xz*yz )
 open import LTC.Function.Arithmetic.Properties
 open import LTC.Relation.Divisibility
 open import LTC.Relation.Equalities.Properties
@@ -54,3 +55,22 @@ x∣y→x∣z→x∣y-z (sN Nm) Nn Np
   (k₁ - k₂) ,
   minus-N Nk₁ Nk₂ ,
   x∣y→x∣z→x∣y-z-ah Nm Nn Nk₁ Nk₂ n≡k₁Sm p≡k₂Sm
+
+------------------------------------------------------------------------------
+-- If 'x' divides 'y' and 'z' then 'x' divides 'y + z'.
+postulate
+  x∣y→x∣z→x∣y+z-ah : {m n p k₁ k₂ : D} → N m → N n → N k₁ → N k₂ →
+                      n ≡ k₁ * succ m →
+                      p ≡ k₂ * succ m →
+                      n + p ≡ (k₁ + k₂) * succ m
+{-# ATP prove x∣y→x∣z→x∣y+z-ah [x+y]z≡xz*yz sN #-}
+
+x∣y→x∣z→x∣y+z : {m n p : D} → N m → N n → N p → m ∣ n → m ∣ p → m ∣ n + p
+x∣y→x∣z→x∣y+z zN      _  _ ( 0≠0 , _) m∣p = ⊥-elim (0≠0 refl)
+x∣y→x∣z→x∣y+z (sN Nm) Nn Np
+              ( 0≠0 , ( k₁ , Nk₁ , n≡k₁Sm ))
+              ( _   , ( k₂ , Nk₂ , p≡k₂Sm )) =
+  (λ S≡0 → ⊥-elim (¬S≡0 S≡0)) ,
+  (k₁ + k₂) ,
+  +-N Nk₁ Nk₂ ,
+  x∣y→x∣z→x∣y+z-ah Nm Nn Nk₁ Nk₂ n≡k₁Sm p≡k₂Sm
