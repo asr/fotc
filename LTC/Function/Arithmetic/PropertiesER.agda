@@ -10,7 +10,7 @@ open import LTC.MinimalER
 open import LTC.Data.N
 open import LTC.Function.Arithmetic
 open import LTC.Function.Arithmetic.Properties
-  using ( +-leftIdentity ; *-leftZero ; *-comm ; minus-0x )
+  using ( +-leftIdentity ; *-leftZero ; *-comm )
 
 open import MyStdLib.Function
 import MyStdLib.Relation.Binary.EqReasoning
@@ -41,6 +41,10 @@ minus-N     (sN {m} Nm) (sN {n} Nn) = subst (λ t → N t)
   subst (λ t → N t) (sym (*-Sx m n)) (+-N Nn (*-N Nm Nn))
 
 ------------------------------------------------------------------------------
+
+minus-0x : {n : D} → N n → zero - n  ≡ zero
+minus-0x zN          = minus-x0 zero
+minus-0x (sN {n} Nn) = minus-0S n
 
 [x+y]-[x+z]≡y-z : {m n o : D} → N m → N n → N o →
                   (m + n) - (m + o) ≡ n - o
