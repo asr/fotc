@@ -28,7 +28,7 @@ open import MyStdLib.Data.Sum
 -- Divisible for any common divisor.
 
 Divisible : D → D → D → Set
-Divisible a b g = (c : D) → N c → CD a b c → c ∣ g
+Divisible a b gcd = (c : D) → N c → CD a b c → c ∣ gcd
 {-# ATP definition Divisible #-}
 
 ---------------------------------------------------------------------------
