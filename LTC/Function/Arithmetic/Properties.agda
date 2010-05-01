@@ -192,3 +192,27 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
                   (succ m - succ n) * succ o ≡
                   succ m * succ o - succ n * succ o
   {-# ATP prove prf sN *-N [x+y]-[x+z]≡y-z #-}
+
+[x+y]z≡xz*yz : {m n o : D} → N m → N n → N o → (m + n) * o ≡ m * o + n * o
+[x+y]z≡xz*yz {m} {n} Nm Nn zN = prf
+  where
+  postulate prf : (m + n) * zero ≡ m * zero + n * zero
+  {-# ATP prove prf zN sN *-comm +-rightIdentity *-N +-N #-}
+
+[x+y]z≡xz*yz {n = n} zN Nn (sN {o} No) = prf
+  where
+  postulate prf :  (zero + n) * succ o ≡ zero * succ o + n * succ o
+  {-# ATP prove prf #-}
+
+[x+y]z≡xz*yz (sN {m} Nm) zN (sN {o} No) = prf
+  where
+  postulate prf : (succ m + zero) * succ o ≡ succ m * succ o + zero * succ o
+  {-# ATP prove prf +-rightIdentity *-leftZero sN *-N #-}
+
+[x+y]z≡xz*yz (sN {m} Nm) (sN {n} Nn) (sN {o} No) =
+  prf ([x+y]z≡xz*yz Nm (sN Nn) (sN No))
+    where
+    postulate
+      prf : (m + succ n) * succ o ≡ m * succ o + succ n * succ o →
+            (succ m + succ n) * succ o ≡ succ m * succ o + succ n * succ o
+    {-# ATP prove prf +-assoc sN *-N #-}
