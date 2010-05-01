@@ -77,7 +77,7 @@ minus-N (sN {m} Nm) (sN {n} Nn) = prf $ minus-N Nm Nn
    postulate prf : n + zero ≡ n → succ n + zero ≡ succ n
    {-# ATP prove prf #-}
 
-+-assoc : {m n o : D} → N m → N n → N o → (m + n) + o ≡ m + (n + o)
++-assoc : {m n o : D} → N m → N n → N o → m + n + o ≡ m + (n + o)
 +-assoc {n = n} {o = o} zN Nn No = prf
   where
   postulate prf : zero + n + o ≡ zero + (n + o)
