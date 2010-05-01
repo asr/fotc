@@ -102,7 +102,7 @@ gcd-x≤y-N (sN {m} Nm) (sN {n} Nn) allAcc Sm≤Sn _ =
     -- Inductive hypothesis
     ih : N (gcd (succ m) (succ n - succ m))
     ih = allAcc (sN Nm)
-                (minus-N (sN Nn)  (sN Nm ))
+                (minus-N (sN Nn) (sN Nm ))
                 (Sx≤Sy→[Sx,Sy-Sx]<₂[Sx,Sy] Nm Nn Sm≤Sn)
                 (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 
