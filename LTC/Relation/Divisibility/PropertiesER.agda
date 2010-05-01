@@ -13,6 +13,7 @@ open import LTC.Function.Arithmetic.Properties using ( *-leftIdentity )
 open import LTC.Function.Arithmetic.PropertiesER
 open import LTC.Relation.Divisibility
 open import LTC.Relation.Equalities.PropertiesER
+open import LTC.Relation.Inequalities
 
 open import MyStdLib.Function
 import MyStdLib.Relation.Binary.EqReasoning

@@ -6,9 +6,9 @@ AGDA='agda -v 0'
 axiomsFile='/tmp/axioms.tptp'
 
 conjecturesFiles='
-  Examples/GCD/Properties/IsCommonDivisor
-  Examples/GCD/Properties/IsDivisible
-  Examples/GCD/Properties/IsN
+  Examples/GCD/IsCommonDivisor
+  Examples/GCD/IsDivisible
+  Examples/GCD/IsN
   LTC/Function/Arithmetic/Properties
   LTC/Relation/Divisibility/Properties
   LTC/Relation/Equalities/Properties

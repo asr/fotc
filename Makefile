@@ -5,8 +5,8 @@ testConjectures :
 	./testConjectures.bash
 
 testQuick :
-	agda -v 0 Examples/GCD/Properties/IsGCD.agda
-	agda -v 0 Examples/GCD/Properties/IsGCD-ER.agda
+	agda -v 0 Examples/GCD.agda
+	agda -v 0 Examples/GCD-ER.agda
 
 test : testAxioms testConjectures testQuick
 

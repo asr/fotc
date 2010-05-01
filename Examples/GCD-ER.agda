@@ -1,20 +1,20 @@
 ------------------------------------------------------------------------------
 -- Specification of the Euclid's algorithm for calculate the greatest
--- common divisor of two natural numbers
+-- common divisor of two natural numbers (using equational reasoning)
 ------------------------------------------------------------------------------
 
-module Examples.GCD.Properties.IsGCD where
+module Examples.GCD-ER where
 
 open import LTC.Minimal
 
-open import Examples.GCD
-open import Examples.GCD.Properties.IsCommonDivisor
-open import Examples.GCD.Properties.IsDivisible
-open import Examples.GCD.Properties.IsN
+open import Examples.GCD.Equations
+open import Examples.GCD.IsCommonDivisorER
+open import Examples.GCD.IsDivisibleER
+open import Examples.GCD.IsN-ER
 
 open import LTC.Data.N
 open import LTC.Relation.Divisibility.Postulates using ( x∣S→x≤S )
-open import LTC.Relation.Divisibility.Properties
+open import LTC.Relation.Divisibility.PropertiesER
 open import LTC.Relation.Inequalities
 
 ---------------------------------------------------------------------------

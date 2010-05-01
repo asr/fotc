@@ -1,34 +1,57 @@
 ------------------------------------------------------------------------------
--- Equations for the gcd
+-- Specification of the Euclid's algorithm for calculate the greatest
+-- common divisor of two natural numbers
 ------------------------------------------------------------------------------
 
 module Examples.GCD where
 
 open import LTC.Minimal
 
+open import Examples.GCD.Equations
+open import Examples.GCD.IsCommonDivisor
+open import Examples.GCD.IsDivisible
+open import Examples.GCD.IsN
+
 open import LTC.Data.N
-open import LTC.Function.Arithmetic
+open import LTC.Relation.Divisibility.Postulates using ( x∣S→x≤S )
+open import LTC.Relation.Divisibility.Properties
 open import LTC.Relation.Inequalities
 
-------------------------------------------------------------------------------
+---------------------------------------------------------------------------
+-- The 'gcd' is greatest that any common divisor
+---------------------------------------------------------------------------
 
-postulate
-  gcd : D → D → D
+-- Greatest that any common divisor.
+GACD : D → D → D → Set
+GACD a b g = (c : D) → N c → CD a b c → LE c g
 
-  gcd-00 : gcd zero zero ≡ error
+-- Knowing that 'g' is a common divisor of 'm' and 'n', and that
+-- any other common divisor of 'm' and 'n' divides it, we can
+-- prove that 'g' is the largest common divisor.
 
-  gcd-S0 : (n : D) → gcd (succ n) zero ≡ succ n
+-- We need 'N d'.
+-- TODO: Why the dependent type '$' doesn't work in '⊥-elim (0∤n d∣m)'?
 
-  gcd-0S : (n : D) → gcd zero (succ n) ≡ succ n
+gcd-GACD : {m n g : D} → N g → CD m n g → Divisible m n g → GACD m n g
+gcd-GACD zN     ( 0∣m , _) = ⊥-elim (0∤x 0∣m )
+gcd-GACD (sN {g} Ng) _     =
+  λ Divisible-mnSg c Nc CDmnc → x∣S→x≤S Nc Ng (Divisible-mnSg c Nc CDmnc)
 
-  gcd-S>S : (m n : D) → GT (succ m) (succ n) →
-            gcd (succ m) (succ n) ≡ gcd (succ m - succ n) (succ n)
+-----------------------------------------------------------------------
+-- The 'gcd' is the GCD.
+-----------------------------------------------------------------------
 
-  gcd-S≤S : (m n : D) → LE (succ m) (succ n) →
-            gcd (succ m) (succ n) ≡ gcd (succ m) (succ n - succ m)
+-- Greatest commun divisor.
+GCD : D → D → D → Set
+GCD a b g = CD a b g ∧ GACD a b g
 
-{-# ATP axiom gcd-00 #-}
-{-# ATP axiom gcd-S0 #-}
-{-# ATP axiom gcd-0S #-}
-{-# ATP axiom gcd-S>S #-}
-{-# ATP axiom gcd-S≤S #-}
+gcd-GCD : {m n : D} → N m → N n →
+          ¬ ((m ≡ zero) ∧ (n ≡ zero))
+          → GCD m n (gcd m n)
+gcd-GCD {m} {n} Nm Nn m≠0≠n =
+  ( CDmngcd , (gcd-GACD (gcd-N Nm Nn m≠0≠n)
+                        CDmngcd
+                        (gcd-Divisible Nm Nn m≠0≠n)) )
+
+  where CDmngcd : CD m n (gcd m n)
+        CDmngcd = gcd-CD Nm Nn m≠0≠n
