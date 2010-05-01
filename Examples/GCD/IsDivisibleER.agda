@@ -9,6 +9,7 @@ open import LTC.MinimalER
 
 open import Examples.GCD.Equations
 open import Examples.GCD.IsCommonDivisorER
+open import Examples.GCD.Types
 
 open import LTC.Data.N
 open import LTC.Data.N.Postulates using ( wf₂-indN )
@@ -115,9 +116,10 @@ Proof
 gcd-x>y-Divisible :
   {m n : D} → N m → N n →
   ({m' n' : D} → N m' → N n' → LT₂ (m' , n') (m , n) →
-    ¬ ((m' ≡ zero) ∧ (n' ≡ zero)) → Divisible m' n' (gcd m' n')) →
+    ¬x≡0∧y≡0 m' n' → Divisible m' n' (gcd m' n')) →
   GT m n →
-  ¬ ((m ≡ zero) ∧ (n ≡ zero)) → Divisible m n (gcd m n)
+  ¬x≡0∧y≡0 m n →
+  Divisible m n (gcd m n)
 
 gcd-x>y-Divisible zN zN _ _ ¬0≡0∧0≡0 _ _  = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
 gcd-x>y-Divisible zN (sN Nn) _ 0>Sn _ _ _ = ⊥-elim (¬0>x (sN Nn) 0>Sn)
@@ -140,9 +142,10 @@ gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) allAcc Sm>Sn _ c Nc =
 gcd-x≤y-Divisible :
   {m n : D} → N m → N n →
   ({m' n' : D} → N m' → N n' → LT₂ (m' , n') (m , n) →
-    ¬ ((m' ≡ zero) ∧ (n' ≡ zero)) → Divisible m' n' (gcd m' n')) →
+    ¬x≡0∧y≡0 m' n' → Divisible m' n' (gcd m' n')) →
   LE m n →
-  ¬ ((m ≡ zero) ∧ (n ≡ zero)) → Divisible m n (gcd m n)
+  ¬x≡0∧y≡0 m n →
+  Divisible m n (gcd m n)
 
 gcd-x≤y-Divisible zN zN _ _  ¬0≡0∧0≡0 _ _   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
 gcd-x≤y-Divisible zN (sN Nn) _ _  _  c Nc   = gcd-0S-Divisible Nn c Nc
@@ -159,12 +162,11 @@ gcd-x≤y-Divisible (sN {m} Nm) (sN {n} Nn) allAcc Sm≤Sn _ c Nc =
 ---------------------------------------------------------------------------
 -- The gcd is Divisible.
 
-gcd-Divisible : {m n : D} → N m → N n → ¬ ((m ≡ zero) ∧ (n ≡ zero)) →
-                Divisible m n (gcd m n)
+gcd-Divisible : {m n : D} → N m → N n → ¬x≡0∧y≡0 m n → Divisible m n (gcd m n)
 gcd-Divisible = wf₂-indN P istep
   where
     P : D → D → Set
-    P i j = ¬ ((i ≡ zero) ∧ (j ≡ zero)) → Divisible i j (gcd i j)
+    P i j = ¬x≡0∧y≡0 i j → Divisible i j (gcd i j)
 
     istep :
       {i j : D} → N i → N j →

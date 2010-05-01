@@ -8,6 +8,7 @@ open import LTC.Minimal
 
 open import Examples.GCD.Equations
 open import Examples.GCD.IsN
+open import Examples.GCD.Types
 
 open import LTC.Data.N
 open import LTC.Data.N.Postulates using ( wf₂-indN )
@@ -255,9 +256,10 @@ gcd-S≤S-CD {m} {n} Nm Nn acc Sm≤Sn =
 gcd-x>y-CD :
   {m n : D} → N m → N n →
   ({m' n' : D} → N m' → N n' → LT₂ (m' , n') (m , n) →
-       ¬ ((m' ≡ zero) ∧ (n' ≡ zero)) → CD m' n' (gcd m' n')) →
+       ¬x≡0∧y≡0 m' n' → CD m' n' (gcd m' n')) →
   GT m n →
-  ¬ ((m ≡ zero) ∧ (n ≡ zero)) → CD m n (gcd m n)
+  ¬x≡0∧y≡0 m n →
+  CD m n (gcd m n)
 
 gcd-x>y-CD zN zN _ _ ¬0≡0∧0≡0   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
 gcd-x>y-CD zN (sN Nn) _ 0>Sn _  = ⊥-elim (¬0>x (sN Nn) 0>Sn)
@@ -283,9 +285,10 @@ gcd-x>y-CD (sN {m} Nm) (sN {n} Nn) allAcc Sm>Sn _  =
 gcd-x≤y-CD :
   {m n : D} → N m → N n →
   ({m' n' : D} → N m' → N n' → LT₂ (m' , n') (m , n)
-       → ¬ ((m' ≡ zero) ∧ (n' ≡ zero)) → CD m' n' (gcd m' n')) →
+       → ¬x≡0∧y≡0 m' n' → CD m' n' (gcd m' n')) →
   LE m n →
-  ¬ ((m ≡ zero) ∧ (n ≡ zero)) → CD m n (gcd m n)
+  ¬x≡0∧y≡0 m n →
+  CD m n (gcd m n)
 
 gcd-x≤y-CD zN zN _ _ ¬0≡0∧0≡0   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
 gcd-x≤y-CD zN (sN Nn) _ _ _     = gcd-0S-CD Nn
@@ -305,12 +308,11 @@ gcd-x≤y-CD (sN {m} Nm) (sN {n} Nn) allAcc Sm≤Sn _ =
 ---------------------------------------------------------------------------
 -- The 'gcd' is CD.
 
-gcd-CD : {m n : D} → N m → N n → ¬ ((m ≡ zero) ∧ (n ≡ zero)) →
-         CD m n (gcd m n)
+gcd-CD : {m n : D} → N m → N n → ¬x≡0∧y≡0 m n → CD m n (gcd m n)
 gcd-CD = wf₂-indN P istep
   where
     P : D → D → Set
-    P i j = ¬ ((i ≡ zero) ∧ (j ≡ zero)) → CD i j  (gcd i j )
+    P i j = ¬x≡0∧y≡0 i j → CD i j  (gcd i j )
 
     istep :
       {i j : D} → N i → N j →

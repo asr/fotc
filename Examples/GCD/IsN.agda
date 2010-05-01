@@ -9,6 +9,7 @@ module Examples.GCD.IsN where
 open import LTC.Minimal
 
 open import Examples.GCD.Equations
+open import Examples.GCD.Types
 
 open import LTC.Data.N
 open import LTC.Data.N.Postulates using ( wf₂-indN )
@@ -65,9 +66,10 @@ postulate
 gcd-x>y-N :
   {m n : D} → N m → N n →
   ({m' n' : D} → N m' → N n' → LT₂ (m' , n') (m , n) →
-       ¬ ((m' ≡ zero) ∧ (n' ≡ zero)) → N (gcd m' n')) →
+       ¬x≡0∧y≡0 m' n' → N (gcd m' n')) →
   GT m n →
-  ¬ ((m ≡ zero) ∧ (n ≡ zero)) → N (gcd m n)
+  ¬x≡0∧y≡0 m n →
+  N (gcd m n)
 gcd-x>y-N zN zN _ _ ¬0≡0∧0≡0   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
 gcd-x>y-N zN (sN Nn) _ 0>Sn _  = ⊥-elim (¬0>x (sN Nn) 0>Sn)
 gcd-x>y-N (sN Nm) zN  _  _ _   = gcd-S0-N Nm
@@ -90,9 +92,10 @@ gcd-x>y-N (sN {m} Nm) (sN {n} Nn) allAcc Sm>Sn _ =
 gcd-x≤y-N :
   {m n : D} → N m → N n →
   ({m' n' : D} → N m' → N n' → LT₂ (m' , n') (m , n) →
-       ¬ ((m' ≡ zero) ∧ (n' ≡ zero)) → N (gcd m' n')) →
+       ¬x≡0∧y≡0 m' n' → N (gcd m' n')) →
   LE m n →
-  ¬ ((m ≡ zero) ∧ (n ≡ zero)) → N (gcd m n)
+  ¬x≡0∧y≡0 m n →
+  N (gcd m n)
 
 gcd-x≤y-N zN zN _ _ ¬0≡0∧0≡0   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
 gcd-x≤y-N zN (sN Nn) _ _ _     = gcd-0S-N Nn
@@ -110,12 +113,11 @@ gcd-x≤y-N (sN {m} Nm) (sN {n} Nn) allAcc Sm≤Sn _ =
 ---------------------------------------------------------------------------
 -- The 'gcd' is N.
 
-gcd-N : {m n : D} → N m → N n → ¬ ((m ≡ zero) ∧ (n ≡ zero)) →
-        N (gcd m n)
+gcd-N : {m n : D} → N m → N n → ¬x≡0∧y≡0 m n → N (gcd m n)
 gcd-N = wf₂-indN P istep
   where
     P : D → D → Set
-    P i j = ¬ ((i ≡ zero) ∧ (j ≡ zero)) → N (gcd i j )
+    P i j = ¬x≡0∧y≡0 i j → N (gcd i j )
 
     istep :
       {i j : D} → N i → N j →

@@ -12,6 +12,7 @@ open import Examples.GCD.IsCommonDivisor
 open import Examples.GCD.IsDivisible
 open import Examples.GCD.IsGreatestAnyCommonDivisor
 open import Examples.GCD.IsN
+open import Examples.GCD.Types
 
 open import LTC.Data.N
 
@@ -29,8 +30,7 @@ record GCD (a b gcd : D) : Set where
       -- Greatest that any common divisor.
       greatest : GACD a b gcd
 
-gcd-GCD : {m n : D} → N m → N n → ¬ ((m ≡ zero) ∧ (n ≡ zero)) →
-           GCD m n (gcd m n)
+gcd-GCD : {m n : D} → N m → N n → ¬x≡0∧y≡0 m n → GCD m n (gcd m n)
 gcd-GCD Nm Nn m≠0≠n =
   record { commonDivisor = gcd-CD Nm Nn m≠0≠n
          ; greatest      = gcd-GACD (gcd-N Nm Nn m≠0≠n)
