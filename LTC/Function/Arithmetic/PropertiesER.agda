@@ -10,7 +10,7 @@ open import LTC.MinimalER
 open import LTC.Data.N
 open import LTC.Function.Arithmetic
 open import LTC.Function.Arithmetic.Properties
-  using ( +-leftIdentity ; *-leftZero ; *-comm )
+  using ( +-leftIdentity ; +-rightIdentity ; +-assoc ; *-leftZero ; *-comm )
 
 open import MyStdLib.Function
 import MyStdLib.Relation.Binary.EqReasoning
@@ -151,3 +151,72 @@ minus-0x (sN {n} Nn) = minus-0S n
       ⟩
     (succ m * succ o) - (succ n * succ o)
   ∎
+
+[x+y]z≡xz*yz : {m n o : D} → N m → N n → N o → (m + n) * o ≡ m * o + n * o
+[x+y]z≡xz*yz {m} {n} Nm Nn zN =
+  begin
+    (m + n) * zero       ≡⟨ *-comm (+-N Nm Nn) zN ⟩
+    zero * (m + n)       ≡⟨ *-0x (m + n) ⟩
+    zero                 ≡⟨ sym (*-0x m) ⟩
+    zero * m             ≡⟨ *-comm zN Nm ⟩
+    m * zero             ≡⟨ sym (+-rightIdentity (*-N Nm zN)) ⟩
+    m * zero + zero      ≡⟨ subst (λ t → m * zero + zero ≡ m * zero + t)
+                                  (trans (sym (*-0x n)) (*-comm zN Nn))
+                                  refl
+                         ⟩
+    m * zero + n * zero
+  ∎
+
+[x+y]z≡xz*yz {n = n} zN Nn (sN {o} No) =
+  begin
+    (zero + n) * succ o  ≡⟨ subst (λ t → (zero + n) * succ o ≡ t * succ o)
+                                  (+-leftIdentity Nn)
+                                  refl
+                         ⟩
+    n * succ o           ≡⟨ sym (+-leftIdentity (*-N Nn (sN No))) ⟩
+    zero + n * succ o    ≡⟨ subst (λ t → zero + n * succ o ≡ t +  n * succ o)
+                                (sym (*-0x (succ o)))
+                                refl
+                         ⟩
+    zero * succ o + n * succ o
+  ∎
+
+[x+y]z≡xz*yz (sN {m} Nm) zN (sN {o} No) =
+ begin
+    (succ m + zero) * succ o ≡⟨ subst (λ t → (succ m + zero) * succ o ≡
+                                             t * succ o)
+                                      (+-rightIdentity (sN Nm))
+                                      refl
+                              ⟩
+    succ m * succ o          ≡⟨ sym (+-rightIdentity (*-N (sN Nm) (sN No))) ⟩
+    succ m * succ o + zero   ≡⟨ subst (λ t → succ m * succ o + zero ≡
+                                             succ m * succ o + t)
+                                      (sym (*-leftZero (sN No)))
+                                      refl
+                             ⟩
+    succ m * succ o + zero * succ o
+  ∎
+
+[x+y]z≡xz*yz (sN {m} Nm) (sN {n} Nn) (sN {o} No) =
+  begin
+    (succ m + succ n) * succ o
+      ≡⟨ subst (λ t → (succ m + succ n) * succ o ≡ t * succ o)
+               (+-Sx m (succ n))
+               refl
+      ⟩
+    succ ( m + succ n) * succ o ≡⟨ *-Sx (m + succ n) (succ o) ⟩
+    succ o + (m + succ n) * succ o
+      ≡⟨ subst (λ t → succ o + (m + succ n) * succ o ≡ succ o + t)
+               ([x+y]z≡xz*yz Nm (sN Nn) (sN No))
+               refl
+      ⟩
+    succ o + (m * succ o + succ n * succ o)
+      ≡⟨ sym (+-assoc (sN No) (*-N Nm (sN No)) (*-N (sN Nn) (sN No))) ⟩
+    succ o + m * succ o + succ n * succ o
+      ≡⟨ subst (λ t → succ o + m * succ o + succ n * succ o ≡
+                      t + succ n * succ o)
+               (sym (*-Sx m (succ o)))
+               refl
+      ⟩
+    succ m * succ o + succ n * succ o
+      ∎

@@ -9,7 +9,6 @@ open import LTC.MinimalER
 
 open import LTC.Data.N
 open import LTC.Function.Arithmetic
-open import LTC.Function.Arithmetic.Postulates using ( [x+y]z≡xz*yz )
 open import LTC.Function.Arithmetic.Properties using ( *-leftIdentity )
 open import LTC.Function.Arithmetic.PropertiesER
 open import LTC.Relation.Divisibility
