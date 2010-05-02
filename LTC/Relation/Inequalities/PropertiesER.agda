@@ -8,12 +8,15 @@ open import LTC.Minimal
 open import LTC.MinimalER
 
 open import LTC.Relation.Inequalities
-open import LTC.Relation.Inequalities.Properties using ( x≥0 )
 open import LTC.Data.N
 open import MyStdLib.Data.Sum
 open import MyStdLib.Function
 
 ------------------------------------------------------------------------------
+
+x≥0 : {n : D} → N n → GE n zero
+x≥0 zN          = lt-00
+x≥0 (sN {n} Nn) = lt-S0 n
 
 ¬0>x : {n : D} → N n → ¬ (GT zero n)
 ¬0>x Nn 0>n = true≠false $ trans (sym 0>n ) $ x≥0 Nn
