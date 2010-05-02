@@ -1,7 +1,5 @@
 #! /bin/bash
 
-# ATP='equinox-2.0'
-ATP='equinox-cvs'
 AGDA='agda -v 0'
 axiomsFile='/tmp/axioms.tptp'
 
@@ -17,16 +15,5 @@ conjecturesFiles='
 for file in ${conjecturesFiles} ; do
     rm -f /tmp/*.tptp /tmp/*.output
     if ! ( ${AGDA} ${file}.agda ); then exit 1; fi
-    if ! ( agda2atp ${file}.agda ); then exit 1; fi
-    for fileTPTP in /tmp/*.tptp; do
-        if [ "${fileTPTP}" != ${axiomsFile} ]; then
-            echo "Proving ${fileTPTP} ..."
-            ${ATP} ${fileTPTP} > ${fileTPTP}.output
-            if ! ( grep --silent "+++ RESULT: Theorem" ${fileTPTP}.output )
-            then
-                echo "Testing error in file ${fileTPTP}"
-                exit 1
-            fi
-        fi
-    done
+    if ! ( agda2atp --time 60 ${file}.agda ); then exit 1; fi
 done
