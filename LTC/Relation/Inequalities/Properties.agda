@@ -8,6 +8,7 @@ open import LTC.Minimal
 
 open import LTC.Data.N
 open import LTC.Function.Arithmetic
+open import LTC.Function.Arithmetic.Properties
 open import LTC.Relation.Inequalities
 open import MyStdLib.Data.Sum
 open import MyStdLib.Function
@@ -58,3 +59,10 @@ x>y∨x≤y (sN {m} Nm) (sN {n} Nn) = prf $ x>y∨x≤y Nm Nn
   where
   postulate prf : ¬ (LT m m) → ⊥
   {-# ATP prove prf #-}
+
+x≤x+y : {m n : D} → N m → N n → LE m (m + n)
+x≤x+y         zN          Nn = x≥0 (+-N zN Nn)
+x≤x+y {n = n} (sN {m} Nm) Nn = prf (x≤x+y Nm Nn)
+  where
+  postulate prf : lt (m + n) m ≡ false →
+                  lt (succ m + n) (succ m) ≡ false

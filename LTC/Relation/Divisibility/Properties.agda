@@ -12,7 +12,7 @@ open import LTC.Function.Arithmetic.Properties
 open import LTC.Relation.Divisibility
 open import LTC.Relation.Equalities.Properties
 open import LTC.Relation.Inequalities
-open import LTC.Relation.Inequalities.Postulates using ( x≤x+y )
+open import LTC.Relation.Inequalities.Properties
 
 open import MyStdLib.Function
 
