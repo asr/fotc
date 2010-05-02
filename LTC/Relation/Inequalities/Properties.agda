@@ -48,3 +48,13 @@ x>y∨x≤y (sN {m} Nm) (sN {n} Nn) = prf $ x>y∨x≤y Nm Nn
       prf : (GT m n) ∨ (LE m n) →
             GT (succ m) (succ n) ∨ LE (succ m) (succ n)
     {-# ATP prove prf #-}
+
+¬x<x : {m : D} → N m → ¬ (LT m m)
+¬x<x zN _ = ⊥-elim prf
+  where
+  postulate prf : ⊥
+  {-# ATP prove prf #-}
+¬x<x (sN {m} Nm) _ = ⊥-elim (prf (¬x<x Nm))
+  where
+  postulate prf : ¬ (LT m m) → ⊥
+  {-# ATP prove prf #-}
