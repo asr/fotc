@@ -11,9 +11,6 @@ axiomsFiles = $(patsubst %.agda,%,$(shell find $(axiomsPath) -name "*.agda"))
 conjecturesFiles = $(patsubst %.agda,%, \
 	$(shell find $(conjecturesPath) -path '$(axiomsPath)' -prune , -name "*.agda"))
 
-# ATP = eprover --tstp-format
-ATP = equinox
-
 AGDA = agda -v 0
 
 TAGS : $(haskellFiles)
@@ -21,7 +18,7 @@ TAGS : $(haskellFiles)
 
 $(axiomsFiles) : % : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
-	@if ! ( agda2atp $< ); then exit 1; fi
+	@if ! ( agda2atp --only-create-files $< ); then exit 1; fi
 	@cat $@.ax | while read -r line; do \
 		if ! ( grep --silent "$$line" $(axiomsTPTP) ) ; then \
 			echo "Testing error. Translation to: $$line"; \
@@ -31,15 +28,7 @@ $(axiomsFiles) : % : %.agda
 
 $(conjecturesFiles) : % : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
-	@if ! ( agda2atp $< ); then exit 1; fi
-	@for file in /tmp/$(subst /,.,$@)*.tptp; do \
-		echo "Proving $${file} ..."; \
-		${ATP} $${file} > $${file}.output; \
-		if ! ( grep --silent "+++ RESULT: Theorem" $${file}.output ); then \
-			echo "Testing error in file $${file}"; \
-			exit 1; \
-		fi \
-	done
+	@if ! ( agda2atp --time 60 $< ); then exit 1; fi
 
 testAxioms : clean $(axiomsFiles)
 testConjectures : clean $(conjecturesFiles)

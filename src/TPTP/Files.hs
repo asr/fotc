@@ -115,7 +115,7 @@ createAxiomsFile afs = do
     _ <- appendFile axiomsFile footerAxioms
     return ()
 
-createConjectureFile :: (AF, [AF]) -> R ()
+createConjectureFile :: (AF, [AF]) -> R FilePath
 createConjectureFile (af@(AF qName _ _ ), hints) = do
   -- To avoid clash names with the terms inside a where clause, we
   -- added the line number where the term was defined to the file
@@ -132,3 +132,4 @@ createConjectureFile (af@(AF qName _ _ ), hints) = do
 
   addConjecture af file
   liftIO $ appendFile file footerConjecture
+  return file

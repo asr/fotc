@@ -14,7 +14,6 @@ import System.Console.GetOpt ( ArgDescr(..)
                              , usageInfo
                              )
 -- Agda library imports
-
 import Agda.Utils.List ( wordsBy )
 import Agda.Utils.Trie ( Trie )
 import qualified Agda.Utils.Trie as Trie
@@ -25,18 +24,22 @@ import Utils.IO ( bye )
 -----------------------------------------------------------------------------
 
 data Options = MkOptions
-    { optVersion :: Bool
-    , optHelp    :: Bool
-    , optVerbose :: Trie String Int
-    , optATP     :: String
+    { optVersion         :: Bool
+    , optHelp            :: Bool
+    , optVerbose         :: Trie String Int
+    , optATP             :: String
+    , optOnlyCreateFiles :: Bool
+    , optTime            :: Int
     } deriving ( Show )
 
 defaultOptions :: Options
 defaultOptions = MkOptions
-  { optVersion = False
-  , optHelp    = False
-  , optVerbose = Trie.singleton [] 1
-  , optATP     = "equinox"
+  { optVersion         = False
+  , optHelp            = False
+  , optVerbose         = Trie.singleton [] 1
+  , optATP             = "equinox"
+  , optOnlyCreateFiles = False
+  , optTime            = 300
   }
 
 versionOpt :: Options -> Options
@@ -60,6 +63,12 @@ verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
 atpOpt :: String -> Options -> Options
 atpOpt name opts = opts { optATP = name }
 
+onlyCreateFilesOpt :: Options -> Options
+onlyCreateFilesOpt opts = opts { optOnlyCreateFiles = True }
+
+timeOpt :: String -> Options -> Options
+timeOpt secs opts = opts { optTime = read secs }
+
 options :: [OptDescr (Options -> Options)]
 options =
   [ Option ['V'] ["version"] (NoArg versionOpt)
@@ -67,9 +76,13 @@ options =
   , Option ['?'] ["help"] (NoArg helpOpt)
                  "show this help"
   , Option ['v'] ["verbose"] (ReqArg verboseOpt "N")
-                  "set verbosity level to N"
+                 "set verbosity level to N"
   , Option []    ["ATP"] (ReqArg atpOpt "name")
-                  "set the ATP (default: equinox)"
+                 "set the ATP (default: equinox)"
+  , Option []    ["only-create-files"] (NoArg onlyCreateFilesOpt)
+                 "do not call the ATP, only to create the TPTP files"
+  , Option []    ["time"] (ReqArg timeOpt "secs")
+                 "set timeout for the ATP in seconds (default: 300)"
   ]
 
 usageHeader :: String -> String

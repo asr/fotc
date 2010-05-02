@@ -30,10 +30,10 @@ import Agda.Utils.Impossible ( catchImpossible
 ------------------------------------------------------------------------------
 -- Local imports
 -- import FOL.Pretty
+import ATP.ATP ( callATP )
 import MyAgda.Interface ( getImportedModules, myReadInterface )
 import Options ( Options(optHelp, optVersion), parseOptions, usage )
 import Reports ( R, reportS )
-import TPTP.Files ( createAxiomsFile, createConjectureFile )
 import TPTP.Translation
     ( axiomsGeneralHintsToAFs
     , conjecturesToAFs
@@ -67,7 +67,7 @@ translationGeneralAxioms file = do
 -- name as the principal argument. In the case of the function
 -- getImportedModules is much better to use the file name because we
 -- avoid read some interfaces files unnecessary.
-translation :: FilePath -> R ()
+translation :: FilePath -> R ( [AF] , [(AF, [AF])] )
 translation file = do
   reportS "" 1 $ "Translating " ++ show file ++ " ..."
 
@@ -76,10 +76,6 @@ translation file = do
   generalAxiomsCurrentFile <- translationGeneralAxioms file
   generalAxiomsImportedFiles <- mapM translationGeneralAxioms iModulesPaths
 
-  -- We create the general axioms TPTP file
-  createAxiomsFile $
-    concat generalAxiomsImportedFiles ++ generalAxiomsCurrentFile
-
   -- Gettting the interface.
   i <- liftIO $ myReadInterface file
 
@@ -87,8 +83,9 @@ translation file = do
   -- of current module.
   conjectures <- conjecturesToAFs i
 
-  -- We create the conjectures TPTP files
-  mapM_ createConjectureFile conjectures
+  return ( concat generalAxiomsImportedFiles ++ generalAxiomsCurrentFile ,
+           conjectures
+         )
 
 runAgda2ATP :: IO ()
 runAgda2ATP = do
@@ -102,7 +99,10 @@ runAgda2ATP = do
 
   when (optHelp opts) $ bye $ usage prgName
 
-  runReaderT (translation $ head names) opts
+  (allAxioms , conjecturesCurrentModule)
+      <- runReaderT (translation $ head names) opts
+
+  runReaderT (callATP allAxioms conjecturesCurrentModule) opts
 
 main :: IO ()
 main = catchImpossible runAgda2ATP $
