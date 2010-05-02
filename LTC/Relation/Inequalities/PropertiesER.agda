@@ -7,10 +7,15 @@ module LTC.Relation.Inequalities.PropertiesER where
 open import LTC.Minimal
 open import LTC.MinimalER
 
+open import LTC.Function.Arithmetic
+open import LTC.Function.Arithmetic.PropertiesER
 open import LTC.Relation.Inequalities
 open import LTC.Data.N
+
 open import MyStdLib.Data.Sum
 open import MyStdLib.Function
+import MyStdLib.Relation.Binary.EqReasoning
+open module IPER = MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 ------------------------------------------------------------------------------
 
@@ -35,3 +40,17 @@ x>y∨x≤y (sN {m} Nm) (sN {n} Nn) =
 ¬x<x : {m : D} → N m → ¬ (LT m m)
 ¬x<x zN          0<0   = ⊥-elim (true≠false (trans (sym 0<0) lt-00))
 ¬x<x (sN {m} Nm) Sm<Sm = ⊥-elim (¬x<x Nm (trans (sym (lt-SS m m)) Sm<Sm))
+
+x≤x+y : {m n : D} → N m → N n → LE m (m + n)
+x≤x+y         zN          Nn = x≥0 (+-N zN Nn)
+x≤x+y {n = n} (sN {m} Nm) Nn =
+  begin
+    lt (succ m + n) (succ m)   ≡⟨ subst (λ t → lt (succ m + n) (succ m) ≡
+                                               lt t (succ m))
+                                        (+-Sx m n)
+                                        refl
+                               ⟩
+    lt (succ (m + n)) (succ m) ≡⟨ lt-SS (m + n) m ⟩
+    lt (m + n) m               ≡⟨ x≤x+y Nm Nn ⟩
+    false
+  ∎
