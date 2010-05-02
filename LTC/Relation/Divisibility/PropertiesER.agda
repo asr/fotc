@@ -9,11 +9,13 @@ open import LTC.MinimalER
 
 open import LTC.Data.N
 open import LTC.Function.Arithmetic
-open import LTC.Function.Arithmetic.Properties using ( *-leftIdentity )
+open import LTC.Function.Arithmetic.Properties
+  using ( *-leftIdentity ; *-leftZero )
 open import LTC.Function.Arithmetic.PropertiesER
 open import LTC.Relation.Divisibility
 open import LTC.Relation.Equalities.PropertiesER
 open import LTC.Relation.Inequalities
+open import LTC.Relation.Inequalities.Postulates using ( x≤x+y )
 
 open import MyStdLib.Function
 import MyStdLib.Relation.Binary.EqReasoning
@@ -82,3 +84,15 @@ x∣y→x∣z→x∣y+z {n = n} {p} (sN {m} Nm) Nn Np
       (k₁ * succ m) + (k₂ * succ m) ≡⟨ sym ([x+y]z≡xz*yz Nk₁ Nk₂ (sN Nm)) ⟩
       (k₁ + k₂) * succ m
     ∎
+
+-- If x divides y, and y is positive, then x ≤ y.
+x∣S→x≤S : {m n : D} → N m → N n → m ∣ (succ n) → LE m (succ n)
+x∣S→x≤S  zN     Nn ( 0≠0 , _)                  = ⊥-elim (0≠0 refl)
+x∣S→x≤S (sN Nm) Nn ( _ , .zero , zN , Sn≡0*Sm) =
+  ⊥-elim (0≠S (trans (sym (*-leftZero (sN Nm))) (sym Sn≡0*Sm)))
+x∣S→x≤S (sN {m} Nm) Nn ( _ , .(succ k) , sN {k} Nk , Sn≡Sk*Sm) =
+  subst (λ t₁ → LE (succ m) t₁ )
+        (sym Sn≡Sk*Sm)
+        (subst (λ t₂ → LE (succ m) t₂)
+               (sym (*-Sx k (succ m)))
+               (x≤x+y (sN Nm) (*-N Nk (sN Nm))))

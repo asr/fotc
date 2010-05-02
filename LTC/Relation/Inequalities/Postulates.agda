@@ -23,3 +23,7 @@ postulate
 
 postulate
   x≤y→y-x+x≡y : {m n : D} → N m → N n → LE m n → (n - m) + m ≡ n
+
+postulate
+  x≤x+y : {m n : D} → N m → N n → LE m (m + n)
+
