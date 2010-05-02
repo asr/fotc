@@ -11,6 +11,8 @@ open import LTC.Function.Arithmetic
 open import LTC.Function.Arithmetic.Properties
 open import LTC.Relation.Divisibility
 open import LTC.Relation.Equalities.Properties
+open import LTC.Relation.Inequalities
+open import LTC.Relation.Inequalities.Postulates using ( x≤x+y )
 
 open import MyStdLib.Function
 
@@ -73,3 +75,23 @@ x∣y→x∣z→x∣y+z (sN Nm) Nn Np
   (k₁ + k₂) ,
   +-N Nk₁ Nk₂ ,
   x∣y→x∣z→x∣y+z-ah Nm Nn Nk₁ Nk₂ n≡k₁Sm p≡k₂Sm
+
+------------------------------------------------------------------------------
+-- If x divides y, and y is positive, then x ≤ y.
+
+postulate
+  x∣S→x≤S-ah₁ : {m n : D} → succ n ≡ zero * succ m → ⊥
+{-# ATP prove x∣S→x≤S-ah₁ #-}
+
+-- Nice proof by the ATP.
+postulate
+  x∣S→x≤S-ah₂ : {m n k : D} → N m → N n → N k →
+                succ n ≡ succ k * succ m →
+                LE (succ m) (succ n)
+{-# ATP prove x∣S→x≤S-ah₂ x≤x+y *-N sN #-}
+
+x∣S→x≤S : {m n : D} → N m → N n → m ∣ (succ n) → LE m (succ n)
+x∣S→x≤S  zN     Nn ( 0≠0 , _)                  = ⊥-elim (0≠0 refl)
+x∣S→x≤S (sN Nm) Nn ( _ , .zero , zN , Sn≡0*Sm) = ⊥-elim (x∣S→x≤S-ah₁ Sn≡0*Sm)
+x∣S→x≤S (sN {m} Nm) Nn ( _ , .(succ k) , sN {k} Nk , Sn≡Sk*Sm) =
+  x∣S→x≤S-ah₂ Nm Nn Nk Sn≡Sk*Sm

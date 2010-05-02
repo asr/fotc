@@ -10,7 +10,6 @@ open import Examples.GCD.IsCommonDivisor
 open import Examples.GCD.IsDivisible
 
 open import LTC.Data.N
-open import LTC.Relation.Divisibility.Postulates using ( x∣S→x≤S )
 open import LTC.Relation.Divisibility.Properties
 open import LTC.Relation.Inequalities
 

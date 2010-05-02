@@ -12,7 +12,3 @@ open import LTC.Relation.Divisibility
 open import LTC.Relation.Inequalities
 
 ------------------------------------------------------------------------------
-
-postulate
-  -- If x divides y, and y is positive, then x ≤ y.
-  x∣S→x≤S : {m n : D} → N m → N n → m ∣ (succ n) → LE m (succ n)
