@@ -28,3 +28,7 @@ x>y∨x≤y (sN {m} Nm) (sN {n} Nn) =
   subst (λ a → a ≡ true ∨ a ≡ false)
         (sym $ lt-SS n m)
         (x>y∨x≤y Nm Nn )
+
+¬x<x : {m : D} → N m → ¬ (LT m m)
+¬x<x zN          0<0   = ⊥-elim (true≠false (trans (sym 0<0) lt-00))
+¬x<x (sN {m} Nm) Sm<Sm = ⊥-elim (¬x<x Nm (trans (sym (lt-SS m m)) Sm<Sm))
