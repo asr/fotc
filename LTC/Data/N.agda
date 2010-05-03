@@ -19,9 +19,17 @@ data N : D → Set where
 -- {-# ATP hint sN #-}
 
 -- Induction principle for N (elimination rule).
-indN : (P : D → Set) →
-       P zero →
-       ({n : D} → N n → P n → P (succ n)) →
-       {n : D} → N n → P n
-indN P p0 h zN      = p0
-indN P p0 h (sN Nn) = h Nn (indN P p0 h Nn)
+-- indN : (P : D → Set) →
+--        P zero →
+--        ({n : D} → N n → P n → P (succ n)) →
+--        {n : D} → N n → P n
+-- indN P p0 h zN      = p0
+-- indN P p0 h (sN Nn) = h Nn (indN P p0 h Nn)
+
+-- -- Other version
+-- indN : (P : {m : D} → N m → Set) →
+--        P zN →
+--        ({n : D} → (Nn : N n) → P Nn → P (sN Nn)) →
+--        {n : D} → (Nn : N n) → P Nn
+-- indN P p0 h zN      = p0
+-- indN P p0 h (sN Nn) = h Nn (indN P p0 h Nn)
