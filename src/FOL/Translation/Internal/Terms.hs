@@ -240,8 +240,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
         -- return $ ForAll freshVar (\_ -> f2)
 
     -- The bound variable is quantified on a Set₁ (e.g. A : Set).
-    -- In this case, we erase the quantification and try it as a
-    -- function type.
+    -- In this case, we erase the quantification.
     El (Type (Lit (LitLevel _ 1))) (Sort _)  -> do
        lift $ reportSLn "termToFormula" 20 $
             "The type tyArg is: " ++ show tyArg
