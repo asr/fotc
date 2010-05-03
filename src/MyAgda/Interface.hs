@@ -55,7 +55,6 @@ import Agda.TypeChecking.Monad.Base
     )
 import Agda.TypeChecking.Monad.Options ( -- makeIncludeDirsAbsolute
                                          setCommandLineOptions
-                                       , Target(PersistentOptions)
                                        )
 import Agda.Utils.FileName ( absolute
                            , filePath
@@ -114,7 +113,7 @@ myReadInterface file = do
   iFile <- fmap (filePath . toIFile) (absolute file)
 
   r <- runTCM $ do
-         setCommandLineOptions PersistentOptions opts
+         setCommandLineOptions opts
 --         makeIncludeDirsAbsolute $ mkAbsolute currentDir
          readInterface iFile
 
