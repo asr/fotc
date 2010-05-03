@@ -115,7 +115,7 @@ postulate
 
 postulate
   -- Conversion rule for the abstraction and the application.
-  cBeta : (f : D → D)(a : D) → (lam f) ∙ a ≡ f a
+  cBeta : (f : D → D) → (a : D) → (lam f) ∙ a ≡ f a
 
 postulate
   -- Conversion rule for the fixed pointed operator.
