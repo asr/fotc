@@ -216,8 +216,8 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     -- The bounded variable is quantified on a Set (e.g. D : Set ⊢ d : D), so
     -- we translate without any problem.
     -- N.B. The pattern matching on (Def _ []).
-    El (Type (Lit (LitLevel _ 0))) (Def _ []) -> do
-                     return $ ForAll freshVar (\_ -> f2)
+    El (Type (Lit (LitLevel _ 0))) (Def _ []) ->
+        return $ ForAll freshVar (\_ -> f2)
 
     -- The bound variable is quantified on a Predicate
     -- (e.g. D : Set, n : D, N : D → Set ⊢ Nn : N n).
