@@ -12,7 +12,7 @@ open import Examples.GCD.IsCommonDivisorER
 open import Examples.GCD.Types
 
 open import LTC.Data.N
-open import LTC.Data.N.Postulates using ( wf₂-indN )
+open import LTC.Data.N.Induction.Lexicographic
 open import LTC.Function.Arithmetic
 open import LTC.Function.Arithmetic.PropertiesER
 open import LTC.Relation.Divisibility
@@ -20,11 +20,13 @@ open import LTC.Relation.Divisibility.PropertiesER
 open import LTC.Relation.Equalities.PropertiesER
 open import LTC.Relation.Inequalities
 open import LTC.Relation.Inequalities.Postulates
-  using ( Sx>Sy→[Sx-Sy,Sy]<₂[Sx,Sy] ; Sx≤Sy→[Sx,Sy-Sx]<₂[Sx,Sy] )
+  using ( Sx>Sy→[Sx-Sy,Sy]<[Sx,Sy] ; Sx≤Sy→[Sx,Sy-Sx]<[Sx,Sy] )
 open import LTC.Relation.Inequalities.PropertiesER
 
 open import MyStdLib.Data.Sum
 open import MyStdLib.Function
+import MyStdLib.Induction.Lexicographic
+open module IsDivisible-ER-LT₂ = MyStdLib.Induction.Lexicographic LT LT
 
 ------------------------------------------------------------------------------
 -- Divisible for any common divisor.
@@ -114,23 +116,25 @@ Proof
 -- to prove the second case.
 
 gcd-x>y-Divisible :
-  {m n : D} → N m → N n →
-  ({m' n' : D} → N m' → N n' → LT₂ (m' , n') (m , n) →
-    ¬x≡0∧y≡0 m' n' → Divisible m' n' (gcd m' n')) →
-  GT m n →
-  ¬x≡0∧y≡0 m n →
-  Divisible m n (gcd m n)
+  {mn : D × D} → N₂ mn →
+  ((op : D × D ) → LT₂ op mn →
+       N₂ op →
+       ¬x≡0∧y≡0 (×-proj₁ op) (×-proj₂ op) →
+       Divisible (×-proj₁ op) (×-proj₂ op) (gcd (×-proj₁ op) (×-proj₂ op))) →
+  GT (×-proj₁ mn) (×-proj₂ mn) →
+  ¬x≡0∧y≡0 (×-proj₁ mn) (×-proj₂ mn) →
+  Divisible (×-proj₁ mn) (×-proj₂ mn) (gcd (×-proj₁ mn) (×-proj₂ mn))
 
-gcd-x>y-Divisible zN zN _ _ ¬0≡0∧0≡0 _ _  = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x>y-Divisible zN (sN Nn) _ 0>Sn _ _ _ = ⊥-elim (¬0>x (sN Nn) 0>Sn)
-gcd-x>y-Divisible (sN Nm) zN _ _ _  c Nc  = gcd-S0-Divisible Nm c Nc
-gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) allAcc Sm>Sn _ c Nc =
+gcd-x>y-Divisible (zN , zN )_ _ ¬0≡0∧0≡0 _ _  = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
+gcd-x>y-Divisible (zN , sN Nn ) _ 0>Sn _ _ _ = ⊥-elim (¬0>x (sN Nn) 0>Sn)
+gcd-x>y-Divisible (sN Nm , zN ) _ _ _  c Nc  = gcd-S0-Divisible Nm c Nc
+gcd-x>y-Divisible (sN {m} Nm , sN {n} Nn ) allAcc Sm>Sn _ c Nc =
   gcd-S>S-Divisible Nm Nn ih Sm>Sn c Nc
   where -- Inductive hypothesis.
     ih : Divisible (succ m - succ n) (succ n) (gcd (succ m - succ n) (succ n))
-    ih = allAcc (minus-N (sN Nm) (sN Nn))
-                (sN Nn)
-                (Sx>Sy→[Sx-Sy,Sy]<₂[Sx,Sy] Nm Nn Sm>Sn)
+    ih = allAcc (succ m - succ n , succ n)
+                (Sx>Sy→[Sx-Sy,Sy]<[Sx,Sy] Nm Nn Sm>Sn)
+                (minus-N (sN Nm) (sN Nn) , sN Nn)
                 (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p )
 
 ---------------------------------------------------------------------------
@@ -140,38 +144,45 @@ gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) allAcc Sm>Sn _ c Nc =
 -- to prove the third case.
 
 gcd-x≤y-Divisible :
-  {m n : D} → N m → N n →
-  ({m' n' : D} → N m' → N n' → LT₂ (m' , n') (m , n) →
-    ¬x≡0∧y≡0 m' n' → Divisible m' n' (gcd m' n')) →
-  LE m n →
-  ¬x≡0∧y≡0 m n →
-  Divisible m n (gcd m n)
+  {mn : D × D} → N₂ mn →
+  ((op : D × D ) → LT₂ op mn →
+       N₂ op →
+       ¬x≡0∧y≡0 (×-proj₁ op) (×-proj₂ op) →
+       Divisible (×-proj₁ op) (×-proj₂ op) (gcd (×-proj₁ op) (×-proj₂ op))) →
+  LE (×-proj₁ mn) (×-proj₂ mn) →
+  ¬x≡0∧y≡0 (×-proj₁ mn) (×-proj₂ mn) →
+  Divisible (×-proj₁ mn) (×-proj₂ mn) (gcd (×-proj₁ mn) (×-proj₂ mn))
 
-gcd-x≤y-Divisible zN zN _ _  ¬0≡0∧0≡0 _ _   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x≤y-Divisible zN (sN Nn) _ _  _  c Nc   = gcd-0S-Divisible Nn c Nc
-gcd-x≤y-Divisible (sN Nm) zN  _ Sm≤0 _ _ _  = ⊥-elim $ ¬S≤0 Sm≤0
-gcd-x≤y-Divisible (sN {m} Nm) (sN {n} Nn) allAcc Sm≤Sn _ c Nc =
+gcd-x≤y-Divisible (zN , zN ) _ _ ¬0≡0∧0≡0 _ _ = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
+gcd-x≤y-Divisible (zN , sN Nn ) _ _  _  c Nc  = gcd-0S-Divisible Nn c Nc
+gcd-x≤y-Divisible (sN Nm , zN ) _ Sm≤0 _ _ _  = ⊥-elim $ ¬S≤0 Sm≤0
+gcd-x≤y-Divisible (sN {m} Nm , sN {n} Nn ) allAcc Sm≤Sn _ c Nc =
   gcd-S≤S-Divisible Nm Nn ih Sm≤Sn c Nc
   where -- Inductive hypothesis.
     ih : Divisible (succ m) (succ n - succ m) (gcd (succ m) (succ n - succ m))
-    ih = allAcc (sN Nm)
-                (minus-N (sN Nn)  (sN Nm ))
-                (Sx≤Sy→[Sx,Sy-Sx]<₂[Sx,Sy] Nm Nn Sm≤Sn)
+    ih = allAcc (succ m , succ n - succ m)
+                (Sx≤Sy→[Sx,Sy-Sx]<[Sx,Sy] Nm Nn Sm≤Sn)
+                (sN Nm , minus-N (sN Nn) (sN Nm ))
                 (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p )
 
 ---------------------------------------------------------------------------
 -- The gcd is Divisible.
 
-gcd-Divisible : {m n : D} → N m → N n → ¬x≡0∧y≡0 m n → Divisible m n (gcd m n)
-gcd-Divisible = wf₂-indN P istep
+gcd-Divisible : {mn : D × D } → N₂ mn →
+         ¬x≡0∧y≡0 (×-proj₁ mn) (×-proj₂ mn) →
+         Divisible (×-proj₁ mn) (×-proj₂ mn) (gcd (×-proj₁ mn) (×-proj₂ mn))
+gcd-Divisible = wellFoundedInd-N₂ P istep
   where
-    P : D → D → Set
-    P i j = ¬x≡0∧y≡0 i j → Divisible i j (gcd i j)
+    P : D × D → Set
+    P ij = ¬x≡0∧y≡0 i j → Divisible i j  (gcd i j )
+      where i : D
+            i = ×-proj₁ ij
+            j : D
+            j = ×-proj₂ ij
 
     istep :
-      {i j : D} → N i → N j →
-      ({i' j' : D} → N i' → N j' → LT₂ (i' , j') (i , j) → P i' j') →
-      P i j
-    istep Ni Nj allAcc =
-      [ gcd-x>y-Divisible Ni Nj allAcc , gcd-x≤y-Divisible Ni Nj allAcc ]
-      (x>y∨x≤y Ni Nj)
+      (ij : D × D) → ((kl : D × D) → LT₂ kl ij → N₂ kl → P kl) → N₂ ij → P ij
+    istep ij allAcc N₂ij =
+      [ gcd-x>y-Divisible N₂ij allAcc
+      , gcd-x≤y-Divisible N₂ij allAcc
+      ] (x>y∨x≤y (N₂-proj₁ N₂ij) (N₂-proj₂ N₂ij))
