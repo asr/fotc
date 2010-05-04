@@ -5,7 +5,13 @@ open import LTC.Minimal
 open import LTC.Data.N
 open import LTC.Relation.Inequalities
 
+open import MyStdLib.Induction.WellFounded
+
 ------------------------------------------------------------------------
+
+postulate
+  wellFoundedLT : WellFounded LT
+
 -- Well-founded induction on pairs of 'N'
 
 postulate
