@@ -57,9 +57,9 @@ x≤x+y {n = n} (sN {m} Nm) Nn =
   ∎
 
 x>y→x-y+y≡x : {m n : D} → N m → N n → GT m n → (m - n) + n ≡ m
-x>y→x-y+y≡x zN Nn 0>n = ⊥-elim (¬0>x Nn 0>n)
-x>y→x-y+y≡x (sN {m} Nm) zN Sm>0 =
-  trans (+-rightIdentity (minus-N (sN Nm) zN)) (minus-x0 (succ m))
+x>y→x-y+y≡x zN          Nn 0>n  = ⊥-elim (¬0>x Nn 0>n)
+x>y→x-y+y≡x (sN {m} Nm) zN Sm>0 = trans (+-rightIdentity (minus-N (sN Nm) zN))
+                                        (minus-x0 (succ m))
 x>y→x-y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn =
   begin
     (succ m - succ n) + succ n ≡⟨ subst (λ t → (succ m - succ n) + succ n ≡
