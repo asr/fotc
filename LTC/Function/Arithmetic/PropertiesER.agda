@@ -10,14 +10,13 @@ open import LTC.MinimalER
 open import LTC.Data.N
 open import LTC.Function.Arithmetic
 open import LTC.Function.Arithmetic.Properties
-  using ( +-leftIdentity ; +-rightIdentity ; +-assoc ; *-leftZero ; *-comm )
+  using ( +-leftIdentity ; +-rightIdentity ; +-assoc ; *-comm )
 
 open import MyStdLib.Function
 import MyStdLib.Relation.Binary.EqReasoning
 open module APER = MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 ------------------------------------------------------------------------------
--- Closure properties
 
 pred-N : {n : D} → N n → N (pred n)
 pred-N zN          = subst (λ t → N t) (sym cP₁) zN
@@ -34,13 +33,6 @@ minus-N     (sN {m} Nm) (sN {n} Nn) = subst (λ t → N t)
 +-N zN Nn = subst (λ t → N t) (sym (+-leftIdentity Nn)) Nn
 +-N {n = n} (sN {m} Nm ) Nn =
   subst (λ t → N t) (sym (+-Sx m n)) (sN (+-N Nm Nn))
-
-*-N : {m n : D} → N m → N n → N (m * n)
-*-N zN Nn = subst (λ t → N t) (sym (*-leftZero Nn)) zN
-*-N {n = n} (sN {m} Nm) Nn =
-  subst (λ t → N t) (sym (*-Sx m n)) (+-N Nn (*-N Nm Nn))
-
-------------------------------------------------------------------------------
 
 minus-0x : {n : D} → N n → zero - n  ≡ zero
 minus-0x zN          = minus-x0 zero
@@ -75,6 +67,14 @@ minus-0x (sN {n} Nn) = minus-0S n
     (m + n) - (m + o) ≡⟨ [x+y]-[x+z]≡y-z Nm Nn No ⟩
     n - o
   ∎
+
+*-leftZero : {n : D} → N n → zero * n ≡ zero
+*-leftZero {n} _ = *-0x n
+
+*-N : {m n : D} → N m → N n → N (m * n)
+*-N zN Nn = subst (λ t → N t) (sym (*-leftZero Nn)) zN
+*-N {n = n} (sN {m} Nm) Nn =
+  subst (λ t → N t) (sym (*-Sx m n)) (+-N Nn (*-N Nm Nn))
 
 [x-y]z≡xz*yz : {m n o : D} → N m → N n → N o → (m - n) * o ≡ m * o - n * o
 [x-y]z≡xz*yz {m} {o = o} Nm zN No =
