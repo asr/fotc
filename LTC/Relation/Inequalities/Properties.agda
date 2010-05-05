@@ -75,8 +75,7 @@ x>y→x-y+y≡x (sN {m} Nm) zN Sm>0 = prf
   postulate prf : (succ m - zero) + zero ≡ succ m
   {-# ATP prove prf +-rightIdentity minus-N #-}
 
-x>y→x-y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn =
-  prf (x>y→x-y+y≡x Nm Nn m>n )
+x>y→x-y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn = prf (x>y→x-y+y≡x Nm Nn m>n )
   where
   postulate m>n : GT m n
   {-# ATP prove m>n #-}
