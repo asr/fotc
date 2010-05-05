@@ -58,7 +58,7 @@ import Agda.TypeChecking.Monad.Options ( -- makeIncludeDirsAbsolute
                                        )
 import Agda.Utils.FileName ( absolute
                            , filePath
-                           -- , mkAbsolute
+                           , mkAbsolute
                            )
 import Agda.Utils.Impossible ( Impossible(..)
                              , throwImpossible
@@ -104,9 +104,10 @@ myReadInterface file = do
 
   let opts :: CommandLineOptions
       opts = defaultOptions
-             { optIncludeDirs = [ currentDir
-            --                  , "/home/asr/Agda/std-lib/src/"
-                                ]
+             { optIncludeDirs =
+               Right [ mkAbsolute currentDir
+                     --, "/home/asr/Agda/std-lib/src/"
+                     ]
              }
 
   -- The physical interface file.
