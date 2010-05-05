@@ -8,6 +8,7 @@ open import LTC.Minimal
 open import LTC.MinimalER
 
 open import LTC.Function.Arithmetic
+open import LTC.Function.Arithmetic.Properties using ( +-comm )
 open import LTC.Function.Arithmetic.PropertiesER
 open import LTC.Relation.Inequalities
 open import LTC.Data.N
@@ -53,4 +54,29 @@ x≤x+y {n = n} (sN {m} Nm) Nn =
     lt (succ (m + n)) (succ m) ≡⟨ lt-SS (m + n) m ⟩
     lt (m + n) m               ≡⟨ x≤x+y Nm Nn ⟩
     false
+  ∎
+
+x>y→x-y+y≡x : {m n : D} → N m → N n → GT m n → (m - n) + n ≡ m
+x>y→x-y+y≡x zN Nn 0>n = ⊥-elim (¬0>x Nn 0>n)
+x>y→x-y+y≡x (sN {m} Nm) zN Sm>0 =
+  trans (+-rightIdentity (minus-N (sN Nm) zN)) (minus-x0 (succ m))
+x>y→x-y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn =
+  begin
+    (succ m - succ n) + succ n ≡⟨ subst (λ t → (succ m - succ n) + succ n ≡
+                                               t + succ n)
+                                        (minus-SS m n)
+                                        refl
+                               ⟩
+    (m - n) + succ n           ≡⟨ +-comm (minus-N Nm Nn) (sN Nn) ⟩
+    succ n + (m - n)           ≡⟨ +-Sx n (m - n) ⟩
+    succ (n + (m - n))         ≡⟨ subst (λ t → succ (n + (m - n)) ≡ succ t )
+                                        (+-comm Nn (minus-N Nm Nn))
+                                        refl
+                               ⟩
+    succ ((m - n) + n)         ≡⟨ subst (λ t → succ ((m - n) + n) ≡ succ t )
+                                        (x>y→x-y+y≡x Nm Nn
+                                             (trans (sym (lt-SS n m)) Sm>Sn) )
+                                        refl
+                               ⟩
+    succ m
   ∎
