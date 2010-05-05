@@ -80,3 +80,28 @@ x>y→x-y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn =
                                ⟩
     succ m
   ∎
+
+x≤y→y-x+x≡y : {m n : D} → N m → N n → LE m n → (n - m) + m ≡ n
+x≤y→y-x+x≡y {n = n} zN      Nn 0≤n  = trans (+-rightIdentity (minus-N Nn zN))
+                                            (minus-x0 n)
+x≤y→y-x+x≡y         (sN Nm) zN Sm≤0 = ⊥-elim (¬S≤0 Sm≤0)
+x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
+  begin
+    (succ n - succ m) + succ m ≡⟨ subst (λ t → (succ n - succ m) + succ m ≡
+                                               t + succ m)
+                                        (minus-SS n m)
+                                        refl
+                               ⟩
+    (n - m) + succ m           ≡⟨ +-comm (minus-N Nn Nm) (sN Nm) ⟩
+    succ m + (n - m)           ≡⟨ +-Sx m (n - m) ⟩
+    succ (m + (n - m))         ≡⟨ subst (λ t → succ (m + (n - m)) ≡ succ t )
+                                        (+-comm Nm (minus-N Nn Nm))
+                                        refl
+                               ⟩
+    succ ((n - m) + m)         ≡⟨ subst (λ t → succ ((n - m) + m) ≡ succ t )
+                                        (x≤y→y-x+x≡y Nm Nn
+                                             (trans (sym (lt-SS n m)) Sm≤Sn) )
+                                        refl
+                               ⟩
+    succ n
+  ∎

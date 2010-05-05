@@ -22,6 +22,3 @@ postulate
 postulate
   Sx≤Sy→[Sx,Sy-Sx]<[Sx,Sy] : {m n : D} → N m → N n → LE (succ m) (succ n) →
                              LT₂ (succ m , succ n - succ m) (succ m , succ n)
-
-postulate
-  x≤y→y-x+x≡y : {m n : D} → N m → N n → LE m n → (n - m) + m ≡ n

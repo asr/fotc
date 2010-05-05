@@ -83,3 +83,20 @@ x>y→x-y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn = prf (x>y→x-y+y≡x Nm Nn m>n )
   postulate prf : (m - n) + n ≡ m →
                   (succ m - succ n) + succ n ≡ succ m
   {-# ATP prove prf +-comm minus-N sN #-}
+
+x≤y→y-x+x≡y : {m n : D} → N m → N n → LE m n → (n - m) + m ≡ n
+x≤y→y-x+x≡y {n = n} zN Nn 0≤n  = prf
+  where
+  postulate prf : (n - zero) + zero ≡ n
+  {-# ATP prove prf +-rightIdentity minus-N #-}
+
+x≤y→y-x+x≡y (sN Nm) zN Sm≤0 = ⊥-elim (¬S≤0 Sm≤0)
+
+x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn = prf (x≤y→y-x+x≡y Nm Nn m≤n )
+  where
+  postulate m≤n : LE m n
+  {-# ATP prove m≤n #-}
+
+  postulate prf : (n - m) + m ≡ n →
+                  (succ n - succ m) + succ m ≡ succ n
+  {-# ATP prove prf +-comm minus-N sN #-}
