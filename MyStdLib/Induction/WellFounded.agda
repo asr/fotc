@@ -7,7 +7,7 @@ module MyStdLib.Induction.WellFounded where
 -- From: http://www.iis.sinica.edu.tw/~scm/2008/well-founded-recursion-and-accessibility/
 
 data Acc {A : Set}(R : A → A → Set) : A → Set where
-  acc : (x : A) → (( y : A) →  R y x → Acc R y) → Acc R x
+  acc : (x : A) → ((y : A) → R y x → Acc R y) → Acc R x
 
 WellFounded : {A : Set} → (A → A → Set) → Set
 WellFounded {A} R = (x : A) → Acc R x
