@@ -10,7 +10,7 @@ open import LTC.MinimalER
 open import LTC.Data.N
 open import LTC.Function.Arithmetic
 open import LTC.Function.Arithmetic.Properties
-  using ( +-leftIdentity ; +-rightIdentity ; +-assoc ; *-comm )
+  using ( +-assoc ; *-comm )
 
 open import MyStdLib.Function
 import MyStdLib.Relation.Binary.EqReasoning
@@ -29,14 +29,26 @@ minus-N     (sN {m} Nm) (sN {n} Nn) = subst (λ t → N t)
                                             (sym (minus-SS m n))
                                             (minus-N Nm Nn)
 
+minus-0x : {n : D} → N n → zero - n  ≡ zero
+minus-0x zN          = minus-x0 zero
+minus-0x (sN {n} Nn) = minus-0S n
+
++-leftIdentity : {n : D} → N n → zero + n ≡ n
++-leftIdentity {n} _ = +-0x n
+
++-rightIdentity : {n : D} → N n → n + zero ≡ n
++-rightIdentity zN          = +-leftIdentity zN
++-rightIdentity (sN {n} Nn) =
+  trans (+-Sx n zero)
+        (subst (λ t → succ (n + zero) ≡ succ t)
+               (+-rightIdentity Nn)
+               refl
+        )
+
 +-N : {m n : D} → N m → N n → N (m + n)
 +-N zN Nn = subst (λ t → N t) (sym (+-leftIdentity Nn)) Nn
 +-N {n = n} (sN {m} Nm ) Nn =
   subst (λ t → N t) (sym (+-Sx m n)) (sN (+-N Nm Nn))
-
-minus-0x : {n : D} → N n → zero - n  ≡ zero
-minus-0x zN          = minus-x0 zero
-minus-0x (sN {n} Nn) = minus-0S n
 
 [x+y]-[x+z]≡y-z : {m n o : D} → N m → N n → N o →
                   (m + n) - (m + o) ≡ n - o
@@ -75,6 +87,12 @@ minus-0x (sN {n} Nn) = minus-0S n
 *-N zN Nn = subst (λ t → N t) (sym (*-leftZero Nn)) zN
 *-N {n = n} (sN {m} Nm) Nn =
   subst (λ t → N t) (sym (*-Sx m n)) (+-N Nn (*-N Nm Nn))
+
+*-rightZero : {n : D} → N n → n * zero ≡ zero
+*-rightZero zN          = *-leftZero zN
+*-rightZero (sN {n} Nn) =
+  trans (*-Sx n zero)
+        (trans (+-leftIdentity (*-N Nn zN)) (*-rightZero Nn))
 
 [x-y]z≡xz*yz : {m n o : D} → N m → N n → N o → (m - n) * o ≡ m * o - n * o
 [x-y]z≡xz*yz {m} {o = o} Nm zN No =

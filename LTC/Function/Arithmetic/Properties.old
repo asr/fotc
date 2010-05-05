@@ -1,27 +1,4 @@
 
--- Left identify for addition using the induction principle for N and
--- calling the ATP for the base case and the induction step.
-
-addLeftIdentity : {n : D} → N n → zero + n ≡ n
-addLeftIdentity Nn = indN (λ i → P i) P0 iStep Nn
-  where
-    P : D → Set
-    P i = zero + i ≡ i
-
-    postulate
-      -- ToDo: We cannnot use predicates in postulates
-      -- P0 : P zero
-      P0 : zero + zero ≡ zero
-    {-# ATP prove P0 #-}
-
-    postulate
-      -- ToDo: We cannnot use predicates in postulates
-      -- iStep : {i : D} → N i → P i → P (succ i)
-      iStep : {i : D} → N i → zero + i ≡ i → zero + (succ i) ≡ succ i
-    {-# ATP prove iStep #-}
-
--- {-# ATP hint addLeftIdentity #-}
-
 ------------------------------------------------------------------------------
 -- Associativity of addition using the induction principle for N and
 -- calling the ATP for the base case and the induction step.
@@ -67,22 +44,6 @@ addAssoc1 m n .(succ o) Nm Nn (sN {o} No) =
                        ⟩
     m + (n + succ o)
   ∎
-
-
-
-
--- *-leftZero : {n : D} → N n → zero * n ≡ zero
--- *-leftZero zN          = *-x0 zero
--- *-leftZero (sN {n} Nn) =
---   begin
---     zero * succ n   ≡⟨ *-xS zero n ⟩
---     zero * n + zero ≡⟨ subst (λ t → t + zero ≡ zero + zero)
---                              (sym (*-leftZero Nn))
---                              refl
---                      ⟩
---     zero + zero     ≡⟨ +-leftIdentity zN ⟩
---     zero
---   ∎
 
 -- *-comm : {m n : D} → N m → N n → m * n ≡ n * m
 -- *-comm Nm zN = trans (*-rightZero Nm) $ sym $ *-leftZero Nm
