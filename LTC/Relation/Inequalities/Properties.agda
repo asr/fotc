@@ -10,6 +10,7 @@ open import LTC.Data.N
 open import LTC.Function.Arithmetic
 open import LTC.Function.Arithmetic.Properties
 open import LTC.Relation.Inequalities
+
 open import MyStdLib.Data.Sum
 open import MyStdLib.Function
 
@@ -66,3 +67,20 @@ x≤x+y {n = n} (sN {m} Nm) Nn = prf (x≤x+y Nm Nn)
   where
   postulate prf : lt (m + n) m ≡ false →
                   lt (succ m + n) (succ m) ≡ false
+
+x>y→x-y+y≡x : {m n : D} → N m → N n → GT m n → (m - n) + n ≡ m
+x>y→x-y+y≡x zN Nn 0>n = ⊥-elim (¬0>x Nn 0>n)
+x>y→x-y+y≡x (sN {m} Nm) zN Sm>0 = prf
+  where
+  postulate prf : (succ m - zero) + zero ≡ succ m
+  {-# ATP prove prf +-rightIdentity minus-N #-}
+
+x>y→x-y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn =
+  prf (x>y→x-y+y≡x Nm Nn m>n )
+  where
+  postulate m>n : GT m n
+  {-# ATP prove m>n #-}
+
+  postulate prf : (m - n) + n ≡ m →
+                  (succ m - succ n) + succ n ≡ succ m
+  {-# ATP prove prf +-comm minus-N sN #-}

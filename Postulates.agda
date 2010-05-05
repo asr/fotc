@@ -24,7 +24,4 @@ postulate
                              LT₂ (succ m , succ n - succ m) (succ m , succ n)
 
 postulate
-  x>y→x-y+y≡x : {m n : D} → N m → N n → GT m n → (m - n) + n ≡ m
-
-postulate
   x≤y→y-x+x≡y : {m n : D} → N m → N n → LE m n → (n - m) + m ≡ n

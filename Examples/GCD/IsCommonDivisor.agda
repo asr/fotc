@@ -19,8 +19,7 @@ open import LTC.Relation.Divisibility.Properties
 open import LTC.Relation.Equalities.Properties
 open import LTC.Relation.Inequalities
 open import Postulates
-  using ( x>y→x-y+y≡x
-        ; x≤y→y-x+x≡y
+  using ( x≤y→y-x+x≡y
         ; Sx>Sy→[Sx-Sy,Sy]<[Sx,Sy]
         ; Sx≤Sy→[Sx,Sy-Sx]<[Sx,Sy]
         )
