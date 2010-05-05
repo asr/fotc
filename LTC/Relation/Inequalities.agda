@@ -49,11 +49,3 @@ LE d e = gt d e ≡ false
 GE : D → D → Set
 GE d e = lt d e ≡ false
 {-# ATP definition GE #-}
-
--- ------------------------------------------------------------------------
--- -- Lexicographical order on D
--- data LT₂ : D × D → D × D → Set where
---   left  : {x₁ x₂ y₁ y₂ : D} → LT x₁ x₂ → LT₂ (x₁ , y₁) (x₂ , y₂)
---   right : {x y₁ y₂ : D} →  LT y₁ y₂ → LT₂ (x , y₁) (x , y₂)
--- -- {-# ATP hint left #-}
--- -- {-# ATP hint right #-}
