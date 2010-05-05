@@ -44,16 +44,3 @@ addAssoc1 m n .(succ o) Nm Nn (sN {o} No) =
                        ⟩
     m + (n + succ o)
   ∎
-
--- *-comm : {m n : D} → N m → N n → m * n ≡ n * m
--- *-comm Nm zN = trans (*-rightZero Nm) $ sym $ *-leftZero Nm
--- *-comm {m} Nm (sN {n} Nn) =
---   begin
---     m * succ n   ≡⟨ *-xS m n ⟩
---     m * n + m    ≡⟨ subst (λ t → t + m ≡ n * m + m)
---                           (*-comm Nn Nm)
---                           refl
---                   ⟩
---     n * m + m     ≡⟨  mn+n≡m+1*n n m ⟩
---     succ n * m
---   ∎
