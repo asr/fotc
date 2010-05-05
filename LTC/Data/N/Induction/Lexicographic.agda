@@ -7,12 +7,13 @@ module LTC.Data.N.Induction.Lexicographic where
 open import LTC.Minimal
 
 open import LTC.Data.N
-open import LTC.Data.N.Postulates using ( wellFoundedLT )
+open import Postulates using ( wellFoundedLT )
 open import LTC.Relation.Inequalities
 
 import MyStdLib.Induction.Lexicographic
 open module LexicographicLT₂ = MyStdLib.Induction.Lexicographic LT LT
 open import MyStdLib.Induction.WellFounded
+
 
 ------------------------------------------------------------------------------
 

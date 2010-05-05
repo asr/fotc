@@ -19,7 +19,7 @@ open import LTC.Relation.Divisibility
 open import LTC.Relation.Divisibility.PropertiesER
 open import LTC.Relation.Equalities.PropertiesER
 open import LTC.Relation.Inequalities
-open import LTC.Relation.Inequalities.Postulates
+open import Postulates
   using ( Sx>Sy→[Sx-Sy,Sy]<[Sx,Sy] ; Sx≤Sy→[Sx,Sy-Sx]<[Sx,Sy] )
 open import LTC.Relation.Inequalities.PropertiesER
 

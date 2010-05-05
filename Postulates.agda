@@ -1,4 +1,4 @@
-module LTC.Relation.Inequalities.Postulates where
+module Postulates where
 
 open import LTC.Minimal
 
@@ -6,9 +6,12 @@ open import LTC.Data.N
 open import LTC.Function.Arithmetic
 open import LTC.Relation.Inequalities
 
+open import MyStdLib.Induction.WellFounded
 import MyStdLib.Induction.Lexicographic
 open module PostulatesLT₂ = MyStdLib.Induction.Lexicographic LT LT
-------------------------------------------------------------------------------
+
+postulate
+  wellFoundedLT : WellFounded LT
 
 postulate
   Sx>Sy→[Sx-Sy,Sy]<[Sx,Sy] :
@@ -25,4 +28,3 @@ postulate
 
 postulate
   x≤y→y-x+x≡y : {m n : D} → N m → N n → LE m n → (n - m) + m ≡ n
-
