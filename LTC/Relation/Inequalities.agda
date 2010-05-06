@@ -5,7 +5,6 @@
 module LTC.Relation.Inequalities where
 
 open import LTC.Minimal
-open import MyStdLib.Data.Product
 
 ------------------------------------------------------------------------------
 
