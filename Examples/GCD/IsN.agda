@@ -21,7 +21,6 @@ open import Postulates
   using ( Sx>Sy→[Sx-Sy,Sy]<[Sx,Sy] ; Sx≤Sy→[Sx,Sy-Sx]<[Sx,Sy] )
 open import LTC.Relation.Inequalities.Properties
 
-open import MyStdLib.Data.Sum
 open import MyStdLib.Function
 import MyStdLib.Induction.Lexicographic
 open module IsN-LT₂ = MyStdLib.Induction.Lexicographic LT LT

@@ -90,6 +90,7 @@ data _≡_ (x : D) : D → Set where
 open import LTC.Data.Product public
 open import MyStdLib.Data.Empty public
 open import MyStdLib.Data.Product public
+open import MyStdLib.Data.Sum public
 open import MyStdLib.Relation.Nullary public
 
 ------------------------------------------------------------------------------

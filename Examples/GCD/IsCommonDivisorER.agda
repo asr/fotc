@@ -26,7 +26,6 @@ open import Postulates
 open import LTC.Relation.Inequalities.PropertiesER
 
 open import MyStdLib.Function
-open import MyStdLib.Data.Sum
 import MyStdLib.Induction.Lexicographic
 open module IsCommonDivisor-ER-LT₂ = MyStdLib.Induction.Lexicographic LT LT
 

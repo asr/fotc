@@ -24,7 +24,6 @@ open import Postulates
         )
 open import LTC.Relation.Inequalities.Properties
 
-open import MyStdLib.Data.Sum
 open import MyStdLib.Function
 import MyStdLib.Induction.Lexicographic
 open module IsCommonDivisor-LT₂ = MyStdLib.Induction.Lexicographic LT LT

@@ -23,7 +23,6 @@ open import Postulates
   using ( Sx>Sy→[Sx-Sy,Sy]<[Sx,Sy] ; Sx≤Sy→[Sx,Sy-Sx]<[Sx,Sy] )
 open import LTC.Relation.Inequalities.PropertiesER
 
-open import MyStdLib.Data.Sum
 open import MyStdLib.Function
 import MyStdLib.Induction.Lexicographic
 open module IsDivisible-ER-LT₂ = MyStdLib.Induction.Lexicographic LT LT
