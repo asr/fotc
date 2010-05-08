@@ -7,10 +7,9 @@ module LTC.Data.N.Induction.WellFounded where
 open import LTC.Minimal
 
 open import LTC.Data.N
-open import LTC.Data.N.Postulates
 open import LTC.Relation.Inequalities
-
 open import MyStdLib.Induction.WellFounded
+open import Postulates using ( wellFoundedLT )
 
 ------------------------------------------------------------------------------
 
