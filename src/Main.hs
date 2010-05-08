@@ -73,8 +73,8 @@ translation file = do
 
   iModulesPaths <- liftIO $ getImportedModules file
 
-  generalAxiomsCurrentFile <- translationGeneralAxioms file
   generalAxiomsImportedFiles <- mapM translationGeneralAxioms iModulesPaths
+  generalAxiomsCurrentFile   <- translationGeneralAxioms file
 
   -- Gettting the interface.
   i <- liftIO $ myReadInterface file
