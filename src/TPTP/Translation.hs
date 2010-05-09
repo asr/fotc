@@ -67,9 +67,9 @@ toAF qName role def = do
   let ty :: AgdaType
       ty = defType def
   reportSLn "toAF" 20 $
-     "Translating the type of the QName " ++ show qName
-     ++ " with role " ++ show role ++ " and type:\n" ++
-     show ty
+     "Translating QName: " ++ show qName ++ "\n" ++
+     "Role: " ++ show role ++ "\n" ++
+     "Type:\n" ++ show ty
 
   for <- liftIO $ runReaderT (runReaderT (typeToFormula ty) iVarNames) opts
 
