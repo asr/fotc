@@ -18,7 +18,7 @@ module EraseQuantificationOnSet where
   postulate foo : {A : Set} → a ≡ a
   {-# ATP axiom foo #-}
 
-module EraseQuantificationOverProofs where
+module EraseQuantificationOnProofs where
 
   -- The data constructors sN₁ and sN₂ must have the same translation,
   -- i.e. we must erase the quantification of the variable Nn on N n.
@@ -29,7 +29,6 @@ module EraseQuantificationOverProofs where
     sN₁ : {n : D} →  N n → N (succ n)
     sN₂ : {n : D} → (Nn : N n) → N (succ n)
   {-# ATP hint sN₂ #-}
-
 
   -- We need to remove the quantification over proofs inside a where
   -- clause. The translation of P must be '∀ x. ∀ y. p(x, y) ↔ y = x',
