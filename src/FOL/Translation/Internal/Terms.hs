@@ -123,7 +123,7 @@ termToFormula term@(Def (QName _ name) args) = do
 
                    | otherwise -> do
                       -- In this guard we translate predicates with
-                      -- one argument (e.x. P : D -> Set).
+                      -- one argument (e.g. P : D -> Set).
 
                       -- TODO: To test if 'termToTermFOL (unArg a)'
                       -- works with implicit arguments.
@@ -190,7 +190,7 @@ termToFormula term@(Lam _ (Abs _ termLam)) = do
       freshVar = evalState freshName vars
 
   -- See the reason for the order in the enviroment in
-  -- termToFormula term@(Pi ... )
+  -- termToFormula term@(Pi ... ).
   f <- local (\varNames -> freshVar : varNames) $ termToFormula termLam
   return f
 
@@ -223,10 +223,10 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     El (Type (Lit (LitLevel _ 0))) (Def _ []) ->
         return $ ForAll freshVar (\_ -> f2)
 
-    -- The bound variable is quantified on a Predicate
+    -- The bounded variable is quantified on a Predicate
     -- (e.g. D : Set, n : D, N : D → Set ⊢ Nn : N n).
     -- In this case, we erase the quantification and try it as a
-    -- function type.  This solve the problem the translation of
+    -- function type.  This solve the problem of the translation of
     -- sN : {n : D} → (Nn : N n) → N (succ n).
     -- N.B. The pattern matching on (Def _ _).
     El (Type (Lit (LitLevel _ 0))) def@(Def _ _) -> do

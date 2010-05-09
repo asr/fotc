@@ -74,7 +74,7 @@ toAF qName role def = do
   for <- liftIO $ runReaderT (runReaderT (typeToFormula ty) iVarNames) opts
 
   reportSLn "toAF" 20 $
-    "The FOL formula for the QName " ++ show qName ++ " is:\n" ++ show for
+    "The FOL formula for " ++ show qName ++ " is:\n" ++ show for
 
   return $ AF qName role for
 
@@ -135,8 +135,8 @@ conjectureHintToAF qName = do
 
   return af
 
--- We translate the hints of an ATP conjecture to AF's.
--- Invariant: The 'Definition' must be an ATP conjecture
+-- We translate the hints of an ATP pragma conjecture to AF's.
+-- Invariant: The 'Definition' must be an ATP pragma conjecture
 conjectureHintsToAFs :: Definition -> R [AF]
 conjectureHintsToAFs def = do
 
@@ -159,18 +159,19 @@ conjectureToAF qName def = do
 
   return (conjectureAF, hintsAFs)
 
--- We translate the ATP axioms and general hints in an
+-- We translate the ATP pragma axioms and general hints in an
 -- interface file to FOL formulas.
 axiomsGeneralHintsToAFs :: Interface -> R [AF]
 axiomsGeneralHintsToAFs i = do
 
-  -- We get the ATP axioms
+  -- We get the axioms from the interface file.
   let axDefs :: Definitions
       axDefs = getRoleATP AxiomATP i
 
   axAFs <-
       zipWith3M toAF (Map.keys axDefs) (repeat AxiomATP) (Map.elems axDefs)
 
+  -- We get the general hints from the interface file.
   let ghDefs :: Definitions
       ghDefs = getRoleATP HintATP i
 
@@ -180,14 +181,14 @@ axiomsGeneralHintsToAFs i = do
   return $ axAFs ++ ghAFs
 
 
--- We translate the ATP conjectures and their hints in an interface
--- file to AFs. For each conjecture we return its translation and a
--- list of the translation of its hints, i.e. we return a pair ( AF,
--- [AF] ).
+-- We translate the ATP pragma conjectures and their hints in an
+-- interface file to AFs. For each conjecture we return its
+-- translation and a list of the translation of its hints, i.e. we
+-- return a pair ( AF, [AF] ).
 conjecturesToAFs :: Interface -> R [ (AF, [AF]) ]
 conjecturesToAFs i = do
 
-  -- We get the ATP conjectures.
+  -- We get the conjectures from the interface file.
   let conjecturesDefs :: Definitions
       conjecturesDefs = getRoleATP ConjectureATP i
   reportSLn "conjecturesToFOLs" 20 $
@@ -198,11 +199,12 @@ conjecturesToAFs i = do
                   (Map.elems conjecturesDefs)
   return afs
 
--- We translate the ATP definitions in an interface file to FOL
+-- We translate the ATP pragma definitions in an interface file to FOL
 -- formulas.
 symbolsToAFs :: Interface -> R [AF]
 symbolsToAFs i = do
 
+  -- We get the definitions from the interface file.
   let symDefs :: Definitions
       symDefs = getRoleATP DefinitionATP i
 

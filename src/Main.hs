@@ -51,10 +51,10 @@ import Utils.Version ( version )
 translationGeneralAxioms :: FilePath -> R [AF]
 translationGeneralAxioms file = do
 
-  -- Gettting the interface.
+  -- Getting the interface.
   i <- liftIO $ myReadInterface file
 
-  -- Gettting the ATP axioms and general hints.
+  -- Getting the ATP axioms and general hints.
   axiomsGeneralHints <- axiomsGeneralHintsToAFs i
 
   -- Getting the ATP definitions.
