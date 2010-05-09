@@ -235,6 +235,19 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
        f1 <- typeToFormula $ unArg tyArg
        return $ Implies f1 f2
 
+    -- Hack: The bounded variable is quantified on a function of a Set
+    -- to a Set (e.g. D : Set ⊢ f : D → D). In this case we handle the
+    -- bounded variable/function as a FOL variable
+    -- (see termToTermFOL term@(Var n args)),
+    -- and we quantified on this variable.
+    El (Type (Lit (LitLevel _ 0)))
+       (Fun (Arg _ (El (Type (Lit (LitLevel _ 0))) (Def _ [])))
+            (El (Type (Lit (LitLevel _ 0))) (Def _ []))
+       ) -> do
+      lift $ reportSLn "termToFormula" 20 $
+           "Processing bounded varible quantified on a function of a Set to a Set"
+      return $ ForAll freshVar (\_ -> f2)
+
     El (Type (Lit (LitLevel _ 0))) _ -> __IMPOSSIBLE__
 
     -- Old version
@@ -337,12 +350,31 @@ termToTermFOL term@(Def (QName _ name) args) = do
         [] -> __IMPOSSIBLE__
         _  -> appArgs (concatName parts) args
 
-termToTermFOL (Var n _) = do
+termToTermFOL term@(Var n args) = do
+  lift $ reportSLn "termToTermFOL" 10 $
+           "Processing termToTermFOL Var:\n" ++ show term
+
   vars <- ask
 
   if length vars <= fromIntegral n
      then __IMPOSSIBLE__
-     else return $ VarFOL (vars !! fromIntegral n)
+     else do
+       case args of
+         [] -> return $ VarFOL (vars !! fromIntegral n)
+
+         -- Hack: If we have a bounded variable quantified on a
+         -- function of a Set to a Set, for example, the variable 'f'
+         -- in '(f : D → D) → (a : D) → (lam f) ∙ a ≡ f a'
+         -- we are quantifying on this variable
+         -- (see termToFormula term@(Pi tyArg (Abs _ tyAbs))),
+         -- therefore we need to apply this
+         -- variable/function to a term.
+
+         ((Arg _ (Var m _)) : [])  ->
+             return $ app [(VarFOL (vars !! fromIntegral n))
+                          , (VarFOL (vars !! fromIntegral m))
+                          ]
+         _  -> __IMPOSSIBLE__
 
 termToTermFOL (Fun _ _)   = __IMPOSSIBLE__
 termToTermFOL (Lam _ _)   = __IMPOSSIBLE__

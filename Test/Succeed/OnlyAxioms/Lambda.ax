@@ -1,0 +1,1 @@
+axiom, ( ! \[A\] : ( ! \[B\] : ( kApp(kApp(n8729,kApp(lam,A)),B) = kApp(A,B) ) ) ))
