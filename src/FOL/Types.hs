@@ -26,13 +26,13 @@ data FormulaFOL = Predicate String [TermFOL]
                 | FALSE
 
 instance Show FormulaFOL where
-    show (Predicate name terms) = " Predicate " ++ name ++ " " ++ show terms
-    show (And f1 f2)           = " And " ++ show f1 ++ show f2
-    show (Or f1 f2)            = " Or " ++ show f1 ++ show f2
-    show (Not f)               = " Not " ++ show f
-    show (Implies f1 f2)       = " Implies " ++ show f1 ++ show f2
-    show (Equiv f1 f2)         = " Equiv " ++ show f1 ++ show f2
-    show (ForAll var f)        = " ForAll " ++ var ++ show (f $ VarFOL var)
-    show (Exists var f)        = " Exists " ++ var ++ show (f $ VarFOL var)
-    show TRUE                  = " TRUE "
-    show FALSE                 = " FALSE "
+    show (Predicate name ts) = " Predicate " ++ show name ++ " " ++ show ts
+    show (And f1 f2)         = " And " ++ show f1 ++ show f2
+    show (Or f1 f2)          = " Or " ++ show f1 ++ show f2
+    show (Not f)             = " Not " ++ show f
+    show (Implies f1 f2)     = " Implies " ++ show f1 ++ show f2
+    show (Equiv f1 f2)       = " Equiv " ++ show f1 ++ show f2
+    show (ForAll var f)      = " ForAll " ++ show var ++ show (f $ VarFOL var)
+    show (Exists var f)      = " Exists " ++ show var ++ show (f $ VarFOL var)
+    show TRUE                = " TRUE "
+    show FALSE               = " FALSE "
