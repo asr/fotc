@@ -283,7 +283,7 @@ termToFormula (Lit _)     = __IMPOSSIBLE__
 termToFormula (MetaV _ _) = __IMPOSSIBLE__
 termToFormula (Sort _)    = __IMPOSSIBLE__
 
--- Translate 'fn x1 ... xn' to 'kApp (... kApp (kApp(fn, x1), x2), ..., xn)'.
+-- Translate 'foo x1 ... xn' to 'kApp (... kApp (kApp(foo, x1), x2), ..., xn)'.
 appArgs :: String -> Args -> T TermFOL
 appArgs fn args = do
   termsFOL <- mapM (termToTermFOL . unArg) args
