@@ -18,7 +18,6 @@ postulate
 foo and bar have different internal type because in bar Agda uses eta,
 i.e. (_≡_ x) is the same as (λ y → x ≡ y).
 
-
 * Martin-Löf cite
 From Peter:
 Just a note. In one of Per Martin-Löf's first papers on
