@@ -31,7 +31,8 @@ import Reports ( reportSLn )
 typeToFormula :: AgdaType -> T FormulaFOL
 typeToFormula ty@(El (Type (Lit (LitLevel _ n))) term)
     | n == 0 || n == 1 = do
-       lift $ reportSLn "typeToFormula" 10 $ "Processing type ty:\n" ++ show ty
+       lift $ lift $ reportSLn "typeToFormula" 10 $
+                "Processing type ty:\n" ++ show ty
        termToFormula term
     | otherwise = __IMPOSSIBLE__
 typeToFormula _ = __IMPOSSIBLE__

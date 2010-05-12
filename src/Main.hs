@@ -8,6 +8,12 @@ module Main where
 -- Haskell imports
 import Control.Monad ( when )
 import Control.Monad.IO.Class ( liftIO )
+import Control.Monad.Trans.Class ( lift )
+import Control.Monad.Trans.Error
+    ( catchError
+    , ErrorT
+    , runErrorT
+    , throwError )
 import Control.Monad.Trans.Reader ( ReaderT, runReaderT )
 
 -- import Control.Monad.Trans
@@ -31,9 +37,10 @@ import Agda.Utils.Impossible ( catchImpossible
 -- Local imports
 -- import FOL.Pretty
 import ATP.ATP ( callATP )
+import Common ( ER )
 import MyAgda.Interface ( getImportedModules, myReadInterface )
 import Options ( Options(optHelp, optVersion), parseOptions, usage )
-import Reports ( R, reportS )
+import Reports ( reportS )
 import TPTP.Translation
     ( axiomsGeneralHintsToAFs
     , conjecturesToAFs
@@ -48,7 +55,7 @@ import Utils.Version ( version )
 ------------------------------------------------------------------------------
 
 -- We translate the ATP axioms, general hints, and definitions for a file.
-translationGeneralAxioms :: FilePath -> R [AF]
+translationGeneralAxioms :: FilePath -> ER [AF]
 translationGeneralAxioms file = do
 
   -- Getting the interface.
@@ -62,14 +69,13 @@ translationGeneralAxioms file = do
 
   return (axiomsGeneralHints ++ symbols )
 
-
 -- TODO: It is not clear if we should use the interface or the file
 -- name as the principal argument. In the case of the function
 -- getImportedModules is much better to use the file name because we
 -- avoid read some interfaces files unnecessary.
-translation :: FilePath -> R ( [AF] , [(AF, [AF])] )
+translation :: FilePath -> ER ( [AF] , [(AF, [AF])] )
 translation file = do
-  reportS "" 1 $ "Translating " ++ show file ++ " ..."
+  lift $ reportS "" 1 $ "Translating " ++ file ++ " ..."
 
   iModulesPaths <- liftIO $ getImportedModules file
 
@@ -87,24 +93,33 @@ translation file = do
            conjectures
          )
 
-runAgda2ATP :: IO ()
+runAgda2ATP :: ErrorT String IO ()
 runAgda2ATP = do
-  prgName <- getProgName
-  argv <- getArgs --fmap head $ liftIO getArgs
+  prgName <- liftIO $ getProgName
+  argv <- liftIO $ getArgs --fmap head $ liftIO getArgs
 
   -- Reading the command line options.
-  (opts, names) <- parseOptions argv prgName
+  (opts, names) <- liftIO $ parseOptions argv prgName
 
-  when (optVersion opts) $ bye $ prgName ++ " version " ++ version ++ "\n"
+  when (optVersion opts) $ liftIO $
+       bye $ prgName ++ " version " ++ version ++ "\n"
 
-  when (optHelp opts) $ bye $ usage prgName
+  when (optHelp opts) $ liftIO $ bye $ usage prgName
 
-  (allAxioms , conjecturesCurrentModule)
-      <- runReaderT (translation $ head names) opts
-
-  runReaderT (callATP allAxioms conjecturesCurrentModule) opts
+  r  <- liftIO $ runReaderT (runErrorT (translation $ head names)) opts
+  case r of
+    Right (allAxioms , conjecturesCurrentModule) ->
+        lift $ runReaderT (callATP allAxioms conjecturesCurrentModule) opts
+    Left err -> throwError err
 
 main :: IO ()
-main = catchImpossible runAgda2ATP $
-         \e -> do putStr $ show e
-                  exitFailure
+main = do
+  r <-   runErrorT $ runAgda2ATP  `catchError` \err -> do
+         liftIO $ putStrLn err
+         throwError err
+  case r of
+    Right _ -> exitSuccess
+    Left _  -> exitFailure
+  `catchImpossible` \e -> do
+         putStr $ show e
+         exitFailure

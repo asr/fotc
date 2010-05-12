@@ -11,6 +11,8 @@ module TPTP.Translation where
 -- Haskell imports
 import Control.Monad ( zipWithM )
 import Control.Monad.IO.Class ( liftIO )
+import Control.Monad.Trans.Class ( lift )
+import Control.Monad.Trans.Error ( runErrorT, throwError )
 import Control.Monad.Trans.Reader ( ask, runReaderT )
 
 -- import Data.Map ( Map )
@@ -37,6 +39,7 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 
 ------------------------------------------------------------------------------
 -- Local imports
+import Common ( ER )
 import FOL.Monad ( iVarNames )
 import FOL.Translation.Common ( AgdaType )
 import FOL.Translation.Internal.Types ( typeToFormula )
@@ -52,56 +55,66 @@ import MyAgda.Interface
     , getQNameDefinition
     , getRoleATP
     )
-import Reports ( R, reportSLn )
+import Reports ( reportSLn )
 import TPTP.Types ( AF(AF) )
 
 #include "../undefined.h"
 
 ------------------------------------------------------------------------------
 
-toAF :: QName -> RoleATP -> Definition -> R AF
+toAF :: QName -> RoleATP -> Definition -> ER AF
 toAF qName role def = do
 
-  opts <- ask
+  opts <- lift ask
 
   let ty :: AgdaType
       ty = defType def
-  reportSLn "toAF" 20 $
+  lift $ reportSLn "toAF" 20 $
      "Translating QName: " ++ show qName ++ "\n" ++
      "Role: " ++ show role ++ "\n" ++
      "Type:\n" ++ show ty
 
-  for <- liftIO $ runReaderT (runReaderT (typeToFormula ty) iVarNames) opts
+  r <- liftIO $
+       runReaderT (runErrorT (runReaderT (typeToFormula ty) iVarNames)) opts
+  case r of
+    Right for -> do
+           lift $ reportSLn "toAF" 20 $
+                 "The FOL formula for " ++ show qName ++ " is:\n" ++ show for
+           return $ AF qName role for
+    Left err -> throwError err
 
-  reportSLn "toAF" 20 $
-    "The FOL formula for " ++ show qName ++ " is:\n" ++ show for
-
-  return $ AF qName role for
-
-symbolToAF :: QName -> Definition -> R AF
+symbolToAF :: QName -> Definition -> ER AF
 symbolToAF qName def = do
 
-  opts <- ask
+  opts <- lift ask
 
   let ty :: AgdaType
       ty = defType def
-  reportSLn "symbolToAF" 10 $ "Symbol: " ++ show qName ++ "\n" ++ "Type: " ++ show ty
+  lift $ reportSLn "symbolToAF" 10 $
+           "Symbol: " ++ show qName ++ "\n" ++ "Type: " ++ show ty
 
   -- We get the clauses that define the symbol
   -- (All the symbols must be functions)
   let cls :: [Clause]
       cls = getClauses def
 
-  reportSLn "symbolToAF" 10 $
+  lift $ reportSLn "symbolToAF" 10 $
                 "Symbol: " ++ show qName ++ "\n" ++ "Clauses: " ++ show cls
 
-  for <- liftIO $
-         runReaderT (runReaderT (symDefToFormula qName ty cls) iVarNames) opts
-
-  return $ AF qName DefinitionATP for
+  r <- liftIO $
+         runReaderT
+           (runErrorT (runReaderT (symDefToFormula qName ty cls) iVarNames))
+           opts
+  case r of
+    Right for -> do
+           lift $ reportSLn "symbolToAF" 20 $
+                    "The FOL formula for " ++ show qName ++ " is:\n" ++
+                    show for
+           return $ AF qName DefinitionATP for
+    Left err -> throwError err
 
 -- We translate an local hint to an AF.
-conjectureHintToAF :: QName -> R AF
+conjectureHintToAF :: QName -> ER AF
 conjectureHintToAF qName = do
 
   -- Hack: In the current version of Agda the datatypes and records
@@ -137,12 +150,12 @@ conjectureHintToAF qName = do
 
 -- We translate the hints of an ATP pragma conjecture to AF's.
 -- Invariant: The 'Definition' must be an ATP pragma conjecture
-conjectureHintsToAFs :: Definition -> R [AF]
+conjectureHintsToAFs :: Definition -> ER [AF]
 conjectureHintsToAFs def = do
 
   let hints :: [QName]
       hints = getConjectureHints def
-  reportSLn "hintsToFOLs" 20 $
+  lift $ reportSLn "hintsToFOLs" 20 $
     "The local hints for the conjecture " ++ (show $ defName def) ++
     " are:\n" ++ show hints
 
@@ -150,7 +163,7 @@ conjectureHintsToAFs def = do
 
   return afs
 
-conjectureToAF :: QName -> Definition -> R (AF, [AF])
+conjectureToAF :: QName -> Definition -> ER (AF, [AF])
 conjectureToAF qName def = do
 
   conjectureAF <- toAF qName ConjectureATP def
@@ -161,7 +174,7 @@ conjectureToAF qName def = do
 
 -- We translate the ATP pragma axioms and general hints in an
 -- interface file to FOL formulas.
-axiomsGeneralHintsToAFs :: Interface -> R [AF]
+axiomsGeneralHintsToAFs :: Interface -> ER [AF]
 axiomsGeneralHintsToAFs i = do
 
   -- We get the axioms from the interface file.
@@ -180,18 +193,17 @@ axiomsGeneralHintsToAFs i = do
 
   return $ axAFs ++ ghAFs
 
-
 -- We translate the ATP pragma conjectures and their hints in an
 -- interface file to AFs. For each conjecture we return its
 -- translation and a list of the translation of its hints, i.e. we
 -- return a pair ( AF, [AF] ).
-conjecturesToAFs :: Interface -> R [ (AF, [AF]) ]
+conjecturesToAFs :: Interface -> ER [ (AF, [AF]) ]
 conjecturesToAFs i = do
 
   -- We get the conjectures from the interface file.
   let conjecturesDefs :: Definitions
       conjecturesDefs = getRoleATP ConjectureATP i
-  reportSLn "conjecturesToFOLs" 20 $
+  lift $ reportSLn "conjecturesToFOLs" 20 $
     "Conjectures:\n" ++ show (Map.keys conjecturesDefs)
 
   afs <- zipWithM conjectureToAF
@@ -201,7 +213,7 @@ conjecturesToAFs i = do
 
 -- We translate the ATP pragma definitions in an interface file to FOL
 -- formulas.
-symbolsToAFs :: Interface -> R [AF]
+symbolsToAFs :: Interface -> ER [AF]
 symbolsToAFs i = do
 
   -- We get the definitions from the interface file.

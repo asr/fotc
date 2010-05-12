@@ -7,6 +7,8 @@
 module FOL.Translation.SymbolDefinitions where
 
 -- Haskell imports
+import Control.Monad.Trans.Class ( lift )
+import Control.Monad.Trans.Error ( throwError )
 import Control.Monad.Trans.Reader ( ask, local )
 import Control.Monad.Trans.State ( evalState )
 
@@ -42,12 +44,12 @@ import Utils.Names ( freshName )
 
 ------------------------------------------------------------------------------
 
--- TODO: At the moment, it is only allowed to translate symbols with
--- one clause.
 symDefToFormula :: QName -> Type -> [Clause] -> T FormulaFOL
 symDefToFormula _      _  []        = __IMPOSSIBLE__
 symDefToFormula qName  ty (cl : []) = symClauseToFormula qName ty cl
-symDefToFormula _      _  _         = __IMPOSSIBLE__
+symDefToFormula qName  _  _         =
+    lift $ throwError $ "Error translating the symbol " ++ show qName ++
+                        ". The definitions only can have a clause."
 
 -- A clause is defined by (Agda.Syntax.Internal)
 -- data Clause = Clause
@@ -77,7 +79,7 @@ symClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) = do
           -- See the reason for the order in the enviroment in
           -- FOL.Translation.Terms.termToFormula term@(Pi ... )
           f <- local (\varNames -> freshVar : varNames) $
-               symClauseToFormula qName ty (Clause r tels perm pats cBody )
+                 symClauseToFormula qName ty (Clause r tels perm pats cBody)
 
           return $ ForAll freshVar (\_ -> f)
 

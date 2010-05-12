@@ -76,7 +76,7 @@ binConst op arg1 arg2 = do f1 <- argTermToFormula arg1
 
 termToFormula :: AgdaTerm -> T FormulaFOL
 termToFormula term@(Def (QName _ name) args) = do
-    lift $ reportSLn "termToFormula" 10 $
+    lift $ lift $ reportSLn "termToFormula" 10 $
              "Processing termToFormula Def:\n" ++ show term
 
     let cName :: C.Name
@@ -100,7 +100,8 @@ termToFormula term@(Def (QName _ name) args) = do
                             return $ Not f
 
                    | isCNameConstFOL existsFOL  -> do
-                       lift $ reportSLn "termToFormula" 20 "The cName is existsFOL"
+                       lift $ lift $ reportSLn "termToFormula" 20
+                                "The cName is existsFOL"
                      -- N.B. We should use the following guard if we use the
                      -- the FOL constant forAllFOL
                      -- ( isCNameConstFOL existsFOL ||
@@ -142,13 +143,14 @@ termToFormula term@(Def (QName _ name) args) = do
                 -- isCNameConstFOLTwoHoles equivFOL   -> binConst Equiv a1 a2
 
                 | isCNameConstFOLTwoHoles equalsFOL
-                    -> do lift $ reportSLn "termToFormula" 20 "Processing equals"
+                    -> do lift $ lift $ reportSLn "termToFormula" 20
+                                   "Processing equals"
                           t1 <- termToTermFOL $ unArg a1
                           t2 <- termToTermFOL $ unArg a2
                           return $ equal [t1, t2]
 
                 | otherwise -> do
-                      lift $ reportSLn "termToFormula" 20 $
+                      lift $ lift $ reportSLn "termToFormula" 20 $
                                "Processing a definition with two arguments which " ++
                                "is not a FOL constant: " ++ show cName
                       t1 <- termToTermFOL $ unArg a1
@@ -173,7 +175,7 @@ termToFormula term@(Def (QName _ name) args) = do
                 cName == C.Name noRange [C.Hole, C.Id constFOL, C.Hole]
 
 termToFormula term@(Fun tyArg ty) = do
-  lift $ reportSLn "termToFormula" 10 $
+  lift $ lift $ reportSLn "termToFormula" 10 $
            "Processing termToFormula Fun:\n" ++ show term
   f1 <- typeToFormula $ unArg tyArg
   f2 <- typeToFormula ty
@@ -181,7 +183,7 @@ termToFormula term@(Fun tyArg ty) = do
 
 -- TODO: To add test for this case.
 termToFormula term@(Lam _ (Abs _ termLam)) = do
-  lift $ reportSLn "termToFormula" 10 $
+  lift $ lift $ reportSLn "termToFormula" 10 $
            "Processing termToFormula Lam:\n" ++ show term
 
   vars <- ask
@@ -195,7 +197,7 @@ termToFormula term@(Lam _ (Abs _ termLam)) = do
   return f
 
 termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
-  lift $ reportSLn "termToFormula" 10 $
+  lift $ lift $ reportSLn "termToFormula" 10 $
            "Processing termToFormula Pi:\n" ++ show term
 
   vars <- ask
@@ -203,7 +205,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   let freshVar :: String
       freshVar = evalState freshName vars
 
-  lift $ reportSLn "termToFormula" 20 $
+  lift $ lift $ reportSLn "termToFormula" 20 $
            "Starting processing in local enviroment using the type:\n" ++
            show tyAbs
 
@@ -212,7 +214,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   -- so we need create the list in the same order.
   f2 <- local (\varNames -> freshVar : varNames) $ typeToFormula tyAbs
 
-  lift $ reportSLn "termToFormula" 20 $
+  lift $ lift $ reportSLn "termToFormula" 20 $
            "Finalized processing in local enviroment using the type:\n" ++
            show tyAbs
 
@@ -230,7 +232,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     -- sN : {n : D} → (Nn : N n) → N (succ n).
     -- N.B. The pattern matching on (Def _ _).
     El (Type (Lit (LitLevel _ 0))) def@(Def _ _) -> do
-       lift $ reportSLn "termToFormula" 20 $
+       lift $ lift $ reportSLn "termToFormula" 20 $
            "Removing a quantification on the predicate:\n" ++ show def
        f1 <- typeToFormula $ unArg tyArg
        return $ Implies f1 f2
@@ -244,7 +246,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
        (Fun (Arg _ (El (Type (Lit (LitLevel _ 0))) (Def _ [])))
             (El (Type (Lit (LitLevel _ 0))) (Def _ []))
        ) -> do
-      lift $ reportSLn "termToFormula" 20 $
+      lift $ lift $ reportSLn "termToFormula" 20 $
            "Processing bounded varible quantified on a function of a Set to a Set"
       return $ ForAll freshVar (\_ -> f2)
 
@@ -259,7 +261,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     -- The bound variable is quantified on a Set₁ (e.g. A : Set).
     -- In this case, we erase the quantification.
     El (Type (Lit (LitLevel _ 1))) (Sort _)  -> do
-       lift $ reportSLn "termToFormula" 20 $
+       lift $ lift $ reportSLn "termToFormula" 20 $
             "The type tyArg is: " ++ show tyArg
        return f2
 
@@ -269,7 +271,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
 
 -- TODO: To add test for this case.
 termToFormula term@(Var n _) = do
-  lift $ reportSLn "termToFormula" 10 $
+  lift $ lift $ reportSLn "termToFormula" 10 $
            "Processing termToFormula Var: " ++ show term
 
   vars <- ask
@@ -293,7 +295,7 @@ appArgs fn args = do
 termToTermFOL :: AgdaTerm -> T TermFOL
 -- TODO: The code for the cases Con and Def is similar.
 termToTermFOL term@(Con (QName _ name) args)  = do
-  lift $ reportSLn "termToTermFOL" 10 $
+  lift $ lift $ reportSLn "termToTermFOL" 10 $
            "Processing termToTermFOL Con:\n" ++ show term
 
   let cName :: C.Name
@@ -322,7 +324,7 @@ termToTermFOL term@(Con (QName _ name) args)  = do
         _  -> appArgs (concatName parts) args
 
 termToTermFOL term@(Def (QName _ name) args) = do
-  lift $ reportSLn "termToTermFOL" 10 $
+  lift $ lift $ reportSLn "termToTermFOL" 10 $
            "Processing termToTermFOL Def:\n" ++ show term
 
   let cName :: C.Name
@@ -351,7 +353,7 @@ termToTermFOL term@(Def (QName _ name) args) = do
         _  -> appArgs (concatName parts) args
 
 termToTermFOL term@(Var n args) = do
-  lift $ reportSLn "termToTermFOL" 10 $
+  lift $ lift $ reportSLn "termToTermFOL" 10 $
            "Processing termToTermFOL Var:\n" ++ show term
 
   vars <- ask

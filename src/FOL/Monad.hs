@@ -8,7 +8,7 @@ module FOL.Monad where
 import Control.Monad.Trans.Reader ( ReaderT )
 
 -- Local imports
-import Reports ( R )
+import Common ( ER )
 
 ------------------------------------------------------------------------------
 
@@ -23,4 +23,4 @@ iVarNames = []
 
 {-| The translation monad from Agda types to FOL formulas.
 -}
-type T a = ReaderT Vars R a
+type T = ReaderT Vars ER
