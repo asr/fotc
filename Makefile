@@ -14,4 +14,3 @@ test : testAxioms testConjectures testQuick
 clean :
 	-find -name '*.agdai' | xargs rm -f
 	-rm -f /tmp/*.tptp
-	-rm -f /tmp/*.output
