@@ -127,3 +127,11 @@ x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn = prf (x≤y→y-x+x≡y Nm Nn
   postulate prf : (n - m) + m ≡ n →
                   (succ n - succ m) + succ m ≡ succ n
   {-# ATP prove prf +-comm minus-N sN #-}
+
+[Sx-Sy,Sy]<[Sx,Sy] :
+  {m n : D} → N m → N n →
+  LT₂ (succ m - succ n) (succ n) (succ m) (succ n)
+[Sx-Sy,Sy]<[Sx,Sy] {m} {n} Nm Nn = inj₁ prf
+  where
+  postulate prf : LT (succ m - succ n) (succ m)
+  {-# ATP prove prf sN x-y<Sx #-}

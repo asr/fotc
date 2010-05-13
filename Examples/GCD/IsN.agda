@@ -17,11 +17,11 @@ open import LTC.Function.Arithmetic
 open import LTC.Function.Arithmetic.Properties
 open import LTC.Relation.Equalities.Properties
 open import LTC.Relation.Inequalities
-open import Postulates
-  using ( Sx>Sy→[Sx-Sy,Sy]<[Sx,Sy] ; Sx≤Sy→[Sx,Sy-Sx]<[Sx,Sy] )
 open import LTC.Relation.Inequalities.Properties
 
 open import MyStdLib.Function
+
+open import Postulates using ( Sx≤Sy→[Sx,Sy-Sx]<[Sx,Sy] )
 
 ------------------------------------------------------------------------------
 -- The 'gcd 0 (succ n)' is N.
@@ -78,7 +78,7 @@ gcd-x>y-N (sN {m} Nm) (sN {n} Nn) allAcc Sm>Sn _ =
     ih : N (gcd (succ m - succ n) (succ n))
     ih = allAcc {succ m - succ n}
                 {succ n}
-                (Sx>Sy→[Sx-Sy,Sy]<[Sx,Sy] Nm Nn Sm>Sn)
+                ([Sx-Sy,Sy]<[Sx,Sy] Nm Nn)
                 (minus-N (sN Nm) (sN Nn))
                 (sN Nn)
                 (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)

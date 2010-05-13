@@ -19,13 +19,12 @@ open import LTC.Relation.Divisibility
 open import LTC.Relation.Divisibility.PropertiesER
 open import LTC.Relation.Equalities.PropertiesER
 open import LTC.Relation.Inequalities
-open import Postulates
-  using ( Sx>Sy→[Sx-Sy,Sy]<[Sx,Sy]
-        ; Sx≤Sy→[Sx,Sy-Sx]<[Sx,Sy]
-        )
+open import LTC.Relation.Inequalities.Properties using ( [Sx-Sy,Sy]<[Sx,Sy] )
 open import LTC.Relation.Inequalities.PropertiesER
 
 open import MyStdLib.Function
+
+open import Postulates using ( Sx≤Sy→[Sx,Sy-Sx]<[Sx,Sy] )
 
 ---------------------------------------------------------------------------
 -- Common divisor.
@@ -276,7 +275,7 @@ gcd-x>y-CD (sN {m} Nm) (sN {n} Nn) allAcc Sm>Sn _  =
     ih : CD (succ m - succ n) (succ n) (gcd (succ m - succ n) (succ n))
     ih  = allAcc {succ m - succ n}
                  {succ n}
-                 (Sx>Sy→[Sx-Sy,Sy]<[Sx,Sy] Nm Nn Sm>Sn)
+                 ([Sx-Sy,Sy]<[Sx,Sy] Nm Nn)
                  (minus-N (sN Nm) (sN Nn))
                  (sN Nn)
                  (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
