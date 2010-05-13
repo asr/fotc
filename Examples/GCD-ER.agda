@@ -32,8 +32,8 @@ record GCD (a b gcd : D) : Set where
 
 gcd-GCD : {m n : D} → N m → N n → ¬x≡0∧y≡0 m n → GCD m n (gcd m n)
 gcd-GCD Nm Nn m≠0≠n =
-  record { commonDivisor = gcd-CD (Nm , Nn ) m≠0≠n
-         ; greatest      = gcd-GACD (gcd-N (Nm , Nn ) m≠0≠n)
-                                    (gcd-CD (Nm , Nn ) m≠0≠n)
-                                    (gcd-Divisible (Nm , Nn ) m≠0≠n)
+  record { commonDivisor = gcd-CD Nm Nn m≠0≠n
+         ; greatest      = gcd-GACD (gcd-N Nm Nn m≠0≠n)
+                                    (gcd-CD Nm Nn m≠0≠n)
+                                    (gcd-Divisible Nm Nn m≠0≠n)
          }

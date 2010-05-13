@@ -25,8 +25,6 @@ open import Postulates
 open import LTC.Relation.Inequalities.Properties
 
 open import MyStdLib.Function
-import MyStdLib.Induction.Lexicographic
-open module IsCommonDivisor-LT₂ = MyStdLib.Induction.Lexicographic LT LT
 
 ---------------------------------------------------------------------------
 -- Common divisor.
@@ -116,7 +114,7 @@ gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
   Sm-Sn-N = minus-N (sN Nm) (sN Nn)
 
   gcd-Sm-Sn,Sn-N : N (gcd (succ m - succ n) (succ n))
-  gcd-Sm-Sn,Sn-N = gcd-N (Sm-Sn-N , sN Nn) (λ p → ⊥-elim (¬S≡0 (∧-proj₂ p)))
+  gcd-Sm-Sn,Sn-N = gcd-N Sm-Sn-N (sN Nn) (λ p → ⊥-elim (¬S≡0 (∧-proj₂ p)))
 
 ---------------------------------------------------------------------------
 -- Some case of the gcd-∣₂
@@ -181,7 +179,7 @@ gcd-S≤S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≤Sn =
   Sn-Sm-N = minus-N (sN Nn) (sN Nm)
 
   gcd-Sm,Sn-Sm-N : N (gcd (succ m) (succ n - succ m) )
-  gcd-Sm,Sn-Sm-N = gcd-N (sN Nm , Sn-Sm-N) (λ p → ⊥-elim (¬S≡0 (∧-proj₁ p)))
+  gcd-Sm,Sn-Sm-N = gcd-N (sN Nm) (Sn-Sm-N) (λ p → ⊥-elim (¬S≡0 (∧-proj₁ p)))
 
 ---------------------------------------------------------------------------
 -- 'gcd (succ m) (succ n) ∣ succ n' when 'succ m > succ n'.
@@ -253,26 +251,24 @@ gcd-S≤S-CD {m} {n} Nm Nn acc Sm≤Sn =
 -- to prove the second case.
 
 gcd-x>y-CD :
-  {mn : D × D} → N₂ mn →
-  ((op : D × D ) → LT₂ op mn →
-       N₂ op →
-       ¬x≡0∧y≡0 (×-proj₁ op) (×-proj₂ op) →
-       CD (×-proj₁ op) (×-proj₂ op) (gcd (×-proj₁ op) (×-proj₂ op))) →
-  GT (×-proj₁ mn) (×-proj₂ mn) →
-  ¬x≡0∧y≡0 (×-proj₁ mn) (×-proj₂ mn) →
-  CD (×-proj₁ mn) (×-proj₂ mn) (gcd (×-proj₁ mn) (×-proj₂ mn))
-
-gcd-x>y-CD (zN , zN ) _ _ ¬0≡0∧0≡0   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x>y-CD (zN , sN Nn ) _ 0>Sn _  = ⊥-elim (¬0>x (sN Nn) 0>Sn)
-gcd-x>y-CD (sN Nm , zN ) _ _  _    = gcd-S0-CD Nm
-gcd-x>y-CD (sN {m} Nm , sN {n} Nn ) allAcc Sm>Sn _  =
+  {m n : D} → N m → N n →
+  ({o p : D} → LT₂ o p m n → N o → N p → ¬x≡0∧y≡0 o p → CD o p (gcd o p)) →
+  GT m n →
+  ¬x≡0∧y≡0 m n →
+  CD m n (gcd m n)
+gcd-x>y-CD zN zN _ _ ¬0≡0∧0≡0   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
+gcd-x>y-CD zN (sN Nn) _ 0>Sn _  = ⊥-elim (¬0>x (sN Nn) 0>Sn)
+gcd-x>y-CD (sN Nm) zN _ _  _    = gcd-S0-CD Nm
+gcd-x>y-CD (sN {m} Nm) (sN {n} Nn) allAcc Sm>Sn _  =
   gcd-S>S-CD Nm Nn ih Sm>Sn
   where
     -- Inductive hypothesis.
     ih : CD (succ m - succ n) (succ n) (gcd (succ m - succ n) (succ n))
-    ih  = allAcc (succ m - succ n , succ n)
+    ih  = allAcc {succ m - succ n}
+                 {succ n}
                  (Sx>Sy→[Sx-Sy,Sy]<[Sx,Sy] Nm Nn Sm>Sn)
-                 (minus-N (sN Nm) (sN Nn) , sN Nn)
+                 (minus-N (sN Nm) (sN Nn))
+                 (sN Nn)
                  (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
 
 ---------------------------------------------------------------------------
@@ -282,46 +278,39 @@ gcd-x>y-CD (sN {m} Nm , sN {n} Nn ) allAcc Sm>Sn _  =
 -- to prove the third case.
 
 gcd-x≤y-CD :
-  {mn : D × D} → N₂ mn →
-  ((op : D × D ) → LT₂ op mn →
-       N₂ op →
-       ¬x≡0∧y≡0 (×-proj₁ op) (×-proj₂ op) →
-       CD (×-proj₁ op) (×-proj₂ op) (gcd (×-proj₁ op) (×-proj₂ op))) →
-  LE (×-proj₁ mn) (×-proj₂ mn) →
-  ¬x≡0∧y≡0 (×-proj₁ mn) (×-proj₂ mn) →
-  CD (×-proj₁ mn) (×-proj₂ mn) (gcd (×-proj₁ mn) (×-proj₂ mn))
-
-gcd-x≤y-CD (zN , zN )_ _ ¬0≡0∧0≡0   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x≤y-CD (zN , sN Nn ) _ _ _     = gcd-0S-CD Nn
-gcd-x≤y-CD (sN _ , zN ) _ Sm≤0 _  = ⊥-elim $ ¬S≤0 Sm≤0
-gcd-x≤y-CD (sN {m} Nm , sN {n} Nn ) allAcc Sm≤Sn _ =
+  {m n : D} → N m → N n →
+  ({o p : D} → LT₂ o p m n → N o → N p → ¬x≡0∧y≡0 o p → CD o p (gcd o p)) →
+  LE m n →
+  ¬x≡0∧y≡0 m n →
+  CD m n (gcd m n)
+gcd-x≤y-CD zN zN _ _ ¬0≡0∧0≡0   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
+gcd-x≤y-CD zN (sN Nn) _ _ _     = gcd-0S-CD Nn
+gcd-x≤y-CD (sN _) zN _ Sm≤0 _  = ⊥-elim $ ¬S≤0 Sm≤0
+gcd-x≤y-CD (sN {m} Nm) (sN {n} Nn) allAcc Sm≤Sn _ =
   gcd-S≤S-CD Nm Nn ih Sm≤Sn
   where
     -- Inductive hypothesis
     ih : CD (succ m) (succ n - succ m)  (gcd (succ m) (succ n - succ m))
-    ih = allAcc (succ m , succ n - succ m)
+    ih = allAcc {succ m}
+                {succ n - succ m}
                 (Sx≤Sy→[Sx,Sy-Sx]<[Sx,Sy] Nm Nn Sm≤Sn)
-                (sN Nm , minus-N (sN Nn) (sN Nm))
+                (sN Nm)
+                (minus-N (sN Nn) (sN Nm))
                 (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p )
 
 ---------------------------------------------------------------------------
 -- The 'gcd' is CD.
 
-gcd-CD : {mn : D × D } → N₂ mn →
-         ¬x≡0∧y≡0 (×-proj₁ mn) (×-proj₂ mn) →
-         CD (×-proj₁ mn) (×-proj₂ mn) (gcd (×-proj₁ mn) (×-proj₂ mn))
-gcd-CD = wellFoundedInd-N₂ P istep
+gcd-CD : {m n : D} → N m → N n → ¬x≡0∧y≡0 m n → CD m n (gcd m n)
+gcd-CD = wfInd-LT₂ P istep
   where
-    P : D × D → Set
-    P ij = ¬x≡0∧y≡0 i j → CD i j  (gcd i j )
-      where i : D
-            i = ×-proj₁ ij
-            j : D
-            j = ×-proj₂ ij
+    P : D → D → Set
+    P i j = ¬x≡0∧y≡0 i j → CD i j  (gcd i j )
 
     istep :
-      (ij : D × D) → ((kl : D × D) → LT₂ kl ij → N₂ kl → P kl) → N₂ ij → P ij
-    istep ij allAcc N₂ij =
-      [ gcd-x>y-CD N₂ij allAcc
-      , gcd-x≤y-CD N₂ij allAcc
-      ] (x>y∨x≤y (N₂-proj₁ N₂ij) (N₂-proj₂ N₂ij))
+      {i j : D} → ({k l : D} → LT₂ k l i j → N k → N l → P k l) →
+      N i → N j  → P i j
+    istep allAcc Ni Nj =
+      [ gcd-x>y-CD Ni Nj allAcc
+      , gcd-x≤y-CD Ni Nj allAcc
+      ] (x>y∨x≤y Ni Nj)

@@ -4,8 +4,8 @@
 
 module MyStdLib.Data.Product where
 
-infixr 4 _,_
-infixr 2 _×_
+-- infixr 4 _,_
+-- infixr 2 _×_
 
 -- data Σ (A : Set) (B : A → Set) : Set where
 --   _,_ : (x : A) (y : B x) → Σ A B
@@ -16,14 +16,14 @@ infixr 2 _×_
 -- _×_ : (A B : Set) → Set
 -- A × B = Σ A (λ _ → B)
 
-data _×_ (A B : Set) : Set where
-  _,_ : A → B → A × B
+-- data _×_ (A B : Set) : Set where
+--   _,_ : A → B → A × B
 
-×-proj₁ : {A B : Set} → A × B → A
-×-proj₁ (x , y) = x
+-- ×-proj₁ : {A B : Set} → A × B → A
+-- ×-proj₁ (x , y) = x
 
-×-proj₂ : {A B : Set} → A × B → B
-×-proj₂ (x , y) = y
+-- ×-proj₂ : {A B : Set} → A × B → B
+-- ×-proj₂ (x , y) = y
 
 
 -- N.B. It is not necessary to add the constructor _,_ , nor the fields

@@ -9,13 +9,13 @@ open import LTC.Minimal
 open import LTC.Data.N
 open import LTC.Relation.Inequalities
 open import MyStdLib.Induction.WellFounded
-open import Postulates using ( wellFoundedLT )
+open import Postulates using ( wf-LT )
 
 ------------------------------------------------------------------------------
 
-wellFoundedInd-N :
+wfInd-N :
    (P : D → Set) →
    ((x : D) → ((y : D) → LT y x → N y → P y ) → N x → P x ) →
    (n : D) → N n → P n
-wellFoundedInd-N P accH n =
-  wellFoundedInd {D} {LT} {λ x → N x → P x} wellFoundedLT accH n
+wfInd-N P accH n =
+  wfInd {D} {LT} {λ x → N x → P x} wf-LT accH n

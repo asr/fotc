@@ -25,14 +25,3 @@ indN : (P : D → Set) →
        {n : D} → N n → P n
 indN P p0 h zN      = p0
 indN P p0 h (sN Nn) = h Nn (indN P p0 h Nn)
-
--- Pairs of LTC natural numbers.
--- Used by the lexicographical induction on N.
-data N₂ : D × D → Set where
-  _,_ : {m n : D} → N m → N n → N₂ (m , n)
-
-N₂-proj₁ : {mn : D × D} → N₂ mn → N (×-proj₁ mn)
-N₂-proj₁ (Nm , _) = Nm
-
-N₂-proj₂ : {mn : D × D} → N₂ mn → N (×-proj₂ mn)
-N₂-proj₂ (_ , Nn) = Nn
