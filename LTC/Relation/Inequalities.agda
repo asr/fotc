@@ -53,3 +53,4 @@ GE d e = lt d e ≡ false
 -- The lexicographical order
 LT₂ : D → D → D → D → Set
 LT₂ x₁ y₁ x₂ y₂ = LT x₁ x₂ ∨ x₁ ≡ x₂ ∧ LT y₁ y₂
+{-# ATP definition LT₂ #-}
