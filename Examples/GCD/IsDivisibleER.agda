@@ -19,7 +19,6 @@ open import LTC.Relation.Divisibility
 open import LTC.Relation.Divisibility.PropertiesER
 open import LTC.Relation.Equalities.PropertiesER
 open import LTC.Relation.Inequalities
-open import LTC.Relation.Inequalities.Properties using ( [Sx-Sy,Sy]<[Sx,Sy] )
 open import LTC.Relation.Inequalities.PropertiesER
 
 open import MyStdLib.Function

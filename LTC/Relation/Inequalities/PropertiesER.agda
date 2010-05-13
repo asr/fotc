@@ -149,3 +149,19 @@ x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
                                ⟩
     succ n
   ∎
+
+[Sx-Sy,Sy]<[Sx,Sy] :
+  {m n : D} → N m → N n →
+  LT₂ (succ m - succ n) (succ n) (succ m) (succ n)
+[Sx-Sy,Sy]<[Sx,Sy] {m} {n} Nm Nn = inj₁
+  ( begin
+      lt (succ m - succ n) (succ m) ≡⟨ subst (λ t → lt (succ m - succ n)
+                                                       (succ m) ≡
+                                                    lt t (succ m))
+                                       (minus-SS m n)
+                                       refl
+                                    ⟩
+    lt (m - n) (succ m)             ≡⟨ x-y<Sx Nm Nn ⟩
+    true
+    ∎
+  )

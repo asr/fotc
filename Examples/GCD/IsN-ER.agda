@@ -18,7 +18,6 @@ open import LTC.Function.Arithmetic
 open import LTC.Function.Arithmetic.PropertiesER
 open import LTC.Relation.Equalities.PropertiesER
 open import LTC.Relation.Inequalities
-open import LTC.Relation.Inequalities.Properties using ( [Sx-Sy,Sy]<[Sx,Sy] )
 open import LTC.Relation.Inequalities.PropertiesER
 
 open import MyStdLib.Function
