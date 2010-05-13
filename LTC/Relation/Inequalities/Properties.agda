@@ -76,6 +76,7 @@ x≤x+y {n = n} (sN {m} Nm) Nn = prf (x≤x+y Nm Nn)
   where
   postulate prf : lt (m + n) m ≡ false →
                   lt (succ m + n) (succ m) ≡ false
+  {-# ATP prove prf #-}
 
 x-y<Sx : {m n : D} → N m → N n → LT (m - n) (succ m)
 x-y<Sx {m} Nm zN = prf
