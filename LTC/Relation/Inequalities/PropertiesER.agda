@@ -18,6 +18,8 @@ open import MyStdLib.Function
 import MyStdLib.Relation.Binary.EqReasoning
 open module IPER = MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
+open import Postulates using ( trans-LT )
+
 ------------------------------------------------------------------------------
 
 x≥0 : {n : D} → N n → GE n zero
@@ -58,6 +60,44 @@ x≤x+y {n = n} (sN {m} Nm) Nn =
     lt (succ (m + n)) (succ m) ≡⟨ lt-SS (m + n) m ⟩
     lt (m + n) m               ≡⟨ x≤x+y Nm Nn ⟩
     false
+  ∎
+
+x-y<Sx : {m n : D} → N m → N n → LT (m - n) (succ m)
+x-y<Sx {m} Nm zN =
+  begin
+    lt (m - zero) (succ m) ≡⟨ subst (λ t → lt (m - zero) (succ m) ≡
+                                           lt t (succ m))
+                                    (minus-x0 m)
+                                    refl
+                           ⟩
+    lt m (succ m)          ≡⟨ x<Sx Nm ⟩
+    true
+  ∎
+
+x-y<Sx zN (sN {n} Nn) =
+  begin
+    lt (zero - succ n) (succ zero)
+      ≡⟨ subst (λ t → lt (zero - succ n) (succ zero) ≡ lt t (succ zero))
+               (minus-0S n)
+               refl
+      ⟩
+    lt zero (succ zero) ≡⟨ lt-0S zero ⟩
+    true
+  ∎
+
+x-y<Sx (sN {m} Nm) (sN {n} Nn) =
+  begin
+    lt (succ m - succ n) (succ (succ m))
+      ≡⟨ subst (λ t → lt (succ m - succ n) (succ (succ m)) ≡
+                      lt t (succ (succ m)))
+               (minus-SS m n)
+               refl
+      ⟩
+    lt (m - n) (succ (succ m))
+      ≡⟨ trans-LT (minus-N Nm Nn) (sN Nm) (sN (sN Nm))
+                  (x-y<Sx Nm Nn) (x<Sx (sN Nm))
+      ⟩
+    true
   ∎
 
 x>y→x-y+y≡x : {m n : D} → N m → N n → GT m n → (m - n) + n ≡ m

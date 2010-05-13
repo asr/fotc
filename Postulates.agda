@@ -13,6 +13,9 @@ postulate
   wf-LT₂ : WellFounded₂ LT₂
 
 postulate
+  trans-LT : {m n o : D} → N m → N n → N o → LT m n → LT n o → LT m o
+
+postulate
   Sx>Sy→[Sx-Sy,Sy]<[Sx,Sy] :
     {m n : D} → N m → N n →
     GT (succ m) (succ n) →

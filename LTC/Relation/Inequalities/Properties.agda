@@ -14,6 +14,8 @@ open import LTC.Relation.Inequalities
 open import MyStdLib.Data.Sum
 open import MyStdLib.Function
 
+open import Postulates using ( trans-LT )
+
 ------------------------------------------------------------------------------
 
 -- TODO: Why the ATP couldn't prove it?
@@ -74,6 +76,23 @@ x≤x+y {n = n} (sN {m} Nm) Nn = prf (x≤x+y Nm Nn)
   where
   postulate prf : lt (m + n) m ≡ false →
                   lt (succ m + n) (succ m) ≡ false
+
+x-y<Sx : {m n : D} → N m → N n → LT (m - n) (succ m)
+x-y<Sx {m} Nm zN = prf
+  where
+  postulate prf : lt (m - zero) (succ m) ≡ true
+  {-# ATP prove prf x<Sx #-}
+
+x-y<Sx zN (sN {n} Nn) = prf
+  where
+  postulate prf : lt (zero - succ n) (succ zero) ≡ true
+  {-# ATP prove prf #-}
+
+x-y<Sx (sN {m} Nm) (sN {n} Nn) = prf (x-y<Sx Nm Nn)
+  where
+  postulate prf : lt (m - n) (succ m) ≡ true →
+                  lt (succ m - succ n) (succ (succ m)) ≡ true
+  {-# ATP prove prf trans-LT minus-N x<Sx sN #-}
 
 x>y→x-y+y≡x : {m n : D} → N m → N n → GT m n → (m - n) + n ≡ m
 x>y→x-y+y≡x zN Nn 0>n = ⊥-elim (¬0>x Nn 0>n)
