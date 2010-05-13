@@ -28,6 +28,16 @@ x≥0 zN          = lt-00
 x≥0 (sN {n} Nn) = lt-S0 n
 -- {-# ATP hint x≥0 #-}
 
+¬x<0 : {n : D} → N n → ¬ (LT n zero)
+¬x<0 zN 0<0 = ⊥-elim prf
+  where
+  postulate prf : ⊥
+  {-# ATP prove prf #-}
+¬x<0 (sN Nn) Sn<0 = ⊥-elim prf
+  where
+  postulate prf : ⊥
+  {-# ATP prove prf #-}
+
 ¬0>x : {n : D} → N n → ¬ (GT zero n)
 ¬0>x Nn 0>n = ⊥-elim prf
   where
