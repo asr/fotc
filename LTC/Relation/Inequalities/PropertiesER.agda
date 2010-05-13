@@ -30,7 +30,7 @@ x≥0 (sN {n} Nn) = lt-S0 n
 ¬0>x Nn 0>n = true≠false $ trans (sym 0>n ) $ x≥0 Nn
 
 ¬S≤0 : {d : D} → ¬ (LE (succ d) zero)
-¬S≤0 {d} Sx≤0 = true≠false $ trans (sym $ lt-0S d ) Sx≤0
+¬S≤0 {d} Sd≤0 = true≠false $ trans (sym $ lt-0S d ) Sd≤0
 
 x<Sx : {n : D} → N n → LT n (succ n)
 x<Sx zN          = lt-0S zero

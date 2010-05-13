@@ -36,7 +36,7 @@ x≥0 (sN {n} Nn) = lt-S0 n
     {-# ATP prove prf x≥0 #-}
 
 ¬S≤0 : {d : D} → ¬ (LE (succ d) zero)
-¬S≤0 Sx≤0 = ⊥-elim prf
+¬S≤0 Sd≤0 = ⊥-elim prf
   where
     postulate
       -- The proof uses the axiom true≠false
