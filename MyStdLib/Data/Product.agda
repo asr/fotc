@@ -32,6 +32,7 @@ data _×_ (A B : Set) : Set where
 -- _∧_ : (A B : Set) → Set
 -- A ∧ B = A × B
 
+infixr 2 _∧_
 data _∧_ (A B : Set) : Set where
   _,_ : A → B → A ∧ B
 
