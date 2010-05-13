@@ -100,6 +100,19 @@ x-y<Sx (sN {m} Nm) (sN {n} Nn) =
     true
   ∎
 
+Sx-Sy<Sx : {m n : D} → N m → N n → LT (succ m - succ n) (succ m)
+Sx-Sy<Sx {m} {n} Nm Nn =
+  begin
+    lt (succ m - succ n) (succ m) ≡⟨ subst (λ t → lt (succ m - succ n)
+                                                     (succ m) ≡
+                                                  lt t (succ m))
+                                           (minus-SS m n)
+                                           refl
+                                  ⟩
+    lt (m - n) (succ m)           ≡⟨ x-y<Sx Nm Nn ⟩
+    true
+    ∎
+
 x>y→x-y+y≡x : {m n : D} → N m → N n → GT m n → (m - n) + n ≡ m
 x>y→x-y+y≡x zN          Nn 0>n  = ⊥-elim (¬0>x Nn 0>n)
 x>y→x-y+y≡x (sN {m} Nm) zN Sm>0 = trans (+-rightIdentity (minus-N (sN Nm) zN))
@@ -153,15 +166,8 @@ x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
 [Sx-Sy,Sy]<[Sx,Sy] :
   {m n : D} → N m → N n →
   LT₂ (succ m - succ n) (succ n) (succ m) (succ n)
-[Sx-Sy,Sy]<[Sx,Sy] {m} {n} Nm Nn = inj₁
-  ( begin
-      lt (succ m - succ n) (succ m) ≡⟨ subst (λ t → lt (succ m - succ n)
-                                                       (succ m) ≡
-                                                    lt t (succ m))
-                                       (minus-SS m n)
-                                       refl
-                                    ⟩
-    lt (m - n) (succ m)             ≡⟨ x-y<Sx Nm Nn ⟩
-    true
-    ∎
-  )
+[Sx-Sy,Sy]<[Sx,Sy] {m} {n} Nm Nn = inj₁ (Sx-Sy<Sx Nm Nn)
+
+[Sx,Sy-Sx]<[Sx,Sy] : {m n : D} → N m → N n →
+                     LT₂ (succ m) (succ n - succ m) (succ m) (succ n)
+[Sx,Sy-Sx]<[Sx,Sy] {m} {n} Nm Nn = inj₂ (refl , Sx-Sy<Sx Nn Nm)

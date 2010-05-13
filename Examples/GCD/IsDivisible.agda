@@ -22,8 +22,6 @@ open import LTC.Relation.Inequalities.Properties
 
 open import MyStdLib.Function
 
-open import Postulates using ( Sx≤Sy→[Sx,Sy-Sx]<[Sx,Sy] )
-
 ------------------------------------------------------------------------------
 -- Divisible for any common divisor.
 
@@ -147,7 +145,7 @@ gcd-x≤y-Divisible (sN {m} Nm) (sN {n} Nn) allAcc Sm≤Sn _ c Nc =
     ih : Divisible (succ m) (succ n - succ m) (gcd (succ m) (succ n - succ m))
     ih = allAcc {succ m}
                 {succ n - succ m}
-                (Sx≤Sy→[Sx,Sy-Sx]<[Sx,Sy] Nm Nn Sm≤Sn)
+                ([Sx,Sy-Sx]<[Sx,Sy] Nm Nn)
                 (sN Nm)
                 (minus-N (sN Nn) (sN Nm ))
                 (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p )
