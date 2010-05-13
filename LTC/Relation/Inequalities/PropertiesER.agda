@@ -30,6 +30,10 @@ x≥0 (sN {n} Nn) = lt-S0 n
 ¬S≤0 : {d : D} → ¬ (LE (succ d) zero)
 ¬S≤0 {d} Sx≤0 = true≠false $ trans (sym $ lt-0S d ) Sx≤0
 
+x<Sx : {n : D} → N n → LT n (succ n)
+x<Sx zN          = lt-0S zero
+x<Sx (sN {n} Nn) = trans (lt-SS n (succ n)) (x<Sx Nn)
+
 x>y∨x≤y : {m n : D} → N m → N n → GT m n ∨ LE m n
 x>y∨x≤y zN          Nn          = inj₂ $ x≥0 Nn
 x>y∨x≤y (sN {m} Nm) zN          = inj₁ $ lt-0S m

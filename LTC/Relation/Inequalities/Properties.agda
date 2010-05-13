@@ -41,6 +41,13 @@ x≥0 (sN {n} Nn) = lt-S0 n
       prf : ⊥
     {-# ATP prove prf #-}
 
+x<Sx : {n : D} → N n → LT n (succ n)
+x<Sx zN          = lt-0S zero
+x<Sx (sN {n} Nn) = prf (x<Sx Nn)
+  where
+  postulate prf : LT n (succ n) → LT (succ n) (succ (succ n))
+  {-# ATP prove prf #-}
+
 x>y∨x≤y : {m n : D} → N m → N n → GT m n ∨ LE m n
 x>y∨x≤y zN          Nn          = inj₂ $ x≥0 Nn
 x>y∨x≤y (sN {m} Nm) zN          = inj₁ $ lt-0S m
