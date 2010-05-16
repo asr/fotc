@@ -188,4 +188,3 @@ x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
 [Sx,Sy-Sx]<[Sx,Sy] : {m n : D} → N m → N n →
                      LT₂ (succ m) (succ n - succ m) (succ m) (succ n)
 [Sx,Sy-Sx]<[Sx,Sy] {m} {n} Nm Nn = inj₂ (refl , Sx-Sy<Sx Nn Nm)
-
