@@ -40,10 +40,11 @@ callATPConjecture conjecture = do
     let atp :: String
         atp = optATP opts
 
+    reportS "" 1 $ "Proving the conjecture " ++ file
     output <- liftIO $
               readProcess atp ["--time", show $ optTime opts , file] ""
     if (checkOutputATP atp output)
-      then reportS "" 1 $ atp ++ " proved the conjecture " ++ file
+      then return ()
       else error $ atp ++ " did not prove the conjecture " ++ file
 
 callATP :: [AF] -> [(AF, [AF])] -> R ()
