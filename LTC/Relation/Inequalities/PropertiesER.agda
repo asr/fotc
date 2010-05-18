@@ -67,16 +67,16 @@ x<y→Sx≤y zN (sN (sN {n} Nn)) _         = trans (lt-SS (succ n) zero) (lt-S0 
 x<y→Sx≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn =
   trans (lt-SS n (succ m)) (x<y→Sx≤y Nm Nn (trans (sym (lt-SS m n)) Sm<Sn))
 
-trans-LT : {m n o : D} → N m → N n → N o → LT m n → LT n o → LT m o
-trans-LT zN          zN           _          0<0   _    = ⊥-elim (¬x<0 zN 0<0)
-trans-LT zN          (sN Nn)     zN          _     Sn<0 = ⊥-elim (¬x<0 (sN Nn) Sn<0)
-trans-LT zN          (sN Nn)     (sN {o} No) _     _    = lt-0S o
-trans-LT (sN Nm)     Nn          zN          _     n<0  = ⊥-elim (¬x<0 Nn n<0)
-trans-LT (sN Nm)     zN          (sN No)     Sm<0  _    = ⊥-elim (¬x<0 (sN Nm) Sm<0)
-trans-LT (sN {m} Nm) (sN {n} Nn) (sN {o} No) Sm<Sn Sn<So =
+<-trans : {m n o : D} → N m → N n → N o → LT m n → LT n o → LT m o
+<-trans zN          zN           _          0<0   _    = ⊥-elim (¬x<0 zN 0<0)
+<-trans zN          (sN Nn)     zN          _     Sn<0 = ⊥-elim (¬x<0 (sN Nn) Sn<0)
+<-trans zN          (sN Nn)     (sN {o} No) _     _    = lt-0S o
+<-trans (sN Nm)     Nn          zN          _     n<0  = ⊥-elim (¬x<0 Nn n<0)
+<-trans (sN Nm)     zN          (sN No)     Sm<0  _    = ⊥-elim (¬x<0 (sN Nm) Sm<0)
+<-trans (sN {m} Nm) (sN {n} Nn) (sN {o} No) Sm<Sn Sn<So =
   begin
     lt (succ m) (succ o) ≡⟨ lt-SS m o ⟩
-    lt m o ≡⟨ trans-LT Nm Nn No
+    lt m o ≡⟨ <-trans Nm Nn No
                        (trans (sym (lt-SS m n)) Sm<Sn)
                        (trans (sym (lt-SS n o)) Sn<So) ⟩
     true
@@ -128,8 +128,8 @@ x-y<Sx (sN {m} Nm) (sN {n} Nn) =
                refl
       ⟩
     lt (m - n) (succ (succ m))
-      ≡⟨ trans-LT (minus-N Nm Nn) (sN Nm) (sN (sN Nm))
-                  (x-y<Sx Nm Nn) (x<Sx (sN Nm))
+      ≡⟨ <-trans (minus-N Nm Nn) (sN Nm) (sN (sN Nm))
+                 (x-y<Sx Nm Nn) (x<Sx (sN Nm))
       ⟩
     true
   ∎

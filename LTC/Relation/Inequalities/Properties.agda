@@ -111,14 +111,14 @@ x<y→Sx≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = SSm≤Sn (x<y→Sx≤y Nm Nn m<n)
                        LE (succ (succ m)) (succ n)
     {-# ATP prove SSm≤Sn #-}
 
-trans-LT : {m n o : D} → N m → N n → N o → LT m n → LT n o → LT m o
-trans-LT zN          zN           _          0<0   _    = ⊥-elim (¬x<0 zN 0<0)
-trans-LT zN          (sN Nn)     zN          _     Sn<0 = ⊥-elim (¬x<0 (sN Nn) Sn<0)
-trans-LT zN          (sN Nn)     (sN {o} No) _     _    = lt-0S o
-trans-LT (sN Nm)     Nn          zN          _     n<0  = ⊥-elim (¬x<0 Nn n<0)
-trans-LT (sN Nm)     zN          (sN No)     Sm<0  _    = ⊥-elim (¬x<0 (sN Nm) Sm<0)
-trans-LT (sN {m} Nm) (sN {n} Nn) (sN {o} No) Sm<Sn Sn<So =
-  prf (trans-LT Nm Nn No m<n n<o)
+<-trans : {m n o : D} → N m → N n → N o → LT m n → LT n o → LT m o
+<-trans zN          zN           _          0<0   _    = ⊥-elim (¬x<0 zN 0<0)
+<-trans zN          (sN Nn)     zN          _     Sn<0 = ⊥-elim (¬x<0 (sN Nn) Sn<0)
+<-trans zN          (sN Nn)     (sN {o} No) _     _    = lt-0S o
+<-trans (sN Nm)     Nn          zN          _     n<0  = ⊥-elim (¬x<0 Nn n<0)
+<-trans (sN Nm)     zN          (sN No)     Sm<0  _    = ⊥-elim (¬x<0 (sN Nm) Sm<0)
+<-trans (sN {m} Nm) (sN {n} Nn) (sN {o} No) Sm<Sn Sn<So =
+  prf (<-trans Nm Nn No m<n n<o)
 
   where
     postulate prf : LT m o → LT (succ m) (succ o)
@@ -152,7 +152,7 @@ x-y<Sx (sN {m} Nm) (sN {n} Nn) = prf (x-y<Sx Nm Nn)
   where
     postulate prf : LT (m - n) (succ m) →
                     LT (succ m - succ n) (succ (succ m))
-    {-# ATP prove prf trans-LT minus-N x<Sx sN #-}
+    {-# ATP prove prf <-trans minus-N x<Sx sN #-}
 
 x>y→x-y+y≡x : {m n : D} → N m → N n → GT m n → (m - n) + n ≡ m
 x>y→x-y+y≡x zN Nn 0>n = ⊥-elim (¬0>x Nn 0>n)
