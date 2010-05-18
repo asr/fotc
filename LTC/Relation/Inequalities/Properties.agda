@@ -111,6 +111,17 @@ x<y→Sx≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = SSm≤Sn (x<y→Sx≤y Nm Nn m<n)
                        LE (succ (succ m)) (succ n)
     {-# ATP prove SSm≤Sn #-}
 
+Sx≤y→x<y : {m n : D} → N m → N n → LE (succ m) n → LT m n
+Sx≤y→x<y Nm          zN          Sm≤0   = ⊥-elim (¬S≤0 Sm≤0)
+Sx≤y→x<y zN          (sN {n} Nn) _      = lt-0S n
+Sx≤y→x<y (sN {m} Nm) (sN {n} Nn) SSm≤Sn = prf (Sx≤y→x<y Nm Nn Sm≤n)
+  where
+    postulate Sm≤n : LE (succ m) n
+    {-# ATP prove Sm≤n #-}
+
+    postulate prf : LT m n → LT (succ m) (succ n)
+    {-# ATP prove prf #-}
+
 <-trans : {m n o : D} → N m → N n → N o → LT m n → LT n o → LT m o
 <-trans zN          zN           _          0<0   _    = ⊥-elim (¬x<0 zN 0<0)
 <-trans zN          (sN Nn)     zN          _     Sn<0 = ⊥-elim (¬x<0 (sN Nn) Sn<0)
