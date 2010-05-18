@@ -159,6 +159,10 @@ Sx≤y→x<y (sN {m} Nm) (sN {n} Nn) SSm≤Sn = prf (Sx≤y→x<y Nm Nn Sm≤n)
       postulate prf : LE m o → LE (succ m) (succ o)
       {-# ATP prove prf #-}
 
+postulate
+  Sx≤Sy→x≤y : {m n : D} → LE (succ m) (succ n) → LE m n
+{-# ATP prove Sx≤Sy→x≤y #-}
+
 x≤x+y : {m n : D} → N m → N n → LE m (m + n)
 x≤x+y         zN          Nn = x≥0 (+-N zN Nn)
 x≤x+y {n = n} (sN {m} Nm) Nn = prf (x≤x+y Nm Nn)

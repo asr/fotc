@@ -10,6 +10,3 @@ open import MyStdLib.Induction.WellFounded
 
 postulate
   wf-LT₂ : WellFounded₂ LT₂
-
-postulate
-  Sx≤Sy→x≤y : {m n : D} → N m → N n → LE (succ m) (succ n) → LE m n

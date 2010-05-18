@@ -101,6 +101,9 @@ Sx≤y→x<y (sN {m} Nm) (sN {n} Nn) SSm≤Sn =
                  (trans (sym (lt-SS n m)) Sm≤Sn)
                  (trans (sym (lt-SS o n)) Sn≤So))
 
+Sx≤Sy→x≤y : {m n : D} → LE (succ m) (succ n) → LE m n
+Sx≤Sy→x≤y {m} {n} Sm≤Sn = trans (sym (lt-SS n m)) Sm≤Sn
+
 x≤x+y : {m n : D} → N m → N n → LE m (m + n)
 x≤x+y         zN          Nn = x≥0 (+-N zN Nn)
 x≤x+y {n = n} (sN {m} Nm) Nn =
