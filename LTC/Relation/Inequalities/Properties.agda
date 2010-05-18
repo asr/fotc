@@ -78,6 +78,18 @@ x>y∨x≤y (sN {m} Nm) (sN {n} Nn) = prf $ x>y∨x≤y Nm Nn
   postulate prf : ¬ (LT m m) → ⊥
   {-# ATP prove prf #-}
 
+x<y→x≤y : {m n : D} → N m → N n → LT m n → LE m n
+x<y→x≤y Nm zN          m<0            = ⊥-elim (¬x<0 Nm m<0)
+x<y→x≤y zN (sN {n} Nn)          _     = lt-S0 n
+x<y→x≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = prf (x<y→x≤y Nm Nn m<n)
+  where
+    postulate m<n : LT m n
+    {-# ATP prove m<n #-}
+
+    postulate prf : LE m n →
+                    LE (succ m) (succ n)
+    {-# ATP prove prf #-}
+
 trans-LT : {m n o : D} → N m → N n → N o → LT m n → LT n o → LT m o
 trans-LT zN          zN           _          0<0   _    = ⊥-elim (¬x<0 zN 0<0)
 trans-LT zN          (sN Nn)     zN          _     Sn<0 = ⊥-elim (¬x<0 (sN Nn) Sn<0)

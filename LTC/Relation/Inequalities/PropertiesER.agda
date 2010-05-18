@@ -50,6 +50,16 @@ x>y∨x≤y (sN {m} Nm) (sN {n} Nn) =
 ¬x<x zN          0<0   = ⊥-elim (true≠false (trans (sym 0<0) lt-00))
 ¬x<x (sN {m} Nm) Sm<Sm = ⊥-elim (¬x<x Nm (trans (sym (lt-SS m m)) Sm<Sm))
 
+x<y→x≤y : {m n : D} → N m → N n → LT m n → LE m n
+x<y→x≤y Nm zN          m<0            = ⊥-elim (¬x<0 Nm m<0)
+x<y→x≤y zN (sN {n} Nn) _              = lt-S0 n
+x<y→x≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn =
+  begin
+    lt (succ n) (succ m) ≡⟨ lt-SS n m ⟩
+    lt n m ≡⟨ x<y→x≤y Nm Nn (trans (sym (lt-SS m n)) Sm<Sn) ⟩
+    false
+  ∎
+
 trans-LT : {m n o : D} → N m → N n → N o → LT m n → LT n o → LT m o
 trans-LT zN          zN           _          0<0   _    = ⊥-elim (¬x<0 zN 0<0)
 trans-LT zN          (sN Nn)     zN          _     Sn<0 = ⊥-elim (¬x<0 (sN Nn) Sn<0)
