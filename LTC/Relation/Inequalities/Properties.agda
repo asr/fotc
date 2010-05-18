@@ -102,14 +102,13 @@ x<y→Sx≤y zN (sN (sN {n} Nn)) _ = S0≤SSn
     {-# ATP prove S0≤SSn #-}
     -- trans (lt-SS (succ n) zero) (lt-S0 n)
 
-x<y→Sx≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = SSm≤Sn (x<y→Sx≤y Nm Nn m<n)
+x<y→Sx≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = prf (x<y→Sx≤y Nm Nn m<n)
   where
     postulate m<n : LT m n
     {-# ATP prove m<n #-}
 
-    postulate SSm≤Sn : LE (succ m) n →
-                       LE (succ (succ m)) (succ n)
-    {-# ATP prove SSm≤Sn #-}
+    postulate prf : LE (succ m) n → LE (succ (succ m)) (succ n)
+    {-# ATP prove prf #-}
 
 Sx≤y→x<y : {m n : D} → N m → N n → LE (succ m) n → LT m n
 Sx≤y→x<y Nm          zN          Sm≤0   = ⊥-elim (¬S≤0 Sm≤0)
