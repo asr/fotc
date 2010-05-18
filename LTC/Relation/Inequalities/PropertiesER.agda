@@ -91,6 +91,16 @@ Sx≤y→x<y (sN {m} Nm) (sN {n} Nn) SSm≤Sn =
     true
   ∎
 
+≤-trans : {m n o : D} → N m → N n → N o → LE m n → LE n o → LE m o
+≤-trans zN      Nn              No          _     _     = 0≤x No
+≤-trans (sN Nm) zN              No          Sm≤0  _     = ⊥-elim (¬S≤0 Sm≤0)
+≤-trans (sN Nm) (sN Nn)         zN          _     Sn≤0  = ⊥-elim (¬S≤0 Sn≤0)
+≤-trans (sN {m} Nm) (sN {n} Nn) (sN {o} No) Sm≤Sn Sn≤So =
+  trans (lt-SS o m)
+        (≤-trans Nm Nn No
+                 (trans (sym (lt-SS n m)) Sm≤Sn)
+                 (trans (sym (lt-SS o n)) Sn≤So))
+
 x≤x+y : {m n : D} → N m → N n → LE m (m + n)
 x≤x+y         zN          Nn = x≥0 (+-N zN Nn)
 x≤x+y {n = n} (sN {m} Nm) Nn =

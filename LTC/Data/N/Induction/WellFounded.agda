@@ -10,7 +10,7 @@ open import LTC.Data.N
 open import LTC.Relation.Inequalities
 open import LTC.Relation.Inequalities.Properties
 
-open import Postulates using ( Sx≤Sy→x≤y ; ≤-trans )
+open import Postulates using ( Sx≤Sy→x≤y )
 
 ------------------------------------------------------------------------------
 -- General setting.
