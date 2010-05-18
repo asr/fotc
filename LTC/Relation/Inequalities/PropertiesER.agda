@@ -60,6 +60,13 @@ x<y→x≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn =
     false
   ∎
 
+x<y→Sx≤y : {m n : D} → N m → N n → LT m n → LE (succ m) n
+x<y→Sx≤y Nm zN               m<0       = ⊥-elim (¬x<0 Nm m<0)
+x<y→Sx≤y zN (sN zN)          _         = trans (lt-SS zero zero) lt-00
+x<y→Sx≤y zN (sN (sN {n} Nn)) _         = trans (lt-SS (succ n) zero) (lt-S0 n)
+x<y→Sx≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn =
+  trans (lt-SS n (succ m)) (x<y→Sx≤y Nm Nn (trans (sym (lt-SS m n)) Sm<Sn))
+
 trans-LT : {m n o : D} → N m → N n → N o → LT m n → LT n o → LT m o
 trans-LT zN          zN           _          0<0   _    = ⊥-elim (¬x<0 zN 0<0)
 trans-LT zN          (sN Nn)     zN          _     Sn<0 = ⊥-elim (¬x<0 (sN Nn) Sn<0)
