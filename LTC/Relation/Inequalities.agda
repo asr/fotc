@@ -24,17 +24,13 @@ postulate
 {-# ATP axiom lt-S0 #-}
 {-# ATP axiom lt-SS #-}
 
-gt : D → D → D
-gt d e = lt e d
-{-# ATP definition gt #-}
-
 ------------------------------------------------------------------------
 -- The data types
 
 -- infix 4 _≤_ _<_ _≥_ _>_
 
 GT : D → D → Set
-GT d e = gt d e ≡ true
+GT d e = lt e d ≡ true
 {-# ATP definition GT #-}
 
 LT : D → D  → Set
@@ -42,7 +38,7 @@ LT d e = lt d e ≡ true
 {-# ATP definition LT #-}
 
 LE : D → D → Set
-LE d e = gt d e ≡ false
+LE d e = lt e d ≡ false
 {-# ATP definition LE #-}
 
 GE : D → D → Set
@@ -54,3 +50,4 @@ GE d e = lt d e ≡ false
 LT₂ : D → D → D → D → Set
 LT₂ x₁ y₁ x₂ y₂ = LT x₁ x₂ ∨ x₁ ≡ x₂ ∧ LT y₁ y₂
 {-# ATP definition LT₂ #-}
+
