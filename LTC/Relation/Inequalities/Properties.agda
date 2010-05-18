@@ -98,39 +98,37 @@ trans-LT (sN {m} Nm) (sN {n} Nn) (sN {o} No) Sm<Sn Sn<So =
   prf (trans-LT Nm Nn No m<n n<o)
 
   where
-    postulate prf : lt m o ≡ true →
-                    lt (succ m) (succ o) ≡ true
+    postulate prf : LT m o → LT (succ m) (succ o)
     {-# ATP prove prf #-}
 
-    postulate m<n : lt m n ≡ true
+    postulate m<n : LT m n
     {-# ATP prove m<n #-}
 
-    postulate n<o : lt n o ≡ true
+    postulate n<o : LT n o
     {-# ATP prove n<o #-}
 
 x≤x+y : {m n : D} → N m → N n → LE m (m + n)
 x≤x+y         zN          Nn = x≥0 (+-N zN Nn)
 x≤x+y {n = n} (sN {m} Nm) Nn = prf (x≤x+y Nm Nn)
   where
-    postulate prf : lt (m + n) m ≡ false →
-                    lt (succ m + n) (succ m) ≡ false
+    postulate prf : LE m (m + n) → LE (succ m) (succ m + n)
     {-# ATP prove prf #-}
 
 x-y<Sx : {m n : D} → N m → N n → LT (m - n) (succ m)
 x-y<Sx {m} Nm zN = prf
   where
-    postulate prf : lt (m - zero) (succ m) ≡ true
+    postulate prf : LT (m - zero) (succ m)
     {-# ATP prove prf x<Sx #-}
 
 x-y<Sx zN (sN {n} Nn) = prf
   where
-    postulate prf : lt (zero - succ n) (succ zero) ≡ true
+    postulate prf : LT (zero - succ n) (succ zero)
     {-# ATP prove prf #-}
 
 x-y<Sx (sN {m} Nm) (sN {n} Nn) = prf (x-y<Sx Nm Nn)
   where
-    postulate prf : lt (m - n) (succ m) ≡ true →
-                    lt (succ m - succ n) (succ (succ m)) ≡ true
+    postulate prf : LT (m - n) (succ m) →
+                    LT (succ m - succ n) (succ (succ m))
     {-# ATP prove prf trans-LT minus-N x<Sx sN #-}
 
 x>y→x-y+y≡x : {m n : D} → N m → N n → GT m n → (m - n) + n ≡ m
@@ -180,4 +178,3 @@ x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn = prf (x≤y→y-x+x≡y Nm Nn
   where
     postulate prf : LT₂ (succ m) (succ n - succ m) (succ m) (succ n)
     {-# ATP prove prf sN x-y<Sx #-}
-
