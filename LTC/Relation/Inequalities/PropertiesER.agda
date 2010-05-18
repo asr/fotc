@@ -24,6 +24,9 @@ x≥0 : {n : D} → N n → GE n zero
 x≥0 zN          = lt-00
 x≥0 (sN {n} Nn) = lt-S0 n
 
+0≤x : {n : D} → N n → LE zero n
+0≤x Nn = x≥0 Nn
+
 ¬x<0 : {n : D} → N n → ¬ (LT n zero)
 ¬x<0 zN 0<0           = true≠false (trans (sym 0<0) (lt-00))
 ¬x<0 (sN {n} Nn) Sn<0 = true≠false (trans (sym Sn<0) (lt-S0 n))

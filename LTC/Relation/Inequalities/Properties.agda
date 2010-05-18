@@ -26,6 +26,9 @@ x≥0 zN          = lt-00
 x≥0 (sN {n} Nn) = lt-S0 n
 -- {-# ATP hint x≥0 #-}
 
+0≤x : {n : D} → N n → LE zero n
+0≤x Nn = x≥0 Nn
+
 ¬x<0 : {n : D} → N n → ¬ (LT n zero)
 ¬x<0 zN 0<0 = ⊥-elim prf
   where
