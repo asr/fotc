@@ -225,6 +225,10 @@ postulate
   ¬Sxy₁<0y₂ : {m n₁ n₂ : D} → N m → N n₁ → N n₂ → ¬ (LT₂ (succ m) n₁ zero n₂)
 {-# ATP prove ¬Sxy₁<0y₂ ¬x<0 sN #-}
 
+postulate
+  ¬0Sx<00 : {m : D} → N m → ¬ (LT₂ zero (succ m) zero zero)
+{-# ATP prove ¬0Sx<00 ¬x<0 sN #-}
+
 [Sx-Sy,Sy]<[Sx,Sy] :
   {m n : D} → N m → N n →
   LT₂ (succ m - succ n) (succ n) (succ m) (succ n)
