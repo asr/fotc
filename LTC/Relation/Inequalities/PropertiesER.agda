@@ -53,6 +53,14 @@ x>y∨x≤y (sN {m} Nm) (sN {n} Nn) =
 ¬x<x zN          0<0   = ⊥-elim (true≠false (trans (sym 0<0) lt-00))
 ¬x<x (sN {m} Nm) Sm<Sm = ⊥-elim (¬x<x Nm (trans (sym (lt-SS m m)) Sm<Sm))
 
+x≤x : {m : D} → N m → LE m m
+x≤x zN          = lt-00
+x≤x (sN {m} Nm) = trans (lt-SS m m) (x≤x Nm)
+
+-- TODO: Why not a dot pattern?
+x≡y→x≤y : {m n : D} → N m → N n → m ≡ n → LE m n
+x≡y→x≤y Nm Nn refl = x≤x Nm
+
 x<y→x≤y : {m n : D} → N m → N n → LT m n → LE m n
 x<y→x≤y Nm zN          m<0            = ⊥-elim (¬x<0 Nm m<0)
 x<y→x≤y zN (sN {n} Nn) _              = lt-S0 n

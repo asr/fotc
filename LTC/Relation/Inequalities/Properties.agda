@@ -74,6 +74,17 @@ x>y∨x≤y (sN {m} Nm) (sN {n} Nn) = prf $ x>y∨x≤y Nm Nn
     postulate prf : ¬ (LT m m) → ⊥
     {-# ATP prove prf #-}
 
+x≤x : {m : D} → N m → LE m m
+x≤x zN          = lt-00
+x≤x (sN {m} Nm) = prf (x≤x Nm)
+  where
+    postulate prf : LE m m → LE (succ m) (succ m)
+    {-# ATP prove prf #-}
+
+-- TODO: Why not a dot pattern?
+x≡y→x≤y : {m n : D} → N m → N n → m ≡ n → LE m n
+x≡y→x≤y Nm Nn refl = x≤x Nm
+
 x<y→x≤y : {m n : D} → N m → N n → LT m n → LE m n
 x<y→x≤y Nm zN          m<0            = ⊥-elim (¬x<0 Nm m<0)
 x<y→x≤y zN (sN {n} Nn)          _     = lt-S0 n
