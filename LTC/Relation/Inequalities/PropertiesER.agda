@@ -224,21 +224,21 @@ x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
 
 ¬xy<00 : {m n : D} → N m → N n → ¬ (LT₂ m n zero zero)
 ¬xy<00 Nm Nn mn<00 =
-  [ (λ m<0 → ⊥-elim (¬x<0 Nm m<0))
+  [ (λ m<0     → ⊥-elim (¬x<0 Nm m<0))
   , (λ m≡0∧n<0 → ⊥-elim (¬x<0 Nn (∧-proj₂ m≡0∧n<0)))
   ]
   mn<00
 
 ¬0Sx<00 : {m : D} → N m → ¬ (LT₂ zero (succ m) zero zero)
 ¬0Sx<00 Nm 0Sm<00 =
-  [ (λ 0<0 → ⊥-elim (¬x<0 zN 0<0))
+  [ (λ 0<0      → ⊥-elim (¬x<0 zN 0<0))
   , (λ 0≡0∧Sm<0 → ⊥-elim (¬x<0 (sN Nm) (∧-proj₂ 0≡0∧Sm<0)))
   ]
   0Sm<00
 
 ¬Sxy₁<0y₂ : {m n₁ n₂ : D} → N m → N n₁ → N n₂ → ¬ (LT₂ (succ m) n₁ zero n₂)
 ¬Sxy₁<0y₂ Nm Nn₁ Nn₂ Smn₁<0n₂ =
-  [ (λ Sm<0 → ⊥-elim (¬x<0 (sN Nm) Sm<0))
+  [ (λ Sm<0       → ⊥-elim (¬x<0 (sN Nm) Sm<0))
   , (λ Sm≡0∧n₁<n₂ → ⊥-elim (0≠S (sym (∧-proj₁ Sm≡0∧n₁<n₂))))
   ]
   Smn₁<0n₂
