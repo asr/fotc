@@ -214,6 +214,17 @@ x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn = prf (x≤y→y-x+x≡y Nm Nn
                     (succ n - succ m) + succ m ≡ succ n
     {-# ATP prove prf +-comm minus-N sN #-}
 
+x<y→x<Sy : {m n : D} → N m → N n → LT m n → LT m (succ n)
+x<y→x<Sy Nm          zN          m<0   = ⊥-elim (¬x<0 Nm m<0)
+x<y→x<Sy zN          (sN {n} Nn) 0<Sn  = lt-0S (succ n)
+x<y→x<Sy (sN {m} Nm) (sN {n} Nn) Sm<Sn = prf (x<y→x<Sy Nm Nn m<n)
+  where
+    postulate m<n : LT m n
+    {-# ATP prove m<n #-}
+
+    postulate prf : LT m (succ n) → LT (succ m) (succ (succ n))
+    {-# ATP prove prf #-}
+
 ------------------------------------------------------------------------------
 -- Properties about LT₂
 

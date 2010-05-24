@@ -219,6 +219,12 @@ x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
     succ n
   ∎
 
+x<y→x<Sy : {m n : D} → N m → N n → LT m n → LT m (succ n)
+x<y→x<Sy Nm          zN          m<0   = ⊥-elim (¬x<0 Nm m<0)
+x<y→x<Sy zN          (sN {n} Nn) 0<Sn  = lt-0S (succ n)
+x<y→x<Sy (sN {m} Nm) (sN {n} Nn) Sm<Sn =
+  trans (lt-SS m (succ n)) (x<y→x<Sy Nm Nn (trans (sym (lt-SS m n)) Sm<Sn))
+
 ------------------------------------------------------------------------------
 -- Properties about LT₂
 
