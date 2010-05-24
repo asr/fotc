@@ -229,6 +229,13 @@ x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
   ]
   mn<00
 
+¬Sxy₁<0y₂ : {m n₁ n₂ : D} → N m → N n₁ → N n₂ → ¬ (LT₂ (succ m) n₁ zero n₂)
+¬Sxy₁<0y₂ Nm Nn₁ Nn₂ Smn₁<0n₂ =
+  [ (λ Sm<0 → ⊥-elim (¬x<0 (sN Nm) Sm<0))
+  , (λ Sm≡0∧n₁<n₂ → ⊥-elim (0≠S (sym (∧-proj₁ Sm≡0∧n₁<n₂))))
+  ]
+  Smn₁<0n₂
+
 [Sx-Sy,Sy]<[Sx,Sy] :
   {m n : D} → N m → N n →
   LT₂ (succ m - succ n) (succ n) (succ m) (succ n)
