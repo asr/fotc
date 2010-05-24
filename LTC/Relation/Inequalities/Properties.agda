@@ -98,7 +98,6 @@ x<y→Sx≤y zN (sN (sN {n} Nn)) _ = S0≤SSn
   where
     postulate S0≤SSn : LE (succ zero) (succ (succ n))
     {-# ATP prove S0≤SSn #-}
-    -- trans (lt-SS (succ n) zero) (lt-S0 n)
 
 x<y→Sx≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = prf (x<y→Sx≤y Nm Nn m<n)
   where
