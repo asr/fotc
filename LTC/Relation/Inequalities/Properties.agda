@@ -39,18 +39,13 @@ x≥0 (sN {n} Nn) = lt-S0 n
     postulate prf : ⊥
     {-# ATP prove prf #-}
 
-¬0>x : {n : D} → N n → ¬ (GT zero n)
-¬0>x Nn 0>n = ⊥-elim prf
-  where
-    postulate prf : ⊥
-    {-# ATP prove prf x≥0 #-}
+postulate
+  ¬0>x : {n : D} → N n → ¬ (GT zero n)
+{-# ATP prove ¬0>x x≥0 #-}
 
-¬S≤0 : {d : D} → ¬ (LE (succ d) zero)
-¬S≤0 Sd≤0 = ⊥-elim prf
-  where
-    -- The proof uses the axiom true≠false
-    postulate prf : ⊥
-    {-# ATP prove prf #-}
+postulate
+  ¬S≤0 : {d : D} → ¬ (LE (succ d) zero)
+{-# ATP prove ¬S≤0 #-}
 
 x<Sx : {n : D} → N n → LT n (succ n)
 x<Sx zN          = lt-0S zero
