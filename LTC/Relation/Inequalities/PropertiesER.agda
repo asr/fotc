@@ -219,6 +219,16 @@ x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
     succ n
   ∎
 
+------------------------------------------------------------------------------
+-- Properties about LT₂
+
+¬xy<00 : {m n : D} → N m → N n → ¬ (LT₂ m n zero zero)
+¬xy<00 Nm Nn mn<00 =
+  [ (λ m<0 → ⊥-elim (¬x<0 Nm m<0))
+  , (λ m≡0∧n<0 → ⊥-elim (¬x<0 Nn (∧-proj₂ m≡0∧n<0)))
+  ]
+  mn<00
+
 [Sx-Sy,Sy]<[Sx,Sy] :
   {m n : D} → N m → N n →
   LT₂ (succ m - succ n) (succ n) (succ m) (succ n)

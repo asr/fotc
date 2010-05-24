@@ -220,6 +220,13 @@ x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn = prf (x≤y→y-x+x≡y Nm Nn
                     (succ n - succ m) + succ m ≡ succ n
     {-# ATP prove prf +-comm minus-N sN #-}
 
+------------------------------------------------------------------------------
+-- Properties about LT₂
+
+postulate
+  ¬xy<00 : {m n : D} → N m → N n → ¬ (LT₂ m n zero zero)
+{-# ATP prove ¬xy<00 ¬x<0 #-}
+
 [Sx-Sy,Sy]<[Sx,Sy] :
   {m n : D} → N m → N n →
   LT₂ (succ m - succ n) (succ n) (succ m) (succ n)
