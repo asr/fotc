@@ -10,6 +10,7 @@ open import LTC.MinimalER
 open import LTC.Function.Arithmetic
 open import LTC.Function.Arithmetic.Properties using ( +-comm )
 open import LTC.Function.Arithmetic.PropertiesER
+open import LTC.Relation.Equalities.PropertiesER
 open import LTC.Relation.Inequalities
 open import LTC.Data.N
 
@@ -232,6 +233,21 @@ x<y→x<Sy Nm          zN          m<0   = ⊥-elim (¬x<0 Nm m<0)
 x<y→x<Sy zN          (sN {n} Nn) 0<Sn  = lt-0S (succ n)
 x<y→x<Sy (sN {m} Nm) (sN {n} Nn) Sm<Sn =
   trans (lt-SS m (succ n)) (x<y→x<Sy Nm Nn (trans (sym (lt-SS m n)) Sm<Sn))
+
+x<Sy→x<y∨x≡y : {m n : D} → N m → N n → LT m (succ n) → LT m n ∨ m ≡ n
+x<Sy→x<y∨x≡y zN zN 0<S0 = inj₂ refl
+x<Sy→x<y∨x≡y zN (sN {n} Nn) 0<SSn = inj₁ (lt-0S n)
+x<Sy→x<y∨x≡y (sN {m} Nm) zN Sm<S0 =
+  ⊥-elim (¬x<0 Nm (trans (sym (lt-SS m zero)) Sm<S0))
+x<Sy→x<y∨x≡y (sN {m} Nm) (sN {n} Nn) Sm<SSn =
+  [ (λ m<n → inj₁ (trans (lt-SS m n) m<n))
+  , (λ m≡n → inj₂ (x≡y→Sx≡Sy m≡n))
+  ]
+  m<n∨m≡n
+
+  where
+    m<n∨m≡n : LT m n ∨ m ≡ n
+    m<n∨m≡n = x<Sy→x<y∨x≡y Nm Nn (trans (sym (lt-SS m (succ n))) Sm<SSn)
 
 ------------------------------------------------------------------------------
 -- Properties about LT₂
