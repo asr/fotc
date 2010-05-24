@@ -250,6 +250,14 @@ x₁y<x₂0→x₁<x₂ Nm₁ Nn Nm₂ m₁n<m₂zero =
   ]
   m₁n<m₂zero
 
+xy₁<0y₂→x≡0∧y₁<y₂ : {m n₁ n₂ : D} → N m → N n₁ → N n₂ → LT₂ m n₁ zero n₂ →
+                    m ≡ zero ∧ LT n₁ n₂
+xy₁<0y₂→x≡0∧y₁<y₂ Nm Nn₁ Nn₂ mn₁<0n₂ =
+  [ (λ m<0          → ⊥-elim (¬x<0 Nm m<0))
+  , (λ m≡zero∧n₁<n₂ → m≡zero∧n₁<n₂)
+  ]
+  mn₁<0n₂
+
 [Sx-Sy,Sy]<[Sx,Sy] :
   {m n : D} → N m → N n →
   LT₂ (succ m - succ n) (succ n) (succ m) (succ n)

@@ -233,6 +233,11 @@ postulate
   x₁y<x₂0→x₁<x₂ : {m₁ n m₂ : D} → N m₁ → N n → N m₂ → LT₂ m₁ n m₂ zero → LT m₁ m₂
 {-# ATP prove x₁y<x₂0→x₁<x₂ ¬x<0 #-}
 
+postulate
+  xy₁<0y₂→x≡0∧y₁<y₂ : {m n₁ n₂ : D} → N m → N n₁ → N n₂ → LT₂ m n₁ zero n₂ →
+                      m ≡ zero ∧ LT n₁ n₂
+{-# ATP prove xy₁<0y₂→x≡0∧y₁<y₂ ¬x<0 #-}
+
 [Sx-Sy,Sy]<[Sx,Sy] :
   {m n : D} → N m → N n →
   LT₂ (succ m - succ n) (succ n) (succ m) (succ n)
