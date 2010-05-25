@@ -236,6 +236,14 @@ x<y→x<Sy (sN {m} Nm) (sN {n} Nn) Sm<Sn = prf (x<y→x<Sy Nm Nn m<n)
     postulate prf : LT m (succ n) → LT (succ m) (succ (succ n))
     {-# ATP prove prf #-}
 
+postulate
+  x<y→y≡z→x<z : {m n o : D} → N m → N n → N o → LT m n → n ≡ o → LT m o
+{-# ATP prove x<y→y≡z→x<z #-}
+
+postulate
+  x≡y→y<z→x<z : {m n o : D} → N m → N n → N o → m ≡ n → LT n o → LT m o
+{-# ATP prove x≡y→y<z→x<z #-}
+
 ------------------------------------------------------------------------------
 -- Properties about LT₂
 

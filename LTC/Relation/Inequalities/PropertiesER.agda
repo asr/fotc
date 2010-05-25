@@ -249,6 +249,28 @@ x<Sy→x<y∨x≡y (sN {m} Nm) (sN {n} Nn) Sm<SSn =
     m<n∨m≡n : LT m n ∨ m ≡ n
     m<n∨m≡n = x<Sy→x<y∨x≡y Nm Nn (trans (sym (lt-SS m (succ n))) Sm<SSn)
 
+x<y→y≡z→x<z : {m n o : D} → N m → N n → N o → LT m n → n ≡ o → LT m o
+x<y→y≡z→x<z {m} {n} {o} Nm Nn No m<n n≡o =
+  begin
+    lt m o ≡⟨ subst (λ t → lt m o ≡ lt m t)
+                    (sym n≡o)
+                    refl
+           ⟩
+    lt m n ≡⟨ m<n ⟩
+    true
+  ∎
+
+x≡y→y<z→x<z : {m n o : D} → N m → N n → N o → m ≡ n → LT n o → LT m o
+x≡y→y<z→x<z {m} {n} {o} Nm Nn No m≡n n<o =
+  begin
+    lt m o ≡⟨ subst (λ t → lt m o ≡ lt t o)
+                    m≡n
+                    refl
+           ⟩
+    lt n o ≡⟨ n<o ⟩
+    true
+  ∎
+
 ------------------------------------------------------------------------------
 -- Properties about LT₂
 
