@@ -11,6 +11,7 @@ open import LTC.Data.N
 open import LTC.Function.Arithmetic
 open import LTC.Function.Arithmetic.Properties
   using ( +-assoc ; x*1+y≡x+xy )
+open import LTC.Relation.Equalities.PropertiesER
 
 open import MyStdLib.Function
 import MyStdLib.Relation.Binary.EqReasoning
