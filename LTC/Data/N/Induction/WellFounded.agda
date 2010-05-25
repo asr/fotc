@@ -11,52 +11,24 @@ open import LTC.Relation.Inequalities
 open import LTC.Relation.Inequalities.Properties
 
 ------------------------------------------------------------------------------
--- General setting.
--- Adapted from http://www.iis.sinica.edu.tw/~scm/2008/well-founded-recursion-and-accessibility/.
-
-data AccN (R : D → D → Set) : {x : D} → N x → Set where
-  accN : {x : D} → (Nx : N x) → ({y : D} → (Ny : N y) → R y x → AccN R Ny) →
-         AccN R Nx
-
-WellFoundedN : (D → D → Set) → Set
-WellFoundedN R = {x : D} → (Nx : N x) → AccN R Nx
-
-accFoldN : (R : D → D → Set){P : D → Set} →
-           ({x : D} → N x → ({y : D} → N y → R y x → P y) → P x) →
-           {x : D} → (Nx : N x) → AccN R Nx → P x
-accFoldN R f Nx (accN .Nx h) = f Nx (λ Ny y<x → accFoldN R f Ny (h Ny y<x))
-
-wfIndN : {R : D → D → Set} {P : D → Set} →
-         WellFoundedN R →
-         ({x : D} → N x → ({y : D} → N y → R y x → P y) → P x) →
-         {x : D} → N x → P x
-wfIndN {R = R} wf f Nx = accFoldN R f Nx (wf Nx)
-
-------------------------------------------------------------------------------
--- LT is well-founded
-
--- Adapted from http://www.iis.sinica.edu.tw/~scm/2008/well-founded-recursion-and-accessibility/ and http://code.haskell.org/~dolio/agda-share/induction/.
-
-access : {m : D} → N m → {n : D} → (Nn : N n) → LT n m → AccN LT Nn
-access zN      Nn      n<0   = ⊥-elim (¬x<0 Nn n<0)
-access (sN Nm) zN      0<Sm  = accN zN (λ Nn' n'<0 → ⊥-elim (¬x<0 Nn' n'<0))
-access (sN {m} Nm) (sN {n} Nn) Sn<Sm =
-  accN (sN Nn) (λ Nn' n'<Sn →
-    access Nm Nn' (Sx≤y→x<y Nn' Nm
-                            (≤-trans (sN Nn') (sN Nn) Nm
-                                     (x<y→Sx≤y Nn' (sN Nn) n'<Sn)
-                                     (Sx≤Sy→x≤y {succ n} {m} (x<y→Sx≤y (sN Nn)
-                                                                       (sN Nm)
-                                                                       Sn<Sm)))))
-
-wf-LT : WellFoundedN LT
-wf-LT Nx = accN Nx (access Nx)
-
-------------------------------------------------------------------------------
 -- Well-founded induction on N
+-- Adapted from http://code.haskell.org/~dolio/agda-share/induction/.
 
 wfIndN-LT :
    (P : D → Set) →
    ({m : D} → N m → ({n : D} → N n → LT n m → P n ) → P m ) →
    {n : D} → N n → P n
-wfIndN-LT P accH Nn = wfIndN {LT} {λ x → P x} wf-LT accH Nn
+wfIndN-LT P accH Nn = accH Nn (wfAux Nn)
+  where
+    wfAux : {m : D} → N m → {n : D} → N n → LT n m → P n
+    wfAux zN      Nn      n<0   = ⊥-elim (¬x<0 Nn n<0)
+    wfAux (sN Nm) zN      0<Sm  = accH zN (λ Nn' n'<0 → ⊥-elim (¬x<0 Nn' n'<0))
+    wfAux (sN {m} Nm) (sN {n} Nn) Sn<Sm =
+      accH (sN Nn) (λ Nn' n'<Sn →
+        wfAux Nm Nn' (Sx≤y→x<y Nn' Nm
+                            (≤-trans (sN Nn') (sN Nn) Nm
+                                     (x<y→Sx≤y Nn' (sN Nn) n'<Sn)
+                                     (Sx≤Sy→x≤y {succ n} {m}
+                                                (x<y→Sx≤y (sN Nn)
+                                                          (sN Nm)
+                                                          Sn<Sm)))))
