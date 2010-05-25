@@ -119,16 +119,16 @@ gcd-x>y-Divisible :
 gcd-x>y-Divisible zN zN _ _ ¬0≡0∧0≡0 _ _  = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
 gcd-x>y-Divisible zN (sN Nn) _ 0>Sn _ _ _ = ⊥-elim (¬0>x (sN Nn) 0>Sn)
 gcd-x>y-Divisible (sN Nm) zN _ _ _  c Nc  = gcd-S0-Divisible Nm c Nc
-gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) allAcc Sm>Sn _ c Nc =
+gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ c Nc =
   gcd-S>S-Divisible Nm Nn ih Sm>Sn c Nc
   where -- Inductive hypothesis.
     ih : Divisible (succ m - succ n) (succ n) (gcd (succ m - succ n) (succ n))
-    ih = allAcc {succ m - succ n}
-                {succ n}
-                (minus-N (sN Nm) (sN Nn))
-                (sN Nn)
-                ([Sx-Sy,Sy]<[Sx,Sy] Nm Nn)
-                (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p )
+    ih = accH {succ m - succ n}
+              {succ n}
+              (minus-N (sN Nm) (sN Nn))
+              (sN Nn)
+              ([Sx-Sy,Sy]<[Sx,Sy] Nm Nn)
+              (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p )
 
 ---------------------------------------------------------------------------
 -- The 'gcd m n' when 'm ≤ n' is Divisible.
@@ -146,16 +146,16 @@ gcd-x≤y-Divisible :
 gcd-x≤y-Divisible zN zN _ _ ¬0≡0∧0≡0 _ _   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
 gcd-x≤y-Divisible zN (sN Nn) _ _  _  c Nc  = gcd-0S-Divisible Nn c Nc
 gcd-x≤y-Divisible (sN Nm) zN _ Sm≤0 _ _ _  = ⊥-elim $ ¬S≤0 Sm≤0
-gcd-x≤y-Divisible (sN {m} Nm) (sN {n} Nn) allAcc Sm≤Sn _ c Nc =
+gcd-x≤y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ c Nc =
   gcd-S≤S-Divisible Nm Nn ih Sm≤Sn c Nc
   where -- Inductive hypothesis.
     ih : Divisible (succ m) (succ n - succ m) (gcd (succ m) (succ n - succ m))
-    ih = allAcc {succ m}
-                {succ n - succ m}
-                (sN Nm)
-                (minus-N (sN Nn) (sN Nm ))
-                ([Sx,Sy-Sx]<[Sx,Sy] Nm Nn)
-                (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p )
+    ih = accH {succ m}
+              {succ n - succ m}
+              (sN Nm)
+              (minus-N (sN Nn) (sN Nm ))
+              ([Sx,Sy-Sx]<[Sx,Sy] Nm Nn)
+              (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p )
 
 ---------------------------------------------------------------------------
 -- The gcd is Divisible.
@@ -170,7 +170,7 @@ gcd-Divisible = wfIndN-LT₂ P istep
       {i j : D} → N i → N j →
       ({k l : D} → N k → N l → LT₂ k l i j → P k l) →
       P i j
-    istep Ni Nj allAcc =
-      [ gcd-x>y-Divisible Ni Nj allAcc
-      , gcd-x≤y-Divisible Ni Nj allAcc
+    istep Ni Nj accH =
+      [ gcd-x>y-Divisible Ni Nj accH
+      , gcd-x≤y-Divisible Ni Nj accH
       ] (x>y∨x≤y Ni Nj)

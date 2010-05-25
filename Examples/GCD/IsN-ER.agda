@@ -68,17 +68,17 @@ gcd-x>y-N :
 gcd-x>y-N zN zN _ _ ¬0≡0∧0≡0   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
 gcd-x>y-N zN (sN Nn) _ 0>Sn _  = ⊥-elim (¬0>x (sN Nn) 0>Sn)
 gcd-x>y-N (sN Nm) zN  _  _ _   = gcd-S0-N Nm
-gcd-x>y-N (sN {m} Nm) (sN {n} Nn) allAcc Sm>Sn _ =
+gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
   gcd-S>S-N Nm Nn ih Sm>Sn
   where
     -- Inductive hypothesis
     ih : N (gcd (succ m - succ n) (succ n))
-    ih = allAcc {succ m - succ n}
-                {succ n}
-                (minus-N (sN Nm) (sN Nn))
-                (sN Nn)
-                ([Sx-Sy,Sy]<[Sx,Sy] Nm Nn)
-                (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
+    ih = accH {succ m - succ n}
+              {succ n}
+              (minus-N (sN Nm) (sN Nn))
+              (sN Nn)
+              ([Sx-Sy,Sy]<[Sx,Sy] Nm Nn)
+              (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
 
 ---------------------------------------------------------------------------
 -- The 'gcd m n' when 'm ≤ n' is N.
@@ -95,17 +95,17 @@ gcd-x≤y-N :
 gcd-x≤y-N zN zN _ _  ¬0≡0∧0≡0 = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
 gcd-x≤y-N zN (sN Nn) _ _ _      = gcd-0S-N Nn
 gcd-x≤y-N (sN _) zN _ Sm≤0  _  = ⊥-elim $ ¬S≤0 Sm≤0
-gcd-x≤y-N (sN {m} Nm) (sN {n} Nn) allAcc Sm≤Sn _ =
+gcd-x≤y-N (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
   gcd-S≤S-N Nm Nn ih Sm≤Sn
   where
     -- Inductive hypothesis
     ih : N (gcd (succ m) (succ n - succ m))
-    ih = allAcc {succ m}
-                {succ n - succ m}
-                (sN Nm)
-                (minus-N (sN Nn) (sN Nm))
-                ([Sx,Sy-Sx]<[Sx,Sy] Nm Nn)
-                (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
+    ih = accH {succ m}
+              {succ n - succ m}
+              (sN Nm)
+              (minus-N (sN Nn) (sN Nm))
+              ([Sx,Sy-Sx]<[Sx,Sy] Nm Nn)
+              (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 
 ---------------------------------------------------------------------------
 -- The 'gcd' is N.
@@ -120,7 +120,7 @@ gcd-N = wfIndN-LT₂ P istep
       {i j : D} → N i → N j →
       ({k l : D} → N k → N l → LT₂ k l i j → P k l) →
       P i j
-    istep Ni Nj allAcc =
-      [ gcd-x>y-N Ni Nj allAcc
-      , gcd-x≤y-N Ni Nj allAcc
+    istep Ni Nj accH =
+      [ gcd-x>y-N Ni Nj accH
+      , gcd-x≤y-N Ni Nj accH
       ] (x>y∨x≤y Ni Nj)
