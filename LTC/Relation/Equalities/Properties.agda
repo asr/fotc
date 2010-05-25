@@ -14,6 +14,7 @@ postulate
 
 postulate
   trans : {x y z : D} → x ≡ y → y ≡ z → x ≡ z
+{-# ATP prove trans #-}
 
 postulate
   ¬S≡0 : {d : D} → ¬ (succ d ≡ zero)
