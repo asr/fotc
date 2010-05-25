@@ -9,6 +9,7 @@ open import LTC.Minimal
 open import LTC.Data.N
 open import LTC.Function.Arithmetic
 open import LTC.Function.Arithmetic.Properties
+open import LTC.Relation.Equalities.Properties
 open import LTC.Relation.Inequalities
 
 open import MyStdLib.Data.Sum
@@ -235,6 +236,21 @@ x<y→x<Sy (sN {m} Nm) (sN {n} Nn) Sm<Sn = prf (x<y→x<Sy Nm Nn m<n)
 
     postulate prf : LT m (succ n) → LT (succ m) (succ (succ n))
     {-# ATP prove prf #-}
+
+x<Sy→x<y∨x≡y : {m n : D} → N m → N n → LT m (succ n) → LT m n ∨ m ≡ n
+x<Sy→x<y∨x≡y zN zN 0<S0 = inj₂ refl
+x<Sy→x<y∨x≡y zN (sN {n} Nn) 0<SSn = inj₁ (lt-0S n)
+x<Sy→x<y∨x≡y (sN {m} Nm) zN Sm<S0 =
+  ⊥-elim (¬x<0 Nm (trans (sym (lt-SS m zero)) Sm<S0))
+x<Sy→x<y∨x≡y (sN {m} Nm) (sN {n} Nn) Sm<SSn =
+  [ (λ m<n → inj₁ (trans (lt-SS m n) m<n))
+  , (λ m≡n → inj₂ (x≡y→Sx≡Sy m≡n))
+  ]
+  m<n∨m≡n
+
+  where
+    m<n∨m≡n : LT m n ∨ m ≡ n
+    m<n∨m≡n = x<Sy→x<y∨x≡y Nm Nn (trans (sym (lt-SS m (succ n))) Sm<SSn)
 
 postulate
   x<y→y≡z→x<z : {m n o : D} → N m → N n → N o → LT m n → n ≡ o → LT m o
