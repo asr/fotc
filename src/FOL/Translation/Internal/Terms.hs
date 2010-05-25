@@ -373,7 +373,7 @@ termToTermFOL term@(Var n args) = do
          -- variable/function to a term.
 
          ((Arg _ (Var m _)) : [])  ->
-             return $ app [(VarFOL (vars !! fromIntegral n))
+             return $ app [ (VarFOL (vars !! fromIntegral n))
                           , (VarFOL (vars !! fromIntegral m))
                           ]
          _  -> __IMPOSSIBLE__
