@@ -62,7 +62,7 @@ postulate
 
 gcd-x>y-N :
   {m n : D} → N m → N n →
-  ({o p : D} → LT₂ o p m n → N o → N p → ¬x≡0∧y≡0 o p → N (gcd o p)) →
+  ({o p : D} → N o → N p → LT₂ o p m n → ¬x≡0∧y≡0 o p → N (gcd o p)) →
   GT m n →
   ¬x≡0∧y≡0 m n →
   N (gcd m n)
@@ -76,9 +76,9 @@ gcd-x>y-N (sN {m} Nm) (sN {n} Nn) allAcc Sm>Sn _ =
     ih : N (gcd (succ m - succ n) (succ n))
     ih = allAcc {succ m - succ n}
                 {succ n}
-                ([Sx-Sy,Sy]<[Sx,Sy] Nm Nn)
                 (minus-N (sN Nm) (sN Nn))
                 (sN Nn)
+                ([Sx-Sy,Sy]<[Sx,Sy] Nm Nn)
                 (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
 
 ---------------------------------------------------------------------------
@@ -89,7 +89,7 @@ gcd-x>y-N (sN {m} Nm) (sN {n} Nn) allAcc Sm>Sn _ =
 
 gcd-x≤y-N :
   {m n : D} → N m → N n →
-  ({o p : D} → LT₂ o p m n → N o → N p → ¬x≡0∧y≡0 o p → N (gcd o p)) →
+  ({o p : D} → N o → N p → LT₂ o p m n → ¬x≡0∧y≡0 o p → N (gcd o p)) →
   LE m n →
   ¬x≡0∧y≡0 m n →
   N (gcd m n)
@@ -103,24 +103,25 @@ gcd-x≤y-N (sN {m} Nm) (sN {n} Nn) allAcc Sm≤Sn _ =
     ih : N (gcd (succ m) (succ n - succ m))
     ih = allAcc {succ m}
                 {succ n - succ m}
-                ([Sx,Sy-Sx]<[Sx,Sy] Nm Nn)
                 (sN Nm)
                 (minus-N (sN Nn) (sN Nm))
+                ([Sx,Sy-Sx]<[Sx,Sy] Nm Nn)
                 (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 
 ---------------------------------------------------------------------------
 -- The 'gcd' is N.
 
 gcd-N : {m n : D } → N m → N n → ¬x≡0∧y≡0 m n → N (gcd m n)
-gcd-N = wfInd-LT₂ P istep
+gcd-N = wfIndN-LT₂ P istep
   where
     P : D → D → Set
     P i j = ¬x≡0∧y≡0 i j → N (gcd i j )
 
     istep :
-      {i j : D} → ({k l : D} → LT₂ k l i j → N k → N l → P k l) →
-      N i → N j → P i j
-    istep allAcc Ni Nj =
+      {i j : D} → N i → N j →
+      ({k l : D} → N k → N l → LT₂ k l i j → P k l) →
+      P i j
+    istep Ni Nj allAcc =
       [ gcd-x>y-N Ni Nj allAcc
       , gcd-x≤y-N Ni Nj allAcc
       ] (x>y∨x≤y Ni Nj)
