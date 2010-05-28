@@ -10,6 +10,7 @@ conjecturesFiles='
   LTC/Relation/Divisibility/Properties
   LTC/Relation/Equalities/Properties
   LTC/Relation/Inequalities/Properties
+  Test/Factorial
   '
 for file in ${conjecturesFiles} ; do
     rm -f /tmp/*.tptp
