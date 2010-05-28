@@ -65,7 +65,7 @@ postulate
   error  : D
   -- LTC fixed point operator
   fix    : (D → D) → D
-  fixFO  : D
+  -- fixFO  : D
 
 ------------------------------------------------------------------------------
 -- Equality: identity type
@@ -101,6 +101,8 @@ postulate
   -- Conversion rules for booleans.
   cB₁ : (d₁ : D){d₂ : D} → if true  then d₁ else d₂ ≡ d₁
   cB₂ : {d₁ : D}(d₂ : D) → if false then d₁ else d₂ ≡ d₂
+{-# ATP axiom cB₁ #-}
+{-# ATP axiom cB₂ #-}
 
 postulate
   -- Conversion rules for pred.
@@ -113,15 +115,19 @@ postulate
   -- Conversion rules for isZero
   cZ₁ : isZero zero               ≡ true
   cZ₂ : (n : D) → isZero (succ n) ≡ false
+{-# ATP axiom cZ₁ #-}
+{-# ATP axiom cZ₂ #-}
 
 postulate
   -- Conversion rule for the abstraction and the application.
   cBeta : (f : D → D) → (a : D) → (lam f) ∙ a ≡ f a
+{-# ATP axiom cBeta #-}
 
 postulate
   -- Conversion rule for the fixed pointed operator.
   cFix   : (f : D → D) → fix f ≡ f (fix  f)
-  cFixFO : (f : D) → fixFO ∙ f  ≡ f ∙ (fixFO ∙ f)
+  -- cFixFO : (f : D) → fixFO ∙ f  ≡ f ∙ (fixFO ∙ f)
+{-# ATP axiom cFix #-}
 
 ------------------------------------------------------------------------------
 -- Discrimination rules
