@@ -83,7 +83,7 @@ agdaOriginalTerm :: QName -> RoleATP -> String
 agdaOriginalTerm qName role =
     "% The original Agda term was:\n" ++
     "% name:\t\t" ++ show qName ++ "\n" ++
-    "% ATP role:\t" ++ show role ++ "\n" ++
+    "% role:\t\t" ++ show role ++ "\n" ++
     "% position:\t" ++ show (nameBindingSite $ qnameName qName) ++ "\n"
 
 addAxiom :: AF -> FilePath -> IO ()
