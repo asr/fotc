@@ -19,10 +19,6 @@ open module APER = MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 ------------------------------------------------------------------------------
 
-pred-N : {n : D} → N n → N (pred n)
-pred-N zN          = subst (λ t → N t) (sym cP₁) zN
-pred-N (sN {n} Nn) = subst (λ t → N t) (sym (cP₂ n)) Nn
-
 minus-N : {m n : D} → N m → N n → N (m - n)
 minus-N {m} Nm          zN          = subst (λ t → N t) (sym (minus-x0 m)) Nm
 minus-N     zN          (sN {n} Nn) = subst (λ t → N t) (sym (minus-0S n)) zN
