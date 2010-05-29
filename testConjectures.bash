@@ -3,13 +3,13 @@
 AGDA='agda -v 0'
 
 conjecturesFiles='
+  LTC/Relation/Equalities/Properties
+  LTC/Function/Arithmetic/Properties
+  LTC/Relation/Inequalities/Properties
+  LTC/Relation/Divisibility/Properties
+  Examples/GCD/IsN
   Examples/GCD/IsCommonDivisor
   Examples/GCD/IsDivisible
-  Examples/GCD/IsN
-  LTC/Function/Arithmetic/Properties
-  LTC/Relation/Divisibility/Properties
-  LTC/Relation/Equalities/Properties
-  LTC/Relation/Inequalities/Properties
   Test/Factorial
   '
 for file in ${conjecturesFiles} ; do
