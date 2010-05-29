@@ -108,8 +108,15 @@ runAgda2ATP = do
 
   r  <- liftIO $ runReaderT (runErrorT (translation $ head names)) opts
   case r of
-    Right (allAxioms , conjecturesCurrentModule) ->
-        lift $ runReaderT (callATP allAxioms conjecturesCurrentModule) opts
+    Right (allAxioms , conjecturesCurrentModule) -> do
+        r' <- liftIO $
+                runReaderT (runErrorT (callATP allAxioms
+                                               conjecturesCurrentModule))
+                           opts
+        case r' of
+          Right _   -> return ()
+          Left err' -> throwError err'
+
     Left err -> throwError err
 
 main :: IO ()
