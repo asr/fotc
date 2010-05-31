@@ -9,7 +9,6 @@ open import LTC.MinimalER
 
 open import LTC.Data.N
 open import LTC.Function.Arithmetic
-open import LTC.Function.Arithmetic.Properties using ( +-comm )
 open import LTC.Relation.Equalities.PropertiesER
 
 open import MyStdLib.Function
@@ -96,6 +95,24 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn =
                         ⟩
     succ (succ m + n)
   ∎
+
++-comm : {m n : D} → N m → N n → m + n ≡ n + m
++-comm {n = n} zN Nn =
+  begin
+    zero + n ≡⟨ +-leftIdentity Nn ⟩
+    n        ≡⟨ sym (+-rightIdentity Nn) ⟩
+    n + zero
+   ∎
+
++-comm {n = n} (sN {m} Nm) Nn =
+  begin
+    succ m + n   ≡⟨ +-Sx m n ⟩
+    succ (m + n) ≡⟨ subst (λ t → succ (m + n) ≡ succ t)
+                          (+-comm Nm Nn)
+                          refl ⟩
+    succ (n + m) ≡⟨ sym (x+1+y≡1+x+y Nn Nm) ⟩
+    n + succ m
+   ∎
 
 [x+y]-[x+z]≡y-z : {m n o : D} → N m → N n → N o →
                   (m + n) - (m + o) ≡ n - o

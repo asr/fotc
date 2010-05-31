@@ -8,7 +8,6 @@ open import LTC.Minimal
 open import LTC.MinimalER
 
 open import LTC.Function.Arithmetic
-open import LTC.Function.Arithmetic.Properties using ( +-comm )
 open import LTC.Function.Arithmetic.PropertiesER
 open import LTC.Relation.Equalities.PropertiesER
 open import LTC.Relation.Inequalities
