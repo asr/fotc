@@ -72,6 +72,31 @@ minus-0x (sN {n} Nn) = minus-0S n
     succ m + (n + o)
   ∎
 
+x+1+y≡1+x+y : {m n : D} → N m → N n → m + succ n ≡ succ (m + n)
+x+1+y≡1+x+y {n = n} zN Nn =
+  begin
+    zero + succ n ≡⟨ +-0x (succ n ) ⟩
+    succ n        ≡⟨ subst (λ t → succ n ≡ succ t)
+                           (sym (+-leftIdentity Nn))
+                           refl
+                  ⟩
+    succ (zero + n)
+  ∎
+
+x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn =
+  begin
+    succ m + succ n     ≡⟨ +-Sx m (succ n) ⟩
+    succ (m + succ n)   ≡⟨ subst (λ t → succ (m + succ n) ≡ succ t)
+                                 (x+1+y≡1+x+y Nm Nn)
+                                 refl
+                        ⟩
+    succ (succ (m + n)) ≡⟨ subst (λ t → succ (succ (m + n)) ≡ succ t)
+                                 (sym (+-Sx m n))
+                                 refl
+                        ⟩
+    succ (succ m + n)
+  ∎
+
 [x+y]-[x+z]≡y-z : {m n o : D} → N m → N n → N o →
                   (m + n) - (m + o) ≡ n - o
 [x+y]-[x+z]≡y-z {n = n} {o} zN Nn No =
