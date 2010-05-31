@@ -193,6 +193,10 @@ x-y<Sx (sN {m} Nm) (sN {n} Nn) = prf (x-y<Sx Nm Nn)
                     LT (succ m - succ n) (succ (succ m))
     {-# ATP prove prf <-trans minus-N x<Sx sN #-}
 
+postulate
+  Sx-Sy<Sx : {m n : D} → N m → N n → LT (succ m - succ n) (succ m)
+{-# ATP prove Sx-Sy<Sx minus-SS x-y<Sx #-}
+
 x>y→x-y+y≡x : {m n : D} → N m → N n → GT m n → (m - n) + n ≡ m
 x>y→x-y+y≡x zN Nn 0>n = ⊥-elim (¬0>x Nn 0>n)
 x>y→x-y+y≡x (sN {m} Nm) zN Sm>0 = prf
