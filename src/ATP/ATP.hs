@@ -20,7 +20,7 @@ import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
 
 -- Local imports
 import Common ( ER )
-import Options ( Options(optATP, optOnlyCreateFiles, optTime) )
+import Options ( Options(optOnlyCreateFiles, optTime) )
 import Reports ( reportS )
 import TPTP.Files ( createAxiomsFile, createConjectureFile )
 import TPTP.Types ( AF )
@@ -53,30 +53,31 @@ callATPConjecture conjecture = do
   file <- lift $ createConjectureFile conjecture
 
   unless (optOnlyCreateFiles opts) $ do
-    let atp :: String
-        atp = optATP opts
 
     let timeLimit :: String
         timeLimit = show $ optTime opts
 
-    lift $ reportS "" 1 $ "Proving the conjecture " ++ file ++ " ..."
+    lift $ reportS "" 1 $ "Proving the conjecture " ++ file ++ " using equinox"
 
-    output <- case atp of
-      "equinox" -> lift $ liftIO $
-                   readProcess atp [ "--time" , timeLimit , file ] ""
+    outputEquinox <- lift $ liftIO $
+                readProcess "equinox" [ "--time" , timeLimit , file ] ""
 
-      "eprover" -> lift $ liftIO $
-                   readProcess atp [ "--tstp-format"
-                                   , "--cpu-limit=" ++ timeLimit
-                                   , file
-                                   ] ""
+    if (checkOutputATP "equinox" outputEquinox)
+      then return ()
+      else do
+        lift $ reportS "" 1 $ "Proving the conjecture " ++ file ++ " using eprover"
 
-      _         -> throwError
-                   "At the moment, the possible ATPs are equinox or eprover."
+        outputEprover <- lift $ liftIO $
+                readProcess "eprover" [ "--tstp-format"
+                                      , "--cpu-limit=" ++ timeLimit
+                                      , file
+                                      ] ""
 
-    if (checkOutputATP atp output)
-     then return ()
-     else throwError $ atp ++ " did not prove the conjecture " ++ file ++ "."
+        if (checkOutputATP "eprover" outputEprover)
+          then return ()
+          else throwError $
+                   "Equinox and eprover" ++
+                   " did not prove the conjecture " ++ file ++ "."
 
 callATP :: [AF] -> [(AF, [AF])] -> ER ()
 callATP axioms conjectures = do

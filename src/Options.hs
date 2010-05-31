@@ -27,7 +27,7 @@ data Options = MkOptions
     { optVersion         :: Bool
     , optHelp            :: Bool
     , optVerbose         :: Trie String Int
-    , optATP             :: String
+--    , optATP             :: String
     , optOnlyCreateFiles :: Bool
     , optTime            :: Int
     } deriving ( Show )
@@ -37,7 +37,7 @@ defaultOptions = MkOptions
   { optVersion         = False
   , optHelp            = False
   , optVerbose         = Trie.singleton [] 1
-  , optATP             = "equinox"
+--  , optATP             = "equinox"
   , optOnlyCreateFiles = False
   , optTime            = 300
   }
@@ -60,8 +60,8 @@ verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
                        m = read $ last ss
                    in (init ss, m)
 
-atpOpt :: String -> Options -> Options
-atpOpt name opts = opts { optATP = name }
+-- atpOpt :: String -> Options -> Options
+-- atpOpt name opts = opts { optATP = name }
 
 onlyCreateFilesOpt :: Options -> Options
 onlyCreateFilesOpt opts = opts { optOnlyCreateFiles = True }
@@ -77,8 +77,8 @@ options =
                  "show this help"
   , Option ['v'] ["verbose"] (ReqArg verboseOpt "N")
                  "set verbosity level to N"
-  , Option []    ["ATP"] (ReqArg atpOpt "name")
-                 "set the ATP (default: equinox)"
+  -- , Option []    ["ATP"] (ReqArg atpOpt "name")
+  --                "set the ATP (default: equinox)"
   , Option []    ["only-create-files"] (NoArg onlyCreateFilesOpt)
                  "do not call the ATP, only to create the TPTP files"
   , Option []    ["time"] (ReqArg timeOpt "secs")
