@@ -10,7 +10,7 @@ open import LTC.MinimalER
 open import LTC.Data.N
 open import LTC.Function.Arithmetic
 open import LTC.Function.Arithmetic.Properties
-  using ( +-assoc ; x*1+y≡x+xy )
+  using ( x*1+y≡x+xy )
 open import LTC.Relation.Equalities.PropertiesER
 
 open import MyStdLib.Function
@@ -46,6 +46,32 @@ minus-0x (sN {n} Nn) = minus-0S n
 +-N zN Nn = subst (λ t → N t) (sym (+-leftIdentity Nn)) Nn
 +-N {n = n} (sN {m} Nm ) Nn =
   subst (λ t → N t) (sym (+-Sx m n)) (sN (+-N Nm Nn))
+
++-assoc : {m n o : D} → N m → N n → N o → m + n + o ≡ m + (n + o)
++-assoc {n = n} {o = o} zN Nn No =
+  begin
+    zero + n + o ≡⟨ subst (λ t → zero + n + o ≡ t + o)
+                          (+-leftIdentity Nn)
+                          refl
+                 ⟩
+    n + o        ≡⟨ sym (+-leftIdentity (+-N Nn No)) ⟩
+    zero + (n + o)
+  ∎
+
++-assoc {n = n} {o = o} (sN {m} Nm) Nn No =
+  begin
+    succ m + n + o     ≡⟨ subst (λ t → succ m + n + o ≡ t + o)
+                                (+-Sx m n)
+                                refl
+                       ⟩
+    succ (m + n) + o   ≡⟨ +-Sx (m + n) o ⟩
+    succ (m + n + o)   ≡⟨ subst (λ t → succ (m + n + o) ≡ succ t)
+                                (+-assoc Nm Nn No)
+                                refl
+                       ⟩
+    succ (m + (n + o)) ≡⟨ sym (+-Sx m (n + o)) ⟩
+    succ m + (n + o)
+  ∎
 
 [x+y]-[x+z]≡y-z : {m n o : D} → N m → N n → N o →
                   (m + n) - (m + o) ≡ n - o
