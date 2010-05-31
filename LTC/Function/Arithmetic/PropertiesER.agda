@@ -9,8 +9,7 @@ open import LTC.MinimalER
 
 open import LTC.Data.N
 open import LTC.Function.Arithmetic
-open import LTC.Function.Arithmetic.Properties
-  using ( x*1+y≡x+xy )
+open import LTC.Function.Arithmetic.Properties using ( +-comm )
 open import LTC.Relation.Equalities.PropertiesER
 
 open import MyStdLib.Function
@@ -116,6 +115,50 @@ minus-0x (sN {n} Nn) = minus-0S n
 *-rightZero (sN {n} Nn) =
   trans (*-Sx n zero)
         (trans (+-leftIdentity (*-N Nn zN)) (*-rightZero Nn))
+
+x*1+y≡x+xy : {m n : D} → N m → N n → m * succ n ≡ m + m * n
+x*1+y≡x+xy {n = n} zN Nn = sym
+  (
+    begin
+      zero + zero * n ≡⟨ subst (λ t → zero + zero * n ≡ zero + t)
+                         (*-leftZero Nn)
+                         refl
+                      ⟩
+      zero + zero     ≡⟨ +-leftIdentity zN ⟩
+      zero            ≡⟨ sym (*-leftZero (sN Nn)) ⟩
+      zero * succ n
+    ∎
+  )
+
+x*1+y≡x+xy {n = n} (sN {m} Nm) Nn =
+  begin
+    succ m * succ n        ≡⟨ *-Sx m (succ n) ⟩
+    succ n + m * succ n    ≡⟨ subst (λ t → succ n + m * succ n ≡ succ n + t)
+                                    (x*1+y≡x+xy Nm Nn)
+                                    refl
+                           ⟩
+    succ n + (m + m * n)   ≡⟨ +-Sx n (m + m * n) ⟩
+    succ (n + (m + m * n)) ≡⟨ subst (λ t → succ (n + (m + m * n)) ≡ succ t)
+                                    (sym (+-assoc Nn Nm (*-N Nm Nn)))
+                                    refl
+                           ⟩
+    succ (n + m + m * n)   ≡⟨ subst (λ t → succ (n + m + m * n) ≡
+                                           succ (t + m * n))
+                                    (+-comm Nn Nm)
+                                    refl
+                           ⟩
+     succ (m + n + m * n)  ≡⟨ subst (λ t → succ (m + n + m * n) ≡ succ t)
+                                    (+-assoc Nm Nn (*-N Nm Nn))
+                                    refl
+                           ⟩
+
+    succ (m + (n + m * n)) ≡⟨ sym (+-Sx m (n + m * n)) ⟩
+    succ m + (n + m * n)   ≡⟨ subst (λ t → succ m + (n + m * n) ≡ succ m + t)
+                                    (sym (*-Sx m n))
+                                    refl
+                           ⟩
+    succ m + succ m * n
+    ∎
 
 *-comm : {m n : D} → N m → N n → m * n ≡ n * m
 *-comm zN Nn = trans (*-leftZero Nn) (sym (*-rightZero Nn))
