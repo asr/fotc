@@ -158,6 +158,18 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn =
   trans (*-Sx n zero)
         (trans (+-leftIdentity (*-N Nn zN)) (*-rightZero Nn))
 
+*-leftIdentity : {n : D} → N n → succ zero * n ≡ n
+*-leftIdentity {n} Nn =
+  begin
+    succ zero * n ≡⟨ *-Sx zero n ⟩
+    n + zero * n  ≡⟨ subst (λ t → n + zero * n ≡ n + t)
+                           (*-leftZero Nn)
+                           refl
+                  ⟩
+    n + zero      ≡⟨ +-rightIdentity Nn ⟩
+    n
+  ∎
+
 x*1+y≡x+xy : {m n : D} → N m → N n → m * succ n ≡ m + m * n
 x*1+y≡x+xy {n = n} zN Nn = sym
   (
