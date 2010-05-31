@@ -2,15 +2,15 @@
 -- Arithmetic properties using equational reasoning
 ------------------------------------------------------------------------------
 
-module LTC.Function.Arithmetic.PropertiesRecER where
+module LTC.Function.Arithmetic.PropertiesPCF-ER where
 
 open import LTC.Minimal
 open import LTC.MinimalER
 
 open import LTC.Data.N
-open import LTC.Function.ArithmeticRec
+open import LTC.Function.ArithmeticPCF
 open import LTC.Function.Rec
-open import LTC.Function.Rec.Properties using ( rec-0 ; rec-S )
+open import LTC.Function.Rec.Properties
 open import LTC.Relation.Equalities.PropertiesER
 
 -- open import MyStdLib.Function

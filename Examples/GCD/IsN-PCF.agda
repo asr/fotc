@@ -1,57 +1,58 @@
 ------------------------------------------------------------------------------
--- The gcd is N (using equational reasoning)
+-- The gcd is N
 ------------------------------------------------------------------------------
 
 -- We prove that 'gcd-N : ... → N (gcd m n).
 
-module Examples.GCD.IsN-RecER where
+module Examples.GCD.IsN-PCF where
 
 open import LTC.Minimal
-open import LTC.MinimalER
 
-open import Examples.GCD.EquationsRec
+open import Examples.GCD.EquationsPCF
 open import Examples.GCD.Types
 
 open import LTC.Data.N
-open import LTC.Data.N.Induction.LexicographicRec
-open import LTC.Function.ArithmeticRec
-open import LTC.Function.Arithmetic.PropertiesRecER
-open import LTC.Relation.Equalities.PropertiesER
+open import LTC.Data.N.Induction.LexicographicPCF
+open import LTC.Function.ArithmeticPCF
+open import LTC.Function.Arithmetic.PropertiesPCF
+open import LTC.Relation.Equalities.Properties
 open import LTC.Relation.Inequalities
-open import LTC.Relation.Inequalities.PropertiesRecER
+open import LTC.Relation.Inequalities.PropertiesPCF
 
 open import MyStdLib.Function
 
 ------------------------------------------------------------------------------
 -- The 'gcd 0 (succ n)' is N.
-gcd-0S-N : {n : D} → N n → N (gcd zero (succ n))
-gcd-0S-N {n} Nn = subst (λ x → N x ) (sym (gcd-0S n)) (sN Nn)
+postulate
+  gcd-0S-N : {n : D} → N n → N (gcd zero (succ n))
+{-# ATP prove gcd-0S-N sN #-}
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The 'gcd (succ n) 0' is N.
 
-gcd-S0-N : {n : D} → N n → N (gcd (succ n) zero)
-gcd-S0-N {n} Nn = subst (λ x → N x ) (sym $ gcd-S0 n) (sN Nn)
+postulate
+  gcd-S0-N : {n : D} → N n → N (gcd (succ n) zero)
+{-# ATP prove gcd-S0-N sN #-}
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m > succ n' is N.
 
-gcd-S>S-N : {m n : D} → N m → N n →
-             N (gcd (succ m - succ n) (succ n)) →
-             GT (succ m) (succ n) →
-             N (gcd (succ m) (succ n))
-gcd-S>S-N {m} {n} Nm Nn ih Sm>Sn =
-  subst (λ x → N x ) (sym $ gcd-S>S m n Sm>Sn) ih
+postulate
+  gcd-S>S-N : {m n : D} → N m → N n →
+              N (gcd (succ m - succ n) (succ n)) →
+              GT (succ m) (succ n) →
+              N (gcd (succ m) (succ n))
+{-# ATP prove gcd-S>S-N #-}
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m ≤ succ n' is N.
 
-gcd-S≤S-N : {m n : D} → N m → N n →
-            N (gcd (succ m) (succ n - succ m)) →
-            LE (succ m) (succ n) →
-            N (gcd (succ m) (succ n))
-gcd-S≤S-N {m} {n} Nm Nn ih Sm≤Sn =
-  subst (λ x → N x ) (sym $ gcd-S≤S m n Sm≤Sn ) ih
+postulate
+  gcd-S≤S-N : {m n : D} → N m → N n →
+              N (gcd (succ m) (succ n - succ m)) →
+              LE (succ m) (succ n) →
+              N (gcd (succ m) (succ n))
+{-# ATP prove gcd-S≤S-N #-}
 
 ---------------------------------------------------------------------------
 -- The 'gcd m n' when 'm > n' is N.

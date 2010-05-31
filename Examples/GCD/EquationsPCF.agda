@@ -2,12 +2,12 @@
 -- Equations for the gcd
 ------------------------------------------------------------------------------
 
-module Examples.GCD.EquationsRec where
+module Examples.GCD.EquationsPCF where
 
 open import LTC.Minimal
 
 open import LTC.Data.N
-open import LTC.Function.ArithmeticRec
+open import LTC.Function.ArithmeticPCF
 open import LTC.Relation.Inequalities
 
 ------------------------------------------------------------------------------

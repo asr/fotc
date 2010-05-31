@@ -2,18 +2,18 @@
 -- Properties of the divisibility relation (using equational reasoning)
 ------------------------------------------------------------------------------
 
-module LTC.Relation.Divisibility.PropertiesRecER where
+module LTC.Relation.Divisibility.PropertiesPCF-ER where
 
 open import LTC.Minimal
 open import LTC.MinimalER
 
 open import LTC.Data.N
-open import LTC.Function.ArithmeticRec
-open import LTC.Function.Arithmetic.PropertiesRecER
-open import LTC.Relation.DivisibilityRec
+open import LTC.Function.ArithmeticPCF
+open import LTC.Function.Arithmetic.PropertiesPCF-ER
+open import LTC.Relation.DivisibilityPCF
 open import LTC.Relation.Equalities.PropertiesER
 open import LTC.Relation.Inequalities
-open import LTC.Relation.Inequalities.PropertiesRecER
+open import LTC.Relation.Inequalities.PropertiesPCF-ER
 
 open import MyStdLib.Function
 import MyStdLib.Relation.Binary.EqReasoning

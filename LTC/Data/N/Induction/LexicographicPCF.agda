@@ -2,14 +2,14 @@
 -- Well-founded induction on the lexicographic order on N
 ------------------------------------------------------------------------------
 
-module LTC.Data.N.Induction.LexicographicRec where
+module LTC.Data.N.Induction.LexicographicPCF where
 
 open import LTC.Minimal
 
 open import LTC.Data.N
 open import LTC.Relation.Equalities.Properties
 open import LTC.Relation.Inequalities
-open import LTC.Relation.Inequalities.PropertiesRec
+open import LTC.Relation.Inequalities.PropertiesPCF
 
 ------------------------------------------------------------------------------
 

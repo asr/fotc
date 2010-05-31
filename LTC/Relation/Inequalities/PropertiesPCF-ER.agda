@@ -2,13 +2,13 @@
 -- Properties of the inequalities (using equational reasoning)
 ------------------------------------------------------------------------------
 
-module LTC.Relation.Inequalities.PropertiesRecER where
+module LTC.Relation.Inequalities.PropertiesPCF-ER where
 
 open import LTC.Minimal
 open import LTC.MinimalER
 
-open import LTC.Function.ArithmeticRec
-open import LTC.Function.Arithmetic.PropertiesRecER
+open import LTC.Function.ArithmeticPCF
+open import LTC.Function.Arithmetic.PropertiesPCF-ER
 open import LTC.Relation.Equalities.PropertiesER
 open import LTC.Relation.Inequalities
 open import LTC.Data.N

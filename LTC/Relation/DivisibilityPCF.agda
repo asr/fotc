@@ -2,12 +2,12 @@
 -- The relation of divisibility on partial natural numbers
 ------------------------------------------------------------------------------
 
-module LTC.Relation.DivisibilityRec where
+module LTC.Relation.DivisibilityPCF where
 
 open import LTC.Minimal
 
 open import LTC.Data.N
-open import LTC.Function.ArithmeticRec
+open import LTC.Function.ArithmeticPCF
 
 ------------------------------------------------------------------------------
 

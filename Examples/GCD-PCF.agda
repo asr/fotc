@@ -3,15 +3,15 @@
 -- common divisor of two natural numbers
 ------------------------------------------------------------------------------
 
-module Examples.GCD-RecER where
+module Examples.GCD-PCF where
 
 open import LTC.Minimal
 
-open import Examples.GCD.EquationsRec
-open import Examples.GCD.IsCommonDivisorRecER
-open import Examples.GCD.IsDivisibleRecER
-open import Examples.GCD.IsGreatestAnyCommonDivisorRecER
-open import Examples.GCD.IsN-RecER
+open import Examples.GCD.EquationsPCF
+open import Examples.GCD.IsCommonDivisorPCF
+open import Examples.GCD.IsDivisiblePCF
+open import Examples.GCD.IsGreatestAnyCommonDivisorPCF
+open import Examples.GCD.IsN-PCF
 open import Examples.GCD.Types
 
 open import LTC.Data.N

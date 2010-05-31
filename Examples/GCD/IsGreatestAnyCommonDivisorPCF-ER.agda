@@ -2,15 +2,15 @@
 -- The 'gcd' is greatest that any common divisor
 ---------------------------------------------------------------------------
 
-module Examples.GCD.IsGreatestAnyCommonDivisorRecER where
+module Examples.GCD.IsGreatestAnyCommonDivisorPCF-ER where
 
 open import LTC.Minimal
 
-open import Examples.GCD.IsCommonDivisorRecER
-open import Examples.GCD.IsDivisibleRecER
+open import Examples.GCD.IsCommonDivisorPCF-ER
+open import Examples.GCD.IsDivisiblePCF-ER
 
 open import LTC.Data.N
-open import LTC.Relation.Divisibility.PropertiesRecER
+open import LTC.Relation.Divisibility.PropertiesPCF-ER
 open import LTC.Relation.Inequalities
 
 ---------------------------------------------------------------------------

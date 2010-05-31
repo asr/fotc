@@ -2,7 +2,7 @@
 -- Arithmetic functions on partial natural numbers
 ------------------------------------------------------------------------------
 
-module LTC.Function.ArithmeticRec where
+module LTC.Function.ArithmeticPCF where
 
 open import LTC.Minimal
 

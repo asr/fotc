@@ -2,17 +2,17 @@
 -- Properties of the divisibility relation
 ------------------------------------------------------------------------------
 
-module LTC.Relation.Divisibility.PropertiesRec where
+module LTC.Relation.Divisibility.PropertiesPCF where
 
 open import LTC.Minimal
 
 open import LTC.Data.N
-open import LTC.Function.ArithmeticRec
-open import LTC.Function.Arithmetic.PropertiesRec
-open import LTC.Relation.DivisibilityRec
+open import LTC.Function.ArithmeticPCF
+open import LTC.Function.Arithmetic.PropertiesPCF
+open import LTC.Relation.DivisibilityPCF
 open import LTC.Relation.Equalities.Properties
 open import LTC.Relation.Inequalities
-open import LTC.Relation.Inequalities.PropertiesRec
+open import LTC.Relation.Inequalities.PropertiesPCF
 
 open import MyStdLib.Function
 

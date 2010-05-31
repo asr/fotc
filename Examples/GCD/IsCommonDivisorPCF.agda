@@ -2,23 +2,23 @@
 -- The gcd is a common divisor
 ------------------------------------------------------------------------------
 
-module Examples.GCD.IsCommonDivisorRec where
+module Examples.GCD.IsCommonDivisorPCF where
 
 open import LTC.Minimal
 
-open import Examples.GCD.EquationsRec
-open import Examples.GCD.IsN-Rec
+open import Examples.GCD.EquationsPCF
+open import Examples.GCD.IsN-PCF
 open import Examples.GCD.Types
 
 open import LTC.Data.N
-open import LTC.Data.N.Induction.LexicographicRec
-open import LTC.Function.ArithmeticRec
-open import LTC.Function.Arithmetic.PropertiesRec
-open import LTC.Relation.DivisibilityRec
-open import LTC.Relation.Divisibility.PropertiesRec
+open import LTC.Data.N.Induction.LexicographicPCF
+open import LTC.Function.ArithmeticPCF
+open import LTC.Function.Arithmetic.PropertiesPCF
+open import LTC.Relation.DivisibilityPCF
+open import LTC.Relation.Divisibility.PropertiesPCF
 open import LTC.Relation.Equalities.Properties
 open import LTC.Relation.Inequalities
-open import LTC.Relation.Inequalities.PropertiesRec
+open import LTC.Relation.Inequalities.PropertiesPCF
 
 open import MyStdLib.Function
 
