@@ -11,7 +11,7 @@ open import Examples.GCD.IsDivisiblePCF
 
 open import LTC.Data.N
 open import LTC.Relation.Divisibility.PropertiesPCF
-open import LTC.Relation.Inequalities
+open import LTC.Relation.InequalitiesPCF
 
 ---------------------------------------------------------------------------
 

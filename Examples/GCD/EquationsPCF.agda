@@ -8,7 +8,7 @@ open import LTC.Minimal
 
 open import LTC.Data.N
 open import LTC.Function.ArithmeticPCF
-open import LTC.Relation.Inequalities
+open import LTC.Relation.InequalitiesPCF
 
 ------------------------------------------------------------------------------
 

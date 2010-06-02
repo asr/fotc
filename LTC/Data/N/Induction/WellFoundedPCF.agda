@@ -7,7 +7,7 @@ module LTC.Data.N.Induction.WellFoundedPCF where
 open import LTC.Minimal
 
 open import LTC.Data.N
-open import LTC.Relation.Inequalities
+open import LTC.Relation.InequalitiesPCF
 open import LTC.Relation.Inequalities.PropertiesPCF
 
 ------------------------------------------------------------------------------

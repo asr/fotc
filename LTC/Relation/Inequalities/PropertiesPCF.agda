@@ -10,12 +10,28 @@ open import LTC.Data.N
 open import LTC.Function.ArithmeticPCF
 open import LTC.Function.Arithmetic.PropertiesPCF
 open import LTC.Relation.Equalities.Properties
-open import LTC.Relation.Inequalities
+open import LTC.Relation.InequalitiesPCF
 
 open import MyStdLib.Data.Sum
 open import MyStdLib.Function
 
 ------------------------------------------------------------------------------
+
+postulate
+  lt-00 : GE zero zero
+{-# ATP prove lt-00 #-}
+
+postulate
+  lt-0S : (d : D) → LT zero (succ d)
+{-# ATP prove lt-0S #-}
+
+postulate
+  lt-S0 : (d : D) → GE (succ d) zero -- lt (succ d) zero ≡ false
+{-# ATP prove lt-S0 #-}
+
+postulate
+  lt-SS : (d e : D) → lt (succ d) (succ e) ≡ lt d e
+{-# ATP prove lt-SS #-}
 
 -- TODO: Why the ATP couldn't prove it?
 -- postulate
@@ -34,11 +50,11 @@ x≥0 (sN {n} Nn) = lt-S0 n
 ¬x<0 zN 0<0 = ⊥-elim prf
   where
     postulate prf : ⊥
-    {-# ATP prove prf #-}
+    {-# ATP prove prf lt-00 #-}
 ¬x<0 (sN Nn) Sn<0 = ⊥-elim prf
   where
     postulate prf : ⊥
-    {-# ATP prove prf #-}
+    {-# ATP prove prf lt-S0 #-}
 
 postulate
   ¬0>x : {n : D} → N n → ¬ (GT zero n)
@@ -46,14 +62,14 @@ postulate
 
 postulate
   ¬S≤0 : {d : D} → ¬ (LE (succ d) zero)
-{-# ATP prove ¬S≤0 #-}
+{-# ATP prove ¬S≤0 lt-0S #-}
 
 x<Sx : {n : D} → N n → LT n (succ n)
 x<Sx zN          = lt-0S zero
 x<Sx (sN {n} Nn) = prf (x<Sx Nn)
   where
     postulate prf : LT n (succ n) → LT (succ n) (succ (succ n))
-    {-# ATP prove prf #-}
+    {-# ATP prove prf lt-SS #-}
 
 x>y∨x≤y : {m n : D} → N m → N n → GT m n ∨ LE m n
 x>y∨x≤y zN          Nn          = inj₂ $ x≥0 Nn
@@ -63,24 +79,24 @@ x>y∨x≤y (sN {m} Nm) (sN {n} Nn) = prf $ x>y∨x≤y Nm Nn
     postulate
       prf : (GT m n) ∨ (LE m n) →
             GT (succ m) (succ n) ∨ LE (succ m) (succ n)
-    {-# ATP prove prf #-}
+    {-# ATP prove prf lt-SS #-}
 
 ¬x<x : {m : D} → N m → ¬ (LT m m)
 ¬x<x zN _ = ⊥-elim prf
   where
     postulate prf : ⊥
-    {-# ATP prove prf #-}
+    {-# ATP prove prf lt-00 #-}
 ¬x<x (sN {m} Nm) _ = ⊥-elim (prf (¬x<x Nm))
   where
     postulate prf : ¬ (LT m m) → ⊥
-    {-# ATP prove prf #-}
+    {-# ATP prove prf lt-SS #-}
 
 x≤x : {m : D} → N m → LE m m
 x≤x zN          = lt-00
 x≤x (sN {m} Nm) = prf (x≤x Nm)
   where
     postulate prf : LE m m → LE (succ m) (succ m)
-    {-# ATP prove prf #-}
+    {-# ATP prove prf lt-SS #-}
 
 -- TODO: Why not a dot pattern?
 x≡y→x≤y : {m n : D} → N m → N n → m ≡ n → LE m n
@@ -92,11 +108,11 @@ x<y→x≤y zN (sN {n} Nn)          _     = lt-S0 n
 x<y→x≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = prf (x<y→x≤y Nm Nn m<n)
   where
     postulate m<n : LT m n
-    {-# ATP prove m<n #-}
+    {-# ATP prove m<n lt-SS #-}
 
     postulate prf : LE m n →
                     LE (succ m) (succ n)
-    {-# ATP prove prf #-}
+    {-# ATP prove prf lt-SS #-}
 
 x<y→Sx≤y : {m n : D} → N m → N n → LT m n → LE (succ m) n
 x<y→Sx≤y Nm zN m<0 = ⊥-elim (¬x<0 Nm m<0)
@@ -104,20 +120,20 @@ x<y→Sx≤y Nm zN m<0 = ⊥-elim (¬x<0 Nm m<0)
 x<y→Sx≤y zN (sN zN) _ = S0≤S0
   where
     postulate S0≤S0 : LE (succ zero) (succ zero)
-    {-# ATP prove S0≤S0 #-}
+    {-# ATP prove S0≤S0 lt-00 lt-SS #-}
 
 x<y→Sx≤y zN (sN (sN {n} Nn)) _ = S0≤SSn
   where
     postulate S0≤SSn : LE (succ zero) (succ (succ n))
-    {-# ATP prove S0≤SSn #-}
+    {-# ATP prove S0≤SSn lt-S0 lt-SS #-}
 
 x<y→Sx≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = prf (x<y→Sx≤y Nm Nn m<n)
   where
     postulate m<n : LT m n
-    {-# ATP prove m<n #-}
+    {-# ATP prove m<n lt-SS #-}
 
     postulate prf : LE (succ m) n → LE (succ (succ m)) (succ n)
-    {-# ATP prove prf #-}
+    {-# ATP prove prf lt-SS #-}
 
 Sx≤y→x<y : {m n : D} → N m → N n → LE (succ m) n → LT m n
 Sx≤y→x<y Nm          zN          Sm≤0   = ⊥-elim (¬S≤0 Sm≤0)
@@ -125,10 +141,10 @@ Sx≤y→x<y zN          (sN {n} Nn) _      = lt-0S n
 Sx≤y→x<y (sN {m} Nm) (sN {n} Nn) SSm≤Sn = prf (Sx≤y→x<y Nm Nn Sm≤n)
   where
     postulate Sm≤n : LE (succ m) n
-    {-# ATP prove Sm≤n #-}
+    {-# ATP prove Sm≤n lt-SS #-}
 
     postulate prf : LT m n → LT (succ m) (succ n)
-    {-# ATP prove prf #-}
+    {-# ATP prove prf lt-SS #-}
 
 <-trans : {m n o : D} → N m → N n → N o → LT m n → LT n o → LT m o
 <-trans zN          zN           _          0<0   _    = ⊥-elim (¬x<0 zN 0<0)
@@ -141,13 +157,13 @@ Sx≤y→x<y (sN {m} Nm) (sN {n} Nn) SSm≤Sn = prf (Sx≤y→x<y Nm Nn Sm≤n)
 
   where
     postulate prf : LT m o → LT (succ m) (succ o)
-    {-# ATP prove prf #-}
+    {-# ATP prove prf lt-SS #-}
 
     postulate m<n : LT m n
-    {-# ATP prove m<n #-}
+    {-# ATP prove m<n lt-SS #-}
 
     postulate n<o : LT n o
-    {-# ATP prove n<o #-}
+    {-# ATP prove n<o lt-SS #-}
 
 ≤-trans : {m n o : D} → N m → N n → N o → LE m n → LE n o → LE m o
 ≤-trans zN      Nn              No          _     _     = 0≤x No
@@ -157,35 +173,35 @@ Sx≤y→x<y (sN {m} Nm) (sN {n} Nn) SSm≤Sn = prf (Sx≤y→x<y Nm Nn Sm≤n)
   prf (≤-trans Nm Nn No m≤n n≤o)
     where
       postulate m≤n : LE m n
-      {-# ATP prove m≤n #-}
+      {-# ATP prove m≤n lt-SS #-}
 
       postulate n≤o : LE n o
-      {-# ATP prove n≤o #-}
+      {-# ATP prove n≤o lt-SS #-}
 
       postulate prf : LE m o → LE (succ m) (succ o)
-      {-# ATP prove prf #-}
+      {-# ATP prove prf lt-SS #-}
 
 postulate
   Sx≤Sy→x≤y : {m n : D} → LE (succ m) (succ n) → LE m n
-{-# ATP prove Sx≤Sy→x≤y #-}
+{-# ATP prove Sx≤Sy→x≤y lt-SS #-}
 
 x≤x+y : {m n : D} → N m → N n → LE m (m + n)
 x≤x+y         zN          Nn = x≥0 (+-N zN Nn)
 x≤x+y {n = n} (sN {m} Nm) Nn = prf (x≤x+y Nm Nn)
   where
     postulate prf : LE m (m + n) → LE (succ m) (succ m + n)
-    {-# ATP prove prf #-}
+    {-# ATP prove prf +-Sx lt-SS #-}
 
 x-y<Sx : {m n : D} → N m → N n → LT (m - n) (succ m)
 x-y<Sx {m} Nm zN = prf
   where
     postulate prf : LT (m - zero) (succ m)
-    {-# ATP prove prf x<Sx #-}
+    {-# ATP prove prf x<Sx minus-x0 #-}
 
 x-y<Sx zN (sN {n} Nn) = prf
   where
     postulate prf : LT (zero - succ n) (succ zero)
-    {-# ATP prove prf minus-0S #-}
+    {-# ATP prove prf minus-0S minus-0S lt-0S #-}
 
 x-y<Sx (sN {m} Nm) (sN {n} Nn) = prf (x-y<Sx Nm Nn)
   where
@@ -202,33 +218,33 @@ x>y→x-y+y≡x zN Nn 0>n = ⊥-elim (¬0>x Nn 0>n)
 x>y→x-y+y≡x (sN {m} Nm) zN Sm>0 = prf
   where
     postulate prf : (succ m - zero) + zero ≡ succ m
-    {-# ATP prove prf +-rightIdentity minus-N #-}
+    {-# ATP prove prf +-rightIdentity minus-N sN zN minus-x0 #-}
 
 x>y→x-y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn = prf (x>y→x-y+y≡x Nm Nn m>n )
   where
     postulate m>n : GT m n
-    {-# ATP prove m>n #-}
+    {-# ATP prove m>n lt-SS #-}
 
     postulate prf : (m - n) + n ≡ m →
                     (succ m - succ n) + succ n ≡ succ m
-    {-# ATP prove prf +-comm minus-N sN minus-SS #-}
+    {-# ATP prove prf +-comm minus-N sN +-Sx minus-SS lt-SS #-}
 
 x≤y→y-x+x≡y : {m n : D} → N m → N n → LE m n → (n - m) + m ≡ n
 x≤y→y-x+x≡y {n = n} zN Nn 0≤n  = prf
   where
     postulate prf : (n - zero) + zero ≡ n
-    {-# ATP prove prf +-rightIdentity minus-N minus-x0 #-}
+    {-# ATP prove prf +-rightIdentity minus-N minus-x0 lt-SS #-}
 
 x≤y→y-x+x≡y (sN Nm) zN Sm≤0 = ⊥-elim (¬S≤0 Sm≤0)
 
 x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn = prf (x≤y→y-x+x≡y Nm Nn m≤n )
   where
     postulate m≤n : LE m n
-    {-# ATP prove m≤n #-}
+    {-# ATP prove m≤n lt-SS #-}
 
     postulate prf : (n - m) + m ≡ n →
                     (succ n - succ m) + succ m ≡ succ n
-    {-# ATP prove prf +-comm minus-N sN minus-SS #-}
+    {-# ATP prove prf +-comm minus-N sN +-Sx minus-SS lt-SS #-}
 
 x<y→x<Sy : {m n : D} → N m → N n → LT m n → LT m (succ n)
 x<y→x<Sy Nm          zN          m<0   = ⊥-elim (¬x<0 Nm m<0)
@@ -236,10 +252,10 @@ x<y→x<Sy zN          (sN {n} Nn) 0<Sn  = lt-0S (succ n)
 x<y→x<Sy (sN {m} Nm) (sN {n} Nn) Sm<Sn = prf (x<y→x<Sy Nm Nn m<n)
   where
     postulate m<n : LT m n
-    {-# ATP prove m<n #-}
+    {-# ATP prove m<n lt-SS #-}
 
     postulate prf : LT m (succ n) → LT (succ m) (succ (succ n))
-    {-# ATP prove prf #-}
+    {-# ATP prove prf lt-SS #-}
 
 x<Sy→x<y∨x≡y : {m n : D} → N m → N n → LT m (succ n) → LT m n ∨ m ≡ n
 x<Sy→x<y∨x≡y zN zN 0<S0 = inj₂ refl

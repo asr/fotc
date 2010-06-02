@@ -17,7 +17,7 @@ open import LTC.Function.Arithmetic.PropertiesPCF
 open import LTC.Relation.DivisibilityPCF
 open import LTC.Relation.Divisibility.PropertiesPCF
 open import LTC.Relation.Equalities.Properties
-open import LTC.Relation.Inequalities
+open import LTC.Relation.InequalitiesPCF
 open import LTC.Relation.Inequalities.PropertiesPCF
 
 open import MyStdLib.Function

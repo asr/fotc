@@ -12,7 +12,7 @@ open import LTC.Function.ArithmeticPCF
 open import LTC.Function.Arithmetic.PropertiesPCF-ER
 open import LTC.Relation.DivisibilityPCF
 open import LTC.Relation.Equalities.PropertiesER
-open import LTC.Relation.Inequalities
+open import LTC.Relation.InequalitiesPCF
 open import LTC.Relation.Inequalities.PropertiesPCF-ER
 
 open import MyStdLib.Function

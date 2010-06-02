@@ -10,7 +10,7 @@ open import LTC.MinimalER
 open import LTC.Function.ArithmeticPCF
 open import LTC.Function.Arithmetic.PropertiesPCF-ER
 open import LTC.Relation.Equalities.PropertiesER
-open import LTC.Relation.Inequalities
+open import LTC.Relation.InequalitiesPCF
 open import LTC.Data.N
 
 open import MyStdLib.Data.Sum
@@ -19,6 +19,204 @@ import MyStdLib.Relation.Binary.EqReasoning
 open module IPER = MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 ------------------------------------------------------------------------------
+
+private
+  ----------------------------------------------------------------------
+  -- The steps of lt
+
+  --TODO : Doc. See LTC-PLPV
+
+  -- The conversion rule 'cFix' is applied.
+  <-s₁ : D → D → D
+  <-s₁ d e = lth (fix lth) ∙ d ∙ e
+
+  -- Definition of lth.
+  <-s₂ : D → D → D
+  <-s₂ d e = lam (lt-aux₂ (fix lth)) ∙ d ∙ e
+
+  -- cBeta application.
+  <-s₃ : D → D → D
+  <-s₃ d e = lt-aux₂ (fix lth) d ∙ e
+
+  -- Definition of lt-aux₂.
+  <-s₄ : D → D → D
+  <-s₄ d e = lam (lt-aux₁ d (fix lth)) ∙ e
+
+  -- cBeta application.
+  <-s₅ : D → D → D
+  <-s₅ d e = lt-aux₁ d (fix lth) e
+
+  -- Definition lt-aux₁.
+  <-s₆ : D → D → D
+  <-s₆ d e = if (isZero e) then false
+                else (if (isZero d) then true
+                         else ((fix lth) ∙ (pred d) ∙ (pred e)))
+
+  -- Reduction 'isZero e ≡ b'.
+  <-s₇ : D → D → D → D
+  <-s₇ d e b = if b then false
+                  else (if (isZero d) then true
+                           else ((fix lth) ∙ (pred d) ∙ (pred e)))
+
+  -- Reduction 'isZero e ≡ false'.
+  <-s₈ : D → D → D
+  <-s₈ d e = if (isZero d) then true
+                 else ((fix lth) ∙ (pred d) ∙ (pred e))
+
+  -- Reduction 'isZero d ≡ b'.
+  <-s₉ : D → D → D → D
+  <-s₉ d e b = if b then true
+                  else ((fix lth) ∙ (pred d) ∙ (pred e))
+
+  -- Reduction 'isZero d ≡ false'.
+  <-s₁₀ : D → D → D
+  <-s₁₀ d e = (fix lth) ∙ (pred d) ∙ (pred e)
+
+  -- Reduction 'pred (succ d) ≡ d'.
+  <-s₁₁ : D → D → D
+  <-s₁₁ d e = (fix lth) ∙ d ∙ (pred e)
+
+  -- Reduction 'pred (succ e) ≡ e'.
+  <-s₁₂ : D → D → D
+  <-s₁₂ d e = (fix lth) ∙ d ∙ e
+
+  ----------------------------------------------------------------------
+  -- The execution steps
+
+  --TODO : Doc. See LTC-PLPV
+
+  -- Application of the conversion rule 'cFix'.
+  initial→s₁ : (d e : D) → fix lth ∙ d ∙ e  ≡ <-s₁ d e
+  initial→s₁ d e = subst (λ t → t ∙ d ∙ e  ≡ lth (fix lth) ∙ d ∙ e )
+                         (sym (cFix lth ))
+                         refl
+
+  -- The definition of lth.
+  s₁→s₂ : (d e : D) → <-s₁ d e ≡ <-s₂ d e
+  s₁→s₂ d e = refl
+
+  -- cBeta application.
+  s₂→s₃ : (d e : D) → <-s₂ d e ≡ <-s₃ d e
+  s₂→s₃ d e = subst (λ t → lam (lt-aux₂ (fix lth)) ∙ d ∙ e ≡ t ∙ e)
+                    (cBeta (lt-aux₂ (fix lth)) d)
+                    refl
+
+  -- Definition of lt-aux₂
+  s₃→s₄ : (d e : D) → <-s₃ d e ≡ <-s₄ d e
+  s₃→s₄ d e = refl
+
+  -- cBeta application.
+  s₄→s₅ : (d e : D) → <-s₄ d e ≡ <-s₅ d e
+  s₄→s₅ d e = cBeta (lt-aux₁ d (fix lth)) e
+
+  -- Definition of lt-aux₁.
+  s₅→s₆ : (d e : D) → <-s₅ d e ≡ <-s₆ d e
+  s₅→s₆ d e = refl
+
+  -- Reduction 'isZero e ≡ b' using that proof.
+  s₆→s₇ : (d e b : D) → isZero e ≡ b → <-s₆ d e ≡ <-s₇ d e b
+  s₆→s₇ d e b prf = subst (λ t → <-s₇ d e t ≡ <-s₇ d e b )
+                          (sym prf)
+                          refl
+
+  -- Reduction of 'isZero e ≡ true' using the conversion rule cB₁.
+  s₇→end : (d e : D) → <-s₇ d e true ≡ false
+  s₇→end _ _ = cB₁ false
+
+  -- Reduction of 'isZero e ≡ false ...' using the conversion rule cB₂.
+  s₇→s₈ : (d e : D) → <-s₇ d e false ≡ <-s₈ d e
+  s₇→s₈ d e = cB₂ (<-s₈ d e)
+
+  -- Reduction 'isZero d ≡ b' using that proof.
+  s₈→s₉ : (d e b : D) → isZero d ≡ b → <-s₈ d e ≡ <-s₉ d e b
+  s₈→s₉ d e b prf = subst (λ t → <-s₉ d e t ≡ <-s₉ d e b )
+                          (sym prf)
+                          refl
+
+  -- Reduction of 'isZero d ≡ true' using the conversion rule cB₁.
+  s₉→end : (d e : D) → <-s₉ d e true ≡ true
+  s₉→end _ _ = cB₁ true
+
+  -- Reduction of 'isZero d ≡ false ...' using the conversion rule cB₂.
+  s₉→s₁₀ : (d e : D) → <-s₉ d e false ≡ <-s₁₀ d e
+  s₉→s₁₀ d e = cB₂ (<-s₁₀ d e)
+
+  -- Reduction 'pred (succ d) ≡ d' using the conversion rule cP₂.
+  s₁₀→s₁₁ : (d e : D) → <-s₁₀ (succ d) e  ≡ <-s₁₁ d e
+  s₁₀→s₁₁ d e = subst (λ t → <-s₁₁ t e ≡ <-s₁₁ d e)
+                      (sym (cP₂ d ))
+                      refl
+
+  -- Reduction 'pred (succ e) ≡ e' using the conversion rule 'cP₂'.
+  s₁₁→s₁₂ : (d e : D) → <-s₁₁ d (succ e)  ≡ <-s₁₂ d e
+  s₁₁→s₁₂ d e = subst (λ t → <-s₁₂ d t ≡ <-s₁₂ d e)
+                      (sym (cP₂ e ))
+                      refl
+
+------------------------------------------------------------------------------
+
+lt-00 : GE zero zero -- lt zero zero ≡ false
+lt-00 =
+  begin
+    fix lth ∙ zero ∙ zero ≡⟨ initial→s₁ zero zero ⟩
+    <-s₁ zero zero        ≡⟨ s₁→s₂ zero zero ⟩
+    <-s₂ zero zero        ≡⟨ s₂→s₃ zero zero ⟩
+    <-s₃ zero zero        ≡⟨ s₃→s₄ zero zero ⟩
+    <-s₄ zero zero        ≡⟨ s₄→s₅ zero zero ⟩
+    <-s₅ zero zero        ≡⟨ s₅→s₆ zero zero ⟩
+    <-s₆ zero zero        ≡⟨ s₆→s₇ zero zero true cZ₁ ⟩
+    <-s₇ zero zero true   ≡⟨ s₇→end zero zero ⟩
+    false
+    ∎
+
+lt-0S : (d : D) → LT zero (succ d)
+lt-0S d =
+  begin
+    fix lth ∙ zero ∙ (succ d) ≡⟨ initial→s₁ zero (succ d) ⟩
+    <-s₁ zero (succ d)        ≡⟨ s₁→s₂ zero (succ d) ⟩
+    <-s₂ zero (succ d)        ≡⟨ s₂→s₃ zero (succ d) ⟩
+    <-s₃ zero (succ d)        ≡⟨ s₃→s₄ zero (succ d) ⟩
+    <-s₄ zero (succ d)        ≡⟨ s₄→s₅ zero (succ d) ⟩
+    <-s₅ zero (succ d)        ≡⟨ s₅→s₆ zero (succ d) ⟩
+    <-s₆ zero (succ d)        ≡⟨ s₆→s₇ zero (succ d) false (cZ₂ d) ⟩
+    <-s₇ zero (succ d) false  ≡⟨ s₇→s₈ zero (succ d) ⟩
+    <-s₈ zero (succ d)        ≡⟨ s₈→s₉ zero (succ d) true cZ₁ ⟩
+    <-s₉ zero (succ d) true   ≡⟨ s₉→end zero (succ d) ⟩
+    true
+  ∎
+
+lt-S0 : (d : D) → GE (succ d) zero -- lt (succ d) zero ≡ false
+lt-S0 d =
+  begin
+    fix lth ∙ (succ d) ∙ zero ≡⟨ initial→s₁ (succ d) zero ⟩
+    <-s₁ (succ d) zero        ≡⟨ s₁→s₂ (succ d) zero ⟩
+    <-s₂ (succ d) zero        ≡⟨ s₂→s₃ (succ d) zero ⟩
+    <-s₃ (succ d) zero        ≡⟨ s₃→s₄ (succ d) zero ⟩
+    <-s₄ (succ d) zero        ≡⟨ s₄→s₅ (succ d) zero ⟩
+    <-s₅ (succ d) zero        ≡⟨ s₅→s₆ (succ d) zero ⟩
+    <-s₆ (succ d) zero        ≡⟨ s₆→s₇ (succ d) zero true cZ₁ ⟩
+    <-s₇ (succ d) zero true   ≡⟨ s₇→end (succ d) zero ⟩
+    false
+  ∎
+
+lt-SS : (d e : D) → lt (succ d) (succ e) ≡ lt d e
+lt-SS d e =
+  begin
+    fix lth ∙ (succ d) ∙ (succ e) ≡⟨ initial→s₁ (succ d) (succ e) ⟩
+    <-s₁ (succ d) (succ e)        ≡⟨ s₁→s₂ (succ d) (succ e) ⟩
+    <-s₂ (succ d) (succ e)        ≡⟨ s₂→s₃ (succ d) (succ e) ⟩
+    <-s₃ (succ d) (succ e)        ≡⟨ s₃→s₄ (succ d) (succ e) ⟩
+    <-s₄ (succ d) (succ e)        ≡⟨ s₄→s₅ (succ d) (succ e) ⟩
+    <-s₅ (succ d) (succ e)        ≡⟨ s₅→s₆ (succ d) (succ e) ⟩
+    <-s₆ (succ d) (succ e)        ≡⟨ s₆→s₇ (succ d) (succ e) false (cZ₂ e) ⟩
+    <-s₇ (succ d) (succ e) false  ≡⟨ s₇→s₈ (succ d) (succ e) ⟩
+    <-s₈ (succ d) (succ e)        ≡⟨ s₈→s₉ (succ d) (succ e) false (cZ₂ d) ⟩
+    <-s₉ (succ d) (succ e) false  ≡⟨ s₉→s₁₀ (succ d) (succ e) ⟩
+    <-s₁₀ (succ d) (succ e)       ≡⟨ s₁₀→s₁₁ d (succ e) ⟩
+    <-s₁₁ d (succ e)              ≡⟨ s₁₁→s₁₂ d e ⟩
+    <-s₁₂ d e                     ≡⟨ refl ⟩
+    lt d e
+  ∎
 
 x≥0 : {n : D} → N n → GE n zero
 x≥0 zN          = lt-00
