@@ -254,6 +254,9 @@ x<y∨x≥y Nm Nn = x>y∨x≤y Nn Nm
 ¬x<x zN          0<0   = ⊥-elim (true≠false (trans (sym 0<0) lt-00))
 ¬x<x (sN {m} Nm) Sm<Sm = ⊥-elim (¬x<x Nm (trans (sym (lt-SS m m)) Sm<Sm))
 
+¬x>x : {m : D} → N m → ¬ (GT m m)
+¬x>x Nm = ¬x<x Nm
+
 x≤x : {m : D} → N m → LE m m
 x≤x zN          = lt-00
 x≤x (sN {m} Nm) = trans (lt-SS m m) (x≤x Nm)

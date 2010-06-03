@@ -94,6 +94,9 @@ x<y∨x≥y Nm Nn = x>y∨x≤y Nn Nm
     postulate prf : ¬ (LT m m) → ⊥
     {-# ATP prove prf lt-SS #-}
 
+¬x>x : {m : D} → N m → ¬ (GT m m)
+¬x>x Nm = ¬x<x Nm
+
 x≤x : {m : D} → N m → LE m m
 x≤x zN          = lt-00
 x≤x (sN {m} Nm) = prf (x≤x Nm)
