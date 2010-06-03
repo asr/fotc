@@ -474,6 +474,20 @@ x≡y→y<z→x<z {m} {n} {o} Nm Nn No m≡n n<o =
     true
   ∎
 
+x≥y→y>0→x-y<x : {m n : D} → N m → N n → GE m n → GT n zero → LT (m - n) m
+x≥y→y>0→x-y<x Nm          zN          _     0>0  = ⊥-elim (¬x>x zN 0>0)
+x≥y→y>0→x-y<x zN          (sN Nn)     0≥Sn  _    = ⊥-elim (¬S≤0 0≥Sn)
+x≥y→y>0→x-y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 =
+  begin
+    lt (succ m - succ n) (succ m)
+      ≡⟨ subst (λ t → lt (succ m - succ n) (succ m) ≡ lt t (succ m))
+               (minus-SS Nm Nn)
+               refl
+      ⟩
+    lt (m - n) (succ m) ≡⟨ x-y<Sx Nm Nn ⟩
+    true
+  ∎
+
 ------------------------------------------------------------------------------
 -- Properties about LT₂
 
