@@ -7,6 +7,7 @@ module Examples.GCD.IsCommonDivisorPCF where
 open import LTC.Minimal
 
 open import Examples.GCD-PCF
+open import Examples.GCD.EquationsPCF
 open import Examples.GCD.IsN-PCF
 open import Examples.GCD.Types
 
@@ -46,13 +47,13 @@ CD m n d = (d ∣ m) ∧ (d ∣ n)
 -- 'gcd 0 (succ n) ∣ 0'.
 
 postulate gcd-0S-∣₁ : {n : D} → N n → gcd zero (succ n) ∣ zero
-{-# ATP prove gcd-0S-∣₁ zN S∣0 #-}
+{-# ATP prove gcd-0S-∣₁ zN S∣0 gcd-0S #-}
 
 -----------------------------------------------------------------------
 -- 'gcd (succ m) 0 ∣ succ m'.
 
 postulate gcd-S0-∣₁ : {n : D} → N n → gcd (succ n) zero ∣ succ n
-{-# ATP prove gcd-S0-∣₁ ∣-refl-S #-}
+{-# ATP prove gcd-S0-∣₁ ∣-refl-S gcd-S0 #-}
 
 ---------------------------------------------------------------------------
 -- 'gcd (succ m) (succ n) ∣ succ m', when 'succ m ≤ succ n'.
@@ -64,7 +65,7 @@ postulate
     (gcd (succ m) (succ n - succ m) ∣ succ m) →
     LE (succ m) (succ n) →
     gcd (succ m) (succ n) ∣ succ m
-{-# ATP prove gcd-S≤S-∣₁ #-}
+{-# ATP prove gcd-S≤S-∣₁ gcd-S≤S #-}
 
 ---------------------------------------------------------------------------
 -- 'gcd (succ m) (succ n) ∣ succ m' when 'succ m > succ n'.
@@ -92,7 +93,7 @@ postulate
     gcd (succ m - succ n) (succ n) ∣ (succ m - succ n) + succ n →
     ((succ m - succ n) + succ n ≡ succ m) →
     gcd (succ m) (succ n) ∣ succ m
-{-# ATP prove gcd-S>S-∣₁-ah #-}
+{-# ATP prove gcd-S>S-∣₁-ah gcd-S>S #-}
 
 gcd-S>S-∣₁ :
   {m n : D} → N m → N n →
@@ -123,13 +124,13 @@ gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
 -- 'gcd 0 (succ n) ∣₂ succ n'.
 
 postulate gcd-0S-∣₂ : {n : D} → N n → gcd zero (succ n) ∣ succ n
-{-# ATP prove gcd-0S-∣₂ ∣-refl-S #-}
+{-# ATP prove gcd-0S-∣₂ ∣-refl-S gcd-0S #-}
 
 ---------------------------------------------------------------------------
 -- 'gcd (succ m) 0 ∣ 0'.
 
 postulate gcd-S0-∣₂ : {m : D} → N m → gcd (succ m) zero ∣ zero
-{-# ATP prove gcd-S0-∣₂ zN S∣0 #-}
+{-# ATP prove gcd-S0-∣₂ zN S∣0 gcd-S0 #-}
 
 ---------------------------------------------------------------------------
 -- 'gcd (succ m) (succ n) ∣ succ n' when 'succ m ≤ succ n'.
@@ -157,7 +158,7 @@ postulate
     (gcd (succ m) (succ n - succ m) ∣ (succ n - succ m) + succ m) →
     ( (succ n - succ m) + succ m ≡ succ n ) →
     gcd (succ m) (succ n) ∣ succ n
-{-# ATP prove gcd-S≤S-∣₂-ah #-}
+{-# ATP prove gcd-S≤S-∣₂-ah gcd-S≤S #-}
 
 gcd-S≤S-∣₂ :
   {m n : D} → N m → N n →
@@ -186,7 +187,7 @@ postulate
     (gcd (succ m - succ n) (succ n) ∣ succ n) →
     GT (succ m) (succ n) →
     gcd (succ m) (succ n) ∣ succ n
-{-# ATP prove gcd-S>S-∣₂ #-}
+{-# ATP prove gcd-S>S-∣₂ gcd-S>S #-}
 
 ---------------------------------------------------------------------------
 -- The gcd is CD

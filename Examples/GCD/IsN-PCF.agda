@@ -9,6 +9,7 @@ module Examples.GCD.IsN-PCF where
 open import LTC.Minimal
 
 open import Examples.GCD-PCF
+open import Examples.GCD.EquationsPCF
 open import Examples.GCD.Types
 
 open import LTC.Data.N
@@ -25,14 +26,14 @@ open import MyStdLib.Function
 -- The 'gcd 0 (succ n)' is N.
 postulate
   gcd-0S-N : {n : D} → N n → N (gcd zero (succ n))
-{-# ATP prove gcd-0S-N sN #-}
+{-# ATP prove gcd-0S-N sN gcd-0S #-}
 
 ------------------------------------------------------------------------------
 -- The 'gcd (succ n) 0' is N.
 
 postulate
   gcd-S0-N : {n : D} → N n → N (gcd (succ n) zero)
-{-# ATP prove gcd-S0-N sN #-}
+{-# ATP prove gcd-S0-N sN gcd-S0 #-}
 
 ------------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m > succ n' is N.
@@ -42,7 +43,7 @@ postulate
               N (gcd (succ m - succ n) (succ n)) →
               GT (succ m) (succ n) →
               N (gcd (succ m) (succ n))
-{-# ATP prove gcd-S>S-N #-}
+{-# ATP prove gcd-S>S-N gcd-S>S #-}
 
 ------------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m ≤ succ n' is N.
@@ -52,7 +53,7 @@ postulate
               N (gcd (succ m) (succ n - succ m)) →
               LE (succ m) (succ n) →
               N (gcd (succ m) (succ n))
-{-# ATP prove gcd-S≤S-N #-}
+{-# ATP prove gcd-S≤S-N gcd-S≤S #-}
 
 ---------------------------------------------------------------------------
 -- The 'gcd m n' when 'm > n' is N.

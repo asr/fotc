@@ -8,6 +8,7 @@ open import LTC.Minimal
 open import LTC.MinimalER
 
 open import Examples.GCD-PCF
+open import Examples.GCD.EquationsPCF
 open import Examples.GCD.IsN-PCF-ER
 open import Examples.GCD.Types
 

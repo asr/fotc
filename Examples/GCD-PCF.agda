@@ -12,23 +12,54 @@ open import LTC.Relation.InequalitiesPCF
 
 ------------------------------------------------------------------------------
 
-postulate
-  gcd : D → D → D
+{-
+It is possible to define two different versions of gcd based on which
+(partial) order on natural numbers we are considering. In one version,
+'gcd 0 0' is defined and in the other version, it isn't defined.
+-}
 
-  gcd-00 : gcd zero zero ≡ error
+-- Instead of define
+-- 'gcdh : ((D → D → D) → (D → D → D)) → D → D → D', we use the LTC
+-- abstraction ('lam') and application ('∙') to avoid use a polymorphic fixed
+-- point operator.
 
-  gcd-S0 : (n : D) → gcd (succ n) zero ≡ succ n
+-- Version using lambda-abstraction.
 
-  gcd-0S : (n : D) → gcd zero (succ n) ≡ succ n
+-- gcdh : D → D
+-- gcdh g = lam (λ d → lam (λ e →
+--            if (isZero e)
+--               then (if (isZero d)
+--                        then error
+--                        else d)
+--               else (if (isZero d)
+--                        then e
+--                        else (if (gt d e)
+--                                 then g ∙ (d - e) ∙ e
+--                                 else g ∙ d ∙ (e - d)))))
 
-  gcd-S>S : (m n : D) → GT (succ m) (succ n) →
-            gcd (succ m) (succ n) ≡ gcd (succ m - succ n) (succ n)
+-- Version using lambda lifting via super-combinators.
+-- (Hughes. Super-combinators. 1982)
 
-  gcd-S≤S : (m n : D) → LE (succ m) (succ n) →
-            gcd (succ m) (succ n) ≡ gcd (succ m) (succ n - succ m)
+gcd-aux₁ : D → D → D → D
+gcd-aux₁ d g e = if (isZero e)
+                    then (if (isZero d)
+                             then error
+                             else d)
+                         else (if (isZero d)
+                           then e
+                           else (if (gt d e)
+                                    then g ∙ (d - e) ∙ e
+                                    else g ∙ d ∙ (e - d)))
+{-# ATP definition gcd-aux₁ #-}
 
-{-# ATP axiom gcd-00 #-}
-{-# ATP axiom gcd-S0 #-}
-{-# ATP axiom gcd-0S #-}
-{-# ATP axiom gcd-S>S #-}
-{-# ATP axiom gcd-S≤S #-}
+gcd-aux₂ : D → D → D
+gcd-aux₂ g d = lam (gcd-aux₁ d g)
+{-# ATP definition gcd-aux₂ #-}
+
+gcdh : D → D
+gcdh g = lam (gcd-aux₂ g)
+{-# ATP definition gcdh #-}
+
+gcd : D → D → D
+gcd d e = fix gcdh ∙ d ∙ e
+{-# ATP definition gcd #-}

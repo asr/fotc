@@ -7,6 +7,7 @@ module Examples.GCD.IsDivisiblePCF where
 open import LTC.Minimal
 
 open import Examples.GCD-PCF
+open import Examples.GCD.EquationsPCF
 open import Examples.GCD.IsCommonDivisorPCF
 open import Examples.GCD.Types
 
@@ -41,12 +42,12 @@ Divisible a b gcd = (c : D) → N c → CD a b c → c ∣ gcd
 postulate
   gcd-0S-Divisible : {n : D} → N n →
                      Divisible zero (succ n) (gcd zero (succ n))
-{-# ATP prove gcd-0S-Divisible #-}
+{-# ATP prove gcd-0S-Divisible gcd-0S #-}
 
 postulate
   gcd-S0-Divisible : {n : D} → N n →
                      Divisible (succ n) zero (gcd (succ n) zero)
-{-# ATP prove gcd-S0-Divisible #-}
+{-# ATP prove gcd-S0-Divisible gcd-S0 #-}
 
 ---------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m > succ n' is Divisible.
@@ -61,7 +62,7 @@ postulate
     (c : D) → N c → CD (succ m) (succ n) c →
     (c ∣ succ m - succ n) →
     c ∣ gcd (succ m) (succ n)
-{-# ATP prove gcd-S>S-Divisible-ah #-}
+{-# ATP prove gcd-S>S-Divisible-ah gcd-S>S #-}
 
 gcd-S>S-Divisible :
   {m n : D} → N m → N n →
@@ -85,7 +86,7 @@ postulate
     (c : D) → N c → CD (succ m) (succ n) c →
     (c ∣ succ n - succ m) →
     c ∣ gcd (succ m) (succ n)
-{-# ATP prove gcd-S≤S-Divisible-ah #-}
+{-# ATP prove gcd-S≤S-Divisible-ah gcd-S≤S #-}
 
 gcd-S≤S-Divisible :
   {m n : D} → N m → N n →
