@@ -65,6 +65,9 @@ x>y∨x≤y (sN {m} Nm) (sN {n} Nn) = prf $ x>y∨x≤y Nm Nn
             GT (succ m) (succ n) ∨ LE (succ m) (succ n)
     {-# ATP prove prf #-}
 
+x<y∨x≥y : {m n : D} → N m → N n → LT m n ∨ GE m n
+x<y∨x≥y Nm Nn = x>y∨x≤y Nn Nm
+
 ¬x<x : {m : D} → N m → ¬ (LT m m)
 ¬x<x zN _ = ⊥-elim prf
   where

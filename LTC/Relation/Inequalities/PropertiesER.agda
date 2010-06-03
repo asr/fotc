@@ -49,6 +49,9 @@ x>y∨x≤y (sN {m} Nm) (sN {n} Nn) =
         (sym $ lt-SS n m)
         (x>y∨x≤y Nm Nn )
 
+x<y∨x≥y : {m n : D} → N m → N n → LT m n ∨ GE m n
+x<y∨x≥y Nm Nn = x>y∨x≤y Nn Nm
+
 ¬x<x : {m : D} → N m → ¬ (LT m m)
 ¬x<x zN          0<0   = ⊥-elim (true≠false (trans (sym 0<0) lt-00))
 ¬x<x (sN {m} Nm) Sm<Sm = ⊥-elim (¬x<x Nm (trans (sym (lt-SS m m)) Sm<Sm))
