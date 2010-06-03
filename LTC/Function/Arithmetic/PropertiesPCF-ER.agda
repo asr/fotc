@@ -319,16 +319,16 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn =
     n + succ m
    ∎
 
-*-leftZero : {n : D} → N n → zero * n ≡ zero
-*-leftZero {n} _ = *-0x n
+*-leftZero : (n : D) → zero * n ≡ zero
+*-leftZero = *-0x
 
 *-N : {m n : D} → N m → N n → N (m * n)
-*-N zN Nn = subst (λ t → N t) (sym (*-leftZero Nn)) zN
+*-N {n = n} zN Nn = subst (λ t → N t) (sym (*-leftZero n)) zN
 *-N {n = n} (sN {m} Nm) Nn =
   subst (λ t → N t) (sym (*-Sx m n)) (+-N Nn (*-N Nm Nn))
 
 *-rightZero : {n : D} → N n → n * zero ≡ zero
-*-rightZero zN          = *-leftZero zN
+*-rightZero zN          = *-leftZero zero
 *-rightZero (sN {n} Nn) =
   trans (*-Sx n zero)
         (trans (+-leftIdentity (*-N Nn zN)) (*-rightZero Nn))
@@ -338,7 +338,7 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn =
   begin
     succ zero * n ≡⟨ *-Sx zero n ⟩
     n + zero * n  ≡⟨ subst (λ t → n + zero * n ≡ n + t)
-                           (*-leftZero Nn)
+                           (*-leftZero n)
                            refl
                   ⟩
     n + zero      ≡⟨ +-rightIdentity Nn ⟩
@@ -350,11 +350,11 @@ x*1+y≡x+xy {n = n} zN Nn = sym
   (
     begin
       zero + zero * n ≡⟨ subst (λ t → zero + zero * n ≡ zero + t)
-                         (*-leftZero Nn)
+                         (*-leftZero n)
                          refl
                       ⟩
       zero + zero     ≡⟨ +-leftIdentity zN ⟩
-      zero            ≡⟨ sym (*-leftZero (sN Nn)) ⟩
+      zero            ≡⟨ sym (*-leftZero (succ n)) ⟩
       zero * succ n
     ∎
   )
@@ -390,7 +390,7 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn =
     ∎
 
 *-comm : {m n : D} → N m → N n → m * n ≡ n * m
-*-comm zN Nn = trans (*-leftZero Nn) (sym (*-rightZero Nn))
+*-comm {n = n} zN Nn = trans (*-leftZero n) (sym (*-rightZero Nn))
 *-comm {n = n} (sN {m} Nm) Nn =
   begin
     succ m * n   ≡⟨ *-Sx m n ⟩
@@ -517,7 +517,7 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn =
     succ m * succ o          ≡⟨ sym (+-rightIdentity (*-N (sN Nm) (sN No))) ⟩
     succ m * succ o + zero   ≡⟨ subst (λ t → succ m * succ o + zero ≡
                                              succ m * succ o + t)
-                                      (sym (*-leftZero (sN No)))
+                                      (sym (*-leftZero (succ o)))
                                       refl
                              ⟩
     succ m * succ o + zero * succ o

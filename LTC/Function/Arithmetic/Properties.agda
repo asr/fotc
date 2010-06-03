@@ -115,11 +115,11 @@ minus-0x (sN {n} Nn) = minus-0S n
                     (succ m + n) - (succ m + o) ≡ n - o
     {-# ATP prove prf #-}
 
-*-leftZero : {n : D} → N n → zero * n ≡ zero
-*-leftZero {n} _ = *-0x n
+*-leftZero : (n : D) → zero * n ≡ zero
+*-leftZero = *-0x
 
 *-rightZero : {n : D} → N n → n * zero ≡ zero
-*-rightZero zN          = *-leftZero zN
+*-rightZero zN          = *-leftZero zero
 *-rightZero (sN {n} Nn) = prf (*-rightZero Nn)
   where
     postulate prf : n * zero ≡ zero → succ n * zero ≡ zero
