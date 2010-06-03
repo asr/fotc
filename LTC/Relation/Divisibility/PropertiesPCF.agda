@@ -81,7 +81,7 @@ x∣y→x∣z→x∣y+z (sN Nm) Nn Np
 
 postulate
   x∣S→x≤S-ah₁ : {m n : D} → succ n ≡ zero * succ m → ⊥
--- {-# ATP prove x∣S→x≤S-ah₁ *-leftZero sN #-}
+{-# ATP prove x∣S→x≤S-ah₁ *-leftZero *-0x sN #-}
 
 -- Nice proof by the ATP.
 postulate
