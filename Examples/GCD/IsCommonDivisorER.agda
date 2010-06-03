@@ -7,7 +7,7 @@ module Examples.GCD.IsCommonDivisorER where
 open import LTC.Minimal
 open import LTC.MinimalER
 
-open import Examples.GCD.Equations
+open import Examples.GCD
 open import Examples.GCD.IsN-ER
 open import Examples.GCD.Types
 

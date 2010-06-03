@@ -6,7 +6,7 @@ module Examples.GCD.IsDivisiblePCF where
 
 open import LTC.Minimal
 
-open import Examples.GCD.EquationsPCF
+open import Examples.GCD-PCF
 open import Examples.GCD.IsCommonDivisorPCF
 open import Examples.GCD.Types
 

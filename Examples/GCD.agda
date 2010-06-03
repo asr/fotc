@@ -1,39 +1,34 @@
 ------------------------------------------------------------------------------
--- Specification of the Euclid's algorithm for calculate the greatest
--- common divisor of two natural numbers
+-- Definition of the greatest common divisor of two natural numbers
 ------------------------------------------------------------------------------
 
 module Examples.GCD where
 
 open import LTC.Minimal
 
-open import Examples.GCD.Equations
-open import Examples.GCD.IsCommonDivisor
-open import Examples.GCD.IsDivisible
-open import Examples.GCD.IsGreatestAnyCommonDivisor
-open import Examples.GCD.IsN
-open import Examples.GCD.Types
-
 open import LTC.Data.N
+open import LTC.Function.Arithmetic
+open import LTC.Relation.Inequalities
 
------------------------------------------------------------------------
--- The 'gcd' is the GCD.
------------------------------------------------------------------------
+------------------------------------------------------------------------------
 
--- Greatest commun divisor.
+postulate
+  gcd : D → D → D
 
-record GCD (a b gcd : D) : Set where
-    field
-      -- The gcd is a common divisor.
-      commonDivisor : CD a b gcd
+  gcd-00 : gcd zero zero ≡ error
 
-      -- Greatest that any common divisor.
-      greatest : GACD a b gcd
+  gcd-S0 : (n : D) → gcd (succ n) zero ≡ succ n
 
-gcd-GCD : {m n : D} → N m → N n → ¬x≡0∧y≡0 m n → GCD m n (gcd m n)
-gcd-GCD Nm Nn m≠0≠n =
-  record { commonDivisor = gcd-CD Nm Nn m≠0≠n
-         ; greatest      = gcd-GACD (gcd-N Nm Nn m≠0≠n)
-                                    (gcd-CD Nm Nn m≠0≠n)
-                                    (gcd-Divisible Nm Nn m≠0≠n)
-         }
+  gcd-0S : (n : D) → gcd zero (succ n) ≡ succ n
+
+  gcd-S>S : (m n : D) → GT (succ m) (succ n) →
+            gcd (succ m) (succ n) ≡ gcd (succ m - succ n) (succ n)
+
+  gcd-S≤S : (m n : D) → LE (succ m) (succ n) →
+            gcd (succ m) (succ n) ≡ gcd (succ m) (succ n - succ m)
+
+{-# ATP axiom gcd-00 #-}
+{-# ATP axiom gcd-S0 #-}
+{-# ATP axiom gcd-0S #-}
+{-# ATP axiom gcd-S>S #-}
+{-# ATP axiom gcd-S≤S #-}

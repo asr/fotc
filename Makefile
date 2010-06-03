@@ -8,10 +8,10 @@ testConjecturesPCF :
 	./testConjecturesPCF.bash
 
 testQuick :
-	agda -v 0 Examples/GCD.agda
-	agda -v 0 Examples/GCD-PCF.agda
-	agda -v 0 Examples/GCD-ER.agda
-	agda -v 0 Examples/GCD-PCF-ER.agda
+	agda -v 0 Examples/GCD/IsGCD.agda
+	agda -v 0 Examples/GCD/IsGCD-PCF.agda
+	agda -v 0 Examples/GCD/IsGCD-ER.agda
+	agda -v 0 Examples/GCD/IsGCD-PCF-ER.agda
 	agda -v 0 LTC/Data/N/Induction/WellFounded.agda
 	agda -v 0 LTC/Data/N/Induction/WellFoundedPCF.agda
 

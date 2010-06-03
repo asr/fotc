@@ -8,7 +8,7 @@ module Examples.GCD.IsN-PCF where
 
 open import LTC.Minimal
 
-open import Examples.GCD.EquationsPCF
+open import Examples.GCD-PCF
 open import Examples.GCD.Types
 
 open import LTC.Data.N
