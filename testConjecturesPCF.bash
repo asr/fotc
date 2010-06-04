@@ -10,6 +10,9 @@ conjecturesFilesPCF='
   Examples/GCD/IsN-PCF
   Examples/GCD/IsCommonDivisorPCF
   Examples/GCD/IsDivisiblePCF
+  Examples/Division/Equations
+  Examples/Division/IsN
+  Examples/Division/IsCorrect
   '
 for file in ${conjecturesFilesPCF} ; do
     rm -f /tmp/*.tptp
