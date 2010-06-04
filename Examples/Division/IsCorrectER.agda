@@ -60,17 +60,17 @@ div-x<y-correct {i} Ni Nj i<j =
 -- get 'i = j * div i j + r'.
 
 postulate
-    ih-eq : {i j r : D} → N i → N j → N r →
-            i - j ≡ j * (div (i - j) j) + r →
-            i ≡ j * succ (div (i - j) j) + r
+  aux : {i j r : D} → N i → N j → N r →
+        i - j ≡ j * (div (i - j) j) + r →
+        i ≡ j * succ (div (i - j) j) + r
 
 div-x≥y-aux : {i j r : D} → N i → N j → N r →
               GE i j →
               i - j ≡ j * (div (i - j) j) + r →
               i ≡ j * (div i j) + r
-div-x≥y-aux {i} {j} {r} Ni Nj Nr i≥j DIV-eq =
+div-x≥y-aux {i} {j} {r} Ni Nj Nr i≥j auxH =
   begin
-    i ≡⟨ ih-eq Ni Nj Nr DIV-eq ⟩
+    i ≡⟨ aux Ni Nj Nr auxH ⟩
     j * succ (div (i - j) j) + r ≡⟨ prf ⟩
     j * (div i j) + r
   ∎
@@ -85,7 +85,7 @@ div-x≥y-correct : {i j : D} → N i → N j →
                   GE i j →
                   ∃D (λ r → (N r) ∧ (LT r j) ∧ (i ≡ j * (div i j) + r))
 div-x≥y-correct {i} {j} Ni Nj ih i≥j =
-  r , (Nr , (r<j , (div-x≥y-aux Ni Nj Nr i≥j DIV-eq)))
+  r , (Nr , (r<j , (div-x≥y-aux Ni Nj Nr i≥j auxH)))
 
     where
       -- The parts of the inductive hipothesis 'ih-i-j'
@@ -101,5 +101,5 @@ div-x≥y-correct {i} {j} Ni Nj ih i≥j =
       r<j : LT r j
       r<j = ∧-proj₁ (∧-proj₂ r-correct)
 
-      DIV-eq : i - j ≡ j * (div (i - j) j) + r
-      DIV-eq = ∧-proj₂ (∧-proj₂ r-correct)
+      auxH : i - j ≡ j * (div (i - j) j) + r
+      auxH = ∧-proj₂ (∧-proj₂ r-correct)
