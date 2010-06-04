@@ -12,7 +12,6 @@
 module Examples.Division.IsDIV-ER where
 
 open import LTC.Minimal
-open import LTC.MinimalER
 
 open import Examples.Division
 open import Examples.Division.EquationsER
