@@ -18,6 +18,10 @@ open module APER = MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 ------------------------------------------------------------------------------
 -- Division properties
 
+-- Note: This module was written for the version of div using the
+-- lambda abstractions, but we can use it with the version of div
+-- using super-combinators.
+
 private
     -- Before to prove some properties for 'div i j' it is convenient
     -- to have a proof for each possible execution step.
