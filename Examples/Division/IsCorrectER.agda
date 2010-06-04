@@ -88,7 +88,7 @@ div-x≥y-correct {i} {j} Ni Nj ih i≥j =
   r , (Nr , (r<j , (div-x≥y-aux Ni Nj Nr i≥j auxH)))
 
     where
-      -- The parts of the inductive hipothesis 'ih-i-j'
+      -- The parts of the inductive hipothesis ih
       r : D
       r = ∃D-proj₁ (∧-proj₂ ih)
 
