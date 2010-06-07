@@ -88,17 +88,14 @@ agdaOriginalTerm qName role =
 
 addAxiom :: AF -> FilePath -> IO ()
 addAxiom af@(AF qName role _ ) file
-  | role == AxiomATP ||
-    role == DefinitionATP ||
-    role == HintATP =
-        do
-          appendFile file $ agdaOriginalTerm qName role
-          appendFile file $ prettyTPTP af
+  | role `elem` [ AxiomATP, DefinitionATP, HintATP ] = do
+      appendFile file $ agdaOriginalTerm qName role
+      appendFile file $ prettyTPTP af
 
   | otherwise = __IMPOSSIBLE__
 
 addConjecture :: AF -> FilePath -> R ()
-addConjecture af file = do
+addConjecture af file =
   case af of
     (AF qName ConjectureATP _ ) -> do
           liftIO $ appendFile file $ agdaOriginalTerm qName ConjectureATP
@@ -108,10 +105,10 @@ addConjecture af file = do
 
 createAxiomsFile :: [AF] -> R ()
 createAxiomsFile afs = do
-  reportSLn "createAxiomsFile" 20 $ "Creating the general axioms file ... "
+  reportSLn "createAxiomsFile" 20 "Creating the general axioms file ... "
   liftIO $ do
     _ <- writeFile axiomsFile headerAxioms
-    _ <- mapM_ (flip addAxiom axiomsFile) afs
+    _ <- mapM_ (`addAxiom` axiomsFile) afs
     _ <- appendFile axiomsFile footerAxioms
     return ()
 
@@ -127,7 +124,7 @@ createConjectureFile (af@(AF qName _ _ ), hints) = do
                 "Creating the conjecture file " ++ show file ++ " ..."
   liftIO $ do
     _ <- writeFile file headerConjecture
-    _ <- mapM_ (flip addAxiom file) hints
+    _ <- mapM_ (`addAxiom` file) hints
     return ()
 
   addConjecture af file

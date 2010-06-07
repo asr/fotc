@@ -15,6 +15,7 @@ import Control.Monad.Trans.Class ( lift )
 import Control.Monad.Trans.Error ( runErrorT, throwError )
 import Control.Monad.Trans.Reader ( ask, runReaderT )
 
+import Data.Maybe ( fromMaybe )
 -- import Data.Map ( Map )
 import qualified Data.Map as Map
 import MonadUtils ( zipWith3M )
@@ -130,23 +131,19 @@ conjectureHintToAF qName = do
 
   i <- liftIO $ do
          b <- doesFileExist iFile
-         case b of
-           True  -> myReadInterface file
-           False -> do
-                  -- The module name ends in a datatype/record name.
-                  let file' :: FilePath
-                      file' = moduleNameToFilePath $
-                                removeLastNameModuleName $ qnameModule qName
-                  myReadInterface file'
+         if b
+            then myReadInterface file
+            else do
+              -- The module name ends in a datatype/record name.
+              let file' :: FilePath
+                  file' = moduleNameToFilePath $
+                            removeLastNameModuleName $ qnameModule qName
+              myReadInterface file'
 
   let def :: Definition
-      def = case getQNameDefinition i qName of
-               Just hDef -> hDef
-               Nothing   -> __IMPOSSIBLE__
+      def = fromMaybe __IMPOSSIBLE__ (getQNameDefinition i qName)
 
-  af <- toAF qName AxiomATP def
-
-  return af
+  toAF qName AxiomATP def
 
 -- We translate the hints of an ATP pragma conjecture to AF's.
 -- Invariant: The 'Definition' must be an ATP pragma conjecture
@@ -156,7 +153,7 @@ conjectureHintsToAFs def = do
   let hints :: [QName]
       hints = getConjectureHints def
   lift $ reportSLn "hintsToFOLs" 20 $
-    "The local hints for the conjecture " ++ (show $ defName def) ++
+    "The local hints for the conjecture " ++ show (defName def) ++
     " are:\n" ++ show hints
 
   ( afs :: [AF] ) <- mapM conjectureHintToAF hints
@@ -206,10 +203,7 @@ conjecturesToAFs i = do
   lift $ reportSLn "conjecturesToFOLs" 20 $
     "Conjectures:\n" ++ show (Map.keys conjecturesDefs)
 
-  afs <- zipWithM conjectureToAF
-                  (Map.keys conjecturesDefs)
-                  (Map.elems conjecturesDefs)
-  return afs
+  zipWithM conjectureToAF (Map.keys conjecturesDefs) (Map.elems conjecturesDefs)
 
 -- We translate the ATP pragma definitions in an interface file to FOL
 -- formulas.
@@ -220,6 +214,4 @@ symbolsToAFs i = do
   let symDefs :: Definitions
       symDefs = getRoleATP DefinitionATP i
 
-  afs <- zipWithM symbolToAF (Map.keys symDefs) (Map.elems symDefs)
-
-  return afs
+  zipWithM symbolToAF (Map.keys symDefs) (Map.elems symDefs)

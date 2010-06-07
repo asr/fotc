@@ -38,8 +38,7 @@ eproverOk :: String
 eproverOk = "Proof found!"
 
 checkOutputATP :: String -> String -> Bool
-checkOutputATP atp output =
-    if (isInfixOf (atpOk atp) output) then True else False
+checkOutputATP atp output = isInfixOf (atpOk atp) output
        where
          atpOk :: String -> String
          atpOk "equinox" = equinoxOk
@@ -62,22 +61,18 @@ callATPConjecture conjecture = do
     outputEquinox <- lift $ liftIO $
                 readProcess "equinox" [ "--time" , timeLimit , file ] ""
 
-    if (checkOutputATP "equinox" outputEquinox)
-      then return ()
-      else do
-        lift $ reportS "" 1 $ "Proving the conjecture " ++ file ++ " using eprover"
+    unless (checkOutputATP "equinox" outputEquinox) $ do
+      lift $ reportS "" 1 $ "Proving the conjecture " ++ file ++ " using eprover"
 
-        outputEprover <- lift $ liftIO $
-                readProcess "eprover" [ "--tstp-format"
-                                      , "--cpu-limit=" ++ timeLimit
-                                      , file
-                                      ] ""
+      outputEprover <- lift $ liftIO $
+        readProcess "eprover" [ "--tstp-format"
+                              , "--cpu-limit=" ++ timeLimit
+                              , file
+                              ] ""
 
-        if (checkOutputATP "eprover" outputEprover)
-          then return ()
-          else throwError $
-                   "Equinox and eprover" ++
-                   " did not prove the conjecture " ++ file ++ "."
+      unless (checkOutputATP "eprover" outputEprover) $
+        throwError $ "Equinox and eprover" ++
+                     " did not prove the conjecture " ++ file ++ "."
 
 callATP :: [AF] -> [(AF, [AF])] -> ER ()
 callATP axioms conjectures = do

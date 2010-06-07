@@ -95,8 +95,8 @@ translation file = do
 
 runAgda2ATP :: ErrorT String IO ()
 runAgda2ATP = do
-  prgName <- liftIO $ getProgName
-  argv <- liftIO $ getArgs --fmap head $ liftIO getArgs
+  prgName <- liftIO getProgName
+  argv    <- liftIO getArgs --fmap head $ liftIO getArgs
 
   -- Reading the command line options.
   (opts, names) <- liftIO $ parseOptions argv prgName

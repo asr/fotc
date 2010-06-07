@@ -16,4 +16,4 @@ type AgdaType = Type
 
 varsToArgs :: Nat -> [ Arg Term ]
 varsToArgs 0 = []
-varsToArgs n = (Arg NotHidden (Var (n - 1) [])) : varsToArgs (n - 1)
+varsToArgs n = Arg NotHidden (Var (n - 1) []) : varsToArgs (n - 1)

@@ -193,8 +193,7 @@ termToFormula term@(Lam _ (Abs _ termLam)) = do
 
   -- See the reason for the order in the enviroment in
   -- termToFormula term@(Pi ... ).
-  f <- local (\varNames -> freshVar : varNames) $ termToFormula termLam
-  return f
+  local (\varNames -> freshVar : varNames) $ termToFormula termLam
 
 termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   lift $ lift $ reportSLn "termToFormula" 10 $
@@ -246,7 +245,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
        (Fun (Arg _ (El (Type (Lit (LitLevel _ 0))) (Def _ [])))
             (El (Type (Lit (LitLevel _ 0))) (Def _ []))
        ) -> do
-      lift $ lift $ reportSLn "termToFormula" 20 $
+      lift $ lift $ reportSLn "termToFormula" 20
            "Processing bounded varible quantified on a function of a Set to a Set"
       return $ ForAll freshVar (\_ -> f2)
 
@@ -318,7 +317,7 @@ termToTermFOL term@(Con (QName _ name) args)  = do
                appArgs str args
 
     -- The term Con has holes. It is translated as a FOL function.
-    C.Name _ parts -> do
+    C.Name _ parts ->
       case args of
         [] -> __IMPOSSIBLE__
         _  -> appArgs (concatName parts) args
@@ -347,7 +346,7 @@ termToTermFOL term@(Def (QName _ name) args) = do
                appArgs str args
 
     -- The term Def has holes. It is translated as a FOL function.
-    C.Name _ parts -> do
+    C.Name _ parts ->
       case args of
         [] -> __IMPOSSIBLE__
         _  -> appArgs (concatName parts) args
@@ -360,7 +359,7 @@ termToTermFOL term@(Var n args) = do
 
   if length vars <= fromIntegral n
      then __IMPOSSIBLE__
-     else do
+     else
        case args of
          [] -> return $ VarFOL (vars !! fromIntegral n)
 
@@ -374,7 +373,7 @@ termToTermFOL term@(Var n args) = do
 
          (a1 : []) -> do
              t <- termToTermFOL $ unArg a1
-             return $ app [ (VarFOL (vars !! fromIntegral n)) , t ]
+             return $ app [ VarFOL (vars !! fromIntegral n) , t ]
 
          _  -> __IMPOSSIBLE__
 

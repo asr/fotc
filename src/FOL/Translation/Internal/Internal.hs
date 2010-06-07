@@ -62,11 +62,11 @@ updateVarOnArgVar :: Arg Term -> Nat -> Arg Term
 updateVarOnArgVar var@(Arg h (Var n [])) pos
     | n < pos = var -- The variable was before than the quantified
                     -- variable, we don't do nothing.
-    | n > pos = (Arg h (Var (n - 1) [])) -- The variable was after
-                                         -- than the quantified
-                                         -- variable, we need
-                                         -- "unbound" the quantified
-                                         -- variable.
+    | n > pos = Arg h (Var (n - 1) []) -- The variable was after
+                                       -- than the quantified
+                                       -- variable, we need
+                                       -- "unbound" the quantified
+                                       -- variable.
     | n == pos = __IMPOSSIBLE__
 
 updateVarOnArgVar _ _ = __IMPOSSIBLE__
@@ -74,7 +74,7 @@ updateVarOnArgVar _ _ = __IMPOSSIBLE__
 updateVarsOnTerm :: Term -> Nat -> Term
 updateVarsOnTerm term@(Def _ [])  _   = term
 updateVarsOnTerm (Def qName args) pos =
-    Def qName $ map (flip updateVarOnArgVar pos) args
+    Def qName $ map (`updateVarOnArgVar` pos) args
 updateVarsOnTerm _ _ = __IMPOSSIBLE__
 
 updateVarsOnCBody :: ClauseBody -> Nat -> ClauseBody

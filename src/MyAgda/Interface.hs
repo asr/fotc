@@ -10,6 +10,7 @@ module MyAgda.Interface where
 -- Haskell imports
 
 -- import Data.Map ( Map )
+import Control.Monad ( unless )
 import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.State ( execStateT, get, put, StateT )
 import Data.Int ( Int32 )
@@ -210,21 +211,17 @@ allModules file = do
 
   visitedFiles <- get
 
-  case (file `elem` visitedFiles) of
-    False -> do
+  unless (file `elem` visitedFiles) $ do
+     i <- liftIO $ myReadInterface file
 
-      i <- liftIO $ myReadInterface file
+     let iModules :: [ModuleName]
+         iModules = iImportedModules i
 
-      let iModules :: [ModuleName]
-          iModules = iImportedModules i
+     let iModulesPaths :: [FilePath]
+         iModulesPaths = map moduleNameToFilePath iModules
 
-      let iModulesPaths :: [FilePath]
-          iModulesPaths = map moduleNameToFilePath iModules
-
-      put ( visitedFiles ++ [file] )
-      mapM_ allModules iModulesPaths
-
-    True -> return ()
+     put ( visitedFiles ++ [file] )
+     mapM_ allModules iModulesPaths
 
 -- Return the files paths of the modules recursively imported by a
 -- module.
