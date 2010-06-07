@@ -232,5 +232,3 @@ getImportedModules :: FilePath -> IO [FilePath]
 getImportedModules file = do
   modules <- execStateT (allModules file) []
   return $ tail modules
-
-------------------------------------------------------------------------------
