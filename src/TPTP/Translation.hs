@@ -13,7 +13,7 @@ import Control.Monad ( zipWithM )
 import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Class ( lift )
 import Control.Monad.Trans.Error ( runErrorT, throwError )
-import Control.Monad.Trans.Reader ( ask, runReaderT )
+import Control.Monad.Trans.State ( evalStateT )
 
 import Data.Maybe ( fromMaybe )
 -- import Data.Map ( Map )
@@ -66,8 +66,6 @@ import TPTP.Types ( AF(AF) )
 toAF :: QName -> RoleATP -> Definition -> ER AF
 toAF qName role def = do
 
-  opts <- lift ask
-
   let ty :: AgdaType
       ty = defType def
   lift $ reportSLn "toAF" 20 $
@@ -75,19 +73,16 @@ toAF qName role def = do
      "Role: " ++ show role ++ "\n" ++
      "Type:\n" ++ show ty
 
-  r <- liftIO $
-       runReaderT (runErrorT (runReaderT (typeToFormula ty) iVarNames)) opts
+  r <- lift $ evalStateT (runErrorT (typeToFormula ty)) iVarNames
   case r of
     Right for -> do
            lift $ reportSLn "toAF" 20 $
-                 "The FOL formula for " ++ show qName ++ " is:\n" ++ show for
+                    "The FOL formula for " ++ show qName ++ " is:\n" ++ show for
            return $ AF qName role for
     Left err -> throwError err
 
 symbolToAF :: QName -> Definition -> ER AF
 symbolToAF qName def = do
-
-  opts <- lift ask
 
   let ty :: AgdaType
       ty = defType def
@@ -102,15 +97,11 @@ symbolToAF qName def = do
   lift $ reportSLn "symbolToAF" 10 $
                 "Symbol: " ++ show qName ++ "\n" ++ "Clauses: " ++ show cls
 
-  r <- liftIO $
-         runReaderT
-           (runErrorT (runReaderT (symDefToFormula qName ty cls) iVarNames))
-           opts
+  r <- lift $ evalStateT (runErrorT (symDefToFormula qName ty cls)) iVarNames
   case r of
     Right for -> do
            lift $ reportSLn "symbolToAF" 20 $
-                    "The FOL formula for " ++ show qName ++ " is:\n" ++
-                    show for
+                    "The FOL formula for " ++ show qName ++ " is:\n" ++ show for
            return $ AF qName DefinitionATP for
     Left err -> throwError err
 

@@ -9,8 +9,7 @@ module FOL.Translation.SymbolDefinitions where
 -- Haskell imports
 import Control.Monad.Trans.Class ( lift )
 import Control.Monad.Trans.Error ( throwError )
-import Control.Monad.Trans.Reader ( ask, local )
-import Control.Monad.Trans.State ( evalState )
+import Control.Monad.Trans.State ( evalState, get, put )
 
 -- Agda library imports
 import Agda.Syntax.Common ( Arg(Arg) )
@@ -48,8 +47,8 @@ symDefToFormula :: QName -> Type -> [Clause] -> T FormulaFOL
 symDefToFormula _      _  []        = __IMPOSSIBLE__
 symDefToFormula qName  ty (cl : []) = symClauseToFormula qName ty cl
 symDefToFormula qName  _  _         =
-    lift $ throwError $ "Error translating the symbol " ++ show qName ++
-                        ". The definitions only can have a clause."
+    throwError $ "Error translating the symbol " ++ show qName ++
+                   ". The definitions only can have a clause."
 
 -- A clause is defined by (Agda.Syntax.Internal)
 -- data Clause = Clause
@@ -71,15 +70,16 @@ symClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
     ExtendTel
       (Arg _ (El (Type (Lit (LitLevel _ 0))) (Def _ [])))
       (Abs _ tels) -> do
-          vars <- ask
+          vars <- lift get
 
           let freshVar :: String
               freshVar = evalState freshName vars
 
           -- See the reason for the order in the enviroment in
           -- FOL.Translation.Terms.termToFormula term@(Pi ... )
-          f <- local (\varNames -> freshVar : varNames) $
-                 symClauseToFormula qName ty (Clause r tels perm pats cBody)
+          lift $ put (freshVar : vars)
+          f <- symClauseToFormula qName ty (Clause r tels perm pats cBody)
+          lift $ put vars
 
           return $ ForAll freshVar (\_ -> f)
 
@@ -98,7 +98,7 @@ symClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
 
 symClauseToFormula qName ty (Clause _ _ _ [] cBody ) = do
 
-  vars <- ask
+  vars <- lift get
 
   -- We create the Agda term corresponds to the LHS of the symbol's
   -- definition.

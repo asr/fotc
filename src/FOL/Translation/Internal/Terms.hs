@@ -10,8 +10,7 @@ module FOL.Translation.Internal.Terms where
 -- Haskell imports
 -- import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Class ( lift )
-import Control.Monad.Trans.Reader ( ask, local )
-import Control.Monad.Trans.State ( evalState )
+import Control.Monad.Trans.State ( evalState, get, put )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
@@ -115,7 +114,7 @@ termToFormula term@(Def (QName _ name) args) = do
                        --    then return $ Exists freshVar $ \_ -> fm
                        --    else return $ ForAll freshVar $ \_ -> fm
 
-                       vars <- ask
+                       vars <- lift get
 
                        let freshVar :: String
                            freshVar = evalState freshName vars
@@ -186,20 +185,23 @@ termToFormula term@(Lam _ (Abs _ termLam)) = do
   lift $ lift $ reportSLn "termToFormula" 10 $
            "Processing termToFormula Lam:\n" ++ show term
 
-  vars <- ask
+  vars <- lift get
 
   let freshVar :: String
       freshVar = evalState freshName vars
 
   -- See the reason for the order in the enviroment in
   -- termToFormula term@(Pi ... ).
-  local (\varNames -> freshVar : varNames) $ termToFormula termLam
+  lift $ put (freshVar : vars)
+  f <- termToFormula termLam
+  lift $ put vars
+  return f
 
 termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   lift $ lift $ reportSLn "termToFormula" 10 $
            "Processing termToFormula Pi:\n" ++ show term
 
-  vars <- ask
+  vars <- lift get
 
   let freshVar :: String
       freshVar = evalState freshName vars
@@ -211,7 +213,9 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   -- The de Bruijn indexes are assigned from "right to left", e.g.
   -- in '(A B C : Set) -> ...', A is 2, B is 1, and C is 0,
   -- so we need create the list in the same order.
-  f2 <- local (\varNames -> freshVar : varNames) $ typeToFormula tyAbs
+  lift $ put (freshVar : vars)
+  f2 <- typeToFormula tyAbs
+  lift $ put vars
 
   lift $ lift $ reportSLn "termToFormula" 20 $
            "Finalized processing in local enviroment using the type:\n" ++
@@ -273,7 +277,7 @@ termToFormula term@(Var n _) = do
   lift $ lift $ reportSLn "termToFormula" 10 $
            "Processing termToFormula Var: " ++ show term
 
-  vars <- ask
+  vars <- lift get
 
   if length vars <= fromIntegral n
      then __IMPOSSIBLE__
@@ -355,7 +359,7 @@ termToTermFOL term@(Var n args) = do
   lift $ lift $ reportSLn "termToTermFOL" 10 $
            "Processing termToTermFOL Var:\n" ++ show term
 
-  vars <- ask
+  vars <- lift get
 
   if length vars <= fromIntegral n
      then __IMPOSSIBLE__

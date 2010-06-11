@@ -5,10 +5,11 @@
 module FOL.Monad where
 
 -- Haskell imports
-import Control.Monad.Trans.Reader ( ReaderT )
+import Control.Monad.Trans.Error ( ErrorT )
+import Control.Monad.Trans.State ( StateT )
 
 -- Local imports
-import Common ( ER )
+import Reports ( R )
 
 ------------------------------------------------------------------------------
 
@@ -23,4 +24,4 @@ iVarNames = []
 
 {-| The translation monad from Agda types to FOL formulas.
 -}
-type T = ReaderT Vars ER
+type T = ErrorT String (StateT Vars R)
