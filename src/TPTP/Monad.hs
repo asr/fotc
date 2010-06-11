@@ -10,6 +10,8 @@ import Control.Monad.Trans.State ( State )
 -- Local imports
 import TPTP.Types
 
+------------------------------------------------------------------------------
+
 initialNames :: [NameTPTP]
 initialNames = []
 
