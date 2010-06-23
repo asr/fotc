@@ -2,6 +2,9 @@
 
 AGDA='agda -v 0'
 
+# TODO: Neither Equinox nor Eprove prove the theorems gcd-S>S and gcd-S≤S from
+# Examples/GCD/EquationsPCF, therefore this file has not been added.
+
 conjecturesFilesPCF='
   LTC/Function/Rec/PropertiesPCF
   LTC/Function/Arithmetic/PropertiesPCF

@@ -24,6 +24,9 @@ postulate
   gcd-0S : (n : D) → gcd zero (succ n) ≡ succ n
 {-# ATP prove gcd-0S #-}
 
+-- TODO: Neither Equinox nor Eprove prove the theorems gcd-S>S and
+-- gcd-S≤S. They was proved using on-line Vampire.
+
 postulate
   gcd-S>S : (m n : D) → GT (succ m) (succ n) →
              gcd (succ m) (succ n) ≡ gcd (succ m - succ n) (succ n)
