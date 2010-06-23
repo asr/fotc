@@ -33,4 +33,3 @@ postulate
   *-Sx : (d e : D) → succ d * e ≡ e + d * e
 {-# ATP axiom *-0x #-}
 {-# ATP axiom *-Sx #-}
-
