@@ -3,6 +3,7 @@
 AGDA='agda -v 0'
 
 conjecturesFiles='
+  LTC/Data/List/Properties
   LTC/Relation/Equalities/Properties
   LTC/Function/Arithmetic/Properties
   LTC/Relation/Inequalities/Properties

@@ -1,0 +1,4 @@
+axiom, ( ! \[A\] : ( kApp(kApp(n4343,n9193),A) = A ) )
+axiom, ( ! \[A\] : ( ! \[B\] : ( ! \[C\] : ( kApp(kApp(n4343,kApp(kApp(n8759,A),B)),C) = kApp(kApp(n8759,A),kApp(kApp(n4343,B),C)) ) ) ) )
+axiom, ( kApp(reverse,n9193) = n9193 )
+axiom, ( ! \[A\] : ( ! \[B\] : ( kApp(reverse,kApp(kApp(n8759,A),B)) = kApp(kApp(n4343,kApp(reverse,B)),kApp(kApp(n8759,A),n9193)) ) ) )
