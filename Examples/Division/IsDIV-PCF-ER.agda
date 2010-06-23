@@ -9,15 +9,15 @@
 -- LNCS, 1985, pages 334-349. Appears in revised form as Programming
 -- Methodology Group Report 26, June 1986.
 
-module Examples.Division.IsDIV-ER where
+module Examples.Division.IsDIV-PCF-ER where
 
 open import LTC.Minimal
 
-open import Examples.Division
-open import Examples.Division.EquationsER
-open import Examples.Division.IsCorrectER
-open import Examples.Division.IsN-ER
-open import Examples.Division.Specification
+open import Examples.DivisionPCF
+open import Examples.Division.EquationsPCF-ER
+open import Examples.Division.IsCorrectPCF-ER
+open import Examples.Division.IsN-PCF-ER
+open import Examples.Division.SpecificationPCF
 
 open import LTC.Data.N
 open import LTC.Data.N.Induction.WellFoundedPCF

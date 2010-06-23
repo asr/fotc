@@ -2,13 +2,13 @@
 -- The division result is correct
 ------------------------------------------------------------------------------
 
-module Examples.Division.IsCorrect where
+module Examples.Division.IsCorrectPCF where
 
 open import LTC.Minimal
 
-open import Examples.Division
-open import Examples.Division.Equations
-open import Examples.Division.Specification
+open import Examples.DivisionPCF
+open import Examples.Division.EquationsPCF
+open import Examples.Division.SpecificationPCF
 
 open import LTC.Data.N
 open import LTC.Function.ArithmeticPCF

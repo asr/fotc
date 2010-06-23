@@ -2,7 +2,7 @@
 -- Definition of division using repeated subtraction
 ------------------------------------------------------------------------------
 
-module Examples.Division where
+module Examples.DivisionPCF where
 
 open import LTC.Minimal
 

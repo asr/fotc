@@ -2,10 +2,10 @@
 -- Properties of the recursive operator rec
 ------------------------------------------------------------------------------
 
-module LTC.Function.Rec.Properties where
+module LTC.Function.Rec.PropertiesPCF where
 
 open import LTC.Minimal
-open import LTC.Function.Rec
+open import LTC.Function.RecPCF
 
 ------------------------------------------------------------------------------
 

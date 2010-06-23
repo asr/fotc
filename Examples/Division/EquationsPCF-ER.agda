@@ -2,12 +2,12 @@
 -- Equations for the division
 ------------------------------------------------------------------------------
 
-module Examples.Division.EquationsER where
+module Examples.Division.EquationsPCF-ER where
 
 open import LTC.Minimal
 open import LTC.MinimalER
 
-open import Examples.Division
+open import Examples.DivisionPCF
 open import LTC.Function.ArithmeticPCF
 open import LTC.Relation.Equalities.PropertiesER
 open import LTC.Relation.InequalitiesPCF

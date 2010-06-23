@@ -2,7 +2,7 @@
 -- The 'rec' definition using the fixed point combinator
 ---------------------------------------------------------------------------
 
-module LTC.Function.Rec where
+module LTC.Function.RecPCF where
 
 open import LTC.Minimal
 

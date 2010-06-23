@@ -9,8 +9,8 @@ open import LTC.MinimalER
 
 open import LTC.Data.N
 open import LTC.Function.ArithmeticPCF
-open import LTC.Function.Rec
-open import LTC.Function.Rec.Properties
+open import LTC.Function.RecPCF
+open import LTC.Function.Rec.PropertiesPCF
 open import LTC.Relation.Equalities.PropertiesER
 
 -- open import MyStdLib.Function

@@ -2,7 +2,7 @@
 -- The division specification
 ------------------------------------------------------------------------------
 
-module Examples.Division.Specification where
+module Examples.Division.SpecificationPCF where
 
 open import LTC.Minimal
 

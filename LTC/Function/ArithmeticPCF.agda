@@ -7,7 +7,7 @@ module LTC.Function.ArithmeticPCF where
 open import LTC.Minimal
 
 open import LTC.Data.N
-open import LTC.Function.Rec
+open import LTC.Function.RecPCF
 
 ------------------------------------------------------------------------------
 infixl 7 _*_

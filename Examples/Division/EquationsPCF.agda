@@ -2,11 +2,11 @@
 -- Equations for the division
 ------------------------------------------------------------------------------
 
-module Examples.Division.Equations where
+module Examples.Division.EquationsPCF where
 
 open import LTC.Minimal
 
-open import Examples.Division
+open import Examples.DivisionPCF
 open import LTC.Function.ArithmeticPCF
 open import LTC.Relation.InequalitiesPCF
 

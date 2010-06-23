@@ -2,24 +2,25 @@
 -- The division result is correct
 ------------------------------------------------------------------------------
 
-module Examples.Division.IsN where
+module Examples.Division.IsN-PCF-ER where
 
 open import LTC.Minimal
+open import LTC.MinimalER
 
-open import Examples.Division
-open import Examples.Division.Equations
-open import Examples.Division.Specification
+open import Examples.DivisionPCF
+open import Examples.Division.EquationsPCF-ER
+open import Examples.Division.SpecificationPCF
 
 open import LTC.Data.N
 open import LTC.Function.ArithmeticPCF
+open import LTC.Relation.Equalities.PropertiesER
 open import LTC.Relation.InequalitiesPCF
 
 ------------------------------------------------------------------------------
 
 -- The division result is a 'N' when the dividend is less than the divisor.
-postulate
-  div-x<y-N : {i j : D} -> LT i j → N (div i j)
-{-# ATP prove div-x<y-N div-x<y zN #-}
+div-x<y-N : {i j : D} -> LT i j → N (div i j)
+div-x<y-N i<j = subst (λ t → N t ) (sym (div-x<y i<j )) zN
 
 -- The division result is a 'N' when the dividend is greater or equal
 -- than the divisor.
@@ -28,9 +29,8 @@ postulate
 ------------------------------------------------------------------
 --                   N (div i j)
 
-postulate
-  div-x≥y-N : {i j : D} →
-              (DIV (i - j) j (div (i - j) j)) →
-              GE i j →
-              N (div i j)
-{-# ATP prove div-x≥y-N div-x≥y sN #-}
+div-x≥y-N : {i j : D} →
+            (ih : DIV (i - j) j (div (i - j) j)) →
+            GE i j →
+            N (div i j)
+div-x≥y-N ih i≥j = subst (λ t → N t ) (sym (div-x≥y i≥j )) (sN (∧-proj₁ ih ))
