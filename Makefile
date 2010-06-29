@@ -1,15 +1,18 @@
 haskellFiles = $(shell find src/ -name '*.hs')
 
-conjecturesPath = Test/Succeed
 axiomsPath = Test/Succeed/OnlyAxioms
+succeedPath = Test/Succeed
+failPath = Test/Fail
 
 axiomsTPTP = /tmp/axioms.tptp
 
 axiomsFiles = $(patsubst %.agda,%,$(shell find $(axiomsPath) -name "*.agda"))
 
+failConjectures = $(patsubst %.agda,%,$(shell find $(failPath) -name "*.agda"))
+
 # We need avoid the files inside the $(axiomsPath) directory
-conjecturesFiles = $(patsubst %.agda,%, \
-	$(shell find $(conjecturesPath) -path '$(axiomsPath)' -prune , -name "*.agda"))
+succeedConjectures = $(patsubst %.agda,%, \
+	$(shell find $(succeedPath) -path '$(axiomsPath)' -prune , -name "*.agda"))
 
 AGDA = agda -v 0
 
@@ -26,14 +29,21 @@ $(axiomsFiles) : % : %.agda
 		fi \
 	done
 
-$(conjecturesFiles) : % : %.agda
+$(succeedConjectures) : % : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
 	@if ! ( agda2atp --time 60 $< ); then exit 1; fi
 
-testAxioms : clean $(axiomsFiles)
-testConjectures : clean $(conjecturesFiles)
+$(failConjectures) : % : %.agda
+	@if ! ( $(AGDA) $< ); then exit 1; fi
+# The do not proved conjectures return error, therefore we wrapped it.
+	@if ( agda2atp --time 5 $< ); then exit 1; fi
 
-test : testAxioms testConjectures
+# The tests
+axioms : clean $(axiomsFiles)
+succeed : clean $(succeedConjectures)
+fail : clean $(failConjectures)
+
+test : axioms succeed fail
 
 clean :
 	find -name '*.agdai' | xargs rm -f
