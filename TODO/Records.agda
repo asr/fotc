@@ -1,4 +1,4 @@
-module Test.Fails.Records where
+module Records where
 
 record _×_ (A B : Set) : Set where
   constructor _,_
