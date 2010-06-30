@@ -31,6 +31,14 @@ import TPTP.Types ( AF )
 
 -----------------------------------------------------------------------------
 
+-- ATPs
+data ATPs = Equinox | Eprover
+            deriving Eq
+
+instance Show ATPs where
+    show Equinox = "equinox"
+    show Eprover = "eprover"
+
 -- Equinox cvs version
 equinoxOk :: String
 equinoxOk = "+++ RESULT: Theorem"
@@ -39,32 +47,30 @@ equinoxOk = "+++ RESULT: Theorem"
 eproverOk :: String
 eproverOk = "Proof found!"
 
-checkOutputATP :: String -> String -> Bool
+checkOutputATP :: ATPs -> String -> Bool
 checkOutputATP atp output = isInfixOf (atpOk atp) output
        where
-         atpOk :: String -> String
-         atpOk "equinox" = equinoxOk
-         atpOk "eprover" = eproverOk
-         atpOk _         = __IMPOSSIBLE__
+         atpOk :: ATPs -> String
+         atpOk Equinox = equinoxOk
+         atpOk Eprover = eproverOk
 
-runATP :: MVar (Bool, String) -> MVar () -> FilePath -> String ->
-          String -> IO ()
+runATP :: MVar (Bool, ATPs) -> MVar () -> FilePath -> String ->
+          ATPs -> IO ()
 runATP outputMVar synMVar file timeLimit atp = do
 
   -- Because Equinox and Eprover prove more or less the same theorems,
   -- we wait 1 sec. before launch the Eprover's theread.
-  when ( atp == "eprover" ) $ threadDelay 1000000
+  when ( atp == Eprover ) $ threadDelay 1000000
 
   let args :: [String]
       args = case atp of
-               "equinox" -> [ "--time", timeLimit, file ]
-               "eprover" -> [ "--tstp-format"
-                            , "--soft-cpu-limit=" ++ timeLimit
-                            , file
-                            ]
-               _         -> __IMPOSSIBLE__
+               Equinox -> [ "--time", timeLimit, file ]
+               Eprover -> [ "--tstp-format"
+                          , "--soft-cpu-limit=" ++ timeLimit
+                          , file
+                          ]
 
-  output <- readProcess atp args ""
+  output <- readProcess (show atp) args ""
 
   putMVar synMVar ()
   putMVar outputMVar (checkOutputATP atp output, atp)
@@ -80,66 +86,46 @@ callATPConjecture conjecture = do
     let timeLimit :: String
         timeLimit = show $ optTime opts
 
-    outputMVar <- liftIO (newEmptyMVar :: IO (MVar (Bool, String)))
+    outputMVar <- liftIO (newEmptyMVar :: IO (MVar (Bool, ATPs)))
     synMVar    <- liftIO (newEmptyMVar :: IO (MVar ()))
 
     lift $ reportS "" 1 $ "Proving the conjecture " ++ file ++ " ..."
 
     equinoxThread <- liftIO $
-      forkIO (runATP outputMVar synMVar file timeLimit "equinox" )
+      forkIO (runATP outputMVar synMVar file timeLimit Equinox )
     eproverThread <- liftIO $
-      forkIO (runATP outputMVar synMVar file timeLimit "eprover" )
+      forkIO (runATP outputMVar synMVar file timeLimit Eprover )
 
-    output1 <- liftIO $ takeMVar outputMVar
-    case output1 of
-      (True, "equinox") -> do
-        lift $ reportS "callATPConjecture" 10 "Equinox proved, eprover nothing"
-        lift $ reportS "" 1 $ "Equinox proved the conjecture " ++ file
-        -- The Eprover's theread must be sleeping, so we can kill it.
-        liftIO $ killThread eproverThread
+    fstOutput <- liftIO $ takeMVar outputMVar
+    case fstOutput of
+      (True, fstATP) -> do
+        lift $ reportS "" 1 $ show fstATP ++ " proved the conjecture " ++ file
+        -- The other atp's theread must be sleeping, so we can kill it.
+        case fstATP of
+          Equinox -> liftIO $ killThread eproverThread
+          Eprover -> liftIO $ killThread equinoxThread
 
-      (True, "eprover") -> do
-        lift $ reportS "callATPConjecture" 10 "Eprover proved, eprover nothing"
-        lift $ reportS "" 1 $ "Eprover proved the conjecture " ++ file
-        -- The Equinox's theread must be sleeping, so we can kill it.
-        liftIO $ killThread equinoxThread
-
-      (False, "equinox" ) -> do
-          -- We wake up the Eprover's theread
+      (False, fstATP) -> do
+          -- Wake up the other atp's theread
           _       <- liftIO $ takeMVar synMVar
 
-          output2 <- liftIO $ takeMVar outputMVar
-          case output2 of
-             (True, "eprover") -> do
-               lift $ reportS "callATPConjecture" 10
-                      "Eprover proved, equinox did not prove"
-               lift $ reportS "" 1 $ "Eprover proved the conjecture " ++ file
-             (False, "eprover") ->
-               throwError $ "Equinox and eprover" ++
-                            " did not prove the conjecture " ++ file ++ "."
-             _ -> __IMPOSSIBLE__
+          sndOutput <- liftIO $ takeMVar outputMVar
+          case sndOutput of
+             (b, sndATP ) -> do
+               when ( fstATP == sndATP ) __IMPOSSIBLE__
+               case b of
+                 True -> lift $ reportS "" 1 $
+                                show sndATP ++ " proved the conjecture " ++
+                                     file
 
-      (False, "eprover" ) -> do
-          -- We wake up the Equinox's theread
-          _       <- liftIO $ takeMVar synMVar
-
-          output2 <- liftIO $ takeMVar outputMVar
-          case output2 of
-             (True, "equinox") -> do
-               lift $ reportS "callATPConjecture" 10
-                      "Equinox proved, eprover did not prove"
-               lift $ reportS "" 1 $ "Equinox proved the conjecture " ++ file
-             (False, "equinox") ->
-               throwError $ "Equinox and eprover" ++
-                            " did not prove the conjecture " ++ file ++ "."
-             _ -> __IMPOSSIBLE__
-
-      _ -> __IMPOSSIBLE__
+                 False -> throwError $
+                            "The ATPs did not prove the conjecture " ++
+                            file ++ "."
 
 callATP :: [AF] -> [(AF, [AF])] -> ER ()
 callATP axioms conjectures = do
   -- We create the general axioms TPTP file.
   lift $ createAxiomsFile axioms
 
-  -- We create the conjectures TPTP files
+  -- We create the conjectures TPTP files.
   mapM_ callATPConjecture conjectures
