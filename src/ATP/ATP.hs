@@ -56,7 +56,7 @@ checkOutputATP atp output = isInfixOf (atpOk atp) output
 
 runATP :: MVar (Bool, ATPs) -> MVar () -> FilePath -> String ->
           ATPs -> IO ()
-runATP outputMVar synMVar file timeLimit atp = do
+runATP outputMVar syncMVar file timeLimit atp = do
 
   -- Because Equinox and Eprover prove more or less the same theorems,
   -- we wait 1 sec. before launch the Eprover's theread.
@@ -72,7 +72,7 @@ runATP outputMVar synMVar file timeLimit atp = do
 
   output <- readProcess (show atp) args ""
 
-  putMVar synMVar ()
+  putMVar syncMVar ()
   putMVar outputMVar (checkOutputATP atp output, atp)
 
 callATPConjecture :: (AF, [AF]) -> ER ()
@@ -87,14 +87,14 @@ callATPConjecture conjecture = do
         timeLimit = show $ optTime opts
 
     outputMVar <- liftIO (newEmptyMVar :: IO (MVar (Bool, ATPs)))
-    synMVar    <- liftIO (newEmptyMVar :: IO (MVar ()))
+    syncMVar   <- liftIO (newEmptyMVar :: IO (MVar ()))
 
     lift $ reportS "" 1 $ "Proving the conjecture " ++ file ++ " ..."
 
     equinoxThread <- liftIO $
-      forkIO (runATP outputMVar synMVar file timeLimit Equinox )
+      forkIO (runATP outputMVar syncMVar file timeLimit Equinox )
     eproverThread <- liftIO $
-      forkIO (runATP outputMVar synMVar file timeLimit Eprover )
+      forkIO (runATP outputMVar syncMVar file timeLimit Eprover )
 
     fstOutput <- liftIO $ takeMVar outputMVar
     case fstOutput of
@@ -107,7 +107,7 @@ callATPConjecture conjecture = do
 
       (False, fstATP) -> do
           -- Wake up the other atp's theread
-          _       <- liftIO $ takeMVar synMVar
+          _       <- liftIO $ takeMVar syncMVar
 
           sndOutput <- liftIO $ takeMVar outputMVar
           case sndOutput of
