@@ -10,7 +10,7 @@ module ATP.ATP where
 import Data.List ( isInfixOf )
 import Control.Concurrent ( forkIO, killThread, threadDelay )
 import Control.Concurrent.MVar ( MVar, newEmptyMVar, putMVar, takeMVar )
-import Control.Monad ( unless )
+import Control.Monad ( unless, when )
 import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Class ( lift )
 import Control.Monad.Trans.Error ( throwError )
@@ -47,25 +47,25 @@ checkOutputATP atp output = isInfixOf (atpOk atp) output
          atpOk "eprover" = eproverOk
          atpOk _         = __IMPOSSIBLE__
 
-runEquinox :: MVar (Bool, String) -> MVar () -> FilePath -> String ->
-              String -> IO ()
-runEquinox outputMVar synMVar file timeLimit atp = do
-  output <- readProcess atp [ "--time" , timeLimit , file ] ""
+runATP :: MVar (Bool, String) -> MVar () -> FilePath -> String ->
+          String -> IO ()
+runATP outputMVar synMVar file timeLimit atp = do
 
-  putMVar synMVar ()
-  putMVar outputMVar (checkOutputATP atp output, atp)
-
-runEprover :: MVar (Bool, String) -> MVar () -> FilePath -> String ->
-              String -> IO ()
-runEprover outputMVar synMVar file timeLimit atp = do
   -- Because Equinox and Eprover prove more or less the same theorems,
   -- we wait 1 sec. before launch the Eprover's theread.
-  threadDelay 1000000
+  when ( atp == "eprover" ) $ threadDelay 1000000
 
-  output <- readProcess atp [ "--tstp-format"
-                            , "--cpu-limit=" ++ timeLimit
+  let args :: [String]
+      args = case atp of
+               "equinox" -> [ "--time", timeLimit, file ]
+               "eprover" -> [ "--tstp-format"
+                            , "--soft-cpu-limit=" ++ timeLimit
                             , file
-                            ] ""
+                            ]
+               _         -> __IMPOSSIBLE__
+
+  output <- readProcess atp args ""
+
   putMVar synMVar ()
   putMVar outputMVar (checkOutputATP atp output, atp)
 
@@ -86,9 +86,9 @@ callATPConjecture conjecture = do
     lift $ reportS "" 1 $ "Proving the conjecture " ++ file ++ " ..."
 
     equinoxThread <- liftIO $
-      forkIO (runEquinox outputMVar synMVar file timeLimit "equinox" )
+      forkIO (runATP outputMVar synMVar file timeLimit "equinox" )
     eproverThread <- liftIO $
-      forkIO (runEprover outputMVar synMVar file timeLimit "eprover" )
+      forkIO (runATP outputMVar synMVar file timeLimit "eprover" )
 
     output1 <- liftIO $ takeMVar outputMVar
     case output1 of
