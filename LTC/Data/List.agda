@@ -31,12 +31,7 @@ postulate
 {-# ATP axiom ++-[] #-}
 {-# ATP axiom ++-∷ #-}
 
-postulate
-  reverse    : D → D
-  reverse-[] : reverse []                    ≡ []
-  reverse-∷  : (d ds : D) → reverse (d ∷ ds) ≡ reverse ds ++ d ∷ []
-{-# ATP axiom reverse-[] #-}
-{-# ATP axiom reverse-∷ #-}
+-- List transformations
 
 postulate
   map    : D → D → D
@@ -44,6 +39,13 @@ postulate
   map-∷  : (f d ds : D) → map f (d ∷ ds) ≡ f ∙ d ∷ map f ds
 {-# ATP axiom map-[] #-}
 {-# ATP axiom map-∷ #-}
+
+postulate
+  reverse    : D → D
+  reverse-[] : reverse []                    ≡ []
+  reverse-∷  : (d ds : D) → reverse (d ∷ ds) ≡ reverse ds ++ d ∷ []
+{-# ATP axiom reverse-[] #-}
+{-# ATP axiom reverse-∷ #-}
 
 postulate
   replicate : D → D → D
