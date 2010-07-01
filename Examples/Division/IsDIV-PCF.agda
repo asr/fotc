@@ -2,7 +2,7 @@
 -- The division satisfies the specification
 ------------------------------------------------------------------------------
 
--- This module formalize the division algorithm following [1].
+-- This module formalizes the division algorithm following [1].
 -- [1] Peter Dybjer. Program verification in a logical theory of
 -- constructions. In Jean-Pierre Jouannaud, editor. Functional
 -- Programming Languages and Computer Architecture, volume 201 of
