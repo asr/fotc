@@ -38,6 +38,13 @@ postulate
 {-# ATP axiom reverse-[] #-}
 {-# ATP axiom reverse-∷ #-}
 
+postulate
+  map    : D → D → D
+  map-[] : (f : D ) → map f []           ≡ []
+  map-∷  : (f d ds : D) → map f (d ∷ ds) ≡ f ∙ d ∷ map f ds
+{-# ATP axiom map-[] #-}
+{-# ATP axiom map-∷ #-}
+
 ------------------------------------------------------------------------------
 
 -- The LTC list data type

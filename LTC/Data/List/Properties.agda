@@ -108,3 +108,15 @@ reverse² (cons d {ds} dsL) = prf (reverse² dsL)
     postulate prf : reverse (reverse ds) ≡ ds →
                     reverse (reverse (d ∷ ds)) ≡ d ∷ ds
     {-# ATP prove prf reverse-++ cons nil reverse-List ++-List #-}
+
+map-++ : (f : D){ds es : D} → List ds → List es →
+         map f (ds ++ es) ≡ map f ds ++ map f es
+map-++ f {es = es} nil esL = prf
+  where
+    postulate prf : map f ([] ++ es) ≡ map f [] ++ map f es
+    {-# ATP prove prf #-}
+map-++ f {es = es} (cons d {ds} dsL) esL = prf (map-++ f dsL esL)
+  where
+    postulate prf : map f (ds ++ es) ≡ map f ds ++ map f es →
+                    map f ((d ∷ ds) ++ es) ≡ map f (d ∷ ds) ++ map f es
+    {-# ATP prove prf #-}
