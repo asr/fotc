@@ -16,13 +16,6 @@ postulate
   _∷_  : D → D → D
 
 -- Basic functions
-postulate
-  head : D → D
-  cHead : (d ds : D) → head (d ∷ ds) ≡ d
-
-postulate
-  tail : D → D
-  cTail : (d ds : D) → tail (d ∷ ds) ≡ ds
 
 postulate
   length : D → D
