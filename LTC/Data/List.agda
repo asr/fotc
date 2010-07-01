@@ -26,14 +26,14 @@ postulate
 
 postulate
   _++_  : D → D → D
-  ++-[] : (ds : D) →      []       ++ ds ≡ ds
+  ++-[] : (ds : D) → [] ++ ds            ≡ ds
   ++-∷  : (d ds es : D) → (d ∷ ds) ++ es ≡ d ∷ (ds ++ es)
 {-# ATP axiom ++-[] #-}
 {-# ATP axiom ++-∷ #-}
 
 postulate
   reverse    : D → D
-  reverse-[] :              reverse []       ≡ []
+  reverse-[] : reverse []                    ≡ []
   reverse-∷  : (d ds : D) → reverse (d ∷ ds) ≡ reverse ds ++ d ∷ []
 {-# ATP axiom reverse-[] #-}
 {-# ATP axiom reverse-∷ #-}
