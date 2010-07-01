@@ -84,6 +84,10 @@ reverse-List (cons d {ds} dsL) = prf (reverse-List dsL)
                     List (reverse (d ∷ ds))
     {-# ATP prove prf cons nil ++-List #-}
 
+postulate
+  reverse-[x]≡[x] : (d : D) → reverse (d ∷ []) ≡ d ∷ []
+{-# ATP prove reverse-[x]≡[x] #-}
+
 reverse-++ : {ds es : D} → List ds → List es →
              reverse (ds ++ es) ≡ reverse es ++ reverse ds
 reverse-++ {es = es} nil esL = prf
