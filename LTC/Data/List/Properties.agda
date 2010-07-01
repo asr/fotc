@@ -5,6 +5,7 @@
 module LTC.Data.List.Properties where
 
 open import LTC.Minimal
+open import LTC.Data.N
 open import LTC.Data.List
 
 ------------------------------------------------------------------------------
@@ -123,4 +124,15 @@ map-++ f {es = es} (cons d {ds} dsL) esL = prf (map-++ f dsL esL)
   where
     postulate prf : map f (ds ++ es) ≡ map f ds ++ map f es →
                     map f ((d ∷ ds) ++ es) ≡ map f (d ∷ ds) ++ map f es
+    {-# ATP prove prf #-}
+
+length-replicate : {n : D} → N n → (d : D) → length (replicate n d) ≡ n
+length-replicate zN d = prf
+  where
+    postulate prf : length (replicate zero d) ≡ zero
+    {-# ATP prove prf #-}
+length-replicate (sN {n} Nn) d = prf (length-replicate Nn d)
+  where
+    postulate prf : length (replicate n d) ≡ n →
+                    length (replicate (succ n) d) ≡ succ n
     {-# ATP prove prf #-}
