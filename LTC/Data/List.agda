@@ -54,6 +54,15 @@ postulate
 {-# ATP axiom replicate-0 #-}
 {-# ATP axiom replicate-S #-}
 
+-- Reducing lists
+
+postulate
+  foldr    : D → D → D → D
+  foldr-[] : (f n : D) → foldr f n []            ≡ n
+  foldr-∷  : (f n d ds : D) → foldr f n (d ∷ ds) ≡ f ∙ d ∙ (foldr f n ds)
+{-# ATP axiom foldr-[] #-}
+{-# ATP axiom foldr-∷ #-}
+
 ------------------------------------------------------------------------------
 
 -- The LTC list data type
