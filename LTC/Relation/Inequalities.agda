@@ -24,6 +24,9 @@ postulate
 {-# ATP axiom lt-S0 #-}
 {-# ATP axiom lt-SS #-}
 
+le : D → D → D
+le d e = lt d (succ e)
+
 ------------------------------------------------------------------------
 -- The data types
 
