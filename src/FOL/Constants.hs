@@ -7,7 +7,7 @@ module FOL.Constants where
 -- FOL constant names -----------------------------------------------------
 
 trueFOL, falseFOL, notFOL, andFOL, orFOL, existsFOL, equalsFOL :: String
-trueFOL   = "True"
+trueFOL   = "⊤"
 falseFOL  = "⊥"
 notFOL    = "¬"
 andFOL    = "∧"

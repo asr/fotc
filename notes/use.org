@@ -4,6 +4,7 @@
   FOL disjunction : ∨
   FOL negation    : ¬
   FOL false       : ⊥
+  FOL true        : ⊤
   FOL existential : ∃D
 
 * Agda version
