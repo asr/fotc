@@ -5,7 +5,7 @@
 module LTC.Data.List.Properties where
 
 open import LTC.Minimal
-open import LTC.Data.N
+open import LTC.Data.Nat
 open import LTC.Data.List
 
 ------------------------------------------------------------------------------

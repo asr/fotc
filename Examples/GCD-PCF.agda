@@ -6,9 +6,8 @@ module Examples.GCD-PCF where
 
 open import LTC.Minimal
 
-open import LTC.Data.N
-open import LTC.Function.ArithmeticPCF
-open import LTC.Relation.InequalitiesPCF
+open import LTC.Data.NatPCF
+open import LTC.Data.NatPCF.InequalitiesPCF
 
 ------------------------------------------------------------------------------
 

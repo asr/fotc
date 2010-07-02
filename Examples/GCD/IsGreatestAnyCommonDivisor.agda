@@ -9,9 +9,9 @@ open import LTC.Minimal
 open import Examples.GCD.IsCommonDivisor
 open import Examples.GCD.IsDivisible
 
-open import LTC.Data.N
-open import LTC.Relation.Divisibility.Properties
-open import LTC.Relation.Inequalities
+open import LTC.Data.Nat
+open import LTC.Data.Nat.Divisibility.Properties
+open import LTC.Data.Nat.Inequalities
 
 ---------------------------------------------------------------------------
 

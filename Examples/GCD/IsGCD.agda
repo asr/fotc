@@ -14,7 +14,7 @@ open import Examples.GCD.IsGreatestAnyCommonDivisor
 open import Examples.GCD.IsN
 open import Examples.GCD.Types
 
-open import LTC.Data.N
+open import LTC.Data.Nat
 
 -----------------------------------------------------------------------
 -- The 'gcd' is the GCD.

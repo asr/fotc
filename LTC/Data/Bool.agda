@@ -6,10 +6,20 @@ module LTC.Data.Bool where
 
 open import LTC.Minimal
 
-------------------------------------------------------------------------------
-
 infixr 6 _&&_
 
+------------------------------------------------------------------------------
+-- The LTC booleans type.
+data Bool : D → Set where
+  tB : Bool true
+  fB : Bool false
+
+-- The rule of proof by case analysis on 'B'.
+indBool : (P : D → Set) → P true → P false → {b : D} → Bool b → P b
+indBool P pt pf tB = pt
+indBool P pt pf fB = pf
+
+------------------------------------------------------------------------------
 -- Basic functions.
 
 -- The conjunction.
@@ -24,14 +34,4 @@ postulate
 {-# ATP axiom &&-ft #-}
 {-# ATP axiom &&-ff #-}
 
-------------------------------------------------------------------------------
 
--- The LTC booleans type.
-data Bool : D → Set where
-  tB : Bool true
-  fB : Bool false
-
--- The rule of proof by case analysis on 'B'.
-indBool : (P : D → Set) → P true → P false → {b : D} → Bool b → P b
-indBool P pt pf tB = pt
-indBool P pt pf fB = pf

@@ -3,11 +3,11 @@
 AGDA='agda -v 0'
 
 conjecturesFiles='
+  LTC/Data/Nat/Properties
+  LTC/Data/Nat/Divisibility/Properties
+  LTC/Data/Nat/Inequalities/Properties
   LTC/Data/List/Properties
   LTC/Relation/Equalities/Properties
-  LTC/Function/Arithmetic/Properties
-  LTC/Relation/Inequalities/Properties
-  LTC/Relation/Divisibility/Properties
   Examples/GCD/IsN
   Examples/GCD/IsCommonDivisor
   Examples/GCD/IsDivisible

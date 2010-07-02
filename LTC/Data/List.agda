@@ -6,16 +6,31 @@ module LTC.Data.List where
 
 open import LTC.Minimal
 
+infixr 5 _∷_
+
 ------------------------------------------------------------------------------
-
-infixr 5 _∷_ _++_
-
 -- List terms
 postulate
   []   : D
   _∷_  : D → D → D
 
+-- The LTC list data type
+data List : D → Set where
+  nil  : List []
+  cons : (d : D){ds : D} → (dsL : List ds) → List (d ∷ ds)
+
+-- Induction principle for List
+indList : (P : D → Set) →
+          P [] →
+          ((d : D){ds : D} → List ds → P ds → P (d ∷ ds)) →
+          {ds : D} → List ds → P ds
+indList P p[] iStep nil               = p[]
+indList P p[] iStep (cons d {ds} dsL) = iStep d dsL (indList P p[] iStep dsL)
+
+------------------------------------------------------------------------------
 -- Basic functions
+
+infixr 5 _++_
 
 postulate
   length : D → D
@@ -62,18 +77,3 @@ postulate
   foldr-∷  : (f n d ds : D) → foldr f n (d ∷ ds) ≡ f ∙ d ∙ (foldr f n ds)
 {-# ATP axiom foldr-[] #-}
 {-# ATP axiom foldr-∷ #-}
-
-------------------------------------------------------------------------------
-
--- The LTC list data type
-data List : D → Set where
-  nil  : List []
-  cons : (d : D){ds : D} → (dsL : List ds) → List (d ∷ ds)
-
--- Induction principle for List
-indList : (P : D → Set) →
-          P [] →
-          ((d : D){ds : D} → List ds → P ds → P (d ∷ ds)) →
-          {ds : D} → List ds → P ds
-indList P p[] iStep nil               = p[]
-indList P p[] iStep (cons d {ds} dsL) = iStep d dsL (indList P p[] iStep dsL)

@@ -11,15 +11,14 @@ open import Examples.GCD
 open import Examples.GCD.IsCommonDivisorER
 open import Examples.GCD.Types
 
-open import LTC.Data.N
-open import LTC.Data.N.Induction.Lexicographic
-open import LTC.Function.Arithmetic
-open import LTC.Function.Arithmetic.PropertiesER
-open import LTC.Relation.Divisibility
-open import LTC.Relation.Divisibility.PropertiesER
+open import LTC.Data.Nat
+open import LTC.Data.Nat.Divisibility
+open import LTC.Data.Nat.Divisibility.PropertiesER
+open import LTC.Data.Nat.Induction.Lexicographic
+open import LTC.Data.Nat.Inequalities
+open import LTC.Data.Nat.Inequalities.PropertiesER
+open import LTC.Data.Nat.PropertiesER
 open import LTC.Relation.Equalities.PropertiesER
-open import LTC.Relation.Inequalities
-open import LTC.Relation.Inequalities.PropertiesER
 
 open import MyStdLib.Function
 

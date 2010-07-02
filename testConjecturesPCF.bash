@@ -6,16 +6,16 @@ AGDA='agda -v 0'
 # Examples/GCD/EquationsPCF, therefore this file has not been added.
 
 conjecturesFilesPCF='
-  LTC/Function/Rec/PropertiesPCF
-  LTC/Function/Arithmetic/PropertiesPCF
-  LTC/Relation/Inequalities/PropertiesPCF
-  LTC/Relation/Divisibility/PropertiesPCF
-  Examples/GCD/IsN-PCF
-  Examples/GCD/IsCommonDivisorPCF
-  Examples/GCD/IsDivisiblePCF
-  Examples/Division/EquationsPCF
-  Examples/Division/IsN-PCF
-  Examples/Division/IsCorrectPCF
+  LTC/Data/NatPCF/DivisibilityPCF/PropertiesPCF
+  LTC/Data/NatPCF/InequalitiesPCF/PropertiesPCF
+  LTC/Data/NatPCF/PropertiesPCF
+  LTC/Data/NatPCF/RecPCF/PropertiesPCF
+  Examples/GCD-PCF/IsN-PCF
+  Examples/GCD-PCF/IsCommonDivisorPCF
+  Examples/GCD-PCF/IsDivisiblePCF
+  Examples/DivisionPCF/EquationsPCF
+  Examples/DivisionPCF/IsN-PCF
+  Examples/DivisionPCF/IsCorrectPCF
   '
 for file in ${conjecturesFilesPCF} ; do
     rm -f /tmp/*.tptp

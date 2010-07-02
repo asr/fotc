@@ -2,7 +2,7 @@ module Test.Factorial where
 
 open import LTC.Minimal
 
-open import LTC.Function.Arithmetic
+open import LTC.Data.Nat
 
 ------------------------------------------------------------------------------
 -- The factorial

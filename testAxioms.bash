@@ -7,10 +7,10 @@ AGDA='agda -v 0'
 # filesWithAxioms=$(find . -name '*.ax')
 filesWithAxioms='
   Examples/GCD
+  LTC/Data/Nat
+  LTC/Data/Nat/Inequalities
   LTC/Data/List
-  LTC/Function/Arithmetic
   LTC/Minimal
-  LTC/Relation/Inequalities
   '
 for file in ${filesWithAxioms} ; do
     if ! ( ${AGDA} ${file}.agda ); then exit 1; fi
