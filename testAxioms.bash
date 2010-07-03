@@ -9,7 +9,6 @@ filesWithAxioms='
   Examples/GCD
   LTC/Data/Nat
   LTC/Data/Nat/Inequalities
-  LTC/Data/List
   LTC/Minimal
   '
 for file in ${filesWithAxioms} ; do
