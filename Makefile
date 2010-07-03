@@ -1,13 +1,13 @@
-testAxioms :
-	./testAxioms.bash
+axioms :
+	./Test/test-axioms.bash
 
-testConjectures :
-	./testConjectures.bash
+conjectures :
+	./Test/test-conjectures.bash
 
-testConjecturesPCF :
-	./testConjecturesPCF.bash
+conjecturesPCF :
+	./Test/test-conjecturesPCF.bash
 
-testAgda :
+test-Agda :
 	agda -v 0 Examples/DivisionPCF/IsDIV-PCF.agda
 	agda -v 0 Examples/DivisionPCF/IsDIV-PCF-ER.agda
 	agda -v 0 Examples/GCD/IsGCD.agda
@@ -16,7 +16,7 @@ testAgda :
 	agda -v 0 Examples/GCD-PCF/IsGCD-PCF-ER.agda
 	agda -v 0 LTC/Data/Nat/Induction/WellFounded.agda
 
-test : testAxioms testConjectures testConjecturesPCF testAgda
+test : axioms conjectures conjecturesPCF test-Agda
 
 clean :
 	-find -name '*.agdai' | xargs rm -f
