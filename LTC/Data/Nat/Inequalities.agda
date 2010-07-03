@@ -26,6 +26,7 @@ postulate
 
 le : D → D → D
 le d e = lt d (succ e)
+{-# ATP definition le #-}
 
 ------------------------------------------------------------------------
 -- The data types
