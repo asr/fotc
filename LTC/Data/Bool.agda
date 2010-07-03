@@ -33,5 +33,3 @@ postulate
 {-# ATP axiom &&-tf #-}
 {-# ATP axiom &&-ft #-}
 {-# ATP axiom &&-ff #-}
-
-
