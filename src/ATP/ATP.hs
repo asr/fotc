@@ -16,6 +16,7 @@ import Control.Monad.Trans.Class ( lift )
 import Control.Monad.Trans.Error ( throwError )
 import Control.Monad.Trans.Reader ( ask )
 import System.Process ( readProcess )
+import System.Timeout ( timeout )
 
 -- Agda library imports
 import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
@@ -32,20 +33,25 @@ import TPTP.Types ( AF )
 -----------------------------------------------------------------------------
 
 -- ATPs
-data ATPs = Equinox | Eprover
+data ATPs = Equinox | Eprover | Metis
             deriving Eq
 
 instance Show ATPs where
     show Equinox = "equinox"
     show Eprover = "eprover"
+    show Metis   = "metis"
 
--- Equinox cvs version
+-- Tested with equinox cvs version
 equinoxOk :: String
 equinoxOk = "+++ RESULT: Theorem"
 
--- Eprover version E 1.1-004 Balasun
+-- Tested wit eprover version E 1.1-004 Balasun
 eproverOk :: String
 eproverOk = "Proof found!"
+
+-- Tested wit metis version 2.2 (release 20100524)
+metisOk :: String
+metisOk = "SZS status Theorem"
 
 checkOutputATP :: ATPs -> String -> Bool
 checkOutputATP atp output = isInfixOf (atpOk atp) output
@@ -53,8 +59,9 @@ checkOutputATP atp output = isInfixOf (atpOk atp) output
          atpOk :: ATPs -> String
          atpOk Equinox = equinoxOk
          atpOk Eprover = eproverOk
+         atpOk Metis   = metisOk
 
-runATP :: MVar (Bool, ATPs) -> MVar () -> FilePath -> String ->
+runATP :: MVar (Bool, ATPs) -> MVar () -> FilePath -> Int ->
           ATPs -> IO ()
 runATP outputMVar syncMVar file timeLimit atp = do
 
@@ -62,18 +69,30 @@ runATP outputMVar syncMVar file timeLimit atp = do
   -- we wait 1 sec. before launch the Eprover's theread.
   when ( atp == Eprover ) $ threadDelay 1000000
 
+  -- Because Equinox and Eprover prove almost all the theorems, we
+  -- wait 2 sec. before launch the metis's theread.
+  when ( atp == Metis ) $ threadDelay 2000000
+
   let args :: [String]
       args = case atp of
-               Equinox -> [ "--time", timeLimit, file ]
+               Equinox -> [ "--time", show timeLimit, file ]
                Eprover -> [ "--tstp-format"
-                          , "--soft-cpu-limit=" ++ timeLimit
+                          , "--soft-cpu-limit=" ++ show timeLimit
                           , file
                           ]
+               Metis   -> [ "--tptp", "/", file ]
 
-  output <- readProcess (show atp) args ""
+
+  -- Hack. Because metis does not have a time control, we wrap the
+  -- calls to the ATPs inside a timeout. This timeout only should be
+  -- used to kill metis, therefore we added 3 secs to allow that
+  -- equinox and eprover use their internal timeout.
+  output <- timeout (timeLimit * 1000000 + 3000000) (readProcess (show atp) args "")
 
   putMVar syncMVar ()
-  putMVar outputMVar (checkOutputATP atp output, atp)
+  case output of
+    Nothing -> putMVar outputMVar (False, atp)
+    Just o  -> putMVar outputMVar (checkOutputATP atp o, atp)
 
 callATPConjecture :: (AF, [AF]) -> ER ()
 callATPConjecture conjecture = do
@@ -83,8 +102,8 @@ callATPConjecture conjecture = do
 
   unless (optOnlyCreateFiles opts) $ do
 
-    let timeLimit :: String
-        timeLimit = show $ optTime opts
+    let timeLimit :: Int
+        timeLimit = optTime opts
 
     outputMVar <- liftIO (newEmptyMVar :: IO (MVar (Bool, ATPs)))
     syncMVar   <- liftIO (newEmptyMVar :: IO (MVar ()))
@@ -104,6 +123,7 @@ callATPConjecture conjecture = do
         case fstATP of
           Equinox -> liftIO $ killThread eproverThread
           Eprover -> liftIO $ killThread equinoxThread
+          _       -> __IMPOSSIBLE__
 
       (False, fstATP) -> do
           -- Wake up the other atp's theread
