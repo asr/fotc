@@ -9,6 +9,7 @@ open import LTC.Minimal
 open import Examples.DivisionPCF
 open import LTC.Data.NatPCF
 open import LTC.Data.NatPCF.InequalitiesPCF
+open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF-ER using ( x≥y→x≮y )
 
 ----------------------------------------------------------------------
 -- The division result when the dividend is minor than the
@@ -22,5 +23,5 @@ postulate
 -- the divisor
 
 postulate
-  div-x≥y : {i j : D} → GE i j → div i j ≡ succ (div (i - j) j)
-{-# ATP prove div-x≥y #-}
+  div-x≥y : {i j : D} → N i → N j → GE i j → div i j ≡ succ (div (i - j) j)
+{-# ATP prove div-x≥y x≥y→x≮y #-}

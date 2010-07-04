@@ -28,8 +28,10 @@ div-x<y-N i<j = subst (λ t → N t ) (sym (div-x<y i<j )) zN
 ------------------------------------------------------------------
 --                   N (div i j)
 
-div-x≥y-N : {i j : D} →
+div-x≥y-N : {i j : D} → N i → N j →
             (ih : DIV (i - j) j (div (i - j) j)) →
             GE i j →
             N (div i j)
-div-x≥y-N ih i≥j = subst (λ t → N t ) (sym (div-x≥y i≥j )) (sN (∧-proj₁ ih ))
+div-x≥y-N Ni Nj ih i≥j = subst (λ t → N t )
+                               (sym (div-x≥y Ni Nj i≥j ))
+                               (sN (∧-proj₁ ih ))

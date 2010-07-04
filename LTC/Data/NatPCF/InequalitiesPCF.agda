@@ -36,9 +36,17 @@ lt : D → D → D
 lt d e = fix lth ∙ d ∙ e
 {-# ATP definition lt #-}
 
+le : D → D → D
+le d e = lt d (succ e)
+{-# ATP definition le #-}
+
 gt : D → D → D
 gt d e = lt e d
 {-# ATP definition gt #-}
+
+ge : D → D → D
+ge d e = le e d
+{-# ATP definition ge #-}
 
 ------------------------------------------------------------------------
 -- The data types
@@ -46,20 +54,36 @@ gt d e = lt e d
 -- infix 4 _≤_ _<_ _≥_ _>_
 
 GT : D → D → Set
-GT d e = lt e d ≡ true
+GT d e = gt d e ≡ true
 {-# ATP definition GT #-}
+
+NGT : D → D → Set
+NGT d e = gt d e ≡ false
+{-# ATP definition NGT #-}
 
 LT : D → D  → Set
 LT d e = lt d e ≡ true
 {-# ATP definition LT #-}
 
+NLT : D → D  → Set
+NLT d e = lt d e ≡ false
+{-# ATP definition NLT #-}
+
 LE : D → D → Set
-LE d e = lt e d ≡ false
+LE d e = le d e ≡ true
 {-# ATP definition LE #-}
 
+NLE : D → D → Set
+NLE d e = le d e ≡ false
+{-# ATP definition NLE #-}
+
 GE : D → D → Set
-GE d e = lt d e ≡ false
+GE d e = ge d e ≡ true
 {-# ATP definition GE #-}
+
+NGE : D → D → Set
+NGE d e = ge d e ≡ false
+{-# ATP definition NGE #-}
 
 ------------------------------------------------------------------------------
 -- The lexicographical order

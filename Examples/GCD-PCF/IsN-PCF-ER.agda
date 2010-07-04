@@ -94,7 +94,7 @@ gcd-x≤y-N :
   N (gcd m n)
 gcd-x≤y-N zN zN _ _  ¬0≡0∧0≡0 = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
 gcd-x≤y-N zN (sN Nn) _ _ _      = gcd-0S-N Nn
-gcd-x≤y-N (sN _) zN _ Sm≤0  _  = ⊥-elim $ ¬S≤0 Sm≤0
+gcd-x≤y-N (sN Nm) zN _ Sm≤0  _  = ⊥-elim $ ¬S≤0 Nm Sm≤0
 gcd-x≤y-N (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
   gcd-S≤S-N Nm Nn ih Sm≤Sn
   where

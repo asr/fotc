@@ -10,6 +10,7 @@ open import LTC.MinimalER
 open import Examples.DivisionPCF
 open import LTC.Data.NatPCF
 open import LTC.Data.NatPCF.InequalitiesPCF
+open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF-ER using ( x≥y→x≮y )
 open import LTC.Relation.Equalities.PropertiesER
 
 import MyStdLib.Relation.Binary.EqReasoning
@@ -138,8 +139,8 @@ private
                refl
 
     -- From 'div-s₃' to 'div-s₅' using the proof  'i≥j'
-    proof₃₋₅ : (i j : D) → GE i j → div-s₃ i j  ≡ div-s₅ i j
-    proof₃₋₅ i j i≥j =
+    proof₃₋₅ : {i j : D} → N i → N j → GE i j → div-s₃ i j  ≡ div-s₅ i j
+    proof₃₋₅ {i} {j} Ni Nj i≥j =
       subst (λ t → if t
                       then zero
                       else (succ ((fix divh) ∙ (i - j) ∙ j))
@@ -148,9 +149,8 @@ private
                       then zero
                       else (succ ((fix divh) ∙ (i - j) ∙ j))
                )
-               (sym i≥j )
+               (sym (x≥y→x≮y Ni Nj i≥j) )
                refl
-
 
     -- From 'div-s₄' to 'div-s₆' using the conversion rule 'CB1'
     -- ToDo: Why we need to use 'div-s₄ {i} {j}' instead of 'div-s₄'
@@ -180,13 +180,14 @@ div-x<y {i} {j} i<j =
 -- The division result when the dividend is greater or equal than the
 -- the divisor
 
-div-x≥y : {i j : D} → GE i j → div i j ≡ succ (div (i - j) j)
-div-x≥y {i} {j} i≥j =
+div-x≥y : {i j : D} → N i → N j → GE i j →
+          div i j ≡ succ (div (i - j) j)
+div-x≥y {i} {j} Ni Nj i≥j =
   begin
     div i j    ≡⟨ proof₀₋₁ i j ⟩
     div-s₁ i j ≡⟨ proof₁₋₂ i j ⟩
     div-s₂ i j ≡⟨ proof₂₋₃ i j ⟩
-    div-s₃ i j ≡⟨ proof₃₋₅ i j i≥j ⟩
+    div-s₃ i j ≡⟨ proof₃₋₅ Ni Nj i≥j ⟩
     div-s₅ i j ≡⟨ proof₅₋₇ i j ⟩
     div-s₇ i j
   ∎

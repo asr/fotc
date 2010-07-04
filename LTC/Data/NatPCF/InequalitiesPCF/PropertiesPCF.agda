@@ -17,7 +17,7 @@ open import MyStdLib.Function
 ------------------------------------------------------------------------------
 
 postulate
-  lt-00 : GE zero zero
+  lt-00 : NLT zero zero
 {-# ATP prove lt-00 #-}
 
 postulate
@@ -25,7 +25,7 @@ postulate
 {-# ATP prove lt-0S #-}
 
 postulate
-  lt-S0 : (d : D) → GE (succ d) zero -- lt (succ d) zero ≡ false
+  lt-S0 : (d : D) → NLT (succ d) zero
 {-# ATP prove lt-S0 #-}
 
 postulate
@@ -38,8 +38,8 @@ postulate
 -- {-# ATP prove x≥0 zN sN #-}
 
 x≥0 : {n : D} → N n → GE n zero
-x≥0 zN          = lt-00
-x≥0 (sN {n} Nn) = lt-S0 n
+x≥0 zN          = lt-0S zero
+x≥0 (sN {n} Nn) = lt-0S (succ n)
 -- {-# ATP hint x≥0 #-}
 
 0≤x : {n : D} → N n → LE zero n
@@ -59,9 +59,16 @@ postulate
   ¬0>x : {n : D} → N n → ¬ (GT zero n)
 {-# ATP prove ¬0>x x≥0 #-}
 
+x≰x : {n : D} → N n → NLT n n
+x≰x zN          = lt-00
+x≰x (sN {n} Nn) = trans (lt-SS n n) (x≰x Nn)
+
 postulate
   ¬S≤0 : {d : D} → ¬ (LE (succ d) zero)
 {-# ATP prove ¬S≤0 lt-0S #-}
+
+¬0≥S : {n : D} → N n → ¬ (GE zero (succ n))
+¬0≥S Nn 0≥Sn = ¬S≤0 0≥Sn
 
 x<Sx : {n : D} → N n → LT n (succ n)
 x<Sx zN          = lt-0S zero
@@ -69,19 +76,6 @@ x<Sx (sN {n} Nn) = prf (x<Sx Nn)
   where
     postulate prf : LT n (succ n) → LT (succ n) (succ (succ n))
     {-# ATP prove prf lt-SS #-}
-
-x>y∨x≤y : {m n : D} → N m → N n → GT m n ∨ LE m n
-x>y∨x≤y zN          Nn          = inj₂ $ x≥0 Nn
-x>y∨x≤y (sN {m} Nm) zN          = inj₁ $ lt-0S m
-x>y∨x≤y (sN {m} Nm) (sN {n} Nn) = prf $ x>y∨x≤y Nm Nn
-  where
-    postulate
-      prf : (GT m n) ∨ (LE m n) →
-            GT (succ m) (succ n) ∨ LE (succ m) (succ n)
-    {-# ATP prove prf lt-SS #-}
-
-x<y∨x≥y : {m n : D} → N m → N n → LT m n ∨ GE m n
-x<y∨x≥y Nm Nn = x>y∨x≤y Nn Nm
 
 ¬x<x : {m : D} → N m → ¬ (LT m m)
 ¬x<x zN _ = ⊥-elim prf
@@ -97,11 +91,31 @@ x<y∨x≥y Nm Nn = x>y∨x≤y Nn Nm
 ¬x>x Nm = ¬x<x Nm
 
 x≤x : {m : D} → N m → LE m m
-x≤x zN          = lt-00
+x≤x zN          = lt-0S zero
 x≤x (sN {m} Nm) = prf (x≤x Nm)
   where
     postulate prf : LE m m → LE (succ m) (succ m)
     {-# ATP prove prf lt-SS #-}
+
+x≥y→x≮y : {m n : D} → N m → N n → GE m n → NLT m n
+x≥y→x≮y zN          zN          _     = x≰x zN
+x≥y→x≮y zN          (sN Nn)     0≥Sn  = ⊥-elim (¬0≥S Nn 0≥Sn)
+x≥y→x≮y (sN {m} Nm) zN          _     = lt-S0 m
+x≥y→x≮y (sN {m} Nm) (sN {n} Nn) Sm≥Sn =
+  trans (lt-SS m n) (x≥y→x≮y Nm Nn (trans (sym (lt-SS n (succ m))) Sm≥Sn))
+
+x>y∨x≤y : {m n : D} → N m → N n → GT m n ∨ LE m n
+x>y∨x≤y zN          Nn          = inj₂ $ x≥0 Nn
+x>y∨x≤y (sN {m} Nm) zN          = inj₁ $ lt-0S m
+x>y∨x≤y (sN {m} Nm) (sN {n} Nn) = prf $ x>y∨x≤y Nm Nn
+  where
+    postulate
+      prf : (GT m n) ∨ (LE m n) →
+            GT (succ m) (succ n) ∨ LE (succ m) (succ n)
+    {-# ATP prove prf lt-SS #-}
+
+x<y∨x≥y : {m n : D} → N m → N n → LT m n ∨ GE m n
+x<y∨x≥y Nm Nn = x>y∨x≤y Nn Nm
 
 -- TODO: Why not a dot pattern?
 x≡y→x≤y : {m n : D} → N m → N n → m ≡ n → LE m n
@@ -109,7 +123,7 @@ x≡y→x≤y Nm Nn refl = x≤x Nm
 
 x<y→x≤y : {m n : D} → N m → N n → LT m n → LE m n
 x<y→x≤y Nm zN          m<0            = ⊥-elim (¬x<0 Nm m<0)
-x<y→x≤y zN (sN {n} Nn)          _     = lt-S0 n
+x<y→x≤y zN (sN {n} Nn)          _     = lt-0S (succ n)
 x<y→x≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = prf (x<y→x≤y Nm Nn m<n)
   where
     postulate m<n : LT m n

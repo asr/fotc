@@ -40,7 +40,7 @@ div-x≥y-DIV : {i j : D} → N i -> N j →
               GE i j →
               DIV i j (div i j)
 div-x≥y-DIV {i} {j} Ni Nj accH j>0 i≥j =
-  (div-x≥y-N ih i≥j) , div-x≥y-correct Ni Nj ih i≥j
+  (div-x≥y-N Ni Nj ih i≥j) , div-x≥y-correct Ni Nj ih i≥j
 
     where
     -- The inductive hypothesis on 'i - j'.

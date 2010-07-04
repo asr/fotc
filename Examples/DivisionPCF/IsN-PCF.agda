@@ -28,7 +28,7 @@ postulate
 --                   N (div i j)
 
 postulate
-  div-x≥y-N : {i j : D} →
+  div-x≥y-N : {i j : D} → N i → N j →
               (DIV (i - j) j (div (i - j) j)) →
               GE i j →
               N (div i j)
