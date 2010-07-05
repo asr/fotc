@@ -15,6 +15,7 @@ test-Agda :
 	agda -v 0 Examples/GCD-PCF/IsGCD-PCF.agda
 	agda -v 0 Examples/GCD-PCF/IsGCD-PCF-ER.agda
 	agda -v 0 LTC/Data/Nat/Induction/WellFounded.agda
+	agda -v 0 LTC/Minimal/PropertiesER.agda
 
 test : axioms conjectures conjecturesPCF test-Agda
 

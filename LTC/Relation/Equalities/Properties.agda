@@ -8,17 +8,8 @@ open import LTC.Minimal
 
 ------------------------------------------------------------------------------
 
-postulate
-  sym : {x y : D} → x ≡ y → y ≡ x
-{-# ATP prove sym #-}
-
-postulate
-  trans : {x y z : D} → x ≡ y → y ≡ z → x ≡ z
-{-# ATP prove trans #-}
-
-postulate
-  ¬S≡0 : {d : D} → ¬ (succ d ≡ zero)
-{-# ATP prove ¬S≡0 #-}
+¬S≡0 : {n : D} → ¬ (succ n ≡ zero)
+¬S≡0 S≡0 = 0≠S (sym S≡0)
 
 x≡y→Sx≡Sy : {m n : D} → m ≡ n → succ m ≡ succ n
 x≡y→Sx≡Sy refl = refl

@@ -9,7 +9,7 @@ open import LTC.Minimal
 open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.Properties
-open import LTC.Relation.Equalities.Properties
+open import LTC.Relation.Equalities.Properties using ( x≡y→Sx≡Sy )
 
 open import MyStdLib.Data.Sum
 open import MyStdLib.Function

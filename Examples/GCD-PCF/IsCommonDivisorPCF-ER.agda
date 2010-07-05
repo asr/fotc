@@ -5,7 +5,7 @@
 module Examples.GCD-PCF.IsCommonDivisorPCF-ER where
 
 open import LTC.Minimal
-open import LTC.MinimalER
+open import LTC.MinimalER using ( subst )
 
 open import Examples.GCD.Types
 open import Examples.GCD-PCF
@@ -19,7 +19,7 @@ open import LTC.Data.NatPCF.Induction.LexicographicPCF
 open import LTC.Data.NatPCF.InequalitiesPCF
 open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF-ER
 open import LTC.Data.NatPCF.PropertiesPCF-ER
-open import LTC.Relation.Equalities.PropertiesER
+open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
 
 open import MyStdLib.Function
 

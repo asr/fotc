@@ -16,7 +16,7 @@ open import LTC.Data.NatPCF.DivisibilityPCF
 open import LTC.Data.NatPCF.DivisibilityPCF.PropertiesPCF
 open import LTC.Data.NatPCF.Induction.LexicographicPCF
 open import LTC.Data.NatPCF.PropertiesPCF
-open import LTC.Relation.Equalities.Properties
+open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
 open import LTC.Data.NatPCF.InequalitiesPCF
 open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF
 

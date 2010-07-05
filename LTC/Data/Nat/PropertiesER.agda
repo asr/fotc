@@ -5,10 +5,9 @@
 module LTC.Data.Nat.PropertiesER where
 
 open import LTC.Minimal
-open import LTC.MinimalER
+open import LTC.MinimalER using ( subst )
 
 open import LTC.Data.Nat
-open import LTC.Relation.Equalities.PropertiesER
 
 open import MyStdLib.Function
 import MyStdLib.Relation.Binary.EqReasoning

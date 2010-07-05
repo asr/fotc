@@ -5,12 +5,12 @@
 module LTC.Data.Nat.Inequalities.PropertiesER where
 
 open import LTC.Minimal
-open import LTC.MinimalER
+open import LTC.MinimalER using ( subst )
 
 open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.PropertiesER
-open import LTC.Relation.Equalities.PropertiesER
+open import LTC.Relation.Equalities.Properties using ( x≡y→Sx≡Sy )
 
 open import MyStdLib.Data.Sum
 open import MyStdLib.Function

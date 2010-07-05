@@ -16,7 +16,7 @@ open import LTC.Data.Nat.Induction.Lexicographic
 open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.Inequalities.Properties
 open import LTC.Data.Nat.Properties
-open import LTC.Relation.Equalities.Properties
+open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
 
 open import MyStdLib.Function
 

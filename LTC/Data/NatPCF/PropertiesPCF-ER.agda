@@ -5,12 +5,11 @@
 module LTC.Data.NatPCF.PropertiesPCF-ER where
 
 open import LTC.Minimal
-open import LTC.MinimalER
+open import LTC.MinimalER using ( subst )
 
 open import LTC.Data.NatPCF
 open import LTC.Data.NatPCF.RecPCF
 open import LTC.Data.NatPCF.RecPCF.PropertiesPCF
-open import LTC.Relation.Equalities.PropertiesER
 
 -- open import MyStdLib.Function
 import MyStdLib.Relation.Binary.EqReasoning

@@ -5,14 +5,14 @@
 module LTC.Data.NatPCF.DivisibilityPCF.PropertiesPCF-ER where
 
 open import LTC.Minimal
-open import LTC.MinimalER
+open import LTC.MinimalER using ( subst )
 
 open import LTC.Data.NatPCF
 open import LTC.Data.NatPCF.DivisibilityPCF
 open import LTC.Data.NatPCF.InequalitiesPCF
 open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF-ER
 open import LTC.Data.NatPCF.PropertiesPCF-ER
-open import LTC.Relation.Equalities.PropertiesER
+open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
 
 open import MyStdLib.Function
 import MyStdLib.Relation.Binary.EqReasoning

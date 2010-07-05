@@ -77,6 +77,16 @@ postulate
 data _≡_ (x : D) : D → Set where
   refl : x ≡ x
 
+-- Identity properties.
+
+-- The substitution is defined in LTC.MinimalER
+
+sym : {x y : D} → x ≡ y → y ≡ x
+sym refl = refl
+
+trans : {x y z : D} → x ≡ y → y ≡ z → x ≡ z
+trans refl y≡z = y≡z
+
 ------------------------------------------------------------------------------
 -- Logical constants: Curry-Howard isomorphism
 ------------------------------------------------------------------------------

@@ -5,7 +5,7 @@
 module Examples.DivisionPCF.IsCorrectPCF-ER where
 
 open import LTC.Minimal
-open import LTC.MinimalER
+open import LTC.MinimalER using ( subst )
 
 open import Examples.DivisionPCF
 open import Examples.DivisionPCF.EquationsPCF-ER
@@ -14,7 +14,6 @@ open import Examples.DivisionPCF.SpecificationPCF
 open import LTC.Data.NatPCF
 open import LTC.Data.NatPCF.InequalitiesPCF
 open import LTC.Data.NatPCF.PropertiesPCF-ER
-open import LTC.Relation.Equalities.PropertiesER
 
 import MyStdLib.Relation.Binary.EqReasoning
 open module IsNER = MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans

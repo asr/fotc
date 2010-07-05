@@ -7,7 +7,7 @@
 module Examples.GCD.IsN-ER where
 
 open import LTC.Minimal
-open import LTC.MinimalER
+open import LTC.MinimalER using ( subst )
 
 open import Examples.GCD
 open import Examples.GCD.Types
@@ -17,7 +17,7 @@ open import LTC.Data.Nat.Induction.Lexicographic
 open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.Inequalities.PropertiesER
 open import LTC.Data.Nat.PropertiesER
-open import LTC.Relation.Equalities.PropertiesER
+open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
 
 open import MyStdLib.Function
 

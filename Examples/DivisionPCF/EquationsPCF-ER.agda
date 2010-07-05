@@ -5,13 +5,12 @@
 module Examples.DivisionPCF.EquationsPCF-ER where
 
 open import LTC.Minimal
-open import LTC.MinimalER
+open import LTC.MinimalER using ( subst )
 
 open import Examples.DivisionPCF
 open import LTC.Data.NatPCF
 open import LTC.Data.NatPCF.InequalitiesPCF
 open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF-ER using ( x≥y→x≮y )
-open import LTC.Relation.Equalities.PropertiesER
 
 import MyStdLib.Relation.Binary.EqReasoning
 open module APER = MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
