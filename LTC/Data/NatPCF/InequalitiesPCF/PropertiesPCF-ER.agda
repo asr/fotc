@@ -106,16 +106,14 @@ private
     We prove (1) using
     'subst : {A : Set}(P : A → Set){x y : A} → x ≡ y → P x → P y'
     where
-    'P' is given by 'λ m → C [m ] ≡ C [n]',
-    'x ≡ y' is given 'n ≡ m' (actually, we use '-sym (m ≡ n)'), and
-    'P x' is given by 'C [n] ≡ C [n]' (i.e. 'refl').
+    'P' is given by 'λ t → C [m] ≡ C [t]',
+    'x ≡ y' is given 'm ≡ n', and
+    'P x' is given by 'C [m] ≡ C [m]' (i.e. 'refl').
   -}
 
   -- Application of the conversion rule 'cFix'.
-  initial→s₁ : (d e : D) → fix lth ∙ d ∙ e  ≡ <-s₁ d e
-  initial→s₁ d e = subst (λ t → t ∙ d ∙ e  ≡ lth (fix lth) ∙ d ∙ e )
-                         (sym (cFix lth ))
-                         refl
+  initial→s₁ : (d e : D) → fix lth ∙ d ∙ e ≡ <-s₁ d e
+  initial→s₁ d e = subst (λ t → fix lth ∙ d ∙ e ≡ t ∙ d ∙ e ) (cFix lth) refl
 
   -- The definition of lth.
   s₁→s₂ : (d e : D) → <-s₁ d e ≡ <-s₂ d e
@@ -141,9 +139,7 @@ private
 
   -- Reduction 'isZero e ≡ b' using that proof.
   s₆→s₇ : (d e b : D) → isZero e ≡ b → <-s₆ d e ≡ <-s₇ d e b
-  s₆→s₇ d e b prf = subst (λ t → <-s₇ d e t ≡ <-s₇ d e b )
-                          (sym prf)
-                          refl
+  s₆→s₇ d e b prf = subst (λ t → <-s₆ d e ≡ <-s₇ d e t) prf refl
 
   -- Reduction of 'isZero e ≡ true' using the conversion rule cB₁.
   s₇→end : (d e : D) → <-s₇ d e true ≡ false
@@ -155,9 +151,7 @@ private
 
   -- Reduction 'isZero d ≡ b' using that proof.
   s₈→s₉ : (d e b : D) → isZero d ≡ b → <-s₈ d e ≡ <-s₉ d e b
-  s₈→s₉ d e b prf = subst (λ t → <-s₉ d e t ≡ <-s₉ d e b )
-                          (sym prf)
-                          refl
+  s₈→s₉ d e b prf = subst (λ t → <-s₈ d e ≡ <-s₉ d e t ) prf refl
 
   -- Reduction of 'isZero d ≡ true' using the conversion rule cB₁.
   s₉→end : (d e : D) → <-s₉ d e true ≡ true
@@ -169,15 +163,11 @@ private
 
   -- Reduction 'pred (succ d) ≡ d' using the conversion rule cP₂.
   s₁₀→s₁₁ : (d e : D) → <-s₁₀ (succ d) e  ≡ <-s₁₁ d e
-  s₁₀→s₁₁ d e = subst (λ t → <-s₁₁ t e ≡ <-s₁₁ d e)
-                      (sym (cP₂ d ))
-                      refl
+  s₁₀→s₁₁ d e = subst (λ t → <-s₁₀ (succ d) e ≡ <-s₁₁ t e) (cP₂ d) refl
 
   -- Reduction 'pred (succ e) ≡ e' using the conversion rule 'cP₂'.
   s₁₁→s₁₂ : (d e : D) → <-s₁₁ d (succ e)  ≡ <-s₁₂ d e
-  s₁₁→s₁₂ d e = subst (λ t → <-s₁₂ d t ≡ <-s₁₂ d e)
-                      (sym (cP₂ e ))
-                      refl
+  s₁₁→s₁₂ d e = subst (λ t → <-s₁₁ d (succ e) ≡ <-s₁₂ d t) (cP₂ e) refl
 
 ------------------------------------------------------------------------------
 
