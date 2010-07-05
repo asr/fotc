@@ -79,6 +79,12 @@ x≥y→x≮y (sN {m} Nm) zN          _     = lt-S0 m
 x≥y→x≮y (sN {m} Nm) (sN {n} Nn) Sm≥Sn =
   trans (lt-SS m n) (x≥y→x≮y Nm Nn (trans (sym (lt-SS n (succ m))) Sm≥Sn))
 
+x>y→x≰y : {m n : D} → N m → N n → GT m n → NLE m n
+x>y→x≰y zN          Nn          0>m   = ⊥-elim (¬0>x Nn 0>m)
+x>y→x≰y (sN Nm)     zN          _     = S≰0 Nm
+x>y→x≰y (sN {m} Nm) (sN {n} Nn) Sm>Sn =
+  trans (lt-SS m (succ n)) (x>y→x≰y Nm Nn (trans (sym (lt-SS n m)) Sm>Sn))
+
 x>y∨x≤y : {m n : D} → N m → N n → GT m n ∨ LE m n
 x>y∨x≤y zN          Nn          = inj₂ $ x≥0 Nn
 x>y∨x≤y (sN {m} Nm) zN          = inj₁ $ lt-0S m
