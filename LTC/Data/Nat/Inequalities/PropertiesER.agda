@@ -84,9 +84,8 @@ x>y∨x≤y (sN {m} Nm) (sN {n} Nn) =
 x<y∨x≥y : {m n : D} → N m → N n → LT m n ∨ GE m n
 x<y∨x≥y Nm Nn = x>y∨x≤y Nn Nm
 
--- TODO: Why not a dot pattern?
-x≡y→x≤y : {m n : D} → N m → N n → m ≡ n → LE m n
-x≡y→x≤y Nm Nn refl = x≤x Nm
+x≡y→x≤y : {m n : D} → {Nm : N m} → {Nn : N n} → m ≡ n → LE m n
+x≡y→x≤y {Nm = Nm} refl = x≤x Nm
 
 x<y→x≤y : {m n : D} → N m → N n → LT m n → LE m n
 x<y→x≤y Nm zN          m<0            = ⊥-elim (¬x<0 Nm m<0)

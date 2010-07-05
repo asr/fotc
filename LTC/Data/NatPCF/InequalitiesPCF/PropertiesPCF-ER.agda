@@ -20,10 +20,21 @@ open module IPER = MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 ------------------------------------------------------------------------------
 
 private
+
+  -- Before to prove some properties for 'lt i j' it is convenient
+  -- to descompose the behavior of the function step by step.
+
+  -- Initially, we define the possible states ('<-s₁',
+  -- '<-s₂', ...). Then we write down the proof for
+  -- the execution step from the state 'p' to the state 'q'
+  -- (e.g 's₁→s₂ : (m n : D) → <-s₂ m n → <-s₃ m n' ).
+
+  -- The terms 'lt-00', 'lt-0S', 'lt-S0', and 'lt-S>S' show the use of
+  -- the states '<-s₁', '<-s₂', ..., and the proofs associated
+  -- with the execution steps.
+
   ----------------------------------------------------------------------
   -- The steps of lt
-
-  --TODO : Doc. See LTC-PLPV
 
   -- The conversion rule 'cFix' is applied.
   <-s₁ : D → D → D
@@ -82,7 +93,23 @@ private
   ----------------------------------------------------------------------
   -- The execution steps
 
-  --TODO : Doc. See LTC-PLPV
+  {-
+    To prove the execution steps (e.g. s₃→s₄ : (m n : D) → <-s₃ m n → <-s₄ m n),
+    we usually need to prove that
+
+                         C [m] ≡ C [n]    (1)
+
+    given that
+                             m ≡ n,       (2)
+
+    where (2) is a conversion rule usually.
+    We prove (1) using
+    'subst : {A : Set}(P : A → Set){x y : A} → x ≡ y → P x → P y'
+    where
+    'P' is given by 'λ m → C [m ] ≡ C [n]',
+    'x ≡ y' is given 'n ≡ m' (actually, we use '-sym (m ≡ n)'), and
+    'P x' is given by 'C [n] ≡ C [n]' (i.e. 'refl').
+  -}
 
   -- Application of the conversion rule 'cFix'.
   initial→s₁ : (d e : D) → fix lth ∙ d ∙ e  ≡ <-s₁ d e
@@ -282,9 +309,8 @@ x>y∨x≤y (sN {m} Nm) (sN {n} Nn) =
 x<y∨x≥y : {m n : D} → N m → N n → LT m n ∨ GE m n
 x<y∨x≥y Nm Nn = x>y∨x≤y Nn Nm
 
--- TODO: Why not a dot pattern?
-x≡y→x≤y : {m n : D} → N m → N n → m ≡ n → LE m n
-x≡y→x≤y Nm Nn refl = x≤x Nm
+x≡y→x≤y : {m n : D} → {Nm : N m} → {Nn : N n} → m ≡ n → LE m n
+x≡y→x≤y {Nm = Nm} refl = x≤x Nm
 
 x<y→x≤y : {m n : D} → N m → N n → LT m n → LE m n
 x<y→x≤y Nm zN          m<0            = ⊥-elim (¬x<0 Nm m<0)
