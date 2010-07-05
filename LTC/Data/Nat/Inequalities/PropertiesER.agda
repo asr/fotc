@@ -90,6 +90,14 @@ x>y∨x≤y (sN {m} Nm) (sN {n} Nn) =
 x<y∨x≥y : {m n : D} → N m → N n → LT m n ∨ GE m n
 x<y∨x≥y Nm Nn = x>y∨x≤y Nn Nm
 
+x≤y∨x≰y : {m n : D} → N m → N n → LE m n ∨ NLE m n
+x≤y∨x≰y zN Nn = inj₁ (0≤x Nn)
+x≤y∨x≰y (sN Nm) zN = inj₂ (S≰0 Nm)
+x≤y∨x≰y (sN {m} Nm) (sN {n} Nn) =
+  [ (λ m≤n → inj₁ (trans (lt-SS m (succ n)) m≤n))
+  , ((λ m≰n → inj₂ (trans (lt-SS m (succ n)) m≰n)))
+  ] (x≤y∨x≰y Nm Nn)
+
 x≡y→x≤y : {m n : D} → {Nm : N m} → {Nn : N n} → m ≡ n → LE m n
 x≡y→x≤y {Nm = Nm} refl = x≤x Nm
 
