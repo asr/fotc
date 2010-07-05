@@ -5,7 +5,7 @@
 module LTC.Minimal.Properties where
 
 open import LTC.Minimal
-open import LTC.Data.N
+open import LTC.Data.Nat.Type
 
 ------------------------------------------------------------------------------
 -- Closure properties
@@ -18,7 +18,6 @@ pred-N zN  = prf
 
 pred-N (sN {n} Nn) = prf
   where
-    -- TODO: The postulate N (pred $ succ n) is not proved by the ATP.
     postulate prf : N (pred (succ n))
     {-# ATP prove prf #-}
-  -- {-# ATP hint pred-N #-}
+    -- {-# ATP hint pred-N #-}

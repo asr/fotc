@@ -314,9 +314,7 @@ x<y→x≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn =
 
 x<y→Sx≤y : {m n : D} → N m → N n → LT m n → LE (succ m) n
 x<y→Sx≤y Nm zN               m<0       = ⊥-elim (¬x<0 Nm m<0)
-x<y→Sx≤y zN (sN zN)          _         = x≤x (sN zN)
-x<y→Sx≤y zN (sN (sN {n} Nn)) _         = trans (lt-SS zero (succ (succ n)))
-                                               (0≤x (sN Nn))
+x<y→Sx≤y zN          (sN {n} Nn) _     = trans (lt-SS zero (succ n)) (lt-0S n)
 x<y→Sx≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = trans (lt-SS (succ m) (succ n)) Sm<Sn
 
 Sx≤y→x<y : {m n : D} → N m → N n → LE (succ m) n → LT m n

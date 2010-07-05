@@ -7,6 +7,7 @@ conjecturesFiles='
   LTC/Data/Nat/Divisibility/Properties
   LTC/Data/Nat/Inequalities/Properties
   LTC/Data/List/Properties
+  LTC/Minimal/Properties
   LTC/Relation/Equalities/Properties
   Examples/GCD/IsN
   Examples/GCD/IsCommonDivisor

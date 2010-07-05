@@ -121,15 +121,10 @@ x<y→x≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = prf (x<y→x≤y Nm Nn m<n)
 x<y→Sx≤y : {m n : D} → N m → N n → LT m n → LE (succ m) n
 x<y→Sx≤y Nm zN m<0 = ⊥-elim (¬x<0 Nm m<0)
 
-x<y→Sx≤y zN (sN zN) _ = S0≤S0
+x<y→Sx≤y zN (sN {n} Nn) 0<Sn = S0≤SN
   where
-    postulate S0≤S0 : LE (succ zero) (succ zero)
-    {-# ATP prove S0≤S0 #-}
-
-x<y→Sx≤y zN (sN (sN {n} Nn)) _ = S0≤SSn
-  where
-    postulate S0≤SSn : LE (succ zero) (succ (succ n))
-    {-# ATP prove S0≤SSn #-}
+    postulate S0≤SN : LE (succ zero) (succ n)
+    {-# ATP prove S0≤SN #-}
 
 x<y→Sx≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = prf (x<y→Sx≤y Nm Nn m<n)
   where
