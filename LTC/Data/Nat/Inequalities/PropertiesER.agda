@@ -66,6 +66,12 @@ x≤x : {m : D} → N m → LE m m
 x≤x zN          = lt-0S zero
 x≤x (sN {m} Nm) = trans (lt-SS m (succ m)) (x≤x Nm)
 
+x>y→y<x : {m n : D} → N m → N n → GT m n → LT n m
+x>y→y<x zN          Nn          0>n   = ⊥-elim (¬0>x Nn 0>n)
+x>y→y<x (sN {m} Nm) zN          _     = lt-0S m
+x>y→y<x (sN {m} Nm) (sN {n} Nn) Sm>Sn =
+  trans (lt-SS n m) (x>y→y<x Nm Nn (trans (sym (lt-SS n m)) Sm>Sn))
+
 x≥y→x≮y : {m n : D} → N m → N n → GE m n → NLT m n
 x≥y→x≮y zN          zN          _     = x≰x zN
 x≥y→x≮y zN          (sN Nn)     0≥Sn  = ⊥-elim (¬0≥S Nn 0≥Sn)
