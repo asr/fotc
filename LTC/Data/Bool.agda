@@ -13,6 +13,8 @@ infixr 6 _&&_
 data Bool : D → Set where
   tB : Bool true
   fB : Bool false
+{-# ATP hint tB #-}
+{-# ATP hint fB #-}
 
 -- The rule of proof by case analysis on 'B'.
 indBool : (P : D → Set) → P true → P false → {b : D} → Bool b → P b
