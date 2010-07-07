@@ -16,7 +16,7 @@ import Control.Monad.Trans.Class ( lift )
 import Control.Monad.Trans.Error ( throwError )
 import Control.Monad.Trans.Reader ( ask )
 import System.Process ( readProcess )
-import System.Timeout ( timeout )
+-- import System.Timeout ( timeout )
 
 -- Agda library imports
 import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
@@ -87,12 +87,18 @@ runATP outputMVar syncMVar file timeLimit atp = do
   -- calls to the ATPs inside a timeout. This timeout only should be
   -- used to kill metis, therefore we added 3 secs to allow that
   -- equinox and eprover use their internal timeout.
-  output <- timeout (timeLimit * 1000000 + 3000000) (readProcess (show atp) args "")
 
+  -- TODO: There is an problem with the function timeout and eprover
+  -- output <- timeout (timeLimit * 1000000 + 3000000) (readProcess (show atp) args "")
+
+  -- putMVar syncMVar ()
+  -- case output of
+  --   Nothing -> putMVar outputMVar (False, atp)
+  --   Just o  -> putMVar outputMVar (checkOutputATP atp o, atp)
+
+  output <- readProcess (show atp) args ""
   putMVar syncMVar ()
-  case output of
-    Nothing -> putMVar outputMVar (False, atp)
-    Just o  -> putMVar outputMVar (checkOutputATP atp o, atp)
+  putMVar outputMVar (checkOutputATP atp output, atp)
 
 callATPConjecture :: (AF, [AF]) -> ER ()
 callATPConjecture conjecture = do
