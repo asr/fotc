@@ -111,7 +111,6 @@ minus-N (sN {m} Nm) (sN {n} Nn) = prf $ minus-N Nm Nn
     {-# ATP prove prf +-N *-Sx #-}
 
 ------------------------------------------------------------------------------
-
 -- Some proofs are based on the proofs in the standard library
 
 +-leftIdentity : {n : D} → N n → zero + n ≡ n

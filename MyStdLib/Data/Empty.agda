@@ -4,6 +4,8 @@
 
 module MyStdLib.Data.Empty where
 
+------------------------------------------------------------------------------
+
 data ⊥ : Set where
 
 ⊥-elim : {A : Set} → ⊥ → A

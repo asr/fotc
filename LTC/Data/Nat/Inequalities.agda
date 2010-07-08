@@ -6,7 +6,6 @@ module LTC.Data.Nat.Inequalities where
 
 open import LTC.Minimal
 
--- infix 4 _≤_ _<_ _≥_ _>_
 ------------------------------------------------------------------------------
 
 postulate

@@ -10,16 +10,7 @@ LTC                              Agda
 * Inductive predicates           * Inductive families
 -}
 
-------------------------------------------------------------------------------
-
 module LTC.Minimal where
-
--- Standard library imports
--- open import Data.Fin using ( Fin )
--- open import Data.Nat using ( ℕ )
--- open import Data.String
--- open import Relation.Binary.PropositionalEquality
--- open ≡-Reasoning
 
 infixl 6 _∙_
 infix  5 if_then_else_
@@ -27,15 +18,11 @@ infix  4 _≡_
 
 ------------------------------------------------------------------------------
 -- The universal domain
-------------------------------------------------------------------------------
 
 -- N.B. The following module is exported by this module.
 open import LTC.Minimal.Core public
 
 ------------------------------------------------------------------------------
--- The term language
-------------------------------------------------------------------------------
-
 -- The term language of LTC correspond to the PCF terms
 
 --   t ::= x | t t | \x -> t
@@ -68,9 +55,6 @@ postulate
   -- fixFO  : D
 
 ------------------------------------------------------------------------------
--- Equality: identity type
-------------------------------------------------------------------------------
-
 -- The LTC's equality is the propositional identity on 'D'.
 
 -- The identity type.
@@ -89,7 +73,6 @@ trans refl y≡z = y≡z
 
 ------------------------------------------------------------------------------
 -- Logical constants: Curry-Howard isomorphism
-------------------------------------------------------------------------------
 
 -- The LTC's logical constants are the type theory's logical
 -- constants via the Curry-Howard isomorphism.
@@ -106,7 +89,6 @@ open import MyStdLib.Relation.Nullary public
 
 ------------------------------------------------------------------------------
 -- Conversion rules
-------------------------------------------------------------------------------
 
 postulate
   -- Conversion rules for booleans.
@@ -142,7 +124,6 @@ postulate
 
 ------------------------------------------------------------------------------
 -- Discrimination rules
-------------------------------------------------------------------------------
 
 postulate
   true≠false : ¬ (true ≡ false)

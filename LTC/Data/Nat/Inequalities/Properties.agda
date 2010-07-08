@@ -19,7 +19,6 @@ open import MyStdLib.Function
 x≥0 : {n : D} → N n → GE n zero
 x≥0 zN          = <-0S zero
 x≥0 (sN {n} Nn) = <-0S (succ n)
--- {-# ATP hint x≥0 #-}
 
 0≤x : {n : D} → N n → LE zero n
 0≤x Nn = x≥0 Nn
@@ -123,7 +122,7 @@ x≤y∨x≰y zN Nn = inj₁ (0≤x Nn)
 x≤y∨x≰y (sN Nm) zN = inj₂ (S≰0 Nm)
 x≤y∨x≰y (sN {m} Nm) (sN {n} Nn) =
   [ (λ m≤n → inj₁ (trans (≤-SS m n) m≤n))
-  , ((λ m≰n → inj₂ (trans (≤-SS m n) m≰n)))
+  , (λ m≰n → inj₂ (trans (≤-SS m n) m≰n))
   ] (x≤y∨x≰y Nm Nn)
 
 x≡y→x≤y : {m n : D} → {Nm : N m } → {Nn : N n} → m ≡ n → LE m n

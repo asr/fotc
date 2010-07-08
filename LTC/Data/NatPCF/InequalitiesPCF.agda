@@ -6,10 +6,7 @@ module LTC.Data.NatPCF.InequalitiesPCF where
 
 open import LTC.Minimal
 
--- infix 4 _≤_ _<_ _≥_ _>_
-
 ------------------------------------------------------------------------------
-
 -- Version using lambda-abstraction.
 -- lth : D → D
 -- lth lt = lam (λ m → lam (λ n →
