@@ -16,7 +16,7 @@ open import LTC.Data.List
     postulate prf : List ([] ++ es)
     {-# ATP prove prf #-}
 
-++-List {es = es} (cons d {ds} dsL) esL = prf (++-List dsL esL)
+++-List {es = es} (cons d {ds} Lds) esL = prf (++-List Lds esL)
   where
     postulate prf : List (ds ++ es) →
                     List ((d ∷ ds) ++ es)
@@ -31,7 +31,7 @@ open import LTC.Data.List
     postulate prf : [] ++ [] ≡ []
     {-# ATP prove prf #-}
 
-++-rightIdentity (cons d {ds} dsL) = prf (++-rightIdentity dsL)
+++-rightIdentity (cons d {ds} Lds) = prf (++-rightIdentity Lds)
   where
     postulate prf : ds ++ [] ≡ ds →
                     (d ∷ ds) ++ [] ≡ d ∷ ds
@@ -54,7 +54,7 @@ open import LTC.Data.List
 --     iStep : (d : D){ds : D} → List ds →
 --             (ds ++ bs) ++ cs ≡ ds ++ (bs ++ cs) →
 --             ((d ∷ ds) ++ bs) ++ cs ≡ (d ∷ ds) ++ bs ++ cs
---     iStep d {ds} dsL Pds = prf
+--     iStep d {ds} Lds Pds = prf
 --       where
 --         postulate prf : ((d ∷ ds) ++ bs) ++ cs ≡ (d ∷ ds) ++ bs ++ cs
 --         {-# ATP prove prf #-}
@@ -66,8 +66,8 @@ open import LTC.Data.List
     postulate prf : ([] ++ bs) ++ cs ≡ [] ++ bs ++ cs
     {-# ATP prove prf #-}
 
-++-assoc .{d ∷ ds} {bs} {cs} (cons d {ds} dsL) bsL csL =
-  prf (++-assoc dsL bsL csL)
+++-assoc .{d ∷ ds} {bs} {cs} (cons d {ds} Lds) bsL csL =
+  prf (++-assoc Lds bsL csL)
   where
     postulate prf : (ds ++ bs) ++ cs ≡ ds ++ bs ++ cs →
                     ((d ∷ ds) ++ bs) ++ cs ≡ (d ∷ ds) ++ bs ++ cs
@@ -79,7 +79,7 @@ reverse-List nil = prf
     postulate prf : List (reverse [])
     {-# ATP prove prf nil #-}
 
-reverse-List (cons d {ds} dsL) = prf (reverse-List dsL)
+reverse-List (cons d {ds} Lds) = prf (reverse-List Lds)
   where
     postulate prf : List (reverse ds) →
                     List (reverse (d ∷ ds))
@@ -96,7 +96,7 @@ reverse-++ {es = es} nil esL = prf
     postulate prf : reverse ([] ++ es) ≡ reverse es ++ reverse []
     {-# ATP prove prf ++-rightIdentity reverse-List #-}
 
-reverse-++ {es = es} (cons d {ds} dsL) esL = prf (reverse-++ dsL esL)
+reverse-++ {es = es} (cons d {ds} Lds) esL = prf (reverse-++ Lds esL)
   where
     postulate prf : reverse (ds ++ es) ≡ reverse es ++ reverse ds →
                     reverse ((d ∷ ds) ++ es) ≡ reverse es ++ reverse (d ∷ ds)
@@ -108,7 +108,7 @@ reverse² nil = prf
     postulate prf : reverse (reverse []) ≡ []
     {-# ATP prove prf #-}
 
-reverse² (cons d {ds} dsL) = prf (reverse² dsL)
+reverse² (cons d {ds} Lds) = prf (reverse² Lds)
   where
     postulate prf : reverse (reverse ds) ≡ ds →
                     reverse (reverse (d ∷ ds)) ≡ d ∷ ds
@@ -120,7 +120,7 @@ map-++ f {es = es} nil esL = prf
   where
     postulate prf : map f ([] ++ es) ≡ map f [] ++ map f es
     {-# ATP prove prf #-}
-map-++ f {es = es} (cons d {ds} dsL) esL = prf (map-++ f dsL esL)
+map-++ f {es = es} (cons d {ds} Lds) esL = prf (map-++ f Lds esL)
   where
     postulate prf : map f (ds ++ es) ≡ map f ds ++ map f es →
                     map f ((d ∷ ds) ++ es) ≡ map f (d ∷ ds) ++ map f es

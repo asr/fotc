@@ -17,7 +17,7 @@ postulate
 -- The LTC list data type
 data List : D → Set where
   nil  : List []
-  cons : (d : D){ds : D} → (dsL : List ds) → List (d ∷ ds)
+  cons : (d : D){ds : D} → (Lds : List ds) → List (d ∷ ds)
 
 -- Induction principle for List
 indList : (P : D → Set) →
@@ -25,7 +25,7 @@ indList : (P : D → Set) →
           ((d : D){ds : D} → List ds → P ds → P (d ∷ ds)) →
           {ds : D} → List ds → P ds
 indList P p[] iStep nil               = p[]
-indList P p[] iStep (cons d {ds} dsL) = iStep d dsL (indList P p[] iStep dsL)
+indList P p[] iStep (cons d {ds} Lds) = iStep d Lds (indList P p[] iStep Lds)
 
 ------------------------------------------------------------------------------
 -- Basic functions
