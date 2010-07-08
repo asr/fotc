@@ -39,13 +39,13 @@ private
     div-s₂ : D → D → D
     div-s₂ i j = fun ∙ j
       where fun : D
-            fun = lam (λ j → if (lt i j)
+            fun = lam (λ j → if (i < j)
                                 then zero
                                 else (succ (fix divh ∙ (i - j) ∙ j)))
 
     -- Second argument application
     div-s₃ : D → D → D
-    div-s₃ i j = if (lt i j)
+    div-s₃ i j = if (i < j)
                     then zero
                     else (succ (fix divh ∙ (i - j) ∙ j))
 
@@ -107,7 +107,7 @@ private
           -- variable 'y' to avoid the clashing of the variable 'i' in
           -- the application of the 'beta' rule.
           fun : D → D
-          fun y = lam (λ j → if (lt y j)
+          fun y = lam (λ j → if (y < j)
                                 then zero
                                 else (succ (fix divh ∙ (y - j) ∙ j)))
 
@@ -119,7 +119,7 @@ private
         -- need a fresh 'y' to avoid the clashing of the variable 'j' in
         -- the application of the 'beta' rule.
         fun : D → D
-        fun y = if (lt i y)
+        fun y = if (i < y)
                    then zero
                    else (succ ((fix divh) ∙ (i - y) ∙ y))
 

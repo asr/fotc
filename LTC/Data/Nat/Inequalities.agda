@@ -6,71 +6,70 @@ module LTC.Data.Nat.Inequalities where
 
 open import LTC.Minimal
 
+-- infix 4 _≤_ _<_ _≥_ _>_
 ------------------------------------------------------------------------------
 
 postulate
-  lt    : D → D → D
+  _<_  : D → D → D
 
-  lt-00 : lt zero zero                     ≡ false
+  <-00 : zero < zero                     ≡ false
 
-  lt-0S : (d : D) → lt zero (succ d)       ≡ true
+  <-0S : (d : D) → zero < (succ d)       ≡ true
 
-  lt-S0 : (d : D) → lt (succ d) zero       ≡ false
+  <-S0 : (d : D) → (succ d) < zero       ≡ false
 
-  lt-SS : (d e : D) → lt (succ d) (succ e) ≡ lt d e
+  <-SS : (d e : D) → (succ d) < (succ e) ≡ d < e
 
-{-# ATP axiom lt-00 #-}
-{-# ATP axiom lt-0S #-}
-{-# ATP axiom lt-S0 #-}
-{-# ATP axiom lt-SS #-}
+{-# ATP axiom <-00 #-}
+{-# ATP axiom <-0S #-}
+{-# ATP axiom <-S0 #-}
+{-# ATP axiom <-SS #-}
 
-le : D → D → D
-le d e = lt d (succ e)
-{-# ATP definition le #-}
+_≤_ : D → D → D
+d ≤ e = d < (succ e)
+{-# ATP definition _≤_ #-}
 
-gt : D → D → D
-gt d e = lt e d
-{-# ATP definition gt #-}
+_>_ : D → D → D
+d > e = e < d
+{-# ATP definition _>_ #-}
 
-ge : D → D → D
-ge d e = le e d
-{-# ATP definition ge #-}
+_≥_ : D → D → D
+_≥_ d e = e ≤ d
+{-# ATP definition _≥_ #-}
 
 ------------------------------------------------------------------------
 -- The data types
 
--- infix 4 _≤_ _<_ _≥_ _>_
-
 GT : D → D → Set
-GT d e = gt d e ≡ true
+GT d e = d > e ≡ true
 {-# ATP definition GT #-}
 
 NGT : D → D → Set
-NGT d e = gt d e ≡ false
+NGT d e = d > e ≡ false
 {-# ATP definition NGT #-}
 
 LT : D → D → Set
-LT d e = lt d e ≡ true
+LT d e = d < e ≡ true
 {-# ATP definition LT #-}
 
 NLT : D → D → Set
-NLT d e = lt d e ≡ false
+NLT d e = d < e ≡ false
 {-# ATP definition NLT #-}
 
 LE : D → D → Set
-LE d e = le d e ≡ true
+LE d e = d ≤ e ≡ true
 {-# ATP definition LE #-}
 
 NLE : D → D → Set
-NLE d e = le d e ≡ false
+NLE d e = d ≤ e ≡ false
 {-# ATP definition NLE #-}
 
 GE : D → D → Set
-GE d e = ge d e ≡ true
+GE d e = d ≥ e ≡ true
 {-# ATP definition GE #-}
 
 NGE : D → D → Set
-NGE d e = ge d e ≡ false
+NGE d e = d ≥ e ≡ false
 {-# ATP definition NGE #-}
 
 ------------------------------------------------------------------------------

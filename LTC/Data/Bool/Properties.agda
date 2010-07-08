@@ -8,7 +8,7 @@ open import LTC.Minimal
 open import LTC.Data.Bool
 open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
-open import LTC.Data.Nat.Inequalities.Properties using ( le-SS ; S≰0 )
+open import LTC.Data.Nat.Inequalities.Properties using ( ≤-SS ; S≰0 )
 
 ------------------------------------------------------------------------------
 -- Basic properties.
@@ -49,20 +49,20 @@ x&&y≡true→y≡true fB fB prf = ⊥-elim (true≠false (trans (sym prf) &&-ff
 -- Properties with inequalities
 
 -- This function is a general hint.
-le-Bool : {m n : D} → N m → N n → Bool (le m n)
-le-Bool {n = n} zN Nn = prf
+≤-Bool : {m n : D} → N m → N n → Bool (m ≤ n)
+≤-Bool {n = n} zN Nn = prf
   where
-    postulate prf : Bool (le zero n)
+    postulate prf : Bool (zero ≤ n)
     {-# ATP prove prf #-}
-le-Bool (sN {m} Nm) zN = prf
+≤-Bool (sN {m} Nm) zN = prf
   where
-    postulate prf : Bool (le (succ m) zero)
+    postulate prf : Bool (succ m ≤ zero)
     {-# ATP prove prf S≰0 #-}
-le-Bool (sN {m} Nm) (sN {n} Nn) = prf (le-Bool Nm Nn)
+≤-Bool (sN {m} Nm) (sN {n} Nn) = prf (≤-Bool Nm Nn)
   where
-    postulate prf : Bool (le m n) → Bool (le (succ m) (succ n))
+    postulate prf : Bool (m ≤ n) → Bool (succ m ≤ succ n)
     {-# ATP prove prf #-}
-{-# ATP hint le-Bool #-}
+{-# ATP hint ≤-Bool #-}
 
 
 

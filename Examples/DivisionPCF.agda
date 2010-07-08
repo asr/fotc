@@ -22,7 +22,7 @@ open import LTC.Data.NatPCF.InequalitiesPCF
 -- (Hughes. Super-combinators. 1982)
 
 div-aux₁ : D → D → D → D
-div-aux₁ i g j = if (lt i j) then zero else (succ (g ∙ (i - j) ∙ j))
+div-aux₁ i g j = if (i < j) then zero else (succ (g ∙ (i - j) ∙ j))
 {-# ATP definition div-aux₁ #-}
 
 div-aux₂ : D → D → D

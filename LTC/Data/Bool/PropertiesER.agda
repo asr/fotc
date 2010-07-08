@@ -9,7 +9,7 @@ open import LTC.MinimalER using ( subst )
 open import LTC.Data.Bool
 open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
-open import LTC.Data.Nat.Inequalities.PropertiesER using ( le-SS ; S≰0 )
+open import LTC.Data.Nat.Inequalities.PropertiesER using ( ≤-SS ; S≰0 )
 
 ------------------------------------------------------------------------------
 -- Basic properties.
@@ -35,9 +35,9 @@ x&&y≡true→y≡true fB fB prf = ⊥-elim (true≠false (trans (sym prf) &&-ff
 ------------------------------------------------------------------------------
 -- Properties with inequalities
 
-le-Bool : {m n : D} → N m → N n → Bool (le m n)
-le-Bool {n = n} zN Nn           = subst (λ t → Bool t) (sym (lt-0S n)) tB
-le-Bool (sN Nm) zN              = subst (λ t → Bool t) (sym (S≰0 Nm)) fB
-le-Bool (sN {m} Nm) (sN {n} Nn) = subst (λ t → Bool t)
-                                        (sym (le-SS m n))
-                                        (le-Bool Nm Nn)
+≤-Bool : {m n : D} → N m → N n → Bool (m ≤ n)
+≤-Bool {n = n} zN Nn           = subst (λ t → Bool t) (sym (<-0S n)) tB
+≤-Bool (sN Nm) zN              = subst (λ t → Bool t) (sym (S≰0 Nm)) fB
+≤-Bool (sN {m} Nm) (sN {n} Nn) = subst (λ t → Bool t)
+                                        (sym (≤-SS m n))
+                                        (≤-Bool Nm Nn)

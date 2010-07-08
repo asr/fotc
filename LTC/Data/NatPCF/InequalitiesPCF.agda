@@ -6,6 +6,8 @@ module LTC.Data.NatPCF.InequalitiesPCF where
 
 open import LTC.Minimal
 
+-- infix 4 _≤_ _<_ _≥_ _>_
+
 ------------------------------------------------------------------------------
 
 -- Version using lambda-abstraction.
@@ -32,16 +34,16 @@ lth : D → D
 lth lt = lam (lt-aux₂ lt)
 {-# ATP definition lth #-}
 
-lt : D → D → D
-lt d e = fix lth ∙ d ∙ e
-{-# ATP definition lt #-}
+_<_ : D → D → D
+d < e = fix lth ∙ d ∙ e
+{-# ATP definition _<_ #-}
 
 le : D → D → D
-le d e = lt d (succ e)
+le d e = d < (succ e)
 {-# ATP definition le #-}
 
 gt : D → D → D
-gt d e = lt e d
+gt d e = e < d
 {-# ATP definition gt #-}
 
 ge : D → D → D
@@ -50,8 +52,6 @@ ge d e = le e d
 
 ------------------------------------------------------------------------
 -- The data types
-
--- infix 4 _≤_ _<_ _≥_ _>_
 
 GT : D → D → Set
 GT d e = gt d e ≡ true
@@ -62,11 +62,11 @@ NGT d e = gt d e ≡ false
 {-# ATP definition NGT #-}
 
 LT : D → D  → Set
-LT d e = lt d e ≡ true
+LT d e = d < e ≡ true
 {-# ATP definition LT #-}
 
 NLT : D → D  → Set
-NLT d e = lt d e ≡ false
+NLT d e = d < e ≡ false
 {-# ATP definition NLT #-}
 
 LE : D → D → Set
