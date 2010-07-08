@@ -11,27 +11,27 @@ open import LTC.Data.List
 ------------------------------------------------------------------------------
 
 ++-List : {ds es : D} → List ds → List es → List (ds ++ es)
-++-List {es = es} nil esL = prf
+++-List {es = es} nilL esL = prf
   where
     postulate prf : List ([] ++ es)
     {-# ATP prove prf #-}
 
-++-List {es = es} (cons d {ds} Lds) esL = prf (++-List Lds esL)
+++-List {es = es} (consL d {ds} Lds) esL = prf (++-List Lds esL)
   where
     postulate prf : List (ds ++ es) →
                     List ((d ∷ ds) ++ es)
-    {-# ATP prove prf cons #-}
+    {-# ATP prove prf consL #-}
 
 ++-leftIdentity : {ds : D} → List ds → [] ++ ds ≡ ds
 ++-leftIdentity {ds} _ = ++-[] ds
 
 ++-rightIdentity : {ds : D} → List ds → ds ++ [] ≡ ds
-++-rightIdentity nil = prf
+++-rightIdentity nilL = prf
   where
     postulate prf : [] ++ [] ≡ []
     {-# ATP prove prf #-}
 
-++-rightIdentity (cons d {ds} Lds) = prf (++-rightIdentity Lds)
+++-rightIdentity (consL d {ds} Lds) = prf (++-rightIdentity Lds)
   where
     postulate prf : ds ++ [] ≡ ds →
                     (d ∷ ds) ++ [] ≡ d ∷ ds
@@ -61,12 +61,12 @@ open import LTC.Data.List
 
 ++-assoc : {as bs cs : D} → List as → List bs → List cs →
            (as ++ bs) ++ cs ≡ as ++ (bs ++ cs)
-++-assoc .{[]} {bs} {cs} nil bsL csL = prf
+++-assoc .{[]} {bs} {cs} nilL bsL csL = prf
   where
     postulate prf : ([] ++ bs) ++ cs ≡ [] ++ bs ++ cs
     {-# ATP prove prf #-}
 
-++-assoc .{d ∷ ds} {bs} {cs} (cons d {ds} Lds) bsL csL =
+++-assoc .{d ∷ ds} {bs} {cs} (consL d {ds} Lds) bsL csL =
   prf (++-assoc Lds bsL csL)
   where
     postulate prf : (ds ++ bs) ++ cs ≡ ds ++ bs ++ cs →
@@ -74,16 +74,16 @@ open import LTC.Data.List
     {-# ATP prove prf #-}
 
 reverse-List : {ds : D} → List ds → List (reverse ds)
-reverse-List nil = prf
+reverse-List nilL = prf
   where
     postulate prf : List (reverse [])
-    {-# ATP prove prf nil #-}
+    {-# ATP prove prf nilL #-}
 
-reverse-List (cons d {ds} Lds) = prf (reverse-List Lds)
+reverse-List (consL d {ds} Lds) = prf (reverse-List Lds)
   where
     postulate prf : List (reverse ds) →
                     List (reverse (d ∷ ds))
-    {-# ATP prove prf cons nil ++-List #-}
+    {-# ATP prove prf consL nilL ++-List #-}
 
 postulate
   reverse-[x]≡[x] : (d : D) → reverse (d ∷ []) ≡ d ∷ []
@@ -91,36 +91,36 @@ postulate
 
 reverse-++ : {ds es : D} → List ds → List es →
              reverse (ds ++ es) ≡ reverse es ++ reverse ds
-reverse-++ {es = es} nil esL = prf
+reverse-++ {es = es} nilL esL = prf
   where
     postulate prf : reverse ([] ++ es) ≡ reverse es ++ reverse []
     {-# ATP prove prf ++-rightIdentity reverse-List #-}
 
-reverse-++ {es = es} (cons d {ds} Lds) esL = prf (reverse-++ Lds esL)
+reverse-++ {es = es} (consL d {ds} Lds) esL = prf (reverse-++ Lds esL)
   where
     postulate prf : reverse (ds ++ es) ≡ reverse es ++ reverse ds →
                     reverse ((d ∷ ds) ++ es) ≡ reverse es ++ reverse (d ∷ ds)
-    {-# ATP prove prf ++-assoc nil cons reverse-List ++-List #-}
+    {-# ATP prove prf ++-assoc nilL consL reverse-List ++-List #-}
 
 reverse² : {ds : D} → List ds → reverse (reverse ds) ≡ ds
-reverse² nil = prf
+reverse² nilL = prf
   where
     postulate prf : reverse (reverse []) ≡ []
     {-# ATP prove prf #-}
 
-reverse² (cons d {ds} Lds) = prf (reverse² Lds)
+reverse² (consL d {ds} Lds) = prf (reverse² Lds)
   where
     postulate prf : reverse (reverse ds) ≡ ds →
                     reverse (reverse (d ∷ ds)) ≡ d ∷ ds
-    {-# ATP prove prf reverse-++ cons nil reverse-List ++-List #-}
+    {-# ATP prove prf reverse-++ consL nilL reverse-List ++-List #-}
 
 map-++ : (f : D){ds es : D} → List ds → List es →
          map f (ds ++ es) ≡ map f ds ++ map f es
-map-++ f {es = es} nil esL = prf
+map-++ f {es = es} nilL esL = prf
   where
     postulate prf : map f ([] ++ es) ≡ map f [] ++ map f es
     {-# ATP prove prf #-}
-map-++ f {es = es} (cons d {ds} Lds) esL = prf (map-++ f Lds esL)
+map-++ f {es = es} (consL d {ds} Lds) esL = prf (map-++ f Lds esL)
   where
     postulate prf : map f (ds ++ es) ≡ map f ds ++ map f es →
                     map f ((d ∷ ds) ++ es) ≡ map f (d ∷ ds) ++ map f es
