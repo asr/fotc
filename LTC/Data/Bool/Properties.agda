@@ -13,7 +13,6 @@ open import LTC.Data.Nat.Inequalities.Properties using ( ≤-SS ; S≰0 )
 ------------------------------------------------------------------------------
 -- Basic properties.
 
--- This function is a general hint.
 &&-Bool : {b₁ b₂ : D} → Bool b₁ → Bool b₂ → Bool (b₁ && b₂)
 &&-Bool tB tB = prf
   where
@@ -31,7 +30,6 @@ open import LTC.Data.Nat.Inequalities.Properties using ( ≤-SS ; S≰0 )
   where
     postulate prf : Bool (false && false)
     {-# ATP prove prf #-}
-{-# ATP hint &&-Bool #-}
 
 x&&y≡true→x≡true : {b₁ b₂ : D} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true →
                    b₁ ≡ true
@@ -48,7 +46,6 @@ x&&y≡true→y≡true fB fB prf = ⊥-elim (true≠false (trans (sym prf) &&-ff
 ------------------------------------------------------------------------------
 -- Properties with inequalities
 
--- This function is a general hint.
 ≤-Bool : {m n : D} → N m → N n → Bool (m ≤ n)
 ≤-Bool {n = n} zN Nn = prf
   where
@@ -62,7 +59,3 @@ x&&y≡true→y≡true fB fB prf = ⊥-elim (true≠false (trans (sym prf) &&-ff
   where
     postulate prf : Bool (m ≤ n) → Bool (succ m ≤ succ n)
     {-# ATP prove prf #-}
-{-# ATP hint ≤-Bool #-}
-
-
-
