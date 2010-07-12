@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------------
--- Call the ATP
+-- Call the ATPs
 -----------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
@@ -32,7 +32,7 @@ import TPTP.Types ( AF )
 
 -----------------------------------------------------------------------------
 
--- ATPs
+-- The ATPs.
 data ATPs = Equinox | Eprover | Metis
             deriving Eq
 
@@ -41,15 +41,15 @@ instance Show ATPs where
     show Eprover = "eprover"
     show Metis   = "metis"
 
--- Tested with equinox cvs version
+-- Tested with Equinox cvs version.
 equinoxOk :: String
 equinoxOk = "+++ RESULT: Theorem"
 
--- Tested wit eprover version E 1.1-004 Balasun
+-- Tested with Eprover version E 1.1-004 Balasun.
 eproverOk :: String
 eproverOk = "Proof found!"
 
--- Tested wit metis version 2.2 (release 20100524)
+-- Tested with Metis version 2.2 (release 20100524).
 metisOk :: String
 metisOk = "SZS status Theorem"
 
