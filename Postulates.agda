@@ -6,11 +6,25 @@ module Postulates where
 
 open import LTC.Minimal
 
+open import Examples.SortList.SortList
+
+
 open import LTC.Data.Bool
+open import LTC.Data.Nat.Type
+open import LTC.Data.Nat.List
 
 ------------------------------------------------------------------------------
 
+-- The following postulates are requeried due to our temporal
+-- definition of lists of natural numbers.
+
 postulate
-  w&&x&&y&&z≡true→y≡true :
-    {b₁ b₂ b₃ b₄ : D} → Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
-    b₁ && b₂ && b₃ && b₄ ≡ true → b₃ ≡ true
+  ++-ListOrd-aux₁ : {item is js : D} → N item → List is → List js →
+                    ≤-ItemList item is ≡ true →
+                    ≤-Lists is js ≡ true →
+                    ≤-ItemList item js ≡ true
+postulate
+  []-N : N []
+
+postulate
+  ++-List : {ds es : D} → List ds → List es → List (ds ++ es)
