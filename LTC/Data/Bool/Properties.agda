@@ -31,6 +31,14 @@ open import LTC.Data.Nat.Inequalities.Properties using ( ≤-SS ; S≰0 )
     postulate prf : Bool (false && false)
     {-# ATP prove prf #-}
 
+x&&false≡false : {b : D} → Bool b → b && false ≡ false
+x&&false≡false tB = &&-tf
+x&&false≡false fB = &&-ff
+
+false&&x≡false : {b : D} → Bool b → false && b ≡ false
+false&&x≡false tB = &&-ft
+false&&x≡false fB = &&-ff
+
 x&&y≡true→x≡true : {b₁ b₂ : D} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true →
                    b₁ ≡ true
 x&&y≡true→x≡true tB _ _    = refl
@@ -42,6 +50,28 @@ x&&y≡true→y≡true : {b₁ b₂ : D} → Bool b₁ → Bool b₂ → b₁ &&
 x&&y≡true→y≡true _  tB _   = refl
 x&&y≡true→y≡true tB fB prf = ⊥-elim (true≠false (trans (sym prf) &&-tf))
 x&&y≡true→y≡true fB fB prf = ⊥-elim (true≠false (trans (sym prf) &&-ff))
+
+w&&x&&y&&z≡true→y≡true : {b₁ b₂ b₃ b₄ : D} →
+                         Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
+                         b₁ && b₂ && b₃ && b₄ ≡ true →
+                         b₃ ≡ true
+w&&x&&y&&z≡true→y≡true Bb₁ Bb₂ tB Bb₄ b₁&&b₂&&b₃&&b₄≡true = refl
+w&&x&&y&&z≡true→y≡true {b₁} {b₂} {b₄ = b₄} Bb₁ Bb₂ fB Bb₄ b₁&&b₂&&b₃&&b₄≡true
+  =  ⊥-elim prf
+  where
+    postulate prf : ⊥
+    {-# ATP prove prf x&&false≡false false&&x≡false #-}
+
+w&&x&&y&&z≡true→z≡true : {b₁ b₂ b₃ b₄ : D} →
+                         Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
+                         b₁ && b₂ && b₃ && b₄ ≡ true →
+                         b₄ ≡ true
+w&&x&&y&&z≡true→z≡true Bb₁ Bb₂ Bb₃ tB b₁&&b₂&&b₃&&b₄≡true = refl
+w&&x&&y&&z≡true→z≡true {b₁} {b₂} {b₃} Bb₁ Bb₂ Bb₃ fB
+                       b₁&&b₂&&b₃&&b₄≡true = ⊥-elim prf
+  where
+    postulate prf : ⊥
+    {-# ATP prove prf x&&false≡false #-}
 
 ------------------------------------------------------------------------------
 -- Properties with inequalities
