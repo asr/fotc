@@ -15,9 +15,9 @@ private
   data _≃_ (x y : A) : Set where
     prf : x ≡ y → x ≃ y
 
+------------------------------------------------------------------------------
+-- A version from Ulf's thesis
 module Original where
-  ---------------------------------------------------------------------------
-  -- A version from Ulf's thesis
 
   infix  2 chain>_
   infixl 2 _===_by_
@@ -32,9 +32,9 @@ module Original where
   _qed : {x y : A} → x ≃ y → x ≡ y
   prf p qed = p
 
+------------------------------------------------------------------------------
+-- A version from the standard library (Relation.Binary.PreorderReasoning)
 module StdLib where
-
-  -- A version from the standard library (Relation.Binary.PreorderReasoning)
 
   infix  1 begin_
   infixr 2 _≡⟨_⟩_
