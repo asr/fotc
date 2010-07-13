@@ -74,74 +74,78 @@ open import Postulates using ( ++-ListOrd-aux₁ )
     #-}
 
 ------------------------------------------------------------------------------
--- If t is ordered then (flatten t) is ordered
-flatten-ListOrd : {t : D} → Tree t → TreeOrd t → ListOrd (flatten t)
-flatten-ListOrd nilT TOnilT = prf
-  where
-    postulate prf : ListOrd (flatten nilTree)
-    {-# ATP prove prf #-}
+mutual
+  -- If t is ordered then (flatten t) is ordered
+  flatten-ListOrd : {t : D} → Tree t → TreeOrd t → ListOrd (flatten t)
+  flatten-ListOrd nilT TOnilT = prf
+    where
+      postulate prf : ListOrd (flatten nilTree)
+      {-# ATP prove prf #-}
 
-flatten-ListOrd (tipT {i} Ni ) TOtipT = prf
-  where
-    postulate prf : ListOrd (flatten (tip i))
-    {-# ATP prove prf #-}
+  flatten-ListOrd (tipT {i} Ni ) TOtipT = prf
+    where
+      postulate prf : ListOrd (flatten (tip i))
+      {-# ATP prove prf #-}
 
-flatten-ListOrd (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂ ) TOnodeT =
-  prf (flatten-ListOrd Tt₁ (leftSubTree-TreeOrd Tt₁ Ni Tt₂ TOnodeT))
-      (flatten-ListOrd Tt₂ (rightSubTree-TreeOrd Tt₁ Ni Tt₂ TOnodeT))
-      (flatten-ListOrd-aux Tt₁ Ni Tt₂ TOnodeT)
-  where
-
-    postulate prf : ListOrd (flatten t₁) → -- IH.
-                    ListOrd (flatten t₂) → -- IH.
-                    LE-Lists (flatten t₁) (flatten t₂) →
-                    ListOrd (flatten (node t₁ i t₂))
-    {-# ATP prove prf ++-ListOrd flatten-List
+  flatten-ListOrd (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂ ) TOnodeT =
+    prf (flatten-ListOrd Tt₁ (leftSubTree-TreeOrd Tt₁ Ni Tt₂ TOnodeT))
+        (flatten-ListOrd Tt₂ (rightSubTree-TreeOrd Tt₁ Ni Tt₂ TOnodeT))
+        (flatten-ListOrd-aux Tt₁ Ni Tt₂ TOnodeT)
+    where
+      postulate prf : ListOrd (flatten t₁) → -- IH.
+                      ListOrd (flatten t₂) → -- IH.
+                      LE-Lists (flatten t₁) (flatten t₂) →
+                      ListOrd (flatten (node t₁ i t₂))
+      {-# ATP prove prf ++-ListOrd flatten-List
                   leftSubTree-TreeOrd rightSubTree-TreeOrd
-    #-}
+      #-}
 
-    flatten-ListOrd-aux : {taux₁ iaux taux₂ : D} → Tree taux₁ → N iaux →
-                          Tree taux₂ → TreeOrd (node taux₁ iaux taux₂) →
-                          LE-Lists (flatten taux₁) (flatten taux₂)
-    flatten-ListOrd-aux {taux₂ = taux₂} nilT Niaux Ttaux₂ _ = prf-aux
-      where
-        postulate prf-aux : LE-Lists (flatten nilTree) (flatten taux₂)
-        {-# ATP prove prf-aux #-}
+  flatten-ListOrd-aux : {t₁ i t₂ : D} → Tree t₁ → N i →
+                        Tree t₂ → TreeOrd (node t₁ i t₂) →
+                        LE-Lists (flatten t₁) (flatten t₂)
+  flatten-ListOrd-aux {t₂ = t₂} nilT Niaux Tt₂ _ = prf
+    where
+      postulate prf : LE-Lists (flatten nilTree) (flatten t₂)
+      {-# ATP prove prf #-}
 
-    flatten-ListOrd-aux (tipT {j} Nj) Niaux nilT TOaux = prf-aux
-      where
-        postulate prf-aux : LE-Lists (flatten (tip j)) (flatten nilTree)
-        {-# ATP prove prf-aux #-}
+  flatten-ListOrd-aux (tipT {j} Nj) Ni nilT TOnode = prf
+    where
+      postulate prf : LE-Lists (flatten (tip j)) (flatten nilTree)
+      {-# ATP prove prf #-}
 
-    flatten-ListOrd-aux (tipT {j} Nj) Niaux (tipT {k} Nk) TOaux = prf-aux
-      where
-        postulate prf-aux : LE-Lists (flatten (tip j)) (flatten (tip k))
-        {-# ATP prove prf-aux #-}
+  flatten-ListOrd-aux (tipT {j} Nj) Ni (tipT {k} Nk) TOnode = prf
+    where
+      postulate prf : LE-Lists (flatten (tip j)) (flatten (tip k))
+      {-# ATP prove prf #-}
 
-    flatten-ListOrd-aux (tipT {j} Nj) Niaux (nodeT {ta} {k} {tb} Tta Nk Ttb )
-                        TOaux = prf-aux
-      where
-        postulate prf-aux : LE-Lists (flatten (tip j)) (flatten (node ta k tb))
-        {-# ATP prove prf-aux #-}
+  flatten-ListOrd-aux (tipT {j} Nj) Ni (nodeT {ta} {k} {tb} Tta Nk Ttb )
+                      TOnode = prf
+    where
+      postulate prf : LE-Lists (flatten (tip j)) (flatten (node ta k tb))
+      {-# ATP prove prf #-}
 
-    flatten-ListOrd-aux (nodeT {ta} {j} {tb} Tta Nj Ttb) Niaux nilT TOaux =
-      prf-aux (flatten-List (nodeT Tta Nj Ttb))
-              (flatten-ListOrd (nodeT Tta Nj Ttb)
-              (leftSubTree-TreeOrd (nodeT Tta Nj Ttb) Niaux nilT TOaux))
-      where
-        postulate prf-aux : ListN (flatten (node ta j tb)) →
-                            ListOrd (flatten (node ta j tb)) → --IH.
-                            LE-Lists (flatten (node ta j tb)) (flatten nilTree)
-        {-# ATP prove prf-aux xs≤[] #-}
+  flatten-ListOrd-aux (nodeT {ta} {j} {tb} Tta Nj Ttb) Ni nilT TOnode =
+    prf (flatten-List (nodeT Tta Nj Ttb))
+        (flatten-ListOrd (nodeT Tta Nj Ttb)
+        (leftSubTree-TreeOrd (nodeT Tta Nj Ttb) Ni nilT TOnode))
+    where
+      postulate prf : ListN (flatten (node ta j tb)) →
+                      ListOrd (flatten (node ta j tb)) → -- mutual IH.
+                      LE-Lists (flatten (node ta j tb)) (flatten nilTree)
+      {-# ATP prove prf xs≤[] #-}
 
-    flatten-ListOrd-aux (nodeT {ta} {j} {tb} Tta Nj Ttb) Niaux (tipT {k} Nk)
-                        TOaux = prf-aux
-      where
-        postulate prf-aux : LE-Lists (flatten (node ta j tb)) (flatten (tip k))
-        {-# ATP prove prf-aux #-}
+  flatten-ListOrd-aux (nodeT {ta} {j} {tb} Tta Nj Ttb)
+                      Ni
+                      (tipT {k} Nk)
+                      TOnode = prf
+    where
+      postulate prf : LE-Lists (flatten (node ta j tb)) (flatten (tip k))
+      {-# ATP prove prf #-}
 
-    flatten-ListOrd-aux (nodeT {ta} {j} {tb} Tta Nj Ttb) Niaux
-                        (nodeT {tc} {k} {td} Ttc Nk Ttd) TOaux = prf-aux
-                        where
-                        postulate prf-aux : LE-Lists (flatten (node ta j tb))
-                                                     (flatten (node tc k td))
+  flatten-ListOrd-aux (nodeT {ta} {j} {tb} Tta Nj Ttb)
+                      Ni
+                      (nodeT {tc} {k} {td} Ttc Nk Ttd)
+                      TOnode = prf
+    where
+      postulate prf : LE-Lists (flatten (node ta j tb))
+                                (flatten (node tc k td))
