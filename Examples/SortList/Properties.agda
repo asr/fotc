@@ -31,7 +31,7 @@ subList-ListOrd {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js = prf
     {-# ATP prove prf x&&y≡true→y≡true ≤-ItemList-Bool isListOrd-Bool #-}
 
 xs≤[] : {is : D} → ListN is → ListOrd is → LE-Lists is []
-xs≤[] nilLN _ = ≤-Lists-[] []
+xs≤[] nilLN                     _       = ≤-Lists-[] []
 xs≤[] (consLN {i} {is} Ni LNis) LOconsL =
   prf (xs≤[] LNis (subList-ListOrd Ni LNis LOconsL))
   where

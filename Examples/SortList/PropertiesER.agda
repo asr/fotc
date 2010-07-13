@@ -36,7 +36,7 @@ subList-ListOrd {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js =
                    (trans (sym (isListOrd-∷ i (j ∷ js))) LOi∷j∷js)
 
 xs≤[] : {is : D} → ListN is → ListOrd is → LE-Lists is []
-xs≤[] nilLN _ = ≤-Lists-[] []
+xs≤[] nilLN                     _       = ≤-Lists-[] []
 xs≤[] (consLN {i} {is} Ni LNis) LOconsL =
   begin
     ≤-Lists (i ∷ is) []
