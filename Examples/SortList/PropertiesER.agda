@@ -35,6 +35,8 @@ subList-ListOrd {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js =
                    (isListOrd-Bool (consLN Nj Ljs))
                    (trans (sym (isListOrd-∷ i (j ∷ js))) LOi∷j∷js)
 
+-- This is a weird result but recall that "the relation ≤ between
+-- lists is only an ordering if nil is excluded" (Burstall, pp. 46).
 xs≤[] : {is : D} → ListN is → ListOrd is → LE-Lists is []
 xs≤[] nilLN                     _       = ≤-Lists-[] []
 xs≤[] (consLN {i} {is} Ni LNis) LOconsL =
