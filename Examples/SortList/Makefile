@@ -2,7 +2,6 @@
 host_dir = asicard@localhost:./tmp/SortList/
 port = 2024
 
-# Agda path
 agda-path = /home/asr/code/phd/LTC/LTC-ATP/
 
 conjectures :
@@ -18,5 +17,10 @@ test : only-type-checking conjectures
 
 publish :
 	rm -r -f html/
-	agda --html -i /home/asr/code/phd/LTC/LTC-ATP/ ProofSpecification.agda
+	agda --html -i $(agda-path) ProofSpecification.agda
 	scp -P $(port) -r html/ $(host_dir)
+
+clean :
+	-find -name '*.agdai' | xargs rm -f
+	-rm -f /tmp/*.tptp
+
