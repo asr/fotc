@@ -11,8 +11,8 @@ conjectures :
 only-type-checking :
 	agda -i $(agda-path) Closures/ListER.agda
 	agda -i $(agda-path) PropertiesER.agda
-	agda -i $(agda-path) ProofSpecification.agda
 	agda -i $(agda-path) ProofSpecificationER.agda
+	agda -i $(agda-path) ProofSpecification.agda
 
 test : only-type-checking conjectures
 

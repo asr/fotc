@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Inductive predicate for the total natural numbers
+-- The LTC natural numbers type
 ------------------------------------------------------------------------------
 
 module LTC.Data.Nat.Type where
