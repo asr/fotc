@@ -11,7 +11,6 @@ open import LTC.Data.NatPCF.InequalitiesPCF
 open import LTC.Data.NatPCF.PropertiesPCF
 open import LTC.Relation.Equalities.Properties using ( x≡y→Sx≡Sy )
 
-open import MyStdLib.Data.Sum
 open import MyStdLib.Function
 
 ------------------------------------------------------------------------------

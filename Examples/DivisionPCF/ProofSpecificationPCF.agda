@@ -22,7 +22,7 @@ open import Examples.DivisionPCF.IsN-PCF
 open import Examples.DivisionPCF.SpecificationPCF
 
 open import LTC.Data.NatPCF
-open import LTC.Data.NatPCF.Induction.WellFoundedPCF
+open import LTC.Data.NatPCF.InductionPCF.WellFoundedPCF
 open import LTC.Data.NatPCF.InequalitiesPCF
 open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF
 open import LTC.Data.NatPCF.PropertiesPCF

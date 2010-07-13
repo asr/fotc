@@ -2,9 +2,11 @@
 -- The sum (disjoint unions) data type
 -----------------------------------------------------------------------------
 
-module MyStdLib.Data.Sum where
+module LTC.Data.Sum where
 
 infixr 1 _∨_
+
+-----------------------------------------------------------------------------
 
 data _∨_ (A B : Set) : Set where
   inj₁ : (x : A) → A ∨ B

@@ -14,7 +14,7 @@ open import Examples.GCD-PCF
 open import Examples.GCD-PCF.EquationsPCF
 
 open import LTC.Data.NatPCF
-open import LTC.Data.NatPCF.Induction.LexicographicPCF
+open import LTC.Data.NatPCF.InductionPCF.LexicographicPCF
 open import LTC.Data.NatPCF.InequalitiesPCF
 open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF-ER
 open import LTC.Data.NatPCF.PropertiesPCF-ER

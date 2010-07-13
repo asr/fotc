@@ -14,7 +14,7 @@ open import Examples.GCD.Types
 open import LTC.Data.NatPCF
 open import LTC.Data.NatPCF.DivisibilityPCF
 open import LTC.Data.NatPCF.DivisibilityPCF.PropertiesPCF
-open import LTC.Data.NatPCF.Induction.LexicographicPCF
+open import LTC.Data.NatPCF.InductionPCF.LexicographicPCF
 open import LTC.Data.NatPCF.InequalitiesPCF
 open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF
 open import LTC.Data.NatPCF.PropertiesPCF

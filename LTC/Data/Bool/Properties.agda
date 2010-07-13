@@ -11,7 +11,7 @@ open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.Inequalities.Properties using ( ≤-SS ; S≰0 )
 
 ------------------------------------------------------------------------------
--- Basic properties.
+-- Basic properties
 
 &&-Bool : {b₁ b₂ : D} → Bool b₁ → Bool b₂ → Bool (b₁ && b₂)
 &&-Bool tB tB = prf

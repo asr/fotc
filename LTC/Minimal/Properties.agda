@@ -20,4 +20,3 @@ pred-N (sN {n} Nn) = prf
   where
     postulate prf : N (pred (succ n))
     {-# ATP prove prf #-}
-    -- {-# ATP hint pred-N #-}

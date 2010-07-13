@@ -2,7 +2,7 @@
 -- Well-founded induction on the lexicographic order on Nat
 ------------------------------------------------------------------------------
 
-module LTC.Data.NatPCF.Induction.LexicographicPCF where
+module LTC.Data.NatPCF.InductionPCF.LexicographicPCF where
 
 open import LTC.Minimal
 

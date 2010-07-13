@@ -17,7 +17,6 @@ open import MyStdLib.Function
 
 ------------------------------------------------------------------------------
 -- Any positive number divides 0.
-
 postulate S∣0 : {n : D} → N n →  succ n ∣ zero
 {-# ATP prove S∣0 zN *-0x #-}
 

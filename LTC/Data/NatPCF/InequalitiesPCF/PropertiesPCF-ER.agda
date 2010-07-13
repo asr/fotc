@@ -12,13 +12,12 @@ open import LTC.Data.NatPCF.InequalitiesPCF
 open import LTC.Data.NatPCF.PropertiesPCF-ER
 open import LTC.Relation.Equalities.Properties using ( x≡y→Sx≡Sy )
 
-open import MyStdLib.Data.Sum
 open import MyStdLib.Function
 import MyStdLib.Relation.Binary.EqReasoning
-open module IPER = MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
+open module InequalitiesPCF-ER =
+  MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 ------------------------------------------------------------------------------
-
 private
 
   -- Before to prove some properties for 'lt i j' it is convenient

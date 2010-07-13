@@ -6,10 +6,6 @@ AGDA='agda -v 0'
 # Examples/GCD/EquationsPCF, therefore this file has not been added.
 
 conjecturesFilesPCF='
-  LTC/Data/NatPCF/DivisibilityPCF/PropertiesPCF
-  LTC/Data/NatPCF/InequalitiesPCF/PropertiesPCF
-  LTC/Data/NatPCF/PropertiesPCF
-  LTC/Data/NatPCF/RecPCF/PropertiesPCF
   Examples/GCD-PCF/IsN-PCF
   Examples/GCD-PCF/IsCommonDivisorPCF
   Examples/GCD-PCF/IsDivisiblePCF

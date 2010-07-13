@@ -50,7 +50,7 @@ minus-N (sN {m} Nm) (sN {n} Nn) = prf $ minus-N Nm Nn
     {-# ATP prove prf +-N #-}
 
 ------------------------------------------------------------------------------
--- Some proofs are based on the proofs in the standard library
+-- Some proofs are based on the proofs in the standard library.
 
 +-leftIdentity : {n : D} → N n → zero + n ≡ n
 +-leftIdentity {n} _ = +-0x n

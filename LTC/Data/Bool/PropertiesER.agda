@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- The booleans properties
+-- The booleans properties (using equational reasoning)
 ------------------------------------------------------------------------------
 
 module LTC.Data.Bool.PropertiesER where
@@ -12,11 +12,11 @@ open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.Inequalities.PropertiesER using ( ≤-SS ; S≰0 )
 
 import MyStdLib.Relation.Binary.EqReasoning
-open module Properties-ER =
+open module Bool-ER =
   MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 ------------------------------------------------------------------------------
--- Basic properties.
+-- Basic properties
 
 &&-Bool : {b₁ b₂ : D} → Bool b₁ → Bool b₂ → Bool (b₁ && b₂)
 &&-Bool tB tB = subst (λ t → Bool t) (sym &&-tt) tB

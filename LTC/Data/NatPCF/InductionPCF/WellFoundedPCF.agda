@@ -2,7 +2,7 @@
 -- Well-founded induction on Nat
 ------------------------------------------------------------------------------
 
-module LTC.Data.NatPCF.Induction.WellFoundedPCF where
+module LTC.Data.NatPCF.InductionPCF.WellFoundedPCF where
 
 open import LTC.Minimal
 

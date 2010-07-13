@@ -12,10 +12,10 @@ open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.PropertiesER
 open import LTC.Relation.Equalities.Properties using ( x≡y→Sx≡Sy )
 
-open import MyStdLib.Data.Sum
 open import MyStdLib.Function
 import MyStdLib.Relation.Binary.EqReasoning
-open module IPER = MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
+open module Inequalities-ER =
+  MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 ------------------------------------------------------------------------------
 

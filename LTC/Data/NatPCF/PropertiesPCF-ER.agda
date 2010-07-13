@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Arithmetic properties using equational reasoning
+-- Arithmetic properties (using equational reasoning)
 ------------------------------------------------------------------------------
 
 module LTC.Data.NatPCF.PropertiesPCF-ER where
@@ -13,7 +13,8 @@ open import LTC.Data.NatPCF.RecPCF.PropertiesPCF
 
 -- open import MyStdLib.Function
 import MyStdLib.Relation.Binary.EqReasoning
-open module APER = MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
+open module NatPCF-ER =
+  MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 ------------------------------------------------------------------------------
 

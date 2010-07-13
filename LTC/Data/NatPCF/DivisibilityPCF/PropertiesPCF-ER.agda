@@ -16,7 +16,8 @@ open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
 
 open import MyStdLib.Function
 import MyStdLib.Relation.Binary.EqReasoning
-open module DPER = MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
+open module DivisibilityPCF-ER =
+  MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 ------------------------------------------------------------------------------
 -- Any positive number divides 0.

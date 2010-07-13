@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- PCF terms properties
+-- PCF terms properties (using equational reasoning)
 ------------------------------------------------------------------------------
 
 module LTC.Minimal.PropertiesER where
