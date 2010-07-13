@@ -22,7 +22,7 @@ open import LTC.Data.Nat.Type
     postulate prf : Bool (≤-ItemList item [])
     {-# ATP prove prf #-}
 
-≤-ItemList-Bool {item} Nitem (consL {i} {is} Ni Nis Lis) =
+≤-ItemList-Bool {item} Nitem (consL {i} {is} Ni Lis) =
   prf (≤-ItemList-Bool Nitem Lis)
   where
     postulate prf : Bool (≤-ItemList item is) → -- IH.
@@ -34,7 +34,7 @@ open import LTC.Data.Nat.Type
   where
     postulate prf : Bool (≤-Lists [] js)
     {-# ATP prove prf #-}
-≤-Lists-Bool {js = js} (consL {i} {is} Ni Nis Lis) Ljs =
+≤-Lists-Bool {js = js} (consL {i} {is} Ni Lis) Ljs =
   prf (≤-Lists-Bool Lis Ljs)
   where
     postulate prf : Bool (≤-Lists is js) → -- IH.
@@ -47,7 +47,7 @@ isListOrd-Bool nilL = prf
     postulate prf : Bool (isListOrd [])
     {-# ATP prove prf #-}
 
-isListOrd-Bool (consL {i} {is} Ni Nis Lis ) = prf (isListOrd-Bool Lis)
+isListOrd-Bool (consL {i} {is} Ni Lis ) = prf (isListOrd-Bool Lis)
   where
     postulate prf : Bool (isListOrd is) → -- IH.
                     Bool (isListOrd (i ∷ is))

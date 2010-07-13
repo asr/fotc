@@ -40,8 +40,8 @@ makeTree-Tree nilL = prf
     postulate prf : Tree (makeTree [])
     {-# ATP prove prf #-}
 
-makeTree-Tree (consL {n} {ns} Nn Nns Lns) = prf (makeTree-Tree Lns)
+makeTree-Tree (consL {i} {is} Nn Lis) = prf (makeTree-Tree Lis)
   where
-    postulate prf : Tree (makeTree ns) → -- IH.
-                    Tree (makeTree (n ∷ ns))
+    postulate prf : Tree (makeTree is) → -- IH.
+                    Tree (makeTree (i ∷ is))
     {-# ATP prove prf toTree-Tree #-}

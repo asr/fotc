@@ -16,14 +16,10 @@ postulate
   []   : D
   _∷_  : D → D → D
 
--- TODO: This definition is not a good one because for example to
--- build the list 'zero ∷ []' it is necessary that [] be a natural
--- number.
-
 -- The LTC list of natural numbers data type
 data List : D → Set where
   nilL  : List []
-  consL : {n ns : D} → N n → N ns → (Lns : List ns) → List (n ∷ ns)
+  consL : {n ns : D} → N n → (Lns : List ns) → List (n ∷ ns)
 {-# ATP hint nilL #-}
 {-# ATP hint consL #-}
 

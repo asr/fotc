@@ -24,14 +24,14 @@ subList-ListOrd : {i : D} → N i → {is : D} → List is → ListOrd (i ∷ is
                   ListOrd is
 subList-ListOrd {i} Ni nilL LOi∷is = isListOrd-[]
 
-subList-ListOrd {i} Ni (consL {j} {js} Nj Njs Ljs) LOi∷j∷js = prf
+subList-ListOrd {i} Ni (consL {j} {js} Nj Ljs) LOi∷j∷js = prf
   where
     postulate prf : ListOrd (j ∷ js)
     {-# ATP prove prf x&&y≡true→y≡true ≤-ItemList-Bool isListOrd-Bool #-}
 
 xs≤[] : {is : D} → List is → ListOrd is → LE-Lists is []
 xs≤[] nilL _ = ≤-Lists-[] []
-xs≤[] (consL {i} {is} Ni Nis Lis) LOconsL =
+xs≤[] (consL {i} {is} Ni Lis) LOconsL =
   prf (xs≤[] Lis (subList-ListOrd Ni Lis LOconsL))
   where
     postulate prf : LE-Lists is []  → --IH.

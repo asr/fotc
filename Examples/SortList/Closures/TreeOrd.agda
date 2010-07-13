@@ -181,7 +181,7 @@ makeTree-TreeOrd nilL = prf
     postulate prf : TreeOrd (makeTree [])
     {-# ATP prove prf #-}
 
-makeTree-TreeOrd (consL {i} {is} Ni Nis Lis) = prf (makeTree-TreeOrd Lis)
+makeTree-TreeOrd (consL {i} {is} Ni Lis) = prf (makeTree-TreeOrd Lis)
   where
     postulate prf : TreeOrd (makeTree is) → -- IH.
                     TreeOrd (makeTree (i ∷ is))

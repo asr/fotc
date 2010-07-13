@@ -85,7 +85,7 @@ open import Postulates using ( ++-ListOrd-aux₁ )
       )
 
 ++-ListOrd-aux₂ {item} {js = js} Nitem
-               (consL {i} {is} Ni Nis Lis) Ljs item≤i∷is i∷is≤js =
+               (consL {i} {is} Ni Lis) Ljs item≤i∷is i∷is≤js =
   begin
     ≤-ItemList item ((i ∷ is) ++ js)
       ≡⟨ subst (λ t → ≤-ItemList item ((i ∷ is) ++ js) ≡ ≤-ItemList item t)
@@ -128,7 +128,7 @@ open import Postulates using ( ++-ListOrd-aux₁ )
 ++-ListOrd {js = js} nilL Ljs LOis LOjs is≤js =
   subst (λ t → ListOrd t) (sym (++-[] js)) LOjs
 
-++-ListOrd {js = js} (consL {i} {is} Ni Nis Lis) Ljs LOi∷is LOjs i∷is≤js =
+++-ListOrd {js = js} (consL {i} {is} Ni Lis) Ljs LOi∷is LOjs i∷is≤js =
   subst (λ t → ListOrd t)
         (sym (++-∷ i is js))
         ( begin

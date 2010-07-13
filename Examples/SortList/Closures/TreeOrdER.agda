@@ -1028,7 +1028,7 @@ makeTree-TreeOrd nilL =
       true
       ∎
 
-makeTree-TreeOrd (consL {i} {is} Ni Nis Lis) =
+makeTree-TreeOrd (consL {i} {is} Ni Lis) =
   begin
     isTreeOrd (foldr toTree nilTree (i ∷ is))
       ≡⟨ subst (λ t → isTreeOrd (foldr toTree nilTree (i ∷ is)) ≡

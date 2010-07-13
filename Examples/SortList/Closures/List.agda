@@ -11,7 +11,7 @@ open import Examples.SortList.SortList
 
 open import LTC.Data.Nat.List
 
-open import Postulates using ( []-N ; ++-List )
+open import Postulates using ( ++-List )
 
 ------------------------------------------------------------------------------
 
@@ -24,7 +24,7 @@ flatten-List nilT = prf
 flatten-List (tipT {i} Ni) = prf
   where
     postulate prf : List (flatten (tip i))
-    {-# ATP prove prf []-N #-}
+    {-# ATP prove prf #-}
 
 flatten-List (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
   prf (flatten-List Tt₁) (flatten-List Tt₂)

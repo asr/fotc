@@ -34,7 +34,7 @@ open import Postulates using ( ++-ListOrd-aux₁ )
     {-# ATP prove prf ++-ListOrd-aux₁ #-}
 
 ++-ListOrd-aux₂ {item} {js = js} Nitem
-               (consL {i} {is} Ni Nis Lis) Ljs item≤i∷is i∷is≤js =
+               (consL {i} {is} Ni Lis) Ljs item≤i∷is i∷is≤js =
   prf (++-ListOrd-aux₂ Nitem Lis Ljs
         (x&&y≡true→y≡true (≤-Bool Nitem Ni)
                           (≤-ItemList-Bool Nitem Lis)
@@ -58,7 +58,7 @@ open import Postulates using ( ++-ListOrd-aux₁ )
     postulate prf : ListOrd ([] ++ js)
     {-# ATP prove prf #-}
 
-++-ListOrd {js = js} (consL {i} {is} Ni Nis Lis) Ljs LOi∷is LOjs i∷is≤js =
+++-ListOrd {js = js} (consL {i} {is} Ni Lis) Ljs LOi∷is LOjs i∷is≤js =
   prf (++-ListOrd Lis Ljs (subList-ListOrd Ni Lis LOi∷is) LOjs
                   (x&&y≡true→y≡true
                     (≤-ItemList-Bool Ni Lis)

@@ -21,7 +21,7 @@ postulate
 makeTree-Tree : {is : D} → List is → Tree (makeTree is)
 makeTree-Tree nilL =
   subst (λ t → Tree t) (sym (foldr-[] toTree nilTree)) nilT
-makeTree-Tree (consL {n} {ns} Nn Nns Lns) =
+makeTree-Tree (consL {i} {is} Ni Lis) =
   subst (λ t → Tree t)
-        (sym (foldr-∷ toTree nilTree n ns))
-        (toTree-Tree Nn (makeTree-Tree Lns))
+        (sym (foldr-∷ toTree nilTree i is))
+        (toTree-Tree Ni (makeTree-Tree Lis))

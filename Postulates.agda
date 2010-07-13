@@ -23,8 +23,6 @@ postulate
                     ≤-ItemList item is ≡ true →
                     ≤-Lists is js ≡ true →
                     ≤-ItemList item js ≡ true
-postulate
-  []-N : N []
 
 postulate
   ++-List : {ds es : D} → List ds → List es → List (ds ++ es)

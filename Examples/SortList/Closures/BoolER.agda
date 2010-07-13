@@ -20,7 +20,7 @@ open import LTC.Data.Nat.Type
                   Bool ( ≤-ItemList item is)
 ≤-ItemList-Bool {item} Nitem nilL =
   subst (λ t → Bool t) (sym (≤-ItemList-[] item)) tB
-≤-ItemList-Bool {item} Nitem (consL {i} {is} Ni Nis Lis) =
+≤-ItemList-Bool {item} Nitem (consL {i} {is} Ni Lis) =
   subst (λ t → Bool t)
         (sym (≤-ItemList-∷ item i is))
         (&&-Bool (≤-Bool Nitem Ni) (≤-ItemList-Bool Nitem Lis))

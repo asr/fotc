@@ -31,14 +31,14 @@ subList-ListOrd : {i : D} → N i → {is : D} → List is → ListOrd (i ∷ is
                   ListOrd is
 subList-ListOrd {i} Ni nilL LOi∷is = isListOrd-[]
 
-subList-ListOrd {i} Ni (consL {j} {js} Nj Njs Ljs) LOi∷j∷js =
-  x&&y≡true→y≡true (≤-ItemList-Bool Ni (consL Nj Njs Ljs))
-                   (isListOrd-Bool (consL Nj Njs Ljs))
+subList-ListOrd {i} Ni (consL {j} {js} Nj Ljs) LOi∷j∷js =
+  x&&y≡true→y≡true (≤-ItemList-Bool Ni (consL Nj Ljs))
+                   (isListOrd-Bool (consL Nj Ljs))
                    (trans (sym (isListOrd-∷ i (j ∷ js))) LOi∷j∷js)
 
 xs≤[] : {is : D} → List is → ListOrd is → LE-Lists is []
 xs≤[] nilL _ = ≤-Lists-[] []
-xs≤[] (consL {i} {is} Ni Nis Lis) LOconsL =
+xs≤[] (consL {i} {is} Ni Lis) LOconsL =
   begin
     ≤-Lists (i ∷ is) []
       ≡⟨ ≤-Lists-∷ i is [] ⟩
