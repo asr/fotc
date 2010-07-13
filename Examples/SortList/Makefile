@@ -2,22 +2,23 @@
 host_dir = asicard@localhost:./tmp/SortList/
 port = 2024
 
+AGDA = agda -v 0
 agda-path = /home/asr/code/phd/LTC/LTC-ATP/
 
 conjectures :
 	./test-conjectures.bash
 
 only-type-checking :
-	agda -i $(agda-path) Closures/ListER.agda
-	agda -i $(agda-path) PropertiesER.agda
-	agda -i $(agda-path) ProofSpecificationER.agda
-	agda -i $(agda-path) ProofSpecification.agda
+	$(AGDA) -i $(agda-path) Closures/ListER.agda
+	$(AGDA) -i $(agda-path) PropertiesER.agda
+	$(AGDA) -i $(agda-path) ProofSpecificationER.agda
+	$(AGDA) -i $(agda-path) ProofSpecification.agda
 
 test : only-type-checking conjectures
 
 publish :
 	rm -r -f html/
-	agda --html -i $(agda-path) ProofSpecification.agda
+	$(AGDA) --html -i $(agda-path) ProofSpecification.agda
 	scp -P $(port) -r html/ $(host_dir)
 
 clean :

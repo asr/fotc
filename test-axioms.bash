@@ -6,7 +6,7 @@ AGDA='agda -v 0'
 
 # filesWithAxioms=$(find . -name '*.ax')
 filesWithAxioms='
-  Examples/GCD
+  Examples/GCD/GCD
   LTC/Data/Nat
   LTC/Data/Nat/Inequalities
   LTC/Minimal
