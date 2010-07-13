@@ -6,7 +6,7 @@ module Examples.GCD-PCF.IsCommonDivisorPCF where
 
 open import LTC.Minimal
 
-open import Examples.GCD-PCF
+open import Examples.GCD-PCF.GCD-PCF
 open import Examples.GCD-PCF.EquationsPCF
 open import Examples.GCD-PCF.IsN-PCF
 open import Examples.GCD.Types

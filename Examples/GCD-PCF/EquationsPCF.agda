@@ -6,7 +6,7 @@ module Examples.GCD-PCF.EquationsPCF where
 
 open import LTC.Minimal
 
-open import Examples.GCD-PCF
+open import Examples.GCD-PCF.GCD-PCF
 open import LTC.Data.NatPCF
 open import LTC.Data.NatPCF.InequalitiesPCF
 

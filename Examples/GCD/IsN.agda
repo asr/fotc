@@ -8,7 +8,7 @@ module Examples.GCD.IsN where
 
 open import LTC.Minimal
 
-open import Examples.GCD
+open import Examples.GCD.GCD
 open import Examples.GCD.Types
 
 open import LTC.Data.Nat

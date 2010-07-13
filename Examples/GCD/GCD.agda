@@ -1,8 +1,9 @@
 ------------------------------------------------------------------------------
 -- Definition of the greatest common divisor of two natural numbers
+-- using the Euclid's algorithm
 ------------------------------------------------------------------------------
 
-module Examples.GCD where
+module Examples.GCD.GCD where
 
 open import LTC.Minimal
 

@@ -3,9 +3,6 @@
 AGDA='agda -v 0'
 
 conjecturesFiles='
-  Examples/GCD/IsN
-  Examples/GCD/IsCommonDivisor
-  Examples/GCD/IsDivisible
   Test/Factorial
   '
 for file in ${conjecturesFiles} ; do

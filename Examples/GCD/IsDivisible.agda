@@ -6,7 +6,7 @@ module Examples.GCD.IsDivisible where
 
 open import LTC.Minimal
 
-open import Examples.GCD
+open import Examples.GCD.GCD
 open import Examples.GCD.IsCommonDivisor
 open import Examples.GCD.Types
 

@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- The gcd is a common divisor
+-- The gcd is a common divisor (using equational reasoning)
 ------------------------------------------------------------------------------
 
 module Examples.GCD.IsCommonDivisorER where
@@ -7,7 +7,7 @@ module Examples.GCD.IsCommonDivisorER where
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
-open import Examples.GCD
+open import Examples.GCD.GCD
 open import Examples.GCD.IsN-ER
 open import Examples.GCD.Types
 

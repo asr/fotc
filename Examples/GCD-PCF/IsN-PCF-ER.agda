@@ -10,7 +10,7 @@ open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
 open import Examples.GCD.Types
-open import Examples.GCD-PCF
+open import Examples.GCD-PCF.GCD-PCF
 open import Examples.GCD-PCF.EquationsPCF
 
 open import LTC.Data.NatPCF

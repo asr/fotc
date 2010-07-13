@@ -9,7 +9,7 @@ module Examples.GCD.IsN-ER where
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
-open import Examples.GCD
+open import Examples.GCD.GCD
 open import Examples.GCD.Types
 
 open import LTC.Data.Nat

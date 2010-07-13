@@ -1,27 +1,27 @@
 ------------------------------------------------------------------------------
--- Specification of the Euclid's algorithm for calculate the greatest
--- common divisor of two natural numbers
+-- The gcd program satisfies the specification
 ------------------------------------------------------------------------------
 
-module Examples.GCD.IsGCD where
+-- This module proves the correctness of the gcd program using
+-- the Euclid's algorithm.
+
+module Examples.GCD-PCF.ProofSpecificationPCF where
 
 open import LTC.Minimal
 
-open import Examples.GCD
-open import Examples.GCD.IsCommonDivisor
-open import Examples.GCD.IsDivisible
-open import Examples.GCD.IsGreatestAnyCommonDivisor
-open import Examples.GCD.IsN
 open import Examples.GCD.Types
+open import Examples.GCD-PCF.GCD-PCF
+open import Examples.GCD-PCF.IsCommonDivisorPCF
+open import Examples.GCD-PCF.IsDivisiblePCF
+open import Examples.GCD-PCF.IsGreatestAnyCommonDivisorPCF
+open import Examples.GCD-PCF.IsN-PCF
 
-open import LTC.Data.Nat
+open import LTC.Data.NatPCF
 
 -----------------------------------------------------------------------
--- The 'gcd' is the GCD.
------------------------------------------------------------------------
+-- The 'gcd' is the GCD
 
--- Greatest commun divisor.
-
+-- Greatest commun divisor
 record GCD (a b gcd : D) : Set where
     field
       -- The gcd is a common divisor.

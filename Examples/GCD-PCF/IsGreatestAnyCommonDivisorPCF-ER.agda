@@ -1,6 +1,6 @@
----------------------------------------------------------------------------
--- The 'gcd' is greatest that any common divisor
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
+-- The 'gcd' is greatest that any common divisor (using equational reasoning)
+------------------------------------------------------------------------------
 
 module Examples.GCD-PCF.IsGreatestAnyCommonDivisorPCF-ER where
 
@@ -15,7 +15,7 @@ open import LTC.Data.NatPCF.InequalitiesPCF
 
 open import MyStdLib.Function using ( _$_ )
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 
 -- Greatest that any common divisor.
 GACD : D → D → D → Set
