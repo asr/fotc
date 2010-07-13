@@ -10,7 +10,7 @@ open import LTC.Data.List
 
 ------------------------------------------------------------------------------
 
--- The LTC list data type
+-- The LTC list type
 data List : D → Set where
   nilL  : List []
   consL : (d : D){ds : D} → (Lds : List ds) → List (d ∷ ds)

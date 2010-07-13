@@ -11,7 +11,7 @@ open import LTC.Data.List
 
 ------------------------------------------------------------------------------
 
--- The LTC list of natural numbers data type
+-- The LTC list of natural numbers type
 data ListN : D → Set where
   nilLN  : ListN []
   consLN : {n ns : D} → N n → (LNns : ListN ns) → ListN (n ∷ ns)
