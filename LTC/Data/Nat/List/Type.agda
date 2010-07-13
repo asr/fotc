@@ -1,0 +1,19 @@
+------------------------------------------------------------------------------
+-- The LTC list of natural numbers type
+------------------------------------------------------------------------------
+
+module LTC.Data.Nat.List.Type where
+
+open import LTC.Minimal
+
+open import LTC.Data.Nat
+open import LTC.Data.List
+
+------------------------------------------------------------------------------
+
+-- The LTC list of natural numbers data type
+data ListN : D → Set where
+  nilLN  : ListN []
+  consLN : {n ns : D} → N n → (LNns : ListN ns) → ListN (n ∷ ns)
+{-# ATP hint nilLN #-}
+{-# ATP hint consLN #-}

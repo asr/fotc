@@ -16,31 +16,32 @@ open import Examples.SortList.SortList
 
 open import LTC.Data.Bool.Properties
   using ( ≤-Bool ; x&&y≡true→x≡true ; x&&y≡true→y≡true )
-open import LTC.Data.Nat.List
+open import LTC.Data.Nat.List.Type
 open import LTC.Data.Nat.Type
+open import LTC.Data.List
 
 open import Postulates using ( ++-ListOrd-aux₁ )
 
 ------------------------------------------------------------------------------
 -- Auxiliar functions
 
-++-ListOrd-aux₂ : {item is js : D} → N item → List is → List js →
+++-ListOrd-aux₂ : {item is js : D} → N item → ListN is → ListN js →
                   LE-ItemList item is →
                   LE-Lists is js →
                   LE-ItemList item (is ++ js)
-++-ListOrd-aux₂ {item} {js = js} Nitem nilL Ljs item≤niL niL≤js = prf
+++-ListOrd-aux₂ {item} {js = js} Nitem nilLN LNjs item≤niL niL≤js = prf
   where
     postulate prf : LE-ItemList item ([] ++ js)
     {-# ATP prove prf ++-ListOrd-aux₁ #-}
 
 ++-ListOrd-aux₂ {item} {js = js} Nitem
-               (consL {i} {is} Ni Lis) Ljs item≤i∷is i∷is≤js =
-  prf (++-ListOrd-aux₂ Nitem Lis Ljs
+               (consLN {i} {is} Ni LNis) LNjs item≤i∷is i∷is≤js =
+  prf (++-ListOrd-aux₂ Nitem LNis LNjs
         (x&&y≡true→y≡true (≤-Bool Nitem Ni)
-                          (≤-ItemList-Bool Nitem Lis)
+                          (≤-ItemList-Bool Nitem LNis)
                           (trans (sym (≤-ItemList-∷ item i is)) item≤i∷is))
-        (x&&y≡true→y≡true (≤-ItemList-Bool Ni Lis)
-                          (≤-Lists-Bool Lis Ljs)
+        (x&&y≡true→y≡true (≤-ItemList-Bool Ni LNis)
+                          (≤-Lists-Bool LNis LNjs)
                           (trans (sym (≤-Lists-∷ i is js)) i∷is≤js)))
   where
     postulate prf : LE-ItemList item (is ++ js) → -- IH.
@@ -49,20 +50,20 @@ open import Postulates using ( ++-ListOrd-aux₁ )
 
 ------------------------------------------------------------------------------
 -- Append preserves the order.
-++-ListOrd : {is js : D} → List is → List js → ListOrd is → ListOrd js →
+++-ListOrd : {is js : D} → ListN is → ListN js → ListOrd is → ListOrd js →
              LE-Lists is js →
              ListOrd (is ++ js)
 
-++-ListOrd {js = js} nilL Ljs LOis LOjs is≤js = prf
+++-ListOrd {js = js} nilLN LNjs LOis LOjs is≤js = prf
   where
     postulate prf : ListOrd ([] ++ js)
     {-# ATP prove prf #-}
 
-++-ListOrd {js = js} (consL {i} {is} Ni Lis) Ljs LOi∷is LOjs i∷is≤js =
-  prf (++-ListOrd Lis Ljs (subList-ListOrd Ni Lis LOi∷is) LOjs
+++-ListOrd {js = js} (consLN {i} {is} Ni LNis) LNjs LOi∷is LOjs i∷is≤js =
+  prf (++-ListOrd LNis LNjs (subList-ListOrd Ni LNis LOi∷is) LOjs
                   (x&&y≡true→y≡true
-                    (≤-ItemList-Bool Ni Lis)
-                    (≤-Lists-Bool Lis Ljs)
+                    (≤-ItemList-Bool Ni LNis)
+                    (≤-Lists-Bool LNis LNjs)
                     (trans (sym (≤-Lists-∷ i is js)) i∷is≤js)))
   where
     postulate prf : ListOrd (is ++ js) → -- IH.
@@ -128,7 +129,7 @@ flatten-ListOrd (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂ ) TOnodeT =
               (flatten-ListOrd (nodeT Tta Nj Ttb)
               (leftSubTree-TreeOrd (nodeT Tta Nj Ttb) Niaux nilT TOaux))
       where
-        postulate prf-aux : List (flatten (node ta j tb)) →
+        postulate prf-aux : ListN (flatten (node ta j tb)) →
                             ListOrd (flatten (node ta j tb)) → --IH.
                             LE-Lists (flatten (node ta j tb)) (flatten nilTree)
         {-# ATP prove prf-aux xs≤[] #-}
@@ -144,4 +145,3 @@ flatten-ListOrd (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂ ) TOnodeT =
                         where
                         postulate prf-aux : LE-Lists (flatten (node ta j tb))
                                                      (flatten (node tc k td))
-

@@ -19,8 +19,9 @@ open import LTC.Data.Bool.PropertiesER using
   ( ≤-Bool ; x&&y≡true→x≡true ; x&&y≡true→y≡true )
 open import LTC.Data.Nat.Inequalities
 -- open import LTC.Data.Nat.Inequalities.PropertiesER using ( ≤-trans )
-open import LTC.Data.Nat.List
+open import LTC.Data.Nat.List.Type
 open import LTC.Data.Nat.Type
+open import LTC.Data.List
 
 import MyStdLib.Relation.Binary.EqReasoning
 open module ListOrd-ER =
@@ -35,8 +36,8 @@ open import Postulates using ( ++-ListOrd-aux₁ )
 --                   LE-ItemList item is →
 --                   LE-Lists is js →
 --                   LE-ItemList item js
--- ++-ListOrd-aux₁ {item} Nitem Lis  nilL item≤is is≤js = ≤-ItemList-[] item
--- ++-ListOrd-aux₁ {item} Nitem nilL (consL {j} {js} Nj Njs Ljs)
+-- ++-ListOrd-aux₁ {item} Nitem LNis  nilL item≤is is≤js = ≤-ItemList-[] item
+-- ++-ListOrd-aux₁ {item} Nitem nilL (consL {j} {js} Nj Njs LNjs)
 --                 item≤nilL nilL≤j∷js =
 --   begin
 --      ≤-ItemList item (j ∷ js)
@@ -55,23 +56,23 @@ open import Postulates using ( ++-ListOrd-aux₁ )
 --   ∎
 
 -- ++-ListOrd-aux₁ {item} Nitem (consL {i} {is} Ni Nis Lis)
---                 (consL {j} {js} Nj Njs Ljs) item≤i∷is i∷is≤j∷js =
+--                 (consL {j} {js} Nj Njs LNjs) item≤i∷is i∷is≤j∷js =
 --       -- IH
---       ++-ListOrd-aux₁ Nitem Lis (consL Nj Njs Ljs)
+--       ++-ListOrd-aux₁ Nitem Lis (consL Nj Njs LNjs)
 --           (x&&y≡true→y≡true (≤-Bool Nitem Ni)
 --                             (≤-ItemList-Bool Nitem Lis)
 --                             (trans (sym (≤-ItemList-∷ item i is)) item≤i∷is))
 --           (x&&y≡true→y≡true (≤-ItemList-Bool Ni Lis)
---                             (≤-Lists-Bool Lis (consL Nj Njs Ljs))
+--                             (≤-Lists-Bool LNis (consL Nj Njs LNjs))
 --                             (trans (sym (≤-Lists-∷ i is (j ∷ js))) i∷is≤j∷js))
 
-++-ListOrd-aux₂ : {item is js : D} → N item → List is → List js →
+++-ListOrd-aux₂ : {item is js : D} → N item → ListN is → ListN js →
                  LE-ItemList item is →
                  LE-Lists is js →
                  LE-ItemList item (is ++ js)
-++-ListOrd-aux₂ {item} {js = js} Nitem nilL Ljs item≤niL niL≤js =
-  ++-ListOrd-aux₁ Nitem nilL (subst (λ t → List t)
-      (sym (++-[] js)) Ljs) item≤niL
+++-ListOrd-aux₂ {item} {js = js} Nitem nilLN LNjs item≤niL niL≤js =
+  ++-ListOrd-aux₁ Nitem nilLN (subst (λ t → ListN t)
+      (sym (++-[] js)) LNjs) item≤niL
       ( begin
           ≤-Lists [] ([] ++ js)
             ≡⟨ subst (λ t → ≤-Lists [] ([] ++ js) ≡ ≤-Lists [] t)
@@ -85,7 +86,7 @@ open import Postulates using ( ++-ListOrd-aux₁ )
       )
 
 ++-ListOrd-aux₂ {item} {js = js} Nitem
-               (consL {i} {is} Ni Lis) Ljs item≤i∷is i∷is≤js =
+               (consLN {i} {is} Ni LNis) LNjs item≤i∷is i∷is≤js =
   begin
     ≤-ItemList item ((i ∷ is) ++ js)
       ≡⟨ subst (λ t → ≤-ItemList item ((i ∷ is) ++ js) ≡ ≤-ItemList item t)
@@ -98,7 +99,7 @@ open import Postulates using ( ++-ListOrd-aux₁ )
       ≡⟨ subst (λ t → item ≤ i && ≤-ItemList item (is ++ js) ≡
                       t && ≤-ItemList item (is ++ js))
                (x&&y≡true→x≡true (≤-Bool Nitem Ni)
-                                 (≤-ItemList-Bool Nitem Lis)
+                                 (≤-ItemList-Bool Nitem LNis)
                                  (trans (sym (≤-ItemList-∷ item i is))
                                         item≤i∷is))
                refl
@@ -106,13 +107,13 @@ open import Postulates using ( ++-ListOrd-aux₁ )
     true && ≤-ItemList item (is ++ js)
       ≡⟨ subst (λ t → true && ≤-ItemList item (is ++ js) ≡ true && t)
                -- IH.
-               (++-ListOrd-aux₂ Nitem Lis Ljs
+               (++-ListOrd-aux₂ Nitem LNis LNjs
                  (x&&y≡true→y≡true (≤-Bool Nitem Ni)
-                                   (≤-ItemList-Bool Nitem Lis)
+                                   (≤-ItemList-Bool Nitem LNis)
                                    (trans (sym (≤-ItemList-∷ item i is))
                                           item≤i∷is))
-               (x&&y≡true→y≡true (≤-ItemList-Bool Ni Lis)
-                                 (≤-Lists-Bool Lis Ljs)
+               (x&&y≡true→y≡true (≤-ItemList-Bool Ni LNis)
+                                 (≤-Lists-Bool LNis LNjs)
                                  (trans (sym (≤-Lists-∷ i is js)) i∷is≤js)))
                refl
       ⟩
@@ -122,13 +123,13 @@ open import Postulates using ( ++-ListOrd-aux₁ )
 
 ------------------------------------------------------------------------------
 -- Append preserves the order.
-++-ListOrd : {is js : D} → List is → List js → ListOrd is → ListOrd js →
+++-ListOrd : {is js : D} → ListN is → ListN js → ListOrd is → ListOrd js →
          LE-Lists is js → ListOrd (is ++ js)
 
-++-ListOrd {js = js} nilL Ljs LOis LOjs is≤js =
+++-ListOrd {js = js} nilLN LNjs LOis LOjs is≤js =
   subst (λ t → ListOrd t) (sym (++-[] js)) LOjs
 
-++-ListOrd {js = js} (consL {i} {is} Ni Lis) Ljs LOi∷is LOjs i∷is≤js =
+++-ListOrd {js = js} (consLN {i} {is} Ni LNis) LNjs LOi∷is LOjs i∷is≤js =
   subst (λ t → ListOrd t)
         (sym (++-∷ i is js))
         ( begin
@@ -139,13 +140,13 @@ open import Postulates using ( ++-ListOrd-aux₁ )
                               isListOrd (is ++ js)    ≡
                               t                       &&
                               isListOrd (is ++ js))
-                       (++-ListOrd-aux₂ Ni Lis Ljs
-                           (x&&y≡true→x≡true (≤-ItemList-Bool Ni Lis)
-                                             (≤-Lists-Bool Lis Ljs)
+                       (++-ListOrd-aux₂ Ni LNis LNjs
+                           (x&&y≡true→x≡true (≤-ItemList-Bool Ni LNis)
+                                             (≤-Lists-Bool LNis LNjs)
                                              (trans (sym (≤-Lists-∷ i is js))
                                                     i∷is≤js))
-                           (x&&y≡true→y≡true (≤-ItemList-Bool Ni Lis)
-                                             (≤-Lists-Bool Lis Ljs)
+                           (x&&y≡true→y≡true (≤-ItemList-Bool Ni LNis)
+                                             (≤-Lists-Bool LNis LNjs)
                                              (trans (sym (≤-Lists-∷ i is js))
                                                     i∷is≤js)))
                        refl
@@ -153,10 +154,10 @@ open import Postulates using ( ++-ListOrd-aux₁ )
             true && isListOrd (is ++ js)
             ≡⟨ subst (λ t → true && isListOrd (is ++ js) ≡ true && t)
                      -- IH.
-                     (++-ListOrd Lis Ljs (subList-ListOrd Ni Lis LOi∷is) LOjs
+                     (++-ListOrd LNis LNjs (subList-ListOrd Ni LNis LOi∷is) LOjs
                              (x&&y≡true→y≡true
-                               (≤-ItemList-Bool Ni Lis)
-                               (≤-Lists-Bool Lis Ljs)
+                               (≤-ItemList-Bool Ni LNis)
+                               (≤-Lists-Bool LNis LNjs)
                                (trans (sym (≤-Lists-∷ i is js)) i∷is≤js)))
                      refl
             ⟩

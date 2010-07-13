@@ -11,7 +11,8 @@ open import Examples.SortList.SortList
 open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.Inequalities.Properties using ( x>y∨x≤y ; x>y→x≰y )
 open import LTC.Data.Nat.Type
-open import LTC.Data.Nat.List
+open import LTC.Data.Nat.List.Type
+open import LTC.Data.List
 
 ------------------------------------------------------------------------------
 
@@ -34,13 +35,13 @@ toTree-Tree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂ ) =
                     Tree (toTree ∙ item ∙ node t₁ i t₂)
     {-# ATP prove prf x>y→x≰y #-}
 
-makeTree-Tree : {is : D} → List is → Tree (makeTree is)
-makeTree-Tree nilL = prf
+makeTree-Tree : {is : D} → ListN is → Tree (makeTree is)
+makeTree-Tree nilLN = prf
   where
     postulate prf : Tree (makeTree [])
     {-# ATP prove prf #-}
 
-makeTree-Tree (consL {i} {is} Nn Lis) = prf (makeTree-Tree Lis)
+makeTree-Tree (consLN {i} {is} Nn Lis) = prf (makeTree-Tree Lis)
   where
     postulate prf : Tree (makeTree is) → -- IH.
                     Tree (makeTree (i ∷ is))

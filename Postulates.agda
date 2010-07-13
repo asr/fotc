@@ -10,8 +10,9 @@ open import Examples.SortList.SortList
 
 
 open import LTC.Data.Bool
+open import LTC.Data.List
 open import LTC.Data.Nat.Type
-open import LTC.Data.Nat.List
+open import LTC.Data.Nat.List.Type
 
 ------------------------------------------------------------------------------
 
@@ -19,10 +20,7 @@ open import LTC.Data.Nat.List
 -- definition of lists of natural numbers.
 
 postulate
-  ++-ListOrd-aux₁ : {item is js : D} → N item → List is → List js →
+  ++-ListOrd-aux₁ : {item is js : D} → N item → ListN is → ListN js →
                     ≤-ItemList item is ≡ true →
                     ≤-Lists is js ≡ true →
                     ≤-ItemList item js ≡ true
-
-postulate
-  ++-List : {ds es : D} → List ds → List es → List (ds ++ es)

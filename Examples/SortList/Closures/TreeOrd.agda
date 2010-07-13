@@ -19,7 +19,8 @@ open import LTC.Data.Bool.Properties using
 open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.Inequalities.Properties
 open import LTC.Data.Nat.Type
-open import LTC.Data.Nat.List
+open import LTC.Data.Nat.List.Type
+open import LTC.Data.List
 
 ------------------------------------------------------------------------------
 -- Subtrees
@@ -175,13 +176,13 @@ toTree-TreeOrd {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) TOnodeT =
 
 ------------------------------------------------------------------------------
 -- The function makeTree generates an ordered tree.
-makeTree-TreeOrd : {is : D} → List is → TreeOrd (makeTree is)
-makeTree-TreeOrd nilL = prf
+makeTree-TreeOrd : {is : D} → ListN is → TreeOrd (makeTree is)
+makeTree-TreeOrd nilLN = prf
   where
     postulate prf : TreeOrd (makeTree [])
     {-# ATP prove prf #-}
 
-makeTree-TreeOrd (consL {i} {is} Ni Lis) = prf (makeTree-TreeOrd Lis)
+makeTree-TreeOrd (consLN {i} {is} Ni Lis) = prf (makeTree-TreeOrd Lis)
   where
     postulate prf : TreeOrd (makeTree is) → -- IH.
                     TreeOrd (makeTree (i ∷ is))

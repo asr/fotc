@@ -10,44 +10,45 @@ open import Examples.SortList.SortList
 
 open import LTC.Data.Bool
 open import LTC.Data.Bool.Properties using ( &&-Bool ; ≤-Bool )
-open import LTC.Data.Nat.List
+open import LTC.Data.Nat.List.Type
 open import LTC.Data.Nat.Type
+open import LTC.Data.List
 
 ------------------------------------------------------------------------------
 
-≤-ItemList-Bool : {item : D} → N item → {is : D} → List is →
+≤-ItemList-Bool : {item : D} → N item → {is : D} → ListN is →
                   Bool ( ≤-ItemList item is)
-≤-ItemList-Bool {item} Nitem nilL = prf
+≤-ItemList-Bool {item} Nitem nilLN = prf
   where
     postulate prf : Bool (≤-ItemList item [])
     {-# ATP prove prf #-}
 
-≤-ItemList-Bool {item} Nitem (consL {i} {is} Ni Lis) =
+≤-ItemList-Bool {item} Nitem (consLN {i} {is} Ni Lis) =
   prf (≤-ItemList-Bool Nitem Lis)
   where
     postulate prf : Bool (≤-ItemList item is) → -- IH.
                     Bool (≤-ItemList item (i ∷ is))
     {-# ATP prove prf &&-Bool ≤-Bool #-}
 
-≤-Lists-Bool : {is js : D} → List is → List js → Bool (≤-Lists is js)
-≤-Lists-Bool {js = js} nilL Ljs = prf
+≤-Lists-Bool : {is js : D} → ListN is → ListN js → Bool (≤-Lists is js)
+≤-Lists-Bool {js = js} nilLN LNjs = prf
   where
     postulate prf : Bool (≤-Lists [] js)
     {-# ATP prove prf #-}
-≤-Lists-Bool {js = js} (consL {i} {is} Ni Lis) Ljs =
-  prf (≤-Lists-Bool Lis Ljs)
+≤-Lists-Bool {js = js} (consLN {i} {is} Ni LNis) LNjs =
+  prf (≤-Lists-Bool LNis LNjs)
   where
     postulate prf : Bool (≤-Lists is js) → -- IH.
                     Bool (≤-Lists (i ∷ is) js)
     {-# ATP prove prf &&-Bool ≤-ItemList-Bool #-}
 
-isListOrd-Bool : {is : D} → List is → Bool (isListOrd is)
-isListOrd-Bool nilL = prf
+isListOrd-Bool : {is : D} → ListN is → Bool (isListOrd is)
+isListOrd-Bool nilLN = prf
   where
     postulate prf : Bool (isListOrd [])
     {-# ATP prove prf #-}
 
-isListOrd-Bool (consL {i} {is} Ni Lis ) = prf (isListOrd-Bool Lis)
+isListOrd-Bool (consLN {i} {is} Ni LNis ) = prf (isListOrd-Bool LNis)
   where
     postulate prf : Bool (isListOrd is) → -- IH.
                     Bool (isListOrd (i ∷ is))

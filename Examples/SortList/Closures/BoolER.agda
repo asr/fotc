@@ -11,27 +11,27 @@ open import Examples.SortList.SortList
 
 open import LTC.Data.Bool
 open import LTC.Data.Bool.PropertiesER using ( &&-Bool ; ≤-Bool )
-open import LTC.Data.Nat.List
+open import LTC.Data.Nat.List.Type
 open import LTC.Data.Nat.Type
 
 ------------------------------------------------------------------------------
 
-≤-ItemList-Bool : {item : D} → N item → {is : D} → List is →
+≤-ItemList-Bool : {item : D} → N item → {is : D} → ListN is →
                   Bool ( ≤-ItemList item is)
-≤-ItemList-Bool {item} Nitem nilL =
+≤-ItemList-Bool {item} Nitem nilLN =
   subst (λ t → Bool t) (sym (≤-ItemList-[] item)) tB
-≤-ItemList-Bool {item} Nitem (consL {i} {is} Ni Lis) =
+≤-ItemList-Bool {item} Nitem (consLN {i} {is} Ni Lis) =
   subst (λ t → Bool t)
         (sym (≤-ItemList-∷ item i is))
         (&&-Bool (≤-Bool Nitem Ni) (≤-ItemList-Bool Nitem Lis))
 
 -- See the ATP version.
 postulate
-  ≤-Lists-Bool : {is js : D} → List is → List js → Bool (≤-Lists is js)
+  ≤-Lists-Bool : {is js : D} → ListN is → ListN js → Bool (≤-Lists is js)
 
 -- See the ATP version.
 postulate
-  isListOrd-Bool : {is : D} → List is → Bool (isListOrd is)
+  isListOrd-Bool : {is : D} → ListN is → Bool (isListOrd is)
 
 ≤-ItemTree-Bool : {item : D} → N item → {t : D} → Tree t →
                   Bool ( ≤-ItemTree item t)

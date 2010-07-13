@@ -20,11 +20,11 @@ open import Examples.SortList.Closures.TreeER using ( makeTree-Tree )
 open import Examples.SortList.Closures.TreeOrdER using ( makeTree-TreeOrd )
 open import Examples.SortList.SortList
 
-open import LTC.Data.Nat.List
+open import LTC.Data.Nat.List.Type
 
 ------------------------------------------------------------------------------
 
-sort-ListOrd : {is : D} → List is → ListOrd (sort is)
+sort-ListOrd : {is : D} → ListN is → ListOrd (sort is)
 sort-ListOrd {is} Lis =
   subst (λ t → ListOrd t)
         refl

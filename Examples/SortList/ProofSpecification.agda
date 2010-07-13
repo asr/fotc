@@ -18,10 +18,10 @@ open import Examples.SortList.Closures.Tree using ( makeTree-Tree )
 open import Examples.SortList.Closures.TreeOrd using ( makeTree-TreeOrd )
 open import Examples.SortList.SortList
 
-open import LTC.Data.Nat.List
+open import LTC.Data.Nat.List.Type
 
 ------------------------------------------------------------------------------
 
 postulate
-  sort-ListOrd : {is : D} → List is → ListOrd (sort is)
+  sort-ListOrd : {is : D} → ListN is → ListOrd (sort is)
 {-# ATP prove sort-ListOrd flatten-ListOrd makeTree-Tree makeTree-TreeOrd #-}

@@ -14,8 +14,9 @@ open import Examples.SortList.SortList
 open import LTC.Data.Bool
 open import LTC.Data.Bool.PropertiesER using
   ( x&&y≡true→x≡true ; x&&y≡true→y≡true )
-open import LTC.Data.Nat.List
+open import LTC.Data.Nat.List.Type
 open import LTC.Data.Nat.Type
+open import LTC.Data.List
 
 import MyStdLib.Relation.Binary.EqReasoning
 open module Properties-ER =
@@ -23,37 +24,35 @@ open module Properties-ER =
 
 ------------------------------------------------------------------------------
 
-------------------------------------------------------------------------------
-
 -- If (i ∷ is) is ordered then 'is' is ordered.
 -- This function is defined in this module to avoid cyclical dependencies.
-subList-ListOrd : {i : D} → N i → {is : D} → List is → ListOrd (i ∷ is) →
+subList-ListOrd : {i : D} → N i → {is : D} → ListN is → ListOrd (i ∷ is) →
                   ListOrd is
-subList-ListOrd {i} Ni nilL LOi∷is = isListOrd-[]
+subList-ListOrd {i} Ni nilLN LOi∷is = isListOrd-[]
 
-subList-ListOrd {i} Ni (consL {j} {js} Nj Ljs) LOi∷j∷js =
-  x&&y≡true→y≡true (≤-ItemList-Bool Ni (consL Nj Ljs))
-                   (isListOrd-Bool (consL Nj Ljs))
+subList-ListOrd {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js =
+  x&&y≡true→y≡true (≤-ItemList-Bool Ni (consLN Nj Ljs))
+                   (isListOrd-Bool (consLN Nj Ljs))
                    (trans (sym (isListOrd-∷ i (j ∷ js))) LOi∷j∷js)
 
-xs≤[] : {is : D} → List is → ListOrd is → LE-Lists is []
-xs≤[] nilL _ = ≤-Lists-[] []
-xs≤[] (consL {i} {is} Ni Lis) LOconsL =
+xs≤[] : {is : D} → ListN is → ListOrd is → LE-Lists is []
+xs≤[] nilLN _ = ≤-Lists-[] []
+xs≤[] (consLN {i} {is} Ni LNis) LOconsL =
   begin
     ≤-Lists (i ∷ is) []
       ≡⟨ ≤-Lists-∷ i is [] ⟩
     ≤-ItemList i is && ≤-Lists is []
       ≡⟨ subst (λ t → ≤-ItemList i is && ≤-Lists is [] ≡
                       t && ≤-Lists is [])
-               (x&&y≡true→x≡true (≤-ItemList-Bool Ni Lis)
-                                 (isListOrd-Bool Lis)
+               (x&&y≡true→x≡true (≤-ItemList-Bool Ni LNis)
+                                 (isListOrd-Bool LNis)
                                  (trans (sym (isListOrd-∷ i is)) LOconsL))
                refl
       ⟩
     true && ≤-Lists is []
       ≡⟨ subst (λ t → true && ≤-Lists is [] ≡ true && t)
                -- IH.
-               (xs≤[] Lis (subList-ListOrd Ni Lis LOconsL))
+               (xs≤[] LNis (subList-ListOrd Ni LNis LOconsL))
                refl
       ⟩
     true && true

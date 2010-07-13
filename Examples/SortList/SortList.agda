@@ -11,10 +11,11 @@
 module Examples.SortList.SortList where
 
 open import LTC.Minimal
+
 open import LTC.Data.Bool
 open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
-open import LTC.Data.Nat.List
+open import LTC.Data.List
 
 ------------------------------------------------------------------------------
 -- Tree terms

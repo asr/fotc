@@ -20,7 +20,8 @@ open import LTC.Data.Bool.PropertiesER using
 open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.Inequalities.PropertiesER
 open import LTC.Data.Nat.Type
-open import LTC.Data.Nat.List
+open import LTC.Data.Nat.List.Type
+open import LTC.Data.List
 
 import MyStdLib.Relation.Binary.EqReasoning
 open module TreeOrd-ER =
@@ -1015,8 +1016,8 @@ toTree-TreeOrd {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) TOnodeT =
 
 ------------------------------------------------------------------------------
 -- The function makeTree generates an ordered tree.
-makeTree-TreeOrd : {is : D} → List is → TreeOrd (makeTree is)
-makeTree-TreeOrd nilL =
+makeTree-TreeOrd : {is : D} → ListN is → TreeOrd (makeTree is)
+makeTree-TreeOrd nilLN =
   begin
       isTreeOrd (foldr toTree nilTree [])
         ≡⟨ subst (λ t → isTreeOrd (foldr toTree nilTree []) ≡
@@ -1028,7 +1029,7 @@ makeTree-TreeOrd nilL =
       true
       ∎
 
-makeTree-TreeOrd (consL {i} {is} Ni Lis) =
+makeTree-TreeOrd (consLN {i} {is} Ni Lis) =
   begin
     isTreeOrd (foldr toTree nilTree (i ∷ is))
       ≡⟨ subst (λ t → isTreeOrd (foldr toTree nilTree (i ∷ is)) ≡
