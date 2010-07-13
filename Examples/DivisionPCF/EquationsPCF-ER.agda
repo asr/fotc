@@ -7,7 +7,7 @@ module Examples.DivisionPCF.EquationsPCF-ER where
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
-open import Examples.DivisionPCF
+open import Examples.DivisionPCF.DivisionPCF
 open import LTC.Data.NatPCF
 open import LTC.Data.NatPCF.InequalitiesPCF
 open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF-ER using ( x≥y→x≮y )

@@ -1,29 +1,31 @@
 ------------------------------------------------------------------------------
--- The division satisfies the specification
+-- The division program satisfies the specification
 ------------------------------------------------------------------------------
 
--- This module formalize the division algorithm following [1].
--- [1] Peter Dybjer. Program verification in a logical theory of
+-- This module proves the correctness of the division program using
+-- repeated subtraction.
+
+-- Peter Dybjer. Program verification in a logical theory of
 -- constructions. In Jean-Pierre Jouannaud, editor. Functional
 -- Programming Languages and Computer Architecture, volume 201 of
 -- LNCS, 1985, pages 334-349. Appears in revised form as Programming
 -- Methodology Group Report 26, June 1986.
 
-module Examples.DivisionPCF.IsDIV-PCF-ER where
+module Examples.DivisionPCF.ProofSpecificationPCF where
 
 open import LTC.Minimal
 
-open import Examples.DivisionPCF
-open import Examples.DivisionPCF.EquationsPCF-ER
-open import Examples.DivisionPCF.IsCorrectPCF-ER
-open import Examples.DivisionPCF.IsN-PCF-ER
+open import Examples.DivisionPCF.DivisionPCF
+open import Examples.DivisionPCF.EquationsPCF
+open import Examples.DivisionPCF.IsCorrectPCF
+open import Examples.DivisionPCF.IsN-PCF
 open import Examples.DivisionPCF.SpecificationPCF
 
 open import LTC.Data.NatPCF
 open import LTC.Data.NatPCF.Induction.WellFoundedPCF
 open import LTC.Data.NatPCF.InequalitiesPCF
-open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF-ER
-open import LTC.Data.NatPCF.PropertiesPCF-ER
+open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF
+open import LTC.Data.NatPCF.PropertiesPCF
 
 ------------------------------------------------------------------------------
 

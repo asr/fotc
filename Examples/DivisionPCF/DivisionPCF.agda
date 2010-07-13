@@ -1,8 +1,17 @@
 ------------------------------------------------------------------------------
--- Definition of division using repeated subtraction
+-- Division program
 ------------------------------------------------------------------------------
 
-module Examples.DivisionPCF where
+-- This module define a division program using repeated subtraction
+-- (Dybjer 1985).
+
+-- Peter Dybjer. Program verification in a logical theory of
+-- constructions. In Jean-Pierre Jouannaud, editor. Functional
+-- Programming Languages and Computer Architecture, volume 201 of
+-- LNCS, 1985, pages 334-349. Appears in revised form as Programming
+-- Methodology Group Report 26, June 1986.
+
+module Examples.DivisionPCF.DivisionPCF where
 
 open import LTC.Minimal
 

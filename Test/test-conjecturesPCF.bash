@@ -13,9 +13,6 @@ conjecturesFilesPCF='
   Examples/GCD-PCF/IsN-PCF
   Examples/GCD-PCF/IsCommonDivisorPCF
   Examples/GCD-PCF/IsDivisiblePCF
-  Examples/DivisionPCF/EquationsPCF
-  Examples/DivisionPCF/IsN-PCF
-  Examples/DivisionPCF/IsCorrectPCF
   '
 for file in ${conjecturesFilesPCF} ; do
     rm -f /tmp/*.tptp

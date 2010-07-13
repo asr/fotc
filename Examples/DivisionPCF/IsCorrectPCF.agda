@@ -6,7 +6,7 @@ module Examples.DivisionPCF.IsCorrectPCF where
 
 open import LTC.Minimal
 
-open import Examples.DivisionPCF
+open import Examples.DivisionPCF.DivisionPCF
 open import Examples.DivisionPCF.EquationsPCF
 open import Examples.DivisionPCF.SpecificationPCF
 

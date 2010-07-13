@@ -7,7 +7,7 @@ module Examples.DivisionPCF.IsN-PCF-ER where
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
-open import Examples.DivisionPCF
+open import Examples.DivisionPCF.DivisionPCF
 open import Examples.DivisionPCF.EquationsPCF-ER
 open import Examples.DivisionPCF.SpecificationPCF
 
