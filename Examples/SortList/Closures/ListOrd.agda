@@ -6,16 +6,22 @@ module Examples.SortList.Closures.ListOrd where
 
 open import LTC.Minimal
 
-open import Examples.SortList.Closures.Bool
-  using ( ≤-ItemList-Bool ; ≤-Lists-Bool ; isListOrd-Bool)
+open import Examples.SortList.Closures.Bool using
+  ( ≤-ItemList-Bool ; ≤-Lists-Bool ; isListOrd-Bool
+  ; ≤-ItemTree-Bool ; ≤-TreeItem-Bool ; isTreeOrd-Bool
+  )
 open import Examples.SortList.Closures.List using ( flatten-List )
 open import Examples.SortList.Closures.TreeOrd
   using ( leftSubTree-TreeOrd ; rightSubTree-TreeOrd )
-open import Examples.SortList.Properties using ( subList-ListOrd ; xs≤[] )
+open import Examples.SortList.Properties
+  using ( subList-ListOrd ; xs≤[] ; listOrd-xs++ys→ys≤zs→xs++ys≤zs )
 open import Examples.SortList.SortList
 
-open import LTC.Data.Bool.Properties
-  using ( ≤-Bool ; x&&y≡true→x≡true ; x&&y≡true→y≡true )
+open import LTC.Data.Bool.Properties using
+  ( ≤-Bool
+  ; x&&y≡true→x≡true ; x&&y≡true→y≡true
+  ; w&&x&&y&&z≡true→y≡true ; w&&x&&y&&z≡true→z≡true
+  )
 open import LTC.Data.Nat.List.Type
 open import LTC.Data.Nat.Type
 open import LTC.Data.List
@@ -97,11 +103,11 @@ mutual
                       LE-Lists (flatten t₁) (flatten t₂) →
                       ListOrd (flatten (node t₁ i t₂))
       {-# ATP prove prf ++-ListOrd flatten-List
-                  leftSubTree-TreeOrd rightSubTree-TreeOrd
+                        leftSubTree-TreeOrd rightSubTree-TreeOrd
       #-}
 
-  flatten-ListOrd-aux : {t₁ i t₂ : D} → Tree t₁ → N i →
-                        Tree t₂ → TreeOrd (node t₁ i t₂) →
+  flatten-ListOrd-aux : {t₁ i t₂ : D} → Tree t₁ → N i → Tree t₂ →
+                        TreeOrd (node t₁ i t₂) →
                         LE-Lists (flatten t₁) (flatten t₂)
   flatten-ListOrd-aux {t₂ = t₂} nilT Niaux Tt₂ _ = prf
     where
@@ -134,13 +140,52 @@ mutual
                       LE-Lists (flatten (node ta j tb)) (flatten nilTree)
       {-# ATP prove prf xs≤[] #-}
 
-  flatten-ListOrd-aux (nodeT {ta} {j} {tb} Tta Nj Ttb)
+  flatten-ListOrd-aux {i = i} (nodeT {ta} {j} {tb} Tta Nj Ttb)
                       Ni
                       (tipT {k} Nk)
-                      TOnode = prf
+                      TOnode =
+    prf (flatten-List Tta)
+        (flatten-List Ttb)
+        (flatten-List (tipT Nk))
+        (++-ListOrd (flatten-List Tta)
+                    (flatten-List Ttb)
+                    (flatten-ListOrd Tta
+                                     (leftSubTree-TreeOrd Tta Nj Ttb
+                                                          treeOrd-ta-j-tb))
+                    (flatten-ListOrd Ttb
+                                     (rightSubTree-TreeOrd Tta Nj Ttb
+                                                           treeOrd-ta-j-tb))
+                    (flatten-ListOrd-aux Tta Nj Ttb treeOrd-ta-j-tb))
+        (flatten-ListOrd-aux Ttb Ni (tipT Nk) (treeOrd-tb-i-k tb≤-i))
     where
-      postulate prf : LE-Lists (flatten (node ta j tb)) (flatten (tip k))
-      {-# ATP prove prf #-}
+      postulate prf : ListN (flatten ta) →
+                      ListN (flatten tb) →
+                      ListN (flatten (tip k)) →
+                      ListOrd (flatten ta ++ flatten tb) → -- Indirect mutual
+                                                           -- IH and IH.
+                      LE-Lists (flatten tb) (flatten (tip k)) → -- IH.
+                      LE-Lists (flatten (node ta j tb)) (flatten (tip k))
+      {-# ATP prove prf listOrd-xs++ys→ys≤zs→xs++ys≤zs #-}
+
+      treeOrd-ta-j-tb : TreeOrd (node ta j tb)
+      treeOrd-ta-j-tb = leftSubTree-TreeOrd (nodeT Tta Nj Ttb) Ni (tipT Nk)
+                                            TOnode
+
+      postulate
+        tb≤-i : LE-TreeItem tb i
+      {-# ATP prove tb≤-i ≤-ItemTree-Bool ≤-TreeItem-Bool isTreeOrd-Bool
+                          x&&y≡true→y≡true w&&x&&y&&z≡true→y≡true
+      #-}
+
+      postulate
+        treeOrd-tb-i-k : ≤-TreeItem tb i ≡ true → -- NB. We need prove this
+                                                  -- hypothesis in a separate
+                                                  -- postulate.
+                         TreeOrd (node tb i (tip k))
+      {-# ATP prove treeOrd-tb-i-k rightSubTree-TreeOrd treeOrd-ta-j-tb
+                                   ≤-ItemTree-Bool ≤-TreeItem-Bool
+                                   isTreeOrd-Bool w&&x&&y&&z≡true→z≡true
+      #-}
 
   flatten-ListOrd-aux (nodeT {ta} {j} {tb} Tta Nj Ttb)
                       Ni
@@ -148,4 +193,4 @@ mutual
                       TOnode = prf
     where
       postulate prf : LE-Lists (flatten (node ta j tb))
-                                (flatten (node tc k td))
+                               (flatten (node tc k td))

@@ -173,86 +173,76 @@ open import Postulates using ( ++-ListOrd-aux₁ )
 postulate
   flatten-ListOrd : {t : D} → Tree t → TreeOrd t → ListOrd (flatten t)
 
--- -- If t is ordered then (flatten t) is ordered
--- flatten-ListOrd : {t : D} → Tree t → TreeOrd t → ListOrd (flatten t)
--- flatten-ListOrd nilT TOnilT = prf
---   where
---     postulate prf : ListOrd (flatten nilTree)
---     {-# ATP prove prf #-}
+-- treeOrd-tb-i-k : TreeOrd (node tb i (tip k))
+-- treeOrd-tb-i-k =
+--   begin
+--     isTreeOrd (node tb i (tip k))
+--       ≡⟨ isTreeOrd-node tb i (tip k) ⟩
+--     isTreeOrd tb && isTreeOrd (tip k) && ≤-TreeItem tb i && ≤-ItemTree i (tip k)
+--       ≡⟨ subst (λ t → isTreeOrd tb        &&
+--                       isTreeOrd (tip k)   &&
+--                       ≤-TreeItem tb i     &&
+--                       ≤-ItemTree i (tip k) ≡
+--                       t                   &&
+--                       isTreeOrd (tip k)   &&
+--                       ≤-TreeItem tb i     &&
+--                       ≤-ItemTree i (tip k) )
+--                (rightSubTree-TreeOrd Tta Nj Ttb aux)
+--                refl
+--       ⟩
+--     true && isTreeOrd (tip k) && ≤-TreeItem tb i && ≤-ItemTree i (tip k)
+--       ≡⟨ subst (λ t → true &&
+--                       isTreeOrd (tip k) &&
+--                       ≤-TreeItem tb i &&
+--                       ≤-ItemTree i (tip k) ≡
+--                       true &&
+--                       t &&
+--                       ≤-TreeItem tb i &&
+--                       ≤-ItemTree i (tip k))
+--                (isTreeOrd-tip k)
+--                refl
+--       ⟩
+--     true && true && ≤-TreeItem tb i && ≤-ItemTree i (tip k)
+--       ≡⟨ subst (λ t → true && true && ≤-TreeItem tb i && ≤-ItemTree i (tip k) ≡
+--                       true && true && t && ≤-ItemTree i (tip k) )
+--                (x&&y≡true→y≡true (≤-TreeItem-Bool Tta Ni)
+--                                  (≤-TreeItem-Bool Ttb Ni)
+--                                  (trans (sym (≤-TreeItem-node ta j tb i))
+--                                    (w&&x&&y&&z≡true→y≡true
+--                                      (isTreeOrd-Bool (nodeT Tta Nj Ttb))
+--                                        (isTreeOrd-Bool (tipT Nk))
+--                                        (≤-TreeItem-Bool (nodeT Tta Nj Ttb) Ni)
+--                                        (≤-ItemTree-Bool Ni (tipT Nk))
+--                                        (trans (sym (isTreeOrd-node
+--                                                    (node ta j tb)
+--                                                    i (tip k)))
+--                                               TOnode))))
+--                refl
+--       ⟩
+--     true && true && true && ≤-ItemTree i (tip k)
+--       ≡⟨ subst (λ t → true && true && true && ≤-ItemTree i (tip k) ≡
+--                       true && true && true && t )
+--                (w&&x&&y&&z≡true→z≡true
+--                  (isTreeOrd-Bool (nodeT Tta Nj Ttb))
+--                  (isTreeOrd-Bool (tipT Nk))
+--                  (≤-TreeItem-Bool (nodeT Tta Nj Ttb) Ni)
+--                  (≤-ItemTree-Bool Ni (tipT Nk))
+--                  (trans (sym (isTreeOrd-node (node ta j tb) i (tip k)))
+--                         TOnode))
+--          refl
+--       ⟩
+--     true && true && true && true
+--       ≡⟨ subst (λ t → true && true && true && true ≡ true && true && t)
+--                &&-tt
+--                refl
+--       ⟩
+--     true && true && true
+--       ≡⟨ subst (λ t → true && true && true ≡ true && t)
+--                &&-tt
+--                refl
+--       ⟩
+--     true && true
+--          ≡⟨ &&-tt ⟩
+--     true
+--   ∎
 
--- flatten-ListOrd (tipT {i} Ni ) TOtipT = prf
---   where
---     postulate prf : ListOrd (flatten (tip i))
---     {-# ATP prove prf #-}
-
--- flatten-ListOrd (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂ ) TOnodeT =
---   prf (flatten-ListOrd Tt₁ (leftSubTree-TreeOrd Tt₁ Ni Tt₂ TOnodeT))
---       (flatten-ListOrd Tt₂ (rightSubTree-TreeOrd Tt₁ Ni Tt₂ TOnodeT))
---       (flatten-ListOrd-aux Tt₁ Ni Tt₂ TOnodeT)
---   where
-
---     postulate prf : ListOrd (flatten t₁) → -- IH.
---                     ListOrd (flatten t₂) → -- IH.
---                     ≤-Lists (flatten t₁) (flatten t₂) ≡ true →
---                     ListOrd (flatten (node t₁ i t₂))
---     {-# ATP prove prf ++-ListOrd flatten-List
---                   leftSubTree-TreeOrd rightSubTree-TreeOrd
---     #-}
-
---     flatten-ListOrd-aux : {taux₁ iaux taux₂ : D} → Tree taux₁ → N iaux →
---                           Tree taux₂ → TreeOrd (node taux₁ iaux taux₂) →
---                           ≤-Lists (flatten taux₁) (flatten taux₂) ≡ true
---     flatten-ListOrd-aux {taux₂ = taux₂} nilT Niaux Ttaux₂ _ = prf-aux
---       where
---         postulate prf-aux : ≤-Lists (flatten nilTree) (flatten taux₂) ≡ true
---         {-# ATP prove prf-aux #-}
-
---     flatten-ListOrd-aux (tipT {j} Nj) Niaux nilT TOaux = prf-aux
---       where
---         postulate prf-aux : ≤-Lists (flatten (tip j)) (flatten nilTree) ≡ true
---         {-# ATP prove prf-aux #-}
-
---     flatten-ListOrd-aux (tipT {j} Nj) Niaux (tipT {k} Nk) TOaux = prf-aux
---       where
---         postulate prf-aux : ≤-Lists (flatten (tip j)) (flatten (tip k)) ≡ true
---         {-# ATP prove prf-aux #-}
-
---     flatten-ListOrd-aux (tipT {j} Nj) Niaux (nodeT {ta} {k} {tb} Tta Nk Ttb )
---                         TOaux = prf-aux
---       where
---         postulate prf-aux : ≤-Lists (flatten (tip j)) (flatten (node ta k tb)) ≡
---                             true
---         {-# ATP prove prf-aux #-}
-
---     flatten-ListOrd-aux (nodeT {ta} {j} {tb} Tta Nj Ttb) Niaux nilT TOaux =
---       prf-aux (flatten-List (nodeT Tta Nj Ttb))
---               (flatten-ListOrd (nodeT Tta Nj Ttb)
---               (leftSubTree-TreeOrd (nodeT Tta Nj Ttb) Niaux nilT TOaux))
---       where
---         postulate prf-aux : List (flatten (node ta j tb)) →
---                             ListOrd (flatten (node ta j tb)) → --IH.
---                             ≤-Lists (flatten (node ta j tb)) (flatten nilTree) ≡
---                             true
---         {-# ATP prove prf-aux xs≤[] #-}
-
---     flatten-ListOrd-aux (nodeT {ta} {j} {tb} Tta Nj Ttb) Niaux (tipT {k} Nk)
---                         TOaux = prf-aux
---       where
---         postulate prf-aux : ≤-Lists (flatten (node ta j tb)) (flatten (tip k)) ≡
---                             true
---         {-# ATP prove prf-aux #-}
-
---       -- begin
---       --   ≤-Lists (flatten (node ta j tb)) (flatten (tip k))
---       --     ≡⟨ {!!} ⟩
---       --   {!≤-Lists (flatten (tip k)!}
---       --   ≡⟨ {!!} ⟩
---       --   {!!} ≡⟨ {!!} ⟩
---       --   true
---       -- ∎
-
---     flatten-ListOrd-aux (nodeT {ta} {j} {tb} Tta Nj Ttb) Niaux
---                         (nodeT {tc} {k} {td} Ttc Nk Ttd) TOaux = prf-aux
---                         where
---                         postulate prf-aux : ≤-Lists (flatten (node ta j tb))
---                                             (flatten (node tc k td)) ≡ true
