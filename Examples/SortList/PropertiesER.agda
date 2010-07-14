@@ -14,6 +14,8 @@ open import Examples.SortList.SortList
 open import LTC.Data.Bool
 open import LTC.Data.Bool.PropertiesER using
   ( x&&y≡true→x≡true ; x&&y≡true→y≡true )
+open import LTC.Data.Nat.Inequalities
+open import LTC.Data.Nat.List.PropertiesER using ( ++-ListN )
 open import LTC.Data.Nat.List.Type
 open import LTC.Data.Nat.Type
 open import LTC.Data.List
@@ -61,3 +63,58 @@ xs≤[] (consLN {i} {is} Ni LNis) LOconsL =
       ≡⟨ &&-tt ⟩
     true
   ∎
+
+listOrd-xs++ys→ys≤zs→xs++ys≤zs :
+  {is js ks : D} → ListN is → ListN js → ListN ks → ListOrd (is ++ js) →
+  LE-Lists js ks → LE-Lists (is ++ js) ks
+
+listOrd-xs++ys→ys≤zs→xs++ys≤zs
+  {js = js} {ks = ks} nilLN LNjs LNks LOis++js js≤ks =
+  trans (subst (λ t → ≤-Lists ([] ++ js) ks ≡ ≤-Lists t ks)
+               (++-[] js)
+               refl)
+        js≤ks
+
+listOrd-xs++ys→ys≤zs→xs++ys≤zs
+  {js = js} {ks = ks} (consLN {i} {is} Ni LNis) LNjs LNks LOi∷is++js js≤ks =
+  begin
+    ≤-Lists ((i ∷ is) ++ js) ks
+      ≡⟨ subst (λ t → ≤-Lists ((i ∷ is) ++ js) ks ≡ ≤-Lists t ks)
+               (++-∷ i is js)
+               refl
+      ⟩
+    ≤-Lists (i ∷ (is ++ js)) ks
+      ≡⟨ ≤-Lists-∷ i (is ++ js) ks ⟩
+    ≤-ItemList i (is ++ js) && ≤-Lists (is ++ js) ks
+      ≡⟨ subst (λ t → ≤-ItemList i (is ++ js) && ≤-Lists (is ++ js) ks ≡
+                      t && ≤-Lists (is ++ js) ks)
+               (x&&y≡true→x≡true (≤-ItemList-Bool Ni (++-ListN LNis LNjs))
+                                 (isListOrd-Bool (++-ListN LNis LNjs))
+                                 (trans (sym (isListOrd-∷ i (is ++ js)))
+                                        (trans (subst (λ t → isListOrd (i ∷ is ++ js) ≡
+                                                             isListOrd t)
+                                                      (sym (++-∷ i is js))
+                                                      refl)
+                                               LOi∷is++js) ))
+
+               refl
+      ⟩
+    true && ≤-Lists (is ++ js) ks
+      ≡⟨ subst (λ t → true && ≤-Lists (is ++ js) ks ≡ true && t)
+               -- IH.
+               (listOrd-xs++ys→ys≤zs→xs++ys≤zs LNis LNjs LNks
+                 (x&&y≡true→y≡true (≤-ItemList-Bool Ni (++-ListN LNis LNjs))
+                                   (isListOrd-Bool (++-ListN LNis LNjs))
+                                   (trans (sym (isListOrd-∷ i (is ++ js)))
+                                          (trans (subst (λ t → isListOrd (i ∷ is ++ js) ≡
+                                                               isListOrd t)
+                                                        (sym (++-∷ i is js))
+                                                        refl)
+                                                 LOi∷is++js) ))
+                 js≤ks)
+               refl
+      ⟩
+    true && true ≡⟨ &&-tt ⟩
+    true
+  ∎
+

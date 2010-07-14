@@ -10,9 +10,10 @@ open import Examples.SortList.Closures.Bool using
   ( ≤-ItemList-Bool ; isListOrd-Bool )
 open import Examples.SortList.SortList
 
-open import LTC.Data.Bool.PropertiesER using
+open import LTC.Data.Bool.Properties using
   ( x&&y≡true→x≡true ; x&&y≡true→y≡true )
 
+open import LTC.Data.Nat.List.Properties using ( ++-ListN )
 open import LTC.Data.Nat.List.Type
 open import LTC.Data.Nat.Type
 open import LTC.Data.List
@@ -40,3 +41,31 @@ xs≤[] (consLN {i} {is} Ni LNis) LOconsL =
     postulate prf : LE-Lists is []  → --IH.
                     LE-Lists (i ∷ is) []
     {-# ATP prove prf ≤-ItemList-Bool isListOrd-Bool x&&y≡true→x≡true #-}
+
+listOrd-xs++ys→ys≤zs→xs++ys≤zs :
+  {is js ks : D} → ListN is → ListN js → ListN ks → ListOrd (is ++ js) →
+  LE-Lists js ks → LE-Lists (is ++ js) ks
+
+listOrd-xs++ys→ys≤zs→xs++ys≤zs
+  {js = js} {ks = ks} nilLN LNjs LNks LOis++js js≤ks = prf
+  where
+    postulate prf : LE-Lists ([] ++ js) ks
+    {-# ATP prove prf #-}
+
+listOrd-xs++ys→ys≤zs→xs++ys≤zs
+  {js = js} {ks = ks} (consLN {i} {is} Ni LNis) LNjs LNks LOi∷is++js js≤ks =
+  prf (listOrd-xs++ys→ys≤zs→xs++ys≤zs LNis LNjs LNks
+         (x&&y≡true→y≡true (≤-ItemList-Bool Ni (++-ListN LNis LNjs))
+                           (isListOrd-Bool (++-ListN LNis LNjs))
+                           (trans (sym (isListOrd-∷ i (is ++ js)))
+                                  (trans aux LOi∷is++js)))
+                           js≤ks)
+  where
+    postulate prf :  LE-Lists (is ++ js) ks → -- IH
+                     LE-Lists ((i ∷ is) ++ js) ks
+    {-# ATP prove prf ≤-ItemList-Bool isListOrd-Bool x&&y≡true→x≡true
+                      ++-ListN
+    #-}
+
+    postulate aux : isListOrd (i ∷ is ++ js) ≡ isListOrd ((i ∷ is) ++ js)
+    {-# ATP prove aux #-}
