@@ -178,9 +178,9 @@ mutual
       #-}
 
       postulate
-        treeOrd-tb-i-k : ≤-TreeItem tb i ≡ true → -- NB. We need prove this
-                                                  -- hypothesis in a separate
-                                                  -- postulate.
+        treeOrd-tb-i-k : LE-TreeItem tb i → -- NB. We need prove this
+                                            -- hypothesis in a separate
+                                            -- postulate.
                          TreeOrd (node tb i (tip k))
       {-# ATP prove treeOrd-tb-i-k rightSubTree-TreeOrd treeOrd-ta-j-tb
                                    ≤-ItemTree-Bool ≤-TreeItem-Bool
