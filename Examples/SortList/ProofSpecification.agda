@@ -21,7 +21,7 @@ open import Examples.SortList.SortList
 open import LTC.Data.Nat.List.Type
 
 ------------------------------------------------------------------------------
-
+-- The sort program generates an ordered list.
 postulate
   sort-ListOrd : {is : D} → ListN is → ListOrd (sort is)
 {-# ATP prove sort-ListOrd flatten-ListOrd makeTree-Tree makeTree-TreeOrd #-}
