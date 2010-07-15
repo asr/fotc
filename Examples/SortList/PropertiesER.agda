@@ -88,14 +88,15 @@ listOrd-xs++ys→ys≤zs→xs++ys≤zs
     ≤-ItemList i (is ++ js) && ≤-Lists (is ++ js) ks
       ≡⟨ subst (λ t → ≤-ItemList i (is ++ js) && ≤-Lists (is ++ js) ks ≡
                       t && ≤-Lists (is ++ js) ks)
-               (x&&y≡true→x≡true (≤-ItemList-Bool Ni (++-ListN LNis LNjs))
-                                 (isListOrd-Bool (++-ListN LNis LNjs))
-                                 (trans (sym (isListOrd-∷ i (is ++ js)))
-                                        (trans (subst (λ t → isListOrd (i ∷ is ++ js) ≡
-                                                             isListOrd t)
-                                                      (sym (++-∷ i is js))
-                                                      refl)
-                                               LOi∷is++js) ))
+               (x&&y≡true→x≡true
+                 (≤-ItemList-Bool Ni (++-ListN LNis LNjs))
+                 (isListOrd-Bool (++-ListN LNis LNjs))
+                 (trans (sym (isListOrd-∷ i (is ++ js)))
+                        (trans (subst (λ t → isListOrd (i ∷ is ++ js) ≡
+                                             isListOrd t)
+                                      (sym (++-∷ i is js))
+                                      refl)
+                               LOi∷is++js) ))
 
                refl
       ⟩
@@ -103,14 +104,15 @@ listOrd-xs++ys→ys≤zs→xs++ys≤zs
       ≡⟨ subst (λ t → true && ≤-Lists (is ++ js) ks ≡ true && t)
                -- IH.
                (listOrd-xs++ys→ys≤zs→xs++ys≤zs LNis LNjs LNks
-                 (x&&y≡true→y≡true (≤-ItemList-Bool Ni (++-ListN LNis LNjs))
-                                   (isListOrd-Bool (++-ListN LNis LNjs))
-                                   (trans (sym (isListOrd-∷ i (is ++ js)))
-                                          (trans (subst (λ t → isListOrd (i ∷ is ++ js) ≡
-                                                               isListOrd t)
-                                                        (sym (++-∷ i is js))
-                                                        refl)
-                                                 LOi∷is++js) ))
+                 (x&&y≡true→y≡true
+                   (≤-ItemList-Bool Ni (++-ListN LNis LNjs))
+                   (isListOrd-Bool (++-ListN LNis LNjs))
+                   (trans (sym (isListOrd-∷ i (is ++ js)))
+                          (trans (subst (λ t → isListOrd (i ∷ is ++ js) ≡
+                                               isListOrd t)
+                                        (sym (++-∷ i is js))
+                                        refl)
+                                 LOi∷is++js) ))
                  js≤ks)
                refl
       ⟩
