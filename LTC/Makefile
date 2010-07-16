@@ -11,11 +11,15 @@ conjectures :
 conjecturesPCF :
 	./test-conjecturesPCF.bash
 
-only-type-checking :
-	$(AGDA) -i $(agda-path) EverythingER.agda
+type-checking :
 	$(AGDA) -i $(agda-path) Everything.agda
 
-test : only-type-checking conjectures conjecturesPCF
+type-checking-ER :
+	$(AGDA) -i $(agda-path) EverythingER.agda
+
+type-checking-all : type-checking-ER type-checking
+
+test : type-checking-all conjectures conjecturesPCF
 
 publish :
 	rm -r -f html/

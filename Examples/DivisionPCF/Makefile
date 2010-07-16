@@ -8,11 +8,15 @@ agda-path = /home/asr/code/phd/LTC/LTC-ATP/
 conjecturesPCF :
 	./test-conjecturesPCF.bash
 
-only-type-checking :
-	$(AGDA) -i $(agda-path) ProofSpecificationPCF-ER.agda
+type-checking :
 	$(AGDA) -i $(agda-path) ProofSpecificationPCF.agda
 
-test : only-type-checking conjecturesPCF
+type-checking-ER :
+	$(AGDA) -i $(agda-path) ProofSpecificationPCF-ER.agda
+
+type-checking-all : type-checking-ER type-checking
+
+test : type-checking-all conjecturesPCF
 
 publish :
 	rm -r -f html/

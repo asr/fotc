@@ -11,12 +11,23 @@ conjecturesPCF :
 	$(MAKE) -C Examples/DivisionPCF conjecturesPCF
 	$(MAKE) -C Examples/GCD-PCF     conjecturesPCF
 
-only-type-checking :
-	$(MAKE) -C LTC                  only-type-checking
-	$(MAKE) -C Examples/DivisionPCF only-type-checking
-	$(MAKE) -C Examples/GCD         only-type-checking
-	$(MAKE) -C Examples/GCD-PCF     only-type-checking
-	$(MAKE) -C Examples/SortList    only-type-checking
+type-checking :
+	$(MAKE) -C LTC                  type-checking
+	$(MAKE) -C Examples/DivisionPCF type-checking
+	$(MAKE) -C Examples/GCD         type-checking
+	$(MAKE) -C Examples/GCD-PCF     type-checking
+	$(MAKE) -C Examples/SortList    type-checking
+
+type-checking-ER :
+	$(MAKE) -C LTC                  type-checking-ER
+	$(MAKE) -C Examples/DivisionPCF type-checking-ER
+	$(MAKE) -C Examples/GCD         type-checking-ER
+	$(MAKE) -C Examples/GCD-PCF     type-checking-ER
+	$(MAKE) -C Examples/SortList    type-checking-ER
+
+type-checking-all : type-checking-ER type-checking
+
+test : only-type-checking axioms conjectures conjecturesPCF
 
 publish :
 	$(MAKE) -C LTC                  publish
@@ -24,8 +35,6 @@ publish :
 	$(MAKE) -C Examples/GCD         publish
 	$(MAKE) -C Examples/GCD-PCF     publish
 	$(MAKE) -C Examples/SortList    publish
-
-test : only-type-checking axioms conjectures conjecturesPCF
 
 clean :
 	-find -name '*.agdai' | xargs rm -f
