@@ -9,7 +9,7 @@ open import LTC.Minimal
 open import Examples.DivisionPCF.DivisionPCF
 open import LTC.Data.NatPCF
 open import LTC.Data.NatPCF.InequalitiesPCF
-open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF-ER using ( x≥y→x≮y )
+open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF using ( x≥y→x≮y )
 
 ----------------------------------------------------------------------
 -- The division result when the dividend is minor than the
