@@ -11,40 +11,20 @@ postulate
 
 module Conjunction where
 
-  infixr 4 _,_
-  infixr 2 _×_
+  -- N.B. It is not necessary to define neither the data constructor
+  -- _,_, nor the projections -- because the ATPs implement it.
+  data _∧_ (A B : Set) : Set where
 
-  -- We want to use the product type to define the conjunction type
-  record _×_ (A B : Set) : Set where
-    constructor _,_
-    field
-      proj₁ : A
-      proj₂ : B
-
-  -- N.B. It is not necessary to add the constructor _,_, nor the fields
-  -- proj₁, proj₂ as hints, because the ATP implements it.
-
-  _∧_ : (A B : Set) → Set
-  A ∧ B = A × B
-
+  -- Testing the data constructor and the projections.
   postulate
-    P   : D → Set
-    d e : D
-
-  -- Testing the conjunction data constructor
-  postulate
-    testAndDataConstructor : P d → P e → P d ∧ P e
-  {-# ATP prove testAndDataConstructor #-}
-
-  -- Testing the first projection
-  postulate
-    testProj₁ : P d ∧ P e → P d
-  {-# ATP prove testProj₁ #-}
-
-  -- Testing the second projection
-  postulate
-    testProj₂ : P d ∧ P e → P e
-  {-# ATP prove testProj₂ #-}
+    A B     : Set
+    d e     : D
+    _,_     : A → B → A ∧ B
+    ∧-proj₁ : A ∧ B → A
+    ∧-proj₂ : A ∧ B → B
+  {-# ATP prove _,_ #-}
+  {-# ATP prove ∧-proj₁ #-}
+  {-# ATP prove ∧-proj₂ #-}
 
 ------------------------------------------------------------------------------
 -- The negation
@@ -59,8 +39,7 @@ module Negation where
   ¬ A = A → ⊥
 
   postulate
-    true  : D
-    false : D
+    true false : D
 
   postulate
     true≠false : ¬ (true ≡ false)
@@ -76,43 +55,28 @@ module Negation where
 module Disjunction where
   infixr 1 _∨_
 
-  -- N.B. It is not necessary to add the constructors inj₁ and inj₂
-  -- nor the elimantion [_,_] as hints, because the ATP implements it.
-
+  -- N.B. It is not necessary to define neither the data constructors
+  -- inj₁ and inj₂ nor the disyunction elimination because the ATP
+  -- implements them.
   data _∨_ (A B : Set) : Set where
-    inj₁ : (x : A) → A ∨ B
-    inj₂ : (y : B) → A ∨ B
 
-  [_,_] : {A B C : Set} → (A → C) → (B → C) → A ∨ B → C
-  [ f , g ] (inj₁ x) = f x
-  [ f , g ] (inj₂ y) = g y
-
+  -- Testing the data constructors and the elimination.
   postulate
-    P   : D → Set
-    d e f : D
-
-  -- Testing the disjunction data constructors
-  postulate
-    inj₁Or : P d → P d ∨ P e
-    inj₂Or : P e → P d ∨ P e
-  {-# ATP prove inj₁Or #-}
-  {-# ATP prove inj₂Or #-}
-
-  -- Testing the disjunction elimination
-  postulate
-    A : Set
-    B : Set
-    orElim :  (P d → P f) → (P e → P f) → P d ∨ P e → P f
-  {-# ATP prove orElim #-}
+    A B C : Set
+    inj₁  : A → A ∨ B
+    inj₂  : B → A ∨ B
+    [_,_] : (A → C) → (B → C) → A ∨ B → C
+  {-# ATP prove inj₁ #-}
+  {-# ATP prove inj₂ #-}
+  {-# ATP prove [_,_] #-}
 
 ------------------------------------------------------------------------------
 -- The existential type of D
 
-  module ExistentialQuantifier where
+module ExistentialQuantifier where
 
-    data ∃D (P : D → Set) : Set where
+  data ∃D (P : D → Set) : Set where
 
-    postulate
-      test1 : (d : D) → ∃D (λ e → e ≡ d)
-    {-# ATP prove test1 #-}
-
+  postulate
+    test : (d : D) → ∃D (λ e → e ≡ d)
+  {-# ATP prove test #-}
