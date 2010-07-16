@@ -35,7 +35,7 @@ $(succeedConjectures) : % : %.agda
 
 $(failConjectures) : % : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
-# The do not proved conjectures return error, therefore we wrapped it.
+# The unproven conjectures return an error, therefore we wrapped it.
 	@if ( agda2atp --time 5 $< ); then exit 1; fi
 
 # The tests
@@ -47,4 +47,4 @@ test : axioms succeed fail
 
 clean :
 	find -name '*.agdai' | xargs rm -f
-	rm -f /tmp/*.tptp /tmp/*.output
+	rm -f /tmp/*.tptp
