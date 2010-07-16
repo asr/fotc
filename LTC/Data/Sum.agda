@@ -7,6 +7,9 @@ module LTC.Data.Sum where
 infixr 1 _∨_
 
 -----------------------------------------------------------------------------
+-- N.B. It is not necessary to add the data constructors inj₁ and inj₂
+-- as hints nor strictly it is nececessary to define the eliminator
+-- [_,_] because the ATPs implement them.
 
 data _∨_ (A B : Set) : Set where
   inj₁ : (x : A) → A ∨ B
