@@ -27,7 +27,7 @@ type-checking-ER :
 
 type-checking-all : type-checking-ER type-checking
 
-test : only-type-checking axioms conjectures conjecturesPCF
+test : type-checking-all axioms conjectures conjecturesPCF
 
 publish :
 	$(MAKE) -C LTC                  publish
