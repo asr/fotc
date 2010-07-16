@@ -75,8 +75,8 @@ binConst op arg1 arg2 = do f1 <- argTermToFormula arg1
 
 termToFormula :: AgdaTerm -> T FormulaFOL
 termToFormula term@(Def (QName _ name) args) = do
-    lift $ lift $ reportSLn "termToFormula" 10 $
-             "Processing termToFormula Def:\n" ++ show term
+    lift $ lift $ reportSLn "termToFormula" 10 $ "termToFormula Def:\n" ++
+                                                 show term
 
     let cName :: C.Name
         cName = nameConcrete name
@@ -131,22 +131,22 @@ termToFormula term@(Def (QName _ name) args) = do
                       return $ Predicate (show cName) [t]
 
             (a1:a2:[])
-                | isCNameConstFOLTwoHoles andFOL     -> binConst And a1 a2
+                | isCNameConstFOLTwoHoles andFOL -> binConst And a1 a2
 
                 -- We are not using the FOL constants impliesFOL
                 -- isCNameConstFOLTwoHoles impliesFOL -> binConst Implies a1 a2
 
-                | isCNameConstFOLTwoHoles orFOL      -> binConst Or a1 a2
+                | isCNameConstFOLTwoHoles orFOL -> binConst Or a1 a2
 
                 -- We are not using the FOL constants equivFOL
-                -- isCNameConstFOLTwoHoles equivFOL   -> binConst Equiv a1 a2
+                -- isCNameConstFOLTwoHoles equivFOL -> binConst Equiv a1 a2
 
-                | isCNameConstFOLTwoHoles equalsFOL
-                    -> do lift $ lift $ reportSLn "termToFormula" 20
-                                   "Processing equals"
-                          t1 <- termToTermFOL $ unArg a1
-                          t2 <- termToTermFOL $ unArg a2
-                          return $ equal [t1, t2]
+                | isCNameConstFOLTwoHoles equalsFOL -> do
+                    lift $ lift $ reportSLn "termToFormula" 20
+                                            "Processing equals"
+                    t1 <- termToTermFOL $ unArg a1
+                    t2 <- termToTermFOL $ unArg a2
+                    return $ equal [t1, t2]
 
                 | otherwise -> do
                       lift $ lift $ reportSLn "termToFormula" 20 $
@@ -174,16 +174,16 @@ termToFormula term@(Def (QName _ name) args) = do
                 cName == C.Name noRange [C.Hole, C.Id constFOL, C.Hole]
 
 termToFormula term@(Fun tyArg ty) = do
-  lift $ lift $ reportSLn "termToFormula" 10 $
-           "Processing termToFormula Fun:\n" ++ show term
+  lift $ lift $ reportSLn "termToFormula" 10 $ "termToFormula Fun:\n" ++
+                                               show term
   f1 <- typeToFormula $ unArg tyArg
   f2 <- typeToFormula ty
   return $ Implies f1 f2
 
 -- TODO: To add test for this case.
 termToFormula term@(Lam _ (Abs _ termLam)) = do
-  lift $ lift $ reportSLn "termToFormula" 10 $
-           "Processing termToFormula Lam:\n" ++ show term
+  lift $ lift $ reportSLn "termToFormula" 10 $ "termToFormula Lam:\n" ++
+                                               show term
 
   vars <- lift get
 
@@ -198,8 +198,8 @@ termToFormula term@(Lam _ (Abs _ termLam)) = do
   return f
 
 termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
-  lift $ lift $ reportSLn "termToFormula" 10 $
-           "Processing termToFormula Pi:\n" ++ show term
+  lift $ lift $ reportSLn "termToFormula" 10 $ "termToFormula Pi:\n" ++
+                                               show term
 
   vars <- lift get
 
@@ -274,8 +274,8 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
 
 -- TODO: To add test for this case.
 termToFormula term@(Var n _) = do
-  lift $ lift $ reportSLn "termToFormula" 10 $
-           "Processing termToFormula Var: " ++ show term
+  lift $ lift $ reportSLn "termToFormula" 10 $ "termToFormula Var: " ++
+                                               show term
 
   vars <- lift get
 
@@ -298,8 +298,8 @@ appArgs fn args = do
 termToTermFOL :: AgdaTerm -> T TermFOL
 -- TODO: The code for the cases Con and Def is similar.
 termToTermFOL term@(Con (QName _ name) args)  = do
-  lift $ lift $ reportSLn "termToTermFOL" 10 $
-           "Processing termToTermFOL Con:\n" ++ show term
+  lift $ lift $ reportSLn "termToTermFOL" 10 $ "termToTermFOL Con:\n" ++
+                                               show term
 
   let cName :: C.Name
       cName = nameConcrete name
@@ -327,8 +327,8 @@ termToTermFOL term@(Con (QName _ name) args)  = do
         _  -> appArgs (concatName parts) args
 
 termToTermFOL term@(Def (QName _ name) args) = do
-  lift $ lift $ reportSLn "termToTermFOL" 10 $
-           "Processing termToTermFOL Def:\n" ++ show term
+  lift $ lift $ reportSLn "termToTermFOL" 10 $ "termToTermFOL Def:\n" ++
+                                               show term
 
   let cName :: C.Name
       cName = nameConcrete name
@@ -356,8 +356,8 @@ termToTermFOL term@(Def (QName _ name) args) = do
         _  -> appArgs (concatName parts) args
 
 termToTermFOL term@(Var n args) = do
-  lift $ lift $ reportSLn "termToTermFOL" 10 $
-           "Processing termToTermFOL Var:\n" ++ show term
+  lift $ lift $ reportSLn "termToTermFOL" 10 $ "termToTermFOL Var:\n" ++
+                                               show term
 
   vars <- lift get
 
