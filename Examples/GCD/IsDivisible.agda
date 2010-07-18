@@ -125,8 +125,8 @@ gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ c Nc =
 ---------------------------------------------------------------------------
 -- The 'gcd m n' when 'm ≤ n' is Divisible.
 
--- N.B. If '≤' were an inductive data type, we would use the absurd pattern
--- to prove the third case.
+-- N.B. If '≤' were an inductive data type, we would use the absurd
+-- pattern to prove the third case.
 
 gcd-x≤y-Divisible :
   {m n : D} → N m → N n →

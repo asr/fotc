@@ -17,8 +17,7 @@ infix  5 if_then_else_
 infix  4 _≡_
 
 ------------------------------------------------------------------------------
--- The universal domain
-
+-- The universal domain.
 -- N.B. The following module is exported by this module.
 open import LTC.Minimal.Core public
 

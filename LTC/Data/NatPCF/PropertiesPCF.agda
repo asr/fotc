@@ -63,7 +63,7 @@ postulate
 {-# ATP prove *-0x rec-0 #-}
 
 -- TODO: Why is it necessary to use the hypothesis
--- *-aux₂ e d ∙ (d * e) ≡ lam (*-aux₁ e) ∙ (d * e)
+-- *-aux₂ e d ∙ (d * e) ≡ lam (*-aux₁ e) ∙ (d * e).
 *-Sx : (d e : D) → succ d * e ≡ e + (d * e)
 *-Sx d e = prf refl
   where
@@ -111,7 +111,7 @@ minus-N (sN {m} Nm) (sN {n} Nn) = prf $ minus-N Nm Nn
     {-# ATP prove prf +-N *-Sx #-}
 
 ------------------------------------------------------------------------------
--- Some proofs are based on the proofs in the standard library
+-- Some proofs are based on the proofs in the standard library.
 
 +-leftIdentity : {n : D} → N n → zero + n ≡ n
 +-leftIdentity {n} _ = +-0x n

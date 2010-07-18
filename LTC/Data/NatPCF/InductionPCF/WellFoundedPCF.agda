@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Well-founded induction on Nat
+-- Well-founded induction on the natural numbers
 ------------------------------------------------------------------------------
 
 module LTC.Data.NatPCF.InductionPCF.WellFoundedPCF where
@@ -10,8 +10,8 @@ open import LTC.Data.NatPCF
 open import LTC.Data.NatPCF.InequalitiesPCF
 open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF
 
-------------------------------------------------------------------------------
--- Well-founded induction on Nat
+--------------------------------------------------------------------------------
+-- Well-founded induction on N.
 -- Adapted from http://code.haskell.org/~dolio/agda-share/induction/.
 
 wfIndN-LT :

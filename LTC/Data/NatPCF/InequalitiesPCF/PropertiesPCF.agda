@@ -310,7 +310,8 @@ postulate
 {-# ATP prove ¬0Sx<00 ¬x<0 sN #-}
 
 postulate
-  x₁y<x₂0→x₁<x₂ : {m₁ n m₂ : D} → N m₁ → N n → N m₂ → LT₂ m₁ n m₂ zero → LT m₁ m₂
+  x₁y<x₂0→x₁<x₂ : {m₁ n m₂ : D} → N m₁ → N n → N m₂ → LT₂ m₁ n m₂ zero →
+                  LT m₁ m₂
 {-# ATP prove x₁y<x₂0→x₁<x₂ ¬x<0 #-}
 
 postulate

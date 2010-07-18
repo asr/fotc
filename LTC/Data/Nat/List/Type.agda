@@ -1,6 +1,6 @@
-------------------------------------------------------------------------------
+----------------------------------------------------------------------------
 -- The LTC list of natural numbers type
-------------------------------------------------------------------------------
+----------------------------------------------------------------------------
 
 module LTC.Data.Nat.List.Type where
 
@@ -10,8 +10,7 @@ open import LTC.Data.Nat
 open import LTC.Data.List
 
 ------------------------------------------------------------------------------
-
--- The LTC list of natural numbers type
+-- The LTC list of natural numbers type.
 data ListN : D → Set where
   nilLN  : ListN []
   consLN : {n ns : D} → N n → (LNns : ListN ns) → ListN (n ∷ ns)

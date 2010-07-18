@@ -9,13 +9,12 @@ open import LTC.Minimal
 open import LTC.Data.List
 
 ------------------------------------------------------------------------------
-
--- The LTC list type
+-- The LTC list type.
 data List : D → Set where
   nilL  : List []
   consL : (d : D){ds : D} → (Lds : List ds) → List (d ∷ ds)
 
--- Induction principle for List
+-- Induction principle for List.
 indList : (P : D → Set) →
           P [] →
           ((d : D){ds : D} → List ds → P ds → P (d ∷ ds)) →

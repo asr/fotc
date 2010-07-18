@@ -8,7 +8,6 @@ open import LTC.Minimal
 
 open import Examples.SortList.SortList
 
-
 open import LTC.Data.Bool
 open import LTC.Data.List
 open import LTC.Data.Nat.Type

@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------------
--- The program to sort a list satisfies the specification
--- (using equational reasoning)
+-- The program to sort a list satisfies the specification (using
+-- equational reasoning)
 ------------------------------------------------------------------------------
 
 -- This module prove the correctness of a program which sorts a list

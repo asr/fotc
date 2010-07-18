@@ -6,7 +6,7 @@ module LTC.Data.List where
 
 open import LTC.Minimal
 
-infixr 5 _∷_
+infixr 5 _∷_ _++_
 
 ------------------------------------------------------------------------------
 -- List terms
@@ -16,8 +16,6 @@ postulate
 
 ------------------------------------------------------------------------------
 -- Basic functions
-
-infixr 5 _++_
 
 postulate
   length : D → D

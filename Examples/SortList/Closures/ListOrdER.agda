@@ -245,4 +245,3 @@ postulate
 --          ≡⟨ &&-tt ⟩
 --     true
 --   ∎
-

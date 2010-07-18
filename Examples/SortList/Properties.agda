@@ -19,7 +19,6 @@ open import LTC.Data.Nat.Type
 open import LTC.Data.List
 
 ------------------------------------------------------------------------------
-
 -- If (i ∷ is) is ordered then 'is' is ordered.
 -- This function is defined in this module to avoid cyclical dependencies.
 subList-ListOrd : {i : D} → N i → {is : D} → ListN is → ListOrd (i ∷ is) →

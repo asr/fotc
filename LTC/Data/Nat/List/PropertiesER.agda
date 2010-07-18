@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------------
--- Properties related with lists of natural numbers
--- (using equational reasoning )
+-- Properties related with lists of natural numbers (using equational
+-- reasoning)
 ------------------------------------------------------------------------------
 
 module LTC.Data.Nat.List.PropertiesER where

@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Functions on equalities
+-- Properties on equalities
 ------------------------------------------------------------------------------
 
 module LTC.Relation.Equalities.Properties where

@@ -22,7 +22,7 @@ indBool P pt pf tB = pt
 indBool P pt pf fB = pf
 
 ------------------------------------------------------------------------------
--- Basic functions.
+-- Basic functions
 
 -- The conjunction.
 postulate

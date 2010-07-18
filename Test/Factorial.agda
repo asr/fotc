@@ -1,3 +1,7 @@
+------------------------------------------------------------------------------
+-- The factorial
+------------------------------------------------------------------------------
+
 module Test.Factorial where
 
 open import LTC.Minimal
@@ -5,8 +9,6 @@ open import LTC.Minimal
 open import LTC.Data.Nat
 
 ------------------------------------------------------------------------------
--- The factorial
-
 -- The original fach
 -- fach : D → D
 -- fach f = lam (λ n → if (isZero n) then (succ zero) else n * (f ∙ (pred n)))

@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Arithmetic properties on total natural numbers
+-- Arithmetic properties
 ------------------------------------------------------------------------------
 
 module LTC.Data.Nat.Properties where

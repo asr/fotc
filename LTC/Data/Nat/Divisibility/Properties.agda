@@ -20,9 +20,7 @@ open import MyStdLib.Function
 postulate S∣0 : {n : D} → N n →  succ n ∣ zero
 {-# ATP prove S∣0 zN #-}
 
-------------------------------------------------------------------------------
 -- The divisibility relation is reflexive for positive numbers.
-
 -- For the proof using the ATP we added the auxiliar hypothesis
 -- N (succ zero).
 postulate ∣-refl-S-ah : {n : D} → N n → N (succ zero) → succ n ∣ succ n
@@ -31,12 +29,10 @@ postulate ∣-refl-S-ah : {n : D} → N n → N (succ zero) → succ n ∣ succ 
 ∣-refl-S : {n : D} → N n → succ n ∣ succ n
 ∣-refl-S Nn = ∣-refl-S-ah Nn (sN zN)
 
-------------------------------------------------------------------------------
 -- 0 doesn't divide any number.
 0∤x : {d : D} → ¬ (zero ∣ d)
 0∤x ( 0≠0 , _ ) = ⊥-elim $ 0≠0 refl
 
-------------------------------------------------------------------------------
 -- If 'x' divides 'y' and 'z' then 'x' divides 'y - z'.
 postulate
   x∣y→x∣z→x∣y-z-ah : {m n p k₁ k₂ : D} → N m → N n → N k₁ → N k₂ →
@@ -55,7 +51,6 @@ x∣y→x∣z→x∣y-z (sN Nm) Nn Np
   minus-N Nk₁ Nk₂ ,
   x∣y→x∣z→x∣y-z-ah Nm Nn Nk₁ Nk₂ n≡k₁Sm p≡k₂Sm
 
-------------------------------------------------------------------------------
 -- If 'x' divides 'y' and 'z' then 'x' divides 'y + z'.
 postulate
   x∣y→x∣z→x∣y+z-ah : {m n p k₁ k₂ : D} → N m → N n → N k₁ → N k₂ →
@@ -74,9 +69,7 @@ x∣y→x∣z→x∣y+z (sN Nm) Nn Np
   +-N Nk₁ Nk₂ ,
   x∣y→x∣z→x∣y+z-ah Nm Nn Nk₁ Nk₂ n≡k₁Sm p≡k₂Sm
 
-------------------------------------------------------------------------------
 -- If x divides y, and y is positive, then x ≤ y.
-
 postulate
   x∣S→x≤S-ah₁ : {m n : D} → succ n ≡ zero * succ m → ⊥
 {-# ATP prove x∣S→x≤S-ah₁ #-}

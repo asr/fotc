@@ -13,7 +13,6 @@ open import LTC.Data.Nat.List.Type
 open import LTC.Data.Nat.List.Properties using ( ++-ListN )
 
 ------------------------------------------------------------------------------
-
 -- The function flatten generates a list.
 flatten-List : {t : D} → Tree t → ListN (flatten t)
 flatten-List nilT = prf

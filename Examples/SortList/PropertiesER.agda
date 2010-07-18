@@ -25,7 +25,6 @@ open module Properties-ER =
   MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 ------------------------------------------------------------------------------
-
 -- If (i ∷ is) is ordered then 'is' is ordered.
 -- This function is defined in this module to avoid cyclical dependencies.
 subList-ListOrd : {i : D} → N i → {is : D} → ListN is → ListOrd (i ∷ is) →
@@ -119,4 +118,3 @@ listOrd-xs++ys→ys≤zs→xs++ys≤zs
     true && true ≡⟨ &&-tt ⟩
     true
   ∎
-

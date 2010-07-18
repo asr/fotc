@@ -1,6 +1,6 @@
-------------------------------------------------------------------------------
--- Well-founded induction on Nat
-------------------------------------------------------------------------------
+----------------------------------------------------------------------------
+-- Well-founded induction on the natural numbers
+----------------------------------------------------------------------------
 
 module LTC.Data.Nat.Induction.WellFounded where
 
@@ -10,8 +10,8 @@ open import LTC.Data.Nat.Type
 open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.Inequalities.Properties
 
-------------------------------------------------------------------------------
--- Well-founded induction on N
+--------------------------------------------------------------------------------
+-- Well-founded induction on N.
 -- Adapted from http://code.haskell.org/~dolio/agda-share/induction/.
 
 wfIndN-LT :

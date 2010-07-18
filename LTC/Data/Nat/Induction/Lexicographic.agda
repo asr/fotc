@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Well-founded induction on the lexicographic order on Nat
+-- Well-founded induction on the lexicographic order the natural numbers
 ------------------------------------------------------------------------------
 
 module LTC.Data.Nat.Induction.Lexicographic where

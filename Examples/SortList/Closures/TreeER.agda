@@ -14,7 +14,6 @@ open import LTC.Data.Nat.List.Type
 open import LTC.Data.List
 
 ------------------------------------------------------------------------------
-
 -- See the ATP version.
 postulate
   toTree-Tree : {item : D}{t : D} → N item → Tree t → Tree (toTree ∙ item ∙ t)
