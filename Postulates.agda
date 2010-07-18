@@ -15,6 +15,7 @@ open import LTC.Data.Nat.Type
 open import LTC.Data.Nat.List.Type
 
 ------------------------------------------------------------------------------
+-- TODO: Remove the postulates.
 
 postulate
   ++-ListOrd-aux₁ : {item is js : D} → N item → ListN is → ListN js →
