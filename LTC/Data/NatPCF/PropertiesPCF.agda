@@ -62,14 +62,9 @@ postulate
   *-0x : (d : D) → zero * d ≡ zero
 {-# ATP prove *-0x rec-0 #-}
 
--- TODO: Why is it necessary to use the hypothesis
--- *-aux₂ e d ∙ (d * e) ≡ lam (*-aux₁ e) ∙ (d * e).
-*-Sx : (d e : D) → succ d * e ≡ e + (d * e)
-*-Sx d e = prf refl
-  where
-    postulate prf : *-aux₂ e d ∙ (d * e) ≡ lam (*-aux₁ e) ∙ (d * e) →
-                    succ d * e ≡ e + (d * e)
-    {-# ATP prove prf rec-S #-}
+postulate
+  *-Sx : (d e : D) → succ d * e ≡ e + (d * e)
+{-# ATP prove *-Sx rec-S #-}
 
 ------------------------------------------------------------------------------
 -- Closure properties

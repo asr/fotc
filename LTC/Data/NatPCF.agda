@@ -70,7 +70,7 @@ m - n = rec n m (lam minus-aux)
 
 *-aux₂ : D → D → D
 *-aux₂ n x = lam (*-aux₁ n)
-{-# ATP definition *-aux₁ #-}
+{-# ATP definition *-aux₂ #-}
 
 _*_ : D → D → D
 m * n = rec m zero (lam (*-aux₂ n))
