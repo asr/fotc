@@ -76,6 +76,13 @@ module ExistentialQuantifier where
 
   data ∃D (P : D → Set) : Set where
 
-  postulate
-    test : (d : D) → ∃D (λ e → e ≡ d)
-  {-# ATP prove test #-}
+  -- TODO: We cannot prove the data constructor _,_ due to the
+  -- eta-conversion, i.e.  Agda internally translates '∃D (λ d → P d)' to
+  -- '∃D P'.
+
+  -- postulate
+  --   P        : D → Set
+  --   _,_      : (d : D) → P d → ∃D (λ d → P d)
+  -- {-# ATP prove _,_ #-}
+
+  -- TODO: What about the eliminators?
