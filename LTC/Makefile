@@ -3,7 +3,7 @@ host_dir = asicard@localhost:./tmp/LTC/
 port = 2024
 
 AGDA = agda -v 0
-agda-path = /home/asr/code/phd/LTC/LTC-ATP/
+local-path = LTC
 
 conjectures :
 	./test-conjectures.bash
@@ -12,10 +12,10 @@ conjecturesPCF :
 	./test-conjecturesPCF.bash
 
 type-checking :
-	$(AGDA) -i $(agda-path) Everything.agda
+	cd .. && $(AGDA) $(local-path)/Everything.agda
 
 type-checking-ER :
-	$(AGDA) -i $(agda-path) EverythingER.agda
+	cd .. && $(AGDA) $(local-path)/EverythingER.agda
 
 type-checking-all : type-checking-ER type-checking
 
@@ -23,7 +23,11 @@ test : type-checking-all conjectures conjecturesPCF
 
 publish :
 	rm -r -f html/
-	$(AGDA) --html -i $(agda-path) Everything.agda
+
+	cd .. && \
+	$(AGDA) --html --html-dir=$(local-path)/html \
+		$(local-path)/Everything.agda
+
 	scp -P $(port) -r html/ $(host_dir)
 
 clean :

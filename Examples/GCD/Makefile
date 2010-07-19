@@ -3,16 +3,16 @@ host_dir = asicard@localhost:./tmp/GCD/
 port = 2024
 
 AGDA = agda -v 0
-agda-path = /home/asr/code/phd/LTC/LTC-ATP/
+local-path = Examples/GCD
 
 conjectures :
 	./test-conjectures.bash
 
 type-checking :
-	$(AGDA) -i $(agda-path) ProofSpecification.agda
+	cd ../.. && $(AGDA) $(local-path)/ProofSpecification.agda
 
 type-checking-ER :
-	$(AGDA) -i $(agda-path) ProofSpecificationER.agda
+	cd ../.. && $(AGDA) $(local-path)/ProofSpecificationER.agda
 
 type-checking-all : type-checking-ER type-checking
 
@@ -20,7 +20,11 @@ test : type-checking-all conjectures
 
 publish :
 	rm -r -f html/
-	$(AGDA) --html -i $(agda-path) ProofSpecification.agda
+
+	cd ../.. && \
+	$(AGDA) --html --html-dir=$(local-path)/html \
+		$(local-path)/ProofSpecification.agda
+
 	scp -P $(port) -r html/ $(host_dir)
 
 clean :

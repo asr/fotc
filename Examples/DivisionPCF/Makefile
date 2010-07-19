@@ -3,16 +3,16 @@ host_dir = asicard@localhost:./tmp/Division/
 port = 2024
 
 AGDA = agda -v 0
-agda-path = /home/asr/code/phd/LTC/LTC-ATP/
+local-path = Examples/DivisionPCF
 
 conjecturesPCF :
 	./test-conjecturesPCF.bash
 
 type-checking :
-	$(AGDA) -i $(agda-path) ProofSpecificationPCF.agda
+	cd ../.. && $(AGDA) $(local-path)/ProofSpecificationPCF.agda
 
 type-checking-ER :
-	$(AGDA) -i $(agda-path) ProofSpecificationPCF-ER.agda
+	cd ../.. && $(AGDA) $(local-path)/ProofSpecificationPCF-ER.agda
 
 type-checking-all : type-checking-ER type-checking
 
@@ -20,7 +20,11 @@ test : type-checking-all conjecturesPCF
 
 publish :
 	rm -r -f html/
-	$(AGDA) --html -i $(agda-path) ProofSpecificationPCF.agda
+
+	cd ../../ && \
+	$(AGDA) --html --html-dir=$(local-path)/html \
+		$(local-path)/ProofSpecificationPCF.agda
+
 	scp -P $(port) -r html/ $(host_dir)
 
 clean :
