@@ -65,10 +65,10 @@ argTermToFormula Arg {argHiding = NotHidden, unArg = term} = termToFormula term
 argTermToFormula Arg {argHiding = Hidden} =
     error "argTermToFormula: not implemented"
 
-binConst :: (FormulaFOL -> FormulaFOL -> FormulaFOL)
-            -> Arg AgdaTerm
-            -> Arg AgdaTerm
-            -> T FormulaFOL
+binConst :: (FormulaFOL -> FormulaFOL -> FormulaFOL) ->
+            Arg AgdaTerm ->
+            Arg AgdaTerm ->
+            T FormulaFOL
 binConst op arg1 arg2 = do f1 <- argTermToFormula arg1
                            f2 <- argTermToFormula arg2
                            return $ op f1 f2

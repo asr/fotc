@@ -82,10 +82,9 @@ getRoleATP role i = Map.filter (isRole role) $ sigDefinitions $ iSignature i
           isRole HintATP       = isHintATP
 
 getHintsATP :: Interface -> Definitions
-getHintsATP i =
-    Map.filter isAxiomATP $ sigDefinitions $ iSignature i
+getHintsATP i = Map.filter isAxiomATP $ sigDefinitions $ iSignature i
 
--- Invariant: The definition must correspond to an ATP conjecture
+-- Invariant: The definition must correspond to an ATP conjecture.
 getConjectureHints :: Definition -> [QName]
 getConjectureHints def =
   let defn :: Defn

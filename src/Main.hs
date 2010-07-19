@@ -53,7 +53,6 @@ import Utils.Version ( version )
 #include "undefined.h"
 
 ------------------------------------------------------------------------------
-
 -- We translate the ATP axioms, general hints, and definitions for a file.
 translationGeneralAxioms :: FilePath -> ER [AF]
 translationGeneralAxioms file = do
@@ -89,8 +88,8 @@ translation file = do
   -- of current module.
   conjectures <- conjecturesToAFs i
 
-  return ( concat generalAxiomsImportedFiles ++ generalAxiomsCurrentFile ,
-           conjectures
+  return ( concat generalAxiomsImportedFiles ++ generalAxiomsCurrentFile
+         , conjectures
          )
 
 runAgda2ATP :: ErrorT String IO ()

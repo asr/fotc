@@ -12,7 +12,6 @@ import Control.Monad.Trans.State ( StateT )
 import Reports ( R )
 
 ------------------------------------------------------------------------------
-
 -- The environmet 'Vars' represents the names of variables bounded in the Agda
 -- types.
 
@@ -22,6 +21,5 @@ type Vars = [String]
 iVarNames :: Vars
 iVarNames = []
 
-{-| The translation monad from Agda types to FOL formulas.
--}
+-- The translation monad from Agda types to FOL formulas.
 type T = ErrorT String (StateT Vars R)

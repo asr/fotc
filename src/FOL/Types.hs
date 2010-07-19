@@ -6,9 +6,9 @@
 
 module FOL.Types where
 
-{-| FOL formulas -}
+------------------------------------------------------------------------------
+-- FOL formulas.
 -- Adapted from AgdaLight (Plugins.FOL.Types).
-
 data TermFOL = FunFOL String [TermFOL]
              | VarFOL String
              | ConstFOL String -- AgdaLight hasn't them.

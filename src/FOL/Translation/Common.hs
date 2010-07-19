@@ -5,7 +5,6 @@
 module FOL.Translation.Common where
 
 -- Agda library imports
-
 import Agda.Syntax.Common ( Arg(Arg), Hiding(NotHidden), Nat )
 import Agda.Syntax.Internal ( Type, Term(Var) )
 
