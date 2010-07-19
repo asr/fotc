@@ -18,7 +18,6 @@ module Conjunction where
   -- Testing the data constructor and the projections.
   postulate
     A B     : Set
-    d e     : D
     _,_     : A → B → A ∧ B
     ∧-proj₁ : A ∧ B → A
     ∧-proj₂ : A ∧ B → B
