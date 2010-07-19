@@ -15,7 +15,6 @@ import Control.Monad.Trans.Class ( lift )
 import Control.Monad.Trans.Error ( runErrorT, throwError )
 import Control.Monad.Trans.State ( evalStateT )
 
-import Data.Maybe ( fromMaybe )
 -- import Data.Map ( Map )
 import qualified Data.Map as Map
 import MonadUtils ( zipWith3M )
@@ -35,7 +34,7 @@ import Agda.TypeChecking.Monad.Base
     , Interface
     )
 import Agda.Utils.FileName ( absolute , filePath )
-import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
+-- import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 -- import Agda.Utils.Monad ( ifM )
 
 ------------------------------------------------------------------------------
@@ -59,7 +58,7 @@ import MyAgda.Interface
 import Reports ( reportSLn )
 import TPTP.Types ( AF(AF) )
 
-#include "../undefined.h"
+-- #include "../undefined.h"
 
 ------------------------------------------------------------------------------
 
@@ -132,7 +131,7 @@ conjectureHintToAF qName = do
               myReadInterface file'
 
   let def :: Definition
-      def = fromMaybe __IMPOSSIBLE__ (getQNameDefinition i qName)
+      def = getQNameDefinition i qName
 
   toAF qName AxiomATP def
 

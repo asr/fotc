@@ -13,8 +13,11 @@ module MyAgda.Interface where
 import Control.Monad ( unless )
 import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.State ( execStateT, get, put, StateT )
+
 import Data.Int ( Int32 )
 import qualified Data.Map as Map
+import Data.Maybe ( fromMaybe )
+
 import System.Directory ( getCurrentDirectory )
 
 ------------------------------------------------------------------------------
@@ -181,8 +184,9 @@ isHintATP def =
 
        _             -> False
 
-getQNameDefinition :: Interface -> QName -> Maybe Definition
-getQNameDefinition i qName = Map.lookup qName $ sigDefinitions $ iSignature i
+getQNameDefinition :: Interface -> QName -> Definition
+getQNameDefinition i qName =
+    fromMaybe __IMPOSSIBLE__ $ Map.lookup qName $ sigDefinitions $ iSignature i
 
 -- The line where a QNname is defined.
 qNameLine :: QName -> Int32
