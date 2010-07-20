@@ -4,10 +4,11 @@
 
 {-# LANGUAGE CPP #-}
 
-module FOL.Translation.Internal.Types where
+module FOL.Translation.Internal.Types ( typeToFormula ) where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
+-- import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Class ( lift )
 
 ------------------------------------------------------------------------------

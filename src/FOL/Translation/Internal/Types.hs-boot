@@ -11,4 +11,4 @@ import FOL.Types ( FormulaFOL )
 
 ------------------------------------------------------------------------------
 
-typeToFormula    :: AgdaType -> T FormulaFOL
+typeToFormula :: AgdaType -> T FormulaFOL

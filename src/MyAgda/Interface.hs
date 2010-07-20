@@ -4,11 +4,20 @@
 
 {-# LANGUAGE CPP #-}
 
-module MyAgda.Interface where
+module MyAgda.Interface
+    ( getConjectureHints
+    , getClauses
+    , getImportedModules
+    , getQNameDefinition
+    , getQNameInterface
+    , getQNameType
+    , getRoleATP
+    , myReadInterface
+    , qNameLine
+    ) where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
-
 -- import Data.Map ( Map )
 import Control.Monad ( unless )
 import Control.Monad.IO.Class ( liftIO )
@@ -18,7 +27,7 @@ import Data.Int ( Int32 )
 import qualified Data.Map as Map
 import Data.Maybe ( fromMaybe )
 
-import System.Directory ( getCurrentDirectory )
+import System.Directory ( doesFileExist, getCurrentDirectory )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
@@ -34,10 +43,11 @@ import Agda.Interaction.Options
 import Agda.Syntax.Abstract.Name
     ( ModuleName
     , Name(nameBindingSite)
-    , QName(qnameName)
+    , QName(QName)
+    , qnameName
     )
 import Agda.Syntax.Common ( RoleATP(..))
-import Agda.Syntax.Internal ( Clause )
+import Agda.Syntax.Internal ( Clause, Type )
 import Agda.Syntax.Position
     ( Interval(iStart)
     , Position(posLine)
@@ -48,7 +58,7 @@ import Agda.TypeChecking.Monad.Base
     , conATP
     , Defn(Axiom, Constructor, Function)
     , Interface(iImportedModules)
-    , Definition
+    , Definition(defType)
     , Definitions
     , funATP
     , funClauses
@@ -57,21 +67,22 @@ import Agda.TypeChecking.Monad.Base
     , Signature(sigDefinitions)
     , theDef
     )
-import Agda.TypeChecking.Monad.Options ( -- makeIncludeDirsAbsolute
-                                         setCommandLineOptions
-                                       )
-import Agda.Utils.FileName ( absolute
-                           , filePath
-                           , mkAbsolute
-                           )
-import Agda.Utils.Impossible ( Impossible(..)
-                             , throwImpossible
-                             )
+import Agda.TypeChecking.Monad.Options ( setCommandLineOptions )
+import Agda.Utils.FileName
+    ( absolute
+    , filePath
+    , mkAbsolute
+    )
+import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
+import Agda.Utils.Monad ( ifM )
 
 ------------------------------------------------------------------------------
 -- Local imports
 
-import MyAgda.Syntax.Abstract.Name ( moduleNameToFilePath )
+import MyAgda.Syntax.Abstract.Name
+    ( moduleNameToFilePath
+    , removeLastNameModuleName
+    )
 #include "../undefined.h"
 
 ------------------------------------------------------------------------------
@@ -84,8 +95,8 @@ getRoleATP role i = Map.filter (isRole role) $ sigDefinitions $ iSignature i
           isRole DefinitionATP = isDefinitionATP
           isRole HintATP       = isHintATP
 
-getHintsATP :: Interface -> Definitions
-getHintsATP i = Map.filter isAxiomATP $ sigDefinitions $ iSignature i
+-- getHintsATP :: Interface -> Definitions
+-- getHintsATP i = Map.filter isAxiomATP $ sigDefinitions $ iSignature i
 
 -- Invariant: The definition must correspond to an ATP conjecture.
 getConjectureHints :: Definition -> [QName]
@@ -187,6 +198,29 @@ isHintATP def =
 getQNameDefinition :: Interface -> QName -> Definition
 getQNameDefinition i qName =
     fromMaybe __IMPOSSIBLE__ $ Map.lookup qName $ sigDefinitions $ iSignature i
+
+-- The modules names in a QName can to correspond to logical modules,
+-- e.g. sub-modules, data types or records. This function finds the
+-- physical file associated with a QName.
+getQNamePhysicalInterfaceFile :: QName -> IO FilePath
+getQNamePhysicalInterfaceFile (QName qNameModule qName) =
+  case (moduleNameToFilePath qNameModule) of
+    [] -> __IMPOSSIBLE__
+    file -> do
+      iFile <- fmap (filePath . toIFile) (absolute file)
+      ifM (doesFileExist iFile)
+          (return file)
+          (getQNamePhysicalInterfaceFile
+                   (QName (removeLastNameModuleName qNameModule) qName))
+
+-- Returns the interface where is the information associated to a QName.
+getQNameInterface :: QName -> IO Interface
+getQNameInterface qName =
+    getQNamePhysicalInterfaceFile qName >>=
+    myReadInterface
+
+getQNameType :: Interface -> QName -> Type
+getQNameType i qName = defType $ getQNameDefinition i qName
 
 -- The line where a QNname is defined.
 qNameLine :: QName -> Int32

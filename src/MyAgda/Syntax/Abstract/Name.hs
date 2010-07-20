@@ -2,7 +2,10 @@
 -- Handling of Agda abstract names
 ------------------------------------------------------------------------------
 
-module MyAgda.Syntax.Abstract.Name where
+module MyAgda.Syntax.Abstract.Name
+    ( moduleNameToFilePath
+    , removeLastNameModuleName
+    ) where
 
 -- Haskell imports
 import Data.List ( intersperse )

@@ -23,7 +23,6 @@ executable agda2atp
                   , transformers >= 0.2.0.0 && < 0.3
                   -- , utility-ht >= 0.0.5.1 && < 0.1
 
-
   other-modules:  FOL.Constants
                   FOL.Monad
                   FOL.Primitives
@@ -35,8 +34,10 @@ executable agda2atp
                   FOL.Translation.SymbolDefinitions
                   -- FOL.Substitution
                   FOL.Types
+                  MyAgda.EtaExpansion
                   MyAgda.Interface
                   MyAgda.Syntax.Abstract.Name
+                  MyAgda.Syntax.Internal
                   Options
                   Paths_agda2atp
                   Reports

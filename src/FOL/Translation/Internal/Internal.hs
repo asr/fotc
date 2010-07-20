@@ -44,11 +44,9 @@ cBodyToTermFOL (Body term )         = termToTermFOL term
 cBodyToTermFOL (Bind (Abs _ cBody)) = cBodyToTermFOL cBody
 cBodyToTermFOL _                    = __IMPOSSIBLE__
 
-------------------------------------------------------------------------------
 -- To remove the quantification over on proof term
 -- (e.g. (e.g. D : Set, n : D, N : D → Set ⊢ Nn : N n)
 -- in an ClauseBody.
-
 posVarOnCBody :: ClauseBody -> String -> Nat
 posVarOnCBody (Bind (Abs var1 cBody)) var2
     | var1 == var2 = 0
@@ -89,5 +87,3 @@ removeQuantificationOnCBody cBody var = updateVarsOnCBody cBody pos
   where
     pos :: Nat
     pos = posVarOnCBody cBody var
-
-------------------------------------------------------------------------------

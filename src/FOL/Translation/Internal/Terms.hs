@@ -4,7 +4,7 @@
 
 {-# LANGUAGE CPP #-}
 
-module FOL.Translation.Internal.Terms where
+module FOL.Translation.Internal.Terms ( termToFormula, termToTermFOL ) where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
@@ -380,7 +380,6 @@ termToTermFOL term@(Var n args) = do
              return $ app [ VarFOL (vars !! fromIntegral n) , t ]
 
          _  -> __IMPOSSIBLE__
-
 
 termToTermFOL (Fun _ _)   = __IMPOSSIBLE__
 termToTermFOL (Lam _ _)   = __IMPOSSIBLE__

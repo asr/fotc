@@ -5,7 +5,11 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
-module TPTP.Translation where
+module TPTP.Translation
+    ( axiomsGeneralHintsToAFs
+    , conjecturesToAFs
+    , symbolsToAFs
+    ) where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
@@ -39,8 +43,7 @@ import Agda.Utils.FileName ( absolute , filePath )
 
 ------------------------------------------------------------------------------
 -- Local imports
-import Common ( ER )
-import FOL.Monad ( iVarNames )
+import Common ( ER, iVarNames )
 import FOL.Translation.Common ( AgdaType )
 import FOL.Translation.Internal.Types ( typeToFormula )
 import FOL.Translation.SymbolDefinitions ( symDefToFormula )
@@ -48,6 +51,7 @@ import MyAgda.Syntax.Abstract.Name
     ( moduleNameToFilePath
     , removeLastNameModuleName
     )
+import MyAgda.EtaExpansion ( etaExpandType )
 import MyAgda.Interface
     ( getClauses
     , getConjectureHints
@@ -72,7 +76,13 @@ toAF qName role def = do
      "Role: " ++ show role ++ "\n" ++
      "Type:\n" ++ show ty
 
-  r <- lift $ evalStateT (runErrorT (typeToFormula ty)) iVarNames
+  -- We need eta-expand the type before the translation.
+  tyEtaExpanded <- liftIO $ evalStateT (etaExpandType ty) iVarNames
+
+  lift $ reportSLn "toAF" 20 $ "The eta-expanded type is:\n" ++
+                                show tyEtaExpanded
+
+  r <- lift $ evalStateT (runErrorT (typeToFormula tyEtaExpanded)) iVarNames
   case r of
     Right for -> do
            lift $ reportSLn "toAF" 20 $
@@ -112,6 +122,8 @@ conjectureHintToAF qName = do
   -- also introduce modules, therefore we need to test if the module
   -- name in QName has the information about the datatypes/record and
   -- remove it.
+
+  -- TODO: To use getQNamePhysicalInterfaceFile instead of the code below.
 
   let file :: FilePath
       file = moduleNameToFilePath $ qnameModule qName

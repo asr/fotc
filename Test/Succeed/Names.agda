@@ -33,17 +33,15 @@ postulate
 {-# ATP axiom funnyP #-}
 
 ------------------------------------------------------------------------------
--- Testing a data constructor with holes
-
+-- Testing a data constructor with holes.
 data _×_ ( A B : Set) : Set where
   _,_ : A → B → A × B
 
-data ConHoles : D × D → Set where
-  conHoles : (x y : D) → ConHoles ( x , y )
-{-# ATP hint conHoles #-}
+data WithHoles : D × D → Set where
+  withHoles : (x y : D) → WithHoles ( x , y )
+{-# ATP hint withHoles #-}
 
 ------------------------------------------------------------------------------
-
 -- We are only testing the translation of names, so we prove a tautology.
 postulate
   t : (d : D) → d ≡ d
