@@ -202,21 +202,21 @@ getQNameDefinition i qName =
 -- The modules names in a QName can to correspond to logical modules,
 -- e.g. sub-modules, data types or records. This function finds the
 -- physical file associated with a QName.
-getQNamePhysicalInterfaceFile :: QName -> IO FilePath
-getQNamePhysicalInterfaceFile (QName qNameModule qName) =
+getQNameInterfaceFile :: QName -> IO FilePath
+getQNameInterfaceFile (QName qNameModule qName) =
   case (moduleNameToFilePath qNameModule) of
     [] -> __IMPOSSIBLE__
     file -> do
       iFile <- fmap (filePath . toIFile) (absolute file)
       ifM (doesFileExist iFile)
           (return file)
-          (getQNamePhysicalInterfaceFile
+          (getQNameInterfaceFile
                    (QName (removeLastNameModuleName qNameModule) qName))
 
 -- Returns the interface where is the information associated to a QName.
 getQNameInterface :: QName -> IO Interface
 getQNameInterface qName =
-    getQNamePhysicalInterfaceFile qName >>=
+    getQNameInterfaceFile qName >>=
     myReadInterface
 
 getQNameType :: Interface -> QName -> Type

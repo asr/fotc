@@ -22,11 +22,9 @@ import Control.Monad.Trans.State ( evalStateT )
 -- import Data.Map ( Map )
 import qualified Data.Map as Map
 import MonadUtils ( zipWith3M )
-import System.Directory ( doesFileExist )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
-import Agda.Interaction.FindFile ( toIFile )
 import Agda.Syntax.Abstract.Name ( QName(..) )
 import Agda.Syntax.Common ( RoleATP(..) )
 import Agda.Syntax.Internal ( Clause )
@@ -37,7 +35,6 @@ import Agda.TypeChecking.Monad.Base
     , defType
     , Interface
     )
-import Agda.Utils.FileName ( absolute , filePath )
 -- import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 -- import Agda.Utils.Monad ( ifM )
 
@@ -47,16 +44,12 @@ import Common ( ER, iVarNames )
 import FOL.Translation.Common ( AgdaType )
 import FOL.Translation.Internal.Types ( typeToFormula )
 import FOL.Translation.SymbolDefinitions ( symDefToFormula )
-import MyAgda.Syntax.Abstract.Name
-    ( moduleNameToFilePath
-    , removeLastNameModuleName
-    )
 import MyAgda.EtaExpansion ( etaExpandType )
 import MyAgda.Interface
     ( getClauses
     , getConjectureHints
-    , myReadInterface
     , getQNameDefinition
+    , getQNameInterface
     , getRoleATP
     )
 import Reports ( reportSLn )
@@ -118,29 +111,7 @@ symbolToAF qName def = do
 conjectureHintToAF :: QName -> ER AF
 conjectureHintToAF qName = do
 
-  -- Hack: In the current version of Agda the datatypes and records
-  -- also introduce modules, therefore we need to test if the module
-  -- name in QName has the information about the datatypes/record and
-  -- remove it.
-
-  -- TODO: To use getQNamePhysicalInterfaceFile instead of the code below.
-
-  let file :: FilePath
-      file = moduleNameToFilePath $ qnameModule qName
-
-  -- The physical interface file.
-  iFile <- liftIO $ fmap (filePath . toIFile) (absolute file)
-
-  i <- liftIO $ do
-         b <- doesFileExist iFile
-         if b
-            then myReadInterface file
-            else do
-              -- The module name ends in a datatype/record name.
-              let file' :: FilePath
-                  file' = moduleNameToFilePath $
-                            removeLastNameModuleName $ qnameModule qName
-              myReadInterface file'
+  i <- liftIO $ getQNameInterface qName
 
   let def :: Definition
       def = getQNameDefinition i qName
