@@ -32,7 +32,6 @@ type R = ReaderT Options IO
 
 getVerbosity :: R (Trie String Int)
 getVerbosity = do
-  -- TODO: optVerbose <$> commandLineOptions.
   opts <- ask
   return $ optVerbose opts
 
