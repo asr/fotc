@@ -4,6 +4,7 @@ axioms :
 conjectures :
 	$(MAKE) -C LTC               conjectures
 	$(MAKE) -C Examples/GCD      conjectures
+	$(MAKE) -C Examples/Logic    conjectures
 	$(MAKE) -C Examples/SortList conjectures
 
 conjecturesPCF :
@@ -17,6 +18,7 @@ type-checking :
 	$(MAKE) -C Examples/DivisionPCF type-checking
 	$(MAKE) -C Examples/GCD         type-checking
 	$(MAKE) -C Examples/GCD-PCF     type-checking
+	$(MAKE) -C Examples/Logic       type-checking
 	$(MAKE) -C Examples/SortList    type-checking
 
 type-checking-ER :
@@ -37,6 +39,7 @@ publish :
 	$(MAKE) -C Examples/DivisionPCF publish
 	$(MAKE) -C Examples/GCD         publish
 	$(MAKE) -C Examples/GCD-PCF     publish
+	$(MAKE) -C Examples/Logic       publish
 	$(MAKE) -C Examples/SortList    publish
 
 clean :

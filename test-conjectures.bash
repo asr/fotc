@@ -49,6 +49,9 @@ case $1 in
           Examples/GCD-PCF/IsDivisiblePCF
           '
         ;;
+    Logic)
+        files='Examples/Logic/Logic'
+        ;;
     SortList)
         files='
           Examples/SortList/Closures/Bool
