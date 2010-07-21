@@ -59,9 +59,9 @@ symDefToFormula qName  _  _         =
 --     , clauseBody      :: ClauseBody
 --     }
 
+-- We generate an universal quantification on an equal number of
+-- variables to length [Arg Pattern].
 symClauseToFormula :: QName -> Type -> Clause -> T FormulaFOL
--- In this equation we generate an universal quantification
--- on an equal number of variables to length [Arg Pattern].
 symClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
   case tel of
     -- The bounded variable is quantified on a Set (e.g. D : Set ⊢ d : D), so
