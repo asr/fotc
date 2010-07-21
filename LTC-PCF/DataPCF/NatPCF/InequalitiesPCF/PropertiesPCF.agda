@@ -2,13 +2,13 @@
 -- Properties of the inequalities
 ------------------------------------------------------------------------------
 
-module LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF where
+module LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF where
 
 open import LTC.Minimal
 
-open import LTC.Data.NatPCF
-open import LTC.Data.NatPCF.InequalitiesPCF
-open import LTC.Data.NatPCF.PropertiesPCF
+open import LTC-PCF.DataPCF.NatPCF
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF
+open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF
 open import LTC.Relation.Equalities.Properties using ( x≡y→Sx≡Sy )
 
 open import MyStdLib.Function

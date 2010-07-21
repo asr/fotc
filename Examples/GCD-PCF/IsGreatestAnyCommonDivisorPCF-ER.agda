@@ -9,9 +9,9 @@ open import LTC.Minimal
 open import Examples.GCD-PCF.IsCommonDivisorPCF-ER
 open import Examples.GCD-PCF.IsDivisiblePCF-ER
 
-open import LTC.Data.NatPCF
-open import LTC.Data.NatPCF.DivisibilityPCF.PropertiesPCF-ER
-open import LTC.Data.NatPCF.InequalitiesPCF
+open import LTC-PCF.DataPCF.NatPCF
+open import LTC-PCF.DataPCF.NatPCF.DivisibilityPCF.PropertiesPCF-ER
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF
 
 open import MyStdLib.Function using ( _$_ )
 

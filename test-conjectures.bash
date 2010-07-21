@@ -20,10 +20,10 @@ case $1 in
         ;;
     LTC-PCF)
         files='
-          LTC/Data/NatPCF/DivisibilityPCF/PropertiesPCF
-          LTC/Data/NatPCF/InequalitiesPCF/PropertiesPCF
-          LTC/Data/NatPCF/PropertiesPCF
-          LTC/Data/NatPCF/RecPCF/PropertiesPCF
+          LTC-PCF/DataPCF/NatPCF/DivisibilityPCF/PropertiesPCF
+          LTC-PCF/DataPCF/NatPCF/InequalitiesPCF/PropertiesPCF
+          LTC-PCF/DataPCF/NatPCF/PropertiesPCF
+          LTC-PCF/DataPCF/NatPCF/RecPCF/PropertiesPCF
           '
         ;;
     DivisionPCF)

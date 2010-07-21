@@ -11,9 +11,9 @@ open import Examples.DivisionPCF.DivisionPCF
 open import Examples.DivisionPCF.EquationsPCF-ER
 open import Examples.DivisionPCF.SpecificationPCF
 
-open import LTC.Data.NatPCF
-open import LTC.Data.NatPCF.InequalitiesPCF
-open import LTC.Data.NatPCF.PropertiesPCF-ER
+open import LTC-PCF.DataPCF.NatPCF
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF
+open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF-ER
 
 import MyStdLib.Relation.Binary.EqReasoning
 open module IsNER = MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans

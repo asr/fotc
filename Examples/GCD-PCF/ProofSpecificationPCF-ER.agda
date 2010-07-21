@@ -16,7 +16,7 @@ open import Examples.GCD-PCF.IsDivisiblePCF-ER
 open import Examples.GCD-PCF.IsGreatestAnyCommonDivisorPCF-ER
 open import Examples.GCD-PCF.IsN-PCF-ER
 
-open import LTC.Data.NatPCF
+open import LTC-PCF.DataPCF.NatPCF
 
 -----------------------------------------------------------------------
 -- The 'gcd' is the GCD.

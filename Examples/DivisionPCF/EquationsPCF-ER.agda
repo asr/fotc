@@ -8,9 +8,10 @@ open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
 open import Examples.DivisionPCF.DivisionPCF
-open import LTC.Data.NatPCF
-open import LTC.Data.NatPCF.InequalitiesPCF
-open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF-ER using ( x≥y→x≮y )
+open import LTC-PCF.DataPCF.NatPCF
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF-ER
+  using ( x≥y→x≮y )
 
 import MyStdLib.Relation.Binary.EqReasoning
 open module APER = MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans

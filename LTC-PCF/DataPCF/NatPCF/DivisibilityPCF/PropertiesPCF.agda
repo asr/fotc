@@ -2,15 +2,15 @@
 -- Properties of the divisibility relation
 ------------------------------------------------------------------------------
 
-module LTC.Data.NatPCF.DivisibilityPCF.PropertiesPCF where
+module LTC-PCF.DataPCF.NatPCF.DivisibilityPCF.PropertiesPCF where
 
 open import LTC.Minimal
 
-open import LTC.Data.NatPCF
-open import LTC.Data.NatPCF.DivisibilityPCF
-open import LTC.Data.NatPCF.InequalitiesPCF
-open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF
-open import LTC.Data.NatPCF.PropertiesPCF
+open import LTC-PCF.DataPCF.NatPCF
+open import LTC-PCF.DataPCF.NatPCF.DivisibilityPCF
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF
+open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF
 open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
 
 open import MyStdLib.Function

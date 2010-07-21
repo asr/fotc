@@ -2,16 +2,16 @@
 -- Properties of the divisibility relation (using equational reasoning)
 ------------------------------------------------------------------------------
 
-module LTC.Data.NatPCF.DivisibilityPCF.PropertiesPCF-ER where
+module LTC-PCF.DataPCF.NatPCF.DivisibilityPCF.PropertiesPCF-ER where
 
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
-open import LTC.Data.NatPCF
-open import LTC.Data.NatPCF.DivisibilityPCF
-open import LTC.Data.NatPCF.InequalitiesPCF
-open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF-ER
-open import LTC.Data.NatPCF.PropertiesPCF-ER
+open import LTC-PCF.DataPCF.NatPCF
+open import LTC-PCF.DataPCF.NatPCF.DivisibilityPCF
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF-ER
+open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF-ER
 open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
 
 open import MyStdLib.Function

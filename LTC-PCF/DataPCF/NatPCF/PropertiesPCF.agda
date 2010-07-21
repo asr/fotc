@@ -2,12 +2,12 @@
 -- Arithmetic properties on total natural numbers
 ------------------------------------------------------------------------------
 
-module LTC.Data.NatPCF.PropertiesPCF where
+module LTC-PCF.DataPCF.NatPCF.PropertiesPCF where
 
 open import LTC.Minimal
 
-open import LTC.Data.NatPCF
-open import LTC.Data.NatPCF.RecPCF.PropertiesPCF
+open import LTC-PCF.DataPCF.NatPCF
+open import LTC-PCF.DataPCF.NatPCF.RecPCF.PropertiesPCF
 
 open import MyStdLib.Function
 

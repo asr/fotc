@@ -28,17 +28,6 @@ open import LTC.Data.Nat.List.Type
 open import LTC.Data.Nat.Properties
 open import LTC.Data.Nat.Type
 
-open import LTC.Data.NatPCF
-open import LTC.Data.NatPCF.DivisibilityPCF
-open import LTC.Data.NatPCF.DivisibilityPCF.PropertiesPCF
-open import LTC.Data.NatPCF.InductionPCF.LexicographicPCF
-open import LTC.Data.NatPCF.InductionPCF.WellFoundedPCF
-open import LTC.Data.NatPCF.InequalitiesPCF
-open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF
-open import LTC.Data.NatPCF.PropertiesPCF
-open import LTC.Data.NatPCF.RecPCF
-open import LTC.Data.NatPCF.RecPCF.PropertiesPCF
-
 open import LTC.Data.Product
 
 open import LTC.Data.Sum
@@ -47,4 +36,3 @@ open import LTC.Data.Unit
 
 open import LTC.Relation.Equalities.Properties
 open import LTC.Relation.Nullary
-

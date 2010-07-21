@@ -21,11 +21,11 @@ open import Examples.DivisionPCF.IsCorrectPCF-ER
 open import Examples.DivisionPCF.IsN-PCF-ER
 open import Examples.DivisionPCF.SpecificationPCF
 
-open import LTC.Data.NatPCF
-open import LTC.Data.NatPCF.InductionPCF.WellFoundedPCF
-open import LTC.Data.NatPCF.InequalitiesPCF
-open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF-ER
-open import LTC.Data.NatPCF.PropertiesPCF-ER
+open import LTC-PCF.DataPCF.NatPCF
+open import LTC-PCF.DataPCF.NatPCF.InductionPCF.WellFoundedPCF
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF-ER
+open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF-ER
 
 ------------------------------------------------------------------------------
 

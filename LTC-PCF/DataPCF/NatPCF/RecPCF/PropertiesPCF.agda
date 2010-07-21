@@ -2,10 +2,10 @@
 -- Properties of the recursive operator rec
 ------------------------------------------------------------------------------
 
-module LTC.Data.NatPCF.RecPCF.PropertiesPCF where
+module LTC-PCF.DataPCF.NatPCF.RecPCF.PropertiesPCF where
 
 open import LTC.Minimal
-open import LTC.Data.NatPCF.RecPCF
+open import LTC-PCF.DataPCF.NatPCF.RecPCF
 
 ------------------------------------------------------------------------------
 

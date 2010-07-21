@@ -2,11 +2,11 @@
 -- The relation of divisibility on partial natural numbers
 ------------------------------------------------------------------------------
 
-module LTC.Data.NatPCF.DivisibilityPCF where
+module LTC-PCF.DataPCF.NatPCF.DivisibilityPCF where
 
 open import LTC.Minimal
 
-open import LTC.Data.NatPCF
+open import LTC-PCF.DataPCF.NatPCF
 
 infix 4 _∣_
 

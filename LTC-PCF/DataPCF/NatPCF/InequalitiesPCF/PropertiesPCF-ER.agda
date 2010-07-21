@@ -2,14 +2,14 @@
 -- Properties of the inequalities (using equational reasoning)
 ------------------------------------------------------------------------------
 
-module LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF-ER where
+module LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF-ER where
 
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
-open import LTC.Data.NatPCF
-open import LTC.Data.NatPCF.InequalitiesPCF
-open import LTC.Data.NatPCF.PropertiesPCF-ER
+open import LTC-PCF.DataPCF.NatPCF
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF
+open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF-ER
 open import LTC.Relation.Equalities.Properties using ( x≡y→Sx≡Sy )
 
 open import MyStdLib.Function

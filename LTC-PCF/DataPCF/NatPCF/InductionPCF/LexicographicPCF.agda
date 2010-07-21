@@ -2,13 +2,13 @@
 -- Well-founded induction on the lexicographic order the natural numbers
 ------------------------------------------------------------------------------
 
-module LTC.Data.NatPCF.InductionPCF.LexicographicPCF where
+module LTC-PCF.DataPCF.NatPCF.InductionPCF.LexicographicPCF where
 
 open import LTC.Minimal
 
-open import LTC.Data.NatPCF
-open import LTC.Data.NatPCF.InequalitiesPCF
-open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF
+open import LTC-PCF.DataPCF.NatPCF
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF
 open import LTC.Relation.Equalities.Properties
 
 ------------------------------------------------------------------------------

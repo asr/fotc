@@ -10,8 +10,8 @@ open import Examples.DivisionPCF.DivisionPCF
 open import Examples.DivisionPCF.EquationsPCF
 open import Examples.DivisionPCF.SpecificationPCF
 
-open import LTC.Data.NatPCF
-open import LTC.Data.NatPCF.InequalitiesPCF
+open import LTC-PCF.DataPCF.NatPCF
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF
 
 ------------------------------------------------------------------------------
 

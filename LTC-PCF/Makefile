@@ -1,12 +1,12 @@
 # Tunneling connection
-host_dir = asicard@localhost:./tmp/LTC/
+host_dir = asicard@localhost:./tmp/LTC-PCF/
 port = 2024
 
 AGDA = agda -v 0
-local-path = LTC
+local-path = LTC-PCF
 
-conjectures :
-	cd .. && ./test-conjectures.bash LTC
+conjecturesPCF :
+	cd .. && ./test-conjectures.bash LTC-PCF
 
 type-checking :
 	cd .. && $(AGDA) $(local-path)/Everything.agda
@@ -16,7 +16,7 @@ type-checking-ER :
 
 type-checking-all : type-checking-ER type-checking
 
-test : type-checking-all conjectures
+test : type-checking-all conjecturesPCF
 
 publish :
 	rm -r -f html/

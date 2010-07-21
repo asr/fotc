@@ -2,14 +2,14 @@
 -- Arithmetic properties (using equational reasoning)
 ------------------------------------------------------------------------------
 
-module LTC.Data.NatPCF.PropertiesPCF-ER where
+module LTC-PCF.DataPCF.NatPCF.PropertiesPCF-ER where
 
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
-open import LTC.Data.NatPCF
-open import LTC.Data.NatPCF.RecPCF
-open import LTC.Data.NatPCF.RecPCF.PropertiesPCF
+open import LTC-PCF.DataPCF.NatPCF
+open import LTC-PCF.DataPCF.NatPCF.RecPCF
+open import LTC-PCF.DataPCF.NatPCF.RecPCF.PropertiesPCF
 
 -- open import MyStdLib.Function
 import MyStdLib.Relation.Binary.EqReasoning

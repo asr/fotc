@@ -2,11 +2,11 @@
 -- Natural numbers (PCF version)
 ------------------------------------------------------------------------------
 
-module LTC.Data.NatPCF where
+module LTC-PCF.DataPCF.NatPCF where
 
 open import LTC.Minimal
 
-open import LTC.Data.NatPCF.RecPCF
+open import LTC-PCF.DataPCF.NatPCF.RecPCF
 
 infixl 7 _*_
 infixl 6 _+_ _-_

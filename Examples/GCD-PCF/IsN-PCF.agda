@@ -12,11 +12,12 @@ open import Examples.GCD-PCF.GCD-PCF
 open import Examples.GCD-PCF.EquationsPCF
 open import Examples.GCD.Types
 
-open import LTC.Data.NatPCF
-open import LTC.Data.NatPCF.InductionPCF.LexicographicPCF
-open import LTC.Data.NatPCF.InequalitiesPCF
-open import LTC.Data.NatPCF.InequalitiesPCF.PropertiesPCF
-open import LTC.Data.NatPCF.PropertiesPCF
+open import LTC-PCF.DataPCF.NatPCF
+open import LTC-PCF.DataPCF.NatPCF.InductionPCF.LexicographicPCF
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF
+open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF
+
 open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
 
 open import MyStdLib.Function

@@ -2,7 +2,7 @@
 -- Inequalities on partial natural numbers
 ------------------------------------------------------------------------------
 
-module LTC.Data.NatPCF.InequalitiesPCF where
+module LTC-PCF.DataPCF.NatPCF.InequalitiesPCF where
 
 open import LTC.Minimal
 
