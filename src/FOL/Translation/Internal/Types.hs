@@ -31,8 +31,8 @@ import Reports ( reportSLn )
 typeToFormula :: Type -> T FormulaFOL
 typeToFormula ty@(El (Type (Lit (LitLevel _ n))) term)
     | n `elem` [ 0, 1 ] = do
-      lift $ lift $ reportSLn "typeToFormula" 10 $
-                               "Processing type ty:\n" ++ show ty
-      termToFormula term
+        lift $ lift $ reportSLn "typeToFormula" 10 $
+                                "Processing type ty:\n" ++ show ty
+        termToFormula term
     | otherwise = __IMPOSSIBLE__
 typeToFormula _ = __IMPOSSIBLE__
