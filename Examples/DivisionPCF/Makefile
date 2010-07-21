@@ -6,7 +6,7 @@ AGDA = agda -v 0
 local-path = Examples/DivisionPCF
 
 conjecturesPCF :
-	./test-conjecturesPCF.bash
+	cd ../.. && ./test-conjectures.bash DivisionPCF
 
 type-checking :
 	cd ../.. && $(AGDA) $(local-path)/ProofSpecificationPCF.agda

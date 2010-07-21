@@ -6,7 +6,7 @@ AGDA = agda -v 0
 local-path = Examples/SortList
 
 conjectures :
-	./test-conjectures.bash
+	cd ../.. && ./test-conjectures.bash SortList
 
 type-checking :
 	cd ../.. && $(AGDA) $(local-path)/ProofSpecification.agda

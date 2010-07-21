@@ -6,10 +6,10 @@ AGDA = agda -v 0
 local-path = LTC
 
 conjectures :
-	./test-conjectures.bash
+	cd .. && ./test-conjectures.bash LTC
 
 conjecturesPCF :
-	./test-conjecturesPCF.bash
+	cd .. && ./test-conjectures.bash LTC-PCF
 
 type-checking :
 	cd .. && $(AGDA) $(local-path)/Everything.agda
