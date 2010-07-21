@@ -2,7 +2,7 @@
 -- Common entities used in the translation from Agda to FOL Formulas
 ------------------------------------------------------------------------------
 
-module FOL.Translation.Common where
+module FOL.Translation.Common ( varsToArgs ) where
 
 -- Agda library imports
 import Agda.Syntax.Common ( Arg(Arg), Hiding(NotHidden), Nat )
