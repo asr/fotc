@@ -6,12 +6,9 @@ module FOL.Translation.Common where
 
 -- Agda library imports
 import Agda.Syntax.Common ( Arg(Arg), Hiding(NotHidden), Nat )
-import Agda.Syntax.Internal ( Type, Term(Var) )
+import Agda.Syntax.Internal ( Term(Var) )
 
 ------------------------------------------------------------------------------
-
-type AgdaTerm = Term
-type AgdaType = Type
 
 varsToArgs :: Nat -> [ Arg Term ]
 varsToArgs 0 = []

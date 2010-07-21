@@ -20,7 +20,6 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 ------------------------------------------------------------------------------
 -- Local imports
 import FOL.Monad ( T )
-import FOL.Translation.Common ( AgdaType )
 import FOL.Translation.Internal.Terms ( termToFormula )
 import FOL.Types ( FormulaFOL )
 import Reports ( reportSLn )
@@ -29,11 +28,11 @@ import Reports ( reportSLn )
 
 ------------------------------------------------------------------------------
 
-typeToFormula :: AgdaType -> T FormulaFOL
+typeToFormula :: Type -> T FormulaFOL
 typeToFormula ty@(El (Type (Lit (LitLevel _ n))) term)
     | n `elem` [ 0, 1 ] = do
-       lift $ lift $ reportSLn "typeToFormula" 10 $
+      lift $ lift $ reportSLn "typeToFormula" 10 $
                                "Processing type ty:\n" ++ show ty
-       termToFormula term
+      termToFormula term
     | otherwise = __IMPOSSIBLE__
 typeToFormula _ = __IMPOSSIBLE__

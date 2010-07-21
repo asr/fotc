@@ -49,7 +49,6 @@ import FOL.Constants
     )
 import FOL.Monad ( T )
 import FOL.Primitives ( app, equal )
-import FOL.Translation.Common ( AgdaTerm )
 import FOL.Translation.Concrete.Name ( concatName )
 import {-# source #-} FOL.Translation.Internal.Types ( typeToFormula )
 import FOL.Types ( FormulaFOL(..), TermFOL(..))
@@ -60,20 +59,20 @@ import Reports ( reportSLn )
 
 ------------------------------------------------------------------------------
 
-argTermToFormula :: Arg AgdaTerm -> T FormulaFOL
+argTermToFormula :: Arg Term -> T FormulaFOL
 argTermToFormula Arg {argHiding = NotHidden, unArg = term} = termToFormula term
 argTermToFormula Arg {argHiding = Hidden} =
     error "argTermToFormula: not implemented"
 
 binConst :: (FormulaFOL -> FormulaFOL -> FormulaFOL) ->
-            Arg AgdaTerm ->
-            Arg AgdaTerm ->
+            Arg Term ->
+            Arg Term ->
             T FormulaFOL
 binConst op arg1 arg2 = do f1 <- argTermToFormula arg1
                            f2 <- argTermToFormula arg2
                            return $ op f1 f2
 
-termToFormula :: AgdaTerm -> T FormulaFOL
+termToFormula :: Term -> T FormulaFOL
 termToFormula term@(Def (QName _ name) args) = do
     lift $ lift $ reportSLn "termToFormula" 10 $ "termToFormula Def:\n" ++
                                                  show term
@@ -295,7 +294,7 @@ appArgs fn args = do
   return $ foldl (\x y -> app [x, y]) (FunFOL fn []) termsFOL
 
 -- Translate an Agda term to an FOL term.
-termToTermFOL :: AgdaTerm -> T TermFOL
+termToTermFOL :: Term -> T TermFOL
 -- TODO: The code for the cases Con and Def is similar.
 termToTermFOL term@(Con (QName _ name) args)  = do
   lift $ lift $ reportSLn "termToTermFOL" 10 $ "termToTermFOL Con:\n" ++

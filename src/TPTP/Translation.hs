@@ -27,7 +27,7 @@ import MonadUtils ( zipWith3M )
 -- Agda library imports
 import Agda.Syntax.Abstract.Name ( QName(..) )
 import Agda.Syntax.Common ( RoleATP(..) )
-import Agda.Syntax.Internal ( Clause )
+import Agda.Syntax.Internal ( Clause, Type )
 import Agda.TypeChecking.Monad.Base
     ( Definition
     , Definitions
@@ -41,7 +41,6 @@ import Agda.TypeChecking.Monad.Base
 ------------------------------------------------------------------------------
 -- Local imports
 import Common ( ER, iVarNames )
-import FOL.Translation.Common ( AgdaType )
 import FOL.Translation.Internal.Types ( typeToFormula )
 import FOL.Translation.SymbolDefinitions ( symDefToFormula )
 import MyAgda.EtaExpansion ( etaExpandType )
@@ -62,7 +61,7 @@ import TPTP.Types ( AF(AF) )
 toAF :: QName -> RoleATP -> Definition -> ER AF
 toAF qName role def = do
 
-  let ty :: AgdaType
+  let ty :: Type
       ty = defType def
   lift $ reportSLn "toAF" 20 $
      "Translating QName: " ++ show qName ++ "\n" ++
@@ -86,7 +85,7 @@ toAF qName role def = do
 symbolToAF :: QName -> Definition -> ER AF
 symbolToAF qName def = do
 
-  let ty :: AgdaType
+  let ty :: Type
       ty = defType def
   lift $ reportSLn "symbolToAF" 10 $
            "Symbol: " ++ show qName ++ "\n" ++ "Type: " ++ show ty

@@ -4,11 +4,13 @@
 
 module FOL.Translation.Internal.Types where
 
+-- Agda library imports
+import Agda.Syntax.Internal ( Type )
+
 -- Local imports
 import FOL.Monad ( T )
-import FOL.Translation.Common ( AgdaType )
 import FOL.Types ( FormulaFOL )
 
 ------------------------------------------------------------------------------
 
-typeToFormula :: AgdaType -> T FormulaFOL
+typeToFormula :: Type -> T FormulaFOL

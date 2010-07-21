@@ -29,7 +29,7 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 -- Local imports
 import FOL.Monad ( T )
 import FOL.Primitives ( equal )
-import FOL.Translation.Common ( AgdaTerm, AgdaType, varsToArgs )
+import FOL.Translation.Common ( varsToArgs )
 import FOL.Translation.Internal.Internal
     ( cBodyToFormula
     , cBodyToTermFOL
@@ -59,7 +59,7 @@ symDefToFormula qName  _  _         =
 --     , clauseBody      :: ClauseBody
 --     }
 
-symClauseToFormula :: QName -> AgdaType -> Clause -> T FormulaFOL
+symClauseToFormula :: QName -> Type -> Clause -> T FormulaFOL
 -- In this equation we generate an universal quantification
 -- on an equal number of variables to length [Arg Pattern].
 symClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
@@ -102,7 +102,7 @@ symClauseToFormula qName ty (Clause _ _ _ [] cBody ) = do
 
   -- We create the Agda term corresponds to the LHS of the symbol's
   -- definition.
-  let lhs :: AgdaTerm
+  let lhs :: Term
       lhs = Def qName $ varsToArgs $ fromIntegral $ length vars
 
   case ty of
