@@ -8,6 +8,7 @@ module FOL.Constants
     , notFOL
     , andFOL
     , orFOL
+    , impliesFOL
     , equivFOL
     , existsFOL
     , equalsFOL
@@ -15,19 +16,21 @@ module FOL.Constants
 
 -----------------------------------------------------------------------------
 -- The FOL constant names.
-trueFOL, falseFOL, notFOL, andFOL, orFOL, equivFOL :: String
-trueFOL   = "⊤"
-falseFOL  = "⊥"
-notFOL    = "¬"
-andFOL    = "∧"
-orFOL     = "∨"
-equivFOL  = "↔"
+-- The user can use two symbols for the implication, the impliesFOL
+-- (⇒) and the Agda function space (→).
+trueFOL, falseFOL, notFOL, andFOL, orFOL, impliesFOL, equivFOL :: String
+trueFOL    = "⊤"
+falseFOL   = "⊥"
+notFOL     = "¬"
+andFOL     = "∧"
+orFOL      = "∨"
+impliesFOL = "⇒"
+equivFOL   = "↔"
 
 existsFOL, equalsFOL :: String
 existsFOL = "∃D"
 equalsFOL = "≡"
 
 -- These FOL constanst are not used because we use the Agda versions.
--- impliesFOL, forAllFOL :: String
--- impliesFOL = "Implies"
+-- forAllFOL :: String
 -- forAllFOL  = "ForAll"

@@ -44,6 +44,7 @@ import FOL.Constants
     , notFOL
     , andFOL
     , orFOL
+    , impliesFOL
     , equivFOL
     , existsFOL
     , equalsFOL
@@ -133,10 +134,9 @@ termToFormula term@(Def (QName _ name) args) = do
             (a1:a2:[])
                 | isCNameConstFOLTwoHoles andFOL -> binConst And a1 a2
 
-                -- We are not using the FOL constants impliesFOL
-                -- isCNameConstFOLTwoHoles impliesFOL -> binConst Implies a1 a2
-
                 | isCNameConstFOLTwoHoles orFOL -> binConst Or a1 a2
+
+                | isCNameConstFOLTwoHoles impliesFOL -> binConst Implies a1 a2
 
                 | isCNameConstFOLTwoHoles equivFOL -> binConst Equiv a1 a2
 
