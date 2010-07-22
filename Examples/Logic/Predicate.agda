@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Predicate logic examples (without use LTC)
+-- Predicate logic examples (independent use LTC)
 
 module Examples.Logic.Predicate where
 

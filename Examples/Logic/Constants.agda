@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Logical constants (without use LTC)
+-- Logical constants (independent use LTC)
 ------------------------------------------------------------------------------
 
 module Examples.Logic.Constants where

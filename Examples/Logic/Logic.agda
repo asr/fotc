@@ -1,7 +1,10 @@
 ------------------------------------------------------------------------------
--- Logic examples (without use LTC)
+-- Logic examples (independent of LTC)
 
--- TODO
+-- This module contains some examples showing the use of the ATPs to
+-- prove theorems from propositional and predicate logic. The
+-- formalization below is independent of our formalization of LTC. The idea
+-- is to illustrate that our translation works for FOL.
 
 module Examples.Logic.Logic where
 
