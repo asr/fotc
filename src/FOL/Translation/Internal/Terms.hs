@@ -94,9 +94,9 @@ termToFormula term@(Def (QName _ name) args) = do
 
                | otherwise                -> return $ Predicate (show cName) []
 
-            (a:[]) | isCNameConstFOL notFOL ->
-                         do f <- argTermToFormula a
-                            return $ Not f
+            (a:[]) | isCNameConstFOLHoleRight notFOL ->
+                       do f <- argTermToFormula a
+                          return $ Not f
 
                    | isCNameConstFOL existsFOL  -> do
                        lift $ lift $ reportSLn "termToFormula" 20
@@ -165,6 +165,12 @@ termToFormula term@(Def (QName _ name) args) = do
                 -- The equality on the data type C.Name is defined
                 -- to ignore ranges, so we use noRange.
                 cName == C.Name noRange [C.Id constFOL]
+
+            isCNameConstFOLHoleRight :: String -> Bool
+            isCNameConstFOLHoleRight constFOL =
+                -- The operators are represented by a list with Hole's.
+                -- See the documentation for C.Name.
+                cName == C.Name noRange [C.Id constFOL, C.Hole]
 
             isCNameConstFOLTwoHoles :: String -> Bool
             isCNameConstFOLTwoHoles constFOL =

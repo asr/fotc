@@ -30,11 +30,11 @@ module Conjunction where
 
 module Negation where
 
-  infix 3 ¬
+  infix 3 ¬_
 
   data ⊥ : Set where
 
-  ¬ : Set → Set
+  ¬_ : Set → Set
   ¬ A = A → ⊥
 
   postulate
