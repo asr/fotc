@@ -1,18 +1,13 @@
 ------------------------------------------------------------------------------
--- Logic examples without use LTC
+-- Logic examples (without use LTC)
+
+-- TODO
 
 module Examples.Logic.Logic where
 
 ------------------------------------------------------------------------------
+-- Propositional logic examples.
+open import Examples.Logic.Propositional
 
-postulate
-  D  : Set
-  P  : D → Set
-  ∃D : (P : D → Set) → Set
-
--- This theorem cannot prove in Coq because in Coq we can have empty
--- domains. We do not have this problem because the ATPs assume a
--- non-empty domain.
-postulate
-  thm₁ : (d : D) → P d → ∃D (λ e → P e)
-{-# ATP prove thm₁ #-}
+-- Predicate logic examples.
+open import Examples.Logic.Predicate

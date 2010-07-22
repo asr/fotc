@@ -50,7 +50,10 @@ case $1 in
           '
         ;;
     Logic)
-        files='Examples/Logic/Logic'
+        files='
+          Examples/Logic/Propositional
+          Examples/Logic/Predicate
+          '
         ;;
     SortList)
         files='
