@@ -65,11 +65,10 @@ clauseToFormula :: QName -> Type -> Clause -> T FormulaFOL
 clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
   case tel of
     -- The bounded variable is quantified on a Set (e.g. D : Set ⊢ d : D), so
-    -- we translate without any problem.
+    -- we translate it without any problem.
     -- N.B. The pattern matching on (Def _ []).
     ExtendTel
-      (Arg _ (El (Type (Lit (LitLevel _ 0))) (Def _ [])))
-      (Abs _ tels) -> do
+      (Arg _ (El (Type (Lit (LitLevel _ 0))) (Def _ []))) (Abs _ tels) -> do
           vars <- lift get
 
           let freshVar :: String
@@ -88,8 +87,7 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
     -- so we need remove this quantification.
     -- N.B. The pattern matching on (Def _ _).
     ExtendTel
-      (Arg _ (El (Type (Lit (LitLevel _ 0))) (Def _ _)))
-      (Abs var tels) -> do
+      (Arg _ (El (Type (Lit (LitLevel _ 0))) (Def _ _))) (Abs var tels) -> do
              let newBody :: ClauseBody
                  newBody = removeQuantificationOnCBody cBody var
              clauseToFormula qName ty (Clause r tels perm pats newBody )

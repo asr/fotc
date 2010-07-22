@@ -29,7 +29,6 @@ postulate
   _+_    : D → D → D
   add-x0 : (n : D) → n + zero     ≡ n
   add-xS : (m n : D) → m + succ n ≡ succ (m + n)
-
 {-# ATP axiom add-x0 #-}
 {-# ATP axiom add-xS #-}
 
