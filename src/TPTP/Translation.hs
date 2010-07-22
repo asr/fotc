@@ -41,8 +41,8 @@ import Agda.TypeChecking.Monad.Base
 ------------------------------------------------------------------------------
 -- Local imports
 import Common ( ER, iVarNames )
+import FOL.Translation.Definitions ( defToFormula )
 import FOL.Translation.Internal.Types ( typeToFormula )
-import FOL.Translation.SymbolDefinitions ( symDefToFormula )
 import MyAgda.EtaExpansion ( etaExpandType )
 import MyAgda.Interface
     ( getClauses
@@ -98,7 +98,7 @@ symbolToAF qName def = do
   lift $ reportSLn "symbolToAF" 10 $
                 "Symbol: " ++ show qName ++ "\n" ++ "Clauses: " ++ show cls
 
-  r <- lift $ evalStateT (runErrorT (symDefToFormula qName ty cls)) iVarNames
+  r <- lift $ evalStateT (runErrorT (defToFormula qName ty cls)) iVarNames
   case r of
     Right for -> do
            lift $ reportSLn "symbolToAF" 20 $

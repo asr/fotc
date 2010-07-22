@@ -1,10 +1,10 @@
 ------------------------------------------------------------------------------
--- Translation of symbols's definitions to FOL formulas
+-- Translation of TPTP definitions to FOL formulas
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
 
-module FOL.Translation.SymbolDefinitions where
+module FOL.Translation.Definitions ( defToFormula ) where
 
 -- Haskell imports
 import Control.Monad.Trans.Class ( lift )
@@ -43,12 +43,12 @@ import Utils.Names ( freshName )
 
 ------------------------------------------------------------------------------
 
-symDefToFormula :: QName -> Type -> [Clause] -> T FormulaFOL
-symDefToFormula _      _  []        = __IMPOSSIBLE__
-symDefToFormula qName  ty (cl : []) = symClauseToFormula qName ty cl
-symDefToFormula qName  _  _         =
+defToFormula :: QName -> Type -> [Clause] -> T FormulaFOL
+defToFormula _      _  []        = __IMPOSSIBLE__
+defToFormula qName  ty (cl : []) = clauseToFormula qName ty cl
+defToFormula qName  _  _         =
     throwError $ "Error translating the symbol " ++ show qName ++
-                   ". The definitions only can have a clause."
+                   ". The TPTP definitions only can have a clause."
 
 -- A clause is defined by (Agda.Syntax.Internal)
 -- data Clause = Clause
@@ -61,8 +61,8 @@ symDefToFormula qName  _  _         =
 
 -- We generate an universal quantification on an equal number of
 -- variables to length [Arg Pattern].
-symClauseToFormula :: QName -> Type -> Clause -> T FormulaFOL
-symClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
+clauseToFormula :: QName -> Type -> Clause -> T FormulaFOL
+clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
   case tel of
     -- The bounded variable is quantified on a Set (e.g. D : Set ⊢ d : D), so
     -- we translate without any problem.
@@ -78,7 +78,7 @@ symClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
           -- See the reason for the order in the enviroment in
           -- FOL.Translation.Terms.termToFormula term@(Pi ... )
           lift $ put (freshVar : vars)
-          f <- symClauseToFormula qName ty (Clause r tels perm pats cBody)
+          f <- clauseToFormula qName ty (Clause r tels perm pats cBody)
           lift $ put vars
 
           return $ ForAll freshVar (\_ -> f)
@@ -92,11 +92,11 @@ symClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
       (Abs var tels) -> do
              let newBody :: ClauseBody
                  newBody = removeQuantificationOnCBody cBody var
-             symClauseToFormula qName ty (Clause r tels perm pats newBody )
+             clauseToFormula qName ty (Clause r tels perm pats newBody )
 
     _ -> __IMPOSSIBLE__
 
-symClauseToFormula qName ty (Clause _ _ _ [] cBody ) = do
+clauseToFormula qName ty (Clause _ _ _ [] cBody ) = do
 
   vars <- lift get
 

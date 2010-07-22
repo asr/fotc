@@ -28,10 +28,10 @@ executable agda2atp
                   FOL.Primitives
                   FOL.Translation.Common
                   FOL.Translation.Concrete.Name
+                  FOL.Translation.Definitions
                   FOL.Translation.Internal.Internal
                   FOL.Translation.Internal.Terms
                   FOL.Translation.Internal.Types
-                  FOL.Translation.SymbolDefinitions
                   -- FOL.Substitution
                   FOL.Types
                   MyAgda.EtaExpansion
