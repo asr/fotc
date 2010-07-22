@@ -1,5 +1,9 @@
 ------------------------------------------------------------------------------
--- Predicate logic examples (independent use LTC)
+-- Predicate logic examples
+------------------------------------------------------------------------------
+
+-- This module contains some examples showing the use of the ATPs to
+-- prove theorems from predicate logic.
 
 module Examples.Logic.Predicate where
 

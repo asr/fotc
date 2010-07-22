@@ -1,6 +1,9 @@
 ------------------------------------------------------------------------------
--- Propositional logic examples (independent use LTC)
+-- Propositional logic examples
 ------------------------------------------------------------------------------
+
+-- This module contains some examples showing the use of the ATPs to
+-- prove theorems from propositional logic.
 
 module Examples.Logic.Propositional where
 
@@ -15,14 +18,14 @@ postulate
 -- The introduction and elimination rules for the intuitionist
 -- propositional connectives are theorems.
 postulate
-  →I  : (P → Q) → P → Q -- TODO
-  →E  : (P → Q) → P → Q -- TODO
-  ∧I  : P ∧ Q → P ∧ Q   -- TODO
+  →I  : (P → Q) → P ⇒ Q
+  →E  : (P ⇒ Q) → P → Q
+  ∧I  : P → Q → P ∧ Q
   ∧E₁ : P ∧ Q → P
   ∧E₂ : P ∧ Q → Q
   ∨I₁ : P → P ∨ Q
   ∨I₂ : Q → P ∨ Q
-  ∨E  : (P → R) → (Q → R) → P ∨ Q → R
+  ∨E  : (P ⇒ R) → (Q ⇒ R) → P ∨ Q → R
   ⊥E  : ⊥ → P
 {-# ATP prove →I #-}
 {-# ATP prove →E #-}
@@ -37,7 +40,7 @@ postulate
 -- The ATPs work in classical logic, therefore we also can prove the
 -- reductio ab absurdum rule.
 postulate
-  ¬E : (¬ P → ⊥ ) → P  -- TODO
+  ¬E : (¬ P → ⊥ ) → P
 {-# ATP prove ¬E #-}
 
 -- Boolean laws.
@@ -61,7 +64,6 @@ postulate
   abs₂    : P ∧ (P ∨ Q) ↔ P
   ∧-neg   : P ∧ ¬ P     ↔ ⊥
   ∨-neg   : P ∨ ¬ P     ↔ ⊤
-
 {-# ATP prove ∧-ident #-}
 {-# ATP prove ∨-ident #-}
 {-# ATP prove ∧-dom #-}
@@ -85,12 +87,12 @@ postulate
 -- Theorems related with the definition of logical connectives in terms
 -- of others.
 postulate
-  def-↔  : (P ↔ Q) ↔ (P → Q) ∧ (Q → P)
-  def-→  : P → Q   ↔ ¬ P ∨ Q
-  def-∨₁ : P ∨ Q   ↔ ¬ P → Q
+  def-↔  : (P ↔ Q) ↔ (P ⇒ Q) ∧ (Q ⇒ P)
+  def-→  : P ⇒ Q   ↔ ¬ P ∨ Q
+  def-∨₁ : P ∨ Q   ↔ ¬ P ⇒ Q
   def-∨₂ : P ∨ Q   ↔ ¬ (¬ P ∧ ¬ Q)
   def-∧  : P ∧ Q   ↔ ¬ (¬ P ∨ ¬ Q)
-  def-¬  : ¬ P     ↔ P → ⊥
+  def-¬  : ¬ P     ↔ P ⇒ ⊥
   def-⊥  : ⊥       ↔ P ∧ ¬ P
   def-⊤  : ⊤       ↔ ¬ ⊥
 {-# ATP prove def-↔ #-}
@@ -104,14 +106,14 @@ postulate
 
 -- Some intuitionistic theorems.
 postulate
-  i₁ : P → Q → P
-  i₂ : (P → Q → R) → (P → Q) → P → R
-  i₃ : P → ¬ ¬ P
-  i₄ : ¬ ¬ ¬ P → ¬ P
-  i₅ : (P → Q) → (¬ Q → ¬ P)
-  i₆ : ((P ∧ Q) → R) ↔ (P → (Q → R))
+  i₁ : P ⇒ Q ⇒ P
+  i₂ : (P ⇒ Q ⇒ R) ⇒ (P ⇒ Q) ⇒ P ⇒ R
+  i₃ : P ⇒ ¬ ¬ P
+  i₄ : ¬ ¬ ¬ P ⇒ ¬ P
+  i₅ : (P ⇒ Q) ⇒ (¬ Q ⇒ ¬ P)
+  i₆ : ((P ∧ Q) ⇒ R) ↔ (P ⇒ (Q ⇒ R))
   i₇ : ¬ ¬ (P ∨ ¬ P)
-  i₈ : (P ∨ ¬ P) → ¬ ¬ P → P
+  i₈ : (P ∨ ¬ P) ⇒ ¬ ¬ P ⇒ P
 {-# ATP prove i₁ #-}
 {-# ATP prove i₂ #-}
 {-# ATP prove i₃ #-}
@@ -123,13 +125,13 @@ postulate
 
 -- Some non-intuitionistic theorems.
 postulate
-  ni₁ : ((P → Q) → P) → P
+  ni₁ : ((P ⇒ Q) ⇒ P) ⇒ P
   ni₂ : P ∨ ¬ P
-  ni₃ : ¬ ¬ P → P
-  ni₄ : (¬ Q → ¬ P) → (P → Q)
-  ni₅ : (P → Q) → (¬ P → Q) → Q
-  ni₆ : (P ∨ Q → P) ∨ (P ∨ Q → Q)
-  ni₇ : (¬ ¬ P → P) → P ∨ ¬ P
+  ni₃ : ¬ ¬ P ⇒ P
+  ni₄ : (¬ Q ⇒ ¬ P) ⇒ (P ⇒ Q)
+  ni₅ : (P ⇒ Q) ⇒ (¬ P ⇒ Q) ⇒ Q
+  ni₆ : (P ∨ Q ⇒ P) ∨ (P ∨ Q ⇒ Q)
+  ni₇ : (¬ ¬ P ⇒ P) ⇒ P ∨ ¬ P
 {-# ATP prove ni₁ #-}
 {-# ATP prove ni₂ #-}
 {-# ATP prove ni₃ #-}
