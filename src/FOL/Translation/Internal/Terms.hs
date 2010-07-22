@@ -44,6 +44,7 @@ import FOL.Constants
     , notFOL
     , andFOL
     , orFOL
+    , equivFOL
     , existsFOL
     , equalsFOL
     )
@@ -137,8 +138,7 @@ termToFormula term@(Def (QName _ name) args) = do
 
                 | isCNameConstFOLTwoHoles orFOL -> binConst Or a1 a2
 
-                -- We are not using the FOL constants equivFOL
-                -- isCNameConstFOLTwoHoles equivFOL -> binConst Equiv a1 a2
+                | isCNameConstFOLTwoHoles equivFOL -> binConst Equiv a1 a2
 
                 | isCNameConstFOLTwoHoles equalsFOL -> do
                     lift $ lift $ reportSLn "termToFormula" 20

@@ -70,6 +70,18 @@ module Disjunction where
   {-# ATP prove [_,_] #-}
 
 ------------------------------------------------------------------------------
+-- The equivalence
+
+module Equivalence where
+
+  postulate _↔_ : Set → Set → Set
+
+  postulate
+    A      : Set
+    ident  : A ↔ A
+  {-# ATP prove ident #-}
+
+------------------------------------------------------------------------------
 -- The existential type of D
 
 module ExistentialQuantifier where
