@@ -1,11 +1,12 @@
 * The following symbols are hard-coded, i.e. they should not changed
-  FOL equality    : ≡
-  FOL conjunction : ∧
-  FOL disjunction : ∨
-  FOL negation    : ¬
   FOL false       : ⊥
   FOL true        : ⊤
+  FOL negation    : ¬_
+  FOL conjunction : _∧_
+  FOL disjunction : _∨_
+  FOL equivalence : _↔_
   FOL existential : ∃D
+  FOL equality    : _≡_
 
 * Agda version
   The agda2atp must be compiled using the same version of Agda than
