@@ -70,7 +70,7 @@ postulate
 -- The introduction and elimination rules for the quantifiers are theorems.
 postulate
   ∀I : ((x : D) → P¹ x) → ∀D P¹
-  ∀E : ((x : D) → P¹ x) → (t : D) → P¹ t
+  ∀E : ∀D P¹ → (t : D) → P¹ t
   -- This elimination rule cannot prove in Coq because in Coq we can
   -- have empty domains. We do not have this problem because the ATPs
   -- assume a non-empty domain.

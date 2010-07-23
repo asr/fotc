@@ -40,6 +40,11 @@ etaExpandArgTerm (Arg h term) = do
   termEtaExpanded <- etaExpandTerm term
   return (Arg h termEtaExpanded)
 
+etaExpandArgType :: Arg Type -> EE (Arg Type)
+etaExpandArgType (Arg h ty) = do
+  typeEtaExpanded <- etaExpandType ty
+  return (Arg h typeEtaExpanded)
+
 etaExpandTerm :: Term -> EE Term
 etaExpandTerm (Def qName args) = do
 
@@ -90,8 +95,9 @@ etaExpandTerm (Def qName args) = do
 etaExpandTerm term@(Con _ _) = return term
 
 etaExpandTerm (Fun tyArg ty) = do
-  tyEtaExpanded <- etaExpandType ty
-  return $ Fun tyArg tyEtaExpanded
+  tyArgEtaExpanded <- etaExpandArgType tyArg
+  tyEtaExpanded    <- etaExpandType ty
+  return $ Fun tyArgEtaExpanded tyEtaExpanded
 
 etaExpandTerm (Lam h (Abs name termAbs)) = do
   -- We add the variable 'name' to the enviroment.
@@ -101,6 +107,8 @@ etaExpandTerm (Lam h (Abs name termAbs)) = do
   termAbsEtaExpanded <- etaExpandTerm termAbs
   return $ Lam h (Abs name termAbsEtaExpanded)
 
+-- It seems it is not necessary to eta-expand the tyArg like in the
+-- case of Fun (Arg Type) Type.
 etaExpandTerm (Pi tyArg (Abs name tyAbs)) = do
   -- We add the variable 'name' to the enviroment.
   vars <- get
