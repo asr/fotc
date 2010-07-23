@@ -66,11 +66,11 @@ runATP :: MVar (Bool, ATPs) -> MVar () -> FilePath -> Int ->
 runATP outputMVar syncMVar file timeLimit atp = do
 
   -- Because Equinox and Eprover prove more or less the same theorems,
-  -- we wait 1 sec. before launch the Eprover's theread.
+  -- we wait 1 sec. before launch the Eprover's thread.
   when ( atp == Eprover ) $ threadDelay 1000000
 
   -- Because Equinox and Eprover prove almost all the theorems, we
-  -- wait 2 sec. before launch the metis's theread.
+  -- wait 2 sec. before launch the Metis's thread.
   when ( atp == Metis ) $ threadDelay 2000000
 
   let args :: [String]
@@ -125,7 +125,7 @@ callATPConjecture conjecture = do
     case fstOutput of
       (True, fstATP) -> do
         lift $ reportS "" 1 $ show fstATP ++ " proved the conjecture " ++ file
-        -- The other atp's theread must be sleeping, so we can kill it.
+        -- The other ATPs threads must be sleeping, so we can kill them.
         case fstATP of
           Equinox -> liftIO $ killThread eproverThread
           Eprover -> liftIO $ killThread equinoxThread
