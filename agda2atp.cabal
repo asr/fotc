@@ -56,4 +56,5 @@ executable agda2atp
                -fwarn-simple-patterns
                -fwarn-tabs
                -fwarn-unused-do-bind
+--               -threaded
                -Werror

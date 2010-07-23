@@ -10,16 +10,17 @@ module ATP.ATP ( callATP ) where
 import Data.List ( isInfixOf )
 import Control.Concurrent ( forkIO, killThread, threadDelay )
 import Control.Concurrent.MVar ( MVar, newEmptyMVar, putMVar, takeMVar )
-import Control.Monad ( unless, when )
+import Control.Monad ( unless )
 import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Class ( lift )
 import Control.Monad.Trans.Error ( throwError )
 import Control.Monad.Trans.Reader ( ask )
+-- import GHC.Conc ( threadStatus )
 import System.Process ( readProcess )
 -- import System.Timeout ( timeout )
 
 -- Agda library imports
-import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
+-- import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
 
 -- Local imports
 import Common ( ER )
@@ -61,17 +62,8 @@ checkOutputATP atp output = isInfixOf (atpOk atp) output
          atpOk Eprover = eproverOk
          atpOk Metis   = metisOk
 
-runATP :: MVar (Bool, ATPs) -> MVar () -> FilePath -> Int ->
-          ATPs -> IO ()
-runATP outputMVar syncMVar file timeLimit atp = do
-
-  -- Because Equinox and Eprover prove more or less the same theorems,
-  -- we wait 1 sec. before launch the Eprover's thread.
-  when ( atp == Eprover ) $ threadDelay 1000000
-
-  -- Because Equinox and Eprover prove almost all the theorems, we
-  -- wait 2 sec. before launch the Metis's thread.
-  when ( atp == Metis ) $ threadDelay 2000000
+runATP :: MVar (Bool, ATPs) -> FilePath -> Int -> ATPs -> IO ()
+runATP outputMVar file timeLimit atp = do
 
   let args :: [String]
       args = case atp of
@@ -82,7 +74,6 @@ runATP outputMVar syncMVar file timeLimit atp = do
                           ]
                Metis   -> [ "--tptp", "/", file ]
 
-
   -- Hack. Because metis does not have a time control, we wrap the
   -- calls to the ATPs inside a timeout. This timeout only should be
   -- used to kill metis, therefore we added 3 secs to allow that
@@ -91,13 +82,8 @@ runATP outputMVar syncMVar file timeLimit atp = do
   -- TODO: There is an problem with the function timeout and eprover
   -- output <- timeout (timeLimit * 1000000 + 3000000) (readProcess (show atp) args "")
 
-  -- putMVar syncMVar ()
-  -- case output of
-  --   Nothing -> putMVar outputMVar (False, atp)
-  --   Just o  -> putMVar outputMVar (checkOutputATP atp o, atp)
 
   output <- readProcess (show atp) args ""
-  putMVar syncMVar ()
   putMVar outputMVar (checkOutputATP atp output, atp)
 
 callATPConjecture :: (AF, [AF]) -> ER ()
@@ -112,41 +98,44 @@ callATPConjecture conjecture = do
         timeLimit = optTime opts
 
     outputMVar <- liftIO (newEmptyMVar :: IO (MVar (Bool, ATPs)))
-    syncMVar   <- liftIO (newEmptyMVar :: IO (MVar ()))
 
-    lift $ reportS "" 1 $ "Proving the conjecture " ++ file ++ " ..."
+    lift $ reportS "" 1 $ "Proving the conjecture in " ++ file ++ " ..."
 
     equinoxThread <- liftIO $
-      forkIO (runATP outputMVar syncMVar file timeLimit Equinox )
+      forkIO (runATP outputMVar file timeLimit Equinox)
+
+    -- Because Equinox and Eprover prove more or less the same theorems,
+    -- we wait 1 sec. before launch the Eprover's thread.
     eproverThread <- liftIO $
-      forkIO (runATP outputMVar syncMVar file timeLimit Eprover )
+      forkIO (threadDelay 1000000 >>
+              runATP outputMVar file timeLimit Eprover)
 
-    fstOutput <- liftIO $ takeMVar outputMVar
-    case fstOutput of
-      (True, fstATP) -> do
-        lift $ reportS "" 1 $ show fstATP ++ " proved the conjecture " ++ file
-        -- The other ATPs threads must be sleeping, so we can kill them.
-        case fstATP of
-          Equinox -> liftIO $ killThread eproverThread
-          Eprover -> liftIO $ killThread equinoxThread
-          _       -> __IMPOSSIBLE__
+    -- Because Equinox and Eprover prove almost all the theorems, we
+    -- wait 2 sec. before launch the Metis's thread.
+    -- when ( atp == Metis ) $ threadDelay 2000000
 
-      (False, fstATP) -> do
-          -- Wake up the other atp's theread
-          _       <- liftIO $ takeMVar syncMVar
+    let answerATPs :: Int -> ER ()
+        answerATPs n =
+          if n == 1
+             then throwError $ "The ATPs did not prove the conjecture in " ++
+                               file ++ "."
+             else do
+               output <- liftIO $ takeMVar outputMVar
+               case output of
+                 (True, atp) ->
+                     do lift $ reportS "" 1 $ show atp ++
+                                              " proved the conjecture in " ++
+                                              file
+                        liftIO $ do
+                                 -- e1 <- threadStatus equinoxThread
+                                 -- e2 <- threadStatus eproverThread
+                                 -- print e1
+                                 -- print e2
+                                 killThread eproverThread
+                                 killThread equinoxThread
+                 (False, _) -> answerATPs (n + 1)
 
-          sndOutput <- liftIO $ takeMVar outputMVar
-          case sndOutput of
-             (b, sndATP ) -> do
-               when ( fstATP == sndATP ) __IMPOSSIBLE__
-               case b of
-                 True -> lift $ reportS "" 1 $
-                                show sndATP ++ " proved the conjecture " ++
-                                     file
-
-                 False -> throwError $
-                            "The ATPs did not prove the conjecture " ++
-                            file ++ "."
+    answerATPs 0
 
 callATP :: [AF] -> [(AF, [AF])] -> ER ()
 callATP axioms conjectures = do
