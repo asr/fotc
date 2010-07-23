@@ -1,97 +1,81 @@
 module Test.Succeed.LogicalConstants where
 
-infix  4 _≡_
+infix  5 ¬_
+infixr 4 _∧_
+infixr 3 _∨_
+infixr 2 _⇒_
+infixr 1 _↔_
 
+------------------------------------------------------------------------------
+-- Propositional logic
+
+-- The logical connectives
+
+-- The logical connectives are hard-coded in our implementation,
+-- i.e. the following symbols must be used.
 postulate
-  D   : Set
-  _≡_ : D → D → Set
+  ⊥ ⊤     : Set -- N.B. the name of the tautology symbol is "\top", not T.
+  ¬_      : Set → Set -- N.B. the right hole.
+  _∧_ _∨_ : Set → Set → Set
+  _⇒_ _↔_ : Set → Set → Set
+
+-- We postulate some propositional variables (which are translated as
+-- 0-ary predicates).
+postulate
+  P Q R : Set
+
+-- The introduction and elimination rules for the propositional
+-- connectives are theorems.
+postulate
+  →I  : (P → Q) → P ⇒ Q
+  →E  : (P ⇒ Q) → P → Q
+  ∧I  : P → Q → P ∧ Q
+  ∧E₁ : P ∧ Q → P
+  ∧E₂ : P ∧ Q → Q
+  ∨I₁ : P → P ∨ Q
+  ∨I₂ : Q → P ∨ Q
+  ∨E  : (P ⇒ R) → (Q ⇒ R) → P ∨ Q → R
+  ⊥E  : ⊥ → P
+  ¬E : (¬ P → ⊥ ) → P
+{-# ATP prove →I #-}
+{-# ATP prove →E #-}
+{-# ATP prove ∧I #-}
+{-# ATP prove ∧E₁ #-}
+{-# ATP prove ∧E₂ #-}
+{-# ATP prove ∨I₁ #-}
+{-# ATP prove ∨I₂ #-}
+{-# ATP prove ∨E #-}
+{-# ATP prove ⊥E #-}
+{-# ATP prove ¬E #-}
 
 ------------------------------------------------------------------------------
--- The conjuction data type
+-- Predicate logic
 
-module Conjunction where
+-- The universe of discourse.
+postulate
+  D : Set
 
-  -- N.B. It is not necessary to define neither the data constructor
-  -- _,_, nor the projections -- because the ATPs implement it.
-  data _∧_ (A B : Set) : Set where
+-- The quantifiers are hard-coded in our implementation, i.e. the
+-- following symbols must be used.
+postulate
+  ∃D : (P : D → Set) → Set
 
-  -- Testing the data constructor and the projections.
-  postulate
-    A B     : Set
-    _,_     : A → B → A ∧ B
-    ∧-proj₁ : A ∧ B → A
-    ∧-proj₂ : A ∧ B → B
-  {-# ATP prove _,_ #-}
-  {-# ATP prove ∧-proj₁ #-}
-  {-# ATP prove ∧-proj₂ #-}
+-- We postulate some predicate symbols.
+postulate
+  P⁰    : Set
+  P¹ Q¹ : D → Set
+  P²    : D → D → Set
 
-------------------------------------------------------------------------------
--- The negation
-
-module Negation where
-
-  infix 3 ¬_
-
-  data ⊥ : Set where
-
-  ¬_ : Set → Set
-  ¬ A = A → ⊥
-
-  postulate
-    true false : D
-
-  postulate
-    true≠false : ¬ (true ≡ false)
-  {-# ATP axiom true≠false #-}
-
-  postulate
-    testContradiction : (d : D) → true ≡ false → d ≡ true
-  {-# ATP prove testContradiction #-}
-
-------------------------------------------------------------------------------
--- The disjunction data type
-
-module Disjunction where
-  infixr 1 _∨_
-
-  -- N.B. It is not necessary to define neither the data constructors
-  -- inj₁ and inj₂ nor the disyunction elimination because the ATP
-  -- implements them.
-  data _∨_ (A B : Set) : Set where
-
-  -- Testing the data constructors and the elimination.
-  postulate
-    A B C : Set
-    inj₁  : A → A ∨ B
-    inj₂  : B → A ∨ B
-    [_,_] : (A → C) → (B → C) → A ∨ B → C
-  {-# ATP prove inj₁ #-}
-  {-# ATP prove inj₂ #-}
-  {-# ATP prove [_,_] #-}
-
-------------------------------------------------------------------------------
--- The equivalence
-
-module Equivalence where
-
-  postulate _↔_ : Set → Set → Set
-
-  postulate
-    A      : Set
-    ident  : A ↔ A
-  {-# ATP prove ident #-}
-
-------------------------------------------------------------------------------
--- The existential type of D
-
-module ExistentialQuantifier where
-
-  data ∃D (P : D → Set) : Set where
-
-  -- Testing the data constructor.
-  postulate
-    P    : D → Set
-    _,_  : (d : D) → P d → ∃D (λ e → P e)
-  {-# ATP prove _,_ #-}
-
-  -- TODO: What about the eliminators?
+-- The introduction and elimination rules for the quantifiers are theorems.
+postulate
+  ∀I : ((x : D) → P¹ x) → (x : D) → P¹ x -- TODO
+  ∀E : ((x : D) → P¹ x) → (t : D) → P¹ t
+  -- This elimination rule cannot prove in Coq because in Coq we can
+  -- have empty domains. We do not have this problem because the ATPs
+  -- assume a non-empty domain.
+  ∃I : ((x : D) → P¹ x) → ∃D P¹
+--  TODO ∃E : ∃D (λ x → P¹ x) → ((y : D) → P¹ y → Q¹ y) → (z : D) → Q¹ z
+{-# ATP prove ∀I #-}
+{-# ATP prove ∀E #-}
+{-# ATP prove ∃I #-}
+-- {-# ATP prove ∃E #-}
