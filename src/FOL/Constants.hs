@@ -1,6 +1,8 @@
--- Adapted from agdaLight ( Plugins.FOL.Constants ).
+-----------------------------------------------------------------------------
+-- The FOL constants
+-----------------------------------------------------------------------------
 
-{- | Identifiers recognized by the FOL translator. -}
+-- Adapted from agdaLight (Plugins.FOL.Constants)
 
 module FOL.Constants
     ( trueFOL
@@ -11,26 +13,22 @@ module FOL.Constants
     , impliesFOL
     , equivFOL
     , existsFOL
+    , forAllFOL
     , equalsFOL
     ) where
 
 -----------------------------------------------------------------------------
--- The FOL constant names.
--- The user can use two symbols for the implication, the impliesFOL
--- (⇒) and the Agda function space (→).
+-- Identifiers recognized by the FOL translator.
 trueFOL, falseFOL, notFOL, andFOL, orFOL, impliesFOL, equivFOL :: String
 trueFOL    = "⊤"
 falseFOL   = "⊥"
 notFOL     = "¬"
 andFOL     = "∧"
 orFOL      = "∨"
-impliesFOL = "⇒"
+impliesFOL = "⇒" -- Also it can be used the Agda functional space.
 equivFOL   = "↔"
 
-existsFOL, equalsFOL :: String
+existsFOL, forAllFOL, equalsFOL :: String
 existsFOL = "∃D"
+forAllFOL = "∀D" -- Also it can be used the Agda functional space.
 equalsFOL = "≡"
-
--- These FOL constanst are not used because we use the Agda versions.
--- forAllFOL :: String
--- forAllFOL  = "ForAll"

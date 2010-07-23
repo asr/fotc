@@ -59,6 +59,7 @@ postulate
 -- following symbols must be used.
 postulate
   ∃D : (P : D → Set) → Set
+  ∀D : (P : D → Set) → Set
 
 -- We postulate some predicate symbols.
 postulate
@@ -68,12 +69,12 @@ postulate
 
 -- The introduction and elimination rules for the quantifiers are theorems.
 postulate
-  ∀I : ((x : D) → P¹ x) → (x : D) → P¹ x -- TODO
+  ∀I : ((x : D) → P¹ x) → ∀D P¹
   ∀E : ((x : D) → P¹ x) → (t : D) → P¹ t
   -- This elimination rule cannot prove in Coq because in Coq we can
   -- have empty domains. We do not have this problem because the ATPs
   -- assume a non-empty domain.
-  ∃I : ((x : D) → P¹ x) → ∃D P¹
+  ∃I : ((t : D) → P¹ t) → ∃D P¹
 --  TODO ∃E : ∃D (λ x → P¹ x) → ((y : D) → P¹ y → Q¹ y) → (z : D) → Q¹ z
 {-# ATP prove ∀I #-}
 {-# ATP prove ∀E #-}

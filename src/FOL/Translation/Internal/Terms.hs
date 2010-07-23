@@ -47,6 +47,7 @@ import FOL.Constants
     , impliesFOL
     , equivFOL
     , existsFOL
+    , forAllFOL
     , equalsFOL
     )
 import FOL.Monad ( T )
@@ -95,32 +96,24 @@ termToFormula term@(Def (QName _ name) args) = do
 
                | otherwise                -> return $ Predicate (show cName) []
 
-            (a:[]) | isCNameConstFOLHoleRight notFOL ->
-                       do f <- argTermToFormula a
-                          return $ Not f
+            (a:[]) | isCNameConstFOLHoleRight notFOL -> do
+                       f <- argTermToFormula a
+                       return $ Not f
 
-                   | isCNameConstFOL existsFOL  -> do
-                       lift $ lift $ reportSLn "termToFormula" 20
-                                "The cName is existsFOL"
-                     -- N.B. We should use the following guard if we use the
-                     -- the FOL constant forAllFOL
-                     -- ( isCNameConstFOL existsFOL ||
-                     --   isCNameConstFOL forAllFOL )
+                   | ( isCNameConstFOL existsFOL ||
+                       isCNameConstFOL forAllFOL ) -> do
 
                        fm <- termToFormula $ unArg a
 
-                       -- N.B. We should use the following test if
-                       -- we use the the FOL constant forAllFOL
-                       -- if isCNameConstFOL existsFOL
-                       --    then return $ Exists freshVar $ \_ -> fm
-                       --    else return $ ForAll freshVar $ \_ -> fm
 
                        vars <- lift get
 
                        let freshVar :: String
                            freshVar = evalState freshName vars
 
-                       return $ Exists freshVar $ \_ -> fm
+                       if isCNameConstFOL existsFOL
+                          then return $ Exists freshVar $ \_ -> fm
+                          else return $ ForAll freshVar $ \_ -> fm
 
                    | otherwise -> do
                       -- In this guard we translate predicates with
