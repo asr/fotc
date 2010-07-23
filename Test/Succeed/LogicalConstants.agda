@@ -75,7 +75,7 @@ postulate
   -- have empty domains. We do not have this problem because the ATPs
   -- assume a non-empty domain.
   ∃I : ((t : D) → P¹ t) → ∃D P¹
---  TODO ∃E : ∃D (λ x → P¹ x) → ((y : D) → P¹ y → Q¹ y) → (z : D) → Q¹ z
+  -- TODO: ∃E : (x : D) → ∃D P¹ → (P¹ x → Q¹ x) → Q¹ x
 {-# ATP prove ∀I #-}
 {-# ATP prove ∀E #-}
 {-# ATP prove ∃I #-}
