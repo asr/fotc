@@ -4,7 +4,7 @@
 
 {-# LANGUAGE CPP #-}
 
-module ATP.ATP where
+module ATP.ATP ( callATP ) where
 
 -- Haskell imports
 import Data.List ( isInfixOf )
