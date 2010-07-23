@@ -9,8 +9,8 @@ postulate
   succ   : D → D
   _≡_    : D → D → Set
   _+_    : D → D → D
-  +-0x : (d : D) →   zero   + d ≡ d
-  +-Sx : (d e : D) → succ d + e ≡ succ (d + e)
+  +-0x   : (d : D) → zero + d     ≡ d
+  +-Sx   : (d e : D) → succ d + e ≡ succ (d + e)
 {-# ATP axiom +-0x #-}
 {-# ATP axiom +-Sx #-}
 
