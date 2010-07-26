@@ -24,12 +24,13 @@ import Utils.IO ( bye )
 -----------------------------------------------------------------------------
 
 data Options = MkOptions
-    { optVersion         :: Bool
-    , optHelp            :: Bool
-    , optVerbose         :: Trie String Int
---    , optATP             :: String
-    , optOnlyCreateFiles :: Bool
-    , optTime            :: Int
+    { optVersion          :: Bool
+    , optHelp             :: Bool
+    , optVerbose          :: Trie String Int
+--    , optATP            :: String
+    , optOnlyCreateFiles  :: Bool
+    , optTime             :: Int
+    , optDefAsAxiom       :: Bool
     } deriving ( Show )
 
 defaultOptions :: Options
@@ -37,9 +38,10 @@ defaultOptions = MkOptions
   { optVersion         = False
   , optHelp            = False
   , optVerbose         = Trie.singleton [] 1
---  , optATP             = "equinox"
+--  , optATP           = "equinox"
   , optOnlyCreateFiles = False
   , optTime            = 300
+  , optDefAsAxiom      = False
   }
 
 versionOpt :: Options -> Options
@@ -69,6 +71,9 @@ onlyCreateFilesOpt opts = opts { optOnlyCreateFiles = True }
 timeOpt :: String -> Options -> Options
 timeOpt secs opts = opts { optTime = read secs }
 
+defAsAxiomOpt :: Options -> Options
+defAsAxiomOpt opts = opts { optDefAsAxiom = True }
+
 options :: [OptDescr (Options -> Options)]
 options =
   [ Option ['V'] ["version"] (NoArg versionOpt)
@@ -83,6 +88,8 @@ options =
                  "do not call the ATP, only to create the TPTP files"
   , Option []    ["time"] (ReqArg timeOpt "secs")
                  "set timeout for the ATP in seconds (default: 300)"
+  , Option []    ["definitions-as-axioms"] (NoArg defAsAxiomOpt)
+                 "translate the TPTP definitions as TPTP axioms"
   ]
 
 usageHeader :: String -> String

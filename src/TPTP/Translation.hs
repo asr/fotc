@@ -17,6 +17,7 @@ import Control.Monad ( zipWithM )
 import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Class ( lift )
 import Control.Monad.Trans.Error ( runErrorT, throwError )
+import Control.Monad.Trans.Reader ( ask )
 import Control.Monad.Trans.State ( evalStateT )
 
 -- import Data.Map ( Map )
@@ -51,6 +52,7 @@ import MyAgda.Interface
     , getQNameInterface
     , getRoleATP
     )
+import Options ( optDefAsAxiom )
 import Reports ( reportSLn )
 import TPTP.Types ( AF(AF) )
 
@@ -85,6 +87,8 @@ toAF qName role def = do
 symbolToAF :: QName -> Definition -> ER AF
 symbolToAF qName def = do
 
+  opts <- lift ask
+
   let ty :: Type
       ty = defType def
   lift $ reportSLn "symbolToAF" 10 $
@@ -103,7 +107,9 @@ symbolToAF qName def = do
     Right for -> do
            lift $ reportSLn "symbolToAF" 20 $
                     "The FOL formula for " ++ show qName ++ " is:\n" ++ show for
-           return $ AF qName DefinitionATP for
+           if (optDefAsAxiom opts)
+               then return $ AF qName AxiomATP for
+               else return $ AF qName DefinitionATP for
     Left err -> throwError err
 
 -- We translate an local hint to an AF.
