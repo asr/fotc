@@ -132,8 +132,6 @@ instance PrettyTPTP FormulaFOL where
 ------------------------------------------------------------------------------
 -- Pretty-printer for annotated formulas
 
--- N.B. We are translating the role DefinitionATP as a TPTP
--- axiom because Equinox doesn't support it.
 instance PrettyTPTP RoleATP where
     prettyTPTP AxiomATP      = "axiom"
     prettyTPTP ConjectureATP = "conjecture"
