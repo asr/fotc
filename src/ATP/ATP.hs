@@ -116,7 +116,7 @@ callATPConjecture conjecture = do
 
     let answerATPs :: Int -> ER ()
         answerATPs n =
-          if n == 1
+          if n == 2
              then throwError $ "The ATPs did not prove the conjecture in " ++
                                file ++ "."
              else do
