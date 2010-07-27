@@ -122,6 +122,26 @@ minus-N (sN {m} Nm) (sN {n} Nn) = prf $ minus-N Nm Nn
                      succ n + zero ≡ succ n
      {-# ATP prove prf +-Sx #-}
 
+-- Our proofs are using pattern matching instead of the induction
+-- principle associated with the LTC natural numbers. The following
+-- example shows a proof using it.
++-assocI : {m n o : D} → N m → N n → N o → (m + n) + o ≡ m + (n + o)
++-assocI {m} {n} {o} Nm Nn No = indN P P0 iStep Nm
+  where
+    P : D → Set
+    P i = i + n + o ≡ i + (n + o)
+
+    postulate
+      P0 : zero + n + o ≡ zero + (n + o)
+    {-# ATP prove P0 #-} -- We use the ATP systems to prove the base case.
+
+    postulate
+      iStep : {i : D} → N i →
+              i + n + o ≡ i + (n + o) → -- IH.
+              succ i + n + o ≡ succ i + (n + o)
+    {-# ATP prove iStep #-} -- We use the ATP systems to prove the
+                            -- induction step.
+
 +-assoc : {m n o : D} → N m → N n → N o → m + n + o ≡ m + (n + o)
 +-assoc {n = n} {o = o} zN Nn No = prf
   where
