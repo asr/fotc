@@ -136,7 +136,7 @@ instance PrettyTPTP RoleATP where
     prettyTPTP AxiomATP      = "axiom"
     prettyTPTP ConjectureATP = "conjecture"
     prettyTPTP DefinitionATP = "definition"
-    prettyTPTP HintATP       = "axiom"
+    prettyTPTP HintATP       = "hypothesis"
 
 instance PrettyTPTP AF where
     prettyTPTP (AF qName roleATP formula) =

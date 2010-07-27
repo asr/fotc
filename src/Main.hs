@@ -42,7 +42,8 @@ import MyAgda.Interface ( getImportedModules, myReadInterface )
 import Options ( Options(optHelp, optVersion), parseOptions, usage )
 import Reports ( reportS )
 import TPTP.Translation
-    ( axiomsGeneralHintsToAFs
+    ( axiomsToAFs
+    , generalHintsToAFs
     , conjecturesToAFs
     , symbolsToAFs
     )
@@ -54,19 +55,22 @@ import Utils.Version ( version )
 
 ------------------------------------------------------------------------------
 -- We translate the ATP axioms, general hints, and definitions for a file.
-translationGeneralAxioms :: FilePath -> ER [AF]
-translationGeneralAxioms file = do
+translationGeneralRoles :: FilePath -> ER [AF]
+translationGeneralRoles file = do
 
   -- Getting the interface.
   i <- liftIO $ myReadInterface file
 
-  -- Getting the ATP axioms and general hints.
-  axiomsGeneralHints <- axiomsGeneralHintsToAFs i
+  -- Getting the ATP axioms.
+  axioms <- axiomsToAFs i
+
+  -- Getting the ATP general hints.
+  generalHints <- generalHintsToAFs i
 
   -- Getting the ATP definitions.
   symbols <- symbolsToAFs i
 
-  return (axiomsGeneralHints ++ symbols )
+  return (axioms ++ generalHints ++ symbols )
 
 -- TODO: It is not clear if we should use the interface or the file
 -- name as the principal argument. In the case of the function
@@ -78,8 +82,8 @@ translation file = do
 
   iModulesPaths <- liftIO $ getImportedModules file
 
-  generalAxiomsImportedFiles <- mapM translationGeneralAxioms iModulesPaths
-  generalAxiomsCurrentFile   <- translationGeneralAxioms file
+  generalRolesImportedFiles <- mapM translationGeneralRoles iModulesPaths
+  generalRolesCurrentFile   <- translationGeneralRoles file
 
   -- Gettting the interface.
   i <- liftIO $ myReadInterface file
@@ -88,7 +92,7 @@ translation file = do
   -- of current module.
   conjectures <- conjecturesToAFs i
 
-  return ( concat generalAxiomsImportedFiles ++ generalAxiomsCurrentFile
+  return ( concat generalRolesImportedFiles ++ generalRolesCurrentFile
          , conjectures
          )
 

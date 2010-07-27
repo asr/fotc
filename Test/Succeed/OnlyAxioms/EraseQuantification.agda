@@ -28,6 +28,7 @@ module EraseQuantificationOnProofs where
     -- zN : N zero
     sN₁ : {n : D} →  N n → N (succ n)
     sN₂ : {n : D} → (Nn : N n) → N (succ n)
+  {-# ATP hint sN₁ #-}
   {-# ATP hint sN₂ #-}
 
   -- We need to remove the quantification over proofs inside a where

@@ -6,8 +6,9 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 
 module TPTP.Translation
-    ( axiomsGeneralHintsToAFs
+    ( axiomsToAFs
     , conjecturesToAFs
+    , generalHintsToAFs
     , symbolsToAFs
     ) where
 
@@ -47,7 +48,7 @@ import FOL.Translation.Internal.Types ( typeToFormula )
 import MyAgda.EtaExpansion ( etaExpandType )
 import MyAgda.Interface
     ( getClauses
-    , getConjectureHints
+    , getLocalHints
     , getQNameDefinition
     , getQNameInterface
     , getRoleATP
@@ -113,28 +114,28 @@ symbolToAF qName def = do
     Left err -> throwError err
 
 -- We translate an local hint to an AF.
-conjectureHintToAF :: QName -> ER AF
-conjectureHintToAF qName = do
+localHintToAF :: QName -> ER AF
+localHintToAF qName = do
 
   i <- liftIO $ getQNameInterface qName
 
   let def :: Definition
       def = getQNameDefinition i qName
 
-  toAF qName AxiomATP def
+  toAF qName HintATP def
 
--- We translate the hints of an ATP pragma conjecture to AF's.
+-- We translate the local hints of an ATP pragma conjecture to AF's.
 -- Invariant: The 'Definition' must be an ATP pragma conjecture
-conjectureHintsToAFs :: Definition -> ER [AF]
-conjectureHintsToAFs def = do
+localHintsToAFs :: Definition -> ER [AF]
+localHintsToAFs def = do
 
   let hints :: [QName]
-      hints = getConjectureHints def
+      hints = getLocalHints def
   lift $ reportSLn "hintsToFOLs" 20 $
     "The local hints for the conjecture " ++ show (defName def) ++
     " are:\n" ++ show hints
 
-  ( afs :: [AF] ) <- mapM conjectureHintToAF hints
+  ( afs :: [AF] ) <- mapM localHintToAF hints
 
   return afs
 
@@ -143,14 +144,14 @@ conjectureToAF qName def = do
 
   conjectureAF <- toAF qName ConjectureATP def
 
-  hintsAFs <- conjectureHintsToAFs def
+  localHintsAFs <- localHintsToAFs def
 
-  return (conjectureAF, hintsAFs)
+  return (conjectureAF, localHintsAFs)
 
--- We translate the ATP pragma axioms and general hints in an
--- interface file to FOL formulas.
-axiomsGeneralHintsToAFs :: Interface -> ER [AF]
-axiomsGeneralHintsToAFs i = do
+-- We translate the ATP pragma axioms in an interface file to FOL
+-- formulas.
+axiomsToAFs :: Interface -> ER [AF]
+axiomsToAFs i = do
 
   -- We get the axioms from the interface file.
   let axDefs :: Definitions
@@ -159,18 +160,25 @@ axiomsGeneralHintsToAFs i = do
   axAFs <-
       zipWith3M toAF (Map.keys axDefs) (repeat AxiomATP) (Map.elems axDefs)
 
+  return axAFs
+
+-- We translate the ATP pragma general hints in an interface file to
+-- FOL formulas.
+generalHintsToAFs :: Interface -> ER [AF]
+generalHintsToAFs i = do
+
   -- We get the general hints from the interface file.
   let ghDefs :: Definitions
       ghDefs = getRoleATP HintATP i
 
   ghAFs <-
-      zipWith3M toAF (Map.keys ghDefs) (repeat AxiomATP) (Map.elems ghDefs)
+      zipWith3M toAF (Map.keys ghDefs) (repeat HintATP) (Map.elems ghDefs)
 
-  return $ axAFs ++ ghAFs
+  return ghAFs
 
--- We translate the ATP pragma conjectures and their hints in an
+-- We translate the ATP pragma conjectures and their local hints in an
 -- interface file to AFs. For each conjecture we return its
--- translation and a list of the translation of its hints, i.e. we
+-- translation and a list of the translation of its local hints, i.e. we
 -- return a pair ( AF, [AF] ).
 conjecturesToAFs :: Interface -> ER [ (AF, [AF]) ]
 conjecturesToAFs i = do

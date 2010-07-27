@@ -5,9 +5,9 @@
 {-# LANGUAGE CPP #-}
 
 module MyAgda.Interface
-    ( getConjectureHints
-    , getClauses
+    ( getClauses
     , getImportedModules
+    , getLocalHints
     , getQNameDefinition
     , getQNameInterface
     , getQNameType
@@ -98,9 +98,9 @@ getRoleATP role i = Map.filter (isRole role) $ sigDefinitions $ iSignature i
 -- getHintsATP :: Interface -> Definitions
 -- getHintsATP i = Map.filter isAxiomATP $ sigDefinitions $ iSignature i
 
--- Invariant: The definition must correspond to an ATP conjecture.
-getConjectureHints :: Definition -> [QName]
-getConjectureHints def =
+-- Invariant: The Definition must correspond to an ATP conjecture.
+getLocalHints :: Definition -> [QName]
+getLocalHints def =
   let defn :: Defn
       defn = theDef def
   in case defn of
