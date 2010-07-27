@@ -85,9 +85,9 @@ options =
   -- , Option []    ["ATP"] (ReqArg atpOpt "name")
   --                "set the ATP (default: equinox)"
   , Option []    ["only-create-files"] (NoArg onlyCreateFilesOpt)
-                 "do not call the ATP, only to create the TPTP files"
+                 "do not call the ATPs, only to create the TPTP files"
   , Option []    ["time"] (ReqArg timeOpt "secs")
-                 "set timeout for the ATP in seconds (default: 300)"
+                 "set timeout for the ATPs in seconds (default: 300)"
   , Option []    ["definitions-as-axioms"] (NoArg defAsAxiomOpt)
                  "translate the TPTP definitions as TPTP axioms"
   ]
