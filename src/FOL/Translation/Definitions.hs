@@ -104,26 +104,26 @@ clauseToFormula qName ty (Clause _ _ _ [] cBody ) = do
       lhs = Def qName $ varsToArgs $ fromIntegral $ length vars
 
   case ty of
-    -- The defined symbol is a predicate
+    -- The defined symbol is a predicate.
     El (Type (Lit (LitLevel _ 1))) _ -> do
             lhsF <- termToFormula lhs
 
-            -- The RHS is the body of the clause
+            -- The RHS is the body of the clause.
             rhsF <- cBodyToFormula cBody
 
             -- Because the LHS and RHS are formulas, they are
             -- related via an equivalence logic.
             return $ Equiv lhsF rhsF
 
-    -- The defined symbol is a function
+    -- The defined symbol is a function.
     El (Type (Lit (LitLevel _ 0))) _ -> do
             lhsT <- termToTermFOL lhs
 
-            -- The RHS is the body of the clause
+            -- The RHS is the body of the clause.
             rhsT <- cBodyToTermFOL cBody
 
             -- Because the LHS and RHS are terms, they are related via
-            -- the equality.
+            -- the FOL equality.
             return $ equal [lhsT, rhsT]
 
     _ -> __IMPOSSIBLE__

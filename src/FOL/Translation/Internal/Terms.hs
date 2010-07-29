@@ -39,24 +39,16 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 ------------------------------------------------------------------------------
 -- Local imports
 import FOL.Constants
-    ( trueFOL
-    , falseFOL
-    , notFOL
-    , andFOL
-    , orFOL
-    , impliesFOL
-    , equivFOL
-    , existsFOL
-    , forAllFOL
-    , equalsFOL
+    ( trueFOL, falseFOL, notFOL, andFOL, orFOL
+    , impliesFOL, equivFOL, existsFOL, forAllFOL, equalsFOL
     )
 import FOL.Monad ( T )
 import FOL.Primitives ( app, equal )
 import FOL.Translation.Concrete.Name ( concatName )
 import {-# source #-} FOL.Translation.Internal.Types ( typeToFormula )
 import FOL.Types ( FormulaFOL(..), TermFOL(..))
-import Utils.Names ( freshName )
 import Reports ( reportSLn )
+import Utils.Names ( freshName )
 
 #include "../../../undefined.h"
 
@@ -77,8 +69,7 @@ binConst op arg1 arg2 = do f1 <- argTermToFormula arg1
 
 termToFormula :: Term -> T FormulaFOL
 termToFormula term@(Def (QName _ name) args) = do
-    lift $ lift $ reportSLn "termToFormula" 10 $ "termToFormula Def:\n" ++
-                                                 show term
+    lift $ lift $ reportSLn "t2f" 10 $ "termToFormula Def:\n" ++ show term
 
     let cName :: C.Name
         cName = nameConcrete name
@@ -134,14 +125,13 @@ termToFormula term@(Def (QName _ name) args) = do
                 | isCNameConstFOLTwoHoles equivFOL -> binConst Equiv a1 a2
 
                 | isCNameConstFOLTwoHoles equalsFOL -> do
-                    lift $ lift $ reportSLn "termToFormula" 20
-                                            "Processing equals"
+                    lift $ lift $ reportSLn "t2f" 20 "Processing equals"
                     t1 <- termToTermFOL $ unArg a1
                     t2 <- termToTermFOL $ unArg a2
                     return $ equal [t1, t2]
 
                 | otherwise -> do
-                      lift $ lift $ reportSLn "termToFormula" 20 $
+                      lift $ lift $ reportSLn "t2f" 20 $
                                "Processing a definition with two arguments which " ++
                                "is not a FOL constant: " ++ show cName
                       t1 <- termToTermFOL $ unArg a1
@@ -172,16 +162,14 @@ termToFormula term@(Def (QName _ name) args) = do
                 cName == C.Name noRange [C.Hole, C.Id constFOL, C.Hole]
 
 termToFormula term@(Fun tyArg ty) = do
-  lift $ lift $ reportSLn "termToFormula" 10 $ "termToFormula Fun:\n" ++
-                                               show term
+  lift $ lift $ reportSLn "t2f" 10 $ "termToFormula Fun:\n" ++ show term
   f1 <- typeToFormula $ unArg tyArg
   f2 <- typeToFormula ty
   return $ Implies f1 f2
 
 -- TODO: To add test for this case.
 termToFormula term@(Lam _ (Abs _ termLam)) = do
-  lift $ lift $ reportSLn "termToFormula" 10 $ "termToFormula Lam:\n" ++
-                                               show term
+  lift $ lift $ reportSLn "t2f" 10 $ "termToFormula Lam:\n" ++ show term
 
   vars <- lift get
 
@@ -196,15 +184,14 @@ termToFormula term@(Lam _ (Abs _ termLam)) = do
   return f
 
 termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
-  lift $ lift $ reportSLn "termToFormula" 10 $ "termToFormula Pi:\n" ++
-                                               show term
+  lift $ lift $ reportSLn "t2f" 10 $ "termToFormula Pi:\n" ++ show term
 
   vars <- lift get
 
   let freshVar :: String
       freshVar = evalState freshName vars
 
-  lift $ lift $ reportSLn "termToFormula" 20 $
+  lift $ lift $ reportSLn "t2f" 20 $
            "Starting processing in local enviroment using the type:\n" ++
            show tyAbs
 
@@ -215,55 +202,69 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   f2 <- typeToFormula tyAbs
   lift $ put vars
 
-  lift $ lift $ reportSLn "termToFormula" 20 $
+  lift $ lift $ reportSLn "t2f" 20 $
            "Finalized processing in local enviroment using the type:\n" ++
            show tyAbs
 
   case unArg tyArg of
-    -- The bounded variable is quantified on a Set (e.g. D : Set ⊢ d : D), so
-    -- we translate without any problem.
-    -- N.B. The pattern matching on (Def _ []).
+    -- The bounded variable is quantified on a Set,
+    --
+    -- e.g. the bounded variable is 'd : Set' where D : Set,
+    --
+    -- so we can create a fresh variable and quantify on it without
+    -- any problem. N.B. the pattern matching on (Def _ []).
     El (Type (Lit (LitLevel _ 0))) (Def _ []) ->
         return $ ForAll freshVar (\_ -> f2)
 
-    -- The bounded variable is quantified on a Predicate
-    -- (e.g. D : Set, n : D, N : D → Set ⊢ Nn : N n).
-    -- In this case, we erase the quantification and try it as a
-    -- function type.  This solve the problem of the translation of
+    -- The bounded variable is quantified on a proof,
+    --
+    -- e.g. the bounded variable is 'Nn : N n', where D : Set, n : D
+    -- and N : D → Set.
+    --
+    -- In this case, we erase the quantification on the bounded
+    -- variable and we try it as a function type. This solve the
+    -- problem of the translation of
+    --
     -- sN : {n : D} → (Nn : N n) → N (succ n).
-    -- N.B. The pattern matching on (Def _ _).
+    --
+    -- N.B. the pattern matching on (Def _ _).
     El (Type (Lit (LitLevel _ 0))) def@(Def _ _) -> do
-       lift $ lift $ reportSLn "termToFormula" 20 $
-           "Removing a quantification on the predicate:\n" ++ show def
+       lift $ lift $ reportSLn "t2f" 20 $
+           "Removing a quantification on the proof:\n" ++ show def
        f1 <- typeToFormula $ unArg tyArg
        return $ Implies f1 f2
 
     -- Hack: The bounded variable is quantified on a function of a Set
-    -- to a Set (e.g. D : Set ⊢ f : D → D). In this case we handle the
-    -- bounded variable/function as a FOL variable
-    -- (see termToTermFOL term@(Var n args)),
-    -- and we quantified on this variable.
+    -- to a Set,
+    --
+    -- e.g. the bounded variable is f : D \to D, where D : Set.
+    --
+    -- In this case we handle the bounded variable/function as a FOL
+    -- variable (see termToTermFOL term@(Var n args)), and we
+    -- quantified on this variable.
     El (Type (Lit (LitLevel _ 0)))
        (Fun (Arg _ (El (Type (Lit (LitLevel _ 0))) (Def _ [])))
             (El (Type (Lit (LitLevel _ 0))) (Def _ []))
        ) -> do
-      lift $ lift $ reportSLn "termToFormula" 20
-           "Processing bounded varible quantified on a function of a Set to a Set"
+      lift $ lift $ reportSLn "t2f" 20
+         "Removing a quantification on a function of a Set to a Set"
       return $ ForAll freshVar (\_ -> f2)
 
     El (Type (Lit (LitLevel _ 0))) _ -> __IMPOSSIBLE__
 
     -- Old version
     -- TODO: Check it
-    -- The variable bound has type Set, i.e. a propositional constant.
+    -- The bounded variable has type Set, i.e. a propositional constant.
     -- El (Type (Lit (LitLevel _ 1))) _ ->
         -- return $ ForAll freshVar (\_ -> f2)
 
-    -- The bound variable is quantified on a Set₁ (e.g. A : Set).
-    -- In this case, we erase the quantification.
+    -- The bounded variable is quantified on a Set₁,
+    --
+    -- e.g. the bounded variable is 'A : Set'.
+    --
+    -- In this case, we forgot it.
     El (Type (Lit (LitLevel _ 1))) (Sort _)  -> do
-       lift $ lift $ reportSLn "termToFormula" 20 $
-            "The type tyArg is: " ++ show tyArg
+       lift $ lift $ reportSLn "t2f" 20 $ "The type tyArg is: " ++ show tyArg
        return f2
 
     El (Type (Lit (LitLevel _ 1))) _ -> __IMPOSSIBLE__
@@ -272,8 +273,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
 
 -- TODO: To add test for this case.
 termToFormula term@(Var n _) = do
-  lift $ lift $ reportSLn "termToFormula" 10 $ "termToFormula Var: " ++
-                                               show term
+  lift $ lift $ reportSLn "t2f" 10 $ "termToFormula Var: " ++ show term
 
   vars <- lift get
 
@@ -296,8 +296,7 @@ appArgs fn args = do
 termToTermFOL :: Term -> T TermFOL
 -- TODO: The code for the cases Con and Def is similar.
 termToTermFOL term@(Con (QName _ name) args)  = do
-  lift $ lift $ reportSLn "termToTermFOL" 10 $ "termToTermFOL Con:\n" ++
-                                               show term
+  lift $ lift $ reportSLn "t2t" 10 $ "termToTermFOL Con:\n" ++ show term
 
   let cName :: C.Name
       cName = nameConcrete name
@@ -325,8 +324,7 @@ termToTermFOL term@(Con (QName _ name) args)  = do
         _  -> appArgs (concatName parts) args
 
 termToTermFOL term@(Def (QName _ name) args) = do
-  lift $ lift $ reportSLn "termToTermFOL" 10 $ "termToTermFOL Def:\n" ++
-                                               show term
+  lift $ lift $ reportSLn "t2t" 10 $ "termToTermFOL Def:\n" ++ show term
 
   let cName :: C.Name
       cName = nameConcrete name
@@ -354,8 +352,7 @@ termToTermFOL term@(Def (QName _ name) args) = do
         _  -> appArgs (concatName parts) args
 
 termToTermFOL term@(Var n args) = do
-  lift $ lift $ reportSLn "termToTermFOL" 10 $ "termToTermFOL Var:\n" ++
-                                               show term
+  lift $ lift $ reportSLn "t2t" 10 $ "termToTermFOL Var:\n" ++ show term
 
   vars <- lift get
 
