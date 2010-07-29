@@ -1,4 +1,4 @@
-module Test.Succeed.DefinitionInsideWhereClause where
+module Test.Succeed.DefinitionsInsideWhereClauses where
 
 infixl 6 _+_
 infix  4 _≡_
@@ -7,10 +7,7 @@ postulate
   D      : Set
   zero   : D
   succ   : D → D
-
--- The identity type.
-data _≡_ (x : D) : D → Set where
-  refl : x ≡ x
+  _≡_    : D → D → Set
 
 -- The LTC natural numbers type.
 data N : D → Set where
@@ -27,13 +24,13 @@ indN P p0 h (sN Nn) = h Nn (indN P p0 h Nn)
 
 postulate
   _+_    : D → D → D
-  add-x0 : (n : D) → n + zero     ≡ n
-  add-xS : (m n : D) → m + succ n ≡ succ (m + n)
-{-# ATP axiom add-x0 #-}
-{-# ATP axiom add-xS #-}
+  +-0x : (d : D) → zero + d     ≡ d
+  +-Sx : (d e : D) → succ d + e ≡ succ (d + e)
+{-# ATP axiom +-0x #-}
+{-# ATP axiom +-Sx #-}
 
-addLeftIdentity : {n : D} → N n → zero + n ≡ n
-addLeftIdentity = indN (λ i → P i) P0 iStep
++-leftIdentity : {n : D} → N n → zero + n ≡ n
++-leftIdentity {n} Nn = indN P P0 iStep Nn
   where
     P : D → Set
     P i = zero + i ≡ i
@@ -41,8 +38,10 @@ addLeftIdentity = indN (λ i → P i) P0 iStep
 
     postulate
       P0 : P zero
-    {-# ATP prove P0 #-}
+-- TODO: There is a bug in this translation.
+--    {-# ATP prove P0 #-}
 
     postulate
       iStep : {i : D} → N i → P i → P (succ i)
-    {-# ATP prove iStep #-}
+-- TODO: There is a bug in this translation.
+--    {-# ATP prove iStep #-}

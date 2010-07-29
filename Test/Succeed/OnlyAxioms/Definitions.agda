@@ -4,13 +4,12 @@ postulate
   D   : Set
   _≡_ : D → D → Set
 
--- A predicate definition
+-- A predicate definition.
 P : D → D → Set
 P d₁ d₂ = d₁ ≡ d₂
 {-# ATP definition P #-}
 
-
--- A function definition
+-- A function definition.
 postulate
   foo : D → D → D
 

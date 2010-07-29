@@ -1,0 +1,2 @@
+definition, ( ! \[A\] : ( ! \[B\] : ( ( p(A,B) ) <=> ( B = B ) ) ) )
+definition, ( ! \[A\] : ( ( n(A) ) => ( ! \[B\] : ( ( q(A,B) ) <=> ( B = A ) ) ) ) )

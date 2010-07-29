@@ -1,3 +1,5 @@
+* Fix the clash name with symbol's definitions
+  The same symbol defined inside different where clauses will clash
 * Test the Agda issue 260 http://code.google.com/p/agda/issues/detail?id=260
 * Review the tests of the logical constants
 * Fix the clash names (e.g 'gT and GT' will clash)
