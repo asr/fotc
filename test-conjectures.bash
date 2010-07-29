@@ -15,6 +15,7 @@ case $1 in
           LTC/Data/Nat/Inequalities/Properties
           LTC/Data/Nat/List/Properties
           LTC/Data/Nat/Properties
+          LTC/Data/Nat/PropertiesByInduction
           LTC/Relation/Equalities/Properties
           '
         ;;

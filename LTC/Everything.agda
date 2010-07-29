@@ -26,6 +26,7 @@ open import LTC.Data.Nat.Inequalities.Properties
 open import LTC.Data.Nat.List.Properties
 open import LTC.Data.Nat.List.Type
 open import LTC.Data.Nat.Properties
+open import LTC.Data.Nat.PropertiesByInduction
 open import LTC.Data.Nat.Type
 
 open import LTC.Data.Product
