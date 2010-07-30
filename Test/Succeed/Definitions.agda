@@ -7,10 +7,7 @@ postulate
   D      : Set
   zero   : D
   succ   : D → D
-
--- The identity type.
-data _≡_ (x : D) : D → Set where
-  refl : x ≡ x
+  _≡_    : D → D → Set
 
 -- The LTC natural numbers type.
 data N : D → Set where
@@ -27,10 +24,10 @@ indN P p0 h (sN Nn) = h Nn (indN P p0 h Nn)
 
 postulate
   _+_    : D → D → D
-  add-x0 : (n : D) → n + zero     ≡ n
-  add-xS : (m n : D) → m + succ n ≡ succ (m + n)
-{-# ATP axiom add-x0 #-}
-{-# ATP axiom add-xS #-}
+  +-0x : (d : D) → zero + d     ≡ d
+  +-Sx : (d e : D) → succ d + e ≡ succ (d + e)
+{-# ATP axiom +-0x #-}
+{-# ATP axiom +-Sx #-}
 
 P : D → Set
 P i = zero + i ≡ i
@@ -44,5 +41,5 @@ postulate
   iStep : {i : D} → N i → P i → P (succ i)
 {-# ATP prove iStep #-}
 
-addLeftIdentity : {n : D} → N n → zero + n ≡ n
-addLeftIdentity = indN (λ i → P i) P0 iStep
++-leftIdentity : {n : D} → N n → zero + n ≡ n
++-leftIdentity = indN (λ i → P i) P0 iStep
