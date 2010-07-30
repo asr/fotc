@@ -192,8 +192,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
       freshVar = evalState freshName vars
 
   lift $ lift $ reportSLn "t2f" 20 $
-           "Starting processing in local enviroment using the type:\n" ++
-           show tyAbs
+    "Starting processing in local enviroment with type:\n" ++ show tyAbs
 
   -- The de Bruijn indexes are assigned from "right to left", e.g.
   -- in '(A B C : Set) -> ...', A is 2, B is 1, and C is 0,
@@ -203,8 +202,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   lift $ put vars
 
   lift $ lift $ reportSLn "t2f" 20 $
-           "Finalized processing in local enviroment using the type:\n" ++
-           show tyAbs
+    "Finalized processing in local enviroment with type:\n" ++ show tyAbs
 
   case unArg tyArg of
     -- The bounded variable is quantified on a Set,
@@ -214,7 +212,9 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     -- so we can create a fresh variable and quantify on it without
     -- any problem. N.B. the pattern matching on (Def _ []).
     El (Type (Lit (LitLevel _ 0))) (Def _ []) ->
-        return $ ForAll freshVar (\_ -> f2)
+        do lift $ lift $ reportSLn "t2f" 20 $
+             "Adding universal quantification on variable: " ++ freshVar
+           return $ ForAll freshVar (\_ -> f2)
 
     -- The bounded variable is quantified on a proof,
     --
