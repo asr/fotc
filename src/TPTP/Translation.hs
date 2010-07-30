@@ -45,7 +45,7 @@ import Agda.TypeChecking.Monad.Base
 import Common ( ER, iVarNames )
 import FOL.Translation.Definitions ( defToFormula )
 import FOL.Translation.Internal.Types ( typeToFormula )
-import MyAgda.EtaExpansion ( etaExpandType )
+import MyAgda.EtaExpansion ( etaExpand )
 import MyAgda.Interface
     ( getClauses
     , getLocalHints
@@ -72,7 +72,7 @@ toAF qName role def = do
      "Type:\n" ++ show ty
 
   -- We need eta-expand the type before the translation.
-  tyEtaExpanded <- liftIO $ evalStateT (etaExpandType ty) iVarNames
+  tyEtaExpanded <- liftIO $ evalStateT (etaExpand ty) iVarNames
 
   lift $ reportSLn "toAF" 20 $ "The eta-expanded type is:\n" ++
                                 show tyEtaExpanded
