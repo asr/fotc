@@ -24,7 +24,7 @@ import System.Process ( readProcess )
 
 -- Local imports
 import Common ( ER )
-import Options ( Options(optOnlyCreateFiles, optTime) )
+import Options ( Options(optOnlyFiles, optTime) )
 import Reports ( reportS )
 import TPTP.Files ( createAxiomsFile, createConjectureFile )
 import TPTP.Types ( AF )
@@ -92,7 +92,7 @@ callATPConjecture conjecture = do
 
   file <- lift $ createConjectureFile conjecture
 
-  unless (optOnlyCreateFiles opts) $ do
+  unless (optOnlyFiles opts) $ do
 
     let timeLimit :: Int
         timeLimit = optTime opts

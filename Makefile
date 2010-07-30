@@ -21,7 +21,7 @@ TAGS : $(haskellFiles)
 
 $(axiomsFiles) : % : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
-	@if ! ( agda2atp --only-create-files $< ); then exit 1; fi
+	@if ! ( agda2atp --only-files $< ); then exit 1; fi
 	@cat $@.ax | while read -r line; do \
 		if ! ( grep --silent "$$line" $(axiomsTPTP) ) ; then \
 			echo "Testing error. Translation to: $$line"; \

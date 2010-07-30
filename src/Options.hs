@@ -24,24 +24,24 @@ import Utils.IO ( bye )
 -----------------------------------------------------------------------------
 
 data Options = MkOptions
-    { optVersion          :: Bool
-    , optHelp             :: Bool
-    , optVerbose          :: Trie String Int
---    , optATP            :: String
-    , optOnlyCreateFiles  :: Bool
-    , optTime             :: Int
-    , optDefAsAxiom       :: Bool
+    { optVersion    :: Bool
+    , optHelp       :: Bool
+    , optVerbose    :: Trie String Int
+--    , optATP      :: String
+    , optOnlyFiles  :: Bool
+    , optTime       :: Int
+    , optDefAsAxiom :: Bool
     } deriving ( Show )
 
 defaultOptions :: Options
 defaultOptions = MkOptions
-  { optVersion         = False
-  , optHelp            = False
-  , optVerbose         = Trie.singleton [] 1
---  , optATP           = "equinox"
-  , optOnlyCreateFiles = False
-  , optTime            = 300
-  , optDefAsAxiom      = False
+  { optVersion    = False
+  , optHelp       = False
+  , optVerbose    = Trie.singleton [] 1
+--  , optATP      = "equinox"
+  , optOnlyFiles  = False
+  , optTime       = 300
+  , optDefAsAxiom = False
   }
 
 versionOpt :: Options -> Options
@@ -65,8 +65,8 @@ verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
 -- atpOpt :: String -> Options -> Options
 -- atpOpt name opts = opts { optATP = name }
 
-onlyCreateFilesOpt :: Options -> Options
-onlyCreateFilesOpt opts = opts { optOnlyCreateFiles = True }
+onlyFilesOpt :: Options -> Options
+onlyFilesOpt opts = opts { optOnlyFiles = True }
 
 timeOpt :: String -> Options -> Options
 timeOpt secs opts = opts { optTime = read secs }
@@ -84,7 +84,7 @@ options =
                  "set verbosity level to N"
   -- , Option []    ["ATP"] (ReqArg atpOpt "name")
   --                "set the ATP (default: equinox)"
-  , Option []    ["only-create-files"] (NoArg onlyCreateFilesOpt)
+  , Option []    ["only-files"] (NoArg onlyFilesOpt)
                  "do not call the ATPs, only to create the TPTP files"
   , Option []    ["time"] (ReqArg timeOpt "secs")
                  "set timeout for the ATPs in seconds (default: 300)"
