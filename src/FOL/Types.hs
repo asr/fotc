@@ -9,24 +9,23 @@ module FOL.Types where
 ------------------------------------------------------------------------------
 -- FOL formulas.
 -- Adapted from AgdaLight (Plugins.FOL.Types).
-data TermFOL = FunFOL   String [TermFOL]
-             | VarFOL   String
-             | ConstFOL String -- AgdaLight hasn't them.
+data FOLTerm = FOLFun   String [FOLTerm]
+             | FOLVar   String
+             | FOLConst String -- AgdaLight hasn't them.
                deriving ( Show )
 
-data FormulaFOL = TRUE
+data FOLFormula = TRUE
                 | FALSE
-                | Predicate String     [TermFOL]
-                | Not       FormulaFOL
-                | And       FormulaFOL FormulaFOL
-                | Or        FormulaFOL FormulaFOL
-                | Implies   FormulaFOL FormulaFOL
-                | Equiv     FormulaFOL FormulaFOL
-                | ForAll    String     (TermFOL -> FormulaFOL)
-                | Exists    String     (TermFOL -> FormulaFOL)
+                | Predicate String     [FOLTerm]
+                | Not       FOLFormula
+                | And       FOLFormula FOLFormula
+                | Or        FOLFormula FOLFormula
+                | Implies   FOLFormula FOLFormula
+                | Equiv     FOLFormula FOLFormula
+                | ForAll    String     (FOLTerm -> FOLFormula)
+                | Exists    String     (FOLTerm -> FOLFormula)
 
-
-instance Show FormulaFOL where
+instance Show FOLFormula where
     show TRUE                = " TRUE "
     show FALSE               = " FALSE "
     show (Predicate name ts) = " Predicate " ++ show name ++ " " ++ show ts
@@ -35,5 +34,5 @@ instance Show FormulaFOL where
     show (Or f1 f2)          = " Or " ++ show f1 ++ show f2
     show (Implies f1 f2)     = " Implies " ++ show f1 ++ show f2
     show (Equiv f1 f2)       = " Equiv " ++ show f1 ++ show f2
-    show (ForAll var f)      = " ForAll " ++ show var ++ show (f $ VarFOL var)
-    show (Exists var f)      = " Exists " ++ show var ++ show (f $ VarFOL var)
+    show (ForAll var f)      = " ForAll " ++ show var ++ show (f $ FOLVar var)
+    show (Exists var f)      = " Exists " ++ show var ++ show (f $ FOLVar var)

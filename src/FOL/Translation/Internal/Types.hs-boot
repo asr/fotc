@@ -9,8 +9,8 @@ import Agda.Syntax.Internal ( Type )
 
 -- Local imports
 import FOL.Monad ( T )
-import FOL.Types ( FormulaFOL )
+import FOL.Types ( FOLFormula )
 
 ------------------------------------------------------------------------------
 
-typeToFormula :: Type -> T FormulaFOL
+typeToFormula :: Type -> T FOLFormula

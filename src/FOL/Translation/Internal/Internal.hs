@@ -6,7 +6,7 @@
 
 module FOL.Translation.Internal.Internal
     ( cBodyToFormula
-    , cBodyToTermFOL
+    , cBodyToFOLTerm
     , removeBindingOnCBody
     ) where
 
@@ -30,27 +30,27 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 
 -- Local imports
 import FOL.Monad ( T )
-import FOL.Translation.Internal.Terms ( termToFormula, termToTermFOL )
+import FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm )
 -- import FOL.Translation.Internal.Types ( typeToFormula )
-import FOL.Types ( FormulaFOL, TermFOL )
+import FOL.Types ( FOLFormula, FOLTerm )
 
 #include "../../../undefined.h"
 
 ------------------------------------------------------------------------------
 
--- telescopeToFormula :: Telescope -> T FormulaFOL
+-- telescopeToFormula :: Telescope -> T FOLFormula
 -- telescopeToFormula EmptyTel             = __IMPOSSIBLE__
 -- telescopeToFormula (ExtendTel tyArg _ ) = typeToFormula $ unArg tyArg
 
-cBodyToFormula :: ClauseBody -> T FormulaFOL
+cBodyToFormula :: ClauseBody -> T FOLFormula
 cBodyToFormula (Body term )         = termToFormula term
 cBodyToFormula (Bind (Abs _ cBody)) = cBodyToFormula cBody
 cBodyToFormula _                    = __IMPOSSIBLE__
 
-cBodyToTermFOL :: ClauseBody -> T TermFOL
-cBodyToTermFOL (Body term )         = termToTermFOL term
-cBodyToTermFOL (Bind (Abs _ cBody)) = cBodyToTermFOL cBody
-cBodyToTermFOL _                    = __IMPOSSIBLE__
+cBodyToFOLTerm :: ClauseBody -> T FOLTerm
+cBodyToFOLTerm (Body term )         = termToFOLTerm term
+cBodyToFOLTerm (Bind (Abs _ cBody)) = cBodyToFOLTerm cBody
+cBodyToFOLTerm _                    = __IMPOSSIBLE__
 
 posVarOnCBody :: ClauseBody -> String -> Nat
 posVarOnCBody (Bind (Abs var1 cBody)) var2

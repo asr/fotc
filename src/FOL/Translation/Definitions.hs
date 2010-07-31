@@ -32,12 +32,12 @@ import FOL.Primitives ( equal )
 import FOL.Translation.Common ( varsToArgs )
 import FOL.Translation.Internal.Internal
     ( cBodyToFormula
-    , cBodyToTermFOL
+    , cBodyToFOLTerm
     , removeBindingOnCBody
     )
-import FOL.Translation.Internal.Terms ( termToFormula, termToTermFOL )
+import FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm )
 import FOL.Translation.Internal.Types ( typeToFormula )
-import FOL.Types ( FormulaFOL(Implies, Equiv, ForAll) )
+import FOL.Types ( FOLFormula(Implies, Equiv, ForAll) )
 import Reports ( reportSLn )
 import Utils.Names ( freshName )
 
@@ -48,7 +48,7 @@ import Utils.Names ( freshName )
 -- (i.e. equations), for example every equation in a definition by
 -- pattern matching. In our case it is only necessary to translate
 -- definition with only one clause.
-defToFormula :: QName -> Type -> [Clause] -> T FormulaFOL
+defToFormula :: QName -> Type -> [Clause] -> T FOLFormula
 defToFormula _      _  []        = __IMPOSSIBLE__
 defToFormula qName  ty (cl : []) = defOneClauseToFormula qName ty cl
 defToFormula qName  _  _         =
@@ -69,7 +69,7 @@ defToFormula qName  _  _         =
 -- (i.e. the body of the clause) it is necessary to a generetate
 -- universal quantification on an equal number of variables to length
 -- [Arg Pattern].
-defOneClauseToFormula :: QName -> Type -> Clause -> T FormulaFOL
+defOneClauseToFormula :: QName -> Type -> Clause -> T FOLFormula
 
 -- There is at most one variable in the clause's pattern, so ...
 defOneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
@@ -153,10 +153,10 @@ defOneClauseToFormula qName ty (Clause _ _ _ [] cBody ) = do
 
     -- The defined symbol is a function.
     El (Type (Lit (LitLevel _ 0))) _ -> do
-            lhsT <- termToTermFOL lhs
+            lhsT <- termToFOLTerm lhs
 
             -- The RHS is the body of the clause.
-            rhsT <- cBodyToTermFOL cBody
+            rhsT <- cBodyToFOLTerm cBody
 
             -- Because the LHS and RHS are terms, they are related via
             -- the FOL equality.

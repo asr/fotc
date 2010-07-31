@@ -21,14 +21,14 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 -- Local imports
 import FOL.Monad ( T )
 import FOL.Translation.Internal.Terms ( termToFormula )
-import FOL.Types ( FormulaFOL )
+import FOL.Types ( FOLFormula )
 import Reports ( reportSLn )
 
 #include "../../../undefined.h"
 
 ------------------------------------------------------------------------------
 
-typeToFormula :: Type -> T FormulaFOL
+typeToFormula :: Type -> T FOLFormula
 typeToFormula ty@(El (Type (Lit (LitLevel _ n))) term)
     | n `elem` [ 0, 1 ] = do
         lift $ lift $ reportSLn "typeToFormula" 10 $

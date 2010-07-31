@@ -32,7 +32,6 @@ executable agda2atp
                   FOL.Translation.Internal.Internal
                   FOL.Translation.Internal.Terms
                   FOL.Translation.Internal.Types
-                  -- FOL.Substitution
                   FOL.Types
                   MyAgda.EtaExpansion
                   MyAgda.Interface
@@ -42,7 +41,6 @@ executable agda2atp
                   Paths_agda2atp
                   Reports
                   TPTP.Files
-                  -- TPTP.Monad
                   TPTP.Pretty
                   TPTP.Translation
                   TPTP.Types

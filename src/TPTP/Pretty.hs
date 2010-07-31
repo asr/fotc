@@ -80,19 +80,19 @@ instance PrettyTPTP QName where
 instance PrettyTPTP String where
     prettyTPTP s = prefixLetter $ concat $ map prettyTPTP s
 
-instance PrettyTPTP TermFOL where
-    prettyTPTP (FunFOL name [])    = changeToLower name
-    prettyTPTP (FunFOL name terms) = changeToLower name ++
+instance PrettyTPTP FOLTerm where
+    prettyTPTP (FOLFun name [])    = changeToLower name
+    prettyTPTP (FOLFun name terms) = changeToLower name ++
                                      "(" ++ prettyTPTP terms ++ ")"
-    prettyTPTP (VarFOL name)       = changeToUpper name
-    prettyTPTP (ConstFOL name)     = changeToLower name
+    prettyTPTP (FOLVar name)       = changeToUpper name
+    prettyTPTP (FOLConst name)     = changeToLower name
 
-instance PrettyTPTP [TermFOL] where
+instance PrettyTPTP [FOLTerm] where
     prettyTPTP [] = []
     prettyTPTP (a : []) = prettyTPTP a
     prettyTPTP (a : as) = prettyTPTP a ++ "," ++ prettyTPTP as
 
-instance PrettyTPTP FormulaFOL where
+instance PrettyTPTP FOLFormula where
     -- We translate the hard-code FOL predicate kEqual as the
     -- predefined equality in the ATP.
     prettyTPTP (Predicate "kEqual" [t1, t2] ) =
@@ -118,12 +118,12 @@ instance PrettyTPTP FormulaFOL where
 
     prettyTPTP (ForAll var f) =
         "( ! [" ++ changeToUpper var ++ "] : " ++
-                prettyTPTP (f (VarFOL var)) ++
+                prettyTPTP (f (FOLVar var)) ++
         " )"
 
     prettyTPTP (Exists var f) =
         "( ? [" ++ changeToUpper var ++ "] : " ++
-                    prettyTPTP (f (VarFOL var)) ++
+                    prettyTPTP (f (FOLVar var)) ++
         " )"
 
     prettyTPTP TRUE  = "( " ++ "$true" ++ " )"
