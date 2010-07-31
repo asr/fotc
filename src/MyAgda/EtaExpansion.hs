@@ -27,7 +27,7 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 -- Local imports
 import Common ( Vars )
 import MyAgda.Interface ( getQNameInterface, getQNameType )
-import MyAgda.Syntax.Internal ( incTermVariables )
+import MyAgda.Syntax.Internal ( increaseByOneVar )
 import Utils.Names ( freshName )
 
 #include "../undefined.h"
@@ -85,7 +85,7 @@ instance EtaExpandible Term where
                  -- need increase by one the numbers associated with the
                  -- variables in the arguments.
                  let incVarsEtaExpanded :: Args
-                     incVarsEtaExpanded = map incTermVariables argsEtaExpanded
+                     incVarsEtaExpanded = map increaseByOneVar argsEtaExpanded
                  return $
                    Lam NotHidden (Abs freshVar
                                       (Def qName
