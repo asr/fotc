@@ -13,7 +13,7 @@ filesWithAxioms='
   '
 for file in ${filesWithAxioms} ; do
     if ! ( ${AGDA} ${file}.agda ); then exit 1; fi
-    if ! ( agda2atp --only-create-files ${file}.agda ); then exit 1; fi
+    if ! ( agda2atp --only-files ${file}.agda ); then exit 1; fi
     if ! ( cat ${file}.ax | while read -r line; do
                 if ! ( grep --silent "${line}" $axiomsTPTP ) ; then
                     echo "Testing error. Translation to: $line"
