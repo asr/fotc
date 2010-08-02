@@ -1,5 +1,5 @@
-axioms :
-	./test-axioms.bash
+non_conjectures :
+	./test-non-conjectures.bash
 
 conjectures :
 	$(MAKE) -C LTC               conjectures
@@ -7,31 +7,31 @@ conjectures :
 	$(MAKE) -C Examples/Logic    conjectures
 	$(MAKE) -C Examples/SortList conjectures
 
-conjecturesPCF :
-	$(MAKE) -C LTC-PCF              conjecturesPCF
-	$(MAKE) -C Examples/DivisionPCF conjecturesPCF
-	$(MAKE) -C Examples/GCD-PCF     conjecturesPCF
+conjectures_PCF :
+	$(MAKE) -C LTC-PCF              conjectures_PCF
+	$(MAKE) -C Examples/DivisionPCF conjectures_PCF
+	$(MAKE) -C Examples/GCD-PCF     conjectures_PCF
 
-type-checking :
-	$(MAKE) -C LTC                  type-checking
-	$(MAKE) -C LTC-PCF              type-checking
-	$(MAKE) -C Examples/DivisionPCF type-checking
-	$(MAKE) -C Examples/GCD         type-checking
-	$(MAKE) -C Examples/GCD-PCF     type-checking
-	$(MAKE) -C Examples/Logic       type-checking
-	$(MAKE) -C Examples/SortList    type-checking
+type_checking :
+	$(MAKE) -C LTC                  type_checking
+	$(MAKE) -C LTC-PCF              type_checking
+	$(MAKE) -C Examples/DivisionPCF type_checking
+	$(MAKE) -C Examples/GCD         type_checking
+	$(MAKE) -C Examples/GCD-PCF     type_checking
+	$(MAKE) -C Examples/Logic       type_checking
+	$(MAKE) -C Examples/SortList    type_checking
 
-type-checking-ER :
-	$(MAKE) -C LTC                  type-checking-ER
-	$(MAKE) -C LTC-PCF              type-checking-ER
-	$(MAKE) -C Examples/DivisionPCF type-checking-ER
-	$(MAKE) -C Examples/GCD         type-checking-ER
-	$(MAKE) -C Examples/GCD-PCF     type-checking-ER
-	$(MAKE) -C Examples/SortList    type-checking-ER
+type_checking_ER :
+	$(MAKE) -C LTC                  type_checking_ER
+	$(MAKE) -C LTC-PCF              type_checking_ER
+	$(MAKE) -C Examples/DivisionPCF type_checking_ER
+	$(MAKE) -C Examples/GCD         type_checking_ER
+	$(MAKE) -C Examples/GCD-PCF     type_checking_ER
+	$(MAKE) -C Examples/SortList    type_checking_ER
 
-type-checking-all : type-checking-ER type-checking
+type_checking_all : type_checking_ER type_checking
 
-test : type-checking-all axioms conjectures conjecturesPCF
+test : type_checking_all non_conjectures conjectures conjectures_PCF
 
 publish :
 	$(MAKE) -C LTC                  publish

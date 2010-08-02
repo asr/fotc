@@ -3,23 +3,23 @@ host_dir = asicard@localhost:./tmp/Logic/
 port = 2024
 
 AGDA = agda -v 0
-local-path = Examples/Logic
+local_path = Examples/Logic
 
 conjectures :
 	cd ../.. && ./test-conjectures.bash Logic
 
-type-checking :
-	cd ../.. && $(AGDA) $(local-path)/Logic.agda
+type_checking :
+	cd ../.. && $(AGDA) $(local_path)/Logic.agda
 
-type-checking-all : type-checking
+type_checking_all : type_checking
 
-test : type-checking-all conjectures
+test : type_checking_all conjectures
 
 publish :
 	rm -r -f html/
 	cd ../.. && \
-	$(AGDA) --html --html-dir=$(local-path)/html \
-		$(local-path)/Logic.agda
+	$(AGDA) --html --html-dir=$(local_path)/html \
+		$(local_path)/Logic.agda
 
 	scp -P $(port) -r html/ $(host_dir)
 

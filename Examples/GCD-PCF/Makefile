@@ -3,27 +3,27 @@ host_dir = asicard@localhost:./tmp/GCD-PCF/
 port = 2024
 
 AGDA = agda -v 0
-local-path = Examples/GCD-PCF
+local_path = Examples/GCD-PCF
 
-conjecturesPCF :
+conjectures_PCF :
 	cd ../.. && ./test-conjectures.bash GCD-PCF
 
-type-checking :
-	cd ../.. && $(AGDA) $(local-path)/ProofSpecificationPCF.agda
+type_checking :
+	cd ../.. && $(AGDA) $(local_path)/ProofSpecificationPCF.agda
 
-type-checking-ER :
-	cd ../.. && $(AGDA) $(local-path)/ProofSpecificationPCF-ER.agda
+type_checking_ER :
+	cd ../.. && $(AGDA) $(local_path)/ProofSpecificationPCF-ER.agda
 
-type-checking-all : type-checking-ER type-checking
+type_checking_all : type_checking_ER type_checking
 
-test : type-checking-all conjecturesPCF
+test : type_checking_all conjectures_PCF
 
 publish :
 	rm -r -f html/
 
 	cd ../.. && \
-	$(AGDA) --html --html-dir=$(local-path)/html \
-		$(local-path)/ProofSpecificationPCF.agda
+	$(AGDA) --html --html-dir=$(local_path)/html \
+		$(local_path)/ProofSpecificationPCF.agda
 
 	scp -P $(port) -r html/ $(host_dir)
 

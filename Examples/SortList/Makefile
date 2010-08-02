@@ -3,29 +3,29 @@ host_dir = asicard@localhost:./tmp/SortList/
 port = 2024
 
 AGDA = agda -v 0
-local-path = Examples/SortList
+local_path = Examples/SortList
 
 conjectures :
 	cd ../.. && ./test-conjectures.bash SortList
 
-type-checking :
-	cd ../.. && $(AGDA) $(local-path)/ProofSpecification.agda
+type_checking :
+	cd ../.. && $(AGDA) $(local_path)/ProofSpecification.agda
 
-type-checking-ER :
+type_checking_ER :
 	cd ../.. && \
-	$(AGDA) $(local-path)/Closures/ListER.agda && \
-	$(AGDA) $(local-path)/PropertiesER.agda && \
-	$(AGDA) $(local-path)/ProofSpecificationER.agda
+	$(AGDA) $(local_path)/Closures/ListER.agda && \
+	$(AGDA) $(local_path)/PropertiesER.agda && \
+	$(AGDA) $(local_path)/ProofSpecificationER.agda
 
-type-checking-all : type-checking-ER type-checking
+type_checking_all : type_checking_ER type_checking
 
-test : type-checking-all conjectures
+test : type_checking_all conjectures
 
 publish :
 	rm -r -f html/
 	cd ../.. && \
-	$(AGDA) --html --html-dir=$(local-path)/html \
-		$(local-path)/ProofSpecification.agda
+	$(AGDA) --html --html-dir=$(local_path)/html \
+		$(local_path)/ProofSpecification.agda
 
 	scp -P $(port) -r html/ $(host_dir)
 
