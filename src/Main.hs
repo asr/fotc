@@ -54,7 +54,8 @@ import Utils.Version ( version )
 #include "undefined.h"
 
 ------------------------------------------------------------------------------
--- We translate the ATP axioms, general hints, and definitions for a file.
+-- We translate the ATP axioms, (general) hints, and definitions for a
+-- file. These TPTP roles are common to every conjecture.
 translationGeneralRoles :: FilePath -> ER [AF]
 translationGeneralRoles file = do
 
@@ -88,8 +89,8 @@ translation file = do
   -- Gettting the interface.
   i <- liftIO $ myReadInterface file
 
-  -- We translate the ATP pragma conjectures and their associated hints
-  -- of current module.
+  -- We translate the ATP pragma conjectures and their local hints
+  -- in the current module.
   conjectures <- conjecturesToAFs i
 
   return ( concat generalRolesImportedFiles ++ generalRolesCurrentFile
@@ -111,9 +112,9 @@ runAgda2ATP = do
 
   r  <- liftIO $ runReaderT (runErrorT (translation $ head names)) opts
   case r of
-    Right (allAxioms , conjecturesCurrentModule) -> do
+    Right (generalRoles , conjecturesCurrentModule) -> do
         r' <- liftIO $
-                runReaderT (runErrorT (callATP allAxioms
+                runReaderT (runErrorT (callATP generalRoles
                                                conjecturesCurrentModule))
                            opts
         case r' of

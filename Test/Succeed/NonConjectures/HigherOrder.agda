@@ -1,4 +1,4 @@
-module Test.Succeed.OnlyAxioms.HigherOrder where
+module Test.Succeed.NonConjectures.HigherOrder where
 
 infixl 6 _∙_
 infix  4 _≡_

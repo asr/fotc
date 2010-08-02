@@ -1,4 +1,4 @@
-module Test.Succeed.OnlyAxioms.InternalTypes where
+module Test.Succeed.NonConjectures.InternalTypes where
 
 -- Agda internal types (from Agda.Syntax.Internal)
 

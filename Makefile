@@ -1,49 +1,49 @@
-haskellFiles = $(shell find src/ -name '*.hs')
+haskell_files = $(shell find src/ -name '*.hs')
 
-axiomsPath = Test/Succeed/OnlyAxioms
-succeedPath = Test/Succeed
-failPath = Test/Fail
+non_conjectures_path = Test/Succeed/NonConjectures
+succeed_path = Test/Succeed
+fail_path = Test/Fail
 
-axiomsTPTP = /tmp/axioms.tptp
+general_roles_TPTP = /tmp/general-roles.tptp
 
-axiomsFiles = $(patsubst %.agda,%,$(shell find $(axiomsPath) -name "*.agda"))
+non_conjectures_files = $(patsubst %.agda,%,$(shell find $(non_conjectures_path) -name "*.agda"))
 
-failConjectures = $(patsubst %.agda,%,$(shell find $(failPath) -name "*.agda"))
+fail_conjectures = $(patsubst %.agda,%,$(shell find $(fail_path) -name "*.agda"))
 
-# We need avoid the files inside the $(axiomsPath) directory
-succeedConjectures = $(patsubst %.agda,%, \
-	$(shell find $(succeedPath) -path '$(axiomsPath)' -prune , -name "*.agda"))
+# We need avoid the files inside the $(non_conjectures_path) directory
+succeed_conjectures = $(patsubst %.agda,%, \
+	$(shell find $(succeed_path) -path '$(non_conjectures_path)' -prune , -name "*.agda"))
 
 AGDA = agda -v 0
 
-TAGS : $(haskellFiles)
-	hasktags -e $(haskellFiles)
+TAGS : $(haskell_files)
+	hasktags -e $(haskell_files)
 
-$(axiomsFiles) : % : %.agda
+$(non_conjectures_files) : % : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
 	@if ! ( agda2atp --only-files $< ); then exit 1; fi
 	@cat $@.ax | while read -r line; do \
-		if ! ( grep --silent "$$line" $(axiomsTPTP) ) ; then \
+		if ! ( grep --silent "$$line" $(general_roles_TPTP) ) ; then \
 			echo "Testing error. Translation to: $$line"; \
 			exit 1; \
 		fi \
 	done
 
-$(succeedConjectures) : % : %.agda
+$(succeed_conjectures) : % : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
 	@if ! ( agda2atp --time 60 $< ); then exit 1; fi
 
-$(failConjectures) : % : %.agda
+$(fail_conjectures) : % : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
 # The unproven conjectures return an error, therefore we wrapped it.
 	@if ( agda2atp --time 5 $< ); then exit 1; fi
 
 # The tests
-axioms : clean $(axiomsFiles)
-succeed : clean $(succeedConjectures)
-fail : clean $(failConjectures)
+non_conjectures : clean $(non_conjectures_files)
+succeed : clean $(succeed_conjectures)
+fail : clean $(fail_conjectures)
 
-test : axioms succeed fail
+test : non_conjectures succeed fail
 
 clean :
 	find -name '*.agdai' | xargs rm -f

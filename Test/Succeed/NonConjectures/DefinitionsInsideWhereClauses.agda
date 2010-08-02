@@ -1,4 +1,4 @@
-module Test.Succeed.OnlyAxioms.DefinitionsInsideWhereClauses where
+module Test.Succeed.NonConjectures.DefinitionsInsideWhereClauses where
 
 postulate
   D    : Set

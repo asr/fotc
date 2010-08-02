@@ -5,7 +5,10 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE TypeSynonymInstances #-}
 
-module TPTP.Files where
+module TPTP.Files
+    ( createConjectureFile
+    , createGeneralRolesFile
+    ) where
 
 -- Haskell imports
 import Control.Monad.IO.Class ( liftIO )
@@ -41,15 +44,15 @@ instance ValidFileName Char where
         | isDigit c || isAsciiUpper c || isAsciiLower c = [c]
         | otherwise = show $ ord c
 
--- Requires TypeSynonymInstances
+-- Requires TypeSynonymInstances.
 instance ValidFileName String where
     validFileName s = concat $ map validFileName s
 
 extTPTP :: String
 extTPTP = ".tptp"
 
-axiomsFile :: FilePath
-axiomsFile = addExtension "/tmp/axioms" extTPTP
+generalRolesFile :: FilePath
+generalRolesFile = addExtension "/tmp/general-roles" extTPTP
 
 communHeader :: String
 communHeader =
@@ -57,22 +60,22 @@ communHeader =
     "% This file was generated automatically.\n" ++
     "%-----------------------------------------------------------------------------\n\n"
 
-headerAxioms :: String
-headerAxioms =
+headerGeneralRoles :: String
+headerGeneralRoles =
     communHeader ++
     "% This file corresponds to the ATP axioms, general hints, and definitions.\n\n"
 
-footerAxioms :: String
-footerAxioms  =
+footerGeneralRoles :: String
+footerGeneralRoles  =
     "%-----------------------------------------------------------------------------\n" ++
-    "% End ATP axioms file.\n"
+    "% End ATP axioms, general hints, and definitions file.\n"
 
 headerConjecture :: String
 headerConjecture =
     communHeader ++
     "% This file corresponds to an ATP conjecture and its hints.\n\n" ++
-    "% We include the ATP pragmas axioms file.\n" ++
-    "include('" ++ axiomsFile ++ "').\n\n"
+    "% We include the general ATP pragmas (axioms, hints and definitions).\n" ++
+    "include('" ++ generalRolesFile ++ "').\n\n"
 
 footerConjecture :: String
 footerConjecture =
@@ -86,8 +89,8 @@ agdaOriginalTerm qName role =
     "% role:\t\t" ++ show role ++ "\n" ++
     "% position:\t" ++ show (nameBindingSite $ qnameName qName) ++ "\n"
 
-addAxiom :: AF -> FilePath -> IO ()
-addAxiom af@(AF qName role _ ) file
+addGeneralRole :: AF -> FilePath -> IO ()
+addGeneralRole af@(AF qName role _ ) file
   | role `elem` [ AxiomATP, DefinitionATP, HintATP ] = do
       appendFile file $ agdaOriginalTerm qName role
       appendFile file $ prettyTPTP af
@@ -103,13 +106,14 @@ addConjecture af file =
 
     _ -> __IMPOSSIBLE__
 
-createAxiomsFile :: [AF] -> R ()
-createAxiomsFile afs = do
-  reportSLn "createAxiomsFile" 20 "Creating the general axioms file ... "
+createGeneralRolesFile :: [AF] -> R ()
+createGeneralRolesFile afs = do
+  reportSLn "generalRoles" 20 $
+            "Creating the general roles file " ++ generalRolesFile ++ " ..."
   liftIO $ do
-    _ <- writeFile axiomsFile headerAxioms
-    _ <- mapM_ (`addAxiom` axiomsFile) afs
-    _ <- appendFile axiomsFile footerAxioms
+    _ <- writeFile generalRolesFile headerGeneralRoles
+    _ <- mapM_ (`addGeneralRole` generalRolesFile) afs
+    _ <- appendFile generalRolesFile footerGeneralRoles
     return ()
 
 createConjectureFile :: (AF, [AF]) -> R FilePath
@@ -124,7 +128,7 @@ createConjectureFile (af@(AF qName _ _ ), hints) = do
                 "Creating the conjecture file " ++ show file ++ " ..."
   liftIO $ do
     _ <- writeFile file headerConjecture
-    _ <- mapM_ (`addAxiom` file) hints
+    _ <- mapM_ (`addGeneralRole` file) hints
     return ()
 
   addConjecture af file

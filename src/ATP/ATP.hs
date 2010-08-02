@@ -26,7 +26,7 @@ import System.Process ( readProcess )
 import Common ( ER )
 import Options ( Options(optOnlyFiles, optTime) )
 import Reports ( reportS )
-import TPTP.Files ( createAxiomsFile, createConjectureFile )
+import TPTP.Files ( createGeneralRolesFile, createConjectureFile )
 import TPTP.Types ( AF )
 
 #include "../undefined.h"
@@ -138,9 +138,9 @@ callATPConjecture conjecture = do
     answerATPs 0
 
 callATP :: [AF] -> [(AF, [AF])] -> ER ()
-callATP axioms conjectures = do
-  -- We create the general axioms TPTP file.
-  lift $ createAxiomsFile axioms
+callATP generalRoles conjectures = do
+  -- We create the general axioms/hints/definitions TPTP file.
+  lift $ createGeneralRolesFile generalRoles
 
-  -- We create the conjectures TPTP files.
+  -- We create the particular conjectures TPTP files.
   mapM_ callATPConjecture conjectures

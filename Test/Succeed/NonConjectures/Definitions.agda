@@ -1,4 +1,4 @@
-module Test.Succeed.OnlyAxioms.Definitions where
+module Test.Succeed.NonConjectures.Definitions where
 
 postulate
   D   : Set

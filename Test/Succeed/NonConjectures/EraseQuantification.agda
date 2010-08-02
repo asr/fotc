@@ -2,9 +2,9 @@
 -- Testing the removal of the quantification
 ------------------------------------------------------------------------------
 
--- See also Test.Succeed.OnlyAxioms.DefinitionInsideWhereClause
+-- See also Test.Succeed.NonConjectures.DefinitionInsideWhereClause
 
-module Test.Succeed.OnlyAxioms.EraseQuantification where
+module Test.Succeed.NonConjectures.EraseQuantification where
 
 postulate
   D    : Set
