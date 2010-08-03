@@ -65,7 +65,7 @@ class RenameVar a where
 instance RenameVar Term where
     renameVar term@(Def _ [])  _   = term
 
-    renameVar (Def qName args) pos = Def qName $ map (`renameVar` pos) args
+    renameVar (Def qName args) pos = Def qName $ renameVar args pos
 
     renameVar term@(Var n [])  pos =
         if n < pos
@@ -89,6 +89,10 @@ instance RenameVar Term where
 -- Requires FlexibleInstances.
 instance RenameVar (Arg Term) where
     renameVar (Arg h term) pos = Arg h $ renameVar term pos
+
+instance RenameVar Args where
+    renameVar []           _   = []
+    renameVar (arg : args) pos = renameVar arg pos : renameVar args pos
 
 instance RenameVar ClauseBody where
     renameVar (Bind (Abs x cBody)) pos = Bind (Abs x (renameVar cBody pos))
