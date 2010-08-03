@@ -101,23 +101,23 @@ instance EtaExpandible Term where
       tyEtaExpanded    ← etaExpand ty
       return $ Fun tyArgEtaExpanded tyEtaExpanded
 
-    etaExpand (Lam h (Abs name termAbs)) = do
-      -- We add the variable 'name' to the enviroment.
+    etaExpand (Lam h (Abs x termAbs)) = do
+      -- We add the variable x to the enviroment.
       vars ← get
-      put (name : vars)
+      put (x : vars)
 
       termAbsEtaExpanded ← etaExpand termAbs
-      return $ Lam h (Abs name termAbsEtaExpanded)
+      return $ Lam h (Abs x termAbsEtaExpanded)
 
     -- It seems it is not necessary to eta-expand the tyArg like in the
     -- case of Fun (Arg Type) Type.
-    etaExpand (Pi tyArg (Abs name tyAbs)) = do
-      -- We add the variable 'name' to the enviroment.
+    etaExpand (Pi tyArg (Abs x tyAbs)) = do
+      -- We add the variable x to the enviroment.
       vars ← get
-      put (name : vars)
+      put (x : vars)
 
       tyAbsEtaExpanded ← etaExpand tyAbs
-      return $ Pi tyArg (Abs name tyAbsEtaExpanded)
+      return $ Pi tyArg (Abs x tyAbsEtaExpanded)
 
     etaExpand (Var n args) = do
       argsEtaExpanded ← mapM etaExpand args

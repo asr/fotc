@@ -38,7 +38,7 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 -- in the Agda internal terms, i.e. it is necessary to modify the
 -- Bruijn index in the variable.
 
--- To increase by one the Bruijn index of the variable.
+-- To increase by one the de Bruijn index of the variable.
 class IncreaseByOneVar a where
     increaseByOneVar :: a → a
 
@@ -49,15 +49,16 @@ instance IncreaseByOneVar Term where
     increaseByOneVar (Def _ _ )   = __IMPOSSIBLE__
     increaseByOneVar (Fun _ _ )   = __IMPOSSIBLE__
     increaseByOneVar (Lam _ _ )   = __IMPOSSIBLE__
-    increaseByOneVar (Lit _  )    = __IMPOSSIBLE__
+    increaseByOneVar (Lit _ )     = __IMPOSSIBLE__
     increaseByOneVar (MetaV _ _ ) = __IMPOSSIBLE__
     increaseByOneVar (Pi _ _ )    = __IMPOSSIBLE__
     increaseByOneVar (Sort _ )    = __IMPOSSIBLE__
 
-instance IncreaseByOneVar (Arg Term) where -- Requires FlexibleInstances
+-- Requires FlexibleInstances.
+instance IncreaseByOneVar (Arg Term) where
     increaseByOneVar (Arg h term) = Arg h $ increaseByOneVar term
 
--- To rename a Bruijn index with respect to a position of a variable.
+-- To rename a de Bruijn index with respect to a position of a variable.
 class RenameVar a where
     renameVar :: a → Nat → a
 
@@ -66,7 +67,7 @@ instance RenameVar Term where
 
     renameVar (Def qName args) pos = Def qName $ map (`renameVar` pos) args
 
-    renameVar term@(Var n []) pos =
+    renameVar term@(Var n [])  pos =
         if n < pos
            then term -- The variable was before than the quantified variable,
                      -- we don't do nothing.
@@ -80,17 +81,18 @@ instance RenameVar Term where
     renameVar (Con _ _ )   _   = __IMPOSSIBLE__
     renameVar (Fun _ _ )   _   = __IMPOSSIBLE__
     renameVar (Lam _ _ )   _   = __IMPOSSIBLE__
-    renameVar (Lit _  )    _   = __IMPOSSIBLE__
+    renameVar (Lit _ )     _   = __IMPOSSIBLE__
     renameVar (MetaV _ _ ) _   = __IMPOSSIBLE__
     renameVar (Pi _ _ )    _   = __IMPOSSIBLE__
     renameVar (Sort _ )    _   = __IMPOSSIBLE__
 
-instance RenameVar (Arg Term) where -- Requires FlexibleInstances
+-- Requires FlexibleInstances.
+instance RenameVar (Arg Term) where
     renameVar (Arg h term) pos = Arg h $ renameVar term pos
 
 instance RenameVar ClauseBody where
-    renameVar (Bind (Abs var cBody)) pos = Bind (Abs var (renameVar cBody pos))
-    renameVar (Body term)            pos = Body $ renameVar term pos
+    renameVar (Bind (Abs x cBody)) pos = Bind (Abs x (renameVar cBody pos))
+    renameVar (Body term)          pos = Body $ renameVar term pos
     renameVar _                      _   = __IMPOSSIBLE__
 
 ------------------------------------------------------------------------------
@@ -203,7 +205,7 @@ removeReferenceToProofTerm varType index ty =
       --
       -- so we don't do anything.  N.B. the pattern matching on (Def _
       -- []).
-      El (Type (Lit (LitLevel _ 0))) (Def _ []) -> ty
+      El (Type (Lit (LitLevel _ 0))) (Def _ []) → ty
 
       -- The variable's type is a proof,
       --
@@ -212,7 +214,7 @@ removeReferenceToProofTerm varType index ty =
       --
       -- In this case, we remove the reference to this
       -- variable. N.B. the pattern matching on (Def _ _).
-      El (Type (Lit (LitLevel _ 0))) (Def _ _) -> removeVar ty index
+      El (Type (Lit (LitLevel _ 0))) (Def _ _) → removeVar ty index
 
       -- The variable type is a function type,
       --
@@ -222,7 +224,7 @@ removeReferenceToProofTerm varType index ty =
       El (Type (Lit (LitLevel _ 0)))
          (Fun (Arg _ (El (Type (Lit (LitLevel _ 0))) (Def _ [])))
               (El (Type (Lit (LitLevel _ 0))) (Def _ []))
-         ) -> ty
+         ) → ty
 
       -- The variable type is Set₁,
       --
@@ -230,11 +232,11 @@ removeReferenceToProofTerm varType index ty =
       --
       -- we don't know any reference to some variable in this case,
       -- therefore we don't do anything.
-      El (Type (Lit (LitLevel _ 1))) (Sort _)  -> ty
+      El (Type (Lit (LitLevel _ 1))) (Sort _)  → ty
 
-      El (Type (Lit (LitLevel _ 1))) _ -> __IMPOSSIBLE__
+      El (Type (Lit (LitLevel _ 1))) _ → __IMPOSSIBLE__
 
-      _ -> __IMPOSSIBLE__
+      _ → __IMPOSSIBLE__
 
 removeReferenceToProofTerms :: Type → Type
 removeReferenceToProofTerms ty = aux (varsTypes ty) 0 ty
