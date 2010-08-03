@@ -53,6 +53,7 @@ import MyAgda.Interface
     , getQNameInterface
     , getRoleATP
     )
+import MyAgda.Syntax.Internal ( removeReferenceToProofTerms )
 import Options ( optDefAsAxiom )
 import Reports ( reportSLn )
 import TPTP.Types ( AF(AF) )
@@ -77,7 +78,15 @@ toAF qName role def = do
   lift $ reportSLn "toAF" 20 $ "The eta-expanded type is:\n" ++
                                 show tyEtaExpanded
 
-  r <- lift $ evalStateT (runErrorT (typeToFormula tyEtaExpanded)) iVarNames
+  -- We need to remove the references to variables which are proof
+  -- terms from the type.
+  let tyReady :: Type
+      tyReady = removeReferenceToProofTerms tyEtaExpanded
+
+  lift $ reportSLn "toAF" 20 $ "tyReady:\n" ++ show tyReady
+
+
+  r <- lift $ evalStateT (runErrorT (typeToFormula tyReady)) iVarNames
   case r of
     Right for -> do
            lift $ reportSLn "toAF" 20 $

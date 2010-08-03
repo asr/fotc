@@ -207,7 +207,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   case unArg tyArg of
     -- The bounded variable is quantified on a Set,
     --
-    -- e.g. the bounded variable is 'd : Set' where D : Set,
+    -- e.g. the bounded variable is 'd : D' where D : Set,
     --
     -- so we can create a fresh variable and quantify on it without
     -- any problem. N.B. the pattern matching on (Def _ []).
@@ -237,7 +237,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     -- Hack: The bounded variable is quantified on a function of a Set
     -- to a Set,
     --
-    -- e.g. the bounded variable is f : D \to D, where D : Set.
+    -- e.g. the bounded variable is f : D → D, where D : Set.
     --
     -- In this case we handle the bounded variable/function as a FOL
     -- variable (see termToFOLTerm term@(Var n args)), and we

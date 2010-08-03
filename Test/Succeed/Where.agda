@@ -2,10 +2,8 @@
 -- Testing the conjectures inside a where clause
 ------------------------------------------------------------------------------
 
-{-
-Two conjectures with the *same name* inside two different where
-clauses should be generate two different TPTP files.
--}
+-- TODO: Two conjectures with the *same name* inside two different where
+-- clauses should be generate two different TPTP files.
 
 module Test.Succeed.Where where
 
@@ -16,6 +14,7 @@ postulate
   D      : Set
   zero   : D
   succ   : D → D
+  _≡_    : D → D → Set
 
 -- The LTC natural numbers type.
 data N : D → Set where
@@ -30,22 +29,18 @@ indN : (P : D → Set) →
 indN P p0 h zN      = p0
 indN P p0 h (sN Nn) = h Nn (indN P p0 h Nn)
 
--- The identity type.
-data _≡_ (x : D) : D → Set where
-  refl : x ≡ x
-
 postulate
   _+_    : D → D → D
-  add-x0 : (n : D) → n + zero     ≡ n
-  add-xS : (m n : D) → m + succ n ≡ succ (m + n)
+  add-x0 : (d : D) → d + zero     ≡ d
+  add-xS : (d e : D) → d + succ e ≡ succ (d + e)
 
 {-# ATP axiom add-x0 #-}
 {-# ATP axiom add-xS #-}
 
 -- Left identify for addition using the induction principle for N and
 -- calling the ATP for the base case and the induction step.
-addLeftIdentity : {n : D} → N n → zero + n ≡ n
-addLeftIdentity {n} = indN (λ i → P i) P0 iStep
++-leftIdentity : {n : D} → N n → zero + n ≡ n
++-leftIdentity {n} = indN P P0 iStep
     where
       P : D → Set
       P i = zero + i ≡ i
@@ -55,14 +50,15 @@ addLeftIdentity {n} = indN (λ i → P i) P0 iStep
       {-# ATP prove P0 #-}
 
       postulate
-        iStep : {i : D} → N i → zero + i ≡ i → zero + (succ i) ≡ succ i
+        iStep : {i : D} → N i → zero + i ≡ i → -- IH.
+                zero + (succ i) ≡ succ i
       {-# ATP prove iStep #-}
 
 ------------------------------------------------------------------------------
 -- Associativity of addition using the induction principle for N and
 -- calling the ATP for the base case and the induction step.
-addAssoc : {m n o : D} → N m → N n → N o → (m + n) + o ≡ m + (n + o)
-addAssoc {m} {n} {o} Nm Nn No = indN (λ i → P i) P0 iStep No
++-assoc : {m n o : D} → N m → N n → N o → (m + n) + o ≡ m + (n + o)
++-assoc {m} {n} {o} Nm Nn No = indN P P0 iStep No
   where
     P : D → Set
     P i = m + n + i ≡ m + (n + i)
@@ -73,6 +69,6 @@ addAssoc {m} {n} {o} Nm Nn No = indN (λ i → P i) P0 iStep No
 
     postulate
       iStep : {i : D} → N i →
-              m + n + i ≡ m + (n + i) →
+              m + n + i ≡ m + (n + i) → -- IH.
               m + n + succ i ≡ m + (n + succ i)
     {-# ATP prove iStep #-}

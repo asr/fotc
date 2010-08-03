@@ -16,7 +16,7 @@ module EraseQuantificationOnSet where
   postulate a : D
 
   -- The translation must erase the quantification on Set (i.e. {A : Set}),
-  -- the translation must be 'a = a'.
+  -- therefore the translation must be 'a = a'.
   postulate foo : {A : Set} → a ≡ a
   {-# ATP axiom foo #-}
 

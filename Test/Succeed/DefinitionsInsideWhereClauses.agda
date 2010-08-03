@@ -38,10 +38,8 @@ postulate
 
     postulate
       P0 : P zero
--- TODO: There is a bug in this translation.
---    {-# ATP prove P0 #-}
+    {-# ATP prove P0 #-}
 
     postulate
       iStep : {i : D} → N i → P i → P (succ i)
--- TODO: There is a bug in this translation.
---    {-# ATP prove iStep #-}
+    {-# ATP prove iStep #-}

@@ -42,4 +42,4 @@ postulate
 {-# ATP prove iStep #-}
 
 +-leftIdentity : {n : D} → N n → zero + n ≡ n
-+-leftIdentity = indN (λ i → P i) P0 iStep
++-leftIdentity = indN P P0 iStep
