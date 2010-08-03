@@ -27,7 +27,7 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 -- Local imports
 import Common ( Vars )
 import MyAgda.Interface ( getQNameInterface, getQNameType )
-import MyAgda.Syntax.Internal ( increaseByOneVar )
+import MyAgda.Syntax.DeBruijn ( increaseByOneVar )
 import Utils.Names ( freshName )
 
 #include "../undefined.h"

@@ -36,7 +36,7 @@ executable agda2atp
                   MyAgda.EtaExpansion
                   MyAgda.Interface
                   MyAgda.Syntax.Abstract.Name
-                  MyAgda.Syntax.Internal
+                  MyAgda.Syntax.DeBruijn
                   Options
                   Paths_agda2atp
                   Reports

@@ -195,8 +195,10 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   lift $ lift $ reportSLn "t2f" 20 $
     "Starting processing in local enviroment with type:\n" ++ show tyAbs
 
-  -- The de Bruijn indexes are assigned from "right to left", e.g.
-  -- in '(A B C : Set) → ...', A is 2, B is 1, and C is 0,
+  -- The de Bruijn indexes are assigned from right to left,
+  --
+  -- e.g. in '(A B C : Set) → ...', A is 2, B is 1, and C is 0,
+  --
   -- so we need create the list in the same order.
   lift $ put (freshVar : vars)
   f2 ← typeToFormula tyAbs

@@ -1,16 +1,26 @@
 ------------------------------------------------------------------------------
--- Functions on Agda internal syntax entities
+-- Functions on de Bruijn indexes
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module MyAgda.Syntax.Internal
+-- There are various cases (e.g. eta-expansion, translation of
+-- symbols' definitions, elimination of quantification on variables
+-- which are proof terms) where it is necessary modify the variables
+-- in the Agda internal terms, i.e. it is necessary to modify the
+-- Bruijn index in the variable.
+
+module MyAgda.Syntax.DeBruijn
     ( increaseByOneVar
     , renameVar
     , removeReferenceToProofTerms
+    , varToDeBruijnIndex
     ) where
+
+-- Haskell imports
+import Data.List ( elemIndex )
 
 -- Agda libray imports
 import Agda.Syntax.Common
@@ -32,12 +42,6 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 #include "../../undefined.h"
 
 ------------------------------------------------------------------------------
--- There are various cases (e.g. eta-expansion, translation of
--- symbols' definitions, elimination of quantification on variables
--- which are proof terms) where it is necessary modify the variables
--- in the Agda internal terms, i.e. it is necessary to modify the
--- Bruijn index in the variable.
-
 -- To increase by one the de Bruijn index of the variable.
 class IncreaseByOneVar a where
     increaseByOneVar :: a → a
@@ -58,20 +62,55 @@ instance IncreaseByOneVar Term where
 instance IncreaseByOneVar (Arg Term) where
     increaseByOneVar (Arg h term) = Arg h $ increaseByOneVar term
 
--- To rename a de Bruijn index with respect to a position of a variable.
+------------------------------------------------------------------------------
+-- We collect the variables' names using the type class VarNames. The
+-- de Bruijn indexes are assigned from right to left,
+--
+-- e.g.  in '(A B C : Set) → ...', A is 2, B is 1, and C is 0,
+--
+-- so we need create the list in the same order.
+
+class VarNames a where
+    varNames :: a → [String]
+
+instance VarNames ClauseBody where
+    varNames (Bind (Abs x cBody)) = varNames cBody ++ [x]
+    varNames (Body _ )            = []
+    varNames _                    = __IMPOSSIBLE__
+
+-- Return the de Bruijn index of a variable in a ClauseBody.
+varToDeBruijnIndex :: ClauseBody → String → Nat
+varToDeBruijnIndex cBody x =
+    case elemIndex x (varNames cBody) of
+      Just n  → fromIntegral n
+      Nothing → __IMPOSSIBLE__
+
+------------------------------------------------------------------------------
+-- To rename a de Bruijn index with respect to other index.
+-- Let's suppose we have something like
+
+-- λ m : D → (λ n : D → (λ Nn : N n → ( λ h : D → ... Var 2 ...)))
+
+-- where 'Var 2' is the de Bruijn index of the variable n. If we
+-- remove the quantification on the proof term Nn
+
+-- λ m : D → (λ n : D → ( λ h : D → ... ))
+
+-- we need rename 'Var 2' by 'Var 1'.
+
 class RenameVar a where
     renameVar :: a → Nat → a
 
 instance RenameVar Term where
-    renameVar term@(Def _ [])  _   = term
+    renameVar term@(Def _ [])  _     = term
 
-    renameVar (Def qName args) pos = Def qName $ renameVar args pos
+    renameVar (Def qName args) index = Def qName $ renameVar args index
 
-    renameVar term@(Var n [])  pos =
-        if n < pos
+    renameVar term@(Var n [])  index =
+        if n < index
            then term -- The variable was before than the quantified variable,
                      -- we don't do nothing.
-           else if n > pos
+           else if n > index
                 then Var (n - 1) [] -- The variable was after than the
                                     -- quantified variable, we need
                                     -- "unbound" the quantified variable.
@@ -88,16 +127,16 @@ instance RenameVar Term where
 
 -- Requires FlexibleInstances.
 instance RenameVar (Arg Term) where
-    renameVar (Arg h term) pos = Arg h $ renameVar term pos
+    renameVar (Arg h term) index = Arg h $ renameVar term index
 
 instance RenameVar Args where
     renameVar []           _   = []
-    renameVar (arg : args) pos = renameVar arg pos : renameVar args pos
+    renameVar (arg : args) index = renameVar arg index : renameVar args index
 
 instance RenameVar ClauseBody where
-    renameVar (Bind (Abs x cBody)) pos = Bind (Abs x (renameVar cBody pos))
-    renameVar (Body term)          pos = Body $ renameVar term pos
-    renameVar _                      _ = __IMPOSSIBLE__
+    renameVar (Bind (Abs x cBody)) index = Bind (Abs x (renameVar cBody index))
+    renameVar (Body term)          index = Body $ renameVar term index
+    renameVar _                    _     = __IMPOSSIBLE__
 
 ------------------------------------------------------------------------------
 -- Remove references to variables which are proof terms from
@@ -145,9 +184,11 @@ instance RenameVar ClauseBody where
 
 -- We only need to remove the variables which are proof terms, so we
 -- collect the variables' types using the type class VarsTypes. The de
--- Bruijn indexes are assigned from "right to left", e.g.  in '(A B C
--- : Set) → ...', A is 2, B is 1, and C is 0, so we need create the
--- list in the same order.
+-- Bruijn indexes are assigned from right to left,
+--
+-- e.g.  in '(A B C : Set) → ...', A is 2, B is 1, and C is 0,
+--
+-- so we need create the list in the same order.
 class VarsTypes a where
     varsTypes :: a → [ Type ]
 
