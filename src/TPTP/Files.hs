@@ -4,6 +4,7 @@
 
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE TypeSynonymInstances #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module TPTP.Files
     ( createConjectureFile
@@ -34,7 +35,7 @@ import TPTP.Types
 ------------------------------------------------------------------------------
 
 class ValidFileName a where
-    validFileName :: a -> FilePath
+    validFileName :: a → FilePath
 
 instance ValidFileName Char where
     validFileName c
@@ -82,14 +83,14 @@ footerConjecture =
     "%-----------------------------------------------------------------------------\n" ++
     "% End ATP conjecture file.\n"
 
-agdaOriginalTerm :: QName -> RoleATP -> String
+agdaOriginalTerm :: QName → RoleATP → String
 agdaOriginalTerm qName role =
     "% The original Agda term was:\n" ++
     "% name:\t\t" ++ show qName ++ "\n" ++
     "% role:\t\t" ++ show role ++ "\n" ++
     "% position:\t" ++ show (nameBindingSite $ qnameName qName) ++ "\n"
 
-addGeneralRole :: AF -> FilePath -> IO ()
+addGeneralRole :: AF → FilePath → IO ()
 addGeneralRole af@(AF qName role _ ) file
   | role `elem` [ AxiomATP, DefinitionATP, HintATP ] = do
       appendFile file $ agdaOriginalTerm qName role
@@ -97,26 +98,26 @@ addGeneralRole af@(AF qName role _ ) file
 
   | otherwise = __IMPOSSIBLE__
 
-addConjecture :: AF -> FilePath -> R ()
+addConjecture :: AF → FilePath → R ()
 addConjecture af file =
   case af of
-    (AF qName ConjectureATP _ ) -> do
+    (AF qName ConjectureATP _ ) → do
           liftIO $ appendFile file $ agdaOriginalTerm qName ConjectureATP
           liftIO $ appendFile file $ prettyTPTP af
 
-    _ -> __IMPOSSIBLE__
+    _ → __IMPOSSIBLE__
 
-createGeneralRolesFile :: [AF] -> R ()
+createGeneralRolesFile :: [AF] → R ()
 createGeneralRolesFile afs = do
   reportSLn "generalRoles" 20 $
             "Creating the general roles file " ++ generalRolesFile ++ " ..."
   liftIO $ do
-    _ <- writeFile generalRolesFile headerGeneralRoles
-    _ <- mapM_ (`addGeneralRole` generalRolesFile) afs
-    _ <- appendFile generalRolesFile footerGeneralRoles
+    _ ← writeFile generalRolesFile headerGeneralRoles
+    _ ← mapM_ (`addGeneralRole` generalRolesFile) afs
+    _ ← appendFile generalRolesFile footerGeneralRoles
     return ()
 
-createConjectureFile :: (AF, [AF]) -> R FilePath
+createConjectureFile :: (AF, [AF]) → R FilePath
 createConjectureFile (af@(AF qName _ _ ), hints) = do
   -- To avoid clash names with the terms inside a where clause, we
   -- added the line number where the term was defined to the file
@@ -127,8 +128,8 @@ createConjectureFile (af@(AF qName _ _ ), hints) = do
   reportSLn "createConjectureFile" 20 $
                 "Creating the conjecture file " ++ show file ++ " ..."
   liftIO $ do
-    _ <- writeFile file headerConjecture
-    _ <- mapM_ (`addGeneralRole` file) hints
+    _ ← writeFile file headerConjecture
+    _ ← mapM_ (`addGeneralRole` file) hints
     return ()
 
   addConjecture af file

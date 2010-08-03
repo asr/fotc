@@ -4,8 +4,9 @@
 -- Adapted from agdaLight (Plugins.FOL.Primitive).
 
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
-module FOL.Primitives where
+module FOL.Primitives ( app, equal ) where
 
 -- Agda library imports
 import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
@@ -21,7 +22,7 @@ import FOL.Types ( FOLTerm(FOLFun), FOLFormula(Predicate) )
 kApp :: String
 kApp = "kApp"
 
-app :: [FOLTerm] -> FOLTerm
+app :: [FOLTerm] → FOLTerm
 app (t1 : t2 : []) = FOLFun kApp [t1, t2]
 app _              = __IMPOSSIBLE__
 
@@ -29,6 +30,6 @@ app _              = __IMPOSSIBLE__
 kEqual :: String
 kEqual = "kEqual"
 
-equal :: [FOLTerm] -> FOLFormula
+equal :: [FOLTerm] → FOLFormula
 equal (t1 : t2 : [])  = Predicate kEqual [t1, t2]
 equal _               = __IMPOSSIBLE__

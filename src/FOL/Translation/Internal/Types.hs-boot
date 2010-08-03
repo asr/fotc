@@ -2,6 +2,8 @@
 -- hs-boot file for FOL.Translation.Syntax.Internal.Types
 ------------------------------------------------------------------------------
 
+{-# LANGUAGE UnicodeSyntax #-}
+
 module FOL.Translation.Internal.Types where
 
 -- Agda library imports
@@ -13,4 +15,4 @@ import FOL.Types ( FOLFormula )
 
 ------------------------------------------------------------------------------
 
-typeToFormula :: Type -> T FOLFormula
+typeToFormula :: Type → T FOLFormula

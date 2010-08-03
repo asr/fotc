@@ -1,6 +1,7 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module Main where
 
@@ -56,20 +57,20 @@ import Utils.Version ( version )
 ------------------------------------------------------------------------------
 -- We translate the ATP axioms, (general) hints, and definitions for a
 -- file. These TPTP roles are common to every conjecture.
-translationGeneralRoles :: FilePath -> ER [AF]
+translationGeneralRoles :: FilePath → ER [AF]
 translationGeneralRoles file = do
 
   -- Getting the interface.
-  i <- liftIO $ myReadInterface file
+  i ← liftIO $ myReadInterface file
 
   -- Getting the ATP axioms.
-  axioms <- axiomsToAFs i
+  axioms ← axiomsToAFs i
 
   -- Getting the ATP general hints.
-  generalHints <- generalHintsToAFs i
+  generalHints ← generalHintsToAFs i
 
   -- Getting the ATP definitions.
-  symbols <- symbolsToAFs i
+  symbols ← symbolsToAFs i
 
   return (axioms ++ generalHints ++ symbols )
 
@@ -77,21 +78,21 @@ translationGeneralRoles file = do
 -- name as the principal argument. In the case of the function
 -- getImportedModules is much better to use the file name because we
 -- avoid read some interfaces files unnecessary.
-translation :: FilePath -> ER ( [AF] , [(AF, [AF])] )
+translation :: FilePath → ER ( [AF] , [(AF, [AF])] )
 translation file = do
   lift $ reportS "" 1 $ "Translating " ++ file ++ " ..."
 
-  iModulesPaths <- liftIO $ getImportedModules file
+  iModulesPaths ← liftIO $ getImportedModules file
 
-  generalRolesImportedFiles <- mapM translationGeneralRoles iModulesPaths
-  generalRolesCurrentFile   <- translationGeneralRoles file
+  generalRolesImportedFiles ← mapM translationGeneralRoles iModulesPaths
+  generalRolesCurrentFile   ← translationGeneralRoles file
 
   -- Gettting the interface.
-  i <- liftIO $ myReadInterface file
+  i ← liftIO $ myReadInterface file
 
   -- We translate the ATP pragma conjectures and their local hints
   -- in the current module.
-  conjectures <- conjecturesToAFs i
+  conjectures ← conjecturesToAFs i
 
   return ( concat generalRolesImportedFiles ++ generalRolesCurrentFile
          , conjectures
@@ -99,38 +100,38 @@ translation file = do
 
 runAgda2ATP :: ErrorT String IO ()
 runAgda2ATP = do
-  prgName <- liftIO getProgName
-  argv    <- liftIO getArgs --fmap head $ liftIO getArgs
+  prgName ← liftIO getProgName
+  argv    ← liftIO getArgs --fmap head $ liftIO getArgs
 
   -- Reading the command line options.
-  (opts, names) <- liftIO $ parseOptions argv prgName
+  (opts, names) ← liftIO $ parseOptions argv prgName
 
   when (optVersion opts) $ liftIO $
        bye $ prgName ++ " version " ++ version ++ "\n"
 
   when (optHelp opts) $ liftIO $ bye $ usage prgName
 
-  r  <- liftIO $ runReaderT (runErrorT (translation $ head names)) opts
+  r  ← liftIO $ runReaderT (runErrorT (translation $ head names)) opts
   case r of
-    Right (generalRoles , conjecturesCurrentModule) -> do
-        r' <- liftIO $
+    Right (generalRoles , conjecturesCurrentModule) → do
+        r' ← liftIO $
                 runReaderT (runErrorT (callATP generalRoles
                                                conjecturesCurrentModule))
                            opts
         case r' of
-          Right _   -> return ()
-          Left err' -> throwError err'
+          Right _   → return ()
+          Left err' → throwError err'
 
-    Left err -> throwError err
+    Left err → throwError err
 
 main :: IO ()
 main = do
-  r <-   runErrorT $ runAgda2ATP  `catchError` \err -> do
-         liftIO $ putStrLn err
-         throwError err
+  r ←   runErrorT $ runAgda2ATP  `catchError` \err → do
+          liftIO $ putStrLn err
+          throwError err
   case r of
-    Right _ -> exitSuccess
-    Left _  -> exitFailure
-  `catchImpossible` \e -> do
+    Right _ → exitSuccess
+    Left _  → exitFailure
+  `catchImpossible` \e → do
          putStr $ show e
          exitFailure

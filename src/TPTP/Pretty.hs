@@ -5,19 +5,21 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE TypeSynonymInstances #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
-module TPTP.Pretty where
+module TPTP.Pretty ( prettyTPTP ) where
 
 -- Haskell imports
 import Data.Char
 -- import Data.List.HT ( replace )
+
 -- Agda library imports
 import Agda.Syntax.Common ( NameId(NameId), RoleATP(..) )
 import Agda.Syntax.Abstract.Name ( Name(nameId), QName(..))
 import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
 
--- Local import
-import FOL.Types
+-- Local imports
+import FOL.Types ( FOLFormula(..), FOLTerm(..) )
 import TPTP.Types ( AF(..) )
 #include "../undefined.h"
 
@@ -26,24 +28,24 @@ import TPTP.Types ( AF(..) )
 type TPTP = String
 
 class PrettyTPTP a where
-    prettyTPTP :: a -> TPTP
+    prettyTPTP :: a → TPTP
 
 -- We prefixed the names with 'n' because TPTP does not accept names
 -- starting with digits.
-prefixLetter :: TPTP -> TPTP
+prefixLetter :: TPTP → TPTP
 prefixLetter [] = __IMPOSSIBLE__
-prefixLetter name@(x : _)
+prefixLetter name@(x : _ )
     | isDigit x = 'n' : name
     | otherwise = name
 
-changeCaseFirstSymbol :: TPTP -> (Char -> Char) -> TPTP
+changeCaseFirstSymbol :: TPTP → (Char → Char) → TPTP
 changeCaseFirstSymbol []       _ = __IMPOSSIBLE__
 changeCaseFirstSymbol (x : xs) f = f x : xs
 
-changeToUpper :: TPTP -> TPTP
+changeToUpper :: TPTP → TPTP
 changeToUpper name = changeCaseFirstSymbol (prettyTPTP name) toUpper
 
-changeToLower :: TPTP -> TPTP
+changeToLower :: TPTP → TPTP
 changeToLower name = changeCaseFirstSymbol (prettyTPTP name) toLower
 
 ------------------------------------------------------------------------------
@@ -98,7 +100,7 @@ instance PrettyTPTP FOLFormula where
     prettyTPTP (Predicate "kEqual" [t1, t2] ) =
        "( " ++ prettyTPTP t1 ++ " = " ++ prettyTPTP t2 ++ " )"
 
-    prettyTPTP (Predicate "kEqual" _) = __IMPOSSIBLE__
+    prettyTPTP (Predicate "kEqual" _ ) = __IMPOSSIBLE__
 
     prettyTPTP (Predicate name terms) =
         "( " ++ changeToLower name ++ "(" ++ prettyTPTP terms ++ ")" ++ " )"

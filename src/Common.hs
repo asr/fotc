@@ -2,7 +2,7 @@
 -- Common entities
 ------------------------------------------------------------------------------
 
-module Common where
+module Common ( ER, iVarNames, Vars ) where
 
 -- Haskell imports
 import Control.Monad.Trans.Error ( ErrorT )

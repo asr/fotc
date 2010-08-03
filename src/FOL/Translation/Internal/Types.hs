@@ -3,6 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module FOL.Translation.Internal.Types ( typeToFormula ) where
 
@@ -28,7 +29,7 @@ import Reports ( reportSLn )
 
 ------------------------------------------------------------------------------
 
-typeToFormula :: Type -> T FOLFormula
+typeToFormula :: Type → T FOLFormula
 typeToFormula ty@(El (Type (Lit (LitLevel _ n))) term)
     | n `elem` [ 0, 1 ] = do
         lift $ lift $ reportSLn "typeToFormula" 10 $

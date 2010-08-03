@@ -3,6 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm ) where
 
@@ -54,20 +55,20 @@ import Utils.Names ( freshName )
 
 ------------------------------------------------------------------------------
 
-argTermToFormula :: Arg Term -> T FOLFormula
+argTermToFormula :: Arg Term → T FOLFormula
 argTermToFormula Arg {argHiding = NotHidden, unArg = term} = termToFormula term
 argTermToFormula Arg {argHiding = Hidden} =
     error "argTermToFormula: not implemented"
 
-binConst :: (FOLFormula -> FOLFormula -> FOLFormula) ->
-            Arg Term ->
-            Arg Term ->
+binConst :: (FOLFormula → FOLFormula → FOLFormula) →
+            Arg Term →
+            Arg Term →
             T FOLFormula
-binConst op arg1 arg2 = do f1 <- argTermToFormula arg1
-                           f2 <- argTermToFormula arg2
+binConst op arg1 arg2 = do f1 ← argTermToFormula arg1
+                           f2 ← argTermToFormula arg2
                            return $ op f1 f2
 
-termToFormula :: Term -> T FOLFormula
+termToFormula :: Term → T FOLFormula
 termToFormula term@(Def (QName _ name) args) = do
     lift $ lift $ reportSLn "t2f" 10 $ "termToFormula Def:\n" ++ show term
 
@@ -75,87 +76,87 @@ termToFormula term@(Def (QName _ name) args) = do
         cName = nameConcrete name
 
     case cName of
-      C.NoName{} -> __IMPOSSIBLE__
+      C.NoName{} → __IMPOSSIBLE__
 
-      C.Name _ [] -> __IMPOSSIBLE__
+      C.Name _ [] → __IMPOSSIBLE__
 
-      C.Name{} ->
+      C.Name{} →
           case args of
-            [] | isCNameFOLConst trueFOL  -> return TRUE
+            [] | isCNameFOLConst trueFOL  → return TRUE
 
-               | isCNameFOLConst falseFOL -> return FALSE
+               | isCNameFOLConst falseFOL → return FALSE
 
-               | otherwise                -> return $ Predicate (show cName) []
+               | otherwise                → return $ Predicate (show cName) []
 
-            (a:[]) | isCNameFOLConstHoleRight notFOL -> do
-                       f <- argTermToFormula a
+            (a:[]) | isCNameFOLConstHoleRight notFOL → do
+                       f ← argTermToFormula a
                        return $ Not f
 
                    | ( isCNameFOLConst existsFOL ||
-                       isCNameFOLConst forAllFOL ) -> do
+                       isCNameFOLConst forAllFOL ) → do
 
-                       fm <- termToFormula $ unArg a
+                       fm ← termToFormula $ unArg a
 
 
-                       vars <- lift get
+                       vars ← lift get
 
                        let freshVar :: String
                            freshVar = evalState freshName vars
 
                        if isCNameFOLConst existsFOL
-                          then return $ Exists freshVar $ \_ -> fm
-                          else return $ ForAll freshVar $ \_ -> fm
+                          then return $ Exists freshVar $ \_ → fm
+                          else return $ ForAll freshVar $ \_ → fm
 
-                   | otherwise -> do
+                   | otherwise → do
                       -- In this guard we translate predicates with
-                      -- one argument (e.g. P : D -> Set).
+                      -- one argument (e.g. P : D → Set).
 
                       -- TODO: To test if 'termToFOLTerm (unArg a)'
                       -- works with implicit arguments.
-                      t <- termToFOLTerm $ unArg a
+                      t ← termToFOLTerm $ unArg a
                       return $ Predicate (show cName) [t]
 
             (a1:a2:[])
-                | isCNameFOLConstTwoHoles andFOL -> binConst And a1 a2
+                | isCNameFOLConstTwoHoles andFOL → binConst And a1 a2
 
-                | isCNameFOLConstTwoHoles orFOL -> binConst Or a1 a2
+                | isCNameFOLConstTwoHoles orFOL → binConst Or a1 a2
 
-                | isCNameFOLConstTwoHoles impliesFOL -> binConst Implies a1 a2
+                | isCNameFOLConstTwoHoles impliesFOL → binConst Implies a1 a2
 
-                | isCNameFOLConstTwoHoles equivFOL -> binConst Equiv a1 a2
+                | isCNameFOLConstTwoHoles equivFOL → binConst Equiv a1 a2
 
-                | isCNameFOLConstTwoHoles equalsFOL -> do
+                | isCNameFOLConstTwoHoles equalsFOL → do
                     lift $ lift $ reportSLn "t2f" 20 "Processing equals"
-                    t1 <- termToFOLTerm $ unArg a1
-                    t2 <- termToFOLTerm $ unArg a2
+                    t1 ← termToFOLTerm $ unArg a1
+                    t2 ← termToFOLTerm $ unArg a2
                     return $ equal [t1, t2]
 
-                | otherwise -> do
+                | otherwise → do
                       lift $ lift $ reportSLn "t2f" 20 $
                                "Processing a definition with two arguments which " ++
                                "is not a FOL constant: " ++ show cName
-                      t1 <- termToFOLTerm $ unArg a1
-                      t2 <- termToFOLTerm $ unArg a2
+                      t1 ← termToFOLTerm $ unArg a1
+                      t2 ← termToFOLTerm $ unArg a2
                       return $ Predicate (show cName) [t1, t2]
 
-            threeOrMore -> do
-                      terms <- mapM (termToFOLTerm . unArg ) threeOrMore
+            threeOrMore → do
+                      terms ← mapM (termToFOLTerm . unArg ) threeOrMore
                       return $ Predicate (show cName) terms
 
           where
-            isCNameFOLConst :: String -> Bool
+            isCNameFOLConst :: String → Bool
             isCNameFOLConst constFOL =
                 -- The equality on the data type C.Name is defined
                 -- to ignore ranges, so we use noRange.
                 cName == C.Name noRange [C.Id constFOL]
 
-            isCNameFOLConstHoleRight :: String -> Bool
+            isCNameFOLConstHoleRight :: String → Bool
             isCNameFOLConstHoleRight constFOL =
                 -- The operators are represented by a list with Hole's.
                 -- See the documentation for C.Name.
                 cName == C.Name noRange [C.Id constFOL, C.Hole]
 
-            isCNameFOLConstTwoHoles :: String -> Bool
+            isCNameFOLConstTwoHoles :: String → Bool
             isCNameFOLConstTwoHoles constFOL =
                 -- The operators are represented by a list with Hole's.
                 -- See the documentation for C.Name.
@@ -163,15 +164,15 @@ termToFormula term@(Def (QName _ name) args) = do
 
 termToFormula term@(Fun tyArg ty) = do
   lift $ lift $ reportSLn "t2f" 10 $ "termToFormula Fun:\n" ++ show term
-  f1 <- typeToFormula $ unArg tyArg
-  f2 <- typeToFormula ty
+  f1 ← typeToFormula $ unArg tyArg
+  f2 ← typeToFormula ty
   return $ Implies f1 f2
 
 -- TODO: To add test for this case.
 termToFormula term@(Lam _ (Abs _ termLam)) = do
   lift $ lift $ reportSLn "t2f" 10 $ "termToFormula Lam:\n" ++ show term
 
-  vars <- lift get
+  vars ← lift get
 
   let freshVar :: String
       freshVar = evalState freshName vars
@@ -179,14 +180,14 @@ termToFormula term@(Lam _ (Abs _ termLam)) = do
   -- See the reason for the order in the enviroment in
   -- termToFormula term@(Pi ... ).
   lift $ put (freshVar : vars)
-  f <- termToFormula termLam
+  f ← termToFormula termLam
   lift $ put vars
   return f
 
 termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   lift $ lift $ reportSLn "t2f" 10 $ "termToFormula Pi:\n" ++ show term
 
-  vars <- lift get
+  vars ← lift get
 
   let freshVar :: String
       freshVar = evalState freshName vars
@@ -195,10 +196,10 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     "Starting processing in local enviroment with type:\n" ++ show tyAbs
 
   -- The de Bruijn indexes are assigned from "right to left", e.g.
-  -- in '(A B C : Set) -> ...', A is 2, B is 1, and C is 0,
+  -- in '(A B C : Set) → ...', A is 2, B is 1, and C is 0,
   -- so we need create the list in the same order.
   lift $ put (freshVar : vars)
-  f2 <- typeToFormula tyAbs
+  f2 ← typeToFormula tyAbs
   lift $ put vars
 
   lift $ lift $ reportSLn "t2f" 20 $
@@ -211,10 +212,10 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     --
     -- so we can create a fresh variable and quantify on it without
     -- any problem. N.B. the pattern matching on (Def _ []).
-    El (Type (Lit (LitLevel _ 0))) (Def _ []) ->
+    El (Type (Lit (LitLevel _ 0))) (Def _ []) →
         do lift $ lift $ reportSLn "t2f" 20 $
              "Adding universal quantification on variable: " ++ freshVar
-           return $ ForAll freshVar (\_ -> f2)
+           return $ ForAll freshVar (\_ → f2)
 
     -- The bounded variable is quantified on a proof,
     --
@@ -227,11 +228,11 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     --
     -- sN : {n : D} → (Nn : N n) → N (succ n).
     --
-    -- N.B. the pattern matching on (Def _ _).
-    El (Type (Lit (LitLevel _ 0))) def@(Def _ _) -> do
+    -- N.B. the pattern matching on (Def _ _ ).
+    El (Type (Lit (LitLevel _ 0))) def@(Def _ _ ) → do
        lift $ lift $ reportSLn "t2f" 20 $
            "Removing a quantification on the proof:\n" ++ show def
-       f1 <- typeToFormula $ unArg tyArg
+       f1 ← typeToFormula $ unArg tyArg
        return $ Implies f1 f2
 
     -- Hack: The bounded variable is quantified on a function of a Set
@@ -245,55 +246,55 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     El (Type (Lit (LitLevel _ 0)))
        (Fun (Arg _ (El (Type (Lit (LitLevel _ 0))) (Def _ [])))
             (El (Type (Lit (LitLevel _ 0))) (Def _ []))
-       ) -> do
+       ) → do
       lift $ lift $ reportSLn "t2f" 20
          "Removing a quantification on a function of a Set to a Set"
-      return $ ForAll freshVar (\_ -> f2)
+      return $ ForAll freshVar (\_ → f2)
 
-    El (Type (Lit (LitLevel _ 0))) _ -> __IMPOSSIBLE__
+    El (Type (Lit (LitLevel _ 0))) _ → __IMPOSSIBLE__
 
     -- Old version
     -- TODO: Check it
     -- The bounded variable has type Set, i.e. a propositional constant.
-    -- El (Type (Lit (LitLevel _ 1))) _ ->
-        -- return $ ForAll freshVar (\_ -> f2)
+    -- El (Type (Lit (LitLevel _ 1))) _ →
+        -- return $ ForAll freshVar (\_ → f2)
 
     -- The bounded variable is quantified on a Set₁,
     --
     -- e.g. the bounded variable is 'A : Set'.
     --
     -- In this case, we forgot it.
-    El (Type (Lit (LitLevel _ 1))) (Sort _)  -> do
+    El (Type (Lit (LitLevel _ 1))) (Sort _ )  → do
        lift $ lift $ reportSLn "t2f" 20 $ "The type tyArg is: " ++ show tyArg
        return f2
 
-    El (Type (Lit (LitLevel _ 1))) _ -> __IMPOSSIBLE__
+    El (Type (Lit (LitLevel _ 1))) _ → __IMPOSSIBLE__
 
-    _                                -> __IMPOSSIBLE__
+    _                                → __IMPOSSIBLE__
 
 -- TODO: To add test for this case.
-termToFormula term@(Var n _) = do
+termToFormula term@(Var n _ ) = do
   lift $ lift $ reportSLn "t2f" 10 $ "termToFormula Var: " ++ show term
 
-  vars <- lift get
+  vars ← lift get
 
   if length vars <= fromIntegral n
      then __IMPOSSIBLE__
      else return $ Predicate (vars !! fromIntegral n) []
 
-termToFormula (Con _ _)   = __IMPOSSIBLE__
-termToFormula (Lit _)     = __IMPOSSIBLE__
-termToFormula (MetaV _ _) = __IMPOSSIBLE__
-termToFormula (Sort _)    = __IMPOSSIBLE__
+termToFormula (Con _ _ )   = __IMPOSSIBLE__
+termToFormula (Lit _ )     = __IMPOSSIBLE__
+termToFormula (MetaV _ _ ) = __IMPOSSIBLE__
+termToFormula (Sort _ )    = __IMPOSSIBLE__
 
 -- Translate 'foo x1 ... xn' to 'kApp (... kApp (kApp(foo, x1), x2), ..., xn)'.
-appArgs :: String -> Args -> T FOLTerm
+appArgs :: String → Args → T FOLTerm
 appArgs fn args = do
-  termsFOL <- mapM (termToFOLTerm . unArg) args
-  return $ foldl (\x y -> app [x, y]) (FOLFun fn []) termsFOL
+  termsFOL ← mapM (termToFOLTerm . unArg) args
+  return $ foldl (\x y → app [x, y]) (FOLFun fn []) termsFOL
 
 -- Translate an Agda term to an FOL term.
-termToFOLTerm :: Term -> T FOLTerm
+termToFOLTerm :: Term → T FOLTerm
 -- TODO: The code for the cases Con and Def is similar.
 termToFOLTerm term@(Con (QName _ name) args)  = do
   lift $ lift $ reportSLn "t2t" 10 $ "termToFOLTerm Con:\n" ++ show term
@@ -302,26 +303,26 @@ termToFOLTerm term@(Con (QName _ name) args)  = do
       cName = nameConcrete name
 
   case cName of
-    C.NoName{}  -> __IMPOSSIBLE__
+    C.NoName{}  → __IMPOSSIBLE__
 
-    C.Name _ [] -> __IMPOSSIBLE__
+    C.Name _ [] → __IMPOSSIBLE__
 
     -- The term Con doesn't have holes.
-    C.Name _ [C.Id str] ->
+    C.Name _ [C.Id str] →
         case args of
-          [] -> -- The term Con is a data constructor without arguments.
+          [] → -- The term Con is a data constructor without arguments.
                 -- It is translated as a FOL constant.
                 return $ FOLConst str
 
-          _ -> -- The term Con is a data constructor with arguments.
+          _ → -- The term Con is a data constructor with arguments.
                -- It is translated as a FOL function.
                appArgs str args
 
     -- The term Con has holes. It is translated as a FOL function.
-    C.Name _ parts ->
+    C.Name _ parts →
       case args of
-        [] -> __IMPOSSIBLE__
-        _  -> appArgs (concatName parts) args
+        [] → __IMPOSSIBLE__
+        _  → appArgs (concatName parts) args
 
 termToFOLTerm term@(Def (QName _ name) args) = do
   lift $ lift $ reportSLn "t2t" 10 $ "termToFOLTerm Def:\n" ++ show term
@@ -330,37 +331,37 @@ termToFOLTerm term@(Def (QName _ name) args) = do
       cName = nameConcrete name
 
   case cName of
-    C.NoName{}  -> __IMPOSSIBLE__
+    C.NoName{}  → __IMPOSSIBLE__
 
-    C.Name _ [] -> __IMPOSSIBLE__
+    C.Name _ [] → __IMPOSSIBLE__
 
     -- The term Def doesn't have holes.
-    C.Name _ [C.Id str] ->
+    C.Name _ [C.Id str] →
         case args of
-          [] -> -- The term Def is a constructor.
+          [] → -- The term Def is a constructor.
                 -- It is translated as a FOL constant.
                 return $ FOLConst str
 
-          _ -> -- The term Def is a function with arguments.
+          _ → -- The term Def is a function with arguments.
                -- It is translated as a FOL function.
                appArgs str args
 
     -- The term Def has holes. It is translated as a FOL function.
-    C.Name _ parts ->
+    C.Name _ parts →
       case args of
-        [] -> __IMPOSSIBLE__
-        _  -> appArgs (concatName parts) args
+        [] → __IMPOSSIBLE__
+        _  → appArgs (concatName parts) args
 
 termToFOLTerm term@(Var n args) = do
   lift $ lift $ reportSLn "t2t" 10 $ "termToFOLTerm Var:\n" ++ show term
 
-  vars <- lift get
+  vars ← lift get
 
   if length vars <= fromIntegral n
      then __IMPOSSIBLE__
      else
        case args of
-         [] -> return $ FOLVar (vars !! fromIntegral n)
+         [] → return $ FOLVar (vars !! fromIntegral n)
 
          -- Hack: If we have a bounded variable quantified on a
          -- function of a Set to a Set, for example, the variable 'f'
@@ -370,15 +371,15 @@ termToFOLTerm term@(Var n args) = do
          -- therefore we need to apply this
          -- variable/function to a term.
 
-         (a1 : []) -> do
-             t <- termToFOLTerm $ unArg a1
+         (a1 : []) → do
+             t ← termToFOLTerm $ unArg a1
              return $ app [ FOLVar (vars !! fromIntegral n) , t ]
 
-         _  -> __IMPOSSIBLE__
+         _  → __IMPOSSIBLE__
 
-termToFOLTerm (Fun _ _)   = __IMPOSSIBLE__
-termToFOLTerm (Lam _ _)   = __IMPOSSIBLE__
-termToFOLTerm (Lit _)     = __IMPOSSIBLE__
-termToFOLTerm (MetaV _ _) = __IMPOSSIBLE__
-termToFOLTerm (Pi _ _)    = __IMPOSSIBLE__
-termToFOLTerm (Sort _)    = __IMPOSSIBLE__
+termToFOLTerm (Fun _ _ )   = __IMPOSSIBLE__
+termToFOLTerm (Lam _ _ )   = __IMPOSSIBLE__
+termToFOLTerm (Lit _ )     = __IMPOSSIBLE__
+termToFOLTerm (MetaV _ _ ) = __IMPOSSIBLE__
+termToFOLTerm (Pi _ _ )    = __IMPOSSIBLE__
+termToFOLTerm (Sort _ )    = __IMPOSSIBLE__

@@ -97,7 +97,7 @@ instance RenameVar Args where
 instance RenameVar ClauseBody where
     renameVar (Bind (Abs x cBody)) pos = Bind (Abs x (renameVar cBody pos))
     renameVar (Body term)          pos = Body $ renameVar term pos
-    renameVar _                      _   = __IMPOSSIBLE__
+    renameVar _                      _ = __IMPOSSIBLE__
 
 ------------------------------------------------------------------------------
 -- Remove references to variables which are proof terms from
@@ -152,8 +152,8 @@ class VarsTypes a where
     varsTypes :: a → [ Type ]
 
 instance VarsTypes Type where
-    varsTypes (El (Type _) term) = varsTypes term
-    varsTypes _                  = __IMPOSSIBLE__
+    varsTypes (El (Type _ ) term) = varsTypes term
+    varsTypes _                   = __IMPOSSIBLE__
 
 instance VarsTypes Term where
     varsTypes (Pi (Arg _ ty) absT) = varsTypes absT ++ [ ty ]
@@ -170,8 +170,8 @@ class RemoveVar a where
                              -- of the variable to be removed.
 
 instance RemoveVar Type where
-    removeVar (El ty@(Type _) term) index  = El ty (removeVar term index)
-    removeVar _                       _    = __IMPOSSIBLE__
+    removeVar (El ty@(Type _ ) term) index  = El ty (removeVar term index)
+    removeVar _                      _      = __IMPOSSIBLE__
 
 instance RemoveVar Term where
     -- We only need remove variables from Def terms.
@@ -193,7 +193,7 @@ instance RemoveVar (Arg Type) where
 -- This instance does the job. This remove the variable.
 instance RemoveVar Args where
     removeVar [] _ = []
-    removeVar (Arg h var@(Var n _) : args) index =
+    removeVar (Arg h var@(Var n _ ) : args) index =
         if n == index
            then removeVar args index
            else (Arg h var : removeVar args index)
@@ -217,8 +217,8 @@ removeReferenceToProofTerm varType index ty =
       -- D → Set.
       --
       -- In this case, we remove the reference to this
-      -- variable. N.B. the pattern matching on (Def _ _).
-      El (Type (Lit (LitLevel _ 0))) (Def _ _) → removeVar ty index
+      -- variable. N.B. the pattern matching on (Def _ _ ).
+      El (Type (Lit (LitLevel _ 0))) (Def _ _ ) → removeVar ty index
 
       -- The variable type is a function type,
       --
@@ -236,7 +236,7 @@ removeReferenceToProofTerm varType index ty =
       --
       -- we don't know any reference to some variable in this case,
       -- therefore we don't do anything.
-      El (Type (Lit (LitLevel _ 1))) (Sort _)  → ty
+      El (Type (Lit (LitLevel _ 1))) (Sort _ )  → ty
 
       El (Type (Lit (LitLevel _ 1))) _ → __IMPOSSIBLE__
 

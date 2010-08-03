@@ -3,6 +3,7 @@
 -----------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module ATP.ATP ( callATP ) where
 
@@ -54,25 +55,25 @@ eproverOk = "Proof found!"
 metisOk :: String
 metisOk = "SZS status Theorem"
 
-checkOutputATP :: ATPs -> String -> Bool
+checkOutputATP :: ATPs → String → Bool
 checkOutputATP atp output = isInfixOf (atpOk atp) output
        where
-         atpOk :: ATPs -> String
+         atpOk :: ATPs → String
          atpOk Equinox = equinoxOk
          atpOk Eprover = eproverOk
          atpOk Metis   = metisOk
 
-runATP :: MVar (Bool, ATPs) -> FilePath -> Int -> ATPs -> IO ()
+runATP :: MVar (Bool, ATPs) → FilePath → Int → ATPs → IO ()
 runATP outputMVar file timeLimit atp = do
 
   let args :: [String]
       args = case atp of
-               Equinox -> [ "--time", show timeLimit, file ]
-               Eprover -> [ "--tstp-format"
+               Equinox → [ "--time", show timeLimit, file ]
+               Eprover → [ "--tstp-format"
                           , "--soft-cpu-limit=" ++ show timeLimit
                           , file
                           ]
-               Metis   -> [ "--tptp", "/", file ]
+               Metis   → [ "--tptp", "/", file ]
 
   -- Hack. Because metis does not have a time control, we wrap the
   -- calls to the ATPs inside a timeout. This timeout only should be
@@ -80,33 +81,33 @@ runATP outputMVar file timeLimit atp = do
   -- equinox and eprover use their internal timeout.
 
   -- TODO: There is an problem with the function timeout and eprover
-  -- output <- timeout (timeLimit * 1000000 + 3000000) (readProcess (show atp) args "")
+  -- output ← timeout (timeLimit * 1000000 + 3000000) (readProcess (show atp) args "")
 
 
-  output <- readProcess (show atp) args ""
+  output ← readProcess (show atp) args ""
   putMVar outputMVar (checkOutputATP atp output, atp)
 
-callATPConjecture :: (AF, [AF]) -> ER ()
+callATPConjecture :: (AF, [AF]) → ER ()
 callATPConjecture conjecture = do
-  opts <- lift ask
+  opts ← lift ask
 
-  file <- lift $ createConjectureFile conjecture
+  file ← lift $ createConjectureFile conjecture
 
   unless (optOnlyFiles opts) $ do
 
     let timeLimit :: Int
         timeLimit = optTime opts
 
-    outputMVar <- liftIO (newEmptyMVar :: IO (MVar (Bool, ATPs)))
+    outputMVar ← liftIO (newEmptyMVar :: IO (MVar (Bool, ATPs)))
 
     lift $ reportS "" 1 $ "Proving the conjecture in " ++ file ++ " ..."
 
-    equinoxThread <- liftIO $
+    equinoxThread ← liftIO $
       forkIO (runATP outputMVar file timeLimit Equinox)
 
     -- Because Equinox and Eprover prove more or less the same theorems,
     -- we wait 1 sec. before launch the Eprover's thread.
-    eproverThread <- liftIO $
+    eproverThread ← liftIO $
       forkIO (threadDelay 1000000 >>
               runATP outputMVar file timeLimit Eprover)
 
@@ -114,30 +115,30 @@ callATPConjecture conjecture = do
     -- wait 2 sec. before launch the Metis's thread.
     -- when ( atp == Metis ) $ threadDelay 2000000
 
-    let answerATPs :: Int -> ER ()
+    let answerATPs :: Int → ER ()
         answerATPs n =
           if n == 2
              then throwError $ "The ATPs did not prove the conjecture in " ++
                                file ++ "."
              else do
-               output <- liftIO $ takeMVar outputMVar
+               output ← liftIO $ takeMVar outputMVar
                case output of
-                 (True, atp) ->
+                 (True, atp) →
                      do lift $ reportS "" 1 $ show atp ++
                                               " proved the conjecture in " ++
                                               file
                         liftIO $ do
-                                 -- e1 <- threadStatus equinoxThread
-                                 -- e2 <- threadStatus eproverThread
+                                 -- e1 ← threadStatus equinoxThread
+                                 -- e2 ← threadStatus eproverThread
                                  -- print e1
                                  -- print e2
                                  killThread eproverThread
                                  killThread equinoxThread
-                 (False, _) -> answerATPs (n + 1)
+                 (False, _ ) → answerATPs (n + 1)
 
     answerATPs 0
 
-callATP :: [AF] -> [(AF, [AF])] -> ER ()
+callATP :: [AF] → [(AF, [AF])] → ER ()
 callATP generalRoles conjectures = do
   -- We create the general axioms/hints/definitions TPTP file.
   lift $ createGeneralRolesFile generalRoles

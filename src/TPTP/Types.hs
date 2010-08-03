@@ -2,7 +2,7 @@
 -- TPTP types
 ------------------------------------------------------------------------------
 
-module TPTP.Types where
+module TPTP.Types ( AF(..) ) where
 
 -- Agda library imports
 import Agda.Syntax.Abstract ( QName )

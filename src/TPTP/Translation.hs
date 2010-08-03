@@ -4,6 +4,7 @@
 
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module TPTP.Translation
     ( axiomsToAFs
@@ -62,7 +63,7 @@ import TPTP.Types ( AF(AF) )
 
 ------------------------------------------------------------------------------
 
-toAF :: QName -> RoleATP -> Definition -> ER AF
+toAF :: QName → RoleATP → Definition → ER AF
 toAF qName role def = do
 
   let ty :: Type
@@ -73,7 +74,7 @@ toAF qName role def = do
      "Type:\n" ++ show ty
 
   -- We need eta-expand the type before the translation.
-  tyEtaExpanded <- liftIO $ evalStateT (etaExpand ty) iVarNames
+  tyEtaExpanded ← liftIO $ evalStateT (etaExpand ty) iVarNames
 
   lift $ reportSLn "toAF" 20 $ "The eta-expanded type is:\n" ++
                                 show tyEtaExpanded
@@ -86,18 +87,18 @@ toAF qName role def = do
   lift $ reportSLn "toAF" 20 $ "tyReady:\n" ++ show tyReady
 
 
-  r <- lift $ evalStateT (runErrorT (typeToFormula tyReady)) iVarNames
+  r ← lift $ evalStateT (runErrorT (typeToFormula tyReady)) iVarNames
   case r of
-    Right for -> do
+    Right for → do
            lift $ reportSLn "toAF" 20 $
                     "The FOL formula for " ++ show qName ++ " is:\n" ++ show for
            return $ AF qName role for
-    Left err -> throwError err
+    Left err → throwError err
 
-symbolToAF :: QName -> Definition -> ER AF
+symbolToAF :: QName → Definition → ER AF
 symbolToAF qName def = do
 
-  opts <- lift ask
+  opts ← lift ask
 
   let ty :: Type
       ty = defType def
@@ -112,21 +113,21 @@ symbolToAF qName def = do
   lift $ reportSLn "symbolToAF" 10 $
                 "Symbol: " ++ show qName ++ "\n" ++ "Clauses: " ++ show cls
 
-  r <- lift $ evalStateT (runErrorT (defToFormula qName ty cls)) iVarNames
+  r ← lift $ evalStateT (runErrorT (defToFormula qName ty cls)) iVarNames
   case r of
-    Right for -> do
+    Right for → do
            lift $ reportSLn "symbolToAF" 20 $
                     "The FOL formula for " ++ show qName ++ " is:\n" ++ show for
            if (optDefAsAxiom opts)
                then return $ AF qName AxiomATP for
                else return $ AF qName DefinitionATP for
-    Left err -> throwError err
+    Left err → throwError err
 
 -- We translate an local hint to an AF.
-localHintToAF :: QName -> ER AF
+localHintToAF :: QName → ER AF
 localHintToAF qName = do
 
-  i <- liftIO $ getQNameInterface qName
+  i ← liftIO $ getQNameInterface qName
 
   let def :: Definition
       def = getQNameDefinition i qName
@@ -135,7 +136,7 @@ localHintToAF qName = do
 
 -- We translate the local hints of an ATP pragma conjecture to AF's.
 -- Invariant: The 'Definition' must be an ATP pragma conjecture
-localHintsToAFs :: Definition -> ER [AF]
+localHintsToAFs :: Definition → ER [AF]
 localHintsToAFs def = do
 
   let hints :: [QName]
@@ -144,43 +145,43 @@ localHintsToAFs def = do
     "The local hints for the conjecture " ++ show (defName def) ++
     " are:\n" ++ show hints
 
-  ( afs :: [AF] ) <- mapM localHintToAF hints
+  ( afs :: [AF] ) ← mapM localHintToAF hints
 
   return afs
 
-conjectureToAF :: QName -> Definition -> ER (AF, [AF])
+conjectureToAF :: QName → Definition → ER (AF, [AF])
 conjectureToAF qName def = do
 
-  conjectureAF <- toAF qName ConjectureATP def
+  conjectureAF ← toAF qName ConjectureATP def
 
-  localHintsAFs <- localHintsToAFs def
+  localHintsAFs ← localHintsToAFs def
 
   return (conjectureAF, localHintsAFs)
 
 -- We translate the ATP pragma axioms in an interface file to FOL
 -- formulas.
-axiomsToAFs :: Interface -> ER [AF]
+axiomsToAFs :: Interface → ER [AF]
 axiomsToAFs i = do
 
   -- We get the axioms from the interface file.
   let axDefs :: Definitions
       axDefs = getRoleATP AxiomATP i
 
-  axAFs <-
+  axAFs ←
       zipWith3M toAF (Map.keys axDefs) (repeat AxiomATP) (Map.elems axDefs)
 
   return axAFs
 
 -- We translate the ATP pragma general hints in an interface file to
 -- FOL formulas.
-generalHintsToAFs :: Interface -> ER [AF]
+generalHintsToAFs :: Interface → ER [AF]
 generalHintsToAFs i = do
 
   -- We get the general hints from the interface file.
   let ghDefs :: Definitions
       ghDefs = getRoleATP HintATP i
 
-  ghAFs <-
+  ghAFs ←
       zipWith3M toAF (Map.keys ghDefs) (repeat HintATP) (Map.elems ghDefs)
 
   return ghAFs
@@ -189,7 +190,7 @@ generalHintsToAFs i = do
 -- interface file to AFs. For each conjecture we return its
 -- translation and a list of the translation of its local hints, i.e. we
 -- return a pair ( AF, [AF] ).
-conjecturesToAFs :: Interface -> ER [ (AF, [AF]) ]
+conjecturesToAFs :: Interface → ER [ (AF, [AF]) ]
 conjecturesToAFs i = do
 
   -- We get the conjectures from the interface file.
@@ -202,7 +203,7 @@ conjecturesToAFs i = do
 
 -- We translate the ATP pragma definitions in an interface file to FOL
 -- formulas.
-symbolsToAFs :: Interface -> ER [AF]
+symbolsToAFs :: Interface → ER [AF]
 symbolsToAFs i = do
 
   -- We get the definitions from the interface file.

@@ -3,6 +3,7 @@
 -----------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module Reports where
 
@@ -32,22 +33,22 @@ type R = ReaderT Options IO
 
 getVerbosity :: R (Trie String Int)
 getVerbosity = do
-  opts <- ask
+  opts ← ask
   return $ optVerbose opts
 
 type VerboseKey = String
 
 -- | Precondition: The level must be non-negative.
-verboseS :: VerboseKey -> Int -> R () -> R ()
+verboseS :: VerboseKey → Int → R () → R ()
 verboseS k n action | n < 0     =  __IMPOSSIBLE__
                     | otherwise = do
-    t <- getVerbosity
+    t ← getVerbosity
     let ks = wordsBy (`elem` ".:") k
         m  = maximum $ 0 : Trie.lookupPath ks t
     when (n <= m) action
 
-reportS :: VerboseKey -> Int -> String -> R ()
+reportS :: VerboseKey → Int → String → R ()
 reportS k n s = verboseS k n $ liftIO $ putStr (s ++ "\n")
 
-reportSLn :: VerboseKey -> Int -> String -> R ()
+reportSLn :: VerboseKey → Int → String → R ()
 reportSLn k n s = verboseS k n $ liftIO $ putStrLn (s ++ "\n")

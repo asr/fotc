@@ -3,8 +3,9 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
-module FOL.Types where
+module FOL.Types ( FOLFormula(..), FOLTerm(..) ) where
 
 ------------------------------------------------------------------------------
 -- FOL formulas.
@@ -22,8 +23,8 @@ data FOLFormula = TRUE
                 | Or        FOLFormula FOLFormula
                 | Implies   FOLFormula FOLFormula
                 | Equiv     FOLFormula FOLFormula
-                | ForAll    String     (FOLTerm -> FOLFormula)
-                | Exists    String     (FOLTerm -> FOLFormula)
+                | ForAll    String     (FOLTerm → FOLFormula)
+                | Exists    String     (FOLTerm → FOLFormula)
 
 instance Show FOLFormula where
     show TRUE                = " TRUE "

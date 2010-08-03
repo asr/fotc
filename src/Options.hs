@@ -3,6 +3,7 @@
 -----------------------------------------------------------------------------
 
 {-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module Options where
 
@@ -44,37 +45,37 @@ defaultOptions = MkOptions
   , optDefAsAxiom = False
   }
 
-versionOpt :: Options -> Options
+versionOpt :: Options → Options
 versionOpt opts = opts { optVersion = True }
 
-helpOpt :: Options -> Options
+helpOpt :: Options → Options
 helpOpt opts = opts { optHelp = True }
 
 -- Adapted from: Agda.Interaction.Options.verboseFlag.
-verboseOpt :: String -> Options -> Options
+verboseOpt :: String → Options → Options
 verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
     where (k, n) :: ([String], Int) = parseVerbose str
-          parseVerbose :: String -> ([String], Int)
+          parseVerbose :: String → ([String], Int)
           parseVerbose s = case wordsBy (`elem` ":.") s of
-            []  -> error
+            []  → error
                      "argument to verbose should be on the form x.y.z:N or N"
-            ss  -> let m :: Int
-                       m = read $ last ss
-                   in (init ss, m)
+            ss  → let m :: Int
+                      m = read $ last ss
+                  in (init ss, m)
 
--- atpOpt :: String -> Options -> Options
+-- atpOpt :: String → Options → Options
 -- atpOpt name opts = opts { optATP = name }
 
-onlyFilesOpt :: Options -> Options
+onlyFilesOpt :: Options → Options
 onlyFilesOpt opts = opts { optOnlyFiles = True }
 
-timeOpt :: String -> Options -> Options
+timeOpt :: String → Options → Options
 timeOpt secs opts = opts { optTime = read secs }
 
-defAsAxiomOpt :: Options -> Options
+defAsAxiomOpt :: Options → Options
 defAsAxiomOpt opts = opts { optDefAsAxiom = True }
 
-options :: [OptDescr (Options -> Options)]
+options :: [OptDescr (Options → Options)]
 options =
   [ Option ['V'] ["version"] (NoArg versionOpt)
                  "show version number"
@@ -92,16 +93,16 @@ options =
                  "translate the TPTP definitions as TPTP axioms"
   ]
 
-usageHeader :: String -> String
+usageHeader :: String → String
 usageHeader prgName =
     "Usage: " ++ prgName ++ " [OPTION...] file \n"
 
-usage :: String -> String
+usage :: String → String
 usage prgName = usageInfo (usageHeader prgName) options
 
-parseOptions :: [String] -> String -> IO (Options, [String])
+parseOptions :: [String] → String → IO (Options, [String])
 parseOptions argv prgName =
   case getOpt Permute options argv of
-    ([],   [], [])      -> bye $ usage prgName
-    (o, names, [])      -> return (foldl (flip id) defaultOptions o, names)
-    (_,     _, _errors) -> error "parseOptions: not implemented"
+    ([],   [], [])      → bye $ usage prgName
+    (o, names, [])      → return (foldl (flip id) defaultOptions o, names)
+    (_,     _, _errors) → error "parseOptions: not implemented"

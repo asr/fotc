@@ -3,6 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module MyAgda.Interface
     ( getClauses
@@ -87,34 +88,34 @@ import MyAgda.Syntax.Abstract.Name
 
 ------------------------------------------------------------------------------
 
-getRoleATP :: RoleATP -> Interface -> Definitions
+getRoleATP :: RoleATP → Interface → Definitions
 getRoleATP role i = Map.filter (isRole role) $ sigDefinitions $ iSignature i
-    where isRole :: RoleATP -> Definition -> Bool
+    where isRole :: RoleATP → Definition → Bool
           isRole AxiomATP      = isAxiomATP
           isRole ConjectureATP = isConjectureATP
           isRole DefinitionATP = isDefinitionATP
           isRole HintATP       = isHintATP
 
--- getHintsATP :: Interface -> Definitions
+-- getHintsATP :: Interface → Definitions
 -- getHintsATP i = Map.filter isAxiomATP $ sigDefinitions $ iSignature i
 
 -- Invariant: The Definition must correspond to an ATP conjecture.
-getLocalHints :: Definition -> [QName]
+getLocalHints :: Definition → [QName]
 getLocalHints def =
   let defn :: Defn
       defn = theDef def
   in case defn of
-       Axiom{} -> case axATP defn of
-                    Just (ConjectureATP, hints) -> hints
-                    Just _                      -> __IMPOSSIBLE__
-                    Nothing                     -> __IMPOSSIBLE__
+       Axiom{} → case axATP defn of
+                    Just (ConjectureATP, hints) → hints
+                    Just _                      → __IMPOSSIBLE__
+                    Nothing                     → __IMPOSSIBLE__
 
-       _       -> __IMPOSSIBLE__
+       _       → __IMPOSSIBLE__
 
-myReadInterface :: FilePath -> IO Interface
+myReadInterface :: FilePath → IO Interface
 myReadInterface file = do
 
-  currentDir <- getCurrentDirectory
+  currentDir ← getCurrentDirectory
 
   let opts :: CommandLineOptions
       opts = defaultOptions
@@ -125,117 +126,117 @@ myReadInterface file = do
              }
 
   -- The physical interface file.
-  iFile <- fmap (filePath . toIFile) (absolute file)
+  iFile ← fmap (filePath . toIFile) (absolute file)
 
-  r <- runTCM $ do
+  r ← runTCM $ do
          setCommandLineOptions opts
 --         makeIncludeDirsAbsolute $ mkAbsolute currentDir
          readInterface iFile
 
   case r of
-        Right (Just i) -> return i
-        Right Nothing  -> error $ "Error reading the interface file " ++ iFile
-        Left _         -> error "Error from runTCM"
+        Right (Just i) → return i
+        Right Nothing  → error $ "Error reading the interface file " ++ iFile
+        Left _         → error "Error from runTCM"
 
-isAxiomATP :: Definition -> Bool
+isAxiomATP :: Definition → Bool
 isAxiomATP def =
   let defn :: Defn
       defn = theDef def
   in case defn of
-       Axiom{} -> case axATP defn of
-                    Just (AxiomATP, _)      -> True
-                    Just (ConjectureATP, _) -> False
-                    Just _                  -> __IMPOSSIBLE__
-                    Nothing                 -> False
+       Axiom{} → case axATP defn of
+                    Just (AxiomATP, _ )      → True
+                    Just (ConjectureATP, _ ) → False
+                    Just _                   → __IMPOSSIBLE__
+                    Nothing                  → False
 
-       _       -> False
+       _       → False
 
 -- TODO: Unify with 'isAxiomATP'
-isConjectureATP :: Definition -> Bool
+isConjectureATP :: Definition → Bool
 isConjectureATP def =
   let defn :: Defn
       defn = theDef def
   in case defn of
-       Axiom{} -> case axATP defn of
-                    Just (AxiomATP, _)      -> False
-                    Just (ConjectureATP, _) -> True
-                    Just _                  -> __IMPOSSIBLE__
-                    Nothing                 -> False
+       Axiom{} → case axATP defn of
+                    Just (AxiomATP, _ )      → False
+                    Just (ConjectureATP, _ ) → True
+                    Just _                   → __IMPOSSIBLE__
+                    Nothing                  → False
 
-       _       -> False
+       _       → False
 
-isDefinitionATP :: Definition -> Bool
+isDefinitionATP :: Definition → Bool
 isDefinitionATP def =
   let defn :: Defn
       defn = theDef def
   in case defn of
-       Function{}    -> case funATP defn of
-                          Just DefinitionATP -> True
-                          Just HintATP       -> False
-                          Just _             -> __IMPOSSIBLE__
-                          Nothing            -> False
+       Function{}    → case funATP defn of
+                          Just DefinitionATP → True
+                          Just HintATP       → False
+                          Just _             → __IMPOSSIBLE__
+                          Nothing            → False
 
-       _             -> False
+       _             → False
 
-isHintATP :: Definition -> Bool
+isHintATP :: Definition → Bool
 isHintATP def =
   let defn :: Defn
       defn = theDef def
   in case defn of
-       Constructor{} -> case conATP defn of
-                          Just HintATP       -> True
-                          Just _             -> __IMPOSSIBLE__
-                          Nothing            -> False
+       Constructor{} → case conATP defn of
+                          Just HintATP       → True
+                          Just _             → __IMPOSSIBLE__
+                          Nothing            → False
 
-       Function{}    -> case funATP defn of
-                          Just DefinitionATP -> False
-                          Just HintATP       -> True
-                          Just _             -> __IMPOSSIBLE__
-                          Nothing            -> False
+       Function{}    → case funATP defn of
+                          Just DefinitionATP → False
+                          Just HintATP       → True
+                          Just _             → __IMPOSSIBLE__
+                          Nothing            → False
 
-       _             -> False
+       _             → False
 
-getQNameDefinition :: Interface -> QName -> Definition
+getQNameDefinition :: Interface → QName → Definition
 getQNameDefinition i qName =
     fromMaybe __IMPOSSIBLE__ $ Map.lookup qName $ sigDefinitions $ iSignature i
 
 -- The modules names in a QName can to correspond to logical modules,
 -- e.g. sub-modules, data types or records. This function finds the
 -- physical file associated with a QName.
-getQNameInterfaceFile :: QName -> IO FilePath
+getQNameInterfaceFile :: QName → IO FilePath
 getQNameInterfaceFile (QName qNameModule qName) =
   case (moduleNameToFilePath qNameModule) of
-    [] -> __IMPOSSIBLE__
-    file -> do
-      iFile <- fmap (filePath . toIFile) (absolute file)
+    [] → __IMPOSSIBLE__
+    file → do
+      iFile ← fmap (filePath . toIFile) (absolute file)
       ifM (doesFileExist iFile)
           (return file)
           (getQNameInterfaceFile
                    (QName (removeLastNameModuleName qNameModule) qName))
 
 -- Returns the interface where is the information associated to a QName.
-getQNameInterface :: QName -> IO Interface
+getQNameInterface :: QName → IO Interface
 getQNameInterface qName =
     getQNameInterfaceFile qName >>=
     myReadInterface
 
-getQNameType :: Interface -> QName -> Type
+getQNameType :: Interface → QName → Type
 getQNameType i qName = defType $ getQNameDefinition i qName
 
 -- The line where a QNname is defined.
-qNameLine :: QName -> Int32
+qNameLine :: QName → Int32
 qNameLine q =
     case rangeToInterval $ nameBindingSite $ qnameName q of
-      Nothing -> __IMPOSSIBLE__
-      Just i  -> posLine $ iStart i
+      Nothing → __IMPOSSIBLE__
+      Just i  → posLine $ iStart i
 
-getClauses :: Definition -> [Clause]
+getClauses :: Definition → [Clause]
 getClauses def =
   let defn :: Defn
       defn = theDef def
   in case defn of
-       Function{} -> funClauses defn
-       _          -> __IMPOSSIBLE__
+       Function{} → funClauses defn
+       _          → __IMPOSSIBLE__
 
 ------------------------------------------------------------------------------
 -- Imported modules
@@ -243,13 +244,13 @@ getClauses def =
 -- Return the files paths of the modules recursively imported by a
 -- module m. The first name in the the state is the file path of the module
 -- m.
-allModules :: FilePath -> StateT [FilePath] IO ()
+allModules :: FilePath → StateT [FilePath] IO ()
 allModules file = do
 
-  visitedFiles <- get
+  visitedFiles ← get
 
   unless (file `elem` visitedFiles) $ do
-     i <- liftIO $ myReadInterface file
+     i ← liftIO $ myReadInterface file
 
      let iModules :: [ModuleName]
          iModules = iImportedModules i
@@ -262,7 +263,7 @@ allModules file = do
 
 -- Return the files paths of the modules recursively imported by a
 -- module.
-getImportedModules :: FilePath -> IO [FilePath]
+getImportedModules :: FilePath → IO [FilePath]
 getImportedModules file = do
-  modules <- execStateT (allModules file) []
+  modules ← execStateT (allModules file) []
   return $ tail modules

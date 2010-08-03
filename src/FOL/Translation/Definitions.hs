@@ -105,9 +105,9 @@ defOneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
     -- so we need remove this quantification. In this case, we erase
     -- the quantification on the bounded variable and we try it as a
     -- function type (using Implies instead of ForAll). N.B. the
-    -- pattern matching on (Def _ _).
+    -- pattern matching on (Def _ _ ).
     ExtendTel
-      (Arg _ tye@(El (Type (Lit (LitLevel _ 0))) (Def _ _))) (Abs x tels) →
+      (Arg _ tye@(El (Type (Lit (LitLevel _ 0))) (Def _ _ ))) (Abs x tels) →
         do f1 ← typeToFormula tye
 
            lift $ lift $ reportSLn "def2f" 20 $ "Processing var: " ++ x
