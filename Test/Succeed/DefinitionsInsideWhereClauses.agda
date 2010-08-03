@@ -30,16 +30,16 @@ postulate
 {-# ATP axiom +-Sx #-}
 
 +-rightIdentity : {n : D} → N n → n + zero ≡ n
-+-rightIdentity {n} Nn = indN Q Q0 iStep Nn
++-rightIdentity {n} Nn = indN P P0 iStep Nn
   where
-    Q : D → Set
-    Q i = i + zero ≡ i
-    {-# ATP definition Q #-}
+    P : D → Set
+    P i = i + zero ≡ i
+    {-# ATP definition P #-}
 
     postulate
-      Q0 : Q zero
-    {-# ATP prove Q0 #-}
+      P0 : P zero
+    {-# ATP prove P0 #-}
 
     postulate
-      iStep : {i : D} → N i → Q i → Q (succ i)
+      iStep : {i : D} → N i → P i → P (succ i)
     {-# ATP prove iStep #-}
