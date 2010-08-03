@@ -23,23 +23,23 @@ indN P p0 h zN      = p0
 indN P p0 h (sN Nn) = h Nn (indN P p0 h Nn)
 
 postulate
-  _+_    : D → D → D
+  _+_  : D → D → D
   +-0x : (d : D) → zero + d     ≡ d
   +-Sx : (d e : D) → succ d + e ≡ succ (d + e)
 {-# ATP axiom +-0x #-}
 {-# ATP axiom +-Sx #-}
 
-+-leftIdentity : {n : D} → N n → zero + n ≡ n
-+-leftIdentity {n} Nn = indN P P0 iStep Nn
++-rightIdentity : {n : D} → N n → n + zero ≡ n
++-rightIdentity {n} Nn = indN Q Q0 iStep Nn
   where
-    P : D → Set
-    P i = zero + i ≡ i
-    {-# ATP definition P #-}
+    Q : D → Set
+    Q i = i + zero ≡ i
+    {-# ATP definition Q #-}
 
     postulate
-      P0 : P zero
-    {-# ATP prove P0 #-}
+      Q0 : Q zero
+    {-# ATP prove Q0 #-}
 
     postulate
-      iStep : {i : D} → N i → P i → P (succ i)
+      iStep : {i : D} → N i → Q i → Q (succ i)
     {-# ATP prove iStep #-}
