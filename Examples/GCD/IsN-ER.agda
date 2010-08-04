@@ -24,13 +24,13 @@ open import MyStdLib.Function
 ------------------------------------------------------------------------------
 -- The 'gcd 0 (succ n)' is N.
 gcd-0S-N : {n : D} → N n → N (gcd zero (succ n))
-gcd-0S-N {n} Nn = subst (λ x → N x ) (sym (gcd-0S n)) (sN Nn)
+gcd-0S-N {n} Nn = subst N (sym (gcd-0S n)) (sN Nn)
 
 ---------------------------------------------------------------------------
 -- The 'gcd (succ n) 0' is N.
 
 gcd-S0-N : {n : D} → N n → N (gcd (succ n) zero)
-gcd-S0-N {n} Nn = subst (λ x → N x ) (sym $ gcd-S0 n) (sN Nn)
+gcd-S0-N {n} Nn = subst N (sym $ gcd-S0 n) (sN Nn)
 
 ---------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m > succ n' is N.
@@ -39,8 +39,7 @@ gcd-S>S-N : {m n : D} → N m → N n →
              N (gcd (succ m - succ n) (succ n)) →
              GT (succ m) (succ n) →
              N (gcd (succ m) (succ n))
-gcd-S>S-N {m} {n} Nm Nn ih Sm>Sn =
-  subst (λ x → N x ) (sym $ gcd-S>S m n Sm>Sn) ih
+gcd-S>S-N {m} {n} Nm Nn ih Sm>Sn = subst N (sym $ gcd-S>S m n Sm>Sn) ih
 
 ---------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m ≤ succ n' is N.
@@ -49,8 +48,7 @@ gcd-S≤S-N : {m n : D} → N m → N n →
             N (gcd (succ m) (succ n - succ m)) →
             LE (succ m) (succ n) →
             N (gcd (succ m) (succ n))
-gcd-S≤S-N {m} {n} Nm Nn ih Sm≤Sn =
-  subst (λ x → N x ) (sym $ gcd-S≤S m n Sm≤Sn ) ih
+gcd-S≤S-N {m} {n} Nm Nn ih Sm≤Sn = subst N (sym $ gcd-S≤S m n Sm≤Sn) ih
 
 ---------------------------------------------------------------------------
 -- The 'gcd m n' when 'm > n' is N.

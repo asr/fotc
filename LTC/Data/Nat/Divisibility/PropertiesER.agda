@@ -89,7 +89,7 @@ x∣S→x≤S  zN     Nn  ( 0≠0 , _)                     = ⊥-elim (0≠0 ref
 x∣S→x≤S (sN {m} Nm) Nn ( _ , .zero , zN , Sn≡0*Sm) =
   ⊥-elim (0≠S (trans (sym (*-leftZero (succ m))) (sym Sn≡0*Sm)))
 x∣S→x≤S (sN {m} Nm) Nn ( _ , .(succ k) , sN {k} Nk , Sn≡Sk*Sm) =
-  subst (λ t₁ → LE (succ m) t₁ )
+  subst (λ t₁ → LE (succ m) t₁)
         (sym Sn≡Sk*Sm)
         (subst (λ t₂ → LE (succ m) t₂)
                (sym (*-Sx k (succ m)))

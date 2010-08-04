@@ -112,7 +112,7 @@ private
 
   -- Application of the conversion rule 'cFix'.
   initial→s₁ : (d e : D) → fix lth ∙ d ∙ e ≡ <-s₁ d e
-  initial→s₁ d e = subst (λ t → fix lth ∙ d ∙ e ≡ t ∙ d ∙ e ) (cFix lth) refl
+  initial→s₁ d e = subst (λ t → fix lth ∙ d ∙ e ≡ t ∙ d ∙ e) (cFix lth) refl
 
   -- The definition of lth.
   s₁→s₂ : (d e : D) → <-s₁ d e ≡ <-s₂ d e
@@ -150,7 +150,7 @@ private
 
   -- Reduction 'isZero d ≡ b' using that proof.
   s₈→s₉ : (d e b : D) → isZero d ≡ b → <-s₈ d e ≡ <-s₉ d e b
-  s₈→s₉ d e b prf = subst (λ t → <-s₈ d e ≡ <-s₉ d e t ) prf refl
+  s₈→s₉ d e b prf = subst (λ t → <-s₈ d e ≡ <-s₉ d e t) prf refl
 
   -- Reduction of 'isZero d ≡ true' using the conversion rule cB₁.
   s₉→end : (d e : D) → <-s₉ d e true ≡ true
@@ -291,7 +291,7 @@ x>y∨x≤y : {m n : D} → N m → N n → GT m n ∨ LE m n
 x>y∨x≤y zN          Nn          = inj₂ $ x≥0 Nn
 x>y∨x≤y (sN {m} Nm) zN          = inj₁ $ <-0S m
 x>y∨x≤y (sN {m} Nm) (sN {n} Nn) =
-  [ (λ m>n → inj₁ (trans (<-SS n m) m>n) )
+  [ (λ m>n → inj₁ (trans (<-SS n m) m>n))
   , (λ m≤n → inj₂ (trans (<-SS m (succ n)) m≤n))
   ] (x>y∨x≤y Nm Nn)
 
@@ -430,11 +430,11 @@ x>y→x-y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn =
                                ⟩
     (m - n) + succ n           ≡⟨ +-comm (minus-N Nm Nn) (sN Nn) ⟩
     succ n + (m - n)           ≡⟨ +-Sx n (m - n) ⟩
-    succ (n + (m - n))         ≡⟨ subst (λ t → succ (n + (m - n)) ≡ succ t )
+    succ (n + (m - n))         ≡⟨ subst (λ t → succ (n + (m - n)) ≡ succ t)
                                         (+-comm Nn (minus-N Nm Nn))
                                         refl
                                ⟩
-    succ ((m - n) + n)         ≡⟨ subst (λ t → succ ((m - n) + n) ≡ succ t )
+    succ ((m - n) + n)         ≡⟨ subst (λ t → succ ((m - n) + n) ≡ succ t)
                                         (x>y→x-y+y≡x Nm Nn
                                              (trans (sym (<-SS n m)) Sm>Sn) )
                                         refl
@@ -455,11 +455,11 @@ x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
                                ⟩
     (n - m) + succ m           ≡⟨ +-comm (minus-N Nn Nm) (sN Nm) ⟩
     succ m + (n - m)           ≡⟨ +-Sx m (n - m) ⟩
-    succ (m + (n - m))         ≡⟨ subst (λ t → succ (m + (n - m)) ≡ succ t )
+    succ (m + (n - m))         ≡⟨ subst (λ t → succ (m + (n - m)) ≡ succ t)
                                         (+-comm Nm (minus-N Nn Nm))
                                         refl
                                ⟩
-    succ ((n - m) + m)         ≡⟨ subst (λ t → succ ((n - m) + m) ≡ succ t )
+    succ ((n - m) + m)         ≡⟨ subst (λ t → succ ((n - m) + m) ≡ succ t)
                                         (x≤y→y-x+x≡y Nm Nn
                                              (trans (sym (<-SS m (succ n)))
                                                     Sm≤Sn) )

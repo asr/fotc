@@ -44,7 +44,7 @@ CD a b c = (c ∣ a) ∧ (c ∣ b)
 -- 'gcd 0 (succ n) ∣ 0'.
 
 gcd-0S-∣₁ : {n : D} → N n → gcd zero (succ n) ∣ zero
-gcd-0S-∣₁ {n} Nn = subst (λ x → x ∣ zero )
+gcd-0S-∣₁ {n} Nn = subst (λ x → x ∣ zero)
                          (sym (gcd-0S n))
                          (S∣0 Nn)
 
@@ -52,7 +52,7 @@ gcd-0S-∣₁ {n} Nn = subst (λ x → x ∣ zero )
 -- 'gcd (succ m) 0 ∣ succ m'.
 
 gcd-S0-∣₁ : {m : D} → N m → gcd (succ m) zero ∣ succ m
-gcd-S0-∣₁ {m} Nm = subst (λ x → x ∣ (succ m ))
+gcd-S0-∣₁ {m} Nm = subst (λ x → x ∣ succ m)
                          (sym (gcd-S0 m))
                          (∣-refl-S Nm)
 
@@ -65,7 +65,7 @@ gcd-S≤S-∣₁ :
   LE (succ m) (succ n) →
   gcd (succ m) (succ n) ∣ succ m
 gcd-S≤S-∣₁ {m} {n} Nm Nn ih Sm≤Sn =
-  subst (λ x → x ∣ succ m )
+  subst (λ x → x ∣ succ m)
         (sym (gcd-S≤S m n Sm≤Sn))
         ih
 
@@ -95,11 +95,11 @@ gcd-S>S-∣₁ :
 gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
   -- The first substitution is based on
   -- 'gcd (succ m) (succ n) = gcd (succ m - succ n) (succ n)'.
-  subst (λ x → x ∣ (succ m) )
+  subst (λ x → x ∣ succ m)
         (sym (gcd-S>S m n Sm>Sn))
         -- The second substitution is based on
         -- 'm = (m - n) + n'.
-        (subst (λ y → gcd (succ m - succ n) (succ n) ∣ y )
+        (subst (λ y → gcd (succ m - succ n) (succ n) ∣ y)
                ( x>y→x-y+y≡x (sN Nm) (sN Nn) Sm>Sn)
                ( x∣y→x∣z→x∣y+z
                  {gcd (succ m - succ n) (succ n)}
@@ -126,7 +126,7 @@ gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
 -- 'gcd 0 (succ n) ∣₂ succ n'.
 
 gcd-0S-∣₂ : {n : D} → N n → gcd zero (succ n) ∣ succ n
-gcd-0S-∣₂ {n} Nn = subst (λ x → x ∣ (succ n ))
+gcd-0S-∣₂ {n} Nn = subst (λ x → x ∣ succ n)
                          (sym (gcd-0S n))
                          (∣-refl-S Nn)
 
@@ -134,7 +134,7 @@ gcd-0S-∣₂ {n} Nn = subst (λ x → x ∣ (succ n ))
 -- 'gcd (succ m) 0 ∣ 0'.
 
 gcd-S0-∣₂ : {m : D} → N m → gcd (succ m) zero ∣ zero
-gcd-S0-∣₂  {m} Nm = subst (λ x → x ∣ zero )
+gcd-S0-∣₂  {m} Nm = subst (λ x → x ∣ zero)
                           (sym (gcd-S0 m))
                           (S∣0 Nm)
 
@@ -148,7 +148,7 @@ gcd-S>S-∣₂ :
   gcd (succ m) (succ n) ∣ succ n
 
 gcd-S>S-∣₂ {m} {n} Nm Nn ih Sm>Sn =
-  subst (λ x → x ∣ (succ n) )
+  subst (λ x → x ∣ succ n)
         (sym (gcd-S>S m n Sm>Sn))
         ih
 
@@ -176,11 +176,11 @@ gcd-S≤S-∣₂ :
 
 gcd-S≤S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≤Sn =
   -- The first substitution is based on 'gcd m n = gcd m (n - m)'.
-  subst (λ x → x ∣ succ n )
-        (sym (gcd-S≤S m n Sm≤Sn ))
+  subst (λ x → x ∣ succ n)
+        (sym (gcd-S≤S m n Sm≤Sn))
          -- The second substitution is based on.
          -- 'n = (n - m) + m'
-        (subst (λ y → gcd (succ m) (succ n - succ m) ∣ y )
+        (subst (λ y → gcd (succ m) (succ n - succ m) ∣ y)
                ( x≤y→y-x+x≡y (sN Nm) (sN Nn) Sm≤Sn )
                ( x∣y→x∣z→x∣y+z
                    {gcd (succ m) (succ n - succ m)}
@@ -188,7 +188,7 @@ gcd-S≤S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≤Sn =
                    {succ m}
                    (gcd-N (sN Nm) Sn-Sm-N (λ p → ⊥-elim (¬S≡0 (∧-proj₁ p))))
                    Sn-Sm-N
-                   (sN Nm )
+                   (sN Nm)
                    ih
                    gcd-∣₁
                )
@@ -301,7 +301,7 @@ gcd-x≤y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
               (sN Nm)
               (minus-N (sN Nn) (sN Nm))
               ([Sx,Sy-Sx]<[Sx,Sy] Nm Nn)
-              (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p )
+              (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 
 ---------------------------------------------------------------------------
 -- The 'gcd' is CD.

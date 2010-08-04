@@ -92,14 +92,14 @@ private
 
     -- From 'div ∙ i ∙ j' to 'div-s₁' using the conversion rule 'Cfix'
     proof₀₋₁ : (i j : D) → fix divh ∙ i ∙ j  ≡ div-s₁ i j
-    proof₀₋₁ i j = subst (λ t → t ∙ i ∙ j ≡ divh (fix divh) ∙ i ∙ j )
+    proof₀₋₁ i j = subst (λ t → t ∙ i ∙ j ≡ divh (fix divh) ∙ i ∙ j)
                          (sym (cFix divh ))
                          refl
 
     -- From 'div-s₁' to 'div-s₂' using the conversion rule 'beta'
     proof₁₋₂ : (i j : D) → div-s₁ i j  ≡ div-s₂ i j
     proof₁₋₂ i j =
-      subst (λ t → t ∙ j ≡ fun i ∙ j )
+      subst (λ t → t ∙ j ≡ fun i ∙ j)
                (sym (cBeta fun i ))
                refl
          where
@@ -134,9 +134,9 @@ private
                    if true
                       then zero
                       else (succ ((fix divh) ∙ (i - j) ∙ j))
-               )
-               (sym i<j )
-               refl
+            )
+            (sym i<j )
+            refl
 
     -- From 'div-s₃' to 'div-s₅' using the proof  'i≥j'
     proof₃₋₅ : {i j : D} → N i → N j → GE i j → div-s₃ i j  ≡ div-s₅ i j
@@ -148,9 +148,9 @@ private
                    if false
                       then zero
                       else (succ ((fix divh) ∙ (i - j) ∙ j))
-               )
-               (sym (x≥y→x≮y Ni Nj i≥j) )
-               refl
+            )
+            (sym (x≥y→x≮y Ni Nj i≥j) )
+            refl
 
     -- From 'div-s₄' to 'div-s₆' using the conversion rule 'CB1'
     -- ToDo: Why we need to use 'div-s₄ {i} {j}' instead of 'div-s₄'

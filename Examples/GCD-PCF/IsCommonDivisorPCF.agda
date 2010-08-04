@@ -293,7 +293,7 @@ gcd-x≤y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
               (sN Nm)
               (minus-N (sN Nn) (sN Nm))
               ([Sx,Sy-Sx]<[Sx,Sy] Nm Nn)
-              (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p )
+              (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 
 ---------------------------------------------------------------------------
 -- The 'gcd' is CD.

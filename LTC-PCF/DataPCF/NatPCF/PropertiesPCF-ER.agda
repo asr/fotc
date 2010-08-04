@@ -93,7 +93,7 @@ minus-0x zN      = minus-x0 zero
 minus-0x (sN Nn) = minus-0S Nn
 
 minus-SS : {m n : D} → N m → N n → succ m - succ n ≡ m - n
-minus-SS {m} Nm zN =
+minus-SS {m} _ zN =
   begin
     rec (succ zero) (succ m) (lam minus-aux)
       ≡⟨ rec-S zero (succ m) (lam minus-aux) ⟩
@@ -196,11 +196,9 @@ minus-SS (sN {m} Nm) (sN {n} Nn) =
   ∎
 
 minus-N : {m n : D} → N m → N n → N (m - n)
-minus-N {m} Nm          zN          = subst (λ t → N t) (sym (minus-x0 m)) Nm
-minus-N     zN          (sN {n} Nn) = subst (λ t → N t) (sym (minus-0S Nn)) zN
-minus-N     (sN {m} Nm) (sN {n} Nn) = subst (λ t → N t)
-                                            (sym (minus-SS Nm Nn))
-                                            (minus-N Nm Nn)
+minus-N {m} Nm       zN     = subst N (sym (minus-x0 m)) Nm
+minus-N     zN      (sN Nn) = subst N (sym (minus-0S Nn)) zN
+minus-N     (sN Nm) (sN Nn) = subst N (sym (minus-SS Nm Nn)) (minus-N Nm Nn)
 
 +-leftIdentity : {n : D} → N n → zero + n ≡ n
 +-leftIdentity {n} _ = +-0x n
@@ -215,12 +213,11 @@ minus-N     (sN {m} Nm) (sN {n} Nn) = subst (λ t → N t)
         )
 
 +-N : {m n : D} → N m → N n → N (m + n)
-+-N zN Nn = subst (λ t → N t) (sym (+-leftIdentity Nn)) Nn
-+-N {n = n} (sN {m} Nm ) Nn =
-  subst (λ t → N t) (sym (+-Sx m n)) (sN (+-N Nm Nn))
++-N zN       Nn            = subst N (sym (+-leftIdentity Nn)) Nn
++-N {n = n} (sN {m} Nm) Nn = subst N (sym (+-Sx m n)) (sN (+-N Nm Nn))
 
 +-assoc : {m n o : D} → N m → N n → N o → m + n + o ≡ m + (n + o)
-+-assoc {n = n} {o = o} zN Nn No =
++-assoc {n = n} {o} zN Nn No =
   begin
     zero + n + o ≡⟨ subst (λ t → zero + n + o ≡ t + o)
                           (+-leftIdentity Nn)
@@ -230,7 +227,7 @@ minus-N     (sN {m} Nm) (sN {n} Nn) = subst (λ t → N t)
     zero + (n + o)
   ∎
 
-+-assoc {n = n} {o = o} (sN {m} Nm) Nn No =
++-assoc {n = n} {o} (sN {m} Nm) Nn No =
   begin
     succ m + n + o     ≡⟨ subst (λ t → succ m + n + o ≡ t + o)
                                 (+-Sx m n)
@@ -272,7 +269,7 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn =
 
 [x+y]-[x+z]≡y-z : {m n o : D} → N m → N n → N o →
                   (m + n) - (m + o) ≡ n - o
-[x+y]-[x+z]≡y-z {n = n} {o} zN Nn No =
+[x+y]-[x+z]≡y-z {n = n} {o} zN _ _ =
   begin
     (zero + n) - (zero + o) ≡⟨ subst (λ t → (zero + n) - (zero + o) ≡
                                             t - (zero + o))
@@ -322,9 +319,8 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn =
 *-leftZero = *-0x
 
 *-N : {m n : D} → N m → N n → N (m * n)
-*-N {n = n} zN Nn = subst (λ t → N t) (sym (*-leftZero n)) zN
-*-N {n = n} (sN {m} Nm) Nn =
-  subst (λ t → N t) (sym (*-Sx m n)) (+-N Nn (*-N Nm Nn))
+*-N {n = n} zN          _  = subst N (sym (*-leftZero n)) zN
+*-N {n = n} (sN {m} Nm) Nn = subst N (sym (*-Sx m n)) (+-N Nn (*-N Nm Nn))
 
 *-rightZero : {n : D} → N n → n * zero ≡ zero
 *-rightZero zN          = *-leftZero zero
@@ -345,7 +341,7 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn =
   ∎
 
 x*1+y≡x+xy : {m n : D} → N m → N n → m * succ n ≡ m + m * n
-x*1+y≡x+xy {n = n} zN Nn = sym
+x*1+y≡x+xy {n = n} zN _ = sym
   (
     begin
       zero + zero * n ≡⟨ subst (λ t → zero + zero * n ≡ zero + t)
@@ -389,7 +385,7 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn =
     ∎
 
 *-comm : {m n : D} → N m → N n → m * n ≡ n * m
-*-comm {n = n} zN Nn = trans (*-leftZero n) (sym (*-rightZero Nn))
+*-comm {n = n} zN Nn          = trans (*-leftZero n) (sym (*-rightZero Nn))
 *-comm {n = n} (sN {m} Nm) Nn =
   begin
     succ m * n   ≡⟨ *-Sx m n ⟩
@@ -402,7 +398,7 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn =
   ∎
 
 [x-y]z≡xz*yz : {m n o : D} → N m → N n → N o → (m - n) * o ≡ m * o - n * o
-[x-y]z≡xz*yz {m} {o = o} Nm zN No =
+[x-y]z≡xz*yz {m} {o = o} _ zN _ =
   begin
     (m - zero) * o   ≡⟨ subst (λ t → (m - zero) * o ≡ t * o)
                               (minus-x0 m)

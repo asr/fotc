@@ -96,7 +96,7 @@ isTreeOrd-Bool nilT = prf
     postulate prf : Bool (isTreeOrd nilTree)
     {-# ATP prove prf #-}
 
-isTreeOrd-Bool (tipT {i} Ni ) = prf
+isTreeOrd-Bool (tipT {i} Ni) = prf
   where
     postulate prf : Bool (isTreeOrd (tip i))
     {-# ATP prove prf #-}

@@ -88,7 +88,7 @@ mutual
       postulate prf : ListOrd (flatten nilTree)
       {-# ATP prove prf #-}
 
-  flatten-ListOrd (tipT {i} Ni ) TOtipT = prf
+  flatten-ListOrd (tipT {i} Ni) TOtipT = prf
     where
       postulate prf : ListOrd (flatten (tip i))
       {-# ATP prove prf #-}

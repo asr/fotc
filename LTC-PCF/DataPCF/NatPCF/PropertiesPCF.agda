@@ -31,17 +31,17 @@ minus-0S zN = prf
     postulate prf : zero - succ zero ≡ zero
     {-# ATP prove prf rec-0 #-}
 
-minus-0S (sN {n} Nn) = prf
+minus-0S (sN {n} _ ) = prf
   where
     postulate prf : zero - succ (succ n) ≡ zero
     {-# ATP prove prf rec-S minus-0S #-}
 
 minus-0x : {n : D} → N n → zero - n ≡ zero
-minus-0x zN          = minus-x0 zero
-minus-0x (sN {n} Nn) = minus-0S Nn
+minus-0x zN      = minus-x0 zero
+minus-0x (sN Nn) = minus-0S Nn
 
 minus-SS : {m n : D} → N m → N n → succ m - succ n ≡ m - n
-minus-SS {m} Nm zN = prf
+minus-SS {m} _ zN = prf
   where
     postulate prf : succ m - succ zero ≡ m - zero
     {-# ATP prove prf rec-S minus-x0 #-}
@@ -70,12 +70,12 @@ postulate
 -- Closure properties
 
 minus-N : {m n : D} → N m → N n → N (m - n)
-minus-N {m} Nm zN = prf
+minus-N {m} _ zN = prf
   where
     postulate prf : N (m - zero)
     {-# ATP prove prf minus-x0 #-}
 
-minus-N zN (sN {n} Nn) = prf
+minus-N zN (sN {n} _ ) = prf
   where
     postulate prf : N (zero - succ n)
     {-# ATP prove prf zN minus-0S #-}
@@ -87,11 +87,11 @@ minus-N (sN {m} Nm) (sN {n} Nn) = prf $ minus-N Nm Nn
     {-# ATP prove prf minus-SS #-}
 
 +-N : {m n : D} → N m → N n → N (m + n)
-+-N {n = n} zN Nn = prf
++-N {n = n} zN _ = prf
   where
     postulate prf : N (zero + n)
     {-# ATP prove prf +-0x #-}
-+-N {n = n} (sN {m} Nm ) Nn = prf $ +-N Nm Nn
++-N {n = n} (sN {m} Nm) Nn = prf $ +-N Nm Nn
   where
     postulate prf : N (m + n) → -- IH.
                     N (succ m + n)
@@ -123,18 +123,18 @@ minus-N (sN {m} Nm) (sN {n} Nn) = prf $ minus-N Nm Nn
      {-# ATP prove prf +-Sx #-}
 
 +-assoc : {m n o : D} → N m → N n → N o → m + n + o ≡ m + (n + o)
-+-assoc {n = n} {o = o} zN Nn No = prf
++-assoc {n = n} {o} zN _ _ = prf
   where
     postulate prf : zero + n + o ≡ zero + (n + o)
     {-# ATP prove prf +-0x #-}
-+-assoc {n = n} {o = o} (sN {m} Nm) Nn No = prf $ +-assoc Nm Nn No
++-assoc {n = n} {o} (sN {m} Nm) Nn No = prf $ +-assoc Nm Nn No
   where
     postulate prf : m + n + o ≡ m + (n + o) → -- IH.
                     succ m + n + o ≡ succ m + (n + o)
     {-# ATP prove prf +-Sx #-}
 
 x+1+y≡1+x+y : {m n : D} → N m → N n → m + succ n ≡ succ (m + n)
-x+1+y≡1+x+y {n = n} zN Nn = prf
+x+1+y≡1+x+y {n = n} zN _ = prf
   where
     postulate prf : zero + succ n ≡ succ (zero + n)
     {-# ATP prove prf +-0x #-}
@@ -145,7 +145,7 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn = prf $ x+1+y≡1+x+y Nm Nn
     {-# ATP prove prf +-Sx #-}
 
 +-comm : {m n : D} → N m → N n → m + n ≡ n + m
-+-comm {n = n} zN Nn = prf
++-comm {n = n} zN _ = prf
   where
     postulate prf : zero + n ≡ n + zero
     {-# ATP prove prf +-rightIdentity +-0x #-}
@@ -157,13 +157,13 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn = prf $ x+1+y≡1+x+y Nm Nn
 
 [x+y]-[x+z]≡y-z : {m n o : D} → N m → N n → N o →
                   (m + n) - (m + o) ≡ n - o
-[x+y]-[x+z]≡y-z {n = n} {o = o} zN Nn No = prf
+[x+y]-[x+z]≡y-z {n = n} {o} zN _ _ = prf
   where
     postulate prf : (zero + n) - (zero + o) ≡ n - o
     {-# ATP prove prf +-0x #-}
 
 -- Nice proof by the ATP.
-[x+y]-[x+z]≡y-z {n = n} {o = o} (sN {m} Nm) Nn No =
+[x+y]-[x+z]≡y-z {n = n} {o} (sN {m} Nm) Nn No =
   prf $ [x+y]-[x+z]≡y-z Nm Nn No
   where
     postulate prf : (m + n) - (m + o) ≡ n - o → -- IH.
@@ -185,7 +185,7 @@ postulate *-leftIdentity : {n : D} → N n → succ zero * n ≡ n
 {-# ATP prove *-leftIdentity +-rightIdentity *-0x *-Sx #-}
 
 x*1+y≡x+xy : {m n : D} → N m → N n → m * succ n ≡ m + m * n
-x*1+y≡x+xy {n = n} zN Nn = prf
+x*1+y≡x+xy {n = n} zN _ = prf
   where
     postulate prf : zero * succ n ≡ zero + zero * n
     {-# ATP prove prf +-0x *-0x #-}
@@ -201,7 +201,7 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
     {-# ATP prove prf +-comm +-Sx *-Sx #-}
 
 *-comm : {m n : D} → N m → N n → m * n ≡ n * m
-*-comm {n = n} zN Nn = prf
+*-comm {n = n} zN _ = prf
   where
     postulate prf : zero * n ≡ n * zero
     {-# ATP prove prf *-rightZero *-0x #-}
@@ -212,7 +212,7 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
     {-# ATP prove prf x*1+y≡x+xy *-Sx #-}
 
 [x-y]z≡xz*yz : {m n o : D} → N m → N n → N o → (m - n) * o ≡ m * o - n * o
-[x-y]z≡xz*yz {m} .{zero} {o} Nm zN No = prf
+[x-y]z≡xz*yz {m} {o = o} _ zN _ = prf
   where
     postulate prf : (m - zero) * o ≡ m * o - zero * o
     {-# ATP prove prf *-0x minus-x0 #-}
@@ -223,7 +223,7 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
                     (zero - succ n) * o ≡ zero * o - succ n * o
     {-# ATP prove prf *-0x minus-0S minus-0x #-}
 
-[x-y]z≡xz*yz (sN {m} Nm) (sN {n} Nn) zN = prf
+[x-y]z≡xz*yz (sN {m} _ ) (sN {n} _ ) zN = prf
   where
     postulate prf : (succ m - succ n) * zero ≡ succ m * zero - succ n * zero
     {-# ATP prove prf *-comm minus-N zN sN +-0x *-0x *-Sx minus-0x *-N #-}
@@ -237,17 +237,17 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
     {-# ATP prove prf sN *-N [x+y]-[x+z]≡y-z *-Sx minus-SS #-}
 
 [x+y]z≡xz*yz : {m n o : D} → N m → N n → N o → (m + n) * o ≡ m * o + n * o
-[x+y]z≡xz*yz {m} {n} Nm Nn zN = prf
+[x+y]z≡xz*yz {m} {n} _ _ zN = prf
   where
     postulate prf : (m + n) * zero ≡ m * zero + n * zero
     {-# ATP prove prf zN sN *-comm +-rightIdentity *-N +-N *-0x #-}
 
-[x+y]z≡xz*yz {n = n} zN Nn (sN {o} No) = prf
+[x+y]z≡xz*yz {n = n} zN Nn (sN {o} _ ) = prf
   where
     postulate prf :  (zero + n) * succ o ≡ zero * succ o + n * succ o
     {-# ATP prove prf +-0x *-0x #-}
 
-[x+y]z≡xz*yz (sN {m} Nm) zN (sN {o} No) = prf
+[x+y]z≡xz*yz (sN {m} _ ) zN (sN {o} _ ) = prf
   where
     postulate prf : (succ m + zero) * succ o ≡ succ m * succ o + zero * succ o
     {-# ATP prove prf +-rightIdentity *-leftZero sN *-N #-}
