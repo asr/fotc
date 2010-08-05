@@ -67,8 +67,8 @@ gcd-S>S-Divisible :
   (Divisible (succ m - succ n) (succ n) (gcd (succ m - succ n) (succ n))) →
   GT (succ m) (succ n) →
   Divisible (succ m) (succ n) (gcd (succ m) (succ n))
-gcd-S>S-Divisible {m} {n} Nm Nn acc Sm>Sn c Nc ( c∣Sm , c∣Sn) =
-    gcd-S>S-Divisible-ah Nm Nn acc Sm>Sn c Nc (( c∣Sm , c∣Sn ))
+gcd-S>S-Divisible {m} {n} Nm Nn acc Sm>Sn c Nc ( c∣Sm , c∣Sn ) =
+    gcd-S>S-Divisible-ah Nm Nn acc Sm>Sn c Nc ( c∣Sm , c∣Sn )
                          (x∣y→x∣z→x∣y-z Nc (sN Nm) (sN Nn) c∣Sm c∣Sn)
 
 ---------------------------------------------------------------------------
@@ -92,7 +92,7 @@ gcd-S≤S-Divisible :
   LE (succ m) (succ n) →
   Divisible (succ m) (succ n) (gcd (succ m) (succ n))
 gcd-S≤S-Divisible {m} {n} Nm Nn acc Sm≤Sn c Nc ( c∣Sm , c∣Sn) =
-    gcd-S≤S-Divisible-ah Nm Nn acc Sm≤Sn c Nc (( c∣Sm , c∣Sn ))
+    gcd-S≤S-Divisible-ah Nm Nn acc Sm≤Sn c Nc ( c∣Sm , c∣Sn )
                          (x∣y→x∣z→x∣y-z Nc (sN Nn) (sN Nm) c∣Sn c∣Sm)
 
 ---------------------------------------------------------------------------
@@ -156,7 +156,7 @@ gcd-Divisible : {m n : D} → N m → N n → ¬x≡0∧y≡0 m n → Divisible 
 gcd-Divisible = wfIndN-LT₂ P istep
   where
     P : D → D → Set
-    P i j = ¬x≡0∧y≡0 i j → Divisible i j  (gcd i j )
+    P i j = ¬x≡0∧y≡0 i j → Divisible i j (gcd i j)
 
     istep :
       {i j : D} → N i → N j  →

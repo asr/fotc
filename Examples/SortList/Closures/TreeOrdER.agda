@@ -90,7 +90,7 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁
       begin
         ≤-TreeItem (toTree ∙ i₂ ∙ tip j) i₁
           ≡⟨ subst (λ t → ≤-TreeItem (toTree ∙ i₂ ∙ tip j) i₁ ≡
-                          ≤-TreeItem t i₁ )
+                          ≤-TreeItem t i₁)
                    (toTree-tip i₂ j)
                    refl
           ⟩
@@ -153,7 +153,7 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁
       begin
         ≤-TreeItem (toTree ∙ i₂ ∙ tip j) i₁
           ≡⟨ subst (λ t → ≤-TreeItem (toTree ∙ i₂ ∙ tip j) i₁ ≡
-                          ≤-TreeItem t i₁ )
+                          ≤-TreeItem t i₁)
                    (toTree-tip i₂ j)
                    refl
           ⟩
@@ -179,8 +179,9 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁
                                      then (node (tip j) i₂ (tip i₂))
                                      else (node (tip i₂) j (tip j))) i₁ ≡
                           ≤-TreeItem t i₁)
-                   (cB₁ (node (tip j) i₂ (tip i₂)) )
-                   refl ⟩
+                   (cB₁ (node (tip j) i₂ (tip i₂)))
+                   refl
+          ⟩
         ≤-TreeItem (node (tip j) i₂ (tip i₂)) i₁
           ≡⟨ ≤-TreeItem-node (tip j) i₂ (tip i₂) i₁ ⟩
         ≤-TreeItem (tip j) i₁ && ≤-TreeItem (tip i₂) i₁
@@ -374,7 +375,7 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i₁�
                                             else (node (tip i₂) j (tip j))) ≡
                           ≤-ItemTree i₁ (if t
                                             then (node (tip j) i₂ (tip i₂))
-                                            else (node (tip i₂) j (tip j))) )
+                                            else (node (tip i₂) j (tip j))))
                    (x>y→x≰y Nj Ni₂ j>i₂)
                    refl
           ⟩
@@ -434,7 +435,7 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i₁�
                                             else (node (tip i₂) j (tip j))) ≡
                           ≤-ItemTree i₁ (if t
                                             then (node (tip j) i₂ (tip i₂))
-                                            else (node (tip i₂) j (tip j))) )
+                                            else (node (tip i₂) j (tip j))))
                    (j≤i₂)
                    refl
           ⟩
@@ -678,12 +679,12 @@ toTree-TreeOrd {item} Nitem (tipT {i} Ni) _ =
         true && true && item ≤ i && ≤-ItemTree i (tip i)
           ≡⟨ subst (λ t → true && true && item ≤ i && ≤-ItemTree i (tip i) ≡
                           true && true && t && ≤-ItemTree i (tip i))
-                   (x<y→x≤y Nitem Ni i>item )
+                   (x<y→x≤y Nitem Ni i>item)
                    refl
           ⟩
         true && true && true && ≤-ItemTree i (tip i)
           ≡⟨ subst (λ t → true && true && true && ≤-ItemTree i (tip i) ≡
-                          true && true && true && t )
+                          true && true && true && t)
                    (≤-ItemTree-tip i i)
                    refl
           ⟩
@@ -781,7 +782,7 @@ toTree-TreeOrd {item} Nitem (tipT {i} Ni) _ =
           ⟩
         true && true && true && ≤-ItemTree item (tip item)
           ≡⟨ subst (λ t → true && true && true && ≤-ItemTree item (tip item) ≡
-                          true && true && true && t )
+                          true && true && true && t)
                    (≤-ItemTree-tip item item)
                    refl
           ⟩

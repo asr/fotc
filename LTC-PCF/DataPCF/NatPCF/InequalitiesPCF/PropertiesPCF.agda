@@ -226,7 +226,7 @@ x>y→x-y+y≡x (sN {m} Nm) zN Sm>0 = prf
     postulate prf : (succ m - zero) + zero ≡ succ m
     {-# ATP prove prf +-rightIdentity minus-N sN zN minus-x0 #-}
 
-x>y→x-y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn = prf (x>y→x-y+y≡x Nm Nn m>n )
+x>y→x-y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn = prf (x>y→x-y+y≡x Nm Nn m>n)
   where
     postulate m>n : GT m n
     {-# ATP prove m>n <-SS #-}
@@ -243,7 +243,7 @@ x≤y→y-x+x≡y {n = n} zN Nn 0≤n  = prf
 
 x≤y→y-x+x≡y (sN Nm) zN Sm≤0 = ⊥-elim (¬S≤0 Sm≤0)
 
-x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn = prf (x≤y→y-x+x≡y Nm Nn m≤n )
+x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn = prf (x≤y→y-x+x≡y Nm Nn m≤n)
   where
     postulate m≤n : LE m n
     {-# ATP prove m≤n <-SS #-}

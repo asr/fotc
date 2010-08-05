@@ -26,7 +26,7 @@ private
   {-# ATP definition rec-aux₁ #-}
 
   rec-aux₂ : D → D → D → D
-  rec-aux₂ n r a = lam ( rec-aux₁ n a r )
+  rec-aux₂ n r a = lam (rec-aux₁ n a r)
   {-# ATP definition rec-aux₂ #-}
 
   -- rech : D → D

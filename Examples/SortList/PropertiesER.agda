@@ -95,7 +95,7 @@ listOrd-xs++ys→ys≤zs→xs++ys≤zs
                                              isListOrd t)
                                       (sym (++-∷ i is js))
                                       refl)
-                               LOi∷is++js) ))
+                               LOi∷is++js)))
 
                refl
       ⟩
@@ -111,7 +111,7 @@ listOrd-xs++ys→ys≤zs→xs++ys≤zs
                                                isListOrd t)
                                         (sym (++-∷ i is js))
                                         refl)
-                                 LOi∷is++js) ))
+                                 LOi∷is++js)))
                  js≤ks)
                refl
       ⟩

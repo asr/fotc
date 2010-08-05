@@ -125,6 +125,6 @@ postulate
 
 postulate
   true≠false : ¬ (true ≡ false)
-  0≠S        : {d : D} → ¬ ( zero ≡ succ d)
+  0≠S        : {d : D} → ¬ (zero ≡ succ d)
 {-# ATP axiom true≠false #-}
 {-# ATP axiom 0≠S #-}

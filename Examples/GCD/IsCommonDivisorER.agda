@@ -100,8 +100,8 @@ gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
         -- The second substitution is based on
         -- 'm = (m - n) + n'.
         (subst (λ y → gcd (succ m - succ n) (succ n) ∣ y)
-               ( x>y→x-y+y≡x (sN Nm) (sN Nn) Sm>Sn)
-               ( x∣y→x∣z→x∣y+z
+               (x>y→x-y+y≡x (sN Nm) (sN Nn) Sm>Sn)
+               (x∣y→x∣z→x∣y+z
                  {gcd (succ m - succ n) (succ n)}
                  {succ m - succ n}
                  {succ n}
@@ -181,16 +181,16 @@ gcd-S≤S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≤Sn =
          -- The second substitution is based on.
          -- 'n = (n - m) + m'
         (subst (λ y → gcd (succ m) (succ n - succ m) ∣ y)
-               ( x≤y→y-x+x≡y (sN Nm) (sN Nn) Sm≤Sn )
-               ( x∣y→x∣z→x∣y+z
-                   {gcd (succ m) (succ n - succ m)}
-                   {succ n - succ m}
-                   {succ m}
-                   (gcd-N (sN Nm) Sn-Sm-N (λ p → ⊥-elim (¬S≡0 (∧-proj₁ p))))
-                   Sn-Sm-N
-                   (sN Nm)
-                   ih
-                   gcd-∣₁
+               (x≤y→y-x+x≡y (sN Nm) (sN Nn) Sm≤Sn)
+               (x∣y→x∣z→x∣y+z
+                 {gcd (succ m) (succ n - succ m)}
+                 {succ n - succ m}
+                 {succ m}
+                 (gcd-N (sN Nm) Sn-Sm-N (λ p → ⊥-elim (¬S≡0 (∧-proj₁ p))))
+                 Sn-Sm-N
+                 (sN Nm)
+                 ih
+                 gcd-∣₁
                )
         )
 
@@ -310,7 +310,7 @@ gcd-CD : {m n : D} → N m → N n → ¬x≡0∧y≡0 m n → CD m n (gcd m n)
 gcd-CD = wfIndN-LT₂ P istep
   where
     P : D → D → Set
-    P i j = ¬x≡0∧y≡0 i j → CD i j  (gcd i j )
+    P i j = ¬x≡0∧y≡0 i j → CD i j (gcd i j)
 
     istep :
       {i j : D} → N i → N j →

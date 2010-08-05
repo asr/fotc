@@ -40,7 +40,7 @@ postulate
 -- The ATPs work in classical logic, therefore we also can prove the
 -- reductio ab absurdum rule.
 postulate
-  ¬E : (¬ P → ⊥ ) → P
+  ¬E : (¬ P → ⊥) → P
 {-# ATP prove ¬E #-}
 
 -- Boolean laws.

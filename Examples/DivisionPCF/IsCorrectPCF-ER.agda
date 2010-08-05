@@ -35,7 +35,7 @@ div-x<y-aux {i} {j} Ni Nj i<j = sym
     where
       prf₁ : j * (div i j) + i ≡ j * zero + i
       prf₁ = subst (λ x → j * x + i ≡ j * zero + i)
-                   (sym (div-x<y i<j ))
+                   (sym (div-x<y i<j))
                    refl
 
       prf₂ : j * zero + i ≡ zero + i
@@ -75,7 +75,7 @@ div-x≥y-aux {i} {j} {r} Ni Nj Nr i≥j auxH =
 
   where prf : j * succ (div (i - j) j) + r ≡ j * (div i j) + r
         prf = subst (λ x → j * x + r ≡ j * (div i j) + r)
-                    (div-x≥y Ni Nj i≥j  )
+                    (div-x≥y Ni Nj i≥j )
                     refl
 
 div-x≥y-correct : {i j : D} → N i → N j →

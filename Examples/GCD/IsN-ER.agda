@@ -111,7 +111,7 @@ gcd-N : {m n : D } → N m → N n → ¬x≡0∧y≡0 m n → N (gcd m n)
 gcd-N = wfIndN-LT₂ P istep
   where
     P : D → D → Set
-    P i j = ¬x≡0∧y≡0 i j → N (gcd i j )
+    P i j = ¬x≡0∧y≡0 i j → N (gcd i j)
 
     istep :
       {i j : D} → N i → N j →

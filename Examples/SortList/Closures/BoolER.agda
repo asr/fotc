@@ -17,7 +17,7 @@ open import LTC.Data.Nat.Type
 ------------------------------------------------------------------------------
 
 ≤-ItemList-Bool : {item : D} → N item → {is : D} → ListN is →
-                  Bool ( ≤-ItemList item is)
+                  Bool (≤-ItemList item is)
 ≤-ItemList-Bool {item} Nitem nilLN = subst Bool (sym (≤-ItemList-[] item)) tB
 ≤-ItemList-Bool {item} Nitem (consLN {i} {is} Ni Lis) =
   subst Bool
@@ -33,7 +33,7 @@ postulate
   isListOrd-Bool : {is : D} → ListN is → Bool (isListOrd is)
 
 ≤-ItemTree-Bool : {item : D} → N item → {t : D} → Tree t →
-                  Bool ( ≤-ItemTree item t)
+                  Bool (≤-ItemTree item t)
 ≤-ItemTree-Bool {item} _ nilT = subst Bool (sym (≤-ItemTree-nilTree item)) tB
 ≤-ItemTree-Bool {item} Nitem  (tipT {i} Ni) =
   subst Bool (sym (≤-ItemTree-tip item i)) (≤-Bool Nitem Ni)
@@ -43,7 +43,7 @@ postulate
           (&&-Bool (≤-ItemTree-Bool Nitem Tt₁) (≤-ItemTree-Bool Nitem Tt₂))
 
 ≤-TreeItem-Bool : {t : D} → Tree t → {item : D} → N item →
-                  Bool ( ≤-TreeItem t item)
+                  Bool (≤-TreeItem t item)
 ≤-TreeItem-Bool nilT {item} _ = subst Bool (sym (≤-TreeItem-nilTree item)) tB
 ≤-TreeItem-Bool (tipT {i} Ni) {item} Nitem =
   subst Bool (sym (≤-TreeItem-tip i item)) (≤-Bool Ni Nitem)

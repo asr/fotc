@@ -26,7 +26,7 @@ private
   -- Initially, we define the possible states ('<-s₁',
   -- '<-s₂', ...). Then we write down the proof for
   -- the execution step from the state 'p' to the state 'q'
-  -- (e.g 's₁→s₂ : (m n : D) → <-s₂ m n → <-s₃ m n' ).
+  -- (e.g. 's₁→s₂ : (m n : D) → <-s₂ m n → <-s₃ m n').
 
   -- The terms 'lt-00', 'lt-0S', 'lt-S0', and 'lt-S>S' show the use of
   -- the states '<-s₁', '<-s₂', ..., and the proofs associated
@@ -249,7 +249,7 @@ x≥0 (sN {n} Nn) = <-0S (succ n)
 0≯x (sN {n} Nn) = <-S0 n
 
 ¬0>x : {n : D} → N n → ¬ (GT zero n)
-¬0>x Nn 0>n = true≠false $ trans (sym 0>n ) $ 0≯x Nn
+¬0>x Nn 0>n = true≠false $ trans (sym 0>n) $ 0≯x Nn
 
 x≰x : {n : D} → N n → NLT n n
 x≰x zN          = <-00
@@ -436,7 +436,7 @@ x>y→x-y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn =
                                ⟩
     succ ((m - n) + n)         ≡⟨ subst (λ t → succ ((m - n) + n) ≡ succ t)
                                         (x>y→x-y+y≡x Nm Nn
-                                             (trans (sym (<-SS n m)) Sm>Sn) )
+                                             (trans (sym (<-SS n m)) Sm>Sn))
                                         refl
                                ⟩
     succ m
@@ -462,7 +462,7 @@ x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
     succ ((n - m) + m)         ≡⟨ subst (λ t → succ ((n - m) + m) ≡ succ t)
                                         (x≤y→y-x+x≡y Nm Nn
                                              (trans (sym (<-SS m (succ n)))
-                                                    Sm≤Sn) )
+                                                    Sm≤Sn))
                                         refl
                                ⟩
     succ n

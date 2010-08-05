@@ -48,7 +48,7 @@ div-x≥y-DIV {i} {j} Ni Nj accH j>0 i≥j =
     -- The inductive hypothesis on 'i - j'.
     ih : DIV (i - j) j (div (i - j) j)
     ih = accH {i - j}
-              (minus-N Ni Nj )
+              (minus-N Ni Nj)
               (x≥y→y>0→x-y<x Ni Nj i≥j j>0)
 
 ------------------------------------------------------------------------------

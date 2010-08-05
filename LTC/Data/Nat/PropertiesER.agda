@@ -71,7 +71,7 @@ minus-0x (sN {n} _ ) = minus-0S n
 x+1+y≡1+x+y : {m n : D} → N m → N n → m + succ n ≡ succ (m + n)
 x+1+y≡1+x+y {n = n} zN Nn =
   begin
-    zero + succ n ≡⟨ +-0x (succ n ) ⟩
+    zero + succ n ≡⟨ +-0x (succ n) ⟩
     succ n        ≡⟨ subst (λ t → succ n ≡ succ t)
                            (sym (+-leftIdentity Nn))
                            refl
@@ -351,7 +351,7 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn =
                (+-Sx m (succ n))
                refl
       ⟩
-    succ ( m + succ n) * succ o ≡⟨ *-Sx (m + succ n) (succ o) ⟩
+    succ (m + succ n) * succ o ≡⟨ *-Sx (m + succ n) (succ o) ⟩
     succ o + (m + succ n) * succ o
       ≡⟨ subst (λ t → succ o + (m + succ n) * succ o ≡ succ o + t)
                ([x+y]z≡xz*yz Nm (sN Nn) (sN No))

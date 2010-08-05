@@ -3,9 +3,9 @@
 -----------------------------------------------------------------------------
 
 module MyStdLib.Relation.Binary.EqReasoning
-  {A : Set}
-  (_≡_ : A → A → Set)
-  (refl : {x : A} → x ≡ x)
+  {A     : Set}
+  ( _≡_  : A → A → Set)
+  (refl  : {x : A} → x ≡ x)
   (trans : {x y z : A} → x ≡ y → y ≡ z → x ≡ z)
   where
 

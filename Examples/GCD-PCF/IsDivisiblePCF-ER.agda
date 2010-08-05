@@ -47,7 +47,7 @@ gcd-0S-Divisible {n} _ c _ ( c∣0 , c∣Sn ) =
 -- The 'gcd (succ n) 0' is Divisible.
 
 gcd-S0-Divisible : {n : D} → N n → Divisible (succ n) zero (gcd (succ n) zero)
-gcd-S0-Divisible {n} _ c _ ( c∣Sn , c∣0) =
+gcd-S0-Divisible {n} _ c _ ( c∣Sn , c∣0 ) =
   subst (λ x → c ∣ x) (sym (gcd-S0 n)) c∣Sn
 
 ---------------------------------------------------------------------------
@@ -58,7 +58,7 @@ gcd-S>S-Divisible :
   (Divisible (succ m - succ n) (succ n) (gcd (succ m - succ n) (succ n))) →
   GT (succ m) (succ n) →
   Divisible (succ m) (succ n) (gcd (succ m) (succ n))
-gcd-S>S-Divisible {m} {n} Nm Nn acc Sm>Sn c Nc ( c∣Sm , c∣Sn) =
+gcd-S>S-Divisible {m} {n} Nm Nn acc Sm>Sn c Nc ( c∣Sm , c∣Sn ) =
 {-
 Proof:
    ----------------- (Hip.)
@@ -85,7 +85,7 @@ gcd-S≤S-Divisible :
   (Divisible (succ m) (succ n - succ m) (gcd (succ m) (succ n - succ m))) →
   LE (succ m) (succ n) →
   Divisible (succ m) (succ n) (gcd (succ m) (succ n))
-gcd-S≤S-Divisible {m} {n} Nm Nn acc Sm≤Sn c Nc ( c∣Sm , c∣Sn) =
+gcd-S≤S-Divisible {m} {n} Nm Nn acc Sm≤Sn c Nc ( c∣Sm , c∣Sn ) =
 {-
 Proof
                             ----------------- (Hip.)
@@ -165,7 +165,7 @@ gcd-Divisible : {m n : D} → N m → N n → ¬x≡0∧y≡0 m n → Divisible 
 gcd-Divisible = wfIndN-LT₂ P istep
   where
     P : D → D → Set
-    P i j = ¬x≡0∧y≡0 i j → Divisible i j  (gcd i j )
+    P i j = ¬x≡0∧y≡0 i j → Divisible i j (gcd i j)
 
     istep :
       {i j : D} → N i → N j →

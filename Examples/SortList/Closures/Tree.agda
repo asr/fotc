@@ -26,7 +26,7 @@ toTree-Tree {item} Nitem (tipT {i} Ni) = prf (x>y∨x≤y Ni Nitem)
   where
     postulate prf : GT i item ∨ LE i item → Tree (toTree ∙ item ∙ tip i)
     {-# ATP prove prf x>y→x≰y #-}
-toTree-Tree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂ ) =
+toTree-Tree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
   prf (x>y∨x≤y Ni Nitem) (toTree-Tree Nitem Tt₁) ((toTree-Tree Nitem Tt₂))
   where
     postulate prf : GT i item ∨ LE i item →

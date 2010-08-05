@@ -16,7 +16,7 @@ open import LTC.Data.Nat.Inequalities.Properties
 
 wfIndN-LT :
    (P : D → Set) →
-   ({m : D} → N m → ({n : D} → N n → LT n m → P n ) → P m ) →
+   ({m : D} → N m → ({n : D} → N n → LT n m → P n) → P m) →
    {n : D} → N n → P n
 wfIndN-LT P accH Nn = accH Nn (wfAux Nn)
   where

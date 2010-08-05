@@ -93,14 +93,14 @@ private
     -- From 'div ∙ i ∙ j' to 'div-s₁' using the conversion rule 'Cfix'
     proof₀₋₁ : (i j : D) → fix divh ∙ i ∙ j  ≡ div-s₁ i j
     proof₀₋₁ i j = subst (λ t → t ∙ i ∙ j ≡ divh (fix divh) ∙ i ∙ j)
-                         (sym (cFix divh ))
+                         (sym (cFix divh))
                          refl
 
     -- From 'div-s₁' to 'div-s₂' using the conversion rule 'beta'
     proof₁₋₂ : (i j : D) → div-s₁ i j  ≡ div-s₂ i j
     proof₁₋₂ i j =
       subst (λ t → t ∙ j ≡ fun i ∙ j)
-               (sym (cBeta fun i ))
+               (sym (cBeta fun i))
                refl
          where
           -- The function 'fun' is the same that the 'fun' part
@@ -135,7 +135,7 @@ private
                       then zero
                       else (succ ((fix divh) ∙ (i - j) ∙ j))
             )
-            (sym i<j )
+            (sym i<j)
             refl
 
     -- From 'div-s₃' to 'div-s₅' using the proof  'i≥j'
@@ -149,7 +149,7 @@ private
                       then zero
                       else (succ ((fix divh) ∙ (i - j) ∙ j))
             )
-            (sym (x≥y→x≮y Ni Nj i≥j) )
+            (sym (x≥y→x≮y Ni Nj i≥j))
             refl
 
     -- From 'div-s₄' to 'div-s₆' using the conversion rule 'CB1'

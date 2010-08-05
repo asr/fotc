@@ -93,7 +93,7 @@ mutual
       postulate prf : ListOrd (flatten (tip i))
       {-# ATP prove prf #-}
 
-  flatten-ListOrd (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂ ) TOnodeT =
+  flatten-ListOrd (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) TOnodeT =
     prf (flatten-ListOrd Tt₁ (leftSubTree-TreeOrd Tt₁ Ni Tt₂ TOnodeT))
         (flatten-ListOrd Tt₂ (rightSubTree-TreeOrd Tt₁ Ni Tt₂ TOnodeT))
         (flatten-ListOrd-aux Tt₁ Ni Tt₂ TOnodeT)
@@ -124,7 +124,7 @@ mutual
       postulate prf : LE-Lists (flatten (tip j)) (flatten (tip k))
       {-# ATP prove prf #-}
 
-  flatten-ListOrd-aux (tipT {j} Nj) Ni (nodeT {ta} {k} {tb} Tta Nk Ttb )
+  flatten-ListOrd-aux (tipT {j} Nj) Ni (nodeT {ta} {k} {tb} Tta Nk Ttb)
                       TOnode = prf
     where
       postulate prf : LE-Lists (flatten (tip j)) (flatten (node ta k tb))

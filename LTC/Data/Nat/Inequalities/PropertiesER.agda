@@ -35,7 +35,7 @@ x≥0 (sN {n} Nn) = <-0S (succ n)
 0≯x (sN {n} Nn) = <-S0 n
 
 ¬0>x : {n : D} → N n → ¬ (GT zero n)
-¬0>x Nn 0>n = true≠false $ trans (sym 0>n ) $ 0≯x Nn
+¬0>x Nn 0>n = true≠false $ trans (sym 0>n) $ 0≯x Nn
 
 x≰x : {n : D} → N n → NLT n n
 x≰x zN          = <-00
@@ -244,7 +244,7 @@ x>y→x-y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn =
                                ⟩
     succ ((m - n) + n)         ≡⟨ subst (λ t → succ ((m - n) + n) ≡ succ t)
                                         (x>y→x-y+y≡x Nm Nn
-                                             (trans (sym (<-SS n m)) Sm>Sn) )
+                                             (trans (sym (<-SS n m)) Sm>Sn))
                                         refl
                                ⟩
     succ m
@@ -269,7 +269,7 @@ x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
                                ⟩
     succ ((n - m) + m)         ≡⟨ subst (λ t → succ ((n - m) + m) ≡ succ t)
                                         (x≤y→y-x+x≡y Nm Nn
-                                             (trans (sym (<-SS m (succ n))) Sm≤Sn) )
+                                             (trans (sym (<-SS m (succ n))) Sm≤Sn))
                                         refl
                                ⟩
     succ n

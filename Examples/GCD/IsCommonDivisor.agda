@@ -154,7 +154,7 @@ postulate
     (gcd (succ m) (succ n - succ m) ∣ succ m) →
     LE (succ m) (succ n) →
     (gcd (succ m) (succ n - succ m) ∣ (succ n - succ m) + succ m) →
-    ( (succ n - succ m) + succ m ≡ succ n ) →
+    ((succ n - succ m) + succ m ≡ succ n) →
     gcd (succ m) (succ n) ∣ succ n
 {-# ATP prove gcd-S≤S-∣₂-ah #-}
 
@@ -173,7 +173,7 @@ gcd-S≤S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≤Sn =
   Sn-Sm-N : N (succ n - succ m)
   Sn-Sm-N = minus-N (sN Nn) (sN Nm)
 
-  gcd-Sm,Sn-Sm-N : N (gcd (succ m) (succ n - succ m) )
+  gcd-Sm,Sn-Sm-N : N (gcd (succ m) (succ n - succ m))
   gcd-Sm,Sn-Sm-N = gcd-N (sN Nm) (Sn-Sm-N) (λ p → ⊥-elim (¬S≡0 (∧-proj₁ p)))
 
 ---------------------------------------------------------------------------
@@ -300,7 +300,7 @@ gcd-CD : {m n : D} → N m → N n → ¬x≡0∧y≡0 m n → CD m n (gcd m n)
 gcd-CD = wfIndN-LT₂ P istep
   where
     P : D → D → Set
-    P i j = ¬x≡0∧y≡0 i j → CD i j  (gcd i j )
+    P i j = ¬x≡0∧y≡0 i j → CD i j (gcd i j)
 
     istep :
       {i j : D} → N i → N j →

@@ -186,7 +186,7 @@ postulate
 --                       t                   &&
 --                       isTreeOrd (tip k)   &&
 --                       ≤-TreeItem tb i     &&
---                       ≤-ItemTree i (tip k) )
+--                       ≤-ItemTree i (tip k))
 --                (rightSubTree-TreeOrd Tta Nj Ttb aux)
 --                refl
 --       ⟩
@@ -204,7 +204,7 @@ postulate
 --       ⟩
 --     true && true && ≤-TreeItem tb i && ≤-ItemTree i (tip k)
 --       ≡⟨ subst (λ t → true && true && ≤-TreeItem tb i && ≤-ItemTree i (tip k) ≡
---                       true && true && t && ≤-ItemTree i (tip k) )
+--                       true && true && t && ≤-ItemTree i (tip k))
 --                (x&&y≡true→y≡true (≤-TreeItem-Bool Tta Ni)
 --                                  (≤-TreeItem-Bool Ttb Ni)
 --                                  (trans (sym (≤-TreeItem-node ta j tb i))
@@ -221,7 +221,7 @@ postulate
 --       ⟩
 --     true && true && true && ≤-ItemTree i (tip k)
 --       ≡⟨ subst (λ t → true && true && true && ≤-ItemTree i (tip k) ≡
---                       true && true && true && t )
+--                       true && true && true && t)
 --                (w&&x&&y&&z≡true→z≡true
 --                  (isTreeOrd-Bool (nodeT Tta Nj Ttb))
 --                  (isTreeOrd-Bool (tipT Nk))

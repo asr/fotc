@@ -163,7 +163,7 @@ gcd-Divisible : {m n : D} → N m → N n → ¬x≡0∧y≡0 m n → Divisible 
 gcd-Divisible = wfIndN-LT₂ P istep
   where
     P : D → D → Set
-    P i j = ¬x≡0∧y≡0 i j → Divisible i j  (gcd i j )
+    P i j = ¬x≡0∧y≡0 i j → Divisible i j (gcd i j)
 
     istep :
       {i j : D} → N i → N j →

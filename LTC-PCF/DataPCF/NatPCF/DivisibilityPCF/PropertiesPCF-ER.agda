@@ -35,7 +35,7 @@ S∣0 {n} Nn = (  ¬S≡0 ,
 
 -- If 'x' divides 'y' and 'z' then 'x' divides 'y - z'.
 x∣y→x∣z→x∣y-z : {m n p : D} → N m → N n → N p → m ∣ n → m ∣ p → m ∣ n - p
-x∣y→x∣z→x∣y-z             zN          Nn Np ( 0≠0 , _) m∣p = ⊥-elim (0≠0 refl)
+x∣y→x∣z→x∣y-z             zN          Nn Np ( 0≠0 , _ ) m∣p = ⊥-elim (0≠0 refl)
 x∣y→x∣z→x∣y-z {n = n} {p} (sN {m} Nm) Nn Np
               ( 0≠0 , ( k₁ , Nk₁ , n≡k₁Sm ))
               ( _   , ( k₂ , Nk₂ , p≡k₂Sm )) =
@@ -60,7 +60,7 @@ x∣y→x∣z→x∣y-z {n = n} {p} (sN {m} Nm) Nn Np
 
 -- If 'x' divides 'y' and 'z' then 'x' divides 'y + z'.
 x∣y→x∣z→x∣y+z : {m n p : D} → N m → N n → N p → m ∣ n → m ∣ p → m ∣ n + p
-x∣y→x∣z→x∣y+z             zN          Nn Np ( 0≠0 , _) m∣p = ⊥-elim (0≠0 refl)
+x∣y→x∣z→x∣y+z             zN          Nn Np ( 0≠0 , _ ) m∣p = ⊥-elim (0≠0 refl)
 x∣y→x∣z→x∣y+z {n = n} {p} (sN {m} Nm) Nn Np
               ( 0≠0 , ( k₁ , Nk₁ , n≡k₁Sm ))
               ( _   , ( k₂ , Nk₂ , p≡k₂Sm )) =
@@ -85,10 +85,10 @@ x∣y→x∣z→x∣y+z {n = n} {p} (sN {m} Nm) Nn Np
 
 -- If x divides y, and y is positive, then x ≤ y.
 x∣S→x≤S : {m n : D} → N m → N n → m ∣ (succ n) → LE m (succ n)
-x∣S→x≤S  zN     Nn  ( 0≠0 , _)                     = ⊥-elim (0≠0 refl)
-x∣S→x≤S (sN {m} Nm) Nn ( _ , .zero , zN , Sn≡0*Sm) =
+x∣S→x≤S  zN     Nn  ( 0≠0 , _ )                     = ⊥-elim (0≠0 refl)
+x∣S→x≤S (sN {m} Nm) Nn ( _ , .zero , zN , Sn≡0*Sm ) =
   ⊥-elim (0≠S (trans (sym (*-leftZero (succ m))) (sym Sn≡0*Sm)))
-x∣S→x≤S (sN {m} Nm) Nn ( _ , .(succ k) , sN {k} Nk , Sn≡Sk*Sm) =
+x∣S→x≤S (sN {m} Nm) Nn ( _ , .(succ k) , sN {k} Nk , Sn≡Sk*Sm ) =
   subst (λ t₁ → LE (succ m) t₁)
         (sym Sn≡Sk*Sm)
         (subst (λ t₂ → LE (succ m) t₂)

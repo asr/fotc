@@ -19,8 +19,8 @@ postulate
 
 postulate
   length : D → D
-  length-[] : length []                     ≡ zero
-  length-∷  : ( d ds : D) → length (d ∷ ds) ≡ succ (length ds)
+  length-[] : length []                    ≡ zero
+  length-∷  : (d ds : D) → length (d ∷ ds) ≡ succ (length ds)
 {-# ATP axiom length-[] #-}
 {-# ATP axiom length-∷ #-}
 
@@ -35,7 +35,7 @@ postulate
 
 postulate
   map    : D → D → D
-  map-[] : (f : D ) → map f []           ≡ []
+  map-[] : (f : D) → map f []            ≡ []
   map-∷  : (f d ds : D) → map f (d ∷ ds) ≡ f ∙ d ∷ map f ds
 {-# ATP axiom map-[] #-}
 {-# ATP axiom map-∷ #-}
