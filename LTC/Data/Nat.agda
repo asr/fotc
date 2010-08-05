@@ -17,7 +17,7 @@ open import LTC.Data.Nat.Type public
 -- Arithmetic operations
 
 postulate
-  _+_    : D → D → D
+  _+_  : D → D → D
   +-0x : (d : D) → zero + d     ≡ d
   +-Sx : (d e : D) → succ d + e ≡ succ (d + e)
 {-# ATP axiom +-0x #-}
