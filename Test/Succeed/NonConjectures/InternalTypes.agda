@@ -36,7 +36,7 @@ module Test.Succeed.NonConjectures.InternalTypes where
 --   deriving (Typeable, Data, Eq, Ord, Show)
 
 postulate
-  D     : Set
+  D : Set
 
 ------------------------------------------------------------------------------
 -- Testing data Term = Def ...
@@ -48,7 +48,7 @@ module Def where
     P₃    : D → D → D → Set
     a b c : D
 
-    -- A definition with one argument
+  -- A definition with one argument
   postulate
     termDef₁ : P₁ a
   {-# ATP axiom termDef₁ #-}
@@ -64,10 +64,8 @@ module Def where
 module Fun where
 
   postulate
-    P : D → Set
-    a : D
-
-  postulate
+    P       : D → Set
+    a       : D
     termFun : P a  → P a
   {-# ATP axiom termFun #-}
 
@@ -76,8 +74,6 @@ module Fun where
 
 module Pi where
   postulate
-    P : D → Set
-
-  postulate
+    P      : D → Set
     termPi : (d : D) → P d
   {-# ATP axiom termPi #-}
