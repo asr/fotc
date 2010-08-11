@@ -35,10 +35,10 @@ import TPTP.Types ( AF )
 -----------------------------------------------------------------------------
 
 -- The ATPs.
-data ATPs = Equinox | Eprover | Metis
-            deriving (Eq, Show)
+data ATP = Equinox | Eprover | Metis
+           deriving (Eq, Show)
 
-nameATP :: ATPs → String
+nameATP :: ATP → String
 nameATP Equinox = "equinox"
 nameATP Eprover = "eprover"
 nameATP Metis   = "metis"
@@ -55,15 +55,15 @@ eproverOk = "Proof found!"
 metisOk :: String
 metisOk = "SZS status Theorem"
 
-checkOutputATP :: ATPs → String → Bool
+checkOutputATP :: ATP → String → Bool
 checkOutputATP atp output = isInfixOf (atpOk atp) output
        where
-         atpOk :: ATPs → String
+         atpOk :: ATP → String
          atpOk Equinox = equinoxOk
          atpOk Eprover = eproverOk
          atpOk Metis   = metisOk
 
-runATP :: MVar (Bool, ATPs) → FilePath → Int → ATPs → IO ()
+runATP :: MVar (Bool, ATP) → FilePath → Int → ATP → IO ()
 runATP outputMVar file timeLimit atp = do
 
   let args :: [String]
@@ -98,7 +98,7 @@ callATPConjecture conjecture = do
     let timeLimit :: Int
         timeLimit = optTime opts
 
-    outputMVar ← liftIO (newEmptyMVar :: IO (MVar (Bool, ATPs)))
+    outputMVar ← liftIO (newEmptyMVar :: IO (MVar (Bool, ATP)))
 
     lift $ reportS "" 1 $ "Proving the conjecture in " ++ file ++ " ..."
 
