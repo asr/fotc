@@ -70,9 +70,9 @@ runATP outputMVar file timeLimit atp = do
       args = case atp of
                Equinox → [ "--time", show timeLimit, file ]
                Eprover → [ "--tstp-format"
-                          , "--soft-cpu-limit=" ++ show timeLimit
-                          , file
-                          ]
+                         , "--soft-cpu-limit=" ++ show timeLimit
+                         , file
+                         ]
                Metis   → [ "--tptp", "/", file ]
 
   -- Hack. Because metis does not have a time control, we wrap the
