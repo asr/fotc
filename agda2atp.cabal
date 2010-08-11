@@ -23,7 +23,9 @@ executable agda2atp
                   , transformers >= 0.2.0.0 && < 0.3
                   -- , utility-ht >= 0.0.5.1 && < 0.1
 
-  other-modules:  FOL.Constants
+  other-modules:  Common
+                  ATP.ATP
+                  FOL.Constants
                   FOL.Monad
                   FOL.Primitives
                   FOL.Translation.Common
