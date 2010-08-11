@@ -83,7 +83,9 @@ runATP outputMVar file timeLimit atp = do
   -- TODO: There is an problem with the function timeout and eprover
   -- output ← timeout (timeLimit * 1000000 + 3000000) (readProcess (show atp) args "")
 
-
+  -- Users of readProcess should compile with -threaded if they want
+  -- other Haskell threads to keep running while waiting on the result
+  -- of readProcess (from process 1.0.1.3)
   output ← readProcess (nameATP atp) args ""
   putMVar outputMVar (checkOutputATP atp output, atp)
 
