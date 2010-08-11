@@ -36,12 +36,12 @@ import TPTP.Types ( AF )
 
 -- The ATPs.
 data ATPs = Equinox | Eprover | Metis
-            deriving Eq
+            deriving (Eq, Show)
 
-instance Show ATPs where
-    show Equinox = "equinox"
-    show Eprover = "eprover"
-    show Metis   = "metis"
+nameATP :: ATPs → String
+nameATP Equinox = "equinox"
+nameATP Eprover = "eprover"
+nameATP Metis   = "metis"
 
 -- Tested with Equinox cvs version.
 equinoxOk :: String
@@ -84,7 +84,7 @@ runATP outputMVar file timeLimit atp = do
   -- output ← timeout (timeLimit * 1000000 + 3000000) (readProcess (show atp) args "")
 
 
-  output ← readProcess (show atp) args ""
+  output ← readProcess (nameATP atp) args ""
   putMVar outputMVar (checkOutputATP atp output, atp)
 
 callATPConjecture :: (AF, [AF]) → ER ()
