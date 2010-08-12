@@ -129,7 +129,7 @@ termToFormula term@(Def (QName _ name) args) = do
                     lift $ lift $ reportSLn "t2f" 20 "Processing equals"
                     t1 ← termToFOLTerm $ unArg a1
                     t2 ← termToFOLTerm $ unArg a2
-                    return $ equal [t1, t2]
+                    return $ equal t1 t2
 
                 | otherwise → do
                       lift $ lift $ reportSLn "t2f" 20 $
@@ -293,11 +293,10 @@ termToFormula (Sort _ )    = __IMPOSSIBLE__
 appArgs :: String → Args → T FOLTerm
 appArgs fn args = do
   termsFOL ← mapM (termToFOLTerm . unArg) args
-  return $ foldl (\x y → app [x, y]) (FOLFun fn []) termsFOL
+  return $ foldl app (FOLFun fn []) termsFOL
 
 -- Translate an Agda term to an FOL term.
 termToFOLTerm :: Term → T FOLTerm
--- TODO: The code for the cases Con and Def is similar.
 termToFOLTerm term@(Con (QName _ name) args)  = do
   lift $ lift $ reportSLn "t2t" 10 $ "termToFOLTerm Con:\n" ++ show term
 
@@ -309,16 +308,14 @@ termToFOLTerm term@(Con (QName _ name) args)  = do
 
     C.Name _ [] → __IMPOSSIBLE__
 
-    -- The term Con doesn't have holes.
-    C.Name _ [C.Id str] →
-        case args of
-          [] → -- The term Con is a data constructor without arguments.
-                -- It is translated as a FOL constant.
-                return $ FOLConst str
-
-          _ → -- The term Con is a data constructor with arguments.
-               -- It is translated as a FOL function.
-               appArgs str args
+    -- The term Con doesn't have holes. It should be translated as a
+    -- FOL function.
+    -- TODO: Added test case
+    C.Name _ [C.Id _ ] → __IMPOSSIBLE__
+    -- C.Name _ [C.Id str] →
+    --     case args of
+    --       [] → return $ FOLFun str []
+    --       _ →  appArgs str args
 
     -- The term Con has holes. It is translated as a FOL function.
     C.Name _ parts →
@@ -337,16 +334,11 @@ termToFOLTerm term@(Def (QName _ name) args) = do
 
     C.Name _ [] → __IMPOSSIBLE__
 
-    -- The term Def doesn't have holes.
+    -- The term Def doesn't have holes. It is translated as a FOL function.
     C.Name _ [C.Id str] →
         case args of
-          [] → -- The term Def is a constructor.
-                -- It is translated as a FOL constant.
-                return $ FOLConst str
-
-          _ → -- The term Def is a function with arguments.
-               -- It is translated as a FOL function.
-               appArgs str args
+          [] → return $ FOLFun str []
+          _  → appArgs str args
 
     -- The term Def has holes. It is translated as a FOL function.
     C.Name _ parts →
@@ -375,7 +367,7 @@ termToFOLTerm term@(Var n args) = do
 
          (a1 : []) → do
              t ← termToFOLTerm $ unArg a1
-             return $ app [ FOLVar (vars !! fromIntegral n) , t ]
+             return $ app (FOLVar (vars !! fromIntegral n)) t
 
          _  → __IMPOSSIBLE__
 

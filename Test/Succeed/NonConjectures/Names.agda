@@ -9,7 +9,7 @@
 -- functors either start with lower case and contain alphanumerics and
 -- underscore ...
 
-module Test.Succeed.Names where
+module Test.Succeed.NonConjectures.Names where
 
 infix 4 _≡_
 
@@ -31,18 +31,3 @@ postulate
   -- Using a funny predicate name
   funnyP : (n : D) → PRED! n
 {-# ATP axiom funnyP #-}
-
-------------------------------------------------------------------------------
--- Testing a data constructor with holes.
-data _×_ ( A B : Set) : Set where
-  _,_ : A → B → A × B
-
-data WithHoles : D × D → Set where
-  withHoles : (x y : D) → WithHoles ( x , y )
-{-# ATP hint withHoles #-}
-
-------------------------------------------------------------------------------
--- We are only testing the translation of names, so we prove a tautology.
-postulate
-  t : (d : D) → d ≡ d
-{-# ATP prove t #-}

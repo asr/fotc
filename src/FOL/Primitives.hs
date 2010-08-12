@@ -9,12 +9,12 @@
 module FOL.Primitives ( app, equal ) where
 
 -- Agda library imports
-import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
+-- import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 
 -- Local imports
 import FOL.Types ( FOLTerm(FOLFun), FOLFormula(Predicate) )
 
-#include "../undefined.h"
+-- #include "../undefined.h"
 
 ------------------------------------------------------------------------------
 -- This is just an arbitrary constant which we hope doesn't
@@ -22,14 +22,12 @@ import FOL.Types ( FOLTerm(FOLFun), FOLFormula(Predicate) )
 kApp :: String
 kApp = "kApp"
 
-app :: [FOLTerm] → FOLTerm
-app (t1 : t2 : []) = FOLFun kApp [t1, t2]
-app _              = __IMPOSSIBLE__
+app :: FOLTerm → FOLTerm → FOLTerm
+app t1 t2 = FOLFun kApp [t1, t2]
 
 -- This will refer to the predefined equality in the ATP.
 kEqual :: String
 kEqual = "kEqual"
 
-equal :: [FOLTerm] → FOLFormula
-equal (t1 : t2 : [])  = Predicate kEqual [t1, t2]
-equal _               = __IMPOSSIBLE__
+equal :: FOLTerm → FOLTerm → FOLFormula
+equal t1 t2 = Predicate kEqual [t1, t2]

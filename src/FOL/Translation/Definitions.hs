@@ -161,6 +161,6 @@ defOneClauseToFormula qName ty (Clause _ _ _ [] cBody ) = do
 
             -- Because the LHS and RHS are terms, they are related via
             -- the FOL equality.
-            return $ equal [lhsT, rhsT]
+            return $ equal lhsT rhsT
 
     _ → __IMPOSSIBLE__

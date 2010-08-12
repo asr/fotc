@@ -87,7 +87,6 @@ instance PrettyTPTP FOLTerm where
     prettyTPTP (FOLFun name terms) = changeToLower name ++
                                      "(" ++ prettyTPTP terms ++ ")"
     prettyTPTP (FOLVar name)       = changeToUpper name
-    prettyTPTP (FOLConst name)     = changeToLower name
 
 instance PrettyTPTP [FOLTerm] where
     prettyTPTP [] = []
