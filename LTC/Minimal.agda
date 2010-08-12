@@ -56,7 +56,7 @@ postulate
 ------------------------------------------------------------------------------
 -- The LTC's equality is the propositional identity on 'D'.
 
--- The identity type.
+-- The identity type on D.
 data _≡_ (x : D) : D → Set where
   refl : x ≡ x
 
