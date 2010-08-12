@@ -40,8 +40,8 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 ------------------------------------------------------------------------------
 -- Local imports
 import FOL.Constants
-    ( trueFOL, falseFOL, notFOL, andFOL, orFOL
-    , impliesFOL, equivFOL, existsFOL, forAllFOL, equalsFOL
+    ( folTrue, folFalse, folNot, folAnd, folOr
+    , folImplies, folEquiv, folExists, folForAll, folEquals
     )
 import FOL.Monad ( T )
 import FOL.Primitives ( app, equal )
@@ -82,18 +82,18 @@ termToFormula term@(Def (QName _ name) args) = do
 
       C.Name{} →
           case args of
-            [] | isCNameFOLConst trueFOL  → return TRUE
+            [] | isCNameFOLConst folTrue  → return TRUE
 
-               | isCNameFOLConst falseFOL → return FALSE
+               | isCNameFOLConst folFalse → return FALSE
 
                | otherwise                → return $ Predicate (show cName) []
 
-            (a:[]) | isCNameFOLConstHoleRight notFOL → do
+            (a:[]) | isCNameFOLConstHoleRight folNot → do
                        f ← argTermToFormula a
                        return $ Not f
 
-                   | ( isCNameFOLConst existsFOL ||
-                       isCNameFOLConst forAllFOL ) → do
+                   | ( isCNameFOLConst folExists ||
+                       isCNameFOLConst folForAll ) → do
 
                        fm ← termToFormula $ unArg a
 
@@ -103,7 +103,7 @@ termToFormula term@(Def (QName _ name) args) = do
                        let freshVar :: String
                            freshVar = evalState freshName vars
 
-                       if isCNameFOLConst existsFOL
+                       if isCNameFOLConst folExists
                           then return $ Exists freshVar $ \_ → fm
                           else return $ ForAll freshVar $ \_ → fm
 
@@ -117,15 +117,15 @@ termToFormula term@(Def (QName _ name) args) = do
                       return $ Predicate (show cName) [t]
 
             (a1:a2:[])
-                | isCNameFOLConstTwoHoles andFOL → binConst And a1 a2
+                | isCNameFOLConstTwoHoles folAnd → binConst And a1 a2
 
-                | isCNameFOLConstTwoHoles orFOL → binConst Or a1 a2
+                | isCNameFOLConstTwoHoles folOr → binConst Or a1 a2
 
-                | isCNameFOLConstTwoHoles impliesFOL → binConst Implies a1 a2
+                | isCNameFOLConstTwoHoles folImplies → binConst Implies a1 a2
 
-                | isCNameFOLConstTwoHoles equivFOL → binConst Equiv a1 a2
+                | isCNameFOLConstTwoHoles folEquiv → binConst Equiv a1 a2
 
-                | isCNameFOLConstTwoHoles equalsFOL → do
+                | isCNameFOLConstTwoHoles folEquals → do
                     lift $ lift $ reportSLn "t2f" 20 "Processing equals"
                     t1 ← termToFOLTerm $ unArg a1
                     t2 ← termToFOLTerm $ unArg a2

@@ -5,30 +5,30 @@
 -- Adapted from agdaLight (Plugins.FOL.Constants)
 
 module FOL.Constants
-    ( trueFOL
-    , falseFOL
-    , notFOL
-    , andFOL
-    , orFOL
-    , impliesFOL
-    , equivFOL
-    , existsFOL
-    , forAllFOL
-    , equalsFOL
+    ( folTrue
+    , folFalse
+    , folNot
+    , folAnd
+    , folOr
+    , folImplies
+    , folEquiv
+    , folExists
+    , folForAll
+    , folEquals
     ) where
 
 -----------------------------------------------------------------------------
 -- Identifiers recognized by the FOL translator.
-trueFOL, falseFOL, notFOL, andFOL, orFOL, impliesFOL, equivFOL :: String
-trueFOL    = "⊤"
-falseFOL   = "⊥"
-notFOL     = "¬"
-andFOL     = "∧"
-orFOL      = "∨"
-impliesFOL = "⇒" -- Also it can be used the Agda functional space.
-equivFOL   = "↔"
+folTrue, folFalse, folNot, folAnd, folOr, folImplies, folEquiv :: String
+folTrue    = "⊤"
+folFalse   = "⊥"
+folNot     = "¬"
+folAnd     = "∧"
+folOr      = "∨"
+folImplies = "⇒" -- Also it can be used the Agda functional space.
+folEquiv   = "↔"
 
-existsFOL, forAllFOL, equalsFOL :: String
-existsFOL = "∃D"
-forAllFOL = "∀D" -- Also it can be used the Agda functional space.
-equalsFOL = "≡"
+folExists, folForAll, folEquals :: String
+folExists = "∃D"
+folForAll = "∀D" -- Also it can be used the Agda functional space.
+folEquals = "≡"
