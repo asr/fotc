@@ -2,6 +2,7 @@
 -- Eta expansion of Agda internal types
 ------------------------------------------------------------------------------
 
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module MyAgda.EtaExpansion ( etaExpand ) where
