@@ -13,6 +13,6 @@ P d₁ d₂ = d₁ ≡ d₂
 postulate
   foo : D → D → D
 
-oof : D → D → D
-oof d₁ d₂ = foo d₂ d₁
-{-# ATP definition oof #-}
+bar : D → D → D
+bar d₁ d₂ = foo d₂ d₁
+{-# ATP definition bar #-}
