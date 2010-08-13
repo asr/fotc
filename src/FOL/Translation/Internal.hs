@@ -34,6 +34,11 @@ import MyAgda.Syntax.DeBruijn ( renameVar, varToDeBruijnIndex )
 #include "../../undefined.h"
 
 ------------------------------------------------------------------------------
+-- A ClauseBody is defined by (Agda.Syntax.Internal)
+-- data ClauseBody = Body Term
+-- 		| Bind (Abs ClauseBody)
+-- 		| NoBind ClauseBody
+-- 		| NoBody    -- for absurd clauses
 
 -- telescopeToFormula :: Telescope → T FOLFormula
 -- telescopeToFormula EmptyTel             = __IMPOSSIBLE__

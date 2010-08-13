@@ -59,7 +59,7 @@ fnToFormula qName  _  _         =
     throwError $ "Error translating the symbol " ++ show qName ++
                    ". The definitions only can have a clause."
 
--- A clause is defined by (Agda.Syntax.Internal)
+-- A Clause is defined by (Agda.Syntax.Internal)
 -- data Clause = Clause
 --     { clauseRange     :: Range
 --     , clauseTel       :: Telescope
