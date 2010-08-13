@@ -86,7 +86,6 @@ toAF qName role def = do
 
   lift $ reportSLn "toAF" 20 $ "tyReady:\n" ++ show tyReady
 
-
   r ← lift $ evalStateT (runErrorT (typeToFormula tyReady)) iVarNames
   case r of
     Right for → do

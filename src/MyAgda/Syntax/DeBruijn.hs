@@ -241,7 +241,6 @@ instance RemoveVar Args where
            else (Arg h var : removeVar args index)
     removeVar (Arg h t : args) index = Arg h t : removeVar args index
 
-
 removeReferenceToProofTerm :: Type → Nat → Type → Type
 removeReferenceToProofTerm varType index ty =
     case varType of
