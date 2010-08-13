@@ -1,11 +1,14 @@
 ------------------------------------------------------------------------------
--- Translation of TPTP definitions to FOL formulas
+-- Translation of Agda internal functions to FOL formulas
+
+-- (Only are translate the functions that will be translate as TPTP
+-- definitions)
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module FOL.Translation.Definitions ( defToFormula ) where
+module FOL.Translation.Functions ( fnToFormula ) where
 
 -- Haskell imports
 import Control.Monad.Trans.Class ( lift )
@@ -45,14 +48,14 @@ import Utils.Names ( freshName )
 #include "../../undefined.h"
 
 ------------------------------------------------------------------------------
--- In general a symbol's definition is given by various clauses
+-- In general a definition's function is given by various clauses
 -- (i.e. equations), for example every equation in a definition by
 -- pattern matching. In our case it is only necessary to translate
--- definition with only one clause.
-defToFormula :: QName → Type → [Clause] → T FOLFormula
-defToFormula _      _  []        = __IMPOSSIBLE__
-defToFormula qName  ty (cl : []) = defOneClauseToFormula qName ty cl
-defToFormula qName  _  _         =
+-- definitions with only one clause.
+fnToFormula :: QName → Type → [Clause] → T FOLFormula
+fnToFormula _      _  []        = __IMPOSSIBLE__
+fnToFormula qName  ty (cl : []) = oneClauseToFormula qName ty cl
+fnToFormula qName  _  _         =
     throwError $ "Error translating the symbol " ++ show qName ++
                    ". The definitions only can have a clause."
 
@@ -65,15 +68,15 @@ defToFormula qName  _  _         =
 --     , clauseBody      :: ClauseBody
 --     }
 
--- The LHS of the definition is given by the QName and the Type. The
--- RHS is given by the Clause. Before translate the LHS and the RHS
--- (i.e. the body of the clause) it is necessary to generate an
--- universal quantification on an equal number of variables to length
--- [Arg Pattern].
-defOneClauseToFormula :: QName → Type → Clause → T FOLFormula
+-- The LHS of the definition's function is given by the QName and the
+-- Type. The RHS is given by the Clause. Before translate the LHS and
+-- the RHS (i.e. the body of the clause) it is necessary to generate
+-- an universal quantification on an equal number of variables to
+-- length [Arg Pattern].
+oneClauseToFormula :: QName → Type → Clause → T FOLFormula
 
 -- There is at most one variable in the clause's pattern, so ...
-defOneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
+oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
   case tel of
     -- The bounded variable is quantified on a Set,
     --
@@ -92,7 +95,7 @@ defOneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
           -- See the reason for the order in the enviroment in
           -- FOL.Translation.Terms.termToFormula term@(Pi ... )
           lift $ put (freshVar : vars)
-          f ← defOneClauseToFormula qName ty (Clause r tels perm pats cBody)
+          f ← oneClauseToFormula qName ty (Clause r tels perm pats cBody)
           lift $ put vars
 
           return $ ForAll freshVar (\_ → f)
@@ -121,8 +124,7 @@ defOneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
 
            lift $ lift $ reportSLn "def2f" 20 $ "New body: " ++ show newBody
 
-           f2 ← defOneClauseToFormula qName ty
-                                       (Clause r tels perm pats newBody )
+           f2 ← oneClauseToFormula qName ty (Clause r tels perm pats newBody )
 
            return $ Implies f1 f2
 
@@ -130,7 +132,7 @@ defOneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
 
 -- The clause's patterns is empty, i.e. we have generated the required
 -- universal quantification, so we translate the LHS and the RHS.
-defOneClauseToFormula qName ty (Clause _ _ _ [] cBody ) = do
+oneClauseToFormula qName ty (Clause _ _ _ [] cBody ) = do
 
   vars ← lift get
   lift $ lift $ reportSLn "def2f" 20 $ "vars: " ++ show vars

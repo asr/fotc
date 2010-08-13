@@ -30,7 +30,7 @@ executable agda2atp
                   FOL.Primitives
                   FOL.Translation.Common
                   FOL.Translation.Concrete.Name
-                  FOL.Translation.Definitions
+                  FOL.Translation.Functions
                   FOL.Translation.Internal
                   FOL.Translation.Internal.Terms
                   FOL.Translation.Internal.Types

@@ -9,8 +9,8 @@
 module TPTP.Translation
     ( axiomsToAFs
     , conjecturesToAFs
+    , fnsToAFs
     , generalHintsToAFs
-    , symbolsToAFs
     ) where
 
 ------------------------------------------------------------------------------
@@ -44,7 +44,7 @@ import Agda.TypeChecking.Monad.Base
 ------------------------------------------------------------------------------
 -- Local imports
 import Common ( ER, iVarNames )
-import FOL.Translation.Definitions ( defToFormula )
+import FOL.Translation.Functions ( fnToFormula )
 import FOL.Translation.Internal.Types ( typeToFormula )
 import MyAgda.EtaExpansion ( etaExpand )
 import MyAgda.Interface
@@ -94,8 +94,9 @@ toAF qName role def = do
            return $ AF qName role for
     Left err → throwError err
 
-symbolToAF :: QName → Definition → ER AF
-symbolToAF qName def = do
+-- Translation of an Agda internal function to an AF definition.
+fnToAF :: QName → Definition → ER AF
+fnToAF qName def = do
 
   opts ← lift ask
 
@@ -112,7 +113,7 @@ symbolToAF qName def = do
   lift $ reportSLn "symbolToAF" 10 $
                 "Symbol: " ++ show qName ++ "\n" ++ "Clauses: " ++ show cls
 
-  r ← lift $ evalStateT (runErrorT (defToFormula qName ty cls)) iVarNames
+  r ← lift $ evalStateT (runErrorT (fnToFormula qName ty cls)) iVarNames
   case r of
     Right for → do
            lift $ reportSLn "symbolToAF" 20 $
@@ -200,13 +201,13 @@ conjecturesToAFs i = do
 
   zipWithM conjectureToAF (Map.keys conjecturesDefs) (Map.elems conjecturesDefs)
 
--- We translate the ATP pragma definitions in an interface file to FOL
--- formulas.
-symbolsToAFs :: Interface → ER [AF]
-symbolsToAFs i = do
+-- We translate the functions marked out by an ATP pragma definition in
+-- an interface file to AF definitions.
+fnsToAFs :: Interface → ER [AF]
+fnsToAFs i = do
 
-  -- We get the definitions from the interface file.
-  let symDefs :: Definitions
-      symDefs = getRoleATP DefinitionATP i
+  -- We get the definition's functions from the interface file.
+  let fnDefs :: Definitions
+      fnDefs = getRoleATP DefinitionATP i
 
-  zipWithM symbolToAF (Map.keys symDefs) (Map.elems symDefs)
+  zipWithM fnToAF (Map.keys fnDefs) (Map.elems fnDefs)

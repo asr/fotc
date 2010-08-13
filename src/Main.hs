@@ -46,7 +46,7 @@ import TPTP.Translation
     ( axiomsToAFs
     , generalHintsToAFs
     , conjecturesToAFs
-    , symbolsToAFs
+    , fnsToAFs
     )
 import TPTP.Types ( AF )
 import Utils.IO ( bye )
@@ -70,9 +70,9 @@ translationGeneralRoles file = do
   generalHints ← generalHintsToAFs i
 
   -- Getting the ATP definitions.
-  symbols ← symbolsToAFs i
+  fns ← fnsToAFs i
 
-  return (axioms ++ generalHints ++ symbols )
+  return (axioms ++ generalHints ++ fns )
 
 -- TODO: It is not clear if we should use the interface or the file
 -- name as the principal argument. In the case of the function
