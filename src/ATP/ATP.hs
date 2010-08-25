@@ -11,7 +11,7 @@ module ATP.ATP ( callATP ) where
 import Data.List ( isInfixOf )
 import Control.Concurrent ( forkIO, killThread, threadDelay )
 import Control.Concurrent.MVar ( MVar, newEmptyMVar, putMVar, takeMVar )
-import Control.Monad ( unless )
+import Control.Monad ( unless, when )
 import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Class ( lift )
 import Control.Monad.Trans.Error ( throwError )
@@ -94,6 +94,9 @@ callATPConjecture conjecture = do
   opts ← lift ask
 
   file ← lift $ createConjectureFile conjecture
+
+  when (optOnlyFiles opts) $
+    lift $ reportS "" 1 $ "Created the conjecture file " ++ file
 
   unless (optOnlyFiles opts) $ do
 
