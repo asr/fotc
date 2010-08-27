@@ -9,19 +9,27 @@ module ATP.ATP ( callATP ) where
 
 -- Haskell imports
 import Data.List ( isInfixOf )
-import Control.Concurrent ( forkIO, killThread, threadDelay )
+import Data.Maybe ( fromMaybe )
+import Control.Exception ( evaluate )
+import Control.Concurrent ( forkIO )
 import Control.Concurrent.MVar ( MVar, newEmptyMVar, putMVar, takeMVar )
 import Control.Monad ( unless, when )
 import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Class ( lift )
 import Control.Monad.Trans.Error ( throwError )
 import Control.Monad.Trans.Reader ( ask )
--- import GHC.Conc ( threadStatus )
-import System.Process ( readProcess )
+import System.IO ( hGetContents )
+import System.Process
+    ( createProcess
+    , proc
+    , StdStream(CreatePipe)
+    , std_out
+    , terminateProcess
+    )
 -- import System.Timeout ( timeout )
 
 -- Agda library imports
--- import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
+import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
 
 -- Local imports
 import Common ( ER )
@@ -63,31 +71,13 @@ checkOutputATP atp output = isInfixOf (atpOk atp) output
          atpOk Eprover = eproverOk
          atpOk Metis   = metisOk
 
-runATP :: MVar (Bool, ATP) → FilePath → Int → ATP → IO ()
-runATP outputMVar file timeLimit atp = do
-
-  let args :: [String]
-      args = case atp of
-               Equinox → [ "--time", show timeLimit, file ]
-               Eprover → [ "--tstp-format"
-                         , "--soft-cpu-limit=" ++ show timeLimit
-                         , file
-                         ]
-               Metis   → [ "--tptp", "/", file ]
-
-  -- Hack. Because metis does not have a time control, we wrap the
-  -- calls to the ATPs inside a timeout. This timeout only should be
-  -- used to kill metis, therefore we added 3 secs to allow that
-  -- equinox and eprover use their internal timeout.
-
-  -- TODO: There is an problem with the function timeout and eprover
-  -- output ← timeout (timeLimit * 1000000 + 3000000) (readProcess (show atp) args "")
-
-  -- Users of readProcess should compile with -threaded if they want
-  -- other Haskell threads to keep running while waiting on the result
-  -- of readProcess (from process 1.0.1.3)
-  output ← readProcess (nameATP atp) args ""
-  putMVar outputMVar (checkOutputATP atp output, atp)
+argsATP :: ATP → Int → FilePath → [String]
+argsATP Equinox timeLimit file = [ "--time", show timeLimit, file ]
+argsATP Eprover timeLimit file = [ "--tstp-format"
+                                 , "--soft-cpu-limit=" ++ show timeLimit
+                                 , file
+                                 ]
+argsATP Metis   _         file = [ "--tptp", "/", file ]
 
 callATPConjecture :: (AF, [AF]) → ER ()
 callATPConjecture conjecture = do
@@ -107,18 +97,28 @@ callATPConjecture conjecture = do
 
     lift $ reportS "" 1 $ "Proving the conjecture in " ++ file ++ " ..."
 
-    equinoxThread ← liftIO $
-      forkIO (runATP outputMVar file timeLimit Equinox)
+    -- To create the ATPs process we follow the ideas used by
+    -- System.Process.readProcess.
 
-    -- Because Equinox and Eprover prove more or less the same theorems,
-    -- we wait 1 sec. before launch the Eprover's thread.
-    eproverThread ← liftIO $
-      forkIO (threadDelay 1000000 >>
-              runATP outputMVar file timeLimit Eprover)
+    -- Equinox process
+    (_, equinoxOH, _, equinoxPH) ← liftIO $
+       createProcess (proc (nameATP Equinox) (argsATP Equinox timeLimit file))
+                     { std_out = CreatePipe }
 
-    -- Because Equinox and Eprover prove almost all the theorems, we
-    -- wait 2 sec. before launch the Metis's thread.
-    -- when ( atp == Metis ) $ threadDelay 2000000
+    equinoxOutput ← liftIO $ hGetContents $ fromMaybe __IMPOSSIBLE__ equinoxOH
+    _ <- liftIO $ forkIO $
+           evaluate (length equinoxOutput) >>
+           putMVar outputMVar (checkOutputATP Equinox equinoxOutput, Equinox)
+
+    -- Eprover process
+    (_, eproverOH, _, eproverPH) ← liftIO $
+       createProcess (proc (nameATP Eprover) (argsATP Eprover timeLimit file))
+                     { std_out = CreatePipe }
+
+    eproverOutput ← liftIO $ hGetContents $ fromMaybe __IMPOSSIBLE__ eproverOH
+    _ <- liftIO $ forkIO $
+           evaluate (length eproverOutput) >>
+           putMVar outputMVar (checkOutputATP Eprover eproverOutput, Eprover)
 
     let answerATPs :: Int → ER ()
         answerATPs n =
@@ -133,12 +133,11 @@ callATPConjecture conjecture = do
                                               " proved the conjecture in " ++
                                               file
                         liftIO $ do
-                                 -- e1 ← threadStatus equinoxThread
-                                 -- e2 ← threadStatus eproverThread
-                                 -- print e1
-                                 -- print e2
-                                 killThread eproverThread
-                                 killThread equinoxThread
+                        -- It seems that terminateProcess is a nop if
+                        -- the process is finished, therefore we don't care
+                        -- on terminate all the ATPs processes.
+                        terminateProcess equinoxPH
+                        terminateProcess eproverPH
                  (False, _ ) → answerATPs (n + 1)
 
     answerATPs 0
