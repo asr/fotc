@@ -14,7 +14,7 @@ module TPTP.Files
 -- Haskell imports
 import Control.Monad.IO.Class ( liftIO )
 import Data.Char ( chr, isAsciiUpper, isAsciiLower, isDigit, ord )
-import System.FilePath
+import System.FilePath ( addExtension )
 
 -- Agda library imports
 import Agda.Syntax.Abstract.Name
@@ -52,8 +52,11 @@ instance ValidFileName String where
 extTPTP :: String
 extTPTP = ".tptp"
 
+outputDir :: String
+outputDir = "/tmp/"
+
 generalRolesFile :: FilePath
-generalRolesFile = addExtension "/tmp/general-roles" extTPTP
+generalRolesFile = addExtension (outputDir ++ "general-roles") extTPTP
 
 communHeader :: String
 communHeader =
@@ -122,7 +125,7 @@ createConjectureFile (af@(AF qName _ _ ), hints) = do
   -- To avoid clash names with the terms inside a where clause, we
   -- added the line number where the term was defined to the file
   -- name.
-  let f = "/tmp/" ++
+  let f = outputDir ++
           validFileName (show qName) ++ "_" ++ show (qNameLine qName)
   let file = addExtension f extTPTP
   reportSLn "createConjectureFile" 20 $
