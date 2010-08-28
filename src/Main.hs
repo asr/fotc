@@ -40,7 +40,11 @@ import Agda.Utils.Impossible ( catchImpossible
 import ATP.ATP ( callATP )
 import Common ( ER )
 import MyAgda.Interface ( getImportedModules, myReadInterface )
-import Options ( Options(optHelp, optVersion), parseOptions, usage )
+import Options
+    ( Options(optATP, optHelp, optOnlyFiles, optVersion)
+    , parseOptions
+    , usage
+    )
 import Reports ( reportS )
 import TPTP.Translation
     ( axiomsToAFs
@@ -110,6 +114,10 @@ runAgda2ATP = do
        bye $ prgName ++ " version " ++ version ++ "\n"
 
   when (optHelp opts) $ liftIO $ bye $ usage prgName
+
+  if ((not $ optOnlyFiles opts) && (null $ optATP opts))
+    then throwError "Error: It is required the option --only-files or the option --ATP=name"
+    else return ()
 
   r  ← liftIO $ runReaderT (runErrorT (translation $ head names)) opts
   case r of

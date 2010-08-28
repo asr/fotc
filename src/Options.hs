@@ -8,12 +8,14 @@
 module Options where
 
 -- Haskell imports
-import System.Console.GetOpt ( ArgDescr(..)
-                             , ArgOrder (Permute)
-                             , getOpt
-                             , OptDescr (..)
-                             , usageInfo
-                             )
+import System.Console.GetOpt
+    ( ArgDescr(..)
+    , ArgOrder (Permute)
+    , getOpt
+    , OptDescr (..)
+    , usageInfo
+    )
+
 -- Agda library imports
 import Agda.Utils.List ( wordsBy )
 import Agda.Utils.Trie ( Trie )
@@ -28,7 +30,7 @@ data Options = MkOptions
     { optVersion    :: Bool
     , optHelp       :: Bool
     , optVerbose    :: Trie String Int
---    , optATP      :: String
+    , optATP        :: [String]
     , optOnlyFiles  :: Bool
     , optTime       :: Int
     , optDefAsAxiom :: Bool
@@ -39,7 +41,7 @@ defaultOptions = MkOptions
   { optVersion    = False
   , optHelp       = False
   , optVerbose    = Trie.singleton [] 1
---  , optATP      = "equinox"
+  , optATP        = []
   , optOnlyFiles  = False
   , optTime       = 300
   , optDefAsAxiom = False
@@ -63,8 +65,8 @@ verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
                       m = read $ last ss
                   in (init ss, m)
 
--- atpOpt :: String → Options → Options
--- atpOpt name opts = opts { optATP = name }
+atpOpt :: String → Options → Options
+atpOpt name opts = opts { optATP = name : optATP opts }
 
 onlyFilesOpt :: Options → Options
 onlyFilesOpt opts = opts { optOnlyFiles = True }
@@ -83,8 +85,8 @@ options =
                  "show this help"
   , Option ['v'] ["verbose"] (ReqArg verboseOpt "N")
                  "set verbosity level to N"
-  -- , Option []    ["ATP"] (ReqArg atpOpt "name")
-  --                "set the ATP (default: equinox)"
+  , Option []    ["ATP"] (ReqArg atpOpt "name")
+                  "set the ATP (equinox and/or eprover)"
   , Option []    ["only-files"] (NoArg onlyFilesOpt)
                  "do not call the ATPs, only to create the TPTP files"
   , Option []    ["time"] (ReqArg timeOpt "secs")

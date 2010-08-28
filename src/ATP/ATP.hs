@@ -22,6 +22,7 @@ import System.IO ( hGetContents )
 import System.Process
     ( createProcess
     , proc
+    , ProcessHandle
     , StdStream(CreatePipe)
     , std_out
     , terminateProcess
@@ -33,7 +34,7 @@ import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
 
 -- Local imports
 import Common ( ER )
-import Options ( Options(optOnlyFiles, optTime) )
+import Options ( Options(optATP, optOnlyFiles, optTime) )
 import Reports ( reportS )
 import TPTP.Files ( createGeneralRolesFile, createConjectureFile )
 import TPTP.Types ( AF )
@@ -46,10 +47,16 @@ import TPTP.Types ( AF )
 data ATP = Equinox | Eprover | Metis
            deriving (Eq, Show)
 
-nameATP :: ATP → String
-nameATP Equinox = "equinox"
-nameATP Eprover = "eprover"
-nameATP Metis   = "metis"
+atp2string :: ATP → String
+atp2string Equinox = "equinox"
+atp2string Eprover = "eprover"
+atp2string Metis   = "metis"
+
+string2ATP :: String → ATP
+string2ATP "equinox" = Equinox
+string2ATP "eprover" = Eprover
+string2ATP "metis"   = Metis
+string2ATP _         = __IMPOSSIBLE__
 
 -- Tested with Equinox cvs version.
 equinoxOk :: String
@@ -79,6 +86,24 @@ argsATP Eprover timeLimit file = [ "--tstp-format"
                                  ]
 argsATP Metis   _         file = [ "--tptp", "/", file ]
 
+
+runATP :: ATP → MVar (Bool, ATP) → [String] → IO ProcessHandle
+runATP atp outputMVar args = do
+
+    -- To create the ATPs process we follow the ideas used by
+    -- System.Process.readProcess.
+
+    (_, outputH, _, atpPH) ←
+      createProcess (proc (atp2string atp) args)
+                    { std_out = CreatePipe }
+
+    output ← hGetContents $ fromMaybe __IMPOSSIBLE__ outputH
+    _ <- forkIO $
+           evaluate (length output) >>
+           putMVar outputMVar (checkOutputATP atp output, atp)
+
+    return atpPH
+
 callATPConjecture :: (AF, [AF]) → ER ()
 callATPConjecture conjecture = do
   opts ← lift ask
@@ -90,6 +115,11 @@ callATPConjecture conjecture = do
 
   unless (optOnlyFiles opts) $ do
 
+    let atps :: [String]
+        atps = optATP opts
+
+    when (null atps) __IMPOSSIBLE__
+
     let timeLimit :: Int
         timeLimit = optTime opts
 
@@ -97,34 +127,15 @@ callATPConjecture conjecture = do
 
     lift $ reportS "" 1 $ "Proving the conjecture in " ++ file ++ " ..."
 
-    -- To create the ATPs process we follow the ideas used by
-    -- System.Process.readProcess.
-
-    -- Equinox process
-    (_, equinoxOH, _, equinoxPH) ← liftIO $
-       createProcess (proc (nameATP Equinox) (argsATP Equinox timeLimit file))
-                     { std_out = CreatePipe }
-
-    equinoxOutput ← liftIO $ hGetContents $ fromMaybe __IMPOSSIBLE__ equinoxOH
-    _ <- liftIO $ forkIO $
-           evaluate (length equinoxOutput) >>
-           putMVar outputMVar (checkOutputATP Equinox equinoxOutput, Equinox)
-
-    -- Eprover process
-    (_, eproverOH, _, eproverPH) ← liftIO $
-       createProcess (proc (nameATP Eprover) (argsATP Eprover timeLimit file))
-                     { std_out = CreatePipe }
-
-    eproverOutput ← liftIO $ hGetContents $ fromMaybe __IMPOSSIBLE__ eproverOH
-    _ <- liftIO $ forkIO $
-           evaluate (length eproverOutput) >>
-           putMVar outputMVar (checkOutputATP Eprover eproverOutput, Eprover)
+    atpsPH ← liftIO $
+           mapM (\atp → runATP atp outputMVar (argsATP atp timeLimit file))
+                (map string2ATP atps)
 
     let answerATPs :: Int → ER ()
         answerATPs n =
-          if n == 2
-             then throwError $ "The ATPs did not prove the conjecture in " ++
-                               file ++ "."
+          if n == length atps
+             then throwError $ "The ATPs " ++ show atps ++
+                               " did not prove the conjecture in " ++ file
              else do
                output ← liftIO $ takeMVar outputMVar
                case output of
@@ -136,8 +147,7 @@ callATPConjecture conjecture = do
                         -- It seems that terminateProcess is a nop if
                         -- the process is finished, therefore we don't care
                         -- on terminate all the ATPs processes.
-                        terminateProcess equinoxPH
-                        terminateProcess eproverPH
+                        mapM_ terminateProcess atpsPH
                  (False, _ ) → answerATPs (n + 1)
 
     answerATPs 0

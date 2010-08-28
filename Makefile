@@ -31,12 +31,12 @@ $(non_conjectures_files) : % : %.agda
 
 $(succeed_conjectures) : % : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
-	@if ! ( agda2atp --time 60 $< ); then exit 1; fi
+	@if ! ( agda2atp --ATP=equinox --ATP=eprover --time 60 $< ); then exit 1; fi
 
 $(fail_conjectures) : % : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
 # The unproven conjectures return an error, therefore we wrapped it.
-	@if ( agda2atp --time 5 $< ); then exit 1; fi
+	@if ( agda2atp --ATP=equinox --ATP=eprover --time 5 $< ); then exit 1; fi
 
 # The tests
 non_conjectures : clean $(non_conjectures_files)
