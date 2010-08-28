@@ -85,7 +85,7 @@ options =
                  "show this help"
   , Option ['v'] ["verbose"] (ReqArg verboseOpt "N")
                  "set verbosity level to N"
-  , Option []    ["ATP"] (ReqArg atpOpt "name")
+  , Option []    ["atp"] (ReqArg atpOpt "name")
                   "set the ATP (equinox and/or eprover)"
   , Option []    ["only-files"] (NoArg onlyFilesOpt)
                  "do not call the ATPs, only to create the TPTP files"
