@@ -34,6 +34,7 @@ data Options = MkOptions
     , optOnlyFiles  :: Bool
     , optTime       :: Int
     , optDefAsAxiom :: Bool
+    , optOutputDir  :: FilePath
     } deriving ( Show )
 
 defaultOptions :: Options
@@ -45,6 +46,7 @@ defaultOptions = MkOptions
   , optOnlyFiles  = False
   , optTime       = 300
   , optDefAsAxiom = False
+  , optOutputDir  = "/tmp"
   }
 
 versionOpt :: Options → Options
@@ -77,6 +79,9 @@ timeOpt secs opts = opts { optTime = read secs }
 defAsAxiomOpt :: Options → Options
 defAsAxiomOpt opts = opts { optDefAsAxiom = True }
 
+outputDirOpt :: FilePath → Options → Options
+outputDirOpt dir opts = opts { optOutputDir = dir }
+
 options :: [OptDescr (Options → Options)]
 options =
   [ Option ['V'] ["version"] (NoArg versionOpt)
@@ -93,6 +98,8 @@ options =
                  "set timeout for the ATPs in seconds (default: 300)"
   , Option []    ["definitions-as-axioms"] (NoArg defAsAxiomOpt)
                  "translate the TPTP definitions as TPTP axioms"
+  , Option []    ["output-dir"] (ReqArg outputDirOpt "DIR")
+                 "directory in which TPTP files are placed (default: /tmp)"
   ]
 
 usageHeader :: String → String

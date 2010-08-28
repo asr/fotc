@@ -13,8 +13,10 @@ module TPTP.Files
 
 -- Haskell imports
 import Control.Monad.IO.Class ( liftIO )
+import Control.Monad.Trans.Reader ( ask )
 import Data.Char ( chr, isAsciiUpper, isAsciiLower, isDigit, ord )
-import System.FilePath ( addExtension )
+import System.Directory ( createDirectoryIfMissing )
+import System.FilePath ( (</>), addExtension )
 
 -- Agda library imports
 import Agda.Syntax.Abstract.Name
@@ -26,6 +28,7 @@ import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
 
 -- Local imports
 import MyAgda.Interface ( qNameLine )
+import Options ( Options(optOutputDir) )
 import TPTP.Pretty
 import Reports ( R, reportSLn )
 import TPTP.Types
@@ -52,11 +55,16 @@ instance ValidFileName String where
 extTPTP :: String
 extTPTP = ".tptp"
 
-outputDir :: String
-outputDir = "/tmp/"
+generalRolesFileName :: R FilePath
+generalRolesFileName = do
+    opts ← ask
 
-generalRolesFile :: FilePath
-generalRolesFile = addExtension (outputDir ++ "general-roles") extTPTP
+    let outputDir :: String
+        outputDir = optOutputDir opts
+
+    liftIO $ createDirectoryIfMissing True outputDir
+
+    return $ addExtension (outputDir </> "general-roles") extTPTP
 
 communHeader :: String
 communHeader =
@@ -64,25 +72,25 @@ communHeader =
     "% This file was generated automatically.\n" ++
     "%-----------------------------------------------------------------------------\n\n"
 
-headerGeneralRoles :: String
-headerGeneralRoles =
+generalRolesHeader :: String
+generalRolesHeader =
     communHeader ++
     "% This file corresponds to the ATP axioms, general hints, and definitions.\n\n"
 
-footerGeneralRoles :: String
-footerGeneralRoles  =
+generalRolesFooter :: String
+generalRolesFooter  =
     "%-----------------------------------------------------------------------------\n" ++
     "% End ATP axioms, general hints, and definitions file.\n"
 
-headerConjecture :: String
-headerConjecture =
+conjectureHeader :: FilePath → String
+conjectureHeader generalRolesFile =
     communHeader ++
     "% This file corresponds to an ATP conjecture and its hints.\n\n" ++
     "% We include the general ATP pragmas (axioms, hints and definitions).\n" ++
     "include('" ++ generalRolesFile ++ "').\n\n"
 
-footerConjecture :: String
-footerConjecture =
+conjectureFooter :: String
+conjectureFooter =
     "%-----------------------------------------------------------------------------\n" ++
     "% End ATP conjecture file.\n"
 
@@ -112,12 +120,15 @@ addConjecture af file =
 
 createGeneralRolesFile :: [AF] → R ()
 createGeneralRolesFile afs = do
+
+  file ← generalRolesFileName
+
   reportSLn "generalRoles" 20 $
-            "Creating the general roles file " ++ generalRolesFile ++ " ..."
+            "Creating the general roles file " ++ file ++ " ..."
   liftIO $ do
-    _ ← writeFile generalRolesFile headerGeneralRoles
-    _ ← mapM_ (`addGeneralRole` generalRolesFile) afs
-    _ ← appendFile generalRolesFile footerGeneralRoles
+    _ ← writeFile file generalRolesHeader
+    _ ← mapM_ (`addGeneralRole` file) afs
+    _ ← appendFile file generalRolesFooter
     return ()
 
 createConjectureFile :: (AF, [AF]) → R FilePath
@@ -125,16 +136,29 @@ createConjectureFile (af@(AF qName _ _ ), hints) = do
   -- To avoid clash names with the terms inside a where clause, we
   -- added the line number where the term was defined to the file
   -- name.
-  let f = outputDir ++
+
+  opts ← ask
+
+  let outputDir :: FilePath
+      outputDir = optOutputDir opts
+
+  let f :: FilePath
+      f = outputDir </>
           validFileName (show qName) ++ "_" ++ show (qNameLine qName)
-  let file = addExtension f extTPTP
+
+  let conjectureFile :: FilePath
+      conjectureFile = addExtension f extTPTP
+
   reportSLn "createConjectureFile" 20 $
-                "Creating the conjecture file " ++ show file ++ " ..."
+            "Creating the conjecture file " ++ show conjectureFile ++ " ..."
+
+  generalRolesFile ← generalRolesFileName
+
   liftIO $ do
-    _ ← writeFile file headerConjecture
-    _ ← mapM_ (`addGeneralRole` file) hints
+    _ ← writeFile conjectureFile (conjectureHeader generalRolesFile)
+    _ ← mapM_ (`addGeneralRole` conjectureFile) hints
     return ()
 
-  addConjecture af file
-  liftIO $ appendFile file footerConjecture
-  return file
+  addConjecture af conjectureFile
+  liftIO $ appendFile conjectureFile conjectureFooter
+  return conjectureFile
