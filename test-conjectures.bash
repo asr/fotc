@@ -40,10 +40,9 @@ case $1 in
           Examples/GCD/IsDivisible
          '
         ;;
-# TODO: Neither Equinox nor Eprove prove the theorems gcd-S>S and gcd-S≤S from
-# Examples/GCD-PCF/EquationsPCF, therefore this file has not been added.
     GCD-PCF)
         files='
+          Examples/GCD-PCF/EquationsPCF
           Examples/GCD-PCF/IsN-PCF
           Examples/GCD-PCF/IsCommonDivisorPCF
           Examples/GCD-PCF/IsDivisiblePCF

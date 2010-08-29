@@ -102,6 +102,7 @@ reverse-++ {es = es} (consL d {ds} Lds) esL = prf (reverse-++ Lds esL)
   where
     postulate prf : reverse (ds ++ es) ≡ reverse es ++ reverse ds →
                     reverse ((d ∷ ds) ++ es) ≡ reverse es ++ reverse (d ∷ ds)
+    -- E 1.2 cannot prove this postulate with --time=180.
     {-# ATP prove prf ++-assoc nilL consL reverse-List ++-List #-}
 
 reverse² : {ds : D} → List ds → reverse (reverse ds) ≡ ds
@@ -126,6 +127,7 @@ map-++ f {es = es} (consL d {ds} Lds) esL = prf (map-++ f Lds esL)
   where
     postulate prf : map f (ds ++ es) ≡ map f ds ++ map f es →
                     map f ((d ∷ ds) ++ es) ≡ map f (d ∷ ds) ++ map f es
+    -- E 1.2 cannot prove this postulate with --time=180.
     {-# ATP prove prf #-}
 
 length-replicate : {n : D} → N n → (d : D) → length (replicate n d) ≡ n

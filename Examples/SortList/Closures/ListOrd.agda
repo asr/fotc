@@ -38,6 +38,7 @@ open import Postulates using ( ++-ListOrd-aux₁ )
 ++-ListOrd-aux₂ {item} {js = js} Nitem nilLN LNjs item≤niL niL≤js = prf
   where
     postulate prf : LE-ItemList item ([] ++ js)
+    -- E 1.2 cannot prove this postulate with --time=180.
     {-# ATP prove prf ++-ListOrd-aux₁ #-}
 
 ++-ListOrd-aux₂ {item} {js = js} Nitem
@@ -52,6 +53,7 @@ open import Postulates using ( ++-ListOrd-aux₁ )
   where
     postulate prf : LE-ItemList item (is ++ js) → -- IH.
                     LE-ItemList item ((i ∷ is) ++ js)
+    -- E 1.2 cannot prove this postulate with --time=180.
     {-# ATP prove prf ≤-Bool ≤-ItemList-Bool x&&y≡true→x≡true #-}
 
 ------------------------------------------------------------------------------
@@ -102,6 +104,7 @@ mutual
                       ListOrd (flatten t₂) → -- IH.
                       LE-Lists (flatten t₁) (flatten t₂) →
                       ListOrd (flatten (node t₁ i t₂))
+      -- E 1.2 cannot prove this postulate with --time=180.
       {-# ATP prove prf ++-ListOrd flatten-List
                         leftSubTree-TreeOrd rightSubTree-TreeOrd
       #-}
@@ -128,6 +131,7 @@ mutual
                       TOnode = prf
     where
       postulate prf : LE-Lists (flatten (tip j)) (flatten (node ta k tb))
+      -- E 1.2 cannot prove this postulate with --time=180.
       {-# ATP prove prf #-}
 
   flatten-ListOrd-aux (nodeT {ta} {j} {tb} Tta Nj Ttb) Ni nilT TOnode =
@@ -165,6 +169,7 @@ mutual
                                                            -- IH and IH.
                       LE-Lists (flatten tb) (flatten (tip k)) → -- IH.
                       LE-Lists (flatten (node ta j tb)) (flatten (tip k))
+      -- E 1.2 cannot prove this postulate with --time=180.
       {-# ATP prove prf listOrd-xs++ys→ys≤zs→xs++ys≤zs #-}
 
       treeOrd-ta-j-tb : TreeOrd (node ta j tb)
@@ -173,6 +178,7 @@ mutual
 
       postulate
         tb≤-i : LE-TreeItem tb i
+      -- E 1.2 cannot prove this postulate with --time=180.
       {-# ATP prove tb≤-i ≤-ItemTree-Bool ≤-TreeItem-Bool isTreeOrd-Bool
                           x&&y≡true→y≡true w&&x&&y&&z≡true→y≡true
       #-}
@@ -182,6 +188,7 @@ mutual
                                             -- hypothesis in a separate
                                             -- postulate.
                          TreeOrd (node tb i (tip k))
+      -- E 1.2 cannot prove this postulate with --time=180.
       {-# ATP prove treeOrd-tb-i-k rightSubTree-TreeOrd treeOrd-ta-j-tb
                                    ≤-ItemTree-Bool ≤-TreeItem-Bool
                                    isTreeOrd-Bool w&&x&&y&&z≡true→z≡true

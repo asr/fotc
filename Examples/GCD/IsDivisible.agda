@@ -50,7 +50,7 @@ postulate
 ---------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m > succ n' is Divisible.
 
--- For the proof using the ATP we added the auxliar hypothesis
+-- For the proof using the ATP we added the auxiliary hypothesis
 -- c | succ m → c | succ c → c | succ m - succ n.
 postulate
   gcd-S>S-Divisible-ah :
@@ -60,6 +60,7 @@ postulate
     (c : D) → N c → CD (succ m) (succ n) c →
     (c ∣ succ m - succ n) →
     c ∣ gcd (succ m) (succ n)
+-- E 1.2 cannot prove this postulate with --time=180.
 {-# ATP prove gcd-S>S-Divisible-ah #-}
 
 gcd-S>S-Divisible :
@@ -74,7 +75,7 @@ gcd-S>S-Divisible {m} {n} Nm Nn acc Sm>Sn c Nc ( c∣Sm , c∣Sn ) =
 ---------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m ≤ succ n' is Divisible.
 
--- For the proof using the ATP we added the auxiliar hypothesis
+-- For the proof using the ATP we added the auxiliary hypothesis
 -- c | succ n → c | succ m → c | succ n - succ m.
 postulate
   gcd-S≤S-Divisible-ah :
@@ -84,6 +85,7 @@ postulate
     (c : D) → N c → CD (succ m) (succ n) c →
     (c ∣ succ n - succ m) →
     c ∣ gcd (succ m) (succ n)
+-- E 1.2 cannot prove this postulate with --time=180.
 {-# ATP prove gcd-S≤S-Divisible-ah #-}
 
 gcd-S≤S-Divisible :

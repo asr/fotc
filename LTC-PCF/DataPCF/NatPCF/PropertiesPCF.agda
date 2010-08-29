@@ -19,6 +19,7 @@ postulate
 
 postulate
   +-Sx : (d e : D) → succ d + e ≡ succ (d + e)
+-- Equinox 5.0alpha (2010-03-29) cannot prove this postulate with --time=180.
 {-# ATP prove +-Sx rec-S #-}
 
 postulate
@@ -44,6 +45,7 @@ minus-SS : {m n : D} → N m → N n → succ m - succ n ≡ m - n
 minus-SS {m} _ zN = prf
   where
     postulate prf : succ m - succ zero ≡ m - zero
+    -- Equinox 5.0alpha (2010-03-29) cannot prove this postulate with --time=180.
     {-# ATP prove prf rec-S minus-x0 #-}
 
 minus-SS zN (sN {n} Nn) = prf $ minus-SS zN Nn
@@ -258,4 +260,5 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
       postulate
         prf : (m + succ n) * succ o ≡ m * succ o + succ n * succ o → -- IH.
               (succ m + succ n) * succ o ≡ succ m * succ o + succ n * succ o
+      -- E 1.2 cannot prove this conjecture with --time=180.
       {-# ATP prove prf +-assoc sN *-N +-Sx *-Sx #-}

@@ -76,7 +76,7 @@ gcd-S>S-Divisible {m} {n} Nm Nn acc Sm>Sn c Nc ( c∣Sm , c∣Sn ) =
 ---------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m ≤ succ n' is Divisible.
 
--- For the proof using the ATP we added the auxiliar hypothesis
+-- For the proof using the ATP we added the auxiliary hypothesis
 -- c | succ n → c | succ m → c | succ n - succ m.
 postulate
   gcd-S≤S-Divisible-ah :

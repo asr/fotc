@@ -56,13 +56,14 @@ postulate gcd-S0-∣₁ : {n : D} → N n → gcd (succ n) zero ∣ succ n
 ---------------------------------------------------------------------------
 -- 'gcd (succ m) (succ n) ∣ succ m', when 'succ m ≤ succ n'.
 
--- Proved very fast by Equinox.
 postulate
   gcd-S≤S-∣₁ :
     {m n : D} → N m → N n →
     (gcd (succ m) (succ n - succ m) ∣ succ m) →
     LE (succ m) (succ n) →
     gcd (succ m) (succ n) ∣ succ m
+-- Equinox 5.0alpha (2010-03-29) proved this conjecture very fast.
+-- E 1.2 cannot prove this postulate with --time=180.
 {-# ATP prove gcd-S≤S-∣₁ #-}
 
 ---------------------------------------------------------------------------
@@ -78,7 +79,7 @@ postulate
 7. gcd Sm Sn | Sm                      subst 5,6
 -}
 
--- For the proof using the ATP we added the auxiliar hypothesis:
+-- For the proof using the ATP we added the auxiliary hypothesis:
 -- 1. gcd (succ m - succ n) (succ n) ∣ (succ m - succ n) + succ n.
 -- 2. (succ m - succ n) + succ n ≡ succ m.
 
@@ -91,6 +92,7 @@ postulate
     gcd (succ m - succ n) (succ n) ∣ (succ m - succ n) + succ n →
     ((succ m - succ n) + succ n ≡ succ m) →
     gcd (succ m) (succ n) ∣ succ m
+-- E 1.2 cannot prove this postulate with --time=180.
 {-# ATP prove gcd-S>S-∣₁-ah #-}
 
 gcd-S>S-∣₁ :
@@ -143,7 +145,7 @@ postulate gcd-S0-∣₂ : {m : D} → N m → gcd (succ m) zero ∣ zero
 7. gcd Sm Sn | Sn                      subst 5,6
 -}
 
--- For the proof using the ATP we added the auxiliar hypothesis:
+-- For the proof using the ATP we added the auxiliary hypothesis:
 -- 1. gcd (succ m) (succ n - succ m) ∣ (succ n - succ m) + succ m.
 -- 2 (succ n - succ m) + succ m ≡ succ n.
 
@@ -156,6 +158,7 @@ postulate
     (gcd (succ m) (succ n - succ m) ∣ (succ n - succ m) + succ m) →
     ((succ n - succ m) + succ m ≡ succ n) →
     gcd (succ m) (succ n) ∣ succ n
+-- E 1.2 cannot prove this postulate with --time=180.
 {-# ATP prove gcd-S≤S-∣₂-ah #-}
 
 gcd-S≤S-∣₂ :

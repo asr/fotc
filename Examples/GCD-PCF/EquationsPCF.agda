@@ -24,15 +24,20 @@ postulate
   gcd-0S : (n : D) → gcd zero (succ n) ≡ succ n
 {-# ATP prove gcd-0S #-}
 
--- TODO: Neither Equinox nor Eprove prove the theorems gcd-S>S and
--- gcd-S≤S. They was proved using on-line Vampire.
-
 postulate
   gcd-S>S : (m n : D) → GT (succ m) (succ n) →
              gcd (succ m) (succ n) ≡ gcd (succ m - succ n) (succ n)
-{-# ATP prove gcd-S>S #-}
+-- Equinox 5.0alpha (2010-03-29) cannot prove this postulate with --time=180.
+-- E 1.2 cannot prove this postulate with --time=180.
+-- The postulate was proved using on-line Vampire.
+-- TODO: To find an ATP for to prove this postulate
+-- {-# ATP prove gcd-S>S #-}
 
 postulate
   gcd-S≤S : (m n : D) → LE (succ m) (succ n) →
             gcd (succ m) (succ n) ≡ gcd (succ m) (succ n - succ m)
-{-# ATP prove gcd-S≤S #-}
+-- Equinox 5.0alpha (2010-03-29) cannot prove this postulate with --time=180.
+-- E 1.2 cannot prove this postulate with --time=180.
+-- The postulate was proved using on-line Vampire.
+-- TODO: To find an ATP for to prove this postulate
+-- {-# ATP prove gcd-S≤S #-}

@@ -21,7 +21,7 @@ postulate S∣0 : {n : D} → N n →  succ n ∣ zero
 {-# ATP prove S∣0 zN *-0x #-}
 
 -- The divisibility relation is reflexive for positive numbers.
--- For the proof using the ATP we added the auxiliar hypothesis
+-- For the proof using the ATP we added the auxiliary hypothesis
 -- N (succ zero).
 postulate ∣-refl-S-ah : {n : D} → N n → N (succ zero) → succ n ∣ succ n
 {-# ATP prove ∣-refl-S-ah sN *-leftIdentity #-}
