@@ -14,7 +14,8 @@ import Control.Monad.Trans.Error
     ( catchError
     , ErrorT
     , runErrorT
-    , throwError )
+    , throwError
+    )
 import Control.Monad.Trans.Reader ( ReaderT, runReaderT )
 
 -- import Control.Monad.Trans
@@ -29,10 +30,11 @@ import System.Exit
 -- Agda library imports
 -- import Agda.Syntax.Abstract.Name ( ModuleName )
 -- import Agda.TypeChecking.Monad.Base ( Interface(iModuleName) )
-import Agda.Utils.Impossible ( catchImpossible
---                              , Impossible(..)
---                              , throwImpossible
-                              )
+import Agda.Utils.Impossible
+    ( catchImpossible
+--    , Impossible(..)
+--    , throwImpossible
+    )
 
 ------------------------------------------------------------------------------
 -- Local imports
