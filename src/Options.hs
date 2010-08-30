@@ -105,8 +105,8 @@ options =
                  "translate the TPTP definitions as TPTP axioms"
   , Option []    ["output-dir"] (ReqArg outputDirOpt "DIR")
                  "directory in which TPTP files are placed (default: /tmp)"
-  , Option []    ["unproved-error"] (NoArg unprovedErrorOpt)
-                 "the unproved TPTP conjectures generate an error"
+  , Option []    ["unproved-conjecture-error"] (NoArg unprovedErrorOpt)
+                 "an unproved TPTP conjecture generates an error"
   ]
 
 usageHeader :: String → String

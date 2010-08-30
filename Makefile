@@ -34,7 +34,7 @@ $(non_conjectures_files) : % : %.agda
 
 $(succeed_conjectures) : % : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
-	@if ! ( $(AGDA2ATP) --time 60 --unproved-error $< ); then \
+	@if ! ( $(AGDA2ATP) --time 60 --unproved-conjecture-error $< ); then \
 		exit 1; \
 	fi
 
