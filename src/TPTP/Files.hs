@@ -75,7 +75,9 @@ communHeader =
 generalRolesHeader :: String
 generalRolesHeader =
     communHeader ++
-    "% This file corresponds to the ATP axioms, general hints, and definitions.\n\n"
+    "% This file corresponds to the ATP axioms, general hints, and definitions.\n\n" ++
+    "% Metis hack: The TPTP files need to have at least one annotated formula.\n\n" ++
+    "fof(metis_hack, axiom, $true).\n\n"
 
 generalRolesFooter :: String
 generalRolesFooter  =

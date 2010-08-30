@@ -101,6 +101,11 @@ instance PrettyTPTP FOLFormula where
 
     prettyTPTP (Predicate "kEqual" _ ) = __IMPOSSIBLE__
 
+    -- If the predicate represents a propositional logic variable,
+    -- following the TPTP syntax, we do not print the internal parenthesis.
+    prettyTPTP (Predicate name []) =
+        "( " ++ changeToLower name ++  " )"
+
     prettyTPTP (Predicate name terms) =
         "( " ++ changeToLower name ++ "(" ++ prettyTPTP terms ++ ")" ++ " )"
 

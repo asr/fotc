@@ -96,7 +96,7 @@ options =
   , Option ['v'] ["verbose"] (ReqArg verboseOpt "N")
                  "set verbosity level to N"
   , Option []    ["atp"] (ReqArg atpOpt "name")
-                  "set the ATP (equinox and/or eprover)"
+                  "set the ATP (eprover, equinox, and/or metis)"
   , Option []    ["only-files"] (NoArg onlyFilesOpt)
                  "do not call the ATPs, only to create the TPTP files"
   , Option []    ["time"] (ReqArg timeOpt "secs")
