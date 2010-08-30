@@ -127,8 +127,9 @@ callATPConjecture conjecture = do
     lift $ reportS "" 1 $ "Proving the conjecture in " ++ file ++ " ..."
 
     atpsPH ← liftIO $
-           mapM (\atp → runATP atp outputMVar (argsATP atp timeLimit file))
-                (map string2ATP atps)
+           mapM ((\atp → runATP atp outputMVar (argsATP atp timeLimit file)) .
+                 string2ATP)
+                atps
 
     let answerATPs :: Int → ER ()
         answerATPs n =
@@ -142,11 +143,11 @@ callATPConjecture conjecture = do
                      do lift $ reportS "" 1 $ show atp ++
                                               " proved the conjecture in " ++
                                               file
-                        liftIO $ do
-                        -- It seems that terminateProcess is a nop if
-                        -- the process is finished, therefore we don't care
-                        -- on terminate all the ATPs processes.
-                        mapM_ terminateProcess atpsPH
+                        liftIO $
+                           -- It seems that terminateProcess is a nop if
+                           -- the process is finished, therefore we don't care
+                           -- on terminate all the ATPs processes.
+                           mapM_ terminateProcess atpsPH
                  (False, _ ) → answerATPs (n + 1)
 
     answerATPs 0
