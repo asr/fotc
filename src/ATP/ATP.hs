@@ -16,7 +16,7 @@ import Control.Concurrent.MVar ( MVar, newEmptyMVar, putMVar, takeMVar )
 import Control.Monad ( unless, when )
 import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Class ( lift )
-import Control.Monad.Trans.Error ( throwError )
+-- import Control.Monad.Trans.Error ( throwError )
 import Control.Monad.Trans.Reader ( ask )
 import System.IO ( hGetContents )
 import System.Process
@@ -134,8 +134,9 @@ callATPConjecture conjecture = do
     let answerATPs :: Int → ER ()
         answerATPs n =
           if n == length atps
-             then throwError $ "The ATP(s) " ++ show atps ++
-                               " did not prove the conjecture in " ++ file
+             then lift $ reportS "" 1 $
+                      "The ATP(s) " ++ show atps ++
+                      " did not prove the conjecture in " ++ file
              else do
                output ← liftIO $ takeMVar outputMVar
                case output of

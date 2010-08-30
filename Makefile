@@ -6,14 +6,16 @@ fail_path = Test/Fail
 
 general_roles_TPTP = /tmp/general-roles.tptp
 
-non_conjectures_files = $(patsubst %.agda,%,$(shell find $(non_conjectures_path) -name "*.agda"))
+non_conjectures_files = $(patsubst %.agda,%, \
+	$(shell find $(non_conjectures_path) -name "*.agda"))
 
-fail_conjectures = $(patsubst %.agda,%,$(shell find $(fail_path) -name "*.agda"))
+fail_conjectures = $(patsubst %.agda,%, \
+	$(shell find $(fail_path) -name "*.agda"))
 
 # We need avoid the files inside the $(non_conjectures_path) directory
 succeed_conjectures = $(patsubst %.agda,%, \
-	$(shell find $(succeed_path) -path '$(non_conjectures_path)' -prune , -name "*.agda"))
-
+	$(shell find $(succeed_path) -path '$(non_conjectures_path)' -prune , \
+		     -name "*.agda"))
 AGDA = agda -v 0
 
 TAGS : $(haskell_files)
@@ -31,12 +33,15 @@ $(non_conjectures_files) : % : %.agda
 
 $(succeed_conjectures) : % : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
-	@if ! ( agda2atp --atp=equinox --atp=eprover --time 60 $< ); then exit 1; fi
+	@if ! ( agda2atp --atp=equinox --atp=eprover --time 60 $< ); then \
+		exit 1; \
+	fi
 
 $(fail_conjectures) : % : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
-# The unproven conjectures return an error, therefore we wrapped it.
-	@if ( agda2atp --atp=equinox --atp=eprover --time 5 $< ); then exit 1; fi
+	@if ! ( agda2atp --atp=equinox --atp=eprover --time 5 $< ); then \
+		exit 1; \
+	fi
 
 # The tests
 non_conjectures : clean $(non_conjectures_files)
