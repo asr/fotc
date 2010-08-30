@@ -44,47 +44,55 @@ import TPTP.Types ( AF )
 -----------------------------------------------------------------------------
 
 -- The ATPs.
-data ATP = Equinox | Eprover | Metis
+data ATP = Eprover | Equinox | IleanCoP | Metis
            deriving (Eq, Show)
 
-atp2string :: ATP → String
-atp2string Equinox = "equinox"
-atp2string Eprover = "eprover"
-atp2string Metis   = "metis"
+atp2exec :: ATP → String
+atp2exec Eprover  = "eprover"
+atp2exec Equinox  = "equinox"
+atp2exec IleanCoP = "ileancop.sh"
+atp2exec Metis    = "metis"
 
 string2ATP :: String → ATP
-string2ATP "equinox" = Equinox
-string2ATP "eprover" = Eprover
-string2ATP "metis"   = Metis
-string2ATP _         = __IMPOSSIBLE__
-
--- Tested with Equinox 5.0alpha (2010-03-29).
-equinoxOk :: String
-equinoxOk = "+++ RESULT: Theorem"
+string2ATP "eprover"  = Eprover
+string2ATP "equinox"  = Equinox
+string2ATP "ileancop" = IleanCoP
+string2ATP "metis"    = Metis
+string2ATP _          = __IMPOSSIBLE__
 
 -- Tested with Eprover E 1.2 Badamtam.
 eproverOk :: String
 eproverOk = "Proof found!"
 
+-- Tested with Equinox 5.0alpha (2010-03-29).
+equinoxOk :: String
+equinoxOk = "+++ RESULT: Theorem"
+
 -- Tested with Metis 2.2 (release 20100825).
 metisOk :: String
 metisOk = "SZS status Theorem"
+
+-- Tested with ileanCoP 1.3 beta1.
+ileancopOk :: String
+ileancopOk = "Intuitionistic Theorem"
 
 checkOutputATP :: ATP → String → Bool
 checkOutputATP atp output = isInfixOf (atpOk atp) output
        where
          atpOk :: ATP → String
-         atpOk Equinox = equinoxOk
-         atpOk Eprover = eproverOk
-         atpOk Metis   = metisOk
+         atpOk Eprover  = eproverOk
+         atpOk Equinox  = equinoxOk
+         atpOk IleanCoP = ileancopOk
+         atpOk Metis    = metisOk
 
 argsATP :: ATP → Int → FilePath → [String]
-argsATP Equinox timeLimit file = [ "--time", show timeLimit, file ]
-argsATP Eprover timeLimit file = [ "--tstp-format"
-                                 , "--soft-cpu-limit=" ++ show timeLimit
-                                 , file
-                                 ]
-argsATP Metis   _         file = [ "--tptp", "/", file ]
+argsATP Eprover  timeLimit file = [ "--tstp-format"
+                                  , "--soft-cpu-limit=" ++ show timeLimit
+                                  , file
+                                  ]
+argsATP Equinox  timeLimit file = [ "--time", show timeLimit, file ]
+argsATP IleanCoP timeLimit file = [ file, show timeLimit ]
+argsATP Metis   _          file = [ "--tptp", "/", file ]
 
 runATP :: ATP → MVar (Bool, ATP) → [String] → IO ProcessHandle
 runATP atp outputMVar args = do
@@ -93,7 +101,7 @@ runATP atp outputMVar args = do
     -- System.Process.readProcess.
 
     (_, outputH, _, atpPH) ←
-      createProcess (proc (atp2string atp) args)
+      createProcess (proc (atp2exec atp) args)
                     { std_out = CreatePipe }
 
     output ← hGetContents $ fromMaybe __IMPOSSIBLE__ outputH
