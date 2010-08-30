@@ -31,16 +31,15 @@ postulate
                         TreeOrd (node t₁ i t₂) → TreeOrd t₁
 -- E 1.2 cannot prove this postulate with --time=180.
 {-# ATP prove leftSubTree-TreeOrd ≤-ItemTree-Bool ≤-TreeItem-Bool &&-Bool
-                                   isTreeOrd-Bool x&&y≡true→x≡true
+                                  isTreeOrd-Bool x&&y≡true→x≡true
 #-}
 
 -- If (node t₁ i t₂) is ordered then t₂ is ordered.
 postulate
   rightSubTree-TreeOrd : {t₁ i t₂ : D} → Tree t₁ → N i → Tree t₂ →
                          TreeOrd (node t₁ i t₂) → TreeOrd t₂
--- Equinox 5.0alpha (2010-03-29) cannot prove this postulate with --time=300.
+-- Equinox 5.0alpha (2010-03-29) need --time=720 for to prove this postulate.
 -- E 1.2 cannot prove this postulate with --time=180.
--- TODO: To find an ATP for to prove this postulate
 -- {-# ATP prove rightSubTree-TreeOrd ≤-ItemTree-Bool ≤-TreeItem-Bool &&-Bool
 --                                   isTreeOrd-Bool x&&y≡true→x≡true
 --                                   x&&y≡true→y≡true

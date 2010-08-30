@@ -3,7 +3,9 @@
 # Test the conjecture files.
 
 AGDA='agda -v 0'
-AGDA2ATP='agda2atp --time 40'
+# The time limit should be the maximum (--time=720) which is required
+# by the postulate Examples.SortList.Closures.TreeOrdrightSubTree-TreeOrd.
+AGDA2ATP='agda2atp --atp=equinox --atp=eprover --time=180 --unproved-error'
 
 case $1 in
     LTC)
@@ -70,7 +72,7 @@ case $1 in
        ;;
 esac
 
-for file in ${files} ; do
+for file in ${files}; do
     rm -f /tmp/*.tptp
     if ! ( ${AGDA} ${file}.agda ); then exit 1; fi
     if ! ( ${AGDA2ATP} ${file}.agda ); then exit 1; fi
