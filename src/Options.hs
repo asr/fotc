@@ -27,26 +27,28 @@ import Utils.IO ( bye )
 -----------------------------------------------------------------------------
 
 data Options = MkOptions
-    { optVersion    :: Bool
-    , optHelp       :: Bool
-    , optVerbose    :: Trie String Int
-    , optATP        :: [String]
-    , optOnlyFiles  :: Bool
-    , optTime       :: Int
-    , optDefAsAxiom :: Bool
-    , optOutputDir  :: FilePath
+    { optVersion       :: Bool
+    , optHelp          :: Bool
+    , optVerbose       :: Trie String Int
+    , optATP           :: [String]
+    , optOnlyFiles     :: Bool
+    , optTime          :: Int
+    , optDefAsAxiom    :: Bool
+    , optOutputDir     :: FilePath
+    , optUnprovedError :: Bool
     } deriving ( Show )
 
 defaultOptions :: Options
 defaultOptions = MkOptions
-  { optVersion    = False
-  , optHelp       = False
-  , optVerbose    = Trie.singleton [] 1
-  , optATP        = []
-  , optOnlyFiles  = False
-  , optTime       = 300
-  , optDefAsAxiom = False
-  , optOutputDir  = "/tmp"
+  { optVersion       = False
+  , optHelp          = False
+  , optVerbose       = Trie.singleton [] 1
+  , optATP           = []
+  , optOnlyFiles     = False
+  , optTime          = 300
+  , optDefAsAxiom    = False
+  , optOutputDir     = "/tmp"
+  , optUnprovedError = False
   }
 
 versionOpt :: Options → Options
@@ -82,6 +84,9 @@ defAsAxiomOpt opts = opts { optDefAsAxiom = True }
 outputDirOpt :: FilePath → Options → Options
 outputDirOpt dir opts = opts { optOutputDir = dir }
 
+unprovedErrorOpt :: Options → Options
+unprovedErrorOpt opts = opts { optUnprovedError = True }
+
 options :: [OptDescr (Options → Options)]
 options =
   [ Option ['V'] ["version"] (NoArg versionOpt)
@@ -100,6 +105,8 @@ options =
                  "translate the TPTP definitions as TPTP axioms"
   , Option []    ["output-dir"] (ReqArg outputDirOpt "DIR")
                  "directory in which TPTP files are placed (default: /tmp)"
+  , Option []    ["unproved-error"] (NoArg unprovedErrorOpt)
+                 "the unproved TPTP conjectures generate an error"
   ]
 
 usageHeader :: String → String

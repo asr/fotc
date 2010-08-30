@@ -16,7 +16,7 @@ import Control.Concurrent.MVar ( MVar, newEmptyMVar, putMVar, takeMVar )
 import Control.Monad ( unless, when )
 import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Class ( lift )
--- import Control.Monad.Trans.Error ( throwError )
+import Control.Monad.Trans.Error ( throwError )
 import Control.Monad.Trans.Reader ( ask )
 import System.IO ( hGetContents )
 import System.Process
@@ -34,7 +34,7 @@ import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
 
 -- Local imports
 import Common ( ER )
-import Options ( Options(optATP, optOnlyFiles, optTime) )
+import Options ( Options(optATP, optOnlyFiles, optTime, optUnprovedError) )
 import Reports ( reportS )
 import TPTP.Files ( createGeneralRolesFile, createConjectureFile )
 import TPTP.Types ( AF )
@@ -142,9 +142,13 @@ callATPConjecture conjecture = do
     let answerATPs :: Int → ER ()
         answerATPs n =
           if n == length atps
-             then lift $ reportS "" 1 $
-                      "The ATP(s) " ++ show atps ++
-                      " did not prove the conjecture in " ++ file
+             then do
+               let msg :: String
+                   msg = "The ATP(s) " ++ show atps ++
+                         " did not prove the conjecture in " ++ file
+               if (optUnprovedError opts)
+                 then throwError msg
+                 else lift $ reportS "" 1 msg
              else do
                output ← liftIO $ takeMVar outputMVar
                case output of

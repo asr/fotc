@@ -17,6 +17,7 @@ succeed_conjectures = $(patsubst %.agda,%, \
 	$(shell find $(succeed_path) -path '$(non_conjectures_path)' -prune , \
 		     -name "*.agda"))
 AGDA = agda -v 0
+AGDA2ATP = agda2atp --atp=equinox --atp=eprover
 
 TAGS : $(haskell_files)
 	hasktags -e $(haskell_files)
@@ -33,13 +34,13 @@ $(non_conjectures_files) : % : %.agda
 
 $(succeed_conjectures) : % : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
-	@if ! ( agda2atp --atp=equinox --atp=eprover --time 60 $< ); then \
+	@if ! ( $(AGDA2ATP) --time 60 --unproved-error $< ); then \
 		exit 1; \
 	fi
 
 $(fail_conjectures) : % : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
-	@if ! ( agda2atp --atp=equinox --atp=eprover --time 5 $< ); then \
+	@if ! ( $(AGDA2ATP) --time 5 $< ); then \
 		exit 1; \
 	fi
 
