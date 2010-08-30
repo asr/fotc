@@ -58,15 +58,15 @@ string2ATP "eprover" = Eprover
 string2ATP "metis"   = Metis
 string2ATP _         = __IMPOSSIBLE__
 
--- Tested with Equinox cvs version.
+-- Tested with Equinox 5.0alpha (2010-03-29).
 equinoxOk :: String
 equinoxOk = "+++ RESULT: Theorem"
 
--- Tested with Eprover version E 1.1-004 Balasun.
+-- Tested with Eprover E 1.2 Badamtam.
 eproverOk :: String
 eproverOk = "Proof found!"
 
--- Tested with Metis version 2.2 (release 20100524).
+-- Tested with Metis 2.2 (release 20100825).
 metisOk :: String
 metisOk = "SZS status Theorem"
 
@@ -85,7 +85,6 @@ argsATP Eprover timeLimit file = [ "--tstp-format"
                                  , file
                                  ]
 argsATP Metis   _         file = [ "--tptp", "/", file ]
-
 
 runATP :: ATP → MVar (Bool, ATP) → [String] → IO ProcessHandle
 runATP atp outputMVar args = do
@@ -134,7 +133,7 @@ callATPConjecture conjecture = do
     let answerATPs :: Int → ER ()
         answerATPs n =
           if n == length atps
-             then throwError $ "The ATPs " ++ show atps ++
+             then throwError $ "The ATP(s) " ++ show atps ++
                                " did not prove the conjecture in " ++ file
              else do
                output ← liftIO $ takeMVar outputMVar
