@@ -85,7 +85,7 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
     -- so we can create a fresh variable and quantify on it without any
     -- problem. N.B. the pattern matching on (Def _ []).
     ExtendTel
-      (Arg _ (El (Type (Lit (LitLevel _ 0))) (Def _ []))) (Abs x tels) → do
+      (Arg _ _ (El (Type (Lit (LitLevel _ 0))) (Def _ []))) (Abs x tels) → do
           lift $ lift $ reportSLn "def2f" 20 $ "Processing var: " ++ x
           vars ← lift get
 
@@ -110,7 +110,7 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
     -- function type (using Implies instead of ForAll). N.B. the
     -- pattern matching on (Def _ _ ).
     ExtendTel
-      (Arg _ tye@(El (Type (Lit (LitLevel _ 0))) (Def _ _ ))) (Abs x tels) →
+      (Arg _ _ tye@(El (Type (Lit (LitLevel _ 0))) (Def _ _ ))) (Abs x tels) →
         do f1 ← typeToFormula tye
 
            lift $ lift $ reportSLn "def2f" 20 $ "Processing var: " ++ x

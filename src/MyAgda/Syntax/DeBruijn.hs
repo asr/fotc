@@ -61,7 +61,7 @@ instance IncreaseByOneVar Term where
 
 -- Requires FlexibleInstances.
 instance IncreaseByOneVar (Arg Term) where
-    increaseByOneVar (Arg h term) = Arg h $ increaseByOneVar term
+    increaseByOneVar (Arg h r term) = Arg h r $ increaseByOneVar term
 
 ------------------------------------------------------------------------------
 -- We collect the variables' names using the type class VarNames. The
@@ -128,7 +128,7 @@ instance RenameVar Term where
 
 -- Requires FlexibleInstances.
 instance RenameVar (Arg Term) where
-    renameVar (Arg h term) index = Arg h $ renameVar term index
+    renameVar (Arg h r term) index = Arg h r $ renameVar term index
 
 instance RenameVar Args where
     renameVar []           _   = []
@@ -198,9 +198,9 @@ instance VarsTypes Type where
     varsTypes _                   = __IMPOSSIBLE__
 
 instance VarsTypes Term where
-    varsTypes (Pi (Arg _ ty) absT) = varsTypes absT ++ [ ty ]
+    varsTypes (Pi (Arg _ _ ty) absT) = varsTypes absT ++ [ ty ]
     -- We only have bounded variables in Pi terms.
-    varsTypes _                    = []
+    varsTypes _                      = []
 
 instance VarsTypes (Abs Type) where
     varsTypes (Abs _ ty) = varsTypes ty
@@ -229,17 +229,17 @@ instance RemoveVar (Abs Type) where
     removeVar (Abs h ty) index = Abs h $ removeVar ty index
 
 instance RemoveVar (Arg Type) where
-    removeVar (Arg h ty) index = Arg h $ removeVar ty index
+    removeVar (Arg h r ty) index = Arg h r $ removeVar ty index
 
 -- Requires TypeSynonymInstances.
 -- This instance does the job. This remove the variable.
 instance RemoveVar Args where
     removeVar [] _ = []
-    removeVar (Arg h var@(Var n _ ) : args) index =
+    removeVar (Arg h r var@(Var n _ ) : args) index =
         if n == index
            then removeVar args index
-           else (Arg h var : removeVar args index)
-    removeVar (Arg h t : args) index = Arg h t : removeVar args index
+           else (Arg h r var : removeVar args index)
+    removeVar (Arg h r t : args) index = Arg h r t : removeVar args index
 
 removeReferenceToProofTerm :: Type → Nat → Type → Type
 removeReferenceToProofTerm varType index ty =
@@ -267,7 +267,7 @@ removeReferenceToProofTerm varType index ty =
       -- hack in FOL.Translation.Internal.Terms.termToFormula we don't
       -- do anything.
       El (Type (Lit (LitLevel _ 0)))
-         (Fun (Arg _ (El (Type (Lit (LitLevel _ 0))) (Def _ [])))
+         (Fun (Arg _ _ (El (Type (Lit (LitLevel _ 0))) (Def _ [])))
               (El (Type (Lit (LitLevel _ 0))) (Def _ []))
          ) → ty
 

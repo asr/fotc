@@ -122,6 +122,19 @@ runAgda2ATP = do
                        "the option --atp=name"
     else return ()
 
+  -- r  ← liftIO $ runReaderT (runErrorT (translation $ head names)) opts
+  -- case r of
+  --   Right (generalRoles , conjecturesCurrentModule) → do
+  --       r' ← liftIO $
+  --               runReaderT (runErrorT (callATP generalRoles
+  --                                              conjecturesCurrentModule))
+  --                          opts
+  --       case r' of
+  --         Right _   → return ()
+  --         Left err' → throwError err'
+
+  --   Left err → throwError err
+
   r  ← liftIO $ runReaderT (runErrorT (translation $ head names)) opts
   case r of
     Right (generalRoles , conjecturesCurrentModule) → do
@@ -134,6 +147,7 @@ runAgda2ATP = do
           Left err' → throwError err'
 
     Left err → throwError err
+
 
 main :: IO ()
 main = do

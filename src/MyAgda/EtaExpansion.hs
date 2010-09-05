@@ -13,7 +13,12 @@ import Control.Monad.Trans.State ( evalState, get, StateT, put )
 
 -- Agda library imports
 -- import Agda.Syntax.Abstract.Name ( QName )
-import Agda.Syntax.Common ( Arg(Arg), Hiding(NotHidden), Nat )
+import Agda.Syntax.Common
+    ( Arg(Arg)
+    , Hiding(NotHidden)
+    , Nat
+    , Relevance(Relevant)
+    )
 import Agda.Syntax.Internal
     ( Abs(Abs)
     , Args
@@ -61,7 +66,7 @@ instance EtaExpandible Term where
       argsEtaExpanded ← mapM etaExpand args
 
       let newVar :: Arg Term
-          newVar = Arg NotHidden (Var 0 [])
+          newVar = Arg NotHidden Relevant (Var 0 [])
 
       let freshVar :: String
           freshVar = evalState freshName vars
@@ -129,6 +134,6 @@ instance EtaExpandible Term where
     etaExpand (Sort _ )    = __IMPOSSIBLE__
 
 instance EtaExpandible a => EtaExpandible (Arg a) where
-    etaExpand (Arg h t) = do
+    etaExpand (Arg h r t) = do
       tEtaExpanded ← etaExpand t
-      return (Arg h tEtaExpanded)
+      return (Arg h r tEtaExpanded)

@@ -246,7 +246,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     -- variable (see termToFOLTerm term@(Var n args)), and we
     -- quantified on this variable.
     El (Type (Lit (LitLevel _ 0)))
-       (Fun (Arg _ (El (Type (Lit (LitLevel _ 0))) (Def _ [])))
+       (Fun (Arg _ _ (El (Type (Lit (LitLevel _ 0))) (Def _ [])))
             (El (Type (Lit (LitLevel _ 0))) (Def _ []))
        ) → do
       lift $ lift $ reportSLn "t2f" 20
