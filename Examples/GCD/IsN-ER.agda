@@ -9,17 +9,24 @@ module Examples.GCD.IsN-ER where
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
-open import Examples.GCD.GCD
-open import Examples.GCD.Types
+open import Examples.GCD.GCD using
+  ( gcd ; gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S)
+open import Examples.GCD.Types using ( ¬x≡0∧y≡0 )
 
-open import LTC.Data.Nat
-open import LTC.Data.Nat.Induction.Lexicographic
-open import LTC.Data.Nat.Inequalities
-open import LTC.Data.Nat.Inequalities.PropertiesER
-open import LTC.Data.Nat.PropertiesER
+open import LTC.Data.Nat using ( _-_ ; N ; sN ; zN )
+open import LTC.Data.Nat.Induction.Lexicographic using ( wfIndN-LT₂ )
+open import LTC.Data.Nat.Inequalities using ( GT ; LE ; LT₂)
+open import LTC.Data.Nat.Inequalities.PropertiesER using
+  ( ¬0>x
+  ; ¬S≤0
+  ; [Sx-Sy,Sy]<[Sx,Sy]
+  ; [Sx,Sy-Sx]<[Sx,Sy]
+  ; x>y∨x≤y
+  )
+open import LTC.Data.Nat.PropertiesER using ( minus-N )
 open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
 
-open import MyStdLib.Function
+open import MyStdLib.Function using ( _$_ )
 
 ------------------------------------------------------------------------------
 -- The 'gcd 0 (succ n)' is N.

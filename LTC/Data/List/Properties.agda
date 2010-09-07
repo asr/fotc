@@ -6,9 +6,16 @@ module LTC.Data.List.Properties where
 
 open import LTC.Minimal
 
-open import LTC.Data.Nat
-open import LTC.Data.List
-open import LTC.Data.List.Type
+open import LTC.Data.Nat.Type using ( N ; sN ; zN )
+open import LTC.Data.List using
+  ( [] ; _∷_
+  ; _++_ ; ++-[]
+  ; consL ; List ; nilL
+  ; length
+  ; map
+  ; replicate
+  ; reverse
+  )
 
 ------------------------------------------------------------------------------
 

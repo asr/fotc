@@ -6,9 +6,8 @@ module LTC.Data.Nat.List.Properties where
 
 open import LTC.Minimal
 
-open import LTC.Data.Nat
-open import LTC.Data.Nat.List.Type
-open import LTC.Data.List
+open import LTC.Data.Nat.List.Type using ( consLN ; ListN ; nilLN )
+open import LTC.Data.List using ( [] ; _∷_ ; _++_ )
 
 ------------------------------------------------------------------------------
 

@@ -7,8 +7,8 @@ module Examples.GCD.GCD where
 
 open import LTC.Minimal
 
-open import LTC.Data.Nat
-open import LTC.Data.Nat.Inequalities
+open import LTC.Data.Nat using ( _-_ )
+open import LTC.Data.Nat.Inequalities using ( GT ; LE )
 
 ------------------------------------------------------------------------------
 

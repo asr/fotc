@@ -79,10 +79,10 @@ trans refl y≡z = y≡z
 -- we use Agda (dependent) function type.
 
 -- N.B. The following modules are exported by this module.
-open import LTC.Data.Empty public
-open import LTC.Data.Product public
-open import LTC.Data.Sum public
-open import LTC.Data.Unit public
+open import LTC.Data.Empty       public
+open import LTC.Data.Product     public
+open import LTC.Data.Sum         public
+open import LTC.Data.Unit        public
 open import LTC.Relation.Nullary public
 
 ------------------------------------------------------------------------------

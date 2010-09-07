@@ -6,7 +6,7 @@ module Test.Factorial where
 
 open import LTC.Minimal
 
-open import LTC.Data.Nat
+open import LTC.Data.Nat using ( _*_ )
 
 ------------------------------------------------------------------------------
 -- The original fach

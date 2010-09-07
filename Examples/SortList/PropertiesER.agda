@@ -5,20 +5,32 @@
 module Examples.SortList.PropertiesER where
 
 open import LTC.Minimal
-open import LTC.MinimalER
+open import LTC.MinimalER using ( subst )
 
-open import Examples.SortList.Closures.BoolER
-  using ( ≤-ItemList-Bool ; isListOrd-Bool )
-open import Examples.SortList.SortList
+open import Examples.SortList.Closures.BoolER using
+  ( ≤-ItemList-Bool
+  ; isListOrd-Bool
+  )
+open import Examples.SortList.SortList using
+  ( ≤-ItemList
+  ; ≤-Lists ; ≤-Lists-[] ; ≤-Lists-∷
+  ; isListOrd ; isListOrd-[] ; isListOrd-∷
+  ; LE-Lists
+  ; ListOrd
+  )
 
-open import LTC.Data.Bool
+open import LTC.Data.Bool using ( _&&_ ; &&-tt )
 open import LTC.Data.Bool.PropertiesER using
-  ( x&&y≡true→x≡true ; x&&y≡true→y≡true )
-open import LTC.Data.Nat.Inequalities
+  ( x&&y≡true→x≡true
+  ; x&&y≡true→y≡true
+  )
 open import LTC.Data.Nat.List.PropertiesER using ( ++-ListN )
-open import LTC.Data.Nat.List.Type
-open import LTC.Data.Nat.Type
-open import LTC.Data.List
+open import LTC.Data.Nat.List.Type using ( ListN ; consLN ; nilLN )
+open import LTC.Data.Nat.Type using ( N )
+open import LTC.Data.List using
+  ( [] ; _∷_
+  ; _++_ ; ++-[] ; ++-∷
+  )
 
 import MyStdLib.Relation.Binary.EqReasoning
 open module Properties-ER =

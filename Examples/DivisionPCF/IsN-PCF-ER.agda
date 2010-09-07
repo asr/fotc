@@ -7,12 +7,12 @@ module Examples.DivisionPCF.IsN-PCF-ER where
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
-open import Examples.DivisionPCF.DivisionPCF
-open import Examples.DivisionPCF.EquationsPCF-ER
-open import Examples.DivisionPCF.SpecificationPCF
+open import Examples.DivisionPCF.DivisionPCF      using ( div )
+open import Examples.DivisionPCF.EquationsPCF-ER  using ( div-x<y ; div-x≥y )
+open import Examples.DivisionPCF.SpecificationPCF using ( DIV )
 
-open import LTC-PCF.DataPCF.NatPCF
-open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF
+open import LTC-PCF.DataPCF.NatPCF                 using ( _-_ ; N ; sN ; zN )
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( GE ; LT )
 
 ------------------------------------------------------------------------------
 

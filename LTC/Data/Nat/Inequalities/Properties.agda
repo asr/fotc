@@ -6,12 +6,24 @@ module LTC.Data.Nat.Inequalities.Properties where
 
 open import LTC.Minimal
 
-open import LTC.Data.Nat
-open import LTC.Data.Nat.Inequalities
-open import LTC.Data.Nat.Properties
+open import LTC.Data.Nat using
+  ( _+_ ; _-_ ; minus-SS
+  ; N ; sN ; zN
+  )
+open import LTC.Data.Nat.Inequalities using
+  ( <-00 ; <-0S ; <-S0 ; <-SS
+  ; _≤_ -- TODO: Is it necessary?
+  ; GE ; GT ; LE ; LT ; NGT ; NLE ; NLT
+  ; LT₂
+  )
+open import LTC.Data.Nat.Properties using
+  ( +-N ; minus-N
+  ; +-comm
+  ; +-rightIdentity
+  )
 open import LTC.Relation.Equalities.Properties using ( x≡y→Sx≡Sy )
 
-open import MyStdLib.Function
+open import MyStdLib.Function using ( _$_ )
 
 ------------------------------------------------------------------------------
 

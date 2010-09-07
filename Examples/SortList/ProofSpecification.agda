@@ -16,9 +16,9 @@ open import LTC.Minimal
 open import Examples.SortList.Closures.ListOrd using ( flatten-ListOrd )
 open import Examples.SortList.Closures.Tree using ( makeTree-Tree )
 open import Examples.SortList.Closures.TreeOrd using ( makeTree-TreeOrd )
-open import Examples.SortList.SortList
+open import Examples.SortList.SortList using ( ListOrd ; sort )
 
-open import LTC.Data.Nat.List.Type
+open import LTC.Data.Nat.List.Type using ( ListN )
 
 ------------------------------------------------------------------------------
 -- The sort program generates an ordered list.

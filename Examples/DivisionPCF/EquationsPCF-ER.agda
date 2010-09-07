@@ -7,11 +7,12 @@ module Examples.DivisionPCF.EquationsPCF-ER where
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
-open import Examples.DivisionPCF.DivisionPCF
-open import LTC-PCF.DataPCF.NatPCF
-open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF
-open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF-ER
-  using ( x≥y→x≮y )
+open import Examples.DivisionPCF.DivisionPCF using ( div ; divh )
+
+open import LTC-PCF.DataPCF.NatPCF                 using ( _-_ ; N )
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( _<_ ; GE ; LT )
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF-ER using
+  ( x≥y→x≮y )
 
 import MyStdLib.Relation.Binary.EqReasoning
 open module APER = MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans

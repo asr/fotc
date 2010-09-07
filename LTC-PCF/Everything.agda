@@ -4,6 +4,8 @@
 
 module LTC-PCF.Everything where
 
+open import LTC.Data.Nat.Type
+
 open import LTC-PCF.DataPCF.NatPCF
 open import LTC-PCF.DataPCF.NatPCF.DivisibilityPCF
 open import LTC-PCF.DataPCF.NatPCF.DivisibilityPCF.PropertiesPCF

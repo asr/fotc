@@ -7,16 +7,25 @@ module Examples.SortList.Properties where
 open import LTC.Minimal
 
 open import Examples.SortList.Closures.Bool using
-  ( ≤-ItemList-Bool ; isListOrd-Bool )
-open import Examples.SortList.SortList
+  ( ≤-ItemList-Bool
+  ; isListOrd-Bool
+  )
+open import Examples.SortList.SortList using
+  ( ≤-Lists-[]
+  ; isListOrd ; isListOrd-[] ; isListOrd-∷
+  ; LE-Lists
+  ; ListOrd
+  )
 
 open import LTC.Data.Bool.Properties using
-  ( x&&y≡true→x≡true ; x&&y≡true→y≡true )
+  ( x&&y≡true→x≡true
+  ; x&&y≡true→y≡true
+  )
 
 open import LTC.Data.Nat.List.Properties using ( ++-ListN )
-open import LTC.Data.Nat.List.Type
-open import LTC.Data.Nat.Type
-open import LTC.Data.List
+open import LTC.Data.Nat.List.Type using ( ListN ; consLN ; nilLN )
+open import LTC.Data.Nat.Type using ( N )
+open import LTC.Data.List using ( [] ; _∷_ ; _++_ )
 
 ------------------------------------------------------------------------------
 -- If (i ∷ is) is ordered then 'is' is ordered.

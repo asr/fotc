@@ -6,12 +6,12 @@ module Examples.GCD.IsGreatestAnyCommonDivisor where
 
 open import LTC.Minimal
 
-open import Examples.GCD.IsCommonDivisor
-open import Examples.GCD.IsDivisible
+open import Examples.GCD.IsCommonDivisor using ( CD )
+open import Examples.GCD.IsDivisible using ( Divisible )
 
-open import LTC.Data.Nat
-open import LTC.Data.Nat.Divisibility.Properties
-open import LTC.Data.Nat.Inequalities
+open import LTC.Data.Nat using ( N ; sN ; zN )
+open import LTC.Data.Nat.Divisibility.Properties using ( 0∤x ; x∣S→x≤S )
+open import LTC.Data.Nat.Inequalities using ( LE )
 
 open import MyStdLib.Function using ( _$_ )
 

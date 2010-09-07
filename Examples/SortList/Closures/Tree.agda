@@ -6,13 +6,18 @@ module Examples.SortList.Closures.Tree where
 
 open import LTC.Minimal
 
-open import Examples.SortList.SortList
+open import Examples.SortList.SortList using
+  ( nilTree ; node ; tip
+  ; makeTree
+  ; toTree
+  ; Tree ; nilT ; nodeT ; tipT
+  )
 
-open import LTC.Data.Nat.Inequalities
+open import LTC.Data.Nat.Inequalities using ( GT ; LE )
 open import LTC.Data.Nat.Inequalities.Properties using ( x>y∨x≤y ; x>y→x≰y )
-open import LTC.Data.Nat.Type
-open import LTC.Data.Nat.List.Type
-open import LTC.Data.List
+open import LTC.Data.Nat.Type using ( N )
+open import LTC.Data.Nat.List.Type using ( ListN ; consLN ; nilLN )
+open import LTC.Data.List.Core using ( [] ; _∷_ )
 
 ------------------------------------------------------------------------------
 

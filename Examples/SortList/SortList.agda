@@ -12,10 +12,10 @@ module Examples.SortList.SortList where
 
 open import LTC.Minimal
 
-open import LTC.Data.Bool
-open import LTC.Data.Nat
-open import LTC.Data.Nat.Inequalities
-open import LTC.Data.List
+open import LTC.Data.Bool using ( _&&_ )
+open import LTC.Data.Nat.Inequalities using ( _≤_ )
+open import LTC.Data.Nat.Type using ( N )
+open import LTC.Data.List using ( [] ; _∷_ ; _++_ ; foldr )
 
 ------------------------------------------------------------------------------
 -- Tree terms

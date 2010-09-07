@@ -9,14 +9,14 @@ module Examples.GCD.ProofSpecification where
 
 open import LTC.Minimal
 
-open import Examples.GCD.GCD
-open import Examples.GCD.IsCommonDivisor
-open import Examples.GCD.IsDivisible
-open import Examples.GCD.IsGreatestAnyCommonDivisor
-open import Examples.GCD.IsN
-open import Examples.GCD.Types
+open import Examples.GCD.GCD using ( gcd )
+open import Examples.GCD.IsCommonDivisor using ( CD ; gcd-CD )
+open import Examples.GCD.IsDivisible using ( gcd-Divisible )
+open import Examples.GCD.IsGreatestAnyCommonDivisor using ( GACD ; gcd-GACD )
+open import Examples.GCD.IsN using ( gcd-N )
+open import Examples.GCD.Types using ( ¬x≡0∧y≡0 )
 
-open import LTC.Data.Nat
+open import LTC.Data.Nat.Type using ( N )
 
 -----------------------------------------------------------------------
 -- The 'gcd' is the GCD

@@ -6,20 +6,34 @@ module Examples.GCD.IsCommonDivisor where
 
 open import LTC.Minimal
 
-open import Examples.GCD.GCD
-open import Examples.GCD.IsN
-open import Examples.GCD.Types
+open import Examples.GCD.GCD using ( gcd )
+open import Examples.GCD.IsN using ( gcd-N )
+open import Examples.GCD.Types using ( ¬x≡0∧y≡0 )
 
-open import LTC.Data.Nat
-open import LTC.Data.Nat.Divisibility
-open import LTC.Data.Nat.Divisibility.Properties
-open import LTC.Data.Nat.Induction.Lexicographic
-open import LTC.Data.Nat.Inequalities
-open import LTC.Data.Nat.Inequalities.Properties
-open import LTC.Data.Nat.Properties
+open import LTC.Data.Nat using
+  ( _+_ ; _-_
+  ; N ; sN ; zN
+  )
+open import LTC.Data.Nat.Divisibility using ( _∣_ )
+open import LTC.Data.Nat.Divisibility.Properties using
+  ( ∣-refl-S
+  ; x∣y→x∣z→x∣y+z
+  )
+open import LTC.Data.Nat.Induction.Lexicographic using ( wfIndN-LT₂ )
+open import LTC.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
+open import LTC.Data.Nat.Inequalities.Properties using
+  ( ¬0>x
+  ; ¬S≤0
+  ; x>y→x-y+y≡x
+  ; x≤y→y-x+x≡y
+  ; x>y∨x≤y
+  ; [Sx-Sy,Sy]<[Sx,Sy]
+  ; [Sx,Sy-Sx]<[Sx,Sy]
+  )
+open import LTC.Data.Nat.Properties using ( minus-N )
 open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
 
-open import MyStdLib.Function
+open import MyStdLib.Function using ( _$_)
 
 ---------------------------------------------------------------------------
 -- Common divisor.

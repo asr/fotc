@@ -6,14 +6,26 @@ module LTC-PCF.DataPCF.NatPCF.DivisibilityPCF.PropertiesPCF where
 
 open import LTC.Minimal
 
-open import LTC-PCF.DataPCF.NatPCF
-open import LTC-PCF.DataPCF.NatPCF.DivisibilityPCF
-open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF
-open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF
-open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF
+open import LTC-PCF.DataPCF.NatPCF using
+  ( _+_ ; _-_ ; _*_
+  ; N ; sN ; zN
+  )
+open import LTC-PCF.DataPCF.NatPCF.DivisibilityPCF using ( _∣_ )
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( LE )
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF using
+  ( x≤x+y )
+open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF using
+  ( +-N ; *-N ; minus-N
+  ; *-0x ; *-Sx
+  ; *-leftIdentity
+  ; *-leftZero
+  ; [x+y]z≡xz*yz
+  ; [x-y]z≡xz*yz
+  )
+
 open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
 
-open import MyStdLib.Function
+open import MyStdLib.Function using ( _$_ )
 
 ------------------------------------------------------------------------------
 -- Any positive number divides 0.

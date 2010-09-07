@@ -5,23 +5,43 @@
 module Examples.SortList.Closures.ListOrdER where
 
 open import LTC.Minimal
-open import LTC.MinimalER
+open import LTC.MinimalER using ( subst )
 
-open import Examples.SortList.Closures.BoolER
-  using ( ≤-ItemList-Bool ; ≤-Lists-Bool ; isListOrd-Bool)
-open import Examples.SortList.Closures.TreeOrdER
-  using ( leftSubTree-TreeOrd ; rightSubTree-TreeOrd )
+open import Examples.SortList.Closures.BoolER using
+  ( ≤-ItemList-Bool
+  ; ≤-Lists-Bool
+  ; isListOrd-Bool
+  )
+open import Examples.SortList.Closures.TreeOrdER using
+  ( leftSubTree-TreeOrd
+  ; rightSubTree-TreeOrd
+  )
 open import Examples.SortList.Properties using ( subList-ListOrd )
-open import Examples.SortList.SortList
+open import Examples.SortList.SortList using
+  ( ≤-ItemList ; ≤-ItemList-∷
+  ; ≤-Lists ; ≤-Lists-∷
+  ; flatten
+  ; LE-ItemList
+  ; LE-Lists
+  ; ListOrd
+  ; isListOrd ; isListOrd-∷
+  ; Tree
+  ; TreeOrd
+  )
 
-open import LTC.Data.Bool
+open import LTC.Data.Bool using ( _&&_ ; &&-tt )
 open import LTC.Data.Bool.PropertiesER using
-  ( ≤-Bool ; x&&y≡true→x≡true ; x&&y≡true→y≡true )
-open import LTC.Data.Nat.Inequalities
--- open import LTC.Data.Nat.Inequalities.PropertiesER using ( ≤-trans )
-open import LTC.Data.Nat.List.Type
-open import LTC.Data.Nat.Type
-open import LTC.Data.List
+  ( ≤-Bool
+  ; x&&y≡true→x≡true
+  ; x&&y≡true→y≡true
+  )
+open import LTC.Data.Nat.Inequalities using ( _≤_ )
+open import LTC.Data.Nat.List.Type using ( ListN ; consLN ; nilLN )
+open import LTC.Data.Nat.Type using ( N )
+open import LTC.Data.List using
+  ( [] ; _∷_
+  ; _++_ ; ++-[] ; ++-∷
+  )
 
 import MyStdLib.Relation.Binary.EqReasoning
 open module ListOrd-ER =

@@ -5,13 +5,18 @@
 module Examples.SortList.Closures.TreeER where
 
 open import LTC.Minimal
-open import LTC.MinimalER
+open import LTC.MinimalER using ( subst )
 
-open import Examples.SortList.SortList
+open import Examples.SortList.SortList using
+  ( makeTree
+  ; nilTree
+  ; toTree
+  ; Tree ; nilT
+  )
 
-open import LTC.Data.Nat.Type
-open import LTC.Data.Nat.List.Type
-open import LTC.Data.List
+open import LTC.Data.Nat.Type using ( N )
+open import LTC.Data.Nat.List.Type using ( ListN ; consLN ; nilLN )
+open import LTC.Data.List using ( foldr-[] ; foldr-∷ )
 
 ------------------------------------------------------------------------------
 -- See the ATP version.

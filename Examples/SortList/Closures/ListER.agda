@@ -5,11 +5,14 @@
 module Examples.SortList.Closures.ListER where
 
 open import LTC.Minimal
-open import LTC.MinimalER
+open import LTC.MinimalER using ( subst )
 
-open import Examples.SortList.SortList
+open import Examples.SortList.SortList using
+  ( flatten ; flatten-nilTree ; flatten-node ; flatten-tip
+  ; Tree ; nilT ; nodeT ; tipT
+  )
 
-open import LTC.Data.Nat.List.Type
+open import LTC.Data.Nat.List.Type using ( ListN ; nilLN ; consLN )
 open import LTC.Data.Nat.List.PropertiesER using ( ++-ListN )
 
 ------------------------------------------------------------------------------

@@ -6,13 +6,14 @@ module LTC.Data.List where
 
 open import LTC.Minimal
 
-infixr 5 _∷_ _++_
+infixr 5 _++_
 
 ------------------------------------------------------------------------------
--- List terms
-postulate
-  []   : D
-  _∷_  : D → D → D
+-- List terms.
+open import LTC.Data.List.Core public
+
+-- The LTC list type.
+open import LTC.Data.List.Type public
 
 ------------------------------------------------------------------------------
 -- Basic functions

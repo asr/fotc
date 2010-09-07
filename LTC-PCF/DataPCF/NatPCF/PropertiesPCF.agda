@@ -6,8 +6,11 @@ module LTC-PCF.DataPCF.NatPCF.PropertiesPCF where
 
 open import LTC.Minimal
 
-open import LTC-PCF.DataPCF.NatPCF
-open import LTC-PCF.DataPCF.NatPCF.RecPCF.PropertiesPCF
+open import LTC-PCF.DataPCF.NatPCF using
+  ( _+_ ; _-_ ; _*_
+  ; N ; sN ; zN
+  )
+open import LTC-PCF.DataPCF.NatPCF.RecPCF.PropertiesPCF using ( rec-0 ; rec-S )
 
 open import MyStdLib.Function using ( _$_ )
 

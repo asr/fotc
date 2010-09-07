@@ -6,11 +6,17 @@ module LTC.Data.Nat.Induction.WellFounded where
 
 open import LTC.Minimal
 
-open import LTC.Data.Nat.Type
-open import LTC.Data.Nat.Inequalities
-open import LTC.Data.Nat.Inequalities.Properties
+open import LTC.Data.Nat.Inequalities using ( LT )
+open import LTC.Data.Nat.Inequalities.Properties using
+  ( ¬x<0
+  ; ≤-trans
+  ; Sx≤Sy→x≤y
+  ; Sx≤y→x<y
+  ; x<y→Sx≤y
+  )
+open import LTC.Data.Nat.Type using ( N ; sN ; zN )
 
---------------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- Well-founded induction on N.
 -- Adapted from http://code.haskell.org/~dolio/agda-share/induction/.
 

@@ -6,8 +6,8 @@ module Examples.DivisionPCF.SpecificationPCF where
 
 open import LTC.Minimal
 
-open import LTC-PCF.DataPCF.NatPCF
-open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF
+open import LTC-PCF.DataPCF.NatPCF using ( _+_ ; _*_ ; N )
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( LT )
 
 ------------------------------------------------------------------------------
 

@@ -7,11 +7,22 @@ module LTC.Data.Nat.Divisibility.PropertiesER where
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
-open import LTC.Data.Nat
-open import LTC.Data.Nat.Divisibility
-open import LTC.Data.Nat.Inequalities
-open import LTC.Data.Nat.Inequalities.PropertiesER
-open import LTC.Data.Nat.PropertiesER
+open import LTC.Data.Nat using
+  ( _+_ ; _-_
+  ; _*_ ; *-0x ; *-Sx
+  ; N ; sN ; zN
+  )
+open import LTC.Data.Nat.Divisibility using ( _∣_ )
+open import LTC.Data.Nat.Inequalities using ( LE )
+open import LTC.Data.Nat.Inequalities.PropertiesER using ( x≤x+y )
+open import LTC.Data.Nat.PropertiesER using
+  ( +-N ; *-N ; minus-N
+  ; *-leftIdentity
+  ; *-leftZero
+  ; [x+y]z≡xz*yz
+  ; [x-y]z≡xz*yz
+  )
+
 open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
 
 open import MyStdLib.Function

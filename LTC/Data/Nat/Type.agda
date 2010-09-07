@@ -6,7 +6,7 @@ module LTC.Data.Nat.Type where
 
 open import LTC.Minimal
 
---------------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The inductive predicate 'N' represents the type of the natural
 -- numbers. They are a subset of 'D'.
 

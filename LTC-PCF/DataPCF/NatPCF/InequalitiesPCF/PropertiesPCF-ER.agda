@@ -7,9 +7,24 @@ module LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF-ER where
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
-open import LTC-PCF.DataPCF.NatPCF
-open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF
-open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF-ER
+open import LTC-PCF.DataPCF.NatPCF using
+  ( _+_ ; _-_
+  ; N ; sN ; zN
+  )
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using
+  ( _<_
+  ; le
+  ; lt-aux₁ ; lt-aux₂ ; lth
+  ; GE ; GT ; LE ; LT ; NGT ; NLE ; NLT
+  ; LT₂
+  )
+open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF-ER using
+  ( +-N ; minus-N
+  ; +-Sx
+  ; +-comm
+  ; +-rightIdentity
+  ; minus-0S ; minus-SS ; minus-x0
+  )
 open import LTC.Relation.Equalities.Properties using ( x≡y→Sx≡Sy )
 
 open import MyStdLib.Function

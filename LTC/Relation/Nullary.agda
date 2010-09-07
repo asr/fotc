@@ -4,7 +4,7 @@
 
 module LTC.Relation.Nullary where
 
-open import LTC.Data.Empty
+open import LTC.Data.Empty using ( ⊥ )
 
 infix 3 ¬_
 

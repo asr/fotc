@@ -5,10 +5,14 @@
 module LTC.Data.Bool.Properties where
 
 open import LTC.Minimal
-open import LTC.Data.Bool
-open import LTC.Data.Nat
-open import LTC.Data.Nat.Inequalities
+
+open import LTC.Data.Bool using
+  ( _&&_ ; &&-ff ; &&-ft ; &&-tf
+  ; Bool ; fB ; tB
+  )
+open import LTC.Data.Nat.Inequalities using ( _≤_ )
 open import LTC.Data.Nat.Inequalities.Properties using ( ≤-SS ; S≰0 )
+open import LTC.Data.Nat.Type using ( N ; sN ; zN )
 
 ------------------------------------------------------------------------------
 -- Basic properties

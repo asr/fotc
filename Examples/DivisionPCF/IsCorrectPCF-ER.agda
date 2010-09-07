@@ -7,13 +7,16 @@ module Examples.DivisionPCF.IsCorrectPCF-ER where
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
-open import Examples.DivisionPCF.DivisionPCF
-open import Examples.DivisionPCF.EquationsPCF-ER
-open import Examples.DivisionPCF.SpecificationPCF
+open import Examples.DivisionPCF.DivisionPCF      using ( div )
+open import Examples.DivisionPCF.EquationsPCF-ER  using ( div-x<y ; div-x≥y )
+open import Examples.DivisionPCF.SpecificationPCF using ( DIV )
 
-open import LTC-PCF.DataPCF.NatPCF
-open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF
-open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF-ER
+open import LTC-PCF.DataPCF.NatPCF using ( _+_ ; _-_ ; _*_ ; N )
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( GE ; LT )
+open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF-ER using
+  ( +-leftIdentity
+  ; *-rightZero
+  )
 
 import MyStdLib.Relation.Binary.EqReasoning
 open module IsNER = MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans

@@ -8,8 +8,16 @@ open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
 open import LTC.Data.Nat
-open import LTC.Data.Nat.Inequalities
-open import LTC.Data.Nat.PropertiesER
+open import LTC.Data.Nat.Inequalities using
+  ( _<_ ; <-00 ; <-0S ; <-S0 ; <-SS
+  ; _≤_ -- TODO: Is it necessary?
+  ; GE ; GT ; LE ; LT ; NGT ; NLE ; NLT
+  ; LT₂
+  )
+open import LTC.Data.Nat.PropertiesER using
+  ( +-N ; minus-N
+  ; +-comm ; +-rightIdentity
+  )
 open import LTC.Relation.Equalities.Properties using ( x≡y→Sx≡Sy )
 
 open import MyStdLib.Function

@@ -7,9 +7,8 @@ module LTC.Data.Nat.List.PropertiesER where
 
 open import LTC.Minimal
 
-open import LTC.Data.Nat
-open import LTC.Data.Nat.List.Type
-open import LTC.Data.List
+open import LTC.Data.Nat.List.Type using ( ListN )
+open import LTC.Data.List using ( _++_ )
 
 ------------------------------------------------------------------------------
 -- See ATP version.

@@ -6,14 +6,22 @@ module LTC.Data.Nat.Divisibility.Properties where
 
 open import LTC.Minimal
 
-open import LTC.Data.Nat
-open import LTC.Data.Nat.Divisibility
-open import LTC.Data.Nat.Inequalities
-open import LTC.Data.Nat.Inequalities.Properties
-open import LTC.Data.Nat.Properties
+open import LTC.Data.Nat using
+  ( _+_ ; _-_ ; _*_
+  ; N ; sN ; zN
+  )
+open import LTC.Data.Nat.Divisibility using ( _∣_ )
+open import LTC.Data.Nat.Inequalities using ( LE )
+open import LTC.Data.Nat.Inequalities.Properties using ( x≤x+y )
+open import LTC.Data.Nat.Properties using
+  ( +-N ; *-N ; minus-N
+  ; *-leftIdentity
+  ; [x+y]z≡xz*yz
+  ; [x-y]z≡xz*yz
+  )
 open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
 
-open import MyStdLib.Function
+open import MyStdLib.Function using ( _$_ )
 
 ------------------------------------------------------------------------------
 -- Any positive number divides 0.

@@ -13,14 +13,14 @@
 module Examples.SortList.ProofSpecificationER where
 
 open import LTC.Minimal
-open import LTC.MinimalER
+open import LTC.MinimalER using ( subst )
 
 open import Examples.SortList.Closures.ListOrdER using ( flatten-ListOrd )
 open import Examples.SortList.Closures.TreeER using ( makeTree-Tree )
 open import Examples.SortList.Closures.TreeOrdER using ( makeTree-TreeOrd )
-open import Examples.SortList.SortList
+open import Examples.SortList.SortList using ( ListOrd ; sort )
 
-open import LTC.Data.Nat.List.Type
+open import LTC.Data.Nat.List.Type using ( ListN )
 
 ------------------------------------------------------------------------------
 -- The sort program generates a ordered list.

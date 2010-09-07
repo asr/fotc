@@ -5,7 +5,7 @@
 module LTC.Minimal.Properties where
 
 open import LTC.Minimal
-open import LTC.Data.Nat.Type
+open import LTC.Data.Nat.Type using ( N ; sN ; zN )
 
 ------------------------------------------------------------------------------
 -- Closure properties

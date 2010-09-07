@@ -15,17 +15,22 @@ module Examples.DivisionPCF.ProofSpecificationPCF where
 
 open import LTC.Minimal
 
-open import Examples.DivisionPCF.DivisionPCF
-open import Examples.DivisionPCF.EquationsPCF
-open import Examples.DivisionPCF.IsCorrectPCF
-open import Examples.DivisionPCF.IsN-PCF
-open import Examples.DivisionPCF.SpecificationPCF
+open import Examples.DivisionPCF.DivisionPCF using ( div )
+open import Examples.DivisionPCF.IsCorrectPCF using
+  ( div-x<y-correct ; div-x≥y-correct)
+open import Examples.DivisionPCF.IsN-PCF using
+  ( div-x<y-N ; div-x≥y-N )
+open import Examples.DivisionPCF.SpecificationPCF using ( DIV )
 
-open import LTC-PCF.DataPCF.NatPCF
-open import LTC-PCF.DataPCF.NatPCF.InductionPCF.WellFoundedPCF
-open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF
-open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF
-open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF
+open import LTC-PCF.DataPCF.NatPCF using ( _-_ ; N )
+open import LTC-PCF.DataPCF.NatPCF.InductionPCF.WellFoundedPCF using
+  ( wfIndN-LT )
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( GE ; GT ; LT )
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF using
+  ( x≥y→y>0→x-y<x
+  ; x<y∨x≥y
+  )
+open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF using ( minus-N )
 
 ------------------------------------------------------------------------------
 

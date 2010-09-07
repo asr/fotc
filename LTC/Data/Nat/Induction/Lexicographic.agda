@@ -6,10 +6,23 @@ module LTC.Data.Nat.Induction.Lexicographic where
 
 open import LTC.Minimal
 
-open import LTC.Data.Nat
-open import LTC.Data.Nat.Inequalities
-open import LTC.Data.Nat.Inequalities.Properties
-open import LTC.Relation.Equalities.Properties
+open import LTC.Data.Nat.Inequalities using ( LT ; LT₂ )
+open import LTC.Data.Nat.Inequalities.Properties using
+  ( ¬0Sx<00
+  ; ¬Sxy₁<0y₂
+  ; ¬x<0
+  ; ¬xy<00
+  ; ≤-trans
+  ; Sx≤y→x<y
+  ; Sx≤Sy→x≤y
+  ; x<Sy→x<y∨x≡y
+  ; x<y→x<Sy
+  ; x<y→Sx≤y
+  ; x<y→y≡z→x<z
+  ; x≡y→y<z→x<z
+  ; x₁y<x₂0→x₁<x₂
+  )
+open import LTC.Data.Nat.Type using ( N ; sN ; zN )
 
 ------------------------------------------------------------------------------
 
