@@ -1,8 +1,10 @@
-# Tunneling connection
-host_dir = asicard@localhost:./tmp/SortList/
-port = 2024
+# Includes
+TOP = ../..
+include $(TOP)/mk/config.mk
 
-AGDA = agda -v 0
+# Tunneling connection
+host_dir = asicard@localhost:tmp/SortList/
+
 local_path = Examples/SortList
 
 conjectures :
@@ -27,7 +29,8 @@ publish :
 	$(AGDA) --html --html-dir=$(local_path)/html \
 		$(local_path)/ProofSpecification.agda
 
-	scp -P $(port) -r html/ $(host_dir)
+	$(RSYNC) html/ $(host_dir)
+
 
 clean :
 	-find -name '*.agdai' | xargs rm -f

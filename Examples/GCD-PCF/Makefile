@@ -1,8 +1,10 @@
-# Tunneling connection
-host_dir = asicard@localhost:./tmp/GCD-PCF/
-port = 2024
+# Includes
+TOP = ../..
+include $(TOP)/mk/config.mk
 
-AGDA = agda -v 0
+# Tunneling connection
+host_dir = asicard@localhost:tmp/GCD-PCF/
+
 local_path = Examples/GCD-PCF
 
 conjectures_PCF :
@@ -25,7 +27,7 @@ publish :
 	$(AGDA) --html --html-dir=$(local_path)/html \
 		$(local_path)/ProofSpecificationPCF.agda
 
-	scp -P $(port) -r html/ $(host_dir)
+	$(RSYNC) html/ $(host_dir)
 
 clean :
 	-find -name '*.agdai' | xargs rm -f
