@@ -2,19 +2,17 @@
 TOP = ../..
 include $(TOP)/mk/config.mk
 
-# Tunneling connection
-host_dir = asicard@localhost:tmp/SortList/
-
+host_dir = $(root_host_dir)/SortList/
 local_path = Examples/SortList
 
 conjectures :
-	cd ../.. && ./test-conjectures.bash SortList
+	cd $(TOP) && ./test-conjectures.bash SortList
 
 type_checking :
-	cd ../.. && $(AGDA) $(local_path)/ProofSpecification.agda
+	cd $(TOP) && $(AGDA) $(local_path)/ProofSpecification.agda
 
 type_checking_ER :
-	cd ../.. && \
+	cd $(TOP) && \
 	$(AGDA) $(local_path)/Closures/ListER.agda && \
 	$(AGDA) $(local_path)/PropertiesER.agda && \
 	$(AGDA) $(local_path)/ProofSpecificationER.agda
@@ -25,14 +23,9 @@ test : type_checking_all conjectures
 
 publish :
 	rm -r -f html/
-	cd ../.. && \
+
+	cd $(TOP) && \
 	$(AGDA) --html --html-dir=$(local_path)/html \
 		$(local_path)/ProofSpecification.agda
 
 	$(RSYNC) html/ $(host_dir)
-
-
-clean :
-	-find -name '*.agdai' | xargs rm -f
-	-rm -f /tmp/*.tptp
-
