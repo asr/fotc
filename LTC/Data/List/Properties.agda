@@ -19,31 +19,31 @@ open import LTC.Data.List using
 
 ------------------------------------------------------------------------------
 
-++-List : {ds es : D} → List ds → List es → List (ds ++ es)
-++-List {es = es} nilL esL = prf
+++-List : {xs ys : D} → List xs → List ys → List (xs ++ ys)
+++-List {ys = ys} nilL ysL = prf
   where
-    postulate prf : List ([] ++ es)
+    postulate prf : List ([] ++ ys)
     {-# ATP prove prf #-}
 
-++-List {es = es} (consL d {ds} Lds) esL = prf (++-List Lds esL)
+++-List {ys = ys} (consL x {xs} xsL) ysL = prf (++-List xsL ysL)
   where
-    postulate prf : List (ds ++ es) →
-                    List ((d ∷ ds) ++ es)
+    postulate prf : List (xs ++ ys) →
+                    List ((x ∷ xs) ++ ys)
     {-# ATP prove prf consL #-}
 
-++-leftIdentity : {ds : D} → List ds → [] ++ ds ≡ ds
-++-leftIdentity {ds} _ = ++-[] ds
+++-leftIdentity : {xs : D} → List xs → [] ++ xs ≡ xs
+++-leftIdentity {xs} _ = ++-[] xs
 
-++-rightIdentity : {ds : D} → List ds → ds ++ [] ≡ ds
+++-rightIdentity : {xs : D} → List xs → xs ++ [] ≡ xs
 ++-rightIdentity nilL = prf
   where
     postulate prf : [] ++ [] ≡ []
     {-# ATP prove prf #-}
 
-++-rightIdentity (consL d {ds} Lds) = prf (++-rightIdentity Lds)
+++-rightIdentity (consL x {xs} xsL) = prf (++-rightIdentity xsL)
   where
-    postulate prf : ds ++ [] ≡ ds →
-                    (d ∷ ds) ++ [] ≡ d ∷ ds
+    postulate prf : xs ++ [] ≡ xs →
+                    (x ∷ xs) ++ [] ≡ x ∷ xs
     {-# ATP prove prf #-}
 
 ++-assoc : {as bs cs : D} → List as → List bs → List cs →
@@ -53,65 +53,65 @@ open import LTC.Data.List using
     postulate prf : ([] ++ bs) ++ cs ≡ [] ++ bs ++ cs
     {-# ATP prove prf #-}
 
-++-assoc .{d ∷ ds} {bs} {cs} (consL d {ds} Lds) bsL csL =
-  prf (++-assoc Lds bsL csL)
+++-assoc .{x ∷ xs} {bs} {cs} (consL x {xs} xsL) bsL csL =
+  prf (++-assoc xsL bsL csL)
   where
-    postulate prf : (ds ++ bs) ++ cs ≡ ds ++ bs ++ cs →
-                    ((d ∷ ds) ++ bs) ++ cs ≡ (d ∷ ds) ++ bs ++ cs
+    postulate prf : (xs ++ bs) ++ cs ≡ xs ++ bs ++ cs →
+                    ((x ∷ xs) ++ bs) ++ cs ≡ (x ∷ xs) ++ bs ++ cs
     {-# ATP prove prf #-}
 
-reverse-List : {ds : D} → List ds → List (reverse ds)
+reverse-List : {xs : D} → List xs → List (reverse xs)
 reverse-List nilL = prf
   where
     postulate prf : List (reverse [])
     {-# ATP prove prf nilL #-}
 
-reverse-List (consL d {ds} Lds) = prf (reverse-List Lds)
+reverse-List (consL x {xs} xsL) = prf (reverse-List xsL)
   where
-    postulate prf : List (reverse ds) →
-                    List (reverse (d ∷ ds))
+    postulate prf : List (reverse xs) →
+                    List (reverse (x ∷ xs))
     {-# ATP prove prf consL nilL ++-List #-}
 
 postulate
-  reverse-[x]≡[x] : (d : D) → reverse (d ∷ []) ≡ d ∷ []
+  reverse-[x]≡[x] : (x : D) → reverse (x ∷ []) ≡ x ∷ []
 {-# ATP prove reverse-[x]≡[x] #-}
 
-reverse-++ : {ds es : D} → List ds → List es →
-             reverse (ds ++ es) ≡ reverse es ++ reverse ds
-reverse-++ {es = es} nilL esL = prf
+reverse-++ : {xs ys : D} → List xs → List ys →
+             reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
+reverse-++ {ys = ys} nilL ysL = prf
   where
-    postulate prf : reverse ([] ++ es) ≡ reverse es ++ reverse []
+    postulate prf : reverse ([] ++ ys) ≡ reverse ys ++ reverse []
     {-# ATP prove prf ++-rightIdentity reverse-List #-}
 
-reverse-++ {es = es} (consL d {ds} Lds) esL = prf (reverse-++ Lds esL)
+reverse-++ {ys = ys} (consL x {xs} xsL) ysL = prf (reverse-++ xsL ysL)
   where
-    postulate prf : reverse (ds ++ es) ≡ reverse es ++ reverse ds →
-                    reverse ((d ∷ ds) ++ es) ≡ reverse es ++ reverse (d ∷ ds)
+    postulate prf : reverse (xs ++ ys) ≡ reverse ys ++ reverse xs →
+                    reverse ((x ∷ xs) ++ ys) ≡ reverse ys ++ reverse (x ∷ xs)
     -- E 1.2 cannot prove this postulate with --time=180.
     {-# ATP prove prf ++-assoc nilL consL reverse-List ++-List #-}
 
-reverse² : {ds : D} → List ds → reverse (reverse ds) ≡ ds
+reverse² : {xs : D} → List xs → reverse (reverse xs) ≡ xs
 reverse² nilL = prf
   where
     postulate prf : reverse (reverse []) ≡ []
     {-# ATP prove prf #-}
 
-reverse² (consL d {ds} Lds) = prf (reverse² Lds)
+reverse² (consL x {xs} xsL) = prf (reverse² xsL)
   where
-    postulate prf : reverse (reverse ds) ≡ ds →
-                    reverse (reverse (d ∷ ds)) ≡ d ∷ ds
+    postulate prf : reverse (reverse xs) ≡ xs →
+                    reverse (reverse (x ∷ xs)) ≡ x ∷ xs
     {-# ATP prove prf reverse-++ consL nilL reverse-List ++-List #-}
 
-map-++ : (f : D){ds es : D} → List ds → List es →
-         map f (ds ++ es) ≡ map f ds ++ map f es
-map-++ f {es = es} nilL esL = prf
+map-++ : (f : D){xs ys : D} → List xs → List ys →
+         map f (xs ++ ys) ≡ map f xs ++ map f ys
+map-++ f {ys = ys} nilL ysL = prf
   where
-    postulate prf : map f ([] ++ es) ≡ map f [] ++ map f es
+    postulate prf : map f ([] ++ ys) ≡ map f [] ++ map f ys
     {-# ATP prove prf #-}
-map-++ f {es = es} (consL d {ds} Lds) esL = prf (map-++ f Lds esL)
+map-++ f {ys = ys} (consL x {xs} xsL) ysL = prf (map-++ f xsL ysL)
   where
-    postulate prf : map f (ds ++ es) ≡ map f ds ++ map f es →
-                    map f ((d ∷ ds) ++ es) ≡ map f (d ∷ ds) ++ map f es
+    postulate prf : map f (xs ++ ys) ≡ map f xs ++ map f ys →
+                    map f ((x ∷ xs) ++ ys) ≡ map f (x ∷ xs) ++ map f ys
     -- E 1.2 cannot prove this postulate with --time=180.
     {-# ATP prove prf #-}
 

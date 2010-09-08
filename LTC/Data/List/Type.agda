@@ -12,12 +12,12 @@ open import LTC.Data.List.Core using ( [] ; _∷_ )
 -- The LTC list type.
 data List : D → Set where
   nilL  : List []
-  consL : (d : D){ds : D} → (Lds : List ds) → List (d ∷ ds)
+  consL : (x : D){xs : D} → (xsL : List xs) → List (x ∷ xs)
 
 -- Induction principle for List.
 indList : (P : D → Set) →
           P [] →
-          ((d : D){ds : D} → List ds → P ds → P (d ∷ ds)) →
-          {ds : D} → List ds → P ds
+          ((x : D){xs : D} → List xs → P xs → P (x ∷ xs)) →
+          {xs : D} → List xs → P xs
 indList P p[] iStep nilL               = p[]
-indList P p[] iStep (consL d {ds} Lds) = iStep d Lds (indList P p[] iStep Lds)
+indList P p[] iStep (consL x {xs} xsL) = iStep x xsL (indList P p[] iStep xsL)
