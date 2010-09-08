@@ -10,7 +10,7 @@ open import LTC.Data.Nat.Type using ( N ; sN ; zN )
 open import LTC.Data.List using
   ( [] ; _∷_
   ; _++_ ; ++-[]
-  ; consL ; List ; nilL
+  ; List ; consL ; nilL
   ; length
   ; map
   ; replicate
@@ -45,28 +45,6 @@ open import LTC.Data.List using
     postulate prf : ds ++ [] ≡ ds →
                     (d ∷ ds) ++ [] ≡ d ∷ ds
     {-# ATP prove prf #-}
-
--- -- Using the principle of induction on lists.
--- ++-assoc' : {as bs cs : D} → List as → List bs → List cs →
---             (as ++ bs) ++ cs ≡ as ++ (bs ++ cs)
--- ++-assoc' {as} {bs} {cs} asL bsL csL = indList P p[] iStep asL
---   where
---     P : D → Set
---     P = λ ds → (ds ++ bs) ++ cs ≡ ds ++ (bs ++ cs)
-
---     p[] : P []
---     p[] = prf
---       where
---         postulate prf : ([] ++ bs) ++ cs ≡ [] ++ bs ++ cs
---         {-# ATP prove prf #-}
-
---     iStep : (d : D){ds : D} → List ds →
---             (ds ++ bs) ++ cs ≡ ds ++ (bs ++ cs) →
---             ((d ∷ ds) ++ bs) ++ cs ≡ (d ∷ ds) ++ bs ++ cs
---     iStep d {ds} Lds Pds = prf
---       where
---         postulate prf : ((d ∷ ds) ++ bs) ++ cs ≡ (d ∷ ds) ++ bs ++ cs
---         {-# ATP prove prf #-}
 
 ++-assoc : {as bs cs : D} → List as → List bs → List cs →
            (as ++ bs) ++ cs ≡ as ++ (bs ++ cs)

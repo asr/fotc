@@ -11,6 +11,6 @@ open import LTC.Data.Nat.List.Type using ( ListN )
 open import LTC.Data.List using ( _++_ )
 
 ------------------------------------------------------------------------------
--- See ATP version.
+-- See the ATP version.
 postulate
   ++-ListN : {ds es : D} → ListN ds → ListN es → ListN (ds ++ es)

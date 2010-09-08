@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Arithmetic properties (using induction on the LTC natural numbers)
+-- Arithmetic properties (using induction on the LTC natural numbers type)
 ------------------------------------------------------------------------------
 
 module LTC.Data.Nat.PropertiesByInduction where

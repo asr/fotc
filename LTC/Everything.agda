@@ -15,6 +15,7 @@ open import LTC.Data.Empty
 open import LTC.Data.List
 open import LTC.Data.List.Core
 open import LTC.Data.List.Properties
+open import LTC.Data.List.PropertiesByInduction
 open import LTC.Data.List.Type
 
 open import LTC.Data.Nat

@@ -1,0 +1,27 @@
+------------------------------------------------------------------------------
+--  Properties related with lists (using induction on the LTC list type)
+------------------------------------------------------------------------------
+
+module LTC.Data.List.PropertiesByInduction where
+
+open import LTC.Minimal
+
+open import LTC.Data.List using ( [] ; _∷_ ; _++_ ; indList ; List )
+
+------------------------------------------------------------------------------
+
+++-assoc : {xs ys zs : D} → List xs → List ys → List zs →
+           (xs ++ ys) ++ zs ≡ xs ++ ys ++ zs
+++-assoc {xs} {ys} {zs} xsL _ _ = indList P p[] iStep xsL
+  where
+    P : D → Set
+    P ds = (ds ++ ys) ++ zs ≡ ds ++ ys ++ zs
+    {-# ATP definition P #-}
+
+    postulate
+      p[] : P []
+    {-# ATP prove p[] #-}
+
+    postulate
+      iStep : (d : D){ds : D} → List ds → P ds → P (d ∷ ds)
+    {-# ATP prove iStep #-}
