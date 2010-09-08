@@ -7,7 +7,7 @@ module LTC.Data.Nat.List.Type where
 open import LTC.Minimal
 
 open import LTC.Data.Nat.Type using ( N )
-open import LTC.Data.List.Core using ( [] ; _∷_ )
+open import LTC.Data.List using ( [] ; _∷_ )
 
 ------------------------------------------------------------------------------
 -- The LTC list of natural numbers type.

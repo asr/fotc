@@ -41,7 +41,7 @@ open import LTC.Data.Nat.Inequalities.Properties using
   )
 open import LTC.Data.Nat.Type using ( N )
 open import LTC.Data.Nat.List.Type using ( ListN ; consLN ; nilLN )
-open import LTC.Data.List.Core using ( [] ; _∷_ )
+open import LTC.Data.List using ( [] ; _∷_ )
 
 ------------------------------------------------------------------------------
 -- Subtrees

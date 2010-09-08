@@ -21,7 +21,7 @@ open import LTC.Data.Bool using ( Bool )
 open import LTC.Data.Bool.Properties using ( &&-Bool ; ≤-Bool )
 open import LTC.Data.Nat.List.Type using ( ListN ; consLN ; nilLN )
 open import LTC.Data.Nat.Type using ( N )
-open import LTC.Data.List.Core using ( [] ; _∷_ )
+open import LTC.Data.List using ( [] ; _∷_ )
 
 ------------------------------------------------------------------------------
 

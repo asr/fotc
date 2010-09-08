@@ -1,7 +1,8 @@
 ------------------------------------------------------------------------------
--- This file contains some core definitions which are reexported by
--- LTC.Main
+-- LTC minimal ( some core definitions)
 ------------------------------------------------------------------------------
+
+-- The definitions in this file are reexported by LTC.Minimal
 
 module LTC.Minimal.Core where
 
