@@ -18,6 +18,7 @@ open import LTC.Data.List using
   )
 
 ------------------------------------------------------------------------------
+-- Closure properties
 
 ++-List : {xs ys : D} → List xs → List ys → List (xs ++ ys)
 ++-List {ys = ys} nilL ysL = prf
@@ -30,6 +31,18 @@ open import LTC.Data.List using
     postulate prf : List (xs ++ ys) →
                     List ((x ∷ xs) ++ ys)
     {-# ATP prove prf consL #-}
+
+reverse-List : {xs : D} → List xs → List (reverse xs)
+reverse-List nilL = prf
+  where
+    postulate prf : List (reverse [])
+    {-# ATP prove prf nilL #-}
+
+reverse-List (consL x {xs} xsL) = prf (reverse-List xsL)
+  where
+    postulate prf : List (reverse xs) →
+                    List (reverse (x ∷ xs))
+    {-# ATP prove prf consL nilL ++-List #-}
 
 ++-leftIdentity : {xs : D} → List xs → [] ++ xs ≡ xs
 ++-leftIdentity {xs} _ = ++-[] xs
@@ -59,18 +72,6 @@ open import LTC.Data.List using
     postulate prf : (xs ++ bs) ++ cs ≡ xs ++ bs ++ cs →
                     ((x ∷ xs) ++ bs) ++ cs ≡ (x ∷ xs) ++ bs ++ cs
     {-# ATP prove prf #-}
-
-reverse-List : {xs : D} → List xs → List (reverse xs)
-reverse-List nilL = prf
-  where
-    postulate prf : List (reverse [])
-    {-# ATP prove prf nilL #-}
-
-reverse-List (consL x {xs} xsL) = prf (reverse-List xsL)
-  where
-    postulate prf : List (reverse xs) →
-                    List (reverse (x ∷ xs))
-    {-# ATP prove prf consL nilL ++-List #-}
 
 postulate
   reverse-[x]≡[x] : (x : D) → reverse (x ∷ []) ≡ x ∷ []
