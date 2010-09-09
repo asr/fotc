@@ -9,7 +9,7 @@ open import LTC.MinimalER using ( subst )
 
 open import LTC-PCF.DataPCF.NatPCF using
   ( _+_ ; _-_ ; _*_
-  ; N ; sN ; zN
+  ; N ; sN ; zN -- The LTC natural numbers type
   )
 open import LTC-PCF.DataPCF.NatPCF.DivisibilityPCF using ( _∣_ )
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( LE )

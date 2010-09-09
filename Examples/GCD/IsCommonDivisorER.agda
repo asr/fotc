@@ -12,7 +12,10 @@ open import Examples.GCD.GCD using
 open import Examples.GCD.IsN-ER using ( gcd-N )
 open import Examples.GCD.Types using ( ¬x≡0∧y≡0 )
 
-open import LTC.Data.Nat using ( _-_ ; N ; sN ; zN )
+open import LTC.Data.Nat using
+  ( _-_
+  ; N ; sN ; zN -- The LTC natural numbers type
+  )
 open import LTC.Data.Nat.Divisibility using ( _∣_ )
 open import LTC.Data.Nat.Divisibility.PropertiesER using
   ( ∣-refl-S

@@ -9,9 +9,11 @@ open import LTC.Minimal
 open import Examples.GCD.IsCommonDivisor using ( CD )
 open import Examples.GCD.IsDivisible using ( Divisible )
 
-open import LTC.Data.Nat using ( N ; sN ; zN )
 open import LTC.Data.Nat.Divisibility.Properties using ( 0∤x ; x∣S→x≤S )
 open import LTC.Data.Nat.Inequalities using ( LE )
+open import LTC.Data.Nat.Type using
+  ( N ; sN ; zN -- The LTC natural numbers type
+  )
 
 open import MyStdLib.Function using ( _$_ )
 

@@ -12,7 +12,10 @@ open import Examples.GCD.GCD using
 open import Examples.GCD.IsCommonDivisorER using ( CD )
 open import Examples.GCD.Types using ( ¬x≡0∧y≡0 )
 
-open import LTC.Data.Nat using ( _-_ ; N ; sN ; zN )
+open import LTC.Data.Nat using
+  ( _-_
+  ; N ; sN ; zN -- The LTC natural numbers type
+  )
 open import LTC.Data.Nat.Divisibility using ( _∣_ )
 open import LTC.Data.Nat.Divisibility.PropertiesER using ( x∣y→x∣z→x∣y-z )
 open import LTC.Data.Nat.Induction.Lexicographic using ( wfIndN-LT₂ )

@@ -14,7 +14,9 @@ open import LTC.Data.Nat.Inequalities.Properties using
   ; Sx≤y→x<y
   ; x<y→Sx≤y
   )
-open import LTC.Data.Nat.Type using ( N ; sN ; zN )
+open import LTC.Data.Nat.Type using
+  ( N ; sN ; zN -- The LTC natural numbers type
+  )
 
 ------------------------------------------------------------------------------
 -- Well-founded induction on N.

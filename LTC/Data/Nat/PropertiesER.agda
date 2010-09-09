@@ -11,7 +11,7 @@ open import LTC.Data.Nat using
   ( _+_ ; +-0x ; +-Sx
   ; _-_ ; minus-0S ; minus-SS ; minus-x0
   ; _*_ ; *-0x ; *-Sx
-  ; N ; sN ; zN
+  ; N ; sN ; zN -- The LTC natural numbers type
   )
 
 open import MyStdLib.Function

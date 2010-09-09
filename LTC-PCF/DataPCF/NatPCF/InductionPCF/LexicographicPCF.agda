@@ -6,7 +6,9 @@ module LTC-PCF.DataPCF.NatPCF.InductionPCF.LexicographicPCF where
 
 open import LTC.Minimal
 
-open import LTC.Data.Nat.Type using ( N ; sN ; zN )
+open import LTC.Data.Nat.Type using
+  ( N ; sN ; zN -- The LTC natural numbers type
+  )
 
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( LT ; LT₂ )
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF using

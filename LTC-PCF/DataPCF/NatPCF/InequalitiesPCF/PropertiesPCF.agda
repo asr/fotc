@@ -6,7 +6,10 @@ module LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF where
 
 open import LTC.Minimal
 
-open import LTC-PCF.DataPCF.NatPCF using ( _+_ ; _-_ ; N ; sN ; zN )
+open import LTC-PCF.DataPCF.NatPCF using
+  ( _+_ ; _-_
+  ; N ; sN ; zN -- The LTC natural numbers type
+  )
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using
   ( _<_
   ; GE ; GT ; LE ; LT ; NLT

@@ -8,7 +8,7 @@ open import LTC.Minimal
 
 open import LTC.Data.Nat using
   ( _+_ ; _-_ ; minus-SS
-  ; N ; sN ; zN
+  ; N ; sN ; zN -- The LTC natural numbers type
   )
 open import LTC.Data.Nat.Inequalities using
   ( <-00 ; <-0S ; <-S0 ; <-SS

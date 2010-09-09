@@ -13,7 +13,9 @@ open import LTC.Data.Bool using
   )
 open import LTC.Data.Nat.Inequalities using ( _≤_ ; <-0S )
 open import LTC.Data.Nat.Inequalities.PropertiesER using ( ≤-SS ; S≰0 )
-open import LTC.Data.Nat.Type using ( N ; sN ; zN )
+open import LTC.Data.Nat.Type using
+  ( N ; sN ; zN -- The LTC natural numbers type
+  )
 
 import MyStdLib.Relation.Binary.EqReasoning
 open module Bool-ER =
