@@ -10,8 +10,7 @@ open import LTC.Data.Nat.Type using
   ( N ; sN ; zN -- The LTC natural numbers type
   )
 open import LTC.Data.List using
-  ( [] ; _∷_
-  ; _++_ ; ++-[]
+  ( _++_ ; ++-[]
   ; List ; consL ; nilL
   ; length
   ; map

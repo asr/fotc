@@ -9,13 +9,9 @@ open import LTC.Minimal
 infixr 5 _++_
 
 ------------------------------------------------------------------------------
--- List terms.
-open import LTC.Data.List.Core public
-
 -- The LTC list type.
 open import LTC.Data.List.Type public
 
-------------------------------------------------------------------------------
 -- Basic functions
 
 postulate

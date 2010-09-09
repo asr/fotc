@@ -13,6 +13,7 @@ LTC                              Agda
 module LTC.Minimal where
 
 infixl 6 _∙_
+infixr 5 _∷_
 infix  5 if_then_else_
 infix  4 _≡_
 
@@ -57,6 +58,12 @@ postulate
   -- LTC fixed point operator
   fix    : (D → D) → D
   -- fixFO  : D
+
+  -- LTC lists
+  []   : D
+  _∷_  : D → D → D
+  head : D → D
+  tail : D → D
 
 ------------------------------------------------------------------------------
 -- The LTC's equality is the propositional identity on 'D'.
@@ -124,6 +131,16 @@ postulate
   cFix : (f : D → D) → fix f ≡ f (fix  f)
   -- cFixFO : (f : D) → fixFO ∙ f  ≡ f ∙ (fixFO ∙ f)
 {-# ATP axiom cFix #-}
+
+postulate
+  -- Conversion rule for head
+  cHead : (x xs : D) → head (x ∷ xs) ≡ x
+{-# ATP axiom cHead #-}
+
+postulate
+  -- Conversion rule for tail
+  cTail : (x xs : D) → tail (x ∷ xs) ≡ xs
+{-# ATP axiom cTail #-}
 
 ------------------------------------------------------------------------------
 -- Discrimination rules

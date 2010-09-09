@@ -19,7 +19,6 @@ open import LTC.Data.Nat.List.Type using
   ( ListN ; consLN ; nilLN -- The LTC list of natural numbers type
   )
 open import LTC.Data.Nat.Type using ( N )
-open import LTC.Data.List using ( [] ; _∷_ )
 
 ------------------------------------------------------------------------------
 

@@ -15,7 +15,7 @@ open import LTC.Minimal
 open import LTC.Data.Bool using ( _&&_ )
 open import LTC.Data.Nat.Inequalities using ( _≤_ )
 open import LTC.Data.Nat.Type using ( N )
-open import LTC.Data.List using ( [] ; _∷_ ; _++_ ; foldr )
+open import LTC.Data.List using ( _++_ ; foldr )
 
 ------------------------------------------------------------------------------
 -- Tree terms

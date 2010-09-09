@@ -6,8 +6,6 @@ module LTC.Data.List.Type where
 
 open import LTC.Minimal
 
-open import LTC.Data.List.Core using ( [] ; _∷_ )
-
 ------------------------------------------------------------------------------
 -- The LTC list type.
 data List : D → Set where

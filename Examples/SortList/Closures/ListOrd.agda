@@ -46,7 +46,7 @@ open import LTC.Data.Bool.Properties using
   )
 open import LTC.Data.Nat.List.Type using ( ListN ; consLN ; nilLN )
 open import LTC.Data.Nat.Type using ( N )
-open import LTC.Data.List using ( [] ; _∷_ ; _++_ )
+open import LTC.Data.List using ( _++_ )
 
 open import Postulates using ( ++-ListOrd-aux₁ )
 
