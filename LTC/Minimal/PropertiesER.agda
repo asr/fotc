@@ -10,4 +10,8 @@ open import LTC.Minimal
 ------------------------------------------------------------------------------
 -- See the ATP proof.
 postulate
-  succInjectivity : {d e : D} → succ d ≡ succ e → d ≡ e
+  succInjective : {d e : D} → succ d ≡ succ e → d ≡ e
+
+-- See the ATP proof.
+postulate
+  ∷-injective : {x y xs ys : D} → x ∷ xs ≡ y ∷ ys → x ≡ y ∧ xs ≡ ys
