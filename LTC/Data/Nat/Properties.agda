@@ -18,6 +18,17 @@ open import MyStdLib.Function using ( _$_ )
 ------------------------------------------------------------------------------
 -- Closure properties
 
+pred-N : {n : D} → N n → N (pred n)
+pred-N zN  = prf
+  where
+    postulate prf : N (pred zero)
+    {-# ATP prove prf zN #-}
+
+pred-N (sN {n} Nn) = prf
+  where
+    postulate prf : N (pred (succ n))
+    {-# ATP prove prf #-}
+
 minus-N : {m n : D} → N m → N n → N (m - n)
 minus-N {m} _ zN = prf
   where
