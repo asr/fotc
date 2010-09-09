@@ -36,7 +36,9 @@ open import LTC.Data.Bool.PropertiesER using
   ; x&&y≡true→y≡true
   )
 open import LTC.Data.Nat.Inequalities using ( _≤_ )
-open import LTC.Data.Nat.List.Type using ( ListN ; consLN ; nilLN )
+open import LTC.Data.Nat.List.Type using
+  ( ListN ; consLN ; nilLN -- The LTC list of natural numbers type
+  )
 open import LTC.Data.Nat.Type using ( N )
 open import LTC.Data.List using
   ( [] ; _∷_

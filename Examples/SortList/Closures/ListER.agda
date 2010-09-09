@@ -12,7 +12,9 @@ open import Examples.SortList.SortList using
   ; Tree ; nilT ; nodeT ; tipT
   )
 
-open import LTC.Data.Nat.List.Type using ( ListN ; nilLN ; consLN )
+open import LTC.Data.Nat.List.Type using
+  ( ListN ; consLN ; nilLN -- The LTC list of natural numbers type
+  )
 open import LTC.Data.Nat.List.PropertiesER using ( ++-ListN )
 
 ------------------------------------------------------------------------------

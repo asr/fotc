@@ -19,7 +19,9 @@ open import Examples.SortList.SortList using
 
 open import LTC.Data.Bool using ( Bool )
 open import LTC.Data.Bool.Properties using ( &&-Bool ; ≤-Bool )
-open import LTC.Data.Nat.List.Type using ( ListN ; consLN ; nilLN )
+open import LTC.Data.Nat.List.Type using
+  ( ListN ; consLN ; nilLN -- The LTC list of natural numbers type
+  )
 open import LTC.Data.Nat.Type using ( N )
 open import LTC.Data.List using ( [] ; _∷_ )
 
