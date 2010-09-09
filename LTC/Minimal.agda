@@ -36,19 +36,24 @@ postulate
   true          : D
   false         : D
   if_then_else_ : D → D → D → D
+
   -- LTC partial natural numbers.
   zero   : D
   succ   : D → D
   pred   : D → D
   isZero : D → D
+
   -- LTC abstraction.
   lam    : (D → D) → D
+
   -- LTC application
   -- Left associative aplication operator
   -- The Agda application has higher precedence level than LTC application
   _∙_    : D → D → D
+
   -- LTC error
   error  : D
+
   -- LTC fixed point operator
   fix    : (D → D) → D
   -- fixFO  : D
@@ -116,7 +121,7 @@ postulate
 
 postulate
   -- Conversion rule for the fixed pointed operator.
-  cFix   : (f : D → D) → fix f ≡ f (fix  f)
+  cFix : (f : D → D) → fix f ≡ f (fix  f)
   -- cFixFO : (f : D) → fixFO ∙ f  ≡ f ∙ (fixFO ∙ f)
 {-# ATP axiom cFix #-}
 
