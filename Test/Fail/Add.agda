@@ -14,7 +14,10 @@ postulate
 {-# ATP axiom +-0x #-}
 {-# ATP axiom +-Sx #-}
 
--- The ATPs cannot prove this postulate from the axioms.
+-- The ATPs should not prove this postulate.
 postulate
   +-comm : (d e : D) → d + e ≡ e + d
+-- Equinox 5.0alpha (2010-03-29) no-success due to timeout.
+-- E 1.2 no-success due to timeout.
+-- TODO: Metis 2.2 (release 20100825) success (SZS status CounterSatisfiable).
 {-# ATP prove +-comm #-}
