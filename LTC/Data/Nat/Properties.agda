@@ -197,7 +197,7 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
     postulate prf : (m - n) * succ o ≡ m * succ o - n * succ o → -- IH
                     (succ m - succ n) * succ o ≡
                     succ m * succ o - succ n * succ o
-    -- E 1.2 cannot prove this postulate with --time=180.
+    -- E 1.2 no-success due to timeout (180).
     {-# ATP prove prf sN *-N [x+y]-[x+z]≡y-z #-}
 
 [x+y]z≡xz*yz : {m n o : D} → N m → N n → N o → (m + n) * o ≡ m * o + n * o

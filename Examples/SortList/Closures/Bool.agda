@@ -80,7 +80,7 @@ isListOrd-Bool (consLN {i} {is} Ni LNis) = prf (isListOrd-Bool LNis)
     postulate prf : Bool (≤-ItemTree item t₁) → -- IH.
                     Bool (≤-ItemTree item t₂) → -- IH.
                     Bool (≤-ItemTree item (node t₁ i t₂))
-    -- E 1.2 cannot prove this postulate with --time=180.
+    -- E 1.2 no-success due to timeout (180).
     {-# ATP prove prf &&-Bool #-}
 
 ≤-TreeItem-Bool : {t : D} → Tree t → {item : D} → N item →
@@ -99,7 +99,7 @@ isListOrd-Bool (consLN {i} {is} Ni LNis) = prf (isListOrd-Bool LNis)
     postulate prf : Bool (≤-TreeItem t₁ item) → -- IH.
                     Bool (≤-TreeItem t₂ item) → -- IH.
                     Bool (≤-TreeItem (node t₁ i t₂) item)
-    -- E 1.2 cannot prove this postulate with --time=180.
+    -- E 1.2 no-success due to timeout (180).
     {-# ATP prove prf &&-Bool #-}
 
 isTreeOrd-Bool : {t : D} → Tree t → Bool (isTreeOrd t)
@@ -119,5 +119,5 @@ isTreeOrd-Bool (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
     postulate prf : Bool (isTreeOrd t₁) → -- IH.
                     Bool (isTreeOrd t₂) → -- IH.
                     Bool (isTreeOrd (node t₁ i t₂))
-    -- E 1.2 cannot prove this postulate with --time=180.
+    -- E 1.2 no-success due to timeout (180).
     {-# ATP prove prf &&-Bool ≤-TreeItem-Bool ≤-ItemTree-Bool #-}

@@ -49,7 +49,7 @@ postulate
                 GE i j →
                 i - j ≡ j * (div (i - j) j) + r →
                 i ≡ j * (div i j) + r
--- E 1.2 cannot prove this postulate with --time=180.
+-- E 1.2 no-success due to timeout (180).
 {-# ATP prove div-x≥y-aux div-x≥y aux #-}
 
 div-x≥y-correct : {i j : D} → N i → N j →

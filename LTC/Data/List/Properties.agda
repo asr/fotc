@@ -89,7 +89,7 @@ reverse-++ {ys = ys} (consL x {xs} xsL) ysL = prf (reverse-++ xsL ysL)
   where
     postulate prf : reverse (xs ++ ys) ≡ reverse ys ++ reverse xs →
                     reverse ((x ∷ xs) ++ ys) ≡ reverse ys ++ reverse (x ∷ xs)
-    -- E 1.2 cannot prove this postulate with --time=180.
+    -- E 1.2 no-success due to timeout (180).
     {-# ATP prove prf ++-assoc nilL consL reverse-List ++-List #-}
 
 reverse² : {xs : D} → List xs → reverse (reverse xs) ≡ xs
@@ -114,7 +114,7 @@ map-++ f {ys = ys} (consL x {xs} xsL) ysL = prf (map-++ f xsL ysL)
   where
     postulate prf : map f (xs ++ ys) ≡ map f xs ++ map f ys →
                     map f ((x ∷ xs) ++ ys) ≡ map f (x ∷ xs) ++ map f ys
-    -- E 1.2 cannot prove this postulate with --time=180.
+    -- E 1.2 no-success due to timeout (180).
     {-# ATP prove prf #-}
 
 length-replicate : {n : D} → N n → (d : D) → length (replicate n d) ≡ n

@@ -69,7 +69,7 @@ postulate
     (c : D) → N c → CD (succ m) (succ n) c →
     (c ∣ succ m - succ n) →
     c ∣ gcd (succ m) (succ n)
--- E 1.2 cannot prove this postulate with --time=180.
+-- E 1.2 no-success due to timeout (180).
 {-# ATP prove gcd-S>S-Divisible-ah #-}
 
 gcd-S>S-Divisible :
@@ -94,7 +94,7 @@ postulate
     (c : D) → N c → CD (succ m) (succ n) c →
     (c ∣ succ n - succ m) →
     c ∣ gcd (succ m) (succ n)
--- E 1.2 cannot prove this postulate with --time=180.
+-- E 1.2 no-success due to timeout (180).
 {-# ATP prove gcd-S≤S-Divisible-ah #-}
 
 gcd-S≤S-Divisible :

@@ -39,7 +39,7 @@ subList-ListOrd {i} Ni nilLN LOi∷is = isListOrd-[]
 subList-ListOrd {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js = prf
   where
     postulate prf : ListOrd (j ∷ js)
-    -- E 1.2 cannot prove this postulate with --time=300.
+    -- E 1.2 no-success due to timeout (300).
     {-# ATP prove prf x&&y≡true→y≡true ≤-ItemList-Bool isListOrd-Bool #-}
 
 -- This is a weird result but recall that "the relation ≤ between
@@ -74,7 +74,7 @@ listOrd-xs++ys→ys≤zs→xs++ys≤zs
   where
     postulate prf :  LE-Lists (is ++ js) ks → -- IH
                      LE-Lists ((i ∷ is) ++ js) ks
-    -- E 1.2 cannot prove this postulate with --time=300.
+    -- E 1.2 no-success due to timeout (300).
     {-# ATP prove prf ≤-ItemList-Bool isListOrd-Bool x&&y≡true→x≡true
                       ++-ListN
     #-}
