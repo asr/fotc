@@ -23,7 +23,7 @@ import Agda.Syntax.Internal
     , Clause(Clause)
     , ClauseBody
     , Sort(Type)
-    , Telescope(ExtendTel)
+    , Tele(ExtendTel)
     , Term(Def, Lit)
     , Type(El)
     )
