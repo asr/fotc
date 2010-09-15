@@ -29,8 +29,19 @@ open import LTC.Data.List using
 
 ++-List {ys = ys} (consL x {xs} xsL) ysL = prf (++-List xsL ysL)
   where
-    postulate prf : List (xs ++ ys) →
+    postulate prf : List (xs ++ ys) →  -- IH.
                     List ((x ∷ xs) ++ ys)
+    {-# ATP prove prf consL #-}
+
+map-List : {xs : D}(f : D) → List xs → List (map f xs)
+map-List f nilL = prf
+  where
+    postulate prf : List (map f [])
+    {-# ATP prove prf nilL #-}
+map-List f (consL x {xs} xsL) = prf (map-List f xsL)
+  where
+    postulate prf : List (map f xs) → -- IH.
+                    List (map f (x ∷ xs))
     {-# ATP prove prf consL #-}
 
 reverse-List : {xs : D} → List xs → List (reverse xs)
@@ -41,7 +52,7 @@ reverse-List nilL = prf
 
 reverse-List (consL x {xs} xsL) = prf (reverse-List xsL)
   where
-    postulate prf : List (reverse xs) →
+    postulate prf : List (reverse xs) →  -- IH.
                     List (reverse (x ∷ xs))
     {-# ATP prove prf consL nilL ++-List #-}
 
@@ -56,7 +67,7 @@ reverse-List (consL x {xs} xsL) = prf (reverse-List xsL)
 
 ++-rightIdentity (consL x {xs} xsL) = prf (++-rightIdentity xsL)
   where
-    postulate prf : xs ++ [] ≡ xs →
+    postulate prf : xs ++ [] ≡ xs →  -- IH.
                     (x ∷ xs) ++ [] ≡ x ∷ xs
     {-# ATP prove prf #-}
 
@@ -70,7 +81,7 @@ reverse-List (consL x {xs} xsL) = prf (reverse-List xsL)
 ++-assoc .{x ∷ xs} {bs} {cs} (consL x {xs} xsL) bsL csL =
   prf (++-assoc xsL bsL csL)
   where
-    postulate prf : (xs ++ bs) ++ cs ≡ xs ++ bs ++ cs →
+    postulate prf : (xs ++ bs) ++ cs ≡ xs ++ bs ++ cs →  -- IH.
                     ((x ∷ xs) ++ bs) ++ cs ≡ (x ∷ xs) ++ bs ++ cs
     {-# ATP prove prf #-}
 
@@ -87,7 +98,7 @@ reverse-++ {ys = ys} nilL ysL = prf
 
 reverse-++ {ys = ys} (consL x {xs} xsL) ysL = prf (reverse-++ xsL ysL)
   where
-    postulate prf : reverse (xs ++ ys) ≡ reverse ys ++ reverse xs →
+    postulate prf : reverse (xs ++ ys) ≡ reverse ys ++ reverse xs →  -- IH.
                     reverse ((x ∷ xs) ++ ys) ≡ reverse ys ++ reverse (x ∷ xs)
     -- E 1.2 no-success due to timeout (180).
     {-# ATP prove prf ++-assoc nilL consL reverse-List ++-List #-}
@@ -100,7 +111,7 @@ reverse² nilL = prf
 
 reverse² (consL x {xs} xsL) = prf (reverse² xsL)
   where
-    postulate prf : reverse (reverse xs) ≡ xs →
+    postulate prf : reverse (reverse xs) ≡ xs →  -- IH.
                     reverse (reverse (x ∷ xs)) ≡ x ∷ xs
     {-# ATP prove prf reverse-++ consL nilL reverse-List ++-List #-}
 
@@ -112,7 +123,7 @@ map-++ f {ys = ys} nilL ysL = prf
     {-# ATP prove prf #-}
 map-++ f {ys = ys} (consL x {xs} xsL) ysL = prf (map-++ f xsL ysL)
   where
-    postulate prf : map f (xs ++ ys) ≡ map f xs ++ map f ys →
+    postulate prf : map f (xs ++ ys) ≡ map f xs ++ map f ys →  -- IH.
                     map f ((x ∷ xs) ++ ys) ≡ map f (x ∷ xs) ++ map f ys
     -- E 1.2 no-success due to timeout (180).
     {-# ATP prove prf #-}
@@ -124,6 +135,6 @@ length-replicate zN d = prf
     {-# ATP prove prf #-}
 length-replicate (sN {n} Nn) d = prf (length-replicate Nn d)
   where
-    postulate prf : length (replicate n d) ≡ n →
+    postulate prf : length (replicate n d) ≡ n →  -- IH.
                     length (replicate (succ n) d) ≡ succ n
     {-# ATP prove prf #-}
