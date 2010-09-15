@@ -11,7 +11,7 @@ open import LTC.Data.Nat.Type using
   )
 open import LTC.Data.List using
   ( _++_ ; ++-[]
-  ; List ; consL ; nilL
+  ; List ; consL ; nilL -- The LTC list type
   ; length
   ; map
   ; replicate
