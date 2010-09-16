@@ -25,6 +25,7 @@ type_checking :
 	$(MAKE) -C Examples/GCD-PCF     type_checking
 	$(MAKE) -C Examples/Logic       type_checking
 	$(MAKE) -C Examples/SortList    type_checking
+	$(MAKE) -C Test/Consistency     type_checking
 
 type_checking_ER :
 	$(MAKE) -C LTC                  type_checking_ER
@@ -46,7 +47,7 @@ publish :
 	$(MAKE) -C Examples/GCD-PCF     publish
 	$(MAKE) -C Examples/Logic       publish
 	$(MAKE) -C Examples/SortList    publish
-
+	$(MAKE) -C Test/Consistency     publish
 clean :
 	-find -name '*.agdai' | xargs rm -f
 	-rm -f /tmp/*.tptp
