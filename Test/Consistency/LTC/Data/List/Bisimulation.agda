@@ -5,7 +5,6 @@
 module Test.Consistency.LTC.Data.List.Bisimulation where
 
 open import LTC.Minimal
-
 open import LTC.Data.List.Bisimulation
 
 ------------------------------------------------------------------------------
