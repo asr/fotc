@@ -2,9 +2,9 @@
 -- Test the consistency of the LTC axioms
 ------------------------------------------------------------------------------
 
--- In some modules, we declare some Agda postulates as FOL axioms. We
+-- In some modules, we declare Agda postulates as FOL axioms. We
 -- test in these modules if it is possible to prove an unprovable
--- theorem.
+-- theorem from these axioms.
 
 module Test.Consistency.Readme where
 
