@@ -6,7 +6,7 @@ host_dir = $(root_host_dir)/GCD-PCF/
 local_path = Examples/GCD-PCF
 
 conjectures_PCF :
-	cd $(TOP) && ./test-conjectures.bash GCD-PCF
+	cd $(TOP) && ./Test/conjectures.bash GCD-PCF
 
 type_checking :
 	cd $(TOP) && $(AGDA) $(local_path)/ProofSpecificationPCF.agda

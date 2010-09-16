@@ -6,7 +6,7 @@ host_dir = $(root_host_dir)/Logic/
 local_path = Examples/Logic
 
 conjectures :
-	cd $(TOP) && ./test-conjectures.bash Logic
+	cd $(TOP) && ./Test/conjectures.bash Logic
 
 type_checking :
 	cd $(TOP) && $(AGDA) $(local_path)/Logic.agda

@@ -6,7 +6,7 @@ host_dir = $(root_host_dir)/Division/
 local_path = Examples/DivisionPCF
 
 conjectures_PCF :
-	cd $(TOP) && ./test-conjectures.bash DivisionPCF
+	cd $(TOP) && ./Test/conjectures.bash DivisionPCF
 
 type_checking :
 	cd $(TOP) && $(AGDA) $(local_path)/ProofSpecificationPCF.agda

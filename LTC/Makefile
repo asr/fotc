@@ -5,8 +5,11 @@ include $(TOP)/mk/config.mk
 host_dir = $(root_host_dir)/LTC/
 local_path = LTC
 
+consistency :
+	cd $(TOP) && ./Test/consistency.bash LTC
+
 conjectures :
-	cd $(TOP) && ./test-conjectures.bash LTC
+	cd $(TOP) && ./Test/conjectures.bash LTC
 
 type_checking :
 	cd $(TOP) && $(AGDA) $(local_path)/Everything.agda

@@ -6,7 +6,7 @@ host_dir = $(root_host_dir)/LTC-PCF/
 local_path = LTC-PCF
 
 conjectures_PCF :
-	cd $(TOP) && ./test-conjectures.bash LTC-PCF
+	cd $(TOP) && ./Test/conjectures.bash LTC-PCF
 
 type_checking :
 	cd $(TOP) && $(AGDA) $(local_path)/Everything.agda

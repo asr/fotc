@@ -5,8 +5,11 @@ include $(TOP)/mk/config.mk
 host_dir = $(root_host_dir)/GCD/
 local_path = Examples/GCD
 
+consistency :
+	cd $(TOP) && ./Test/consistency.bash GCD
+
 conjectures :
-	cd $(TOP) && ./test-conjectures.bash GCD
+	cd $(TOP) && ./Test/conjectures.bash GCD
 
 type_checking :
 	cd $(TOP) && $(AGDA) $(local_path)/ProofSpecification.agda

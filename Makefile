@@ -1,5 +1,10 @@
 non_conjectures :
-	./test-non-conjectures.bash
+	./Test/non-conjectures.bash
+
+consistency :
+	$(MAKE) -C LTC               consistency
+	$(MAKE) -C Examples/GCD      consistency
+	$(MAKE) -C Examples/SortList consistency
 
 conjectures :
 	$(MAKE) -C LTC               conjectures

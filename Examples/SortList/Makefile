@@ -5,8 +5,11 @@ include $(TOP)/mk/config.mk
 host_dir = $(root_host_dir)/SortList/
 local_path = Examples/SortList
 
+consistency :
+	cd $(TOP) && ./Test/consistency.bash SortList
+
 conjectures :
-	cd $(TOP) && ./test-conjectures.bash SortList
+	cd $(TOP) && ./Test/conjectures.bash SortList
 
 type_checking :
 	cd $(TOP) && $(AGDA) $(local_path)/ProofSpecification.agda

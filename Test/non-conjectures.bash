@@ -1,5 +1,7 @@
 #! /bin/bash
 
+# Test the non-conjecture files.
+
 non_conjectures_TPTP='/tmp/general-roles.tptp'
 
 AGDA='agda -v 0'
