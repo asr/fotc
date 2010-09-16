@@ -13,6 +13,7 @@ case $1 in
         files='
           LTC/Minimal/Properties
           LTC/Data/Bool/Properties
+          LTC/Data/List/Bisimulation
           LTC/Data/List/Properties
           LTC/Data/Nat/Divisibility/Properties
           LTC/Data/Nat/Inequalities/Properties

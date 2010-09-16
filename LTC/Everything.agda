@@ -13,6 +13,7 @@ open import LTC.Data.Bool.Properties
 open import LTC.Data.Empty
 
 open import LTC.Data.List
+open import LTC.Data.List.Bisimulation
 open import LTC.Data.List.Properties
 open import LTC.Data.List.PropertiesByInduction
 open import LTC.Data.List.Type
