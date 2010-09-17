@@ -11,7 +11,7 @@ open import Examples.SortList.SortList using
   ( makeTree
   ; nilTree
   ; toTree
-  ; Tree ; nilT
+  ; Tree ; nilT  -- The LTC tree type
   )
 
 open import LTC.Data.Nat.List.Type using

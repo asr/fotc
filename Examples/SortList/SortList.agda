@@ -24,7 +24,7 @@ postulate
   tip      : D → D
   node     : D → D → D → D
 
--- The LTC tree data type
+-- The LTC tree type.
 data Tree : D → Set where
   nilT  : Tree nilTree
   tipT  : {i : D} → N i → Tree (tip i)

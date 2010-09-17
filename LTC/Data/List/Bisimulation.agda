@@ -41,32 +41,32 @@ postulate
 
 ≈-refl : {xs : D} → List xs → xs ≈ xs
 ≈-refl nilL               = ∼-[]-[]
-≈-refl (consL x {xs} xsL) = prf (≈-refl xsL)
+≈-refl (consL x {xs} Lxs) = prf (≈-refl Lxs)
   where
     postulate prf : xs ≈ xs →  -- IH.
                     x ∷ xs ≈ x ∷ xs
     {-# ATP prove prf #-}
 
 ≡-≈ : {xs ys : D} → List xs → List ys → xs ≡ ys → xs ≈ ys
-≡-≈ xsL ysL refl = ≈-refl ysL
+≡-≈ Lxs Lys refl = ≈-refl Lys
 
 ≈-≡ : {xs ys : D} → List xs → List ys → xs ≈ ys → xs ≡ ys
 ≈-≡ nilL nilL               _       = refl
-≈-≡ nilL (consL y {ys} ysL) []≈y∷ys = ⊥-elim prf
+≈-≡ nilL (consL y {ys} Lys) []≈y∷ys = ⊥-elim prf
   where
     postulate prf : ⊥
     {-# ATP prove prf #-}
-≈-≡ (consL x xsL) nilL x∷xs≈[] = ⊥-elim prf
+≈-≡ (consL x Lxs) nilL x∷xs≈[] = ⊥-elim prf
   where
     postulate prf : ⊥
     {-# ATP prove prf #-}
-≈-≡ (consL x {xs} xsL) (consL y {ys} ysL) x∷xs≈y∷ys =
-    ≡-list x≡y (≈-≡ xsL ysL xs≈ys)
+≈-≡ (consL x {xs} Lxs) (consL y {ys} Lys) x∷xs≈y∷ys =
+    ≡-list x≡y (≈-≡ Lxs Lys xs≈ys)
     where
       postulate xs≈ys : xs ≈ ys
       {-# ATP prove xs≈ys #-}
 
-      -- The ATPs using classic logic for this proof. They should be
+      -- The ATPs use classic logic for this proof. They should be
       -- using the transposition rule with the postulate ¬-≈ and the
       -- hypothesis x∷xs≈y∷ys. In addition it is necessary the doble
       -- negation ¬ ¬ A → A, i.e.

@@ -10,7 +10,7 @@ open import Examples.SortList.SortList using
   ( nilTree ; node ; tip
   ; makeTree
   ; toTree
-  ; Tree ; nilT ; nodeT ; tipT
+  ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type
   )
 
 open import LTC.Data.Nat.Inequalities using ( GT ; LE )

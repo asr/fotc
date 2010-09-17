@@ -16,7 +16,7 @@ open import Examples.SortList.SortList using
   ; makeTree
   ; nilTree ; node ; tip
   ; toTree ; toTree-nilTree ; toTree-node ; toTree-tip
-  ; Tree ; nilT ; nodeT ; tipT
+  ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type
   ; TreeOrd
   )
 open import Examples.SortList.Closures.BoolER using

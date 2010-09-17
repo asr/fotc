@@ -9,7 +9,7 @@ open import LTC.MinimalER using ( subst )
 
 open import Examples.SortList.SortList using
   ( flatten ; flatten-nilTree ; flatten-node ; flatten-tip
-  ; Tree ; nilT ; nodeT ; tipT
+  ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type
   )
 
 open import LTC.Data.Nat.List.Type using

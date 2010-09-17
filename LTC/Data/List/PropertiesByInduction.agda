@@ -16,7 +16,7 @@ open import LTC.Data.List using
 
 ++-assoc : {xs ys zs : D} → List xs → List ys → List zs →
            (xs ++ ys) ++ zs ≡ xs ++ ys ++ zs
-++-assoc {xs} {ys} {zs} xsL _ _ = indList P p[] iStep xsL
+++-assoc {xs} {ys} {zs} Lxs _ _ = indList P p[] iStep Lxs
   where
     P : D → Set
     P ds = (ds ++ ys) ++ zs ≡ ds ++ ys ++ zs

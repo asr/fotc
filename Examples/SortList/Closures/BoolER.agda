@@ -14,7 +14,7 @@ open import Examples.SortList.SortList using
   ; ≤-TreeItem ; ≤-TreeItem-nilTree ; ≤-TreeItem-node ; ≤-TreeItem-tip
   ; isListOrd
   ; isTreeOrd ; isTreeOrd-nilTree ; isTreeOrd-node ; isTreeOrd-tip
-  ; Tree ; nilT ; nodeT ; tipT
+  ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type
   )
 
 open import LTC.Data.Bool using ( Bool ; tB )

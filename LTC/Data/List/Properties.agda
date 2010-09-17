@@ -22,12 +22,12 @@ open import LTC.Data.List using
 -- Closure properties
 
 ++-List : {xs ys : D} → List xs → List ys → List (xs ++ ys)
-++-List {ys = ys} nilL ysL = prf
+++-List {ys = ys} nilL Lys = prf
   where
     postulate prf : List ([] ++ ys)
     {-# ATP prove prf #-}
 
-++-List {ys = ys} (consL x {xs} xsL) ysL = prf (++-List xsL ysL)
+++-List {ys = ys} (consL x {xs} Lxs) Lys = prf (++-List Lxs Lys)
   where
     postulate prf : List (xs ++ ys) →  -- IH.
                     List ((x ∷ xs) ++ ys)
@@ -38,7 +38,7 @@ map-List f nilL = prf
   where
     postulate prf : List (map f [])
     {-# ATP prove prf nilL #-}
-map-List f (consL x {xs} xsL) = prf (map-List f xsL)
+map-List f (consL x {xs} Lxs) = prf (map-List f Lxs)
   where
     postulate prf : List (map f xs) → -- IH.
                     List (map f (x ∷ xs))
@@ -50,7 +50,7 @@ reverse-List nilL = prf
     postulate prf : List (reverse [])
     {-# ATP prove prf nilL #-}
 
-reverse-List (consL x {xs} xsL) = prf (reverse-List xsL)
+reverse-List (consL x {xs} Lxs) = prf (reverse-List Lxs)
   where
     postulate prf : List (reverse xs) →  -- IH.
                     List (reverse (x ∷ xs))
@@ -65,7 +65,7 @@ reverse-List (consL x {xs} xsL) = prf (reverse-List xsL)
     postulate prf : [] ++ [] ≡ []
     {-# ATP prove prf #-}
 
-++-rightIdentity (consL x {xs} xsL) = prf (++-rightIdentity xsL)
+++-rightIdentity (consL x {xs} Lxs) = prf (++-rightIdentity Lxs)
   where
     postulate prf : xs ++ [] ≡ xs →  -- IH.
                     (x ∷ xs) ++ [] ≡ x ∷ xs
@@ -73,13 +73,13 @@ reverse-List (consL x {xs} xsL) = prf (reverse-List xsL)
 
 ++-assoc : {as bs cs : D} → List as → List bs → List cs →
            (as ++ bs) ++ cs ≡ as ++ (bs ++ cs)
-++-assoc .{[]} {bs} {cs} nilL bsL csL = prf
+++-assoc .{[]} {bs} {cs} nilL Lbs Lcs = prf
   where
     postulate prf : ([] ++ bs) ++ cs ≡ [] ++ bs ++ cs
     {-# ATP prove prf #-}
 
-++-assoc .{x ∷ xs} {bs} {cs} (consL x {xs} xsL) bsL csL =
-  prf (++-assoc xsL bsL csL)
+++-assoc .{x ∷ xs} {bs} {cs} (consL x {xs} Lxs) Lbs Lcs =
+  prf (++-assoc Lxs Lbs Lcs)
   where
     postulate prf : (xs ++ bs) ++ cs ≡ xs ++ bs ++ cs →  -- IH.
                     ((x ∷ xs) ++ bs) ++ cs ≡ (x ∷ xs) ++ bs ++ cs
@@ -91,12 +91,12 @@ postulate
 
 reverse-++ : {xs ys : D} → List xs → List ys →
              reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
-reverse-++ {ys = ys} nilL ysL = prf
+reverse-++ {ys = ys} nilL Lys = prf
   where
     postulate prf : reverse ([] ++ ys) ≡ reverse ys ++ reverse []
     {-# ATP prove prf ++-rightIdentity reverse-List #-}
 
-reverse-++ {ys = ys} (consL x {xs} xsL) ysL = prf (reverse-++ xsL ysL)
+reverse-++ {ys = ys} (consL x {xs} Lxs) Lys = prf (reverse-++ Lxs Lys)
   where
     postulate prf : reverse (xs ++ ys) ≡ reverse ys ++ reverse xs →  -- IH.
                     reverse ((x ∷ xs) ++ ys) ≡ reverse ys ++ reverse (x ∷ xs)
@@ -109,7 +109,7 @@ reverse² nilL = prf
     postulate prf : reverse (reverse []) ≡ []
     {-# ATP prove prf #-}
 
-reverse² (consL x {xs} xsL) = prf (reverse² xsL)
+reverse² (consL x {xs} Lxs) = prf (reverse² Lxs)
   where
     postulate prf : reverse (reverse xs) ≡ xs →  -- IH.
                     reverse (reverse (x ∷ xs)) ≡ x ∷ xs
@@ -117,11 +117,11 @@ reverse² (consL x {xs} xsL) = prf (reverse² xsL)
 
 map-++ : (f : D){xs ys : D} → List xs → List ys →
          map f (xs ++ ys) ≡ map f xs ++ map f ys
-map-++ f {ys = ys} nilL ysL = prf
+map-++ f {ys = ys} nilL Lys = prf
   where
     postulate prf : map f ([] ++ ys) ≡ map f [] ++ map f ys
     {-# ATP prove prf #-}
-map-++ f {ys = ys} (consL x {xs} xsL) ysL = prf (map-++ f xsL ysL)
+map-++ f {ys = ys} (consL x {xs} Lxs) Lys = prf (map-++ f Lxs Lys)
   where
     postulate prf : map f (xs ++ ys) ≡ map f xs ++ map f ys →  -- IH.
                     map f ((x ∷ xs) ++ ys) ≡ map f (x ∷ xs) ++ map f ys
