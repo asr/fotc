@@ -48,7 +48,7 @@ import Agda.Syntax.Abstract.Name
     , qnameName
     )
 import Agda.Syntax.Common ( RoleATP(..))
-import Agda.Syntax.Internal ( Clause, Type )
+import Agda.Syntax.Internal ( Clause, translatedClause, Type )
 import Agda.Syntax.Position
     ( Interval(iStart)
     , Position(posLine)
@@ -235,7 +235,7 @@ getClauses def =
   let defn :: Defn
       defn = theDef def
   in case defn of
-       Function{} → funClauses defn
+       Function{} → map translatedClause $ funClauses defn
        _          → __IMPOSSIBLE__
 
 ------------------------------------------------------------------------------
