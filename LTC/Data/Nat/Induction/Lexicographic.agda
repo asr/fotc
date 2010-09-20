@@ -23,7 +23,7 @@ open import LTC.Data.Nat.Inequalities.Properties using
   ; x₁y<x₂0→x₁<x₂
   )
 open import LTC.Data.Nat.Type using
-  ( N ; sN ; zN -- The LTC natural numbers type
+  ( N ; sN ; zN  -- The LTC natural numbers type.
   )
 
 ------------------------------------------------------------------------------

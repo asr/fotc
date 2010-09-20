@@ -7,14 +7,15 @@ module LTC.Data.List.Properties where
 open import LTC.Minimal
 
 open import LTC.Data.Nat.Type using
-  ( N ; sN ; zN -- The LTC natural numbers type
+  ( N ; sN ; zN  -- The LTC natural numbers type.
   )
 open import LTC.Data.List using
   ( _++_ ; ++-[]
-  ; List ; consL ; nilL -- The LTC list type
+  ; List ; consL ; nilL  -- The LTC list type.
   ; length
   ; map
   ; replicate
+  ; rev
   ; reverse
   )
 
@@ -44,17 +45,20 @@ map-List f (consL x {xs} Lxs) = prf (map-List f Lxs)
                     List (map f (x ∷ xs))
     {-# ATP prove prf consL #-}
 
-reverse-List : {xs : D} → List xs → List (reverse xs)
-reverse-List nilL = prf
+rev-List : {xs ys : D} → List xs → List ys → List (rev xs ys)
+rev-List {ys = ys} nilL Lys = prf
   where
-    postulate prf : List (reverse [])
+    postulate prf : List (rev [] ys)
     {-# ATP prove prf nilL #-}
-
-reverse-List (consL x {xs} Lxs) = prf (reverse-List Lxs)
+rev-List {ys = ys} (consL x {xs} Lxs) Lys = prf (rev-List Lxs (consL x Lys))
   where
-    postulate prf : List (reverse xs) →  -- IH.
-                    List (reverse (x ∷ xs))
-    {-# ATP prove prf consL nilL ++-List #-}
+    postulate prf : List (rev xs (x ∷ ys)) →  -- IH.
+                    List (rev (x ∷ xs) ys)
+    {-# ATP prove prf #-}
+
+reverse-List : {xs : D} → List xs → List (reverse xs)
+reverse-List Lxs = rev-List Lxs nilL
+
 
 ++-leftIdentity : {xs : D} → List xs → [] ++ xs ≡ xs
 ++-leftIdentity {xs} _ = ++-[] xs
@@ -89,6 +93,20 @@ postulate
   reverse-[x]≡[x] : (x : D) → reverse (x ∷ []) ≡ x ∷ []
 {-# ATP prove reverse-[x]≡[x] #-}
 
+rev-++ : {xs ys : D} → List xs → List ys → rev xs ys ≡ rev xs [] ++ ys
+rev-++ {ys = ys} nilL Lys = prf
+  where
+    postulate prf : rev [] ys ≡ rev [] [] ++ ys
+    {-# ATP prove prf #-}
+rev-++ {ys = ys} (consL x {xs} Lxs) Lys =
+  prf (rev-++ Lxs (consL x Lys)) (rev-++ Lxs (consL x nilL))
+  where
+    -- Metis 2.2 (release 20100825) no-success due to timeout (180).
+    postulate prf : rev xs (x ∷ ys) ≡ rev xs [] ++ x ∷ ys →  -- IH.
+                    rev xs (x ∷ []) ≡ rev xs [] ++ x ∷ [] →  -- IH.
+                    rev (x ∷ xs) ys ≡ rev (x ∷ xs) [] ++ ys
+    {-# ATP prove prf consL nilL ++-assoc rev-List ++-List #-}
+
 reverse-++ : {xs ys : D} → List xs → List ys →
              reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
 reverse-++ {ys = ys} nilL Lys = prf
@@ -96,12 +114,20 @@ reverse-++ {ys = ys} nilL Lys = prf
     postulate prf : reverse ([] ++ ys) ≡ reverse ys ++ reverse []
     {-# ATP prove prf ++-rightIdentity reverse-List #-}
 
-reverse-++ {ys = ys} (consL x {xs} Lxs) Lys = prf (reverse-++ Lxs Lys)
+reverse-++ (consL x {xs} Lxs) nilL = prf
   where
-    postulate prf : reverse (xs ++ ys) ≡ reverse ys ++ reverse xs →  -- IH.
-                    reverse ((x ∷ xs) ++ ys) ≡ reverse ys ++ reverse (x ∷ xs)
+    postulate prf : reverse ((x ∷ xs) ++ []) ≡ reverse [] ++ reverse (x ∷ xs)
+    {-# ATP prove prf ++-rightIdentity reverse-List #-}
+reverse-++ (consL x {xs} Lxs) (consL y {ys} Lys) =
+  prf (reverse-++ Lxs (consL y Lys))
+  where
     -- E 1.2 no-success due to timeout (180).
-    {-# ATP prove prf ++-assoc nilL consL reverse-List ++-List #-}
+    -- Metis 2.2 (release 20100825) no-success due to timeout (180).
+    postulate prf : reverse (xs ++ y ∷ ys) ≡ reverse (y ∷ ys) ++
+                                             reverse xs →  -- IH.
+                    reverse ((x ∷ xs) ++ y ∷ ys) ≡ reverse (y ∷ ys) ++
+                                                   reverse (x ∷ xs)
+    {-# ATP prove prf consL nilL rev-List ++-List rev-++ ++-assoc #-}
 
 reverse² : {xs : D} → List xs → reverse (reverse xs) ≡ xs
 reverse² nilL = prf
@@ -111,9 +137,12 @@ reverse² nilL = prf
 
 reverse² (consL x {xs} Lxs) = prf (reverse² Lxs)
   where
+    -- Metis 2.2 (release 20100825) no-success due to timeout (180).
     postulate prf : reverse (reverse xs) ≡ xs →  -- IH.
                     reverse (reverse (x ∷ xs)) ≡ x ∷ xs
-    {-# ATP prove prf reverse-++ consL nilL reverse-List ++-List #-}
+    {-# ATP prove prf consL nilL rev-List rev-++ reverse-++
+                      ++-List ++-rightIdentity
+    #-}
 
 map-++ : (f : D){xs ys : D} → List xs → List ys →
          map f (xs ++ ys) ≡ map f xs ++ map f ys
@@ -123,9 +152,9 @@ map-++ f {ys = ys} nilL Lys = prf
     {-# ATP prove prf #-}
 map-++ f {ys = ys} (consL x {xs} Lxs) Lys = prf (map-++ f Lxs Lys)
   where
+    -- Metis 2.2 (release 20100825) no-success due to timeout (180).
     postulate prf : map f (xs ++ ys) ≡ map f xs ++ map f ys →  -- IH.
                     map f ((x ∷ xs) ++ ys) ≡ map f (x ∷ xs) ++ map f ys
-    -- E 1.2 no-success due to timeout (180).
     {-# ATP prove prf #-}
 
 length-replicate : {n : D} → N n → (d : D) → length (replicate n d) ≡ n

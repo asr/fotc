@@ -9,6 +9,7 @@ open import LTC.Minimal.PropertiesER
 
 open import LTC.Data.Bool.PropertiesER
 
+open import LTC.Data.List.PropertiesER
 open import LTC.Data.Nat.Divisibility.PropertiesER
 open import LTC.Data.Nat.Inequalities.Properties
 open import LTC.Data.Nat.List.PropertiesER

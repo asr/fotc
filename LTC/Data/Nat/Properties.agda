@@ -10,7 +10,7 @@ open import LTC.Data.Nat using
   ( _+_ ; +-0x
   ; _-_ ; minus-0S ; minus-x0
   ; _*_ ; *-0x
-  ; N ; sN ; zN -- The LTC natural numbers type
+  ; N ; sN ; zN  -- The LTC natural numbers type.
   )
 
 open import MyStdLib.Function using ( _$_ )

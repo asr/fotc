@@ -7,7 +7,7 @@ module LTC.Data.Nat.List.Properties where
 open import LTC.Minimal
 
 open import LTC.Data.Nat.List.Type using
-  ( ListN ; consLN ; nilLN -- The LTC list of natural numbers type
+  ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.
   )
 open import LTC.Data.List using ( _++_ )
 

@@ -13,7 +13,7 @@ open import LTC.Data.Bool using
 open import LTC.Data.Nat.Inequalities using ( _≤_ )
 open import LTC.Data.Nat.Inequalities.Properties using ( ≤-SS ; S≰0 )
 open import LTC.Data.Nat.Type using
-  ( N ; sN ; zN -- The LTC natural numbers type
+  ( N ; sN ; zN  -- The LTC natural numbers type.
   )
 
 ------------------------------------------------------------------------------

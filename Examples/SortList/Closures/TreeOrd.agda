@@ -15,7 +15,7 @@ open import Examples.SortList.SortList using
   ; makeTree
   ; nilTree ; node ; tip
   ; toTree
-  ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type
+  ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
   ; TreeOrd
   )
 open import Examples.SortList.Closures.Bool using
@@ -40,7 +40,7 @@ open import LTC.Data.Nat.Inequalities.Properties using
   ; x≤x
   )
 open import LTC.Data.Nat.List.Type using
-  ( ListN ; consLN ; nilLN -- The LTC list of natural numbers type
+  ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.
   )
 open import LTC.Data.Nat.Type using ( N )
 

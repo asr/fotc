@@ -9,11 +9,11 @@ open import LTC.MinimalER using ( subst )
 
 open import Examples.SortList.SortList using
   ( flatten ; flatten-nilTree ; flatten-node ; flatten-tip
-  ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type
+  ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
   )
 
 open import LTC.Data.Nat.List.Type using
-  ( ListN ; consLN ; nilLN -- The LTC list of natural numbers type
+  ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.
   )
 open import LTC.Data.Nat.List.PropertiesER using ( ++-ListN )
 

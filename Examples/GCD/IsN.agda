@@ -13,7 +13,7 @@ open import Examples.GCD.Types using ( ¬x≡0∧y≡0 )
 
 open import LTC.Data.Nat using
   ( _-_
-  ; N ; sN ; zN -- The LTC natural numbers type
+  ; N ; sN ; zN  -- The LTC natural numbers type.
   )
 open import LTC.Data.Nat.Induction.Lexicographic using ( wfIndN-LT₂ )
 open import LTC.Data.Nat.Inequalities using ( GT ; LE ; LT₂)

@@ -15,7 +15,7 @@ open import LTC.Data.Nat.Inequalities.Properties using
   ; x<y→Sx≤y
   )
 open import LTC.Data.Nat.Type using
-  ( N ; sN ; zN -- The LTC natural numbers type
+  ( N ; sN ; zN  -- The LTC natural numbers type.
   )
 
 ------------------------------------------------------------------------------

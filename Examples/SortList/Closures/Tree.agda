@@ -10,13 +10,13 @@ open import Examples.SortList.SortList using
   ( nilTree ; node ; tip
   ; makeTree
   ; toTree
-  ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type
+  ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
   )
 
 open import LTC.Data.Nat.Inequalities using ( GT ; LE )
 open import LTC.Data.Nat.Inequalities.Properties using ( x>y∨x≤y ; x>y→x≰y )
 open import LTC.Data.Nat.List.Type using
-  ( ListN ; consLN ; nilLN -- The LTC list of natural numbers type
+  ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.
   )
 open import LTC.Data.Nat.Type using ( N )
 

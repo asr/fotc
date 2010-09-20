@@ -9,7 +9,7 @@ open import LTC.Minimal
 open import LTC.Data.List using
   ( _++_
   ; indList
-  ; List -- The LTC list type
+  ; List  -- The LTC list type.
   )
 
 ------------------------------------------------------------------------------

@@ -10,7 +10,7 @@ open import LTC.MinimalER using ( subst )
 open import LTC.Data.Nat using
   ( _+_ ; _-_
   ; _*_ ; *-0x ; *-Sx
-  ; N ; sN ; zN -- The LTC natural numbers type
+  ; N ; sN ; zN  -- The LTC natural numbers type.
   )
 open import LTC.Data.Nat.Divisibility using ( _∣_ )
 open import LTC.Data.Nat.Inequalities using ( LE )

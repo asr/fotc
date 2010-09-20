@@ -7,7 +7,7 @@ module LTC.Data.List.Bisimulation where
 open import LTC.Minimal
 
 open import LTC.Data.List using
-  ( List ; consL ; nilL -- The LTC list type
+  ( List ; consL ; nilL  -- The LTC list type.
   )
 open import LTC.Minimal.Properties using ( ≡-list )
 

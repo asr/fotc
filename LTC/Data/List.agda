@@ -38,11 +38,16 @@ postulate
 {-# ATP axiom map-∷ #-}
 
 postulate
-  reverse    : D → D
-  reverse-[] : reverse []                    ≡ []
-  reverse-∷  : (d ds : D) → reverse (d ∷ ds) ≡ reverse ds ++ d ∷ []
-{-# ATP axiom reverse-[] #-}
-{-# ATP axiom reverse-∷ #-}
+  -- Behavior: rev xs ys = reverse xs ++ ys
+  rev    : D → D → D
+  rev-[] : (es : D) →      rev []       es ≡ es
+  rev-∷  : (d ds es : D) → rev (d ∷ ds) es ≡ rev ds (d ∷ es)
+{-# ATP axiom rev-[] #-}
+{-# ATP axiom rev-∷ #-}
+
+reverse : D → D
+reverse ds = rev ds []
+{-# ATP definition reverse #-}
 
 postulate
   replicate   : D → D → D

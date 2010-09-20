@@ -33,7 +33,7 @@ open import Examples.SortList.SortList using
   ; LE-TreeItem
   ; ListOrd
   ; nilTree ; node ; tip
-  ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type
+  ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
   ; TreeOrd
   )
 
