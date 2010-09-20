@@ -4,6 +4,7 @@ general_roles_TPTP = /tmp/general-roles.tptp
 
 AGDA = agda -v 0
 AGDA2ATP = agda2atp --atp=equinox --atp=eprover
+# AGDA2ATP = agda2atp --atp=metis
 
 succeed_conjectures_path     = Test/Succeed/Conjectures
 succeed_non_conjectures_path = Test/Succeed/NonConjectures
