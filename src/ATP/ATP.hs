@@ -68,7 +68,7 @@ eproverOk = "Proof found!"
 equinoxOk :: String
 equinoxOk = "+++ RESULT: Theorem"
 
--- Tested with Metis 2.2 (release 20100825).
+-- Tested with Metis 2.3 (release 20100920).
 metisOk :: String
 metisOk = "SZS status Theorem"
 
