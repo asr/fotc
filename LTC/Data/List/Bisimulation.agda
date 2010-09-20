@@ -18,9 +18,9 @@ infix 4 _∼_ _≈_
 -- The bisimulation on LTC list terms
 postulate
   _∼_     : D → D → D
-  ∼-[]-[] : [] ∼ []                           ≡ true
-  ∼-[]-∷  : (x xs : D) → [] ∼ x ∷ xs          ≡ false
-  ∼-∷-[]  : (x xs : D) → x ∷ xs ∼ []          ≡ false
+  ∼-[]-[] :                 []     ∼ []       ≡ true
+  ∼-[]-∷  : (x xs : D) →    []     ∼ x ∷ xs   ≡ false
+  ∼-∷-[]  : (x xs : D) →    x ∷ xs ∼ []       ≡ false
   ∼-∷-∷   : (x xs ys : D) → x ∷ xs ∼ x ∷ ys   ≡ xs ∼ ys
 {-# ATP axiom ∼-[]-[] #-}
 {-# ATP axiom ∼-[]-∷ #-}

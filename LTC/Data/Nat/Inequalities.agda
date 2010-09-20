@@ -10,14 +10,10 @@ open import LTC.Minimal
 
 postulate
   _<_  : D → D → D
-
-  <-00 : zero < zero                     ≡ false
-
-  <-0S : (d : D) → zero < (succ d)       ≡ true
-
-  <-S0 : (d : D) → (succ d) < zero       ≡ false
-
-  <-SS : (d e : D) → (succ d) < (succ e) ≡ d < e
+  <-00 :             zero   < zero   ≡ false
+  <-0S : (d : D) →   zero   < succ d ≡ true
+  <-S0 : (d : D) →   succ d < zero   ≡ false
+  <-SS : (d e : D) → succ d < succ e ≡ d < e
 
 {-# ATP axiom <-00 #-}
 {-# ATP axiom <-0S #-}
@@ -25,7 +21,7 @@ postulate
 {-# ATP axiom <-SS #-}
 
 _≤_ : D → D → D
-d ≤ e = d < (succ e)
+d ≤ e = d < succ e
 {-# ATP definition _≤_ #-}
 
 _>_ : D → D → D
@@ -76,4 +72,3 @@ NGE d e = d ≥ e ≡ false
 LT₂ : D → D → D → D → Set
 LT₂ x₁ y₁ x₂ y₂ = LT x₁ x₂ ∨ x₁ ≡ x₂ ∧ LT y₁ y₂
 {-# ATP definition LT₂ #-}
-

@@ -18,15 +18,15 @@ open import LTC.Data.Nat.Type public
 
 postulate
   _+_  : D → D → D
-  +-0x : (d : D) → zero + d     ≡ d
+  +-0x : (d : D) →   zero   + d ≡ d
   +-Sx : (d e : D) → succ d + e ≡ succ (d + e)
 {-# ATP axiom +-0x #-}
 {-# ATP axiom +-Sx #-}
 
 postulate
   _-_      : D → D → D
-  minus-x0 : (d : D) → d - zero          ≡ d
-  minus-0S : (d : D) → zero - succ d     ≡ zero
+  minus-x0 : (d : D) →   d      - zero   ≡ d
+  minus-0S : (d : D) →   zero   - succ d ≡ zero
   minus-SS : (d e : D) → succ d - succ e ≡ d - e
 {-# ATP axiom minus-x0 #-}
 {-# ATP axiom minus-0S #-}
@@ -34,7 +34,7 @@ postulate
 
 postulate
   _*_ : D → D → D
-  *-0x : (d : D)   → zero * d   ≡ zero
+  *-0x : (d : D)   → zero   * d ≡ zero
   *-Sx : (d e : D) → succ d * e ≡ e + d * e
 {-# ATP axiom *-0x #-}
 {-# ATP axiom *-Sx #-}

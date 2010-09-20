@@ -109,14 +109,14 @@ postulate
 
 postulate
   -- Conversion rules for pred.
-  cP₁ : pred zero               ≡ zero
+  cP₁ :           pred zero     ≡ zero
   cP₂ : (n : D) → pred (succ n) ≡ n
 {-# ATP axiom cP₁ #-}
 {-# ATP axiom cP₂ #-}
 
 postulate
   -- Conversion rules for isZero
-  cZ₁ : isZero zero               ≡ true
+  cZ₁ :           isZero zero     ≡ true
   cZ₂ : (n : D) → isZero (succ n) ≡ false
 {-# ATP axiom cZ₁ #-}
 {-# ATP axiom cZ₂ #-}
