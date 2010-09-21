@@ -17,7 +17,7 @@ postulate
 -- The ATPs should not prove this postulate.
 postulate
   +-comm : (d e : D) → d + e ≡ e + d
+-- E 1.2 success (SZS status CounterSatisfiable).
 -- Equinox 5.0alpha (2010-03-29) no-success due to timeout.
--- E 1.2 no-success due to timeout.
--- TODO: Metis 2.2 (release 20100825) success (SZS status CounterSatisfiable).
+-- Metis 2.3 (release 20100920) success (SZS status CounterSatisfiable).
 {-# ATP prove +-comm #-}
