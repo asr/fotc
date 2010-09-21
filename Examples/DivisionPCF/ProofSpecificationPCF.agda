@@ -22,7 +22,10 @@ open import Examples.DivisionPCF.IsN-PCF using
   ( div-x<y-N ; div-x≥y-N )
 open import Examples.DivisionPCF.SpecificationPCF using ( DIV )
 
-open import LTC-PCF.DataPCF.NatPCF using ( _-_ ; N )
+open import LTC-PCF.DataPCF.NatPCF using
+  ( _-_ ;
+  N  -- The LTC natural numbers type.
+  )
 open import LTC-PCF.DataPCF.NatPCF.InductionPCF.WellFoundedPCF using
   ( wfIndN-LT )
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( GE ; GT ; LT )

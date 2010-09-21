@@ -6,22 +6,34 @@ module Examples.GCD-PCF.IsDivisiblePCF where
 
 open import LTC.Minimal
 
-open import Examples.GCD.Types
-open import Examples.GCD-PCF.GCD-PCF
-open import Examples.GCD-PCF.EquationsPCF
-open import Examples.GCD-PCF.IsCommonDivisorPCF
+open import Examples.GCD.Types using ( ¬x≡0∧y≡0 )
+open import Examples.GCD-PCF.GCD-PCF using ( gcd )
+open import Examples.GCD-PCF.EquationsPCF using
+  ( gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S )
+open import Examples.GCD-PCF.IsCommonDivisorPCF using ( CD )
 
-open import LTC-PCF.DataPCF.NatPCF
-open import LTC-PCF.DataPCF.NatPCF.DivisibilityPCF
-open import LTC-PCF.DataPCF.NatPCF.DivisibilityPCF.PropertiesPCF
-open import LTC-PCF.DataPCF.NatPCF.InductionPCF.LexicographicPCF
-open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF
-open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF
-open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF
+open import LTC-PCF.DataPCF.NatPCF using
+  ( _-_
+  ; N ; sN ; zN  -- The LTC natural numbers type.
+  )
+open import LTC-PCF.DataPCF.NatPCF.DivisibilityPCF using ( _∣_ )
+open import LTC-PCF.DataPCF.NatPCF.DivisibilityPCF.PropertiesPCF using
+  ( x∣y→x∣z→x∣y-z )
+open import LTC-PCF.DataPCF.NatPCF.InductionPCF.LexicographicPCF using
+  ( wfIndN-LT₂ )
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( GT ; LE ; LT₂ )
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF using
+  ( ¬0>x
+  ; ¬S≤0
+  ; [Sx-Sy,Sy]<[Sx,Sy]
+  ; [Sx,Sy-Sx]<[Sx,Sy]
+  ; x>y∨x≤y
+  )
+open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF using ( minus-N )
 
 open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
 
-open import MyStdLib.Function
+open import MyStdLib.Function using ( _$_ )
 
 ------------------------------------------------------------------------------
 -- Divisible for any common divisor.

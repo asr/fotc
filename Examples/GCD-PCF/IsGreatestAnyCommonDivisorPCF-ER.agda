@@ -6,12 +6,17 @@ module Examples.GCD-PCF.IsGreatestAnyCommonDivisorPCF-ER where
 
 open import LTC.Minimal
 
-open import Examples.GCD-PCF.IsCommonDivisorPCF-ER
-open import Examples.GCD-PCF.IsDivisiblePCF-ER
+open import Examples.GCD-PCF.IsCommonDivisorPCF-ER using ( CD )
+open import Examples.GCD-PCF.IsDivisiblePCF-ER using ( Divisible )
 
-open import LTC-PCF.DataPCF.NatPCF
-open import LTC-PCF.DataPCF.NatPCF.DivisibilityPCF.PropertiesPCF-ER
-open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF
+open import LTC-PCF.DataPCF.NatPCF using
+  ( N ; sN ; zN  -- The LTC natural numbers type.
+  )
+open import LTC-PCF.DataPCF.NatPCF.DivisibilityPCF.PropertiesPCF-ER using
+  ( 0∤x
+  ; x∣S→x≤S
+  )
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( LE )
 
 open import MyStdLib.Function using ( _$_ )
 

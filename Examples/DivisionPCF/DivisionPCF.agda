@@ -15,7 +15,7 @@ module Examples.DivisionPCF.DivisionPCF where
 
 open import LTC.Minimal
 
-open import LTC-PCF.DataPCF.NatPCF                 using ( _-_ )
+open import LTC-PCF.DataPCF.NatPCF using ( _-_ )
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( _<_ )
 
 ------------------------------------------------------------------------------

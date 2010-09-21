@@ -7,8 +7,8 @@ module Examples.DivisionPCF.IsCorrectPCF-ER where
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
-open import Examples.DivisionPCF.DivisionPCF      using ( div )
-open import Examples.DivisionPCF.EquationsPCF-ER  using ( div-x<y ; div-x≥y )
+open import Examples.DivisionPCF.DivisionPCF using ( div )
+open import Examples.DivisionPCF.EquationsPCF-ER using ( div-x<y ; div-x≥y )
 open import Examples.DivisionPCF.SpecificationPCF using ( DIV )
 
 open import LTC-PCF.DataPCF.NatPCF using ( _+_ ; _-_ ; _*_ ; N )

@@ -9,14 +9,18 @@ module Examples.GCD-PCF.ProofSpecificationPCF where
 
 open import LTC.Minimal
 
-open import Examples.GCD.Types
-open import Examples.GCD-PCF.GCD-PCF
-open import Examples.GCD-PCF.IsCommonDivisorPCF
-open import Examples.GCD-PCF.IsDivisiblePCF
-open import Examples.GCD-PCF.IsGreatestAnyCommonDivisorPCF
-open import Examples.GCD-PCF.IsN-PCF
+open import Examples.GCD.Types using ( ¬x≡0∧y≡0 )
+open import Examples.GCD-PCF.GCD-PCF using ( gcd )
+open import Examples.GCD-PCF.IsCommonDivisorPCF using
+  ( CD ; gcd-CD )
+open import Examples.GCD-PCF.IsDivisiblePCF using ( gcd-Divisible )
+open import Examples.GCD-PCF.IsGreatestAnyCommonDivisorPCF using
+  ( GACD ; gcd-GACD )
+open import Examples.GCD-PCF.IsN-PCF using ( gcd-N )
 
-open import LTC-PCF.DataPCF.NatPCF
+open import LTC-PCF.DataPCF.NatPCF using
+  ( N  -- The LTC natural numbers type.
+  )
 
 -----------------------------------------------------------------------
 -- The 'gcd' is the GCD
