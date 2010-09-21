@@ -42,7 +42,7 @@ minus-N zN (sN {n} _ ) = prf
 
 minus-N (sN {m} Nm) (sN {n} Nn) = prf $ minus-N Nm Nn
   where
-    postulate prf : N (m - n) → -- IH.
+    postulate prf : N (m - n) →  -- IH.
                     N (succ m - succ n)
     {-# ATP prove prf #-}
 
@@ -53,7 +53,7 @@ minus-N (sN {m} Nm) (sN {n} Nn) = prf $ minus-N Nm Nn
     {-# ATP prove prf #-}
 +-N {n = n} (sN {m} Nm) Nn = prf $ +-N Nm Nn
   where
-    postulate prf : N (m + n) → -- IH.
+    postulate prf : N (m + n) →  -- IH.
                     N (succ m + n)
     {-# ATP prove prf sN #-}
 
@@ -64,7 +64,7 @@ minus-N (sN {m} Nm) (sN {n} Nn) = prf $ minus-N Nm Nn
     {-# ATP prove prf zN #-}
 *-N {n = n} (sN {m} Nm) Nn = prf $ *-N Nm Nn
   where
-    postulate prf : N (m * n) → -- IH.
+    postulate prf : N (m * n) →  -- IH.
                     N (succ m * n)
     {-# ATP prove prf +-N #-}
 
@@ -78,7 +78,7 @@ minus-N (sN {m} Nm) (sN {n} Nn) = prf $ minus-N Nm Nn
 +-rightIdentity zN          = +-leftIdentity zN
 +-rightIdentity (sN {n} Nn) = prf $ +-rightIdentity Nn
    where
-     postulate prf : n + zero ≡ n → -- IH.
+     postulate prf : n + zero ≡ n →  -- IH.
                      succ n + zero ≡ succ n
      {-# ATP prove prf #-}
 
@@ -89,7 +89,7 @@ minus-N (sN {m} Nm) (sN {n} Nn) = prf $ minus-N Nm Nn
     {-# ATP prove prf #-}
 +-assoc {n = n} {o} (sN {m} Nm) Nn No = prf $ +-assoc Nm Nn No
   where
-    postulate prf : m + n + o ≡ m + (n + o) → -- IH.
+    postulate prf : m + n + o ≡ m + (n + o) →  -- IH.
                     succ m + n + o ≡ succ m + (n + o)
     {-# ATP prove prf #-}
 
@@ -100,7 +100,7 @@ x+1+y≡1+x+y {n = n} zN _ = prf
     {-# ATP prove prf #-}
 x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn = prf $ x+1+y≡1+x+y Nm Nn
   where
-    postulate prf : m + succ n ≡ succ (m + n) → -- IH.
+    postulate prf : m + succ n ≡ succ (m + n) →  -- IH.
                     succ m + succ n ≡ succ (succ m + n)
     {-# ATP prove prf #-}
 
@@ -112,6 +112,7 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn = prf $ x+1+y≡1+x+y Nm Nn
 +-comm {n = n} (sN {m} Nm) Nn = prf $ +-comm Nm Nn
   where
     postulate prf : m + n ≡ n + m → succ m + n ≡ n + succ m
+    -- Metis 2.3 (release 20100920) no-success due to timeout (180).
     {-# ATP prove prf x+1+y≡1+x+y #-}
 
 minus-0x : {n : D} → N n → zero - n  ≡ zero
@@ -129,7 +130,7 @@ minus-0x (sN {n} _ ) = minus-0S n
 [x+y]-[x+z]≡y-z {n = n} {o} (sN {m} Nm) Nn No =
   prf $ [x+y]-[x+z]≡y-z Nm Nn No
   where
-    postulate prf : (m + n) - (m + o) ≡ n - o → -- IH.
+    postulate prf : (m + n) - (m + o) ≡ n - o →  -- IH.
                     (succ m + n) - (succ m + o) ≡ n - o
     {-# ATP prove prf #-}
 
@@ -140,7 +141,7 @@ minus-0x (sN {n} _ ) = minus-0S n
 *-rightZero zN          = *-leftZero zero
 *-rightZero (sN {n} Nn) = prf $ *-rightZero Nn
   where
-    postulate prf : n * zero ≡ zero → -- IH.
+    postulate prf : n * zero ≡ zero →  -- IH.
                     succ n * zero ≡ zero
     {-# ATP prove prf #-}
 
@@ -157,10 +158,11 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
                                         (+-assoc Nm Nn (*-N Nm Nn))
   where
     -- N.B. We had to feed the ATP with the instances of the associate law
-    postulate prf :  m * succ n ≡ m + m * n → -- IH
-                     (n + m) + (m * n) ≡ n + (m + (m * n)) → -- Associative law
-                     (m + n) + (m * n) ≡ m + (n + (m * n)) → -- Associateve law
+    postulate prf :  m * succ n ≡ m + m * n →  -- IH
+                     (n + m) + (m * n) ≡ n + (m + (m * n)) →  -- Associative law
+                     (m + n) + (m * n) ≡ m + (n + (m * n)) →  -- Associateve law
                      succ m * succ n ≡ succ m + succ m * n
+    -- Metis 2.3 (release 20100920) no-success due to timeout (180).
     {-# ATP prove prf +-comm #-}
 
 *-comm : {m n : D} → N m → N n → m * n ≡ n * m
@@ -170,8 +172,9 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
     {-# ATP prove prf *-rightZero #-}
 *-comm {n = n} (sN {m} Nm) Nn = prf $ *-comm Nm Nn
   where
-    postulate prf : m * n ≡ n * m → -- IH.
+    postulate prf : m * n ≡ n * m →  -- IH.
                     succ m * n ≡ n * succ m
+    -- Metis 2.3 (release 20100920) no-success due to timeout (180).
     {-# ATP prove prf x*1+y≡x+xy #-}
 
 [x-y]z≡xz*yz : {m n o : D} → N m → N n → N o → (m - n) * o ≡ m * o - n * o
@@ -189,21 +192,24 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
 [x-y]z≡xz*yz (sN {m} _ ) (sN {n} _ ) zN = prf
   where
     postulate prf : (succ m - succ n) * zero ≡ succ m * zero - succ n * zero
+    -- Metis 2.3 (release 20100920) no-success due to timeout (180).
     {-# ATP prove prf *-comm minus-N zN #-}
 
 [x-y]z≡xz*yz (sN {m} Nm) (sN {n} Nn) (sN {o} No) =
   prf $ [x-y]z≡xz*yz Nm Nn (sN No)
   where
-    postulate prf : (m - n) * succ o ≡ m * succ o - n * succ o → -- IH
+    postulate prf : (m - n) * succ o ≡ m * succ o - n * succ o →  -- IH
                     (succ m - succ n) * succ o ≡
                     succ m * succ o - succ n * succ o
     -- E 1.2 no-success due to timeout (180).
+    -- Metis 2.3 (release 20100920) no-success due to timeout (180).
     {-# ATP prove prf sN *-N [x+y]-[x+z]≡y-z #-}
 
 [x+y]z≡xz*yz : {m n o : D} → N m → N n → N o → (m + n) * o ≡ m * o + n * o
 [x+y]z≡xz*yz {m} {n} _ _ zN = prf
   where
     postulate prf : (m + n) * zero ≡ m * zero + n * zero
+    -- Metis 2.3 (release 20100920) no-success due to timeout (180).
     {-# ATP prove prf zN sN *-comm +-rightIdentity *-N +-N #-}
 
 [x+y]z≡xz*yz {n = n} zN _ (sN {o} _ ) = prf
@@ -214,12 +220,14 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
 [x+y]z≡xz*yz (sN {m} _ ) zN (sN {o} _ ) = prf
   where
     postulate prf : (succ m + zero) * succ o ≡ succ m * succ o + zero * succ o
+    -- Metis 2.3 (release 20100920) no-success due to timeout (180).
     {-# ATP prove prf +-rightIdentity *-leftZero sN *-N #-}
 
 [x+y]z≡xz*yz (sN {m} Nm) (sN {n} Nn) (sN {o} No) =
   prf $ [x+y]z≡xz*yz Nm (sN Nn) (sN No)
     where
       postulate
-        prf : (m + succ n) * succ o ≡ m * succ o + succ n * succ o → -- IH.
+        prf : (m + succ n) * succ o ≡ m * succ o + succ n * succ o →  -- IH.
               (succ m + succ n) * succ o ≡ succ m * succ o + succ n * succ o
+      -- Metis 2.3 (release 20100920) no-success due to timeout (180).
       {-# ATP prove prf +-assoc sN *-N #-}

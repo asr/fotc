@@ -6,11 +6,14 @@ module Examples.DivisionPCF.IsCorrectPCF where
 
 open import LTC.Minimal
 
-open import Examples.DivisionPCF.DivisionPCF      using ( div )
-open import Examples.DivisionPCF.EquationsPCF     using ( div-x<y ; div-x≥y )
+open import Examples.DivisionPCF.DivisionPCF using ( div )
+open import Examples.DivisionPCF.EquationsPCF using ( div-x<y ; div-x≥y )
 open import Examples.DivisionPCF.SpecificationPCF using ( DIV )
 
-open import LTC-PCF.DataPCF.NatPCF using ( _+_ ; _-_ ; _*_ ; N )
+open import LTC-PCF.DataPCF.NatPCF using
+  ( _+_ ; _-_ ; _*_
+  ; N  -- The LTC natural numbers type.
+  )
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( GE ; LT )
 open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF using
   ( +-leftIdentity
@@ -50,6 +53,7 @@ postulate
                 i - j ≡ j * (div (i - j) j) + r →
                 i ≡ j * (div i j) + r
 -- E 1.2 no-success due to timeout (180).
+-- Metis 2.3 (release 20100920) no-success due to timeout (180).
 {-# ATP prove div-x≥y-aux div-x≥y aux #-}
 
 div-x≥y-correct : {i j : D} → N i → N j →

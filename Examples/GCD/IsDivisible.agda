@@ -70,6 +70,7 @@ postulate
     (c ∣ succ m - succ n) →
     c ∣ gcd (succ m) (succ n)
 -- E 1.2 no-success due to timeout (180).
+-- Metis 2.3 (release 20100920) no-success due to timeout (180).
 {-# ATP prove gcd-S>S-Divisible-ah #-}
 
 gcd-S>S-Divisible :
@@ -95,6 +96,7 @@ postulate
     (c ∣ succ n - succ m) →
     c ∣ gcd (succ m) (succ n)
 -- E 1.2 no-success due to timeout (180).
+-- Metis 2.3 (release 20100920) no-success due to timeout (180).
 {-# ATP prove gcd-S≤S-Divisible-ah #-}
 
 gcd-S≤S-Divisible :

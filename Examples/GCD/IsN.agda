@@ -50,6 +50,7 @@ postulate
               N (gcd (succ m - succ n) (succ n)) →
               GT (succ m) (succ n) →
               N (gcd (succ m) (succ n))
+-- Metis 2.3 (release 20100920) no-success due to timeout (180).
 {-# ATP prove gcd-S>S-N #-}
 
 ------------------------------------------------------------------------------
@@ -60,6 +61,7 @@ postulate
               N (gcd (succ m) (succ n - succ m)) →
               LE (succ m) (succ n) →
               N (gcd (succ m) (succ n))
+-- Metis 2.3 (release 20100920) no-success due to timeout (180).
 {-# ATP prove gcd-S≤S-N #-}
 
 ---------------------------------------------------------------------------

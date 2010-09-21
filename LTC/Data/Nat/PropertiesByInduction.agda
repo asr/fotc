@@ -14,7 +14,7 @@ open import LTC.Data.Nat using ( _+_ ; indN ; N )
 -- principle associated with the LTC natural numbers. The following
 -- example shows a proof using it.
 
--- Proof without use definitions
+-- Proof without use ATPs definitions
 +-assocND : {m n o : D} → N m → N n → N o → m + n + o ≡ m + (n + o)
 +-assocND {n = n} {o} Nm _ _ = indN P P0 iStep Nm
   where
@@ -23,16 +23,16 @@ open import LTC.Data.Nat using ( _+_ ; indN ; N )
 
     postulate
       P0 : zero + n + o ≡ zero + (n + o)
-    {-# ATP prove P0 #-} -- We use the ATP systems to prove the base case.
+    {-# ATP prove P0 #-}  -- We use the ATP systems to prove the base case.
 
     postulate
       iStep : {i : D} → N i →
               i + n + o ≡ i + (n + o) → -- IH.
               succ i + n + o ≡ succ i + (n + o)
-    {-# ATP prove iStep #-} -- We use the ATP systems to prove the
-                            -- induction step.
+    {-# ATP prove iStep #-}  -- We use the ATP systems to prove the
+                             -- induction step.
 
--- Proof using definitions
+-- Proof using ATPs definitions
 +-assocD : {m n o : D} → N m → N n → N o → m + n + o ≡ m + (n + o)
 +-assocD {n = n} {o} Nm _ _ = indN P P0 iStep Nm
   where
@@ -42,9 +42,11 @@ open import LTC.Data.Nat using ( _+_ ; indN ; N )
 
     postulate
       P0 : P zero
-    {-# ATP prove P0 #-} -- We use the ATP systems to prove the base case.
+    -- Metis 2.3 (release 20100920) no-success due to timeout (180).
+    {-# ATP prove P0 #-}  -- We use the ATP systems to prove the base case.
 
     postulate
       iStep : {i : D} → N i → P i → P (succ i)
-    {-# ATP prove iStep #-} -- We use the ATP systems to prove the
-                            -- induction step.
+    -- Metis 2.3 (release 20100920) no-success due to timeout (180).
+    {-# ATP prove iStep #-}  -- We use the ATP systems to prove the
+                             -- induction step.
