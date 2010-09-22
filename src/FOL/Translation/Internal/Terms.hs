@@ -30,7 +30,7 @@ import Agda.Syntax.Internal
     ( Abs(Abs)
     , Args
     , Sort(Type)
-    , Term(Con, Def, Fun, Lam, Lit, MetaV, Pi, Sort, Var)
+    , Term(Con, Def, DontCare, Fun, Lam, Lit, MetaV, Pi, Sort, Var)
     , Type(El)
     )
 import Agda.Syntax.Literal ( Literal(LitLevel) )
@@ -284,6 +284,7 @@ termToFormula term@(Var n _ ) = do
      then __IMPOSSIBLE__
      else return $ Predicate (vars !! fromIntegral n) []
 
+termToFormula DontCare     = __IMPOSSIBLE__
 termToFormula (Con _ _ )   = __IMPOSSIBLE__
 termToFormula (Lit _ )     = __IMPOSSIBLE__
 termToFormula (MetaV _ _ ) = __IMPOSSIBLE__
@@ -371,6 +372,7 @@ termToFOLTerm term@(Var n args) = do
 
          _  → __IMPOSSIBLE__
 
+termToFOLTerm DontCare     = __IMPOSSIBLE__
 termToFOLTerm (Fun _ _ )   = __IMPOSSIBLE__
 termToFOLTerm (Lam _ _ )   = __IMPOSSIBLE__
 termToFOLTerm (Lit _ )     = __IMPOSSIBLE__

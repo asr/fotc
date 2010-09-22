@@ -23,7 +23,7 @@ import Agda.Syntax.Internal
     ( Abs(Abs)
     , Args
     , arity
-    , Term(Def, Con, Fun, Lam, Lit, MetaV, Pi, Sort, Var)
+    , Term(Con, Def, DontCare, Fun, Lam, Lit, MetaV, Pi, Sort, Var)
     , Sort(Type)
     , Type(El)
     )
@@ -129,6 +129,7 @@ instance EtaExpandible Term where
       argsEtaExpanded ← mapM etaExpand args
       return $ Var n argsEtaExpanded
 
+    etaExpand DontCare     = __IMPOSSIBLE__
     etaExpand (Lit _ )     = __IMPOSSIBLE__
     etaExpand (MetaV _ _ ) = __IMPOSSIBLE__
     etaExpand (Sort _ )    = __IMPOSSIBLE__

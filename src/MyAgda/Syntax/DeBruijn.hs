@@ -32,7 +32,7 @@ import Agda.Syntax.Internal
     ( Abs(Abs)
     , Args
     , ClauseBody(Bind,Body)
-    , Term(Def, Con, Fun, Lam, Lit, MetaV, Pi, Sort, Var)
+    , Term(Con, Def, DontCare, Fun, Lam, Lit, MetaV, Pi, Sort, Var)
     , Sort(Type)
     , Type(El)
     )
@@ -52,6 +52,7 @@ instance IncreaseByOneVar Term where
     increaseByOneVar (Var _ _ )   = __IMPOSSIBLE__
     increaseByOneVar (Con _ _ )   = __IMPOSSIBLE__
     increaseByOneVar (Def _ _ )   = __IMPOSSIBLE__
+    increaseByOneVar DontCare     = __IMPOSSIBLE__
     increaseByOneVar (Fun _ _ )   = __IMPOSSIBLE__
     increaseByOneVar (Lam _ _ )   = __IMPOSSIBLE__
     increaseByOneVar (Lit _ )     = __IMPOSSIBLE__
@@ -119,6 +120,7 @@ instance RenameVar Term where
 
     renameVar (Var _ _ )   _   = __IMPOSSIBLE__
     renameVar (Con _ _ )   _   = __IMPOSSIBLE__
+    renameVar DontCare     _   = __IMPOSSIBLE__
     renameVar (Fun _ _ )   _   = __IMPOSSIBLE__
     renameVar (Lam _ _ )   _   = __IMPOSSIBLE__
     renameVar (Lit _ )     _   = __IMPOSSIBLE__
