@@ -2,7 +2,7 @@
 -- Equality reasoning
 -----------------------------------------------------------------------------
 
-module MyStdLib.Relation.Binary.EqReasoning
+module Lib.Relation.Binary.EqReasoning
   {A     : Set}
   ( _≡_  : A → A → Set)
   (refl  : {x : A} → x ≡ x)

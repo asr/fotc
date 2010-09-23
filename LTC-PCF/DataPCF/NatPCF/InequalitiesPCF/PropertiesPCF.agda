@@ -5,6 +5,9 @@
 module LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF where
 
 open import LTC.Minimal
+open import LTC.Minimal.Properties using ( x≡y→Sx≡Sy )
+
+open import Lib.Function using ( _$_ )
 
 open import LTC-PCF.DataPCF.NatPCF
   using ( _+_ ; _-_
@@ -22,10 +25,6 @@ open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF
         ; +-rightIdentity
         ; minus-0S ; minus-SS ; minus-x0
         )
-
-open import LTC.Relation.Equalities.Properties using ( x≡y→Sx≡Sy )
-
-open import MyStdLib.Function using ( _$_ )
 
 ------------------------------------------------------------------------------
 

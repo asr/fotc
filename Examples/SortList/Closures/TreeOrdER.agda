@@ -26,6 +26,9 @@ open import Examples.SortList.Closures.BoolER
         )
 open import Examples.SortList.Closures.TreeER using ( makeTree-Tree )
 
+import Lib.Relation.Binary.EqReasoning
+open module TreeOrd-ER = Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
+
 open import LTC.Data.Bool using ( _&&_ ; &&-tt )
 open import LTC.Data.Bool.PropertiesER
   using ( &&-Bool
@@ -46,10 +49,6 @@ open import LTC.Data.Nat.List.Type
         )
 open import LTC.Data.Nat.Type using ( N )
 open import LTC.Data.List using ( foldr ; foldr-[] ; foldr-∷ )
-
-import MyStdLib.Relation.Binary.EqReasoning
-open module TreeOrd-ER =
-  MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 ------------------------------------------------------------------------------
 -- Subtrees

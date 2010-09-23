@@ -2,7 +2,7 @@
 -- The sum (disjoint unions) data type
 -----------------------------------------------------------------------------
 
-module LTC.Data.Sum where
+module Lib.Data.Sum where
 
 infixr 1 _∨_
 

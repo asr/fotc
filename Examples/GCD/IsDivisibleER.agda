@@ -5,12 +5,15 @@
 module Examples.GCD.IsDivisibleER where
 
 open import LTC.Minimal
+open import LTC.Minimal.Properties using ( ¬S≡0 )
 open import LTC.MinimalER using ( subst )
 
 open import Examples.GCD.GCD
   using ( gcd ; gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S)
 open import Examples.GCD.IsCommonDivisorER using ( CD )
 open import Examples.GCD.Types using ( ¬x≡0∧y≡0 )
+
+open import Lib.Function using ( _$_ )
 
 open import LTC.Data.Nat
   using ( _-_
@@ -28,9 +31,6 @@ open import LTC.Data.Nat.Inequalities.PropertiesER
         ; x>y∨x≤y
         )
 open import LTC.Data.Nat.PropertiesER using ( minus-N )
-open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
-
-open import MyStdLib.Function using ( _$_ )
 
 ------------------------------------------------------------------------------
 -- Divisible for any common divisor.

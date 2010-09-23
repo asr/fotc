@@ -4,13 +4,19 @@
 
 module LTC.Everything where
 
+open import Lib.Data.Empty
+open import Lib.Data.Product
+open import Lib.Data.Sum
+open import Lib.Data.Unit
+open import Lib.Function
+open import Lib.Relation.Binary.EqReasoning
+open import Lib.Relation.Nullary
+
 open import LTC.Minimal
 open import LTC.Minimal.Properties
 
 open import LTC.Data.Bool
 open import LTC.Data.Bool.Properties
-
-open import LTC.Data.Empty
 
 open import LTC.Data.List
 open import LTC.Data.List.Bisimulation
@@ -32,10 +38,3 @@ open import LTC.Data.Nat.PropertiesByInduction
 open import LTC.Data.Nat.Type
 
 open import LTC.Data.Product
-
-open import LTC.Data.Sum
-
-open import LTC.Data.Unit
-
-open import LTC.Relation.Equalities.Properties
-open import LTC.Relation.Nullary

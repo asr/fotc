@@ -2,7 +2,7 @@
 -- The unit type
 ------------------------------------------------------------------------
 
-module LTC.Data.Unit where
+module Lib.Data.Unit where
 
 ------------------------------------------------------------------------
 -- N.B. The name of this type is "\top", not T.

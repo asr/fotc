@@ -19,6 +19,9 @@ open import Examples.SortList.SortList
         ; ListOrd
         )
 
+import Lib.Relation.Binary.EqReasoning
+open module SortList-ER = Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
+
 open import LTC.Data.Bool using ( _&&_ ; &&-tt )
 open import LTC.Data.Bool.PropertiesER
   using ( x&&y≡true→x≡true
@@ -30,10 +33,6 @@ open import LTC.Data.Nat.List.Type
         )
 open import LTC.Data.Nat.Type using ( N )
 open import LTC.Data.List using ( _++_ ; ++-[] ; ++-∷ )
-
-import MyStdLib.Relation.Binary.EqReasoning
-open module Properties-ER =
-  MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 ------------------------------------------------------------------------------
 -- If (i ∷ is) is ordered then 'is' is ordered.

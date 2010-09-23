@@ -9,6 +9,8 @@ open import LTC.Minimal
 open import Examples.GCD-PCF.IsCommonDivisorPCF using ( CD )
 open import Examples.GCD-PCF.IsDivisiblePCF using ( Divisible )
 
+open import Lib.Function using ( _$_ )
+
 open import LTC-PCF.DataPCF.NatPCF
   using ( N ; sN ; zN  -- The LTC natural numbers type.
         )
@@ -17,8 +19,6 @@ open import LTC-PCF.DataPCF.NatPCF.DivisibilityPCF.PropertiesPCF
         ; x∣S→x≤S
         )
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( LE )
-
-open import MyStdLib.Function using ( _$_ )
 
 ---------------------------------------------------------------------------
 

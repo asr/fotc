@@ -5,6 +5,9 @@
 module LTC-PCF.DataPCF.NatPCF.DivisibilityPCF.PropertiesPCF where
 
 open import LTC.Minimal
+open import LTC.Minimal.Properties using ( ¬S≡0 )
+
+open import Lib.Function using ( _$_ )
 
 open import LTC-PCF.DataPCF.NatPCF
   using ( _+_ ; _-_ ; _*_
@@ -22,10 +25,6 @@ open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF
         ; [x+y]z≡xz*yz
         ; [x-y]z≡xz*yz
         )
-
-open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
-
-open import MyStdLib.Function using ( _$_ )
 
 ------------------------------------------------------------------------------
 -- Any positive number divides 0.

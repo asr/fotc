@@ -11,15 +11,16 @@ open import Examples.DivisionPCF.DivisionPCF using ( div )
 open import Examples.DivisionPCF.EquationsPCF-ER using ( div-x<y ; div-x≥y )
 open import Examples.DivisionPCF.SpecificationPCF using ( DIV )
 
+import Lib.Relation.Binary.EqReasoning
+open module IsCorrectPCF-ER =
+  Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
+
 open import LTC-PCF.DataPCF.NatPCF using ( _+_ ; _-_ ; _*_ ; N )
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( GE ; LT )
 open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF-ER
   using ( +-leftIdentity
         ; *-rightZero
         )
-
-import MyStdLib.Relation.Binary.EqReasoning
-open module IsNER = MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 ------------------------------------------------------------------------------
 

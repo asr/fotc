@@ -6,13 +6,13 @@ module LTC-PCF.DataPCF.NatPCF.PropertiesPCF where
 
 open import LTC.Minimal
 
+open import Lib.Function using ( _$_ )
+
 open import LTC-PCF.DataPCF.NatPCF
   using ( _+_ ; _-_ ; _*_
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
 open import LTC-PCF.DataPCF.NatPCF.RecPCF.PropertiesPCF using ( rec-0 ; rec-S )
-
-open import MyStdLib.Function using ( _$_ )
 
 ------------------------------------------------------------------------------
 

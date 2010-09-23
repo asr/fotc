@@ -5,7 +5,13 @@
 module LTC.Data.Nat.Inequalities.PropertiesER where
 
 open import LTC.Minimal
+open import LTC.Minimal.Properties using ( x≡y→Sx≡Sy )
 open import LTC.MinimalER using ( subst )
+
+open import Lib.Function using ( _$_ )
+import Lib.Relation.Binary.EqReasoning
+open module Inequalities-ER =
+  Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
@@ -18,12 +24,6 @@ open import LTC.Data.Nat.PropertiesER
   using ( +-N ; minus-N
         ; +-comm ; +-rightIdentity
         )
-open import LTC.Relation.Equalities.Properties using ( x≡y→Sx≡Sy )
-
-open import MyStdLib.Function
-import MyStdLib.Relation.Binary.EqReasoning
-open module Inequalities-ER =
-  MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 ------------------------------------------------------------------------------
 

@@ -7,16 +7,15 @@ module LTC.Data.List.PropertiesER where
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
+import Lib.Relation.Binary.EqReasoning
+open module List-ER = Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
+
 open import LTC.Data.List
   using ( _++_ ; ++-[] ; ++-∷
         ; List ; consL ; nilL  -- The LTC list type.
         ; rev ; rev-[] ; rev-∷
         ; reverse
         )
-
-import MyStdLib.Relation.Binary.EqReasoning
-open module List-ER =
-  MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 ------------------------------------------------------------------------------
 

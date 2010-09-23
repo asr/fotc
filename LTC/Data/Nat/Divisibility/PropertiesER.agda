@@ -5,7 +5,13 @@
 module LTC.Data.Nat.Divisibility.PropertiesER where
 
 open import LTC.Minimal
+open import LTC.Minimal.Properties using ( ¬S≡0 )
 open import LTC.MinimalER using ( subst )
+
+open import Lib.Function using ( _$_ )
+import Lib.Relation.Binary.EqReasoning
+open module Divisibility-ER =
+  Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 open import LTC.Data.Nat
   using ( _+_ ; _-_
@@ -22,13 +28,6 @@ open import LTC.Data.Nat.PropertiesER
         ; [x+y]z≡xz*yz
         ; [x-y]z≡xz*yz
         )
-
-open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
-
-open import MyStdLib.Function
-import MyStdLib.Relation.Binary.EqReasoning
-open module Divisibility-ER =
-  MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 ------------------------------------------------------------------------------
 -- Any positive number divides 0.

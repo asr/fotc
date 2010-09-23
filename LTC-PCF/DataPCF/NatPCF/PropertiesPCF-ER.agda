@@ -7,6 +7,9 @@ module LTC-PCF.DataPCF.NatPCF.PropertiesPCF-ER where
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
+import Lib.Relation.Binary.EqReasoning
+open module NatPCF-ER = Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
+
 open import LTC-PCF.DataPCF.NatPCF
   using ( _+_ ; +-aux
         ; _-_ ; minus-aux
@@ -15,11 +18,6 @@ open import LTC-PCF.DataPCF.NatPCF
         )
 open import LTC-PCF.DataPCF.NatPCF.RecPCF using ( rec )
 open import LTC-PCF.DataPCF.NatPCF.RecPCF.PropertiesPCF using ( rec-0 ; rec-S )
-
--- open import MyStdLib.Function
-import MyStdLib.Relation.Binary.EqReasoning
-open module NatPCF-ER =
-  MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 ------------------------------------------------------------------------------
 

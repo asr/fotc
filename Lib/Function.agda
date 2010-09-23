@@ -2,7 +2,7 @@
 -- Operations on and with functions
 ------------------------------------------------------------------------------
 
-module MyStdLib.Function where
+module Lib.Function where
 
 infixr 0 _$_
 

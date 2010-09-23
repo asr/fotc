@@ -5,10 +5,13 @@
 module Examples.GCD.IsCommonDivisor where
 
 open import LTC.Minimal
+open import LTC.Minimal.Properties using ( ¬S≡0 )
 
 open import Examples.GCD.GCD using ( gcd )
 open import Examples.GCD.IsN using ( gcd-N )
 open import Examples.GCD.Types using ( ¬x≡0∧y≡0 )
+
+open import Lib.Function using ( _$_)
 
 open import LTC.Data.Nat
   using ( _+_ ; _-_
@@ -31,9 +34,6 @@ open import LTC.Data.Nat.Inequalities.Properties
         ; [Sx,Sy-Sx]<[Sx,Sy]
         )
 open import LTC.Data.Nat.Properties using ( minus-N )
-open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
-
-open import MyStdLib.Function using ( _$_)
 
 ---------------------------------------------------------------------------
 -- Common divisor.

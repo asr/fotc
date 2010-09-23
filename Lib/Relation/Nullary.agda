@@ -2,9 +2,9 @@
 -- Operations on nullary relations
 ------------------------------------------------------------------------------
 
-module LTC.Relation.Nullary where
+module Lib.Relation.Nullary where
 
-open import LTC.Data.Empty using ( ⊥ )
+open import Lib.Data.Empty using ( ⊥ )
 
 infix 3 ¬_
 

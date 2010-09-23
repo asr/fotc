@@ -7,11 +7,14 @@
 module Examples.GCD-PCF.IsN-PCF where
 
 open import LTC.Minimal
+open import LTC.Minimal.Properties using ( ¬S≡0 )
 
 open import Examples.GCD.Types using ( ¬x≡0∧y≡0 )
 open import Examples.GCD-PCF.GCD-PCF using ( gcd )
 open import Examples.GCD-PCF.EquationsPCF
   using ( gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S )
+
+open import Lib.Function using ( _$_ )
 
 open import LTC-PCF.DataPCF.NatPCF
   using ( _-_
@@ -28,10 +31,6 @@ open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF
         ; [Sx,Sy-Sx]<[Sx,Sy]
         )
 open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF using ( minus-N )
-
-open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
-
-open import MyStdLib.Function using ( _$_ )
 
 ------------------------------------------------------------------------------
 -- The 'gcd 0 (succ n)' is N.

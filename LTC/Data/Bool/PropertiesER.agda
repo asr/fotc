@@ -7,6 +7,9 @@ module LTC.Data.Bool.PropertiesER where
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
+import Lib.Relation.Binary.EqReasoning
+open module Bool-ER = Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
+
 open import LTC.Data.Bool
   using ( _&&_ ; &&-ff ; &&-ft ; &&-tf ; &&-tt
         ; Bool ; fB ; tB  -- The LTC booleans type.
@@ -16,10 +19,6 @@ open import LTC.Data.Nat.Inequalities.PropertiesER using ( ≤-SS ; S≰0 )
 open import LTC.Data.Nat.Type
   using ( N ; sN ; zN  -- The LTC natural numbers type.
         )
-
-import MyStdLib.Relation.Binary.EqReasoning
-open module Bool-ER =
-  MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 ------------------------------------------------------------------------------
 -- Basic properties

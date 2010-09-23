@@ -29,6 +29,9 @@ open import Examples.SortList.SortList
         ; TreeOrd
         )
 
+import Lib.Relation.Binary.EqReasoning
+open module ListOrd-ER = Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
+
 open import LTC.Data.Bool using ( _&&_ ; &&-tt )
 open import LTC.Data.Bool.PropertiesER
   using ( ≤-Bool
@@ -41,10 +44,6 @@ open import LTC.Data.Nat.List.Type
         )
 open import LTC.Data.Nat.Type using ( N )
 open import LTC.Data.List using ( _++_ ; ++-[] ; ++-∷ )
-
-import MyStdLib.Relation.Binary.EqReasoning
-open module ListOrd-ER =
-  MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 open import Postulates using ( ++-ListOrd-aux₁ )
 

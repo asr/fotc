@@ -5,6 +5,9 @@
 module LTC.Data.Nat.Inequalities.Properties where
 
 open import LTC.Minimal
+open import LTC.Minimal.Properties using ( x≡y→Sx≡Sy )
+
+open import Lib.Function using ( _$_ )
 
 open import LTC.Data.Nat
   using ( _+_ ; _-_ ; minus-SS
@@ -21,9 +24,6 @@ open import LTC.Data.Nat.Properties
         ; +-comm
         ; +-rightIdentity
         )
-open import LTC.Relation.Equalities.Properties using ( x≡y→Sx≡Sy )
-
-open import MyStdLib.Function using ( _$_ )
 
 ------------------------------------------------------------------------------
 

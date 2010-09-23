@@ -16,5 +16,14 @@ postulate
   ∷-injective : {x y xs ys : D} → x ∷ xs ≡ y ∷ ys → x ≡ y ∧ xs ≡ ys
 {-# ATP prove ∷-injective #-}
 
+-- Equalities properties
+
 ≡-list : {x y xs ys : D} → x ≡ y → xs ≡ ys → x ∷ xs ≡ y ∷ ys
 ≡-list refl refl = refl
+
+¬S≡0 : {n : D} → ¬ (succ n ≡ zero)
+¬S≡0 S≡0 = 0≠S (sym S≡0)
+
+x≡y→Sx≡Sy : {m n : D} → m ≡ n → succ m ≡ succ n
+x≡y→Sx≡Sy refl = refl
+

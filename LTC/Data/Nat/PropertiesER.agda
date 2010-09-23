@@ -7,16 +7,16 @@ module LTC.Data.Nat.PropertiesER where
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
+open import Lib.Function using ( _$_ )
+import Lib.Relation.Binary.EqReasoning
+open module Nat-ER = Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
+
 open import LTC.Data.Nat
   using ( _+_ ; +-0x ; +-Sx
         ; _-_ ; minus-0S ; minus-SS ; minus-x0
         ; _*_ ; *-0x ; *-Sx
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
-
-open import MyStdLib.Function
-import MyStdLib.Relation.Binary.EqReasoning
-open module Nat-ER = MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 ------------------------------------------------------------------------------
 
