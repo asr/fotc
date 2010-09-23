@@ -7,12 +7,12 @@ module LTC.Data.List.PropertiesER where
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
-open import LTC.Data.List using
-  ( _++_ ; ++-[] ; ++-∷
-  ; List ; consL ; nilL  -- The LTC list type.
-  ; rev ; rev-[] ; rev-∷
-  ; reverse
-  )
+open import LTC.Data.List
+  using ( _++_ ; ++-[] ; ++-∷
+        ; List ; consL ; nilL  -- The LTC list type.
+        ; rev ; rev-[] ; rev-∷
+        ; reverse
+        )
 
 import MyStdLib.Relation.Binary.EqReasoning
 open module List-ER =

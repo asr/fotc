@@ -7,22 +7,22 @@ module LTC-PCF.DataPCF.NatPCF.DivisibilityPCF.PropertiesPCF-ER where
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
-open import LTC-PCF.DataPCF.NatPCF using
-  ( _+_ ; _-_ ; _*_
-  ; N ; sN ; zN  -- The LTC natural numbers type.
-  )
+open import LTC-PCF.DataPCF.NatPCF
+  using ( _+_ ; _-_ ; _*_
+        ; N ; sN ; zN  -- The LTC natural numbers type.
+        )
 open import LTC-PCF.DataPCF.NatPCF.DivisibilityPCF using ( _∣_ )
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( LE )
-open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF-ER using
-  ( x≤x+y )
-open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF-ER using
-  ( +-N ; *-N ; minus-N
-  ; *-0x ; *-Sx
-  ; *-leftIdentity
-  ; *-leftZero
-  ; [x+y]z≡xz*yz
-  ; [x-y]z≡xz*yz
-  )
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF-ER
+  using ( x≤x+y )
+open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF-ER
+  using ( +-N ; *-N ; minus-N
+        ; *-0x ; *-Sx
+        ; *-leftIdentity
+        ; *-leftZero
+        ; [x+y]z≡xz*yz
+        ; [x-y]z≡xz*yz
+        )
 open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
 
 open import MyStdLib.Function

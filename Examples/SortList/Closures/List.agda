@@ -6,11 +6,11 @@ module Examples.SortList.Closures.List where
 
 open import LTC.Minimal
 
-open import Examples.SortList.SortList using
-  ( flatten
-  ; nilTree ; node ; tip
-  ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
-  )
+open import Examples.SortList.SortList
+  using ( flatten
+        ; nilTree ; node ; tip
+        ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
+        )
 
 open import LTC.Data.Nat.List.Type using ( ListN )
 open import LTC.Data.Nat.List.Properties using ( ++-ListN )

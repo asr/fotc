@@ -6,44 +6,44 @@ module Examples.SortList.Closures.ListOrd where
 
 open import LTC.Minimal
 
-open import Examples.SortList.Closures.Bool using
-  ( ≤-ItemList-Bool
-  ; ≤-ItemTree-Bool
-  ; ≤-Lists-Bool
-  ; ≤-TreeItem-Bool
-  ; isListOrd-Bool
-  ; isTreeOrd-Bool
-  )
+open import Examples.SortList.Closures.Bool
+  using ( ≤-ItemList-Bool
+        ; ≤-ItemTree-Bool
+        ; ≤-Lists-Bool
+        ; ≤-TreeItem-Bool
+        ; isListOrd-Bool
+        ; isTreeOrd-Bool
+        )
 open import Examples.SortList.Closures.List using ( flatten-List )
-open import Examples.SortList.Closures.TreeOrd using
-  ( leftSubTree-TreeOrd
-  ; rightSubTree-TreeOrd
-  )
-open import Examples.SortList.Properties using
-  ( subList-ListOrd
-  ; xs≤[]
-  ; listOrd-xs++ys→ys≤zs→xs++ys≤zs
-  )
-open import Examples.SortList.SortList using
-  ( ≤-ItemList-∷
-  ; ≤-Lists-∷
-  ; flatten
-  ; LE-ItemList
-  ; LE-Lists
-  ; LE-TreeItem
-  ; ListOrd
-  ; nilTree ; node ; tip
-  ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
-  ; TreeOrd
-  )
+open import Examples.SortList.Closures.TreeOrd
+  using ( leftSubTree-TreeOrd
+        ; rightSubTree-TreeOrd
+        )
+open import Examples.SortList.Properties
+  using ( subList-ListOrd
+        ; xs≤[]
+        ; listOrd-xs++ys→ys≤zs→xs++ys≤zs
+        )
+open import Examples.SortList.SortList
+  using ( ≤-ItemList-∷
+        ; ≤-Lists-∷
+        ; flatten
+        ; LE-ItemList
+        ; LE-Lists
+        ; LE-TreeItem
+        ; ListOrd
+        ; nilTree ; node ; tip
+        ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
+        ; TreeOrd
+        )
 
-open import LTC.Data.Bool.Properties using
-  ( ≤-Bool
-  ; x&&y≡true→x≡true
-  ; x&&y≡true→y≡true
-  ; w&&x&&y&&z≡true→y≡true
-  ; w&&x&&y&&z≡true→z≡true
-  )
+open import LTC.Data.Bool.Properties
+  using ( ≤-Bool
+        ; x&&y≡true→x≡true
+        ; x&&y≡true→y≡true
+        ; w&&x&&y&&z≡true→y≡true
+        ; w&&x&&y&&z≡true→z≡true
+        )
 open import LTC.Data.Nat.List.Type using ( ListN ; consLN ; nilLN )
 open import LTC.Data.Nat.Type using ( N )
 open import LTC.Data.List using ( _++_ )

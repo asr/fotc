@@ -6,18 +6,18 @@ module LTC.Data.List.Properties where
 
 open import LTC.Minimal
 
-open import LTC.Data.Nat.Type using
-  ( N ; sN ; zN  -- The LTC natural numbers type.
-  )
-open import LTC.Data.List using
-  ( _++_ ; ++-[]
-  ; List ; consL ; nilL  -- The LTC list type.
-  ; length
-  ; map
-  ; replicate
-  ; rev
-  ; reverse
-  )
+open import LTC.Data.Nat.Type
+  using ( N ; sN ; zN  -- The LTC natural numbers type.
+        )
+open import LTC.Data.List
+  using ( _++_ ; ++-[]
+        ; List ; consL ; nilL  -- The LTC list type.
+        ; length
+        ; map
+        ; replicate
+        ; rev
+        ; reverse
+        )
 
 ------------------------------------------------------------------------------
 -- Closure properties

@@ -10,8 +10,8 @@ open import Examples.DivisionPCF.DivisionPCF using ( div )
 
 open import LTC-PCF.DataPCF.NatPCF using ( _-_ ; N )
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( GE ; LT )
-open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF using
-  ( x≥y→x≮y )
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF
+  using ( x≥y→x≮y )
 
 ----------------------------------------------------------------------
 -- The division result when the dividend is minor than the

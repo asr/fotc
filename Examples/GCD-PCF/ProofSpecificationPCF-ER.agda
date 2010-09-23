@@ -13,14 +13,13 @@ open import Examples.GCD.Types using ( ¬x≡0∧y≡0 )
 open import Examples.GCD-PCF.GCD-PCF using ( gcd )
 open import Examples.GCD-PCF.IsCommonDivisorPCF-ER using ( CD ; gcd-CD )
 open import Examples.GCD-PCF.IsDivisiblePCF-ER using ( gcd-Divisible )
-open import Examples.GCD-PCF.IsGreatestAnyCommonDivisorPCF-ER using
-  ( GACD ; gcd-GACD )
+open import Examples.GCD-PCF.IsGreatestAnyCommonDivisorPCF-ER
+  using ( GACD ; gcd-GACD )
 open import Examples.GCD-PCF.IsN-PCF-ER using ( gcd-N )
 
-
-open import LTC-PCF.DataPCF.NatPCF using
-  ( N  -- The LTC natural numbers type.
-  )
+open import LTC-PCF.DataPCF.NatPCF
+  using ( N  -- The LTC natural numbers type.
+        )
 
 -----------------------------------------------------------------------
 -- The 'gcd' is the GCD.

@@ -6,22 +6,22 @@ module Examples.SortList.Closures.Bool where
 
 open import LTC.Minimal
 
-open import Examples.SortList.SortList using
-  ( ≤-ItemList
-  ; ≤-ItemTree
-  ; ≤-Lists
-  ; ≤-TreeItem
-  ; isListOrd
-  ; isTreeOrd
-  ; nilTree ; node ; tip
-  ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
-  )
+open import Examples.SortList.SortList
+  using ( ≤-ItemList
+        ; ≤-ItemTree
+        ; ≤-Lists
+        ; ≤-TreeItem
+        ; isListOrd
+        ; isTreeOrd
+        ; nilTree ; node ; tip
+        ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
+        )
 
 open import LTC.Data.Bool using ( Bool )
 open import LTC.Data.Bool.Properties using ( &&-Bool ; ≤-Bool )
-open import LTC.Data.Nat.List.Type using
-  ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.
-  )
+open import LTC.Data.Nat.List.Type
+  using ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.
+        )
 open import LTC.Data.Nat.Type using ( N )
 
 ------------------------------------------------------------------------------

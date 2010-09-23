@@ -7,32 +7,32 @@ module Examples.GCD.IsCommonDivisorER where
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
-open import Examples.GCD.GCD using
-  ( gcd ; gcd-0S ; gcd-S0 ; gcd-S≤S ; gcd-S>S )
+open import Examples.GCD.GCD
+  using ( gcd ; gcd-0S ; gcd-S0 ; gcd-S≤S ; gcd-S>S )
 open import Examples.GCD.IsN-ER using ( gcd-N )
 open import Examples.GCD.Types using ( ¬x≡0∧y≡0 )
 
-open import LTC.Data.Nat using
-  ( _-_
-  ; N ; sN ; zN  -- The LTC natural numbers type.
-  )
+open import LTC.Data.Nat
+  using ( _-_
+        ; N ; sN ; zN  -- The LTC natural numbers type.
+        )
 open import LTC.Data.Nat.Divisibility using ( _∣_ )
-open import LTC.Data.Nat.Divisibility.PropertiesER using
-  ( ∣-refl-S
-  ; S∣0
-  ; x∣y→x∣z→x∣y+z
-  )
+open import LTC.Data.Nat.Divisibility.PropertiesER
+  using ( ∣-refl-S
+        ; S∣0
+        ; x∣y→x∣z→x∣y+z
+        )
 open import LTC.Data.Nat.Induction.Lexicographic using ( wfIndN-LT₂ )
 open import LTC.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
-open import LTC.Data.Nat.Inequalities.PropertiesER using
-  ( ¬0>x
-  ; ¬S≤0
-  ; x>y→x-y+y≡x
-  ; x≤y→y-x+x≡y
-  ; x>y∨x≤y
-  ; [Sx-Sy,Sy]<[Sx,Sy]
-  ; [Sx,Sy-Sx]<[Sx,Sy]
-  )
+open import LTC.Data.Nat.Inequalities.PropertiesER
+  using ( ¬0>x
+        ; ¬S≤0
+        ; x>y→x-y+y≡x
+        ; x≤y→y-x+x≡y
+        ; x>y∨x≤y
+        ; [Sx-Sy,Sy]<[Sx,Sy]
+        ; [Sx,Sy-Sx]<[Sx,Sy]
+        )
 open import LTC.Data.Nat.PropertiesER using ( minus-N )
 open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
 

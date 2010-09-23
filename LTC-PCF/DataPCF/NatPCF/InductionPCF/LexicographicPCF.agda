@@ -6,26 +6,26 @@ module LTC-PCF.DataPCF.NatPCF.InductionPCF.LexicographicPCF where
 
 open import LTC.Minimal
 
-open import LTC.Data.Nat.Type using
-  ( N ; sN ; zN  -- The LTC natural numbers type.
-  )
+open import LTC.Data.Nat.Type
+  using ( N ; sN ; zN  -- The LTC natural numbers type.
+        )
 
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( LT ; LT₂ )
-open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF using
-  ( ¬0Sx<00
-  ; ¬Sxy₁<0y₂
-  ; ¬x<0
-  ; ¬xy<00
-  ; ≤-trans
-  ; Sx≤y→x<y
-  ; Sx≤Sy→x≤y
-  ; x<Sy→x<y∨x≡y
-  ; x<y→Sx≤y
-  ; x<y→x<Sy
-  ; x<y→y≡z→x<z
-  ; x≡y→y<z→x<z
-  ; x₁y<x₂0→x₁<x₂
-  )
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF
+  using ( ¬0Sx<00
+        ; ¬Sxy₁<0y₂
+        ; ¬x<0
+        ; ¬xy<00
+        ; ≤-trans
+        ; Sx≤y→x<y
+        ; Sx≤Sy→x≤y
+        ; x<Sy→x<y∨x≡y
+        ; x<y→Sx≤y
+        ; x<y→x<Sy
+        ; x<y→y≡z→x<z
+        ; x≡y→y<z→x<z
+        ; x₁y<x₂0→x₁<x₂
+        )
 
 ------------------------------------------------------------------------------
 

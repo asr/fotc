@@ -7,16 +7,16 @@ module Examples.SortList.Closures.TreeER where
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
-open import Examples.SortList.SortList using
-  ( makeTree
-  ; nilTree
-  ; toTree
-  ; Tree ; nilT  -- The LTC tree type.
-  )
+open import Examples.SortList.SortList
+  using ( makeTree
+        ; nilTree
+        ; toTree
+        ; Tree ; nilT  -- The LTC tree type.
+        )
 
-open import LTC.Data.Nat.List.Type using
-  ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.
-  )
+open import LTC.Data.Nat.List.Type
+  using ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.
+        )
 open import LTC.Data.Nat.Type using ( N )
 open import LTC.Data.List using ( foldr-[] ; foldr-∷ )
 

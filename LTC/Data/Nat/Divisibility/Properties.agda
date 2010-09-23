@@ -6,19 +6,19 @@ module LTC.Data.Nat.Divisibility.Properties where
 
 open import LTC.Minimal
 
-open import LTC.Data.Nat using
-  ( _+_ ; _-_ ; _*_
-  ; N ; sN ; zN  -- The LTC natural numbers type.
-  )
+open import LTC.Data.Nat
+  using ( _+_ ; _-_ ; _*_
+        ; N ; sN ; zN  -- The LTC natural numbers type.
+        )
 open import LTC.Data.Nat.Divisibility using ( _∣_ )
 open import LTC.Data.Nat.Inequalities using ( LE )
 open import LTC.Data.Nat.Inequalities.Properties using ( x≤x+y )
-open import LTC.Data.Nat.Properties using
-  ( +-N ; *-N ; minus-N
-  ; *-leftIdentity
-  ; [x+y]z≡xz*yz
-  ; [x-y]z≡xz*yz
-  )
+open import LTC.Data.Nat.Properties
+  using ( +-N ; *-N ; minus-N
+        ; *-leftIdentity
+        ; [x+y]z≡xz*yz
+        ; [x-y]z≡xz*yz
+        )
 open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
 
 open import MyStdLib.Function using ( _$_ )

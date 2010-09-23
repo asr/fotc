@@ -6,42 +6,42 @@ module Examples.SortList.Closures.TreeOrd where
 
 open import LTC.Minimal
 
-open import Examples.SortList.SortList using
-  ( ≤-TreeItem-node
-  ; ≤-ItemTree-node
-  ; isTreeOrd
-  ; LE-ItemTree
-  ; LE-TreeItem
-  ; makeTree
-  ; nilTree ; node ; tip
-  ; toTree
-  ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
-  ; TreeOrd
-  )
-open import Examples.SortList.Closures.Bool using
-  ( ≤-ItemTree-Bool
-  ; ≤-TreeItem-Bool
-  ; isTreeOrd-Bool
-  )
+open import Examples.SortList.SortList
+  using ( ≤-TreeItem-node
+        ; ≤-ItemTree-node
+        ; isTreeOrd
+        ; LE-ItemTree
+        ; LE-TreeItem
+        ; makeTree
+        ; nilTree ; node ; tip
+        ; toTree
+        ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
+        ; TreeOrd
+        )
+open import Examples.SortList.Closures.Bool
+  using ( ≤-ItemTree-Bool
+        ; ≤-TreeItem-Bool
+        ; isTreeOrd-Bool
+        )
 open import Examples.SortList.Closures.Tree using ( makeTree-Tree )
 
-open import LTC.Data.Bool.Properties using
-  ( &&-Bool
-  ; x&&y≡true→x≡true
-  ; x&&y≡true→y≡true
-  ; w&&x&&y&&z≡true→y≡true
-  ; w&&x&&y&&z≡true→z≡true
-  )
+open import LTC.Data.Bool.Properties
+  using ( &&-Bool
+        ; x&&y≡true→x≡true
+        ; x&&y≡true→y≡true
+        ; w&&x&&y&&z≡true→y≡true
+        ; w&&x&&y&&z≡true→z≡true
+        )
 open import LTC.Data.Nat.Inequalities using ( GT ; LE )
-open import LTC.Data.Nat.Inequalities.Properties using
-  ( x<y→x≤y
-  ; x>y→x≰y
-  ; x>y∨x≤y
-  ; x≤x
-  )
-open import LTC.Data.Nat.List.Type using
-  ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.
-  )
+open import LTC.Data.Nat.Inequalities.Properties
+  using ( x<y→x≤y
+        ; x>y→x≰y
+        ; x>y∨x≤y
+        ; x≤x
+        )
+open import LTC.Data.Nat.List.Type
+  using ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.
+        )
 open import LTC.Data.Nat.Type using ( N )
 
 ------------------------------------------------------------------------------

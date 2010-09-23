@@ -6,18 +6,18 @@ module LTC-PCF.DataPCF.NatPCF.InductionPCF.WellFoundedPCF where
 
 open import LTC.Minimal
 
-open import LTC.Data.Nat.Type using
-  ( N ; sN ; zN  -- The LTC natural numbers type.
-  )
+open import LTC.Data.Nat.Type
+  using ( N ; sN ; zN  -- The LTC natural numbers type.
+        )
 
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( LT )
-open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF using
-  ( ¬x<0
-  ; ≤-trans
-  ; Sx≤y→x<y
-  ; Sx≤Sy→x≤y
-  ; x<y→Sx≤y
-  )
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF
+  using ( ¬x<0
+        ; ≤-trans
+        ; Sx≤y→x<y
+        ; Sx≤Sy→x≤y
+        ; x<y→Sx≤y
+        )
 
 ------------------------------------------------------------------------------
 -- Well-founded induction on N.

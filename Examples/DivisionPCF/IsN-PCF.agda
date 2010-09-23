@@ -10,10 +10,10 @@ open import Examples.DivisionPCF.DivisionPCF using ( div )
 open import Examples.DivisionPCF.EquationsPCF using ( div-x<y ; div-x≥y )
 open import Examples.DivisionPCF.SpecificationPCF using ( DIV )
 
-open import LTC-PCF.DataPCF.NatPCF using
-  ( _-_
-  ; N ; sN ; zN  -- The LTC natural numbers type.
-  )
+open import LTC-PCF.DataPCF.NatPCF
+  using ( _-_
+        ; N ; sN ; zN  -- The LTC natural numbers type.
+        )
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( GE ; LT )
 
 ------------------------------------------------------------------------------

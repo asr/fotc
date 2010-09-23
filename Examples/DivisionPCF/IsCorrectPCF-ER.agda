@@ -13,10 +13,10 @@ open import Examples.DivisionPCF.SpecificationPCF using ( DIV )
 
 open import LTC-PCF.DataPCF.NatPCF using ( _+_ ; _-_ ; _*_ ; N )
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( GE ; LT )
-open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF-ER using
-  ( +-leftIdentity
-  ; *-rightZero
-  )
+open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF-ER
+  using ( +-leftIdentity
+        ; *-rightZero
+        )
 
 import MyStdLib.Relation.Binary.EqReasoning
 open module IsNER = MyStdLib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans

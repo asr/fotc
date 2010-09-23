@@ -10,23 +10,23 @@ open import Examples.GCD.GCD using ( gcd )
 open import Examples.GCD.IsCommonDivisor using ( CD )
 open import Examples.GCD.Types using ( ¬x≡0∧y≡0 )
 
-open import LTC.Data.Nat using
-  ( _-_
-  ; N ; sN ; zN  -- The LTC natural numbers type.
-  )
+open import LTC.Data.Nat
+  using ( _-_
+        ; N ; sN ; zN  -- The LTC natural numbers type.
+        )
 open import LTC.Data.Nat.Divisibility using ( _∣_ )
 open import LTC.Data.Nat.Divisibility.Properties using ( x∣y→x∣z→x∣y-z )
 open import LTC.Data.Nat.Induction.Lexicographic using ( wfIndN-LT₂ )
 open import LTC.Data.Nat.Properties using ( minus-N )
 open import LTC.Relation.Equalities.Properties using ( ¬S≡0 )
 open import LTC.Data.Nat.Inequalities using ( GT ; LE ; LT₂)
-open import LTC.Data.Nat.Inequalities.Properties using
-  ( ¬0>x
-  ; ¬S≤0
-  ; [Sx-Sy,Sy]<[Sx,Sy]
-  ; [Sx,Sy-Sx]<[Sx,Sy]
-  ; x>y∨x≤y
-  )
+open import LTC.Data.Nat.Inequalities.Properties
+  using ( ¬0>x
+        ; ¬S≤0
+        ; [Sx-Sy,Sy]<[Sx,Sy]
+        ; [Sx,Sy-Sx]<[Sx,Sy]
+        ; x>y∨x≤y
+        )
 
 open import MyStdLib.Function using ( _$_ )
 

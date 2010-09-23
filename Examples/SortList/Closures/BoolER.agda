@@ -7,21 +7,23 @@ module Examples.SortList.Closures.BoolER where
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
-open import Examples.SortList.SortList using
-  ( ≤-ItemList ; ≤-ItemList-[] ; ≤-ItemList-∷
-  ; ≤-ItemTree ; ≤-ItemTree-nilTree ; ≤-ItemTree-node ; ≤-ItemTree-tip
-  ; ≤-Lists
-  ; ≤-TreeItem ; ≤-TreeItem-nilTree ; ≤-TreeItem-node ; ≤-TreeItem-tip
-  ; isListOrd
-  ; isTreeOrd ; isTreeOrd-nilTree ; isTreeOrd-node ; isTreeOrd-tip
-  ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
-  )
+open import Examples.SortList.SortList
+  using ( ≤-ItemList ; ≤-ItemList-[] ; ≤-ItemList-∷
+        ; ≤-ItemTree ; ≤-ItemTree-nilTree ; ≤-ItemTree-node ; ≤-ItemTree-tip
+        ; ≤-Lists
+        ; ≤-TreeItem ; ≤-TreeItem-nilTree ; ≤-TreeItem-node ; ≤-TreeItem-tip
+        ; isListOrd
+        ; isTreeOrd ; isTreeOrd-nilTree ; isTreeOrd-node ; isTreeOrd-tip
+        ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
+        )
 
-open import LTC.Data.Bool using ( Bool ; tB )
+open import LTC.Data.Bool
+  using ( Bool ; tB  -- The LTC booleans type.
+        )
 open import LTC.Data.Bool.PropertiesER using ( &&-Bool ; ≤-Bool )
-open import LTC.Data.Nat.List.Type using
-  ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.
-  )
+open import LTC.Data.Nat.List.Type
+  using ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.
+        )
 open import LTC.Data.Nat.Type using ( N )
 
 ------------------------------------------------------------------------------

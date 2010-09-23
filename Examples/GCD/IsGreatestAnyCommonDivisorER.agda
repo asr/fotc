@@ -11,9 +11,9 @@ open import Examples.GCD.IsDivisibleER using ( Divisible )
 
 open import LTC.Data.Nat.Divisibility.PropertiesER using ( 0∤x ; x∣S→x≤S )
 open import LTC.Data.Nat.Inequalities using ( LE )
-open import LTC.Data.Nat.Type using
-  ( N ; sN ; zN  -- The LTC natural numbers type.
-  )
+open import LTC.Data.Nat.Type
+  using ( N ; sN ; zN  -- The LTC natural numbers type.
+        )
 
 open import MyStdLib.Function using ( _$_ )
 

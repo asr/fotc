@@ -6,11 +6,11 @@ module LTC.Data.List.PropertiesByInduction where
 
 open import LTC.Minimal
 
-open import LTC.Data.List using
-  ( _++_
-  ; indList
-  ; List  -- The LTC list type.
-  )
+open import LTC.Data.List
+  using ( _++_
+        ; indList
+        ; List  -- The LTC list type.
+        )
 
 ------------------------------------------------------------------------------
 

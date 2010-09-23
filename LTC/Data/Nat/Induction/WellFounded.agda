@@ -7,16 +7,16 @@ module LTC.Data.Nat.Induction.WellFounded where
 open import LTC.Minimal
 
 open import LTC.Data.Nat.Inequalities using ( LT )
-open import LTC.Data.Nat.Inequalities.Properties using
-  ( ¬x<0
-  ; ≤-trans
-  ; Sx≤Sy→x≤y
-  ; Sx≤y→x<y
-  ; x<y→Sx≤y
-  )
-open import LTC.Data.Nat.Type using
-  ( N ; sN ; zN  -- The LTC natural numbers type.
-  )
+open import LTC.Data.Nat.Inequalities.Properties
+  using ( ¬x<0
+        ; ≤-trans
+        ; Sx≤Sy→x≤y
+        ; Sx≤y→x<y
+        ; x<y→Sx≤y
+        )
+open import LTC.Data.Nat.Type
+  using ( N ; sN ; zN  -- The LTC natural numbers type.
+        )
 
 ------------------------------------------------------------------------------
 -- Well-founded induction on N.

@@ -6,10 +6,10 @@ module Examples.DivisionPCF.SpecificationPCF where
 
 open import LTC.Minimal
 
-open import LTC-PCF.DataPCF.NatPCF using
-  ( _+_ ; _*_
-  ; N  -- The LTC natural numbers type.
-  )
+open import LTC-PCF.DataPCF.NatPCF
+  using ( _+_ ; _*_
+        ; N  -- The LTC natural numbers type.
+        )
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( LT )
 
 ------------------------------------------------------------------------------

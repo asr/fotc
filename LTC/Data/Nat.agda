@@ -13,7 +13,6 @@ infixl 6 _+_ _-_
 -- The LTC natural numbers type.
 open import LTC.Data.Nat.Type public
 
-------------------------------------------------------------------------------
 -- Arithmetic operations
 
 postulate
