@@ -53,21 +53,21 @@ x∣y→x∣z→x∣y-z {n = n} {p} (sN {m} Nm) Nn Np
   (λ S≡0 → ⊥-elim (¬S≡0 S≡0)) , (k₁ - k₂) , minus-N Nk₁ Nk₂ , prf
 
   where
-  prf : n - p ≡ (k₁ - k₂) * succ m
-  prf =
-    begin
-      n - p                         ≡⟨ subst (λ t → n - p ≡ t - p)
-                                             n≡k₁Sm
-                                             refl
-                                     ⟩
-      k₁ * succ m - p               ≡⟨ subst (λ t → k₁ * succ m - p ≡
-                                                    k₁ * succ m - t)
-                                              p≡k₂Sm
-                                              refl
-                                     ⟩
-      (k₁ * succ m) - (k₂ * succ m) ≡⟨ sym ([x-y]z≡xz*yz Nk₁ Nk₂ (sN Nm)) ⟩
-      (k₁ - k₂) * succ m
-    ∎
+    prf : n - p ≡ (k₁ - k₂) * succ m
+    prf =
+      begin
+        n - p                         ≡⟨ subst (λ t → n - p ≡ t - p)
+                                               n≡k₁Sm
+                                               refl
+                                      ⟩
+        k₁ * succ m - p               ≡⟨ subst (λ t → k₁ * succ m - p ≡
+                                                      k₁ * succ m - t)
+                                               p≡k₂Sm
+                                               refl
+                                      ⟩
+        (k₁ * succ m) - (k₂ * succ m) ≡⟨ sym ([x-y]z≡xz*yz Nk₁ Nk₂ (sN Nm)) ⟩
+        (k₁ - k₂) * succ m
+      ∎
 
 -- If 'x' divides 'y' and 'z' then 'x' divides 'y + z'.
 x∣y→x∣z→x∣y+z : {m n p : D} → N m → N n → N p → m ∣ n → m ∣ p → m ∣ n + p
@@ -78,21 +78,21 @@ x∣y→x∣z→x∣y+z {n = n} {p} (sN {m} Nm) Nn Np
   (λ S≡0 → ⊥-elim (¬S≡0 S≡0)) , (k₁ + k₂) , +-N Nk₁ Nk₂ , prf
 
   where
-  prf : n + p ≡ (k₁ + k₂) * succ m
-  prf =
-    begin
-      n + p                         ≡⟨ subst (λ t → n + p ≡ t + p)
-                                             n≡k₁Sm
-                                             refl
-                                     ⟩
-      k₁ * succ m + p               ≡⟨ subst (λ t → k₁ * succ m + p ≡
-                                                    k₁ * succ m + t)
-                                              p≡k₂Sm
-                                              refl
-                                     ⟩
-      (k₁ * succ m) + (k₂ * succ m) ≡⟨ sym ([x+y]z≡xz*yz Nk₁ Nk₂ (sN Nm)) ⟩
-      (k₁ + k₂) * succ m
-    ∎
+    prf : n + p ≡ (k₁ + k₂) * succ m
+    prf =
+      begin
+        n + p                         ≡⟨ subst (λ t → n + p ≡ t + p)
+                                               n≡k₁Sm
+                                               refl
+                                      ⟩
+        k₁ * succ m + p               ≡⟨ subst (λ t → k₁ * succ m + p ≡
+                                                      k₁ * succ m + t)
+                                               p≡k₂Sm
+                                               refl
+                                      ⟩
+        (k₁ * succ m) + (k₂ * succ m) ≡⟨ sym ([x+y]z≡xz*yz Nk₁ Nk₂ (sN Nm)) ⟩
+        (k₁ + k₂) * succ m
+      ∎
 
 -- If x divides y, and y is positive, then x ≤ y.
 x∣S→x≤S : {m n : D} → N m → N n → m ∣ (succ n) → LE m (succ n)

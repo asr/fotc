@@ -11,7 +11,6 @@ open import LTC-PCF.DataPCF.NatPCF using ( _-_ )
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( GT ; LE )
 
 ------------------------------------------------------------------------------
-
 postulate
   gcd-00 : gcd zero zero ≡ error
 {-# ATP prove gcd-00 #-}

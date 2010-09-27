@@ -12,7 +12,6 @@ open import LTC.Data.Nat.List.Type
 open import LTC.Data.List using ( _++_ )
 
 ------------------------------------------------------------------------------
-
 ++-ListN : {ds es : D} → ListN ds → ListN es → ListN (ds ++ es)
 ++-ListN {es = es} nilLN esL = prf
   where
@@ -21,6 +20,6 @@ open import LTC.Data.List using ( _++_ )
 
 ++-ListN {es = es} (consLN {d} {ds} Nd LNds) LNes = prf (++-ListN LNds LNes)
   where
-    postulate prf : ListN (ds ++ es) →
+    postulate prf : ListN (ds ++ es) →  -- IH.
                     ListN ((d ∷ ds) ++ es)
     {-# ATP prove prf #-}

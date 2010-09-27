@@ -15,7 +15,6 @@ open import LTC-PCF.DataPCF.NatPCF
 open import LTC-PCF.DataPCF.NatPCF.RecPCF.PropertiesPCF using ( rec-0 ; rec-S )
 
 ------------------------------------------------------------------------------
-
 postulate
   +-0x : (d : D) → zero + d ≡ d
 {-# ATP prove +-0x rec-0 #-}

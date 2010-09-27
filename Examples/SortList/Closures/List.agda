@@ -30,6 +30,6 @@ flatten-List (tipT {i} Ni) = prf
 flatten-List (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
   prf (flatten-List Tt₁) (flatten-List Tt₂)
   where
-    postulate prf : ListN (flatten t₁) → -- IH.
-                    ListN (flatten t₂) → -- IH.
+    postulate prf : ListN (flatten t₁) →  -- IH.
+                    ListN (flatten t₂) →  -- IH.
                     ListN (flatten (node t₁ i t₂))

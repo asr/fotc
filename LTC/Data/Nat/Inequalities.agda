@@ -7,7 +7,6 @@ module LTC.Data.Nat.Inequalities where
 open import LTC.Minimal
 
 ------------------------------------------------------------------------------
-
 postulate
   _<_  : D → D → D
   <-00 :             zero   < zero   ≡ false
@@ -68,7 +67,7 @@ NGE d e = d ≥ e ≡ false
 {-# ATP definition NGE #-}
 
 ------------------------------------------------------------------------------
--- The lexicographical order
+-- The lexicographical order.
 LT₂ : D → D → D → D → Set
 LT₂ x₁ y₁ x₂ y₂ = LT x₁ x₂ ∨ x₁ ≡ x₂ ∧ LT y₁ y₂
 {-# ATP definition LT₂ #-}

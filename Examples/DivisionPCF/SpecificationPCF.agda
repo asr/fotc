@@ -13,7 +13,6 @@ open import LTC-PCF.DataPCF.NatPCF
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( LT )
 
 ------------------------------------------------------------------------------
-
 -- The division result must be a 'N' and it must be correct.
 DIV : D → D → D → Set
 DIV i j q = (N q) ∧ (∃D (λ r → N r ∧ LT r j ∧ i ≡ j * q + r))

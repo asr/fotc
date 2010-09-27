@@ -11,7 +11,6 @@ open import LTC.Data.Nat using ( _-_ )
 open import LTC.Data.Nat.Inequalities using ( GT ; LE )
 
 ------------------------------------------------------------------------------
-
 postulate
   gcd : D → D → D
 

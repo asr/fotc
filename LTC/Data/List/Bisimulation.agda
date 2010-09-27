@@ -14,8 +14,7 @@ open import LTC.Minimal.Properties using ( ≡-list )
 infix 4 _∼_ _≈_
 
 ------------------------------------------------------------------------------
-
--- The bisimulation on LTC list terms
+-- The bisimulation on LTC list terms.
 postulate
   _∼_     : D → D → D
   ∼-[]-[] :                 []     ∼ []       ≡ true
@@ -27,7 +26,7 @@ postulate
 {-# ATP axiom ∼-∷-[] #-}
 {-# ATP axiom ∼-∷-∷ #-}
 
--- The bisimulation relation
+-- The bisimulation relation.
 _≈_ : D → D → Set
 xs ≈ ys = xs ∼ ys ≡ true
 {-# ATP definition _≈_ #-}

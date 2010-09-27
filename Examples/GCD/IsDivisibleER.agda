@@ -34,33 +34,23 @@ open import LTC.Data.Nat.PropertiesER using ( minus-N )
 
 ------------------------------------------------------------------------------
 -- Divisible for any common divisor.
-
 Divisible : D → D → D → Set
 Divisible a b gcd = (c : D) → N c → CD a b c → c ∣ gcd
 
 ---------------------------------------------------------------------------
--- The gcd is divisible by any common divisor
----------------------------------------------------------------------------
-
--- We will prove that 'gcd-Divisible : ... → Divisible m n (gcd m n).
-
----------------------------------------------------------------------------
 -- The 'gcd 0 (succ n)' is Divisible.
-
 gcd-0S-Divisible : {n : D} → N n → Divisible zero (succ n) (gcd zero (succ n))
 gcd-0S-Divisible {n} _ c _ ( c∣0 , c∣Sn ) =
   subst (λ x → c ∣ x) (sym (gcd-0S n)) c∣Sn
 
 ---------------------------------------------------------------------------
 -- The 'gcd (succ n) 0' is Divisible.
-
 gcd-S0-Divisible : {n : D} → N n → Divisible (succ n) zero (gcd (succ n) zero)
 gcd-S0-Divisible {n} _ c _ ( c∣Sn , c∣0) =
   subst (λ x → c ∣ x) (sym (gcd-S0 n)) c∣Sn
 
 ---------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m > succ n' is Divisible.
-
 gcd-S>S-Divisible :
   {m n : D} → N m → N n →
   (Divisible (succ m - succ n) (succ n) (gcd (succ m - succ n) (succ n))) →
@@ -87,7 +77,6 @@ Proof:
 
 ---------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m ≤ succ n' is Divisible.
-
 gcd-S≤S-Divisible :
   {m n : D} → N m → N n →
   (Divisible (succ m) (succ n - succ m) (gcd (succ m) (succ n - succ m))) →
@@ -110,12 +99,11 @@ Proof
         (sym (gcd-S≤S m n Sm≤Sn))
            (acc c Nc ( c∣Sm , c|Sn-Sm ))
   where
-        c|Sn-Sm : c ∣ succ n - succ m
-        c|Sn-Sm = x∣y→x∣z→x∣y-z Nc (sN Nn) (sN Nm) c∣Sn c∣Sm
+    c|Sn-Sm : c ∣ succ n - succ m
+    c|Sn-Sm = x∣y→x∣z→x∣y-z Nc (sN Nn) (sN Nm) c∣Sn c∣Sm
 
 ---------------------------------------------------------------------------
 -- The 'gcd m n' when 'm > n' is Divisible.
-
 -- N.B. If '>' were an inductive data type, we would use the absurd pattern
 -- to prove the second case.
 gcd-x>y-Divisible :
@@ -130,7 +118,8 @@ gcd-x>y-Divisible zN (sN Nn) _ 0>Sn _ _ _ = ⊥-elim (¬0>x (sN Nn) 0>Sn)
 gcd-x>y-Divisible (sN Nm) zN _ _ _  c Nc  = gcd-S0-Divisible Nm c Nc
 gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ c Nc =
   gcd-S>S-Divisible Nm Nn ih Sm>Sn c Nc
-  where -- Inductive hypothesis.
+  where
+    -- Inductive hypothesis.
     ih : Divisible (succ m - succ n) (succ n) (gcd (succ m - succ n) (succ n))
     ih = accH {succ m - succ n}
               {succ n}
@@ -141,10 +130,8 @@ gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ c Nc =
 
 ---------------------------------------------------------------------------
 -- The 'gcd m n' when 'm ≤ n' is Divisible.
-
 -- N.B. If '≤' were an inductive data type, we would use the absurd pattern
 -- to prove the third case.
-
 gcd-x≤y-Divisible :
   {m n : D} → N m → N n →
   ({o p : D} → N o → N p → LT₂ o p m n → ¬x≡0∧y≡0 o p →
@@ -157,7 +144,8 @@ gcd-x≤y-Divisible zN (sN Nn) _ _  _  c Nc  = gcd-0S-Divisible Nn c Nc
 gcd-x≤y-Divisible (sN Nm) zN _ Sm≤0 _ _ _  = ⊥-elim $ ¬S≤0 Nm Sm≤0
 gcd-x≤y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ c Nc =
   gcd-S≤S-Divisible Nm Nn ih Sm≤Sn c Nc
-  where -- Inductive hypothesis.
+  where
+    -- Inductive hypothesis.
     ih : Divisible (succ m) (succ n - succ m) (gcd (succ m) (succ n - succ m))
     ih = accH {succ m}
               {succ n - succ m}
@@ -168,7 +156,6 @@ gcd-x≤y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ c Nc =
 
 ---------------------------------------------------------------------------
 -- The gcd is Divisible.
-
 gcd-Divisible : {m n : D} → N m → N n → ¬x≡0∧y≡0 m n → Divisible m n (gcd m n)
 gcd-Divisible = wfIndN-LT₂ P istep
   where

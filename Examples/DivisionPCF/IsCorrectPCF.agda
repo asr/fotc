@@ -21,7 +21,6 @@ open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF
         )
 
 ------------------------------------------------------------------------------
-
 -- The division result is correct when the dividend is less than
 -- the divisor.
 
@@ -64,7 +63,7 @@ div-x≥y-correct {i} {j} Ni Nj ih i≥j =
   r , (Nr , (r<j , (div-x≥y-aux Ni Nj Nr i≥j auxH)))
 
     where
-      -- The parts of the inductive hipothesis ih
+      -- The parts of the inductive hipothesis ih.
       r : D
       r = ∃D-proj₁ (∧-proj₂ ih)
 

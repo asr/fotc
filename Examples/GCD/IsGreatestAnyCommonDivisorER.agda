@@ -18,7 +18,6 @@ open import LTC.Data.Nat.Type
         )
 
 ---------------------------------------------------------------------------
-
 -- Greatest that any common divisor.
 GACD : D → D → D → Set
 GACD a b gcd = (c : D) → N c → CD a b c → LE c gcd

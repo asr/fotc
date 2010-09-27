@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- The product data type
+-- Products
 ------------------------------------------------------------------------------
 
 module Lib.Data.Product where
@@ -8,7 +8,6 @@ infixr 4 _,_
 infixr 2 _∧_
 
 ------------------------------------------------------------------------------
-
 -- See LTC.Data.Product for the existential quantifier.
 
 -- The conjunction data type.

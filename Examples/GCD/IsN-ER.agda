@@ -2,8 +2,6 @@
 -- The gcd is N (using equational reasoning)
 ------------------------------------------------------------------------------
 
--- We prove that 'gcd-N : ... → N (gcd m n).
-
 module Examples.GCD.IsN-ER where
 
 open import LTC.Minimal
@@ -38,13 +36,11 @@ gcd-0S-N {n} Nn = subst N (sym (gcd-0S n)) (sN Nn)
 
 ---------------------------------------------------------------------------
 -- The 'gcd (succ n) 0' is N.
-
 gcd-S0-N : {n : D} → N n → N (gcd (succ n) zero)
 gcd-S0-N {n} Nn = subst N (sym $ gcd-S0 n) (sN Nn)
 
 ---------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m > succ n' is N.
-
 gcd-S>S-N : {m n : D} → N m → N n →
              N (gcd (succ m - succ n) (succ n)) →
              GT (succ m) (succ n) →
@@ -52,8 +48,8 @@ gcd-S>S-N : {m n : D} → N m → N n →
 gcd-S>S-N {m} {n} Nm Nn ih Sm>Sn = subst N (sym $ gcd-S>S m n Sm>Sn) ih
 
 ---------------------------------------------------------------------------
--- The 'gcd (succ m) (succ n)' when 'succ m ≤ succ n' is N.
 
+-- The 'gcd (succ m) (succ n)' when 'succ m ≤ succ n' is N.
 gcd-S≤S-N : {m n : D} → N m → N n →
             N (gcd (succ m) (succ n - succ m)) →
             LE (succ m) (succ n) →
@@ -62,10 +58,8 @@ gcd-S≤S-N {m} {n} Nm Nn ih Sm≤Sn = subst N (sym $ gcd-S≤S m n Sm≤Sn) ih
 
 ---------------------------------------------------------------------------
 -- The 'gcd m n' when 'm > n' is N.
-
 -- N.B. If '>' were an inductive data type, we would use the absurd pattern
 -- to prove the second case.
-
 gcd-x>y-N :
   {m n : D} → N m → N n →
   ({o p : D} → N o → N p → LT₂ o p m n → ¬x≡0∧y≡0 o p → N (gcd o p)) →
@@ -78,7 +72,7 @@ gcd-x>y-N (sN Nm) zN  _  _ _   = gcd-S0-N Nm
 gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
   gcd-S>S-N Nm Nn ih Sm>Sn
   where
-    -- Inductive hypothesis
+    -- Inductive hypothesis.
     ih : N (gcd (succ m - succ n) (succ n))
     ih = accH {succ m - succ n}
               {succ n}
@@ -89,10 +83,8 @@ gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
 
 ---------------------------------------------------------------------------
 -- The 'gcd m n' when 'm ≤ n' is N.
-
 -- N.B. If '≤' were an inductive data type, we would use the absurd pattern
 -- to prove the third case.
-
 gcd-x≤y-N :
   {m n : D} → N m → N n →
   ({o p : D} → N o → N p → LT₂ o p m n → ¬x≡0∧y≡0 o p → N (gcd o p)) →
@@ -105,7 +97,7 @@ gcd-x≤y-N (sN Nm) zN _ Sm≤0  _  = ⊥-elim $ ¬S≤0 Nm Sm≤0
 gcd-x≤y-N (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
   gcd-S≤S-N Nm Nn ih Sm≤Sn
   where
-    -- Inductive hypothesis
+    -- Inductive hypothesis.
     ih : N (gcd (succ m) (succ n - succ m))
     ih = accH {succ m}
               {succ n - succ m}
@@ -116,7 +108,6 @@ gcd-x≤y-N (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
 
 ---------------------------------------------------------------------------
 -- The 'gcd' is N.
-
 gcd-N : {m n : D } → N m → N n → ¬x≡0∧y≡0 m n → N (gcd m n)
 gcd-N = wfIndN-LT₂ P istep
   where

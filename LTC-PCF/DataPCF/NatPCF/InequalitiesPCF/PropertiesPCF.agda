@@ -27,7 +27,6 @@ open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF
         )
 
 ------------------------------------------------------------------------------
-
 postulate
   <-00 : NLT zero zero
 -- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180).

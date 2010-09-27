@@ -21,7 +21,6 @@ open import LTC.Data.Nat.List.Type
 open import LTC.Data.Nat.Type using ( N )
 
 ------------------------------------------------------------------------------
-
 toTree-Tree : {item : D}{t : D} → N item → Tree t → Tree (toTree ∙ item ∙ t)
 toTree-Tree {item} Nitem nilT = prf
   where
@@ -36,8 +35,8 @@ toTree-Tree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
   prf (x>y∨x≤y Ni Nitem) (toTree-Tree Nitem Tt₁) ((toTree-Tree Nitem Tt₂))
   where
     postulate prf : GT i item ∨ LE i item →
-                    Tree (toTree ∙ item ∙ t₁) → -- IH.
-                    Tree (toTree ∙ item ∙ t₂) → -- IH.
+                    Tree (toTree ∙ item ∙ t₁) →  -- IH.
+                    Tree (toTree ∙ item ∙ t₂) →  -- IH.
                     Tree (toTree ∙ item ∙ node t₁ i t₂)
     {-# ATP prove prf x>y→x≰y #-}
 
@@ -49,6 +48,6 @@ makeTree-Tree nilLN = prf
 
 makeTree-Tree (consLN {i} {is} Nn Lis) = prf (makeTree-Tree Lis)
   where
-    postulate prf : Tree (makeTree is) → -- IH.
+    postulate prf : Tree (makeTree is) →  -- IH.
                     Tree (makeTree (i ∷ is))
     {-# ATP prove prf toTree-Tree #-}

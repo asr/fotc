@@ -105,13 +105,13 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
                                     t≤i₁)))
   ] (x>y∨x≤y Nj Ni₂)
   where
-    postulate prf₁ : LE-TreeItem (toTree ∙ i₂ ∙ t₁) i₁ → -- IH.
+    postulate prf₁ : LE-TreeItem (toTree ∙ i₂ ∙ t₁) i₁ →  -- IH.
                      GT j i₂ →
                      LE-TreeItem (toTree ∙ i₂ ∙ node t₁ j t₂) i₁
     -- E 1.2 no-success due to timeout (180).
     {-# ATP prove prf₁ x>y→x≰y x&&y≡true→y≡true ≤-TreeItem-Bool #-}
 
-    postulate prf₂ : LE-TreeItem (toTree ∙ i₂ ∙ t₂) i₁ → --IH.
+    postulate prf₂ : LE-TreeItem (toTree ∙ i₂ ∙ t₂) i₁ →  --IH.
                      LE j i₂ →
                      LE-TreeItem (toTree ∙ i₂ ∙ node t₁ j t₂) i₁
     -- E 1.2 no-success due to timeout (180).
@@ -152,13 +152,13 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
                                     i₁≤t)))
   ] (x>y∨x≤y Nj Ni₂)
   where
-    postulate prf₁ : LE-ItemTree i₁ (toTree ∙ i₂ ∙ t₁) → -- IH.
+    postulate prf₁ : LE-ItemTree i₁ (toTree ∙ i₂ ∙ t₁) →  -- IH.
                      GT j i₂ →
                      LE-ItemTree i₁ (toTree ∙ i₂ ∙ node t₁ j t₂)
     -- E 1.2 no-success due to timeout (180).
     {-# ATP prove prf₁ ≤-ItemTree-Bool x>y→x≰y x&&y≡true→y≡true #-}
 
-    postulate prf₂ : LE-ItemTree i₁ (toTree ∙ i₂ ∙ t₂) → --IH.
+    postulate prf₂ : LE-ItemTree i₁ (toTree ∙ i₂ ∙ t₂) →  --IH.
                      LE j i₂ →
                      LE-ItemTree i₁ (toTree ∙ i₂ ∙ node t₁ j t₂)
     -- E 1.2 no-success due to timeout (180).
@@ -191,7 +191,7 @@ toTree-TreeOrd {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) TOnodeT =
          (leftSubTree-TreeOrd Tt₁ Ni Tt₂ TOnodeT)
   ] (x>y∨x≤y Ni Nitem)
   where
-    postulate prf₁ : isTreeOrd (toTree ∙ item ∙ t₁) ≡ true → -- IH.
+    postulate prf₁ : isTreeOrd (toTree ∙ item ∙ t₁) ≡ true →  -- IH.
                      TreeOrd t₂ →
                      GT i item →
                      TreeOrd (toTree ∙ item ∙ node t₁ i t₂)
@@ -221,7 +221,7 @@ makeTree-TreeOrd nilLN = prf
 
 makeTree-TreeOrd (consLN {i} {is} Ni Lis) = prf (makeTree-TreeOrd Lis)
   where
-    postulate prf : TreeOrd (makeTree is) → -- IH.
+    postulate prf : TreeOrd (makeTree is) →  -- IH.
                     TreeOrd (makeTree (i ∷ is))
     -- E 1.2 no-success due to timeout (180).
     {-# ATP prove prf makeTree-Tree toTree-TreeOrd #-}

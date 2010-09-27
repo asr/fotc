@@ -2,8 +2,6 @@
 -- The gcd is N
 ------------------------------------------------------------------------------
 
--- We prove that 'gcd-N : ... → N (gcd m n).
-
 module Examples.GCD-PCF.IsN-PCF where
 
 open import LTC.Minimal
@@ -40,7 +38,6 @@ postulate
 
 ------------------------------------------------------------------------------
 -- The 'gcd (succ n) 0' is N.
-
 postulate
   gcd-S0-N : {n : D} → N n → N (gcd (succ n) zero)
 -- Metis 2.3 (release 20100920) no-success due to timeout (180).
@@ -48,7 +45,6 @@ postulate
 
 ------------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m > succ n' is N.
-
 postulate
   gcd-S>S-N : {m n : D} → N m → N n →
               N (gcd (succ m - succ n) (succ n)) →
@@ -59,7 +55,6 @@ postulate
 
 ------------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m ≤ succ n' is N.
-
 postulate
   gcd-S≤S-N : {m n : D} → N m → N n →
               N (gcd (succ m) (succ n - succ m)) →
@@ -69,10 +64,8 @@ postulate
 
 ---------------------------------------------------------------------------
 -- The 'gcd m n' when 'm > n' is N.
-
 -- N.B. If '>' were an inductive data type, we would use the absurd pattern
 -- to prove the second case.
-
 gcd-x>y-N :
   {m n : D} → N m → N n →
   ({o p : D} → N o → N p → LT₂ o p m n → ¬x≡0∧y≡0 o p → N (gcd o p)) →
@@ -85,7 +78,7 @@ gcd-x>y-N (sN Nm) zN  _  _ _   = gcd-S0-N Nm
 gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
   gcd-S>S-N Nm Nn ih Sm>Sn
   where
-    -- Inductive hypothesis
+    -- Inductive hypothesis.
     ih : N (gcd (succ m - succ n) (succ n))
     ih = accH {succ m - succ n}
               {succ n}
@@ -96,10 +89,8 @@ gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
 
 ---------------------------------------------------------------------------
 -- The 'gcd m n' when 'm ≤ n' is N.
-
 -- N.B. If '≤' were an inductive data type, we would use the absurd pattern
 -- to prove the third case.
-
 gcd-x≤y-N :
   {m n : D} → N m → N n →
   ({o p : D} → N o → N p → LT₂ o p m n → ¬x≡0∧y≡0 o p → N (gcd o p)) →
@@ -112,7 +103,7 @@ gcd-x≤y-N (sN _ ) zN _ Sm≤0  _  = ⊥-elim $ ¬S≤0 Sm≤0
 gcd-x≤y-N (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
   gcd-S≤S-N Nm Nn ih Sm≤Sn
   where
-    -- Inductive hypothesis
+    -- Inductive hypothesis.
     ih : N (gcd (succ m) (succ n - succ m))
     ih = accH {succ m}
               {succ n - succ m}
@@ -123,7 +114,6 @@ gcd-x≤y-N (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
 
 ---------------------------------------------------------------------------
 -- The 'gcd' is N.
-
 gcd-N : {m n : D } → N m → N n → ¬x≡0∧y≡0 m n → N (gcd m n)
 gcd-N = wfIndN-LT₂ P istep
   where

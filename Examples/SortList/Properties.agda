@@ -30,6 +30,7 @@ open import LTC.Data.Nat.Type using ( N )
 open import LTC.Data.List using ( _++_ )
 
 ------------------------------------------------------------------------------
+
 -- If (i ∷ is) is ordered then 'is' is ordered.
 -- This function is defined in this module to avoid cyclical dependencies.
 subList-ListOrd : {i : D} → N i → {is : D} → ListN is → ListOrd (i ∷ is) →
@@ -72,7 +73,7 @@ listOrd-xs++ys→ys≤zs→xs++ys≤zs
                                   (trans aux LOi∷is++js)))
                            js≤ks)
   where
-    postulate prf :  LE-Lists (is ++ js) ks → -- IH
+    postulate prf :  LE-Lists (is ++ js) ks →  -- IH
                      LE-Lists ((i ∷ is) ++ js) ks
     -- E 1.2 no-success due to timeout (300).
     {-# ATP prove prf ≤-ItemList-Bool isListOrd-Bool x&&y≡true→x≡true

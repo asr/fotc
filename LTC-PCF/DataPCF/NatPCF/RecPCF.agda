@@ -7,8 +7,7 @@ module LTC-PCF.DataPCF.NatPCF.RecPCF where
 open import LTC.Minimal
 
 ---------------------------------------------------------------------------
-
--- Version using lambda-abstraction
+-- Version using lambda-abstraction.
 -- rech : D → D
 -- rech r = lam (λ n → lam (λ a → lam (λ f →
 --              (if (isZero n)

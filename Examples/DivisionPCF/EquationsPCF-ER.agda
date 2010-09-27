@@ -40,10 +40,11 @@ private
     -- First argument application
     div-s₂ : D → D → D
     div-s₂ i j = fun ∙ j
-      where fun : D
-            fun = lam (λ j → if (i < j)
-                                then zero
-                                else (succ (fix divh ∙ (i - j) ∙ j)))
+      where
+        fun : D
+        fun = lam (λ j → if (i < j)
+                            then zero
+                            else (succ (fix divh ∙ (i - j) ∙ j)))
 
     -- Second argument application
     div-s₃ : D → D → D
@@ -164,7 +165,7 @@ private
 
 ----------------------------------------------------------------------
 -- The division result when the dividend is minor than the
--- the divisor
+-- the divisor.
 
 div-x<y : {i j : D} → LT i j → div i j ≡ zero
 div-x<y {i} {j} i<j =
@@ -179,7 +180,7 @@ div-x<y {i} {j} i<j =
 
 ----------------------------------------------------------------------
 -- The division result when the dividend is greater or equal than the
--- the divisor
+-- the divisor.
 
 div-x≥y : {i j : D} → N i → N j → GE i j →
           div i j ≡ succ (div (i - j) j)

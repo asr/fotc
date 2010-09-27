@@ -9,6 +9,7 @@ open import LTC.Minimal
 open import LTC.Data.Nat using ( _*_ )
 
 ------------------------------------------------------------------------------
+
 -- The original fach
 -- fach : D → D
 -- fach f = lam (λ n → if (isZero n) then (succ zero) else n * (f ∙ (pred n)))

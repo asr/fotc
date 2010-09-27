@@ -23,6 +23,7 @@ open import Examples.SortList.SortList using ( ListOrd ; sort )
 open import LTC.Data.Nat.List.Type using ( ListN )
 
 ------------------------------------------------------------------------------
+
 -- The sort program generates a ordered list.
 sort-ListOrd : {is : D} → ListN is → ListOrd (sort is)
 sort-ListOrd {is} Lis =

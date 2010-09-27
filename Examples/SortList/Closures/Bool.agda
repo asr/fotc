@@ -25,7 +25,6 @@ open import LTC.Data.Nat.List.Type
 open import LTC.Data.Nat.Type using ( N )
 
 ------------------------------------------------------------------------------
-
 ≤-ItemList-Bool : {item : D} → N item → {is : D} → ListN is →
                   Bool (≤-ItemList item is)
 ≤-ItemList-Bool {item} Nitem nilLN = prf

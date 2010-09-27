@@ -35,6 +35,7 @@ open import LTC.Data.Nat.Type using ( N )
 open import LTC.Data.List using ( _++_ ; ++-[] ; ++-∷ )
 
 ------------------------------------------------------------------------------
+
 -- If (i ∷ is) is ordered then 'is' is ordered.
 -- This function is defined in this module to avoid cyclical dependencies.
 subList-ListOrd : {i : D} → N i → {is : D} → ListN is → ListOrd (i ∷ is) →
@@ -64,8 +65,7 @@ xs≤[] (consLN {i} {is} Ni LNis) LOconsL =
       ⟩
     true && ≤-Lists is []
       ≡⟨ subst (λ t → true && ≤-Lists is [] ≡ true && t)
-               -- IH.
-               (xs≤[] LNis (subList-ListOrd Ni LNis LOconsL))
+               (xs≤[] LNis (subList-ListOrd Ni LNis LOconsL))  -- IH.
                refl
       ⟩
     true && true

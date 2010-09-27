@@ -20,7 +20,6 @@ open import LTC-PCF.DataPCF.NatPCF.RecPCF using ( rec )
 open import LTC-PCF.DataPCF.NatPCF.RecPCF.PropertiesPCF using ( rec-0 ; rec-S )
 
 ------------------------------------------------------------------------------
-
 +-0x : (d : D) → zero + d ≡ d
 +-0x d =
   begin

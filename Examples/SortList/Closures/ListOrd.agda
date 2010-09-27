@@ -104,8 +104,8 @@ open import Postulates using ( ++-ListOrd-aux₁ )
     #-}
 
 ------------------------------------------------------------------------------
+-- If t is ordered then (flatten t) is ordered.
 mutual
-  -- If t is ordered then (flatten t) is ordered
   flatten-ListOrd : {t : D} → Tree t → TreeOrd t → ListOrd (flatten t)
   flatten-ListOrd nilT TOnilT = prf
     where
@@ -122,8 +122,8 @@ mutual
         (flatten-ListOrd Tt₂ (rightSubTree-TreeOrd Tt₁ Ni Tt₂ TOnodeT))
         (flatten-ListOrd-aux Tt₁ Ni Tt₂ TOnodeT)
     where
-      postulate prf : ListOrd (flatten t₁) → -- IH.
-                      ListOrd (flatten t₂) → -- IH.
+      postulate prf : ListOrd (flatten t₁) →  -- IH.
+                      ListOrd (flatten t₂) →  -- IH.
                       LE-Lists (flatten t₁) (flatten t₂) →
                       ListOrd (flatten (node t₁ i t₂))
       -- E 1.2 no-success due to timeout (180).

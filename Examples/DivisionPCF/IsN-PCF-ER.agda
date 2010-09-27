@@ -18,7 +18,6 @@ open import LTC-PCF.DataPCF.NatPCF
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( GE ; LT )
 
 ------------------------------------------------------------------------------
-
 -- The division result is a 'N' when the dividend is less than the divisor.
 div-x<y-N : {i j : D} -> LT i j → N (div i j)
 div-x<y-N i<j = subst N (sym (div-x<y i<j)) zN

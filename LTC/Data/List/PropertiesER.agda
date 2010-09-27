@@ -18,7 +18,6 @@ open import LTC.Data.List
         )
 
 ------------------------------------------------------------------------------
-
 -- Closure properties
 
 -- See the ATP proof.

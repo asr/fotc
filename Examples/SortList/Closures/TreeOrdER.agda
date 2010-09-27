@@ -53,7 +53,7 @@ open import LTC.Data.List using ( foldr ; foldr-[] ; foldr-∷ )
 ------------------------------------------------------------------------------
 -- Subtrees
 
--- If (node t₁ i t₂) is ordered then t₁ is ordered
+-- If (node t₁ i t₂) is ordered then t₁ is ordered.
 leftSubTree-TreeOrd : {t₁ i t₂ : D} → Tree t₁ → N i → Tree t₂ →
                       TreeOrd (node t₁ i t₂) → TreeOrd t₁
 leftSubTree-TreeOrd {t₁} {i} {t₂} Tt₁ Ni Tt₂ TOnode =
@@ -67,7 +67,7 @@ leftSubTree-TreeOrd {t₁} {i} {t₂} Tt₁ Ni Tt₂ TOnode =
     true
   ∎
 
--- If (node t₁ i t₂) is ordered then t₂ is ordered
+-- If (node t₁ i t₂) is ordered then t₂ is ordered.
 rightSubTree-TreeOrd : {t₁ i t₂ : D} → Tree t₁ → N i → Tree t₂ →
                        TreeOrd (node t₁ i t₂) → TreeOrd t₂
 rightSubTree-TreeOrd {t₁} {i} {t₂} Tt₁ Ni Tt₂ TOnode =
@@ -162,7 +162,7 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁
           ⟩
         true && j ≤ i₁
           ≡⟨ subst (λ t → true && j ≤ i₁ ≡ true && t)
-                   -- j ≤ i₁ because by hypothesis we have (tip j) ≤ i₁
+                   -- j ≤ i₁ because by hypothesis we have (tip j) ≤ i₁.
                    (trans (sym (≤-TreeItem-tip j i₁)) t≤i₁)
                    refl
           ⟩
@@ -215,7 +215,7 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁
         j ≤ i₁ && ≤-TreeItem (tip i₂) i₁
           ≡⟨ subst (λ t → j ≤ i₁ && ≤-TreeItem (tip i₂) i₁ ≡
                           t && ≤-TreeItem (tip i₂) i₁)
-                   -- j ≤ i₁ because by hypothesis we have (tip j) ≤ i₁
+                   -- j ≤ i₁ because by hypothesis we have (tip j) ≤ i₁.
                    (trans (sym (≤-TreeItem-tip j i₁)) t≤i₁)
                    refl
           ⟩
@@ -277,7 +277,7 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
                           ≤-TreeItem t₂ i₁                 ≡
                           t                                &&
                           ≤-TreeItem t₂ i₁)
-                   -- Inductive hypothesis
+                   -- Inductive hypothesis.
                    (toTree-TreeOrd-aux₁ Ni₁ Ni₂ i₁>i₂ Tt₁
                      (x&&y≡true→x≡true (≤-TreeItem-Bool Tt₁ Ni₁)
                                        (≤-TreeItem-Bool Tt₂ Ni₁)
@@ -287,7 +287,7 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
           ⟩
         true && ≤-TreeItem t₂ i₁
           ≡⟨ subst (λ t → true && ≤-TreeItem t₂ i₁ ≡ true && t)
-                   -- t₂ ≤ i₁ beacuse by hypothesis we have (node t₁ j t₂) ≤ i₁
+                   -- t₂ ≤ i₁ because by hypothesis we have (node t₁ j t₂) ≤ i₁.
                    (x&&y≡true→y≡true (≤-TreeItem-Bool Tt₁ Ni₁)
                                      (≤-TreeItem-Bool Tt₂ Ni₁)
                                      (trans (sym (≤-TreeItem-node t₁ j t₂ i₁))
@@ -338,7 +338,7 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
         ≤-TreeItem t₁ i₁ && ≤-TreeItem (toTree ∙ i₂ ∙ t₂) i₁
           ≡⟨ subst (λ t → ≤-TreeItem t₁ i₁ && ≤-TreeItem (toTree ∙ i₂ ∙ t₂) i₁ ≡
                           t &&  ≤-TreeItem (toTree ∙ i₂ ∙ t₂) i₁)
-                   -- t₁ ≤ i₁ beacuse by hypothesis we have (node t₁ j t₂) ≤ i₁
+                   -- t₁ ≤ i₁ because by hypothesis we have (node t₁ j t₂) ≤ i₁.
                    (x&&y≡true→x≡true (≤-TreeItem-Bool Tt₁ Ni₁)
                                      (≤-TreeItem-Bool Tt₂ Ni₁)
                                      (trans (sym (≤-TreeItem-node t₁ j t₂ i₁))
@@ -348,7 +348,7 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
         true && ≤-TreeItem (toTree ∙ i₂ ∙ t₂) i₁
           ≡⟨ subst (λ t → true && ≤-TreeItem (toTree ∙ i₂ ∙ t₂) i₁ ≡
                           true && t)
-                   -- Inductive hypothesis
+                   -- Inductive hypothesis.
                    (toTree-TreeOrd-aux₁ Ni₁ Ni₂ i₁>i₂ Tt₂
                      (x&&y≡true→y≡true (≤-TreeItem-Bool Tt₁ Ni₁)
                                        (≤-TreeItem-Bool Tt₂ Ni₁)
@@ -433,7 +433,7 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i₁�
           ⟩
         true && i₁ ≤ j
           ≡⟨ subst (λ t → true && i₁ ≤ j ≡ true && t)
-                   -- i₁ ≤ j because by hypothesis we have i₁ ≤ (tip j)
+                   -- i₁ ≤ j because by hypothesis we have i₁ ≤ (tip j).
                    (trans (sym (≤-ItemTree-tip i₁ j)) i₁≤t)
                    refl
           ⟩
@@ -483,7 +483,7 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i₁�
         i₁ ≤ j && ≤-ItemTree i₁ (tip i₂)
           ≡⟨ subst (λ t → i₁ ≤ j && ≤-ItemTree i₁ (tip i₂) ≡
                           t && ≤-ItemTree i₁ (tip i₂))
-                  -- i₁ ≤ j because by hypothesis we have i₁ ≤ (tip j)
+                  -- i₁ ≤ j because by hypothesis we have i₁ ≤ (tip j).
                    (trans (sym (≤-ItemTree-tip i₁ j)) i₁≤t)
                    refl
           ⟩
@@ -541,7 +541,7 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
          ≤-ItemTree i₁ (toTree ∙ i₂ ∙ t₁) && ≤-ItemTree i₁ t₂
           ≡⟨ subst (λ t → ≤-ItemTree i₁ (toTree ∙ i₂ ∙ t₁) && ≤-ItemTree i₁ t₂ ≡
                           t && ≤-ItemTree i₁ t₂)
-                   -- Inductive hypothesis
+                   -- Inductive hypothesis.
                    (toTree-TreeOrd-aux₂ Ni₁ Ni₂ i₁≤i₂ Tt₁
                      (x&&y≡true→x≡true (≤-ItemTree-Bool Ni₁ Tt₁)
                                        (≤-ItemTree-Bool Ni₁ Tt₂)
@@ -551,7 +551,7 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
           ⟩
         true && ≤-ItemTree i₁ t₂
           ≡⟨ subst (λ t → true && ≤-ItemTree i₁ t₂ ≡ true && t)
-                   -- i₁ ≤ t₂ because by hypothesis we have i₁ ≤ (node t₁ j t₂)
+                   -- i₁ ≤ t₂ because by hypothesis we have i₁ ≤ (node t₁ j t₂).
                    (x&&y≡true→y≡true (≤-ItemTree-Bool Ni₁ Tt₁)
                                      (≤-ItemTree-Bool Ni₁ Tt₂)
                                      (trans (sym (≤-ItemTree-node i₁ t₁ j t₂))
@@ -599,7 +599,7 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
         ≤-ItemTree i₁ t₁ && ≤-ItemTree i₁ (toTree ∙ i₂ ∙ t₂)
           ≡⟨ subst (λ t → ≤-ItemTree i₁ t₁ && ≤-ItemTree i₁ (toTree ∙ i₂ ∙ t₂) ≡
                           t && ≤-ItemTree i₁ (toTree ∙ i₂ ∙ t₂))
-                   -- i₁ ≤ t₁ because by hypothesis we have i₁ ≤ (node t₁ j t₂)
+                   -- i₁ ≤ t₁ because by hypothesis we have i₁ ≤ (node t₁ j t₂).
                    (x&&y≡true→x≡true (≤-ItemTree-Bool Ni₁ Tt₁)
                                      (≤-ItemTree-Bool Ni₁ Tt₂)
                                      (trans (sym (≤-ItemTree-node i₁ t₁ j t₂))
@@ -608,7 +608,7 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
           ⟩
         true && ≤-ItemTree i₁ (toTree ∙ i₂ ∙ t₂)
           ≡⟨ subst (λ t → true && ≤-ItemTree i₁ (toTree ∙ i₂ ∙ t₂) ≡ true && t)
-                   -- Inductive hypothesis
+                   -- Inductive hypothesis.
                    (toTree-TreeOrd-aux₂ Ni₁ Ni₂ i₁≤i₂ Tt₂
                      (x&&y≡true→y≡true (≤-ItemTree-Bool Ni₁ Tt₁)
                                        (≤-ItemTree-Bool Ni₁ Tt₂)

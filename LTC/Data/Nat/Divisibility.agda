@@ -11,7 +11,6 @@ open import LTC.Data.Nat using ( _*_ ; N )
 infix 4 _∣_
 
 ------------------------------------------------------------------------------
-
 -- It seems there is not agreement about if 0∣0 (e.g. see Coq definition
 -- (0∣0), Agda library (0∤0), or MathWorld (0∤0)). At the moment, in our
 -- definition 0∤0.

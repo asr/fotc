@@ -9,7 +9,6 @@ open import LTC.Minimal
 open import LTC.Data.Nat using ( _+_ ; indN ; N )
 
 ------------------------------------------------------------------------------
-
 -- Usually our proofs use pattern matching instead of the induction
 -- principle associated with the LTC natural numbers. The following
 -- example shows a proof using it.

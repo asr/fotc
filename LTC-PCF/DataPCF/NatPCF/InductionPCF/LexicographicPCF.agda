@@ -28,7 +28,6 @@ open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF
         )
 
 ------------------------------------------------------------------------------
-
 wfIndN-LT₂ :
   (P : D → D → Set) →
   ({m₁ n₁ : D} → N m₁ → N n₁ →

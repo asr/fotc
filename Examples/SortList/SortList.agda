@@ -18,6 +18,7 @@ open import LTC.Data.Nat.Type using ( N )
 open import LTC.Data.List using ( _++_ ; foldr )
 
 ------------------------------------------------------------------------------
+
 -- Tree terms
 postulate
   nilTree  : D
@@ -34,6 +35,7 @@ data Tree : D → Set where
 {-# ATP hint nodeT #-}
 
 ------------------------------------------------------------------------------
+
 -- Inequalites on lists and trees
 
 -- Note from Burstall (p. 46): "The relation ≤ between lists is only an
@@ -97,6 +99,7 @@ LE-TreeItem t item = ≤-TreeItem t item ≡ true
 {-# ATP definition LE-TreeItem #-}
 
 ------------------------------------------------------------------------------
+
 -- Ordering functions and predicates on lists and trees
 
 postulate
@@ -129,6 +132,7 @@ ListOrd is = isListOrd is ≡ true
 {-# ATP definition ListOrd #-}
 
 ------------------------------------------------------------------------------
+
 -- The program
 
 -- The function toTree adds an item to a tree.

@@ -15,9 +15,6 @@ infixl 6 _+_ _-_
 open import LTC.Data.Nat.Type public
 
 ------------------------------------------------------------------------------
--- Arithmetic operations
-
--------------------------------------------------
 -- Addition with recursion on the first argument.
 
 -- Version using lambda-abstraction.
@@ -35,7 +32,7 @@ _+_ : D → D → D
 m + n = rec m n (lam +-aux)
 {-# ATP definition _+_ #-}
 
-----------------
+------------------------------------------------------------------------------
 -- Substraction.
 
 -- Version using lambda-abstraction.
@@ -53,7 +50,7 @@ _-_ : D → D → D
 m - n = rec n m (lam minus-aux)
 {-# ATP definition _-_ #-}
 
--------------------------------------------------------
+------------------------------------------------------------------------------
 -- Multiplication with recursion on the first argument.
 
 -- Version using lambda-abstraction.

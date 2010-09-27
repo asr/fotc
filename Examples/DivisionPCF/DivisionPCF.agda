@@ -19,7 +19,6 @@ open import LTC-PCF.DataPCF.NatPCF using ( _-_ )
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( _<_ )
 
 ------------------------------------------------------------------------------
-
 -- Version using lambda-abstraction.
 -- divh : D → D
 -- divh g = lam (λ i → lam (λ j →
@@ -27,8 +26,8 @@ open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( _<_ )
 --                then zero
 --                else (succ (g ∙ (i - j) ∙ j))))
 
--- Version using lambda lifting via super-combinators.
--- (Hughes. Super-combinators. 1982)
+-- Version using lambda lifting via super-combinators
+-- (Hughes. Super-combinators. 1982).
 
 div-aux₁ : D → D → D → D
 div-aux₁ i g j = if (i < j) then zero else (succ (g ∙ (i - j) ∙ j))

@@ -23,7 +23,6 @@ open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF-ER
         )
 
 ------------------------------------------------------------------------------
-
 -- The division result is correct when the dividend is less than
 -- the divisor.
 
@@ -77,10 +76,11 @@ div-x≥y-aux {i} {j} {r} Ni Nj Nr i≥j auxH =
     j * (div i j) + r
   ∎
 
-  where prf : j * succ (div (i - j) j) + r ≡ j * (div i j) + r
-        prf = subst (λ x → j * x + r ≡ j * (div i j) + r)
-                    (div-x≥y Ni Nj i≥j )
-                    refl
+  where
+    prf : j * succ (div (i - j) j) + r ≡ j * (div i j) + r
+    prf = subst (λ x → j * x + r ≡ j * (div i j) + r)
+                (div-x≥y Ni Nj i≥j )
+                refl
 
 div-x≥y-correct : {i j : D} → N i → N j →
                   (ih : DIV (i - j) j (div (i - j) j)) →
@@ -90,7 +90,7 @@ div-x≥y-correct {i} {j} Ni Nj ih i≥j =
   r , (Nr , (r<j , (div-x≥y-aux Ni Nj Nr i≥j auxH)))
 
     where
-      -- The parts of the inductive hipothesis ih
+      -- The parts of the inductive hipothesis ih.
       r : D
       r = ∃D-proj₁ (∧-proj₂ ih)
 

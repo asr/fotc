@@ -21,7 +21,6 @@ open import LTC-PCF.DataPCF.NatPCF.DivisibilityPCF.PropertiesPCF
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( LE )
 
 ---------------------------------------------------------------------------
-
 -- Greatest that any common divisor.
 GACD : D → D → D → Set
 GACD a b gcd = (c : D) → N c → CD a b c → LE c gcd

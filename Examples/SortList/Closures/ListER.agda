@@ -29,4 +29,4 @@ flatten-List (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂)
   = subst (λ t → ListN t)
           (sym (flatten-node t₁ i t₂))
           (++-ListN (flatten-List Tt₁)  -- IH.
-                    (flatten-List Tt₂)) -- IH.
+                    (flatten-List Tt₂))  -- IH.
