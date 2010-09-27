@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Agda as a logical framework for LTC
+-- The LTC core
 ------------------------------------------------------------------------------
 {-
 
@@ -18,18 +18,20 @@ infix  5 if_then_else_
 infix  3 _≡_
 
 ------------------------------------------------------------------------------
--- The universal domain.
+-- The universal domain
+
 -- N.B. The following module is exported by this module.
 open import LTC.Minimal.Core public
 
 ------------------------------------------------------------------------------
--- The term language of LTC correspond to the PCF terms
+-- The term language of LTC correspond to the PCF terms.
 
---   t ::= x | t t | \x -> t
---           | true | false | if t then t else t
---           | 0 | succ t | pred t | isZero t
---           | error
---           | fix t
+--   t ::= x    | t t    | \x → t
+--      | true  | false  | if t then t else t
+--      | 0     | succ t | pred t             | isZero t
+--      | []    | _∷_    | head               | tail
+--      | fix t
+--      | error
 
 postulate
 
@@ -45,36 +47,33 @@ postulate
   isZero : D → D
 
   -- LTC abstraction.
-  lam    : (D → D) → D
+  lam : (D → D) → D
 
-  -- LTC application
-  -- Left associative aplication operator
-  -- The Agda application has higher precedence level than LTC application
-  _∙_    : D → D → D
+  -- LTC application.
+  -- The Agda application has higher precedence level than LTC application.
+  _∙_ : D → D → D
 
-  -- LTC error
-  error  : D
+  -- LTC error.
+  error : D
 
-  -- LTC fixed point operator
-  fix    : (D → D) → D
+  -- LTC fixed point operator.
+  fix : (D → D) → D
   -- fixFO  : D
 
-  -- LTC lists
+  -- LTC lists.
   []   : D
   _∷_  : D → D → D
   head : D → D
   tail : D → D
 
 ------------------------------------------------------------------------------
--- The LTC's equality is the propositional identity on 'D'.
+-- The LTC equality is the propositional identity on 'D'.
 
 -- The identity type on D.
 data _≡_ (x : D) : D → Set where
   refl : x ≡ x
 
--- Identity properties.
-
--- The substitution is defined in LTC.MinimalER
+-- Identity properties
 
 sym : {x y : D} → x ≡ y → y ≡ x
 sym refl = refl
@@ -82,13 +81,14 @@ sym refl = refl
 trans : {x y z : D} → x ≡ y → y ≡ z → x ≡ z
 trans refl y≡z = y≡z
 
+-- The substitution is defined in LTC.MinimalER.
+
 ------------------------------------------------------------------------------
 -- Logical constants: Curry-Howard isomorphism
 
--- The LTC's logical constants are the type theory's logical
--- constants via the Curry-Howard isomorphism.
--- For the implication and the universal quantifier
--- we use Agda (dependent) function type.
+-- The LTC logical constants are the type theory logical constants via
+-- the Curry-Howard isomorphism.  For the implication and the
+-- universal quantifier we use the Agda (dependent) function type.
 
 -- N.B. The following modules are exported by this module.
 open import Lib.Data.Empty       public
@@ -97,6 +97,7 @@ open import Lib.Data.Sum         public
 open import Lib.Data.Unit        public
 open import Lib.Relation.Nullary public
 open import LTC.Data.Product     public
+
 ------------------------------------------------------------------------------
 -- Conversion rules
 
@@ -115,7 +116,7 @@ postulate
 {-# ATP axiom cP₂ #-}
 
 postulate
-  -- Conversion rules for isZero
+  -- Conversion rules for isZero.
   cZ₁ :           isZero zero     ≡ true
   cZ₂ : (n : D) → isZero (succ n) ≡ false
 {-# ATP axiom cZ₁ #-}
@@ -133,12 +134,12 @@ postulate
 {-# ATP axiom cFix #-}
 
 postulate
-  -- Conversion rule for head
+  -- Conversion rule for head.
   cHead : (x xs : D) → head (x ∷ xs) ≡ x
 {-# ATP axiom cHead #-}
 
 postulate
-  -- Conversion rule for tail
+  -- Conversion rule for tail.
   cTail : (x xs : D) → tail (x ∷ xs) ≡ xs
 {-# ATP axiom cTail #-}
 

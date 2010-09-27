@@ -7,6 +7,7 @@ module LTC.Data.Product where
 open import LTC.Minimal.Core using ( D )
 
 infixr 4 _,_
+
 ------------------------------------------------------------------------------
 
 -- See Lib.Data.Product for the conjunction.
