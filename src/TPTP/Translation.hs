@@ -15,6 +15,7 @@ module TPTP.Translation
 
 ------------------------------------------------------------------------------
 -- Haskell imports
+
 import Control.Monad ( zipWithM )
 import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Class ( lift )
@@ -28,6 +29,7 @@ import MonadUtils ( zipWith3M )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
+
 import Agda.Syntax.Abstract.Name ( QName(..) )
 import Agda.Syntax.Common ( RoleATP(..) )
 import Agda.Syntax.Internal ( Clause, Type )
@@ -43,6 +45,7 @@ import Agda.TypeChecking.Monad.Base
 
 ------------------------------------------------------------------------------
 -- Local imports
+
 import Common ( ER, iVarNames )
 import FOL.Translation.Functions ( fnToFormula )
 import FOL.Translation.Internal.Types ( typeToFormula )
@@ -62,7 +65,6 @@ import TPTP.Types ( AF(AF) )
 -- #include "../undefined.h"
 
 ------------------------------------------------------------------------------
-
 toAF :: QName → RoleATP → Definition → ER AF
 toAF qName role def = do
 

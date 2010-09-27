@@ -25,7 +25,6 @@ import qualified Agda.Utils.Trie as Trie
 import Utils.IO ( bye )
 
 -----------------------------------------------------------------------------
-
 data Options = MkOptions
     { optVersion       :: Bool
     , optHelp          :: Bool
@@ -60,11 +59,12 @@ helpOpt opts = opts { optHelp = True }
 -- Adapted from: Agda.Interaction.Options.verboseFlag.
 verboseOpt :: String → Options → Options
 verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
-    where (k, n) :: ([String], Int) = parseVerbose str
-          parseVerbose :: String → ([String], Int)
-          parseVerbose s = case wordsBy (`elem` ":.") s of
-            []  → error
-                     "argument to verbose should be on the form x.y.z:N or N"
+    where
+      (k, n) :: ([String], Int) = parseVerbose str
+      parseVerbose :: String → ([String], Int)
+      parseVerbose s =
+          case wordsBy (`elem` ":.") s of
+            []  → error "argument to verbose should be on the form x.y.z:N or N"
             ss  → let m :: Int
                       m = read $ last ss
                   in (init ss, m)

@@ -7,6 +7,5 @@ import Data.Version ( showVersion )
 import qualified Paths_agda2atp as P ( version )
 
 ------------------------------------------------------------------------------
-
 version :: String
 version = showVersion P.version

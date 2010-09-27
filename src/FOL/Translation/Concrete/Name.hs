@@ -10,7 +10,6 @@ module FOL.Translation.Concrete.Name ( concatName ) where
 import Agda.Syntax.Concrete.Name ( NamePart(Id, Hole) )
 
 ------------------------------------------------------------------------------
-
 takeId :: NamePart → String
 takeId Hole         = []
 takeId (Id strName) = strName

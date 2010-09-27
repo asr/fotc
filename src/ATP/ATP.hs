@@ -42,7 +42,6 @@ import TPTP.Types ( AF )
 #include "../undefined.h"
 
 -----------------------------------------------------------------------------
-
 -- The ATPs.
 data ATP = Eprover | Equinox | IleanCoP | Metis
            deriving (Eq, Show)
@@ -78,12 +77,12 @@ ileancopOk = "Intuitionistic Theorem"
 
 checkOutputATP :: ATP → String → Bool
 checkOutputATP atp output = isInfixOf (atpOk atp) output
-       where
-         atpOk :: ATP → String
-         atpOk Eprover  = eproverOk
-         atpOk Equinox  = equinoxOk
-         atpOk IleanCoP = ileancopOk
-         atpOk Metis    = metisOk
+    where
+      atpOk :: ATP → String
+      atpOk Eprover  = eproverOk
+      atpOk Equinox  = equinoxOk
+      atpOk IleanCoP = ileancopOk
+      atpOk Metis    = metisOk
 
 argsATP :: ATP → Int → FilePath → [String]
 argsATP Eprover  timeLimit file = [ "--tstp-format"

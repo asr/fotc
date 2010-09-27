@@ -25,10 +25,10 @@ folFalse   = "⊥"
 folNot     = "¬"
 folAnd     = "∧"
 folOr      = "∨"
-folImplies = "⇒" -- Also it can be used the Agda functional space.
+folImplies = "⇒"  -- Also it can be used the Agda functional space.
 folEquiv   = "↔"
 
 folExists, folForAll, folEquals :: String
 folExists = "∃D"
-folForAll = "∀D" -- Also it can be used the Agda functional space.
+folForAll = "∀D"  -- Also it can be used the Agda functional space.
 folEquals = "≡"

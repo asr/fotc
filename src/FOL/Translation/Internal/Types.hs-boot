@@ -14,5 +14,4 @@ import FOL.Monad ( T )
 import FOL.Types ( FOLFormula )
 
 ------------------------------------------------------------------------------
-
 typeToFormula :: Type → T FOLFormula

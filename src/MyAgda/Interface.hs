@@ -19,6 +19,7 @@ module MyAgda.Interface
 
 ------------------------------------------------------------------------------
 -- Haskell imports
+
 -- import Data.Map ( Map )
 import Control.Monad ( unless )
 import Control.Monad.IO.Class ( liftIO )
@@ -87,14 +88,14 @@ import MyAgda.Syntax.Abstract.Name
 #include "../undefined.h"
 
 ------------------------------------------------------------------------------
-
 getRoleATP :: RoleATP → Interface → Definitions
 getRoleATP role i = Map.filter (isRole role) $ sigDefinitions $ iSignature i
-    where isRole :: RoleATP → Definition → Bool
-          isRole AxiomATP      = isAxiomATP
-          isRole ConjectureATP = isConjectureATP
-          isRole DefinitionATP = isDefinitionATP
-          isRole HintATP       = isHintATP
+    where
+      isRole :: RoleATP → Definition → Bool
+      isRole AxiomATP      = isAxiomATP
+      isRole ConjectureATP = isConjectureATP
+      isRole DefinitionATP = isDefinitionATP
+      isRole HintATP       = isHintATP
 
 -- getHintsATP :: Interface → Definitions
 -- getHintsATP i = Map.filter isAxiomATP $ sigDefinitions $ iSignature i

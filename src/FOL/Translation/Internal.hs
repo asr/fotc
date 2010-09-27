@@ -57,8 +57,8 @@ cBodyToFOLTerm _                    = __IMPOSSIBLE__
 removeBindingOnCBodyIndex :: ClauseBody → String → Nat → ClauseBody
 removeBindingOnCBodyIndex (Bind (Abs x1 cBody)) x2 index =
     if x1 == x2
-       then renameVar cBody index -- We remove the bind and rename the
-                                  -- variables inside the body.
+       then renameVar cBody index  -- We remove the bind and rename the
+                                   -- variables inside the body.
        else (Bind (Abs x1 $ removeBindingOnCBodyIndex cBody x2 index))
 removeBindingOnCBodyIndex _ _ _ = __IMPOSSIBLE__
 
@@ -71,5 +71,5 @@ removeBindingOnCBodyIndex _ _ _ = __IMPOSSIBLE__
 removeBindingOnCBody :: ClauseBody → String → ClauseBody
 removeBindingOnCBody cBody x = removeBindingOnCBodyIndex cBody x index
     where
-    index :: Nat
-    index = varToDeBruijnIndex cBody x
+      index :: Nat
+      index = varToDeBruijnIndex cBody x

@@ -21,10 +21,10 @@ import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
 -- Local imports
 import FOL.Types ( FOLFormula(..), FOLTerm(..) )
 import TPTP.Types ( AF(..) )
+
 #include "../undefined.h"
 
 ------------------------------------------------------------------------------
-
 type TPTP = String
 
 class PrettyTPTP a where

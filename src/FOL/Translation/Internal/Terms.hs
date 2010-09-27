@@ -9,12 +9,14 @@ module FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm ) where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
+
 -- import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Class ( lift )
 import Control.Monad.Trans.State ( evalState, get, put )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
+
 import Agda.Syntax.Abstract.Name ( nameConcrete, QName(QName) )
 import Agda.Syntax.Common
     ( Arg(Arg)
@@ -39,6 +41,7 @@ import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 
 ------------------------------------------------------------------------------
 -- Local imports
+
 import FOL.Constants
     ( folTrue, folFalse, folNot, folAnd, folOr
     , folImplies, folEquiv, folExists, folForAll, folEquals
@@ -54,7 +57,6 @@ import Utils.Names ( freshName )
 #include "../../../undefined.h"
 
 ------------------------------------------------------------------------------
-
 argTermToFormula :: Arg Term → T FOLFormula
 argTermToFormula Arg {argHiding = NotHidden, unArg = term} = termToFormula term
 argTermToFormula Arg {argHiding = Hidden} =

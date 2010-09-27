@@ -110,12 +110,12 @@ instance RenameVar Term where
 
     renameVar term@(Var n [])  index =
         if n < index
-           then term -- The variable was before than the quantified variable,
-                     -- we don't do nothing.
+           then term  -- The variable was before than the quantified variable,
+                      -- we don't do nothing.
            else if n > index
-                then Var (n - 1) [] -- The variable was after than the
-                                    -- quantified variable, we need
-                                    -- "unbound" the quantified variable.
+                then Var (n - 1) []  -- The variable was after than the
+                                     -- quantified variable, we need
+                                     -- "unbound" the quantified variable.
                 else __IMPOSSIBLE__
 
     renameVar (Var _ _ )   _   = __IMPOSSIBLE__
@@ -210,8 +210,8 @@ instance VarsTypes (Abs Type) where
 -- Remove the reference to a variable (i.e. Var n args) from an Agda
 -- internal entity.
 class RemoveVar a where
-    removeVar :: a → Nat → a -- The Nat represents the de Bruijn index
-                             -- of the variable to be removed.
+    removeVar :: a → Nat → a  -- The Nat represents the de Bruijn index
+                              -- of the variable to be removed.
 
 instance RemoveVar Type where
     removeVar (El ty@(Type _ ) term) index  = El ty (removeVar term index)

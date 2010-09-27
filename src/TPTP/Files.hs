@@ -36,7 +36,6 @@ import TPTP.Types
 #include "../undefined.h"
 
 ------------------------------------------------------------------------------
-
 class ValidFileName a where
     validFileName :: a → FilePath
 

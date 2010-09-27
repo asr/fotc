@@ -7,6 +7,7 @@ module Main where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
+
 import Control.Monad ( when )
 import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Class ( lift )
@@ -28,6 +29,7 @@ import System.Exit
 
 ------------------------------------------------------------------------------
 -- Agda library imports
+
 -- import Agda.Syntax.Abstract.Name ( ModuleName )
 -- import Agda.TypeChecking.Monad.Base ( Interface(iModuleName) )
 import Agda.Utils.Impossible
@@ -38,6 +40,7 @@ import Agda.Utils.Impossible
 
 ------------------------------------------------------------------------------
 -- Local imports
+
 -- import FOL.Pretty
 import ATP.ATP ( callATP )
 import Common ( ER )
@@ -107,7 +110,7 @@ translation file = do
 runAgda2ATP :: ErrorT String IO ()
 runAgda2ATP = do
   prgName ← liftIO getProgName
-  argv    ← liftIO getArgs --fmap head $ liftIO getArgs
+  argv    ← liftIO getArgs  -- fmap head $ liftIO getArgs
 
   -- Reading the command line options.
   (opts, names) ← liftIO $ parseOptions argv prgName

@@ -10,13 +10,12 @@ import Control.Monad.Trans.State ( get, put, State )
 -- Agda library imports
 import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
 
-#include "../undefined.h"
-
 -- Local imports
 -- import Monad ( T )
 
-------------------------------------------------------------------------------
+#include "../undefined.h"
 
+------------------------------------------------------------------------------
 chars :: String
 chars = ['a'..'z']
 
