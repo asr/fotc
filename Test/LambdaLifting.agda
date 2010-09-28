@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- The factorial
+-- Example of lambda-lifting
 ------------------------------------------------------------------------------
 
-module Test.Factorial where
+module Test.LambdaLifting where
 
 open import LTC.Minimal
 
@@ -14,7 +14,7 @@ open import LTC.Data.Nat using ( _*_ )
 -- fach : D → D
 -- fach f = lam (λ n → if (isZero n) then (succ zero) else n * (f ∙ (pred n)))
 
--- Lambda-lifting via super-combinators. (Hughes. Super-combinators. 1982)
+-- Lambda-lifting via super-combinators (Hughes. Super-combinators. 1982).
 
 α : D → D → D
 α f n = if (isZero n) then (succ zero) else n * (f ∙ (pred n))
@@ -36,6 +36,6 @@ postulate
   fac1 : fac (succ zero) ≡ succ zero
 {-# ATP prove fac1 #-}
 
--- postulate
---   fac2 : fac (succ (succ zero)) ≡ succ (succ zero)
--- {-# ATP prove fac2 #-}
+postulate
+  fac2 : fac (succ (succ zero)) ≡ succ (succ zero)
+{-# ATP prove fac2 #-}
