@@ -69,6 +69,9 @@ case $1 in
           Examples/SortList/Properties
           '
         ;;
+    Test)
+        files='Test/LambdaLifting'
+        ;;
     *) echo "Unrecognized value"
        exit
        ;;

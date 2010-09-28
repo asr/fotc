@@ -1,9 +1,9 @@
-# Includes
 TOP = ..
 include $(TOP)/mk/config.mk
 
-host_dir = $(root_host_dir)/LTC-PCF/
+host_dir   = $(root_host_dir)/LTC-PCF/
 local_path = LTC-PCF
+html_dir   = /tmp/$(local_path)/html/
 
 conjectures_PCF :
 	cd $(TOP) && ./Test/conjectures.bash LTC-PCF
@@ -16,13 +16,12 @@ type_checking_ER :
 
 type_checking_all : type_checking_ER type_checking
 
-test : type_checking_all conjectures_PCF
+all : type_checking_all conjectures_PCF
 
 publish :
-	rm -r -f html/
+	rm -f $(html_dir)
 
 	cd $(TOP) && \
-	$(AGDA) --html --html-dir=$(local_path)/html \
-		$(local_path)/Everything.agda
+	$(AGDA) --html --html-dir=$(html_dir) $(local_path)/Everything.agda
 
-	$(RSYNC) html/ $(host_dir)
+	$(RSYNC) $(html_dir) $(host_dir)

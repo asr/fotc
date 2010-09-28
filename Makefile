@@ -11,6 +11,7 @@ conjectures :
 	$(MAKE) -C Examples/GCD      conjectures
 	$(MAKE) -C Examples/Logic    conjectures
 	$(MAKE) -C Examples/SortList conjectures
+	$(MAKE) -C Test              conjectures
 
 conjectures_PCF :
 	$(MAKE) -C LTC-PCF              conjectures_PCF
@@ -25,6 +26,7 @@ type_checking :
 	$(MAKE) -C Examples/GCD-PCF     type_checking
 	$(MAKE) -C Examples/Logic       type_checking
 	$(MAKE) -C Examples/SortList    type_checking
+	$(MAKE) -C Test                 type_checking
 	$(MAKE) -C Test/Consistency     type_checking
 
 type_checking_ER :
@@ -37,7 +39,7 @@ type_checking_ER :
 
 type_checking_all : type_checking_ER type_checking
 
-test : type_checking_all non_conjectures conjectures conjectures_PCF
+all : type_checking_all non_conjectures conjectures conjectures_PCF
 
 publish :
 	$(MAKE) -C LTC                  publish
@@ -48,6 +50,7 @@ publish :
 	$(MAKE) -C Examples/Logic       publish
 	$(MAKE) -C Examples/SortList    publish
 	$(MAKE) -C Test/Consistency     publish
+
 clean :
 	-find -name '*.agdai' | xargs rm -f
 	-rm -f /tmp/*.tptp

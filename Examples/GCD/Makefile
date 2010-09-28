@@ -1,9 +1,9 @@
-# Includes
 TOP = ../..
 include $(TOP)/mk/config.mk
 
-host_dir = $(root_host_dir)/GCD/
+host_dir   = $(root_host_dir)/GCD/
 local_path = Examples/GCD
+html_dir   = /tmp/$(local_path)/html/
 
 consistency :
 	cd $(TOP) && ./Test/consistency.bash GCD
@@ -19,13 +19,12 @@ type_checking_ER :
 
 type_checking_all : type_checking_ER type_checking
 
-test : type_checking_all conjectures
+all : type_checking_all conjectures
 
 publish :
-	rm -r -f html/
+	rm -f $(html_dir)
 
 	cd $(TOP) && \
-	$(AGDA) --html --html-dir=$(local_path)/html \
-		$(local_path)/ProofSpecification.agda
+	$(AGDA) --html --html-dir=$(html_dir) $(local_path)/ProofSpecificationPCF.agda
 
-	$(RSYNC) html/ $(host_dir)
+	$(RSYNC) $(html_dir) $(host_dir)
