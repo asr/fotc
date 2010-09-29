@@ -16,6 +16,7 @@ import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Reader ( ask )
 import Data.Char ( chr, isAsciiUpper, isAsciiLower, isDigit, ord )
 import System.Directory ( createDirectoryIfMissing )
+import System.Environment ( getProgName )
 import System.FilePath ( (</>), addExtension )
 
 -- Agda library imports
@@ -54,6 +55,9 @@ instance ValidFileName String where
 extTPTP :: String
 extTPTP = ".tptp"
 
+commentLine :: String
+commentLine = "%-----------------------------------------------------------------------------\n"
+
 generalRolesFileName :: R FilePath
 generalRolesFileName = do
     opts ← ask
@@ -65,32 +69,38 @@ generalRolesFileName = do
 
     return $ addExtension (outputDir </> "general-roles") extTPTP
 
-communHeader :: String
-communHeader =
-    "%-----------------------------------------------------------------------------\n" ++
-    "% This file was generated automatically.\n" ++
-    "%-----------------------------------------------------------------------------\n\n"
+communHeader :: IO String
+communHeader = do
+  prgName ← getProgName
+  return $
+    commentLine ++
+    "% This file was generated automatically by " ++ prgName ++ ".\n" ++
+    commentLine ++ "\n"
 
-generalRolesHeader :: String
-generalRolesHeader =
-    communHeader ++
+generalRolesHeader :: IO String
+generalRolesHeader = do
+  ch ← communHeader
+  return $
+    ch ++
     "% This file corresponds to the ATP axioms, general hints, and definitions.\n\n"
 
 generalRolesFooter :: String
 generalRolesFooter  =
-    "%-----------------------------------------------------------------------------\n" ++
+    commentLine ++
     "% End ATP axioms, general hints, and definitions file.\n"
 
-conjectureHeader :: FilePath → String
-conjectureHeader generalRolesFile =
-    communHeader ++
+conjectureHeader :: FilePath → IO String
+conjectureHeader generalRolesFile = do
+  ch ← communHeader
+  return $
+    ch ++
     "% This file corresponds to an ATP conjecture and its hints.\n\n" ++
     "% We include the general ATP pragmas (axioms, hints and definitions).\n" ++
     "include('" ++ generalRolesFile ++ "').\n\n"
 
 conjectureFooter :: String
 conjectureFooter =
-    "%-----------------------------------------------------------------------------\n" ++
+    commentLine ++
     "% End ATP conjecture file.\n"
 
 agdaOriginalTerm :: QName → RoleATP → String
@@ -125,9 +135,10 @@ createGeneralRolesFile afs = do
   reportSLn "generalRoles" 20 $
             "Creating the general roles file " ++ file ++ " ..."
   liftIO $ do
-    _ ← writeFile file generalRolesHeader
-    _ ← mapM_ (`addGeneralRole` file) afs
-    _ ← appendFile file generalRolesFooter
+    grh ← generalRolesHeader
+    _   ← writeFile file grh
+    _   ← mapM_ (`addGeneralRole` file) afs
+    _   ← appendFile file generalRolesFooter
     return ()
 
 createConjectureFile :: (AF, [AF]) → R FilePath
@@ -154,8 +165,9 @@ createConjectureFile (af@(AF qName _ _ ), hints) = do
   generalRolesFile ← generalRolesFileName
 
   liftIO $ do
-    _ ← writeFile conjectureFile (conjectureHeader generalRolesFile)
-    _ ← mapM_ (`addGeneralRole` conjectureFile) hints
+    ch ← conjectureHeader generalRolesFile
+    _  ← writeFile conjectureFile ch
+    _  ← mapM_ (`addGeneralRole` conjectureFile) hints
     return ()
 
   addConjecture af conjectureFile

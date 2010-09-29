@@ -24,8 +24,8 @@ import Control.Monad.Trans.Reader ( ReaderT, runReaderT )
 -- import qualified Data.Map as Map
 -- import Data.Maybe
 
-import System.Environment
-import System.Exit
+import System.Environment ( getArgs, getProgName)
+import System.Exit ( exitFailure, exitSuccess )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
