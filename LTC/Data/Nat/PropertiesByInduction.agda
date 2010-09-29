@@ -41,11 +41,11 @@ open import LTC.Data.Nat using ( _+_ ; indN ; N )
 
     postulate
       P0 : P zero
-    -- Metis 2.3 (release 20100920) no-success due to timeout (180).
+    -- Metis 2.3 (release 20100928) no-success due to timeout (180).
     {-# ATP prove P0 #-}  -- We use the ATP systems to prove the base case.
 
     postulate
       iStep : {i : D} → N i → P i → P (succ i)
-    -- Metis 2.3 (release 20100920) no-success due to timeout (180).
+    -- Metis 2.3 (release 20100928) no-success due to timeout (180).
     {-# ATP prove iStep #-}  -- We use the ATP systems to prove the
                              -- induction step.

@@ -67,7 +67,7 @@ postulate
     gcd (succ m) (succ n) ∣ succ m
 -- Equinox 5.0alpha (2010-03-29) proved this conjecture very fast.
 -- E 1.2 no-success due to timeout (180).
--- Metis 2.3 (release 20100920) no-success due to timeout (180).
+-- Metis 2.3 (release 20100928) no-success due to timeout (180).
 {-# ATP prove gcd-S≤S-∣₁ #-}
 
 -- 'gcd (succ m) (succ n) ∣ succ m' when 'succ m > succ n'.
@@ -94,7 +94,7 @@ postulate
     ((succ m - succ n) + succ n ≡ succ m) →
     gcd (succ m) (succ n) ∣ succ m
 -- E 1.2 no-success due to timeout (180).
--- Metis 2.3 (release 20100920) no-success due to timeout (180).
+-- Metis 2.3 (release 20100928) no-success due to timeout (180).
 {-# ATP prove gcd-S>S-∣₁-ah #-}
 
 gcd-S>S-∣₁ :
@@ -152,7 +152,7 @@ postulate
     ((succ n - succ m) + succ m ≡ succ n) →
     gcd (succ m) (succ n) ∣ succ n
 -- E 1.2 no-success due to timeout (180).
--- Metis 2.3 (release 20100920) no-success due to timeout (180).
+-- Metis 2.3 (release 20100928) no-success due to timeout (180).
 {-# ATP prove gcd-S≤S-∣₂-ah #-}
 
 gcd-S≤S-∣₂ :
@@ -180,7 +180,7 @@ postulate
     (gcd (succ m - succ n) (succ n) ∣ succ n) →
     GT (succ m) (succ n) →
     gcd (succ m) (succ n) ∣ succ n
--- Metis 2.3 (release 20100920) no-success due to timeout (180).
+-- Metis 2.3 (release 20100928) no-success due to timeout (180).
 {-# ATP prove gcd-S>S-∣₂ #-}
 
 ---------------------------------------------------------------------------

@@ -32,7 +32,7 @@ postulate S∣0 : {n : D} → N n →  succ n ∣ zero
 -- For the proof using the ATP we added the auxiliary hypothesis
 -- N (succ zero).
 postulate ∣-refl-S-ah : {n : D} → N n → N (succ zero) → succ n ∣ succ n
--- Metis 2.3 (release 20100920) no-success due to timeout (180).
+-- Metis 2.3 (release 20100928) no-success due to timeout (180).
 {-# ATP prove ∣-refl-S-ah sN *-leftIdentity #-}
 
 ∣-refl-S : {n : D} → N n → succ n ∣ succ n
@@ -48,7 +48,7 @@ postulate
                       n ≡ k₁ * succ m →
                       p ≡ k₂ * succ m →
                       n - p ≡ (k₁ - k₂) * succ m
--- Metis 2.3 (release 20100920) no-success due to timeout (180).
+-- Metis 2.3 (release 20100928) no-success due to timeout (180).
 {-# ATP prove x∣y→x∣z→x∣y-z-ah [x-y]z≡xz*yz sN #-}
 
 x∣y→x∣z→x∣y-z : {m n p : D} → N m → N n → N p → m ∣ n → m ∣ p → m ∣ n - p
@@ -67,7 +67,7 @@ postulate
                       n ≡ k₁ * succ m →
                       p ≡ k₂ * succ m →
                       n + p ≡ (k₁ + k₂) * succ m
--- Metis 2.3 (release 20100920) no-success due to timeout (180).
+-- Metis 2.3 (release 20100928) no-success due to timeout (180).
 {-# ATP prove x∣y→x∣z→x∣y+z-ah [x+y]z≡xz*yz sN #-}
 
 x∣y→x∣z→x∣y+z : {m n p : D} → N m → N n → N p → m ∣ n → m ∣ p → m ∣ n + p
@@ -90,7 +90,7 @@ postulate
   x∣S→x≤S-ah₂ : {m n k : D} → N m → N n → N k →
                 succ n ≡ succ k * succ m →
                 LE (succ m) (succ n)
--- Metis 2.3 (release 20100920) no-success due to timeout (180).
+-- Metis 2.3 (release 20100928) no-success due to timeout (180).
 {-# ATP prove x∣S→x≤S-ah₂ x≤x+y *-N sN #-}
 
 x∣S→x≤S : {m n : D} → N m → N n → m ∣ (succ n) → LE m (succ n)

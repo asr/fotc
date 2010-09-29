@@ -3,7 +3,7 @@
 # Test the consistency files.
 
 AGDA='agda -v 0'
-AGDA2ATP='agda2atp --atp=equinox --atp=eprover --time=10 '
+AGDA2ATP='agda2atp --atp=equinox --atp=eprover --atp=metis --time=10 '
 AGDA2ATP="$AGDA2ATP"--unproved-conjecture-error
 
 case $1 in

@@ -52,7 +52,7 @@ postulate
                 i - j ≡ j * (div (i - j) j) + r →
                 i ≡ j * (div i j) + r
 -- E 1.2 no-success due to timeout (180).
--- Metis 2.3 (release 20100920) no-success due to timeout (180).
+-- Metis 2.3 (release 20100928) no-success due to timeout (180).
 {-# ATP prove div-x≥y-aux div-x≥y aux #-}
 
 div-x≥y-correct : {i j : D} → N i → N j →

@@ -44,7 +44,7 @@ postulate
   where
     postulate prf : xs ≈ xs →  -- IH.
                     x ∷ xs ≈ x ∷ xs
-    -- Metis 2.3 (release 20100920) no-success due to timeout (180).
+    -- Metis 2.3 (release 20100928) no-success due to timeout (180).
     {-# ATP prove prf #-}
 
 ≡-≈ : {xs ys : D} → List xs → List ys → xs ≡ ys → xs ≈ ys
@@ -64,7 +64,7 @@ postulate
     ≡-list x≡y (≈-≡ Lxs Lys xs≈ys)
     where
       postulate xs≈ys : xs ≈ ys
-      -- Metis 2.3 (release 20100920) no-success due to timeout (180).
+      -- Metis 2.3 (release 20100928) no-success due to timeout (180).
       {-# ATP prove xs≈ys #-}
 
       -- The ATPs use classic logic for this proof. They should be
@@ -79,5 +79,5 @@ postulate
       --                    x ≡ y
 
       postulate x≡y : x ≡ y
-      -- Metis 2.3 (release 20100920) no-success due to timeout (180).
+      -- Metis 2.3 (release 20100928) no-success due to timeout (180).
       {-# ATP prove x≡y #-}

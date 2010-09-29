@@ -34,5 +34,5 @@ postulate
               (DIV (i - j) j (div (i - j) j)) →
               GE i j →
               N (div i j)
--- Metis 2.3 (release 20100920) no-success due to timeout (180).
+-- Metis 2.3 (release 20100928) no-success due to timeout (180).
 {-# ATP prove div-x≥y-N div-x≥y sN #-}

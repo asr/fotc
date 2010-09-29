@@ -151,7 +151,7 @@ postulate
     (gcd (succ m) (succ n - succ m) ∣ (succ n - succ m) + succ m) →
     ((succ n - succ m) + succ m ≡ succ n) →
     gcd (succ m) (succ n) ∣ succ n
--- Metis 2.3 (release 20100920) no-success due to timeout (180).
+-- Metis 2.3 (release 20100928) no-success due to timeout (180).
 {-# ATP prove gcd-S≤S-∣₂-ah gcd-S≤S #-}
 
 gcd-S≤S-∣₂ :
