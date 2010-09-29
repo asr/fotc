@@ -67,7 +67,7 @@ eproverOk = "Proof found!"
 equinoxOk :: String
 equinoxOk = "+++ RESULT: Theorem"
 
--- Tested with Metis 2.3 (release 20100920).
+-- Tested with Metis 2.3 (release 20100928).
 metisOk :: String
 metisOk = "SZS status Theorem"
 
@@ -91,7 +91,10 @@ argsATP Eprover  timeLimit file = [ "--tstp-format"
                                   ]
 argsATP Equinox  timeLimit file = [ "--time", show timeLimit, file ]
 argsATP IleanCoP timeLimit file = [ file, show timeLimit ]
-argsATP Metis   _          file = [ "--tptp", "/", file ]
+argsATP Metis    timeLimit file = [ "--tptp", "/"
+                                  , "--time-limit", show timeLimit
+                                  , file
+                                  ]
 
 runATP :: ATP → MVar (Bool, ATP) → [String] → IO ProcessHandle
 runATP atp outputMVar args = do
