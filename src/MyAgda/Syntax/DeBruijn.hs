@@ -108,15 +108,17 @@ instance RenameVar Term where
 
     renameVar (Def qName args) index = Def qName $ renameVar args index
 
-    renameVar term@(Var n [])  index =
-        if n < index
-           then term  -- The variable was before than the quantified variable,
-                      -- we don't do nothing.
-           else if n > index
-                then Var (n - 1) []  -- The variable was after than the
-                                     -- quantified variable, we need
-                                     -- "unbound" the quantified variable.
-                else __IMPOSSIBLE__
+    renameVar term@(Var n [])  index
+      | n < index = term            -- The variable was before than
+                                    -- the quantified variable, we
+                                    -- don't do nothing.
+
+      | n > index = Var (n - 1) []  -- The variable was after than the
+                                    -- quantified variable, we need
+                                    -- "unbound" the quantified
+                                    -- variable.
+
+      | otherwise = __IMPOSSIBLE__
 
     renameVar (Var _ _ )   _   = __IMPOSSIBLE__
     renameVar (Con _ _ )   _   = __IMPOSSIBLE__

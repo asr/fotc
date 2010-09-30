@@ -120,10 +120,9 @@ runAgda2ATP = do
 
   when (optHelp opts) $ liftIO $ bye $ usage prgName
 
-  if ((not $ optOnlyFiles opts) && (null $ optATP opts))
-    then throwError $ "It is required the option --only-files or " ++
-                       "the option --atp=name"
-    else return ()
+  when (not (optOnlyFiles opts) && null (optATP opts)) $
+       throwError $ "It is required the option --only-files or " ++
+                    "the option --atp=name"
 
   -- r  ← liftIO $ runReaderT (runErrorT (translation $ head names)) opts
   -- case r of

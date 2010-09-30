@@ -120,7 +120,7 @@ fnToAF qName def = do
     Right for → do
            lift $ reportSLn "symbolToAF" 20 $
                     "The FOL formula for " ++ show qName ++ " is:\n" ++ show for
-           if (optDefAsAxiom opts)
+           if optDefAsAxiom opts
                then return $ AF qName AxiomATP for
                else return $ AF qName DefinitionATP for
     Left err → throwError err
