@@ -1,0 +1,610 @@
+1 patch for repository http://code.haskell.org/Agda:
+
+Sat Oct  2 13:09:37 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+  * Added the ATP pragma
+    {-# ATP role name [h1 ... hn] #-}
+  
+    The pragma indicates that the name and h1 ... hn, will be used with
+    an (external) ATP.
+  
+    The possible roles are: axiom, definition, hint, and prove.
+  
+    TODO: Added example
+
+New patches:
+
+[Added the ATP pragma
+Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>**20101002180937
+ Ignore-this: 9ab1e5b72fbd874cfcf3cd5076f80f7d
+   {-# ATP role name [h1 ... hn] #-}
+ 
+   The pragma indicates that the name and h1 ... hn, will be used with
+   an (external) ATP.
+ 
+   The possible roles are: axiom, definition, hint, and prove.
+ 
+   TODO: Added example
+] hunk ./Agda.cabal 2
+ name:            Agda
+-version:         2.2.9
++version:         2.2.9.1
+ cabal-version:   >= 1.8 && < 2
+ build-type:      Simple
+ license:         OtherLicense
+addfile ./TODO-ASR
+hunk ./TODO-ASR 1
++* Update the interface version number (Agda.TypeChecking.Serialise).
+hunk ./TODO-ASR 3
++* Test the test file ATPMustBePostulate w.r.t the last version.
++
++* Add the test files for the impossible cases
++  -- The axioms and hints cannot have hints
++  {#- ATP axiom postulate h1 ... hn #-}
++  {#- ATP definition name h1 ... hn #-}
++  {#  ATP hint name h1 ... hn #-}
++
++* Test the standard library before send the patch
+hunk ./src/data/emacs-mode/agda2-mode.el 13
+ 
+ ;;; Code:
+ 
+-(defvar agda2-version "2.2.9"
++(defvar agda2-version "2.2.9.1"
+   "The version of the Agda mode.
+ Note that, by default, the same version of the underlying Haskell
+ library is used (see `agda2-ghci-options').")
+hunk ./src/full/Agda/Syntax/Abstract.hs 78
+             | CompiledTypePragma QName String
+             | CompiledDataPragma QName String [String]
+             | EtaPragma QName
++            | PragmaATP RoleATP QName [QName]
+   deriving (Typeable, Data, Show)
+ 
+ data LetBinding = LetBind LetInfo Relevance Name Expr Expr    -- ^ LetBind info name type defn
+hunk ./src/full/Agda/Syntax/Common.hs 176
+ 
+ newtype Constr a = Constr a
+ 
++-- | The role of an ATP pragma.
++data RoleATP = AxiomATP
++             | ConjectureATP
++             | DefinitionATP
++             | HintATP
++               deriving (Eq, Data, Typeable)
++
++instance Show RoleATP where
++    show AxiomATP      = "axiom"
++    show ConjectureATP = "prove"
++    show DefinitionATP = "definition"
++    show HintATP       = "hint"
++
+ ------------------------------------------------------------------------
+ -- Arbitrary and CoArbitrary instances
+ 
+hunk ./src/full/Agda/Syntax/Concrete.hs 248
+               -- module name.
+             | ImpossiblePragma !Range
+             | EtaPragma !Range QName
++            | PragmaATP !Range RoleATP QName [QName]
+     deriving (Typeable, Data)
+ 
+ ---------------------------------------------------------------------------
+hunk ./src/full/Agda/Syntax/Concrete.hs 376
+     getRange (ImportPragma r _)           = r
+     getRange (ImpossiblePragma r)         = r
+     getRange (EtaPragma r _)              = r
++    getRange (PragmaATP r _ _ _)          = r
+ 
+ instance HasRange UsingOrHiding where
+     getRange (Using xs)	    = getRange xs
+hunk ./src/full/Agda/Syntax/Concrete/Pretty.hs 312
+       hsep $ [text "IMPOSSIBLE"]
+     pretty (EtaPragma _ x) =
+       hsep $ [text "ETA", pretty x]
++    pretty (PragmaATP _ role qname qnames) =
++      hsep $ [ text "ATP", pretty role, pretty qname] ++ map pretty qnames
+ 
+ instance Pretty Fixity where
+     pretty (LeftAssoc _ n)  = text "infixl" <+> text (show n)
+hunk ./src/full/Agda/Syntax/Concrete/Pretty.hs 382
+ instance Pretty ImportedName where
+     pretty (ImportedName x)	= pretty x
+     pretty (ImportedModule x)	= text "module" <+> pretty x
+-
+hunk ./src/full/Agda/Syntax/Concrete/Pretty.hs 383
++instance Pretty RoleATP where
++    pretty AxiomATP      = text "axiom"
++    pretty ConjectureATP = text "prove"
++    pretty DefinitionATP = text "definition"
++    pretty HintATP       = text "hint"
+hunk ./src/full/Agda/Syntax/Parser/Lexer.x 85
+ <pragma_>   "IMPOSSIBLE"	{ keyword KwIMPOSSIBLE }
+ <pragma_>   "ETA"               { keyword KwETA }
+ <pragma_>   "LINE"		{ keyword KwLINE }
++<pragma_>   "ATP"               { keyword KwATP }
+ <pragma_>   . # [ $white ] +    { withInterval $ TokString }
+ 
+ -- Comments
+hunk ./src/full/Agda/Syntax/Parser/Parser.y 92
+     'COMPILED_TYPE' { TokKeyword KwCOMPILED_TYPE $$ }
+     'quoteGoal'     { TokKeyword KwQuoteGoal $$ }
+     'quote'         { TokKeyword KwQuote $$ }
++    'ATP'           { TokKeyword KwATP $$ }
+ 
+     setN	{ TokSetN $$ }
+     tex		{ TokTeX $$ }
+hunk ./src/full/Agda/Syntax/Parser/Parser.y 184
+     | 'ETA'           { TokKeyword KwETA $1 }
+     | 'quoteGoal'     { TokKeyword KwQuoteGoal $1 }
+     | 'quote'         { TokKeyword KwQuote $1 }
++    | 'ATP'          { TokKeyword KwATP $1 }
+ 
+     | setN	    { TokSetN $1 }
+     | tex	    { TokTeX $1 }
+hunk ./src/full/Agda/Syntax/Parser/Parser.y 379
+ PragmaName :: { QName }
+ PragmaName : string {% fmap QName (mkName $1) }
+ 
++-- Space separated list of QNames in a pragma.
++PragmaNames :: { [QName] }
++PragmaNames
++    : {- empty -}	      { [] }
++    | PragmaName PragmaNames  { $1 : $2 }
++
+ {--------------------------------------------------------------------------
+     Expressions (terms and types)
+  --------------------------------------------------------------------------}
+hunk ./src/full/Agda/Syntax/Parser/Parser.y 709
+     | Pragma	    { [$1] }
+     | Syntax        { [$1] }
+ 
+-
+ {--------------------------------------------------------------------------
+     Individual declarations
+  --------------------------------------------------------------------------}
+hunk ./src/full/Agda/Syntax/Parser/Parser.y 895
+   | ImportPragma       { $1 }
+   | ImpossiblePragma   { $1 }
+   | RecordEtaPragma    { $1 }
++  | PragmaATP          { $1 }
+ 
+ OptionsPragma :: { Pragma }
+ OptionsPragma : '{-#' 'OPTIONS' PragmaStrings '#-}' { OptionsPragma (fuseRange $1 $4) $3 }
+hunk ./src/full/Agda/Syntax/Parser/Parser.y 937
+ ImpossiblePragma :: { Pragma }
+   : '{-#' 'IMPOSSIBLE' '#-}'  { ImpossiblePragma (fuseRange $1 $3) }
+ 
++PragmaATP :: { Pragma }
++PragmaATP
++  : '{-#' 'ATP' string PragmaName PragmaNames '#-}'
++    {% let s = snd $3 in
++       case s of
++         "axiom"      -> return $ PragmaATP (fuseRange $1 $6) AxiomATP $4 $5
++         "definition" -> return $ PragmaATP (fuseRange $1 $6) DefinitionATP $4 $5
++         "hint"       -> return $ PragmaATP (fuseRange $1 $6) HintATP $4 $5
++         "prove"      -> return $ PragmaATP (fuseRange $1 $6) ConjectureATP $4 $5
++         _            -> parseError $ "Invalid role: " ++ s ++ "."
++    }
++
+ {--------------------------------------------------------------------------
+     Sequences of declarations
+  --------------------------------------------------------------------------}
+hunk ./src/full/Agda/Syntax/Parser/Tokens.hs 23
+ 	| KwOPTIONS | KwBUILTIN | KwLINE
+         | KwCOMPILED_DATA | KwCOMPILED_TYPE | KwCOMPILED | KwIMPORT
+         | KwIMPOSSIBLE | KwETA | KwQuoteGoal | KwQuote | KwSyntax
++        | KwATP -- KwAxiomATP KwConjectureATP
+     deriving (Eq, Show)
+ 
+ layoutKeywords :: [Keyword]
+hunk ./src/full/Agda/Syntax/Translation/AbstractToConcrete.hs 647
+           x <- toConcrete x
+           return $ C.CompiledPragma r x hs
+         A.EtaPragma x -> C.EtaPragma r <$> toConcrete x
++        A.PragmaATP role name hints -> do
++          name  <- toConcrete name
++          hints <- mapM toConcrete hints
++          return $ C.PragmaATP r role name hints
+ 
+ -- Left hand sides --------------------------------------------------------
+ 
+hunk ./src/full/Agda/Syntax/Translation/ConcreteToAbstract.hs 923
+       case e of
+         A.Def x -> return [ A.EtaPragma x ]
+         _       -> fail "Bad ETA pragma"
++    toAbstract (C.PragmaATP _ AxiomATP postulate []) = do
++      e     <- toAbstract $ OldQName postulate
++      case e of
++        A.Def postulate -> return [ A.PragmaATP AxiomATP postulate [] ]
++        _               -> fail "Bad ATP pragma." -- ToDo
++    toAbstract (C.PragmaATP _ AxiomATP _ hints) =
++      fail "Bad ATP pragma. The axioms cannot have hints"
++    toAbstract (C.PragmaATP _ ConjectureATP postulate hints) = do
++      e     <- toAbstract $ OldQName postulate
++      hints <- mapM toAbstract (map OldQName hints)
++      case e of
++        A.Def postulate -> do
++               -- ToDo: Can only be the general hints definitions or constructors?
++               let aHints :: [A.Expr] -> [A.QName]
++                   aHints []                            = []
++                   aHints (A.Def hint : exprs)          = hint : aHints exprs
++                   -- ToDo: Is it correct to use only the first ambiguous name?
++                   aHints (A.Con (AmbQ (h : _)) : exprs) = h : aHints exprs
++                   aHints _                              = __IMPOSSIBLE__
++
++               return [ A.PragmaATP ConjectureATP postulate (aHints hints) ]
++
++        _               -> fail "Bad ATP pragma" -- ToDo
++    toAbstract (C.PragmaATP _ DefinitionATP name []) = do
++      e     <- toAbstract $ OldQName name
++      case e of
++        A.Def name              -> return [ A.PragmaATP DefinitionATP name [] ]
++        _                       -> fail "Bad ATP pragma" -- ToDo
++    toAbstract (C.PragmaATP _ DefinitionATP _ hints) =
++      fail "Bad ATP pragma. The definitions cannot have hints"
++    toAbstract (C.PragmaATP _ HintATP name []) = do
++      e     <- toAbstract $ OldQName name
++      case e of
++        A.Def name              -> return [ A.PragmaATP HintATP name [] ]
++        -- ToDo: Is it correct to use only the first ambiguous name?
++        A.Con (AmbQ (h : _))    -> return [ A.PragmaATP HintATP h [] ]
++        _                       -> fail "Bad ATP pragma" -- ToDo
++    toAbstract (C.PragmaATP _ HintATP _ hints) =
++      fail "Bad ATP pragma. The general hints cannot have hints"
+ 
+ instance ToAbstract C.Clause A.Clause where
+     toAbstract (C.Clause top C.Ellipsis{} _ _ _) = fail "bad '...'" -- TODO: errors message
+hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 421
+   deriving (Typeable, Data, Show, Eq, Ord)
+ 
+ data Defn = Axiom
+-            { axHsDef   :: Maybe HaskellRepresentation
++            { axHsDef :: Maybe HaskellRepresentation
++            , axATP   :: Maybe (RoleATP, [QName]) -- ^ ATP axiom or conjecture?
+             }
+ 	  | Function
+             { funClauses        :: [Clauses]
+hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 433
+             , funAbstr          :: IsAbstract
+             , funDelayed        :: Delayed
+               -- ^ Are the clauses of this definition delayed?
++            , funATP            :: Maybe RoleATP -- ^ ATP definition or hint?
+             }
+ 	  | Datatype
+             { dataPars           :: Nat           -- nof parameters
+hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 467
+             , conHsCode :: Maybe (HaskellType, HaskellCode) -- used by the compiler
+ 	    , conAbstr  :: IsAbstract
+             , conInd    :: Induction   -- ^ Inductive or coinductive?
++            , conATP    :: Maybe RoleATP -- ^ ATP hint?
+             }
+             -- ^ Note that, currently, the sharp constructor is
+             --   represented as a definition ('Def'), but if you look
+hunk ./src/full/Agda/TypeChecking/Monad/Signature.hs 107
+       def{theDef = d{dataHsType = Just hsTy}}
+     addHs def = def
+ 
++-- | Add the information of an ATP pragma to the signature.
++addPragmaATP :: MonadTCM tcm => RoleATP -> QName -> [QName] -> tcm ()
++addPragmaATP role name hints =
++    modifySignature $ \sig -> sig
++      { sigDefinitions = Map.adjust addATP name $ sigDefinitions sig }
++    where
++      addATP :: Definition -> Definition
++      addATP def = case role of
++                     DefinitionATP -> case def of
++                                        def@Defn{ theDef = fun@Function{} } ->
++                                            def{ theDef = fun{ funATP = Just role }}
++                                        _ ->  __IMPOSSIBLE__
++                     HintATP       -> case def of
++                                        def@Defn{ theDef = con@Constructor{} } ->
++                                            def{ theDef = con{ conATP = Just role }}
++                                        def@Defn{ theDef = fun@Function{} } ->
++                                            def{ theDef = fun{ funATP = Just role }}
++                                        _ ->  __IMPOSSIBLE__
++                     -- ToDo: The cases AxiomATP and ConjectureATP are the same
++                     AxiomATP       -> case def of
++                                         def@Defn{ theDef = ax@Axiom{} } ->
++                                             def{ theDef = ax{ axATP = Just (role, hints) }}
++                                         _ ->  __IMPOSSIBLE__
++                     ConjectureATP  -> case def of
++                                         def@Defn{ theDef = ax@Axiom{} } ->
++                                             def{ theDef = ax{ axATP = Just (role, hints) }}
++                                         _ ->  __IMPOSSIBLE__
++
+ unionSignatures :: [Signature] -> Signature
+ unionSignatures ss = foldr unionSignature emptySignature ss
+   where
+hunk ./src/full/Agda/TypeChecking/Monad/Signature.hs 255
+                            , funPolarity       = []
+                            , funArgOccurrences = []
+                            , funAbstr          = ConcreteDef
++                           , funATP            = Nothing
+                            }
+ 	cl = Clause { clauseRange = getRange $ defClauses d
+                     , clauseTel   = EmptyTel
+hunk ./src/full/Agda/TypeChecking/Monad/Signature.hs 461
+ makeAbstract d = do def <- makeAbs $ theDef d
+ 		    return d { theDef = def }
+     where
+-	makeAbs Datatype   {dataAbstr = AbstractDef} = Just $ Axiom Nothing
+-	makeAbs Function   {funAbstr  = AbstractDef} = Just $ Axiom Nothing
++	makeAbs Datatype   {dataAbstr = AbstractDef} =
++            Just $ Axiom Nothing Nothing
++	makeAbs Function   {funAbstr  = AbstractDef} =
++            Just $ Axiom Nothing Nothing
+ 	makeAbs Constructor{conAbstr  = AbstractDef} = Nothing
+ 	makeAbs d                                    = Just d
+ 
+hunk ./src/full/Agda/TypeChecking/Rules/Builtin/Coinduction.hs 128
+                     , conHsCode = Nothing
+                     , conAbstr  = ConcreteDef
+                     , conInd    = CoInductive
++                    , conATP    = Nothing
+                     }
+                 }
+     return sharpE
+hunk ./src/full/Agda/TypeChecking/Rules/Builtin/Coinduction.hs 175
+                    , funArgOccurrences = [Unused, Unused, Positive]
+                    , funAbstr          = ConcreteDef
+                    , funDelayed        = NotDelayed
++                   , funATP            = Nothing
+                    }
+                 }
+     return flatE
+hunk ./src/full/Agda/TypeChecking/Rules/Data.hs 158
+ 	escapeContext (size tel)
+ 	    $ addConstant c
+ 	    $ Defn Relevant c (telePi tel t') (defaultDisplayForm c) 0
+-	    $ Constructor (size tel) c d Nothing (Info.defAbstract i) Inductive
++	    $ Constructor (size tel) c d Nothing (Info.defAbstract i) Inductive Nothing
+   where
+     debugEnter c e =
+       reportSDoc "tc.data.con" 5 $ vcat
+hunk ./src/full/Agda/TypeChecking/Rules/Decl.hs 78
+     ]
+   -- Not safe. See Issue 330
+   -- t <- addForcingAnnotations t
+-  addConstant x (Defn rel x t (defaultDisplayForm x) 0 $ Axiom Nothing)
++  addConstant x (Defn rel x t (defaultDisplayForm x) 0 $ Axiom Nothing Nothing)
+   solveSizeConstraints
+ 
+ 
+hunk ./src/full/Agda/TypeChecking/Rules/Decl.hs 168
+                   Record{}   -> d { recEtaEquality = True }
+                   _          -> d
+                 defs	  = sigDefinitions sig
++        -- ToDo: To reuse code
++        -- Pragma ATP with "hint" as the ATP role
++       	A.PragmaATP HintATP name [] -> do
++          def <- getConstInfo name
++          case theDef def of
++            Constructor{} -> do
++              reportSLn "tc.pragma.atp" 10 $
++                "Processing the data constructor " ++ show name ++ " as an ATP general hint"
++              addPragmaATP HintATP name []
++            Function{} -> do
++              reportSLn "tc.pragma.atp" 10 $
++                "Processing the function " ++ show name ++ " as an ATP general hint"
++              addPragmaATP HintATP name []
++            _   -> typeError $ GenericError "ATP directive only works on data constructors or functions when the ATP role is <hint>"
++        A.PragmaATP HintATP _ hints -> __IMPOSSIBLE__
++        -- Pragma ATP with "definition" as the ATP role
++       	A.PragmaATP DefinitionATP name [] -> do
++          def <- getConstInfo name
++          case theDef def of
++            Function{} -> do
++              reportSLn "tc.pragma.atp" 10 $
++                "Processing the function " ++ show name ++ " as an ATP declaration"
++              addPragmaATP DefinitionATP name []
++            _   -> typeError $ GenericError "ATP directive only works on functions when the ATP role is <definition>"
++        A.PragmaATP DefinitionATP _ hints -> __IMPOSSIBLE__
++        -- ToDo: The code for AxiomATP and ConjectureATP is duplicated
++        -- Pragma ATP with "axiom" as he ATP role
++	A.PragmaATP AxiomATP postulate hints -> do
++          def <- getConstInfo postulate
++          case theDef def of
++            Axiom{} -> do
++              reportSLn "tc.pragma.atp" 10 $
++                "Processing the postulate " ++ show postulate ++ " as an ATP axiom"
++              addPragmaATP AxiomATP postulate hints
++            _   -> typeError $ GenericError "ATP directive only works on postulates when the ATP role is <axiom>"
++        -- Pragma ATP with "prove" as the ATP role
++	A.PragmaATP ConjectureATP postulate hints -> do
++          def <- getConstInfo postulate
++          case theDef def of
++            Axiom{} -> do
++              reportSLn "tc.pragma.atp" 10 $
++                "Processing the postulate " ++ show postulate ++ " as an ATP conjecture"
++              addPragmaATP ConjectureATP postulate hints
++            _   -> typeError $ GenericError "ATP directive only works on postulates when the ATP role is <prove>"
+ 
+ -- | Type check a bunch of mutual inductive recursive definitions.
+ checkMutual :: Info.DeclInfo -> [A.TypeSignature] -> [A.Definition] -> TCM ()
+hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 114
+                             , funAbstr          = Info.defAbstract i
+                             , funPolarity       = []
+                             , funArgOccurrences = []
++                            , funATP            = Nothing
+                             }
+         computePolarity name
+         reportSDoc "tc.def.fun" 10 $ do
+hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 352
+       , prettyList $ map prettyTCM ts
+       , prettyTCM dt
+       ]
+-  addConstant aux (Defn Relevant aux auxType [df] 0 $ Axiom Nothing)
++  addConstant aux (Defn Relevant aux auxType [df] 0 $ Axiom Nothing Nothing)
+   solveSizeConstraints
+ 
+   reportSDoc "tc.with.top" 10 $ sep
+hunk ./src/full/Agda/TypeChecking/Rules/Record.hs 108
+                          , conHsCode = Nothing
+                          , conAbstr  = Info.defAbstract conInfo
+                          , conInd    = Inductive
++                         , conATP    = Nothing
+                          }
+ 
+       escapeContext (size tel) $ flip (foldr ext) ctx $ extWithR $ do
+hunk ./src/full/Agda/TypeChecking/Rules/Record.hs 242
+                      , funAbstr          = ConcreteDef
+                      , funPolarity       = []
+                      , funArgOccurrences = map (const Unused) hps ++ [Negative]
++                     , funATP            = Nothing
+                      }
+         computePolarity projname
+ 
+hunk ./src/full/Agda/TypeChecking/Rules/Term.hs 375
+                                     , funAbstr          = ConcreteDef
+                                     , funPolarity       = [Covariant]
+                                     , funArgOccurrences = [Unused]
++                                    , funATP            = Nothing
+                                     }
+                   blockTerm t' (Def aux []) $ return cs'
+                 | otherwise -> typeError $ WrongHidingInLambda t'
+hunk ./src/full/Agda/TypeChecking/Rules/Term.hs 742
+       -- If we are in irrelevant position, add definition irrelevantly.
+       -- TODO: is this sufficient?
+       rel <- irrelevant <$> asks envIrrelevant
+-      addConstant c' (Defn rel c' t (defaultDisplayForm c') i $ Axiom Nothing)
++      addConstant c' (Defn rel c' t (defaultDisplayForm c') i $ Axiom Nothing Nothing)
+ 
+       -- Define and type check the fresh function.
+       ctx <- getContext
+hunk ./src/full/Agda/TypeChecking/Serialise.hs 593
+     valu _   = malformed
+ 
+ instance EmbPrj Defn where
+-  icode (Axiom       a)                     = icode1 0 a
+-  icode (Function    a b c d e f g)         = icode7 1 a b c d e f g
++  icode (Axiom       a b)                   = icode2 0 a b
++  icode (Function    a b c d e f g h)       = icode8 1 a b c d e f g h
+   icode (Datatype    a b c d e f g h i j)   = icode10 2 a b c d e f g h i j
+   icode (Record      a b c d e f g h i j k) = icode11 3 a b c d e f g h i j k
+hunk ./src/full/Agda/TypeChecking/Serialise.hs 597
+-  icode (Constructor a b c d e f)           = icode6 4 a b c d e f
++  icode (Constructor a b c d e f g)         = icode7 4 a b c d e f g
+   icode (Primitive   a b c)                 = icode3 5 a b c
+   value = vcase valu where
+hunk ./src/full/Agda/TypeChecking/Serialise.hs 600
+-    valu [0, a]                               = valu1 Axiom       a
+-    valu [1, a, b, c, d, e, f, g]             = valu7 Function    a b c d e f g
++    valu [0, a, b]                            = valu2 Axiom       a b
++    valu [1, a, b, c, d, e, f, g, h]          = valu8 Function    a b c d e f g h
+     valu [2, a, b, c, d, e, f, g, h, i, j]    = valu10 Datatype   a b c d e f g h i j
+     valu [3, a, b, c, d, e, f, g, h, i, j, k] = valu11 Record     a b c d e f g h i j k
+hunk ./src/full/Agda/TypeChecking/Serialise.hs 604
+-    valu [4, a, b, c, d, e, f]                = valu6 Constructor a b c d e f
++    valu [4, a, b, c, d, e, f, g]             = valu7 Constructor a b c d e f g
+     valu [5, a, b, c]                         = valu3 Primitive   a b c
+     valu _                                    = malformed
+ 
+hunk ./src/full/Agda/TypeChecking/Serialise.hs 794
+   value = vcase valu where valu [a, b, c, d, e, f, g, h, i] = valu9 Interface a b c d e f g h i
+                            valu _                           = malformed
+ 
+-
++-- Based on instance EmbPrj Bool
++-- ToDo: Is it correct?
++instance EmbPrj RoleATP where
++  icode AxiomATP      = icode0 0
++  icode ConjectureATP = icode0 1
++  icode DefinitionATP = icode0 2
++  icode HintATP       = icode0 3
++  value = vcase valu where valu [0] = valu0 AxiomATP
++                           valu [1] = valu0 ConjectureATP
++                           valu [2] = valu0 DefinitionATP
++                           valu [3] = valu0 HintATP
++                           valu _   = malformed
+ 
+ icodeX :: (Dict -> HashTable k Int32) -> (Dict -> IORef Int32) ->
+           k -> S Int32
+hunk ./src/main/Agda-executable.cabal 2
+ name:            Agda-executable
+-version:         2.2.9
++version:         2.2.9.1
+ cabal-version:   >= 1.8 && < 2
+ build-type:      Simple
+ license:         OtherLicense
+hunk ./src/main/Agda-executable.cabal 25
+ 
+ executable agda
+   main-is:       Main.hs
+-  build-depends: Agda == 2.2.9,
++  build-depends: Agda == 2.2.9.1,
+                  -- Nothing is used from the following package, except
+                  -- for the prelude.
+                  base >= 3 && < 6
+addfile ./test/fail/ATPMustBePostulate.agda
+hunk ./test/fail/ATPMustBePostulate.agda 1
++-- ATP things must be a postulate
++
++module ATPMustBePostulate where
++
++postulate
++  A : Set
++
++foo : Set
++foo = A
++
++{-# ATP axiom foo #-}
+addfile ./test/fail/ATPMustBePostulate.err
+hunk ./test/fail/ATPMustBePostulate.err 1
++ATPMustBePostulate.agda:11,1-22
++ATP directive only works on postulates.
++when checking the pragma ATP axiom foo
+
+Context:
+
+[Compile DontCare as error instead of ().
+andreas.abel@ifi.lmu.de**20101001133559] 
+[Fixed issue 342 (type checking constructors turned Funs into Pis).
+andreas.abel@ifi.lmu.de**20101001133519] 
+[move the __IMPOSSIBLE__ triggered by the impossible failing test to a separate file
+ulfn@chalmers.se**20100930100615
+ Ignore-this: fe13424136446099202517ba44bbdcad
+   to prevent the line number in the error message from changing
+] 
+[missing error message for failing test
+ulfn@chalmers.se**20100930095858
+ Ignore-this: 906099a500bbc7b067a6972ee1f75675
+] 
+[added projections for irrelevant record fields (with --irrelevant-projections)
+ulfn@chalmers.se**20100930095832
+ Ignore-this: 595a7cc87104ac1360bd2d2e7ab4267b
+] 
+[Compiler now ignores irrelevant definitions and irrelevant arguments.
+andreas.abel@ifi.lmu.de**20100929193203] 
+[Fixed typo.
+andreas.abel@ifi.lmu.de**20100929181610] 
+[Minor factorization of duplicated code.
+andreas.abel@ifi.lmu.de**20100929181122] 
+[Spotted opportunity for irrelevance in examples/simple-lib (two dots ;-)).
+andreas.abel@ifi.lmu.de**20100929150655] 
+[.err file to testcase
+andreas.abel@ifi.lmu.de**20100929145205] 
+[Testcase for bad irrelevant projections.
+andreas.abel@ifi.lmu.de**20100929145143] 
+[Preliminary fix of issue 337 (generation of with functions in the presence of irrelevance).
+andreas.abel@ifi.lmu.de**20100929144945] 
+[Added irrelevant function and axiom declarations .ident : Type
+andreas.abel@ifi.lmu.de**20100929084645
+ These can only be used in irrelevant positions.  
+ They can use other irrelevant declarations.
+] 
+[Test case for absurd matching on irrelevant empty type.
+andreas.abel@ifi.lmu.de**20100928201747] 
+[Test cases for untyped and typed lambda, demonstrating that \ x is not \ (x : _)
+andreas.abel@ifi.lmu.de**20100928173706] 
+[Typesig, comment, and some factoring for function TC.Rules.Term.checkArguments'.
+andreas.abel@ifi.lmu.de**20100928151619] 
+[Bumped version to 2.2.9.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20100927203646
+ Ignore-this: d8e25eefb66fc2fac2cd3cab5b5367b
+] 
+[TAG 2.2.8
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20100927162925
+ Ignore-this: 24db4b37e559935c9cd6f81f8a90a6f7
+] 
+Patch bundle hash:
+24c9e40616b5427c7357fb86d897fd2e9f0a6150
