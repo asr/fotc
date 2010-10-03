@@ -1,5 +1,5 @@
 name:               agda2atp
-version:            2.2.8.1
+version:            2.2.9.1
 build-type:         Simple
 cabal-version:      >= 1.8 && < 2
 author:             Ana Bove, Peter Dybjer, and Andrés Sicard-Ramírez
@@ -14,7 +14,7 @@ executable agda2atp
                   ScopedTypeVariables
 
   build-depends:  base == 4.2.*
-                  , Agda == 2.2.8.1
+                  , Agda == 2.2.9.1
                   , containers == 0.3.*
                   , directory >= 1.0.0.3 && < 1.1
                   , filepath >= 1.1.0.3 && < 1.2
