@@ -1,6 +1,6 @@
 1 patch for repository http://code.haskell.org/Agda:
 
-Sun Oct  3 00:05:38 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+Sun Oct  3 00:14:50 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
   * Added the ATP pragma.
     {-# ATP role name [h1 ... hn] #-}
   
@@ -14,8 +14,8 @@ Sun Oct  3 00:05:38 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gma
 New patches:
 
 [Added the ATP pragma.
-Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>**20101003050538
- Ignore-this: 9371ed2479e4d5a4c0c2b8a62656c860
+Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>**20101003051450
+ Ignore-this: 193327463becf35f0221e2784a32f8c0
    {-# ATP role name [h1 ... hn] #-}
  
    The pragma indicates that the name and h1, ..., hn, will be used
@@ -26,8 +26,8 @@ Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>**20101003050538
    TODO: Added an example.
 ] hunk ./Agda.cabal 2
  name:            Agda
--version:         2.2.8
-+version:         2.2.8.1
+-version:         2.2.9
++version:         2.2.9.1
  cabal-version:   >= 1.8 && < 2
  build-type:      Simple
  license:         OtherLicense
@@ -48,8 +48,8 @@ hunk ./src/data/emacs-mode/agda2-mode.el 13
  
  ;;; Code:
  
--(defvar agda2-version "2.2.8"
-+(defvar agda2-version "2.2.8.1"
+-(defvar agda2-version "2.2.9"
++(defvar agda2-version "2.2.9.1"
    "The version of the Agda mode.
  Note that, by default, the same version of the underlying Haskell
  library is used (see `agda2-ghci-options').")
@@ -523,17 +523,17 @@ hunk ./src/full/Agda/TypeChecking/Serialise.hs 794
            k -> S Int32
 hunk ./src/main/Agda-executable.cabal 2
  name:            Agda-executable
--version:         2.2.8
-+version:         2.2.8.1
+-version:         2.2.9
++version:         2.2.9.1
  cabal-version:   >= 1.8 && < 2
  build-type:      Simple
  license:         OtherLicense
-hunk ./src/main/Agda-executable.cabal 30
+hunk ./src/main/Agda-executable.cabal 25
  
  executable agda
    main-is:       Main.hs
--  build-depends: Agda == 2.2.8,
-+  build-depends: Agda == 2.2.8.1,
+-  build-depends: Agda == 2.2.9,
++  build-depends: Agda == 2.2.9.1,
                   -- Nothing is used from the following package, except
                   -- for the prelude.
                   base >= 3 && < 6
@@ -558,9 +558,13 @@ hunk ./test/fail/ATPMustBePostulate.err 1
 
 Context:
 
+[Bumped version to 2.2.9.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20100927203646
+ Ignore-this: d8e25eefb66fc2fac2cd3cab5b5367b
+] 
 [TAG 2.2.8
 Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20100927162925
  Ignore-this: 24db4b37e559935c9cd6f81f8a90a6f7
 ] 
 Patch bundle hash:
-3d16cb7103f7dab7d0c492eaa182c4ee2fb0de01
+87c05913344c1c79313f55577bf08d9938e3a216
