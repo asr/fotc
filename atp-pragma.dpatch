@@ -1,6 +1,6 @@
 1 patch for repository http://code.haskell.org/Agda:
 
-Sun Oct  3 00:14:50 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+Sun Oct  3 00:27:33 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
   * Added the ATP pragma.
     {-# ATP role name [h1 ... hn] #-}
   
@@ -14,8 +14,8 @@ Sun Oct  3 00:14:50 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gma
 New patches:
 
 [Added the ATP pragma.
-Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>**20101003051450
- Ignore-this: 193327463becf35f0221e2784a32f8c0
+Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>**20101003052733
+ Ignore-this: cbaf0c815c6131b6308cf898ce2b7d2e
    {-# ATP role name [h1 ... hn] #-}
  
    The pragma indicates that the name and h1, ..., hn, will be used
@@ -60,8 +60,8 @@ hunk ./src/full/Agda/Syntax/Abstract.hs 78
 +            | PragmaATP RoleATP QName [QName]
    deriving (Typeable, Data, Show)
  
- data LetBinding = LetBind LetInfo Name Expr Expr    -- ^ LetBind info name type defn
-hunk ./src/full/Agda/Syntax/Common.hs 171
+ data LetBinding = LetBind LetInfo Relevance Name Expr Expr    -- ^ LetBind info name type defn
+hunk ./src/full/Agda/Syntax/Common.hs 176
  
  newtype Constr a = Constr a
  
@@ -97,7 +97,7 @@ hunk ./src/full/Agda/Syntax/Concrete.hs 376
  
  instance HasRange UsingOrHiding where
      getRange (Using xs)	    = getRange xs
-hunk ./src/full/Agda/Syntax/Concrete/Pretty.hs 311
+hunk ./src/full/Agda/Syntax/Concrete/Pretty.hs 312
        hsep $ [text "IMPOSSIBLE"]
      pretty (EtaPragma _ x) =
        hsep $ [text "ETA", pretty x]
@@ -106,12 +106,12 @@ hunk ./src/full/Agda/Syntax/Concrete/Pretty.hs 311
  
  instance Pretty Fixity where
      pretty (LeftAssoc _ n)  = text "infixl" <+> text (show n)
-hunk ./src/full/Agda/Syntax/Concrete/Pretty.hs 381
+hunk ./src/full/Agda/Syntax/Concrete/Pretty.hs 382
  instance Pretty ImportedName where
      pretty (ImportedName x)	= pretty x
      pretty (ImportedModule x)	= text "module" <+> pretty x
 -
-hunk ./src/full/Agda/Syntax/Concrete/Pretty.hs 382
+hunk ./src/full/Agda/Syntax/Concrete/Pretty.hs 383
 +instance Pretty RoleATP where
 +    pretty AxiomATP      = text "axiom"
 +    pretty ConjectureATP = text "prove"
@@ -162,7 +162,7 @@ hunk ./src/full/Agda/Syntax/Parser/Parser.y 709
  {--------------------------------------------------------------------------
      Individual declarations
   --------------------------------------------------------------------------}
-hunk ./src/full/Agda/Syntax/Parser/Parser.y 886
+hunk ./src/full/Agda/Syntax/Parser/Parser.y 895
    | ImportPragma       { $1 }
    | ImpossiblePragma   { $1 }
    | RecordEtaPragma    { $1 }
@@ -170,7 +170,7 @@ hunk ./src/full/Agda/Syntax/Parser/Parser.y 886
  
  OptionsPragma :: { Pragma }
  OptionsPragma : '{-#' 'OPTIONS' PragmaStrings '#-}' { OptionsPragma (fuseRange $1 $4) $3 }
-hunk ./src/full/Agda/Syntax/Parser/Parser.y 928
+hunk ./src/full/Agda/Syntax/Parser/Parser.y 937
  ImpossiblePragma :: { Pragma }
    : '{-#' 'IMPOSSIBLE' '#-}'  { ImpossiblePragma (fuseRange $1 $3) }
  
@@ -198,7 +198,7 @@ hunk ./src/full/Agda/Syntax/Parser/Tokens.hs 23
      deriving (Eq, Show)
  
  layoutKeywords :: [Keyword]
-hunk ./src/full/Agda/Syntax/Translation/AbstractToConcrete.hs 646
+hunk ./src/full/Agda/Syntax/Translation/AbstractToConcrete.hs 647
            x <- toConcrete x
            return $ C.CompiledPragma r x hs
          A.EtaPragma x -> C.EtaPragma r <$> toConcrete x
@@ -255,7 +255,7 @@ hunk ./src/full/Agda/Syntax/Translation/ConcreteToAbstract.hs 99
  
  {--------------------------------------------------------------------------
      Exceptions
-hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 419
+hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 421
    deriving (Typeable, Data, Show, Eq, Ord)
  
  data Defn = Axiom
@@ -265,7 +265,7 @@ hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 419
              }
  	  | Function
              { funClauses        :: [Clauses]
-hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 431
+hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 433
              , funAbstr          :: IsAbstract
              , funDelayed        :: Delayed
                -- ^ Are the clauses of this definition delayed?
@@ -273,7 +273,7 @@ hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 431
              }
  	  | Datatype
              { dataPars           :: Nat           -- nof parameters
-hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 465
+hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 467
              , conHsCode :: Maybe (HaskellType, HaskellCode) -- used by the compiler
  	    , conAbstr  :: IsAbstract
              , conInd    :: Induction   -- ^ Inductive or coinductive?
@@ -357,7 +357,7 @@ hunk ./src/full/Agda/TypeChecking/Rules/Builtin/Coinduction.hs 175
 hunk ./src/full/Agda/TypeChecking/Rules/Data.hs 156
  	escapeContext (size tel)
  	    $ addConstant c
- 	    $ Defn c (telePi tel t') (defaultDisplayForm c) 0
+ 	    $ Defn Relevant c (telePi tel t') (defaultDisplayForm c) 0
 -	    $ Constructor (size tel) c d Nothing (Info.defAbstract i) Inductive
 +	    $ Constructor (size tel) c d Nothing (Info.defAbstract i) Inductive Nothing
    where
@@ -367,8 +367,8 @@ hunk ./src/full/Agda/TypeChecking/Rules/Decl.hs 78
      ]
    -- Not safe. See Issue 330
    -- t <- addForcingAnnotations t
--  addConstant x (Defn x t (defaultDisplayForm x) 0 $ Axiom Nothing)
-+  addConstant x (Defn x t (defaultDisplayForm x) 0 $ Axiom Nothing Nothing)
+-  addConstant x (Defn rel x t (defaultDisplayForm x) 0 $ Axiom Nothing)
++  addConstant x (Defn rel x t (defaultDisplayForm x) 0 $ Axiom Nothing Nothing)
    solveSizeConstraints
  
  
@@ -423,7 +423,7 @@ hunk ./src/full/Agda/TypeChecking/Rules/Decl.hs 168
  
  -- | Type check a bunch of mutual inductive recursive definitions.
  checkMutual :: Info.DeclInfo -> [A.TypeSignature] -> [A.Definition] -> TCM ()
-hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 113
+hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 114
                              , funAbstr          = Info.defAbstract i
                              , funPolarity       = []
                              , funArgOccurrences = []
@@ -431,12 +431,12 @@ hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 113
                              }
          computePolarity name
          reportSDoc "tc.def.fun" 10 $ do
-hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 346
+hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 347
        , prettyList $ map prettyTCM ts
        , prettyTCM dt
        ]
--  addConstant aux (Defn aux auxType [df] 0 $ Axiom Nothing)
-+  addConstant aux (Defn aux auxType [df] 0 $ Axiom Nothing Nothing)
+-  addConstant aux (Defn Relevant aux auxType [df] 0 $ Axiom Nothing)
++  addConstant aux (Defn Relevant aux auxType [df] 0 $ Axiom Nothing Nothing)
    solveSizeConstraints
  
    reportSDoc "tc.with.top" 10 $ sep
@@ -448,7 +448,7 @@ hunk ./src/full/Agda/TypeChecking/Rules/Record.hs 108
                           }
  
        escapeContext (size tel) $ flip (foldr ext) ctx $ extWithR $ do
-hunk ./src/full/Agda/TypeChecking/Rules/Record.hs 238
+hunk ./src/full/Agda/TypeChecking/Rules/Record.hs 242
                       , funAbstr          = ConcreteDef
                       , funPolarity       = []
                       , funArgOccurrences = map (const Unused) hps ++ [Negative]
@@ -456,7 +456,7 @@ hunk ./src/full/Agda/TypeChecking/Rules/Record.hs 238
                       }
          computePolarity projname
  
-hunk ./src/full/Agda/TypeChecking/Rules/Term.hs 369
+hunk ./src/full/Agda/TypeChecking/Rules/Term.hs 372
                                      , funAbstr          = ConcreteDef
                                      , funPolarity       = [Covariant]
                                      , funArgOccurrences = [Unused]
@@ -464,12 +464,12 @@ hunk ./src/full/Agda/TypeChecking/Rules/Term.hs 369
                                      }
                    blockTerm t' (Def aux []) $ return cs'
                  | otherwise -> typeError $ WrongHidingInLambda t'
-hunk ./src/full/Agda/TypeChecking/Rules/Term.hs 722
-       -- signature.
-       i   <- currentMutualBlock
-       tel <- getContextTelescope
--      addConstant c' (Defn c' t (defaultDisplayForm c') i $ Axiom Nothing)
-+      addConstant c' (Defn c' t (defaultDisplayForm c') i $ Axiom Nothing Nothing)
+hunk ./src/full/Agda/TypeChecking/Rules/Term.hs 731
+       -- If we are in irrelevant position, add definition irrelevantly.
+       -- TODO: is this sufficient?
+       rel <- irrelevant <$> asks envIrrelevant
+-      addConstant c' (Defn rel c' t (defaultDisplayForm c') i $ Axiom Nothing)
++      addConstant c' (Defn rel c' t (defaultDisplayForm c') i $ Axiom Nothing Nothing)
  
        -- Define and type check the fresh function.
        ctx <- getContext
@@ -558,6 +558,17 @@ hunk ./test/fail/ATPMustBePostulate.err 1
 
 Context:
 
+[Added irrelevant function and axiom declarations .ident : Type
+andreas.abel@ifi.lmu.de**20100929084645
+ These can only be used in irrelevant positions.  
+ They can use other irrelevant declarations.
+] 
+[Test case for absurd matching on irrelevant empty type.
+andreas.abel@ifi.lmu.de**20100928201747] 
+[Test cases for untyped and typed lambda, demonstrating that \ x is not \ (x : _)
+andreas.abel@ifi.lmu.de**20100928173706] 
+[Typesig, comment, and some factoring for function TC.Rules.Term.checkArguments'.
+andreas.abel@ifi.lmu.de**20100928151619] 
 [Bumped version to 2.2.9.
 Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20100927203646
  Ignore-this: d8e25eefb66fc2fac2cd3cab5b5367b
@@ -567,4 +578,4 @@ Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20100927162925
  Ignore-this: 24db4b37e559935c9cd6f81f8a90a6f7
 ] 
 Patch bundle hash:
-87c05913344c1c79313f55577bf08d9938e3a216
+8cc173ec9ca9a2cca5c8f3847f7e36cbfeaecefb
