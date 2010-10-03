@@ -1,6 +1,6 @@
 1 patch for repository http://code.haskell.org/Agda:
 
-Sun Oct  3 00:34:15 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+Sun Oct  3 00:48:34 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
   * Added the ATP pragma.
     {-# ATP role name [h1 ... hn] #-}
   
@@ -14,8 +14,8 @@ Sun Oct  3 00:34:15 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gma
 New patches:
 
 [Added the ATP pragma.
-Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>**20101003053415
- Ignore-this: e7e2a86dcc6f3447d34c5801075786c2
+Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>**20101003054834
+ Ignore-this: e7df7089bd6bf6a33cc6618b20ab542f
    {-# ATP role name [h1 ... hn] #-}
  
    The pragma indicates that the name and h1, ..., hn, will be used
@@ -266,15 +266,15 @@ hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 421
              }
  	  | Function
              { funClauses        :: [Clauses]
-hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 433
-             , funAbstr          :: IsAbstract
-             , funDelayed        :: Delayed
-               -- ^ Are the clauses of this definition delayed?
+hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 439
+               --   Start counting with 1, because 0 means that it is already
+               --   applied to the record. (Can happen in module instantiation.)  
+               --   This information is used in the termination checker.
 +            , funATP            :: Maybe RoleATP -- ^ ATP definition or hint?
              }
  	  | Datatype
              { dataPars           :: Nat           -- nof parameters
-hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 467
+hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 473
              , conHsCode :: Maybe (HaskellType, HaskellCode) -- used by the compiler
  	    , conAbstr  :: IsAbstract
              , conInd    :: Induction   -- ^ Inductive or coinductive?
@@ -282,7 +282,7 @@ hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 467
              }
              -- ^ Note that, currently, the sharp constructor is
              --   represented as a definition ('Def'), but if you look
-hunk ./src/full/Agda/TypeChecking/Monad/Signature.hs 107
+hunk ./src/full/Agda/TypeChecking/Monad/Signature.hs 109
        def{theDef = d{dataHsType = Just hsTy}}
      addHs def = def
  
@@ -318,15 +318,15 @@ hunk ./src/full/Agda/TypeChecking/Monad/Signature.hs 107
  unionSignatures :: [Signature] -> Signature
  unionSignatures ss = foldr unionSignature emptySignature ss
    where
-hunk ./src/full/Agda/TypeChecking/Monad/Signature.hs 256
-                            , funPolarity       = []
+hunk ./src/full/Agda/TypeChecking/Monad/Signature.hs 269
                             , funArgOccurrences = []
                             , funAbstr          = ConcreteDef
+                            , funProjection     = fmap (nonNeg . \ n -> n - size ts) maybeNum
 +                           , funATP            = Nothing
                             }
- 	cl = Clause { clauseRange = getRange $ defClauses d
-                     , clauseTel   = EmptyTel
-hunk ./src/full/Agda/TypeChecking/Monad/Signature.hs 462
+                   where maybeNum = case oldDef of
+                                      Function { funProjection = mn } -> mn
+hunk ./src/full/Agda/TypeChecking/Monad/Signature.hs 479
  makeAbstract d = do def <- makeAbs $ theDef d
  		    return d { theDef = def }
      where
@@ -347,23 +347,23 @@ hunk ./src/full/Agda/TypeChecking/Rules/Builtin/Coinduction.hs 128
                      }
                  }
      return sharpE
-hunk ./src/full/Agda/TypeChecking/Rules/Builtin/Coinduction.hs 175
-                    , funArgOccurrences = [Unused, Unused, Positive]
-                    , funAbstr          = ConcreteDef
-                    , funDelayed        = NotDelayed
+hunk ./src/full/Agda/TypeChecking/Rules/Builtin/Coinduction.hs 179
+                      {- flat is a projection, but in the termination checker 
+                         it destroys the (inductive) structural ordering.
+                         Thus, we do not register it as a projection. -}
 +                   , funATP            = Nothing
                     }
                  }
      return flatE
-hunk ./src/full/Agda/TypeChecking/Rules/Data.hs 156
+hunk ./src/full/Agda/TypeChecking/Rules/Data.hs 158
  	escapeContext (size tel)
  	    $ addConstant c
  	    $ Defn Relevant c (telePi tel t') (defaultDisplayForm c) 0
 -	    $ Constructor (size tel) c d Nothing (Info.defAbstract i) Inductive
 +	    $ Constructor (size tel) c d Nothing (Info.defAbstract i) Inductive Nothing
    where
-     debugEndsIn t d n =
-       reportSDoc "tc.data.con" 15 $ vcat
+     debugEnter c e =
+       reportSDoc "tc.data.con" 5 $ vcat
 hunk ./src/full/Agda/TypeChecking/Rules/Decl.hs 78
      ]
    -- Not safe. See Issue 330
@@ -424,15 +424,15 @@ hunk ./src/full/Agda/TypeChecking/Rules/Decl.hs 168
  
  -- | Type check a bunch of mutual inductive recursive definitions.
  checkMutual :: Info.DeclInfo -> [A.TypeSignature] -> [A.Definition] -> TCM ()
-hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 114
-                             , funAbstr          = Info.defAbstract i
+hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 115
                              , funPolarity       = []
                              , funArgOccurrences = []
+                             , funProjection     = Nothing
 +                            , funATP            = Nothing
                              }
          computePolarity name
          reportSDoc "tc.def.fun" 10 $ do
-hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 352
+hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 353
        , prettyList $ map prettyTCM ts
        , prettyTCM dt
        ]
@@ -449,23 +449,23 @@ hunk ./src/full/Agda/TypeChecking/Rules/Record.hs 108
                           }
  
        escapeContext (size tel) $ flip (foldr ext) ctx $ extWithR $ do
-hunk ./src/full/Agda/TypeChecking/Rules/Record.hs 242
-                      , funAbstr          = ConcreteDef
-                      , funPolarity       = []
+hunk ./src/full/Agda/TypeChecking/Rules/Record.hs 244
                       , funArgOccurrences = map (const Unused) hps ++ [Negative]
+                      , funProjection     = Just (size hps + 1) 
+                        -- index of the record argument, start counting with 1
 +                     , funATP            = Nothing
                       }
          computePolarity projname
  
-hunk ./src/full/Agda/TypeChecking/Rules/Term.hs 372
-                                     , funAbstr          = ConcreteDef
+hunk ./src/full/Agda/TypeChecking/Rules/Term.hs 376
                                      , funPolarity       = [Covariant]
                                      , funArgOccurrences = [Unused]
+                                     , funProjection     = Nothing
 +                                    , funATP            = Nothing
                                      }
                    blockTerm t' (Def aux []) $ return cs'
                  | otherwise -> typeError $ WrongHidingInLambda t'
-hunk ./src/full/Agda/TypeChecking/Rules/Term.hs 733
+hunk ./src/full/Agda/TypeChecking/Rules/Term.hs 743
        -- If we are in irrelevant position, add definition irrelevantly.
        -- TODO: is this sufficient?
        rel <- irrelevant <$> asks envIrrelevant
@@ -479,9 +479,9 @@ hunk ./src/full/Agda/TypeChecking/Serialise.hs 593
  
  instance EmbPrj Defn where
 -  icode (Axiom       a)                     = icode1 0 a
--  icode (Function    a b c d e f g)         = icode7 1 a b c d e f g
+-  icode (Function    a b c d e f g h)       = icode8 1 a b c d e f g h
 +  icode (Axiom       a b)                   = icode2 0 a b
-+  icode (Function    a b c d e f g h)       = icode8 1 a b c d e f g h
++  icode (Function    a b c d e f g h i)     = icode9 1 a b c d e f g h i
    icode (Datatype    a b c d e f g h i j)   = icode10 2 a b c d e f g h i j
    icode (Record      a b c d e f g h i j k) = icode11 3 a b c d e f g h i j k
 hunk ./src/full/Agda/TypeChecking/Serialise.hs 597
@@ -491,9 +491,9 @@ hunk ./src/full/Agda/TypeChecking/Serialise.hs 597
    value = vcase valu where
 hunk ./src/full/Agda/TypeChecking/Serialise.hs 600
 -    valu [0, a]                               = valu1 Axiom       a
--    valu [1, a, b, c, d, e, f, g]             = valu7 Function    a b c d e f g
+-    valu [1, a, b, c, d, e, f, g, h]          = valu8 Function    a b c d e f g h
 +    valu [0, a, b]                            = valu2 Axiom       a b
-+    valu [1, a, b, c, d, e, f, g, h]          = valu8 Function    a b c d e f g h
++    valu [1, a, b, c, d, e, f, g, h, i]       = valu9 Function    a b c d e f g h i
      valu [2, a, b, c, d, e, f, g, h, i, j]    = valu10 Datatype   a b c d e f g h i j
      valu [3, a, b, c, d, e, f, g, h, i, j, k] = valu11 Record     a b c d e f g h i j k
 hunk ./src/full/Agda/TypeChecking/Serialise.hs 604
@@ -559,6 +559,16 @@ hunk ./test/fail/ATPMustBePostulate.err 1
 
 Context:
 
+[Termination checker understands now record projections.
+andreas.abel@ifi.lmu.de**20101002192314
+ Added a field funProjection to Function definitions which indicates
+ whether the function is a projection and which argument is the record
+ argument.  The termination checker knows that proj r <= r.
+] 
+[Compile DontCare as error instead of ().
+andreas.abel@ifi.lmu.de**20101001133559] 
+[Fixed issue 342 (type checking constructors turned Funs into Pis).
+andreas.abel@ifi.lmu.de**20101001133519] 
 [move the __IMPOSSIBLE__ triggered by the impossible failing test to a separate file
 ulfn@chalmers.se**20100930100615
  Ignore-this: fe13424136446099202517ba44bbdcad
@@ -606,4 +616,4 @@ Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20100927162925
  Ignore-this: 24db4b37e559935c9cd6f81f8a90a6f7
 ] 
 Patch bundle hash:
-3ad9140fed0131f1560e32ea94c31fd3b8905209
+3f5c57e8f3a808389a215d4b204b57e0cc2c26c5
