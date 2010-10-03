@@ -1,6 +1,6 @@
 1 patch for repository http://code.haskell.org/Agda:
 
-Sun Oct  3 00:27:33 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+Sun Oct  3 00:34:15 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
   * Added the ATP pragma.
     {-# ATP role name [h1 ... hn] #-}
   
@@ -14,8 +14,8 @@ Sun Oct  3 00:27:33 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gma
 New patches:
 
 [Added the ATP pragma.
-Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>**20101003052733
- Ignore-this: cbaf0c815c6131b6308cf898ce2b7d2e
+Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>**20101003053415
+ Ignore-this: e7e2a86dcc6f3447d34c5801075786c2
    {-# ATP role name [h1 ... hn] #-}
  
    The pragma indicates that the name and h1, ..., hn, will be used
@@ -209,7 +209,7 @@ hunk ./src/full/Agda/Syntax/Translation/AbstractToConcrete.hs 647
  
  -- Left hand sides --------------------------------------------------------
  
-hunk ./src/full/Agda/Syntax/Translation/ConcreteToAbstract.hs 99
+hunk ./src/full/Agda/Syntax/Translation/ConcreteToAbstract.hs 923
        case e of
          A.Def x -> return [ A.EtaPragma x ]
          _       -> fail "Bad ETA pragma"
@@ -252,9 +252,10 @@ hunk ./src/full/Agda/Syntax/Translation/ConcreteToAbstract.hs 99
 +        _                    -> fail "Bad ATP pragma" -- ToDo
 +    toAbstract (C.PragmaATP _ HintATP _ hints) =
 +      fail "Bad ATP pragma. The general hints cannot have hints"
++
  
- {--------------------------------------------------------------------------
-     Exceptions
+ instance ToAbstract C.Clause A.Clause where
+     toAbstract (C.Clause top C.Ellipsis{} _ _ _) = fail "bad '...'" -- TODO: errors message
 hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 421
    deriving (Typeable, Data, Show, Eq, Ord)
  
@@ -431,7 +432,7 @@ hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 114
                              }
          computePolarity name
          reportSDoc "tc.def.fun" 10 $ do
-hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 347
+hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 352
        , prettyList $ map prettyTCM ts
        , prettyTCM dt
        ]
@@ -464,7 +465,7 @@ hunk ./src/full/Agda/TypeChecking/Rules/Term.hs 372
                                      }
                    blockTerm t' (Def aux []) $ return cs'
                  | otherwise -> typeError $ WrongHidingInLambda t'
-hunk ./src/full/Agda/TypeChecking/Rules/Term.hs 731
+hunk ./src/full/Agda/TypeChecking/Rules/Term.hs 733
        -- If we are in irrelevant position, add definition irrelevantly.
        -- TODO: is this sufficient?
        rel <- irrelevant <$> asks envIrrelevant
@@ -558,6 +559,33 @@ hunk ./test/fail/ATPMustBePostulate.err 1
 
 Context:
 
+[move the __IMPOSSIBLE__ triggered by the impossible failing test to a separate file
+ulfn@chalmers.se**20100930100615
+ Ignore-this: fe13424136446099202517ba44bbdcad
+   to prevent the line number in the error message from changing
+] 
+[missing error message for failing test
+ulfn@chalmers.se**20100930095858
+ Ignore-this: 906099a500bbc7b067a6972ee1f75675
+] 
+[added projections for irrelevant record fields (with --irrelevant-projections)
+ulfn@chalmers.se**20100930095832
+ Ignore-this: 595a7cc87104ac1360bd2d2e7ab4267b
+] 
+[Compiler now ignores irrelevant definitions and irrelevant arguments.
+andreas.abel@ifi.lmu.de**20100929193203] 
+[Fixed typo.
+andreas.abel@ifi.lmu.de**20100929181610] 
+[Minor factorization of duplicated code.
+andreas.abel@ifi.lmu.de**20100929181122] 
+[Spotted opportunity for irrelevance in examples/simple-lib (two dots ;-)).
+andreas.abel@ifi.lmu.de**20100929150655] 
+[.err file to testcase
+andreas.abel@ifi.lmu.de**20100929145205] 
+[Testcase for bad irrelevant projections.
+andreas.abel@ifi.lmu.de**20100929145143] 
+[Preliminary fix of issue 337 (generation of with functions in the presence of irrelevance).
+andreas.abel@ifi.lmu.de**20100929144945] 
 [Added irrelevant function and axiom declarations .ident : Type
 andreas.abel@ifi.lmu.de**20100929084645
  These can only be used in irrelevant positions.  
@@ -578,4 +606,4 @@ Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20100927162925
  Ignore-this: 24db4b37e559935c9cd6f81f8a90a6f7
 ] 
 Patch bundle hash:
-8cc173ec9ca9a2cca5c8f3847f7e36cbfeaecefb
+3ad9140fed0131f1560e32ea94c31fd3b8905209
