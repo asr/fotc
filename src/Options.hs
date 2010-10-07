@@ -9,10 +9,10 @@ module Options where
 
 -- Haskell imports
 import System.Console.GetOpt
-    ( ArgDescr(..)
+    ( ArgDescr(NoArg, ReqArg)
     , ArgOrder (Permute)
     , getOpt
-    , OptDescr (..)
+    , OptDescr(Option)
     , usageInfo
     )
 
@@ -37,12 +37,16 @@ data Options = MkOptions
     , optUnprovedError :: Bool
     } deriving ( Show )
 
+defaultOptATP :: [String]
+defaultOptATP = ["equinox", "eprover", "metis"]
+
 defaultOptions :: Options
 defaultOptions = MkOptions
   { optVersion       = False
   , optHelp          = False
   , optVerbose       = Trie.singleton [] 1
-  , optATP           = []
+  , optATP           = []  -- The default is defined by defaultOptATP
+                           -- and it is handle by Options.parseOptions.
   , optOnlyFiles     = False
   , optTime          = 300
   , optDefAsAxiom    = False
@@ -70,7 +74,7 @@ verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
                   in (init ss, m)
 
 atpOpt :: String → Options → Options
-atpOpt name opts = opts { optATP = name : optATP opts }
+atpOpt name opts = opts { optATP = optATP opts ++ [name] }
 
 onlyFilesOpt :: Options → Options
 onlyFilesOpt opts = opts { optOnlyFiles = True }
@@ -96,7 +100,7 @@ options =
   , Option ['v'] ["verbose"] (ReqArg verboseOpt "N")
                  "set verbosity level to N"
   , Option []    ["atp"] (ReqArg atpOpt "name")
-                  "set the ATP (eprover, equinox, and/or metis)"
+                  "set the ATP (default: eprover, equinox, and metis)"
   , Option []    ["only-files"] (NoArg onlyFilesOpt)
                  "do not call the ATPs, only to create the TPTP files"
   , Option []    ["time"] (ReqArg timeOpt "secs")
@@ -119,6 +123,19 @@ usage prgName = usageInfo (usageHeader prgName) options
 parseOptions :: [String] → String → IO (Options, [String])
 parseOptions argv prgName =
   case getOpt Permute options argv of
-    ([],   [], [])      → bye $ usage prgName
-    (o, names, [])      → return (foldl (flip id) defaultOptions o, names)
+    ([],   [], []) → bye $ usage prgName
+
+    (o, names, []) → do
+      let opts :: Options
+          opts = foldl (flip id) defaultOptions o
+
+      let finalOpts :: Options
+          finalOpts =
+              if null (optATP opts)  -- No ATPs was chosen.
+              then opts { optATP = defaultOptATP }  -- We set up the
+                                                    -- defaults ATPs.
+              else opts
+
+      return (finalOpts, names)
+
     (_,     _, _errors) → error "parseOptions: not implemented"

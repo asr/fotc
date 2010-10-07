@@ -3,8 +3,7 @@ haskell_files = $(shell find src/ -name '*.hs')
 general_roles_TPTP = /tmp/general-roles.tptp
 
 AGDA = agda -v 0
-AGDA2ATP = agda2atp --atp=equinox --atp=eprover --atp=metis
-# AGDA2ATP = agda2atp --atp=metis
+AGDA2ATP = agda2atp
 
 succeed_conjectures_path     = Test/Succeed/Conjectures
 succeed_non_conjectures_path = Test/Succeed/NonConjectures
@@ -41,7 +40,7 @@ $(succeed_conjectures_files) : % : %.agda
 
 $(succeed_agda_files) : % : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
-	@if ! ( agda2atp --only-files $< ); then exit 1; fi
+	@if ! ( $(AGDA2ATP) --only-files $< ); then exit 1; fi
 
 $(fail_files) : % : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
@@ -51,9 +50,9 @@ $(fail_files) : % : %.agda
 
 # The tests
 succeed_non_conjectures : clean $(succeed_non_conjectures_files)
-succeed_conjectures : clean $(succeed_conjectures_files)
-succeed_agda : clean $(succeed_agda_files)
-fail : clean $(fail_files)
+succeed_conjectures     : clean $(succeed_conjectures_files)
+succeed_agda            : clean $(succeed_agda_files)
+fail                    : clean $(fail_files)
 
 test : succeed_agda succeed_non_conjectures succeed_conjectures fail
 

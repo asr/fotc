@@ -135,6 +135,7 @@ callATPConjecture conjecture = do
     outputMVar ← liftIO (newEmptyMVar :: IO (MVar (Bool, ATP)))
 
     lift $ reportS "" 1 $ "Proving the conjecture in " ++ file ++ " ..."
+    lift $ reportS "" 20 $ "ATPs to be used: " ++ show atps
 
     atpsPH ← liftIO $
            mapM ((\atp → runATP atp outputMVar (argsATP atp timeLimit file)) .
