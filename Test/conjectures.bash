@@ -5,8 +5,7 @@
 AGDA='agda -v 0'
 # The time limit should be the maximum (--time=720) which is required
 # by the postulate Examples.SortList.Closures.TreeOrdrightSubTree-TreeOrd.
-AGDA2ATP='agda2atp --atp=equinox --atp=eprover --atp=metis --time=180 '
-AGDA2ATP="$AGDA2ATP"--unproved-conjecture-error
+AGDA2ATP='agda2atp --unproved-conjecture-error --time=180'
 
 case $1 in
     LTC)
