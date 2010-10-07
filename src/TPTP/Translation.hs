@@ -169,10 +169,7 @@ axiomsToAFs i = do
   let axDefs :: Definitions
       axDefs = getRoleATP AxiomATP i
 
-  axAFs ←
-      zipWith3M toAF (Map.keys axDefs) (repeat AxiomATP) (Map.elems axDefs)
-
-  return axAFs
+  zipWith3M toAF (Map.keys axDefs) (repeat AxiomATP) (Map.elems axDefs)
 
 -- We translate the ATP pragma general hints in an interface file to
 -- FOL formulas.
@@ -183,10 +180,7 @@ generalHintsToAFs i = do
   let ghDefs :: Definitions
       ghDefs = getRoleATP HintATP i
 
-  ghAFs ←
-      zipWith3M toAF (Map.keys ghDefs) (repeat HintATP) (Map.elems ghDefs)
-
-  return ghAFs
+  zipWith3M toAF (Map.keys ghDefs) (repeat HintATP) (Map.elems ghDefs)
 
 -- We translate the ATP pragma conjectures and their local hints in an
 -- interface file to AFs. For each conjecture we return its

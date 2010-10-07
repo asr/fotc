@@ -59,7 +59,7 @@ removeBindingOnCBodyIndex (Bind (Abs x1 cBody)) x2 index =
     if x1 == x2
        then renameVar cBody index  -- We remove the bind and rename the
                                    -- variables inside the body.
-       else (Bind (Abs x1 $ removeBindingOnCBodyIndex cBody x2 index))
+       else Bind (Abs x1 $ removeBindingOnCBodyIndex cBody x2 index)
 removeBindingOnCBodyIndex _ _ _ = __IMPOSSIBLE__
 
 -- To remove the binding on a proof term in a ClauseBody,

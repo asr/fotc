@@ -242,7 +242,7 @@ instance RemoveVar Args where
     removeVar (Arg h r var@(Var n _ ) : args) index =
         if n == index
            then removeVar args index
-           else (Arg h r var : removeVar args index)
+           else Arg h r var : removeVar args index
     removeVar (Arg h r t : args) index = Arg h r t : removeVar args index
 
 removeReferenceToProofTerm :: Type → Nat → Type → Type

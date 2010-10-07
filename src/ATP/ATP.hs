@@ -76,7 +76,7 @@ ileancopOk :: String
 ileancopOk = "Intuitionistic Theorem"
 
 checkOutputATP :: ATP → String → Bool
-checkOutputATP atp output = isInfixOf (atpOk atp) output
+checkOutputATP atp output = atpOk atp `isInfixOf` output
     where
       atpOk :: ATP → String
       atpOk Eprover  = eproverOk
@@ -149,7 +149,7 @@ callATPConjecture conjecture = do
                let msg :: String
                    msg = "The ATP(s) " ++ show atps ++
                          " did not prove the conjecture in " ++ file
-               if (optUnprovedError opts)
+               if optUnprovedError opts
                  then throwError msg
                  else lift $ reportS "" 1 msg
              else do

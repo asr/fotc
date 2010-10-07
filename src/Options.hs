@@ -93,24 +93,24 @@ unprovedErrorOpt opts = opts { optUnprovedError = True }
 
 options :: [OptDescr (Options → Options)]
 options =
-  [ Option ['V'] ["version"] (NoArg versionOpt)
-                 "show version number"
-  , Option ['?'] ["help"] (NoArg helpOpt)
-                 "show this help"
-  , Option ['v'] ["verbose"] (ReqArg verboseOpt "N")
-                 "set verbosity level to N"
-  , Option []    ["atp"] (ReqArg atpOpt "name")
-                  "set the ATP (default: eprover, equinox, and metis)"
-  , Option []    ["only-files"] (NoArg onlyFilesOpt)
-                 "do not call the ATPs, only to create the TPTP files"
-  , Option []    ["time"] (ReqArg timeOpt "secs")
-                 "set timeout for the ATPs in seconds (default: 300)"
-  , Option []    ["definitions-as-axioms"] (NoArg defAsAxiomOpt)
-                 "translate the TPTP definitions as TPTP axioms"
-  , Option []    ["output-dir"] (ReqArg outputDirOpt "DIR")
-                 "directory in which TPTP files are placed (default: /tmp)"
-  , Option []    ["unproved-conjecture-error"] (NoArg unprovedErrorOpt)
-                 "an unproved TPTP conjecture generates an error"
+  [ Option "V" ["version"] (NoArg versionOpt)
+               "show version number"
+  , Option "?" ["help"] (NoArg helpOpt)
+               "show this help"
+  , Option "v" ["verbose"] (ReqArg verboseOpt "N")
+               "set verbosity level to N"
+  , Option []  ["atp"] (ReqArg atpOpt "name")
+               "set the ATP (default: eprover, equinox, and metis)"
+  , Option []  ["only-files"] (NoArg onlyFilesOpt)
+               "do not call the ATPs, only to create the TPTP files"
+  , Option []  ["time"] (ReqArg timeOpt "secs")
+               "set timeout for the ATPs in seconds (default: 300)"
+  , Option []  ["definitions-as-axioms"] (NoArg defAsAxiomOpt)
+               "translate the TPTP definitions as TPTP axioms"
+  , Option []  ["output-dir"] (ReqArg outputDirOpt "DIR")
+               "directory in which TPTP files are placed (default: /tmp)"
+  , Option []  ["unproved-conjecture-error"] (NoArg unprovedErrorOpt)
+               "an unproved TPTP conjecture generates an error"
   ]
 
 usageHeader :: String → String
