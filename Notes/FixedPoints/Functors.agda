@@ -10,6 +10,9 @@ module Functors where
 
 ------------------------------------------------------------------------------
 
+data Bool : Set where
+  false true : Bool
+
 data _⊎_  (A B : Set) : Set where
   inl : A → A ⊎ B
   inr : B → A ⊎ B
@@ -19,88 +22,117 @@ data _×_ (A B : Set) : Set where
 
 -- The terminal object.
 data I : Set where
-  t : I
+  to : I
 
 postulate
-  lfp   : (Set → Set) → Set
-  cLFP₁ : (f : Set → Set) → lfp f → f (lfp f)
-  cLFP₂ : (f : Set → Set) → f (lfp f) → lfp f
+  -- The least fixed-point.
+  Mu   : (Set → Set) → Set
+  In   : {f : Set → Set} → f (Mu f) → Mu f
+  unIn : {f : Set → Set} → Mu f → f (Mu f)
 
-  gfp   : (Set → Set) → Set
-  cGFP₁ : (f : Set → Set) → gfp f → f (gfp f)
-  cGFP₂ : (f : Set → Set) → f (gfp f) → gfp f
-
-------------------------------------------------------------------------------
-
--- The empty functor (the identity functor).
-FE : Set → Set
-FE X = X
-
--- The empty type is a least fixed-point.
-⊥ : Set
-⊥ = lfp FE
+  -- The greatest fixed-point.
+  Nu   : (Set → Set) → Set
+  Wrap : {f : Set → Set} → f (Nu f) → Nu f
+  out  : {f : Set → Set} → Nu f → f (Nu f)
 
 ------------------------------------------------------------------------------
+-- Functors
 
--- The natural numbers functor.
+--  The identity functor (the functor for the empty and unit types).
+FId : Set → Set
+FId X = X
+
+-- The (co)natural numbers functor.
 FN : Set → Set
 FN X = I ⊎ X
 
--- The natural numbers type is a least fixed-point.
-N : Set
-N = lfp FN
-
--- The data constructors for the natural numbers.
-zero : N
-zero = cLFP₂ FN (inl t)
-
-succ : N → N
-succ n = cLFP₂ FN (inr n)
-
-------------------------------------------------------------------------------
-
--- The list functor.
+-- The (co)list functor.
 FL : Set → Set → Set
 FL A X = I ⊎ (A × X)
-
--- The list type is a least fixed-point.
-List : Set → Set
-List A = lfp (FL A)
-
--- The data constructors for List.
-nil : (A : Set) → List A
-nil A = cLFP₂ (FL A) (inl t)
-
-cons : (A : Set) → A → List A → List A
-cons A x xs = cLFP₂ (FL A) (inr (x , xs))
-
-------------------------------------------------------------------------------
-
--- The conaturals type is a greatest fixed-point.
-Conat : Set
-Conat = gfp FN
-
--- TODO: The conat destructor.
-pred : Conat → I ⊎ Conat
-pred cn with cGFP₁ FN cn
-... | inl t = inl t
-... | inr x = inr x
-
-------------------------------------------------------------------------------
 
 -- The stream functor.
 FS : Set → Set → Set
 FS A X = A × X
 
+------------------------------------------------------------------------------
+-- Types as least fixed-points
+
+-- The empty type is a least fixed-point.
+⊥ : Set
+⊥ = Mu FId
+
+-- The natural numbers type is a least fixed-point.
+N : Set
+N = Mu FN
+
+-- The data constructors for the natural numbers.
+zero : N
+zero = In (inl to)
+
+succ : N → N
+succ n = In (inr n)
+
+-- The list type is a least fixed-point.
+List : Set → Set
+List A = Mu (FL A)
+
+-- The data constructors for List.
+nil : (A : Set) → List A
+nil A = In (inl to)
+
+cons : {A : Set} → A → List A → List A
+cons x xs = In (inr (x , xs))
+
+------------------------------------------------------------------------------
+-- Types as greatest fixed-points
+
+-- The unit type is a greatest fixed-point.
+Unit : Set
+Unit = Nu FId
+
+-- Non-structural recursion
+-- unit : Nu FId
+-- unit = Wrap FId {!unit!}
+
+-- The conaturals type is a greatest fixed-point.
+Conat : Set
+Conat = Nu FN
+
+-- TODO: The conat destructor.
+pred : Conat → I ⊎ Conat
+pred cn with out cn
+... | inl t = inl t
+... | inr x = inr x
+
+-- The colist type is a greatest fixed-point.
+Colist : Set → Set
+Colist A = Nu (FL A)
+
+-- The colist destructors.
+nullCL : {A : Set} → Colist A → Bool
+nullCL xs with out xs
+... | inl t = true
+... | inr _ = false
+
+-- headCL : {A : Set} → Colist A → A
+-- headCL {A} xs with out (FL A) xs
+-- ... | inl t       =  -- Impossible
+-- ... | inr (x , _) = x
+
+-- tailCL : {A : Set} → Colist A → Colist A
+-- tailCL {A} xs with out (FL A) xs
+-- ... | inl t         =  -- Impossible
+-- ... | inr (_ , xs') = xs'
+
 -- The stream type is a greatest fixed-point.
 Stream : Set → Set
-Stream A = gfp (FS A)
+Stream A = Nu (FS A)
 
 -- The stream destructors.
-head : (A : Set) → Stream A → A
-head A xs with cGFP₁ (FS A) xs
+headS : {A : Set} → Stream A → A
+headS xs with out xs
 ... | x , _ = x
 
-tail : (A : Set) → Stream A → Stream A
-tail A xs with cGFP₁ (FS A) xs
+tailS : {A : Set} → Stream A → Stream A
+tailS xs with out xs
 ... | _ , xs' = xs'
