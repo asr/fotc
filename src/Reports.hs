@@ -20,7 +20,7 @@ import qualified Agda.Utils.Trie as Trie
 import Agda.Utils.List ( wordsBy )
 
 -- Local imports
-import Options ( Options, optVerbose )
+import Options ( Options(optVerbose) )
 
 #include "undefined.h"
 

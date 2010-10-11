@@ -58,7 +58,7 @@ import MyAgda.Interface
     , getRoleATP
     )
 import MyAgda.Syntax.DeBruijn ( removeReferenceToProofTerms )
-import Options ( optDefAsAxiom )
+import Options ( Options(optDefAsAxiom) )
 import Reports ( reportSLn )
 import TPTP.Types ( AF(AF) )
 

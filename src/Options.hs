@@ -5,7 +5,11 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module Options where
+module Options
+    ( Options(..)
+    , parseOptions
+    , usage
+    ) where
 
 -- Haskell imports
 import System.Console.GetOpt
@@ -26,15 +30,15 @@ import Utils.IO ( bye )
 
 -----------------------------------------------------------------------------
 data Options = MkOptions
-    { optVersion       :: Bool
-    , optHelp          :: Bool
-    , optVerbose       :: Trie String Int
-    , optATP           :: [String]
-    , optOnlyFiles     :: Bool
-    , optTime          :: Int
+    { optATP           :: [String]
     , optDefAsAxiom    :: Bool
+    , optHelp          :: Bool
+    , optOnlyFiles     :: Bool
     , optOutputDir     :: FilePath
+    , optTime          :: Int
     , optUnprovedError :: Bool
+    , optVerbose       :: Trie String Int
+    , optVersion       :: Bool
     } deriving ( Show )
 
 defaultOptATP :: [String]
@@ -42,23 +46,38 @@ defaultOptATP = ["equinox", "eprover", "metis"]
 
 defaultOptions :: Options
 defaultOptions = MkOptions
-  { optVersion       = False
-  , optHelp          = False
-  , optVerbose       = Trie.singleton [] 1
-  , optATP           = []  -- The default is defined by defaultOptATP
+  { optATP           = []  -- The default is defined by defaultOptATP
                            -- and it is handle by Options.parseOptions.
-  , optOnlyFiles     = False
-  , optTime          = 300
   , optDefAsAxiom    = False
+  , optHelp          = False
+  , optOnlyFiles     = False
   , optOutputDir     = "/tmp"
+  , optTime          = 300
   , optUnprovedError = False
+  , optVerbose       = Trie.singleton [] 1
+  , optVersion       = False
   }
 
-versionOpt :: Options → Options
-versionOpt opts = opts { optVersion = True }
+atpOpt :: String → Options → Options
+atpOpt name opts = opts { optATP = optATP opts ++ [name] }
+
+defAsAxiomOpt :: Options → Options
+defAsAxiomOpt opts = opts { optDefAsAxiom = True }
 
 helpOpt :: Options → Options
 helpOpt opts = opts { optHelp = True }
+
+timeOpt :: String → Options → Options
+timeOpt secs opts = opts { optTime = read secs }
+
+onlyFilesOpt :: Options → Options
+onlyFilesOpt opts = opts { optOnlyFiles = True }
+
+outputDirOpt :: FilePath → Options → Options
+outputDirOpt dir opts = opts { optOutputDir = dir }
+
+unprovedErrorOpt :: Options → Options
+unprovedErrorOpt opts = opts { optUnprovedError = True }
 
 -- Adapted from: Agda.Interaction.Options.verboseFlag.
 verboseOpt :: String → Options → Options
@@ -72,24 +91,8 @@ verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
             ss  → let m :: Int
                       m = read $ last ss
                   in (init ss, m)
-
-atpOpt :: String → Options → Options
-atpOpt name opts = opts { optATP = optATP opts ++ [name] }
-
-onlyFilesOpt :: Options → Options
-onlyFilesOpt opts = opts { optOnlyFiles = True }
-
-timeOpt :: String → Options → Options
-timeOpt secs opts = opts { optTime = read secs }
-
-defAsAxiomOpt :: Options → Options
-defAsAxiomOpt opts = opts { optDefAsAxiom = True }
-
-outputDirOpt :: FilePath → Options → Options
-outputDirOpt dir opts = opts { optOutputDir = dir }
-
-unprovedErrorOpt :: Options → Options
-unprovedErrorOpt opts = opts { optUnprovedError = True }
+versionOpt :: Options → Options
+versionOpt opts = opts { optVersion = True }
 
 options :: [OptDescr (Options → Options)]
 options =
