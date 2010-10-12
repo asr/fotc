@@ -20,8 +20,8 @@ open import LTC.Data.Nat
 
 ------------------------------------------------------------------------------
 pred-N : {n : D} → N n → N (pred n)
-pred-N zN          = subst (λ t → N t) (sym cP₁) zN
-pred-N (sN {n} Nn) = subst (λ t → N t) (sym (cP₂ n)) Nn
+pred-N zN          = subst (λ t → N t) (sym pred-0) zN
+pred-N (sN {n} Nn) = subst (λ t → N t) (sym (pred-S n)) Nn
 
 minus-N : {m n : D} → N m → N n → N (m - n)
 minus-N {m} Nm          zN          = subst N (sym (minus-x0 m)) Nm

@@ -38,19 +38,20 @@ private
   -- Before to prove some properties for 'lt i j' it is convenient
   -- to descompose the behavior of the function step by step.
 
-  -- Initially, we define the possible states ('<-s₁',
-  -- '<-s₂', ...). Then we write down the proof for
-  -- the execution step from the state 'p' to the state 'q'
-  -- (e.g. 's₁→s₂ : (m n : D) → <-s₂ m n → <-s₃ m n').
+  -- Initially, we define the possible states (<-s₁,
+  -- <-s₂, ...). Then we write down the proof for
+  -- the execution step from the state p to the state q
+  --
+  -- (e.g. s₁→s₂ : (m n : D) → <-s₂ m n → <-s₃ m n).
 
-  -- The terms 'lt-00', 'lt-0S', 'lt-S0', and 'lt-S>S' show the use of
-  -- the states '<-s₁', '<-s₂', ..., and the proofs associated
-  -- with the execution steps.
+  -- The terms lt-00, lt-0S, lt-S0, and lt-S>S show the use of the
+  -- states <-s₁, <-s₂, ..., and the proofs associated with the
+  -- execution steps.
 
   ----------------------------------------------------------------------
   -- The steps of lt
 
-  -- The conversion rule 'cFix' is applied.
+  -- The conversion rule fix-f is applied.
   <-s₁ : D → D → D
   <-s₁ d e = lth (fix lth) ∙ d ∙ e
 
@@ -58,7 +59,7 @@ private
   <-s₂ : D → D → D
   <-s₂ d e = lam (lt-aux₂ (fix lth)) ∙ d ∙ e
 
-  -- cBeta application.
+  -- Beta application.
   <-s₃ : D → D → D
   <-s₃ d e = lt-aux₂ (fix lth) d ∙ e
 
@@ -66,7 +67,7 @@ private
   <-s₄ : D → D → D
   <-s₄ d e = lam (lt-aux₁ d (fix lth)) ∙ e
 
-  -- cBeta application.
+  -- Beta application.
   <-s₅ : D → D → D
   <-s₅ d e = lt-aux₁ d (fix lth) e
 
@@ -117,35 +118,38 @@ private
                              m ≡ n,       (2)
 
     where (2) is a conversion rule usually.
+
     We prove (1) using
-    'subst : {A : Set}(P : A → Set){x y : A} → x ≡ y → P x → P y'
+
+    subst : {A : Set}(P : A → Set){x y : A} → x ≡ y → P x → P y
+
     where
-    'P' is given by 'λ t → C [m] ≡ C [t]',
-    'x ≡ y' is given 'm ≡ n', and
-    'P x' is given by 'C [m] ≡ C [m]' (i.e. 'refl').
+      - P is given by λ t → C [m] ≡ C [t],
+      - x ≡ y is given m ≡ n, and
+      - P x is given by C [m] ≡ C [m] (i.e. refl).
   -}
 
-  -- Application of the conversion rule 'cFix'.
+  -- Application of the conversion rule fix-f.
   initial→s₁ : (d e : D) → fix lth ∙ d ∙ e ≡ <-s₁ d e
-  initial→s₁ d e = subst (λ t → fix lth ∙ d ∙ e ≡ t ∙ d ∙ e) (cFix lth) refl
+  initial→s₁ d e = subst (λ t → fix lth ∙ d ∙ e ≡ t ∙ d ∙ e) (fix-f lth) refl
 
   -- The definition of lth.
   s₁→s₂ : (d e : D) → <-s₁ d e ≡ <-s₂ d e
   s₁→s₂ d e = refl
 
-  -- cBeta application.
+  -- Beta application.
   s₂→s₃ : (d e : D) → <-s₂ d e ≡ <-s₃ d e
   s₂→s₃ d e = subst (λ t → lam (lt-aux₂ (fix lth)) ∙ d ∙ e ≡ t ∙ e)
-                    (cBeta (lt-aux₂ (fix lth)) d)
+                    (beta (lt-aux₂ (fix lth)) d)
                     refl
 
   -- Definition of lt-aux₂
   s₃→s₄ : (d e : D) → <-s₃ d e ≡ <-s₄ d e
   s₃→s₄ d e = refl
 
-  -- cBeta application.
+  -- Beta application.
   s₄→s₅ : (d e : D) → <-s₄ d e ≡ <-s₅ d e
-  s₄→s₅ d e = cBeta (lt-aux₁ d (fix lth)) e
+  s₄→s₅ d e = beta (lt-aux₁ d (fix lth)) e
 
   -- Definition of lt-aux₁.
   s₅→s₆ : (d e : D) → <-s₅ d e ≡ <-s₆ d e
@@ -155,33 +159,33 @@ private
   s₆→s₇ : (d e b : D) → isZero e ≡ b → <-s₆ d e ≡ <-s₇ d e b
   s₆→s₇ d e b prf = subst (λ t → <-s₆ d e ≡ <-s₇ d e t) prf refl
 
-  -- Reduction of 'isZero e ≡ true' using the conversion rule cB₁.
+  -- Reduction of 'isZero e ≡ true' using the conversion rule if-true.
   s₇→end : (d e : D) → <-s₇ d e true ≡ false
-  s₇→end _ _ = cB₁ false
+  s₇→end _ _ = if-true false
 
-  -- Reduction of 'isZero e ≡ false ...' using the conversion rule cB₂.
+  -- Reduction of 'isZero e ≡ false ...' using the conversion rule if-false.
   s₇→s₈ : (d e : D) → <-s₇ d e false ≡ <-s₈ d e
-  s₇→s₈ d e = cB₂ (<-s₈ d e)
+  s₇→s₈ d e = if-false (<-s₈ d e)
 
   -- Reduction 'isZero d ≡ b' using that proof.
   s₈→s₉ : (d e b : D) → isZero d ≡ b → <-s₈ d e ≡ <-s₉ d e b
   s₈→s₉ d e b prf = subst (λ t → <-s₈ d e ≡ <-s₉ d e t) prf refl
 
-  -- Reduction of 'isZero d ≡ true' using the conversion rule cB₁.
+  -- Reduction of 'isZero d ≡ true' using the conversion rule if-true.
   s₉→end : (d e : D) → <-s₉ d e true ≡ true
-  s₉→end _ _ = cB₁ true
+  s₉→end _ _ = if-true true
 
-  -- Reduction of 'isZero d ≡ false ...' using the conversion rule cB₂.
+  -- Reduction of 'isZero d ≡ false ...' using the conversion rule if-false.
   s₉→s₁₀ : (d e : D) → <-s₉ d e false ≡ <-s₁₀ d e
-  s₉→s₁₀ d e = cB₂ (<-s₁₀ d e)
+  s₉→s₁₀ d e = if-false (<-s₁₀ d e)
 
-  -- Reduction 'pred (succ d) ≡ d' using the conversion rule cP₂.
+  -- Reduction 'pred (succ d) ≡ d' using the conversion rule pred-S.
   s₁₀→s₁₁ : (d e : D) → <-s₁₀ (succ d) e  ≡ <-s₁₁ d e
-  s₁₀→s₁₁ d e = subst (λ t → <-s₁₀ (succ d) e ≡ <-s₁₁ t e) (cP₂ d) refl
+  s₁₀→s₁₁ d e = subst (λ t → <-s₁₀ (succ d) e ≡ <-s₁₁ t e) (pred-S d) refl
 
-  -- Reduction 'pred (succ e) ≡ e' using the conversion rule 'cP₂'.
+  -- Reduction 'pred (succ e) ≡ e' using the conversion rule pred-S.
   s₁₁→s₁₂ : (d e : D) → <-s₁₁ d (succ e)  ≡ <-s₁₂ d e
-  s₁₁→s₁₂ d e = subst (λ t → <-s₁₁ d (succ e) ≡ <-s₁₂ d t) (cP₂ e) refl
+  s₁₁→s₁₂ d e = subst (λ t → <-s₁₁ d (succ e) ≡ <-s₁₂ d t) (pred-S e) refl
 
 ------------------------------------------------------------------------------
 
@@ -194,7 +198,7 @@ private
     <-s₃ zero zero        ≡⟨ s₃→s₄ zero zero ⟩
     <-s₄ zero zero        ≡⟨ s₄→s₅ zero zero ⟩
     <-s₅ zero zero        ≡⟨ s₅→s₆ zero zero ⟩
-    <-s₆ zero zero        ≡⟨ s₆→s₇ zero zero true cZ₁ ⟩
+    <-s₆ zero zero        ≡⟨ s₆→s₇ zero zero true isZero-0 ⟩
     <-s₇ zero zero true   ≡⟨ s₇→end zero zero ⟩
     false
     ∎
@@ -208,9 +212,9 @@ private
     <-s₃ zero (succ d)        ≡⟨ s₃→s₄ zero (succ d) ⟩
     <-s₄ zero (succ d)        ≡⟨ s₄→s₅ zero (succ d) ⟩
     <-s₅ zero (succ d)        ≡⟨ s₅→s₆ zero (succ d) ⟩
-    <-s₆ zero (succ d)        ≡⟨ s₆→s₇ zero (succ d) false (cZ₂ d) ⟩
+    <-s₆ zero (succ d)        ≡⟨ s₆→s₇ zero (succ d) false (isZero-S d) ⟩
     <-s₇ zero (succ d) false  ≡⟨ s₇→s₈ zero (succ d) ⟩
-    <-s₈ zero (succ d)        ≡⟨ s₈→s₉ zero (succ d) true cZ₁ ⟩
+    <-s₈ zero (succ d)        ≡⟨ s₈→s₉ zero (succ d) true isZero-0 ⟩
     <-s₉ zero (succ d) true   ≡⟨ s₉→end zero (succ d) ⟩
     true
   ∎
@@ -224,7 +228,7 @@ private
     <-s₃ (succ d) zero        ≡⟨ s₃→s₄ (succ d) zero ⟩
     <-s₄ (succ d) zero        ≡⟨ s₄→s₅ (succ d) zero ⟩
     <-s₅ (succ d) zero        ≡⟨ s₅→s₆ (succ d) zero ⟩
-    <-s₆ (succ d) zero        ≡⟨ s₆→s₇ (succ d) zero true cZ₁ ⟩
+    <-s₆ (succ d) zero        ≡⟨ s₆→s₇ (succ d) zero true isZero-0 ⟩
     <-s₇ (succ d) zero true   ≡⟨ s₇→end (succ d) zero ⟩
     false
   ∎
@@ -238,9 +242,13 @@ private
     <-s₃ (succ d) (succ e)        ≡⟨ s₃→s₄ (succ d) (succ e) ⟩
     <-s₄ (succ d) (succ e)        ≡⟨ s₄→s₅ (succ d) (succ e) ⟩
     <-s₅ (succ d) (succ e)        ≡⟨ s₅→s₆ (succ d) (succ e) ⟩
-    <-s₆ (succ d) (succ e)        ≡⟨ s₆→s₇ (succ d) (succ e) false (cZ₂ e) ⟩
+    <-s₆ (succ d) (succ e)        ≡⟨ s₆→s₇ (succ d) (succ e)
+                                           false (isZero-S e)
+                                  ⟩
     <-s₇ (succ d) (succ e) false  ≡⟨ s₇→s₈ (succ d) (succ e) ⟩
-    <-s₈ (succ d) (succ e)        ≡⟨ s₈→s₉ (succ d) (succ e) false (cZ₂ d) ⟩
+    <-s₈ (succ d) (succ e)        ≡⟨ s₈→s₉ (succ d) (succ e)
+                                           false (isZero-S d)
+                                  ⟩
     <-s₉ (succ d) (succ e) false  ≡⟨ s₉→s₁₀ (succ d) (succ e) ⟩
     <-s₁₀ (succ d) (succ e)       ≡⟨ s₁₀→s₁₁ d (succ e) ⟩
     <-s₁₁ d (succ e)              ≡⟨ s₁₁→s₁₂ d e ⟩

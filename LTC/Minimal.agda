@@ -103,45 +103,45 @@ open import LTC.Data.Product     public
 
 postulate
   -- Conversion rules for booleans.
-  cB₁ : (d₁ : D){d₂ : D} → if true  then d₁ else d₂ ≡ d₁
-  cB₂ : {d₁ : D}(d₂ : D) → if false then d₁ else d₂ ≡ d₂
-{-# ATP axiom cB₁ #-}
-{-# ATP axiom cB₂ #-}
+  if-true  : (d₁ : D){d₂ : D} →  if true then d₁ else d₂ ≡ d₁
+  if-false : {d₁ : D}(d₂ : D) → if false then d₁ else d₂ ≡ d₂
+{-# ATP axiom if-true #-}
+{-# ATP axiom if-false #-}
 
 postulate
   -- Conversion rules for pred.
-  cP₁ :           pred zero     ≡ zero
-  cP₂ : (n : D) → pred (succ n) ≡ n
-{-# ATP axiom cP₁ #-}
-{-# ATP axiom cP₂ #-}
+  pred-0 :           pred zero     ≡ zero
+  pred-S : (n : D) → pred (succ n) ≡ n
+{-# ATP axiom pred-0 #-}
+{-# ATP axiom pred-S #-}
 
 postulate
   -- Conversion rules for isZero.
-  cZ₁ :           isZero zero     ≡ true
-  cZ₂ : (n : D) → isZero (succ n) ≡ false
-{-# ATP axiom cZ₁ #-}
-{-# ATP axiom cZ₂ #-}
+  isZero-0 :           isZero zero     ≡ true
+  isZero-S : (n : D) → isZero (succ n) ≡ false
+{-# ATP axiom isZero-0 #-}
+{-# ATP axiom isZero-S #-}
 
 postulate
   -- Conversion rule for the abstraction and the application.
-  cBeta : (f : D → D) → (a : D) → (lam f) ∙ a ≡ f a
-{-# ATP axiom cBeta #-}
+  beta : (f : D → D) → (a : D) → (lam f) ∙ a ≡ f a
+{-# ATP axiom beta #-}
 
 postulate
   -- Conversion rule for the fixed pointed operator.
-  cFix : (f : D → D) → fix f ≡ f (fix  f)
+  fix-f : (f : D → D) → fix f ≡ f (fix  f)
   -- cFixFO : (f : D) → fixFO ∙ f  ≡ f ∙ (fixFO ∙ f)
-{-# ATP axiom cFix #-}
+{-# ATP axiom fix-f #-}
 
 postulate
   -- Conversion rule for head.
-  cHead : (x xs : D) → head (x ∷ xs) ≡ x
-{-# ATP axiom cHead #-}
+  head-∷ : (x xs : D) → head (x ∷ xs) ≡ x
+{-# ATP axiom head-∷ #-}
 
 postulate
   -- Conversion rule for tail.
-  cTail : (x xs : D) → tail (x ∷ xs) ≡ xs
-{-# ATP axiom cTail #-}
+  tail-∷ : (x xs : D) → tail (x ∷ xs) ≡ xs
+{-# ATP axiom tail-∷ #-}
 
 ------------------------------------------------------------------------------
 -- Discrimination rules

@@ -138,7 +138,7 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁
                                      then (node (tip j) i₂ (tip i₂))
                                      else (node (tip i₂) j (tip j))) i₁ ≡
                           ≤-TreeItem t i₁)
-                   (cB₂ (node (tip i₂) j (tip j)))
+                   (if-false (node (tip i₂) j (tip j)))
                    refl
           ⟩
         ≤-TreeItem (node (tip i₂) j (tip j)) i₁
@@ -202,7 +202,7 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁
                                      then (node (tip j) i₂ (tip i₂))
                                      else (node (tip i₂) j (tip j))) i₁ ≡
                           ≤-TreeItem t i₁)
-                   (cB₁ (node (tip j) i₂ (tip i₂)))
+                   (if-true (node (tip j) i₂ (tip i₂)))
                    refl
           ⟩
         ≤-TreeItem (node (tip j) i₂ (tip i₂)) i₁
@@ -267,7 +267,7 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
                                          then (node t₁ j (toTree ∙ i₂ ∙ t₂))
                                          else (node (toTree ∙ i₂ ∙ t₁) j t₂)) i₁ ≡
                           ≤-TreeItem t i₁)
-                   (cB₂ (node (toTree ∙ i₂ ∙ t₁) j t₂))
+                   (if-false (node (toTree ∙ i₂ ∙ t₁) j t₂))
                    refl
           ⟩
         ≤-TreeItem (node (toTree ∙ i₂ ∙ t₁) j t₂) i₁
@@ -330,7 +330,7 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
                                          then (node t₁ j (toTree ∙ i₂ ∙ t₂))
                                          else (node (toTree ∙ i₂ ∙ t₁) j t₂)) i₁ ≡
                           ≤-TreeItem t i₁)
-                   (cB₁ (node t₁ j (toTree ∙ i₂ ∙ t₂)))
+                   (if-true (node t₁ j (toTree ∙ i₂ ∙ t₂)))
                    refl
           ⟩
         ≤-TreeItem (node t₁ j (toTree ∙ i₂ ∙ t₂)) i₁
@@ -409,7 +409,7 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i₁�
                                             then (node (tip j) i₂ (tip i₂))
                                             else (node (tip i₂) j (tip j))) ≡
                           ≤-ItemTree i₁ t)
-                   (cB₂ (node (tip i₂) j (tip j)))
+                   (if-false (node (tip i₂) j (tip j)))
                    refl
           ⟩
         ≤-ItemTree i₁ (node (tip i₂) j (tip j))
@@ -469,7 +469,7 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i₁�
                                             then (node (tip j) i₂ (tip i₂))
                                             else (node (tip i₂) j (tip j))) ≡
                           ≤-ItemTree i₁ t)
-                   (cB₁ (node (tip j) i₂ (tip i₂)))
+                   (if-true (node (tip j) i₂ (tip i₂)))
                    refl
           ⟩
         ≤-ItemTree i₁ (node (tip j) i₂ (tip i₂))
@@ -533,7 +533,7 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
                                         then (node t₁ j (toTree ∙ i₂ ∙ t₂))
                                         else (node (toTree ∙ i₂ ∙ t₁) j t₂)) ≡
                           ≤-ItemTree i₁ t)
-                   (cB₂ (node (toTree ∙ i₂ ∙ t₁) j t₂))
+                   (if-false (node (toTree ∙ i₂ ∙ t₁) j t₂))
                    refl
           ⟩
         ≤-ItemTree i₁ (node (toTree ∙ i₂ ∙ t₁) j t₂)
@@ -591,7 +591,7 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
                                         then (node t₁ j (toTree ∙ i₂ ∙ t₂))
                                         else (node (toTree ∙ i₂ ∙ t₁) j t₂)) ≡
                           ≤-ItemTree i₁ t)
-                   (cB₁ (node t₁ j (toTree ∙ i₂ ∙ t₂)))
+                   (if-true (node t₁ j (toTree ∙ i₂ ∙ t₂)))
                    refl
           ⟩
         ≤-ItemTree i₁ (node t₁ j (toTree ∙ i₂ ∙ t₂))
@@ -659,7 +659,7 @@ toTree-TreeOrd {item} Nitem (tipT {i} Ni) _ =
                                         then (node (tip i) item (tip item))
                                         else (node (tip item) i (tip i))) ≡
                                      isTreeOrd t)
-                   (cB₂ (node (tip item) i (tip i)))
+                   (if-false (node (tip item) i (tip i)))
                    refl
           ⟩
         isTreeOrd (node (tip item) i (tip i))
@@ -759,7 +759,7 @@ toTree-TreeOrd {item} Nitem (tipT {i} Ni) _ =
                                         then (node (tip i) item (tip item))
                                         else (node (tip item) i (tip i))) ≡
                                      isTreeOrd t)
-                   (cB₁ (node (tip i) item (tip item)))
+                   (if-true (node (tip i) item (tip item)))
                    refl
           ⟩
         isTreeOrd (node (tip i) item (tip item))
@@ -858,7 +858,7 @@ toTree-TreeOrd {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) TOnodeT =
                                         then (node t₁ i (toTree ∙ item ∙ t₂))
                                         else (node (toTree ∙ item ∙ t₁) i t₂)) ≡
                                      isTreeOrd t)
-                   (cB₂ (node (toTree ∙ item ∙ t₁) i t₂))
+                   (if-false (node (toTree ∙ item ∙ t₁) i t₂))
                    refl
           ⟩
         isTreeOrd (node (toTree ∙ item ∙ t₁) i t₂)
@@ -959,7 +959,7 @@ toTree-TreeOrd {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) TOnodeT =
                                         then (node t₁ i (toTree ∙ item ∙ t₂))
                                         else (node (toTree ∙ item ∙ t₁) i t₂)) ≡
                                      isTreeOrd t)
-                   (cB₁ (node t₁ i (toTree ∙ item ∙ t₂)))
+                   (if-true (node t₁ i (toTree ∙ item ∙ t₂)))
                    refl
           ⟩
         isTreeOrd (node t₁ i (toTree ∙ item ∙ t₂))

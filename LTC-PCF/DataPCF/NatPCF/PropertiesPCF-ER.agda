@@ -33,11 +33,11 @@ open import LTC-PCF.DataPCF.NatPCF.RecPCF.PropertiesPCF using ( rec-0 ; rec-S )
     rec (succ d) e (lam +-aux) ≡⟨ rec-S d e (lam +-aux) ⟩
     lam +-aux ∙ d ∙ (d + e)    ≡⟨ subst (λ t → lam +-aux ∙ d ∙ (d + e) ≡
                                                t ∙ (d + e))
-                                         (cBeta +-aux d)
+                                         (beta +-aux d)
                                          refl
                                 ⟩
     +-aux d ∙ (d + e)           ≡⟨ refl ⟩
-    lam succ ∙ (d + e)          ≡⟨ cBeta succ (d + e) ⟩
+    lam succ ∙ (d + e)          ≡⟨ beta succ (d + e) ⟩
     succ (d + e)
   ∎
 
@@ -55,17 +55,17 @@ minus-0S zN =
     lam minus-aux ∙ zero ∙ (zero - zero)
       ≡⟨ subst (λ t → lam minus-aux ∙ zero ∙ (zero - zero) ≡
                       t ∙ (zero - zero))
-               (cBeta minus-aux zero)
+               (beta minus-aux zero)
                refl
       ⟩
     minus-aux zero ∙ (zero - zero) ≡⟨ refl ⟩
-    lam pred ∙ (zero - zero)       ≡⟨ cBeta pred (zero - zero) ⟩
+    lam pred ∙ (zero - zero)       ≡⟨ beta pred (zero - zero) ⟩
     pred (zero - zero)             ≡⟨ subst (λ t → pred (zero - zero) ≡
                                                    pred t)
                                             (minus-x0 zero)
                                             refl
                                    ⟩
-    pred zero                      ≡⟨ cP₁ ⟩
+    pred zero                      ≡⟨ pred-0 ⟩
     zero
   ∎
 
@@ -76,17 +76,17 @@ minus-0S (sN {n} Nn) =
     lam minus-aux ∙ (succ n) ∙ (zero - (succ n))
       ≡⟨ subst (λ t → lam minus-aux ∙ (succ n) ∙ (zero - (succ n)) ≡
                       t ∙ (zero - (succ n)))
-               (cBeta minus-aux (succ n))
+               (beta minus-aux (succ n))
                refl
       ⟩
     minus-aux (succ n) ∙ (zero - (succ n)) ≡⟨ refl ⟩
     lam pred ∙ (zero - (succ n))
-      ≡⟨ cBeta pred (zero - (succ n)) ⟩
+      ≡⟨ beta pred (zero - (succ n)) ⟩
     pred (zero - (succ n)) ≡⟨ subst (λ t → pred (zero - (succ n)) ≡ pred t)
                                     (minus-0S Nn)
                                     refl
                            ⟩
-    pred zero              ≡⟨ cP₁ ⟩
+    pred zero              ≡⟨ pred-0 ⟩
     zero
   ∎
 
@@ -102,17 +102,17 @@ minus-SS {m} _ zN =
     lam minus-aux ∙ zero ∙ (succ m - zero)
       ≡⟨ subst (λ t → lam minus-aux ∙ zero ∙ (succ m - zero) ≡
                       t ∙ (succ m - zero))
-               (cBeta minus-aux zero)
+               (beta minus-aux zero)
                refl
       ⟩
     minus-aux zero ∙ (succ m - zero) ≡⟨ refl ⟩
-    lam pred ∙ (succ m - zero)       ≡⟨ cBeta pred (succ m - zero) ⟩
+    lam pred ∙ (succ m - zero)       ≡⟨ beta pred (succ m - zero) ⟩
     pred (succ m - zero)             ≡⟨ subst (λ t → pred (succ m - zero) ≡
                                                      pred t)
                                               (minus-x0 (succ m))
                                               refl
                                      ⟩
-    pred (succ m)                    ≡⟨ cP₂ m  ⟩
+    pred (succ m)                    ≡⟨ pred-S m  ⟩
     m                                ≡⟨ sym (minus-x0 m)  ⟩
     m - zero
   ∎
@@ -124,12 +124,12 @@ minus-SS zN (sN {n} Nn) =
     lam minus-aux ∙ (succ n) ∙ (succ zero - succ n)
       ≡⟨ subst (λ t → lam minus-aux ∙ (succ n) ∙ (succ zero - succ n) ≡
                       t ∙ (succ zero - succ n))
-               (cBeta minus-aux (succ n))
+               (beta minus-aux (succ n))
                refl
       ⟩
     minus-aux (succ n) ∙ (succ zero - succ n) ≡⟨ refl ⟩
     lam pred ∙ (succ zero - succ n)
-      ≡⟨ cBeta pred (succ zero - succ n) ⟩
+      ≡⟨ beta pred (succ zero - succ n) ⟩
     pred (succ zero - succ n)
       ≡⟨ subst (λ t → pred (succ zero - succ n) ≡ pred t)
                (minus-SS zN Nn)
@@ -139,7 +139,7 @@ minus-SS zN (sN {n} Nn) =
                        (minus-0x Nn)
                        refl
                     ⟩
-    pred zero       ≡⟨ cP₁  ⟩
+    pred zero       ≡⟨ pred-0  ⟩
     zero            ≡⟨ sym (minus-0S Nn)  ⟩
     zero - succ n
   ∎
@@ -151,22 +151,22 @@ minus-SS (sN {m} Nm) (sN {n} Nn) =
     lam minus-aux ∙ (succ n) ∙ (succ (succ m) - succ n)
       ≡⟨ subst (λ t → lam minus-aux ∙ (succ n) ∙ (succ (succ m) - succ n) ≡
                       t ∙ (succ (succ m) - succ n))
-               (cBeta minus-aux (succ n))
+               (beta minus-aux (succ n))
                refl
       ⟩
     minus-aux (succ n) ∙ (succ (succ m) - succ n) ≡⟨ refl ⟩
     lam pred ∙ (succ (succ m) - succ n)
-      ≡⟨ cBeta pred (succ (succ m) - succ n) ⟩
+      ≡⟨ beta pred (succ (succ m) - succ n) ⟩
     pred (succ (succ m) - succ n)
       ≡⟨ subst (λ t → pred (succ (succ m) - succ n) ≡ pred t)
                (minus-SS (sN Nm) Nn)
                refl
       ⟩
-    pred (succ m - n)       ≡⟨ sym (cBeta pred (succ m - n)) ⟩
+    pred (succ m - n)       ≡⟨ sym (beta pred (succ m - n)) ⟩
     lam pred ∙ (succ m - n) ≡⟨ refl  ⟩
     minus-aux n ∙ (succ m - n)
       ≡⟨ subst (λ t → minus-aux n ∙ (succ m - n) ≡ t ∙ (succ m - n))
-               (sym (cBeta minus-aux n))
+               (sym (beta minus-aux n))
                refl
       ⟩
     (lam minus-aux) ∙ n ∙ (succ m - n)
@@ -188,11 +188,11 @@ minus-SS (sN {m} Nm) (sN {n} Nn) =
     rec (succ d) zero (lam (*-aux₂ e)) ≡⟨ rec-S d zero (lam (*-aux₂ e)) ⟩
     lam (*-aux₂ e) ∙ d ∙ (d * e)
       ≡⟨ subst (λ t → lam (*-aux₂ e) ∙ d ∙ (d * e) ≡ t ∙ (d * e))
-               (cBeta (*-aux₂ e) d)
+               (beta (*-aux₂ e) d)
                refl
       ⟩
     *-aux₂ e d ∙ (d * e)     ≡⟨ refl ⟩
-    lam (*-aux₁ e) ∙ (d * e) ≡⟨ cBeta (*-aux₁ e) (d * e) ⟩
+    lam (*-aux₁ e) ∙ (d * e) ≡⟨ beta (*-aux₁ e) (d * e) ⟩
     *-aux₁ e (d * e)         ≡⟨ refl ⟩
     e + (d * e)
   ∎
