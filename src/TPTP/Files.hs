@@ -24,15 +24,16 @@ import Agda.Syntax.Abstract.Name
     ( Name(nameBindingSite)
     , QName(qnameName)
     )
-import Agda.Syntax.Common ( RoleATP(..) )
-import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
+import Agda.Syntax.Common
+    ( RoleATP(AxiomATP, ConjectureATP, DefinitionATP, HintATP) )
+import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
 import MyAgda.Interface ( qNameLine )
 import Options ( Options(optOutputDir) )
-import TPTP.Pretty
 import Reports ( R, reportSLn )
-import TPTP.Types
+import TPTP.Pretty ( prettyTPTP )
+import TPTP.Types ( AF(MkAF) )
 
 #include "../undefined.h"
 
@@ -111,7 +112,7 @@ agdaOriginalTerm qName role =
     "% position:\t" ++ show (nameBindingSite $ qnameName qName) ++ "\n"
 
 addGeneralRole :: AF → FilePath → IO ()
-addGeneralRole af@(AF qName role _ ) file
+addGeneralRole af@(MkAF qName role _ ) file
   | role `elem` [ AxiomATP, DefinitionATP, HintATP ] = do
       appendFile file $ agdaOriginalTerm qName role
       appendFile file $ prettyTPTP af
@@ -121,7 +122,7 @@ addGeneralRole af@(AF qName role _ ) file
 addConjecture :: AF → FilePath → R ()
 addConjecture af file =
   case af of
-    (AF qName ConjectureATP _ ) → do
+    (MkAF qName ConjectureATP _ ) → do
           liftIO $ appendFile file $ agdaOriginalTerm qName ConjectureATP
           liftIO $ appendFile file $ prettyTPTP af
 
@@ -142,7 +143,7 @@ createGeneralRolesFile afs = do
     return ()
 
 createConjectureFile :: (AF, [AF]) → R FilePath
-createConjectureFile (af@(AF qName _ _ ), hints) = do
+createConjectureFile (af@(MkAF qName _ _ ), hints) = do
   -- To avoid clash names with the terms inside a where clause, we
   -- added the line number where the term was defined to the file
   -- name.

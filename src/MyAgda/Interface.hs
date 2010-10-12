@@ -20,13 +20,13 @@ module MyAgda.Interface
 ------------------------------------------------------------------------------
 -- Haskell imports
 
--- import Data.Map ( Map )
 import Control.Monad ( unless )
 import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.State ( execStateT, get, put, StateT )
 
 import Data.Int ( Int32 )
-import qualified Data.Map as Map
+-- import Data.Map ( Map )
+import qualified Data.Map as Map ( filter, lookup )
 import Data.Maybe ( fromMaybe )
 
 import System.Directory ( doesFileExist, getCurrentDirectory )
@@ -48,7 +48,8 @@ import Agda.Syntax.Abstract.Name
     , QName(QName)
     , qnameName
     )
-import Agda.Syntax.Common ( RoleATP(..))
+import Agda.Syntax.Common
+    ( RoleATP(AxiomATP, ConjectureATP, DefinitionATP, HintATP) )
 import Agda.Syntax.Internal ( Clause, translatedClause, Type )
 import Agda.Syntax.Position
     ( Interval(iStart)
@@ -75,7 +76,7 @@ import Agda.Utils.FileName
     , filePath
     , mkAbsolute
     )
-import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
+import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 import Agda.Utils.Monad ( ifM )
 
 ------------------------------------------------------------------------------

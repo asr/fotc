@@ -37,7 +37,7 @@ import Agda.Syntax.Internal
     )
 import Agda.Syntax.Literal ( Literal(LitLevel) )
 import Agda.Syntax.Position ( noRange )
-import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
+import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 ------------------------------------------------------------------------------
 -- Local imports
@@ -50,7 +50,7 @@ import FOL.Monad ( T )
 import FOL.Primitives ( app, equal )
 import FOL.Translation.Concrete.Name ( concatName )
 import {-# source #-} FOL.Translation.Internal.Types ( typeToFormula )
-import FOL.Types ( FOLFormula(..), FOLTerm(..))
+import FOL.Types ( FOLFormula(..), FOLTerm(..) )
 import Reports ( reportSLn )
 import Utils.Names ( freshName )
 

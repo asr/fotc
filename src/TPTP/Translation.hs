@@ -16,7 +16,7 @@ module TPTP.Translation
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad ( zipWithM )
+import Control.Monad ( liftM2, zipWithM )
 import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Class ( lift )
 import Control.Monad.Trans.Error ( runErrorT, throwError )
@@ -24,14 +24,15 @@ import Control.Monad.Trans.Reader ( ask )
 import Control.Monad.Trans.State ( evalStateT )
 
 -- import Data.Map ( Map )
-import qualified Data.Map as Map
+import qualified Data.Map as Map ( elems, keys )
 import MonadUtils ( zipWith3M )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
 
-import Agda.Syntax.Abstract.Name ( QName(..) )
-import Agda.Syntax.Common ( RoleATP(..) )
+import Agda.Syntax.Abstract.Name ( QName )
+import Agda.Syntax.Common
+    ( RoleATP(AxiomATP, ConjectureATP, DefinitionATP, HintATP) )
 import Agda.Syntax.Internal ( Clause, Type )
 import Agda.TypeChecking.Monad.Base
     ( Definition
@@ -40,8 +41,6 @@ import Agda.TypeChecking.Monad.Base
     , defType
     , Interface
     )
--- import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
--- import Agda.Utils.Monad ( ifM )
 
 ------------------------------------------------------------------------------
 -- Local imports
@@ -60,7 +59,7 @@ import MyAgda.Interface
 import MyAgda.Syntax.DeBruijn ( removeReferenceToProofTerms )
 import Options ( Options(optDefAsAxiom) )
 import Reports ( reportSLn )
-import TPTP.Types ( AF(AF) )
+import TPTP.Types ( AF(MkAF) )
 
 -- #include "../undefined.h"
 
@@ -93,7 +92,7 @@ toAF qName role def = do
     Right for → do
            lift $ reportSLn "toAF" 20 $
                     "The FOL formula for " ++ show qName ++ " is:\n" ++ show for
-           return $ AF qName role for
+           return $ MkAF qName role for
     Left err → throwError err
 
 -- Translation of an Agda internal function to an AF definition.
@@ -121,8 +120,8 @@ fnToAF qName def = do
            lift $ reportSLn "symbolToAF" 20 $
                     "The FOL formula for " ++ show qName ++ " is:\n" ++ show for
            if optDefAsAxiom opts
-               then return $ AF qName AxiomATP for
-               else return $ AF qName DefinitionATP for
+               then return $ MkAF qName AxiomATP for
+               else return $ MkAF qName DefinitionATP for
     Left err → throwError err
 
 -- We translate an local hint to an AF.
@@ -147,18 +146,11 @@ localHintsToAFs def = do
     "The local hints for the conjecture " ++ show (defName def) ++
     " are:\n" ++ show hints
 
-  ( afs :: [AF] ) ← mapM localHintToAF hints
-
-  return afs
+  mapM localHintToAF hints
 
 conjectureToAF :: QName → Definition → ER (AF, [AF])
-conjectureToAF qName def = do
-
-  conjectureAF ← toAF qName ConjectureATP def
-
-  localHintsAFs ← localHintsToAFs def
-
-  return (conjectureAF, localHintsAFs)
+conjectureToAF qName def =
+    liftM2 (,) (toAF qName ConjectureATP def) (localHintsToAFs def)
 
 -- We translate the ATP pragma axioms in an interface file to FOL
 -- formulas.
@@ -185,8 +177,8 @@ generalHintsToAFs i = do
 -- We translate the ATP pragma conjectures and their local hints in an
 -- interface file to AFs. For each conjecture we return its
 -- translation and a list of the translation of its local hints, i.e. we
--- return a pair ( AF, [AF] ).
-conjecturesToAFs :: Interface → ER [ (AF, [AF]) ]
+-- return a pair (AF, [AF]).
+conjecturesToAFs :: Interface → ER [(AF, [AF])]
 conjecturesToAFs i = do
 
   -- We get the conjectures from the interface file.

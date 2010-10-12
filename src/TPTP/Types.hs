@@ -2,7 +2,7 @@
 -- TPTP types
 ------------------------------------------------------------------------------
 
-module TPTP.Types ( AF(..) ) where
+module TPTP.Types ( AF(MkAF) ) where
 
 -- Agda library imports
 import Agda.Syntax.Abstract ( QName )
@@ -16,4 +16,4 @@ import FOL.Types ( FOLFormula )
 -- The TPTP annotated formulas.
 -- N.B. The annotated formulas are not in TPTP syntax. We get this syntax via
 -- a pretty-printer.
-data AF = AF QName RoleATP FOLFormula
+data AF = MkAF QName RoleATP FOLFormula

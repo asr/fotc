@@ -18,7 +18,7 @@ import Control.Monad.Trans.Class ( lift )
 
 import Agda.Syntax.Internal ( Sort(Type) , Term(Lit), Type(El) )
 import Agda.Syntax.Literal ( Literal(LitLevel) )
-import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
+import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 ------------------------------------------------------------------------------
 -- Local imports

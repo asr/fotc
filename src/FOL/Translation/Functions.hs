@@ -28,7 +28,7 @@ import Agda.Syntax.Internal
     , Type(El)
     )
 import Agda.Syntax.Literal ( Literal(LitLevel) )
-import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
+import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
 import FOL.Monad ( T )

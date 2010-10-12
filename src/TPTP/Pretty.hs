@@ -11,16 +11,26 @@ module TPTP.Pretty ( prettyTPTP ) where
 
 -- Haskell imports
 import Data.Char
--- import Data.List.HT ( replace )
+    ( chr
+    , isAsciiLower
+    , isAsciiUpper
+    , isDigit
+    , ord
+    , toLower
+    , toUpper
+    )
 
 -- Agda library imports
-import Agda.Syntax.Common ( NameId(NameId), RoleATP(..) )
-import Agda.Syntax.Abstract.Name ( Name(nameId), QName(..))
-import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
+import Agda.Syntax.Abstract.Name ( Name(nameId), QName(QName) )
+import Agda.Syntax.Common
+    ( NameId(NameId)
+    , RoleATP(AxiomATP, ConjectureATP, DefinitionATP, HintATP)
+    )
+import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
 import FOL.Types ( FOLFormula(..), FOLTerm(..) )
-import TPTP.Types ( AF(..) )
+import TPTP.Types ( AF(MkAF) )
 
 #include "../undefined.h"
 
@@ -33,10 +43,10 @@ class PrettyTPTP a where
 -- We prefixed the names with 'n' because TPTP does not accept names
 -- starting with digits.
 prefixLetter :: TPTP → TPTP
-prefixLetter [] = __IMPOSSIBLE__
+prefixLetter []            = __IMPOSSIBLE__
 prefixLetter name@(x : _ )
-    | isDigit x = 'n' : name
-    | otherwise = name
+    | isDigit x            = 'n' : name
+    | otherwise            = name
 
 changeCaseFirstSymbol :: TPTP → (Char → Char) → TPTP
 changeCaseFirstSymbol []       _ = __IMPOSSIBLE__
@@ -53,11 +63,11 @@ changeToLower name = changeCaseFirstSymbol (prettyTPTP name) toLower
 
 instance PrettyTPTP Char where
     prettyTPTP c
-        | c == '.' = ""
-        -- The character is a subscript number (i.e. ₀, ₁, ₂, ...).
-        | ord c `elem` [8320 .. 8329] = [chr (ord c - 8272)]
+        | c == '.'                                      = ""
+        -- The character is a subscript number (i.e. ₀, ₁, ...).
+        | ord c `elem` [8320 .. 8329]                   = [chr (ord c - 8272)]
         | isDigit c || isAsciiUpper c || isAsciiLower c = [c]
-        | otherwise = show $ ord c
+        | otherwise                                     = show $ ord c
 
 ------------------------------------------------------------------------------
 -- Pretty-printer for Agda types
@@ -66,7 +76,6 @@ instance PrettyTPTP NameId where
     -- The Show instance (Agda.Syntax.Abstract.Name) separates the
     -- unique identifier of the top-level module (the second argument)
     -- with '@'. We use '_' because '@' is not TPTP valid.
-
     prettyTPTP  (NameId x i)  = prefixLetter $ show x ++ "_" ++ show i
 
 instance PrettyTPTP QName where
@@ -145,7 +154,7 @@ instance PrettyTPTP RoleATP where
     prettyTPTP HintATP       = "hypothesis"
 
 instance PrettyTPTP AF where
-    prettyTPTP (AF qName roleATP formula) =
+    prettyTPTP (MkAF qName roleATP formula) =
         "fof(" ++
         prettyTPTP qName ++ ", " ++
         prettyTPTP roleATP ++ ", " ++

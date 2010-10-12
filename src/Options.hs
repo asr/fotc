@@ -23,7 +23,7 @@ import System.Console.GetOpt
 -- Agda library imports
 import Agda.Utils.List ( wordsBy )
 import Agda.Utils.Trie ( Trie )
-import qualified Agda.Utils.Trie as Trie
+import qualified Agda.Utils.Trie as Trie ( insert, singleton )
 
 -- Local imports
 import Utils.IO ( bye )
@@ -126,7 +126,7 @@ usage prgName = usageInfo (usageHeader prgName) options
 parseOptions :: [String] → String → IO (Options, [String])
 parseOptions argv prgName =
   case getOpt Permute options argv of
-    ([],   [], []) → bye $ usage prgName
+    ([], [], []) → bye $ usage prgName
 
     (o, names, []) → do
       let opts :: Options
@@ -141,4 +141,4 @@ parseOptions argv prgName =
 
       return (finalOpts, names)
 
-    (_,     _, _errors) → error "parseOptions: not implemented"
+    (_, _, _errors) → error "parseOptions: not implemented"

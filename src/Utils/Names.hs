@@ -8,7 +8,7 @@ module Utils.Names ( freshName ) where
 import Control.Monad.Trans.State ( get, put, State )
 
 -- Agda library imports
-import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
+import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
 -- import Monad ( T )
@@ -26,8 +26,8 @@ freeNames = map (:[]) chars ++ [ s ++ [c] | s ← freeNames, c ← chars ]
 findFreeName :: [String] → [String] → String
 findFreeName _         []     = __IMPOSSIBLE__
 findFreeName usedNames (x:xs) = if x `elem` usedNames
-                                 then findFreeName usedNames xs
-                                 else x
+                                then findFreeName usedNames xs
+                                else x
 
 freshName :: State [String] String
 freshName = do

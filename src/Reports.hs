@@ -16,7 +16,7 @@ import Control.Monad.IO.Class ( liftIO )
 import Agda.Utils.Impossible ( Impossible (Impossible), throwImpossible )
 -- import qualified Agda.Utils.IO.Locale as LocIO
 import Agda.Utils.Trie ( Trie )
-import qualified Agda.Utils.Trie as Trie
+import qualified Agda.Utils.Trie as Trie ( lookupPath )
 import Agda.Utils.List ( wordsBy )
 
 -- Local imports

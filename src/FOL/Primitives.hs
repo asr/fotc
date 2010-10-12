@@ -8,13 +8,8 @@
 
 module FOL.Primitives ( app, equal ) where
 
--- Agda library imports
--- import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
-
 -- Local imports
 import FOL.Types ( FOLTerm(FOLFun), FOLFormula(Predicate) )
-
--- #include "../undefined.h"
 
 ------------------------------------------------------------------------------
 -- This is just an arbitrary constant which we hope doesn't

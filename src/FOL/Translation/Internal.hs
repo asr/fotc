@@ -22,7 +22,7 @@ import Agda.Syntax.Internal
     , ClauseBody(Bind,Body)
 --    , Telescope(EmptyTel, ExtendTel)
     )
-import Agda.Utils.Impossible ( Impossible(..), throwImpossible )
+import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
 import FOL.Monad ( T )

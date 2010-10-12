@@ -3,7 +3,7 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module Main where
+module Main ( main ) where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
@@ -19,24 +19,13 @@ import Control.Monad.Trans.Error
     )
 import Control.Monad.Trans.Reader ( ReaderT, runReaderT )
 
--- import Control.Monad.Trans
--- import Data.Map ( Map )
--- import qualified Data.Map as Map
--- import Data.Maybe
-
 import System.Environment ( getArgs, getProgName)
 import System.Exit ( exitFailure, exitSuccess )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
 
--- import Agda.Syntax.Abstract.Name ( ModuleName )
--- import Agda.TypeChecking.Monad.Base ( Interface(iModuleName) )
-import Agda.Utils.Impossible
-    ( catchImpossible
---    , Impossible(..)
---    , throwImpossible
-    )
+import Agda.Utils.Impossible ( catchImpossible )
 
 ------------------------------------------------------------------------------
 -- Local imports
@@ -87,7 +76,7 @@ translationGeneralRoles file = do
 -- name as the principal argument. In the case of the function
 -- getImportedModules is much better to use the file name because we
 -- avoid read some interfaces files unnecessary.
-translation :: FilePath → ER ( [AF] , [(AF, [AF])] )
+translation :: FilePath → ER ([AF], [(AF, [AF])])
 translation file = do
   lift $ reportS "" 1 $ "Translating " ++ file ++ " ..."
 
@@ -110,7 +99,7 @@ translation file = do
 runAgda2ATP :: ErrorT String IO ()
 runAgda2ATP = do
   prgName ← liftIO getProgName
-  argv    ← liftIO getArgs  -- fmap head $ liftIO getArgs
+  argv    ← liftIO getArgs
 
   -- Reading the command line options.
   (opts, names) ← liftIO $ parseOptions argv prgName
@@ -136,7 +125,7 @@ runAgda2ATP = do
 
 main :: IO ()
 main = do
-  r ←   runErrorT $ runAgda2ATP  `catchError` \err → do
+  r ←   runErrorT $ runAgda2ATP `catchError` \err → do
           liftIO $ putStrLn $ "Error: " ++ err
           throwError err
   case r of

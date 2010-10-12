@@ -30,7 +30,7 @@ import System.Process
 -- import System.Timeout ( timeout )
 
 -- Agda library imports
-import Agda.Utils.Impossible ( Impossible(..) , throwImpossible )
+import Agda.Utils.Impossible ( Impossible(Impossible) , throwImpossible )
 
 -- Local imports
 import Common ( ER )
@@ -43,7 +43,10 @@ import TPTP.Types ( AF )
 
 -----------------------------------------------------------------------------
 -- The ATPs.
-data ATP = Eprover | Equinox | IleanCoP | Metis
+data ATP = Eprover
+         | Equinox
+         | IleanCoP
+         | Metis
            deriving (Eq, Show)
 
 atp2exec :: ATP → String
