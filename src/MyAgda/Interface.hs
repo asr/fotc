@@ -172,13 +172,13 @@ isDefinitionATP def =
   let defn :: Defn
       defn = theDef def
   in case defn of
-       Function{}    → case funATP defn of
-                          Just DefinitionATP → True
-                          Just HintATP       → False
-                          Just _             → __IMPOSSIBLE__
-                          Nothing            → False
+       Function{} → case funATP defn of
+                      Just DefinitionATP → True
+                      Just HintATP       → False
+                      Just _             → __IMPOSSIBLE__
+                      Nothing            → False
 
-       _             → False
+       _          → False
 
 isHintATP :: Definition → Bool
 isHintATP def =
@@ -186,9 +186,9 @@ isHintATP def =
       defn = theDef def
   in case defn of
        Constructor{} → case conATP defn of
-                          Just HintATP       → True
-                          Just _             → __IMPOSSIBLE__
-                          Nothing            → False
+                          Just HintATP → True
+                          Just _       → __IMPOSSIBLE__
+                          Nothing      → False
 
        Function{}    → case funATP defn of
                           Just DefinitionATP → False
@@ -208,7 +208,7 @@ getQNameDefinition i qName =
 getQNameInterfaceFile :: QName → IO FilePath
 getQNameInterfaceFile (QName qNameModule qName) =
   case (moduleNameToFilePath qNameModule) of
-    [] → __IMPOSSIBLE__
+    []   → __IMPOSSIBLE__
     file → do
       iFile ← fmap (filePath . toIFile) (absolute file)
       ifM (doesFileExist iFile)
@@ -260,7 +260,7 @@ allModules file = do
      let iModulesPaths :: [FilePath]
          iModulesPaths = map moduleNameToFilePath iModules
 
-     put ( visitedFiles ++ [file] )
+     put $ visitedFiles ++ [file]
      mapM_ allModules iModulesPaths
 
 -- Return the files paths of the modules recursively imported by a

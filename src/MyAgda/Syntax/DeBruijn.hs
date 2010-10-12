@@ -91,12 +91,12 @@ varToDeBruijnIndex cBody x =
 -- To rename a de Bruijn index with respect to other index.
 -- Let's suppose we have something like
 
--- λ m : D → (λ n : D → (λ Nn : N n → ( λ h : D → ... Var 2 ...)))
+-- λ m : D → (λ n : D → (λ Nn : N n → (λ h : D → ... Var 2 ...)))
 
 -- where 'Var 2' is the de Bruijn index of the variable n. If we
 -- remove the quantification on the proof term Nn
 
--- λ m : D → (λ n : D → ( λ h : D → ... ))
+-- λ m : D → (λ n : D → (λ h : D → ... ))
 
 -- we need rename 'Var 2' by 'Var 1'.
 
