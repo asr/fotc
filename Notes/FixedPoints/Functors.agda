@@ -26,11 +26,26 @@ data I : Set where
 
 postulate
   -- The least fixed-point.
+  -- The names came from the Haskell definition
+
+  -- data Mu f = In (f (Mu f))
+
+  -- unIn :: Mu f → f (Mu f)
+  -- unIn (In x) = x
+
   Mu   : (Set → Set) → Set
   In   : {f : Set → Set} → f (Mu f) → Mu f
   unIn : {f : Set → Set} → Mu f → f (Mu f)
 
+postulate
   -- The greatest fixed-point.
+  -- The names came from the Haskell definition
+
+  -- data Nu f = Wrap (f (Nu f))
+
+  -- out :: Nu f → (f (Nu f))
+  -- out (Wrap x) = x
+
   Nu   : (Set → Set) → Set
   Wrap : {f : Set → Set} → f (Nu f) → Nu f
   out  : {f : Set → Set} → Nu f → f (Nu f)
