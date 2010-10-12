@@ -7,11 +7,14 @@
 
 module Options
     ( Options(..)
-    , parseOptions
+    , processOptions
     , usage
     ) where
 
 -- Haskell imports
+import Control.Monad.IO.Class ( liftIO )
+import Control.Monad.Trans.Error ( ErrorT, throwError )
+
 import System.Console.GetOpt
     ( ArgDescr(NoArg, ReqArg)
     , ArgOrder (Permute)
@@ -87,10 +90,11 @@ verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
       parseVerbose :: String → ([String], Int)
       parseVerbose s =
           case wordsBy (`elem` ":.") s of
-            []  → error "argument to verbose should be on the form x.y.z:N or N"
+            []  → error "Argument to verbose should be on the form x.y.z:N or N"
             ss  → let m :: Int
                       m = read $ last ss
                   in (init ss, m)
+
 versionOpt :: Options → Options
 versionOpt opts = opts { optVersion = True }
 
@@ -123,12 +127,12 @@ usageHeader prgName =
 usage :: String → String
 usage prgName = usageInfo (usageHeader prgName) options
 
-parseOptions :: [String] → String → IO (Options, [String])
-parseOptions argv prgName =
+processOptions :: [String] → String → ErrorT String IO (Options, String)
+processOptions argv prgName =
   case getOpt Permute options argv of
-    ([], [], []) → bye $ usage prgName
+    (_, [], []) → liftIO $ bye $ usage prgName
 
-    (o, names, []) → do
+    (o, (name : []), []) → do
       let opts :: Options
           opts = foldl (flip id) defaultOptions o
 
@@ -139,6 +143,8 @@ parseOptions argv prgName =
                                                     -- defaults ATPs.
               else opts
 
-      return (finalOpts, names)
+      return (finalOpts, name)
 
-    (_, _, _errors) → error "parseOptions: not implemented"
+    (_, _names, []) → throwError "Only one input file allowed"
+
+    (_, _, errors) → throwError $ unlines errors

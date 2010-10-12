@@ -36,7 +36,7 @@ import Common ( ER )
 import MyAgda.Interface ( getImportedModules, myReadInterface )
 import Options
     ( Options(optHelp, optVersion)
-    , parseOptions
+    , processOptions
     , usage
     )
 import Reports ( reportS )
@@ -96,20 +96,19 @@ translation file = do
          , conjectures
          )
 
-runAgda2ATP :: ErrorT String IO ()
-runAgda2ATP = do
-  prgName ← liftIO getProgName
-  argv    ← liftIO getArgs
+runAgda2ATP :: String → ErrorT String IO ()
+runAgda2ATP prgName = do
+  argv ← liftIO getArgs
 
   -- Reading the command line options.
-  (opts, names) ← liftIO $ parseOptions argv prgName
+  (opts, name) ← processOptions argv prgName
 
   when (optVersion opts) $ liftIO $
        bye $ prgName ++ " version " ++ version ++ "\n"
 
   when (optHelp opts) $ liftIO $ bye $ usage prgName
 
-  r  ← liftIO $ runReaderT (runErrorT (translation $ head names)) opts
+  r  ← liftIO $ runReaderT (runErrorT (translation name)) opts
   case r of
     Right (generalRoles , conjecturesCurrentModule) → do
         r' ← liftIO $
@@ -122,12 +121,13 @@ runAgda2ATP = do
 
     Left err → throwError err
 
-
 main :: IO ()
 main = do
-  r ←   runErrorT $ runAgda2ATP `catchError` \err → do
-          liftIO $ putStrLn $ "Error: " ++ err
-          throwError err
+  prgName ← liftIO getProgName
+
+  r ← runErrorT $ runAgda2ATP prgName `catchError` \err → do
+         liftIO $ putStrLn $ prgName ++ ": " ++ err
+         throwError err
   case r of
     Right _ → exitSuccess
     Left _  → exitFailure
