@@ -1,4 +1,4 @@
--- Tested with Agda 2.2.9 from 11 October 2010.
+-- Tested with Agda 2.2.9 (from 11 October 2010).
 
 module Functors where
 
@@ -21,8 +21,8 @@ data _×_ (A B : Set) : Set where
   _,_ : A → B → A × B
 
 -- The terminal object.
-data I : Set where
-  to : I
+data One : Set where
+   one : One
 
 postulate
   -- The least fixed-point.
@@ -59,11 +59,11 @@ FId X = X
 
 -- The (co)natural numbers functor.
 FN : Set → Set
-FN X = I ⊎ X
+FN X = One ⊎ X
 
 -- The (co)list functor.
 FL : Set → Set → Set
-FL A X = I ⊎ (A × X)
+FL A X = One ⊎ (A × X)
 
 -- The stream functor.
 FS : Set → Set → Set
@@ -82,7 +82,7 @@ N = Mu FN
 
 -- The data constructors for the natural numbers.
 zero : N
-zero = In (inl to)
+zero = In (inl one)
 
 succ : N → N
 succ n = In (inr n)
@@ -92,8 +92,8 @@ List : Set → Set
 List A = Mu (FL A)
 
 -- The data constructors for List.
-nil : (A : Set) → List A
-nil A = In (inl to)
+nil : {A : Set} → List A
+nil = In (inl one)
 
 cons : {A : Set} → A → List A → List A
 cons x xs = In (inr (x , xs))
@@ -113,20 +113,33 @@ Unit = Nu FId
 Conat : Set
 Conat = Nu FN
 
+zeroC : Conat
+zeroC = Wrap (inl one)
+
+succC : Conat → Conat
+succC cn = Wrap (inr cn)
+
 -- TODO: The conat destructor.
-pred : Conat → I ⊎ Conat
+pred : Conat → One ⊎ Conat
 pred cn with out cn
-... | inl t = inl t
+... | inl _ = inl one
 ... | inr x = inr x
 
 -- The colist type is a greatest fixed-point.
 Colist : Set → Set
 Colist A = Nu (FL A)
 
+-- The colist data constructors.
+nilCL : {A : Set} → Colist A
+nilCL = Wrap (inl one)
+
+consCL : {A : Set} → A → Colist A → Colist A
+consCL x xs = Wrap (inr (x , xs))
+
 -- The colist destructors.
 nullCL : {A : Set} → Colist A → Bool
 nullCL xs with out xs
-... | inl t = true
+... | inl _ = true
 ... | inr _ = false
 
 -- headCL : {A : Set} → Colist A → A
@@ -142,6 +155,10 @@ nullCL xs with out xs
 -- The stream type is a greatest fixed-point.
 Stream : Set → Set
 Stream A = Nu (FS A)
+
+-- The stream data constructor.
+consS : {A : Set} → A → Stream A → Stream A
+consS x xs = Wrap (x , xs)
 
 -- The stream destructors.
 headS : {A : Set} → Stream A → A

@@ -1,7 +1,6 @@
 -- Tested with GHC 6.12.3.
 
 {-# LANGUAGE ExistentialQuantification #-}
--- {-# LANGUAGE Rank2Types #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 -- Based on [1].
@@ -62,7 +61,6 @@ type Empty = Mu FId
 empty :: Empty
 empty = In (MkFId empty)
 
-
 -- The natural numbers type is a least fixed-point.
 type N = Mu FN
 
@@ -110,6 +108,13 @@ pred cn = case out cn of
 -- The colist type is a greatest fixed-point.
 type Colist a = Nu (FL a)
 
+-- The colist data constructors.
+nilCL :: Colist a
+nilCL = Wrap N
+
+consCL :: a → Colist a → Colist a
+consCL x xs = Wrap (C x xs)
+
 -- The colist destructors.
 nullCL :: Colist a → Bool
 nullCL xs = case out xs of
@@ -118,14 +123,20 @@ nullCL xs = case out xs of
 
 headCL :: Colist a → a
 headCL xs = case out xs of
+              N     → error "Impossible"
               C x _ → x
 
 tailCL :: Colist a → Colist a
 tailCL xs = case out xs of
-             C _ xs' → xs'
+              N       → error "Impossible"
+              C _ xs' → xs'
 
 -- The stream type is a greatest fixed-point.
 type Stream a = Nu (FS a)
+
+-- The stream data constructor.
+consS :: a → Stream a → Stream a
+consS x xs = Wrap (St x xs)
 
 -- The stream destructors.
 headS :: Stream a → a
