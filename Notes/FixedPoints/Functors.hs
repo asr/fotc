@@ -1,12 +1,15 @@
 -- Tested with GHC 6.12.3.
 
 {-# LANGUAGE ExistentialQuantification #-}
+{-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 -- Based on [1].
 
 -- [1] Varmo Vene. Categorical programming with inductive and
 -- coinductive types. PhD thesis, University of Taru, Estonia, 2000.
+
+import Prelude hiding ( pred )
 
 ------------------------------------------------------------------------------
 -- The least fixed-point of the (unary) type constructor f.
@@ -97,13 +100,35 @@ idUnit u = u
 -- The conaturals type is a greatest fixed-point.
 type Conat = Nu FN
 
+instance Eq Conat where
+    Wrap Z     == Wrap Z     = True
+    Wrap Z     == _          = False
+    Wrap (S m) == Wrap (S n) = m == n
+    Wrap (S _) == _          = False
+
+instance Show Conat where
+    show (Wrap Z)     = "zero"
+    show (Wrap (S m)) = "s(" ++ show m ++ ")"
+
+zeroC :: Conat
+zeroC = Wrap Z
+
+succC :: Conat → Conat
+succC n = Wrap (S n)
+
+inftyC :: Conat
+inftyC = succC inftyC
+
 data ConatPlusOne = One | MkConat Conat
+                    deriving Show
 
 -- TODO: The conat destructor.
 pred :: Conat → ConatPlusOne
-pred cn = case out cn of
-            Z   → One
-            S x → MkConat x
+pred cn
+    | cn == inftyC = MkConat inftyC
+    | otherwise    = case out cn of
+                       Z   → One
+                       S x → MkConat x
 
 -- The colist type is a greatest fixed-point.
 type Colist a = Nu (FL a)

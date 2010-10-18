@@ -18,22 +18,28 @@ module Inductive where
     zN : N zero
     sN : {n : D} → N n → N (succ n)
 
--- The (fixed-point) LTC natural numbers.
-module FixedPoint where
+-- The (least fixed-point) LTC natural numbers.
+module LeastFixedPoint where
 
-  -- Because N is an inductive data type, we can defined it as the least
-  -- fixed-point (Fix) of an appropriate functional.
   postulate
-    Fix : ((D → Set) → D → Set) → D → Set
+    -- Least fixed-points correspond to inductively defined predicates.
+    -- N.B. We cannot write LFP in first order logic.
+    LFP : ((D → Set) → D → Set) → D → Set
+
     -- In the first-order version of LTC we cannot use the equality on
     -- predicates
     --
     -- (i.e. _≣_ : (D → Set) → (D → Set) → Set),
     --
     -- therefore we postulate both directions of the conversion rule
-    -- Fix f = f (Fix f).
-    cFix₁ : (f : (D → Set) → D → Set) → (d : D) → Fix f d → f (Fix f) d
-    cFix₂ : (f : (D → Set) → D → Set) → (d : D) → f (Fix f) d → Fix f d
+    -- LFP f = f (LFP f).
+    LFP₁ : (f : (D → Set) → D → Set) → (d : D) → LFP f d → f (LFP f) d
+    LFP₂ : (f : (D → Set) → D → Set) → (d : D) → f (LFP f) d → LFP f d
+
+  -- Because N is an inductive predicate, we can defined it as the least
+  -- fixed-point of an appropriate functor.
+
+  -- The LTC natural numbers functor FN
 
   -- From Peter: FN if D was an inductive type
   -- FN : (D → Set) → D → Set
@@ -44,14 +50,14 @@ module FixedPoint where
   FN : (D → Set) → D → Set
   FN X n = n ≡ zero ∨ (∃D (λ m → n ≡ succ m ∧ X m))
 
-  -- The LTC natural numbers using Fix.
+  -- The LTC natural numbers using LFP.
   N : D → Set
-  N = Fix FN
+  N = LFP FN
 
   -- The data constructors of the inductive version via the
-  -- fixed-point version.
+  -- least fixed-point version.
   zN : N zero
-  zN = cFix₂ FN zero (inj₁ refl)
+  zN = LFP₂ FN zero (inj₁ refl)
 
   sN : {n : D} → N n → N (succ n)
-  sN {n} Nn = cFix₂ FN (succ n) (inj₂ (n , (refl , Nn)))
+  sN {n} Nn = LFP₂ FN (succ n) (inj₂ (n , (refl , Nn)))

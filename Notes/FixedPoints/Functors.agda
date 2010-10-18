@@ -119,6 +119,10 @@ zeroC = Wrap (inl one)
 succC : Conat → Conat
 succC cn = Wrap (inr cn)
 
+-- Non-structural recursion for the definition of ∞C.
+-- ∞C : Conat
+-- ∞C = succC {!∞C!}
+
 -- TODO: The conat destructor.
 pred : Conat → One ⊎ Conat
 pred cn with out cn
