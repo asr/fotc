@@ -11,6 +11,5 @@ module Test.Consistency.Readme where
 open import Test.Consistency.LTC.Minimal
 open import Test.Consistency.LTC.Data.Bool
 open import Test.Consistency.LTC.Data.List
-open import Test.Consistency.LTC.Data.List.Bisimulation
 open import Test.Consistency.LTC.Data.Nat
 open import Test.Consistency.LTC.Data.Nat.Inequalities

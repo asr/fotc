@@ -1,15 +1,13 @@
 ------------------------------------------------------------------------------
--- Test the consistency of LTC.Data.List.Bisimulation
+-- The LTC stream type
 ------------------------------------------------------------------------------
 
-module Test.Consistency.LTC.Data.List.Bisimulation where
+module LTC.Data.Stream.Type where
 
 open import LTC.Minimal
 
-open import LTC.Data.List.Bisimulation
-
 ------------------------------------------------------------------------------
-postulate
-  impossible : ( d e : D) → d ≡ e
-{-# ATP prove impossible #-}
-
+-- TODO: This should be a coinductive type.
+-- The LTC stream type.
+data Stream : D → Set where
+  consS : (x : D){xs : D} → (Sxs : Stream xs) → Stream (x ∷ xs)

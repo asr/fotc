@@ -19,7 +19,6 @@ open import LTC.Data.Bool
 open import LTC.Data.Bool.Properties
 
 open import LTC.Data.List
-open import LTC.Data.List.Bisimulation
 open import LTC.Data.List.Properties
 open import LTC.Data.List.PropertiesByInduction
 open import LTC.Data.List.Type
@@ -36,5 +35,9 @@ open import LTC.Data.Nat.List.Type
 open import LTC.Data.Nat.Properties
 open import LTC.Data.Nat.PropertiesByInduction
 open import LTC.Data.Nat.Type
+
+open import LTC.Data.Stream.Bisimulation
+open import LTC.Data.Stream.Bisimulation.HigherOrder
+open import LTC.Data.Stream.Type
 
 open import LTC.Data.Product

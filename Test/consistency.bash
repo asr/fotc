@@ -11,7 +11,6 @@ case $1 in
           Test/Consistency/LTC/Minimal
           Test/Consistency/LTC/Data/Bool
           Test/Consistency/LTC/Data/List
-          Test/Consistency/LTC/Data/List/Bisimulation
           Test/Consistency/LTC/Data/Nat
           Test/Consistency/LTC/Data/Nat/Inequalities
           '
