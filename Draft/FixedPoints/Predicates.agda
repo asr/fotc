@@ -1,4 +1,4 @@
-module Notes.FixedPoints.Predicates where
+module Draft.FixedPoints.Predicates where
 
 open import LTC.Minimal
 
