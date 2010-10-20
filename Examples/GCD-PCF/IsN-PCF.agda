@@ -40,7 +40,7 @@ postulate
 -- The 'gcd (succ n) 0' is N.
 postulate
   gcd-S0-N : {n : D} → N n → N (gcd (succ n) zero)
--- Metis 2.3 (release 20100928) no-success due to timeout (180).
+-- Metis 2.3 (release 20101019) no-success due to timeout (180).
 {-# ATP prove gcd-S0-N sN gcd-S0 #-}
 
 ------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ postulate
               N (gcd (succ m - succ n) (succ n)) →
               GT (succ m) (succ n) →
               N (gcd (succ m) (succ n))
--- Metis 2.3 (release 20100928) no-success due to timeout (180).
+-- Metis 2.3 (release 20101019) no-success due to timeout (180).
 {-# ATP prove gcd-S>S-N gcd-S>S #-}
 
 ------------------------------------------------------------------------------

@@ -104,7 +104,7 @@ rev-++ {ys = ys} (consL x {xs} Lxs) Lys =
     postulate prf : rev xs (x ∷ ys) ≡ rev xs [] ++ x ∷ ys →  -- IH.
                     rev xs (x ∷ []) ≡ rev xs [] ++ x ∷ [] →  -- IH.
                     rev (x ∷ xs) ys ≡ rev (x ∷ xs) [] ++ ys
-    -- Metis 2.3 (release 20100928) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
     {-# ATP prove prf consL nilL ++-assoc rev-List ++-List #-}
 
 reverse-++ : {xs ys : D} → List xs → List ys →
@@ -126,7 +126,7 @@ reverse-++ (consL x {xs} Lxs) (consL y {ys} Lys) =
                     reverse ((x ∷ xs) ++ y ∷ ys) ≡ reverse (y ∷ ys) ++
                                                    reverse (x ∷ xs)
     -- E 1.2 no-success due to timeout (180).
-    -- Metis 2.3 (release 20100928) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
     {-# ATP prove prf consL nilL rev-List ++-List rev-++ ++-assoc #-}
 
 reverse² : {xs : D} → List xs → reverse (reverse xs) ≡ xs
@@ -139,7 +139,7 @@ reverse² (consL x {xs} Lxs) = prf (reverse² Lxs)
   where
     postulate prf : reverse (reverse xs) ≡ xs →  -- IH.
                     reverse (reverse (x ∷ xs)) ≡ x ∷ xs
-    -- Metis 2.3 (release 20100928) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
 
     {-# ATP prove prf consL nilL rev-List rev-++ reverse-++
                       ++-List ++-rightIdentity
@@ -155,7 +155,7 @@ map-++ f {ys = ys} (consL x {xs} Lxs) Lys = prf (map-++ f Lxs Lys)
   where
     postulate prf : map f (xs ++ ys) ≡ map f xs ++ map f ys →  -- IH.
                     map f ((x ∷ xs) ++ ys) ≡ map f (x ∷ xs) ++ map f ys
-    -- Metis 2.3 (release 20100928) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
     {-# ATP prove prf #-}
 
 length-replicate : {n : D} → N n → (d : D) → length (replicate n d) ≡ n
