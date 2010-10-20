@@ -38,10 +38,11 @@ postulate
   ≈-GFP-eq₁ : {xs ys : D} → xs ≈ ys → BIS _≈_ xs ys
   ≈-GFP-eq₂ : {xs ys : D} → BIS _≈_ xs ys → xs ≈ ys
 
+-- From the bisimilarity to equality.
 -≈-≡ : {xs ys : D} → Stream xs → Stream ys → xs ≈ ys → xs ≡ ys
 -≈-≡ (consS x {xs} Sxs) (consS y {ys} Sys) x∷xs≈y∷ys =
-  ≡-stream (x≡y x≡x' y≡y' x'≡y')
-           (-≈-≡ Sxs Sys (xs≈ys xs≡xs' ys≡ys' xs'≈ys'))
+  ≡-stream (prf₁ x≡x' y≡y' x'≡y')
+           (-≈-≡ Sxs Sys (prf₂ xs≡xs' ys≡ys' xs'≈ys'))
   where
 
     aux : BIS _≈_ (x ∷ xs) (y ∷ ys)
@@ -98,11 +99,11 @@ postulate
     ys≡ys' = ∧-proj₂ (∷-injective y∷ys≡y'∷ys')
 
     postulate
-      x≡y : x ≡ x' → y ≡ y' → x' ≡ y' → x ≡ y
+      prf₁ : x ≡ x' → y ≡ y' → x' ≡ y' → x ≡ y
     -- TODO: There is a problem with Equinox.
-    {-# ATP prove x≡y #-}
+    {-# ATP prove prf₁ #-}
 
     postulate
-      xs≈ys : xs ≡ xs' → ys ≡ ys' → xs' ≈ ys' → xs ≈ ys
+      prf₂ : xs ≡ xs' → ys ≡ ys' → xs' ≈ ys' → xs ≈ ys
     -- TODO: There is a problem with Equinox.
-    {-# ATP prove xs≈ys #-}
+    {-# ATP prove prf₂ #-}

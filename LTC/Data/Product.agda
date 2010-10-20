@@ -11,9 +11,6 @@ infixr 4 _,_
 ------------------------------------------------------------------------------
 -- See Lib.Data.Product for the conjunction.
 
--- ∃D : (D → Set) → Set
--- ∃D P = ∃ P
-
 -- The existential quantifier type on D.
 data ∃D (P : D → Set) : Set where
   _,_ : (d : D) (Pd : P d) → ∃D P
