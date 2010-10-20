@@ -16,7 +16,7 @@ type_checking_all : type_checking
 all : type_checking_all conjectures
 
 publish :
-	rm -f $(html_dir)
+	rm -r -f $(html_dir)
 
 	cd $(TOP) && \
 	$(AGDA) --html --html-dir=$(html_dir) $(local_path)/Logic.agda
