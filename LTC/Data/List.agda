@@ -65,3 +65,10 @@ postulate
   foldr-∷  : (f n d ds : D) → foldr f n (d ∷ ds) ≡ f ∙ d ∙ (foldr f n ds)
 {-# ATP axiom foldr-[] #-}
 {-# ATP axiom foldr-∷ #-}
+
+-- Building lists
+
+postulate
+  iterate    : D → D → D
+  iterate-eq : (f x : D) → iterate f x ≡ x ∷ iterate f (f ∙ x)
+{-# ATP axiom iterate-eq #-}
