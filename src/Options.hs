@@ -49,8 +49,9 @@ defaultOptATP = ["equinox", "eprover", "metis"]
 
 defaultOptions :: Options
 defaultOptions = MkOptions
-  { optATP           = []  -- The default is defined by defaultOptATP
-                           -- and it is handle by Options.parseOptions.
+  { optATP           = []  -- N.B. The default is defined by
+                           -- defaultOptATP and it is handle by
+                           -- Options.processOptions.
   , optDefAsAxiom    = False
   , optHelp          = False
   , optOnlyFiles     = False
