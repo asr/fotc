@@ -13,9 +13,10 @@ open module Postulates-ER =
 
 open import LTC.Minimal.Properties using ( ∷-injective ; ≡-stream )
 
-open import LTC.Data.Stream.Bisimulation hiding ( -≈-≡ )
+open import LTC.Data.Stream.Bisimulation using ( _≈_ ; ≈-GFP-eq₁ ; BISI )
 
 ------------------------------------------------------------------------
+
 -- The LTC stream type.
 
 postulate
@@ -24,6 +25,7 @@ postulate
   invConsS : (x : D){xs : D} → Stream (x ∷ xs) → Stream xs
 
 ------------------------------------------------------------------------
+
 -- The bisimilar and the equality relation.
 -≈-≡ : {xs ys : D} → Stream xs → Stream ys → xs ≈ ys → xs ≡ ys
 -≈-≡ {xs} {ys} Sxs Sys xs≈ys =
@@ -35,7 +37,7 @@ postulate
   ∎
 
   where
-    aux : BIS _≈_ xs ys
+    aux : BISI _≈_ xs ys
     aux = ≈-GFP-eq₁ xs≈ys
 
     x' : D

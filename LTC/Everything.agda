@@ -38,6 +38,5 @@ open import LTC.Data.Nat.Type
 
 open import LTC.Data.Stream.Bisimulation
 open import LTC.Data.Stream.Bisimulation.HigherOrder
-open import LTC.Data.Stream.Type
 
 open import LTC.Data.Product

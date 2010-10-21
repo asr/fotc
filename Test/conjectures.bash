@@ -18,7 +18,6 @@ case $1 in
           LTC/Data/Nat/List/Properties
           LTC/Data/Nat/Properties
           LTC/Data/Nat/PropertiesByInduction
-          LTC/Data/Stream/Bisimulation
           '
         ;;
     LTC-PCF)

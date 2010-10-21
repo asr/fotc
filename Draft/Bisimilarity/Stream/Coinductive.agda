@@ -10,7 +10,7 @@ open import LTC.Minimal
 
 open import LTC.Minimal.Properties using ( ∷-injective ; ≡-stream )
 
-open import LTC.Data.Stream.Bisimulation hiding ( -≈-≡ )
+open import LTC.Data.Stream.Bisimulation using ( _≈_ ; ≈-GFP-eq₁ ; BISI )
 
 ------------------------------------------------------------------------------
 -- Universe levels (from the standard library)
@@ -51,6 +51,7 @@ postulate
 {-# BUILTIN FLAT     ♭  #-}
 
 ------------------------------------------------------------------------
+
 -- Co-inductive streams
 
 -- The LTC stream type.
@@ -58,6 +59,7 @@ data Stream : D → Set where
   consS : (x : D){xs : D} → (Sxs : ∞ (Stream xs)) → Stream (x ∷ xs)
 
 ------------------------------------------------------------------------
+
 -- The bisimilar and the equality relation.
 -≈-≡ : {xs ys : D} → Stream xs → Stream ys → xs ≈ ys → xs ≡ ys
 -≈-≡ (consS x {xs} Sxs) (consS y {ys} Sys) x∷xs≈y∷ys =
@@ -65,7 +67,7 @@ data Stream : D → Set where
            (-≈-≡ (♭ Sxs) (♭ Sys) (prf₂ xs≡xs' ys≡ys' xs'≈ys'))
   where
 
-    aux : BIS _≈_ (x ∷ xs) (y ∷ ys)
+    aux : BISI _≈_ (x ∷ xs) (y ∷ ys)
     aux = ≈-GFP-eq₁ x∷xs≈y∷ys
 
     x' : D

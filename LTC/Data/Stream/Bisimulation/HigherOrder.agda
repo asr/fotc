@@ -5,7 +5,7 @@
 module LTC.Data.Stream.Bisimulation.HigherOrder where
 
 open import LTC.Minimal
-open import LTC.Data.Stream.Bisimulation using ( BIS )
+open import LTC.Data.Stream.Bisimulation using ( BISI )
 
 infix 4 _≈_
 
@@ -21,4 +21,4 @@ postulate
 -- The bisimilar relation is the (higher-order) greatest fixed-point of
 -- the bisimulation relation.
 _≈_ : D → D → Set
-_≈_ = GFP BIS
+_≈_ = GFP BISI
