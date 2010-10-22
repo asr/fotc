@@ -94,7 +94,7 @@ trans refl y≡z = y≡z
 open import Lib.Data.Empty       public
 open import Lib.Data.Product     public
 open import Lib.Data.Sum         public
-open import Lib.Data.Unit        public
+-- open import Lib.Data.Unit        public
 open import Lib.Relation.Nullary public
 open import LTC.Data.Product     public
 
