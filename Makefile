@@ -1,56 +1,154 @@
-non_conjectures :
-	./Test/non-conjectures.bash
+##############################################################################
+# Gloval variables
 
-consistency :
-	$(MAKE) -C LTC               consistency
-	$(MAKE) -C Examples/GCD      consistency
-	$(MAKE) -C Examples/SortList consistency
+# Host directory used by publish
+# Tunneling connection
+root_host_dir = asicard@localhost:tmp/LTC
 
-conjectures :
-	$(MAKE) -C LTC               conjectures
-	$(MAKE) -C Examples/GCD      conjectures
-	$(MAKE) -C Examples/Logic    conjectures
-	$(MAKE) -C Examples/SortList conjectures
-	$(MAKE) -C Test              conjectures
+##############################################################################
+# Programs
 
-conjectures_PCF :
-	$(MAKE) -C LTC-PCF              conjectures_PCF
-	$(MAKE) -C Examples/DivisionPCF conjectures_PCF
-	$(MAKE) -C Examples/GCD-PCF     conjectures_PCF
+AGDA     = agda -v 0
+AGDA2ATP = agda2atp --unproved-conjecture-error
+RSYNC    = rsync --archive --progress --rsh='ssh -p 2024'
 
-type_checking :
-	$(MAKE) -C LTC                  type_checking
-	$(MAKE) -C LTC-PCF              type_checking
-	$(MAKE) -C Examples/DivisionPCF type_checking
-	$(MAKE) -C Examples/GCD         type_checking
-	$(MAKE) -C Examples/GCD-PCF     type_checking
-	$(MAKE) -C Examples/Logic       type_checking
-	$(MAKE) -C Examples/SortList    type_checking
-	$(MAKE) -C Test                 type_checking
-	$(MAKE) -C Test/Consistency     type_checking
+##############################################################################
+# "main" files
 
-type_checking_ER :
-	$(MAKE) -C LTC                  type_checking_ER
-	$(MAKE) -C LTC-PCF              type_checking_ER
-	$(MAKE) -C Examples/DivisionPCF type_checking_ER
-	$(MAKE) -C Examples/GCD         type_checking_ER
-	$(MAKE) -C Examples/GCD-PCF     type_checking_ER
-	$(MAKE) -C Examples/SortList    type_checking_ER
+main_file_NER_LTC         = LTC/Everything
+main_file_ER_LTC          = LTC/EverythingER
 
-type_checking_all : type_checking_ER type_checking
+main_file_NER_LTC-PCF     = LTC-PCF/Everything
+main_file_ER_LTC-PCF      = LTC-PCF/EverythingER
 
-all : type_checking_all non_conjectures conjectures conjectures_PCF
+main_file_NER_DivisionPCF = Examples/DivisionPCF/ProofSpecificationPCF
+main_file_ER_DivisionPCF  = Examples/DivisionPCF/ProofSpecificationPCF-ER
 
-publish :
-	$(MAKE) -C LTC                  publish
-	$(MAKE) -C LTC-PCF              publish
-	$(MAKE) -C Examples/DivisionPCF publish
-	$(MAKE) -C Examples/GCD         publish
-	$(MAKE) -C Examples/GCD-PCF     publish
-	$(MAKE) -C Examples/Logic       publish
-	$(MAKE) -C Examples/SortList    publish
-	$(MAKE) -C Test/Consistency     publish
+main_file_NER_GCD         = Examples/GCD/ProofSpecification
+main_file_ER_GCD          = Examples/GCD/ProofSpecificationER
+
+main_file_NER_GCD-PCF     = Examples/GCD-PCF/ProofSpecificationPCF
+main_file_ER_GCD-PCF      = Examples/GCD-PCF/ProofSpecificationPCF-ER
+
+main_file_NER_Logic       = Examples/Logic/Logic
+
+main_file_NER_SortList    = Examples/SortList/ProofSpecification
+main_file_ER_SortList     = Examples/SortList/ProofSpecificationER
+
+main_file_NER_Consistency = Test/Consistency/Readme
+
+# Only used to publish the drafts, i.e. non type checking.
+main_file_NER_Draft       = Draft/RenderToHTML
+
+##############################################################################
+# Type checking the agda files.
+
+type_checking_NER_% :
+	$(AGDA) ${main_file_NER_$*}.agda
+
+type_checking_ER_% :
+	$(AGDA) ${main_file_ER_$*}.agda
+
+all_type_checking_NER : type_checking_NER_LTC \
+			type_checking_NER_LTC-PCF \
+			type_checking_NER_DivisionPCF \
+			type_checking_NER_GCD \
+			type_checking_NER_GCD-PCF \
+			type_checking_NER_Logic \
+			type_checking_NER_SortList \
+			type_checking_NER_Consistency \
+
+all_type_checking_ER  : type_checking_ER_LTC \
+			type_checking_ER_LTC-PCF \
+			type_checking_ER_DivisionPCF \
+			type_checking_ER_GCD \
+			type_checking_ER_GCD-PCF \
+			type_checking_ER_SortList
+
+all_type_checking     : all_type_checking_NER all_type_checking_ER
+
+##############################################################################
+# Test the conjecture files.
+
+conjectures_DivisionPCF : conjectures_Examples/DivisionPCF
+conjectures_GCD         : conjectures_Examples/GCD
+conjectures_GCD-PCF     : conjectures_Examples/GCD-PCF
+conjectures_Logic       : conjectures_Examples/Logic
+conjectures_SortList    : conjectures_Examples/SortList
+
+# The time limit should be the maximum (--time=720) which is required
+# by the postulate Examples.SortList.Closures.TreeOrdrightSubTree-TreeOrd.
+# TODO: To use a variable for the find result
+conjectures_Examples/% :
+	for file in \
+	  `find Examples/$*/ -name '*.agda' | xargs grep -l 'ATP prove'`; do \
+	    rm -f /tmp/*.tptp; \
+            if ! ( ${AGDA} $${file} ); then exit 1; fi; \
+	    if ! ( ${AGDA2ATP} --time=180 $${file} ); then exit 1; fi; \
+	done
+
+# Process LTC and LTC-PCF conjectures.
+# TODO: Merge with conjectures_Examples/%
+conjectures_% :
+	for file in `find $*/ -name '*.agda' | xargs grep -l 'ATP prove'`; do \
+	    rm -f /tmp/*.tptp; \
+            if ! ( ${AGDA} $${file} ); then exit 1; fi; \
+	    if ! ( ${AGDA2ATP} --time=180 $${file} ); then exit 1; fi; \
+	done
+
+all_conjectures : conjectures_LTC \
+		  conjectures_LTC_PCF \
+                  conjectures_DivisionPCF \
+		  conjectures_GCD \
+		  conjectures_GCD_PCF \
+		  conjectures_Logic \
+		  conjectures_SortList
+
+##############################################################################
+# Consistency test
+
+# Because we are using the option --unproved-conjecture-error we
+# revert the agda2atp output.
+all_consistency :
+	for file in \
+          `find Test/Consistency -name '*.agda' | xargs grep -l 'ATP prove'`; do \
+	    rm -f /tmp/*.tptp; \
+            if ! ( ${AGDA} $${file} ); then exit 1; fi; \
+	    if ( ${AGDA2ATP} --time=10 $${file} ); then exit 1; fi; \
+	done
+
+##############################################################################
+# Publish the .html files
+
+# html_dir_XXX = /tmp/XXX/html/
+# host_dir_XXX = $(root_host_dir)/XXX/
+
+publish_% :
+	rm -r -f /tmp/$*/html/
+	$(AGDA) --html --html-dir=/tmp/$*/html/ ${main_file_NER_$*}.agda
+	$(RSYNC) /tmp/$*/html/ $(root_host_dir)/$*/
+
+all_publish : publish_LTC \
+	      publish_LTC-PCF \
+	      publish_DivisionPCF \
+	      publish_GCD \
+	      publish_GCD-PCF \
+	      publish_Logic \
+	      publish_SortList \
+	      publish_Consistency
+
+##############################################################################
+# Other stuff
 
 clean :
 	-find -name '*.agdai' | xargs rm -f
 	-rm -f /tmp/*.tptp
+
+##############################################################################
+# Main
+
+all_test : all_type_checking all_conjectures all_consistency
+
+# TODO
+# non_conjectures :
+# 	./Test/non-conjectures.bash

@@ -2,6 +2,7 @@
 -- Testing the bisimilar relation using co-inductive streams
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-termination-check #-}
 {-# OPTIONS --universe-polymorphism #-}
 
 module Draft.Bisimilarity.Stream.Coinductive where

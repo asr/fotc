@@ -22,6 +22,10 @@ open import Examples.SortList.SortList using ( ListOrd ; sort )
 
 open import LTC.Data.Nat.List.Type using ( ListN )
 
+-- TODO: These files are included but at the moment they are not requeried.
+open import Examples.SortList.Closures.ListER
+open import Examples.SortList.PropertiesER
+
 ------------------------------------------------------------------------------
 
 -- The sort program generates a ordered list.

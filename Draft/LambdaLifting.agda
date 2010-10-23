@@ -2,7 +2,7 @@
 -- Example of lambda-lifting
 ------------------------------------------------------------------------------
 
-module Test.LambdaLifting where
+module Draft.LambdaLifting where
 
 open import LTC.Minimal
 
