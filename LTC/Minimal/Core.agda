@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- LTC minimal ( some core definitions)
+-- LTC minimal (some core definitions)
 ------------------------------------------------------------------------------
 
 -- The definitions in this file are reexported by LTC.Minimal

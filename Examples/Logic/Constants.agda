@@ -16,15 +16,15 @@ infixr 1 _↔_
 -- The logical connectives are hard-coded in our implementation,
 -- i.e. the following symbols must be used.
 postulate
-  ⊥ ⊤     : Set -- N.B. the name of the tautology symbol is "\top", not T.
-  ¬_      : Set → Set -- N.B. the right hole.
+  ⊥ ⊤     : Set  -- N.B. the name of the tautology symbol is "\top", not T.
+  ¬_      : Set → Set  -- N.B. the right hole.
   _∧_ _∨_ : Set → Set → Set
   _⇒_ _↔_ : Set → Set → Set
 
 -- The quantifiers
 
 postulate
-  D : Set -- The universe of discourse.
+  D : Set  -- The universe of discourse.
 
 -- The quantifiers are hard-coded in our implementation, i.e. the
 -- following symbols must be used.
