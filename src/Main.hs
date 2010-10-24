@@ -25,7 +25,13 @@ import System.Exit ( exitFailure, exitSuccess )
 ------------------------------------------------------------------------------
 -- Agda library imports
 
-import Agda.Utils.Impossible ( catchImpossible )
+import Agda.Syntax.Abstract.Name ( ModuleName )
+import Agda.TypeChecking.Monad.Base ( Interface(iModuleName) )
+import Agda.Utils.Impossible
+    ( catchImpossible
+    , Impossible(Impossible)
+    , throwImpossible
+    )
 
 ------------------------------------------------------------------------------
 -- Local imports
@@ -33,7 +39,7 @@ import Agda.Utils.Impossible ( catchImpossible )
 -- import FOL.Pretty
 import ATP.ATP ( callATP )
 import Common ( ER )
-import MyAgda.Interface ( getImportedModules, myReadInterface )
+import MyAgda.Interface ( getImportedModules, myGetInterface, myReadInterface )
 import Options
     ( Options(optHelp, optVersion)
     , processOptions
@@ -55,11 +61,16 @@ import Utils.Version ( version )
 ------------------------------------------------------------------------------
 -- We translate the ATP axioms, (general) hints, and definitions for a
 -- file. These TPTP roles are common to every conjecture.
-translationGeneralRoles :: FilePath → ER [AF]
-translationGeneralRoles file = do
+translationGeneralRoles :: ModuleName → ER [AF]
+translationGeneralRoles x = do
 
   -- Getting the interface.
-  i ← liftIO $ myReadInterface file
+  im ← myGetInterface x
+
+  let i :: Interface
+      i = case im of
+            Just interface → interface
+            Nothing        → __IMPOSSIBLE__
 
   -- Getting the ATP axioms.
   axioms ← axiomsToAFs i
@@ -72,21 +83,23 @@ translationGeneralRoles file = do
 
   return (axioms ++ generalHints ++ fns )
 
--- TODO: It is not clear if we should use the interface or the file
--- name as the principal argument. In the case of the function
--- getImportedModules is much better to use the file name because we
--- avoid read some interfaces files unnecessary.
+-- We could use the interfaces as the return of getImportedModules and
+-- as argument of translationGeneralRoles, but it seems is cheaper
+-- getting the interface again that pass them aorund.
 translation :: FilePath → ER ([AF], [(AF, [AF])])
 translation file = do
   lift $ reportS "" 1 $ "Translating " ++ file ++ " ..."
 
-  iModulesPaths ← liftIO $ getImportedModules file
-
-  generalRolesImportedFiles ← mapM translationGeneralRoles iModulesPaths
-  generalRolesCurrentFile   ← translationGeneralRoles file
-
   -- Gettting the interface.
-  i ← liftIO $ myReadInterface file
+  i ← myReadInterface file
+
+  let x :: ModuleName
+      x = iModuleName i
+
+  iModules ← getImportedModules x
+
+  generalRolesImportedFiles ← mapM translationGeneralRoles iModules
+  generalRolesCurrentFile   ← translationGeneralRoles x
 
   -- We translate the ATP pragma conjectures and their local hints
   -- in the current module.
@@ -101,14 +114,14 @@ runAgda2ATP prgName = do
   argv ← liftIO getArgs
 
   -- Reading the command line options.
-  (opts, name) ← processOptions argv prgName
+  (opts, file) ← processOptions argv prgName
 
   when (optVersion opts) $ liftIO $
        bye $ prgName ++ " version " ++ version ++ "\n"
 
   when (optHelp opts) $ liftIO $ bye $ usage prgName
 
-  r  ← liftIO $ runReaderT (runErrorT (translation name)) opts
+  r  ← liftIO $ runReaderT (runErrorT (translation file)) opts
   case r of
     Right (generalRoles , conjecturesCurrentModule) → do
         r' ← liftIO $

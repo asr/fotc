@@ -13,15 +13,19 @@ module MyAgda.Interface
     , getQNameInterface
     , getQNameType
     , getRoleATP
+    , myGetInterface
     , myReadInterface
     , qNameLine
-    ) where
+    )
+    where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
 
 import Control.Monad ( unless )
 import Control.Monad.IO.Class ( liftIO )
+import Control.Monad.Trans.Class ( lift )
+import Control.Monad.Trans.Reader ( ask )
 import Control.Monad.Trans.State ( execStateT, get, put, StateT )
 
 import Data.Int ( Int32 )
@@ -29,13 +33,11 @@ import Data.Int ( Int32 )
 import qualified Data.Map as Map ( filter, lookup )
 import Data.Maybe ( fromMaybe )
 
-import System.Directory ( doesFileExist, getCurrentDirectory )
-
 ------------------------------------------------------------------------------
 -- Agda library imports
 
 import Agda.Interaction.FindFile ( toIFile )
-import Agda.Interaction.Imports ( readInterface )
+import Agda.Interaction.Imports  ( getInterface, readInterface )
 import Agda.Interaction.Options
     ( CommandLineOptions
     , defaultOptions
@@ -43,7 +45,7 @@ import Agda.Interaction.Options
     , optIncludeDirs
     )
 import Agda.Syntax.Abstract.Name
-    ( ModuleName
+    ( ModuleName(MName)
     , Name(nameBindingSite)
     , QName(QName)
     , qnameName
@@ -74,21 +76,21 @@ import Agda.TypeChecking.Monad.Options ( setCommandLineOptions )
 import Agda.Utils.FileName
     ( absolute
     , filePath
-    , mkAbsolute
+--    , mkAbsolute
     )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
-import Agda.Utils.Monad ( ifM )
 
 ------------------------------------------------------------------------------
 -- Local imports
 
-import MyAgda.Syntax.Abstract.Name
-    ( moduleNameToFilePath
-    , removeLastNameModuleName
-    )
+import Common ( ER )
+import MyAgda.Syntax.Abstract.Name ( removeLastNameModuleName )
+import Options ( Options(optAgdaIncludePath) )
+
 #include "../undefined.h"
 
 ------------------------------------------------------------------------------
+
 getRoleATP :: RoleATP → Interface → Definitions
 getRoleATP role i = Map.filter (isRole role) $ sigDefinitions $ iSignature i
     where
@@ -114,31 +116,48 @@ getLocalHints def =
 
        _       → __IMPOSSIBLE__
 
-myReadInterface :: FilePath → IO Interface
+
+agdaCommandLineOptions :: ER CommandLineOptions
+agdaCommandLineOptions = do
+
+  opts <- lift ask
+
+  let agdaIncludePaths :: [FilePath]
+      agdaIncludePaths = optAgdaIncludePath opts
+
+  if null agdaIncludePaths
+    then return $ defaultOptions { optIncludeDirs = Left [] }
+    else return $ defaultOptions { optIncludeDirs = Left agdaIncludePaths }
+
+myReadInterface :: FilePath → ER Interface
 myReadInterface file = do
 
-  currentDir ← getCurrentDirectory
-
-  let opts :: CommandLineOptions
-      opts = defaultOptions
-             { optIncludeDirs =
-               Right [ mkAbsolute currentDir
-                     --, "/home/asr/Agda/std-lib/src/"
-                     ]
-             }
+  optsCommandLine ← agdaCommandLineOptions
 
   -- The physical interface file.
-  iFile ← fmap (filePath . toIFile) (absolute file)
+  iFile ← liftIO $ fmap (filePath . toIFile) (absolute file)
 
-  r ← runTCM $ do
-         setCommandLineOptions opts
---         makeIncludeDirsAbsolute $ mkAbsolute currentDir
+  r ← liftIO $ runTCM $ do
+         setCommandLineOptions optsCommandLine
          readInterface iFile
 
   case r of
         Right (Just i) → return i
         Right Nothing  → error $ "Error reading the interface file " ++ iFile
-        Left _         → error "Error from runTCM"
+        Left _         → error "Error from runTCM in myReadInterface"
+
+myGetInterface :: ModuleName → ER (Maybe Interface)
+myGetInterface x = do
+
+  optsCommandLine ← agdaCommandLineOptions
+
+  r ← liftIO $ runTCM $ do
+         setCommandLineOptions optsCommandLine
+         getInterface x
+
+  case r of
+        Right (i, _) → return (Just i)
+        Left _       → return Nothing
 
 isAxiomATP :: Definition → Bool
 isAxiomATP def =
@@ -204,23 +223,17 @@ getQNameDefinition i qName =
 
 -- The modules names in a QName can to correspond to logical modules,
 -- e.g. sub-modules, data types or records. This function finds the
--- physical file associated with a QName.
-getQNameInterfaceFile :: QName → IO FilePath
-getQNameInterfaceFile (QName qNameModule qName) =
-  case (moduleNameToFilePath qNameModule) of
-    []   → __IMPOSSIBLE__
-    file → do
-      iFile ← fmap (filePath . toIFile) (absolute file)
-      ifM (doesFileExist iFile)
-          (return file)
-          (getQNameInterfaceFile
-                   (QName (removeLastNameModuleName qNameModule) qName))
-
--- Returns the interface where is the information associated to a QName.
-getQNameInterface :: QName → IO Interface
-getQNameInterface qName =
-    getQNameInterfaceFile qName >>=
-    myReadInterface
+-- interface associated with a QName.
+getQNameInterface :: QName → ER Interface
+getQNameInterface (QName qNameModule qName) = do
+  case qNameModule of
+    (MName [])  → __IMPOSSIBLE__
+    (MName _ )  → do
+      im ← myGetInterface qNameModule
+      case im of
+        Nothing → getQNameInterface
+                    (QName (removeLastNameModuleName qNameModule) qName)
+        Just i  → return i
 
 getQNameType :: Interface → QName → Type
 getQNameType i qName = defType $ getQNameDefinition i qName
@@ -243,29 +256,27 @@ getClauses def =
 ------------------------------------------------------------------------------
 -- Imported modules
 
--- Return the files paths of the modules recursively imported by a
--- module m. The first name in the the state is the file path of the module
--- m.
-allModules :: FilePath → StateT [FilePath] IO ()
-allModules file = do
+allModules :: ModuleName → StateT [ModuleName] ER ()
+allModules x = do
 
-  visitedFiles ← get
+  visitedModules ← get
 
-  unless (file `elem` visitedFiles) $ do
-     i ← liftIO $ myReadInterface file
+  unless (x `elem` visitedModules) $ do
+    im ← lift $ myGetInterface x
 
-     let iModules :: [ModuleName]
-         iModules = iImportedModules i
+    let i :: Interface
+        i = case im of
+              Just interface → interface
+              Nothing        → __IMPOSSIBLE__
 
-     let iModulesPaths :: [FilePath]
-         iModulesPaths = map moduleNameToFilePath iModules
+    let iModules :: [ModuleName]
+        iModules = iImportedModules i
 
-     put $ visitedFiles ++ [file]
-     mapM_ allModules iModulesPaths
+    put $ visitedModules ++ [x]
+    mapM_ allModules iModules
 
--- Return the files paths of the modules recursively imported by a
--- module.
-getImportedModules :: FilePath → IO [FilePath]
-getImportedModules file = do
-  modules ← execStateT (allModules file) []
+-- Return the modules recursively imported by a file.
+getImportedModules :: ModuleName → ER [ModuleName]
+getImportedModules x = do
+  modules ← execStateT (allModules x) []
   return $ tail modules

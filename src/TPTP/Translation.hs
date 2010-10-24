@@ -17,7 +17,6 @@ module TPTP.Translation
 -- Haskell imports
 
 import Control.Monad ( liftM2, zipWithM )
-import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Class ( lift )
 import Control.Monad.Trans.Error ( runErrorT, throwError )
 import Control.Monad.Trans.Reader ( ask )
@@ -75,7 +74,7 @@ toAF qName role def = do
      "Type:\n" ++ show ty
 
   -- We need eta-expand the type before the translation.
-  tyEtaExpanded ← liftIO $ evalStateT (etaExpand ty) iVarNames
+  tyEtaExpanded ← evalStateT (etaExpand ty) iVarNames
 
   lift $ reportSLn "toAF" 20 $ "The eta-expanded type is:\n" ++
                                 show tyEtaExpanded
@@ -128,7 +127,7 @@ fnToAF qName def = do
 localHintToAF :: QName → ER AF
 localHintToAF qName = do
 
-  i ← liftIO $ getQNameInterface qName
+  i ← getQNameInterface qName
 
   let def :: Definition
       def = getQNameDefinition i qName

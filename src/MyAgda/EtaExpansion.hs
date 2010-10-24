@@ -8,7 +8,7 @@
 module MyAgda.EtaExpansion ( etaExpand ) where
 
 -- Haskell imports
-import Control.Monad.IO.Class ( liftIO )
+import Control.Monad.Trans.Class ( lift )
 import Control.Monad.Trans.State ( evalState, get, StateT, put )
 
 -- Agda library imports
@@ -31,7 +31,7 @@ import Agda.Syntax.Literal ( Literal(LitLevel) )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
-import Common ( Vars )
+import Common ( ER, Vars )
 import MyAgda.Interface ( getQNameInterface, getQNameType )
 import MyAgda.Syntax.DeBruijn ( increaseByOneVar )
 import Utils.Names ( freshName )
@@ -40,7 +40,7 @@ import Utils.Names ( freshName )
 
 ------------------------------------------------------------------------------
 -- The eta-expansion monad.
-type EE = StateT Vars IO
+type EE = StateT Vars ER
 
 class EtaExpandible a where
     etaExpand :: a → EE a
@@ -58,7 +58,7 @@ instance EtaExpandible Term where
     etaExpand (Def qName args) = do
       vars ← get
 
-      interface ← liftIO $ getQNameInterface qName
+      interface ← lift $ getQNameInterface qName
 
       let qNameArity :: Nat
           qNameArity = arity $ getQNameType interface qName

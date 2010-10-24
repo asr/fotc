@@ -33,15 +33,16 @@ import Utils.IO ( bye )
 
 -----------------------------------------------------------------------------
 data Options = MkOptions
-    { optATP           :: [String]
-    , optDefAsAxiom    :: Bool
-    , optHelp          :: Bool
-    , optOnlyFiles     :: Bool
-    , optOutputDir     :: FilePath
-    , optTime          :: Int
-    , optUnprovedError :: Bool
-    , optVerbose       :: Trie String Int
-    , optVersion       :: Bool
+    { optAgdaIncludePath :: [FilePath]
+    , optATP             :: [String]
+    , optDefAsAxiom      :: Bool
+    , optHelp            :: Bool
+    , optOnlyFiles       :: Bool
+    , optOutputDir       :: FilePath
+    , optTime            :: Int
+    , optUnprovedError   :: Bool
+    , optVerbose         :: Trie String Int
+    , optVersion         :: Bool
     } deriving ( Show )
 
 defaultOptATP :: [String]
@@ -49,18 +50,23 @@ defaultOptATP = ["equinox", "eprover", "metis"]
 
 defaultOptions :: Options
 defaultOptions = MkOptions
-  { optATP           = []  -- N.B. The default is defined by
-                           -- defaultOptATP and it is handle by
-                           -- Options.processOptions.
-  , optDefAsAxiom    = False
-  , optHelp          = False
-  , optOnlyFiles     = False
-  , optOutputDir     = "/tmp"
-  , optTime          = 300
-  , optUnprovedError = False
-  , optVerbose       = Trie.singleton [] 1
-  , optVersion       = False
+  { optAgdaIncludePath = []
+  , optATP             = []  -- N.B. The default is defined by
+                             -- defaultOptATP and it is handle by
+                             -- Options.processOptions.
+  , optDefAsAxiom      = False
+  , optHelp            = False
+  , optOnlyFiles       = False
+  , optOutputDir       = "/tmp"
+  , optTime            = 300
+  , optUnprovedError   = False
+  , optVerbose         = Trie.singleton [] 1
+  , optVersion         = False
   }
+
+agdaIncludePathOpt :: FilePath → Options → Options
+agdaIncludePathOpt dir opts =
+    opts { optAgdaIncludePath = optAgdaIncludePath opts ++ [dir] }
 
 atpOpt :: String → Options → Options
 atpOpt name opts = opts { optATP = optATP opts ++ [name] }
@@ -101,24 +107,26 @@ versionOpt opts = opts { optVersion = True }
 
 options :: [OptDescr (Options → Options)]
 options =
-  [ Option "V" ["version"] (NoArg versionOpt)
-               "show version number"
-  , Option "?" ["help"] (NoArg helpOpt)
-               "show this help"
-  , Option "v" ["verbose"] (ReqArg verboseOpt "N")
-               "set verbosity level to N"
+  [ Option "i" ["agda-include-path"] (ReqArg agdaIncludePathOpt "DIR")
+               "looks for imports in DIR"
   , Option []  ["atp"] (ReqArg atpOpt "name")
                "set the ATP (default: eprover, equinox, and metis)"
-  , Option []  ["only-files"] (NoArg onlyFilesOpt)
-               "do not call the ATPs, only to create the TPTP files"
-  , Option []  ["time"] (ReqArg timeOpt "secs")
-               "set timeout for the ATPs in seconds (default: 300)"
   , Option []  ["definitions-as-axioms"] (NoArg defAsAxiomOpt)
                "translate the TPTP definitions as TPTP axioms"
+  , Option "?" ["help"] (NoArg helpOpt)
+               "show this help"
+  , Option []  ["only-files"] (NoArg onlyFilesOpt)
+               "do not call the ATPs, only to create the TPTP files"
   , Option []  ["output-dir"] (ReqArg outputDirOpt "DIR")
                "directory in which TPTP files are placed (default: /tmp)"
+  , Option []  ["time"] (ReqArg timeOpt "secs")
+               "set timeout for the ATPs in seconds (default: 300)"
   , Option []  ["unproved-conjecture-error"] (NoArg unprovedErrorOpt)
                "an unproved TPTP conjecture generates an error"
+  , Option "v" ["verbose"] (ReqArg verboseOpt "N")
+               "set verbosity level to N"
+  , Option "V" ["version"] (NoArg versionOpt)
+               "show version number"
   ]
 
 usageHeader :: String → String
@@ -133,7 +141,7 @@ processOptions argv prgName =
   case getOpt Permute options argv of
     (_, [], []) → liftIO $ bye $ usage prgName
 
-    (o, (name : []), []) → do
+    (o, (file : []), []) → do
       let opts :: Options
           opts = foldl (flip id) defaultOptions o
 
@@ -144,8 +152,8 @@ processOptions argv prgName =
                                                     -- defaults ATPs.
               else opts
 
-      return (finalOpts, name)
+      return (finalOpts, file)
 
-    (_, _names, []) → throwError "Only one input file allowed"
+    (_, _files, []) → throwError "Only one input file allowed"
 
     (_, _, errors) → throwError $ unlines errors
