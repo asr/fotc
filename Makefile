@@ -8,32 +8,32 @@ root_host_dir = asicard@localhost:tmp/LTC
 ##############################################################################
 # Programs
 
-AGDA     = agda -v 0
-AGDA2ATP = agda2atp --unproved-conjecture-error
+AGDA     = agda -v 0 -i. -isrc
+AGDA2ATP = agda2atp -i. -isrc --unproved-conjecture-error
 RSYNC    = rsync --archive --progress --rsh='ssh -p 2024'
 
 ##############################################################################
 # "main" files
 
-main_file_NER_LTC         = LTC/Everything
-main_file_ER_LTC          = LTC/EverythingER
+main_file_NER_LTC         = src/LTC/Everything
+main_file_ER_LTC          = src/LTC/EverythingER
 
-main_file_NER_LTC-PCF     = LTC-PCF/Everything
-main_file_ER_LTC-PCF      = LTC-PCF/EverythingER
+main_file_NER_LTC-PCF     = src/LTC-PCF/Everything
+main_file_ER_LTC-PCF      = src/LTC-PCF/EverythingER
 
-main_file_NER_DivisionPCF = Examples/DivisionPCF/ProofSpecificationPCF
-main_file_ER_DivisionPCF  = Examples/DivisionPCF/ProofSpecificationPCF-ER
+main_file_NER_DivisionPCF = src/Examples/DivisionPCF/ProofSpecificationPCF
+main_file_ER_DivisionPCF  = src/Examples/DivisionPCF/ProofSpecificationPCF-ER
 
-main_file_NER_GCD         = Examples/GCD/ProofSpecification
-main_file_ER_GCD          = Examples/GCD/ProofSpecificationER
+main_file_NER_GCD         = src/Examples/GCD/ProofSpecification
+main_file_ER_GCD          = src/Examples/GCD/ProofSpecificationER
 
-main_file_NER_GCD-PCF     = Examples/GCD-PCF/ProofSpecificationPCF
-main_file_ER_GCD-PCF      = Examples/GCD-PCF/ProofSpecificationPCF-ER
+main_file_NER_GCD-PCF     = src/Examples/GCD-PCF/ProofSpecificationPCF
+main_file_ER_GCD-PCF      = src/Examples/GCD-PCF/ProofSpecificationPCF-ER
 
-main_file_NER_Logic       = Examples/Logic/Logic
+main_file_NER_Logic       = src/Examples/Logic/Logic
 
-main_file_NER_SortList    = Examples/SortList/ProofSpecification
-main_file_ER_SortList     = Examples/SortList/ProofSpecificationER
+main_file_NER_SortList    = src/Examples/SortList/ProofSpecification
+main_file_ER_SortList     = src/Examples/SortList/ProofSpecificationER
 
 main_file_NER_Consistency = Test/Consistency/Readme
 
@@ -81,7 +81,7 @@ conjectures_SortList    : conjectures_Examples/SortList
 # TODO: To use a variable for the find result
 conjectures_Examples/% :
 	for file in \
-	  `find Examples/$*/ -name '*.agda' | xargs grep -l 'ATP prove'`; do \
+	  `find src/Examples/$*/ -name '*.agda' | xargs grep -l 'ATP prove'`; do \
 	    rm -f /tmp/*.tptp; \
             if ! ( ${AGDA} $${file} ); then exit 1; fi; \
 	    if ! ( ${AGDA2ATP} --time=180 $${file} ); then exit 1; fi; \
@@ -90,7 +90,7 @@ conjectures_Examples/% :
 # Process LTC and LTC-PCF conjectures.
 # TODO: Merge with conjectures_Examples/%
 conjectures_% :
-	for file in `find $*/ -name '*.agda' | xargs grep -l 'ATP prove'`; do \
+	for file in `find src/$*/ -name '*.agda' | xargs grep -l 'ATP prove'`; do \
 	    rm -f /tmp/*.tptp; \
             if ! ( ${AGDA} $${file} ); then exit 1; fi; \
 	    if ! ( ${AGDA2ATP} --time=180 $${file} ); then exit 1; fi; \
