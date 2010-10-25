@@ -71,7 +71,7 @@ x<Sx (sN {n} Nn) = prf (x<Sx Nn)
   where
     postulate prf : LT n (succ n) →  -- IH.
                     LT (succ n) (succ (succ n))
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf #-}
 
 ¬x<x : {m : D} → N m → ¬ (LT m m)
@@ -96,7 +96,7 @@ x≤x (sN {m} Nm) = prf (x≤x Nm)
   where
     postulate prf : LE m m →  -- IH.
                     LE (succ m) (succ m)
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf #-}
 
 x>y→y<x : {m n : D} → N m → N n → GT m n → LT n m
@@ -126,7 +126,7 @@ x>y∨x≤y (sN {m} Nm) (sN {n} Nn) = prf $ x>y∨x≤y Nm Nn
     postulate
       prf : (GT m n) ∨ (LE m n) →  -- IH.
             GT (succ m) (succ n) ∨ LE (succ m) (succ n)
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf #-}
 
 x<y∨x≥y : {m n : D} → N m → N n → LT m n ∨ GE m n

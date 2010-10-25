@@ -26,9 +26,9 @@ postulate
 postulate
   gcd-S>S : (m n : D) → GT (succ m) (succ n) →
              gcd (succ m) (succ n) ≡ gcd (succ m - succ n) (succ n)
--- E 1.2 no-success due to timeout (180).
--- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180).
--- Metis 2.3 (release 20101019) no-success due to timeout (180).
+-- E 1.2 no-success due to timeout (300 sec).
+-- Equinox 5.0alpha (2010-03-29) no-success due to timeout (300 sec).
+-- Metis 2.3 (release 20101019) no-success due to timeout (300 sec).
 -- The postulate was proved using on-line Vampire.
 -- TODO: To find an ATP for to prove this postulate
 -- {-# ATP prove gcd-S>S #-}
@@ -36,9 +36,9 @@ postulate
 postulate
   gcd-S≤S : (m n : D) → LE (succ m) (succ n) →
             gcd (succ m) (succ n) ≡ gcd (succ m) (succ n - succ m)
--- E 1.2 no-success due to timeout (180).
--- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180).
--- Metis 2.3 (release 20101019) no-success due to timeout (180).
+-- E 1.2 no-success due to timeout (300 sec).
+-- Equinox 5.0alpha (2010-03-29) no-success due to timeout (300 sec).
+-- Metis 2.3 (release 20101019) no-success due to timeout (300 sec).
 -- The postulate was proved using on-line Vampire.
 -- TODO: To find an ATP for to prove this postulate
 -- {-# ATP prove gcd-S≤S #-}

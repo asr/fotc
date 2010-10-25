@@ -29,17 +29,17 @@ open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF
 ------------------------------------------------------------------------------
 postulate
   <-00 : NLT zero zero
--- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180).
+-- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180 sec).
 {-# ATP prove <-00 #-}
 
 postulate
   <-0S : (d : D) → LT zero (succ d)
--- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180).
+-- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180 sec).
 {-# ATP prove <-0S #-}
 
 postulate
   <-S0 : (d : D) → NLT (succ d) zero
--- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180).
+-- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180 sec).
 {-# ATP prove <-S0 #-}
 
 postulate
@@ -65,7 +65,7 @@ x≥0 (sN {n} Nn) = <-0S (succ n)
 
 postulate
   ¬0>x : {n : D} → N n → ¬ (GT zero n)
--- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180).
+-- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180 sec).
 {-# ATP prove ¬0>x x≥0 #-}
 
 x≰x : {n : D} → N n → NLT n n
@@ -74,7 +74,7 @@ x≰x (sN {n} Nn) = trans (<-SS n n) (x≰x Nn)
 
 postulate
   ¬S≤0 : {d : D} → ¬ (LE (succ d) zero)
--- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180).
+-- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180 sec).
 {-# ATP prove ¬S≤0 <-0S #-}
 
 ¬0≥S : {n : D} → N n → ¬ (GE zero (succ n))
@@ -86,7 +86,7 @@ x<Sx (sN {n} Nn) = prf (x<Sx Nn)
   where
     postulate prf : LT n (succ n) →  -- IH.
                     LT (succ n) (succ (succ n))
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf <-SS #-}
 
 ¬x<x : {m : D} → N m → ¬ (LT m m)
@@ -108,7 +108,7 @@ x≤x (sN {m} Nm) = prf (x≤x Nm)
   where
     postulate prf : LE m m →  -- IH.
                     LE (succ m) (succ m)
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf <-SS #-}
 
 x≥y→x≮y : {m n : D} → N m → N n → GE m n → NLT m n
@@ -126,7 +126,7 @@ x>y∨x≤y (sN {m} Nm) (sN {n} Nn) = prf $ x>y∨x≤y Nm Nn
     postulate
       prf : (GT m n) ∨ (LE m n) →  -- IH.
             GT (succ m) (succ n) ∨ LE (succ m) (succ n)
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf <-SS #-}
 
 x<y∨x≥y : {m n : D} → N m → N n → LT m n ∨ GE m n
@@ -145,7 +145,7 @@ x<y→x≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = prf (x<y→x≤y Nm Nn m<n)
 
     postulate prf : LE m n →  -- IH.
                     LE (succ m) (succ n)
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf <-SS #-}
 
 x<y→Sx≤y : {m n : D} → N m → N n → LT m n → LE (succ m) n
@@ -154,8 +154,8 @@ x<y→Sx≤y Nm zN m<0 = ⊥-elim (¬x<0 Nm m<0)
 x<y→Sx≤y zN (sN {n} Nn) 0<Sn = S0≤SN
   where
     postulate S0≤SN : LE (succ zero) (succ n)
-    -- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180).
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180 sec).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove S0≤SN #-}
 
 x<y→Sx≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = prf (x<y→Sx≤y Nm Nn m<n)
@@ -164,7 +164,7 @@ x<y→Sx≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = prf (x<y→Sx≤y Nm Nn m<n)
     {-# ATP prove m<n <-SS #-}
 
     postulate prf : LE (succ m) n → LE (succ (succ m)) (succ n)
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf <-SS #-}
 
 Sx≤y→x<y : {m n : D} → N m → N n → LE (succ m) n → LT m n
@@ -173,12 +173,12 @@ Sx≤y→x<y zN          (sN {n} Nn) _      = <-0S n
 Sx≤y→x<y (sN {m} Nm) (sN {n} Nn) SSm≤Sn = prf (Sx≤y→x<y Nm Nn Sm≤n)
   where
     postulate Sm≤n : LE (succ m) n
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove Sm≤n <-SS #-}
 
     postulate prf : LT m n →  -- IH.
                     LT (succ m) (succ n)
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf <-SS #-}
 
 <-trans : {m n o : D} → N m → N n → N o → LT m n → LT n o → LT m o
@@ -193,7 +193,7 @@ Sx≤y→x<y (sN {m} Nm) (sN {n} Nn) SSm≤Sn = prf (Sx≤y→x<y Nm Nn Sm≤n)
   where
     postulate prf : LT m o →  -- IH.
                     LT (succ m) (succ o)
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf <-SS #-}
 
     postulate m<n : LT m n
@@ -217,7 +217,7 @@ Sx≤y→x<y (sN {m} Nm) (sN {n} Nn) SSm≤Sn = prf (Sx≤y→x<y Nm Nn Sm≤n)
 
       postulate prf : LE m o →  -- IH.
                       LE (succ m) (succ o)
-      -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+      -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
       {-# ATP prove prf <-SS #-}
 
 postulate
@@ -230,7 +230,7 @@ x≤x+y {n = n} (sN {m} Nm) Nn = prf (x≤x+y Nm Nn)
   where
     postulate prf : LE m (m + n) →  -- IH.
                     LE (succ m) (succ m + n)
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf +-Sx <-SS #-}
 
 x-y<Sx : {m n : D} → N m → N n → LT (m - n) (succ m)
@@ -248,7 +248,7 @@ x-y<Sx (sN {m} Nm) (sN {n} Nn) = prf (x-y<Sx Nm Nn)
   where
     postulate prf : LT (m - n) (succ m) →  -- IH.
                     LT (succ m - succ n) (succ (succ m))
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf <-trans minus-N x<Sx sN minus-SS #-}
 
 postulate
@@ -269,7 +269,7 @@ x>y→x-y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn = prf (x>y→x-y+y≡x Nm Nn m>n)
 
     postulate prf : (m - n) + n ≡ m →  -- IH.
                     (succ m - succ n) + succ n ≡ succ m
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf +-comm minus-N sN +-Sx minus-SS <-SS #-}
 
 x≤y→y-x+x≡y : {m n : D} → N m → N n → LE m n → (n - m) + m ≡ n
@@ -287,7 +287,7 @@ x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn = prf (x≤y→y-x+x≡y Nm Nn
 
     postulate prf : (n - m) + m ≡ n →  -- IH.
                     (succ n - succ m) + succ m ≡ succ n
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf +-comm minus-N sN +-Sx minus-SS <-SS #-}
 
 x<y→x<Sy : {m n : D} → N m → N n → LT m n → LT m (succ n)
@@ -300,7 +300,7 @@ x<y→x<Sy (sN {m} Nm) (sN {n} Nn) Sm<Sn = prf (x<y→x<Sy Nm Nn m<n)
 
     postulate prf : LT m (succ n) →  -- IH.
                     LT (succ m) (succ (succ n))
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf <-SS #-}
 
 x<Sy→x<y∨x≡y : {m n : D} → N m → N n → LT m (succ n) → LT m n ∨ m ≡ n
@@ -332,7 +332,7 @@ x≥y→y>0→x-y<x zN          (sN Nn)     0≥Sn  _    = ⊥-elim (¬S≤0 0�
 x≥y→y>0→x-y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 = prf
   where
     postulate prf : LT (succ m - succ n) (succ m)
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf minus-SS x-y<Sx #-}
 
 ------------------------------------------------------------------------------
@@ -348,20 +348,20 @@ postulate
 
 postulate
   ¬0Sx<00 : {m : D} → N m → ¬ (LT₂ zero (succ m) zero zero)
--- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180).
--- Metis 2.3 (release 20101019) no-success due to timeout (180).
+-- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180 sec).
+-- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
 {-# ATP prove ¬0Sx<00 ¬x<0 sN #-}
 
 postulate
   x₁y<x₂0→x₁<x₂ : {m₁ n m₂ : D} → N m₁ → N n → N m₂ → LT₂ m₁ n m₂ zero →
                   LT m₁ m₂
--- Metis 2.3 (release 20101019) no-success due to timeout (180).
+-- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
 {-# ATP prove x₁y<x₂0→x₁<x₂ ¬x<0 #-}
 
 postulate
   xy₁<0y₂→x≡0∧y₁<y₂ : {m n₁ n₂ : D} → N m → N n₁ → N n₂ → LT₂ m n₁ zero n₂ →
                       m ≡ zero ∧ LT n₁ n₂
--- Metis 2.3 (release 20101019) no-success due to timeout (180).
+-- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
 {-# ATP prove xy₁<0y₂→x≡0∧y₁<y₂ ¬x<0 #-}
 
 [Sx-Sy,Sy]<[Sx,Sy] : {m n : D} → N m → N n →
@@ -369,7 +369,7 @@ postulate
 [Sx-Sy,Sy]<[Sx,Sy] {m} {n} Nm Nn = prf
   where
     postulate prf : LT₂ (succ m - succ n) (succ n) (succ m) (succ n)
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf sN Sx-Sy<Sx #-}
 
 [Sx,Sy-Sx]<[Sx,Sy] : {m n : D} → N m → N n →

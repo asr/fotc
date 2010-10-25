@@ -112,7 +112,7 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn = prf $ x+1+y≡1+x+y Nm Nn
 +-comm {n = n} (sN {m} Nm) Nn = prf $ +-comm Nm Nn
   where
     postulate prf : m + n ≡ n + m → succ m + n ≡ n + succ m
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf x+1+y≡1+x+y #-}
 
 minus-0x : {n : D} → N n → zero - n  ≡ zero
@@ -162,7 +162,7 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
                      (n + m) + (m * n) ≡ n + (m + (m * n)) →  -- Associative law
                      (m + n) + (m * n) ≡ m + (n + (m * n)) →  -- Associateve law
                      succ m * succ n ≡ succ m + succ m * n
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf +-comm #-}
 
 *-comm : {m n : D} → N m → N n → m * n ≡ n * m
@@ -174,7 +174,7 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
   where
     postulate prf : m * n ≡ n * m →  -- IH.
                     succ m * n ≡ n * succ m
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf x*1+y≡x+xy #-}
 
 [x-y]z≡xz*yz : {m n o : D} → N m → N n → N o → (m - n) * o ≡ m * o - n * o
@@ -192,7 +192,7 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
 [x-y]z≡xz*yz (sN {m} _ ) (sN {n} _ ) zN = prf
   where
     postulate prf : (succ m - succ n) * zero ≡ succ m * zero - succ n * zero
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf *-comm minus-N zN #-}
 
 [x-y]z≡xz*yz (sN {m} Nm) (sN {n} Nn) (sN {o} No) =
@@ -201,15 +201,15 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
     postulate prf : (m - n) * succ o ≡ m * succ o - n * succ o →  -- IH
                     (succ m - succ n) * succ o ≡
                     succ m * succ o - succ n * succ o
-    -- E 1.2 no-success due to timeout (180).
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- E 1.2 no-success due to timeout (180 sec).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf sN *-N [x+y]-[x+z]≡y-z #-}
 
 [x+y]z≡xz*yz : {m n o : D} → N m → N n → N o → (m + n) * o ≡ m * o + n * o
 [x+y]z≡xz*yz {m} {n} _ _ zN = prf
   where
     postulate prf : (m + n) * zero ≡ m * zero + n * zero
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf zN sN *-comm +-rightIdentity *-N +-N #-}
 
 [x+y]z≡xz*yz {n = n} zN _ (sN {o} _ ) = prf
@@ -220,7 +220,7 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
 [x+y]z≡xz*yz (sN {m} _ ) zN (sN {o} _ ) = prf
   where
     postulate prf : (succ m + zero) * succ o ≡ succ m * succ o + zero * succ o
-    -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf +-rightIdentity *-leftZero sN *-N #-}
 
 [x+y]z≡xz*yz (sN {m} Nm) (sN {n} Nn) (sN {o} No) =
@@ -229,5 +229,5 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
       postulate
         prf : (m + succ n) * succ o ≡ m * succ o + succ n * succ o →  -- IH.
               (succ m + succ n) * succ o ≡ succ m * succ o + succ n * succ o
-      -- Metis 2.3 (release 20101019) no-success due to timeout (180).
+      -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
       {-# ATP prove prf +-assoc sN *-N #-}
