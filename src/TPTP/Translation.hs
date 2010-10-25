@@ -44,18 +44,18 @@ import Agda.TypeChecking.Monad.Base
 ------------------------------------------------------------------------------
 -- Local imports
 
-import Common ( ER, iVarNames )
-import FOL.Translation.Functions ( fnToFormula )
-import FOL.Translation.Internal.Types ( typeToFormula )
-import MyAgda.EtaExpansion ( etaExpand )
-import MyAgda.Interface
+import AgdaLib.EtaExpansion ( etaExpand )
+import AgdaLib.Interface
     ( getClauses
     , getLocalHints
     , getQNameDefinition
     , getQNameInterface
     , getRoleATP
     )
-import MyAgda.Syntax.DeBruijn ( removeReferenceToProofTerms )
+import AgdaLib.Syntax.DeBruijn ( removeReferenceToProofTerms )
+import Common ( ER, iVarNames )
+import FOL.Translation.Functions ( fnToFormula )
+import FOL.Translation.Internal.Types ( typeToFormula )
 import Options ( Options(optDefAsAxiom) )
 import Reports ( reportSLn )
 import TPTP.Types ( AF(MkAF) )

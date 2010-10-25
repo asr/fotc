@@ -4,7 +4,7 @@
 
 {-# LANGUAGE UnicodeSyntax #-}
 
-module MyAgda.Syntax.Abstract.Name
+module AgdaLib.Syntax.Abstract.Name
     ( moduleNameToFilePath
     , removeLastNameModuleName
     ) where

@@ -29,7 +29,7 @@ import Agda.Syntax.Common
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
-import MyAgda.Interface ( qNameLine )
+import AgdaLib.Interface ( qNameLine )
 import Options ( Options(optOutputDir) )
 import Reports ( R, reportSLn )
 import TPTP.Pretty ( prettyTPTP )

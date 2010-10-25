@@ -5,7 +5,7 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module MyAgda.EtaExpansion ( etaExpand ) where
+module AgdaLib.EtaExpansion ( etaExpand ) where
 
 -- Haskell imports
 import Control.Monad.Trans.Class ( lift )
@@ -31,9 +31,9 @@ import Agda.Syntax.Literal ( Literal(LitLevel) )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
+import AgdaLib.Interface ( getQNameInterface, getQNameType )
+import AgdaLib.Syntax.DeBruijn ( increaseByOneVar )
 import Common ( ER, Vars )
-import MyAgda.Interface ( getQNameInterface, getQNameType )
-import MyAgda.Syntax.DeBruijn ( increaseByOneVar )
 import Utils.Names ( freshName )
 
 #include "../undefined.h"

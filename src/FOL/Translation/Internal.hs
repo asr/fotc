@@ -25,11 +25,11 @@ import Agda.Syntax.Internal
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
+import AgdaLib.Syntax.DeBruijn ( renameVar, varToDeBruijnIndex )
 import FOL.Monad ( T )
 import FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm )
 -- import FOL.Translation.Internal.Types ( typeToFormula )
 import FOL.Types ( FOLFormula, FOLTerm )
-import MyAgda.Syntax.DeBruijn ( renameVar, varToDeBruijnIndex )
 
 #include "../../undefined.h"
 

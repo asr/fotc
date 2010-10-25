@@ -24,6 +24,10 @@ executable agda2atp
                   -- , utility-ht >= 0.0.5.1 && < 0.1
 
   other-modules:  Common
+                  AgdaLib.EtaExpansion
+                  AgdaLib.Interface
+                  AgdaLib.Syntax.Abstract.Name
+                  AgdaLib.Syntax.DeBruijn
                   ATP.ATP
                   FOL.Constants
                   FOL.Monad
@@ -35,10 +39,6 @@ executable agda2atp
                   FOL.Translation.Internal.Terms
                   FOL.Translation.Internal.Types
                   FOL.Types
-                  MyAgda.EtaExpansion
-                  MyAgda.Interface
-                  MyAgda.Syntax.Abstract.Name
-                  MyAgda.Syntax.DeBruijn
                   Options
                   Paths_agda2atp
                   Reports

@@ -13,7 +13,7 @@
 -- in the Agda internal terms, i.e. it is necessary to modify the
 -- Bruijn index in the variable.
 
-module MyAgda.Syntax.DeBruijn
+module AgdaLib.Syntax.DeBruijn
     ( increaseByOneVar
     , renameVar
     , removeReferenceToProofTerms

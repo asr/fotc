@@ -5,7 +5,7 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module MyAgda.Interface
+module AgdaLib.Interface
     ( getClauses
     , getImportedModules
     , getLocalHints
@@ -83,8 +83,8 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 ------------------------------------------------------------------------------
 -- Local imports
 
+import AgdaLib.Syntax.Abstract.Name ( removeLastNameModuleName )
 import Common ( ER )
-import MyAgda.Syntax.Abstract.Name ( removeLastNameModuleName )
 import Options ( Options(optAgdaIncludePath) )
 
 #include "../undefined.h"
@@ -116,7 +116,10 @@ getLocalHints def =
 
        _       → __IMPOSSIBLE__
 
-
+-- An empty list of relative include directories (Left []) is
+-- interpreted as ["."] (from
+-- Agda.TypeChecking.Monad.Options). Therefore the default of
+-- Options.optAgdaIncludePath is [].
 agdaCommandLineOptions :: ER CommandLineOptions
 agdaCommandLineOptions = do
 
@@ -125,9 +128,7 @@ agdaCommandLineOptions = do
   let agdaIncludePaths :: [FilePath]
       agdaIncludePaths = optAgdaIncludePath opts
 
-  if null agdaIncludePaths
-    then return $ defaultOptions { optIncludeDirs = Left [] }
-    else return $ defaultOptions { optIncludeDirs = Left agdaIncludePaths }
+  return $ defaultOptions { optIncludeDirs = Left agdaIncludePaths }
 
 myReadInterface :: FilePath → ER Interface
 myReadInterface file = do

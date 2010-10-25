@@ -37,9 +37,9 @@ import Agda.Utils.Impossible
 -- Local imports
 
 -- import FOL.Pretty
+import AgdaLib.Interface ( getImportedModules, myGetInterface, myReadInterface )
 import ATP.ATP ( callATP )
 import Common ( ER )
-import MyAgda.Interface ( getImportedModules, myGetInterface, myReadInterface )
 import Options
     ( Options(optHelp, optVersion)
     , processOptions
