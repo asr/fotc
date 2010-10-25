@@ -1,6 +1,6 @@
 1 patch for repository http://code.haskell.org/Agda:
 
-Sun Oct  3 00:48:34 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+Mon Oct 25 18:34:43 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
   * Added the ATP pragma.
     {-# ATP role name [h1 ... hn] #-}
   
@@ -14,8 +14,8 @@ Sun Oct  3 00:48:34 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gma
 New patches:
 
 [Added the ATP pragma.
-Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>**20101003054834
- Ignore-this: e7df7089bd6bf6a33cc6618b20ab542f
+Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>**20101025233443
+ Ignore-this: 7a9af30f187ca223694334e86c8ff96c
    {-# ATP role name [h1 ... hn] #-}
  
    The pragma indicates that the name and h1, ..., hn, will be used
@@ -53,6 +53,14 @@ hunk ./src/data/emacs-mode/agda2-mode.el 13
    "The version of the Agda mode.
  Note that, by default, the same version of the underlying Haskell
  library is used (see `agda2-ghci-options').")
+hunk ./src/full/Agda/Interaction/Options.hs 12
+     , parsePragmaOptions
+     , parsePluginOptions
+     , defaultOptions
++    , defaultPragmaOptions
+     , defaultVerbosity
+     , standardOptions_
+     , isLiterate
 hunk ./src/full/Agda/Syntax/Abstract.hs 78
              | CompiledTypePragma QName String
              | CompiledDataPragma QName String [String]
@@ -559,6 +567,113 @@ hunk ./test/fail/ATPMustBePostulate.err 1
 
 Context:
 
+[First draft of HCAR entry for November 2010.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101025090454
+ Ignore-this: 1e6d87afc31ec9388fa28165984315d
+] 
+[dropped unnecessary coercions for nat literals
+ulfn@chalmers.se**20101021093647
+ Ignore-this: c09fe261b8814b696e560e6147573677
+   and made Nat-Integer conversions more rewrite-friendly
+] 
+[Minor simplifications.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101018142022
+ Ignore-this: 4724e0736139455f592ab95db6f43592
+] 
+[The first non-empty line can no longer be indented using TAB.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101018141624
+ Ignore-this: ffd805cfbc591f8c528970a2fbf9788d
+ + (With the default settings.)
+] 
+[Fixed bug in eri-calculate-indentation-points.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101018135421
+ Ignore-this: ed0a4c7c4cf91dc61f26c78ddd478a50
+ + Bogus results were sometimes returned when the function was invoked
+   on the first line of a buffer.
+] 
+[Updated some comments.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101018135016
+ Ignore-this: ea7309566d7d5cdd582eceee469cb874
+] 
+[Fixed bug in eri-new-indentation-point.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101018133600
+ Ignore-this: 61f0ada4776d5df08d6a1e22461015b1
+ + Bogus results were sometimes returned when the function was invoked
+   at or before the first line containing text.
+] 
+[Added save-excursion in eri-calculate-indentation-points-on-line.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101018132700
+ Ignore-this: ba038f38cfae342697462571e145a33
+] 
+[Removed agda2-indentation.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101018125657
+ Ignore-this: 9346242956ae91af7fdf814bce37497d
+] 
+[Fixed compiler bug: no function was generated for INFINITY, only a type.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101020184358
+ Ignore-this: 81d662d6a8dbc968c8db904ea32754ac
+] 
+[Fixed problem with agda2-restart: GHCi has become harder to kill.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101020134359
+ Ignore-this: 1d3275a1e7046b4dfda2013feeb232e1
+] 
+[Removed use of the TupleSections extension.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101018130001
+ Ignore-this: ae1b33d582ec9ab26c40a4eb02d62f2e
+ + Perhaps Agda can now be built using GHC 6.10.
+] 
+[Typo in successful test case module name.
+andreas.abel@ifi.lmu.de**20101016155146] 
+[Making eta-expansion even lazier.
+andreas.abel@ifi.lmu.de**20101015184808
+ In conversion test, only eta-expand when comparing a record against a neutral 
+ or another record, no longer when comparing against a meta variable.
+] 
+[No change. Some comments and debug prints for MetaVar code.
+andreas.abel@ifi.lmu.de**20101015175257] 
+[Fixed issue 331.  Meta-variables created by performKill had not been eta-expanded.
+andreas.abel@ifi.lmu.de**20101015162336
+ Just added one line to MetaVars/Occurs.hs, the rest is refactoring.
+] 
+[Added online to 2-2-10 release notes on projections preserve guardedness.
+andreas.abel@ifi.lmu.de**20101015153146] 
+[Made eta-expansion of metavars more lazy in MetaVars.hs/etaExpandListeners. Solves issue 348.
+andreas.abel@ifi.lmu.de**20101015153050] 
+[Projections preserve guardedness in the productivity (=termination) checker.
+andreas.abel@ifi.lmu.de**20101014075721] 
+[Fixed issue 347 (eta expanding meta var forgets irrelevant record fields).
+andreas.abel@ifi.lmu.de**20101011172612
+ While this fix is indispensible for the soundness of Agda, note that some
+ meta-variables which had been soundly resolved before, dont resolve any more.
+ record R : Set where 
+   constructor mkR 
+   field
+     fromR : A
+ reflR : (r : R) -> r == r
+ reflR r = refl  -- unsolved metas here, only (refl {a = r}) works
+] 
+[Failing test cases: record constructors do not count as structural increase.
+andreas.abel@ifi.lmu.de**20101005133033] 
+[Fixed issue 345, internal error in Auto
+Fredrik Lindblad <frelindb@chalmers.se>**20101005083341
+ Ignore-this: 148bf7d44f7d0bf03118fd16dbedd5a6
+] 
+[Release notes for irrelevant declarations and projections.
+andreas.abel@ifi.lmu.de**20101004170425] 
+[Fixed issue 344: highlighting of field names.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101004135914
+ Ignore-this: 6df1203751a6683686c23d9c96e147ba
+] 
+[Updated an entry: record patterns did not exist before Agda 2.2.8.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101004135527
+ Ignore-this: 86bc4abd4bb55310ec8a47fc1f9ff9ef
+] 
+[Termination checker: stripping of a record constructor is no longer counted as decrease.
+andreas.abel@ifi.lmu.de**20101004100900] 
+[Started release notes for 2.2.10.
+andreas.abel@ifi.lmu.de**20101004085937] 
+[Failing test for termination checking translated record pattern. (see issue 334)
+andreas.abel@ifi.lmu.de**20101002192955] 
 [Termination checker understands now record projections.
 andreas.abel@ifi.lmu.de**20101002192314
  Added a field funProjection to Function definitions which indicates
@@ -616,4 +731,4 @@ Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20100927162925
  Ignore-this: 24db4b37e559935c9cd6f81f8a90a6f7
 ] 
 Patch bundle hash:
-3f5c57e8f3a808389a215d4b204b57e0cc2c26c5
+28327f54b5a8d61628ae4ba30b646225f794d905
