@@ -25,19 +25,21 @@ import System.Exit ( exitFailure, exitSuccess )
 ------------------------------------------------------------------------------
 -- Agda library imports
 
-import Agda.Syntax.Abstract.Name ( ModuleName )
-import Agda.TypeChecking.Monad.Base ( Interface(iModuleName) )
+import Agda.TypeChecking.Monad.Base ( Interface )
 import Agda.Utils.Impossible
     ( catchImpossible
-    , Impossible(Impossible)
-    , throwImpossible
+--    , Impossible(Impossible)
+--    , throwImpossible
     )
 
 ------------------------------------------------------------------------------
 -- Local imports
 
 -- import FOL.Pretty
-import AgdaLib.Interface ( getImportedModules, myGetInterface, myReadInterface )
+import AgdaLib.Interface
+    ( getImportedInterfaces
+    , myReadInterface
+    )
 import ATP.ATP ( callATP )
 import Common ( ER )
 import Options
@@ -61,16 +63,8 @@ import Utils.Version ( version )
 ------------------------------------------------------------------------------
 -- We translate the ATP axioms, (general) hints, and definitions for a
 -- file. These TPTP roles are common to every conjecture.
-translationGeneralRoles :: ModuleName → ER [AF]
-translationGeneralRoles x = do
-
-  -- Getting the interface.
-  im ← myGetInterface x
-
-  let i :: Interface
-      i = case im of
-            Just interface → interface
-            Nothing        → __IMPOSSIBLE__
+translationGeneralRoles :: Interface → ER [AF]
+translationGeneralRoles i = do
 
   -- Getting the ATP axioms.
   axioms ← axiomsToAFs i
@@ -83,9 +77,6 @@ translationGeneralRoles x = do
 
   return (axioms ++ generalHints ++ fns )
 
--- We could use the interfaces as the return of getImportedModules and
--- as argument of translationGeneralRoles, but it seems is cheaper
--- getting the interface again that pass them aorund.
 translation :: FilePath → ER ([AF], [(AF, [AF])])
 translation file = do
   lift $ reportS "" 1 $ "Translating " ++ file ++ " ..."
@@ -93,13 +84,10 @@ translation file = do
   -- Gettting the interface.
   i ← myReadInterface file
 
-  let x :: ModuleName
-      x = iModuleName i
+  iInterfaces ← getImportedInterfaces i
 
-  iModules ← getImportedModules x
-
-  generalRolesImportedFiles ← mapM translationGeneralRoles iModules
-  generalRolesCurrentFile   ← translationGeneralRoles x
+  generalRolesImportedFiles ← mapM translationGeneralRoles iInterfaces
+  generalRolesCurrentFile   ← translationGeneralRoles i
 
   -- We translate the ATP pragma conjectures and their local hints
   -- in the current module.

@@ -7,7 +7,7 @@
 
 module AgdaLib.Interface
     ( getClauses
-    , getImportedModules
+    , getImportedInterfaces
     , getLocalHints
     , getQNameDefinition
     , getQNameInterface
@@ -22,11 +22,10 @@ module AgdaLib.Interface
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad ( unless )
 import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Class ( lift )
 import Control.Monad.Trans.Reader ( ask )
-import Control.Monad.Trans.State ( execStateT, get, put, StateT )
+import Control.Monad.Trans.State ( evalStateT, get, put, StateT )
 
 import Data.Int ( Int32 )
 -- import Data.Map ( Map )
@@ -39,10 +38,11 @@ import Data.Maybe ( fromMaybe )
 import Agda.Interaction.FindFile ( toIFile )
 import Agda.Interaction.Imports  ( getInterface, readInterface )
 import Agda.Interaction.Options
-    ( CommandLineOptions
+    ( CommandLineOptions(optIncludeDirs)
     , defaultOptions
---    , optInputFile
-    , optIncludeDirs
+    , defaultPragmaOptions
+    , PragmaOptions(optVerbose)
+    , Verbosity
     )
 import Agda.Syntax.Abstract.Name
     ( ModuleName(MName)
@@ -62,7 +62,7 @@ import Agda.TypeChecking.Monad.Base
     ( axATP
     , conATP
     , Defn(Axiom, Constructor, Function)
-    , Interface(iImportedModules)
+    , Interface(iImportedModules, iModuleName)
     , Definition(defType)
     , Definitions
     , funATP
@@ -72,13 +72,17 @@ import Agda.TypeChecking.Monad.Base
     , Signature(sigDefinitions)
     , theDef
     )
-import Agda.TypeChecking.Monad.Options ( setCommandLineOptions )
+import Agda.TypeChecking.Monad.Options
+    ( setCommandLineOptions
+    , setPragmaOptions
+    )
 import Agda.Utils.FileName
     ( absolute
     , filePath
 --    , mkAbsolute
     )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
+import qualified Agda.Utils.Trie as Trie ( singleton )
 
 ------------------------------------------------------------------------------
 -- Local imports
@@ -86,6 +90,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 import AgdaLib.Syntax.Abstract.Name ( removeLastNameModuleName )
 import Common ( ER )
 import Options ( Options(optAgdaIncludePath) )
+import Reports ( reportSLn )
 
 #include "../undefined.h"
 
@@ -130,6 +135,15 @@ agdaCommandLineOptions = do
 
   return $ defaultOptions { optIncludeDirs = Left agdaIncludePaths }
 
+-- TODO: It is not working.
+agdaPragmaOptions :: PragmaOptions
+agdaPragmaOptions =
+  -- We do not want any verbosity from the Agda API.
+  let agdaOptVerbose :: Verbosity
+      agdaOptVerbose = Trie.singleton [] 0
+
+  in defaultPragmaOptions { optVerbose = agdaOptVerbose }
+
 myReadInterface :: FilePath → ER Interface
 myReadInterface file = do
 
@@ -140,6 +154,7 @@ myReadInterface file = do
 
   r ← liftIO $ runTCM $ do
          setCommandLineOptions optsCommandLine
+         setPragmaOptions agdaPragmaOptions
          readInterface iFile
 
   case r of
@@ -154,6 +169,7 @@ myGetInterface x = do
 
   r ← liftIO $ runTCM $ do
          setCommandLineOptions optsCommandLine
+         setPragmaOptions agdaPragmaOptions
          getInterface x
 
   case r of
@@ -226,7 +242,7 @@ getQNameDefinition i qName =
 -- e.g. sub-modules, data types or records. This function finds the
 -- interface associated with a QName.
 getQNameInterface :: QName → ER Interface
-getQNameInterface (QName qNameModule qName) = do
+getQNameInterface (QName qNameModule qName) =
   case qNameModule of
     (MName [])  → __IMPOSSIBLE__
     (MName _ )  → do
@@ -255,29 +271,45 @@ getClauses def =
        _          → __IMPOSSIBLE__
 
 ------------------------------------------------------------------------------
--- Imported modules
+-- Imported interfaces
 
-allModules :: ModuleName → StateT [ModuleName] ER ()
-allModules x = do
-
+allInterfaces :: [ModuleName] → StateT [ModuleName] ER [Interface]
+allInterfaces []       = return []
+allInterfaces (x : xs) = do
   visitedModules ← get
 
-  unless (x `elem` visitedModules) $ do
-    im ← lift $ myGetInterface x
+  if x `notElem` visitedModules
+    then do
+      put $ x : visitedModules
 
-    let i :: Interface
-        i = case im of
-              Just interface → interface
-              Nothing        → __IMPOSSIBLE__
+      im ← lift $ myGetInterface x
 
-    let iModules :: [ModuleName]
-        iModules = iImportedModules i
+      let i :: Interface
+          i = fromMaybe __IMPOSSIBLE__ im
 
-    put $ visitedModules ++ [x]
-    mapM_ allModules iModules
+      let iModules :: [ModuleName]
+          iModules = iImportedModules i
 
--- Return the modules recursively imported by a file.
-getImportedModules :: ModuleName → ER [ModuleName]
-getImportedModules x = do
-  modules ← execStateT (allModules x) []
-  return $ tail modules
+      -- TODO: Test allInterfaces (xs ++ iModules)
+      is1 ← allInterfaces xs
+      is2 ← allInterfaces iModules
+      return $ i : is1 ++ is2
+
+    else return []
+
+getImportedInterfacesAux :: Interface → StateT [ModuleName] ER [Interface]
+getImportedInterfacesAux i = do
+  let iModules :: [ModuleName]
+      iModules = iImportedModules i
+
+  allInterfaces iModules
+
+-- Return the interfaces recursively imported by the main interface.
+getImportedInterfaces :: Interface → ER [Interface]
+getImportedInterfaces i = do
+  interfaces ← evalStateT (getImportedInterfacesAux i) []
+  lift $ reportSLn "ii" 20 $
+           "Module names: " ++ show (map iModuleName interfaces)
+  lift $ reportSLn "ii" 20 $
+           "Total imported interfaces: " ++ show (length interfaces)
+  return interfaces

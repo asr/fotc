@@ -13,9 +13,10 @@ import Control.Monad.Trans.Reader ( ask, ReaderT )
 import Control.Monad.IO.Class ( liftIO )
 
 -- Agda library imports
+import Agda.Interaction.Options ( Verbosity )
 import Agda.Utils.Impossible ( Impossible (Impossible), throwImpossible )
 -- import qualified Agda.Utils.IO.Locale as LocIO
-import Agda.Utils.Trie ( Trie )
+-- import Agda.Utils.Trie ( Trie )
 import qualified Agda.Utils.Trie as Trie ( lookupPath )
 import Agda.Utils.List ( wordsBy )
 
@@ -31,7 +32,7 @@ import Options ( Options(optVerbose) )
 -- The report monad.
 type R = ReaderT Options IO
 
-getVerbosity :: R (Trie String Int)
+getVerbosity :: R Verbosity
 getVerbosity = do
   opts ← ask
   return $ optVerbose opts

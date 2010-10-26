@@ -24,8 +24,9 @@ import System.Console.GetOpt
     )
 
 -- Agda library imports
+import Agda.Interaction.Options ( Verbosity )
 import Agda.Utils.List ( wordsBy )
-import Agda.Utils.Trie ( Trie )
+-- import Agda.Utils.Trie ( Trie )
 import qualified Agda.Utils.Trie as Trie ( insert, singleton )
 
 -- Local imports
@@ -41,7 +42,7 @@ data Options = MkOptions
     , optOutputDir       :: FilePath
     , optTime            :: Int
     , optUnprovedError   :: Bool
-    , optVerbose         :: Trie String Int
+    , optVerbose         :: Verbosity
     , optVersion         :: Bool
     } deriving ( Show )
 
