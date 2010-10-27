@@ -10,4 +10,3 @@ infixr 0 _$_
 -- The right associative application operator.
 _$_ : {A B : Set} → (A → B) → A → B
 f $ x = f x
-

@@ -128,4 +128,3 @@ isTreeOrd-Bool (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
     -- E 1.2 no-success due to timeout (180 sec).
     -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf &&-Bool ≤-TreeItem-Bool ≤-ItemTree-Bool #-}
-

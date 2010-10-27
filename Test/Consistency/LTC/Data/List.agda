@@ -12,4 +12,3 @@ open import LTC.Data.List
 postulate
   impossible : ( d e : D) → d ≡ e
 {-# ATP prove impossible #-}
-

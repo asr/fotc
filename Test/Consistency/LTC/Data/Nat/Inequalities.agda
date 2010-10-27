@@ -12,4 +12,3 @@ open import LTC.Data.Nat.Inequalities
 postulate
   impossible : ( d e : D) → d ≡ e
 {-# ATP prove impossible #-}
-
