@@ -1,4 +1,4 @@
-module BisimilarityPostFixedPoint where
+module BisimilarityPostulates where
 
 -- open import LTC.Minimal
 -- open import LTC.MinimalER
@@ -54,44 +54,38 @@ data _∧_ (A B : Set) : Set where
 ------------------------------------------------------------------------------
 
 BISI : (D → D → Set) → D → D → Set
-BISI R xs ys =
+BISI _R_ xs ys =
   ∃D (λ x' →
-  ∃D (λ y' →
   ∃D (λ xs' →
   ∃D (λ ys' →
-     x' ≡ y' ∧ R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ y' ∷ ys'))))
+     xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys')))
 
 postulate
   -- The bisimilarity relation.
   _≈_ : D → D → Set
 
-  -- The bisimilarity relation is a post-fixed point of BISI.
+  -- The bisimilarity relation is a post-fixed point of BISI
+  -- (first-order version).
   -≈-gfp₁ : {xs ys : D} → xs ≈ ys →
             ∃D (λ x' →
             ∃D (λ xs' →
             ∃D (λ ys' → xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys')))
 
--≈→BISI≈ : (xs ys : D) → xs ≈ ys → BISI _≈_ xs ys
--≈→BISI≈ xs ys xs≈ys =
-  x' , x' , xs' , ys' , refl , xs'≈ys' , xs≡x'∷xs' , ys≡x'∷ys'
-  where
-    x' : D
-    x' = ∃D-proj₁ (-≈-gfp₁ xs≈ys)
+  -- The bisimilarity relation is the greatest post-fixed point of
+  -- BISI (first-order version).
+  -≈-gfp₂ : {_R_ : D → D → Set} →
+            -- R is a post-fixed point of BISI.
+            ({xs ys : D} → xs R ys →
+              ∃D (λ x' →
+              ∃D (λ xs' →
+              ∃D (λ ys' → xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys')))) →
+            -- ≈ is the greatest post-fixed point.
+            {xs ys : D} → xs R ys → xs ≈ ys
 
-    xs' : D
-    xs' = ∃D-proj₁ (∃D-proj₂ (-≈-gfp₁ xs≈ys))
+-≈→BISI≈ : {xs ys : D} → xs ≈ ys → BISI _≈_ xs ys
+-≈→BISI≈ xs≈ys = -≈-gfp₁ xs≈ys
 
-    ys' : D
-    ys' = ∃D-proj₁ (∃D-proj₂ (∃D-proj₂ (-≈-gfp₁ xs≈ys)))
-
-    aux : xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
-    aux = ∃D-proj₂ (∃D-proj₂ (∃D-proj₂ (-≈-gfp₁ xs≈ys)))
-
-    xs'≈ys' : xs' ≈ ys'
-    xs'≈ys' = ∧-proj₁ aux
-
-    xs≡x'∷xs' : xs ≡ x' ∷ xs'
-    xs≡x'∷xs' = ∧-proj₁ (∧-proj₂ aux)
-
-    ys≡x'∷ys' : ys ≡ x' ∷ ys'
-    ys≡x'∷ys' = ∧-proj₂ (∧-proj₂ aux)
+R→BISI-R→R→≈ : {_R_ : D → D → Set} →
+               ({xs ys : D} → xs R ys → BISI _R_ xs ys) →
+               {xs ys : D} → xs R ys → xs ≈ ys
+R→BISI-R→R→≈ pfp xsRys = -≈-gfp₂ pfp xsRys

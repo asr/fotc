@@ -13,3 +13,4 @@ open import Test.Consistency.LTC.Data.Bool
 open import Test.Consistency.LTC.Data.List
 open import Test.Consistency.LTC.Data.Nat
 open import Test.Consistency.LTC.Data.Nat.Inequalities
+open import Test.Consistency.LTC.Data.Stream.Bisimilarity
