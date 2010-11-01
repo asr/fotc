@@ -43,28 +43,28 @@ import TPTP.Types ( AF )
 
 -----------------------------------------------------------------------------
 -- The ATPs.
-data ATP = Eprover
+data ATP = E
          | Equinox
          | IleanCoP
          | Metis
            deriving (Eq, Show)
 
 atp2exec :: ATP → String
-atp2exec Eprover  = "eprover"
+atp2exec E        = "eprover"
 atp2exec Equinox  = "equinox"
 atp2exec IleanCoP = "ileancop.sh"
 atp2exec Metis    = "metis"
 
 string2ATP :: String → ATP
-string2ATP "eprover"  = Eprover
+string2ATP "e"        = E
 string2ATP "equinox"  = Equinox
 string2ATP "ileancop" = IleanCoP
 string2ATP "metis"    = Metis
 string2ATP _          = __IMPOSSIBLE__
 
--- Tested with Eprover E 1.2 Badamtam.
-eproverOk :: String
-eproverOk = "Proof found!"
+-- Tested with E 1.2 Badamtam.
+eOk :: String
+eOk = "Proof found!"
 
 -- Tested with Equinox 5.0alpha (2010-03-29).
 equinoxOk :: String
@@ -82,13 +82,13 @@ checkOutputATP :: ATP → String → Bool
 checkOutputATP atp output = atpOk atp `isInfixOf` output
     where
       atpOk :: ATP → String
-      atpOk Eprover  = eproverOk
+      atpOk E        = eOk
       atpOk Equinox  = equinoxOk
       atpOk IleanCoP = ileancopOk
       atpOk Metis    = metisOk
 
 argsATP :: ATP → Int → FilePath → [String]
-argsATP Eprover  timeLimit file = [ "--tstp-format"
+argsATP E        timeLimit file = [ "--tstp-format"
                                   , "--soft-cpu-limit=" ++ show timeLimit
                                   , file
                                   ]

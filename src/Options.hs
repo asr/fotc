@@ -47,7 +47,7 @@ data Options = MkOptions
     } deriving ( Show )
 
 defaultOptATP :: [String]
-defaultOptATP = ["equinox", "eprover", "metis"]
+defaultOptATP = ["e", "equinox", "metis"]
 
 defaultOptions :: Options
 defaultOptions = MkOptions
@@ -111,7 +111,7 @@ options =
   [ Option "i" ["agda-include-path"] (ReqArg agdaIncludePathOpt "DIR")
                "looks for imports in DIR"
   , Option []  ["atp"] (ReqArg atpOpt "name")
-               "set the ATP (default: eprover, equinox, and metis)"
+               "set the ATP (default: e, equinox, and metis)"
   , Option []  ["definitions-as-axioms"] (NoArg defAsAxiomOpt)
                "translate the TPTP definitions as TPTP axioms"
   , Option "?" ["help"] (NoArg helpOpt)
