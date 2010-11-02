@@ -37,5 +37,6 @@ open import LTC.Data.Nat.PropertiesByInduction
 open import LTC.Data.Nat.Type
 
 open import LTC.Data.Stream.Bisimilarity
+open import LTC.Data.Stream.Bisimilarity.Properties
 
 open import LTC.Data.Product

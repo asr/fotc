@@ -70,6 +70,7 @@ all_type_checking     : all_type_checking_NER all_type_checking_ER
 ##############################################################################
 # Test the conjecture files.
 
+# Targets for conjectures in the examples.
 conjectures_DivisionPCF : conjectures_Examples/DivisionPCF
 conjectures_GCD         : conjectures_Examples/GCD
 conjectures_GCD-PCF     : conjectures_Examples/GCD-PCF
