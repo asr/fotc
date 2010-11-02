@@ -16,7 +16,8 @@ private
     prf : x ≡ y → x ≃ y
 
 ------------------------------------------------------------------------------
--- A version from Ulf's thesis.
+-- From the Ulf's thesis.
+
 module Original where
 
   infix  2 chain>_
@@ -33,7 +34,8 @@ module Original where
   prf p qed = p
 
 ------------------------------------------------------------------------------
--- A version from the standard library (Relation.Binary.PreorderReasoning).
+-- From the standard library (Relation.Binary.PreorderReasoning).
+
 module StdLib where
 
   infix  1 begin_
