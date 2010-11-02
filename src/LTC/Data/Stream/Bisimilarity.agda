@@ -38,7 +38,7 @@ postulate
               ∃D (λ x' →
               ∃D (λ xs' →
               ∃D (λ ys' → xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys')))) →
-            -- ≈ is the greater than R.
+            -- ≈ is greater than R.
            {xs ys : D} → xs R ys → xs ≈ ys
 
 module Bisimulation where
@@ -67,6 +67,8 @@ module Bisimulation where
 
   -- The bisimilarity relation is the greatest post-fixed point of BISI.
   R→BISI-R→R→≈ : {_R_ : D → D → Set} →
+                 -- R is a post-fixed point of BISI.
                  ({xs ys : D} → xs R ys → BISI _R_ xs ys) →
+                 -- ≈ is greater than R.
                  {xs ys : D} → xs R ys → xs ≈ ys
   R→BISI-R→R→≈ = -≈-gfp₂
