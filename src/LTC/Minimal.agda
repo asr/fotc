@@ -15,7 +15,7 @@ module LTC.Minimal where
 infixl 6 _∙_
 infixr 5 _∷_
 infix  5 if_then_else_
-infix  3 _≡_
+infix  4 _≡_
 
 ------------------------------------------------------------------------------
 -- The universal domain
