@@ -57,6 +57,7 @@ import Utils.Names ( freshName )
 #include "../../../undefined.h"
 
 ------------------------------------------------------------------------------
+
 argTermToFormula :: Arg Term → T FOLFormula
 argTermToFormula Arg {argHiding = NotHidden, unArg = term} = termToFormula term
 argTermToFormula Arg {argHiding = Hidden} =
@@ -98,7 +99,6 @@ termToFormula term@(Def (QName _ name) args) = do
                        isCNameFOLConst folForAll ) → do
 
                        fm ← termToFormula $ unArg a
-
 
                        vars ← lift get
 
