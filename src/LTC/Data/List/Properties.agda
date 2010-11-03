@@ -41,7 +41,7 @@ map-List f nilL = prf
     {-# ATP prove prf nilL #-}
 map-List f (consL x {xs} Lxs) = prf (map-List f Lxs)
   where
-    postulate prf : List (map f xs) → -- IH.
+    postulate prf : List (map f xs) →  -- IH.
                     List (map f (x ∷ xs))
     {-# ATP prove prf consL #-}
 
@@ -58,7 +58,6 @@ rev-List {ys = ys} (consL x {xs} Lxs) Lys = prf (rev-List Lxs (consL x Lys))
 
 reverse-List : {xs : D} → List xs → List (reverse xs)
 reverse-List Lxs = rev-List Lxs nilL
-
 
 ++-leftIdentity : {xs : D} → List xs → [] ++ xs ≡ xs
 ++-leftIdentity {xs} _ = ++-[] xs

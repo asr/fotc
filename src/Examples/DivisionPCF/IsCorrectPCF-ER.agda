@@ -48,9 +48,7 @@ div-x<y-aux {i} {j} Ni Nj i<j = sym
 
 div-x<y-correct : {i j : D} → N i → N j → LT i j →
                   (∃D (λ r → N r ∧ LT r j ∧ i ≡ j * (div i j) + r))
-div-x<y-correct {i} Ni Nj i<j =
-  i , (Ni , (i<j , (div-x<y-aux Ni Nj i<j)))
-
+div-x<y-correct {i} Ni Nj i<j = i , Ni , i<j , div-x<y-aux Ni Nj i<j
 
 -- The division result is correct when the dividend is greater or equal
 -- than the divisor.
@@ -87,21 +85,21 @@ div-x≥y-correct : {i j : D} → N i → N j →
                   GE i j →
                   ∃D (λ r → (N r) ∧ (LT r j) ∧ (i ≡ j * (div i j) + r))
 div-x≥y-correct {i} {j} Ni Nj ih i≥j =
-  r , (Nr , (r<j , (div-x≥y-aux Ni Nj Nr i≥j auxH)))
+  r , Nr , r<j , div-x≥y-aux Ni Nj Nr i≥j auxH
 
-    where
-      -- The parts of the inductive hipothesis ih.
-      r : D
-      r = ∃D-proj₁ (∧-proj₂ ih)
+  where
+    -- The parts of the inductive hipothesis ih.
+    r : D
+    r = ∃D-proj₁ (∧-proj₂ ih)
 
-      r-correct : N r ∧ LT r j ∧ i - j ≡ j * (div (i - j) j) + r
-      r-correct = ∃D-proj₂ (∧-proj₂ ih)
+    r-correct : N r ∧ LT r j ∧ i - j ≡ j * (div (i - j) j) + r
+    r-correct = ∃D-proj₂ (∧-proj₂ ih)
 
-      Nr : N r
-      Nr = ∧-proj₁ r-correct
+    Nr : N r
+    Nr = ∧-proj₁ r-correct
 
-      r<j : LT r j
-      r<j = ∧-proj₁ (∧-proj₂ r-correct)
+    r<j : LT r j
+    r<j = ∧-proj₁ (∧-proj₂ r-correct)
 
-      auxH : i - j ≡ j * (div (i - j) j) + r
-      auxH = ∧-proj₂ (∧-proj₂ r-correct)
+    auxH : i - j ≡ j * (div (i - j) j) + r
+    auxH = ∧-proj₂ (∧-proj₂ r-correct)

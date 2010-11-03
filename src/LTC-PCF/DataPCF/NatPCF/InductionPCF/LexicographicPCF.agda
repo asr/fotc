@@ -28,6 +28,7 @@ open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF
         )
 
 ------------------------------------------------------------------------------
+
 wfIndN-LT₂ :
   (P : D → D → Set) →
   ({m₁ n₁ : D} → N m₁ → N n₁ →
@@ -40,7 +41,6 @@ wfIndN-LT₂ P accH Nm Nn =  accH Nm Nn (wfAux Nm Nn)
       Sx≤y→x<y Nm Nn (≤-trans (sN Nm) No Nn
                               (x<y→Sx≤y Nm No m<o)
                               (Sx≤Sy→x≤y {o} {n} (x<y→Sx≤y No (sN Nn) o<Sn)))
-
 
     wfAux : {m₁ n₁ : D} → N m₁ → N n₁ → {m₂ n₂ : D} → N m₂ → N n₂ →
             LT₂ m₂ n₂ m₁ n₁ → P m₂ n₂

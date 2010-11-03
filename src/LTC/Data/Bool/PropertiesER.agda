@@ -7,6 +7,7 @@ module LTC.Data.Bool.PropertiesER where
 open import LTC.Minimal
 open import LTC.MinimalER using ( subst )
 
+open import Lib.Function using ( _$_ )
 import Lib.Relation.Binary.EqReasoning
 open module Bool-ER = Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
@@ -55,24 +56,25 @@ w&&x&&y&&z≡true→y≡true : {b₁ b₂ b₃ b₄ : D} →
                          b₃ ≡ true
 w&&x&&y&&z≡true→y≡true Bb₁ Bb₂ tB Bb₄ b₁&&b₂&&b₃&&b₄≡true = refl
 w&&x&&y&&z≡true→y≡true {b₁} {b₂} {b₄ = b₄} Bb₁ Bb₂ fB Bb₄ b₁&&b₂&&b₃&&b₄≡true =
-  ⊥-elim (true≠false (trans (sym b₁&&b₂&&b₃&&b₄≡true)
-                            ( begin
-                                b₁ && b₂ && false && b₄
-                                  ≡⟨ subst (λ t → b₁ && b₂ && false && b₄ ≡
-                                                  b₁ && b₂ && t)
-                                           (false&&x≡false Bb₄)
-                                           refl ⟩
-                                b₁ && b₂ && false
-                                  ≡⟨ subst (λ t → b₁ && b₂ && false ≡ b₁ && t)
-                                           (x&&false≡false Bb₂)
-                                           refl
-                                  ⟩
-                                b₁ && false
-                                  ≡⟨ x&&false≡false Bb₁ ⟩
-                                false
-                              ∎
-                            )))
-
+  ⊥-elim $ true≠false $ trans (sym b₁&&b₂&&b₃&&b₄≡true) prf
+  where
+    prf : b₁ && b₂ && false && b₄ ≡ false
+    prf =
+      begin
+        b₁ && b₂ && false && b₄
+          ≡⟨ subst (λ t → b₁ && b₂ && false && b₄ ≡ b₁ && b₂ && t)
+                   (false&&x≡false Bb₄)
+                   refl
+          ⟩
+        b₁ && b₂ && false
+          ≡⟨ subst (λ t → b₁ && b₂ && false ≡ b₁ && t)
+                   (x&&false≡false Bb₂)
+                   refl
+          ⟩
+        b₁ && false
+           ≡⟨ x&&false≡false Bb₁ ⟩
+        false
+      ∎
 
 w&&x&&y&&z≡true→z≡true : {b₁ b₂ b₃ b₄ : D} →
                          Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
@@ -81,23 +83,25 @@ w&&x&&y&&z≡true→z≡true : {b₁ b₂ b₃ b₄ : D} →
 w&&x&&y&&z≡true→z≡true Bb₁ Bb₂ Bb₃ tB b₁&&b₂&&b₃&&b₄≡true = refl
 w&&x&&y&&z≡true→z≡true {b₁} {b₂} {b₃} Bb₁ Bb₂ Bb₃ fB
                        b₁&&b₂&&b₃&&b₄≡true =
-  ⊥-elim (true≠false (trans (sym b₁&&b₂&&b₃&&b₄≡true)
-                            ( begin
-                                b₁ && b₂ && b₃ && false
-                                  ≡⟨ subst (λ t → b₁ && b₂ && b₃ && false ≡
-                                                  b₁ && b₂ && t)
-                                           (x&&false≡false Bb₃)
-                                           refl ⟩
-                                b₁ && b₂ && false
-                                  ≡⟨ subst (λ t → b₁ && b₂ && false ≡ b₁ && t)
-                                           (x&&false≡false Bb₂)
-                                           refl
-                                  ⟩
-                                b₁ && false
-                                  ≡⟨ x&&false≡false Bb₁ ⟩
-                                false
-                              ∎
-                            )))
+  ⊥-elim $ true≠false $ trans (sym b₁&&b₂&&b₃&&b₄≡true) prf
+  where
+    prf : b₁ && b₂ && b₃ && false ≡ false
+    prf =
+      begin
+        b₁ && b₂ && b₃ && false
+          ≡⟨ subst (λ t → b₁ && b₂ && b₃ && false ≡ b₁ && b₂ && t)
+                   (x&&false≡false Bb₃)
+                   refl
+          ⟩
+        b₁ && b₂ && false
+          ≡⟨ subst (λ t → b₁ && b₂ && false ≡ b₁ && t)
+                   (x&&false≡false Bb₂)
+                   refl
+          ⟩
+        b₁ && false
+           ≡⟨ x&&false≡false Bb₁ ⟩
+        false
+      ∎
 
 ------------------------------------------------------------------------------
 -- Properties with inequalities
