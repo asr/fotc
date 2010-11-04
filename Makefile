@@ -22,6 +22,7 @@ succeed_agda_files = $(patsubst %.agda,%, \
 fail_files = $(patsubst %.agda,%, \
 	$(shell find $(fail_path) -name "*.agda"))
 
+# TODO: Test if the file *.ax exists.
 $(succeed_non_conjectures_files) : % : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
 	@if ! ( agda2atp --only-files $< ); then exit 1; fi

@@ -1,3 +1,4 @@
-axiom, ( a = b )
-axiom, ( b = c )
-axiom, ( c = d )
+axiom, ( ! \[A\] : ( A = A ) )
+axiom, ( a1 = a2 )
+axiom, ( b1 = b2 )
+axiom, ( c1 = c2 )

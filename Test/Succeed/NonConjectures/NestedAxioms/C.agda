@@ -4,17 +4,18 @@ module Test.Succeed.NonConjectures.NestedAxioms.C where
 Process this file should be generate a file general-roles.tptp with the
 following axioms
 
-fof(..., axiom, ( a = b )).
-fof(..., axiom, ( b = c )).
-fof(..., axiom, ( c = d )).
+fof(..., axiom, ( ! [A] : ( A = A ) )
+fof(..., axiom, ( a₁ = a₂ )).
+fof(..., axiom, ( b₁ = b₂ )).
+fof(..., axiom, ( c₁ = c₂ )).
 -}
 
-open import Test.Succeed.NonConjectures.NestedAxioms.A
-open import Test.Succeed.NonConjectures.NestedAxioms.B
+open import Test.Succeed.NonConjectures.NestedAxioms.Base using ( _≡_ ; D )
+
+-- Only imported for to translate the axioms.
+open import Test.Succeed.NonConjectures.NestedAxioms.B using ()
 
 postulate
-  d : D
-
-postulate
-  c≡d : c ≡ d
-{-# ATP axiom c≡d #-}
+  c₁ c₂ : D
+  c₁≡c₂ : c₁ ≡ c₂
+{-# ATP axiom c₁≡c₂ #-}

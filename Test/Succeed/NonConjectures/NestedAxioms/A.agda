@@ -1,12 +1,8 @@
 module Test.Succeed.NonConjectures.NestedAxioms.A where
 
-infix 4 _≡_
+open import Test.Succeed.NonConjectures.NestedAxioms.Base using ( _≡_ ; D )
 
 postulate
-  D   : Set
-  _≡_ : D → D → Set
-  a b : D
-
-postulate
-  a≡b : a ≡ b
-{-# ATP axiom a≡b #-}
+  a₁ a₂ : D
+  a₁≡a₂ : a₁ ≡ a₂
+{-# ATP axiom a₁≡a₂ #-}
