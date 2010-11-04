@@ -21,6 +21,7 @@ import Control.Monad.Trans.Reader ( ReaderT, runReaderT )
 
 import System.Environment ( getArgs, getProgName)
 import System.Exit ( exitFailure, exitSuccess )
+import System.IO ( hPutStrLn, stderr )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
@@ -127,7 +128,7 @@ main = do
   prgName ← liftIO getProgName
 
   r ← runErrorT $ runAgda2ATP prgName `catchError` \err → do
-         liftIO $ putStrLn $ prgName ++ ": " ++ err
+         liftIO $ hPutStrLn stderr $ prgName ++ ": " ++ err
          throwError err
   case r of
     Right _ → exitSuccess
