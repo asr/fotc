@@ -160,7 +160,7 @@ myReadInterface file = do
   case r of
         Right (Just i) → return i
         Right Nothing  → error $ "Error reading the interface file " ++ iFile
-        Left _         → error "Error from runTCM in myReadInterface"
+        Left  _        → error "Error from runTCM in myReadInterface"
 
 myGetInterface :: ModuleName → ER (Maybe Interface)
 myGetInterface x = do
@@ -174,7 +174,7 @@ myGetInterface x = do
 
   case r of
         Right (i, _) → return (Just i)
-        Left _       → return Nothing
+        Left  _      → return Nothing
 
 isAxiomATP :: Definition → Bool
 isAxiomATP def =

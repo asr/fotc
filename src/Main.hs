@@ -132,7 +132,7 @@ main = do
          throwError err
   case r of
     Right _ → exitSuccess
-    Left _  → exitFailure
+    Left  _ → exitFailure
   `catchImpossible` \e → do
          putStr $ show e
          exitFailure

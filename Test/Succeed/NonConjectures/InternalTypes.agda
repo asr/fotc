@@ -66,7 +66,7 @@ module Fun where
   postulate
     P       : D → Set
     a       : D
-    termFun : P a  → P a
+    termFun : P a → P a
   {-# ATP axiom termFun #-}
 
 ------------------------------------------------------------------------------
