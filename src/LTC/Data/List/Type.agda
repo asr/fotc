@@ -4,7 +4,7 @@
 
 module LTC.Data.List.Type where
 
-open import LTC.Minimal
+open import LTC.Base
 
 ------------------------------------------------------------------------------
 -- The LTC list type.

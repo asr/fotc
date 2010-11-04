@@ -7,14 +7,13 @@
 
 module Examples.GCD.ProofSpecificationER where
 
-open import LTC.Minimal
+open import LTC.Base
 
-open import Examples.GCD.GCD using ( gcd )
+open import Examples.GCD.GCD using ( ¬x≡0∧y≡0 ; gcd )
 open import Examples.GCD.IsCommonDivisorER using ( CD ; gcd-CD )
 open import Examples.GCD.IsDivisibleER using ( gcd-Divisible )
 open import Examples.GCD.IsGreatestAnyCommonDivisorER using ( GACD ; gcd-GACD )
 open import Examples.GCD.IsN-ER using ( gcd-N )
-open import Examples.GCD.Types using ( ¬x≡0∧y≡0 )
 
 open import LTC.Data.Nat.Type using ( N )
 

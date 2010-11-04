@@ -4,11 +4,12 @@
 
 module Test.Consistency.LTC.Data.Nat where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import LTC.Data.Nat
 
 ------------------------------------------------------------------------------
+-- See Test.Consistency.Readme.
 postulate
-  impossible : ( d e : D) → d ≡ e
+  impossible : (d e : D) → d ≡ e
 {-# ATP prove impossible #-}

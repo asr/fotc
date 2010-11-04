@@ -1,10 +1,10 @@
 ------------------------------------------------------------------------------
--- LTC minimal (some core definitions)
+-- LTC base (some core definitions)
 ------------------------------------------------------------------------------
 
--- The definitions in this file are reexported by LTC.Minimal
+-- The definitions in this file are reexported by LTC.Base
 
-module LTC.Minimal.Core where
+module LTC.Base.Core where
 
 ----------------------------------------------------------------------------
 -- The universal domain.

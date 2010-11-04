@@ -5,7 +5,7 @@
 
 module Examples.GCD-PCF.GCD-PCF where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import LTC-PCF.DataPCF.NatPCF using ( _-_ )
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( gt )
@@ -63,3 +63,9 @@ gcdh g = lam (gcd-aux₂ g)
 gcd : D → D → D
 gcd d e = fix gcdh ∙ d ∙ e
 {-# ATP definition gcd #-}
+
+------------------------------------------------------------------------------
+-- Common functions used by the gcd example
+
+¬x≡0∧y≡0 : D → D → Set
+¬x≡0∧y≡0 d e = ¬ (d ≡ zero ∧ e ≡ zero)

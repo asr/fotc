@@ -4,8 +4,8 @@
 
 module LTC.Data.List.PropertiesER where
 
-open import LTC.Minimal
-open import LTC.MinimalER using ( subst )
+open import LTC.Base
+open import LTC.BaseER using ( subst )
 
 import Lib.Relation.Binary.EqReasoning
 open module List-ER = Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans

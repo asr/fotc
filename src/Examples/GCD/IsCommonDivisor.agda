@@ -4,14 +4,13 @@
 
 module Examples.GCD.IsCommonDivisor where
 
-open import LTC.Minimal
-open import LTC.Minimal.Properties using ( ¬S≡0 )
+open import LTC.Base
+open import LTC.Base.Properties using ( ¬S≡0 )
 
-open import Examples.GCD.GCD using ( gcd )
+open import Examples.GCD.GCD using ( ¬x≡0∧y≡0 ; gcd )
 open import Examples.GCD.IsN using ( gcd-N )
-open import Examples.GCD.Types using ( ¬x≡0∧y≡0 )
 
-open import Lib.Function using ( _$_)
+open import Lib.Function using ( _$_ )
 
 open import LTC.Data.Nat
   using ( _+_ ; _-_

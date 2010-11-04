@@ -4,9 +4,10 @@
 
 module Examples.GCD-PCF.EquationsPCF where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import Examples.GCD-PCF.GCD-PCF using ( gcd )
+
 open import LTC-PCF.DataPCF.NatPCF using ( _-_ )
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( GT ; LE )
 

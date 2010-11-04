@@ -4,7 +4,7 @@
 
 module LTC.Data.Nat.Induction.WellFounded where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import LTC.Data.Nat.Inequalities using ( LT )
 open import LTC.Data.Nat.Inequalities.Properties

@@ -4,14 +4,13 @@
 
 module Examples.GCD.IsCommonDivisorER where
 
-open import LTC.Minimal
-open import LTC.Minimal.Properties using ( ¬S≡0 )
-open import LTC.MinimalER using ( subst )
+open import LTC.Base
+open import LTC.Base.Properties using ( ¬S≡0 )
+open import LTC.BaseER using ( subst )
 
 open import Examples.GCD.GCD
-  using ( gcd ; gcd-0S ; gcd-S0 ; gcd-S≤S ; gcd-S>S )
+  using ( ¬x≡0∧y≡0 ; gcd ; gcd-0S ; gcd-S0 ; gcd-S≤S ; gcd-S>S )
 open import Examples.GCD.IsN-ER using ( gcd-N )
-open import Examples.GCD.Types using ( ¬x≡0∧y≡0 )
 
 open import Lib.Function using ( _$_ )
 

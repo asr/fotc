@@ -4,7 +4,7 @@
 
 module Examples.DivisionPCF.SpecificationPCF where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import LTC-PCF.DataPCF.NatPCF
   using ( _+_ ; _*_

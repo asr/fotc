@@ -4,7 +4,7 @@
 
 module Examples.GCD-PCF.IsGreatestAnyCommonDivisorPCF-ER where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import Examples.GCD-PCF.IsCommonDivisorPCF-ER using ( CD )
 open import Examples.GCD-PCF.IsDivisiblePCF-ER using ( Divisible )

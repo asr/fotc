@@ -2,10 +2,9 @@
 -- PCF terms properties (using equational reasoning)
 ------------------------------------------------------------------------------
 
-module LTC.Minimal.PropertiesER where
+module LTC.Base.PropertiesER where
 
-open import LTC.Minimal
--- open import LTC.MinimalER using ( subst )
+open import LTC.Base
 
 ------------------------------------------------------------------------------
 -- See the ATP proof.

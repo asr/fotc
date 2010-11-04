@@ -12,8 +12,8 @@
 
 module Examples.SortList.ProofSpecificationER where
 
-open import LTC.Minimal
-open import LTC.MinimalER using ( subst )
+open import LTC.Base
+open import LTC.BaseER using ( subst )
 
 open import Examples.SortList.Closures.ListOrdER using ( flatten-ListOrd )
 open import Examples.SortList.Closures.TreeER using ( makeTree-Tree )
@@ -27,7 +27,6 @@ open import Examples.SortList.Closures.ListER
 open import Examples.SortList.PropertiesER
 
 ------------------------------------------------------------------------------
-
 -- The sort program generates a ordered list.
 sort-ListOrd : {is : D} → ListN is → ListOrd (sort is)
 sort-ListOrd {is} Lis =

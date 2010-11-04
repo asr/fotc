@@ -4,9 +4,9 @@
 
 module LTC.Data.Stream.Bisimilarity.PropertiesER where
 
-open import LTC.Minimal
-open import LTC.Minimal.Properties using (∷-injective)
-open import LTC.MinimalER using ( subst )
+open import LTC.Base
+open import LTC.Base.Properties using (∷-injective)
+open import LTC.BaseER using ( subst )
 
 open import LTC.Data.Stream.Bisimilarity using ( _≈_ ; -≈-gfp₁ )
 

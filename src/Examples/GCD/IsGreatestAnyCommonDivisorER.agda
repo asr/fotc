@@ -4,7 +4,7 @@
 
 module Examples.GCD.IsGreatestAnyCommonDivisorER where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import Examples.GCD.IsCommonDivisorER using ( CD )
 open import Examples.GCD.IsDivisibleER using ( Divisible )

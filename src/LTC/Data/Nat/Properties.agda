@@ -4,7 +4,7 @@
 
 module LTC.Data.Nat.Properties where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import Lib.Function using ( _$_ )
 

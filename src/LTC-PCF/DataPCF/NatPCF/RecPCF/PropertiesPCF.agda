@@ -4,7 +4,8 @@
 
 module LTC-PCF.DataPCF.NatPCF.RecPCF.PropertiesPCF where
 
-open import LTC.Minimal
+open import LTC.Base
+
 open import LTC-PCF.DataPCF.NatPCF.RecPCF using ( rec )
 
 ------------------------------------------------------------------------------

@@ -4,8 +4,8 @@
 
 module LTC.Data.Nat.PropertiesER where
 
-open import LTC.Minimal
-open import LTC.MinimalER using ( subst )
+open import LTC.Base
+open import LTC.BaseER using ( subst )
 
 open import Lib.Function using ( _$_ )
 import Lib.Relation.Binary.EqReasoning

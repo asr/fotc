@@ -12,8 +12,8 @@ open import Lib.Function
 open import Lib.Relation.Binary.EqReasoning
 open import Lib.Relation.Nullary
 
-open import LTC.Minimal
-open import LTC.Minimal.Properties
+open import LTC.Base
+open import LTC.Base.Properties
 
 open import LTC.Data.Bool
 open import LTC.Data.Bool.Properties

@@ -2,11 +2,12 @@
 -- PCF terms properties
 ------------------------------------------------------------------------------
 
-module LTC.Minimal.Properties where
+module LTC.Base.Properties where
 
-open import LTC.Minimal
+open import LTC.Base
 
 ------------------------------------------------------------------------------
+
 postulate
   succInjective : {d e : D} → succ d ≡ succ e → d ≡ e
 {-# ATP prove succInjective #-}

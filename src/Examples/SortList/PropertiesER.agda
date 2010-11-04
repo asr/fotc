@@ -4,8 +4,8 @@
 
 module Examples.SortList.PropertiesER where
 
-open import LTC.Minimal
-open import LTC.MinimalER using ( subst )
+open import LTC.Base
+open import LTC.BaseER using ( subst )
 
 open import Examples.SortList.Closures.BoolER
   using ( ≤-ItemList-Bool
@@ -35,7 +35,6 @@ open import LTC.Data.Nat.Type using ( N )
 open import LTC.Data.List using ( _++_ ; ++-[] ; ++-∷ )
 
 ------------------------------------------------------------------------------
-
 -- If (i ∷ is) is ordered then 'is' is ordered.
 -- This function is defined in this module to avoid cyclical dependencies.
 subList-ListOrd : {i : D} → N i → {is : D} → ListN is → ListOrd (i ∷ is) →

@@ -4,7 +4,7 @@
 
 module Examples.DivisionPCF.IsCorrectPCF where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import Examples.DivisionPCF.DivisionPCF using ( div )
 open import Examples.DivisionPCF.EquationsPCF using ( div-x<y ; div-x≥y )

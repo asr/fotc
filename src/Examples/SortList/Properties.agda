@@ -4,7 +4,7 @@
 
 module Examples.SortList.Properties where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import Examples.SortList.Closures.Bool
   using ( ≤-ItemList-Bool
@@ -30,7 +30,6 @@ open import LTC.Data.Nat.Type using ( N )
 open import LTC.Data.List using ( _++_ )
 
 ------------------------------------------------------------------------------
-
 -- If (i ∷ is) is ordered then 'is' is ordered.
 -- This function is defined in this module to avoid cyclical dependencies.
 subList-ListOrd : {i : D} → N i → {is : D} → ListN is → ListOrd (i ∷ is) →
@@ -50,7 +49,7 @@ xs≤[] nilLN                     _       = ≤-Lists-[] []
 xs≤[] (consLN {i} {is} Ni LNis) LOconsL =
   prf (xs≤[] LNis (subList-ListOrd Ni LNis LOconsL))
   where
-    postulate prf : LE-Lists is []  → --IH.
+    postulate prf : LE-Lists is [] →  --IH.
                     LE-Lists (i ∷ is) []
     {-# ATP prove prf ≤-ItemList-Bool isListOrd-Bool x&&y≡true→x≡true #-}
 

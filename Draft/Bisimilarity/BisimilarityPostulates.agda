@@ -1,7 +1,7 @@
 module BisimilarityPostulates where
 
--- open import LTC.Minimal
--- open import LTC.MinimalER
+-- open import LTC.Base
+-- open import LTC.BaseER
 
 infixr 5 _∷_
 infix 4 _≈_

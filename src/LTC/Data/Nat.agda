@@ -4,7 +4,7 @@
 
 module LTC.Data.Nat where
 
-open import LTC.Minimal
+open import LTC.Base
 
 infixl 7 _*_
 infixl 6 _+_ _-_

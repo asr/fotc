@@ -13,7 +13,7 @@
 
 module Examples.DivisionPCF.ProofSpecificationPCF-ER where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import Examples.DivisionPCF.DivisionPCF using ( div )
 open import Examples.DivisionPCF.IsCorrectPCF-ER

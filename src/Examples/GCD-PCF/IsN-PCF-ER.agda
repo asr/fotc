@@ -4,12 +4,11 @@
 
 module Examples.GCD-PCF.IsN-PCF-ER where
 
-open import LTC.Minimal
-open import LTC.Minimal.Properties using ( ¬S≡0 )
-open import LTC.MinimalER using ( subst )
+open import LTC.Base
+open import LTC.Base.Properties using ( ¬S≡0 )
+open import LTC.BaseER using ( subst )
 
-open import Examples.GCD.Types using ( ¬x≡0∧y≡0 )
-open import Examples.GCD-PCF.GCD-PCF using ( gcd )
+open import Examples.GCD-PCF.GCD-PCF using ( ¬x≡0∧y≡0 ; gcd )
 open import Examples.GCD-PCF.EquationsPCF
   using ( gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S )
 

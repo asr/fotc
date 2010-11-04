@@ -4,8 +4,8 @@
 
 module Examples.SortList.Closures.ListOrdER where
 
-open import LTC.Minimal
-open import LTC.MinimalER using ( subst )
+open import LTC.Base
+open import LTC.BaseER using ( subst )
 
 open import Examples.SortList.Closures.BoolER
   using ( ≤-ItemList-Bool

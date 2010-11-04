@@ -5,7 +5,7 @@
 
 module LTC.Data.Nat.List.PropertiesER where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import LTC.Data.Nat.List.Type using ( ListN )
 open import LTC.Data.List using ( _++_ )

@@ -10,7 +10,7 @@ LTC                              Agda
 * Inductive predicates           * Inductive families
 -}
 
-module LTC.Minimal where
+module LTC.Base where
 
 infixl 6 _∙_
 infixr 5 _∷_
@@ -21,7 +21,7 @@ infix  4 _≡_
 -- The universal domain
 
 -- N.B. The following module is exported by this module.
-open import LTC.Minimal.Core public
+open import LTC.Base.Core public
 
 ------------------------------------------------------------------------------
 -- The term language of LTC correspond to the PCF terms.
@@ -81,7 +81,7 @@ sym refl = refl
 trans : {x y z : D} → x ≡ y → y ≡ z → x ≡ z
 trans refl y≡z = y≡z
 
--- The substitution is defined in LTC.MinimalER.
+-- The substitution is defined in LTC.BaseER.
 
 ------------------------------------------------------------------------------
 -- Logical constants: Curry-Howard isomorphism
@@ -103,7 +103,7 @@ open import LTC.Data.Product     public
 
 postulate
   -- Conversion rules for booleans.
-  if-true  : (d₁ : D){d₂ : D} →  if true then d₁ else d₂ ≡ d₁
+  if-true  : (d₁ : D){d₂ : D} → if true then d₁ else d₂  ≡ d₁
   if-false : {d₁ : D}(d₂ : D) → if false then d₁ else d₂ ≡ d₂
 {-# ATP axiom if-true #-}
 {-# ATP axiom if-false #-}

@@ -4,7 +4,7 @@
 
 module LTC.Data.Bool where
 
-open import LTC.Minimal
+open import LTC.Base
 
 infixr 6 _&&_
 

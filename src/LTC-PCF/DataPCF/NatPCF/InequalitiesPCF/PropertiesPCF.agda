@@ -4,8 +4,8 @@
 
 module LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF where
 
-open import LTC.Minimal
-open import LTC.Minimal.Properties using ( x≡y→Sx≡Sy )
+open import LTC.Base
+open import LTC.Base.Properties using ( x≡y→Sx≡Sy )
 
 open import Lib.Function using ( _$_ )
 

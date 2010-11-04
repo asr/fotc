@@ -1,12 +1,13 @@
 ------------------------------------------------------------------------------
--- Common types used by the gcd example
+-- Test the consistency of LTC.Base
 ------------------------------------------------------------------------------
 
-module Examples.GCD.Types where
+module Test.Consistency.LTC.Base where
 
-open import LTC.Minimal
+open import LTC.Base
 
 ------------------------------------------------------------------------------
--- TODO: Relocate this function.
-¬x≡0∧y≡0 : D → D → Set
-¬x≡0∧y≡0 d e = ¬ ((d ≡ zero) ∧ (e ≡ zero))
+-- See Test.Consistency.Readme.
+postulate
+  impossible : (d e : D) → d ≡ e
+{-# ATP prove impossible #-}

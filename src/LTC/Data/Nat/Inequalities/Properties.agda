@@ -4,8 +4,8 @@
 
 module LTC.Data.Nat.Inequalities.Properties where
 
-open import LTC.Minimal
-open import LTC.Minimal.Properties using ( x≡y→Sx≡Sy )
+open import LTC.Base
+open import LTC.Base.Properties using ( x≡y→Sx≡Sy )
 
 open import Lib.Function using ( _$_ )
 
@@ -26,6 +26,7 @@ open import LTC.Data.Nat.Properties
         )
 
 ------------------------------------------------------------------------------
+
 x≥0 : {n : D} → N n → GE n zero
 x≥0 zN          = <-0S zero
 x≥0 (sN {n} Nn) = <-0S (succ n)

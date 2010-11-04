@@ -4,7 +4,7 @@
 
 module LTC.Data.Nat.List.Type where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import LTC.Data.Nat.Type using ( N )
 

@@ -8,7 +8,7 @@
 
 module Test.Consistency.Readme where
 
-open import Test.Consistency.LTC.Minimal
+open import Test.Consistency.LTC.Base
 open import Test.Consistency.LTC.Data.Bool
 open import Test.Consistency.LTC.Data.List
 open import Test.Consistency.LTC.Data.Nat

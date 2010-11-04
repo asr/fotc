@@ -4,14 +4,14 @@
 
 module Draft.Bisimilarity.Stream.Postulates where
 
-open import LTC.Minimal
-open import LTC.MinimalER using ( subst )
+open import LTC.Base
+open import LTC.BaseER using ( subst )
 
 import Lib.Relation.Binary.EqReasoning
 open module Postulates-ER =
   Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
-open import LTC.Minimal.Properties using ( ∷-injective ; ≡-stream )
+open import LTC.Base.Properties using ( ∷-injective ; ≡-stream )
 
 open import LTC.Data.Stream.Bisimulation using ( _≈_ ; ≈-GFP-eq₁ ; BISI )
 

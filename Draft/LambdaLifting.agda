@@ -4,7 +4,7 @@
 
 module Draft.LambdaLifting where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import LTC.Data.Nat using ( _*_ )
 

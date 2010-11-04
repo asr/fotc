@@ -4,7 +4,7 @@
 
 module LTC.Data.Stream.Bisimilarity where
 
-open import LTC.Minimal
+open import LTC.Base
 
 infix 4 _≈_
 

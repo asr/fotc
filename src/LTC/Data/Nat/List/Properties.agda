@@ -4,7 +4,7 @@
 
 module LTC.Data.Nat.List.Properties where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import LTC.Data.Nat.List.Type
   using ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.

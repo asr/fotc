@@ -4,7 +4,7 @@
 
 module LTC-PCF.DataPCF.NatPCF.InequalitiesPCF where
 
-open import LTC.Minimal
+open import LTC.Base
 
 ------------------------------------------------------------------------------
 -- Version using lambda-abstraction.

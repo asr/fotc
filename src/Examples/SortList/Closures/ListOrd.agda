@@ -4,7 +4,7 @@
 
 module Examples.SortList.Closures.ListOrd where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import Examples.SortList.Closures.Bool
   using ( ≤-ItemList-Bool

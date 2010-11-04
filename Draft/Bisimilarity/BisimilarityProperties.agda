@@ -4,7 +4,7 @@
 
 module BisimilarityProperties where
 
--- open import LTC.Minimal
+-- open import LTC.Base
 
 -- open import LTC.Data.Stream.Bisimilarity
 

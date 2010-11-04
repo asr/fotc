@@ -4,7 +4,7 @@
 
 module LTC.Data.Product where
 
-open import LTC.Minimal.Core using ( D )
+open import LTC.Base.Core using ( D )
 
 infixr 4 _,_
 

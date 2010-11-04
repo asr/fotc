@@ -4,11 +4,10 @@
 
 module Examples.GCD.IsN where
 
-open import LTC.Minimal
-open import LTC.Minimal.Properties using ( ¬S≡0 )
+open import LTC.Base
+open import LTC.Base.Properties using ( ¬S≡0 )
 
-open import Examples.GCD.GCD using ( gcd )
-open import Examples.GCD.Types using ( ¬x≡0∧y≡0 )
+open import Examples.GCD.GCD using ( ¬x≡0∧y≡0 ; gcd )
 
 open import Lib.Function using ( _$_ )
 

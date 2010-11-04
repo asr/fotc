@@ -4,7 +4,7 @@
 
 module LTC.Data.Nat.Type where
 
-open import LTC.Minimal
+open import LTC.Base
 
 ------------------------------------------------------------------------------
 -- The inductive predicate 'N' represents the type of the natural

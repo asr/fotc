@@ -7,9 +7,9 @@
 
 module Draft.Bisimilarity.Stream.Coinductive where
 
-open import LTC.Minimal
+open import LTC.Base
 
-open import LTC.Minimal.Properties using ( ∷-injective ; ≡-stream )
+open import LTC.Base.Properties using ( ∷-injective ; ≡-stream )
 
 open import LTC.Data.Stream.Bisimulation using ( _≈_ ; ≈-GFP-eq₁ ; BISI )
 

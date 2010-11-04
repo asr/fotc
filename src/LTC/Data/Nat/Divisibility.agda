@@ -4,7 +4,7 @@
 
 module LTC.Data.Nat.Divisibility where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import LTC.Data.Nat using ( _*_ ; N )
 

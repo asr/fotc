@@ -4,7 +4,7 @@
 
 module LTC.Data.List where
 
-open import LTC.Minimal
+open import LTC.Base
 
 infixr 5 _++_
 

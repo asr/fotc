@@ -4,7 +4,7 @@
 
 module LTC.Data.List.PropertiesByInduction where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import LTC.Data.List
   using ( _++_

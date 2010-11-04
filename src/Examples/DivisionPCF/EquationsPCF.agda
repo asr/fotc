@@ -4,7 +4,7 @@
 
 module Examples.DivisionPCF.EquationsPCF where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import Examples.DivisionPCF.DivisionPCF using ( div )
 

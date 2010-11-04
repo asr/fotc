@@ -4,7 +4,7 @@
 
 module LTC-PCF.DataPCF.NatPCF.DivisibilityPCF where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import LTC-PCF.DataPCF.NatPCF using ( _*_ ; N )
 

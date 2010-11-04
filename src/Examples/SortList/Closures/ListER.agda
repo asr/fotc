@@ -4,8 +4,8 @@
 
 module Examples.SortList.Closures.ListER where
 
-open import LTC.Minimal
-open import LTC.MinimalER using ( subst )
+open import LTC.Base
+open import LTC.BaseER using ( subst )
 
 open import Examples.SortList.SortList
   using ( flatten ; flatten-nilTree ; flatten-node ; flatten-tip

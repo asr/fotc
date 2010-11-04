@@ -4,9 +4,9 @@
 
 module LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF-ER where
 
-open import LTC.Minimal
-open import LTC.Minimal.Properties using ( x≡y→Sx≡Sy )
-open import LTC.MinimalER using ( subst )
+open import LTC.Base
+open import LTC.Base.Properties using ( x≡y→Sx≡Sy )
+open import LTC.BaseER using ( subst )
 
 open import Lib.Function using ( _$_ )
 import Lib.Relation.Binary.EqReasoning
@@ -33,6 +33,7 @@ open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF-ER
         )
 
 ------------------------------------------------------------------------------
+
 private
 
   -- Before to prove some properties for 'lt i j' it is convenient

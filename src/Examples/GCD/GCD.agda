@@ -5,12 +5,13 @@
 
 module Examples.GCD.GCD where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import LTC.Data.Nat using ( _-_ )
 open import LTC.Data.Nat.Inequalities using ( GT ; LE )
 
 ------------------------------------------------------------------------------
+
 postulate
   gcd : D → D → D
 
@@ -31,3 +32,9 @@ postulate
 {-# ATP axiom gcd-0S #-}
 {-# ATP axiom gcd-S>S #-}
 {-# ATP axiom gcd-S≤S #-}
+
+------------------------------------------------------------------------------
+-- Common functions used by the gcd example
+
+¬x≡0∧y≡0 : D → D → Set
+¬x≡0∧y≡0 d e = ¬ (d ≡ zero ∧ e ≡ zero)

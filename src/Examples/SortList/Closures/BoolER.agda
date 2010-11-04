@@ -4,8 +4,8 @@
 
 module Examples.SortList.Closures.BoolER where
 
-open import LTC.Minimal
-open import LTC.MinimalER using ( subst )
+open import LTC.Base
+open import LTC.BaseER using ( subst )
 
 open import Examples.SortList.SortList
   using ( ≤-ItemList ; ≤-ItemList-[] ; ≤-ItemList-∷
@@ -27,6 +27,7 @@ open import LTC.Data.Nat.List.Type
 open import LTC.Data.Nat.Type using ( N )
 
 ------------------------------------------------------------------------------
+
 ≤-ItemList-Bool : {item : D} → N item → {is : D} → ListN is →
                   Bool (≤-ItemList item is)
 ≤-ItemList-Bool {item} Nitem nilLN = subst Bool (sym (≤-ItemList-[] item)) tB

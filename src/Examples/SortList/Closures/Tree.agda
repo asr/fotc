@@ -4,7 +4,7 @@
 
 module Examples.SortList.Closures.Tree where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import Examples.SortList.SortList
   using ( nilTree ; node ; tip
@@ -21,6 +21,7 @@ open import LTC.Data.Nat.List.Type
 open import LTC.Data.Nat.Type using ( N )
 
 ------------------------------------------------------------------------------
+
 toTree-Tree : {item : D}{t : D} → N item → Tree t → Tree (toTree ∙ item ∙ t)
 toTree-Tree {item} Nitem nilT = prf
   where

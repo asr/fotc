@@ -4,8 +4,8 @@
 
 module Examples.DivisionPCF.EquationsPCF-ER where
 
-open import LTC.Minimal
-open import LTC.MinimalER using ( subst )
+open import LTC.Base
+open import LTC.BaseER using ( subst )
 
 open import Examples.DivisionPCF.DivisionPCF using ( div ; divh )
 

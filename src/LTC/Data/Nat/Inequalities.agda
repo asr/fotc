@@ -4,9 +4,10 @@
 
 module LTC.Data.Nat.Inequalities where
 
-open import LTC.Minimal
+open import LTC.Base
 
 ------------------------------------------------------------------------------
+
 postulate
   _<_  : D → D → D
   <-00 :             zero   < zero   ≡ false

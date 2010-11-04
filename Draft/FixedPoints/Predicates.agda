@@ -1,6 +1,6 @@
 module Draft.FixedPoints.Predicates where
 
-open import LTC.Minimal
+open import LTC.Base
 
 ------------------------------------------------------------------------------
 

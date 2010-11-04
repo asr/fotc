@@ -4,7 +4,7 @@
 
 module LTC.Data.Bool.Properties where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import LTC.Data.Bool
   using ( _&&_ ; &&-ff ; &&-ft ; &&-tf

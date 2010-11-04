@@ -4,7 +4,7 @@
 
 module LTC-PCF.DataPCF.NatPCF.PropertiesPCF where
 
-open import LTC.Minimal
+open import LTC.Base
 
 open import Lib.Function using ( _$_ )
 
