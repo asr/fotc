@@ -160,7 +160,7 @@ gcd-Divisible = wfIndN-LT₂ P istep
     P i j = ¬x≡0∧y≡0 i j → Divisible i j (gcd i j)
 
     istep :
-      {i j : D} → N i → N j  →
+      {i j : D} → N i → N j →
       ({k l : D} → N k → N l → LT₂ k l i j → P k l) →
       P i j
     istep Ni Nj accH =

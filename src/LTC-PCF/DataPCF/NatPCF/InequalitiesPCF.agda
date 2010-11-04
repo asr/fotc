@@ -58,11 +58,11 @@ NGT : D → D → Set
 NGT d e = gt d e ≡ false
 {-# ATP definition NGT #-}
 
-LT : D → D  → Set
+LT : D → D → Set
 LT d e = d < e ≡ true
 {-# ATP definition LT #-}
 
-NLT : D → D  → Set
+NLT : D → D → Set
 NLT d e = d < e ≡ false
 {-# ATP definition NLT #-}
 

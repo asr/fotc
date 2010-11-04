@@ -45,8 +45,8 @@ postulate
   ≤-ItemList    : D → D → D
   ≤-ItemList-[] : (item : D) → ≤-ItemList item [] ≡ true
   ≤-ItemList-∷  : (item i is : D) →
-                  ≤-ItemList item (i ∷ is) ≡ item ≤ i &&
-                                             ≤-ItemList item is
+                  ≤-ItemList item (i ∷ is)        ≡ item ≤ i &&
+                                                    ≤-ItemList item is
 {-# ATP axiom ≤-ItemList-[] #-}
 {-# ATP axiom ≤-ItemList-∷ #-}
 
@@ -56,7 +56,7 @@ LE-ItemList item is = ≤-ItemList item is ≡ true
 
 postulate
   ≤-Lists    : D → D → D
-  ≤-Lists-[] : (is : D) → ≤-Lists [] is            ≡ true
+  ≤-Lists-[] : (is : D) →      ≤-Lists []       is ≡ true
   ≤-Lists-∷  : (i is js : D) → ≤-Lists (i ∷ is) js ≡ ≤-ItemList i is &&
                                                      ≤-Lists is js
 {-# ATP axiom ≤-Lists-[] #-}
@@ -68,7 +68,7 @@ LE-Lists is js = ≤-Lists is js ≡ true
 
 postulate
   ≤-ItemTree          : D → D → D
-  ≤-ItemTree-nilTree  : (item : D) → ≤-ItemTree item nilTree   ≡ true
+  ≤-ItemTree-nilTree  : (item : D) →   ≤-ItemTree item nilTree ≡ true
   ≤-ItemTree-tip      : (item i : D) → ≤-ItemTree item (tip i) ≡ item ≤ i
   ≤-ItemTree-node     : (item t₁ i t₂ : D) →
                         ≤-ItemTree item (node t₁ i t₂) ≡ ≤-ItemTree item t₁ &&
@@ -84,7 +84,7 @@ LE-ItemTree item t = ≤-ItemTree item t ≡ true
 -- No defined by Burstall.
 postulate
   ≤-TreeItem         : D → D → D
-  ≤-TreeItem-nilTree : (item : D) → ≤-TreeItem nilTree item   ≡ true
+  ≤-TreeItem-nilTree : (item : D) →   ≤-TreeItem nilTree item ≡ true
   ≤-TreeItem-tip     : (i item : D) → ≤-TreeItem (tip i) item ≡ i ≤ item
   ≤-TreeItem-node    : (t₁ i t₂ item : D) →
                        ≤-TreeItem (node t₁ i t₂) item ≡ ≤-TreeItem t₁ item &&
@@ -103,15 +103,15 @@ LE-TreeItem t item = ≤-TreeItem t item ≡ true
 
 postulate
   isListOrd    : D → D
-  isListOrd-[] : isListOrd [] ≡ true
-  isListOrd-∷  : (i is : D) → isListOrd (i ∷ is)  ≡ ≤-ItemList i is &&
-                                                    isListOrd is
+  isListOrd-[] :              isListOrd []       ≡ true
+  isListOrd-∷  : (i is : D) → isListOrd (i ∷ is) ≡ ≤-ItemList i is &&
+                                                   isListOrd is
 {-# ATP axiom isListOrd-[] #-}
 {-# ATP axiom isListOrd-∷ #-}
 
 postulate
   isTreeOrd         : D → D
-  isTreeOrd-nilTree : isTreeOrd nilTree           ≡ true
+  isTreeOrd-nilTree :           isTreeOrd nilTree ≡ true
   isTreeOrd-tip     : (i : D) → isTreeOrd (tip i) ≡ true
   isTreeOrd-node    : (t₁ i t₂ : D) →
                       isTreeOrd (node t₁ i t₂)    ≡ isTreeOrd t₁     &&
@@ -131,7 +131,6 @@ ListOrd is = isListOrd is ≡ true
 {-# ATP definition ListOrd #-}
 
 ------------------------------------------------------------------------------
-
 -- The program
 
 -- The function toTree adds an item to a tree.
@@ -142,7 +141,7 @@ ListOrd is = isListOrd is ≡ true
 
 postulate
   toTree          : D
-  toTree-nilTree  : (item : D) → toTree ∙ item ∙ nilTree ≡ tip item
+  toTree-nilTree  : (item : D) →   toTree ∙ item ∙ nilTree ≡ tip item
   toTree-tip      : (item i : D) → toTree ∙ item ∙ (tip i) ≡
                     if (i ≤ item)
                       then (node (tip i) item (tip item))
@@ -164,7 +163,7 @@ makeTree is = foldr toTree nilTree is
 -- The function flatten converts a tree to a list.
 postulate
   flatten         : D → D
-  flatten-nilTree : flatten nilTree           ≡ []
+  flatten-nilTree :           flatten nilTree ≡ []
   flatten-tip     : (i : D) → flatten (tip i) ≡ i ∷ []
   flatten-node    : (t₁ i t₂ : D) →
                     flatten (node t₁ i t₂)    ≡ flatten t₁ ++ flatten t₂

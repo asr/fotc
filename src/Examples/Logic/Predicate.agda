@@ -33,7 +33,7 @@ postulate
 -- Generalization of De Morgan's laws.
 postulate
   gDM₁ : ¬ (∀D P¹) ↔ ∃D (λ x → ¬ (P¹ x))
-  gDM₂ : ¬ (∃D P¹) ↔ ∀D (λ x  → ¬ (P¹ x))
+  gDM₂ : ¬ (∃D P¹) ↔ ∀D (λ x → ¬ (P¹ x))
   gDM₃ : ∀D P¹     ↔ ¬ (∃D (λ x → ¬ (P¹ x)))
   gDM₄ : ∃D P¹     ↔ ¬ (∀D (λ x → ¬ (P¹ x)))
 {-# ATP prove gDM₁ #-}

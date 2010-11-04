@@ -34,7 +34,7 @@ postulate
 
 postulate
   _*_ : D → D → D
-  *-0x : (d : D)   → zero   * d ≡ zero
+  *-0x : (d : D) →   zero   * d ≡ zero
   *-Sx : (d e : D) → succ d * e ≡ e + d * e
 {-# ATP axiom *-0x #-}
 {-# ATP axiom *-Sx #-}
