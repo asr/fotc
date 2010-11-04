@@ -45,25 +45,25 @@ private
         fun : D
         fun = lam (λ j → if (i < j)
                             then zero
-                            else (succ (fix divh ∙ (i - j) ∙ j)))
+                            else succ (fix divh ∙ (i - j) ∙ j))
 
     -- Second argument application
     div-s₃ : D → D → D
     div-s₃ i j = if (i < j)
                     then zero
-                    else (succ (fix divh ∙ (i - j) ∙ j))
+                    else succ (fix divh ∙ (i - j) ∙ j)
 
     -- lt i j ≡ true
     div-s₄ : D → D → D
     div-s₄ i j = if true
                     then zero
-                    else (succ (fix divh ∙ (i - j) ∙ j))
+                    else succ (fix divh ∙ (i - j) ∙ j)
 
     -- lt i j ≡ false
     div-s₅ : D → D → D
     div-s₅ i j = if false
                     then zero
-                    else (succ (fix divh ∙ (i - j) ∙ j))
+                    else succ (fix divh ∙ (i - j) ∙ j)
 
     -- The conditional is true
     div-s₆ : D
@@ -116,7 +116,7 @@ private
           fun : D → D
           fun y = lam (λ j → if (y < j)
                                 then zero
-                                else (succ (fix divh ∙ (y - j) ∙ j)))
+                                else succ (fix divh ∙ (y - j) ∙ j))
 
     -- From div-s₂ to div-s₃ using the conversion rule beta
     proof₂₋₃ : (i j : D) → div-s₂ i j ≡ div-s₃ i j
@@ -128,18 +128,18 @@ private
         fun : D → D
         fun y = if (i < y)
                    then zero
-                   else (succ ((fix divh) ∙ (i - y) ∙ y))
+                   else succ ((fix divh) ∙ (i - y) ∙ y)
 
     -- From div-s₃ to div-s₄ using the proof i<j
     proof₃_₄ : (i j : D) → LT i j → div-s₃ i j ≡ div-s₄ i j
     proof₃_₄ i j i<j =
       subst (λ t → if t
                       then zero
-                      else (succ ((fix divh) ∙ (i - j) ∙ j))
+                      else succ ((fix divh) ∙ (i - j) ∙ j)
                       ≡
                    if true
                       then zero
-                      else (succ ((fix divh) ∙ (i - j) ∙ j))
+                      else succ ((fix divh) ∙ (i - j) ∙ j)
             )
             (sym i<j)
             refl
@@ -149,11 +149,11 @@ private
     proof₃₋₅ {i} {j} Ni Nj i≥j =
       subst (λ t → if t
                       then zero
-                      else (succ ((fix divh) ∙ (i - j) ∙ j))
+                      else succ ((fix divh) ∙ (i - j) ∙ j)
                       ≡
                    if false
                       then zero
-                      else (succ ((fix divh) ∙ (i - j) ∙ j))
+                      else succ ((fix divh) ∙ (i - j) ∙ j)
             )
             (sym (x≥y→x≮y Ni Nj i≥j))
             refl

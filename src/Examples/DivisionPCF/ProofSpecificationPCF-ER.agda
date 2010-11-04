@@ -49,14 +49,14 @@ div-x≥y-DIV : {i j : D} → N i -> N j →
               GE i j →
               DIV i j (div i j)
 div-x≥y-DIV {i} {j} Ni Nj accH j>0 i≥j =
-  (div-x≥y-N Ni Nj ih i≥j) , div-x≥y-correct Ni Nj ih i≥j
+  div-x≥y-N Ni Nj ih i≥j , div-x≥y-correct Ni Nj ih i≥j
 
-    where
-      -- The inductive hypothesis on 'i - j'.
-      ih : DIV (i - j) j (div (i - j) j)
-      ih = accH {i - j}
-                (minus-N Ni Nj)
-                (x≥y→y>0→x-y<x Ni Nj i≥j j>0)
+  where
+    -- The inductive hypothesis on 'i - j'.
+    ih : DIV (i - j) j (div (i - j) j)
+    ih = accH {i - j}
+              (minus-N Ni Nj)
+              (x≥y→y>0→x-y<x Ni Nj i≥j j>0)
 
 ------------------------------------------------------------------------------
 -- The division satisfies the specification.
