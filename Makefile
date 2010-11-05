@@ -77,15 +77,15 @@ conjectures_GCD-PCF     : conjectures_Examples/GCD-PCF
 conjectures_Logic       : conjectures_Examples/Logic
 conjectures_SortList    : conjectures_Examples/SortList
 
-# The time limit should be the maximum (--time=720) which is required
-# by the postulate Examples.SortList.Closures.TreeOrdrightSubTree-TreeOrd.
+# The time limit should be the maximum (720 sec) which is required
+# by Examples.SortList.Closures.TreeOrd.rightSubTree-TreeOrd.
 # TODO: To use a variable for the find result
 conjectures_Examples/% :
 	for file in \
 	  `find src/Examples/$*/ -name '*.agda' | xargs grep -l 'ATP prove'`; do \
 	    rm -f /tmp/*.tptp; \
             if ! ( ${AGDA} $${file} ); then exit 1; fi; \
-	    if ! ( ${AGDA2ATP} --time=180 $${file} ); then exit 1; fi; \
+	    if ! ( ${AGDA2ATP} --time=300 $${file} ); then exit 1; fi; \
 	done
 
 # Process LTC and LTC-PCF conjectures.
