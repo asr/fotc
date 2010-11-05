@@ -2,10 +2,20 @@
 -- Common entities
 ------------------------------------------------------------------------------
 
-module Common ( ER, iVarNames, Vars ) where
+module Common
+    ( AllDefinitions
+    , ER
+    , iVarNames
+    , TopLevelDefinitions
+    , Vars
+    )
+    where
 
 -- Haskell imports
 import Control.Monad.Trans.Error ( ErrorT )
+
+-- Agda library imports
+import Agda.TypeChecking.Monad.Base ( Definitions )
 
 -- Local imports
 import Reports ( R )
@@ -21,3 +31,7 @@ type Vars = [String]
 -- The initial enviroment.
 iVarNames :: Vars
 iVarNames = []
+
+
+type AllDefinitions      = Definitions
+type TopLevelDefinitions = Definitions

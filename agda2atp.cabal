@@ -13,15 +13,15 @@ executable agda2atp
   extensions:     CPP
                   ScopedTypeVariables
 
-  build-depends:  base == 4.2.*
-                  , Agda == 2.2.9.1
-                  , containers == 0.3.*
-                  , directory >= 1.0.0.3 && < 1.1
-                  , filepath >= 1.1.0.3 && < 1.2
-                  , ghc >= 6.12 && < 6.14
-                  , process >= 1.0.1.2 && < 1.1
+  build-depends:  base           == 4.2.*
+                  , Agda         == 2.2.9.1
+                  , containers   >= 0.1.0   && < 1
+                  , directory    >= 1.0.0.3 && < 1.1
+                  , filepath     >= 1.1.0.3 && < 1.2
+                  , ghc          >= 6.12    && < 6.14
+                  , process      >= 1.0.1.2 && < 1.1
                   , transformers >= 0.2.0.0 && < 0.3
-                  -- , utility-ht >= 0.0.5.1 && < 0.1
+                  -- , utility-ht   >= 0.0.5.1 && < 0.1
 
   other-modules:  Common
                   AgdaLib.EtaExpansion

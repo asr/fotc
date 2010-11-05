@@ -8,7 +8,7 @@ module Main ( main ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad ( when )
+import Control.Monad ( liftM2, when )
 import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.Class ( lift )
 import Control.Monad.Trans.Error
@@ -19,6 +19,8 @@ import Control.Monad.Trans.Error
     )
 import Control.Monad.Trans.Reader ( ReaderT, runReaderT )
 
+import qualified Data.Map as Map ( unions )
+
 import System.Environment ( getArgs, getProgName)
 import System.Exit ( exitFailure, exitSuccess )
 import System.IO ( hPutStrLn, stderr )
@@ -26,7 +28,11 @@ import System.IO ( hPutStrLn, stderr )
 ------------------------------------------------------------------------------
 -- Agda library imports
 
-import Agda.TypeChecking.Monad.Base ( Interface )
+import Agda.TypeChecking.Monad.Base
+    ( Definitions
+    , Interface(iSignature)
+    , Signature(sigDefinitions)
+    )
 import Agda.Utils.Impossible
     ( catchImpossible
 --    , Impossible(Impossible)
@@ -42,19 +48,14 @@ import AgdaLib.Interface
     , myReadInterface
     )
 import ATP.ATP ( callATP )
-import Common ( ER )
+import Common ( AllDefinitions, ER )
 import Options
     ( Options(optHelp, optVersion)
     , processOptions
     , usage
     )
 import Reports ( reportS )
-import TPTP.Translation
-    ( axiomsToAFs
-    , generalHintsToAFs
-    , conjecturesToAFs
-    , fnsToAFs
-    )
+import TPTP.Translation ( conjecturesToAFs, generalRolesToAFs )
 import TPTP.Types ( AF )
 import Utils.IO ( bye )
 import Utils.Version ( version )
@@ -62,21 +63,6 @@ import Utils.Version ( version )
 #include "undefined.h"
 
 ------------------------------------------------------------------------------
--- We translate the ATP axioms, (general) hints, and definitions for a
--- file. These TPTP roles are common to every conjecture.
-translationGeneralRoles :: Interface → ER [AF]
-translationGeneralRoles i = do
-
-  -- Getting the ATP axioms.
-  axioms ← axiomsToAFs i
-
-  -- Getting the ATP general hints.
-  generalHints ← generalHintsToAFs i
-
-  -- Getting the ATP definitions.
-  fns ← fnsToAFs i
-
-  return (axioms ++ generalHints ++ fns )
 
 translation :: FilePath → ER ([AF], [(AF, [AF])])
 translation file = do
@@ -87,16 +73,18 @@ translation file = do
 
   iInterfaces ← getImportedInterfaces i
 
-  generalRolesImportedFiles ← mapM translationGeneralRoles iInterfaces
-  generalRolesCurrentFile   ← translationGeneralRoles i
+  let topLevelDefs :: Definitions
+      topLevelDefs = sigDefinitions $ iSignature i
 
-  -- We translate the ATP pragma conjectures and their local hints
-  -- in the current module.
-  conjectures ← conjecturesToAFs i
+  let importedDefs :: [Definitions]
+      importedDefs = map (sigDefinitions . iSignature) iInterfaces
 
-  return ( concat generalRolesImportedFiles ++ generalRolesCurrentFile
-         , conjectures
-         )
+  let allDefs :: AllDefinitions
+      allDefs = Map.unions (topLevelDefs : importedDefs)
+
+  -- TODO: topLevelDefs ⊆ allDefs.
+  liftM2 (,) (generalRolesToAFs allDefs)
+             (conjecturesToAFs allDefs topLevelDefs)
 
 runAgda2ATP :: String → ErrorT String IO ()
 runAgda2ATP prgName = do

@@ -8,10 +8,13 @@
 module AgdaLib.EtaExpansion ( etaExpand ) where
 
 -- Haskell imports
-import Control.Monad.Trans.Class ( lift )
+
+-- import Control.Monad
+-- import Control.Monad.IO.Class ( liftIO )
 import Control.Monad.Trans.State ( evalState, get, StateT, put )
 
 -- Agda library imports
+
 -- import Agda.Syntax.Abstract.Name ( QName )
 import Agda.Syntax.Common
     ( Arg(Arg)
@@ -31,9 +34,10 @@ import Agda.Syntax.Literal ( Literal(LitLevel) )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
-import AgdaLib.Interface ( getQNameInterface, getQNameType )
+
+import AgdaLib.Interface ( qNameType )
 import AgdaLib.Syntax.DeBruijn ( increaseByOneVar )
-import Common ( ER, Vars )
+import Common ( AllDefinitions, ER, Vars )
 import Utils.Names ( freshName )
 
 #include "../undefined.h"
@@ -43,27 +47,25 @@ import Utils.Names ( freshName )
 type EE = StateT Vars ER
 
 class EtaExpandible a where
-    etaExpand :: a → EE a
+    etaExpand :: AllDefinitions → a → EE a
 
 instance EtaExpandible Type where
-    etaExpand (El (Type (Lit (LitLevel r n))) term)
+    etaExpand allDefs (El (Type (Lit (LitLevel r n))) term)
         | n `elem` [ 0, 1 ] =
-            do termEtaExpanded ← etaExpand term
+            do termEtaExpanded ← etaExpand allDefs term
                return $ El (Type (Lit (LitLevel r n))) termEtaExpanded
         | otherwise = __IMPOSSIBLE__
 
-    etaExpand _ = __IMPOSSIBLE__
+    etaExpand _ _ = __IMPOSSIBLE__
 
 instance EtaExpandible Term where
-    etaExpand (Def qName args) = do
+    etaExpand allDefs (Def qName args) = do
       vars ← get
 
-      interface ← lift $ getQNameInterface qName
-
       let qNameArity :: Nat
-          qNameArity = arity $ getQNameType interface qName
+          qNameArity = arity $ qNameType allDefs qName
 
-      argsEtaExpanded ← mapM etaExpand args
+      argsEtaExpanded ← mapM (etaExpand allDefs) args
 
       let newVar :: Arg Term
           newVar = Arg NotHidden Relevant (Var 0 [])
@@ -100,41 +102,41 @@ instance EtaExpandible Term where
 
     -- We don't know an example of eta-contraction with Con, therefore we
     -- don't do anything.
-    etaExpand term@(Con _ _ ) = return term
+    etaExpand _ term@(Con _ _ ) = return term
 
-    etaExpand (Fun tyArg ty) = do
-      tyArgEtaExpanded ← etaExpand tyArg
-      tyEtaExpanded    ← etaExpand ty
+    etaExpand allDefs (Fun tyArg ty) = do
+      tyArgEtaExpanded ← etaExpand allDefs tyArg
+      tyEtaExpanded    ← etaExpand allDefs ty
       return $ Fun tyArgEtaExpanded tyEtaExpanded
 
-    etaExpand (Lam h (Abs x termAbs)) = do
+    etaExpand allDefs (Lam h (Abs x termAbs)) = do
       -- We add the variable x to the enviroment.
       vars ← get
       put (x : vars)
 
-      termAbsEtaExpanded ← etaExpand termAbs
+      termAbsEtaExpanded ← etaExpand allDefs termAbs
       return $ Lam h (Abs x termAbsEtaExpanded)
 
     -- It seems it is not necessary to eta-expand the tyArg like in the
     -- case of Fun (Arg Type) Type.
-    etaExpand (Pi tyArg (Abs x tyAbs)) = do
+    etaExpand allDefs (Pi tyArg (Abs x tyAbs)) = do
       -- We add the variable x to the enviroment.
       vars ← get
       put (x : vars)
 
-      tyAbsEtaExpanded ← etaExpand tyAbs
+      tyAbsEtaExpanded ← etaExpand allDefs tyAbs
       return $ Pi tyArg (Abs x tyAbsEtaExpanded)
 
-    etaExpand (Var n args) = do
-      argsEtaExpanded ← mapM etaExpand args
+    etaExpand allDefs (Var n args) = do
+      argsEtaExpanded ← mapM (etaExpand allDefs) args
       return $ Var n argsEtaExpanded
 
-    etaExpand DontCare     = __IMPOSSIBLE__
-    etaExpand (Lit _ )     = __IMPOSSIBLE__
-    etaExpand (MetaV _ _ ) = __IMPOSSIBLE__
-    etaExpand (Sort _ )    = __IMPOSSIBLE__
+    etaExpand _ DontCare     = __IMPOSSIBLE__
+    etaExpand _ (Lit _ )     = __IMPOSSIBLE__
+    etaExpand _ (MetaV _ _ ) = __IMPOSSIBLE__
+    etaExpand _ (Sort _ )    = __IMPOSSIBLE__
 
 instance EtaExpandible a => EtaExpandible (Arg a) where
-    etaExpand (Arg h r t) = do
-      tEtaExpanded ← etaExpand t
+    etaExpand allDefs (Arg h r t) = do
+      tEtaExpanded ← etaExpand allDefs t
       return (Arg h r tEtaExpanded)

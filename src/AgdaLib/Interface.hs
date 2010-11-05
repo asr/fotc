@@ -9,13 +9,12 @@ module AgdaLib.Interface
     ( getClauses
     , getImportedInterfaces
     , getLocalHints
-    , getQNameDefinition
-    , getQNameInterface
-    , getQNameType
     , getRoleATP
     , myGetInterface
     , myReadInterface
+    , qNameDefinition
     , qNameLine
+    , qNameType
     )
     where
 
@@ -45,9 +44,9 @@ import Agda.Interaction.Options
     , Verbosity
     )
 import Agda.Syntax.Abstract.Name
-    ( ModuleName(MName)
+    ( ModuleName
     , Name(nameBindingSite)
-    , QName(QName)
+    , QName
     , qnameName
     )
 import Agda.Syntax.Common
@@ -67,9 +66,7 @@ import Agda.TypeChecking.Monad.Base
     , Definitions
     , funATP
     , funClauses
-    , iSignature
     , runTCM
-    , Signature(sigDefinitions)
     , theDef
     )
 import Agda.TypeChecking.Monad.Options
@@ -87,8 +84,7 @@ import qualified Agda.Utils.Trie as Trie ( singleton )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import AgdaLib.Syntax.Abstract.Name ( removeLastNameModuleName )
-import Common ( ER )
+import Common ( AllDefinitions, ER )
 import Options ( Options(optAgdaIncludePath) )
 import Reports ( reportSLn )
 
@@ -96,8 +92,8 @@ import Reports ( reportSLn )
 
 ------------------------------------------------------------------------------
 
-getRoleATP :: RoleATP → Interface → Definitions
-getRoleATP role i = Map.filter (isRole role) $ sigDefinitions $ iSignature i
+getRoleATP :: RoleATP → AllDefinitions → Definitions
+getRoleATP role = Map.filter $ isRole role
     where
       isRole :: RoleATP → Definition → Bool
       isRole AxiomATP      = isAxiomATP
@@ -234,26 +230,12 @@ isHintATP def =
 
        _             → False
 
-getQNameDefinition :: Interface → QName → Definition
-getQNameDefinition i qName =
-    fromMaybe __IMPOSSIBLE__ $ Map.lookup qName $ sigDefinitions $ iSignature i
+qNameDefinition :: AllDefinitions → QName → Definition
+qNameDefinition allDefs qName =
+    fromMaybe __IMPOSSIBLE__ $ Map.lookup qName allDefs
 
--- The modules names in a QName can to correspond to logical modules,
--- e.g. sub-modules, data types or records. This function finds the
--- interface associated with a QName.
-getQNameInterface :: QName → ER Interface
-getQNameInterface (QName qNameModule qName) =
-  case qNameModule of
-    (MName [])  → __IMPOSSIBLE__
-    (MName _ )  → do
-      im ← myGetInterface qNameModule
-      case im of
-        Nothing → getQNameInterface
-                    (QName (removeLastNameModuleName qNameModule) qName)
-        Just i  → return i
-
-getQNameType :: Interface → QName → Type
-getQNameType i qName = defType $ getQNameDefinition i qName
+qNameType :: AllDefinitions → QName → Type
+qNameType allDefs = defType . qNameDefinition allDefs
 
 -- The line where a QNname is defined.
 qNameLine :: QName → Int32
