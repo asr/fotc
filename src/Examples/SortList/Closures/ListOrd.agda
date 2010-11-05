@@ -44,7 +44,9 @@ open import LTC.Data.Bool.Properties
         ; w&&x&&y&&z≡true→y≡true
         ; w&&x&&y&&z≡true→z≡true
         )
-open import LTC.Data.Nat.List.Type using ( ListN ; consLN ; nilLN )
+open import LTC.Data.Nat.List.Type
+  using ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.
+        )
 open import LTC.Data.Nat.Type using ( N )
 open import LTC.Data.List using ( _++_ )
 
@@ -73,7 +75,7 @@ open import Postulates using ( ++-ListOrd-aux₁ )
                           (≤-Lists-Bool LNis LNjs)
                           (trans (sym (≤-Lists-∷ i is js)) i∷is≤js)))
   where
-    postulate prf : LE-ItemList item (is ++ js) → -- IH.
+    postulate prf : LE-ItemList item (is ++ js) →  -- IH.
                     LE-ItemList item ((i ∷ is) ++ js)
     -- E 1.2 no-success due to timeout (180 sec).
     {-# ATP prove prf ≤-Bool ≤-ItemList-Bool x&&y≡true→x≡true #-}
@@ -96,7 +98,7 @@ open import Postulates using ( ++-ListOrd-aux₁ )
                     (≤-Lists-Bool LNis LNjs)
                     (trans (sym (≤-Lists-∷ i is js)) i∷is≤js)))
   where
-    postulate prf : ListOrd (is ++ js) → -- IH.
+    postulate prf : ListOrd (is ++ js) →  -- IH.
                     ListOrd ((i ∷ is) ++ js)
     {-# ATP prove prf ≤-ItemList-Bool ≤-Lists-Bool
                       x&&y≡true→x≡true x&&y≡true→y≡true
@@ -162,7 +164,7 @@ mutual
         (leftSubTree-TreeOrd (nodeT Tta Nj Ttb) Ni nilT TOnode))
     where
       postulate prf : ListN (flatten (node ta j tb)) →
-                      ListOrd (flatten (node ta j tb)) → -- mutual IH.
+                      ListOrd (flatten (node ta j tb)) →  -- mutual IH.
                       LE-Lists (flatten (node ta j tb)) (flatten nilTree)
       {-# ATP prove prf xs≤[] #-}
 
@@ -187,9 +189,9 @@ mutual
       postulate prf : ListN (flatten ta) →
                       ListN (flatten tb) →
                       ListN (flatten (tip k)) →
-                      ListOrd (flatten ta ++ flatten tb) → -- Indirect mutual
-                                                           -- IH and IH.
-                      LE-Lists (flatten tb) (flatten (tip k)) → -- IH.
+                      ListOrd (flatten ta ++ flatten tb) →  -- Indirect mutual
+                                                            -- IH and IH.
+                      LE-Lists (flatten tb) (flatten (tip k)) →  -- IH.
                       LE-Lists (flatten (node ta j tb)) (flatten (tip k))
       -- E 1.2 no-success due to timeout (180 sec).
       {-# ATP prove prf listOrd-xs++ys→ys≤zs→xs++ys≤zs #-}
@@ -206,9 +208,9 @@ mutual
       #-}
 
       postulate
-        treeOrd-tb-i-k : LE-TreeItem tb i → -- NB. We need prove this
-                                            -- hypothesis in a separate
-                                            -- postulate.
+        treeOrd-tb-i-k : LE-TreeItem tb i →  -- NB. We need prove this
+                                             -- hypothesis in a separate
+                                             -- postulate.
                          TreeOrd (node tb i (tip k))
       -- E 1.2 no-success due to timeout (180 sec).
       {-# ATP prove treeOrd-tb-i-k rightSubTree-TreeOrd treeOrd-ta-j-tb
