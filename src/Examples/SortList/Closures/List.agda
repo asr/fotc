@@ -12,6 +12,9 @@ open import Examples.SortList.SortList
         ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
         )
 
+-- TODO: There is a bug with the importation in agda2atp.
+open import LTC.Data.Bool using ()
+
 open import LTC.Data.Nat.List.Type using ( ListN )
 open import LTC.Data.Nat.List.Properties using ( ++-ListN )
 

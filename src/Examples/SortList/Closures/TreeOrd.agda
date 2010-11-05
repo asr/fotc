@@ -25,6 +25,10 @@ open import Examples.SortList.Closures.Bool
         )
 open import Examples.SortList.Closures.Tree using ( makeTree-Tree )
 
+-- TODO: There is a bug with the importation in agda2atp.
+open import LTC.Data.Bool using ()
+open import LTC.Data.List using ()
+
 open import LTC.Data.Bool.Properties
   using ( &&-Bool
         ; x&&y≡true→x≡true

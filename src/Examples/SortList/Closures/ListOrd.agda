@@ -37,6 +37,9 @@ open import Examples.SortList.SortList
         ; TreeOrd
         )
 
+-- TODO: There is a bug with the importation in agda2atp.
+open import LTC.Data.Bool using ()
+
 open import LTC.Data.Bool.Properties
   using ( ≤-Bool
         ; x&&y≡true→x≡true

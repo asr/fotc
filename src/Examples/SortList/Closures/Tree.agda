@@ -13,6 +13,10 @@ open import Examples.SortList.SortList
         ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
         )
 
+-- TODO: There is a bug with the importation in agda2atp.
+open import LTC.Data.Bool using ()
+open import LTC.Data.List using ()
+
 open import LTC.Data.Nat.Inequalities using ( GT ; LE )
 open import LTC.Data.Nat.Inequalities.Properties using ( x>y∨x≤y ; x>y→x≰y )
 open import LTC.Data.Nat.List.Type

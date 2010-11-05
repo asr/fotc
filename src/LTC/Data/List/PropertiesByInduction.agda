@@ -11,6 +11,8 @@ open import LTC.Data.List
         ; indList
         ; List  -- The LTC list type.
         )
+-- TODO: There is a bug with the importation in agda2atp.
+open import LTC.Data.List.Type using ()
 
 ------------------------------------------------------------------------------
 ++-assoc : {xs ys zs : D} → List xs → List ys → List zs →

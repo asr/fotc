@@ -18,6 +18,8 @@ open import LTC.Data.List
         ; rev
         ; reverse
         )
+-- TODO: There is a bug with the importation in agda2atp.
+open import LTC.Data.List.Type using ()
 
 ------------------------------------------------------------------------------
 -- Closure properties
