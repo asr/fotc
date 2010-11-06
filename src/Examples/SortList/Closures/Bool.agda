@@ -17,9 +17,6 @@ open import Examples.SortList.SortList
         ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
         )
 
--- TODO: There is a bug with the importation in agda2atp.
-open import LTC.Data.Bool using ()
-
 open import LTC.Data.Bool.Properties using ( &&-Bool ; ≤-Bool )
 open import LTC.Data.Bool.Type
   using ( Bool  -- The LTC booleans type.

@@ -18,9 +18,6 @@ open import Examples.SortList.Closures.Tree using ( makeTree-Tree )
 open import Examples.SortList.Closures.TreeOrd using ( makeTree-TreeOrd )
 open import Examples.SortList.SortList using ( ListOrd ; sort )
 
--- TODO: There is a bug with the importation in agda2atp.
-open import LTC.Data.Bool using ()
-
 open import LTC.Data.Nat.List.Type
   using ( ListN  -- The LTC list of natural numbers type.
         )

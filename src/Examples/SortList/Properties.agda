@@ -17,10 +17,6 @@ open import Examples.SortList.SortList
         ; ListOrd
         )
 
--- TODO: There is a bug with the importation in agda2atp.
-open import LTC.Data.Bool using ()
-open import LTC.Data.Bool.Type using ()
-
 open import LTC.Data.Bool.Properties
   using ( x&&y≡true→x≡true
         ; x&&y≡true→y≡true
