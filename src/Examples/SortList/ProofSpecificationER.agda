@@ -20,7 +20,9 @@ open import Examples.SortList.Closures.TreeER using ( makeTree-Tree )
 open import Examples.SortList.Closures.TreeOrdER using ( makeTree-TreeOrd )
 open import Examples.SortList.SortList using ( ListOrd ; sort )
 
-open import LTC.Data.Nat.List.Type using ( ListN )
+open import LTC.Data.Nat.List.Type
+  using ( ListN  -- The LTC list of natural numbers type.
+        )
 
 -- TODO: These files are included but at the moment they are not requeried.
 open import Examples.SortList.Closures.ListER

@@ -19,6 +19,7 @@ open import Examples.SortList.SortList
 
 -- TODO: There is a bug with the importation in agda2atp.
 open import LTC.Data.Bool using ()
+open import LTC.Data.Bool.Type using ()
 
 open import LTC.Data.Bool.Properties
   using ( x&&y≡true→x≡true
@@ -29,7 +30,9 @@ open import LTC.Data.Nat.List.Properties using ( ++-ListN )
 open import LTC.Data.Nat.List.Type
   using ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.
         )
-open import LTC.Data.Nat.Type using ( N )
+open import LTC.Data.Nat.Type
+  using ( N  -- The LTC list of natural numbers type.
+        )
 open import LTC.Data.List using ( _++_ )
 
 ------------------------------------------------------------------------------

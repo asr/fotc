@@ -17,14 +17,16 @@ open import Examples.SortList.SortList
         ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
         )
 
-open import LTC.Data.Bool
+open import LTC.Data.Bool.Type
   using ( Bool ; tB  -- The LTC booleans type.
         )
 open import LTC.Data.Bool.PropertiesER using ( &&-Bool ; ≤-Bool )
 open import LTC.Data.Nat.List.Type
   using ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.
         )
-open import LTC.Data.Nat.Type using ( N )
+open import LTC.Data.Nat.Type
+  using ( N  -- The LTC natural numbers type.
+        )
 
 ------------------------------------------------------------------------------
 

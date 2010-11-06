@@ -10,16 +10,7 @@ infixr 6 _&&_
 
 ------------------------------------------------------------------------------
 -- The LTC booleans type.
-data Bool : D → Set where
-  tB : Bool true
-  fB : Bool false
-{-# ATP hint tB #-}
-{-# ATP hint fB #-}
-
--- The rule of proof by case analysis on Bool.
-indBool : (P : D → Set) → P true → P false → {b : D} → Bool b → P b
-indBool P pt pf tB = pt
-indBool P pt pf fB = pf
+open import LTC.Data.Bool.Type public
 
 ------------------------------------------------------------------------------
 -- Basic functions

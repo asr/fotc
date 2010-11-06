@@ -7,7 +7,9 @@ module LTC.Data.Nat.List.PropertiesER where
 
 open import LTC.Base
 
-open import LTC.Data.Nat.List.Type using ( ListN )
+open import LTC.Data.Nat.List.Type
+  using ( ListN  -- The LTC list of natural numbers type.
+        )
 open import LTC.Data.List using ( _++_ )
 
 ------------------------------------------------------------------------------

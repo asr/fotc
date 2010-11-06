@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Identity properties (they are not required when it is used the ATP)
+-- Identity properties (they are not required when the ATPs are used)
 ------------------------------------------------------------------------------
 
 module LTC.BaseER where

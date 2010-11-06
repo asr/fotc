@@ -26,6 +26,7 @@ open import LTC.Data.Nat.PropertiesER
         )
 
 ------------------------------------------------------------------------------
+
 x≥0 : {n : D} → N n → GE n zero
 x≥0 zN          = <-0S zero
 x≥0 (sN {n} Nn) = <-0S (succ n)

@@ -21,7 +21,9 @@ open import Examples.SortList.SortList using ( ListOrd ; sort )
 -- TODO: There is a bug with the importation in agda2atp.
 open import LTC.Data.Bool using ()
 
-open import LTC.Data.Nat.List.Type using ( ListN )
+open import LTC.Data.Nat.List.Type
+  using ( ListN  -- The LTC list of natural numbers type.
+        )
 
 ------------------------------------------------------------------------------
 -- The sort program generates an ordered list.

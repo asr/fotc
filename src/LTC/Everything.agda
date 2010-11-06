@@ -17,6 +17,7 @@ open import LTC.Base.Properties
 
 open import LTC.Data.Bool
 open import LTC.Data.Bool.Properties
+open import LTC.Data.Bool.Type
 
 open import LTC.Data.List
 open import LTC.Data.List.Properties

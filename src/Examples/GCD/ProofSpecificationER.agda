@@ -15,7 +15,9 @@ open import Examples.GCD.IsDivisibleER using ( gcd-Divisible )
 open import Examples.GCD.IsGreatestAnyCommonDivisorER using ( GACD ; gcd-GACD )
 open import Examples.GCD.IsN-ER using ( gcd-N )
 
-open import LTC.Data.Nat.Type using ( N )
+open import LTC.Data.Nat.Type
+  using ( N  -- The LTC list of natural numbers type.
+        )
 
 -----------------------------------------------------------------------
 -- Greatest commun divisor.

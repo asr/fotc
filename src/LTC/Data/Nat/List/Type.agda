@@ -6,7 +6,9 @@ module LTC.Data.Nat.List.Type where
 
 open import LTC.Base
 
-open import LTC.Data.Nat.Type using ( N )
+open import LTC.Data.Nat.Type
+  using ( N  -- The LTC list of natural numbers type.
+        )
 
 ------------------------------------------------------------------------------
 -- The LTC list of natural numbers type.

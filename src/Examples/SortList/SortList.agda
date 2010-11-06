@@ -14,7 +14,9 @@ open import LTC.Base
 
 open import LTC.Data.Bool using ( _&&_ )
 open import LTC.Data.Nat.Inequalities using ( _≤_ )
-open import LTC.Data.Nat.Type using ( N )
+open import LTC.Data.Nat.Type
+  using ( N  -- The LTC natural numbers type.
+        )
 open import LTC.Data.List using ( _++_ ; foldr )
 
 ------------------------------------------------------------------------------

@@ -15,7 +15,9 @@ open import Examples.GCD.IsDivisible using ( gcd-Divisible )
 open import Examples.GCD.IsGreatestAnyCommonDivisor using ( GACD ; gcd-GACD )
 open import Examples.GCD.IsN using ( gcd-N )
 
-open import LTC.Data.Nat.Type using ( N )
+open import LTC.Data.Nat.Type
+  using ( N  -- The LTC list of natural numbers type.
+        )
 
 -----------------------------------------------------------------------
 -- Greatest commun divisor.

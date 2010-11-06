@@ -10,6 +10,9 @@ open import LTC.Data.Bool
   using ( _&&_ ; &&-ff ; &&-ft ; &&-tf
         ; Bool ; fB ; tB  -- The LTC booleans type.
         )
+-- TODO: There is a bug with the importation in agda2atp.
+open import LTC.Data.Bool.Type using ()
+
 open import LTC.Data.Nat.Inequalities using ( _≤_ )
 open import LTC.Data.Nat.Inequalities.Properties using ( ≤-SS ; S≰0 )
 open import LTC.Data.Nat.Type
