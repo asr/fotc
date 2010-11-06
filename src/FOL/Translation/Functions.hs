@@ -94,7 +94,7 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
 
           -- See the reason for the order in the enviroment in
           -- FOL.Translation.Terms.termToFormula term@(Pi ... )
-          lift $ put (freshVar : vars)
+          lift $ put $ freshVar : vars
           f ← oneClauseToFormula qName ty (Clause r tels perm pats cBody)
           lift $ put vars
 

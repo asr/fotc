@@ -255,9 +255,8 @@ getClauses def =
 ------------------------------------------------------------------------------
 -- Imported interfaces
 
-allInterfaces :: [ModuleName] → StateT [ModuleName] ER [Interface]
-allInterfaces []       = return []
-allInterfaces (x : xs) = do
+importedInterfaces :: ModuleName → StateT [ModuleName] ER [Interface]
+importedInterfaces x = do
   visitedModules ← get
 
   if x `notElem` visitedModules
@@ -272,26 +271,17 @@ allInterfaces (x : xs) = do
       let iModules :: [ModuleName]
           iModules = iImportedModules i
 
-      -- TODO: Test allInterfaces (xs ++ iModules)
-      is1 ← allInterfaces xs
-      is2 ← allInterfaces iModules
-      return $ i : is1 ++ is2
+      -- TODO: Ugly concat.
+      is ← mapM importedInterfaces iModules
+      return $ i : concat is
 
     else return []
 
-getImportedInterfacesAux :: Interface → StateT [ModuleName] ER [Interface]
-getImportedInterfacesAux i = do
-  let iModules :: [ModuleName]
-      iModules = iImportedModules i
-
-  allInterfaces iModules
-
--- Return the interfaces recursively imported by the main interface.
+-- Return the interfaces recursively imported by the top level interface.
 getImportedInterfaces :: Interface → ER [Interface]
 getImportedInterfaces i = do
-  interfaces ← evalStateT (getImportedInterfacesAux i) []
+  -- TODO: Ugly concat.
+  iInterfaces ← evalStateT (mapM importedInterfaces $ iImportedModules i) []
   lift $ reportSLn "ii" 20 $
-           "Module names: " ++ show (map iModuleName interfaces)
-  lift $ reportSLn "ii" 20 $
-           "Total imported interfaces: " ++ show (length interfaces)
-  return interfaces
+           "Module names: " ++ show (map iModuleName $ concat iInterfaces)
+  return $ concat iInterfaces

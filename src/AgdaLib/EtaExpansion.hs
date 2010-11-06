@@ -88,7 +88,7 @@ instance EtaExpandible Term where
         then return $ Def qName argsEtaExpanded
         else if qNameArity - 1 == fromIntegral (length args)
                then do
-                 put (freshVar : vars)
+                 put $ freshVar : vars
                  -- Because we are going to add a new abstraction, we
                  -- need increase by one the numbers associated with the
                  -- variables in the arguments.
@@ -112,7 +112,7 @@ instance EtaExpandible Term where
     etaExpand allDefs (Lam h (Abs x termAbs)) = do
       -- We add the variable x to the enviroment.
       vars ← get
-      put (x : vars)
+      put $ x : vars
 
       termAbsEtaExpanded ← etaExpand allDefs termAbs
       return $ Lam h (Abs x termAbsEtaExpanded)
@@ -122,7 +122,7 @@ instance EtaExpandible Term where
     etaExpand allDefs (Pi tyArg (Abs x tyAbs)) = do
       -- We add the variable x to the enviroment.
       vars ← get
-      put (x : vars)
+      put $ x : vars
 
       tyAbsEtaExpanded ← etaExpand allDefs tyAbs
       return $ Pi tyArg (Abs x tyAbsEtaExpanded)

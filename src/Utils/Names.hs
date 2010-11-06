@@ -34,7 +34,7 @@ freshName = do
   names ← get
   let newName :: String
       newName = findFreeName names freeNames
-  put (newName : names)
+  put $ newName : names
   return newName
 
 -- bindVar :: String → T a → T a

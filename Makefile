@@ -2,7 +2,7 @@ haskell_files = $(shell find src/ -name '*.hs')
 
 general_roles_TPTP = /tmp/general-roles.tptp
 
-AGDA = agda -v 0
+AGDA     = agda -v 0
 AGDA2ATP = agda2atp
 
 succeed_conjectures_path     = Test/Succeed/Conjectures

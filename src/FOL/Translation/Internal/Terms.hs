@@ -181,7 +181,7 @@ termToFormula term@(Lam _ (Abs _ termLam)) = do
 
   -- See the reason for the order in the enviroment in
   -- termToFormula term@(Pi ... ).
-  lift $ put (freshVar : vars)
+  lift $ put $ freshVar : vars
   f ← termToFormula termLam
   lift $ put vars
   return f
@@ -202,7 +202,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   -- e.g. in '(A B C : Set) → ...', A is 2, B is 1, and C is 0,
   --
   -- so we need create the list in the same order.
-  lift $ put (freshVar : vars)
+  lift $ put $ freshVar : vars
   f2 ← typeToFormula tyAbs
   lift $ put vars
 
