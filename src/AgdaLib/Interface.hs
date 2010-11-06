@@ -271,17 +271,16 @@ importedInterfaces x = do
       let iModules :: [ModuleName]
           iModules = iImportedModules i
 
-      -- TODO: Ugly concat.
-      is ← mapM importedInterfaces iModules
-      return $ i : concat is
+      is ← fmap concat $ mapM importedInterfaces iModules
+      return $ i : is
 
     else return []
 
 -- Return the interfaces recursively imported by the top level interface.
 getImportedInterfaces :: Interface → ER [Interface]
 getImportedInterfaces i = do
-  -- TODO: Ugly concat.
-  iInterfaces ← evalStateT (mapM importedInterfaces $ iImportedModules i) []
+  iInterfaces ← fmap concat $
+                evalStateT (mapM importedInterfaces $ iImportedModules i) []
   lift $ reportSLn "ii" 20 $
-           "Module names: " ++ show (map iModuleName $ concat iInterfaces)
-  return $ concat iInterfaces
+           "Module names: " ++ show (map iModuleName iInterfaces)
+  return iInterfaces
