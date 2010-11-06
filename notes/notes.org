@@ -47,3 +47,10 @@ From Ulf comments in AIMX
 
 <Ulf: magic function Set → FOL is hopeless. reflection is so much
 better>
+
+* Tags
+** Tag 2010-11-06
+Last Agda patch for this tag:
+
+Wed Nov  3 15:03:26 COT 2010  Nils Anders Danielsson <nils.anders.danielsson@gmail.com>
+  * Documented how --test can be enabled by default for darcs record.
