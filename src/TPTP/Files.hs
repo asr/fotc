@@ -43,7 +43,7 @@ class ValidFileName a where
 
 instance ValidFileName Char where
     validFileName c
-        | c `elem` ['.', '_', '-'] = [c]
+        | c `elem` "._-" = [c]
         -- The character is a subscript number (i.e. ₀, ₁, ₂, ...).
         | ord c `elem` [8320 .. 8329] = [chr (ord c - 8272)]
         | isDigit c || isAsciiUpper c || isAsciiLower c = [c]
@@ -51,7 +51,7 @@ instance ValidFileName Char where
 
 -- Requires TypeSynonymInstances.
 instance ValidFileName String where
-    validFileName s = concat $ map validFileName s
+    validFileName = concatMap validFileName
 
 extTPTP :: String
 extTPTP = ".tptp"

@@ -23,7 +23,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import FOL.Monad ( T )
+import Common ( T )
 import FOL.Translation.Internal.Terms ( termToFormula )
 import FOL.Types ( FOLFormula )
 import Reports ( reportSLn )

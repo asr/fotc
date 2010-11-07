@@ -11,7 +11,8 @@ module AgdaLib.EtaExpansion ( etaExpand ) where
 
 -- import Control.Monad
 -- import Control.Monad.IO.Class ( liftIO )
-import Control.Monad.Trans.State ( evalState, get, StateT, put )
+import Control.Monad.Trans.Class ( lift )
+import Control.Monad.Trans.State ( evalState, get, put )
 
 -- Agda library imports
 
@@ -37,17 +38,15 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 import AgdaLib.Interface ( qNameType )
 import AgdaLib.Syntax.DeBruijn ( increaseByOneVar )
-import Common ( AllDefinitions, ER, Vars )
+import Common ( AllDefinitions, T )
 import Utils.Names ( freshName )
 
 #include "../undefined.h"
 
 ------------------------------------------------------------------------------
--- The eta-expansion monad.
-type EE = StateT Vars ER
 
 class EtaExpandible a where
-    etaExpand :: AllDefinitions → a → EE a
+    etaExpand :: AllDefinitions → a → T a
 
 instance EtaExpandible Type where
     etaExpand allDefs (El (Type (Lit (LitLevel r n))) term)
@@ -60,7 +59,7 @@ instance EtaExpandible Type where
 
 instance EtaExpandible Term where
     etaExpand allDefs (Def qName args) = do
-      vars ← get
+      vars ← lift get
 
       let qNameArity :: Nat
           qNameArity = arity $ qNameType allDefs qName
@@ -88,7 +87,7 @@ instance EtaExpandible Term where
         then return $ Def qName argsEtaExpanded
         else if qNameArity - 1 == fromIntegral (length args)
                then do
-                 put $ freshVar : vars
+                 lift $ put $ freshVar : vars
                  -- Because we are going to add a new abstraction, we
                  -- need increase by one the numbers associated with the
                  -- variables in the arguments.
@@ -111,8 +110,8 @@ instance EtaExpandible Term where
 
     etaExpand allDefs (Lam h (Abs x termAbs)) = do
       -- We add the variable x to the enviroment.
-      vars ← get
-      put $ x : vars
+      vars ← lift get
+      lift $ put $ x : vars
 
       termAbsEtaExpanded ← etaExpand allDefs termAbs
       return $ Lam h (Abs x termAbsEtaExpanded)
@@ -121,8 +120,8 @@ instance EtaExpandible Term where
     -- case of Fun (Arg Type) Type.
     etaExpand allDefs (Pi tyArg (Abs x tyAbs)) = do
       -- We add the variable x to the enviroment.
-      vars ← get
-      put $ x : vars
+      vars ← lift get
+      lift $ put $ x : vars
 
       tyAbsEtaExpanded ← etaExpand allDefs tyAbs
       return $ Pi tyArg (Abs x tyAbsEtaExpanded)

@@ -89,7 +89,7 @@ instance PrettyTPTP QName where
 -- non-valid TPTP symbols. N.B. This instance requires the flag
 -- TypeSynonymInstances.
 instance PrettyTPTP String where
-    prettyTPTP s = prefixLetter $ concat $ map prettyTPTP s
+    prettyTPTP = prefixLetter . concatMap prettyTPTP
 
 instance PrettyTPTP FOLTerm where
     prettyTPTP (FOLFun name [])    = changeToLower name

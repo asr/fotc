@@ -42,11 +42,11 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 ------------------------------------------------------------------------------
 -- Local imports
 
+import Common ( T )
 import FOL.Constants
     ( folTrue, folFalse, folNot, folAnd, folOr
     , folImplies, folEquiv, folExists, folForAll, folEquals
     )
-import FOL.Monad ( T )
 import FOL.Primitives ( app, equal )
 import FOL.Translation.Concrete.Name ( concatName )
 import {-# source #-} FOL.Translation.Internal.Types ( typeToFormula )

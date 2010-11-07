@@ -33,7 +33,7 @@ import System.Process
 import Agda.Utils.Impossible ( Impossible(Impossible) , throwImpossible )
 
 -- Local imports
-import Common ( ER )
+import Common ( T )
 import Options ( Options(optATP, optOnlyFiles, optTime, optUnprovedError) )
 import Reports ( reportS )
 import TPTP.Files ( createGeneralRolesFile, createConjectureFile )
@@ -115,14 +115,14 @@ runATP atp outputMVar args = do
 
     return atpPH
 
-callATPConjecture :: (AF, [AF]) → ER ()
+callATPConjecture :: (AF, [AF]) → T ()
 callATPConjecture conjecture = do
-  opts ← lift ask
+  opts ← lift $ lift ask
 
-  file ← lift $ createConjectureFile conjecture
+  file ← lift $ lift $ createConjectureFile conjecture
 
   when (optOnlyFiles opts) $
-    lift $ reportS "" 1 $ "Created the conjecture file " ++ file
+    lift $ lift $ reportS "" 1 $ "Created the conjecture file " ++ file
 
   unless (optOnlyFiles opts) $ do
 
@@ -136,15 +136,15 @@ callATPConjecture conjecture = do
 
     outputMVar ← liftIO (newEmptyMVar :: IO (MVar (Bool, ATP)))
 
-    lift $ reportS "" 1 $ "Proving the conjecture in " ++ file ++ " ..."
-    lift $ reportS "" 20 $ "ATPs to be used: " ++ show atps
+    lift $ lift $ reportS "" 1 $ "Proving the conjecture in " ++ file ++ " ..."
+    lift $ lift $ reportS "" 20 $ "ATPs to be used: " ++ show atps
 
     atpsPH ← liftIO $
            mapM ((\atp → runATP atp outputMVar (argsATP atp timeLimit file)) .
                  string2ATP)
                 atps
 
-    let answerATPs :: Int → ER ()
+    let answerATPs :: Int → T ()
         answerATPs n =
           if n == length atps
              then do
@@ -153,12 +153,12 @@ callATPConjecture conjecture = do
                          " did not prove the conjecture in " ++ file
                if optUnprovedError opts
                  then throwError msg
-                 else lift $ reportS "" 1 msg
+                 else lift $ lift $ reportS "" 1 msg
              else do
                output ← liftIO $ takeMVar outputMVar
                case output of
                  (True, atp) →
-                     do lift $ reportS "" 1 $ show atp ++
+                     do lift $ lift $ reportS "" 1 $ show atp ++
                                               " proved the conjecture in " ++
                                               file
                         liftIO $
@@ -170,10 +170,10 @@ callATPConjecture conjecture = do
 
     answerATPs 0
 
-callATP :: [AF] → [(AF, [AF])] → ER ()
+callATP :: [AF] → [(AF, [AF])] → T ()
 callATP generalRoles conjectures = do
   -- We create the general axioms/hints/definitions TPTP file.
-  lift $ createGeneralRolesFile generalRoles
+  lift $ lift $ createGeneralRolesFile generalRoles
 
   -- We create the particular conjectures TPTP files.
   mapM_ callATPConjecture conjectures

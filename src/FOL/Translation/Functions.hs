@@ -31,7 +31,7 @@ import Agda.Syntax.Literal ( Literal(LitLevel) )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
-import FOL.Monad ( T )
+import Common ( T )
 import FOL.Primitives ( equal )
 import FOL.Translation.Common ( varsToArgs )
 import FOL.Translation.Internal

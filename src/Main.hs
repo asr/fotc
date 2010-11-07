@@ -18,6 +18,7 @@ import Control.Monad.Trans.Error
     , throwError
     )
 import Control.Monad.Trans.Reader ( ReaderT, runReaderT )
+import Control.Monad.Trans.State ( evalStateT )
 
 import qualified Data.Map as Map ( unions )
 
@@ -48,7 +49,7 @@ import AgdaLib.Interface
     , myReadInterface
     )
 import ATP.ATP ( callATP )
-import Common ( AllDefinitions, ER )
+import Common ( AllDefinitions, iVarNames, T )
 import Options
     ( Options(optHelp, optVersion)
     , processOptions
@@ -64,9 +65,9 @@ import Utils.Version ( version )
 
 ------------------------------------------------------------------------------
 
-translation :: FilePath → ER ([AF], [(AF, [AF])])
+translation :: FilePath → T ([AF], [(AF, [AF])])
 translation file = do
-  lift $ reportS "" 1 $ "Translating " ++ file ++ " ..."
+  lift $ lift $ reportS "" 1 $ "Translating " ++ file ++ " ..."
 
   -- Gettting the interface.
   i ← myReadInterface file
@@ -98,13 +99,13 @@ runAgda2ATP prgName = do
 
   when (optHelp opts) $ liftIO $ bye $ usage prgName
 
-  r  ← liftIO $ runReaderT (runErrorT (translation file)) opts
+  r  ← liftIO $
+       runReaderT (evalStateT (runErrorT (translation file)) iVarNames) opts
   case r of
-    Right (generalRoles , conjecturesCurrentModule) → do
+    Right allAFs → do
         r' ← liftIO $
-                runReaderT (runErrorT (callATP generalRoles
-                                               conjecturesCurrentModule))
-                           opts
+             runReaderT
+             (evalStateT (runErrorT (uncurry callATP allAFs)) iVarNames) opts
         case r' of
           Right _   → return ()
           Left err' → throwError err'

@@ -26,7 +26,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
 import AgdaLib.Syntax.DeBruijn ( renameVar, varToDeBruijnIndex )
-import FOL.Monad ( T )
+import Common ( T )
 import FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm )
 -- import FOL.Translation.Internal.Types ( typeToFormula )
 import FOL.Types ( FOLFormula, FOLTerm )

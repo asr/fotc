@@ -84,7 +84,7 @@ import qualified Agda.Utils.Trie as Trie ( singleton )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import Common ( AllDefinitions, ER )
+import Common ( AllDefinitions, T )
 import Options ( Options(optAgdaIncludePath) )
 import Reports ( reportSLn )
 
@@ -121,10 +121,10 @@ getLocalHints def =
 -- interpreted as ["."] (from
 -- Agda.TypeChecking.Monad.Options). Therefore the default of
 -- Options.optAgdaIncludePath is [].
-agdaCommandLineOptions :: ER CommandLineOptions
+agdaCommandLineOptions :: T CommandLineOptions
 agdaCommandLineOptions = do
 
-  opts <- lift ask
+  opts <- lift $ lift ask
 
   let agdaIncludePaths :: [FilePath]
       agdaIncludePaths = optAgdaIncludePath opts
@@ -140,7 +140,7 @@ agdaPragmaOptions =
 
   in defaultPragmaOptions { optVerbose = agdaOptVerbose }
 
-myReadInterface :: FilePath → ER Interface
+myReadInterface :: FilePath → T Interface
 myReadInterface file = do
 
   optsCommandLine ← agdaCommandLineOptions
@@ -158,7 +158,7 @@ myReadInterface file = do
         Right Nothing  → error $ "Error reading the interface file " ++ iFile
         Left  _        → error "Error from runTCM in myReadInterface"
 
-myGetInterface :: ModuleName → ER (Maybe Interface)
+myGetInterface :: ModuleName → T (Maybe Interface)
 myGetInterface x = do
 
   optsCommandLine ← agdaCommandLineOptions
@@ -255,7 +255,7 @@ getClauses def =
 ------------------------------------------------------------------------------
 -- Imported interfaces
 
-importedInterfaces :: ModuleName → StateT [ModuleName] ER [Interface]
+importedInterfaces :: ModuleName → StateT [ModuleName] T [Interface]
 importedInterfaces x = do
   visitedModules ← get
 
@@ -277,10 +277,10 @@ importedInterfaces x = do
     else return []
 
 -- Return the interfaces recursively imported by the top level interface.
-getImportedInterfaces :: Interface → ER [Interface]
+getImportedInterfaces :: Interface → T [Interface]
 getImportedInterfaces i = do
   iInterfaces ← fmap concat $
                 evalStateT (mapM importedInterfaces $ iImportedModules i) []
-  lift $ reportSLn "ii" 20 $
+  lift $ lift $ reportSLn "ii" 20 $
            "Module names: " ++ show (map iModuleName iInterfaces)
   return iInterfaces

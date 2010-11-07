@@ -29,7 +29,6 @@ executable agda2atp
                   AgdaLib.Syntax.DeBruijn
                   ATP.ATP
                   FOL.Constants
-                  FOL.Monad
                   FOL.Primitives
                   FOL.Translation.Common
                   FOL.Translation.Concrete.Name
