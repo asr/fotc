@@ -9,8 +9,8 @@ module Reports where
 
 -- Haskell imports
 import Control.Monad ( when )
-import Control.Monad.Trans.Reader ( ask, ReaderT )
-import Control.Monad.IO.Class ( liftIO )
+import Control.Monad.Reader ( ask )
+import Control.Monad.Trans ( liftIO )
 
 -- Agda library imports
 import Agda.Interaction.Options ( Verbosity )
@@ -21,6 +21,7 @@ import qualified Agda.Utils.Trie as Trie ( lookupPath )
 import Agda.Utils.List ( wordsBy )
 
 -- Local imports
+import Common ( T )
 import Options ( Options(optVerbose) )
 
 #include "undefined.h"
@@ -29,18 +30,15 @@ import Options ( Options(optVerbose) )
 -- Nice way to report things via the verbose option.
 -- Adapted from Agda.TypeChecking.Monad.Options.
 
--- The report monad.
-type R = ReaderT Options IO
-
-getVerbosity :: R Verbosity
+getVerbosity :: T Verbosity
 getVerbosity = do
-  opts ← ask
+  (_, opts) ← ask
   return $ optVerbose opts
 
 type VerboseKey = String
 
 -- | Precondition: The level must be non-negative.
-verboseS :: VerboseKey → Int → R () → R ()
+verboseS :: VerboseKey → Int → T () → T ()
 verboseS k n action | n < 0     =  __IMPOSSIBLE__
                     | otherwise = do
     t ← getVerbosity
@@ -48,8 +46,8 @@ verboseS k n action | n < 0     =  __IMPOSSIBLE__
         m  = maximum $ 0 : Trie.lookupPath ks t
     when (n <= m) action
 
-reportS :: VerboseKey → Int → String → R ()
+reportS :: VerboseKey → Int → String → T ()
 reportS k n s = verboseS k n $ liftIO $ putStr (s ++ "\n")
 
-reportSLn :: VerboseKey → Int → String → R ()
+reportSLn :: VerboseKey → Int → String → T ()
 reportSLn k n s = verboseS k n $ liftIO $ putStrLn (s ++ "\n")

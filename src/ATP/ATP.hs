@@ -14,10 +14,9 @@ import Control.Exception ( evaluate )
 import Control.Concurrent ( forkIO )
 import Control.Concurrent.MVar ( MVar, newEmptyMVar, putMVar, takeMVar )
 import Control.Monad ( unless, when )
-import Control.Monad.IO.Class ( liftIO )
-import Control.Monad.Trans.Class ( lift )
-import Control.Monad.Trans.Error ( throwError )
-import Control.Monad.Trans.Reader ( ask )
+import Control.Monad.Error ( throwError )
+import Control.Monad.Reader ( ask )
+import Control.Monad.Trans ( liftIO )
 import System.IO ( hGetContents )
 import System.Process
     ( createProcess
@@ -117,12 +116,12 @@ runATP atp outputMVar args = do
 
 callATPConjecture :: (AF, [AF]) → T ()
 callATPConjecture conjecture = do
-  opts ← lift $ lift ask
+  (_, opts) ← ask
 
-  file ← lift $ lift $ createConjectureFile conjecture
+  file ← createConjectureFile conjecture
 
   when (optOnlyFiles opts) $
-    lift $ lift $ reportS "" 1 $ "Created the conjecture file " ++ file
+    reportS "" 1 $ "Created the conjecture file " ++ file
 
   unless (optOnlyFiles opts) $ do
 
@@ -136,8 +135,8 @@ callATPConjecture conjecture = do
 
     outputMVar ← liftIO (newEmptyMVar :: IO (MVar (Bool, ATP)))
 
-    lift $ lift $ reportS "" 1 $ "Proving the conjecture in " ++ file ++ " ..."
-    lift $ lift $ reportS "" 20 $ "ATPs to be used: " ++ show atps
+    reportS "" 1 $ "Proving the conjecture in " ++ file ++ " ..."
+    reportS "" 20 $ "ATPs to be used: " ++ show atps
 
     atpsPH ← liftIO $
            mapM ((\atp → runATP atp outputMVar (argsATP atp timeLimit file)) .
@@ -153,14 +152,13 @@ callATPConjecture conjecture = do
                          " did not prove the conjecture in " ++ file
                if optUnprovedError opts
                  then throwError msg
-                 else lift $ lift $ reportS "" 1 msg
+                 else reportS "" 1 msg
              else do
                output ← liftIO $ takeMVar outputMVar
                case output of
                  (True, atp) →
-                     do lift $ lift $ reportS "" 1 $ show atp ++
-                                              " proved the conjecture in " ++
-                                              file
+                     do reportS "" 1 $ show atp ++
+                          " proved the conjecture in " ++ file
                         liftIO $
                            -- It seems that terminateProcess is a nop if
                            -- the process is finished, therefore we don't care
@@ -173,7 +171,7 @@ callATPConjecture conjecture = do
 callATP :: [AF] → [(AF, [AF])] → T ()
 callATP generalRoles conjectures = do
   -- We create the general axioms/hints/definitions TPTP file.
-  lift $ lift $ createGeneralRolesFile generalRoles
+  createGeneralRolesFile generalRoles
 
   -- We create the particular conjectures TPTP files.
   mapM_ callATPConjecture conjectures

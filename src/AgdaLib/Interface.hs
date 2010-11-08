@@ -21,10 +21,9 @@ module AgdaLib.Interface
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad.IO.Class ( liftIO )
-import Control.Monad.Trans.Class ( lift )
-import Control.Monad.Trans.Reader ( ask )
-import Control.Monad.Trans.State ( evalStateT, get, put, StateT )
+import Control.Monad.Reader ( ask )
+import Control.Monad.State ( evalStateT, get, put, StateT )
+import Control.Monad.Trans ( lift, liftIO )
 
 import Data.Int ( Int32 )
 -- import Data.Map ( Map )
@@ -124,7 +123,7 @@ getLocalHints def =
 agdaCommandLineOptions :: T CommandLineOptions
 agdaCommandLineOptions = do
 
-  opts <- lift $ lift ask
+  (_, opts) <- ask
 
   let agdaIncludePaths :: [FilePath]
       agdaIncludePaths = optAgdaIncludePath opts
@@ -281,6 +280,5 @@ getImportedInterfaces :: Interface → T [Interface]
 getImportedInterfaces i = do
   iInterfaces ← fmap concat $
                 evalStateT (mapM importedInterfaces $ iImportedModules i) []
-  lift $ lift $ reportSLn "ii" 20 $
-           "Module names: " ++ show (map iModuleName iInterfaces)
+  reportSLn "ii" 20 $ "Module names: " ++ show (map iModuleName iInterfaces)
   return iInterfaces

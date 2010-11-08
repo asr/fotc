@@ -9,18 +9,16 @@ module Main ( main ) where
 -- Haskell imports
 
 import Control.Monad ( liftM2, when )
-import Control.Monad.IO.Class ( liftIO )
-import Control.Monad.Trans.Class ( lift )
-import Control.Monad.Trans.Error
+import Control.Monad.Reader ( local )
+import Control.Monad.Error
     ( catchError
     , ErrorT
     , runErrorT
     , throwError
     )
-import Control.Monad.Trans.Reader ( ReaderT, runReaderT )
-import Control.Monad.Trans.State ( evalStateT )
+import Control.Monad.Trans ( liftIO )
 
-import qualified Data.Map as Map ( unions )
+import qualified Data.Map as Map ( empty, unions )
 
 import System.Environment ( getArgs, getProgName)
 import System.Exit ( exitFailure, exitSuccess )
@@ -49,7 +47,7 @@ import AgdaLib.Interface
     , myReadInterface
     )
 import ATP.ATP ( callATP )
-import Common ( AllDefinitions, iVarNames, T )
+import Common ( AllDefinitions, iVarNames, runT, T )
 import Options
     ( Options(optHelp, optVersion)
     , processOptions
@@ -67,7 +65,7 @@ import Utils.Version ( version )
 
 translation :: FilePath → T ([AF], [(AF, [AF])])
 translation file = do
-  lift $ lift $ reportS "" 1 $ "Translating " ++ file ++ " ..."
+  reportS "" 1 $ "Translating " ++ file ++ " ..."
 
   -- Gettting the interface.
   i ← myReadInterface file
@@ -83,9 +81,10 @@ translation file = do
   let allDefs :: AllDefinitions
       allDefs = Map.unions (topLevelDefs : importedDefs)
 
-  -- TODO: topLevelDefs ⊆ allDefs.
-  liftM2 (,) (generalRolesToAFs allDefs)
-             (conjecturesToAFs allDefs topLevelDefs)
+  -- We add allDefs to the environment.
+  liftM2 (,)
+         (local (\(_, opts) → (allDefs, opts)) generalRolesToAFs)
+         (local (\(_, opts) → (allDefs, opts)) $ conjecturesToAFs topLevelDefs)
 
 runAgda2ATP :: String → ErrorT String IO ()
 runAgda2ATP prgName = do
@@ -99,13 +98,10 @@ runAgda2ATP prgName = do
 
   when (optHelp opts) $ liftIO $ bye $ usage prgName
 
-  r  ← liftIO $
-       runReaderT (evalStateT (runErrorT (translation file)) iVarNames) opts
+  r  ← liftIO $ runT (translation file) iVarNames (Map.empty, opts)
   case r of
     Right allAFs → do
-        r' ← liftIO $
-             runReaderT
-             (evalStateT (runErrorT (uncurry callATP allAFs)) iVarNames) opts
+        r' ← liftIO $ runT (uncurry callATP allAFs) iVarNames (Map.empty, opts)
         case r' of
           Right _   → return ()
           Left err' → throwError err'

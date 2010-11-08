@@ -10,9 +10,7 @@ module FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
--- import Control.Monad.IO.Class ( liftIO )
-import Control.Monad.Trans.Class ( lift )
-import Control.Monad.Trans.State ( evalState, get, put )
+import Control.Monad.State ( evalState, get, put )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
@@ -73,7 +71,7 @@ binConst op arg1 arg2 = do f1 ← argTermToFormula arg1
 
 termToFormula :: Term → T FOLFormula
 termToFormula term@(Def (QName _ name) args) = do
-    lift $ lift $ reportSLn "t2f" 10 $ "termToFormula Def:\n" ++ show term
+    reportSLn "t2f" 10 $ "termToFormula Def:\n" ++ show term
 
     let cName :: C.Name
         cName = nameConcrete name
@@ -100,7 +98,7 @@ termToFormula term@(Def (QName _ name) args) = do
 
                        fm ← termToFormula $ unArg a
 
-                       vars ← lift get
+                       vars ← get
 
                        let freshVar :: String
                            freshVar = evalState freshName vars
@@ -128,15 +126,15 @@ termToFormula term@(Def (QName _ name) args) = do
                 | isCNameFOLConstTwoHoles folEquiv → binConst Equiv a1 a2
 
                 | isCNameFOLConstTwoHoles folEquals → do
-                    lift $ lift $ reportSLn "t2f" 20 "Processing equals"
+                    reportSLn "t2f" 20 "Processing equals"
                     t1 ← termToFOLTerm $ unArg a1
                     t2 ← termToFOLTerm $ unArg a2
                     return $ equal t1 t2
 
                 | otherwise → do
-                      lift $ lift $ reportSLn "t2f" 20 $
-                               "Processing a definition with two arguments which " ++
-                               "is not a FOL constant: " ++ show cName
+                      reportSLn "t2f" 20 $
+                        "Processing a definition with two arguments which " ++
+                        "is not a FOL constant: " ++ show cName
                       t1 ← termToFOLTerm $ unArg a1
                       t2 ← termToFOLTerm $ unArg a2
                       return $ Predicate (show cName) [t1, t2]
@@ -165,36 +163,36 @@ termToFormula term@(Def (QName _ name) args) = do
                 cName == C.Name noRange [C.Hole, C.Id constFOL, C.Hole]
 
 termToFormula term@(Fun tyArg ty) = do
-  lift $ lift $ reportSLn "t2f" 10 $ "termToFormula Fun:\n" ++ show term
+  reportSLn "t2f" 10 $ "termToFormula Fun:\n" ++ show term
   f1 ← typeToFormula $ unArg tyArg
   f2 ← typeToFormula ty
   return $ Implies f1 f2
 
 -- TODO: To add test for this case.
 termToFormula term@(Lam _ (Abs _ termLam)) = do
-  lift $ lift $ reportSLn "t2f" 10 $ "termToFormula Lam:\n" ++ show term
+  reportSLn "t2f" 10 $ "termToFormula Lam:\n" ++ show term
 
-  vars ← lift get
+  vars ← get
 
   let freshVar :: String
       freshVar = evalState freshName vars
 
   -- See the reason for the order in the enviroment in
   -- termToFormula term@(Pi ... ).
-  lift $ put $ freshVar : vars
+  put $ freshVar : vars
   f ← termToFormula termLam
-  lift $ put vars
+  put vars
   return f
 
 termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
-  lift $ lift $ reportSLn "t2f" 10 $ "termToFormula Pi:\n" ++ show term
+  reportSLn "t2f" 10 $ "termToFormula Pi:\n" ++ show term
 
-  vars ← lift get
+  vars ← get
 
   let freshVar :: String
       freshVar = evalState freshName vars
 
-  lift $ lift $ reportSLn "t2f" 20 $
+  reportSLn "t2f" 20 $
     "Starting processing in local enviroment with type:\n" ++ show tyAbs
 
   -- The de Bruijn indexes are assigned from right to left,
@@ -202,11 +200,11 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   -- e.g. in '(A B C : Set) → ...', A is 2, B is 1, and C is 0,
   --
   -- so we need create the list in the same order.
-  lift $ put $ freshVar : vars
+  put $ freshVar : vars
   f2 ← typeToFormula tyAbs
-  lift $ put vars
+  put vars
 
-  lift $ lift $ reportSLn "t2f" 20 $
+  reportSLn "t2f" 20 $
     "Finalized processing in local enviroment with type:\n" ++ show tyAbs
 
   case unArg tyArg of
@@ -217,7 +215,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     -- so we can create a fresh variable and quantify on it without
     -- any problem. N.B. the pattern matching on (Def _ []).
     El (Type (Lit (LitLevel _ 0))) (Def _ []) →
-        do lift $ lift $ reportSLn "t2f" 20 $
+        do reportSLn "t2f" 20 $
              "Adding universal quantification on variable: " ++ freshVar
            return $ ForAll freshVar (\_ → f2)
 
@@ -234,8 +232,8 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     --
     -- N.B. the pattern matching on (Def _ _ ).
     El (Type (Lit (LitLevel _ 0))) def@(Def _ _ ) → do
-       lift $ lift $ reportSLn "t2f" 20 $
-           "Removing a quantification on the proof:\n" ++ show def
+       reportSLn "t2f" 20 $
+         "Removing a quantification on the proof:\n" ++ show def
        f1 ← typeToFormula $ unArg tyArg
        return $ Implies f1 f2
 
@@ -251,8 +249,8 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
        (Fun (Arg _ _ (El (Type (Lit (LitLevel _ 0))) (Def _ [])))
             (El (Type (Lit (LitLevel _ 0))) (Def _ []))
        ) → do
-      lift $ lift $ reportSLn "t2f" 20
-         "Removing a quantification on a function of a Set to a Set"
+      reportSLn "t2f" 20
+        "Removing a quantification on a function of a Set to a Set"
       return $ ForAll freshVar (\_ → f2)
 
     El (Type (Lit (LitLevel _ 0))) _ → __IMPOSSIBLE__
@@ -269,7 +267,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     --
     -- In this case, we forgot it.
     El (Type (Lit (LitLevel _ 1))) (Sort _ )  → do
-       lift $ lift $ reportSLn "t2f" 20 $ "The type tyArg is: " ++ show tyArg
+       reportSLn "t2f" 20 $ "The type tyArg is: " ++ show tyArg
        return f2
 
     El (Type (Lit (LitLevel _ 1))) _ → __IMPOSSIBLE__
@@ -278,9 +276,9 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
 
 -- TODO: To add test for this case.
 termToFormula term@(Var n _ ) = do
-  lift $ lift $ reportSLn "t2f" 10 $ "termToFormula Var: " ++ show term
+  reportSLn "t2f" 10 $ "termToFormula Var: " ++ show term
 
-  vars ← lift get
+  vars ← get
 
   if length vars <= fromIntegral n
      then __IMPOSSIBLE__
@@ -301,7 +299,7 @@ appArgs fn args = do
 -- Translate an Agda term to an FOL term.
 termToFOLTerm :: Term → T FOLTerm
 termToFOLTerm term@(Con (QName _ name) args)  = do
-  lift $ lift $ reportSLn "t2t" 10 $ "termToFOLTerm Con:\n" ++ show term
+  reportSLn "t2t" 10 $ "termToFOLTerm Con:\n" ++ show term
 
   let cName :: C.Name
       cName = nameConcrete name
@@ -327,7 +325,7 @@ termToFOLTerm term@(Con (QName _ name) args)  = do
         _  → appArgs (concatName parts) args
 
 termToFOLTerm term@(Def (QName _ name) args) = do
-  lift $ lift $ reportSLn "t2t" 10 $ "termToFOLTerm Def:\n" ++ show term
+  reportSLn "t2t" 10 $ "termToFOLTerm Def:\n" ++ show term
 
   let cName :: C.Name
       cName = nameConcrete name
@@ -350,9 +348,9 @@ termToFOLTerm term@(Def (QName _ name) args) = do
         _  → appArgs (concatName parts) args
 
 termToFOLTerm term@(Var n args) = do
-  lift $ lift $ reportSLn "t2t" 10 $ "termToFOLTerm Var:\n" ++ show term
+  reportSLn "t2t" 10 $ "termToFOLTerm Var:\n" ++ show term
 
-  vars ← lift get
+  vars ← get
 
   if length vars <= fromIntegral n
      then __IMPOSSIBLE__

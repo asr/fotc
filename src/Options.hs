@@ -12,8 +12,8 @@ module Options
     ) where
 
 -- Haskell imports
-import Control.Monad.IO.Class ( liftIO )
-import Control.Monad.Trans.Error ( ErrorT, throwError )
+import Control.Monad.Error ( ErrorT, throwError )
+import Control.Monad.Trans ( liftIO )
 
 import System.Console.GetOpt
     ( ArgDescr(NoArg, ReqArg)
@@ -33,6 +33,7 @@ import qualified Agda.Utils.Trie as Trie ( insert, singleton )
 import Utils.IO ( bye )
 
 -----------------------------------------------------------------------------
+
 data Options = MkOptions
     { optAgdaIncludePath :: [FilePath]
     , optATP             :: [String]

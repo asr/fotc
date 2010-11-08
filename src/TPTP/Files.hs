@@ -12,8 +12,8 @@ module TPTP.Files
     ) where
 
 -- Haskell imports
-import Control.Monad.IO.Class ( liftIO )
-import Control.Monad.Trans.Reader ( ask )
+import Control.Monad.Reader ( ask )
+import Control.Monad.Trans ( liftIO )
 import Data.Char ( chr, isAsciiUpper, isAsciiLower, isDigit, ord )
 import System.Directory ( createDirectoryIfMissing )
 import System.Environment ( getProgName )
@@ -30,8 +30,9 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
 import AgdaLib.Interface ( qNameLine )
+import Common ( T )
 import Options ( Options(optOutputDir) )
-import Reports ( R, reportSLn )
+import Reports ( reportSLn )
 import TPTP.Pretty ( prettyTPTP )
 import TPTP.Types ( AF(MkAF) )
 
@@ -59,9 +60,10 @@ extTPTP = ".tptp"
 commentLine :: String
 commentLine = "%-----------------------------------------------------------------------------\n"
 
-generalRolesFileName :: R FilePath
+generalRolesFileName :: T FilePath
 generalRolesFileName = do
-    opts ← ask
+
+    (_, opts) ← ask
 
     let outputDir :: String
         outputDir = optOutputDir opts
@@ -119,7 +121,7 @@ addGeneralRole af@(MkAF qName role _ ) file
 
   | otherwise = __IMPOSSIBLE__
 
-addConjecture :: AF → FilePath → R ()
+addConjecture :: AF → FilePath → T ()
 addConjecture af file =
   case af of
     (MkAF qName ConjectureATP _ ) → do
@@ -128,7 +130,7 @@ addConjecture af file =
 
     _ → __IMPOSSIBLE__
 
-createGeneralRolesFile :: [AF] → R ()
+createGeneralRolesFile :: [AF] → T ()
 createGeneralRolesFile afs = do
 
   file ← generalRolesFileName
@@ -142,13 +144,13 @@ createGeneralRolesFile afs = do
     _   ← appendFile file generalRolesFooter
     return ()
 
-createConjectureFile :: (AF, [AF]) → R FilePath
+createConjectureFile :: (AF, [AF]) → T FilePath
 createConjectureFile (af@(MkAF qName _ _ ), hints) = do
   -- To avoid clash names with the terms inside a where clause, we
   -- added the line number where the term was defined to the file
   -- name.
 
-  opts ← ask
+  (_, opts) ← ask
 
   let outputDir :: FilePath
       outputDir = optOutputDir opts

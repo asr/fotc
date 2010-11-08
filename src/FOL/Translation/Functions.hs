@@ -11,9 +11,8 @@
 module FOL.Translation.Functions ( fnToFormula ) where
 
 -- Haskell imports
-import Control.Monad.Trans.Class ( lift )
-import Control.Monad.Trans.Error ( throwError )
-import Control.Monad.Trans.State ( evalState, get, put )
+import Control.Monad.Error ( throwError )
+import Control.Monad.State ( evalState, get, put )
 
 -- Agda library imports
 import Agda.Syntax.Common ( Arg(Arg) )
@@ -86,17 +85,17 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
     -- problem. N.B. the pattern matching on (Def _ []).
     ExtendTel
       (Arg _ _ (El (Type (Lit (LitLevel _ 0))) (Def _ []))) (Abs x tels) → do
-          lift $ lift $ reportSLn "def2f" 20 $ "Processing var: " ++ x
-          vars ← lift get
+          reportSLn "def2f" 20 $ "Processing var: " ++ x
+          vars ← get
 
           let freshVar :: String
               freshVar = evalState freshName vars
 
           -- See the reason for the order in the enviroment in
           -- FOL.Translation.Terms.termToFormula term@(Pi ... )
-          lift $ put $ freshVar : vars
+          put $ freshVar : vars
           f ← oneClauseToFormula qName ty (Clause r tels perm pats cBody)
-          lift $ put vars
+          put vars
 
           return $ ForAll freshVar (\_ → f)
 
@@ -113,16 +112,16 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
       (Arg _ _ tye@(El (Type (Lit (LitLevel _ 0))) (Def _ _ ))) (Abs x tels) →
         do f1 ← typeToFormula tye
 
-           lift $ lift $ reportSLn "def2f" 20 $ "Processing var: " ++ x
+           reportSLn "def2f" 20 $ "Processing var: " ++ x
 
-           lift $ lift $ reportSLn "def2f" 20 $ "f1: " ++ show f1
+           reportSLn "def2f" 20 $ "f1: " ++ show f1
 
-           lift $ lift $ reportSLn "def2f" 20 $ "Current body: " ++ show cBody
+           reportSLn "def2f" 20 $ "Current body: " ++ show cBody
 
            let newBody :: ClauseBody
                newBody = removeBindingOnCBody cBody x
 
-           lift $ lift $ reportSLn "def2f" 20 $ "New body: " ++ show newBody
+           reportSLn "def2f" 20 $ "New body: " ++ show newBody
 
            f2 ← oneClauseToFormula qName ty (Clause r tels perm pats newBody )
 
@@ -134,8 +133,8 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
 -- universal quantification, so we translate the LHS and the RHS.
 oneClauseToFormula qName ty (Clause _ _ _ [] cBody ) = do
 
-  vars ← lift get
-  lift $ lift $ reportSLn "def2f" 20 $ "vars: " ++ show vars
+  vars ← get
+  reportSLn "def2f" 20 $ "vars: " ++ show vars
 
   -- We create the Agda term corresponds to the LHS of the symbol's
   -- definition.

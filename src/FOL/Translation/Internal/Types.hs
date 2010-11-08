@@ -11,7 +11,7 @@ module FOL.Translation.Internal.Types ( typeToFormula ) where
 -- Haskell imports
 
 -- import Control.Monad.IO.Class ( liftIO )
-import Control.Monad.Trans.Class ( lift )
+-- import Control.Monad.Trans.Class ( lift )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
@@ -34,8 +34,7 @@ import Reports ( reportSLn )
 typeToFormula :: Type → T FOLFormula
 typeToFormula ty@(El (Type (Lit (LitLevel _ n))) term)
     | n `elem` [ 0, 1 ] = do
-        lift $ lift $ reportSLn "typeToFormula" 10 $
-                                "Processing type ty:\n" ++ show ty
+        reportSLn "typeToFormula" 10 $ "Processing type ty:\n" ++ show ty
         termToFormula term
     | otherwise = __IMPOSSIBLE__
 typeToFormula _ = __IMPOSSIBLE__

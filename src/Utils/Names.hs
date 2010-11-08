@@ -5,7 +5,7 @@ module Utils.Names ( freshName ) where
 
 -- Haskell imports
 -- import Control.Monad.Reader ( ask, Reader )
-import Control.Monad.Trans.State ( get, put, State )
+import Control.Monad.State ( get, put, State )
 
 -- Agda library imports
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
