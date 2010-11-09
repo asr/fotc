@@ -47,16 +47,16 @@ executable agda2atp
                   Utils.Names
                   Utils.Version
 
-  ghc-options: -Wall
-               -fwarn-incomplete-record-updates
-               -fwarn-monomorphism-restriction
-               -fwarn-tabs
-               -fwarn-unused-do-bind
-               -Werror
+  ghc-options:    -Wall
+                  -fwarn-incomplete-record-updates
+                  -fwarn-monomorphism-restriction
+                  -fwarn-tabs
+                  -fwarn-unused-do-bind
+                  -Werror
 
   if impl(ghc >= 6.12) && impl(ghc < 7)
-    ghc-options: -fwarn-simple-patterns
+    ghc-options:  -fwarn-simple-patterns
 
   if impl(ghc >= 7)
-    ghc-options: -fwarn-missing-local-sigs
---                 -fwarn-missing-import-lists
+    ghc-options:  -fwarn-missing-local-sigs
+--                  -fwarn-missing-import-lists
