@@ -19,7 +19,7 @@ executable agda2atp
                   , directory    >= 1.0.0.3 && < 1.1
                   , filepath     >= 1.1.0.3 && < 1.2
                   , ghc          >= 6.12    && < 6.14
-                  , mtl          >= 1.1     && < 2
+                  , mtl          == 2.0.*
                   , process      >= 1.0.1.2 && < 1.1
 
   other-modules:  Common
