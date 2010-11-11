@@ -42,7 +42,7 @@ import FOL.Types ( FOLFormula, FOLTerm )
 
 -- telescopeToFormula :: Telescope → T FOLFormula
 -- telescopeToFormula EmptyTel             = __IMPOSSIBLE__
--- telescopeToFormula (ExtendTel tyArg _ ) = typeToFormula $ unArg tyArg
+-- telescopeToFormula (ExtendTel tyArg _) = typeToFormula $ unArg tyArg
 
 cBodyToFormula :: ClauseBody → T FOLFormula
 cBodyToFormula (Body term )         = termToFormula term

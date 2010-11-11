@@ -48,17 +48,17 @@ class IncreaseByOneVar a where
     increaseByOneVar :: a → a
 
 instance IncreaseByOneVar Term where
-    increaseByOneVar (Var n [])   = Var (n + 1) []
-    increaseByOneVar (Var _ _ )   = __IMPOSSIBLE__
-    increaseByOneVar (Con _ _ )   = __IMPOSSIBLE__
-    increaseByOneVar (Def _ _ )   = __IMPOSSIBLE__
-    increaseByOneVar DontCare     = __IMPOSSIBLE__
-    increaseByOneVar (Fun _ _ )   = __IMPOSSIBLE__
-    increaseByOneVar (Lam _ _ )   = __IMPOSSIBLE__
-    increaseByOneVar (Lit _ )     = __IMPOSSIBLE__
-    increaseByOneVar (MetaV _ _ ) = __IMPOSSIBLE__
-    increaseByOneVar (Pi _ _ )    = __IMPOSSIBLE__
-    increaseByOneVar (Sort _ )    = __IMPOSSIBLE__
+    increaseByOneVar (Var n [])  = Var (n + 1) []
+    increaseByOneVar (Var _ _)   = __IMPOSSIBLE__
+    increaseByOneVar (Con _ _)   = __IMPOSSIBLE__
+    increaseByOneVar (Def _ _)   = __IMPOSSIBLE__
+    increaseByOneVar DontCare    = __IMPOSSIBLE__
+    increaseByOneVar (Fun _ _)   = __IMPOSSIBLE__
+    increaseByOneVar (Lam _ _)   = __IMPOSSIBLE__
+    increaseByOneVar (Lit _)     = __IMPOSSIBLE__
+    increaseByOneVar (MetaV _ _) = __IMPOSSIBLE__
+    increaseByOneVar (Pi _ _)    = __IMPOSSIBLE__
+    increaseByOneVar (Sort _)    = __IMPOSSIBLE__
 
 -- Requires FlexibleInstances.
 instance IncreaseByOneVar (Arg Term) where
@@ -77,8 +77,8 @@ class VarNames a where
 
 instance VarNames ClauseBody where
     varNames (Bind (Abs x cBody)) = varNames cBody ++ [x]
-    varNames (Body _ )            = []
-    varNames _                    = __IMPOSSIBLE__
+    varNames (Body _)            = []
+    varNames _                   = __IMPOSSIBLE__
 
 -- Return the de Bruijn index of a variable in a ClauseBody.
 varToDeBruijnIndex :: ClauseBody → String → Nat
@@ -120,15 +120,15 @@ instance RenameVar Term where
 
       | otherwise = __IMPOSSIBLE__
 
-    renameVar (Var _ _ )   _   = __IMPOSSIBLE__
-    renameVar (Con _ _ )   _   = __IMPOSSIBLE__
-    renameVar DontCare     _   = __IMPOSSIBLE__
-    renameVar (Fun _ _ )   _   = __IMPOSSIBLE__
-    renameVar (Lam _ _ )   _   = __IMPOSSIBLE__
-    renameVar (Lit _ )     _   = __IMPOSSIBLE__
-    renameVar (MetaV _ _ ) _   = __IMPOSSIBLE__
-    renameVar (Pi _ _ )    _   = __IMPOSSIBLE__
-    renameVar (Sort _ )    _   = __IMPOSSIBLE__
+    renameVar (Var _ _)   _   = __IMPOSSIBLE__
+    renameVar (Con _ _)   _   = __IMPOSSIBLE__
+    renameVar DontCare    _   = __IMPOSSIBLE__
+    renameVar (Fun _ _)   _   = __IMPOSSIBLE__
+    renameVar (Lam _ _)   _   = __IMPOSSIBLE__
+    renameVar (Lit _)     _   = __IMPOSSIBLE__
+    renameVar (MetaV _ _) _   = __IMPOSSIBLE__
+    renameVar (Pi _ _)    _   = __IMPOSSIBLE__
+    renameVar (Sort _)    _   = __IMPOSSIBLE__
 
 -- Requires FlexibleInstances.
 instance RenameVar (Arg Term) where
@@ -198,8 +198,8 @@ class VarsTypes a where
     varsTypes :: a → [ Type ]
 
 instance VarsTypes Type where
-    varsTypes (El (Type _ ) term) = varsTypes term
-    varsTypes _                   = __IMPOSSIBLE__
+    varsTypes (El (Type _) term) = varsTypes term
+    varsTypes _                  = __IMPOSSIBLE__
 
 instance VarsTypes Term where
     varsTypes (Pi (Arg _ _ ty) absT) = varsTypes absT ++ [ ty ]
@@ -216,8 +216,8 @@ class RemoveVar a where
                               -- of the variable to be removed.
 
 instance RemoveVar Type where
-    removeVar (El ty@(Type _ ) term) index  = El ty (removeVar term index)
-    removeVar _                      _      = __IMPOSSIBLE__
+    removeVar (El ty@(Type _) term) index  = El ty (removeVar term index)
+    removeVar _                     _      = __IMPOSSIBLE__
 
 instance RemoveVar Term where
     -- We only need remove variables from Def terms.
@@ -239,7 +239,7 @@ instance RemoveVar (Arg Type) where
 -- This instance does the job. This remove the variable.
 instance RemoveVar Args where
     removeVar [] _ = []
-    removeVar (Arg h r var@(Var n _ ) : args) index =
+    removeVar (Arg h r var@(Var n _) : args) index =
         if n == index
            then removeVar args index
            else Arg h r var : removeVar args index
@@ -262,8 +262,8 @@ removeReferenceToProofTerm varType index ty =
       -- D → Set.
       --
       -- In this case, we remove the reference to this
-      -- variable. N.B. the pattern matching on (Def _ _ ).
-      El (Type (Lit (LitLevel _ 0))) (Def _ _ ) → removeVar ty index
+      -- variable. N.B. the pattern matching on (Def _ _).
+      El (Type (Lit (LitLevel _ 0))) (Def _ _) → removeVar ty index
 
       -- The variable type is a function type,
       --
@@ -281,9 +281,9 @@ removeReferenceToProofTerm varType index ty =
       --
       -- we don't know any reference to some variable in this case,
       -- therefore we don't do anything.
-      El (Type (Lit (LitLevel _ 1))) (Sort _ ) → ty
-      El (Type (Lit (LitLevel _ 1))) _         → __IMPOSSIBLE__
-      _                                        → __IMPOSSIBLE__
+      El (Type (Lit (LitLevel _ 1))) (Sort _) → ty
+      El (Type (Lit (LitLevel _ 1))) _        → __IMPOSSIBLE__
+      _                                       → __IMPOSSIBLE__
 
 removeReferenceToProofTerms :: Type → Type
 removeReferenceToProofTerms ty = aux (varsTypes ty) 0 ty

@@ -230,8 +230,8 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     --
     -- sN : {n : D} → (Nn : N n) → N (succ n).
     --
-    -- N.B. the pattern matching on (Def _ _ ).
-    El (Type (Lit (LitLevel _ 0))) def@(Def _ _ ) → do
+    -- N.B. the pattern matching on (Def _ _).
+    El (Type (Lit (LitLevel _ 0))) def@(Def _ _) → do
        reportSLn "t2f" 20 $
          "Removing a quantification on the proof:\n" ++ show def
        f1 ← typeToFormula $ unArg tyArg
@@ -266,7 +266,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     -- e.g. the bounded variable is 'A : Set'.
     --
     -- In this case, we forgot it.
-    El (Type (Lit (LitLevel _ 1))) (Sort _ )  → do
+    El (Type (Lit (LitLevel _ 1))) (Sort _) → do
        reportSLn "t2f" 20 $ "The type tyArg is: " ++ show tyArg
        return f2
 
@@ -275,7 +275,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     _                                → __IMPOSSIBLE__
 
 -- TODO: To add test for this case.
-termToFormula term@(Var n _ ) = do
+termToFormula term@(Var n _) = do
   reportSLn "t2f" 10 $ "termToFormula Var: " ++ show term
 
   vars ← get
@@ -284,11 +284,11 @@ termToFormula term@(Var n _ ) = do
      then __IMPOSSIBLE__
      else return $ Predicate (vars !! fromIntegral n) []
 
-termToFormula DontCare     = __IMPOSSIBLE__
-termToFormula (Con _ _ )   = __IMPOSSIBLE__
-termToFormula (Lit _ )     = __IMPOSSIBLE__
-termToFormula (MetaV _ _ ) = __IMPOSSIBLE__
-termToFormula (Sort _ )    = __IMPOSSIBLE__
+termToFormula DontCare    = __IMPOSSIBLE__
+termToFormula (Con _ _)   = __IMPOSSIBLE__
+termToFormula (Lit _)     = __IMPOSSIBLE__
+termToFormula (MetaV _ _) = __IMPOSSIBLE__
+termToFormula (Sort _)    = __IMPOSSIBLE__
 
 -- Translate 'foo x1 ... xn' to 'kApp (... kApp (kApp(foo, x1), x2), ..., xn)'.
 appArgs :: String → Args → T FOLTerm
@@ -372,10 +372,10 @@ termToFOLTerm term@(Var n args) = do
 
          _  → __IMPOSSIBLE__
 
-termToFOLTerm DontCare     = __IMPOSSIBLE__
-termToFOLTerm (Fun _ _ )   = __IMPOSSIBLE__
-termToFOLTerm (Lam _ _ )   = __IMPOSSIBLE__
-termToFOLTerm (Lit _ )     = __IMPOSSIBLE__
-termToFOLTerm (MetaV _ _ ) = __IMPOSSIBLE__
-termToFOLTerm (Pi _ _ )    = __IMPOSSIBLE__
-termToFOLTerm (Sort _ )    = __IMPOSSIBLE__
+termToFOLTerm DontCare    = __IMPOSSIBLE__
+termToFOLTerm (Fun _ _)   = __IMPOSSIBLE__
+termToFOLTerm (Lam _ _)   = __IMPOSSIBLE__
+termToFOLTerm (Lit _)     = __IMPOSSIBLE__
+termToFOLTerm (MetaV _ _) = __IMPOSSIBLE__
+termToFOLTerm (Pi _ _)    = __IMPOSSIBLE__
+termToFOLTerm (Sort _)    = __IMPOSSIBLE__

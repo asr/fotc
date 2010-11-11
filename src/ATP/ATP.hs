@@ -108,9 +108,9 @@ runATP atp outputMVar args = do
                     { std_out = CreatePipe }
 
     output ← hGetContents $ fromMaybe __IMPOSSIBLE__ outputH
-    _ <- forkIO $
-           evaluate (length output) >>
-           putMVar outputMVar (checkOutputATP atp output, atp)
+    _ ← forkIO $
+          evaluate (length output) >>
+          putMVar outputMVar (checkOutputATP atp output, atp)
 
     return atpPH
 
@@ -164,7 +164,7 @@ callATPConjecture conjecture = do
                            -- the process is finished, therefore we don't care
                            -- on terminate all the ATPs processes.
                            mapM_ terminateProcess atpsPH
-                 (False, _ ) → answerATPs (n + 1)
+                 (False, _) → answerATPs (n + 1)
 
     answerATPs 0
 

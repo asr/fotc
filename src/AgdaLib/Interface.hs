@@ -123,7 +123,7 @@ getLocalHints def =
 agdaCommandLineOptions :: T CommandLineOptions
 agdaCommandLineOptions = do
 
-  (_, opts) <- ask
+  (_, opts) ← ask
 
   let agdaIncludePaths :: [FilePath]
       agdaIncludePaths = optAgdaIncludePath opts
@@ -177,10 +177,10 @@ isAxiomATP def =
       defn = theDef def
   in case defn of
        Axiom{} → case axATP defn of
-                    Just (AxiomATP, _ )      → True
-                    Just (ConjectureATP, _ ) → False
-                    Just _                   → __IMPOSSIBLE__
-                    Nothing                  → False
+                    Just (AxiomATP, _)      → True
+                    Just (ConjectureATP, _) → False
+                    Just _                  → __IMPOSSIBLE__
+                    Nothing                 → False
 
        _       → False
 
@@ -191,10 +191,10 @@ isConjectureATP def =
       defn = theDef def
   in case defn of
        Axiom{} → case axATP defn of
-                    Just (AxiomATP, _ )      → False
-                    Just (ConjectureATP, _ ) → True
-                    Just _                   → __IMPOSSIBLE__
-                    Nothing                  → False
+                    Just (AxiomATP, _)      → False
+                    Just (ConjectureATP, _) → True
+                    Just _                  → __IMPOSSIBLE__
+                    Nothing                 → False
 
        _       → False
 

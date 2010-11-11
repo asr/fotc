@@ -43,10 +43,10 @@ class PrettyTPTP a where
 -- We prefixed the names with 'n' because TPTP does not accept names
 -- starting with digits.
 prefixLetter :: TPTP → TPTP
-prefixLetter []            = __IMPOSSIBLE__
-prefixLetter name@(x : _ )
-    | isDigit x            = 'n' : name
-    | otherwise            = name
+prefixLetter []           = __IMPOSSIBLE__
+prefixLetter name@(x : _)
+    | isDigit x           = 'n' : name
+    | otherwise           = name
 
 changeCaseFirstSymbol :: TPTP → (Char → Char) → TPTP
 changeCaseFirstSymbol []       _ = __IMPOSSIBLE__
@@ -108,7 +108,7 @@ instance PrettyTPTP FOLFormula where
     prettyTPTP (Predicate "kEqual" [t1, t2] ) =
        "( " ++ prettyTPTP t1 ++ " = " ++ prettyTPTP t2 ++ " )"
 
-    prettyTPTP (Predicate "kEqual" _ ) = __IMPOSSIBLE__
+    prettyTPTP (Predicate "kEqual" _) = __IMPOSSIBLE__
 
     -- If the predicate represents a propositional logic variable,
     -- following the TPTP syntax, we do not print the internal parenthesis.

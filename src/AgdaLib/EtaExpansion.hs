@@ -100,7 +100,7 @@ instance EtaExpandible Term where
 
     -- We don't know an example of eta-contraction with Con, therefore we
     -- don't do anything.
-    etaExpand term@(Con _ _ ) = return term
+    etaExpand term@(Con _ _) = return term
 
     etaExpand (Fun tyArg ty) = do
       tyArgEtaExpanded ← etaExpand tyArg
@@ -129,10 +129,10 @@ instance EtaExpandible Term where
       argsEtaExpanded ← mapM etaExpand args
       return $ Var n argsEtaExpanded
 
-    etaExpand DontCare     = __IMPOSSIBLE__
-    etaExpand (Lit _ )     = __IMPOSSIBLE__
-    etaExpand (MetaV _ _ ) = __IMPOSSIBLE__
-    etaExpand (Sort _ )    = __IMPOSSIBLE__
+    etaExpand DontCare    = __IMPOSSIBLE__
+    etaExpand (Lit _)     = __IMPOSSIBLE__
+    etaExpand (MetaV _ _) = __IMPOSSIBLE__
+    etaExpand (Sort _)    = __IMPOSSIBLE__
 
 instance EtaExpandible a => EtaExpandible (Arg a) where
     etaExpand (Arg h r t) = do
