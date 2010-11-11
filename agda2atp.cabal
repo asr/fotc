@@ -20,7 +20,6 @@ executable agda2atp
                   , filepath     >= 1.1     && < 1.3
                   , mtl          == 2.0.*
                   , process      >= 1.0     && < 1.1
-                  , utility-ht   >= 0.0     && < 0.1
 
   other-modules:  Common
                   AgdaLib.EtaExpansion
@@ -46,6 +45,7 @@ executable agda2atp
                   TPTP.Types
                   Utils.IO
                   Utils.Names
+                  Utils.String
                   Utils.Version
 
   ghc-options:    -Wall

@@ -15,7 +15,6 @@ module TPTP.Files
 import Control.Monad.Reader ( ask )
 import Control.Monad.Trans ( liftIO )
 import Data.Char ( chr, isAsciiUpper, isAsciiLower, isDigit, ord )
-import Data.List.HT ( replace )
 import System.Directory ( createDirectoryIfMissing )
 import System.Environment ( getProgName )
 import System.FilePath ( (</>), addExtension, replaceExtension )
@@ -36,6 +35,7 @@ import Options ( Options(optOutputDir) )
 import Reports ( reportSLn )
 import TPTP.Pretty ( prettyTPTP )
 import TPTP.Types ( AF(MkAF) )
+import Utils.String ( replace )
 
 #include "../undefined.h"
 
@@ -72,7 +72,7 @@ generalRolesFileName = do
 
     liftIO $ createDirectoryIfMissing True outputDir
 
-    return $ outputDir </> replace "/" "." (replaceExtension file tptpExt)
+    return $ outputDir </> replace '/' '.' (replaceExtension file tptpExt)
 
 commonHeader :: IO String
 commonHeader = do

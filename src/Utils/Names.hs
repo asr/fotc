@@ -16,6 +16,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 #include "../undefined.h"
 
 ------------------------------------------------------------------------------
+
 chars :: String
 chars = ['a'..'z']
 
