@@ -9,7 +9,7 @@ module Main ( main ) where
 -- Haskell imports
 
 import Control.Monad ( liftM2, when )
-import Control.Monad.Reader ( local )
+import Control.Monad.Reader ( ask, local )
 import Control.Monad.Error
     ( catchError
     , ErrorT
@@ -63,8 +63,10 @@ import Utils.Version ( version )
 
 ------------------------------------------------------------------------------
 
-translation :: FilePath → T ([AF], [(AF, [AF])])
-translation file = do
+translation :: T ([AF], [(AF, [AF])])
+translation = do
+
+  (_, _, file) ← ask
   reportS "" 1 $ "Translating " ++ file ++ " ..."
 
   -- Gettting the interface.
@@ -82,9 +84,11 @@ translation file = do
       allDefs = Map.unions (topLevelDefs : importedDefs)
 
   -- We add allDefs to the environment.
+  -- TODO: To define the function that modifies the enviroment.
   liftM2 (,)
-         (local (\(_, opts) → (allDefs, opts)) generalRolesToAFs)
-         (local (\(_, opts) → (allDefs, opts)) $ conjecturesToAFs topLevelDefs)
+         (local (\(_, opts, f) → (allDefs, opts, f)) generalRolesToAFs)
+         (local (\(_, opts, f) → (allDefs, opts, f)) $
+                conjecturesToAFs topLevelDefs)
 
 runAgda2ATP :: String → ErrorT String IO ()
 runAgda2ATP prgName = do
@@ -98,10 +102,11 @@ runAgda2ATP prgName = do
 
   when (optHelp opts) $ liftIO $ bye $ usage prgName
 
-  r  ← liftIO $ runT (translation file) iVarNames (Map.empty, opts)
+  r  ← liftIO $ runT translation iVarNames (Map.empty, opts, file)
   case r of
     Right allAFs → do
-        r' ← liftIO $ runT (uncurry callATP allAFs) iVarNames (Map.empty, opts)
+        r' ← liftIO $
+               runT (uncurry callATP allAFs) iVarNames (Map.empty, opts, file)
         case r' of
           Right _   → return ()
           Left err' → throwError err'

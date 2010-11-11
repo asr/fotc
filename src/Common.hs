@@ -45,7 +45,7 @@ iVarNames :: Vars
 iVarNames = []
 
 -- The environment.
-type Env = (AllDefinitions, Options)
+type Env = (AllDefinitions, Options, FilePath)
 
 -- The translation monad.
 -- Adapted from: Real World Haskell (Chapter 18. Monad transformers)

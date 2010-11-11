@@ -1,7 +1,5 @@
 haskell_files = $(shell find src/ -name '*.hs')
 
-general_roles_TPTP = /tmp/general-roles.tptp
-
 AGDA     = agda -v 0
 AGDA2ATP = agda2atp
 
@@ -27,7 +25,7 @@ $(succeed_non_conjectures_files) : % : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
 	@if ! ( agda2atp --only-files $< ); then exit 1; fi
 	@cat $@.ax | while read -r line; do \
-		if ! ( grep --silent "$$line" $(general_roles_TPTP) ) ; then \
+		if ! ( grep --silent "$$line" /tmp/$(subst /,.,$@).tptp ) ; then \
 			echo "Testing error. Translation to: $$line"; \
 			exit 1; \
 		fi \

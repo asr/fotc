@@ -32,7 +32,7 @@ import Options ( Options(optVerbose) )
 
 getVerbosity :: T Verbosity
 getVerbosity = do
-  (_, opts) ← ask
+  (_, opts, _) ← ask
   return $ optVerbose opts
 
 type VerboseKey = String

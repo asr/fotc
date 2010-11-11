@@ -116,7 +116,7 @@ runATP atp outputMVar args = do
 
 callATPConjecture :: (AF, [AF]) → T ()
 callATPConjecture conjecture = do
-  (_, opts) ← ask
+  (_, opts, _) ← ask
 
   file ← createConjectureFile conjecture
 

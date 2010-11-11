@@ -57,7 +57,7 @@ instance EtaExpandible Type where
 
 instance EtaExpandible Term where
     etaExpand (Def qName args) = do
-      (allDefs, _) ← ask
+      (allDefs, _, _) ← ask
       vars         ← get
 
       let qNameArity :: Nat

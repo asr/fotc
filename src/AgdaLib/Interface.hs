@@ -123,7 +123,7 @@ getLocalHints def =
 agdaCommandLineOptions :: T CommandLineOptions
 agdaCommandLineOptions = do
 
-  (_, opts) ← ask
+  (_, opts, _) ← ask
 
   let agdaIncludePaths :: [FilePath]
       agdaIncludePaths = optAgdaIncludePath opts

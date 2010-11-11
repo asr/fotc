@@ -96,7 +96,7 @@ toAF role qName def = do
 fnToAF :: QName → Definition → T AF
 fnToAF qName def = do
 
-  (_, opts) ← ask
+  (_, opts, _) ← ask
 
   let ty :: Type
       ty = defType def
@@ -126,7 +126,7 @@ fnToAF qName def = do
 fnsToAFs :: T [AF]
 fnsToAFs = do
 
-  (allDefs, _) ← ask
+  (allDefs, _, _) ← ask
 
   let fnDefs :: Definitions
       fnDefs = getRoleATP DefinitionATP allDefs
@@ -137,7 +137,7 @@ fnsToAFs = do
 localHintToAF :: QName → T AF
 localHintToAF qName = do
 
-  (allDefs, _) ← ask
+  (allDefs, _, _) ← ask
 
   let def :: Definition
       def = qNameDefinition allDefs qName
@@ -183,7 +183,7 @@ conjecturesToAFs tlDefs = do
 axiomsToAFs :: T [AF]
 axiomsToAFs = do
 
-  (allDefs, _) ← ask
+  (allDefs, _, _) ← ask
 
   let axDefs :: Definitions
       axDefs = getRoleATP AxiomATP allDefs
@@ -195,7 +195,7 @@ axiomsToAFs = do
 generalHintsToAFs :: T [AF]
 generalHintsToAFs = do
 
-  (allDefs, _) ← ask
+  (allDefs, _, _) ← ask
 
   let ghDefs :: Definitions
       ghDefs = getRoleATP HintATP allDefs
