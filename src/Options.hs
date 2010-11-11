@@ -141,9 +141,9 @@ usage prgName = usageInfo (usageHeader prgName) options
 processOptions :: [String] → String → ErrorT String IO (Options, String)
 processOptions argv prgName =
   case getOpt Permute options argv of
-    (_, [], []) → liftIO $ bye $ usage prgName
+    ([], [], []) → liftIO $ bye $ usage prgName
 
-    (o, (file : []), []) → do
+    (o, files, []) → do
       let opts :: Options
           opts = foldl (flip id) defaultOptions o
 
@@ -154,8 +154,9 @@ processOptions argv prgName =
                                                     -- defaults ATPs.
               else opts
 
-      return (finalOpts, file)
-
-    (_, _files, []) → throwError "Only one input file allowed"
+      case files of
+        []       → return (finalOpts, "")
+        (x : []) → return (finalOpts, x)
+        _        → throwError "Only one input file allowed"
 
     (_, _, errors) → throwError $ unlines errors
