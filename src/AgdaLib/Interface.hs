@@ -22,13 +22,12 @@ module AgdaLib.Interface
 -- Haskell imports
 
 import Control.Monad.Reader ( ask )
-import Control.Monad.State ( evalStateT, get, put, StateT )
-import Control.Monad.Trans ( lift, liftIO )
+import Control.Monad.State  ( evalStateT, get, put, StateT )
+import Control.Monad.Trans  ( lift, liftIO )
 
-import Data.Int ( Int32 )
--- import Data.Map ( Map )
+import Data.Int                  ( Int32 )
 import qualified Data.Map as Map ( filter, lookup )
-import Data.Maybe ( fromMaybe )
+import Data.Maybe                ( fromMaybe )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
@@ -83,7 +82,7 @@ import qualified Agda.Utils.Trie as Trie ( singleton )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import Common ( AllDefinitions, T )
+import Common  ( AllDefinitions, T )
 import Options ( Options(optAgdaIncludePath) )
 import Reports ( reportSLn )
 

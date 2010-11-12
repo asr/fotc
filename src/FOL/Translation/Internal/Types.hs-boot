@@ -4,13 +4,13 @@
 
 {-# LANGUAGE UnicodeSyntax #-}
 
-module FOL.Translation.Internal.Types where
+module FOL.Translation.Internal.Types ( typeToFormula ) where
 
 -- Agda library imports
 import Agda.Syntax.Internal ( Type )
 
 -- Local imports
-import Common ( T )
+import Common    ( T )
 import FOL.Types ( FOLFormula )
 
 ------------------------------------------------------------------------------

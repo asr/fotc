@@ -43,7 +43,6 @@ executable agda2atp
                   TPTP.Pretty
                   TPTP.Translation
                   TPTP.Types
-                  Utils.IO
                   Utils.Names
                   Utils.String
                   Utils.Version

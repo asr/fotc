@@ -36,7 +36,7 @@ import Agda.Syntax.Internal
     , Sort(Type)
     , Type(El)
     )
-import Agda.Syntax.Literal ( Literal(LitLevel) )
+import Agda.Syntax.Literal   ( Literal(LitLevel) )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports

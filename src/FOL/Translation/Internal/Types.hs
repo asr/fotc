@@ -16,21 +16,22 @@ module FOL.Translation.Internal.Types ( typeToFormula ) where
 ------------------------------------------------------------------------------
 -- Agda library imports
 
-import Agda.Syntax.Internal ( Sort(Type) , Term(Lit), Type(El) )
-import Agda.Syntax.Literal ( Literal(LitLevel) )
+import Agda.Syntax.Internal  ( Sort(Type) , Term(Lit), Type(El) )
+import Agda.Syntax.Literal   ( Literal(LitLevel) )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 ------------------------------------------------------------------------------
 -- Local imports
 
-import Common ( T )
+import Common                         ( T )
 import FOL.Translation.Internal.Terms ( termToFormula )
-import FOL.Types ( FOLFormula )
-import Reports ( reportSLn )
+import FOL.Types                      ( FOLFormula )
+import Reports                        ( reportSLn )
 
 #include "../../../undefined.h"
 
 ------------------------------------------------------------------------------
+
 typeToFormula :: Type → T FOLFormula
 typeToFormula ty@(El (Type (Lit (LitLevel _ n))) term)
     | n `elem` [ 0, 1 ] = do

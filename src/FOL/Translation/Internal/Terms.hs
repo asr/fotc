@@ -33,8 +33,8 @@ import Agda.Syntax.Internal
     , Term(Con, Def, DontCare, Fun, Lam, Lit, MetaV, Pi, Sort, Var)
     , Type(El)
     )
-import Agda.Syntax.Literal ( Literal(LitLevel) )
-import Agda.Syntax.Position ( noRange )
+import Agda.Syntax.Literal   ( Literal(LitLevel) )
+import Agda.Syntax.Position  ( noRange )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 ------------------------------------------------------------------------------
@@ -45,11 +45,11 @@ import FOL.Constants
     ( folTrue, folFalse, folNot, folAnd, folOr
     , folImplies, folEquiv, folExists, folForAll, folEquals
     )
-import FOL.Primitives ( app, equal )
+import FOL.Primitives                ( app, equal )
 import FOL.Translation.Concrete.Name ( concatName )
 import {-# source #-} FOL.Translation.Internal.Types ( typeToFormula )
-import FOL.Types ( FOLFormula(..), FOLTerm(..) )
-import Reports ( reportSLn )
+import FOL.Types   ( FOLFormula(..), FOLTerm(..) )
+import Reports     ( reportSLn )
 import Utils.Names ( freshName )
 
 #include "../../../undefined.h"

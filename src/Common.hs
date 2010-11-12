@@ -7,25 +7,29 @@
 
 module Common
     ( AllDefinitions
-    , iVarNames
+    , fakeFile
+    , initTState
     , runT
     , T
+    , TEnv
     , TopLevelDefinitions
-    , Vars
+    , TState
     )
     where
 
 -- Haskell imports
-import Control.Monad.Error ( ErrorT, MonadError, runErrorT )
+import Control.Monad.Error  ( ErrorT, MonadError, runErrorT )
 import Control.Monad.Reader ( MonadReader, ReaderT, runReaderT )
-import Control.Monad.State ( evalStateT, MonadState, StateT )
-import Control.Monad.Trans ( MonadIO )
+import Control.Monad.State  ( evalStateT, MonadState, StateT )
+import Control.Monad.Trans  ( MonadIO )
+
+import qualified Data.Map as Map ( empty )
 
 -- Agda library imports
 import Agda.TypeChecking.Monad.Base ( Definitions )
 
 -- Local imports
-import Options ( Options )
+import Options ( defaultOptions, Options )
 
 ------------------------------------------------------------------------------
 -- Common types
@@ -36,28 +40,35 @@ type TopLevelDefinitions = Definitions
 ------------------------------------------------------------------------------
 -- The translation monad
 
--- The statet 'Vars' represents the names of variables bounded in the Agda
+-- The type TState represents the names of variables bounded in the Agda
 -- types.
-type Vars = [String]
+type TState = [String]
 
 -- The initial state.
-iVarNames :: Vars
-iVarNames = []
+initTState :: TState
+initTState = []
 
 -- The environment.
-type Env = (AllDefinitions, Options, FilePath)
+type TEnv = (AllDefinitions, Options, FilePath)
+
+fakeFile :: FilePath
+fakeFile = ""
+
+-- The initial environment.
+initTEnv :: TEnv
+initTEnv = (Map.empty, defaultOptions, fakeFile)
 
 -- The translation monad.
 -- Adapted from: Real World Haskell (Chapter 18. Monad transformers)
-newtype T a = MkT { runA :: ErrorT String (StateT Vars (ReaderT Env IO)) a }
+newtype T a = MkT { runA :: ErrorT String (StateT TState (ReaderT TEnv IO)) a }
         -- Requires GeneralizedNewtypeDeriving
         deriving ( Functor
                  , Monad
                  , MonadIO
                  , MonadError String
-                 , MonadState Vars
-                 , MonadReader Env
+                 , MonadState TState
+                 , MonadReader TEnv
                  )
 
-runT :: T a → Vars → Env → IO (Either String a)
-runT ta vars env = runReaderT (evalStateT (runErrorT (runA ta)) vars) env
+runT :: T a → IO (Either String a)
+runT ta = runReaderT (evalStateT (runErrorT (runA ta)) initTState) initTEnv

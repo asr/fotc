@@ -13,11 +13,11 @@ module TPTP.Files
 
 -- Haskell imports
 import Control.Monad.Reader ( ask )
-import Control.Monad.Trans ( liftIO )
-import Data.Char ( chr, isAsciiUpper, isAsciiLower, isDigit, ord )
-import System.Directory ( createDirectoryIfMissing )
-import System.Environment ( getProgName )
-import System.FilePath ( (</>), addExtension, replaceExtension )
+import Control.Monad.Trans  ( liftIO )
+import Data.Char            ( chr, isAsciiUpper, isAsciiLower, isDigit, ord )
+import System.Directory     ( createDirectoryIfMissing )
+import System.Environment   ( getProgName )
+import System.FilePath      ( (</>), addExtension, replaceExtension )
 
 -- Agda library imports
 import Agda.Syntax.Abstract.Name
@@ -30,12 +30,12 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
 import AgdaLib.Interface ( qNameLine )
-import Common ( T )
-import Options ( Options(optOutputDir) )
-import Reports ( reportSLn )
-import TPTP.Pretty ( prettyTPTP )
-import TPTP.Types ( AF(MkAF) )
-import Utils.String ( replace )
+import Common            ( T )
+import Options           ( Options(optOutputDir) )
+import Reports           ( reportSLn )
+import TPTP.Pretty       ( prettyTPTP )
+import TPTP.Types        ( AF(MkAF) )
+import Utils.String      ( replace )
 
 #include "../undefined.h"
 

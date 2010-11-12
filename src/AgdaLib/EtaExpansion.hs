@@ -10,7 +10,7 @@ module AgdaLib.EtaExpansion ( etaExpand ) where
 -- Haskell imports
 
 import Control.Monad.Reader ( ask )
-import Control.Monad.State ( evalState, get, put )
+import Control.Monad.State  ( evalState, get, put )
 
 -- Agda library imports
 
@@ -29,15 +29,15 @@ import Agda.Syntax.Internal
     , Sort(Type)
     , Type(El)
     )
-import Agda.Syntax.Literal ( Literal(LitLevel) )
+import Agda.Syntax.Literal   ( Literal(LitLevel) )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
 
-import AgdaLib.Interface ( qNameType )
+import AgdaLib.Interface       ( qNameType )
 import AgdaLib.Syntax.DeBruijn ( increaseByOneVar )
-import Common ( T )
-import Utils.Names ( freshName )
+import Common                  ( T )
+import Utils.Names             ( freshName )
 
 #include "../undefined.h"
 

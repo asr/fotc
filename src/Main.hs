@@ -8,21 +8,16 @@ module Main ( main ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad ( liftM2, when )
+import Control.Monad        ( liftM2 )
+import Control.Monad.Error  ( catchError , throwError )
 import Control.Monad.Reader ( ask, local )
-import Control.Monad.Error
-    ( catchError
-    , ErrorT
-    , runErrorT
-    , throwError
-    )
-import Control.Monad.Trans ( liftIO )
+import Control.Monad.Trans  ( liftIO )
 
-import qualified Data.Map as Map ( empty, unions )
+import qualified Data.Map as Map ( unions )
 
-import System.Environment ( getArgs, getProgName)
-import System.Exit ( exitFailure, exitSuccess )
-import System.IO ( hPutStrLn, stderr )
+import System.Environment ( getArgs, getProgName )
+import System.Exit        ( exitFailure, exitSuccess )
+import System.IO          ( hPutStrLn, stderr )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
@@ -42,22 +37,15 @@ import Agda.Utils.Impossible
 -- Local imports
 
 -- import FOL.Pretty
-import AgdaLib.Interface
-    ( getImportedInterfaces
-    , myReadInterface
-    )
-import ATP.ATP ( callATP )
-import Common ( AllDefinitions, iVarNames, runT, T )
-import Options
-    ( Options(optHelp, optVersion)
-    , processOptions
-    , usage
-    )
-import Reports ( reportS )
-import TPTP.Translation ( conjecturesToAFs, generalRolesToAFs )
-import TPTP.Types ( AF )
-import Utils.IO ( bye )
-import Utils.Version ( version )
+import AgdaLib.Interface ( getImportedInterfaces , myReadInterface )
+import ATP.ATP           ( callATP )
+import Common            ( AllDefinitions, runT, T, TEnv )
+import Options           ( Options(optHelp, optVersion) , printUsage )
+import Options.Process   ( processOptions )
+import Reports           ( reportS )
+import TPTP.Translation  ( conjecturesToAFs, generalRolesToAFs )
+import TPTP.Types        ( AF )
+import Utils.Version     ( printVersion )
 
 #include "undefined.h"
 
@@ -65,7 +53,6 @@ import Utils.Version ( version )
 
 translation :: T ([AF], [(AF, [AF])])
 translation = do
-
   (_, _, file) ← ask
   reportS "" 1 $ "Translating " ++ file ++ " ..."
 
@@ -84,45 +71,44 @@ translation = do
       allDefs = Map.unions (topLevelDefs : importedDefs)
 
   -- We add allDefs to the environment.
-  -- TODO: To define the function that modifies the enviroment.
-  liftM2 (,)
-         (local (\(_, opts, f) → (allDefs, opts, f)) generalRolesToAFs)
-         (local (\(_, opts, f) → (allDefs, opts, f)) $
-                conjecturesToAFs topLevelDefs)
+  let changeTEnv :: TEnv → TEnv
+      changeTEnv (_, opts, f) = (allDefs, opts, f)
 
-runAgda2ATP :: String → ErrorT String IO ()
+  liftM2 (,)
+         (local changeTEnv generalRolesToAFs)
+         (local changeTEnv $ conjecturesToAFs topLevelDefs)
+
+-- | The main function.
+runAgda2ATP :: String → T ()
 runAgda2ATP prgName = do
   argv ← liftIO getArgs
 
-  -- Reading the command line options.
-  (opts, file) ← processOptions argv prgName
+  clo ← processOptions argv
+  case clo of
+    (opts, file)
+        | optHelp opts    → liftIO $ printUsage prgName
+        | optVersion opts → liftIO $ printVersion prgName
+        | otherwise       → do
+            let changeTEnv :: TEnv → TEnv
+                changeTEnv (defs, _, _) = (defs, opts, file)
 
-  when (optVersion opts) $ liftIO $
-       bye $ prgName ++ " version " ++ version ++ "\n"
-
-  when (optHelp opts) $ liftIO $ bye $ usage prgName
-
-  r  ← liftIO $ runT translation iVarNames (Map.empty, opts, file)
-  case r of
-    Right allAFs → do
-        r' ← liftIO $
-               runT (uncurry callATP allAFs) iVarNames (Map.empty, opts, file)
-        case r' of
-          Right _   → return ()
-          Left err' → throwError err'
-
-    Left err → throwError err
+            -- The ATP pragmas are translated to TPTP annotated formulas.
+            allAFs ← local changeTEnv translation
+            -- The ATPs systems are called on the TPTP annotated formulas.
+            local changeTEnv $ uncurry callATP allAFs
 
 main :: IO ()
 main = do
-  prgName ← liftIO getProgName
+  prgName ← getProgName
 
-  r ← runErrorT $ runAgda2ATP prgName `catchError` \err → do
-         liftIO $ hPutStrLn stderr $ prgName ++ ": " ++ err
-         throwError err
+  -- Adapted from Agda.Main.main.
+  r ← runT $ runAgda2ATP prgName `catchError` \err → do
+             liftIO $ hPutStrLn stderr $ prgName ++ ": " ++ err
+             throwError err
+
   case r of
     Right _ → exitSuccess
     Left  _ → exitFailure
   `catchImpossible` \e → do
-         putStr $ show e
-         exitFailure
+    putStr $ show e
+    exitFailure

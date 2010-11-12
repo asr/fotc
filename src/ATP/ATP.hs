@@ -8,16 +8,16 @@
 module ATP.ATP ( callATP ) where
 
 -- Haskell imports
-import Data.List ( isInfixOf )
-import Data.Maybe ( fromMaybe )
-import Control.Exception ( evaluate )
-import Control.Concurrent ( forkIO )
+import Data.List               ( isInfixOf )
+import Data.Maybe              ( fromMaybe )
+import Control.Exception       ( evaluate )
+import Control.Concurrent      ( forkIO )
 import Control.Concurrent.MVar ( MVar, newEmptyMVar, putMVar, takeMVar )
-import Control.Monad ( unless, when )
-import Control.Monad.Error ( throwError )
-import Control.Monad.Reader ( ask )
-import Control.Monad.Trans ( liftIO )
-import System.IO ( hGetContents )
+import Control.Monad           ( unless, when )
+import Control.Monad.Error     ( throwError )
+import Control.Monad.Reader    ( ask )
+import Control.Monad.Trans     ( liftIO )
+import System.IO               ( hGetContents )
 import System.Process
     ( createProcess
     , proc
@@ -32,9 +32,9 @@ import System.Process
 import Agda.Utils.Impossible ( Impossible(Impossible) , throwImpossible )
 
 -- Local imports
-import Common ( T )
-import Options ( Options(optATP, optOnlyFiles, optTime, optUnprovedError) )
-import Reports ( reportS )
+import Common     ( T )
+import Options    ( Options(optATP, optOnlyFiles, optTime, optUnprovedError) )
+import Reports    ( reportS )
 import TPTP.Files ( createGeneralRolesFile, createConjectureFile )
 import TPTP.Types ( AF )
 

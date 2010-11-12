@@ -15,9 +15,9 @@ module TPTP.Translation
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad ( liftM2, liftM3, zipWithM )
+import Control.Monad        ( liftM2, liftM3, zipWithM )
 import Control.Monad.Reader ( ask )
-import Control.Monad.State ( put )
+import Control.Monad.State  ( put )
 
 -- import Data.Map ( Map )
 import qualified Data.Map as Map ( elems, keys )
@@ -46,13 +46,13 @@ import AgdaLib.Interface
     , getRoleATP
     , qNameDefinition
     )
-import AgdaLib.Syntax.DeBruijn ( removeReferenceToProofTerms )
-import Common ( iVarNames, T, TopLevelDefinitions )
-import FOL.Translation.Functions ( fnToFormula )
+import AgdaLib.Syntax.DeBruijn        ( removeReferenceToProofTerms )
+import Common                         ( initTState, T, TopLevelDefinitions )
+import FOL.Translation.Functions      ( fnToFormula )
 import FOL.Translation.Internal.Types ( typeToFormula )
-import Options ( Options(optDefAsAxiom) )
-import Reports ( reportSLn )
-import TPTP.Types ( AF(MkAF) )
+import Options                        ( Options(optDefAsAxiom) )
+import Reports                        ( reportSLn )
+import TPTP.Types                     ( AF(MkAF) )
 
 -- #include "../undefined.h"
 
@@ -69,9 +69,9 @@ toAF role qName def = do
      "Type:\n" ++ show ty
 
   -- We need eta-expand the type before the translation.
-  -- We run the eta-expansion with an empty state, i.e. iVarNames.
+  -- We run the eta-expansion with an empty state, i.e. initTState.
 
-  put iVarNames
+  put initTState
   tyEtaExpanded ← etaExpand ty
 
   reportSLn "toAF" 20 $ "The eta-expanded type is:\n" ++ show tyEtaExpanded
@@ -84,8 +84,8 @@ toAF role qName def = do
   reportSLn "toAF" 20 $ "tyReady:\n" ++ show tyReady
 
   -- We run the translation from Agda types to FOL formulas with an
-  -- empty state, i.e. iVarNames.
-  put iVarNames
+  -- empty state, i.e. initTState.
+  put initTState
   for ← typeToFormula tyReady
   reportSLn "toAF" 20 $
     "The FOL formula for " ++ show qName ++ " is:\n" ++ show for
@@ -112,8 +112,8 @@ fnToAF qName def = do
     "Symbol: " ++ show qName ++ "\n" ++ "Clauses: " ++ show cls
 
   -- We run the translation from ATP definitions to FOL formulas with an
-  -- empty state, i.e. iVarNames.
-  put iVarNames
+  -- empty state, i.e. initTState.
+  put initTState
   for ← fnToFormula qName ty cls
   reportSLn "symbolToAF" 20 $
     "The FOL formula for " ++ show qName ++ " is:\n" ++ show for

@@ -6,7 +6,7 @@ module TPTP.Types ( AF(MkAF) ) where
 
 -- Agda library imports
 import Agda.Syntax.Abstract ( QName )
-import Agda.Syntax.Common ( RoleATP )
+import Agda.Syntax.Common   ( RoleATP )
 -- import qualified Agda.Utils.IO.Locale as LocIO
 
 -- Local imports

@@ -5,23 +5,22 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module Reports where
+module Reports ( reportS, reportSLn ) where
 
 -- Haskell imports
-import Control.Monad ( when )
+import Control.Monad        ( when )
 import Control.Monad.Reader ( ask )
-import Control.Monad.Trans ( liftIO )
+import Control.Monad.Trans  ( liftIO )
 
 -- Agda library imports
 import Agda.Interaction.Options ( Verbosity )
-import Agda.Utils.Impossible ( Impossible (Impossible), throwImpossible )
--- import qualified Agda.Utils.IO.Locale as LocIO
+import Agda.Utils.Impossible    ( Impossible (Impossible), throwImpossible )
 -- import Agda.Utils.Trie ( Trie )
 import qualified Agda.Utils.Trie as Trie ( lookupPath )
 import Agda.Utils.List ( wordsBy )
 
 -- Local imports
-import Common ( T )
+import Common  ( T )
 import Options ( Options(optVerbose) )
 
 #include "undefined.h"
@@ -30,12 +29,12 @@ import Options ( Options(optVerbose) )
 -- Nice way to report things via the verbose option.
 -- Adapted from Agda.TypeChecking.Monad.Options.
 
+type VerboseKey = String
+
 getVerbosity :: T Verbosity
 getVerbosity = do
   (_, opts, _) ← ask
   return $ optVerbose opts
-
-type VerboseKey = String
 
 -- | Precondition: The level must be non-negative.
 verboseS :: VerboseKey → Int → T () → T ()

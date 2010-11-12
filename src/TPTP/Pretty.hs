@@ -29,12 +29,13 @@ import Agda.Syntax.Common
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
-import FOL.Types ( FOLFormula(..), FOLTerm(..) )
+import FOL.Types  ( FOLFormula(..), FOLTerm(..) )
 import TPTP.Types ( AF(MkAF) )
 
 #include "../undefined.h"
 
 ------------------------------------------------------------------------------
+
 type TPTP = String
 
 class PrettyTPTP a where

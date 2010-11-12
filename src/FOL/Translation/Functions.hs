@@ -15,7 +15,7 @@ import Control.Monad.Error ( throwError )
 import Control.Monad.State ( evalState, get, put )
 
 -- Agda library imports
-import Agda.Syntax.Common ( Arg(Arg) )
+import Agda.Syntax.Common        ( Arg(Arg) )
 import Agda.Syntax.Abstract.Name ( QName )
 import Agda.Syntax.Internal
     ( Abs(Abs)
@@ -26,12 +26,12 @@ import Agda.Syntax.Internal
     , Term(Def, Lit)
     , Type(El)
     )
-import Agda.Syntax.Literal ( Literal(LitLevel) )
+import Agda.Syntax.Literal   ( Literal(LitLevel) )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
-import Common ( T )
-import FOL.Primitives ( equal )
+import Common                 ( T )
+import FOL.Primitives         ( equal )
 import FOL.Translation.Common ( varsToArgs )
 import FOL.Translation.Internal
     ( cBodyToFormula
@@ -40,9 +40,9 @@ import FOL.Translation.Internal
     )
 import FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm )
 import FOL.Translation.Internal.Types ( typeToFormula )
-import FOL.Types ( FOLFormula(Implies, Equiv, ForAll) )
-import Reports ( reportSLn )
-import Utils.Names ( freshName )
+import FOL.Types                      ( FOLFormula(Implies, Equiv, ForAll) )
+import Reports                        ( reportSLn )
+import Utils.Names                    ( freshName )
 
 #include "../../undefined.h"
 

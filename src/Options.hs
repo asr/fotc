@@ -6,31 +6,25 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Options
-    ( Options(..)
-    , processOptions
-    , usage
-    ) where
-
--- Haskell imports
-import Control.Monad.Error ( ErrorT, throwError )
-import Control.Monad.Trans ( liftIO )
+    ( defaultOptions
+    , defaultOptATP
+    , options
+    , Options(..)
+    , printUsage
+    )
+    where
 
 import System.Console.GetOpt
     ( ArgDescr(NoArg, ReqArg)
-    , ArgOrder (Permute)
-    , getOpt
     , OptDescr(Option)
     , usageInfo
     )
 
 -- Agda library imports
 import Agda.Interaction.Options ( Verbosity )
-import Agda.Utils.List ( wordsBy )
+import Agda.Utils.List          ( wordsBy )
 -- import Agda.Utils.Trie ( Trie )
 import qualified Agda.Utils.Trie as Trie ( insert, singleton )
-
--- Local imports
-import Utils.IO ( bye )
 
 -----------------------------------------------------------------------------
 
@@ -55,7 +49,7 @@ defaultOptions = MkOptions
   { optAgdaIncludePath = []
   , optATP             = []  -- N.B. The default is defined by
                              -- defaultOptATP and it is handle by
-                             -- Options.processOptions.
+                             -- Options.Process.processOptions.
   , optDefAsAxiom      = False
   , optHelp            = False
   , optOnlyFiles       = False
@@ -135,28 +129,6 @@ usageHeader :: String → String
 usageHeader prgName =
     "Usage: " ++ prgName ++ " [OPTION...] file \n"
 
-usage :: String → String
-usage prgName = usageInfo (usageHeader prgName) options
-
-processOptions :: [String] → String → ErrorT String IO (Options, String)
-processOptions argv prgName =
-  case getOpt Permute options argv of
-    ([], [], []) → liftIO $ bye $ usage prgName
-
-    (o, files, []) → do
-      let opts :: Options
-          opts = foldl (flip id) defaultOptions o
-
-      let finalOpts :: Options
-          finalOpts =
-              if null (optATP opts)  -- No ATPs was chosen.
-              then opts { optATP = defaultOptATP }  -- We set up the
-                                                    -- defaults ATPs.
-              else opts
-
-      case files of
-        []       → return (finalOpts, "")
-        (x : []) → return (finalOpts, x)
-        _        → throwError "Only one input file allowed"
-
-    (_, _, errors) → throwError $ unlines errors
+-- | Print usage information.
+printUsage :: String → IO ()
+printUsage prgName = putStrLn $ usageInfo (usageHeader prgName) options
