@@ -174,7 +174,6 @@ termToFormula term@(Fun tyArg ty) = do
   f2 ← typeToFormula ty
   return $ Implies f1 f2
 
--- TODO: To add test for this case.
 termToFormula term@(Lam _ (Abs _ termLam)) = do
   reportSLn "t2f" 10 $ "termToFormula Lam:\n" ++ show term
 

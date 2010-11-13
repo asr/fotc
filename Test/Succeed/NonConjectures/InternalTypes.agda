@@ -1,14 +1,14 @@
 module Test.Succeed.NonConjectures.InternalTypes where
 
--- Agda internal types (from Agda.Syntax.Internal)
+-- Agda 2.2.9 (13 November 2010) internal types (from Agda.Syntax.Internal)
 
--- -- | Raw values.
--- --
--- --   @Def@ is used for both defined and undefined constants.
--- --   Assume there is a type declaration and a definition for
--- --     every constant, even if the definition is an empty
--- --     list of clauses.
--- --
+-- | Raw values.
+--
+--   @Def@ is used for both defined and undefined constants.
+--   Assume there is a type declaration and a definition for
+--     every constant, even if the definition is an empty
+--     list of clauses.
+--
 -- data Term = Var Nat Args
 -- 	  | Lam Hiding (Abs Term)   -- ^ terms are beta normal
 -- 	  | Lit Literal
@@ -18,13 +18,15 @@ module Test.Succeed.NonConjectures.InternalTypes where
 -- 	  | Fun (Arg Type) Type
 -- 	  | Sort Sort
 -- 	  | MetaV MetaId Args
+--           | DontCare               -- ^ nuked irrelevant and other stuff
 --   deriving (Typeable, Data, Eq, Ord, Show)
+-- -- Andreas 2010-09-21: @DontCare@ replaces the hack @Sort Prop@
 
 -- data Type = El Sort Term
 --   deriving (Typeable, Data, Eq, Ord, Show)
 
--- data Sort = Type Term   -- A term of type Nat
--- 	  | Prop
+-- data Sort = Type Term   -- A term of type Level
+-- 	  | Prop  -- ignore me
 -- 	  | Lub Sort Sort
 -- 	  | Suc Sort
 -- 	  | MetaS MetaId Args
@@ -68,6 +70,17 @@ module Fun where
     a       : D
     termFun : P a → P a
   {-# ATP axiom termFun #-}
+
+------------------------------------------------------------------------------
+-- Testing data Term = Lam ...
+
+module Lam where
+
+  postulate
+    P       : D → Set
+    ∃D      : (P : D → Set) → Set
+    termLam : ∃D (λ e → P e)
+  {-# ATP axiom termLam #-}
 
 ------------------------------------------------------------------------------
 -- Testing data Term = Pi ...
