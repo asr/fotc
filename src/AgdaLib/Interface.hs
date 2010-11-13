@@ -183,7 +183,6 @@ isAxiomATP def =
 
        _       → False
 
--- TODO: Unify with 'isAxiomATP'
 isConjectureATP :: Definition → Bool
 isConjectureATP def =
   let defn :: Defn

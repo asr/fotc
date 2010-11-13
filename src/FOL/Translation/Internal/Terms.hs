@@ -264,12 +264,6 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
 
     El (Type (Lit (LitLevel _ 0))) _ → __IMPOSSIBLE__
 
-    -- Old version
-    -- TODO: Check it
-    -- The bounded variable has type Set, i.e. a propositional constant.
-    -- El (Type (Lit (LitLevel _ 1))) _ →
-        -- return $ ForAll freshVar (\_ → f2)
-
     -- The bounded variable is quantified on a Set₁,
     --
     -- e.g. the bounded variable is 'A : Set'.
@@ -283,23 +277,23 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
 
     _                                → __IMPOSSIBLE__
 
--- TODO: To add test for this case.
-termToFormula term@(Var n _) = do
-  reportSLn "t2f" 10 $ "termToFormula Var: " ++ show term
+-- termToFormula term@(Var n _) = do
+--   reportSLn "t2f" 10 $ "termToFormula Var: " ++ show term
 
-  state ← get
-  let vars :: [String]
-      vars = tVars state
+--   state ← get
+--   let vars :: [String]
+--       vars = tVars state
 
-  if length vars <= fromIntegral n
-     then __IMPOSSIBLE__
-     else return $ Predicate (vars !! fromIntegral n) []
+--   if length vars <= fromIntegral n
+--      then __IMPOSSIBLE__
+--      else return $ Predicate (vars !! fromIntegral n) []
 
 termToFormula DontCare    = __IMPOSSIBLE__
 termToFormula (Con _ _)   = __IMPOSSIBLE__
 termToFormula (Lit _)     = __IMPOSSIBLE__
 termToFormula (MetaV _ _) = __IMPOSSIBLE__
 termToFormula (Sort _)    = __IMPOSSIBLE__
+termToFormula (Var _ _)   = __IMPOSSIBLE__
 
 -- Translate 'foo x1 ... xn' to 'kApp (... kApp (kApp(foo, x1), x2), ..., xn)'.
 appArgs :: String → Args → T FOLTerm
@@ -322,7 +316,6 @@ termToFOLTerm term@(Con (QName _ name) args)  = do
 
     -- The term Con doesn't have holes. It should be translated as a
     -- FOL function.
-    -- TODO: Added test case
     C.Name _ [C.Id _ ] → __IMPOSSIBLE__
     -- C.Name _ [C.Id str] →
     --     case args of
