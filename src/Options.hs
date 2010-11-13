@@ -89,6 +89,7 @@ unprovedErrorOpt opts = opts { optUnprovedError = True }
 verboseOpt :: String → Options → Options
 verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
     where
+      -- Requires ScopedTypeVariables.
       (k, n) :: ([String], Int) = parseVerbose str
       parseVerbose :: String → ([String], Int)
       parseVerbose s =
@@ -96,7 +97,7 @@ verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
             []  → error "Argument to verbose should be on the form x.y.z:N or N"
             ss  → let m :: Int
                       m = read $ last ss
-                  in (init ss, m)
+                  in  (init ss, m)
 
 versionOpt :: Options → Options
 versionOpt opts = opts { optVersion = True }

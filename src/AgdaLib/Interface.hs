@@ -21,8 +21,9 @@ module AgdaLib.Interface
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad.State  ( evalStateT, get, put, StateT )
-import Control.Monad.Trans  ( lift, liftIO )
+import Control.Monad.Error ( throwError )
+import Control.Monad.State ( evalStateT, get, put, StateT )
+import Control.Monad.Trans ( lift, liftIO )
 
 import Data.Int                  ( Int32 )
 import qualified Data.Map as Map ( filter, lookup )
@@ -151,9 +152,9 @@ myReadInterface file = do
          readInterface iFile
 
   case r of
-        Right (Just i) → return i
-        Right Nothing  → error $ "Error reading the interface file " ++ iFile
-        Left  _        → error "Error from runTCM in myReadInterface"
+    Right (Just i) → return i
+    Right Nothing  → throwError $ "Error reading the interface file " ++ iFile
+    Left  _        → throwError "Error from runTCM in myReadInterface"
 
 myGetInterface :: ModuleName → T (Maybe Interface)
 myGetInterface x = do

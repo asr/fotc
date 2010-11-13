@@ -5,7 +5,11 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module FOL.Translation.Internal.Types ( typeToFormula ) where
+module FOL.Translation.Internal.Types
+    ( argTypeToFormula
+    , typeToFormula
+    )
+    where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
@@ -16,6 +20,10 @@ module FOL.Translation.Internal.Types ( typeToFormula ) where
 ------------------------------------------------------------------------------
 -- Agda library imports
 
+import Agda.Syntax.Common
+    ( Arg(Arg, argHiding, unArg)
+    , Hiding(Hidden, NotHidden)
+    )
 import Agda.Syntax.Internal  ( Sort(Type) , Term(Lit), Type(El) )
 import Agda.Syntax.Literal   ( Literal(LitLevel) )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
@@ -31,6 +39,11 @@ import Monad.Reports                  ( reportSLn )
 #include "../../../undefined.h"
 
 ------------------------------------------------------------------------------
+
+-- We keep the two equations for debugging.
+argTypeToFormula :: Arg Type → T FOLFormula
+argTypeToFormula Arg {argHiding = NotHidden, unArg = ty} = typeToFormula ty
+argTypeToFormula Arg {argHiding = Hidden}                = __IMPOSSIBLE__
 
 typeToFormula :: Type → T FOLFormula
 typeToFormula ty@(El (Type (Lit (LitLevel _ n))) term)

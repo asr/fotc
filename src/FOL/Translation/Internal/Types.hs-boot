@@ -4,9 +4,14 @@
 
 {-# LANGUAGE UnicodeSyntax #-}
 
-module FOL.Translation.Internal.Types ( typeToFormula ) where
+module FOL.Translation.Internal.Types
+    ( argTypeToFormula
+    , typeToFormula
+    )
+    where
 
 -- Agda library imports
+import Agda.Syntax.Common   ( Arg )
 import Agda.Syntax.Internal ( Type )
 
 -- Local imports
@@ -15,4 +20,5 @@ import Monad.Base ( T )
 
 ------------------------------------------------------------------------------
 
-typeToFormula :: Type → T FOLFormula
+argTypeToFormula :: Arg Type → T FOLFormula
+typeToFormula    :: Type → T FOLFormula

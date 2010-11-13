@@ -17,10 +17,8 @@ import Control.Monad.State ( evalState, get, modify )
 
 import Agda.Syntax.Abstract.Name ( nameConcrete, QName(QName) )
 import Agda.Syntax.Common
-    ( Arg(Arg)
-    , argHiding
+    ( Arg(Arg, argHiding, unArg)
     , Hiding(Hidden, NotHidden)
-    , unArg
     )
 import qualified Agda.Syntax.Concrete.Name as C
     ( Name(Name, NoName)
@@ -46,7 +44,10 @@ import FOL.Constants
     )
 import FOL.Primitives                ( app, equal )
 import FOL.Translation.Concrete.Name ( concatName )
-import {-# source #-} FOL.Translation.Internal.Types ( typeToFormula )
+import {-# source #-} FOL.Translation.Internal.Types
+    ( argTypeToFormula
+    , typeToFormula
+    )
 import FOL.Types     ( FOLFormula(..), FOLTerm(..) )
 import Monad.Base    ( T, TState(tVars) )
 import Monad.Reports ( reportSLn )
@@ -56,10 +57,15 @@ import Utils.Names   ( freshName )
 
 ------------------------------------------------------------------------------
 
+-- We keep the two equations for debugging.
 argTermToFormula :: Arg Term → T FOLFormula
-argTermToFormula Arg {argHiding = NotHidden, unArg = term} = termToFormula term
-argTermToFormula Arg {argHiding = Hidden} =
-    error "argTermToFormula: not implemented"
+argTermToFormula Arg {argHiding = NotHidden, unArg = t} = termToFormula t
+argTermToFormula Arg {argHiding = Hidden}               = __IMPOSSIBLE__
+
+-- We keep the two equations for debugging.
+argTermToFOLTerm :: Arg Term → T FOLTerm
+argTermToFOLTerm Arg {argHiding = NotHidden, unArg = t} = termToFOLTerm t
+argTermToFOLTerm Arg {argHiding = Hidden,    unArg = t} = termToFOLTerm t
 
 binConst :: (FOLFormula → FOLFormula → FOLFormula) →
             Arg Term →
@@ -96,7 +102,7 @@ termToFormula term@(Def (QName _ name) args) = do
                    | ( isCNameFOLConst folExists ||
                        isCNameFOLConst folForAll ) → do
 
-                       fm ← termToFormula $ unArg a
+                       fm ← argTermToFormula a
 
                        state ← get
                        let vars :: [String]
@@ -113,9 +119,7 @@ termToFormula term@(Def (QName _ name) args) = do
                       -- In this guard we translate predicates with
                       -- one argument (e.g. P : D → Set).
 
-                      -- TODO: To test if 'termToFOLTerm (unArg a)'
-                      -- works with implicit arguments.
-                      t ← termToFOLTerm $ unArg a
+                      t ← argTermToFOLTerm a
                       return $ Predicate (show cName) [t]
 
             (a1:a2:[])
@@ -129,20 +133,20 @@ termToFormula term@(Def (QName _ name) args) = do
 
                 | isCNameFOLConstTwoHoles folEquals → do
                     reportSLn "t2f" 20 "Processing equals"
-                    t1 ← termToFOLTerm $ unArg a1
-                    t2 ← termToFOLTerm $ unArg a2
+                    t1 ← argTermToFOLTerm a1
+                    t2 ← argTermToFOLTerm a2
                     return $ equal t1 t2
 
                 | otherwise → do
                       reportSLn "t2f" 20 $
                         "Processing a definition with two arguments which " ++
                         "is not a FOL constant: " ++ show cName
-                      t1 ← termToFOLTerm $ unArg a1
-                      t2 ← termToFOLTerm $ unArg a2
+                      t1 ← argTermToFOLTerm a1
+                      t2 ← argTermToFOLTerm a2
                       return $ Predicate (show cName) [t1, t2]
 
             threeOrMore → do
-                      terms ← mapM (termToFOLTerm . unArg ) threeOrMore
+                      terms ← mapM argTermToFOLTerm threeOrMore
                       return $ Predicate (show cName) terms
 
           where
@@ -166,7 +170,7 @@ termToFormula term@(Def (QName _ name) args) = do
 
 termToFormula term@(Fun tyArg ty) = do
   reportSLn "t2f" 10 $ "termToFormula Fun:\n" ++ show term
-  f1 ← typeToFormula $ unArg tyArg
+  f1 ← argTypeToFormula tyArg
   f2 ← typeToFormula ty
   return $ Implies f1 f2
 
@@ -240,7 +244,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     El (Type (Lit (LitLevel _ 0))) def@(Def _ _) → do
        reportSLn "t2f" 20 $
          "Removing a quantification on the proof:\n" ++ show def
-       f1 ← typeToFormula $ unArg tyArg
+       f1 ← argTypeToFormula tyArg
        return $ Implies f1 f2
 
     -- Hack: The bounded variable is quantified on a function of a Set
@@ -301,7 +305,7 @@ termToFormula (Sort _)    = __IMPOSSIBLE__
 -- Translate 'foo x1 ... xn' to 'kApp (... kApp (kApp(foo, x1), x2), ..., xn)'.
 appArgs :: String → Args → T FOLTerm
 appArgs fn args = do
-  termsFOL ← mapM (termToFOLTerm . unArg) args
+  termsFOL ← mapM argTermToFOLTerm args
   return $ foldl app (FOLFun fn []) termsFOL
 
 -- Translate an Agda term to an FOL term.
@@ -377,7 +381,7 @@ termToFOLTerm term@(Var n args) = do
          -- variable/function to a term.
 
          (a1 : []) → do
-             t ← termToFOLTerm $ unArg a1
+             t ← argTermToFOLTerm a1
              return $ app (FOLVar (vars !! fromIntegral n)) t
 
          _  → __IMPOSSIBLE__

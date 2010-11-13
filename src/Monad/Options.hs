@@ -46,4 +46,4 @@ processOptions argv =
         (x : []) → return (finalOpts, x)
         _        → throwError "Only one input file allowed"
 
-    (_, _, errors) → throwError $ unlines errors
+    (_, _, errs) → throwError $ unlines errs
