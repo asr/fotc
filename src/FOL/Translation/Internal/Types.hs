@@ -23,10 +23,10 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import Common                         ( T )
 import FOL.Translation.Internal.Terms ( termToFormula )
 import FOL.Types                      ( FOLFormula )
-import Reports                        ( reportSLn )
+import Monad.Base                     ( T )
+import Monad.Reports                  ( reportSLn )
 
 #include "../../../undefined.h"
 

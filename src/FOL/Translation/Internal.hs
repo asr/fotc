@@ -26,9 +26,9 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
 import AgdaLib.Syntax.DeBruijn        ( renameVar, varToDeBruijnIndex )
-import Common                         ( T )
 import FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm )
 import FOL.Types                      ( FOLFormula, FOLTerm )
+import Monad.Base                     ( T )
 
 #include "../../undefined.h"
 

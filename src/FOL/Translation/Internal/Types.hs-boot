@@ -10,8 +10,8 @@ module FOL.Translation.Internal.Types ( typeToFormula ) where
 import Agda.Syntax.Internal ( Type )
 
 -- Local imports
-import Common    ( T )
-import FOL.Types ( FOLFormula )
+import FOL.Types  ( FOLFormula )
+import Monad.Base ( T )
 
 ------------------------------------------------------------------------------
 

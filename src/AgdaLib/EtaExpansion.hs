@@ -9,8 +9,7 @@ module AgdaLib.EtaExpansion ( etaExpand ) where
 
 -- Haskell imports
 
-import Control.Monad.Reader ( ask )
-import Control.Monad.State  ( evalState, get, put )
+import Control.Monad.State  ( evalState, get, modify )
 
 -- Agda library imports
 
@@ -36,7 +35,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 import AgdaLib.Interface       ( qNameType )
 import AgdaLib.Syntax.DeBruijn ( increaseByOneVar )
-import Common                  ( T )
+import Monad.Base              ( AllDefinitions, T, TState(tAllDefs, tVars) )
 import Utils.Names             ( freshName )
 
 #include "../undefined.h"
@@ -57,8 +56,13 @@ instance EtaExpandible Type where
 
 instance EtaExpandible Term where
     etaExpand (Def qName args) = do
-      (allDefs, _, _) ← ask
-      vars         ← get
+      state ← get
+
+      let allDefs :: AllDefinitions
+          allDefs = tAllDefs state
+
+      let vars :: [String]
+          vars = tVars state
 
       let qNameArity :: Nat
           qNameArity = arity $ qNameType allDefs qName
@@ -86,7 +90,7 @@ instance EtaExpandible Term where
         then return $ Def qName argsEtaExpanded
         else if qNameArity - 1 == fromIntegral (length args)
                then do
-                 put $ freshVar : vars
+                 modify $ \s → s { tVars = freshVar : vars }
                  -- Because we are going to add a new abstraction, we
                  -- need increase by one the numbers associated with the
                  -- variables in the arguments.
@@ -109,8 +113,10 @@ instance EtaExpandible Term where
 
     etaExpand (Lam h (Abs x termAbs)) = do
       -- We add the variable x to the enviroment.
-      vars ← get
-      put $ x : vars
+      state ← get
+      let vars :: [String]
+          vars = tVars state
+      modify $ \s → s { tVars = x : vars }
 
       termAbsEtaExpanded ← etaExpand termAbs
       return $ Lam h (Abs x termAbsEtaExpanded)
@@ -119,8 +125,10 @@ instance EtaExpandible Term where
     -- case of Fun (Arg Type) Type.
     etaExpand (Pi tyArg (Abs x tyAbs)) = do
       -- We add the variable x to the enviroment.
-      vars ← get
-      put $ x : vars
+      state ← get
+      let vars :: [String]
+          vars = tVars state
+      modify $ \s → s { tVars = x : vars }
 
       tyAbsEtaExpanded ← etaExpand tyAbs
       return $ Pi tyArg (Abs x tyAbsEtaExpanded)

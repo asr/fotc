@@ -12,7 +12,7 @@ module FOL.Translation.Functions ( fnToFormula ) where
 
 -- Haskell imports
 import Control.Monad.Error ( throwError )
-import Control.Monad.State ( evalState, get, put )
+import Control.Monad.State ( evalState, get, modify )
 
 -- Agda library imports
 import Agda.Syntax.Common        ( Arg(Arg) )
@@ -30,7 +30,6 @@ import Agda.Syntax.Literal   ( Literal(LitLevel) )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
-import Common                 ( T )
 import FOL.Primitives         ( equal )
 import FOL.Translation.Common ( varsToArgs )
 import FOL.Translation.Internal
@@ -41,7 +40,8 @@ import FOL.Translation.Internal
 import FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm )
 import FOL.Translation.Internal.Types ( typeToFormula )
 import FOL.Types                      ( FOLFormula(Implies, Equiv, ForAll) )
-import Reports                        ( reportSLn )
+import Monad.Base                     ( T, TState(tVars) )
+import Monad.Reports                  ( reportSLn )
 import Utils.Names                    ( freshName )
 
 #include "../../undefined.h"
@@ -86,16 +86,19 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
     ExtendTel
       (Arg _ _ (El (Type (Lit (LitLevel _ 0))) (Def _ []))) (Abs x tels) → do
           reportSLn "def2f" 20 $ "Processing var: " ++ x
-          vars ← get
+
+          state ← get
+          let vars :: [String]
+              vars = tVars state
 
           let freshVar :: String
               freshVar = evalState freshName vars
 
-          -- See the reason for the order in the enviroment in
+          -- See the reason for the order in the variables in
           -- FOL.Translation.Terms.termToFormula term@(Pi ... )
-          put $ freshVar : vars
+          modify $ \s → s { tVars = freshVar : vars }
           f ← oneClauseToFormula qName ty (Clause r tels perm pats cBody)
-          put vars
+          modify $ \s → s { tVars = vars }
 
           return $ ForAll freshVar (\_ → f)
 
@@ -133,7 +136,10 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
 -- universal quantification, so we translate the LHS and the RHS.
 oneClauseToFormula qName ty (Clause _ _ _ [] cBody ) = do
 
-  vars ← get
+  state ← get
+  let vars :: [String]
+      vars = tVars state
+
   reportSLn "def2f" 20 $ "vars: " ++ show vars
 
   -- We create the Agda term corresponds to the LHS of the symbol's

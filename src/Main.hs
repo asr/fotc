@@ -8,10 +8,10 @@ module Main ( main ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad        ( liftM2 )
-import Control.Monad.Error  ( catchError , throwError )
-import Control.Monad.Reader ( ask, local )
-import Control.Monad.Trans  ( liftIO )
+import Control.Monad       ( liftM2 )
+import Control.Monad.Error ( catchError , throwError )
+import Control.Monad.State ( get, modify )
+import Control.Monad.Trans ( liftIO )
 
 import qualified Data.Map as Map ( unions )
 
@@ -39,10 +39,15 @@ import Agda.Utils.Impossible
 -- import FOL.Pretty
 import AgdaLib.Interface ( getImportedInterfaces , myReadInterface )
 import ATP.ATP           ( callATP )
-import Common            ( AllDefinitions, runT, T, TEnv )
+import Monad.Base
+    ( AllDefinitions
+    , runT
+    , T
+    , TState(tAllDefs, tFile, tOpts)
+    )
+import Monad.Options     ( processOptions )
+import Monad.Reports     ( reportS )
 import Options           ( Options(optHelp, optVersion) , printUsage )
-import Options.Process   ( processOptions )
-import Reports           ( reportS )
 import TPTP.Translation  ( conjecturesToAFs, generalRolesToAFs )
 import TPTP.Types        ( AF )
 import Utils.Version     ( printVersion )
@@ -53,7 +58,9 @@ import Utils.Version     ( printVersion )
 
 translation :: T ([AF], [(AF, [AF])])
 translation = do
-  (_, _, file) ← ask
+  state ← get
+  let file :: FilePath
+      file = tFile state
   reportS "" 1 $ "Translating " ++ file ++ " ..."
 
   -- Gettting the interface.
@@ -70,13 +77,10 @@ translation = do
   let allDefs :: AllDefinitions
       allDefs = Map.unions (topLevelDefs : importedDefs)
 
-  -- We add allDefs to the environment.
-  let changeTEnv :: TEnv → TEnv
-      changeTEnv (_, opts, f) = (allDefs, opts, f)
+  -- We add allDefs to the state
+  modify $ \s → s { tAllDefs = allDefs }
 
-  liftM2 (,)
-         (local changeTEnv generalRolesToAFs)
-         (local changeTEnv $ conjecturesToAFs topLevelDefs)
+  liftM2 (,) generalRolesToAFs (conjecturesToAFs topLevelDefs)
 
 -- | The main function.
 runAgda2ATP :: String → T ()
@@ -89,13 +93,12 @@ runAgda2ATP prgName = do
         | optHelp opts    → liftIO $ printUsage prgName
         | optVersion opts → liftIO $ printVersion prgName
         | otherwise       → do
-            let changeTEnv :: TEnv → TEnv
-                changeTEnv (defs, _, _) = (defs, opts, file)
+            modify $ \s → s { tFile = file, tOpts = opts }
 
             -- The ATP pragmas are translated to TPTP annotated formulas.
-            allAFs ← local changeTEnv translation
+            allAFs ← translation
             -- The ATPs systems are called on the TPTP annotated formulas.
-            local changeTEnv $ uncurry callATP allAFs
+            uncurry callATP allAFs
 
 main :: IO ()
 main = do

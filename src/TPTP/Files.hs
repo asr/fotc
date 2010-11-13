@@ -12,7 +12,7 @@ module TPTP.Files
     ) where
 
 -- Haskell imports
-import Control.Monad.Reader ( ask )
+import Control.Monad.State  ( get )
 import Control.Monad.Trans  ( liftIO )
 import Data.Char            ( chr, isAsciiUpper, isAsciiLower, isDigit, ord )
 import System.Directory     ( createDirectoryIfMissing )
@@ -30,9 +30,9 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
 import AgdaLib.Interface ( qNameLine )
-import Common            ( T )
+import Monad.Base        ( T, TState(tFile, tOpts) )
+import Monad.Reports     ( reportSLn )
 import Options           ( Options(optOutputDir) )
-import Reports           ( reportSLn )
 import TPTP.Pretty       ( prettyTPTP )
 import TPTP.Types        ( AF(MkAF) )
 import Utils.String      ( replace )
@@ -65,14 +65,15 @@ commentLine = "%----------------------------------------------------------------
 generalRolesFileName :: T FilePath
 generalRolesFileName = do
 
-    (_, opts, file) ← ask
+    state ← get
 
     let outputDir :: String
-        outputDir = optOutputDir opts
+        outputDir = optOutputDir $ tOpts state
 
     liftIO $ createDirectoryIfMissing True outputDir
 
-    return $ outputDir </> replace '/' '.' (replaceExtension file tptpExt)
+    return $ outputDir </>
+             replace '/' '.' (replaceExtension (tFile state) tptpExt)
 
 commonHeader :: IO String
 commonHeader = do
@@ -84,12 +85,12 @@ commonHeader = do
 
 generalRolesHeader :: T String
 generalRolesHeader = do
-  (_, _, file) ← ask
-  ch           ← liftIO commonHeader
+  state ← get
+  ch    ← liftIO commonHeader
   return $
     ch ++
     "% This file corresponds to the general ATP pragmas (axioms, general hints,\n" ++
-    "% and definitions) for the file " ++ show file ++ ".\n\n"
+    "% and definitions) for the file " ++ show (tFile state) ++ ".\n\n"
 
 generalRolesFooter :: String
 generalRolesFooter  =
@@ -156,10 +157,10 @@ createConjectureFile (af@(MkAF qName _ _), hints) = do
   -- added the line number where the term was defined to the file
   -- name.
 
-  (_, opts, _) ← ask
+  state ← get
 
   let outputDir :: FilePath
-      outputDir = optOutputDir opts
+      outputDir = optOutputDir $ tOpts state
 
   let f :: FilePath
       f = outputDir </>

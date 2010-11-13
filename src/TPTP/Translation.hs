@@ -16,8 +16,7 @@ module TPTP.Translation
 -- Haskell imports
 
 import Control.Monad        ( liftM2, liftM3, zipWithM )
-import Control.Monad.Reader ( ask )
-import Control.Monad.State  ( put )
+import Control.Monad.State  ( get, modify )
 
 -- import Data.Map ( Map )
 import qualified Data.Map as Map ( elems, keys )
@@ -47,11 +46,11 @@ import AgdaLib.Interface
     , qNameDefinition
     )
 import AgdaLib.Syntax.DeBruijn        ( removeReferenceToProofTerms )
-import Common                         ( initTState, T, TopLevelDefinitions )
 import FOL.Translation.Functions      ( fnToFormula )
 import FOL.Translation.Internal.Types ( typeToFormula )
+import Monad.Base                     ( T , TState(tAllDefs, tOpts, tVars))
+import Monad.Reports                  ( reportSLn )
 import Options                        ( Options(optDefAsAxiom) )
-import Reports                        ( reportSLn )
 import TPTP.Types                     ( AF(MkAF) )
 
 -- #include "../undefined.h"
@@ -69,9 +68,8 @@ toAF role qName def = do
      "Type:\n" ++ show ty
 
   -- We need eta-expand the type before the translation.
-  -- We run the eta-expansion with an empty state, i.e. initTState.
-
-  put initTState
+  -- We run the eta-expansion without variables in the state.
+  modify $ \s → s { tVars = [] }
   tyEtaExpanded ← etaExpand ty
 
   reportSLn "toAF" 20 $ "The eta-expanded type is:\n" ++ show tyEtaExpanded
@@ -83,9 +81,9 @@ toAF role qName def = do
 
   reportSLn "toAF" 20 $ "tyReady:\n" ++ show tyReady
 
-  -- We run the translation from Agda types to FOL formulas with an
-  -- empty state, i.e. initTState.
-  put initTState
+  -- We run the translation from Agda types to FOL formulas without
+  -- variables in the state.
+  modify $ \s → s { tVars = [] }
   for ← typeToFormula tyReady
   reportSLn "toAF" 20 $
     "The FOL formula for " ++ show qName ++ " is:\n" ++ show for
@@ -96,7 +94,9 @@ toAF role qName def = do
 fnToAF :: QName → Definition → T AF
 fnToAF qName def = do
 
-  (_, opts, _) ← ask
+  state ← get
+  let opts :: Options
+      opts = tOpts state
 
   let ty :: Type
       ty = defType def
@@ -111,9 +111,9 @@ fnToAF qName def = do
   reportSLn "symbolToAF" 10 $
     "Symbol: " ++ show qName ++ "\n" ++ "Clauses: " ++ show cls
 
-  -- We run the translation from ATP definitions to FOL formulas with an
-  -- empty state, i.e. initTState.
-  put initTState
+  -- We run the translation from Agda types to FOL formulas without
+  -- variables in the state.
+  modify $ \s → s { tVars = [] }
   for ← fnToFormula qName ty cls
   reportSLn "symbolToAF" 20 $
     "The FOL formula for " ++ show qName ++ " is:\n" ++ show for
@@ -126,10 +126,10 @@ fnToAF qName def = do
 fnsToAFs :: T [AF]
 fnsToAFs = do
 
-  (allDefs, _, _) ← ask
+  state ← get
 
   let fnDefs :: Definitions
-      fnDefs = getRoleATP DefinitionATP allDefs
+      fnDefs = getRoleATP DefinitionATP $ tAllDefs state
 
   zipWithM fnToAF (Map.keys fnDefs) (Map.elems fnDefs)
 
@@ -137,10 +137,10 @@ fnsToAFs = do
 localHintToAF :: QName → T AF
 localHintToAF qName = do
 
-  (allDefs, _, _) ← ask
+  state ← get
 
   let def :: Definition
-      def = qNameDefinition allDefs qName
+      def = qNameDefinition (tAllDefs state) qName
 
   toAF HintATP qName def
 
@@ -167,7 +167,7 @@ conjectureToAF qName def =
 -- the top level module. For each conjecture we return its translation
 -- and a list of the translation of its local hints, i.e. we return a
 -- pair (AF, [AF]).
-conjecturesToAFs :: TopLevelDefinitions → T [(AF, [AF])]
+conjecturesToAFs :: Definitions → T [(AF, [AF])]
 conjecturesToAFs tlDefs = do
 
   let conjecturesDefs :: Definitions
@@ -183,10 +183,10 @@ conjecturesToAFs tlDefs = do
 axiomsToAFs :: T [AF]
 axiomsToAFs = do
 
-  (allDefs, _, _) ← ask
+  state ← get
 
   let axDefs :: Definitions
-      axDefs = getRoleATP AxiomATP allDefs
+      axDefs = getRoleATP AxiomATP $ tAllDefs state
 
   zipWithM (toAF AxiomATP) (Map.keys axDefs) (Map.elems axDefs)
 
@@ -195,10 +195,10 @@ axiomsToAFs = do
 generalHintsToAFs :: T [AF]
 generalHintsToAFs = do
 
-  (allDefs, _, _) ← ask
+  state ← get
 
   let ghDefs :: Definitions
-      ghDefs = getRoleATP HintATP allDefs
+      ghDefs = getRoleATP HintATP $ tAllDefs state
 
   zipWithM (toAF HintATP) (Map.keys ghDefs) (Map.elems ghDefs)
 

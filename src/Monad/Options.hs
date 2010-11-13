@@ -4,7 +4,7 @@
 
 {-# LANGUAGE UnicodeSyntax #-}
 
-module Options.Process ( processOptions ) where
+module Monad.Options ( processOptions ) where
 
 -- Haskell imports
 import Control.Monad.Error ( throwError )
@@ -15,7 +15,7 @@ import System.Console.GetOpt
     )
 
 -- Local imports
-import Common ( fakeFile, T )
+import Monad.Base ( T )
 import Options
     ( defaultOptions
     , defaultOptATP
@@ -24,12 +24,11 @@ import Options
     )
 
 -----------------------------------------------------------------------------
--- This function is not defined in the module Options.hs to avoid a
--- circularity.
+
 processOptions :: [String] → T (Options, String)
 processOptions argv =
   case getOpt Permute options argv of
-    ([], [], []) → return (defaultOptions { optHelp = True } , fakeFile)
+    ([], [], []) → return (defaultOptions { optHelp = True } , [])
 
     (o, files, []) → do
       let opts :: Options
@@ -43,7 +42,7 @@ processOptions argv =
               else opts
 
       case files of
-        []       → return (finalOpts, fakeFile)
+        []       → return (finalOpts, [])
         (x : []) → return (finalOpts, x)
         _        → throwError "Only one input file allowed"
 

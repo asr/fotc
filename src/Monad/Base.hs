@@ -1,25 +1,20 @@
 ------------------------------------------------------------------------------
--- Common entities
+-- The translation monad
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module Common
+module Monad.Base
     ( AllDefinitions
-    , fakeFile
-    , initTState
     , runT
     , T
-    , TEnv
-    , TopLevelDefinitions
-    , TState
+    , TState(tAllDefs, tFile, tOpts, tVars)
     )
     where
 
 -- Haskell imports
 import Control.Monad.Error  ( ErrorT, MonadError, runErrorT )
-import Control.Monad.Reader ( MonadReader, ReaderT, runReaderT )
 import Control.Monad.State  ( evalStateT, MonadState, StateT )
 import Control.Monad.Trans  ( MonadIO )
 
@@ -32,43 +27,34 @@ import Agda.TypeChecking.Monad.Base ( Definitions )
 import Options ( defaultOptions, Options )
 
 ------------------------------------------------------------------------------
--- Common types
 
-type AllDefinitions      = Definitions
-type TopLevelDefinitions = Definitions
+type AllDefinitions = Definitions
 
-------------------------------------------------------------------------------
--- The translation monad
-
--- The type TState represents the names of variables bounded in the Agda
--- types.
-type TState = [String]
+data TState = MkState { tAllDefs :: AllDefinitions
+                      , tFile    :: FilePath
+                      , tOpts    :: Options
+                      , tVars    :: [String]
+                        -- ^ Names of variables bounded in the Agda types.
+                      }
 
 -- The initial state.
 initTState :: TState
-initTState = []
-
--- The environment.
-type TEnv = (AllDefinitions, Options, FilePath)
-
-fakeFile :: FilePath
-fakeFile = ""
-
--- The initial environment.
-initTEnv :: TEnv
-initTEnv = (Map.empty, defaultOptions, fakeFile)
+initTState = MkState { tAllDefs = Map.empty
+                     , tFile    = []
+                     , tOpts    = defaultOptions
+                     , tVars    = []
+                     }
 
 -- The translation monad.
 -- Adapted from: Real World Haskell (Chapter 18. Monad transformers)
-newtype T a = MkT { runA :: ErrorT String (StateT TState (ReaderT TEnv IO)) a }
+newtype T a = MkT { runA :: ErrorT String (StateT TState IO) a }
         -- Requires GeneralizedNewtypeDeriving
         deriving ( Functor
                  , Monad
                  , MonadIO
                  , MonadError String
                  , MonadState TState
-                 , MonadReader TEnv
                  )
 
 runT :: T a → IO (Either String a)
-runT ta = runReaderT (evalStateT (runErrorT (runA ta)) initTState) initTEnv
+runT ta = evalStateT (runErrorT (runA ta)) initTState

@@ -21,7 +21,6 @@ module AgdaLib.Interface
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad.Reader ( ask )
 import Control.Monad.State  ( evalStateT, get, put, StateT )
 import Control.Monad.Trans  ( lift, liftIO )
 
@@ -82,9 +81,9 @@ import qualified Agda.Utils.Trie as Trie ( singleton )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import Common  ( AllDefinitions, T )
-import Options ( Options(optAgdaIncludePath) )
-import Reports ( reportSLn )
+import Monad.Base    ( AllDefinitions, T, TState(tOpts) )
+import Monad.Reports ( reportSLn )
+import Options       ( Options(optAgdaIncludePath) )
 
 #include "../undefined.h"
 
@@ -122,10 +121,10 @@ getLocalHints def =
 agdaCommandLineOptions :: T CommandLineOptions
 agdaCommandLineOptions = do
 
-  (_, opts, _) ← ask
+  state ← get
 
   let agdaIncludePaths :: [FilePath]
-      agdaIncludePaths = optAgdaIncludePath opts
+      agdaIncludePaths = optAgdaIncludePath $ tOpts state
 
   return $ defaultOptions { optIncludeDirs = Left agdaIncludePaths }
 

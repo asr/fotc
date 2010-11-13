@@ -10,7 +10,7 @@ module FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad.State ( evalState, get, put )
+import Control.Monad.State ( evalState, get, modify )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
@@ -40,7 +40,6 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import Common ( T )
 import FOL.Constants
     ( folTrue, folFalse, folNot, folAnd, folOr
     , folImplies, folEquiv, folExists, folForAll, folEquals
@@ -48,9 +47,10 @@ import FOL.Constants
 import FOL.Primitives                ( app, equal )
 import FOL.Translation.Concrete.Name ( concatName )
 import {-# source #-} FOL.Translation.Internal.Types ( typeToFormula )
-import FOL.Types   ( FOLFormula(..), FOLTerm(..) )
-import Reports     ( reportSLn )
-import Utils.Names ( freshName )
+import FOL.Types     ( FOLFormula(..), FOLTerm(..) )
+import Monad.Base    ( T, TState(tVars) )
+import Monad.Reports ( reportSLn )
+import Utils.Names   ( freshName )
 
 #include "../../../undefined.h"
 
@@ -98,7 +98,9 @@ termToFormula term@(Def (QName _ name) args) = do
 
                        fm ← termToFormula $ unArg a
 
-                       vars ← get
+                       state ← get
+                       let vars :: [String]
+                           vars = tVars state
 
                        let freshVar :: String
                            freshVar = evalState freshName vars
@@ -172,22 +174,26 @@ termToFormula term@(Fun tyArg ty) = do
 termToFormula term@(Lam _ (Abs _ termLam)) = do
   reportSLn "t2f" 10 $ "termToFormula Lam:\n" ++ show term
 
-  vars ← get
+  state ← get
+  let vars :: [String]
+      vars = tVars state
 
   let freshVar :: String
       freshVar = evalState freshName vars
 
-  -- See the reason for the order in the enviroment in
-  -- termToFormula term@(Pi ... ).
-  put $ freshVar : vars
+  -- See the reason for the order of the variables in termToFormula
+  -- term@(Pi ... ).
+  modify $ \s → s { tVars = freshVar : vars }
   f ← termToFormula termLam
-  put vars
+  modify $ \s → s { tVars = vars }
   return f
 
 termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   reportSLn "t2f" 10 $ "termToFormula Pi:\n" ++ show term
 
-  vars ← get
+  state ← get
+  let vars :: [String]
+      vars = tVars state
 
   let freshVar :: String
       freshVar = evalState freshName vars
@@ -200,9 +206,9 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   -- e.g. in '(A B C : Set) → ...', A is 2, B is 1, and C is 0,
   --
   -- so we need create the list in the same order.
-  put $ freshVar : vars
+  modify $ \s → s { tVars = freshVar : vars }
   f2 ← typeToFormula tyAbs
-  put vars
+  modify $ \s → s { tVars = vars }
 
   reportSLn "t2f" 20 $
     "Finalized processing in local enviroment with type:\n" ++ show tyAbs
@@ -278,7 +284,9 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
 termToFormula term@(Var n _) = do
   reportSLn "t2f" 10 $ "termToFormula Var: " ++ show term
 
-  vars ← get
+  state ← get
+  let vars :: [String]
+      vars = tVars state
 
   if length vars <= fromIntegral n
      then __IMPOSSIBLE__
@@ -350,7 +358,9 @@ termToFOLTerm term@(Def (QName _ name) args) = do
 termToFOLTerm term@(Var n args) = do
   reportSLn "t2t" 10 $ "termToFOLTerm Var:\n" ++ show term
 
-  vars ← get
+  state ← get
+  let vars :: [String]
+      vars = tVars state
 
   if length vars <= fromIntegral n
      then __IMPOSSIBLE__

@@ -21,8 +21,7 @@ executable agda2atp
                   , mtl          == 2.0.*
                   , process      >= 1.0     && < 1.1
 
-  other-modules:  Common
-                  AgdaLib.EtaExpansion
+  other-modules:  AgdaLib.EtaExpansion
                   AgdaLib.Interface
                   AgdaLib.Syntax.Abstract.Name
                   AgdaLib.Syntax.DeBruijn
@@ -36,9 +35,10 @@ executable agda2atp
                   FOL.Translation.Internal.Terms
                   FOL.Translation.Internal.Types
                   FOL.Types
+                  Monad.Base
+                  Monad.Reports
                   Options
                   Paths_agda2atp
-                  Reports
                   TPTP.Files
                   TPTP.Pretty
                   TPTP.Translation

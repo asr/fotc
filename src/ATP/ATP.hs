@@ -15,7 +15,7 @@ import Control.Concurrent      ( forkIO )
 import Control.Concurrent.MVar ( MVar, newEmptyMVar, putMVar, takeMVar )
 import Control.Monad           ( unless, when )
 import Control.Monad.Error     ( throwError )
-import Control.Monad.Reader    ( ask )
+import Control.Monad.State     ( get )
 import Control.Monad.Trans     ( liftIO )
 import System.IO               ( hGetContents )
 import System.Process
@@ -32,15 +32,15 @@ import System.Process
 import Agda.Utils.Impossible ( Impossible(Impossible) , throwImpossible )
 
 -- Local imports
-import Common     ( T )
+import Monad.Base    ( T, TState(tOpts) )
+import Monad.Reports ( reportS )
 import Options    ( Options(optATP, optOnlyFiles, optTime, optUnprovedError) )
-import Reports    ( reportS )
 import TPTP.Files ( createGeneralRolesFile, createConjectureFile )
 import TPTP.Types ( AF )
 
 #include "../undefined.h"
 
------------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The ATPs.
 data ATP = E
          | Equinox
@@ -116,7 +116,9 @@ runATP atp outputMVar args = do
 
 callATPConjecture :: (AF, [AF]) → T ()
 callATPConjecture conjecture = do
-  (_, opts, _) ← ask
+  state ← get
+  let opts :: Options
+      opts = tOpts state
 
   file ← createConjectureFile conjecture
 
