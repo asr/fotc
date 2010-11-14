@@ -15,7 +15,6 @@ open import LTC.Data.Nat
         )
 open import LTC.Data.Nat.Inequalities
   using ( <-00 ; <-0S ; <-S0 ; <-SS
-        ; _≤_  -- TODO: Is it necessary?
         ; GE ; GT ; LE ; LT ; NGT ; NLE ; NLT
         ; LT₂
         )
@@ -88,8 +87,15 @@ x<Sx (sN {n} Nn) = prf (x<Sx Nn)
 ¬x>x : {m : D} → N m → ¬ (GT m m)
 ¬x>x Nm = ¬x<x Nm
 
-≤-SS : (m n : D) → (succ m) ≤ (succ n) ≡ m ≤ n
-≤-SS m n = <-SS m (succ n)
+x≤y→Sx≤Sy : (m n : D) → LE m n → LE (succ m) (succ n)
+x≤y→Sx≤Sy m n m≤n = trans (<-SS m (succ n)) m≤n
+
+postulate
+  Sx≤Sy→x≤y : {m n : D} → LE (succ m) (succ n) → LE m n
+{-# ATP prove Sx≤Sy→x≤y #-}
+
+x≰y→Sx≰Sy : (m n : D) → NLE m n → NLE (succ m) (succ n)
+x≰y→Sx≰Sy m n m≰n = trans (<-SS m (succ n)) m≰n
 
 x≤x : {m : D} → N m → LE m m
 x≤x zN          = <-0S zero
@@ -117,7 +123,7 @@ x>y→x≰y : {m n : D} → N m → N n → GT m n → NLE m n
 x>y→x≰y zN          Nn          0>m   = ⊥-elim (¬0>x Nn 0>m)
 x>y→x≰y (sN Nm)     zN          _     = S≰0 Nm
 x>y→x≰y (sN {m} Nm) (sN {n} Nn) Sm>Sn =
-  trans (≤-SS m n) (x>y→x≰y Nm Nn (trans (sym (<-SS n m)) Sm>Sn))
+  x≰y→Sx≰Sy m n (x>y→x≰y Nm Nn (trans (sym (<-SS n m)) Sm>Sn))
 
 x>y∨x≤y : {m n : D} → N m → N n → GT m n ∨ LE m n
 x>y∨x≤y zN          Nn          = inj₂ $ x≥0 Nn
@@ -137,8 +143,8 @@ x≤y∨x≰y : {m n : D} → N m → N n → LE m n ∨ NLE m n
 x≤y∨x≰y zN Nn = inj₁ (0≤x Nn)
 x≤y∨x≰y (sN Nm) zN = inj₂ (S≰0 Nm)
 x≤y∨x≰y (sN {m} Nm) (sN {n} Nn) =
-  [ (λ m≤n → inj₁ (trans (≤-SS m n) m≤n))
-  , (λ m≰n → inj₂ (trans (≤-SS m n) m≰n))
+  [ (λ m≤n → inj₁ (x≤y→Sx≤Sy m n m≤n))
+  , (λ m≰n → inj₂ (x≰y→Sx≰Sy m n m≰n))
   ] (x≤y∨x≰y Nm Nn)
 
 x≡y→x≤y : {m n : D} → {Nm : N m } → {Nn : N n} → m ≡ n → LE m n
@@ -221,10 +227,6 @@ Sx≤y→x<y (sN {m} Nm) (sN {n} Nn) SSm≤Sn = prf (Sx≤y→x<y Nm Nn Sm≤n)
       postulate prf : LE m o →  -- IH.
                       LE (succ m) (succ o)
       {-# ATP prove prf #-}
-
-postulate
-  Sx≤Sy→x≤y : {m n : D} → LE (succ m) (succ n) → LE m n
-{-# ATP prove Sx≤Sy→x≤y #-}
 
 x≤x+y : {m n : D} → N m → N n → LE m (m + n)
 x≤x+y         zN          Nn = x≥0 (+-N zN Nn)

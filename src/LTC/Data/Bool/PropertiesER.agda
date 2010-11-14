@@ -15,8 +15,8 @@ open import LTC.Data.Bool
   using ( _&&_ ; &&-ff ; &&-ft ; &&-tf ; &&-tt
         ; Bool ; fB ; tB  -- The LTC booleans type.
         )
-open import LTC.Data.Nat.Inequalities using ( _≤_ ; <-0S )
-open import LTC.Data.Nat.Inequalities.PropertiesER using ( ≤-SS ; S≰0 )
+open import LTC.Data.Nat.Inequalities using ( _≤_ ; <-0S ; <-SS )
+open import LTC.Data.Nat.Inequalities.PropertiesER using ( S≰0 )
 open import LTC.Data.Nat.Type
   using ( N ; sN ; zN  -- The LTC natural numbers type.
         )
@@ -110,5 +110,5 @@ w&&x&&y&&z≡true→z≡true {b₁} {b₂} {b₃} Bb₁ Bb₂ Bb₃ fB
 ≤-Bool {n = n} zN Nn           = subst (λ t → Bool t) (sym (<-0S n)) tB
 ≤-Bool (sN Nm) zN              = subst (λ t → Bool t) (sym (S≰0 Nm)) fB
 ≤-Bool (sN {m} Nm) (sN {n} Nn) = subst (λ t → Bool t)
-                                        (sym (≤-SS m n))
-                                        (≤-Bool Nm Nn)
+                                       (sym (<-SS m (succ n)))
+                                       (≤-Bool Nm Nn)

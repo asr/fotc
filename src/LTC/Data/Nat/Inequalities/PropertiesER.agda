@@ -16,7 +16,7 @@ open module Inequalities-ER =
 open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
   using ( _<_ ; <-00 ; <-0S ; <-S0 ; <-SS
-        ; _≤_ -- TODO: Is it necessary?
+        ; _≤_
         ; GE ; GT ; LE ; LT ; NGT ; NLE ; NLT
         ; LT₂
         )
@@ -70,12 +70,18 @@ x<Sx (sN {n} Nn) = trans (<-SS n (succ n)) (x<Sx Nn)
 ¬x>x : {m : D} → N m → ¬ (GT m m)
 ¬x>x Nm = ¬x<x Nm
 
-≤-SS : (m n : D) → (succ m) ≤ (succ n) ≡ m ≤ n
-≤-SS m n = <-SS m (succ n)
+x≤y→Sx≤Sy : (m n : D) → LE m n → LE (succ m) (succ n)
+x≤y→Sx≤Sy m n m≤n = trans (<-SS m (succ n)) m≤n
+
+Sx≤Sy→x≤y : {m n : D} → LE (succ m) (succ n) → LE m n
+Sx≤Sy→x≤y {m} {n} Sm≤Sn = trans (sym (<-SS m (succ n))) Sm≤Sn
+
+x≰y→Sx≰Sy : (m n : D) → NLE m n → NLE (succ m) (succ n)
+x≰y→Sx≰Sy m n m≰n = trans (<-SS m (succ n)) m≰n
 
 x≤x : {m : D} → N m → LE m m
 x≤x zN          = <-0S zero
-x≤x (sN {m} Nm) = trans (≤-SS m m) (x≤x Nm)
+x≤x (sN {m} Nm) = trans (<-SS m (succ m)) (x≤x Nm)
 
 x>y→y<x : {m n : D} → N m → N n → GT m n → LT n m
 x>y→y<x zN          Nn          0>n   = ⊥-elim (¬0>x Nn 0>n)
@@ -94,14 +100,14 @@ x>y→x≰y : {m n : D} → N m → N n → GT m n → NLE m n
 x>y→x≰y zN          Nn          0>m   = ⊥-elim (¬0>x Nn 0>m)
 x>y→x≰y (sN Nm)     zN          _     = S≰0 Nm
 x>y→x≰y (sN {m} Nm) (sN {n} Nn) Sm>Sn =
-  trans (≤-SS m n) (x>y→x≰y Nm Nn (trans (sym (<-SS n m)) Sm>Sn))
+  x≰y→Sx≰Sy m n (x>y→x≰y Nm Nn (trans (sym (<-SS n m)) Sm>Sn))
 
 x>y∨x≤y : {m n : D} → N m → N n → GT m n ∨ LE m n
 x>y∨x≤y zN          Nn          = inj₂ $ x≥0 Nn
 x>y∨x≤y (sN {m} Nm) zN          = inj₁ $ <-0S m
 x>y∨x≤y (sN {m} Nm) (sN {n} Nn) =
   [ (λ m>n → inj₁ (trans (<-SS n m) m>n))
-  , (λ m≤n → inj₂ (trans (≤-SS m n) m≤n))
+  , (λ m≤n → inj₂ (x≤y→Sx≤Sy m n m≤n))
   ] (x>y∨x≤y Nm Nn)
 
 x<y∨x≥y : {m n : D} → N m → N n → LT m n ∨ GE m n
@@ -111,8 +117,8 @@ x≤y∨x≰y : {m n : D} → N m → N n → LE m n ∨ NLE m n
 x≤y∨x≰y zN Nn = inj₁ (0≤x Nn)
 x≤y∨x≰y (sN Nm) zN = inj₂ (S≰0 Nm)
 x≤y∨x≰y (sN {m} Nm) (sN {n} Nn) =
-  [ (λ m≤n → inj₁ (trans (≤-SS m n) m≤n))
-  , ((λ m≰n → inj₂ (trans (≤-SS m n) m≰n)))
+  [ (λ m≤n → inj₁ (x≤y→Sx≤Sy m n m≤n))
+  , (λ m≰n → inj₂ (x≰y→Sx≰Sy m n m≰n))
   ] (x≤y∨x≰y Nm Nn)
 
 x≡y→x≤y : {m n : D} → {Nm : N m} → {Nn : N n} → m ≡ n → LE m n
@@ -130,7 +136,7 @@ x<y→x≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn =
 
 x<y→Sx≤y : {m n : D} → N m → N n → LT m n → LE (succ m) n
 x<y→Sx≤y Nm zN                   m<0   = ⊥-elim (¬x<0 Nm m<0)
-x<y→Sx≤y zN          (sN {n} Nn) _     = trans (≤-SS zero n) (<-0S n)
+x<y→Sx≤y zN          (sN {n} Nn) _     = trans (<-SS zero (succ n)) (<-0S n)
 x<y→Sx≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = trans (<-SS (succ m) (succ n)) Sm<Sn
 
 Sx≤y→x<y : {m n : D} → N m → N n → LE (succ m) n → LT m n
@@ -161,13 +167,10 @@ Sx≤y→x<y (sN {m} Nm) (sN {n} Nn) SSm≤Sn =
 ≤-trans (sN Nm) zN              No          Sm≤0  _     = ⊥-elim (¬S≤0 Nm Sm≤0)
 ≤-trans (sN Nm) (sN Nn)         zN          _     Sn≤0  = ⊥-elim (¬S≤0 Nn Sn≤0)
 ≤-trans (sN {m} Nm) (sN {n} Nn) (sN {o} No) Sm≤Sn Sn≤So =
-  trans (≤-SS m o)
+  trans (<-SS m (succ o))
         (≤-trans Nm Nn No
-                 (trans (sym (≤-SS m n)) Sm≤Sn)
-                 (trans (sym (≤-SS n o)) Sn≤So))
-
-Sx≤Sy→x≤y : {m n : D} → LE (succ m) (succ n) → LE m n
-Sx≤Sy→x≤y {m} {n} Sm≤Sn = trans (sym (≤-SS m n)) Sm≤Sn
+                 (trans (sym (<-SS m (succ n))) Sm≤Sn)
+                 (trans (sym (<-SS n (succ o))) Sn≤So))
 
 x≤x+y : {m n : D} → N m → N n → LE m (m + n)
 x≤x+y         zN          Nn = x≥0 (+-N zN Nn)
