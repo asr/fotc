@@ -9,6 +9,7 @@ open import LTC.BaseER using ( subst )
 
 open import Examples.DivisionPCF.DivisionPCF using ( div ; divh )
 
+open import Lib.Function using ( _$_ )
 import Lib.Relation.Binary.EqReasoning
 open module APER = Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
@@ -99,15 +100,15 @@ private
     -- From 'div ∙ i ∙ j' to div-s₁ using the conversion rule fix-f
     proof₀₋₁ : (i j : D) → fix divh ∙ i ∙ j  ≡ div-s₁ i j
     proof₀₋₁ i j = subst (λ t → t ∙ i ∙ j ≡ divh (fix divh) ∙ i ∙ j)
-                         (sym (fix-f divh))
+                         (sym $ fix-f divh)
                          refl
 
     -- From div-s₁ to div-s₂ using the conversion rule beta
     proof₁₋₂ : (i j : D) → div-s₁ i j  ≡ div-s₂ i j
     proof₁₋₂ i j =
       subst (λ t → t ∙ j ≡ fun i ∙ j)
-               (sym (beta fun i))
-               refl
+            (sym $ beta fun i)
+            refl
          where
           -- The function fun is the same that the fun part of div-s₂,
           -- except that we need a fresh variable y to avoid the
@@ -155,7 +156,7 @@ private
                       then zero
                       else succ ((fix divh) ∙ (i - j) ∙ j)
             )
-            (sym (x≥y→x≮y Ni Nj i≥j))
+            (sym $ x≥y→x≮y Ni Nj i≥j)
             refl
 
     -- From div-s₄ to div-s₆ using the conversion rule if-true

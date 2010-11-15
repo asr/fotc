@@ -6,6 +6,8 @@ module LTC.Data.Bool.Properties where
 
 open import LTC.Base
 
+open import Lib.Function using ( _$_ )
+
 open import LTC.Data.Bool
   using ( _&&_ ; &&-ff ; &&-ft ; &&-tf
         ; Bool ; fB ; tB  -- The LTC booleans type.
@@ -48,14 +50,14 @@ false&&x≡false fB = &&-ff
 x&&y≡true→x≡true : {b₁ b₂ : D} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true →
                    b₁ ≡ true
 x&&y≡true→x≡true tB _ _    = refl
-x&&y≡true→x≡true fB tB prf = ⊥-elim (true≠false (trans (sym prf) &&-ft))
-x&&y≡true→x≡true fB fB prf = ⊥-elim (true≠false (trans (sym prf) &&-ff))
+x&&y≡true→x≡true fB tB prf = ⊥-elim $ true≠false $ trans (sym prf) &&-ft
+x&&y≡true→x≡true fB fB prf = ⊥-elim $ true≠false $ trans (sym prf) &&-ff
 
 x&&y≡true→y≡true : {b₁ b₂ : D} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true →
                    b₂ ≡ true
 x&&y≡true→y≡true _  tB _   = refl
-x&&y≡true→y≡true tB fB prf = ⊥-elim (true≠false (trans (sym prf) &&-tf))
-x&&y≡true→y≡true fB fB prf = ⊥-elim (true≠false (trans (sym prf) &&-ff))
+x&&y≡true→y≡true tB fB prf = ⊥-elim $ true≠false $ trans (sym prf) &&-tf
+x&&y≡true→y≡true fB fB prf = ⊥-elim $ true≠false $ trans (sym prf) &&-ff
 
 w&&x&&y&&z≡true→y≡true : {b₁ b₂ b₃ b₄ : D} →
                          Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
@@ -91,7 +93,7 @@ w&&x&&y&&z≡true→z≡true {b₁} {b₂} {b₃} Bb₁ Bb₂ Bb₃ fB
   where
     postulate prf : Bool (succ m ≤ zero)
     {-# ATP prove prf S≰0 #-}
-≤-Bool (sN {m} Nm) (sN {n} Nn) = prf (≤-Bool Nm Nn)
+≤-Bool (sN {m} Nm) (sN {n} Nn) = prf $ ≤-Bool Nm Nn
   where
     postulate prf : Bool (m ≤ n) → Bool (succ m ≤ succ n)
     {-# ATP prove prf #-}

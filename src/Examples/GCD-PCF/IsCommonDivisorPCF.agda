@@ -38,14 +38,14 @@ open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF
         )
 open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF using ( minus-N )
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- Common divisor.
 
 CD : D → D → D → Set
 CD m n d = (d ∣ m) ∧ (d ∣ n)
 {-# ATP definition CD #-}
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- Some cases of the gcd-∣₁
 -- We don't prove that 'gcd-∣₁ : ... → (gcd m n) ∣ m'
 -- because this proof should be defined mutually recursive with the proof
@@ -112,9 +112,9 @@ gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
     Sm-Sn-N = minus-N (sN Nm) (sN Nn)
 
     gcd-Sm-Sn,Sn-N : N (gcd (succ m - succ n) (succ n))
-    gcd-Sm-Sn,Sn-N = gcd-N Sm-Sn-N (sN Nn) (λ p → ⊥-elim (¬S≡0 (∧-proj₂ p)))
+    gcd-Sm-Sn,Sn-N = gcd-N Sm-Sn-N (sN Nn) (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- Some case of the gcd-∣₂
 -- We don't prove that 'gcd-∣₂ : ... → gcd m n ∣ n'. The reason is
 -- the same to don't prove 'gcd-∣₁ : ... → gcd m n ∣ m'.
@@ -169,7 +169,7 @@ gcd-S≤S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≤Sn =
     Sn-Sm-N = minus-N (sN Nn) (sN Nm)
 
     gcd-Sm,Sn-Sm-N : N (gcd (succ m) (succ n - succ m))
-    gcd-Sm,Sn-Sm-N = gcd-N (sN Nm) (Sn-Sm-N) (λ p → ⊥-elim (¬S≡0 (∧-proj₁ p)))
+    gcd-Sm,Sn-Sm-N = gcd-N (sN Nm) (Sn-Sm-N) (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 
 -- 'gcd (succ m) (succ n) ∣ succ n' when 'succ m > succ n'.
 postulate
@@ -180,7 +180,7 @@ postulate
     gcd (succ m) (succ n) ∣ succ n
 {-# ATP prove gcd-S>S-∣₂ gcd-S>S #-}
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The gcd is CD.
 -- We will prove that 'gcd-CD : ... → CD m n (gcd m n).
 
@@ -232,7 +232,7 @@ gcd-x>y-CD :
   ¬x≡0∧y≡0 m n →
   CD m n (gcd m n)
 gcd-x>y-CD zN zN _ _ ¬0≡0∧0≡0   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x>y-CD zN (sN Nn) _ 0>Sn _  = ⊥-elim (¬0>x (sN Nn) 0>Sn)
+gcd-x>y-CD zN (sN Nn) _ 0>Sn _  = ⊥-elim $ ¬0>x (sN Nn) 0>Sn
 gcd-x>y-CD (sN Nm) zN _ _  _    = gcd-S0-CD Nm
 gcd-x>y-CD (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _  =
   gcd-S>S-CD Nm Nn ih Sm>Sn

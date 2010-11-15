@@ -7,6 +7,7 @@ module LTC.Data.List.PropertiesER where
 open import LTC.Base
 open import LTC.BaseER using ( subst )
 
+open import Lib.Function using ( _$_ )
 import Lib.Relation.Binary.EqReasoning
 open module List-ER = Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
@@ -40,16 +41,16 @@ rev-++ : {xs ys : D} → List xs → List ys → rev xs ys ≡ rev xs [] ++ ys
 rev-++ {ys = ys} nilL Lys =
   begin
     rev [] ys ≡⟨ rev-[] ys ⟩
-    ys        ≡⟨ sym (++-leftIdentity Lys) ⟩
+    ys        ≡⟨ sym $ ++-leftIdentity Lys ⟩
     [] ++ ys  ≡⟨ subst (λ t → [] ++ ys ≡ t ++ ys)
-                       (sym (rev-[] []))
+                       (sym $ rev-[] [])
                        refl
               ⟩
     rev [] [] ++ ys
   ∎
 rev-++ {ys = ys} (consL x {xs} Lxs) Lys =
   begin
-    rev (x ∷ xs) ys      ≡⟨ rev-∷ x xs ys  ⟩
+    rev (x ∷ xs) ys      ≡⟨ rev-∷ x xs ys ⟩
     rev xs (x ∷ ys)      ≡⟨ rev-++ Lxs (consL x Lys) ⟩  -- IH.
     rev xs [] ++ x ∷ ys
       ≡⟨ subst (λ t → rev xs [] ++ x ∷ ys ≡ rev xs [] ++ t)
@@ -67,15 +68,15 @@ rev-++ {ys = ys} (consL x {xs} Lxs) Lys =
                refl
       ⟩
     rev xs [] ++ (x ∷ []) ++ ys
-      ≡⟨ sym (++-assoc (rev-List Lxs nilL) (consL x nilL) Lys) ⟩
+      ≡⟨ sym $ ++-assoc (rev-List Lxs nilL) (consL x nilL) Lys ⟩
     (rev xs [] ++ (x ∷ [])) ++ ys
       ≡⟨ subst (λ t → (rev xs [] ++ (x ∷ [])) ++ ys ≡ t ++ ys)
-               (sym (rev-++ Lxs (consL x nilL)))  -- IH.
+               (sym $ rev-++ Lxs (consL x nilL))  -- IH.
                refl
       ⟩
     rev xs (x ∷ []) ++ ys
       ≡⟨ subst (λ t → rev xs (x ∷ []) ++ ys ≡ t ++ ys)
-               (sym (rev-∷ x xs []))
+               (sym $ rev-∷ x xs [])
                refl
       ⟩
     rev (x ∷ xs) [] ++ ys
@@ -127,13 +128,13 @@ reverse-++ (consL x {xs} Lxs) (consL y {ys} Lys) =
     reverse (y ∷ ys) ++ rev xs [] ++ x ∷ []
       ≡⟨ subst (λ t → reverse (y ∷ ys) ++ rev xs [] ++ x ∷ [] ≡
                       reverse (y ∷ ys) ++ t)
-               (sym (rev-++ Lxs (consL x nilL)))
+               (sym $ rev-++ Lxs (consL x nilL))
                refl
       ⟩
     reverse (y ∷ ys) ++ rev xs (x ∷ [])
       ≡⟨ subst (λ t → reverse (y ∷ ys) ++ rev xs (x ∷ []) ≡
                       reverse (y ∷ ys) ++ t)
-               (sym (rev-∷ x xs []))
+               (sym $ rev-∷ x xs [])
                refl
       ⟩
     reverse (y ∷ ys) ++ rev (x ∷ xs) []

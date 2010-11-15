@@ -61,7 +61,7 @@ postulate
               N (gcd (succ m) (succ n))
 {-# ATP prove gcd-S≤S-N gcd-S≤S #-}
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The 'gcd m n' when 'm > n' is N.
 -- N.B. If '>' were an inductive data type, we would use the absurd pattern
 -- to prove the second case.
@@ -72,7 +72,7 @@ gcd-x>y-N :
   ¬x≡0∧y≡0 m n →
   N (gcd m n)
 gcd-x>y-N zN zN _ _ ¬0≡0∧0≡0   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x>y-N zN (sN Nn) _ 0>Sn _  = ⊥-elim (¬0>x (sN Nn) 0>Sn)
+gcd-x>y-N zN (sN Nn) _ 0>Sn _  = ⊥-elim $ ¬0>x (sN Nn) 0>Sn
 gcd-x>y-N (sN Nm) zN  _  _ _   = gcd-S0-N Nm
 gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
   gcd-S>S-N Nm Nn ih Sm>Sn
@@ -86,7 +86,7 @@ gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
               ([Sx-Sy,Sy]<[Sx,Sy] Nm Nn)
               (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The 'gcd m n' when 'm ≤ n' is N.
 -- N.B. If '≤' were an inductive data type, we would use the absurd pattern
 -- to prove the third case.
@@ -111,7 +111,7 @@ gcd-x≤y-N (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
               ([Sx,Sy-Sx]<[Sx,Sy] Nm Nn)
               (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The 'gcd' is N.
 gcd-N : {m n : D } → N m → N n → ¬x≡0∧y≡0 m n → N (gcd m n)
 gcd-N = wfIndN-LT₂ P istep

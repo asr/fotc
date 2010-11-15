@@ -29,14 +29,14 @@ open import LTC.Data.Nat.PropertiesER
 
 x≥0 : {n : D} → N n → GE n zero
 x≥0 zN          = <-0S zero
-x≥0 (sN {n} Nn) = <-0S (succ n)
+x≥0 (sN {n} Nn) = <-0S $ succ n
 
 0≤x : {n : D} → N n → LE zero n
 0≤x Nn = x≥0 Nn
 
 ¬x<0 : {n : D} → N n → ¬ (LT n zero)
-¬x<0 zN 0<0           = true≠false (trans (sym 0<0) (<-00))
-¬x<0 (sN {n} Nn) Sn<0 = true≠false (trans (sym Sn<0) (<-S0 n))
+¬x<0 zN 0<0           = true≠false $ trans (sym 0<0) (<-00)
+¬x<0 (sN {n} Nn) Sn<0 = true≠false $ trans (sym Sn<0) (<-S0 n)
 
 0≯x : {n : D} → N n → NGT zero n
 0≯x zN          = <-00
@@ -64,8 +64,8 @@ x<Sx zN          = <-0S zero
 x<Sx (sN {n} Nn) = trans (<-SS n (succ n)) (x<Sx Nn)
 
 ¬x<x : {m : D} → N m → ¬ (LT m m)
-¬x<x zN          0<0   = ⊥-elim (true≠false (trans (sym 0<0) <-00))
-¬x<x (sN {m} Nm) Sm<Sm = ⊥-elim (¬x<x Nm (trans (sym (<-SS m m)) Sm<Sm))
+¬x<x zN          0<0   = ⊥-elim $ true≠false $ trans (sym 0<0) <-00
+¬x<x (sN {m} Nm) Sm<Sm = ⊥-elim $ ¬x<x Nm (trans (sym $ <-SS m m) Sm<Sm)
 
 ¬x>x : {m : D} → N m → ¬ (GT m m)
 ¬x>x Nm = ¬x<x Nm
@@ -74,7 +74,7 @@ x≤y→Sx≤Sy : (m n : D) → LE m n → LE (succ m) (succ n)
 x≤y→Sx≤Sy m n m≤n = trans (<-SS m (succ n)) m≤n
 
 Sx≤Sy→x≤y : {m n : D} → LE (succ m) (succ n) → LE m n
-Sx≤Sy→x≤y {m} {n} Sm≤Sn = trans (sym (<-SS m (succ n))) Sm≤Sn
+Sx≤Sy→x≤y {m} {n} Sm≤Sn = trans (sym $ <-SS m (succ n)) Sm≤Sn
 
 x≰y→Sx≰Sy : (m n : D) → NLE m n → NLE (succ m) (succ n)
 x≰y→Sx≰Sy m n m≰n = trans (<-SS m (succ n)) m≰n
@@ -84,23 +84,23 @@ x≤x zN          = <-0S zero
 x≤x (sN {m} Nm) = trans (<-SS m (succ m)) (x≤x Nm)
 
 x>y→y<x : {m n : D} → N m → N n → GT m n → LT n m
-x>y→y<x zN          Nn          0>n   = ⊥-elim (¬0>x Nn 0>n)
+x>y→y<x zN          Nn          0>n   = ⊥-elim $ ¬0>x Nn 0>n
 x>y→y<x (sN {m} Nm) zN          _     = <-0S m
 x>y→y<x (sN {m} Nm) (sN {n} Nn) Sm>Sn =
-  trans (<-SS n m) (x>y→y<x Nm Nn (trans (sym (<-SS n m)) Sm>Sn))
+  trans (<-SS n m) (x>y→y<x Nm Nn (trans (sym $ <-SS n m) Sm>Sn))
 
 x≥y→x≮y : {m n : D} → N m → N n → GE m n → NLT m n
 x≥y→x≮y zN          zN          _     = x≰x zN
-x≥y→x≮y zN          (sN Nn)     0≥Sn  = ⊥-elim (¬0≥S Nn 0≥Sn)
+x≥y→x≮y zN          (sN Nn)     0≥Sn  = ⊥-elim $ ¬0≥S Nn 0≥Sn
 x≥y→x≮y (sN {m} Nm) zN          _     = <-S0 m
 x≥y→x≮y (sN {m} Nm) (sN {n} Nn) Sm≥Sn =
-  trans (<-SS m n) (x≥y→x≮y Nm Nn (trans (sym (<-SS n (succ m))) Sm≥Sn))
+  trans (<-SS m n) (x≥y→x≮y Nm Nn (trans (sym $ <-SS n (succ m)) Sm≥Sn))
 
 x>y→x≰y : {m n : D} → N m → N n → GT m n → NLE m n
-x>y→x≰y zN          Nn          0>m   = ⊥-elim (¬0>x Nn 0>m)
+x>y→x≰y zN          Nn          0>m   = ⊥-elim $ ¬0>x Nn 0>m
 x>y→x≰y (sN Nm)     zN          _     = S≰0 Nm
 x>y→x≰y (sN {m} Nm) (sN {n} Nn) Sm>Sn =
-  x≰y→Sx≰Sy m n (x>y→x≰y Nm Nn (trans (sym (<-SS n m)) Sm>Sn))
+  x≰y→Sx≰Sy m n (x>y→x≰y Nm Nn (trans (sym $ <-SS n m) Sm>Sn))
 
 x>y∨x≤y : {m n : D} → N m → N n → GT m n ∨ LE m n
 x>y∨x≤y zN          Nn          = inj₂ $ x≥0 Nn
@@ -125,52 +125,52 @@ x≡y→x≤y : {m n : D} → {Nm : N m} → {Nn : N n} → m ≡ n → LE m n
 x≡y→x≤y {Nm = Nm} refl = x≤x Nm
 
 x<y→x≤y : {m n : D} → N m → N n → LT m n → LE m n
-x<y→x≤y Nm zN          m<0            = ⊥-elim (¬x<0 Nm m<0)
-x<y→x≤y zN (sN {n} Nn) _              = <-0S (succ n)
+x<y→x≤y Nm zN          m<0            = ⊥-elim $ ¬x<0 Nm m<0
+x<y→x≤y zN (sN {n} Nn) _              = <-0S $ succ n
 x<y→x≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn =
   begin
     (succ m) < (succ (succ n)) ≡⟨ <-SS m (succ n) ⟩
-    m < (succ n)               ≡⟨ x<y→x≤y Nm Nn (trans (sym (<-SS m n)) Sm<Sn) ⟩
+    m < (succ n)               ≡⟨ x<y→x≤y Nm Nn (trans (sym $ <-SS m n) Sm<Sn) ⟩
     true
   ∎
 
 x<y→Sx≤y : {m n : D} → N m → N n → LT m n → LE (succ m) n
-x<y→Sx≤y Nm zN                   m<0   = ⊥-elim (¬x<0 Nm m<0)
+x<y→Sx≤y Nm zN                   m<0   = ⊥-elim $ ¬x<0 Nm m<0
 x<y→Sx≤y zN          (sN {n} Nn) _     = trans (<-SS zero (succ n)) (<-0S n)
 x<y→Sx≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = trans (<-SS (succ m) (succ n)) Sm<Sn
 
 Sx≤y→x<y : {m n : D} → N m → N n → LE (succ m) n → LT m n
-Sx≤y→x<y Nm          zN          Sm≤0   = ⊥-elim (¬S≤0 Nm Sm≤0)
+Sx≤y→x<y Nm          zN          Sm≤0   = ⊥-elim $ ¬S≤0 Nm Sm≤0
 Sx≤y→x<y zN          (sN {n} Nn) _      = <-0S n
 Sx≤y→x<y (sN {m} Nm) (sN {n} Nn) SSm≤Sn =
-  trans (<-SS m n) (Sx≤y→x<y Nm Nn (trans (sym (<-SS (succ m) (succ n)))
+  trans (<-SS m n) (Sx≤y→x<y Nm Nn (trans (sym $ <-SS (succ m) (succ n))
                                            SSm≤Sn))
 
 <-trans : {m n o : D} → N m → N n → N o → LT m n → LT n o → LT m o
-<-trans zN          zN           _          0<0   _    = ⊥-elim (¬x<0 zN 0<0)
-<-trans zN          (sN Nn)     zN          _     Sn<0 = ⊥-elim (¬x<0 (sN Nn) Sn<0)
+<-trans zN          zN           _          0<0   _    = ⊥-elim $ ¬x<0 zN 0<0
+<-trans zN          (sN Nn)     zN          _     Sn<0 = ⊥-elim $ ¬x<0 (sN Nn) Sn<0
 <-trans zN          (sN Nn)     (sN {o} No) _     _    = <-0S o
-<-trans (sN Nm)     Nn          zN          _     n<0  = ⊥-elim (¬x<0 Nn n<0)
-<-trans (sN Nm)     zN          (sN No)     Sm<0  _    = ⊥-elim (¬x<0 (sN Nm) Sm<0)
+<-trans (sN Nm)     Nn          zN          _     n<0  = ⊥-elim $ ¬x<0 Nn n<0
+<-trans (sN Nm)     zN          (sN No)     Sm<0  _    = ⊥-elim $ ¬x<0 (sN Nm) Sm<0
 <-trans (sN {m} Nm) (sN {n} Nn) (sN {o} No) Sm<Sn Sn<So =
   begin
     (succ m) < (succ o) ≡⟨ <-SS m o ⟩
     m < o               ≡⟨ <-trans Nm Nn No
-                            (trans (sym (<-SS m n)) Sm<Sn)
-                            (trans (sym (<-SS n o)) Sn<So)
+                            (trans (sym $ <-SS m n) Sm<Sn)
+                            (trans (sym $ <-SS n o) Sn<So)
                          ⟩
     true
   ∎
 
 ≤-trans : {m n o : D} → N m → N n → N o → LE m n → LE n o → LE m o
 ≤-trans zN      Nn              No          _     _     = 0≤x No
-≤-trans (sN Nm) zN              No          Sm≤0  _     = ⊥-elim (¬S≤0 Nm Sm≤0)
-≤-trans (sN Nm) (sN Nn)         zN          _     Sn≤0  = ⊥-elim (¬S≤0 Nn Sn≤0)
+≤-trans (sN Nm) zN              No          Sm≤0  _     = ⊥-elim $ ¬S≤0 Nm Sm≤0
+≤-trans (sN Nm) (sN Nn)         zN          _     Sn≤0  = ⊥-elim $ ¬S≤0 Nn Sn≤0
 ≤-trans (sN {m} Nm) (sN {n} Nn) (sN {o} No) Sm≤Sn Sn≤So =
   trans (<-SS m (succ o))
         (≤-trans Nm Nn No
-                 (trans (sym (<-SS m (succ n))) Sm≤Sn)
-                 (trans (sym (<-SS n (succ o))) Sn≤So))
+                 (trans (sym $ <-SS m (succ n)) Sm≤Sn)
+                 (trans (sym $ <-SS n (succ o)) Sn≤So))
 
 x≤x+y : {m n : D} → N m → N n → LE m (m + n)
 x≤x+y         zN          Nn = x≥0 (+-N zN Nn)
@@ -237,7 +237,7 @@ Sx-Sy<Sx {m} {n} Nm Nn =
     ∎
 
 x>y→x-y+y≡x : {m n : D} → N m → N n → GT m n → (m - n) + n ≡ m
-x>y→x-y+y≡x zN          Nn 0>n  = ⊥-elim (¬0>x Nn 0>n)
+x>y→x-y+y≡x zN          Nn 0>n  = ⊥-elim $ ¬0>x Nn 0>n
 x>y→x-y+y≡x (sN {m} Nm) zN Sm>0 = trans (+-rightIdentity (minus-N (sN Nm) zN))
                                         (minus-x0 (succ m))
 x>y→x-y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn =
@@ -255,7 +255,7 @@ x>y→x-y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn =
                                ⟩
     succ ((m - n) + n)         ≡⟨ subst (λ t → succ ((m - n) + n) ≡ succ t)
                                         (x>y→x-y+y≡x Nm Nn
-                                             (trans (sym (<-SS n m)) Sm>Sn))
+                                             (trans (sym $ <-SS n m) Sm>Sn))
                                         refl
                                ⟩
     succ m
@@ -264,7 +264,7 @@ x>y→x-y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn =
 x≤y→y-x+x≡y : {m n : D} → N m → N n → LE m n → (n - m) + m ≡ n
 x≤y→y-x+x≡y {n = n} zN      Nn 0≤n  = trans (+-rightIdentity (minus-N Nn zN))
                                             (minus-x0 n)
-x≤y→y-x+x≡y         (sN Nm) zN Sm≤0 = ⊥-elim (¬S≤0 Nm Sm≤0)
+x≤y→y-x+x≡y         (sN Nm) zN Sm≤0 = ⊥-elim $ ¬S≤0 Nm Sm≤0
 x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
   begin
     (succ n - succ m) + succ m ≡⟨ subst (λ t → (succ n - succ m) + succ m ≡
@@ -280,23 +280,23 @@ x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
                                ⟩
     succ ((n - m) + m)         ≡⟨ subst (λ t → succ ((n - m) + m) ≡ succ t)
                                         (x≤y→y-x+x≡y Nm Nn
-                                             (trans (sym (<-SS m (succ n))) Sm≤Sn))
+                                             (trans (sym $ <-SS m (succ n)) Sm≤Sn))
                                         refl
                                ⟩
     succ n
   ∎
 
 x<y→x<Sy : {m n : D} → N m → N n → LT m n → LT m (succ n)
-x<y→x<Sy Nm          zN          m<0   = ⊥-elim (¬x<0 Nm m<0)
-x<y→x<Sy zN          (sN {n} Nn) 0<Sn  = <-0S (succ n)
+x<y→x<Sy Nm          zN          m<0   = ⊥-elim $ ¬x<0 Nm m<0
+x<y→x<Sy zN          (sN {n} Nn) 0<Sn  = <-0S $ succ n
 x<y→x<Sy (sN {m} Nm) (sN {n} Nn) Sm<Sn =
-  trans (<-SS m (succ n)) (x<y→x<Sy Nm Nn (trans (sym (<-SS m n)) Sm<Sn))
+  trans (<-SS m (succ n)) (x<y→x<Sy Nm Nn (trans (sym $ <-SS m n) Sm<Sn))
 
 x<Sy→x<y∨x≡y : {m n : D} → N m → N n → LT m (succ n) → LT m n ∨ m ≡ n
 x<Sy→x<y∨x≡y zN zN 0<S0 = inj₂ refl
 x<Sy→x<y∨x≡y zN (sN {n} Nn) 0<SSn = inj₁ (<-0S n)
 x<Sy→x<y∨x≡y (sN {m} Nm) zN Sm<S0 =
-  ⊥-elim (¬x<0 Nm (trans (sym (<-SS m zero)) Sm<S0))
+  ⊥-elim $ ¬x<0 Nm (trans (sym $ <-SS m zero) Sm<S0)
 x<Sy→x<y∨x≡y (sN {m} Nm) (sN {n} Nn) Sm<SSn =
   [ (λ m<n → inj₁ (trans (<-SS m n) m<n))
   , (λ m≡n → inj₂ (x≡y→Sx≡Sy m≡n))
@@ -305,7 +305,7 @@ x<Sy→x<y∨x≡y (sN {m} Nm) (sN {n} Nn) Sm<SSn =
 
   where
     m<n∨m≡n : LT m n ∨ m ≡ n
-    m<n∨m≡n = x<Sy→x<y∨x≡y Nm Nn (trans (sym (<-SS m (succ n))) Sm<SSn)
+    m<n∨m≡n = x<Sy→x<y∨x≡y Nm Nn (trans (sym $ <-SS m (succ n)) Sm<SSn)
 
 x<y→y≡z→x<z : {m n o : D} → N m → N n → N o → LT m n → n ≡ o → LT m o
 x<y→y≡z→x<z {m} {n} {o} Nm Nn No m<n n≡o =
@@ -330,8 +330,8 @@ x≡y→y<z→x<z {m} {n} {o} Nm Nn No m≡n n<o =
   ∎
 
 x≥y→y>0→x-y<x : {m n : D} → N m → N n → GE m n → GT n zero → LT (m - n) m
-x≥y→y>0→x-y<x Nm          zN          _     0>0  = ⊥-elim (¬x>x zN 0>0)
-x≥y→y>0→x-y<x zN          (sN Nn)     0≥Sn  _    = ⊥-elim (¬S≤0 Nn 0≥Sn)
+x≥y→y>0→x-y<x Nm          zN          _     0>0  = ⊥-elim $ ¬x>x zN 0>0
+x≥y→y>0→x-y<x zN          (sN Nn)     0≥Sn  _    = ⊥-elim $ ¬S≤0 Nn 0≥Sn
 x≥y→y>0→x-y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 =
   begin
     (succ m - succ n) < (succ m)
@@ -348,36 +348,36 @@ x≥y→y>0→x-y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 =
 
 ¬xy<00 : {m n : D} → N m → N n → ¬ (LT₂ m n zero zero)
 ¬xy<00 Nm Nn mn<00 =
-  [ (λ m<0     → ⊥-elim (¬x<0 Nm m<0))
-  , (λ m≡0∧n<0 → ⊥-elim (¬x<0 Nn (∧-proj₂ m≡0∧n<0)))
+  [ (λ m<0     → ⊥-elim $ ¬x<0 Nm m<0)
+  , (λ m≡0∧n<0 → ⊥-elim $ ¬x<0 Nn (∧-proj₂ m≡0∧n<0))
   ]
   mn<00
 
 ¬0Sx<00 : {m : D} → N m → ¬ (LT₂ zero (succ m) zero zero)
 ¬0Sx<00 Nm 0Sm<00 =
-  [ (λ 0<0      → ⊥-elim (¬x<0 zN 0<0))
-  , (λ 0≡0∧Sm<0 → ⊥-elim (¬x<0 (sN Nm) (∧-proj₂ 0≡0∧Sm<0)))
+  [ (λ 0<0      → ⊥-elim $ ¬x<0 zN 0<0)
+  , (λ 0≡0∧Sm<0 → ⊥-elim $ ¬x<0 (sN Nm) (∧-proj₂ 0≡0∧Sm<0))
   ]
   0Sm<00
 
 ¬Sxy₁<0y₂ : {m n₁ n₂ : D} → N m → N n₁ → N n₂ → ¬ (LT₂ (succ m) n₁ zero n₂)
 ¬Sxy₁<0y₂ Nm Nn₁ Nn₂ Smn₁<0n₂ =
-  [ (λ Sm<0       → ⊥-elim (¬x<0 (sN Nm) Sm<0))
-  , (λ Sm≡0∧n₁<n₂ → ⊥-elim (0≠S (sym (∧-proj₁ Sm≡0∧n₁<n₂))))
+  [ (λ Sm<0       → ⊥-elim $ ¬x<0 (sN Nm) Sm<0)
+  , (λ Sm≡0∧n₁<n₂ → ⊥-elim $ 0≠S $ sym $ ∧-proj₁ Sm≡0∧n₁<n₂)
   ]
   Smn₁<0n₂
 
 x₁y<x₂0→x₁<x₂ : {m₁ n m₂ : D} → N m₁ → N n → N m₂ → LT₂ m₁ n m₂ zero → LT m₁ m₂
 x₁y<x₂0→x₁<x₂ Nm₁ Nn Nm₂ m₁n<m₂zero =
   [ (λ m₁<n₁      → m₁<n₁)
-  , (λ m₁≡n₁∧n<0 → ⊥-elim (¬x<0 Nn (∧-proj₂ m₁≡n₁∧n<0)))
+  , (λ m₁≡n₁∧n<0 → ⊥-elim $ ¬x<0 Nn (∧-proj₂ m₁≡n₁∧n<0))
   ]
   m₁n<m₂zero
 
 xy₁<0y₂→x≡0∧y₁<y₂ : {m n₁ n₂ : D} → N m → N n₁ → N n₂ → LT₂ m n₁ zero n₂ →
                     m ≡ zero ∧ LT n₁ n₂
 xy₁<0y₂→x≡0∧y₁<y₂ Nm Nn₁ Nn₂ mn₁<0n₂ =
-  [ (λ m<0          → ⊥-elim (¬x<0 Nm m<0))
+  [ (λ m<0          → ⊥-elim $ ¬x<0 Nm m<0)
   , (λ m≡zero∧n₁<n₂ → m≡zero∧n₁<n₂)
   ]
   mn₁<0n₂

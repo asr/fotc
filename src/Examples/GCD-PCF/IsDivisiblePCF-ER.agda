@@ -39,19 +39,19 @@ open import LTC-PCF.DataPCF.NatPCF.PropertiesPCF-ER using ( minus-N )
 Divisible : D → D → D → Set
 Divisible a b gcd = (c : D) → N c → CD a b c → c ∣ gcd
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The 'gcd 0 (succ n)' is Divisible.
 gcd-0S-Divisible : {n : D} → N n → Divisible zero (succ n) (gcd zero (succ n))
 gcd-0S-Divisible {n} _ c _ ( c∣0 , c∣Sn ) =
-  subst (λ x → c ∣ x) (sym (gcd-0S n)) c∣Sn
+  subst (λ x → c ∣ x) (sym $ gcd-0S n) c∣Sn
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The 'gcd (succ n) 0' is Divisible.
 gcd-S0-Divisible : {n : D} → N n → Divisible (succ n) zero (gcd (succ n) zero)
 gcd-S0-Divisible {n} _ c _ ( c∣Sn , c∣0 ) =
-  subst (λ x → c ∣ x) (sym (gcd-S0 n)) c∣Sn
+  subst (λ x → c ∣ x) (sym $ gcd-S0 n) c∣Sn
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m > succ n' is Divisible.
 gcd-S>S-Divisible :
   {m n : D} → N m → N n →
@@ -71,13 +71,13 @@ Proof:
                              c | gcd m n
 -}
  subst (λ x → c ∣ x)
-       (sym (gcd-S>S m n Sm>Sn))
+       (sym $ gcd-S>S m n Sm>Sn)
        (acc c Nc ( c|Sm-Sn , c∣Sn ))
  where
    c|Sm-Sn : c ∣ succ m - succ n
    c|Sm-Sn = x∣y→x∣z→x∣y-z Nc (sN Nm) (sN Nn) c∣Sm c∣Sn
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m ≤ succ n' is Divisible.
 gcd-S≤S-Divisible :
   {m n : D} → N m → N n →
@@ -98,13 +98,13 @@ Proof
 -}
 
   subst (λ x → c ∣ x)
-        (sym (gcd-S≤S m n Sm≤Sn))
-           (acc c Nc ( c∣Sm , c|Sn-Sm ))
+        (sym $ gcd-S≤S m n Sm≤Sn)
+        (acc c Nc ( c∣Sm , c|Sn-Sm ))
   where
     c|Sn-Sm : c ∣ succ n - succ m
     c|Sn-Sm = x∣y→x∣z→x∣y-z Nc (sN Nn) (sN Nm) c∣Sn c∣Sm
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The 'gcd m n' when 'm > n' is Divisible.
 -- N.B. If '>' were an inductive data type, we would use the absurd pattern
 -- to prove the second case.
@@ -116,7 +116,7 @@ gcd-x>y-Divisible :
   ¬x≡0∧y≡0 m n →
   Divisible m n (gcd m n)
 gcd-x>y-Divisible zN zN _ _ ¬0≡0∧0≡0 _ _  = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x>y-Divisible zN (sN Nn) _ 0>Sn _ _ _ = ⊥-elim (¬0>x (sN Nn) 0>Sn)
+gcd-x>y-Divisible zN (sN Nn) _ 0>Sn _ _ _ = ⊥-elim $ ¬0>x (sN Nn) 0>Sn
 gcd-x>y-Divisible (sN Nm) zN _ _ _  c Nc  = gcd-S0-Divisible Nm c Nc
 gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ c Nc =
   gcd-S>S-Divisible Nm Nn ih Sm>Sn c Nc
@@ -130,7 +130,7 @@ gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ c Nc =
               ([Sx-Sy,Sy]<[Sx,Sy] Nm Nn)
               (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The 'gcd m n' when 'm ≤ n' is Divisible.
 -- N.B. If '≤' were an inductive data type, we would use the absurd pattern
 -- to prove the third case.
@@ -156,7 +156,7 @@ gcd-x≤y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ c Nc =
               ([Sx,Sy-Sx]<[Sx,Sy] Nm Nn)
               (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The gcd is Divisible.
 gcd-Divisible : {m n : D} → N m → N n → ¬x≡0∧y≡0 m n → Divisible m n (gcd m n)
 gcd-Divisible = wfIndN-LT₂ P istep

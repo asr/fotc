@@ -6,6 +6,8 @@ module LTC.Data.Nat.List.Properties where
 
 open import LTC.Base
 
+open import Lib.Function using ( _$_ )
+
 open import LTC.Data.Nat.List.Type
   using ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.
         )
@@ -18,7 +20,7 @@ open import LTC.Data.List using ( _++_ )
     postulate prf : ListN ([] ++ es)
     {-# ATP prove prf #-}
 
-++-ListN {es = es} (consLN {d} {ds} Nd LNds) LNes = prf (++-ListN LNds LNes)
+++-ListN {es = es} (consLN {d} {ds} Nd LNds) LNes = prf $ ++-ListN LNds LNes
   where
     postulate prf : ListN (ds ++ es) →  -- IH.
                     ListN ((d ∷ ds) ++ es)

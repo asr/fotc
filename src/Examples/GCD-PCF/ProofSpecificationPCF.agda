@@ -20,7 +20,7 @@ open import LTC-PCF.DataPCF.NatPCF
   using ( N  -- The LTC natural numbers type.
         )
 
------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- Greatest commun divisor.
 record GCD (a b gcd : D) : Set where
   constructor is

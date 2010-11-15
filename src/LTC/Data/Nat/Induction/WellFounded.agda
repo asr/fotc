@@ -6,6 +6,8 @@ module LTC.Data.Nat.Induction.WellFounded where
 
 open import LTC.Base
 
+open import Lib.Function using ( _$_ )
+
 open import LTC.Data.Nat.Inequalities using ( LT )
 open import LTC.Data.Nat.Inequalities.Properties
   using ( ¬x<0
@@ -29,8 +31,8 @@ wfIndN-LT :
 wfIndN-LT P accH Nn = accH Nn (wfAux Nn)
   where
     wfAux : {m : D} → N m → {n : D} → N n → LT n m → P n
-    wfAux zN      Nn      n<0   = ⊥-elim (¬x<0 Nn n<0)
-    wfAux (sN Nm) zN      0<Sm  = accH zN (λ Nn' n'<0 → ⊥-elim (¬x<0 Nn' n'<0))
+    wfAux zN      Nn      n<0   = ⊥-elim $ ¬x<0 Nn n<0
+    wfAux (sN Nm) zN      0<Sm  = accH zN (λ Nn' n'<0 → ⊥-elim $ ¬x<0 Nn' n'<0)
     wfAux (sN {m} Nm) (sN {n} Nn) Sn<Sm =
       accH (sN Nn) (λ Nn' n'<Sn →
         wfAux Nm Nn' (Sx≤y→x<y Nn' Nm

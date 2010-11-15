@@ -19,6 +19,7 @@ open import Examples.SortList.SortList
         ; ListOrd
         )
 
+open import Lib.Function using ( _$_ )
 import Lib.Relation.Binary.EqReasoning
 open module SortList-ER = Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
@@ -46,7 +47,7 @@ subList-ListOrd {i} Ni nilLN LOi∷is = isListOrd-[]
 subList-ListOrd {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js =
   x&&y≡true→y≡true (≤-ItemList-Bool Ni (consLN Nj Ljs))
                    (isListOrd-Bool (consLN Nj Ljs))
-                   (trans (sym (isListOrd-∷ i (j ∷ js))) LOi∷j∷js)
+                   (trans (sym $ isListOrd-∷ i (j ∷ js)) LOi∷j∷js)
 
 -- This is a weird result but recall that "the relation ≤ between
 -- lists is only an ordering if nil is excluded" (Burstall, pp. 46).
@@ -61,7 +62,7 @@ xs≤[] (consLN {i} {is} Ni LNis) LOconsL =
                       t && ≤-Lists is [])
                (x&&y≡true→x≡true (≤-ItemList-Bool Ni LNis)
                                  (isListOrd-Bool LNis)
-                                 (trans (sym (isListOrd-∷ i is)) LOconsL))
+                                 (trans (sym $ isListOrd-∷ i is) LOconsL))
                refl
       ⟩
     true && ≤-Lists is []
@@ -101,10 +102,10 @@ listOrd-xs++ys→ys≤zs→xs++ys≤zs
                (x&&y≡true→x≡true
                  (≤-ItemList-Bool Ni (++-ListN LNis LNjs))
                  (isListOrd-Bool (++-ListN LNis LNjs))
-                 (trans (sym (isListOrd-∷ i (is ++ js)))
+                 (trans (sym $ isListOrd-∷ i (is ++ js))
                         (trans (subst (λ t → isListOrd (i ∷ is ++ js) ≡
                                              isListOrd t)
-                                      (sym (++-∷ i is js))
+                                      (sym $ ++-∷ i is js)
                                       refl)
                                LOi∷is++js)))
 
@@ -117,10 +118,10 @@ listOrd-xs++ys→ys≤zs→xs++ys≤zs
                  (x&&y≡true→y≡true
                    (≤-ItemList-Bool Ni (++-ListN LNis LNjs))
                    (isListOrd-Bool (++-ListN LNis LNjs))
-                   (trans (sym (isListOrd-∷ i (is ++ js)))
+                   (trans (sym $ isListOrd-∷ i (is ++ js))
                           (trans (subst (λ t → isListOrd (i ∷ is ++ js) ≡
                                                isListOrd t)
-                                        (sym (++-∷ i is js))
+                                        (sym $ ++-∷ i is js)
                                         refl)
                                  LOi∷is++js)))
                  js≤ks)

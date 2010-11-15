@@ -225,7 +225,7 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
     postulate prf : (m - zero) * o ≡ m * o - zero * o
     {-# ATP prove prf *-0x minus-x0 #-}
 
-[x-y]z≡xz*yz {o = o} zN (sN {n} Nn) No = prf (minus-0x (*-N (sN Nn) No))
+[x-y]z≡xz*yz {o = o} zN (sN {n} Nn) No = prf $ minus-0x (*-N (sN Nn) No)
   where
     postulate prf : zero - succ n * o ≡ zero →
                     (zero - succ n) * o ≡ zero * o - succ n * o

@@ -19,7 +19,7 @@ open import LTC.Data.Nat.Type
   using ( N  -- The LTC list of natural numbers type.
         )
 
------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- Greatest commun divisor.
 record GCD (a b gcd : D) : Set where
   constructor is

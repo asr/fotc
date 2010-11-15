@@ -25,6 +25,8 @@ open import Examples.SortList.Closures.Bool
         )
 open import Examples.SortList.Closures.Tree using ( makeTree-Tree )
 
+open import Lib.Function using ( _$_ )
+
 open import LTC.Data.Bool.Properties
   using ( &&-Bool
         ; x&&y≡true→x≡true
@@ -97,13 +99,13 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
   [ prf₁ (toTree-TreeOrd-aux₁ Ni₁ Ni₂ i₁>i₂ Tt₁
            (x&&y≡true→x≡true (≤-TreeItem-Bool Tt₁ Ni₁)
                              (≤-TreeItem-Bool Tt₂ Ni₁)
-                             (trans (sym (≤-TreeItem-node t₁ j t₂ i₁))
+                             (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁)
                                     t≤i₁)))
 
   , prf₂ (toTree-TreeOrd-aux₁ Ni₁ Ni₂ i₁>i₂ Tt₂
            (x&&y≡true→y≡true (≤-TreeItem-Bool Tt₁ Ni₁)
                              (≤-TreeItem-Bool Tt₂ Ni₁)
-                             (trans (sym (≤-TreeItem-node t₁ j t₂ i₁))
+                             (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁)
                                     t≤i₁)))
   ] (x>y∨x≤y Nj Ni₂)
   where
@@ -144,13 +146,13 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
   [ prf₁ (toTree-TreeOrd-aux₂ Ni₁ Ni₂ i₁≤i₂ Tt₁
            (x&&y≡true→x≡true (≤-ItemTree-Bool Ni₁ Tt₁)
                              (≤-ItemTree-Bool Ni₁ Tt₂)
-                             (trans (sym (≤-ItemTree-node i₁ t₁ j t₂))
+                             (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂)
                                     i₁≤t)))
 
   , prf₂ (toTree-TreeOrd-aux₂ Ni₁ Ni₂ i₁≤i₂ Tt₂
            (x&&y≡true→y≡true (≤-ItemTree-Bool Ni₁ Tt₁)
                              (≤-ItemTree-Bool Ni₁ Tt₂)
-                             (trans (sym (≤-ItemTree-node i₁ t₁ j t₂))
+                             (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂)
                                     i₁≤t)))
   ] (x>y∨x≤y Nj Ni₂)
   where
@@ -221,7 +223,7 @@ makeTree-TreeOrd nilLN = prf
     postulate prf : TreeOrd (makeTree [])
     {-# ATP prove prf #-}
 
-makeTree-TreeOrd (consLN {i} {is} Ni Lis) = prf (makeTree-TreeOrd Lis)
+makeTree-TreeOrd (consLN {i} {is} Ni Lis) = prf $ makeTree-TreeOrd Lis
   where
     postulate prf : TreeOrd (makeTree is) →  -- IH.
                     TreeOrd (makeTree (i ∷ is))

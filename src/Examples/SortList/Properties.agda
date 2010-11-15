@@ -17,6 +17,8 @@ open import Examples.SortList.SortList
         ; ListOrd
         )
 
+open import Lib.Function using ( _$_ )
+
 open import LTC.Data.Bool.Properties
   using ( x&&y≡true→x≡true
         ; x&&y≡true→y≡true
@@ -49,7 +51,7 @@ subList-ListOrd {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js = prf
 xs≤[] : {is : D} → ListN is → ListOrd is → LE-Lists is []
 xs≤[] nilLN                     _       = ≤-Lists-[] []
 xs≤[] (consLN {i} {is} Ni LNis) LOconsL =
-  prf (xs≤[] LNis (subList-ListOrd Ni LNis LOconsL))
+  prf $ xs≤[] LNis (subList-ListOrd Ni LNis LOconsL)
   where
     postulate prf : LE-Lists is [] →  --IH.
                     LE-Lists (i ∷ is) []
@@ -70,7 +72,7 @@ listOrd-xs++ys→ys≤zs→xs++ys≤zs
   prf (listOrd-xs++ys→ys≤zs→xs++ys≤zs LNis LNjs LNks
          (x&&y≡true→y≡true (≤-ItemList-Bool Ni (++-ListN LNis LNjs))
                            (isListOrd-Bool (++-ListN LNis LNjs))
-                           (trans (sym (isListOrd-∷ i (is ++ js)))
+                           (trans (sym $ isListOrd-∷ i (is ++ js))
                                   (trans aux LOi∷is++js)))
                            js≤ks)
   where

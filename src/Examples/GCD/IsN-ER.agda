@@ -31,14 +31,14 @@ open import LTC.Data.Nat.PropertiesER using ( minus-N )
 ------------------------------------------------------------------------------
 -- The 'gcd 0 (succ n)' is N.
 gcd-0S-N : {n : D} → N n → N (gcd zero (succ n))
-gcd-0S-N {n} Nn = subst N (sym (gcd-0S n)) (sN Nn)
+gcd-0S-N {n} Nn = subst N (sym $ gcd-0S n) (sN Nn)
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The 'gcd (succ n) 0' is N.
 gcd-S0-N : {n : D} → N n → N (gcd (succ n) zero)
 gcd-S0-N {n} Nn = subst N (sym $ gcd-S0 n) (sN Nn)
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m > succ n' is N.
 gcd-S>S-N : {m n : D} → N m → N n →
              N (gcd (succ m - succ n) (succ n)) →
@@ -46,7 +46,7 @@ gcd-S>S-N : {m n : D} → N m → N n →
              N (gcd (succ m) (succ n))
 gcd-S>S-N {m} {n} Nm Nn ih Sm>Sn = subst N (sym $ gcd-S>S m n Sm>Sn) ih
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 
 -- The 'gcd (succ m) (succ n)' when 'succ m ≤ succ n' is N.
 gcd-S≤S-N : {m n : D} → N m → N n →
@@ -55,7 +55,7 @@ gcd-S≤S-N : {m n : D} → N m → N n →
             N (gcd (succ m) (succ n))
 gcd-S≤S-N {m} {n} Nm Nn ih Sm≤Sn = subst N (sym $ gcd-S≤S m n Sm≤Sn) ih
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The 'gcd m n' when 'm > n' is N.
 -- N.B. If '>' were an inductive data type, we would use the absurd pattern
 -- to prove the second case.
@@ -66,7 +66,7 @@ gcd-x>y-N :
   ¬x≡0∧y≡0 m n →
   N (gcd m n)
 gcd-x>y-N zN zN _ _ ¬0≡0∧0≡0   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x>y-N zN (sN Nn) _ 0>Sn _  = ⊥-elim (¬0>x (sN Nn) 0>Sn)
+gcd-x>y-N zN (sN Nn) _ 0>Sn _  = ⊥-elim $ ¬0>x (sN Nn) 0>Sn
 gcd-x>y-N (sN Nm) zN  _  _ _   = gcd-S0-N Nm
 gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
   gcd-S>S-N Nm Nn ih Sm>Sn
@@ -80,7 +80,7 @@ gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
               ([Sx-Sy,Sy]<[Sx,Sy] Nm Nn)
               (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The 'gcd m n' when 'm ≤ n' is N.
 -- N.B. If '≤' were an inductive data type, we would use the absurd pattern
 -- to prove the third case.
@@ -105,7 +105,7 @@ gcd-x≤y-N (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
               ([Sx,Sy-Sx]<[Sx,Sy] Nm Nn)
               (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 
----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The 'gcd' is N.
 gcd-N : {m n : D } → N m → N n → ¬x≡0∧y≡0 m n → N (gcd m n)
 gcd-N = wfIndN-LT₂ P istep

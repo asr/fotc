@@ -11,6 +11,7 @@ open import Examples.DivisionPCF.DivisionPCF using ( div )
 open import Examples.DivisionPCF.EquationsPCF-ER using ( div-x<y ; div-x≥y )
 open import Examples.DivisionPCF.SpecificationPCF using ( DIV )
 
+open import Lib.Function using ( _$_ )
 import Lib.Relation.Binary.EqReasoning
 open module IsCorrectPCF-ER =
   Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
@@ -38,12 +39,12 @@ div-x<y-aux {i} {j} Ni Nj i<j = sym
     where
       prf₁ : j * div i j + i ≡ j * zero + i
       prf₁ = subst (λ x → j * x + i ≡ j * zero + i)
-                   (sym (div-x<y i<j))
+                   (sym $ div-x<y i<j)
                    refl
 
       prf₂ : j * zero + i ≡ zero + i
       prf₂ = subst (λ x → x + i ≡ zero + i)
-                   (sym (*-rightZero Nj))
+                   (sym $ *-rightZero Nj)
                    refl
 
 div-x<y-correct : {i j : D} → N i → N j → LT i j →

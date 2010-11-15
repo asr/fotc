@@ -13,6 +13,8 @@ open import Examples.SortList.SortList
         ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
         )
 
+open import Lib.Function using ( _$_ )
+
 open import LTC.Data.Nat.Inequalities using ( GT ; LE )
 open import LTC.Data.Nat.Inequalities.Properties using ( x>y∨x≤y ; x>y→x≰y )
 open import LTC.Data.Nat.List.Type
@@ -30,12 +32,12 @@ toTree-Tree {item} Nitem nilT = prf
     postulate prf : Tree (toTree ∙ item ∙ nilTree)
     {-# ATP prove prf #-}
 
-toTree-Tree {item} Nitem (tipT {i} Ni) = prf (x>y∨x≤y Ni Nitem)
+toTree-Tree {item} Nitem (tipT {i} Ni) = prf $ x>y∨x≤y Ni Nitem
   where
     postulate prf : GT i item ∨ LE i item → Tree (toTree ∙ item ∙ tip i)
     {-# ATP prove prf x>y→x≰y #-}
 toTree-Tree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
-  prf (x>y∨x≤y Ni Nitem) (toTree-Tree Nitem Tt₁) ((toTree-Tree Nitem Tt₂))
+  prf (x>y∨x≤y Ni Nitem) (toTree-Tree Nitem Tt₁) (toTree-Tree Nitem Tt₂)
   where
     postulate prf : GT i item ∨ LE i item →
                     Tree (toTree ∙ item ∙ t₁) →  -- IH.
@@ -49,7 +51,7 @@ makeTree-Tree nilLN = prf
     postulate prf : Tree (makeTree [])
     {-# ATP prove prf #-}
 
-makeTree-Tree (consLN {i} {is} Nn Lis) = prf (makeTree-Tree Lis)
+makeTree-Tree (consLN {i} {is} Nn Lis) = prf $ makeTree-Tree Lis
   where
     postulate prf : Tree (makeTree is) →  -- IH.
                     Tree (makeTree (i ∷ is))

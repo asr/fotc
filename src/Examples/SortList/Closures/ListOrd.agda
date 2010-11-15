@@ -37,6 +37,8 @@ open import Examples.SortList.SortList
         ; TreeOrd
         )
 
+open import Lib.Function using ( _$_ )
+
 open import LTC.Data.Bool.Properties
   using ( ≤-Bool
         ; x&&y≡true→x≡true
@@ -72,10 +74,10 @@ open import Postulates using ( ++-ListOrd-aux₁ )
   prf (++-ListOrd-aux₂ Nitem LNis LNjs
         (x&&y≡true→y≡true (≤-Bool Nitem Ni)
                           (≤-ItemList-Bool Nitem LNis)
-                          (trans (sym (≤-ItemList-∷ item i is)) item≤i∷is))
+                          (trans (sym $ ≤-ItemList-∷ item i is) item≤i∷is))
         (x&&y≡true→y≡true (≤-ItemList-Bool Ni LNis)
                           (≤-Lists-Bool LNis LNjs)
-                          (trans (sym (≤-Lists-∷ i is js)) i∷is≤js)))
+                          (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js)))
   where
     postulate prf : LE-ItemList item (is ++ js) →  -- IH.
                     LE-ItemList item ((i ∷ is) ++ js)
@@ -98,7 +100,7 @@ open import Postulates using ( ++-ListOrd-aux₁ )
                   (x&&y≡true→y≡true
                     (≤-ItemList-Bool Ni LNis)
                     (≤-Lists-Bool LNis LNjs)
-                    (trans (sym (≤-Lists-∷ i is js)) i∷is≤js)))
+                    (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js)))
   where
     postulate prf : ListOrd (is ++ js) →  -- IH.
                     ListOrd ((i ∷ is) ++ js)

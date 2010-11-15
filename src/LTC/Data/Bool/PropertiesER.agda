@@ -41,14 +41,14 @@ false&&x≡false fB = &&-ff
 x&&y≡true→x≡true : {b₁ b₂ : D} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true →
                    b₁ ≡ true
 x&&y≡true→x≡true tB _ _    = refl
-x&&y≡true→x≡true fB tB prf = ⊥-elim (true≠false (trans (sym prf) &&-ft))
-x&&y≡true→x≡true fB fB prf = ⊥-elim (true≠false (trans (sym prf) &&-ff))
+x&&y≡true→x≡true fB tB prf = ⊥-elim $ true≠false $ trans (sym prf) &&-ft
+x&&y≡true→x≡true fB fB prf = ⊥-elim $ true≠false $ trans (sym prf) &&-ff
 
 x&&y≡true→y≡true : {b₁ b₂ : D} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true →
                    b₂ ≡ true
 x&&y≡true→y≡true _  tB _   = refl
-x&&y≡true→y≡true tB fB prf = ⊥-elim (true≠false (trans (sym prf) &&-tf))
-x&&y≡true→y≡true fB fB prf = ⊥-elim (true≠false (trans (sym prf) &&-ff))
+x&&y≡true→y≡true tB fB prf = ⊥-elim $ true≠false $ trans (sym prf) &&-tf
+x&&y≡true→y≡true fB fB prf = ⊥-elim $ true≠false $ trans (sym prf) &&-ff
 
 w&&x&&y&&z≡true→y≡true : {b₁ b₂ b₃ b₄ : D} →
                          Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
@@ -107,8 +107,8 @@ w&&x&&y&&z≡true→z≡true {b₁} {b₂} {b₃} Bb₁ Bb₂ Bb₃ fB
 -- Properties with inequalities
 
 ≤-Bool : {m n : D} → N m → N n → Bool (m ≤ n)
-≤-Bool {n = n} zN Nn           = subst (λ t → Bool t) (sym (<-0S n)) tB
-≤-Bool (sN Nm) zN              = subst (λ t → Bool t) (sym (S≰0 Nm)) fB
+≤-Bool {n = n} zN Nn           = subst (λ t → Bool t) (sym $ <-0S n) tB
+≤-Bool (sN Nm) zN              = subst (λ t → Bool t) (sym $ S≰0 Nm) fB
 ≤-Bool (sN {m} Nm) (sN {n} Nn) = subst (λ t → Bool t)
-                                       (sym (<-SS m (succ n)))
+                                       (sym $ <-SS m (succ n))
                                        (≤-Bool Nm Nn)

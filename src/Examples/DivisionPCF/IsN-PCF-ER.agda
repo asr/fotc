@@ -11,6 +11,8 @@ open import Examples.DivisionPCF.DivisionPCF using ( div )
 open import Examples.DivisionPCF.EquationsPCF-ER  using ( div-x<y ; div-x≥y )
 open import Examples.DivisionPCF.SpecificationPCF using ( DIV )
 
+open import Lib.Function using ( _$_ )
+
 open import LTC-PCF.DataPCF.NatPCF
   using ( _-_
         ; N ; sN ; zN  -- The LTC natural numbers type.
@@ -20,7 +22,7 @@ open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( GE ; LT )
 ------------------------------------------------------------------------------
 -- The division result is a 'N' when the dividend is less than the divisor.
 div-x<y-N : {i j : D} -> LT i j → N (div i j)
-div-x<y-N i<j = subst N (sym (div-x<y i<j)) zN
+div-x<y-N i<j = subst N (sym $ div-x<y i<j) zN
 
 -- The division result is a 'N' when the dividend is greater or equal
 -- than the divisor.
@@ -33,4 +35,4 @@ div-x≥y-N : {i j : D} → N i → N j →
             (ih : DIV (i - j) j (div (i - j) j)) →
             GE i j →
             N (div i j)
-div-x≥y-N Ni Nj ih i≥j = subst N (sym (div-x≥y Ni Nj i≥j)) (sN (∧-proj₁ ih))
+div-x≥y-N Ni Nj ih i≥j = subst N (sym $ div-x≥y Ni Nj i≥j) (sN (∧-proj₁ ih))

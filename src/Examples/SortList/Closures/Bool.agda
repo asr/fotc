@@ -17,6 +17,8 @@ open import Examples.SortList.SortList
         ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
         )
 
+open import Lib.Function using ( _$_ )
+
 open import LTC.Data.Bool.Properties using ( &&-Bool ; ≤-Bool )
 open import LTC.Data.Bool.Type
   using ( Bool  -- The LTC booleans type.
@@ -37,7 +39,7 @@ open import LTC.Data.Nat.Type
     {-# ATP prove prf #-}
 
 ≤-ItemList-Bool {item} Nitem (consLN {i} {is} Ni Lis) =
-  prf (≤-ItemList-Bool Nitem Lis)
+  prf $ ≤-ItemList-Bool Nitem Lis
   where
     postulate prf : Bool (≤-ItemList item is) →  -- IH.
                     Bool (≤-ItemList item (i ∷ is))
@@ -50,7 +52,7 @@ open import LTC.Data.Nat.Type
     postulate prf : Bool (≤-Lists [] js)
     {-# ATP prove prf #-}
 ≤-Lists-Bool {js = js} (consLN {i} {is} Ni LNis) LNjs =
-  prf (≤-Lists-Bool LNis LNjs)
+  prf $ ≤-Lists-Bool LNis LNjs
   where
     postulate prf : Bool (≤-Lists is js) →  -- IH.
                     Bool (≤-Lists (i ∷ is) js)
@@ -63,7 +65,7 @@ isListOrd-Bool nilLN = prf
     postulate prf : Bool (isListOrd [])
     {-# ATP prove prf #-}
 
-isListOrd-Bool (consLN {i} {is} Ni LNis) = prf (isListOrd-Bool LNis)
+isListOrd-Bool (consLN {i} {is} Ni LNis) = prf $ isListOrd-Bool LNis
   where
     postulate prf : Bool (isListOrd is) →  -- IH.
                     Bool (isListOrd (i ∷ is))

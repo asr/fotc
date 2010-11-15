@@ -14,6 +14,8 @@ open import Examples.SortList.SortList
         ; Tree ; nilT  -- The LTC tree type.
         )
 
+open import Lib.Function using ( _$_ )
+
 open import LTC.Data.Nat.List.Type
   using ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.
         )
@@ -29,8 +31,8 @@ postulate
 
 makeTree-Tree : {is : D} → ListN is → Tree (makeTree is)
 makeTree-Tree nilLN =
-  subst (λ t → Tree t) (sym (foldr-[] toTree nilTree)) nilT
+  subst (λ t → Tree t) (sym $ foldr-[] toTree nilTree) nilT
 makeTree-Tree (consLN {i} {is} Ni Lis) =
   subst (λ t → Tree t)
-        (sym (foldr-∷ toTree nilTree i is))
+        (sym $ foldr-∷ toTree nilTree i is)
         (toTree-Tree Ni (makeTree-Tree Lis))

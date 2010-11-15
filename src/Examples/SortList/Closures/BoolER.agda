@@ -17,6 +17,8 @@ open import Examples.SortList.SortList
         ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
         )
 
+open import Lib.Function using ( _$_ )
+
 open import LTC.Data.Bool.Type
   using ( Bool ; tB  -- The LTC booleans type.
         )
@@ -32,10 +34,10 @@ open import LTC.Data.Nat.Type
 
 ≤-ItemList-Bool : {item : D} → N item → {is : D} → ListN is →
                   Bool (≤-ItemList item is)
-≤-ItemList-Bool {item} Nitem nilLN = subst Bool (sym (≤-ItemList-[] item)) tB
+≤-ItemList-Bool {item} Nitem nilLN = subst Bool (sym $ ≤-ItemList-[] item) tB
 ≤-ItemList-Bool {item} Nitem (consLN {i} {is} Ni Lis) =
   subst Bool
-        (sym (≤-ItemList-∷ item i is))
+        (sym $ ≤-ItemList-∷ item i is)
         (&&-Bool (≤-Bool Nitem Ni) (≤-ItemList-Bool Nitem Lis))
 
 -- See the ATP version.
@@ -48,30 +50,30 @@ postulate
 
 ≤-ItemTree-Bool : {item : D} → N item → {t : D} → Tree t →
                   Bool (≤-ItemTree item t)
-≤-ItemTree-Bool {item} _ nilT = subst Bool (sym (≤-ItemTree-nilTree item)) tB
+≤-ItemTree-Bool {item} _ nilT = subst Bool (sym $ ≤-ItemTree-nilTree item) tB
 ≤-ItemTree-Bool {item} Nitem  (tipT {i} Ni) =
-  subst Bool (sym (≤-ItemTree-tip item i)) (≤-Bool Nitem Ni)
+  subst Bool (sym $ ≤-ItemTree-tip item i) (≤-Bool Nitem Ni)
 ≤-ItemTree-Bool {item} Nitem  (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
     subst Bool
-          (sym (≤-ItemTree-node item t₁ i t₂))
+          (sym $ ≤-ItemTree-node item t₁ i t₂)
           (&&-Bool (≤-ItemTree-Bool Nitem Tt₁) (≤-ItemTree-Bool Nitem Tt₂))
 
 ≤-TreeItem-Bool : {t : D} → Tree t → {item : D} → N item →
                   Bool (≤-TreeItem t item)
-≤-TreeItem-Bool nilT {item} _ = subst Bool (sym (≤-TreeItem-nilTree item)) tB
+≤-TreeItem-Bool nilT {item} _ = subst Bool (sym $ ≤-TreeItem-nilTree item) tB
 ≤-TreeItem-Bool (tipT {i} Ni) {item} Nitem =
-  subst Bool (sym (≤-TreeItem-tip i item)) (≤-Bool Ni Nitem)
+  subst Bool (sym $ ≤-TreeItem-tip i item) (≤-Bool Ni Nitem)
 ≤-TreeItem-Bool (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) {item} Nitem =
   subst Bool
-        (sym (≤-TreeItem-node t₁ i t₂ item))
+        (sym $ ≤-TreeItem-node t₁ i t₂ item)
         (&&-Bool (≤-TreeItem-Bool Tt₁ Nitem) (≤-TreeItem-Bool Tt₂ Nitem))
 
 isTreeOrd-Bool : {t : D} → Tree t → Bool (isTreeOrd t)
 isTreeOrd-Bool nilT          = subst Bool (sym isTreeOrd-nilTree) tB
-isTreeOrd-Bool (tipT {i} Ni) = subst Bool (sym (isTreeOrd-tip i)) tB
+isTreeOrd-Bool (tipT {i} Ni) = subst Bool (sym $ isTreeOrd-tip i) tB
 isTreeOrd-Bool (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
   subst Bool
-        (sym (isTreeOrd-node t₁ i t₂))
+        (sym $ isTreeOrd-node t₁ i t₂)
         (&&-Bool (isTreeOrd-Bool Tt₁)
                  (&&-Bool (isTreeOrd-Bool Tt₂)
                           (&&-Bool (≤-TreeItem-Bool Tt₁ Ni)

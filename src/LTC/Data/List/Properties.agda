@@ -6,6 +6,8 @@ module LTC.Data.List.Properties where
 
 open import LTC.Base
 
+open import Lib.Function using ( _$_ )
+
 open import LTC.Data.Nat.Type
   using ( N ; sN ; zN  -- The LTC natural numbers type.
         )
@@ -28,7 +30,7 @@ open import LTC.Data.List
     postulate prf : List ([] ++ ys)
     {-# ATP prove prf #-}
 
-++-List {ys = ys} (consL x {xs} Lxs) Lys = prf (++-List Lxs Lys)
+++-List {ys = ys} (consL x {xs} Lxs) Lys = prf $ ++-List Lxs Lys
   where
     postulate prf : List (xs ++ ys) →  -- IH.
                     List ((x ∷ xs) ++ ys)
@@ -39,7 +41,7 @@ map-List f nilL = prf
   where
     postulate prf : List (map f [])
     {-# ATP prove prf nilL #-}
-map-List f (consL x {xs} Lxs) = prf (map-List f Lxs)
+map-List f (consL x {xs} Lxs) = prf $ map-List f Lxs
   where
     postulate prf : List (map f xs) →  -- IH.
                     List (map f (x ∷ xs))
@@ -50,7 +52,7 @@ rev-List {ys = ys} nilL Lys = prf
   where
     postulate prf : List (rev [] ys)
     {-# ATP prove prf nilL #-}
-rev-List {ys = ys} (consL x {xs} Lxs) Lys = prf (rev-List Lxs (consL x Lys))
+rev-List {ys = ys} (consL x {xs} Lxs) Lys = prf $ rev-List Lxs (consL x Lys)
   where
     postulate prf : List (rev xs (x ∷ ys)) →  -- IH.
                     List (rev (x ∷ xs) ys)
@@ -68,7 +70,7 @@ reverse-List Lxs = rev-List Lxs nilL
     postulate prf : [] ++ [] ≡ []
     {-# ATP prove prf #-}
 
-++-rightIdentity (consL x {xs} Lxs) = prf (++-rightIdentity Lxs)
+++-rightIdentity (consL x {xs} Lxs) = prf $ ++-rightIdentity Lxs
   where
     postulate prf : xs ++ [] ≡ xs →  -- IH.
                     (x ∷ xs) ++ [] ≡ x ∷ xs
@@ -82,7 +84,7 @@ reverse-List Lxs = rev-List Lxs nilL
     {-# ATP prove prf #-}
 
 ++-assoc .{x ∷ xs} {bs} {cs} (consL x {xs} Lxs) Lbs Lcs =
-  prf (++-assoc Lxs Lbs Lcs)
+  prf $ ++-assoc Lxs Lbs Lcs
   where
     postulate prf : (xs ++ bs) ++ cs ≡ xs ++ bs ++ cs →  -- IH.
                     ((x ∷ xs) ++ bs) ++ cs ≡ (x ∷ xs) ++ bs ++ cs
@@ -118,7 +120,7 @@ reverse-++ (consL x {xs} Lxs) nilL = prf
     postulate prf : reverse ((x ∷ xs) ++ []) ≡ reverse [] ++ reverse (x ∷ xs)
     {-# ATP prove prf ++-rightIdentity reverse-List #-}
 reverse-++ (consL x {xs} Lxs) (consL y {ys} Lys) =
-  prf (reverse-++ Lxs (consL y Lys))
+  prf $ reverse-++ Lxs (consL y Lys)
   where
     postulate prf : reverse (xs ++ y ∷ ys) ≡ reverse (y ∷ ys) ++
                                              reverse xs →  -- IH.
@@ -134,7 +136,7 @@ reverse² nilL = prf
     postulate prf : reverse (reverse []) ≡ []
     {-# ATP prove prf #-}
 
-reverse² (consL x {xs} Lxs) = prf (reverse² Lxs)
+reverse² (consL x {xs} Lxs) = prf $ reverse² Lxs
   where
     postulate prf : reverse (reverse xs) ≡ xs →  -- IH.
                     reverse (reverse (x ∷ xs)) ≡ x ∷ xs
@@ -150,7 +152,7 @@ map-++ f {ys = ys} nilL Lys = prf
   where
     postulate prf : map f ([] ++ ys) ≡ map f [] ++ map f ys
     {-# ATP prove prf #-}
-map-++ f {ys = ys} (consL x {xs} Lxs) Lys = prf (map-++ f Lxs Lys)
+map-++ f {ys = ys} (consL x {xs} Lxs) Lys = prf $ map-++ f Lxs Lys
   where
     postulate prf : map f (xs ++ ys) ≡ map f xs ++ map f ys →  -- IH.
                     map f ((x ∷ xs) ++ ys) ≡ map f (x ∷ xs) ++ map f ys
@@ -162,7 +164,7 @@ length-replicate zN d = prf
   where
     postulate prf : length (replicate zero d) ≡ zero
     {-# ATP prove prf #-}
-length-replicate (sN {n} Nn) d = prf (length-replicate Nn d)
+length-replicate (sN {n} Nn) d = prf $ length-replicate Nn d
   where
     postulate prf : length (replicate n d) ≡ n →  -- IH.
                     length (replicate (succ n) d) ≡ succ n
