@@ -98,10 +98,10 @@ conjectures_% :
 	done
 
 all_conjectures : conjectures_LTC \
-		  conjectures_LTC_PCF \
+		  conjectures_LTC-PCF \
                   conjectures_DivisionPCF \
 		  conjectures_GCD \
-		  conjectures_GCD_PCF \
+		  conjectures_GCD-PCF \
 		  conjectures_Logic \
 		  conjectures_SortList
 
