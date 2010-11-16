@@ -48,8 +48,7 @@ minus-0x (sN {n} _ ) = minus-0S n
 
 +-N : {m n : D} → N m → N n → N (m + n)
 +-N         zN          Nn = subst N (sym $ +-leftIdentity Nn) Nn
-+-N {n = n} (sN {m} Nm) Nn =
-  subst N (sym $ +-Sx m n) (sN (+-N Nm Nn))
++-N {n = n} (sN {m} Nm) Nn = subst N (sym $ +-Sx m n) (sN (+-N Nm Nn))
 
 +-assoc : {m n o : D} → N m → N n → N o → m + n + o ≡ m + (n + o)
 +-assoc {n = n} {o} zN Nn No =
@@ -115,7 +114,8 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn =
     succ m + n   ≡⟨ +-Sx m n ⟩
     succ (m + n) ≡⟨ subst (λ t → succ (m + n) ≡ succ t)
                           (+-comm Nm Nn)
-                          refl ⟩
+                          refl
+                 ⟩
     succ (n + m) ≡⟨ sym $ x+1+y≡1+x+y Nn Nm ⟩
     n + succ m
    ∎
@@ -126,11 +126,13 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn =
   begin
     (zero + n) - (zero + o) ≡⟨ subst (λ t → (zero + n) - (zero + o) ≡
                                             t - (zero + o))
-                                      (+-0x n) refl
+                                     (+-0x n)
+                                     refl
                             ⟩
      n - (zero + o)         ≡⟨ subst (λ t → n - (zero + o) ≡ n - t)
                                      (+-0x o)
-                                     refl ⟩
+                                     refl
+                            ⟩
     n - o
   ∎
 
@@ -144,7 +146,8 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn =
     succ (m + n) - (succ m + o) ≡⟨ subst (λ t → succ (m + n) - (succ m + o) ≡
                                                 succ (m + n) - t)
                                          (+-Sx m o)
-                                         refl ⟩
+                                         refl
+                                ⟩
     succ (m + n) - succ (m + o) ≡⟨ minus-SS (m + n) (m + o) ⟩
     (m + n) - (m + o) ≡⟨ [x+y]-[x+z]≡y-z Nm Nn No ⟩
     n - o

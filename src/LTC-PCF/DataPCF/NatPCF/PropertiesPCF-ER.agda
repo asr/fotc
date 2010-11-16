@@ -281,7 +281,8 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn =
                             ⟩
      n - (zero + o)         ≡⟨ subst (λ t → n - (zero + o) ≡ n - t)
                                      (+-0x o)
-                                     refl ⟩
+                                     refl
+                            ⟩
     n - o
   ∎
 
@@ -295,7 +296,8 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn =
     succ (m + n) - (succ m + o) ≡⟨ subst (λ t → succ (m + n) - (succ m + o) ≡
                                                 succ (m + n) - t)
                                          (+-Sx m o)
-                                         refl ⟩
+                                         refl
+                                ⟩
     succ (m + n) - succ (m + o) ≡⟨ minus-SS (+-N Nm Nn) (+-N Nm No) ⟩
     (m + n) - (m + o) ≡⟨ [x+y]-[x+z]≡y-z Nm Nn No ⟩
     n - o
@@ -314,7 +316,8 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn =
     succ m + n   ≡⟨ +-Sx m n ⟩
     succ (m + n) ≡⟨ subst (λ t → succ (m + n) ≡ succ t)
                           (+-comm Nm Nn)
-                          refl ⟩
+                          refl
+                 ⟩
     succ (n + m) ≡⟨ sym $ x+1+y≡1+x+y Nn Nm ⟩
     n + succ m
    ∎

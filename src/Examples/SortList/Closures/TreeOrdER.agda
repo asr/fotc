@@ -67,7 +67,8 @@ leftSubTree-TreeOrd {t₁} {i} {t₂} Tt₁ Ni Tt₂ TOnode =
                           (&&-Bool (isTreeOrd-Bool Tt₂)
                                    (&&-Bool (≤-TreeItem-Bool Tt₁ Ni)
                                             (≤-ItemTree-Bool Ni Tt₂)))
-                          (trans (sym $ isTreeOrd-node t₁ i t₂) TOnode) ⟩
+                          (trans (sym $ isTreeOrd-node t₁ i t₂) TOnode)
+      ⟩
     true
   ∎
 
@@ -215,7 +216,8 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁
           ≡⟨ subst (λ t → ≤-TreeItem (tip j) i₁ && ≤-TreeItem (tip i₂) i₁ ≡
                           t && ≤-TreeItem (tip i₂) i₁)
                    (≤-TreeItem-tip j i₁)
-                   refl ⟩
+                   refl
+          ⟩
         j ≤ i₁ && ≤-TreeItem (tip i₂) i₁
           ≡⟨ subst (λ t → j ≤ i₁ && ≤-TreeItem (tip i₂) i₁ ≡
                           t && ≤-TreeItem (tip i₂) i₁)
@@ -226,7 +228,8 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁
         true && ≤-TreeItem (tip i₂) i₁
           ≡⟨ subst (λ t → true && ≤-TreeItem (tip i₂) i₁ ≡ true && t)
                    (≤-TreeItem-tip i₂ i₁)
-                   refl ⟩
+                   refl
+          ⟩
         true && i₂ ≤ i₁
           ≡⟨ subst (λ t → true && i₂ ≤ i₁ ≡ true && t)
                    (x<y→x≤y Ni₂ Ni₁ i₁>i₂)
