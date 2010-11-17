@@ -1,6 +1,6 @@
 1 patch for repository http://code.haskell.org/Agda:
 
-Mon Oct 25 18:34:43 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+Wed Nov 17 10:01:34 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
   * Added the ATP pragma.
     {-# ATP role name [h1 ... hn] #-}
   
@@ -14,8 +14,8 @@ Mon Oct 25 18:34:43 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gma
 New patches:
 
 [Added the ATP pragma.
-Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>**20101025233443
- Ignore-this: 7a9af30f187ca223694334e86c8ff96c
+Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>**20101117150134
+ Ignore-this: a67acf6a43dcebf847919aa85bb027f9
    {-# ATP role name [h1 ... hn] #-}
  
    The pragma indicates that the name and h1, ..., hn, will be used
@@ -114,18 +114,17 @@ hunk ./src/full/Agda/Syntax/Concrete/Pretty.hs 312
  
  instance Pretty Fixity where
      pretty (LeftAssoc _ n)  = text "infixl" <+> text (show n)
-hunk ./src/full/Agda/Syntax/Concrete/Pretty.hs 382
- instance Pretty ImportedName where
+hunk ./src/full/Agda/Syntax/Concrete/Pretty.hs 383
      pretty (ImportedName x)	= pretty x
      pretty (ImportedModule x)	= text "module" <+> pretty x
--
-hunk ./src/full/Agda/Syntax/Concrete/Pretty.hs 383
+ 
 +instance Pretty RoleATP where
 +    pretty AxiomATP      = text "axiom"
 +    pretty ConjectureATP = text "prove"
 +    pretty DefinitionATP = text "definition"
 +    pretty HintATP       = text "hint"
-hunk ./src/full/Agda/Syntax/Parser/Lexer.x 85
++
+hunk ./src/full/Agda/Syntax/Parser/Lexer.x 86
  <pragma_>   "IMPOSSIBLE"	{ keyword KwIMPOSSIBLE }
  <pragma_>   "ETA"               { keyword KwETA }
  <pragma_>   "LINE"		{ keyword KwLINE }
@@ -133,7 +132,7 @@ hunk ./src/full/Agda/Syntax/Parser/Lexer.x 85
  <pragma_>   . # [ $white ] +    { withInterval $ TokString }
  
  -- Comments
-hunk ./src/full/Agda/Syntax/Parser/Parser.y 92
+hunk ./src/full/Agda/Syntax/Parser/Parser.y 93
      'COMPILED_TYPE' { TokKeyword KwCOMPILED_TYPE $$ }
      'quoteGoal'     { TokKeyword KwQuoteGoal $$ }
      'quote'         { TokKeyword KwQuote $$ }
@@ -141,7 +140,7 @@ hunk ./src/full/Agda/Syntax/Parser/Parser.y 92
  
      setN	{ TokSetN $$ }
      tex		{ TokTeX $$ }
-hunk ./src/full/Agda/Syntax/Parser/Parser.y 184
+hunk ./src/full/Agda/Syntax/Parser/Parser.y 185
      | 'ETA'           { TokKeyword KwETA $1 }
      | 'quoteGoal'     { TokKeyword KwQuoteGoal $1 }
      | 'quote'         { TokKeyword KwQuote $1 }
@@ -149,7 +148,7 @@ hunk ./src/full/Agda/Syntax/Parser/Parser.y 184
  
      | setN	    { TokSetN $1 }
      | tex	    { TokTeX $1 }
-hunk ./src/full/Agda/Syntax/Parser/Parser.y 379
+hunk ./src/full/Agda/Syntax/Parser/Parser.y 380
  PragmaName :: { QName }
  PragmaName : string {% fmap QName (mkName $1) }
  
@@ -162,7 +161,7 @@ hunk ./src/full/Agda/Syntax/Parser/Parser.y 379
  {--------------------------------------------------------------------------
      Expressions (terms and types)
   --------------------------------------------------------------------------}
-hunk ./src/full/Agda/Syntax/Parser/Parser.y 709
+hunk ./src/full/Agda/Syntax/Parser/Parser.y 710
      | Pragma	    { [$1] }
      | Syntax        { [$1] }
  
@@ -170,7 +169,7 @@ hunk ./src/full/Agda/Syntax/Parser/Parser.y 709
  {--------------------------------------------------------------------------
      Individual declarations
   --------------------------------------------------------------------------}
-hunk ./src/full/Agda/Syntax/Parser/Parser.y 895
+hunk ./src/full/Agda/Syntax/Parser/Parser.y 891
    | ImportPragma       { $1 }
    | ImpossiblePragma   { $1 }
    | RecordEtaPragma    { $1 }
@@ -178,7 +177,7 @@ hunk ./src/full/Agda/Syntax/Parser/Parser.y 895
  
  OptionsPragma :: { Pragma }
  OptionsPragma : '{-#' 'OPTIONS' PragmaStrings '#-}' { OptionsPragma (fuseRange $1 $4) $3 }
-hunk ./src/full/Agda/Syntax/Parser/Parser.y 937
+hunk ./src/full/Agda/Syntax/Parser/Parser.y 933
  ImpossiblePragma :: { Pragma }
    : '{-#' 'IMPOSSIBLE' '#-}'  { ImpossiblePragma (fuseRange $1 $3) }
  
@@ -206,7 +205,7 @@ hunk ./src/full/Agda/Syntax/Parser/Tokens.hs 23
      deriving (Eq, Show)
  
  layoutKeywords :: [Keyword]
-hunk ./src/full/Agda/Syntax/Translation/AbstractToConcrete.hs 647
+hunk ./src/full/Agda/Syntax/Translation/AbstractToConcrete.hs 653
            x <- toConcrete x
            return $ C.CompiledPragma r x hs
          A.EtaPragma x -> C.EtaPragma r <$> toConcrete x
@@ -217,7 +216,7 @@ hunk ./src/full/Agda/Syntax/Translation/AbstractToConcrete.hs 647
  
  -- Left hand sides --------------------------------------------------------
  
-hunk ./src/full/Agda/Syntax/Translation/ConcreteToAbstract.hs 923
+hunk ./src/full/Agda/Syntax/Translation/ConcreteToAbstract.hs 926
        case e of
          A.Def x -> return [ A.EtaPragma x ]
          _       -> fail "Bad ETA pragma"
@@ -276,7 +275,7 @@ hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 421
              { funClauses        :: [Clauses]
 hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 439
                --   Start counting with 1, because 0 means that it is already
-               --   applied to the record. (Can happen in module instantiation.)  
+               --   applied to the record. (Can happen in module instantiation.)
                --   This information is used in the termination checker.
 +            , funATP            :: Maybe RoleATP -- ^ ATP definition or hint?
              }
@@ -356,7 +355,7 @@ hunk ./src/full/Agda/TypeChecking/Rules/Builtin/Coinduction.hs 128
                  }
      return sharpE
 hunk ./src/full/Agda/TypeChecking/Rules/Builtin/Coinduction.hs 179
-                      {- flat is a projection, but in the termination checker 
+                      {- flat is a projection, but in the termination checker
                          it destroys the (inductive) structural ordering.
                          Thus, we do not register it as a projection. -}
 +                   , funATP            = Nothing
@@ -432,7 +431,7 @@ hunk ./src/full/Agda/TypeChecking/Rules/Decl.hs 168
  
  -- | Type check a bunch of mutual inductive recursive definitions.
  checkMutual :: Info.DeclInfo -> [A.TypeSignature] -> [A.Definition] -> TCM ()
-hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 115
+hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 120
                              , funPolarity       = []
                              , funArgOccurrences = []
                              , funProjection     = Nothing
@@ -440,7 +439,7 @@ hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 115
                              }
          computePolarity name
          reportSDoc "tc.def.fun" 10 $ do
-hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 353
+hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 358
        , prettyList $ map prettyTCM ts
        , prettyTCM dt
        ]
@@ -459,7 +458,7 @@ hunk ./src/full/Agda/TypeChecking/Rules/Record.hs 108
        escapeContext (size tel) $ flip (foldr ext) ctx $ extWithR $ do
 hunk ./src/full/Agda/TypeChecking/Rules/Record.hs 244
                       , funArgOccurrences = map (const Unused) hps ++ [Negative]
-                      , funProjection     = Just (size hps + 1) 
+                      , funProjection     = Just (size hps + 1)
                         -- index of the record argument, start counting with 1
 +                     , funATP            = Nothing
                       }
@@ -567,6 +566,198 @@ hunk ./test/fail/ATPMustBePostulate.err 1
 
 Context:
 
+[Modified a constraint (see issue 360).
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101117132440
+ Ignore-this: 33e9e8e25cb8b96db35501340ceb05e
+] 
+[Undid my fix for issue 361 because it breaks Data.Star.Decoration.
+andreas.abel@ifi.lmu.de**20101116223424
+ Extracted a successful test case from Data.Star.Decoration.
+ Issue 361 remains open.
+] 
+[Removed an outdated file.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101116153505
+ Ignore-this: 53e8d53a50c05aa1a89aeb2cdfbbf51a
+] 
+[Fixed bug: Module names were not encoded correctly by the compiler.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101116153457
+ Ignore-this: 29204339d830f19be1fb001bd53af58b
+] 
+[Updated the error message comparison machinery.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101116151107
+ Ignore-this: f664b1952dde8a95512522a8d30cfd18
+ + GHC 7 numbers columns differently.
+] 
+[Updated an error message.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101116150825
+ Ignore-this: b8f111d5d4f977d2bf6c869dd9dc3e83
+] 
+[Fixed successful test case 259c.
+andreas.abel@ifi.lmu.de**20101112224806] 
+[Fixed issue 361 with unsound eta-contraction of records.
+andreas.abel@ifi.lmu.de**20101112175756
+ Put eta-contraction back to instantiateFull (undos my previous patch).
+ Removed eta-contraction of function bodies in Def.hs.
+ Failed test Issue259 is now successful (to no harm, imho).
+] 
+[Removed eta-contraction from instantiateFull.
+andreas.abel@ifi.lmu.de**20101112170915] 
+[Removed eta-contraction in interactive normalization commands.
+andreas.abel@ifi.lmu.de**20101112170835] 
+[Debug print record eta contractions on -v tc.record.eta:15.
+andreas.abel@ifi.lmu.de**20101112170751] 
+[Another constraint change (see issue 360).
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101111204603
+ Ignore-this: 7a1b290a0a2afd602cfa2f8a691c4c1c
+] 
+[Tightened version constraint to avoid Cabal problem.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101111164056
+ Ignore-this: 93c24d10df404190d3ca1e97ba71f24f
+ + See issue 360.
+] 
+[MAlonzo now generates a special module MAlonzo.RTE
+ulfn@chalmers.se**20101109133249
+ Ignore-this: 27fd8a1312674ef0a690bce346963b2c
+   containing the unsafeCoerce function instead of defining
+   locally for each generated module
+] 
+[added RULES pragma to get rid of back-and-forth coercions of builtin naturals in Haskell backend
+ulfn@chalmers.se**20101109125639
+ Ignore-this: 600443c59d450bb69f3b5476f7541889
+] 
+[Made the code compile with GHC 7.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101108231842
+ Ignore-this: b17a0d1d9293f26cb4eb6251152e59fe
+] 
+[Switched to haskell-src-exts.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101108201656
+ Ignore-this: fef5571be500f141fdc731f004396f44
+] 
+[Removed warnings due to new semantics of -fwarn-incomplete-patterns.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101106213420
+ Ignore-this: 4e8845fb31d2d241b787b8f86f17acf6
+ + In GHC 7 -fwarn-simple-patterns and -fwarn-incomplete-patterns have
+   been merged.
+ + One potential bug was discovered in AbstractToConcrete. I inserted a
+   use of __IMPOSSIBLE__; someone should take a closer look.
+] 
+[Switched to mtl 2.0, removed some orphan instances.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101106205212
+ Ignore-this: b0189e5f4d908ded5fb4bab50835d151
+ + Note that the Monad instance for Either has been changed: the
+   default definition of fail is now used.
+] 
+[Made the code work with a newer version of QuickCheck.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101106194547
+ Ignore-this: b0cb5196391e40c7304495d049707a6d
+] 
+[Updated the tested-with field.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101106195610
+ Ignore-this: 4d116ee2cb5128ad719c889cf8e1c82e
+] 
+[Updated error message.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101105183404
+ Ignore-this: cf9e0a4da7ae2c52edb6a6c2a9dbbf90
+] 
+[Removed space (previously: "Finished X ."; now: "Finished X.").
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101105115916
+ Ignore-this: 86225f1f363bc3499352acbfac9c08c7
+] 
+[New output "Finished X ." after done with importing module X.
+andreas.abel@ifi.lmu.de**20101105074312
+ This is the closing bracket to the opening "Checking X (...)."
+] 
+[In test/fail/Makefile code to create .err file for customised/NestedProjectRoots.
+andreas.abel@ifi.lmu.de**20101105074051] 
+[Documented how --test can be enabled by default for darcs record.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101103200326
+ Ignore-this: 9b55e41cd08656b20e1c9a2aaad3810d
+] 
+[The whitespace test is now included in "make test".
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101103195630
+ Ignore-this: 63297c8d1223f22743792cf6f163d708
+] 
+[The fix-agda-whitespace command now has to be installed manually.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101103194049
+ Ignore-this: cf477419a11a432b863756ad9519c81d
+ + This can be done by running "make install-fix-agda-whitespace".
+ + Reason for this change: darcs runs tests in a clean repository, and
+   with the previous setup fix-agda-whitespace was recompiled every
+   time the test was run.
+] 
+[Incorporated Janis Voigtländers' edits.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101103184919
+ Ignore-this: 184fc8af3e60a2ad7ed8f9abedc90941
+] 
+[Updated a test case.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101103121058
+ Ignore-this: da9b4349c6a87920a40d07f9b01a5275
+] 
+[Added local type signatures for GHC-7
+Wolfram Kahl <kahl@cas.mcmaster.ca>**20101102003647
+ Ignore-this: 518a5d8c7ba9e8ca81a8cf3805708b0b
+] 
+[Final version of HCAR entry.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101029155048
+ Ignore-this: 4a56194dc247c713ca7ce0713575f91b
+] 
+[Fixed issue 355
+frelindb@chalmers.se**20101101171839
+ Ignore-this: 97d99d0a92b7b4626d573f382def0669
+] 
+[removed update-cabal dependency for prof and fix-whitespace make targets
+ulfn@chalmers.se**20101029074749
+ Ignore-this: aff54f00033f9ca0c66fbb3d6a2d49c4
+   and made fix-whitespace work without configuring first
+] 
+[the compiler now inserts coercions that play well with ghc rewrite rules (I hope)
+ulfn@chalmers.se**20101029074005
+ Ignore-this: 16e80e2e3c7eeb1544ab7a5f133c6be0
+] 
+[Highlighting on after go-to-definition to file in different project.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101026220414
+ Ignore-this: 46fa2f789e14852239f269882847cd49
+ + Previously, if one jumped to a definition in a file in a different
+   "project" (under a different top-level directory), then one had to
+   load the file in order to get syntax highlighting. Now highlighting
+   is loaded automatically (in the common case: file not modified, file
+   not already loaded by Emacs, etc.), and the proof state is not reset
+   (usually).
+] 
+[Fixed bug: agda2-goals-action was sometimes invoked for the wrong buffer.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101025171154
+ Ignore-this: 707ed4df468d581d892c3f31004bc7af
+] 
+[Made it possible to infer ♯_ using the intro command.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101025161056
+ Ignore-this: 881586b7b939348d9ec10d898d382f4e
+] 
+[Included .el files in the strict whitespace regime.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101027143240
+ Ignore-this: 85f2dadd5e84d53c59392fc9e35d6418
+] 
+[Removed unused rule.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101027134958
+ Ignore-this: 4b2487e201e89e5cdfad73ebef2a5fbb
+] 
+[Fixed issue 352 by writing a program which fixes whitespace issues.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101027133434
+ Ignore-this: e2ea20262286cc69fa074686686d396b
+ + The Agda build can fail on Windows if CPP-processed files don't end
+   with newline characters.
+ + Whenever a patch is recorded the program checks that there are no
+   whitespace issues.
+ + One can fix these issues by running "make fix-whitespace". This can
+   be done automatically by darcs record if a line
+     record prehook make fix-whitespace
+   is added to _darcs/prefs/defaults.
+ + I took the liberty of imposing the additional condition that there
+   must be no trailing white space, or trailing empty lines.
+] 
+[Converted some files from Latin-1 to UTF-8.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101027121247
+ Ignore-this: 58138f503f4034b22b7ee89762303428
+] 
 [First draft of HCAR entry for November 2010.
 Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101025090454
  Ignore-this: 1e6d87afc31ec9388fa28165984315d
@@ -731,4 +922,4 @@ Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20100927162925
  Ignore-this: 24db4b37e559935c9cd6f81f8a90a6f7
 ] 
 Patch bundle hash:
-28327f54b5a8d61628ae4ba30b646225f794d905
+8b503aa7908a84641fbf62add7b69959a6d28f8e
