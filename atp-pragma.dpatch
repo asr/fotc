@@ -1,6 +1,6 @@
 1 patch for repository http://code.haskell.org/Agda:
 
-Wed Nov 17 10:01:34 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+Wed Nov 17 11:41:13 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
   * Added the ATP pragma.
     {-# ATP role name [h1 ... hn] #-}
   
@@ -14,8 +14,8 @@ Wed Nov 17 10:01:34 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gma
 New patches:
 
 [Added the ATP pragma.
-Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>**20101117150134
- Ignore-this: a67acf6a43dcebf847919aa85bb027f9
+Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>**20101117164113
+ Ignore-this: 3e67d0d7adce4255392da6344ed54e7c
    {-# ATP role name [h1 ... hn] #-}
  
    The pragma indicates that the name and h1, ..., hn, will be used
@@ -561,7 +561,7 @@ hunk ./test/fail/ATPMustBePostulate.agda 1
 addfile ./test/fail/ATPMustBePostulate.err
 hunk ./test/fail/ATPMustBePostulate.err 1
 +ATPMustBePostulate.agda:11,1-22
-+ATP directive only works on postulates.
++ATP directive only works on postulates when the ATP role is <axiom>
 +when checking the pragma ATP axiom foo
 
 Context:
@@ -922,4 +922,4 @@ Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20100927162925
  Ignore-this: 24db4b37e559935c9cd6f81f8a90a6f7
 ] 
 Patch bundle hash:
-8b503aa7908a84641fbf62add7b69959a6d28f8e
+9bdf8e8576d3a871f9e61b06f02809217846e9ef
