@@ -6,7 +6,7 @@ module Lib.Relation.Nullary where
 
 open import Lib.Data.Empty using ( ⊥ )
 
-infix 3 ¬_
+infix 6 ¬_
 
 ------------------------------------------------------------------------------
 -- Negation.

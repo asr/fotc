@@ -8,9 +8,9 @@ module BisimilarityProperties where
 
 -- open import LTC.Data.Stream.Bisimilarity
 
-infixr 5 _∷_
-infix  4 _≡_ _,_ _≈_
-infixr 2 _∧_
+infixr 8 _∷_
+infix  7 _≡_ _,_ _≈_
+infixr 5 _∧_
 
 ------------------------------------------------------------------------------
 -- LTC stuff

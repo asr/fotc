@@ -4,7 +4,7 @@
 
 module Lib.Data.Sum where
 
-infixr 1 _∨_
+infixr 4 _∨_
 
 -----------------------------------------------------------------------------
 -- The disjunction data type.

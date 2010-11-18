@@ -3,11 +3,11 @@ module BisimilarityPostulates where
 -- open import LTC.Base
 -- open import LTC.BaseER
 
-infixr 5 _∷_
-infix 4 _≈_
-infixr 4 _,_
-infix  3 _≡_
-infixr 2 _∧_
+infixr 8 _∷_
+infix  7 _≈_
+infixr 7 _,_
+infix  6 _≡_
+infixr 5 _∧_
 
 ------------------------------------------------------------------------------
 -- LTC stuff

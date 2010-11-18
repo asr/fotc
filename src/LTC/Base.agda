@@ -12,10 +12,10 @@ LTC                              Agda
 
 module LTC.Base where
 
-infixl 6 _∙_
-infixr 5 _∷_
-infix  5 if_then_else_
-infix  4 _≡_
+infixl 9 _∙_
+infixr 8 _∷_
+infix  8 if_then_else_
+infix  7 _≡_  -- We add 3 to the fixities of the standard library.
 
 ------------------------------------------------------------------------------
 -- The universal domain

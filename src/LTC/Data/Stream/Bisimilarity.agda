@@ -6,7 +6,7 @@ module LTC.Data.Stream.Bisimilarity where
 
 open import LTC.Base
 
-infix 4 _≈_
+infix 7 _≈_
 
 ------------------------------------------------------------------------------
 -- Because the LTC is a first-order theory, we define a first-order

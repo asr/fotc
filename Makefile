@@ -30,7 +30,9 @@ main_file_ER_GCD          = src/Examples/GCD/ProofSpecificationER
 main_file_NER_GCD-PCF     = src/Examples/GCD-PCF/ProofSpecificationPCF
 main_file_ER_GCD-PCF      = src/Examples/GCD-PCF/ProofSpecificationPCF-ER
 
-main_file_NER_Logic       = src/Examples/Logic/Logic
+main_file_NER_Logic       = src/Examples/NonLTC/Logic/Logic
+
+main_file_NER_LogicATP    = src/Examples/NonLTC/LogicATP/Logic
 
 main_file_NER_SortList    = src/Examples/SortList/ProofSpecification
 main_file_ER_SortList     = src/Examples/SortList/ProofSpecificationER
@@ -55,6 +57,7 @@ all_type_checking_NER : type_checking_NER_LTC \
 			type_checking_NER_GCD \
 			type_checking_NER_GCD-PCF \
 			type_checking_NER_Logic \
+			type_checking_NER_LogicATP \
 			type_checking_NER_SortList \
 			type_checking_NER_Consistency \
 
@@ -74,7 +77,7 @@ all_type_checking     : all_type_checking_NER all_type_checking_ER
 conjectures_DivisionPCF : conjectures_Examples/DivisionPCF
 conjectures_GCD         : conjectures_Examples/GCD
 conjectures_GCD-PCF     : conjectures_Examples/GCD-PCF
-conjectures_Logic       : conjectures_Examples/Logic
+conjectures_LogicATP    : conjectures_Examples/NonLTC/LogicATP
 conjectures_SortList    : conjectures_Examples/SortList
 
 # The time limit should be the maximum (720 sec) which is required
@@ -102,7 +105,7 @@ all_conjectures : conjectures_LTC \
                   conjectures_DivisionPCF \
 		  conjectures_GCD \
 		  conjectures_GCD-PCF \
-		  conjectures_Logic \
+		  conjectures_LogicATP \
 		  conjectures_SortList
 
 ##############################################################################
@@ -135,6 +138,7 @@ all_publish : publish_LTC \
 	      publish_GCD \
 	      publish_GCD-PCF \
 	      publish_Logic \
+	      publish_LogicATP \
 	      publish_SortList \
 	      publish_Consistency
 

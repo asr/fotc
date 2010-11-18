@@ -9,7 +9,7 @@ module Lib.Relation.Binary.EqReasoning
   (trans : {x y z : A} → x ≡ y → y ≡ z → x ≡ z)
   where
 
-infix 4 _≃_
+infix 7 _≃_
 
 private
   data _≃_ (x y : A) : Set where
@@ -20,9 +20,9 @@ private
 
 module Original where
 
-  infix  2 chain>_
-  infixl 2 _===_by_
-  infix  1 _qed
+  infix  5 chain>_
+  infixl 5 _===_by_
+  infix  4 _qed
 
   chain>_ : (x : A) → x ≃ x
   chain> x = prf (refl {x})
@@ -38,9 +38,9 @@ module Original where
 
 module StdLib where
 
-  infix  1 begin_
-  infixr 2 _≡⟨_⟩_
-  infix  2 _∎
+  infix  4 begin_
+  infixr 5 _≡⟨_⟩_
+  infix  5 _∎
 
   begin_ : {x y : A} → x ≃ y → x ≡ y
   begin prf x≡y = x≡y

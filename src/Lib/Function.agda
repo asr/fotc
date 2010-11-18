@@ -4,6 +4,7 @@
 
 module Lib.Function where
 
+-- The same fixity than the standard library.
 infixr 0 _$_
 
 ------------------------------------------------------------------------------

@@ -6,7 +6,7 @@ module LTC.Data.Bool where
 
 open import LTC.Base
 
-infixr 6 _&&_
+infixr 9 _&&_
 
 ------------------------------------------------------------------------------
 -- The LTC booleans type.

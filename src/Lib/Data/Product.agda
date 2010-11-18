@@ -4,8 +4,8 @@
 
 module Lib.Data.Product where
 
-infixr 4 _,_
-infixr 2 _∧_
+infixr 6 _,_
+infixr 5 _∧_
 
 ------------------------------------------------------------------------------
 -- See LTC.Data.Product for the existential quantifier.

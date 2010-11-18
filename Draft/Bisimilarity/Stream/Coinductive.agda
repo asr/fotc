@@ -26,7 +26,7 @@ data Level : Set where
 
 -- Maximum.
 
-infixl 6 _⊔_
+infixl 9 _⊔_
 
 _⊔_ : Level → Level → Level
 zeroL  ⊔ j      = j
@@ -40,7 +40,7 @@ sucL i ⊔ sucL j = sucL (i ⊔ j)
 
 -- A type used to make recursive arguments coinductive
 
-infix 1000 ♯_
+infix 1003 ♯_
 
 postulate
   ∞  : ∀ {a} (A : Set a) → Set a

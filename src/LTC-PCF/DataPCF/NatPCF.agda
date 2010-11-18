@@ -8,8 +8,8 @@ open import LTC.Base
 
 open import LTC-PCF.DataPCF.NatPCF.RecPCF using ( rec )
 
-infixl 7 _*_
-infixl 6 _+_ _-_
+infixl 10 _*_
+infixl 9 _+_ _-_
 
 ------------------------------------------------------------------------------
 -- The LTC natural numbers type.

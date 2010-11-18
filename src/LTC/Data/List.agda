@@ -6,7 +6,7 @@ module LTC.Data.List where
 
 open import LTC.Base
 
-infixr 5 _++_
+infixr 8 _++_
 
 ------------------------------------------------------------------------------
 -- The LTC list type.

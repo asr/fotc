@@ -5,9 +5,9 @@
 -- This module contains some examples showing the use of the ATPs to
 -- prove theorems from propositional logic.
 
-module Examples.Logic.Propositional where
+module Examples.NonLTC.LogicATP.Propositional where
 
-open import Examples.Logic.Constants
+open import Examples.NonLTC.LogicATP.Constants
 
 ------------------------------------------------------------------------------
 -- We postulate some propositional variables (which are translated as
@@ -54,13 +54,13 @@ postulate
   dn      : ¬ ¬ P       ↔ P
   ∧-comm  : P ∧ Q       ↔ Q ∧ P
   ∨-comm  : P ∨ Q       ↔ Q ∨ P
-  ∧-assoc : (P ∧ Q) ∧ R ↔ P ∧ (Q ∧ R)
-  ∨-assoc : (P ∨ Q) ∨ R ↔ P ∨ (Q ∨ R)
-  ∧-dist  : P ∧ (Q ∨ R) ↔ (P ∧ Q) ∨ (P ∧ R)
-  ∨-dist  : P ∨ (Q ∧ R) ↔ (P ∨ Q) ∧ (P ∨ R)
+  ∧-assoc : (P ∧ Q) ∧ R ↔ P ∧ Q ∧ R
+  ∨-assoc : (P ∨ Q) ∨ R ↔ P ∨ Q ∨ R
+  ∧∨-dist : P ∧ (Q ∨ R) ↔ P ∧ Q ∨ P ∧ R
+  ∨∧-dist : P ∨ Q ∧ R   ↔ (P ∨ Q) ∧ (P ∨ R)
   DM₁     : ¬ (P ∧ Q)   ↔ ¬ P ∨ ¬ Q
   DM₂     : ¬ (P ∨ Q)   ↔ ¬ P ∧ ¬ Q
-  abs₁    : P ∨ (P ∧ Q) ↔ P
+  abs₁    : P ∨ P ∧ Q   ↔ P
   abs₂    : P ∧ (P ∨ Q) ↔ P
   ∧-neg   : P ∧ ¬ P     ↔ ⊥
   ∨-neg   : P ∨ ¬ P     ↔ ⊤
@@ -75,8 +75,8 @@ postulate
 {-# ATP prove ∨-comm #-}
 {-# ATP prove ∧-assoc #-}
 {-# ATP prove ∨-assoc #-}
-{-# ATP prove ∧-dist #-}
-{-# ATP prove ∨-dist #-}
+{-# ATP prove ∧∨-dist #-}
+{-# ATP prove ∨∧-dist #-}
 {-# ATP prove DM₁ #-}
 {-# ATP prove DM₂ #-}
 {-# ATP prove abs₁ #-}

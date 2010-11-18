@@ -6,8 +6,8 @@ module LTC.Data.Nat where
 
 open import LTC.Base
 
-infixl 7 _*_
-infixl 6 _+_ _-_
+infixl 10 _*_
+infixl 9 _+_ _-_
 
 ------------------------------------------------------------------------------
 -- The LTC natural numbers type.

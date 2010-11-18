@@ -8,7 +8,7 @@ open import LTC.Base
 
 open import LTC.Data.Nat using ( _*_ ; N )
 
-infix 4 _∣_
+infix 7 _∣_
 
 ------------------------------------------------------------------------------
 -- It seems there is not agreement about if 0∣0 (e.g. see Coq definition

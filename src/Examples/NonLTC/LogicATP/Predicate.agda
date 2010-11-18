@@ -5,9 +5,9 @@
 -- This module contains some examples showing the use of the ATPs to
 -- prove theorems from predicate logic.
 
-module Examples.Logic.Predicate where
+module Examples.NonLTC.LogicATP.Predicate where
 
-open import Examples.Logic.Constants
+open import Examples.NonLTC.LogicATP.Constants
 
 ------------------------------------------------------------------------------
 -- We postulate some predicate symbols.
@@ -20,7 +20,7 @@ postulate
 postulate
   ∀DI : ((x : D) → P¹ x) → ∀D P¹
   ∀DE : ∀D P¹ → (t : D) → P¹ t
-  -- This elimination rule cannot prove in Coq because in Coq we can
+  -- This elimination rule cannot prove in Agda/Coq because in Agda/Coq we can
   -- have empty domains. We do not have this problem because the ATPs
   -- assume a non-empty domain.
   ∃DI : ((t : D) → P¹ t) → ∃D P¹
@@ -43,21 +43,25 @@ postulate
 
 -- The order of quantifiers of the same sort is irrelevant.
 postulate
-  ord₁ : ∀D (λ x → ∀D (λ y → P² x y)) ↔ ∀D (λ y → ∀D (λ x → P² x y))
-  ord₂ : ∃D (λ x → ∃D (λ y → P² x y)) ↔ ∃D (λ y → ∃D (λ x → P² x y))
-{-# ATP prove ord₁ #-}
-{-# ATP prove ord₂ #-}
+  ∀-ord : ∀D (λ x → ∀D (λ y → P² x y)) ↔ ∀D (λ y → ∀D (λ x → P² x y))
+  ∃-ord : ∃D (λ x → ∃D (λ y → P² x y)) ↔ ∃D (λ y → ∃D (λ x → P² x y))
+{-# ATP prove ∀-ord #-}
+{-# ATP prove ∃-ord #-}
 
 -- Quantification over a variable that does not occur can be delete.
 postulate
-  erase₁ : ∀D (λ _ → P⁰) ↔ P⁰
-  erase₂ : ∃D (λ _ → P⁰) ↔ P⁰
-{-# ATP prove erase₁ #-}
-{-# ATP prove erase₂ #-}
+  ∀-erase  : ∀D (λ _ → P⁰) ↔ P⁰
+  ∃-erase₁ : ∃D (λ _ → P⁰) ↔ P⁰
+  ∃-erase₂ : ∃D (λ x → P⁰ ∧ P¹ x) ↔ P⁰ ∧ ∃D (λ x → P¹ x)
+  ∃-erase₃ : ∃D (λ x → P⁰ ∨ P¹ x) ↔ P⁰ ∨ ∃D (λ x → P¹ x)
+{-# ATP prove ∀-erase #-}
+{-# ATP prove ∃-erase₁ #-}
+{-# ATP prove ∃-erase₂ #-}
+{-# ATP prove ∃-erase₃ #-}
 
 -- Distributes laws for the quantifiers.
 postulate
-  dist₁ : ∀D (λ x → P¹ x ∧ Q¹ x) ↔ (∀D P¹ ∧ ∀D Q¹)
-  dist₂ : ∃D (λ x → P¹ x ∨ Q¹ x) ↔ (∃D P¹ ∨ ∃D Q¹)
-{-# ATP prove dist₁ #-}
-{-# ATP prove dist₂ #-}
+  ∀-dist : ∀D (λ x → P¹ x ∧ Q¹ x) ↔ (∀D P¹ ∧ ∀D Q¹)
+  ∃-dist : ∃D (λ x → P¹ x ∨ Q¹ x) ↔ (∃D P¹ ∨ ∃D Q¹)
+{-# ATP prove ∀-dist #-}
+{-# ATP prove ∃-dist #-}
