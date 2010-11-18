@@ -32,4 +32,3 @@ postulate
 -- symbols ∃D and ∀D (or →) must be used.
 
 open import LTC.Data.Product public using ( _,_ ; ∃D )
-
