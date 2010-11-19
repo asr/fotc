@@ -31,4 +31,4 @@ postulate
 -- The quantifiers are hard-coded in our implementation, i.e. the
 -- symbols ∃D and ∀D (or →) must be used.
 
-open import LTC.Data.Product public using ( _,_ ; ∃D )
+open import LTC.Data.Product public using ( _,_ ; ∃D ; ∃D-proj₁ ; ∃D-proj₂ )

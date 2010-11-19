@@ -16,7 +16,17 @@ postulate
 
 -- It is necessary postulate a non-empty domain.
 ∃DI : ((t : D) → P¹ t) → ∃D P¹
-∃DI f = D≠∅ , f D≠∅
+∃DI ∀p¹ = D≠∅ , ∀p¹ D≠∅
+
+-- Generalization of De Morgan's laws.
+gDM₂ : ¬ (∃D P¹) ↔ ((x : D) → ¬ (P¹ x))
+gDM₂ = l→r , r→l
+  where
+    l→r : ¬ (∃D P¹) → (x : D) → ¬ (P¹ x)
+    l→r ∃p¹→⊥ x ∀p¹ = ∃p¹→⊥ (x , ∀p¹)
+
+    r→l : ((x : D) → ¬ (P¹ x)) → ¬ (∃D P¹)
+    r→l ∀¬p¹ ∃p¹ = ∀¬p¹ (∃D-proj₁ ∃p¹) (∃D-proj₂ ∃p¹)
 
 -- Quantification over a variable that does not occur can be delete.
 ∃-erase₁ : ∃D (λ _ → P⁰) ↔ P⁰
