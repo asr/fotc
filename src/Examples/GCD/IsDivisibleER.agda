@@ -39,13 +39,13 @@ Divisible a b gcd = (c : D) → N c → CD a b c → c ∣ gcd
 ------------------------------------------------------------------------------
 -- The 'gcd 0 (succ n)' is Divisible.
 gcd-0S-Divisible : {n : D} → N n → Divisible zero (succ n) (gcd zero (succ n))
-gcd-0S-Divisible {n} _ c _ ( c∣0 , c∣Sn ) =
+gcd-0S-Divisible {n} _ c _ (c∣0 , c∣Sn) =
   subst (λ x → c ∣ x) (sym $ gcd-0S n) c∣Sn
 
 ------------------------------------------------------------------------------
 -- The 'gcd (succ n) 0' is Divisible.
 gcd-S0-Divisible : {n : D} → N n → Divisible (succ n) zero (gcd (succ n) zero)
-gcd-S0-Divisible {n} _ c _ ( c∣Sn , c∣0) =
+gcd-S0-Divisible {n} _ c _ (c∣Sn , c∣0) =
   subst (λ x → c ∣ x) (sym $ gcd-S0 n) c∣Sn
 
 ------------------------------------------------------------------------------
@@ -55,7 +55,7 @@ gcd-S>S-Divisible :
   (Divisible (succ m - succ n) (succ n) (gcd (succ m - succ n) (succ n))) →
   GT (succ m) (succ n) →
   Divisible (succ m) (succ n) (gcd (succ m) (succ n))
-gcd-S>S-Divisible {m} {n} Nm Nn acc Sm>Sn c Nc ( c∣Sm , c∣Sn) =
+gcd-S>S-Divisible {m} {n} Nm Nn acc Sm>Sn c Nc (c∣Sm , c∣Sn) =
 {-
 Proof:
    ----------------- (Hip.)
@@ -69,7 +69,7 @@ Proof:
 -}
  subst (λ x → c ∣ x)
        (sym $ gcd-S>S m n Sm>Sn)
-       (acc c Nc ( c|Sm-Sn , c∣Sn ))
+       (acc c Nc (c|Sm-Sn , c∣Sn))
  where
    c|Sm-Sn : c ∣ succ m - succ n
    c|Sm-Sn = x∣y→x∣z→x∣y-z Nc (sN Nm) (sN Nn) c∣Sm c∣Sn
@@ -81,7 +81,7 @@ gcd-S≤S-Divisible :
   (Divisible (succ m) (succ n - succ m) (gcd (succ m) (succ n - succ m))) →
   LE (succ m) (succ n) →
   Divisible (succ m) (succ n) (gcd (succ m) (succ n))
-gcd-S≤S-Divisible {m} {n} Nm Nn acc Sm≤Sn c Nc ( c∣Sm , c∣Sn) =
+gcd-S≤S-Divisible {m} {n} Nm Nn acc Sm≤Sn c Nc (c∣Sm , c∣Sn) =
 {-
 Proof
                             ----------------- (Hip.)
@@ -96,7 +96,7 @@ Proof
 
   subst (λ x → c ∣ x)
         (sym $ gcd-S≤S m n Sm≤Sn)
-        (acc c Nc ( c∣Sm , c|Sn-Sm ))
+        (acc c Nc (c∣Sm , c|Sn-Sm))
   where
     c|Sn-Sm : c ∣ succ n - succ m
     c|Sn-Sm = x∣y→x∣z→x∣y-z Nc (sN Nn) (sN Nm) c∣Sn c∣Sm

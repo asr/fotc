@@ -40,7 +40,7 @@ postulate ∣-refl-S-ah : {n : D} → N n → N (succ zero) → succ n ∣ succ 
 
 -- 0 doesn't divide any number.
 0∤x : {d : D} → ¬ (zero ∣ d)
-0∤x ( 0≠0 , _ ) = ⊥-elim $ 0≠0 refl
+0∤x (0≠0 , _) = ⊥-elim $ 0≠0 refl
 
 -- If 'x' divides 'y' and 'z' then 'x' divides 'y - z'.
 postulate
@@ -52,10 +52,10 @@ postulate
 {-# ATP prove x∣y→x∣z→x∣y-z-ah [x-y]z≡xz*yz sN #-}
 
 x∣y→x∣z→x∣y-z : {m n p : D} → N m → N n → N p → m ∣ n → m ∣ p → m ∣ n - p
-x∣y→x∣z→x∣y-z zN _ _ ( 0≠0 , _ ) m∣p = ⊥-elim $ 0≠0 refl
+x∣y→x∣z→x∣y-z zN _ _ (0≠0 , _) m∣p = ⊥-elim $ 0≠0 refl
 x∣y→x∣z→x∣y-z (sN Nm) Nn Np
-              ( 0≠0 , ( k₁ , Nk₁ , n≡k₁Sm ))
-              ( _   , ( k₂ , Nk₂ , p≡k₂Sm )) =
+              (0≠0 , (k₁ , Nk₁ , n≡k₁Sm))
+              (_   , (k₂ , Nk₂ , p≡k₂Sm)) =
   (λ S≡0 → ⊥-elim $ ¬S≡0 S≡0) ,
   (k₁ - k₂) ,
   minus-N Nk₁ Nk₂ ,
@@ -71,10 +71,10 @@ postulate
 {-# ATP prove x∣y→x∣z→x∣y+z-ah [x+y]z≡xz*yz sN #-}
 
 x∣y→x∣z→x∣y+z : {m n p : D} → N m → N n → N p → m ∣ n → m ∣ p → m ∣ n + p
-x∣y→x∣z→x∣y+z zN      _  _ ( 0≠0 , _ ) m∣p = ⊥-elim $ 0≠0 refl
+x∣y→x∣z→x∣y+z zN      _  _ (0≠0 , _) m∣p = ⊥-elim $ 0≠0 refl
 x∣y→x∣z→x∣y+z (sN Nm) Nn Np
-              ( 0≠0 , ( k₁ , Nk₁ , n≡k₁Sm ))
-              ( _   , ( k₂ , Nk₂ , p≡k₂Sm )) =
+              (0≠0 , (k₁ , Nk₁ , n≡k₁Sm))
+              (_   , (k₂ , Nk₂ , p≡k₂Sm)) =
   (λ S≡0 → ⊥-elim $ ¬S≡0 S≡0) ,
   (k₁ + k₂) ,
   +-N Nk₁ Nk₂ ,
@@ -94,7 +94,7 @@ postulate
 {-# ATP prove x∣S→x≤S-ah₂ x≤x+y *-N sN #-}
 
 x∣S→x≤S : {m n : D} → N m → N n → m ∣ (succ n) → LE m (succ n)
-x∣S→x≤S  zN     Nn ( 0≠0 , _ )                  = ⊥-elim $ 0≠0 refl
-x∣S→x≤S (sN Nm) Nn ( _ , .zero , zN , Sn≡0*Sm)  = ⊥-elim $ x∣S→x≤S-ah₁ Sn≡0*Sm
-x∣S→x≤S (sN {m} Nm) Nn ( _ , .(succ k) , sN {k} Nk , Sn≡Sk*Sm) =
+x∣S→x≤S  zN     Nn (0≠0 , _)                  = ⊥-elim $ 0≠0 refl
+x∣S→x≤S (sN Nm) Nn (_ , .zero , zN , Sn≡0*Sm) = ⊥-elim $ x∣S→x≤S-ah₁ Sn≡0*Sm
+x∣S→x≤S (sN {m} Nm) Nn (_ , .(succ k) , sN {k} Nk , Sn≡Sk*Sm) =
   x∣S→x≤S-ah₂ Nm Nn Nk Sn≡Sk*Sm

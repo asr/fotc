@@ -68,8 +68,8 @@ gcd-S>S-Divisible :
   (Divisible (succ m - succ n) (succ n) (gcd (succ m - succ n) (succ n))) →
   GT (succ m) (succ n) →
   Divisible (succ m) (succ n) (gcd (succ m) (succ n))
-gcd-S>S-Divisible {m} {n} Nm Nn acc Sm>Sn c Nc ( c∣Sm , c∣Sn ) =
-    gcd-S>S-Divisible-ah Nm Nn acc Sm>Sn c Nc ( c∣Sm , c∣Sn )
+gcd-S>S-Divisible {m} {n} Nm Nn acc Sm>Sn c Nc (c∣Sm , c∣Sn) =
+    gcd-S>S-Divisible-ah Nm Nn acc Sm>Sn c Nc (c∣Sm , c∣Sn)
                          (x∣y→x∣z→x∣y-z Nc (sN Nm) (sN Nn) c∣Sm c∣Sn)
 
 ------------------------------------------------------------------------------
@@ -93,8 +93,8 @@ gcd-S≤S-Divisible :
   (Divisible (succ m) (succ n - succ m) (gcd (succ m) (succ n - succ m))) →
   LE (succ m) (succ n) →
   Divisible (succ m) (succ n) (gcd (succ m) (succ n))
-gcd-S≤S-Divisible {m} {n} Nm Nn acc Sm≤Sn c Nc ( c∣Sm , c∣Sn) =
-    gcd-S≤S-Divisible-ah Nm Nn acc Sm≤Sn c Nc ( c∣Sm , c∣Sn )
+gcd-S≤S-Divisible {m} {n} Nm Nn acc Sm≤Sn c Nc (c∣Sm , c∣Sn) =
+    gcd-S≤S-Divisible-ah Nm Nn acc Sm≤Sn c Nc (c∣Sm , c∣Sn)
                          (x∣y→x∣z→x∣y-z Nc (sN Nn) (sN Nm) c∣Sn c∣Sm)
 
 ------------------------------------------------------------------------------

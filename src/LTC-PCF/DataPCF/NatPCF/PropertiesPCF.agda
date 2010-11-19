@@ -34,7 +34,7 @@ minus-0S zN = prf
     postulate prf : zero - succ zero ≡ zero
     {-# ATP prove prf rec-0 #-}
 
-minus-0S (sN {n} _ ) = prf
+minus-0S (sN {n} _) = prf
   where
     postulate prf : zero - succ (succ n) ≡ zero
     {-# ATP prove prf rec-S minus-0S #-}
@@ -79,7 +79,7 @@ minus-N {m} _ zN = prf
     postulate prf : N (m - zero)
     {-# ATP prove prf minus-x0 #-}
 
-minus-N zN (sN {n} _ ) = prf
+minus-N zN (sN {n} _) = prf
   where
     postulate prf : N (zero - succ n)
     {-# ATP prove prf zN minus-0S #-}
@@ -231,7 +231,7 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
                     (zero - succ n) * o ≡ zero * o - succ n * o
     {-# ATP prove prf *-0x minus-0S minus-0x #-}
 
-[x-y]z≡xz*yz (sN {m} _ ) (sN {n} _ ) zN = prf
+[x-y]z≡xz*yz (sN {m} _) (sN {n} _) zN = prf
   where
     postulate prf : (succ m - succ n) * zero ≡ succ m * zero - succ n * zero
     -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
@@ -253,12 +253,12 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
     -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf zN sN *-comm +-rightIdentity *-N +-N *-0x #-}
 
-[x+y]z≡xz*yz {n = n} zN Nn (sN {o} _ ) = prf
+[x+y]z≡xz*yz {n = n} zN Nn (sN {o} _) = prf
   where
     postulate prf :  (zero + n) * succ o ≡ zero * succ o + n * succ o
     {-# ATP prove prf +-0x *-0x #-}
 
-[x+y]z≡xz*yz (sN {m} _ ) zN (sN {o} _ ) = prf
+[x+y]z≡xz*yz (sN {m} _) zN (sN {o} _) = prf
   where
     postulate prf : (succ m + zero) * succ o ≡ succ m * succ o + zero * succ o
     -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).

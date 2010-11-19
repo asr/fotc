@@ -196,11 +196,11 @@ gcd-S≤S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≤Sn =
 
 -- The 'gcd 0 (succ n)' is CD.
 gcd-0S-CD : {n : D} → N n → CD zero (succ n) (gcd zero (succ n))
-gcd-0S-CD Nn = ( gcd-0S-∣₁ Nn , gcd-0S-∣₂ Nn )
+gcd-0S-CD Nn = (gcd-0S-∣₁ Nn , gcd-0S-∣₂ Nn)
 
 -- The 'gcd (succ m) 0 ' is CD.
 gcd-S0-CD : {m : D} → N m → CD (succ m) zero (gcd (succ m) zero)
-gcd-S0-CD Nm = ( gcd-S0-∣₁ Nm , gcd-S0-∣₂ Nm )
+gcd-S0-CD Nm = (gcd-S0-∣₁ Nm , gcd-S0-∣₂ Nm)
 
 -- The 'gcd (succ m) (succ n)' when 'succ m > succ n' is CD.
 gcd-S>S-CD :
@@ -209,7 +209,7 @@ gcd-S>S-CD :
   GT (succ m) (succ n) →
   CD (succ m) (succ n) (gcd (succ m) (succ n))
 gcd-S>S-CD {m} {n} Nm Nn acc Sm>Sn =
-   ( gcd-S>S-∣₁ Nm Nn acc-∣₁ acc-∣₂ Sm>Sn , gcd-S>S-∣₂ Nm Nn acc-∣₂ Sm>Sn )
+   (gcd-S>S-∣₁ Nm Nn acc-∣₁ acc-∣₂ Sm>Sn , gcd-S>S-∣₂ Nm Nn acc-∣₂ Sm>Sn)
   where
     acc-∣₁ : gcd (succ m - succ n) (succ n) ∣ (succ m - succ n)
     acc-∣₁ = ∧-proj₁ acc
@@ -224,7 +224,7 @@ gcd-S≤S-CD :
   LE (succ m) (succ n) →
   CD (succ m) (succ n) (gcd (succ m) (succ n))
 gcd-S≤S-CD {m} {n} Nm Nn acc Sm≤Sn =
-  ( gcd-S≤S-∣₁ Nm Nn acc-∣₁ Sm≤Sn , gcd-S≤S-∣₂ Nm Nn acc-∣₂ acc-∣₁ Sm≤Sn )
+  (gcd-S≤S-∣₁ Nm Nn acc-∣₁ Sm≤Sn , gcd-S≤S-∣₂ Nm Nn acc-∣₂ acc-∣₁ Sm≤Sn)
   where
     acc-∣₁ : gcd (succ m) (succ n - succ m) ∣ succ m
     acc-∣₁ = ∧-proj₁ acc

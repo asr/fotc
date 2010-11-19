@@ -33,7 +33,6 @@ GACD a b gcd = (c : D) → N c → CD a b c → LE c gcd
 
 gcd-GACD : {m n gcd : D} → N gcd → CD m n gcd → Divisible m n gcd →
            GACD m n gcd
-gcd-GACD zN     ( 0∣m , _ ) = ⊥-elim $ 0∤x 0∣m
-gcd-GACD (sN {gcd} Ngcd) _  =
-  λ Divisible-mnSgcd c Nc CDmnc →
-    x∣S→x≤S Nc Ngcd (Divisible-mnSgcd c Nc CDmnc)
+gcd-GACD zN              (0∣m , _) = ⊥-elim $ 0∤x 0∣m
+gcd-GACD (sN {gcd} Ngcd) _         =
+  λ Divisible-mnSgcd c Nc CDmnc → x∣S→x≤S Nc Ngcd (Divisible-mnSgcd c Nc CDmnc)
