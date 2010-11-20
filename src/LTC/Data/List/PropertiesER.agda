@@ -97,7 +97,7 @@ reverse-++ (consL x {xs} Lxs) (consL y {ys} Lys) =
   begin
     reverse ((x ∷ xs) ++ y ∷ ys) ≡⟨ refl ⟩
     rev ((x ∷ xs) ++ y ∷ ys) []
-      ≡⟨ subst ( λ t → rev ((x ∷ xs) ++ y ∷ ys) [] ≡ rev t [])
+      ≡⟨ subst (λ t → rev ((x ∷ xs) ++ y ∷ ys) [] ≡ rev t [])
                (++-∷ x xs (y ∷ ys))
                refl
       ⟩

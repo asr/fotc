@@ -23,7 +23,7 @@ postulate
   -- This elimination rule cannot prove in Agda/Coq because in Agda/Coq we can
   -- have empty domains. We do not have this problem because the ATPs
   -- assume a non-empty domain.
-  ∃DI : ((t : D) → P¹ t) → ∃D P¹
+  ∃DI : ((x : D) → P¹ x) → ∃D P¹
   -- TODO: ∃E : (x : D) → ∃D P¹ → (P¹ x → Q¹ x) → Q¹ x
 {-# ATP prove ∀DI #-}
 {-# ATP prove ∀DE #-}

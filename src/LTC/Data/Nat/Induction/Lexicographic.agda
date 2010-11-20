@@ -33,7 +33,7 @@ open import LTC.Data.Nat.Type
 wfIndN-LT₂ :
   (P : D → D → Set) →
   ({m₁ n₁ : D} → N m₁ → N n₁ →
-       ({m₂ n₂ : D} → N m₂ → N n₂ → LT₂ m₂ n₂ m₁ n₁ → P m₂ n₂) → P m₁ n₁ ) →
+       ({m₂ n₂ : D} → N m₂ → N n₂ → LT₂ m₂ n₂ m₁ n₁ → P m₂ n₂) → P m₁ n₁) →
   {m n : D} → N m → N n → P m n
 wfIndN-LT₂ P accH Nm Nn =  accH Nm Nn (wfAux Nm Nn)
   where
@@ -177,11 +177,12 @@ wfIndN-LT₂ P accH Nm Nn =  accH Nm Nn (wfAux Nm Nn)
                                         (∧-proj₁ Sm₂≡Sm₁∧Sn₂<Sn₁)))
 
                  , (λ m'≡Sm₂∧n'<Sn₂ → inj₂
-                      ( (trans (∧-proj₁ m'≡Sm₂∧n'<Sn₂)
-                               (∧-proj₁ Sm₂≡Sm₁∧Sn₂<Sn₁))
-                      , (aux Nn' Nn₁ (sN Nn₂)
-                             (∧-proj₂ m'≡Sm₂∧n'<Sn₂)
-                             (∧-proj₂ Sm₂≡Sm₁∧Sn₂<Sn₁))))
+                      ( trans (∧-proj₁ m'≡Sm₂∧n'<Sn₂) (∧-proj₁ Sm₂≡Sm₁∧Sn₂<Sn₁)
+                      , aux Nn' Nn₁ (sN Nn₂)
+                            (∧-proj₂ m'≡Sm₂∧n'<Sn₂)
+                            (∧-proj₂ Sm₂≡Sm₁∧Sn₂<Sn₁)
+                      )
+                   )
                  ]
                  m'n'<Sm₂Sn₂)
               ]

@@ -110,7 +110,7 @@ gcd-x≤y-N (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
 
 ------------------------------------------------------------------------------
 -- The 'gcd' is N.
-gcd-N : {m n : D } → N m → N n → ¬x≡0∧y≡0 m n → N (gcd m n)
+gcd-N : {m n : D} → N m → N n → ¬x≡0∧y≡0 m n → N (gcd m n)
 gcd-N = wfIndN-LT₂ P istep
   where
     P : D → D → Set

@@ -124,7 +124,7 @@ postulate
 
 postulate
   -- Conversion rule for the abstraction and the application.
-  beta : (f : D → D) → (a : D) → (lam f) ∙ a ≡ f a
+  beta : (f : D → D)(a : D) → (lam f) ∙ a ≡ f a
 {-# ATP axiom beta #-}
 
 postulate

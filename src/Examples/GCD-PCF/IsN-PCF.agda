@@ -18,7 +18,7 @@ open import LTC-PCF.DataPCF.NatPCF
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
 open import LTC-PCF.DataPCF.NatPCF.InductionPCF.LexicographicPCF
-  using ( wfIndN-LT₂)
+  using ( wfIndN-LT₂ )
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( GT ; LE ; LT₂ )
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF.PropertiesPCF
   using ( ¬0>x
@@ -113,7 +113,7 @@ gcd-x≤y-N (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
 
 ------------------------------------------------------------------------------
 -- The 'gcd' is N.
-gcd-N : {m n : D } → N m → N n → ¬x≡0∧y≡0 m n → N (gcd m n)
+gcd-N : {m n : D} → N m → N n → ¬x≡0∧y≡0 m n → N (gcd m n)
 gcd-N = wfIndN-LT₂ P istep
   where
     P : D → D → Set

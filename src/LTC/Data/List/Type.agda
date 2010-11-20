@@ -10,7 +10,7 @@ open import LTC.Base
 -- The LTC list type.
 data List : D → Set where
   nilL  : List []
-  consL : (x : D){xs : D} → (Lxs : List xs) → List (x ∷ xs)
+  consL : (x : D){xs : D}(Lxs : List xs) → List (x ∷ xs)
 
 -- Induction principle for List.
 indList : (P : D → Set) →

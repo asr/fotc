@@ -178,11 +178,12 @@ wfIndN-LT₂ P accH Nm Nn =  accH Nm Nn (wfAux Nm Nn)
                                         (∧-proj₁ Sm₂≡Sm₁∧Sn₂<Sn₁)))
 
                  , (λ m'≡Sm₂∧n'<Sn₂ → inj₂
-                      ( (trans (∧-proj₁ m'≡Sm₂∧n'<Sn₂)
-                               (∧-proj₁ Sm₂≡Sm₁∧Sn₂<Sn₁))
-                      , (aux Nn' Nn₁ (sN Nn₂)
-                             (∧-proj₂ m'≡Sm₂∧n'<Sn₂)
-                             (∧-proj₂ Sm₂≡Sm₁∧Sn₂<Sn₁))))
+                      ( trans (∧-proj₁ m'≡Sm₂∧n'<Sn₂) (∧-proj₁ Sm₂≡Sm₁∧Sn₂<Sn₁)
+                      , aux Nn' Nn₁ (sN Nn₂)
+                            (∧-proj₂ m'≡Sm₂∧n'<Sn₂)
+                            (∧-proj₂ Sm₂≡Sm₁∧Sn₂<Sn₁)
+                      )
+                   )
                  ]
                  m'n'<Sm₂Sn₂)
               ]

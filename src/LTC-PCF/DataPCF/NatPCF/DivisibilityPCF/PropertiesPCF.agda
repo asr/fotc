@@ -96,7 +96,7 @@ postulate
 {-# ATP prove x∣S→x≤S-ah₂ x≤x+y *-N sN *-Sx #-}
 
 x∣S→x≤S : {m n : D} → N m → N n → m ∣ (succ n) → LE m (succ n)
-x∣S→x≤S  zN     Nn (0≠0 , _)                   = ⊥-elim $ 0≠0 refl
-x∣S→x≤S (sN Nm) Nn (_ , .zero , zN , Sn≡0*Sm ) = ⊥-elim $ x∣S→x≤S-ah₁ Sn≡0*Sm
-x∣S→x≤S (sN {m} Nm) Nn (_ , .(succ k) , sN {k} Nk , Sn≡Sk*Sm ) =
+x∣S→x≤S  zN     Nn (0≠0 , _)                  = ⊥-elim $ 0≠0 refl
+x∣S→x≤S (sN Nm) Nn (_ , .zero , zN , Sn≡0*Sm) = ⊥-elim $ x∣S→x≤S-ah₁ Sn≡0*Sm
+x∣S→x≤S (sN {m} Nm) Nn (_ , .(succ k) , sN {k} Nk , Sn≡Sk*Sm) =
   x∣S→x≤S-ah₂ Nm Nn Nk Sn≡Sk*Sm

@@ -148,7 +148,7 @@ postulate
                     if (i ≤ item)
                       then (node (tip i) item (tip item))
                       else (node (tip item) i (tip i))
-  toTree-node     : (item : D) → (t₁ i t₂ : D) →
+  toTree-node     : (item t₁ i t₂ : D) →
                     toTree ∙ item ∙ (node t₁ i t₂) ≡
                        if (i ≤ item)
                          then (node t₁ i (toTree ∙ item ∙ t₂))
