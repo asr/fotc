@@ -18,17 +18,17 @@ RSYNC    = rsync --archive --progress --rsh='ssh -p 2024'
 main_file_NER_LTC         = src/LTC/Everything
 main_file_ER_LTC          = src/LTC/EverythingER
 
-main_file_NER_LTC-PCF     = src/LTC-PCF/Everything
-main_file_ER_LTC-PCF      = src/LTC-PCF/EverythingER
+main_file_NER_LTC-PCF     = src/PCF/LTC/Everything
+main_file_ER_LTC-PCF      = src/PCF/LTC/EverythingER
 
-main_file_NER_DivisionPCF = src/Examples/DivisionPCF/ProofSpecificationPCF
-main_file_ER_DivisionPCF  = src/Examples/DivisionPCF/ProofSpecificationPCF-ER
+main_file_NER_Division    = src/PCF/Examples/Division/ProofSpecification
+main_file_ER_Division     = src/PCF/Examples/Division/ProofSpecificationER
 
 main_file_NER_GCD         = src/Examples/GCD/ProofSpecification
 main_file_ER_GCD          = src/Examples/GCD/ProofSpecificationER
 
-main_file_NER_GCD-PCF     = src/Examples/GCD-PCF/ProofSpecificationPCF
-main_file_ER_GCD-PCF      = src/Examples/GCD-PCF/ProofSpecificationPCF-ER
+main_file_NER_GCD-PCF     = src/PCF/Examples/GCD/ProofSpecification
+main_file_ER_GCD-PCF      = src/PCF/Examples/GCD/ProofSpecificationER
 
 main_file_NER_Logic       = src/Examples/NonLTC/Logic/Logic
 
@@ -53,7 +53,7 @@ type_checking_ER_% :
 
 all_type_checking_NER : type_checking_NER_LTC \
 			type_checking_NER_LTC-PCF \
-			type_checking_NER_DivisionPCF \
+			type_checking_NER_Division \
 			type_checking_NER_GCD \
 			type_checking_NER_GCD-PCF \
 			type_checking_NER_Logic \
@@ -63,7 +63,7 @@ all_type_checking_NER : type_checking_NER_LTC \
 
 all_type_checking_ER  : type_checking_ER_LTC \
 			type_checking_ER_LTC-PCF \
-			type_checking_ER_DivisionPCF \
+			type_checking_ER_Division \
 			type_checking_ER_GCD \
 			type_checking_ER_GCD-PCF \
 			type_checking_ER_SortList
@@ -134,7 +134,7 @@ publish_% :
 
 all_publish : publish_LTC \
 	      publish_LTC-PCF \
-	      publish_DivisionPCF \
+	      publish_Division \
 	      publish_GCD \
 	      publish_GCD-PCF \
 	      publish_Logic \
