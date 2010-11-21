@@ -35,7 +35,7 @@ wfIndN-LT₂ :
   ({m₁ n₁ : D} → N m₁ → N n₁ →
        ({m₂ n₂ : D} → N m₂ → N n₂ → LT₂ m₂ n₂ m₁ n₁ → P m₂ n₂) → P m₁ n₁) →
   {m n : D} → N m → N n → P m n
-wfIndN-LT₂ P accH Nm Nn =  accH Nm Nn (wfAux Nm Nn)
+wfIndN-LT₂ P accH Nm Nn = accH Nm Nn (wfAux Nm Nn)
   where
     aux : {m n o : D} → N m → N n → N o → LT m o → LT o (succ n) → LT m n
     aux {m} {n} {o} Nm Nn No m<o o<Sn =

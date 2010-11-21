@@ -17,45 +17,47 @@ open import LTC.Base
 -- Version using lambda lifting via super-combinators.
 -- (Hughes. Super-combinators. 1982)
 
-lt-aux₁ : D → D → D → D
-lt-aux₁ d lt e = if (isZero e) then false
-                    else (if (isZero d) then true
-                          else (lt ∙ (pred d) ∙ (pred e)))
-{-# ATP definition lt-aux₁ #-}
+<-aux₁ : D → D → D → D
+<-aux₁ d lt e = if (isZero e)
+                   then false
+                   else (if (isZero d)
+                            then true
+                            else (lt ∙ (pred d) ∙ (pred e)))
+{-# ATP definition <-aux₁ #-}
 
-lt-aux₂ : D → D → D
-lt-aux₂ lt d = lam (lt-aux₁ d lt)
-{-# ATP definition lt-aux₂ #-}
+<-aux₂ : D → D → D
+<-aux₂ lt d = lam (<-aux₁ d lt)
+{-# ATP definition <-aux₂ #-}
 
-lth : D → D
-lth lt = lam (lt-aux₂ lt)
-{-# ATP definition lth #-}
+<-h : D → D
+<-h lt = lam (<-aux₂ lt)
+{-# ATP definition <-h #-}
 
 _<_ : D → D → D
-d < e = fix lth ∙ d ∙ e
+d < e = fix <-h ∙ d ∙ e
 {-# ATP definition _<_ #-}
 
-le : D → D → D
-le d e = d < (succ e)
-{-# ATP definition le #-}
+_≤_ : D → D → D
+d ≤ e = d < succ e
+{-# ATP definition _≤_ #-}
 
-gt : D → D → D
-gt d e = e < d
-{-# ATP definition gt #-}
+_>_ : D → D → D
+d > e = e < d
+{-# ATP definition _>_ #-}
 
-ge : D → D → D
-ge d e = le e d
-{-# ATP definition ge #-}
+_≥_ : D → D → D
+d ≥ e = e ≤ d
+{-# ATP definition _≥_ #-}
 
 ------------------------------------------------------------------------
 -- The data types
 
 GT : D → D → Set
-GT d e = gt d e ≡ true
+GT d e = d > e ≡ true
 {-# ATP definition GT #-}
 
 NGT : D → D → Set
-NGT d e = gt d e ≡ false
+NGT d e = d > e ≡ false
 {-# ATP definition NGT #-}
 
 LT : D → D → Set
@@ -67,19 +69,19 @@ NLT d e = d < e ≡ false
 {-# ATP definition NLT #-}
 
 LE : D → D → Set
-LE d e = le d e ≡ true
+LE d e = d ≤ e ≡ true
 {-# ATP definition LE #-}
 
 NLE : D → D → Set
-NLE d e = le d e ≡ false
+NLE d e = d ≤ e ≡ false
 {-# ATP definition NLE #-}
 
 GE : D → D → Set
-GE d e = ge d e ≡ true
+GE d e = d ≥ e ≡ true
 {-# ATP definition GE #-}
 
 NGE : D → D → Set
-NGE d e = ge d e ≡ false
+NGE d e = d ≥ e ≡ false
 {-# ATP definition NGE #-}
 
 ------------------------------------------------------------------------------

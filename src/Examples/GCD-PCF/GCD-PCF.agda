@@ -8,7 +8,7 @@ module Examples.GCD-PCF.GCD-PCF where
 open import LTC.Base
 
 open import LTC-PCF.DataPCF.NatPCF using ( _-_ )
-open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( gt )
+open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF using ( _>_ )
 
 ------------------------------------------------------------------------------
 
@@ -47,7 +47,7 @@ gcd-aux₁ d g e = if (isZero e)
                              else d)
                          else (if (isZero d)
                            then e
-                           else (if (gt d e)
+                           else (if (d > e)
                                     then g ∙ (d - e) ∙ e
                                     else g ∙ d ∙ (e - d)))
 {-# ATP definition gcd-aux₁ #-}

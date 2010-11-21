@@ -18,9 +18,8 @@ open import LTC-PCF.DataPCF.NatPCF
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
 open import LTC-PCF.DataPCF.NatPCF.InequalitiesPCF
-  using ( _<_
-        ; le
-        ; lt-aux₁ ; lt-aux₂ ; lth
+  using ( _<_ ; <-aux₁ ; <-aux₂ ; <-h
+        ; _≤_
         ; GE ; GT ; LE ; LT ; NGT ; NLE ; NLT
         ; LT₂
         )
@@ -54,57 +53,57 @@ private
 
   -- The conversion rule fix-f is applied.
   <-s₁ : D → D → D
-  <-s₁ d e = lth (fix lth) ∙ d ∙ e
+  <-s₁ d e = <-h (fix <-h) ∙ d ∙ e
 
-  -- Definition of lth.
+  -- Definition of <-h.
   <-s₂ : D → D → D
-  <-s₂ d e = lam (lt-aux₂ (fix lth)) ∙ d ∙ e
+  <-s₂ d e = lam (<-aux₂ (fix <-h)) ∙ d ∙ e
 
   -- Beta application.
   <-s₃ : D → D → D
-  <-s₃ d e = lt-aux₂ (fix lth) d ∙ e
+  <-s₃ d e = <-aux₂ (fix <-h) d ∙ e
 
   -- Definition of lt-aux₂.
   <-s₄ : D → D → D
-  <-s₄ d e = lam (lt-aux₁ d (fix lth)) ∙ e
+  <-s₄ d e = lam (<-aux₁ d (fix <-h)) ∙ e
 
   -- Beta application.
   <-s₅ : D → D → D
-  <-s₅ d e = lt-aux₁ d (fix lth) e
+  <-s₅ d e = <-aux₁ d (fix <-h) e
 
   -- Definition lt-aux₁.
   <-s₆ : D → D → D
   <-s₆ d e = if (isZero e) then false
                 else (if (isZero d) then true
-                         else ((fix lth) ∙ (pred d) ∙ (pred e)))
+                         else ((fix <-h) ∙ (pred d) ∙ (pred e)))
 
   -- Reduction 'isZero e ≡ b'.
   <-s₇ : D → D → D → D
   <-s₇ d e b = if b then false
                   else (if (isZero d) then true
-                           else ((fix lth) ∙ (pred d) ∙ (pred e)))
+                           else ((fix <-h) ∙ (pred d) ∙ (pred e)))
 
   -- Reduction 'isZero e ≡ false'.
   <-s₈ : D → D → D
   <-s₈ d e = if (isZero d) then true
-                 else ((fix lth) ∙ (pred d) ∙ (pred e))
+                 else ((fix <-h) ∙ (pred d) ∙ (pred e))
 
   -- Reduction 'isZero d ≡ b'.
   <-s₉ : D → D → D → D
   <-s₉ d e b = if b then true
-                  else ((fix lth) ∙ (pred d) ∙ (pred e))
+                  else ((fix <-h) ∙ (pred d) ∙ (pred e))
 
   -- Reduction 'isZero d ≡ false'.
   <-s₁₀ : D → D → D
-  <-s₁₀ d e = (fix lth) ∙ (pred d) ∙ (pred e)
+  <-s₁₀ d e = (fix <-h) ∙ (pred d) ∙ (pred e)
 
   -- Reduction 'pred (succ d) ≡ d'.
   <-s₁₁ : D → D → D
-  <-s₁₁ d e = (fix lth) ∙ d ∙ (pred e)
+  <-s₁₁ d e = (fix <-h) ∙ d ∙ (pred e)
 
   -- Reduction 'pred (succ e) ≡ e'.
   <-s₁₂ : D → D → D
-  <-s₁₂ d e = (fix lth) ∙ d ∙ e
+  <-s₁₂ d e = (fix <-h) ∙ d ∙ e
 
   ----------------------------------------------------------------------
   -- The execution steps
@@ -131,17 +130,17 @@ private
   -}
 
   -- Application of the conversion rule fix-f.
-  initial→s₁ : (d e : D) → fix lth ∙ d ∙ e ≡ <-s₁ d e
-  initial→s₁ d e = subst (λ t → fix lth ∙ d ∙ e ≡ t ∙ d ∙ e) (fix-f lth) refl
+  initial→s₁ : (d e : D) → fix <-h ∙ d ∙ e ≡ <-s₁ d e
+  initial→s₁ d e = subst (λ t → fix <-h ∙ d ∙ e ≡ t ∙ d ∙ e) (fix-f <-h) refl
 
-  -- The definition of lth.
+  -- The definition of <-h.
   s₁→s₂ : (d e : D) → <-s₁ d e ≡ <-s₂ d e
   s₁→s₂ d e = refl
 
   -- Beta application.
   s₂→s₃ : (d e : D) → <-s₂ d e ≡ <-s₃ d e
-  s₂→s₃ d e = subst (λ t → lam (lt-aux₂ (fix lth)) ∙ d ∙ e ≡ t ∙ e)
-                    (beta (lt-aux₂ (fix lth)) d)
+  s₂→s₃ d e = subst (λ t → lam (<-aux₂ (fix <-h)) ∙ d ∙ e ≡ t ∙ e)
+                    (beta (<-aux₂ (fix <-h)) d)
                     refl
 
   -- Definition of lt-aux₂
@@ -150,7 +149,7 @@ private
 
   -- Beta application.
   s₄→s₅ : (d e : D) → <-s₄ d e ≡ <-s₅ d e
-  s₄→s₅ d e = beta (lt-aux₁ d (fix lth)) e
+  s₄→s₅ d e = beta (<-aux₁ d (fix <-h)) e
 
   -- Definition of lt-aux₁.
   s₅→s₆ : (d e : D) → <-s₅ d e ≡ <-s₆ d e
@@ -181,11 +180,11 @@ private
   s₉→s₁₀ d e = if-false (<-s₁₀ d e)
 
   -- Reduction 'pred (succ d) ≡ d' using the conversion rule pred-S.
-  s₁₀→s₁₁ : (d e : D) → <-s₁₀ (succ d) e  ≡ <-s₁₁ d e
+  s₁₀→s₁₁ : (d e : D) → <-s₁₀ (succ d) e ≡ <-s₁₁ d e
   s₁₀→s₁₁ d e = subst (λ t → <-s₁₀ (succ d) e ≡ <-s₁₁ t e) (pred-S d) refl
 
   -- Reduction 'pred (succ e) ≡ e' using the conversion rule pred-S.
-  s₁₁→s₁₂ : (d e : D) → <-s₁₁ d (succ e)  ≡ <-s₁₂ d e
+  s₁₁→s₁₂ : (d e : D) → <-s₁₁ d (succ e) ≡ <-s₁₂ d e
   s₁₁→s₁₂ d e = subst (λ t → <-s₁₁ d (succ e) ≡ <-s₁₂ d t) (pred-S e) refl
 
 ------------------------------------------------------------------------------
@@ -193,7 +192,7 @@ private
 <-00 : NLT zero zero
 <-00 =
   begin
-    fix lth ∙ zero ∙ zero ≡⟨ initial→s₁ zero zero ⟩
+    fix <-h ∙ zero ∙ zero ≡⟨ initial→s₁ zero zero ⟩
     <-s₁ zero zero        ≡⟨ s₁→s₂ zero zero ⟩
     <-s₂ zero zero        ≡⟨ s₂→s₃ zero zero ⟩
     <-s₃ zero zero        ≡⟨ s₃→s₄ zero zero ⟩
@@ -207,7 +206,7 @@ private
 <-0S : (d : D) → LT zero (succ d)
 <-0S d =
   begin
-    fix lth ∙ zero ∙ (succ d) ≡⟨ initial→s₁ zero (succ d) ⟩
+    fix <-h ∙ zero ∙ (succ d) ≡⟨ initial→s₁ zero (succ d) ⟩
     <-s₁ zero (succ d)        ≡⟨ s₁→s₂ zero (succ d) ⟩
     <-s₂ zero (succ d)        ≡⟨ s₂→s₃ zero (succ d) ⟩
     <-s₃ zero (succ d)        ≡⟨ s₃→s₄ zero (succ d) ⟩
@@ -223,7 +222,7 @@ private
 <-S0 : (d : D) → NLT (succ d) zero
 <-S0 d =
   begin
-    fix lth ∙ (succ d) ∙ zero ≡⟨ initial→s₁ (succ d) zero ⟩
+    fix <-h ∙ (succ d) ∙ zero ≡⟨ initial→s₁ (succ d) zero ⟩
     <-s₁ (succ d) zero        ≡⟨ s₁→s₂ (succ d) zero ⟩
     <-s₂ (succ d) zero        ≡⟨ s₂→s₃ (succ d) zero ⟩
     <-s₃ (succ d) zero        ≡⟨ s₃→s₄ (succ d) zero ⟩
@@ -237,7 +236,7 @@ private
 <-SS : (d e : D) → (succ d) < (succ e) ≡ d < e
 <-SS d e =
   begin
-    fix lth ∙ (succ d) ∙ (succ e) ≡⟨ initial→s₁ (succ d) (succ e) ⟩
+    fix <-h ∙ (succ d) ∙ (succ e) ≡⟨ initial→s₁ (succ d) (succ e) ⟩
     <-s₁ (succ d) (succ e)        ≡⟨ s₁→s₂ (succ d) (succ e) ⟩
     <-s₂ (succ d) (succ e)        ≡⟨ s₂→s₃ (succ d) (succ e) ⟩
     <-s₃ (succ d) (succ e)        ≡⟨ s₃→s₄ (succ d) (succ e) ⟩
@@ -386,7 +385,7 @@ x≤x+y {n = n} (sN {m} Nm) Nn =
                                              refl
                                     ⟩
     m < (succ (m + n))             ≡⟨ refl ⟩
-    le m (m + n)                   ≡⟨ x≤x+y Nm Nn ⟩
+    m ≤ (m + n)                    ≡⟨ x≤x+y Nm Nn ⟩
     true
   ∎
 

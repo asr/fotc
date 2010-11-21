@@ -6,7 +6,10 @@ module LTC-PCF.DataPCF.NatPCF.DivisibilityPCF where
 
 open import LTC.Base
 
-open import LTC-PCF.DataPCF.NatPCF using ( _*_ ; N )
+open import LTC-PCF.DataPCF.NatPCF
+  using ( _*_
+        ; N  -- The LTC natural numbers type.
+        )
 
 infix 7 _∣_
 

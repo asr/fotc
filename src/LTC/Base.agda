@@ -130,7 +130,7 @@ postulate
 postulate
   -- Conversion rule for the fixed pointed operator.
   fix-f : (f : D → D) → fix f ≡ f (fix  f)
-  -- cFixFO : (f : D) → fixFO ∙ f  ≡ f ∙ (fixFO ∙ f)
+  -- cFixFO : (f : D) → fixFO ∙ f ≡ f ∙ (fixFO ∙ f)
 {-# ATP axiom fix-f #-}
 
 postulate

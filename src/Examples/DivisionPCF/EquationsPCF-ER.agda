@@ -98,13 +98,13 @@ private
     -}
 
     -- From 'div ∙ i ∙ j' to div-s₁ using the conversion rule fix-f
-    proof₀₋₁ : (i j : D) → fix divh ∙ i ∙ j  ≡ div-s₁ i j
+    proof₀₋₁ : (i j : D) → fix divh ∙ i ∙ j ≡ div-s₁ i j
     proof₀₋₁ i j = subst (λ t → t ∙ i ∙ j ≡ divh (fix divh) ∙ i ∙ j)
                          (sym $ fix-f divh)
                          refl
 
     -- From div-s₁ to div-s₂ using the conversion rule beta
-    proof₁₋₂ : (i j : D) → div-s₁ i j  ≡ div-s₂ i j
+    proof₁₋₂ : (i j : D) → div-s₁ i j ≡ div-s₂ i j
     proof₁₋₂ i j =
       subst (λ t → t ∙ j ≡ fun i ∙ j)
             (sym $ beta fun i)
@@ -146,7 +146,7 @@ private
             refl
 
     -- From div-s₃ to div-s₅ using the proof  i≥j
-    proof₃₋₅ : {i j : D} → N i → N j → GE i j → div-s₃ i j  ≡ div-s₅ i j
+    proof₃₋₅ : {i j : D} → N i → N j → GE i j → div-s₃ i j ≡ div-s₅ i j
     proof₃₋₅ {i} {j} Ni Nj i≥j =
       subst (λ t → if t
                       then zero

@@ -115,7 +115,7 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn = prf $ x+1+y≡1+x+y Nm Nn
     -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf x+1+y≡1+x+y #-}
 
-minus-0x : {n : D} → N n → zero - n  ≡ zero
+minus-0x : {n : D} → N n → zero - n ≡ zero
 minus-0x zN         = minus-x0 zero
 minus-0x (sN {n} _) = minus-0S n
 
