@@ -13,43 +13,56 @@ AGDA2ATP = agda2atp -i. -isrc --unproved-conjecture-error
 RSYNC    = rsync --archive --progress --rsh='ssh -p 2024'
 
 ##############################################################################
-# "main" files
+# Paths
 
-main_file_NER_LTC         = src/LTC/Everything
-main_file_ER_LTC          = src/LTC/EverythingER
-
-main_file_NER_LTC-PCF     = src/PCF/LTC/Everything
-main_file_ER_LTC-PCF      = src/PCF/LTC/EverythingER
-
-main_file_NER_Division    = src/PCF/Examples/Division/ProofSpecification
-main_file_ER_Division     = src/PCF/Examples/Division/ProofSpecificationER
-
-main_file_NER_GCD         = src/Examples/GCD/ProofSpecification
-main_file_ER_GCD          = src/Examples/GCD/ProofSpecificationER
-
-main_file_NER_GCD-PCF     = src/PCF/Examples/GCD/ProofSpecification
-main_file_ER_GCD-PCF      = src/PCF/Examples/GCD/ProofSpecificationER
-
-main_file_NER_Logic       = src/Examples/NonLTC/Logic/Logic
-
-main_file_NER_LogicATP    = src/Examples/NonLTC/LogicATP/Logic
-
-main_file_NER_SortList    = src/Examples/SortList/ProofSpecification
-main_file_ER_SortList     = src/Examples/SortList/ProofSpecificationER
-
-main_file_NER_Consistency = Test/Consistency/Readme
-
-# Only used to publish the drafts, i.e. non type checking.
-main_file_NER_Draft       = Draft/RenderToHTML
+LTC_path         = src/LTC
+LTC-PCF_path     = src/PCF/LTC
+Division_path    = src/PCF/Examples/Division
+GCD_path         = src/Examples/GCD
+GCD-PCF_path     = src/PCF/Examples/GCD
+Logic_path       = src/Examples/NonLTC/Logic
+LogicATP_path    = src/Examples/NonLTC/LogicATP
+SortList_path    = src/Examples/SortList
+Consistency_path = Test/Consistency
 
 ##############################################################################
-# Type checking the agda files.
+# "main" modules
+
+main_module_NER_LTC         = $(LTC_path)/Everything
+main_module_ER_LTC          = $(LTC_path)/EverythingER
+
+main_module_NER_LTC-PCF     = $(LTC-PCF_path)/Everything
+main_module_ER_LTC-PCF      = $(LTC-PCF_path)/EverythingER
+
+main_module_NER_Division    = $(Division_path)/ProofSpecification
+main_module_ER_Division     = $(Division_path)/ProofSpecificationER
+
+main_module_NER_GCD         = $(GCD_path)/ProofSpecification
+main_module_ER_GCD          = $(GCD_path)/ProofSpecificationER
+
+main_module_NER_GCD-PCF     = $(GCD-PCF_path)/ProofSpecification
+main_module_ER_GCD-PCF      = $(GCD-PCF_path)/ProofSpecificationER
+
+main_module_NER_Logic       = $(Logic_path)/Logic
+
+main_module_NER_LogicATP    = $(LogicATP_path)/Logic
+
+main_module_NER_SortList    = $(SortList_path)/ProofSpecification
+main_module_ER_SortList     = $(SortList_path)/ProofSpecificationER
+
+main_module_NER_Consistency = $(Consistency_path)/Readme
+
+# Only used to publish the drafts, i.e. non type checking.
+main_module_NER_Draft       = Draft/RenderToHTML
+
+##############################################################################
+# Type checking the Agda modules.
 
 type_checking_NER_% :
-	$(AGDA) ${main_file_NER_$*}.agda
+	$(AGDA) ${main_module_NER_$*}.agda
 
 type_checking_ER_% :
-	$(AGDA) ${main_file_ER_$*}.agda
+	$(AGDA) ${main_module_ER_$*}.agda
 
 all_type_checking_NER : type_checking_NER_LTC \
 			type_checking_NER_LTC-PCF \
@@ -73,36 +86,18 @@ all_type_checking     : all_type_checking_NER all_type_checking_ER
 ##############################################################################
 # Test the conjecture files.
 
-# Targets for conjectures in the examples.
-conjectures_DivisionPCF : conjectures_Examples/DivisionPCF
-conjectures_GCD         : conjectures_Examples/GCD
-conjectures_GCD-PCF     : conjectures_Examples/GCD-PCF
-conjectures_LogicATP    : conjectures_Examples/NonLTC/LogicATP
-conjectures_SortList    : conjectures_Examples/SortList
-
 # The time limit should be the maximum (720 sec) which is required
 # by Examples.SortList.Closures.TreeOrd.rightSubTree-TreeOrd.
-# TODO: To use a variable for the find result
-conjectures_Examples/% :
+conjectures_% :
 	for file in \
-	  `find src/Examples/$*/ -name '*.agda' | xargs grep -l 'ATP prove'`; do \
-	    rm -f /tmp/*.tptp; \
+          `find $($*_path) -name '*.agda' | xargs grep -l 'ATP prove'`; do \
             if ! ( ${AGDA} $${file} ); then exit 1; fi; \
 	    if ! ( ${AGDA2ATP} --time=300 $${file} ); then exit 1; fi; \
 	done
 
-# Process LTC and LTC-PCF conjectures.
-# TODO: Merge with conjectures_Examples/%
-conjectures_% :
-	for file in `find src/$*/ -name '*.agda' | xargs grep -l 'ATP prove'`; do \
-	    rm -f /tmp/*.tptp; \
-            if ! ( ${AGDA} $${file} ); then exit 1; fi; \
-	    if ! ( ${AGDA2ATP} --time=180 $${file} ); then exit 1; fi; \
-	done
-
 all_conjectures : conjectures_LTC \
 		  conjectures_LTC-PCF \
-                  conjectures_DivisionPCF \
+                  conjectures_Division \
 		  conjectures_GCD \
 		  conjectures_GCD-PCF \
 		  conjectures_LogicATP \
@@ -115,8 +110,7 @@ all_conjectures : conjectures_LTC \
 # revert the agda2atp output.
 all_consistency :
 	for file in \
-          `find Test/Consistency -name '*.agda' | xargs grep -l 'ATP prove'`; do \
-	    rm -f /tmp/*.tptp; \
+          `find $(Consistency_path) -name '*.agda' | xargs grep -l 'ATP prove'`; do \
             if ! ( ${AGDA} $${file} ); then exit 1; fi; \
 	    if ( ${AGDA2ATP} --time=10 $${file} ); then exit 1; fi; \
 	done
@@ -129,7 +123,7 @@ all_consistency :
 
 publish_% :
 	rm -r -f /tmp/$*/html/
-	$(AGDA) --html --html-dir=/tmp/$*/html/ ${main_file_NER_$*}.agda
+	$(AGDA) --html --html-dir=/tmp/$*/html/ ${main_module_NER_$*}.agda
 	$(RSYNC) /tmp/$*/html/ $(root_host_dir)/$*/
 
 all_publish : publish_LTC \
