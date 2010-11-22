@@ -15,4 +15,4 @@ open import PCF.LTC.Data.Nat.Inequalities
 open import PCF.LTC.Data.Nat.Inequalities.Properties
 open import PCF.LTC.Data.Nat.Properties
 open import PCF.LTC.Data.Nat.Rec
-open import PCF.LTC.Data.Nat.Rec.Properties
+open import PCF.LTC.Data.Nat.Rec.Equations

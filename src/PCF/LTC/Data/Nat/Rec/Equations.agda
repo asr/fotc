@@ -1,14 +1,15 @@
 ------------------------------------------------------------------------------
--- Properties of the recursive operator rec
+-- Conversion rules for the recursive operator rec
 ------------------------------------------------------------------------------
 
-module PCF.LTC.Data.Nat.Rec.Properties where
+module PCF.LTC.Data.Nat.Rec.Equations where
 
 open import LTC.Base
 
 open import PCF.LTC.Data.Nat.Rec using ( rec )
 
 ------------------------------------------------------------------------------
+
 postulate
   rec-0 : (a : D){f : D} → rec zero a f ≡ a
 -- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180 sec).

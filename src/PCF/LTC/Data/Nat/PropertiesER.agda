@@ -18,7 +18,7 @@ open import PCF.LTC.Data.Nat
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
 open import PCF.LTC.Data.Nat.Rec using ( rec )
-open import PCF.LTC.Data.Nat.Rec.Properties using ( rec-0 ; rec-S )
+open import PCF.LTC.Data.Nat.Rec.EquationsER using ( rec-0 ; rec-S )
 
 ------------------------------------------------------------------------------
 

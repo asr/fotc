@@ -12,9 +12,10 @@ open import PCF.LTC.Data.Nat
   using ( _+_ ; _-_ ; _*_
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
-open import PCF.LTC.Data.Nat.Rec.Properties using ( rec-0 ; rec-S )
+open import PCF.LTC.Data.Nat.Rec.Equations using ( rec-0 ; rec-S )
 
 ------------------------------------------------------------------------------
+
 postulate
   +-0x : (d : D) → zero + d ≡ d
 {-# ATP prove +-0x rec-0 #-}

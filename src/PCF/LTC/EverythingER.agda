@@ -7,3 +7,4 @@ module PCF.LTC.EverythingER where
 open import PCF.LTC.Data.Nat.Divisibility.PropertiesER
 open import PCF.LTC.Data.Nat.Inequalities.PropertiesER
 open import PCF.LTC.Data.Nat.PropertiesER
+open import PCF.LTC.Data.Nat.Rec.EquationsER
