@@ -11,7 +11,7 @@ open import LTC.BaseER using ( subst )
 open import Lib.Function using ( _$_ )
 
 open import PCF.Examples.GCD.GCD using ( ¬x≡0∧y≡0 ; gcd )
-open import PCF.Examples.GCD.Equations
+open import PCF.Examples.GCD.EquationsER
   using ( gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S )
 
 open import PCF.LTC.Data.Nat
@@ -55,7 +55,7 @@ gcd-S≤S-N : {m n : D} → N m → N n →
             N (gcd (succ m) (succ n - succ m)) →
             LE (succ m) (succ n) →
             N (gcd (succ m) (succ n))
-gcd-S≤S-N {m} {n} Nm Nn ih Sm≤Sn = subst N (sym $ gcd-S≤S m n Sm≤Sn) ih
+gcd-S≤S-N {m} {n} Nm Nn ih Sm≤Sn = subst N (sym $ gcd-S≤S Nm Nn Sm≤Sn) ih
 
 ------------------------------------------------------------------------------
 -- The 'gcd m n' when 'm > n' is N.

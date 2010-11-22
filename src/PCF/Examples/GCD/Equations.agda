@@ -8,8 +8,13 @@ open import LTC.Base
 
 open import PCF.Examples.GCD.GCD using ( gcd )
 
-open import PCF.LTC.Data.Nat using ( _-_ )
+open import PCF.LTC.Data.Nat
+open import PCF.LTC.Data.Nat
+  using ( _-_
+        ; N ; sN -- The LTC natural numbers type.
+        )
 open import PCF.LTC.Data.Nat.Inequalities using ( GT ; LE )
+open import PCF.LTC.Data.Nat.Inequalities.Properties using ( x≤y→x≯y )
 
 ------------------------------------------------------------------------------
 
@@ -36,7 +41,7 @@ postulate
 -- {-# ATP prove gcd-S>S #-}
 
 postulate
-  gcd-S≤S : (m n : D) → LE (succ m) (succ n) →
+  gcd-S≤S : {m n : D} → N m → N n → LE (succ m) (succ n) →
             gcd (succ m) (succ n) ≡ gcd (succ m) (succ n - succ m)
 -- E 1.2 no-success due to timeout (300 sec).
 -- Equinox 5.0alpha (2010-03-29) no-success due to timeout (300 sec).

@@ -11,7 +11,7 @@ open import LTC.BaseER using ( subst )
 open import Lib.Function using ( _$_ )
 
 open import PCF.Examples.GCD.GCD using ( ¬x≡0∧y≡0 ; gcd )
-open import PCF.Examples.GCD.Equations
+open import PCF.Examples.GCD.EquationsER
   using ( gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S )
 open import PCF.Examples.GCD.IsN-ER using ( gcd-N )
 
@@ -72,7 +72,7 @@ gcd-S≤S-∣₁ :
   gcd (succ m) (succ n) ∣ succ m
 gcd-S≤S-∣₁ {m} {n} Nm Nn ih Sm≤Sn =
   subst (λ x → x ∣ succ m)
-        (sym $ gcd-S≤S m n Sm≤Sn)
+        (sym $ gcd-S≤S Nm Nn Sm≤Sn)
         ih
 
 -- 'gcd (succ m) (succ n) ∣ succ m' when 'succ m > succ n'.
@@ -171,7 +171,7 @@ gcd-S≤S-∣₂ :
 gcd-S≤S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≤Sn =
   -- The first substitution is based on 'gcd m n = gcd m (n - m)'.
   subst (λ x → x ∣ succ n)
-        (sym $ gcd-S≤S m n Sm≤Sn)
+        (sym $ gcd-S≤S Nm Nn Sm≤Sn)
          -- The second substitution is based on.
          -- 'n = (n - m) + m'
         (subst (λ y → gcd (succ m) (succ n - succ m) ∣ y)

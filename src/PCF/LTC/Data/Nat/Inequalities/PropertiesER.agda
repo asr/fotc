@@ -233,7 +233,7 @@ private
     false
   ∎
 
-<-SS : (d e : D) → (succ d) < (succ e) ≡ d < e
+<-SS : (d e : D) → succ d < succ e ≡ d < e
 <-SS d e =
   begin
     fix <-h ∙ (succ d) ∙ (succ e) ≡⟨ initial→s₁ (succ d) (succ e) ⟩
@@ -282,6 +282,7 @@ S≰0 : {n : D} → N n → NLE (succ n) zero
 S≰0 zN          = x≰x (sN zN)
 S≰0 (sN {n} Nn) = trans (<-SS (succ n) zero) (<-S0 n)
 
+-- TODO: The ATP version does not requires N n.
 ¬S≤0 : {n : D} → N n → ¬ (LE (succ n) zero)
 ¬S≤0 {d} Nn Sn≤0 = true≠false $ trans (sym Sn≤0) (S≰0 Nn)
 
@@ -309,6 +310,12 @@ x≥y→x≮y zN          (sN Nn)     0≥Sn  = ⊥-elim $ ¬0≥S Nn 0≥Sn
 x≥y→x≮y (sN {m} Nm) zN          _     = <-S0 m
 x≥y→x≮y (sN {m} Nm) (sN {n} Nn) Sm≥Sn =
   trans (<-SS m n) (x≥y→x≮y Nm Nn (trans (sym $ <-SS n (succ m)) Sm≥Sn))
+
+x≤y→x≯y : {m n : D} → N m → N n → LE m n → NGT m n
+x≤y→x≯y zN          Nn          _    = 0≯x Nn
+x≤y→x≯y (sN Nm)     zN          Sm≤0 = ⊥-elim $ ¬S≤0 Nm Sm≤0
+x≤y→x≯y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
+  trans (<-SS n m) (x≤y→x≯y Nm Nn (trans (sym $ <-SS m (succ n)) Sm≤Sn))
 
 x>y∨x≤y : {m n : D} → N m → N n → GT m n ∨ LE m n
 x>y∨x≤y zN          Nn          = inj₂ $ x≥0 Nn

@@ -15,7 +15,7 @@ open import PCF.LTC.Data.Nat
         )
 open import PCF.LTC.Data.Nat.Inequalities
   using ( _<_
-        ; GE ; GT ; LE ; LT ; NLT
+        ; GE ; GT ; LE ; LT ; NGT ; NLT
         ; LT₂
         )
 open import PCF.LTC.Data.Nat.Properties
@@ -63,6 +63,10 @@ x≥0 (sN {n} Nn) = <-0S $ succ n
     postulate prf : ⊥
     {-# ATP prove prf <-S0 #-}
 
+0≯x : {n : D} → N n → NGT zero n
+0≯x zN          = <-00
+0≯x (sN {n} Nn) = <-S0 n
+
 postulate
   ¬0>x : {n : D} → N n → ¬ (GT zero n)
 -- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180 sec).
@@ -72,6 +76,7 @@ x≰x : {n : D} → N n → NLT n n
 x≰x zN          = <-00
 x≰x (sN {n} Nn) = trans (<-SS n n) (x≰x Nn)
 
+-- TODO: The ER version requires N n.
 postulate
   ¬S≤0 : {d : D} → ¬ (LE (succ d) zero)
 -- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180 sec).
@@ -117,6 +122,12 @@ x≥y→x≮y zN          (sN Nn)     0≥Sn  = ⊥-elim $ ¬0≥S Nn 0≥Sn
 x≥y→x≮y (sN {m} Nm) zN          _     = <-S0 m
 x≥y→x≮y (sN {m} Nm) (sN {n} Nn) Sm≥Sn =
   trans (<-SS m n) (x≥y→x≮y Nm Nn (trans (sym $ <-SS n (succ m)) Sm≥Sn))
+
+x≤y→x≯y : {m n : D} → N m → N n → LE m n → NGT m n
+x≤y→x≯y zN          Nn          _    = 0≯x Nn
+x≤y→x≯y (sN Nm)     zN          Sm≤0 = ⊥-elim (¬S≤0 Sm≤0)
+x≤y→x≯y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
+  trans (<-SS n m) (x≤y→x≯y Nm Nn (trans (sym $ <-SS m (succ n)) Sm≤Sn))
 
 x>y∨x≤y : {m n : D} → N m → N n → GT m n ∨ LE m n
 x>y∨x≤y zN          Nn          = inj₂ $ x≥0 Nn

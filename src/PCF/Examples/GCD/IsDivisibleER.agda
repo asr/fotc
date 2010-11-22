@@ -11,7 +11,7 @@ open import LTC.BaseER using ( subst )
 open import Lib.Function using ( _$_ )
 
 open import PCF.Examples.GCD.GCD using ( ¬x≡0∧y≡0 ; gcd )
-open import PCF.Examples.GCD.Equations
+open import PCF.Examples.GCD.EquationsER
   using ( gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S )
 open import PCF.Examples.GCD.IsCommonDivisorER using ( CD )
 
@@ -98,7 +98,7 @@ Proof
 -}
 
   subst (λ x → c ∣ x)
-        (sym $ gcd-S≤S m n Sm≤Sn)
+        (sym $ gcd-S≤S Nm Nn Sm≤Sn)
         (acc c Nc (c∣Sm , c|Sn-Sm))
   where
     c|Sn-Sm : c ∣ succ n - succ m

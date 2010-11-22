@@ -13,7 +13,10 @@ open module APER = Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 open import PCF.Examples.Division.Division using ( div ; divh )
 
-open import PCF.LTC.Data.Nat using ( _-_ ; N )
+open import PCF.LTC.Data.Nat
+  using ( _-_
+        ; N  -- The LTC natural numbers type.
+        )
 open import PCF.LTC.Data.Nat.Inequalities using ( _<_ ; GE ; LT )
 open import PCF.LTC.Data.Nat.Inequalities.PropertiesER
   using ( x≥y→x≮y )
