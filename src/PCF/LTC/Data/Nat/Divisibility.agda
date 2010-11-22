@@ -26,5 +26,5 @@ infix 7 _∣_
 -- The symbol is '\mid' not '|'.
 -- What about change '∃' by '(k : D)' (e.g. the standard library uses it)?
 _∣_ : D → D → Set
-d ∣ e = ¬ (d ≡ zero) ∧ ∃D (λ k → (N k) ∧ (e ≡ k * d))
+d ∣ e = ¬ (d ≡ zero) ∧ ∃D (λ k → N k ∧ e ≡ k * d)
 {-# ATP definition _∣_ #-}
