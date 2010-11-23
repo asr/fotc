@@ -28,51 +28,52 @@ Consistency_path = Test/Consistency
 ##############################################################################
 # "main" modules
 
-main_module_NER_LTC         = $(LTC_path)/Everything
-main_module_ER_LTC          = $(LTC_path)/EverythingER
+main_module_LTC         = $(LTC_path)/Everything
+main_module_ER_LTC      = $(LTC_path)/EverythingER
 
-main_module_NER_LTC-PCF     = $(LTC-PCF_path)/Everything
-main_module_ER_LTC-PCF      = $(LTC-PCF_path)/EverythingER
+main_module_LTC-PCF     = $(LTC-PCF_path)/Everything
+main_module_ER_LTC-PCF  = $(LTC-PCF_path)/EverythingER
 
-main_module_NER_Division    = $(Division_path)/ProofSpecification
-main_module_ER_Division     = $(Division_path)/ProofSpecificationER
+main_module_Division    = $(Division_path)/ProofSpecification
+main_module_ER_Division = $(Division_path)/ProofSpecificationER
 
-main_module_NER_GCD         = $(GCD_path)/ProofSpecification
-main_module_ER_GCD          = $(GCD_path)/ProofSpecificationER
+main_module_GCD         = $(GCD_path)/ProofSpecification
+main_module_ER_GCD      = $(GCD_path)/ProofSpecificationER
 
-main_module_NER_GCD-PCF     = $(GCD-PCF_path)/ProofSpecification
-main_module_ER_GCD-PCF      = $(GCD-PCF_path)/ProofSpecificationER
+main_module_GCD-PCF     = $(GCD-PCF_path)/ProofSpecification
+main_module_ER_GCD-PCF  = $(GCD-PCF_path)/ProofSpecificationER
 
-main_module_NER_Logic       = $(Logic_path)/Logic
+main_module_Logic       = $(Logic_path)/Logic
 
-main_module_NER_LogicATP    = $(LogicATP_path)/Logic
+main_module_LogicATP    = $(LogicATP_path)/Logic
 
-main_module_NER_SortList    = $(SortList_path)/ProofSpecification
-main_module_ER_SortList     = $(SortList_path)/ProofSpecificationER
+main_module_SortList    = $(SortList_path)/ProofSpecification
+main_module_ER_SortList = $(SortList_path)/ProofSpecificationER
 
-main_module_NER_Consistency = $(Consistency_path)/Readme
+main_module_Consistency = $(Consistency_path)/Readme
 
 # Only used to publish the drafts, i.e. non type checking.
-main_module_NER_Draft       = Draft/RenderToHTML
+main_module_Draft       = Draft/RenderToHTML
 
 ##############################################################################
 # Type checking the Agda modules.
 
-type_checking_NER_% :
-	$(AGDA) ${main_module_NER_$*}.agda
-
 type_checking_ER_% :
 	$(AGDA) ${main_module_ER_$*}.agda
 
-all_type_checking_NER : type_checking_NER_LTC \
-			type_checking_NER_LTC-PCF \
-			type_checking_NER_Division \
-			type_checking_NER_GCD \
-			type_checking_NER_GCD-PCF \
-			type_checking_NER_Logic \
-			type_checking_NER_LogicATP \
-			type_checking_NER_SortList \
-			type_checking_NER_Consistency \
+type_checking_% :
+	$(AGDA) ${main_module_$*}.agda
+
+
+all_type_checking_NER : type_checking_LTC \
+			type_checking_LTC-PCF \
+			type_checking_Division \
+			type_checking_GCD \
+			type_checking_GCD-PCF \
+			type_checking_Logic \
+			type_checking_LogicATP \
+			type_checking_SortList \
+			type_checking_Consistency \
 
 all_type_checking_ER  : type_checking_ER_LTC \
 			type_checking_ER_LTC-PCF \
