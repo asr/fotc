@@ -2,9 +2,9 @@
 -- Predicate logic examples
 ------------------------------------------------------------------------------
 
-module Examples.NonLTC.Logic.Predicate where
+module Examples.Logic.NonATP.Predicate where
 
-open import Examples.NonLTC.Logic.Constants
+open import Examples.Logic.Constants
 
 ------------------------------------------------------------------------------
 -- We postulate some predicate symbols.

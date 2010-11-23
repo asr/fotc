@@ -20,8 +20,8 @@ LTC-PCF_path     = src/PCF/LTC
 Division_path    = src/PCF/Examples/Division
 GCD_path         = src/Examples/GCD
 GCD-PCF_path     = src/PCF/Examples/GCD
-Logic_path       = src/Examples/NonLTC/Logic
-LogicATP_path    = src/Examples/NonLTC/LogicATP
+Logic_path       = src/Examples/Logic/NonATP
+LogicATP_path    = src/Examples/Logic/ATP
 SortList_path    = src/Examples/SortList
 Consistency_path = Test/Consistency
 

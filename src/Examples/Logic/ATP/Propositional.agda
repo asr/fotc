@@ -5,9 +5,9 @@
 -- This module contains some examples showing the use of the ATPs to
 -- prove theorems from propositional logic.
 
-module Examples.NonLTC.LogicATP.Propositional where
+module Examples.Logic.ATP.Propositional where
 
-open import Examples.NonLTC.LogicATP.Constants
+open import Examples.Logic.Constants
 
 ------------------------------------------------------------------------------
 -- We postulate some propositional variables (which are translated as

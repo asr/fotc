@@ -2,9 +2,9 @@
 -- Propositional logic examples
 ------------------------------------------------------------------------------
 
-module Examples.NonLTC.Logic.Propositional where
+module Examples.Logic.NonATP.Propositional where
 
-open import Examples.NonLTC.Logic.Constants
+open import Examples.Logic.Constants
 
 ------------------------------------------------------------------------------
 -- Boolean laws.

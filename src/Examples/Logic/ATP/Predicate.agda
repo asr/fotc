@@ -5,9 +5,9 @@
 -- This module contains some examples showing the use of the ATPs to
 -- prove theorems from predicate logic.
 
-module Examples.NonLTC.LogicATP.Predicate where
+module Examples.Logic.ATP.Predicate where
 
-open import Examples.NonLTC.LogicATP.Constants
+open import Examples.Logic.Constants
 
 ------------------------------------------------------------------------------
 -- We postulate some predicate symbols.
