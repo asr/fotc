@@ -139,9 +139,12 @@ all_publish : publish_LTC \
 ##############################################################################
 # Other stuff
 
+TODO :
+	@find src/ -name '*.agda' | xargs grep TODO
+
 clean :
-	-find -name '*.agdai' | xargs rm -f
-	-rm -f /tmp/*.tptp
+	@find -name '*.agdai' | xargs rm -f
+	@rm -f /tmp/*.tptp
 
 ##############################################################################
 # Main
