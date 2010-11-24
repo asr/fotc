@@ -124,7 +124,7 @@ all_consistency :
 
 publish_% :
 	rm -r -f /tmp/$*/html/
-	$(AGDA) --html --html-dir=/tmp/$*/html/ ${main_module_NER_$*}.agda
+	$(AGDA) --html --html-dir=/tmp/$*/html/ ${main_module_$*}.agda
 	$(RSYNC) /tmp/$*/html/ $(root_host_dir)/$*/
 
 all_publish : publish_LTC \
