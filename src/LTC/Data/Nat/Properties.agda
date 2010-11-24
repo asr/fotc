@@ -6,7 +6,7 @@ module LTC.Data.Nat.Properties where
 
 open import LTC.Base
 
-open import Lib.Function using ( _$_ )
+open import Common.Function using ( _$_ )
 
 open import LTC.Data.Nat
   using ( _+_ ; +-0x

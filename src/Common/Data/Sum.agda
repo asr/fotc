@@ -2,8 +2,9 @@
 -- The sum (disjoint unions)
 -----------------------------------------------------------------------------
 
-module Lib.Data.Sum where
+module Common.Data.Sum where
 
+-- We add 3 to the fixities of the standard library.
 infixr 4 _∨_
 
 -----------------------------------------------------------------------------

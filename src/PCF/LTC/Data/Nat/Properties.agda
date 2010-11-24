@@ -6,7 +6,7 @@ module PCF.LTC.Data.Nat.Properties where
 
 open import LTC.Base
 
-open import Lib.Function using ( _$_ )
+open import Common.Function using ( _$_ )
 
 open import PCF.LTC.Data.Nat
   using ( _+_ ; _-_ ; _*_

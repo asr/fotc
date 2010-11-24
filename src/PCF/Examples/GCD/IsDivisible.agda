@@ -7,7 +7,7 @@ module PCF.Examples.GCD.IsDivisible where
 open import LTC.Base
 open import LTC.Base.Properties using ( ¬S≡0 )
 
-open import Lib.Function using ( _$_ )
+open import Common.Function using ( _$_ )
 
 open import PCF.Examples.GCD.GCD using ( ¬x≡0∧y≡0 ; gcd )
 open import PCF.Examples.GCD.Equations

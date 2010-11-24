@@ -6,12 +6,11 @@ module LTC.Data.Nat.Inequalities.PropertiesER where
 
 open import LTC.Base
 open import LTC.Base.Properties using ( x≡y→Sx≡Sy )
-open import LTC.BaseER using ( subst )
 
-open import Lib.Function using ( _$_ )
-import Lib.Relation.Binary.EqReasoning
-open module Inequalities-ER =
-  Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
+open import Common.Function using ( _$_ )
+open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
+open import Common.Relation.Binary.PropositionalEquality.PropertiesER
+  using ( subst )
 
 open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities

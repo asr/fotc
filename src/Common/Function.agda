@@ -2,7 +2,7 @@
 -- Operations on and with functions
 ------------------------------------------------------------------------------
 
-module Lib.Function where
+module Common.Function where
 
 -- The same fixity than the standard library.
 infixr 0 _$_

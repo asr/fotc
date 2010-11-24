@@ -6,7 +6,7 @@ module PCF.Examples.GCD.IsGreatestAnyCommonDivisorER where
 
 open import LTC.Base
 
-open import Lib.Function using ( _$_ )
+open import Common.Function using ( _$_ )
 
 open import PCF.Examples.GCD.IsCommonDivisorER using ( CD )
 open import PCF.Examples.GCD.IsDivisibleER using ( Divisible )

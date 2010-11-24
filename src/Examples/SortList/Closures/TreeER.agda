@@ -5,7 +5,10 @@
 module Examples.SortList.Closures.TreeER where
 
 open import LTC.Base
-open import LTC.BaseER using ( subst )
+
+open import Common.Function using ( _$_ )
+open import Common.Relation.Binary.PropositionalEquality.PropertiesER
+  using ( subst )
 
 open import Examples.SortList.SortList
   using ( makeTree
@@ -13,8 +16,6 @@ open import Examples.SortList.SortList
         ; toTree
         ; Tree ; nilT  -- The LTC tree type.
         )
-
-open import Lib.Function using ( _$_ )
 
 open import LTC.Data.Nat.List.Type
   using ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.

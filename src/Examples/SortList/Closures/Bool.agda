@@ -17,7 +17,7 @@ open import Examples.SortList.SortList
         ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
         )
 
-open import Lib.Function using ( _$_ )
+open import Common.Function using ( _$_ )
 
 open import LTC.Data.Bool.Properties using ( &&-Bool ; ≤-Bool )
 open import LTC.Data.Bool.Type

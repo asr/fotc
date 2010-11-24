@@ -5,7 +5,10 @@
 module Examples.SortList.Closures.BoolER where
 
 open import LTC.Base
-open import LTC.BaseER using ( subst )
+
+open import Common.Function using ( _$_ )
+open import Common.Relation.Binary.PropositionalEquality.PropertiesER
+  using ( subst )
 
 open import Examples.SortList.SortList
   using ( ≤-ItemList ; ≤-ItemList-[] ; ≤-ItemList-∷
@@ -16,8 +19,6 @@ open import Examples.SortList.SortList
         ; isTreeOrd ; isTreeOrd-nilTree ; isTreeOrd-node ; isTreeOrd-tip
         ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
         )
-
-open import Lib.Function using ( _$_ )
 
 open import LTC.Data.Bool.Type
   using ( Bool ; tB  -- The LTC booleans type.

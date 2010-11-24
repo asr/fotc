@@ -6,6 +6,8 @@ module Examples.SortList.Properties where
 
 open import LTC.Base
 
+open import Common.Function using ( _$_ )
+
 open import Examples.SortList.Closures.Bool
   using ( ≤-ItemList-Bool
         ; isListOrd-Bool
@@ -16,8 +18,6 @@ open import Examples.SortList.SortList
         ; LE-Lists
         ; ListOrd
         )
-
-open import Lib.Function using ( _$_ )
 
 open import LTC.Data.Bool.Properties
   using ( x&&y≡true→x≡true

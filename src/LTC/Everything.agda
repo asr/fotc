@@ -4,14 +4,6 @@
 
 module LTC.Everything where
 
-open import Lib.Data.Empty
-open import Lib.Data.Product
-open import Lib.Data.Sum
-open import Lib.Data.Unit
-open import Lib.Function
-open import Lib.Relation.Binary.EqReasoning
-open import Lib.Relation.Nullary
-
 open import LTC.Base
 open import LTC.Base.Properties
 
@@ -39,5 +31,3 @@ open import LTC.Data.Nat.Type
 
 open import LTC.Data.Stream.Bisimilarity
 open import LTC.Data.Stream.Bisimilarity.Properties
-
-open import LTC.Data.Product

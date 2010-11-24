@@ -6,7 +6,7 @@ module LTC.Data.Nat.Induction.Lexicographic where
 
 open import LTC.Base
 
-open import Lib.Function using ( _$_ )
+open import Common.Function using ( _$_ )
 
 open import LTC.Data.Nat.Inequalities using ( LT ; LT₂ )
 open import LTC.Data.Nat.Inequalities.Properties

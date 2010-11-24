@@ -6,10 +6,10 @@ module Examples.GCD.IsGreatestAnyCommonDivisorER where
 
 open import LTC.Base
 
+open import Common.Function using ( _$_ )
+
 open import Examples.GCD.IsCommonDivisorER using ( CD )
 open import Examples.GCD.IsDivisibleER using ( Divisible )
-
-open import Lib.Function using ( _$_ )
 
 open import LTC.Data.Nat.Divisibility.PropertiesER using ( 0∤x ; x∣S→x≤S )
 open import LTC.Data.Nat.Inequalities using ( LE )

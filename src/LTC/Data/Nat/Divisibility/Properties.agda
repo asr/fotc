@@ -7,7 +7,7 @@ module LTC.Data.Nat.Divisibility.Properties where
 open import LTC.Base
 open import LTC.Base.Properties using ( ¬S≡0 )
 
-open import Lib.Function using ( _$_ )
+open import Common.Function using ( _$_ )
 
 open import LTC.Data.Nat
   using ( _+_ ; _-_ ; _*_

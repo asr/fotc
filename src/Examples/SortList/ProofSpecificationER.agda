@@ -13,7 +13,9 @@
 module Examples.SortList.ProofSpecificationER where
 
 open import LTC.Base
-open import LTC.BaseER using ( subst )
+
+open import Common.Relation.Binary.PropositionalEquality.PropertiesER
+  using ( subst )
 
 open import Examples.SortList.Closures.ListOrdER using ( flatten-ListOrd )
 open import Examples.SortList.Closures.TreeER using ( makeTree-Tree )

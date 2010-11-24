@@ -2,10 +2,11 @@
 -- Operations on nullary relations
 ------------------------------------------------------------------------------
 
-module Lib.Relation.Nullary where
+module Common.Relation.Nullary where
 
-open import Lib.Data.Empty using ( ⊥ )
+open import Common.Data.Empty using ( ⊥ )
 
+-- We add 3 to the fixities of the standard library.
 infix 6 ¬_
 
 ------------------------------------------------------------------------------

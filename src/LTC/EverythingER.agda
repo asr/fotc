@@ -4,7 +4,6 @@
 
 module LTC.EverythingER where
 
-open import LTC.BaseER
 open import LTC.Base.PropertiesER
 
 open import LTC.Data.Bool.PropertiesER

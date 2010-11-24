@@ -5,10 +5,10 @@
 module PCF.Examples.GCD.EquationsER where
 
 open import LTC.Base
-open import LTC.BaseER using ( subst )
 
-import Lib.Relation.Binary.EqReasoning
-open module APER = Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
+open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
+open import Common.Relation.Binary.PropositionalEquality.PropertiesER
+  using ( subst )
 
 open import PCF.Examples.GCD.GCD using ( gcd ; gcdh )
 

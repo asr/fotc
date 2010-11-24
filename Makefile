@@ -15,6 +15,7 @@ RSYNC    = rsync --archive --progress --rsh='ssh -p 2024'
 ##############################################################################
 # Paths
 
+Common_path      = src/Common
 LTC_path         = src/LTC
 LTC-PCF_path     = src/PCF/LTC
 Division_path    = src/PCF/Examples/Division
@@ -27,6 +28,8 @@ Consistency_path = Test/Consistency
 
 ##############################################################################
 # "main" modules
+
+main_module_Common      = $(Common_path)/Everything
 
 main_module_LTC         = $(LTC_path)/Everything
 main_module_ER_LTC      = $(LTC_path)/EverythingER
@@ -65,7 +68,8 @@ type_checking_% :
 	$(AGDA) ${main_module_$*}.agda
 
 
-all_type_checking_NER : type_checking_LTC \
+all_type_checking_NER : type_checking_Common \
+			type_checking_LTC \
 			type_checking_LTC-PCF \
 			type_checking_Division \
 			type_checking_GCD \
@@ -127,7 +131,8 @@ publish_% :
 	$(AGDA) --html --html-dir=/tmp/$*/html/ ${main_module_$*}.agda
 	$(RSYNC) /tmp/$*/html/ $(root_host_dir)/$*/
 
-all_publish : publish_LTC \
+all_publish : publish_Common \
+	      publish_LTC \
 	      publish_LTC-PCF \
 	      publish_Division \
 	      publish_GCD \

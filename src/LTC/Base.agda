@@ -13,15 +13,14 @@ LTC                              Agda
 module LTC.Base where
 
 infixl 9 _∙_
-infixr 8 _∷_
+infixr 8 _∷_  -- We add 3 to the fixities of the standard library.
 infix  8 if_then_else_
-infix  7 _≡_  -- We add 3 to the fixities of the standard library.
 
 ------------------------------------------------------------------------------
 -- The universal domain
 
 -- N.B. The following module is exported by this module.
-open import LTC.Base.Core public
+open import Common.Universe public
 
 ------------------------------------------------------------------------------
 -- The term language of LTC correspond to the PCF terms.
@@ -67,36 +66,18 @@ postulate
   tail : D → D
 
 ------------------------------------------------------------------------------
--- The LTC equality is the propositional identity on 'D'.
-
--- The identity type on D.
-data _≡_ (x : D) : D → Set where
-  refl : x ≡ x
-
--- Identity properties
-
-sym : {x y : D} → x ≡ y → y ≡ x
-sym refl = refl
-
-trans : {x y z : D} → x ≡ y → y ≡ z → x ≡ z
-trans refl y≡z = y≡z
-
--- The substitution is defined in LTC.BaseER.
-
-------------------------------------------------------------------------------
--- Logical constants: Curry-Howard isomorphism
-
--- The LTC logical constants are the type theory logical constants via
--- the Curry-Howard isomorphism.  For the implication and the
--- universal quantifier we use the Agda (dependent) function type.
+-- The LTC equality
+-- The LTC equality is the propositional identity on the universal domain.
 
 -- N.B. The following modules are exported by this module.
-open import Lib.Data.Empty       public
-open import Lib.Data.Product     public
-open import Lib.Data.Sum         public
--- open import Lib.Data.Unit        public
-open import Lib.Relation.Nullary public
-open import LTC.Data.Product     public
+open import Common.Relation.Binary.PropositionalEquality public
+open import Common.Relation.Binary.PropositionalEquality.Properties public
+
+------------------------------------------------------------------------------
+-- Logical constants
+
+-- N.B. The module is exported by this module.
+open import Common.LogicalConstants public
 
 ------------------------------------------------------------------------------
 -- Conversion rules

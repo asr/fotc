@@ -6,7 +6,9 @@ module LTC.Data.Stream.Bisimilarity.PropertiesER where
 
 open import LTC.Base
 open import LTC.Base.Properties using (∷-injective)
-open import LTC.BaseER using ( subst )
+
+open import Common.Relation.Binary.PropositionalEquality.PropertiesER
+  using ( subst )
 
 open import LTC.Data.Stream.Bisimilarity using ( _≈_ ; -≈-gfp₁ )
 

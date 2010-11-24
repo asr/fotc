@@ -6,7 +6,7 @@ module LTC.Data.Nat.List.Properties where
 
 open import LTC.Base
 
-open import Lib.Function using ( _$_ )
+open import Common.Function using ( _$_ )
 
 open import LTC.Data.Nat.List.Type
   using ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.

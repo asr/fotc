@@ -6,6 +6,8 @@ module Examples.SortList.Closures.TreeOrd where
 
 open import LTC.Base
 
+open import Common.Function using ( _$_ )
+
 open import Examples.SortList.SortList
   using ( ≤-TreeItem-node
         ; ≤-ItemTree-node
@@ -24,8 +26,6 @@ open import Examples.SortList.Closures.Bool
         ; isTreeOrd-Bool
         )
 open import Examples.SortList.Closures.Tree using ( makeTree-Tree )
-
-open import Lib.Function using ( _$_ )
 
 open import LTC.Data.Bool.Properties
   using ( &&-Bool

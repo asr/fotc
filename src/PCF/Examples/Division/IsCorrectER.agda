@@ -5,12 +5,11 @@
 module PCF.Examples.Division.IsCorrectER where
 
 open import LTC.Base
-open import LTC.BaseER using ( subst )
 
-open import Lib.Function using ( _$_ )
-import Lib.Relation.Binary.EqReasoning
-open module IsCorrectPCF-ER =
-  Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
+open import Common.Function using ( _$_ )
+open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
+open import Common.Relation.Binary.PropositionalEquality.PropertiesER
+  using ( subst )
 
 open import PCF.Examples.Division.Division using ( div )
 open import PCF.Examples.Division.EquationsER using ( div-x<y ; div-x≥y )

@@ -5,7 +5,11 @@
 module Examples.SortList.Closures.ListOrdER where
 
 open import LTC.Base
-open import LTC.BaseER using ( subst )
+
+open import Common.Function using ( _$_ )
+open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
+open import Common.Relation.Binary.PropositionalEquality.PropertiesER
+  using ( subst )
 
 open import Examples.SortList.Closures.BoolER
   using ( ≤-ItemList-Bool
@@ -28,10 +32,6 @@ open import Examples.SortList.SortList
         ; Tree
         ; TreeOrd
         )
-
-open import Lib.Function using ( _$_ )
-import Lib.Relation.Binary.EqReasoning
-open module ListOrd-ER = Lib.Relation.Binary.EqReasoning.StdLib _≡_ refl trans
 
 open import LTC.Data.Bool using ( _&&_ ; &&-tt )
 open import LTC.Data.Bool.PropertiesER

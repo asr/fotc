@@ -5,9 +5,10 @@
 module PCF.Examples.Division.IsN-ER where
 
 open import LTC.Base
-open import LTC.BaseER using ( subst )
 
-open import Lib.Function using ( _$_ )
+open import Common.Function using ( _$_ )
+open import Common.Relation.Binary.PropositionalEquality.PropertiesER
+  using ( subst )
 
 open import PCF.Examples.Division.Division using ( div )
 open import PCF.Examples.Division.EquationsER  using ( div-x<y ; div-x≥y )

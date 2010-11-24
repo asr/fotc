@@ -6,14 +6,14 @@ module Examples.SortList.Closures.Tree where
 
 open import LTC.Base
 
+open import Common.Function using ( _$_ )
+
 open import Examples.SortList.SortList
   using ( nilTree ; node ; tip
         ; makeTree
         ; toTree
         ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
         )
-
-open import Lib.Function using ( _$_ )
 
 open import LTC.Data.Nat.Inequalities using ( GT ; LE )
 open import LTC.Data.Nat.Inequalities.Properties using ( x>y∨x≤y ; x>y→x≰y )

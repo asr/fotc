@@ -1,11 +1,9 @@
 ------------------------------------------------------------------------------
--- LTC base (some core definitions)
+-- The universe of discourse
 ------------------------------------------------------------------------------
 
--- The definitions in this file are reexported by LTC.Base
-
-module LTC.Base.Core where
+module Common.Universe where
 
 ----------------------------------------------------------------------------
--- The universal domain.
+-- The universe of discourse/universal domain.
 postulate D : Set

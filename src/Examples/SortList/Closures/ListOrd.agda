@@ -6,6 +6,8 @@ module Examples.SortList.Closures.ListOrd where
 
 open import LTC.Base
 
+open import Common.Function using ( _$_ )
+
 open import Examples.SortList.Closures.Bool
   using ( ≤-ItemList-Bool
         ; ≤-ItemTree-Bool
@@ -36,8 +38,6 @@ open import Examples.SortList.SortList
         ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
         ; TreeOrd
         )
-
-open import Lib.Function using ( _$_ )
 
 open import LTC.Data.Bool.Properties
   using ( ≤-Bool

@@ -6,7 +6,7 @@ module LTC.Base.Properties where
 
 open import LTC.Base
 
-open import Lib.Function using ( _$_ )
+open import Common.Function using ( _$_ )
 
 ------------------------------------------------------------------------------
 
