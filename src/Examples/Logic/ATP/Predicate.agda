@@ -17,18 +17,24 @@ postulate
   P²    : D → D → Set
 
 -- The introduction and elimination rules for the quantifiers are theorems.
+{-
+        φ(x)          ∀x.φ(x)          φ(t)           ∃x.φ(x)   φ(x) → ψ
+  ∀I ---------    ∀E ---------    ∃I ---------    ∃E --------------------
+      ∀x.φ(x)          φ(t)           ∃x.φ(x)               ψ
+-}
+
 postulate
   ∀DI : ((x : D) → P¹ x) → ∀D P¹
   ∀DE : ∀D P¹ → (t : D) → P¹ t
   -- This elimination rule cannot prove in Agda/Coq because in Agda/Coq we can
   -- have empty domains. We do not have this problem because the ATPs
   -- assume a non-empty domain.
-  ∃DI : ((x : D) → P¹ x) → ∃D P¹
-  -- TODO: ∃E : (x : D) → ∃D P¹ → (P¹ x → Q¹ x) → Q¹ x
+  ∃DI : ((t : D) → P¹ t) → ∃D P¹
+  ∃DE : ∃D P¹ → ((x : D) → P¹ x → P⁰) → P⁰
 {-# ATP prove ∀DI #-}
 {-# ATP prove ∀DE #-}
 {-# ATP prove ∃DI #-}
--- {-# ATP prove ∃DE #-}
+{-# ATP prove ∃DE #-}
 
 -- Generalization of De Morgan's laws.
 postulate

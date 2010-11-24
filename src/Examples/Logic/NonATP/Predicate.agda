@@ -13,10 +13,18 @@ postulate
   P¹ : D → Set
 
 -- The introduction and elimination rules for the quantifiers are theorems.
+{-
+        φ(x)          ∀x.φ(x)          φ(t)           ∃x.φ(x)   φ(x) → ψ
+  ∀I ---------    ∀E ---------    ∃I ---------    ∃E --------------------
+      ∀x.φ(x)          φ(t)           ∃x.φ(x)               ψ
+-}
 
 -- It is necessary postulate a non-empty domain.
 ∃DI : ((t : D) → P¹ t) → ∃D P¹
 ∃DI ∀p¹ = D≠∅ , ∀p¹ D≠∅
+
+∃DE : ∃D P¹ → ((x : D) → P¹ x → P⁰) → P⁰
+∃DE (x , p¹x) f = f x p¹x
 
 -- Generalization of De Morgan's laws.
 gDM₂ : ¬ (∃D P¹) ↔ ((x : D) → ¬ (P¹ x))
