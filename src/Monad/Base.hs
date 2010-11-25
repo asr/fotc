@@ -8,7 +8,7 @@
 module Monad.Base
     ( AllDefinitions
     , runT
-    , T
+    , T(MkT)  -- GHC bug? MkT is required by GHC 6.12.1.
     , TState(tAllDefs, tFile, tOpts, tVars)
     )
     where

@@ -4,7 +4,7 @@ build-type:         Simple
 cabal-version:      >= 1.8 && < 2
 author:             Ana Bove, Peter Dybjer, and Andrés Sicard-Ramírez
 maintainer:         Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
-tested-with:        GHC == 6.12.3, GHC == 7.0.1
+tested-with:        GHC == 6.12.1, GHC == 6.12.3, GHC == 7.0.1
 extra-source-files: src/undefined.h
 
 executable agda2atp
@@ -54,7 +54,7 @@ executable agda2atp
                   -fwarn-unused-do-bind
                   -Werror
 
-  if impl(ghc >= 6.12.3) && impl(ghc < 7)
+  if impl(ghc >= 6.12) && impl(ghc < 7)
     ghc-options:  -fwarn-simple-patterns
 
   if impl(ghc >= 7)
