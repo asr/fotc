@@ -24,6 +24,7 @@ GCD-PCF_path     = src/PCF/Examples/GCD
 Logic_path       = src/Examples/Logic/NonATP
 LogicATP_path    = src/Examples/Logic/ATP
 SortList_path    = src/Examples/SortList
+GroupTheory_path = src/Examples/GroupTheory
 Consistency_path = Test/Consistency
 
 ##############################################################################
@@ -53,6 +54,8 @@ main_module_LogicATP    = $(LogicATP_path)/Logic
 main_module_SortList    = $(SortList_path)/ProofSpecification
 main_module_ER_SortList = $(SortList_path)/ProofSpecificationER
 
+main_module_GroupTheory = $(GroupTheory_path)/Properties
+
 main_module_Consistency = $(Consistency_path)/Readme
 
 # Only used to publish the drafts, i.e. non type checking.
@@ -77,6 +80,7 @@ all_type_checking_NER : type_checking_Common \
 			type_checking_Logic \
 			type_checking_LogicATP \
 			type_checking_SortList \
+			type_checking_GroupTheory \
 			type_checking_Consistency \
 
 all_type_checking_ER  : type_checking_ER_LTC \
@@ -106,7 +110,8 @@ all_conjectures : conjectures_LTC \
 		  conjectures_GCD \
 		  conjectures_GCD-PCF \
 		  conjectures_LogicATP \
-		  conjectures_SortList
+		  conjectures_SortList \
+		  conjectures_GroupTheory
 
 ##############################################################################
 # Consistency test
@@ -140,6 +145,7 @@ all_publish : publish_Common \
 	      publish_Logic \
 	      publish_LogicATP \
 	      publish_SortList \
+	      publish_GroupTheory \
 	      publish_Consistency
 
 ##############################################################################
