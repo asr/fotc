@@ -55,10 +55,10 @@ data _∧_ (A B : Set) : Set where
 
 BISI : (D → D → Set) → D → D → Set
 BISI _R_ xs ys =
-  ∃D (λ x' →
-  ∃D (λ xs' →
-  ∃D (λ ys' →
-     xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys')))
+  ∃D λ x' →
+  ∃D λ xs' →
+  ∃D λ ys' →
+     xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 
 postulate
   -- The bisimilarity relation.
@@ -67,18 +67,18 @@ postulate
   -- The bisimilarity relation is a post-fixed point of BISI
   -- (first-order version).
   -≈-gfp₁ : {xs ys : D} → xs ≈ ys →
-            ∃D (λ x' →
-            ∃D (λ xs' →
-            ∃D (λ ys' → xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys')))
+            ∃D λ x' →
+            ∃D λ xs' →
+            ∃D λ ys' → xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 
   -- The bisimilarity relation is the greatest post-fixed point of
   -- BISI (first-order version).
   -≈-gfp₂ : {_R_ : D → D → Set} →
             -- R is a post-fixed point of BISI.
             ({xs ys : D} → xs R ys →
-              ∃D (λ x' →
-              ∃D (λ xs' →
-              ∃D (λ ys' → xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys')))) →
+              ∃D λ x' →
+              ∃D λ xs' →
+              ∃D λ ys' → xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
             -- ≈ is the greatest post-fixed point.
             {xs ys : D} → xs R ys → xs ≈ ys
 

@@ -48,7 +48,7 @@ module LeastFixedPoint where
 
   -- From Peter: FN in pure predicate logic
   FN : (D → Set) → D → Set
-  FN X n = n ≡ zero ∨ (∃D (λ m → n ≡ succ m ∧ X m))
+  FN X n = n ≡ zero ∨ ∃D λ m → n ≡ succ m ∧ X m
 
   -- The LTC natural numbers using LFP.
   N : D → Set

@@ -16,12 +16,12 @@ infix 7 _∣_
 -- definition 0∤0.
 
 -- data _∣_ : D → D → Set where
---   ∣-i : {m n : D} → ∃D (λ k → n ≡ k * succ m) → succ m ∣ n
+--   ∣-i : {m n : D} → ∃D λ k → n ≡ k * succ m → succ m ∣ n
 -- {-# ATP hint ∣-i #-}
 
 -- The relation of divisibility.
 -- The symbol is '\mid' not '|'.
 -- What about change '∃' by '(k : D)' (e.g. the standard library uses it)?
 _∣_ : D → D → Set
-d ∣ e = ¬ (d ≡ zero) ∧ ∃D (λ k → N k ∧ e ≡ k * d)
+d ∣ e = ¬ (d ≡ zero) ∧ ∃D λ k → N k ∧ e ≡ k * d
 {-# ATP definition _∣_ #-}

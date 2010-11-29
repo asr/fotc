@@ -27,7 +27,7 @@ P ↔ Q = (P → Q) ∧ (Q → P)
 -- The quantifiers
 
 -- The existential quantifier
--- The The existential quantifier is hard-coded in our translation,
+-- The existential quantifier is hard-coded in our translation,
 -- i.e. the symbol ∃D must be used.
 
 open import Common.Data.Product public using ( _,_ ; ∃D ; ∃D-proj₁ ; ∃D-proj₂ )

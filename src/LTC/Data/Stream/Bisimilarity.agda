@@ -20,9 +20,9 @@ postulate
 -- relation BISI (see below).
 postulate
   -≈-gfp₁ : {xs ys : D} → xs ≈ ys →
-            ∃D (λ x' →
-            ∃D (λ xs' →
-            ∃D (λ ys' → xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys')))
+            ∃D λ x' →
+            ∃D λ xs' →
+            ∃D λ ys' → xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 {-# ATP axiom -≈-gfp₁ #-}
 
 -- The bisimilarity relation is the greatest post-fixed point of a
@@ -35,9 +35,9 @@ postulate
   -≈-gfp₂ : {_R_ : D → D → Set} →
             -- R is a post-fixed point of BISI.
             ({xs ys : D} → xs R ys →
-              ∃D (λ x' →
-              ∃D (λ xs' →
-              ∃D (λ ys' → xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys')))) →
+              ∃D λ x' →
+              ∃D λ xs' →
+              ∃D λ ys' → xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
             -- ≈ is greater than R.
            {xs ys : D} → xs R ys → xs ≈ ys
 
@@ -56,10 +56,10 @@ module Bisimulation where
   -- The bisimilar relation.
   BISI : (D → D → Set) → D → D → Set
   BISI _R_ xs ys =
-    ∃D (λ x' →
-    ∃D (λ xs' →
-    ∃D (λ ys' →
-       xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys')))
+    ∃D λ x' →
+    ∃D λ xs' →
+    ∃D λ ys' →
+       xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 
   -- The bisimilarity relation is a post-fixed point of BISI.
   -≈→BISI≈ : {xs ys : D} → xs ≈ ys → BISI _≈_ xs ys

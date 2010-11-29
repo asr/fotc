@@ -29,7 +29,7 @@ postulate
 {-# ATP prove div-x<y-aux  +-leftIdentity *-rightZero div-x<y #-}
 
 div-x<y-correct : {i j : D} → N i → N j → LT i j →
-                  ∃D (λ r → N r ∧ LT r j ∧ i ≡ j * div i j + r)
+                  ∃D λ r → N r ∧ LT r j ∧ i ≡ j * div i j + r
 div-x<y-correct {i} Ni Nj i<j = i , Ni , i<j , div-x<y-aux Ni Nj i<j
 
 -- The division result is correct when the dividend is greater or equal
@@ -57,7 +57,7 @@ postulate
 div-x≥y-correct : {i j : D} → N i → N j →
                   (ih : DIV (i - j) j (div (i - j) j)) →
                   GE i j →
-                  ∃D (λ r → N r ∧ LT r j ∧ i ≡ j * div i j + r)
+                  ∃D λ r → N r ∧ LT r j ∧ i ≡ j * div i j + r
 div-x≥y-correct {i} {j} Ni Nj ih i≥j =
   r , Nr , r<j , div-x≥y-aux Ni Nj Nr i≥j auxH
 

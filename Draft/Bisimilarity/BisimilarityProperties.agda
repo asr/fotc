@@ -71,9 +71,9 @@ postulate
 -- relation.
 postulate
   -≈-gfp₁ : {xs ys : D} → xs ≈ ys →
-            ∃D (λ x' →
-            ∃D (λ xs' →
-            ∃D (λ ys' → xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys')))
+            ∃D λ x' →
+            ∃D λ xs' →
+            ∃D λ ys' → xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 -- {-# ATP axiom -≈-gfp₁ #-}
 
 -- The bisimilarity relation is the greatest post-fixed point of a
@@ -86,9 +86,9 @@ postulate
   -≈-gfp₂ : {_R_ : D → D → Set} →
             -- R is a post-fixed point of the bisimilar relation.
             ({xs ys : D} → xs R ys →
-              ∃D (λ x' →
-              ∃D (λ xs' →
-              ∃D (λ ys' → xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys')))) →
+              ∃D λ x' →
+              ∃D λ xs' →
+              ∃D λ ys' → xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
             -- ≈ is greater than R.
            {xs ys : D} → xs R ys → xs ≈ ys
 
