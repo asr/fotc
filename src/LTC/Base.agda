@@ -71,7 +71,9 @@ postulate
 
 -- N.B. The following modules are exported by this module.
 open import Common.Relation.Binary.PropositionalEquality public
+  using ( _≡_ ; refl )
 open import Common.Relation.Binary.PropositionalEquality.Properties public
+  using ( sym ; trans )
 
 ------------------------------------------------------------------------------
 -- Logical constants

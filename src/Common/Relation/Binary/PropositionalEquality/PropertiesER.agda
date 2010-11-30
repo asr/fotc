@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------------
 -- Propositional equality properties
--- (they are not required when the ATPs are used)
+-- (They are not required when the ATPs are used)
 ------------------------------------------------------------------------------
 
 module Common.Relation.Binary.PropositionalEquality.PropertiesER where
