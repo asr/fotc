@@ -8,8 +8,10 @@ module BisimilarityProperties where
 
 -- open import LTC.Data.Stream.Bisimilarity
 
+-- We add 3 to the fixities of the standard library.
 infixr 8 _∷_
-infix  7 _≡_ _,_ _≈_
+infix  7 _≡_ _≈_
+infixr 6 _,_
 infixr 5 _∧_
 
 ------------------------------------------------------------------------------

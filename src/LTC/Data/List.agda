@@ -6,6 +6,7 @@ module LTC.Data.List where
 
 open import LTC.Base
 
+-- We add 3 to the fixities of the standard library.
 infixr 8 _++_
 
 ------------------------------------------------------------------------------

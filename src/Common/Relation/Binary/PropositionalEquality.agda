@@ -6,7 +6,8 @@ module Common.Relation.Binary.PropositionalEquality where
 
 open import Common.Universe using ( D )
 
-infix  7 _≡_  -- We add 3 to the fixities of the standard library.
+-- We add 3 to the fixities of the standard library.
+infix  7 _≡_
 
 ------------------------------------------------------------------------------
 -- The identity type on the universe of discourse.

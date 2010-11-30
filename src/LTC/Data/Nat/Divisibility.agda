@@ -8,6 +8,7 @@ open import LTC.Base
 
 open import LTC.Data.Nat using ( _*_ ; N )
 
+-- We add 3 to the fixities of the standard library.
 infix 7 _∣_
 
 ------------------------------------------------------------------------------

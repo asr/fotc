@@ -6,6 +6,7 @@ module LTC.Data.Nat where
 
 open import LTC.Base
 
+-- We add 3 to the fixities of the standard library.
 infixl 10 _*_
 infixl 9  _+_ _-_
 

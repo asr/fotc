@@ -3,10 +3,10 @@ module BisimilarityPostulates where
 -- open import LTC.Base
 -- open import LTC.BaseER
 
+-- We add 3 to the fixities of the standard library.
 infixr 8 _∷_
-infix  7 _≈_
-infixr 7 _,_
-infix  6 _≡_
+infix  7 _≡_ _≈_
+infixr 6 _,_
 infixr 5 _∧_
 
 ------------------------------------------------------------------------------

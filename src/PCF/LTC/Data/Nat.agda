@@ -8,8 +8,9 @@ open import LTC.Base
 
 open import PCF.LTC.Data.Nat.Rec using ( rec )
 
+-- We add 3 to the fixities of the standard library.
 infixl 10 _*_
-infixl 9 _+_ _-_
+infixl 9  _+_ _-_
 
 ------------------------------------------------------------------------------
 -- The LTC natural numbers type.

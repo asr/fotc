@@ -11,6 +11,7 @@ open import PCF.LTC.Data.Nat
         ; N  -- The LTC natural numbers type.
         )
 
+-- We add 3 to the fixities of the standard library.
 infix 7 _∣_
 
 ------------------------------------------------------------------------------

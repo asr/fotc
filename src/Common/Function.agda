@@ -4,7 +4,7 @@
 
 module Common.Function where
 
--- The same fixity than the standard library.
+-- The same fixity used in the standard library.
 infixr 0 _$_
 
 ------------------------------------------------------------------------------
