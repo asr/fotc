@@ -1,15 +1,15 @@
 ------------------------------------------------------------------------------
--- Test the consistency of LTC.Data.Nat
+-- Test the consistency of LTC.Data.Bool
 ------------------------------------------------------------------------------
 
-module Test.Consistency.LTC.Data.Nat where
+module Test.Consistency.LTC.Data.Bool.Impossible where
 
 open import LTC.Base
 
-open import LTC.Data.Nat
+open import LTC.Data.Bool
 
 ------------------------------------------------------------------------------
--- See Test.Consistency.Readme.
+-- See Test.Consistency.README.txt
 postulate
   impossible : (d e : D) → d ≡ e
 {-# ATP prove impossible #-}

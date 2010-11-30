@@ -1,13 +1,13 @@
 ------------------------------------------------------------------------------
--- Test the consistency of Examples.GroupTheory.Base
+-- Test the consistency of LTC.Base
 ------------------------------------------------------------------------------
 
-module Test.Consistency.Examples.GroupTheory.Base where
+module Test.Consistency.LTC.Base.Impossible where
 
-open import Examples.GroupTheory.Base
+open import LTC.Base
 
 ------------------------------------------------------------------------------
-
+-- See Test.Consistency.README.txt
 postulate
-  impossible : (d e : G) → d ≡ e
+  impossible : (d e : D) → d ≡ e
 {-# ATP prove impossible #-}
