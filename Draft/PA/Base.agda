@@ -17,7 +17,7 @@ open import Common.Universe public renaming ( D to PA )
 -- N.B. The module is exported by this module.
 open import Common.LogicalConstants public
 
--- Non-logical constants of PA.
+-- Non-logical constants
 postulate
   zero : PA
   succ : PA → PA
@@ -65,7 +65,7 @@ postulate
   S₈ : ∀ x₁ x₂ → succ x₁ * x₂ ≡ x₂ + x₁ * x₂
 
   -- S₉: Instead of the induction schema we will use the inductive predicate N
-  --     see (Draft.PA.Type)
+  --     (see Draft.PA.Type).
 
 {-# ATP axiom S₃ #-}
 {-# ATP axiom S₄ #-}
