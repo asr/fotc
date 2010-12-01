@@ -31,3 +31,21 @@ open import LTC.Data.Nat.Type
 
 open import LTC.Data.Stream.Bisimilarity
 open import LTC.Data.Stream.Bisimilarity.Properties
+
+open import LTC.Postulates
+
+open import LTC.Program.GCD.GCD
+open import LTC.Program.GCD.IsCommonDivisor
+open import LTC.Program.GCD.IsDivisible
+open import LTC.Program.GCD.IsGreatestAnyCommonDivisor
+open import LTC.Program.GCD.IsN
+open import LTC.Program.GCD.ProofSpecification
+
+open import LTC.Program.SortList.Closures.Bool
+open import LTC.Program.SortList.Closures.List
+open import LTC.Program.SortList.Closures.ListOrd
+open import LTC.Program.SortList.Closures.Tree
+open import LTC.Program.SortList.Closures.TreeOrd
+open import LTC.Program.SortList.ProofSpecification
+open import LTC.Program.SortList.Properties
+open import LTC.Program.SortList.SortList

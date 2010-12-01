@@ -1,15 +1,13 @@
 ------------------------------------------------------------------------------
--- Test the consistency of LTC.Data.List
+-- Test the consistency of GroupTheory.Base
 ------------------------------------------------------------------------------
 
-module Test.Consistency.LTC.Data.List.Impossible where
+module Test.Consistency.GroupTheory.Base.Impossible where
 
-open import LTC.Base
-
-open import LTC.Data.List
+open import GroupTheory.Base
 
 ------------------------------------------------------------------------------
 -- See Test.Consistency.README
 postulate
-  impossible : (d e : D) → d ≡ e
+  impossible : (d e : G) → d ≡ e
 {-# ATP prove impossible #-}

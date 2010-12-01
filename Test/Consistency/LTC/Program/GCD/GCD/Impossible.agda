@@ -1,12 +1,12 @@
 ------------------------------------------------------------------------------
--- Test the consistency of LTC.Data.List
+-- Test the consistency of LTC.Program.GCD.GCD
 ------------------------------------------------------------------------------
 
-module Test.Consistency.LTC.Data.List.Impossible where
+module Test.Consistency.LTC.Program.GCD.GCD.Impossible where
 
 open import LTC.Base
 
-open import LTC.Data.List
+open import LTC.Program.GCD.GCD
 
 ------------------------------------------------------------------------------
 -- See Test.Consistency.README

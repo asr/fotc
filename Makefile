@@ -3,7 +3,7 @@
 
 # Host directory used by publish
 # Tunneling connection
-root_host_dir = asicard@localhost:tmp/LTC
+root_host_dir = asicard@localhost:tmp/FOT
 
 ##############################################################################
 # Programs
@@ -15,22 +15,34 @@ RSYNC    = rsync --archive --progress --rsh='ssh -p 2024'
 ##############################################################################
 # Paths
 
+# Theories
 Common_path      = src/Common
+GroupTheory_path = src/GroupTheory
+Logic_path       = src/Logic/NonATP
+LogicATP_path    = src/Logic/ATP
 LTC_path         = src/LTC
-LTC-PCF_path     = src/PCF/LTC
-Division_path    = src/PCF/Examples/Division
-GCD_path         = src/Examples/GCD
-GCD-PCF_path     = src/PCF/Examples/GCD
-Logic_path       = src/Examples/Logic/NonATP
-LogicATP_path    = src/Examples/Logic/ATP
-SortList_path    = src/Examples/SortList
-GroupTheory_path = src/Examples/GroupTheory
+LTC-PCF_path     = src/LTC-PCF
+
+# Programs
+Division_path    = $(LTC-PCF_path)/Program/Division
+GCD_path         = $(LTC_path)/Program/GCD
+GCD-PCF_path     = $(LTC-PCF_path)/Program/GCD
+SortList_path    = $(LTC_path)/Program/SortList
+
+# Others
 Consistency_path = Test/Consistency
 
 ##############################################################################
 # "main" modules
 
+# Theories
 main_module_Common      = $(Common_path)/Everything
+
+main_module_GroupTheory = $(GroupTheory_path)/Properties
+
+main_module_Logic       = $(Logic_path)/Logic
+
+main_module_LogicATP    = $(LogicATP_path)/Logic
 
 main_module_LTC         = $(LTC_path)/Everything
 main_module_ER_LTC      = $(LTC_path)/EverythingER
@@ -38,25 +50,8 @@ main_module_ER_LTC      = $(LTC_path)/EverythingER
 main_module_LTC-PCF     = $(LTC-PCF_path)/Everything
 main_module_ER_LTC-PCF  = $(LTC-PCF_path)/EverythingER
 
-main_module_Division    = $(Division_path)/ProofSpecification
-main_module_ER_Division = $(Division_path)/ProofSpecificationER
-
-main_module_GCD         = $(GCD_path)/ProofSpecification
-main_module_ER_GCD      = $(GCD_path)/ProofSpecificationER
-
-main_module_GCD-PCF     = $(GCD-PCF_path)/ProofSpecification
-main_module_ER_GCD-PCF  = $(GCD-PCF_path)/ProofSpecificationER
-
-main_module_Logic       = $(Logic_path)/Logic
-
-main_module_LogicATP    = $(LogicATP_path)/Logic
-
-main_module_SortList    = $(SortList_path)/ProofSpecification
-main_module_ER_SortList = $(SortList_path)/ProofSpecificationER
-
-main_module_GroupTheory = $(GroupTheory_path)/Properties
-
-main_module_Consistency = $(Consistency_path)/Readme
+# Others
+main_module_Consistency = $(Consistency_path)/README
 
 # Only used to publish the drafts, i.e. non type checking.
 main_module_Draft       = Draft/RenderToHTML
@@ -72,23 +67,15 @@ type_checking_% :
 
 
 all_type_checking_NER : type_checking_Common \
-			type_checking_LTC \
-			type_checking_LTC-PCF \
-			type_checking_Division \
-			type_checking_GCD \
-			type_checking_GCD-PCF \
+			type_checking_GroupTheory \
 			type_checking_Logic \
 			type_checking_LogicATP \
-			type_checking_SortList \
-			type_checking_GroupTheory \
+			type_checking_LTC \
+			type_checking_LTC-PCF \
 			type_checking_Consistency \
 
 all_type_checking_ER  : type_checking_ER_LTC \
-			type_checking_ER_LTC-PCF \
-			type_checking_ER_Division \
-			type_checking_ER_GCD \
-			type_checking_ER_GCD-PCF \
-			type_checking_ER_SortList
+			type_checking_ER_LTC-PCF
 
 all_type_checking     : all_type_checking_NER all_type_checking_ER
 
@@ -96,7 +83,7 @@ all_type_checking     : all_type_checking_NER all_type_checking_ER
 # Test the conjecture files.
 
 # The time limit should be the maximum (720 sec) which is required
-# by Examples.SortList.Closures.TreeOrd.rightSubTree-TreeOrd.
+# by LTC.Program.SortList.Closures.TreeOrd.rightSubTree-TreeOrd.
 conjectures_% :
 	for file in \
           `find $($*_path) -name '*.agda' | xargs grep -l 'ATP prove'`; do \
@@ -104,14 +91,16 @@ conjectures_% :
 	    if ! ( ${AGDA2ATP} --time=300 $${file} ); then exit 1; fi; \
 	done
 
-all_conjectures : conjectures_LTC \
+# TODO: We add the conjectures related to the programs, but it
+# duplicates the test.
+all_conjectures : conjectures_GroupTheory \
+		  conjectures_LTC \
 		  conjectures_LTC-PCF \
                   conjectures_Division \
 		  conjectures_GCD \
 		  conjectures_GCD-PCF \
 		  conjectures_LogicATP \
-		  conjectures_SortList \
-		  conjectures_GroupTheory
+		  conjectures_SortList
 
 ##############################################################################
 # Consistency test
@@ -137,22 +126,18 @@ publish_% :
 	$(RSYNC) /tmp/$*/html/ $(root_host_dir)/$*/
 
 all_publish : publish_Common \
-	      publish_LTC \
-	      publish_LTC-PCF \
-	      publish_Division \
-	      publish_GCD \
-	      publish_GCD-PCF \
+	      publish_GroupTheory \
 	      publish_Logic \
 	      publish_LogicATP \
-	      publish_SortList \
-	      publish_GroupTheory \
+	      publish_LTC \
+	      publish_LTC-PCF \
 	      publish_Consistency
 
 ##############################################################################
 # Other stuff
 
 TODO :
-	@find src/ -name '*.agda' | xargs grep TODO
+	@find src/ Test/ -name '*.agda' | xargs grep TODO
 
 clean :
 	@find -name '*.agdai' | xargs rm -f

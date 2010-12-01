@@ -1,12 +1,12 @@
 ------------------------------------------------------------------------------
--- Test the consistency of LTC.Data.List
+-- Test the consistency of LTC.Program.SortList.SortList
 ------------------------------------------------------------------------------
 
-module Test.Consistency.LTC.Data.List.Impossible where
+module Test.Consistency.LTC.Program.SortList.SortList.Impossible where
 
 open import LTC.Base
 
-open import LTC.Data.List
+open import LTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------
 -- See Test.Consistency.README

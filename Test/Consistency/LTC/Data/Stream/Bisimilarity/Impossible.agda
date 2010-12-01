@@ -9,7 +9,7 @@ open import LTC.Base
 open import LTC.Data.Stream.Bisimilarity
 
 ------------------------------------------------------------------------------
--- See Test.Consistency.README.txt
+-- See Test.Consistency.README
 postulate
   impossible : (d e : D) → d ≡ e
 {-# ATP prove impossible #-}
