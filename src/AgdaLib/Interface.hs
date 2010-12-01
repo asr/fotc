@@ -10,6 +10,7 @@ module AgdaLib.Interface
     , getImportedInterfaces
     , getLocalHints
     , getRoleATP
+    , isDefinitionATP
     , myGetInterface
     , myReadInterface
     , qNameDefinition

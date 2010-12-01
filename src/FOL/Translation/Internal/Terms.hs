@@ -15,10 +15,11 @@ import Control.Monad.State ( evalState, get, modify )
 ------------------------------------------------------------------------------
 -- Agda library imports
 
-import Agda.Syntax.Abstract.Name ( nameConcrete, QName(QName) )
+import Agda.Syntax.Abstract.Name ( Name(nameConcrete, nameId) , QName(QName) )
 import Agda.Syntax.Common
     ( Arg(Arg, argHiding, unArg)
     , Hiding(Hidden, NotHidden)
+    , NameId(NameId)
     )
 import qualified Agda.Syntax.Concrete.Name as C
     ( Name(Name, NoName)
@@ -31,12 +32,18 @@ import Agda.Syntax.Internal
     , Term(Con, Def, DontCare, Fun, Lam, Lit, MetaV, Pi, Sort, Var)
     , Type(El)
     )
-import Agda.Syntax.Literal   ( Literal(LitLevel) )
-import Agda.Syntax.Position  ( noRange )
-import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
+import Agda.Syntax.Literal          ( Literal(LitLevel) )
+import Agda.Syntax.Position         ( noRange )
+import Agda.TypeChecking.Monad.Base ( Definition )
+import Agda.Utils.Impossible
+    ( Impossible(Impossible)
+    , throwImpossible
+    )
 
 ------------------------------------------------------------------------------
 -- Local imports
+
+import AgdaLib.Interface ( isDefinitionATP, qNameDefinition )
 
 import FOL.Constants
     ( folTrue, folFalse, folNot, folAnd, folOr
@@ -49,13 +56,38 @@ import {-# source #-} FOL.Translation.Internal.Types
     , typeToFormula
     )
 import FOL.Types     ( FOLFormula(..), FOLTerm(..) )
-import Monad.Base    ( T, TState(tVars) )
+import Monad.Base    ( T, TState(tAllDefs, tVars) )
 import Monad.Reports ( reportSLn )
 import Utils.Names   ( freshName )
 
 #include "../../../undefined.h"
 
 ------------------------------------------------------------------------------
+
+qName2String :: QName → T String
+qName2String qName@(QName _ name) = do
+  state ← get
+
+  let def :: Definition
+      def = qNameDefinition (tAllDefs state) qName
+
+  -- Because the ATP pragma definitions are global, we need an unique
+  -- name. In this case, we append to the qName the qName id.
+  if isDefinitionATP def
+     then do
+       let qNameId :: NameId
+           qNameId = nameId name
+
+       reportSLn "qName2String" 20 $ "qNameId : " ++ show qNameId
+
+       case qNameId of
+         NameId x i → return $ (show $ nameConcrete name) ++
+                               "_" ++
+                               show x ++
+                               "_" ++
+                               show i
+
+     else return $ show $ nameConcrete name
 
 -- We keep the two equations for debugging.
 argTermToFormula :: Arg Term → T FOLFormula
@@ -76,7 +108,7 @@ binConst op arg1 arg2 = do f1 ← argTermToFormula arg1
                            return $ op f1 f2
 
 termToFormula :: Term → T FOLFormula
-termToFormula term@(Def (QName _ name) args) = do
+termToFormula term@(Def qName@(QName _ name) args) = do
     reportSLn "t2f" 10 $ "termToFormula Def:\n" ++ show term
 
     let cName :: C.Name
@@ -93,7 +125,9 @@ termToFormula term@(Def (QName _ name) args) = do
 
                | isCNameFOLConst folFalse → return FALSE
 
-               | otherwise                → return $ Predicate (show cName) []
+               | otherwise                → do
+                      folName ← qName2String qName
+                      return $ Predicate folName []
 
             (a:[]) | isCNameFOLConstHoleRight folNot → do
                        f ← argTermToFormula a
@@ -119,8 +153,9 @@ termToFormula term@(Def (QName _ name) args) = do
                       -- In this guard we translate predicates with
                       -- one argument (e.g. P : D → Set).
 
-                      t ← argTermToFOLTerm a
-                      return $ Predicate (show cName) [t]
+                      t       ← argTermToFOLTerm a
+                      folName ← qName2String qName
+                      return $ Predicate folName [t]
 
             (a1:a2:[])
                 | isCNameFOLConstTwoHoles folAnd → binConst And a1 a2
@@ -141,13 +176,15 @@ termToFormula term@(Def (QName _ name) args) = do
                       reportSLn "t2f" 20 $
                         "Processing a definition with two arguments which " ++
                         "is not a FOL constant: " ++ show cName
-                      t1 ← argTermToFOLTerm a1
-                      t2 ← argTermToFOLTerm a2
-                      return $ Predicate (show cName) [t1, t2]
+                      t1      ← argTermToFOLTerm a1
+                      t2      ← argTermToFOLTerm a2
+                      folName ← qName2String qName
+                      return $ Predicate folName [t1, t2]
 
             threeOrMore → do
-                      terms ← mapM argTermToFOLTerm threeOrMore
-                      return $ Predicate (show cName) terms
+                      terms   ← mapM argTermToFOLTerm threeOrMore
+                      folName ← qName2String qName
+                      return $ Predicate folName terms
 
           where
             isCNameFOLConst :: String → Bool
