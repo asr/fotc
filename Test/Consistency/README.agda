@@ -19,3 +19,4 @@ open import Test.Consistency.LTC.Program.SortList.SortList.Impossible
 
 open import Test.Consistency.GroupTheory.Base.Impossible
 
+open import Test.Consistency.PA.Base.Impossible

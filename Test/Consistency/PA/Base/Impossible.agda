@@ -1,13 +1,13 @@
 ------------------------------------------------------------------------------
--- Test the consistency of Draft.PA.Base
+-- Test the consistency of PA.Base
 ------------------------------------------------------------------------------
 
-module Draft.PA.Impossible where
+module Test.Consistency.PA.Base.Impossible where
 
-open import Draft.PA.Base
+open import PA.Base
 
 ------------------------------------------------------------------------------
 
 postulate
-  impossible : (x₁ x₂ : PA) → x₁ ≡ x₂
+  impossible : (m n : ℕ) → m ≡ n
 {-# ATP prove impossible #-}

@@ -22,6 +22,7 @@ Logic_path       = src/Logic/NonATP
 LogicATP_path    = src/Logic/ATP
 LTC_path         = src/LTC
 LTC-PCF_path     = src/LTC-PCF
+PA_path          = src/PA
 
 # Programs
 Division_path    = $(LTC-PCF_path)/Program/Division
@@ -50,6 +51,8 @@ main_module_ER_LTC      = $(LTC_path)/EverythingER
 main_module_LTC-PCF     = $(LTC-PCF_path)/Everything
 main_module_ER_LTC-PCF  = $(LTC-PCF_path)/EverythingER
 
+main_module_PA          = $(PA_path)/Properties
+
 # Others
 main_module_Consistency = $(Consistency_path)/README
 
@@ -72,6 +75,7 @@ all_type_checking_NER : type_checking_Common \
 			type_checking_LogicATP \
 			type_checking_LTC \
 			type_checking_LTC-PCF \
+			type_checking_PA \
 			type_checking_Consistency \
 
 all_type_checking_ER  : type_checking_ER_LTC \
@@ -94,12 +98,13 @@ conjectures_% :
 # TODO: We add the conjectures related to the programs, but it
 # duplicates the test.
 all_conjectures : conjectures_GroupTheory \
+		  conjectures_LogicATP \
 		  conjectures_LTC \
 		  conjectures_LTC-PCF \
+		  conjectures_PA \
                   conjectures_Division \
 		  conjectures_GCD \
 		  conjectures_GCD-PCF \
-		  conjectures_LogicATP \
 		  conjectures_SortList
 
 ##############################################################################
@@ -131,6 +136,7 @@ all_publish : publish_Common \
 	      publish_LogicATP \
 	      publish_LTC \
 	      publish_LTC-PCF \
+	      publish_PA \
 	      publish_Consistency
 
 ##############################################################################
