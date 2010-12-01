@@ -103,21 +103,21 @@ conjectureHeader = do
   ch               ← liftIO commonHeader
   return $
     ch ++
-    "% This file corresponds to an ATP conjecture and its hints.\n\n" ++
+    "% This file corresponds to an ATP pragma conjecture and its hints.\n\n" ++
     "% We include the general ATP pragmas (axioms, hints and definitions).\n" ++
     "include('" ++ generalRolesFile ++ "').\n\n"
 
 conjectureFooter :: String
 conjectureFooter =
     commentLine ++
-    "% End ATP conjecture file.\n"
+    "% End ATP pragma conjecture file.\n"
 
 agdaOriginalTerm :: QName → RoleATP → String
 agdaOriginalTerm qName role =
     "% The original Agda term was:\n" ++
-    "% name:\t\t" ++ show qName ++ "\n" ++
-    "% role:\t\t" ++ show role ++ "\n" ++
-    "% position:\t" ++ show (nameBindingSite $ qnameName qName) ++ "\n"
+    "% Name:\t\t" ++ show qName ++ "\n" ++
+    "% Role:\t\t" ++ show role ++ "\n" ++
+    "% Position:\t" ++ show (nameBindingSite $ qnameName qName) ++ "\n"
 
 addGeneralRole :: AF → FilePath → IO ()
 addGeneralRole af@(MkAF qName role _) file
