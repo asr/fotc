@@ -17,14 +17,13 @@ open import PA.Base
   where
     P : ℕ → Set
     P i = i + zero ≡ i
+    {-# ATP definition P #-}
 
-    P0 : zero + zero ≡ zero
+    P0 : P zero
     P0 = S₅ zero
 
     postulate
-      iStep : ∀ i →
-              i + zero ≡ i →
-              succ i + zero ≡ succ i
+      iStep : ∀ i → P i → P (succ i)
     {-# ATP prove iStep #-}
 
 +-assoc : ∀ m n o → m + n + o ≡ m + (n + o)
@@ -32,15 +31,14 @@ open import PA.Base
   where
     P : ℕ → Set
     P i = i + n + o ≡ i + (n + o)
+    {-# ATP definition P #-}
 
     postulate
-      P0 : zero + n + o ≡ zero + (n + o)
+      P0 : P zero
     {-# ATP prove P0 #-}
 
     postulate
-      iStep : ∀ i →
-              i + n + o ≡ i + (n + o) →
-              succ i + n + o ≡ succ i + (n + o)
+      iStep : ∀ i → P i → P (succ i)
     {-# ATP prove iStep #-}
 
 x+1+y≡1+x+y : ∀ m n → m + succ n ≡ succ (m + n)
@@ -48,15 +46,14 @@ x+1+y≡1+x+y m n = S₉ P P0 iStep m
   where
     P : ℕ → Set
     P i = i + succ n ≡ succ (i + n)
+    {-# ATP definition P #-}
 
     postulate
-      P0 : zero + succ n ≡ succ (zero + n)
+      P0 : P zero
     {-# ATP prove P0 #-}
 
     postulate
-      iStep : ∀ i →
-              i + succ n ≡ succ (i + n) →
-              succ i + succ n ≡ succ (succ i + n)
+      iStep : ∀ i → P i → P (succ i)
     {-# ATP prove iStep #-}
 
 +-comm : ∀ m n → m + n ≡ n + m
@@ -64,13 +61,12 @@ x+1+y≡1+x+y m n = S₉ P P0 iStep m
   where
     P : ℕ → Set
     P i = i + n ≡ n + i
+    {-# ATP definition P #-}
 
     postulate
-      P0 : zero + n ≡ n + zero
+      P0 : P zero
     {-# ATP prove P0 +-rightIdentity #-}
 
     postulate
-      iStep : ∀ i →
-              i + n ≡ n + i →
-              succ i + n ≡ n + succ i
+      iStep : ∀ i → P i → P (succ i)
     {-# ATP prove iStep x+1+y≡1+x+y #-}
