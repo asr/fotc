@@ -34,7 +34,6 @@ import Agda.Syntax.Internal
     )
 import Agda.Syntax.Literal          ( Literal(LitLevel) )
 import Agda.Syntax.Position         ( noRange )
-import Agda.TypeChecking.Monad.Base ( Definition )
 import Agda.Utils.Impossible
     ( Impossible(Impossible)
     , throwImpossible
@@ -56,7 +55,7 @@ import {-# source #-} FOL.Translation.Internal.Types
     , typeToFormula
     )
 import FOL.Types     ( FOLFormula(..), FOLTerm(..) )
-import Monad.Base    ( T, TState(tAllDefs, tVars) )
+import Monad.Base    ( T, TState(tVars) )
 import Monad.Reports ( reportSLn )
 import Utils.Names   ( freshName )
 
@@ -66,10 +65,7 @@ import Utils.Names   ( freshName )
 
 qName2String :: QName → T String
 qName2String qName@(QName _ name) = do
-  state ← get
-
-  let def :: Definition
-      def = qNameDefinition (tAllDefs state) qName
+  def ← qNameDefinition qName
 
   -- Because the ATP pragma definitions are global, we need an unique
   -- name. In this case, we append to the qName the qName id.

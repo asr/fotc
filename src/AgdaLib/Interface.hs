@@ -83,7 +83,7 @@ import qualified Agda.Utils.Trie as Trie ( singleton )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import Monad.Base    ( AllDefinitions, T, TState(tOpts) )
+import Monad.Base    ( T, TState(tAllDefs, tOpts) )
 import Monad.Reports ( reportSLn )
 import Options       ( Options(optAgdaIncludePath) )
 
@@ -91,7 +91,7 @@ import Options       ( Options(optAgdaIncludePath) )
 
 ------------------------------------------------------------------------------
 
-getRoleATP :: RoleATP → AllDefinitions → Definitions
+getRoleATP :: RoleATP → Definitions → Definitions
 getRoleATP role = Map.filter $ isRole role
     where
       isRole :: RoleATP → Definition → Bool
@@ -228,12 +228,15 @@ isHintATP def =
 
        _             → False
 
-qNameDefinition :: AllDefinitions → QName → Definition
-qNameDefinition allDefs qName =
-    fromMaybe __IMPOSSIBLE__ $ Map.lookup qName allDefs
+qNameDefinition :: QName → T Definition
+qNameDefinition qName = do
+    state ← get
+    return $ fromMaybe __IMPOSSIBLE__ $ Map.lookup qName $ tAllDefs state
 
-qNameType :: AllDefinitions → QName → Type
-qNameType allDefs = defType . qNameDefinition allDefs
+qNameType :: QName → T Type
+qNameType qName = do
+  def ← qNameDefinition qName
+  return $ defType def
 
 -- The line where a QNname is defined.
 qNameLine :: QName → Int32

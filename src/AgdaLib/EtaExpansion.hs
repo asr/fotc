@@ -35,7 +35,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 import AgdaLib.Interface       ( qNameType )
 import AgdaLib.Syntax.DeBruijn ( increaseByOneVar )
-import Monad.Base              ( AllDefinitions, T, TState(tAllDefs, tVars) )
+import Monad.Base              ( T, TState(tVars) )
 import Utils.Names             ( freshName )
 
 #include "../undefined.h"
@@ -56,16 +56,16 @@ instance EtaExpandible Type where
 
 instance EtaExpandible Term where
     etaExpand (Def qName args) = do
-      state ← get
 
-      let allDefs :: AllDefinitions
-          allDefs = tAllDefs state
+      state ← get
 
       let vars :: [String]
           vars = tVars state
 
+      def ← qNameType qName
+
       let qNameArity :: Nat
-          qNameArity = arity $ qNameType allDefs qName
+          qNameArity = arity def
 
       argsEtaExpanded ← mapM etaExpand args
 

@@ -137,10 +137,7 @@ fnsToAFs = do
 localHintToAF :: QName → T AF
 localHintToAF qName = do
 
-  state ← get
-
-  let def :: Definition
-      def = qNameDefinition (tAllDefs state) qName
+  def ← qNameDefinition qName
 
   toAF HintATP qName def
 
@@ -168,10 +165,10 @@ conjectureToAF qName def =
 -- and a list of the translation of its local hints, i.e. we return a
 -- pair (AF, [AF]).
 conjecturesToAFs :: Definitions → T [(AF, [AF])]
-conjecturesToAFs tlDefs = do
+conjecturesToAFs topLevelDefs = do
 
   let conjecturesDefs :: Definitions
-      conjecturesDefs = getRoleATP ConjectureATP tlDefs
+      conjecturesDefs = getRoleATP ConjectureATP topLevelDefs
   reportSLn "conjecturesToFOLs" 20 $
     "Conjectures:\n" ++ show (Map.keys conjecturesDefs)
 
