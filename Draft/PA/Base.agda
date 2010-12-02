@@ -20,18 +20,10 @@ data ℕ : Set where
 data _≡_ (n : ℕ) : ℕ → Set where
   refl : n ≡ n
 
--- Non-logical constants
-postulate
-  _+_  : ℕ → ℕ → ℕ
-  _*_  : ℕ → ℕ → ℕ
+_+_ : ℕ → ℕ → ℕ
+zero   + n = n
+succ m + n = succ (m + n)
 
-postulate
-  S₅  : ∀ n →   zero   + n ≡ n
-  S₆  : ∀ m n → succ m + n ≡ succ (m + n)
-  S₇ : ∀ n →   zero   * n ≡ zero
-  S₈ : ∀ m n → succ m * n ≡ m + n * m
-
-{-# ATP axiom S₅ #-}
-{-# ATP axiom S₆ #-}
-{-# ATP axiom S₇ #-}
-{-# ATP axiom S₈ #-}
+_*_ : ℕ → ℕ → ℕ
+zero   * n = zero
+succ m * n = n + m * n

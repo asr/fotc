@@ -62,7 +62,7 @@ postulate
   S₆ : ∀ m n → succ m + n ≡ succ (m + n)
 
   S₇ : ∀ n →   zero   * n ≡ zero
-  S₈ : ∀ m n → succ m * n ≡ m + n * m
+  S₈ : ∀ m n → succ m * n ≡ n + m * n
 
   -- N.B. S₉ is a higher-order axiom, therefore we do not translate it
   -- as an ATP axiom.
