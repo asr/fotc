@@ -10,8 +10,8 @@ module FOL.Types ( FOLFormula(..), FOLTerm(..) ) where
 ------------------------------------------------------------------------------
 -- FOL formulas.
 -- Adapted from AgdaLight (Plugins.FOL.Types).
-data FOLTerm = FOLFun   String [FOLTerm]
-             | FOLVar   String
+data FOLTerm = FOLFun String [FOLTerm]
+             | FOLVar String
                deriving ( Show )
 
 data FOLFormula = TRUE

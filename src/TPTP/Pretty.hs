@@ -42,12 +42,12 @@ class PrettyTPTP a where
     prettyTPTP :: a → TPTP
 
 -- We prefixed the names with 'n' because TPTP does not accept names
--- starting with digits.
+-- starting with digits or '_'.
 prefixLetter :: TPTP → TPTP
 prefixLetter []           = __IMPOSSIBLE__
 prefixLetter name@(x : _)
-    | isDigit x           = 'n' : name
-    | otherwise           = name
+    | isDigit x || x == '_'  = 'n' : name
+    | otherwise              = name
 
 changeCaseFirstSymbol :: TPTP → (Char → Char) → TPTP
 changeCaseFirstSymbol []       _ = __IMPOSSIBLE__
