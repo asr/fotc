@@ -349,11 +349,10 @@ termToFOLTerm term@(Con (QName _ name) args)  = do
 
     -- The term Con doesn't have holes. It should be translated as a
     -- FOL function.
-    C.Name _ [C.Id _ ] → __IMPOSSIBLE__
-    -- C.Name _ [C.Id str] →
-    --     case args of
-    --       [] → return $ FOLFun str []
-    --       _ →  appArgs str args
+    C.Name _ [C.Id str] →
+        case args of
+          [] → return $ FOLFun str []
+          _  →  appArgs str args
 
     -- The term Con has holes. It is translated as a FOL function.
     C.Name _ parts →
