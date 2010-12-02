@@ -65,7 +65,7 @@ string2ATP _          = __IMPOSSIBLE__
 eOk :: String
 eOk = "Proof found!"
 
--- Tested with Equinox 5.0alpha (2010-03-29).
+-- Tested with Equinox 5.0alpha (2010-06-29).
 equinoxOk :: String
 equinoxOk = "+++ RESULT: Theorem"
 

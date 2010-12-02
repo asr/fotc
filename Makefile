@@ -2,6 +2,9 @@ haskell_files = $(shell find src/ -name '*.hs')
 
 AGDA     = agda -v 0
 AGDA2ATP = agda2atp
+# AGDA2ATP = agda2atp --atp=eprover
+# AGDA2ATP = agda2atp --atp=equinox
+# AGDA2ATP = agda2atp --atp=metis
 
 succeed_conjectures_path     = Test/Succeed/Conjectures
 succeed_non_conjectures_path = Test/Succeed/NonConjectures
