@@ -20,10 +20,12 @@ succeed_agda_files = $(patsubst %.agda,%, \
 fail_files = $(patsubst %.agda,%, \
 	$(shell find $(fail_path) -name "*.agda"))
 
-# TODO: Test if the file *.ax exists.
-$(succeed_non_conjectures_files) : % : %.agda
+%.agdai : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
-	@if ! ( agda2atp --only-files $< ); then exit 1; fi
+
+# TODO: Test if the file *.ax exists.
+$(succeed_non_conjectures_files) : % : %.agdai
+	@if ! ( $(AGDA2ATP) --only-files $*.agda ); then exit 1; fi
 	@cat $@.ax | while read -r line; do \
 		if ! ( grep --silent "$$line" /tmp/$(subst /,.,$@).tptp ) ; then \
 			echo "Testing error. Translation to: $$line"; \
@@ -31,33 +33,32 @@ $(succeed_non_conjectures_files) : % : %.agda
 		fi \
 	done
 
-$(succeed_conjectures_files) : % : %.agda
-	@if ! ( $(AGDA) $< ); then exit 1; fi
-	@if ! ( $(AGDA2ATP) --time 60 --unproved-conjecture-error $< ); then \
+$(succeed_conjectures_files) : % : %.agdai
+	@if ! ( $(AGDA2ATP) --time=60 \
+                            --unproved-conjecture-error \
+                            $*.agda ); then \
 		exit 1; \
 	fi
 
-$(succeed_agda_files) : % : %.agda
-	@if ! ( $(AGDA) $< ); then exit 1; fi
-	@if ! ( $(AGDA2ATP) --only-files $< ); then exit 1; fi
+$(succeed_agda_files) : % : %.agdai
+	@if ! ( $(AGDA2ATP) --only-files $*.agda ); then exit 1; fi
 
-$(fail_files) : % : %.agda
-	@if ! ( $(AGDA) $< ); then exit 1; fi
-	@if ! ( $(AGDA2ATP) --time 5 $< ); then \
+$(fail_files) : % : %.agdai
+	@if ! ( $(AGDA2ATP) --time=5 $*.agda ); then \
 		exit 1; \
 	fi
 
 # The tests
-succeed_non_conjectures : clean $(succeed_non_conjectures_files)
-succeed_conjectures     : clean $(succeed_conjectures_files)
-succeed_agda            : clean $(succeed_agda_files)
-fail                    : clean $(fail_files)
+succeed_non_conjectures : $(succeed_non_conjectures_files)
+succeed_conjectures     : $(succeed_conjectures_files)
+succeed_agda            : $(succeed_agda_files)
+fail                    : $(fail_files)
 
 test : succeed_agda succeed_non_conjectures succeed_conjectures fail
 
 clean :
-	find -name '*.agdai' | xargs rm -f
-	rm -f /tmp/*.tptp
+	@find -name '*.agdai' | xargs rm -f
+	@rm -f /tmp/*.tptp
 
 # The tags
 TAGS : $(haskell_files)
