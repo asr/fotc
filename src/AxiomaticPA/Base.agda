@@ -2,7 +2,7 @@
 -- Peano arithmetic base
 ------------------------------------------------------------------------------
 
-module PA.Base where
+module AxiomaticPA.Base where
 
 -- We add 3 to the fixities of the standard library.
 infixl 10 _*_

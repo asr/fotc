@@ -2,9 +2,9 @@
 -- PA properties
 ------------------------------------------------------------------------------
 
-module PA.Properties where
+module AxiomaticPA.Properties where
 
-open import PA.Base
+open import AxiomaticPA.Base
 
 ------------------------------------------------------------------------------
 -- Some proofs are based on the proofs in the standard library.
