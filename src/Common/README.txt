@@ -1,3 +1,7 @@
+------------------------------------------------------------------------------
+Common stuff
+------------------------------------------------------------------------------
+
 This directory contains the Agda modules associated with of the common
 stuff of the first-order theories:
 - The universe of discourse
