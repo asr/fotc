@@ -86,8 +86,6 @@ all_type_checking     : all_type_checking_NER all_type_checking_ER
 ##############################################################################
 # Test the conjecture files.
 
-# The time limit should be the maximum (720 sec) which is required
-# by LTC.Program.SortList.Closures.TreeOrd.rightSubTree-TreeOrd.
 conjectures_% :
 	for file in \
           `find $($*_path) -name '*.agda' | xargs grep -l 'ATP prove'`; do \

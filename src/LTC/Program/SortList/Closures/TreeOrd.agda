@@ -64,12 +64,11 @@ postulate
 postulate
   rightSubTree-TreeOrd : {t₁ i t₂ : D} → Tree t₁ → N i → Tree t₂ →
                          TreeOrd (node t₁ i t₂) → TreeOrd t₂
--- Equinox 5.0alpha (2010-03-29) need --time=720 for to prove this postulate.
 -- E 1.2 no-success due to timeout (180 sec).
--- {-# ATP prove rightSubTree-TreeOrd ≤-ItemTree-Bool ≤-TreeItem-Bool &&-Bool
---                                   isTreeOrd-Bool x&&y≡true→x≡true
---                                   x&&y≡true→y≡true
--- #-}
+{-# ATP prove rightSubTree-TreeOrd ≤-ItemTree-Bool ≤-TreeItem-Bool &&-Bool
+                                   isTreeOrd-Bool x&&y≡true→x≡true
+                                   x&&y≡true→y≡true
+#-}
 
 ------------------------------------------------------------------------------
 -- Auxiliar functions

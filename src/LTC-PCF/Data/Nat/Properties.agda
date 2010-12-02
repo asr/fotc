@@ -22,7 +22,6 @@ postulate
 
 postulate
   +-Sx : (d e : D) → succ d + e ≡ succ (d + e)
--- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180 sec).
 {-# ATP prove +-Sx rec-S #-}
 
 postulate
@@ -48,7 +47,7 @@ minus-SS : {m n : D} → N m → N n → succ m - succ n ≡ m - n
 minus-SS {m} _ zN = prf
   where
     postulate prf : succ m - succ zero ≡ m - zero
-    -- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180 sec).
+    -- Equinox 5.0alpha (2010-06-29) no-success due to timeout (180 sec).
     {-# ATP prove prf rec-S minus-x0 #-}
 
 minus-SS zN (sN {n} Nn) = prf $ minus-SS zN Nn

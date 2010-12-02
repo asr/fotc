@@ -68,7 +68,7 @@ postulate
     (gcd (succ m) (succ n - succ m) ∣ succ m) →
     LE (succ m) (succ n) →
     gcd (succ m) (succ n) ∣ succ m
--- Equinox 5.0alpha (2010-03-29) proved this conjecture very fast.
+-- Equinox 5.0alpha (2010-06-29) proved this conjecture very fast.
 {-# ATP prove gcd-S≤S-∣₁ gcd-S≤S #-}
 
 -- 'gcd (succ m) (succ n) ∣ succ m' when 'succ m > succ n'.

@@ -27,19 +27,20 @@ open import LTC-PCF.Data.Nat.Properties
         )
 
 ------------------------------------------------------------------------------
+
 postulate
   <-00 : NLT zero zero
--- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180 sec).
+-- Equinox 5.0alpha (2010-06-29) no-success due to timeout (180 sec).
 {-# ATP prove <-00 #-}
 
 postulate
   <-0S : (d : D) → LT zero (succ d)
--- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180 sec).
+-- Equinox 5.0alpha (2010-06-29) no-success due to timeout (180 sec).
 {-# ATP prove <-0S #-}
 
 postulate
   <-S0 : (d : D) → NLT (succ d) zero
--- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180 sec).
+-- Equinox 5.0alpha (2010-06-29) no-success due to timeout (180 sec).
 {-# ATP prove <-S0 #-}
 
 postulate
@@ -69,7 +70,7 @@ x≥0 (sN {n} Nn) = <-0S $ succ n
 
 postulate
   ¬0>x : {n : D} → N n → ¬ (GT zero n)
--- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180 sec).
+-- Equinox 5.0alpha (2010-06-29) no-success due to timeout (180 sec).
 {-# ATP prove ¬0>x x≥0 #-}
 
 x≰x : {n : D} → N n → NLT n n
@@ -79,7 +80,7 @@ x≰x (sN {n} Nn) = trans (<-SS n n) (x≰x Nn)
 -- TODO: The ER version requires N n.
 postulate
   ¬S≤0 : {d : D} → ¬ (LE (succ d) zero)
--- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180 sec).
+-- Equinox 5.0alpha (2010-06-29) no-success due to timeout (180 sec).
 {-# ATP prove ¬S≤0 <-0S #-}
 
 ¬0≥S : {n : D} → N n → ¬ (GE zero (succ n))
@@ -165,7 +166,7 @@ x<y→Sx≤y Nm zN m<0 = ⊥-elim $ ¬x<0 Nm m<0
 x<y→Sx≤y zN (sN {n} Nn) 0<Sn = S0≤SN
   where
     postulate S0≤SN : LE (succ zero) (succ n)
-    -- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180 sec).
+    -- Equinox 5.0alpha (2010-06-29) no-success due to timeout (180 sec).
     -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove S0≤SN #-}
 
@@ -359,7 +360,6 @@ postulate
 
 postulate
   ¬0Sx<00 : {m : D} → N m → ¬ (LT₂ zero (succ m) zero zero)
--- Equinox 5.0alpha (2010-03-29) no-success due to timeout (180 sec).
 -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
 {-# ATP prove ¬0Sx<00 ¬x<0 sN #-}
 
