@@ -11,12 +11,23 @@ open ≡-Reasoning
 
 ------------------------------------------------------------------------------
 
-0+m≡m+0 : ∀ m → 0 + m ≡ m + 0  -- via Agsy {-c}
-0+m≡m+0 zero    = refl
-0+m≡m+0 (suc n) = cong suc (0+m≡m+0 n)
++-assoc : ∀ m n o → m + n + o ≡ m + (n + o)  -- via Agsy {-c}
++-assoc zero    n o = refl
++-assoc (suc m) n o = cong suc (+-assoc m n o)
 
-+-comm : ∀ m n → m + n ≡ n + m
-+-comm zero    zero    = refl -- via Agsy
-+-comm zero    (suc n) = sym (cong suc (+-comm n zero))  -- via Agsy
-+-comm (suc m) zero    = sym (cong suc (+-comm zero m))  -- via Agsy
-+-comm (suc m) (suc n) = {!-t 20!} -- Agsy: No solution found at time out (20s)
+x+1+y≡1+x+y : ∀ m n → m + suc n ≡ suc (m + n)  -- via Agsy {-c}
+x+1+y≡1+x+y zero    n = refl
+x+1+y≡1+x+y (suc m) n = cong suc (x+1+y≡1+x+y m n)
+
+0+n≡n+0 : ∀ n → 0 + n ≡ n + 0  -- via Agsy {-c}
+0+n≡n+0 zero    = refl
+0+n≡n+0 (suc n) = cong suc (0+n≡n+0 n)
+
++-comm : ∀ m n → m + n ≡ n + m  -- via Agsy {-c -m}
++-comm zero    n = 0+n≡n+0 n
++-comm (suc m) n =
+  begin
+    suc (m + n) ≡⟨ cong suc (+-comm m n) ⟩
+    suc (n + m) ≡⟨ sym (x+1+y≡1+x+y n m) ⟩
+    n + suc m
+  ∎
