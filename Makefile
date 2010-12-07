@@ -38,26 +38,27 @@ Consistency_path = Test/Consistency
 # "main" modules
 
 # Theories
-main_module_AxiomaticPA = $(AxiomaticPA_path)/Properties
+main_module_AxiomaticPA    = $(AxiomaticPA_path)/Properties
 
-main_module_Common      = $(Common_path)/Everything
+main_module_Common         = $(Common_path)/Everything
 
-main_module_GroupTheory = $(GroupTheory_path)/Properties
+main_module_GroupTheory    = $(GroupTheory_path)/Properties
+main_module_ER_GroupTheory = $(GroupTheory_path)/PropertiesER
 
-main_module_Logic       = $(Logic_path)/Logic
+main_module_Logic          = $(Logic_path)/Logic
 
-main_module_LogicATP    = $(LogicATP_path)/Logic
+main_module_LogicATP       = $(LogicATP_path)/Logic
 
-main_module_LTC         = $(LTC_path)/Everything
-main_module_ER_LTC      = $(LTC_path)/EverythingER
+main_module_LTC            = $(LTC_path)/Everything
+main_module_ER_LTC         = $(LTC_path)/EverythingER
 
-main_module_LTC-PCF     = $(LTC-PCF_path)/Everything
-main_module_ER_LTC-PCF  = $(LTC-PCF_path)/EverythingER
+main_module_LTC-PCF        = $(LTC-PCF_path)/Everything
+main_module_ER_LTC-PCF     = $(LTC-PCF_path)/EverythingER
 
-main_module_PA          = $(PA_path)/Properties
+main_module_PA             = $(PA_path)/Properties
 
 # Others
-main_module_Consistency = $(Consistency_path)/README
+main_module_Consistency    = $(Consistency_path)/README
 
 # Only used to publish the drafts, i.e. non type checking.
 main_module_Draft       = Draft/RenderToHTML
@@ -82,7 +83,8 @@ all_type_checking_NER : type_checking_AxiomaticPA \
 			type_checking_PA \
 			type_checking_Consistency
 
-all_type_checking_ER  : type_checking_ER_LTC \
+all_type_checking_ER  : type_checking_ER_GroupTheory \
+			type_checking_ER_LTC \
 			type_checking_ER_LTC-PCF
 
 all_type_checking     : all_type_checking_NER all_type_checking_ER
