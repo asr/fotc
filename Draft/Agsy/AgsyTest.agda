@@ -19,12 +19,12 @@ x+1+y≡1+x+y : ∀ m n → m + suc n ≡ suc (m + n)  -- via Agsy {-c}
 x+1+y≡1+x+y zero    n = refl
 x+1+y≡1+x+y (suc m) n = cong suc (x+1+y≡1+x+y m n)
 
-0+n≡n+0 : ∀ n → 0 + n ≡ n + 0  -- via Agsy {-c}
-0+n≡n+0 zero    = refl
-0+n≡n+0 (suc n) = cong suc (0+n≡n+0 n)
+0+x≡x+0 : ∀ x → 0 + x ≡ x + 0  -- via Agsy {-c}
+0+x≡x+0 zero    = refl
+0+x≡x+0 (suc n) = cong suc (0+x≡x+0 n)
 
 +-comm : ∀ m n → m + n ≡ n + m  -- via Agsy {-c -m}
-+-comm zero    n = 0+n≡n+0 n
++-comm zero    n = 0+x≡x+0 n
 +-comm (suc m) n =
   begin
     suc (m + n) ≡⟨ cong suc (+-comm m n) ⟩

@@ -10,6 +10,7 @@ open import PA.Base
 -- Some proofs are based on the proofs in the standard library.
 
 -- The PA axioms from _+_ definition (see AxiomaticPA.Base)
+
 S₅ : ∀ n → zero + n ≡ n
 S₅ n = refl
 {-# ATP hint S₅ #-}
@@ -19,6 +20,7 @@ S₆ m n = refl
 {-# ATP hint S₆ #-}
 
 -- The PA axioms from _*_ definition (see AxiomaticPA.Base)
+
 S₇ : ∀ n → zero * n ≡ zero
 S₇ n = refl
 {-# ATP hint S₇ #-}
