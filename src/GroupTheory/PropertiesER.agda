@@ -61,8 +61,8 @@ rightCancellation {x} {y} {z} yx≡zx =
 leftCancellation : ∀ {x y z} → x ∙ y ≡ x ∙ z → y ≡ z
 leftCancellation {x} {y} {z} xy≡xz =
 -- Paper proof:
--- 1. x⁻¹ (xy) = x⁻¹(xz)  (Hypothesis xy = xz).
--- 2. x⁻¹x(y)  = x⁻¹x(z)  (Associative)-
+-- 1. x⁻¹(xy)  = x⁻¹(xz)  (Hypothesis xy = xz).
+-- 2. x⁻¹x(y)  = x⁻¹x(z)  (Associative).
 -- 3. εy       = εz       (Left inverse).
 -- 4. y        = z        (Left identity).
   begin
