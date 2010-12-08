@@ -57,3 +57,15 @@ postulate
 postulate
   inverseDistribution : ∀ x y → (x ∙ y) ⁻¹ ≡ y ⁻¹ ∙ x ⁻¹
 {-# ATP prove inverseDistribution #-}
+
+-- The equation xa = b has an unique solution.
+postulate
+  xa≡b-uniqueSolution : ∀ a b → ∃D λ x → (x ∙ a ≡ b) ∧
+                                         (∀ x' → x' ∙ a ≡ b → x ≡ x')
+{-# ATP prove xa≡b-uniqueSolution #-}
+
+-- The equation ax = b has an unique solution.
+postulate
+  ax≡b-uniqueSolution : ∀ a b → ∃D λ x → (a ∙ x ≡ b) ∧
+                                         (∀ x' → a ∙ x' ≡ b → x ≡ x')
+{-# ATP prove ax≡b-uniqueSolution #-}
