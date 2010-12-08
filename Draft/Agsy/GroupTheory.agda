@@ -18,11 +18,11 @@ postulate
   _∙_ : G → G → G  -- The group binary operation.
   _⁻¹ : G → G      -- The inverse function.
 
-  associativity : (x y z : G) → x ∙ y ∙ z    ≡ x ∙ (y ∙ z)
-  leftIdentity  : (x : G)     →     ε ∙ x    ≡ x
-  rightIdentity : (x : G)     →     x ∙ ε    ≡ x
-  leftInverse   : (x : G)     →  x ⁻¹ ∙ x    ≡ ε
-  rightInverse  : (x : G)     →  x    ∙ x ⁻¹ ≡ ε
+  assoc         : ∀ x y z → x ∙ y ∙ z    ≡ x ∙ (y ∙ z)
+  leftIdentity  : ∀ x     →     ε ∙ x    ≡ x
+  rightIdentity : ∀ x     →     x ∙ ε    ≡ x
+  leftInverse   : ∀ x     →  x ⁻¹ ∙ x    ≡ ε
+  rightInverse  : ∀ x     →  x    ∙ x ⁻¹ ≡ ε
 
 -- Properties
 
@@ -48,26 +48,26 @@ leftIdentityUnique = ε ,
                                 x
                               ∎
 
-rightCancellation : (x y z : G) → y ∙ x ≡ z ∙ x → y ≡ z
+rightCancellation : ∀ x y z → y ∙ x ≡ z ∙ x → y ≡ z
 rightCancellation x y z = λ hyp → {!-t 20 -m!} -- Agsy fails
 
-leftCancellation : (x y z : G) → x ∙ y ≡ x ∙ z → y ≡ z
+leftCancellation : ∀ x y z → x ∙ y ≡ x ∙ z → y ≡ z
 leftCancellation x y z = λ hyp → {!-t 20 -m!}  -- Agsy fails
 
-rightInverseUnique : {x : G} → Σ G λ r → (x ∙ r ≡ ε) ×
-                                       (∀ r' → x ∙ r' ≡ ε → r ≡ r')
-rightInverseUnique {x} = {!-t 20 -m!}  -- Agsy fails
+rightInverseUnique : ∀ x → Σ G λ r → (x ∙ r ≡ ε) ×
+                                     (∀ r' → x ∙ r' ≡ ε → r ≡ r')
+rightInverseUnique x = {!-t 20 -m!}  -- Agsy fails
 
-rightInverseUnique' : {x r : G} → x ∙ r ≡ ε → x ⁻¹ ≡ r
-rightInverseUnique' {x} {r} = λ hyp → {!-t 20 -m!}  -- Agsy fails
+rightInverseUnique' : ∀ x r → x ∙ r ≡ ε → x ⁻¹ ≡ r
+rightInverseUnique' x r = λ hyp → {!-t 20 -m!}  -- Agsy fails
 
-leftInverseUnique : {x : G} → Σ G λ l → (l ∙ x ≡ ε) ×
-                                        (∀ l' → l' ∙ x ≡ ε → l ≡ l')
-leftInverseUnique {x} = {!-t 20 -m!}  -- Agsy fails
+leftInverseUnique : ∀ x → Σ G λ l → (l ∙ x ≡ ε) ×
+                                    (∀ l' → l' ∙ x ≡ ε → l ≡ l')
+leftInverseUnique x = {!-t 20 -m!}  -- Agsy fails
 
 
-⁻¹-involutive : (x : G)  → x ⁻¹ ⁻¹ ≡ x
+⁻¹-involutive : ∀ x  → x ⁻¹ ⁻¹ ≡ x
 ⁻¹-involutive x = {!-t 20 -m!}  -- Agsy fails
 
-inverseDistribution : (x y : G) → (x ∙ y) ⁻¹ ≡ y ⁻¹ ∙ x ⁻¹
+inverseDistribution : ∀ x y → (x ∙ y) ⁻¹ ≡ y ⁻¹ ∙ x ⁻¹
 inverseDistribution x y = {!-t 20 -m!}  -- Agsy fails

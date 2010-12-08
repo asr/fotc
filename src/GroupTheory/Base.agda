@@ -32,12 +32,12 @@ postulate
   _∙_ : G → G → G  -- The group binary operation.
   _⁻¹ : G → G      -- The inverse function.
 
-  associativity : ∀ x y z → x ∙ y ∙ z    ≡ x ∙ (y ∙ z)
+  assoc         : ∀ x y z → x ∙ y ∙ z    ≡ x ∙ (y ∙ z)
   leftIdentity  : ∀ x     →     ε ∙ x    ≡ x
   rightIdentity : ∀ x     →     x ∙ ε    ≡ x
   leftInverse   : ∀ x     →  x ⁻¹ ∙ x    ≡ ε
   rightInverse  : ∀ x     →  x    ∙ x ⁻¹ ≡ ε
-{-# ATP axiom associativity #-}
+{-# ATP axiom assoc #-}
 {-# ATP axiom leftIdentity #-}
 {-# ATP axiom rightIdentity #-}
 {-# ATP axiom leftInverse #-}

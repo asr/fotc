@@ -47,9 +47,9 @@ rightCancellation {x} {y} {z} yx≡zx =
                             (sym (rightInverse x))
                             refl
                    ⟩
-    y ∙ (x ∙ x ⁻¹) ≡⟨ sym (associativity y x (x ⁻¹)) ⟩
+    y ∙ (x ∙ x ⁻¹) ≡⟨ sym (assoc y x (x ⁻¹)) ⟩
     y ∙ x ∙ x ⁻¹   ≡⟨ subst (λ t → y ∙ x ∙ x ⁻¹ ≡ t ∙ x ⁻¹) yx≡zx refl ⟩
-    z ∙ x ∙ x ⁻¹   ≡⟨ associativity z x (x ⁻¹) ⟩
+    z ∙ x ∙ x ⁻¹   ≡⟨ assoc z x (x ⁻¹) ⟩
     z ∙ (x ∙ x ⁻¹) ≡⟨ subst (λ t → z ∙ (x ∙ x ⁻¹) ≡ z ∙ t)
                             (rightInverse x)
                             refl
@@ -68,9 +68,9 @@ leftCancellation {x} {y} {z} xy≡xz =
   begin
     y              ≡⟨ sym (leftIdentity y) ⟩
     ε ∙ y          ≡⟨ subst (λ t → ε ∙ y ≡ t ∙ y) (sym (leftInverse x)) refl ⟩
-    x ⁻¹ ∙ x ∙ y   ≡⟨ associativity (x ⁻¹) x y ⟩
+    x ⁻¹ ∙ x ∙ y   ≡⟨ assoc (x ⁻¹) x y ⟩
     x ⁻¹ ∙ (x ∙ y) ≡⟨ subst (λ t → x ⁻¹ ∙ (x ∙ y) ≡ x ⁻¹ ∙ t) xy≡xz refl ⟩
-    x ⁻¹ ∙ (x ∙ z) ≡⟨ sym (associativity (x ⁻¹) x z) ⟩
+    x ⁻¹ ∙ (x ∙ z) ≡⟨ sym (assoc (x ⁻¹) x z) ⟩
     x ⁻¹ ∙ x ∙ z   ≡⟨ subst (λ t → x ⁻¹ ∙ x ∙ z ≡ t ∙ z) (leftInverse x) refl ⟩
     ε ∙ z          ≡⟨ leftIdentity z ⟩
     z
@@ -159,10 +159,10 @@ inverseDistribution x y = leftInverseUnique' y⁻¹x⁻¹[xy]≡ε
     y⁻¹x⁻¹[xy]≡ε : y ⁻¹ ∙ x ⁻¹ ∙ (x ∙ y) ≡ ε
     y⁻¹x⁻¹[xy]≡ε =
         begin
-          y ⁻¹ ∙ x ⁻¹ ∙ (x ∙ y)   ≡⟨ associativity (y ⁻¹) (x ⁻¹) (x ∙ y) ⟩
+          y ⁻¹ ∙ x ⁻¹ ∙ (x ∙ y)   ≡⟨ assoc (y ⁻¹) (x ⁻¹) (x ∙ y) ⟩
           y ⁻¹ ∙ (x ⁻¹ ∙ (x ∙ y)) ≡⟨ subst (λ t → y ⁻¹ ∙ (x ⁻¹ ∙ (x ∙ y)) ≡
                                                   y ⁻¹ ∙ t)
-                                           (sym (associativity (x ⁻¹) x y))
+                                           (sym (assoc (x ⁻¹) x y))
                                            refl
                                   ⟩
           y ⁻¹ ∙ (x ⁻¹ ∙ x ∙ y)   ≡⟨ subst (λ t → y ⁻¹ ∙ (x ⁻¹ ∙ x ∙ y) ≡
