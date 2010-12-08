@@ -16,14 +16,15 @@ RSYNC    = rsync --archive --progress --rsh='ssh -p 2024'
 # Paths
 
 # Theories
-AxiomaticPA_path = src/AxiomaticPA
-Common_path      = src/Common
-GroupTheory_path = src/GroupTheory
-Logic_path       = src/Logic/NonATP
-LogicATP_path    = src/Logic/ATP
-LTC_path         = src/LTC
-LTC-PCF_path     = src/LTC-PCF
-PA_path          = src/PA
+AbelianGroupTheory_path = src/AbelianGroupTheory
+AxiomaticPA_path        = src/AxiomaticPA
+Common_path             = src/Common
+GroupTheory_path        = src/GroupTheory
+Logic_path              = src/Logic/NonATP
+LogicATP_path           = src/Logic/ATP
+LTC_path                = src/LTC
+LTC-PCF_path            = src/LTC-PCF
+PA_path                 = src/PA
 
 # Programs
 Division_path    = $(LTC-PCF_path)/Program/Division
@@ -38,42 +39,44 @@ Consistency_path = Test/Consistency
 # "main" modules
 
 # Theories
-main_module_AxiomaticPA    = $(AxiomaticPA_path)/Properties
+main_AbelianGroupTheory = $(AbelianGroupTheory_path)/Properties
+main_AxiomaticPA        = $(AxiomaticPA_path)/Properties
 
-main_module_Common         = $(Common_path)/Everything
+main_Common             = $(Common_path)/Everything
 
-main_module_GroupTheory    = $(GroupTheory_path)/Properties
-main_module_GroupTheory_ER = $(GroupTheory_path)/PropertiesER
+main_GroupTheory        = $(GroupTheory_path)/Properties
+main_GroupTheory_ER     = $(GroupTheory_path)/PropertiesER
 
-main_module_Logic          = $(Logic_path)/Logic
+main_Logic              = $(Logic_path)/Logic
 
-main_module_LogicATP       = $(LogicATP_path)/Logic
+main_LogicATP           = $(LogicATP_path)/Logic
 
-main_module_LTC            = $(LTC_path)/Everything
-main_module_LTC_ER         = $(LTC_path)/EverythingER
+main_LTC                = $(LTC_path)/Everything
+main_LTC_ER             = $(LTC_path)/EverythingER
 
-main_module_LTC-PCF        = $(LTC-PCF_path)/Everything
-main_module_LTC-PCF_ER     = $(LTC-PCF_path)/EverythingER
+main_LTC-PCF            = $(LTC-PCF_path)/Everything
+main_LTC-PCF_ER         = $(LTC-PCF_path)/EverythingER
 
-main_module_PA             = $(PA_path)/Properties
+main_PA                 = $(PA_path)/Properties
 
 # Others
-main_module_Consistency    = $(Consistency_path)/README
+main_Consistency        = $(Consistency_path)/README
 
 # Only used to publish the drafts, i.e. non type checking.
-main_module_Draft       = Draft/RenderToHTML
+main_Draft              = Draft/RenderToHTML
 
 ##############################################################################
 # Type checking the Agda modules.
 
 type_checking_ER_% :
-	$(AGDA) ${main_module_$*_ER}.agda
+	$(AGDA) ${main_$*_ER}.agda
 
 type_checking_% :
-	$(AGDA) ${main_module_$*}.agda
+	$(AGDA) ${main_$*}.agda
 
 
-all_type_checking_NER : type_checking_AxiomaticPA \
+all_type_checking_NER : type_checking_AbelianGroupTheory \
+			type_checking_AxiomaticPA \
 			type_checking_Common \
 			type_checking_GroupTheory \
 			type_checking_Logic \
@@ -101,7 +104,8 @@ conjectures_% :
 
 # TODO: We add the conjectures related to the programs, but it
 # duplicates the test.
-all_conjectures : conjectures_AxiomaticPA \
+all_conjectures : conjectures_AbelianGroupTheory \
+	          conjectures_AxiomaticPA \
 		  conjectures_GroupTheory \
 		  conjectures_LogicATP \
 		  conjectures_LTC \
@@ -132,10 +136,11 @@ all_consistency :
 
 publish_% :
 	rm -r -f /tmp/$*/html/
-	$(AGDA) --html --html-dir=/tmp/$*/html/ ${main_module_$*}.agda
+	$(AGDA) --html --html-dir=/tmp/$*/html/ ${main_$*}.agda
 	$(RSYNC) /tmp/$*/html/ $(root_host_dir)/$*/
 
-all_publish : publish_AxiomaticPA \
+all_publish : publish_AbelianGroupTheory \
+	      publish_AxiomaticPA \
 	      publish_Common \
 	      publish_GroupTheory \
 	      publish_Logic \
