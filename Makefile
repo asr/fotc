@@ -43,17 +43,17 @@ main_module_AxiomaticPA    = $(AxiomaticPA_path)/Properties
 main_module_Common         = $(Common_path)/Everything
 
 main_module_GroupTheory    = $(GroupTheory_path)/Properties
-main_module_ER_GroupTheory = $(GroupTheory_path)/PropertiesER
+main_module_GroupTheory_ER = $(GroupTheory_path)/PropertiesER
 
 main_module_Logic          = $(Logic_path)/Logic
 
 main_module_LogicATP       = $(LogicATP_path)/Logic
 
 main_module_LTC            = $(LTC_path)/Everything
-main_module_ER_LTC         = $(LTC_path)/EverythingER
+main_module_LTC_ER         = $(LTC_path)/EverythingER
 
 main_module_LTC-PCF        = $(LTC-PCF_path)/Everything
-main_module_ER_LTC-PCF     = $(LTC-PCF_path)/EverythingER
+main_module_LTC-PCF_ER     = $(LTC-PCF_path)/EverythingER
 
 main_module_PA             = $(PA_path)/Properties
 
@@ -67,7 +67,7 @@ main_module_Draft       = Draft/RenderToHTML
 # Type checking the Agda modules.
 
 type_checking_ER_% :
-	$(AGDA) ${main_module_ER_$*}.agda
+	$(AGDA) ${main_module_$*_ER}.agda
 
 type_checking_% :
 	$(AGDA) ${main_module_$*}.agda
@@ -83,9 +83,9 @@ all_type_checking_NER : type_checking_AxiomaticPA \
 			type_checking_PA \
 			type_checking_Consistency
 
-all_type_checking_ER  : type_checking_ER_GroupTheory \
-			type_checking_ER_LTC \
-			type_checking_ER_LTC-PCF
+all_type_checking_ER  : type_checking_GroupTheory_ER \
+			type_checking_LTC_ER \
+			type_checking_LTC-PCF_ER
 
 all_type_checking     : all_type_checking_NER all_type_checking_ER
 

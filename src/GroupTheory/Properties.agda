@@ -9,31 +9,45 @@ open import GroupTheory.Base
 ------------------------------------------------------------------------------
 
 postulate
-  rightIdentityUnique : (x r : G) → x ∙ r ≡ x → r ≡ ε
+  rightIdentityUnique : ∃D λ u → (∀ x → x ∙ u ≡ x) ∧
+                                 (∀ u' → (∀ x → x ∙ u' ≡ x) → u ≡ u')
 {-# ATP prove rightIdentityUnique #-}
 
 postulate
-  leftIdentityUnique : (x l : G) → l ∙ x ≡ x → l ≡ ε
+  leftIdentityUnique : ∃D λ u → (∀ x → u ∙ x ≡ x) ∧
+                                (∀ u' → (∀ x → u' ∙ x ≡ x) → u ≡ u')
 {-# ATP prove leftIdentityUnique #-}
 
 postulate
-  leftInverseUnique : (x y : G) → x ∙ y ≡ ε → x ≡ y ⁻¹
-{-# ATP prove leftInverseUnique #-}
-
-postulate
-  rightInverseUnique : (x y : G) → x ∙ y ≡ ε → y ≡ x ⁻¹
-{-# ATP prove rightInverseUnique #-}
-
-postulate
-  leftCancellation : (x y z : G) → x ∙ y ≡ x ∙ z → y ≡ z
-{-# ATP prove leftCancellation #-}
-
-postulate
-  rightCancellation : (x y z : G) → y ∙ x ≡ z ∙ x → y ≡ z
+  rightCancellation : ∀ {x y z} → y ∙ x ≡ z ∙ x → y ≡ z
 {-# ATP prove rightCancellation #-}
 
 postulate
-  ⁻¹-involutive : (x : G)  → x ⁻¹ ⁻¹ ≡ x
+  leftCancellation : ∀ {x y z} → x ∙ y ≡ x ∙ z → y ≡ z
+{-# ATP prove leftCancellation #-}
+
+postulate
+  rightInverseUnique : ∀ {x} → ∃D λ r → (x ∙ r ≡ ε) ∧
+                                        (∀ r' → x ∙ r' ≡ ε → r ≡ r')
+{-# ATP prove rightInverseUnique #-}
+
+-- A more appropiate version to be used in the proofs.
+postulate
+  rightInverseUnique' : ∀ {x r} → x ∙ r ≡ ε → x ⁻¹ ≡ r
+{-# ATP prove rightInverseUnique' #-}
+
+postulate
+  leftInverseUnique : ∀ {x} → ∃D λ l → (l ∙ x ≡ ε) ∧
+                                       (∀ l' → l' ∙ x ≡ ε → l ≡ l')
+{-# ATP prove leftInverseUnique #-}
+
+-- A more appropiate version to be used in the proofs.
+postulate
+  leftInverseUnique' : ∀ {x l} → l ∙ x ≡ ε → x ⁻¹ ≡ l
+{-# ATP prove leftInverseUnique' #-}
+
+postulate
+  ⁻¹-involutive : ∀ x → x ⁻¹ ⁻¹ ≡ x
 {-# ATP prove ⁻¹-involutive #-}
 
 postulate
@@ -41,5 +55,5 @@ postulate
 {-# ATP prove identityInverse #-}
 
 postulate
-  inverseDistribution : (x y : G) → (x ∙ y) ⁻¹ ≡ y ⁻¹ ∙ x ⁻¹
+  inverseDistribution : ∀ x y → (x ∙ y) ⁻¹ ≡ y ⁻¹ ∙ x ⁻¹
 {-# ATP prove inverseDistribution #-}
