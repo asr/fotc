@@ -97,5 +97,5 @@ postulate
 -- If the square of every element is the identity, the system is commutative.
 -- From: TPTP (v5.0.0). File: Problems/GRP/GRP001-2.p
 postulate
-  xx≡ε→comm : ∀ {a b c} → (∀ x → x ∙ x ≡ ε) → a ∙ b ≡ c → b ∙ a ≡ c
-{-# ATP prove xx≡ε→comm #-}
+  x²≡ε→comm : (∀ a → a ∙ a ≡ ε) → ∀ {b c d} → b ∙ c ≡ d → c ∙ b ≡ d
+{-# ATP prove x²≡ε→comm #-}

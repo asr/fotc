@@ -252,55 +252,57 @@ inverseDistribution x y = leftInverseUnique' y⁻¹x⁻¹[xy]≡ε
           ε
         ∎
 
-xx≡ε→comm : ∀ {a b c} → (∀ x → x ∙ x ≡ ε) → a ∙ b ≡ c → b ∙ a ≡ c
+-- If the square of every element is the identity, the system is commutative.
+-- From: TPTP (v5.0.0). File: Problems/GRP/GRP001-2.p
+x²≡ε→comm : (∀ a → a ∙ a ≡ ε) → ∀ {b c d} → b ∙ c ≡ d → c ∙ b ≡ d
 -- Paper proof:
--- 1. c(ab)  = cc  (Hypothesis ab = c).
--- 2. c(ab)  = ε   (Hypothesis cc = ε).
--- 3. c(ab)b = b   (By 2).
--- 4. ca(bb) = b   (Associativity).
--- 5. ca     = b   (Hypothesis bb = ε).
--- 6. (ca)a  = ba  (By 5).
--- 7. c(aa)  = ba  (Associativity).
--- 6. c      = ba  (Hypothesis aa = ε).
-xx≡ε→comm {a} {b} {c} hyp ab≡c = sym c≡ba
+-- 1. d(bc)  = dd  (Hypothesis bc = d).
+-- 2. d(bc)  = ε   (Hypothesis dd = ε).
+-- 3. d(bc)c = c   (By 2).
+-- 4. db(cc) = c   (Associativity).
+-- 5. db     = c   (Hypothesis cc = ε).
+-- 6. (db)b  = cb  (By 5).
+-- 7. d(bb)  = cb  (Associativity).
+-- 6. d      = cb  (Hypothesis bb = ε).
+x²≡ε→comm hyp {b} {c} {d} bc≡d = sym d≡cb
   where
-    ca≡b : c ∙ a ≡ b
-    ca≡b =
+    db≡c : d ∙ b ≡ c
+    db≡c =
       begin
-        c ∙ a            ≡⟨ sym (rightIdentity (c ∙ a)) ⟩
-        c ∙ a ∙ ε        ≡⟨ subst (λ t → c ∙ a ∙ ε ≡ c ∙ a ∙ t)
-                                  (sym (hyp b))
+        d ∙ b            ≡⟨ sym (rightIdentity (d ∙ b)) ⟩
+        d ∙ b ∙ ε        ≡⟨ subst (λ t → d ∙ b ∙ ε ≡ d ∙ b ∙ t)
+                                  (sym (hyp c))
                                   refl
                           ⟩
-        c ∙ a ∙ (b ∙ b)   ≡⟨ assoc c a (b ∙ b) ⟩
-        c ∙ (a ∙ (b ∙ b)) ≡⟨ subst (λ t → c ∙ (a ∙ (b ∙ b)) ≡ c ∙ t)
-                                   (sym (assoc a b b))
+        d ∙ b ∙ (c ∙ c)   ≡⟨ assoc d b (c ∙ c) ⟩
+        d ∙ (b ∙ (c ∙ c)) ≡⟨ subst (λ t → d ∙ (b ∙ (c ∙ c)) ≡ d ∙ t)
+                                   (sym (assoc b c c))
                                    refl
                           ⟩
-        c ∙ ((a ∙ b) ∙ b) ≡⟨ subst (λ t → c ∙ ((a ∙ b) ∙ b) ≡ c ∙ t)
-                                   (subst (λ t → (a ∙ b) ∙ b ≡ t ∙ b )
-                                          ab≡c
+        d ∙ ((b ∙ c) ∙ c) ≡⟨ subst (λ t → d ∙ ((b ∙ c) ∙ c) ≡ d ∙ t)
+                                   (subst (λ t → (b ∙ c) ∙ c ≡ t ∙ c )
+                                          bc≡d
                                           refl
                                    )
                                    refl
                           ⟩
-        c ∙ (c ∙ b)       ≡⟨ sym (assoc c c b) ⟩
-        c ∙ c ∙ b         ≡⟨ subst (λ t → c ∙ c ∙ b ≡ t ∙ b )
-                                   (hyp c)
+        d ∙ (d ∙ c)       ≡⟨ sym (assoc d d c) ⟩
+        d ∙ d ∙ c         ≡⟨ subst (λ t → d ∙ d ∙ c ≡ t ∙ c )
+                                   (hyp d)
                                    refl
                           ⟩
-        ε ∙ b             ≡⟨ leftIdentity b ⟩
-        b
+        ε ∙ c             ≡⟨ leftIdentity c ⟩
+        c
       ∎
 
-    c≡ba : c ≡ b ∙ a
-    c≡ba =
+    d≡cb : d ≡ c ∙ b
+    d≡cb =
       begin
-        c           ≡⟨ sym (rightIdentity c) ⟩
-        c ∙ ε       ≡⟨ subst (λ t → c ∙ ε ≡ c ∙ t)
-                             (sym (hyp a))
+        d           ≡⟨ sym (rightIdentity d) ⟩
+        d ∙ ε       ≡⟨ subst (λ t → d ∙ ε ≡ d ∙ t)
+                             (sym (hyp b))
                              refl ⟩
-        c ∙ (a ∙ a) ≡⟨ sym (assoc c a a) ⟩
-        c ∙ a ∙ a   ≡⟨ x≡y→xz≡yz ca≡b ⟩
-        b ∙ a
+        d ∙ (b ∙ b) ≡⟨ sym (assoc d b b) ⟩
+        d ∙ b ∙ b   ≡⟨ x≡y→xz≡yz db≡c ⟩
+        c ∙ b
       ∎
