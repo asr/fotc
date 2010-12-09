@@ -8,6 +8,8 @@
 
 module Test.Consistency.README where
 
+open import Test.Consistency.AbelianGroupTheory.Base.Impossible
+
 open import Test.Consistency.AxiomaticPA.Base.Impossible
 
 open import Test.Consistency.GroupTheory.Base.Impossible
