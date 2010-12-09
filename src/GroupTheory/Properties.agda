@@ -9,14 +9,32 @@ open import GroupTheory.Base
 ------------------------------------------------------------------------------
 
 postulate
+  y≡x⁻¹[xy] : ∀ a b → b ≡ a ⁻¹ ∙ (a ∙ b)
+{-# ATP prove y≡x⁻¹[xy] #-}
+
+postulate
+  x≡[xy]y⁻¹ : ∀ a b → a ≡ (a ∙ b) ∙ b ⁻¹
+{-# ATP prove x≡[xy]y⁻¹ #-}
+
+postulate
   rightIdentityUnique : ∃D λ u → (∀ x → x ∙ u ≡ x) ∧
                                  (∀ u' → (∀ x → x ∙ u' ≡ x) → u ≡ u')
 {-# ATP prove rightIdentityUnique #-}
+
+-- A more appropiate version to be used in the proofs.
+postulate
+  rightIdentityUnique' : ∀ x u → x ∙ u ≡ x → ε ≡ u
+{-# ATP prove rightIdentityUnique' #-}
 
 postulate
   leftIdentityUnique : ∃D λ u → (∀ x → u ∙ x ≡ x) ∧
                                 (∀ u' → (∀ x → u' ∙ x ≡ x) → u ≡ u')
 {-# ATP prove leftIdentityUnique #-}
+
+-- A more appropiate version to be used in the proofs.
+postulate
+  leftIdentityUnique' : ∀ x u → u ∙ x ≡ x → ε ≡ u
+{-# ATP prove leftIdentityUnique' #-}
 
 postulate
   rightCancellation : ∀ {x y z} → y ∙ x ≡ z ∙ x → y ≡ z
@@ -25,6 +43,12 @@ postulate
 postulate
   leftCancellation : ∀ {x y z} → x ∙ y ≡ x ∙ z → y ≡ z
 {-# ATP prove leftCancellation #-}
+
+x≡y→xz≡yz : ∀ {a b c} → a ≡ b → a ∙ c ≡ b ∙ c
+x≡y→xz≡yz refl = refl
+
+x≡y→zx≡zy : ∀ {a b c} → a ≡ b → c ∙ a ≡ c ∙ b
+x≡y→zx≡zy refl = refl
 
 postulate
   rightInverseUnique : ∀ {x} → ∃D λ r → (x ∙ r ≡ ε) ∧
@@ -69,3 +93,9 @@ postulate
   ax≡b-uniqueSolution : ∀ a b → ∃D λ x → (a ∙ x ≡ b) ∧
                                          (∀ x' → a ∙ x' ≡ b → x ≡ x')
 {-# ATP prove ax≡b-uniqueSolution #-}
+
+-- If the square of every element is the identity, the system is commutative.
+-- From: TPTP (v5.0.0). File: Problems/GRP/GRP001-2.p
+postulate
+  xx≡ε→comm : ∀ {a b c} → (∀ x → x ∙ x ≡ ε) → a ∙ b ≡ c → b ∙ a ≡ c
+{-# ATP prove xx≡ε→comm #-}

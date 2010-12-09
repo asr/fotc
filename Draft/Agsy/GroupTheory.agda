@@ -26,6 +26,12 @@ postulate
 
 -- Properties
 
+y≡x⁻¹[xy] : ∀ a b → b ≡ a ⁻¹ ∙ (a ∙ b)
+y≡x⁻¹[xy] a b = {!-t 20 -m!}  -- Agsy fails
+
+x≡[xy]y⁻¹ : ∀ a b → a ≡ (a ∙ b) ∙ b ⁻¹
+x≡[xy]y⁻¹ a b = {!-t 20 -m!}  -- Agsy fails
+
 rightIdentityUnique : Σ G λ u → (∀ x → x ∙ u ≡ x) ×
                                 (∀ u' → (∀ x → x ∙ u' ≡ x) → u ≡ u')
 -- Via Agsy {-m}
@@ -37,6 +43,9 @@ rightIdentityUnique = ε ,
                                  x
                                ∎
 
+rightIdentityUnique' : ∀ x u → x ∙ u ≡ x → ε ≡ u
+rightIdentityUnique' x u xu≡x = {!-t 20 -m!}  -- Agsy fails
+
 leftIdentityUnique : Σ G λ u → (∀ x → u ∙ x ≡ x) ×
                                (∀ u' → (∀ x → u' ∙ x ≡ x) → u ≡ u')
 -- Via Agsy {-m}
@@ -47,6 +56,9 @@ leftIdentityUnique = ε ,
                                 x ∙ ε ≡⟨ rightIdentity x ⟩
                                 x
                               ∎
+
+leftIdentityUnique' : ∀ x u → u ∙ x ≡ x → ε ≡ u
+leftIdentityUnique' x u ux≡x = {!-t 20 -m!}
 
 rightCancellation : ∀ x y z → y ∙ x ≡ z ∙ x → y ≡ z
 rightCancellation x y z = λ hyp → {!-t 20 -m!} -- Agsy fails
@@ -65,9 +77,13 @@ leftInverseUnique : ∀ x → Σ G λ l → (l ∙ x ≡ ε) ×
                                     (∀ l' → l' ∙ x ≡ ε → l ≡ l')
 leftInverseUnique x = {!-t 20 -m!}  -- Agsy fails
 
-
 ⁻¹-involutive : ∀ x  → x ⁻¹ ⁻¹ ≡ x
 ⁻¹-involutive x = {!-t 20 -m!}  -- Agsy fails
 
 inverseDistribution : ∀ x y → (x ∙ y) ⁻¹ ≡ y ⁻¹ ∙ x ⁻¹
 inverseDistribution x y = {!-t 20 -m!}  -- Agsy fails
+
+-- If the square of every element is the identity, the system is commutative.
+-- From: TPTP (v5.0.0). File: Problems/GRP/GRP001-2.p
+xx≡ε→comm : ∀ {a b c} → (∀ x → x ∙ x ≡ ε) → a ∙ b ≡ c → b ∙ a ≡ c
+xx≡ε→comm {a} {b} {c} hyp ab≡c = {!-t 20 -m!}  -- Agsy fails

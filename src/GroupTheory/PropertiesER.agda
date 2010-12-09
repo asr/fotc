@@ -12,6 +12,32 @@ open import Common.Relation.Binary.PropositionalEquality.PropertiesER
 
 ------------------------------------------------------------------------------
 
+-- Adapted from the standard library.
+y≡x⁻¹[xy] : ∀ a b → b ≡ a ⁻¹ ∙ (a ∙ b)
+y≡x⁻¹[xy] a b =
+  begin
+    b              ≡⟨ sym (leftIdentity b) ⟩
+    ε ∙ b          ≡⟨ subst (λ t → ε ∙ b ≡ t ∙ b )
+                            (sym (leftInverse a))
+                            refl
+                   ⟩
+    a ⁻¹ ∙ a ∙ b  ≡⟨ assoc (a ⁻¹) a b ⟩
+    a ⁻¹ ∙ (a ∙ b)
+  ∎
+
+-- Adapted from the standard library.
+x≡[xy]y⁻¹ : ∀ a b → a ≡ (a ∙ b) ∙ b ⁻¹
+x≡[xy]y⁻¹ a b =
+  begin
+    a              ≡⟨ sym (rightIdentity a) ⟩
+    a ∙ ε          ≡⟨ subst (λ t → a ∙ ε ≡ a ∙ t )
+                            (sym (rightInverse b))
+                            refl
+                   ⟩
+    a ∙ (b ∙ b ⁻¹) ≡⟨ sym (assoc a b (b ⁻¹)) ⟩
+    a ∙ b ∙ b ⁻¹
+  ∎
+
 rightIdentityUnique : ∃D λ u → (∀ x → x ∙ u ≡ x) ∧
                                (∀ u' → (∀ x → x ∙ u' ≡ x) → u ≡ u')
 rightIdentityUnique =
@@ -23,6 +49,20 @@ rightIdentityUnique =
 -- 2.3 ε   = u    (Transitivity)
   ε , rightIdentity , λ u' hyp → trans (sym (hyp ε)) (leftIdentity u')
 
+-- A more appropiate version to be used in the proofs.
+-- Adapted from the standard library.
+rightIdentityUnique' : ∀ x u → x ∙ u ≡ x → ε ≡ u
+rightIdentityUnique' x u xu≡x =
+  begin
+    ε              ≡⟨ sym (leftInverse x) ⟩
+    x ⁻¹ ∙ x       ≡⟨ subst (λ t → x ⁻¹ ∙ x ≡ x ⁻¹ ∙ t )
+                            (sym xu≡x)
+                            refl
+                   ⟩
+    x ⁻¹ ∙ (x ∙ u) ≡⟨ sym (y≡x⁻¹[xy] x u) ⟩
+    u
+  ∎
+
 leftIdentityUnique : ∃D λ u → (∀ x → u ∙ x ≡ x) ∧
                               (∀ u' → (∀ x → u' ∙ x ≡ x) → u ≡ u')
 leftIdentityUnique =
@@ -33,6 +73,20 @@ leftIdentityUnique =
 -- 2.2 u'ε = u    (Right identity)
 -- 2.3 ε   = u    (Transitivity)
   ε , leftIdentity , λ u' hyp → trans (sym (hyp ε)) (rightIdentity u')
+
+-- A more appropiate version to be used in the proofs.
+-- Adapted from the standard library.
+leftIdentityUnique' : ∀ x u → u ∙ x ≡ x → ε ≡ u
+leftIdentityUnique' x u ux≡x =
+  begin
+    ε              ≡⟨ sym (rightInverse x) ⟩
+    x ∙ x ⁻¹       ≡⟨ subst (λ t → x ∙ x ⁻¹ ≡ t ∙ x ⁻¹)
+                            (sym ux≡x)
+                            refl
+                   ⟩
+    u ∙ x ∙ x ⁻¹   ≡⟨ sym (x≡[xy]y⁻¹ u x) ⟩
+    u
+  ∎
 
 rightCancellation : ∀ {x y z} → y ∙ x ≡ z ∙ x → y ≡ z
 rightCancellation {x} {y} {z} yx≡zx =
@@ -76,6 +130,12 @@ leftCancellation {x} {y} {z} xy≡xz =
     z
   ∎
 
+x≡y→xz≡yz : ∀ {a b c} → a ≡ b → a ∙ c ≡ b ∙ c
+x≡y→xz≡yz refl = refl
+
+x≡y→zx≡zy : ∀ {a b c} → a ≡ b → c ∙ a ≡ c ∙ b
+x≡y→zx≡zy refl = refl
+
 rightInverseUnique : ∀ {x} → ∃D λ r → (x ∙ r ≡ ε) ∧
                                       (∀ r' → x ∙ r' ≡ ε → r ≡ r')
 rightInverseUnique {x} =
@@ -86,23 +146,30 @@ rightInverseUnique {x} =
 -- 2.2. xr   = ε  (Hypothesis).
 -- 2.3. xx⁻¹ = xr (Transitivity).
 -- 2.4  x⁻¹  = r  (Left cancellation).
-  (x ⁻¹) , rightInverse x , λ r' hyp → leftCancellation
-    ( begin
-        x ∙ x ⁻¹ ≡⟨ rightInverse x ⟩
-        ε        ≡⟨ sym hyp ⟩
-        x ∙ r'
-      ∎
-    )
+  (x ⁻¹) , rightInverse x , prf
+    where
+      prf : ∀ r' → x ∙ r' ≡ ε → x ⁻¹ ≡ r'
+      prf r' xr'≡ε = leftCancellation xx⁻¹≡xr'
+        where
+          xx⁻¹≡xr' :  x ∙ x ⁻¹ ≡ x ∙ r'
+          xx⁻¹≡xr' =
+            begin
+              x ∙ x ⁻¹ ≡⟨ rightInverse x ⟩
+              ε        ≡⟨ sym xr'≡ε ⟩
+              x ∙ r'
+            ∎
 
 -- A more appropiate version to be used in the proofs.
 rightInverseUnique' : ∀ {x r} → x ∙ r ≡ ε → x ⁻¹ ≡ r
-rightInverseUnique' {x} {r} = λ hyp → leftCancellation
-  ( begin
-      x ∙ x ⁻¹ ≡⟨ rightInverse x ⟩
-      ε        ≡⟨ sym hyp ⟩
-      x ∙ r
-    ∎
-  )
+rightInverseUnique' {x} {r} xr≡ε = leftCancellation xx⁻¹≡xr
+  where
+    xx⁻¹≡xr :  x ∙ x ⁻¹ ≡ x ∙ r
+    xx⁻¹≡xr =
+      begin
+        x ∙ x ⁻¹ ≡⟨ rightInverse x ⟩
+        ε        ≡⟨ sym xr≡ε ⟩
+        x ∙ r
+      ∎
 
 leftInverseUnique : ∀ {x} → ∃D λ l → (l ∙ x ≡ ε) ∧
                                      (∀ l' → l' ∙ x ≡ ε → l ≡ l')
@@ -114,23 +181,30 @@ leftInverseUnique {x} =
 -- 2.2. lx   = ε  (Hypothesis).
 -- 2.3. x⁻¹x = lx (Transitivity).
 -- 2.4  x⁻¹  = l  (Right cancellation).
-  (x ⁻¹) , leftInverse x , λ l' hyp → rightCancellation
-    ( begin
-        x ⁻¹ ∙ x ≡⟨ leftInverse x ⟩
-        ε ≡⟨ sym hyp ⟩
-        l' ∙ x
-      ∎
-    )
+  (x ⁻¹) , leftInverse x , prf
+    where
+      prf : ∀ l' → l' ∙ x ≡ ε → x ⁻¹ ≡ l'
+      prf l' l'x≡ε = rightCancellation x⁻¹x≡l'x
+        where
+          x⁻¹x≡l'x : x ⁻¹ ∙ x ≡ l' ∙ x
+          x⁻¹x≡l'x =
+            begin
+              x ⁻¹ ∙ x ≡⟨ leftInverse x ⟩
+              ε        ≡⟨ sym l'x≡ε ⟩
+              l' ∙ x
+            ∎
 
 -- A more appropiate version to be used in the proofs.
 leftInverseUnique' : ∀ {x l} → l ∙ x ≡ ε → x ⁻¹ ≡ l
-leftInverseUnique' {x} {l} = λ hyp → rightCancellation
-  ( begin
-      x ⁻¹ ∙ x ≡⟨ leftInverse x ⟩
-      ε        ≡⟨ sym hyp ⟩
-      l ∙ x
-    ∎
-  )
+leftInverseUnique' {x} {l} lx≡ε = rightCancellation x⁻¹x≡lx
+  where
+    x⁻¹x≡lx : x ⁻¹ ∙ x ≡ l ∙ x
+    x⁻¹x≡lx =
+      begin
+        x ⁻¹ ∙ x ≡⟨ leftInverse x ⟩
+        ε        ≡⟨ sym lx≡ε ⟩
+        l ∙ x
+      ∎
 
 ⁻¹-involutive : ∀ x → x ⁻¹ ⁻¹ ≡ x
 -- Paper proof:
@@ -177,3 +251,56 @@ inverseDistribution x y = leftInverseUnique' y⁻¹x⁻¹[xy]≡ε
           y ⁻¹ ∙ y                ≡⟨ leftInverse y ⟩
           ε
         ∎
+
+xx≡ε→comm : ∀ {a b c} → (∀ x → x ∙ x ≡ ε) → a ∙ b ≡ c → b ∙ a ≡ c
+-- Paper proof:
+-- 1. c(ab)  = cc  (Hypothesis ab = c).
+-- 2. c(ab)  = ε   (Hypothesis cc = ε).
+-- 3. c(ab)b = b   (By 2).
+-- 4. ca(bb) = b   (Associativity).
+-- 5. ca     = b   (Hypothesis bb = ε).
+-- 6. (ca)a  = ba  (By 5).
+-- 7. c(aa)  = ba  (Associativity).
+-- 6. c      = ba  (Hypothesis aa = ε).
+xx≡ε→comm {a} {b} {c} hyp ab≡c = sym c≡ba
+  where
+    ca≡b : c ∙ a ≡ b
+    ca≡b =
+      begin
+        c ∙ a            ≡⟨ sym (rightIdentity (c ∙ a)) ⟩
+        c ∙ a ∙ ε        ≡⟨ subst (λ t → c ∙ a ∙ ε ≡ c ∙ a ∙ t)
+                                  (sym (hyp b))
+                                  refl
+                          ⟩
+        c ∙ a ∙ (b ∙ b)   ≡⟨ assoc c a (b ∙ b) ⟩
+        c ∙ (a ∙ (b ∙ b)) ≡⟨ subst (λ t → c ∙ (a ∙ (b ∙ b)) ≡ c ∙ t)
+                                   (sym (assoc a b b))
+                                   refl
+                          ⟩
+        c ∙ ((a ∙ b) ∙ b) ≡⟨ subst (λ t → c ∙ ((a ∙ b) ∙ b) ≡ c ∙ t)
+                                   (subst (λ t → (a ∙ b) ∙ b ≡ t ∙ b )
+                                          ab≡c
+                                          refl
+                                   )
+                                   refl
+                          ⟩
+        c ∙ (c ∙ b)       ≡⟨ sym (assoc c c b) ⟩
+        c ∙ c ∙ b         ≡⟨ subst (λ t → c ∙ c ∙ b ≡ t ∙ b )
+                                   (hyp c)
+                                   refl
+                          ⟩
+        ε ∙ b             ≡⟨ leftIdentity b ⟩
+        b
+      ∎
+
+    c≡ba : c ≡ b ∙ a
+    c≡ba =
+      begin
+        c           ≡⟨ sym (rightIdentity c) ⟩
+        c ∙ ε       ≡⟨ subst (λ t → c ∙ ε ≡ c ∙ t)
+                             (sym (hyp a))
+                             refl ⟩
+        c ∙ (a ∙ a) ≡⟨ sym (assoc c a a) ⟩
+        c ∙ a ∙ a   ≡⟨ x≡y→xz≡yz ca≡b ⟩
+        b ∙ a
+      ∎
