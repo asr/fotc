@@ -74,7 +74,6 @@ type_checking_ER_% :
 type_checking_% :
 	$(AGDA) ${main_$*}.agda
 
-
 all_type_checking_NER : type_checking_AbelianGroupTheory \
 			type_checking_AxiomaticPA \
 			type_checking_Common \
