@@ -4,7 +4,7 @@
 -- In some modules, we declare Agda postulates as FOL axioms. We
 -- test in these modules if it is possible to prove an unprovable
 -- theorem from these axioms (see the rule all_consistency in
--- src/Makefile).
+-- ../../Makefile).
 
 module Test.Consistency.README where
 
