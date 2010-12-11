@@ -12,37 +12,40 @@ open import Common.Relation.Binary.PropositionalEquality.PropertiesER
 
 ------------------------------------------------------------------------------
 
-stanovsky : ∀ u x y z → (x ∙ y ∙ (z ∙ u)) ∙
+Stanovsky : ∀ u x y z → (x ∙ y ∙ (z ∙ u)) ∙
                         (( x ∙ y ∙ ( z ∙ u)) ∙ (x ∙ z ∙ (y ∙ u))) ≡
                         x ∙ z ∙ (y ∙ u)
--- Paper proof: Proposition 2 of David Stanovsky. Distributive
--- groupoids are symmetrical-by-medial: An elementary
--- proof. Comment. Math. Univ. Carolinae 49/4 (2008), 541--546.
 
-stanovsky u x y z =
+-- Paper proof: Proposition 2 of [1].
+
+-- [1] David Stanovsky. Distributive groupoids are symmetrical-by-medial: An
+-- elementary proof. Commentations Mathematicae Universitatis Carolinae,
+-- 49(4):541–546, 2008.
+
+Stanovsky u x y z =
   begin
     xy∙zu ∙ (xy∙zu ∙ xz∙yu)
-      ≡⟨ s₁ ⟩
+      ≡⟨ j₁ ⟩
     xy∙zu ∙ (x∙zu ∙ y∙zu ∙ xz∙yu)
-      ≡⟨ s₂ ⟩
+      ≡⟨ j₂ ⟩
     xy∙zu ∙ (x∙zu ∙ xz∙yu ∙ (y∙zu ∙ xz∙yu))
-      ≡⟨ s₃ ⟩
+      ≡⟨ j₃ ⟩
     xy∙zu ∙ (xz∙xu ∙ xz∙yu ∙ (y∙zu ∙ xz∙yu))
-      ≡⟨ s₄ ⟩
+      ≡⟨ j₄ ⟩
     xy∙zu ∙ (x ∙ z ∙ xu∙yu ∙ (y∙zu ∙ xz∙yu))
-      ≡⟨ s₅ ⟩
+      ≡⟨ j₅ ⟩
     xy∙zu ∙ (x ∙ z ∙ (x ∙ y ∙ u) ∙ (y∙zu ∙ xz∙yu))
-      ≡⟨ s₆ ⟩
+      ≡⟨ j₆ ⟩
     xy∙zu ∙ (x ∙ z ∙ (x ∙ y ∙ u) ∙ (yz∙yu ∙ xz∙yu))
-      ≡⟨ s₇ ⟩
+      ≡⟨ j₇ ⟩
     xy∙zu ∙ (x ∙ z ∙ (x ∙ y ∙ u) ∙ (yz∙xz ∙ (y ∙ u)))
-      ≡⟨ s₈ ⟩
+      ≡⟨ j₈ ⟩
     xy∙zu ∙ (x ∙ z ∙ (x ∙ y ∙ u) ∙ (y ∙ x ∙ z ∙ (y ∙ u)))
       ≡⟨ p ⟩
     xz∙yu
   ∎
   where
-    -- Three terms
+    -- Three terms abbreviations
 
     x∙yu : G
     x∙yu = x ∙ (y ∙ u)
@@ -53,7 +56,7 @@ stanovsky u x y z =
     y∙zu : G
     y∙zu = y ∙ (z ∙ u)
 
-    -- Four terms
+    -- Four terms abbreviations
 
     xu∙yu : G
     xu∙yu = x ∙ u ∙ (y ∙ u)
@@ -73,42 +76,42 @@ stanovsky u x y z =
     yz∙xz : G
     yz∙xz = y ∙ z ∙ (x ∙ z)
 
-    -- Steps
+    -- Steps justifications
 
-    s₁ = subst (λ t → xy∙zu ∙ (xy∙zu ∙ xz∙yu) ≡ xy∙zu ∙ (t ∙ xz∙yu))
+    j₁ = subst (λ t → xy∙zu ∙ (xy∙zu ∙ xz∙yu) ≡ xy∙zu ∙ (t ∙ xz∙yu))
                (rightDistributive x y (z ∙ u))
                refl
 
-    s₂ = subst (λ t → xy∙zu ∙ (x∙zu ∙ y∙zu ∙ xz∙yu) ≡ xy∙zu ∙ t)
+    j₂ = subst (λ t → xy∙zu ∙ (x∙zu ∙ y∙zu ∙ xz∙yu) ≡ xy∙zu ∙ t)
                (rightDistributive x∙zu y∙zu xz∙yu)
                refl
 
-    s₃ = subst (λ t → xy∙zu ∙ (x∙zu ∙ xz∙yu ∙ (y∙zu ∙ xz∙yu)) ≡
+    j₃ = subst (λ t → xy∙zu ∙ (x∙zu ∙ xz∙yu ∙ (y∙zu ∙ xz∙yu)) ≡
                       xy∙zu ∙ (t ∙ xz∙yu ∙ (y∙zu ∙ xz∙yu)))
                (leftDistributive x z u)
                refl
 
-    s₄ = subst (λ t → xy∙zu ∙ (xz∙xu ∙ xz∙yu ∙ (y∙zu ∙ xz∙yu)) ≡
+    j₄ = subst (λ t → xy∙zu ∙ (xz∙xu ∙ xz∙yu ∙ (y∙zu ∙ xz∙yu)) ≡
                       xy∙zu ∙ (t ∙ (y∙zu ∙ xz∙yu)))
                (sym (leftDistributive (x ∙ z) (x ∙ u) (y ∙ u)))
                refl
 
-    s₅ = subst (λ t → xy∙zu ∙ (x ∙ z ∙ xu∙yu ∙ (y∙zu ∙ xz∙yu)) ≡
+    j₅ = subst (λ t → xy∙zu ∙ (x ∙ z ∙ xu∙yu ∙ (y∙zu ∙ xz∙yu)) ≡
                       xy∙zu ∙ (x ∙ z ∙ t ∙ (y∙zu ∙ xz∙yu)))
                (sym (rightDistributive x y u))
                refl
 
-    s₆ = subst (λ t → xy∙zu ∙ (x ∙ z ∙ (x ∙ y ∙ u) ∙ (y∙zu ∙ xz∙yu)) ≡
+    j₆ = subst (λ t → xy∙zu ∙ (x ∙ z ∙ (x ∙ y ∙ u) ∙ (y∙zu ∙ xz∙yu)) ≡
                       xy∙zu ∙ (x ∙ z ∙ (x ∙ y ∙ u) ∙ (t ∙ xz∙yu)))
                (leftDistributive y z u)
                refl
 
-    s₇ = subst (λ t → xy∙zu ∙ (x ∙ z ∙ (x ∙ y ∙ u) ∙ (yz∙yu ∙ xz∙yu)) ≡
+    j₇ = subst (λ t → xy∙zu ∙ (x ∙ z ∙ (x ∙ y ∙ u) ∙ (yz∙yu ∙ xz∙yu)) ≡
                       xy∙zu ∙ (x ∙ z ∙ (x ∙ y ∙ u) ∙ t))
                (sym (rightDistributive (y ∙ z) (x ∙ z) (y ∙ u)))
                refl
 
-    s₈ = subst (λ t → xy∙zu ∙ (x ∙ z ∙ (x ∙ y ∙ u) ∙ (yz∙xz ∙ (y ∙ u))) ≡
+    j₈ = subst (λ t → xy∙zu ∙ (x ∙ z ∙ (x ∙ y ∙ u) ∙ (yz∙xz ∙ (y ∙ u))) ≡
                      xy∙zu ∙ (x ∙ z ∙ (x ∙ y ∙ u) ∙ (t ∙ (y ∙ u))))
                (sym (rightDistributive y x z))
                refl
