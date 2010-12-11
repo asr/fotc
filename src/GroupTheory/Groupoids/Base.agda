@@ -2,7 +2,7 @@
 -- Distributive groupoids base
 ------------------------------------------------------------------------------
 
-module Draft.Groupoids.Base where
+module GroupTheory.Groupoids.Base where
 
 -- We add 3 to the fixities of the standard library.
 -- infix  11 _⁻¹

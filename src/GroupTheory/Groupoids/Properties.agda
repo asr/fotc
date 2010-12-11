@@ -2,9 +2,9 @@
 -- Distributive groupoids properties
 ------------------------------------------------------------------------------
 
-module Draft.Groupoids.Properties where
+module GroupTheory.Groupoids.Properties where
 
-open import Draft.Groupoids.Base
+open import GroupTheory.Groupoids.Base
 
 ------------------------------------------------------------------------------
 
