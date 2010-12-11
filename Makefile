@@ -44,8 +44,8 @@ main_AxiomaticPA        = $(AxiomaticPA_path)/Properties
 
 main_Common             = $(Common_path)/Everything
 
-main_GroupTheory        = $(GroupTheory_path)/Properties
-main_GroupTheory_ER     = $(GroupTheory_path)/PropertiesER
+main_GroupTheory        = $(GroupTheory_path)/Everything
+main_GroupTheory_ER     = $(GroupTheory_path)/EverythingER
 
 main_Logic              = $(Logic_path)/Logic
 
