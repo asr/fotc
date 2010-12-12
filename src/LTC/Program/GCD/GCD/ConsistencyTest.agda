@@ -1,15 +1,19 @@
 ------------------------------------------------------------------------------
--- Test the consistency of LTC.Data.Nat
+-- Test the consistency of LTC.Program.GCD.GCD
 ------------------------------------------------------------------------------
 
-module Test.Consistency.LTC.Data.Nat.Impossible where
+-- In the module LTC.Program.GCD.GCD we declare Agda postulates as FOL
+-- axioms. We test if it is possible to prove an unprovable theorem
+-- from these axioms.
+
+module LTC.Program.GCD.GCD.ConsistencyTest where
 
 open import LTC.Base
 
-open import LTC.Data.Nat
+open import LTC.Program.GCD.GCD
 
 ------------------------------------------------------------------------------
--- See Test.Consistency.README
+
 postulate
   impossible : (d e : D) → d ≡ e
 {-# ATP prove impossible #-}

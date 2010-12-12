@@ -1,13 +1,19 @@
 ------------------------------------------------------------------------------
--- Test the consistency of LTC.Base
+-- Test the consistency of LTC.Data.Bool
 ------------------------------------------------------------------------------
 
-module Test.Consistency.LTC.Base.Impossible where
+-- In the module LTC.Data.Bool we declare Agda postulates as FOL
+-- axioms. We test if it is possible to prove an unprovable theorem
+-- from these axioms.
+
+module LTC.Data.Bool.ConsistencyTest where
 
 open import LTC.Base
 
+open import LTC.Data.Bool
+
 ------------------------------------------------------------------------------
--- See Test.Consistency.README
+
 postulate
   impossible : (d e : D) → d ≡ e
 {-# ATP prove impossible #-}

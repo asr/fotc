@@ -2,12 +2,16 @@
 -- Test the consistency of AxiomaticPA.Base
 ------------------------------------------------------------------------------
 
-module Test.Consistency.AxiomaticPA.Base.Impossible where
+-- In the module AxiomaticPA.Base we declare Agda postulates as FOL
+-- axioms. We test if it is possible to prove an unprovable theorem
+-- from these axioms.
+
+module AxiomaticPA.Base.ConsistencyTest where
 
 open import AxiomaticPA.Base
 
 ------------------------------------------------------------------------------
--- See Test.Consistency.README
+
 postulate
   impossible : (m n : ℕ) → m ≡ n
 {-# ATP prove impossible #-}

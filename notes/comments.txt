@@ -1,0 +1,8 @@
+-- E 1.2 no-success due to timeout (180).
+-- Equinox 5.0alpha (2010-06-29) no-success due to timeout (180).
+-- Metis 2.3 (release 20101019) no-success due to timeout (180).
+
+-- The LTC booleans type.
+-- The LTC list of natural numbers type.
+-- The LTC natural numbers type.
+-- The LTC tree type.

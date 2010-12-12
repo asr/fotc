@@ -1,15 +1,19 @@
 ------------------------------------------------------------------------------
--- Test the consistency of LTC.Program.SortList.SortList
+-- Test the consistency of LTC.Data.List
 ------------------------------------------------------------------------------
 
-module Test.Consistency.LTC.Program.SortList.SortList.Impossible where
+-- In the module LTC.Data.List we declare Agda postulates as FOL
+-- axioms. We test if it is possible to prove an unprovable theorem
+-- from these axioms.
+
+module LTC.Data.List.ConsistencyTest where
 
 open import LTC.Base
 
-open import LTC.Program.SortList.SortList
+open import LTC.Data.List
 
 ------------------------------------------------------------------------------
--- See Test.Consistency.README
+
 postulate
   impossible : (d e : D) → d ≡ e
 {-# ATP prove impossible #-}

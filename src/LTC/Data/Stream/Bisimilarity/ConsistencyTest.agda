@@ -1,15 +1,19 @@
 ------------------------------------------------------------------------------
--- Test the consistency of LTC.Program.GCD.GCD
+-- Test the consistency of LTC.Data.Stream.Bisimilarity
 ------------------------------------------------------------------------------
 
-module Test.Consistency.LTC.Program.GCD.GCD.Impossible where
+-- In the module LTC.Data.Stream.Bisimilarity we declare Agda
+-- postulates as FOL axioms. We test if it is possible to prove an
+-- unprovable theorem from these axioms.
+
+module LTC.Data.Stream.Bisimilarity.ConsistencyTest where
 
 open import LTC.Base
 
-open import LTC.Program.GCD.GCD
+open import LTC.Data.Stream.Bisimilarity
 
 ------------------------------------------------------------------------------
--- See Test.Consistency.README
+
 postulate
   impossible : (d e : D) → d ≡ e
 {-# ATP prove impossible #-}

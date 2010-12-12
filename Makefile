@@ -32,15 +32,13 @@ GCD_path         = $(LTC_path)/Program/GCD
 GCD-PCF_path     = $(LTC-PCF_path)/Program/GCD
 SortList_path    = $(LTC_path)/Program/SortList
 
-# Others
-Consistency_path = Test/Consistency
-
 ##############################################################################
 # "main" modules
 
 # Theories
-main_AbelianGroupTheory = $(AbelianGroupTheory_path)/Properties
-main_AxiomaticPA        = $(AxiomaticPA_path)/Properties
+main_AbelianGroupTheory = $(AbelianGroupTheory_path)/Everything
+
+main_AxiomaticPA        = $(AxiomaticPA_path)/Everything
 
 main_Common             = $(Common_path)/Everything
 
@@ -58,9 +56,6 @@ main_LTC-PCF            = $(LTC-PCF_path)/Everything
 main_LTC-PCF_ER         = $(LTC-PCF_path)/EverythingER
 
 main_PA                 = $(PA_path)/Properties
-
-# Others
-main_Consistency        = $(Consistency_path)/README
 
 # Only used to publish the drafts, i.e. non type checking.
 main_Draft              = Draft/RenderToHTML
@@ -82,8 +77,7 @@ all_type_checking_NER : type_checking_AbelianGroupTheory \
 			type_checking_LogicATP \
 			type_checking_LTC \
 			type_checking_LTC-PCF \
-			type_checking_PA \
-			type_checking_Consistency
+			type_checking_PA
 
 all_type_checking_ER  : type_checking_GroupTheory_ER \
 			type_checking_LTC_ER \
@@ -96,7 +90,7 @@ all_type_checking     : all_type_checking_NER all_type_checking_ER
 
 conjectures_% :
 	for file in \
-          `find $($*_path) -name '*.agda' | xargs grep -l 'ATP prove'`; do \
+          `find $($*_path) -name '*.agda' | xargs grep -l 'ATP prove' | xargs grep -L 'ConsistencyTest'`; do \
             if ! ( ${AGDA} $${file} ); then exit 1; fi; \
 	    if ! ( ${AGDA2ATP} --time=300 $${file} ); then exit 1; fi; \
 	done
@@ -118,14 +112,27 @@ all_conjectures : conjectures_AbelianGroupTheory \
 ##############################################################################
 # Consistency test
 
+# Consistency test files
+# AbelianGroupTheory.Base.ConsistencyTest
+# AxiomaticPA.Base.ConsistencyTest
+# GroupTheory.Base.ConsistencyTest
+# LTC.Base.ConsistencyTest.agda
+# LTC.Data.Bool.ConsistencyTest.agda
+# LTC.Data.List.ConsistencyTest.agda
+# LTC.Data.Nat.ConsistencyTest.agda
+# LTC.Data.Nat.Inequalities.ConsistencyTest.agda
+# LTC.Data.Stream.Bisimilarity.ConsistencyTest
+# LTC.Program.GCD.GCD.ConsistencyTest
+# LTC.Program.SortList.SortList.ConsistencyTest
+
 # Because we are using the option --unproved-conjecture-error we
 # revert the agda2atp output.
-all_consistency :
-	for file in \
-          `find $(Consistency_path) -name '*.agda' | xargs grep -l 'ATP prove'`; do \
-            if ! ( ${AGDA} $${file} ); then exit 1; fi; \
-	    if ( ${AGDA2ATP} --time=10 $${file} ); then exit 1; fi; \
-	done
+# all_consistency :
+# 	for file in \
+#           `find $(Consistency_path) -name '*.agda' | xargs grep -l 'ATP prove'`; do \
+#             if ! ( ${AGDA} $${file} ); then exit 1; fi; \
+# 	    if ( ${AGDA2ATP} --time=10 $${file} ); then exit 1; fi; \
+# 	done
 
 ##############################################################################
 # Publish the .html files
@@ -146,14 +153,13 @@ all_publish : publish_AbelianGroupTheory \
 	      publish_LogicATP \
 	      publish_LTC \
 	      publish_LTC-PCF \
-	      publish_PA \
-	      publish_Consistency
+	      publish_PA
 
 ##############################################################################
 # Other stuff
 
 TODO :
-	@find src/ Test/ -name '*.agda' | xargs grep TODO
+	@find src/ -name '*.agda' | xargs grep TODO
 
 clean :
 	@find -name '*.agdai' | xargs rm -f
