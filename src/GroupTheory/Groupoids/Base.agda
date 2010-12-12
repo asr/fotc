@@ -24,7 +24,7 @@ open import Common.Relation.Binary.PropositionalEquality.Properties public
 
 -- Distributive groupoids axioms
 
--- From: David Stanovsky. Distributive groupoids are
+-- From: David Stanovský. Distributive groupoids are
 -- symmetrical-by-medial: An elementary proof. Commentations
 -- Mathematicae Universitatis Carolinae, 49(4):541–546, 2008.
 postulate

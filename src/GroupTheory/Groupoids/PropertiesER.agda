@@ -18,9 +18,9 @@ Stanovsky : ∀ u x y z → (x ∙ y ∙ (z ∙ u)) ∙
 
 -- Paper proof: Proposition 2 of [1].
 
--- [1] David Stanovsky. Distributive groupoids are symmetrical-by-medial: An
--- elementary proof. Commentations Mathematicae Universitatis Carolinae,
--- 49(4):541–546, 2008.
+-- [1] David Stanovský. Distributive groupoids are
+-- symmetrical-by-medial: An elementary proof. Commentations
+-- Mathematicae Universitatis Carolinae, 49(4):541–546, 2008.
 
 Stanovsky u x y z =
   begin
