@@ -19,6 +19,7 @@ RSYNC    = rsync --archive --progress --rsh='ssh -p 2024'
 AbelianGroupTheory_path = src/AbelianGroupTheory
 AxiomaticPA_path        = src/AxiomaticPA
 Common_path             = src/Common
+DistributiveLaws_path   = src/DistributiveLaws
 GroupTheory_path        = src/GroupTheory
 Logic_path              = src/Logic/NonATP
 LogicATP_path           = src/Logic/ATP
@@ -41,6 +42,8 @@ main_AbelianGroupTheory = $(AbelianGroupTheory_path)/Everything
 main_AxiomaticPA        = $(AxiomaticPA_path)/Everything
 
 main_Common             = $(Common_path)/Everything
+
+main_DistributiveLaws   = $(DistributiveLaws_path)/Everything
 
 main_GroupTheory        = $(GroupTheory_path)/Everything
 main_GroupTheory_ER     = $(GroupTheory_path)/EverythingER
@@ -72,6 +75,7 @@ type_checking_% :
 all_type_checking_NER : type_checking_AbelianGroupTheory \
 			type_checking_AxiomaticPA \
 			type_checking_Common \
+			type_checking_DistributiveLaws \
 			type_checking_GroupTheory \
 			type_checking_Logic \
 			type_checking_LogicATP \
@@ -99,6 +103,7 @@ conjectures_% :
 # duplicates the test.
 all_conjectures : conjectures_AbelianGroupTheory \
 	          conjectures_AxiomaticPA \
+		  conjectures_DistributiveLaws \
 		  conjectures_GroupTheory \
 		  conjectures_LogicATP \
 		  conjectures_LTC \
@@ -115,8 +120,8 @@ all_conjectures : conjectures_AbelianGroupTheory \
 # Consistency test files
 # AbelianGroupTheory.Base.ConsistencyTest
 # AxiomaticPA.Base.ConsistencyTest
+# DistributiveLaws.Base.ConsistencyTest
 # GroupTheory.Base.ConsistencyTest
-# GroupTheory.Groupoids.Base.ConsistencyTest
 # LTC.Base.ConsistencyTest.agda
 # LTC.Data.Bool.ConsistencyTest.agda
 # LTC.Data.List.ConsistencyTest.agda
@@ -149,6 +154,7 @@ publish_% :
 all_publish : publish_AbelianGroupTheory \
 	      publish_AxiomaticPA \
 	      publish_Common \
+	      publish_DistributiveLaws \
 	      publish_GroupTheory \
 	      publish_Logic \
 	      publish_LogicATP \

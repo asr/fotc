@@ -1,31 +1,27 @@
 ------------------------------------------------------------------------------
--- Distributive groupoids base
+-- Distributive laws base
 ------------------------------------------------------------------------------
 
-module GroupTheory.Groupoids.Base where
+module DistributiveLaws.Base where
 
 -- We add 3 to the fixities of the standard library.
--- infix  11 _⁻¹
 infixl 10 _∙_
 
 ------------------------------------------------------------------------------
 
--- The groupoid universe
-open import Common.Universe public renaming ( D to G )
+-- The universe
+open import Common.Universe public
 
 -- The equality
--- The equality is the propositional identity on the groupoid universe.
+-- The equality is the propositional identity on the universe.
 
 -- N.B. The following module is exported by this module.
 open import Common.Relation.Binary.PropositionalEquality public
 
--- Distributive groupoids axioms
+-- Distributive laws axioms
 
--- From: David Stanovský. Distributive groupoids are
--- symmetrical-by-medial: An elementary proof. Commentations
--- Mathematicae Universitatis Carolinae, 49(4):541–546, 2008.
 postulate
-  _∙_ : G → G → G  -- The groupoid binary operation.
+  _∙_ : D → D → D  -- The binary operation.
 
   leftDistributive  : ∀ x y z → x ∙ (y ∙ z) ≡ (x ∙ y) ∙ (x ∙ z)
   rightDistributive : ∀ x y z → (x ∙ y) ∙ z ≡ (x ∙ z) ∙ (y ∙ z)

@@ -1,29 +1,14 @@
 ------------------------------------------------------------------------------
--- Distributive groupoids properties (using the ATPs and equational reasoning)
+-- Example using distributive laws on a binary operation (using the ATPs)
 ------------------------------------------------------------------------------
 
-module GroupTheory.Groupoids.PropertiesATP-ER1 where
+module DistributiveLaws.ATP.Properties2 where
 
-open import GroupTheory.Groupoids.Base
+open import DistributiveLaws.Base
 
 open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
 
 ------------------------------------------------------------------------------
-
--- In this module we prove the proposition 2 of [1] (see the reference
--- for the paper proof) using a combination of interactive and
--- automatic methodologies.
-
--- 1. ∀ x y z → x ∙ (y ∙ z) ≡ (x ∙ y) ∙ (x ∙ z)
--- 2. ∀ x y z → (x ∙ y) ∙ z ≡ (x ∙ z) ∙ (y ∙ z)
--- ----------------------------------------------
--- ∀ u x y z → (x ∙ y ∙ (z ∙ u)) ∙
---             (( x ∙ y ∙ ( z ∙ u)) ∙ (x ∙ z ∙ (y ∙ u))) ≡
---             x ∙ z ∙ (y ∙ u)
-
--- [1] David Stanovský. Distributive groupoids are
--- symmetrical-by-medial: An elementary proof. Commentations
--- Mathematicae Universitatis Carolinae, 49(4):541–546, 2008.
 
 Stanovsky : ∀ u x y z → (x ∙ y ∙ (z ∙ u)) ∙
                         (( x ∙ y ∙ ( z ∙ u)) ∙ (x ∙ z ∙ (y ∙ u))) ≡

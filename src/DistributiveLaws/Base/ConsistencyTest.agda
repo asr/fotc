@@ -2,16 +2,16 @@
 -- Test the consistency of GroupTheory.Groupoids.Base
 ------------------------------------------------------------------------------
 
--- In the module GroupTheory.Groupoids.Base we declare Agda postulates
+-- In the module DistributiveLaws.Base we declare Agda postulates
 -- as FOL axioms. We test if it is possible to prove an unprovable
 -- theorem from these axioms.
 
-module GroupTheory.Groupoids.Base.ConsistencyTest where
+module DistributiveLaws.Base.ConsistencyTest where
 
-open import GroupTheory.Groupoids.Base
+open import DistributiveLaws.Base
 
 ------------------------------------------------------------------------------
 
 postulate
-  impossible : (d e : G) → d ≡ e
+  impossible : (d e : D) → d ≡ e
 {-# ATP prove impossible #-}
