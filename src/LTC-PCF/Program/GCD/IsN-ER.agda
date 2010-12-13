@@ -2,14 +2,14 @@
 -- The gcd is N (using equational reasoning)
 ------------------------------------------------------------------------------
 
+-- TODO: This module is called IsN-ER, but it not used ER.
+
 module LTC-PCF.Program.GCD.IsN-ER where
 
 open import LTC.Base
 open import LTC.Base.Properties using ( ¬S≡0 )
 
 open import Common.Function using ( _$_ )
-open import Common.Relation.Binary.PropositionalEquality.PropertiesER
-  using ( subst )
 
 open import LTC-PCF.Data.Nat
   using ( _-_

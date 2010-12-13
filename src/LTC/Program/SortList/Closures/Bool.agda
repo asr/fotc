@@ -31,6 +31,7 @@ open import LTC.Program.SortList.SortList
         )
 
 ------------------------------------------------------------------------------
+
 ≤-ItemList-Bool : {item : D} → N item → {is : D} → ListN is →
                   Bool (≤-ItemList item is)
 ≤-ItemList-Bool {item} Nitem nilLN = prf

@@ -2,13 +2,13 @@
 -- Closures properties respect to Tree (using equational reasoning)
 ------------------------------------------------------------------------------
 
+-- TODO: This module is called TreeER, but it not used ER.
+
 module LTC.Program.SortList.Closures.TreeER where
 
 open import LTC.Base
 
 open import Common.Function using ( _$_ )
-open import Common.Relation.Binary.PropositionalEquality.PropertiesER
-  using ( subst )
 
 open import LTC.Data.Nat.List.Type
   using ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.

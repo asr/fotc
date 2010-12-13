@@ -2,6 +2,8 @@
 -- The division program satisfies the specification
 ------------------------------------------------------------------------------
 
+-- TODO: This module is called ProofSpecificationER, but it not used ER.
+
 -- This module proves the correctness of the division program using
 -- repeated subtraction (Dybjer 1985).
 

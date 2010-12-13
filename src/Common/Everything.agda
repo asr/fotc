@@ -13,9 +13,6 @@ open import Common.Function
 
 open import Common.Relation.Binary.EqReasoning
 open import Common.Relation.Binary.PropositionalEquality
-open import Common.Relation.Binary.PropositionalEquality.Properties
-open import Common.Relation.Binary.PropositionalEquality.PropertiesER
-open import Common.Relation.Nullary
 
 open import Common.LogicalConstants
 

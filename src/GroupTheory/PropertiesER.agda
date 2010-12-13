@@ -7,8 +7,6 @@ module GroupTheory.PropertiesER where
 open import GroupTheory.Base
 
 open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
-open import Common.Relation.Binary.PropositionalEquality.PropertiesER
-  using ( subst )
 
 ------------------------------------------------------------------------------
 

@@ -26,13 +26,12 @@ postulate
 
 -- The PA equality
 -- The PA equality is the propositional identity on the PA universe.
--- N.B. The following modules are exported by this module.
+
+-- N.B. The following module is exported by this module.
 -- N.B. We are not using the refl and sym properties because they are
 -- not stated in the proper axioms (see below).
 open import Common.Relation.Binary.PropositionalEquality public
-  using ( _≡_ )
-open import Common.Relation.Binary.PropositionalEquality.Properties public
-  using ( trans )
+  using ( _≡_ ; trans )
 
 -- Proper axioms
 -- (From Elliott Mendelson. Introduction to mathematical

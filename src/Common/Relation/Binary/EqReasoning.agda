@@ -4,9 +4,8 @@
 
 module Common.Relation.Binary.EqReasoning where
 
-open import Common.Relation.Binary.PropositionalEquality using ( _≡_ ; refl )
-open import Common.Relation.Binary.PropositionalEquality.Properties
-  using ( trans )
+open import Common.Relation.Binary.PropositionalEquality
+  using ( _≡_ ; refl ; trans  )
 open import Common.Universe using ( D )
 
 -- We add 3 to the fixities of the standard library.

@@ -8,8 +8,6 @@ module GroupTheory.Commutator.PropertiesER where
 open import GroupTheory.Base
 
 open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
-open import Common.Relation.Binary.PropositionalEquality.PropertiesER
-  using ( subst )
 
 open import GroupTheory.Commutator using ( ⟦_,_⟧ )
 open import GroupTheory.PropertiesER using ( inverseDistribution )

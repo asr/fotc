@@ -1,14 +1,14 @@
 ------------------------------------------------------------------------------
--- Closures properties respect to Bool (using equational reasoning)
+-- Closures properties respect to Bool
 ------------------------------------------------------------------------------
+
+-- TODO: This module is called BoolER, but it not used ER.
 
 module LTC.Program.SortList.Closures.BoolER where
 
 open import LTC.Base
 
 open import Common.Function using ( _$_ )
-open import Common.Relation.Binary.PropositionalEquality.PropertiesER
-  using ( subst )
 
 open import LTC.Data.Bool.Type
   using ( Bool ; tB  -- The LTC booleans type.

@@ -8,8 +8,6 @@ open import LTC.Base
 
 open import Common.Function using ( _$_ )
 open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
-open import Common.Relation.Binary.PropositionalEquality.PropertiesER
-  using ( subst )
 
 open import LTC-PCF.Data.Nat
   using ( _+_ ; +-aux

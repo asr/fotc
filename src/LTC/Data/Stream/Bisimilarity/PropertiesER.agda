@@ -2,13 +2,12 @@
 -- Bisimilarity properties (using equational reasoning)
 ------------------------------------------------------------------------------
 
+-- TODO: This module is called PropertiesER, but it not used ER.
+
 module LTC.Data.Stream.Bisimilarity.PropertiesER where
 
 open import LTC.Base
 open import LTC.Base.Properties using (∷-injective)
-
-open import Common.Relation.Binary.PropositionalEquality.PropertiesER
-  using ( subst )
 
 open import LTC.Data.Stream.Bisimilarity using ( _≈_ ; -≈-gfp₁ )
 

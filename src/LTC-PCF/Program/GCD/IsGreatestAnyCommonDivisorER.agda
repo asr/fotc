@@ -2,6 +2,8 @@
 -- The 'gcd' is greatest that any common divisor (using equational reasoning)
 ------------------------------------------------------------------------------
 
+-- TODO: This module is called IsGreatestAnyCommonDivisorER, but it not used ER.
+
 module LTC-PCF.Program.GCD.IsGreatestAnyCommonDivisorER where
 
 open import LTC.Base

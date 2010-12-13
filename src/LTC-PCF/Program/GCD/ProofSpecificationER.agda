@@ -2,6 +2,8 @@
 -- The gcd program satisfies the specification (using equational reasoning)
 ------------------------------------------------------------------------------
 
+-- TODO: This module is called ProofSpecificationER, but it not used ER.
+
 -- This module proves the correctness of the gcd program using
 -- the Euclid's algorithm.
 

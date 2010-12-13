@@ -69,11 +69,8 @@ postulate
 -- The LTC equality
 -- The LTC equality is the propositional identity on the universal domain.
 
--- N.B. The following modules are exported by this module.
+-- N.B. The following module is exported by this module.
 open import Common.Relation.Binary.PropositionalEquality public
-  using ( _≡_ ; refl )
-open import Common.Relation.Binary.PropositionalEquality.Properties public
-  using ( sym ; trans )
 
 ------------------------------------------------------------------------------
 -- Logical constants

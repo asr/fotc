@@ -2,14 +2,14 @@
 -- The gcd is divisible by any common divisor (using equational reasoning)
 ------------------------------------------------------------------------------
 
+-- TODO: This module is called IsDivisibleER, but it not used ER.
+
 module LTC.Program.GCD.IsDivisibleER where
 
 open import LTC.Base
 open import LTC.Base.Properties using ( ¬S≡0 )
 
 open import Common.Function using ( _$_ )
-open import Common.Relation.Binary.PropositionalEquality.PropertiesER
-  using ( subst )
 
 open import LTC.Data.Nat
   using ( _-_

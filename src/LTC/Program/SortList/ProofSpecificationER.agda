@@ -3,6 +3,8 @@
 -- equational reasoning)
 ------------------------------------------------------------------------------
 
+-- TODO: This module is called ProofSpecificationER, but it not used ER.
+
 -- This module prove the correctness of a program which sorts a list
 -- by converting it into an ordered tree and then back to a list
 -- (Burstall, 1969, pp. 45).
@@ -13,9 +15,6 @@
 module LTC.Program.SortList.ProofSpecificationER where
 
 open import LTC.Base
-
-open import Common.Relation.Binary.PropositionalEquality.PropertiesER
-  using ( subst )
 
 open import LTC.Data.Nat.List.Type
   using ( ListN  -- The LTC list of natural numbers type.

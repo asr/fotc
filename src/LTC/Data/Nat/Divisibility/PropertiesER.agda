@@ -9,8 +9,6 @@ open import LTC.Base.Properties using ( ¬S≡0 )
 
 open import Common.Function using ( _$_ )
 open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
-open import Common.Relation.Binary.PropositionalEquality.PropertiesER
-  using ( subst )
 
 open import LTC.Data.Nat
   using ( _+_ ; _-_

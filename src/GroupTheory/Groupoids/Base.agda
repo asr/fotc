@@ -16,11 +16,8 @@ open import Common.Universe public renaming ( D to G )
 -- The equality
 -- The equality is the propositional identity on the groupoid universe.
 
--- N.B. The following modules are exported by this module.
+-- N.B. The following module is exported by this module.
 open import Common.Relation.Binary.PropositionalEquality public
-  using ( _≡_ ; refl )
-open import Common.Relation.Binary.PropositionalEquality.Properties public
-  using ( sym ; trans )
 
 -- Distributive groupoids axioms
 

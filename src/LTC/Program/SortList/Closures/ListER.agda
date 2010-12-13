@@ -2,13 +2,13 @@
 -- Closures properties respect to List (using equational reasoning)
 ------------------------------------------------------------------------------
 
+-- TODO: This module is called ListER, but it not used ER.
+
 module LTC.Program.SortList.Closures.ListER where
 
 open import LTC.Base
 
 open import Common.Function using ( _$_ )
-open import Common.Relation.Binary.PropositionalEquality.PropertiesER
-  using ( subst )
 
 open import LTC.Data.Nat.List.Type
   using ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.
