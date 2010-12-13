@@ -11,6 +11,7 @@ open import GroupTheory.Commutator
 open import GroupTheory.Commutator.Properties
 
 open import GroupTheory.Groupoids.Base
+open import GroupTheory.Groupoids.Base.ConsistencyTest
 open import GroupTheory.Groupoids.Properties
 open import GroupTheory.Groupoids.PropertiesATP-ER1
 open import GroupTheory.Groupoids.PropertiesATP-ER2

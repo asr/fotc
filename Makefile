@@ -116,6 +116,7 @@ all_conjectures : conjectures_AbelianGroupTheory \
 # AbelianGroupTheory.Base.ConsistencyTest
 # AxiomaticPA.Base.ConsistencyTest
 # GroupTheory.Base.ConsistencyTest
+# GroupTheory.Groupoids.Base.ConsistencyTest
 # LTC.Base.ConsistencyTest.agda
 # LTC.Data.Bool.ConsistencyTest.agda
 # LTC.Data.List.ConsistencyTest.agda
