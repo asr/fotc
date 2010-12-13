@@ -12,16 +12,23 @@ open import Common.Relation.Binary.PropositionalEquality.PropertiesER
 
 ------------------------------------------------------------------------------
 
-Stanovsky : ∀ u x y z → (x ∙ y ∙ (z ∙ u)) ∙
-                        (( x ∙ y ∙ ( z ∙ u)) ∙ (x ∙ z ∙ (y ∙ u))) ≡
-                        x ∙ z ∙ (y ∙ u)
+-- In this module we prove the proposition 2 of [1] (see the
+-- reference for the paper proof) using equational reasoning:
 
--- Paper proof: Proposition 2 of [1].
+-- 1. ∀ x y z → x ∙ (y ∙ z) ≡ (x ∙ y) ∙ (x ∙ z)
+-- 2. ∀ x y z → (x ∙ y) ∙ z ≡ (x ∙ z) ∙ (y ∙ z)
+-- ----------------------------------------------
+-- ∀ u x y z → (x ∙ y ∙ (z ∙ u)) ∙
+--             (( x ∙ y ∙ ( z ∙ u)) ∙ (x ∙ z ∙ (y ∙ u))) ≡
+--             x ∙ z ∙ (y ∙ u)
 
 -- [1] David Stanovský. Distributive groupoids are
 -- symmetrical-by-medial: An elementary proof. Commentations
 -- Mathematicae Universitatis Carolinae, 49(4):541–546, 2008.
 
+Stanovsky : ∀ u x y z → (x ∙ y ∙ (z ∙ u)) ∙
+                        (( x ∙ y ∙ ( z ∙ u)) ∙ (x ∙ z ∙ (y ∙ u))) ≡
+                        x ∙ z ∙ (y ∙ u)
 Stanovsky u x y z =
   begin
     xy∙zu ∙ (xy∙zu ∙ xz∙yu)                                         ≡⟨ j₁ ⟩
