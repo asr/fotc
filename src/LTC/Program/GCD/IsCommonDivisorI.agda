@@ -1,44 +1,40 @@
 ------------------------------------------------------------------------------
--- The gcd is a common divisor (using equational reasoning)
+-- The gcd is a common divisor
 ------------------------------------------------------------------------------
 
--- TODO: This module is called IsCommonDivisorER, but it not used ER.
-
-module LTC-PCF.Program.GCD.IsCommonDivisorER where
+module LTC.Program.GCD.IsCommonDivisorI where
 
 open import LTC.Base
 open import LTC.Base.PropertiesC using ( ¬S≡0 )
 
 open import Common.Function using ( _$_ )
 
-open import LTC-PCF.Data.Nat
+open import LTC.Data.Nat
   using ( _-_
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
-open import LTC-PCF.Data.Nat.Divisibility using ( _∣_ )
-open import LTC-PCF.Data.Nat.Divisibility.PropertiesER
+open import LTC.Data.Nat.Divisibility using ( _∣_ )
+open import LTC.Data.Nat.Divisibility.PropertiesI
   using ( ∣-refl-S
         ; S∣0
         ; x∣y→x∣z→x∣y+z
         )
-open import LTC-PCF.Data.Nat.Induction.Lexicographic
-  using ( wfIndN-LT₂ )
-open import LTC-PCF.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesER
+open import LTC.Data.Nat.Induction.LexicographicI using ( wfIndN-LT₂ )
+open import LTC.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
+open import LTC.Data.Nat.Inequalities.PropertiesI
   using ( ¬0>x
         ; ¬S≤0
-        ; x>y∨x≤y
         ; x>y→x-y+y≡x
         ; x≤y→y-x+x≡y
+        ; x>y∨x≤y
         ; [Sx-Sy,Sy]<[Sx,Sy]
         ; [Sx,Sy-Sx]<[Sx,Sy]
         )
-open import LTC-PCF.Data.Nat.PropertiesER using ( minus-N )
+open import LTC.Data.Nat.PropertiesI using ( minus-N )
 
-open import LTC-PCF.Program.GCD.GCD using ( ¬x≡0∧y≡0 ; gcd )
-open import LTC-PCF.Program.GCD.EquationsER
-  using ( gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S )
-open import LTC-PCF.Program.GCD.IsN-ER using ( gcd-N )
+open import LTC.Program.GCD.GCD
+  using ( ¬x≡0∧y≡0 ; gcd ; gcd-0S ; gcd-S0 ; gcd-S≤S ; gcd-S>S )
+open import LTC.Program.GCD.IsN-I using ( gcd-N )
 
 ------------------------------------------------------------------------------
 -- Common divisor.
@@ -73,7 +69,7 @@ gcd-S≤S-∣₁ :
   gcd (succ m) (succ n) ∣ succ m
 gcd-S≤S-∣₁ {m} {n} Nm Nn ih Sm≤Sn =
   subst (λ x → x ∣ succ m)
-        (sym $ gcd-S≤S Nm Nn Sm≤Sn)
+        (sym $ gcd-S≤S m n Sm≤Sn)
         ih
 
 -- 'gcd (succ m) (succ n) ∣ succ m' when 'succ m > succ n'.
@@ -172,7 +168,7 @@ gcd-S≤S-∣₂ :
 gcd-S≤S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≤Sn =
   -- The first substitution is based on 'gcd m n = gcd m (n - m)'.
   subst (λ x → x ∣ succ n)
-        (sym $ gcd-S≤S Nm Nn Sm≤Sn)
+        (sym $ gcd-S≤S m n Sm≤Sn)
          -- The second substitution is based on.
          -- 'n = (n - m) + m'
         (subst (λ y → gcd (succ m) (succ n - succ m) ∣ y)

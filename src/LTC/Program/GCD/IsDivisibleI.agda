@@ -1,103 +1,104 @@
 ------------------------------------------------------------------------------
--- The gcd is divisible by any common divisor
+-- The gcd is divisible by any common divisor (using equational reasoning)
 ------------------------------------------------------------------------------
 
-module LTC-PCF.Program.GCD.IsDivisible where
+module LTC.Program.GCD.IsDivisibleI where
 
 open import LTC.Base
 open import LTC.Base.PropertiesC using ( ¬S≡0 )
 
 open import Common.Function using ( _$_ )
 
-open import LTC-PCF.Data.Nat
+open import LTC.Data.Nat
   using ( _-_
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
-open import LTC-PCF.Data.Nat.Divisibility using ( _∣_ )
-open import LTC-PCF.Data.Nat.Divisibility.Properties
-  using ( x∣y→x∣z→x∣y-z )
-open import LTC-PCF.Data.Nat.Induction.Lexicographic
-  using ( wfIndN-LT₂ )
-open import LTC-PCF.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
-open import LTC-PCF.Data.Nat.Inequalities.Properties
+open import LTC.Data.Nat.Divisibility using ( _∣_ )
+open import LTC.Data.Nat.Divisibility.PropertiesI using ( x∣y→x∣z→x∣y-z )
+open import LTC.Data.Nat.Induction.LexicographicI using ( wfIndN-LT₂ )
+open import LTC.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
+open import LTC.Data.Nat.Inequalities.PropertiesI
   using ( ¬0>x
         ; ¬S≤0
         ; [Sx-Sy,Sy]<[Sx,Sy]
         ; [Sx,Sy-Sx]<[Sx,Sy]
         ; x>y∨x≤y
         )
-open import LTC-PCF.Data.Nat.Properties using ( minus-N )
+open import LTC.Data.Nat.PropertiesI using ( minus-N )
 
-open import LTC-PCF.Program.GCD.GCD using ( ¬x≡0∧y≡0 ; gcd )
-open import LTC-PCF.Program.GCD.Equations
-  using ( gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S )
-open import LTC-PCF.Program.GCD.IsCommonDivisor using ( CD )
+open import LTC.Program.GCD.GCD
+  using ( ¬x≡0∧y≡0 ; gcd ; gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S )
+open import LTC.Program.GCD.IsCommonDivisorI using ( CD )
 
 ------------------------------------------------------------------------------
 -- Divisible for any common divisor.
 Divisible : D → D → D → Set
 Divisible a b gcd = (c : D) → N c → CD a b c → c ∣ gcd
-{-# ATP definition Divisible #-}
 
 ------------------------------------------------------------------------------
 -- The 'gcd 0 (succ n)' is Divisible.
-postulate
-  gcd-0S-Divisible : {n : D} → N n →
-                     Divisible zero (succ n) (gcd zero (succ n))
-{-# ATP prove gcd-0S-Divisible gcd-0S #-}
+gcd-0S-Divisible : {n : D} → N n → Divisible zero (succ n) (gcd zero (succ n))
+gcd-0S-Divisible {n} _ c _ (c∣0 , c∣Sn) =
+  subst (λ x → c ∣ x) (sym $ gcd-0S n) c∣Sn
 
-postulate
-  gcd-S0-Divisible : {n : D} → N n →
-                     Divisible (succ n) zero (gcd (succ n) zero)
-{-# ATP prove gcd-S0-Divisible gcd-S0 #-}
+------------------------------------------------------------------------------
+-- The 'gcd (succ n) 0' is Divisible.
+gcd-S0-Divisible : {n : D} → N n → Divisible (succ n) zero (gcd (succ n) zero)
+gcd-S0-Divisible {n} _ c _ (c∣Sn , c∣0) =
+  subst (λ x → c ∣ x) (sym $ gcd-S0 n) c∣Sn
 
 ------------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m > succ n' is Divisible.
--- For the proof using the ATP we added the auxliar hypothesis
--- c | succ m → c | succ c → c | succ m - succ n.
-postulate
-  gcd-S>S-Divisible-ah :
-    {m n : D} → N m → N n →
-    (Divisible (succ m - succ n) (succ n) (gcd (succ m - succ n) (succ n))) →
-    GT (succ m) (succ n) →
-    (c : D) → N c → CD (succ m) (succ n) c →
-    (c ∣ succ m - succ n) →
-    c ∣ gcd (succ m) (succ n)
--- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
-{-# ATP prove gcd-S>S-Divisible-ah gcd-S>S #-}
-
 gcd-S>S-Divisible :
   {m n : D} → N m → N n →
   (Divisible (succ m - succ n) (succ n) (gcd (succ m - succ n) (succ n))) →
   GT (succ m) (succ n) →
   Divisible (succ m) (succ n) (gcd (succ m) (succ n))
 gcd-S>S-Divisible {m} {n} Nm Nn acc Sm>Sn c Nc (c∣Sm , c∣Sn) =
-    gcd-S>S-Divisible-ah Nm Nn acc Sm>Sn c Nc (c∣Sm , c∣Sn)
-                         (x∣y→x∣z→x∣y-z Nc (sN Nm) (sN Nn) c∣Sm c∣Sn)
+{-
+Proof:
+   ----------------- (Hip.)
+     c | m    c | n
+   ---------------------- (Thm.)   -------- (Hip.)
+       c | (m - n)                   c | n
+     ------------------------------------------ (IH)
+              c | gcd m (n - m)                          m > n
+             --------------------------------------------------- (gcd def.)
+                             c | gcd m n
+-}
+ subst (λ x → c ∣ x)
+       (sym $ gcd-S>S m n Sm>Sn)
+       (acc c Nc (c|Sm-Sn , c∣Sn))
+ where
+   c|Sm-Sn : c ∣ succ m - succ n
+   c|Sm-Sn = x∣y→x∣z→x∣y-z Nc (sN Nm) (sN Nn) c∣Sm c∣Sn
 
 ------------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m ≤ succ n' is Divisible.
--- For the proof using the ATP we added the auxiliary hypothesis
--- c | succ n → c | succ m → c | succ n - succ m.
-postulate
-  gcd-S≤S-Divisible-ah :
-    {m n : D} → N m → N n →
-    (Divisible (succ m) (succ n - succ m) (gcd (succ m) (succ n - succ m))) →
-    LE (succ m) (succ n) →
-    (c : D) → N c → CD (succ m) (succ n) c →
-    (c ∣ succ n - succ m) →
-    c ∣ gcd (succ m) (succ n)
--- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
-{-# ATP prove gcd-S≤S-Divisible-ah gcd-S≤S #-}
-
 gcd-S≤S-Divisible :
   {m n : D} → N m → N n →
   (Divisible (succ m) (succ n - succ m) (gcd (succ m) (succ n - succ m))) →
   LE (succ m) (succ n) →
   Divisible (succ m) (succ n) (gcd (succ m) (succ n))
 gcd-S≤S-Divisible {m} {n} Nm Nn acc Sm≤Sn c Nc (c∣Sm , c∣Sn) =
-    gcd-S≤S-Divisible-ah Nm Nn acc Sm≤Sn c Nc (c∣Sm , c∣Sn)
-                         (x∣y→x∣z→x∣y-z Nc (sN Nn) (sN Nm) c∣Sn c∣Sm)
+{-
+Proof
+                            ----------------- (Hip.)
+                                c | m    c | n
+        -------- (Hip.)       ---------------------- (Thm.)
+         c | m                      c | n - m
+     ------------------------------------------ (IH)
+              c | gcd m (n - m)                          m ≤ n
+             --------------------------------------------------- (gcd def.)
+                             c | gcd m n
+-}
+
+  subst (λ x → c ∣ x)
+        (sym $ gcd-S≤S m n Sm≤Sn)
+        (acc c Nc (c∣Sm , c|Sn-Sm))
+  where
+    c|Sn-Sm : c ∣ succ n - succ m
+    c|Sn-Sm = x∣y→x∣z→x∣y-z Nc (sN Nn) (sN Nm) c∣Sn c∣Sm
 
 ------------------------------------------------------------------------------
 -- The 'gcd m n' when 'm > n' is Divisible.
@@ -138,7 +139,7 @@ gcd-x≤y-Divisible :
   Divisible m n (gcd m n)
 gcd-x≤y-Divisible zN zN _ _ ¬0≡0∧0≡0 _ _   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
 gcd-x≤y-Divisible zN (sN Nn) _ _  _  c Nc  = gcd-0S-Divisible Nn c Nc
-gcd-x≤y-Divisible (sN Nm) zN _ Sm≤0 _ _ _  = ⊥-elim $ ¬S≤0 Sm≤0
+gcd-x≤y-Divisible (sN Nm) zN _ Sm≤0 _ _ _  = ⊥-elim $ ¬S≤0 Nm Sm≤0
 gcd-x≤y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ c Nc =
   gcd-S≤S-Divisible Nm Nn ih Sm≤Sn c Nc
   where

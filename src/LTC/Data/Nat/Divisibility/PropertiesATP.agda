@@ -2,26 +2,23 @@
 -- Properties of the divisibility relation
 ------------------------------------------------------------------------------
 
-module LTC-PCF.Data.Nat.Divisibility.Properties where
+module LTC.Data.Nat.Divisibility.PropertiesATP where
 
 open import LTC.Base
 open import LTC.Base.PropertiesC using ( ¬S≡0 )
 
 open import Common.Function using ( _$_ )
 
-open import LTC-PCF.Data.Nat
+open import LTC.Data.Nat
   using ( _+_ ; _-_ ; _*_
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
-open import LTC-PCF.Data.Nat.Divisibility using ( _∣_ )
-open import LTC-PCF.Data.Nat.Inequalities using ( LE )
-open import LTC-PCF.Data.Nat.Inequalities.Properties
-  using ( x≤x+y )
-open import LTC-PCF.Data.Nat.Properties
+open import LTC.Data.Nat.Divisibility using ( _∣_ )
+open import LTC.Data.Nat.Inequalities using ( LE )
+open import LTC.Data.Nat.Inequalities.PropertiesATP using ( x≤x+y )
+open import LTC.Data.Nat.PropertiesATP
   using ( +-N ; *-N ; minus-N
-        ; *-0x ; *-Sx
         ; *-leftIdentity
-        ; *-leftZero
         ; [x+y]z≡xz*yz
         ; [x-y]z≡xz*yz
         )
@@ -29,12 +26,13 @@ open import LTC-PCF.Data.Nat.Properties
 ------------------------------------------------------------------------------
 -- Any positive number divides 0.
 postulate S∣0 : {n : D} → N n →  succ n ∣ zero
-{-# ATP prove S∣0 zN *-0x #-}
+{-# ATP prove S∣0 zN #-}
 
 -- The divisibility relation is reflexive for positive numbers.
 -- For the proof using the ATP we added the auxiliary hypothesis
 -- N (succ zero).
 postulate ∣-refl-S-ah : {n : D} → N n → N (succ zero) → succ n ∣ succ n
+-- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
 {-# ATP prove ∣-refl-S-ah sN *-leftIdentity #-}
 
 ∣-refl-S : {n : D} → N n → succ n ∣ succ n
@@ -85,7 +83,7 @@ x∣y→x∣z→x∣y+z (sN Nm) Nn Np
 -- If x divides y, and y is positive, then x ≤ y.
 postulate
   x∣S→x≤S-ah₁ : {m n : D} → succ n ≡ zero * succ m → ⊥
-{-# ATP prove x∣S→x≤S-ah₁ *-leftZero *-0x sN #-}
+{-# ATP prove x∣S→x≤S-ah₁ #-}
 
 -- Nice proof by the ATP.
 postulate
@@ -93,7 +91,7 @@ postulate
                 succ n ≡ succ k * succ m →
                 LE (succ m) (succ n)
 -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
-{-# ATP prove x∣S→x≤S-ah₂ x≤x+y *-N sN *-Sx #-}
+{-# ATP prove x∣S→x≤S-ah₂ x≤x+y *-N sN #-}
 
 x∣S→x≤S : {m n : D} → N m → N n → m ∣ (succ n) → LE m (succ n)
 x∣S→x≤S  zN     Nn (0≠0 , _)                  = ⊥-elim $ 0≠0 refl

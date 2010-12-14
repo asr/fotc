@@ -1,91 +1,75 @@
 ------------------------------------------------------------------------------
--- The gcd is a common divisor (using equational reasoning)
+-- The gcd is a common divisor
 ------------------------------------------------------------------------------
 
--- TODO: This module is called IsCommonDivisorER, but it not used ER.
-
-module LTC-PCF.Program.GCD.IsCommonDivisorER where
+module LTC.Program.GCD.IsCommonDivisorATP where
 
 open import LTC.Base
 open import LTC.Base.PropertiesC using ( ¬S≡0 )
 
 open import Common.Function using ( _$_ )
 
-open import LTC-PCF.Data.Nat
-  using ( _-_
+open import LTC.Data.Nat
+  using ( _+_ ; _-_
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
-open import LTC-PCF.Data.Nat.Divisibility using ( _∣_ )
-open import LTC-PCF.Data.Nat.Divisibility.PropertiesER
+open import LTC.Data.Nat.Divisibility using ( _∣_ )
+open import LTC.Data.Nat.Divisibility.PropertiesATP
   using ( ∣-refl-S
-        ; S∣0
         ; x∣y→x∣z→x∣y+z
         )
-open import LTC-PCF.Data.Nat.Induction.Lexicographic
-  using ( wfIndN-LT₂ )
-open import LTC-PCF.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesER
+open import LTC.Data.Nat.Induction.LexicographicATP using ( wfIndN-LT₂ )
+open import LTC.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
+open import LTC.Data.Nat.Inequalities.PropertiesATP
   using ( ¬0>x
         ; ¬S≤0
-        ; x>y∨x≤y
         ; x>y→x-y+y≡x
         ; x≤y→y-x+x≡y
+        ; x>y∨x≤y
         ; [Sx-Sy,Sy]<[Sx,Sy]
         ; [Sx,Sy-Sx]<[Sx,Sy]
         )
-open import LTC-PCF.Data.Nat.PropertiesER using ( minus-N )
+open import LTC.Data.Nat.PropertiesATP using ( minus-N )
 
-open import LTC-PCF.Program.GCD.GCD using ( ¬x≡0∧y≡0 ; gcd )
-open import LTC-PCF.Program.GCD.EquationsER
-  using ( gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S )
-open import LTC-PCF.Program.GCD.IsN-ER using ( gcd-N )
+open import LTC.Program.GCD.GCD using ( ¬x≡0∧y≡0 ; gcd )
+open import LTC.Program.GCD.IsN-ATP using ( gcd-N )
 
 ------------------------------------------------------------------------------
 -- Common divisor.
 CD : D → D → D → Set
-CD a b c = (c ∣ a) ∧ (c ∣ b)
+CD m n d = (d ∣ m) ∧ (d ∣ n)
+{-# ATP definition CD #-}
 
 ------------------------------------------------------------------------------
--- Some cases of the gcd-∣₁
+-- Some cases of the gcd-∣₁.
+
 -- We don't prove that 'gcd-∣₁ : ... → (gcd m n) ∣ m'
 -- because this proof should be defined mutually recursive with the proof
 -- 'gcd-∣₂ : ... → (gcd m n) ∣ n'. Therefore, instead of prove
--- 'gcd-CD : ... → CD m n (gcd m n)' using these proofs (i.e. the conjunction
+-- 'gcd-CD : ... → CD m n (gcd m n)' using these proof (i.e. the conjunction
 -- of them), we proved it using well-founded induction.
 
 -- 'gcd 0 (succ n) ∣ 0'.
-gcd-0S-∣₁ : {n : D} → N n → gcd zero (succ n) ∣ zero
-gcd-0S-∣₁ {n} Nn = subst (λ x → x ∣ zero)
-                         (sym $ gcd-0S n)
-                         (S∣0 Nn)
+postulate gcd-0S-∣₁ : {n : D} → N n → gcd zero (succ n) ∣ zero
+{-# ATP prove gcd-0S-∣₁ zN #-}
 
 -- 'gcd (succ m) 0 ∣ succ m'.
-gcd-S0-∣₁ : {m : D} → N m → gcd (succ m) zero ∣ succ m
-gcd-S0-∣₁ {m} Nm = subst (λ x → x ∣ succ m)
-                         (sym $ gcd-S0 m)
-                         (∣-refl-S Nm)
+postulate gcd-S0-∣₁ : {n : D} → N n → gcd (succ n) zero ∣ succ n
+{-# ATP prove gcd-S0-∣₁ ∣-refl-S #-}
 
 -- 'gcd (succ m) (succ n) ∣ succ m', when 'succ m ≤ succ n'.
-gcd-S≤S-∣₁ :
-  {m n : D} → N m → N n →
-  (gcd (succ m) (succ n - succ m) ∣ succ m) →
-  LE (succ m) (succ n) →
-  gcd (succ m) (succ n) ∣ succ m
-gcd-S≤S-∣₁ {m} {n} Nm Nn ih Sm≤Sn =
-  subst (λ x → x ∣ succ m)
-        (sym $ gcd-S≤S Nm Nn Sm≤Sn)
-        ih
+postulate
+  gcd-S≤S-∣₁ :
+    {m n : D} → N m → N n →
+    (gcd (succ m) (succ n - succ m) ∣ succ m) →
+    LE (succ m) (succ n) →
+    gcd (succ m) (succ n) ∣ succ m
+-- Equinox 5.0alpha (2010-06-29) proved this conjecture very fast.
+-- E 1.2 no-success due to timeout (180 sec).
+-- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
+{-# ATP prove gcd-S≤S-∣₁ #-}
 
 -- 'gcd (succ m) (succ n) ∣ succ m' when 'succ m > succ n'.
--- We use gcd-∣₂.
--- We apply the theorem that if 'm∣n' and 'm∣o' then 'm∣(n+o)'.
-gcd-S>S-∣₁ :
-  {m n : D} → N m → N n →
-  (gcd (succ m - succ n) (succ n) ∣ (succ m - succ n)) →
-  (gcd (succ m - succ n) (succ n) ∣ succ n) →
-  GT (succ m) (succ n) →
-  gcd (succ m) (succ n) ∣ succ m
-
 {- Proof:
 1. gcd (Sm - Sn) Sn | (Sm - Sn)        IH
 2. gcd (Sm - Sn) Sn | Sn               gcd-∣₂
@@ -96,69 +80,54 @@ gcd-S>S-∣₁ :
 7. gcd Sm Sn | Sm                      subst 5,6
 -}
 
+-- For the proof using the ATP we added the auxiliary hypothesis:
+-- 1. gcd (succ m - succ n) (succ n) ∣ (succ m - succ n) + succ n.
+-- 2. (succ m - succ n) + succ n ≡ succ m.
+postulate
+  gcd-S>S-∣₁-ah :
+    {m n : D} → N m → N n →
+    (gcd (succ m - succ n) (succ n) ∣ (succ m - succ n)) →
+    (gcd (succ m - succ n) (succ n) ∣ succ n) →
+    GT (succ m) (succ n) →
+    gcd (succ m - succ n) (succ n) ∣ (succ m - succ n) + succ n →
+    ((succ m - succ n) + succ n ≡ succ m) →
+    gcd (succ m) (succ n) ∣ succ m
+-- E 1.2 no-success due to timeout (180 sec).
+-- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
+{-# ATP prove gcd-S>S-∣₁-ah #-}
+
+gcd-S>S-∣₁ :
+  {m n : D} → N m → N n →
+  (gcd (succ m - succ n) (succ n) ∣ (succ m - succ n)) →
+  (gcd (succ m - succ n) (succ n) ∣ succ n) →
+  GT (succ m) (succ n) →
+  gcd (succ m) (succ n) ∣ succ m
 gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
-  -- The first substitution is based on
-  -- 'gcd (succ m) (succ n) = gcd (succ m - succ n) (succ n)'.
-  subst (λ x → x ∣ succ m)
-        (sym $ gcd-S>S m n Sm>Sn)
-        -- The second substitution is based on
-        -- 'm = (m - n) + n'.
-        (subst (λ y → gcd (succ m - succ n) (succ n) ∣ y)
-               (x>y→x-y+y≡x (sN Nm) (sN Nn) Sm>Sn)
-               (x∣y→x∣z→x∣y+z
-                 {gcd (succ m - succ n) (succ n)}
-                 {succ m - succ n}
-                 {succ n}
-                 (gcd-N Sm-Sn-N (sN Nn) (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p))
-                 Sm-Sn-N
-                 (sN Nn)
-                 ih
-                 gcd-∣₂
-               )
-       )
+  gcd-S>S-∣₁-ah Nm Nn ih gcd-∣₂ Sm>Sn
+    (x∣y→x∣z→x∣y+z gcd-Sm-Sn,Sn-N Sm-Sn-N (sN Nn) ih gcd-∣₂)
+    (x>y→x-y+y≡x (sN Nm) (sN Nn) Sm>Sn)
+
   where
     Sm-Sn-N : N (succ m - succ n)
     Sm-Sn-N = minus-N (sN Nm) (sN Nn)
 
+    gcd-Sm-Sn,Sn-N : N (gcd (succ m - succ n) (succ n))
+    gcd-Sm-Sn,Sn-N = gcd-N Sm-Sn-N (sN Nn) (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
+
 ------------------------------------------------------------------------------
--- Some case of the gcd-∣₂
+-- Some case of the gcd-∣₂.
 -- We don't prove that 'gcd-∣₂ : ... → gcd m n ∣ n'. The reason is
 -- the same to don't prove 'gcd-∣₁ : ... → gcd m n ∣ m'.
 
 -- 'gcd 0 (succ n) ∣₂ succ n'.
-gcd-0S-∣₂ : {n : D} → N n → gcd zero (succ n) ∣ succ n
-gcd-0S-∣₂ {n} Nn = subst (λ x → x ∣ succ n)
-                         (sym $ gcd-0S n)
-                         (∣-refl-S Nn)
+postulate gcd-0S-∣₂ : {n : D} → N n → gcd zero (succ n) ∣ succ n
+{-# ATP prove gcd-0S-∣₂ ∣-refl-S #-}
 
 -- 'gcd (succ m) 0 ∣ 0'.
-gcd-S0-∣₂ : {m : D} → N m → gcd (succ m) zero ∣ zero
-gcd-S0-∣₂  {m} Nm = subst (λ x → x ∣ zero)
-                          (sym $ gcd-S0 m)
-                          (S∣0 Nm)
-
--- 'gcd (succ m) (succ n) ∣ succ n' when 'succ m > succ n'.
-gcd-S>S-∣₂ :
-  {m n : D} → N m → N n →
-  (gcd (succ m - succ n) (succ n) ∣ succ n) →
-  GT (succ m) (succ n) →
-  gcd (succ m) (succ n) ∣ succ n
-
-gcd-S>S-∣₂ {m} {n} Nm Nn ih Sm>Sn =
-  subst (λ x → x ∣ succ n)
-        (sym $ gcd-S>S m n Sm>Sn)
-        ih
+postulate gcd-S0-∣₂ : {m : D} → N m → gcd (succ m) zero ∣ zero
+{-# ATP prove gcd-S0-∣₂ zN #-}
 
 -- 'gcd (succ m) (succ n) ∣ succ n' when 'succ m ≤ succ n'.
--- We use gcd-∣₁.
--- We apply the theorem that if 'm∣n' and 'm∣o' then 'm∣(n+o)'.
-gcd-S≤S-∣₂ :
-  {m n : D} → N m → N n →
-  (gcd (succ m) (succ n - succ m) ∣ (succ n - succ m)) →
-  (gcd (succ m) (succ n - succ m) ∣ succ m) →
-  LE (succ m) (succ n) →
-  gcd (succ m) (succ n) ∣ succ n
-
 {- Proof:
 1. gcd Sm (Sn - Sm) | (Sn - Sm)        IH
 2  gcd Sm (Sn - Sm) | Sm               gcd-∣₁
@@ -169,29 +138,49 @@ gcd-S≤S-∣₂ :
 7. gcd Sm Sn | Sn                      subst 5,6
 -}
 
+-- For the proof using the ATP we added the auxiliary hypothesis:
+-- 1. gcd (succ m) (succ n - succ m) ∣ (succ n - succ m) + succ m.
+-- 2 (succ n - succ m) + succ m ≡ succ n.
+postulate
+  gcd-S≤S-∣₂-ah :
+    {m n : D} → N m → N n →
+    (gcd (succ m) (succ n - succ m) ∣ (succ n - succ m)) →
+    (gcd (succ m) (succ n - succ m) ∣ succ m) →
+    LE (succ m) (succ n) →
+    (gcd (succ m) (succ n - succ m) ∣ (succ n - succ m) + succ m) →
+    ((succ n - succ m) + succ m ≡ succ n) →
+    gcd (succ m) (succ n) ∣ succ n
+-- E 1.2 no-success due to timeout (180 sec).
+-- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
+{-# ATP prove gcd-S≤S-∣₂-ah #-}
+
+gcd-S≤S-∣₂ :
+  {m n : D} → N m → N n →
+  (gcd (succ m) (succ n - succ m) ∣ (succ n - succ m)) →
+  (gcd (succ m) (succ n - succ m) ∣ succ m) →
+  LE (succ m) (succ n) →
+  gcd (succ m) (succ n) ∣ succ n
 gcd-S≤S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≤Sn =
-  -- The first substitution is based on 'gcd m n = gcd m (n - m)'.
-  subst (λ x → x ∣ succ n)
-        (sym $ gcd-S≤S Nm Nn Sm≤Sn)
-         -- The second substitution is based on.
-         -- 'n = (n - m) + m'
-        (subst (λ y → gcd (succ m) (succ n - succ m) ∣ y)
-               (x≤y→y-x+x≡y (sN Nm) (sN Nn) Sm≤Sn)
-               (x∣y→x∣z→x∣y+z
-                 {gcd (succ m) (succ n - succ m)}
-                 {succ n - succ m}
-                 {succ m}
-                 (gcd-N (sN Nm) Sn-Sm-N (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p))
-                 Sn-Sm-N
-                 (sN Nm)
-                 ih
-                 gcd-∣₁
-               )
-        )
+  gcd-S≤S-∣₂-ah Nm Nn ih gcd-∣₁ Sm≤Sn
+    (x∣y→x∣z→x∣y+z gcd-Sm,Sn-Sm-N Sn-Sm-N (sN Nm) ih gcd-∣₁)
+    (x≤y→y-x+x≡y (sN Nm) (sN Nn) Sm≤Sn)
 
   where
     Sn-Sm-N : N (succ n - succ m)
     Sn-Sm-N = minus-N (sN Nn) (sN Nm)
+
+    gcd-Sm,Sn-Sm-N : N (gcd (succ m) (succ n - succ m))
+    gcd-Sm,Sn-Sm-N = gcd-N (sN Nm) (Sn-Sm-N) (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
+
+-- 'gcd (succ m) (succ n) ∣ succ n' when 'succ m > succ n'.
+postulate
+  gcd-S>S-∣₂ :
+    {m n : D} → N m → N n →
+    (gcd (succ m - succ n) (succ n) ∣ succ n) →
+    GT (succ m) (succ n) →
+    gcd (succ m) (succ n) ∣ succ n
+-- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
+{-# ATP prove gcd-S>S-∣₂ #-}
 
 ------------------------------------------------------------------------------
 -- The gcd is CD.

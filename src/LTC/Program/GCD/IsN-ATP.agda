@@ -2,45 +2,41 @@
 -- The gcd is N
 ------------------------------------------------------------------------------
 
-module LTC-PCF.Program.GCD.IsN where
+module LTC.Program.GCD.IsN-ATP where
 
 open import LTC.Base
 open import LTC.Base.PropertiesC using ( ¬S≡0 )
 
 open import Common.Function using ( _$_ )
 
-open import LTC-PCF.Data.Nat
+open import LTC.Data.Nat
   using ( _-_
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
-open import LTC-PCF.Data.Nat.Induction.Lexicographic
-  using ( wfIndN-LT₂ )
-open import LTC-PCF.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
-open import LTC-PCF.Data.Nat.Inequalities.Properties
+open import LTC.Data.Nat.Induction.LexicographicATP using ( wfIndN-LT₂ )
+open import LTC.Data.Nat.Inequalities using ( GT ; LE ; LT₂)
+open import LTC.Data.Nat.Inequalities.PropertiesATP
   using ( ¬0>x
         ; ¬S≤0
-        ; x>y∨x≤y
         ; [Sx-Sy,Sy]<[Sx,Sy]
         ; [Sx,Sy-Sx]<[Sx,Sy]
+        ; x>y∨x≤y
         )
-open import LTC-PCF.Data.Nat.Properties using ( minus-N )
+open import LTC.Data.Nat.PropertiesATP using ( minus-N )
 
-open import LTC-PCF.Program.GCD.GCD using ( ¬x≡0∧y≡0 ; gcd )
-open import LTC-PCF.Program.GCD.Equations
-  using ( gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S )
+open import LTC.Program.GCD.GCD using ( ¬x≡0∧y≡0 ; gcd )
 
 ------------------------------------------------------------------------------
 -- The 'gcd 0 (succ n)' is N.
 postulate
   gcd-0S-N : {n : D} → N n → N (gcd zero (succ n))
-{-# ATP prove gcd-0S-N sN gcd-0S #-}
+{-# ATP prove gcd-0S-N sN #-}
 
 ------------------------------------------------------------------------------
 -- The 'gcd (succ n) 0' is N.
 postulate
   gcd-S0-N : {n : D} → N n → N (gcd (succ n) zero)
--- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
-{-# ATP prove gcd-S0-N sN gcd-S0 #-}
+{-# ATP prove gcd-S0-N sN #-}
 
 ------------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m > succ n' is N.
@@ -50,7 +46,7 @@ postulate
               GT (succ m) (succ n) →
               N (gcd (succ m) (succ n))
 -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
-{-# ATP prove gcd-S>S-N gcd-S>S #-}
+{-# ATP prove gcd-S>S-N #-}
 
 ------------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m ≤ succ n' is N.
@@ -59,7 +55,8 @@ postulate
               N (gcd (succ m) (succ n - succ m)) →
               LE (succ m) (succ n) →
               N (gcd (succ m) (succ n))
-{-# ATP prove gcd-S≤S-N gcd-S≤S #-}
+-- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
+{-# ATP prove gcd-S≤S-N #-}
 
 ------------------------------------------------------------------------------
 -- The 'gcd m n' when 'm > n' is N.
@@ -96,9 +93,9 @@ gcd-x≤y-N :
   LE m n →
   ¬x≡0∧y≡0 m n →
   N (gcd m n)
-gcd-x≤y-N zN zN _ _ ¬0≡0∧0≡0   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x≤y-N zN (sN Nn) _ _ _     = gcd-0S-N Nn
-gcd-x≤y-N (sN _) zN _ Sm≤0  _  = ⊥-elim $ ¬S≤0 Sm≤0
+gcd-x≤y-N zN zN _ _  ¬0≡0∧0≡0   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
+gcd-x≤y-N zN (sN Nn) _ _ _      = gcd-0S-N Nn
+gcd-x≤y-N (sN Nm) zN _ Sm≤0  _  = ⊥-elim $ ¬S≤0 Nm Sm≤0
 gcd-x≤y-N (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
   gcd-S≤S-N Nm Nn ih Sm≤Sn
   where

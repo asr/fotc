@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Properties of the divisibility relation (using equational reasoning)
+-- Properties of the divisibility relation
 ------------------------------------------------------------------------------
 
-module LTC-PCF.Data.Nat.Divisibility.PropertiesER where
+module LTC.Data.Nat.Divisibility.PropertiesI where
 
 open import LTC.Base
 open import LTC.Base.PropertiesC using ( ¬S≡0 )
@@ -10,17 +10,16 @@ open import LTC.Base.PropertiesC using ( ¬S≡0 )
 open import Common.Function using ( _$_ )
 open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
 
-open import LTC-PCF.Data.Nat
-  using ( _+_ ; _-_ ; _*_
+open import LTC.Data.Nat
+  using ( _+_ ; _-_
+        ; _*_ ; *-0x ; *-Sx
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
-open import LTC-PCF.Data.Nat.Divisibility using ( _∣_ )
-open import LTC-PCF.Data.Nat.Inequalities using ( LE )
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesER
-  using ( x≤x+y )
-open import LTC-PCF.Data.Nat.PropertiesER
+open import LTC.Data.Nat.Divisibility using ( _∣_ )
+open import LTC.Data.Nat.Inequalities using ( LE )
+open import LTC.Data.Nat.Inequalities.PropertiesI using ( x≤x+y )
+open import LTC.Data.Nat.PropertiesI
   using ( +-N ; *-N ; minus-N
-        ; *-0x ; *-Sx
         ; *-leftIdentity
         ; *-leftZero
         ; [x+y]z≡xz*yz
@@ -71,7 +70,7 @@ x∣y→x∣z→x∣y+z             zN          Nn Np (0≠0 , _) m∣p = ⊥-el
 x∣y→x∣z→x∣y+z {n = n} {p} (sN {m} Nm) Nn Np
               (0≠0 , k₁ , Nk₁ , n≡k₁Sm)
               (_   , k₂ , Nk₂ , p≡k₂Sm) =
-  (λ S≡0 → ⊥-elim $ ¬S≡0 S≡0) , (k₁ + k₂) , +-N Nk₁ Nk₂ , prf
+  (λ S≡0 → ⊥-elim $ ¬S≡0 S≡0) , k₁ + k₂ , +-N Nk₁ Nk₂ , prf
 
   where
     prf : n + p ≡ (k₁ + k₂) * succ m
