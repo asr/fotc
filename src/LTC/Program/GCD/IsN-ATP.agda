@@ -24,7 +24,8 @@ open import LTC.Data.Nat.Inequalities.PropertiesATP
         )
 open import LTC.Data.Nat.PropertiesATP using ( minus-N )
 
-open import LTC.Program.GCD.GCD using ( ¬x≡0∧y≡0 ; gcd )
+open import LTC.Program.GCD.Definitions using ( ¬x≡0∧y≡0 )
+open import LTC.Program.GCD.GCD using ( gcd )
 
 ------------------------------------------------------------------------------
 -- The 'gcd 0 (succ n)' is N.

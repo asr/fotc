@@ -26,14 +26,9 @@ open import LTC.Data.Nat.Inequalities.PropertiesI
         )
 open import LTC.Data.Nat.PropertiesI using ( minus-N )
 
+open import LTC.Program.GCD.Definitions using ( ¬x≡0∧y≡0 ; CD ; Divisible )
 open import LTC.Program.GCD.GCD
-  using ( ¬x≡0∧y≡0 ; gcd ; gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S )
-open import LTC.Program.GCD.IsCommonDivisorI using ( CD )
-
-------------------------------------------------------------------------------
--- Divisible for any common divisor.
-Divisible : D → D → D → Set
-Divisible a b gcd = (c : D) → N c → CD a b c → c ∣ gcd
+  using ( gcd ; gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S )
 
 ------------------------------------------------------------------------------
 -- The 'gcd 0 (succ n)' is Divisible.

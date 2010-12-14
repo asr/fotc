@@ -14,9 +14,9 @@ open import LTC.Data.Nat
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
 open import LTC.Data.Nat.Divisibility using ( _∣_ )
+open import LTC.Data.Nat.Divisibility.PropertiesC using ( S∣0 )
 open import LTC.Data.Nat.Divisibility.PropertiesI
   using ( ∣-refl-S
-        ; S∣0
         ; x∣y→x∣z→x∣y+z
         )
 open import LTC.Data.Nat.Induction.LexicographicI using ( wfIndN-LT₂ )
@@ -32,14 +32,10 @@ open import LTC.Data.Nat.Inequalities.PropertiesI
         )
 open import LTC.Data.Nat.PropertiesI using ( minus-N )
 
+open import LTC.Program.GCD.Definitions using ( ¬x≡0∧y≡0 ; CD )
 open import LTC.Program.GCD.GCD
-  using ( ¬x≡0∧y≡0 ; gcd ; gcd-0S ; gcd-S0 ; gcd-S≤S ; gcd-S>S )
+  using ( gcd ; gcd-0S ; gcd-S0 ; gcd-S≤S ; gcd-S>S )
 open import LTC.Program.GCD.IsN-I using ( gcd-N )
-
-------------------------------------------------------------------------------
--- Common divisor.
-CD : D → D → D → Set
-CD a b c = (c ∣ a) ∧ (c ∣ b)
 
 ------------------------------------------------------------------------------
 -- Some cases of the gcd-∣₁

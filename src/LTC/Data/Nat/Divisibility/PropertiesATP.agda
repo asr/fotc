@@ -24,10 +24,6 @@ open import LTC.Data.Nat.PropertiesATP
         )
 
 ------------------------------------------------------------------------------
--- Any positive number divides 0.
-postulate S∣0 : {n : D} → N n →  succ n ∣ zero
-{-# ATP prove S∣0 zN #-}
-
 -- The divisibility relation is reflexive for positive numbers.
 -- For the proof using the ATP we added the auxiliary hypothesis
 -- N (succ zero).
@@ -37,10 +33,6 @@ postulate ∣-refl-S-ah : {n : D} → N n → N (succ zero) → succ n ∣ succ 
 
 ∣-refl-S : {n : D} → N n → succ n ∣ succ n
 ∣-refl-S Nn = ∣-refl-S-ah Nn (sN zN)
-
--- 0 doesn't divide any number.
-0∤x : {d : D} → ¬ (zero ∣ d)
-0∤x (0≠0 , _) = ⊥-elim $ 0≠0 refl
 
 -- If 'x' divides 'y' and 'z' then 'x' divides 'y - z'.
 postulate

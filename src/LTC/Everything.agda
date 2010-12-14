@@ -27,6 +27,7 @@ open import LTC.Data.Nat
 open import LTC.Data.Nat.ConsistencyTest
 open import LTC.Data.Nat.Divisibility
 open import LTC.Data.Nat.Divisibility.PropertiesATP
+open import LTC.Data.Nat.Divisibility.PropertiesC
 open import LTC.Data.Nat.Divisibility.PropertiesI
 open import LTC.Data.Nat.Induction.LexicographicATP
 open import LTC.Data.Nat.Induction.LexicographicI
@@ -50,18 +51,19 @@ open import LTC.Data.Stream.Bisimilarity.PropertiesI
 
 open import LTC.Postulates
 
+open import LTC.Program.GCD.Definitions
 open import LTC.Program.GCD.GCD
 open import LTC.Program.GCD.GCD.ConsistencyTest
 open import LTC.Program.GCD.IsCommonDivisorATP
 open import LTC.Program.GCD.IsCommonDivisorI
 open import LTC.Program.GCD.IsDivisibleATP
 open import LTC.Program.GCD.IsDivisibleI
-open import LTC.Program.GCD.IsGreatestAnyCommonDivisorATP
-open import LTC.Program.GCD.IsGreatestAnyCommonDivisorI
+open import LTC.Program.GCD.IsGreatestAnyCommonDivisor
 open import LTC.Program.GCD.IsN-ATP
 open import LTC.Program.GCD.IsN-I
 open import LTC.Program.GCD.ProofSpecificationATP
 open import LTC.Program.GCD.ProofSpecificationI
+open import LTC.Program.GCD.Specification
 
 open import LTC.Program.SortList.Closures.BoolATP
 open import LTC.Program.SortList.Closures.BoolI

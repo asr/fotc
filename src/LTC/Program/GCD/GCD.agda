@@ -32,9 +32,3 @@ postulate
 {-# ATP axiom gcd-0S #-}
 {-# ATP axiom gcd-S>S #-}
 {-# ATP axiom gcd-S≤S #-}
-
-------------------------------------------------------------------------------
--- Common functions used by the gcd example
-
-¬x≡0∧y≡0 : D → D → Set
-¬x≡0∧y≡0 d e = ¬ (d ≡ zero ∧ e ≡ zero)

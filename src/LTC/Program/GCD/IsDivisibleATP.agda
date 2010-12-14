@@ -26,14 +26,8 @@ open import LTC.Data.Nat.Inequalities.PropertiesATP
         ; x>y∨x≤y
         )
 
-open import LTC.Program.GCD.GCD using ( ¬x≡0∧y≡0 ; gcd )
-open import LTC.Program.GCD.IsCommonDivisorATP using ( CD )
-
-------------------------------------------------------------------------------
--- Divisible for any common divisor.
-Divisible : D → D → D → Set
-Divisible a b gcd = (c : D) → N c → CD a b c → c ∣ gcd
-{-# ATP definition Divisible #-}
+open import LTC.Program.GCD.Definitions using ( ¬x≡0∧y≡0 ; CD ; Divisible )
+open import LTC.Program.GCD.GCD using ( gcd )
 
 ------------------------------------------------------------------------------
 -- The 'gcd 0 (succ n)' is Divisible.
