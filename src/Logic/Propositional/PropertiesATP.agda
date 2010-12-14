@@ -5,7 +5,7 @@
 -- This module contains some examples showing the use of the ATPs to
 -- prove theorems from propositional logic.
 
-module Logic.ATP.Propositional where
+module Logic.Propositional.PropertiesATP where
 
 open import Logic.Constants
 

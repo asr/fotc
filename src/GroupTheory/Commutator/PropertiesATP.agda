@@ -2,7 +2,7 @@
 -- Properties related with the commutator operation
 ------------------------------------------------------------------------------
 
-module GroupTheory.Commutator.Properties where
+module GroupTheory.Commutator.PropertiesATP where
 
 open import GroupTheory.Base
 

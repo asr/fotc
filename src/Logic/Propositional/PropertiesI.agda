@@ -2,7 +2,7 @@
 -- Propositional logic examples
 ------------------------------------------------------------------------------
 
-module Logic.NonATP.Propositional where
+module Logic.Propositional.PropertiesI where
 
 open import Logic.Constants
 

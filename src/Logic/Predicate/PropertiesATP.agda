@@ -5,7 +5,7 @@
 -- This module contains some examples showing the use of the ATPs to
 -- prove theorems from predicate logic.
 
-module Logic.ATP.Predicate where
+module Logic.Predicate.PropertiesATP where
 
 open import Logic.Constants
 

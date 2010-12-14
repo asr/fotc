@@ -2,7 +2,7 @@
 -- Group theory properties
 ------------------------------------------------------------------------------
 
-module GroupTheory.Properties where
+module GroupTheory.PropertiesATP where
 
 open import GroupTheory.Base
 

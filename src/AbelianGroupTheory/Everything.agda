@@ -7,4 +7,4 @@ module AbelianGroupTheory.Everything where
 open import AbelianGroupTheory.Base
 open import AbelianGroupTheory.Base.ConsistencyTest
 
-open import AbelianGroupTheory.Properties
+open import AbelianGroupTheory.PropertiesATP

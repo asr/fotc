@@ -8,6 +8,8 @@ open import GroupTheory.Base
 open import GroupTheory.Base.ConsistencyTest
 
 open import GroupTheory.Commutator
-open import GroupTheory.Commutator.Properties
+open import GroupTheory.Commutator.PropertiesATP
+open import GroupTheory.Commutator.PropertiesI
 
-open import GroupTheory.Properties
+open import GroupTheory.PropertiesATP
+open import GroupTheory.PropertiesI

@@ -2,7 +2,7 @@
 -- PA properties
 ------------------------------------------------------------------------------
 
-module AxiomaticPA.Properties where
+module AxiomaticPA.PropertiesATP where
 
 open import AxiomaticPA.Base
 

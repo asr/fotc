@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Group theory properties (using equational reasoning)
+-- Group theory properties
 ------------------------------------------------------------------------------
 
-module GroupTheory.PropertiesER where
+module GroupTheory.PropertiesI where
 
 open import GroupTheory.Base
 

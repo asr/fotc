@@ -7,4 +7,4 @@ module AxiomaticPA.Everything where
 open import AxiomaticPA.Base
 open import AxiomaticPA.Base.ConsistencyTest
 
-open import AxiomaticPA.Properties
+open import AxiomaticPA.PropertiesATP

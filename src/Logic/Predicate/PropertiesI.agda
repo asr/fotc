@@ -2,7 +2,7 @@
 -- Predicate logic examples
 ------------------------------------------------------------------------------
 
-module Logic.NonATP.Predicate where
+module Logic.Predicate.PropertiesI where
 
 open import Logic.Constants
 

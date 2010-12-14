@@ -1,16 +1,15 @@
 ------------------------------------------------------------------------------
 -- Properties related with the commutator operation
--- (using equational reasoning)
 ------------------------------------------------------------------------------
 
-module GroupTheory.Commutator.PropertiesER where
+module GroupTheory.Commutator.PropertiesI where
 
 open import GroupTheory.Base
 
 open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
 
 open import GroupTheory.Commutator using ( ⟦_,_⟧ )
-open import GroupTheory.PropertiesER using ( inverseDistribution )
+open import GroupTheory.PropertiesI using ( inverseDistribution )
 
 ------------------------------------------------------------------------------
 

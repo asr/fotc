@@ -2,7 +2,7 @@
 -- Abelian group theory properties
 ------------------------------------------------------------------------------
 
-module AbelianGroupTheory.Properties where
+module AbelianGroupTheory.PropertiesATP where
 
 open import AbelianGroupTheory.Base
 

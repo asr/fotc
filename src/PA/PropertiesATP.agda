@@ -2,7 +2,7 @@
 -- PA properties
 ------------------------------------------------------------------------------
 
-module PA.Properties where
+module PA.PropertiesATP where
 
 open import PA.Base
 

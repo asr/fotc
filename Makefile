@@ -21,8 +21,7 @@ AxiomaticPA_path        = src/AxiomaticPA
 Common_path             = src/Common
 DistributiveLaws_path   = src/DistributiveLaws
 GroupTheory_path        = src/GroupTheory
-Logic_path              = src/Logic/NonATP
-LogicATP_path           = src/Logic/ATP
+Logic_path              = src/Logic
 LTC_path                = src/LTC
 LTC-PCF_path            = src/LTC-PCF
 PA_path                 = src/PA
@@ -46,17 +45,14 @@ main_Common             = $(Common_path)/Everything
 main_DistributiveLaws   = $(DistributiveLaws_path)/Everything
 
 main_GroupTheory        = $(GroupTheory_path)/Everything
-main_GroupTheory_ER     = $(GroupTheory_path)/EverythingER
 
-main_Logic              = $(Logic_path)/Logic
-
-main_LogicATP           = $(LogicATP_path)/Logic
+main_Logic              = $(Logic_path)/Everything
 
 main_LTC                = $(LTC_path)/Everything
 
 main_LTC-PCF            = $(LTC-PCF_path)/Everything
 
-main_PA                 = $(PA_path)/Properties
+main_PA                 = $(PA_path)/Everything
 
 # Only used to publish the drafts, i.e. non type checking.
 main_Draft              = Draft/RenderToHTML
@@ -64,27 +60,19 @@ main_Draft              = Draft/RenderToHTML
 ##############################################################################
 # Type checking the Agda modules.
 
-type_checking_ER_% :
-	$(AGDA) ${main_$*_ER}.agda
-
 type_checking_% :
 	$(AGDA) ${main_$*}.agda
 
-all_type_checking_NER : type_checking_AbelianGroupTheory \
-			type_checking_AxiomaticPA \
-			type_checking_Common \
-			type_checking_DistributiveLaws \
-			type_checking_GroupTheory \
-			type_checking_Logic \
-			type_checking_LogicATP \
-			type_checking_LTC \
-			type_checking_LTC-PCF \
-			type_checking_PA
+all_type_checking : type_checking_AbelianGroupTheory \
+		    type_checking_AxiomaticPA \
+		    type_checking_Common \
+		    type_checking_DistributiveLaws \
+		    type_checking_GroupTheory \
+		    type_checking_Logic \
+		    type_checking_LTC \
+		    type_checking_LTC-PCF \
+		    type_checking_PA
 
-all_type_checking_ER  : type_checking_GroupTheory_ER
-
-
-all_type_checking     : all_type_checking_NER all_type_checking_ER
 
 ##############################################################################
 # Test the conjecture files.
@@ -102,7 +90,7 @@ all_conjectures : conjectures_AbelianGroupTheory \
 	          conjectures_AxiomaticPA \
 		  conjectures_DistributiveLaws \
 		  conjectures_GroupTheory \
-		  conjectures_LogicATP \
+		  conjectures_Logic \
 		  conjectures_LTC \
 		  conjectures_LTC-PCF \
 		  conjectures_PA \
@@ -154,7 +142,6 @@ all_publish : publish_AbelianGroupTheory \
 	      publish_DistributiveLaws \
 	      publish_GroupTheory \
 	      publish_Logic \
-	      publish_LogicATP \
 	      publish_LTC \
 	      publish_LTC-PCF \
 	      publish_PA
