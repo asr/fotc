@@ -33,15 +33,11 @@ open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
         )
 open import LTC-PCF.Data.Nat.PropertiesI using ( minus-N )
 
-open import LTC-PCF.Program.GCD.GCD using ( ¬x≡0∧y≡0 ; gcd )
+open import LTC-PCF.Program.GCD.Definitions using ( ¬x≡0∧y≡0 ; CD )
+open import LTC-PCF.Program.GCD.GCD using ( gcd )
 open import LTC-PCF.Program.GCD.EquationsI
   using ( gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S )
 open import LTC-PCF.Program.GCD.IsN-I using ( gcd-N )
-
-------------------------------------------------------------------------------
--- Common divisor.
-CD : D → D → D → Set
-CD a b c = (c ∣ a) ∧ (c ∣ b)
 
 ------------------------------------------------------------------------------
 -- Some cases of the gcd-∣₁

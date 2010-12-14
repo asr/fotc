@@ -9,32 +9,29 @@ module LTC-PCF.Program.GCD.ProofSpecificationATP where
 
 open import LTC.Base
 
-open import LTC-PCF.Data.Nat
-  using ( N  -- The LTC natural numbers type.
+open import LTC-PCF.Data.Nat.Divisibility.PropertiesATP using ( x∣S→x≤S )
+open import LTC.Data.Nat.Type
+  using ( N  -- The LTC list of natural numbers type.
         )
 
-open import LTC-PCF.Program.GCD.GCD using ( ¬x≡0∧y≡0 ; gcd )
-open import LTC-PCF.Program.GCD.IsCommonDivisorATP using ( CD ; gcd-CD )
+open import LTC-PCF.Program.GCD.Definitions using ( ¬x≡0∧y≡0 )
+open import LTC-PCF.Program.GCD.GCD using ( gcd )
+open import LTC-PCF.Program.GCD.IsCommonDivisorATP using ( gcd-CD )
 open import LTC-PCF.Program.GCD.IsDivisibleATP using ( gcd-Divisible )
-open import LTC-PCF.Program.GCD.IsGreatestAnyCommonDivisorATP
-  using ( GACD ; gcd-GACD )
+
+import LTC-PCF.Program.GCD.IsGreatestAnyCommonDivisor
+open module IsGreatestAnyCommonDivisorATP =
+  LTC-PCF.Program.GCD.IsGreatestAnyCommonDivisor x∣S→x≤S
+  using ( gcd-GACD )
+
 open import LTC-PCF.Program.GCD.IsN-ATP using ( gcd-N )
 
+import LTC-PCF.Program.GCD.Specification
+open module SpecificationATP =
+  LTC-PCF.Program.GCD.Specification gcd-N gcd-CD gcd-Divisible gcd-GACD
+  renaming ( gcd-GCD to gcd-GCD-ATP )
 
 ------------------------------------------------------------------------------
--- Greatest commun divisor.
-record GCD (a b gcd : D) : Set where
-  constructor is
-  field
-    -- The gcd is a common divisor.
-    commonDivisor : CD a b gcd
-
-    -- Greatest that any common divisor.
-    greatest : GACD a b gcd
-
 -- The 'gcd' is the GCD.
 gcd-GCD : {m n : D} → N m → N n → ¬x≡0∧y≡0 m n → GCD m n (gcd m n)
-gcd-GCD Nm Nn m≠0≠n = is (gcd-CD Nm Nn m≠0≠n)
-                         (gcd-GACD (gcd-N Nm Nn m≠0≠n)
-                                   (gcd-CD Nm Nn m≠0≠n)
-                                   (gcd-Divisible Nm Nn m≠0≠n))
+gcd-GCD = gcd-GCD-ATP

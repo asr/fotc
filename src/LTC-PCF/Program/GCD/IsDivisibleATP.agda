@@ -28,16 +28,10 @@ open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
         )
 open import LTC-PCF.Data.Nat.PropertiesATP using ( minus-N )
 
-open import LTC-PCF.Program.GCD.GCD using ( ¬x≡0∧y≡0 ; gcd )
+open import LTC-PCF.Program.GCD.Definitions using ( ¬x≡0∧y≡0 ; CD ; Divisible )
+open import LTC-PCF.Program.GCD.GCD using ( gcd )
 open import LTC-PCF.Program.GCD.EquationsATP
   using ( gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S )
-open import LTC-PCF.Program.GCD.IsCommonDivisorATP using ( CD )
-
-------------------------------------------------------------------------------
--- Divisible for any common divisor.
-Divisible : D → D → D → Set
-Divisible a b gcd = (c : D) → N c → CD a b c → c ∣ gcd
-{-# ATP definition Divisible #-}
 
 ------------------------------------------------------------------------------
 -- The 'gcd 0 (succ n)' is Divisible.

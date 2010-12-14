@@ -33,17 +33,11 @@ open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
         )
 open import LTC-PCF.Data.Nat.PropertiesATP using ( minus-N )
 
-open import LTC-PCF.Program.GCD.GCD using ( ¬x≡0∧y≡0 ; gcd )
+open import LTC-PCF.Program.GCD.Definitions using ( ¬x≡0∧y≡0 ; CD )
+open import LTC-PCF.Program.GCD.GCD using ( gcd )
 open import LTC-PCF.Program.GCD.EquationsATP
   using ( gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S )
 open import LTC-PCF.Program.GCD.IsN-ATP using ( gcd-N )
-
-------------------------------------------------------------------------------
--- Common divisor.
-
-CD : D → D → D → Set
-CD m n d = (d ∣ m) ∧ (d ∣ n)
-{-# ATP definition CD #-}
 
 ------------------------------------------------------------------------------
 -- Some cases of the gcd-∣₁

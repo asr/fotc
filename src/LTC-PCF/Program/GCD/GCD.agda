@@ -63,9 +63,3 @@ gcdh g = lam (gcd-aux₂ g)
 gcd : D → D → D
 gcd d e = fix gcdh ∙ d ∙ e
 {-# ATP definition gcd #-}
-
-------------------------------------------------------------------------------
--- Common functions used by the gcd example
-
-¬x≡0∧y≡0 : D → D → Set
-¬x≡0∧y≡0 d e = ¬ (d ≡ zero ∧ e ≡ zero)

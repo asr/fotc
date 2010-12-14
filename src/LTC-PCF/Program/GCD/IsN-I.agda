@@ -25,7 +25,8 @@ open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
         )
 open import LTC-PCF.Data.Nat.PropertiesI using ( minus-N )
 
-open import LTC-PCF.Program.GCD.GCD using ( ¬x≡0∧y≡0 ; gcd )
+open import LTC-PCF.Program.GCD.Definitions using ( ¬x≡0∧y≡0 )
+open import LTC-PCF.Program.GCD.GCD using ( gcd )
 open import LTC-PCF.Program.GCD.EquationsI
   using ( gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S )
 
