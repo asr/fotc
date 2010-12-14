@@ -2,9 +2,9 @@
 -- Abelian group theory properties
 ------------------------------------------------------------------------------
 
-module AbelianGroupTheory.PropertiesATP where
+module GroupTheory.AbelianGroup.PropertiesATP where
 
-open import AbelianGroupTheory.Base
+open import GroupTheory.AbelianGroup.Base
 
 ------------------------------------------------------------------------------
 

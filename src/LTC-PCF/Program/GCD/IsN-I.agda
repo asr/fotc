@@ -5,7 +5,7 @@
 module LTC-PCF.Program.GCD.IsN-I where
 
 open import LTC.Base
-open import LTC.Base.PropertiesC using ( ¬S≡0 )
+open import LTC.Base.Properties using ( ¬S≡0 )
 
 open import Common.Function using ( _$_ )
 

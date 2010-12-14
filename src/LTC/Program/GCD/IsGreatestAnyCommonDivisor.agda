@@ -17,7 +17,7 @@ module LTC.Program.GCD.IsGreatestAnyCommonDivisor
 
 open import Common.Function using ( _$_ )
 
-open import LTC.Data.Nat.Divisibility.PropertiesC using ( 0∤x )
+open import LTC.Data.Nat.Divisibility.Properties using ( 0∤x )
 
 open import LTC.Program.GCD.Definitions using ( CD ; Divisible ; GACD )
 

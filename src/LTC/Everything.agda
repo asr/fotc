@@ -6,8 +6,8 @@ module LTC.Everything where
 
 open import LTC.Base
 open import LTC.Base.ConsistencyTest
+open import LTC.Base.Properties
 open import LTC.Base.PropertiesATP
-open import LTC.Base.PropertiesC
 open import LTC.Base.PropertiesI
 
 open import LTC.Data.Bool
@@ -26,8 +26,8 @@ open import LTC.Data.List.Type
 open import LTC.Data.Nat
 open import LTC.Data.Nat.ConsistencyTest
 open import LTC.Data.Nat.Divisibility
+open import LTC.Data.Nat.Divisibility.Properties
 open import LTC.Data.Nat.Divisibility.PropertiesATP
-open import LTC.Data.Nat.Divisibility.PropertiesC
 open import LTC.Data.Nat.Divisibility.PropertiesI
 open import LTC.Data.Nat.Induction.LexicographicATP
 open import LTC.Data.Nat.Induction.LexicographicI

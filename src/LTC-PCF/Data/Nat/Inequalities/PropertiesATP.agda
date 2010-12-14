@@ -5,7 +5,7 @@
 module LTC-PCF.Data.Nat.Inequalities.PropertiesATP where
 
 open import LTC.Base
-open import LTC.Base.PropertiesC using ( x≡y→Sx≡Sy )
+open import LTC.Base.Properties using ( x≡y→Sx≡Sy )
 
 open import Common.Function using ( _$_ )
 

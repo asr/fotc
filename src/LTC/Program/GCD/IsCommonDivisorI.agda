@@ -5,7 +5,7 @@
 module LTC.Program.GCD.IsCommonDivisorI where
 
 open import LTC.Base
-open import LTC.Base.PropertiesC using ( ¬S≡0 )
+open import LTC.Base.Properties using ( ¬S≡0 )
 
 open import Common.Function using ( _$_ )
 
@@ -14,7 +14,7 @@ open import LTC.Data.Nat
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
 open import LTC.Data.Nat.Divisibility using ( _∣_ )
-open import LTC.Data.Nat.Divisibility.PropertiesC using ( S∣0 )
+open import LTC.Data.Nat.Divisibility.Properties using ( S∣0 )
 open import LTC.Data.Nat.Divisibility.PropertiesI
   using ( ∣-refl-S
         ; x∣y→x∣z→x∣y+z

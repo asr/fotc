@@ -16,7 +16,6 @@ RSYNC    = rsync --archive --progress --rsh='ssh -p 2024'
 # Paths
 
 # Theories
-AbelianGroupTheory_path = src/AbelianGroupTheory
 AxiomaticPA_path        = src/AxiomaticPA
 Common_path             = src/Common
 DistributiveLaws_path   = src/DistributiveLaws
@@ -36,7 +35,6 @@ SortList_path    = $(LTC_path)/Program/SortList
 # "main" modules
 
 # Theories
-main_AbelianGroupTheory = $(AbelianGroupTheory_path)/Everything
 
 main_AxiomaticPA        = $(AxiomaticPA_path)/Everything
 
@@ -63,8 +61,7 @@ main_Draft              = Draft/RenderToHTML
 type_checking_% :
 	$(AGDA) ${main_$*}.agda
 
-all_type_checking : type_checking_AbelianGroupTheory \
-		    type_checking_AxiomaticPA \
+all_type_checking : type_checking_AxiomaticPA \
 		    type_checking_Common \
 		    type_checking_DistributiveLaws \
 		    type_checking_GroupTheory \
@@ -86,8 +83,7 @@ conjectures_% :
 
 # TODO: We add the conjectures related to the programs, but it
 # duplicates the test.
-all_conjectures : conjectures_AbelianGroupTheory \
-	          conjectures_AxiomaticPA \
+all_conjectures : conjectures_AxiomaticPA \
 		  conjectures_DistributiveLaws \
 		  conjectures_GroupTheory \
 		  conjectures_Logic \
@@ -103,9 +99,10 @@ all_conjectures : conjectures_AbelianGroupTheory \
 # Consistency test
 
 # Consistency test files
-# AbelianGroupTheory.Base.ConsistencyTest
+
 # AxiomaticPA.Base.ConsistencyTest
 # DistributiveLaws.Base.ConsistencyTest
+# GroupTheory.AbelianGroup.Base.ConsistencyTest
 # GroupTheory.Base.ConsistencyTest
 # LTC.Base.ConsistencyTest.agda
 # LTC.Data.Bool.ConsistencyTest.agda
@@ -136,8 +133,7 @@ publish_% :
 	$(AGDA) --html --html-dir=/tmp/$*/html/ ${main_$*}.agda
 	$(RSYNC) /tmp/$*/html/ $(root_host_dir)/$*/
 
-all_publish : publish_AbelianGroupTheory \
-	      publish_AxiomaticPA \
+all_publish : publish_AxiomaticPA \
 	      publish_Common \
 	      publish_DistributiveLaws \
 	      publish_GroupTheory \

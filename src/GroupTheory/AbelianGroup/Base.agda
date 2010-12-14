@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Abelian group theory base
+-- Abelian group base
 ------------------------------------------------------------------------------
 
-module AbelianGroupTheory.Base where
+module GroupTheory.AbelianGroup.Base where
 
 -- We use the group theory base
 -- N.B. The following module is exported by this module.

@@ -2,7 +2,7 @@
 -- PCF terms properties
 ------------------------------------------------------------------------------
 
-module LTC.Base.PropertiesC where
+module LTC.Base.Properties where
 
 open import LTC.Base
 

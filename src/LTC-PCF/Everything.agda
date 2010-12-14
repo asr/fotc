@@ -6,8 +6,8 @@ module LTC-PCF.Everything where
 
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Divisibility
+open import LTC-PCF.Data.Nat.Divisibility.Properties
 open import LTC-PCF.Data.Nat.Divisibility.PropertiesATP
-open import LTC-PCF.Data.Nat.Divisibility.PropertiesC
 open import LTC-PCF.Data.Nat.Divisibility.PropertiesI
 open import LTC-PCF.Data.Nat.Induction.LexicographicATP
 open import LTC-PCF.Data.Nat.Induction.LexicographicI
