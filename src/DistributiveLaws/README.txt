@@ -2,8 +2,8 @@
 -- Example using distributive laws on a binary operation
 ------------------------------------------------------------------------------
 
-In this directory we prove the proposition 2 of [1] (see the reference
-for the paper proof). Let _∙_ be a binary operation, then
+In this directory we prove the proposition 2 (task B) of [1] (see the
+reference for the paper proof). Let _∙_ be a binary operation, then
 
 1. ∀ x y z → x ∙ (y ∙ z) ≡ (x ∙ y) ∙ (x ∙ z)
 2. ∀ x y z → (x ∙ y) ∙ z ≡ (x ∙ z) ∙ (y ∙ z)

@@ -2,7 +2,7 @@
 -- Example using distributive laws on a binary operation
 ------------------------------------------------------------------------------
 
-module DistributiveLaws.Interactive.Properties where
+module DistributiveLaws.TaskB-I where
 
 open import DistributiveLaws.Base
 
@@ -10,10 +10,10 @@ open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; beg
 
 ------------------------------------------------------------------------------
 
-Stanovsky : ∀ u x y z → (x ∙ y ∙ (z ∙ u)) ∙
-                        (( x ∙ y ∙ ( z ∙ u)) ∙ (x ∙ z ∙ (y ∙ u))) ≡
-                        x ∙ z ∙ (y ∙ u)
-Stanovsky u x y z =
+taskB : ∀ u x y z → (x ∙ y ∙ (z ∙ u)) ∙
+                    (( x ∙ y ∙ ( z ∙ u)) ∙ (x ∙ z ∙ (y ∙ u))) ≡
+                    x ∙ z ∙ (y ∙ u)
+taskB u x y z =
   begin
     xy∙zu ∙ (xy∙zu ∙ xz∙yu)                                         ≡⟨ j₁ ⟩
 

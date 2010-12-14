@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Example using distributive laws on a binary operation (using the ATPs)
+-- Example using distributive laws on a binary operation
 ------------------------------------------------------------------------------
 
-module DistributiveLaws.ATP.Properties2 where
+module DistributiveLaws.TaskB-AllStepsATP where
 
 open import DistributiveLaws.Base
 
@@ -10,10 +10,13 @@ open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; beg
 
 ------------------------------------------------------------------------------
 
-Stanovsky : ∀ u x y z → (x ∙ y ∙ (z ∙ u)) ∙
-                        (( x ∙ y ∙ ( z ∙ u)) ∙ (x ∙ z ∙ (y ∙ u))) ≡
-                        x ∙ z ∙ (y ∙ u)
-Stanovsky u x y z =
+-- We prove all the proof steps of DistributiveLaws.TaskB-I using the
+-- ATPs.
+
+taskB : ∀ u x y z → (x ∙ y ∙ (z ∙ u)) ∙
+                    (( x ∙ y ∙ ( z ∙ u)) ∙ (x ∙ z ∙ (y ∙ u))) ≡
+                    x ∙ z ∙ (y ∙ u)
+taskB u x y z =
   begin
     xy∙zu ∙ (xy∙zu ∙ xz∙yu)                                         ≡⟨ j₁ ⟩
 
