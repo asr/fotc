@@ -76,7 +76,7 @@ all_type_checking : type_checking_AxiomaticPA \
 
 conjectures_% :
 	for file in \
-          `find $($*_path) -name '*.agda' | xargs grep -l 'ATP prove' | xargs grep -L 'ConsistencyTest'`; do \
+          `find $($*_path) -name '*.agda' | xargs grep -l 'ATP prove' | xargs grep -L 'ConsistencyTest' | sort`; do \
             if ! ( ${AGDA} $${file} ); then exit 1; fi; \
 	    if ! ( ${AGDA2ATP} --time=300 $${file} ); then exit 1; fi; \
 	done
