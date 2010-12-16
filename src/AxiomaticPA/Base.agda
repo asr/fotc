@@ -49,7 +49,7 @@ open import Common.Relation.Binary.PropositionalEquality public
 
 postulate
   -- S₁: This axiom is the transitivity property imported from
-  --     Common.Relation.Binary.PropositionalEquality.Properties.
+  --     Common.Relation.Binary.PropositionalEquality
 
   -- S₂: This axiom is not required by the ATPs.
 

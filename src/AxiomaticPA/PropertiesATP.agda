@@ -7,7 +7,6 @@ module AxiomaticPA.PropertiesATP where
 open import AxiomaticPA.Base
 
 ------------------------------------------------------------------------------
--- Some proofs are based on the proofs in the standard library.
 
 +-leftIdentity : ∀ n → zero + n ≡ n
 +-leftIdentity = S₅
