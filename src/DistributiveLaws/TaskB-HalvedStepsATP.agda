@@ -17,46 +17,45 @@ taskB : ∀ u x y z → (x ∙ y ∙ (z ∙ u)) ∙
                     (( x ∙ y ∙ ( z ∙ u)) ∙ (x ∙ z ∙ (y ∙ u))) ≡
                     x ∙ z ∙ (y ∙ u)
 taskB u x y z =
--- The numbering of the justifications correspond to the numbers of
--- the proof using only equational reasoning (see
--- DistributiveLaws.Interactive.Properties).
+-- The numbering of the proof step justifications are associated with
+-- the numbers used in DistributiveLaws.TaskB-I.
   begin
-    xy∙zu ∙ (xy∙zu ∙ xz∙yu)                                         ≡⟨ j₁ ⟩
+    xy∙zu ∙ (xy∙zu ∙ xz∙yu)                                       ≡⟨ j₁₋₃ ⟩
 
-    xy∙zu ∙ (x∙zu ∙ xz∙yu ∙ (y∙zu ∙ xz∙yu))                         ≡⟨ j₃ ⟩
+    xy∙zu ∙ (x∙zu ∙ xz∙yu ∙ (y∙zu ∙ xz∙yu))                       ≡⟨ j₃₋₅ ⟩
 
-    xy∙zu ∙ (xz ∙ xu∙yu ∙ (y∙zu ∙ xz∙yu))                           ≡⟨ j₅ ⟩
+    xy∙zu ∙ (xz ∙ xu∙yu ∙ (y∙zu ∙ xz∙yu))                         ≡⟨ j₅₋₇ ⟩
 
-    xy∙zu ∙ (xz ∙ xyu ∙ (yz∙yu ∙ xz∙yu))                            ≡⟨ j₇ ⟩
+    xy∙zu ∙ (xz ∙ xyu ∙ (yz∙yu ∙ xz∙yu))                          ≡⟨ j₇₋₉ ⟩
 
-    xy∙zu ∙ (xz ∙ xyu ∙ (yxz ∙ yu))                                 ≡⟨ j₉ ⟩
+    xy∙zu ∙ (xz ∙ xyu ∙ (yxz ∙ yu))                               ≡⟨ j₉₋₁₁ ⟩
 
-    xy∙zu ∙ (xz ∙ xyu ∙ (y∙xu ∙ z∙yu))                              ≡⟨ j₁₁ ⟩
+    xy∙zu ∙ (xz ∙ xyu ∙ (y∙xu ∙ z∙yu))                            ≡⟨ j₁₁₋₁₃ ⟩
 
-    xz∙yz ∙ xyu ∙ (xz ∙ xyu ∙ (y∙xu ∙ z∙yu))                        ≡⟨ j₁₃ ⟩
+    xz∙yz ∙ xyu ∙ (xz ∙ xyu ∙ (y∙xu ∙ z∙yu))                      ≡⟨ j₁₃₋₁₅ ⟩
 
-    xz ∙ xyu ∙ (yz ∙ xyu ∙ (y∙xu ∙ z∙yu))                           ≡⟨ j₁₅ ⟩
+    xz ∙ xyu ∙ (yz ∙ xyu ∙ (y∙xu ∙ z∙yu))                         ≡⟨ j₁₅₋₁₇ ⟩
 
-    xz ∙ xyu ∙ (y ∙ xu∙yu ∙ (z ∙ xu∙yu) ∙ (y∙xu ∙ z∙yu))            ≡⟨ j₁₇ ⟩
+    xz ∙ xyu ∙ (y ∙ xu∙yu ∙ (z ∙ xu∙yu) ∙ (y∙xu ∙ z∙yu))          ≡⟨ j₁₇₋₁₉ ⟩
 
     xz ∙ xyu ∙
-    (y∙xu ∙ y∙yu ∙ (y∙xu ∙ z∙yu) ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu)))     ≡⟨ j₁₉ ⟩
+    (y∙xu ∙ y∙yu ∙ (y∙xu ∙ z∙yu) ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu)))   ≡⟨ j₁₉₋₂₁ ⟩
 
-    xz ∙ xyu ∙ (y∙xu ∙ yz∙yu ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu)))         ≡⟨ j₂₁ ⟩
+    xz ∙ xyu ∙ (y∙xu ∙ yz∙yu ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu)))       ≡⟨ j₂₁₋₂₃ ⟩
 
-    xz ∙ xyu ∙ (y ∙ xu∙zu ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu)))            ≡⟨ j₂₃ ⟩
+    xz ∙ xyu ∙ (y ∙ xu∙zu ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu)))          ≡⟨ j₂₃₋₂₅ ⟩
 
-    (xz ∙ xyu) ∙ (y ∙ xu∙zu ∙ (z∙xu ∙ y∙xu ∙ z∙yu))                 ≡⟨ j₂₅ ⟩
+    (xz ∙ xyu) ∙ (y ∙ xu∙zu ∙ (z∙xu ∙ y∙xu ∙ z∙yu))               ≡⟨ j₂₅₋₂₇ ⟩
 
-    xz ∙ xyu ∙ (y ∙ xu∙zu ∙ (zy∙xu ∙ zy∙zu))                        ≡⟨ j₂₇ ⟩
+    xz ∙ xyu ∙ (y ∙ xu∙zu ∙ (zy∙xu ∙ zy∙zu))                      ≡⟨ j₂₇₋₂₉ ⟩
 
-    xz ∙ xyu ∙ (y∙zy ∙ xu∙zu)                                       ≡⟨ j₂₉ ⟩
+    xz ∙ xyu ∙ (y∙zy ∙ xu∙zu)                                     ≡⟨ j₂₉₋₃₁ ⟩
 
-    xz∙xy ∙ xzu ∙ (y∙zy ∙ xzu)                                      ≡⟨ j₃₁ ⟩
+    xz∙xy ∙ xzu ∙ (y∙zy ∙ xzu)                                    ≡⟨ j₃₁₋₃₃ ⟩
 
-    x∙zy ∙ y∙zy ∙ xzu                                               ≡⟨ j₃₃ ⟩
+    x∙zy ∙ y∙zy ∙ xzu                                             ≡⟨ j₃₃₋₃₅ ⟩
 
-    xzy ∙ xzu                                                       ≡⟨ j₃₅ ⟩
+    xzy ∙ xzu                                                     ≡⟨ j₃₅ ⟩
 
     xz∙yu
   ∎
@@ -130,77 +129,76 @@ taskB u x y z =
     -- Steps justifications
 
     postulate
-      j₁ : xy∙zu ∙ (xy∙zu ∙ xz∙yu) ≡
-           xy∙zu ∙ (x∙zu ∙ xz∙yu ∙ (y∙zu ∙ xz∙yu))
+      j₁₋₃   : xy∙zu ∙ (xy∙zu ∙ xz∙yu) ≡
+               xy∙zu ∙ (x∙zu ∙ xz∙yu ∙ (y∙zu ∙ xz∙yu))
 
-      j₃ : xy∙zu ∙ (x∙zu ∙ xz∙yu ∙ (y∙zu ∙ xz∙yu)) ≡
-           xy∙zu ∙ (xz ∙ xu∙yu ∙ (y∙zu ∙ xz∙yu))
+      j₃₋₅   : xy∙zu ∙ (x∙zu ∙ xz∙yu ∙ (y∙zu ∙ xz∙yu)) ≡
+               xy∙zu ∙ (xz ∙ xu∙yu ∙ (y∙zu ∙ xz∙yu))
 
-      j₅ : xy∙zu ∙ (xz ∙ xu∙yu ∙ (y∙zu ∙ xz∙yu)) ≡
-           xy∙zu ∙ (xz ∙ xyu ∙ (yz∙yu ∙ xz∙yu))
+      j₅₋₇   : xy∙zu ∙ (xz ∙ xu∙yu ∙ (y∙zu ∙ xz∙yu)) ≡
+               xy∙zu ∙ (xz ∙ xyu ∙ (yz∙yu ∙ xz∙yu))
 
-      j₇ : xy∙zu ∙ (xz ∙ xyu ∙ (yz∙yu ∙ xz∙yu)) ≡
-           xy∙zu ∙ (xz ∙ xyu ∙ (yxz ∙ yu))
+      j₇₋₉   : xy∙zu ∙ (xz ∙ xyu ∙ (yz∙yu ∙ xz∙yu)) ≡
+               xy∙zu ∙ (xz ∙ xyu ∙ (yxz ∙ yu))
 
-      j₉ : xy∙zu ∙ (xz ∙ xyu ∙ (yxz ∙ yu)) ≡
-           xy∙zu ∙ (xz ∙ xyu ∙ (y∙xu ∙ z∙yu))
+      j₉₋₁₁  : xy∙zu ∙ (xz ∙ xyu ∙ (yxz ∙ yu)) ≡
+               xy∙zu ∙ (xz ∙ xyu ∙ (y∙xu ∙ z∙yu))
 
-      j₁₁ : xy∙zu ∙ (xz ∙ xyu ∙ (y∙xu ∙ z∙yu)) ≡
-            xz∙yz ∙ xyu ∙ (xz ∙ xyu ∙ (y∙xu ∙ z∙yu))
+      j₁₁₋₁₃ : xy∙zu ∙ (xz ∙ xyu ∙ (y∙xu ∙ z∙yu)) ≡
+               xz∙yz ∙ xyu ∙ (xz ∙ xyu ∙ (y∙xu ∙ z∙yu))
 
-      j₁₃ : xz∙yz ∙ xyu ∙ (xz ∙ xyu ∙ (y∙xu ∙ z∙yu)) ≡
-            xz ∙ xyu ∙ (yz ∙ xyu ∙ (y∙xu ∙ z∙yu))
+      j₁₃₋₁₅ : xz∙yz ∙ xyu ∙ (xz ∙ xyu ∙ (y∙xu ∙ z∙yu)) ≡
+               xz ∙ xyu ∙ (yz ∙ xyu ∙ (y∙xu ∙ z∙yu))
 
-      j₁₅ : xz ∙ xyu ∙ (yz ∙ xyu ∙ (y∙xu ∙ z∙yu)) ≡
-            xz ∙ xyu ∙ (y ∙ xu∙yu ∙ (z ∙ xu∙yu) ∙ (y∙xu ∙ z∙yu))
+      j₁₅₋₁₇ : xz ∙ xyu ∙ (yz ∙ xyu ∙ (y∙xu ∙ z∙yu)) ≡
+               xz ∙ xyu ∙ (y ∙ xu∙yu ∙ (z ∙ xu∙yu) ∙ (y∙xu ∙ z∙yu))
 
-      j₁₇ : xz ∙ xyu ∙ (y ∙ xu∙yu ∙ (z ∙ xu∙yu) ∙ (y∙xu ∙ z∙yu)) ≡
-            xz ∙ xyu ∙
-            (y∙xu ∙ y∙yu ∙ (y∙xu ∙ z∙yu) ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu)))
+      j₁₇₋₁₉ : xz ∙ xyu ∙ (y ∙ xu∙yu ∙ (z ∙ xu∙yu) ∙ (y∙xu ∙ z∙yu)) ≡
+               xz ∙ xyu ∙
+               (y∙xu ∙ y∙yu ∙ (y∙xu ∙ z∙yu) ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu)))
 
-      j₁₉ : xz ∙ xyu ∙
-            (y∙xu ∙ y∙yu ∙ (y∙xu ∙ z∙yu) ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu))) ≡
-            xz ∙ xyu ∙ (y∙xu ∙ yz∙yu ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu)))
+      j₁₉₋₂₁ : xz ∙ xyu ∙
+               (y∙xu ∙ y∙yu ∙ (y∙xu ∙ z∙yu) ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu))) ≡
+               xz ∙ xyu ∙ (y∙xu ∙ yz∙yu ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu)))
 
-      j₂₁ : xz ∙ xyu ∙ (y∙xu ∙ yz∙yu ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu))) ≡
-            xz ∙ xyu ∙ (y ∙ xu∙zu ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu)))
+      j₂₁₋₂₃ : xz ∙ xyu ∙ (y∙xu ∙ yz∙yu ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu))) ≡
+               xz ∙ xyu ∙ (y ∙ xu∙zu ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu)))
 
-      j₂₃ : xz ∙ xyu ∙ (y ∙ xu∙zu ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu))) ≡
-            (xz ∙ xyu) ∙ (y ∙ xu∙zu ∙ (z∙xu ∙ y∙xu ∙ z∙yu))
+      j₂₃₋₂₅ : xz ∙ xyu ∙ (y ∙ xu∙zu ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu))) ≡
+               (xz ∙ xyu) ∙ (y ∙ xu∙zu ∙ (z∙xu ∙ y∙xu ∙ z∙yu))
 
-      j₂₅ : (xz ∙ xyu) ∙ (y ∙ xu∙zu ∙ (z∙xu ∙ y∙xu ∙ z∙yu)) ≡
-            xz ∙ xyu ∙ (y ∙ xu∙zu ∙ (zy∙xu ∙ zy∙zu))
+      j₂₅₋₂₇ : (xz ∙ xyu) ∙ (y ∙ xu∙zu ∙ (z∙xu ∙ y∙xu ∙ z∙yu)) ≡
+               xz ∙ xyu ∙ (y ∙ xu∙zu ∙ (zy∙xu ∙ zy∙zu))
 
-      j₂₇ : xz ∙ xyu ∙ (y ∙ xu∙zu ∙ (zy∙xu ∙ zy∙zu)) ≡
-            xz ∙ xyu ∙ (y∙zy ∙ xu∙zu)
+      j₂₇₋₂₉ : xz ∙ xyu ∙ (y ∙ xu∙zu ∙ (zy∙xu ∙ zy∙zu)) ≡
+               xz ∙ xyu ∙ (y∙zy ∙ xu∙zu)
 
-      j₂₉ : xz ∙ xyu ∙ (y∙zy ∙ xu∙zu) ≡
-            xz∙xy ∙ xzu ∙ (y∙zy ∙ xzu)
+      j₂₉₋₃₁ : xz ∙ xyu ∙ (y∙zy ∙ xu∙zu) ≡
+               xz∙xy ∙ xzu ∙ (y∙zy ∙ xzu)
 
-      j₃₁ : xz∙xy ∙ xzu ∙ (y∙zy ∙ xzu) ≡
-            x∙zy ∙ y∙zy ∙ xzu
+      j₃₁₋₃₃ : xz∙xy ∙ xzu ∙ (y∙zy ∙ xzu) ≡
+               x∙zy ∙ y∙zy ∙ xzu
 
-      j₃₃ : x∙zy ∙ y∙zy ∙ xzu ≡
-            xzy ∙ xzu
+      j₃₃₋₃₅ : x∙zy ∙ y∙zy ∙ xzu ≡
+               xzy ∙ xzu
 
-      j₃₅ : xzy ∙ xzu ≡
-            xz∙yu
+      j₃₅    : xzy ∙ xzu ≡
+               xz∙yu
 
-    {-# ATP prove j₁ #-}
-    {-# ATP prove j₃ #-}
-    {-# ATP prove j₅ #-}
-    {-# ATP prove j₇ #-}
-    {-# ATP prove j₉ #-}
-    {-# ATP prove j₁₁ #-}
-    {-# ATP prove j₁₃ #-}
-    {-# ATP prove j₁₅ #-}
-    {-# ATP prove j₁₇ #-}
-    {-# ATP prove j₁₉ #-}
-    {-# ATP prove j₂₁ #-}
-    {-# ATP prove j₂₃ #-}
-    {-# ATP prove j₂₅ #-}
-    {-# ATP prove j₂₇ #-}
-    {-# ATP prove j₂₉ #-}
-    {-# ATP prove j₃₁ #-}
-    {-# ATP prove j₃₃ #-}
+    {-# ATP prove j₃₋₅ #-}
+    {-# ATP prove j₅₋₇ #-}
+    {-# ATP prove j₇₋₉ #-}
+    {-# ATP prove j₉₋₁₁ #-}
+    {-# ATP prove j₁₁₋₁₃ #-}
+    {-# ATP prove j₁₃₋₁₅ #-}
+    {-# ATP prove j₁₅₋₁₇ #-}
+    {-# ATP prove j₁₇₋₁₉ #-}
+    {-# ATP prove j₁₉₋₂₁ #-}
+    {-# ATP prove j₂₁₋₂₃ #-}
+    {-# ATP prove j₂₃₋₂₅ #-}
+    {-# ATP prove j₂₅₋₂₇ #-}
+    {-# ATP prove j₂₇₋₂₉ #-}
+    {-# ATP prove j₂₉₋₃₁ #-}
+    {-# ATP prove j₃₁₋₃₃ #-}
+    {-# ATP prove j₃₃₋₃₅ #-}
     {-# ATP prove j₃₅ #-}
