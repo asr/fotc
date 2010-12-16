@@ -11,7 +11,7 @@ open import GroupTheory.Base
 -- The commutator operation.
 -- We choose a non-standard symbol, because [_,_] is used by Common.Data.Sum.
 ⟦_,_⟧ : G → G → G
-⟦ x , y ⟧ = x ⁻¹ ∙ y ⁻¹ ∙ x ∙ y
+⟦ x , y ⟧ = x ⁻¹ · y ⁻¹ · x · y
 {-# ATP definition ⟦_,_⟧ #-}
 
 ⟦⟧-assoc : G → G → G → Set

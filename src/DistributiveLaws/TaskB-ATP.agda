@@ -9,9 +9,9 @@ open import DistributiveLaws.Base
 ------------------------------------------------------------------------------
 
 postulate
-  taskB : ∀ u x y z → (x ∙ y ∙ (z ∙ u)) ∙
-                      (( x ∙ y ∙ ( z ∙ u)) ∙ (x ∙ z ∙ (y ∙ u))) ≡
-                      x ∙ z ∙ (y ∙ u)
+  taskB : ∀ u x y z → (x · y · (z · u)) ·
+                      (( x · y · ( z · u)) · (x · z · (y · u))) ≡
+                      x · z · (y · u)
   -- E 1.2 no-success due to timeout (300 sec).
   -- Equinox 5.0alpha (2010-06-29) no-success due to timeout (300 sec).
   -- Metis 2.3 (release 20101019) no-success due to timeout (300 sec).

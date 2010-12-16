@@ -24,13 +24,13 @@ open import LTC-PCF.Data.Nat.Inequalities using ( _<_ )
 -- divh g = lam (λ i → lam (λ j →
 --              if (lt i j)
 --                then zero
---                else (succ (g ∙ (i - j) ∙ j))))
+--                else (succ (g · (i - j) · j))))
 
 -- Version using lambda lifting via super-combinators
 -- (Hughes. Super-combinators. 1982).
 
 div-aux₁ : D → D → D → D
-div-aux₁ i g j = if (i < j) then zero else succ (g ∙ (i - j) ∙ j)
+div-aux₁ i g j = if (i < j) then zero else succ (g · (i - j) · j)
 {-# ATP definition div-aux₁ #-}
 
 div-aux₂ : D → D → D
@@ -42,5 +42,5 @@ divh g = lam (div-aux₂ g)
 {-# ATP definition divh #-}
 
 div : D → D → D
-div i j = fix divh ∙ i ∙ j
+div i j = fix divh · i · j
 {-# ATP definition div #-}

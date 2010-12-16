@@ -26,7 +26,7 @@ open import LTC.Program.SortList.SortList
 ------------------------------------------------------------------------------
 -- See the ATP version.
 postulate
-  toTree-Tree : {item : D}{t : D} → N item → Tree t → Tree (toTree ∙ item ∙ t)
+  toTree-Tree : {item : D}{t : D} → N item → Tree t → Tree (toTree · item · t)
 
 makeTree-Tree : {is : D} → ListN is → Tree (makeTree is)
 makeTree-Tree nilLN =

@@ -35,7 +35,7 @@ postulate
 postulate
   map    : D → D → D
   map-[] : (f : D) →      map f []       ≡ []
-  map-∷  : (f d ds : D) → map f (d ∷ ds) ≡ f ∙ d ∷ map f ds
+  map-∷  : (f d ds : D) → map f (d ∷ ds) ≡ f · d ∷ map f ds
 {-# ATP axiom map-[] #-}
 {-# ATP axiom map-∷ #-}
 
@@ -63,7 +63,7 @@ postulate
 postulate
   foldr    : D → D → D → D
   foldr-[] : (f n : D) →      foldr f n []       ≡ n
-  foldr-∷  : (f n d ds : D) → foldr f n (d ∷ ds) ≡ f ∙ d ∙ (foldr f n ds)
+  foldr-∷  : (f n d ds : D) → foldr f n (d ∷ ds) ≡ f · d · (foldr f n ds)
 {-# ATP axiom foldr-[] #-}
 {-# ATP axiom foldr-∷ #-}
 
@@ -71,5 +71,5 @@ postulate
 
 postulate
   iterate    : D → D → D
-  iterate-eq : (f x : D) → iterate f x ≡ x ∷ iterate f (f ∙ x)
+  iterate-eq : (f x : D) → iterate f x ≡ x ∷ iterate f (f · x)
 {-# ATP axiom iterate-eq #-}

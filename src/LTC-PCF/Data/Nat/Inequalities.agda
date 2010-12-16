@@ -12,7 +12,7 @@ open import LTC.Base
 -- lth lt = lam (λ m → lam (λ n →
 --               if (isZero n) then false
 --                  else (if (isZero m) then true
---                           else (lt ∙ (pred m) ∙ (pred n)))))
+--                           else (lt · (pred m) · (pred n)))))
 
 -- Version using lambda lifting via super-combinators.
 -- (Hughes. Super-combinators. 1982)
@@ -22,7 +22,7 @@ open import LTC.Base
                    then false
                    else (if (isZero d)
                             then true
-                            else (lt ∙ (pred d) ∙ (pred e)))
+                            else (lt · (pred d) · (pred e)))
 {-# ATP definition <-aux₁ #-}
 
 <-aux₂ : D → D → D
@@ -34,7 +34,7 @@ open import LTC.Base
 {-# ATP definition <-h #-}
 
 _<_ : D → D → D
-d < e = fix <-h ∙ d ∙ e
+d < e = fix <-h · d · e
 {-# ATP definition _<_ #-}
 
 _≤_ : D → D → D

@@ -12,7 +12,7 @@ LTC                              Agda
 
 module LTC.Base where
 
-infixl 9 _∙_
+infixl 9 _·_  -- The symbol is '\cdot'.
 infixr 8 _∷_  -- We add 3 to the fixities of the standard library.
 infix  8 if_then_else_
 
@@ -50,7 +50,7 @@ postulate
 
   -- LTC application.
   -- The Agda application has higher precedence level than LTC application.
-  _∙_ : D → D → D
+  _·_ : D → D → D
 
   -- LTC error.
   error : D
@@ -104,13 +104,13 @@ postulate
 
 postulate
   -- Conversion rule for the abstraction and the application.
-  beta : (f : D → D)(a : D) → (lam f) ∙ a ≡ f a
+  beta : (f : D → D)(a : D) → (lam f) · a ≡ f a
 {-# ATP axiom beta #-}
 
 postulate
   -- Conversion rule for the fixed pointed operator.
   fix-f : (f : D → D) → fix f ≡ f (fix  f)
-  -- cFixFO : (f : D) → fixFO ∙ f ≡ f ∙ (fixFO ∙ f)
+  -- cFixFO : (f : D) → fixFO · f ≡ f · (fixFO · f)
 {-# ATP axiom fix-f #-}
 
 postulate

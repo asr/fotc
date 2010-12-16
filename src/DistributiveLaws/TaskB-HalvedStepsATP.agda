@@ -13,59 +13,59 @@ open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; beg
 -- We prove the half of the proof steps (skipping the even ones) of
 -- DistributiveLaws.TaskB-I using the ATPs.
 
-taskB : ∀ u x y z → (x ∙ y ∙ (z ∙ u)) ∙
-                    (( x ∙ y ∙ ( z ∙ u)) ∙ (x ∙ z ∙ (y ∙ u))) ≡
-                    x ∙ z ∙ (y ∙ u)
+taskB : ∀ u x y z → (x · y · (z · u)) ·
+                    (( x · y · ( z · u)) · (x · z · (y · u))) ≡
+                    x · z · (y · u)
 taskB u x y z =
 -- The numbering of the proof step justifications are associated with
 -- the numbers used in DistributiveLaws.TaskB-I.
   begin
-    xy∙zu ∙ (xy∙zu ∙ xz∙yu)                                       ≡⟨ j₁₋₃ ⟩
+    xy·zu · (xy·zu · xz·yu)                                       ≡⟨ j₁₋₃ ⟩
 
-    xy∙zu ∙ (x∙zu ∙ xz∙yu ∙ (y∙zu ∙ xz∙yu))                       ≡⟨ j₃₋₅ ⟩
+    xy·zu · (x·zu · xz·yu · (y·zu · xz·yu))                       ≡⟨ j₃₋₅ ⟩
 
-    xy∙zu ∙ (xz ∙ xu∙yu ∙ (y∙zu ∙ xz∙yu))                         ≡⟨ j₅₋₇ ⟩
+    xy·zu · (xz · xu·yu · (y·zu · xz·yu))                         ≡⟨ j₅₋₇ ⟩
 
-    xy∙zu ∙ (xz ∙ xyu ∙ (yz∙yu ∙ xz∙yu))                          ≡⟨ j₇₋₉ ⟩
+    xy·zu · (xz · xyu · (yz·yu · xz·yu))                          ≡⟨ j₇₋₉ ⟩
 
-    xy∙zu ∙ (xz ∙ xyu ∙ (yxz ∙ yu))                               ≡⟨ j₉₋₁₁ ⟩
+    xy·zu · (xz · xyu · (yxz · yu))                               ≡⟨ j₉₋₁₁ ⟩
 
-    xy∙zu ∙ (xz ∙ xyu ∙ (y∙xu ∙ z∙yu))                            ≡⟨ j₁₁₋₁₃ ⟩
+    xy·zu · (xz · xyu · (y·xu · z·yu))                            ≡⟨ j₁₁₋₁₃ ⟩
 
-    xz∙yz ∙ xyu ∙ (xz ∙ xyu ∙ (y∙xu ∙ z∙yu))                      ≡⟨ j₁₃₋₁₅ ⟩
+    xz·yz · xyu · (xz · xyu · (y·xu · z·yu))                      ≡⟨ j₁₃₋₁₅ ⟩
 
-    xz ∙ xyu ∙ (yz ∙ xyu ∙ (y∙xu ∙ z∙yu))                         ≡⟨ j₁₅₋₁₇ ⟩
+    xz · xyu · (yz · xyu · (y·xu · z·yu))                         ≡⟨ j₁₅₋₁₇ ⟩
 
-    xz ∙ xyu ∙ (y ∙ xu∙yu ∙ (z ∙ xu∙yu) ∙ (y∙xu ∙ z∙yu))          ≡⟨ j₁₇₋₁₉ ⟩
+    xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu))          ≡⟨ j₁₇₋₁₉ ⟩
 
-    xz ∙ xyu ∙
-    (y∙xu ∙ y∙yu ∙ (y∙xu ∙ z∙yu) ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu)))   ≡⟨ j₁₉₋₂₁ ⟩
+    xz · xyu ·
+    (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))   ≡⟨ j₁₉₋₂₁ ⟩
 
-    xz ∙ xyu ∙ (y∙xu ∙ yz∙yu ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu)))       ≡⟨ j₂₁₋₂₃ ⟩
+    xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu)))       ≡⟨ j₂₁₋₂₃ ⟩
 
-    xz ∙ xyu ∙ (y ∙ xu∙zu ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu)))          ≡⟨ j₂₃₋₂₅ ⟩
+    xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))          ≡⟨ j₂₃₋₂₅ ⟩
 
-    (xz ∙ xyu) ∙ (y ∙ xu∙zu ∙ (z∙xu ∙ y∙xu ∙ z∙yu))               ≡⟨ j₂₅₋₂₇ ⟩
+    (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))               ≡⟨ j₂₅₋₂₇ ⟩
 
-    xz ∙ xyu ∙ (y ∙ xu∙zu ∙ (zy∙xu ∙ zy∙zu))                      ≡⟨ j₂₇₋₂₉ ⟩
+    xz · xyu · (y · xu·zu · (zy·xu · zy·zu))                      ≡⟨ j₂₇₋₂₉ ⟩
 
-    xz ∙ xyu ∙ (y∙zy ∙ xu∙zu)                                     ≡⟨ j₂₉₋₃₁ ⟩
+    xz · xyu · (y·zy · xu·zu)                                     ≡⟨ j₂₉₋₃₁ ⟩
 
-    xz∙xy ∙ xzu ∙ (y∙zy ∙ xzu)                                    ≡⟨ j₃₁₋₃₃ ⟩
+    xz·xy · xzu · (y·zy · xzu)                                    ≡⟨ j₃₁₋₃₃ ⟩
 
-    x∙zy ∙ y∙zy ∙ xzu                                             ≡⟨ j₃₃₋₃₅ ⟩
+    x·zy · y·zy · xzu                                             ≡⟨ j₃₃₋₃₅ ⟩
 
-    xzy ∙ xzu                                                     ≡⟨ j₃₅ ⟩
+    xzy · xzu                                                     ≡⟨ j₃₅ ⟩
 
-    xz∙yu
+    xz·yu
   ∎
   where
     -- Two variables abbreviations
 
-    xz = x ∙ z
-    yu = y ∙ u
-    yz = y ∙ z
-    zy = z ∙ y
+    xz = x · z
+    yu = y · u
+    yz = y · z
+    zy = z · y
     {-# ATP definition xz #-}
     {-# ATP definition yu #-}
     {-# ATP definition yz #-}
@@ -73,117 +73,117 @@ taskB u x y z =
 
     -- Three variables abbreviations
 
-    xyu = x ∙ y ∙ u
-    xzu = x ∙ z ∙ u
-    xzy = x ∙ z ∙ y
-    yxz = y ∙ x ∙ z
+    xyu = x · y · u
+    xzu = x · z · u
+    xzy = x · z · y
+    yxz = y · x · z
     {-# ATP definition xyu #-}
     {-# ATP definition xzu #-}
     {-# ATP definition xzy #-}
     {-# ATP definition yxz #-}
 
-    x∙zu = x ∙ (z ∙ u)
-    x∙zy = x ∙ (z ∙ y)
-    {-# ATP definition x∙zu #-}
-    {-# ATP definition x∙zy #-}
+    x·zu = x · (z · u)
+    x·zy = x · (z · y)
+    {-# ATP definition x·zu #-}
+    {-# ATP definition x·zy #-}
 
-    y∙xu = y ∙ (x ∙ u)
-    y∙yu = y ∙ (y ∙ u)
-    y∙zu = y ∙ (z ∙ u)
-    y∙zy = y ∙ (z ∙ y)
-    {-# ATP definition y∙xu  #-}
-    {-# ATP definition y∙yu  #-}
-    {-# ATP definition y∙zu  #-}
-    {-# ATP definition y∙zy  #-}
+    y·xu = y · (x · u)
+    y·yu = y · (y · u)
+    y·zu = y · (z · u)
+    y·zy = y · (z · y)
+    {-# ATP definition y·xu  #-}
+    {-# ATP definition y·yu  #-}
+    {-# ATP definition y·zu  #-}
+    {-# ATP definition y·zy  #-}
 
-    z∙xu = z ∙ (x ∙ u)
-    z∙yu = z ∙ (y ∙ u)
-    {-# ATP definition z∙xu  #-}
-    {-# ATP definition z∙yu  #-}
+    z·xu = z · (x · u)
+    z·yu = z · (y · u)
+    {-# ATP definition z·xu  #-}
+    {-# ATP definition z·yu  #-}
 
     -- Four variables abbreviations
 
-    xu∙yu = x ∙ u ∙ (y ∙ u)
-    xu∙zu = x ∙ u ∙ (z ∙ u)
-    {-# ATP definition xu∙yu  #-}
-    {-# ATP definition xu∙zu  #-}
+    xu·yu = x · u · (y · u)
+    xu·zu = x · u · (z · u)
+    {-# ATP definition xu·yu  #-}
+    {-# ATP definition xu·zu  #-}
 
-    xy∙zu = x ∙ y ∙ (z ∙ u)
-    {-# ATP definition xy∙zu  #-}
+    xy·zu = x · y · (z · u)
+    {-# ATP definition xy·zu  #-}
 
-    xz∙xy = x ∙ z ∙ (x ∙ y)
-    xz∙yu = x ∙ z ∙ (y ∙ u)
-    xz∙yz = x ∙ z ∙ (y ∙ z)
-    {-# ATP definition xz∙xy  #-}
-    {-# ATP definition xz∙yu  #-}
-    {-# ATP definition xz∙yz  #-}
+    xz·xy = x · z · (x · y)
+    xz·yu = x · z · (y · u)
+    xz·yz = x · z · (y · z)
+    {-# ATP definition xz·xy  #-}
+    {-# ATP definition xz·yu  #-}
+    {-# ATP definition xz·yz  #-}
 
-    yz∙yu = y ∙ z ∙ (y ∙ u)
-    {-# ATP definition yz∙yu  #-}
+    yz·yu = y · z · (y · u)
+    {-# ATP definition yz·yu  #-}
 
-    zy∙xu = z ∙ y ∙ (x ∙ u)
-    zy∙zu = z ∙ y ∙ (z ∙ u)
-    {-# ATP definition zy∙xu  #-}
-    {-# ATP definition zy∙zu  #-}
+    zy·xu = z · y · (x · u)
+    zy·zu = z · y · (z · u)
+    {-# ATP definition zy·xu  #-}
+    {-# ATP definition zy·zu  #-}
 
     -- Steps justifications
 
     postulate
-      j₁₋₃   : xy∙zu ∙ (xy∙zu ∙ xz∙yu) ≡
-               xy∙zu ∙ (x∙zu ∙ xz∙yu ∙ (y∙zu ∙ xz∙yu))
+      j₁₋₃   : xy·zu · (xy·zu · xz·yu) ≡
+               xy·zu · (x·zu · xz·yu · (y·zu · xz·yu))
 
-      j₃₋₅   : xy∙zu ∙ (x∙zu ∙ xz∙yu ∙ (y∙zu ∙ xz∙yu)) ≡
-               xy∙zu ∙ (xz ∙ xu∙yu ∙ (y∙zu ∙ xz∙yu))
+      j₃₋₅   : xy·zu · (x·zu · xz·yu · (y·zu · xz·yu)) ≡
+               xy·zu · (xz · xu·yu · (y·zu · xz·yu))
 
-      j₅₋₇   : xy∙zu ∙ (xz ∙ xu∙yu ∙ (y∙zu ∙ xz∙yu)) ≡
-               xy∙zu ∙ (xz ∙ xyu ∙ (yz∙yu ∙ xz∙yu))
+      j₅₋₇   : xy·zu · (xz · xu·yu · (y·zu · xz·yu)) ≡
+               xy·zu · (xz · xyu · (yz·yu · xz·yu))
 
-      j₇₋₉   : xy∙zu ∙ (xz ∙ xyu ∙ (yz∙yu ∙ xz∙yu)) ≡
-               xy∙zu ∙ (xz ∙ xyu ∙ (yxz ∙ yu))
+      j₇₋₉   : xy·zu · (xz · xyu · (yz·yu · xz·yu)) ≡
+               xy·zu · (xz · xyu · (yxz · yu))
 
-      j₉₋₁₁  : xy∙zu ∙ (xz ∙ xyu ∙ (yxz ∙ yu)) ≡
-               xy∙zu ∙ (xz ∙ xyu ∙ (y∙xu ∙ z∙yu))
+      j₉₋₁₁  : xy·zu · (xz · xyu · (yxz · yu)) ≡
+               xy·zu · (xz · xyu · (y·xu · z·yu))
 
-      j₁₁₋₁₃ : xy∙zu ∙ (xz ∙ xyu ∙ (y∙xu ∙ z∙yu)) ≡
-               xz∙yz ∙ xyu ∙ (xz ∙ xyu ∙ (y∙xu ∙ z∙yu))
+      j₁₁₋₁₃ : xy·zu · (xz · xyu · (y·xu · z·yu)) ≡
+               xz·yz · xyu · (xz · xyu · (y·xu · z·yu))
 
-      j₁₃₋₁₅ : xz∙yz ∙ xyu ∙ (xz ∙ xyu ∙ (y∙xu ∙ z∙yu)) ≡
-               xz ∙ xyu ∙ (yz ∙ xyu ∙ (y∙xu ∙ z∙yu))
+      j₁₃₋₁₅ : xz·yz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
+               xz · xyu · (yz · xyu · (y·xu · z·yu))
 
-      j₁₅₋₁₇ : xz ∙ xyu ∙ (yz ∙ xyu ∙ (y∙xu ∙ z∙yu)) ≡
-               xz ∙ xyu ∙ (y ∙ xu∙yu ∙ (z ∙ xu∙yu) ∙ (y∙xu ∙ z∙yu))
+      j₁₅₋₁₇ : xz · xyu · (yz · xyu · (y·xu · z·yu)) ≡
+               xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu))
 
-      j₁₇₋₁₉ : xz ∙ xyu ∙ (y ∙ xu∙yu ∙ (z ∙ xu∙yu) ∙ (y∙xu ∙ z∙yu)) ≡
-               xz ∙ xyu ∙
-               (y∙xu ∙ y∙yu ∙ (y∙xu ∙ z∙yu) ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu)))
+      j₁₇₋₁₉ : xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu)) ≡
+               xz · xyu ·
+               (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
 
-      j₁₉₋₂₁ : xz ∙ xyu ∙
-               (y∙xu ∙ y∙yu ∙ (y∙xu ∙ z∙yu) ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu))) ≡
-               xz ∙ xyu ∙ (y∙xu ∙ yz∙yu ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu)))
+      j₁₉₋₂₁ : xz · xyu ·
+               (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
+               xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu)))
 
-      j₂₁₋₂₃ : xz ∙ xyu ∙ (y∙xu ∙ yz∙yu ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu))) ≡
-               xz ∙ xyu ∙ (y ∙ xu∙zu ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu)))
+      j₂₁₋₂₃ : xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu))) ≡
+               xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))
 
-      j₂₃₋₂₅ : xz ∙ xyu ∙ (y ∙ xu∙zu ∙ (z ∙ xu∙yu ∙ (y∙xu ∙ z∙yu))) ≡
-               (xz ∙ xyu) ∙ (y ∙ xu∙zu ∙ (z∙xu ∙ y∙xu ∙ z∙yu))
+      j₂₃₋₂₅ : xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu))) ≡
+               (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))
 
-      j₂₅₋₂₇ : (xz ∙ xyu) ∙ (y ∙ xu∙zu ∙ (z∙xu ∙ y∙xu ∙ z∙yu)) ≡
-               xz ∙ xyu ∙ (y ∙ xu∙zu ∙ (zy∙xu ∙ zy∙zu))
+      j₂₅₋₂₇ : (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu)) ≡
+               xz · xyu · (y · xu·zu · (zy·xu · zy·zu))
 
-      j₂₇₋₂₉ : xz ∙ xyu ∙ (y ∙ xu∙zu ∙ (zy∙xu ∙ zy∙zu)) ≡
-               xz ∙ xyu ∙ (y∙zy ∙ xu∙zu)
+      j₂₇₋₂₉ : xz · xyu · (y · xu·zu · (zy·xu · zy·zu)) ≡
+               xz · xyu · (y·zy · xu·zu)
 
-      j₂₉₋₃₁ : xz ∙ xyu ∙ (y∙zy ∙ xu∙zu) ≡
-               xz∙xy ∙ xzu ∙ (y∙zy ∙ xzu)
+      j₂₉₋₃₁ : xz · xyu · (y·zy · xu·zu) ≡
+               xz·xy · xzu · (y·zy · xzu)
 
-      j₃₁₋₃₃ : xz∙xy ∙ xzu ∙ (y∙zy ∙ xzu) ≡
-               x∙zy ∙ y∙zy ∙ xzu
+      j₃₁₋₃₃ : xz·xy · xzu · (y·zy · xzu) ≡
+               x·zy · y·zy · xzu
 
-      j₃₃₋₃₅ : x∙zy ∙ y∙zy ∙ xzu ≡
-               xzy ∙ xzu
+      j₃₃₋₃₅ : x·zy · y·zy · xzu ≡
+               xzy · xzu
 
-      j₃₅    : xzy ∙ xzu ≡
-               xz∙yu
+      j₃₅    : xzy · xzu ≡
+               xz·yu
 
     {-# ATP prove j₃₋₅ #-}
     {-# ATP prove j₅₋₇ #-}

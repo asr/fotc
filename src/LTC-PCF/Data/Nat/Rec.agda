@@ -12,10 +12,10 @@ open import LTC.Base
 -- rech r = lam (λ n → lam (λ a → lam (λ f →
 --              (if (isZero n)
 --                then a
---                else f ∙ (pred n) ∙ (r ∙ (pred n) ∙ a ∙ f)))))
+--                else f · (pred n) · (r · (pred n) · a · f)))))
 
 -- rec : D → D → D → D
--- rec n a f = fix rech ∙ n ∙ a ∙ f
+-- rec n a f = fix rech · n · a · f
 
 -- Version using lambda lifting via super-combinators.
 -- (Hughes. Super-combinators. 1982)
@@ -24,7 +24,7 @@ private
   rec-aux₁ : D → D → D → D → D
   rec-aux₁ n a r f = if (isZero n)
                         then a
-                        else f ∙ (pred n) ∙ (r ∙ (pred n) ∙ a ∙ f)
+                        else f · (pred n) · (r · (pred n) · a · f)
   {-# ATP definition rec-aux₁ #-}
 
   rec-aux₂ : D → D → D → D
@@ -43,5 +43,5 @@ rech r = lam (rec-aux₃ r)
 {-# ATP definition rech #-}
 
 rec : D → D → D → D
-rec n a f = fix rech ∙ n ∙ a ∙ f
+rec n a f = fix rech · n · a · f
 {-# ATP definition rec #-}

@@ -41,7 +41,7 @@ private
 
   -- Initially, the conversion rule fix-f is applied.
   gcd-s₁ : D → D → D
-  gcd-s₁ m n = gcdh (fix gcdh) ∙ m ∙ n
+  gcd-s₁ m n = gcdh (fix gcdh) · m · n
 
   -- First argument application.
   gcd-s₂ : D → D
@@ -53,8 +53,8 @@ private
                        else (if (isZero m)
                                 then n
                                 else (if (m > n)
-                                         then fix gcdh ∙ (m - n) ∙ n
-                                         else fix gcdh ∙ m ∙ (n - m))))
+                                         then fix gcdh · (m - n) · n
+                                         else fix gcdh · m · (n - m))))
 
   -- Second argument application.
   gcd-s₃ : D → D → D
@@ -65,8 +65,8 @@ private
                   else (if (isZero m)
                            then n
                            else (if (m > n)
-                                    then fix gcdh ∙ (m - n) ∙ n
-                                    else fix gcdh ∙ m ∙ (n - m)))
+                                    then fix gcdh · (m - n) · n
+                                    else fix gcdh · m · (n - m)))
 
   -- Conversion (first if_then_else) 'isZero n = b'.
   gcd-s₄ : D → D → D → D
@@ -77,8 +77,8 @@ private
                   else (if (isZero m)
                            then n
                            else (if (m > n)
-                                    then fix gcdh ∙ (m - n) ∙ n
-                                    else fix gcdh ∙ m ∙ (n - m)))
+                                    then fix gcdh · (m - n) · n
+                                    else fix gcdh · m · (n - m)))
 
   -- Conversion first if_then_else when 'if true ...'.
   gcd-s₅ : D → D
@@ -89,8 +89,8 @@ private
   gcd-s₆ m n = if (isZero m)
                   then n
                   else (if (m > n)
-                           then fix gcdh ∙ (m - n) ∙ n
-                           else fix gcdh ∙ m ∙ (n - m))
+                           then fix gcdh · (m - n) · n
+                           else fix gcdh · m · (n - m))
 
   -- Conversion (second if_then_else) 'isZero m = b'.
   gcd-s₇ : D → D → D
@@ -101,20 +101,20 @@ private
   gcd-s₈ m n b = if b
                     then n
                     else (if (m > n)
-                             then fix gcdh ∙ (m - n) ∙ n
-                             else fix gcdh ∙ m ∙ (n - m))
+                             then fix gcdh · (m - n) · n
+                             else fix gcdh · m · (n - m))
 
   -- Conversion third if_then_else, when 'if false ...'.
   gcd-s₉ : D → D → D
   gcd-s₉ m n = if (m > n)
-                   then fix gcdh ∙ (m - n) ∙ n
-                   else fix gcdh ∙ m ∙ (n - m)
+                   then fix gcdh · (m - n) · n
+                   else fix gcdh · m · (n - m)
 
   -- Conversion (fourth if_then_else) 'gt m n = b'.
   gcd-s₁₀ : D → D → D → D
   gcd-s₁₀ m n b = if b
-                     then fix gcdh ∙ (m - n) ∙ n
-                     else fix gcdh ∙ m ∙ (n - m)
+                     then fix gcdh · (m - n) · n
+                     else fix gcdh · m · (n - m)
 
   ----------------------------------------------------------------------------
   -- The execution steps
@@ -139,19 +139,19 @@ private
   -}
 
   -- Application of the conversion rule fix-f.
-  proof₀₋₁ : (m n : D) → fix gcdh ∙ m ∙ n ≡ gcd-s₁ m n
-  proof₀₋₁ m n = subst (λ x → x ∙ m ∙ n ≡ gcdh (fix gcdh) ∙ m ∙ n)
+  proof₀₋₁ : (m n : D) → fix gcdh · m · n ≡ gcd-s₁ m n
+  proof₀₋₁ m n = subst (λ x → x · m · n ≡ gcdh (fix gcdh) · m · n)
                        (sym (fix-f gcdh))
                        refl
 
   -- Application of the first argument.
-  proof₁₋₂ : (m n : D) → gcd-s₁ m n ≡ gcd-s₂ m ∙ n
-  proof₁₋₂ m n = subst (λ x → x ∙ n ≡ gcd-s₂ m ∙ n)
+  proof₁₋₂ : (m n : D) → gcd-s₁ m n ≡ gcd-s₂ m · n
+  proof₁₋₂ m n = subst (λ x → x · n ≡ gcd-s₂ m · n)
                        (sym (beta gcd-s₂ m))
                        refl
 
   -- Second argument application.
-  proof₂₋₃ : (m n : D) → gcd-s₂ m ∙ n ≡ gcd-s₃ m n
+  proof₂₋₃ : (m n : D) → gcd-s₂ m · n ≡ gcd-s₃ m n
   proof₂₋₃ m n  = beta (gcd-s₃ m) n
 
   -- Conversion (first if_then_else) 'isZero n = b' using that proof.
@@ -203,12 +203,12 @@ private
                               refl
 
   -- Conversion fourth if_then_else when 'if true ...' using if-true.
-  proof₁₀₊ : (m n : D) → gcd-s₁₀ m n true ≡ fix gcdh ∙ (m - n) ∙ n
-  proof₁₀₊ m n = if-true (fix gcdh ∙ (m - n) ∙ n)
+  proof₁₀₊ : (m n : D) → gcd-s₁₀ m n true ≡ fix gcdh · (m - n) · n
+  proof₁₀₊ m n = if-true (fix gcdh · (m - n) · n)
 
   -- Conversion fourth if_then_else when 'if was ...' using if-false.
-  proof₁₀₋ : (m n : D) → gcd-s₁₀ m n false ≡ fix gcdh ∙ m ∙ (n - m)
-  proof₁₀₋ m n = if-false (fix gcdh ∙ m ∙ (n - m))
+  proof₁₀₋ : (m n : D) → gcd-s₁₀ m n false ≡ fix gcdh · m · (n - m)
+  proof₁₀₋ m n = if-false (fix gcdh · m · (n - m))
 
 ------------------------------------------------------------------------------
 -- The five equations for gcd
@@ -220,7 +220,7 @@ gcd-00 =
   begin
     gcd zero zero         ≡⟨ proof₀₋₁ zero zero ⟩
     gcd-s₁ zero zero      ≡⟨ proof₁₋₂ zero zero ⟩
-    gcd-s₂ zero ∙ zero    ≡⟨ proof₂₋₃ zero zero ⟩
+    gcd-s₂ zero · zero    ≡⟨ proof₂₋₃ zero zero ⟩
     gcd-s₃ zero zero      ≡⟨ proof₃₋₄ zero zero true isZero-0 ⟩
     gcd-s₄ zero zero true ≡⟨ proof₄₋₅ zero zero ⟩
     gcd-s₅ zero           ≡⟨ proof₅₋₇ zero true isZero-0 ⟩
@@ -234,7 +234,7 @@ gcd-S0 m =
   begin
     gcd (succ m) zero         ≡⟨ proof₀₋₁ (succ m) zero ⟩
     gcd-s₁ (succ m) zero      ≡⟨ proof₁₋₂ (succ m) zero ⟩
-    gcd-s₂ (succ m) ∙ zero    ≡⟨ proof₂₋₃ (succ m) zero ⟩
+    gcd-s₂ (succ m) · zero    ≡⟨ proof₂₋₃ (succ m) zero ⟩
     gcd-s₃ (succ m) zero      ≡⟨ proof₃₋₄ (succ m) zero true isZero-0 ⟩
     gcd-s₄ (succ m) zero true ≡⟨ proof₄₋₅ (succ m) zero ⟩
     gcd-s₅ (succ m)           ≡⟨ proof₅₋₇ (succ m) false (isZero-S m) ⟩
@@ -248,7 +248,7 @@ gcd-0S n =
   begin
     gcd zero (succ n)          ≡⟨ proof₀₋₁ zero (succ n) ⟩
     gcd-s₁ zero (succ n)       ≡⟨ proof₁₋₂ zero (succ n) ⟩
-    gcd-s₂ zero ∙ (succ n)     ≡⟨ proof₂₋₃ zero (succ n) ⟩
+    gcd-s₂ zero · (succ n)     ≡⟨ proof₂₋₃ zero (succ n) ⟩
     gcd-s₃ zero (succ n)       ≡⟨ proof₃₋₄ zero (succ n) false (isZero-S n) ⟩
     gcd-s₄ zero (succ n) false ≡⟨ proof₄₋₆ zero (succ n) ⟩
     gcd-s₆ zero (succ n)       ≡⟨ proof₆₋₈ zero (succ n) true isZero-0 ⟩
@@ -264,7 +264,7 @@ gcd-S>S m n Sm>Sn =
   begin
     gcd (succ m) (succ n)          ≡⟨ proof₀₋₁ (succ m) (succ n) ⟩
     gcd-s₁ (succ m) (succ n)       ≡⟨ proof₁₋₂ (succ m) (succ n) ⟩
-    gcd-s₂ (succ m) ∙ (succ n)     ≡⟨ proof₂₋₃ (succ m) (succ n) ⟩
+    gcd-s₂ (succ m) · (succ n)     ≡⟨ proof₂₋₃ (succ m) (succ n) ⟩
     gcd-s₃ (succ m) (succ n)       ≡⟨ proof₃₋₄ (succ m) (succ n)
                                                false (isZero-S n)
                                    ⟩
@@ -275,7 +275,7 @@ gcd-S>S m n Sm>Sn =
     gcd-s₈ (succ m) (succ n) false ≡⟨ proof₈₋₉ (succ m) (succ n) ⟩
     gcd-s₉ (succ m) (succ n)       ≡⟨ proof₉₋₁₀ (succ m) (succ n) true Sm>Sn ⟩
     gcd-s₁₀ (succ m) (succ n) true ≡⟨ proof₁₀₊  (succ m) (succ n) ⟩
-    fix gcdh ∙ (succ m - succ n) ∙ succ n
+    fix gcdh · (succ m - succ n) · succ n
   ∎
 
 -- TODO: This equation requires N m and N n.
@@ -286,7 +286,7 @@ gcd-S≤S {m} {n} Nm Nn Sm≤Sn =
   begin
     gcd (succ m) (succ n)           ≡⟨ proof₀₋₁ (succ m) (succ n) ⟩
     gcd-s₁ (succ m) (succ n)        ≡⟨ proof₁₋₂ (succ m) (succ n) ⟩
-    gcd-s₂ (succ m) ∙ (succ n)      ≡⟨ proof₂₋₃ (succ m) (succ n) ⟩
+    gcd-s₂ (succ m) · (succ n)      ≡⟨ proof₂₋₃ (succ m) (succ n) ⟩
     gcd-s₃ (succ m) (succ n)        ≡⟨ proof₃₋₄ (succ m) (succ n)
                                                 false (isZero-S n)
                                     ⟩
@@ -300,5 +300,5 @@ gcd-S≤S {m} {n} Nm Nn Sm≤Sn =
                                                  (x≤y→x≯y (sN Nm) (sN Nn) Sm≤Sn)
                                     ⟩
     gcd-s₁₀ (succ m) (succ n) false ≡⟨ proof₁₀₋ (succ m) (succ n) ⟩
-    fix gcdh ∙ succ m ∙ (succ n - succ m)
+    fix gcdh · succ m · (succ n - succ m)
   ∎

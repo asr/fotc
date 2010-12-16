@@ -20,7 +20,7 @@ It is possible to define two different versions of gcd based on which
 
 -- Instead of define
 -- 'gcdh : ((D → D → D) → (D → D → D)) → D → D → D', we use the LTC
--- abstraction ('lam') and application ('∙') to avoid use a polymorphic fixed
+-- abstraction ('lam') and application ('·') to avoid use a polymorphic fixed
 -- point operator.
 
 -- Version using lambda-abstraction.
@@ -34,8 +34,8 @@ It is possible to define two different versions of gcd based on which
 --               else (if (isZero d)
 --                        then e
 --                        else (if (gt d e)
---                                 then g ∙ (d - e) ∙ e
---                                 else g ∙ d ∙ (e - d)))))
+--                                 then g · (d - e) · e
+--                                 else g · d · (e - d)))))
 
 -- Version using lambda lifting via super-combinators.
 -- (Hughes. Super-combinators. 1982)
@@ -48,8 +48,8 @@ gcd-aux₁ d g e = if (isZero e)
                          else (if (isZero d)
                            then e
                            else (if (d > e)
-                                    then g ∙ (d - e) ∙ e
-                                    else g ∙ d ∙ (e - d)))
+                                    then g · (d - e) · e
+                                    else g · d · (e - d)))
 {-# ATP definition gcd-aux₁ #-}
 
 gcd-aux₂ : D → D → D
@@ -61,5 +61,5 @@ gcdh g = lam (gcd-aux₂ g)
 {-# ATP definition gcdh #-}
 
 gcd : D → D → D
-gcd d e = fix gcdh ∙ d ∙ e
+gcd d e = fix gcdh · d · e
 {-# ATP definition gcd #-}

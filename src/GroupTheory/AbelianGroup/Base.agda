@@ -13,5 +13,5 @@ open import GroupTheory.Base public
 
 -- We only need to add the commutativity axiom.
 postulate
-  comm : ∀ x y → x ∙ y ≡ y ∙ x
+  comm : ∀ x y → x · y ≡ y · x
 {-# ATP axiom comm #-}

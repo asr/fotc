@@ -11,7 +11,7 @@ open import GroupTheory.Commutator using ( ⟦_,_⟧ ; ⟦⟧-assoc )
 ------------------------------------------------------------------------------
 
 postulate
-  ⟦x,y⟧⟦y,x⟧≡ε : ∀ a b → ⟦ a , b ⟧ ∙ ⟦ b , a ⟧ ≡ ε
+  ⟦x,y⟧⟦y,x⟧≡ε : ∀ a b → ⟦ a , b ⟧ · ⟦ b , a ⟧ ≡ ε
 {-# ATP prove ⟦x,y⟧⟦y,x⟧≡ε #-}
 
 -- If the commutator operation is associative, then commutator of any two
@@ -19,5 +19,5 @@ postulate
 -- From: TPTP (v5.0.0). File: Problems/GRP/GRP024-5.p
 postulate
   ⟦⟧-assoc→⟦⟧-center : (∀ x y z → ⟦⟧-assoc x y z) →
-                       (∀ x y z → x ∙ ⟦ y , z ⟧ ≡ ⟦ y , z ⟧ ∙ x)
+                       (∀ x y z → x · ⟦ y , z ⟧ ≡ ⟦ y , z ⟧ · x)
 {-# ATP prove ⟦⟧-assoc→⟦⟧-center #-}

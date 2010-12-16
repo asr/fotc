@@ -38,34 +38,34 @@ private
 
     -- Initially, the conversion rule fix-f is applied
     div-s₁ : D → D → D
-    div-s₁ i j = divh (fix divh) ∙ i ∙ j
+    div-s₁ i j = divh (fix divh) · i · j
 
     -- First argument application
     div-s₂ : D → D → D
-    div-s₂ i j = fun ∙ j
+    div-s₂ i j = fun · j
       where
         fun : D
         fun = lam (λ j → if (i < j)
                             then zero
-                            else succ (fix divh ∙ (i - j) ∙ j))
+                            else succ (fix divh · (i - j) · j))
 
     -- Second argument application
     div-s₃ : D → D → D
     div-s₃ i j = if (i < j)
                     then zero
-                    else succ (fix divh ∙ (i - j) ∙ j)
+                    else succ (fix divh · (i - j) · j)
 
     -- lt i j ≡ true
     div-s₄ : D → D → D
     div-s₄ i j = if true
                     then zero
-                    else succ (fix divh ∙ (i - j) ∙ j)
+                    else succ (fix divh · (i - j) · j)
 
     -- lt i j ≡ false
     div-s₅ : D → D → D
     div-s₅ i j = if false
                     then zero
-                    else succ (fix divh ∙ (i - j) ∙ j)
+                    else succ (fix divh · (i - j) · j)
 
     -- The conditional is true
     div-s₆ : D
@@ -73,7 +73,7 @@ private
 
     -- The conditional is false
     div-s₇ : D → D → D
-    div-s₇ i j = succ (fix divh ∙ (i - j) ∙ j)
+    div-s₇ i j = succ (fix divh · (i - j) · j)
 
     {-
     To prove the execution steps
@@ -98,16 +98,16 @@ private
 
     -}
 
-    -- From 'div ∙ i ∙ j' to div-s₁ using the conversion rule fix-f
-    proof₀₋₁ : (i j : D) → fix divh ∙ i ∙ j ≡ div-s₁ i j
-    proof₀₋₁ i j = subst (λ t → t ∙ i ∙ j ≡ divh (fix divh) ∙ i ∙ j)
+    -- From 'div · i · j' to div-s₁ using the conversion rule fix-f
+    proof₀₋₁ : (i j : D) → fix divh · i · j ≡ div-s₁ i j
+    proof₀₋₁ i j = subst (λ t → t · i · j ≡ divh (fix divh) · i · j)
                          (sym $ fix-f divh)
                          refl
 
     -- From div-s₁ to div-s₂ using the conversion rule beta
     proof₁₋₂ : (i j : D) → div-s₁ i j ≡ div-s₂ i j
     proof₁₋₂ i j =
-      subst (λ t → t ∙ j ≡ fun i ∙ j)
+      subst (λ t → t · j ≡ fun i · j)
             (sym $ beta fun i)
             refl
          where
@@ -118,7 +118,7 @@ private
           fun : D → D
           fun y = lam (λ j → if (y < j)
                                 then zero
-                                else succ (fix divh ∙ (y - j) ∙ j))
+                                else succ (fix divh · (y - j) · j))
 
     -- From div-s₂ to div-s₃ using the conversion rule beta
     proof₂₋₃ : (i j : D) → div-s₂ i j ≡ div-s₃ i j
@@ -130,18 +130,18 @@ private
         fun : D → D
         fun y = if (i < y)
                    then zero
-                   else succ ((fix divh) ∙ (i - y) ∙ y)
+                   else succ ((fix divh) · (i - y) · y)
 
     -- From div-s₃ to div-s₄ using the proof i<j
     proof₃_₄ : (i j : D) → LT i j → div-s₃ i j ≡ div-s₄ i j
     proof₃_₄ i j i<j =
       subst (λ t → if t
                       then zero
-                      else succ ((fix divh) ∙ (i - j) ∙ j)
+                      else succ ((fix divh) · (i - j) · j)
                       ≡
                    if true
                       then zero
-                      else succ ((fix divh) ∙ (i - j) ∙ j)
+                      else succ ((fix divh) · (i - j) · j)
             )
             (sym i<j)
             refl
@@ -151,11 +151,11 @@ private
     proof₃₋₅ {i} {j} Ni Nj i≥j =
       subst (λ t → if t
                       then zero
-                      else succ ((fix divh) ∙ (i - j) ∙ j)
+                      else succ ((fix divh) · (i - j) · j)
                       ≡
                    if false
                       then zero
-                      else succ ((fix divh) ∙ (i - j) ∙ j)
+                      else succ ((fix divh) · (i - j) · j)
             )
             (sym $ x≥y→x≮y Ni Nj i≥j)
             refl
@@ -167,7 +167,7 @@ private
 
     -- From div-s₅ to div-s₇ using the conversion rule if-false
     proof₅₋₇ : (i j : D) → div-s₅ i j ≡ div-s₇ i j
-    proof₅₋₇ i j = if-false (succ (fix divh ∙ (i - j) ∙ j))
+    proof₅₋₇ i j = if-false (succ (fix divh · (i - j) · j))
 
 ----------------------------------------------------------------------
 -- The division result when the dividend is minor than the

@@ -143,16 +143,16 @@ ListOrd is = isListOrd is ≡ true
 
 postulate
   toTree          : D
-  toTree-nilTree  : (item : D) →   toTree ∙ item ∙ nilTree ≡ tip item
-  toTree-tip      : (item i : D) → toTree ∙ item ∙ (tip i) ≡
+  toTree-nilTree  : (item : D) →   toTree · item · nilTree ≡ tip item
+  toTree-tip      : (item i : D) → toTree · item · (tip i) ≡
                     if (i ≤ item)
                       then (node (tip i) item (tip item))
                       else (node (tip item) i (tip i))
   toTree-node     : (item t₁ i t₂ : D) →
-                    toTree ∙ item ∙ (node t₁ i t₂) ≡
+                    toTree · item · (node t₁ i t₂) ≡
                        if (i ≤ item)
-                         then (node t₁ i (toTree ∙ item ∙ t₂))
-                         else (node (toTree ∙ item ∙ t₁) i t₂)
+                         then (node t₁ i (toTree · item · t₂))
+                         else (node (toTree · item · t₁) i t₂)
 {-# ATP axiom toTree-nilTree #-}
 {-# ATP axiom toTree-tip #-}
 {-# ATP axiom toTree-node #-}
