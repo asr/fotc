@@ -6,6 +6,7 @@ module AxiomaticPA.Base where
 
 -- We add 3 to the fixities of the standard library.
 infixl 10 _*_
+infix  7  _≣_
 infixl 9  _+_
 
 ------------------------------------------------------------------------------
@@ -24,14 +25,9 @@ postulate
   _+_  : ℕ → ℕ → ℕ
   _*_  : ℕ → ℕ → ℕ
 
--- The PA equality
--- The PA equality is the propositional identity on the PA universe.
-
--- N.B. The following module is exported by this module.
--- N.B. We are not using the refl and sym properties because they are
--- not stated in the proper axioms (see below).
-open import Common.Relation.Binary.PropositionalEquality public
-  using ( _≡_ ; trans )
+-- The PA equality.
+postulate
+  _≣_ : ℕ → ℕ → Set
 
 -- Proper axioms
 -- (From Elliott Mendelson. Introduction to mathematical
@@ -48,28 +44,36 @@ open import Common.Relation.Binary.PropositionalEquality public
 -- S₉. P(0) → (∀x.P(x) → P(succ x)) → ∀x.P(x), for any wf P(x) of PA.
 
 postulate
-  -- S₁: This axiom is the transitivity property imported from
-  --     Common.Relation.Binary.PropositionalEquality
+  S₁ : ∀ {m n o} → m ≣ n → m ≣ o → n ≣ o
+{-# ATP axiom S₁ #-}
 
-  -- S₂: This axiom is not required by the ATPs.
+postulate
+  S₂ : ∀ {m n} → m ≣ n → succ m ≣ succ n
+{-# ATP axiom S₂ #-}
 
-  S₃ : ∀ {n} → ¬ (zero ≡ succ n)
-
-  S₄ : ∀ {m n} → succ m ≡ succ n → m ≡ n
-
-  S₅ : ∀ n →   zero   + n ≡ n
-  S₆ : ∀ m n → succ m + n ≡ succ (m + n)
-
-  S₇ : ∀ n →   zero   * n ≡ zero
-  S₈ : ∀ m n → succ m * n ≡ n + m * n
-
-  -- N.B. S₉ is a higher-order axiom, therefore we do not translate it
-  -- as an ATP axiom.
-  S₉ : (P : ℕ → Set) → P zero → (∀ n → P n → P (succ n)) → ∀ n → P n
-
+postulate
+  S₃ : ∀ {n} → ¬ (zero ≣ succ n)
 {-# ATP axiom S₃ #-}
+
+postulate
+  S₄ : ∀ {m n} → succ m ≣ succ n → m ≣ n
 {-# ATP axiom S₄ #-}
+
+-- N.B. We make the recursion in the first argument.
+postulate
+  S₅ : ∀ n →   zero   + n ≣ n
+  S₆ : ∀ m n → succ m + n ≣ succ (m + n)
 {-# ATP axiom S₅ #-}
 {-# ATP axiom S₆ #-}
+
+-- N.B. We make the recursion on the first argument.
+postulate
+  S₇ : ∀ n →   zero   * n ≣ zero
+  S₈ : ∀ m n → succ m * n ≣ n + m * n
 {-# ATP axiom S₇ #-}
 {-# ATP axiom S₈ #-}
+
+postulate
+  -- The axiom S₉ is a higher-order one, therefore we do not translate it
+  -- as an ATP axiom.
+  S₉ : (P : ℕ → Set) → P zero → (∀ n → P n → P (succ n)) → ∀ n → P n
