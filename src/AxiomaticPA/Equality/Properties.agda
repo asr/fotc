@@ -16,7 +16,7 @@ sym : ∀ {m n} → m ≣ n → n ≣ m
 sym {m} = aux S₁ (refl m)
   where
     aux : ∀ {r t} → (t ≣ r → t ≣ t → r ≣ t) → t ≣ t → t ≣ r → r ≣ t
-    aux fn t≣t t≣r = fn t≣r t≣t
+    aux hyp t≣t t≣r = hyp t≣r t≣t
 {-# ATP hint sym #-}
 
 trans : ∀ {m n o} → m ≣ n → n ≣ o → m ≣ o
