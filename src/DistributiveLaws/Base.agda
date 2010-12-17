@@ -14,8 +14,6 @@ open import Common.Universe public
 
 -- The equality
 -- The equality is the propositional identity on the universe.
-
--- N.B. The following module is exported by this module.
 open import Common.Relation.Binary.PropositionalEquality public
 
 -- Distributive laws axioms

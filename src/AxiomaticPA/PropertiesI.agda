@@ -28,8 +28,8 @@ open import AxiomaticPA.Equality.Properties using ( sym )
         succ i
       ∎
 
-x+1+y≡1+x+y : ∀ m n → m + succ n ≣ succ (m + n)
-x+1+y≡1+x+y m n = S₉ P P0 iStep m
+x+1+y≣1+x+y : ∀ m n → m + succ n ≣ succ (m + n)
+x+1+y≣1+x+y m n = S₉ P P0 iStep m
   where
     P : ℕ → Set
     P i = i + succ n ≣ succ (i + n)
@@ -70,6 +70,6 @@ x+1+y≡1+x+y m n = S₉ P P0 iStep m
        begin
          succ i + n   ≡⟨ S₆ i n ⟩
          succ (i + n) ≡⟨ S₂ Pi ⟩
-         succ (n + i) ≡⟨ sym (x+1+y≡1+x+y n i) ⟩
+         succ (n + i) ≡⟨ sym (x+1+y≣1+x+y n i) ⟩
          n + succ i
        ∎

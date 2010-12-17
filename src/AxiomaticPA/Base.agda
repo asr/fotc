@@ -11,11 +11,9 @@ infixl 9  _+_
 
 ------------------------------------------------------------------------------
 -- PA universe
--- N.B. The following module is exported by this module.
 open import Common.Universe public renaming ( D to ℕ )
 
 -- Logical constants
--- N.B. The module is exported by this module.
 open import Common.LogicalConstants public
 
 -- Non-logical constants
@@ -33,15 +31,15 @@ postulate
 -- (From Elliott Mendelson. Introduction to mathematical
 -- logic. Chapman & Hall, 4th edition, 1997, p. 155)
 
--- S₁. x₁ = x₂ → x₁ = x₃ → x₂ = x₃
--- S₂. x₁ = x₂ → succ x₁ = succ x₂
--- S₃. 0 ≠ succ x
--- S₄. succ x₁ = succ x₂ → x₁ = x₂
--- S₅. x₁ + 0 = x₁
--- S₆. x₁ + succ x₂ = succ (x₁ + x₂)
--- S₇. x₁ * 0 = 0
--- S₈. x₁ * succ x₂ = (x₁ * x₂) + x₁
--- S₉. P(0) → (∀x.P(x) → P(succ x)) → ∀x.P(x), for any wf P(x) of PA.
+-- S₁. m = n → m = o → n = o
+-- S₂. m = n → succ m = succ n
+-- S₃. 0 ≠ succ n
+-- S₄. succ m = succ n → m = n
+-- S₅. n + 0 = n
+-- S₆. m + succ n = succ (m + n)
+-- S₇. n * 0 = 0
+-- S₈. m * succ n = (m * n) + m
+-- S₉. P(0) → (∀n.P(n) → P(succ n)) → ∀n.P(n), for any wf P(n) of PA.
 
 postulate
   S₁ : ∀ {m n o} → m ≣ n → m ≣ o → n ≣ o

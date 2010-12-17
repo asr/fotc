@@ -17,10 +17,15 @@ infixr 8 _∷_  -- We add 3 to the fixities of the standard library.
 infix  8 if_then_else_
 
 ------------------------------------------------------------------------------
--- The universal domain
-
--- N.B. The following module is exported by this module.
+-- The universal domain.
 open import Common.Universe public
+
+-- The LTC equality
+-- The LTC equality is the propositional identity on the universal domain.
+open import Common.Relation.Binary.PropositionalEquality public
+
+-- Logical constants
+open import Common.LogicalConstants public
 
 ------------------------------------------------------------------------------
 -- The term language of LTC correspond to the PCF terms.
@@ -64,19 +69,6 @@ postulate
   _∷_  : D → D → D
   head : D → D
   tail : D → D
-
-------------------------------------------------------------------------------
--- The LTC equality
--- The LTC equality is the propositional identity on the universal domain.
-
--- N.B. The following module is exported by this module.
-open import Common.Relation.Binary.PropositionalEquality public
-
-------------------------------------------------------------------------------
--- Logical constants
-
--- N.B. The module is exported by this module.
-open import Common.LogicalConstants public
 
 ------------------------------------------------------------------------------
 -- Conversion rules

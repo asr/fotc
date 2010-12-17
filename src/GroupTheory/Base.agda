@@ -9,18 +9,14 @@ infix  11 _⁻¹
 infixl 10 _·_  -- The symbol is '\cdot'.
 
 ------------------------------------------------------------------------------
-
 -- The group universe
 open import Common.Universe public renaming ( D to G )
 
 -- The equality
 -- The equality is the propositional identity on the group universe.
-
--- N.B. The following module is exported by this module.
 open import Common.Relation.Binary.PropositionalEquality public
 
 -- Logical constants
--- N.B. The module is exported by this module.
 open import Common.LogicalConstants public
 
 -- Group theory axioms
