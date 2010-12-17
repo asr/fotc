@@ -1,6 +1,6 @@
 1 patch for repository http://code.haskell.org/Agda:
 
-Wed Nov 17 11:41:13 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+Fri Dec 17 12:45:16 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
   * Added the ATP pragma.
     {-# ATP role name [h1 ... hn] #-}
   
@@ -14,8 +14,8 @@ Wed Nov 17 11:41:13 COT 2010  Andrés Sicard-Ramírez <andres.sicard.ramirez@gma
 New patches:
 
 [Added the ATP pragma.
-Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>**20101117164113
- Ignore-this: 3e67d0d7adce4255392da6344ed54e7c
+Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>**20101217174516
+ Ignore-this: 3fff369f815d55108c10ac7c80219b1e
    {-# ATP role name [h1 ... hn] #-}
  
    The pragma indicates that the name and h1, ..., hn, will be used
@@ -61,9 +61,9 @@ hunk ./src/full/Agda/Interaction/Options.hs 12
      , defaultVerbosity
      , standardOptions_
      , isLiterate
-hunk ./src/full/Agda/Syntax/Abstract.hs 78
-             | CompiledTypePragma QName String
+hunk ./src/full/Agda/Syntax/Abstract.hs 79
              | CompiledDataPragma QName String [String]
+             | CompiledEpicPragma QName String
              | EtaPragma QName
 +            | PragmaATP RoleATP QName [QName]
    deriving (Typeable, Data, Show)
@@ -89,7 +89,7 @@ hunk ./src/full/Agda/Syntax/Common.hs 176
  ------------------------------------------------------------------------
  -- Arbitrary and CoArbitrary instances
  
-hunk ./src/full/Agda/Syntax/Concrete.hs 248
+hunk ./src/full/Agda/Syntax/Concrete.hs 249
                -- module name.
              | ImpossiblePragma !Range
              | EtaPragma !Range QName
@@ -97,7 +97,7 @@ hunk ./src/full/Agda/Syntax/Concrete.hs 248
      deriving (Typeable, Data)
  
  ---------------------------------------------------------------------------
-hunk ./src/full/Agda/Syntax/Concrete.hs 376
+hunk ./src/full/Agda/Syntax/Concrete.hs 378
      getRange (ImportPragma r _)           = r
      getRange (ImpossiblePragma r)         = r
      getRange (EtaPragma r _)              = r
@@ -105,7 +105,7 @@ hunk ./src/full/Agda/Syntax/Concrete.hs 376
  
  instance HasRange UsingOrHiding where
      getRange (Using xs)	    = getRange xs
-hunk ./src/full/Agda/Syntax/Concrete/Pretty.hs 312
+hunk ./src/full/Agda/Syntax/Concrete/Pretty.hs 314
        hsep $ [text "IMPOSSIBLE"]
      pretty (EtaPragma _ x) =
        hsep $ [text "ETA", pretty x]
@@ -114,7 +114,7 @@ hunk ./src/full/Agda/Syntax/Concrete/Pretty.hs 312
  
  instance Pretty Fixity where
      pretty (LeftAssoc _ n)  = text "infixl" <+> text (show n)
-hunk ./src/full/Agda/Syntax/Concrete/Pretty.hs 383
+hunk ./src/full/Agda/Syntax/Concrete/Pretty.hs 385
      pretty (ImportedName x)	= pretty x
      pretty (ImportedModule x)	= text "module" <+> pretty x
  
@@ -124,7 +124,7 @@ hunk ./src/full/Agda/Syntax/Concrete/Pretty.hs 383
 +    pretty DefinitionATP = text "definition"
 +    pretty HintATP       = text "hint"
 +
-hunk ./src/full/Agda/Syntax/Parser/Lexer.x 86
+hunk ./src/full/Agda/Syntax/Parser/Lexer.x 87
  <pragma_>   "IMPOSSIBLE"	{ keyword KwIMPOSSIBLE }
  <pragma_>   "ETA"               { keyword KwETA }
  <pragma_>   "LINE"		{ keyword KwLINE }
@@ -132,15 +132,15 @@ hunk ./src/full/Agda/Syntax/Parser/Lexer.x 86
  <pragma_>   . # [ $white ] +    { withInterval $ TokString }
  
  -- Comments
-hunk ./src/full/Agda/Syntax/Parser/Parser.y 93
-     'COMPILED_TYPE' { TokKeyword KwCOMPILED_TYPE $$ }
+hunk ./src/full/Agda/Syntax/Parser/Parser.y 94
+     'COMPILED_EPIC' { TokKeyword KwCOMPILED_EPIC $$ }
      'quoteGoal'     { TokKeyword KwQuoteGoal $$ }
      'quote'         { TokKeyword KwQuote $$ }
 +    'ATP'           { TokKeyword KwATP $$ }
  
      setN	{ TokSetN $$ }
      tex		{ TokTeX $$ }
-hunk ./src/full/Agda/Syntax/Parser/Parser.y 185
+hunk ./src/full/Agda/Syntax/Parser/Parser.y 187
      | 'ETA'           { TokKeyword KwETA $1 }
      | 'quoteGoal'     { TokKeyword KwQuoteGoal $1 }
      | 'quote'         { TokKeyword KwQuote $1 }
@@ -148,7 +148,7 @@ hunk ./src/full/Agda/Syntax/Parser/Parser.y 185
  
      | setN	    { TokSetN $1 }
      | tex	    { TokTeX $1 }
-hunk ./src/full/Agda/Syntax/Parser/Parser.y 380
+hunk ./src/full/Agda/Syntax/Parser/Parser.y 382
  PragmaName :: { QName }
  PragmaName : string {% fmap QName (mkName $1) }
  
@@ -161,7 +161,7 @@ hunk ./src/full/Agda/Syntax/Parser/Parser.y 380
  {--------------------------------------------------------------------------
      Expressions (terms and types)
   --------------------------------------------------------------------------}
-hunk ./src/full/Agda/Syntax/Parser/Parser.y 710
+hunk ./src/full/Agda/Syntax/Parser/Parser.y 712
      | Pragma	    { [$1] }
      | Syntax        { [$1] }
  
@@ -169,7 +169,7 @@ hunk ./src/full/Agda/Syntax/Parser/Parser.y 710
  {--------------------------------------------------------------------------
      Individual declarations
   --------------------------------------------------------------------------}
-hunk ./src/full/Agda/Syntax/Parser/Parser.y 891
+hunk ./src/full/Agda/Syntax/Parser/Parser.y 894
    | ImportPragma       { $1 }
    | ImpossiblePragma   { $1 }
    | RecordEtaPragma    { $1 }
@@ -177,7 +177,7 @@ hunk ./src/full/Agda/Syntax/Parser/Parser.y 891
  
  OptionsPragma :: { Pragma }
  OptionsPragma : '{-#' 'OPTIONS' PragmaStrings '#-}' { OptionsPragma (fuseRange $1 $4) $3 }
-hunk ./src/full/Agda/Syntax/Parser/Parser.y 933
+hunk ./src/full/Agda/Syntax/Parser/Parser.y 942
  ImpossiblePragma :: { Pragma }
    : '{-#' 'IMPOSSIBLE' '#-}'  { ImpossiblePragma (fuseRange $1 $3) }
  
@@ -199,15 +199,15 @@ hunk ./src/full/Agda/Syntax/Parser/Parser.y 933
   --------------------------------------------------------------------------}
 hunk ./src/full/Agda/Syntax/Parser/Tokens.hs 23
  	| KwOPTIONS | KwBUILTIN | KwLINE
-         | KwCOMPILED_DATA | KwCOMPILED_TYPE | KwCOMPILED | KwIMPORT
+         | KwCOMPILED_DATA | KwCOMPILED_TYPE | KwCOMPILED | KwCOMPILED_EPIC | KwIMPORT
          | KwIMPOSSIBLE | KwETA | KwQuoteGoal | KwQuote | KwSyntax
 +        | KwATP
      deriving (Eq, Show)
  
  layoutKeywords :: [Keyword]
-hunk ./src/full/Agda/Syntax/Translation/AbstractToConcrete.hs 653
+hunk ./src/full/Agda/Syntax/Translation/AbstractToConcrete.hs 656
            x <- toConcrete x
-           return $ C.CompiledPragma r x hs
+           return $ C.CompiledEpicPragma r x e
          A.EtaPragma x -> C.EtaPragma r <$> toConcrete x
 +        A.PragmaATP role qname qnames -> do
 +          qname  <- toConcrete qname
@@ -216,7 +216,7 @@ hunk ./src/full/Agda/Syntax/Translation/AbstractToConcrete.hs 653
  
  -- Left hand sides --------------------------------------------------------
  
-hunk ./src/full/Agda/Syntax/Translation/ConcreteToAbstract.hs 926
+hunk ./src/full/Agda/Syntax/Translation/ConcreteToAbstract.hs 933
        case e of
          A.Def x -> return [ A.EtaPragma x ]
          _       -> fail "Bad ETA pragma"
@@ -263,17 +263,19 @@ hunk ./src/full/Agda/Syntax/Translation/ConcreteToAbstract.hs 926
  
  instance ToAbstract C.Clause A.Clause where
      toAbstract (C.Clause top C.Ellipsis{} _ _ _) = fail "bad '...'" -- TODO: errors message
-hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 421
+hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 422
    deriving (Typeable, Data, Show, Eq, Ord)
  
  data Defn = Axiom
 -            { axHsDef   :: Maybe HaskellRepresentation
+-            , axEpDef   :: Maybe EpicCode
 +            { axHsDef :: Maybe HaskellRepresentation
++            , axEpDef :: Maybe EpicCode
 +            , axATP   :: Maybe (RoleATP, [QName]) -- ^ ATP axiom or conjecture?
              }
  	  | Function
              { funClauses        :: [Clauses]
-hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 439
+hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 441
                --   Start counting with 1, because 0 means that it is already
                --   applied to the record. (Can happen in module instantiation.)
                --   This information is used in the termination checker.
@@ -281,7 +283,7 @@ hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 439
              }
  	  | Datatype
              { dataPars           :: Nat           -- nof parameters
-hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 473
+hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 475
              , conHsCode :: Maybe (HaskellType, HaskellCode) -- used by the compiler
  	    , conAbstr  :: IsAbstract
              , conInd    :: Induction   -- ^ Inductive or coinductive?
@@ -289,9 +291,9 @@ hunk ./src/full/Agda/TypeChecking/Monad/Base.hs 473
              }
              -- ^ Note that, currently, the sharp constructor is
              --   represented as a definition ('Def'), but if you look
-hunk ./src/full/Agda/TypeChecking/Monad/Signature.hs 109
-       def{theDef = d{dataHsType = Just hsTy}}
-     addHs def = def
+hunk ./src/full/Agda/TypeChecking/Monad/Signature.hs 121
+       def{theDef = ax{axEpDef = Just $ epDef}}
+     addEp def = def
  
 +-- | Add the information of an ATP pragma to the signature.
 +addPragmaATP :: MonadTCM tcm => RoleATP -> QName -> [QName] -> tcm ()
@@ -325,7 +327,7 @@ hunk ./src/full/Agda/TypeChecking/Monad/Signature.hs 109
  unionSignatures :: [Signature] -> Signature
  unionSignatures ss = foldr unionSignature emptySignature ss
    where
-hunk ./src/full/Agda/TypeChecking/Monad/Signature.hs 269
+hunk ./src/full/Agda/TypeChecking/Monad/Signature.hs 281
                             , funArgOccurrences = []
                             , funAbstr          = ConcreteDef
                             , funProjection     = fmap (nonNeg . \ n -> n - size ts) maybeNum
@@ -333,16 +335,16 @@ hunk ./src/full/Agda/TypeChecking/Monad/Signature.hs 269
                             }
                    where maybeNum = case oldDef of
                                       Function { funProjection = mn } -> mn
-hunk ./src/full/Agda/TypeChecking/Monad/Signature.hs 479
+hunk ./src/full/Agda/TypeChecking/Monad/Signature.hs 491
  makeAbstract d = do def <- makeAbs $ theDef d
  		    return d { theDef = def }
      where
--	makeAbs Datatype   {dataAbstr = AbstractDef} = Just $ Axiom Nothing
--	makeAbs Function   {funAbstr  = AbstractDef} = Just $ Axiom Nothing
+-	makeAbs Datatype   {dataAbstr = AbstractDef} = Just $ Axiom Nothing Nothing
+-	makeAbs Function   {funAbstr  = AbstractDef} = Just $ Axiom Nothing Nothing
 +	makeAbs Datatype   {dataAbstr = AbstractDef} =
-+            Just $ Axiom Nothing Nothing
++            Just $ Axiom Nothing Nothing Nothing
 +	makeAbs Function   {funAbstr  = AbstractDef} =
-+            Just $ Axiom Nothing Nothing
++            Just $ Axiom Nothing Nothing Nothing
  	makeAbs Constructor{conAbstr  = AbstractDef} = Nothing
  	makeAbs d                                    = Just d
  
@@ -375,12 +377,13 @@ hunk ./src/full/Agda/TypeChecking/Rules/Decl.hs 78
      ]
    -- Not safe. See Issue 330
    -- t <- addForcingAnnotations t
--  addConstant x (Defn rel x t (defaultDisplayForm x) 0 $ Axiom Nothing)
-+  addConstant x (Defn rel x t (defaultDisplayForm x) 0 $ Axiom Nothing Nothing)
+-  addConstant x (Defn rel x t (defaultDisplayForm x) 0 $ Axiom Nothing Nothing)
++  addConstant x (Defn rel x t (defaultDisplayForm x) 0 $
++                      Axiom Nothing Nothing Nothing)
    solveSizeConstraints
  
  
-hunk ./src/full/Agda/TypeChecking/Rules/Decl.hs 168
+hunk ./src/full/Agda/TypeChecking/Rules/Decl.hs 177
                    Record{}   -> d { recEtaEquality = True }
                    _          -> d
                  defs	  = sigDefinitions sig
@@ -431,7 +434,7 @@ hunk ./src/full/Agda/TypeChecking/Rules/Decl.hs 168
  
  -- | Type check a bunch of mutual inductive recursive definitions.
  checkMutual :: Info.DeclInfo -> [A.TypeSignature] -> [A.Definition] -> TCM ()
-hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 120
+hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 135
                              , funPolarity       = []
                              , funArgOccurrences = []
                              , funProjection     = Nothing
@@ -439,12 +442,13 @@ hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 120
                              }
          computePolarity name
          reportSDoc "tc.def.fun" 10 $ do
-hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 358
+hunk ./src/full/Agda/TypeChecking/Rules/Def.hs 373
        , prettyList $ map prettyTCM ts
        , prettyTCM dt
        ]
--  addConstant aux (Defn Relevant aux auxType [df] 0 $ Axiom Nothing)
-+  addConstant aux (Defn Relevant aux auxType [df] 0 $ Axiom Nothing Nothing)
+-  addConstant aux (Defn Relevant aux auxType [df] 0 $ Axiom Nothing Nothing)
++  addConstant aux (Defn Relevant aux auxType [df] 0 $
++                        Axiom Nothing Nothing Nothing)
    solveSizeConstraints
  
    reportSDoc "tc.with.top" 10 $ sep
@@ -456,7 +460,7 @@ hunk ./src/full/Agda/TypeChecking/Rules/Record.hs 108
                           }
  
        escapeContext (size tel) $ flip (foldr ext) ctx $ extWithR $ do
-hunk ./src/full/Agda/TypeChecking/Rules/Record.hs 244
+hunk ./src/full/Agda/TypeChecking/Rules/Record.hs 251
                       , funArgOccurrences = map (const Unused) hps ++ [Negative]
                       , funProjection     = Just (size hps + 1)
                         -- index of the record argument, start counting with 1
@@ -476,8 +480,9 @@ hunk ./src/full/Agda/TypeChecking/Rules/Term.hs 743
        -- If we are in irrelevant position, add definition irrelevantly.
        -- TODO: is this sufficient?
        rel <- irrelevant <$> asks envIrrelevant
--      addConstant c' (Defn rel c' t (defaultDisplayForm c') i $ Axiom Nothing)
-+      addConstant c' (Defn rel c' t (defaultDisplayForm c') i $ Axiom Nothing Nothing)
+-      addConstant c' (Defn rel c' t (defaultDisplayForm c') i $ Axiom Nothing Nothing)
++      addConstant c' (Defn rel c' t (defaultDisplayForm c') i $
++                           Axiom Nothing Nothing Nothing)
  
        -- Define and type check the fresh function.
        ctx <- getContext
@@ -485,9 +490,9 @@ hunk ./src/full/Agda/TypeChecking/Serialise.hs 593
      valu _   = malformed
  
  instance EmbPrj Defn where
--  icode (Axiom       a)                     = icode1 0 a
+-  icode (Axiom       a b)                   = icode2 0 a b
 -  icode (Function    a b c d e f g h)       = icode8 1 a b c d e f g h
-+  icode (Axiom       a b)                   = icode2 0 a b
++  icode (Axiom       a b c)                 = icode3 0 a b c
 +  icode (Function    a b c d e f g h i)     = icode9 1 a b c d e f g h i
    icode (Datatype    a b c d e f g h i j)   = icode10 2 a b c d e f g h i j
    icode (Record      a b c d e f g h i j k) = icode11 3 a b c d e f g h i j k
@@ -497,9 +502,9 @@ hunk ./src/full/Agda/TypeChecking/Serialise.hs 597
    icode (Primitive   a b c)                 = icode3 5 a b c
    value = vcase valu where
 hunk ./src/full/Agda/TypeChecking/Serialise.hs 600
--    valu [0, a]                               = valu1 Axiom       a
+-    valu [0, a, b]                            = valu2 Axiom       a b
 -    valu [1, a, b, c, d, e, f, g, h]          = valu8 Function    a b c d e f g h
-+    valu [0, a, b]                            = valu2 Axiom       a b
++    valu [0, a, b, c]                         = valu3 Axiom       a b c
 +    valu [1, a, b, c, d, e, f, g, h, i]       = valu9 Function    a b c d e f g h i
      valu [2, a, b, c, d, e, f, g, h, i, j]    = valu10 Datatype   a b c d e f g h i j
      valu [3, a, b, c, d, e, f, g, h, i, j, k] = valu11 Record     a b c d e f g h i j k
@@ -545,6 +550,27 @@ hunk ./src/main/Agda-executable.cabal 25
                   -- Nothing is used from the following package, except
                   -- for the prelude.
                   base >= 3 && < 6
+hunk ./src/prototyping/modules/flat/Test.agda 23
+   _==_ : {A : Set} -> A -> A -> Set
+   refl : {A : Set}{x : A} -> x == x
+ 
+-
+hunk ./src/rts/RTP.agda 24
+   -- postulate primShowBool : Bool -> String
+   postulate primShowInt : Int -> String
+   postulate primShowChar : Char -> String
+-  
++
+   postulate primStringAppend : String -> String -> String
+   postulate primStringReverse : String -> String
+ 
+hunk ./src/rts/RTP.agda 29
+   -- postulate primStringToList : String -> List Char
+-  -- postulate primStringFromList 
++  -- postulate primStringFromList
+ 
+ 
+ -- Int stuff
 addfile ./test/fail/ATPMustBePostulate.agda
 hunk ./test/fail/ATPMustBePostulate.agda 1
 +-- ATP things must be a postulate
@@ -566,6 +592,112 @@ hunk ./test/fail/ATPMustBePostulate.err 1
 
 Context:
 
+[Fix epic test-case
+daniel.gustafsson@gmail.com**20101215090537
+ Ignore-this: 7e3ccef4783c94849bf6f684aa41063f
+] 
+[Added a (currently failing) test of --epic.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101214171636
+ Ignore-this: 9eb2b9d2da056de1b1f2070a92dad9e8
+] 
+[Changed the descriptions of some flags.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101214165612
+ Ignore-this: d2422cfe82a94292ca63813749ccf2c3
+] 
+[Removed an old file from that isn't used anymore.
+daniel.gustafsson@gmail.com**20101214081752
+ Ignore-this: 81185237fe2cd9e7ba989897b412d4e1
+] 
+[Added Epic release notes, and some cleanup
+daniel.gustafsson@gmail.com**20101214081404
+ Ignore-this: 5e5721a1d0cd33fd4e6c42777a443127
+] 
+[fixed whitespace
+ulfn@chalmers.se**20101210075233
+ Ignore-this: d1ce65a8ae42fcaeb4433d5b3464631f
+] 
+[Fix unicode for Epic
+daniel.gustafsson@gmail.com**20101209142650
+ Ignore-this: f526d39798728216b27bb56f50c185dd
+] 
+[Epic
+daniel.gustafsson@gmail.com**20101209125510
+ Ignore-this: 485d4b695afe0346e77b718a93803748
+] 
+[Epic
+daniel.gustafsson@gmail.com**20101209114642
+ Ignore-this: 809bc6416c675d95b3dd80a65703f72
+ 
+ Added support for the epic backend. Agda can now compile with epic if given
+ the --epic flag.
+ 
+ agda --epic MyAgda.agda
+ 
+ Similar to how MAlonzo does the compilation, a new directory will be created (named Epic) where the files
+ will be located.
+ 
+ Some new pragmas have been added:
+ {-# COMPILED_EPIC def code #-}
+ 
+ Which is used to give epiccode for the postulated definition def.
+ 
+ This work have been done by:
+ Daniel Gustafsson
+ Olle Fredriksson
+ 
+] 
+[Add verbosity flag import.iface.write:5 to Agda.Interaction.Imports.writeInterface
+Wolfram Kahl <kahl@cas.mcmaster.ca>**20101127205544
+ Ignore-this: 8bc5266c713bd92c8c6ba7d9259075ed
+ Since I could not find any message between type checking and interface file generation,
+ I inserted this at the beginning of Agda.Interaction.Imports.writeInterface,
+ right before the encodeFile call.
+] 
+[Added reportSLn to generateSyntaxInfo
+Wolfram Kahl <kahl@cas.mcmaster.ca>**20101128021430
+ Ignore-this: 3f1646bde8ce751bd288fd3087f3de45
+ Added a reportSLn call at the beginning of generateSyntaxInfo,
+ with verbosity import.iface.create:15,
+ since this seems to the the first step ``after typechecking proper''.
+] 
+[Flushing stdout after reportSLn, for the Checking, Finished etc. messages
+Wolfram Kahl <kahl@cas.mcmaster.ca>**20101127202602
+ Ignore-this: d66197c85a432336d056613f89be4986
+ Utils/IO/Locale.hs:
+   Added stdoutFlush so that users of this module do  not need to
+   additionally import System.IO for being able to flush stdout.
+ 
+ TypeChecking/Monad/Options.hs: 
+   Call stdoutFlush at the end of reportSLn.
+ 
+   This way, the ``Checking'', ``Skipping'', and ``Finished'' messages
+   are spit out immediately and don't linger in the stdout buffer.
+   (Which was especially irritating with +RTS -S)
+] 
+[Fixed issue 366 (buggy eta-reduction for records).
+andreas.abel@ifi.lmu.de**20101122004722
+ Also, there is some logging for clause compilation; -v tc.cc:15
+] 
+[Updated some tested-with fields.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101121195248
+ Ignore-this: dd77d92c5e3cec8b45a0d499d2edaa8d
+] 
+[Removed a tested-with field.
+Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101121195153
+ Ignore-this: cd234557e664598793f607dcf280735d
+] 
+[More versions of QuickCheck are now accepted.
+Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>**20101117143822
+ Ignore-this: bd729e8db5924b47a7164ed079678cb0
+] 
+[Made fix-agda-whitespace compile with GHC 7.0.1.
+Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>**20101117144947
+ Ignore-this: dc826afb69f3b7b5a43e68b187db8c86
+] 
+[Fixed issue 362, caused by 'Auto'.
+Fredrik Lindblad <frelindb@chalmers.se>**20101117160054
+ Ignore-this: bb0af904a05c1f33a5dff11c45fe2ec7
+] 
 [Modified a constraint (see issue 360).
 Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20101117132440
  Ignore-this: 33e9e8e25cb8b96db35501340ceb05e
@@ -922,4 +1054,4 @@ Nils Anders Danielsson <nils.anders.danielsson@gmail.com>**20100927162925
  Ignore-this: 24db4b37e559935c9cd6f81f8a90a6f7
 ] 
 Patch bundle hash:
-9bdf8e8576d3a871f9e61b06f02809217846e9ef
+796ef1b9368442f96c7d1372f1a65c3b09323796
