@@ -10,7 +10,7 @@ open import Common.Function using ( _$_ )
 open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
 
 open import LTC-PCF.Data.Nat
-  using ( _-_
+  using ( _∸_
         ; N  -- The LTC natural numbers type.
         )
 open import LTC-PCF.Data.Nat.Inequalities using ( _<_ ; GE ; LT )
@@ -47,25 +47,25 @@ private
         fun : D
         fun = lam (λ j → if (i < j)
                             then zero
-                            else succ (fix divh · (i - j) · j))
+                            else succ (fix divh · (i ∸ j) · j))
 
     -- Second argument application
     div-s₃ : D → D → D
     div-s₃ i j = if (i < j)
                     then zero
-                    else succ (fix divh · (i - j) · j)
+                    else succ (fix divh · (i ∸ j) · j)
 
     -- lt i j ≡ true
     div-s₄ : D → D → D
     div-s₄ i j = if true
                     then zero
-                    else succ (fix divh · (i - j) · j)
+                    else succ (fix divh · (i ∸ j) · j)
 
     -- lt i j ≡ false
     div-s₅ : D → D → D
     div-s₅ i j = if false
                     then zero
-                    else succ (fix divh · (i - j) · j)
+                    else succ (fix divh · (i ∸ j) · j)
 
     -- The conditional is true
     div-s₆ : D
@@ -73,7 +73,7 @@ private
 
     -- The conditional is false
     div-s₇ : D → D → D
-    div-s₇ i j = succ (fix divh · (i - j) · j)
+    div-s₇ i j = succ (fix divh · (i ∸ j) · j)
 
     {-
     To prove the execution steps
@@ -92,9 +92,9 @@ private
     ≡-subst : {A : Set}(P : A → Set){x y : A} → x ≡ y → P x → P y
 
     where
-      - P is given by \m → ... m ... ≡ ... n ...,
-      - x ≡ y is given n ≡ m (actually, we use ≡-sym (m ≡ n)), and
-      - P x is given by ... n ... ≡ ... n ... (i.e. ≡-refl)
+      ∸ P is given by \m → ... m ... ≡ ... n ...,
+      ∸ x ≡ y is given n ≡ m (actually, we use ≡-sym (m ≡ n)), and
+      ∸ P x is given by ... n ... ≡ ... n ... (i.e. ≡-refl)
 
     -}
 
@@ -118,7 +118,7 @@ private
           fun : D → D
           fun y = lam (λ j → if (y < j)
                                 then zero
-                                else succ (fix divh · (y - j) · j))
+                                else succ (fix divh · (y ∸ j) · j))
 
     -- From div-s₂ to div-s₃ using the conversion rule beta
     proof₂₋₃ : (i j : D) → div-s₂ i j ≡ div-s₃ i j
@@ -130,18 +130,18 @@ private
         fun : D → D
         fun y = if (i < y)
                    then zero
-                   else succ ((fix divh) · (i - y) · y)
+                   else succ ((fix divh) · (i ∸ y) · y)
 
     -- From div-s₃ to div-s₄ using the proof i<j
     proof₃_₄ : (i j : D) → LT i j → div-s₃ i j ≡ div-s₄ i j
     proof₃_₄ i j i<j =
       subst (λ t → if t
                       then zero
-                      else succ ((fix divh) · (i - j) · j)
+                      else succ ((fix divh) · (i ∸ j) · j)
                       ≡
                    if true
                       then zero
-                      else succ ((fix divh) · (i - j) · j)
+                      else succ ((fix divh) · (i ∸ j) · j)
             )
             (sym i<j)
             refl
@@ -151,11 +151,11 @@ private
     proof₃₋₅ {i} {j} Ni Nj i≥j =
       subst (λ t → if t
                       then zero
-                      else succ ((fix divh) · (i - j) · j)
+                      else succ ((fix divh) · (i ∸ j) · j)
                       ≡
                    if false
                       then zero
-                      else succ ((fix divh) · (i - j) · j)
+                      else succ ((fix divh) · (i ∸ j) · j)
             )
             (sym $ x≥y→x≮y Ni Nj i≥j)
             refl
@@ -167,7 +167,7 @@ private
 
     -- From div-s₅ to div-s₇ using the conversion rule if-false
     proof₅₋₇ : (i j : D) → div-s₅ i j ≡ div-s₇ i j
-    proof₅₋₇ i j = if-false (succ (fix divh · (i - j) · j))
+    proof₅₋₇ i j = if-false (succ (fix divh · (i ∸ j) · j))
 
 ----------------------------------------------------------------------
 -- The division result when the dividend is minor than the
@@ -189,7 +189,7 @@ div-x<y {i} {j} i<j =
 -- the divisor.
 
 div-x≥y : {i j : D} → N i → N j → GE i j →
-          div i j ≡ succ (div (i - j) j)
+          div i j ≡ succ (div (i ∸ j) j)
 div-x≥y {i} {j} Ni Nj i≥j =
   begin
     div i j    ≡⟨ proof₀₋₁ i j ⟩

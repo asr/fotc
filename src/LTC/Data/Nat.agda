@@ -8,7 +8,7 @@ open import LTC.Base
 
 -- We add 3 to the fixities of the standard library.
 infixl 10 _*_
-infixl 9  _+_ _-_
+infixl 9  _+_ _∸_
 
 ------------------------------------------------------------------------------
 -- The LTC natural numbers type.
@@ -25,13 +25,13 @@ postulate
 {-# ATP axiom +-Sx #-}
 
 postulate
-  _-_      : D → D → D
-  minus-x0 : (d : D) →   d      - zero   ≡ d
-  minus-0S : (d : D) →   zero   - succ d ≡ zero
-  minus-SS : (d e : D) → succ d - succ e ≡ d - e
-{-# ATP axiom minus-x0 #-}
-{-# ATP axiom minus-0S #-}
-{-# ATP axiom minus-SS #-}
+  _∸_      : D → D → D
+  ∸-x0 : (d : D) →   d      ∸ zero   ≡ d
+  ∸-0S : (d : D) →   zero   ∸ succ d ≡ zero
+  ∸-SS : (d e : D) → succ d ∸ succ e ≡ d ∸ e
+{-# ATP axiom ∸-x0 #-}
+{-# ATP axiom ∸-0S #-}
+{-# ATP axiom ∸-SS #-}
 
 postulate
   _*_ : D → D → D

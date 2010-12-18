@@ -10,7 +10,7 @@ open import LTC.Base.Properties using ( ¬S≡0 )
 open import Common.Function using ( _$_ )
 
 open import LTC.Data.Nat
-  using ( _+_ ; _-_
+  using ( _+_ ; _∸_
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
 open import LTC.Data.Nat.Divisibility using ( _∣_ )
@@ -29,7 +29,7 @@ open import LTC.Data.Nat.Inequalities.PropertiesATP
         ; [Sx-Sy,Sy]<[Sx,Sy]
         ; [Sx,Sy-Sx]<[Sx,Sy]
         )
-open import LTC.Data.Nat.PropertiesATP using ( minus-N )
+open import LTC.Data.Nat.PropertiesATP using ( ∸-N )
 
 open import LTC.Program.GCD.Definitions using ( ¬x≡0∧y≡0 ; CD )
 open import LTC.Program.GCD.GCD using ( gcd )
@@ -56,7 +56,7 @@ postulate gcd-S0-∣₁ : {n : D} → N n → gcd (succ n) zero ∣ succ n
 postulate
   gcd-S≤S-∣₁ :
     {m n : D} → N m → N n →
-    (gcd (succ m) (succ n - succ m) ∣ succ m) →
+    (gcd (succ m) (succ n ∸ succ m) ∣ succ m) →
     LE (succ m) (succ n) →
     gcd (succ m) (succ n) ∣ succ m
 -- Equinox 5.0alpha (2010-06-29) proved this conjecture very fast.
@@ -66,26 +66,26 @@ postulate
 
 -- 'gcd (succ m) (succ n) ∣ succ m' when 'succ m > succ n'.
 {- Proof:
-1. gcd (Sm - Sn) Sn | (Sm - Sn)        IH
-2. gcd (Sm - Sn) Sn | Sn               gcd-∣₂
-3. gcd (Sm - Sn) Sn | (Sm - Sn) + Sn   m∣n→m∣o→m∣n+o 1,2
+1. gcd (Sm ∸ Sn) Sn | (Sm ∸ Sn)        IH
+2. gcd (Sm ∸ Sn) Sn | Sn               gcd-∣₂
+3. gcd (Sm ∸ Sn) Sn | (Sm ∸ Sn) + Sn   m∣n→m∣o→m∣n+o 1,2
 4. Sm > Sn                             Hip
-5. gcd (Sm - Sn) Sn | Sm               arith-gcd-m>n₂ 3,4
-6. gcd Sm Sn = gcd (Sm - Sn) Sn        gcd eq. 4
+5. gcd (Sm ∸ Sn) Sn | Sm               arith-gcd-m>n₂ 3,4
+6. gcd Sm Sn = gcd (Sm ∸ Sn) Sn        gcd eq. 4
 7. gcd Sm Sn | Sm                      subst 5,6
 -}
 
 -- For the proof using the ATP we added the auxiliary hypothesis:
--- 1. gcd (succ m - succ n) (succ n) ∣ (succ m - succ n) + succ n.
--- 2. (succ m - succ n) + succ n ≡ succ m.
+-- 1. gcd (succ m ∸ succ n) (succ n) ∣ (succ m ∸ succ n) + succ n.
+-- 2. (succ m ∸ succ n) + succ n ≡ succ m.
 postulate
   gcd-S>S-∣₁-ah :
     {m n : D} → N m → N n →
-    (gcd (succ m - succ n) (succ n) ∣ (succ m - succ n)) →
-    (gcd (succ m - succ n) (succ n) ∣ succ n) →
+    (gcd (succ m ∸ succ n) (succ n) ∣ (succ m ∸ succ n)) →
+    (gcd (succ m ∸ succ n) (succ n) ∣ succ n) →
     GT (succ m) (succ n) →
-    gcd (succ m - succ n) (succ n) ∣ (succ m - succ n) + succ n →
-    ((succ m - succ n) + succ n ≡ succ m) →
+    gcd (succ m ∸ succ n) (succ n) ∣ (succ m ∸ succ n) + succ n →
+    ((succ m ∸ succ n) + succ n ≡ succ m) →
     gcd (succ m) (succ n) ∣ succ m
 -- E 1.2 no-success due to timeout (180 sec).
 -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
@@ -93,8 +93,8 @@ postulate
 
 gcd-S>S-∣₁ :
   {m n : D} → N m → N n →
-  (gcd (succ m - succ n) (succ n) ∣ (succ m - succ n)) →
-  (gcd (succ m - succ n) (succ n) ∣ succ n) →
+  (gcd (succ m ∸ succ n) (succ n) ∣ (succ m ∸ succ n)) →
+  (gcd (succ m ∸ succ n) (succ n) ∣ succ n) →
   GT (succ m) (succ n) →
   gcd (succ m) (succ n) ∣ succ m
 gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
@@ -103,10 +103,10 @@ gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
     (x>y→x-y+y≡x (sN Nm) (sN Nn) Sm>Sn)
 
   where
-    Sm-Sn-N : N (succ m - succ n)
-    Sm-Sn-N = minus-N (sN Nm) (sN Nn)
+    Sm-Sn-N : N (succ m ∸ succ n)
+    Sm-Sn-N = ∸-N (sN Nm) (sN Nn)
 
-    gcd-Sm-Sn,Sn-N : N (gcd (succ m - succ n) (succ n))
+    gcd-Sm-Sn,Sn-N : N (gcd (succ m ∸ succ n) (succ n))
     gcd-Sm-Sn,Sn-N = gcd-N Sm-Sn-N (sN Nn) (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
 
 ------------------------------------------------------------------------------
@@ -124,26 +124,26 @@ postulate gcd-S0-∣₂ : {m : D} → N m → gcd (succ m) zero ∣ zero
 
 -- 'gcd (succ m) (succ n) ∣ succ n' when 'succ m ≤ succ n'.
 {- Proof:
-1. gcd Sm (Sn - Sm) | (Sn - Sm)        IH
-2  gcd Sm (Sn - Sm) | Sm               gcd-∣₁
-3. gcd Sm (Sn - Sm) | (Sn - Sm) + Sm   m∣n→m∣o→m∣n+o 1,2
+1. gcd Sm (Sn ∸ Sm) | (Sn ∸ Sm)        IH
+2  gcd Sm (Sn ∸ Sm) | Sm               gcd-∣₁
+3. gcd Sm (Sn ∸ Sm) | (Sn ∸ Sm) + Sm   m∣n→m∣o→m∣n+o 1,2
 4. Sm ≤ Sn                             Hip
-5. gcd (Sm - Sn) Sn | Sm               arith-gcd-m≤n₂ 3,4
-6. gcd Sm Sn = gcd Sm (Sn - Sm)        gcd eq. 4
+5. gcd (Sm ∸ Sn) Sn | Sm               arith-gcd-m≤n₂ 3,4
+6. gcd Sm Sn = gcd Sm (Sn ∸ Sm)        gcd eq. 4
 7. gcd Sm Sn | Sn                      subst 5,6
 -}
 
 -- For the proof using the ATP we added the auxiliary hypothesis:
--- 1. gcd (succ m) (succ n - succ m) ∣ (succ n - succ m) + succ m.
--- 2 (succ n - succ m) + succ m ≡ succ n.
+-- 1. gcd (succ m) (succ n ∸ succ m) ∣ (succ n ∸ succ m) + succ m.
+-- 2 (succ n ∸ succ m) + succ m ≡ succ n.
 postulate
   gcd-S≤S-∣₂-ah :
     {m n : D} → N m → N n →
-    (gcd (succ m) (succ n - succ m) ∣ (succ n - succ m)) →
-    (gcd (succ m) (succ n - succ m) ∣ succ m) →
+    (gcd (succ m) (succ n ∸ succ m) ∣ (succ n ∸ succ m)) →
+    (gcd (succ m) (succ n ∸ succ m) ∣ succ m) →
     LE (succ m) (succ n) →
-    (gcd (succ m) (succ n - succ m) ∣ (succ n - succ m) + succ m) →
-    ((succ n - succ m) + succ m ≡ succ n) →
+    (gcd (succ m) (succ n ∸ succ m) ∣ (succ n ∸ succ m) + succ m) →
+    ((succ n ∸ succ m) + succ m ≡ succ n) →
     gcd (succ m) (succ n) ∣ succ n
 -- E 1.2 no-success due to timeout (180 sec).
 -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
@@ -151,8 +151,8 @@ postulate
 
 gcd-S≤S-∣₂ :
   {m n : D} → N m → N n →
-  (gcd (succ m) (succ n - succ m) ∣ (succ n - succ m)) →
-  (gcd (succ m) (succ n - succ m) ∣ succ m) →
+  (gcd (succ m) (succ n ∸ succ m) ∣ (succ n ∸ succ m)) →
+  (gcd (succ m) (succ n ∸ succ m) ∣ succ m) →
   LE (succ m) (succ n) →
   gcd (succ m) (succ n) ∣ succ n
 gcd-S≤S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≤Sn =
@@ -161,17 +161,17 @@ gcd-S≤S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≤Sn =
     (x≤y→y-x+x≡y (sN Nm) (sN Nn) Sm≤Sn)
 
   where
-    Sn-Sm-N : N (succ n - succ m)
-    Sn-Sm-N = minus-N (sN Nn) (sN Nm)
+    Sn-Sm-N : N (succ n ∸ succ m)
+    Sn-Sm-N = ∸-N (sN Nn) (sN Nm)
 
-    gcd-Sm,Sn-Sm-N : N (gcd (succ m) (succ n - succ m))
+    gcd-Sm,Sn-Sm-N : N (gcd (succ m) (succ n ∸ succ m))
     gcd-Sm,Sn-Sm-N = gcd-N (sN Nm) (Sn-Sm-N) (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 
 -- 'gcd (succ m) (succ n) ∣ succ n' when 'succ m > succ n'.
 postulate
   gcd-S>S-∣₂ :
     {m n : D} → N m → N n →
-    (gcd (succ m - succ n) (succ n) ∣ succ n) →
+    (gcd (succ m ∸ succ n) (succ n) ∣ succ n) →
     GT (succ m) (succ n) →
     gcd (succ m) (succ n) ∣ succ n
 -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
@@ -192,31 +192,31 @@ gcd-S0-CD Nm = (gcd-S0-∣₁ Nm , gcd-S0-∣₂ Nm)
 -- The 'gcd (succ m) (succ n)' when 'succ m > succ n' is CD.
 gcd-S>S-CD :
   {m n : D} → N m → N n →
-  (CD (succ m - succ n) (succ n) (gcd (succ m - succ n) (succ n))) →
+  (CD (succ m ∸ succ n) (succ n) (gcd (succ m ∸ succ n) (succ n))) →
   GT (succ m) (succ n) →
   CD (succ m) (succ n) (gcd (succ m) (succ n))
 gcd-S>S-CD {m} {n} Nm Nn acc Sm>Sn =
    (gcd-S>S-∣₁ Nm Nn acc-∣₁ acc-∣₂ Sm>Sn , gcd-S>S-∣₂ Nm Nn acc-∣₂ Sm>Sn)
   where
-    acc-∣₁ : gcd (succ m - succ n) (succ n) ∣ (succ m - succ n)
+    acc-∣₁ : gcd (succ m ∸ succ n) (succ n) ∣ (succ m ∸ succ n)
     acc-∣₁ = ∧-proj₁ acc
 
-    acc-∣₂ : gcd (succ m - succ n) (succ n) ∣ succ n
+    acc-∣₂ : gcd (succ m ∸ succ n) (succ n) ∣ succ n
     acc-∣₂ = ∧-proj₂ acc
 
 -- The 'gcd (succ m) (succ n)' when 'succ m ≤ succ n' is CD.
 gcd-S≤S-CD :
   {m n : D} → N m → N n →
-  (CD (succ m) (succ n - succ m) (gcd (succ m) (succ n - succ m))) →
+  (CD (succ m) (succ n ∸ succ m) (gcd (succ m) (succ n ∸ succ m))) →
   LE (succ m) (succ n) →
   CD (succ m) (succ n) (gcd (succ m) (succ n))
 gcd-S≤S-CD {m} {n} Nm Nn acc Sm≤Sn =
   (gcd-S≤S-∣₁ Nm Nn acc-∣₁ Sm≤Sn , gcd-S≤S-∣₂ Nm Nn acc-∣₂ acc-∣₁ Sm≤Sn)
   where
-    acc-∣₁ : gcd (succ m) (succ n - succ m) ∣ succ m
+    acc-∣₁ : gcd (succ m) (succ n ∸ succ m) ∣ succ m
     acc-∣₁ = ∧-proj₁ acc
 
-    acc-∣₂ : gcd (succ m) (succ n - succ m) ∣ (succ n - succ m)
+    acc-∣₂ : gcd (succ m) (succ n ∸ succ m) ∣ (succ n ∸ succ m)
     acc-∣₂ = ∧-proj₂ acc
 
 -- The 'gcd m n' when 'm > n' is CD.
@@ -235,10 +235,10 @@ gcd-x>y-CD (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _  =
   gcd-S>S-CD Nm Nn ih Sm>Sn
   where
     -- Inductive hypothesis.
-    ih : CD (succ m - succ n) (succ n) (gcd (succ m - succ n) (succ n))
-    ih  = accH {succ m - succ n}
+    ih : CD (succ m ∸ succ n) (succ n) (gcd (succ m ∸ succ n) (succ n))
+    ih  = accH {succ m ∸ succ n}
                {succ n}
-               (minus-N (sN Nm) (sN Nn))
+               (∸-N (sN Nm) (sN Nn))
                (sN Nn)
                ([Sx-Sy,Sy]<[Sx,Sy] Nm Nn)
                (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
@@ -259,11 +259,11 @@ gcd-x≤y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
   gcd-S≤S-CD Nm Nn ih Sm≤Sn
   where
     -- Inductive hypothesis.
-    ih : CD (succ m) (succ n - succ m)  (gcd (succ m) (succ n - succ m))
+    ih : CD (succ m) (succ n ∸ succ m)  (gcd (succ m) (succ n ∸ succ m))
     ih = accH {succ m}
-              {succ n - succ m}
+              {succ n ∸ succ m}
               (sN Nm)
-              (minus-N (sN Nn) (sN Nm))
+              (∸-N (sN Nn) (sN Nm))
               ([Sx,Sy-Sx]<[Sx,Sy] Nm Nn)
               (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 

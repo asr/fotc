@@ -8,7 +8,7 @@ open import LTC.Base
 
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat
-  using ( _-_
+  using ( _∸_
         ; N ; sN -- The LTC natural numbers type.
         )
 open import LTC-PCF.Data.Nat.Inequalities using ( GT ; LE )
@@ -32,7 +32,7 @@ postulate
 
 postulate
   gcd-S>S : (m n : D) → GT (succ m) (succ n) →
-             gcd (succ m) (succ n) ≡ gcd (succ m - succ n) (succ n)
+             gcd (succ m) (succ n) ≡ gcd (succ m ∸ succ n) (succ n)
 -- E 1.2 no-success due to timeout (300 sec).
 -- Equinox 5.0alpha (2010-06-29) no-success due to timeout (300 sec).
 -- Metis 2.3 (release 20101019) no-success due to timeout (300 sec).
@@ -42,7 +42,7 @@ postulate
 
 postulate
   gcd-S≤S : {m n : D} → N m → N n → LE (succ m) (succ n) →
-            gcd (succ m) (succ n) ≡ gcd (succ m) (succ n - succ m)
+            gcd (succ m) (succ n) ≡ gcd (succ m) (succ n ∸ succ m)
 -- E 1.2 no-success due to timeout (300 sec).
 -- Equinox 5.0alpha (2010-06-29) no-success due to timeout (300 sec).
 -- Metis 2.3 (release 20101019) no-success due to timeout (300 sec).

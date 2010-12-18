@@ -10,7 +10,7 @@ open import LTC-PCF.Data.Nat.Rec using ( rec )
 
 -- We add 3 to the fixities of the standard library.
 infixl 10 _*_
-infixl 9  _+_ _-_
+infixl 9  _+_ _∸_
 
 ------------------------------------------------------------------------------
 -- The LTC natural numbers type.
@@ -38,19 +38,19 @@ m + n = rec m n (lam +-aux)
 -- Substraction.
 
 -- Version using lambda-abstraction.
--- _-_ : D → D → D
--- m - n = rec n m (lam (λ x → lam (λ y → pred y)))
+-- _∸_ : D → D → D
+-- m ∸ n = rec n m (lam (λ x → lam (λ y → pred y)))
 
 -- Version using lambda lifting via super-combinators.
 -- (Hughes. Super-combinators. 1982)
 
-minus-aux : D → D
-minus-aux _ = lam pred
-{-# ATP definition minus-aux #-}
+∸-aux : D → D
+∸-aux _ = lam pred
+{-# ATP definition ∸-aux #-}
 
-_-_ : D → D → D
-m - n = rec n m (lam minus-aux)
-{-# ATP definition _-_ #-}
+_∸_ : D → D → D
+m ∸ n = rec n m (lam ∸-aux)
+{-# ATP definition _∸_ #-}
 
 ------------------------------------------------------------------------------
 -- Multiplication with recursion on the first argument.

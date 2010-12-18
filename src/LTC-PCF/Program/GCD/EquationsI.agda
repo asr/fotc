@@ -9,7 +9,7 @@ open import LTC.Base
 open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
 
 open import LTC-PCF.Data.Nat
-  using ( _-_
+  using ( _∸_
         ; N ; sN -- The LTC natural numbers type.
         )
 open import LTC-PCF.Data.Nat.Inequalities using ( _>_ ; GT ; LE )
@@ -53,8 +53,8 @@ private
                        else (if (isZero m)
                                 then n
                                 else (if (m > n)
-                                         then fix gcdh · (m - n) · n
-                                         else fix gcdh · m · (n - m))))
+                                         then fix gcdh · (m ∸ n) · n
+                                         else fix gcdh · m · (n ∸ m))))
 
   -- Second argument application.
   gcd-s₃ : D → D → D
@@ -65,8 +65,8 @@ private
                   else (if (isZero m)
                            then n
                            else (if (m > n)
-                                    then fix gcdh · (m - n) · n
-                                    else fix gcdh · m · (n - m)))
+                                    then fix gcdh · (m ∸ n) · n
+                                    else fix gcdh · m · (n ∸ m)))
 
   -- Conversion (first if_then_else) 'isZero n = b'.
   gcd-s₄ : D → D → D → D
@@ -77,8 +77,8 @@ private
                   else (if (isZero m)
                            then n
                            else (if (m > n)
-                                    then fix gcdh · (m - n) · n
-                                    else fix gcdh · m · (n - m)))
+                                    then fix gcdh · (m ∸ n) · n
+                                    else fix gcdh · m · (n ∸ m)))
 
   -- Conversion first if_then_else when 'if true ...'.
   gcd-s₅ : D → D
@@ -89,8 +89,8 @@ private
   gcd-s₆ m n = if (isZero m)
                   then n
                   else (if (m > n)
-                           then fix gcdh · (m - n) · n
-                           else fix gcdh · m · (n - m))
+                           then fix gcdh · (m ∸ n) · n
+                           else fix gcdh · m · (n ∸ m))
 
   -- Conversion (second if_then_else) 'isZero m = b'.
   gcd-s₇ : D → D → D
@@ -101,20 +101,20 @@ private
   gcd-s₈ m n b = if b
                     then n
                     else (if (m > n)
-                             then fix gcdh · (m - n) · n
-                             else fix gcdh · m · (n - m))
+                             then fix gcdh · (m ∸ n) · n
+                             else fix gcdh · m · (n ∸ m))
 
   -- Conversion third if_then_else, when 'if false ...'.
   gcd-s₉ : D → D → D
   gcd-s₉ m n = if (m > n)
-                   then fix gcdh · (m - n) · n
-                   else fix gcdh · m · (n - m)
+                   then fix gcdh · (m ∸ n) · n
+                   else fix gcdh · m · (n ∸ m)
 
   -- Conversion (fourth if_then_else) 'gt m n = b'.
   gcd-s₁₀ : D → D → D → D
   gcd-s₁₀ m n b = if b
-                     then fix gcdh · (m - n) · n
-                     else fix gcdh · m · (n - m)
+                     then fix gcdh · (m ∸ n) · n
+                     else fix gcdh · m · (n ∸ m)
 
   ----------------------------------------------------------------------------
   -- The execution steps
@@ -203,12 +203,12 @@ private
                               refl
 
   -- Conversion fourth if_then_else when 'if true ...' using if-true.
-  proof₁₀₊ : (m n : D) → gcd-s₁₀ m n true ≡ fix gcdh · (m - n) · n
-  proof₁₀₊ m n = if-true (fix gcdh · (m - n) · n)
+  proof₁₀₊ : (m n : D) → gcd-s₁₀ m n true ≡ fix gcdh · (m ∸ n) · n
+  proof₁₀₊ m n = if-true (fix gcdh · (m ∸ n) · n)
 
   -- Conversion fourth if_then_else when 'if was ...' using if-false.
-  proof₁₀₋ : (m n : D) → gcd-s₁₀ m n false ≡ fix gcdh · m · (n - m)
-  proof₁₀₋ m n = if-false (fix gcdh · m · (n - m))
+  proof₁₀₋ : (m n : D) → gcd-s₁₀ m n false ≡ fix gcdh · m · (n ∸ m)
+  proof₁₀₋ m n = if-false (fix gcdh · m · (n ∸ m))
 
 ------------------------------------------------------------------------------
 -- The five equations for gcd
@@ -258,7 +258,7 @@ gcd-0S n =
 
 -- Fourth equation.
 gcd-S>S : (m n : D) → GT (succ m) (succ n) →
-          gcd (succ m) (succ n) ≡ gcd (succ m - succ n) (succ n)
+          gcd (succ m) (succ n) ≡ gcd (succ m ∸ succ n) (succ n)
 
 gcd-S>S m n Sm>Sn =
   begin
@@ -275,13 +275,13 @@ gcd-S>S m n Sm>Sn =
     gcd-s₈ (succ m) (succ n) false ≡⟨ proof₈₋₉ (succ m) (succ n) ⟩
     gcd-s₉ (succ m) (succ n)       ≡⟨ proof₉₋₁₀ (succ m) (succ n) true Sm>Sn ⟩
     gcd-s₁₀ (succ m) (succ n) true ≡⟨ proof₁₀₊  (succ m) (succ n) ⟩
-    fix gcdh · (succ m - succ n) · succ n
+    fix gcdh · (succ m ∸ succ n) · succ n
   ∎
 
 -- TODO: This equation requires N m and N n.
 -- Fifth equation.
 gcd-S≤S : {m n : D} → N m → N n → LE (succ m) (succ n) →
-          gcd (succ m) (succ n) ≡ gcd (succ m) (succ n - succ m)
+          gcd (succ m) (succ n) ≡ gcd (succ m) (succ n ∸ succ m)
 gcd-S≤S {m} {n} Nm Nn Sm≤Sn =
   begin
     gcd (succ m) (succ n)           ≡⟨ proof₀₋₁ (succ m) (succ n) ⟩
@@ -300,5 +300,5 @@ gcd-S≤S {m} {n} Nm Nn Sm≤Sn =
                                                  (x≤y→x≯y (sN Nm) (sN Nn) Sm≤Sn)
                                     ⟩
     gcd-s₁₀ (succ m) (succ n) false ≡⟨ proof₁₀₋ (succ m) (succ n) ⟩
-    fix gcdh · succ m · (succ n - succ m)
+    fix gcdh · succ m · (succ n ∸ succ m)
   ∎

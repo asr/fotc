@@ -9,7 +9,7 @@ open import LTC.Base
 open import Common.Function using ( _$_ )
 open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
 
-open import LTC-PCF.Data.Nat using ( _+_ ; _-_ ; _*_ ; N )
+open import LTC-PCF.Data.Nat using ( _+_ ; _∸_ ; _*_ ; N )
 open import LTC-PCF.Data.Nat.Inequalities using ( GE ; LT )
 open import LTC-PCF.Data.Nat.PropertiesI
   using ( +-leftIdentity
@@ -51,34 +51,34 @@ div-x<y-correct {i} Ni Nj i<j = i , Ni , i<j , div-x<y-aux Ni Nj i<j
 -- The division result is correct when the dividend is greater or equal
 -- than the divisor.
 -- Using the inductive hypothesis 'ih' we know that
--- 'i - j = j * (div (i - j) j) + r'. From
--- that we get 'i = j * (succ (div (i - j) j)) + r', and
--- we know 'div i j = succ (div (i - j) j); therefore we
+-- 'i ∸ j = j * (div (i ∸ j) j) + r'. From
+-- that we get 'i = j * (succ (div (i ∸ j) j)) + r', and
+-- we know 'div i j = succ (div (i ∸ j) j); therefore we
 -- get 'i = j * div i j + r'.
 
 postulate
   aux : {i j r : D} → N i → N j → N r →
-        i - j ≡ j * div (i - j) j + r →
-        i ≡ j * succ (div (i - j) j) + r
+        i ∸ j ≡ j * div (i ∸ j) j + r →
+        i ≡ j * succ (div (i ∸ j) j) + r
 
 div-x≥y-aux : {i j r : D} → N i → N j → N r →
               GE i j →
-              i - j ≡ j * div (i - j) j + r →
+              i ∸ j ≡ j * div (i ∸ j) j + r →
               i ≡ j * div i j + r
 div-x≥y-aux {i} {j} {r} Ni Nj Nr i≥j auxH =
   begin
     i                            ≡⟨ aux Ni Nj Nr auxH ⟩
-    j * succ (div (i - j) j) + r ≡⟨ prf ⟩
+    j * succ (div (i ∸ j) j) + r ≡⟨ prf ⟩
     j * div i j + r
   ∎
   where
-    prf : j * succ (div (i - j) j) + r ≡ j * div i j + r
+    prf : j * succ (div (i ∸ j) j) + r ≡ j * div i j + r
     prf = subst (λ x → j * x + r ≡ j * div i j + r)
                 (div-x≥y Ni Nj i≥j)
                 refl
 
 div-x≥y-correct : {i j : D} → N i → N j →
-                  (ih : DIV (i - j) j (div (i - j) j)) →
+                  (ih : DIV (i ∸ j) j (div (i ∸ j) j)) →
                   GE i j →
                   ∃D λ r → N r ∧ LT r j ∧ i ≡ j * div i j + r
 div-x≥y-correct {i} {j} Ni Nj ih i≥j =
@@ -89,7 +89,7 @@ div-x≥y-correct {i} {j} Ni Nj ih i≥j =
     r : D
     r = ∃D-proj₁ (∧-proj₂ ih)
 
-    r-correct : N r ∧ LT r j ∧ i - j ≡ j * div (i - j) j + r
+    r-correct : N r ∧ LT r j ∧ i ∸ j ≡ j * div (i ∸ j) j + r
     r-correct = ∃D-proj₂ (∧-proj₂ ih)
 
     Nr : N r
@@ -98,5 +98,5 @@ div-x≥y-correct {i} {j} Ni Nj ih i≥j =
     r<j : LT r j
     r<j = ∧-proj₁ (∧-proj₂ r-correct)
 
-    auxH : i - j ≡ j * div (i - j) j + r
+    auxH : i ∸ j ≡ j * div (i ∸ j) j + r
     auxH = ∧-proj₂ (∧-proj₂ r-correct)

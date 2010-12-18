@@ -10,17 +10,17 @@ open import LTC.Base.Properties using ( ¬S≡0 )
 open import Common.Function using ( _$_ )
 
 open import LTC.Data.Nat
-  using ( _+_ ; _-_ ; _*_
+  using ( _+_ ; _∸_ ; _*_
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
 open import LTC.Data.Nat.Divisibility using ( _∣_ )
 open import LTC.Data.Nat.Inequalities using ( LE )
 open import LTC.Data.Nat.Inequalities.PropertiesATP using ( x≤x+y )
 open import LTC.Data.Nat.PropertiesATP
-  using ( +-N ; *-N ; minus-N
+  using ( +-N ; ∸-N ; *-N
         ; *-leftIdentity
-        ; [x+y]z≡xz*yz
-        ; [x-y]z≡xz*yz
+        ; *+-leftDistributive
+        ; *∸-leftDistributive
         )
 
 ------------------------------------------------------------------------------
@@ -34,24 +34,24 @@ postulate ∣-refl-S-ah : {n : D} → N n → N (succ zero) → succ n ∣ succ 
 ∣-refl-S : {n : D} → N n → succ n ∣ succ n
 ∣-refl-S Nn = ∣-refl-S-ah Nn (sN zN)
 
--- If 'x' divides 'y' and 'z' then 'x' divides 'y - z'.
+-- If 'x' divides 'y' and 'z' then 'x' divides 'y ∸ z'.
 postulate
-  x∣y→x∣z→x∣y-z-ah : {m n p k₁ k₂ : D} → N m → N n → N k₁ → N k₂ →
+  x∣y→x∣z→x∣y∸z-ah : {m n p k₁ k₂ : D} → N m → N n → N k₁ → N k₂ →
                       n ≡ k₁ * succ m →
                       p ≡ k₂ * succ m →
-                      n - p ≡ (k₁ - k₂) * succ m
+                      n ∸ p ≡ (k₁ ∸ k₂) * succ m
 -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
-{-# ATP prove x∣y→x∣z→x∣y-z-ah [x-y]z≡xz*yz sN #-}
+{-# ATP prove x∣y→x∣z→x∣y∸z-ah *∸-leftDistributive sN #-}
 
-x∣y→x∣z→x∣y-z : {m n p : D} → N m → N n → N p → m ∣ n → m ∣ p → m ∣ n - p
-x∣y→x∣z→x∣y-z zN _ _ (0≠0 , _) m∣p = ⊥-elim $ 0≠0 refl
-x∣y→x∣z→x∣y-z (sN Nm) Nn Np
+x∣y→x∣z→x∣y∸z : {m n p : D} → N m → N n → N p → m ∣ n → m ∣ p → m ∣ n ∸ p
+x∣y→x∣z→x∣y∸z zN _ _ (0≠0 , _) m∣p = ⊥-elim $ 0≠0 refl
+x∣y→x∣z→x∣y∸z (sN Nm) Nn Np
               (0≠0 , k₁ , Nk₁ , n≡k₁Sm)
               (_   , k₂ , Nk₂ , p≡k₂Sm) =
   (λ S≡0 → ⊥-elim $ ¬S≡0 S≡0) ,
-  k₁ - k₂ ,
-  minus-N Nk₁ Nk₂ ,
-  x∣y→x∣z→x∣y-z-ah Nm Nn Nk₁ Nk₂ n≡k₁Sm p≡k₂Sm
+  k₁ ∸ k₂ ,
+  ∸-N Nk₁ Nk₂ ,
+  x∣y→x∣z→x∣y∸z-ah Nm Nn Nk₁ Nk₂ n≡k₁Sm p≡k₂Sm
 
 -- If 'x' divides 'y' and 'z' then 'x' divides 'y + z'.
 postulate
@@ -60,7 +60,7 @@ postulate
                       p ≡ k₂ * succ m →
                       n + p ≡ (k₁ + k₂) * succ m
 -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
-{-# ATP prove x∣y→x∣z→x∣y+z-ah [x+y]z≡xz*yz sN #-}
+{-# ATP prove x∣y→x∣z→x∣y+z-ah *+-leftDistributive sN #-}
 
 x∣y→x∣z→x∣y+z : {m n p : D} → N m → N n → N p → m ∣ n → m ∣ p → m ∣ n + p
 x∣y→x∣z→x∣y+z zN      _  _ (0≠0 , _) m∣p = ⊥-elim $ 0≠0 refl

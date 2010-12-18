@@ -7,7 +7,7 @@ module LTC-PCF.Program.GCD.GCD where
 
 open import LTC.Base
 
-open import LTC-PCF.Data.Nat using ( _-_ )
+open import LTC-PCF.Data.Nat using ( _∸_ )
 open import LTC-PCF.Data.Nat.Inequalities using ( _>_ )
 
 ------------------------------------------------------------------------------
@@ -34,8 +34,8 @@ It is possible to define two different versions of gcd based on which
 --               else (if (isZero d)
 --                        then e
 --                        else (if (gt d e)
---                                 then g · (d - e) · e
---                                 else g · d · (e - d)))))
+--                                 then g · (d ∸ e) · e
+--                                 else g · d · (e ∸ d)))))
 
 -- Version using lambda lifting via super-combinators.
 -- (Hughes. Super-combinators. 1982)
@@ -48,8 +48,8 @@ gcd-aux₁ d g e = if (isZero e)
                          else (if (isZero d)
                            then e
                            else (if (d > e)
-                                    then g · (d - e) · e
-                                    else g · d · (e - d)))
+                                    then g · (d ∸ e) · e
+                                    else g · d · (e ∸ d)))
 {-# ATP definition gcd-aux₁ #-}
 
 gcd-aux₂ : D → D → D

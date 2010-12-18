@@ -16,7 +16,7 @@ module LTC-PCF.Program.Division.ProofSpecificationATP where
 open import LTC.Base
 
 open import LTC-PCF.Data.Nat
-  using ( _-_
+  using ( _∸_
         ; N  -- The LTC natural numbers type.
         )
 open import LTC-PCF.Data.Nat.Induction.WellFoundedATP
@@ -26,7 +26,7 @@ open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
   using ( x≥y→y>0→x-y<x
         ; x<y∨x≥y
         )
-open import LTC-PCF.Data.Nat.PropertiesATP using ( minus-N )
+open import LTC-PCF.Data.Nat.PropertiesATP using ( ∸-N )
 
 open import LTC-PCF.Program.Division.Division using ( div )
 open import LTC-PCF.Program.Division.IsCorrectATP
@@ -52,10 +52,10 @@ div-x≥y-DIV {i} {j} Ni Nj accH j>0 i≥j =
   div-x≥y-N Ni Nj ih i≥j , div-x≥y-correct Ni Nj ih i≥j
 
   where
-    -- The inductive hypothesis on 'i - j'.
-    ih : DIV (i - j) j (div (i - j) j)
-    ih = accH {i - j}
-              (minus-N Ni Nj)
+    -- The inductive hypothesis on 'i ∸ j'.
+    ih : DIV (i ∸ j) j (div (i ∸ j) j)
+    ih = accH {i ∸ j}
+              (∸-N Ni Nj)
               (x≥y→y>0→x-y<x Ni Nj i≥j j>0)
 
 ------------------------------------------------------------------------------

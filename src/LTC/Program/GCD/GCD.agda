@@ -7,7 +7,7 @@ module LTC.Program.GCD.GCD where
 
 open import LTC.Base
 
-open import LTC.Data.Nat using ( _-_ )
+open import LTC.Data.Nat using ( _∸_ )
 open import LTC.Data.Nat.Inequalities using ( GT ; LE )
 
 ------------------------------------------------------------------------------
@@ -22,10 +22,10 @@ postulate
   gcd-0S : (n : D) → gcd zero (succ n) ≡ succ n
 
   gcd-S>S : (m n : D) → GT (succ m) (succ n) →
-            gcd (succ m) (succ n) ≡ gcd (succ m - succ n) (succ n)
+            gcd (succ m) (succ n) ≡ gcd (succ m ∸ succ n) (succ n)
 
   gcd-S≤S : (m n : D) → LE (succ m) (succ n) →
-            gcd (succ m) (succ n) ≡ gcd (succ m) (succ n - succ m)
+            gcd (succ m) (succ n) ≡ gcd (succ m) (succ n ∸ succ m)
 
 {-# ATP axiom gcd-00 #-}
 {-# ATP axiom gcd-S0 #-}

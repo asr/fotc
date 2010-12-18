@@ -7,7 +7,7 @@ module LTC-PCF.Program.Division.IsN-ATP where
 open import LTC.Base
 
 open import LTC-PCF.Data.Nat
-  using ( _-_
+  using ( _∸_
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
 open import LTC-PCF.Data.Nat.Inequalities using ( GE ; LT )
@@ -25,13 +25,13 @@ postulate
 -- The division result is a 'N' when the dividend is greater or equal
 -- than the divisor.
 
---  N (div (i - j) j)       i ≥j → div i j ≡ succ (div (i - j) j)
+--  N (div (i ∸ j) j)       i ≥j → div i j ≡ succ (div (i ∸ j) j)
 ------------------------------------------------------------------
 --                   N (div i j)
 
 postulate
   div-x≥y-N : {i j : D} → N i → N j →
-              (DIV (i - j) j (div (i - j) j)) →
+              (DIV (i ∸ j) j (div (i ∸ j) j)) →
               GE i j →
               N (div i j)
 -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).

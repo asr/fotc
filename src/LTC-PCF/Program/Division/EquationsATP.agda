@@ -6,7 +6,7 @@ module LTC-PCF.Program.Division.EquationsATP where
 
 open import LTC.Base
 
-open import LTC-PCF.Data.Nat using ( _-_ ; N )
+open import LTC-PCF.Data.Nat using ( _∸_ ; N )
 open import LTC-PCF.Data.Nat.Inequalities using ( GE ; LT )
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
   using ( x≥y→x≮y )
@@ -23,5 +23,5 @@ postulate
 -- The division result when the dividend is greater or equal than the
 -- the divisor.
 postulate
-  div-x≥y : {i j : D} → N i → N j → GE i j → div i j ≡ succ (div (i - j) j)
+  div-x≥y : {i j : D} → N i → N j → GE i j → div i j ≡ succ (div (i ∸ j) j)
 {-# ATP prove div-x≥y x≥y→x≮y #-}

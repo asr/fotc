@@ -11,7 +11,7 @@ open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; beg
 
 open import LTC-PCF.Data.Nat
   using ( _+_ ; +-aux
-        ; _-_ ; minus-aux
+        ; _∸_ ; ∸-aux
         ; _*_ ; *-aux₁ ; *-aux₂
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
@@ -41,138 +41,136 @@ open import LTC-PCF.Data.Nat.Rec.EquationsI using ( rec-0 ; rec-S )
     succ (d + e)
   ∎
 
-minus-x0 : (d : D) → d - zero ≡ d
-minus-x0 d =
+∸-x0 : (d : D) → d ∸ zero ≡ d
+∸-x0 d =
   begin
-    rec zero d (lam minus-aux) ≡⟨ rec-0 d ⟩
+    rec zero d (lam ∸-aux) ≡⟨ rec-0 d ⟩
     d
   ∎
 
-minus-0S : {n : D} → N n → zero - succ n ≡ zero
-minus-0S zN =
+∸-0S : {n : D} → N n → zero ∸ succ n ≡ zero
+∸-0S zN =
   begin
-    rec (succ zero) zero (lam minus-aux) ≡⟨ rec-S zero zero (lam minus-aux) ⟩
-    lam minus-aux · zero · (zero - zero)
-      ≡⟨ subst (λ t → lam minus-aux · zero · (zero - zero) ≡
-                      t · (zero - zero))
-               (beta minus-aux zero)
+    rec (succ zero) zero (lam ∸-aux) ≡⟨ rec-S zero zero (lam ∸-aux) ⟩
+    lam ∸-aux · zero · (zero ∸ zero)
+      ≡⟨ subst (λ t → lam ∸-aux · zero · (zero ∸ zero) ≡
+                      t · (zero ∸ zero))
+               (beta ∸-aux zero)
                refl
       ⟩
-    minus-aux zero · (zero - zero) ≡⟨ refl ⟩
-    lam pred · (zero - zero)       ≡⟨ beta pred (zero - zero) ⟩
-    pred (zero - zero)             ≡⟨ subst (λ t → pred (zero - zero) ≡
-                                                   pred t)
-                                            (minus-x0 zero)
-                                            refl
-                                   ⟩
-    pred zero                      ≡⟨ pred-0 ⟩
+    ∸-aux zero · (zero ∸ zero) ≡⟨ refl ⟩
+    lam pred · (zero ∸ zero)   ≡⟨ beta pred (zero ∸ zero) ⟩
+    pred (zero ∸ zero)         ≡⟨ subst (λ t → pred (zero ∸ zero) ≡ pred t)
+                                        (∸-x0 zero)
+                                        refl
+                               ⟩
+    pred zero                  ≡⟨ pred-0 ⟩
     zero
   ∎
 
-minus-0S (sN {n} Nn) =
+∸-0S (sN {n} Nn) =
   begin
-    rec (succ (succ n)) zero (lam minus-aux)
-      ≡⟨ rec-S (succ n) zero (lam minus-aux) ⟩
-    lam minus-aux · (succ n) · (zero - (succ n))
-      ≡⟨ subst (λ t → lam minus-aux · (succ n) · (zero - (succ n)) ≡
-                      t · (zero - (succ n)))
-               (beta minus-aux (succ n))
+    rec (succ (succ n)) zero (lam ∸-aux)
+      ≡⟨ rec-S (succ n) zero (lam ∸-aux) ⟩
+    lam ∸-aux · (succ n) · (zero ∸ (succ n))
+      ≡⟨ subst (λ t → lam ∸-aux · (succ n) · (zero ∸ (succ n)) ≡
+                      t · (zero ∸ (succ n)))
+               (beta ∸-aux (succ n))
                refl
       ⟩
-    minus-aux (succ n) · (zero - (succ n)) ≡⟨ refl ⟩
-    lam pred · (zero - (succ n))
-      ≡⟨ beta pred (zero - (succ n)) ⟩
-    pred (zero - (succ n)) ≡⟨ subst (λ t → pred (zero - (succ n)) ≡ pred t)
-                                    (minus-0S Nn)
+    ∸-aux (succ n) · (zero ∸ (succ n)) ≡⟨ refl ⟩
+    lam pred · (zero ∸ (succ n))
+      ≡⟨ beta pred (zero ∸ (succ n)) ⟩
+    pred (zero ∸ (succ n)) ≡⟨ subst (λ t → pred (zero ∸ (succ n)) ≡ pred t)
+                                    (∸-0S Nn)
                                     refl
                            ⟩
     pred zero              ≡⟨ pred-0 ⟩
     zero
   ∎
 
-minus-0x : {n : D} → N n → zero - n ≡ zero
-minus-0x zN      = minus-x0 zero
-minus-0x (sN Nn) = minus-0S Nn
+∸-0x : {n : D} → N n → zero ∸ n ≡ zero
+∸-0x zN      = ∸-x0 zero
+∸-0x (sN Nn) = ∸-0S Nn
 
-minus-SS : {m n : D} → N m → N n → succ m - succ n ≡ m - n
-minus-SS {m} _ zN =
+∸-SS : {m n : D} → N m → N n → succ m ∸ succ n ≡ m ∸ n
+∸-SS {m} _ zN =
   begin
-    rec (succ zero) (succ m) (lam minus-aux)
-      ≡⟨ rec-S zero (succ m) (lam minus-aux) ⟩
-    lam minus-aux · zero · (succ m - zero)
-      ≡⟨ subst (λ t → lam minus-aux · zero · (succ m - zero) ≡
-                      t · (succ m - zero))
-               (beta minus-aux zero)
+    rec (succ zero) (succ m) (lam ∸-aux)
+      ≡⟨ rec-S zero (succ m) (lam ∸-aux) ⟩
+    lam ∸-aux · zero · (succ m ∸ zero)
+      ≡⟨ subst (λ t → lam ∸-aux · zero · (succ m ∸ zero) ≡
+                      t · (succ m ∸ zero))
+               (beta ∸-aux zero)
                refl
       ⟩
-    minus-aux zero · (succ m - zero) ≡⟨ refl ⟩
-    lam pred · (succ m - zero)       ≡⟨ beta pred (succ m - zero) ⟩
-    pred (succ m - zero)             ≡⟨ subst (λ t → pred (succ m - zero) ≡
-                                                     pred t)
-                                              (minus-x0 (succ m))
-                                              refl
-                                     ⟩
-    pred (succ m)                    ≡⟨ pred-S m ⟩
-    m                                ≡⟨ sym $ minus-x0 m ⟩
-    m - zero
+    ∸-aux zero · (succ m ∸ zero) ≡⟨ refl ⟩
+    lam pred · (succ m ∸ zero)   ≡⟨ beta pred (succ m ∸ zero) ⟩
+    pred (succ m ∸ zero)         ≡⟨ subst (λ t → pred (succ m ∸ zero) ≡ pred t)
+                                          (∸-x0 (succ m))
+                                          refl
+                                 ⟩
+    pred (succ m)                ≡⟨ pred-S m ⟩
+    m                            ≡⟨ sym $ ∸-x0 m ⟩
+    m ∸ zero
   ∎
 
-minus-SS zN (sN {n} Nn) =
+∸-SS zN (sN {n} Nn) =
   begin
-    rec (succ (succ n)) (succ zero) (lam minus-aux)
-      ≡⟨ rec-S (succ n) (succ zero) (lam minus-aux) ⟩
-    lam minus-aux · (succ n) · (succ zero - succ n)
-      ≡⟨ subst (λ t → lam minus-aux · (succ n) · (succ zero - succ n) ≡
-                      t · (succ zero - succ n))
-               (beta minus-aux (succ n))
+    rec (succ (succ n)) (succ zero) (lam ∸-aux)
+      ≡⟨ rec-S (succ n) (succ zero) (lam ∸-aux) ⟩
+    lam ∸-aux · (succ n) · (succ zero ∸ succ n)
+      ≡⟨ subst (λ t → lam ∸-aux · (succ n) · (succ zero ∸ succ n) ≡
+                      t · (succ zero ∸ succ n))
+               (beta ∸-aux (succ n))
                refl
       ⟩
-    minus-aux (succ n) · (succ zero - succ n) ≡⟨ refl ⟩
-    lam pred · (succ zero - succ n)
-      ≡⟨ beta pred (succ zero - succ n) ⟩
-    pred (succ zero - succ n)
-      ≡⟨ subst (λ t → pred (succ zero - succ n) ≡ pred t)
-               (minus-SS zN Nn)
+    ∸-aux (succ n) · (succ zero ∸ succ n) ≡⟨ refl ⟩
+    lam pred · (succ zero ∸ succ n)
+      ≡⟨ beta pred (succ zero ∸ succ n) ⟩
+    pred (succ zero ∸ succ n)
+      ≡⟨ subst (λ t → pred (succ zero ∸ succ n) ≡ pred t)
+               (∸-SS zN Nn)
                refl
       ⟩
-    pred (zero - n) ≡⟨ subst (λ t → pred (zero - n) ≡ pred t)
-                       (minus-0x Nn)
+    pred (zero ∸ n) ≡⟨ subst (λ t → pred (zero ∸ n) ≡ pred t)
+                       (∸-0x Nn)
                        refl
                     ⟩
     pred zero       ≡⟨ pred-0 ⟩
-    zero            ≡⟨ sym $ minus-0S Nn ⟩
-    zero - succ n
+    zero            ≡⟨ sym $ ∸-0S Nn ⟩
+    zero ∸ succ n
   ∎
 
-minus-SS (sN {m} Nm) (sN {n} Nn) =
+∸-SS (sN {m} Nm) (sN {n} Nn) =
   begin
-    rec (succ (succ n)) (succ (succ m)) (lam minus-aux)
-      ≡⟨ rec-S (succ n) (succ (succ m)) (lam minus-aux) ⟩
-    lam minus-aux · (succ n) · (succ (succ m) - succ n)
-      ≡⟨ subst (λ t → lam minus-aux · (succ n) · (succ (succ m) - succ n) ≡
-                      t · (succ (succ m) - succ n))
-               (beta minus-aux (succ n))
+    rec (succ (succ n)) (succ (succ m)) (lam ∸-aux)
+      ≡⟨ rec-S (succ n) (succ (succ m)) (lam ∸-aux) ⟩
+    lam ∸-aux · (succ n) · (succ (succ m) ∸ succ n)
+      ≡⟨ subst (λ t → lam ∸-aux · (succ n) · (succ (succ m) ∸ succ n) ≡
+                      t · (succ (succ m) ∸ succ n))
+               (beta ∸-aux (succ n))
                refl
       ⟩
-    minus-aux (succ n) · (succ (succ m) - succ n) ≡⟨ refl ⟩
-    lam pred · (succ (succ m) - succ n)
-      ≡⟨ beta pred (succ (succ m) - succ n) ⟩
-    pred (succ (succ m) - succ n)
-      ≡⟨ subst (λ t → pred (succ (succ m) - succ n) ≡ pred t)
-               (minus-SS (sN Nm) Nn)
+    ∸-aux (succ n) · (succ (succ m) ∸ succ n) ≡⟨ refl ⟩
+    lam pred · (succ (succ m) ∸ succ n)
+      ≡⟨ beta pred (succ (succ m) ∸ succ n) ⟩
+    pred (succ (succ m) ∸ succ n)
+      ≡⟨ subst (λ t → pred (succ (succ m) ∸ succ n) ≡ pred t)
+               (∸-SS (sN Nm) Nn)
                refl
       ⟩
-    pred (succ m - n)       ≡⟨ sym $ beta pred (succ m - n) ⟩
-    lam pred · (succ m - n) ≡⟨ refl ⟩
-    minus-aux n · (succ m - n)
-      ≡⟨ subst (λ t → minus-aux n · (succ m - n) ≡ t · (succ m - n))
-               (sym $ beta minus-aux n)
+    pred (succ m ∸ n)       ≡⟨ sym $ beta pred (succ m ∸ n) ⟩
+    lam pred · (succ m ∸ n) ≡⟨ refl ⟩
+    ∸-aux n · (succ m ∸ n)
+      ≡⟨ subst (λ t → ∸-aux n · (succ m ∸ n) ≡ t · (succ m ∸ n))
+               (sym $ beta ∸-aux n)
                refl
       ⟩
-    (lam minus-aux) · n · (succ m - n)
-      ≡⟨ sym $ rec-S n (succ m) (lam minus-aux) ⟩
-    rec (succ n) (succ m) (lam minus-aux) ≡⟨ refl ⟩
-    succ m - succ n
+    (lam ∸-aux) · n · (succ m ∸ n)
+      ≡⟨ sym $ rec-S n (succ m) (lam ∸-aux) ⟩
+    rec (succ n) (succ m) (lam ∸-aux) ≡⟨ refl ⟩
+    succ m ∸ succ n
   ∎
 
 *-0x : (d : D) → zero * d ≡ zero
@@ -197,10 +195,10 @@ minus-SS (sN {m} Nm) (sN {n} Nn) =
     e + (d * e)
   ∎
 
-minus-N : {m n : D} → N m → N n → N (m - n)
-minus-N {m} Nm       zN     = subst N (sym $ minus-x0 m) Nm
-minus-N     zN      (sN Nn) = subst N (sym $ minus-0S Nn) zN
-minus-N     (sN Nm) (sN Nn) = subst N (sym $ minus-SS Nm Nn) (minus-N Nm Nn)
+∸-N : {m n : D} → N m → N n → N (m ∸ n)
+∸-N {m} Nm       zN     = subst N (sym $ ∸-x0 m) Nm
+∸-N     zN      (sN Nn) = subst N (sym $ ∸-0S Nn) zN
+∸-N     (sN Nm) (sN Nn) = subst N (sym $ ∸-SS Nm Nn) (∸-N Nm Nn)
 
 +-leftIdentity : {n : D} → N n → zero + n ≡ n
 +-leftIdentity {n} _ = +-0x n
@@ -269,36 +267,36 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn =
     succ (succ m + n)
   ∎
 
-[x+y]-[x+z]≡y-z : {m n o : D} → N m → N n → N o →
-                  (m + n) - (m + o) ≡ n - o
-[x+y]-[x+z]≡y-z {n = n} {o} zN _ _ =
+[x+y]∸[x+z]≡y∸z : {m n o : D} → N m → N n → N o →
+                  (m + n) ∸ (m + o) ≡ n ∸ o
+[x+y]∸[x+z]≡y∸z {n = n} {o} zN _ _ =
   begin
-    (zero + n) - (zero + o) ≡⟨ subst (λ t → (zero + n) - (zero + o) ≡
-                                            t - (zero + o))
+    (zero + n) ∸ (zero + o) ≡⟨ subst (λ t → (zero + n) ∸ (zero + o) ≡
+                                            t ∸ (zero + o))
                                       (+-0x n) refl
                             ⟩
-     n - (zero + o)         ≡⟨ subst (λ t → n - (zero + o) ≡ n - t)
+     n ∸ (zero + o)         ≡⟨ subst (λ t → n ∸ (zero + o) ≡ n ∸ t)
                                      (+-0x o)
                                      refl
                             ⟩
-    n - o
+    n ∸ o
   ∎
 
-[x+y]-[x+z]≡y-z {n = n} {o} (sN {m} Nm) Nn No =
+[x+y]∸[x+z]≡y∸z {n = n} {o} (sN {m} Nm) Nn No =
   begin
-    (succ m + n) - (succ m + o) ≡⟨ subst (λ t → succ m + n - (succ m + o) ≡
-                                                t - (succ m + o))
+    (succ m + n) ∸ (succ m + o) ≡⟨ subst (λ t → succ m + n ∸ (succ m + o) ≡
+                                                t ∸ (succ m + o))
                                          (+-Sx m n)
                                          refl
                                 ⟩
-    succ (m + n) - (succ m + o) ≡⟨ subst (λ t → succ (m + n) - (succ m + o) ≡
-                                                succ (m + n) - t)
+    succ (m + n) ∸ (succ m + o) ≡⟨ subst (λ t → succ (m + n) ∸ (succ m + o) ≡
+                                                succ (m + n) ∸ t)
                                          (+-Sx m o)
                                          refl
                                 ⟩
-    succ (m + n) - succ (m + o) ≡⟨ minus-SS (+-N Nm Nn) (+-N Nm No) ⟩
-    (m + n) - (m + o) ≡⟨ [x+y]-[x+z]≡y-z Nm Nn No ⟩
-    n - o
+    succ (m + n) ∸ succ (m + o) ≡⟨ ∸-SS (+-N Nm Nn) (+-N Nm No) ⟩
+    (m + n) ∸ (m + o) ≡⟨ [x+y]∸[x+z]≡y∸z Nm Nn No ⟩
+    n ∸ o
   ∎
 
 +-comm : {m n : D} → N m → N n → m + n ≡ n + m
@@ -402,84 +400,86 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn =
     n * succ m
   ∎
 
-[x-y]z≡xz*yz : {m n o : D} → N m → N n → N o → (m - n) * o ≡ m * o - n * o
-[x-y]z≡xz*yz {m} {o = o} _ zN _ =
+*∸-leftDistributive : {m n o : D} → N m → N n → N o →
+                      (m ∸ n) * o ≡ m * o ∸ n * o
+*∸-leftDistributive {m} {o = o} _ zN _ =
   begin
-    (m - zero) * o   ≡⟨ subst (λ t → (m - zero) * o ≡ t * o)
-                              (minus-x0 m)
+    (m ∸ zero) * o   ≡⟨ subst (λ t → (m ∸ zero) * o ≡ t * o)
+                              (∸-x0 m)
                               refl
                       ⟩
-    m * o            ≡⟨ sym $ minus-x0 (m * o) ⟩
-    m * o - zero     ≡⟨ subst (λ t → m * o - zero ≡ m * o - t)
+    m * o            ≡⟨ sym $ ∸-x0 (m * o) ⟩
+    m * o ∸ zero     ≡⟨ subst (λ t → m * o ∸ zero ≡ m * o ∸ t)
                               (sym $ *-0x o)
                               refl
                      ⟩
-    m * o - zero * o
+    m * o ∸ zero * o
   ∎
 
-[x-y]z≡xz*yz {o = o} zN (sN {n} Nn) No =
+*∸-leftDistributive {o = o} zN (sN {n} Nn) No =
   begin
-    (zero - succ n) * o  ≡⟨ subst (λ t → (zero - succ n) * o ≡ t * o)
-                                  (minus-0S Nn)
+    (zero ∸ succ n) * o  ≡⟨ subst (λ t → (zero ∸ succ n) * o ≡ t * o)
+                                  (∸-0S Nn)
                                   refl
                          ⟩
     zero * o             ≡⟨ *-0x o ⟩
-    zero                 ≡⟨ sym $ minus-0x (*-N (sN Nn) No) ⟩
-    zero - succ n * o    ≡⟨ subst (λ t → zero - succ n * o ≡ t - succ n * o)
+    zero                 ≡⟨ sym $ ∸-0x (*-N (sN Nn) No) ⟩
+    zero ∸ succ n * o    ≡⟨ subst (λ t → zero ∸ succ n * o ≡ t ∸ succ n * o)
                                    (sym $ *-0x o)
                                    refl
                          ⟩
-    zero * o - succ n * o
+    zero * o ∸ succ n * o
   ∎
 
-[x-y]z≡xz*yz (sN {m} Nm) (sN {n} Nn) zN =
+*∸-leftDistributive (sN {m} Nm) (sN {n} Nn) zN =
   begin
-    (succ m - succ n) * zero      ≡⟨ *-comm (minus-N (sN Nm) (sN Nn)) zN ⟩
-    zero * (succ m - succ n)      ≡⟨ *-0x (succ m - succ n) ⟩
-    zero                          ≡⟨ sym $ minus-0x (*-N (sN Nn) zN) ⟩
-    zero - succ n * zero          ≡⟨ subst (λ t → zero - succ n * zero ≡
-                                                  t - succ n * zero)
+    (succ m ∸ succ n) * zero      ≡⟨ *-comm (∸-N (sN Nm) (sN Nn)) zN ⟩
+    zero * (succ m ∸ succ n)      ≡⟨ *-0x (succ m ∸ succ n) ⟩
+    zero                          ≡⟨ sym $ ∸-0x (*-N (sN Nn) zN) ⟩
+    zero ∸ succ n * zero          ≡⟨ subst (λ t → zero ∸ succ n * zero ≡
+                                                  t ∸ succ n * zero)
                                            (sym $ *-0x (succ m))
                                            refl
                                   ⟩
-    zero * succ m - succ n * zero ≡⟨ subst
-                                       (λ t → zero * succ m - succ n * zero ≡
-                                              t - succ n * zero)
+    zero * succ m ∸ succ n * zero ≡⟨ subst
+                                       (λ t → zero * succ m ∸ succ n * zero ≡
+                                              t ∸ succ n * zero)
                                        (*-comm zN (sN Nm))
                                        refl
                                   ⟩
-    succ m * zero - succ n * zero
+    succ m * zero ∸ succ n * zero
   ∎
 
-[x-y]z≡xz*yz (sN {m} Nm) (sN {n} Nn) (sN {o} No) =
+*∸-leftDistributive (sN {m} Nm) (sN {n} Nn) (sN {o} No) =
   begin
-    (succ m - succ n) * succ o  ≡⟨ subst (λ t → (succ m - succ n) * succ o ≡
+    (succ m ∸ succ n) * succ o  ≡⟨ subst (λ t → (succ m ∸ succ n) * succ o ≡
                                                 t * succ o)
-                                         (minus-SS Nm Nn)
+                                         (∸-SS Nm Nn)
                                          refl
                                 ⟩
-    (m - n) * succ o            ≡⟨ [x-y]z≡xz*yz Nm Nn (sN No) ⟩
-    m * succ o - n * succ o     ≡⟨ sym $ [x+y]-[x+z]≡y-z (sN No)
+    (m ∸ n) * succ o            ≡⟨ *∸-leftDistributive Nm Nn (sN No) ⟩
+    m * succ o ∸ n * succ o     ≡⟨ sym $ [x+y]∸[x+z]≡y∸z (sN No)
                                                          (*-N Nm (sN No))
                                                          (*-N Nn (sN No))
                                 ⟩
-    (succ o + m * succ o) - (succ o + n * succ o)
-      ≡⟨ subst (λ t → (succ o + m * succ o) - (succ o + n * succ o) ≡
-                      t - (succ o + n * succ o))
+    (succ o + m * succ o) ∸ (succ o + n * succ o)
+      ≡⟨ subst (λ t → (succ o + m * succ o) ∸ (succ o + n * succ o) ≡
+                      t ∸ (succ o + n * succ o))
                (sym $ *-Sx m (succ o))
                refl
       ⟩
-    (succ m * succ o) - (succ o + n * succ o)
-      ≡⟨ subst (λ t → (succ m * succ o) - (succ o + n * succ o) ≡
-                      (succ m * succ o) - t)
+    (succ m * succ o) ∸ (succ o + n * succ o)
+      ≡⟨ subst (λ t → (succ m * succ o) ∸ (succ o + n * succ o) ≡
+                      (succ m * succ o) ∸ t)
                (sym $ *-Sx n (succ o))
                refl
       ⟩
-    (succ m * succ o) - (succ n * succ o)
+    (succ m * succ o) ∸ (succ n * succ o)
   ∎
 
-[x+y]z≡xz*yz : {m n o : D} → N m → N n → N o → (m + n) * o ≡ m * o + n * o
-[x+y]z≡xz*yz {m} {n} Nm Nn zN =
+*+-leftDistributive : {m n o : D} → N m → N n → N o →
+                      (m + n) * o ≡ m * o + n * o
+*+-leftDistributive {m} {n} Nm Nn zN =
   begin
     (m + n) * zero       ≡⟨ *-comm (+-N Nm Nn) zN ⟩
     zero * (m + n)       ≡⟨ *-0x (m + n) ⟩
@@ -493,7 +493,7 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn =
     m * zero + n * zero
   ∎
 
-[x+y]z≡xz*yz {n = n} zN Nn (sN {o} No) =
+*+-leftDistributive {n = n} zN Nn (sN {o} No) =
   begin
     (zero + n) * succ o  ≡⟨ subst (λ t → (zero + n) * succ o ≡ t * succ o)
                                   (+-leftIdentity Nn)
@@ -507,7 +507,7 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn =
     zero * succ o + n * succ o
   ∎
 
-[x+y]z≡xz*yz (sN {m} Nm) zN (sN {o} No) =
+*+-leftDistributive (sN {m} Nm) zN (sN {o} No) =
  begin
     (succ m + zero) * succ o ≡⟨ subst (λ t → (succ m + zero) * succ o ≡
                                              t * succ o)
@@ -523,7 +523,7 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn =
     succ m * succ o + zero * succ o
   ∎
 
-[x+y]z≡xz*yz (sN {m} Nm) (sN {n} Nn) (sN {o} No) =
+*+-leftDistributive (sN {m} Nm) (sN {n} Nn) (sN {o} No) =
   begin
     (succ m + succ n) * succ o
       ≡⟨ subst (λ t → (succ m + succ n) * succ o ≡ t * succ o)
@@ -533,7 +533,7 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn =
     succ (m + succ n) * succ o ≡⟨ *-Sx (m + succ n) (succ o) ⟩
     succ o + (m + succ n) * succ o
       ≡⟨ subst (λ t → succ o + (m + succ n) * succ o ≡ succ o + t)
-               ([x+y]z≡xz*yz Nm (sN Nn) (sN No))
+               (*+-leftDistributive Nm (sN Nn) (sN No))
                refl
       ⟩
     succ o + (m * succ o + succ n * succ o)

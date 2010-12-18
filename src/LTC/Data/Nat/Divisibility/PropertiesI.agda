@@ -11,7 +11,7 @@ open import Common.Function using ( _$_ )
 open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
 
 open import LTC.Data.Nat
-  using ( _+_ ; _-_
+  using ( _+_ ; _∸_
         ; _*_ ; *-Sx
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
@@ -19,11 +19,11 @@ open import LTC.Data.Nat.Divisibility using ( _∣_ )
 open import LTC.Data.Nat.Inequalities using ( LE )
 open import LTC.Data.Nat.Inequalities.PropertiesI using ( x≤x+y )
 open import LTC.Data.Nat.PropertiesI
-  using ( +-N ; *-N ; minus-N
+  using ( +-N ; ∸-N ; *-N
         ; *-leftIdentity
         ; *-leftZero
-        ; [x+y]z≡xz*yz
-        ; [x-y]z≡xz*yz
+        ; *+-leftDistributive
+        ; *∸-leftDistributive
         )
 
 ------------------------------------------------------------------------------
@@ -32,28 +32,30 @@ open import LTC.Data.Nat.PropertiesI
 ∣-refl-S {n} Nn = ¬S≡0 , succ zero , sN zN , sym (*-leftIdentity (sN Nn))
 
 -- If 'x' divides 'y' and 'z' then 'x' divides 'y - z'.
-x∣y→x∣z→x∣y-z : {m n p : D} → N m → N n → N p → m ∣ n → m ∣ p → m ∣ n - p
-x∣y→x∣z→x∣y-z             zN          Nn Np (0≠0 , _) m∣p = ⊥-elim $ 0≠0 refl
-x∣y→x∣z→x∣y-z {n = n} {p} (sN {m} Nm) Nn Np
+x∣y→x∣z→x∣y∸z : {m n p : D} → N m → N n → N p → m ∣ n → m ∣ p → m ∣ n ∸ p
+x∣y→x∣z→x∣y∸z             zN          Nn Np (0≠0 , _) m∣p = ⊥-elim $ 0≠0 refl
+x∣y→x∣z→x∣y∸z {n = n} {p} (sN {m} Nm) Nn Np
               (0≠0 , k₁ , Nk₁ , n≡k₁Sm)
               (_   , k₂ , Nk₂ , p≡k₂Sm) =
-  (λ S≡0 → ⊥-elim $ ¬S≡0 S≡0) , k₁ - k₂ , minus-N Nk₁ Nk₂ , prf
+  (λ S≡0 → ⊥-elim $ ¬S≡0 S≡0) , k₁ ∸ k₂ , ∸-N Nk₁ Nk₂ , prf
 
   where
-    prf : n - p ≡ (k₁ - k₂) * succ m
+    prf : n ∸ p ≡ (k₁ ∸ k₂) * succ m
     prf =
       begin
-        n - p                         ≡⟨ subst (λ t → n - p ≡ t - p)
+        n ∸ p                         ≡⟨ subst (λ t → n ∸ p ≡ t ∸ p)
                                                n≡k₁Sm
                                                refl
                                       ⟩
-        k₁ * succ m - p               ≡⟨ subst (λ t → k₁ * succ m - p ≡
-                                                      k₁ * succ m - t)
+        k₁ * succ m ∸ p               ≡⟨ subst (λ t → k₁ * succ m ∸ p ≡
+                                                      k₁ * succ m ∸ t)
                                                p≡k₂Sm
                                                refl
                                       ⟩
-        (k₁ * succ m) - (k₂ * succ m) ≡⟨ sym $ [x-y]z≡xz*yz Nk₁ Nk₂ (sN Nm) ⟩
-        (k₁ - k₂) * succ m
+        (k₁ * succ m) ∸ (k₂ * succ m) ≡⟨ sym $
+                                         *∸-leftDistributive Nk₁ Nk₂ (sN Nm)
+                                      ⟩
+        (k₁ ∸ k₂) * succ m
       ∎
 
 -- If 'x' divides 'y' and 'z' then 'x' divides 'y + z'.
@@ -77,7 +79,9 @@ x∣y→x∣z→x∣y+z {n = n} {p} (sN {m} Nm) Nn Np
                                                p≡k₂Sm
                                                refl
                                       ⟩
-        (k₁ * succ m) + (k₂ * succ m) ≡⟨ sym $ [x+y]z≡xz*yz Nk₁ Nk₂ (sN Nm) ⟩
+        (k₁ * succ m) + (k₂ * succ m) ≡⟨ sym $
+                                         *+-leftDistributive Nk₁ Nk₂ (sN Nm)
+                                      ⟩
         (k₁ + k₂) * succ m
       ∎
 

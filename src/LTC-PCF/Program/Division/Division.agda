@@ -15,7 +15,7 @@ module LTC-PCF.Program.Division.Division where
 
 open import LTC.Base
 
-open import LTC-PCF.Data.Nat using ( _-_ )
+open import LTC-PCF.Data.Nat using ( _∸_ )
 open import LTC-PCF.Data.Nat.Inequalities using ( _<_ )
 
 ------------------------------------------------------------------------------
@@ -24,13 +24,13 @@ open import LTC-PCF.Data.Nat.Inequalities using ( _<_ )
 -- divh g = lam (λ i → lam (λ j →
 --              if (lt i j)
 --                then zero
---                else (succ (g · (i - j) · j))))
+--                else (succ (g · (i ∸ j) · j))))
 
 -- Version using lambda lifting via super-combinators
 -- (Hughes. Super-combinators. 1982).
 
 div-aux₁ : D → D → D → D
-div-aux₁ i g j = if (i < j) then zero else succ (g · (i - j) · j)
+div-aux₁ i g j = if (i < j) then zero else succ (g · (i ∸ j) · j)
 {-# ATP definition div-aux₁ #-}
 
 div-aux₂ : D → D → D

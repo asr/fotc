@@ -10,7 +10,7 @@ open import LTC.Base.Properties using ( x≡y→Sx≡Sy )
 open import Common.Function using ( _$_ )
 
 open import LTC-PCF.Data.Nat
-  using ( _+_ ; _-_
+  using ( _+_ ; _∸_
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
 open import LTC-PCF.Data.Nat.Inequalities
@@ -19,11 +19,11 @@ open import LTC-PCF.Data.Nat.Inequalities
         ; LT₂
         )
 open import LTC-PCF.Data.Nat.PropertiesATP
-  using ( +-N ; minus-N
+  using ( +-N ; ∸-N
         ; +-Sx
         ; +-comm
         ; +-rightIdentity
-        ; minus-0S ; minus-SS ; minus-x0
+        ; ∸-0S ; ∸-SS ; ∸-x0
         )
 
 ------------------------------------------------------------------------------
@@ -245,50 +245,50 @@ x≤x+y {n = n} (sN {m} Nm) Nn = prf $ x≤x+y Nm Nn
     -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf +-Sx <-SS #-}
 
-x-y<Sx : {m n : D} → N m → N n → LT (m - n) (succ m)
+x-y<Sx : {m n : D} → N m → N n → LT (m ∸ n) (succ m)
 x-y<Sx {m} Nm zN = prf
   where
-    postulate prf : LT (m - zero) (succ m)
-    {-# ATP prove prf x<Sx minus-x0 #-}
+    postulate prf : LT (m ∸ zero) (succ m)
+    {-# ATP prove prf x<Sx ∸-x0 #-}
 
 x-y<Sx zN (sN {n} Nn) = prf
   where
-    postulate prf : LT (zero - succ n) (succ zero)
-    {-# ATP prove prf minus-0S minus-0S <-0S #-}
+    postulate prf : LT (zero ∸ succ n) (succ zero)
+    {-# ATP prove prf ∸-0S ∸-0S <-0S #-}
 
 x-y<Sx (sN {m} Nm) (sN {n} Nn) = prf $ x-y<Sx Nm Nn
   where
-    postulate prf : LT (m - n) (succ m) →  -- IH.
-                    LT (succ m - succ n) (succ (succ m))
+    postulate prf : LT (m ∸ n) (succ m) →  -- IH.
+                    LT (succ m ∸ succ n) (succ (succ m))
     -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
-    {-# ATP prove prf <-trans minus-N x<Sx sN minus-SS #-}
+    {-# ATP prove prf <-trans ∸-N x<Sx sN ∸-SS #-}
 
 postulate
-  Sx-Sy<Sx : {m n : D} → N m → N n → LT (succ m - succ n) (succ m)
-{-# ATP prove Sx-Sy<Sx minus-SS x-y<Sx #-}
+  Sx-Sy<Sx : {m n : D} → N m → N n → LT (succ m ∸ succ n) (succ m)
+{-# ATP prove Sx-Sy<Sx ∸-SS x-y<Sx #-}
 
-x>y→x-y+y≡x : {m n : D} → N m → N n → GT m n → (m - n) + n ≡ m
+x>y→x-y+y≡x : {m n : D} → N m → N n → GT m n → (m ∸ n) + n ≡ m
 x>y→x-y+y≡x zN Nn 0>n = ⊥-elim $ ¬0>x Nn 0>n
 x>y→x-y+y≡x (sN {m} Nm) zN Sm>0 = prf
   where
-    postulate prf : (succ m - zero) + zero ≡ succ m
-    {-# ATP prove prf +-rightIdentity minus-N sN zN minus-x0 #-}
+    postulate prf : (succ m ∸ zero) + zero ≡ succ m
+    {-# ATP prove prf +-rightIdentity ∸-N sN zN ∸-x0 #-}
 
 x>y→x-y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn = prf $ x>y→x-y+y≡x Nm Nn m>n
   where
     postulate m>n : GT m n
     {-# ATP prove m>n <-SS #-}
 
-    postulate prf : (m - n) + n ≡ m →  -- IH.
-                    (succ m - succ n) + succ n ≡ succ m
+    postulate prf : (m ∸ n) + n ≡ m →  -- IH.
+                    (succ m ∸ succ n) + succ n ≡ succ m
     -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
-    {-# ATP prove prf +-comm minus-N sN +-Sx minus-SS <-SS #-}
+    {-# ATP prove prf +-comm ∸-N sN +-Sx ∸-SS <-SS #-}
 
-x≤y→y-x+x≡y : {m n : D} → N m → N n → LE m n → (n - m) + m ≡ n
+x≤y→y-x+x≡y : {m n : D} → N m → N n → LE m n → (n ∸ m) + m ≡ n
 x≤y→y-x+x≡y {n = n} zN Nn 0≤n  = prf
   where
-    postulate prf : (n - zero) + zero ≡ n
-    {-# ATP prove prf +-rightIdentity minus-N minus-x0 <-SS #-}
+    postulate prf : (n ∸ zero) + zero ≡ n
+    {-# ATP prove prf +-rightIdentity ∸-N ∸-x0 <-SS #-}
 
 x≤y→y-x+x≡y (sN Nm) zN Sm≤0 = ⊥-elim $ ¬S≤0 Sm≤0
 
@@ -297,10 +297,10 @@ x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn = prf $ x≤y→y-x+x≡y Nm N
     postulate m≤n : LE m n
     {-# ATP prove m≤n <-SS #-}
 
-    postulate prf : (n - m) + m ≡ n →  -- IH.
-                    (succ n - succ m) + succ m ≡ succ n
+    postulate prf : (n ∸ m) + m ≡ n →  -- IH.
+                    (succ n ∸ succ m) + succ m ≡ succ n
     -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
-    {-# ATP prove prf +-comm minus-N sN +-Sx minus-SS <-SS #-}
+    {-# ATP prove prf +-comm ∸-N sN +-Sx ∸-SS <-SS #-}
 
 x<y→x<Sy : {m n : D} → N m → N n → LT m n → LT m (succ n)
 x<y→x<Sy Nm          zN          m<0   = ⊥-elim $ ¬x<0 Nm m<0
@@ -338,14 +338,14 @@ postulate
   x≡y→y<z→x<z : {m n o : D} → N m → N n → N o → m ≡ n → LT n o → LT m o
 {-# ATP prove x≡y→y<z→x<z #-}
 
-x≥y→y>0→x-y<x : {m n : D} → N m → N n → GE m n → GT n zero → LT (m - n) m
+x≥y→y>0→x-y<x : {m n : D} → N m → N n → GE m n → GT n zero → LT (m ∸ n) m
 x≥y→y>0→x-y<x Nm          zN          _     0>0  = ⊥-elim $ ¬x>x zN 0>0
 x≥y→y>0→x-y<x zN          (sN Nn)     0≥Sn  _    = ⊥-elim $ ¬S≤0 0≥Sn
 x≥y→y>0→x-y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 = prf
   where
-    postulate prf : LT (succ m - succ n) (succ m)
+    postulate prf : LT (succ m ∸ succ n) (succ m)
     -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
-    {-# ATP prove prf minus-SS x-y<Sx #-}
+    {-# ATP prove prf ∸-SS x-y<Sx #-}
 
 ------------------------------------------------------------------------------
 -- Properties about LT₂
@@ -376,16 +376,16 @@ postulate
 {-# ATP prove xy₁<0y₂→x≡0∧y₁<y₂ ¬x<0 #-}
 
 [Sx-Sy,Sy]<[Sx,Sy] : {m n : D} → N m → N n →
-                     LT₂ (succ m - succ n) (succ n) (succ m) (succ n)
+                     LT₂ (succ m ∸ succ n) (succ n) (succ m) (succ n)
 [Sx-Sy,Sy]<[Sx,Sy] {m} {n} Nm Nn = prf
   where
-    postulate prf : LT₂ (succ m - succ n) (succ n) (succ m) (succ n)
+    postulate prf : LT₂ (succ m ∸ succ n) (succ n) (succ m) (succ n)
     -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf sN Sx-Sy<Sx #-}
 
 [Sx,Sy-Sx]<[Sx,Sy] : {m n : D} → N m → N n →
-                     LT₂ (succ m) (succ n - succ m) (succ m) (succ n)
+                     LT₂ (succ m) (succ n ∸ succ m) (succ m) (succ n)
 [Sx,Sy-Sx]<[Sx,Sy] {m} {n} Nm Nn = prf
   where
-    postulate prf : LT₂ (succ m) (succ n - succ m) (succ m) (succ n)
+    postulate prf : LT₂ (succ m) (succ n ∸ succ m) (succ m) (succ n)
     {-# ATP prove prf sN Sx-Sy<Sx #-}

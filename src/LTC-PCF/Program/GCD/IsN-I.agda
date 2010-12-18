@@ -10,7 +10,7 @@ open import LTC.Base.Properties using ( ¬S≡0 )
 open import Common.Function using ( _$_ )
 
 open import LTC-PCF.Data.Nat
-  using ( _-_
+  using ( _∸_
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
 open import LTC-PCF.Data.Nat.Induction.LexicographicI
@@ -23,7 +23,7 @@ open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
         ; [Sx-Sy,Sy]<[Sx,Sy]
         ; [Sx,Sy-Sx]<[Sx,Sy]
         )
-open import LTC-PCF.Data.Nat.PropertiesI using ( minus-N )
+open import LTC-PCF.Data.Nat.PropertiesI using ( ∸-N )
 
 open import LTC-PCF.Program.GCD.Definitions using ( ¬x≡0∧y≡0 )
 open import LTC-PCF.Program.GCD.GCD using ( gcd )
@@ -43,7 +43,7 @@ gcd-S0-N {n} Nn = subst N (sym $ gcd-S0 n) (sN Nn)
 ------------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m > succ n' is N.
 gcd-S>S-N : {m n : D} → N m → N n →
-             N (gcd (succ m - succ n) (succ n)) →
+             N (gcd (succ m ∸ succ n) (succ n)) →
              GT (succ m) (succ n) →
              N (gcd (succ m) (succ n))
 gcd-S>S-N {m} {n} Nm Nn ih Sm>Sn = subst N (sym $ gcd-S>S m n Sm>Sn) ih
@@ -52,7 +52,7 @@ gcd-S>S-N {m} {n} Nm Nn ih Sm>Sn = subst N (sym $ gcd-S>S m n Sm>Sn) ih
 
 -- The 'gcd (succ m) (succ n)' when 'succ m ≤ succ n' is N.
 gcd-S≤S-N : {m n : D} → N m → N n →
-            N (gcd (succ m) (succ n - succ m)) →
+            N (gcd (succ m) (succ n ∸ succ m)) →
             LE (succ m) (succ n) →
             N (gcd (succ m) (succ n))
 gcd-S≤S-N {m} {n} Nm Nn ih Sm≤Sn = subst N (sym $ gcd-S≤S Nm Nn Sm≤Sn) ih
@@ -74,10 +74,10 @@ gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
   gcd-S>S-N Nm Nn ih Sm>Sn
   where
     -- Inductive hypothesis.
-    ih : N (gcd (succ m - succ n) (succ n))
-    ih = accH {succ m - succ n}
+    ih : N (gcd (succ m ∸ succ n) (succ n))
+    ih = accH {succ m ∸ succ n}
               {succ n}
-              (minus-N (sN Nm) (sN Nn))
+              (∸-N (sN Nm) (sN Nn))
               (sN Nn)
               ([Sx-Sy,Sy]<[Sx,Sy] Nm Nn)
               (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
@@ -99,11 +99,11 @@ gcd-x≤y-N (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
   gcd-S≤S-N Nm Nn ih Sm≤Sn
   where
     -- Inductive hypothesis.
-    ih : N (gcd (succ m) (succ n - succ m))
+    ih : N (gcd (succ m) (succ n ∸ succ m))
     ih = accH {succ m}
-              {succ n - succ m}
+              {succ n ∸ succ m}
               (sN Nm)
-              (minus-N (sN Nn) (sN Nm))
+              (∸-N (sN Nn) (sN Nm))
               ([Sx,Sy-Sx]<[Sx,Sy] Nm Nn)
               (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 

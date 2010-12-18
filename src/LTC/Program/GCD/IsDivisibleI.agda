@@ -10,11 +10,11 @@ open import LTC.Base.Properties using ( ¬S≡0 )
 open import Common.Function using ( _$_ )
 
 open import LTC.Data.Nat
-  using ( _-_
+  using ( _∸_
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
 open import LTC.Data.Nat.Divisibility using ( _∣_ )
-open import LTC.Data.Nat.Divisibility.PropertiesI using ( x∣y→x∣z→x∣y-z )
+open import LTC.Data.Nat.Divisibility.PropertiesI using ( x∣y→x∣z→x∣y∸z )
 open import LTC.Data.Nat.Induction.LexicographicI using ( wfIndN-LT₂ )
 open import LTC.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
 open import LTC.Data.Nat.Inequalities.PropertiesI
@@ -24,7 +24,7 @@ open import LTC.Data.Nat.Inequalities.PropertiesI
         ; [Sx,Sy-Sx]<[Sx,Sy]
         ; x>y∨x≤y
         )
-open import LTC.Data.Nat.PropertiesI using ( minus-N )
+open import LTC.Data.Nat.PropertiesI using ( ∸-N )
 
 open import LTC.Program.GCD.Definitions using ( ¬x≡0∧y≡0 ; CD ; Divisible )
 open import LTC.Program.GCD.GCD
@@ -46,7 +46,7 @@ gcd-S0-Divisible {n} _ c _ (c∣Sn , c∣0) =
 -- The 'gcd (succ m) (succ n)' when 'succ m > succ n' is Divisible.
 gcd-S>S-Divisible :
   {m n : D} → N m → N n →
-  (Divisible (succ m - succ n) (succ n) (gcd (succ m - succ n) (succ n))) →
+  (Divisible (succ m ∸ succ n) (succ n) (gcd (succ m ∸ succ n) (succ n))) →
   GT (succ m) (succ n) →
   Divisible (succ m) (succ n) (gcd (succ m) (succ n))
 gcd-S>S-Divisible {m} {n} Nm Nn acc Sm>Sn c Nc (c∣Sm , c∣Sn) =
@@ -55,9 +55,9 @@ Proof:
    ----------------- (Hip.)
      c | m    c | n
    ---------------------- (Thm.)   -------- (Hip.)
-       c | (m - n)                   c | n
+       c | (m ∸ n)                   c | n
      ------------------------------------------ (IH)
-              c | gcd m (n - m)                          m > n
+              c | gcd m (n ∸ m)                          m > n
              --------------------------------------------------- (gcd def.)
                              c | gcd m n
 -}
@@ -65,14 +65,14 @@ Proof:
        (sym $ gcd-S>S m n Sm>Sn)
        (acc c Nc (c|Sm-Sn , c∣Sn))
  where
-   c|Sm-Sn : c ∣ succ m - succ n
-   c|Sm-Sn = x∣y→x∣z→x∣y-z Nc (sN Nm) (sN Nn) c∣Sm c∣Sn
+   c|Sm-Sn : c ∣ succ m ∸ succ n
+   c|Sm-Sn = x∣y→x∣z→x∣y∸z Nc (sN Nm) (sN Nn) c∣Sm c∣Sn
 
 ------------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m ≤ succ n' is Divisible.
 gcd-S≤S-Divisible :
   {m n : D} → N m → N n →
-  (Divisible (succ m) (succ n - succ m) (gcd (succ m) (succ n - succ m))) →
+  (Divisible (succ m) (succ n ∸ succ m) (gcd (succ m) (succ n ∸ succ m))) →
   LE (succ m) (succ n) →
   Divisible (succ m) (succ n) (gcd (succ m) (succ n))
 gcd-S≤S-Divisible {m} {n} Nm Nn acc Sm≤Sn c Nc (c∣Sm , c∣Sn) =
@@ -81,9 +81,9 @@ Proof
                             ----------------- (Hip.)
                                 c | m    c | n
         -------- (Hip.)       ---------------------- (Thm.)
-         c | m                      c | n - m
+         c | m                      c | n ∸ m
      ------------------------------------------ (IH)
-              c | gcd m (n - m)                          m ≤ n
+              c | gcd m (n ∸ m)                          m ≤ n
              --------------------------------------------------- (gcd def.)
                              c | gcd m n
 -}
@@ -92,8 +92,8 @@ Proof
         (sym $ gcd-S≤S m n Sm≤Sn)
         (acc c Nc (c∣Sm , c|Sn-Sm))
   where
-    c|Sn-Sm : c ∣ succ n - succ m
-    c|Sn-Sm = x∣y→x∣z→x∣y-z Nc (sN Nn) (sN Nm) c∣Sn c∣Sm
+    c|Sn-Sm : c ∣ succ n ∸ succ m
+    c|Sn-Sm = x∣y→x∣z→x∣y∸z Nc (sN Nn) (sN Nm) c∣Sn c∣Sm
 
 ------------------------------------------------------------------------------
 -- The 'gcd m n' when 'm > n' is Divisible.
@@ -113,10 +113,10 @@ gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ c Nc =
   gcd-S>S-Divisible Nm Nn ih Sm>Sn c Nc
   where
     -- Inductive hypothesis.
-    ih : Divisible (succ m - succ n) (succ n) (gcd (succ m - succ n) (succ n))
-    ih = accH {succ m - succ n}
+    ih : Divisible (succ m ∸ succ n) (succ n) (gcd (succ m ∸ succ n) (succ n))
+    ih = accH {succ m ∸ succ n}
               {succ n}
-              (minus-N (sN Nm) (sN Nn))
+              (∸-N (sN Nm) (sN Nn))
               (sN Nn)
               ([Sx-Sy,Sy]<[Sx,Sy] Nm Nn)
               (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
@@ -139,11 +139,11 @@ gcd-x≤y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ c Nc =
   gcd-S≤S-Divisible Nm Nn ih Sm≤Sn c Nc
   where
     -- Inductive hypothesis.
-    ih : Divisible (succ m) (succ n - succ m) (gcd (succ m) (succ n - succ m))
+    ih : Divisible (succ m) (succ n ∸ succ m) (gcd (succ m) (succ n ∸ succ m))
     ih = accH {succ m}
-              {succ n - succ m}
+              {succ n ∸ succ m}
               (sN Nm)
-              (minus-N (sN Nn) (sN Nm))
+              (∸-N (sN Nn) (sN Nm))
               ([Sx,Sy-Sx]<[Sx,Sy] Nm Nn)
               (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 

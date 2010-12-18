@@ -9,7 +9,7 @@ open import LTC.Base
 open import Common.Function using ( _$_ )
 
 open import LTC-PCF.Data.Nat
-  using ( _+_ ; _-_ ; _*_
+  using ( _+_ ; _∸_ ; _*_
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
 open import LTC-PCF.Data.Nat.Rec.EquationsATP using ( rec-0 ; rec-S )
@@ -25,41 +25,41 @@ postulate
 {-# ATP prove +-Sx rec-S #-}
 
 postulate
-  minus-x0 : (d : D) → d - zero ≡ d
-{-# ATP prove minus-x0 rec-0 #-}
+  ∸-x0 : (d : D) → d ∸ zero ≡ d
+{-# ATP prove ∸-x0 rec-0 #-}
 
-minus-0S : {n : D} → N n → zero - succ n ≡ zero
-minus-0S zN = prf
+∸-0S : {n : D} → N n → zero ∸ succ n ≡ zero
+∸-0S zN = prf
   where
-    postulate prf : zero - succ zero ≡ zero
+    postulate prf : zero ∸ succ zero ≡ zero
     {-# ATP prove prf rec-0 #-}
 
-minus-0S (sN {n} _) = prf
+∸-0S (sN {n} _) = prf
   where
-    postulate prf : zero - succ (succ n) ≡ zero
-    {-# ATP prove prf rec-S minus-0S #-}
+    postulate prf : zero ∸ succ (succ n) ≡ zero
+    {-# ATP prove prf ∸-0S rec-S #-}
 
-minus-0x : {n : D} → N n → zero - n ≡ zero
-minus-0x zN      = minus-x0 zero
-minus-0x (sN Nn) = minus-0S Nn
+∸-0x : {n : D} → N n → zero ∸ n ≡ zero
+∸-0x zN      = ∸-x0 zero
+∸-0x (sN Nn) = ∸-0S Nn
 
-minus-SS : {m n : D} → N m → N n → succ m - succ n ≡ m - n
-minus-SS {m} _ zN = prf
+∸-SS : {m n : D} → N m → N n → succ m ∸ succ n ≡ m ∸ n
+∸-SS {m} _ zN = prf
   where
-    postulate prf : succ m - succ zero ≡ m - zero
+    postulate prf : succ m ∸ succ zero ≡ m ∸ zero
     -- Equinox 5.0alpha (2010-06-29) no-success due to timeout (180 sec).
-    {-# ATP prove prf rec-S minus-x0 #-}
+    {-# ATP prove prf rec-S ∸-x0 #-}
 
-minus-SS zN (sN {n} Nn) = prf $ minus-SS zN Nn
+∸-SS zN (sN {n} Nn) = prf $ ∸-SS zN Nn
   where
-    postulate prf : succ zero - succ n ≡ zero - n →  -- IH.
-                    succ zero - succ (succ n) ≡ zero - succ n
-    {-# ATP prove prf rec-S minus-0x minus-0S #-}
+    postulate prf : succ zero ∸ succ n ≡ zero ∸ n →  -- IH.
+                    succ zero ∸ succ (succ n) ≡ zero ∸ succ n
+    {-# ATP prove prf rec-S ∸-0x ∸-0S #-}
 
-minus-SS (sN {m} Nm) (sN {n} Nn) = prf $ minus-SS (sN Nm) Nn
+∸-SS (sN {m} Nm) (sN {n} Nn) = prf $ ∸-SS (sN Nm) Nn
   where
-    postulate prf : succ (succ m) - succ n ≡ succ m - n →  -- IH.
-                    succ (succ m) - succ (succ n) ≡ succ m - succ n
+    postulate prf : succ (succ m) ∸ succ n ≡ succ m ∸ n →  -- IH.
+                    succ (succ m) ∸ succ (succ n) ≡ succ m ∸ succ n
     {-# ATP prove prf rec-S #-}
 
 postulate
@@ -73,22 +73,22 @@ postulate
 ------------------------------------------------------------------------------
 -- Closure properties
 
-minus-N : {m n : D} → N m → N n → N (m - n)
-minus-N {m} _ zN = prf
+∸-N : {m n : D} → N m → N n → N (m ∸ n)
+∸-N {m} _ zN = prf
   where
-    postulate prf : N (m - zero)
-    {-# ATP prove prf minus-x0 #-}
+    postulate prf : N (m ∸ zero)
+    {-# ATP prove prf ∸-x0 #-}
 
-minus-N zN (sN {n} _) = prf
+∸-N zN (sN {n} _) = prf
   where
-    postulate prf : N (zero - succ n)
-    {-# ATP prove prf zN minus-0S #-}
+    postulate prf : N (zero ∸ succ n)
+    {-# ATP prove prf zN ∸-0S #-}
 
-minus-N (sN {m} Nm) (sN {n} Nn) = prf $ minus-N Nm Nn
+∸-N (sN {m} Nm) (sN {n} Nn) = prf $ ∸-N Nm Nn
   where
-    postulate prf : N (m - n) →  -- IH.
-                    N (succ m - succ n)
-    {-# ATP prove prf minus-SS #-}
+    postulate prf : N (m ∸ n) →  -- IH.
+                    N (succ m ∸ succ n)
+    {-# ATP prove prf ∸-SS #-}
 
 +-N : {m n : D} → N m → N n → N (m + n)
 +-N {n = n} zN _ = prf
@@ -160,21 +160,21 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn = prf $ x+1+y≡1+x+y Nm Nn
     -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf x+1+y≡1+x+y +-Sx #-}
 
-[x+y]-[x+z]≡y-z : {m n o : D} → N m → N n → N o →
-                  (m + n) - (m + o) ≡ n - o
-[x+y]-[x+z]≡y-z {n = n} {o} zN _ _ = prf
+[x+y]∸[x+z]≡y∸z : {m n o : D} → N m → N n → N o →
+                  (m + n) ∸ (m + o) ≡ n ∸ o
+[x+y]∸[x+z]≡y∸z {n = n} {o} zN _ _ = prf
   where
-    postulate prf : (zero + n) - (zero + o) ≡ n - o
+    postulate prf : (zero + n) ∸ (zero + o) ≡ n ∸ o
     {-# ATP prove prf +-0x #-}
 
 -- Nice proof by the ATP.
-[x+y]-[x+z]≡y-z {n = n} {o} (sN {m} Nm) Nn No =
-  prf $ [x+y]-[x+z]≡y-z Nm Nn No
+[x+y]∸[x+z]≡y∸z {n = n} {o} (sN {m} Nm) Nn No =
+  prf $ [x+y]∸[x+z]≡y∸z Nm Nn No
   where
-    postulate prf : (m + n) - (m + o) ≡ n - o →  -- IH.
-                    (succ m + n) - (succ m + o) ≡ n - o
+    postulate prf : (m + n) ∸ (m + o) ≡ n ∸ o →  -- IH.
+                    (succ m + n) ∸ (succ m + o) ≡ n ∸ o
     -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
-    {-# ATP prove prf +-Sx minus-SS +-N #-}
+    {-# ATP prove prf +-Sx ∸-SS +-N #-}
 
 *-leftZero : (n : D) → zero * n ≡ zero
 *-leftZero = *-0x
@@ -219,53 +219,55 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
     -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf x*1+y≡x+xy *-Sx #-}
 
-[x-y]z≡xz*yz : {m n o : D} → N m → N n → N o → (m - n) * o ≡ m * o - n * o
-[x-y]z≡xz*yz {m} {o = o} _ zN _ = prf
+*∸-leftDistributive : {m n o : D} → N m → N n → N o →
+                      (m ∸ n) * o ≡ m * o ∸ n * o
+*∸-leftDistributive {m} {o = o} _ zN _ = prf
   where
-    postulate prf : (m - zero) * o ≡ m * o - zero * o
-    {-# ATP prove prf *-0x minus-x0 #-}
+    postulate prf : (m ∸ zero) * o ≡ m * o ∸ zero * o
+    {-# ATP prove prf *-0x ∸-x0 #-}
 
-[x-y]z≡xz*yz {o = o} zN (sN {n} Nn) No = prf $ minus-0x (*-N (sN Nn) No)
+*∸-leftDistributive {o = o} zN (sN {n} Nn) No = prf $ ∸-0x (*-N (sN Nn) No)
   where
-    postulate prf : zero - succ n * o ≡ zero →
-                    (zero - succ n) * o ≡ zero * o - succ n * o
-    {-# ATP prove prf *-0x minus-0S minus-0x #-}
+    postulate prf : zero ∸ succ n * o ≡ zero →
+                    (zero ∸ succ n) * o ≡ zero * o ∸ succ n * o
+    {-# ATP prove prf *-0x ∸-0S ∸-0x #-}
 
-[x-y]z≡xz*yz (sN {m} _) (sN {n} _) zN = prf
+*∸-leftDistributive (sN {m} _) (sN {n} _) zN = prf
   where
-    postulate prf : (succ m - succ n) * zero ≡ succ m * zero - succ n * zero
+    postulate prf : (succ m ∸ succ n) * zero ≡ succ m * zero ∸ succ n * zero
     -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
-    {-# ATP prove prf *-comm minus-N zN sN +-0x *-0x *-Sx minus-0x *-N #-}
+    {-# ATP prove prf *-comm ∸-N zN sN +-0x *-0x *-Sx ∸-0x *-N #-}
 
-[x-y]z≡xz*yz (sN {m} Nm) (sN {n} Nn) (sN {o} No) =
-  prf $ [x-y]z≡xz*yz Nm Nn (sN No)
+*∸-leftDistributive (sN {m} Nm) (sN {n} Nn) (sN {o} No) =
+  prf $ *∸-leftDistributive Nm Nn (sN No)
   where
-    postulate prf : (m - n) * succ o ≡ m * succ o - n * succ o →  -- IH
-                    (succ m - succ n) * succ o ≡
-                    succ m * succ o - succ n * succ o
+    postulate prf : (m ∸ n) * succ o ≡ m * succ o ∸ n * succ o →  -- IH
+                    (succ m ∸ succ n) * succ o ≡
+                    succ m * succ o ∸ succ n * succ o
     -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
-    {-# ATP prove prf sN *-N [x+y]-[x+z]≡y-z *-Sx minus-SS #-}
+    {-# ATP prove prf sN *-N [x+y]∸[x+z]≡y∸z *-Sx ∸-SS #-}
 
-[x+y]z≡xz*yz : {m n o : D} → N m → N n → N o → (m + n) * o ≡ m * o + n * o
-[x+y]z≡xz*yz {m} {n} _ _ zN = prf
+*+-leftDistributive : {m n o : D} → N m → N n → N o →
+                      (m + n) * o ≡ m * o + n * o
+*+-leftDistributive {m} {n} _ _ zN = prf
   where
     postulate prf : (m + n) * zero ≡ m * zero + n * zero
     -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf zN sN *-comm +-rightIdentity *-N +-N *-0x #-}
 
-[x+y]z≡xz*yz {n = n} zN Nn (sN {o} _) = prf
+*+-leftDistributive {n = n} zN Nn (sN {o} _) = prf
   where
     postulate prf :  (zero + n) * succ o ≡ zero * succ o + n * succ o
     {-# ATP prove prf +-0x *-0x #-}
 
-[x+y]z≡xz*yz (sN {m} _) zN (sN {o} _) = prf
+*+-leftDistributive (sN {m} _) zN (sN {o} _) = prf
   where
     postulate prf : (succ m + zero) * succ o ≡ succ m * succ o + zero * succ o
     -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
     {-# ATP prove prf +-rightIdentity *-leftZero sN *-N #-}
 
-[x+y]z≡xz*yz (sN {m} Nm) (sN {n} Nn) (sN {o} No) =
-  prf $ [x+y]z≡xz*yz Nm (sN Nn) (sN No)
+*+-leftDistributive (sN {m} Nm) (sN {n} Nn) (sN {o} No) =
+  prf $ *+-leftDistributive Nm (sN Nn) (sN No)
     where
       postulate
         prf : (m + succ n) * succ o ≡ m * succ o + succ n * succ o →  -- IH.
