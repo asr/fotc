@@ -24,8 +24,8 @@ open import AxiomaticPA.Equality.Properties using ()
       iStep : ∀ i → P i → P (succ i)
     {-# ATP prove iStep #-}
 
-x+1+y≣1+x+y : ∀ m n → m + succ n ≣ succ (m + n)
-x+1+y≣1+x+y m n = S₉ P P0 iStep m
+x+Sy≣S[x+y] : ∀ m n → m + succ n ≣ succ (m + n)
+x+Sy≣S[x+y] m n = S₉ P P0 iStep m
   where
     P : ℕ → Set
     P i = i + succ n ≣ succ (i + n)
@@ -52,4 +52,4 @@ x+1+y≣1+x+y m n = S₉ P P0 iStep m
 
     postulate
       iStep : ∀ i → P i → P (succ i)
-    {-# ATP prove iStep x+1+y≣1+x+y #-}
+    {-# ATP prove iStep x+Sy≣S[x+y] #-}

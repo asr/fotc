@@ -52,13 +52,13 @@ S₈ m n = refl
                     succ m + n + o ≡ succ m + (n + o)
     {-# ATP prove prf #-}
 
-x+1+y≡1+x+y : ∀ m n → m + succ n ≡ succ (m + n)
-x+1+y≡1+x+y zero n = prf
+x+Sy≡S[x+y] : ∀ m n → m + succ n ≡ succ (m + n)
+x+Sy≡S[x+y] zero n = prf
   where
     postulate prf : zero + succ n ≡ succ (zero + n)
     {-# ATP prove prf #-}
 
-x+1+y≡1+x+y (succ m) n = prf (x+1+y≡1+x+y m n)
+x+Sy≡S[x+y] (succ m) n = prf (x+Sy≡S[x+y] m n)
   where
     postulate prf : m + succ n ≡ succ (m + n) →  -- IH.
                     succ m + succ n ≡ succ (succ m + n)
@@ -74,4 +74,4 @@ x+1+y≡1+x+y (succ m) n = prf (x+1+y≡1+x+y m n)
   where
     postulate prf : m + n ≡ n + m →  -- IH.
                     succ m + n ≡ n + succ m
-    {-# ATP prove prf x+1+y≡1+x+y #-}
+    {-# ATP prove prf x+Sy≡S[x+y] #-}

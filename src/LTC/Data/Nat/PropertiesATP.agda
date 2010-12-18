@@ -93,12 +93,12 @@ pred-N (sN {n} Nn) = prf
                     succ m + n + o ≡ succ m + (n + o)
     {-# ATP prove prf #-}
 
-x+1+y≡1+x+y : {m n : D} → N m → N n → m + succ n ≡ succ (m + n)
-x+1+y≡1+x+y {n = n} zN _ = prf
+x+Sy≡S[x+y] : {m n : D} → N m → N n → m + succ n ≡ succ (m + n)
+x+Sy≡S[x+y] {n = n} zN _ = prf
   where
     postulate prf : zero + succ n ≡ succ (zero + n)
     {-# ATP prove prf #-}
-x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn = prf $ x+1+y≡1+x+y Nm Nn
+x+Sy≡S[x+y] {n = n} (sN {m} Nm) Nn = prf $ x+Sy≡S[x+y] Nm Nn
   where
     postulate prf : m + succ n ≡ succ (m + n) →  -- IH.
                     succ m + succ n ≡ succ (succ m + n)
@@ -113,7 +113,7 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn = prf $ x+1+y≡1+x+y Nm Nn
   where
     postulate prf : m + n ≡ n + m → succ m + n ≡ n + succ m
     -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
-    {-# ATP prove prf x+1+y≡1+x+y #-}
+    {-# ATP prove prf x+Sy≡S[x+y] #-}
 
 ∸-0x : {n : D} → N n → zero ∸ n ≡ zero
 ∸-0x zN         = ∸-x0 zero
@@ -148,14 +148,14 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn = prf $ x+1+y≡1+x+y Nm Nn
 postulate *-leftIdentity : {n : D} → N n → succ zero * n ≡ n
 {-# ATP prove *-leftIdentity +-rightIdentity #-}
 
-x*1+y≡x+xy : {m n : D} → N m → N n → m * succ n ≡ m + m * n
-x*1+y≡x+xy {n = n} zN _ = prf
+x*Sy≡x+xy : {m n : D} → N m → N n → m * succ n ≡ m + m * n
+x*Sy≡x+xy {n = n} zN _ = prf
   where
     postulate prf : zero * succ n ≡ zero + zero * n
     {-# ATP prove prf #-}
-x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
-                                        (+-assoc Nn Nm (*-N Nm Nn))
-                                        (+-assoc Nm Nn (*-N Nm Nn))
+x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
+                                       (+-assoc Nn Nm (*-N Nm Nn))
+                                       (+-assoc Nm Nn (*-N Nm Nn))
   where
     -- N.B. We had to feed the ATP with the instances of the associate law
     postulate prf :  m * succ n ≡ m + m * n →  -- IH
@@ -175,7 +175,7 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*1+y≡x+xy Nm Nn)
     postulate prf : m * n ≡ n * m →  -- IH.
                     succ m * n ≡ n * succ m
     -- Metis 2.3 (release 20101019) no-success due to timeout (180 sec).
-    {-# ATP prove prf x*1+y≡x+xy #-}
+    {-# ATP prove prf x*Sy≡x+xy #-}
 
 *∸-leftDistributive : {m n o : D} → N m → N n → N o →
                       (m ∸ n) * o ≡ m * o ∸ n * o

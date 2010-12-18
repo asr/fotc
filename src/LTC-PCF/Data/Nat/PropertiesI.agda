@@ -242,8 +242,8 @@ open import LTC-PCF.Data.Nat.Rec.EquationsI using ( rec-0 ; rec-S )
     succ m + (n + o)
   ∎
 
-x+1+y≡1+x+y : {m n : D} → N m → N n → m + succ n ≡ succ (m + n)
-x+1+y≡1+x+y {n = n} zN Nn =
+x+Sy≡S[x+y] : {m n : D} → N m → N n → m + succ n ≡ succ (m + n)
+x+Sy≡S[x+y] {n = n} zN Nn =
   begin
     zero + succ n ≡⟨ +-0x (succ n) ⟩
     succ n        ≡⟨ subst (λ t → succ n ≡ succ t)
@@ -253,11 +253,11 @@ x+1+y≡1+x+y {n = n} zN Nn =
     succ (zero + n)
   ∎
 
-x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn =
+x+Sy≡S[x+y] {n = n} (sN {m} Nm) Nn =
   begin
     succ m + succ n     ≡⟨ +-Sx m (succ n) ⟩
     succ (m + succ n)   ≡⟨ subst (λ t → succ (m + succ n) ≡ succ t)
-                                 (x+1+y≡1+x+y Nm Nn)
+                                 (x+Sy≡S[x+y] Nm Nn)
                                  refl
                         ⟩
     succ (succ (m + n)) ≡⟨ subst (λ t → succ (succ (m + n)) ≡ succ t)
@@ -314,7 +314,7 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn =
                           (+-comm Nm Nn)
                           refl
                  ⟩
-    succ (n + m) ≡⟨ sym $ x+1+y≡1+x+y Nn Nm ⟩
+    succ (n + m) ≡⟨ sym $ x+Sy≡S[x+y] Nn Nm ⟩
     n + succ m
    ∎
 
@@ -343,8 +343,8 @@ x+1+y≡1+x+y {n = n} (sN {m} Nm) Nn =
     n
   ∎
 
-x*1+y≡x+xy : {m n : D} → N m → N n → m * succ n ≡ m + m * n
-x*1+y≡x+xy {n = n} zN _ = sym
+x*Sy≡x+xy : {m n : D} → N m → N n → m * succ n ≡ m + m * n
+x*Sy≡x+xy {n = n} zN _ = sym
   (
     begin
       zero + zero * n ≡⟨ subst (λ t → zero + zero * n ≡ zero + t)
@@ -357,11 +357,11 @@ x*1+y≡x+xy {n = n} zN _ = sym
     ∎
   )
 
-x*1+y≡x+xy {n = n} (sN {m} Nm) Nn =
+x*Sy≡x+xy {n = n} (sN {m} Nm) Nn =
   begin
     succ m * succ n        ≡⟨ *-Sx m (succ n) ⟩
     succ n + m * succ n    ≡⟨ subst (λ t → succ n + m * succ n ≡ succ n + t)
-                                    (x*1+y≡x+xy Nm Nn)
+                                    (x*Sy≡x+xy Nm Nn)
                                     refl
                            ⟩
     succ n + (m + m * n)   ≡⟨ +-Sx n (m + m * n) ⟩
@@ -396,7 +396,7 @@ x*1+y≡x+xy {n = n} (sN {m} Nm) Nn =
                           (*-comm Nm Nn)
                           refl
                   ⟩
-    n + n * m     ≡⟨ sym $ x*1+y≡x+xy Nn Nm ⟩
+    n + n * m     ≡⟨ sym $ x*Sy≡x+xy Nn Nm ⟩
     n * succ m
   ∎
 
