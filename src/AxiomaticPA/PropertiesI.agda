@@ -73,3 +73,51 @@ x+Sy≣S[x+y] m n = S₉ P P0 iStep m
          succ (n + i) ≡⟨ sym (x+Sy≣S[x+y] n i) ⟩
          n + succ i
        ∎
+
+x≣y→x+z≣y+z : ∀ {m n} o → m ≣ n → m + o ≣ n + o
+x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 iStep o
+  where
+    P : ℕ → Set
+    P i = m + i ≣ n + i
+
+    P0 : P zero
+    P0 =
+      begin
+        m + zero ≡⟨ +-rightIdentity m ⟩
+        m        ≡⟨ m≣n ⟩
+        n        ≡⟨ sym (+-rightIdentity n) ⟩
+        n + zero
+      ∎
+
+    iStep : ∀ i → P i → P (succ i)
+    iStep i Pi =
+      begin
+        m + succ i   ≡⟨ x+Sy≣S[x+y] m i ⟩
+        succ (m + i) ≡⟨ S₂ Pi ⟩
+        succ (n + i) ≡⟨ sym (x+Sy≣S[x+y] n i) ⟩
+        n + succ i
+      ∎
+
++-asocc : ∀ m n o → m + n + o ≣ m + (n + o)
++-asocc m n o = S₉ P P0 iStep m
+  where
+    P : ℕ → Set
+    P i = i + n + o ≣ i + (n + o)
+
+    P0 : P zero
+    P0 =
+      begin
+        zero + n + o  ≡⟨ x≣y→x+z≣y+z o (S₅ n) ⟩
+        n + o         ≡⟨ sym (S₅ (n + o)) ⟩
+        zero + (n + o)
+      ∎
+
+    iStep : ∀ i → P i → P (succ i)
+    iStep i Pi =
+      begin
+        succ i + n + o     ≡⟨ x≣y→x+z≣y+z o (S₆ i n) ⟩
+        succ (i + n) + o   ≡⟨ S₆ (i + n) o ⟩
+        succ (i + n + o)   ≡⟨ S₂ Pi ⟩
+        succ (i + (n + o)) ≡⟨ sym (S₆ i (n + o)) ⟩
+        succ i + (n + o)
+      ∎

@@ -5,8 +5,9 @@
 module AxiomaticPA.PropertiesATP where
 
 open import AxiomaticPA.Base
--- We include this module due to its general hints.
-open import AxiomaticPA.Equality.Properties using ()
+
+open import AxiomaticPA.Equality.Properties
+  using ()  -- We include this module due to its general hints.
 
 ------------------------------------------------------------------------------
 
@@ -52,4 +53,39 @@ x+Sy≣S[x+y] m n = S₉ P P0 iStep m
 
     postulate
       iStep : ∀ i → P i → P (succ i)
-    {-# ATP prove iStep x+Sy≣S[x+y] #-}
+    -- TODO: The conjecture was proved in an isolate file.
+    -- {-# ATP prove iStep x+Sy≣S[x+y] #-}
+
+x≣y→x+z≣y+z : ∀ {m n} o → m ≣ n → m + o ≣ n + o
+x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 iStep o
+  where
+    P : ℕ → Set
+    P i = m + i ≣ n + i
+    {-# ATP definition P #-}
+
+    postulate
+      P0 : P zero
+    {-# ATP prove P0 +-rightIdentity #-}
+
+    postulate
+      iStep : ∀ i → P i → P (succ i)
+    -- TODO: The conjecture was proved in an isolate file.
+    -- {-# ATP prove iStep x+Sy≣S[x+y] #-}
+
++-asocc : ∀ m n o → m + n + o ≣ m + (n + o)
++-asocc m n o = S₉ P P0 iStep m
+  where
+    P : ℕ → Set
+    P i = i + n + o ≣ i + (n + o)
+    {-# ATP definition P #-}
+
+    postulate
+      P0 : P zero
+    {-# ATP prove P0 x≣y→x+z≣y+z #-}
+
+    postulate
+      iStep : ∀ i → P i → P (succ i)
+    -- E 1.2:                         no-success due to timeout (180).
+    -- Equinox 5.0alpha (2010-06-29): no-success due to timeout (180).
+    -- Metis 2.3 (release 20101019):  no-success due to timeout (180).
+    -- {-# ATP prove iStep x≣y→x+z≣y+z #-}
