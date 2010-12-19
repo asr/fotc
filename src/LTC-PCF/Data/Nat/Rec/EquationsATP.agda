@@ -16,5 +16,5 @@ postulate
 
 postulate
   rec-S : (n a f : D) → rec (succ n) a f ≡ f · n · (rec n a f)
--- Equinox 5.0alpha (2010-06-29) no-success due to timeout (180 sec).
+-- Equinox 5.0alpha (2010-06-29): No-success due to timeout (180 sec).
 {-# ATP prove rec-S #-}
