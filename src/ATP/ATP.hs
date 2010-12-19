@@ -88,7 +88,7 @@ checkOutputATP atp output = atpOk atp `isInfixOf` output
 
 argsATP :: ATP → Int → FilePath → [String]
 argsATP E        timeLimit file = [ "--tstp-format"
-                                  , "--soft-cpu-limit=" ++ show timeLimit
+                                  , "--cpu-limit=" ++ show timeLimit
                                   , file
                                   ]
 argsATP Equinox  timeLimit file = [ "--time", show timeLimit, file ]
