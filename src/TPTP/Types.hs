@@ -13,7 +13,8 @@ import Agda.Syntax.Common   ( RoleATP )
 import FOL.Types ( FOLFormula )
 
 ------------------------------------------------------------------------------
--- The TPTP annotated formulas.
--- N.B. The annotated formulas are not in TPTP syntax. We get this syntax via
--- a pretty-printer.
+-- TODO: Why Haddock 2.8 does not create a link for TPTP.Pretty.PrettyTPTP?
+-- | The TPTP annotated formulas.
+-- The annotated formulas are not in TPTP syntax. We get this syntax via
+-- 'TPTP.Pretty.PrettyTPTP'.
 data AF = MkAF QName RoleATP FOLFormula

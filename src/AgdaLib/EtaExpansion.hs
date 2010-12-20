@@ -5,7 +5,7 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module AgdaLib.EtaExpansion ( etaExpand ) where
+module AgdaLib.EtaExpansion ( EtaExpandible(etaExpand) ) where
 
 -- Haskell imports
 

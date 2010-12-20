@@ -7,7 +7,7 @@
 {-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module TPTP.Pretty ( prettyTPTP ) where
+module TPTP.Pretty ( PrettyTPTP(prettyTPTP), TPTP ) where
 
 -- Haskell imports
 import Data.Char

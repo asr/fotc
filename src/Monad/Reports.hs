@@ -5,7 +5,7 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module Monad.Reports ( reportS, reportSLn ) where
+module Monad.Reports ( reportS, reportSLn, VerboseKey ) where
 
 -- Haskell imports
 import Control.Monad       ( when )

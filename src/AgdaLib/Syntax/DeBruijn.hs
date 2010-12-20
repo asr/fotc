@@ -14,8 +14,8 @@
 -- Bruijn index in the variable.
 
 module AgdaLib.Syntax.DeBruijn
-    ( increaseByOneVar
-    , renameVar
+    ( IncreaseByOneVar(increaseByOneVar)
+    , RenameVar(renameVar)
     , removeReferenceToProofTerms
     , varToDeBruijnIndex
     ) where
@@ -43,7 +43,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 #include "../../undefined.h"
 
 ------------------------------------------------------------------------------
--- To increase by one the de Bruijn index of the variable.
+-- | To increase by one the de Bruijn index of the variable.
 class IncreaseByOneVar a where
     increaseByOneVar :: a → a
 
