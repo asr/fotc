@@ -14,6 +14,7 @@ module AgdaLib.Interface
     , myGetInterface
     , myReadInterface
     , qNameDefinition
+    , QNamesIn(qNamesIn)
     , qNameLine
     , qNameType
     )
@@ -49,8 +50,15 @@ import Agda.Syntax.Abstract.Name
     , qnameName
     )
 import Agda.Syntax.Common
-    ( RoleATP(AxiomATP, ConjectureATP, DefinitionATP, HintATP) )
-import Agda.Syntax.Internal ( Clause, translatedClause, Type )
+    ( Arg(Arg), RoleATP(AxiomATP, ConjectureATP, DefinitionATP, HintATP) )
+import Agda.Syntax.Internal
+    ( Abs(Abs)
+    , Clause(Clause)
+    , ClauseBody(Bind, Body, NoBind, NoBody)
+    , translatedClause
+    , Term(Con, Def, DontCare, Fun, Lam, Lit, MetaV, Pi, Sort, Var)
+    , Type(El)
+    )
 import Agda.Syntax.Position
     ( Interval(iStart)
     , Position(posLine)
@@ -252,6 +260,47 @@ getClauses def =
   in case defn of
        Function{} → map translatedClause $ funClauses defn
        _          → __IMPOSSIBLE__
+
+-- | Returns the QNames is an entity
+class QNamesIn a where
+    qNamesIn :: a → [QName]
+
+instance QNamesIn a ⇒ QNamesIn [a] where
+    qNamesIn as = concatMap qNamesIn as
+
+instance QNamesIn a ⇒ QNamesIn (Arg a) where
+    qNamesIn (Arg _ _ t) = qNamesIn t
+
+instance QNamesIn a ⇒ QNamesIn (Abs a) where
+    qNamesIn (Abs _ b) = qNamesIn b
+
+instance QNamesIn Term where
+    qNamesIn (Con qName args) = qName : qNamesIn args
+    qNamesIn (Def qName args) = qName : qNamesIn args
+    qNamesIn (Fun argTy ty)   = qNamesIn argTy ++ qNamesIn ty
+    qNamesIn (Lam _ absTerm)  = qNamesIn absTerm
+    qNamesIn (Pi argTy absTy) = qNamesIn argTy ++ qNamesIn absTy
+    qNamesIn (Sort _)         = []
+    qNamesIn (Var _ args)     = qNamesIn args
+
+    qNamesIn DontCare    = __IMPOSSIBLE__
+    qNamesIn (Lit _)     = __IMPOSSIBLE__
+    qNamesIn (MetaV _ _) = __IMPOSSIBLE__
+
+instance QNamesIn Type where
+    qNamesIn (El _ term) = qNamesIn term
+
+instance QNamesIn ClauseBody where
+    qNamesIn (Body term)          = qNamesIn term
+    qNamesIn (Bind absClauseBody) = qNamesIn absClauseBody
+    qNamesIn (NoBind clauseBody)  = qNamesIn clauseBody
+    qNamesIn NoBody               = []
+
+instance QNamesIn Clause where
+    qNamesIn (Clause _ _ _ _ body) = qNamesIn body
+
+instance QNamesIn Definition where
+    qNamesIn def = qNamesIn $ defType def
 
 ------------------------------------------------------------------------------
 -- Imported interfaces

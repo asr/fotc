@@ -37,7 +37,11 @@ import TPTP.Pretty       ( prettyTPTP )
 import TPTP.Types
     ( AF(MkAF)
     , ConjectureAFs(definitionsAF, localHintsAF, theConjectureAF)
-    , GeneralRolesAF(axiomsAF, hintsAF)
+    , GeneralRolesAF(axiomsAF
+                    , hintsAF
+                    , requiredDefsbyAxiomsAF
+                    , requiredDefsbyHintsAF
+                    )
     )
 import Utils.String ( replace )
 
@@ -98,7 +102,6 @@ generalRolesHeader = do
 
 generalRolesFooter :: String
 generalRolesFooter  =
-    commentLine ++
     "% End general ATP pragmas file.\n"
 
 conjectureHeader :: T String
@@ -114,7 +117,6 @@ conjectureHeader = do
 
 conjectureFooter :: String
 conjectureFooter =
-    commentLine ++
     "% End ATP pragma conjecture file.\n"
 
 agdaOriginalTerm :: QName → RoleATP → String
@@ -132,6 +134,22 @@ addRole af@(MkAF qName afRole _) role file =
         appendFile file $ prettyTPTP af
       else __IMPOSSIBLE__
 
+addRoles :: [AF] → RoleATP → FilePath → String → IO ()
+addRoles afs role file str = do
+  let headerRoleComment :: String
+      headerRoleComment =
+          commentLine ++
+          "% The " ++ str ++ ".\n\n"
+
+  let footerRoleComment :: String
+      footerRoleComment =
+          "% End " ++ str ++ ".\n\n"
+
+  _  ← appendFile file headerRoleComment
+  _  ← mapM_ (\af → addRole af role file) afs
+  _  ← appendFile file footerRoleComment
+  return ()
+
 createGeneralRolesFile :: GeneralRolesAF → T ()
 createGeneralRolesFile generalRolesAF = do
 
@@ -143,8 +161,12 @@ createGeneralRolesFile generalRolesAF = do
   grh ← generalRolesHeader
   liftIO $ do
     _   ← writeFile file grh
-    _   ← mapM_ (\af → addRole af AxiomATP file) (axiomsAF generalRolesAF)
-    _   ← mapM_ (\af → addRole af HintATP file) (hintsAF generalRolesAF)
+    _   ← addRoles (axiomsAF generalRolesAF) AxiomATP file "general axioms"
+    _   ← addRoles (requiredDefsbyAxiomsAF generalRolesAF) DefinitionATP file
+                   "required ATP definitions by the general axioms"
+    _   ← addRoles (hintsAF generalRolesAF) HintATP file "general hints"
+    _   ← addRoles (requiredDefsbyHintsAF generalRolesAF) DefinitionATP file
+                   "required ATP definitions by the general hints"
     _   ← appendFile file generalRolesFooter
     return ()
 
@@ -176,11 +198,12 @@ createConjectureFile conjectureAFs = do
   conjectureH ← conjectureHeader
   liftIO $ do
     _ ← writeFile conjectureFile conjectureH
-    _ ← mapM_ (\af → addRole af HintATP conjectureFile)
-              (localHintsAF conjectureAFs)
-    _ ← mapM_ (\af → addRole af DefinitionATP conjectureFile)
-              (definitionsAF conjectureAFs)
-    _ ← addRole (theConjectureAF conjectureAFs) ConjectureATP conjectureFile
+    _ ← addRoles (localHintsAF conjectureAFs) HintATP conjectureFile
+                 "local hints"
+    _ ← addRoles (definitionsAF conjectureAFs) DefinitionATP conjectureFile
+                 "required ATP definition"
+    _ ← addRoles [theConjectureAF conjectureAFs] ConjectureATP conjectureFile
+                 "conjecture"
     _ ← appendFile conjectureFile conjectureFooter
     return ()
 

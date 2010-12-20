@@ -4,8 +4,17 @@
 
 module TPTP.Types
     ( AF(MkAF)
-    , ConjectureAFs(MkConjectureAFs, definitionsAF, localHintsAF, theConjectureAF)
-    , GeneralRolesAF(MkGeneralRolesAF, axiomsAF, hintsAF)
+    , ConjectureAFs(MkConjectureAFs
+                   , definitionsAF
+                   , localHintsAF
+                   , theConjectureAF
+                   )
+    , GeneralRolesAF(MkGeneralRolesAF
+                    , axiomsAF
+                    , hintsAF
+                    , requiredDefsbyAxiomsAF
+                    , requiredDefsbyHintsAF
+                    )
     )
     where
 
@@ -25,8 +34,10 @@ import FOL.Types ( FOLFormula )
 data AF = MkAF QName RoleATP FOLFormula
 
 data GeneralRolesAF = MkGeneralRolesAF
-    { axiomsAF :: [AF]  -- ^ The axioms.
-    , hintsAF  :: [AF]  -- ^ The genereal hints.
+    { axiomsAF               :: [AF]  -- ^ The axioms.
+    , requiredDefsbyAxiomsAF :: [AF]  -- ^ Required ATP definitions by the axioms.
+    , hintsAF                :: [AF]  -- ^ The genereal hints.
+    , requiredDefsbyHintsAF  :: [AF]  -- ^ Required ATP definitions by the hints.
     }
 
 data ConjectureAFs = MkConjectureAFs
