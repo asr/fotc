@@ -34,6 +34,7 @@ import Agda.TypeChecking.Monad.Base
     , defName
     , defType
     )
+import TPTP.Types (GeneralRolesAF(MkGeneralRolesAF))
 
 ------------------------------------------------------------------------------
 -- Local imports
@@ -48,10 +49,12 @@ import AgdaLib.Interface
 import AgdaLib.Syntax.DeBruijn        ( removeReferenceToProofTerms )
 import FOL.Translation.Functions      ( fnToFormula )
 import FOL.Translation.Internal.Types ( typeToFormula )
-import Monad.Base                     ( T , TState(tAllDefs, tOpts, tVars))
+import Monad.Base                     ( T , TState(tAllDefs, tVars))
 import Monad.Reports                  ( reportSLn )
-import Options                        ( Options(optDefAsAxiom) )
-import TPTP.Types                     ( AF(MkAF) )
+import TPTP.Types
+    ( AF(MkAF)
+    , ConjectureAFs(MkConjectureAFs)
+    )
 
 -- #include "../undefined.h"
 
@@ -94,10 +97,6 @@ toAF role qName def = do
 fnToAF :: QName → Definition → T AF
 fnToAF qName def = do
 
-  state ← get
-  let opts :: Options
-      opts = tOpts state
-
   let ty :: Type
       ty = defType def
   reportSLn "symbolToAF" 10 $
@@ -117,9 +116,8 @@ fnToAF qName def = do
   for ← fnToFormula qName ty cls
   reportSLn "symbolToAF" 20 $
     "The FOL formula for " ++ show qName ++ " is:\n" ++ show for
-  if optDefAsAxiom opts
-    then return $ MkAF qName AxiomATP for
-    else return $ MkAF qName DefinitionATP for
+
+  return $ MkAF qName DefinitionATP for
 
 -- We translate the functions marked out by an ATP pragma definition
 -- to AF definitions.
@@ -154,17 +152,19 @@ localHintsToAFs def = do
 
   mapM localHintToAF hints
 
-conjectureToAF :: QName → Definition → T (AF, [AF])
+conjectureToAF :: QName → Definition → T ConjectureAFs
 conjectureToAF qName def =
 
-  liftM2 (,) (toAF ConjectureATP qName def)
-             (localHintsToAFs def)
+  liftM3 (\x y z → MkConjectureAFs x y z)
+         (toAF ConjectureATP qName def)
+         (localHintsToAFs def)
+         (fnsToAFs)
 
 -- We translate the ATP pragma conjectures and their local hints in
 -- the top level module. For each conjecture we return its translation
 -- and a list of the translation of its local hints, i.e. we return a
 -- pair (AF, [AF]).
-conjecturesToAFs :: Definitions → T [(AF, [AF])]
+conjecturesToAFs :: Definitions → T [ConjectureAFs]
 conjecturesToAFs topLevelDefs = do
 
   let conjecturesDefs :: Definitions
@@ -199,9 +199,9 @@ generalHintsToAFs = do
 
   zipWithM (toAF HintATP) (Map.keys ghDefs) (Map.elems ghDefs)
 
--- We translate the ATP axioms, (general) hints, and definitions of
--- the top level module and its imported modules. These TPTP roles are
--- common to every conjecture.
-generalRolesToAFs :: T [AF]
+-- We translate the ATP axioms and (general) hints the top level
+-- module and its imported modules. These TPTP roles are common to
+-- every conjecture.
+generalRolesToAFs :: T GeneralRolesAF
 generalRolesToAFs =
-    liftM3 (\xs ys zs → xs ++ ys ++ zs) axiomsToAFs generalHintsToAFs fnsToAFs
+    liftM2 (\x y → MkGeneralRolesAF x y) axiomsToAFs generalHintsToAFs

@@ -36,7 +36,7 @@ import Monad.Base    ( T, TState(tOpts) )
 import Monad.Reports ( reportS )
 import Options    ( Options(optATP, optOnlyFiles, optTime, optUnprovedError) )
 import TPTP.Files ( createGeneralRolesFile, createConjectureFile )
-import TPTP.Types ( AF )
+import TPTP.Types ( ConjectureAFs, GeneralRolesAF )
 
 #include "../undefined.h"
 
@@ -54,12 +54,12 @@ atp2exec Equinox  = "equinox"
 atp2exec IleanCoP = "ileancop.sh"
 atp2exec Metis    = "metis"
 
-string2ATP :: String → ATP
-string2ATP "e"        = E
-string2ATP "equinox"  = Equinox
-string2ATP "ileancop" = IleanCoP
-string2ATP "metis"    = Metis
-string2ATP _          = __IMPOSSIBLE__
+optATP2ATP :: String → ATP
+optATP2ATP "e"        = E
+optATP2ATP "equinox"  = Equinox
+optATP2ATP "ileancop" = IleanCoP
+optATP2ATP "metis"    = Metis
+optATP2ATP _          = __IMPOSSIBLE__
 
 -- Tested with E 1.2 Badamtam.
 eOk :: String
@@ -114,13 +114,13 @@ runATP atp outputMVar args = do
 
     return atpPH
 
-callATPConjecture :: (AF, [AF]) → T ()
-callATPConjecture conjecture = do
+callATPConjecture :: ConjectureAFs → T ()
+callATPConjecture conjectureAFs = do
   state ← get
   let opts :: Options
       opts = tOpts state
 
-  file ← createConjectureFile conjecture
+  file ← createConjectureFile conjectureAFs
 
   when (optOnlyFiles opts) $
     reportS "" 1 $ "Created the conjecture file " ++ file
@@ -142,7 +142,7 @@ callATPConjecture conjecture = do
 
     atpsPH ← liftIO $
            mapM ((\atp → runATP atp outputMVar (argsATP atp timeLimit file)) .
-                 string2ATP)
+                 optATP2ATP)
                 atps
 
     let answerATPs :: Int → T ()
@@ -170,10 +170,10 @@ callATPConjecture conjecture = do
 
     answerATPs 0
 
-callATP :: [AF] → [(AF, [AF])] → T ()
-callATP generalRoles conjectures = do
+callATP :: GeneralRolesAF → [ConjectureAFs] → T ()
+callATP generalRolesAF conjecturesAFs = do
   -- We create the general axioms/hints/definitions TPTP file.
-  createGeneralRolesFile generalRoles
+  createGeneralRolesFile generalRolesAF
 
   -- We create the particular conjectures TPTP files.
-  mapM_ callATPConjecture conjectures
+  mapM_ callATPConjecture conjecturesAFs

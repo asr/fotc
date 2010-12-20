@@ -2,7 +2,12 @@
 -- TPTP types
 ------------------------------------------------------------------------------
 
-module TPTP.Types ( AF(MkAF) ) where
+module TPTP.Types
+    ( AF(MkAF)
+    , ConjectureAFs(MkConjectureAFs, definitionsAF, localHintsAF, theConjectureAF)
+    , GeneralRolesAF(MkGeneralRolesAF, axiomsAF, hintsAF)
+    )
+    where
 
 -- Agda library imports
 import Agda.Syntax.Abstract ( QName )
@@ -18,3 +23,14 @@ import FOL.Types ( FOLFormula )
 -- The annotated formulas are not in TPTP syntax. We get this syntax via
 -- 'TPTP.Pretty.PrettyTPTP'.
 data AF = MkAF QName RoleATP FOLFormula
+
+data GeneralRolesAF = MkGeneralRolesAF
+    { axiomsAF :: [AF]  -- ^ The axioms.
+    , hintsAF  :: [AF]  -- ^ The genereal hints.
+    }
+
+data ConjectureAFs = MkConjectureAFs
+    { theConjectureAF :: AF    -- ^ The conjecture.
+    , localHintsAF    :: [AF]  -- ^ The conjecture local hints.
+    , definitionsAF   :: [AF]  -- ^ The conjecture requeried definitions.
+    }

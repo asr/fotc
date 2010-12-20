@@ -1,3 +1,0 @@
-definition, ( ! \[A\] : ( ! \[B\] : ( ( p_6_56629452(A,B) ) <=> ( A = B ) ) ) )
-definition, ( ! \[A\] : ( ! \[B\] : ( kApp(kApp(bar,A),B) = kApp(kApp(foo,B),A) ) ) )
-

@@ -49,14 +49,14 @@ import Monad.Options     ( processOptions )
 import Monad.Reports     ( reportS )
 import Options           ( Options(optHelp, optVersion) , printUsage )
 import TPTP.Translation  ( conjecturesToAFs, generalRolesToAFs )
-import TPTP.Types        ( AF )
+import TPTP.Types        ( ConjectureAFs, GeneralRolesAF )
 import Utils.Version     ( printVersion )
 
 #include "undefined.h"
 
 ------------------------------------------------------------------------------
 
-translation :: T ([AF], [(AF, [AF])])
+translation :: T (GeneralRolesAF, [ConjectureAFs])
 translation = do
   state ← get
   let file :: FilePath

@@ -34,8 +34,12 @@ import Monad.Base        ( T, TState(tFile, tOpts) )
 import Monad.Reports     ( reportSLn )
 import Options           ( Options(optOutputDir) )
 import TPTP.Pretty       ( prettyTPTP )
-import TPTP.Types        ( AF(MkAF) )
-import Utils.String      ( replace )
+import TPTP.Types
+    ( AF(MkAF)
+    , ConjectureAFs(definitionsAF, localHintsAF, theConjectureAF)
+    , GeneralRolesAF(axiomsAF, hintsAF)
+    )
+import Utils.String ( replace )
 
 #include "../undefined.h"
 
@@ -89,8 +93,8 @@ generalRolesHeader = do
   ch    ← liftIO commonHeader
   return $
     ch ++
-    "% This file corresponds to the general ATP pragmas (axioms, general hints,\n" ++
-    "% and definitions) for the file " ++ show (tFile state) ++ ".\n\n"
+    "% This file corresponds to the general ATP pragmas (axioms and general hints)\n" ++
+    "% for the file " ++ show (tFile state) ++ ".\n\n"
 
 generalRolesFooter :: String
 generalRolesFooter  =
@@ -103,7 +107,8 @@ conjectureHeader = do
   ch               ← liftIO commonHeader
   return $
     ch ++
-    "% This file corresponds to an ATP pragma conjecture and its hints.\n\n" ++
+    "% This file corresponds to an ATP pragma conjecture, its local hints,\n" ++
+    "% and the required definitions.\n\n" ++
     "% We include the general ATP pragmas (axioms, hints and definitions).\n" ++
     "include('" ++ generalRolesFile ++ "').\n\n"
 
@@ -119,25 +124,16 @@ agdaOriginalTerm qName role =
     "% Role:\t\t" ++ show role ++ "\n" ++
     "% Position:\t" ++ show (nameBindingSite $ qnameName qName) ++ "\n"
 
-addGeneralRole :: AF → FilePath → IO ()
-addGeneralRole af@(MkAF qName role _) file
-  | role `elem` [ AxiomATP, DefinitionATP, HintATP ] = do
-      appendFile file $ agdaOriginalTerm qName role
-      appendFile file $ prettyTPTP af
+addRole :: AF → RoleATP → FilePath → IO ()
+addRole af@(MkAF qName afRole _) role file =
+    if (afRole == role)
+      then do
+        appendFile file $ agdaOriginalTerm qName role
+        appendFile file $ prettyTPTP af
+      else __IMPOSSIBLE__
 
-  | otherwise = __IMPOSSIBLE__
-
-addConjecture :: AF → FilePath → T ()
-addConjecture af file =
-  case af of
-    (MkAF qName ConjectureATP _) → do
-          liftIO $ appendFile file $ agdaOriginalTerm qName ConjectureATP
-          liftIO $ appendFile file $ prettyTPTP af
-
-    _ → __IMPOSSIBLE__
-
-createGeneralRolesFile :: [AF] → T ()
-createGeneralRolesFile afs = do
+createGeneralRolesFile :: GeneralRolesAF → T ()
+createGeneralRolesFile generalRolesAF = do
 
   file ← generalRolesFileName
 
@@ -147,17 +143,22 @@ createGeneralRolesFile afs = do
   grh ← generalRolesHeader
   liftIO $ do
     _   ← writeFile file grh
-    _   ← mapM_ (`addGeneralRole` file) afs
+    _   ← mapM_ (\af → addRole af AxiomATP file) (axiomsAF generalRolesAF)
+    _   ← mapM_ (\af → addRole af HintATP file) (hintsAF generalRolesAF)
     _   ← appendFile file generalRolesFooter
     return ()
 
-createConjectureFile :: (AF, [AF]) → T FilePath
-createConjectureFile (af@(MkAF qName _ _), hints) = do
+createConjectureFile :: ConjectureAFs → T FilePath
+createConjectureFile conjectureAFs = do
   -- To avoid clash names with the terms inside a where clause, we
   -- added the line number where the term was defined to the file
   -- name.
 
   state ← get
+
+  let qName :: QName
+      qName = case theConjectureAF conjectureAFs of
+                MkAF _qName _ _ → _qName
 
   let outputDir :: FilePath
       outputDir = optOutputDir $ tOpts state
@@ -174,10 +175,13 @@ createConjectureFile (af@(MkAF qName _ _), hints) = do
 
   conjectureH ← conjectureHeader
   liftIO $ do
-    _  ← writeFile conjectureFile conjectureH
-    _  ← mapM_ (`addGeneralRole` conjectureFile) hints
+    _ ← writeFile conjectureFile conjectureH
+    _ ← mapM_ (\af → addRole af HintATP conjectureFile)
+              (localHintsAF conjectureAFs)
+    _ ← mapM_ (\af → addRole af DefinitionATP conjectureFile)
+              (definitionsAF conjectureAFs)
+    _ ← addRole (theConjectureAF conjectureAFs) ConjectureATP conjectureFile
+    _ ← appendFile conjectureFile conjectureFooter
     return ()
 
-  addConjecture af conjectureFile
-  liftIO $ appendFile conjectureFile conjectureFooter
   return conjectureFile

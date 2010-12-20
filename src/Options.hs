@@ -31,7 +31,6 @@ import qualified Agda.Utils.Trie as Trie ( insert, singleton )
 data Options = MkOptions
     { optAgdaIncludePath :: [FilePath]
     , optATP             :: [String]
-    , optDefAsAxiom      :: Bool
     , optHelp            :: Bool
     , optOnlyFiles       :: Bool
     , optOutputDir       :: FilePath
@@ -50,7 +49,6 @@ defaultOptions = MkOptions
   , optATP             = []  -- N.B. The default is defined by
                              -- defaultOptATP and it is handle by
                              -- Options.Process.processOptions.
-  , optDefAsAxiom      = False
   , optHelp            = False
   , optOnlyFiles       = False
   , optOutputDir       = "/tmp"
@@ -66,9 +64,6 @@ agdaIncludePathOpt dir opts =
 
 atpOpt :: String → Options → Options
 atpOpt name opts = opts { optATP = optATP opts ++ [name] }
-
-defAsAxiomOpt :: Options → Options
-defAsAxiomOpt opts = opts { optDefAsAxiom = True }
 
 helpOpt :: Options → Options
 helpOpt opts = opts { optHelp = True }
@@ -108,8 +103,6 @@ options =
                "looks for imports in DIR"
   , Option []  ["atp"] (ReqArg atpOpt "name")
                "set the ATP (default: e, equinox, and metis)"
-  , Option []  ["definitions-as-axioms"] (NoArg defAsAxiomOpt)
-               "translate the TPTP definitions as TPTP axioms"
   , Option "?" ["help"] (NoArg helpOpt)
                "show this help"
   , Option []  ["only-files"] (NoArg onlyFilesOpt)
