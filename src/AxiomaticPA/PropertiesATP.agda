@@ -53,8 +53,7 @@ x+Sy≣S[x+y] m n = S₉ P P0 iStep m
 
     postulate
       iStep : ∀ i → P i → P (succ i)
-    -- TODO: The conjecture was proved in an isolate file.
-    -- {-# ATP prove iStep x+Sy≣S[x+y] #-}
+    {-# ATP prove iStep x+Sy≣S[x+y] #-}
 
 x≣y→x+z≣y+z : ∀ {m n} o → m ≣ n → m + o ≣ n + o
 x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 iStep o
@@ -69,8 +68,7 @@ x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 iStep o
 
     postulate
       iStep : ∀ i → P i → P (succ i)
-    -- TODO: The conjecture was proved in an isolate file.
-    -- {-# ATP prove iStep x+Sy≣S[x+y] #-}
+    {-# ATP prove iStep x+Sy≣S[x+y] #-}
 
 +-asocc : ∀ m n o → m + n + o ≣ m + (n + o)
 +-asocc m n o = S₉ P P0 iStep m
