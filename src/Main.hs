@@ -10,7 +10,7 @@ module Main ( main ) where
 
 import Control.Monad       ( liftM2 )
 import Control.Monad.Error ( catchError , throwError )
-import Control.Monad.State ( get, modify )
+import Control.Monad.State ( modify )
 import Control.Monad.Trans ( liftIO )
 
 import qualified Data.Map as Map ( unions )
@@ -38,12 +38,12 @@ import Agda.Utils.Impossible
 
 -- import FOL.Pretty
 import AgdaLib.Interface ( getImportedInterfaces , myReadInterface )
-import ATP.ATP           ( callATP )
+import ATP.ATP           ( callATPsOnConjecture )
 import Monad.Base
     ( AllDefinitions
     , runT
     , T
-    , TState(tAllDefs, tFile, tOpts)
+    , TState(tAllDefs, tOpts)
     )
 import Monad.Options     ( processOptions )
 import Monad.Reports     ( reportS )
@@ -56,11 +56,8 @@ import Utils.Version     ( printVersion )
 
 ------------------------------------------------------------------------------
 
-translation :: T (GeneralRolesAF, [ConjectureAFs])
-translation = do
-  state ← get
-  let file :: FilePath
-      file = tFile state
+translation :: FilePath → T (GeneralRolesAF, [ConjectureAFs])
+translation file = do
   reportS "" 1 $ "Translating " ++ file ++ " ..."
 
   -- Gettting the interface.
@@ -93,12 +90,12 @@ runAgda2ATP prgName = do
         | optHelp opts    → liftIO $ printUsage prgName
         | optVersion opts → liftIO $ printVersion prgName
         | otherwise       → do
-            modify $ \s → s { tFile = file, tOpts = opts }
+            modify $ \s → s { tOpts = opts }
 
             -- The ATP pragmas are translated to TPTP annotated formulas.
-            allAFs ← translation
+            allAFs ← translation file
             -- The ATPs systems are called on the TPTP annotated formulas.
-            uncurry callATP allAFs
+            mapM_ (callATPsOnConjecture (fst allAFs)) (snd allAFs)
 
 main :: IO ()
 main = do

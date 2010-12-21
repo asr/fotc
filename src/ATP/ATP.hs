@@ -5,7 +5,7 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module ATP.ATP ( callATP ) where
+module ATP.ATP ( callATPsOnConjecture ) where
 
 -- Haskell imports
 import Data.List               ( isInfixOf )
@@ -35,7 +35,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible) , throwImpossible )
 import Monad.Base    ( T, TState(tOpts) )
 import Monad.Reports ( reportS )
 import Options    ( Options(optATP, optOnlyFiles, optTime, optUnprovedError) )
-import TPTP.Files ( createGeneralRolesFile, createConjectureFile )
+import TPTP.Files ( createConjectureFile )
 import TPTP.Types ( ConjectureAFs, GeneralRolesAF )
 
 #include "../undefined.h"
@@ -114,13 +114,13 @@ runATP atp outputMVar args = do
 
     return atpPH
 
-callATPConjecture :: ConjectureAFs → T ()
-callATPConjecture conjectureAFs = do
+callATPsOnConjecture :: GeneralRolesAF → ConjectureAFs → T ()
+callATPsOnConjecture generalRolesAF conjectureAFs = do
   state ← get
   let opts :: Options
       opts = tOpts state
 
-  file ← createConjectureFile conjectureAFs
+  file ← createConjectureFile generalRolesAF conjectureAFs
 
   when (optOnlyFiles opts) $
     reportS "" 1 $ "Created the conjecture file " ++ file
@@ -169,11 +169,3 @@ callATPConjecture conjectureAFs = do
                  (False, _) → answerATPs (n + 1)
 
     answerATPs 0
-
-callATP :: GeneralRolesAF → [ConjectureAFs] → T ()
-callATP generalRolesAF conjecturesAFs = do
-  -- We create the general axioms/hints/definitions TPTP file.
-  createGeneralRolesFile generalRolesAF
-
-  -- We create the particular conjectures TPTP files.
-  mapM_ callATPConjecture conjecturesAFs

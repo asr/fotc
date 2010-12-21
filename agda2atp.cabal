@@ -44,7 +44,6 @@ executable agda2atp
                   TPTP.Translation
                   TPTP.Types
                   Utils.Names
-                  Utils.String
                   Utils.Version
 
   ghc-options:    -Wall

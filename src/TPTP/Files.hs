@@ -6,10 +6,7 @@
 {-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module TPTP.Files
-    ( createConjectureFile
-    , createGeneralRolesFile
-    ) where
+module TPTP.Files ( createConjectureFile ) where
 
 -- Haskell imports
 import Control.Monad.State  ( get )
@@ -17,7 +14,7 @@ import Control.Monad.Trans  ( liftIO )
 import Data.Char            ( chr, isAsciiUpper, isAsciiLower, isDigit, ord )
 import System.Directory     ( createDirectoryIfMissing )
 import System.Environment   ( getProgName )
-import System.FilePath      ( (</>), addExtension, replaceExtension )
+import System.FilePath      ( (</>), addExtension )
 
 -- Agda library imports
 import Agda.Syntax.Abstract.Name
@@ -30,20 +27,23 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
 import AgdaLib.Interface ( qNameLine )
-import Monad.Base        ( T, TState(tFile, tOpts) )
+import Monad.Base        ( T, TState(tOpts) )
 import Monad.Reports     ( reportSLn )
 import Options           ( Options(optOutputDir) )
 import TPTP.Pretty       ( prettyTPTP )
 import TPTP.Types
     ( AF(MkAF)
-    , ConjectureAFs(definitionsAF, localHintsAF, theConjectureAF)
+    , ConjectureAFs(localHintsAF
+                   , requiredDefsByConjectureAF
+                   , requiredDefsByLocalHintsAF
+                   , theConjectureAF
+                   )
     , GeneralRolesAF(axiomsAF
                     , hintsAF
-                    , requiredDefsbyAxiomsAF
-                    , requiredDefsbyHintsAF
+                    , requiredDefsByAxiomsAF
+                    , requiredDefsByHintsAF
                     )
     )
-import Utils.String ( replace )
 
 #include "../undefined.h"
 
@@ -70,50 +70,16 @@ tptpExt = ".tptp"
 commentLine :: String
 commentLine = "%-----------------------------------------------------------------------------\n"
 
-generalRolesFileName :: T FilePath
-generalRolesFileName = do
+commentLineLn :: String
+commentLineLn = commentLine ++ "\n"
 
-    state ← get
-
-    let outputDir :: String
-        outputDir = optOutputDir $ tOpts state
-
-    liftIO $ createDirectoryIfMissing True outputDir
-
-    return $ outputDir </>
-             replace '/' '.' (replaceExtension (tFile state) tptpExt)
-
-commonHeader :: IO String
-commonHeader = do
+conjectureHeader :: IO String
+conjectureHeader = do
   prgName ← getProgName
   return $
     commentLine ++
     "% This file was generated automatically by " ++ prgName ++ ".\n" ++
-    commentLine ++ "\n"
-
-generalRolesHeader :: T String
-generalRolesHeader = do
-  state ← get
-  ch    ← liftIO commonHeader
-  return $
-    ch ++
-    "% This file corresponds to the general ATP pragmas (axioms and general hints)\n" ++
-    "% for the file " ++ show (tFile state) ++ ".\n\n"
-
-generalRolesFooter :: String
-generalRolesFooter  =
-    "% End general ATP pragmas file.\n"
-
-conjectureHeader :: T String
-conjectureHeader = do
-  generalRolesFile ← generalRolesFileName
-  ch               ← liftIO commonHeader
-  return $
-    ch ++
-    "% This file corresponds to an ATP pragma conjecture, its local hints,\n" ++
-    "% and the required definitions.\n\n" ++
-    "% We include the general ATP pragmas (axioms, hints and definitions).\n" ++
-    "include('" ++ generalRolesFile ++ "').\n\n"
+    commentLineLn
 
 conjectureFooter :: String
 conjectureFooter =
@@ -150,28 +116,8 @@ addRoles afs role file str = do
   _  ← appendFile file footerRoleComment
   return ()
 
-createGeneralRolesFile :: GeneralRolesAF → T ()
-createGeneralRolesFile generalRolesAF = do
-
-  file ← generalRolesFileName
-
-  reportSLn "generalRoles" 20 $
-            "Creating the general roles file " ++ file ++ " ..."
-
-  grh ← generalRolesHeader
-  liftIO $ do
-    _   ← writeFile file grh
-    _   ← addRoles (axiomsAF generalRolesAF) AxiomATP file "general axioms"
-    _   ← addRoles (requiredDefsbyAxiomsAF generalRolesAF) DefinitionATP file
-                   "required ATP definitions by the general axioms"
-    _   ← addRoles (hintsAF generalRolesAF) HintATP file "general hints"
-    _   ← addRoles (requiredDefsbyHintsAF generalRolesAF) DefinitionATP file
-                   "required ATP definitions by the general hints"
-    _   ← appendFile file generalRolesFooter
-    return ()
-
-createConjectureFile :: ConjectureAFs → T FilePath
-createConjectureFile conjectureAFs = do
+createConjectureFile :: GeneralRolesAF → ConjectureAFs → T FilePath
+createConjectureFile generalRolesAF conjectureAFs = do
   -- To avoid clash names with the terms inside a where clause, we
   -- added the line number where the term was defined to the file
   -- name.
@@ -185,26 +131,34 @@ createConjectureFile conjectureAFs = do
   let outputDir :: FilePath
       outputDir = optOutputDir $ tOpts state
 
+  liftIO $ createDirectoryIfMissing True outputDir
+
   let f :: FilePath
       f = outputDir </>
           asciiName (show qName) ++ "_" ++ show (qNameLine qName)
 
-  let conjectureFile :: FilePath
-      conjectureFile = addExtension f tptpExt
+  let file :: FilePath
+      file = addExtension f tptpExt
 
   reportSLn "createConjectureFile" 20 $
-            "Creating the conjecture file " ++ show conjectureFile ++ " ..."
+            "Creating the conjecture file " ++ show file ++ " ..."
 
-  conjectureH ← conjectureHeader
   liftIO $ do
-    _ ← writeFile conjectureFile conjectureH
-    _ ← addRoles (localHintsAF conjectureAFs) HintATP conjectureFile
-                 "local hints"
-    _ ← addRoles (definitionsAF conjectureAFs) DefinitionATP conjectureFile
-                 "required ATP definitions"
-    _ ← addRoles [theConjectureAF conjectureAFs] ConjectureATP conjectureFile
-                 "conjecture"
-    _ ← appendFile conjectureFile conjectureFooter
+    conjectureH ← conjectureHeader
+    _ ← writeFile file conjectureH
+    _ ← addRoles (axiomsAF generalRolesAF) AxiomATP file "general axioms"
+    _ ← addRoles (requiredDefsByAxiomsAF generalRolesAF) DefinitionATP file
+                   "required ATP definitions by the general axioms"
+    _ ← addRoles (hintsAF generalRolesAF) HintATP file "general hints"
+    _ ← addRoles (requiredDefsByHintsAF generalRolesAF) DefinitionATP file
+                   "required ATP definitions by the general hints"
+    _ ← addRoles (localHintsAF conjectureAFs) HintATP file "local hints"
+    _ ← addRoles (requiredDefsByLocalHintsAF conjectureAFs) DefinitionATP file
+                   "required ATP definitions by the local hints"
+    _ ← addRoles (requiredDefsByConjectureAF conjectureAFs) DefinitionATP file
+                 "required ATP definitions by the conjecture"
+    _ ← addRoles [theConjectureAF conjectureAFs] ConjectureATP file "conjecture"
+    _ ← appendFile file conjectureFooter
     return ()
 
-  return conjectureFile
+  return file

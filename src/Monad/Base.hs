@@ -9,7 +9,7 @@ module Monad.Base
     ( AllDefinitions
     , runT
     , T(MkT)  -- GHC bug? MkT is required by GHC 6.12.1.
-    , TState(tAllDefs, tFile, tOpts, tVars)
+    , TState(tAllDefs, tOpts, tVars)
     )
     where
 
@@ -31,7 +31,6 @@ import Options ( defaultOptions, Options )
 type AllDefinitions = Definitions
 
 data TState = MkState { tAllDefs :: AllDefinitions
-                      , tFile    :: FilePath
                       , tOpts    :: Options
                       , tVars    :: [String]
                         -- ^ Names of variables bounded in the Agda types.
@@ -40,7 +39,6 @@ data TState = MkState { tAllDefs :: AllDefinitions
 -- The initial state.
 initTState :: TState
 initTState = MkState { tAllDefs = Map.empty
-                     , tFile    = []
                      , tOpts    = defaultOptions
                      , tVars    = []
                      }

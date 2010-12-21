@@ -15,7 +15,7 @@ module TPTP.Translation
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad        ( liftM2, liftM3, liftM4, zipWithM )
+import Control.Monad        ( liftM2, liftM4, zipWithM )
 import Control.Monad.State  ( get, modify )
 
 -- import Data.List                 ( nub )
@@ -191,6 +191,8 @@ requiredDefsATPbyDefinitionATP def = do
 
   fmap (\x → concat x) (mapM requiredQName qNamesInClause)
 
+-- We translate the functions marked out by an ATP pragma definition
+-- to annotated formulas required by a definition:
 requiredDefsATPbyDefinition :: Definition → T [AF]
 requiredDefsATPbyDefinition def = do
 
@@ -211,26 +213,15 @@ requiredDefsATPbyLocalHints def = do
 
   fmap (\x → concat x) (mapM requiredDefsATPbyDefinition hintsDefs)
 
--- We translate the functions marked out by an ATP pragma definition
--- to AF definitions required by a Conjecture:
--- 1. Required ATP definitions by the conjecture's definition (i.e. the type)
--- 2. Required ATP definitions by the conjecture's local hints.
--- 3. Required ATP definitions by the required ATP definitions.
-requiredDefsATPbyConjecture :: Definition → T [AF]
-requiredDefsATPbyConjecture def = do
-
-  -- TODO: Remove the repeated ATP definitions.
-  liftM2 (\x y → x ++ y)
-         (requiredDefsATPbyDefinition def)
-         (requiredDefsATPbyLocalHints def)
-
 conjectureToAF :: QName → Definition → T ConjectureAFs
 conjectureToAF qName def = do
 
-  liftM3 (\x y z → MkConjectureAFs x y z)
+  -- TODO: Remove the repeated required ATP definitions.
+  liftM4 (\w x y z → MkConjectureAFs w x y z)
          (toAF ConjectureATP qName def)
          (localHintsToAFs def)
-         (requiredDefsATPbyConjecture def)
+         (requiredDefsATPbyLocalHints def)
+         (requiredDefsATPbyDefinition def)
 
 -- We translate the ATP pragma conjectures and their local hints in
 -- the top level module. For each conjecture we return its translation
