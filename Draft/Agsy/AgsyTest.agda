@@ -15,9 +15,9 @@ open ≡-Reasoning
 +-assoc zero    n o = refl
 +-assoc (suc m) n o = cong suc (+-assoc m n o)
 
-x+1+y≡1+x+y : ∀ m n → m + suc n ≡ suc (m + n)  -- via Agsy {-c}
-x+1+y≡1+x+y zero    n = refl
-x+1+y≡1+x+y (suc m) n = cong suc (x+1+y≡1+x+y m n)
+x+Sy≡S[x+y] : ∀ m n → m + suc n ≡ suc (m + n)  -- via Agsy {-c}
+x+Sy≡S[x+y] zero    n = refl
+x+Sy≡S[x+y] (suc m) n = cong suc (x+Sy≡S[x+y] m n)
 
 0+x≡x+0 : ∀ x → 0 + x ≡ x + 0  -- via Agsy {-c}
 0+x≡x+0 zero    = refl
@@ -28,6 +28,6 @@ x+1+y≡1+x+y (suc m) n = cong suc (x+1+y≡1+x+y m n)
 +-comm (suc m) n =
   begin
     suc (m + n) ≡⟨ cong suc (+-comm m n) ⟩
-    suc (n + m) ≡⟨ sym (x+1+y≡1+x+y n m) ⟩
+    suc (n + m) ≡⟨ sym (x+Sy≡S[x+y] n m) ⟩
     n + suc m
   ∎
