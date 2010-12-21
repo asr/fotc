@@ -151,8 +151,8 @@ requiredQName qName = do
 
   if isDefinitionATP qNameDef
     then liftM2 (\x xs → x : xs)
-         (fnToAF qName qNameDef)
-         (requiredDefsATPbyDefinitionATP qNameDef)
+                (fnToAF qName qNameDef)
+                (requiredDefsATPbyDefinitionATP qNameDef)
     else return []
 
 requiredDefsATPbyAxioms :: T [AF]

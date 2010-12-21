@@ -201,7 +201,7 @@ createConjectureFile conjectureAFs = do
     _ ← addRoles (localHintsAF conjectureAFs) HintATP conjectureFile
                  "local hints"
     _ ← addRoles (definitionsAF conjectureAFs) DefinitionATP conjectureFile
-                 "required ATP definition"
+                 "required ATP definitions"
     _ ← addRoles [theConjectureAF conjectureAFs] ConjectureATP conjectureFile
                  "conjecture"
     _ ← appendFile conjectureFile conjectureFooter
