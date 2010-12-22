@@ -36,9 +36,7 @@ postulate
 -- E 1.2:                         No-success due to timeout (300 sec).
 -- Equinox 5.0alpha (2010-06-29): No-success due to timeout (300 sec).
 -- Metis 2.3 (release 20101019):  No-success due to timeout (300 sec).
--- The postulate was proved using on-line Vampire.
--- TODO: To find an ATP for to prove this postulate
--- {-# ATP prove gcd-S>S #-}
+{-# ATP prove gcd-S>S #-}
 
 postulate
   gcd-S≤S : {m n : D} → N m → N n → LE (succ m) (succ n) →
@@ -46,6 +44,7 @@ postulate
 -- E 1.2:                         No-success due to timeout (300 sec).
 -- Equinox 5.0alpha (2010-06-29): No-success due to timeout (300 sec).
 -- Metis 2.3 (release 20101019):  No-success due to timeout (300 sec).
--- The postulate was proved using on-line Vampire.
+-- Vampire 0.6 (revision 903):    (Default) memory limit (using timeout 180 sec).
+-- A old version of the postulate was proved using on-line Vampire.
 -- TODO: To find an ATP for to prove this postulate
 -- {-# ATP prove gcd-S≤S #-}

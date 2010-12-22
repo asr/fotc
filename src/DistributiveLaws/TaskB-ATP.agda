@@ -15,4 +15,5 @@ postulate
   -- E 1.2:                         No-success due to timeout (300 sec).
   -- Equinox 5.0alpha (2010-06-29): No-success due to timeout (300 sec).
   -- Metis 2.3 (release 20101019):  No-success due to timeout (300 sec).
-  -- {-# ATP prove Stanovsky #-}
+  -- Vampire 0.6 (revision 903):    (Default) memory limit (using timeout 300 sec).
+-- {-# ATP prove taskB #-}

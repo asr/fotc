@@ -105,7 +105,8 @@ rev-++ {ys = ys} (consL x {xs} Lxs) Lys =
     postulate prf : rev xs (x ∷ ys) ≡ rev xs [] ++ x ∷ ys →  -- IH.
                     rev xs (x ∷ []) ≡ rev xs [] ++ x ∷ [] →  -- IH.
                     rev (x ∷ xs) ys ≡ rev (x ∷ xs) [] ++ ys
-    -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903):   (Default) memory limit (timeout 180 sec).
     {-# ATP prove prf consL nilL ++-assoc rev-List ++-List #-}
 
 reverse-++ : {xs ys : D} → List xs → List ys →
@@ -126,8 +127,9 @@ reverse-++ (consL x {xs} Lxs) (consL y {ys} Lys) =
                                              reverse xs →  -- IH.
                     reverse ((x ∷ xs) ++ y ∷ ys) ≡ reverse (y ∷ ys) ++
                                                    reverse (x ∷ xs)
-    -- E 1.2:                        No-success due to timeout (180 sec).
-    -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
+    -- E 1.2:                        CPU time limit exceeded (180 sec)
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903):   (Default) memory limit (using timeout 180 sec).
     {-# ATP prove prf consL nilL rev-List ++-List rev-++ ++-assoc #-}
 
 reverse² : {xs : D} → List xs → reverse (reverse xs) ≡ xs
