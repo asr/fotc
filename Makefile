@@ -27,14 +27,15 @@ fail_files = $(patsubst %.agda,%, \
 	@if ! ( $(AGDA) $< ); then exit 1; fi
 
 # TODO: Test if the file *.ax exists.
-$(succeed_non_conjectures_files) : % : %.agdai
-	@if ! ( $(AGDA2ATP) --only-files $*.agda ); then exit 1; fi
-	@cat $@.ax | while read -r line; do \
-		if ! ( grep --silent "$$line" /tmp/$(subst /,.,$@).tptp ) ; then \
-			echo "Testing error. Translation to: $$line"; \
-			exit 1; \
-		fi \
-	done
+# TODO: Is it possible to make this test in the conjecture files?
+# $(succeed_non_conjectures_files) : % : %.agdai
+# 	@if ! ( $(AGDA2ATP) --only-files $*.agda ); then exit 1; fi
+# 	@cat $@.ax | while read -r line; do \
+# 		if ! ( grep --silent "$$line" /tmp/$(subst /,.,$@).tptp ) ; then \
+# 			echo "Testing error. Translation to: $$line"; \
+# 			exit 1; \
+# 		fi \
+# 	done
 
 $(succeed_conjectures_files) : % : %.agdai
 	@if ! ( $(AGDA2ATP) --time=60 \
@@ -57,7 +58,7 @@ succeed_conjectures     : $(succeed_conjectures_files)
 succeed_agda            : $(succeed_agda_files)
 fail                    : $(fail_files)
 
-test : succeed_agda succeed_non_conjectures succeed_conjectures fail
+test : succeed_agda succeed_conjectures fail
 
 clean :
 	@find -name '*.agdai' | xargs rm -f
