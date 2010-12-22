@@ -20,7 +20,7 @@ module TPTP.Types
     where
 
 -- Agda library imports
-import Agda.Syntax.Abstract ( QName )
+import Agda.Syntax.Abstract.Name ( QName )
 import Agda.Syntax.Common   ( RoleATP )
 -- import qualified Agda.Utils.IO.Locale as LocIO
 
