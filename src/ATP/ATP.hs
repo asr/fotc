@@ -46,6 +46,7 @@ data ATP = E
          | Equinox
          | IleanCoP
          | Metis
+         | Vampire
            deriving (Eq, Show)
 
 atp2exec :: ATP → String
@@ -53,12 +54,17 @@ atp2exec E        = "eprover"
 atp2exec Equinox  = "equinox"
 atp2exec IleanCoP = "ileancop.sh"
 atp2exec Metis    = "metis"
+-- The vampire executables are vampire_lin32, vampire_lin64,
+-- vampire_mac, and vampire_win.exe, therefore I created a generic
+-- symbolic link.
+atp2exec Vampire  = "vampire"
 
 optATP2ATP :: String → ATP
 optATP2ATP "e"        = E
 optATP2ATP "equinox"  = Equinox
 optATP2ATP "ileancop" = IleanCoP
 optATP2ATP "metis"    = Metis
+optATP2ATP "vampire"  = Vampire
 optATP2ATP _          = __IMPOSSIBLE__
 
 -- Tested with E 1.2 Badamtam.
@@ -77,6 +83,10 @@ metisOk = "SZS status Theorem"
 ileancopOk :: String
 ileancopOk = "Intuitionistic Theorem"
 
+-- Tested with Vampire 0.6 (revision 903)
+vampireOk :: String
+vampireOk = "Termination reason: Refutation"
+
 checkOutputATP :: ATP → String → Bool
 checkOutputATP atp output = atpOk atp `isInfixOf` output
     where
@@ -85,6 +95,7 @@ checkOutputATP atp output = atpOk atp `isInfixOf` output
       atpOk Equinox  = equinoxOk
       atpOk IleanCoP = ileancopOk
       atpOk Metis    = metisOk
+      atpOk Vampire  = vampireOk
 
 argsATP :: ATP → Int → FilePath → [String]
 argsATP E        timeLimit file = [ "--tstp-format"
@@ -95,6 +106,9 @@ argsATP Equinox  timeLimit file = [ "--time", show timeLimit, file ]
 argsATP IleanCoP timeLimit file = [ file, show timeLimit ]
 argsATP Metis    timeLimit file = [ "--time-limit", show timeLimit
                                   , file
+                                  ]
+argsATP Vampire  timeLimit file = [ "-t", show timeLimit
+                                  , "--input_file", file
                                   ]
 
 runATP :: ATP → MVar (Bool, ATP) → [String] → IO ProcessHandle
@@ -116,7 +130,9 @@ runATP atp outputMVar args = do
 
 callATPsOnConjecture :: GeneralRolesAF → ConjectureAFs → T ()
 callATPsOnConjecture generalRolesAF conjectureAFs = do
+
   state ← get
+
   let opts :: Options
       opts = tOpts state
 
@@ -161,11 +177,16 @@ callATPsOnConjecture generalRolesAF conjectureAFs = do
                  (True, atp) →
                      do reportS "" 1 $ show atp ++
                           " proved the conjecture in " ++ file
-                        liftIO $
-                           -- It seems that terminateProcess is a nop if
-                           -- the process is finished, therefore we don't care
-                           -- on terminate all the ATPs processes.
+                        liftIO $ do
+                           -- It seems that terminateProcess is a nop
+                           -- if the process is finished, therefore we
+                           -- don't care on terminate all the ATPs
+                           -- processes.
+
+                           -- TODO: There is a problem with the
+                           -- termination of the Vampire process.
                            mapM_ terminateProcess atpsPH
+
                  (False, _) → answerATPs (n + 1)
 
     answerATPs 0

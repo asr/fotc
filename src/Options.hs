@@ -40,7 +40,10 @@ data Options = MkOptions
     , optVersion         :: Bool
     } deriving ( Show )
 
+-- TODO: We dont' add Vampire as an default ATP because there is a
+-- problem with the termination of process (see ATP/ATP.hs).
 defaultOptATP :: [String]
+-- defaultOptATP = ["e", "equinox", "metis", "vampire"]
 defaultOptATP = ["e", "equinox", "metis"]
 
 defaultOptions :: Options
@@ -102,7 +105,7 @@ options =
   [ Option "i" ["agda-include-path"] (ReqArg agdaIncludePathOpt "DIR")
                "looks for imports in DIR"
   , Option []  ["atp"] (ReqArg atpOpt "name")
-               "set the ATP (default: e, equinox, and metis)"
+               "set the ATP (e, equinox, metis, and/or vampire) (default: the first three)"
   , Option "?" ["help"] (NoArg helpOpt)
                "show this help"
   , Option []  ["only-files"] (NoArg onlyFilesOpt)
