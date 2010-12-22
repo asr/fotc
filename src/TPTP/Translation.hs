@@ -18,7 +18,7 @@ module TPTP.Translation
 import Control.Monad        ( liftM2, liftM4, zipWithM )
 import Control.Monad.State  ( get, modify )
 
--- import Data.List                 ( nub )
+import Data.List                 ( nub )
 -- import Data.Map ( Map )
 import qualified Data.Map as Map ( elems, keys )
 
@@ -149,6 +149,8 @@ requiredQName qName = do
 
   qNameDef ← qNameDefinition qName
 
+  -- We don't have recursive ATP definitions, therefore we don't get
+  -- duplicates ones from this function.
   if isDefinitionATP qNameDef
     then liftM2 (\x xs → x : xs)
                 (fnToAF qName qNameDef)
@@ -162,7 +164,8 @@ requiredDefsATPbyAxioms = do
   let axDefs :: Definitions
       axDefs = getRoleATP AxiomATP $ tAllDefs state
 
-  fmap (\x → concat x) (mapM requiredDefsATPbyDefinition (Map.elems axDefs))
+  fmap (\x → nub (concat x))
+       (mapM requiredDefsATPbyDefinition (Map.elems axDefs))
 
 requiredDefsATPbyHints :: T [AF]
 requiredDefsATPbyHints = do
@@ -171,7 +174,8 @@ requiredDefsATPbyHints = do
   let ghDefs :: Definitions
       ghDefs = getRoleATP HintATP $ tAllDefs state
 
-  fmap (\x → concat x) (mapM requiredDefsATPbyDefinition (Map.elems ghDefs))
+  fmap (\x → nub (concat x))
+       (mapM requiredDefsATPbyDefinition (Map.elems ghDefs))
 
 -- If we required an ATP definition, we also required the ATP
 -- definitions used in your definition.
@@ -189,7 +193,7 @@ requiredDefsATPbyDefinitionATP def = do
   let qNamesInClause :: [QName]
       qNamesInClause = qNamesIn cls
 
-  fmap (\x → concat x) (mapM requiredQName qNamesInClause)
+  fmap (\x → nub (concat x)) (mapM requiredQName qNamesInClause)
 
 -- We translate the functions marked out by an ATP pragma definition
 -- to annotated formulas required by a definition:
@@ -200,7 +204,7 @@ requiredDefsATPbyDefinition def = do
   let qNamesInDef :: [QName]
       qNamesInDef = qNamesIn def
 
-  fmap (\x → concat x) (mapM requiredQName qNamesInDef)
+  fmap (\x → nub (concat x)) (mapM requiredQName qNamesInDef)
 
 requiredDefsATPbyLocalHints :: Definition → T [AF]
 requiredDefsATPbyLocalHints def = do
@@ -211,17 +215,16 @@ requiredDefsATPbyLocalHints def = do
 
   hintsDefs ← mapM qNameDefinition hints
 
-  fmap (\x → concat x) (mapM requiredDefsATPbyDefinition hintsDefs)
+  fmap (\x → nub (concat x)) (mapM requiredDefsATPbyDefinition hintsDefs)
 
 conjectureToAF :: QName → Definition → T ConjectureAFs
 conjectureToAF qName def = do
 
-  -- TODO: Remove the repeated required ATP definitions.
   liftM4 (\w x y z → MkConjectureAFs w x y z)
          (toAF ConjectureATP qName def)
+         (requiredDefsATPbyDefinition def)
          (localHintsToAFs def)
          (requiredDefsATPbyLocalHints def)
-         (requiredDefsATPbyDefinition def)
 
 -- We translate the ATP pragma conjectures and their local hints in
 -- the top level module. For each conjecture we return its translation
