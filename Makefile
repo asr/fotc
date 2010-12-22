@@ -9,7 +9,10 @@ root_host_dir = asicard@localhost:tmp/FOT
 # Programs
 
 AGDA     = agda -v 0 -i. -isrc
+# N.B. The timeout for the conjectures test should be modify in the
+# conjectures_% target.
 AGDA2ATP = agda2atp -i. -isrc --unproved-conjecture-error
+# AGDA2ATP = agda2atp -i. -isrc --unproved-conjecture-error --only-files
 RSYNC    = rsync --archive --progress --rsh='ssh -p 2024'
 
 ##############################################################################
@@ -69,7 +72,6 @@ all_type_checking : type_checking_AxiomaticPA \
 		    type_checking_LTC \
 		    type_checking_LTC-PCF \
 		    type_checking_PA
-
 
 ##############################################################################
 # Test the conjecture files.
