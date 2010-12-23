@@ -35,7 +35,6 @@ import Agda.TypeChecking.Monad.Base
     , defName
     , defType
     )
-import TPTP.Types (GeneralRolesAF(MkGeneralRolesAF))
 
 ------------------------------------------------------------------------------
 -- Local imports
@@ -57,6 +56,7 @@ import Monad.Reports                  ( reportSLn )
 import TPTP.Types
     ( AF(MkAF)
     , ConjectureAFs(MkConjectureAFs)
+    , GeneralRolesAF(MkGeneralRolesAF)
     )
 
 -- #include "../undefined.h"
@@ -125,7 +125,6 @@ fnToAF qName def = do
 -- We translate an local hint to an AF.
 localHintToAF :: QName → T AF
 localHintToAF qName = do
-
   def ← qNameDefinition qName
 
   toAF HintATP qName def
@@ -152,7 +151,7 @@ requiredQName qName = do
   -- We don't have recursive ATP definitions, therefore we don't get
   -- duplicates ones from this function.
   if isDefinitionATP qNameDef
-    then liftM2 (\x xs → x : xs)
+    then liftM2 (:)
                 (fnToAF qName qNameDef)
                 (requiredDefsATPbyDefinitionATP qNameDef)
     else return []
@@ -164,8 +163,7 @@ requiredDefsATPbyAxioms = do
   let axDefs :: Definitions
       axDefs = getRoleATP AxiomATP $ tAllDefs state
 
-  fmap (\x → nub (concat x))
-       (mapM requiredDefsATPbyDefinition (Map.elems axDefs))
+  fmap (nub . concat) (mapM requiredDefsATPbyDefinition (Map.elems axDefs))
 
 requiredDefsATPbyHints :: T [AF]
 requiredDefsATPbyHints = do
@@ -174,8 +172,7 @@ requiredDefsATPbyHints = do
   let ghDefs :: Definitions
       ghDefs = getRoleATP HintATP $ tAllDefs state
 
-  fmap (\x → nub (concat x))
-       (mapM requiredDefsATPbyDefinition (Map.elems ghDefs))
+  fmap (nub . concat) (mapM requiredDefsATPbyDefinition (Map.elems ghDefs))
 
 -- If we required an ATP definition, we also required the ATP
 -- definitions used in your definition.
@@ -193,7 +190,7 @@ requiredDefsATPbyDefinitionATP def = do
   let qNamesInClause :: [QName]
       qNamesInClause = qNamesIn cls
 
-  fmap (\x → nub (concat x)) (mapM requiredQName qNamesInClause)
+  fmap (nub . concat) (mapM requiredQName qNamesInClause)
 
 -- We translate the functions marked out by an ATP pragma definition
 -- to annotated formulas required by a definition:
@@ -204,27 +201,27 @@ requiredDefsATPbyDefinition def = do
   let qNamesInDef :: [QName]
       qNamesInDef = qNamesIn def
 
-  fmap (\x → nub (concat x)) (mapM requiredQName qNamesInDef)
+  fmap (nub . concat) (mapM requiredQName qNamesInDef)
 
 requiredDefsATPbyLocalHints :: Definition → T [AF]
 requiredDefsATPbyLocalHints def = do
+
   -- TODO: Add a test case. See {-# ATP prove prf S≰0 #-} from
   -- LTC.Data.Bool.PropertiesATP.≤-Bool.
+
   let hints :: [QName]
       hints = getLocalHints def
 
   hintsDefs ← mapM qNameDefinition hints
 
-  fmap (\x → nub (concat x)) (mapM requiredDefsATPbyDefinition hintsDefs)
+  fmap (nub . concat) (mapM requiredDefsATPbyDefinition hintsDefs)
 
 conjectureToAF :: QName → Definition → T ConjectureAFs
-conjectureToAF qName def = do
-
-  liftM4 (\w x y z → MkConjectureAFs w x y z)
-         (toAF ConjectureATP qName def)
-         (requiredDefsATPbyDefinition def)
-         (localHintsToAFs def)
-         (requiredDefsATPbyLocalHints def)
+conjectureToAF qName def = liftM4 MkConjectureAFs
+                                  (toAF ConjectureATP qName def)
+                                  (requiredDefsATPbyDefinition def)
+                                  (localHintsToAFs def)
+                                  (requiredDefsATPbyLocalHints def)
 
 -- We translate the ATP pragma conjectures and their local hints in
 -- the top level module. For each conjecture we return its translation
@@ -245,7 +242,6 @@ conjecturesToAFs topLevelDefs = do
 -- We translate the ATP pragma axioms to FOL formulas.
 axiomsToAFs :: T [AF]
 axiomsToAFs = do
-
   state ← get
 
   let axDefs :: Definitions
@@ -257,7 +253,6 @@ axiomsToAFs = do
 -- FOL formulas.
 generalHintsToAFs :: T [AF]
 generalHintsToAFs = do
-
   state ← get
 
   let ghDefs :: Definitions
@@ -269,9 +264,8 @@ generalHintsToAFs = do
 -- module and its imported modules. These TPTP roles are common to
 -- every conjecture.
 generalRolesToAFs :: T GeneralRolesAF
-generalRolesToAFs =
-    liftM4 (\w x y z → MkGeneralRolesAF w x y z)
-           axiomsToAFs
-           requiredDefsATPbyAxioms
-           generalHintsToAFs
-           requiredDefsATPbyHints
+generalRolesToAFs = liftM4 MkGeneralRolesAF
+                           axiomsToAFs
+                           requiredDefsATPbyAxioms
+                           generalHintsToAFs
+                           requiredDefsATPbyHints

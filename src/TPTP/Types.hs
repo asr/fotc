@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- TPTP types and common function on them
+-- TPTP types and common functions on them
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE UnicodeSyntax #-}
@@ -75,7 +75,7 @@ commonRequiredDefsAF :: GeneralRolesAF → ConjectureAFs → [AF]
 commonRequiredDefsAF grlRolesAF conjecturesAFs =
     if (nonDuplicate allDefs)
        then []
-       else duplicatesElements $ sort $ allDefs
+       else duplicatesElements $ sort allDefs
 
     where
       allDefs :: [AF]

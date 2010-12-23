@@ -49,14 +49,14 @@ data ATP = E
          | Vampire
            deriving (Eq, Show)
 
+-- The vampire executables are vampire_lin32, vampire_lin64,
+-- vampire_mac, and vampire_win.exe, therefore I use the generic
+-- name "vampire".
 atp2exec :: ATP → String
 atp2exec E        = "eprover"
 atp2exec Equinox  = "equinox"
 atp2exec IleanCoP = "ileancop.sh"
 atp2exec Metis    = "metis"
--- The vampire executables are vampire_lin32, vampire_lin64,
--- vampire_mac, and vampire_win.exe, therefore I created a generic
--- symbolic link.
 atp2exec Vampire  = "vampire"
 
 optATP2ATP :: String → ATP
@@ -128,6 +128,41 @@ runATP atp outputMVar args = do
 
     return atpPH
 
+answerATPs :: MVar (Bool, ATP) → [ProcessHandle] → FilePath → Int → T ()
+answerATPs outputMVar atpsPH file n = do
+
+  state ← get
+
+  let opts :: Options
+      opts = tOpts state
+
+  let atps :: [String]
+      atps = optATP opts
+
+  if n == length atps
+    then do
+      let msg :: String
+          msg = "The ATP(s) " ++ show atps ++
+                " did not prove the conjecture in " ++ file
+      if optUnprovedError opts
+        then throwError msg
+        else reportS "" 1 msg
+    else do
+      output ← liftIO $ takeMVar outputMVar
+      case output of
+        (True, atp) → do
+          reportS "" 1 $ show atp ++ " proved the conjecture in " ++ file
+          liftIO $ do
+            -- It seems that terminateProcess is a nop if the process
+            -- is finished, therefore we don't care on terminate all
+            -- the ATPs processes.
+
+            -- TODO: There is a problem with the termination of the
+            -- Vampire process.
+            mapM_ terminateProcess atpsPH
+
+        (False, _) → answerATPs outputMVar atpsPH file (n + 1)
+
 callATPsOnConjecture :: GeneralRolesAF → ConjectureAFs → T ()
 callATPsOnConjecture generalRolesAF conjectureAFs = do
 
@@ -161,32 +196,4 @@ callATPsOnConjecture generalRolesAF conjectureAFs = do
                  optATP2ATP)
                 atps
 
-    let answerATPs :: Int → T ()
-        answerATPs n =
-          if n == length atps
-             then do
-               let msg :: String
-                   msg = "The ATP(s) " ++ show atps ++
-                         " did not prove the conjecture in " ++ file
-               if optUnprovedError opts
-                 then throwError msg
-                 else reportS "" 1 msg
-             else do
-               output ← liftIO $ takeMVar outputMVar
-               case output of
-                 (True, atp) →
-                     do reportS "" 1 $ show atp ++
-                          " proved the conjecture in " ++ file
-                        liftIO $ do
-                           -- It seems that terminateProcess is a nop
-                           -- if the process is finished, therefore we
-                           -- don't care on terminate all the ATPs
-                           -- processes.
-
-                           -- TODO: There is a problem with the
-                           -- termination of the Vampire process.
-                           mapM_ terminateProcess atpsPH
-
-                 (False, _) → answerATPs (n + 1)
-
-    answerATPs 0
+    answerATPs outputMVar atpsPH file 0

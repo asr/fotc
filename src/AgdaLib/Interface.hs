@@ -266,7 +266,7 @@ class QNamesIn a where
     qNamesIn :: a → [QName]
 
 instance QNamesIn a ⇒ QNamesIn [a] where
-    qNamesIn as = concatMap qNamesIn as
+    qNamesIn = concatMap qNamesIn
 
 instance QNamesIn a ⇒ QNamesIn (Arg a) where
     qNamesIn (Arg _ _ t) = qNamesIn t
