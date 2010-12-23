@@ -47,7 +47,7 @@ postulate
 ∸-SS {m} _ zN = prf
   where
     postulate prf : succ m ∸ succ zero ≡ m ∸ zero
-    -- Equinox 5.0alpha (2010-06-29): No-success due to timeout (180 sec).
+    -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
     {-# ATP prove prf rec-S ∸-x0 #-}
 
 ∸-SS zN (sN {n} Nn) = prf $ ∸-SS zN Nn
@@ -60,6 +60,7 @@ postulate
   where
     postulate prf : succ (succ m) ∸ succ n ≡ succ m ∸ n →  -- IH.
                     succ (succ m) ∸ succ (succ n) ≡ succ m ∸ succ n
+    -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
     {-# ATP prove prf rec-S #-}
 
 postulate

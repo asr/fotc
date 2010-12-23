@@ -142,8 +142,8 @@ reverse² (consL x {xs} Lxs) = prf $ reverse² Lxs
   where
     postulate prf : reverse (reverse xs) ≡ xs →  -- IH.
                     reverse (reverse (x ∷ xs)) ≡ x ∷ xs
+    -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
     -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
-
     {-# ATP prove prf consL nilL rev-List rev-++ reverse-++
                       ++-List ++-rightIdentity
     #-}

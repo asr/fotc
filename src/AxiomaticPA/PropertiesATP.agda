@@ -53,6 +53,7 @@ x+Sy≣S[x+y] m n = S₉ P P0 iStep m
 
     postulate
       iStep : ∀ i → P i → P (succ i)
+    -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds)
     {-# ATP prove iStep x+Sy≣S[x+y] #-}
 
 x≣y→x+z≣y+z : ∀ {m n} o → m ≣ n → m + o ≣ n + o
@@ -68,6 +69,7 @@ x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 iStep o
 
     postulate
       iStep : ∀ i → P i → P (succ i)
+    -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds)
     {-# ATP prove iStep x+Sy≣S[x+y] #-}
 
 +-asocc : ∀ m n o → m + n + o ≣ m + (n + o)
@@ -83,8 +85,8 @@ x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 iStep o
 
     postulate
       iStep : ∀ i → P i → P (succ i)
-    -- E 1.2:                         No-success due to timeout (180).
-    -- Equinox 5.0alpha (2010-06-29): No-success due to timeout (180).
-    -- Metis 2.3 (release 20101019):  No-success due to timeout (180).
-    -- Vampire 0.6 (revision 903):    Time limit (180 sec).
+    -- E 1.2: No-success due to timeout (180).
+    -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds)
+    -- Metis 2.3 (release 20101019): No-success due to timeout (180).
+    -- Vampire 0.6 (revision 903): Time limit (180 sec).
     -- {-# ATP prove iStep x≣y→x+z≣y+z #-}

@@ -20,6 +20,7 @@ open import LTC-PCF.Program.GCD.GCD using ( gcd )
 
 postulate
   gcd-00 : gcd zero zero ≡ error
+-- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove gcd-00 #-}
 
 postulate
@@ -33,10 +34,10 @@ postulate
 postulate
   gcd-S>S : (m n : D) → GT (succ m) (succ n) →
              gcd (succ m) (succ n) ≡ gcd (succ m ∸ succ n) (succ n)
--- E 1.2: CPU time limit exceeded (180 sec)
--- E 1.2: CPU time limit exceeded (300 sec)
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds)
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (300 seconds)
+-- E 1.2: CPU time limit exceeded (180 sec).
+-- E 1.2: CPU time limit exceeded (300 sec).
+-- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
+-- Equinox 5.0alpha (2010-06-29): TIMEOUT (300 seconds).
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 300 sec).
 {-# ATP prove gcd-S>S #-}
@@ -44,10 +45,10 @@ postulate
 postulate
   gcd-S≤S : {m n : D} → N m → N n → LE (succ m) (succ n) →
             gcd (succ m) (succ n) ≡ gcd (succ m) (succ n ∸ succ m)
--- E 1.2: CPU time limit exceeded (180 sec)
--- E 1.2: CPU time limit exceeded (300 sec)
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds)
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (300 seconds)
+-- E 1.2: CPU time limit exceeded (180 sec).
+-- E 1.2: CPU time limit exceeded (300 sec).
+-- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
+-- Equinox 5.0alpha (2010-06-29): TIMEOUT (300 seconds).
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 300 sec).
 -- Vampire 0.6 (revision 903): (Default) memory limit (using timeout 180 sec).
