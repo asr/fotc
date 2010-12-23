@@ -12,8 +12,12 @@ postulate
   taskB : ∀ u x y z → (x · y · (z · u)) ·
                       (( x · y · ( z · u)) · (x · z · (y · u))) ≡
                       x · z · (y · u)
-  -- E 1.2:                         No-success due to timeout (300 sec).
-  -- Equinox 5.0alpha (2010-06-29): No-success due to timeout (300 sec).
-  -- Metis 2.3 (release 20101019):  No-success due to timeout (300 sec).
-  -- Vampire 0.6 (revision 903):    (Default) memory limit (using timeout 300 sec).
+  -- E 1.2: CPU time limit exceeded (180 sec)
+  -- E 1.2: CPU time limit exceeded (300 sec)
+  -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds)
+  -- Equinox 5.0alpha (2010-06-29): TIMEOUT (300 seconds)
+  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 300 sec).
+  -- Vampire 0.6 (revision 903): (Default) memory limit (using timeout 180 sec).
+  -- Vampire 0.6 (revision 903): (Default) memory limit (using timeout 300 sec).
 -- {-# ATP prove taskB #-}
