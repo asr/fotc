@@ -179,145 +179,178 @@ taskB u x y z =
     postulate
       j₁ : xy·zu · (xy·zu · xz·yu) ≡
            xy·zu · (x·zu · y·zu · xz·yu)
+    {-# ATP prove j₁ #-}
 
+    postulate
       j₂ : xy·zu · (x·zu · y·zu · xz·yu) ≡
            xy·zu · (x·zu · xz·yu · (y·zu · xz·yu))
+    {-# ATP prove j₂ #-}
 
+    postulate
       j₃ : xy·zu · (x·zu · xz·yu · (y·zu · xz·yu)) ≡
            xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu))
+    {-# ATP prove j₃ #-}
 
+    postulate
       j₄ : xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu)) ≡
            xy·zu · (xz · xu·yu · (y·zu · xz·yu))
+    {-# ATP prove j₄ #-}
 
+    postulate
       j₅ : xy·zu · (xz · xu·yu · (y·zu · xz·yu)) ≡
            xy·zu · (xz · xyu · (y·zu · xz·yu))
+    {-# ATP prove j₅ #-}
 
+    postulate
       j₆ : xy·zu · (xz · xyu · (y·zu · xz·yu)) ≡
            xy·zu · (xz · xyu · (yz·yu · xz·yu))
+    {-# ATP prove j₆ #-}
 
+    postulate
       j₇ : xy·zu · (xz · xyu · (yz·yu · xz·yu)) ≡
            xy·zu · (xz · xyu · (yz·xz · yu))
+    {-# ATP prove j₇ #-}
 
+    postulate
       j₈ : xy·zu · (xz · xyu · (yz·xz · yu)) ≡
            xy·zu · (xz · xyu · (yxz · yu))
+    {-# ATP prove j₈ #-}
 
+    postulate
       j₉ : xy·zu · (xz · xyu · (yxz · yu)) ≡
            xy·zu · (xz · xyu · (yx·yu · z·yu))
+    {-# ATP prove j₉ #-}
 
+    postulate
       j₁₀ : xy·zu · (xz · xyu · (yx·yu · z·yu)) ≡
             xy·zu · (xz · xyu · (y·xu · z·yu))
+    {-# ATP prove j₁₀ #-}
 
+    postulate
       j₁₁ : xy·zu · (xz · xyu · (y·xu · z·yu)) ≡
             xyz · xyu · (xz · xyu · (y·xu · z·yu))
+    {-# ATP prove j₁₁ #-}
 
+    postulate
       j₁₂ : xyz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
             xz·yz · xyu · (xz · xyu · (y·xu · z·yu))
+    {-# ATP prove j₁₂ #-}
 
+    postulate
       j₁₃ : xz·yz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
             xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu))
+    {-# ATP prove j₁₃ #-}
 
+    postulate
       j₁₄ : xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu)) ≡
             xz · xyu · (yz · xyu · (y·xu · z·yu))
+    {-# ATP prove j₁₄ #-}
 
+    postulate
       j₁₅ : xz · xyu · (yz · xyu · (y·xu · z·yu)) ≡
             xz · xyu · (yz · xu·yu · (y·xu · z·yu))
+    {-# ATP prove j₁₅ #-}
 
+    postulate
       j₁₆ : xz · xyu · (yz · xu·yu · (y·xu · z·yu)) ≡
             xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu))
+    {-# ATP prove j₁₆ #-}
 
+    postulate
       j₁₇ : xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu)) ≡
             xz · xyu ·
             (y · xu·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
+    {-# ATP prove j₁₇ #-}
 
+    postulate
       j₁₈ : xz · xyu ·
             (y · xu·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
             xz · xyu ·
             (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
+    {-# ATP prove j₁₈ #-}
 
+    postulate
       j₁₉ : xz · xyu ·
             (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
             xz · xyu · (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
+    {-# ATP prove j₁₉ #-}
 
+    postulate
       j₂₀ : xz · xyu · (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
             xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu)))
+    {-# ATP prove j₂₀ #-}
 
+    postulate
       j₂₁ : xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu))) ≡
             xz · xyu · (y·xu · y·zu · (z · xu·yu · (y·xu · z·yu)))
+    {-# ATP prove j₂₁ #-}
 
+    postulate
       j₂₂ : xz · xyu · (y·xu · y·zu · (z · xu·yu · (y·xu · z·yu))) ≡
             xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))
+    {-# ATP prove j₂₂ #-}
 
+    postulate
       j₂₃ : xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu))) ≡
             xz · xyu · (y · xu·zu · (z·xu · z·yu · (y·xu · z·yu)))
+    {-# ATP prove j₂₃ #-}
 
+    postulate
       j₂₄ : xz · xyu · (y · xu·zu · (z·xu · z·yu · (y·xu · z·yu))) ≡
             (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))
+    {-# ATP prove j₂₄ #-}
 
+    postulate
       j₂₅ : (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu)) ≡
             xz · xyu · (y · xu·zu · (zy·xu · z·yu))
+    {-# ATP prove j₂₅ #-}
 
+    postulate
       j₂₆ : xz · xyu · (y · xu·zu · (zy·xu · z·yu)) ≡
             xz · xyu · (y · xu·zu · (zy·xu · zy·zu))
+    {-# ATP prove j₂₆ #-}
 
+    postulate
       j₂₇ : xz · xyu · (y · xu·zu · (zy·xu · zy·zu)) ≡
             xz · xyu · (y · xu·zu · (zy · xu·zu))
+    {-# ATP prove j₂₇ #-}
 
+    postulate
       j₂₈ : xz · xyu · (y · xu·zu · (zy · xu·zu)) ≡
             xz · xyu · (y·zy · xu·zu)
+    {-# ATP prove j₂₈ #-}
 
+    postulate
       j₂₉ : xz · xyu · (y·zy · xu·zu) ≡
             xz · xyu · (y·zy · xzu)
+    {-# ATP prove j₂₉ #-}
 
+    postulate
       j₃₀ : xz · xyu · (y·zy · xzu) ≡
             xz·xy · xzu · (y·zy · xzu)
+    {-# ATP prove j₃₀ #-}
 
+    postulate
       j₃₁ : xz·xy · xzu · (y·zy · xzu) ≡
             x·zy · xzu · (y·zy · xzu)
+    {-# ATP prove j₃₁ #-}
 
+    postulate
       j₃₂ : x·zy · xzu · (y·zy · xzu) ≡
             x·zy · y·zy · xzu
+    {-# ATP prove j₃₂ #-}
 
+    postulate
       j₃₃ : x·zy · y·zy · xzu ≡
             xy·zy · xzu
+    {-# ATP prove j₃₃ #-}
 
+    postulate
       j₃₄ : xy·zy · xzu ≡
             xzy · xzu
+    {-# ATP prove j₃₄ #-}
 
+    postulate
       j₃₅ : xzy · xzu ≡
             xz·yu
-
-    {-# ATP prove j₁ #-}
-    {-# ATP prove j₂ #-}
-    {-# ATP prove j₃ #-}
-    {-# ATP prove j₄ #-}
-    {-# ATP prove j₅ #-}
-    {-# ATP prove j₆ #-}
-    {-# ATP prove j₇ #-}
-    {-# ATP prove j₈ #-}
-    {-# ATP prove j₉ #-}
-    {-# ATP prove j₁₀ #-}
-    {-# ATP prove j₁₁ #-}
-    {-# ATP prove j₁₂ #-}
-    {-# ATP prove j₁₃ #-}
-    {-# ATP prove j₁₄ #-}
-    {-# ATP prove j₁₅ #-}
-    {-# ATP prove j₁₆ #-}
-    {-# ATP prove j₁₇ #-}
-    {-# ATP prove j₁₈ #-}
-    {-# ATP prove j₁₉ #-}
-    {-# ATP prove j₂₀ #-}
-    {-# ATP prove j₂₁ #-}
-    {-# ATP prove j₂₂ #-}
-    {-# ATP prove j₂₃ #-}
-    {-# ATP prove j₂₄ #-}
-    {-# ATP prove j₂₅ #-}
-    {-# ATP prove j₂₆ #-}
-    {-# ATP prove j₂₇ #-}
-    {-# ATP prove j₂₈ #-}
-    {-# ATP prove j₂₉ #-}
-    {-# ATP prove j₃₀ #-}
-    {-# ATP prove j₃₁ #-}
-    {-# ATP prove j₃₂ #-}
-    {-# ATP prove j₃₃ #-}
-    {-# ATP prove j₃₄ #-}
     {-# ATP prove j₃₅ #-}
