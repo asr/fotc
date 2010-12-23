@@ -40,11 +40,8 @@ data Options = MkOptions
     , optVersion         :: Bool
     } deriving ( Show )
 
--- TODO: We dont' add Vampire as an default ATP because there is a
--- problem with the termination of process (see ATP/ATP.hs).
 defaultOptATP :: [String]
--- defaultOptATP = ["e", "equinox", "metis", "vampire"]
-defaultOptATP = ["e", "equinox", "metis"]
+defaultOptATP = ["e", "equinox", "metis", "vampire"]
 
 defaultOptions :: Options
 defaultOptions = MkOptions

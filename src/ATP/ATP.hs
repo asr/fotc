@@ -11,7 +11,7 @@ module ATP.ATP ( callATPsOnConjecture ) where
 import Data.List               ( isInfixOf )
 import Data.Maybe              ( fromMaybe )
 import Control.Exception       ( evaluate )
-import Control.Concurrent      ( forkIO )
+import Control.Concurrent      ( forkIO, threadDelay )
 import Control.Concurrent.MVar ( MVar, newEmptyMVar, putMVar, takeMVar )
 import Control.Monad           ( unless, when )
 import Control.Monad.Error     ( throwError )
@@ -122,9 +122,9 @@ runATP atp outputMVar args = do
                     { std_out = CreatePipe }
 
     output ← hGetContents $ fromMaybe __IMPOSSIBLE__ outputH
-    _ ← forkIO $
-          evaluate (length output) >>
-          putMVar outputMVar (checkOutputATP atp output, atp)
+    _      ← forkIO $
+               evaluate (length output) >>
+               putMVar outputMVar (checkOutputATP atp output, atp)
 
     return atpPH
 
@@ -157,8 +157,11 @@ answerATPs outputMVar atpsPH file n = do
             -- is finished, therefore we don't care on terminate all
             -- the ATPs processes.
 
-            -- TODO: There is a problem with the termination of the
-            -- Vampire process.
+            -- TODO: Ugly hack. Using the thread delay and repeating
+            -- the terminateProcess instruction was the way to kill
+            -- the Vampire process.
+            mapM_ terminateProcess atpsPH
+            threadDelay 500000
             mapM_ terminateProcess atpsPH
 
         (False, _) → answerATPs outputMVar atpsPH file (n + 1)
