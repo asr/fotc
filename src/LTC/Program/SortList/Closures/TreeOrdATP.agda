@@ -55,7 +55,7 @@ open import LTC.Program.SortList.Closures.TreeATP using ( makeTree-Tree )
 postulate
   leftSubTree-TreeOrd : {t₁ i t₂ : D} → Tree t₁ → N i → Tree t₂ →
                         TreeOrd (node t₁ i t₂) → TreeOrd t₁
--- E 1.2: No-success due to timeout (180 sec).
+-- E 1.2: CPU time limit exceeded (180 sec).
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
 {-# ATP prove leftSubTree-TreeOrd ≤-ItemTree-Bool ≤-TreeItem-Bool &&-Bool
@@ -66,7 +66,7 @@ postulate
 postulate
   rightSubTree-TreeOrd : {t₁ i t₂ : D} → Tree t₁ → N i → Tree t₂ →
                          TreeOrd (node t₁ i t₂) → TreeOrd t₂
--- E 1.2: No-success due to timeout (180 sec).
+-- E 1.2: CPU time limit exceeded (180 sec).
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove rightSubTree-TreeOrd ≤-ItemTree-Bool ≤-TreeItem-Bool &&-Bool
                                    isTreeOrd-Bool x&&y≡true→x≡true
@@ -89,13 +89,13 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁
   [ prf₁ , prf₂ ] (x>y∨x≤y Nj Ni₂)
   where
     postulate prf₁ : GT j i₂ → LE-TreeItem (toTree · i₂ · tip j) i₁
-    -- E 1.2: No-success due to timeout (180 sec).
+    -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₁ x>y→x≰y x<y→x≤y #-}
 
     postulate prf₂ : LE j i₂ → LE-TreeItem (toTree · i₂ · tip j) i₁
-    -- E 1.2: No-success due to timeout (180 sec).
+    -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₂ x<y→x≤y #-}
@@ -118,7 +118,7 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
     postulate prf₁ : LE-TreeItem (toTree · i₂ · t₁) i₁ →  -- IH.
                      GT j i₂ →
                      LE-TreeItem (toTree · i₂ · node t₁ j t₂) i₁
-    -- E 1.2: No-success due to timeout (180 sec).
+    -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₁ x>y→x≰y x&&y≡true→y≡true ≤-TreeItem-Bool #-}
@@ -126,7 +126,7 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
     postulate prf₂ : LE-TreeItem (toTree · i₂ · t₂) i₁ →  --IH.
                      LE j i₂ →
                      LE-TreeItem (toTree · i₂ · node t₁ j t₂) i₁
-    -- E 1.2: No-success due to timeout (180 sec).
+    -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf₂ x&&y≡true→x≡true ≤-TreeItem-Bool #-}
 
@@ -144,13 +144,13 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i₁�
   [ prf₁ , prf₂ ] (x>y∨x≤y Nj Ni₂)
   where
     postulate prf₁ : GT j i₂ → LE-ItemTree i₁ (toTree · i₂ · tip j)
-    -- E 1.2: No-success due to timeout (180 sec).
+    -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₁ x>y→x≰y #-}
 
     postulate prf₂ : LE j i₂ → LE-ItemTree i₁ (toTree · i₂ · tip j)
-    -- E 1.2: No-success due to timeout (180 sec).
+    -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₂ #-}
@@ -173,7 +173,7 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
     postulate prf₁ : LE-ItemTree i₁ (toTree · i₂ · t₁) →  -- IH.
                      GT j i₂ →
                      LE-ItemTree i₁ (toTree · i₂ · node t₁ j t₂)
-    -- E 1.2: No-success due to timeout (180 sec).
+    -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₁ ≤-ItemTree-Bool x>y→x≰y x&&y≡true→y≡true #-}
@@ -181,7 +181,7 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
     postulate prf₂ : LE-ItemTree i₁ (toTree · i₂ · t₂) →  --IH.
                      LE j i₂ →
                      LE-ItemTree i₁ (toTree · i₂ · node t₁ j t₂)
-    -- E 1.2: No-success due to timeout (180 sec).
+    -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₂ ≤-ItemTree-Bool x&&y≡true→x≡true #-}
@@ -199,13 +199,12 @@ toTree-TreeOrd {item} Nitem (tipT {i} Ni) TOtipT =
   [ prf₁ , prf₂ ] (x>y∨x≤y Ni Nitem)
   where
     postulate prf₁ : GT i item → TreeOrd (toTree · item · tip i)
-    -- E 1.2: No-success due to timeout (180 sec).
+    -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₁ x≤x x<y→x≤y x>y→x≰y #-}
 
     postulate prf₂ : LE i item → TreeOrd (toTree · item · tip i)
-    -- E 1.2: No-success due to timeout (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₂ x≤x #-}
@@ -221,7 +220,7 @@ toTree-TreeOrd {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) TOnodeT =
                      TreeOrd t₂ →
                      GT i item →
                      TreeOrd (toTree · item · node t₁ i t₂)
-    -- E 1.2: No-success due to timeout (180 sec).
+    -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₁ ≤-ItemTree-Bool ≤-TreeItem-Bool isTreeOrd-Bool
@@ -233,7 +232,7 @@ toTree-TreeOrd {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) TOnodeT =
                      TreeOrd t₁ →
                      LE i item →
                      TreeOrd (toTree · item · node t₁ i t₂)
-    -- E 1.2: No-success due to timeout (180 sec).
+    -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf₂ ≤-ItemTree-Bool ≤-TreeItem-Bool isTreeOrd-Bool
                        w&&x&&y&&z≡true→y≡true w&&x&&y&&z≡true→z≡true
@@ -252,7 +251,7 @@ makeTree-TreeOrd (consLN {i} {is} Ni Lis) = prf $ makeTree-TreeOrd Lis
   where
     postulate prf : TreeOrd (makeTree is) →  -- IH.
                     TreeOrd (makeTree (i ∷ is))
-    -- E 1.2: No-success due to timeout (180 sec).
+    -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf makeTree-Tree toTree-TreeOrd #-}

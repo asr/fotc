@@ -89,6 +89,7 @@ postulate
     gcd (succ m ∸ succ n) (succ n) ∣ (succ m ∸ succ n) + succ n →
     ((succ m ∸ succ n) + succ n ≡ succ m) →
     gcd (succ m) (succ n) ∣ succ m
+-- E 1.2: CPU time limit exceeded (180 sec).
 {-# ATP prove gcd-S>S-∣₁-ah gcd-S>S #-}
 
 gcd-S>S-∣₁ :
@@ -145,6 +146,7 @@ postulate
     (gcd (succ m) (succ n ∸ succ m) ∣ (succ n ∸ succ m) + succ m) →
     ((succ n ∸ succ m) + succ m ≡ succ n) →
     gcd (succ m) (succ n) ∣ succ n
+-- E 1.2: CPU time limit exceeded (180 sec).
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove gcd-S≤S-∣₂-ah gcd-S≤S #-}
 

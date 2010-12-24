@@ -194,6 +194,7 @@ taskB u x y z =
     postulate
       j₄ : xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu)) ≡
            xy·zu · (xz · xu·yu · (y·zu · xz·yu))
+    -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove j₄ #-}
@@ -243,6 +244,7 @@ taskB u x y z =
     postulate
       j₁₃ : xz·yz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
             xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu))
+    -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove j₁₃ #-}
@@ -273,6 +275,7 @@ taskB u x y z =
             (y · xu·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
             xz · xyu ·
             (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
+    -- E 1.2: CPU time limit exceeded (180 sec).
     {-# ATP prove j₁₈ #-}
 
     postulate
@@ -308,6 +311,7 @@ taskB u x y z =
     postulate
       j₂₄ : xz · xyu · (y · xu·zu · (z·xu · z·yu · (y·xu · z·yu))) ≡
             (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))
+    -- E 1.2: CPU time limit exceeded (180 sec).
     {-# ATP prove j₂₄ #-}
 
     postulate
@@ -323,6 +327,7 @@ taskB u x y z =
     postulate
       j₂₇ : xz · xyu · (y · xu·zu · (zy·xu · zy·zu)) ≡
             xz · xyu · (y · xu·zu · (zy · xu·zu))
+    -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove j₂₇ #-}
 

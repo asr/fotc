@@ -21,6 +21,7 @@ postulate
 postulate
   ⟦⟧-assoc→⟦⟧-center : (∀ x y z → ⟦⟧-assoc x y z) →
                        (∀ x y z → x · ⟦ y , z ⟧ ≡ ⟦ y , z ⟧ · x)
+-- E 1.2: CPU time limit exceeded (180 sec).
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove ⟦⟧-assoc→⟦⟧-center #-}

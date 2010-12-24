@@ -20,15 +20,18 @@ open import LTC-PCF.Program.GCD.GCD using ( gcd )
 
 postulate
   gcd-00 : gcd zero zero ≡ error
+-- E 1.2: CPU time limit exceeded (180 sec).
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove gcd-00 #-}
 
 postulate
  gcd-S0 : (n : D) → gcd (succ n) zero ≡ succ n
+-- E 1.2: CPU time limit exceeded (180 sec).
 {-# ATP prove gcd-S0 #-}
 
 postulate
   gcd-0S : (n : D) → gcd zero (succ n) ≡ succ n
+-- E 1.2: CPU time limit exceeded (180 sec).
 {-# ATP prove gcd-0S #-}
 
 postulate

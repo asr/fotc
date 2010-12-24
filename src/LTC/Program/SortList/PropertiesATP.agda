@@ -43,8 +43,7 @@ subList-ListOrd {i} Ni nilLN LOi∷is = isListOrd-[]
 subList-ListOrd {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js = prf
   where
     postulate prf : ListOrd (j ∷ js)
-    -- E 1.2: CPU time limit exceeded (180 sec)
-    -- E 1.2: CPU time limit exceeded (300 sec)
+    -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
     {-# ATP prove prf x&&y≡true→y≡true ≤-ItemList-Bool isListOrd-Bool #-}
 
@@ -81,8 +80,7 @@ listOrd-xs++ys→ys≤zs→xs++ys≤zs
   where
     postulate prf :  LE-Lists (is ++ js) ks →  -- IH
                      LE-Lists ((i ∷ is) ++ js) ks
-    -- E 1.2: CPU time limit exceeded (180 sec)
-    -- E 1.2: CPU time limit exceeded (300 sec)
+    -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf ≤-ItemList-Bool isListOrd-Bool x&&y≡true→x≡true
