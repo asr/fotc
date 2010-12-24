@@ -100,6 +100,7 @@ checkOutputATP atp output = atpOk atp `isInfixOf` output
 -- Equinox bug? The option --no-progress don't make any difference.
 argsATP :: ATP → Int → FilePath → [String]
 argsATP E        timeLimit file = [ "--cpu-limit=" ++ show timeLimit
+                                  , "--memory-limit=Auto"
                                   , "--output-level=0"
                                   , "--tstp-format"
                                   , file
