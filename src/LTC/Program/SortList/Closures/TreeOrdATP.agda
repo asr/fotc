@@ -57,6 +57,7 @@ postulate
                         TreeOrd (node t₁ i t₂) → TreeOrd t₁
 -- E 1.2: No-success due to timeout (180 sec).
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+-- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
 {-# ATP prove leftSubTree-TreeOrd ≤-ItemTree-Bool ≤-TreeItem-Bool &&-Bool
                                   isTreeOrd-Bool x&&y≡true→x≡true
 #-}
@@ -90,11 +91,13 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁
     postulate prf₁ : GT j i₂ → LE-TreeItem (toTree · i₂ · tip j) i₁
     -- E 1.2: No-success due to timeout (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₁ x>y→x≰y x<y→x≤y #-}
 
     postulate prf₂ : LE j i₂ → LE-TreeItem (toTree · i₂ · tip j) i₁
     -- E 1.2: No-success due to timeout (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₂ x<y→x≤y #-}
 
 toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
@@ -117,6 +120,7 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
                      LE-TreeItem (toTree · i₂ · node t₁ j t₂) i₁
     -- E 1.2: No-success due to timeout (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₁ x>y→x≰y x&&y≡true→y≡true ≤-TreeItem-Bool #-}
 
     postulate prf₂ : LE-TreeItem (toTree · i₂ · t₂) i₁ →  --IH.
@@ -142,11 +146,13 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i₁�
     postulate prf₁ : GT j i₂ → LE-ItemTree i₁ (toTree · i₂ · tip j)
     -- E 1.2: No-success due to timeout (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₁ x>y→x≰y #-}
 
     postulate prf₂ : LE j i₂ → LE-ItemTree i₁ (toTree · i₂ · tip j)
     -- E 1.2: No-success due to timeout (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₂ #-}
 
 toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
@@ -169,6 +175,7 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
                      LE-ItemTree i₁ (toTree · i₂ · node t₁ j t₂)
     -- E 1.2: No-success due to timeout (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₁ ≤-ItemTree-Bool x>y→x≰y x&&y≡true→y≡true #-}
 
     postulate prf₂ : LE-ItemTree i₁ (toTree · i₂ · t₂) →  --IH.
@@ -176,6 +183,7 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
                      LE-ItemTree i₁ (toTree · i₂ · node t₁ j t₂)
     -- E 1.2: No-success due to timeout (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₂ ≤-ItemTree-Bool x&&y≡true→x≡true #-}
 
 ------------------------------------------------------------------------------
@@ -193,11 +201,13 @@ toTree-TreeOrd {item} Nitem (tipT {i} Ni) TOtipT =
     postulate prf₁ : GT i item → TreeOrd (toTree · item · tip i)
     -- E 1.2: No-success due to timeout (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₁ x≤x x<y→x≤y x>y→x≰y #-}
 
     postulate prf₂ : LE i item → TreeOrd (toTree · item · tip i)
     -- E 1.2: No-success due to timeout (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₂ x≤x #-}
 
 toTree-TreeOrd {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) TOnodeT =
@@ -213,6 +223,7 @@ toTree-TreeOrd {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) TOnodeT =
                      TreeOrd (toTree · item · node t₁ i t₂)
     -- E 1.2: No-success due to timeout (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₁ ≤-ItemTree-Bool ≤-TreeItem-Bool isTreeOrd-Bool
                        x>y→x≰y w&&x&&y&&z≡true→y≡true w&&x&&y&&z≡true→z≡true
                        isTreeOrd-Bool toTree-TreeOrd-aux₁
@@ -243,4 +254,5 @@ makeTree-TreeOrd (consLN {i} {is} Ni Lis) = prf $ makeTree-TreeOrd Lis
                     TreeOrd (makeTree (i ∷ is))
     -- E 1.2: No-success due to timeout (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf makeTree-Tree toTree-TreeOrd #-}

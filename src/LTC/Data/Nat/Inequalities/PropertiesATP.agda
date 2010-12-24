@@ -281,6 +281,7 @@ x>y→x-y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn = prf $ x>y→x-y+y≡x Nm Nn m>n
     postulate prf : (m ∸ n) + n ≡ m →  -- IH.
                     (succ m ∸ succ n) + succ n ≡ succ m
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf +-comm ∸-N sN #-}
 
 x≤y→y-x+x≡y : {m n : D} → N m → N n → LE m n → (n ∸ m) + m ≡ n
@@ -299,6 +300,7 @@ x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn = prf $ x≤y→y-x+x≡y Nm N
     postulate prf : (n ∸ m) + m ≡ n →  -- IH.
                     (succ n ∸ succ m) + succ m ≡ succ n
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf +-comm ∸-N sN #-}
 
 x<y→x<Sy : {m n : D} → N m → N n → LT m n → LT m (succ n)

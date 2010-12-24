@@ -137,6 +137,7 @@ taskB u x y z =
       j₃₋₅   : xy·zu · (x·zu · xz·yu · (y·zu · xz·yu)) ≡
                xy·zu · (xz · xu·yu · (y·zu · xz·yu))
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove j₃₋₅ #-}
 
     postulate
@@ -165,6 +166,7 @@ taskB u x y z =
       j₁₃₋₁₅ : xz·yz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
                xz · xyu · (yz · xyu · (y·xu · z·yu))
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove j₁₃₋₁₅ #-}
 
     postulate
@@ -183,6 +185,7 @@ taskB u x y z =
                (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
                xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu)))
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove j₁₉₋₂₁ #-}
 
     postulate
@@ -194,6 +197,7 @@ taskB u x y z =
       j₂₃₋₂₅ : xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu))) ≡
                (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove j₂₃₋₂₅ #-}
 
     postulate
@@ -205,6 +209,7 @@ taskB u x y z =
       j₂₇₋₂₉ : xz · xyu · (y · xu·zu · (zy·xu · zy·zu)) ≡
                xz · xyu · (y·zy · xu·zu)
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove j₂₇₋₂₉ #-}
 
     postulate

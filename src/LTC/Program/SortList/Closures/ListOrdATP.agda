@@ -84,6 +84,7 @@ open import LTC.Postulates using ( ++-ListOrd-aux₁ )
                     LE-ItemList item ((i ∷ is) ++ js)
     -- E 1.2: No-success due to timeout (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf ≤-Bool ≤-ItemList-Bool x&&y≡true→x≡true #-}
 
 ------------------------------------------------------------------------------
@@ -224,6 +225,7 @@ mutual
                          TreeOrd (node tb i (tip k))
       -- E 1.2: No-success due to timeout (180 sec).
       -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+      -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
       {-# ATP prove treeOrd-tb-i-k rightSubTree-TreeOrd treeOrd-ta-j-tb
                                    ≤-ItemTree-Bool ≤-TreeItem-Bool
                                    isTreeOrd-Bool w&&x&&y&&z≡true→z≡true

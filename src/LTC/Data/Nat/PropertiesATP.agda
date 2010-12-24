@@ -204,6 +204,7 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
                     succ m * succ o ∸ succ n * succ o
     -- E 1.2: No-success due to timeout (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf sN *-N [x+y]∸[x+z]≡y∸z #-}
 
 *+-leftDistributive : {m n o : D} → N m → N n → N o →
@@ -223,6 +224,7 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
   where
     postulate prf : (succ m + zero) * succ o ≡ succ m * succ o + zero * succ o
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+      -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf +-rightIdentity *-leftZero sN *-N #-}
 
 *+-leftDistributive (sN {m} Nm) (sN {n} Nn) (sN {o} No) =
@@ -232,4 +234,5 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
         prf : (m + succ n) * succ o ≡ m * succ o + succ n * succ o →  -- IH.
               (succ m + succ n) * succ o ≡ succ m * succ o + succ n * succ o
       -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+      -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
       {-# ATP prove prf +-assoc sN *-N #-}

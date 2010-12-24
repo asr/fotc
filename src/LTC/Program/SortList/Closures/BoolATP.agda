@@ -134,4 +134,5 @@ isTreeOrd-Bool (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
                     Bool (isTreeOrd (node t₁ i t₂))
     -- E 1.2: No-success due to timeout (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf &&-Bool ≤-TreeItem-Bool ≤-ItemTree-Bool #-}
