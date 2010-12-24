@@ -46,7 +46,7 @@ postulate
               N (gcd (succ m ∸ succ n) (succ n)) →
               GT (succ m) (succ n) →
               N (gcd (succ m) (succ n))
--- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
+-- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove gcd-S>S-N #-}
 
 ------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ postulate
               N (gcd (succ m) (succ n ∸ succ m)) →
               LE (succ m) (succ n) →
               N (gcd (succ m) (succ n))
--- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
+-- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove gcd-S≤S-N #-}
 
 ------------------------------------------------------------------------------

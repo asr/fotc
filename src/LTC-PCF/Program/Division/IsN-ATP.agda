@@ -34,5 +34,5 @@ postulate
               (DIV (i ∸ j) j (div (i ∸ j) j)) →
               GE i j →
               N (div i j)
--- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
+-- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove div-x≥y-N div-x≥y sN #-}

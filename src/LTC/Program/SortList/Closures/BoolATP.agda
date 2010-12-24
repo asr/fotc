@@ -44,7 +44,7 @@ open import LTC.Program.SortList.SortList
   where
     postulate prf : Bool (≤-ItemList item is) →  -- IH.
                     Bool (≤-ItemList item (i ∷ is))
-    -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf &&-Bool ≤-Bool #-}
 
 ≤-Lists-Bool : {is js : D} → ListN is → ListN js → Bool (≤-Lists is js)
@@ -57,7 +57,7 @@ open import LTC.Program.SortList.SortList
   where
     postulate prf : Bool (≤-Lists is js) →  -- IH.
                     Bool (≤-Lists (i ∷ is) js)
-    -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf &&-Bool ≤-ItemList-Bool #-}
 
 isListOrd-Bool : {is : D} → ListN is → Bool (isListOrd is)
@@ -70,7 +70,7 @@ isListOrd-Bool (consLN {i} {is} Ni LNis) = prf $ isListOrd-Bool LNis
   where
     postulate prf : Bool (isListOrd is) →  -- IH.
                     Bool (isListOrd (i ∷ is))
-    -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf &&-Bool ≤-ItemList-Bool #-}
 
 ≤-ItemTree-Bool : {item : D} → N item → {t : D} → Tree t →
@@ -82,7 +82,7 @@ isListOrd-Bool (consLN {i} {is} Ni LNis) = prf $ isListOrd-Bool LNis
 ≤-ItemTree-Bool {item} Nitem (tipT {i} Ni) = prf
   where
     postulate prf : Bool (≤-ItemTree item (tip i))
-    -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf ≤-Bool #-}
 ≤-ItemTree-Bool {item} Nitem  (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
   prf (≤-ItemTree-Bool Nitem Tt₁) (≤-ItemTree-Bool Nitem Tt₂)
@@ -90,8 +90,8 @@ isListOrd-Bool (consLN {i} {is} Ni LNis) = prf $ isListOrd-Bool LNis
     postulate prf : Bool (≤-ItemTree item t₁) →  -- IH.
                     Bool (≤-ItemTree item t₂) →  -- IH.
                     Bool (≤-ItemTree item (node t₁ i t₂))
-    -- E 1.2:                        No-success due to timeout (180 sec).
-    -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
+    -- E 1.2: No-success due to timeout (180 sec).
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf &&-Bool #-}
 
 ≤-TreeItem-Bool : {t : D} → Tree t → {item : D} → N item →
@@ -103,7 +103,7 @@ isListOrd-Bool (consLN {i} {is} Ni LNis) = prf $ isListOrd-Bool LNis
 ≤-TreeItem-Bool (tipT {i} Ni) {item} Nitem = prf
   where
     postulate prf : Bool (≤-TreeItem (tip i) item)
-    -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf ≤-Bool #-}
 ≤-TreeItem-Bool (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) {item} Nitem =
   prf (≤-TreeItem-Bool Tt₁ Nitem) (≤-TreeItem-Bool Tt₂ Nitem)
@@ -111,8 +111,8 @@ isListOrd-Bool (consLN {i} {is} Ni LNis) = prf $ isListOrd-Bool LNis
     postulate prf : Bool (≤-TreeItem t₁ item) →  -- IH.
                     Bool (≤-TreeItem t₂ item) →  -- IH.
                     Bool (≤-TreeItem (node t₁ i t₂) item)
-    -- E 1.2:                        No-success due to timeout (180 sec).
-    -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
+    -- E 1.2:  No-success due to timeout (180 sec).
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf &&-Bool #-}
 
 isTreeOrd-Bool : {t : D} → Tree t → Bool (isTreeOrd t)
@@ -132,6 +132,6 @@ isTreeOrd-Bool (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
     postulate prf : Bool (isTreeOrd t₁) →  -- IH.
                     Bool (isTreeOrd t₂) →  -- IH.
                     Bool (isTreeOrd (node t₁ i t₂))
-    -- E 1.2:                        No-success due to timeout (180 sec).
-    -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
+    -- E 1.2: No-success due to timeout (180 sec).
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf &&-Bool ≤-TreeItem-Bool ≤-ItemTree-Bool #-}

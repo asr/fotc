@@ -67,6 +67,7 @@ open import LTC.Postulates using ( ++-ListOrd-aux₁ )
   where
     postulate prf : LE-ItemList item ([] ++ js)
     -- E 1.2: No-success due to timeout (180 sec).
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf ++-ListOrd-aux₁ #-}
 
 ++-ListOrd-aux₂ {item} {js = js} Nitem
@@ -82,6 +83,7 @@ open import LTC.Postulates using ( ++-ListOrd-aux₁ )
     postulate prf : LE-ItemList item (is ++ js) →  -- IH.
                     LE-ItemList item ((i ∷ is) ++ js)
     -- E 1.2: No-success due to timeout (180 sec).
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf ≤-Bool ≤-ItemList-Bool x&&y≡true→x≡true #-}
 
 ------------------------------------------------------------------------------
@@ -104,6 +106,7 @@ open import LTC.Postulates using ( ++-ListOrd-aux₁ )
   where
     postulate prf : ListOrd (is ++ js) →  -- IH.
                     ListOrd ((i ∷ is) ++ js)
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf ≤-ItemList-Bool ≤-Lists-Bool
                       x&&y≡true→x≡true x&&y≡true→y≡true
                       ++-ListOrd-aux₂
@@ -133,6 +136,7 @@ mutual
                       LE-Lists (flatten t₁) (flatten t₂) →
                       ListOrd (flatten (node t₁ i t₂))
       -- E 1.2: No-success due to timeout (180 sec).
+      -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
       {-# ATP prove prf ++-ListOrd flatten-List
                         leftSubTree-TreeOrd rightSubTree-TreeOrd
       #-}
@@ -198,6 +202,7 @@ mutual
                       LE-Lists (flatten tb) (flatten (tip k)) →  -- IH.
                       LE-Lists (flatten (node ta j tb)) (flatten (tip k))
       -- E 1.2: No-success due to timeout (180 sec).
+      -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
       {-# ATP prove prf listOrd-xs++ys→ys≤zs→xs++ys≤zs #-}
 
       treeOrd-ta-j-tb : TreeOrd (node ta j tb)
@@ -207,6 +212,7 @@ mutual
       postulate
         tb≤-i : LE-TreeItem tb i
       -- E 1.2: No-success due to timeout (180 sec).
+      -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
       {-# ATP prove tb≤-i ≤-ItemTree-Bool ≤-TreeItem-Bool isTreeOrd-Bool
                           x&&y≡true→y≡true w&&x&&y&&z≡true→y≡true
       #-}
@@ -217,6 +223,7 @@ mutual
                                              -- postulate.
                          TreeOrd (node tb i (tip k))
       -- E 1.2: No-success due to timeout (180 sec).
+      -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
       {-# ATP prove treeOrd-tb-i-k rightSubTree-TreeOrd treeOrd-ta-j-tb
                                    ≤-ItemTree-Bool ≤-TreeItem-Bool
                                    isTreeOrd-Bool w&&x&&y&&z≡true→z≡true

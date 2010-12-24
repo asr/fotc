@@ -194,6 +194,7 @@ taskB u x y z =
     postulate
       j₄ : xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu)) ≡
            xy·zu · (xz · xu·yu · (y·zu · xz·yu))
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove j₄ #-}
 
     postulate
@@ -209,6 +210,7 @@ taskB u x y z =
     postulate
       j₇ : xy·zu · (xz · xyu · (yz·yu · xz·yu)) ≡
            xy·zu · (xz · xyu · (yz·xz · yu))
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove j₇ #-}
 
     postulate
@@ -219,6 +221,7 @@ taskB u x y z =
     postulate
       j₉ : xy·zu · (xz · xyu · (yxz · yu)) ≡
            xy·zu · (xz · xyu · (yx·yu · z·yu))
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove j₉ #-}
 
     postulate
@@ -239,6 +242,7 @@ taskB u x y z =
     postulate
       j₁₃ : xz·yz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
             xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu))
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove j₁₃ #-}
 
     postulate
@@ -273,6 +277,7 @@ taskB u x y z =
       j₁₉ : xz · xyu ·
             (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
             xz · xyu · (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove j₁₉ #-}
 
     postulate
@@ -293,6 +298,7 @@ taskB u x y z =
     postulate
       j₂₃ : xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu))) ≡
             xz · xyu · (y · xu·zu · (z·xu · z·yu · (y·xu · z·yu)))
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove j₂₃ #-}
 
     postulate
@@ -313,6 +319,7 @@ taskB u x y z =
     postulate
       j₂₇ : xz · xyu · (y · xu·zu · (zy·xu · zy·zu)) ≡
             xz · xyu · (y · xu·zu · (zy · xu·zu))
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove j₂₇ #-}
 
     postulate

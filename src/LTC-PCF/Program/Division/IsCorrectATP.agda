@@ -50,8 +50,8 @@ postulate
                 GE i j →
                 i ∸ j ≡ j * div (i ∸ j) j + r →
                 i ≡ j * div i j + r
--- E 1.2:                        No-success due to timeout (180 sec).
--- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
+-- E 1.2: No-success due to timeout (180 sec).
+-- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove div-x≥y-aux div-x≥y aux #-}
 
 div-x≥y-correct : {i j : D} → N i → N j →

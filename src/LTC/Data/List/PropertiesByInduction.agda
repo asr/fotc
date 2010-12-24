@@ -24,8 +24,10 @@ open import LTC.Data.List
 
     postulate
       p[] : P []
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove p[] #-}
 
     postulate
       iStep : (d : D){ds : D} → List ds → P ds → P (d ∷ ds)
+    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove iStep #-}

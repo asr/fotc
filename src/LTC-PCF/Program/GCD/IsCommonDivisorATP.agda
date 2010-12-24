@@ -63,6 +63,7 @@ postulate
     LE (succ m) (succ n) →
     gcd (succ m) (succ n) ∣ succ m
 -- Equinox 5.0alpha (2010-06-29) proved this conjecture very fast.
+-- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove gcd-S≤S-∣₁ gcd-S≤S #-}
 
 -- 'gcd (succ m) (succ n) ∣ succ m' when 'succ m > succ n'.
@@ -144,7 +145,7 @@ postulate
     (gcd (succ m) (succ n ∸ succ m) ∣ (succ n ∸ succ m) + succ m) →
     ((succ n ∸ succ m) + succ m ≡ succ n) →
     gcd (succ m) (succ n) ∣ succ n
--- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
+-- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove gcd-S≤S-∣₂-ah gcd-S≤S #-}
 
 gcd-S≤S-∣₂ :

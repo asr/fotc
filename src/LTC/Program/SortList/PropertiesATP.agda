@@ -45,6 +45,7 @@ subList-ListOrd {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js = prf
     postulate prf : ListOrd (j ∷ js)
     -- E 1.2: CPU time limit exceeded (180 sec)
     -- E 1.2: CPU time limit exceeded (300 sec)
+    -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
     {-# ATP prove prf x&&y≡true→y≡true ≤-ItemList-Bool isListOrd-Bool #-}
 
 -- This is a weird result but recall that "the relation ≤ between
@@ -56,6 +57,7 @@ xs≤[] (consLN {i} {is} Ni LNis) LOconsL =
   where
     postulate prf : LE-Lists is [] →  --IH.
                     LE-Lists (i ∷ is) []
+    -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
     {-# ATP prove prf ≤-ItemList-Bool isListOrd-Bool x&&y≡true→x≡true #-}
 
 listOrd-xs++ys→ys≤zs→xs++ys≤zs :
@@ -81,9 +83,11 @@ listOrd-xs++ys→ys≤zs→xs++ys≤zs
                      LE-Lists ((i ∷ is) ++ js) ks
     -- E 1.2: CPU time limit exceeded (180 sec)
     -- E 1.2: CPU time limit exceeded (300 sec)
+    -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
     {-# ATP prove prf ≤-ItemList-Bool isListOrd-Bool x&&y≡true→x≡true
                       ++-ListN
     #-}
 
     postulate aux : isListOrd (i ∷ is ++ js) ≡ isListOrd ((i ∷ is) ++ js)
+    -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
     {-# ATP prove aux #-}
