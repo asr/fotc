@@ -100,29 +100,16 @@ all_conjectures : conjectures_AxiomaticPA \
 ##############################################################################
 # Consistency test
 
-# Consistency test files
-
-# AxiomaticPA.Base.ConsistencyTest
-# DistributiveLaws.Base.ConsistencyTest
-# GroupTheory.AbelianGroup.Base.ConsistencyTest
-# GroupTheory.Base.ConsistencyTest
-# LTC.Base.ConsistencyTest.agda
-# LTC.Data.Bool.ConsistencyTest.agda
-# LTC.Data.List.ConsistencyTest.agda
-# LTC.Data.Nat.ConsistencyTest.agda
-# LTC.Data.Nat.Inequalities.ConsistencyTest.agda
-# LTC.Data.Stream.Bisimilarity.ConsistencyTest
-# LTC.Program.GCD.GCD.ConsistencyTest
-# LTC.Program.SortList.SortList.ConsistencyTest
+consistency_test_files = $(patsubst %.agda,%, \
+	$(shell find src/ -name '*ConsistencyTest.agda' | sort))
 
 # Because we are using the option --unproved-conjecture-error we
 # revert the agda2atp output.
-# all_consistency :
-# 	for file in \
-#           `find $(Consistency_path) -name '*.agda' | xargs grep -l 'ATP prove'`; do \
-#             if ! ( ${AGDA} $${file} ); then exit 1; fi; \
-# 	    if ( ${AGDA2ATP} --time=10 $${file} ); then exit 1; fi; \
-# 	done
+$(consistency_test_files) :
+	if ! ( ${AGDA} $@.agda ); then exit 1; fi; \
+	if ( ${AGDA2ATP} --time=10 $@.agda ); then exit 1; fi; \
+
+all_consistency : $(consistency_test_files)
 
 ##############################################################################
 # Publish the .html files
