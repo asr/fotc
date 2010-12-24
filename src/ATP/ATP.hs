@@ -99,21 +99,24 @@ checkOutputATP atp output = atpOk atp `isInfixOf` output
 
 -- Equinox bug? The option --no-progress don't make any difference.
 argsATP :: ATP → Int → FilePath → [String]
-argsATP E        timeLimit file = [ "--tstp-format"
-                                  , "--cpu-limit=" ++ show timeLimit
+argsATP E        timeLimit file = [ "--cpu-limit=" ++ show timeLimit
                                   , "--output-level=0"
+                                  , "--tstp-format"
                                   , file
                                   ]
-argsATP Equinox  timeLimit file = [ "--time", show timeLimit
-                                  , "--no-progress"
+argsATP Equinox  timeLimit file = [ "--no-progress"
+                                  , "--time", show timeLimit
                                   , file
                                   ]
-argsATP IleanCoP timeLimit file = [ file, show timeLimit ]
+-- N.B. The order of the IleanCop arguments is fixed.
+argsATP IleanCoP timeLimit file = [ file
+                                  , show timeLimit
+                                  ]
 argsATP Metis    timeLimit file = [ "--time-limit", show timeLimit
                                   , file
                                   ]
-argsATP Vampire  timeLimit file = [ "-t", show timeLimit
-                                  , "--input_file", file
+argsATP Vampire  timeLimit file = [ "--input_file", file
+                                  , "-t", show timeLimit
                                   ]
 
 runATP :: ATP → MVar (Bool, ATP) → [String] → IO ProcessHandle
