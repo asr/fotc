@@ -17,7 +17,7 @@ import Control.Monad           ( unless, when )
 import Control.Monad.Error     ( throwError )
 import Control.Monad.State     ( get )
 import Control.Monad.Trans     ( liftIO )
-import System.IO               ( hGetContents )
+import System.IO               ( hGetContents, hPutStrLn, stderr )
 import System.Process
     ( createProcess
     , proc
@@ -154,7 +154,7 @@ answerATPs outputMVar atpsPH file n = do
                 " did not prove the conjecture in " ++ file
       if optUnprovedError opts
         then throwError msg
-        else reportS "" 1 msg
+        else liftIO $ hPutStrLn stderr $ msg
     else do
       output ← liftIO $ takeMVar outputMVar
       case output of
