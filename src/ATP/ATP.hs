@@ -83,9 +83,9 @@ metisOk = "SZS status Theorem"
 ileancopOk :: String
 ileancopOk = "Intuitionistic Theorem"
 
--- Tested with Vampire 0.6 (revision 903)
+-- Tested with Vampire 0.6 (revision 903).
 vampireOk :: String
-vampireOk = "Termination reason: Refutation"
+vampireOk = "Termination reason: Refutation\n"
 
 checkAtpOutput :: ATP → String → Bool
 checkAtpOutput atp output = atpOk atp `isInfixOf` output
