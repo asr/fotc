@@ -5,7 +5,7 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module ATP.ATP ( callATPsOnConjecture ) where
+module ATP.ATP ( callATPs ) where
 
 -- Haskell imports
 import Data.List               ( isInfixOf )
@@ -87,8 +87,8 @@ ileancopOk = "Intuitionistic Theorem"
 vampireOk :: String
 vampireOk = "Termination reason: Refutation"
 
-checkOutputATP :: ATP → String → Bool
-checkOutputATP atp output = atpOk atp `isInfixOf` output
+checkAtpOutput :: ATP → String → Bool
+checkAtpOutput atp output = atpOk atp `isInfixOf` output
     where
       atpOk :: ATP → String
       atpOk E        = eOk
@@ -98,30 +98,33 @@ checkOutputATP atp output = atpOk atp `isInfixOf` output
       atpOk Vampire  = vampireOk
 
 -- Equinox bug? The option --no-progress don't make any difference.
-argsATP :: ATP → Int → FilePath → [String]
-argsATP E        timeLimit file = [ "--cpu-limit=" ++ show timeLimit
+atpArgs :: ATP → Int → FilePath → [String]
+atpArgs E        timeLimit file = [ "--cpu-limit=" ++ show timeLimit
                                   , "--memory-limit=Auto"
                                   , "--output-level=0"
                                   , "--tstp-format"
                                   , file
                                   ]
-argsATP Equinox  timeLimit file = [ "--no-progress"
+atpArgs Equinox  timeLimit file = [ "--no-progress"
                                   , "--time", show timeLimit
                                   , file
                                   ]
 -- N.B. The order of the IleanCop arguments is fixed.
-argsATP IleanCoP timeLimit file = [ file
+atpArgs IleanCoP timeLimit file = [ file
                                   , show timeLimit
                                   ]
-argsATP Metis    timeLimit file = [ "--time-limit", show timeLimit
+atpArgs Metis    timeLimit file = [ "--time-limit", show timeLimit
                                   , file
                                   ]
-argsATP Vampire  timeLimit file = [ "--input_file", file
+atpArgs Vampire  timeLimit file = [ "--input_file", file
                                   , "-t", show timeLimit
                                   ]
 
-runATP :: ATP → MVar (Bool, ATP) → [String] → IO ProcessHandle
-runATP atp outputMVar args = do
+runATP :: ATP → MVar (Bool, ATP) → Int → FilePath → IO ProcessHandle
+runATP atp outputMVar timeLimit file = do
+
+    let args :: [String]
+        args = atpArgs atp timeLimit file
 
     -- To create the ATPs process we follow the ideas used by
     -- System.Process.readProcess.
@@ -133,12 +136,12 @@ runATP atp outputMVar args = do
     output ← hGetContents $ fromMaybe __IMPOSSIBLE__ outputH
     _      ← forkIO $
                evaluate (length output) >>
-               putMVar outputMVar (checkOutputATP atp output, atp)
+               putMVar outputMVar (checkAtpOutput atp output, atp)
 
     return atpPH
 
-answerATPs :: MVar (Bool, ATP) → [ProcessHandle] → FilePath → Int → T ()
-answerATPs outputMVar atpsPH file n = do
+atpsAnswer :: MVar (Bool, ATP) → [ProcessHandle] → FilePath → Int → T ()
+atpsAnswer outputMVar atpsPH file n = do
 
   state ← get
 
@@ -173,10 +176,11 @@ answerATPs outputMVar atpsPH file n = do
             threadDelay 500000
             mapM_ terminateProcess atpsPH
 
-        (False, _) → answerATPs outputMVar atpsPH file (n + 1)
+        (False, _) → atpsAnswer outputMVar atpsPH file (n + 1)
 
-callATPsOnConjecture :: GeneralRolesAF → ConjectureAFs → T ()
-callATPsOnConjecture generalRolesAF conjectureAFs = do
+-- | The function 'callATPs' calls the selected ATPs on a TPTP conjecture.
+callATPs :: GeneralRolesAF → ConjectureAFs → T ()
+callATPs generalRolesAF conjectureAFs = do
 
   state ← get
 
@@ -204,8 +208,7 @@ callATPsOnConjecture generalRolesAF conjectureAFs = do
     reportS "" 20 $ "ATPs to be used: " ++ show atps
 
     atpsPH ← liftIO $
-           mapM ((\atp → runATP atp outputMVar (argsATP atp timeLimit file)) .
-                 optATP2ATP)
+           mapM ((\atp → runATP atp outputMVar timeLimit file) . optATP2ATP)
                 atps
 
-    answerATPs outputMVar atpsPH file 0
+    atpsAnswer outputMVar atpsPH file 0

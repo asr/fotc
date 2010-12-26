@@ -38,7 +38,7 @@ import Agda.Utils.Impossible
 
 -- import FOL.Pretty
 import AgdaLib.Interface ( getImportedInterfaces , myReadInterface )
-import ATP.ATP           ( callATPsOnConjecture )
+import ATP.ATP           ( callATPs )
 import Monad.Base
     ( AllDefinitions
     , runT
@@ -95,7 +95,7 @@ runAgda2ATP prgName = do
             -- The ATP pragmas are translated to TPTP annotated formulas.
             allAFs ← translation file
             -- The ATPs systems are called on the TPTP annotated formulas.
-            mapM_ (callATPsOnConjecture (fst allAFs)) (snd allAFs)
+            mapM_ (callATPs (fst allAFs)) (snd allAFs)
 
 main :: IO ()
 main = do

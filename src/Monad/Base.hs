@@ -43,8 +43,8 @@ initTState = MkState { tAllDefs = Map.empty
                      , tVars    = []
                      }
 
--- The translation monad.
 -- Adapted from: Real World Haskell (Chapter 18. Monad transformers)
+-- | The translation monad.
 newtype T a = MkT { runA :: ErrorT String (StateT TState IO) a }
         -- Requires GeneralizedNewtypeDeriving
         deriving ( Functor
