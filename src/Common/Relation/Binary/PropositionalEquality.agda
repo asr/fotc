@@ -24,3 +24,12 @@ trans refl y≡z = y≡z
 
 subst : (P : D → Set){x y : D} → x ≡ y → P x → P y
 subst P refl px = px
+
+subst₂ : (P : D → D → Set){x₁ x₂ y₁ y₂ : D} → x₁ ≡ y₁ → x₂ ≡ y₂ → P x₁ x₂ →
+         P y₁ y₂
+subst₂ P refl refl Px₁x₂ = Px₁x₂
+
+subst₄ : (P : D → D → D → D → Set){x₁ x₂ x₃ x₄ y₁ y₂ y₃ y₄ : D} →
+         x₁ ≡ y₁ → x₂ ≡ y₂ → x₃ ≡ y₃ → x₄ ≡ y₄ → P x₁ x₂ x₃ x₄ →
+         P y₁ y₂ y₃ y₄
+subst₄ P refl refl refl refl Px₁x₂x₃x₄ = Px₁x₂x₃x₄
