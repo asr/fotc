@@ -36,25 +36,23 @@ false&&x≡false : {b : D} → Bool b → false && b ≡ false
 false&&x≡false tB = &&-ft
 false&&x≡false fB = &&-ff
 
-x&&y≡true→x≡true : {b₁ b₂ : D} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true →
-                   b₁ ≡ true
-x&&y≡true→x≡true tB _ _    = refl
-x&&y≡true→x≡true fB tB prf = ⊥-elim $ true≠false $ trans (sym prf) &&-ft
-x&&y≡true→x≡true fB fB prf = ⊥-elim $ true≠false $ trans (sym prf) &&-ff
+&&-proj₁ : {b₁ b₂ : D} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₁ ≡ true
+&&-proj₁ tB _ _    = refl
+&&-proj₁ fB tB h = ⊥-elim $ true≠false $ trans (sym h) &&-ft
+&&-proj₁ fB fB h = ⊥-elim $ true≠false $ trans (sym h) &&-ff
 
-x&&y≡true→y≡true : {b₁ b₂ : D} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true →
-                   b₂ ≡ true
-x&&y≡true→y≡true _  tB _   = refl
-x&&y≡true→y≡true tB fB prf = ⊥-elim $ true≠false $ trans (sym prf) &&-tf
-x&&y≡true→y≡true fB fB prf = ⊥-elim $ true≠false $ trans (sym prf) &&-ff
+&&-proj₂ : {b₁ b₂ : D} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₂ ≡ true
+&&-proj₂ _  tB _   = refl
+&&-proj₂ tB fB h = ⊥-elim $ true≠false $ trans (sym h) &&-tf
+&&-proj₂ fB fB h = ⊥-elim $ true≠false $ trans (sym h) &&-ff
 
-w&&x&&y&&z≡true→y≡true : {b₁ b₂ b₃ b₄ : D} →
-                         Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
-                         b₁ && b₂ && b₃ && b₄ ≡ true →
-                         b₃ ≡ true
-w&&x&&y&&z≡true→y≡true Bb₁ Bb₂ tB Bb₄ b₁&&b₂&&b₃&&b₄≡true = refl
-w&&x&&y&&z≡true→y≡true {b₁} {b₂} {b₄ = b₄} Bb₁ Bb₂ fB Bb₄ b₁&&b₂&&b₃&&b₄≡true =
-  ⊥-elim $ true≠false $ trans (sym b₁&&b₂&&b₃&&b₄≡true) prf
+&&₃-proj₃ : {b₁ b₂ b₃ b₄ : D} →
+            Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
+            b₁ && b₂ && b₃ && b₄ ≡ true →
+            b₃ ≡ true
+&&₃-proj₃ _ _ tB _ _ = refl
+&&₃-proj₃ {b₁} {b₂} {b₄ = b₄} Bb₁ Bb₂ fB Bb₄ h =
+  ⊥-elim $ true≠false $ trans (sym h) prf
   where
     prf : b₁ && b₂ && false && b₄ ≡ false
     prf =
@@ -74,14 +72,13 @@ w&&x&&y&&z≡true→y≡true {b₁} {b₂} {b₄ = b₄} Bb₁ Bb₂ fB Bb₄ b�
         false
       ∎
 
-w&&x&&y&&z≡true→z≡true : {b₁ b₂ b₃ b₄ : D} →
-                         Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
-                         b₁ && b₂ && b₃ && b₄ ≡ true →
-                         b₄ ≡ true
-w&&x&&y&&z≡true→z≡true Bb₁ Bb₂ Bb₃ tB b₁&&b₂&&b₃&&b₄≡true = refl
-w&&x&&y&&z≡true→z≡true {b₁} {b₂} {b₃} Bb₁ Bb₂ Bb₃ fB
-                       b₁&&b₂&&b₃&&b₄≡true =
-  ⊥-elim $ true≠false $ trans (sym b₁&&b₂&&b₃&&b₄≡true) prf
+&&₃-proj₄ : {b₁ b₂ b₃ b₄ : D} →
+            Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
+            b₁ && b₂ && b₃ && b₄ ≡ true →
+            b₄ ≡ true
+&&₃-proj₄ _ _ _ tB _ = refl
+&&₃-proj₄ {b₁} {b₂} {b₃} Bb₁ Bb₂ Bb₃ fB h =
+  ⊥-elim $ true≠false $ trans (sym h) prf
   where
     prf : b₁ && b₂ && b₃ && false ≡ false
     prf =

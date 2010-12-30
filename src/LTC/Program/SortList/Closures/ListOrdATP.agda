@@ -10,10 +10,10 @@ open import Common.Function using ( _$_ )
 
 open import LTC.Data.Bool.PropertiesATP
   using ( ≤-Bool
-        ; x&&y≡true→x≡true
-        ; x&&y≡true→y≡true
-        ; w&&x&&y&&z≡true→y≡true
-        ; w&&x&&y&&z≡true→z≡true
+        ; &&-proj₁
+        ; &&-proj₂
+        ; &&₃-proj₃
+        ; &&₃-proj₄
         )
 open import LTC.Data.Nat.List.Type
   using ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.
@@ -72,18 +72,18 @@ open import LTC.Postulates using ( ++-ListOrd-aux₁ )
 ++-ListOrd-aux₂ {item} {js = js} Nitem
                (consLN {i} {is} Ni LNis) LNjs item≤i∷is i∷is≤js =
   prf (++-ListOrd-aux₂ Nitem LNis LNjs
-        (x&&y≡true→y≡true (≤-Bool Nitem Ni)
-                          (≤-ItemList-Bool Nitem LNis)
-                          (trans (sym $ ≤-ItemList-∷ item i is) item≤i∷is))
-        (x&&y≡true→y≡true (≤-ItemList-Bool Ni LNis)
-                          (≤-Lists-Bool LNis LNjs)
-                          (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js)))
+        (&&-proj₂ (≤-Bool Nitem Ni)
+                  (≤-ItemList-Bool Nitem LNis)
+                  (trans (sym $ ≤-ItemList-∷ item i is) item≤i∷is))
+        (&&-proj₂ (≤-ItemList-Bool Ni LNis)
+                  (≤-Lists-Bool LNis LNjs)
+                  (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js)))
   where
     postulate prf : LE-ItemList item (is ++ js) →  -- IH.
                     LE-ItemList item ((i ∷ is) ++ js)
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
-    {-# ATP prove prf ≤-Bool ≤-ItemList-Bool x&&y≡true→x≡true #-}
+    {-# ATP prove prf ≤-Bool ≤-ItemList-Bool &&-proj₁ #-}
 
 ------------------------------------------------------------------------------
 -- Append preserves the order.
@@ -98,7 +98,7 @@ open import LTC.Postulates using ( ++-ListOrd-aux₁ )
 
 ++-ListOrd {js = js} (consLN {i} {is} Ni LNis) LNjs LOi∷is LOjs i∷is≤js =
   prf (++-ListOrd LNis LNjs (subList-ListOrd Ni LNis LOi∷is) LOjs
-                  (x&&y≡true→y≡true
+                  (&&-proj₂
                     (≤-ItemList-Bool Ni LNis)
                     (≤-Lists-Bool LNis LNjs)
                     (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js)))
@@ -107,7 +107,7 @@ open import LTC.Postulates using ( ++-ListOrd-aux₁ )
                     ListOrd ((i ∷ is) ++ js)
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf ≤-ItemList-Bool ≤-Lists-Bool
-                      x&&y≡true→x≡true x&&y≡true→y≡true
+                      &&-proj₁ &&-proj₂
                       ++-ListOrd-aux₂
     #-}
 
@@ -212,7 +212,7 @@ mutual
       -- E 1.2: CPU time limit exceeded (180 sec).
       -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
       {-# ATP prove tb≤-i ≤-ItemTree-Bool ≤-TreeItem-Bool isTreeOrd-Bool
-                          x&&y≡true→y≡true w&&x&&y&&z≡true→y≡true
+                          &&-proj₂ &&₃-proj₃
       #-}
 
       postulate
@@ -225,7 +225,7 @@ mutual
       -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
       {-# ATP prove treeOrd-tb-i-k rightSubTree-TreeOrd treeOrd-ta-j-tb
                                    ≤-ItemTree-Bool ≤-TreeItem-Bool
-                                   isTreeOrd-Bool w&&x&&y&&z≡true→z≡true
+                                   isTreeOrd-Bool &&₃-proj₄
       #-}
 
   flatten-ListOrd-aux (nodeT {ta} {j} {tb} Tta Nj Ttb)

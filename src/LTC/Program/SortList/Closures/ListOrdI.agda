@@ -12,8 +12,8 @@ open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; beg
 open import LTC.Data.Bool using ( _&&_ ; &&-tt )
 open import LTC.Data.Bool.PropertiesI
   using ( ≤-Bool
-        ; x&&y≡true→x≡true
-        ; x&&y≡true→y≡true
+        ; &&-proj₁
+        ; &&-proj₂
         )
 open import LTC.Data.Nat.Inequalities using ( _≤_ )
 open import LTC.Data.Nat.List.Type
@@ -117,23 +117,21 @@ open import LTC.Program.SortList.SortList
     item ≤ i && ≤-ItemList item (is ++ js)
       ≡⟨ subst (λ t → item ≤ i && ≤-ItemList item (is ++ js) ≡
                       t && ≤-ItemList item (is ++ js))
-               (x&&y≡true→x≡true (≤-Bool Nitem Ni)
-                                 (≤-ItemList-Bool Nitem LNis)
-                                 (trans (sym $ ≤-ItemList-∷ item i is)
-                                        item≤i∷is))
+               (&&-proj₁ (≤-Bool Nitem Ni)
+                         (≤-ItemList-Bool Nitem LNis)
+                         (trans (sym $ ≤-ItemList-∷ item i is) item≤i∷is))
                refl
       ⟩
     true && ≤-ItemList item (is ++ js)
       ≡⟨ subst (λ t → true && ≤-ItemList item (is ++ js) ≡ true && t)
                -- IH.
                (++-ListOrd-aux₂ Nitem LNis LNjs
-                 (x&&y≡true→y≡true (≤-Bool Nitem Ni)
-                                   (≤-ItemList-Bool Nitem LNis)
-                                   (trans (sym $ ≤-ItemList-∷ item i is)
-                                          item≤i∷is))
-               (x&&y≡true→y≡true (≤-ItemList-Bool Ni LNis)
-                                 (≤-Lists-Bool LNis LNjs)
-                                 (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js)))
+                 (&&-proj₂ (≤-Bool Nitem Ni)
+                           (≤-ItemList-Bool Nitem LNis)
+                           (trans (sym $ ≤-ItemList-∷ item i is) item≤i∷is))
+               (&&-proj₂ (≤-ItemList-Bool Ni LNis)
+                         (≤-Lists-Bool LNis LNjs)
+                         (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js)))
                refl
       ⟩
     true && true ≡⟨ &&-tt ⟩
@@ -160,21 +158,19 @@ open import LTC.Program.SortList.SortList
                               t                       &&
                               isListOrd (is ++ js))
                        (++-ListOrd-aux₂ Ni LNis LNjs
-                           (x&&y≡true→x≡true (≤-ItemList-Bool Ni LNis)
-                                             (≤-Lists-Bool LNis LNjs)
-                                             (trans (sym $ ≤-Lists-∷ i is js)
-                                                    i∷is≤js))
-                           (x&&y≡true→y≡true (≤-ItemList-Bool Ni LNis)
-                                             (≤-Lists-Bool LNis LNjs)
-                                             (trans (sym $ ≤-Lists-∷ i is js)
-                                                    i∷is≤js)))
+                           (&&-proj₁ (≤-ItemList-Bool Ni LNis)
+                                     (≤-Lists-Bool LNis LNjs)
+                                     (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js))
+                           (&&-proj₂ (≤-ItemList-Bool Ni LNis)
+                                     (≤-Lists-Bool LNis LNjs)
+                                     (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js)))
                        refl
               ⟩
             true && isListOrd (is ++ js)
             ≡⟨ subst (λ t → true && isListOrd (is ++ js) ≡ true && t)
                      -- IH.
                      (++-ListOrd LNis LNjs (subList-ListOrd Ni LNis LOi∷is) LOjs
-                             (x&&y≡true→y≡true
+                             (&&-proj₂
                                (≤-ItemList-Bool Ni LNis)
                                (≤-Lists-Bool LNis LNjs)
                                (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js)))

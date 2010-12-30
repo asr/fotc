@@ -9,8 +9,8 @@ open import LTC.Base
 open import Common.Function using ( _$_ )
 
 open import LTC.Data.Bool.PropertiesATP
-  using ( x&&y≡true→x≡true
-        ; x&&y≡true→y≡true
+  using ( &&-proj₁
+        ; &&-proj₂
         )
 
 open import LTC.Data.Nat.List.PropertiesATP using ( ++-ListN )
@@ -45,7 +45,7 @@ subList-ListOrd {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js = prf
     postulate prf : ListOrd (j ∷ js)
     -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
-    {-# ATP prove prf x&&y≡true→y≡true ≤-ItemList-Bool isListOrd-Bool #-}
+    {-# ATP prove prf &&-proj₂ ≤-ItemList-Bool isListOrd-Bool #-}
 
 -- This is a weird result but recall that "the relation ≤ between
 -- lists is only an ordering if nil is excluded" (Burstall, pp. 46).
@@ -57,7 +57,7 @@ xs≤[] (consLN {i} {is} Ni LNis) LOconsL =
     postulate prf : LE-Lists is [] →  --IH.
                     LE-Lists (i ∷ is) []
     -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
-    {-# ATP prove prf ≤-ItemList-Bool isListOrd-Bool x&&y≡true→x≡true #-}
+    {-# ATP prove prf ≤-ItemList-Bool isListOrd-Bool &&-proj₁ #-}
 
 listOrd-xs++ys→ys≤zs→xs++ys≤zs :
   {is js ks : D} → ListN is → ListN js → ListN ks → ListOrd (is ++ js) →
@@ -72,18 +72,17 @@ listOrd-xs++ys→ys≤zs→xs++ys≤zs
 listOrd-xs++ys→ys≤zs→xs++ys≤zs
   {js = js} {ks = ks} (consLN {i} {is} Ni LNis) LNjs LNks LOi∷is++js js≤ks =
   prf (listOrd-xs++ys→ys≤zs→xs++ys≤zs LNis LNjs LNks
-         (x&&y≡true→y≡true (≤-ItemList-Bool Ni (++-ListN LNis LNjs))
-                           (isListOrd-Bool (++-ListN LNis LNjs))
-                           (trans (sym $ isListOrd-∷ i (is ++ js))
-                                  (trans aux LOi∷is++js)))
-                           js≤ks)
+         (&&-proj₂ (≤-ItemList-Bool Ni (++-ListN LNis LNjs))
+                   (isListOrd-Bool (++-ListN LNis LNjs))
+                     (trans (sym $ isListOrd-∷ i (is ++ js))
+                            (trans aux LOi∷is++js))) js≤ks)
   where
     postulate prf :  LE-Lists (is ++ js) ks →  -- IH
                      LE-Lists ((i ∷ is) ++ js) ks
     -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
-    {-# ATP prove prf ≤-ItemList-Bool isListOrd-Bool x&&y≡true→x≡true
+    {-# ATP prove prf ≤-ItemList-Bool isListOrd-Bool &&-proj₁
                       ++-ListN
     #-}
 

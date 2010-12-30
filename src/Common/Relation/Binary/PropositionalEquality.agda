@@ -23,7 +23,7 @@ trans : {x y z : D} → x ≡ y → y ≡ z → x ≡ z
 trans refl y≡z = y≡z
 
 subst : (P : D → Set){x y : D} → x ≡ y → P x → P y
-subst P refl px = px
+subst P refl Px = Px
 
 subst₂ : (P : D → D → Set){x₁ x₂ y₁ y₂ : D} → x₁ ≡ y₁ → x₂ ≡ y₂ → P x₁ x₂ →
          P y₁ y₂

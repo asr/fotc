@@ -12,10 +12,10 @@ open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; beg
 open import LTC.Data.Bool using ( _&&_ ; &&-tt )
 open import LTC.Data.Bool.PropertiesI
   using ( &&-Bool
-        ; x&&y≡true→x≡true
-        ; x&&y≡true→y≡true
-        ; w&&x&&y&&z≡true→y≡true
-        ; w&&x&&y&&z≡true→z≡true
+        ; &&-proj₁
+        ; &&-proj₂
+        ; &&₃-proj₃
+        ; &&₃-proj₄
         )
 open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.Inequalities.PropertiesI
@@ -60,11 +60,11 @@ leftSubTree-TreeOrd : {t₁ i t₂ : D} → Tree t₁ → N i → Tree t₂ →
 leftSubTree-TreeOrd {t₁} {i} {t₂} Tt₁ Ni Tt₂ TOnode =
   begin
     isTreeOrd t₁
-      ≡⟨ x&&y≡true→x≡true (isTreeOrd-Bool Tt₁)
-                          (&&-Bool (isTreeOrd-Bool Tt₂)
-                                   (&&-Bool (≤-TreeItem-Bool Tt₁ Ni)
-                                            (≤-ItemTree-Bool Ni Tt₂)))
-                          (trans (sym $ isTreeOrd-node t₁ i t₂) TOnode)
+      ≡⟨ &&-proj₁ (isTreeOrd-Bool Tt₁)
+                  (&&-Bool (isTreeOrd-Bool Tt₂)
+                           (&&-Bool (≤-TreeItem-Bool Tt₁ Ni)
+                                    (≤-ItemTree-Bool Ni Tt₂)))
+                  (trans (sym $ isTreeOrd-node t₁ i t₂) TOnode)
       ⟩
     true
   ∎
@@ -75,15 +75,15 @@ rightSubTree-TreeOrd : {t₁ i t₂ : D} → Tree t₁ → N i → Tree t₂ →
 rightSubTree-TreeOrd {t₁} {i} {t₂} Tt₁ Ni Tt₂ TOnode =
   begin
     isTreeOrd t₂
-      ≡⟨ x&&y≡true→x≡true
+      ≡⟨ &&-proj₁
            (isTreeOrd-Bool Tt₂)
            (&&-Bool (≤-TreeItem-Bool Tt₁ Ni)
                     (≤-ItemTree-Bool Ni Tt₂))
-           (x&&y≡true→y≡true (isTreeOrd-Bool Tt₁)
-                             (&&-Bool (isTreeOrd-Bool Tt₂)
-                                      (&&-Bool (≤-TreeItem-Bool Tt₁ Ni)
-                                               (≤-ItemTree-Bool Ni Tt₂)))
-                             (trans (sym $ isTreeOrd-node t₁ i t₂) TOnode))
+           (&&-proj₂ (isTreeOrd-Bool Tt₁)
+                     (&&-Bool (isTreeOrd-Bool Tt₂)
+                              (&&-Bool (≤-TreeItem-Bool Tt₁ Ni)
+                                       (≤-ItemTree-Bool Ni Tt₂)))
+                     (trans (sym $ isTreeOrd-node t₁ i t₂) TOnode))
       ⟩
     true
   ∎
@@ -283,19 +283,17 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
                           ≤-TreeItem t₂ i₁)
                    -- Inductive hypothesis.
                    (toTree-TreeOrd-aux₁ Ni₁ Ni₂ i₁>i₂ Tt₁
-                     (x&&y≡true→x≡true (≤-TreeItem-Bool Tt₁ Ni₁)
-                                       (≤-TreeItem-Bool Tt₂ Ni₁)
-                                       (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁)
-                                              t≤i₁)))
+                     (&&-proj₁ (≤-TreeItem-Bool Tt₁ Ni₁)
+                               (≤-TreeItem-Bool Tt₂ Ni₁)
+                               (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁)))
                    refl
           ⟩
         true && ≤-TreeItem t₂ i₁
           ≡⟨ subst (λ t → true && ≤-TreeItem t₂ i₁ ≡ true && t)
                    -- t₂ ≤ i₁ because by hypothesis we have (node t₁ j t₂) ≤ i₁.
-                   (x&&y≡true→y≡true (≤-TreeItem-Bool Tt₁ Ni₁)
-                                     (≤-TreeItem-Bool Tt₂ Ni₁)
-                                     (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁)
-                                            t≤i₁))
+                   (&&-proj₂ (≤-TreeItem-Bool Tt₁ Ni₁)
+                             (≤-TreeItem-Bool Tt₂ Ni₁)
+                             (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁))
                    refl
           ⟩
         true && true
@@ -343,10 +341,9 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
           ≡⟨ subst (λ t → ≤-TreeItem t₁ i₁ && ≤-TreeItem (toTree · i₂ · t₂) i₁ ≡
                           t &&  ≤-TreeItem (toTree · i₂ · t₂) i₁)
                    -- t₁ ≤ i₁ because by hypothesis we have (node t₁ j t₂) ≤ i₁.
-                   (x&&y≡true→x≡true (≤-TreeItem-Bool Tt₁ Ni₁)
-                                     (≤-TreeItem-Bool Tt₂ Ni₁)
-                                     (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁)
-                                            t≤i₁))
+                   (&&-proj₁ (≤-TreeItem-Bool Tt₁ Ni₁)
+                             (≤-TreeItem-Bool Tt₂ Ni₁)
+                             (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁))
                    refl
           ⟩
         true && ≤-TreeItem (toTree · i₂ · t₂) i₁
@@ -354,10 +351,9 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
                           true && t)
                    -- Inductive hypothesis.
                    (toTree-TreeOrd-aux₁ Ni₁ Ni₂ i₁>i₂ Tt₂
-                     (x&&y≡true→y≡true (≤-TreeItem-Bool Tt₁ Ni₁)
-                                       (≤-TreeItem-Bool Tt₂ Ni₁)
-                                       (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁)
-                                              t≤i₁)))
+                     (&&-proj₂ (≤-TreeItem-Bool Tt₁ Ni₁)
+                               (≤-TreeItem-Bool Tt₂ Ni₁)
+                               (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁)))
                    refl
           ⟩
         true && true
@@ -547,19 +543,17 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
                           t && ≤-ItemTree i₁ t₂)
                    -- Inductive hypothesis.
                    (toTree-TreeOrd-aux₂ Ni₁ Ni₂ i₁≤i₂ Tt₁
-                     (x&&y≡true→x≡true (≤-ItemTree-Bool Ni₁ Tt₁)
-                                       (≤-ItemTree-Bool Ni₁ Tt₂)
-                                       (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂)
-                                              i₁≤t)))
+                     (&&-proj₁ (≤-ItemTree-Bool Ni₁ Tt₁)
+                               (≤-ItemTree-Bool Ni₁ Tt₂)
+                               (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t)))
                    refl
           ⟩
         true && ≤-ItemTree i₁ t₂
           ≡⟨ subst (λ t → true && ≤-ItemTree i₁ t₂ ≡ true && t)
                    -- i₁ ≤ t₂ because by hypothesis we have i₁ ≤ (node t₁ j t₂).
-                   (x&&y≡true→y≡true (≤-ItemTree-Bool Ni₁ Tt₁)
-                                     (≤-ItemTree-Bool Ni₁ Tt₂)
-                                     (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂)
-                                            i₁≤t))
+                   (&&-proj₂ (≤-ItemTree-Bool Ni₁ Tt₁)
+                             (≤-ItemTree-Bool Ni₁ Tt₂)
+                             (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t))
                    refl
           ⟩
         true && true
@@ -604,20 +598,18 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
           ≡⟨ subst (λ t → ≤-ItemTree i₁ t₁ && ≤-ItemTree i₁ (toTree · i₂ · t₂) ≡
                           t && ≤-ItemTree i₁ (toTree · i₂ · t₂))
                    -- i₁ ≤ t₁ because by hypothesis we have i₁ ≤ (node t₁ j t₂).
-                   (x&&y≡true→x≡true (≤-ItemTree-Bool Ni₁ Tt₁)
-                                     (≤-ItemTree-Bool Ni₁ Tt₂)
-                                     (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂)
-                                            i₁≤t))
+                   (&&-proj₁ (≤-ItemTree-Bool Ni₁ Tt₁)
+                             (≤-ItemTree-Bool Ni₁ Tt₂)
+                             (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t))
                    refl
           ⟩
         true && ≤-ItemTree i₁ (toTree · i₂ · t₂)
           ≡⟨ subst (λ t → true && ≤-ItemTree i₁ (toTree · i₂ · t₂) ≡ true && t)
                    -- Inductive hypothesis.
                    (toTree-TreeOrd-aux₂ Ni₁ Ni₂ i₁≤i₂ Tt₂
-                     (x&&y≡true→y≡true (≤-ItemTree-Bool Ni₁ Tt₁)
-                                       (≤-ItemTree-Bool Ni₁ Tt₂)
-                                       (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂)
-                                              i₁≤t)))
+                     (&&-proj₂ (≤-ItemTree-Bool Ni₁ Tt₁)
+                               (≤-ItemTree-Bool Ni₁ Tt₂)
+                               (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t)))
                    refl
           ⟩
         true && true
@@ -904,7 +896,7 @@ toTree-TreeOrd {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) TOnodeT =
                           ≤-ItemTree i t₂                   ≡
                           true && true && t && ≤-ItemTree i t₂)
                    (toTree-TreeOrd-aux₁ Ni Nitem i>item Tt₁
-                     ((w&&x&&y&&z≡true→y≡true
+                     ((&&₃-proj₃
                         (isTreeOrd-Bool Tt₁)
                         (isTreeOrd-Bool Tt₂)
                         (≤-TreeItem-Bool Tt₁ Ni)
@@ -915,7 +907,7 @@ toTree-TreeOrd {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) TOnodeT =
         true && true && true && ≤-ItemTree i t₂
           ≡⟨ subst (λ t → true && true && true && ≤-ItemTree i t₂ ≡
                        true && true && true && t)
-                   (w&&x&&y&&z≡true→z≡true
+                   (&&₃-proj₄
                      (isTreeOrd-Bool Tt₁)
                      (isTreeOrd-Bool Tt₂)
                      (≤-TreeItem-Bool Tt₁ Ni)
@@ -1007,7 +999,7 @@ toTree-TreeOrd {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) TOnodeT =
                           true                              &&
                           t                                 &&
                           ≤-ItemTree i (toTree · item · t₂))
-                   (w&&x&&y&&z≡true→y≡true
+                   (&&₃-proj₃
                      (isTreeOrd-Bool Tt₁)
                      (isTreeOrd-Bool Tt₂)
                      (≤-TreeItem-Bool Tt₁ Ni)
@@ -1022,7 +1014,7 @@ toTree-TreeOrd {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) TOnodeT =
                           ≤-ItemTree i (toTree · item · t₂) ≡
                           true && true && true && t)
                     (toTree-TreeOrd-aux₂ Ni Nitem i≤item Tt₂
-                      ((w&&x&&y&&z≡true→z≡true
+                      ((&&₃-proj₄
                         (isTreeOrd-Bool Tt₁)
                         (isTreeOrd-Bool Tt₂)
                         (≤-TreeItem-Bool Tt₁ Ni)

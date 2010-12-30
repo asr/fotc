@@ -11,8 +11,8 @@ open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; beg
 
 open import LTC.Data.Bool using ( _&&_ ; &&-tt )
 open import LTC.Data.Bool.PropertiesI
-  using ( x&&y≡true→x≡true
-        ; x&&y≡true→y≡true
+  using ( &&-proj₁
+        ; &&-proj₂
         )
 open import LTC.Data.Nat.List.PropertiesI using ( ++-ListN )
 open import LTC.Data.Nat.List.Type
@@ -43,9 +43,9 @@ subList-ListOrd : {i : D} → N i → {is : D} → ListN is → ListOrd (i ∷ i
 subList-ListOrd {i} Ni nilLN LOi∷is = isListOrd-[]
 
 subList-ListOrd {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js =
-  x&&y≡true→y≡true (≤-ItemList-Bool Ni (consLN Nj Ljs))
-                   (isListOrd-Bool (consLN Nj Ljs))
-                   (trans (sym $ isListOrd-∷ i (j ∷ js)) LOi∷j∷js)
+  &&-proj₂ (≤-ItemList-Bool Ni (consLN Nj Ljs))
+           (isListOrd-Bool (consLN Nj Ljs))
+           (trans (sym $ isListOrd-∷ i (j ∷ js)) LOi∷j∷js)
 
 -- This is a weird result but recall that "the relation ≤ between
 -- lists is only an ordering if nil is excluded" (Burstall, pp. 46).
@@ -58,9 +58,9 @@ xs≤[] (consLN {i} {is} Ni LNis) LOconsL =
     ≤-ItemList i is && ≤-Lists is []
       ≡⟨ subst (λ t → ≤-ItemList i is && ≤-Lists is [] ≡
                       t && ≤-Lists is [])
-               (x&&y≡true→x≡true (≤-ItemList-Bool Ni LNis)
-                                 (isListOrd-Bool LNis)
-                                 (trans (sym $ isListOrd-∷ i is) LOconsL))
+               (&&-proj₁ (≤-ItemList-Bool Ni LNis)
+                         (isListOrd-Bool LNis)
+                         (trans (sym $ isListOrd-∷ i is) LOconsL))
                refl
       ⟩
     true && ≤-Lists is []
@@ -97,7 +97,7 @@ listOrd-xs++ys→ys≤zs→xs++ys≤zs
     ≤-ItemList i (is ++ js) && ≤-Lists (is ++ js) ks
       ≡⟨ subst (λ t → ≤-ItemList i (is ++ js) && ≤-Lists (is ++ js) ks ≡
                       t && ≤-Lists (is ++ js) ks)
-               (x&&y≡true→x≡true
+               (&&-proj₁
                  (≤-ItemList-Bool Ni (++-ListN LNis LNjs))
                  (isListOrd-Bool (++-ListN LNis LNjs))
                  (trans (sym $ isListOrd-∷ i (is ++ js))
@@ -113,7 +113,7 @@ listOrd-xs++ys→ys≤zs→xs++ys≤zs
       ≡⟨ subst (λ t → true && ≤-Lists (is ++ js) ks ≡ true && t)
                -- IH.
                (listOrd-xs++ys→ys≤zs→xs++ys≤zs LNis LNjs LNks
-                 (x&&y≡true→y≡true
+                 (&&-proj₂
                    (≤-ItemList-Bool Ni (++-ListN LNis LNjs))
                    (isListOrd-Bool (++-ListN LNis LNjs))
                    (trans (sym $ isListOrd-∷ i (is ++ js))

@@ -10,10 +10,10 @@ open import Common.Function using ( _$_ )
 
 open import LTC.Data.Bool.PropertiesATP
   using ( &&-Bool
-        ; x&&y≡true→x≡true
-        ; x&&y≡true→y≡true
-        ; w&&x&&y&&z≡true→y≡true
-        ; w&&x&&y&&z≡true→z≡true
+        ; &&-proj₁
+        ; &&-proj₂
+        ; &&₃-proj₃
+        ; &&₃-proj₄
         )
 open import LTC.Data.Nat.Inequalities using ( GT ; LE )
 open import LTC.Data.Nat.Inequalities.PropertiesATP
@@ -59,7 +59,7 @@ postulate
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
 {-# ATP prove leftSubTree-TreeOrd ≤-ItemTree-Bool ≤-TreeItem-Bool &&-Bool
-                                  isTreeOrd-Bool x&&y≡true→x≡true
+                                  isTreeOrd-Bool &&-proj₁
 #-}
 
 -- If (node t₁ i t₂) is ordered then t₂ is ordered.
@@ -69,8 +69,8 @@ postulate
 -- E 1.2: CPU time limit exceeded (180 sec).
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove rightSubTree-TreeOrd ≤-ItemTree-Bool ≤-TreeItem-Bool &&-Bool
-                                   isTreeOrd-Bool x&&y≡true→x≡true
-                                   x&&y≡true→y≡true
+                                   isTreeOrd-Bool &&-proj₁
+                                   &&-proj₂
 #-}
 
 ------------------------------------------------------------------------------
@@ -103,16 +103,14 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁
 toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
                     (nodeT {t₁} {j} {t₂} Tt₁ Nj Tt₂) t≤i₁ =
   [ prf₁ (toTree-TreeOrd-aux₁ Ni₁ Ni₂ i₁>i₂ Tt₁
-           (x&&y≡true→x≡true (≤-TreeItem-Bool Tt₁ Ni₁)
-                             (≤-TreeItem-Bool Tt₂ Ni₁)
-                             (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁)
-                                    t≤i₁)))
+           (&&-proj₁ (≤-TreeItem-Bool Tt₁ Ni₁)
+                     (≤-TreeItem-Bool Tt₂ Ni₁)
+                     (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁)))
 
   , prf₂ (toTree-TreeOrd-aux₁ Ni₁ Ni₂ i₁>i₂ Tt₂
-           (x&&y≡true→y≡true (≤-TreeItem-Bool Tt₁ Ni₁)
-                             (≤-TreeItem-Bool Tt₂ Ni₁)
-                             (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁)
-                                    t≤i₁)))
+           (&&-proj₂ (≤-TreeItem-Bool Tt₁ Ni₁)
+                     (≤-TreeItem-Bool Tt₂ Ni₁)
+                     (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁)))
   ] (x>y∨x≤y Nj Ni₂)
   where
     postulate prf₁ : LE-TreeItem (toTree · i₂ · t₁) i₁ →  -- IH.
@@ -121,14 +119,14 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
     -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
-    {-# ATP prove prf₁ x>y→x≰y x&&y≡true→y≡true ≤-TreeItem-Bool #-}
+    {-# ATP prove prf₁ x>y→x≰y &&-proj₂ ≤-TreeItem-Bool #-}
 
     postulate prf₂ : LE-TreeItem (toTree · i₂ · t₂) i₁ →  --IH.
                      LE j i₂ →
                      LE-TreeItem (toTree · i₂ · node t₁ j t₂) i₁
     -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    {-# ATP prove prf₂ x&&y≡true→x≡true ≤-TreeItem-Bool #-}
+    {-# ATP prove prf₂ &&-proj₁ ≤-TreeItem-Bool #-}
 
 toTree-TreeOrd-aux₂ : {i₁ i₂ : D} → N i₁ → N i₂ → LE i₁ i₂ →
                       {t : D} → Tree t →
@@ -158,16 +156,14 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i₁�
 toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
                     (nodeT {t₁} {j} {t₂} Tt₁ Nj Tt₂) i₁≤t =
   [ prf₁ (toTree-TreeOrd-aux₂ Ni₁ Ni₂ i₁≤i₂ Tt₁
-           (x&&y≡true→x≡true (≤-ItemTree-Bool Ni₁ Tt₁)
-                             (≤-ItemTree-Bool Ni₁ Tt₂)
-                             (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂)
-                                    i₁≤t)))
+           (&&-proj₁ (≤-ItemTree-Bool Ni₁ Tt₁)
+                     (≤-ItemTree-Bool Ni₁ Tt₂)
+                     (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t)))
 
   , prf₂ (toTree-TreeOrd-aux₂ Ni₁ Ni₂ i₁≤i₂ Tt₂
-           (x&&y≡true→y≡true (≤-ItemTree-Bool Ni₁ Tt₁)
-                             (≤-ItemTree-Bool Ni₁ Tt₂)
-                             (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂)
-                                    i₁≤t)))
+           (&&-proj₂ (≤-ItemTree-Bool Ni₁ Tt₁)
+                     (≤-ItemTree-Bool Ni₁ Tt₂)
+                     (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t)))
   ] (x>y∨x≤y Nj Ni₂)
   where
     postulate prf₁ : LE-ItemTree i₁ (toTree · i₂ · t₁) →  -- IH.
@@ -176,7 +172,7 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
     -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
-    {-# ATP prove prf₁ ≤-ItemTree-Bool x>y→x≰y x&&y≡true→y≡true #-}
+    {-# ATP prove prf₁ ≤-ItemTree-Bool x>y→x≰y &&-proj₂ #-}
 
     postulate prf₂ : LE-ItemTree i₁ (toTree · i₂ · t₂) →  --IH.
                      LE j i₂ →
@@ -184,7 +180,7 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
     -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
-    {-# ATP prove prf₂ ≤-ItemTree-Bool x&&y≡true→x≡true #-}
+    {-# ATP prove prf₂ ≤-ItemTree-Bool &&-proj₁ #-}
 
 ------------------------------------------------------------------------------
 -- If t is ordered then (toTree i t) is ordered.
@@ -224,7 +220,7 @@ toTree-TreeOrd {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) TOnodeT =
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₁ ≤-ItemTree-Bool ≤-TreeItem-Bool isTreeOrd-Bool
-                       x>y→x≰y w&&x&&y&&z≡true→y≡true w&&x&&y&&z≡true→z≡true
+                       x>y→x≰y &&₃-proj₃ &&₃-proj₄
                        isTreeOrd-Bool toTree-TreeOrd-aux₁
     #-}
 
@@ -235,7 +231,7 @@ toTree-TreeOrd {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) TOnodeT =
     -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf₂ ≤-ItemTree-Bool ≤-TreeItem-Bool isTreeOrd-Bool
-                       w&&x&&y&&z≡true→y≡true w&&x&&y&&z≡true→z≡true
+                       &&₃-proj₃ &&₃-proj₄
                        toTree-TreeOrd-aux₂
     #-}
 
