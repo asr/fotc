@@ -28,6 +28,12 @@ open import LTC.Data.Nat.Type
 &&-Bool fB tB = subst (λ t → Bool t) (sym &&-ft) fB
 &&-Bool fB fB = subst (λ t → Bool t) (sym &&-ff) fB
 
+&&-comm : {b₁ b₂ : D} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ b₂ && b₁
+&&-comm tB tB = refl
+&&-comm tB fB = trans &&-tf (sym &&-ft)
+&&-comm fB tB = trans &&-ft (sym &&-tf)
+&&-comm fB fB = refl
+
 x&&false≡false : {b : D} → Bool b → b && false ≡ false
 x&&false≡false tB = &&-tf
 x&&false≡false fB = &&-ff
@@ -35,6 +41,41 @@ x&&false≡false fB = &&-ff
 false&&x≡false : {b : D} → Bool b → false && b ≡ false
 false&&x≡false tB = &&-ft
 false&&x≡false fB = &&-ff
+
+true&&x≡x : {b : D} → Bool b → true && b ≡ b
+true&&x≡x tB = &&-tt
+true&&x≡x fB = &&-tf
+
+-- See the ATP version.
+postulate
+  &&-assoc : {b₁ b₂ b₃ : D} → Bool b₁ → Bool b₂ → Bool b₃ →
+             (b₁ && b₂) && b₃ ≡ b₁ && b₂ && b₃
+
+&&-true₃ : true && true && true ≡ true
+&&-true₃ =
+  begin
+    true && true && true
+      ≡⟨ subst (λ t → true && true && true ≡ true && t)
+               &&-tt
+               refl
+      ⟩
+    true && true
+      ≡⟨ &&-tt ⟩
+    true
+  ∎
+
+&&-true₄ : true && true && true && true ≡ true
+&&-true₄ =
+  begin
+    true && true && true && true
+      ≡⟨ subst (λ t → true && true && true && true ≡ true && t)
+               &&-true₃
+               refl
+      ⟩
+    true && true
+      ≡⟨ &&-tt ⟩
+    true
+  ∎
 
 &&-proj₁ : {b₁ b₂ : D} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₁ ≡ true
 &&-proj₁ tB _ _    = refl
@@ -45,6 +86,38 @@ false&&x≡false fB = &&-ff
 &&-proj₂ _  tB _   = refl
 &&-proj₂ tB fB h = ⊥-elim $ true≠false $ trans (sym h) &&-tf
 &&-proj₂ fB fB h = ⊥-elim $ true≠false $ trans (sym h) &&-ff
+
+&&₃-proj₁ : {b₁ b₂ b₃ b₄ : D} →
+            Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
+            b₁ && b₂ && b₃ && b₄ ≡ true →
+            b₁ ≡ true
+&&₃-proj₁ tB _ _ _ _ = refl
+&&₃-proj₁ {b₂ = b₂} {b₃} {b₄} fB Bb₂ Bb₃ Bb₄ h =
+  ⊥-elim $ true≠false $ trans (sym h) prf
+  where
+    prf : false && b₂ && b₃ && b₄ ≡ false
+    prf = false&&x≡false (&&-Bool Bb₂ (&&-Bool Bb₃ Bb₄))
+
+&&₃-proj₂ : {b₁ b₂ b₃ b₄ : D} →
+            Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
+            b₁ && b₂ && b₃ && b₄ ≡ true →
+            b₂ ≡ true
+&&₃-proj₂ _ tB _ _ _ = refl
+&&₃-proj₂ {b₁} {b₃ = b₃} {b₄} Bb₁ fB Bb₃ Bb₄ h =
+  ⊥-elim $ true≠false $ trans (sym h) prf
+  where
+    prf : b₁ && false && b₃ && b₄ ≡ false
+    prf =
+      begin
+        b₁ && false && b₃ && b₄
+          ≡⟨ subst (λ t → b₁ && false && b₃ && b₄ ≡ b₁ && t)
+                   (false&&x≡false (&&-Bool Bb₃ Bb₄))
+                   refl
+          ⟩
+        b₁ && false
+           ≡⟨ x&&false≡false Bb₁ ⟩
+        false
+      ∎
 
 &&₃-proj₃ : {b₁ b₂ b₃ b₄ : D} →
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
