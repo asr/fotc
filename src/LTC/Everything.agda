@@ -69,6 +69,8 @@ open import LTC.Program.SortList.Properties.Closures.BoolATP
 open import LTC.Program.SortList.Properties.Closures.BoolI
 open import LTC.Program.SortList.Properties.Closures.ListATP
 open import LTC.Program.SortList.Properties.Closures.ListI
+open import LTC.Program.SortList.Properties.Closures.OrdList.FlattenI
+open import LTC.Program.SortList.Properties.Closures.OrdList.FlattenATP
 open import LTC.Program.SortList.Properties.Closures.OrdListATP
 open import LTC.Program.SortList.Properties.Closures.OrdListI
 open import LTC.Program.SortList.Properties.Closures.OrdTreeATP

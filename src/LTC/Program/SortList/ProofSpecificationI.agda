@@ -14,16 +14,10 @@ module LTC.Program.SortList.ProofSpecificationI where
 open import LTC.Base
 
 open import LTC.Data.Nat.List.Type
-  using ( ListN  -- The LTC list of natural numbers type.
-        )
 
 open import LTC.Program.SortList.PropertiesI
-  using ( flatten-OrdList
-        ; makeTree-OrdTree
-        )
 open import LTC.Program.SortList.Properties.Closures.TreeI
-  using ( makeTree-Tree )
-open import LTC.Program.SortList.SortList using ( OrdList ; sort )
+open import LTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------
 -- Main theorem: The sort program generates a ordered list.

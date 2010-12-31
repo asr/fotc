@@ -6,53 +6,21 @@ module LTC.Program.SortList.PropertiesATP where
 
 open import LTC.Base
 
-open import Common.Function using ( _$_ )
+open import Common.Function
 
 open import LTC.Data.Bool.PropertiesATP
-  using ( &&-proj₁
-        ; &&-proj₂
-        ; &&₃-proj₃
-        ; &&₃-proj₄
-        )
-
-open import LTC.Data.Nat.Inequalities using ( _≤_ ; GT ; LE )
+open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.Inequalities.PropertiesATP
-   using ( x<y→x≤y
-         ; x>y→x≰y
-         ; x>y∨x≤y
-         ; x≤x
-         )
 open import LTC.Data.Nat.List.Type
-  using ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.
-        )
 open import LTC.Data.Nat.Type
-  using ( N  -- The LTC natural numbers type.
-        )
-open import LTC.Data.List using ( _++_ ; ++-[] ; ++-∷ )
+open import LTC.Data.List
 
 open import LTC.Program.SortList.Properties.Closures.BoolATP
-  using ( ≤-ItemList-Bool
-        ; ≤-ItemTree-Bool
-        ; ≤-Lists-Bool
-        ; ≤-TreeItem-Bool
-        ; ordList-Bool
-        ; ordTree-Bool
-        )
 open import LTC.Program.SortList.Properties.Closures.ListATP
-   using ( flatten-List )
+open import LTC.Program.SortList.Properties.Closures.OrdList.FlattenATP
 open import LTC.Program.SortList.Properties.Closures.OrdListATP
-  using ( ++-OrdList-aux
-        ; flatten-OrdList-aux
-        ; subList-OrdList
-        )
 open import LTC.Program.SortList.Properties.Closures.OrdTreeATP
-  using ( leftSubTree-OrdTree
-        ; rightSubTree-OrdTree
-        ; toTree-OrdTree-aux₁
-        ; toTree-OrdTree-aux₂
-        )
 open import LTC.Program.SortList.Properties.Closures.TreeATP
-  using ( makeTree-Tree )
 open import LTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------
@@ -173,12 +141,16 @@ flatten-OrdList (tipT {i} Ni) OTt = prf
     -- Metis 2.3 (release 20101019): Non-tested.
     -- {-# ATP prove prf #-}
 
-flatten-OrdList (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTt = prf
+flatten-OrdList (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTt
+  = prf (++-OrdList (flatten-List Tt₁)
+                    (flatten-List Tt₂)
+                    (flatten-OrdList Tt₁ (leftSubTree-OrdTree Tt₁ Ni Tt₂ OTt)) -- IH.
+                    (flatten-OrdList Tt₂ (rightSubTree-OrdTree Tt₁ Ni Tt₂ OTt))-- IH.
+                    (flatten-OrdList-aux Tt₁ Ni Tt₂ OTt))
   where
-    postulate prf : OrdList (flatten (node t₁ i t₂))
+    postulate prf : OrdList (flatten t₁ ++ flatten t₂) → -- Indirect IH.
+                    OrdList (flatten (node t₁ i t₂))
     -- Equinox 5.0alpha (2010-06-29): Non-tested.
     -- Metis 2.3 (release 20101019): Non-tested.
     -- Vampire 0.6 (revision 903): Non-tested.
-    {-# ATP prove prf ++-OrdList flatten-List flatten-OrdList
-                      leftSubTree-OrdTree rightSubTree-OrdTree
-    #-}
+    {-# ATP prove prf #-}

@@ -6,57 +6,23 @@ module LTC.Program.SortList.PropertiesI where
 
 open import LTC.Base
 
-open import Common.Function using ( _$_ )
+open import Common.Function
 
-open import LTC.Data.Bool using ( _&&_ ; &&-tt )
+open import LTC.Data.Bool
 open import LTC.Data.Bool.PropertiesI
-  using ( &&-Bool
-        ; &&-proj₁
-        ; &&-proj₂
-        ; &&₃-proj₃
-        ; &&₃-proj₄
-        )
-open import LTC.Data.Nat.Inequalities using ( _≤_ ; GT ; LE )
+open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.Inequalities.PropertiesI
-  using ( x<y→x≤y
-        ; x>y→x≰y
-        ; x>y∨x≤y
-        ; x≤x
-        )
 open import LTC.Data.Nat.List.Type
-  using ( ListN ; consLN ; nilLN  -- The LTC list of natural numbers type.
-        )
 open import LTC.Data.Nat.Type
-  using ( N  -- The LTC natural numbers type.
-        )
-open import LTC.Data.List using ( _++_ ; ++-[] ; ++-∷ )
+open import LTC.Data.List
 
 open import LTC.Program.SortList.Properties.Closures.BoolI
-  using ( ≤-ItemList-Bool
-        ; ≤-ItemTree-Bool
-        ; ≤-Lists-Bool
-        ; ≤-TreeItem-Bool
-        ; ordList-Bool
-        ; ordTree-Bool
-        )
 open import LTC.Program.SortList.Properties.Closures.ListI
-  using ( flatten-List )
+open import LTC.Program.SortList.Properties.Closures.OrdList.FlattenI
 open import LTC.Program.SortList.Properties.Closures.OrdListI
-  using ( ++-OrdList-aux
-        ; flatten-OrdList-aux
-        ; subList-OrdList
-        )
 
 open import LTC.Program.SortList.Properties.Closures.OrdTreeI
-  using ( leftSubTree-OrdTree
-        ; rightSubTree-OrdTree
-        ; toTree-OrdTree-aux₁
-        ; toTree-OrdTree-aux₂
-        )
 open import LTC.Program.SortList.Properties.Closures.TreeI
-  using ( makeTree-Tree )
-open import LTC.Program.SortList.Properties.MiscellaneousI
-  using (  )
 open import LTC.Program.SortList.SortList
 
 open import LTC.Relation.Binary.EqReasoning
@@ -613,7 +579,9 @@ flatten-OrdList (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTt =
     ordList (flatten t₁ ++ flatten t₂)
       ≡⟨ ++-OrdList (flatten-List Tt₁)
                     (flatten-List Tt₂)
+                    -- IH.
                     (flatten-OrdList Tt₁ (leftSubTree-OrdTree Tt₁ Ni Tt₂ OTt))
+                    -- IH.
                     (flatten-OrdList Tt₂ (rightSubTree-OrdTree Tt₁ Ni Tt₂ OTt))
                     (flatten-OrdList-aux Tt₁ Ni Tt₂ OTt)
       ⟩
