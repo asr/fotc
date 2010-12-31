@@ -7,6 +7,8 @@ module DistributiveLaws.Everything where
 open import DistributiveLaws.Base
 open import DistributiveLaws.Base.ConsistencyTest
 
+open import DistributiveLaws.Relation.Binary.EqReasoning
+
 open import DistributiveLaws.TaskB-I
 
 open import DistributiveLaws.TaskB-ATP

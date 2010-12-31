@@ -6,7 +6,7 @@ module AxiomaticPA.PropertiesATP where
 
 open import AxiomaticPA.Base
 
-open import AxiomaticPA.Equality.Properties
+open import AxiomaticPA.Relation.Binary.PropositionalEqualityI
   using ()  -- We include this module due to its general hints.
 
 ------------------------------------------------------------------------------

@@ -6,7 +6,7 @@ module DistributiveLaws.TaskB-TopDownATP where
 
 open import DistributiveLaws.Base
 
-open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
+open import DistributiveLaws.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- We found the longest chains of equalities from

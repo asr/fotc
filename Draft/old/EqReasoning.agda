@@ -1,13 +1,12 @@
 ------------------------------------------------------------------------------
--- Equality reasoning PA
--- TODO: To define a parametric module
+-- Equality reasoning on the universe of discourse.
 ------------------------------------------------------------------------------
 
-module AxiomaticPA.Equality.EqReasoning where
+module Common.Relation.Binary.EqReasoning where
 
-open import AxiomaticPA.Base renaming ( ℕ to D ; _≣_ to _≡_ )
-
-open import AxiomaticPA.Equality.Properties using ( refl ; trans)
+open import Common.Relation.Binary.PropositionalEquality
+  using ( _≡_ ; refl ; trans  )
+open import Common.Universe using ( D )
 
 -- We add 3 to the fixities of the standard library.
 infix 7 _≃_
@@ -28,4 +27,4 @@ _≡⟨_⟩_ : (x : D){y z : D} → x ≡ y → y ≃ z → x ≃ z
 _ ≡⟨ x≡y ⟩ prf y≡z = prf (trans x≡y y≡z)
 
 _∎ : (x : D) → x ≃ x
-_∎ x = prf (refl x)
+_∎ _ = prf refl

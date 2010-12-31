@@ -8,7 +8,6 @@ open import LTC.Base
 open import LTC.Base.Properties using ( x≡y→Sx≡Sy )
 
 open import Common.Function using ( _$_ )
-open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
 
 open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
@@ -21,6 +20,8 @@ open import LTC.Data.Nat.PropertiesI
   using ( +-N ; ∸-N
         ; +-comm ; +-rightIdentity
         )
+
+open import LTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 

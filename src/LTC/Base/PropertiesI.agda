@@ -6,7 +6,7 @@ module LTC.Base.PropertiesI where
 
 open import LTC.Base
 
-open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
+open import LTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 

@@ -1,15 +1,16 @@
 ------------------------------------------------------------------------------
--- PA properties
+-- PA propositional equality
 ------------------------------------------------------------------------------
 
-module AxiomaticPA.Equality.PropertiesATP where
+module AxiomaticPA.Relation.Binary.PropositionalEqualityATP where
 
 open import AxiomaticPA.Base
 
 ------------------------------------------------------------------------------
+-- Identity properties
 
 postulate
-  refl : ∀ n → n ≣ n
+  refl : ∀ {n} → n ≣ n
 {-# ATP prove refl #-}
 
 postulate

@@ -6,7 +6,7 @@ module GroupTheory.PropertiesI where
 
 open import GroupTheory.Base
 
-open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
+open import GroupTheory.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 

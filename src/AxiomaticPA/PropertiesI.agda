@@ -6,8 +6,8 @@ module AxiomaticPA.PropertiesI where
 
 open import AxiomaticPA.Base
 
-open import AxiomaticPA.Equality.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
-open import AxiomaticPA.Equality.Properties using ( sym )
+open import AxiomaticPA.Relation.Binary.EqReasoning
+open import AxiomaticPA.Relation.Binary.PropositionalEqualityI using ( sym )
 
 ------------------------------------------------------------------------------
 
@@ -23,8 +23,8 @@ open import AxiomaticPA.Equality.Properties using ( sym )
     iStep : ∀ i → P i → P (succ i)
     iStep i Pi =
       begin
-        succ i + zero   ≡⟨ S₆ i zero ⟩
-        succ (i + zero) ≡⟨ S₂ Pi ⟩
+        succ i + zero   ≣⟨ S₆ i zero ⟩
+        succ (i + zero) ≣⟨ S₂ Pi ⟩
         succ i
       ∎
 
@@ -37,17 +37,17 @@ x+Sy≣S[x+y] m n = S₉ P P0 iStep m
     P0 : P zero
     P0 =
       begin
-        zero + succ n   ≡⟨ S₅ (succ n) ⟩
-        succ n          ≡⟨ S₂ (sym (S₅ n)) ⟩
+        zero + succ n   ≣⟨ S₅ (succ n) ⟩
+        succ n          ≣⟨ S₂ (sym (S₅ n)) ⟩
         succ (zero + n)
       ∎
 
     iStep : ∀ i → P i → P (succ i)
     iStep i Pi =
         begin
-          succ i + succ n     ≡⟨ S₆ i (succ n) ⟩
-          succ (i + succ n)   ≡⟨ S₂ Pi ⟩
-          succ (succ (i + n)) ≡⟨ S₂ (sym (S₆ i n)) ⟩
+          succ i + succ n     ≣⟨ S₆ i (succ n) ⟩
+          succ (i + succ n)   ≣⟨ S₂ Pi ⟩
+          succ (succ (i + n)) ≣⟨ S₂ (sym (S₆ i n)) ⟩
           succ (succ i + n)
         ∎
 
@@ -60,17 +60,17 @@ x+Sy≣S[x+y] m n = S₉ P P0 iStep m
     P0 : P zero
     P0 =
       begin
-        zero + n   ≡⟨ S₅ n ⟩
-        n          ≡⟨ sym (+-rightIdentity n) ⟩
+        zero + n   ≣⟨ S₅ n ⟩
+        n          ≣⟨ sym (+-rightIdentity n) ⟩
         n + zero
       ∎
 
     iStep : ∀ i → P i → P (succ i)
     iStep i Pi =
        begin
-         succ i + n   ≡⟨ S₆ i n ⟩
-         succ (i + n) ≡⟨ S₂ Pi ⟩
-         succ (n + i) ≡⟨ sym (x+Sy≣S[x+y] n i) ⟩
+         succ i + n   ≣⟨ S₆ i n ⟩
+         succ (i + n) ≣⟨ S₂ Pi ⟩
+         succ (n + i) ≣⟨ sym (x+Sy≣S[x+y] n i) ⟩
          n + succ i
        ∎
 
@@ -83,18 +83,18 @@ x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 iStep o
     P0 : P zero
     P0 =
       begin
-        m + zero ≡⟨ +-rightIdentity m ⟩
-        m        ≡⟨ m≣n ⟩
-        n        ≡⟨ sym (+-rightIdentity n) ⟩
+        m + zero ≣⟨ +-rightIdentity m ⟩
+        m        ≣⟨ m≣n ⟩
+        n        ≣⟨ sym (+-rightIdentity n) ⟩
         n + zero
       ∎
 
     iStep : ∀ i → P i → P (succ i)
     iStep i Pi =
       begin
-        m + succ i   ≡⟨ x+Sy≣S[x+y] m i ⟩
-        succ (m + i) ≡⟨ S₂ Pi ⟩
-        succ (n + i) ≡⟨ sym (x+Sy≣S[x+y] n i) ⟩
+        m + succ i   ≣⟨ x+Sy≣S[x+y] m i ⟩
+        succ (m + i) ≣⟨ S₂ Pi ⟩
+        succ (n + i) ≣⟨ sym (x+Sy≣S[x+y] n i) ⟩
         n + succ i
       ∎
 
@@ -107,17 +107,17 @@ x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 iStep o
     P0 : P zero
     P0 =
       begin
-        zero + n + o  ≡⟨ x≣y→x+z≣y+z o (S₅ n) ⟩
-        n + o         ≡⟨ sym (S₅ (n + o)) ⟩
+        zero + n + o  ≣⟨ x≣y→x+z≣y+z o (S₅ n) ⟩
+        n + o         ≣⟨ sym (S₅ (n + o)) ⟩
         zero + (n + o)
       ∎
 
     iStep : ∀ i → P i → P (succ i)
     iStep i Pi =
       begin
-        succ i + n + o     ≡⟨ x≣y→x+z≣y+z o (S₆ i n) ⟩
-        succ (i + n) + o   ≡⟨ S₆ (i + n) o ⟩
-        succ (i + n + o)   ≡⟨ S₂ Pi ⟩
-        succ (i + (n + o)) ≡⟨ sym (S₆ i (n + o)) ⟩
+        succ i + n + o     ≣⟨ x≣y→x+z≣y+z o (S₆ i n) ⟩
+        succ (i + n) + o   ≣⟨ S₆ (i + n) o ⟩
+        succ (i + n + o)   ≣⟨ S₂ Pi ⟩
+        succ (i + (n + o)) ≣⟨ sym (S₆ i (n + o)) ⟩
         succ i + (n + o)
       ∎

@@ -81,3 +81,5 @@ open import LTC.Program.SortList.PropertiesI
 open import LTC.Program.SortList.PropertiesATP
 open import LTC.Program.SortList.SortList
 open import LTC.Program.SortList.SortList.ConsistencyTest
+
+open import LTC.Relation.Binary.EqReasoning

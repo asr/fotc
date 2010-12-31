@@ -8,7 +8,6 @@ open import LTC.Base
 open import LTC.Base.Properties using ( ¬S≡0 )
 
 open import Common.Function using ( _$_ )
-open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
 
 open import LTC.Data.Nat
   using ( _+_ ; _∸_
@@ -25,6 +24,8 @@ open import LTC.Data.Nat.PropertiesI
         ; *+-leftDistributive
         ; *∸-leftDistributive
         )
+
+open import LTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- The divisibility relation is reflexive for positive numbers.

@@ -7,7 +7,6 @@ module LTC.Data.Nat.PropertiesI where
 open import LTC.Base
 
 open import Common.Function using ( _$_ )
-open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
 
 open import LTC.Data.Nat
   using ( _+_ ; +-0x ; +-Sx
@@ -15,6 +14,8 @@ open import LTC.Data.Nat
         ; _*_ ; *-0x ; *-Sx
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
+
+open import LTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 

@@ -10,7 +10,6 @@ module LTC.Program.SortList.Properties.Closures.OrdListI where
 open import LTC.Base
 
 open import Common.Function using ( _$_ )
-open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
 
 open import LTC.Data.Bool
   using ( _&&_ ; &&-tt
@@ -57,6 +56,8 @@ open import LTC.Program.SortList.Properties.MiscellaneousI
         ; xs≤zs→ys≤zs→xs++ys≤zs
         )
 open import LTC.Program.SortList.SortList
+
+open import LTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- If (i ∷ is) is ordered then 'is' is ordered.

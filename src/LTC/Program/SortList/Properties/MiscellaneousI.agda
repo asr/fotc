@@ -7,7 +7,6 @@ module LTC.Program.SortList.Properties.MiscellaneousI where
 open import LTC.Base
 
 open import Common.Function using ( _$_ )
-open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
 
 open import LTC.Data.Bool
   using ( _&&_ ; &&-tt
@@ -30,6 +29,8 @@ open import LTC.Program.SortList.Properties.Closures.BoolI
         ; ordList-Bool
         )
 open import LTC.Program.SortList.SortList
+
+open import LTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- This is a weird result but recall that "the relation ≤ between

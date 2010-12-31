@@ -7,7 +7,6 @@ module LTC.Data.List.PropertiesI where
 open import LTC.Base
 
 open import Common.Function using ( _$_ )
-open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
 
 open import LTC.Data.List
   using ( _++_ ; ++-[] ; ++-∷
@@ -15,6 +14,8 @@ open import LTC.Data.List
         ; rev ; rev-[] ; rev-∷
         ; reverse
         )
+
+open import LTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- Closure properties

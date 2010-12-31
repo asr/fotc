@@ -7,7 +7,8 @@ module LTC-PCF.Data.Nat.Rec.EquationsI where
 open import LTC.Base
 
 open import Common.Function using ( _$_ )
-open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
+
+open import LTC.Relation.Binary.EqReasoning
 
 open import LTC-PCF.Data.Nat.Rec using ( rec ; rech )
 

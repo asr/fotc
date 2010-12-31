@@ -7,7 +7,6 @@ module LTC.Program.SortList.Properties.Closures.OrdTreeI where
 open import LTC.Base
 
 open import Common.Function using ( _$_ )
-open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
 
 open import LTC.Data.Bool using ( _&&_ ; &&-tt )
 open import LTC.Data.Bool.PropertiesI
@@ -49,6 +48,8 @@ open import LTC.Program.SortList.Properties.Closures.BoolI
         )
 open import LTC.Program.SortList.Properties.Closures.TreeI
   using ( makeTree-Tree )
+
+open import LTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- Subtrees

@@ -6,7 +6,7 @@ module LTC-PCF.Program.GCD.EquationsI where
 
 open import LTC.Base
 
-open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
+open import LTC.Relation.Binary.EqReasoning
 
 open import LTC-PCF.Data.Nat
   using ( _∸_

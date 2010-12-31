@@ -7,7 +7,6 @@ module LTC.Data.Bool.PropertiesI where
 open import LTC.Base
 
 open import Common.Function using ( _$_ )
-open import Common.Relation.Binary.EqReasoning using ( _≡⟨_⟩_ ; _∎ ; begin_ )
 
 open import LTC.Data.Bool
   using ( _&&_ ; &&-ff ; &&-ft ; &&-tf ; &&-tt
@@ -18,6 +17,8 @@ open import LTC.Data.Nat.Inequalities.PropertiesI using ( S≰0 )
 open import LTC.Data.Nat.Type
   using ( N ; sN ; zN  -- The LTC natural numbers type.
         )
+
+open import LTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- Basic properties

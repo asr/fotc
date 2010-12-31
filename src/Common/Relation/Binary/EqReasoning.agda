@@ -1,12 +1,13 @@
 ------------------------------------------------------------------------------
--- Equality reasoning on the universe of discourse.
+-- Parametrized equality reasoning
 ------------------------------------------------------------------------------
 
-module Common.Relation.Binary.EqReasoning where
-
-open import Common.Relation.Binary.PropositionalEquality
-  using ( _≡_ ; refl ; trans  )
-open import Common.Universe using ( D )
+module Common.Relation.Binary.EqReasoning
+  {D     : Set}
+  (_≡_   : D → D → Set)
+  (refl  : {x : D} → x ≡ x)
+  (trans : {x y z : D} → x ≡ y → y ≡ z → x ≡ z)
+  where
 
 -- We add 3 to the fixities of the standard library.
 infix 7 _≃_

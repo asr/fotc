@@ -1,19 +1,20 @@
 ------------------------------------------------------------------------------
--- PA properties
+-- PA propositional equality
 ------------------------------------------------------------------------------
 
-module AxiomaticPA.Equality.Properties where
+module AxiomaticPA.Relation.Binary.PropositionalEqualityI where
 
 open import AxiomaticPA.Base
 
 ------------------------------------------------------------------------------
+-- Identity properties
 
-refl : ∀ n → n ≣ n
-refl n = S₁ (S₅ n) (S₅ n)
+refl : ∀ {n} → n ≣ n
+refl {n} = S₁ (S₅ n) (S₅ n)
 {-# ATP hint refl #-}
 
 sym : ∀ {m n} → m ≣ n → n ≣ m
-sym {m} = aux S₁ (refl m)
+sym {m} = aux S₁ refl
   where
     aux : ∀ {r t} → (t ≣ r → t ≣ t → r ≣ t) → t ≣ t → t ≣ r → r ≣ t
     aux hyp t≣t t≣r = hyp t≣r t≣t
