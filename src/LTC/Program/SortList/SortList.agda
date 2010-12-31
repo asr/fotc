@@ -17,7 +17,7 @@ open import LTC.Data.Nat.Inequalities using ( _≤_ )
 open import LTC.Data.Nat.Type
   using ( N  -- The LTC natural numbers type.
         )
-open import LTC.Data.List using ( _++_ ; foldr )
+open import LTC.Data.List using ( _++_ )
 
 ------------------------------------------------------------------------------
 -- Tree terms
@@ -36,7 +36,6 @@ data Tree : D → Set where
 {-# ATP hint nodeT #-}
 
 ------------------------------------------------------------------------------
-
 -- Inequalites on lists and trees
 
 -- Note from Burstall (p. 46): "The relation ≤ between lists is only an
@@ -47,8 +46,7 @@ postulate
   ≤-ItemList    : D → D → D
   ≤-ItemList-[] : (item : D) → ≤-ItemList item [] ≡ true
   ≤-ItemList-∷  : (item i is : D) →
-                  ≤-ItemList item (i ∷ is)        ≡ item ≤ i &&
-                                                    ≤-ItemList item is
+                    ≤-ItemList item (i ∷ is) ≡ item ≤ i && ≤-ItemList item is
 {-# ATP axiom ≤-ItemList-[] #-}
 {-# ATP axiom ≤-ItemList-∷ #-}
 
@@ -58,9 +56,9 @@ LE-ItemList item is = ≤-ItemList item is ≡ true
 
 postulate
   ≤-Lists    : D → D → D
-  ≤-Lists-[] : (is : D) →      ≤-Lists []       is ≡ true
-  ≤-Lists-∷  : (i is js : D) → ≤-Lists (i ∷ is) js ≡ ≤-ItemList i is &&
-                                                     ≤-Lists is js
+  ≤-Lists-[] : (is : D) → ≤-Lists [] is ≡ true
+  ≤-Lists-∷  : (i is js : D) →
+                  ≤-Lists (i ∷ is) js ≡ ≤-ItemList i js && ≤-Lists is js
 {-# ATP axiom ≤-Lists-[] #-}
 {-# ATP axiom ≤-Lists-∷ #-}
 
@@ -73,8 +71,8 @@ postulate
   ≤-ItemTree-nilTree  : (item : D) →   ≤-ItemTree item nilTree ≡ true
   ≤-ItemTree-tip      : (item i : D) → ≤-ItemTree item (tip i) ≡ item ≤ i
   ≤-ItemTree-node     : (item t₁ i t₂ : D) →
-                        ≤-ItemTree item (node t₁ i t₂) ≡ ≤-ItemTree item t₁ &&
-                                                         ≤-ItemTree item t₂
+                          ≤-ItemTree item (node t₁ i t₂) ≡
+                          ≤-ItemTree item t₁ && ≤-ItemTree item t₂
 {-# ATP axiom ≤-ItemTree-nilTree #-}
 {-# ATP axiom ≤-ItemTree-tip #-}
 {-# ATP axiom ≤-ItemTree-node #-}
@@ -83,14 +81,14 @@ LE-ItemTree : D → D → Set
 LE-ItemTree item t = ≤-ItemTree item t ≡ true
 {-# ATP definition LE-ItemTree #-}
 
--- No defined by Burstall.
+-- This function is not defined in the paper.
 postulate
   ≤-TreeItem         : D → D → D
   ≤-TreeItem-nilTree : (item : D) →   ≤-TreeItem nilTree item ≡ true
   ≤-TreeItem-tip     : (i item : D) → ≤-TreeItem (tip i) item ≡ i ≤ item
   ≤-TreeItem-node    : (t₁ i t₂ item : D) →
-                       ≤-TreeItem (node t₁ i t₂) item ≡ ≤-TreeItem t₁ item &&
-                                                        ≤-TreeItem t₂ item
+                         ≤-TreeItem (node t₁ i t₂) item ≡
+                         ≤-TreeItem t₁ item && ≤-TreeItem t₂ item
 {-# ATP axiom ≤-TreeItem-nilTree #-}
 {-# ATP axiom ≤-TreeItem-tip #-}
 {-# ATP axiom ≤-TreeItem-node #-}
@@ -100,37 +98,44 @@ LE-TreeItem t item = ≤-TreeItem t item ≡ true
 {-# ATP definition LE-TreeItem #-}
 
 ------------------------------------------------------------------------------
+-- Auxiliary functions
 
+postulate
+  -- The foldr function with the last two args flipped.
+  lit    : D → D → D → D
+  lit-[] : (f n : D) →      lit f []       n ≡ n
+  lit-∷  : (f d ds n : D) → lit f (d ∷ ds) n ≡ f · d · (lit f ds n)
+{-# ATP axiom lit-[] #-}
+{-# ATP axiom lit-∷ #-}
+
+------------------------------------------------------------------------------
 -- Ordering functions and predicates on lists and trees
 
 postulate
-  isListOrd    : D → D
-  isListOrd-[] :              isListOrd []       ≡ true
-  isListOrd-∷  : (i is : D) → isListOrd (i ∷ is) ≡ ≤-ItemList i is &&
-                                                   isListOrd is
-{-# ATP axiom isListOrd-[] #-}
-{-# ATP axiom isListOrd-∷ #-}
+  ordList    : D → D
+  ordList-[] :              ordList []       ≡ true
+  ordList-∷  : (i is : D) → ordList (i ∷ is) ≡ ≤-ItemList i is && ordList is
+{-# ATP axiom ordList-[] #-}
+{-# ATP axiom ordList-∷ #-}
+
+OrdList : D → Set
+OrdList is = ordList is ≡ true
+{-# ATP definition OrdList #-}
 
 postulate
-  isTreeOrd         : D → D
-  isTreeOrd-nilTree :           isTreeOrd nilTree ≡ true
-  isTreeOrd-tip     : (i : D) → isTreeOrd (tip i) ≡ true
-  isTreeOrd-node    : (t₁ i t₂ : D) →
-                      isTreeOrd (node t₁ i t₂)    ≡ isTreeOrd t₁     &&
-                                                    isTreeOrd t₂     &&
-                                                    ≤-TreeItem t₁ i  &&
-                                                    ≤-ItemTree i t₂
-{-# ATP axiom isTreeOrd-nilTree #-}
-{-# ATP axiom isTreeOrd-tip #-}
-{-# ATP axiom isTreeOrd-node #-}
+  ordTree         : D → D
+  ordTree-nilTree :            ordTree nilTree ≡ true
+  ordTree-tip     : (i : D) →  ordTree (tip i) ≡ true
+  ordTree-node    : (t₁ i t₂ : D) →
+                      ordTree (node t₁ i t₂) ≡
+                      ordTree t₁ && ordTree t₂ && ≤-TreeItem t₁ i && ≤-ItemTree i t₂
+{-# ATP axiom ordTree-nilTree #-}
+{-# ATP axiom ordTree-tip #-}
+{-# ATP axiom ordTree-node #-}
 
-TreeOrd : D → Set
-TreeOrd t = isTreeOrd t ≡ true
-{-# ATP definition TreeOrd #-}
-
-ListOrd : D → Set
-ListOrd is = isListOrd is ≡ true
-{-# ATP definition ListOrd #-}
+OrdTree : D → Set
+OrdTree t = ordTree t ≡ true
+{-# ATP definition OrdTree #-}
 
 ------------------------------------------------------------------------------
 -- The program
@@ -159,7 +164,7 @@ postulate
 
 -- The function makeTree converts a list to a tree.
 makeTree : D → D
-makeTree is = foldr toTree nilTree is
+makeTree is = lit toTree is nilTree
 {-# ATP definition makeTree #-}
 
 -- The function flatten converts a tree to a list.
@@ -168,7 +173,7 @@ postulate
   flatten-nilTree :           flatten nilTree ≡ []
   flatten-tip     : (i : D) → flatten (tip i) ≡ i ∷ []
   flatten-node    : (t₁ i t₂ : D) →
-                    flatten (node t₁ i t₂)    ≡ flatten t₁ ++ flatten t₂
+                      flatten (node t₁ i t₂)  ≡ flatten t₁ ++ flatten t₂
 {-# ATP axiom flatten-nilTree #-}
 {-# ATP axiom flatten-tip #-}
 {-# ATP axiom flatten-node #-}

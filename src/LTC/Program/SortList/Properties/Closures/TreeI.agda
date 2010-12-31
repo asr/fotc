@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Closures properties respect to Tree (using equational reasoning)
+-- Closures properties respect to Tree
 ------------------------------------------------------------------------------
 
-module LTC.Program.SortList.Closures.TreeI where
+module LTC.Program.SortList.Properties.Closures.TreeI where
 
 open import LTC.Base
 
@@ -14,10 +14,10 @@ open import LTC.Data.Nat.List.Type
 open import LTC.Data.Nat.Type
   using ( N  -- The LTC natural numbers type.
         )
-open import LTC.Data.List using ( foldr-[] ; foldr-∷ )
 
 open import LTC.Program.SortList.SortList
-  using ( makeTree
+  using ( lit-[] ; lit-∷
+        ; makeTree
         ; nilTree
         ; toTree
         ; Tree ; nilT  -- The LTC tree type.
@@ -30,8 +30,8 @@ postulate
 
 makeTree-Tree : {is : D} → ListN is → Tree (makeTree is)
 makeTree-Tree nilLN =
-  subst (λ t → Tree t) (sym $ foldr-[] toTree nilTree) nilT
-makeTree-Tree (consLN {i} {is} Ni Lis) =
+  subst (λ t → Tree t) (sym $ lit-[] toTree nilTree) nilT
+makeTree-Tree (consLN {i} {is} Ni LNis) =
   subst (λ t → Tree t)
-        (sym $ foldr-∷ toTree nilTree i is)
-        (toTree-Tree Ni (makeTree-Tree Lis))
+        (sym $ lit-∷ toTree i is nilTree)
+        (toTree-Tree Ni (makeTree-Tree LNis))

@@ -2,7 +2,7 @@
 -- Closures properties respect to Tree
 ------------------------------------------------------------------------------
 
-module LTC.Program.SortList.Closures.TreeATP where
+module LTC.Program.SortList.Properties.Closures.TreeATP where
 
 open import LTC.Base
 

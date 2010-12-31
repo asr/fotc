@@ -1,6 +1,5 @@
 ------------------------------------------------------------------------------
--- The program to sort a list satisfies the specification (using
--- equational reasoning)
+-- The program to sort a list satisfies the specification
 ------------------------------------------------------------------------------
 
 -- This module prove the correctness of a program which sorts a list
@@ -18,19 +17,18 @@ open import LTC.Data.Nat.List.Type
   using ( ListN  -- The LTC list of natural numbers type.
         )
 
-open import LTC.Program.SortList.Closures.ListOrdI using ( flatten-ListOrd )
-open import LTC.Program.SortList.Closures.TreeI using ( makeTree-Tree )
-open import LTC.Program.SortList.Closures.TreeOrdI using ( makeTree-TreeOrd )
-open import LTC.Program.SortList.SortList using ( ListOrd ; sort )
-
--- TODO: These files are included but at the moment they are not requeried.
-open import LTC.Program.SortList.Closures.ListI
 open import LTC.Program.SortList.PropertiesI
+  using ( flatten-OrdList
+        ; makeTree-OrdTree
+        )
+open import LTC.Program.SortList.Properties.Closures.TreeI
+  using ( makeTree-Tree )
+open import LTC.Program.SortList.SortList using ( OrdList ; sort )
 
 ------------------------------------------------------------------------------
--- The sort program generates a ordered list.
-sort-ListOrd : {is : D} → ListN is → ListOrd (sort is)
-sort-ListOrd {is} Lis =
-  subst (λ t → ListOrd t)
+-- Main theorem: The sort program generates a ordered list.
+sort-OrdList : {is : D} → ListN is → OrdList (sort is)
+sort-OrdList {is} Lis =
+  subst (λ t → OrdList t)
         refl
-        (flatten-ListOrd (makeTree-Tree Lis) (makeTree-TreeOrd Lis))
+        (flatten-OrdList (makeTree-Tree Lis) (makeTree-OrdTree Lis))

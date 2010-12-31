@@ -49,8 +49,6 @@ open import LTC.Data.Stream.Bisimilarity.ConsistencyTest
 open import LTC.Data.Stream.Bisimilarity.PropertiesATP
 open import LTC.Data.Stream.Bisimilarity.PropertiesI
 
-open import LTC.Postulates
-
 open import LTC.Program.GCD.Definitions
 open import LTC.Program.GCD.GCD
 open import LTC.Program.GCD.GCD.ConsistencyTest
@@ -65,19 +63,21 @@ open import LTC.Program.GCD.ProofSpecificationATP
 open import LTC.Program.GCD.ProofSpecificationI
 open import LTC.Program.GCD.Specification
 
-open import LTC.Program.SortList.Closures.BoolATP
-open import LTC.Program.SortList.Closures.BoolI
-open import LTC.Program.SortList.Closures.ListATP
-open import LTC.Program.SortList.Closures.ListI
-open import LTC.Program.SortList.Closures.ListOrdATP
-open import LTC.Program.SortList.Closures.ListOrdI
-open import LTC.Program.SortList.Closures.TreeATP
-open import LTC.Program.SortList.Closures.TreeI
-open import LTC.Program.SortList.Closures.TreeOrdATP
-open import LTC.Program.SortList.Closures.TreeOrdI
 open import LTC.Program.SortList.ProofSpecificationATP
 open import LTC.Program.SortList.ProofSpecificationI
-open import LTC.Program.SortList.PropertiesATP
+open import LTC.Program.SortList.Properties.Closures.BoolATP
+open import LTC.Program.SortList.Properties.Closures.BoolI
+open import LTC.Program.SortList.Properties.Closures.ListATP
+open import LTC.Program.SortList.Properties.Closures.ListI
+open import LTC.Program.SortList.Properties.Closures.OrdListATP
+open import LTC.Program.SortList.Properties.Closures.OrdListI
+open import LTC.Program.SortList.Properties.Closures.OrdTreeATP
+open import LTC.Program.SortList.Properties.Closures.OrdTreeI
+open import LTC.Program.SortList.Properties.Closures.TreeATP
+open import LTC.Program.SortList.Properties.Closures.TreeI
+open import LTC.Program.SortList.Properties.MiscellaneousATP
+open import LTC.Program.SortList.Properties.MiscellaneousI
 open import LTC.Program.SortList.PropertiesI
+open import LTC.Program.SortList.PropertiesATP
 open import LTC.Program.SortList.SortList
 open import LTC.Program.SortList.SortList.ConsistencyTest

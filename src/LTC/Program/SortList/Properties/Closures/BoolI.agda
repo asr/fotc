@@ -2,7 +2,7 @@
 -- Closures properties respect to Bool
 ------------------------------------------------------------------------------
 
-module LTC.Program.SortList.Closures.BoolI where
+module LTC.Program.SortList.Properties.Closures.BoolI where
 
 open import LTC.Base
 
@@ -20,14 +20,6 @@ open import LTC.Data.Nat.Type
         )
 
 open import LTC.Program.SortList.SortList
-  using ( ≤-ItemList ; ≤-ItemList-[] ; ≤-ItemList-∷
-        ; ≤-ItemTree ; ≤-ItemTree-nilTree ; ≤-ItemTree-node ; ≤-ItemTree-tip
-        ; ≤-Lists
-        ; ≤-TreeItem ; ≤-TreeItem-nilTree ; ≤-TreeItem-node ; ≤-TreeItem-tip
-        ; isListOrd
-        ; isTreeOrd ; isTreeOrd-nilTree ; isTreeOrd-node ; isTreeOrd-tip
-        ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
-        )
 
 ------------------------------------------------------------------------------
 
@@ -45,7 +37,7 @@ postulate
 
 -- See the ATP version.
 postulate
-  isListOrd-Bool : {is : D} → ListN is → Bool (isListOrd is)
+  ordList-Bool : {is : D} → ListN is → Bool (ordList is)
 
 ≤-ItemTree-Bool : {item : D} → N item → {t : D} → Tree t →
                   Bool (≤-ItemTree item t)
@@ -67,13 +59,13 @@ postulate
         (sym $ ≤-TreeItem-node t₁ i t₂ item)
         (&&-Bool (≤-TreeItem-Bool Tt₁ Nitem) (≤-TreeItem-Bool Tt₂ Nitem))
 
-isTreeOrd-Bool : {t : D} → Tree t → Bool (isTreeOrd t)
-isTreeOrd-Bool nilT          = subst Bool (sym isTreeOrd-nilTree) tB
-isTreeOrd-Bool (tipT {i} Ni) = subst Bool (sym $ isTreeOrd-tip i) tB
-isTreeOrd-Bool (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
+ordTree-Bool : {t : D} → Tree t → Bool (ordTree t)
+ordTree-Bool nilT          = subst Bool (sym ordTree-nilTree) tB
+ordTree-Bool (tipT {i} Ni) = subst Bool (sym $ ordTree-tip i) tB
+ordTree-Bool (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
   subst Bool
-        (sym $ isTreeOrd-node t₁ i t₂)
-        (&&-Bool (isTreeOrd-Bool Tt₁)
-                 (&&-Bool (isTreeOrd-Bool Tt₂)
+        (sym $ ordTree-node t₁ i t₂)
+        (&&-Bool (ordTree-Bool Tt₁)
+                 (&&-Bool (ordTree-Bool Tt₂)
                           (&&-Bool (≤-TreeItem-Bool Tt₁ Ni)
                                    (≤-ItemTree-Bool Ni Tt₂))))

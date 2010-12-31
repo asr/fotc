@@ -2,7 +2,7 @@
 -- Closures properties respect to Bool
 ------------------------------------------------------------------------------
 
-module LTC.Program.SortList.Closures.BoolATP where
+module LTC.Program.SortList.Properties.Closures.BoolATP where
 
 open import LTC.Base
 
@@ -20,15 +20,6 @@ open import LTC.Data.Nat.Type
         )
 
 open import LTC.Program.SortList.SortList
-  using ( ≤-ItemList
-        ; ≤-ItemTree
-        ; ≤-Lists
-        ; ≤-TreeItem
-        ; isListOrd
-        ; isTreeOrd
-        ; nilTree ; node ; tip
-        ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
-        )
 
 ------------------------------------------------------------------------------
 
@@ -60,16 +51,16 @@ open import LTC.Program.SortList.SortList
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf &&-Bool ≤-ItemList-Bool #-}
 
-isListOrd-Bool : {is : D} → ListN is → Bool (isListOrd is)
-isListOrd-Bool nilLN = prf
+ordList-Bool : {is : D} → ListN is → Bool (ordList is)
+ordList-Bool nilLN = prf
   where
-    postulate prf : Bool (isListOrd [])
+    postulate prf : Bool (ordList [])
     {-# ATP prove prf #-}
 
-isListOrd-Bool (consLN {i} {is} Ni LNis) = prf $ isListOrd-Bool LNis
+ordList-Bool (consLN {i} {is} Ni LNis) = prf $ ordList-Bool LNis
   where
-    postulate prf : Bool (isListOrd is) →  -- IH.
-                    Bool (isListOrd (i ∷ is))
+    postulate prf : Bool (ordList is) →  -- IH.
+                    Bool (ordList (i ∷ is))
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf &&-Bool ≤-ItemList-Bool #-}
 
@@ -113,23 +104,23 @@ isListOrd-Bool (consLN {i} {is} Ni LNis) = prf $ isListOrd-Bool LNis
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf &&-Bool #-}
 
-isTreeOrd-Bool : {t : D} → Tree t → Bool (isTreeOrd t)
-isTreeOrd-Bool nilT = prf
+ordTree-Bool : {t : D} → Tree t → Bool (ordTree t)
+ordTree-Bool nilT = prf
   where
-    postulate prf : Bool (isTreeOrd nilTree)
+    postulate prf : Bool (ordTree nilTree)
     {-# ATP prove prf #-}
 
-isTreeOrd-Bool (tipT {i} Ni) = prf
+ordTree-Bool (tipT {i} Ni) = prf
   where
-    postulate prf : Bool (isTreeOrd (tip i))
+    postulate prf : Bool (ordTree (tip i))
     {-# ATP prove prf #-}
 
-isTreeOrd-Bool (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
-  prf (isTreeOrd-Bool Tt₁) (isTreeOrd-Bool Tt₂)
+ordTree-Bool (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
+  prf (ordTree-Bool Tt₁) (ordTree-Bool Tt₂)
   where
-    postulate prf : Bool (isTreeOrd t₁) →  -- IH.
-                    Bool (isTreeOrd t₂) →  -- IH.
-                    Bool (isTreeOrd (node t₁ i t₂))
+    postulate prf : Bool (ordTree t₁) →  -- IH.
+                    Bool (ordTree t₂) →  -- IH.
+                    Bool (ordTree (node t₁ i t₂))
     -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).

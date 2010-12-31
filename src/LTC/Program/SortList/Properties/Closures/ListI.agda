@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Closures properties respect to List (using equational reasoning)
+-- Closures properties respect to List
 ------------------------------------------------------------------------------
 
-module LTC.Program.SortList.Closures.ListI where
+module LTC.Program.SortList.Properties.Closures.ListI where
 
 open import LTC.Base
 
@@ -14,9 +14,6 @@ open import LTC.Data.Nat.List.Type
 open import LTC.Data.Nat.List.PropertiesI using ( ++-ListN )
 
 open import LTC.Program.SortList.SortList
-  using ( flatten ; flatten-nilTree ; flatten-node ; flatten-tip
-        ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
-        )
 
 ------------------------------------------------------------------------------
 -- The function flatten generates a list.

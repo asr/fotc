@@ -2,7 +2,7 @@
 -- Closures properties respect to List
 ------------------------------------------------------------------------------
 
-module LTC.Program.SortList.Closures.ListATP where
+module LTC.Program.SortList.Properties.Closures.ListATP where
 
 open import LTC.Base
 
@@ -12,10 +12,6 @@ open import LTC.Data.Nat.List.Type
 open import LTC.Data.Nat.List.PropertiesATP using ( ++-ListN )
 
 open import LTC.Program.SortList.SortList
-  using ( flatten
-        ; nilTree ; node ; tip
-        ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
-        )
 
 ------------------------------------------------------------------------------
 -- The function flatten generates a list.

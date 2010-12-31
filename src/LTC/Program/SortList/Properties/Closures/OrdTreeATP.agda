@@ -1,14 +1,14 @@
 ------------------------------------------------------------------------------
--- Closures properties respect to TreeOrd
+-- Closures properties respect to OrdTree
 ------------------------------------------------------------------------------
 
-module LTC.Program.SortList.Closures.TreeOrdATP where
+module LTC.Program.SortList.Properties.Closures.OrdTreeATP where
 
 open import LTC.Base
 
 open import Common.Function using ( _$_ )
 
-open import LTC.Data.Bool.PropertiesATP
+open import LTC.Data.Bool.PropertiesI
   using ( &&-Bool
         ; &&-proj₁
         ; &&-proj₂
@@ -32,60 +32,60 @@ open import LTC.Data.Nat.Type
 open import LTC.Program.SortList.SortList
   using ( ≤-TreeItem-node
         ; ≤-ItemTree-node
-        ; isTreeOrd
         ; LE-ItemTree
         ; LE-TreeItem
         ; makeTree
         ; nilTree ; node ; tip
+        ; ordTree ; OrdTree
         ; toTree
         ; Tree ; nilT ; nodeT ; tipT  -- The LTC tree type.
-        ; TreeOrd
         )
-open import LTC.Program.SortList.Closures.BoolATP
+open import LTC.Program.SortList.Properties.Closures.BoolATP
   using ( ≤-ItemTree-Bool
         ; ≤-TreeItem-Bool
-        ; isTreeOrd-Bool
+        ; ordTree-Bool
         )
-open import LTC.Program.SortList.Closures.TreeATP using ( makeTree-Tree )
+open import LTC.Program.SortList.Properties.Closures.TreeATP
+  using ( makeTree-Tree )
 
 ------------------------------------------------------------------------------
 -- Subtrees
 
 -- If (node t₁ i t₂) is ordered then t₁ is ordered.
 postulate
-  leftSubTree-TreeOrd : {t₁ i t₂ : D} → Tree t₁ → N i → Tree t₂ →
-                        TreeOrd (node t₁ i t₂) → TreeOrd t₁
+  leftSubTree-OrdTree : {t₁ i t₂ : D} → Tree t₁ → N i → Tree t₂ →
+                        OrdTree (node t₁ i t₂) → OrdTree t₁
 -- E 1.2: CPU time limit exceeded (180 sec).
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
-{-# ATP prove leftSubTree-TreeOrd ≤-ItemTree-Bool ≤-TreeItem-Bool &&-Bool
-                                  isTreeOrd-Bool &&-proj₁
+{-# ATP prove leftSubTree-OrdTree ≤-ItemTree-Bool ≤-TreeItem-Bool &&-Bool
+                                  ordTree-Bool &&-proj₁
 #-}
 
 -- If (node t₁ i t₂) is ordered then t₂ is ordered.
 postulate
-  rightSubTree-TreeOrd : {t₁ i t₂ : D} → Tree t₁ → N i → Tree t₂ →
-                         TreeOrd (node t₁ i t₂) → TreeOrd t₂
+  rightSubTree-OrdTree : {t₁ i t₂ : D} → Tree t₁ → N i → Tree t₂ →
+                         OrdTree (node t₁ i t₂) → OrdTree t₂
 -- E 1.2: CPU time limit exceeded (180 sec).
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-{-# ATP prove rightSubTree-TreeOrd ≤-ItemTree-Bool ≤-TreeItem-Bool &&-Bool
-                                   isTreeOrd-Bool &&-proj₁
+{-# ATP prove rightSubTree-OrdTree ≤-ItemTree-Bool ≤-TreeItem-Bool &&-Bool
+                                   ordTree-Bool &&-proj₁
                                    &&-proj₂
 #-}
 
 ------------------------------------------------------------------------------
 -- Auxiliar functions
 
-toTree-TreeOrd-aux₁ : {i₁ i₂ : D} → N i₁ → N i₂ → GT i₁ i₂ →
+toTree-OrdTree-aux₁ : {i₁ i₂ : D} → N i₁ → N i₂ → GT i₁ i₂ →
                       {t : D} → Tree t →
                       LE-TreeItem t i₁ →
                       LE-TreeItem (toTree · i₂ · t) i₁
-toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ .{nilTree} nilT t≤i₁ = prf
+toTree-OrdTree-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ .{nilTree} nilT t≤i₁ = prf
   where
     postulate prf : LE-TreeItem (toTree · i₂ · nilTree) i₁
     {-# ATP prove prf x<y→x≤y #-}
 
-toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁ =
+toTree-OrdTree-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁ =
   [ prf₁ , prf₂ ] (x>y∨x≤y Nj Ni₂)
   where
     postulate prf₁ : GT j i₂ → LE-TreeItem (toTree · i₂ · tip j) i₁
@@ -100,17 +100,17 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₂ x<y→x≤y #-}
 
-toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
+toTree-OrdTree-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
                     (nodeT {t₁} {j} {t₂} Tt₁ Nj Tt₂) t≤i₁ =
-  [ prf₁ (toTree-TreeOrd-aux₁ Ni₁ Ni₂ i₁>i₂ Tt₁
+  [ prf₁ (toTree-OrdTree-aux₁ Ni₁ Ni₂ i₁>i₂ Tt₁
            (&&-proj₁ (≤-TreeItem-Bool Tt₁ Ni₁)
                      (≤-TreeItem-Bool Tt₂ Ni₁)
                      (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁)))
 
-  , prf₂ (toTree-TreeOrd-aux₁ Ni₁ Ni₂ i₁>i₂ Tt₂
-           (&&-proj₂ (≤-TreeItem-Bool Tt₁ Ni₁)
-                     (≤-TreeItem-Bool Tt₂ Ni₁)
-                     (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁)))
+  , prf₂ (toTree-OrdTree-aux₁ Ni₁ Ni₂ i₁>i₂ Tt₂
+           (&&-proj₂  (≤-TreeItem-Bool Tt₁ Ni₁)
+                      (≤-TreeItem-Bool Tt₂ Ni₁)
+                      (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁)))
   ] (x>y∨x≤y Nj Ni₂)
   where
     postulate prf₁ : LE-TreeItem (toTree · i₂ · t₁) i₁ →  -- IH.
@@ -128,17 +128,17 @@ toTree-TreeOrd-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf₂ &&-proj₁ ≤-TreeItem-Bool #-}
 
-toTree-TreeOrd-aux₂ : {i₁ i₂ : D} → N i₁ → N i₂ → LE i₁ i₂ →
+toTree-OrdTree-aux₂ : {i₁ i₂ : D} → N i₁ → N i₂ → LE i₁ i₂ →
                       {t : D} → Tree t →
                       LE-ItemTree i₁ t →
                       LE-ItemTree i₁ (toTree · i₂ · t)
-toTree-TreeOrd-aux₂ {i₁} {i₂} _ _ i₁≤i₂ .{nilTree} nilT _ = prf
+toTree-OrdTree-aux₂ {i₁} {i₂} _ _ i₁≤i₂ .{nilTree} nilT _ = prf
   where
     postulate prf : LE-ItemTree i₁ (toTree · i₂ · nilTree)
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf #-}
 
-toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i₁≤t =
+toTree-OrdTree-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i₁≤t =
   [ prf₁ , prf₂ ] (x>y∨x≤y Nj Ni₂)
   where
     postulate prf₁ : GT j i₂ → LE-ItemTree i₁ (toTree · i₂ · tip j)
@@ -153,14 +153,14 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i₁�
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₂ #-}
 
-toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
+toTree-OrdTree-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
                     (nodeT {t₁} {j} {t₂} Tt₁ Nj Tt₂) i₁≤t =
-  [ prf₁ (toTree-TreeOrd-aux₂ Ni₁ Ni₂ i₁≤i₂ Tt₁
+  [ prf₁ (toTree-OrdTree-aux₂ Ni₁ Ni₂ i₁≤i₂ Tt₁
            (&&-proj₁ (≤-ItemTree-Bool Ni₁ Tt₁)
                      (≤-ItemTree-Bool Ni₁ Tt₂)
                      (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t)))
 
-  , prf₂ (toTree-TreeOrd-aux₂ Ni₁ Ni₂ i₁≤i₂ Tt₂
+  , prf₂ (toTree-OrdTree-aux₂ Ni₁ Ni₂ i₁≤i₂ Tt₂
            (&&-proj₂ (≤-ItemTree-Bool Ni₁ Tt₁)
                      (≤-ItemTree-Bool Ni₁ Tt₂)
                      (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t)))
@@ -181,73 +181,3 @@ toTree-TreeOrd-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₂ ≤-ItemTree-Bool &&-proj₁ #-}
-
-------------------------------------------------------------------------------
--- If t is ordered then (toTree i t) is ordered.
-toTree-TreeOrd : {item t : D} → N item → Tree t → TreeOrd t →
-                 TreeOrd (toTree · item · t)
-toTree-TreeOrd {item} Nitem nilT _ = prf
-  where
-    postulate prf : TreeOrd (toTree · item · nilTree)
-    {-# ATP prove prf #-}
-
-toTree-TreeOrd {item} Nitem (tipT {i} Ni) TOtipT =
-  [ prf₁ , prf₂ ] (x>y∨x≤y Ni Nitem)
-  where
-    postulate prf₁ : GT i item → TreeOrd (toTree · item · tip i)
-    -- E 1.2: CPU time limit exceeded (180 sec).
-    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
-    {-# ATP prove prf₁ x≤x x<y→x≤y x>y→x≰y #-}
-
-    postulate prf₂ : LE i item → TreeOrd (toTree · item · tip i)
-    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
-    {-# ATP prove prf₂ x≤x #-}
-
-toTree-TreeOrd {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) TOnodeT =
-  [ prf₁ (toTree-TreeOrd Nitem Tt₁ (leftSubTree-TreeOrd Tt₁ Ni Tt₂ TOnodeT))
-         (rightSubTree-TreeOrd Tt₁ Ni Tt₂ TOnodeT)
-  , prf₂ (toTree-TreeOrd Nitem Tt₂ (rightSubTree-TreeOrd Tt₁ Ni Tt₂ TOnodeT))
-         (leftSubTree-TreeOrd Tt₁ Ni Tt₂ TOnodeT)
-  ] (x>y∨x≤y Ni Nitem)
-  where
-    postulate prf₁ : isTreeOrd (toTree · item · t₁) ≡ true →  -- IH.
-                     TreeOrd t₂ →
-                     GT i item →
-                     TreeOrd (toTree · item · node t₁ i t₂)
-    -- E 1.2: CPU time limit exceeded (180 sec).
-    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
-    {-# ATP prove prf₁ ≤-ItemTree-Bool ≤-TreeItem-Bool isTreeOrd-Bool
-                       x>y→x≰y &&₃-proj₃ &&₃-proj₄
-                       isTreeOrd-Bool toTree-TreeOrd-aux₁
-    #-}
-
-    postulate prf₂ : isTreeOrd (toTree · item · t₂) ≡ true → -- IH.
-                     TreeOrd t₁ →
-                     LE i item →
-                     TreeOrd (toTree · item · node t₁ i t₂)
-    -- E 1.2: CPU time limit exceeded (180 sec).
-    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    {-# ATP prove prf₂ ≤-ItemTree-Bool ≤-TreeItem-Bool isTreeOrd-Bool
-                       &&₃-proj₃ &&₃-proj₄
-                       toTree-TreeOrd-aux₂
-    #-}
-
-------------------------------------------------------------------------------
--- The function makeTree generates an ordered tree.
-makeTree-TreeOrd : {is : D} → ListN is → TreeOrd (makeTree is)
-makeTree-TreeOrd nilLN = prf
-  where
-    postulate prf : TreeOrd (makeTree [])
-    {-# ATP prove prf #-}
-
-makeTree-TreeOrd (consLN {i} {is} Ni Lis) = prf $ makeTree-TreeOrd Lis
-  where
-    postulate prf : TreeOrd (makeTree is) →  -- IH.
-                    TreeOrd (makeTree (i ∷ is))
-    -- E 1.2: CPU time limit exceeded (180 sec).
-    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
-    {-# ATP prove prf makeTree-Tree toTree-TreeOrd #-}
