@@ -16,7 +16,7 @@ open import LTC.Data.Nat.Type
 open import LTC.Data.List
 
 open import LTC.Program.SortList.Properties.Closures.BoolATP
-open import LTC.Program.SortList.Properties.Closures.ListATP
+open import LTC.Program.SortList.Properties.Closures.ListN-ATP
 open import LTC.Program.SortList.Properties.Closures.OrdList.FlattenATP
 open import LTC.Program.SortList.Properties.Closures.OrdListATP
 open import LTC.Program.SortList.Properties.Closures.OrdTreeATP
@@ -142,8 +142,8 @@ flatten-OrdList (tipT {i} Ni) OTt = prf
     -- {-# ATP prove prf #-}
 
 flatten-OrdList (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTt
-  = prf (++-OrdList (flatten-List Tt₁)
-                    (flatten-List Tt₂)
+  = prf (++-OrdList (flatten-ListN Tt₁)
+                    (flatten-ListN Tt₂)
                     (flatten-OrdList Tt₁ (leftSubTree-OrdTree Tt₁ Ni Tt₂ OTt)) -- IH.
                     (flatten-OrdList Tt₂ (rightSubTree-OrdTree Tt₁ Ni Tt₂ OTt))-- IH.
                     (flatten-OrdList-aux Tt₁ Ni Tt₂ OTt))

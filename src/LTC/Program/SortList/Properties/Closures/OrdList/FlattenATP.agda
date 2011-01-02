@@ -12,7 +12,7 @@ open import LTC.Data.Nat.Inequalities.PropertiesATP
 open import LTC.Data.Nat.Type
 
 open import LTC.Program.SortList.Properties.Closures.BoolATP
-open import LTC.Program.SortList.Properties.Closures.ListATP
+open import LTC.Program.SortList.Properties.Closures.ListN-ATP
 open import LTC.Program.SortList.Properties.Closures.OrdTreeATP
 open import LTC.Program.SortList.Properties.MiscellaneousATP
 open import LTC.Program.SortList.SortList
@@ -122,7 +122,7 @@ flatten-OrdList-aux {i = i} (tipT {i₁} Ni₁) Ni
     -- E 1.2: Non-tested.
     -- Metis 2.3 : Non-tested.
     -- Vampire 0.6 (revision 903): Non-tested.
-    {-# ATP prove prf xs≤ys→xs≤zs→xs≤ys++zs flatten-List lemma₁ lemma₂ #-}
+    {-# ATP prove prf xs≤ys→xs≤zs→xs≤ys++zs flatten-ListN lemma₁ lemma₂ #-}
 
 flatten-OrdList-aux {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂)
                     Ni nilT OTt = prf
@@ -168,7 +168,7 @@ flatten-OrdList-aux {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt�
       -- E 1.2: Non-tested.
       -- Equinox 5.0alpha (2010-06-29): Non-tested.
       -- Metis 2.3 : Non-tested.
-    {-# ATP prove prf xs≤zs→ys≤zs→xs++ys≤zs flatten-List lemma₁ lemma₂ #-}
+    {-# ATP prove prf xs≤zs→ys≤zs→xs++ys≤zs flatten-ListN lemma₁ lemma₂ #-}
 
 flatten-OrdList-aux {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂) Ni
                     (tipT {i₂} Ni₂) OTt = prf
@@ -213,7 +213,7 @@ flatten-OrdList-aux {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt�
       -- E 1.2: Non-tested.
       -- Metis 2.3 : Non-tested.
       -- Vampire 0.6 (revision 903): Non-tested.
-    {-# ATP prove prf xs≤zs→ys≤zs→xs++ys≤zs flatten-List lemma₁ lemma₂ #-}
+    {-# ATP prove prf xs≤zs→ys≤zs→xs++ys≤zs flatten-ListN lemma₁ lemma₂ #-}
 
 flatten-OrdList-aux {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂) Ni
                     (nodeT {t₂₁} {i₂} {t₂₂} Tt₂₁ Ni₂ Tt₂₂) OTt = prf
@@ -259,4 +259,4 @@ flatten-OrdList-aux {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt�
       -- E 1.2: Non-tested.
       -- Metis 2.3 : Non-tested.
       -- Equinox 5.0alpha (2010-06-29): Non-tested.
-    {-# ATP prove prf xs≤zs→ys≤zs→xs++ys≤zs flatten-List lemma₁ lemma₂ #-}
+    {-# ATP prove prf xs≤zs→ys≤zs→xs++ys≤zs flatten-ListN lemma₁ lemma₂ #-}

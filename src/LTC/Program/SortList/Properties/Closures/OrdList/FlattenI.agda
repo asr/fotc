@@ -19,7 +19,7 @@ open import LTC.Data.Nat.Type
 open import LTC.Data.List
 
 open import LTC.Program.SortList.Properties.Closures.BoolI
-open import LTC.Program.SortList.Properties.Closures.ListI
+open import LTC.Program.SortList.Properties.Closures.ListN-I
 open import LTC.Program.SortList.Properties.Closures.OrdTreeI
 open import LTC.Program.SortList.Properties.MiscellaneousI
 open import LTC.Program.SortList.SortList
@@ -135,9 +135,9 @@ flatten-OrdList-aux {i = i} (tipT {i₁} Ni₁) Ni
                refl
       ⟩
     ≤-Lists (flatten (tip i₁)) (flatten t₂₁ ++ flatten t₂₂)
-      ≡⟨ xs≤ys→xs≤zs→xs≤ys++zs (flatten-List (tipT Ni₁))
-                               (flatten-List Tt₂₁)
-                               (flatten-List Tt₂₂)
+      ≡⟨ xs≤ys→xs≤zs→xs≤ys++zs (flatten-ListN (tipT Ni₁))
+                               (flatten-ListN Tt₂₁)
+                               (flatten-ListN Tt₂₂)
                                lemma₁
                                lemma₂
       ⟩
@@ -243,9 +243,9 @@ flatten-OrdList-aux {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt�
                refl
       ⟩
     ≤-Lists (flatten t₁₁ ++  flatten t₁₂) (flatten nilTree)
-      ≡⟨ xs≤zs→ys≤zs→xs++ys≤zs (flatten-List Tt₁₁)
-                               (flatten-List Tt₁₂)
-                               (flatten-List nilT)
+      ≡⟨ xs≤zs→ys≤zs→xs++ys≤zs (flatten-ListN Tt₁₁)
+                               (flatten-ListN Tt₁₂)
+                               (flatten-ListN nilT)
                                lemma₁
                                lemma₂
       ⟩
@@ -350,9 +350,9 @@ flatten-OrdList-aux {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt�
                refl
       ⟩
     ≤-Lists (flatten t₁₁ ++  flatten t₁₂) (flatten (tip i₂))
-      ≡⟨ xs≤zs→ys≤zs→xs++ys≤zs (flatten-List Tt₁₁)
-                               (flatten-List Tt₁₂)
-                               (flatten-List (tipT Ni₂))
+      ≡⟨ xs≤zs→ys≤zs→xs++ys≤zs (flatten-ListN Tt₁₁)
+                               (flatten-ListN Tt₁₂)
+                               (flatten-ListN (tipT Ni₂))
                                lemma₁
                                lemma₂
       ⟩
@@ -460,9 +460,9 @@ flatten-OrdList-aux {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt�
                refl
       ⟩
     ≤-Lists (flatten t₁₁ ++  flatten t₁₂) (flatten (node t₂₁ i₂ t₂₂))
-      ≡⟨ xs≤zs→ys≤zs→xs++ys≤zs (flatten-List Tt₁₁)
-                               (flatten-List Tt₁₂)
-                               (flatten-List (nodeT Tt₂₁ Ni₂ Tt₂₂))
+      ≡⟨ xs≤zs→ys≤zs→xs++ys≤zs (flatten-ListN Tt₁₁)
+                               (flatten-ListN Tt₁₂)
+                               (flatten-ListN (nodeT Tt₂₁ Ni₂ Tt₂₂))
                                lemma₁
                                lemma₂
       ⟩

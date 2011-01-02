@@ -17,7 +17,7 @@ open import LTC.Data.Nat.Type
 open import LTC.Data.List
 
 open import LTC.Program.SortList.Properties.Closures.BoolI
-open import LTC.Program.SortList.Properties.Closures.ListI
+open import LTC.Program.SortList.Properties.Closures.ListN-I
 open import LTC.Program.SortList.Properties.Closures.OrdList.FlattenI
 open import LTC.Program.SortList.Properties.Closures.OrdListI
 
@@ -577,8 +577,8 @@ flatten-OrdList (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTt =
                refl
       ⟩
     ordList (flatten t₁ ++ flatten t₂)
-      ≡⟨ ++-OrdList (flatten-List Tt₁)
-                    (flatten-List Tt₂)
+      ≡⟨ ++-OrdList (flatten-ListN Tt₁)
+                    (flatten-ListN Tt₂)
                     -- IH.
                     (flatten-OrdList Tt₁ (leftSubTree-OrdTree Tt₁ Ni Tt₂ OTt))
                     -- IH.
