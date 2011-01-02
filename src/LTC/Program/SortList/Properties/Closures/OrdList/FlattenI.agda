@@ -2,7 +2,10 @@
 -- Closures properties respect to OrdList (flatten-OrdList-aux)
 ------------------------------------------------------------------------------
 
--- TODO
+-- Agda bug? The recursive calls in flatten-OrdList-aux are
+-- structurally smaller, so it is not clear why we need the option
+-- --no-termination-check. We tested the option --termination-depth=N
+-- with some values, but it had no effect.
 {-# OPTIONS --no-termination-check #-}
 
 module LTC.Program.SortList.Properties.Closures.OrdList.FlattenI where
