@@ -102,9 +102,9 @@ main = do
   prgName ← getProgName
 
   -- Adapted from Agda.Main.main.
-  r ← runT $ runAgda2ATP prgName `catchError` \err → do
-             liftIO $ hPutStrLn stderr $ prgName ++ ": " ++ err
-             throwError err
+  (r :: Either String ()) ← runT $ runAgda2ATP prgName `catchError` \err →
+    do liftIO $ hPutStrLn stderr $ prgName ++ ": " ++ err
+       throwError err
 
   case r of
     Right _ → exitSuccess

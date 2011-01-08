@@ -207,7 +207,7 @@ callATPs generalRolesAF conjectureAFs = do
     reportS "" 1 $ "Proving the conjecture in " ++ file ++ " ..."
     reportS "" 20 $ "ATPs to be used: " ++ show atps
 
-    atpsPH ← liftIO $
+    (atpsPH :: [ProcessHandle]) ← liftIO $
            mapM ((\atp → runATP atp outputMVar timeLimit file) . optATP2ATP)
                 atps
 

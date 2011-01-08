@@ -74,6 +74,7 @@ import Agda.TypeChecking.Monad.Base
     , funATP
     , funClauses
     , runTCM
+    , TCErr
     , theDef
     )
 import Agda.TypeChecking.Monad.Options
@@ -153,12 +154,12 @@ myReadInterface file = do
   optsCommandLine ← agdaCommandLineOptions
 
   -- The physical interface file.
-  iFile ← liftIO $ fmap (filePath . toIFile) (absolute file)
+  (iFile :: FilePath) ← liftIO $ fmap (filePath . toIFile) (absolute file)
 
-  r ← liftIO $ runTCM $ do
-         setCommandLineOptions optsCommandLine
-         setPragmaOptions agdaPragmaOptions
-         readInterface iFile
+  (r :: Either TCErr (Maybe Interface)) ← liftIO $ runTCM $
+    do setCommandLineOptions optsCommandLine
+       setPragmaOptions agdaPragmaOptions
+       readInterface iFile
 
   case r of
     Right (Just i) → return i
