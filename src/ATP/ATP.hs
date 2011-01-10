@@ -133,7 +133,7 @@ runATP atp outputMVar timeLimit file = do
       createProcess (proc (atp2exec atp) args)
                     { std_out = CreatePipe }
 
-    output ← hGetContents $ fromMaybe __IMPOSSIBLE__ outputH
+    output ← hGetContents $ fromMaybe (__IMPOSSIBLE__) outputH
     _      ← forkIO $
                evaluate (length output) >>
                putMVar outputMVar (checkAtpOutput atp output, atp)
@@ -158,7 +158,7 @@ atpsAnswer outputMVar atpsPH file n = do
                 " did not prove the conjecture in " ++ file
       if optUnprovedError opts
         then throwError msg
-        else liftIO $ hPutStrLn stderr $ msg
+        else liftIO $ hPutStrLn stderr msg
     else do
       output ← liftIO $ takeMVar outputMVar
       case output of
@@ -197,7 +197,7 @@ callATPs generalRolesAF conjectureAFs = do
     let atps ∷ [String]
         atps = optATP opts
 
-    when (null atps) __IMPOSSIBLE__
+    when (null atps) (__IMPOSSIBLE__)
 
     let timeLimit ∷ Int
         timeLimit = optTime opts

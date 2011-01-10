@@ -64,6 +64,11 @@ clean :
 	@find -name '*.agdai' | xargs rm -f
 	@rm -f /tmp/*.tptp
 
-# The tags
+# Others
 TAGS : $(haskell_files)
 	hasktags -e $(haskell_files)
+
+# We are using a modified version of HLint in which we have fixed the
+# issue related with the unicode symbol for the double colon.
+hlint :
+	hlint src/

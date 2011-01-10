@@ -33,11 +33,11 @@ nonDuplicate xs = xs == nub xs
 -- of an ordered list.
 duplicatesElements ∷ Ord a ⇒ [a] → [a]
 duplicatesElements zs =
-    if (isSorted zs) then nub (aux zs) else __IMPOSSIBLE__
+    if isSorted zs then nub (aux zs) else __IMPOSSIBLE__
         where
           aux ∷ Eq a ⇒ [a] → [a]
           aux []           = []
           aux [_]          = []
-          aux (x : y : xs) = if (x == y)
+          aux (x : y : xs) = if x == y
                                then x : aux (y : xs)
                                else aux (y : xs)

@@ -240,7 +240,7 @@ isHintATP def =
 qNameDefinition ∷ QName → T Definition
 qNameDefinition qName = do
     state ← get
-    return $ fromMaybe __IMPOSSIBLE__ $ Map.lookup qName $ tAllDefs state
+    return $ fromMaybe (__IMPOSSIBLE__) $ Map.lookup qName $ tAllDefs state
 
 qNameType ∷ QName → T Type
 qNameType qName = do
@@ -317,7 +317,7 @@ importedInterfaces x = do
       im ← lift $ myGetInterface x
 
       let i ∷ Interface
-          i = fromMaybe __IMPOSSIBLE__ im
+          i = fromMaybe (__IMPOSSIBLE__) im
 
       let iModules ∷ [ModuleName]
           iModules = iImportedModules i

@@ -73,7 +73,7 @@ allRequiredDefsAF generalRolesAF conjectureAFs =
 
 commonRequiredDefsAF ∷ GeneralRolesAF → ConjectureAFs → [AF]
 commonRequiredDefsAF grlRolesAF conjecturesAFs =
-    if (nonDuplicate allDefs)
+    if nonDuplicate allDefs
        then []
        else duplicatesElements $ sort allDefs
 
@@ -84,7 +84,7 @@ commonRequiredDefsAF grlRolesAF conjecturesAFs =
 removeCommonRequiredDefsAF ∷ GeneralRolesAF → ConjectureAFs →
                              (GeneralRolesAF, ConjectureAFs)
 removeCommonRequiredDefsAF generalRolesAF conjectureAFs =
-    if (null commonDefs)
+    if null commonDefs
        then (generalRolesAF, conjectureAFs)
        else
            ( generalRolesAF { requiredDefsByAxiomsAF = w

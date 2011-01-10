@@ -129,8 +129,8 @@ termToFormula term@(Def qName@(QName _ name) args) = do
                        f ← argTermToFormula a
                        return $ Not f
 
-                   | ( isCNameFOLConst folExists ||
-                       isCNameFOLConst folForAll ) → do
+                   | isCNameFOLConst folExists ||
+                     isCNameFOLConst folForAll → do
 
                        fm ← argTermToFormula a
 

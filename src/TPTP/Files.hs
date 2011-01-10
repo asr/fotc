@@ -99,7 +99,7 @@ agdaOriginalTerm qName role =
 
 addRole ∷ AF → RoleATP → FilePath → IO ()
 addRole af@(MkAF qName afRole _) role file =
-    if (afRole == role)
+    if afRole == role
       then do
         appendFile file $ agdaOriginalTerm qName role
         appendFile file $ prettyTPTP af
@@ -155,7 +155,7 @@ createConjectureFile generalRolesAF conjectureAFs = do
           removeCommonRequiredDefsAF generalRolesAF conjectureAFs
 
   unless (nonDuplicate (allRequiredDefsAF newGeneralRolesAF newConjectureAFs))
-         __IMPOSSIBLE__
+         (__IMPOSSIBLE__)
 
   liftIO $ do
     conjectureH ← conjectureHeader
