@@ -63,7 +63,7 @@ import Utils.Names   ( freshName )
 
 ------------------------------------------------------------------------------
 
-qName2String :: QName → T String
+qName2String ∷ QName → T String
 qName2String qName@(QName _ name) = do
   def ← qNameDefinition qName
 
@@ -71,7 +71,7 @@ qName2String qName@(QName _ name) = do
   -- name. In this case, we append to the qName the qName id.
   if isDefinitionATP def
      then do
-       let qNameId :: NameId
+       let qNameId ∷ NameId
            qNameId = nameId name
 
        reportSLn "qName2String" 20 $ "qNameId : " ++ show qNameId
@@ -86,28 +86,28 @@ qName2String qName@(QName _ name) = do
      else return $ show $ nameConcrete name
 
 -- We keep the two equations for debugging.
-argTermToFormula :: Arg Term → T FOLFormula
+argTermToFormula ∷ Arg Term → T FOLFormula
 argTermToFormula Arg {argHiding = NotHidden, unArg = t} = termToFormula t
 argTermToFormula Arg {argHiding = Hidden}               = __IMPOSSIBLE__
 
 -- We keep the two equations for debugging.
-argTermToFOLTerm :: Arg Term → T FOLTerm
+argTermToFOLTerm ∷ Arg Term → T FOLTerm
 argTermToFOLTerm Arg {argHiding = NotHidden, unArg = t} = termToFOLTerm t
 argTermToFOLTerm Arg {argHiding = Hidden,    unArg = t} = termToFOLTerm t
 
-binConst :: (FOLFormula → FOLFormula → FOLFormula) →
-            Arg Term →
-            Arg Term →
-            T FOLFormula
+binConst ∷ (FOLFormula → FOLFormula → FOLFormula) →
+           Arg Term →
+           Arg Term →
+           T FOLFormula
 binConst op arg1 arg2 = do f1 ← argTermToFormula arg1
                            f2 ← argTermToFormula arg2
                            return $ op f1 f2
 
-termToFormula :: Term → T FOLFormula
+termToFormula ∷ Term → T FOLFormula
 termToFormula term@(Def qName@(QName _ name) args) = do
     reportSLn "t2f" 10 $ "termToFormula Def:\n" ++ show term
 
-    let cName :: C.Name
+    let cName ∷ C.Name
         cName = nameConcrete name
 
     case cName of
@@ -135,10 +135,10 @@ termToFormula term@(Def qName@(QName _ name) args) = do
                        fm ← argTermToFormula a
 
                        state ← get
-                       let vars :: [String]
+                       let vars ∷ [String]
                            vars = tVars state
 
-                       let freshVar :: String
+                       let freshVar ∷ String
                            freshVar = evalState freshName vars
 
                        if isCNameFOLConst folExists
@@ -183,19 +183,19 @@ termToFormula term@(Def qName@(QName _ name) args) = do
                       return $ Predicate folName terms
 
           where
-            isCNameFOLConst :: String → Bool
+            isCNameFOLConst ∷ String → Bool
             isCNameFOLConst constFOL =
                 -- The equality on the data type C.Name is defined
                 -- to ignore ranges, so we use noRange.
                 cName == C.Name noRange [C.Id constFOL]
 
-            isCNameFOLConstHoleRight :: String → Bool
+            isCNameFOLConstHoleRight ∷ String → Bool
             isCNameFOLConstHoleRight constFOL =
                 -- The operators are represented by a list with Hole's.
                 -- See the documentation for C.Name.
                 cName == C.Name noRange [C.Id constFOL, C.Hole]
 
-            isCNameFOLConstTwoHoles :: String → Bool
+            isCNameFOLConstTwoHoles ∷ String → Bool
             isCNameFOLConstTwoHoles constFOL =
                 -- The operators are represented by a list with Hole's.
                 -- See the documentation for C.Name.
@@ -211,10 +211,10 @@ termToFormula term@(Lam _ (Abs _ termLam)) = do
   reportSLn "t2f" 10 $ "termToFormula Lam:\n" ++ show term
 
   state ← get
-  let vars :: [String]
+  let vars ∷ [String]
       vars = tVars state
 
-  let freshVar :: String
+  let freshVar ∷ String
       freshVar = evalState freshName vars
 
   -- See the reason for the order of the variables in termToFormula
@@ -228,10 +228,10 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   reportSLn "t2f" 10 $ "termToFormula Pi:\n" ++ show term
 
   state ← get
-  let vars :: [String]
+  let vars ∷ [String]
       vars = tVars state
 
-  let freshVar :: String
+  let freshVar ∷ String
       freshVar = evalState freshName vars
 
   reportSLn "t2f" 20 $
@@ -314,7 +314,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
 --   reportSLn "t2f" 10 $ "termToFormula Var: " ++ show term
 
 --   state ← get
---   let vars :: [String]
+--   let vars ∷ [String]
 --       vars = tVars state
 
 --   if length vars <= fromIntegral n
@@ -329,17 +329,17 @@ termToFormula (Sort _)    = __IMPOSSIBLE__
 termToFormula (Var _ _)   = __IMPOSSIBLE__
 
 -- Translate 'foo x1 ... xn' to 'kApp (... kApp (kApp(foo, x1), x2), ..., xn)'.
-appArgs :: String → Args → T FOLTerm
+appArgs ∷ String → Args → T FOLTerm
 appArgs fn args = do
   termsFOL ← mapM argTermToFOLTerm args
   return $ foldl app (FOLFun fn []) termsFOL
 
 -- Translate an Agda term to an FOL term.
-termToFOLTerm :: Term → T FOLTerm
+termToFOLTerm ∷ Term → T FOLTerm
 termToFOLTerm term@(Con (QName _ name) args)  = do
   reportSLn "t2t" 10 $ "termToFOLTerm Con:\n" ++ show term
 
-  let cName :: C.Name
+  let cName ∷ C.Name
       cName = nameConcrete name
 
   case cName of
@@ -363,7 +363,7 @@ termToFOLTerm term@(Con (QName _ name) args)  = do
 termToFOLTerm term@(Def (QName _ name) args) = do
   reportSLn "t2t" 10 $ "termToFOLTerm Def:\n" ++ show term
 
-  let cName :: C.Name
+  let cName ∷ C.Name
       cName = nameConcrete name
 
   case cName of
@@ -387,7 +387,7 @@ termToFOLTerm term@(Var n args) = do
   reportSLn "t2t" 10 $ "termToFOLTerm Var:\n" ++ show term
 
   state ← get
-  let vars :: [String]
+  let vars ∷ [String]
       vars = tVars state
 
   if length vars <= fromIntegral n

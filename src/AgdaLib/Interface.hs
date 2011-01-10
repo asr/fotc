@@ -100,22 +100,22 @@ import Options       ( Options(optAgdaIncludePath) )
 
 ------------------------------------------------------------------------------
 
-getRoleATP :: RoleATP → Definitions → Definitions
+getRoleATP ∷ RoleATP → Definitions → Definitions
 getRoleATP role = Map.filter $ isRole role
     where
-      isRole :: RoleATP → Definition → Bool
+      isRole ∷ RoleATP → Definition → Bool
       isRole AxiomATP      = isAxiomATP
       isRole ConjectureATP = isConjectureATP
       isRole DefinitionATP = isDefinitionATP
       isRole HintATP       = isHintATP
 
--- getHintsATP :: Interface → Definitions
+-- getHintsATP ∷ Interface → Definitions
 -- getHintsATP i = Map.filter isAxiomATP $ sigDefinitions $ iSignature i
 
 -- Invariant: The Definition must correspond to an ATP conjecture.
-getLocalHints :: Definition → [QName]
+getLocalHints ∷ Definition → [QName]
 getLocalHints def =
-  let defn :: Defn
+  let defn ∷ Defn
       defn = theDef def
   in case defn of
        Axiom{} → case axATP defn of
@@ -129,34 +129,34 @@ getLocalHints def =
 -- interpreted as ["."] (from
 -- Agda.TypeChecking.Monad.Options). Therefore the default of
 -- Options.optAgdaIncludePath is [].
-agdaCommandLineOptions :: T CommandLineOptions
+agdaCommandLineOptions ∷ T CommandLineOptions
 agdaCommandLineOptions = do
 
   state ← get
 
-  let agdaIncludePaths :: [FilePath]
+  let agdaIncludePaths ∷ [FilePath]
       agdaIncludePaths = optAgdaIncludePath $ tOpts state
 
   return $ defaultOptions { optIncludeDirs = Left agdaIncludePaths }
 
 -- TODO: It is not working.
-agdaPragmaOptions :: PragmaOptions
+agdaPragmaOptions ∷ PragmaOptions
 agdaPragmaOptions =
   -- We do not want any verbosity from the Agda API.
-  let agdaOptVerbose :: Verbosity
+  let agdaOptVerbose ∷ Verbosity
       agdaOptVerbose = Trie.singleton [] 0
 
   in defaultPragmaOptions { optVerbose = agdaOptVerbose }
 
-myReadInterface :: FilePath → T Interface
+myReadInterface ∷ FilePath → T Interface
 myReadInterface file = do
 
   optsCommandLine ← agdaCommandLineOptions
 
   -- The physical interface file.
-  (iFile :: FilePath) ← liftIO $ fmap (filePath . toIFile) (absolute file)
+  (iFile ∷ FilePath) ← liftIO $ fmap (filePath . toIFile) (absolute file)
 
-  (r :: Either TCErr (Maybe Interface)) ← liftIO $ runTCM $
+  (r ∷ Either TCErr (Maybe Interface)) ← liftIO $ runTCM $
     do setCommandLineOptions optsCommandLine
        setPragmaOptions agdaPragmaOptions
        readInterface iFile
@@ -166,7 +166,7 @@ myReadInterface file = do
     Right Nothing  → throwError $ "Error reading the interface file " ++ iFile
     Left  _        → throwError "Error from runTCM in myReadInterface"
 
-myGetInterface :: ModuleName → T (Maybe Interface)
+myGetInterface ∷ ModuleName → T (Maybe Interface)
 myGetInterface x = do
 
   optsCommandLine ← agdaCommandLineOptions
@@ -180,9 +180,9 @@ myGetInterface x = do
         Right (i, _) → return (Just i)
         Left  _      → return Nothing
 
-isAxiomATP :: Definition → Bool
+isAxiomATP ∷ Definition → Bool
 isAxiomATP def =
-  let defn :: Defn
+  let defn ∷ Defn
       defn = theDef def
   in case defn of
        Axiom{} → case axATP defn of
@@ -193,9 +193,9 @@ isAxiomATP def =
 
        _       → False
 
-isConjectureATP :: Definition → Bool
+isConjectureATP ∷ Definition → Bool
 isConjectureATP def =
-  let defn :: Defn
+  let defn ∷ Defn
       defn = theDef def
   in case defn of
        Axiom{} → case axATP defn of
@@ -206,9 +206,9 @@ isConjectureATP def =
 
        _       → False
 
-isDefinitionATP :: Definition → Bool
+isDefinitionATP ∷ Definition → Bool
 isDefinitionATP def =
-  let defn :: Defn
+  let defn ∷ Defn
       defn = theDef def
   in case defn of
        Function{} → case funATP defn of
@@ -219,9 +219,9 @@ isDefinitionATP def =
 
        _          → False
 
-isHintATP :: Definition → Bool
+isHintATP ∷ Definition → Bool
 isHintATP def =
-  let defn :: Defn
+  let defn ∷ Defn
       defn = theDef def
   in case defn of
        Constructor{} → case conATP defn of
@@ -237,26 +237,26 @@ isHintATP def =
 
        _             → False
 
-qNameDefinition :: QName → T Definition
+qNameDefinition ∷ QName → T Definition
 qNameDefinition qName = do
     state ← get
     return $ fromMaybe __IMPOSSIBLE__ $ Map.lookup qName $ tAllDefs state
 
-qNameType :: QName → T Type
+qNameType ∷ QName → T Type
 qNameType qName = do
   def ← qNameDefinition qName
   return $ defType def
 
 -- The line where a QNname is defined.
-qNameLine :: QName → Int32
+qNameLine ∷ QName → Int32
 qNameLine q =
     case rangeToInterval $ nameBindingSite $ qnameName q of
       Nothing → __IMPOSSIBLE__
       Just i  → posLine $ iStart i
 
-getClauses :: Definition → [Clause]
+getClauses ∷ Definition → [Clause]
 getClauses def =
-  let defn :: Defn
+  let defn ∷ Defn
       defn = theDef def
   in case defn of
        Function{} → map translatedClause $ funClauses defn
@@ -264,7 +264,7 @@ getClauses def =
 
 -- | Returns the QNames is an entity
 class QNamesIn a where
-    qNamesIn :: a → [QName]
+    qNamesIn ∷ a → [QName]
 
 instance QNamesIn a ⇒ QNamesIn [a] where
     qNamesIn = concatMap qNamesIn
@@ -306,7 +306,7 @@ instance QNamesIn Definition where
 ------------------------------------------------------------------------------
 -- Imported interfaces
 
-importedInterfaces :: ModuleName → StateT [ModuleName] T [Interface]
+importedInterfaces ∷ ModuleName → StateT [ModuleName] T [Interface]
 importedInterfaces x = do
   visitedModules ← get
 
@@ -316,10 +316,10 @@ importedInterfaces x = do
 
       im ← lift $ myGetInterface x
 
-      let i :: Interface
+      let i ∷ Interface
           i = fromMaybe __IMPOSSIBLE__ im
 
-      let iModules :: [ModuleName]
+      let iModules ∷ [ModuleName]
           iModules = iImportedModules i
 
       is ← fmap concat $ mapM importedInterfaces iModules
@@ -328,7 +328,7 @@ importedInterfaces x = do
     else return []
 
 -- Return the interfaces recursively imported by the top level interface.
-getImportedInterfaces :: Interface → T [Interface]
+getImportedInterfaces ∷ Interface → T [Interface]
 getImportedInterfaces i = do
   iInterfaces ← fmap concat $
                 evalStateT (mapM importedInterfaces $ iImportedModules i) []

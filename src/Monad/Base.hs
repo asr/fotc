@@ -30,14 +30,14 @@ import Options ( defaultOptions, Options )
 
 type AllDefinitions = Definitions
 
-data TState = MkState { tAllDefs :: AllDefinitions
-                      , tOpts    :: Options
-                      , tVars    :: [String]
+data TState = MkState { tAllDefs ∷ AllDefinitions
+                      , tOpts    ∷ Options
+                      , tVars    ∷ [String]
                         -- ^ Names of variables bounded in the Agda types.
                       }
 
 -- The initial state.
-initTState :: TState
+initTState ∷ TState
 initTState = MkState { tAllDefs = Map.empty
                      , tOpts    = defaultOptions
                      , tVars    = []
@@ -45,7 +45,7 @@ initTState = MkState { tAllDefs = Map.empty
 
 -- Adapted from: Real World Haskell (Chapter 18. Monad transformers)
 -- | The translation monad.
-newtype T a = MkT { runA :: ErrorT String (StateT TState IO) a }
+newtype T a = MkT { runA ∷ ErrorT String (StateT TState IO) a }
         -- Requires GeneralizedNewtypeDeriving
         deriving ( Functor
                  , Monad
@@ -54,5 +54,5 @@ newtype T a = MkT { runA :: ErrorT String (StateT TState IO) a }
                  , MonadState TState
                  )
 
-runT :: T a → IO (Either String a)
+runT ∷ T a → IO (Either String a)
 runT ta = evalStateT (runErrorT (runA ta)) initTState

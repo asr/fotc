@@ -45,7 +45,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 ------------------------------------------------------------------------------
 -- | To increase by one the de Bruijn index of the variable.
 class IncreaseByOneVar a where
-    increaseByOneVar :: a → a
+    increaseByOneVar ∷ a → a
 
 instance IncreaseByOneVar Term where
     increaseByOneVar (Var n [])  = Var (n + 1) []
@@ -73,7 +73,7 @@ instance IncreaseByOneVar (Arg Term) where
 -- so we need create the list in the same order.
 
 class VarNames a where
-    varNames :: a → [String]
+    varNames ∷ a → [String]
 
 instance VarNames ClauseBody where
     varNames (Bind (Abs x cBody)) = varNames cBody ++ [x]
@@ -81,7 +81,7 @@ instance VarNames ClauseBody where
     varNames _                   = __IMPOSSIBLE__
 
 -- Return the de Bruijn index of a variable in a ClauseBody.
-varToDeBruijnIndex :: ClauseBody → String → Nat
+varToDeBruijnIndex ∷ ClauseBody → String → Nat
 varToDeBruijnIndex cBody x =
     case elemIndex x (varNames cBody) of
       Just n  → fromIntegral n
@@ -101,7 +101,7 @@ varToDeBruijnIndex cBody x =
 -- we need rename 'Var 2' by 'Var 1'.
 
 class RenameVar a where
-    renameVar :: a → Nat → a
+    renameVar ∷ a → Nat → a
 
 instance RenameVar Term where
     renameVar term@(Def _ [])  _     = term
@@ -195,7 +195,7 @@ instance RenameVar ClauseBody where
 --
 -- so we need create the list in the same order.
 class VarsTypes a where
-    varsTypes :: a → [ Type ]
+    varsTypes ∷ a → [ Type ]
 
 instance VarsTypes Type where
     varsTypes (El (Type _) term) = varsTypes term
@@ -212,7 +212,7 @@ instance VarsTypes (Abs Type) where
 -- Remove the reference to a variable (i.e. Var n args) from an Agda
 -- internal entity.
 class RemoveVar a where
-    removeVar :: a → Nat → a  -- The Nat represents the de Bruijn index
+    removeVar ∷ a → Nat → a  -- The Nat represents the de Bruijn index
                               -- of the variable to be removed.
 
 instance RemoveVar Type where
@@ -245,7 +245,7 @@ instance RemoveVar Args where
            else Arg h r var : removeVar args index
     removeVar (Arg h r t : args) index = Arg h r t : removeVar args index
 
-removeReferenceToProofTerm :: Type → Nat → Type → Type
+removeReferenceToProofTerm ∷ Type → Nat → Type → Type
 removeReferenceToProofTerm varType index ty =
     case varType of
       -- The variable's type is a Set,
@@ -285,10 +285,10 @@ removeReferenceToProofTerm varType index ty =
       El (Type (Lit (LitLevel _ 1))) _        → __IMPOSSIBLE__
       _                                       → __IMPOSSIBLE__
 
-removeReferenceToProofTerms :: Type → Type
+removeReferenceToProofTerms ∷ Type → Type
 removeReferenceToProofTerms ty = aux (varsTypes ty) 0 ty
     where
-      aux :: [Type] → Nat → Type → Type
+      aux ∷ [Type] → Nat → Type → Type
       aux []             _     tya = tya
       aux (varType : xs) index tya =
           aux xs (index + 1) $ removeReferenceToProofTerm varType index tya

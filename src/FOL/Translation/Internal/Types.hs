@@ -41,11 +41,11 @@ import Monad.Reports                  ( reportSLn )
 ------------------------------------------------------------------------------
 
 -- We keep the two equations for debugging.
-argTypeToFormula :: Arg Type → T FOLFormula
+argTypeToFormula ∷ Arg Type → T FOLFormula
 argTypeToFormula Arg {argHiding = NotHidden, unArg = ty} = typeToFormula ty
 argTypeToFormula Arg {argHiding = Hidden}                = __IMPOSSIBLE__
 
-typeToFormula :: Type → T FOLFormula
+typeToFormula ∷ Type → T FOLFormula
 typeToFormula ty@(El (Type (Lit (LitLevel _ n))) term)
     | n `elem` [ 0, 1 ] = do
         reportSLn "typeToFormula" 10 $ "Processing type ty:\n" ++ show ty

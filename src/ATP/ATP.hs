@@ -52,14 +52,14 @@ data ATP = E
 -- The vampire executables are vampire_lin32, vampire_lin64,
 -- vampire_mac, and vampire_win.exe, therefore I use the generic
 -- name "vampire".
-atp2exec :: ATP → String
+atp2exec ∷ ATP → String
 atp2exec E        = "eprover"
 atp2exec Equinox  = "equinox"
 atp2exec IleanCoP = "ileancop.sh"
 atp2exec Metis    = "metis"
 atp2exec Vampire  = "vampire"
 
-optATP2ATP :: String → ATP
+optATP2ATP ∷ String → ATP
 optATP2ATP "e"        = E
 optATP2ATP "equinox"  = Equinox
 optATP2ATP "ileancop" = IleanCoP
@@ -68,29 +68,29 @@ optATP2ATP "vampire"  = Vampire
 optATP2ATP _          = __IMPOSSIBLE__
 
 -- Tested with E 1.2 Badamtam.
-eOk :: String
+eOk ∷ String
 eOk = "Proof found!"
 
 -- Tested with Equinox 5.0alpha (2010-06-29).
-equinoxOk :: String
+equinoxOk ∷ String
 equinoxOk = "+++ RESULT: Theorem"
 
 -- Tested with Metis 2.3 (release 20101019).
-metisOk :: String
+metisOk ∷ String
 metisOk = "SZS status Theorem"
 
 -- Tested with ileanCoP 1.3 beta1.
-ileancopOk :: String
+ileancopOk ∷ String
 ileancopOk = "Intuitionistic Theorem"
 
 -- Tested with Vampire 0.6 (revision 903).
-vampireOk :: String
+vampireOk ∷ String
 vampireOk = "Termination reason: Refutation\n"
 
-checkAtpOutput :: ATP → String → Bool
+checkAtpOutput ∷ ATP → String → Bool
 checkAtpOutput atp output = atpOk atp `isInfixOf` output
     where
-      atpOk :: ATP → String
+      atpOk ∷ ATP → String
       atpOk E        = eOk
       atpOk Equinox  = equinoxOk
       atpOk IleanCoP = ileancopOk
@@ -98,7 +98,7 @@ checkAtpOutput atp output = atpOk atp `isInfixOf` output
       atpOk Vampire  = vampireOk
 
 -- Equinox bug? The option --no-progress don't make any difference.
-atpArgs :: ATP → Int → FilePath → [String]
+atpArgs ∷ ATP → Int → FilePath → [String]
 atpArgs E        timeLimit file = [ "--cpu-limit=" ++ show timeLimit
                                   , "--memory-limit=Auto"
                                   , "--output-level=0"
@@ -120,10 +120,10 @@ atpArgs Vampire  timeLimit file = [ "--input_file", file
                                   , "-t", show timeLimit
                                   ]
 
-runATP :: ATP → MVar (Bool, ATP) → Int → FilePath → IO ProcessHandle
+runATP ∷ ATP → MVar (Bool, ATP) → Int → FilePath → IO ProcessHandle
 runATP atp outputMVar timeLimit file = do
 
-    let args :: [String]
+    let args ∷ [String]
         args = atpArgs atp timeLimit file
 
     -- To create the ATPs process we follow the ideas used by
@@ -140,20 +140,20 @@ runATP atp outputMVar timeLimit file = do
 
     return atpPH
 
-atpsAnswer :: MVar (Bool, ATP) → [ProcessHandle] → FilePath → Int → T ()
+atpsAnswer ∷ MVar (Bool, ATP) → [ProcessHandle] → FilePath → Int → T ()
 atpsAnswer outputMVar atpsPH file n = do
 
   state ← get
 
-  let opts :: Options
+  let opts ∷ Options
       opts = tOpts state
 
-  let atps :: [String]
+  let atps ∷ [String]
       atps = optATP opts
 
   if n == length atps
     then do
-      let msg :: String
+      let msg ∷ String
           msg = "The ATP(s) " ++ show atps ++
                 " did not prove the conjecture in " ++ file
       if optUnprovedError opts
@@ -179,12 +179,12 @@ atpsAnswer outputMVar atpsPH file n = do
         (False, _) → atpsAnswer outputMVar atpsPH file (n + 1)
 
 -- | The function 'callATPs' calls the selected ATPs on a TPTP conjecture.
-callATPs :: GeneralRolesAF → ConjectureAFs → T ()
+callATPs ∷ GeneralRolesAF → ConjectureAFs → T ()
 callATPs generalRolesAF conjectureAFs = do
 
   state ← get
 
-  let opts :: Options
+  let opts ∷ Options
       opts = tOpts state
 
   file ← createConjectureFile generalRolesAF conjectureAFs
@@ -194,20 +194,20 @@ callATPs generalRolesAF conjectureAFs = do
 
   unless (optOnlyFiles opts) $ do
 
-    let atps :: [String]
+    let atps ∷ [String]
         atps = optATP opts
 
     when (null atps) __IMPOSSIBLE__
 
-    let timeLimit :: Int
+    let timeLimit ∷ Int
         timeLimit = optTime opts
 
-    outputMVar ← liftIO (newEmptyMVar :: IO (MVar (Bool, ATP)))
+    outputMVar ← liftIO (newEmptyMVar ∷ IO (MVar (Bool, ATP)))
 
     reportS "" 1 $ "Proving the conjecture in " ++ file ++ " ..."
     reportS "" 20 $ "ATPs to be used: " ++ show atps
 
-    (atpsPH :: [ProcessHandle]) ← liftIO $
+    (atpsPH ∷ [ProcessHandle]) ← liftIO $
            mapM ((\atp → runATP atp outputMVar timeLimit file) . optATP2ATP)
                 atps
 

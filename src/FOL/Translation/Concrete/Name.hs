@@ -11,11 +11,11 @@ import Agda.Syntax.Concrete.Name ( NamePart(Id, Hole) )
 
 ------------------------------------------------------------------------------
 
-takeId :: NamePart → String
+takeId ∷ NamePart → String
 takeId Hole         = []
 takeId (Id strName) = strName
 
 -- We use the parts of a name to produce a new function name,
 -- e.g. the function 'if_then_else_' is called 'ifthenelse'.
-concatName :: [NamePart] → String
+concatName ∷ [NamePart] → String
 concatName = concatMap takeId

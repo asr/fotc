@@ -43,7 +43,7 @@ import Utils.Names             ( freshName )
 ------------------------------------------------------------------------------
 
 class EtaExpandible a where
-    etaExpand :: a → T a
+    etaExpand ∷ a → T a
 
 instance EtaExpandible Type where
     etaExpand (El (Type (Lit (LitLevel r n))) term)
@@ -59,20 +59,20 @@ instance EtaExpandible Term where
 
       state ← get
 
-      let vars :: [String]
+      let vars ∷ [String]
           vars = tVars state
 
       def ← qNameType qName
 
-      let qNameArity :: Nat
+      let qNameArity ∷ Nat
           qNameArity = arity def
 
       argsEtaExpanded ← mapM etaExpand args
 
-      let newVar :: Arg Term
+      let newVar ∷ Arg Term
           newVar = Arg NotHidden Relevant (Var 0 [])
 
-      let freshVar :: String
+      let freshVar ∷ String
           freshVar = evalState freshName vars
 
       -- The eta-contraction *only* reduces by 1 the number of arguments
@@ -94,7 +94,7 @@ instance EtaExpandible Term where
                  -- Because we are going to add a new abstraction, we
                  -- need increase by one the numbers associated with the
                  -- variables in the arguments.
-                 let incVarsEtaExpanded :: Args
+                 let incVarsEtaExpanded ∷ Args
                      incVarsEtaExpanded = map increaseByOneVar argsEtaExpanded
                  return $
                    Lam NotHidden (Abs freshVar
@@ -114,7 +114,7 @@ instance EtaExpandible Term where
     etaExpand (Lam h (Abs x termAbs)) = do
       -- We add the variable x to the enviroment.
       state ← get
-      let vars :: [String]
+      let vars ∷ [String]
           vars = tVars state
       modify $ \s → s { tVars = x : vars }
 
@@ -126,7 +126,7 @@ instance EtaExpandible Term where
     etaExpand (Pi tyArg (Abs x tyAbs)) = do
       -- We add the variable x to the enviroment.
       state ← get
-      let vars :: [String]
+      let vars ∷ [String]
           vars = tVars state
       modify $ \s → s { tVars = x : vars }
 
@@ -142,7 +142,7 @@ instance EtaExpandible Term where
     etaExpand (MetaV _ _) = __IMPOSSIBLE__
     etaExpand (Sort _)    = __IMPOSSIBLE__
 
-instance EtaExpandible a => EtaExpandible (Arg a) where
+instance EtaExpandible a ⇒ EtaExpandible (Arg a) where
     etaExpand (Arg h r t) = do
       tEtaExpanded ← etaExpand t
       return (Arg h r tEtaExpanded)

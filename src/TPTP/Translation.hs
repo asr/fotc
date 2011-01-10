@@ -63,10 +63,10 @@ import TPTP.Types
 
 ------------------------------------------------------------------------------
 
-toAF :: RoleATP → QName → Definition → T AF
+toAF ∷ RoleATP → QName → Definition → T AF
 toAF role qName def = do
 
-  let ty :: Type
+  let ty ∷ Type
       ty = defType def
   reportSLn "toAF" 20 $
      "Translating QName: " ++ show qName ++ "\n" ++
@@ -82,7 +82,7 @@ toAF role qName def = do
 
   -- We need to remove the references to variables which are proof
   -- terms from the type.
-  let tyReady :: Type
+  let tyReady ∷ Type
       tyReady = removeReferenceToProofTerms tyEtaExpanded
 
   reportSLn "toAF" 20 $ "tyReady:\n" ++ show tyReady
@@ -97,17 +97,17 @@ toAF role qName def = do
   return $ MkAF qName role for
 
 -- Translation of an Agda internal function to an AF definition.
-fnToAF :: QName → Definition → T AF
+fnToAF ∷ QName → Definition → T AF
 fnToAF qName def = do
 
-  let ty :: Type
+  let ty ∷ Type
       ty = defType def
   reportSLn "symbolToAF" 10 $
     "Symbol: " ++ show qName ++ "\n" ++ "Type: " ++ show ty
 
   -- We get the clauses that define the symbol
   -- (All the symbols must be functions)
-  let cls :: [Clause]
+  let cls ∷ [Clause]
       cls = getClauses def
 
   reportSLn "symbolToAF" 10 $
@@ -123,7 +123,7 @@ fnToAF qName def = do
   return $ MkAF qName DefinitionATP for
 
 -- We translate an local hint to an AF.
-localHintToAF :: QName → T AF
+localHintToAF ∷ QName → T AF
 localHintToAF qName = do
   def ← qNameDefinition qName
 
@@ -131,10 +131,10 @@ localHintToAF qName = do
 
 -- We translate the local hints of an ATP pragma conjecture to AF's.
 -- Invariant: The 'Definition' must be an ATP pragma conjecture
-localHintsToAFs :: Definition → T [AF]
+localHintsToAFs ∷ Definition → T [AF]
 localHintsToAFs def = do
 
-  let hints :: [QName]
+  let hints ∷ [QName]
       hints = getLocalHints def
   reportSLn "hintsToFOLs" 20 $
     "The local hints for the conjecture " ++ show (defName def) ++
@@ -143,7 +143,7 @@ localHintsToAFs def = do
   mapM localHintToAF hints
 
 -- If a QName is an ATP definition then we required it.
-requiredQName :: QName → T [AF]
+requiredQName ∷ QName → T [AF]
 requiredQName qName = do
 
   qNameDef ← qNameDefinition qName
@@ -156,67 +156,67 @@ requiredQName qName = do
                 (requiredDefsATPbyDefinitionATP qNameDef)
     else return []
 
-requiredDefsATPbyAxioms :: T [AF]
+requiredDefsATPbyAxioms ∷ T [AF]
 requiredDefsATPbyAxioms = do
   state ← get
 
-  let axDefs :: Definitions
+  let axDefs ∷ Definitions
       axDefs = getRoleATP AxiomATP $ tAllDefs state
 
   fmap (nub . concat) (mapM requiredDefsATPbyDefinition (Map.elems axDefs))
 
-requiredDefsATPbyHints :: T [AF]
+requiredDefsATPbyHints ∷ T [AF]
 requiredDefsATPbyHints = do
   state ← get
 
-  let ghDefs :: Definitions
+  let ghDefs ∷ Definitions
       ghDefs = getRoleATP HintATP $ tAllDefs state
 
   fmap (nub . concat) (mapM requiredDefsATPbyDefinition (Map.elems ghDefs))
 
 -- If we required an ATP definition, we also required the ATP
 -- definitions used in your definition.
-requiredDefsATPbyDefinitionATP :: Definition → T [AF]
+requiredDefsATPbyDefinitionATP ∷ Definition → T [AF]
 requiredDefsATPbyDefinitionATP def = do
 
   -- TODO: To add test case. See
   -- LTC.Data.Nat.Inequalities.PropertiesATP.Sx≤Sy→x≤y
 
   -- We get all the QNames in the definition's clauses.
-  let cls :: [Clause]
+  let cls ∷ [Clause]
       cls = getClauses def
 
   -- The cls must be unitary, but it was checked elsewhere.
-  let qNamesInClause :: [QName]
+  let qNamesInClause ∷ [QName]
       qNamesInClause = qNamesIn cls
 
   fmap (nub . concat) (mapM requiredQName qNamesInClause)
 
 -- We translate the functions marked out by an ATP pragma definition
 -- to annotated formulas required by a definition:
-requiredDefsATPbyDefinition :: Definition → T [AF]
+requiredDefsATPbyDefinition ∷ Definition → T [AF]
 requiredDefsATPbyDefinition def = do
 
   -- We get all the QNames in the definition.
-  let qNamesInDef :: [QName]
+  let qNamesInDef ∷ [QName]
       qNamesInDef = qNamesIn def
 
   fmap (nub . concat) (mapM requiredQName qNamesInDef)
 
-requiredDefsATPbyLocalHints :: Definition → T [AF]
+requiredDefsATPbyLocalHints ∷ Definition → T [AF]
 requiredDefsATPbyLocalHints def = do
 
   -- TODO: Add a test case. See {-# ATP prove prf S≰0 #-} from
   -- LTC.Data.Bool.PropertiesATP.≤-Bool.
 
-  let hints :: [QName]
+  let hints ∷ [QName]
       hints = getLocalHints def
 
   hintsDefs ← mapM qNameDefinition hints
 
   fmap (nub . concat) (mapM requiredDefsATPbyDefinition hintsDefs)
 
-conjectureToAF :: QName → Definition → T ConjectureAFs
+conjectureToAF ∷ QName → Definition → T ConjectureAFs
 conjectureToAF qName def = liftM4 MkConjectureAFs
                                   (toAF ConjectureATP qName def)
                                   (requiredDefsATPbyDefinition def)
@@ -227,10 +227,10 @@ conjectureToAF qName def = liftM4 MkConjectureAFs
 -- the top level module. For each conjecture we return its translation
 -- and a list of the translation of its local hints, i.e. we return a
 -- pair (AF, [AF]).
-conjecturesToAFs :: Definitions → T [ConjectureAFs]
+conjecturesToAFs ∷ Definitions → T [ConjectureAFs]
 conjecturesToAFs topLevelDefs = do
 
-  let conjecturesDefs :: Definitions
+  let conjecturesDefs ∷ Definitions
       conjecturesDefs = getRoleATP ConjectureATP topLevelDefs
   reportSLn "conjecturesToFOLs" 20 $
     "Conjectures:\n" ++ show (Map.keys conjecturesDefs)
@@ -240,22 +240,22 @@ conjecturesToAFs topLevelDefs = do
            (Map.elems conjecturesDefs)
 
 -- We translate the ATP pragma axioms to FOL formulas.
-axiomsToAFs :: T [AF]
+axiomsToAFs ∷ T [AF]
 axiomsToAFs = do
   state ← get
 
-  let axDefs :: Definitions
+  let axDefs ∷ Definitions
       axDefs = getRoleATP AxiomATP $ tAllDefs state
 
   zipWithM (toAF AxiomATP) (Map.keys axDefs) (Map.elems axDefs)
 
 -- We translate the ATP pragma general hints in an interface file to
 -- FOL formulas.
-generalHintsToAFs :: T [AF]
+generalHintsToAFs ∷ T [AF]
 generalHintsToAFs = do
   state ← get
 
-  let ghDefs :: Definitions
+  let ghDefs ∷ Definitions
       ghDefs = getRoleATP HintATP $ tAllDefs state
 
   zipWithM (toAF HintATP) (Map.keys ghDefs) (Map.elems ghDefs)
@@ -263,7 +263,7 @@ generalHintsToAFs = do
 -- We translate the ATP axioms and (general) hints the top level
 -- module and its imported modules. These TPTP roles are common to
 -- every conjecture.
-generalRolesToAFs :: T GeneralRolesAF
+generalRolesToAFs ∷ T GeneralRolesAF
 generalRolesToAFs = liftM4 MkGeneralRolesAF
                            axiomsToAFs
                            requiredDefsATPbyAxioms

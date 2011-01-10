@@ -51,7 +51,7 @@ import Utils.Names                    ( freshName )
 -- (i.e. equations), for example every equation in a definition by
 -- pattern matching. In our case it is only necessary to translate
 -- definitions with only one clause.
-fnToFormula :: QName → Type → [Clause] → T FOLFormula
+fnToFormula ∷ QName → Type → [Clause] → T FOLFormula
 fnToFormula _      _  []        = __IMPOSSIBLE__
 fnToFormula qName  ty (cl : []) = oneClauseToFormula qName ty cl
 fnToFormula qName  _  _         =
@@ -60,11 +60,11 @@ fnToFormula qName  _  _         =
 
 -- A Clause is defined by (Agda.Syntax.Internal)
 -- data Clause = Clause
---     { clauseRange     :: Range
---     , clauseTel       :: Telescope
---     , clausePerm      :: Permutation
---     , clausePats      :: [Arg Pattern]
---     , clauseBody      :: ClauseBody
+--     { clauseRange     ∷ Range
+--     , clauseTel       ∷ Telescope
+--     , clausePerm      ∷ Permutation
+--     , clausePats      ∷ [Arg Pattern]
+--     , clauseBody      ∷ ClauseBody
 --     }
 
 -- The LHS of the definition's function is given by the QName and the
@@ -72,7 +72,7 @@ fnToFormula qName  _  _         =
 -- the RHS (i.e. the body of the clause) it is necessary to generate
 -- an universal quantification on an equal number of variables to
 -- length [Arg Pattern].
-oneClauseToFormula :: QName → Type → Clause → T FOLFormula
+oneClauseToFormula ∷ QName → Type → Clause → T FOLFormula
 
 -- There is at most one variable in the clause's pattern, so ...
 oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
@@ -88,10 +88,10 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
           reportSLn "def2f" 20 $ "Processing var: " ++ x
 
           state ← get
-          let vars :: [String]
+          let vars ∷ [String]
               vars = tVars state
 
-          let freshVar :: String
+          let freshVar ∷ String
               freshVar = evalState freshName vars
 
           -- See the reason for the order in the variables in
@@ -121,7 +121,7 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
 
            reportSLn "def2f" 20 $ "Current body: " ++ show cBody
 
-           let newBody :: ClauseBody
+           let newBody ∷ ClauseBody
                newBody = removeBindingOnCBody cBody x
 
            reportSLn "def2f" 20 $ "New body: " ++ show newBody
@@ -137,14 +137,14 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
 oneClauseToFormula qName ty (Clause _ _ _ [] cBody ) = do
 
   state ← get
-  let vars :: [String]
+  let vars ∷ [String]
       vars = tVars state
 
   reportSLn "def2f" 20 $ "vars: " ++ show vars
 
   -- We create the Agda term corresponds to the LHS of the symbol's
   -- definition.
-  let lhs :: Term
+  let lhs ∷ Term
       lhs = Def qName $ varsToArgs $ fromIntegral $ length vars
 
   case ty of

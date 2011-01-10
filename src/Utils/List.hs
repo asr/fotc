@@ -19,23 +19,23 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 ------------------------------------------------------------------------------
 -- | The function 'isSorted' returns 'True' if the elements of a list
 -- occur in ascending order.
-isSorted :: (Ord a) ⇒ [a] → Bool
+isSorted ∷ (Ord a) ⇒ [a] → Bool
 isSorted []           = True
 isSorted [_]          = True
 isSorted (x : y : xs) = x <= y && isSorted (y : xs)
 
 -- | The function 'nonDuplicate' returns 'True' if there are not
 -- duplicate elements in the list.
-nonDuplicate :: Eq a ⇒ [a] → Bool
+nonDuplicate ∷ Eq a ⇒ [a] → Bool
 nonDuplicate xs = xs == nub xs
 
 -- | The function 'duplicatesElements' returns the duplicates elements
 -- of an ordered list.
-duplicatesElements :: Ord a ⇒ [a] → [a]
+duplicatesElements ∷ Ord a ⇒ [a] → [a]
 duplicatesElements zs =
     if (isSorted zs) then nub (aux zs) else __IMPOSSIBLE__
         where
-          aux :: Eq a ⇒ [a] → [a]
+          aux ∷ Eq a ⇒ [a] → [a]
           aux []           = []
           aux [_]          = []
           aux (x : y : xs) = if (x == y)

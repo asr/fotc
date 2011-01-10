@@ -55,7 +55,7 @@ import Utils.List ( nonDuplicate )
 ------------------------------------------------------------------------------
 
 class AsciiName a where
-    asciiName :: a → FilePath
+    asciiName ∷ a → FilePath
 
 instance AsciiName Char where
     asciiName c
@@ -69,16 +69,16 @@ instance AsciiName Char where
 instance AsciiName String where
     asciiName = concatMap asciiName
 
-tptpExt :: String
+tptpExt ∷ String
 tptpExt = ".tptp"
 
-commentLine :: String
+commentLine ∷ String
 commentLine = "%-----------------------------------------------------------------------------\n"
 
-commentLineLn :: String
+commentLineLn ∷ String
 commentLineLn = commentLine ++ "\n"
 
-conjectureHeader :: IO String
+conjectureHeader ∷ IO String
 conjectureHeader = do
   prgName ← getProgName
   return $
@@ -86,18 +86,18 @@ conjectureHeader = do
     "% This file was generated automatically by " ++ prgName ++ ".\n" ++
     commentLineLn
 
-conjectureFooter :: String
+conjectureFooter ∷ String
 conjectureFooter =
     "% End ATP pragma conjecture file.\n"
 
-agdaOriginalTerm :: QName → RoleATP → String
+agdaOriginalTerm ∷ QName → RoleATP → String
 agdaOriginalTerm qName role =
     "% The original Agda term was:\n" ++
     "% Name:\t\t" ++ show qName ++ "\n" ++
     "% Role:\t\t" ++ show role ++ "\n" ++
     "% Position:\t" ++ show (nameBindingSite $ qnameName qName) ++ "\n"
 
-addRole :: AF → RoleATP → FilePath → IO ()
+addRole ∷ AF → RoleATP → FilePath → IO ()
 addRole af@(MkAF qName afRole _) role file =
     if (afRole == role)
       then do
@@ -105,14 +105,14 @@ addRole af@(MkAF qName afRole _) role file =
         appendFile file $ prettyTPTP af
       else __IMPOSSIBLE__
 
-addRoles :: [AF] → RoleATP → FilePath → String → IO ()
+addRoles ∷ [AF] → RoleATP → FilePath → String → IO ()
 addRoles afs role file str = do
-  let headerRoleComment :: String
+  let headerRoleComment ∷ String
       headerRoleComment =
           commentLine ++
           "% The " ++ str ++ ".\n\n"
 
-  let footerRoleComment :: String
+  let footerRoleComment ∷ String
       footerRoleComment =
           "% End " ++ str ++ ".\n\n"
 
@@ -121,7 +121,7 @@ addRoles afs role file str = do
   _  ← appendFile file footerRoleComment
   return ()
 
-createConjectureFile :: GeneralRolesAF → ConjectureAFs → T FilePath
+createConjectureFile ∷ GeneralRolesAF → ConjectureAFs → T FilePath
 createConjectureFile generalRolesAF conjectureAFs = do
   -- To avoid clash names with the terms inside a where clause, we
   -- added the line number where the term was defined to the file
@@ -129,26 +129,26 @@ createConjectureFile generalRolesAF conjectureAFs = do
 
   state ← get
 
-  let qName :: QName
+  let qName ∷ QName
       qName = case theConjectureAF conjectureAFs of
                 MkAF _qName _ _ → _qName
 
-  let outputDir :: FilePath
+  let outputDir ∷ FilePath
       outputDir = optOutputDir $ tOpts state
 
   liftIO $ createDirectoryIfMissing True outputDir
 
-  let f :: FilePath
+  let f ∷ FilePath
       f = outputDir </>
           asciiName (show qName) ++ "_" ++ show (qNameLine qName)
 
-  let file :: FilePath
+  let file ∷ FilePath
       file = addExtension f tptpExt
 
   reportSLn "createConjectureFile" 20 $
             "Creating the conjecture file " ++ show file ++ " ..."
 
-  let commonDefs :: [AF]
+  let commonDefs ∷ [AF]
       commonDefs = commonRequiredDefsAF generalRolesAF conjectureAFs
 
   let (newGeneralRolesAF, newConjectureAFs) =

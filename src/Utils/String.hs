@@ -4,7 +4,7 @@ module Utils.String ( replace ) where
 
 ------------------------------------------------------------------------------
 -- | Replace the first argument by the second one on the string.
-replace :: Char → Char → String → String
+replace ∷ Char → Char → String → String
 replace _   _    []       = []
 replace src dest (x : xs) =
     if src == x

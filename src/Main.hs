@@ -56,7 +56,7 @@ import Utils.Version     ( printVersion )
 
 ------------------------------------------------------------------------------
 
-translation :: FilePath → T (GeneralRolesAF, [ConjectureAFs])
+translation ∷ FilePath → T (GeneralRolesAF, [ConjectureAFs])
 translation file = do
   reportS "" 1 $ "Translating " ++ file ++ " ..."
 
@@ -65,13 +65,13 @@ translation file = do
 
   iInterfaces ← getImportedInterfaces i
 
-  let topLevelDefs :: Definitions
+  let topLevelDefs ∷ Definitions
       topLevelDefs = sigDefinitions $ iSignature i
 
-  let importedDefs :: [Definitions]
+  let importedDefs ∷ [Definitions]
       importedDefs = map (sigDefinitions . iSignature) iInterfaces
 
-  let allDefs :: AllDefinitions
+  let allDefs ∷ AllDefinitions
       allDefs = Map.unions (topLevelDefs : importedDefs)
 
   -- We add allDefs to the state
@@ -80,7 +80,7 @@ translation file = do
   liftM2 (,) generalRolesToAFs (conjecturesToAFs topLevelDefs)
 
 -- | The main function.
-runAgda2ATP :: String → T ()
+runAgda2ATP ∷ String → T ()
 runAgda2ATP prgName = do
   argv ← liftIO getArgs
 
@@ -97,12 +97,12 @@ runAgda2ATP prgName = do
             -- The ATPs systems are called on the TPTP annotated formulas.
             mapM_ (callATPs (fst allAFs)) (snd allAFs)
 
-main :: IO ()
+main ∷ IO ()
 main = do
   prgName ← getProgName
 
   -- Adapted from Agda.Main.main.
-  (r :: Either String ()) ← runT $ runAgda2ATP prgName `catchError` \err →
+  (r ∷ Either String ()) ← runT $ runAgda2ATP prgName `catchError` \err →
     do liftIO $ hPutStrLn stderr $ prgName ++ ": " ++ err
        throwError err
 

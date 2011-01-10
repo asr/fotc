@@ -39,21 +39,21 @@ import Monad.Base                     ( T )
 -- 		| NoBind ClauseBody
 -- 		| NoBody    -- for absurd clauses
 
--- telescopeToFormula :: Telescope → T FOLFormula
+-- telescopeToFormula ∷ Telescope → T FOLFormula
 -- telescopeToFormula EmptyTel             = __IMPOSSIBLE__
 -- telescopeToFormula (ExtendTel tyArg _) = typeToFormula $ unArg tyArg
 
-cBodyToFormula :: ClauseBody → T FOLFormula
+cBodyToFormula ∷ ClauseBody → T FOLFormula
 cBodyToFormula (Body term )         = termToFormula term
 cBodyToFormula (Bind (Abs _ cBody)) = cBodyToFormula cBody
 cBodyToFormula _                    = __IMPOSSIBLE__
 
-cBodyToFOLTerm :: ClauseBody → T FOLTerm
+cBodyToFOLTerm ∷ ClauseBody → T FOLTerm
 cBodyToFOLTerm (Body term )         = termToFOLTerm term
 cBodyToFOLTerm (Bind (Abs _ cBody)) = cBodyToFOLTerm cBody
 cBodyToFOLTerm _                    = __IMPOSSIBLE__
 
-removeBindingOnCBodyIndex :: ClauseBody → String → Nat → ClauseBody
+removeBindingOnCBodyIndex ∷ ClauseBody → String → Nat → ClauseBody
 removeBindingOnCBodyIndex (Bind (Abs x1 cBody)) x2 index =
     if x1 == x2
        then renameVar cBody index  -- We remove the bind and rename the
@@ -67,8 +67,8 @@ removeBindingOnCBodyIndex _ _ _ = __IMPOSSIBLE__
 --
 -- We know that the bounded variable is a proof term from the
 -- invocation to this function.
-removeBindingOnCBody :: ClauseBody → String → ClauseBody
+removeBindingOnCBody ∷ ClauseBody → String → ClauseBody
 removeBindingOnCBody cBody x = removeBindingOnCBodyIndex cBody x index
     where
-      index :: Nat
+      index ∷ Nat
       index = varToDeBruijnIndex cBody x

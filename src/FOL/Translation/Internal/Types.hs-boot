@@ -20,5 +20,5 @@ import Monad.Base ( T )
 
 ------------------------------------------------------------------------------
 
-argTypeToFormula :: Arg Type → T FOLFormula
-typeToFormula    :: Type → T FOLFormula
+argTypeToFormula ∷ Arg Type → T FOLFormula
+typeToFormula    ∷ Type → T FOLFormula

@@ -25,16 +25,16 @@ import Options
 
 -----------------------------------------------------------------------------
 
-processOptions :: [String] → T (Options, String)
+processOptions ∷ [String] → T (Options, String)
 processOptions argv =
   case getOpt Permute options argv of
     ([], [], []) → return (defaultOptions { optHelp = True } , [])
 
     (o, files, []) → do
-      let opts :: Options
+      let opts ∷ Options
           opts = foldl (flip id) defaultOptions o
 
-      let finalOpts :: Options
+      let finalOpts ∷ Options
           finalOpts =
               if null (optATP opts)  -- No ATPs was chosen.
               then opts { optATP = defaultOptATP }  -- We set up the

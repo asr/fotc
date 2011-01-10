@@ -14,15 +14,15 @@ import FOL.Types ( FOLTerm(FOLFun), FOLFormula(Predicate) )
 ------------------------------------------------------------------------------
 -- This is just an arbitrary constant which we hope doesn't
 -- conflict with user constants.
-kApp :: String
+kApp ∷ String
 kApp = "kApp"
 
-app :: FOLTerm → FOLTerm → FOLTerm
+app ∷ FOLTerm → FOLTerm → FOLTerm
 app t1 t2 = FOLFun kApp [t1, t2]
 
 -- This will refer to the predefined equality in the ATP.
-kEqual :: String
+kEqual ∷ String
 kEqual = "kEqual"
 
-equal :: FOLTerm → FOLTerm → FOLFormula
+equal ∷ FOLTerm → FOLTerm → FOLFormula
 equal t1 t2 = Predicate kEqual [t1, t2]

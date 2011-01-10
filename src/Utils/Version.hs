@@ -10,9 +10,9 @@ import qualified Paths_agda2atp as P ( version )
 
 ------------------------------------------------------------------------------
 
-version :: String
+version ∷ String
 version = showVersion P.version
 
 -- | Print version information.
-printVersion :: String → IO ()
+printVersion ∷ String → IO ()
 printVersion prgName = putStrLn $ prgName ++ " version " ++ version

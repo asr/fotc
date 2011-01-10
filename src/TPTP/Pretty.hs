@@ -39,24 +39,24 @@ import TPTP.Types ( AF(MkAF) )
 type TPTP = String
 
 class PrettyTPTP a where
-    prettyTPTP :: a → TPTP
+    prettyTPTP ∷ a → TPTP
 
 -- We prefixed the names with 'n' because TPTP does not accept names
 -- starting with digits or '_'.
-prefixLetter :: TPTP → TPTP
+prefixLetter ∷ TPTP → TPTP
 prefixLetter []           = __IMPOSSIBLE__
 prefixLetter name@(x : _)
     | isDigit x || x == '_'  = 'n' : name
     | otherwise              = name
 
-changeCaseFirstSymbol :: TPTP → (Char → Char) → TPTP
+changeCaseFirstSymbol ∷ TPTP → (Char → Char) → TPTP
 changeCaseFirstSymbol []       _ = __IMPOSSIBLE__
 changeCaseFirstSymbol (x : xs) f = f x : xs
 
-changeToUpper :: TPTP → TPTP
+changeToUpper ∷ TPTP → TPTP
 changeToUpper name = changeCaseFirstSymbol (prettyTPTP name) toUpper
 
-changeToLower :: TPTP → TPTP
+changeToLower ∷ TPTP → TPTP
 changeToLower name = changeCaseFirstSymbol (prettyTPTP name) toLower
 
 ------------------------------------------------------------------------------

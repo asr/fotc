@@ -31,13 +31,13 @@ import Options     ( Options(optVerbose) )
 
 type VerboseKey = String
 
-getVerbosity :: T Verbosity
+getVerbosity ∷ T Verbosity
 getVerbosity = do
   state ← get
   return $ optVerbose $ tOpts state
 
 -- | Precondition: The level must be non-negative.
-verboseS :: VerboseKey → Int → T () → T ()
+verboseS ∷ VerboseKey → Int → T () → T ()
 verboseS k n action | n < 0     =  __IMPOSSIBLE__
                     | otherwise = do
     t ← getVerbosity
@@ -45,8 +45,8 @@ verboseS k n action | n < 0     =  __IMPOSSIBLE__
         m  = maximum $ 0 : Trie.lookupPath ks t
     when (n <= m) action
 
-reportS :: VerboseKey → Int → String → T ()
+reportS ∷ VerboseKey → Int → String → T ()
 reportS k n s = verboseS k n $ liftIO $ putStr (s ++ "\n")
 
-reportSLn :: VerboseKey → Int → String → T ()
+reportSLn ∷ VerboseKey → Int → String → T ()
 reportSLn k n s = verboseS k n $ liftIO $ putStrLn (s ++ "\n")
