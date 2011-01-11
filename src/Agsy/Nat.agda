@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Testing Agsy using the Agda standard library
+-- Natural numbers properties using Agsy
 ------------------------------------------------------------------------------
 
-module AgsyTest where
+module Agsy.Nat where
 
 open import Data.Nat
 

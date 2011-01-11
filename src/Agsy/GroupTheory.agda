@@ -1,4 +1,8 @@
-module GroupTheory where
+------------------------------------------------------------------------------
+-- Group theory properties using Agsy
+------------------------------------------------------------------------------
+
+module Agsy.GroupTheory where
 
 open import Data.Product
 
@@ -66,6 +70,19 @@ rightCancellation x y z = λ hyp → {!-t 20 -m!} -- Agsy fails
 leftCancellation : ∀ x y z → x · y ≡ x · z → y ≡ z
 leftCancellation x y z = λ hyp → {!-t 20 -m!}  -- Agsy fails
 
+leftCancellationER : (x y z : G) → x · y ≡ x · z → y ≡ z
+leftCancellationER x y z x·y≡x·z =
+  begin
+    y              ≡⟨ sym (leftIdentity y) ⟩
+    ε · y          ≡⟨ subst (λ t → ε · y ≡ t · y) (sym (leftInverse x)) refl ⟩
+    x ⁻¹ · x · y   ≡⟨ assoc (x ⁻¹) x y ⟩
+    x ⁻¹ · (x · y) ≡⟨ subst (λ t → x ⁻¹ · (x · y) ≡ x ⁻¹ · t) x·y≡x·z refl ⟩
+    x ⁻¹ · (x · z) ≡⟨ sym (assoc (x ⁻¹) x z) ⟩
+    x ⁻¹ · x · z   ≡⟨ subst (λ t → x ⁻¹ · x · z ≡ t · z) (leftInverse x) refl ⟩
+    ε · z          ≡⟨ leftIdentity z ⟩
+    z
+  ∎
+
 rightInverseUnique : ∀ x → Σ G λ r → (x · r ≡ ε) ×
                                      (∀ r' → x · r' ≡ ε → r ≡ r')
 rightInverseUnique x = {!-t 20 -m!}  -- Agsy fails
@@ -86,4 +103,4 @@ inverseDistribution x y = {!-t 20 -m!}  -- Agsy fails
 -- If the square of every element is the identity, the system is commutative.
 -- From: TPTP (v5.0.0). File: Problems/GRP/GRP001-2.p
 x²≡ε→comm : (∀ a → a · a ≡ ε) → ∀ {b c d} → b · c ≡ d → c · b ≡ d
-x²≡ε→comm hyp {b} {c} {d} bc≡d = {!-t 20 -m!}
+x²≡ε→comm hyp {b} {c} {d} bc≡d = {!-t 20 -m!}  -- Agsy fails
