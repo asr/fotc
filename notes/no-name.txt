@@ -14,6 +14,8 @@ $ vampire -t xxx --input_file file_name
 -- Vampire 0.6 (revision 903): Non-tested.
 -- Vampire 0.6 (revision 903): Time limit (180 sec).
 
+-- We have not tested which ATPs fail on the ATP conjectures.
+
 -- The LTC booleans type.
 -- The LTC list of natural numbers type.
 -- The LTC natural numbers type.

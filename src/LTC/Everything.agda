@@ -40,7 +40,8 @@ open import LTC.Data.Nat.List.PropertiesATP
 open import LTC.Data.Nat.List.PropertiesI
 open import LTC.Data.Nat.List.Type
 open import LTC.Data.Nat.PropertiesATP
-open import LTC.Data.Nat.PropertiesByInduction
+open import LTC.Data.Nat.PropertiesByInductionATP
+open import LTC.Data.Nat.PropertiesByInductionI
 open import LTC.Data.Nat.PropertiesI
 open import LTC.Data.Nat.Type
 
