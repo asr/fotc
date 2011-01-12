@@ -68,7 +68,6 @@ clean :
 TAGS : $(haskell_files)
 	hasktags -e $(haskell_files)
 
-# We are using a modified version of HLint in which we have fixed the
-# issue related with the unicode symbol for the double colon.
+# Required HLint >= 1.8.4.
 hlint :
 	hlint src/
