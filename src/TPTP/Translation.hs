@@ -51,7 +51,7 @@ import AgdaLib.Interface
 import AgdaLib.Syntax.DeBruijn        ( removeReferenceToProofTerms )
 import FOL.Translation.Functions      ( fnToFormula )
 import FOL.Translation.Internal.Types ( typeToFormula )
-import Monad.Base                     ( T , TState(tAllDefs, tVars))
+import Monad.Base                     ( T, TState(tAllDefs, tVars))
 import Monad.Reports                  ( reportSLn )
 import TPTP.Types
     ( AF(MkAF)

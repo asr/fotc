@@ -9,7 +9,7 @@ module Main ( main ) where
 -- Haskell imports
 
 import Control.Monad       ( liftM2 )
-import Control.Monad.Error ( catchError , throwError )
+import Control.Monad.Error ( catchError, throwError )
 import Control.Monad.State ( modify )
 import Control.Monad.Trans ( liftIO )
 
@@ -37,7 +37,7 @@ import Agda.Utils.Impossible
 -- Local imports
 
 -- import FOL.Pretty
-import AgdaLib.Interface ( getImportedInterfaces , myReadInterface )
+import AgdaLib.Interface ( getImportedInterfaces, myReadInterface )
 import ATP.ATP           ( callATPs )
 import Monad.Base
     ( AllDefinitions
