@@ -10,8 +10,6 @@ extra-source-files: src/undefined.h
 executable agda2atp
   main-is:        Main.hs
   hs-source-dirs: src
-  extensions:     CPP
-                  ScopedTypeVariables
 
   build-depends:  Agda         == 2.2.9.1
                   , base       >= 4.2     && < 4.4

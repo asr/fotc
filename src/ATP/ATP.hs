@@ -3,6 +3,7 @@
 -----------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module ATP.ATP ( callATPs ) where
