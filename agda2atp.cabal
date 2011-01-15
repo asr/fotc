@@ -57,6 +57,11 @@ executable agda2atp
 
   if impl(ghc >= 7)
     ghc-options:  -fwarn-missing-local-sigs
--- This warning is disabled due to the GHC bug
--- http://hackage.haskell.org/trac/ghc/ticket/4489
---                  -fwarn-missing-import-lists
+    -- This warning is disabled due to the GHC bug #4489.
+    --              -fwarn-missing-import-lists
+
+    -- If someone installs agda2atp with the setuid bit set, then the
+    -- presence of +RTS may be a security problem (see GHC bug #3910).
+    ghc-options: -rtsopts
+
+  ghc-prof-options: -auto-all
