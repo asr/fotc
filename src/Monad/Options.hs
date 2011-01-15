@@ -8,7 +8,7 @@ module Monad.Options ( processOptions ) where
 
 -- Haskell imports
 import Control.Monad.Error ( throwError )
-
+import Data.List           ( foldl' )
 import System.Console.GetOpt
     ( ArgOrder (Permute)
     , getOpt
@@ -32,7 +32,7 @@ processOptions argv =
 
     (o, files, []) → do
       let opts ∷ Options
-          opts = foldl (flip id) defaultOptions o
+          opts = foldl' (flip id) defaultOptions o
 
       let finalOpts ∷ Options
           finalOpts =

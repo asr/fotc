@@ -11,6 +11,7 @@ module FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm ) where
 -- Haskell imports
 
 import Control.Monad.State ( evalState, get, modify )
+import Data.List           ( foldl' )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
@@ -332,7 +333,7 @@ termToFormula (Var _ _)   = __IMPOSSIBLE__
 appArgs ∷ String → Args → T FOLTerm
 appArgs fn args = do
   termsFOL ← mapM argTermToFOLTerm args
-  return $ foldl app (FOLFun fn []) termsFOL
+  return $ foldl' app (FOLFun fn []) termsFOL
 
 -- Translate an Agda term to an FOL term.
 termToFOLTerm ∷ Term → T FOLTerm
