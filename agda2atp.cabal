@@ -10,7 +10,7 @@ category:           Dependent types
 synopsis:           Program for prove first-order formulae written in Agda using ATPs
 description:
   This package provides a program for prove first-order
-  formulae written in dependently typed language Agda
+  formulae written in the dependently typed language Agda
   <http://wiki.portal.chalmers.se/agda/pmwiki.php> using (first-order)
   automatic theorem provers (ATPs), via the translation of the Agda
   formulae to the TPTP format which is a standard for input and output
