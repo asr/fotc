@@ -18,6 +18,10 @@ description:
 tested-with:        GHC == 6.12.1, GHC == 6.12.3, GHC == 7.0.1
 extra-source-files: src/undefined.h
 
+source-repository head
+  type:     darcs
+  location: http://patch-tag.com/r/asr/agda2atp
+
 executable agda2atp
   main-is:        Main.hs
   hs-source-dirs: src
