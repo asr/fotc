@@ -11,7 +11,7 @@ open import Common.Data.Unit
 
 open import Common.Function
 
-open import Common.Relation.Binary.EqReasoning
+open import Common.Relation.Binary.PreorderReasoning
 open import Common.Relation.Binary.PropositionalEquality
 
 open import Common.LogicalConstants

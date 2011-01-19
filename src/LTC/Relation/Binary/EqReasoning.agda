@@ -2,13 +2,14 @@
 -- Equality reasoning on LTC
 ------------------------------------------------------------------------------
 
--- This module only re-export the equational reasoning instanced on
--- the LTC propositional equality.
+-- This module only re-export the preorder reasoning instanced on the
+-- LTC propositional equality.
 
 module LTC.Relation.Binary.EqReasoning where
 
 open import LTC.Base
 
-import Common.Relation.Binary.EqReasoning
+import Common.Relation.Binary.PreorderReasoning
 open module ≡-Reasoning =
-  Common.Relation.Binary.EqReasoning _≡_ refl trans public
+  Common.Relation.Binary.PreorderReasoning _≡_ refl trans public
+    renaming ( _∼⟨_⟩_ to _≡⟨_⟩_ )
