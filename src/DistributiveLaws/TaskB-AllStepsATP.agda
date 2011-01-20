@@ -13,10 +13,10 @@ open import DistributiveLaws.Relation.Binary.EqReasoning
 -- We prove all the proof steps of DistributiveLaws.TaskB-I using the
 -- ATPs.
 
-taskB : ∀ u x y z → (x · y · (z · u)) ·
+prop₂ : ∀ u x y z → (x · y · (z · u)) ·
                     (( x · y · ( z · u)) · (x · z · (y · u))) ≡
                     x · z · (y · u)
-taskB u x y z =
+prop₂ u x y z =
   begin
     xy·zu · (xy·zu · xz·yu)                                         ≡⟨ j₁ ⟩
 

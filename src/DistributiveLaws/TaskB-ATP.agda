@@ -9,7 +9,7 @@ open import DistributiveLaws.Base
 ------------------------------------------------------------------------------
 
 postulate
-  taskB : ∀ u x y z → (x · y · (z · u)) ·
+  prop₂ : ∀ u x y z → (x · y · (z · u)) ·
                       (( x · y · ( z · u)) · (x · z · (y · u))) ≡
                       x · z · (y · u)
   -- E 1.2: CPU time limit exceeded (180 sec)
@@ -20,4 +20,4 @@ postulate
   -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 300 sec).
   -- Vampire 0.6 (revision 903): (Default) memory limit (using timeout 180 sec).
   -- Vampire 0.6 (revision 903): (Default) memory limit (using timeout 300 sec).
--- {-# ATP prove taskB #-}
+-- {-# ATP prove prop₂ #-}
