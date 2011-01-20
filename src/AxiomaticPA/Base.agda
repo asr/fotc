@@ -33,14 +33,16 @@ postulate
 -- (From Elliott Mendelson. Introduction to mathematical
 -- logic. Chapman & Hall, 4th edition, 1997, p. 155)
 
+-- N.B. We make the recursion in the first argument for _+_ and _*_.
+
 -- S₁. m = n → m = o → n = o
 -- S₂. m = n → succ m = succ n
 -- S₃. 0 ≠ succ n
 -- S₄. succ m = succ n → m = n
--- S₅. n + 0 = n
--- S₆. m + succ n = succ (m + n)
--- S₇. n * 0 = 0
--- S₈. m * succ n = (m * n) + m
+-- S₅. 0 + n = n
+-- S₆. succ m + n = succ (m + n)
+-- S₇. 0 * n = 0
+-- S₈. succ m * n = (m * n) + m
 -- S₉. P(0) → (∀n.P(n) → P(succ n)) → ∀n.P(n), for any wf P(n) of PA.
 
 postulate
@@ -59,14 +61,12 @@ postulate
   S₄ : ∀ {m n} → succ m ≣ succ n → m ≣ n
 {-# ATP axiom S₄ #-}
 
--- N.B. We make the recursion in the first argument.
 postulate
   S₅ : ∀ n →   zero   + n ≣ n
   S₆ : ∀ m n → succ m + n ≣ succ (m + n)
 {-# ATP axiom S₅ #-}
 {-# ATP axiom S₆ #-}
 
--- N.B. We make the recursion on the first argument.
 postulate
   S₇ : ∀ n →   zero   * n ≣ zero
   S₈ : ∀ m n → succ m * n ≣ n + m * n
