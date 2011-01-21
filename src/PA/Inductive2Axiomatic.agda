@@ -19,7 +19,7 @@
 -- S₉. P(0) → (∀n.P(n) → P(succ n)) → ∀n.P(n), for any wf P(n) of PA.
 
 -- [1]. Elliott Mendelson. Introduction to mathematical logic. Chapman
--- & Hall, 4th edition, 1997, p. 155)
+-- & Hall, 4th edition, 1997, p. 155.
 
 module PA.Inductive2Axiomatic where
 
