@@ -2,18 +2,22 @@
 -- Inductive PA properties
 ------------------------------------------------------------------------------
 
-module PA.Inductive.PropertiesATP where
+module PA.Inductive.PropertiesI where
 
 open import PA.Inductive.Base
 
 open import PA.Inductive.Properties
+open import PA.Inductive.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
+-- Some proofs are based on the proofs in the standard library.
 
 +-comm : ∀ m n → m + n ≡ n + m
 +-comm zero     n = sym (+-rightIdentity n)
-+-comm (succ m) n = prf (+-comm m n)
-  where
-    postulate prf : m + n ≡ n + m →  -- IH.
-                    succ m + n ≡ n + succ m
-    {-# ATP prove prf x+Sy≡S[x+y] #-}
++-comm (succ m) n =
+  begin
+    succ m + n   ≡⟨ refl ⟩
+    succ (m + n) ≡⟨ cong succ (+-comm m n) ⟩
+    succ (n + m) ≡⟨ sym (x+Sy≡S[x+y] n m) ⟩
+    n + succ m
+  ∎
