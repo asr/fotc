@@ -14,3 +14,5 @@ open import PA.Axiomatic.Relation.Binary.PropositionalEqualityATP
 
 open import PA.Inductive.Base
 open import PA.Inductive.PropertiesATP
+
+open import PA.Inductive2Axiomatic
