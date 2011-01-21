@@ -90,7 +90,7 @@ private
 
     We prove (1) using
 
-    ≡-subst : {A : Set}(P : A → Set){x y : A} → x ≡ y → P x → P y
+    subst : ∀ {x y} (P : D → Set) → x ≡ y → P x → P y
 
     where
       ∸ P is given by \m → ... m ... ≡ ... n ...,

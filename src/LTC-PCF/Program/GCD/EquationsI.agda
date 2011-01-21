@@ -131,7 +131,9 @@ private
 
   where (2) is a conversion rule usually.
   We prove (1) using
-  'subst : {A : Set}(P : A → Set){x y : A} → x ≡ y → P x → P y'
+
+  subst : ∀ {x y} (D : A → Set) → x ≡ y → P x → P y
+
   where
    P is given by λ m → C [m ] ≡ C [n],
    x ≡ y is given n ≡ m (actually, we use sym (m ≡ n)), and

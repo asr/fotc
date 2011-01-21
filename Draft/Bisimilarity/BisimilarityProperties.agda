@@ -25,10 +25,10 @@ data _≡_ (x : D) : D → Set where
   refl : x ≡ x
 
 -- Identity properties
-sym : {x y : D} → x ≡ y → y ≡ x
+sym : ∀ {x y} → x ≡ y → y ≡ x
 sym refl = refl
 
-subst : (P : D → Set){x y : D} → x ≡ y → P x → P y
+subst : ∀ {x y} (P : D → Set) → x ≡ y → P x → P y
 subst P refl px = px
 
 -- The existential quantifier type on D.
