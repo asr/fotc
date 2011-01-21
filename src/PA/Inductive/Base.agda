@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Peano arithmetic base
+-- Inductive Peano arithmetic base
 ------------------------------------------------------------------------------
 
-module PA.Base where
+module PA.Inductive.Base where
 
 -- We add 3 to the fixities of the standard library.
 infixl 10 _*_

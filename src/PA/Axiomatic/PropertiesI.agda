@@ -1,13 +1,13 @@
 ------------------------------------------------------------------------------
--- PA properties
+-- Axiomatic PA properties
 ------------------------------------------------------------------------------
 
-module AxiomaticPA.PropertiesI where
+module PA.Axiomatic.PropertiesI where
 
-open import AxiomaticPA.Base
+open import PA.Axiomatic.Base
 
-open import AxiomaticPA.Relation.Binary.EqReasoning
-open import AxiomaticPA.Relation.Binary.PropositionalEqualityI using ( sym )
+open import PA.Axiomatic.Relation.Binary.EqReasoning
+open import PA.Axiomatic.Relation.Binary.PropositionalEqualityI using ( sym )
 
 ------------------------------------------------------------------------------
 

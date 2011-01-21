@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Peano arithmetic base
+-- Axiomatic Peano arithmetic base
 ------------------------------------------------------------------------------
 
-module AxiomaticPA.Base where
+module PA.Axiomatic.Base where
 
 -- We add 3 to the fixities of the standard library.
 infixl 10 _*_

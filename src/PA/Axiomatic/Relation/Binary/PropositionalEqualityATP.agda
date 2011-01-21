@@ -1,10 +1,10 @@
 ------------------------------------------------------------------------------
--- PA propositional equality
+-- Axiomatic PA propositional equality
 ------------------------------------------------------------------------------
 
-module AxiomaticPA.Relation.Binary.PropositionalEqualityATP where
+module PA.Axiomatic.Relation.Binary.PropositionalEqualityATP where
 
-open import AxiomaticPA.Base
+open import PA.Axiomatic.Base
 
 ------------------------------------------------------------------------------
 -- Identity properties

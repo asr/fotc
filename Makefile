@@ -22,7 +22,6 @@ RSYNC    = rsync --archive --progress --rsh='ssh -p 2024'
 # Paths
 
 # Theories
-AxiomaticPA_path      = src/AxiomaticPA
 Common_path           = src/Common
 DistributiveLaws_path = src/DistributiveLaws
 GroupTheory_path      = src/GroupTheory
@@ -41,9 +40,6 @@ SortList_path = $(LTC_path)/Program/SortList
 # "main" modules
 
 # Theories
-
-main_AxiomaticPA      = $(AxiomaticPA_path)/Everything
-
 main_Common           = $(Common_path)/Everything
 
 main_DistributiveLaws = $(DistributiveLaws_path)/Everything
@@ -77,8 +73,7 @@ type_checking_Agsy : $(Agsy_files)
 type_checking_% :
 	$(AGDA_FOT) $(main_$*).agda
 
-all_type_checking : type_checking_AxiomaticPA \
-		    type_checking_Common \
+all_type_checking : type_checking_Common \
 		    type_checking_DistributiveLaws \
 		    type_checking_GroupTheory \
 		    type_checking_Logic \
@@ -99,8 +94,7 @@ conjectures_% :
 
 # TODO: We add the conjectures related to the programs, but it
 # duplicates the test.
-all_conjectures : conjectures_AxiomaticPA \
-		  conjectures_DistributiveLaws \
+all_conjectures : conjectures_DistributiveLaws \
 		  conjectures_GroupTheory \
 		  conjectures_Logic \
 		  conjectures_LTC \
@@ -143,8 +137,7 @@ publish_% :
 	$(AGDA_FOT) --html --html-dir=/tmp/$*/html/ $(main_$*).agda
 	$(RSYNC) /tmp/$*/html/ $(root_host_dir)/$*/
 
-all_publish : publish_AxiomaticPA \
-	      publish_Common \
+all_publish : publish_Common \
 	      publish_DistributiveLaws \
 	      publish_GroupTheory \
 	      publish_Logic \

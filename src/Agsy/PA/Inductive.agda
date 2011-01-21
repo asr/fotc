@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Natural numbers properties using Agsy
+-- Inductive PA arithmetic properties using Agsy
 ------------------------------------------------------------------------------
 
-module Agsy.Nat where
+module Agsy.PA.Inductive where
 
 open import Data.Nat
 

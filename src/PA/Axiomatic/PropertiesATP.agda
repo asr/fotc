@@ -2,11 +2,11 @@
 -- PA properties
 ------------------------------------------------------------------------------
 
-module AxiomaticPA.PropertiesATP where
+module PA.Axiomatic.PropertiesATP where
 
-open import AxiomaticPA.Base
+open import PA.Axiomatic.Base
 
-open import AxiomaticPA.Relation.Binary.PropositionalEqualityI
+open import PA.Axiomatic.Relation.Binary.PropositionalEqualityI
   using ()  -- We include this module due to its general hints.
 
 ------------------------------------------------------------------------------

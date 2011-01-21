@@ -1,14 +1,14 @@
 ------------------------------------------------------------------------------
--- Equality reasoning on PA
+-- Equality reasoning on axiomatic PA
 ------------------------------------------------------------------------------
 
 -- This module only re-export the preorder reasoning instanced on
--- the PA propositional equality.
+-- the axiomatic PA propositional equality.
 
-module AxiomaticPA.Relation.Binary.EqReasoning where
+module PA.Axiomatic.Relation.Binary.EqReasoning where
 
-open import AxiomaticPA.Base
-open import AxiomaticPA.Relation.Binary.PropositionalEqualityI
+open import PA.Axiomatic.Base
+open import PA.Axiomatic.Relation.Binary.PropositionalEqualityI
   using ( refl ; trans)
 
 import Common.Relation.Binary.PreorderReasoning

@@ -1,14 +1,14 @@
 ------------------------------------------------------------------------------
--- Test the consistency of AxiomaticPA.Base
+-- Test the consistency of PA.Axiomatic.Base
 ------------------------------------------------------------------------------
 
--- In the module AxiomaticPA.Base we declare Agda postulates as FOL
+-- In the module PA.Axiomatic.Base we declare Agda postulates as FOL
 -- axioms. We test if it is possible to prove an unprovable theorem
 -- from these axioms.
 
-module AxiomaticPA.Base.ConsistencyTest where
+module PA.Axiomatic.Base.ConsistencyTest where
 
-open import AxiomaticPA.Base
+open import PA.Axiomatic.Base
 
 ------------------------------------------------------------------------------
 

@@ -2,9 +2,9 @@
 -- PA properties
 ------------------------------------------------------------------------------
 
-module PA.PropertiesATP where
+module PA.Inductive.PropertiesATP where
 
-open import PA.Base
+open import PA.Inductive.Base
 
 ------------------------------------------------------------------------------
 -- Some proofs are based on the proofs in the standard library.
