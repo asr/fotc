@@ -60,6 +60,9 @@ executable agda2atp
                   Utils.Names
                   Utils.Version
 
+  -- Required by cabal haddock. Cabal bug?
+  extensions:     CPP
+
   ghc-options:    -Wall
                   -fwarn-incomplete-record-updates
                   -fwarn-monomorphism-restriction

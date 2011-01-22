@@ -60,14 +60,19 @@ fail                    : $(fail_files)
 
 test : succeed_agda succeed_conjectures fail
 
-clean :
-	@find -name '*.agdai' | xargs rm -f
-	@rm -f /tmp/*.tptp
-
+##############################################################################
 # Others
+
 TAGS : $(haskell_files)
 	hasktags -e $(haskell_files)
 
-# Required HLint >= 1.8.4.
+# Requires HLint >= 1.8.4.
 hlint :
 	hlint src/
+
+doc :
+	cabal haddock --executables
+
+clean :
+	@find -name '*.agdai' | xargs rm -f
+	@rm -f /tmp/*.tptp
