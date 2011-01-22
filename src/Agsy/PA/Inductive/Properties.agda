@@ -4,7 +4,7 @@
 
 module Agsy.PA.Inductive.Properties where
 
-open import Data.Nat
+open import Data.Nat renaming (suc to succ)
 
 open import Relation.Binary.PropositionalEquality
 open ≡-Reasoning
@@ -12,22 +12,22 @@ open ≡-Reasoning
 ------------------------------------------------------------------------------
 
 +-rightIdentity : ∀ n → n + zero ≡ n  -- via Agsy {-c}
-+-rightIdentity zero    = refl
-+-rightIdentity (suc n) = cong suc (+-rightIdentity n)
++-rightIdentity zero     = refl
++-rightIdentity (succ n) = cong succ (+-rightIdentity n)
 
 +-assoc : ∀ m n o → m + n + o ≡ m + (n + o)  -- via Agsy {-c}
-+-assoc zero    n o = refl
-+-assoc (suc m) n o = cong suc (+-assoc m n o)
++-assoc zero     n o = refl
++-assoc (succ m) n o = cong succ (+-assoc m n o)
 
-x+Sy≡S[x+y] : ∀ m n → m + suc n ≡ suc (m + n)  -- via Agsy {-c}
-x+Sy≡S[x+y] zero    n = refl
-x+Sy≡S[x+y] (suc m) n = cong suc (x+Sy≡S[x+y] m n)
+x+Sy≡S[x+y] : ∀ m n → m + succ n ≡ succ (m + n)  -- via Agsy {-c}
+x+Sy≡S[x+y] zero     n = refl
+x+Sy≡S[x+y] (succ m) n = cong succ (x+Sy≡S[x+y] m n)
 
 +-comm : ∀ m n → m + n ≡ n + m  -- via Agsy {-c -m}
 +-comm zero    n = sym (+-rightIdentity n)
-+-comm (suc m) n =
++-comm (succ m) n =
   begin
-    suc (m + n) ≡⟨ cong suc (+-comm m n) ⟩
-    suc (n + m) ≡⟨ sym (x+Sy≡S[x+y] n m) ⟩
-    n + suc m
+    succ (m + n) ≡⟨ cong succ (+-comm m n) ⟩
+    succ (n + m) ≡⟨ sym (x+Sy≡S[x+y] n m) ⟩
+    n + succ m
   ∎
