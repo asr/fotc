@@ -2,7 +2,7 @@
 -- Inductive PA arithmetic properties using Agsy
 ------------------------------------------------------------------------------
 
-module Agsy.PA.Inductive where
+module Agsy.PA.Inductive.Properties where
 
 open import Data.Nat
 
