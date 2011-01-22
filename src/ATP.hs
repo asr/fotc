@@ -6,7 +6,7 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module ATP.ATP ( callATPs ) where
+module ATP ( callATPs ) where
 
 -- Haskell imports
 import Data.List               ( isInfixOf )
@@ -39,7 +39,7 @@ import Options    ( Options(optATP, optOnlyFiles, optTime, optUnprovedError) )
 import TPTP.Files ( createConjectureFile )
 import TPTP.Types ( ConjectureAFs, GeneralRolesAF )
 
-#include "../undefined.h"
+#include "undefined.h"
 
 ------------------------------------------------------------------------------
 -- The ATPs.

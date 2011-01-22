@@ -38,7 +38,7 @@ import Agda.Utils.Impossible
 
 -- import FOL.Pretty
 import AgdaLib.Interface ( getImportedInterfaces, myReadInterface )
-import ATP.ATP           ( callATPs )
+import ATP               ( callATPs )
 import Monad.Base
     ( AllDefinitions
     , runT

@@ -38,7 +38,7 @@ executable agda2atp
                   AgdaLib.Interface
                   AgdaLib.Syntax.Abstract.Name
                   AgdaLib.Syntax.DeBruijn
-                  ATP.ATP
+                  ATP
                   FOL.Constants
                   FOL.Primitives
                   FOL.Translation.Common
