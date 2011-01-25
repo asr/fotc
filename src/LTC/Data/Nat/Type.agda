@@ -13,14 +13,14 @@ open import LTC.Base
 -- The LTC natural numbers type.
 data N : D → Set where
   zN : N zero
-  sN : {n : D} → N n → N (succ n)
+  sN : ∀ {n} → N n → N (succ n)
 -- {-# ATP hint zN #-}
 -- {-# ATP hint sN #-}
 
 -- Induction principle for N (elimination rule).
 indN : (P : D → Set) →
        P zero →
-       ({n : D} → N n → P n → P (succ n)) →
-       {n : D} → N n → P n
+       (∀ {n} → N n → P n → P (succ n)) →
+       ∀ {n} → N n → P n
 indN P p0 h zN      = p0
 indN P p0 h (sN Nn) = h Nn (indN P p0 h Nn)
