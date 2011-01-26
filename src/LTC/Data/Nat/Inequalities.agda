@@ -10,10 +10,10 @@ open import LTC.Base
 
 postulate
   _<_  : D → D → D
-  <-00 :             zero   < zero   ≡ false
-  <-0S : (d : D) →   zero   < succ d ≡ true
-  <-S0 : (d : D) →   succ d < zero   ≡ false
-  <-SS : (d e : D) → succ d < succ e ≡ d < e
+  <-00 :         zero   < zero   ≡ false
+  <-0S : ∀ d →   zero   < succ d ≡ true
+  <-S0 : ∀ d →   succ d < zero   ≡ false
+  <-SS : ∀ d e → succ d < succ e ≡ d < e
 
 {-# ATP axiom <-00 #-}
 {-# ATP axiom <-0S #-}

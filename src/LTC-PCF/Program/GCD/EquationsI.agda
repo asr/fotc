@@ -30,7 +30,7 @@ private
   -- Initially, we define the possible states (gcd-s₁,
   -- gcd-s₂, ...). Then we write down the proof for
   -- the execution step from the state p to the state q
-  -- (e.g proof₂₋₃ : (m n : D) → gcd-s₂ m n → gcd-s₃ m n).
+  -- (e.g proof₂₋₃ : ∀ m n → gcd-s₂ m n → gcd-s₃ m n).
 
   -- The functions gcd-00, gcd-Sm0, gcd-0Sn, gcd-m>n and
   -- gcd-m>n show the use of the states gcd-s₁, gcd-s₂, ..., and the
@@ -121,7 +121,7 @@ private
 
   {-
   To prove the execution steps
-  (e.g. proof₃₋₄ : (m n : D) → gcd-s₃ m n → gcd_s₄ m n),
+  (e.g. proof₃₋₄ : ∀ m n → gcd-s₃ m n → gcd_s₄ m n),
   we usually need to prove that
 
                          C [m] ≡ C [n] (1)
@@ -141,75 +141,75 @@ private
   -}
 
   -- Application of the conversion rule fix-f.
-  proof₀₋₁ : (m n : D) → fix gcdh · m · n ≡ gcd-s₁ m n
+  proof₀₋₁ : ∀ m n → fix gcdh · m · n ≡ gcd-s₁ m n
   proof₀₋₁ m n = subst (λ x → x · m · n ≡ gcdh (fix gcdh) · m · n)
                        (sym (fix-f gcdh))
                        refl
 
   -- Application of the first argument.
-  proof₁₋₂ : (m n : D) → gcd-s₁ m n ≡ gcd-s₂ m · n
+  proof₁₋₂ : ∀ m n → gcd-s₁ m n ≡ gcd-s₂ m · n
   proof₁₋₂ m n = subst (λ x → x · n ≡ gcd-s₂ m · n)
                        (sym (beta gcd-s₂ m))
                        refl
 
   -- Second argument application.
-  proof₂₋₃ : (m n : D) → gcd-s₂ m · n ≡ gcd-s₃ m n
+  proof₂₋₃ : ∀ m n → gcd-s₂ m · n ≡ gcd-s₃ m n
   proof₂₋₃ m n  = beta (gcd-s₃ m) n
 
   -- Conversion (first if_then_else) 'isZero n = b' using that proof.
-  proof₃₋₄ : (m n b : D) → isZero n ≡ b → gcd-s₃ m n ≡ gcd-s₄ m n b
+  proof₃₋₄ : ∀ m n b → isZero n ≡ b → gcd-s₃ m n ≡ gcd-s₄ m n b
   proof₃₋₄ m n b prf = subst (λ x → gcd-s₄ m n x ≡ gcd-s₄ m n b)
                              (sym prf)
                              refl
 
   -- Conversion first if_then_else when 'if true ...' using if-true.
-  proof₄₋₅ : (m n : D) → gcd-s₄ m n true ≡ gcd-s₅ m
+  proof₄₋₅ : ∀ m n → gcd-s₄ m n true ≡ gcd-s₅ m
   proof₄₋₅ m _ = if-true (gcd-s₅ m)
 
   -- Conversion first if_then_else when 'if false ...' using if-false.
-  proof₄₋₆ : (m n : D) → gcd-s₄ m n false ≡ gcd-s₆ m n
+  proof₄₋₆ : ∀ m n → gcd-s₄ m n false ≡ gcd-s₆ m n
   proof₄₋₆ m n = if-false (gcd-s₆ m n)
 
   -- -- Conversion (second if_then_else) 'isZero m = b' using that proof.
-  proof₅₋₇ : (m b : D) → isZero m ≡ b → gcd-s₅ m ≡ gcd-s₇ m b
+  proof₅₋₇ : ∀ m b → isZero m ≡ b → gcd-s₅ m ≡ gcd-s₇ m b
   proof₅₋₇ m b prf = subst (λ x → gcd-s₇ m x ≡ gcd-s₇ m b)
                            (sym prf)
                            refl
 
   -- Conversion (third if_then_else) 'isZero m = b' using that proof.
-  proof₆₋₈ : (m n b : D) → isZero m ≡ b → gcd-s₆ m n ≡ gcd-s₈ m n b
+  proof₆₋₈ : ∀ m n b → isZero m ≡ b → gcd-s₆ m n ≡ gcd-s₈ m n b
   proof₆₋₈ m n b prf = subst (λ x → gcd-s₈ m n x ≡ gcd-s₈ m n b)
                              (sym prf)
                              refl
 
   -- Conversion second if_then_else when 'if true ...' using if-true.
-  proof₇₊ : (m : D) → gcd-s₇ m true ≡ error
+  proof₇₊ : ∀ m → gcd-s₇ m true ≡ error
   proof₇₊ _ = if-true error
 
   -- Conversion second if_then_else when 'if false ...' using if-false.
-  proof₇₋ : (m : D) → gcd-s₇ m false ≡ m
+  proof₇₋ : ∀ m → gcd-s₇ m false ≡ m
   proof₇₋ m = if-false m
 
   -- Conversion third if_then_else when 'if true ...' using if-true.
-  proof₈₊ : (m n : D) → gcd-s₈ m n true ≡ n
+  proof₈₊ : ∀ m n → gcd-s₈ m n true ≡ n
   proof₈₊ _ n = if-true n
 
   -- Conversion third if_then_else when 'if false ...' using if-false.
-  proof₈₋₉ : (m n : D) → gcd-s₈ m n false ≡ gcd-s₉ m n
+  proof₈₋₉ : ∀ m n → gcd-s₈ m n false ≡ gcd-s₉ m n
   proof₈₋₉ m n = if-false (gcd-s₉ m n)
 
   -- Conversion (fourth if_then_else) 'gt m n = b' using that proof.
-  proof₉₋₁₀ : (m n b : D) → m > n ≡ b → gcd-s₉ m n ≡ gcd-s₁₀ m n b
+  proof₉₋₁₀ : ∀ m n b → m > n ≡ b → gcd-s₉ m n ≡ gcd-s₁₀ m n b
   proof₉₋₁₀ m n b prf = subst (λ x → gcd-s₁₀ m n x ≡ gcd-s₁₀ m n b)
                               (sym prf)
                               refl
 
   -- Conversion fourth if_then_else when 'if true ...' using if-true.
-  proof₁₀₊ : (m n : D) → gcd-s₁₀ m n true ≡ fix gcdh · (m ∸ n) · n
+  proof₁₀₊ : ∀ m n → gcd-s₁₀ m n true ≡ fix gcdh · (m ∸ n) · n
   proof₁₀₊ m n = if-true (fix gcdh · (m ∸ n) · n)
 
   -- Conversion fourth if_then_else when 'if was ...' using if-false.
-  proof₁₀₋ : (m n : D) → gcd-s₁₀ m n false ≡ fix gcdh · m · (n ∸ m)
+  proof₁₀₋ : ∀ m n → gcd-s₁₀ m n false ≡ fix gcdh · m · (n ∸ m)
   proof₁₀₋ m n = if-false (fix gcdh · m · (n ∸ m))
 
 ------------------------------------------------------------------------------
@@ -231,21 +231,21 @@ gcd-00 =
   ∎
 
 -- Second equation.
-gcd-S0 : (m : D) → gcd (succ m) zero ≡ succ m
-gcd-S0 m =
+gcd-S0 : ∀ n → gcd (succ n) zero ≡ succ n
+gcd-S0 n =
   begin
-    gcd (succ m) zero         ≡⟨ proof₀₋₁ (succ m) zero ⟩
-    gcd-s₁ (succ m) zero      ≡⟨ proof₁₋₂ (succ m) zero ⟩
-    gcd-s₂ (succ m) · zero    ≡⟨ proof₂₋₃ (succ m) zero ⟩
-    gcd-s₃ (succ m) zero      ≡⟨ proof₃₋₄ (succ m) zero true isZero-0 ⟩
-    gcd-s₄ (succ m) zero true ≡⟨ proof₄₋₅ (succ m) zero ⟩
-    gcd-s₅ (succ m)           ≡⟨ proof₅₋₇ (succ m) false (isZero-S m) ⟩
-    gcd-s₇ (succ m) false     ≡⟨ proof₇₋  (succ m) ⟩
-    succ m
+    gcd (succ n) zero         ≡⟨ proof₀₋₁ (succ n) zero ⟩
+    gcd-s₁ (succ n) zero      ≡⟨ proof₁₋₂ (succ n) zero ⟩
+    gcd-s₂ (succ n) · zero    ≡⟨ proof₂₋₃ (succ n) zero ⟩
+    gcd-s₃ (succ n) zero      ≡⟨ proof₃₋₄ (succ n) zero true isZero-0 ⟩
+    gcd-s₄ (succ n) zero true ≡⟨ proof₄₋₅ (succ n) zero ⟩
+    gcd-s₅ (succ n)           ≡⟨ proof₅₋₇ (succ n) false (isZero-S n) ⟩
+    gcd-s₇ (succ n) false     ≡⟨ proof₇₋  (succ n) ⟩
+    succ n
   ∎
 
 -- Third equation.
-gcd-0S : (n : D) → gcd zero (succ n) ≡ succ n
+gcd-0S : ∀ n → gcd zero (succ n) ≡ succ n
 gcd-0S n =
   begin
     gcd zero (succ n)          ≡⟨ proof₀₋₁ zero (succ n) ⟩
@@ -259,7 +259,7 @@ gcd-0S n =
   ∎
 
 -- Fourth equation.
-gcd-S>S : (m n : D) → GT (succ m) (succ n) →
+gcd-S>S : ∀ m n → GT (succ m) (succ n) →
           gcd (succ m) (succ n) ≡ gcd (succ m ∸ succ n) (succ n)
 
 gcd-S>S m n Sm>Sn =
@@ -282,7 +282,7 @@ gcd-S>S m n Sm>Sn =
 
 -- TODO: This equation requires N m and N n.
 -- Fifth equation.
-gcd-S≤S : {m n : D} → N m → N n → LE (succ m) (succ n) →
+gcd-S≤S : ∀ {m n} → N m → N n → LE (succ m) (succ n) →
           gcd (succ m) (succ n) ≡ gcd (succ m) (succ n ∸ succ m)
 gcd-S≤S {m} {n} Nm Nn Sm≤Sn =
   begin

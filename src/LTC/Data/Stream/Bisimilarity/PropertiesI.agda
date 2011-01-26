@@ -11,7 +11,7 @@ open import LTC.Data.Stream.Bisimilarity using ( _≈_ ; -≈-gfp₁ )
 
 ------------------------------------------------------------------------------
 
-x∷xs≈x∷ys→xs≈ys : {x xs ys : D} → x ∷ xs ≈ x ∷ ys → xs ≈ ys
+x∷xs≈x∷ys→xs≈ys : ∀ {x xs ys} → x ∷ xs ≈ x ∷ ys → xs ≈ ys
 x∷xs≈x∷ys→xs≈ys {x} {xs} {ys} x∷xs≈x∷ys = xs≈ys
   where
     x' : D

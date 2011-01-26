@@ -11,7 +11,7 @@ open import LTC.Data.Nat.Divisibility using ( _∣_ )
 open import LTC.Data.Nat.Inequalities using ( LE )
 
 module LTC.Program.GCD.IsGreatestAnyCommonDivisor
-  ( x∣1+y→x≤1+y : {m n : D} → N m → N n → m ∣ (succ n) → LE m (succ n)
+  ( x∣1+y→x≤1+y : ∀ {m n} → N m → N n → m ∣ (succ n) → LE m (succ n)
   )
   where
 
@@ -28,8 +28,7 @@ open import LTC.Program.GCD.Definitions using ( CD ; Divisible ; GACD )
 
 -- We need 'N d'.
 
-gcd-GACD : {m n gcd : D} → N gcd → CD m n gcd → Divisible m n gcd →
-           GACD m n gcd
+gcd-GACD : ∀ {m n gcd} → N gcd → CD m n gcd → Divisible m n gcd → GACD m n gcd
 gcd-GACD zN             (0∣m , _) = ⊥-elim $ 0∤x 0∣m
 gcd-GACD (sN {gcd} Ngcd) _        =
   λ Divisible-mnSgcd c Nc CDmnc → x∣1+y→x≤1+y Nc Ngcd (Divisible-mnSgcd c Nc CDmnc)

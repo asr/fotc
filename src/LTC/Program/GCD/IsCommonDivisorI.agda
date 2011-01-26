@@ -46,20 +46,20 @@ open import LTC.Program.GCD.IsN-I using ( gcd-N )
 -- of them), we proved it using well-founded induction.
 
 -- 'gcd 0 (succ n) ∣ 0'.
-gcd-0S-∣₁ : {n : D} → N n → gcd zero (succ n) ∣ zero
+gcd-0S-∣₁ : ∀ {n} → N n → gcd zero (succ n) ∣ zero
 gcd-0S-∣₁ {n} Nn = subst (λ x → x ∣ zero)
                          (sym $ gcd-0S n)
                          (S∣0 Nn)
 
 -- 'gcd (succ m) 0 ∣ succ m'.
-gcd-S0-∣₁ : {m : D} → N m → gcd (succ m) zero ∣ succ m
+gcd-S0-∣₁ : ∀ {m} → N m → gcd (succ m) zero ∣ succ m
 gcd-S0-∣₁ {m} Nm = subst (λ x → x ∣ succ m)
                          (sym $ gcd-S0 m)
                          (∣-refl-S Nm)
 
 -- 'gcd (succ m) (succ n) ∣ succ m', when 'succ m ≤ succ n'.
 gcd-S≤S-∣₁ :
-  {m n : D} → N m → N n →
+  ∀ {m n} → N m → N n →
   (gcd (succ m) (succ n ∸ succ m) ∣ succ m) →
   LE (succ m) (succ n) →
   gcd (succ m) (succ n) ∣ succ m
@@ -72,7 +72,7 @@ gcd-S≤S-∣₁ {m} {n} Nm Nn ih Sm≤Sn =
 -- We use gcd-∣₂.
 -- We apply the theorem that if 'm∣n' and 'm∣o' then 'm∣(n+o)'.
 gcd-S>S-∣₁ :
-  {m n : D} → N m → N n →
+  ∀ {m n} → N m → N n →
   (gcd (succ m ∸ succ n) (succ n) ∣ (succ m ∸ succ n)) →
   (gcd (succ m ∸ succ n) (succ n) ∣ succ n) →
   GT (succ m) (succ n) →
@@ -118,20 +118,20 @@ gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
 -- the same to don't prove 'gcd-∣₁ : ... → gcd m n ∣ m'.
 
 -- 'gcd 0 (succ n) ∣₂ succ n'.
-gcd-0S-∣₂ : {n : D} → N n → gcd zero (succ n) ∣ succ n
+gcd-0S-∣₂ : ∀ {n} → N n → gcd zero (succ n) ∣ succ n
 gcd-0S-∣₂ {n} Nn = subst (λ x → x ∣ succ n)
                          (sym $ gcd-0S n)
                          (∣-refl-S Nn)
 
 -- 'gcd (succ m) 0 ∣ 0'.
-gcd-S0-∣₂ : {m : D} → N m → gcd (succ m) zero ∣ zero
+gcd-S0-∣₂ : ∀ {m} → N m → gcd (succ m) zero ∣ zero
 gcd-S0-∣₂  {m} Nm = subst (λ x → x ∣ zero)
                           (sym $ gcd-S0 m)
                           (S∣0 Nm)
 
 -- 'gcd (succ m) (succ n) ∣ succ n' when 'succ m > succ n'.
 gcd-S>S-∣₂ :
-  {m n : D} → N m → N n →
+  ∀ {m n} → N m → N n →
   (gcd (succ m ∸ succ n) (succ n) ∣ succ n) →
   GT (succ m) (succ n) →
   gcd (succ m) (succ n) ∣ succ n
@@ -145,7 +145,7 @@ gcd-S>S-∣₂ {m} {n} Nm Nn ih Sm>Sn =
 -- We use gcd-∣₁.
 -- We apply the theorem that if 'm∣n' and 'm∣o' then 'm∣(n+o)'.
 gcd-S≤S-∣₂ :
-  {m n : D} → N m → N n →
+  ∀ {m n} → N m → N n →
   (gcd (succ m) (succ n ∸ succ m) ∣ (succ n ∸ succ m)) →
   (gcd (succ m) (succ n ∸ succ m) ∣ succ m) →
   LE (succ m) (succ n) →
@@ -190,16 +190,16 @@ gcd-S≤S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≤Sn =
 -- We will prove that 'gcd-CD : ... → CD m n (gcd m n).
 
 -- The 'gcd 0 (succ n)' is CD.
-gcd-0S-CD : {n : D} → N n → CD zero (succ n) (gcd zero (succ n))
+gcd-0S-CD : ∀ {n} → N n → CD zero (succ n) (gcd zero (succ n))
 gcd-0S-CD Nn = (gcd-0S-∣₁ Nn , gcd-0S-∣₂ Nn)
 
 -- The 'gcd (succ m) 0 ' is CD.
-gcd-S0-CD : {m : D} → N m → CD (succ m) zero (gcd (succ m) zero)
+gcd-S0-CD : ∀ {m} → N m → CD (succ m) zero (gcd (succ m) zero)
 gcd-S0-CD Nm = (gcd-S0-∣₁ Nm , gcd-S0-∣₂ Nm)
 
 -- The 'gcd (succ m) (succ n)' when 'succ m > succ n' is CD.
 gcd-S>S-CD :
-  {m n : D} → N m → N n →
+  ∀ {m n} → N m → N n →
   (CD (succ m ∸ succ n) (succ n) (gcd (succ m ∸ succ n) (succ n))) →
   GT (succ m) (succ n) →
   CD (succ m) (succ n) (gcd (succ m) (succ n))
@@ -214,7 +214,7 @@ gcd-S>S-CD {m} {n} Nm Nn acc Sm>Sn =
 
 -- The 'gcd (succ m) (succ n)' when 'succ m ≤ succ n' is CD.
 gcd-S≤S-CD :
-  {m n : D} → N m → N n →
+  ∀ {m n} → N m → N n →
   (CD (succ m) (succ n ∸ succ m) (gcd (succ m) (succ n ∸ succ m))) →
   LE (succ m) (succ n) →
   CD (succ m) (succ n) (gcd (succ m) (succ n))
@@ -231,8 +231,8 @@ gcd-S≤S-CD {m} {n} Nm Nn acc Sm≤Sn =
 -- N.B. If '>' were an inductive data type, we would use the absurd pattern
 -- to prove the second case.
 gcd-x>y-CD :
-  {m n : D} → N m → N n →
-  ({o p : D} → N o → N p → LT₂ o p m n → ¬x≡0∧y≡0 o p → CD o p (gcd o p)) →
+  ∀ {m n} → N m → N n →
+  (∀ {o p} → N o → N p → LT₂ o p m n → ¬x≡0∧y≡0 o p → CD o p (gcd o p)) →
   GT m n →
   ¬x≡0∧y≡0 m n →
   CD m n (gcd m n)
@@ -255,8 +255,8 @@ gcd-x>y-CD (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _  =
 -- N.B. If '≤' were an inductive data type, we would use the absurd pattern
 -- to prove the third case.
 gcd-x≤y-CD :
-  {m n : D} → N m → N n →
-  ({o p : D} → N o → N p → LT₂ o p m n → ¬x≡0∧y≡0 o p → CD o p (gcd o p)) →
+  ∀ {m n} → N m → N n →
+  (∀ {o p} → N o → N p → LT₂ o p m n → ¬x≡0∧y≡0 o p → CD o p (gcd o p)) →
   LE m n →
   ¬x≡0∧y≡0 m n →
   CD m n (gcd m n)
@@ -276,16 +276,14 @@ gcd-x≤y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
               (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 
 -- The 'gcd' is CD.
-gcd-CD : {m n : D} → N m → N n → ¬x≡0∧y≡0 m n → CD m n (gcd m n)
+gcd-CD : ∀ {m n} → N m → N n → ¬x≡0∧y≡0 m n → CD m n (gcd m n)
 gcd-CD = wfIndN-LT₂ P istep
   where
     P : D → D → Set
     P i j = ¬x≡0∧y≡0 i j → CD i j (gcd i j)
 
-    istep :
-      {i j : D} → N i → N j →
-      ({k l : D} → N k → N l → LT₂ k l i j → P k l) →
-      P i j
+    istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → P k l) →
+            P i j
     istep Ni Nj accH =
       [ gcd-x>y-CD Ni Nj accH
       , gcd-x≤y-CD Ni Nj accH

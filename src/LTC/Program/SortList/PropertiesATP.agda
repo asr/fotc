@@ -25,7 +25,7 @@ open import LTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------
 -- Burstall's lemma: If t is ordered then totree(i, t) is ordered.
-toTree-OrdTree : {item t : D} → N item → Tree t → OrdTree t →
+toTree-OrdTree : ∀ {item t} → N item → Tree t → OrdTree t →
                  OrdTree (toTree · item · t)
 toTree-OrdTree {item} Nitem nilT _ = prf
   where
@@ -79,12 +79,12 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
 ------------------------------------------------------------------------------
 -- Burstall's lemma: ord(maketree(is)).
 
--- makeTree-TreeOrd : {is : D} → ListN is → OrdTree (makeTree is)
+-- makeTree-TreeOrd : ∀ {is} → ListN is → OrdTree (makeTree is)
 -- makeTree-TreeOrd LNis =
 --   ind-lit OrdTree toTree nilTree LNis ordTree-nilTree
 --           (λ Nx y TOy → toTree-OrdTree Nx {!!} TOy)
 
-makeTree-OrdTree : {is : D} → ListN is → OrdTree (makeTree is)
+makeTree-OrdTree : ∀ {is} → ListN is → OrdTree (makeTree is)
 makeTree-OrdTree nilLN = prf
   where
     postulate prf : OrdTree (makeTree [])
@@ -101,7 +101,7 @@ makeTree-OrdTree (consLN {i} {is} Ni Lis) = prf $ makeTree-OrdTree Lis
 ------------------------------------------------------------------------------
 -- Burstall's lemma: If ord(is1) and ord(is2) and is1 ≤ is2 then
 -- ord(concat(is1, is2)).
-++-OrdList : {is js : D} → ListN is → ListN js → OrdList is → OrdList js →
+++-OrdList : ∀ {is js} → ListN is → ListN js → OrdList is → OrdList js →
              LE-Lists is js → OrdList (is ++ js)
 
 ++-OrdList {js = js} nilLN LNjs LOis LOjs is≤js =
@@ -129,7 +129,7 @@ makeTree-OrdTree (consLN {i} {is} Ni Lis) = prf $ makeTree-OrdTree Lis
 
 ------------------------------------------------------------------------------
 -- Burstall's lemma: If t is ordered then (flatten t) is ordered.
-flatten-OrdList : {t : D} → Tree t → OrdTree t → OrdList (flatten t)
+flatten-OrdList : ∀ {t} → Tree t → OrdTree t → OrdList (flatten t)
 flatten-OrdList nilT OTt =
   subst (λ t → OrdList t) (sym flatten-nilTree) ordList-[]
 

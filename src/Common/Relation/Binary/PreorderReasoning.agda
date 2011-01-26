@@ -5,8 +5,8 @@
 module Common.Relation.Binary.PreorderReasoning
   {D     : Set}
   (_∼_   : D → D → Set)
-  (refl  : {x : D} → x ∼ x)
-  (trans : {x y z : D} → x ∼ y → y ∼ z → x ∼ z)
+  (refl  : ∀ {x} → x ∼ x)
+  (trans : ∀ {x y z} → x ∼ y → y ∼ z → x ∼ z)
   where
 
 -- We add 3 to the fixities of the standard library.
@@ -21,11 +21,11 @@ private
   data _≃_ (x y : D) : Set where
     prf : x ∼ y → x ≃ y
 
-begin_ : {x y : D} → x ≃ y → x ∼ y
+begin_ : ∀ {x y} → x ≃ y → x ∼ y
 begin prf x∼y = x∼y
 
-_∼⟨_⟩_ : (x : D){y z : D} → x ∼ y → y ≃ z → x ≃ z
+_∼⟨_⟩_ : ∀ x {y z} → x ∼ y → y ≃ z → x ≃ z
 _ ∼⟨ x∼y ⟩ prf y∼z = prf (trans x∼y y∼z)
 
-_∎ : (x : D) → x ≃ x
+_∎ : ∀ x → x ≃ x
 _∎ _ = prf refl

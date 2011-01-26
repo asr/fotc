@@ -25,18 +25,18 @@ postulate
 {-# ATP prove gcd-00 #-}
 
 postulate
- gcd-S0 : (n : D) → gcd (succ n) zero ≡ succ n
+ gcd-S0 : ∀ n → gcd (succ n) zero ≡ succ n
 -- E 1.2: CPU time limit exceeded (180 sec).
 {-# ATP prove gcd-S0 #-}
 
 postulate
-  gcd-0S : (n : D) → gcd zero (succ n) ≡ succ n
+  gcd-0S : ∀ n → gcd zero (succ n) ≡ succ n
 -- E 1.2: CPU time limit exceeded (180 sec).
 {-# ATP prove gcd-0S #-}
 
 postulate
-  gcd-S>S : (m n : D) → GT (succ m) (succ n) →
-             gcd (succ m) (succ n) ≡ gcd (succ m ∸ succ n) (succ n)
+  gcd-S>S : ∀ m n → GT (succ m) (succ n) →
+            gcd (succ m) (succ n) ≡ gcd (succ m ∸ succ n) (succ n)
 -- E 1.2: CPU time limit exceeded (180 sec).
 -- E 1.2: CPU time limit exceeded (300 sec).
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
@@ -46,7 +46,7 @@ postulate
 {-# ATP prove gcd-S>S #-}
 
 postulate
-  gcd-S≤S : {m n : D} → N m → N n → LE (succ m) (succ n) →
+  gcd-S≤S : ∀ {m n} → N m → N n → LE (succ m) (succ n) →
             gcd (succ m) (succ n) ≡ gcd (succ m) (succ n ∸ succ m)
 -- E 1.2: CPU time limit exceeded (180 sec).
 -- E 1.2: CPU time limit exceeded (300 sec).

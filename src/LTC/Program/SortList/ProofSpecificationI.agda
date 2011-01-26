@@ -21,7 +21,7 @@ open import LTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------
 -- Main theorem: The sort program generates a ordered list.
-sort-OrdList : {is : D} → ListN is → OrdList (sort is)
+sort-OrdList : ∀ {is} → ListN is → OrdList (sort is)
 sort-OrdList {is} Lis =
   subst (λ t → OrdList t)
         refl

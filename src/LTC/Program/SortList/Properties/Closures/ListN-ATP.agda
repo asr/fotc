@@ -15,7 +15,7 @@ open import LTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------
 -- The function flatten generates a ListN.
-flatten-ListN : {t : D} → Tree t → ListN (flatten t)
+flatten-ListN : ∀ {t} → Tree t → ListN (flatten t)
 flatten-ListN nilT = prf
   where
     postulate prf : ListN (flatten nilTree)

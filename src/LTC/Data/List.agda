@@ -18,15 +18,15 @@ open import LTC.Data.List.Type public
 
 postulate
   length    : D → D
-  length-[] :              length []       ≡ zero
-  length-∷  : (d ds : D) → length (d ∷ ds) ≡ succ (length ds)
+  length-[] :          length []       ≡ zero
+  length-∷  : ∀ d ds → length (d ∷ ds) ≡ succ (length ds)
 {-# ATP axiom length-[] #-}
 {-# ATP axiom length-∷ #-}
 
 postulate
   _++_  : D → D → D
-  ++-[] : (ds : D) →      []       ++ ds ≡ ds
-  ++-∷  : (d ds es : D) → (d ∷ ds) ++ es ≡ d ∷ (ds ++ es)
+  ++-[] : ∀ ds →      []       ++ ds ≡ ds
+  ++-∷  : ∀ d ds es → (d ∷ ds) ++ es ≡ d ∷ (ds ++ es)
 {-# ATP axiom ++-[] #-}
 {-# ATP axiom ++-∷ #-}
 
@@ -34,16 +34,16 @@ postulate
 
 postulate
   map    : D → D → D
-  map-[] : (f : D) →      map f []       ≡ []
-  map-∷  : (f d ds : D) → map f (d ∷ ds) ≡ f · d ∷ map f ds
+  map-[] : (f : D) →        map f []       ≡ []
+  map-∷  : ∀ (f : D) d ds → map f (d ∷ ds) ≡ f · d ∷ map f ds
 {-# ATP axiom map-[] #-}
 {-# ATP axiom map-∷ #-}
 
 postulate
   -- Behavior: rev xs ys = reverse xs ++ ys
   rev    : D → D → D
-  rev-[] : (es : D) →      rev []       es ≡ es
-  rev-∷  : (d ds es : D) → rev (d ∷ ds) es ≡ rev ds (d ∷ es)
+  rev-[] : ∀ es →      rev []       es ≡ es
+  rev-∷  : ∀ d ds es → rev (d ∷ ds) es ≡ rev ds (d ∷ es)
 {-# ATP axiom rev-[] #-}
 {-# ATP axiom rev-∷ #-}
 
@@ -53,8 +53,8 @@ reverse ds = rev ds []
 
 postulate
   replicate   : D → D → D
-  replicate-0 : (d : D) →   replicate zero     d ≡ []
-  replicate-S : (d e : D) → replicate (succ e) d ≡ d ∷ replicate e d
+  replicate-0 : ∀ d →   replicate zero     d ≡ []
+  replicate-S : ∀ d e → replicate (succ e) d ≡ d ∷ replicate e d
 {-# ATP axiom replicate-0 #-}
 {-# ATP axiom replicate-S #-}
 
@@ -62,8 +62,8 @@ postulate
 
 postulate
   foldr    : D → D → D → D
-  foldr-[] : (f n : D) →      foldr f n []       ≡ n
-  foldr-∷  : (f n d ds : D) → foldr f n (d ∷ ds) ≡ f · d · (foldr f n ds)
+  foldr-[] : ∀ (f : D) n  →     foldr f n []       ≡ n
+  foldr-∷  : ∀ (f : D) n d ds → foldr f n (d ∷ ds) ≡ f · d · (foldr f n ds)
 {-# ATP axiom foldr-[] #-}
 {-# ATP axiom foldr-∷ #-}
 
@@ -71,5 +71,5 @@ postulate
 
 postulate
   iterate    : D → D → D
-  iterate-eq : (f x : D) → iterate f x ≡ x ∷ iterate f (f · x)
+  iterate-eq : ∀ (f : D) x → iterate f x ≡ x ∷ iterate f (f · x)
 {-# ATP axiom iterate-eq #-}

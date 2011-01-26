@@ -15,7 +15,7 @@ open import LTC.Data.List using ( _++_ )
 
 ------------------------------------------------------------------------------
 
-++-ListN : {ds es : D} → ListN ds → ListN es → ListN (ds ++ es)
+++-ListN : ∀ {ds es} → ListN ds → ListN es → ListN (ds ++ es)
 ++-ListN {es = es} nilLN esL = prf
   where
     postulate prf : ListN ([] ++ es)

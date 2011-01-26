@@ -17,10 +17,10 @@ open import LTC.Data.Nat
 -- principle associated with the LTC natural numbers. The following
 -- example shows a proof using it.
 
-+-leftIdentity : {n : D} → N n → zero + n ≡ n
++-leftIdentity : ∀ {n} → N n → zero + n ≡ n
 +-leftIdentity {n} _ = +-0x n
 
-+-rightIdentity : {n : D} → N n → n + zero ≡ n
++-rightIdentity : ∀ {n} → N n → n + zero ≡ n
 +-rightIdentity Nn = indN P P0 iStep Nn
   where
     P : D → Set
@@ -32,10 +32,10 @@ open import LTC.Data.Nat
     {-# ATP prove P0 #-}
 
     postulate
-      iStep : {i : D} → N i → P i → P (succ i)
+      iStep : ∀ {i} → N i → P i → P (succ i)
     {-# ATP prove iStep #-}
 
-+-N : {m n : D} → N m → N n → N (m + n)
++-N : ∀ {m n} → N m → N n → N (m + n)
 +-N {n = n} Nm Nn = indN P P0 iStep Nm
   where
     P : D → Set
@@ -47,10 +47,10 @@ open import LTC.Data.Nat
     {-# ATP prove P0 #-}
 
     postulate
-      iStep : {i : D} → N i → P i → P (succ i)
+      iStep : ∀ {i} → N i → P i → P (succ i)
     {-# ATP prove iStep sN #-}
 
-+-assoc : {m n o : D} → N m → N n → N o → m + n + o ≡ m + (n + o)
++-assoc : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
 +-assoc {n = n} {o} Nm Nn No = indN P P0 iStep Nm
   where
     P : D → Set
@@ -62,11 +62,11 @@ open import LTC.Data.Nat
     {-# ATP prove P0 #-}
 
     postulate
-      iStep : {i : D} → N i → P i → P (succ i)
+      iStep : ∀ {i} → N i → P i → P (succ i)
     {-# ATP prove iStep #-}
 
 -- A proof without use ATPs definitions.
-+-assoc' : {m n o : D} → N m → N n → N o → m + n + o ≡ m + (n + o)
++-assoc' : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
 +-assoc' {n = n} {o} Nm _ _ = indN P P0 iStep Nm
   where
     P : D → Set
@@ -77,12 +77,12 @@ open import LTC.Data.Nat
     {-# ATP prove P0 #-}
 
     postulate
-      iStep : {i : D} → N i →
+      iStep : ∀ {i} → N i →
               i + n + o ≡ i + (n + o) →  -- IH.
               succ i + n + o ≡ succ i + (n + o)
     {-# ATP prove iStep #-}
 
-x+Sy≡S[x+y] : {m n : D} → N m → N n → m + succ n ≡ succ (m + n)
+x+Sy≡S[x+y] : ∀ {m n} → N m → N n → m + succ n ≡ succ (m + n)
 x+Sy≡S[x+y] {n = n} Nm Nn = indN P P0 iStep Nm
   where
     P : D → Set
@@ -94,10 +94,10 @@ x+Sy≡S[x+y] {n = n} Nm Nn = indN P P0 iStep Nm
     {-# ATP prove P0 #-}
 
     postulate
-      iStep : {i : D} → N i → P i → P (succ i)
+      iStep : ∀ {i} → N i → P i → P (succ i)
     {-# ATP prove iStep #-}
 
-+-comm : {m n : D} → N m → N n → m + n ≡ n + m
++-comm : ∀ {m n} → N m → N n → m + n ≡ n + m
 +-comm {n = n} Nm Nn = indN P P0 iStep Nm
   where
     P : D → Set
@@ -109,5 +109,5 @@ x+Sy≡S[x+y] {n = n} Nm Nn = indN P P0 iStep Nm
     {-# ATP prove P0 +-rightIdentity #-}
 
     postulate
-      iStep : {i : D} → N i → P i → P (succ i)
+      iStep : ∀ {i} → N i → P i → P (succ i)
     {-# ATP prove iStep x+Sy≡S[x+y] #-}

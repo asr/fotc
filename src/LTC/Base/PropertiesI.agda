@@ -10,7 +10,7 @@ open import LTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 
-succInjective : {d e : D} → succ d ≡ succ e → d ≡ e
+succInjective : ∀ {d e} → succ d ≡ succ e → d ≡ e
 succInjective {d} {e} Sd≡Se =
   begin
     d              ≡⟨ sym (pred-S d) ⟩
@@ -22,7 +22,7 @@ succInjective {d} {e} Sd≡Se =
     e
   ∎
 
-∷-injective : {x y xs ys : D} → x ∷ xs ≡ y ∷ ys → x ≡ y ∧ xs ≡ ys
+∷-injective : ∀ {x y xs ys} → x ∷ xs ≡ y ∷ ys → x ≡ y ∧ xs ≡ ys
 ∷-injective {x} {y} {xs} {ys} x∷xs≡y∷ys = x≡y , xs≡ys
   where
     x≡y : x ≡ y

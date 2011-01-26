@@ -22,21 +22,21 @@ open import LTC.Relation.Binary.EqReasoning
 
 -- See the ATP proof.
 postulate
-  ++-List : {xs ys : D} → List xs → List ys → List (xs ++ ys)
+  ++-List : ∀ {xs ys} → List xs → List ys → List (xs ++ ys)
 
 -- See the ATP proof.
 postulate
-  rev-List : {xs ys : D} → List xs → List ys → List (rev xs ys)
+  rev-List : ∀ {xs ys} → List xs → List ys → List (rev xs ys)
 
-++-leftIdentity : {xs : D} → List xs → [] ++ xs ≡ xs
+++-leftIdentity : ∀ {xs} → List xs → [] ++ xs ≡ xs
 ++-leftIdentity {xs} _ = ++-[] xs
 
 -- See the ATP proof.
 postulate
-  ++-assoc : {as bs cs : D} → List as → List bs → List cs →
-             (as ++ bs) ++ cs ≡ as ++ (bs ++ cs)
+  ++-assoc : ∀ {xs ys zs} → List xs → List ys → List zs →
+             (xs ++ ys) ++ zs ≡ xs ++ (ys ++ zs)
 
-rev-++ : {xs ys : D} → List xs → List ys → rev xs ys ≡ rev xs [] ++ ys
+rev-++ : ∀ {xs ys} → List xs → List ys → rev xs ys ≡ rev xs [] ++ ys
 rev-++ {ys = ys} nilL Lys =
   begin
     rev [] ys ≡⟨ rev-[] ys ⟩
@@ -81,7 +81,7 @@ rev-++ {ys = ys} (consL x {xs} Lxs) Lys =
     rev (x ∷ xs) [] ++ ys
   ∎
 
-reverse-++ : {xs ys : D} → List xs → List ys →
+reverse-++ : ∀ {xs ys} → List xs → List ys →
              reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
 reverse-++ {ys = ys} nilL Lys = prf
   where

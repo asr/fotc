@@ -31,7 +31,7 @@ open import LTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 
-flatten-OrdList-aux : {t₁ i t₂ : D} → Tree t₁ → N i → Tree t₂ →
+flatten-OrdList-aux : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ →
                       OrdTree (node t₁ i t₂) →
                       LE-Lists (flatten t₁) (flatten t₂)
 

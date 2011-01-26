@@ -19,8 +19,7 @@ open import LTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------
 -- If (i ∷ is) is ordered then 'is' is ordered.
-subList-OrdList : {i : D} → N i → {is : D} → ListN is → OrdList (i ∷ is) →
-                  OrdList is
+subList-OrdList : ∀ {i is} → N i → ListN is → OrdList (i ∷ is) → OrdList is
 subList-OrdList {i} Ni nilLN LOi∷is = ordList-[]
 
 subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js = prf
@@ -31,7 +30,7 @@ subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js = prf
     -- Metis 2.3 : Non-tested.
     {-# ATP prove prf &&-proj₂ ≤-ItemList-Bool ordList-Bool #-}
 
-++-OrdList-aux : {item is js : D} → N item → ListN is → ListN js →
+++-OrdList-aux : ∀ {item is js} → N item → ListN is → ListN js →
                  LE-ItemList item is →
                  LE-ItemList item js →
                  LE-Lists is js →

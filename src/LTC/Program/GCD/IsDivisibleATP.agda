@@ -32,13 +32,11 @@ open import LTC.Program.GCD.GCD using ( gcd )
 ------------------------------------------------------------------------------
 -- The 'gcd 0 (succ n)' is Divisible.
 postulate
-  gcd-0S-Divisible : {n : D} → N n →
-                     Divisible zero (succ n) (gcd zero (succ n))
+  gcd-0S-Divisible : ∀ {n} → N n → Divisible zero (succ n) (gcd zero (succ n))
 {-# ATP prove gcd-0S-Divisible #-}
 
 postulate
-  gcd-S0-Divisible : {n : D} → N n →
-                     Divisible (succ n) zero (gcd (succ n) zero)
+  gcd-S0-Divisible : ∀ {n} → N n → Divisible (succ n) zero (gcd (succ n) zero)
 {-# ATP prove gcd-S0-Divisible #-}
 
 ------------------------------------------------------------------------------
@@ -47,10 +45,10 @@ postulate
 -- c | succ m → c | succ c → c | succ m ∸ succ n.
 postulate
   gcd-S>S-Divisible-ah :
-    {m n : D} → N m → N n →
+    ∀ {m n} → N m → N n →
     (Divisible (succ m ∸ succ n) (succ n) (gcd (succ m ∸ succ n) (succ n))) →
     GT (succ m) (succ n) →
-    (c : D) → N c → CD (succ m) (succ n) c →
+    ∀ c → N c → CD (succ m) (succ n) c →
     (c ∣ succ m ∸ succ n) →
     c ∣ gcd (succ m) (succ n)
 -- E 1.2: CPU time limit exceeded (180 sec).
@@ -58,7 +56,7 @@ postulate
 {-# ATP prove gcd-S>S-Divisible-ah #-}
 
 gcd-S>S-Divisible :
-  {m n : D} → N m → N n →
+  ∀ {m n} → N m → N n →
   (Divisible (succ m ∸ succ n) (succ n) (gcd (succ m ∸ succ n) (succ n))) →
   GT (succ m) (succ n) →
   Divisible (succ m) (succ n) (gcd (succ m) (succ n))
@@ -72,10 +70,10 @@ gcd-S>S-Divisible {m} {n} Nm Nn acc Sm>Sn c Nc (c∣Sm , c∣Sn) =
 -- c | succ n → c | succ m → c | succ n ∸ succ m.
 postulate
   gcd-S≤S-Divisible-ah :
-    {m n : D} → N m → N n →
+    ∀ {m n} → N m → N n →
     (Divisible (succ m) (succ n ∸ succ m) (gcd (succ m) (succ n ∸ succ m))) →
     LE (succ m) (succ n) →
-    (c : D) → N c → CD (succ m) (succ n) c →
+    ∀ c → N c → CD (succ m) (succ n) c →
     (c ∣ succ n ∸ succ m) →
     c ∣ gcd (succ m) (succ n)
 -- E 1.2: CPU time limit exceeded (180 sec).
@@ -83,7 +81,7 @@ postulate
 {-# ATP prove gcd-S≤S-Divisible-ah #-}
 
 gcd-S≤S-Divisible :
-  {m n : D} → N m → N n →
+  ∀ {m n} → N m → N n →
   (Divisible (succ m) (succ n ∸ succ m) (gcd (succ m) (succ n ∸ succ m))) →
   LE (succ m) (succ n) →
   Divisible (succ m) (succ n) (gcd (succ m) (succ n))
@@ -97,8 +95,8 @@ gcd-S≤S-Divisible {m} {n} Nm Nn acc Sm≤Sn c Nc (c∣Sm , c∣Sn) =
 -- to prove the second case.
 
 gcd-x>y-Divisible :
-  {m n : D} → N m → N n →
-  ({o p : D} → N o → N p → LT₂ o p m n → ¬x≡0∧y≡0 o p →
+  ∀ {m n} → N m → N n →
+  (∀ {o p} → N o → N p → LT₂ o p m n → ¬x≡0∧y≡0 o p →
                Divisible o p (gcd o p)) →
   GT m n →
   ¬x≡0∧y≡0 m n →
@@ -124,8 +122,8 @@ gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ c Nc =
 -- pattern to prove the third case.
 
 gcd-x≤y-Divisible :
-  {m n : D} → N m → N n →
-  ({o p : D} → N o → N p → LT₂ o p m n → ¬x≡0∧y≡0 o p →
+  ∀ {m n} → N m → N n →
+  (∀ {o p} → N o → N p → LT₂ o p m n → ¬x≡0∧y≡0 o p →
                Divisible o p (gcd o p)) →
   LE m n →
   ¬x≡0∧y≡0 m n →
@@ -147,16 +145,14 @@ gcd-x≤y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ c Nc =
 
 ------------------------------------------------------------------------------
 -- The gcd is Divisible.
-gcd-Divisible : {m n : D} → N m → N n → ¬x≡0∧y≡0 m n → Divisible m n (gcd m n)
+gcd-Divisible : ∀ {m n} → N m → N n → ¬x≡0∧y≡0 m n → Divisible m n (gcd m n)
 gcd-Divisible = wfIndN-LT₂ P istep
   where
     P : D → D → Set
     P i j = ¬x≡0∧y≡0 i j → Divisible i j (gcd i j)
 
-    istep :
-      {i j : D} → N i → N j →
-      ({k l : D} → N k → N l → LT₂ k l i j → P k l) →
-      P i j
+    istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → P k l) →
+            P i j
     istep Ni Nj accH =
       [ gcd-x>y-Divisible Ni Nj accH
       , gcd-x≤y-Divisible Ni Nj accH

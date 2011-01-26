@@ -17,19 +17,19 @@ open import LTC-PCF.Data.Nat.Rec.EquationsATP using ( rec-0 ; rec-S )
 ------------------------------------------------------------------------------
 
 postulate
-  +-0x : (d : D) → zero + d ≡ d
+  +-0x : ∀ d → zero + d ≡ d
 {-# ATP prove +-0x rec-0 #-}
 
 postulate
-  +-Sx : (d e : D) → succ d + e ≡ succ (d + e)
+  +-Sx : ∀ d e → succ d + e ≡ succ (d + e)
 {-# ATP prove +-Sx rec-S #-}
 
 postulate
-  ∸-x0 : (d : D) → d ∸ zero ≡ d
+  ∸-x0 : ∀ d → d ∸ zero ≡ d
 -- E 1.2: CPU time limit exceeded (180 sec).
 {-# ATP prove ∸-x0 rec-0 #-}
 
-∸-0S : {n : D} → N n → zero ∸ succ n ≡ zero
+∸-0S : ∀ {n} → N n → zero ∸ succ n ≡ zero
 ∸-0S zN = prf
   where
     postulate prf : zero ∸ succ zero ≡ zero
@@ -40,11 +40,11 @@ postulate
     postulate prf : zero ∸ succ (succ n) ≡ zero
     {-# ATP prove prf ∸-0S rec-S #-}
 
-∸-0x : {n : D} → N n → zero ∸ n ≡ zero
+∸-0x : ∀ {n} → N n → zero ∸ n ≡ zero
 ∸-0x zN      = ∸-x0 zero
 ∸-0x (sN Nn) = ∸-0S Nn
 
-∸-SS : {m n : D} → N m → N n → succ m ∸ succ n ≡ m ∸ n
+∸-SS : ∀ {m n} → N m → N n → succ m ∸ succ n ≡ m ∸ n
 ∸-SS {m} _ zN = prf
   where
     postulate prf : succ m ∸ succ zero ≡ m ∸ zero
@@ -65,17 +65,17 @@ postulate
     {-# ATP prove prf rec-S #-}
 
 postulate
-  *-0x : (d : D) → zero * d ≡ zero
+  *-0x : ∀ d → zero * d ≡ zero
 {-# ATP prove *-0x rec-0 #-}
 
 postulate
-  *-Sx : (d e : D) → succ d * e ≡ e + (d * e)
+  *-Sx : ∀ d e → succ d * e ≡ e + (d * e)
 {-# ATP prove *-Sx rec-S #-}
 
 ------------------------------------------------------------------------------
 -- Closure properties
 
-∸-N : {m n : D} → N m → N n → N (m ∸ n)
+∸-N : ∀ {m n} → N m → N n → N (m ∸ n)
 ∸-N {m} _ zN = prf
   where
     postulate prf : N (m ∸ zero)
@@ -92,7 +92,7 @@ postulate
                     N (succ m ∸ succ n)
     {-# ATP prove prf ∸-SS #-}
 
-+-N : {m n : D} → N m → N n → N (m + n)
++-N : ∀ {m n} → N m → N n → N (m + n)
 +-N {n = n} zN _ = prf
   where
     postulate prf : N (zero + n)
@@ -103,7 +103,7 @@ postulate
                     N (succ m + n)
     {-# ATP prove prf sN +-Sx #-}
 
-*-N : {m n : D} → N m → N n → N (m * n)
+*-N : ∀ {m n} → N m → N n → N (m * n)
 *-N {n = n} zN Nn = prf
   where
     postulate prf : N (zero * n)
@@ -117,10 +117,10 @@ postulate
 ------------------------------------------------------------------------------
 -- Some proofs are based on the proofs in the standard library.
 
-+-leftIdentity : {n : D} → N n → zero + n ≡ n
++-leftIdentity : ∀ {n} → N n → zero + n ≡ n
 +-leftIdentity {n} _ = +-0x n
 
-+-rightIdentity : {n : D} → N n → n + zero ≡ n
++-rightIdentity : ∀ {n} → N n → n + zero ≡ n
 +-rightIdentity zN          = +-leftIdentity zN
 +-rightIdentity (sN {n} Nn) = prf $ +-rightIdentity Nn
    where
@@ -128,7 +128,7 @@ postulate
                      succ n + zero ≡ succ n
      {-# ATP prove prf +-Sx #-}
 
-+-assoc : {m n o : D} → N m → N n → N o → m + n + o ≡ m + (n + o)
++-assoc : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
 +-assoc {n = n} {o} zN _ _ = prf
   where
     postulate prf : zero + n + o ≡ zero + (n + o)
@@ -139,7 +139,7 @@ postulate
                     succ m + n + o ≡ succ m + (n + o)
     {-# ATP prove prf +-Sx #-}
 
-x+Sy≡S[x+y] : {m n : D} → N m → N n → m + succ n ≡ succ (m + n)
+x+Sy≡S[x+y] : ∀ {m n} → N m → N n → m + succ n ≡ succ (m + n)
 x+Sy≡S[x+y] {n = n} zN _ = prf
   where
     postulate prf : zero + succ n ≡ succ (zero + n)
@@ -150,7 +150,7 @@ x+Sy≡S[x+y] {n = n} (sN {m} Nm) Nn = prf $ x+Sy≡S[x+y] Nm Nn
                     succ m + succ n ≡ succ (succ m + n)
     {-# ATP prove prf +-Sx #-}
 
-+-comm : {m n : D} → N m → N n → m + n ≡ n + m
++-comm : ∀ {m n} → N m → N n → m + n ≡ n + m
 +-comm {n = n} zN _ = prf
   where
     postulate prf : zero + n ≡ n + zero
@@ -162,8 +162,7 @@ x+Sy≡S[x+y] {n = n} (sN {m} Nm) Nn = prf $ x+Sy≡S[x+y] Nm Nn
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf x+Sy≡S[x+y] +-Sx #-}
 
-[x+y]∸[x+z]≡y∸z : {m n o : D} → N m → N n → N o →
-                  (m + n) ∸ (m + o) ≡ n ∸ o
+[x+y]∸[x+z]≡y∸z : ∀ {m n o} → N m → N n → N o → (m + n) ∸ (m + o) ≡ n ∸ o
 [x+y]∸[x+z]≡y∸z {n = n} {o} zN _ _ = prf
   where
     postulate prf : (zero + n) ∸ (zero + o) ≡ n ∸ o
@@ -179,10 +178,10 @@ x+Sy≡S[x+y] {n = n} (sN {m} Nm) Nn = prf $ x+Sy≡S[x+y] Nm Nn
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf +-Sx ∸-SS +-N #-}
 
-*-leftZero : (n : D) → zero * n ≡ zero
+*-leftZero : ∀ n → zero * n ≡ zero
 *-leftZero = *-0x
 
-*-rightZero : {n : D} → N n → n * zero ≡ zero
+*-rightZero : ∀ {n} → N n → n * zero ≡ zero
 *-rightZero zN          = *-leftZero zero
 *-rightZero (sN {n} Nn) = prf $ *-rightZero Nn
   where
@@ -190,10 +189,10 @@ x+Sy≡S[x+y] {n = n} (sN {m} Nm) Nn = prf $ x+Sy≡S[x+y] Nm Nn
                     succ n * zero ≡ zero
     {-# ATP prove prf +-0x *-Sx #-}
 
-postulate *-leftIdentity : {n : D} → N n → succ zero * n ≡ n
+postulate *-leftIdentity : ∀ {n} → N n → succ zero * n ≡ n
 {-# ATP prove *-leftIdentity +-rightIdentity *-0x *-Sx #-}
 
-x*Sy≡x+xy : {m n : D} → N m → N n → m * succ n ≡ m + m * n
+x*Sy≡x+xy : ∀ {m n} → N m → N n → m * succ n ≡ m + m * n
 x*Sy≡x+xy {n = n} zN _ = prf
   where
     postulate prf : zero * succ n ≡ zero + zero * n
@@ -210,7 +209,7 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf +-comm +-Sx *-Sx #-}
 
-*-comm : {m n : D} → N m → N n → m * n ≡ n * m
+*-comm : ∀ {m n} → N m → N n → m * n ≡ n * m
 *-comm {n = n} zN _ = prf
   where
     postulate prf : zero * n ≡ n * zero
@@ -222,8 +221,7 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf x*Sy≡x+xy *-Sx #-}
 
-*∸-leftDistributive : {m n o : D} → N m → N n → N o →
-                      (m ∸ n) * o ≡ m * o ∸ n * o
+*∸-leftDistributive : ∀ {m n o} → N m → N n → N o → (m ∸ n) * o ≡ m * o ∸ n * o
 *∸-leftDistributive {m} {o = o} _ zN _ = prf
   where
     postulate prf : (m ∸ zero) * o ≡ m * o ∸ zero * o
@@ -251,8 +249,7 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf sN *-N [x+y]∸[x+z]≡y∸z *-Sx ∸-SS #-}
 
-*+-leftDistributive : {m n o : D} → N m → N n → N o →
-                      (m + n) * o ≡ m * o + n * o
+*+-leftDistributive : ∀ {m n o} → N m → N n → N o → (m + n) * o ≡ m * o + n * o
 *+-leftDistributive {m} {n} _ _ zN = prf
   where
     postulate prf : (m + n) * zero ≡ m * zero + n * zero

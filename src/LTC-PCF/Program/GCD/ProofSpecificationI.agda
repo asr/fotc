@@ -33,5 +33,5 @@ open module SpecificationI =
 
 ------------------------------------------------------------------------------
 -- The 'gcd' is the GCD.
-gcd-GCD : {m n : D} → N m → N n → ¬x≡0∧y≡0 m n → GCD m n (gcd m n)
+gcd-GCD : ∀ {m n} → N m → N n → ¬x≡0∧y≡0 m n → GCD m n (gcd m n)
 gcd-GCD = gcd-GCD-I

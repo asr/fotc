@@ -19,7 +19,7 @@ open import LTC-PCF.Program.Division.Specification using ( DIV )
 ------------------------------------------------------------------------------
 -- The division result is a 'N' when the dividend is less than the divisor.
 postulate
-  div-x<y-N : {i j : D} -> LT i j → N (div i j)
+  div-x<y-N : ∀ {i j} → LT i j → N (div i j)
 {-# ATP prove div-x<y-N div-x<y zN #-}
 
 -- The division result is a 'N' when the dividend is greater or equal
@@ -30,7 +30,7 @@ postulate
 --                   N (div i j)
 
 postulate
-  div-x≥y-N : {i j : D} → N i → N j →
+  div-x≥y-N : ∀ {i j} → N i → N j →
               (DIV (i ∸ j) j (div (i ∸ j) j)) →
               GE i j →
               N (div i j)

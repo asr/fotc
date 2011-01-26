@@ -14,7 +14,7 @@ open import LTC.Data.List
 
 ------------------------------------------------------------------------------
 
-++-assoc : {xs ys zs : D} → List xs → List ys → List zs →
+++-assoc : ∀ {xs ys zs} → List xs → List ys → List zs →
            (xs ++ ys) ++ zs ≡ xs ++ ys ++ zs
 ++-assoc {xs} {ys} {zs} Lxs _ _ = indList P p[] iStep Lxs
   where
@@ -28,6 +28,6 @@ open import LTC.Data.List
     {-# ATP prove p[] #-}
 
     postulate
-      iStep : (d : D){ds : D} → List ds → P ds → P (d ∷ ds)
+      iStep : ∀ d {ds} → List ds → P ds → P (d ∷ ds)
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove iStep #-}

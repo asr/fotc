@@ -20,12 +20,12 @@ CD m n d = (d ∣ m) ∧ (d ∣ n)
 
 -- Divisible for any common divisor.
 Divisible : D → D → D → Set
-Divisible a b gcd = (c : D) → N c → CD a b c → c ∣ gcd
+Divisible a b gcd = ∀ c → N c → CD a b c → c ∣ gcd
 {-# ATP definition Divisible #-}
 
 -- Greatest that any common divisor.
 GACD : D → D → D → Set
-GACD a b gcd = (c : D) → N c → CD a b c → LE c gcd
+GACD a b gcd = ∀ c → N c → CD a b c → LE c gcd
 
 ¬x≡0∧y≡0 : D → D → Set
 ¬x≡0∧y≡0 d e = ¬ (d ≡ zero ∧ e ≡ zero)

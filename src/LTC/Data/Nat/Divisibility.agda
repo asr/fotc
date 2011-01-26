@@ -17,7 +17,7 @@ infix 7 _∣_
 -- definition 0∤0.
 
 -- data _∣_ : D → D → Set where
---   ∣-i : {m n : D} → ∃D λ k → n ≡ k * succ m → succ m ∣ n
+--   ∣-i : ∀ {m n} → ∃D λ k → n ≡ k * succ m → succ m ∣ n
 -- {-# ATP hint ∣-i #-}
 
 -- The relation of divisibility.

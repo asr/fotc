@@ -38,7 +38,7 @@ open import LTC.Program.SortList.SortList
 ------------------------------------------------------------------------------
 -- This is a weird result but recall that "the relation ≤ between
 -- lists is only an ordering if nil is excluded" (Burstall, pp. 46).
--- xs≤[] : {is : D} → ListN is → OrdList is → LE-Lists is []
+-- xs≤[] : ∀ {is} → ListN is → OrdList is → LE-Lists is []
 -- xs≤[] nilLN                     _       = ≤-Lists-[] []
 -- xs≤[] (consLN {i} {is} Ni LNis) LOconsL =
 --   prf $ xs≤[] LNis (subList-OrdList Ni LNis LOconsL)
@@ -48,7 +48,7 @@ open import LTC.Program.SortList.SortList
 --     -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
 --     {-# ATP prove prf ≤-ItemList-Bool ordList-Bool x&&y≡true→x≡true #-}
 
-x≤ys→x≤zs→x≤ys++zs : {i js ks : D} → N i → ListN js → ListN ks →
+x≤ys→x≤zs→x≤ys++zs : ∀ {i js ks} → N i → ListN js → ListN ks →
                      LE-ItemList i js →
                      LE-ItemList i ks →
                      LE-ItemList i (js ++ ks)
@@ -73,7 +73,7 @@ x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni (consLN {j} {js} Nj LNjs) LNks i�
     -- Vampire 0.6 (revision 903): Non-tested.
     {-# ATP prove prf &&-proj₁ aux₁ aux₂ aux₃ #-}
 
-xs≤ys→xs≤zs→xs≤ys++zs : {is js ks : D} → ListN is → ListN js → ListN ks →
+xs≤ys→xs≤zs→xs≤ys++zs : ∀ {is js ks} → ListN is → ListN js → ListN ks →
                         LE-Lists is js →
                         LE-Lists is ks →
                         LE-Lists is (js ++ ks)
@@ -99,7 +99,7 @@ xs≤ys→xs≤zs→xs≤ys++zs {js = js} {ks} (consLN {i} {is} Ni LNis)
     -- Vampire 0.6 (revision 903): Non-tested.
     {-# ATP prove prf x≤ys→x≤zs→x≤ys++zs &&-proj₁ aux₁ aux₂ aux₃ aux₄ aux₅ aux₆ #-}
 
-xs≤zs→ys≤zs→xs++ys≤zs : {is js ks : D} → ListN is → ListN js → ListN ks →
+xs≤zs→ys≤zs→xs++ys≤zs : ∀ {is js ks} → ListN is → ListN js → ListN ks →
                         LE-Lists is ks →
                         LE-Lists js ks →
                         LE-Lists (is ++ js) ks

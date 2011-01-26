@@ -29,9 +29,9 @@ open import LTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- Induction on lit.
-ind-lit : (P : D → Set)(f y₀ : D) → {xs : D} → ListN xs →
+ind-lit : ∀ (P : D → Set)(f : D) y₀ {xs} → ListN xs →
           P y₀ →
-          ({x : D} → N x → (y : D) → P y → P (f · x · y)) →
+          (∀ {x} → N x → ∀ y → P y → P (f · x · y)) →
           P (lit f xs y₀)
 ind-lit P f y₀ nilLN Py₀ iStep = subst (λ t → P t) (sym (lit-[] f y₀)) Py₀
 ind-lit P f y₀ (consLN {i} {is} Ni LNis) Py₀ iStep =
@@ -41,7 +41,7 @@ ind-lit P f y₀ (consLN {i} {is} Ni LNis) Py₀ iStep =
 
 ------------------------------------------------------------------------------
 -- Burstall's lemma: If t is ordered then totree(i, t) is ordered.
-toTree-OrdTree : {item t : D} → N item → Tree t → OrdTree t →
+toTree-OrdTree : ∀ {item t} → N item → Tree t → OrdTree t →
                  OrdTree (toTree · item · t)
 toTree-OrdTree {item} Nitem nilT _ =
   begin
@@ -466,12 +466,12 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
 ------------------------------------------------------------------------------
 -- Burstall's lemma: ord(maketree(is)).
 
--- makeTree-TreeOrd : {is : D} → ListN is → OrdTree (makeTree is)
+-- makeTree-TreeOrd : ∀ {is} → ListN is → OrdTree (makeTree is)
 -- makeTree-TreeOrd LNis =
 --   ind-lit OrdTree toTree nilTree LNis ordTree-nilTree
 --           (λ Nx y TOy → toTree-OrdTree Nx {!!} TOy)
 
-makeTree-OrdTree : {is : D} → ListN is → OrdTree (makeTree is)
+makeTree-OrdTree : ∀ {is} → ListN is → OrdTree (makeTree is)
 makeTree-OrdTree nilLN =
   begin
       ordTree (lit toTree [] nilTree)
@@ -498,7 +498,7 @@ makeTree-OrdTree (consLN {i} {is} Ni Lis) =
 ------------------------------------------------------------------------------
 -- Burstall's lemma: If ord(is1) and ord(is2) and is1 ≤ is2 then
 -- ord(concat(is1, is2)).
-++-OrdList : {is js : D} → ListN is → ListN js → OrdList is → OrdList js →
+++-OrdList : ∀ {is js} → ListN is → ListN js → OrdList is → OrdList js →
              LE-Lists is js → OrdList (is ++ js)
 
 ++-OrdList {js = js} nilLN LNjs LOis LOjs is≤js =
@@ -545,7 +545,7 @@ makeTree-OrdTree (consLN {i} {is} Ni Lis) =
 
 ------------------------------------------------------------------------------
 -- Burstall's lemma: If t is ordered then (flatten t) is ordered.
-flatten-OrdList : {t : D} → Tree t → OrdTree t → OrdList (flatten t)
+flatten-OrdList : ∀ {t} → Tree t → OrdTree t → OrdList (flatten t)
 flatten-OrdList nilT OTt =
   subst (λ t → OrdList t) (sym flatten-nilTree) ordList-[]
 

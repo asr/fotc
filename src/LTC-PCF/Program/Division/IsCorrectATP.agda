@@ -25,10 +25,10 @@ open import LTC-PCF.Program.Division.Specification using ( DIV )
 -- the divisor.
 
 postulate
-  div-x<y-aux : {i j : D} → N i → N j → LT i j → i ≡ j * div i j + i
+  div-x<y-aux : ∀ {i j} → N i → N j → LT i j → i ≡ j * div i j + i
 {-# ATP prove div-x<y-aux  +-leftIdentity *-rightZero div-x<y #-}
 
-div-x<y-correct : {i j : D} → N i → N j → LT i j →
+div-x<y-correct : ∀ {i j} → N i → N j → LT i j →
                   ∃D λ r → N r ∧ LT r j ∧ i ≡ j * div i j + r
 div-x<y-correct {i} Ni Nj i<j = i , Ni , i<j , div-x<y-aux Ni Nj i<j
 
@@ -41,12 +41,12 @@ div-x<y-correct {i} Ni Nj i<j = i , Ni , i<j , div-x<y-aux Ni Nj i<j
 -- get 'i = j * div i j + r'.
 
 postulate
-  aux : {i j r : D} → N i → N j → N r →
+  aux : ∀ {i j r} → N i → N j → N r →
         i ∸ j ≡ j * div (i ∸ j) j + r →
         i ≡ j * succ (div (i ∸ j) j) + r
 
 postulate
-  div-x≥y-aux : {i j r : D} → N i → N j → N r →
+  div-x≥y-aux : ∀ {i j r} → N i → N j → N r →
                 GE i j →
                 i ∸ j ≡ j * div (i ∸ j) j + r →
                 i ≡ j * div i j + r
@@ -54,7 +54,7 @@ postulate
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove div-x≥y-aux div-x≥y aux #-}
 
-div-x≥y-correct : {i j : D} → N i → N j →
+div-x≥y-correct : ∀ {i j} → N i → N j →
                   (ih : DIV (i ∸ j) j (div (i ∸ j) j)) →
                   GE i j →
                   ∃D λ r → N r ∧ LT r j ∧ i ≡ j * div i j + r

@@ -76,44 +76,44 @@ private
   -- (see it for the documentation).
 
   -- Application of the conversion rule fix-f.
-  proof₀₋₁ : (n a f : D) → fix rech · n · a · f ≡ rec-s₁ n a f
+  proof₀₋₁ : ∀ n a f → fix rech · n · a · f ≡ rec-s₁ n a f
   proof₀₋₁ n a f = subst (λ x → x · n · a · f ≡
                                 rech (fix rech) · n · a · f )
                          (sym (fix-f rech))
                          refl
 
   -- Application of the first argument.
-  proof₁₋₂ : (n a f : D) → rec-s₁ n a f ≡ rec-s₂ n · a · f
+  proof₁₋₂ : ∀ n a f → rec-s₁ n a f ≡ rec-s₂ n · a · f
   proof₁₋₂ n a f = subst (λ x → x · a · f ≡ rec-s₂ n · a · f)
                          (sym (beta rec-s₂ n))
                          refl
 
   -- Application of the second argument.
-  proof₂₋₃ : (n a f : D) → rec-s₂ n · a · f ≡ rec-s₃ n a · f
+  proof₂₋₃ : ∀ n a f → rec-s₂ n · a · f ≡ rec-s₃ n a · f
   proof₂₋₃ n a f = subst (λ x → x · f ≡ rec-s₃ n a · f)
                          (sym (beta (rec-s₃ n) a))
                          refl
 
   -- Application of the third argument.
-  proof₃₋₄ : (n a f : D) → rec-s₃ n a · f ≡ rec-s₄ n a f
+  proof₃₋₄ : ∀ n a f → rec-s₃ n a · f ≡ rec-s₄ n a f
   proof₃₋₄ n a f = beta (rec-s₄ n a) f
 
   -- Cases 'isZero n == b' using that proof.
-  proof₄₋₅ : (n a f b : D) → isZero n ≡ b → rec-s₄ n a f ≡ rec-s₅ n a f b
+  proof₄₋₅ : ∀ n a f b → isZero n ≡ b → rec-s₄ n a f ≡ rec-s₅ n a f b
   proof₄₋₅ n a f b prf = subst (λ x → rec-s₅ n a f x ≡ rec-s₅ n a f b)
                                (sym prf)
                                refl
 
   -- Reduction of 'if true ...' using the conversion rule if-true.
-  proof₅₊ : (n a f : D) → rec-s₅ n a f true ≡ a
+  proof₅₊ : ∀ n a f → rec-s₅ n a f true ≡ a
   proof₅₊ n a f = if-true a
 
    -- Reduction of 'if false ...' using the conversion rule if-false.
-  proof₅₋₆ : (n a f : D) → rec-s₅ n a f false ≡ rec-s₆ n a f
+  proof₅₋₆ : ∀ n a f → rec-s₅ n a f false ≡ rec-s₆ n a f
   proof₅₋₆ n a f = if-false (rec-s₆ n a f)
 
   -- Reduction 'pred (succ n) == n' using the conversion rule pred-S.
-  proof₆₋₇ : (n a f : D) → rec-s₆ (succ n) a f ≡ rec-s₇ n a f
+  proof₆₋₇ : ∀ n a f → rec-s₆ (succ n) a f ≡ rec-s₇ n a f
   proof₆₋₇ n a f = subst (λ x → rec-s₇ x a f ≡ rec-s₇ n a f)
                          (sym (pred-S n))
                          refl
@@ -121,7 +121,7 @@ private
 ------------------------------------------------------------------------------
 -- The conversion rules for rec.
 
-rec-0 : (a : D){f : D} → rec zero a f ≡ a
+rec-0 : ∀ a {f : D} → rec zero a f ≡ a
 rec-0 a {f} =
   begin
     (fix rech · zero · a · f) ≡⟨ proof₀₋₁ zero a f ⟩
@@ -133,7 +133,7 @@ rec-0 a {f} =
     a
   ∎
 
-rec-S : (n a f : D) → rec (succ n) a f ≡ f · n · (rec n a f)
+rec-S : ∀ n a (f : D) → rec (succ n) a f ≡ f · n · (rec n a f)
 rec-S n a f =
   begin
     (fix rech · (succ n) · a · f) ≡⟨ proof₀₋₁ (succ n) a f ⟩

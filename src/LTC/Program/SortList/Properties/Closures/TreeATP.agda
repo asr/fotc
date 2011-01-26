@@ -27,7 +27,7 @@ open import LTC.Data.Nat.Inequalities using ( GT ; LE )
 
 ------------------------------------------------------------------------------
 
-toTree-Tree : {item : D}{t : D} → N item → Tree t → Tree (toTree · item · t)
+toTree-Tree : ∀ {item t} → N item → Tree t → Tree (toTree · item · t)
 toTree-Tree {item} Nitem nilT = prf
   where
     postulate prf : Tree (toTree · item · nilTree)
@@ -52,7 +52,7 @@ toTree-Tree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf x>y→x≰y #-}
 
-makeTree-Tree : {is : D} → ListN is → Tree (makeTree is)
+makeTree-Tree : ∀ {is} → ListN is → Tree (makeTree is)
 makeTree-Tree nilLN = prf
   where
     postulate prf : Tree (makeTree [])

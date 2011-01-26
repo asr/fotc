@@ -30,32 +30,32 @@ open import LTC-PCF.Data.Nat.PropertiesI
 
 ------------------------------------------------------------------------------
 -- Any positive number divides 0.
-S∣0 : {n : D} → N n → succ n ∣ zero
+S∣0 : ∀ {n} → N n → succ n ∣ zero
 S∣0 {n} Nn = ¬S≡0 , zero , zN , sym (*-0x (succ n))
 
 -- The divisibility relation is reflexive for positive numbers.
-∣-refl-S : {n : D} → N n → succ n ∣ succ n
+∣-refl-S : ∀ {n} → N n → succ n ∣ succ n
 ∣-refl-S {n} Nn = ¬S≡0 , succ zero , sN zN , sym (*-leftIdentity (sN Nn))
 
 -- If 'x' divides 'y' and 'z' then 'x' divides 'y ∸ z'.
-x∣y→x∣z→x∣y∸z : {m n p : D} → N m → N n → N p → m ∣ n → m ∣ p → m ∣ n ∸ p
-x∣y→x∣z→x∣y∸z             zN          Nn Np (0≠0 , _) m∣p = ⊥-elim $ 0≠0 refl
-x∣y→x∣z→x∣y∸z {n = n} {p} (sN {m} Nm) Nn Np
+x∣y→x∣z→x∣y∸z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n ∸ o
+x∣y→x∣z→x∣y∸z             zN          Nn No (0≠0 , _) m∣o = ⊥-elim $ 0≠0 refl
+x∣y→x∣z→x∣y∸z {n = n} {o} (sN {m} Nm) Nn No
               (0≠0 , k₁ , Nk₁ , n≡k₁Sm)
-              (_   , k₂ , Nk₂ , p≡k₂Sm) =
+              (_   , k₂ , Nk₂ , o≡k₂Sm) =
   (λ S≡0 → ⊥-elim $ ¬S≡0 S≡0) , k₁ ∸ k₂ , ∸-N Nk₁ Nk₂ , prf
 
   where
-    prf : n ∸ p ≡ (k₁ ∸ k₂) * succ m
+    prf : n ∸ o ≡ (k₁ ∸ k₂) * succ m
     prf =
       begin
-        n ∸ p                         ≡⟨ subst (λ t → n ∸ p ≡ t ∸ p)
+        n ∸ o                         ≡⟨ subst (λ t → n ∸ o ≡ t ∸ o)
                                                n≡k₁Sm
                                                refl
                                       ⟩
-        k₁ * succ m ∸ p               ≡⟨ subst (λ t → k₁ * succ m ∸ p ≡
+        k₁ * succ m ∸ o               ≡⟨ subst (λ t → k₁ * succ m ∸ o ≡
                                                       k₁ * succ m ∸ t)
-                                               p≡k₂Sm
+                                               o≡k₂Sm
                                                refl
                                       ⟩
         (k₁ * succ m) ∸ (k₂ * succ m) ≡⟨ sym $
@@ -65,24 +65,24 @@ x∣y→x∣z→x∣y∸z {n = n} {p} (sN {m} Nm) Nn Np
       ∎
 
 -- If 'x' divides 'y' and 'z' then 'x' divides 'y + z'.
-x∣y→x∣z→x∣y+z : {m n p : D} → N m → N n → N p → m ∣ n → m ∣ p → m ∣ n + p
-x∣y→x∣z→x∣y+z             zN          Nn Np (0≠0 , _) m∣p = ⊥-elim $ 0≠0 refl
-x∣y→x∣z→x∣y+z {n = n} {p} (sN {m} Nm) Nn Np
+x∣y→x∣z→x∣y+z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n + o
+x∣y→x∣z→x∣y+z             zN          Nn No (0≠0 , _) m∣o = ⊥-elim $ 0≠0 refl
+x∣y→x∣z→x∣y+z {n = n} {o} (sN {m} Nm) Nn No
               (0≠0 , k₁ , Nk₁ , n≡k₁Sm)
-              (_   , k₂ , Nk₂ , p≡k₂Sm) =
+              (_   , k₂ , Nk₂ , o≡k₂Sm) =
   (λ S≡0 → ⊥-elim $ ¬S≡0 S≡0) , (k₁ + k₂) , +-N Nk₁ Nk₂ , prf
 
   where
-    prf : n + p ≡ (k₁ + k₂) * succ m
+    prf : n + o ≡ (k₁ + k₂) * succ m
     prf =
       begin
-        n + p                         ≡⟨ subst (λ t → n + p ≡ t + p)
+        n + o                         ≡⟨ subst (λ t → n + o ≡ t + o)
                                                n≡k₁Sm
                                                refl
                                       ⟩
-        k₁ * succ m + p               ≡⟨ subst (λ t → k₁ * succ m + p ≡
+        k₁ * succ m + o               ≡⟨ subst (λ t → k₁ * succ m + o ≡
                                                       k₁ * succ m + t)
-                                               p≡k₂Sm
+                                               o≡k₂Sm
                                                refl
                                       ⟩
         (k₁ * succ m) + (k₂ * succ m) ≡⟨ sym $
@@ -92,7 +92,7 @@ x∣y→x∣z→x∣y+z {n = n} {p} (sN {m} Nm) Nn Np
       ∎
 
 -- If x divides y, and y is positive, then x ≤ y.
-x∣S→x≤S : {m n : D} → N m → N n → m ∣ (succ n) → LE m (succ n)
+x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ n) → LE m (succ n)
 x∣S→x≤S  zN     Nn  (0≠0 , _)                     = ⊥-elim $ 0≠0 refl
 x∣S→x≤S (sN {m} Nm) Nn (_ , .zero , zN , Sn≡0*Sm) =
   ⊥-elim $ 0≠S $ trans (sym $ *-leftZero (succ m)) (sym Sn≡0*Sm)

@@ -35,7 +35,7 @@ private
     -- and after that, we write down the proof for the execution step
     -- from the state p to the state q,
     --
-    -- (e.g. proof₂₋₃ : (i j : D) → div-s₂ i j ≡ div-s₃ i j).
+    -- (e.g. proof₂₋₃ : ∀ i j → div-s₂ i j ≡ div-s₃ i j).
 
     -- Initially, the conversion rule fix-f is applied
     div-s₁ : D → D → D
@@ -78,7 +78,7 @@ private
 
     {-
     To prove the execution steps
-    (e.g. proof₃₋₄ : (i j : D) → div-s₃ i j → divh_s₄ i j),
+    (e.g. proof₃₋₄ : ∀ i j → div-s₃ i j → divh_s₄ i j),
     we usually need to prove that
 
                              ... m ... ≡ ... n ...    (1)
@@ -100,13 +100,13 @@ private
     -}
 
     -- From 'div · i · j' to div-s₁ using the conversion rule fix-f
-    proof₀₋₁ : (i j : D) → fix divh · i · j ≡ div-s₁ i j
+    proof₀₋₁ : ∀ i j → fix divh · i · j ≡ div-s₁ i j
     proof₀₋₁ i j = subst (λ t → t · i · j ≡ divh (fix divh) · i · j)
                          (sym $ fix-f divh)
                          refl
 
     -- From div-s₁ to div-s₂ using the conversion rule beta
-    proof₁₋₂ : (i j : D) → div-s₁ i j ≡ div-s₂ i j
+    proof₁₋₂ : ∀ i j → div-s₁ i j ≡ div-s₂ i j
     proof₁₋₂ i j =
       subst (λ t → t · j ≡ fun i · j)
             (sym $ beta fun i)
@@ -122,7 +122,7 @@ private
                                 else succ (fix divh · (y ∸ j) · j))
 
     -- From div-s₂ to div-s₃ using the conversion rule beta
-    proof₂₋₃ : (i j : D) → div-s₂ i j ≡ div-s₃ i j
+    proof₂₋₃ : ∀ i j → div-s₂ i j ≡ div-s₃ i j
     proof₂₋₃ i j  = beta fun j
       where
         -- The function fun is the same that div-s₃, except that we
@@ -134,7 +134,7 @@ private
                    else succ ((fix divh) · (i ∸ y) · y)
 
     -- From div-s₃ to div-s₄ using the proof i<j
-    proof₃_₄ : (i j : D) → LT i j → div-s₃ i j ≡ div-s₄ i j
+    proof₃_₄ : ∀ i j → LT i j → div-s₃ i j ≡ div-s₄ i j
     proof₃_₄ i j i<j =
       subst (λ t → if t
                       then zero
@@ -148,7 +148,7 @@ private
             refl
 
     -- From div-s₃ to div-s₅ using the proof  i≥j
-    proof₃₋₅ : {i j : D} → N i → N j → GE i j → div-s₃ i j ≡ div-s₅ i j
+    proof₃₋₅ : ∀ {i j} → N i → N j → GE i j → div-s₃ i j ≡ div-s₅ i j
     proof₃₋₅ {i} {j} Ni Nj i≥j =
       subst (λ t → if t
                       then zero
@@ -163,18 +163,18 @@ private
 
     -- From div-s₄ to div-s₆ using the conversion rule if-true
     -- ToDo: Why we need to use 'div-s₄ {i} {j}' instead of div-s₄
-    proof₄₋₆ : (i j : D) → div-s₄ i j ≡ div-s₆
+    proof₄₋₆ : ∀ i j → div-s₄ i j ≡ div-s₆
     proof₄₋₆ i j = if-true zero
 
     -- From div-s₅ to div-s₇ using the conversion rule if-false
-    proof₅₋₇ : (i j : D) → div-s₅ i j ≡ div-s₇ i j
+    proof₅₋₇ : ∀ i j → div-s₅ i j ≡ div-s₇ i j
     proof₅₋₇ i j = if-false (succ (fix divh · (i ∸ j) · j))
 
 ----------------------------------------------------------------------
 -- The division result when the dividend is minor than the
 -- the divisor.
 
-div-x<y : {i j : D} → LT i j → div i j ≡ zero
+div-x<y : ∀ {i j} → LT i j → div i j ≡ zero
 div-x<y {i} {j} i<j =
   begin
     div i j    ≡⟨ proof₀₋₁ i j ⟩
@@ -189,8 +189,7 @@ div-x<y {i} {j} i<j =
 -- The division result when the dividend is greater or equal than the
 -- the divisor.
 
-div-x≥y : {i j : D} → N i → N j → GE i j →
-          div i j ≡ succ (div (i ∸ j) j)
+div-x≥y : ∀ {i j} → N i → N j → GE i j → div i j ≡ succ (div (i ∸ j) j)
 div-x≥y {i} {j} Ni Nj i≥j =
   begin
     div i j    ≡⟨ proof₀₋₁ i j ⟩

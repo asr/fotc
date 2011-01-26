@@ -55,7 +55,7 @@ open import LTC.Relation.Binary.EqReasoning
 -- Subtrees
 
 -- If (node t₁ i t₂) is ordered then t₁ is ordered.
-leftSubTree-OrdTree : {t₁ i t₂ : D} → Tree t₁ → N i → Tree t₂ →
+leftSubTree-OrdTree : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ →
                       OrdTree (node t₁ i t₂) → OrdTree t₁
 leftSubTree-OrdTree {t₁} {i} {t₂} Tt₁ Ni Tt₂ TOnode =
   begin
@@ -70,7 +70,7 @@ leftSubTree-OrdTree {t₁} {i} {t₂} Tt₁ Ni Tt₂ TOnode =
   ∎
 
 -- If (node t₁ i t₂) is ordered then t₂ is ordered.
-rightSubTree-OrdTree : {t₁ i t₂ : D} → Tree t₁ → N i → Tree t₂ →
+rightSubTree-OrdTree : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ →
                        OrdTree (node t₁ i t₂) → OrdTree t₂
 rightSubTree-OrdTree {t₁} {i} {t₂} Tt₁ Ni Tt₂ TOnode =
   begin
@@ -91,11 +91,11 @@ rightSubTree-OrdTree {t₁} {i} {t₂} Tt₁ Ni Tt₂ TOnode =
 ------------------------------------------------------------------------------
 -- Auxiliar functions
 
-toTree-OrdTree-aux₁ : {i₁ i₂ : D} → N i₁ → N i₂ → GT i₁ i₂ →
-                      {t : D} → Tree t →
+toTree-OrdTree-aux₁ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → GT i₁ i₂ →
+                      Tree t →
                       LE-TreeItem t i₁ →
                       LE-TreeItem (toTree · i₂ · t) i₁
-toTree-OrdTree-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ .{nilTree} nilT _ =
+toTree-OrdTree-aux₁ {i₁} {i₂} .{nilTree} Ni₁ Ni₂ i₁>i₂ nilT _ =
   begin
     ≤-TreeItem (toTree · i₂ · nilTree) i₁
       ≡⟨ subst (λ t → ≤-TreeItem (toTree · i₂ · nilTree) i₁ ≡ ≤-TreeItem t i₁)
@@ -363,11 +363,11 @@ toTree-OrdTree-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
 
 ------------------------------------------------------------------------------
 
-toTree-OrdTree-aux₂ : {i₁ i₂ : D} → N i₁ → N i₂ → LE i₁ i₂ →
-                      {t : D} → Tree t →
+toTree-OrdTree-aux₂ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → LE i₁ i₂ →
+                      Tree t →
                       LE-ItemTree i₁ t →
                       LE-ItemTree i₁ (toTree · i₂ · t)
-toTree-OrdTree-aux₂ {i₁} {i₂} _ _ i₁≤i₂ .{nilTree} nilT _ =
+toTree-OrdTree-aux₂ {i₁} {i₂} .{nilTree} _ _ i₁≤i₂ nilT _ =
   begin
     ≤-ItemTree i₁ (toTree · i₂ · nilTree)
       ≡⟨ subst (λ t → ≤-ItemTree i₁ (toTree · i₂ · nilTree) ≡ ≤-ItemTree i₁ t)

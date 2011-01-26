@@ -75,22 +75,22 @@ postulate
 
 postulate
   -- Conversion rules for booleans.
-  if-true  : (d₁ : D){d₂ : D} → if true then d₁ else d₂  ≡ d₁
-  if-false : {d₁ : D}(d₂ : D) → if false then d₁ else d₂ ≡ d₂
+  if-true  : ∀ d₁ {d₂} → if true then d₁ else d₂  ≡ d₁
+  if-false : ∀ {d₁} d₂ → if false then d₁ else d₂ ≡ d₂
 {-# ATP axiom if-true #-}
 {-# ATP axiom if-false #-}
 
 postulate
   -- Conversion rules for pred.
-  pred-0 :           pred zero     ≡ zero
-  pred-S : (n : D) → pred (succ n) ≡ n
+  pred-0 :       pred zero     ≡ zero
+  pred-S : ∀ d → pred (succ d) ≡ d
 {-# ATP axiom pred-0 #-}
 {-# ATP axiom pred-S #-}
 
 postulate
   -- Conversion rules for isZero.
-  isZero-0 :           isZero zero     ≡ true
-  isZero-S : (n : D) → isZero (succ n) ≡ false
+  isZero-0 :       isZero zero     ≡ true
+  isZero-S : ∀ d → isZero (succ d) ≡ false
 {-# ATP axiom isZero-0 #-}
 {-# ATP axiom isZero-S #-}
 
@@ -107,12 +107,12 @@ postulate
 
 postulate
   -- Conversion rule for head.
-  head-∷ : (x xs : D) → head (x ∷ xs) ≡ x
+  head-∷ : ∀ x xs → head (x ∷ xs) ≡ x
 {-# ATP axiom head-∷ #-}
 
 postulate
   -- Conversion rule for tail.
-  tail-∷ : (x xs : D) → tail (x ∷ xs) ≡ xs
+  tail-∷ : ∀ x xs → tail (x ∷ xs) ≡ xs
 {-# ATP axiom tail-∷ #-}
 
 ------------------------------------------------------------------------------
@@ -120,6 +120,6 @@ postulate
 
 postulate
   true≠false : ¬ (true ≡ false)
-  0≠S        : {d : D} → ¬ (zero ≡ succ d)
+  0≠S        : ∀ {d} → ¬ (zero ≡ succ d)
 {-# ATP axiom true≠false #-}
 {-# ATP axiom 0≠S #-}

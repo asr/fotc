@@ -35,7 +35,7 @@ open import LTC.Relation.Binary.EqReasoning
 ------------------------------------------------------------------------------
 -- This is a weird result but recall that "the relation ≤ between
 -- lists is only an ordering if nil is excluded" (Burstall, pp. 46).
--- xs≤[] : {is : D} → ListN is → OrdList is → LE-Lists is []
+-- xs≤[] : ∀ {is} → ListN is → OrdList is → LE-Lists is []
 -- xs≤[] nilLN                     _       = ≤-Lists-[] []
 -- xs≤[] (consLN {i} {is} Ni LNis) LOconsL =
 --   begin
@@ -56,7 +56,7 @@ open import LTC.Relation.Binary.EqReasoning
 --     true
 --   ∎
 
-x≤ys++zs→x≤zs : {i js ks : D} → N i → ListN js → ListN ks →
+x≤ys++zs→x≤zs : ∀ {i js ks} → N i → ListN js → ListN ks →
                 LE-ItemList i (js ++ ks) → LE-ItemList i ks
 x≤ys++zs→x≤zs {i} {ks = ks} Ni nilLN LNks  i≤[]++ks =
   subst (λ t → LE-ItemList i t) (++-[] ks) i≤[]++ks
@@ -82,7 +82,7 @@ x≤ys++zs→x≤zs {i} {ks = ks} Ni (consLN {j} {js} Nj LNjs) LNks i≤j∷js++
                       (≤-ItemList-Bool Ni (++-ListN LNjs LNks))
                       lemma₁
 
-xs++ys-OrdList→xs≤ys : {is js : D} → ListN is → ListN js →
+xs++ys-OrdList→xs≤ys : ∀ {is js} → ListN is → ListN js →
                        OrdList (is ++ js) → LE-Lists is js
 xs++ys-OrdList→xs≤ys {js = js} nilLN LNjs OLis++js =  ≤-Lists-[] js
 xs++ys-OrdList→xs≤ys {js = js} (consLN {i} {is} Ni LNis) LNjs OLis++js =
@@ -124,7 +124,7 @@ xs++ys-OrdList→xs≤ys {js = js} (consLN {i} {is} Ni LNis) LNjs OLis++js =
     lemma₂ : ordList (is ++ js) ≡ true
     lemma₂ = &&-proj₂ aux₁ aux₂ lemma₀
 
-x≤ys→x≤zs→x≤ys++zs : {i js ks : D} → N i → ListN js → ListN ks →
+x≤ys→x≤zs→x≤ys++zs : ∀ {i js ks} → N i → ListN js → ListN ks →
                      LE-ItemList i js →
                      LE-ItemList i ks →
                      LE-ItemList i (js ++ ks)
@@ -161,7 +161,7 @@ x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni (consLN {j} {js} Nj LNjs) LNks i�
     aux₃ : i ≤ j && (≤-ItemList i js) ≡ true
     aux₃ = trans (sym (≤-ItemList-∷ i j js)) i≤j∷js
 
-xs≤ys→xs≤zs→xs≤ys++zs : {is js ks : D} → ListN is → ListN js → ListN ks →
+xs≤ys→xs≤zs→xs≤ys++zs : ∀ {is js ks} → ListN is → ListN js → ListN ks →
                         LE-Lists is js →
                         LE-Lists is ks →
                         LE-Lists is (js ++ ks)
@@ -200,7 +200,7 @@ xs≤ys→xs≤zs→xs≤ys++zs {js = js} {ks} (consLN {i} {is} Ni LNis)
     aux₅ = ≤-Lists-Bool LNis LNks
     aux₆ = trans (sym (≤-Lists-∷ i is ks)) i∷is≤ks
 
-xs≤zs→ys≤zs→xs++ys≤zs : {is js ks : D} → ListN is → ListN js → ListN ks →
+xs≤zs→ys≤zs→xs++ys≤zs : ∀ {is js ks} → ListN is → ListN js → ListN ks →
                         LE-Lists is ks →
                         LE-Lists js ks →
                         LE-Lists (is ++ js) ks

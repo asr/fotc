@@ -17,14 +17,14 @@ postulate
 
   gcd-00 : gcd zero zero ≡ error
 
-  gcd-S0 : (n : D) → gcd (succ n) zero ≡ succ n
+  gcd-S0 : ∀ n → gcd (succ n) zero ≡ succ n
 
-  gcd-0S : (n : D) → gcd zero (succ n) ≡ succ n
+  gcd-0S : ∀ n → gcd zero (succ n) ≡ succ n
 
-  gcd-S>S : (m n : D) → GT (succ m) (succ n) →
+  gcd-S>S : ∀ m n → GT (succ m) (succ n) →
             gcd (succ m) (succ n) ≡ gcd (succ m ∸ succ n) (succ n)
 
-  gcd-S≤S : (m n : D) → LE (succ m) (succ n) →
+  gcd-S≤S : ∀ m n → LE (succ m) (succ n) →
             gcd (succ m) (succ n) ≡ gcd (succ m) (succ n ∸ succ m)
 
 {-# ATP axiom gcd-00 #-}

@@ -15,6 +15,6 @@ data Bool : D → Set where
 {-# ATP hint fB #-}
 
 -- The rule of proof by case analysis on Bool.
-indBool : (P : D → Set) → P true → P false → {b : D} → Bool b → P b
+indBool : (P : D → Set) → P true → P false → ∀ {b} → Bool b → P b
 indBool P pt pf tB = pt
 indBool P pt pf fB = pf

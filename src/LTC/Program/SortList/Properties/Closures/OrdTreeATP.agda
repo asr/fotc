@@ -53,7 +53,7 @@ open import LTC.Program.SortList.Properties.Closures.TreeATP
 
 -- If (node t₁ i t₂) is ordered then t₁ is ordered.
 postulate
-  leftSubTree-OrdTree : {t₁ i t₂ : D} → Tree t₁ → N i → Tree t₂ →
+  leftSubTree-OrdTree : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ →
                         OrdTree (node t₁ i t₂) → OrdTree t₁
 -- E 1.2: CPU time limit exceeded (180 sec).
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
@@ -64,7 +64,7 @@ postulate
 
 -- If (node t₁ i t₂) is ordered then t₂ is ordered.
 postulate
-  rightSubTree-OrdTree : {t₁ i t₂ : D} → Tree t₁ → N i → Tree t₂ →
+  rightSubTree-OrdTree : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ →
                          OrdTree (node t₁ i t₂) → OrdTree t₂
 -- E 1.2: CPU time limit exceeded (180 sec).
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
@@ -76,11 +76,11 @@ postulate
 ------------------------------------------------------------------------------
 -- Auxiliar functions
 
-toTree-OrdTree-aux₁ : {i₁ i₂ : D} → N i₁ → N i₂ → GT i₁ i₂ →
-                      {t : D} → Tree t →
+toTree-OrdTree-aux₁ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → GT i₁ i₂ →
+                      Tree t →
                       LE-TreeItem t i₁ →
                       LE-TreeItem (toTree · i₂ · t) i₁
-toTree-OrdTree-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ .{nilTree} nilT t≤i₁ = prf
+toTree-OrdTree-aux₁ {i₁} {i₂} .{nilTree} Ni₁ Ni₂ i₁>i₂ nilT t≤i₁ = prf
   where
     postulate prf : LE-TreeItem (toTree · i₂ · nilTree) i₁
     {-# ATP prove prf x<y→x≤y #-}
@@ -128,11 +128,11 @@ toTree-OrdTree-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf₂ &&-proj₁ ≤-TreeItem-Bool #-}
 
-toTree-OrdTree-aux₂ : {i₁ i₂ : D} → N i₁ → N i₂ → LE i₁ i₂ →
-                      {t : D} → Tree t →
+toTree-OrdTree-aux₂ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → LE i₁ i₂ →
+                      Tree t →
                       LE-ItemTree i₁ t →
                       LE-ItemTree i₁ (toTree · i₂ · t)
-toTree-OrdTree-aux₂ {i₁} {i₂} _ _ i₁≤i₂ .{nilTree} nilT _ = prf
+toTree-OrdTree-aux₂ {i₁} {i₂} .{nilTree} _ _ i₁≤i₂  nilT _ = prf
   where
     postulate prf : LE-ItemTree i₁ (toTree · i₂ · nilTree)
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).

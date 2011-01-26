@@ -13,5 +13,5 @@ open import LTC.Base
 ------------------------------------------------------------------------------
 
 postulate
-  impossible : (d e : D) → d ≡ e
+  impossible : ∀ d e → d ≡ e
 {-# ATP prove impossible #-}

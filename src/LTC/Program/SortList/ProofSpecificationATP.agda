@@ -21,5 +21,5 @@ open import LTC.Program.SortList.SortList
 ------------------------------------------------------------------------------
 -- Main theorem: The sort program generates an ordered list.
 postulate
-  sort-OrdList : {is : D} → ListN is → OrdList (sort is)
+  sort-OrdList : ∀ {is} → ListN is → OrdList (sort is)
 {-# ATP prove sort-OrdList flatten-OrdList makeTree-Tree makeTree-OrdTree #-}

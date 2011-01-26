@@ -22,8 +22,7 @@ open import LTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- If (i ∷ is) is ordered then 'is' is ordered.
-subList-OrdList : {i : D} → N i → {is : D} → ListN is → OrdList (i ∷ is) →
-                  OrdList is
+subList-OrdList : ∀ {i is} → N i → ListN is → OrdList (i ∷ is) → OrdList is
 subList-OrdList {i} Ni nilLN LOi∷is = ordList-[]
 
 subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js =
@@ -31,7 +30,7 @@ subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js =
            (ordList-Bool (consLN Nj Ljs))
            (trans (sym $ ordList-∷ i (j ∷ js)) LOi∷j∷js)
 
-++-OrdList-aux : {item is js : D} → N item → ListN is → ListN js →
+++-OrdList-aux : ∀ {item is js} → N item → ListN is → ListN js →
                  LE-ItemList item is →
                  LE-ItemList item js →
                  LE-Lists is js →

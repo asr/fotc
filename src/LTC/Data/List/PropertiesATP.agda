@@ -24,7 +24,7 @@ open import LTC.Data.List
 ------------------------------------------------------------------------------
 -- Closure properties
 
-++-List : {xs ys : D} → List xs → List ys → List (xs ++ ys)
+++-List : ∀ {xs ys} → List xs → List ys → List (xs ++ ys)
 ++-List {ys = ys} nilL Lys = prf
   where
     postulate prf : List ([] ++ ys)
@@ -36,7 +36,7 @@ open import LTC.Data.List
                     List ((x ∷ xs) ++ ys)
     {-# ATP prove prf consL #-}
 
-map-List : {xs : D}(f : D) → List xs → List (map f xs)
+map-List : ∀ {xs} f → List xs → List (map f xs)
 map-List f nilL = prf
   where
     postulate prf : List (map f [])
@@ -47,7 +47,7 @@ map-List f (consL x {xs} Lxs) = prf $ map-List f Lxs
                     List (map f (x ∷ xs))
     {-# ATP prove prf consL #-}
 
-rev-List : {xs ys : D} → List xs → List ys → List (rev xs ys)
+rev-List : ∀ {xs ys} → List xs → List ys → List (rev xs ys)
 rev-List {ys = ys} nilL Lys = prf
   where
     postulate prf : List (rev [] ys)
@@ -58,13 +58,13 @@ rev-List {ys = ys} (consL x {xs} Lxs) Lys = prf $ rev-List Lxs (consL x Lys)
                     List (rev (x ∷ xs) ys)
     {-# ATP prove prf #-}
 
-reverse-List : {xs : D} → List xs → List (reverse xs)
+reverse-List : ∀ {xs} → List xs → List (reverse xs)
 reverse-List Lxs = rev-List Lxs nilL
 
-++-leftIdentity : {xs : D} → List xs → [] ++ xs ≡ xs
+++-leftIdentity : ∀ {xs} → List xs → [] ++ xs ≡ xs
 ++-leftIdentity {xs} _ = ++-[] xs
 
-++-rightIdentity : {xs : D} → List xs → xs ++ [] ≡ xs
+++-rightIdentity : ∀ {xs} → List xs → xs ++ [] ≡ xs
 ++-rightIdentity nilL = prf
   where
     postulate prf : [] ++ [] ≡ []
@@ -76,25 +76,25 @@ reverse-List Lxs = rev-List Lxs nilL
                     (x ∷ xs) ++ [] ≡ x ∷ xs
     {-# ATP prove prf #-}
 
-++-assoc : {as bs cs : D} → List as → List bs → List cs →
-           (as ++ bs) ++ cs ≡ as ++ (bs ++ cs)
-++-assoc .{[]} {bs} {cs} nilL Lbs Lcs = prf
+++-assoc : ∀ {xs ys zs} → List xs → List ys → List zs →
+           (xs ++ ys) ++ zs ≡ xs ++ (ys ++ zs)
+++-assoc .{[]} {ys} {zs} nilL Lys Lzs = prf
   where
-    postulate prf : ([] ++ bs) ++ cs ≡ [] ++ bs ++ cs
+    postulate prf : ([] ++ ys) ++ zs ≡ [] ++ ys ++ zs
     {-# ATP prove prf #-}
 
-++-assoc .{x ∷ xs} {bs} {cs} (consL x {xs} Lxs) Lbs Lcs =
-  prf $ ++-assoc Lxs Lbs Lcs
+++-assoc .{x ∷ xs} {ys} {zs} (consL x {xs} Lxs) Lys Lzs =
+  prf $ ++-assoc Lxs Lys Lzs
   where
-    postulate prf : (xs ++ bs) ++ cs ≡ xs ++ bs ++ cs →  -- IH.
-                    ((x ∷ xs) ++ bs) ++ cs ≡ (x ∷ xs) ++ bs ++ cs
+    postulate prf : (xs ++ ys) ++ zs ≡ xs ++ ys ++ zs →  -- IH.
+                    ((x ∷ xs) ++ ys) ++ zs ≡ (x ∷ xs) ++ ys ++ zs
     {-# ATP prove prf #-}
 
 postulate
-  reverse-[x]≡[x] : (x : D) → reverse (x ∷ []) ≡ x ∷ []
+  reverse-[x]≡[x] : ∀ x → reverse (x ∷ []) ≡ x ∷ []
 {-# ATP prove reverse-[x]≡[x] #-}
 
-rev-++ : {xs ys : D} → List xs → List ys → rev xs ys ≡ rev xs [] ++ ys
+rev-++ : ∀ {xs ys} → List xs → List ys → rev xs ys ≡ rev xs [] ++ ys
 rev-++ {ys = ys} nilL Lys = prf
   where
     postulate prf : rev [] ys ≡ rev [] [] ++ ys
@@ -110,7 +110,7 @@ rev-++ {ys = ys} (consL x {xs} Lxs) Lys =
     -- Vampire 0.6 (revision 903): (Default) memory limit (timeout 180 sec).
     {-# ATP prove prf consL nilL ++-assoc rev-List ++-List #-}
 
-reverse-++ : {xs ys : D} → List xs → List ys →
+reverse-++ : ∀ {xs ys} → List xs → List ys →
              reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
 reverse-++ {ys = ys} nilL Lys = prf
   where
@@ -133,7 +133,7 @@ reverse-++ (consL x {xs} Lxs) (consL y {ys} Lys) =
     -- Vampire 0.6 (revision 903): (Default) memory limit (using timeout 180 sec).
     {-# ATP prove prf consL nilL rev-List ++-List rev-++ ++-assoc #-}
 
-reverse² : {xs : D} → List xs → reverse (reverse xs) ≡ xs
+reverse² : ∀ {xs} → List xs → reverse (reverse xs) ≡ xs
 reverse² nilL = prf
   where
     postulate prf : reverse (reverse []) ≡ []
@@ -150,7 +150,7 @@ reverse² (consL x {xs} Lxs) = prf $ reverse² Lxs
                       ++-List ++-rightIdentity
     #-}
 
-map-++ : (f : D){xs ys : D} → List xs → List ys →
+map-++ : ∀ f {xs ys} → List xs → List ys →
          map f (xs ++ ys) ≡ map f xs ++ map f ys
 map-++ f {ys = ys} nilL Lys = prf
   where
@@ -163,12 +163,12 @@ map-++ f {ys = ys} (consL x {xs} Lxs) Lys = prf $ map-++ f Lxs Lys
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf #-}
 
-length-replicate : {n : D} → N n → (d : D) → length (replicate n d) ≡ n
-length-replicate zN d = prf
+length-replicate : ∀ d {n} → N n → length (replicate n d) ≡ n
+length-replicate d zN = prf
   where
     postulate prf : length (replicate zero d) ≡ zero
     {-# ATP prove prf #-}
-length-replicate (sN {n} Nn) d = prf $ length-replicate Nn d
+length-replicate d (sN {n} Nn) = prf $ length-replicate d Nn
   where
     postulate prf : length (replicate n d) ≡ n →  -- IH.
                     length (replicate (succ n) d) ≡ succ n

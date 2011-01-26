@@ -17,7 +17,7 @@ open import LTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------
 -- The function flatten generates a ListN.
-flatten-ListN : {t : D} → Tree t → ListN (flatten t)
+flatten-ListN : ∀ {t} → Tree t → ListN (flatten t)
 flatten-ListN nilT =
   subst (λ t → ListN t) (sym flatten-nilTree) nilLN
 flatten-ListN (tipT {i} Ni) =

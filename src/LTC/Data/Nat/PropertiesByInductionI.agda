@@ -20,10 +20,10 @@ open import LTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 
-+-leftIdentity : {n : D} → N n → zero + n ≡ n
++-leftIdentity : ∀ {n} → N n → zero + n ≡ n
 +-leftIdentity {n} _ = +-0x n
 
-+-rightIdentity : {n : D} → N n → n + zero ≡ n
++-rightIdentity : ∀ {n} → N n → n + zero ≡ n
 +-rightIdentity Nn = indN P P0 iStep Nn
   where
     P : D → Set
@@ -32,7 +32,7 @@ open import LTC.Relation.Binary.EqReasoning
     P0 : P zero
     P0 = +-leftIdentity zN
 
-    iStep : {i : D} → N i → P i → P (succ i)
+    iStep : ∀ {i} → N i → P i → P (succ i)
     iStep {i} Ni Pi =
         trans (+-Sx i zero)
               (subst (λ t → succ (i + zero) ≡ succ t)
@@ -40,7 +40,7 @@ open import LTC.Relation.Binary.EqReasoning
                      refl
               )
 
-+-N : {m n : D} → N m → N n → N (m + n)
++-N : ∀ {m n} → N m → N n → N (m + n)
 +-N {n = n} Nm Nn = indN P P0 iStep Nm
   where
     P : D → Set
@@ -49,10 +49,10 @@ open import LTC.Relation.Binary.EqReasoning
     P0 : P zero
     P0 = subst N (sym $ +-leftIdentity Nn) Nn
 
-    iStep : {i : D} → N i → P i → P (succ i)
+    iStep : ∀ {i} → N i → P i → P (succ i)
     iStep {i} Ni Pi = subst N (sym $ +-Sx i n) (sN Pi)
 
-+-assoc : {m n o : D} → N m → N n → N o → m + n + o ≡ m + (n + o)
++-assoc : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
 +-assoc {n = n} {o} Nm Nn No = indN P P0 iStep Nm
   where
     P : D → Set
@@ -69,7 +69,7 @@ open import LTC.Relation.Binary.EqReasoning
         zero + (n + o)
       ∎
 
-    iStep : {i : D} → N i → P i → P (succ i)
+    iStep : ∀ {i} → N i → P i → P (succ i)
     iStep {i} Ni Pi =
       begin
         succ i + n + o     ≡⟨ subst (λ t → succ i + n + o ≡ t + o)
@@ -85,7 +85,7 @@ open import LTC.Relation.Binary.EqReasoning
         succ i + (n + o)
       ∎
 
-x+Sy≡S[x+y] : {m n : D} → N m → N n → m + succ n ≡ succ (m + n)
+x+Sy≡S[x+y] : ∀ {m n} → N m → N n → m + succ n ≡ succ (m + n)
 x+Sy≡S[x+y] {n = n} Nm Nn = indN P P0 iStep Nm
   where
     P : D → Set
@@ -102,7 +102,7 @@ x+Sy≡S[x+y] {n = n} Nm Nn = indN P P0 iStep Nm
         succ (zero + n)
       ∎
 
-    iStep : {i : D} → N i → P i → P (succ i)
+    iStep : ∀ {i} → N i → P i → P (succ i)
     iStep {i} Ni Pi =
       begin
         succ i + succ n     ≡⟨ +-Sx i (succ n) ⟩
@@ -117,7 +117,7 @@ x+Sy≡S[x+y] {n = n} Nm Nn = indN P P0 iStep Nm
         succ (succ i + n)
       ∎
 
-+-comm : {m n : D} → N m → N n → m + n ≡ n + m
++-comm : ∀ {m n} → N m → N n → m + n ≡ n + m
 +-comm {n = n} Nm Nn = indN P P0 iStep Nm
   where
     P : D → Set
@@ -131,7 +131,7 @@ x+Sy≡S[x+y] {n = n} Nm Nn = indN P P0 iStep Nm
         n + zero
       ∎
 
-    iStep : {i : D} → N i → P i → P (succ i)
+    iStep : ∀ {i} → N i → P i → P (succ i)
     iStep {i} Ni Pi =
       begin
         succ i + n   ≡⟨ +-Sx i n ⟩

@@ -23,33 +23,33 @@ open import LTC.Relation.Binary.EqReasoning
 ------------------------------------------------------------------------------
 -- Basic properties
 
-&&-Bool : {b₁ b₂ : D} → Bool b₁ → Bool b₂ → Bool (b₁ && b₂)
+&&-Bool : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → Bool (b₁ && b₂)
 &&-Bool tB tB = subst (λ t → Bool t) (sym &&-tt) tB
 &&-Bool tB fB = subst (λ t → Bool t) (sym &&-tf) fB
 &&-Bool fB tB = subst (λ t → Bool t) (sym &&-ft) fB
 &&-Bool fB fB = subst (λ t → Bool t) (sym &&-ff) fB
 
-&&-comm : {b₁ b₂ : D} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ b₂ && b₁
+&&-comm : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ b₂ && b₁
 &&-comm tB tB = refl
 &&-comm tB fB = trans &&-tf (sym &&-ft)
 &&-comm fB tB = trans &&-ft (sym &&-tf)
 &&-comm fB fB = refl
 
-x&&false≡false : {b : D} → Bool b → b && false ≡ false
+x&&false≡false : ∀ {b} → Bool b → b && false ≡ false
 x&&false≡false tB = &&-tf
 x&&false≡false fB = &&-ff
 
-false&&x≡false : {b : D} → Bool b → false && b ≡ false
+false&&x≡false : ∀ {b} → Bool b → false && b ≡ false
 false&&x≡false tB = &&-ft
 false&&x≡false fB = &&-ff
 
-true&&x≡x : {b : D} → Bool b → true && b ≡ b
+true&&x≡x : ∀ {b} → Bool b → true && b ≡ b
 true&&x≡x tB = &&-tt
 true&&x≡x fB = &&-tf
 
 -- See the ATP version.
 postulate
-  &&-assoc : {b₁ b₂ b₃ : D} → Bool b₁ → Bool b₂ → Bool b₃ →
+  &&-assoc : ∀ {b₁ b₂ b₃} → Bool b₁ → Bool b₂ → Bool b₃ →
              (b₁ && b₂) && b₃ ≡ b₁ && b₂ && b₃
 
 &&-true₃ : true && true && true ≡ true
@@ -78,17 +78,17 @@ postulate
     true
   ∎
 
-&&-proj₁ : {b₁ b₂ : D} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₁ ≡ true
+&&-proj₁ : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₁ ≡ true
 &&-proj₁ tB _ _    = refl
 &&-proj₁ fB tB h = ⊥-elim $ true≠false $ trans (sym h) &&-ft
 &&-proj₁ fB fB h = ⊥-elim $ true≠false $ trans (sym h) &&-ff
 
-&&-proj₂ : {b₁ b₂ : D} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₂ ≡ true
+&&-proj₂ : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₂ ≡ true
 &&-proj₂ _  tB _   = refl
 &&-proj₂ tB fB h = ⊥-elim $ true≠false $ trans (sym h) &&-tf
 &&-proj₂ fB fB h = ⊥-elim $ true≠false $ trans (sym h) &&-ff
 
-&&₃-proj₁ : {b₁ b₂ b₃ b₄ : D} →
+&&₃-proj₁ : ∀ {b₁ b₂ b₃ b₄} →
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
             b₁ && b₂ && b₃ && b₄ ≡ true →
             b₁ ≡ true
@@ -99,7 +99,7 @@ postulate
     prf : false && b₂ && b₃ && b₄ ≡ false
     prf = false&&x≡false (&&-Bool Bb₂ (&&-Bool Bb₃ Bb₄))
 
-&&₃-proj₂ : {b₁ b₂ b₃ b₄ : D} →
+&&₃-proj₂ : ∀ {b₁ b₂ b₃ b₄} →
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
             b₁ && b₂ && b₃ && b₄ ≡ true →
             b₂ ≡ true
@@ -120,7 +120,7 @@ postulate
         false
       ∎
 
-&&₃-proj₃ : {b₁ b₂ b₃ b₄ : D} →
+&&₃-proj₃ : ∀ {b₁ b₂ b₃ b₄} →
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
             b₁ && b₂ && b₃ && b₄ ≡ true →
             b₃ ≡ true
@@ -146,7 +146,7 @@ postulate
         false
       ∎
 
-&&₃-proj₄ : {b₁ b₂ b₃ b₄ : D} →
+&&₃-proj₄ : ∀ {b₁ b₂ b₃ b₄} →
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
             b₁ && b₂ && b₃ && b₄ ≡ true →
             b₄ ≡ true
@@ -175,7 +175,7 @@ postulate
 ------------------------------------------------------------------------------
 -- Properties with inequalities
 
-≤-Bool : {m n : D} → N m → N n → Bool (m ≤ n)
+≤-Bool : ∀ {m n} → N m → N n → Bool (m ≤ n)
 ≤-Bool {n = n} zN Nn           = subst (λ t → Bool t) (sym $ <-0S n) tB
 ≤-Bool (sN Nm) zN              = subst (λ t → Bool t) (sym $ S≰0 Nm) fB
 ≤-Bool (sN {m} Nm) (sN {n} Nn) = subst (λ t → Bool t)

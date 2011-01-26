@@ -27,11 +27,11 @@ open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
 
 wfIndN-LT :
    (P : D → Set) →
-   ({m : D} → N m → ({n : D} → N n → LT n m → P n) → P m) →
-   {n : D} → N n → P n
+   (∀ {m} → N m → (∀ {n} → N n → LT n m → P n) → P m) →
+   ∀ {n} → N n → P n
 wfIndN-LT P accH Nn = accH Nn (wfAux Nn)
   where
-    wfAux : {m : D} → N m → {n : D} → N n → LT n m → P n
+    wfAux : ∀ {m} → N m → ∀ {n} → N n → LT n m → P n
     wfAux zN      Nn      n<0   = ⊥-elim $ ¬x<0 Nn n<0
     wfAux (sN Nm) zN      0<Sm  = accH zN (λ Nn' n'<0 → ⊥-elim $ ¬x<0 Nn' n'<0)
     wfAux (sN {m} Nm) (sN {n} Nn) Sn<Sm =
