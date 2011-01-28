@@ -45,8 +45,8 @@ Installation
 
 2. Prerequisite: A modified version of Agda
 
-  The agda2atp requires a modified version of Agda in which have added
-  a new built-in pragma called the ATP pragma. To install this
+  The agda2atp tool requires a modified version of Agda in which have
+  added a new built-in pragma called the ATP pragma. To install this
   modified version of Agda you need:
 
   2.1 To install the development version of Agda
@@ -70,7 +70,7 @@ Installation
       N.B. The patch atp-pragma.dpatch bump the development version of
       Agda from 2.2.9 to 2.2.9.1.
 
-3. To install the tool agda2atp
+3. To install the agda2atp tool
 
    After to install the modified version of Agda, you need:
 
