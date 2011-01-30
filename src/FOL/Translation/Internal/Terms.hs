@@ -43,7 +43,7 @@ import Agda.Utils.Impossible
 ------------------------------------------------------------------------------
 -- Local imports
 
-import AgdaLib.Interface ( isDefinitionATP, qNameDefinition )
+import AgdaLib.Interface ( isATPDefinition, qNameDefinition )
 
 import FOL.Constants
     ( folTrue, folFalse, folNot, folAnd, folOr
@@ -70,7 +70,7 @@ qName2String qName@(QName _ name) = do
 
   -- Because the ATP pragma definitions are global, we need an unique
   -- name. In this case, we append to the qName the qName id.
-  if isDefinitionATP def
+  if isATPDefinition def
      then do
        let qNameId ∷ NameId
            qNameId = nameId name

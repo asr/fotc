@@ -24,7 +24,7 @@ import Data.Char
 import Agda.Syntax.Abstract.Name ( Name(nameId), QName(QName) )
 import Agda.Syntax.Common
     ( NameId(NameId)
-    , RoleATP(AxiomATP, ConjectureATP, DefinitionATP, HintATP)
+    , ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint)
     )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
@@ -150,16 +150,16 @@ instance PrettyTPTP FOLFormula where
 ------------------------------------------------------------------------------
 -- Pretty-printer for annotated formulas
 
-instance PrettyTPTP RoleATP where
-    prettyTPTP AxiomATP      = "axiom"
-    prettyTPTP ConjectureATP = "conjecture"
-    prettyTPTP DefinitionATP = "definition"
-    prettyTPTP HintATP       = "hypothesis"
+instance PrettyTPTP ATPRole where
+    prettyTPTP ATPAxiom      = "axiom"
+    prettyTPTP ATPConjecture = "conjecture"
+    prettyTPTP ATPDefinition = "definition"
+    prettyTPTP ATPHint       = "hypothesis"
 
 instance PrettyTPTP AF where
-    prettyTPTP (MkAF qName roleATP formula) =
+    prettyTPTP (MkAF qName atpRole formula) =
         "fof(" ++
         prettyTPTP qName ++ ", " ++
-        prettyTPTP roleATP ++ ", " ++
+        prettyTPTP atpRole ++ ", " ++
         prettyTPTP formula ++
         ")." ++ "\n\n"

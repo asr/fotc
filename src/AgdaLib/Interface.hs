@@ -10,8 +10,8 @@ module AgdaLib.Interface
     ( getClauses
     , getImportedInterfaces
     , getLocalHints
-    , getRoleATP
-    , isDefinitionATP
+    , getATPRole
+    , isATPDefinition
     , myGetInterface
     , myReadInterface
     , qNameDefinition
@@ -51,7 +51,7 @@ import Agda.Syntax.Abstract.Name
     , qnameName
     )
 import Agda.Syntax.Common
-    ( Arg(Arg), RoleATP(AxiomATP, ConjectureATP, DefinitionATP, HintATP) )
+    ( Arg(Arg), ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint) )
 import Agda.Syntax.Internal
     ( Abs(Abs)
     , Clause(Clause)
@@ -101,14 +101,14 @@ import Options       ( Options(optAgdaIncludePath) )
 
 ------------------------------------------------------------------------------
 
-getRoleATP ∷ RoleATP → Definitions → Definitions
-getRoleATP role = Map.filter $ isRole role
+getATPRole ∷ ATPRole → Definitions → Definitions
+getATPRole role = Map.filter $ isRole role
     where
-      isRole ∷ RoleATP → Definition → Bool
-      isRole AxiomATP      = isAxiomATP
-      isRole ConjectureATP = isConjectureATP
-      isRole DefinitionATP = isDefinitionATP
-      isRole HintATP       = isHintATP
+      isRole ∷ ATPRole → Definition → Bool
+      isRole ATPAxiom      = isATPAxiom
+      isRole ATPConjecture = isATPConjecture
+      isRole ATPDefinition = isATPDefinition
+      isRole ATPHint       = isATPHint
 
 -- getHintsATP ∷ Interface → Definitions
 -- getHintsATP i = Map.filter isAxiomATP $ sigDefinitions $ iSignature i
@@ -120,7 +120,7 @@ getLocalHints def =
       defn = theDef def
   in case defn of
        Axiom{} → case axATP defn of
-                    Just (ConjectureATP, hints) → hints
+                    Just (ATPConjecture, hints) → hints
                     Just _                      → __IMPOSSIBLE__
                     Nothing                     → __IMPOSSIBLE__
 
@@ -181,58 +181,58 @@ myGetInterface x = do
         Right (i, _) → return (Just i)
         Left  _      → return Nothing
 
-isAxiomATP ∷ Definition → Bool
-isAxiomATP def =
+isATPAxiom ∷ Definition → Bool
+isATPAxiom def =
   let defn ∷ Defn
       defn = theDef def
   in case defn of
        Axiom{} → case axATP defn of
-                    Just (AxiomATP, _)      → True
-                    Just (ConjectureATP, _) → False
+                    Just (ATPAxiom, _)      → True
+                    Just (ATPConjecture, _) → False
                     Just _                  → __IMPOSSIBLE__
                     Nothing                 → False
 
        _       → False
 
-isConjectureATP ∷ Definition → Bool
-isConjectureATP def =
+isATPConjecture ∷ Definition → Bool
+isATPConjecture def =
   let defn ∷ Defn
       defn = theDef def
   in case defn of
        Axiom{} → case axATP defn of
-                    Just (AxiomATP, _)      → False
-                    Just (ConjectureATP, _) → True
+                    Just (ATPAxiom, _)      → False
+                    Just (ATPConjecture, _) → True
                     Just _                  → __IMPOSSIBLE__
                     Nothing                 → False
 
        _       → False
 
-isDefinitionATP ∷ Definition → Bool
-isDefinitionATP def =
+isATPDefinition ∷ Definition → Bool
+isATPDefinition def =
   let defn ∷ Defn
       defn = theDef def
   in case defn of
        Function{} → case funATP defn of
-                      Just DefinitionATP → True
-                      Just HintATP       → False
+                      Just ATPDefinition → True
+                      Just ATPHint       → False
                       Just _             → __IMPOSSIBLE__
                       Nothing            → False
 
        _          → False
 
-isHintATP ∷ Definition → Bool
-isHintATP def =
+isATPHint ∷ Definition → Bool
+isATPHint def =
   let defn ∷ Defn
       defn = theDef def
   in case defn of
        Constructor{} → case conATP defn of
-                          Just HintATP → True
+                          Just ATPHint → True
                           Just _       → __IMPOSSIBLE__
                           Nothing      → False
 
        Function{}    → case funATP defn of
-                          Just DefinitionATP → False
-                          Just HintATP       → True
+                          Just ATPDefinition → False
+                          Just ATPHint       → True
                           Just _             → __IMPOSSIBLE__
                           Nothing            → False
 

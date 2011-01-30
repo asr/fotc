@@ -29,7 +29,7 @@ import Data.List ( (\\), sort )
 
 -- Agda library imports
 import Agda.Syntax.Abstract.Name ( QName )
-import Agda.Syntax.Common   ( RoleATP )
+import Agda.Syntax.Common   ( ATPRole )
 -- import qualified Agda.Utils.IO.Locale as LocIO
 
 -- Local imports
@@ -41,7 +41,7 @@ import Utils.List ( duplicatesElements, nonDuplicate )
 -- | The TPTP annotated formulas.
 -- The annotated formulas are not in TPTP syntax. We get this syntax via
 -- 'TPTP.Pretty.PrettyTPTP'.
-data AF = MkAF QName RoleATP FOLFormula
+data AF = MkAF QName ATPRole FOLFormula
         deriving Show
 
 instance Eq AF where
