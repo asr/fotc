@@ -39,36 +39,27 @@ Prerequisites
 Installation
 ------------------------------------------------------------------------------
 
-1. Getting the agda2atp source
-
-   $ darcs get http://patch-tag.com/r/asr/agda2atp
-
-2. Prerequisite: A modified version of Agda
+1. Prerequisite: A modified version of Agda
 
   The agda2atp tool requires a modified version of Agda in which have
   added a new built-in pragma called the ATP pragma. To install this
   modified version of Agda you need:
 
-  2.1 To install the development version of Agda
+  1.1 Getting the modified version of Agda source
 
-      The instructions are in the Agda wiki
-      http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Main.Download
+      $ darcs get http://patch-tag.com/r/asr/magda
 
-  2.2 To patch the development version of Agda
+  1.1 To install the modified version of Agda Agda
 
-      The patch to the development version of Agda is in the file
-      ~/agda2atp/atp-pragma.dpatch. To install the modified version of
-      Agda you need:
+      You can following the same instructions to install Agda from the
+      Agda wiki http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Main.Download.
 
-      $ cd ~/Agda
-      $ darcs apply ~/agda2atp/atp-pragma.dpatch
-      $ cabal install
-      $ cd src/main
-      $ cabal clean
-      $ cabal install
+      N.B. In our modified version of Agda we bump the Agda
+      development version of from 2.2.9 to 2.2.9.1.
 
-      N.B. The patch atp-pragma.dpatch bump the development version of
-      Agda from 2.2.9 to 2.2.9.1.
+2. Getting the agda2atp source
+
+   $ darcs get http://patch-tag.com/r/asr/agda2atp
 
 3. To install the agda2atp tool
 
