@@ -255,7 +255,8 @@ flatten-OrdList-aux {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt�
                          &&-proj₂ &&₃-proj₁ &&₃-proj₂ &&₃-proj₄
                          aux₁ aux₂ aux₃ aux₄ aux₅ aux₆ aux₇ aux₈ #-}
 
-    postulate prf : LE-Lists (flatten (node t₁₁ i₁ t₁₂)) (flatten (node t₂₁ i₂ t₂₂))
+    postulate prf : LE-Lists (flatten (node t₁₁ i₁ t₁₂))
+                    (flatten (node t₂₁ i₂ t₂₂))
       -- E 1.2: Non-tested.
       -- Metis 2.3 : Non-tested.
       -- Equinox 5.0alpha (2010-06-29): Non-tested.
