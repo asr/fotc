@@ -6,8 +6,6 @@
 -- principle associated with the LTC natural numbers. The following
 -- examples show some proofs using it.
 
--- TODO: We have not tested which ATPs fail on the ATP conjectures.
-
 module LTC.Data.Nat.PropertiesByInductionI where
 
 open import LTC.Base

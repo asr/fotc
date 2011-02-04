@@ -6,6 +6,8 @@
 -- principle associated with the LTC natural numbers. The following
 -- examples show some proofs using it.
 
+-- TODO: We have not tested which ATPs fail on the ATP conjectures.
+
 module LTC.Data.Nat.PropertiesByInductionATP where
 
 open import LTC.Base
@@ -13,9 +15,6 @@ open import LTC.Base
 open import LTC.Data.Nat
 
 ------------------------------------------------------------------------------
--- Usually our proofs use pattern matching instead of the induction
--- principle associated with the LTC natural numbers. The following
--- example shows a proof using it.
 
 +-leftIdentity : ∀ {n} → N n → zero + n ≡ n
 +-leftIdentity {n} _ = +-0x n
