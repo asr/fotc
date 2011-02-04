@@ -15,7 +15,7 @@ description:
   automatic theorem provers (ATPs), via the translation of the Agda
   formulae to the TPTP format which is a standard for input and output
   for the ATPs <http://www.cs.miami.edu/~tptp/>.
-tested-with:        GHC == 6.12.1, GHC == 6.12.3, GHC == 7.0.1
+tested-with:        GHC == 6.12.3, GHC == 7.0.1
 extra-source-files: src/undefined.h
 
 source-repository head
