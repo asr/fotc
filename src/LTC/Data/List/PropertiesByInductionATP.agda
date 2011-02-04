@@ -2,7 +2,7 @@
 --  Properties related with lists (using induction on the LTC list type)
 ------------------------------------------------------------------------------
 
-module LTC.Data.List.PropertiesByInduction where
+module LTC.Data.List.PropertiesByInductionATP where
 
 open import LTC.Base
 

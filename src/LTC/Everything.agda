@@ -19,7 +19,7 @@ open import LTC.Data.Bool.Type
 open import LTC.Data.List
 open import LTC.Data.List.ConsistencyTest
 open import LTC.Data.List.PropertiesATP
-open import LTC.Data.List.PropertiesByInduction
+open import LTC.Data.List.PropertiesByInductionATP
 open import LTC.Data.List.PropertiesI
 open import LTC.Data.List.Type
 
