@@ -70,6 +70,9 @@ type_checking_Agsy : $(Agsy_files)
 	  $(AGDA_Agsy) $${file}; \
 	done
 
+type_checking_README : README.agda
+	$(AGDA_FOT) -i. $<
+
 type_checking_% :
 	$(AGDA_FOT) $(main_$*).agda
 
@@ -80,7 +83,8 @@ all_type_checking : type_checking_Common \
 		    type_checking_LTC \
 		    type_checking_LTC-PCF \
 		    type_checking_PA \
-		    type_checking_Agsy
+		    type_checking_Agsy \
+		    type_checking_README \
 
 ##############################################################################
 # Test the conjecture files.
