@@ -2,6 +2,9 @@
 -- Well-founded induction on the lexicographic order the natural numbers
 ------------------------------------------------------------------------------
 
+-- N.B This module does not contain combined proofs, but it imports
+-- modules which contain combined proofs.
+
 module LTC.Data.Nat.Induction.LexicographicATP where
 
 open import LTC.Base

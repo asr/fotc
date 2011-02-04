@@ -5,6 +5,9 @@
 -- This module proves the correctness of the gcd program using
 -- the Euclid's algorithm.
 
+-- N.B This module does not contain combined proofs, but it imports
+-- modules which contain combined proofs.
+
 module LTC.Program.GCD.ProofSpecificationATP where
 
 open import LTC.Base

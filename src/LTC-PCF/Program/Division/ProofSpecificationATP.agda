@@ -11,6 +11,9 @@
 -- LNCS, 1985, pages 334-349. Appears in revised form as Programming
 -- Methodology Group Report 26, June 1986.
 
+-- N.B This module does not contain combined proofs, but it imports
+-- modules which contain combined proofs.
+
 module LTC-PCF.Program.Division.ProofSpecificationATP where
 
 open import LTC.Base
