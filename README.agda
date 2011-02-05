@@ -235,4 +235,4 @@ open import PA.Axiomatic.PropertiesATP
 ------------------------------------------------------------------------------
 
 -- We cannot import the Agsy examples because some modules contain
--- unsolved metas, so see src/Agsy.README.txt
+-- unsolved metas, so see src/Agsy/README.txt
