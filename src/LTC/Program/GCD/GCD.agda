@@ -13,13 +13,13 @@ open import LTC.Data.Nat.Inequalities using ( GT ; LE )
 ------------------------------------------------------------------------------
 
 postulate
-  gcd : D → D → D
+  gcd     : D → D → D
 
-  gcd-00 : gcd zero zero ≡ error
+  gcd-00  : gcd zero zero ≡ error
 
-  gcd-S0 : ∀ n → gcd (succ n) zero ≡ succ n
+  gcd-S0  : ∀ n → gcd (succ n) zero ≡ succ n
 
-  gcd-0S : ∀ n → gcd zero (succ n) ≡ succ n
+  gcd-0S  : ∀ n → gcd zero (succ n) ≡ succ n
 
   gcd-S>S : ∀ m n → GT (succ m) (succ n) →
             gcd (succ m) (succ n) ≡ gcd (succ m ∸ succ n) (succ n)
