@@ -6,7 +6,7 @@ module LTC.Data.List.PropertiesI where
 
 open import LTC.Base
 
-open import Common.Function using ( _$_ )
+open import Common.Function
 
 open import LTC.Data.List
 open import LTC.Data.List.Type
@@ -14,23 +14,66 @@ open import LTC.Data.List.Type
 open import LTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
--- Closure properties
 
--- See the ATP proof.
-postulate
-  ++-List : ∀ {xs ys} → List xs → List ys → List (xs ++ ys)
+++-List : ∀ {xs ys} → List xs → List ys → List (xs ++ ys)
+++-List {ys = ys} nilL               Lys = subst List (sym (++-[] ys)) Lys
+++-List {ys = ys} (consL x {xs} Lxs) Lys =
+  subst List (sym (++-∷ x xs ys)) (consL x (++-List Lxs Lys))
 
--- See the ATP proof.
-postulate
-  rev-List : ∀ {xs ys} → List xs → List ys → List (rev xs ys)
+rev-List : ∀ {xs ys} → List xs → List ys → List (rev xs ys)
+rev-List {ys = ys} nilL          Lys = subst List (sym (rev-[] ys)) Lys
+rev-List {ys = ys} (consL x {xs} Lxs) Lys =
+  subst List (sym (rev-∷ x xs ys)) (rev-List Lxs (consL x Lys))
 
 ++-leftIdentity : ∀ {xs} → List xs → [] ++ xs ≡ xs
 ++-leftIdentity {xs} _ = ++-[] xs
 
--- See the ATP proof.
-postulate
-  ++-assoc : ∀ {xs ys zs} → List xs → List ys → List zs →
-             (xs ++ ys) ++ zs ≡ xs ++ (ys ++ zs)
+++-rightIdentity : ∀ {xs} → List xs → xs ++ [] ≡ xs
+++-rightIdentity nilL               = ++-[] []
+++-rightIdentity (consL x {xs} Lxs) =
+  begin
+    (x ∷ xs) ++ []
+      ≡⟨ ++-∷ x xs [] ⟩
+    x ∷ (xs ++ [])
+      ≡⟨ subst (λ t → x ∷ (xs ++ []) ≡ x ∷ t)
+               (++-rightIdentity Lxs)
+               refl
+      ⟩
+    x ∷ xs
+  ∎
+
+++-assoc : ∀ {xs ys zs} → List xs → List ys → List zs →
+           (xs ++ ys) ++ zs ≡ xs ++ (ys ++ zs)
+++-assoc {ys = ys} {zs} nilL Lys Lzs =
+  begin
+    ([] ++ ys) ++ zs
+      ≡⟨ subst (λ t → ([] ++ ys) ++ zs ≡ t ++ zs)
+               (++-[] ys)
+               refl
+      ⟩
+    ys ++ zs
+      ≡⟨ sym (++-leftIdentity (++-List Lys Lzs)) ⟩
+    [] ++ ys ++ zs
+  ∎
+
+++-assoc {ys = ys} {zs} (consL x {xs} Lxs) Lys Lzs =
+  begin
+    ((x ∷ xs) ++ ys) ++ zs
+      ≡⟨ subst (λ t → ((x ∷ xs) ++ ys) ++ zs ≡ t ++ zs)
+               (++-∷ x xs ys)
+               refl
+      ⟩
+    (x ∷ (xs ++ ys)) ++ zs
+      ≡⟨ ++-∷ x (xs ++ ys) zs ⟩
+    x ∷ ((xs ++ ys) ++ zs)
+      ≡⟨ subst (λ t → x ∷ ((xs ++ ys) ++ zs) ≡ x ∷ t)
+               (++-assoc Lxs Lys Lzs) -- IH.
+               refl
+      ⟩
+    x ∷ (xs ++ ys ++ zs)
+      ≡⟨ sym (++-∷ x xs (ys ++ zs)) ⟩
+    (x ∷ xs) ++ ys ++ zs
+  ∎
 
 rev-++ : ∀ {xs ys} → List xs → List ys → rev xs ys ≡ rev xs [] ++ ys
 rev-++ {ys = ys} nilL Lys =
@@ -79,15 +122,40 @@ rev-++ {ys = ys} (consL x {xs} Lxs) Lys =
 
 reverse-++ : ∀ {xs ys} → List xs → List ys →
              reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
-reverse-++ {ys = ys} nilL Lys = prf
-  where
-    -- See the ATP proof.
-    postulate prf : reverse ([] ++ ys) ≡ reverse ys ++ reverse []
+reverse-++ {ys = ys} nilL Lys =
+  begin
+    reverse ([] ++ ys)
+      ≡⟨ subst (λ t → reverse ([] ++ ys) ≡ reverse t)
+               (++-[] ys)
+               refl
+      ⟩
+    reverse ys
+      ≡⟨ sym (++-rightIdentity (rev-List Lys nilL)) ⟩
+    reverse ys ++ []
+      ≡⟨ subst (λ t → reverse ys ++ [] ≡ reverse ys ++ t)
+               (sym (rev-[] []))
+               refl
+      ⟩
+    reverse ys ++ reverse []
+  ∎
 
-reverse-++ (consL x {xs} Lxs) nilL = prf
-  where
-    -- See the ATP proof.
-    postulate prf : reverse ((x ∷ xs) ++ []) ≡ reverse [] ++ reverse (x ∷ xs)
+reverse-++ (consL x {xs} Lxs) nilL =
+  begin
+    reverse ((x ∷ xs) ++ [])
+      ≡⟨ subst (λ t → reverse ((x ∷ xs) ++ []) ≡ reverse t)
+               (++-rightIdentity (consL x Lxs))
+               refl
+      ⟩
+    reverse (x ∷ xs)
+      ≡⟨ sym (++-[] (reverse (x ∷ xs))) ⟩
+    [] ++ reverse (x ∷ xs)
+      ≡⟨ subst (λ t → [] ++ reverse (x ∷ xs) ≡ t ++ reverse (x ∷ xs))
+               (sym (rev-[] []))
+               refl
+      ⟩
+    reverse [] ++ reverse (x ∷ xs)
+  ∎
+
 reverse-++ (consL x {xs} Lxs) (consL y {ys} Lys) =
   begin
     reverse ((x ∷ xs) ++ y ∷ ys) ≡⟨ refl ⟩
