@@ -20,13 +20,13 @@ open import LTC.Data.Nat.Type
 open import LTC.Data.List using ( _++_ )
 
 ------------------------------------------------------------------------------
--- Tree terms
+-- Tree terms.
 postulate
   nilTree  : D
   tip      : D → D
   node     : D → D → D → D
 
--- The LTC tree type.
+-- The tree type.
 data Tree : D → Set where
   nilT  : Tree nilTree
   tipT  : ∀ {i} → N i → Tree (tip i)
