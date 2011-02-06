@@ -9,11 +9,7 @@ open import LTC.Base
 open import Common.Function using ( _$_ )
 
 open import LTC.Data.List
-  using ( _++_ ; ++-[] ; ++-∷
-        ; List ; consL ; nilL  -- The LTC list type.
-        ; rev ; rev-[] ; rev-∷
-        ; reverse
-        )
+open import LTC.Data.List.Type
 
 open import LTC.Relation.Binary.EqReasoning
 

@@ -11,7 +11,7 @@ infixr 8 _++_
 
 ------------------------------------------------------------------------------
 -- The LTC list type.
-open import LTC.Data.List.Type public
+-- open import LTC.Data.List.Type public
 
 ------------------------------------------------------------------------------
 -- Basic functions

@@ -7,10 +7,7 @@ module LTC.Data.List.PropertiesByInductionATP where
 open import LTC.Base
 
 open import LTC.Data.List
-  using ( _++_
-        ; indList
-        ; List  -- The LTC list type.
-        )
+open import LTC.Data.List.Type
 
 ------------------------------------------------------------------------------
 
