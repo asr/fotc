@@ -20,6 +20,11 @@ open import LTC.Relation.Binary.EqReasoning
 ++-List {ys = ys} (consL x {xs} Lxs) Lys =
   subst List (sym (++-∷ x xs ys)) (consL x (++-List Lxs Lys))
 
+map-List : ∀ {xs} f → List xs → List (map f xs)
+map-List f nilL = subst List (sym (map-[] f)) nilL
+map-List f (consL x {xs} Lxs) =
+  subst List (sym (map-∷ f x xs)) (consL (f · x) (map-List f Lxs))
+
 rev-List : ∀ {xs ys} → List xs → List ys → List (rev xs ys)
 rev-List {ys = ys} nilL          Lys = subst List (sym (rev-[] ys)) Lys
 rev-List {ys = ys} (consL x {xs} Lxs) Lys =
@@ -207,4 +212,47 @@ reverse-++ (consL x {xs} Lxs) (consL y {ys} Lys) =
                refl
       ⟩
     reverse (y ∷ ys) ++ reverse (x ∷ xs)
+  ∎
+
+map-++ : ∀ f {xs ys} → List xs → List ys →
+         map f (xs ++ ys) ≡ map f xs ++ map f ys
+map-++ f {ys = ys} nilL Lys =
+  begin
+    map f ([] ++ ys)
+      ≡⟨ subst (λ t → map f ([] ++ ys) ≡ map f t)
+               (++-[] ys)
+               refl
+      ⟩
+    map f ys
+      ≡⟨ sym (++-leftIdentity (map-List f Lys)) ⟩
+    [] ++ map f ys
+      ≡⟨ subst (λ t → [] ++ map f ys ≡ t ++ map f ys)
+               (sym (map-[] f))
+               refl
+      ⟩
+    map f [] ++ map f ys
+  ∎
+
+map-++ f {ys = ys} (consL x {xs} Lxs) Lys =
+  begin
+    map f ((x ∷ xs) ++ ys)
+      ≡⟨ subst (λ t → map f ((x ∷ xs) ++ ys) ≡ map f t)
+               (++-∷ x xs ys)
+               refl
+      ⟩
+    map f (x ∷ xs ++ ys)
+      ≡⟨ map-∷ f x (xs ++ ys) ⟩
+    f · x ∷ map f (xs ++ ys)
+      ≡⟨ subst (λ t → f · x ∷ map f (xs ++ ys) ≡ f · x ∷ t)
+               (map-++ f Lxs Lys)  -- IH.
+               refl
+      ⟩
+    f · x ∷ (map f xs ++ map f ys)
+      ≡⟨ sym (++-∷ (f · x) (map f xs) (map f ys)) ⟩
+    (f · x ∷ map f xs) ++ map f ys
+      ≡⟨ subst (λ t → (f · x ∷ map f xs) ++ map f ys ≡ t ++ map f ys)
+               (sym (map-∷ f x xs))
+               refl
+      ⟩
+    map f (x ∷ xs) ++ map f ys
   ∎
