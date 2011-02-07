@@ -32,6 +32,7 @@ open import LTC.Data.Nat.Divisibility.PropertiesI
 open import LTC.Data.Nat.Induction.LexicographicATP
 open import LTC.Data.Nat.Induction.LexicographicI
 open import LTC.Data.Nat.Induction.WellFoundedI
+open import LTC.Data.Nat.Induction.WellFoundedATP
 open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.Inequalities.ConsistencyTest
 open import LTC.Data.Nat.Inequalities.PropertiesATP
