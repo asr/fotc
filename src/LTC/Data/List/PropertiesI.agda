@@ -125,6 +125,10 @@ rev-++ {ys = ys} (consL x {xs} Lxs) Lys =
     rev (x ∷ xs) [] ++ ys
   ∎
 
+postulate
+  -- See the ATP proof.
+  reverse-∷ : ∀ x {ys} → List ys → reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])
+
 reverse-++ : ∀ {xs ys} → List xs → List ys →
              reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
 reverse-++ {ys = ys} nilL Lys =

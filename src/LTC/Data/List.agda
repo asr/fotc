@@ -40,7 +40,6 @@ postulate
 {-# ATP axiom map-∷ #-}
 
 postulate
-  -- Behavior: rev xs ys = reverse xs ++ ys
   rev    : D → D → D
   rev-[] : ∀ es →      rev []       es ≡ es
   rev-∷  : ∀ d ds es → rev (d ∷ ds) es ≡ rev ds (d ∷ es)

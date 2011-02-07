@@ -103,6 +103,17 @@ rev-++ {ys = ys} (consL x {xs} Lxs) Lys =
     -- Vampire 0.6 (revision 903): (Default) memory limit (timeout 180 sec).
     {-# ATP prove prf consL nilL ++-assoc rev-List ++-List #-}
 
+reverse-∷ : ∀ x {ys} → List ys → reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])
+reverse-∷ x nilL = prf
+  where
+    postulate prf : reverse (x ∷ []) ≡ reverse [] ++ x ∷ []
+    {-# ATP prove prf #-}
+
+reverse-∷ x (consL y {ys} Lys) = prf (reverse-∷ y Lys)
+  where
+    postulate prf : reverse (y ∷ ys) ≡ reverse ys ++ y ∷ [] → -- IH.
+                    reverse (x ∷ y ∷ ys) ≡ reverse (y ∷ ys) ++ x ∷ []
+
 reverse-++ : ∀ {xs ys} → List xs → List ys →
              reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
 reverse-++ {ys = ys} nilL Lys = prf
