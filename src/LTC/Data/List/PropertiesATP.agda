@@ -83,6 +83,7 @@ reverse-List Lxs = rev-List Lxs nilL
                     ((x ∷ xs) ++ ys) ++ zs ≡ (x ∷ xs) ++ ys ++ zs
     {-# ATP prove prf #-}
 
+-- N.B. This property does not depend of the type of lists.
 postulate
   reverse-[x]≡[x] : ∀ x → reverse (x ∷ []) ≡ x ∷ []
 {-# ATP prove reverse-[x]≡[x] #-}

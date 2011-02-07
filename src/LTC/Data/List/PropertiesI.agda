@@ -80,6 +80,17 @@ rev-List {ys = ys} (consL x {xs} Lxs) Lys =
     (x ∷ xs) ++ ys ++ zs
   ∎
 
+-- N.B. This property does not depend of the type of lists.
+reverse-[x]≡[x] : ∀ x → reverse (x ∷ []) ≡ x ∷ []
+reverse-[x]≡[x] x =
+  begin
+    rev (x ∷ []) []
+      ≡⟨ rev-∷ x [] [] ⟩
+    rev [] (x ∷ [])
+      ≡⟨ rev-[] (x ∷ []) ⟩
+    x ∷ []
+  ∎
+
 rev-++ : ∀ {xs ys} → List xs → List ys → rev xs ys ≡ rev xs [] ++ ys
 rev-++ {ys = ys} nilL Lys =
   begin
