@@ -38,6 +38,10 @@ fail_files = $(patsubst %.agda,%, \
 # 		fi \
 # 	done
 
+
+$(succeed_non_conjectures_files) : % : %.agdai
+	@if ! ( $(AGDA2ATP) --only-files $*.agda ); then exit 1; fi
+
 $(succeed_conjectures_files) : % : %.agdai
 	@if ! ( $(AGDA2ATP) --time=60 \
                             --unproved-conjecture-error \
@@ -59,7 +63,7 @@ succeed_conjectures     : $(succeed_conjectures_files)
 succeed_agda            : $(succeed_agda_files)
 fail                    : $(fail_files)
 
-test : succeed_agda succeed_conjectures fail
+test : succeed_agda succeed_conjectures succeed_non_conjectures fail
 
 ##############################################################################
 # Others
