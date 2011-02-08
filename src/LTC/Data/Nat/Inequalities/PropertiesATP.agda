@@ -347,6 +347,15 @@ x≥y→y>0→x-y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 = prf
     postulate prf : LT (succ m ∸ succ n) (succ m)
     {-# ATP prove prf x-y<Sx #-}
 
+x<y→y≤z→x<z : ∀ {m n o} → N m → N n → N o → LT m n → LE n o → LT m o
+x<y→y≤z→x<z Nm Nn No m<n n≤o =
+  [ (λ n<o → <-trans Nm Nn No m<n n<o)
+  , (λ n≡o → aux m<n n≡o)
+  ] (x<Sy→x<y∨x≡y Nn No n≤o)
+  where
+    aux : ∀ {a b c} → LT a b → b ≡ c → LT a c
+    aux a<b refl = a<b
+
 ------------------------------------------------------------------------------
 -- Properties about LT₂
 
