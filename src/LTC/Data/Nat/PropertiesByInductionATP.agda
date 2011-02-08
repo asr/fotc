@@ -47,7 +47,7 @@ open import LTC.Data.Nat
 
     postulate
       iStep : ∀ {i} → N i → P i → P (succ i)
-    {-# ATP prove iStep sN #-}
+    {-# ATP prove iStep #-}  -- Use the hint sN.
 
 +-assoc : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
 +-assoc {n = n} {o} Nm Nn No = indN P P0 iStep Nm

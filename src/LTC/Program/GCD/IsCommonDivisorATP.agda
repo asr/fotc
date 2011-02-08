@@ -46,7 +46,7 @@ open import LTC.Program.GCD.IsN-ATP using ( gcd-N )
 
 -- 'gcd 0 (succ n) ∣ 0'.
 postulate gcd-0S-∣₁ : ∀ {n} → N n → gcd zero (succ n) ∣ zero
-{-# ATP prove gcd-0S-∣₁ zN #-}
+{-# ATP prove gcd-0S-∣₁ #-}  -- Use the hint zN.
 
 -- 'gcd (succ m) 0 ∣ succ m'.
 postulate gcd-S0-∣₁ : ∀ {n} → N n → gcd (succ n) zero ∣ succ n
@@ -119,7 +119,7 @@ postulate gcd-0S-∣₂ : ∀ {n} → N n → gcd zero (succ n) ∣ succ n
 
 -- 'gcd (succ m) 0 ∣ 0'.
 postulate gcd-S0-∣₂ : ∀ {m} → N m → gcd (succ m) zero ∣ zero
-{-# ATP prove gcd-S0-∣₂ zN #-}
+{-# ATP prove gcd-S0-∣₂ #-}  -- Use the hint zN.
 
 -- 'gcd (succ m) (succ n) ∣ succ n' when 'succ m ≤ succ n'.
 {- Proof:

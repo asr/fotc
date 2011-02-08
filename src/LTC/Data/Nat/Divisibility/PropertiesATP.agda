@@ -29,7 +29,7 @@ open import LTC.Data.Nat.PropertiesATP
 -- N (succ zero).
 postulate ∣-refl-S-ah : ∀ {n} → N n → N (succ zero) → succ n ∣ succ n
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-{-# ATP prove ∣-refl-S-ah sN *-leftIdentity #-}
+{-# ATP prove ∣-refl-S-ah *-leftIdentity #-}  -- Use the hint sN.
 
 ∣-refl-S : ∀ {n} → N n → succ n ∣ succ n
 ∣-refl-S Nn = ∣-refl-S-ah Nn (sN zN)
@@ -41,7 +41,7 @@ postulate
                      o ≡ k₂ * succ m →
                      n ∸ o ≡ (k₁ ∸ k₂) * succ m
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-{-# ATP prove x∣y→x∣z→x∣y∸z-ah *∸-leftDistributive sN #-}
+{-# ATP prove x∣y→x∣z→x∣y∸z-ah *∸-leftDistributive #-}  -- Use the hint sN.
 
 x∣y→x∣z→x∣y∸z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n ∸ o
 x∣y→x∣z→x∣y∸z zN _ _ (0≠0 , _) m∣o = ⊥-elim $ 0≠0 refl
@@ -60,7 +60,7 @@ postulate
                      o ≡ k₂ * succ m →
                      n + o ≡ (k₁ + k₂) * succ m
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-{-# ATP prove x∣y→x∣z→x∣y+z-ah *+-leftDistributive sN #-}
+{-# ATP prove x∣y→x∣z→x∣y+z-ah *+-leftDistributive #-}  -- Use the hint sN.
 
 x∣y→x∣z→x∣y+z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n + o
 x∣y→x∣z→x∣y+z zN      _  _ (0≠0 , _) m∣o = ⊥-elim $ 0≠0 refl
@@ -83,7 +83,7 @@ postulate
                 succ n ≡ succ o * succ m →
                 LE (succ m) (succ n)
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-{-# ATP prove x∣S→x≤S-ah₂ x≤x+y *-N sN #-}
+{-# ATP prove x∣S→x≤S-ah₂ x≤x+y *-N #-}  -- Use the hint sN.
 
 x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ n) → LE m (succ n)
 x∣S→x≤S  zN     Nn (0≠0 , _)                  = ⊥-elim $ 0≠0 refl

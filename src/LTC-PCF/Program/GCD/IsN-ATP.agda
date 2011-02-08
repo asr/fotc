@@ -34,14 +34,14 @@ open import LTC-PCF.Program.GCD.EquationsATP
 -- The 'gcd 0 (succ n)' is N.
 postulate
   gcd-0S-N : ∀ {n} → N n → N (gcd zero (succ n))
-{-# ATP prove gcd-0S-N sN gcd-0S #-}
+{-# ATP prove gcd-0S-N gcd-0S #-}  -- Use the hint sN.
 
 ------------------------------------------------------------------------------
 -- The 'gcd (succ n) 0' is N.
 postulate
   gcd-S0-N : ∀ {n} → N n → N (gcd (succ n) zero)
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-{-# ATP prove gcd-S0-N sN gcd-S0 #-}
+{-# ATP prove gcd-S0-N gcd-S0 #-}  -- Use the hint sN.
 
 ------------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m > succ n' is N.

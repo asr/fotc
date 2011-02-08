@@ -21,6 +21,10 @@ $ vampire -t xxx --input_file file_name
 -- The LTC natural numbers type.
 -- The LTC tree type.
 
+-- Use the hint zN.
+-- Use the hint sN.
+-- Use the hints zN and sN.
+
   -- begin
   --   {!!}
   --     ≡⟨ {!!} ⟩

@@ -98,16 +98,23 @@ conjectures_% :
 
 # TODO: We add the conjectures related to the programs, but it
 # duplicates the test.
+# all_conjectures : conjectures_DistributiveLaws \
+# 		  conjectures_GroupTheory \
+# 		  conjectures_Logic \
+# 		  conjectures_LTC \
+# 		  conjectures_LTC-PCF \
+# 		  conjectures_PA \
+#                   conjectures_Division \
+# 		  conjectures_GCD \
+# 		  conjectures_GCD-PCF \
+# 		  conjectures_SortList
+
 all_conjectures : conjectures_DistributiveLaws \
 		  conjectures_GroupTheory \
 		  conjectures_Logic \
 		  conjectures_LTC \
 		  conjectures_LTC-PCF \
-		  conjectures_PA \
-                  conjectures_Division \
-		  conjectures_GCD \
-		  conjectures_GCD-PCF \
-		  conjectures_SortList
+		  conjectures_PA
 
 ##############################################################################
 # Consistency test
