@@ -279,9 +279,7 @@ removeReferenceToProofTerm varType index ty =
       --
       -- e.g. the variable is 'A : Set',
       --
-      -- we don't know any reference to some variable in this case,
-      -- therefore we don't do anything.
-      El (Type (Lit (LitLevel _ 1))) (Sort _) → ty
+      El (Type (Lit (LitLevel _ 1))) (Sort _) → __IMPOSSIBLE__
       El (Type (Lit (LitLevel _ 1))) _        → __IMPOSSIBLE__
       _                                       → __IMPOSSIBLE__
 

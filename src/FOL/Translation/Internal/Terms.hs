@@ -302,14 +302,9 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     --
     -- e.g. the bounded variable is 'A : Set'.
     --
-    -- In this case, we forgot it.
-    El (Type (Lit (LitLevel _ 1))) (Sort _) → do
-       reportSLn "t2f" 20 $ "The type tyArg is: " ++ show tyArg
-       return f2
-
-    El (Type (Lit (LitLevel _ 1))) _ → __IMPOSSIBLE__
-
-    _                                → __IMPOSSIBLE__
+    El (Type (Lit (LitLevel _ 1))) (Sort _) → __IMPOSSIBLE__
+    El (Type (Lit (LitLevel _ 1))) _        → __IMPOSSIBLE__
+    _                                       → __IMPOSSIBLE__
 
 -- termToFormula term@(Var n _) = do
 --   reportSLn "t2f" 10 $ "termToFormula Var: " ++ show term

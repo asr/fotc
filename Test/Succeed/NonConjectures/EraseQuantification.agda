@@ -11,15 +11,6 @@ postulate
   _≡_  : D → D → Set
   succ : D → D
 
-module EraseQuantificationOnSet where
-
-  postulate a : D
-
-  -- The translation must erase the quantification on Set (i.e. {A : Set}),
-  -- therefore the translation must be 'a = a'.
-  postulate foo : {A : Set} → a ≡ a
-  {-# ATP axiom foo #-}
-
 module EraseQuantificationOnProofs where
 
   -- The data constructors sN₁ and sN₂ must have the same translation,
