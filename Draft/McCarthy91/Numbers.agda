@@ -227,3 +227,28 @@ one-hundred  = succ ninety-nine
 {-# ATP definition ninety-eight #-}
 {-# ATP definition ninety-nine #-}
 {-# ATP definition one-hundred #-}
+
+hundred-one   = succ one-hundred
+hundred-two   = succ hundred-one
+hundred-three = succ hundred-two
+hundred-four  = succ hundred-three
+hundred-five  = succ hundred-four
+hundred-six   = succ hundred-five
+hundred-seven = succ hundred-six
+hundred-eight = succ hundred-seven
+hundred-nine  = succ hundred-eight
+hundred-ten   = succ hundred-nine
+
+{-# ATP definition hundred-one #-}
+{-# ATP definition hundred-two #-}
+{-# ATP definition hundred-three #-}
+{-# ATP definition hundred-four #-}
+{-# ATP definition hundred-five #-}
+{-# ATP definition hundred-six #-}
+{-# ATP definition hundred-seven #-}
+{-# ATP definition hundred-eight #-}
+{-# ATP definition hundred-nine #-}
+{-# ATP definition hundred-ten #-}
+
+hundred-eleven = succ hundred-ten
+{-# ATP definition hundred-eleven #-}
