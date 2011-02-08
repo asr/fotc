@@ -1,5 +1,5 @@
 * Why Vampire proves LTC-PCF...gcd-S>S, but it doesn't prove gcd-S≤S?
-* Bug in the definition of TPTP general hints (see Draft.Bugs.N0)
+* Bug in the definition of TPTP general hints (see Draft.Bugs.GeneralHints)
 * To change the error message
 An internal error has occurred. Please report this as a bug.
 Location of the error: src/AgdaLib/Syntax/DeBruijn.hs:286
