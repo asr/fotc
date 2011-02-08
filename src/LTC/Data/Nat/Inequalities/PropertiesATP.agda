@@ -232,7 +232,7 @@ Sx≤y→x<y (sN {m} Nm) (sN {n} Nn) SSm≤Sn = prf $ Sx≤y→x<y Nm Nn Sm≤n
 
       postulate prf : LE m o →  -- IH.
                       LE (succ m) (succ o)
-    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+      -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
       {-# ATP prove prf #-}
 
 x≤x+y : ∀ {m n} → N m → N n → LE m (m + n)
