@@ -254,6 +254,9 @@ private
     d < e
   ∎
 
+0<0-elim : {A : Set} → LT zero zero → A
+0<0-elim 0<0 = ⊥-elim $ true≠false $ trans (sym 0<0) <-00
+
 x≥0 : ∀ {n} → N n → GE n zero
 x≥0 zN          = <-0S zero
 x≥0 (sN {n} Nn) = <-0S $ succ n
@@ -262,7 +265,7 @@ x≥0 (sN {n} Nn) = <-0S $ succ n
 0≤x Nn = x≥0 Nn
 
 ¬x<0 : ∀ {n} → N n → ¬ (LT n zero)
-¬x<0 zN 0<0           = true≠false $ trans (sym 0<0) (<-00)
+¬x<0 zN          0<0  = 0<0-elim 0<0
 ¬x<0 (sN {n} Nn) Sn<0 = true≠false $ trans (sym Sn<0) (<-S0 n)
 
 0≯x : ∀ {n} → N n → NGT zero n
@@ -292,7 +295,7 @@ x<Sx zN          = <-0S zero
 x<Sx (sN {n} Nn) = trans (<-SS n (succ n)) (x<Sx Nn)
 
 ¬x<x : ∀ {n} → N n → ¬ (LT n n)
-¬x<x zN          0<0   = ⊥-elim $ true≠false $ trans (sym 0<0) <-00
+¬x<x zN          0<0   = true≠false $ trans (sym 0<0) (<-00)
 ¬x<x (sN {n} Nn) Sn<Sn = ⊥-elim $ ¬x<x Nn (trans (sym $ <-SS n n) Sn<Sn)
 
 ¬x>x : ∀ {n} → N n → ¬ (GT n n)
@@ -352,7 +355,7 @@ Sx≤y→x<y (sN {m} Nm) (sN {n} Nn) SSm≤Sn =
                                            SSm≤Sn))
 
 <-trans : ∀ {m n o} → N m → N n → N o → LT m n → LT n o → LT m o
-<-trans zN          zN           _          0<0   _    = ⊥-elim $ ¬x<0 zN 0<0
+<-trans zN          zN           _          0<0   _    = 0<0-elim 0<0
 <-trans zN          (sN Nn)     zN          _     Sn<0 = ⊥-elim $ ¬x<0 (sN Nn) Sn<0
 <-trans zN          (sN Nn)     (sN {o} No) _     _    = <-0S o
 <-trans (sN Nm)     Nn          zN          _     n<0  = ⊥-elim $ ¬x<0 Nn n<0
@@ -565,7 +568,7 @@ x≥y→y>0→x-y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 =
 
 ¬0Sx<00 : ∀ {m} → N m → ¬ (LT₂ zero (succ m) zero zero)
 ¬0Sx<00 Nm 0Sm<00 =
-  [ (λ 0<0      → ⊥-elim $ ¬x<0 zN 0<0)
+  [ 0<0-elim
   , (λ 0≡0∧Sm<0 → ⊥-elim $ ¬x<0 (sN Nm) (∧-proj₂ 0≡0∧Sm<0))
   ]
   0Sm<00
