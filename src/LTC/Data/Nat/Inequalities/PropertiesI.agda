@@ -28,6 +28,9 @@ open import LTC.Relation.Binary.EqReasoning
 0<0-elim : {A : Set} → LT zero zero → A
 0<0-elim 0<0 = ⊥-elim $ true≠false $ trans (sym 0<0) <-00
 
+S<0-elim : {A : Set}{d : D} → LT (succ d) zero → A
+S<0-elim {d = d} Sd<0 = ⊥-elim $ true≠false $ trans (sym Sd<0) (<-S0 d)
+
 x≥0 : ∀ {n} → N n → GE n zero
 x≥0 zN          = <-0S zero
 x≥0 (sN {n} Nn) = <-0S $ succ n
@@ -37,7 +40,7 @@ x≥0 (sN {n} Nn) = <-0S $ succ n
 
 ¬x<0 : ∀ {n} → N n → ¬ (LT n zero)
 ¬x<0 zN 0<0           = 0<0-elim 0<0
-¬x<0 (sN {n} Nn) Sn<0 = true≠false $ trans (sym Sn<0) (<-S0 n)
+¬x<0 (sN {n} Nn) Sn<0 = S<0-elim Sn<0
 
 0≯x : ∀ {n} → N n → NGT zero n
 0≯x zN          = <-00
@@ -149,10 +152,10 @@ Sx≤y→x<y (sN {m} Nm) (sN {n} Nn) SSm≤Sn =
 
 <-trans : ∀ {m n o} → N m → N n → N o → LT m n → LT n o → LT m o
 <-trans zN          zN           _          0<0   _    = 0<0-elim 0<0
-<-trans zN          (sN Nn)     zN          _     Sn<0 = ⊥-elim $ ¬x<0 (sN Nn) Sn<0
+<-trans zN          (sN Nn)     zN          _     Sn<0 = S<0-elim Sn<0
 <-trans zN          (sN Nn)     (sN {o} No) _     _    = <-0S o
 <-trans (sN Nm)     Nn          zN          _     n<0  = ⊥-elim $ ¬x<0 Nn n<0
-<-trans (sN Nm)     zN          (sN No)     Sm<0  _    = ⊥-elim $ ¬x<0 (sN Nm) Sm<0
+<-trans (sN Nm)     zN          (sN No)     Sm<0  _    = S<0-elim Sm<0
 <-trans (sN {m} Nm) (sN {n} Nn) (sN {o} No) Sm<Sn Sn<So =
   begin
     (succ m) < (succ o) ≡⟨ <-SS m o ⟩
@@ -357,13 +360,13 @@ x≥y→y>0→x-y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 =
 ¬0Sx<00 : ∀ {m} → N m → ¬ (LT₂ zero (succ m) zero zero)
 ¬0Sx<00 Nm 0Sm<00 =
   [ 0<0-elim
-  , (λ 0≡0∧Sm<0 → ⊥-elim $ ¬x<0 (sN Nm) (∧-proj₂ 0≡0∧Sm<0))
+  , (λ 0≡0∧Sm<0 → S<0-elim (∧-proj₂ 0≡0∧Sm<0))
   ]
   0Sm<00
 
 ¬Sxy₁<0y₂ : ∀ {m n₁ n₂} → N m → N n₁ → N n₂ → ¬ (LT₂ (succ m) n₁ zero n₂)
 ¬Sxy₁<0y₂ Nm Nn₁ Nn₂ Smn₁<0n₂ =
-  [ (λ Sm<0       → ⊥-elim $ ¬x<0 (sN Nm) Sm<0)
+  [ S<0-elim
   , (λ Sm≡0∧n₁<n₂ → ⊥-elim $ 0≠S $ sym $ ∧-proj₁ Sm≡0∧n₁<n₂)
   ]
   Smn₁<0n₂
