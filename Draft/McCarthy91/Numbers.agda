@@ -171,7 +171,7 @@ seventy-six   = succ seventy-five
 seventy-seven = succ seventy-six
 seventy-eight = succ seventy-seven
 seventy-nine  = succ seventy-eight
-eighty       = succ seventy-nine
+eighty        = succ seventy-nine
 
 {-# ATP definition seventy-one #-}
 {-# ATP definition seventy-two #-}
