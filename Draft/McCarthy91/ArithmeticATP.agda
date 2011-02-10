@@ -2,7 +2,7 @@
 -- Arithmetic stuff used by the McCarthy 91 function
 ------------------------------------------------------------------------------
 
-module Draft.McCarthy91.Arithmetic where
+module Draft.McCarthy91.ArithmeticATP where
 
 open import LTC.Base
 

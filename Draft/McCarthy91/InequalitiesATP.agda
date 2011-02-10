@@ -6,7 +6,7 @@ module Draft.McCarthy91.InequalitiesATP where
 
 open import LTC.Base
 
-open import Draft.McCarthy91.Arithmetic
+open import Draft.McCarthy91.ArithmeticATP
 
 open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
