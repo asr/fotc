@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------
--- Well-founded induction on the relation RMC
+-- Well-founded induction on the relation MCR
 ----------------------------------------------------------------------------
 
 module Draft.McCarthy91.WellFoundedInduction where
@@ -14,7 +14,7 @@ open import LTC.Data.Nat
 
 -- TODO: To remove the postulate.
 postulate
-  wfInd-RMC :
+  wfInd-MCR :
    (P : D → Set) →
-   (∀ {m} → N m → (∀ {n} → N n → RMC n m → P n) → P m) →
+   (∀ {m} → N m → (∀ {n} → N n → MCR n m → P n) → P m) →
    ∀ {n} → N n → P n

@@ -23,7 +23,7 @@ postulate
 {-# ATP axiom mc91-eq₂ #-}
 
 -- Relation use by the properties of the McCarthy 91 function
-RMC : D → D → Set
-RMC m n = LT (hundred-one ∸ m) (hundred-one ∸ n)
+MCR : D → D → Set
+MCR m n = LT (hundred-one ∸ m) (hundred-one ∸ n)
 -- NB. The ATP pragma is not necessary at the moment.
--- {-# ATP definition RMC #-}
+-- {-# ATP definition MCR #-}
