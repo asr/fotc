@@ -206,6 +206,9 @@ x<y→Sx-y≡0 (sN {m} Nm) (sN {n} Nn) h = prfSS (x<y→Sx-y≡0 Nm Nn m<n)
     postulate prfSS : succ m ∸ n ≡ zero → succ (succ m) ∸ succ n ≡ zero
     {-# ATP prove prfSS #-}
 
+postulate x≤y→x-y≡0 : ∀ {m n} → N m → N n → LE m n → (m ∸ n) ≡ zero
+{-# ATP prove x≤y→x-y≡0 x<y→Sx-y≡0 #-}
+
 x-y<Sx : ∀ {m n} → N m → N n → LT (m ∸ n) (succ m)
 x-y<Sx {m} Nm zN = prf
   where
