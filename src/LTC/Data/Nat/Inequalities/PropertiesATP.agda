@@ -181,6 +181,16 @@ x≤x+y {n = n} (sN {m} Nm) Nn = prf $ x≤x+y Nm Nn
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf #-}
 
+x<x+Sy : ∀ {m n} → N m → N n → LT m (m + succ n)
+x<x+Sy {n = n} zN Nn = prf0
+  where
+    postulate prf0 : LT zero (zero + succ n)
+    {-# ATP prove prf0 #-}
+x<x+Sy {n = n} (sN {m} Nm) Nn = prfS (x<x+Sy Nm Nn)
+  where
+    postulate prfS : LT m (m + succ n) → LT (succ m) (succ m + succ n)
+    {-# ATP prove prfS #-}
+
 x-y<Sx : ∀ {m n} → N m → N n → LT (m ∸ n) (succ m)
 x-y<Sx {m} Nm zN = prf
   where
