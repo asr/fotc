@@ -356,6 +356,18 @@ x<y→y≤z→x<z Nm Nn No m<n n≤o =
     aux : ∀ {a b c} → LT a b → b ≡ c → LT a c
     aux a<b refl = a<b
 
+x≤y+x-y : ∀ {m n} → N m → N n → LE m (n + (m ∸ n))
+x≤y+x-y {n = n} zN Nn = prf0
+  where postulate prf0 : LE zero (n + (zero ∸ n))
+        {-# ATP prove prf0 0≤x +-N  #-}
+x≤y+x-y (sN {m} Nm) zN = prfx0
+  where postulate prfx0 : LE (succ m) (zero + (succ m ∸ zero))
+        {-# ATP prove prfx0 x<Sx #-}
+x≤y+x-y (sN {m} Nm) (sN {n} Nn) = prfSS (x≤y+x-y Nm Nn)
+  where postulate prfSS : LE m (n + (m ∸ n)) →  -- IH.
+                          LE (succ m) (succ n + (succ m ∸ succ n))
+        {-# ATP prove prfSS x≤y→Sx≤Sy ≤-trans +-N ∸-N #-}
+
 ------------------------------------------------------------------------------
 -- Properties about LT₂
 

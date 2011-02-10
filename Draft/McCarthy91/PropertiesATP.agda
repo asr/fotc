@@ -20,22 +20,8 @@ open import LTC.Data.Nat.PropertiesATP
 postulate n<n+1 : ∀ {n} → N n → LT n (n + one)
 {-# ATP prove n<n+1 x<Sx +-comm #-}
 
-
-n<=m+n-m : ∀ {n m} → N n → N m → LE n (m + (n ∸ m))
-n<=m+n-m {m = m} zN Nm = prf0
-  where postulate prf0 : LE zero (m + (zero ∸ m))
-        {-# ATP prove prf0 0≤x +-N  #-}
-n<=m+n-m (sN {n} Nn) zN = prfx0
-  where postulate prfx0 : LE (succ n) (zero + (succ n ∸ zero))
-        {-# ATP prove prfx0 x<Sx #-}
-n<=m+n-m (sN {n} Nn) (sN {m} Nm) = prfSS (n<=m+n-m Nn Nm)
-  where postulate prfSS : LE n (m + (n ∸ m)) →
-                        LE (succ n) (succ m + (succ n ∸ succ m))
-        {-# ATP prove prfSS x≤y→Sx≤Sy ≤-trans +-N ∸-N #-}
-
-
 postulate n+1<=n-10+11 : ∀ {n} → N n →  LE (n + one) ((n ∸ ten) + eleven)
-{-# ATP prove n+1<=n-10+11 n<=m+n-m N10 N1+n N11+n Nn-10 +-comm #-}
+{-# ATP prove n+1<=n-10+11 x≤y+x-y N10 N1+n N11+n Nn-10 +-comm #-}
 
 
 ---- Case n > 100
