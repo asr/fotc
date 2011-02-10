@@ -1,11 +1,12 @@
 ------------------------------------------------------------------------------
--- Inequalities used by the McCarthy 91 function
+-- Properties for some relations
 ------------------------------------------------------------------------------
 
-module Draft.McCarthy91.InequalitiesATP where
+module Draft.McCarthy91.RelationATP where
 
 open import LTC.Base
 
+open import Draft.McCarthy91.McCarthy91
 open import Draft.McCarthy91.ArithmeticATP
 
 open import LTC.Data.Nat
@@ -15,12 +16,7 @@ open import LTC.Data.Nat.Numbers
 
 ------------------------------------------------------------------------------
 
-LMC : D → D → Set
-LMC m n = LT (hundred-one ∸ m) (hundred-one ∸ n)
--- NB. The ATP pragma at the moment is not necessary
--- {-# ATP definition LMC #-}
-
-LMC-prop : ∀ {n} → N n → LE n one-hundred → LMC (n + eleven) n
+LMC-prop : ∀ {n} → N n → LE n one-hundred → RMC (n + eleven) n
 LMC-prop zN 0≤100 = prf
   where
     postulate
