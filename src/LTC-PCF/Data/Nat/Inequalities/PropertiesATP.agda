@@ -101,6 +101,9 @@ x≤x : ∀ {n} → N n → LE n n
 x≤x zN          = <-0S zero
 x≤x (sN {n} Nn) = trans (<-SS n (succ n)) (x≤x Nn)
 
+x≤y→Sx≤Sy : ∀ {m n} → LE m n → LE (succ m) (succ n)
+x≤y→Sx≤Sy {m} {n} m≤n = trans (<-SS m (succ n)) m≤n
+
 x≥y→x≮y : ∀ {m n} → N m → N n → GE m n → NLT m n
 x≥y→x≮y zN          zN          _     = x≰x zN
 x≥y→x≮y zN          (sN Nn)     0≥Sn  = ⊥-elim $ ¬0≥S Nn 0≥Sn
