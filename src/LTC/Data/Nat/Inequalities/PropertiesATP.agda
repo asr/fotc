@@ -67,28 +67,17 @@ S≰0 (sN {n} Nn) = trans (<-SS (succ n) zero) (<-S0 n)
 
 x<Sx : ∀ {n} → N n → LT n (succ n)
 x<Sx zN          = <-0S zero
-x<Sx (sN {n} Nn) = prf $ x<Sx Nn
-  where
-    postulate prf : LT n (succ n) →  -- IH.
-                    LT (succ n) (succ (succ n))
-    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    {-# ATP prove prf #-}
+x<Sx (sN {n} Nn) = trans (<-SS n (succ n)) (x<Sx Nn)
 
 ¬x<x : ∀ {n} → N n → ¬ (LT n n)
-¬x<x zN _ = ⊥-elim prf
-  where
-    postulate prf : ⊥
-    {-# ATP prove prf #-}
-¬x<x (sN {n} Nn) _ = ⊥-elim $ prf $ ¬x<x Nn
-  where
-    postulate prf : ¬ (LT n n) → ⊥
-    {-# ATP prove prf #-}
+¬x<x zN           0<0  = 0<0-elim 0<0
+¬x<x (sN {n} Nn) Sn<Sn = ⊥-elim $ ¬x<x Nn (trans (sym $ <-SS n n) Sn<Sn)
 
 ¬x>x : ∀ {n} → N n → ¬ (GT n n)
 ¬x>x Nn = ¬x<x Nn
 
-x≤y→Sx≤Sy : ∀ m n → LE m n → LE (succ m) (succ n)
-x≤y→Sx≤Sy m n m≤n = trans (<-SS m (succ n)) m≤n
+x≤y→Sx≤Sy : ∀ {m n} → LE m n → LE (succ m) (succ n)
+x≤y→Sx≤Sy {m} {n} m≤n = trans (<-SS m (succ n)) m≤n
 
 postulate
   Sx≤Sy→x≤y : ∀ {m n} → LE (succ m) (succ n) → LE m n
@@ -99,12 +88,7 @@ x≰y→Sx≰Sy m n m≰n = trans (<-SS m (succ n)) m≰n
 
 x≤x : ∀ {n} → N n → LE n n
 x≤x zN          = <-0S zero
-x≤x (sN {n} Nn) = prf $ x≤x Nn
-  where
-    postulate prf : LE n n →  -- IH.
-                    LE (succ n) (succ n)
-    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    {-# ATP prove prf #-}
+x≤x (sN {n} Nn) = trans (<-SS n (succ n)) (x≤x Nn)
 
 x>y→y<x : ∀ {m n} → N m → N n → GT m n → LT n m
 x>y→y<x zN          Nn          0>n   = ⊥-elim $ ¬0>x Nn 0>n
@@ -128,13 +112,10 @@ x>y→x≰y (sN {m} Nm) (sN {n} Nn) Sm>Sn =
 x>y∨x≤y : ∀ {m n} → N m → N n → GT m n ∨ LE m n
 x>y∨x≤y zN          Nn          = inj₂ $ x≥0 Nn
 x>y∨x≤y (sN {m} Nm) zN          = inj₁ $ <-0S m
-x>y∨x≤y (sN {m} Nm) (sN {n} Nn) = prf $ x>y∨x≤y Nm Nn
-  where
-    postulate
-      prf : (GT m n) ∨ (LE m n) →  -- IH.
-            GT (succ m) (succ n) ∨ LE (succ m) (succ n)
-    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    {-# ATP prove prf #-}
+x>y∨x≤y (sN {m} Nm) (sN {n} Nn) =
+  [ (λ m>n → inj₁ (trans (<-SS n m) m>n))
+  , (λ m≤n → inj₂ (x≤y→Sx≤Sy m≤n))
+  ] (x>y∨x≤y Nm Nn)
 
 x<y∨x≥y : ∀ {m n} → N m → N n → LT m n ∨ GE m n
 x<y∨x≥y Nm Nn = x>y∨x≤y Nn Nm
@@ -143,7 +124,7 @@ x≤y∨x≰y : ∀ {m n} → N m → N n → LE m n ∨ NLE m n
 x≤y∨x≰y zN Nn = inj₁ (0≤x Nn)
 x≤y∨x≰y (sN Nm) zN = inj₂ (S≰0 Nm)
 x≤y∨x≰y (sN {m} Nm) (sN {n} Nn) =
-  [ (λ m≤n → inj₁ (x≤y→Sx≤Sy m n m≤n))
+  [ (λ m≤n → inj₁ (x≤y→Sx≤Sy m≤n))
   , (λ m≰n → inj₂ (x≰y→Sx≰Sy m n m≰n))
   ] (x≤y∨x≰y Nm Nn)
 
@@ -164,14 +145,8 @@ x<y→x≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = prf $ x<y→x≤y Nm Nn m<n
     {-# ATP prove prf #-}
 
 x<y→Sx≤y : ∀ {m n} → N m → N n → LT m n → LE (succ m) n
-x<y→Sx≤y Nm zN m<0 = ⊥-elim $ ¬x<0 Nm m<0
-
-x<y→Sx≤y zN (sN {n} Nn) 0<Sn = S0≤SN
-  where
-    postulate S0≤SN : LE (succ zero) (succ n)
-    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    {-# ATP prove S0≤SN #-}
-
+x<y→Sx≤y Nm zN      m<0  = ⊥-elim $ ¬x<0 Nm m<0
+x<y→Sx≤y zN (sN Nn) 0<Sn = x≤y→Sx≤Sy (0≤x Nn)
 x<y→Sx≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = prf $ x<y→Sx≤y Nm Nn m<n
   where
     postulate m<n : LT m n

@@ -74,8 +74,8 @@ x<Sx (sN {n} Nn) = trans (<-SS n (succ n)) (x<Sx Nn)
 ¬x>x : ∀ {n} → N n → ¬ (GT n n)
 ¬x>x Nn = ¬x<x Nn
 
-x≤y→Sx≤Sy : ∀ m n → LE m n → LE (succ m) (succ n)
-x≤y→Sx≤Sy m n m≤n = trans (<-SS m (succ n)) m≤n
+x≤y→Sx≤Sy : ∀ {m n} → LE m n → LE (succ m) (succ n)
+x≤y→Sx≤Sy {m} {n} m≤n = trans (<-SS m (succ n)) m≤n
 
 Sx≤Sy→x≤y : ∀ {m n} → LE (succ m) (succ n) → LE m n
 Sx≤Sy→x≤y {m} {n} Sm≤Sn = trans (sym $ <-SS m (succ n)) Sm≤Sn
@@ -111,7 +111,7 @@ x>y∨x≤y zN          Nn          = inj₂ $ x≥0 Nn
 x>y∨x≤y (sN {m} Nm) zN          = inj₁ $ <-0S m
 x>y∨x≤y (sN {m} Nm) (sN {n} Nn) =
   [ (λ m>n → inj₁ (trans (<-SS n m) m>n))
-  , (λ m≤n → inj₂ (x≤y→Sx≤Sy m n m≤n))
+  , (λ m≤n → inj₂ (x≤y→Sx≤Sy m≤n))
   ] (x>y∨x≤y Nm Nn)
 
 x<y∨x≥y : ∀ {m n} → N m → N n → LT m n ∨ GE m n
@@ -121,7 +121,7 @@ x≤y∨x≰y : ∀ {m n} → N m → N n → LE m n ∨ NLE m n
 x≤y∨x≰y zN Nn = inj₁ (0≤x Nn)
 x≤y∨x≰y (sN Nm) zN = inj₂ (S≰0 Nm)
 x≤y∨x≰y (sN {m} Nm) (sN {n} Nn) =
-  [ (λ m≤n → inj₁ (x≤y→Sx≤Sy m n m≤n))
+  [ (λ m≤n → inj₁ (x≤y→Sx≤Sy m≤n))
   , (λ m≰n → inj₂ (x≰y→Sx≰Sy m n m≰n))
   ] (x≤y∨x≰y Nm Nn)
 
@@ -140,7 +140,7 @@ x<y→x≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn =
 
 x<y→Sx≤y : ∀ {m n} → N m → N n → LT m n → LE (succ m) n
 x<y→Sx≤y Nm zN                   m<0   = ⊥-elim $ ¬x<0 Nm m<0
-x<y→Sx≤y zN          (sN {n} Nn) _     = trans (<-SS zero (succ n)) (<-0S n)
+x<y→Sx≤y zN          (sN {n} Nn) _     = x≤y→Sx≤Sy (0≤x Nn)
 x<y→Sx≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = trans (<-SS (succ m) (succ n)) Sm<Sn
 
 Sx≤y→x<y : ∀ {m n} → N m → N n → LE (succ m) n → LT m n
