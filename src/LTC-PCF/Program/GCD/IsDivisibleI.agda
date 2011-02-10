@@ -17,7 +17,7 @@ open import LTC-PCF.Data.Nat.Divisibility using ( _∣_ )
 open import LTC-PCF.Data.Nat.Divisibility.PropertiesI
   using ( x∣y→x∣z→x∣y∸z )
 open import LTC-PCF.Data.Nat.Induction.LexicographicI
-  using ( wfIndN-LT₂ )
+  using ( wfInd-LT₂ )
 open import LTC-PCF.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
   using ( ¬0>x
@@ -153,7 +153,7 @@ gcd-x≤y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ c Nc =
 ------------------------------------------------------------------------------
 -- The gcd is Divisible.
 gcd-Divisible : ∀ {m n} → N m → N n → ¬x≡0∧y≡0 m n → Divisible m n (gcd m n)
-gcd-Divisible = wfIndN-LT₂ P istep
+gcd-Divisible = wfInd-LT₂ P istep
   where
     P : D → D → Set
     P i j = ¬x≡0∧y≡0 i j → Divisible i j (gcd i j)

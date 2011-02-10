@@ -24,11 +24,11 @@ open import LTC.Data.Nat.Type
 -- Well-founded induction on N.
 -- Adapted from http://code.haskell.org/~dolio/agda-share/induction/.
 
-wfIndN-LT :
+wfInd-LT :
    (P : D → Set) →
    (∀ {m} → N m → (∀ {n} → N n → LT n m → P n) → P m) →
    ∀ {n} → N n → P n
-wfIndN-LT P accH Nn = accH Nn (wfAux Nn)
+wfInd-LT P accH Nn = accH Nn (wfAux Nn)
   where
     wfAux : ∀ {m} → N m → ∀ {n} → N n → LT n m → P n
     wfAux zN      Nn      n<0   = ⊥-elim $ ¬x<0 Nn n<0

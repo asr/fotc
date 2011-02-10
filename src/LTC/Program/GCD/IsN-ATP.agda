@@ -13,7 +13,7 @@ open import LTC.Data.Nat
   using ( _∸_
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
-open import LTC.Data.Nat.Induction.LexicographicATP using ( wfIndN-LT₂ )
+open import LTC.Data.Nat.Induction.LexicographicATP using ( wfInd-LT₂ )
 open import LTC.Data.Nat.Inequalities using ( GT ; LE ; LT₂)
 open import LTC.Data.Nat.Inequalities.PropertiesATP
   using ( ¬0>x
@@ -112,7 +112,7 @@ gcd-x≤y-N (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
 ------------------------------------------------------------------------------
 -- The 'gcd' is N.
 gcd-N : ∀ {m n} → N m → N n → ¬x≡0∧y≡0 m n → N (gcd m n)
-gcd-N = wfIndN-LT₂ P istep
+gcd-N = wfInd-LT₂ P istep
   where
     P : D → D → Set
     P i j = ¬x≡0∧y≡0 i j → N (gcd i j)

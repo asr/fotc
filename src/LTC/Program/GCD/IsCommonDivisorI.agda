@@ -19,7 +19,7 @@ open import LTC.Data.Nat.Divisibility.PropertiesI
   using ( ∣-refl-S
         ; x∣y→x∣z→x∣y+z
         )
-open import LTC.Data.Nat.Induction.LexicographicI using ( wfIndN-LT₂ )
+open import LTC.Data.Nat.Induction.LexicographicI using ( wfInd-LT₂ )
 open import LTC.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
 open import LTC.Data.Nat.Inequalities.PropertiesI
   using ( ¬0>x
@@ -277,7 +277,7 @@ gcd-x≤y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
 
 -- The 'gcd' is CD.
 gcd-CD : ∀ {m n} → N m → N n → ¬x≡0∧y≡0 m n → CD m n (gcd m n)
-gcd-CD = wfIndN-LT₂ P istep
+gcd-CD = wfInd-LT₂ P istep
   where
     P : D → D → Set
     P i j = ¬x≡0∧y≡0 i j → CD i j (gcd i j)
