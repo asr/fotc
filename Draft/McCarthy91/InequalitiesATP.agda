@@ -17,6 +17,8 @@ open import LTC.Data.Nat.Numbers
 
 LMC : D → D → Set
 LMC m n = LT (hundred-one ∸ m) (hundred-one ∸ n)
+-- NB. The ATP pragma at the moment is not necessary
+-- {-# ATP definition LMC #-}
 
 LMC-prop : ∀ {n} → N n → LE n one-hundred → LMC (n + eleven) n
 LMC-prop zN 0≤100 = prf
