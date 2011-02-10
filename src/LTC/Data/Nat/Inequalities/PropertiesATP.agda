@@ -145,17 +145,9 @@ x<y→x≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = prf $ x<y→x≤y Nm Nn m<n
     {-# ATP prove prf #-}
 
 x<y→Sx≤y : ∀ {m n} → N m → N n → LT m n → LE (succ m) n
-x<y→Sx≤y Nm zN      m<0  = ⊥-elim $ ¬x<0 Nm m<0
-x<y→Sx≤y zN (sN Nn) 0<Sn = x≤y→Sx≤Sy (0≤x Nn)
-x<y→Sx≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = prf $ x<y→Sx≤y Nm Nn m<n
-  where
-    postulate m<n : LT m n
-    {-# ATP prove m<n #-}
-
-    postulate prf : LE (succ m) n →  -- IH.
-                    LE (succ (succ m)) (succ n)
-    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    {-# ATP prove prf #-}
+x<y→Sx≤y Nm          zN          m<0   = ⊥-elim $ ¬x<0 Nm m<0
+x<y→Sx≤y zN          (sN Nn)     0<Sn  = x≤y→Sx≤Sy (0≤x Nn)
+x<y→Sx≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = trans (<-SS (succ m) (succ n)) Sm<Sn
 
 Sx≤y→x<y : ∀ {m n} → N m → N n → LE (succ m) n → LT m n
 Sx≤y→x<y Nm          zN          Sm≤0   = ⊥-elim $ ¬S≤0 Nm Sm≤0

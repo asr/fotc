@@ -350,7 +350,7 @@ x<y→x≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn =
 
 x<y→Sx≤y : ∀ {m n} → N m → N n → LT m n → LE (succ m) n
 x<y→Sx≤y Nm zN               m<0       = ⊥-elim $ ¬x<0 Nm m<0
-x<y→Sx≤y zN          (sN {n} Nn) _     = trans (<-SS zero (succ n)) (<-0S n)
+x<y→Sx≤y zN          (sN {n} Nn) _     = x≤y→Sx≤Sy (0≤x Nn)
 x<y→Sx≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn = trans (<-SS (succ m) (succ n)) Sm<Sn
 
 Sx≤y→x<y : ∀ {m n} → N m → N n → LE (succ m) n → LT m n
