@@ -224,6 +224,25 @@ x<y→0<x-y (sN {m} Nm) (sN {n} Nn) h = prfSS (x<y→0<x-y Nm Nn m<n)
     postulate prfSS : LT zero (n ∸ m) → LT zero (succ n ∸ succ m)
     {-# ATP prove prfSS #-}
 
+0<x-y→0<Sx-y : ∀ {m n} → N m → N n → LT zero (m ∸ n) → LT zero (succ m ∸ n)
+0<x-y→0<Sx-y {m} Nm zN h = prfx0
+  where
+    postulate prfx0 : LT zero (succ m ∸ zero)
+    {-# ATP prove prfx0 #-}
+
+0<x-y→0<Sx-y zN (sN {n} Nn) h = ⊥-elim (¬x<0 zN h')
+  where
+    postulate h' : LT zero zero
+    {-# ATP prove h' #-}
+
+0<x-y→0<Sx-y (sN {m} Nm) (sN {n} Nn) h = prfSS (0<x-y→0<Sx-y Nm Nn 0<m-n)
+  where
+    postulate 0<m-n : LT zero (m ∸ n)
+    {-# ATP prove 0<m-n #-}
+
+    postulate prfSS : LT zero (succ m ∸ n) → LT zero (succ (succ m) ∸ succ n)
+    {-# ATP prove prfSS <-trans #-}
+
 x-y<Sx : ∀ {m n} → N m → N n → LT (m ∸ n) (succ m)
 x-y<Sx {m} Nm zN = prf
   where
