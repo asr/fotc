@@ -58,9 +58,10 @@ postulate term>100     : ∀ n → N n → GT n one-hundred → N (mc91 n)
 
 
 ---- Case n ≡ 100
-postulate term≡100     : N (mc91 one-hundred)
-          f100≡91      : mc91 one-hundred ≡ ninety-one
-          ≡100-n<fn+11 : LT  one-hundred (mc91 one-hundred + eleven)
+postulate
+  term≡100     : N (mc91 one-hundred)
+  f100≡91      : mc91 one-hundred ≡ ninety-one
+  ≡100-n<fn+11 : LT  one-hundred (mc91 one-hundred + eleven)
 {-# ATP prove term≡100 111>100 101>100 n101 n91 term>100 N111 N101 #-}
 {-# ATP prove f100≡91 111>100 101>100 n101 n91 #-}
 {-# ATP prove term≡100 f100≡91 111>100 101>100 n101 n91 N91 #-}

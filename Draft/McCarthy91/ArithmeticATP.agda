@@ -13,13 +13,14 @@ open import LTC.Data.Nat.PropertiesATP
 
 ------------------------------------------------------------------------------
 
-postulate N0   : N zero
-          N1   : N one
-          N10  : N ten
-          N91  : N ninety-one
-          N100 : N one-hundred
-          N101 : N hundred-one
-          N111 : N hundred-eleven
+postulate
+  N0   : N zero
+  N1   : N one
+  N10  : N ten
+  N91  : N ninety-one
+  N100 : N one-hundred
+  N101 : N hundred-one
+  N111 : N hundred-eleven
 {-# ATP prove N0 #-}
 {-# ATP prove N1 #-}
 {-# ATP prove N10 #-}
@@ -29,22 +30,24 @@ postulate N0   : N zero
 {-# ATP prove N111 #-}
 
 
-postulate N1+n  : ∀ {n} → N n → N (one + n)
-          N11+n : ∀ {n} → N n → N (eleven + n)
-          Nn-10 : ∀ {n} → N n → N (n ∸ ten)
+postulate
+  N1+n  : ∀ {n} → N n → N (one + n)
+  N11+n : ∀ {n} → N n → N (eleven + n)
+  Nn-10 : ∀ {n} → N n → N (n ∸ ten)
 {-# ATP prove N1+n #-}
 {-# ATP prove N11+n #-}
 {-# ATP prove Nn-10 ∸-N N10 #-}
 
 
-postulate n111' : eleven + one-hundred ≡ hundred-eleven
-          n111  : one-hundred + eleven ≡ hundred-eleven
-          n101' : hundred-eleven ∸ ten ≡ hundred-one
-          n101  : (one-hundred + eleven) ∸ ten ≡ hundred-one
-          n91'  : hundred-one ∸ ten ≡ ninety-one
-          n91   : ((one-hundred + eleven) ∸ ten) ∸ ten ≡ ninety-one
-          n102' : eleven + ninety-one ≡ hundred-two
-          n102  : ninety-one + eleven ≡ hundred-two
+postulate
+  n111' : eleven + one-hundred ≡ hundred-eleven
+  n111  : one-hundred + eleven ≡ hundred-eleven
+  n101' : hundred-eleven ∸ ten ≡ hundred-one
+  n101  : (one-hundred + eleven) ∸ ten ≡ hundred-one
+  n91'  : hundred-one ∸ ten ≡ ninety-one
+  n91   : ((one-hundred + eleven) ∸ ten) ∸ ten ≡ ninety-one
+  n102' : eleven + ninety-one ≡ hundred-two
+  n102  : ninety-one + eleven ≡ hundred-two
 {-# ATP prove n111' #-}
 {-# ATP prove n111 +-comm n111' #-}
 {-# ATP prove n101' #-}
@@ -55,12 +58,13 @@ postulate n111' : eleven + one-hundred ≡ hundred-eleven
 {-# ATP prove n102 n102' +-comm #-}
 
 
-postulate 101>100' : GT hundred-one one-hundred
-          101>100  : GT ((one-hundred + eleven) ∸ ten) one-hundred
-          111>100' : GT hundred-eleven one-hundred
-          111>100  : GT (one-hundred + eleven) one-hundred
-          100<102' : LT one-hundred hundred-two
-          100<102  : LT one-hundred (ninety-one + eleven)
+postulate
+  101>100' : GT hundred-one one-hundred
+  101>100  : GT ((one-hundred + eleven) ∸ ten) one-hundred
+  111>100' : GT hundred-eleven one-hundred
+  111>100  : GT (one-hundred + eleven) one-hundred
+  100<102' : LT one-hundred hundred-two
+  100<102  : LT one-hundred (ninety-one + eleven)
 {-# ATP prove 101>100' #-}
 {-# ATP prove 101>100 101>100' n101 #-}
 {-# ATP prove 111>100' #-}
