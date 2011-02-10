@@ -22,6 +22,7 @@ open import LTC.Data.Nat.PropertiesATP
   using ( +-N ; ∸-N
         ; +-comm
         ; +-rightIdentity
+        ; ∸-0x
         )
 
 ------------------------------------------------------------------------------
@@ -190,6 +191,20 @@ x<x+Sy {n = n} (sN {m} Nm) Nn = prfS (x<x+Sy Nm Nn)
   where
     postulate prfS : LT m (m + succ n) → LT (succ m) (succ m + succ n)
     {-# ATP prove prfS #-}
+
+x<y→Sx-y≡0 : ∀ {m n} → N m → N n → LT m n → succ m ∸ n ≡ zero
+x<y→Sx-y≡0 Nm zN h = ⊥-elim (¬x<0 Nm h)
+x<y→Sx-y≡0 zN (sN {n} Nn) h = prf0S
+  where
+    postulate prf0S : succ zero ∸ succ n ≡ zero
+    {-# ATP prove prf0S ∸-0x #-}
+x<y→Sx-y≡0 (sN {m} Nm) (sN {n} Nn) h = prfSS (x<y→Sx-y≡0 Nm Nn m<n)
+  where
+    postulate m<n : LT m n
+    {-# ATP prove m<n #-}
+
+    postulate prfSS : succ m ∸ n ≡ zero → succ (succ m) ∸ succ n ≡ zero
+    {-# ATP prove prfSS #-}
 
 x-y<Sx : ∀ {m n} → N m → N n → LT (m ∸ n) (succ m)
 x-y<Sx {m} Nm zN = prf
