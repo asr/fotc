@@ -15,14 +15,14 @@ open import LTC.Data.Nat.Unary.IsN-ATP
 ------------------------------------------------------------------------------
 
 postulate
-  N1+n  : ∀ {n} → N n → N (one + n)
-  N11+n : ∀ {n} → N n → N (eleven + n)
-  Nn-10 : ∀ {n} → N n → N (n ∸ ten)
-  Nx+11 : ∀ {n} → N n → N (n + eleven)
-{-# ATP prove N1+n #-}
-{-# ATP prove N11+n #-}
-{-# ATP prove Nn-10 ∸-N N10 #-}
-{-# ATP prove Nx+11 N11+n +-comm #-}
+  1+x-N  : ∀ {n} → N n → N (one + n)
+  11+x-N : ∀ {n} → N n → N (eleven + n)
+  x∸10-N : ∀ {n} → N n → N (n ∸ ten)
+  x+11-N : ∀ {n} → N n → N (n + eleven)
+{-# ATP prove 1+x-N #-}
+{-# ATP prove 11+x-N #-}
+{-# ATP prove x∸10-N ∸-N N10 #-}
+{-# ATP prove x+11-N 11+x-N +-comm #-}
 
 postulate
   n111' : eleven + one-hundred ≡ hundred-eleven

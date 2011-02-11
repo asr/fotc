@@ -22,16 +22,16 @@ postulate n<n+1 : ∀ {n} → N n → LT n (n + one)
 {-# ATP prove n<n+1 x<Sx +-comm #-}
 
 postulate n+1<=n-10+11 : ∀ {n} → N n →  LE (n + one) ((n ∸ ten) + eleven)
-{-# ATP prove n+1<=n-10+11 x≤y+x-y N10 N1+n N11+n Nn-10 +-comm #-}
+{-# ATP prove n+1<=n-10+11 x≤y+x-y N10 1+x-N 11+x-N x∸10-N +-comm #-}
 
 
 ---- Case n > 100
 postulate term>100     : ∀ n → N n → GT n one-hundred → N (mc91 n)
           f>100≡n-10   : ∀ n → GT n one-hundred → mc91 n ≡ n ∸ ten
           >100-n<fn+11 : ∀ n → N n → GT n one-hundred → LT n (mc91 n + eleven)
-{-# ATP prove term>100 Nn-10 #-}
+{-# ATP prove term>100 x∸10-N #-}
 {-# ATP prove f>100≡n-10 #-}
-{-# ATP prove >100-n<fn+11 x<y→y≤z→x<z n<n+1 n+1<=n-10+11 N1+n N11+n Nn-10
+{-# ATP prove >100-n<fn+11 x<y→y≤z→x<z n<n+1 n+1<=n-10+11 1+x-N 11+x-N x∸10-N
               +-comm
 #-}
 
