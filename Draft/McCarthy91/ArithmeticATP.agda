@@ -59,3 +59,6 @@ postulate
 {-# ATP prove 111>100 111>100' n111 #-}
 {-# ATP prove 100<102' #-}
 {-# ATP prove 100<102 100<102' n102 #-}
+
+postulate 91>100→⊥ : GT ninety-one one-hundred → ⊥
+{-# ATP prove 91>100→⊥ #-}
