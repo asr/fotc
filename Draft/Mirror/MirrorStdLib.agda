@@ -1,3 +1,5 @@
+-- Tested with the darcs version of the standard library on 11 February 2011.
+
 module MirrorStdLib where
 
 open import Algebra
@@ -66,7 +68,7 @@ mutual
            refl
         ⟩
       reverse (map mirror (reverse (map mirror ts)) ++
-                          (map mirror (mirror t ∷ [])))
+              (map mirror (mirror t ∷ [])))
         ≡⟨ subst (λ x → (reverse (map mirror (reverse (map mirror ts)) ++
                                              (map mirror (mirror t ∷ [])))) ≡
                         x)
@@ -75,7 +77,7 @@ mutual
                  refl
         ⟩
       reverse (map mirror (mirror t ∷ [])) ++
-              reverse (map mirror (reverse (map mirror ts)))
+      reverse (map mirror (reverse (map mirror ts)))
               ≡⟨ refl ⟩
       mirror (mirror t) ∷ reverse (map mirror (reverse (map mirror ts)))
         ≡⟨ subst (λ x → (mirror (mirror t) ∷
