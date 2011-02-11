@@ -152,6 +152,10 @@ open import LTC.Data.Nat.Inequalities.PropertiesI
 open import LTC.Data.Nat.List.PropertiesATP
 open import LTC.Data.Nat.List.PropertiesI
 
+-- Naturals numbers: Unary numbers
+open import LTC.Data.Nat.Unary.IsN-ATP
+open import LTC.Data.Nat.Unary.Inequalities.PropertiesATP
+
 -- The GCD algorithm
 open import LTC.Program.GCD.ProofSpecificationATP
 open import LTC.Program.GCD.ProofSpecificationI
