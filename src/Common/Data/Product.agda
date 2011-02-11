@@ -12,12 +12,17 @@ infixr 5 _∧_
 
 ------------------------------------------------------------------------------
 -- The conjunction data type.
--- It is not necessary to add the data constructor _,_ as an hint nor
--- strictly it is nececessary to define the projections ∧-proj₁ and
--- ∧-proj₂ because the ATPs implement them.
+
+-- It is not necessary to add the data constructor _,_ as an
+-- (general/local) hint because the ATPs implement it (actually, it
+-- will be yield an error in the translation by the agda2atp tool).
 data _∧_ (A B : Set) : Set where
   _,_ : A → B → A ∧ B
 
+-- It is not strictly necessary define the projections ∧-proj₁ and
+-- ∧-proj₂ because the ATPs implement them. For the same reason, it is
+-- not necessary to add them as (general/local) hints (actually, it
+-- will be yield an error in the translation by the agda2atp tool).
 ∧-proj₁ : {A B : Set} → A ∧ B → A
 ∧-proj₁ (x , y) = x
 
