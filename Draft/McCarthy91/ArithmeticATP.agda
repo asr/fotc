@@ -33,6 +33,8 @@ postulate
   n91   : ((one-hundred + eleven) ∸ ten) ∸ ten ≡ ninety-one
   n102' : eleven + ninety-one ≡ hundred-two
   n102  : ninety-one + eleven ≡ hundred-two
+  n100' : eleven + eighty-nine ≡ one-hundred
+  n100  : eighty-nine + eleven ≡ one-hundred
 {-# ATP prove n111' #-}
 {-# ATP prove n111 +-comm n111' #-}
 {-# ATP prove n101' #-}
@@ -41,7 +43,8 @@ postulate
 {-# ATP prove n91 n101 n91' #-}
 {-# ATP prove n102' #-}
 {-# ATP prove n102 n102' +-comm #-}
-
+{-# ATP prove n100' #-}
+{-# ATP prove n100 n100' +-comm #-}
 
 postulate
   101>100' : GT hundred-one one-hundred
