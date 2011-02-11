@@ -156,8 +156,8 @@ x≤x+y {n = n} (sN {m} Nm) Nn =
     true
   ∎
 
-x-y<Sx : ∀ {m n} → N m → N n → LT (m ∸ n) (succ m)
-x-y<Sx {m} Nm zN =
+x∸y<Sx : ∀ {m n} → N m → N n → LT (m ∸ n) (succ m)
+x∸y<Sx {m} Nm zN =
   begin
     (m ∸ zero) < (succ m) ≡⟨ subst (λ t → (m ∸ zero) < (succ m) ≡
                                           t < (succ m))
@@ -168,7 +168,7 @@ x-y<Sx {m} Nm zN =
     true
   ∎
 
-x-y<Sx zN (sN {n} Nn) =
+x∸y<Sx zN (sN {n} Nn) =
   begin
     (zero ∸ succ n) < (succ zero)
       ≡⟨ subst (λ t → (zero ∸ succ n) < (succ zero) ≡ t < (succ zero))
@@ -179,7 +179,7 @@ x-y<Sx zN (sN {n} Nn) =
     true
   ∎
 
-x-y<Sx (sN {m} Nm) (sN {n} Nn) =
+x∸y<Sx (sN {m} Nm) (sN {n} Nn) =
   begin
     (succ m ∸ succ n) < (succ (succ m))
       ≡⟨ subst (λ t → (succ m ∸ succ n) < (succ (succ m)) ≡
@@ -189,7 +189,7 @@ x-y<Sx (sN {m} Nm) (sN {n} Nn) =
       ⟩
     (m ∸ n) < (succ (succ m))
       ≡⟨ <-trans (∸-N Nm Nn) (sN Nm) (sN (sN Nm))
-                 (x-y<Sx Nm Nn) (x<Sx (sN Nm))
+                 (x∸y<Sx Nm Nn) (x<Sx (sN Nm))
       ⟩
     true
   ∎
@@ -202,7 +202,7 @@ Sx-Sy<Sx {m} {n} Nm Nn =
                                            (∸-SS m n)
                                            refl
                                   ⟩
-    (m ∸ n) < (succ m)           ≡⟨ x-y<Sx Nm Nn ⟩
+    (m ∸ n) < (succ m)           ≡⟨ x∸y<Sx Nm Nn ⟩
     true
     ∎
 
@@ -309,7 +309,7 @@ x≥y→y>0→x-y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 =
                (∸-SS m n)
                refl
       ⟩
-      (m ∸ n) < (succ m) ≡⟨ x-y<Sx Nm Nn ⟩
+      (m ∸ n) < (succ m) ≡⟨ x∸y<Sx Nm Nn ⟩
     true
   ∎
 

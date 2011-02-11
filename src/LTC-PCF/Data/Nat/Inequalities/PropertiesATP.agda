@@ -176,18 +176,18 @@ x≤x+y {n = n} (sN {m} Nm) Nn = prf $ x≤x+y Nm Nn
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf +-Sx <-SS #-}
 
-x-y<Sx : ∀ {m n} → N m → N n → LT (m ∸ n) (succ m)
-x-y<Sx {m} Nm zN = prf
+x∸y<Sx : ∀ {m n} → N m → N n → LT (m ∸ n) (succ m)
+x∸y<Sx {m} Nm zN = prf
   where
     postulate prf : LT (m ∸ zero) (succ m)
     {-# ATP prove prf x<Sx ∸-x0 #-}
 
-x-y<Sx zN (sN {n} Nn) = prf
+x∸y<Sx zN (sN {n} Nn) = prf
   where
     postulate prf : LT (zero ∸ succ n) (succ zero)
     {-# ATP prove prf ∸-0S ∸-0S <-0S #-}
 
-x-y<Sx (sN {m} Nm) (sN {n} Nn) = prf $ x-y<Sx Nm Nn
+x∸y<Sx (sN {m} Nm) (sN {n} Nn) = prf $ x∸y<Sx Nm Nn
   where
     postulate prf : LT (m ∸ n) (succ m) →  -- IH.
                     LT (succ m ∸ succ n) (succ (succ m))
@@ -196,7 +196,7 @@ x-y<Sx (sN {m} Nm) (sN {n} Nn) = prf $ x-y<Sx Nm Nn
 
 postulate
   Sx-Sy<Sx : ∀ {m n} → N m → N n → LT (succ m ∸ succ n) (succ m)
-{-# ATP prove Sx-Sy<Sx ∸-SS x-y<Sx #-}
+{-# ATP prove Sx-Sy<Sx ∸-SS x∸y<Sx #-}
 
 x>y→x-y+y≡x : ∀ {m n} → N m → N n → GT m n → (m ∸ n) + n ≡ m
 x>y→x-y+y≡x zN Nn 0>n = ⊥-elim $ ¬0>x Nn 0>n
@@ -269,7 +269,7 @@ x≥y→y>0→x-y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 = prf
   where
     postulate prf : LT (succ m ∸ succ n) (succ m)
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    {-# ATP prove prf ∸-SS x-y<Sx #-}
+    {-# ATP prove prf ∸-SS x∸y<Sx #-}
 
 ------------------------------------------------------------------------------
 -- Properties about LT₂

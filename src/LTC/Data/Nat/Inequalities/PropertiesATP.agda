@@ -249,18 +249,18 @@ x<y→0<x-y (sN {m} Nm) (sN {n} Nn) h = prfSS (x<y→0<x-y Nm Nn m<n)
     postulate prfSS : LT zero (succ m ∸ n) → LT zero (succ (succ m) ∸ succ n)
     {-# ATP prove prfSS <-trans #-}
 
-x-y<Sx : ∀ {m n} → N m → N n → LT (m ∸ n) (succ m)
-x-y<Sx {m} Nm zN = prf
+x∸y<Sx : ∀ {m n} → N m → N n → LT (m ∸ n) (succ m)
+x∸y<Sx {m} Nm zN = prf
   where
     postulate prf : LT (m ∸ zero) (succ m)
     {-# ATP prove prf x<Sx #-}
 
-x-y<Sx zN (sN {n} Nn) = prf
+x∸y<Sx zN (sN {n} Nn) = prf
   where
     postulate prf : LT (zero ∸ succ n) (succ zero)
     {-# ATP prove prf #-}
 
-x-y<Sx (sN {m} Nm) (sN {n} Nn) = prf $ x-y<Sx Nm Nn
+x∸y<Sx (sN {m} Nm) (sN {n} Nn) = prf $ x∸y<Sx Nm Nn
   where
     postulate prf : LT (m ∸ n) (succ m) →  -- IH.
                     LT (succ m ∸ succ n) (succ (succ m))
@@ -269,7 +269,7 @@ x-y<Sx (sN {m} Nm) (sN {n} Nn) = prf $ x-y<Sx Nm Nn
 
 postulate
   Sx-Sy<Sx : ∀ {m n} → N m → N n → LT (succ m ∸ succ n) (succ m)
-{-# ATP prove Sx-Sy<Sx ∸-SS x-y<Sx #-}
+{-# ATP prove Sx-Sy<Sx ∸-SS x∸y<Sx #-}
 
 x>y→x-y+y≡x : ∀ {m n} → N m → N n → GT m n → (m ∸ n) + n ≡ m
 x>y→x-y+y≡x zN          Nn 0>n  = ⊥-elim $ ¬0>x Nn 0>n
@@ -343,7 +343,7 @@ x≥y→y>0→x-y<x zN          (sN Nn)     0≥Sn  _    = ⊥-elim $ ¬S≤0 Nn
 x≥y→y>0→x-y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 = prf
   where
     postulate prf : LT (succ m ∸ succ n) (succ m)
-    {-# ATP prove prf x-y<Sx #-}
+    {-# ATP prove prf x∸y<Sx #-}
 
 x<y→y≤z→x<z : ∀ {m n o} → N m → N n → N o → LT m n → LE n o → LT m o
 x<y→y≤z→x<z Nm Nn No m<n n≤o =
@@ -401,7 +401,7 @@ postulate
   where
     postulate prf : LT₂ (succ m ∸ succ n) (succ n) (succ m) (succ n)
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    {-# ATP prove prf x-y<Sx #-}  -- Use the hint sN.
+    {-# ATP prove prf x∸y<Sx #-}  -- Use the hint sN.
 
 [Sx,Sy-Sx]<[Sx,Sy] : ∀ {m n} → N m → N n →
                      LT₂ (succ m) (succ n ∸ succ m) (succ m) (succ n)
@@ -409,4 +409,4 @@ postulate
   where
     postulate prf : LT₂ (succ m) (succ n ∸ succ m) (succ m) (succ n)
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    {-# ATP prove prf x-y<Sx #-}  -- Use the hint sN.
+    {-# ATP prove prf x∸y<Sx #-}  -- Use the hint sN.
