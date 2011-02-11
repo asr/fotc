@@ -18,10 +18,11 @@ postulate
   N1+n  : ∀ {n} → N n → N (one + n)
   N11+n : ∀ {n} → N n → N (eleven + n)
   Nn-10 : ∀ {n} → N n → N (n ∸ ten)
+  Nx+11 : ∀ {n} → N n → N (n + eleven)
 {-# ATP prove N1+n #-}
 {-# ATP prove N11+n #-}
 {-# ATP prove Nn-10 ∸-N N10 #-}
-
+{-# ATP prove Nx+11 N11+n +-comm #-}
 
 postulate
   n111' : eleven + one-hundred ≡ hundred-eleven
