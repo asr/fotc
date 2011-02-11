@@ -170,6 +170,34 @@ x<x+Sy {n = n} (sN {m} Nm) Nn = prfS (x<x+Sy Nm Nn)
     postulate prfS : LT m (m + succ n) → LT (succ m) (succ m + succ n)
     {-# ATP prove prfS #-}
 
+k+x<k+y→x<y : ∀ {m n k} → N m → N n → N k → LT (k + m) (k + n) → LT m n
+k+x<k+y→x<y {m} {n} Nm Nn zN h = prf0
+  where
+    postulate prf0 : LT m n
+    {-# ATP prove prf0 #-}
+k+x<k+y→x<y {m} {n} Nm Nn (sN {k} Nk) h = k+x<k+y→x<y Nm Nn Nk prfS
+  where
+    postulate prfS : LT (k + m) (k + n)
+    {-# ATP prove prfS #-}
+
+postulate x+k<y+k→x<y : ∀ {m n k} → N m → N n → N k →
+                        LT (m + k) (n + k) → LT m n
+{-# ATP prove x+k<y+k→x<y k+x<k+y→x<y +-comm #-}
+
+x≤y→k+x≤k+y : ∀ {m n k} → N m → N n → N k → LE m n → LE (k + m) (k + n)
+x≤y→k+x≤k+y {m} {n} Nm Nn zN h = prf0
+  where
+    postulate prf0 : LE (zero + m) (zero + n)
+    {-# ATP prove prf0 #-}
+x≤y→k+x≤k+y {m} {n} Nm Nn (sN {k} Nk) h = prfS (x≤y→k+x≤k+y Nm Nn Nk h)
+  where
+    postulate prfS : LE (k + m) (k + n) → LE (succ k + m) (succ k + n)
+    {-# ATP prove prfS #-}
+
+postulate x≤y→x+k≤y+k : ∀ {m n k} → N m → N n → N k → LE m n →
+                        LE (m + k) (n + k)
+{-# ATP prove x≤y→x+k≤y+k x≤y→k+x≤k+y +-comm #-}
+
 x<y→Sx-y≡0 : ∀ {m n} → N m → N n → LT m n → succ m ∸ n ≡ zero
 x<y→Sx-y≡0 Nm zN h = ⊥-elim (¬x<0 Nm h)
 x<y→Sx-y≡0 zN (sN {n} Nn) h = prf0S
