@@ -151,7 +151,7 @@ mutual
         ≡⟨ subst (λ x → (reverse (map mirror (reverse (map mirror ts) ++
                                               mirror · t ∷ []))) ≡
                         reverse x)
-           (map-++ mirror
+           (map-++-commute mirror
                    mirror-Tree
                    (rev-ListTree (map-ListTree mirror mirror-Tree LTts) nilLT)
                    (consLT (mirror-Tree Tt) nilLT))
@@ -162,7 +162,7 @@ mutual
         ≡⟨ subst (λ x → (reverse (map mirror (reverse (map mirror ts)) ++
                                              (map mirror (mirror · t ∷ [])))) ≡
                         x)
-                 (reverse-++ (map-ListTree mirror
+                 (reverse-++-commute (map-ListTree mirror
                                            mirror-Tree
                                            (rev-ListTree (map-ListTree mirror
                                                                        mirror-Tree

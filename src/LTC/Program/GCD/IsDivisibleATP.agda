@@ -21,8 +21,8 @@ open import LTC.Data.Nat.Inequalities using ( GT ; LE ; LT₂)
 open import LTC.Data.Nat.Inequalities.PropertiesATP
   using ( ¬0>x
         ; ¬S≤0
-        ; [Sx-Sy,Sy]<[Sx,Sy]
-        ; [Sx,Sy-Sx]<[Sx,Sy]
+        ; [Sx∸Sy,Sy]<[Sx,Sy]
+        ; [Sx,Sy∸Sx]<[Sx,Sy]
         ; x>y∨x≤y
         )
 
@@ -113,7 +113,7 @@ gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ c Nc =
               {succ n}
               (∸-N (sN Nm) (sN Nn))
               (sN Nn)
-              ([Sx-Sy,Sy]<[Sx,Sy] Nm Nn)
+              ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
               (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
 
 ------------------------------------------------------------------------------
@@ -140,7 +140,7 @@ gcd-x≤y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ c Nc =
               {succ n ∸ succ m}
               (sN Nm)
               (∸-N (sN Nn) (sN Nm))
-              ([Sx,Sy-Sx]<[Sx,Sy] Nm Nn)
+              ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
               (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 
 ------------------------------------------------------------------------------

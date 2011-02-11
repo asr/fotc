@@ -84,8 +84,9 @@ rev-ListTree {ys = ys} (consLT {x} {xs} Tx LTxs) LTys =
     (x ∷ xs) ++ ys ++ zs
   ∎
 
-rev-++ : ∀ {xs ys} → ListTree xs → ListTree ys → rev xs ys ≡ rev xs [] ++ ys
-rev-++ {ys = ys} nilLT LTys =
+rev-++-commute : ∀ {xs ys} → ListTree xs → ListTree ys →
+                 rev xs ys ≡ rev xs [] ++ ys
+rev-++-commute {ys = ys} nilLT LTys =
   begin
     rev [] ys ≡⟨ rev-[] ys ⟩
     ys        ≡⟨ sym $ ++-leftIdentity LTys ⟩
@@ -95,10 +96,10 @@ rev-++ {ys = ys} nilLT LTys =
               ⟩
     rev [] [] ++ ys
   ∎
-rev-++ {ys = ys} (consLT {x} {xs} Tx LTxs) LTys =
+rev-++-commute {ys = ys} (consLT {x} {xs} Tx LTxs) LTys =
   begin
     rev (x ∷ xs) ys      ≡⟨ rev-∷ x xs ys ⟩
-    rev xs (x ∷ ys)      ≡⟨ rev-++ LTxs (consLT Tx LTys) ⟩  -- IH.
+    rev xs (x ∷ ys)      ≡⟨ rev-++-commute LTxs (consLT Tx LTys) ⟩  -- IH.
     rev xs [] ++ x ∷ ys
       ≡⟨ subst (λ t → rev xs [] ++ x ∷ ys ≡ rev xs [] ++ t)
                (sym
@@ -118,7 +119,7 @@ rev-++ {ys = ys} (consLT {x} {xs} Tx LTxs) LTys =
       ≡⟨ sym $ ++-assoc (rev-ListTree LTxs nilLT) (consLT Tx nilLT) LTys ⟩
     (rev xs [] ++ (x ∷ [])) ++ ys
       ≡⟨ subst (λ t → (rev xs [] ++ (x ∷ [])) ++ ys ≡ t ++ ys)
-               (sym $ rev-++ LTxs (consLT Tx nilLT))  -- IH.
+               (sym $ rev-++-commute LTxs (consLT Tx nilLT))  -- IH.
                refl
       ⟩
     rev xs (x ∷ []) ++ ys
@@ -180,7 +181,7 @@ reverse-++ (consLT {x} {xs} Tx LTxs) (consLT {y} {ys} Ty LTys) =
       ⟩
     rev (x ∷ (xs ++ y ∷ ys)) [] ≡⟨ rev-∷ x (xs ++ y ∷ ys) [] ⟩
     rev (xs ++ y ∷ ys) (x ∷ [])
-      ≡⟨ rev-++ (++-ListTree LTxs (consLT Ty LTys)) (consLT Tx nilLT) ⟩
+      ≡⟨ rev-++-commute (++-ListTree LTxs (consLT Ty LTys)) (consLT Tx nilLT) ⟩
     rev (xs ++ y ∷ ys) [] ++ (x ∷ [])
       ≡⟨ subst (λ t → rev (xs ++ y ∷ ys) [] ++ (x ∷ []) ≡ t ++ (x ∷ []))
                refl
@@ -205,7 +206,7 @@ reverse-++ (consLT {x} {xs} Tx LTxs) (consLT {y} {ys} Ty LTys) =
     reverse (y ∷ ys) ++ rev xs [] ++ x ∷ []
       ≡⟨ subst (λ t → reverse (y ∷ ys) ++ rev xs [] ++ x ∷ [] ≡
                       reverse (y ∷ ys) ++ t)
-               (sym $ rev-++ LTxs (consLT Tx nilLT))
+               (sym $ rev-++-commute LTxs (consLT Tx nilLT))
                refl
       ⟩
     reverse (y ∷ ys) ++ rev xs (x ∷ [])
@@ -223,10 +224,10 @@ reverse-++ (consLT {x} {xs} Tx LTxs) (consLT {y} {ys} Ty LTys) =
     reverse (y ∷ ys) ++ reverse (x ∷ xs)
   ∎
 
-map-++ : ∀ f {xs ys} → (∀ {x} → Tree x → Tree (f · x)) →
-         ListTree xs → ListTree ys →
-         map f (xs ++ ys) ≡ map f xs ++ map f ys
-map-++ f {ys = ys} fTree nilLT LTys =
+map-++-commute : ∀ f {xs ys} → (∀ {x} → Tree x → Tree (f · x)) →
+                 ListTree xs → ListTree ys →
+                 map f (xs ++ ys) ≡ map f xs ++ map f ys
+map-++-commute f {ys = ys} fTree nilLT LTys =
   begin
     map f ([] ++ ys)
       ≡⟨ subst (λ t → map f ([] ++ ys) ≡ map f t)
@@ -243,7 +244,7 @@ map-++ f {ys = ys} fTree nilLT LTys =
     map f [] ++ map f ys
   ∎
 
-map-++ f {ys = ys} fTree (consLT {x} {xs} Tx LTxs) LTys =
+map-++-commute f {ys = ys} fTree (consLT {x} {xs} Tx LTxs) LTys =
   begin
     map f ((x ∷ xs) ++ ys)
       ≡⟨ subst (λ t → map f ((x ∷ xs) ++ ys) ≡ map f t)
@@ -254,7 +255,7 @@ map-++ f {ys = ys} fTree (consLT {x} {xs} Tx LTxs) LTys =
       ≡⟨ map-∷ f x (xs ++ ys) ⟩
     f · x ∷ map f (xs ++ ys)
       ≡⟨ subst (λ t → f · x ∷ map f (xs ++ ys) ≡ f · x ∷ t)
-               (map-++ f fTree LTxs LTys) -- IH.
+               (map-++-commute f fTree LTxs LTys) -- IH.
                refl
       ⟩
     f · x ∷ (map f xs ++ map f ys)

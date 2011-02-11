@@ -88,13 +88,13 @@ postulate
   reverse-[x]≡[x] : ∀ x → reverse (x ∷ []) ≡ x ∷ []
 {-# ATP prove reverse-[x]≡[x] #-}
 
-rev-++ : ∀ {xs ys} → List xs → List ys → rev xs ys ≡ rev xs [] ++ ys
-rev-++ {ys = ys} nilL Lys = prf
+rev-++-commute : ∀ {xs ys} → List xs → List ys → rev xs ys ≡ rev xs [] ++ ys
+rev-++-commute {ys = ys} nilL Lys = prf
   where
     postulate prf : rev [] ys ≡ rev [] [] ++ ys
     {-# ATP prove prf #-}
-rev-++ {ys = ys} (consL x {xs} Lxs) Lys =
-  prf (rev-++ Lxs (consL x Lys)) (rev-++ Lxs (consL x nilL))
+rev-++-commute {ys = ys} (consL x {xs} Lxs) Lys =
+  prf (rev-++-commute Lxs (consL x Lys)) (rev-++-commute Lxs (consL x nilL))
   where
     postulate prf : rev xs (x ∷ ys) ≡ rev xs [] ++ x ∷ ys →  -- IH.
                     rev xs (x ∷ []) ≡ rev xs [] ++ x ∷ [] →  -- IH.
@@ -115,19 +115,19 @@ reverse-∷ x (consL y {ys} Lys) = prf (reverse-∷ y Lys)
     postulate prf : reverse (y ∷ ys) ≡ reverse ys ++ y ∷ [] → -- IH.
                     reverse (x ∷ y ∷ ys) ≡ reverse (y ∷ ys) ++ x ∷ []
 
-reverse-++ : ∀ {xs ys} → List xs → List ys →
-             reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
-reverse-++ {ys = ys} nilL Lys = prf
+reverse-++-commute : ∀ {xs ys} → List xs → List ys →
+                     reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
+reverse-++-commute {ys = ys} nilL Lys = prf
   where
     postulate prf : reverse ([] ++ ys) ≡ reverse ys ++ reverse []
     {-# ATP prove prf ++-rightIdentity reverse-List #-}
 
-reverse-++ (consL x {xs} Lxs) nilL = prf
+reverse-++-commute (consL x {xs} Lxs) nilL = prf
   where
     postulate prf : reverse ((x ∷ xs) ++ []) ≡ reverse [] ++ reverse (x ∷ xs)
     {-# ATP prove prf ++-rightIdentity reverse-List #-}
-reverse-++ (consL x {xs} Lxs) (consL y {ys} Lys) =
-  prf $ reverse-++ Lxs (consL y Lys)
+reverse-++-commute (consL x {xs} Lxs) (consL y {ys} Lys) =
+  prf $ reverse-++-commute Lxs (consL y Lys)
   where
     postulate prf : reverse (xs ++ y ∷ ys) ≡ reverse (y ∷ ys) ++
                                              reverse xs →  -- IH.
@@ -136,7 +136,7 @@ reverse-++ (consL x {xs} Lxs) (consL y {ys} Lys) =
     -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): (Default) memory limit (using timeout 180 sec).
-    {-# ATP prove prf consL nilL rev-List ++-List rev-++ ++-assoc #-}
+    {-# ATP prove prf consL nilL rev-List ++-List rev-++-commute ++-assoc #-}
 
 reverse² : ∀ {xs} → List xs → reverse (reverse xs) ≡ xs
 reverse² nilL = prf
@@ -151,17 +151,18 @@ reverse² (consL x {xs} Lxs) = prf $ reverse² Lxs
     -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
-    {-# ATP prove prf consL nilL rev-List rev-++ reverse-++
+    {-# ATP prove prf consL nilL rev-List rev-++-commute reverse-++-commute
                       ++-List ++-rightIdentity
     #-}
 
-map-++ : ∀ f {xs ys} → List xs → List ys →
-         map f (xs ++ ys) ≡ map f xs ++ map f ys
-map-++ f {ys = ys} nilL Lys = prf
+map-++-commute : ∀ f {xs ys} → List xs → List ys →
+                 map f (xs ++ ys) ≡ map f xs ++ map f ys
+map-++-commute f {ys = ys} nilL Lys = prf
   where
     postulate prf : map f ([] ++ ys) ≡ map f [] ++ map f ys
     {-# ATP prove prf #-}
-map-++ f {ys = ys} (consL x {xs} Lxs) Lys = prf $ map-++ f Lxs Lys
+map-++-commute f {ys = ys} (consL x {xs} Lxs) Lys =
+  prf $ map-++-commute f Lxs Lys
   where
     postulate prf : map f (xs ++ ys) ≡ map f xs ++ map f ys →  -- IH.
                     map f ((x ∷ xs) ++ ys) ≡ map f (x ∷ xs) ++ map f ys

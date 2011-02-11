@@ -23,11 +23,11 @@ open import LTC.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
 open import LTC.Data.Nat.Inequalities.PropertiesATP
   using ( ¬0>x
         ; ¬S≤0
-        ; x>y→x-y+y≡x
-        ; x≤y→y-x+x≡y
+        ; x>y→x∸y+y≡x
+        ; x≤y→y∸x+x≡y
         ; x>y∨x≤y
-        ; [Sx-Sy,Sy]<[Sx,Sy]
-        ; [Sx,Sy-Sx]<[Sx,Sy]
+        ; [Sx∸Sy,Sy]<[Sx,Sy]
+        ; [Sx,Sy∸Sx]<[Sx,Sy]
         )
 open import LTC.Data.Nat.PropertiesATP using ( ∸-N )
 
@@ -99,7 +99,7 @@ gcd-S>S-∣₁ :
 gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
   gcd-S>S-∣₁-ah Nm Nn ih gcd-∣₂ Sm>Sn
     (x∣y→x∣z→x∣y+z gcd-Sm-Sn,Sn-N Sm-Sn-N (sN Nn) ih gcd-∣₂)
-    (x>y→x-y+y≡x (sN Nm) (sN Nn) Sm>Sn)
+    (x>y→x∸y+y≡x (sN Nm) (sN Nn) Sm>Sn)
 
   where
     Sm-Sn-N : N (succ m ∸ succ n)
@@ -157,7 +157,7 @@ gcd-S≤S-∣₂ :
 gcd-S≤S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≤Sn =
   gcd-S≤S-∣₂-ah Nm Nn ih gcd-∣₁ Sm≤Sn
     (x∣y→x∣z→x∣y+z gcd-Sm,Sn-Sm-N Sn-Sm-N (sN Nm) ih gcd-∣₁)
-    (x≤y→y-x+x≡y (sN Nm) (sN Nn) Sm≤Sn)
+    (x≤y→y∸x+x≡y (sN Nm) (sN Nn) Sm≤Sn)
 
   where
     Sn-Sm-N : N (succ n ∸ succ m)
@@ -239,7 +239,7 @@ gcd-x>y-CD (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _  =
                {succ n}
                (∸-N (sN Nm) (sN Nn))
                (sN Nn)
-               ([Sx-Sy,Sy]<[Sx,Sy] Nm Nn)
+               ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
                (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
 
 -- The 'gcd m n' when 'm ≤ n' is CD.
@@ -263,7 +263,7 @@ gcd-x≤y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
               {succ n ∸ succ m}
               (sN Nm)
               (∸-N (sN Nn) (sN Nm))
-              ([Sx,Sy-Sx]<[Sx,Sy] Nm Nn)
+              ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
               (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 
 -- The 'gcd' is CD.

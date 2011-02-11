@@ -195,17 +195,17 @@ x∸y<Sx (sN {m} Nm) (sN {n} Nn) = prf $ x∸y<Sx Nm Nn
     {-# ATP prove prf <-trans ∸-N x<Sx ∸-SS #-}  -- Use the hint sN.
 
 postulate
-  Sx-Sy<Sx : ∀ {m n} → N m → N n → LT (succ m ∸ succ n) (succ m)
-{-# ATP prove Sx-Sy<Sx ∸-SS x∸y<Sx #-}
+  Sx∸Sy<Sx : ∀ {m n} → N m → N n → LT (succ m ∸ succ n) (succ m)
+{-# ATP prove Sx∸Sy<Sx ∸-SS x∸y<Sx #-}
 
-x>y→x-y+y≡x : ∀ {m n} → N m → N n → GT m n → (m ∸ n) + n ≡ m
-x>y→x-y+y≡x zN Nn 0>n = ⊥-elim $ ¬0>x Nn 0>n
-x>y→x-y+y≡x (sN {m} Nm) zN Sm>0 = prf
+x>y→x∸y+y≡x : ∀ {m n} → N m → N n → GT m n → (m ∸ n) + n ≡ m
+x>y→x∸y+y≡x zN Nn 0>n = ⊥-elim $ ¬0>x Nn 0>n
+x>y→x∸y+y≡x (sN {m} Nm) zN Sm>0 = prf
   where
     postulate prf : (succ m ∸ zero) + zero ≡ succ m
     {-# ATP prove prf +-rightIdentity ∸-N ∸-x0 #-}  -- Use the hints zN and sN.
 
-x>y→x-y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn = prf $ x>y→x-y+y≡x Nm Nn m>n
+x>y→x∸y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn = prf $ x>y→x∸y+y≡x Nm Nn m>n
   where
     postulate m>n : GT m n
     {-# ATP prove m>n <-SS #-}
@@ -215,15 +215,15 @@ x>y→x-y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn = prf $ x>y→x-y+y≡x Nm Nn m>n
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf +-comm ∸-N +-Sx ∸-SS <-SS #-}  -- Use the hint sN.
 
-x≤y→y-x+x≡y : ∀ {m n} → N m → N n → LE m n → (n ∸ m) + m ≡ n
-x≤y→y-x+x≡y {n = n} zN Nn 0≤n  = prf
+x≤y→y∸x+x≡y : ∀ {m n} → N m → N n → LE m n → (n ∸ m) + m ≡ n
+x≤y→y∸x+x≡y {n = n} zN Nn 0≤n  = prf
   where
     postulate prf : (n ∸ zero) + zero ≡ n
     {-# ATP prove prf +-rightIdentity ∸-N ∸-x0 <-SS #-}
 
-x≤y→y-x+x≡y (sN Nm) zN Sm≤0 = ⊥-elim $ ¬S≤0 Nm Sm≤0
+x≤y→y∸x+x≡y (sN Nm) zN Sm≤0 = ⊥-elim $ ¬S≤0 Nm Sm≤0
 
-x≤y→y-x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn = prf $ x≤y→y-x+x≡y Nm Nn m≤n
+x≤y→y∸x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn = prf $ x≤y→y∸x+x≡y Nm Nn m≤n
   where
     postulate m≤n : LE m n
     {-# ATP prove m≤n <-SS #-}
@@ -299,17 +299,17 @@ postulate
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove xy₁<0y₂→x≡0∧y₁<y₂ ¬x<0 #-}
 
-[Sx-Sy,Sy]<[Sx,Sy] : ∀ {m n} → N m → N n →
+[Sx∸Sy,Sy]<[Sx,Sy] : ∀ {m n} → N m → N n →
                      LT₂ (succ m ∸ succ n) (succ n) (succ m) (succ n)
-[Sx-Sy,Sy]<[Sx,Sy] {m} {n} Nm Nn = prf
+[Sx∸Sy,Sy]<[Sx,Sy] {m} {n} Nm Nn = prf
   where
     postulate prf : LT₂ (succ m ∸ succ n) (succ n) (succ m) (succ n)
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    {-# ATP prove prf Sx-Sy<Sx #-}  -- Use the hint sN.
+    {-# ATP prove prf Sx∸Sy<Sx #-}  -- Use the hint sN.
 
-[Sx,Sy-Sx]<[Sx,Sy] : ∀ {m n} → N m → N n →
+[Sx,Sy∸Sx]<[Sx,Sy] : ∀ {m n} → N m → N n →
                      LT₂ (succ m) (succ n ∸ succ m) (succ m) (succ n)
-[Sx,Sy-Sx]<[Sx,Sy] {m} {n} Nm Nn = prf
+[Sx,Sy∸Sx]<[Sx,Sy] {m} {n} Nm Nn = prf
   where
     postulate prf : LT₂ (succ m) (succ n ∸ succ m) (succ m) (succ n)
-    {-# ATP prove prf sN Sx-Sy<Sx #-}  -- Use the hint sN.
+    {-# ATP prove prf sN Sx∸Sy<Sx #-}  -- Use the hint sN.

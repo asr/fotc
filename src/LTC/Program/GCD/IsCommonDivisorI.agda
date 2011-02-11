@@ -24,11 +24,11 @@ open import LTC.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
 open import LTC.Data.Nat.Inequalities.PropertiesI
   using ( ¬0>x
         ; ¬S≤0
-        ; x>y→x-y+y≡x
-        ; x≤y→y-x+x≡y
+        ; x>y→x∸y+y≡x
+        ; x≤y→y∸x+x≡y
         ; x>y∨x≤y
-        ; [Sx-Sy,Sy]<[Sx,Sy]
-        ; [Sx,Sy-Sx]<[Sx,Sy]
+        ; [Sx∸Sy,Sy]<[Sx,Sy]
+        ; [Sx,Sy∸Sx]<[Sx,Sy]
         )
 open import LTC.Data.Nat.PropertiesI using ( ∸-N )
 
@@ -96,7 +96,7 @@ gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
         -- The second substitution is based on
         -- 'm = (m ∸ n) + n'.
         (subst (λ y → gcd (succ m ∸ succ n) (succ n) ∣ y)
-               (x>y→x-y+y≡x (sN Nm) (sN Nn) Sm>Sn)
+               (x>y→x∸y+y≡x (sN Nm) (sN Nn) Sm>Sn)
                (x∣y→x∣z→x∣y+z
                  {gcd (succ m ∸ succ n) (succ n)}
                  {succ m ∸ succ n}
@@ -168,7 +168,7 @@ gcd-S≤S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≤Sn =
          -- The second substitution is based on.
          -- 'n = (n ∸ m) + m'
         (subst (λ y → gcd (succ m) (succ n ∸ succ m) ∣ y)
-               (x≤y→y-x+x≡y (sN Nm) (sN Nn) Sm≤Sn)
+               (x≤y→y∸x+x≡y (sN Nm) (sN Nn) Sm≤Sn)
                (x∣y→x∣z→x∣y+z
                  {gcd (succ m) (succ n ∸ succ m)}
                  {succ n ∸ succ m}
@@ -248,7 +248,7 @@ gcd-x>y-CD (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _  =
                {succ n}
                (∸-N (sN Nm) (sN Nn))
                (sN Nn)
-               ([Sx-Sy,Sy]<[Sx,Sy] Nm Nn)
+               ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
                (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
 
 -- The 'gcd m n' when 'm ≤ n' is CD.
@@ -272,7 +272,7 @@ gcd-x≤y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
               {succ n ∸ succ m}
               (sN Nm)
               (∸-N (sN Nn) (sN Nm))
-              ([Sx,Sy-Sx]<[Sx,Sy] Nm Nn)
+              ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
               (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 
 -- The 'gcd' is CD.
