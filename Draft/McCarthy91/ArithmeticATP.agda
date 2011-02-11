@@ -10,25 +10,9 @@ open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.PropertiesATP
 open import LTC.Data.Nat.Unary.Numbers
+open import LTC.Data.Nat.Unary.IsN-ATP
 
 ------------------------------------------------------------------------------
-
-postulate
-  N0   : N zero
-  N1   : N one
-  N10  : N ten
-  N91  : N ninety-one
-  N100 : N one-hundred
-  N101 : N hundred-one
-  N111 : N hundred-eleven
-{-# ATP prove N0 #-}
-{-# ATP prove N1 #-}
-{-# ATP prove N10 #-}
-{-# ATP prove N91 #-}
-{-# ATP prove N100 #-}
-{-# ATP prove N101 #-}
-{-# ATP prove N111 #-}
-
 
 postulate
   N1+n  : ∀ {n} → N n → N (one + n)

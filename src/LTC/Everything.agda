@@ -46,6 +46,7 @@ open import LTC.Data.Nat.PropertiesByInductionATP
 open import LTC.Data.Nat.PropertiesByInductionI
 open import LTC.Data.Nat.PropertiesI
 open import LTC.Data.Nat.Type
+open import LTC.Data.Nat.Unary.IsN-ATP
 open import LTC.Data.Nat.Unary.Numbers
 
 open import LTC.Data.Stream.Bisimilarity

@@ -13,6 +13,7 @@ open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.Inequalities.PropertiesATP
 open import LTC.Data.Nat.Unary.Numbers
+open import LTC.Data.Nat.Unary.IsN-ATP
 
 ------------------------------------------------------------------------------
 
