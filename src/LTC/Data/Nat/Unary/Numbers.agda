@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Naturales numbers terms
+-- Unary naturales numbers terms
 ------------------------------------------------------------------------------
 
-module LTC.Data.Nat.Numbers where
+module LTC.Data.Nat.Unary.Numbers where
 
 open import LTC.Base
 

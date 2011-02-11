@@ -8,8 +8,8 @@ open import LTC.Base
 
 open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
-open import LTC.Data.Nat.Numbers
 open import LTC.Data.Nat.PropertiesATP
+open import LTC.Data.Nat.Unary.Numbers
 
 ------------------------------------------------------------------------------
 

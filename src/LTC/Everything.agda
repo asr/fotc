@@ -41,12 +41,12 @@ open import LTC.Data.Nat.Inequalities.PropertiesI
 open import LTC.Data.Nat.List.PropertiesATP
 open import LTC.Data.Nat.List.PropertiesI
 open import LTC.Data.Nat.List.Type
-open import LTC.Data.Nat.Numbers
 open import LTC.Data.Nat.PropertiesATP
 open import LTC.Data.Nat.PropertiesByInductionATP
 open import LTC.Data.Nat.PropertiesByInductionI
 open import LTC.Data.Nat.PropertiesI
 open import LTC.Data.Nat.Type
+open import LTC.Data.Nat.Unary.Numbers
 
 open import LTC.Data.Stream.Bisimilarity
 open import LTC.Data.Stream.Bisimilarity.ConsistencyTest
