@@ -14,6 +14,8 @@ open import LTC-PCF.Data.Nat.Induction.LexicographicI
 open import LTC-PCF.Data.Nat.Induction.WellFoundedATP
 open import LTC-PCF.Data.Nat.Induction.WellFoundedI
 open import LTC-PCF.Data.Nat.Inequalities
+open import LTC-PCF.Data.Nat.Inequalities.EquationsATP
+open import LTC-PCF.Data.Nat.Inequalities.EquationsI
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
 open import LTC-PCF.Data.Nat.PropertiesATP

@@ -13,10 +13,10 @@ open import Common.Function using ( _$_ )
 
 open import LTC.Data.Nat.Inequalities using ( LT ; LT₂ )
 open import LTC.Data.Nat.Inequalities.PropertiesATP
-  using ( 0<0-elim
+  using ( ¬0<0
+        ; ¬x<0
         ; ¬0Sx<00
         ; ¬Sxy₁<0y₂
-        ; ¬x<0
         ; ¬xy<00
         ; ≤-trans
         ; Sx≤y→x<y
@@ -103,7 +103,7 @@ wfInd-LT₂ P accH Nm Nn = accH Nm Nn (wfAux Nm Nn)
         0<Sm₁ = x₁y<x₂0→x₁<x₂ zN (sN Nn₂) (sN Nm₁) 0Sn₂<Sm₁0
 
     wfAux zN (sN Nn₁) zN (sN Nn₂) 0Sn₂<0Sn₁ =
-      [ (λ 0<0 → ⊥-elim $ 0<0-elim 0<0)
+      [ (λ 0<0 → ⊥-elim $ ¬0<0 0<0)
       , (λ 0≡0∧Sn₂<Sn₁ →
            accH zN (sN Nn₂) (λ Nm' Nn' m'n'<0Sn₂ →
              [ (λ m'<0        → ⊥-elim $ ¬x<0 Nm' m'<0)

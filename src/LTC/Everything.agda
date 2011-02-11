@@ -35,6 +35,7 @@ open import LTC.Data.Nat.Induction.WellFoundedI
 open import LTC.Data.Nat.Induction.WellFoundedATP
 open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.Inequalities.ConsistencyTest
+open import LTC.Data.Nat.Inequalities.Properties
 open import LTC.Data.Nat.Inequalities.PropertiesATP
 open import LTC.Data.Nat.Inequalities.PropertiesI
 open import LTC.Data.Nat.List.PropertiesATP

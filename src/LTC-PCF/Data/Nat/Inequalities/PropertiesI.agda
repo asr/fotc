@@ -16,11 +16,12 @@ open import LTC-PCF.Data.Nat
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
 open import LTC-PCF.Data.Nat.Inequalities
-  using ( _<_ ; <-aux₁ ; <-aux₂ ; <-h
-        ; _≤_
-        ; GE ; GT ; LE ; LT ; NGT ; NLE ; NLT
-        ; LT₂
-        )
+   using ( _<_ ; _≤_
+         ; GE ; GT ; LE ; LT ; NGT ; NLE ; NLT
+         ; LT₂
+         )
+open import LTC-PCF.Data.Nat.Inequalities.EquationsI public
+  using ( <-00 ; <-S0 ; <-0S ; <-SS )
 open import LTC-PCF.Data.Nat.PropertiesI
   using ( +-N ; ∸-N
         ; +-Sx
@@ -30,235 +31,45 @@ open import LTC-PCF.Data.Nat.PropertiesI
         )
 
 ------------------------------------------------------------------------------
+-- Elimination properties
 
-private
+¬0<0 : ¬ LT zero zero
+¬0<0 0<0 = true≠false $ trans (sym 0<0) <-00
 
-  -- Before to prove some properties for 'lt i j' it is convenient
-  -- to descompose the behavior of the function step by step.
+¬S<0 : {d : D} → ¬ LT (succ d) zero
+¬S<0 {d} Sd<0 = true≠false $ trans (sym Sd<0) (<-S0 d)
 
-  -- Initially, we define the possible states (<-s₁,
-  -- <-s₂, ...). Then we write down the proof for
-  -- the execution step from the state p to the state q
-  --
-  -- (e.g. s₁→s₂ : ∀ m n → <-s₂ m n → <-s₃ m n).
+¬x<0 : ∀ {n} → N n → ¬ (LT n zero)
+¬x<0 zN     0<0  = ¬0<0 0<0
+¬x<0 (sN _) Sn<0 = ¬S<0 Sn<0
 
-  -- The terms lt-00, lt-0S, lt-S0, and lt-S>S show the use of the
-  -- states <-s₁, <-s₂, ..., and the proofs associated with the
-  -- execution steps.
+¬x<x : ∀ {n} → N n → ¬ (LT n n)
+¬x<x zN          0<0   = ¬0<0 0<0
+¬x<x (sN {n} Nn) Sn<Sn = ⊥-elim $ ¬x<x Nn (trans (sym $ <-SS n n) Sn<Sn)
 
-  ----------------------------------------------------------------------
-  -- The steps of lt
+¬0>0 : ¬ GT zero zero
+¬0>0 0>0 = true≠false $ trans (sym 0>0) <-00
 
-  -- The conversion rule fix-f is applied.
-  <-s₁ : D → D → D
-  <-s₁ d e = <-h (fix <-h) · d · e
+¬0>S : {d : D} → ¬ GT zero (succ d)
+¬0>S {d} 0>Sd = true≠false (trans (sym 0>Sd) (<-S0 d))
 
-  -- Definition of <-h.
-  <-s₂ : D → D → D
-  <-s₂ d e = lam (<-aux₂ (fix <-h)) · d · e
+¬0>x : ∀ {n} → N n → ¬ (GT zero n)
+¬0>x zN     0>0  = ¬0>0 0>0
+¬0>x (sN _) 0>Sn = ¬0>S 0>Sn
 
-  -- Beta application.
-  <-s₃ : D → D → D
-  <-s₃ d e = <-aux₂ (fix <-h) d · e
+¬x>x : ∀ {n} → N n → ¬ (GT n n)
+¬x>x Nn = ¬x<x Nn
 
-  -- Definition of lt-aux₂.
-  <-s₄ : D → D → D
-  <-s₄ d e = lam (<-aux₁ d (fix <-h)) · e
+¬S≤0 : ∀ {n} → N n → ¬ (LE (succ n) zero)
+¬S≤0 zN         S0≤0  = true≠false (trans (sym S0≤0)
+                                          (trans (<-SS zero zero) <-00))
+¬S≤0 (sN {n} _) SSn≤0 = true≠false (trans (sym SSn≤0)
+                                          (trans (<-SS (succ n) zero) (<-S0 n)))
 
-  -- Beta application.
-  <-s₅ : D → D → D
-  <-s₅ d e = <-aux₁ d (fix <-h) e
-
-  -- Definition lt-aux₁.
-  <-s₆ : D → D → D
-  <-s₆ d e = if (isZero e) then false
-                else (if (isZero d) then true
-                         else ((fix <-h) · (pred d) · (pred e)))
-
-  -- Reduction 'isZero e ≡ b'.
-  <-s₇ : D → D → D → D
-  <-s₇ d e b = if b then false
-                  else (if (isZero d) then true
-                           else ((fix <-h) · (pred d) · (pred e)))
-
-  -- Reduction 'isZero e ≡ false'.
-  <-s₈ : D → D → D
-  <-s₈ d e = if (isZero d) then true
-                 else ((fix <-h) · (pred d) · (pred e))
-
-  -- Reduction 'isZero d ≡ b'.
-  <-s₉ : D → D → D → D
-  <-s₉ d e b = if b then true
-                  else ((fix <-h) · (pred d) · (pred e))
-
-  -- Reduction 'isZero d ≡ false'.
-  <-s₁₀ : D → D → D
-  <-s₁₀ d e = (fix <-h) · (pred d) · (pred e)
-
-  -- Reduction 'pred (succ d) ≡ d'.
-  <-s₁₁ : D → D → D
-  <-s₁₁ d e = (fix <-h) · d · (pred e)
-
-  -- Reduction 'pred (succ e) ≡ e'.
-  <-s₁₂ : D → D → D
-  <-s₁₂ d e = (fix <-h) · d · e
-
-  ----------------------------------------------------------------------
-  -- The execution steps
-
-  {-
-    To prove the execution steps (e.g. s₃→s₄ : ∀ m n → <-s₃ m n → <-s₄ m n),
-    we usually need to prove that
-
-                         C [m] ≡ C [n]    (1)
-
-    given that
-                             m ≡ n,       (2)
-
-    where (2) is a conversion rule usually.
-
-    We prove (1) using
-
-    subst : ∀ {x y} (P : D → Set) → x ≡ y → P x → P y
-
-    where
-      - P is given by λ t → C [m] ≡ C [t],
-      - x ≡ y is given m ≡ n, and
-      - P x is given by C [m] ≡ C [m] (i.e. refl).
-  -}
-
-  -- Application of the conversion rule fix-f.
-  initial→s₁ : ∀ d e → fix <-h · d · e ≡ <-s₁ d e
-  initial→s₁ d e = subst (λ t → fix <-h · d · e ≡ t · d · e) (fix-f <-h) refl
-
-  -- The definition of <-h.
-  s₁→s₂ : ∀ d e → <-s₁ d e ≡ <-s₂ d e
-  s₁→s₂ d e = refl
-
-  -- Beta application.
-  s₂→s₃ : ∀ d e → <-s₂ d e ≡ <-s₃ d e
-  s₂→s₃ d e = subst (λ t → lam (<-aux₂ (fix <-h)) · d · e ≡ t · e)
-                    (beta (<-aux₂ (fix <-h)) d)
-                    refl
-
-  -- Definition of lt-aux₂
-  s₃→s₄ : ∀ d e → <-s₃ d e ≡ <-s₄ d e
-  s₃→s₄ d e = refl
-
-  -- Beta application.
-  s₄→s₅ : ∀ d e → <-s₄ d e ≡ <-s₅ d e
-  s₄→s₅ d e = beta (<-aux₁ d (fix <-h)) e
-
-  -- Definition of lt-aux₁.
-  s₅→s₆ : ∀ d e → <-s₅ d e ≡ <-s₆ d e
-  s₅→s₆ d e = refl
-
-  -- Reduction 'isZero e ≡ b' using that proof.
-  s₆→s₇ : ∀ d e b → isZero e ≡ b → <-s₆ d e ≡ <-s₇ d e b
-  s₆→s₇ d e b prf = subst (λ t → <-s₆ d e ≡ <-s₇ d e t) prf refl
-
-  -- Reduction of 'isZero e ≡ true' using the conversion rule if-true.
-  s₇→end : ∀ d e → <-s₇ d e true ≡ false
-  s₇→end _ _ = if-true false
-
-  -- Reduction of 'isZero e ≡ false ...' using the conversion rule if-false.
-  s₇→s₈ : ∀ d e → <-s₇ d e false ≡ <-s₈ d e
-  s₇→s₈ d e = if-false (<-s₈ d e)
-
-  -- Reduction 'isZero d ≡ b' using that proof.
-  s₈→s₉ : ∀ d e b → isZero d ≡ b → <-s₈ d e ≡ <-s₉ d e b
-  s₈→s₉ d e b prf = subst (λ t → <-s₈ d e ≡ <-s₉ d e t) prf refl
-
-  -- Reduction of 'isZero d ≡ true' using the conversion rule if-true.
-  s₉→end : ∀ d e → <-s₉ d e true ≡ true
-  s₉→end _ _ = if-true true
-
-  -- Reduction of 'isZero d ≡ false ...' using the conversion rule if-false.
-  s₉→s₁₀ : ∀ d e → <-s₉ d e false ≡ <-s₁₀ d e
-  s₉→s₁₀ d e = if-false (<-s₁₀ d e)
-
-  -- Reduction 'pred (succ d) ≡ d' using the conversion rule pred-S.
-  s₁₀→s₁₁ : ∀ d e → <-s₁₀ (succ d) e ≡ <-s₁₁ d e
-  s₁₀→s₁₁ d e = subst (λ t → <-s₁₀ (succ d) e ≡ <-s₁₁ t e) (pred-S d) refl
-
-  -- Reduction 'pred (succ e) ≡ e' using the conversion rule pred-S.
-  s₁₁→s₁₂ : ∀ d e → <-s₁₁ d (succ e) ≡ <-s₁₂ d e
-  s₁₁→s₁₂ d e = subst (λ t → <-s₁₁ d (succ e) ≡ <-s₁₂ d t) (pred-S e) refl
+¬0≥S : ∀ {n} → N n → ¬ (GE zero (succ n))
+¬0≥S Nn 0≥Sn = ¬S≤0 Nn 0≥Sn
 
 ------------------------------------------------------------------------------
-
-<-00 : NLT zero zero
-<-00 =
-  begin
-    fix <-h · zero · zero ≡⟨ initial→s₁ zero zero ⟩
-    <-s₁ zero zero        ≡⟨ s₁→s₂ zero zero ⟩
-    <-s₂ zero zero        ≡⟨ s₂→s₃ zero zero ⟩
-    <-s₃ zero zero        ≡⟨ s₃→s₄ zero zero ⟩
-    <-s₄ zero zero        ≡⟨ s₄→s₅ zero zero ⟩
-    <-s₅ zero zero        ≡⟨ s₅→s₆ zero zero ⟩
-    <-s₆ zero zero        ≡⟨ s₆→s₇ zero zero true isZero-0 ⟩
-    <-s₇ zero zero true   ≡⟨ s₇→end zero zero ⟩
-    false
-    ∎
-
-<-0S : ∀ d → LT zero (succ d)
-<-0S d =
-  begin
-    fix <-h · zero · (succ d) ≡⟨ initial→s₁ zero (succ d) ⟩
-    <-s₁ zero (succ d)        ≡⟨ s₁→s₂ zero (succ d) ⟩
-    <-s₂ zero (succ d)        ≡⟨ s₂→s₃ zero (succ d) ⟩
-    <-s₃ zero (succ d)        ≡⟨ s₃→s₄ zero (succ d) ⟩
-    <-s₄ zero (succ d)        ≡⟨ s₄→s₅ zero (succ d) ⟩
-    <-s₅ zero (succ d)        ≡⟨ s₅→s₆ zero (succ d) ⟩
-    <-s₆ zero (succ d)        ≡⟨ s₆→s₇ zero (succ d) false (isZero-S d) ⟩
-    <-s₇ zero (succ d) false  ≡⟨ s₇→s₈ zero (succ d) ⟩
-    <-s₈ zero (succ d)        ≡⟨ s₈→s₉ zero (succ d) true isZero-0 ⟩
-    <-s₉ zero (succ d) true   ≡⟨ s₉→end zero (succ d) ⟩
-    true
-  ∎
-
-<-S0 : ∀ d → NLT (succ d) zero
-<-S0 d =
-  begin
-    fix <-h · (succ d) · zero ≡⟨ initial→s₁ (succ d) zero ⟩
-    <-s₁ (succ d) zero        ≡⟨ s₁→s₂ (succ d) zero ⟩
-    <-s₂ (succ d) zero        ≡⟨ s₂→s₃ (succ d) zero ⟩
-    <-s₃ (succ d) zero        ≡⟨ s₃→s₄ (succ d) zero ⟩
-    <-s₄ (succ d) zero        ≡⟨ s₄→s₅ (succ d) zero ⟩
-    <-s₅ (succ d) zero        ≡⟨ s₅→s₆ (succ d) zero ⟩
-    <-s₆ (succ d) zero        ≡⟨ s₆→s₇ (succ d) zero true isZero-0 ⟩
-    <-s₇ (succ d) zero true   ≡⟨ s₇→end (succ d) zero ⟩
-    false
-  ∎
-
-<-SS : ∀ d e → succ d < succ e ≡ d < e
-<-SS d e =
-  begin
-    fix <-h · (succ d) · (succ e) ≡⟨ initial→s₁ (succ d) (succ e) ⟩
-    <-s₁ (succ d) (succ e)        ≡⟨ s₁→s₂ (succ d) (succ e) ⟩
-    <-s₂ (succ d) (succ e)        ≡⟨ s₂→s₃ (succ d) (succ e) ⟩
-    <-s₃ (succ d) (succ e)        ≡⟨ s₃→s₄ (succ d) (succ e) ⟩
-    <-s₄ (succ d) (succ e)        ≡⟨ s₄→s₅ (succ d) (succ e) ⟩
-    <-s₅ (succ d) (succ e)        ≡⟨ s₅→s₆ (succ d) (succ e) ⟩
-    <-s₆ (succ d) (succ e)        ≡⟨ s₆→s₇ (succ d) (succ e)
-                                           false (isZero-S e)
-                                  ⟩
-    <-s₇ (succ d) (succ e) false  ≡⟨ s₇→s₈ (succ d) (succ e) ⟩
-    <-s₈ (succ d) (succ e)        ≡⟨ s₈→s₉ (succ d) (succ e)
-                                           false (isZero-S d)
-                                  ⟩
-    <-s₉ (succ d) (succ e) false  ≡⟨ s₉→s₁₀ (succ d) (succ e) ⟩
-    <-s₁₀ (succ d) (succ e)       ≡⟨ s₁₀→s₁₁ d (succ e) ⟩
-    <-s₁₁ d (succ e)              ≡⟨ s₁₁→s₁₂ d e ⟩
-    <-s₁₂ d e                     ≡⟨ refl ⟩
-    d < e
-  ∎
-
-0<0-elim : LT zero zero → ⊥
-0<0-elim 0<0 = true≠false $ trans (sym 0<0) <-00
-
-S<0-elim : {d : D} → LT (succ d) zero → ⊥
-S<0-elim {d} Sd<0 = true≠false $ trans (sym Sd<0) (<-S0 d)
 
 x≥0 : ∀ {n} → N n → GE n zero
 x≥0 zN          = <-0S zero
@@ -267,16 +78,9 @@ x≥0 (sN {n} Nn) = <-0S $ succ n
 0≤x : ∀ {n} → N n → LE zero n
 0≤x Nn = x≥0 Nn
 
-¬x<0 : ∀ {n} → N n → ¬ (LT n zero)
-¬x<0 zN          0<0  = 0<0-elim 0<0
-¬x<0 (sN {n} Nn) Sn<0 = S<0-elim Sn<0
-
 0≯x : ∀ {n} → N n → NGT zero n
 0≯x zN          = <-00
 0≯x (sN {n} Nn) = <-S0 n
-
-¬0>x : ∀ {n} → N n → ¬ (GT zero n)
-¬0>x Nn 0>n = true≠false $ trans (sym 0>n) $ 0≯x Nn
 
 x≰x : ∀ {n} → N n → NLT n n
 x≰x zN          = <-00
@@ -285,13 +89,6 @@ x≰x (sN {n} Nn) = trans (<-SS n n) (x≰x Nn)
 S≰0 : ∀ {n} → N n → NLE (succ n) zero
 S≰0 zN          = x≰x (sN zN)
 S≰0 (sN {n} Nn) = trans (<-SS (succ n) zero) (<-S0 n)
-
--- TODO: The ATP version does not requires N n.
-¬S≤0 : ∀ {n} → N n → ¬ (LE (succ n) zero)
-¬S≤0 {d} Nn Sn≤0 = true≠false $ trans (sym Sn≤0) (S≰0 Nn)
-
-¬0≥S : ∀ {n} → N n → ¬ (GE zero (succ n))
-¬0≥S Nn 0≥Sn = ¬S≤0 Nn 0≥Sn
 
 x<Sx : ∀ {n} → N n → LT n (succ n)
 x<Sx zN          = <-0S zero
@@ -302,13 +99,6 @@ x<y→Sx<Sy {m} {n} m<n = trans (<-SS m n) m<n
 
 Sx<Sy→x<y : ∀ {m n} → LT (succ m) (succ n) → LT m n
 Sx<Sy→x<y {m} {n} Sm<Sn = trans (sym $ <-SS m n) Sm<Sn
-
-¬x<x : ∀ {n} → N n → ¬ (LT n n)
-¬x<x zN          0<0   = true≠false $ trans (sym 0<0) (<-00)
-¬x<x (sN {n} Nn) Sn<Sn = ⊥-elim $ ¬x<x Nn (trans (sym $ <-SS n n) Sn<Sn)
-
-¬x>x : ∀ {n} → N n → ¬ (GT n n)
-¬x>x Nn = ¬x<x Nn
 
 x≤x : ∀ {n} → N n → LE n n
 x≤x zN          = <-0S zero
@@ -365,11 +155,11 @@ Sx≤y→x<y (sN {m} Nm) (sN {n} Nn) SSm≤Sn =
   x<y→Sx<Sy (Sx≤y→x<y Nm Nn (Sx≤Sy→x≤y SSm≤Sn))
 
 <-trans : ∀ {m n o} → N m → N n → N o → LT m n → LT n o → LT m o
-<-trans zN          zN           _          0<0   _    = ⊥-elim $ 0<0-elim 0<0
-<-trans zN          (sN Nn)     zN          _     Sn<0 = ⊥-elim $ S<0-elim Sn<0
+<-trans zN          zN           _          0<0   _    = ⊥-elim $ ¬0<0 0<0
+<-trans zN          (sN Nn)     zN          _     Sn<0 = ⊥-elim $ ¬S<0 Sn<0
 <-trans zN          (sN Nn)     (sN {o} No) _     _    = <-0S o
 <-trans (sN Nm)     Nn          zN          _     n<0  = ⊥-elim $ ¬x<0 Nn n<0
-<-trans (sN Nm)     zN          (sN No)     Sm<0  _    = ⊥-elim $ S<0-elim Sm<0
+<-trans (sN Nm)     zN          (sN No)     Sm<0  _    = ⊥-elim $ ¬S<0 Sm<0
 <-trans (sN {m} Nm) (sN {n} Nn) (sN {o} No) Sm<Sn Sn<So =
   x<y→Sx<Sy $ <-trans Nm Nn No (Sx<Sy→x<y Sm<Sn) (Sx<Sy→x<y Sn<So)
 
@@ -565,14 +355,14 @@ x≥y→y>0→x-y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 =
 
 ¬0Sx<00 : ∀ {m} → N m → ¬ (LT₂ zero (succ m) zero zero)
 ¬0Sx<00 Nm 0Sm<00 =
-  [ 0<0-elim
-  , (λ 0≡0∧Sm<0 → S<0-elim (∧-proj₂ 0≡0∧Sm<0))
+  [ ¬0<0
+  , (λ 0≡0∧Sm<0 → ¬S<0 (∧-proj₂ 0≡0∧Sm<0))
   ]
   0Sm<00
 
 ¬Sxy₁<0y₂ : ∀ {m n₁ n₂} → N m → N n₁ → N n₂ → ¬ (LT₂ (succ m) n₁ zero n₂)
 ¬Sxy₁<0y₂ Nm Nn₁ Nn₂ Smn₁<0n₂ =
-  [ S<0-elim
+  [ ¬S<0
   , (λ Sm≡0∧n₁<n₂ → ⊥-elim $ 0≠S $ sym $ ∧-proj₁ Sm≡0∧n₁<n₂)
   ]
   Smn₁<0n₂

@@ -18,6 +18,7 @@ open import LTC.Data.Nat.Inequalities
         ; GE ; GT ; LE ; LT ; NGT ; NLE ; NLT
         ; LT₂
         )
+open import LTC.Data.Nat.Inequalities.Properties public
 open import LTC.Data.Nat.PropertiesATP
   using ( +-N ; ∸-N
         ; +-comm
@@ -27,12 +28,6 @@ open import LTC.Data.Nat.PropertiesATP
 
 ------------------------------------------------------------------------------
 
-0<0-elim : LT zero zero → ⊥
-0<0-elim 0<0 = true≠false $ trans (sym 0<0) <-00
-
-S<0-elim : {d : D} → LT (succ d) zero → ⊥
-S<0-elim {d} Sd<0 = true≠false $ trans (sym Sd<0) (<-S0 d)
-
 x≥0 : ∀ {n} → N n → GE n zero
 x≥0 zN          = <-0S zero
 x≥0 (sN {n} Nn) = <-0S $ succ n
@@ -40,17 +35,9 @@ x≥0 (sN {n} Nn) = <-0S $ succ n
 0≤x : ∀ {n} → N n → LE zero n
 0≤x Nn = x≥0 Nn
 
-¬x<0 : ∀ {n} → N n → ¬ (LT n zero)
-¬x<0 zN      0<0  = 0<0-elim 0<0
-¬x<0 (sN Nn) Sn<0 = S<0-elim Sn<0
-
 0≯x : ∀ {n} → N n → NGT zero n
 0≯x zN          = <-00
 0≯x (sN {n} Nn) = <-S0 n
-
-postulate
-  ¬0>x : ∀ {n} → N n → ¬ (GT zero n)
-{-# ATP prove ¬0>x 0≯x #-}
 
 x≰x : ∀ {n} → N n → NLT n n
 x≰x zN          = <-00
@@ -59,12 +46,6 @@ x≰x (sN {n} Nn) = trans (<-SS n n) (x≰x Nn)
 S≰0 : ∀ {n} → N n → NLE (succ n) zero
 S≰0 zN          = x≰x (sN zN)
 S≰0 (sN {n} Nn) = trans (<-SS (succ n) zero) (<-S0 n)
-
-¬S≤0 : ∀ {n} → N n → ¬ (LE (succ n) zero)
-¬S≤0 {d} Nn Sn≤0 = true≠false $ trans (sym Sn≤0) (S≰0 Nn)
-
-¬0≥S : ∀ {n} → N n → ¬ (GE zero (succ n))
-¬0≥S Nn 0≥Sn = ¬S≤0 Nn 0≥Sn
 
 x<Sx : ∀ {n} → N n → LT n (succ n)
 x<Sx zN          = <-0S zero
@@ -77,13 +58,6 @@ postulate
 postulate
   Sx<Sy→x<y : ∀ {m n} → LT (succ m) (succ n) → LT m n
 {-# ATP prove Sx<Sy→x<y #-}
-
-¬x<x : ∀ {n} → N n → ¬ (LT n n)
-¬x<x zN           0<0  = 0<0-elim 0<0
-¬x<x (sN {n} Nn) Sn<Sn = ⊥-elim $ ¬x<x Nn (trans (sym $ <-SS n n) Sn<Sn)
-
-¬x>x : ∀ {n} → N n → ¬ (GT n n)
-¬x>x Nn = ¬x<x Nn
 
 x≤x : ∀ {n} → N n → LE n n
 x≤x zN          = <-0S zero
@@ -158,11 +132,11 @@ Sx≤y→x<y (sN {m} Nm) (sN {n} Nn) SSm≤Sn =
   x<y→Sx<Sy (Sx≤y→x<y Nm Nn (Sx≤Sy→x≤y SSm≤Sn))
 
 <-trans : ∀ {m n o} → N m → N n → N o → LT m n → LT n o → LT m o
-<-trans zN          zN          _           0<0   _     = ⊥-elim $ 0<0-elim 0<0
-<-trans zN          (sN Nn)     zN          _     Sn<0  = ⊥-elim $ S<0-elim Sn<0
+<-trans zN          zN          _           0<0   _     = ⊥-elim $ ¬0<0 0<0
+<-trans zN          (sN Nn)     zN          _     Sn<0  = ⊥-elim $ ¬S<0 Sn<0
 <-trans zN          (sN Nn)     (sN {o} No) _     _     = <-0S o
 <-trans (sN Nm)     Nn          zN          _     n<0   = ⊥-elim $ ¬x<0 Nn n<0
-<-trans (sN Nm)     zN          (sN No)     Sm<0  _     = ⊥-elim $ S<0-elim Sm<0
+<-trans (sN Nm)     zN          (sN No)     Sm<0  _     = ⊥-elim $ ¬S<0 Sm<0
 <-trans (sN {m} Nm) (sN {n} Nn) (sN {o} No) Sm<Sn Sn<So =
   x<y→Sx<Sy $ <-trans Nm Nn No (Sx<Sy→x<y Sm<Sn) (Sx<Sy→x<y Sn<So)
 
