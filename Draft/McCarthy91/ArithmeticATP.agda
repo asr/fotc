@@ -8,6 +8,7 @@ open import LTC.Base
 
 open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
+open import LTC.Data.Nat.Inequalities.PropertiesATP
 open import LTC.Data.Nat.PropertiesATP
 open import LTC.Data.Nat.Unary.Numbers
 open import LTC.Data.Nat.Unary.IsN-ATP
@@ -62,3 +63,10 @@ postulate
 
 postulate 91>100→⊥ : GT ninety-one one-hundred → ⊥
 {-# ATP prove 91>100→⊥ #-}
+
+postulate x+1≤x∸10+11 : ∀ {n} → N n → LE (n + one) ((n ∸ ten) + eleven)
+{-# ATP prove x+1≤x∸10+11 x≤y+x-y N10 1+x-N 11+x-N x∸10-N +-comm #-}
+
+postulate x≤89→x+11>100→⊥ : ∀ {n} → N n → LE n eighty-nine →
+                            GT (n + eleven) one-hundred → ⊥
+{-# ATP prove x≤89→x+11>100→⊥ x>y→x≤y→⊥ x≤y→x+k≤y+k x+11-N N89 N100 n100 #-}
