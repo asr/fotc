@@ -38,37 +38,57 @@ data Tree (A : Set) : Set where
 mirror : {A : Set} → Tree A → Tree A
 mirror (treeT a ts) = treeT a (reverse (map mirror ts))
 
-mirror² : {A : Set} → (t : Tree A) → mirror (mirror t) ≡ t
-mirror² (treeT a [])       = refl
-mirror² (treeT a (t ∷ ts)) =
-  begin
-    treeT a (reverse (map mirror (reverse (map mirror ts) ++ mirror t ∷ [])))
-      ≡⟨ subst (λ x → treeT a (reverse (map mirror (reverse (map mirror ts) ++
-                                                    mirror t ∷ []))) ≡
-                      treeT a (reverse x))
-         (map-++-commute mirror (reverse (map mirror ts)) (mirror t ∷ []))
-         refl
-      ⟩
-    treeT a (reverse (map mirror (reverse (map mirror ts)) ++
-                     (map mirror (mirror t ∷ []))))
-      ≡⟨ subst (λ x → treeT a (reverse (map mirror (reverse (map mirror ts)) ++
-                                       (map mirror (mirror t ∷ [])))) ≡
-                      treeT a x)
-               (reverse-++ (map mirror (reverse (map mirror ts)))
-                           (map mirror (mirror t ∷ [])))
-               refl
-      ⟩
-    treeT a (reverse (map mirror (mirror t ∷ [])) ++
-             reverse (map mirror (reverse (map mirror ts))))
-      ≡⟨ refl ⟩
-    treeT a (mirror (mirror t) ∷ reverse (map mirror (reverse (map mirror ts))))
-      ≡⟨ subst (λ x → treeT a (mirror (mirror t) ∷
+mutual
+  mirror² : {A : Set} → (t : Tree A) → mirror (mirror t) ≡ t
+  mirror² (treeT a [])       = refl
+  mirror² (treeT a (t ∷ ts)) =
+    begin
+      treeT a (reverse (map mirror (reverse (map mirror ts) ++ mirror t ∷ [])))
+        ≡⟨ subst (λ x → treeT a (reverse (map mirror (reverse (map mirror ts) ++
+                                                      mirror t ∷ []))) ≡
+                        treeT a x)
+           (aux (t ∷ ts))
+           refl
+        ⟩
+      treeT a (t ∷ ts)
+    ∎
+
+  aux : {A : Set} → (ts : List (Tree A)) →
+        reverse (map mirror (reverse (map mirror ts))) ≡ ts
+  aux []       = refl
+  aux (t ∷ ts) =
+    begin
+      reverse (map mirror (reverse (map mirror ts) ++ mirror t ∷ []))
+        ≡⟨ subst (λ x → (reverse (map mirror (reverse (map mirror ts) ++
+                                              mirror t ∷ []))) ≡
+                        reverse x)
+           (map-++-commute mirror (reverse (map mirror ts)) (mirror t ∷ []))
+           refl
+        ⟩
+      reverse (map mirror (reverse (map mirror ts)) ++
+                          (map mirror (mirror t ∷ [])))
+        ≡⟨ subst (λ x → (reverse (map mirror (reverse (map mirror ts)) ++
+                                             (map mirror (mirror t ∷ [])))) ≡
+                        x)
+                 (reverse-++ (map mirror (reverse (map mirror ts)))
+                             (map mirror (mirror t ∷ [])))
+                 refl
+        ⟩
+      reverse (map mirror (mirror t ∷ [])) ++
+              reverse (map mirror (reverse (map mirror ts)))
+              ≡⟨ refl ⟩
+      mirror (mirror t) ∷ reverse (map mirror (reverse (map mirror ts)))
+        ≡⟨ subst (λ x → (mirror (mirror t) ∷
                                 reverse (map mirror (reverse (map mirror ts)))) ≡
-                      treeT a (x ∷ reverse (map mirror (reverse (map mirror ts)))))
-               (mirror² t)  -- IH.
-               refl
-      ⟩
-    treeT a (t ∷ reverse (map mirror (reverse (map mirror ts))))
-      ≡⟨ {!!} ⟩
-    treeT a (t ∷ ts)
-  ∎
+                        (x ∷ reverse (map mirror (reverse (map mirror ts)))))
+                 (mirror² t)  -- IH.
+                 refl
+        ⟩
+      t ∷ reverse (map mirror (reverse (map mirror ts)))
+        ≡⟨ subst (λ x → t ∷ reverse (map mirror (reverse (map mirror ts))) ≡
+                        t ∷ x)
+                 (aux ts)
+                 refl
+        ⟩
+      t ∷ ts
+    ∎
