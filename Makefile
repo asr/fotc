@@ -8,7 +8,9 @@ root_host_dir = asicard@localhost:tmp/FOT
 ##############################################################################
 # Programs
 
-AGDA_FOT     = agda -v 0 -isrc
+# The current directory (\ie. '.') in the Agda path is required only
+# for work with the Draft directory.
+AGDA_FOT     = agda -v 0 -i. -isrc
 AGDA_Agsy    = agda -v 0 --allow-unsolved-metas \
                     -isrc -i/home/asr/Agda/std-lib/src/
 
@@ -31,10 +33,11 @@ LTC-PCF_path          = src/LTC-PCF
 PA_path               = src/PA
 
 # Programs
-Division_path = $(LTC-PCF_path)/Program/Division
-GCD_path      = $(LTC_path)/Program/GCD
-GCD-PCF_path  = $(LTC-PCF_path)/Program/GCD
-SortList_path = $(LTC_path)/Program/SortList
+Division_path   = $(LTC-PCF_path)/Program/Division
+GCD_path        = $(LTC_path)/Program/GCD
+GCD-PCF_path    = $(LTC-PCF_path)/Program/GCD
+McCarthy91_path = Draft/McCarthy91
+SortList_path   = $(LTC_path)/Program/SortList
 
 ##############################################################################
 # "main" modules
@@ -62,6 +65,9 @@ Agsy_files = $(shell find src/Agsy -name '*.agda' | sort)
 # Only used to publish the drafts, i.e. non type checking.
 main_Draft = Draft/RenderToHTML
 
+# Drafts
+main_McCarthy91 = $(McCarthy91_path)/Everything
+
 ##############################################################################
 # Type checking the Agda modules.
 
@@ -85,6 +91,7 @@ all_type_checking : type_checking_Common \
 		    type_checking_PA \
 		    type_checking_Agsy \
 		    type_checking_README \
+		    type_checking_McCarthy91
 
 ##############################################################################
 # Test the conjecture files.
@@ -114,7 +121,8 @@ all_conjectures : conjectures_DistributiveLaws \
 		  conjectures_Logic \
 		  conjectures_LTC \
 		  conjectures_LTC-PCF \
-		  conjectures_PA
+		  conjectures_PA \
+		  conjectures_McCarthy91
 
 ##############################################################################
 # Consistency test

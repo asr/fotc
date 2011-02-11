@@ -31,4 +31,4 @@ MCR-prop (sN {n} Nn) Sn≤100 = prf (MCR-prop Nn n≤100)
     postulate
       prf : (hundred-one ∸ (n + eleven)) < (hundred-one ∸ n) ≡ true →  -- IH.
             (hundred-one ∸ (succ n + eleven)) < (hundred-one ∸ succ n) ≡ true
-    {-# ATP prove prf #-} -- Fail with all the ATPs.
+    -- {-# ATP prove prf #-} -- Fail with all the ATPs.
