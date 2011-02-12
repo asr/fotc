@@ -21,8 +21,8 @@ open import LTC.Data.Nat.Divisibility.PropertiesATP
 open import LTC.Data.Nat.Induction.LexicographicATP using ( wfInd-LT₂ )
 open import LTC.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
 open import LTC.Data.Nat.Inequalities.PropertiesATP
-  using ( ¬0>x
-        ; ¬S≤0
+  using ( 0>x→⊥
+        ; S≤0→⊥
         ; x>y→x∸y+y≡x
         ; x≤y→y∸x+x≡y
         ; x>y∨x≤y
@@ -228,7 +228,7 @@ gcd-x>y-CD :
   ¬x≡0∧y≡0 m n →
   CD m n (gcd m n)
 gcd-x>y-CD zN zN _ _ ¬0≡0∧0≡0   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x>y-CD zN (sN Nn) _ 0>Sn _  = ⊥-elim $ ¬0>x (sN Nn) 0>Sn
+gcd-x>y-CD zN (sN Nn) _ 0>Sn _  = ⊥-elim $ 0>x→⊥ (sN Nn) 0>Sn
 gcd-x>y-CD (sN Nm) zN _ _  _    = gcd-S0-CD Nm
 gcd-x>y-CD (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _  =
   gcd-S>S-CD Nm Nn ih Sm>Sn
@@ -253,7 +253,7 @@ gcd-x≤y-CD :
   CD m n (gcd m n)
 gcd-x≤y-CD zN zN _ _ ¬0≡0∧0≡0   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
 gcd-x≤y-CD zN (sN Nn) _ _ _     = gcd-0S-CD Nn
-gcd-x≤y-CD (sN Nm) zN _ Sm≤0 _  = ⊥-elim $ ¬S≤0 Nm Sm≤0
+gcd-x≤y-CD (sN Nm) zN _ Sm≤0 _  = ⊥-elim $ S≤0→⊥ Nm Sm≤0
 gcd-x≤y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
   gcd-S≤S-CD Nm Nn ih Sm≤Sn
   where

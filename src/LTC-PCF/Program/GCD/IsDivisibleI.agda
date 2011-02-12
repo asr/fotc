@@ -20,8 +20,8 @@ open import LTC-PCF.Data.Nat.Induction.LexicographicI
   using ( wfInd-LT₂ )
 open import LTC-PCF.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
-  using ( ¬0>x
-        ; ¬S≤0
+  using ( 0>x→⊥
+        ; S≤0→⊥
         ; x>y∨x≤y
         ; [Sx∸Sy,Sy]<[Sx,Sy]
         ; [Sx,Sy∸Sx]<[Sx,Sy]
@@ -110,7 +110,7 @@ gcd-x>y-Divisible :
   ¬x≡0∧y≡0 m n →
   Divisible m n (gcd m n)
 gcd-x>y-Divisible zN zN _ _ ¬0≡0∧0≡0 _ _  = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x>y-Divisible zN (sN Nn) _ 0>Sn _ _ _ = ⊥-elim $ ¬0>x (sN Nn) 0>Sn
+gcd-x>y-Divisible zN (sN Nn) _ 0>Sn _ _ _ = ⊥-elim $ 0>x→⊥ (sN Nn) 0>Sn
 gcd-x>y-Divisible (sN Nm) zN _ _ _  c Nc  = gcd-S0-Divisible Nm c Nc
 gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ c Nc =
   gcd-S>S-Divisible Nm Nn ih Sm>Sn c Nc
@@ -137,7 +137,7 @@ gcd-x≤y-Divisible :
   Divisible m n (gcd m n)
 gcd-x≤y-Divisible zN zN _ _ ¬0≡0∧0≡0 _ _   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
 gcd-x≤y-Divisible zN (sN Nn) _ _  _  c Nc  = gcd-0S-Divisible Nn c Nc
-gcd-x≤y-Divisible (sN Nm) zN _ Sm≤0 _ _ _  = ⊥-elim $ ¬S≤0 Nm Sm≤0
+gcd-x≤y-Divisible (sN Nm) zN _ Sm≤0 _ _ _  = ⊥-elim $ S≤0→⊥ Nm Sm≤0
 gcd-x≤y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ c Nc =
   gcd-S≤S-Divisible Nm Nn ih Sm≤Sn c Nc
   where

@@ -10,7 +10,7 @@ open import Common.Function using ( _$_ )
 
 open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.Inequalities.PropertiesI
-  using ( ¬x<0
+  using ( x<0→⊥
         ; ≤-trans
         ; Sx≤Sy→x≤y
         ; Sx≤y→x<y
@@ -31,8 +31,8 @@ wfInd-LT :
 wfInd-LT P accH Nn = accH Nn (helper Nn)
   where
     helper : ∀ {m} → N m → ∀ {n} → N n → LT n m → P n
-    helper zN      Nn n<0  = ⊥-elim $ ¬x<0 Nn n<0
-    helper (sN Nm) zN 0<Sm = accH zN (λ Nn' n'<0 → ⊥-elim $ ¬x<0 Nn' n'<0)
+    helper zN      Nn n<0  = ⊥-elim $ x<0→⊥ Nn n<0
+    helper (sN Nm) zN 0<Sm = accH zN (λ Nn' n'<0 → ⊥-elim $ x<0→⊥ Nn' n'<0)
 
     helper (sN {m} Nm) (sN {n} Nn) Sn<Sm = accH (sN Nn)
       (λ {n'} Nn' n'<Sn →

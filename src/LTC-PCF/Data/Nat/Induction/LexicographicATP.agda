@@ -17,11 +17,11 @@ open import LTC.Data.Nat.Type
 
 open import LTC-PCF.Data.Nat.Inequalities using ( LT ; LT₂ )
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
-  using ( ¬0<0
-        ; ¬0Sx<00
-        ; ¬Sxy₁<0y₂
-        ; ¬x<0
-        ; ¬xy<00
+  using ( 0<0→⊥
+        ; 0Sx<00→⊥
+        ; Sxy₁<0y₂→⊥
+        ; x<0→⊥
+        ; xy<00→⊥
         ; ≤-trans
         ; Sx≤y→x<y
         ; Sx≤Sy→x≤y
@@ -52,9 +52,9 @@ wfInd-LT₂ P accH Nm Nn = accH Nm Nn (wfAux Nm Nn)
             LT₂ m₂ n₂ m₁ n₁ → P m₂ n₂
 
     wfAux Nm₁ Nn₂ zN zN 00<00 =
-      accH zN zN (λ Nm' Nn' m'n'<00 → ⊥-elim $ ¬xy<00 Nm' Nn' m'n'<00)
+      accH zN zN (λ Nm' Nn' m'n'<00 → ⊥-elim $ xy<00→⊥ Nm' Nn' m'n'<00)
 
-    wfAux zN zN (sN Nm₂) zN Sm₂0<00 = ⊥-elim $ ¬Sxy₁<0y₂ Nm₂ zN zN Sm₂0<00
+    wfAux zN zN (sN Nm₂) zN Sm₂0<00 = ⊥-elim $ Sxy₁<0y₂→⊥ Nm₂ zN zN Sm₂0<00
 
     wfAux (sN Nm₁) zN (sN Nm₂) zN Sm₂0<Sm₁0 =
       accH (sN Nm₂) zN (λ Nm' Nn' m'n'<Sm₂0 →
@@ -64,7 +64,7 @@ wfInd-LT₂ P accH Nm Nn = accH Nm Nn (wfAux Nm Nn)
                          (x₁y<x₂0→x₁<x₂ (sN Nm₂) zN (sN Nm₁) Sm₂0<Sm₁0))))
 
     wfAux zN (sN Nn₁) (sN Nm₂) zN Sm₂0<0Sn₁ =
-      ⊥-elim $ ¬Sxy₁<0y₂ Nm₂ zN (sN Nn₁) Sm₂0<0Sn₁
+      ⊥-elim $ Sxy₁<0y₂→⊥ Nm₂ zN (sN Nn₁) Sm₂0<0Sn₁
 
     wfAux (sN Nm₁) (sN Nn₁) (sN Nm₂) zN Sm₂0<Sm₁Sn₁ =
       accH (sN Nm₂) zN (λ Nm' Nn' m'n'<Sm₂0 →
@@ -81,12 +81,12 @@ wfInd-LT₂ P accH Nm Nn = accH Nm Nn (wfAux Nm Nn)
                  ]
                 Sm₂0<Sm₁Sn₁)))
 
-    wfAux zN zN zN (sN Nn₂) 0Sn₂<00 = ⊥-elim $ ¬0Sx<00 Nn₂ 0Sn₂<00
+    wfAux zN zN zN (sN Nn₂) 0Sn₂<00 = ⊥-elim $ 0Sx<00→⊥ Nn₂ 0Sn₂<00
 
     wfAux (sN {m₁} Nm₁) zN zN (sN Nn₂) 0Sn₂<Sm₁0 =
       accH zN (sN Nn₂) (λ Nm' Nn' m'n'<0Nn₂ →
         wfAux Nm₁ (sN Nn₂) Nm' Nn'
-              ([ (λ m'<0 → ⊥-elim $ ¬x<0 Nm' m'<0)
+              ([ (λ m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
                , (λ m'≡0∧n'<Sn₂ →
                    [ (λ 0<m₁ →
                         inj₁ (x≡y→y<z→x<z Nm' zN Nm₁
@@ -104,10 +104,10 @@ wfInd-LT₂ P accH Nm Nn = accH Nm Nn (wfAux Nm Nn)
         0<Sm₁ = x₁y<x₂0→x₁<x₂ zN (sN Nn₂) (sN Nm₁) 0Sn₂<Sm₁0
 
     wfAux zN (sN Nn₁) zN (sN Nn₂) 0Sn₂<0Sn₁ =
-      [ (λ 0<0 → ⊥-elim $ ¬0<0 0<0)
+      [ (λ 0<0 → ⊥-elim $ 0<0→⊥ 0<0)
       , (λ 0≡0∧Sn₂<Sn₁ →
            accH zN (sN Nn₂) (λ Nm' Nn' m'n'<0Sn₂ →
-             [ (λ m'<0        → ⊥-elim $ ¬x<0 Nm' m'<0)
+             [ (λ m'<0        → ⊥-elim $ x<0→⊥ Nm' m'<0)
              , (λ m'≡0∧n'<Sn₂ →
                   wfAux zN Nn₁ Nm' Nn'
                         (inj₂ (∧-proj₁ m'≡0∧n'<Sn₂
@@ -122,7 +122,7 @@ wfInd-LT₂ P accH Nm Nn = accH Nm Nn (wfAux Nm Nn)
     wfAux (sN Nm₁) (sN Nn₁) zN (sN Nn₂) 0Sn₂<Sm₁Sn₁ =
       accH zN (sN Nn₂) (λ Nm' Nn' m'n'<0Sn₂ →
         wfAux (sN Nm₁) Nn₁ Nm' Nn'
-          ([ (λ m'<0 → ⊥-elim $ ¬x<0 Nm' m'<0)
+          ([ (λ m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
            , (λ m'≡0∧n'<Sn₂ →
                 [ (λ 0<Sm₁ →
                      inj₁ (x≡y→y<z→x<z Nm' zN (sN Nm₁)
@@ -134,7 +134,7 @@ wfInd-LT₂ P accH Nm Nn = accH Nm Nn (wfAux Nm Nn)
            m'n'<0Sn₂))
 
     wfAux zN zN (sN Nm₂) (sN Nn₂) Sm₂Sn₂<00 =
-      ⊥-elim $ ¬xy<00 (sN Nm₂) (sN Nn₂) Sm₂Sn₂<00
+      ⊥-elim $ xy<00→⊥ (sN Nm₂) (sN Nn₂) Sm₂Sn₂<00
 
     wfAux (sN {m₁} Nm₁) zN (sN {m₂} Nm₂) (sN Nn₂) Sm₂Sn₂<Sm₁0 =
       accH (sN Nm₂) (sN Nn₂) (λ Nm' Nn' m'n'<Sm₂Sn₂ →
@@ -156,7 +156,7 @@ wfInd-LT₂ P accH Nm Nn = accH Nm Nn (wfAux Nm Nn)
           Sm₂<Sm₁ = x₁y<x₂0→x₁<x₂ (sN Nm₂) (sN Nn₂) (sN Nm₁) Sm₂Sn₂<Sm₁0
 
     wfAux zN (sN Nn₁) (sN Nm₂) (sN Nn₂) Sm₂Sn₂<0Sn₁
-      = ⊥-elim $ ¬Sxy₁<0y₂ Nm₂ (sN Nn₂) (sN Nn₁) Sm₂Sn₂<0Sn₁
+      = ⊥-elim $ Sxy₁<0y₂→⊥ Nm₂ (sN Nn₂) (sN Nn₁) Sm₂Sn₂<0Sn₁
 
     wfAux (sN Nm₁) (sN Nn₁) (sN Nm₂) (sN Nn₂) Sm₂Sn₂<Sm₁Sn₁ =
       accH (sN Nm₂) (sN Nn₂) (λ Nm' Nn' m'n'<Sm₂Sn₂ →

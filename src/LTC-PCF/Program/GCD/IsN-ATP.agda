@@ -17,8 +17,8 @@ open import LTC-PCF.Data.Nat.Induction.LexicographicATP
   using ( wfInd-LT₂ )
 open import LTC-PCF.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
-  using ( ¬0>x
-        ; ¬S≤0
+  using ( 0>x→⊥
+        ; S≤0→⊥
         ; x>y∨x≤y
         ; [Sx∸Sy,Sy]<[Sx,Sy]
         ; [Sx,Sy∸Sx]<[Sx,Sy]
@@ -74,7 +74,7 @@ gcd-x>y-N :
   ¬x≡0∧y≡0 m n →
   N (gcd m n)
 gcd-x>y-N zN zN _ _ ¬0≡0∧0≡0   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x>y-N zN (sN Nn) _ 0>Sn _  = ⊥-elim $ ¬0>x (sN Nn) 0>Sn
+gcd-x>y-N zN (sN Nn) _ 0>Sn _  = ⊥-elim $ 0>x→⊥ (sN Nn) 0>Sn
 gcd-x>y-N (sN Nm) zN  _  _ _   = gcd-S0-N Nm
 gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
   gcd-S>S-N Nm Nn ih Sm>Sn
@@ -100,7 +100,7 @@ gcd-x≤y-N :
   N (gcd m n)
 gcd-x≤y-N zN zN _ _ ¬0≡0∧0≡0   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
 gcd-x≤y-N zN (sN Nn) _ _ _     = gcd-0S-N Nn
-gcd-x≤y-N (sN Nm) zN _ Sm≤0  _ = ⊥-elim $ ¬S≤0 Nm Sm≤0
+gcd-x≤y-N (sN Nm) zN _ Sm≤0  _ = ⊥-elim $ S≤0→⊥ Nm Sm≤0
 gcd-x≤y-N (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
   gcd-S≤S-N Nm Nn ih Sm≤Sn
   where
