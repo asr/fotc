@@ -1,0 +1,1 @@
+* To remove the functions 1+x-N, 11+x-N, x-10-N, and x+11-N.
