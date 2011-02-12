@@ -12,9 +12,10 @@ open import LTC.Data.Nat.Unary.Numbers
 ------------------------------------------------------------------------------
 
 postulate
-  N0 : N zero
+  N0  : N zero
   N1  : N one
   N10 : N ten
+{-# ATP prove N0 #-}
 {-# ATP prove N1 #-}
 {-# ATP prove N10 #-}
 
