@@ -22,8 +22,8 @@ module README where
 -- Prerequisites
 ------------------------------------------------------------------------------
 
--- You can download agda2atp tool (described in above paper) using darcs
--- with the following command:
+-- You can download the agda2atp tool (described in above paper) using
+-- darcs with the following command:
 
 -- $ darcs get http://patch-tag.com/r/asr/agda2atp
 
