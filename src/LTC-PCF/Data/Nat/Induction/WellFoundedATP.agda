@@ -15,7 +15,7 @@ open import LTC.Data.Nat.Type
   using ( N ; sN ; zN  -- The LTC natural numbers type.
         )
 
-open import LTC-PCF.Data.Nat.Inequalities using ( LT )
+open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
   using ( ¬x<0
         ; ≤-trans
@@ -28,21 +28,29 @@ open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
 -- Well-founded induction on N.
 -- Adapted from http://code.haskell.org/~dolio/agda-share/induction/.
 
-wfIndN-LT :
+wfInd-LT :
    (P : D → Set) →
    (∀ {m} → N m → (∀ {n} → N n → LT n m → P n) → P m) →
    ∀ {n} → N n → P n
-wfIndN-LT P accH Nn = accH Nn (wfAux Nn)
+wfInd-LT P accH Nn = accH Nn (helper Nn)
   where
-    wfAux : ∀ {m} → N m → ∀ {n} → N n → LT n m → P n
-    wfAux zN      Nn      n<0   = ⊥-elim $ ¬x<0 Nn n<0
-    wfAux (sN Nm) zN      0<Sm  = accH zN (λ Nn' n'<0 → ⊥-elim $ ¬x<0 Nn' n'<0)
-    wfAux (sN {m} Nm) (sN {n} Nn) Sn<Sm =
-      accH (sN Nn) (λ Nn' n'<Sn →
-        wfAux Nm Nn' (Sx≤y→x<y Nn' Nm
-                            (≤-trans (sN Nn') (sN Nn) Nm
-                                     (x<y→Sx≤y Nn' (sN Nn) n'<Sn)
-                                     (Sx≤Sy→x≤y {succ n} {m}
-                                                (x<y→Sx≤y (sN Nn)
-                                                          (sN Nm)
-                                                          Sn<Sm)))))
+    helper : ∀ {m} → N m → ∀ {n} → N n → LT n m → P n
+    helper zN      Nn n<0  = ⊥-elim $ ¬x<0 Nn n<0
+    helper (sN Nm) zN 0<Sm = accH zN (λ Nn' n'<0 → ⊥-elim $ ¬x<0 Nn' n'<0)
+
+    helper (sN {m} Nm) (sN {n} Nn) Sn<Sm = accH (sN Nn)
+      (λ {n'} Nn' n'<Sn →
+        let Sn'≤Sn : LE (succ n') (succ n)
+            Sn'≤Sn = x<y→Sx≤y Nn' (sN Nn) n'<Sn
+
+            Sn≤m : LE (succ n) m
+            Sn≤m = Sx≤Sy→x≤y (x<y→Sx≤y (sN Nn) (sN Nm) Sn<Sm)
+
+            Sn'≤m : LE (succ n') m
+            Sn'≤m = ≤-trans (sN Nn') (sN Nn) Nm Sn'≤Sn Sn≤m
+
+            n'<m : LT n' m
+            n'<m = Sx≤y→x<y Nn' Nm Sn'≤m
+
+        in  helper Nm Nn' n'<m
+      )

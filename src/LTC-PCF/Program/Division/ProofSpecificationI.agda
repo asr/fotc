@@ -20,7 +20,7 @@ open import LTC-PCF.Data.Nat
         ; N  -- The LTC natural numbers type.
         )
 open import LTC-PCF.Data.Nat.Induction.WellFoundedI
-  using ( wfIndN-LT )
+  using ( wfInd-LT )
 open import LTC-PCF.Data.Nat.Inequalities using ( GE ; GT ; LT )
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
   using ( x≥y→y>0→x-y<x
@@ -63,7 +63,7 @@ div-x≥y-DIV {i} {j} Ni Nj accH j>0 i≥j =
 
 -- We do the well-founded induction on 'i' and we keep 'j' fixed.
 div-DIV : ∀ {i j} → N i → N j → GT j zero → DIV i j (div i j)
-div-DIV {j = j} Ni Nj j>0 = wfIndN-LT P iStep Ni
+div-DIV {j = j} Ni Nj j>0 = wfInd-LT P iStep Ni
 
    where
      P : D → Set
