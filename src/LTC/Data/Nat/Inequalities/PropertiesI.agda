@@ -277,27 +277,11 @@ x<Sy→x<y∨x≡y (sN {m} Nm) (sN {n} Nn) Sm<SSn =
     m<n∨m≡n : LT m n ∨ m ≡ n
     m<n∨m≡n = x<Sy→x<y∨x≡y Nm Nn (trans (sym $ <-SS m (succ n)) Sm<SSn)
 
-x<y→y≡z→x<z : ∀ {m n o} → N m → N n → N o → LT m n → n ≡ o → LT m o
-x<y→y≡z→x<z {m} {n} {o} Nm Nn No m<n n≡o =
-  begin
-    m < o ≡⟨ subst (λ t → m < o ≡ m < t)
-                   (sym n≡o)
-                    refl
-           ⟩
-    m < n ≡⟨ m<n ⟩
-    true
-  ∎
+x<y→y≡z→x<z : ∀ {m n o} → LT m n → n ≡ o → LT m o
+x<y→y≡z→x<z m<n refl = m<n
 
-x≡y→y<z→x<z : ∀ {m n o} → N m → N n → N o → m ≡ n → LT n o → LT m o
-x≡y→y<z→x<z {m} {n} {o} Nm Nn No m≡n n<o =
-  begin
-    m < o ≡⟨ subst (λ t → m < o ≡ t < o)
-                    m≡n
-                    refl
-           ⟩
-    n < o ≡⟨ n<o ⟩
-    true
-  ∎
+x≡y→y<z→x<z : ∀ {m n o} → m ≡ n → LT n o → LT m o
+x≡y→y<z→x<z refl n<o = n<o
 
 x≥y→y>0→x-y<x : ∀ {m n} → N m → N n → GE m n → GT n zero → LT (m ∸ n) m
 x≥y→y>0→x-y<x Nm          zN          _     0>0  = ⊥-elim $ x>x→⊥ zN 0>0
@@ -312,6 +296,12 @@ x≥y→y>0→x-y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 =
       (m ∸ n) < (succ m) ≡⟨ x∸y<Sx Nm Nn ⟩
     true
   ∎
+
+x<y→y≤z→x<z : ∀ {m n o} → N m → N n → N o → LT m n → LE n o → LT m o
+x<y→y≤z→x<z Nm Nn No m<n n≤o =
+  [ (λ n<o → <-trans Nm Nn No m<n n<o)
+  , (λ n≡o → x<y→y≡z→x<z m<n n≡o)
+  ] (x<Sy→x<y∨x≡y Nn No n≤o)
 
 ------------------------------------------------------------------------------
 -- Properties about LT₂

@@ -255,11 +255,11 @@ x<Sy→x<y∨x≡y (sN {m} Nm) (sN {n} Nn) Sm<SSn =
     m<n∨m≡n = x<Sy→x<y∨x≡y Nm Nn (trans (sym $ <-SS m (succ n)) Sm<SSn)
 
 postulate
-  x<y→y≡z→x<z : ∀ {m n o} → N m → N n → N o → LT m n → n ≡ o → LT m o
+  x<y→y≡z→x<z : ∀ {m n o} → LT m n → n ≡ o → LT m o
 {-# ATP prove x<y→y≡z→x<z #-}
 
 postulate
-  x≡y→y<z→x<z : ∀ {m n o} → N m → N n → N o → m ≡ n → LT n o → LT m o
+  x≡y→y<z→x<z : ∀ {m n o} → m ≡ n → LT n o → LT m o
 {-# ATP prove x≡y→y<z→x<z #-}
 
 x≥y→y>0→x-y<x : ∀ {m n} → N m → N n → GE m n → GT n zero → LT (m ∸ n) m

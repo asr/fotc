@@ -74,8 +74,7 @@ wfInd-LT₂ P accH Nm Nn = accH Nm Nn (wfAux Nm Nn)
                                               (x₁y<x₂0→x₁<x₂ Nm' Nn' (sN Nm₂)
                                                               m'n'<Sm₂0)
                                                Sm₂<Sm₁))
-                 , (λ Sm₂≡Sm₁∧0<Sn₁ → x<y→y≡z→x<z Nm' (sN Nm₂) (sN Nm₁)
-                                                  (x₁y<x₂0→x₁<x₂ Nm' Nn' (sN Nm₂)
+                 , (λ Sm₂≡Sm₁∧0<Sn₁ → x<y→y≡z→x<z (x₁y<x₂0→x₁<x₂ Nm' Nn' (sN Nm₂)
                                                                  m'n'<Sm₂0)
                                                   (∧-proj₁ Sm₂≡Sm₁∧0<Sn₁))
                  ]
@@ -88,9 +87,7 @@ wfInd-LT₂ P accH Nm Nn = accH Nm Nn (wfAux Nm Nn)
         wfAux Nm₁ (sN Nn₂) Nm' Nn'
               ([ (λ m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
                , (λ m'≡0∧n'<Sn₂ →
-                   [ (λ 0<m₁ →
-                        inj₁ (x≡y→y<z→x<z Nm' zN Nm₁
-                                          (∧-proj₁ m'≡0∧n'<Sn₂) 0<m₁))
+                   [ (λ 0<m₁ → inj₁ (x≡y→y<z→x<z (∧-proj₁ m'≡0∧n'<Sn₂) 0<m₁))
                    , (λ 0≡m₁ →
                         inj₂ ((trans (∧-proj₁ m'≡0∧n'<Sn₂) 0≡m₁)
                              , (∧-proj₂ m'≡0∧n'<Sn₂)))
@@ -124,10 +121,7 @@ wfInd-LT₂ P accH Nm Nn = accH Nm Nn (wfAux Nm Nn)
         wfAux (sN Nm₁) Nn₁ Nm' Nn'
           ([ (λ m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
            , (λ m'≡0∧n'<Sn₂ →
-                [ (λ 0<Sm₁ →
-                     inj₁ (x≡y→y<z→x<z Nm' zN (sN Nm₁)
-                                       (∧-proj₁ m'≡0∧n'<Sn₂)
-                                       0<Sm₁))
+                [ (λ 0<Sm₁ → inj₁ (x≡y→y<z→x<z (∧-proj₁ m'≡0∧n'<Sn₂) 0<Sm₁))
                 , (λ 0≡Sn₂∧Sn₂<Sn₁ → ⊥-elim $ 0≠S $ ∧-proj₁ 0≡Sn₂∧Sn₂<Sn₁)
                 ] 0Sn₂<Sm₁Sn₁)
            ]
@@ -146,9 +140,7 @@ wfInd-LT₂ P accH Nm Nn = accH Nm Nn (wfAux Nm Nn)
                    , (λ m'≡m₁ → inj₂ (m'≡m₁ , ∧-proj₂ m'≡Sm₂∧n'<Sn₂))
                    ]
                    (x<Sy→x<y∨x≡y Nm' Nm₁
-                                 (x≡y→y<z→x<z Nm' (sN Nm₂) (sN Nm₁)
-                                              (∧-proj₁ m'≡Sm₂∧n'<Sn₂)
-                                              Sm₂<Sm₁)))
+                                 (x≡y→y<z→x<z (∧-proj₁ m'≡Sm₂∧n'<Sn₂) Sm₂<Sm₁)))
               ] m'n'<Sm₂Sn₂))
 
         where
@@ -168,18 +160,14 @@ wfInd-LT₂ P accH Nm Nn = accH Nm Nn (wfAux Nm Nn)
                                                    Sm₂<Sm₁)))
 
                  , (λ m'≡Sm₂∧n'<Sn₂ →
-                      inj₁ (x≡y→y<z→x<z Nm' (sN Nm₂) (sN Nm₁)
-                                        (∧-proj₁ m'≡Sm₂∧n'<Sn₂)
-                                        Sm₂<Sm₁))
+                      inj₁ (x≡y→y<z→x<z (∧-proj₁ m'≡Sm₂∧n'<Sn₂) Sm₂<Sm₁))
                  ]
                  m'n'<Sm₂Sn₂)
 
                , (λ Sm₂≡Sm₁∧Sn₂<Sn₁ →
 
                  [ (λ m'<Sm₂ →
-                      inj₁ (x<y→y≡z→x<z Nm' (sN Nm₂) (sN Nm₁)
-                                        m'<Sm₂
-                                        (∧-proj₁ Sm₂≡Sm₁∧Sn₂<Sn₁)))
+                      inj₁ (x<y→y≡z→x<z m'<Sm₂ (∧-proj₁ Sm₂≡Sm₁∧Sn₂<Sn₁)))
 
                  , (λ m'≡Sm₂∧n'<Sn₂ → inj₂
                       ( trans (∧-proj₁ m'≡Sm₂∧n'<Sn₂) (∧-proj₁ Sm₂≡Sm₁∧Sn₂<Sn₁)

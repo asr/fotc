@@ -330,11 +330,11 @@ x<Sy→x<y∨x≡y (sN {m} Nm) (sN {n} Nn) Sm<SSn =
     m<n∨m≡n = x<Sy→x<y∨x≡y Nm Nn (trans (sym $ <-SS m (succ n)) Sm<SSn)
 
 postulate
-  x<y→y≡z→x<z : ∀ {m n o} → N m → N n → N o → LT m n → n ≡ o → LT m o
+  x<y→y≡z→x<z : ∀ {m n o} → LT m n → n ≡ o → LT m o
 {-# ATP prove x<y→y≡z→x<z #-}
 
 postulate
-  x≡y→y<z→x<z : ∀ {m n o} → N m → N n → N o → m ≡ n → LT n o → LT m o
+  x≡y→y<z→x<z : ∀ {m n o} → m ≡ n → LT n o → LT m o
 {-# ATP prove x≡y→y<z→x<z #-}
 
 x≥y→y>0→x-y<x : ∀ {m n} → N m → N n → GE m n → GT n zero → LT (m ∸ n) m
@@ -348,11 +348,8 @@ x≥y→y>0→x-y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 = prf
 x<y→y≤z→x<z : ∀ {m n o} → N m → N n → N o → LT m n → LE n o → LT m o
 x<y→y≤z→x<z Nm Nn No m<n n≤o =
   [ (λ n<o → <-trans Nm Nn No m<n n<o)
-  , (λ n≡o → aux m<n n≡o)
+  , (λ n≡o → x<y→y≡z→x<z m<n n≡o)
   ] (x<Sy→x<y∨x≡y Nn No n≤o)
-  where
-    aux : ∀ {a b c} → LT a b → b ≡ c → LT a c
-    aux a<b refl = a<b
 
 x≤y+x-y : ∀ {m n} → N m → N n → LE m (n + (m ∸ n))
 x≤y+x-y {n = n} zN Nn = prf0
