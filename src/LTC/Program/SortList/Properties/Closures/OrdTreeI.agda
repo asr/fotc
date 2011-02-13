@@ -89,13 +89,13 @@ rightSubTree-OrdTree {t₁} {i} {t₂} Tt₁ Ni Tt₂ TOnode =
   ∎
 
 ------------------------------------------------------------------------------
--- Auxiliar functions
+-- Helper functions
 
-toTree-OrdTree-aux₁ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → GT i₁ i₂ →
-                      Tree t →
-                      LE-TreeItem t i₁ →
-                      LE-TreeItem (toTree · i₂ · t) i₁
-toTree-OrdTree-aux₁ {i₁} {i₂} .{nilTree} Ni₁ Ni₂ i₁>i₂ nilT _ =
+toTree-OrdTree-helper₁ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → GT i₁ i₂ →
+                         Tree t →
+                         LE-TreeItem t i₁ →
+                         LE-TreeItem (toTree · i₂ · t) i₁
+toTree-OrdTree-helper₁ {i₁} {i₂} .{nilTree} Ni₁ Ni₂ i₁>i₂ nilT _ =
   begin
     ≤-TreeItem (toTree · i₂ · nilTree) i₁
       ≡⟨ subst (λ t → ≤-TreeItem (toTree · i₂ · nilTree) i₁ ≡ ≤-TreeItem t i₁)
@@ -107,7 +107,7 @@ toTree-OrdTree-aux₁ {i₁} {i₂} .{nilTree} Ni₁ Ni₂ i₁>i₂ nilT _ =
     true
   ∎
 
-toTree-OrdTree-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁ =
+toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁ =
   [ prf₁ , prf₂ ] (x>y∨x≤y Nj Ni₂)
   where
     prf₁ : GT j i₂ → LE-TreeItem (toTree · i₂ · tip j) i₁
@@ -237,8 +237,8 @@ toTree-OrdTree-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁
         true
       ∎
 
-toTree-OrdTree-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
-                    (nodeT {t₁} {j} {t₂} Tt₁ Nj Tt₂) t≤i₁ =
+toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
+                       (nodeT {t₁} {j} {t₂} Tt₁ Nj Tt₂) t≤i₁ =
   [ prf₁ , prf₂ ] (x>y∨x≤y Nj Ni₂)
   where
     prf₁ : GT j i₂ → LE-TreeItem (toTree · i₂ · node t₁ j t₂) i₁
@@ -282,7 +282,7 @@ toTree-OrdTree-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
                           t                                &&
                           ≤-TreeItem t₂ i₁)
                    -- Inductive hypothesis.
-                   (toTree-OrdTree-aux₁ Ni₁ Ni₂ i₁>i₂ Tt₁
+                   (toTree-OrdTree-helper₁ Ni₁ Ni₂ i₁>i₂ Tt₁
                      (&&-proj₁ (≤-TreeItem-Bool Tt₁ Ni₁)
                                (≤-TreeItem-Bool Tt₂ Ni₁)
                                (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁)))
@@ -350,7 +350,7 @@ toTree-OrdTree-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
           ≡⟨ subst (λ t → true && ≤-TreeItem (toTree · i₂ · t₂) i₁ ≡
                           true && t)
                    -- Inductive hypothesis.
-                   (toTree-OrdTree-aux₁ Ni₁ Ni₂ i₁>i₂ Tt₂
+                   (toTree-OrdTree-helper₁ Ni₁ Ni₂ i₁>i₂ Tt₂
                      (&&-proj₂ (≤-TreeItem-Bool Tt₁ Ni₁)
                                (≤-TreeItem-Bool Tt₂ Ni₁)
                                (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁)))
@@ -363,11 +363,11 @@ toTree-OrdTree-aux₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
 
 ------------------------------------------------------------------------------
 
-toTree-OrdTree-aux₂ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → LE i₁ i₂ →
-                      Tree t →
-                      LE-ItemTree i₁ t →
-                      LE-ItemTree i₁ (toTree · i₂ · t)
-toTree-OrdTree-aux₂ {i₁} {i₂} .{nilTree} _ _ i₁≤i₂ nilT _ =
+toTree-OrdTree-helper₂ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → LE i₁ i₂ →
+                         Tree t →
+                         LE-ItemTree i₁ t →
+                         LE-ItemTree i₁ (toTree · i₂ · t)
+toTree-OrdTree-helper₂ {i₁} {i₂} .{nilTree} _ _ i₁≤i₂ nilT _ =
   begin
     ≤-ItemTree i₁ (toTree · i₂ · nilTree)
       ≡⟨ subst (λ t → ≤-ItemTree i₁ (toTree · i₂ · nilTree) ≡ ≤-ItemTree i₁ t)
@@ -379,7 +379,7 @@ toTree-OrdTree-aux₂ {i₁} {i₂} .{nilTree} _ _ i₁≤i₂ nilT _ =
     true
   ∎
 
-toTree-OrdTree-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i₁≤t =
+toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i₁≤t =
   [ prf₁ , prf₂ ] (x>y∨x≤y Nj Ni₂)
   where
     prf₁ : GT j i₂ → LE-ItemTree i₁ (toTree · i₂ · tip j)
@@ -502,8 +502,8 @@ toTree-OrdTree-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i₁�
       true
       ∎
 
-toTree-OrdTree-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
-                    (nodeT {t₁} {j} {t₂} Tt₁ Nj Tt₂) i₁≤t =
+toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
+                       (nodeT {t₁} {j} {t₂} Tt₁ Nj Tt₂) i₁≤t =
   [ prf₁ , prf₂ ] (x>y∨x≤y Nj Ni₂)
   where
     prf₁ : GT j i₂ → LE-ItemTree i₁ (toTree · i₂ · node t₁ j t₂)
@@ -543,7 +543,7 @@ toTree-OrdTree-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
           ≡⟨ subst (λ t → ≤-ItemTree i₁ (toTree · i₂ · t₁) && ≤-ItemTree i₁ t₂ ≡
                           t && ≤-ItemTree i₁ t₂)
                    -- Inductive hypothesis.
-                   (toTree-OrdTree-aux₂ Ni₁ Ni₂ i₁≤i₂ Tt₁
+                   (toTree-OrdTree-helper₂ Ni₁ Ni₂ i₁≤i₂ Tt₁
                      (&&-proj₁ (≤-ItemTree-Bool Ni₁ Tt₁)
                                (≤-ItemTree-Bool Ni₁ Tt₂)
                                (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t)))
@@ -607,7 +607,7 @@ toTree-OrdTree-aux₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
         true && ≤-ItemTree i₁ (toTree · i₂ · t₂)
           ≡⟨ subst (λ t → true && ≤-ItemTree i₁ (toTree · i₂ · t₂) ≡ true && t)
                    -- Inductive hypothesis.
-                   (toTree-OrdTree-aux₂ Ni₁ Ni₂ i₁≤i₂ Tt₂
+                   (toTree-OrdTree-helper₂ Ni₁ Ni₂ i₁≤i₂ Tt₂
                      (&&-proj₂ (≤-ItemTree-Bool Ni₁ Tt₁)
                                (≤-ItemTree-Bool Ni₁ Tt₂)
                                (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t)))

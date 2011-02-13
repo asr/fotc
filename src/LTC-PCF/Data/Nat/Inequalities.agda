@@ -17,20 +17,20 @@ open import LTC.Base
 -- Version using lambda lifting via super-combinators.
 -- (Hughes. Super-combinators. 1982)
 
-<-aux₁ : D → D → D → D
-<-aux₁ d lt e = if (isZero e)
-                   then false
-                   else (if (isZero d)
-                            then true
-                            else (lt · (pred d) · (pred e)))
-{-# ATP definition <-aux₁ #-}
+<-helper₁ : D → D → D → D
+<-helper₁ d lt e = if (isZero e)
+                      then false
+                      else (if (isZero d)
+                               then true
+                               else (lt · (pred d) · (pred e)))
+{-# ATP definition <-helper₁ #-}
 
-<-aux₂ : D → D → D
-<-aux₂ lt d = lam (<-aux₁ d lt)
-{-# ATP definition <-aux₂ #-}
+<-helper₂ : D → D → D
+<-helper₂ lt d = lam (<-helper₁ d lt)
+{-# ATP definition <-helper₂ #-}
 
 <-h : D → D
-<-h lt = lam (<-aux₂ lt)
+<-h lt = lam (<-helper₂ lt)
 {-# ATP definition <-h #-}
 
 _<_ : D → D → D

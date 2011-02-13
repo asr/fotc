@@ -29,16 +29,16 @@ open import LTC-PCF.Data.Nat.Inequalities using ( _<_ )
 -- Version using lambda lifting via super-combinators
 -- (Hughes. Super-combinators. 1982).
 
-div-aux₁ : D → D → D → D
-div-aux₁ i g j = if (i < j) then zero else succ (g · (i ∸ j) · j)
-{-# ATP definition div-aux₁ #-}
+div-helper₁ : D → D → D → D
+div-helper₁ i g j = if (i < j) then zero else succ (g · (i ∸ j) · j)
+{-# ATP definition div-helper₁ #-}
 
-div-aux₂ : D → D → D
-div-aux₂ g i = lam (div-aux₁ i g)
-{-# ATP definition div-aux₂ #-}
+div-helper₂ : D → D → D
+div-helper₂ g i = lam (div-helper₁ i g)
+{-# ATP definition div-helper₂ #-}
 
 divh : D → D
-divh g = lam (div-aux₂ g)
+divh g = lam (div-helper₂ g)
 {-# ATP definition divh #-}
 
 div : D → D → D

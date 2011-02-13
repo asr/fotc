@@ -32,7 +32,7 @@ postulate S∣0 : ∀ {n} → N n →  succ n ∣ zero
 {-# ATP prove S∣0 *-0x #-}  -- Use the hint zN.
 
 -- The divisibility relation is reflexive for positive numbers.
--- For the proof using the ATP we added the auxiliary hypothesis
+-- For the proof using the ATP we added the helper hypothesis
 -- N (succ zero).
 postulate ∣-refl-S-ah : ∀ {n} → N n → N (succ zero) → succ n ∣ succ n
 {-# ATP prove ∣-refl-S-ah *-leftIdentity #-}  -- Use the hint sN.

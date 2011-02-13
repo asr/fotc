@@ -26,12 +26,12 @@ open import LTC.Data.Nat.Type public
 -- Version using lambda lifting via super-combinators.
 -- (Hughes. Super-combinators. 1982)
 
-+-aux : D → D
-+-aux _ = lam succ
-{-# ATP definition +-aux #-}
++-helper : D → D
++-helper _ = lam succ
+{-# ATP definition +-helper #-}
 
 _+_ : D → D → D
-m + n = rec m n (lam +-aux)
+m + n = rec m n (lam +-helper)
 {-# ATP definition _+_ #-}
 
 ------------------------------------------------------------------------------
@@ -44,12 +44,12 @@ m + n = rec m n (lam +-aux)
 -- Version using lambda lifting via super-combinators.
 -- (Hughes. Super-combinators. 1982)
 
-∸-aux : D → D
-∸-aux _ = lam pred
-{-# ATP definition ∸-aux #-}
+∸-helper : D → D
+∸-helper _ = lam pred
+{-# ATP definition ∸-helper #-}
 
 _∸_ : D → D → D
-m ∸ n = rec n m (lam ∸-aux)
+m ∸ n = rec n m (lam ∸-helper)
 {-# ATP definition _∸_ #-}
 
 ------------------------------------------------------------------------------
@@ -62,14 +62,14 @@ m ∸ n = rec n m (lam ∸-aux)
 -- Version using lambda lifting via super-combinators.
 -- (Hughes. Super-combinators. 1982)
 
-*-aux₁ : D → D → D
-*-aux₁ n y = n + y
-{-# ATP definition *-aux₁ #-}
+*-helper₁ : D → D → D
+*-helper₁ n y = n + y
+{-# ATP definition *-helper₁ #-}
 
-*-aux₂ : D → D → D
-*-aux₂ n x = lam (*-aux₁ n)
-{-# ATP definition *-aux₂ #-}
+*-helper₂ : D → D → D
+*-helper₂ n x = lam (*-helper₁ n)
+{-# ATP definition *-helper₂ #-}
 
 _*_ : D → D → D
-m * n = rec m zero (lam (*-aux₂ n))
+m * n = rec m zero (lam (*-helper₂ n))
 {-# ATP definition _*_ #-}

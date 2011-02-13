@@ -25,7 +25,7 @@ wfInd-LT :
    ∀ {n} → N n → P n
 wfInd-LT P accH Nn = accH Nn (helper Nn)
   where
-    helper : ∀ {m} → N m → ∀ {n} → N n → LT n m → P n
+    helper : ∀ {m n} → N m → N n → LT n m → P n
     helper zN     Nn n<0  = ⊥-elim $ x<0→⊥ Nn n<0
     helper (sN _) zN 0<Sm = accH zN (λ Nn' n'<0 → ⊥-elim $ x<0→⊥ Nn' n'<0)
 
@@ -53,7 +53,7 @@ wfInd-LT₁ :
    ∀ {n} → N n → P n
 wfInd-LT₁ P accH Nn = accH Nn (helper Nn)
   where
-    helper : ∀ {m} → N m → ∀ {n} → N n → LT n m → P n
+    helper : ∀ {m n} → N m → N n → LT n m → P n
     helper zN     Nn n<0  = ⊥-elim $ x<0→⊥ Nn n<0
     helper (sN _) zN 0<Sm = accH zN (λ Nn' n'<0 → ⊥-elim $ x<0→⊥ Nn' n'<0)
 

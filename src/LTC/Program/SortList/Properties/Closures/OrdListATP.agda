@@ -30,18 +30,18 @@ subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js = prf
     -- Metis 2.3 : Non-tested.
     {-# ATP prove prf &&-proj₂ ≤-ItemList-Bool ordList-Bool #-}
 
-++-OrdList-aux : ∀ {item is js} → N item → ListN is → ListN js →
-                 LE-ItemList item is →
-                 LE-ItemList item js →
-                 LE-Lists is js →
-                 LE-ItemList item (is ++ js)
+++-OrdList-helper : ∀ {item is js} → N item → ListN is → ListN js →
+                    LE-ItemList item is →
+                    LE-ItemList item js →
+                    LE-Lists is js →
+                    LE-ItemList item (is ++ js)
 
-++-OrdList-aux {item} {js = js} _ nilLN _ _ item≤js _ =
+++-OrdList-helper {item} {js = js} _ nilLN _ _ item≤js _ =
   subst (λ t → LE-ItemList item t) (sym (++-[] js)) item≤js
 
-++-OrdList-aux {item} {js = js} Nitem
-               (consLN {i} {is} Ni LNis) LNjs item≤i∷is item≤js i∷is≤js =
-  prf (++-OrdList-aux Nitem LNis LNjs lemma₁ item≤js lemma₂)
+++-OrdList-helper {item} {js = js} Nitem
+                  (consLN {i} {is} Ni LNis) LNjs item≤i∷is item≤js i∷is≤js =
+  prf (++-OrdList-helper Nitem LNis LNjs lemma₁ item≤js lemma₂)
   where
     lemma₁ : ≤-ItemList item is ≡ true
     lemma₁ =  &&-proj₂ (≤-Bool Nitem Ni)

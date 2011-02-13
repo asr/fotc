@@ -55,23 +55,23 @@ x≤ys→x≤zs→x≤ys++zs : ∀ {i js ks} → N i → ListN js → ListN ks �
 x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni nilLN LNks _ i≤k =
   subst (λ t → LE-ItemList i t) (sym (++-[] ks)) i≤k
 x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni (consLN {j} {js} Nj LNjs) LNks i≤j∷js i≤k =
-  prf (x≤ys→x≤zs→x≤ys++zs Ni LNjs LNks (&&-proj₂ aux₁ aux₂ aux₃) i≤k)
+  prf (x≤ys→x≤zs→x≤ys++zs Ni LNjs LNks (&&-proj₂ helper₁ helper₂ helper₃) i≤k)
   where
-    aux₁ : Bool (i ≤ j)
-    aux₁ = ≤-Bool Ni Nj
+    helper₁ : Bool (i ≤ j)
+    helper₁ = ≤-Bool Ni Nj
 
-    aux₂ : Bool (≤-ItemList i js)
-    aux₂ = ≤-ItemList-Bool Ni LNjs
+    helper₂ : Bool (≤-ItemList i js)
+    helper₂ = ≤-ItemList-Bool Ni LNjs
 
-    aux₃ : i ≤ j && (≤-ItemList i js) ≡ true
-    aux₃ = trans (sym (≤-ItemList-∷ i j js)) i≤j∷js
+    helper₃ : i ≤ j && (≤-ItemList i js) ≡ true
+    helper₃ = trans (sym (≤-ItemList-∷ i j js)) i≤j∷js
 
     postulate prf : LE-ItemList i (js ++ ks) →  -- IH.
                     LE-ItemList i ((j ∷ js) ++ ks)
     -- E 1.2: Non-tested.
     -- Metis 2.3 (release 20101019): Non-tested.
     -- Vampire 0.6 (revision 903): Non-tested.
-    {-# ATP prove prf &&-proj₁ aux₁ aux₂ aux₃ #-}
+    {-# ATP prove prf &&-proj₁ helper₁ helper₂ helper₃ #-}
 
 xs≤ys→xs≤zs→xs≤ys++zs : ∀ {is js ks} → ListN is → ListN js → ListN ks →
                         LE-Lists is js →
@@ -81,23 +81,25 @@ xs≤ys→xs≤zs→xs≤ys++zs nilLN LNjs LNks _ _ = ≤-Lists-[] _
 xs≤ys→xs≤zs→xs≤ys++zs {js = js} {ks} (consLN {i} {is} Ni LNis)
                       LNjs LNks i∷is≤js i∷is≤ks =
   prf ((xs≤ys→xs≤zs→xs≤ys++zs LNis LNjs LNks
-                              (&&-proj₂ aux₁ aux₂ aux₃)
-                              (&&-proj₂ aux₄ aux₅ aux₆)))
+                              (&&-proj₂ helper₁ helper₂ helper₃)
+                              (&&-proj₂ helper₄ helper₅ helper₆)))
   where
-    aux₁ = ≤-ItemList-Bool Ni LNjs
-    aux₂ = ≤-Lists-Bool LNis LNjs
-    aux₃ = trans (sym (≤-Lists-∷ i is js)) i∷is≤js
+    helper₁ = ≤-ItemList-Bool Ni LNjs
+    helper₂ = ≤-Lists-Bool LNis LNjs
+    helper₃ = trans (sym (≤-Lists-∷ i is js)) i∷is≤js
 
-    aux₄ = ≤-ItemList-Bool Ni LNks
-    aux₅ = ≤-Lists-Bool LNis LNks
-    aux₆ = trans (sym (≤-Lists-∷ i is ks)) i∷is≤ks
+    helper₄ = ≤-ItemList-Bool Ni LNks
+    helper₅ = ≤-Lists-Bool LNis LNks
+    helper₆ = trans (sym (≤-Lists-∷ i is ks)) i∷is≤ks
 
     postulate prf : LE-Lists is (js ++ ks) →  -- IH.
                     LE-Lists (i ∷ is) (js ++ ks)
     -- E 1.2: Non-tested.
     -- Metis 2.3 (release 20101019): Non-tested.
     -- Vampire 0.6 (revision 903): Non-tested.
-    {-# ATP prove prf x≤ys→x≤zs→x≤ys++zs &&-proj₁ aux₁ aux₂ aux₃ aux₄ aux₅ aux₆ #-}
+    {-# ATP prove prf x≤ys→x≤zs→x≤ys++zs &&-proj₁
+                      helper₁ helper₂ helper₃ helper₄ helper₅ helper₆
+    #-}
 
 xs≤zs→ys≤zs→xs++ys≤zs : ∀ {is js ks} → ListN is → ListN js → ListN ks →
                         LE-Lists is ks →
@@ -109,15 +111,17 @@ xs≤zs→ys≤zs→xs++ys≤zs {js = js} {ks} nilLN LNjs LNks is≤ks js≤ks =
         js≤ks
 xs≤zs→ys≤zs→xs++ys≤zs {js = js} {ks}
                       (consLN {i} {is} Ni LNis) LNjs LNks i∷is≤ks js≤ks =
-  prf (xs≤zs→ys≤zs→xs++ys≤zs LNis LNjs LNks (&&-proj₂ aux₁ aux₂ aux₃) js≤ks)
+  prf (xs≤zs→ys≤zs→xs++ys≤zs LNis LNjs LNks
+                             (&&-proj₂ helper₁ helper₂ helper₃)
+                             js≤ks)
   where
-    aux₁ = ≤-ItemList-Bool Ni LNks
-    aux₂ = ≤-Lists-Bool LNis LNks
-    aux₃ = trans (sym (≤-Lists-∷ i is ks)) i∷is≤ks
+    helper₁ = ≤-ItemList-Bool Ni LNks
+    helper₂ = ≤-Lists-Bool LNis LNks
+    helper₃ = trans (sym (≤-Lists-∷ i is ks)) i∷is≤ks
 
     postulate prf : LE-Lists (is ++ js) ks →  -- IH.
                     LE-Lists ((i ∷ is) ++ js) ks
     -- E 1.2: Non-tested.
     -- Metis 2.3 (release 20101019): Non-tested.
     -- Vampire 0.6 (revision 903): Non-tested.
-    {-# ATP prove prf &&-proj₁ aux₁ aux₂ aux₃ #-}
+    {-# ATP prove prf &&-proj₁ helper₁ helper₂ helper₃ #-}

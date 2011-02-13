@@ -30,16 +30,16 @@ subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js =
            (ordList-Bool (consLN Nj Ljs))
            (trans (sym $ ordList-∷ i (j ∷ js)) LOi∷j∷js)
 
-++-OrdList-aux : ∀ {item is js} → N item → ListN is → ListN js →
-                 LE-ItemList item is →
-                 LE-ItemList item js →
-                 LE-Lists is js →
-                 LE-ItemList item (is ++ js)
-++-OrdList-aux {item} {js = js} _ nilLN _ _ item≤js _ =
+++-OrdList-helper : ∀ {item is js} → N item → ListN is → ListN js →
+                    LE-ItemList item is →
+                    LE-ItemList item js →
+                    LE-Lists is js →
+                    LE-ItemList item (is ++ js)
+++-OrdList-helper {item} {js = js} _ nilLN _ _ item≤js _ =
   subst (λ t → LE-ItemList item t) (sym (++-[] js)) item≤js
 
-++-OrdList-aux {item} {js = js} Nitem
-               (consLN {i} {is} Ni LNis) LNjs item≤i∷is item≤js i∷is≤js =
+++-OrdList-helper {item} {js = js} Nitem
+                  (consLN {i} {is} Ni LNis) LNjs item≤i∷is item≤js i∷is≤js =
   begin
     ≤-ItemList item ((i ∷ is) ++ js)
       ≡⟨ subst (λ t → ≤-ItemList item ((i ∷ is) ++ js) ≡ ≤-ItemList item t)
@@ -59,7 +59,7 @@ subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js =
     true && ≤-ItemList item (is ++ js)
       ≡⟨ subst (λ t → true && ≤-ItemList item (is ++ js) ≡ true && t)
                -- IH.
-               (++-OrdList-aux Nitem LNis LNjs lemma₁ item≤js lemma₂)
+               (++-OrdList-helper Nitem LNis LNjs lemma₁ item≤js lemma₂)
                refl
       ⟩
     true && true ≡⟨ &&-tt ⟩

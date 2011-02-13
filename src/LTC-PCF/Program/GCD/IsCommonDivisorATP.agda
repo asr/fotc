@@ -77,7 +77,7 @@ postulate
 7. gcd Sm Sn | Sm                      subst 5,6
 -}
 
--- For the proof using the ATP we added the auxiliary hypothesis:
+-- For the proof using the ATP we added the helper hypothesis:
 -- 1. gcd (succ m ∸ succ n) (succ n) ∣ (succ m ∸ succ n) + succ n.
 -- 2. (succ m ∸ succ n) + succ n ≡ succ m.
 postulate
@@ -134,7 +134,7 @@ postulate gcd-S0-∣₂ : ∀ {m} → N m → gcd (succ m) zero ∣ zero
 7. gcd Sm Sn | Sn                      subst 5,6
 -}
 
--- For the proof using the ATP we added the auxiliary hypothesis:
+-- For the proof using the ATP we added the helper hypothesis:
 -- 1. gcd (succ m) (succ n ∸ succ m) ∣ (succ n ∸ succ m) + succ m.
 -- 2 (succ n ∸ succ m) + succ m ≡ succ n.
 postulate

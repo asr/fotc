@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Closures properties respect to OrdList (flatten-OrdList-aux)
+-- Closures properties respect to OrdList (flatten-OrdList-helper)
 ------------------------------------------------------------------------------
 
--- Agda bug? The recursive calls in flatten-OrdList-aux are
+-- Agda bug? The recursive calls in flatten-OrdList-helper are
 -- structurally smaller, so it is not clear why we need the option
 -- --no-termination-check. We tested the option --termination-depth=N
 -- with some values, but it had no effect.
@@ -31,16 +31,16 @@ open import LTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 
-flatten-OrdList-aux : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ →
-                      OrdTree (node t₁ i t₂) →
-                      LE-Lists (flatten t₁) (flatten t₂)
+flatten-OrdList-helper : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ →
+                         OrdTree (node t₁ i t₂) →
+                         LE-Lists (flatten t₁) (flatten t₂)
 
-flatten-OrdList-aux {t₂ = t₂} nilT Ni Tt₂ OTt =
+flatten-OrdList-helper {t₂ = t₂} nilT Ni Tt₂ OTt =
   subst (λ t → LE-Lists t (flatten t₂))
         (sym (flatten-nilTree))
         (≤-Lists-[] (flatten t₂))
 
-flatten-OrdList-aux (tipT {i₁} Ni₁) _ nilT OTt =
+flatten-OrdList-helper (tipT {i₁} Ni₁) _ nilT OTt =
   begin
     ≤-Lists (flatten (tip i₁)) (flatten nilTree)
       ≡⟨ subst₂ (λ x₁ x₂ → ≤-Lists (flatten (tip i₁)) (flatten nilTree) ≡
@@ -62,7 +62,7 @@ flatten-OrdList-aux (tipT {i₁} Ni₁) _ nilT OTt =
     true
   ∎
 
-flatten-OrdList-aux {i = i} (tipT {i₁} Ni₁) Ni (tipT {i₂} Ni₂) OTt =
+flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni (tipT {i₂} Ni₂) OTt =
   begin
     ≤-Lists (flatten (tip i₁)) (flatten (tip i₂))
       ≡⟨ subst₂ (λ x₁ x₂ → ≤-Lists (flatten (tip i₁)) (flatten (tip i₂)) ≡
@@ -99,37 +99,37 @@ flatten-OrdList-aux {i = i} (tipT {i₁} Ni₁) Ni (tipT {i₂} Ni₂) OTt =
     true
   ∎
   where
-    aux₁ : Bool (ordTree (tip i₁))
-    aux₁ = ordTree-Bool (tipT Ni₁)
+    helper₁ : Bool (ordTree (tip i₁))
+    helper₁ = ordTree-Bool (tipT Ni₁)
 
-    aux₂ : Bool (ordTree (tip i₂))
-    aux₂ = ordTree-Bool (tipT Ni₂)
+    helper₂ : Bool (ordTree (tip i₂))
+    helper₂ = ordTree-Bool (tipT Ni₂)
 
-    aux₃ : Bool (≤-TreeItem (tip i₁) i)
-    aux₃ = ≤-TreeItem-Bool (tipT Ni₁) Ni
+    helper₃ : Bool (≤-TreeItem (tip i₁) i)
+    helper₃ = ≤-TreeItem-Bool (tipT Ni₁) Ni
 
-    aux₄ : Bool (≤-ItemTree i (tip i₂))
-    aux₄ = ≤-ItemTree-Bool Ni (tipT Ni₂)
+    helper₄ : Bool (≤-ItemTree i (tip i₂))
+    helper₄ = ≤-ItemTree-Bool Ni (tipT Ni₂)
 
-    aux₅ : ordTree (tip i₁) &&
+    helper₅ : ordTree (tip i₁) &&
            ordTree (tip i₂) &&
            ≤-TreeItem (tip i₁) i &&
            ≤-ItemTree i (tip i₂) ≡ true
-    aux₅ = trans (sym (ordTree-node (tip i₁) i (tip i₂))) OTt
+    helper₅ = trans (sym (ordTree-node (tip i₁) i (tip i₂))) OTt
 
     lemma : LE i₁ i₂
     lemma = ≤-trans Ni₁ Ni Ni₂ i₁≤i i≤i₂
      where
        i₁≤i : LE i₁ i
        i₁≤i = trans (sym (≤-TreeItem-tip i₁ i))
-                    (&&₃-proj₃ aux₁ aux₂ aux₃ aux₄ aux₅)
+                    (&&₃-proj₃ helper₁ helper₂ helper₃ helper₄ helper₅)
 
        i≤i₂ : LE i i₂
        i≤i₂ = trans (sym (≤-ItemTree-tip i i₂))
-                    (&&₃-proj₄ aux₁ aux₂ aux₃ aux₄ aux₅)
+                    (&&₃-proj₄ helper₁ helper₂ helper₃ helper₄ helper₅)
 
-flatten-OrdList-aux {i = i} (tipT {i₁} Ni₁) Ni
-                    (nodeT {t₂₁} {i₂} {t₂₂} Tt₂₁ Ni₂ Tt₂₂) OTt =
+flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni
+                       (nodeT {t₂₁} {i₂} {t₂₂} Tt₂₁ Ni₂ Tt₂₂) OTt =
   begin
     ≤-Lists (flatten (tip i₁)) (flatten (node t₂₁ i₂ t₂₂))
       ≡⟨ subst (λ x → ≤-Lists (flatten (tip i₁)) (flatten (node t₂₁ i₂ t₂₂)) ≡
@@ -147,35 +147,36 @@ flatten-OrdList-aux {i = i} (tipT {i₁} Ni₁) Ni
     true
   ∎
   where
-    -- Auxiliary terms to get the conjuncts from OTt.
-    aux₁ = ordTree-Bool (tipT Ni₁)
-    aux₂ = ordTree-Bool (nodeT Tt₂₁ Ni₂ Tt₂₂)
-    aux₃ = ≤-TreeItem-Bool (tipT Ni₁) Ni
-    aux₄ = ≤-ItemTree-Bool Ni (nodeT Tt₂₁ Ni₂ Tt₂₂)
-    aux₅ = trans (sym (ordTree-node (tip i₁) i (node t₂₁ i₂ t₂₂))) OTt
+    -- Helper terms to get the conjuncts from OTt.
+    helper₁ = ordTree-Bool (tipT Ni₁)
+    helper₂ = ordTree-Bool (nodeT Tt₂₁ Ni₂ Tt₂₂)
+    helper₃ = ≤-TreeItem-Bool (tipT Ni₁) Ni
+    helper₄ = ≤-ItemTree-Bool Ni (nodeT Tt₂₁ Ni₂ Tt₂₂)
+    helper₅ = trans (sym (ordTree-node (tip i₁) i (node t₂₁ i₂ t₂₂))) OTt
 
-    -- Auxiliary terms to get the conjuncts from the fourth conjunct of OTt.
-    aux₆ = ≤-ItemTree-Bool Ni Tt₂₁
-    aux₇ = ≤-ItemTree-Bool Ni Tt₂₂
-    aux₈ = trans (sym (≤-ItemTree-node i t₂₁ i₂ t₂₂))
-                 (&&₃-proj₄ aux₁ aux₂ aux₃ aux₄ aux₅)
+    -- Helper terms to get the conjuncts from the fourth conjunct of OTt.
+    helper₆ = ≤-ItemTree-Bool Ni Tt₂₁
+    helper₇ = ≤-ItemTree-Bool Ni Tt₂₂
+    helper₈ = trans (sym (≤-ItemTree-node i t₂₁ i₂ t₂₂))
+                    (&&₃-proj₄ helper₁ helper₂ helper₃ helper₄ helper₅)
 
     -- Common terms for the lemma₁ and lemma₂.
     OrdTree-tip-i₁ : OrdTree (tip i₁)
-    OrdTree-tip-i₁ = &&₃-proj₁ aux₁ aux₂ aux₃ aux₄ aux₅
+    OrdTree-tip-i₁ = &&₃-proj₁ helper₁ helper₂ helper₃ helper₄ helper₅
 
     LE-TreeItem-tip-i₁-i : LE-TreeItem (tip i₁) i
-    LE-TreeItem-tip-i₁-i = &&₃-proj₃ aux₁ aux₂ aux₃ aux₄ aux₅
+    LE-TreeItem-tip-i₁-i = &&₃-proj₃ helper₁ helper₂ helper₃ helper₄ helper₅
 
     lemma₁ : LE-Lists (flatten (tip i₁)) (flatten t₂₁)
-    lemma₁ = flatten-OrdList-aux (tipT Ni₁) Ni Tt₂₁ OT  -- IH.
+    lemma₁ = flatten-OrdList-helper (tipT Ni₁) Ni Tt₂₁ OT  -- IH.
       where
         OrdTree-t₂₁ : OrdTree t₂₁
-        OrdTree-t₂₁ = leftSubTree-OrdTree Tt₂₁ Ni₂ Tt₂₂
-                                          (&&₃-proj₂ aux₁ aux₂ aux₃ aux₄ aux₅)
+        OrdTree-t₂₁ =
+          leftSubTree-OrdTree Tt₂₁ Ni₂ Tt₂₂ (&&₃-proj₂ helper₁ helper₂ helper₃
+                                                       helper₄ helper₅)
 
         LE-ItemTree-i-t₂₁ : LE-ItemTree i t₂₁
-        LE-ItemTree-i-t₂₁ = &&-proj₁ aux₆ aux₇ aux₈
+        LE-ItemTree-i-t₂₁ = &&-proj₁ helper₆ helper₇ helper₈
 
         OT : OrdTree (node (tip i₁) i t₂₁)
         OT =
@@ -203,14 +204,15 @@ flatten-OrdList-aux {i = i} (tipT {i₁} Ni₁) Ni
           ∎
 
     lemma₂ : LE-Lists (flatten (tip i₁)) (flatten t₂₂)
-    lemma₂ = flatten-OrdList-aux (tipT Ni₁) Ni Tt₂₂ OT  -- IH.
+    lemma₂ = flatten-OrdList-helper (tipT Ni₁) Ni Tt₂₂ OT  -- IH.
       where
         OrdTree-t₂₂ : OrdTree t₂₂
-        OrdTree-t₂₂ = rightSubTree-OrdTree Tt₂₁ Ni₂ Tt₂₂
-                                           (&&₃-proj₂ aux₁ aux₂ aux₃ aux₄ aux₅)
+        OrdTree-t₂₂ =
+          rightSubTree-OrdTree Tt₂₁ Ni₂ Tt₂₂ (&&₃-proj₂ helper₁ helper₂ helper₃
+                                                        helper₄ helper₅)
 
         LE-ItemTree-i-t₂₂ : LE-ItemTree i t₂₂
-        LE-ItemTree-i-t₂₂ = &&-proj₂ aux₆ aux₇ aux₈
+        LE-ItemTree-i-t₂₂ = &&-proj₂ helper₆ helper₇ helper₈
 
         OT : OrdTree (node (tip i₁) i t₂₂)
         OT =
@@ -237,7 +239,7 @@ flatten-OrdList-aux {i = i} (tipT {i₁} Ni₁) Ni
             true
           ∎
 
-flatten-OrdList-aux {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂) Ni nilT OTt =
+flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂) Ni nilT OTt =
   begin
     ≤-Lists (flatten (node t₁₁ i₁ t₁₂)) (flatten nilTree)
       ≡⟨ subst (λ x → ≤-Lists (flatten (node t₁₁ i₁ t₁₂)) (flatten nilTree) ≡
@@ -255,33 +257,33 @@ flatten-OrdList-aux {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt�
     true
   ∎
   where
-    -- Auxiliary terms to get the conjuncts from OTt.
-    aux₁ = ordTree-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂)
-    aux₂ = ordTree-Bool nilT
-    aux₃ = ≤-TreeItem-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂) Ni
-    aux₄ = ≤-ItemTree-Bool Ni nilT
-    aux₅ = trans (sym (ordTree-node (node t₁₁ i₁ t₁₂) i nilTree )) OTt
+    -- Helper terms to get the conjuncts from OTt.
+    helper₁ = ordTree-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂)
+    helper₂ = ordTree-Bool nilT
+    helper₃ = ≤-TreeItem-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂) Ni
+    helper₄ = ≤-ItemTree-Bool Ni nilT
+    helper₅ = trans (sym (ordTree-node (node t₁₁ i₁ t₁₂) i nilTree )) OTt
 
-    -- Auxiliary terms to get the conjuncts from the third conjunct of OTt.
-    aux₆ = ≤-TreeItem-Bool Tt₁₁ Ni
-    aux₇ = ≤-TreeItem-Bool Tt₁₂ Ni
-    aux₈ = trans (sym (≤-TreeItem-node t₁₁ i₁ t₁₂ i))
-                 (&&₃-proj₃ aux₁ aux₂ aux₃ aux₄ aux₅)
+    -- Helper terms to get the conjuncts from the third conjunct of OTt.
+    helper₆ = ≤-TreeItem-Bool Tt₁₁ Ni
+    helper₇ = ≤-TreeItem-Bool Tt₁₂ Ni
+    helper₈ = trans (sym (≤-TreeItem-node t₁₁ i₁ t₁₂ i))
+                    (&&₃-proj₃ helper₁ helper₂ helper₃ helper₄ helper₅)
 
     -- Common terms for the lemma₁ and lemma₂.
     LE-ItemTree-i-niltree : LE-ItemTree i nilTree
-    LE-ItemTree-i-niltree = &&₃-proj₄ aux₁ aux₂ aux₃ aux₄ aux₅
+    LE-ItemTree-i-niltree = &&₃-proj₄ helper₁ helper₂ helper₃ helper₄ helper₅
 
     lemma₁ : LE-Lists (flatten t₁₁) (flatten nilTree)
-    lemma₁ = flatten-OrdList-aux Tt₁₁ Ni nilT OT  -- IH.
+    lemma₁ = flatten-OrdList-helper Tt₁₁ Ni nilT OT  -- IH.
       where
         OrdTree-t₁₁ : OrdTree t₁₁
         OrdTree-t₁₁ =
-          leftSubTree-OrdTree Tt₁₁ Ni₁ Tt₁₂
-                              (&&₃-proj₁ aux₁ aux₂ aux₃ aux₄ aux₅)
+          leftSubTree-OrdTree Tt₁₁ Ni₁ Tt₁₂ (&&₃-proj₁ helper₁ helper₂ helper₃
+                                                       helper₄ helper₅)
 
         LE-TreeItem-t₁₁-i : LE-TreeItem t₁₁ i
-        LE-TreeItem-t₁₁-i = &&-proj₁ aux₆ aux₇ aux₈
+        LE-TreeItem-t₁₁-i = &&-proj₁ helper₆ helper₇ helper₈
 
         OT : OrdTree (node t₁₁ i nilTree)
         OT =
@@ -309,14 +311,15 @@ flatten-OrdList-aux {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt�
           ∎
 
     lemma₂ : LE-Lists (flatten t₁₂) (flatten nilTree)
-    lemma₂ = flatten-OrdList-aux Tt₁₂ Ni nilT OT  -- IH.
+    lemma₂ = flatten-OrdList-helper Tt₁₂ Ni nilT OT  -- IH.
       where
         OrdTree-t₁₂ : OrdTree t₁₂
         OrdTree-t₁₂ =
-          rightSubTree-OrdTree Tt₁₁ Ni₁ Tt₁₂ (&&₃-proj₁ aux₁ aux₂ aux₃ aux₄ aux₅)
+          rightSubTree-OrdTree Tt₁₁ Ni₁ Tt₁₂ (&&₃-proj₁ helper₁ helper₂ helper₃
+                                                        helper₄ helper₅)
 
         LE-TreeItem-t₁₂-i : LE-TreeItem t₁₂ i
-        LE-TreeItem-t₁₂-i = &&-proj₂ aux₆ aux₇ aux₈
+        LE-TreeItem-t₁₂-i = &&-proj₂ helper₆ helper₇ helper₈
 
         OT : OrdTree (node t₁₂ i nilTree)
         OT =
@@ -343,8 +346,8 @@ flatten-OrdList-aux {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt�
             true
           ∎
 
-flatten-OrdList-aux {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂) Ni
-                    (tipT {i₂} Ni₂) OTt =
+flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂) Ni
+                       (tipT {i₂} Ni₂) OTt =
   begin
     ≤-Lists (flatten (node t₁₁ i₁ t₁₂)) (flatten (tip i₂))
       ≡⟨ subst (λ x → ≤-Lists (flatten (node t₁₁ i₁ t₁₂)) (flatten (tip i₂)) ≡
@@ -362,35 +365,36 @@ flatten-OrdList-aux {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt�
     true
   ∎
   where
-    -- Auxiliary terms to get the conjuncts from OTt.
-    aux₁ = ordTree-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂)
-    aux₂ = ordTree-Bool (tipT Ni₂)
-    aux₃ = ≤-TreeItem-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂) Ni
-    aux₄ = ≤-ItemTree-Bool Ni (tipT Ni₂)
-    aux₅ = trans (sym (ordTree-node (node t₁₁ i₁ t₁₂) i (tip i₂))) OTt
+    -- Helper terms to get the conjuncts from OTt.
+    helper₁ = ordTree-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂)
+    helper₂ = ordTree-Bool (tipT Ni₂)
+    helper₃ = ≤-TreeItem-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂) Ni
+    helper₄ = ≤-ItemTree-Bool Ni (tipT Ni₂)
+    helper₅ = trans (sym (ordTree-node (node t₁₁ i₁ t₁₂) i (tip i₂))) OTt
 
-    -- Auxiliary terms to get the conjuncts from the third conjunct of OTt.
-    aux₆ = ≤-TreeItem-Bool Tt₁₁ Ni
-    aux₇ = ≤-TreeItem-Bool Tt₁₂ Ni
-    aux₈ = trans (sym (≤-TreeItem-node t₁₁ i₁ t₁₂ i))
-                 (&&₃-proj₃ aux₁ aux₂ aux₃ aux₄ aux₅)
+    -- Helper terms to get the conjuncts from the third conjunct of OTt.
+    helper₆ = ≤-TreeItem-Bool Tt₁₁ Ni
+    helper₇ = ≤-TreeItem-Bool Tt₁₂ Ni
+    helper₈ = trans (sym (≤-TreeItem-node t₁₁ i₁ t₁₂ i))
+                    (&&₃-proj₃ helper₁ helper₂ helper₃ helper₄ helper₅)
 
     -- Common terms for the lemma₁ and lemma₂.
     OrdTree-tip-i₂ : OrdTree (tip i₂)
-    OrdTree-tip-i₂ = &&₃-proj₂ aux₁ aux₂ aux₃ aux₄ aux₅
+    OrdTree-tip-i₂ = &&₃-proj₂ helper₁ helper₂ helper₃ helper₄ helper₅
 
     LE-ItemTree-i-tip-i₂ : LE-ItemTree i (tip i₂)
-    LE-ItemTree-i-tip-i₂ = &&₃-proj₄ aux₁ aux₂ aux₃ aux₄ aux₅
+    LE-ItemTree-i-tip-i₂ = &&₃-proj₄ helper₁ helper₂ helper₃ helper₄ helper₅
 
     lemma₁ : LE-Lists (flatten t₁₁) (flatten (tip i₂))
-    lemma₁ = flatten-OrdList-aux Tt₁₁ Ni (tipT Ni₂) OT  -- IH.
+    lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (tipT Ni₂) OT  -- IH.
       where
         OrdTree-t₁₁ : OrdTree t₁₁
         OrdTree-t₁₁ =
-          leftSubTree-OrdTree Tt₁₁ Ni₁ Tt₁₂ (&&₃-proj₁ aux₁ aux₂ aux₃ aux₄ aux₅)
+          leftSubTree-OrdTree Tt₁₁ Ni₁ Tt₁₂ (&&₃-proj₁ helper₁ helper₂ helper₃
+                                                       helper₄ helper₅)
 
         LE-TreeItem-t₁₁-i : LE-TreeItem t₁₁ i
-        LE-TreeItem-t₁₁-i = &&-proj₁ aux₆ aux₇ aux₈
+        LE-TreeItem-t₁₁-i = &&-proj₁ helper₆ helper₇ helper₈
 
         OT : OrdTree (node t₁₁ i (tip i₂))
         OT =
@@ -418,14 +422,15 @@ flatten-OrdList-aux {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt�
           ∎
 
     lemma₂ : LE-Lists (flatten t₁₂) (flatten (tip i₂))
-    lemma₂ = flatten-OrdList-aux Tt₁₂ Ni (tipT Ni₂) OT  -- IH.
+    lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (tipT Ni₂) OT  -- IH.
       where
         OrdTree-t₁₂ : OrdTree t₁₂
         OrdTree-t₁₂ =
-          rightSubTree-OrdTree Tt₁₁ Ni₁ Tt₁₂ (&&₃-proj₁ aux₁ aux₂ aux₃ aux₄ aux₅)
+          rightSubTree-OrdTree Tt₁₁ Ni₁ Tt₁₂ (&&₃-proj₁ helper₁ helper₂ helper₃
+                                                        helper₄ helper₅)
 
         LE-TreeItem-t₁₂-i : LE-TreeItem t₁₂ i
-        LE-TreeItem-t₁₂-i = &&-proj₂ aux₆ aux₇ aux₈
+        LE-TreeItem-t₁₂-i = &&-proj₂ helper₆ helper₇ helper₈
 
         OT : OrdTree (node t₁₂ i (tip i₂))
         OT =
@@ -452,8 +457,8 @@ flatten-OrdList-aux {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt�
             true
           ∎
 
-flatten-OrdList-aux {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂) Ni
-                    (nodeT {t₂₁} {i₂} {t₂₂} Tt₂₁ Ni₂ Tt₂₂) OTt =
+flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂) Ni
+                       (nodeT {t₂₁} {i₂} {t₂₂} Tt₂₁ Ni₂ Tt₂₂) OTt =
   begin
     ≤-Lists (flatten (node t₁₁ i₁ t₁₂)) (flatten (node t₂₁ i₂ t₂₂))
       ≡⟨ subst (λ x → ≤-Lists (flatten (node t₁₁ i₁ t₁₂))
@@ -472,35 +477,37 @@ flatten-OrdList-aux {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt�
     true
   ∎
   where
-    -- Auxiliary terms to get the conjuncts from OTt.
-    aux₁ = ordTree-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂)
-    aux₂ = ordTree-Bool (nodeT Tt₂₁ Ni₂ Tt₂₂)
-    aux₃ = ≤-TreeItem-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂) Ni
-    aux₄ = ≤-ItemTree-Bool Ni (nodeT Tt₂₁ Ni₂ Tt₂₂)
-    aux₅ = trans (sym (ordTree-node (node t₁₁ i₁ t₁₂) i (node t₂₁ i₂ t₂₂))) OTt
+    -- Helper terms to get the conjuncts from OTt.
+    helper₁ = ordTree-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂)
+    helper₂ = ordTree-Bool (nodeT Tt₂₁ Ni₂ Tt₂₂)
+    helper₃ = ≤-TreeItem-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂) Ni
+    helper₄ = ≤-ItemTree-Bool Ni (nodeT Tt₂₁ Ni₂ Tt₂₂)
+    helper₅ = trans (sym (ordTree-node (node t₁₁ i₁ t₁₂) i (node t₂₁ i₂ t₂₂))) OTt
 
-    -- Auxiliary terms to get the conjuncts from the third conjunct of OTt.
-    aux₆ = ≤-TreeItem-Bool Tt₁₁ Ni
-    aux₇ = ≤-TreeItem-Bool Tt₁₂ Ni
-    aux₈ = trans (sym (≤-TreeItem-node t₁₁ i₁ t₁₂ i))
-                 (&&₃-proj₃ aux₁ aux₂ aux₃ aux₄ aux₅)
+    -- Helper terms to get the conjuncts from the third conjunct of OTt.
+    helper₆ = ≤-TreeItem-Bool Tt₁₁ Ni
+    helper₇ = ≤-TreeItem-Bool Tt₁₂ Ni
+    helper₈ = trans (sym (≤-TreeItem-node t₁₁ i₁ t₁₂ i))
+                    (&&₃-proj₃ helper₁ helper₂ helper₃ helper₄ helper₅)
 
     -- Common terms for the lemma₁ and lemma₂.
     OrdTree-node-t₂₁-i₂-t₂₂ : OrdTree (node t₂₁ i₂ t₂₂)
-    OrdTree-node-t₂₁-i₂-t₂₂ = &&₃-proj₂ aux₁ aux₂ aux₃ aux₄ aux₅
+    OrdTree-node-t₂₁-i₂-t₂₂ = &&₃-proj₂ helper₁ helper₂ helper₃ helper₄ helper₅
 
     LE-ItemTree-i-node-t₂₁-i₂-t₂₂ : LE-ItemTree i (node t₂₁ i₂ t₂₂)
-    LE-ItemTree-i-node-t₂₁-i₂-t₂₂ = &&₃-proj₄ aux₁ aux₂ aux₃ aux₄ aux₅
+    LE-ItemTree-i-node-t₂₁-i₂-t₂₂ = &&₃-proj₄ helper₁ helper₂ helper₃ helper₄
+                                              helper₅
 
     lemma₁ : LE-Lists (flatten t₁₁) (flatten (node t₂₁ i₂ t₂₂))
-    lemma₁ = flatten-OrdList-aux Tt₁₁ Ni (nodeT Tt₂₁ Ni₂ Tt₂₂) OT  -- IH.
+    lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (nodeT Tt₂₁ Ni₂ Tt₂₂) OT  -- IH.
       where
         OrdTree-t₁₁ : OrdTree t₁₁
         OrdTree-t₁₁ =
-          leftSubTree-OrdTree Tt₁₁ Ni₁ Tt₁₂ (&&₃-proj₁ aux₁ aux₂ aux₃ aux₄ aux₅)
+          leftSubTree-OrdTree Tt₁₁ Ni₁ Tt₁₂ (&&₃-proj₁ helper₁ helper₂ helper₃
+                                                       helper₄ helper₅)
 
         LE-TreeItem-t₁₁-i : LE-TreeItem t₁₁ i
-        LE-TreeItem-t₁₁-i = &&-proj₁ aux₆ aux₇ aux₈
+        LE-TreeItem-t₁₁-i = &&-proj₁ helper₆ helper₇ helper₈
 
         OT : OrdTree (node t₁₁ i (node t₂₁ i₂ t₂₂))
         OT =
@@ -528,14 +535,15 @@ flatten-OrdList-aux {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt�
           ∎
 
     lemma₂ : LE-Lists (flatten t₁₂) (flatten (node t₂₁ i₂ t₂₂))
-    lemma₂ = flatten-OrdList-aux Tt₁₂ Ni (nodeT Tt₂₁ Ni₂ Tt₂₂) OT  -- IH.
+    lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (nodeT Tt₂₁ Ni₂ Tt₂₂) OT  -- IH.
       where
         OrdTree-t₁₂ : OrdTree t₁₂
         OrdTree-t₁₂ =
-          rightSubTree-OrdTree Tt₁₁ Ni₁ Tt₁₂ (&&₃-proj₁ aux₁ aux₂ aux₃ aux₄ aux₅)
+          rightSubTree-OrdTree Tt₁₁ Ni₁ Tt₁₂ (&&₃-proj₁ helper₁ helper₂ helper₃
+                                                        helper₄ helper₅)
 
         LE-TreeItem-t₁₂-i : LE-TreeItem t₁₂ i
-        LE-TreeItem-t₁₂-i = &&-proj₂ aux₆ aux₇ aux₈
+        LE-TreeItem-t₁₂-i = &&-proj₂ helper₆ helper₇ helper₈
 
         OT : OrdTree (node t₁₂ i (node t₂₁ i₂ t₂₂))
         OT =

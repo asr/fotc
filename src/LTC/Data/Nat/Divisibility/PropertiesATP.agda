@@ -25,7 +25,7 @@ open import LTC.Data.Nat.PropertiesATP
 
 ------------------------------------------------------------------------------
 -- The divisibility relation is reflexive for positive numbers.
--- For the proof using the ATP we added the auxiliary hypothesis
+-- For the proof using the ATP we added the helper hypothesis
 -- N (succ zero).
 postulate ∣-refl-S-ah : ∀ {n} → N n → N (succ zero) → succ n ∣ succ n
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).

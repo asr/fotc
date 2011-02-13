@@ -23,17 +23,17 @@ x∷xs≈x∷ys→xs≈ys {x} {xs} {ys} x∷xs≈x∷ys = xs≈ys
     ys' : D
     ys' = ∃D-proj₁ (∃D-proj₂ (∃D-proj₂ (-≈-gfp₁ x∷xs≈x∷ys)))
 
-    aux : xs' ≈ ys' ∧ x ∷ xs ≡ x' ∷ xs' ∧ x ∷ ys ≡ x' ∷ ys'
-    aux = ∃D-proj₂ (∃D-proj₂ (∃D-proj₂ (-≈-gfp₁ x∷xs≈x∷ys)))
+    helper : xs' ≈ ys' ∧ x ∷ xs ≡ x' ∷ xs' ∧ x ∷ ys ≡ x' ∷ ys'
+    helper = ∃D-proj₂ (∃D-proj₂ (∃D-proj₂ (-≈-gfp₁ x∷xs≈x∷ys)))
 
     xs'≈ys' : xs' ≈ ys'
-    xs'≈ys' = ∧-proj₁ aux
+    xs'≈ys' = ∧-proj₁ helper
 
     x∷xs≡x'∷xs' : x ∷ xs ≡ x' ∷ xs'
-    x∷xs≡x'∷xs' = ∧-proj₁ (∧-proj₂ aux)
+    x∷xs≡x'∷xs' = ∧-proj₁ (∧-proj₂ helper)
 
     x∷ys≡x'∷ys' : x ∷ ys ≡ x' ∷ ys'
-    x∷ys≡x'∷ys' = ∧-proj₂ (∧-proj₂ aux)
+    x∷ys≡x'∷ys' = ∧-proj₂ (∧-proj₂ helper)
 
     xs≡xs' : xs ≡ xs'
     xs≡xs' = ∧-proj₂ (∷-injective x∷xs≡x'∷xs')

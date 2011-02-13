@@ -7,7 +7,7 @@ module LTC-PCF.Data.Nat.Inequalities.EquationsI where
 open import LTC.Base
 
 open import LTC-PCF.Data.Nat.Inequalities
-  using ( _<_ ; <-aux₁ ; <-aux₂ ; <-h
+  using ( _<_ ; <-helper₁ ; <-helper₂ ; <-h
         ; _≤_
         ; GE ; GT ; LE ; LT ; NGT ; NLE ; NLT
         )
@@ -40,21 +40,21 @@ private
 
   -- Definition of <-h.
   <-s₂ : D → D → D
-  <-s₂ d e = lam (<-aux₂ (fix <-h)) · d · e
+  <-s₂ d e = lam (<-helper₂ (fix <-h)) · d · e
 
   -- Beta application.
   <-s₃ : D → D → D
-  <-s₃ d e = <-aux₂ (fix <-h) d · e
+  <-s₃ d e = <-helper₂ (fix <-h) d · e
 
-  -- Definition of lt-aux₂.
+  -- Definition of lt-helper₂.
   <-s₄ : D → D → D
-  <-s₄ d e = lam (<-aux₁ d (fix <-h)) · e
+  <-s₄ d e = lam (<-helper₁ d (fix <-h)) · e
 
   -- Beta application.
   <-s₅ : D → D → D
-  <-s₅ d e = <-aux₁ d (fix <-h) e
+  <-s₅ d e = <-helper₁ d (fix <-h) e
 
-  -- Definition lt-aux₁.
+  -- Definition lt-helper₁.
   <-s₆ : D → D → D
   <-s₆ d e = if (isZero e) then false
                 else (if (isZero d) then true
@@ -122,19 +122,19 @@ private
 
   -- Beta application.
   s₂→s₃ : ∀ d e → <-s₂ d e ≡ <-s₃ d e
-  s₂→s₃ d e = subst (λ t → lam (<-aux₂ (fix <-h)) · d · e ≡ t · e)
-                    (beta (<-aux₂ (fix <-h)) d)
+  s₂→s₃ d e = subst (λ t → lam (<-helper₂ (fix <-h)) · d · e ≡ t · e)
+                    (beta (<-helper₂ (fix <-h)) d)
                     refl
 
-  -- Definition of lt-aux₂
+  -- Definition of lt-helper₂
   s₃→s₄ : ∀ d e → <-s₃ d e ≡ <-s₄ d e
   s₃→s₄ d e = refl
 
   -- Beta application.
   s₄→s₅ : ∀ d e → <-s₄ d e ≡ <-s₅ d e
-  s₄→s₅ d e = beta (<-aux₁ d (fix <-h)) e
+  s₄→s₅ d e = beta (<-helper₁ d (fix <-h)) e
 
-  -- Definition of lt-aux₁.
+  -- Definition of lt-helper₁.
   s₅→s₆ : ∀ d e → <-s₅ d e ≡ <-s₆ d e
   s₅→s₆ d e = refl
 

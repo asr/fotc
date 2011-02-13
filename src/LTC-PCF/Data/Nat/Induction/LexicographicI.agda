@@ -45,7 +45,7 @@ wfInd-LT₂ P accH Nm Nn = accH Nm Nn (wfAux Nm Nn)
                               (x<y→Sx≤y Nm No m<o)
                               (Sx≤Sy→x≤y {o} {n} (x<y→Sx≤y No (sN Nn) o<Sn)))
 
-    wfAux : ∀ {m₁ n₁} → N m₁ → N n₁ → ∀ {m₂ n₂} → N m₂ → N n₂ →
+    wfAux : ∀ {m₁ n₁ m₂ n₂} → N m₁ → N n₁ → N m₂ → N n₂ →
             LT₂ m₂ n₂ m₁ n₁ → P m₂ n₂
 
     wfAux Nm₁ Nn₂ zN zN 00<00 =

@@ -21,25 +21,25 @@ open import LTC.Base
 -- (Hughes. Super-combinators. 1982)
 
 private
-  rec-aux₁ : D → D → D → D → D
-  rec-aux₁ n a r f = if (isZero n)
-                        then a
-                        else f · (pred n) · (r · (pred n) · a · f)
-  {-# ATP definition rec-aux₁ #-}
+  rec-helper₁ : D → D → D → D → D
+  rec-helper₁ n a r f = if (isZero n)
+                           then a
+                           else f · (pred n) · (r · (pred n) · a · f)
+  {-# ATP definition rec-helper₁ #-}
 
-  rec-aux₂ : D → D → D → D
-  rec-aux₂ n r a = lam (rec-aux₁ n a r)
-  {-# ATP definition rec-aux₂ #-}
+  rec-helper₂ : D → D → D → D
+  rec-helper₂ n r a = lam (rec-helper₁ n a r)
+  {-# ATP definition rec-helper₂ #-}
 
   -- rech : D → D
   -- rech r = lam (λ n → lam (β n r))
 
-  rec-aux₃ : D → D → D
-  rec-aux₃ r n = lam (rec-aux₂ n r)
-  {-# ATP definition rec-aux₃ #-}
+  rec-helper₃ : D → D → D
+  rec-helper₃ r n = lam (rec-helper₂ n r)
+  {-# ATP definition rec-helper₃ #-}
 
 rech : D → D
-rech r = lam (rec-aux₃ r)
+rech r = lam (rec-helper₃ r)
 {-# ATP definition rech #-}
 
 rec : D → D → D → D

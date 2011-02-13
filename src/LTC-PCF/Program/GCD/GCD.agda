@@ -40,24 +40,24 @@ It is possible to define two different versions of gcd based on which
 -- Version using lambda lifting via super-combinators.
 -- (Hughes. Super-combinators. 1982)
 
-gcd-aux₁ : D → D → D → D
-gcd-aux₁ d g e = if (isZero e)
-                    then (if (isZero d)
-                             then error
-                             else d)
-                         else (if (isZero d)
-                           then e
-                           else (if (d > e)
-                                    then g · (d ∸ e) · e
-                                    else g · d · (e ∸ d)))
-{-# ATP definition gcd-aux₁ #-}
+gcd-helper₁ : D → D → D → D
+gcd-helper₁ d g e = if (isZero e)
+                       then (if (isZero d)
+                                then error
+                                else d)
+                        else (if (isZero d)
+                          then e
+                          else (if (d > e)
+                                   then g · (d ∸ e) · e
+                                   else g · d · (e ∸ d)))
+{-# ATP definition gcd-helper₁ #-}
 
-gcd-aux₂ : D → D → D
-gcd-aux₂ g d = lam (gcd-aux₁ d g)
-{-# ATP definition gcd-aux₂ #-}
+gcd-helper₂ : D → D → D
+gcd-helper₂ g d = lam (gcd-helper₁ d g)
+{-# ATP definition gcd-helper₂ #-}
 
 gcdh : D → D
-gcdh g = lam (gcd-aux₂ g)
+gcdh g = lam (gcd-helper₂ g)
 {-# ATP definition gcdh #-}
 
 gcd : D → D → D

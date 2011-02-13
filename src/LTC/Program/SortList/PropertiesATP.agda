@@ -62,7 +62,7 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
     -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
     {-# ATP prove prf₁ ≤-ItemTree-Bool ≤-TreeItem-Bool ordTree-Bool
                        x>y→x≰y &&₃-proj₃ &&₃-proj₄
-                       ordTree-Bool toTree-OrdTree-aux₁
+                       ordTree-Bool toTree-OrdTree-helper₁
     #-}
 
     postulate prf₂ : ordTree (toTree · item · t₂) ≡ true → -- IH.
@@ -73,7 +73,7 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf₂ ≤-ItemTree-Bool ≤-TreeItem-Bool ordTree-Bool
                        &&₃-proj₃ &&₃-proj₄
-                       toTree-OrdTree-aux₂
+                       toTree-OrdTree-helper₂
     #-}
 
 ------------------------------------------------------------------------------
@@ -124,7 +124,7 @@ makeTree-OrdTree (consLN {i} {is} Ni Lis) = prf $ makeTree-OrdTree Lis
     -- Vampire 0.6 (revision 903): Non-tested.
     {-# ATP prove lemma ≤-ItemList-Bool ≤-Lists-Bool ordList-Bool
                         &&-proj₁ &&-proj₂
-                        ++-OrdList-aux
+                        ++-OrdList-helper
     #-}
 
 ------------------------------------------------------------------------------
@@ -146,7 +146,7 @@ flatten-OrdList (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTt
                     (flatten-ListN Tt₂)
                     (flatten-OrdList Tt₁ (leftSubTree-OrdTree Tt₁ Ni Tt₂ OTt)) -- IH.
                     (flatten-OrdList Tt₂ (rightSubTree-OrdTree Tt₁ Ni Tt₂ OTt))-- IH.
-                    (flatten-OrdList-aux Tt₁ Ni Tt₂ OTt))
+                    (flatten-OrdList-helper Tt₁ Ni Tt₂ OTt))
   where
     postulate prf : OrdList (flatten t₁ ++ flatten t₂) → -- Indirect IH.
                     OrdList (flatten (node t₁ i t₂))
