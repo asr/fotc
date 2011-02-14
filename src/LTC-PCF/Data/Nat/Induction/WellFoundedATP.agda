@@ -20,10 +20,9 @@ open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
 -- Well-founded induction on N.
 -- Adapted from http://code.haskell.org/~dolio/agda-share/induction/.
 
-wfInd-LT :
-   (P : D → Set) →
-   (∀ {m} → N m → (∀ {n} → N n → LT n m → P n) → P m) →
-   ∀ {n} → N n → P n
+wfInd-LT : (P : D → Set) →
+           (∀ {m} → N m → (∀ {n} → N n → LT n m → P n) → P m) →
+           ∀ {n} → N n → P n
 wfInd-LT P accH Nn = accH Nn (helper Nn)
   where
     helper : ∀ {m n} → N m → N n → LT n m → P n
