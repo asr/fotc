@@ -12,7 +12,11 @@ open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
 
 ------------------------------------------------------------------------------
--- Elimination properties
+-- Some elimination properties.
+
+-- There are others elimination properties in the module
+-- LTC.Data.Nat.Inequalities.Properties(I/ATP) which exports this
+-- module.
 
 0<0→⊥ : ¬ LT zero zero
 0<0→⊥ 0<0 = true≠false $ trans (sym 0<0) <-00

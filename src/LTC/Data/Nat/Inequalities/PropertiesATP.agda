@@ -92,7 +92,6 @@ x>y→x≰y (sN Nm)     zN          _     = S≰0 Nm
 x>y→x≰y (sN {m} Nm) (sN {n} Nn) Sm>Sn =
   x≰y→Sx≰Sy m n (x>y→x≰y Nm Nn (trans (sym $ <-SS n m) Sm>Sn))
 
--- TODO: To move to LTC.Data.Nat.Inequalities.Properties.
 postulate
   x>y→x≤y→⊥ : ∀ {m n} → N m → N n → GT m n → LE m n → ⊥
 {-# ATP prove x>y→x≤y→⊥ x>y→x≰y #-}
