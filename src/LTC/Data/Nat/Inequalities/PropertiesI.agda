@@ -283,10 +283,10 @@ x<y→y≡z→x<z m<n refl = m<n
 x≡y→y<z→x<z : ∀ {m n o} → m ≡ n → LT n o → LT m o
 x≡y→y<z→x<z refl n<o = n<o
 
-x≥y→y>0→x-y<x : ∀ {m n} → N m → N n → GE m n → GT n zero → LT (m ∸ n) m
-x≥y→y>0→x-y<x Nm          zN          _     0>0  = ⊥-elim $ x>x→⊥ zN 0>0
-x≥y→y>0→x-y<x zN          (sN Nn)     0≥Sn  _    = ⊥-elim $ S≤0→⊥ Nn 0≥Sn
-x≥y→y>0→x-y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 =
+x≥y→y>0→x∸y<x : ∀ {m n} → N m → N n → GE m n → GT n zero → LT (m ∸ n) m
+x≥y→y>0→x∸y<x Nm          zN          _     0>0  = ⊥-elim $ x>x→⊥ zN 0>0
+x≥y→y>0→x∸y<x zN          (sN Nn)     0≥Sn  _    = ⊥-elim $ S≤0→⊥ Nn 0≥Sn
+x≥y→y>0→x∸y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 =
   begin
     (succ m ∸ succ n) < (succ m)
       ≡⟨ subst (λ t → (succ m ∸ succ n) < (succ m) ≡ t < (succ m))

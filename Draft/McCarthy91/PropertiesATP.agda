@@ -22,7 +22,7 @@ postulate n<n+1 : ∀ {n} → N n → LT n (n + one)
 {-# ATP prove n<n+1 x<Sx +-comm #-}
 
 postulate n+1<=n-10+11 : ∀ {n} → N n →  LE (n + one) ((n ∸ ten) + eleven)
-{-# ATP prove n+1<=n-10+11 x≤y+x-y N10 1+x-N 11+x-N x∸10-N +-comm #-}
+{-# ATP prove n+1<=n-10+11 x≤y+x∸y N10 1+x-N 11+x-N x∸10-N +-comm #-}
 
 
 ---- Case n > 100

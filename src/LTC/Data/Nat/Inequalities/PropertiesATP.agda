@@ -199,13 +199,13 @@ postulate x≤y→x+k≤y+k : ∀ {m n k} → N m → N n → N k → LE m n →
                         LE (m + k) (n + k)
 {-# ATP prove x≤y→x+k≤y+k x≤y→k+x≤k+y +-comm #-}
 
-x<y→Sx-y≡0 : ∀ {m n} → N m → N n → LT m n → succ m ∸ n ≡ zero
-x<y→Sx-y≡0 Nm zN h = ⊥-elim (x<0→⊥ Nm h)
-x<y→Sx-y≡0 zN (sN {n} Nn) h = prf0S
+x<y→Sx∸y≡0 : ∀ {m n} → N m → N n → LT m n → succ m ∸ n ≡ zero
+x<y→Sx∸y≡0 Nm zN h = ⊥-elim (x<0→⊥ Nm h)
+x<y→Sx∸y≡0 zN (sN {n} Nn) h = prf0S
   where
     postulate prf0S : succ zero ∸ succ n ≡ zero
     {-# ATP prove prf0S ∸-0x #-}
-x<y→Sx-y≡0 (sN {m} Nm) (sN {n} Nn) h = prfSS (x<y→Sx-y≡0 Nm Nn m<n)
+x<y→Sx∸y≡0 (sN {m} Nm) (sN {n} Nn) h = prfSS (x<y→Sx∸y≡0 Nm Nn m<n)
   where
     postulate m<n : LT m n
     {-# ATP prove m<n #-}
@@ -214,16 +214,16 @@ x<y→Sx-y≡0 (sN {m} Nm) (sN {n} Nn) h = prfSS (x<y→Sx-y≡0 Nm Nn m<n)
     {-# ATP prove prfSS #-}
 
 postulate x≤y→x-y≡0 : ∀ {m n} → N m → N n → LE m n → (m ∸ n) ≡ zero
-{-# ATP prove x≤y→x-y≡0 x<y→Sx-y≡0 #-}
+{-# ATP prove x≤y→x-y≡0 x<y→Sx∸y≡0 #-}
 
-x<y→0<x-y : ∀ {m n} → N m → N n → LT m n → LT zero (n ∸ m)
-x<y→0<x-y Nm zN h = ⊥-elim (x<0→⊥ Nm h)
-x<y→0<x-y zN (sN {n} Nn) h = prf0S
+x<y→0<x∸y : ∀ {m n} → N m → N n → LT m n → LT zero (n ∸ m)
+x<y→0<x∸y Nm zN h = ⊥-elim (x<0→⊥ Nm h)
+x<y→0<x∸y zN (sN {n} Nn) h = prf0S
   where
     postulate prf0S : LT zero (succ n ∸ zero)
     {-# ATP prove prf0S #-}
 
-x<y→0<x-y (sN {m} Nm) (sN {n} Nn) h = prfSS (x<y→0<x-y Nm Nn m<n)
+x<y→0<x∸y (sN {m} Nm) (sN {n} Nn) h = prfSS (x<y→0<x∸y Nm Nn m<n)
   where
     postulate m<n : LT m n
     {-# ATP prove m<n #-}
@@ -231,18 +231,18 @@ x<y→0<x-y (sN {m} Nm) (sN {n} Nn) h = prfSS (x<y→0<x-y Nm Nn m<n)
     postulate prfSS : LT zero (n ∸ m) → LT zero (succ n ∸ succ m)
     {-# ATP prove prfSS #-}
 
-0<x-y→0<Sx-y : ∀ {m n} → N m → N n → LT zero (m ∸ n) → LT zero (succ m ∸ n)
-0<x-y→0<Sx-y {m} Nm zN h = prfx0
+0<x∸y→0<Sx∸y : ∀ {m n} → N m → N n → LT zero (m ∸ n) → LT zero (succ m ∸ n)
+0<x∸y→0<Sx∸y {m} Nm zN h = prfx0
   where
     postulate prfx0 : LT zero (succ m ∸ zero)
     {-# ATP prove prfx0 #-}
 
-0<x-y→0<Sx-y zN (sN {n} Nn) h = ⊥-elim (x<0→⊥ zN h')
+0<x∸y→0<Sx∸y zN (sN {n} Nn) h = ⊥-elim (x<0→⊥ zN h')
   where
     postulate h' : LT zero zero
     {-# ATP prove h' #-}
 
-0<x-y→0<Sx-y (sN {m} Nm) (sN {n} Nn) h = prfSS (0<x-y→0<Sx-y Nm Nn 0<m-n)
+0<x∸y→0<Sx∸y (sN {m} Nm) (sN {n} Nn) h = prfSS (0<x∸y→0<Sx∸y Nm Nn 0<m-n)
   where
     postulate 0<m-n : LT zero (m ∸ n)
     {-# ATP prove 0<m-n #-}
@@ -338,10 +338,10 @@ postulate
   x≡y→y<z→x<z : ∀ {m n o} → m ≡ n → LT n o → LT m o
 {-# ATP prove x≡y→y<z→x<z #-}
 
-x≥y→y>0→x-y<x : ∀ {m n} → N m → N n → GE m n → GT n zero → LT (m ∸ n) m
-x≥y→y>0→x-y<x Nm          zN          _     0>0  = ⊥-elim $ x>x→⊥ zN 0>0
-x≥y→y>0→x-y<x zN          (sN Nn)     0≥Sn  _    = ⊥-elim $ S≤0→⊥ Nn 0≥Sn
-x≥y→y>0→x-y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 = prf
+x≥y→y>0→x∸y<x : ∀ {m n} → N m → N n → GE m n → GT n zero → LT (m ∸ n) m
+x≥y→y>0→x∸y<x Nm          zN          _     0>0  = ⊥-elim $ x>x→⊥ zN 0>0
+x≥y→y>0→x∸y<x zN          (sN Nn)     0≥Sn  _    = ⊥-elim $ S≤0→⊥ Nn 0≥Sn
+x≥y→y>0→x∸y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 = prf
   where
     postulate prf : LT (succ m ∸ succ n) (succ m)
     {-# ATP prove prf x∸y<Sx #-}
@@ -352,14 +352,14 @@ x<y→y≤z→x<z Nm Nn No m<n n≤o =
   , (λ n≡o → x<y→y≡z→x<z m<n n≡o)
   ] (x<Sy→x<y∨x≡y Nn No n≤o)
 
-x≤y+x-y : ∀ {m n} → N m → N n → LE m (n + (m ∸ n))
-x≤y+x-y {n = n} zN Nn = prf0
+x≤y+x∸y : ∀ {m n} → N m → N n → LE m (n + (m ∸ n))
+x≤y+x∸y {n = n} zN Nn = prf0
   where postulate prf0 : LE zero (n + (zero ∸ n))
         {-# ATP prove prf0 0≤x +-N  #-}
-x≤y+x-y (sN {m} Nm) zN = prfx0
+x≤y+x∸y (sN {m} Nm) zN = prfx0
   where postulate prfx0 : LE (succ m) (zero + (succ m ∸ zero))
         {-# ATP prove prfx0 x<Sx #-}
-x≤y+x-y (sN {m} Nm) (sN {n} Nn) = prfSS (x≤y+x-y Nm Nn)
+x≤y+x∸y (sN {m} Nm) (sN {n} Nn) = prfSS (x≤y+x∸y Nm Nn)
   where postulate prfSS : LE m (n + (m ∸ n)) →  -- IH.
                           LE (succ m) (succ n + (succ m ∸ succ n))
         {-# ATP prove prfSS x≤y→Sx≤Sy ≤-trans +-N ∸-N #-}
