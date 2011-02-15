@@ -6,14 +6,9 @@ module LTC.Data.Nat.PropertiesATP where
 
 open import LTC.Base
 
-open import Common.Function using ( _$_ )
+open import Common.Function
 
 open import LTC.Data.Nat
-  using ( _+_ ; +-0x
-        ; _∸_ ; ∸-0S ; ∸-x0
-        ; _*_ ; *-0x
-        ; N ; sN ; zN  -- The LTC natural numbers type.
-        )
 
 ------------------------------------------------------------------------------
 -- Closure properties
@@ -115,9 +110,37 @@ x+Sy≡S[x+y] {n = n} (sN {m} Nm) Nn = prf $ x+Sy≡S[x+y] Nm Nn
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf x+Sy≡S[x+y] #-}
 
+x+S0≡Sx : ∀ {n} → N n → n + succ zero ≡ succ n
+x+S0≡Sx zN          = +-0x (succ zero)
+x+S0≡Sx (sN {n} Nn) = prf (x+S0≡Sx Nn)
+  where
+    postulate prf : n + succ zero ≡ succ n →  -- IH.
+                    succ n + succ zero ≡ succ (succ n)
+    {-# ATP prove prf #-}
+
 ∸-0x : ∀ {n} → N n → zero ∸ n ≡ zero
 ∸-0x zN         = ∸-x0 zero
 ∸-0x (sN {n} _) = ∸-0S n
+
+Sx∸x≡S0 : ∀ {n} → N n → succ n ∸ n ≡ succ zero
+Sx∸x≡S0 zN          = ∸-x0 (succ zero)
+Sx∸x≡S0 (sN {n} Nn) = trans (∸-SS (succ n) n) (Sx∸x≡S0 Nn)
+
+[x+Sy]∸y≡Sx : ∀ {m n} → N m → N n → (m + succ n) ∸ n ≡ succ m
+[x+Sy]∸y≡Sx {n = n} zN Nn = prf
+  where
+    postulate prf : zero + succ n ∸ n ≡ succ zero
+    {-# ATP prove prf Sx∸x≡S0 #-}
+[x+Sy]∸y≡Sx (sN {m} Nm) zN = prf
+  where
+    postulate prf : succ m + succ zero ∸ zero ≡ succ (succ m)
+    {-# ATP prove prf x+S0≡Sx #-}
+
+[x+Sy]∸y≡Sx (sN {m} Nm) (sN {n} Nn) = prf ([x+Sy]∸y≡Sx (sN Nm) Nn)
+  where
+    postulate prf : succ m + succ n ∸ n ≡ succ (succ m) →  -- IH.
+                    succ m + succ (succ n) ∸ succ n ≡ succ (succ m)
+    {-# ATP prove prf +-comm #-}
 
 [x+y]∸[x+z]≡y∸z : ∀ {m n o} → N m → N n → N o → (m + n) ∸ (m + o) ≡ n ∸ o
 [x+y]∸[x+z]≡y∸z {n = n} {o} zN _ _ = prf
