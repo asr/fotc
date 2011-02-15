@@ -377,6 +377,31 @@ x≤y+x∸y (sN {m} Nm) (sN {n} Nn) = prfSS (x≤y+x∸y Nm Nn)
                           LE (succ m) (succ n + (succ m ∸ succ n))
         {-# ATP prove prfSS x≤y→Sx≤Sy ≤-trans +-N ∸-N #-}
 
+x∸y<x∸z→Sx∸y<Sx∸z : ∀ {m n o} → N m → N n → N o →
+                    LT (m ∸ n) (m ∸ o) → LT (succ m ∸ n) (succ m ∸ o)
+x∸y<x∸z→Sx∸y<Sx∸z {n = n} {o} zN Nn No 0∸n<0∸o = prf
+  where
+    postulate prf : LT (succ zero ∸ n) (succ zero ∸ o)
+    {-# ATP prove prf ∸-0x 0<0→⊥ #-}
+
+x∸y<x∸z→Sx∸y<Sx∸z {o = o} (sN {m} Nm) zN No Sm∸0<Sm∸o = prf
+  where
+    postulate prf : LT (succ (succ m) ∸ zero) (succ (succ m) ∸ o)
+    {-# ATP prove prf x<x∸y→⊥ #-}
+
+x∸y<x∸z→Sx∸y<Sx∸z (sN {m} Nm) (sN {n} Nn) zN Sm∸Sn<Sm∸0 = prf
+  where
+    postulate prf : LT (succ (succ m) ∸ succ n) (succ (succ m) ∸ zero)
+    {-# ATP prove prf Sx∸Sy<Sx #-}
+
+x∸y<x∸z→Sx∸y<Sx∸z (sN {m} Nm) (sN {n} Nn) (sN {o} No) Sm∸Sn<Sm∸So =
+  prf (x∸y<x∸z→Sx∸y<Sx∸z Nm Nn No)
+  where
+    postulate
+      prf : (LT (m ∸ n) (m ∸ o) → LT (succ m ∸ n) (succ m ∸ o)) →  -- IH.
+            LT (succ (succ m) ∸ succ n) (succ (succ m) ∸ succ o)
+    {-# ATP prove prf #-}
+
 ------------------------------------------------------------------------------
 -- Properties about LT₂
 
