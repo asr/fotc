@@ -272,6 +272,20 @@ postulate
   Sx∸Sy<Sx : ∀ {m n} → N m → N n → LT (succ m ∸ succ n) (succ m)
 {-# ATP prove Sx∸Sy<Sx x∸y<Sx #-}
 
+x<x∸y→⊥ : ∀ {m n} → N m → N n → ¬ (LT m (m ∸ n))
+x<x∸y→⊥ {m} Nm zN m<m∸0 = prf
+  where
+    postulate prf : ⊥
+    {-# ATP prove prf x<x→⊥ #-}
+x<x∸y→⊥ zN (sN Nn) 0<0∸Sn = prf
+ where
+   postulate prf : ⊥
+   {-# ATP prove prf x<x→⊥ #-}
+x<x∸y→⊥ (sN Nm) (sN Nn) Sm<Sm∸Sn = prf
+  where
+    postulate prf : ⊥
+    {-# ATP prove prf ∸-N x<y→y<x→⊥ x∸y<Sx #-}
+
 x>y→x∸y+y≡x : ∀ {m n} → N m → N n → GT m n → (m ∸ n) + n ≡ m
 x>y→x∸y+y≡x zN          Nn 0>n  = ⊥-elim $ 0>x→⊥ Nn 0>n
 x>y→x∸y+y≡x (sN {m} Nm) zN Sm>0 = prf
