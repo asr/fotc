@@ -270,7 +270,7 @@ x∸y<Sx (sN {m} Nm) (sN {n} Nn) = prf $ x∸y<Sx Nm Nn
 
 postulate
   Sx∸Sy<Sx : ∀ {m n} → N m → N n → LT (succ m ∸ succ n) (succ m)
-{-# ATP prove Sx∸Sy<Sx ∸-SS x∸y<Sx #-}
+{-# ATP prove Sx∸Sy<Sx x∸y<Sx #-}
 
 x>y→x∸y+y≡x : ∀ {m n} → N m → N n → GT m n → (m ∸ n) + n ≡ m
 x>y→x∸y+y≡x zN          Nn 0>n  = ⊥-elim $ 0>x→⊥ Nn 0>n
