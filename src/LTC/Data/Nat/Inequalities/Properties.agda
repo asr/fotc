@@ -49,3 +49,9 @@ S≤0→⊥ (sN {n} _) SSn≤0 = true≠false (trans (sym SSn≤0)
 
 0≥S→⊥ : ∀ {n} → N n → ¬ (GE zero (succ n))
 0≥S→⊥ Nn 0≥Sn = S≤0→⊥ Nn 0≥Sn
+
+x<y→y<x→⊥ : ∀ {m n} → N m → N n → LT m n → ¬ (LT n m)
+x<y→y<x→⊥ zN      Nn              0<n   n<0   = ⊥-elim (0>x→⊥ Nn n<0)
+x<y→y<x→⊥ (sN Nm) zN              Sm<0  0<Sm  = ⊥-elim (0>x→⊥ (sN Nm) Sm<0)
+x<y→y<x→⊥ (sN {m} Nm) (sN {n} Nn) Sm<Sn Sn<Sm =
+  x<y→y<x→⊥ Nm Nn (trans (sym (<-SS m n)) Sm<Sn) (trans (sym (<-SS n m)) Sn<Sm)
