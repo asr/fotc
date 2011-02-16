@@ -18,7 +18,7 @@ open import LTC.Data.Nat
 
 ----------------------------------------------------------------------------
 
--- Adapted from LTC.Data.Nat.Induction.WellFoundedI.wfInd-LT₁
+-- Adapted from LTC.Data.Nat.Induction.WellFoundedI.wfInd-LT₁.
 wfInd-MCR : (P : D → Set) →
             (∀ {m} → N m → (∀ {n} → N n → MCR n m → P n) → P m) →
             ∀ {n} → N n → P n
