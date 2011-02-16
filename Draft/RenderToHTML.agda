@@ -4,4 +4,4 @@
 
 module Draft.RenderToHTML where
 
-open import Draft.Groupoids.PropertiesER
+open import Draft.McCarthy91.WellFoundedInductionATP

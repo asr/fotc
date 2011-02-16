@@ -9,4 +9,4 @@ open import Draft.McCarthy91.McCarthy91.ConsistencyTest
 open import Draft.McCarthy91.McCarthy91
 open import Draft.McCarthy91.PropertiesATP
 open import Draft.McCarthy91.RelationATP
-open import Draft.McCarthy91.WellFoundedInduction
+open import Draft.McCarthy91.WellFoundedInductionATP
