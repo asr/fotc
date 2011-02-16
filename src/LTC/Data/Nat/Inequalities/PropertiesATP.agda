@@ -288,6 +288,23 @@ x<x∸y→⊥ (sN Nm) (sN Nn) Sm<Sm∸Sn = prf
     postulate prf : ⊥
     {-# ATP prove prf ∸-N x<y→y<x→⊥ x∸y<Sx #-}
 
+x∸Sy≤x∸y : ∀ {m n} → N m → N n → LE (m ∸ succ n) (m ∸ n)
+x∸Sy≤x∸y {n = n} zN Nn = prf
+  where
+    postulate prf : LE (zero ∸ succ n) (zero ∸ n)
+    {-# ATP prove prf 0≤x #-}
+
+x∸Sy≤x∸y (sN {m} Nm) zN = prf
+  where
+    postulate prf : LE (succ m ∸ succ zero) (succ m ∸ zero)
+    {-# ATP prove prf x≤Sx #-}
+
+x∸Sy≤x∸y (sN {m} Nm) (sN {n} Nn) = prf (x∸Sy≤x∸y Nm Nn)
+  where
+    postulate prf : LE (m ∸ succ n) (m ∸ n) →  -- IH.
+                    LE (succ m ∸ succ (succ n)) (succ m ∸ (succ n))
+    {-# ATP prove prf #-}
+
 x>y→x∸y+y≡x : ∀ {m n} → N m → N n → GT m n → (m ∸ n) + n ≡ m
 x>y→x∸y+y≡x zN          Nn 0>n  = ⊥-elim $ 0>x→⊥ Nn 0>n
 x>y→x∸y+y≡x (sN {m} Nm) zN Sm>0 = prf
