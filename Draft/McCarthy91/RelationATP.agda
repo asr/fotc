@@ -53,3 +53,19 @@ Sx«Sy→x«y (sN {m} Nm) (sN {n} Nn) SSm«SSn = prf
   where
     postulate prf : MCR (succ m) (succ n)
     {-# ATP prove prf x∸y<x∸z→Sx∸y<Sx∸z #-}
+
+x«Sy→x«y : ∀ {m n} → N m → N n → MCR m (succ n) → MCR m n
+x«Sy→x«y {n = n} zN Nn 0«Sn = prf
+  where
+    postulate prf : MCR zero n
+    {-# ATP prove prf 0«x→⊥ #-}
+
+x«Sy→x«y (sN {m} Nm) zN Sm«S0 = prf
+   where
+     postulate prf : MCR (succ m) zero
+     {-# ATP prove prf x∸y<Sx #-}
+
+x«Sy→x«y (sN {m} Nm) (sN {n} Nn) Sm«SSn = prf
+  where
+    postulate prf : MCR (succ m) (succ n)
+    {-# ATP prove prf ∸-N x<y→y≤z→x<z x∸Sy≤x∸y #-}
