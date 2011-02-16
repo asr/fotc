@@ -46,10 +46,9 @@ wfInd-LT P accH Nn = accH Nn (helper Nn)
       )
 
 -- Other version using different properties of inequalities.
-wfInd-LT₁ :
-   (P : D → Set) →
-   (∀ {m} → N m → (∀ {n} → N n → LT n m → P n) → P m) →
-   ∀ {n} → N n → P n
+wfInd-LT₁ : (P : D → Set) →
+            (∀ {m} → N m → (∀ {n} → N n → LT n m → P n) → P m) →
+            ∀ {n} → N n → P n
 wfInd-LT₁ P accH Nn = accH Nn (helper Nn)
   where
     helper : ∀ {m n} → N m → N n → LT n m → P n
