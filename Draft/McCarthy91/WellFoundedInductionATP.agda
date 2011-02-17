@@ -28,24 +28,15 @@ wfInd-MCR P accH Nn = accH Nn (helper Nn)
     helper Nm zN 0«m = ⊥-elim (0«x→⊥ Nm 0«m)
 
     -- This equation does not pass the termination check.
-    helper zN (sN Nn) Sn«0 = accH (sN Nn)
-      (λ {n'} Nn' n'«Sn →
+    helper zN Nn n«0 = accH Nn
+      (λ {n'} Nn' n'«n →
         let n'«0 : MCR n' zero
-            n'«0 = «-trans Nn' (sN Nn) zN n'«Sn Sn«0
+            n'«0 = «-trans Nn' Nn zN n'«n n«0
 
         in helper zN Nn' n'«0
       )
 
-    helper (sN {m} Nm) (sN {n} Nn) Sn«Sm = accH (sN Nn)
-      (λ {n'} Nn' n'«Sn →
-        let n«m : MCR n m
-            n«m = Sx«Sy→x«y Nn Nm Sn«Sm
-
-            n'«n : MCR n' n
-            n'«n = x«Sy→x«y Nn' Nn n'«Sn
-
-            n'«m : MCR n' m
-            n'«m = «-trans Nn' Nn Nm n'«n n«m
-
-        in  helper Nm Nn' n'«m
-      )
+    helper (sN {m} Nm) (sN {n} Nn) Sn«Sm = helper Nm (sN Nn) Sn«m
+      where
+        Sn«m : MCR (succ n) m
+        Sn«m = x«Sy→x«y (sN Nn) Nm Sn«Sm
