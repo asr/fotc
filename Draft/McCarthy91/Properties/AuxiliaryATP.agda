@@ -26,9 +26,9 @@ postulate
   Nmc91>100      : ∀ {n} → N n → GT n one-hundred → N (mc91 n)
   x<mc91x+11>100 : ∀ {n} → N n → GT n one-hundred →
                            LT n (mc91 n + eleven)
-{-# ATP prove Nmc91>100 x∸10-N #-}
-{-# ATP prove x<mc91x+11>100 x<y→y≤z→x<z x<x+1 x+1≤x∸10+11 1+x-N 11+x-N
-              x∸10-N +-comm #-}
+{-# ATP prove Nmc91>100 N10 ∸-N #-}
+{-# ATP prove x<mc91x+11>100 +-N ∸-N N10 N11 x<y→y≤z→x<z x<x+1 x+1≤x∸10+11
+              +-comm #-}
 
 -- Most of them not needed
 -- Case n ≡ 100 can be proved automatically
