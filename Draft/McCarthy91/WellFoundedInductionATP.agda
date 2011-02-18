@@ -12,7 +12,8 @@ module Draft.McCarthy91.WellFoundedInductionATP where
 open import LTC.Base
 
 open import Draft.McCarthy91.McCarthy91
-open import Draft.McCarthy91.RelationATP
+open import Draft.McCarthy91.MCR
+open import Draft.McCarthy91.MCR.PropertiesATP
 
 open import LTC.Data.Nat
 
