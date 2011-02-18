@@ -76,16 +76,16 @@ postulate
   mc91-res-103 : mc91 (ninety-two + eleven)   ≡ ninety-three
   mc91-res-102 : mc91 (ninety-one + eleven)   ≡ ninety-two
   mc91-res-101 : mc91 (ninety + eleven)       ≡ ninety-one
-{-# ATP prove mc91-res-110 mc91-eq₁ 99+11>100 x+11∸10≡Sx #-}
-{-# ATP prove mc91-res-109 mc91-eq₁ 98+11>100 x+11∸10≡Sx #-}
-{-# ATP prove mc91-res-108 mc91-eq₁ 97+11>100 x+11∸10≡Sx #-}
-{-# ATP prove mc91-res-107 mc91-eq₁ 96+11>100 x+11∸10≡Sx #-}
-{-# ATP prove mc91-res-106 mc91-eq₁ 95+11>100 x+11∸10≡Sx #-}
-{-# ATP prove mc91-res-105 mc91-eq₁ 94+11>100 x+11∸10≡Sx #-}
-{-# ATP prove mc91-res-104 mc91-eq₁ 93+11>100 x+11∸10≡Sx #-}
-{-# ATP prove mc91-res-103 mc91-eq₁ 92+11>100 x+11∸10≡Sx #-}
-{-# ATP prove mc91-res-102 mc91-eq₁ 91+11>100 x+11∸10≡Sx #-}
-{-# ATP prove mc91-res-101 mc91-eq₁ 90+11>100 x+11∸10≡Sx #-}
+{-# ATP prove mc91-res-110 99+11>100 x+11∸10≡Sx #-}
+{-# ATP prove mc91-res-109 98+11>100 x+11∸10≡Sx #-}
+{-# ATP prove mc91-res-108 97+11>100 x+11∸10≡Sx #-}
+{-# ATP prove mc91-res-107 96+11>100 x+11∸10≡Sx #-}
+{-# ATP prove mc91-res-106 95+11>100 x+11∸10≡Sx #-}
+{-# ATP prove mc91-res-105 94+11>100 x+11∸10≡Sx #-}
+{-# ATP prove mc91-res-104 93+11>100 x+11∸10≡Sx #-}
+{-# ATP prove mc91-res-103 92+11>100 x+11∸10≡Sx #-}
+{-# ATP prove mc91-res-102 91+11>100 x+11∸10≡Sx #-}
+{-# ATP prove mc91-res-101 90+11>100 x+11∸10≡Sx #-}
 
 postulate
   mc91-res-99 : mc91 ninety-nine  ≡ ninety-one
