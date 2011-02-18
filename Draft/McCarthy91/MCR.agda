@@ -13,10 +13,8 @@ open import LTC.Data.Nat.Unary.Numbers
 ------------------------------------------------------------------------------
 -- The MCR relation.
 
-_«_ : D → D → D
-m « n = (hundred-one ∸ m) < (hundred-one ∸ n)
-{-# ATP definition _«_ #-}
-
+-- To avoid use the name 'MCR' in the name of the properties related
+-- with this relation, we use the infix symbol _«_.
 MCR : D → D → Set
-MCR m n = m « n ≡ true
+MCR m n = LT (hundred-one ∸ m) (hundred-one ∸ n)
 {-# ATP definition MCR #-}
