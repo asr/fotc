@@ -10,5 +10,4 @@ open import Draft.McCarthy91.McCarthy91
 open import Draft.McCarthy91.MCR
 open import Draft.McCarthy91.MCR.LT2MCR-ATP
 open import Draft.McCarthy91.MCR.PropertiesATP
-open import Draft.McCarthy91.PropertiesATP
 open import Draft.McCarthy91.WellFoundedInductionATP
