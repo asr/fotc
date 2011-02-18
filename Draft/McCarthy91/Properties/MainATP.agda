@@ -2,7 +2,8 @@
 -- Main properties of the McCarthy 91 function
 ------------------------------------------------------------------------------
 
--- The main properties of the McCarthy 91 function (called mc91) are
+-- The main properties proved of the McCarthy 91 function (called
+-- mc91) are
 
 -- 1. The function always terminates.
 -- 2. For all n, n < mc91 n + 11.
