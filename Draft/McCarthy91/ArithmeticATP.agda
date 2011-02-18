@@ -114,6 +114,9 @@ postulate
 {-# ATP prove 100<102' #-}
 {-# ATP prove 100<102 100<102' 102≡91+11 #-}
 
+x+11∸10≡Sx : ∀ {n} → N n → (n + eleven) ∸ ten ≡ succ n
+x+11∸10≡Sx Nn = [x+Sy]∸y≡Sx Nn N10
+
 postulate 91>100→⊥ : GT ninety-one one-hundred → ⊥
 {-# ATP prove 91>100→⊥ #-}
 
