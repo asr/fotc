@@ -160,6 +160,9 @@ open import LTC.Data.Nat.Unary.Inequalities.PropertiesATP
 open import LTC.Program.GCD.ProofSpecificationATP
 open import LTC.Program.GCD.ProofSpecificationI
 
+-- The McCarthy 91 function
+open import LTC.Program.McCarthy91.Properties.MainATP
+
 -- Burstall's sort list algorithm
 open import LTC.Program.SortList.ProofSpecificationATP
 open import LTC.Program.SortList.ProofSpecificationI

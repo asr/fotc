@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- The McCarthy 91 function
+-- Well-founded relation use by the properties of the McCarthy 91 function
 ------------------------------------------------------------------------------
 
-module Draft.McCarthy91.McCarthy91 where
+module LTC.Program.McCarthy91.MCR where
 
 open import LTC.Base
 
@@ -11,11 +11,10 @@ open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.Unary.Numbers
 
 ------------------------------------------------------------------------------
+-- The MCR relation.
 
--- The McCarthy 91 function.
-postulate
-  mc91     : D → D
-  mc91-eq₁ : ∀ n → GT n one-hundred → mc91 n ≡ n ∸ ten
-  mc91-eq₂ : ∀ n → LE n one-hundred → mc91 n ≡ mc91 (mc91 (n + eleven))
-{-# ATP axiom mc91-eq₁ #-}
-{-# ATP axiom mc91-eq₂ #-}
+-- To avoid use the name 'MCR' in the name of the properties related
+-- with this relation, we use the infix symbol _«_.
+MCR : D → D → Set
+MCR m n = LT (hundred-one ∸ m) (hundred-one ∸ n)
+{-# ATP definition MCR #-}

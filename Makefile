@@ -36,7 +36,7 @@ PA_path               = src/PA
 Division_path   = $(LTC-PCF_path)/Program/Division
 GCD_path        = $(LTC_path)/Program/GCD
 GCD-PCF_path    = $(LTC-PCF_path)/Program/GCD
-McCarthy91_path = Draft/McCarthy91
+McCarthy91_path = $(LTC_path)/Program/McCarthy91
 SortList_path   = $(LTC_path)/Program/SortList
 
 ##############################################################################
@@ -65,9 +65,6 @@ Agsy_files = $(shell find src/Agsy -name '*.agda' | sort)
 # Only used to publish the drafts, i.e. non type checking.
 main_Draft = Draft/RenderToHTML
 
-# Drafts
-main_McCarthy91 = $(McCarthy91_path)/Everything
-
 ##############################################################################
 # Type checking the Agda modules.
 
@@ -90,8 +87,7 @@ all_type_checking : type_checking_Common \
 		    type_checking_LTC-PCF \
 		    type_checking_PA \
 		    type_checking_Agsy \
-		    type_checking_README \
-		    type_checking_McCarthy91
+		    type_checking_README
 
 ##############################################################################
 # Test the conjecture files.
@@ -114,6 +110,7 @@ conjectures_% :
 #                   conjectures_Division \
 # 		  conjectures_GCD \
 # 		  conjectures_GCD-PCF \
+#		  conjectures_McCarthy91 \
 # 		  conjectures_SortList
 
 all_conjectures : conjectures_DistributiveLaws \
@@ -121,8 +118,7 @@ all_conjectures : conjectures_DistributiveLaws \
 		  conjectures_Logic \
 		  conjectures_LTC \
 		  conjectures_LTC-PCF \
-		  conjectures_PA \
-		  conjectures_McCarthy91
+		  conjectures_PA
 
 ##############################################################################
 # Consistency test

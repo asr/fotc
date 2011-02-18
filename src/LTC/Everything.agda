@@ -69,6 +69,16 @@ open import LTC.Program.GCD.ProofSpecificationATP
 open import LTC.Program.GCD.ProofSpecificationI
 open import LTC.Program.GCD.Specification
 
+open import LTC.Program.McCarthy91.ArithmeticATP
+open import LTC.Program.McCarthy91.McCarthy91.ConsistencyTest
+open import LTC.Program.McCarthy91.McCarthy91
+open import LTC.Program.McCarthy91.MCR
+open import LTC.Program.McCarthy91.MCR.LT2MCR-ATP
+open import LTC.Program.McCarthy91.MCR.PropertiesATP
+open import LTC.Program.McCarthy91.MCR.WellFoundedInductionATP
+open import LTC.Program.McCarthy91.Properties.AuxiliaryATP
+open import LTC.Program.McCarthy91.Properties.MainATP
+
 open import LTC.Program.SortList.ProofSpecificationATP
 open import LTC.Program.SortList.ProofSpecificationI
 open import LTC.Program.SortList.Properties.Closures.BoolATP

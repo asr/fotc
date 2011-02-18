@@ -3,17 +3,17 @@
 -- McCarthy 91 functions are on smaller arguments.
 ------------------------------------------------------------------------------
 
-module Draft.McCarthy91.MCR.LT2MCR-ATP where
+module LTC.Program.McCarthy91.MCR.LT2MCR-ATP where
 
 open import LTC.Base
-
-open import Draft.McCarthy91.MCR
 
 open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.Inequalities.PropertiesATP
 open import LTC.Data.Nat.Unary.Numbers
 open import LTC.Data.Nat.Unary.IsN-ATP
+
+open import LTC.Program.McCarthy91.MCR
 
 ------------------------------------------------------------------------------
 

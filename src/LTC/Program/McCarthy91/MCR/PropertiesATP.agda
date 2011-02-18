@@ -2,12 +2,9 @@
 -- Properties for the MCR relation
 ------------------------------------------------------------------------------
 
-module Draft.McCarthy91.MCR.PropertiesATP where
+module LTC.Program.McCarthy91.MCR.PropertiesATP where
 
 open import LTC.Base
-
-open import Draft.McCarthy91.ArithmeticATP
-open import Draft.McCarthy91.MCR
 
 open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
@@ -15,6 +12,9 @@ open import LTC.Data.Nat.Inequalities.PropertiesATP
 open import LTC.Data.Nat.PropertiesATP
 open import LTC.Data.Nat.Unary.Numbers
 open import LTC.Data.Nat.Unary.IsN-ATP
+
+open import LTC.Program.McCarthy91.ArithmeticATP
+open import LTC.Program.McCarthy91.MCR
 
 ------------------------------------------------------------------------------
 

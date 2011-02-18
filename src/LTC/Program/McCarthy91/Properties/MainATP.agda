@@ -13,16 +13,9 @@
 -- N.B This module does not contain combined proofs, but it imports
 -- modules which contain combined proofs.
 
-module Draft.McCarthy91.Properties.MainATP where
+module LTC.Program.McCarthy91.Properties.MainATP where
 
 open import LTC.Base
-
-open import Draft.McCarthy91.ArithmeticATP
-open import Draft.McCarthy91.McCarthy91
-open import Draft.McCarthy91.MCR
-open import Draft.McCarthy91.MCR.LT2MCR-ATP
-open import Draft.McCarthy91.MCR.WellFoundedInductionATP
-open import Draft.McCarthy91.Properties.AuxiliaryATP
 
 open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
@@ -30,6 +23,13 @@ open import LTC.Data.Nat.Inequalities.PropertiesATP
 open import LTC.Data.Nat.Unary.Numbers
 open import LTC.Data.Nat.Unary.IsN-ATP
 open import LTC.Data.Nat.Unary.Inequalities.PropertiesATP
+
+open import LTC.Program.McCarthy91.ArithmeticATP
+open import LTC.Program.McCarthy91.McCarthy91
+open import LTC.Program.McCarthy91.MCR
+open import LTC.Program.McCarthy91.MCR.LT2MCR-ATP
+open import LTC.Program.McCarthy91.MCR.WellFoundedInductionATP
+open import LTC.Program.McCarthy91.Properties.AuxiliaryATP
 
 ------------------------------------------------------------------------------
 

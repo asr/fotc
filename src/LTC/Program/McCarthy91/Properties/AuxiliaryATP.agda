@@ -2,12 +2,9 @@
 -- Auxiliary properties of the McCarthy 91 function
 ------------------------------------------------------------------------------
 
-module Draft.McCarthy91.Properties.AuxiliaryATP where
+module LTC.Program.McCarthy91.Properties.AuxiliaryATP where
 
 open import LTC.Base
-
-open import Draft.McCarthy91.ArithmeticATP
-open import Draft.McCarthy91.McCarthy91
 
 open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
@@ -16,6 +13,9 @@ open import LTC.Data.Nat.PropertiesATP
 open import LTC.Data.Nat.Unary.IsN-ATP
 open import LTC.Data.Nat.Unary.Numbers
 open import LTC.Data.Nat.Unary.Inequalities.PropertiesATP
+
+open import LTC.Program.McCarthy91.ArithmeticATP
+open import LTC.Program.McCarthy91.McCarthy91
 
 ------------------------------------------------------------------------------
 

@@ -1,16 +1,16 @@
 ------------------------------------------------------------------------------
--- Test the consistency of Draft.McCarthy91.McCarthy91
+-- Test the consistency of LTC.Program.McCarthy91.McCarthy91
 ------------------------------------------------------------------------------
 
--- In the module Draft.McCarthy91.McCarthy91 we declare Agda
+-- In the module LTC.Program.McCarthy91.McCarthy91 we declare Agda
 -- postulates as FOL axioms. We test if it is possible to prove an
 -- unprovable theorem from these axioms.
 
-module Draft.McCarthy91.McCarthy91.ConsistencyTest where
+module LTC.Program.McCarthy91.McCarthy91.ConsistencyTest where
 
 open import LTC.Base
 
-open import Draft.McCarthy91.McCarthy91
+open import LTC.Program.McCarthy91.McCarthy91
 
 ------------------------------------------------------------------------------
 

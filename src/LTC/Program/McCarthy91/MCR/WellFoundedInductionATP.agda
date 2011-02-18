@@ -7,15 +7,15 @@
 -- N.B This module does not contain combined proofs, but it imports
 -- modules which contain combined proofs.
 
-module Draft.McCarthy91.MCR.WellFoundedInductionATP where
+module LTC.Program.McCarthy91.MCR.WellFoundedInductionATP where
 
 open import LTC.Base
 
-open import Draft.McCarthy91.McCarthy91
-open import Draft.McCarthy91.MCR
-open import Draft.McCarthy91.MCR.PropertiesATP
-
 open import LTC.Data.Nat
+
+open import LTC.Program.McCarthy91.McCarthy91
+open import LTC.Program.McCarthy91.MCR
+open import LTC.Program.McCarthy91.MCR.PropertiesATP
 
 ----------------------------------------------------------------------------
 
