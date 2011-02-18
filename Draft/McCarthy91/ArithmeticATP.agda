@@ -26,45 +26,37 @@ postulate
 {-# ATP prove x+11-N 11+x-N +-comm #-}
 
 postulate
-  n111'  : eleven + one-hundred ≡ hundred-eleven
-  n111   : one-hundred + eleven ≡ hundred-eleven
-  n101'  : hundred-eleven ∸ ten ≡ hundred-one
-  n101   : (one-hundred + eleven) ∸ ten ≡ hundred-one
-  n91'   : hundred-one ∸ ten ≡ ninety-one
-  n91    : ((one-hundred + eleven) ∸ ten) ∸ ten ≡ ninety-one
-  n102'  : eleven + ninety-one ≡ hundred-two
-  n102   : ninety-one + eleven ≡ hundred-two
-  n100'  : eleven + eighty-nine ≡ one-hundred
-  n100   : eighty-nine + eleven ≡ one-hundred
-  n110   : ninety-nine + eleven ≡ hundred-ten
-  n109   : ninety-eight + eleven ≡ hundred-nine
-  n108   : ninety-seven + eleven ≡ hundred-eight
-  n107   : ninety-six + eleven ≡ hundred-seven
-  n106   : ninety-five + eleven ≡ hundred-six
-  n105   : ninety-four + eleven ≡ hundred-five
-  n104   : ninety-three + eleven ≡ hundred-four
-  n103   : ninety-two + eleven ≡ hundred-three
-  n101'' : ninety + eleven ≡ hundred-one
-{-# ATP prove n111' #-}
-{-# ATP prove n111 +-comm n111' #-}
-{-# ATP prove n101' #-}
-{-# ATP prove n101 n111 n101' #-}
-{-# ATP prove n91' #-}
-{-# ATP prove n91 n101 n91' #-}
-{-# ATP prove n102' #-}
-{-# ATP prove n102 n102' +-comm #-}
-{-# ATP prove n100' #-}
-{-# ATP prove n100 n100' +-comm #-}
-{-# ATP prove n110 #-}
-{-# ATP prove n109 #-}
-{-# ATP prove n108 #-}
-{-# ATP prove n107 #-}
-{-# ATP prove n106 #-}
-{-# ATP prove n105 #-}
-{-# ATP prove n104 #-}
-{-# ATP prove n103 #-}
-{-# ATP prove n101'' #-}
+  91≡[100+11∸10]∸10 : (one-hundred + eleven ∸ ten) ∸ ten ≡ ninety-one
+{-# ATP prove 91≡[100+11∸10]∸10 #-}
 
+postulate
+  100≡89+11     : eighty-nine + eleven         ≡ one-hundred
+  101≡90+11≡101 : ninety + eleven              ≡ hundred-one
+  101≡100+11-10 : (one-hundred + eleven) ∸ ten ≡ hundred-one
+  102≡91+11     : ninety-one + eleven          ≡ hundred-two
+  103≡92+1      : ninety-two + eleven          ≡ hundred-three
+  104≡93+11     : ninety-three + eleven        ≡ hundred-four
+  105≡94+11     : ninety-four + eleven         ≡ hundred-five
+  106≡95+11     : ninety-five + eleven         ≡ hundred-six
+  107≡96+11     : ninety-six + eleven          ≡ hundred-seven
+  108≡97+11     : ninety-seven + eleven        ≡ hundred-eight
+  109≡99+11     : ninety-eight + eleven        ≡ hundred-nine
+  110≡99+11     : ninety-nine + eleven         ≡ hundred-ten
+  111≡100+11    : one-hundred + eleven         ≡ hundred-eleven
+
+{-# ATP prove 100≡89+11 #-}
+{-# ATP prove 101≡90+11≡101 #-}
+{-# ATP prove 101≡100+11-10 #-}
+{-# ATP prove 102≡91+11 #-}
+{-# ATP prove 103≡92+1 #-}
+{-# ATP prove 104≡93+11 #-}
+{-# ATP prove 105≡94+11 #-}
+{-# ATP prove 106≡95+11 #-}
+{-# ATP prove 107≡96+11 #-}
+{-# ATP prove 108≡97+11 #-}
+{-# ATP prove 109≡99+11 #-}
+{-# ATP prove 110≡99+11 #-}
+{-# ATP prove 111≡100+11 #-}
 
 postulate
   101>100' : GT hundred-one one-hundred
@@ -74,11 +66,11 @@ postulate
   100<102' : LT one-hundred hundred-two
   100<102  : LT one-hundred (ninety-one + eleven)
 {-# ATP prove 101>100' #-}
-{-# ATP prove 101>100 101>100' n101 #-}
+{-# ATP prove 101>100 101>100' 101≡100+11-10 #-}
 {-# ATP prove 111>100' #-}
-{-# ATP prove 111>100 111>100' n111 #-}
+{-# ATP prove 111>100 111>100' 111≡100+11 #-}
 {-# ATP prove 100<102' #-}
-{-# ATP prove 100<102 100<102' n102 #-}
+{-# ATP prove 100<102 100<102' 102≡91+11 #-}
 
 postulate 91>100→⊥ : GT ninety-one one-hundred → ⊥
 {-# ATP prove 91>100→⊥ #-}
@@ -88,4 +80,4 @@ postulate x+1≤x∸10+11 : ∀ {n} → N n → LE (n + one) ((n ∸ ten) + elev
 
 postulate x≤89→x+11>100→⊥ : ∀ {n} → N n → LE n eighty-nine →
                             GT (n + eleven) one-hundred → ⊥
-{-# ATP prove x≤89→x+11>100→⊥ x>y→x≤y→⊥ x≤y→x+k≤y+k x+11-N N89 N100 n100 #-}
+{-# ATP prove x≤89→x+11>100→⊥ x>y→x≤y→⊥ x≤y→x+k≤y+k x+11-N N89 N100 100≡89+11 #-}
