@@ -16,12 +16,12 @@ module Draft.McCarthy91.Properties.MainATP where
 
 open import LTC.Base
 
+open import Draft.McCarthy91.ArithmeticATP
 open import Draft.McCarthy91.McCarthy91
 open import Draft.McCarthy91.MCR
 open import Draft.McCarthy91.MCR.LT2MCR-ATP
+open import Draft.McCarthy91.MCR.WellFoundedInductionATP
 open import Draft.McCarthy91.Properties.AuxiliaryATP
-open import Draft.McCarthy91.ArithmeticATP
-open import Draft.McCarthy91.WellFoundedInductionATP
 
 open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
