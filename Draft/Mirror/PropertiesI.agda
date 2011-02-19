@@ -8,10 +8,11 @@ open import LTC.Base
 
 open import Draft.Mirror.Mirror
 open import Draft.Mirror.ListTree.PropertiesI
+open import Draft.Mirror.ListTree.Closures
 
 open import LTC.Data.List
 open import LTC.Data.List.PropertiesI using ( reverse-[x]≡[x] )
-open import Draft.Mirror.ListTree.PropertiesI
+
 
 open import LTC.Relation.Binary.EqReasoning
 
