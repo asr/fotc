@@ -114,7 +114,7 @@ postulate 91>100→⊥ : GT ninety-one one-hundred → ⊥
 {-# ATP prove 91>100→⊥ #-}
 
 postulate x+1≤x∸10+11 : ∀ {n} → N n → LE (n + one) ((n ∸ ten) + eleven)
-{-# ATP prove x+1≤x∸10+11 x≤y+x∸y N10 N11 +-N +-comm #-}
+{-# ATP prove x+1≤x∸10+11 x≤y+x∸y N10 N11 +-N ∸-N +-comm #-}
 
 postulate x≤89→x+11>100→⊥ : ∀ {n} → N n → LE n eighty-nine →
                             GT (n + eleven) one-hundred → ⊥
