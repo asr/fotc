@@ -135,9 +135,9 @@ postulate
   reverse-∷ : ∀ x {ys} → ListTree ys →
               reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])
 
-reverse-++ : ∀ {xs ys} → ListTree xs → ListTree ys →
-             reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
-reverse-++ {ys = ys} nilLT LTys =
+reverse-++-commute : ∀ {xs ys} → ListTree xs → ListTree ys →
+                     reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
+reverse-++-commute {ys = ys} nilLT LTys =
   begin
     reverse ([] ++ ys)
       ≡⟨ subst (λ t → reverse ([] ++ ys) ≡ reverse t)
@@ -154,7 +154,7 @@ reverse-++ {ys = ys} nilLT LTys =
     reverse ys ++ reverse []
   ∎
 
-reverse-++ (consLT {x} {xs} Tx LTxs) nilLT =
+reverse-++-commute (consLT {x} {xs} Tx LTxs) nilLT =
   begin
     reverse ((x ∷ xs) ++ [])
       ≡⟨ subst (λ t → reverse ((x ∷ xs) ++ []) ≡ reverse t)
@@ -171,7 +171,7 @@ reverse-++ (consLT {x} {xs} Tx LTxs) nilLT =
     reverse [] ++ reverse (x ∷ xs)
   ∎
 
-reverse-++ (consLT {x} {xs} Tx LTxs) (consLT {y} {ys} Ty LTys) =
+reverse-++-commute (consLT {x} {xs} Tx LTxs) (consLT {y} {ys} Ty LTys) =
   begin
     reverse ((x ∷ xs) ++ y ∷ ys) ≡⟨ refl ⟩
     rev ((x ∷ xs) ++ y ∷ ys) []
@@ -189,7 +189,7 @@ reverse-++ (consLT {x} {xs} Tx LTxs) (consLT {y} {ys} Ty LTys) =
       ⟩
     reverse (xs ++ y ∷ ys) ++ (x ∷ [])
       ≡⟨ subst (λ t → reverse (xs ++ y ∷ ys) ++ (x ∷ []) ≡ t ++ (x ∷ []))
-               (reverse-++ LTxs (consLT Ty LTys))  -- IH.
+               (reverse-++-commute LTxs (consLT Ty LTys))  -- IH.
                refl
       ⟩
     (reverse (y ∷ ys) ++ reverse xs) ++ x ∷ []

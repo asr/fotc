@@ -100,15 +100,15 @@ mutual
       node d (reverse (map mirror (reverse (map mirror (t ∷ ts)))))
       ≡⟨ subst (λ x → node d (reverse (map mirror (reverse (map mirror (t ∷ ts))))) ≡
                       node d x)
-               (aux (consLT Tt LTts))
+               (helper (consLT Tt LTts))
                refl
       ⟩
       node d (t ∷ ts)
     ∎
 
-  aux : ∀ {ts} → ListTree ts →
-        reverse (map mirror (reverse (map mirror ts))) ≡ ts
-  aux nilLT =
+  helper : ∀ {ts} → ListTree ts →
+           reverse (map mirror (reverse (map mirror ts))) ≡ ts
+  helper nilLT =
     begin
       reverse (map mirror (reverse (map mirror [])))
         ≡⟨ subst (λ x → reverse (map mirror (reverse (map mirror []))) ≡
@@ -133,7 +133,7 @@ mutual
       []
     ∎
 
-  aux (consLT {t} {ts} Tt LTts) =
+  helper (consLT {t} {ts} Tt LTts) =
     begin
       reverse (map mirror (reverse (map mirror (t ∷ ts))))
         ≡⟨ subst (λ x → reverse (map mirror (reverse (map mirror (t ∷ ts)))) ≡
@@ -210,7 +210,7 @@ mutual
       t ∷ reverse (map mirror (reverse (map mirror ts)))
         ≡⟨ subst (λ x → t ∷ reverse (map mirror (reverse (map mirror ts))) ≡
                         t ∷ x)
-                 (aux LTts)
+                 (helper LTts)
                  refl
         ⟩
       t ∷ ts
