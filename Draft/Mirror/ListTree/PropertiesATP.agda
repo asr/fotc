@@ -61,50 +61,19 @@ rev-ListTree {ys = ys} (consLT {x} {xs} Tx LTxs) LTys =
 
 rev-++-commute : ∀ {xs ys} → ListTree xs → ListTree ys →
                  rev xs ys ≡ rev xs [] ++ ys
-rev-++-commute {ys = ys} nilLT LTys =
-  begin
-    rev [] ys ≡⟨ rev-[] ys ⟩
-    ys        ≡⟨ sym $ ++-leftIdentity LTys ⟩
-    [] ++ ys  ≡⟨ subst (λ t → [] ++ ys ≡ t ++ ys)
-                       (sym $ rev-[] [])
-                       refl
-              ⟩
-    rev [] [] ++ ys
-  ∎
+rev-++-commute {ys = ys} nilLT LTys = prf
+  where
+    postulate prf : rev [] ys ≡ rev [] [] ++ ys
+    {-# ATP prove prf #-}
 
 rev-++-commute {ys = ys} (consLT {x} {xs} Tx LTxs) LTys =
-  begin
-    rev (x ∷ xs) ys      ≡⟨ rev-∷ x xs ys ⟩
-    rev xs (x ∷ ys)      ≡⟨ rev-++-commute LTxs (consLT Tx LTys) ⟩  -- IH.
-    rev xs [] ++ x ∷ ys
-      ≡⟨ subst (λ t → rev xs [] ++ x ∷ ys ≡ rev xs [] ++ t)
-               (sym
-                 ( begin
-                     (x ∷ []) ++ ys ≡⟨ ++-∷ x [] ys ⟩
-                     x ∷ ([] ++ ys) ≡⟨ subst (λ t → x ∷ ([] ++ ys) ≡ x ∷ t)
-                                             (++-leftIdentity LTys)
-                                             refl
-                                    ⟩
-                     x ∷ ys
-                   ∎
-                 )
-               )
-               refl
-      ⟩
-    rev xs [] ++ (x ∷ []) ++ ys
-      ≡⟨ sym $ ++-assoc (rev-ListTree LTxs nilLT) (consLT Tx nilLT) LTys ⟩
-    (rev xs [] ++ (x ∷ [])) ++ ys
-      ≡⟨ subst (λ t → (rev xs [] ++ (x ∷ [])) ++ ys ≡ t ++ ys)
-               (sym $ rev-++-commute LTxs (consLT Tx nilLT))  -- IH.
-               refl
-      ⟩
-    rev xs (x ∷ []) ++ ys
-      ≡⟨ subst (λ t → rev xs (x ∷ []) ++ ys ≡ t ++ ys)
-               (sym $ rev-∷ x xs [])
-               refl
-      ⟩
-    rev (x ∷ xs) [] ++ ys
-  ∎
+  prf (rev-++-commute LTxs (consLT Tx LTys))
+      (rev-++-commute LTxs (consLT Tx nilLT))
+  where
+    postulate prf : rev xs (x ∷ ys) ≡ rev xs [] ++ x ∷ ys →  -- IH.
+                    rev xs (x ∷ []) ≡ rev xs [] ++ x ∷ [] →  -- IH.
+                    rev (x ∷ xs) ys ≡ rev (x ∷ xs) [] ++ ys
+    {-# ATP prove prf ++-assoc rev-ListTree ++-ListTree #-}
 
 postulate
   reverse-∷ : ∀ x {ys} → ListTree ys →
