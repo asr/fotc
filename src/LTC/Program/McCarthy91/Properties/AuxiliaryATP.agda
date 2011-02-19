@@ -10,9 +10,9 @@ open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.Inequalities.PropertiesATP
 open import LTC.Data.Nat.PropertiesATP
-open import LTC.Data.Nat.Unary.IsN-ATP
-open import LTC.Data.Nat.Unary.Numbers
-open import LTC.Data.Nat.Unary.Inequalities.PropertiesATP
+open import LTC.Data.Nat.UnaryNumbers
+open import LTC.Data.Nat.UnaryNumbers.IsN-ATP
+open import LTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
 
 open import LTC.Program.McCarthy91.ArithmeticATP
 open import LTC.Program.McCarthy91.McCarthy91

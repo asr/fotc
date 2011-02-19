@@ -46,9 +46,9 @@ open import LTC.Data.Nat.PropertiesByInductionATP
 open import LTC.Data.Nat.PropertiesByInductionI
 open import LTC.Data.Nat.PropertiesI
 open import LTC.Data.Nat.Type
-open import LTC.Data.Nat.Unary.Inequalities.PropertiesATP
-open import LTC.Data.Nat.Unary.IsN-ATP
-open import LTC.Data.Nat.Unary.Numbers
+open import LTC.Data.Nat.UnaryNumbers
+open import LTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
+open import LTC.Data.Nat.UnaryNumbers.IsN-ATP
 
 open import LTC.Data.Stream.Bisimilarity
 open import LTC.Data.Stream.Bisimilarity.ConsistencyTest

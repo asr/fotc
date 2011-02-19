@@ -2,7 +2,7 @@
 -- Unary naturales numbers terms
 ------------------------------------------------------------------------------
 
-module LTC.Data.Nat.Unary.Numbers where
+module LTC.Data.Nat.UnaryNumbers where
 
 open import LTC.Base
 

@@ -2,12 +2,12 @@
 -- The unary numbers are LTC natural numbers
 ------------------------------------------------------------------------------
 
-module LTC.Data.Nat.Unary.IsN-ATP where
+module LTC.Data.Nat.UnaryNumbers.IsN-ATP where
 
 open import LTC.Base
 
 open import LTC.Data.Nat.Type
-open import LTC.Data.Nat.Unary.Numbers
+open import LTC.Data.Nat.UnaryNumbers
 
 ------------------------------------------------------------------------------
 

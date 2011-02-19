@@ -8,7 +8,7 @@ open import LTC.Base
 
 open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
-open import LTC.Data.Nat.Unary.Numbers
+open import LTC.Data.Nat.UnaryNumbers
 
 ------------------------------------------------------------------------------
 -- The MCR relation.

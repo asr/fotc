@@ -2,7 +2,7 @@
 -- Properties of the inequalities of unary numbers
 ------------------------------------------------------------------------------
 
-module LTC.Data.Nat.Unary.Inequalities.PropertiesATP where
+module LTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP where
 
 open import LTC.Base
 
@@ -10,7 +10,7 @@ open import LTC.Data.Nat
 open import LTC.Data.Nat.Inequalities
 open import LTC.Data.Nat.Inequalities.PropertiesATP
 open import LTC.Data.Nat.PropertiesATP
-open import LTC.Data.Nat.Unary.Numbers
+open import LTC.Data.Nat.UnaryNumbers
 
 ------------------------------------------------------------------------------
 
