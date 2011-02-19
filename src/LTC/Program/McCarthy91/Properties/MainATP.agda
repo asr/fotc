@@ -115,7 +115,6 @@ mc91-res = wfInd-MCR P mc91-res-aux
             mc91-res-m≤89 = mc91x-res≤100 m ninety-one m≤100
                                           mc91-res-m+11 mc91-res-91
 
-
 ------------------------------------------------------------------------------
 -- Main properties
 
