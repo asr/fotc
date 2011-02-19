@@ -10,6 +10,7 @@ open import LTC.Base
 
 open import Draft.Mirror.Mirror
 open import Draft.Mirror.ListTree.PropertiesATP
+open import Draft.Mirror.ListTree.Closures
 
 open import LTC.Data.List
 open import LTC.Data.List.PropertiesATP using ( reverse-[x]≡[x] )
@@ -35,4 +36,7 @@ mirror² (treeT d (consLT {t} {ts} Tt LTts)) =
     postulate prf : mirror · (mirror · t) ≡ t → -- IH.
                     mirror · (mirror · node d ts) ≡ node d ts → -- IH.
                     mirror · (mirror · node d (t ∷ ts)) ≡ node d (t ∷ ts)
-    {-# ATP prove prf reverse-∷ map-ListTree mirror-Tree map-++ reverse-++ rev-ListTree reverse-[x]≡[x] ++-leftIdentity #-}
+    {-# ATP prove prf reverse-∷ map-ListTree mirror-Tree map-++-commute
+                      reverse-++-commute rev-ListTree reverse-[x]≡[x]
+                      ++-leftIdentity
+    #-}
