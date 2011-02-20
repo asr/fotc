@@ -125,7 +125,8 @@ reverse-++-commute {ys = ys} nilL Lys = prf
 reverse-++-commute (consL x {xs} Lxs) nilL = prf
   where
     postulate prf : reverse ((x ∷ xs) ++ []) ≡ reverse [] ++ reverse (x ∷ xs)
-    {-# ATP prove prf ++-rightIdentity reverse-List #-}
+    {-# ATP prove prf ++-rightIdentity #-}
+
 reverse-++-commute (consL x {xs} Lxs) (consL y {ys} Lys) =
   prf $ reverse-++-commute Lxs (consL y Lys)
   where
