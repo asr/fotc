@@ -30,6 +30,9 @@ rev-List {ys = ys} nilL          Lys = subst List (sym (rev-[] ys)) Lys
 rev-List {ys = ys} (consL x {xs} Lxs) Lys =
   subst List (sym (rev-∷ x xs ys)) (rev-List Lxs (consL x Lys))
 
+reverse-List : ∀ {xs} → List xs → List (reverse xs)
+reverse-List Lxs = rev-List Lxs nilL
+
 ++-leftIdentity : ∀ {xs} → List xs → [] ++ xs ≡ xs
 ++-leftIdentity {xs} _ = ++-[] xs
 
@@ -150,7 +153,7 @@ reverse-++-commute {ys = ys} nilL Lys =
                refl
       ⟩
     reverse ys
-      ≡⟨ sym (++-rightIdentity (rev-List Lys nilL)) ⟩
+      ≡⟨ sym (++-rightIdentity (reverse-List Lys)) ⟩
     reverse ys ++ []
       ≡⟨ subst (λ t → reverse ys ++ [] ≡ reverse ys ++ t)
                (sym (rev-[] []))
@@ -198,8 +201,8 @@ reverse-++-commute (consL x {xs} Lxs) (consL y {ys} Lys) =
                refl
       ⟩
     (reverse (y ∷ ys) ++ reverse xs) ++ x ∷ []
-      ≡⟨ ++-assoc (rev-List (consL y Lys) nilL)
-                  (rev-List Lxs nilL)
+      ≡⟨ ++-assoc (reverse-List (consL y Lys))
+                  (reverse-List Lxs)
                   (consL x nilL)
       ⟩
     reverse (y ∷ ys) ++ reverse xs ++ x ∷ []

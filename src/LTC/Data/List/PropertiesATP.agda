@@ -136,7 +136,7 @@ reverse-++-commute (consL x {xs} Lxs) (consL y {ys} Lys) =
     -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): (Default) memory limit (using timeout 180 sec).
-    {-# ATP prove prf consL nilL rev-List ++-List rev-++-commute ++-assoc #-}
+    {-# ATP prove prf consL nilL reverse-List ++-List rev-++-commute ++-assoc #-}
 
 reverse² : ∀ {xs} → List xs → reverse (reverse xs) ≡ xs
 reverse² nilL = prf
