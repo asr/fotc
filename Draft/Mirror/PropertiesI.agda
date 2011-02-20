@@ -24,10 +24,10 @@ postulate
 
 -- mirror-Tree : ∀ {t} → Tree t → Tree (mirror · t)
 -- mirror-Tree (treeT d nilLT) =
---   subst Tree (sym (mirror-eq d [])) (treeT d aux₂)
+--   subst Tree (sym (mirror-eq d [])) (treeT d helper₂)
 --     where
---       aux₁ : rev (map mirror []) [] ≡ []
---       aux₁ =
+--       helper₁ : rev (map mirror []) [] ≡ []
+--       helper₁ =
 --         begin
 --           rev (map mirror []) []
 --           ≡⟨ subst (λ x → rev (map mirror []) [] ≡ rev x [])
@@ -39,15 +39,15 @@ postulate
 --           []
 --         ∎
 
---       aux₂ : ListTree (rev (map mirror []) [])
---       aux₂ = subst ListTree (sym aux₁) nilLT
+--       helper₂ : ListTree (rev (map mirror []) [])
+--       helper₂ = subst ListTree (sym helper₁) nilLT
 
 -- mirror-Tree (treeT d (consLT {t} {ts} Tt LTts)) =
---   subst Tree (sym (mirror-eq d (t ∷ ts))) (treeT d aux)
+--   subst Tree (sym (mirror-eq d (t ∷ ts))) (treeT d helper)
 
 --   where
---     aux : ListTree (reverse (map mirror (t ∷ ts)))
---     aux = rev-ListTree (map-ListTree mirror {!!} (consLT Tt LTts)) nilLT
+--     helper : ListTree (reverse (map mirror (t ∷ ts)))
+--     helper = rev-ListTree (map-ListTree mirror {!!} (consLT Tt LTts)) nilLT
 
 mutual
   mirror² : ∀ {t} → Tree t → mirror · (mirror · t) ≡ t
