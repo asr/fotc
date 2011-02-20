@@ -9,45 +9,14 @@ open import LTC.Base
 open import Draft.Mirror.Mirror
 open import Draft.Mirror.ListTree.PropertiesI
 open import Draft.Mirror.ListTree.Closures
+open import Draft.Mirror.Tree.Closures
 
 open import LTC.Data.List
 open import LTC.Data.List.PropertiesI using ( reverse-[x]≡[x] )
 
-
 open import LTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
-
--- TODO: To remove the postulate
-postulate
-  mirror-Tree : ∀ {t} → Tree t → Tree (mirror · t)
-
--- mirror-Tree : ∀ {t} → Tree t → Tree (mirror · t)
--- mirror-Tree (treeT d nilLT) =
---   subst Tree (sym (mirror-eq d [])) (treeT d helper₂)
---     where
---       helper₁ : rev (map mirror []) [] ≡ []
---       helper₁ =
---         begin
---           rev (map mirror []) []
---           ≡⟨ subst (λ x → rev (map mirror []) [] ≡ rev x [])
---                    (map-[] mirror)
---                    refl
---           ⟩
---           rev [] []
---             ≡⟨ rev-[] [] ⟩
---           []
---         ∎
-
---       helper₂ : ListTree (rev (map mirror []) [])
---       helper₂ = subst ListTree (sym helper₁) nilLT
-
--- mirror-Tree (treeT d (consLT {t} {ts} Tt LTts)) =
---   subst Tree (sym (mirror-eq d (t ∷ ts))) (treeT d helper)
-
---   where
---     helper : ListTree (reverse (map mirror (t ∷ ts)))
---     helper = rev-ListTree (map-ListTree mirror {!!} (consLT Tt LTts)) nilLT
 
 mutual
   mirror² : ∀ {t} → Tree t → mirror · (mirror · t) ≡ t
