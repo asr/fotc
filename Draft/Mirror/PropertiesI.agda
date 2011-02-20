@@ -123,7 +123,7 @@ mutual
                         reverse x)
            (map-++-commute mirror
                    mirror-Tree
-                   (rev-ListTree (map-ListTree mirror mirror-Tree LTts) nilLT)
+                   (reverse-ListTree (map-ListTree mirror mirror-Tree LTts))
                    (consLT (mirror-Tree Tt) nilLT))
            refl
         ⟩
@@ -132,15 +132,12 @@ mutual
         ≡⟨ subst (λ x → (reverse (map mirror (reverse (map mirror ts)) ++
                                              (map mirror (mirror · t ∷ [])))) ≡
                         x)
-                 (reverse-++-commute (map-ListTree mirror
-                                           mirror-Tree
-                                           (rev-ListTree (map-ListTree mirror
-                                                                       mirror-Tree
-                                                                       LTts)
-                                                         nilLT))
-                             (map-ListTree mirror
-                                           mirror-Tree
-                                           (consLT (mirror-Tree Tt) nilLT)))
+                 (reverse-++-commute
+                   (map-ListTree mirror mirror-Tree
+                                 (reverse-ListTree
+                                 (map-ListTree mirror mirror-Tree LTts)))
+                   (map-ListTree mirror mirror-Tree
+                                 (consLT (mirror-Tree Tt) nilLT)))
                  refl
         ⟩
       reverse (map mirror (mirror · t ∷ [])) ++
@@ -190,10 +187,7 @@ mutual
         n₁ = reverse (map mirror (reverse (map mirror ts)))
 
         LTn₁ : ListTree n₁
-        LTn₁ = rev-ListTree (map-ListTree mirror
-                                          mirror-Tree
-                                          (rev-ListTree (map-ListTree mirror
-                                                                      mirror-Tree
-                                                                      LTts)
-                                                        nilLT))
-                            nilLT
+        LTn₁ = rev-ListTree
+                 (map-ListTree mirror mirror-Tree
+                               (reverse-ListTree (map-ListTree mirror mirror-Tree LTts)))
+                 nilLT
