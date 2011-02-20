@@ -2,11 +2,11 @@
 -- Properties related with the closures of the tree type
 ------------------------------------------------------------------------------
 
-module Draft.Mirror.Tree.Closures where
+module LTC.Program.Mirror.Tree.Closures where
 
 open import LTC.Base
 
-open import Draft.Mirror.Mirror
+open import LTC.Program.Mirror.Mirror
 
 open import LTC.Data.List
 

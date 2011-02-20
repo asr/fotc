@@ -79,6 +79,15 @@ open import LTC.Program.McCarthy91.MCR.WellFoundedInductionATP
 open import LTC.Program.McCarthy91.Properties.AuxiliaryATP
 open import LTC.Program.McCarthy91.Properties.MainATP
 
+open import LTC.Program.Mirror.ListTree.Closures
+open import LTC.Program.Mirror.ListTree.PropertiesATP
+open import LTC.Program.Mirror.ListTree.PropertiesI
+open import LTC.Program.Mirror.Mirror.ConsistencyTest
+open import LTC.Program.Mirror.Mirror
+open import LTC.Program.Mirror.PropertiesATP
+open import LTC.Program.Mirror.PropertiesI
+open import LTC.Program.Mirror.Tree.Closures
+
 open import LTC.Program.SortList.ProofSpecificationATP
 open import LTC.Program.SortList.ProofSpecificationI
 open import LTC.Program.SortList.Properties.Closures.BoolATP

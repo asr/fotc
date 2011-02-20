@@ -37,6 +37,7 @@ Division_path   = $(LTC-PCF_path)/Program/Division
 GCD_path        = $(LTC_path)/Program/GCD
 GCD-PCF_path    = $(LTC-PCF_path)/Program/GCD
 McCarthy91_path = $(LTC_path)/Program/McCarthy91
+Mirror_path     = $(LTC_path)/Program/Mirror
 SortList_path   = $(LTC_path)/Program/SortList
 
 ##############################################################################
@@ -111,6 +112,7 @@ conjectures_% :
 # 		  conjectures_GCD \
 # 		  conjectures_GCD-PCF \
 #		  conjectures_McCarthy91 \
+#		  conjectures_Mirror \
 # 		  conjectures_SortList
 
 all_conjectures : conjectures_DistributiveLaws \

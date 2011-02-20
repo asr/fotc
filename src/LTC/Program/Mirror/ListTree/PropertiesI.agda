@@ -2,17 +2,17 @@
 -- Properties related with lists of trees
 ------------------------------------------------------------------------------
 
-module Draft.Mirror.ListTree.PropertiesI where
+module LTC.Program.Mirror.ListTree.PropertiesI where
 
 open import LTC.Base
 
 open import Common.Function
 
-open import Draft.Mirror.Mirror
-open import Draft.Mirror.ListTree.Closures
-
 open import LTC.Data.List
 open import LTC.Data.List.PropertiesI using (reverse-[x]≡[x])
+
+open import LTC.Program.Mirror.Mirror
+open import LTC.Program.Mirror.ListTree.Closures
 
 open import LTC.Relation.Binary.EqReasoning
 

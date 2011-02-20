@@ -2,19 +2,17 @@
 -- Properties of the mirror function
 ------------------------------------------------------------------------------
 
-module Draft.Mirror.PropertiesATP where
+module LTC.Program.Mirror.PropertiesATP where
 
 open import LTC.Base
-
-open import Draft.Mirror.Mirror
-open import Draft.Mirror.ListTree.PropertiesATP
-open import Draft.Mirror.ListTree.Closures
-open import Draft.Mirror.Tree.Closures
 
 open import LTC.Data.List
 open import LTC.Data.List.PropertiesATP using ( reverse-[x]≡[x] )
 
-open import LTC.Relation.Binary.EqReasoning
+open import LTC.Program.Mirror.Mirror
+open import LTC.Program.Mirror.ListTree.PropertiesATP
+open import LTC.Program.Mirror.ListTree.Closures
+open import LTC.Program.Mirror.Tree.Closures
 
 ------------------------------------------------------------------------------
 

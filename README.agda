@@ -163,6 +163,10 @@ open import LTC.Program.GCD.ProofSpecificationI
 -- The McCarthy 91 function
 open import LTC.Program.McCarthy91.Properties.MainATP
 
+-- The mirror function: A function with higher-order recursion
+open import LTC.Program.Mirror.PropertiesATP
+open import LTC.Program.Mirror.PropertiesI
+
 -- Burstall's sort list algorithm
 open import LTC.Program.SortList.ProofSpecificationATP
 open import LTC.Program.SortList.ProofSpecificationI

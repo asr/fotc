@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- The mirror function
+-- The mirror function: A function with higher-order recursion
 ------------------------------------------------------------------------------
 
-module Draft.Mirror.Mirror where
+module LTC.Program.Mirror.Mirror where
 
 open import LTC.Base
 
