@@ -104,17 +104,6 @@ rev-++-commute {ys = ys} (consL x {xs} Lxs) Lys =
     -- Vampire 0.6 (revision 903): (Default) memory limit (timeout 180 sec).
     {-# ATP prove prf consL nilL ++-assoc rev-List ++-List #-}
 
-reverse-∷ : ∀ x {ys} → List ys → reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])
-reverse-∷ x nilL = prf
-  where
-    postulate prf : reverse (x ∷ []) ≡ reverse [] ++ x ∷ []
-    {-# ATP prove prf #-}
-
-reverse-∷ x (consL y {ys} Lys) = prf (reverse-∷ y Lys)
-  where
-    postulate prf : reverse (y ∷ ys) ≡ reverse ys ++ y ∷ [] → -- IH.
-                    reverse (x ∷ y ∷ ys) ≡ reverse (y ∷ ys) ++ x ∷ []
-
 reverse-++-commute : ∀ {xs ys} → List xs → List ys →
                      reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
 reverse-++-commute {ys = ys} nilL Lys = prf
@@ -138,6 +127,19 @@ reverse-++-commute (consL x {xs} Lxs) (consL y {ys} Lys) =
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): (Default) memory limit (using timeout 180 sec).
     {-# ATP prove prf consL nilL reverse-List ++-List rev-++-commute ++-assoc #-}
+
+reverse-∷ : ∀ x {ys} → List ys →
+            reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])
+reverse-∷ x nilL = prf
+  where
+    postulate prf : reverse (x ∷ []) ≡ reverse [] ++ x ∷ []
+    {-# ATP prove prf consL nilL ++-leftIdentity #-}
+
+reverse-∷ x (consL y {ys} Lys) = prf
+  where
+    postulate prf : reverse (x ∷ y ∷ ys) ≡ reverse (y ∷ ys) ++ x ∷ []
+    {-# ATP prove prf consL nilL reverse-[x]≡[x] reverse-++-commute
+                  ++-leftIdentity #-}
 
 reverse² : ∀ {xs} → List xs → reverse (reverse xs) ≡ xs
 reverse² nilL = prf

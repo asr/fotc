@@ -139,10 +139,6 @@ rev-++-commute {ys = ys} (consL x {xs} Lxs) Lys =
     rev (x ∷ xs) [] ++ ys
   ∎
 
-postulate
-  -- See the ATP proof.
-  reverse-∷ : ∀ x {ys} → List ys → reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])
-
 reverse-++-commute : ∀ {xs ys} → List xs → List ys →
                      reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
 reverse-++-commute {ys = ys} nilL Lys =
@@ -231,6 +227,48 @@ reverse-++-commute (consL x {xs} Lxs) (consL y {ys} Lys) =
       ⟩
     reverse (y ∷ ys) ++ reverse (x ∷ xs)
   ∎
+
+reverse-∷ : ∀ x {ys} → List ys →
+            reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])
+reverse-∷ x nilL =
+  begin
+    rev (x ∷ []) []
+      ≡⟨ rev-∷ x [] [] ⟩
+    rev [] (x ∷ [])
+      ≡⟨ rev-[] (x ∷ []) ⟩
+    x ∷ []
+      ≡⟨ sym (++-leftIdentity (consL x nilL)) ⟩
+    [] ++ x ∷ []
+      ≡⟨ subst (λ p → [] ++ x ∷ [] ≡ p ++ x ∷ [])
+               (sym (rev-[] []))
+               refl
+      ⟩
+    rev [] [] ++ x ∷ []
+  ∎
+
+reverse-∷ x (consL y {ys} Lys) = sym
+  (
+    begin
+      reverse (y ∷ ys) ++ x ∷ []
+        ≡⟨ subst (λ p → reverse (y ∷ ys) ++ x ∷ [] ≡ reverse (y ∷ ys) ++ p)
+                 (sym (reverse-[x]≡[x] x))
+                 refl
+        ⟩
+      (reverse (y ∷ ys) ++ reverse (x ∷ []))
+        ≡⟨ sym (reverse-++-commute (consL x nilL) (consL y Lys)) ⟩
+      reverse ((x ∷ []) ++ (y ∷ ys))
+        ≡⟨ subst (λ p → reverse ((x ∷ []) ++ (y ∷ ys)) ≡ reverse p)
+                 (++-∷ x [] (y ∷ ys))
+                 refl
+        ⟩
+      reverse (x ∷ ([] ++ (y ∷ ys)))
+        ≡⟨ subst (λ p → reverse (x ∷ ([] ++ (y ∷ ys))) ≡ reverse (x ∷ p))
+                 (++-leftIdentity (consL y Lys))
+                 refl
+        ⟩
+      reverse (x ∷ y ∷ ys)
+    ∎
+  )
 
 map-++-commute : ∀ f {xs ys} → List xs → List ys →
                  map f (xs ++ ys) ≡ map f xs ++ map f ys

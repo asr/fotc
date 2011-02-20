@@ -145,7 +145,7 @@ mutual
       reverse (map mirror (reverse (mirror · t ∷ map mirror ts)))
         ≡⟨ subst (λ x → reverse (map mirror (reverse (mirror · t ∷ map mirror ts))) ≡
                         reverse (map mirror x))
-                 (reverse-∷ (mirror · t) (map-ListTree mirror mirror-Tree LTts))
+                 (reverse-∷ (mirror-Tree Tt) (map-ListTree mirror mirror-Tree LTts))
                  refl
         ⟩
       reverse (map mirror (reverse (map mirror ts) ++ (mirror · t ∷ [])))

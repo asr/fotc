@@ -12,6 +12,7 @@ open import Draft.Mirror.Mirror
 open import Draft.Mirror.ListTree.Closures
 
 open import LTC.Data.List
+open import LTC.Data.List.PropertiesI using (reverse-[x]≡[x])
 
 open import LTC.Relation.Binary.EqReasoning
 
@@ -113,11 +114,6 @@ rev-++-commute {ys = ys} (consLT {x} {xs} Tx LTxs) LTys =
     rev (x ∷ xs) [] ++ ys
   ∎
 
-postulate
-  -- TODO: See the ATP proof.
-  reverse-∷ : ∀ x {ys} → ListTree ys →
-              reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])
-
 reverse-++-commute : ∀ {xs ys} → ListTree xs → ListTree ys →
                      reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
 reverse-++-commute {ys = ys} nilLT LTys =
@@ -206,6 +202,48 @@ reverse-++-commute (consLT {x} {xs} Tx LTxs) (consLT {y} {ys} Ty LTys) =
       ⟩
     reverse (y ∷ ys) ++ reverse (x ∷ xs)
   ∎
+
+reverse-∷ : ∀ {x ys} → Tree x → ListTree ys →
+            reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])
+reverse-∷ {x} Tx nilLT =
+  begin
+    rev (x ∷ []) []
+      ≡⟨ rev-∷ x [] [] ⟩
+    rev [] (x ∷ [])
+      ≡⟨ rev-[] (x ∷ []) ⟩
+    x ∷ []
+      ≡⟨ sym (++-leftIdentity (consLT Tx nilLT)) ⟩
+    [] ++ x ∷ []
+      ≡⟨ subst (λ p → [] ++ x ∷ [] ≡ p ++ x ∷ [])
+               (sym (rev-[] []))
+               refl
+      ⟩
+    rev [] [] ++ x ∷ []
+  ∎
+
+reverse-∷ {x} Tx (consLT {y} {ys} Ty LTys) = sym
+  (
+    begin
+      reverse (y ∷ ys) ++ x ∷ []
+        ≡⟨ subst (λ p → reverse (y ∷ ys) ++ x ∷ [] ≡ reverse (y ∷ ys) ++ p)
+                 (sym (reverse-[x]≡[x] x))
+                 refl
+        ⟩
+      (reverse (y ∷ ys) ++ reverse (x ∷ []))
+        ≡⟨ sym (reverse-++-commute (consLT Tx nilLT) (consLT Ty LTys)) ⟩
+      reverse ((x ∷ []) ++ (y ∷ ys))
+        ≡⟨ subst (λ p → reverse ((x ∷ []) ++ (y ∷ ys)) ≡ reverse p)
+                 (++-∷ x [] (y ∷ ys))
+                 refl
+        ⟩
+      reverse (x ∷ ([] ++ (y ∷ ys)))
+        ≡⟨ subst (λ p → reverse (x ∷ ([] ++ (y ∷ ys))) ≡ reverse (x ∷ p))
+                 (++-leftIdentity (consLT Ty LTys))
+                 refl
+        ⟩
+      reverse (x ∷ y ∷ ys)
+    ∎
+  )
 
 map-++-commute : ∀ f {xs ys} → (∀ {x} → Tree x → Tree (f · x)) →
                  ListTree xs → ListTree ys →

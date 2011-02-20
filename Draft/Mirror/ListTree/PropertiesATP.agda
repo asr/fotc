@@ -12,6 +12,7 @@ open import Draft.Mirror.Mirror
 open import Draft.Mirror.ListTree.Closures
 
 open import LTC.Data.List
+open import LTC.Data.List.PropertiesI using (reverse-[x]≡[x])
 
 open import LTC.Relation.Binary.EqReasoning
 
@@ -58,11 +59,6 @@ rev-++-commute {ys = ys} (consLT {x} {xs} Tx LTxs) LTys =
                     rev (x ∷ xs) ys ≡ rev (x ∷ xs) [] ++ ys
     {-# ATP prove prf ++-assoc rev-ListTree ++-ListTree #-}
 
-postulate
-  reverse-∷ : ∀ x {ys} → ListTree ys →
-              reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])
--- {-# ATP prove reverse-∷ #-}
-
 reverse-++-commute : ∀ {xs ys} → ListTree xs → ListTree ys →
                      reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
 reverse-++-commute {ys = ys} nilLT LTys = prf
@@ -83,6 +79,18 @@ reverse-++-commute (consLT {x} {xs} Tx LTxs) (consLT {y} {ys} Ty LTys) =
                     reverse ((x ∷ xs) ++ y ∷ ys) ≡ reverse (y ∷ ys) ++
                                                    reverse (x ∷ xs)
     {-# ATP prove prf reverse-ListTree ++-ListTree rev-++-commute ++-assoc #-}
+
+reverse-∷ : ∀ {x ys} → Tree x → ListTree ys →
+            reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])
+reverse-∷ {x} Tx nilLT = prf
+  where
+    postulate prf : reverse (x ∷ []) ≡ reverse [] ++ x ∷ []
+    {-# ATP prove prf ++-leftIdentity #-}
+
+reverse-∷ {x} Tx (consLT {y} {ys} Ty LTys) = prf
+  where
+    postulate prf : reverse (x ∷ y ∷ ys) ≡ reverse (y ∷ ys) ++ x ∷ []
+    {-# ATP prove prf reverse-[x]≡[x] reverse-++-commute ++-leftIdentity #-}
 
 map-++-commute : ∀ f {xs ys} → (∀ {x} → Tree x → Tree (f · x)) →
                  ListTree xs → ListTree ys →
