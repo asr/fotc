@@ -162,6 +162,7 @@ map-++-commute f {ys = ys} nilL Lys = prf
   where
     postulate prf : map f ([] ++ ys) ≡ map f [] ++ map f ys
     {-# ATP prove prf #-}
+
 map-++-commute f {ys = ys} (consL x {xs} Lxs) Lys =
   prf $ map-++-commute f Lxs Lys
   where
