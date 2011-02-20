@@ -2,8 +2,6 @@
 -- Properties of the mirror function
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --no-termination-check  #-}
-
 module Draft.Mirror.PropertiesATP where
 
 open import LTC.Base
@@ -11,32 +9,48 @@ open import LTC.Base
 open import Draft.Mirror.Mirror
 open import Draft.Mirror.ListTree.PropertiesATP
 open import Draft.Mirror.ListTree.Closures
+open import Draft.Mirror.Tree.Closures
 
 open import LTC.Data.List
 open import LTC.Data.List.PropertiesATP using ( reverse-[x]≡[x] )
-open import Draft.Mirror.ListTree.PropertiesATP
 
 open import LTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 
--- TODO: To remove
-postulate
-  mirror-Tree : ∀ {t} → Tree t → Tree (mirror · t)
+mutual
+  mirror² : ∀ {t} → Tree t → mirror · (mirror · t) ≡ t
+  mirror² (treeT d nilLT) = prf
+    where
+      postulate prf : mirror · (mirror · node d []) ≡ node d []
+      {-# ATP prove prf #-}
 
-mirror² : ∀ {t} → Tree t → mirror · (mirror · t) ≡ t
-mirror² (treeT d nilLT) = prf
-  where
-    postulate prf : mirror · (mirror · node d []) ≡ node d []
-    {-# ATP prove prf #-}
+  mirror² (treeT d (consLT {t} {ts} Tt LTts)) = prf
+    where
+      postulate prf : mirror · (mirror · node d (t ∷ ts)) ≡ node d (t ∷ ts)
+      {-# ATP prove prf helper #-}
 
-mirror² (treeT d (consLT {t} {ts} Tt LTts)) =
-  prf (mirror² Tt) (mirror² (treeT d LTts))
-  where
-    postulate prf : mirror · (mirror · t) ≡ t → -- IH.
-                    mirror · (mirror · node d ts) ≡ node d ts → -- IH.
-                    mirror · (mirror · node d (t ∷ ts)) ≡ node d (t ∷ ts)
-    {-# ATP prove prf reverse-∷ map-ListTree mirror-Tree map-++-commute
-                      reverse-++-commute rev-ListTree reverse-[x]≡[x]
-                      ++-leftIdentity
-    #-}
+  helper : ∀ {ts} → ListTree ts →
+           reverse (map mirror (reverse (map mirror ts))) ≡ ts
+  helper nilLT = prf
+    where
+      postulate prf : reverse (map mirror (reverse (map mirror []))) ≡ []
+      {-# ATP prove prf #-}
+
+  helper (consLT {t} {ts} Tt LTts) =
+    prf (map-++-commute mirror
+                        mirror-Tree
+                        (reverse-ListTree (map-ListTree mirror mirror-Tree LTts))
+                        (consLT (mirror-Tree Tt) nilLT))
+        (mirror² Tt)
+        (helper LTts)
+    where
+      postulate
+        -- We help the ATPs proving the first hypothesis.
+        prf : (map mirror (reverse (map mirror ts) ++ (mirror · t ∷ [])) ≡
+              map mirror (reverse (map mirror ts)) ++ (map mirror (mirror · t ∷ []))) →
+              mirror · (mirror · t) ≡ t →  -- IH.
+              reverse (map mirror (reverse (map mirror ts))) ≡ ts →  -- IH.
+              reverse (map mirror (reverse (map mirror (t ∷ ts)))) ≡ t ∷ ts
+      {-# ATP prove prf reverse-∷ mirror-Tree map-ListTree reverse-++-commute
+                        reverse-ListTree reverse-[x]≡[x] ++-leftIdentity #-}
