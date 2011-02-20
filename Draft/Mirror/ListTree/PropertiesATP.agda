@@ -65,92 +65,24 @@ postulate
 
 reverse-++-commute : ∀ {xs ys} → ListTree xs → ListTree ys →
                      reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
-reverse-++-commute {ys = ys} nilLT LTys =
-  begin
-    reverse ([] ++ ys)
-      ≡⟨ subst (λ t → reverse ([] ++ ys) ≡ reverse t)
-               (++-[] ys)
-               refl
-      ⟩
-    reverse ys
-      ≡⟨ sym (++-rightIdentity (rev-ListTree LTys nilLT)) ⟩
-    reverse ys ++ []
-      ≡⟨ subst (λ t → reverse ys ++ [] ≡ reverse ys ++ t)
-               (sym (rev-[] []))
-               refl
-      ⟩
-    reverse ys ++ reverse []
-  ∎
+reverse-++-commute {ys = ys} nilLT LTys = prf
+  where
+    postulate prf : reverse ([] ++ ys) ≡ reverse ys ++ reverse []
+    {-# ATP prove prf ++-rightIdentity reverse-ListTree #-}
 
-reverse-++-commute (consLT {x} {xs} Tx LTxs) nilLT =
-  begin
-    reverse ((x ∷ xs) ++ [])
-      ≡⟨ subst (λ t → reverse ((x ∷ xs) ++ []) ≡ reverse t)
-               (++-rightIdentity (consLT Tx LTxs))
-               refl
-      ⟩
-    reverse (x ∷ xs)
-      ≡⟨ sym (++-[] (reverse (x ∷ xs))) ⟩
-    [] ++ reverse (x ∷ xs)
-      ≡⟨ subst (λ t → [] ++ reverse (x ∷ xs) ≡ t ++ reverse (x ∷ xs))
-               (sym (rev-[] []))
-               refl
-      ⟩
-    reverse [] ++ reverse (x ∷ xs)
-  ∎
+reverse-++-commute (consLT {x} {xs} Tx LTxs) nilLT = prf
+  where
+    postulate prf : reverse ((x ∷ xs) ++ []) ≡ reverse [] ++ reverse (x ∷ xs)
+    {-# ATP prove prf ++-rightIdentity #-}
 
 reverse-++-commute (consLT {x} {xs} Tx LTxs) (consLT {y} {ys} Ty LTys) =
-  begin
-    reverse ((x ∷ xs) ++ y ∷ ys) ≡⟨ refl ⟩
-    rev ((x ∷ xs) ++ y ∷ ys) []
-      ≡⟨ subst (λ t → rev ((x ∷ xs) ++ y ∷ ys) [] ≡ rev t [])
-               (++-∷ x xs (y ∷ ys))
-               refl
-      ⟩
-    rev (x ∷ (xs ++ y ∷ ys)) [] ≡⟨ rev-∷ x (xs ++ y ∷ ys) [] ⟩
-    rev (xs ++ y ∷ ys) (x ∷ [])
-      ≡⟨ rev-++-commute (++-ListTree LTxs (consLT Ty LTys)) (consLT Tx nilLT) ⟩
-    rev (xs ++ y ∷ ys) [] ++ (x ∷ [])
-      ≡⟨ subst (λ t → rev (xs ++ y ∷ ys) [] ++ (x ∷ []) ≡ t ++ (x ∷ []))
-               refl
-               refl
-      ⟩
-    reverse (xs ++ y ∷ ys) ++ (x ∷ [])
-      ≡⟨ subst (λ t → reverse (xs ++ y ∷ ys) ++ (x ∷ []) ≡ t ++ (x ∷ []))
-               (reverse-++-commute LTxs (consLT Ty LTys))  -- IH.
-               refl
-      ⟩
-    (reverse (y ∷ ys) ++ reverse xs) ++ x ∷ []
-      ≡⟨ ++-assoc (rev-ListTree (consLT Ty LTys) nilLT)
-                  (rev-ListTree LTxs nilLT)
-                  (consLT Tx nilLT)
-      ⟩
-    reverse (y ∷ ys) ++ reverse xs ++ x ∷ []
-      ≡⟨ subst (λ t → reverse (y ∷ ys) ++ reverse xs ++ x ∷ [] ≡
-                      reverse (y ∷ ys) ++ t ++ x ∷ [])
-               refl
-               refl
-      ⟩
-    reverse (y ∷ ys) ++ rev xs [] ++ x ∷ []
-      ≡⟨ subst (λ t → reverse (y ∷ ys) ++ rev xs [] ++ x ∷ [] ≡
-                      reverse (y ∷ ys) ++ t)
-               (sym $ rev-++-commute LTxs (consLT Tx nilLT))
-               refl
-      ⟩
-    reverse (y ∷ ys) ++ rev xs (x ∷ [])
-      ≡⟨ subst (λ t → reverse (y ∷ ys) ++ rev xs (x ∷ []) ≡
-                      reverse (y ∷ ys) ++ t)
-               (sym $ rev-∷ x xs [])
-               refl
-      ⟩
-    reverse (y ∷ ys) ++ rev (x ∷ xs) []
-      ≡⟨ subst (λ t → reverse (y ∷ ys) ++ rev (x ∷ xs) [] ≡
-                      reverse (y ∷ ys) ++ t)
-               refl
-               refl
-      ⟩
-    reverse (y ∷ ys) ++ reverse (x ∷ xs)
-  ∎
+  prf $ reverse-++-commute LTxs (consLT Ty LTys)
+  where
+    postulate prf : reverse (xs ++ y ∷ ys) ≡ reverse (y ∷ ys) ++
+                                             reverse xs →  -- IH.
+                    reverse ((x ∷ xs) ++ y ∷ ys) ≡ reverse (y ∷ ys) ++
+                                                   reverse (x ∷ xs)
+    {-# ATP prove prf reverse-ListTree ++-ListTree rev-++-commute ++-assoc #-}
 
 map-++-commute : ∀ f {xs ys} → (∀ {x} → Tree x → Tree (f · x)) →
                  ListTree xs → ListTree ys →
