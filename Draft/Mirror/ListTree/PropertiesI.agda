@@ -128,7 +128,7 @@ reverse-++-commute {ys = ys} nilLT LTys =
                refl
       ⟩
     reverse ys
-      ≡⟨ sym (++-rightIdentity (rev-ListTree LTys nilLT)) ⟩
+      ≡⟨ sym (++-rightIdentity (reverse-ListTree LTys)) ⟩
     reverse ys ++ []
       ≡⟨ subst (λ t → reverse ys ++ [] ≡ reverse ys ++ t)
                (sym (rev-[] []))
@@ -176,8 +176,8 @@ reverse-++-commute (consLT {x} {xs} Tx LTxs) (consLT {y} {ys} Ty LTys) =
                refl
       ⟩
     (reverse (y ∷ ys) ++ reverse xs) ++ x ∷ []
-      ≡⟨ ++-assoc (rev-ListTree (consLT Ty LTys) nilLT)
-                  (rev-ListTree LTxs nilLT)
+      ≡⟨ ++-assoc (reverse-ListTree (consLT Ty LTys))
+                  (reverse-ListTree LTxs)
                   (consLT Tx nilLT)
       ⟩
     reverse (y ∷ ys) ++ reverse xs ++ x ∷ []

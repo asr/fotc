@@ -29,3 +29,6 @@ rev-ListTree : ∀ {xs ys} → ListTree xs → ListTree ys → ListTree (rev xs 
 rev-ListTree {ys = ys} nilLT LTys = subst ListTree (sym (rev-[] ys)) LTys
 rev-ListTree {ys = ys} (consLT {x} {xs} Tx LTxs) LTys =
   subst ListTree (sym (rev-∷ x xs ys)) (rev-ListTree LTxs (consLT Tx LTys))
+
+reverse-ListTree : ∀ {xs} → ListTree xs → ListTree (reverse xs)
+reverse-ListTree LTxs = rev-ListTree LTxs nilLT
