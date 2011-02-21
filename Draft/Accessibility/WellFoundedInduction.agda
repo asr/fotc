@@ -1,9 +1,10 @@
 ----------------------------------------------------------------------------
--- Well-founded induction on LT using the accesibility relation
+-- Well-founded induction on the natural numbers using the
+-- accessibility relation
 ----------------------------------------------------------------------------
 
 
-module Draft.Accesibility.WellFoundedInduction where
+module Draft.Accessibility.WellFoundedInduction where
 
 open import FOTC.Base
 
@@ -14,7 +15,7 @@ open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 
 ----------------------------------------------------------------------------
--- Accesibility stuff for the FOTC natural numbers
+-- Accessibility stuff for the FOTC natural numbers
 
 -- Adapted from
 -- http://www.iis.sinica.edu.tw/~scm/2008/well-founded-recursion-and-accessibility/
@@ -64,6 +65,7 @@ LT-wf Nn = accN Nn (helper Nn)
         in  helper Nm Nn' n'<m
       )
 
+-- Well-founded induction on the natural numbers.
 wfInd-LT : (P : D → Set) →
            (∀ {m} → N m → (∀ {n} → N n → LT n m → P n) → P m) →
            ∀ {n} → N n → P n
