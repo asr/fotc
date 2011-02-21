@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Properties related with lists of trees
+-- Properties related with list of trees
 ------------------------------------------------------------------------------
 
 module LTC.Program.Mirror.ListTree.PropertiesATP where

@@ -15,7 +15,7 @@ postulate
   node : D → D → D
 
 mutual
-  -- The lists of trees type.
+  -- The list of trees type.
   data ListTree : D → Set where
     nilLT  : ListTree []
     consLT : ∀ {t ts} → Tree t → ListTree ts → ListTree (t ∷ ts)

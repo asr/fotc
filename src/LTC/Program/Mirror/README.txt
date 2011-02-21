@@ -12,7 +12,7 @@ mirror (tree a ts) = tree a (reverse (map mirror ts))
 
 we prove that
 
-mirror (mirror t) ≡ t
+mirror (mirror t) = t
 
 [1] Ana Bove, Alexander Krauss, and Mattieu Sozeua. Partiality and
 recursion in interactive theorem provers. An overview. Submitted to

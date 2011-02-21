@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Properties related with the closures of the lists of trees type
+-- Properties related with the closures of the list of trees type
 ------------------------------------------------------------------------------
 
 module LTC.Program.Mirror.ListTree.Closures where
