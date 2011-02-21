@@ -86,7 +86,8 @@ open import LTC.Program.Mirror.Mirror.ConsistencyTest
 open import LTC.Program.Mirror.Mirror
 open import LTC.Program.Mirror.PropertiesATP
 open import LTC.Program.Mirror.PropertiesI
-open import LTC.Program.Mirror.Tree.Closures
+open import LTC.Program.Mirror.Tree.ClosuresATP
+open import LTC.Program.Mirror.Tree.ClosuresI
 
 open import LTC.Program.SortList.ProofSpecificationATP
 open import LTC.Program.SortList.ProofSpecificationI

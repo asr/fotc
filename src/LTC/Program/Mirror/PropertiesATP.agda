@@ -12,7 +12,7 @@ open import LTC.Data.List.PropertiesATP using ( reverse-[x]≡[x] )
 open import LTC.Program.Mirror.Mirror
 open import LTC.Program.Mirror.ListTree.PropertiesATP
 open import LTC.Program.Mirror.ListTree.Closures
-open import LTC.Program.Mirror.Tree.Closures
+open import LTC.Program.Mirror.Tree.ClosuresATP
 
 ------------------------------------------------------------------------------
 

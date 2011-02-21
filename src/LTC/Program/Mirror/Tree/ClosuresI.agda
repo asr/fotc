@@ -4,7 +4,7 @@
 
 {-# OPTIONS --no-termination-check #-}
 
-module LTC.Program.Mirror.Tree.Closures where
+module LTC.Program.Mirror.Tree.ClosuresI where
 
 open import LTC.Base
 

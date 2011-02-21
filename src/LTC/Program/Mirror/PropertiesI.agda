@@ -9,7 +9,7 @@ open import LTC.Base
 open import LTC.Program.Mirror.Mirror
 open import LTC.Program.Mirror.ListTree.PropertiesI
 open import LTC.Program.Mirror.ListTree.Closures
-open import LTC.Program.Mirror.Tree.Closures
+open import LTC.Program.Mirror.Tree.ClosuresI
 
 open import LTC.Data.List
 open import LTC.Data.List.PropertiesI using ( reverse-[x]≡[x] )
