@@ -7,11 +7,11 @@
 
 module LTC-PCF.Data.Nat.Induction.WellFoundedATP where
 
-open import LTC.Base
+open import LTC-PCF.Base
 
 open import Common.Function
 
-open import LTC.Data.Nat.Type
+open import FOTC.Data.Nat.Type
 
 open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP

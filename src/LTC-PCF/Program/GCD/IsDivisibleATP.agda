@@ -4,8 +4,8 @@
 
 module LTC-PCF.Program.GCD.IsDivisibleATP where
 
-open import LTC.Base
-open import LTC.Base.Properties using ( ¬S≡0 )
+open import LTC-PCF.Base
+open import FOTC.Base.Properties using ( ¬S≡0 )
 
 open import Common.Function using ( _$_ )
 

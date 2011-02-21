@@ -4,7 +4,7 @@
 
 module LTC-PCF.Program.GCD.EquationsATP where
 
-open import LTC.Base
+open import LTC-PCF.Base
 
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat

@@ -2,9 +2,9 @@
 -- The 'gcd' is greatest that any common divisor
 ---------------------------------------------------------------------------
 
-open import LTC.Base
+open import LTC-PCF.Base
 
-open import LTC.Data.Nat.Type
+open import FOTC.Data.Nat.Type
   using ( N ; sN ; zN  -- The LTC natural numbers type.
         )
 open import LTC-PCF.Data.Nat.Divisibility using ( _∣_ )

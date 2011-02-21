@@ -4,11 +4,9 @@
 
 module LTC-PCF.Program.Division.IsCorrectI where
 
-open import LTC.Base
+open import LTC-PCF.Base
 
 open import Common.Function using ( _$_ )
-
-open import LTC.Relation.Binary.EqReasoning
 
 open import LTC-PCF.Data.Nat using ( _+_ ; _∸_ ; _*_ ; N )
 open import LTC-PCF.Data.Nat.Inequalities using ( GE ; LT )
@@ -20,6 +18,8 @@ open import LTC-PCF.Data.Nat.PropertiesI
 open import LTC-PCF.Program.Division.Division using ( div )
 open import LTC-PCF.Program.Division.EquationsI using ( div-x<y ; div-x≥y )
 open import LTC-PCF.Program.Division.Specification using ( DIV )
+
+open import LTC-PCF.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- The division result is correct when the dividend is less than

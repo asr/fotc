@@ -4,13 +4,14 @@
 
 module LTC-PCF.Program.GCD.Definitions where
 
-open import LTC.Base
+open import LTC-PCF.Base
+
+open import FOTC.Data.Nat.Type
+  using ( N  -- The LTC natural numbers type.
+        )
 
 open import LTC-PCF.Data.Nat.Divisibility using ( _∣_ )
 open import LTC-PCF.Data.Nat.Inequalities using ( LE )
-open import LTC.Data.Nat.Type
-  using ( N  -- The LTC natural numbers type.
-        )
 
 ------------------------------------------------------------------------------
 -- Common divisor.

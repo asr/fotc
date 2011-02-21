@@ -4,12 +4,10 @@
 
 module LTC-PCF.Data.Nat.Divisibility.PropertiesI where
 
-open import LTC.Base
-open import LTC.Base.Properties using ( ¬S≡0 )
+open import LTC-PCF.Base
+open import FOTC.Base.Properties using ( ¬S≡0 )
 
 open import Common.Function using ( _$_ )
-
-open import LTC.Relation.Binary.EqReasoning
 
 open import LTC-PCF.Data.Nat
   using ( _+_ ; _∸_ ; _*_
@@ -27,6 +25,8 @@ open import LTC-PCF.Data.Nat.PropertiesI
         ; *+-leftDistributive
         ; *∸-leftDistributive
         )
+
+open import LTC-PCF.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- Any positive number divides 0.

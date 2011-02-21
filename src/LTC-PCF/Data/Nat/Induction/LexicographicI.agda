@@ -4,11 +4,11 @@
 
 module LTC-PCF.Data.Nat.Induction.LexicographicI where
 
-open import LTC.Base
+open import LTC-PCF.Base
 
 open import Common.Function using ( _$_ )
 
-open import LTC.Data.Nat.Type
+open import FOTC.Data.Nat.Type
   using ( N ; sN ; zN  -- The LTC natural numbers type.
         )
 

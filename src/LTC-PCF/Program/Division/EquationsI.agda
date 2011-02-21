@@ -4,11 +4,9 @@
 
 module LTC-PCF.Program.Division.EquationsI where
 
-open import LTC.Base
+open import LTC-PCF.Base
 
 open import Common.Function using ( _$_ )
-
-open import LTC.Relation.Binary.EqReasoning
 
 open import LTC-PCF.Data.Nat
   using ( _∸_
@@ -19,6 +17,8 @@ open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
   using ( x≥y→x≮y )
 
 open import LTC-PCF.Program.Division.Division using ( div ; divh )
+
+open import LTC-PCF.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- Division properties

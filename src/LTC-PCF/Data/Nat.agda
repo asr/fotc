@@ -4,7 +4,7 @@
 
 module LTC-PCF.Data.Nat where
 
-open import LTC.Base
+open import LTC-PCF.Base
 
 open import LTC-PCF.Data.Nat.Rec using ( rec )
 
@@ -14,7 +14,7 @@ infixl 9  _+_ _∸_
 
 ------------------------------------------------------------------------------
 -- The LTC natural numbers type.
-open import LTC.Data.Nat.Type public
+open import FOTC.Data.Nat.Type public
 
 ------------------------------------------------------------------------------
 -- Addition with recursion on the first argument.

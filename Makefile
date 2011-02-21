@@ -28,17 +28,17 @@ Common_path           = src/Common
 DistributiveLaws_path = src/DistributiveLaws
 GroupTheory_path      = src/GroupTheory
 Logic_path            = src/Logic
-LTC_path              = src/LTC
+FOTC_path             = src/FOTC
 LTC-PCF_path          = src/LTC-PCF
 PA_path               = src/PA
 
 # Programs
 Division_path   = $(LTC-PCF_path)/Program/Division
-GCD_path        = $(LTC_path)/Program/GCD
+GCD_path        = $(FOTC_path)/Program/GCD
 GCD-PCF_path    = $(LTC-PCF_path)/Program/GCD
-McCarthy91_path = $(LTC_path)/Program/McCarthy91
-Mirror_path     = $(LTC_path)/Program/Mirror
-SortList_path   = $(LTC_path)/Program/SortList
+McCarthy91_path = $(FOTC_path)/Program/McCarthy91
+Mirror_path     = $(FOTC_path)/Program/Mirror
+SortList_path   = $(FOTC_path)/Program/SortList
 
 ##############################################################################
 # "main" modules
@@ -50,9 +50,9 @@ main_DistributiveLaws = $(DistributiveLaws_path)/Everything
 
 main_GroupTheory      = $(GroupTheory_path)/Everything
 
-main_Logic            = $(Logic_path)/Everything
+main_FOTC             = $(FOTC_path)/Everything
 
-main_LTC              = $(LTC_path)/Everything
+main_Logic            = $(Logic_path)/Everything
 
 main_LTC-PCF          = $(LTC-PCF_path)/Everything
 
@@ -83,8 +83,8 @@ type_checking_% :
 all_type_checking : type_checking_Common \
 		    type_checking_DistributiveLaws \
 		    type_checking_GroupTheory \
+		    type_checking_FOTC \
 		    type_checking_Logic \
-		    type_checking_LTC \
 		    type_checking_LTC-PCF \
 		    type_checking_PA \
 		    type_checking_Agsy \
@@ -104,11 +104,11 @@ conjectures_% :
 # duplicates the test.
 # all_conjectures : conjectures_DistributiveLaws \
 # 		  conjectures_GroupTheory \
+# 		  conjectures_FOTC \
 # 		  conjectures_Logic \
-# 		  conjectures_LTC \
 # 		  conjectures_LTC-PCF \
 # 		  conjectures_PA \
-#                   conjectures_Division \
+#                 conjectures_Division \
 # 		  conjectures_GCD \
 # 		  conjectures_GCD-PCF \
 #		  conjectures_McCarthy91 \
@@ -117,8 +117,8 @@ conjectures_% :
 
 all_conjectures : conjectures_DistributiveLaws \
 		  conjectures_GroupTheory \
+		  conjectures_FOTC \
 		  conjectures_Logic \
-		  conjectures_LTC \
 		  conjectures_LTC-PCF \
 		  conjectures_PA
 
@@ -157,8 +157,8 @@ publish_% :
 all_publish : publish_Common \
 	      publish_DistributiveLaws \
 	      publish_GroupTheory \
+	      publish_FOTC \
 	      publish_Logic \
-	      publish_LTC \
 	      publish_LTC-PCF \
 	      publish_PA \
               publish_Agsy

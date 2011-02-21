@@ -10,12 +10,13 @@
 
 module LTC-PCF.Program.GCD.ProofSpecificationATP where
 
-open import LTC.Base
+open import LTC-PCF.Base
 
-open import LTC-PCF.Data.Nat.Divisibility.PropertiesATP using ( x∣S→x≤S )
-open import LTC.Data.Nat.Type
+open import FOTC.Data.Nat.Type
   using ( N  -- The LTC list of natural numbers type.
         )
+
+open import LTC-PCF.Data.Nat.Divisibility.PropertiesATP using ( x∣S→x≤S )
 
 open import LTC-PCF.Program.GCD.Definitions using ( ¬x≡0∧y≡0 )
 open import LTC-PCF.Program.GCD.GCD using ( gcd )

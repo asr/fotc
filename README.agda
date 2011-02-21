@@ -110,66 +110,66 @@ open import Logic.Predicate.PropertiesATP
 open import Logic.Predicate.PropertiesI
 
 ------------------------------------------------------------------------------
--- LTC
+-- FOTC
 
--- Formalization of (a version of) Azcel's Logical Theory of constructions.
+-- Formalization of (a version of) Azcel's First Order Theory of Combinators
 
--- LTC base
-open import LTC.Base.Properties
-open import LTC.Base.PropertiesATP
-open import LTC.Base.PropertiesI
+-- FOTC base
+open import FOTC.Base.Properties
+open import FOTC.Base.PropertiesATP
+open import FOTC.Base.PropertiesI
 
 -- Booleans
-open import LTC.Data.Bool.PropertiesATP
-open import LTC.Data.Bool.PropertiesI
+open import FOTC.Data.Bool.PropertiesATP
+open import FOTC.Data.Bool.PropertiesI
 
 -- Lists
-open import LTC.Data.List.PropertiesATP
-open import LTC.Data.List.PropertiesI
+open import FOTC.Data.List.PropertiesATP
+open import FOTC.Data.List.PropertiesI
 
 -- Naturals numbers: Common properties
-open import LTC.Data.Nat.PropertiesATP
-open import LTC.Data.Nat.PropertiesI
+open import FOTC.Data.Nat.PropertiesATP
+open import FOTC.Data.Nat.PropertiesI
 
-open import LTC.Data.Nat.PropertiesByInductionATP
-open import LTC.Data.Nat.PropertiesByInductionI
+open import FOTC.Data.Nat.PropertiesByInductionATP
+open import FOTC.Data.Nat.PropertiesByInductionI
 
 -- Naturals numbers: Divisibility relation
-open import LTC.Data.Nat.Divisibility.PropertiesATP
-open import LTC.Data.Nat.Divisibility.PropertiesI
+open import FOTC.Data.Nat.Divisibility.PropertiesATP
+open import FOTC.Data.Nat.Divisibility.PropertiesI
 
 -- Naturals numbers: Induction
-open import LTC.Data.Nat.Induction.LexicographicATP
-open import LTC.Data.Nat.Induction.LexicographicI
-open import LTC.Data.Nat.Induction.WellFoundedATP
-open import LTC.Data.Nat.Induction.WellFoundedI
+open import FOTC.Data.Nat.Induction.LexicographicATP
+open import FOTC.Data.Nat.Induction.LexicographicI
+open import FOTC.Data.Nat.Induction.WellFoundedATP
+open import FOTC.Data.Nat.Induction.WellFoundedI
 
 -- Naturals numbers: Inequalites
-open import LTC.Data.Nat.Inequalities.PropertiesATP
-open import LTC.Data.Nat.Inequalities.PropertiesI
+open import FOTC.Data.Nat.Inequalities.PropertiesATP
+open import FOTC.Data.Nat.Inequalities.PropertiesI
 
 -- Naturals numbers: List
-open import LTC.Data.Nat.List.PropertiesATP
-open import LTC.Data.Nat.List.PropertiesI
+open import FOTC.Data.Nat.List.PropertiesATP
+open import FOTC.Data.Nat.List.PropertiesI
 
 -- Naturals numbers: Unary numbers
-open import LTC.Data.Nat.UnaryNumbers.IsN-ATP
-open import LTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
+open import FOTC.Data.Nat.UnaryNumbers.IsN-ATP
+open import FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
 
 -- The GCD algorithm
-open import LTC.Program.GCD.ProofSpecificationATP
-open import LTC.Program.GCD.ProofSpecificationI
+open import FOTC.Program.GCD.ProofSpecificationATP
+open import FOTC.Program.GCD.ProofSpecificationI
 
 -- The McCarthy 91 function
-open import LTC.Program.McCarthy91.Properties.MainATP
+open import FOTC.Program.McCarthy91.Properties.MainATP
 
 -- The mirror function: A function with higher-order recursion
-open import LTC.Program.Mirror.PropertiesATP
-open import LTC.Program.Mirror.PropertiesI
+open import FOTC.Program.Mirror.PropertiesATP
+open import FOTC.Program.Mirror.PropertiesI
 
 -- Burstall's sort list algorithm
-open import LTC.Program.SortList.ProofSpecificationATP
-open import LTC.Program.SortList.ProofSpecificationI
+open import FOTC.Program.SortList.ProofSpecificationATP
+open import FOTC.Program.SortList.ProofSpecificationI
 
 ------------------------------------------------------------------------------
 -- LTC-PCF

@@ -4,7 +4,7 @@
 
 module LTC-PCF.Program.Division.IsCorrectATP where
 
-open import LTC.Base
+open import LTC-PCF.Base
 
 open import LTC-PCF.Data.Nat
   using ( _+_ ; _∸_ ; _*_

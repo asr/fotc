@@ -4,7 +4,7 @@
 
 module LTC-PCF.Data.Nat.Rec where
 
-open import LTC.Base
+open import LTC-PCF.Base
 
 ---------------------------------------------------------------------------
 -- Version using lambda-abstraction.

@@ -4,6 +4,9 @@
 
 module LTC-PCF.Everything where
 
+open import LTC-PCF.Base
+open import LTC-PCF.Base.ConsistencyTest
+
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Divisibility
 open import LTC-PCF.Data.Nat.Divisibility.Properties
@@ -50,3 +53,5 @@ open import LTC-PCF.Program.GCD.IsN-I
 open import LTC-PCF.Program.GCD.ProofSpecificationATP
 open import LTC-PCF.Program.GCD.ProofSpecificationI
 open import LTC-PCF.Program.GCD.Specification
+
+open import LTC-PCF.Relation.Binary.EqReasoning

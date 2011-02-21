@@ -4,13 +4,13 @@
 
 module LTC-PCF.Data.Nat.Rec.EquationsI where
 
-open import LTC.Base
+open import LTC-PCF.Base
 
 open import Common.Function using ( _$_ )
 
-open import LTC.Relation.Binary.EqReasoning
-
 open import LTC-PCF.Data.Nat.Rec using ( rec ; rech )
+
+open import LTC-PCF.Relation.Binary.EqReasoning
 
 ----------------------------------------------------------------------------
 

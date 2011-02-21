@@ -4,9 +4,7 @@
 
 module LTC-PCF.Program.GCD.EquationsI where
 
-open import LTC.Base
-
-open import LTC.Relation.Binary.EqReasoning
+open import LTC-PCF.Base
 
 open import LTC-PCF.Data.Nat
   using ( _∸_
@@ -16,6 +14,8 @@ open import LTC-PCF.Data.Nat.Inequalities using ( _>_ ; GT ; LE )
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesI using ( x≤y→x≯y )
 
 open import LTC-PCF.Program.GCD.GCD using ( gcd ; gcdh )
+
+open import LTC-PCF.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 

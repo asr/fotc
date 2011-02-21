@@ -4,7 +4,7 @@
 
 module LTC-PCF.Program.Division.IsN-I where
 
-open import LTC.Base
+open import LTC-PCF.Base
 
 open import Common.Function using ( _$_ )
 

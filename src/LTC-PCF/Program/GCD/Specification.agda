@@ -2,9 +2,9 @@
 -- The gcd (parametric) specification
 ------------------------------------------------------------------------------
 
-open import LTC.Base
+open import LTC-PCF.Base
 
-open import LTC.Data.Nat.Type
+open import FOTC.Data.Nat.Type
   using ( N  -- The LTC natural numbers type.
         )
 
