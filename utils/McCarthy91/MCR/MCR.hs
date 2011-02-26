@@ -10,13 +10,13 @@ import Test.QuickCheck
 
 ------------------------------------------------------------------------------
 
-data Nat = Zero | Succ Nat
-           deriving (Eq, Ord)
-
 -- From http://byorgey.wordpress.com/2010/11/:
 -- Note that the auto-derived Ord instance have exactly the right
 -- behavior due to the fact that we happened to list the Zero
 -- constructor first.
+
+data Nat = Zero | Succ Nat
+           deriving (Eq, Ord)
 
 fromNat ∷ Nat → Integer
 fromNat Zero     = 0
