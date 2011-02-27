@@ -1,6 +1,6 @@
 source = MCR
 
 build : $(source).hs
-	ghc --make $<
+	ghc --make $< -o mcr
 clean :
-	rm -f $(source) $(source).hi $(source).o
+	rm -f $(source).hi $(source).o mcr

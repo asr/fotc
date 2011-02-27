@@ -78,7 +78,10 @@ prop3 ∷ Nat → Nat → Property
 prop3 m n = m > 95 && n > 95 && mcr m n ==>
             mcr (Succ m) (Succ n)
 
+prop4 ∷ Nat → Nat → Bool
+prop4 m n = mcr m n == (n < m && n < 101)
+
 main ∷ IO ()
 main = do
-  -- quickCheck prop3
-  quickCheckWith (stdArgs { maxDiscard = 75000 }) prop3
+  quickCheck prop4
+  -- quickCheckWith (stdArgs { maxDiscard = 75000 }) prop3
