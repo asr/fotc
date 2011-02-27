@@ -17,50 +17,50 @@ open import FOTC.Data.Nat.Type
 -- Adapted from http://code.haskell.org/~dolio/agda-share/induction/.
 
 wfInd-LT : (P : D → Set) →
-           (∀ {m} → N m → (∀ {n} → N n → LT n m → P n) → P m) →
+           (∀ {n} → N n → (∀ {m} → N m → LT m n → P m) → P n) →
            ∀ {n} → N n → P n
 wfInd-LT P accH Nn = accH Nn (helper Nn)
   where
-    helper : ∀ {m n} → N m → N n → LT n m → P n
-    helper zN     Nn n<0  = ⊥-elim $ x<0→⊥ Nn n<0
-    helper (sN _) zN 0<Sm = accH zN (λ Nn' n'<0 → ⊥-elim $ x<0→⊥ Nn' n'<0)
+    helper : ∀ {n m} → N n → N m → LT m n → P m
+    helper zN     Nm m<0  = ⊥-elim $ x<0→⊥ Nm m<0
+    helper (sN _) zN 0<Sn = accH zN (λ Nm' m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
 
-    helper (sN {m} Nm) (sN {n} Nn) Sn<Sm = accH (sN Nn)
-      (λ {n'} Nn' n'<Sn →
-        let Sn'≤Sn : LE (succ n') (succ n)
-            Sn'≤Sn = x<y→Sx≤y Nn' (sN Nn) n'<Sn
+    helper (sN {n} Nn) (sN {m} Nm) Sm<Sn = accH (sN Nm)
+      (λ {m'} Nm' m'<Sm →
+        let Sm'≤Sm : LE (succ m') (succ m)
+            Sm'≤Sm = x<y→Sx≤y Nm' (sN Nm) m'<Sm
 
-            Sn≤m : LE (succ n) m
-            Sn≤m = Sx≤Sy→x≤y (x<y→Sx≤y (sN Nn) (sN Nm) Sn<Sm)
+            Sm≤n : LE (succ m) n
+            Sm≤n = Sx≤Sy→x≤y (x<y→Sx≤y (sN Nm) (sN Nn) Sm<Sn)
 
-            Sn'≤m : LE (succ n') m
-            Sn'≤m = ≤-trans (sN Nn') (sN Nn) Nm Sn'≤Sn Sn≤m
+            Sm'≤n : LE (succ m') n
+            Sm'≤n = ≤-trans (sN Nm') (sN Nm) Nn Sm'≤Sm Sm≤n
 
-            n'<m : LT n' m
-            n'<m = Sx≤y→x<y Nn' Nm Sn'≤m
+            m'<n : LT m' n
+            m'<n = Sx≤y→x<y Nm' Nn Sm'≤n
 
-        in  helper Nm Nn' n'<m
+        in  helper Nn Nm' m'<n
       )
 
 -- Other version using different properties of inequalities.
 wfInd-LT₁ : (P : D → Set) →
-            (∀ {m} → N m → (∀ {n} → N n → LT n m → P n) → P m) →
+            (∀ {n} → N n → (∀ {m} → N m → LT m n → P m) → P n) →
             ∀ {n} → N n → P n
 wfInd-LT₁ P accH Nn = accH Nn (helper Nn)
   where
-    helper : ∀ {m n} → N m → N n → LT n m → P n
-    helper zN     Nn n<0  = ⊥-elim $ x<0→⊥ Nn n<0
-    helper (sN _) zN 0<Sm = accH zN (λ Nn' n'<0 → ⊥-elim $ x<0→⊥ Nn' n'<0)
+    helper : ∀ {n m} → N n → N m → LT m n → P m
+    helper zN     Nm m<0  = ⊥-elim $ x<0→⊥ Nm m<0
+    helper (sN _) zN 0<Sn = accH zN (λ Nm' m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
 
-    helper (sN {m} Nm) (sN {n} Nn) Sn<Sm = accH (sN Nn)
-      (λ {n'} Nn' n'<Sn →
-        let n<m : LT n m
-            n<m = Sx<Sy→x<y Sn<Sm
+    helper (sN {n} Nn) (sN {m} Nm) Sm<Sn = accH (sN Nm)
+      (λ {m'} Nm' m'<Sm →
+        let m<n : LT m n
+            m<n = Sx<Sy→x<y Sm<Sn
 
-            n'<m : LT n' m
-            n'<m = [ (λ n'<n → <-trans Nn' Nn Nm n'<n n<m)
-                   , (λ n'≡n → x≡y→y<z→x<z n'≡n n<m)
-                   ] (x<Sy→x<y∨x≡y Nn' Nn n'<Sn)
+            m'<n : LT m' n
+            m'<n = [ (λ m'<m → <-trans Nm' Nm Nn m'<m m<n)
+                   , (λ m'≡m → x≡y→y<z→x<z m'≡m m<n)
+                   ] (x<Sy→x<y∨x≡y Nm' Nm m'<Sm)
 
-        in  helper Nm Nn' n'<m
+        in  helper Nn Nm' m'<n
       )

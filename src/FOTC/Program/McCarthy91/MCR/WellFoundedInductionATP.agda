@@ -18,51 +18,50 @@ open import FOTC.Program.McCarthy91.MCR
 open import FOTC.Program.McCarthy91.MCR.PropertiesATP
 
 ----------------------------------------------------------------------------
-
 -- Adapted from FOTC.Data.Nat.Induction.WellFoundedI.wfInd-LT₁.
 wfInd-MCR : (P : D → Set) →
-            (∀ {m} → N m → (∀ {n} → N n → MCR n m → P n) → P m) →
+            (∀ {n} → N n → (∀ {m} → N m → MCR m n → P m) → P n) →
             ∀ {n} → N n → P n
 wfInd-MCR P accH Nn = accH Nn (helper Nn)
   where
-    helper : ∀ {m n} → N m → N n → MCR n m → P n
-    helper Nm zN 0«m = ⊥-elim (0«x→⊥ Nm 0«m)
+    helper : ∀ {n m} → N n → N m → MCR m n → P m
+    helper Nn zN 0«n = ⊥-elim (0«x→⊥ Nn 0«n)
 
     -- This equation does not pass the termination check.
-    helper zN (sN {n} Nn) Sn«0 = accH (sN Nn)
-      (λ {n'} Nn' n'«Sn →
-        let n'«0 : MCR n' zero
-            n'«0 = «-trans Nn' (sN Nn) zN n'«Sn Sn«0
+    helper zN (sN Nm) Sm«0 = accH (sN Nm)
+      (λ {m'} Nm' m'«Sm →
+        let m'«0 : MCR m' zero
+            m'«0 = «-trans Nm' (sN Nm) zN m'«Sm Sm«0
 
-        in helper zN Nn' n'«0
+        in helper zN Nm' m'«0
       )
 
     -- Other version of the previous equation (this version neither
     -- pass the termination check).
-    -- helper zN (sN {n} Nn) Sn«0 = accH (sN Nn)
-    --   (λ {n'} Nn' n'«Sn →
-    --     let n'«n : MCR n' n
-    --         n'«n = x«Sy→x«y Nn' Nn n'«Sn
+    -- helper zN (sN {m} Nm) Sm«0 = accH (sN Nm)
+    --   (λ {m'} Nm' m'«Sm →
+    --     let m'«m : MCR m' m
+    --         m'«m = x«Sy→x«y Nm' Nm m'«Sm
 
-    --     in helper Nn Nn' n'«n
+    --     in helper Nm Nm' m'«m
     --   )
 
     -- Other version of the previous equation (this version neither
     -- pass the termination check).
-    -- helper zN Nn n«0 = accH Nn
-    --   (λ {n'} Nn' n'«n →
-    --     let n'«0 : MCR n' zero
-    --         n'«0 = «-trans Nn' Nn zN n'«n n«0
+    -- helper zN Nm m«0 = accH Nm
+    --   (λ {m'} Nm' m'«m →
+    --     let m'«0 : MCR m' zero
+    --         m'«0 = «-trans Nm' Nm zN m'«m m«0
 
-    --     in helper zN Nn' n'«0
+    --     in helper zN Nm' m'«0
     --   )
 
     -- Other version of the previous equation (this version neither
     -- pass the termination check).
-    -- helper {n = n} zN Nn n«0 =
-    --   accH Nn (λ {n'} Nn' n'«n → helper Nn Nn' n'«n)
+    -- helper {m = m} zN Nm m«0 =
+    --   accH Nm (λ {m'} Nm' m'«m → helper Nm Nm' m'«m)
 
-    helper (sN {m} Nm) (sN {n} Nn) Sn«Sm = helper Nm (sN Nn) Sn«m
+    helper (sN {n} Nn) (sN {m} Nm) Sm«Sn = helper Nn (sN Nm) Sm«n
       where
-        Sn«m : MCR (succ n) m
-        Sn«m = x«Sy→x«y (sN Nn) Nm Sn«Sm
+        Sm«n : MCR (succ m) n
+        Sm«n = x«Sy→x«y (sN Nm) Nn Sm«Sn

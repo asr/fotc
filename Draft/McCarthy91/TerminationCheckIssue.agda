@@ -6,18 +6,18 @@ postulate
   someℕ : ℕ
 
 foo : ℕ → ℕ → ℕ
-foo m       zero    = 10
-foo zero    (suc n) = foo zero someℕ
-foo (suc m) (suc n) = foo m (suc n)
+foo n       zero    = 10
+foo zero    (suc m) = foo zero someℕ
+foo (suc n) (suc m) = foo n (suc m)
 
 bar : ℕ → ℕ → ℕ
-bar m       zero    = 10
-bar zero    (suc n) = bar n someℕ
-bar (suc m) (suc n) = bar m (suc n)
+bar n       zero    = 10
+bar zero    (suc m) = bar m someℕ
+bar (suc n) (suc m) = bar n (suc m)
 
 foobar : ℕ → ℕ → ℕ
-foobar m zero = 10
-foobar zero (suc n) with someℕ
+foobar n zero = 10
+foobar zero (suc m) with someℕ
 ... | zero  = 10
-... | suc o = foobar n (suc o)
-foobar (suc m) (suc n) = foobar m (suc n)
+... | suc o = foobar m (suc o)
+foobar (suc n) (suc m) = foobar n (suc m)
