@@ -1,8 +1,8 @@
 ----------------------------------------------------------------------------
--- Well-founded induction on the natural numbers
+-- Well-founded induction on the relation LT
 ----------------------------------------------------------------------------
 
-module FOTC.Data.Nat.Induction.WellFoundedI where
+module FOTC.Data.Nat.Induction.WellFoundedInductionLT-I where
 
 open import FOTC.Base
 
@@ -13,7 +13,7 @@ open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.Type
 
 ------------------------------------------------------------------------------
--- Well-founded induction on N.
+-- Well-founded induction on the relation LT.
 -- Adapted from http://code.haskell.org/~dolio/agda-share/induction/.
 
 wfInd-LT : (P : D → Set) →

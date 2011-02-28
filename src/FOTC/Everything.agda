@@ -31,8 +31,9 @@ open import FOTC.Data.Nat.Divisibility.PropertiesATP
 open import FOTC.Data.Nat.Divisibility.PropertiesI
 open import FOTC.Data.Nat.Induction.LexicographicATP
 open import FOTC.Data.Nat.Induction.LexicographicI
-open import FOTC.Data.Nat.Induction.WellFoundedI
-open import FOTC.Data.Nat.Induction.WellFoundedATP
+open import FOTC.Data.Nat.Induction.WellFounded
+open import FOTC.Data.Nat.Induction.WellFoundedInductionLT-ATP
+open import FOTC.Data.Nat.Induction.WellFoundedInductionLT-I
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.ConsistencyTest
 open import FOTC.Data.Nat.Inequalities.Properties

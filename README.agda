@@ -141,8 +141,8 @@ open import FOTC.Data.Nat.Divisibility.PropertiesI
 -- Naturals numbers: Induction
 open import FOTC.Data.Nat.Induction.LexicographicATP
 open import FOTC.Data.Nat.Induction.LexicographicI
-open import FOTC.Data.Nat.Induction.WellFoundedATP
-open import FOTC.Data.Nat.Induction.WellFoundedI
+open import FOTC.Data.Nat.Induction.WellFoundedInductionLT-ATP
+open import FOTC.Data.Nat.Induction.WellFoundedInductionLT-I
 
 -- Naturals numbers: Inequalites
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
@@ -188,8 +188,8 @@ open import LTC-PCF.Data.Nat.Divisibility.PropertiesI
 -- Naturals numbers: Induction
 open import LTC-PCF.Data.Nat.Induction.LexicographicATP
 open import LTC-PCF.Data.Nat.Induction.LexicographicI
-open import LTC-PCF.Data.Nat.Induction.WellFoundedATP
-open import LTC-PCF.Data.Nat.Induction.WellFoundedI
+open import LTC-PCF.Data.Nat.Induction.WellFoundedInductionLT-ATP
+open import LTC-PCF.Data.Nat.Induction.WellFoundedInductionLT-I
 
 -- Naturals numbers: Inequalites
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP

@@ -22,7 +22,7 @@ open import LTC-PCF.Data.Nat
   using ( _∸_
         ; N  -- The LTC natural numbers type.
         )
-open import LTC-PCF.Data.Nat.Induction.WellFoundedATP
+open import LTC-PCF.Data.Nat.Induction.WellFoundedInductionLT-ATP
   using ( wfInd-LT )
 open import LTC-PCF.Data.Nat.Inequalities using ( GE ; GT ; LT )
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP

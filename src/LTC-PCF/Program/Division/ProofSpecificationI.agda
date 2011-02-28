@@ -19,7 +19,7 @@ open import LTC-PCF.Data.Nat
   using ( _∸_
         ; N  -- The LTC natural numbers type.
         )
-open import LTC-PCF.Data.Nat.Induction.WellFoundedI
+open import LTC-PCF.Data.Nat.Induction.WellFoundedInductionLT-I
   using ( wfInd-LT )
 open import LTC-PCF.Data.Nat.Inequalities using ( GE ; GT ; LT )
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
