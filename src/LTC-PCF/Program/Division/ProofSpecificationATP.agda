@@ -22,13 +22,8 @@ open import LTC-PCF.Data.Nat
   using ( _∸_
         ; N  -- The LTC natural numbers type.
         )
-open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionATP
-  using ( wfInd-LT )
 open import LTC-PCF.Data.Nat.Inequalities using ( GE ; GT ; LT )
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
-  using ( x≥y→y>0→x-y<x
-        ; x<y∨x≥y
-        )
 open import LTC-PCF.Data.Nat.PropertiesATP using ( ∸-N )
 
 open import LTC-PCF.Program.Division.Division using ( div )
@@ -37,6 +32,14 @@ open import LTC-PCF.Program.Division.IsCorrectATP
 open import LTC-PCF.Program.Division.IsN-ATP
   using ( div-x<y-N ; div-x≥y-N )
 open import LTC-PCF.Program.Division.Specification using ( DIV )
+
+-- Parametrized modules
+
+import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInduction
+open module WFInd =
+  LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInduction.WFInd₁
+  x<0→⊥ x<y→Sx≤y ≤-trans Sx≤Sy→x≤y Sx≤y→x<y
+  using ( wfInd-LT )
 
 ------------------------------------------------------------------------------
 -- The division result satifies the specification DIV

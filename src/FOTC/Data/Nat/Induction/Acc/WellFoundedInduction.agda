@@ -14,7 +14,7 @@ open import FOTC.Data.Nat.Type
 
 ------------------------------------------------------------------------------
 -- The relation LT is well-founded.
-module WF-LT₁
+module WF₁-LT
   ( x<0→⊥        : ∀ {n} → N n → ¬ (LT n zero)
   ; Sx<Sy→x<y    : ∀ {m n} → LT (succ m) (succ n) → LT m n
   ; <-trans      : ∀ {m n o} → N m → N n → N o → LT m n → LT n o → LT m o
@@ -46,7 +46,7 @@ module WF-LT₁
 
 ------------------------------------------------------------------------------
 -- A different proof that the relation LT is well-founded.
-module WF-LT₂
+module WF₂-LT
   ( x<0→⊥        : ∀ {n} → N n → ¬ (LT n zero)
   ; x≤y→x<y∨x≡y  : ∀ {m n} → N m → N n → LE m n → LT m n ∨ m ≡ n
   ; x<Sy→x≤y     : ∀ {m n} → N m → N n → LT m (succ n) → LE m n
@@ -69,7 +69,7 @@ module WF-LT₂
 
 ------------------------------------------------------------------------------
 -- Well-founded induction on the natural numbers.
-module WFInd-LT ( wf-LT : WellFounded LT ) where
+module WFInd ( wf-LT : WellFounded LT ) where
 
   wfInd-LT : (P : D → Set) →
              (∀ {n} → N n → (∀ {m} → N m → LT m n → P m) → P n) →

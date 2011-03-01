@@ -33,8 +33,7 @@ open import FOTC.Data.Nat.Induction.Acc.WellFounded
 open import FOTC.Data.Nat.Induction.Acc.WellFoundedInduction
 open import FOTC.Data.Nat.Induction.NonAcc.LexicographicATP
 open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI
-open import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionATP
-open import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionI
+open import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInduction
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.ConsistencyTest
 open import FOTC.Data.Nat.Inequalities.Properties
