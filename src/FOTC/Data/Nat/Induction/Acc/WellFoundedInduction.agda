@@ -76,6 +76,6 @@ module WFInd-LT
   where
 
   wfInd-LT : (P : D → Set) →
-             (∀ {m} → N m → (∀ {n} → N n → LT n m → P n) → P m) →
+             (∀ {n} → N n → (∀ {m} → N m → LT m n → P m) → P n) →
              ∀ {n} → N n → P n
   wfInd-LT P = WellFoundedInduction wf-LT
