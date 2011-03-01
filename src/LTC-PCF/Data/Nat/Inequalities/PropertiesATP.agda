@@ -268,6 +268,9 @@ x<Sy→x<y∨x≡y (sN {m} Nm) (sN {n} Nn) Sm<SSn =
     m<n∨m≡n : LT m n ∨ m ≡ n
     m<n∨m≡n = x<Sy→x<y∨x≡y Nm Nn (trans (sym $ <-SS m (succ n)) Sm<SSn)
 
+x≤y→x<y∨x≡y : ∀ {m n} → N m → N n → LE m n → LT m n ∨ m ≡ n
+x≤y→x<y∨x≡y = x<Sy→x<y∨x≡y
+
 postulate
   x<y→y≡z→x<z : ∀ {m n o} → LT m n → n ≡ o → LT m o
 {-# ATP prove x<y→y≡z→x<z #-}
