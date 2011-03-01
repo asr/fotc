@@ -1,19 +1,20 @@
-----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- Well-founded induction
-----------------------------------------------------------------------------
-
-module FOTC.Data.Nat.Induction.Acc.WellFounded where
+------------------------------------------------------------------------------
 
 -- Adapted from
 -- http://www.iis.sinica.edu.tw/~scm/2008/well-founded-recursion-and-accessibility/
 -- and the Agda standard library.
 
+module FOTC.Data.Nat.Induction.Acc.WellFounded where
+
 open import FOTC.Base
 
 open import Common.Function
+
 open import FOTC.Data.Nat.Type
 
-----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- The accessibility predicate: x is accessible if everything which is
 -- smaller than x is also accessible (inductively).
 data Acc (_<_ : D → D → Set) : D → Set where
@@ -37,13 +38,13 @@ WellFoundedInduction : {P : D → Set} {_<_ : D → D → Set} →
 WellFoundedInduction {_<_ = _<_} wf f Nn = accFold _<_ f Nn (wf Nn)
 
 module InverseImage {_<_ : D → D → Set}
-                    (f : D → D)
+                    {f : D → D}
                     (f-N : ∀ {n} → N n → N (f n))
                     where
 
-  accessible : ∀ {n} → N n → Acc _<_ (f n) → Acc (λ x y → (f x) < (f y)) n
+  accessible : ∀ {n} → N n → Acc _<_ (f n) → Acc (λ x y → f x < f y) n
   accessible Nn (acc _ rs) =
     acc Nn (λ {m} Nm fm<fn → accessible Nm (rs (f-N Nm) fm<fn) )
 
-  wellFounded : WellFounded _<_ → WellFounded (λ x y → (f x) < (f y))
+  wellFounded : WellFounded _<_ → WellFounded (λ x y → f x < f y)
   wellFounded wf = λ Nn → accessible Nn (wf (f-N Nn))

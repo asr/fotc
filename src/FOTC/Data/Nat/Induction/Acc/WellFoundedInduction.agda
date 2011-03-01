@@ -1,6 +1,6 @@
-----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- Well-founded induction on the natural numbers
-----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 
 module FOTC.Data.Nat.Induction.Acc.WellFoundedInduction where
 
@@ -20,8 +20,7 @@ module WF-LT₁
   ; <-trans      : ∀ {m n o} → N m → N n → N o → LT m n → LT n o → LT m o
   ; x≡y→y<z→x<z  : ∀ {m n o} → m ≡ n → LT n o → LT m o
   ; x<Sy→x<y∨x≡y : ∀ {m n} → N m → N n → LT m (succ n) → LT m n ∨ m ≡ n
-  )
-  where
+  ) where
 
   wf-LT : WellFounded LT
   wf-LT Nn = acc Nn (helper Nn)
@@ -51,8 +50,7 @@ module WF-LT₂
   ( x<0→⊥        : ∀ {n} → N n → ¬ (LT n zero)
   ; x≤y→x<y∨x≡y  : ∀ {m n} → N m → N n → LE m n → LT m n ∨ m ≡ n
   ; x<Sy→x≤y     : ∀ {m n} → N m → N n → LT m (succ n) → LE m n
-  )
-  where
+  ) where
 
   wf-LT : WellFounded LT
   wf-LT zN      = acc zN (λ Nm m<0 → ⊥-elim (x<0→⊥ Nm m<0))
@@ -71,9 +69,7 @@ module WF-LT₂
 
 ------------------------------------------------------------------------------
 -- Well-founded induction on the natural numbers.
-module WFInd-LT
-  ( wf-LT : WellFounded LT )
-  where
+module WFInd-LT ( wf-LT : WellFounded LT ) where
 
   wfInd-LT : (P : D → Set) →
              (∀ {n} → N n → (∀ {m} → N m → LT m n → P m) → P n) →

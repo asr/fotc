@@ -1,6 +1,6 @@
-----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 -- Well-founded induction on the relation MCR
-----------------------------------------------------------------------------
+------------------------------------------------------------------------------
 
 -- N.B This module does not contain combined proofs, but it imports
 -- modules which contain combined proofs.
@@ -23,11 +23,9 @@ open module WF-LT =
   FOTC.Data.Nat.Induction.Acc.WellFoundedInduction.WF-LT₂
   x<0→⊥ x≤y→x<y∨x≡y x<Sy→x≤y
 
-open module II =
-  FOTC.Data.Nat.Induction.Acc.WellFounded.InverseImage {LT} MCR-f MCR-f-N
+open module II = FOTC.Data.Nat.Induction.Acc.WellFounded.InverseImage MCR-f-N
 
-----------------------------------------------------------------------------
-
+------------------------------------------------------------------------------
 -- The relation MCR is well-founded.
 wf-MCR : WellFounded MCR
 wf-MCR Nn = wellFounded wf-LT Nn
