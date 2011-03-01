@@ -28,9 +28,11 @@ open module II =
 
 ----------------------------------------------------------------------------
 
+-- The relation MCR is well-founded.
 wf-MCR : WellFounded MCR
 wf-MCR Nn = wellFounded wf-LT Nn
 
+-- Well-founded induction on the relation MCR.
 wfInd-MCR : (P : D → Set) →
             (∀ {n} → N n → (∀ {m} → N m → MCR m n → P m) → P n) →
             ∀ {n} → N n → P n
