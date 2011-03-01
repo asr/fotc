@@ -12,6 +12,8 @@ module FOTC.Data.Nat.Induction.Acc.WellFoundedInduction
   ; <-trans      : ∀ {m n o} → N m → N n → N o → LT m n → LT n o → LT m o
   ; x≡y→y<z→x<z  : ∀ {m n o} → m ≡ n → LT n o → LT m o
   ; x<Sy→x<y∨x≡y : ∀ {m n} → N m → N n → LT m (succ n) → LT m n ∨ m ≡ n
+  ; x≤y→x<y∨x≡y  : ∀ {m n} → N m → N n → LE m n → LT m n ∨ m ≡ n
+  ; x<Sy→x≤y     : ∀ {m n} → N m → N n → LT m (succ n) → LE m n
   )
   where
 
@@ -42,6 +44,22 @@ LT-wf Nn = acc Nn (helper Nn)
 
         in  helper Nn Nm' m'<n
       )
+
+-- A different proof that the relation LT is well-founded.
+LT-wf₁ : WellFounded LT
+LT-wf₁ zN      = acc zN (λ Nm m<0 → ⊥-elim (x<0→⊥ Nm m<0))
+LT-wf₁ (sN Nn) = acc (sN Nn)
+                     (λ Nm m<Sn → helper Nm Nn (LT-wf₁ Nn)
+                                         (x<Sy→x≤y Nm Nn m<Sn))
+  where
+    helper : ∀ {n m} → N n → N m → Acc LT m → LE n m → Acc LT n
+    helper {n} {m} Nn Nm (acc _ h) n≤m =
+      [ (λ n<m → h Nn n<m)
+      , (λ n≡m → helper₁ (sym n≡m) (acc Nm h))
+      ] (x≤y→x<y∨x≡y Nn Nm n≤m)
+      where
+        helper₁ : ∀ {a b} → a ≡ b → Acc LT a → Acc LT b
+        helper₁ refl acc-a = acc-a
 
 -- Well-founded induction on the natural numbers.
 wfInd-LT : (P : D → Set) →
