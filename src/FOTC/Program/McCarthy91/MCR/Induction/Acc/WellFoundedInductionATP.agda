@@ -23,10 +23,10 @@ open module WF-LT =
   FOTC.Data.Nat.Induction.Acc.WellFoundedInduction.WF-LT₂
   x<0→⊥ x≤y→x<y∨x≡y x<Sy→x≤y
 
-----------------------------------------------------------------------------
-
 open module II =
   FOTC.Data.Nat.Induction.Acc.WellFounded.InverseImage {LT} MCR-f MCR-f-N
+
+----------------------------------------------------------------------------
 
 wf-MCR : WellFounded MCR
 wf-MCR Nn = wellFounded wf-LT Nn
