@@ -8,7 +8,7 @@ open import FOTC.Base
 
 open import Common.Function
 
-open import FOTC.Data.Nat.Inequalities
+-- open import FOTC.Data.Nat.Inequalities
 -- open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.Type
 
@@ -16,12 +16,14 @@ open import FOTC.Data.Nat.Type
 -- Well-founded induction on the natural numbers.
 -- Adapted from http://code.haskell.org/~dolio/agda-share/induction/.
 module WFInd₁
-  ( x<0→⊥ : ∀ {n} → N n → ¬ (LT n zero)
-  ; x<y→Sx≤y : ∀ {m n} → N m → N n → LT m n → LE (succ m) n
-  ; ≤-trans : ∀ {m n o} → N m → N n → N o → LE m n → LE n o → LE m o
-  ; Sx≤Sy→x≤y : ∀ {m n} → LE (succ m) (succ n) → LE m n
-  ; Sx≤y→x<y : ∀ {m n} → N m → N n → LE (succ m) n → LT m n
-  ) where
+  {LT        : D → D → Set}
+  {LE        : D → D → Set}
+  (x<0→⊥     : ∀ {n} → N n → ¬ (LT n zero))
+  (x<y→Sx≤y  : ∀ {m n} → N m → N n → LT m n → LE (succ m) n)
+  (≤-trans   : ∀ {m n o} → N m → N n → N o → LE m n → LE n o → LE m o)
+  (Sx≤Sy→x≤y : ∀ {m n} → LE (succ m) (succ n) → LE m n)
+  (Sx≤y→x<y  : ∀ {m n} → N m → N n → LE (succ m) n → LT m n)
+  where
 
   wfInd-LT : (P : D → Set) →
              (∀ {n} → N n → (∀ {m} → N m → LT m n → P m) → P n) →
@@ -53,12 +55,14 @@ module WFInd₁
 -- Other version of well-founded induction on the natural numbers
 -- using different properties of inequalities.
 module WFInd₂
-  ( x<0→⊥ : ∀ {n} → N n → ¬ (LT n zero)
-  ; Sx<Sy→x<y : ∀ {m n} → LT (succ m) (succ n) → LT m n
-  ; <-trans : ∀ {m n o} → N m → N n → N o → LT m n → LT n o → LT m o
-  ; x≡y→y<z→x<z : ∀ {m n o} → m ≡ n → LT n o → LT m o
-  ; x<Sy→x<y∨x≡y : ∀ {m n} → N m → N n → LT m (succ n) → LT m n ∨ m ≡ n
-  ) where
+  {LT           : D → D → Set}
+  {LE           : D → D → Set}
+  (x<0→⊥        : ∀ {n} → N n → ¬ (LT n zero))
+  (Sx<Sy→x<y    : ∀ {m n} → LT (succ m) (succ n) → LT m n)
+  (<-trans      : ∀ {m n o} → N m → N n → N o → LT m n → LT n o → LT m o)
+  (x≡y→y<z→x<z  : ∀ {m n o} → m ≡ n → LT n o → LT m o)
+  (x<Sy→x<y∨x≡y : ∀ {m n} → N m → N n → LT m (succ n) → LT m n ∨ m ≡ n)
+  where
 
   wfInd-LT : (P : D → Set) →
              (∀ {n} → N n → (∀ {m} → N m → LT m n → P m) → P n) →

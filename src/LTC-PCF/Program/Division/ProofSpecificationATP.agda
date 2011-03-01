@@ -35,9 +35,9 @@ open import LTC-PCF.Program.Division.Specification using ( DIV )
 
 -- Parametrized modules
 
-import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInduction
+import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInduction
 open module WFInd =
-  LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInduction.WFInd₁
+  FOTC.Data.Nat.Induction.NonAcc.WellFoundedInduction.WFInd₁
   x<0→⊥ x<y→Sx≤y ≤-trans Sx≤Sy→x≤y Sx≤y→x<y
   using ( wfInd-LT )
 
