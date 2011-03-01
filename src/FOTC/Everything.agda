@@ -30,6 +30,7 @@ open import FOTC.Data.Nat.Divisibility.Properties
 open import FOTC.Data.Nat.Divisibility.PropertiesATP
 open import FOTC.Data.Nat.Divisibility.PropertiesI
 open import FOTC.Data.Nat.Induction.Acc.WellFounded
+open import FOTC.Data.Nat.Induction.Acc.WellFoundedInduction
 open import FOTC.Data.Nat.Induction.NonAcc.LexicographicATP
 open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI
 open import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionATP
