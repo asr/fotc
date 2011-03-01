@@ -77,7 +77,7 @@ open import FOTC.Program.McCarthy91.McCarthy91
 open import FOTC.Program.McCarthy91.MCR
 open import FOTC.Program.McCarthy91.MCR.LT2MCR-ATP
 open import FOTC.Program.McCarthy91.MCR.PropertiesATP
-open import FOTC.Program.McCarthy91.MCR.WellFoundedInductionATP
+open import FOTC.Program.McCarthy91.MCR.Induction.Acc.WellFoundedInductionATP
 open import FOTC.Program.McCarthy91.Properties.AuxiliaryATP
 open import FOTC.Program.McCarthy91.Properties.MainATP
 

@@ -7,7 +7,8 @@
 -- N.B This module does not contain combined proofs, but it imports
 -- modules which contain combined proofs.
 
-module FOTC.Program.McCarthy91.MCR.WellFoundedInductionATP where
+module FOTC.Program.McCarthy91.MCR.Induction.NonAcc.WellFoundedInductionATP
+  where
 
 open import FOTC.Base
 
