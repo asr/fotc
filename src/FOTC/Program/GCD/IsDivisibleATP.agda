@@ -15,7 +15,7 @@ open import FOTC.Data.Nat
         )
 open import FOTC.Data.Nat.Divisibility using ( _∣_ )
 open import FOTC.Data.Nat.Divisibility.PropertiesATP using ( x∣y→x∣z→x∣y∸z )
-open import FOTC.Data.Nat.Induction.LexicographicATP using ( wfInd-LT₂ )
+open import FOTC.Data.Nat.Induction.NonAcc.LexicographicATP using ( wfInd-LT₂ )
 open import FOTC.Data.Nat.PropertiesATP using ( ∸-N )
 open import FOTC.Data.Nat.Inequalities using ( GT ; LE ; LT₂)
 open import FOTC.Data.Nat.Inequalities.PropertiesATP

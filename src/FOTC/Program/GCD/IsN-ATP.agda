@@ -13,7 +13,7 @@ open import FOTC.Data.Nat
   using ( _∸_
         ; N ; sN ; zN  -- The FOTC natural numbers type.
         )
-open import FOTC.Data.Nat.Induction.LexicographicATP using ( wfInd-LT₂ )
+open import FOTC.Data.Nat.Induction.NonAcc.LexicographicATP using ( wfInd-LT₂ )
 open import FOTC.Data.Nat.Inequalities using ( GT ; LE ; LT₂)
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
   using ( 0>x→⊥

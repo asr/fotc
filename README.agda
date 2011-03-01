@@ -139,10 +139,10 @@ open import FOTC.Data.Nat.Divisibility.PropertiesATP
 open import FOTC.Data.Nat.Divisibility.PropertiesI
 
 -- Naturals numbers: Induction
-open import FOTC.Data.Nat.Induction.LexicographicATP
-open import FOTC.Data.Nat.Induction.LexicographicI
-open import FOTC.Data.Nat.Induction.WellFoundedInductionLT-ATP
-open import FOTC.Data.Nat.Induction.WellFoundedInductionLT-I
+open import FOTC.Data.Nat.Induction.NonAcc.LexicographicATP
+open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI
+open import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionATP
+open import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionI
 
 -- Naturals numbers: Inequalites
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
@@ -186,10 +186,10 @@ open import LTC-PCF.Data.Nat.Divisibility.PropertiesATP
 open import LTC-PCF.Data.Nat.Divisibility.PropertiesI
 
 -- Naturals numbers: Induction
-open import LTC-PCF.Data.Nat.Induction.LexicographicATP
-open import LTC-PCF.Data.Nat.Induction.LexicographicI
-open import LTC-PCF.Data.Nat.Induction.WellFoundedInductionLT-ATP
-open import LTC-PCF.Data.Nat.Induction.WellFoundedInductionLT-I
+open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicATP
+open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
+open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionATP
+open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionI
 
 -- Naturals numbers: Inequalites
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP

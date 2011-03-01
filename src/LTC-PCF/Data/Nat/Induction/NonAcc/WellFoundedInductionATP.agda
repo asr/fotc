@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Well-founded induction on the relation LT
+-- Well-founded induction on the natural numbers
 ------------------------------------------------------------------------------
 
 -- N.B This module does not contain combined proofs, but it imports
 -- modules which contain combined proofs.
 
-module LTC-PCF.Data.Nat.Induction.WellFoundedInductionLT-ATP where
+module LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionATP where
 
 open import LTC-PCF.Base
 
@@ -17,7 +17,7 @@ open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
 
 ------------------------------------------------------------------------------
--- Well-founded induction on the relation LT.
+-- Well-founded induction on the naturals numbers.
 -- Adapted from http://code.haskell.org/~dolio/agda-share/induction/.
 
 wfInd-LT : (P : D → Set) →

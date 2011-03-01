@@ -19,7 +19,7 @@ open import FOTC.Data.Nat.Divisibility.PropertiesI
   using ( ∣-refl-S
         ; x∣y→x∣z→x∣y+z
         )
-open import FOTC.Data.Nat.Induction.LexicographicI using ( wfInd-LT₂ )
+open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI using ( wfInd-LT₂ )
 open import FOTC.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
 open import FOTC.Data.Nat.Inequalities.PropertiesI
   using ( 0>x→⊥

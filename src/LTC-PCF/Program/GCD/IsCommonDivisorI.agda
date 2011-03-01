@@ -19,7 +19,7 @@ open import LTC-PCF.Data.Nat.Divisibility.PropertiesI
         ; ∣-refl-S
         ; x∣y→x∣z→x∣y+z
         )
-open import LTC-PCF.Data.Nat.Induction.LexicographicI
+open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
   using ( wfInd-LT₂ )
 open import LTC-PCF.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesI

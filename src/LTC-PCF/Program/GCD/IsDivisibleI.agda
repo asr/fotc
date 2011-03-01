@@ -16,7 +16,7 @@ open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Divisibility using ( _∣_ )
 open import LTC-PCF.Data.Nat.Divisibility.PropertiesI
   using ( x∣y→x∣z→x∣y∸z )
-open import LTC-PCF.Data.Nat.Induction.LexicographicI
+open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
   using ( wfInd-LT₂ )
 open import LTC-PCF.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesI

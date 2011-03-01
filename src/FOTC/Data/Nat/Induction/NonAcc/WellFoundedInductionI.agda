@@ -1,20 +1,19 @@
-------------------------------------------------------------------------------
--- Well-founded induction on the relation LT
-------------------------------------------------------------------------------
+----------------------------------------------------------------------------
+-- Well-founded induction on the natural numbers
+----------------------------------------------------------------------------
 
-module LTC-PCF.Data.Nat.Induction.WellFoundedInductionLT-I where
+module FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionI where
 
-open import LTC-PCF.Base
+open import FOTC.Base
 
 open import Common.Function
 
+open import FOTC.Data.Nat.Inequalities
+open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.Type
 
-open import LTC-PCF.Data.Nat.Inequalities
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
-
 ------------------------------------------------------------------------------
--- Well-founded induction on the relation LT.
+-- Well-founded induction on the natural numbers.
 -- Adapted from http://code.haskell.org/~dolio/agda-share/induction/.
 
 wfInd-LT : (P : D → Set) →

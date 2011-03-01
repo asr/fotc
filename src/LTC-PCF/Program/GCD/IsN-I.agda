@@ -13,7 +13,7 @@ open import LTC-PCF.Data.Nat
   using ( _∸_
         ; N ; sN ; zN  -- The LTC natural numbers type.
         )
-open import LTC-PCF.Data.Nat.Induction.LexicographicI
+open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
   using ( wfInd-LT₂ )
 open import LTC-PCF.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
