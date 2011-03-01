@@ -147,6 +147,10 @@ x<y→x≤y zN (sN {n} Nn)          _     = <-0S $ succ n
 x<y→x≤y (sN {m} Nm) (sN {n} Nn) Sm<Sn =
   x≤y→Sx≤Sy (x<y→x≤y Nm Nn (Sx<Sy→x<y Sm<Sn))
 
+x<Sy→x≤y : ∀ {m n} → N m → N n → LT m (succ n) → LE m n
+x<Sy→x≤y zN Nn 0<Sn       = 0≤x Nn
+x<Sy→x≤y (sN Nm) Nn Sm<Sn = Sm<Sn
+
 x≤Sx : ∀ {m} → N m → LE m (succ m)
 x≤Sx Nm = x<y→x≤y Nm (sN Nm) (x<Sx Nm)
 
