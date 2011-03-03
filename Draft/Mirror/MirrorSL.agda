@@ -1,6 +1,6 @@
 -- Tested with the darcs version of the standard library on 11 February 2011.
 
-module MirrorStdLib where
+module MirrorSL where
 
 open import Algebra
 open import Data.List as List hiding ( reverse )

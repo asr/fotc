@@ -4,4 +4,4 @@
 
 module Draft.RenderToHTML where
 
-open import Draft.McCarthy91.WellFoundedInductionATP
+open import Draft.Mirror.StructurallySmaller
