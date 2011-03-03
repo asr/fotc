@@ -46,24 +46,31 @@ mirror-Tree (treeT d nilLT) =
       helper₂ = subst ListTree (sym helper₁) nilLT
 
 mirror-Tree (treeT d (consLT {t} {ts} Tt LTts)) =
-  subst Tree (sym (mirror-eq d (t ∷ ts))) (treeT d helper)
-
+  prf (mirror-Tree Tt) (mirror-Tree (treeT d LTts))
   where
-     h₁ : Tree (node d (reverse (map mirror ts)))
-     h₁ = subst Tree (mirror-eq d ts) (mirror-Tree (treeT d LTts))
+    postulate prf : Tree (mirror · t) →
+                    Tree (mirror · (node d ts)) →
+                    Tree (mirror · node d (t ∷ ts))
 
-     h₂ : ListTree (reverse (map mirror ts))
-     h₂ = node-ListTree h₁
 
-     h₃ : ListTree ((reverse (map mirror ts)) ++ (mirror · t ∷ []))
-     h₃ = ++-ListTree h₂ (consLT (mirror-Tree Tt) nilLT)
+  -- let h₁ : Tree (node d (reverse (map mirror ts)))
+  --     h₁ = subst Tree (mirror-eq d ts) (mirror-Tree (treeT d LTts))
 
-     h₄ : ListTree (reverse (mirror · t ∷ map mirror ts))
-     h₄ = subst ListTree ( sym (reverse-∷' (mirror · t) (map mirror ts))) h₃
+  --     h₂ : ListTree (reverse (map mirror ts))
+  --     h₂ = node-ListTree h₁
 
-     helper : ListTree (reverse (map mirror (t ∷ ts)))
-     helper = subst ListTree
-              (subst (λ x → reverse x ≡ reverse (map mirror (t ∷ ts)))
-                     (map-∷ mirror t ts)
-                     refl)
-              h₄
+  --     h₃ : ListTree ((reverse (map mirror ts)) ++ (mirror · t ∷ []))
+  --     h₃ = ++-ListTree h₂ (consLT (mirror-Tree Tt) nilLT)
+
+  --     h₄ : ListTree (reverse (mirror · t ∷ map mirror ts))
+  --     h₄ = subst ListTree ( sym (reverse-∷' (mirror · t) (map mirror ts))) h₃
+
+  --     helper : ListTree (reverse (map mirror (t ∷ ts)))
+  --     helper = subst ListTree
+  --              (subst (λ x → reverse x ≡ reverse (map mirror (t ∷ ts)))
+  --                     (map-∷ mirror t ts)
+  --                     refl)
+  --              h₄
+
+
+   -- in subst Tree (sym (mirror-eq d (t ∷ ts))) (treeT d helper)
