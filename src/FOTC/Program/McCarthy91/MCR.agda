@@ -13,12 +13,12 @@ open import FOTC.Data.Nat.UnaryNumbers
 ------------------------------------------------------------------------------
 -- The MCR relation.
 
-MCR-f : D → D
-MCR-f d = hundred-one ∸ d
-{-# ATP definition MCR-f #-}
+fnMCR : D → D
+fnMCR d = hundred-one ∸ d
+{-# ATP definition fnMCR #-}
 
 -- To avoid use the name 'MCR' in the name of the properties related
 -- with this relation, we use the infix symbol _«_.
 MCR : D → D → Set
-MCR m n = LT (MCR-f m) (MCR-f n)
+MCR m n = LT (fnMCR m) (fnMCR n)
 {-# ATP definition MCR #-}

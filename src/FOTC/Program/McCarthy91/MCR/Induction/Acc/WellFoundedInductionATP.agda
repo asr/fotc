@@ -25,7 +25,7 @@ open module WF-LT =
   FOTC.Data.Nat.Induction.Acc.WellFoundedInduction.WF₂-LT
   x<0→⊥ x≤y→x<y∨x≡y x<Sy→x≤y
 
-open module II = FOTC.Data.Nat.Induction.Acc.WellFounded.InverseImage MCR-f-N
+open module II = FOTC.Data.Nat.Induction.Acc.WellFounded.InverseImage fnMCR-N
 
 ------------------------------------------------------------------------------
 -- The relation MCR is well-founded.

@@ -18,8 +18,8 @@ open import FOTC.Program.McCarthy91.MCR
 
 ------------------------------------------------------------------------------
 
-MCR-f-N : ∀ {n} → N n → N (MCR-f n)
-MCR-f-N Nn = ∸-N N101 Nn
+fnMCR-N : ∀ {n} → N n → N (fnMCR n)
+fnMCR-N Nn = ∸-N N101 Nn
 
 0«x→⊥ : ∀ {n} → N n → ¬ (MCR zero n)
 0«x→⊥ zN 0«n = prf
