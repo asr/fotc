@@ -19,6 +19,7 @@ Fixpoint countT (t : D) (Tt : TreeT t) {struct Tt} : nat :=
     treeT d ts LTts =>
       match LTts with
         | nilLT               => 0
-        | consLT x xs Tx LTxs => countT _ (treeT d xs LTxs)
+        | consLT x xs Tx LTxs => countT _ Tx
+        (* | consLT x xs Tx LTxs => countT _ (treeT d xs LTxs) *)
       end
   end.
