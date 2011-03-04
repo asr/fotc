@@ -9,6 +9,7 @@ open import FOTC.Base
 open import FOTC.Data.List
 
 ------------------------------------------------------------------------------
+-- Types
 
 -- Tree terms.
 postulate
@@ -28,6 +29,21 @@ mutual
 {-# ATP hint consLT #-}
 {-# ATP hint treeT #-}
 
+-- Induction principle for Tree.
+indTree : (P : D → Set) →
+          (∀ d {ts} → ListTree ts → P (node d ts)) →
+          ∀ {t} → Tree t → P t
+indTree P h (treeT d LTts) = h d LTts
+
+-- Induction principle for ListTree.
+indListTree : (P : D → Set) →
+              P [] →
+              (∀ {t ts} → Tree t → ListTree ts → P ts → P (t ∷ ts)) →
+              ∀ {ts} → ListTree ts → P ts
+indListTree P P[] h nilLT            = P[]
+indListTree P P[] h (consLT Tt LTts) = h Tt LTts (indListTree P P[] h LTts)
+
+------------------------------------------------------------------------------
 -- The mirror function.
 postulate
   mirror    : D
