@@ -16,5 +16,5 @@ data Bool : D → Set where
 
 -- The rule of proof by case analysis on Bool.
 indBool : (P : D → Set) → P true → P false → ∀ {b} → Bool b → P b
-indBool P pt pf tB = pt
-indBool P pt pf fB = pf
+indBool P Pt Pf tB = Pt
+indBool P Pt Pf fB = Pf
