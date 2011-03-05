@@ -3,12 +3,12 @@
 ------------------------------------------------------------------------------
 
 open import FOTC.Base
+
 open import FOTC.Data.List
+open import FOTC.Data.List.LT-Length
 open import FOTC.Data.List.Type
 
-open import FOTC.Data.List.LT-Length
-
-  module FOTC.Data.List.LT-Length.Induction.Acc.WellFoundedInduction
+module FOTC.Data.List.LT-Length.Induction.Acc.WellFoundedInduction
   (xs<[]→⊥                   : ∀ {xs} → List xs → ¬ (LTL xs []))
   (x∷xs<y∷ys→xs<ys           : ∀ {x xs y ys} → List xs → List ys →
                                LTL (x ∷ xs) (y ∷ ys) → LTL xs ys)
@@ -25,7 +25,7 @@ open import FOTC.Data.List.Induction.Acc.WellFounded
 
 ------------------------------------------------------------------------------
 -- The relation LTL is well-founded.
--- Adapted from FOTC.Data.Nat.Induction.Acc.WellFoundedInduction.WF₁-LT
+-- Adapted from FOTC.Data.Nat.Induction.Acc.WellFoundedInduction.WF₁-LT.
 wf-LTL : WellFounded LTL
 wf-LTL Lxs = acc Lxs (helper Lxs)
   where
