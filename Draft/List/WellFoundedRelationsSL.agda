@@ -1,0 +1,51 @@
+------------------------------------------------------------------------------
+-- Well-founded relation on lists
+------------------------------------------------------------------------------
+
+-- Tested with the development version of the standard library on
+-- 05 March 2011.
+
+module WellFoundedRelationsSL {A : Set} where
+
+open import Data.Product
+open import Data.List hiding ( length )
+open import Data.Nat
+
+open import Induction.Nat
+open import Induction.WellFounded
+
+open import Relation.Binary.PropositionalEquality
+
+------------------------------------------------------------------------------
+-- We use our own version of the function length because we have
+-- better reductions.
+length : List A → ℕ
+length []       = 0
+length (x ∷ xs) = 1 + length xs
+
+open module II = Induction.WellFounded.Inverse-image length
+
+-- Well-founded relation on lists based on their length.
+LTL : List A → List A → Set
+LTL xs ys = length xs <′ length ys
+
+-- The relation LTL is well-founded (using the image inverse
+-- combinator).
+wfLTL : Well-founded LTL
+wfLTL = II.well-founded <-well-founded
+
+-- Well-founded relation on lists based on their structure.
+LTC : List A → List A → Set
+LTC xs ys = Σ A (λ a → ys ≡ a ∷ xs)
+
+LTC→LTL : ∀ {xs ys} → LTC xs ys → LTL xs ys
+LTC→LTL (x , ys≡x∷xs) = helper ys≡x∷xs
+  where
+    helper : ∀ {x xs ys} → ys ≡ x ∷ xs → length xs <′ length ys
+    helper refl = ≤′-refl
+
+open module S = Induction.WellFounded.Subrelation LTC→LTL
+
+-- The relation LTC is well-founded (using the subrelation combinator).
+wfLTC : Well-founded LTC
+wfLTC = S.well-founded wfLTL
