@@ -123,9 +123,12 @@ open import FOTC.Base.PropertiesI
 open import FOTC.Data.Bool.PropertiesATP
 open import FOTC.Data.Bool.PropertiesI
 
--- Lists
+-- Lists: Common properties
 open import FOTC.Data.List.PropertiesATP
 open import FOTC.Data.List.PropertiesI
+
+-- Lists: Well-founded induction
+open import FOTC.Data.List.LT-Length.Induction.Acc.WellFoundedInduction
 
 -- Naturals numbers: Common properties
 open import FOTC.Data.Nat.PropertiesATP

@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Well-founded induction
+-- Generic well-founded induction on natural numbers
 ------------------------------------------------------------------------------
 
 -- Adapted from
@@ -9,8 +9,6 @@
 module FOTC.Data.Nat.Induction.Acc.WellFounded where
 
 open import FOTC.Base
-
-open import Common.Function
 
 open import FOTC.Data.Nat.Type
 
