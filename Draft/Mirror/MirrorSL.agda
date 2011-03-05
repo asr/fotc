@@ -1,4 +1,5 @@
--- Tested with the darcs version of the standard library on 11 February 2011.
+-- Tested with the development version of the standard library on
+-- 05 March 2011.
 
 module MirrorSL where
 
