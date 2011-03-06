@@ -7,6 +7,7 @@ module FOTC.Program.Mirror.PropertiesI where
 open import FOTC.Base
 
 open import FOTC.Program.Mirror.Mirror
+open import FOTC.Program.Mirror.Type
 open import FOTC.Program.Mirror.ListTree.PropertiesI
 open import FOTC.Program.Mirror.ListTree.Closures
 open import FOTC.Program.Mirror.Tree.ClosuresI

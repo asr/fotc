@@ -13,6 +13,7 @@ open import FOTC.Program.Mirror.Mirror
 open import FOTC.Program.Mirror.ListTree.PropertiesATP
 open import FOTC.Program.Mirror.ListTree.Closures
 open import FOTC.Program.Mirror.Tree.ClosuresATP
+open import FOTC.Program.Mirror.Type
 
 ------------------------------------------------------------------------------
 

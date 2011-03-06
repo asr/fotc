@@ -6,7 +6,7 @@ module FOTC.Program.Mirror.ListTree.Closures where
 
 open import FOTC.Base
 
-open import FOTC.Program.Mirror.Mirror
+open import FOTC.Program.Mirror.Type
 
 open import FOTC.Data.List
 

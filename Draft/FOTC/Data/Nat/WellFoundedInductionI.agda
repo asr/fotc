@@ -2,7 +2,7 @@
 -- Well-founded induction on the natural numbers
 ----------------------------------------------------------------------------
 
-module Draft.WellFoundedInductionI where
+module Draft.FOTC.Data.Nat.WellFoundedInductionI where
 
 open import FOTC.Base
 

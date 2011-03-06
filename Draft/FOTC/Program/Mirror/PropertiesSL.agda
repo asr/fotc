@@ -1,7 +1,7 @@
 -- Tested with the development version of the standard library on
 -- 05 March 2011.
 
-module MirrorSL where
+module PropertiesSL where
 
 open import Algebra
 open import Data.List as List hiding ( reverse )

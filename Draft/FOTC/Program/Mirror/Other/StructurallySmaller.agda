@@ -1,7 +1,7 @@
-module Draft.Mirror.StructurallySmaller where
+module Draft.FOTC.Program.Mirror.Other.StructurallySmaller where
 
 open import FOTC.Base
-open import FOTC.Program.Mirror.Mirror
+open import FOTC.Program.Mirror.Type
 
 foo : ∀ {ts} → Tree ts → D
 foo (treeT d nilLT)            = d
