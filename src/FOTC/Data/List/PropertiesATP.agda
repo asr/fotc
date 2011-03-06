@@ -6,12 +6,8 @@ module FOTC.Data.List.PropertiesATP where
 
 open import FOTC.Base
 
-open import Common.Function using ( _$_ )
+open import Common.Function
 
-open import FOTC.Data.Nat.Inequalities
-open import FOTC.Data.Nat.Type
-  using ( N ; sN ; zN  -- The FOTC natural numbers type.
-        )
 open import FOTC.Data.List
 open import FOTC.Data.List.Type
 
@@ -173,25 +169,3 @@ map-++-commute f {ys = ys} (consL x {xs} Lxs) Lys =
                     map f ((x ∷ xs) ++ ys) ≡ map f (x ∷ xs) ++ map f ys
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf #-}
-
-length-replicate : ∀ d {n} → N n → length (replicate n d) ≡ n
-length-replicate d zN = prf
-  where
-    postulate prf : length (replicate zero d) ≡ zero
-    {-# ATP prove prf #-}
-length-replicate d (sN {n} Nn) = prf $ length-replicate d Nn
-  where
-    postulate prf : length (replicate n d) ≡ n →  -- IH.
-                    length (replicate (succ n) d) ≡ succ n
-    {-# ATP prove prf #-}
-
-lg-x<lg-x∷xs : ∀ x {xs} → List xs → LT (length xs) (length (x ∷ xs))
-lg-x<lg-x∷xs x nilL = prf
-  where
-    postulate prf : LT (length []) (length (x ∷ []))
-    {-# ATP prove prf #-}
-
-lg-x<lg-x∷xs x (consL y {xs} Lxs) = prf (lg-x<lg-x∷xs y Lxs)
-  where
-    postulate prf : LT (length xs) (length (y ∷ xs)) →  -- IH.
-                    LT (length (y ∷ xs)) (length (x ∷ y ∷ xs))

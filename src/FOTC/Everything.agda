@@ -19,11 +19,14 @@ open import FOTC.Data.Bool.Type
 open import FOTC.Data.List
 open import FOTC.Data.List.ConsistencyTest
 open import FOTC.Data.List.Induction.Acc.WellFounded
+open import FOTC.Data.List.Length.PropertiesATP
+open import FOTC.Data.List.Length.PropertiesI
 open import FOTC.Data.List.LT-Cons
 open import FOTC.Data.List.LT-Cons.Induction.Acc.WellFoundedInduction
 open import FOTC.Data.List.LT-Cons.PropertiesI
 open import FOTC.Data.List.LT-Length
 open import FOTC.Data.List.LT-Length.Induction.Acc.WellFoundedInduction
+open import FOTC.Data.List.LT-Length.PropertiesI
 open import FOTC.Data.List.PropertiesATP
 open import FOTC.Data.List.PropertiesByInductionATP
 open import FOTC.Data.List.PropertiesI
