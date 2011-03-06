@@ -41,12 +41,14 @@ WellFoundedInduction :
 WellFoundedInduction {_<_ = _<_} wf f Lxs = accFold _<_ f Lxs (wf Lxs)
 
 -- Adapted from the standard library.
-module Subrelation {_<₁_ _<₂_ : D → D → Set}
-                   (<₁⇒<₂ : ∀ {xs ys} → xs <₁ ys → xs <₂ ys) where
+module Subrelation
+       {_<₁_ _<₂_ : D → D → Set}
+       (<₁⇒<₂ : ∀ {xs ys} → List xs → List ys → xs <₁ ys → xs <₂ ys)
+       where
 
   accessible : Acc _<₂_ ⊆ Acc _<₁_
   accessible (acc Lxs rs) =
-    acc Lxs (λ Lys ys<xs → accessible (rs Lys (<₁⇒<₂ ys<xs)))
+    acc Lxs (λ Lys ys<xs → accessible (rs Lys (<₁⇒<₂ Lys Lxs ys<xs)))
 
   well-founded : WellFounded _<₂_ → WellFounded _<₁_
   well-founded wf = λ Lxs → accessible (wf Lxs)

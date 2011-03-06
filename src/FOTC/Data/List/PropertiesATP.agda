@@ -8,6 +8,7 @@ open import FOTC.Base
 
 open import Common.Function using ( _$_ )
 
+open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Type
   using ( N ; sN ; zN  -- The FOTC natural numbers type.
         )
@@ -183,3 +184,14 @@ length-replicate d (sN {n} Nn) = prf $ length-replicate d Nn
     postulate prf : length (replicate n d) ≡ n →  -- IH.
                     length (replicate (succ n) d) ≡ succ n
     {-# ATP prove prf #-}
+
+lg-x<lg-x∷xs : ∀ x {xs} → List xs → LT (length xs) (length (x ∷ xs))
+lg-x<lg-x∷xs x nilL = prf
+  where
+    postulate prf : LT (length []) (length (x ∷ []))
+    {-# ATP prove prf #-}
+
+lg-x<lg-x∷xs x (consL y {xs} Lxs) = prf (lg-x<lg-x∷xs y Lxs)
+  where
+    postulate prf : LT (length xs) (length (y ∷ xs)) →  -- IH.
+                    LT (length (y ∷ xs)) (length (x ∷ y ∷ xs))

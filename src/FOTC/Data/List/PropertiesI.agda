@@ -8,6 +8,7 @@ open import FOTC.Base
 
 open import Common.Function
 
+open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.List
 open import FOTC.Data.List.Type
 
@@ -311,4 +312,33 @@ map-++-commute f {ys = ys} (consL x {xs} Lxs) Lys =
                refl
       ⟩
     map f (x ∷ xs) ++ map f ys
+  ∎
+
+lg-x<lg-x∷xs : ∀ x {xs} → List xs → LT (length xs) (length (x ∷ xs))
+lg-x<lg-x∷xs x nilL =
+  begin
+    length [] < length (x ∷ [])
+      ≡⟨ subst₂ (λ t₁ t₂ → length [] < length (x ∷ []) ≡ t₁ < t₂)
+                length-[]
+                (length-∷ x [])
+                refl
+      ⟩
+    zero < succ (length [])
+      ≡⟨ <-0S (length []) ⟩
+    true
+  ∎
+
+lg-x<lg-x∷xs x (consL y {xs} Lxs) =
+  begin
+    length (y ∷ xs) < length (x ∷ y ∷ xs)
+      ≡⟨ subst₂ (λ t₁ t₂ → length (y ∷ xs) < length (x ∷ y ∷ xs) ≡ t₁ < t₂)
+                (length-∷ y xs)
+                (length-∷ x (y ∷ xs))
+                refl
+      ⟩
+    succ (length xs) < succ (length (y ∷ xs))
+      ≡⟨ <-SS (length xs) (length (y ∷ xs)) ⟩
+    length xs < length (y ∷ xs)
+      ≡⟨ lg-x<lg-x∷xs y Lxs ⟩
+    true
   ∎
