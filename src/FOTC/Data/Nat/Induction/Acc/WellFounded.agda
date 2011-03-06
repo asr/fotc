@@ -10,6 +10,8 @@ module FOTC.Data.Nat.Induction.Acc.WellFounded where
 
 open import FOTC.Base
 
+open import Common.Relation.Unary
+
 open import FOTC.Data.Nat.Type
 
 ------------------------------------------------------------------------------
@@ -34,6 +36,16 @@ WellFoundedInduction : {P : D → Set} {_<_ : D → D → Set} →
                        (∀ {n} → N n → (∀ {m} → N m → m < n → P m) → P n) →
                        ∀ {n} → N n → P n
 WellFoundedInduction {_<_ = _<_} wf f Nn = accFold _<_ f Nn (wf Nn)
+
+module Subrelation {_<₁_ _<₂_ : D → D → Set}
+                   (<₁⇒<₂ : ∀ {m n } → m <₁ n → m <₂ n) where
+
+  accessible : Acc _<₂_ ⊆ Acc _<₁_
+  accessible (acc Nn rs) =
+    acc Nn (λ Nm m<n → accessible (rs Nm (<₁⇒<₂ m<n)))
+
+  well-founded : WellFounded _<₂_ → WellFounded _<₁_
+  well-founded wf = λ Nn → accessible (wf Nn)
 
 module InverseImage {_<_ : D → D → Set}
                     {f : D → D}

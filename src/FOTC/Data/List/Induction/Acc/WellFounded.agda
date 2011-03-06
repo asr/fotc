@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Generic well-founded induction on list
+-- Generic well-founded induction on lists
 ------------------------------------------------------------------------------
 
 -- Adapted from FOTC.Data.Nat.Induction.Acc.WellFounded.
@@ -7,6 +7,8 @@
 module FOTC.Data.List.Induction.Acc.WellFounded where
 
 open import FOTC.Base
+
+open import Common.Relation.Unary
 
 open import FOTC.Data.Nat.Induction.Acc.WellFounded as Nat using ()
 open import FOTC.Data.Nat.Type
@@ -37,3 +39,14 @@ WellFoundedInduction :
   (∀ {xs} → List xs → (∀ {ys} → List ys → ys < xs → P ys) → P xs) →
   ∀ {xs} → List xs → P xs
 WellFoundedInduction {_<_ = _<_} wf f Lxs = accFold _<_ f Lxs (wf Lxs)
+
+-- Adapted from the standard library.
+module Subrelation {_<₁_ _<₂_ : D → D → Set}
+                   (<₁⇒<₂ : ∀ {xs ys} → xs <₁ ys → xs <₂ ys) where
+
+  accessible : Acc _<₂_ ⊆ Acc _<₁_
+  accessible (acc Lxs rs) =
+    acc Lxs (λ Lys ys<xs → accessible (rs Lys (<₁⇒<₂ ys<xs)))
+
+  well-founded : WellFounded _<₂_ → WellFounded _<₁_
+  well-founded wf = λ Lxs → accessible (wf Lxs)
