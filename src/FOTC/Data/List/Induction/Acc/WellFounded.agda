@@ -10,8 +10,6 @@ open import FOTC.Base
 
 open import Common.Relation.Unary
 
-open import FOTC.Data.Nat.Induction.Acc.WellFounded as Nat using ()
-open import FOTC.Data.Nat.Type
 open import FOTC.Data.List.Type
 
 ------------------------------------------------------------------------------
