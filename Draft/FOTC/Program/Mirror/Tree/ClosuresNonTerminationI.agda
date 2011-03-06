@@ -5,13 +5,14 @@
 -- {-# OPTIONS --no-termination-check #-}
 {-# OPTIONS --injective-type-constructors #-}
 
-module Draft.Mirror.Tree.ClosuresI where
+module Draft.FOTC.Program.Mirror.Tree.ClosuresNonTerminationI where
 
 open import FOTC.Base
 
 open import FOTC.Data.List
 
 open import FOTC.Program.Mirror.Mirror
+open import FOTC.Program.Mirror.Type
 open import FOTC.Program.Mirror.ListTree.Closures
 open import FOTC.Program.Mirror.ListTree.PropertiesI
 
@@ -19,11 +20,18 @@ open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 
+-- Requires --injective-type-constructors
+-- Peter: To use injectivity of type constructors means asking for
+-- trouble. The logic behind this is very unclear.
 node-ListTree : ∀ {d ts} → Tree (node d ts) → ListTree ts
 node-ListTree {d} (treeT .d LTts) = LTts
 
 postulate
   reverse-∷' : ∀ x ys → reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])
+
+-- Andreas Abel: The function does not terminate because we are using
+-- postulates (i.e. D, _∷_, etc). In particular, x is not structurally
+-- smaller than x ∷ xs.
 
 mirror-Tree : ∀ {t} → Tree t → Tree (mirror · t)
 mirror-Tree (treeT d nilLT) =
