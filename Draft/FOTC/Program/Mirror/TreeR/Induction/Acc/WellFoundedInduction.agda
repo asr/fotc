@@ -8,8 +8,8 @@ module Draft.FOTC.Program.Mirror.TreeR.Induction.Acc.WellFoundedInduction
 open import FOTC.Base
 
 open import Draft.FOTC.Program.Mirror.Induction.Acc.WellFounded
-open import FOTC.Program.Mirror.Type
 open import Draft.FOTC.Program.Mirror.TreeR
+open import FOTC.Program.Mirror.Type
 
 ------------------------------------------------------------------------------
 -- The relation TreeR is well-founded.
