@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- The McCarthy 91 function
+-- The McCarthy 91 function: A function with nested recursion
 ------------------------------------------------------------------------------
 
 module FOTC.Program.McCarthy91.McCarthy91 where

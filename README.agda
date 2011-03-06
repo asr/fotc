@@ -112,7 +112,7 @@ open import Logic.Predicate.PropertiesI
 ------------------------------------------------------------------------------
 -- FOTC
 
--- Formalization of (a version of) Azcel's First Order Theory of Combinators
+-- Formalization of (a version of) Azcel's First Order Theory of Combinators.
 
 -- FOTC base
 open import FOTC.Base.Properties
@@ -163,25 +163,25 @@ open import FOTC.Data.Nat.List.PropertiesI
 open import FOTC.Data.Nat.UnaryNumbers.IsN-ATP
 open import FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
 
--- The GCD algorithm
+-- The GCD algorithm: A non-structurally recursive algorithm
 open import FOTC.Program.GCD.ProofSpecificationATP
 open import FOTC.Program.GCD.ProofSpecificationI
 
--- The McCarthy 91 function
+-- The McCarthy 91 function: A function with nested recursion
 open import FOTC.Program.McCarthy91.Properties.MainATP
 
 -- The mirror function: A function with higher-order recursion
 open import FOTC.Program.Mirror.PropertiesATP
 open import FOTC.Program.Mirror.PropertiesI
 
--- Burstall's sort list algorithm
+-- Burstall's sort list algorithm: A structurally recursive algorithm
 open import FOTC.Program.SortList.ProofSpecificationATP
 open import FOTC.Program.SortList.ProofSpecificationI
 
 ------------------------------------------------------------------------------
 -- LTC-PCF
 
--- Formalization of a version of Azcel's Logical Theory of constructions.
+-- Formalization of a version of Azcel's Logical Theory of Constructions.
 
 -- Naturals numbers: Common properties
 open import LTC-PCF.Data.Nat.PropertiesATP
@@ -204,11 +204,11 @@ open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
 open import LTC-PCF.Data.Nat.Rec.EquationsATP
 open import LTC-PCF.Data.Nat.Rec.EquationsI
 
--- The division algorithm
+-- The division algorithm: A non-structurally recursive algorithm
 open import LTC-PCF.Program.Division.ProofSpecificationATP
 open import LTC-PCF.Program.Division.ProofSpecificationI
 
--- The GCD algorithm
+-- The GCD algorithm: A non-structurally recursive algorithm
 open import LTC-PCF.Program.GCD.ProofSpecificationATP
 open import LTC-PCF.Program.GCD.ProofSpecificationI
 
@@ -252,4 +252,4 @@ open import PA.Axiomatic.PropertiesATP
 ------------------------------------------------------------------------------
 
 -- We cannot import the Agsy examples because some modules contain
--- unsolved metas, so see src/Agsy/README.txt
+-- unsolved metas, therefore see src/Agsy/README.txt
