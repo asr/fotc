@@ -15,6 +15,7 @@ open import Common.LogicalConstants
 
 open import Common.Relation.Binary.PreorderReasoning
 open import Common.Relation.Binary.PropositionalEquality
+open import Common.Relation.Nullary
 open import Common.Relation.Unary
 
 open import Common.Universe
