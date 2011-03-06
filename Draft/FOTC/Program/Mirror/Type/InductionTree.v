@@ -1,5 +1,5 @@
 (* Tested with Coq 8.3 *)
-(* Induction principle for the data types Tree and ListTree *)
+(* Induction principle for the data types rose tree and forest *)
 
 Require Import Coq.Unicode.Utf8.
 
@@ -8,12 +8,12 @@ Axiom nil  : D.
 Axiom cons : D → D → D.
 Axiom node : D → D → D.
 
-Inductive ListTree : D → Prop :=
-| nilLT  : ListTree nil
-| consLT : forall (t ts : D), Tree t → ListTree ts → ListTree (cons t ts)
+Inductive Forest : D → Prop :=
+| nilF  : Forest nil
+| consF : forall (t ts : D), Tree t → Forest ts → Forest (cons t ts)
 
 with Tree : D → Prop :=
-| treeT : forall (d ts : D), ListTree ts → Tree (node d ts).
+| treeT : forall (d ts : D), Forest ts → Tree (node d ts).
 
 Check Tree_ind.
-Check ListTree_ind.
+Check Forest_ind.

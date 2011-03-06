@@ -89,9 +89,9 @@ open import FOTC.Program.McCarthy91.MCR.Induction.Acc.WellFoundedInductionATP
 open import FOTC.Program.McCarthy91.Properties.AuxiliaryATP
 open import FOTC.Program.McCarthy91.Properties.MainATP
 
-open import FOTC.Program.Mirror.ListTree.Closures
-open import FOTC.Program.Mirror.ListTree.PropertiesATP
-open import FOTC.Program.Mirror.ListTree.PropertiesI
+open import FOTC.Program.Mirror.Forest.Closures
+open import FOTC.Program.Mirror.Forest.PropertiesATP
+open import FOTC.Program.Mirror.Forest.PropertiesI
 open import FOTC.Program.Mirror.Mirror.ConsistencyTest
 open import FOTC.Program.Mirror.Mirror
 open import FOTC.Program.Mirror.PropertiesATP

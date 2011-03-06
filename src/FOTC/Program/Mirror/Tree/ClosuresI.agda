@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Properties related with the closures of the tree type
+-- Properties related with the closures of the rose tree type
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-termination-check #-}
@@ -11,7 +11,7 @@ open import FOTC.Base
 open import FOTC.Data.List
 
 open import FOTC.Program.Mirror.Mirror
-open import FOTC.Program.Mirror.ListTree.Closures
+open import FOTC.Program.Mirror.Forest.Closures
 open import FOTC.Program.Mirror.Type
 
 open import FOTC.Relation.Binary.EqReasoning
@@ -19,7 +19,7 @@ open import FOTC.Relation.Binary.EqReasoning
 ------------------------------------------------------------------------------
 
 mirror-Tree : ∀ {t} → Tree t → Tree (mirror · t)
-mirror-Tree (treeT d nilLT) =
+mirror-Tree (treeT d nilF) =
   subst Tree (sym (mirror-eq d [])) (treeT d helper₂)
     where
       helper₁ : rev (map mirror []) [] ≡ []
@@ -35,12 +35,12 @@ mirror-Tree (treeT d nilLT) =
           []
         ∎
 
-      helper₂ : ListTree (rev (map mirror []) [])
-      helper₂ = subst ListTree (sym helper₁) nilLT
+      helper₂ : Forest (rev (map mirror []) [])
+      helper₂ = subst Forest (sym helper₁) nilF
 
-mirror-Tree (treeT d (consLT {t} {ts} Tt LTts)) =
+mirror-Tree (treeT d (consF {t} {ts} Tt Fts)) =
   subst Tree (sym (mirror-eq d (t ∷ ts))) (treeT d helper)
 
   where
-    helper : ListTree (reverse (map mirror (t ∷ ts)))
-    helper = reverse-ListTree (map-ListTree mirror mirror-Tree (consLT Tt LTts))
+    helper : Forest (reverse (map mirror (t ∷ ts)))
+    helper = reverse-Forest (map-Forest mirror mirror-Tree (consF Tt Fts))

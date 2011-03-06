@@ -10,8 +10,8 @@ open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesATP using ( reverse-[x]≡[x] )
 
 open import FOTC.Program.Mirror.Mirror
-open import FOTC.Program.Mirror.ListTree.PropertiesATP
-open import FOTC.Program.Mirror.ListTree.Closures
+open import FOTC.Program.Mirror.Forest.PropertiesATP
+open import FOTC.Program.Mirror.Forest.Closures
 open import FOTC.Program.Mirror.Tree.ClosuresATP
 open import FOTC.Program.Mirror.Type
 
@@ -19,30 +19,30 @@ open import FOTC.Program.Mirror.Type
 
 mutual
   mirror² : ∀ {t} → Tree t → mirror · (mirror · t) ≡ t
-  mirror² (treeT d nilLT) = prf
+  mirror² (treeT d nilF) = prf
     where
       postulate prf : mirror · (mirror · node d []) ≡ node d []
       {-# ATP prove prf #-}
 
-  mirror² (treeT d (consLT {t} {ts} Tt LTts)) = prf
+  mirror² (treeT d (consF {t} {ts} Tt Fts)) = prf
     where
       postulate prf : mirror · (mirror · node d (t ∷ ts)) ≡ node d (t ∷ ts)
       {-# ATP prove prf helper #-}
 
-  helper : ∀ {ts} → ListTree ts →
+  helper : ∀ {ts} → Forest ts →
            reverse (map mirror (reverse (map mirror ts))) ≡ ts
-  helper nilLT = prf
+  helper nilF = prf
     where
       postulate prf : reverse (map mirror (reverse (map mirror []))) ≡ []
       {-# ATP prove prf #-}
 
-  helper (consLT {t} {ts} Tt LTts) =
+  helper (consF {t} {ts} Tt Fts) =
     prf (map-++-commute mirror
                         mirror-Tree
-                        (reverse-ListTree (map-ListTree mirror mirror-Tree LTts))
-                        (consLT (mirror-Tree Tt) nilLT))
+                        (reverse-Forest (map-Forest mirror mirror-Tree Fts))
+                        (consF (mirror-Tree Tt) nilF))
         (mirror² Tt)
-        (helper LTts)
+        (helper Fts)
     where
       postulate
         -- We help the ATPs proving the first hypothesis.
@@ -51,5 +51,5 @@ mutual
               mirror · (mirror · t) ≡ t →  -- IH.
               reverse (map mirror (reverse (map mirror ts))) ≡ ts →  -- IH.
               reverse (map mirror (reverse (map mirror (t ∷ ts)))) ≡ t ∷ ts
-      {-# ATP prove prf reverse-∷ mirror-Tree map-ListTree reverse-++-commute
-                        reverse-ListTree reverse-[x]≡[x] ++-leftIdentity #-}
+      {-# ATP prove prf reverse-∷ mirror-Tree map-Forest reverse-++-commute
+                        reverse-Forest reverse-[x]≡[x] ++-leftIdentity #-}

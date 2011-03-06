@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Properties related with the closures of the tree type
+-- Properties related with the closures of the rose tree type
 ------------------------------------------------------------------------------
 
 -- {-# OPTIONS --no-termination-check #-}
@@ -13,8 +13,8 @@ open import FOTC.Data.List
 
 open import FOTC.Program.Mirror.Mirror
 open import FOTC.Program.Mirror.Type
-open import FOTC.Program.Mirror.ListTree.Closures
-open import FOTC.Program.Mirror.ListTree.PropertiesI
+open import FOTC.Program.Mirror.Forest.Closures
+open import FOTC.Program.Mirror.Forest.PropertiesI
 
 open import FOTC.Relation.Binary.EqReasoning
 
@@ -23,8 +23,8 @@ open import FOTC.Relation.Binary.EqReasoning
 -- Requires --injective-type-constructors
 -- Peter: To use injectivity of type constructors means asking for
 -- trouble. The logic behind this is very unclear.
-node-ListTree : ∀ {d ts} → Tree (node d ts) → ListTree ts
-node-ListTree {d} (treeT .d LTts) = LTts
+node-Forest : ∀ {d ts} → Tree (node d ts) → Forest ts
+node-Forest {d} (treeT .d Fts) = Fts
 
 postulate
   reverse-∷' : ∀ x ys → reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])
@@ -34,7 +34,7 @@ postulate
 -- smaller than x ∷ xs.
 
 mirror-Tree : ∀ {t} → Tree t → Tree (mirror · t)
-mirror-Tree (treeT d nilLT) =
+mirror-Tree (treeT d nilF) =
   subst Tree (sym (mirror-eq d [])) (treeT d helper₂)
     where
       helper₁ : rev (map mirror []) [] ≡ []
@@ -50,27 +50,27 @@ mirror-Tree (treeT d nilLT) =
           []
         ∎
 
-      helper₂ : ListTree (rev (map mirror []) [])
-      helper₂ = subst ListTree (sym helper₁) nilLT
+      helper₂ : Forest (rev (map mirror []) [])
+      helper₂ = subst Forest (sym helper₁) nilF
 
-mirror-Tree (treeT d (consLT {t} {ts} Tt LTts)) =
+mirror-Tree (treeT d (consF {t} {ts} Tt Fts)) =
   subst Tree (sym (mirror-eq d (t ∷ ts))) (treeT d helper)
 
   where
      h₁ : Tree (node d (reverse (map mirror ts)))
-     h₁ = subst Tree (mirror-eq d ts) (mirror-Tree (treeT d LTts))
+     h₁ = subst Tree (mirror-eq d ts) (mirror-Tree (treeT d Fts))
 
-     h₂ : ListTree (reverse (map mirror ts))
-     h₂ = node-ListTree h₁
+     h₂ : Forest (reverse (map mirror ts))
+     h₂ = node-Forest h₁
 
-     h₃ : ListTree ((reverse (map mirror ts)) ++ (mirror · t ∷ []))
-     h₃ = ++-ListTree h₂ (consLT (mirror-Tree Tt) nilLT)
+     h₃ : Forest ((reverse (map mirror ts)) ++ (mirror · t ∷ []))
+     h₃ = ++-Forest h₂ (consF (mirror-Tree Tt) nilF)
 
-     h₄ : ListTree (reverse (mirror · t ∷ map mirror ts))
-     h₄ = subst ListTree ( sym (reverse-∷' (mirror · t) (map mirror ts))) h₃
+     h₄ : Forest (reverse (mirror · t ∷ map mirror ts))
+     h₄ = subst Forest ( sym (reverse-∷' (mirror · t) (map mirror ts))) h₃
 
-     helper : ListTree (reverse (map mirror (t ∷ ts)))
-     helper = subst ListTree
+     helper : Forest (reverse (map mirror (t ∷ ts)))
+     helper = subst Forest
               (subst (λ x → reverse x ≡ reverse (map mirror (t ∷ ts)))
                      (map-∷ mirror t ts)
                      refl)

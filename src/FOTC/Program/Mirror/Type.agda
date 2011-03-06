@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Types used by the mirror function
+-- The types used by the mirror function
 ------------------------------------------------------------------------------
 
 module FOTC.Program.Mirror.Type where
@@ -14,29 +14,29 @@ postulate
   node : D → D → D
 
 mutual
-  -- The list of trees type.
-  data ListTree : D → Set where
-    nilLT  : ListTree []
-    consLT : ∀ {t ts} → Tree t → ListTree ts → ListTree (t ∷ ts)
+  -- The list of rose trees (called forest).
+  data Forest : D → Set where
+    nilF  : Forest []
+    consF : ∀ {t ts} → Tree t → Forest ts → Forest (t ∷ ts)
 
-  -- The tree type.
+  -- The rose tree type.
   data Tree : D → Set where
-    treeT : ∀ d {ts} → ListTree ts → Tree (node d ts)
+    treeT : ∀ d {ts} → Forest ts → Tree (node d ts)
 
-{-# ATP hint nilLT #-}
-{-# ATP hint consLT #-}
+{-# ATP hint nilF #-}
+{-# ATP hint consF #-}
 {-# ATP hint treeT #-}
 
 -- Induction principle for Tree.
 indTree : (P : D → Set) →
-          (∀ d {ts} → ListTree ts → P (node d ts)) →
+          (∀ d {ts} → Forest ts → P (node d ts)) →
           ∀ {t} → Tree t → P t
 indTree P h (treeT d LTts) = h d LTts
 
--- Induction principle for ListTree.
-indListTree : (P : D → Set) →
-              P [] →
-              (∀ {t ts} → Tree t → ListTree ts → P ts → P (t ∷ ts)) →
-              ∀ {ts} → ListTree ts → P ts
-indListTree P P[] h nilLT            = P[]
-indListTree P P[] h (consLT Tt LTts) = h Tt LTts (indListTree P P[] h LTts)
+-- Induction principle for Forest.
+indForest : (P : D → Set) →
+            P [] →
+            (∀ {t ts} → Tree t → Forest ts → P ts → P (t ∷ ts)) →
+            ∀ {ts} → Forest ts → P ts
+indForest P P[] h nilF            = P[]
+indForest P P[] h (consF Tt LTts) = h Tt LTts (indForest P P[] h LTts)

@@ -4,18 +4,18 @@ open import FOTC.Base
 open import FOTC.Program.Mirror.Type
 
 foo : ∀ {ts} → Tree ts → D
-foo (treeT d nilLT)            = d
-foo (treeT d (consLT Tt LTts)) = foo (treeT d LTts)
+foo (treeT d nilF)            = d
+foo (treeT d (consF Tt Fts)) = foo (treeT d Fts)
 
 bar : ∀ {ts} → Tree ts → D
-bar (treeT d nilLT) = d
-bar (treeT d (consLT Tt LTts)) = helper (bar Tt) (bar (treeT d LTts))
+bar (treeT d nilF) = d
+bar (treeT d (consF Tt Fts)) = helper (bar Tt) (bar (treeT d Fts))
   where
     postulate helper : D → D → D
 
 bar₁ : ∀ ts → Tree ts → D
-bar₁ .(node d [])       (treeT d nilLT) = d
-bar₁ .(node d (t ∷ ts)) (treeT d (consLT {t} {ts} Tt LTts))
-  = helper (bar₁ t Tt) (bar₁ (node d ts) (treeT d LTts))
+bar₁ .(node d [])       (treeT d nilF) = d
+bar₁ .(node d (t ∷ ts)) (treeT d (consF {t} {ts} Tt Fts))
+  = helper (bar₁ t Tt) (bar₁ (node d ts) (treeT d Fts))
   where
     postulate helper : D → D → D

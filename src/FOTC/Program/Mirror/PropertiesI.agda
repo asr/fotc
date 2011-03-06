@@ -8,8 +8,8 @@ open import FOTC.Base
 
 open import FOTC.Program.Mirror.Mirror
 open import FOTC.Program.Mirror.Type
-open import FOTC.Program.Mirror.ListTree.PropertiesI
-open import FOTC.Program.Mirror.ListTree.Closures
+open import FOTC.Program.Mirror.Forest.PropertiesI
+open import FOTC.Program.Mirror.Forest.Closures
 open import FOTC.Program.Mirror.Tree.ClosuresI
 
 open import FOTC.Data.List
@@ -21,7 +21,7 @@ open import FOTC.Relation.Binary.EqReasoning
 
 mutual
   mirror² : ∀ {t} → Tree t → mirror · (mirror · t) ≡ t
-  mirror² (treeT d nilLT) =
+  mirror² (treeT d nilF) =
     begin
       mirror · (mirror · (node d []))
         ≡⟨ subst (λ x → mirror · (mirror · (node d [])) ≡ mirror · x )
@@ -55,7 +55,7 @@ mutual
       node d []
     ∎
 
-  mirror² (treeT d (consLT {t} {ts} Tt LTts)) =
+  mirror² (treeT d (consF {t} {ts} Tt Fts)) =
     begin
       mirror · (mirror · node d (t ∷ ts))
         ≡⟨ subst (λ x → mirror · (mirror · node d (t ∷ ts)) ≡ mirror · x)
@@ -71,15 +71,15 @@ mutual
       node d (reverse (map mirror (reverse (map mirror (t ∷ ts)))))
       ≡⟨ subst (λ x → node d (reverse (map mirror (reverse (map mirror (t ∷ ts))))) ≡
                       node d x)
-               (helper (consLT Tt LTts))
+               (helper (consF Tt Fts))
                refl
       ⟩
       node d (t ∷ ts)
     ∎
 
-  helper : ∀ {ts} → ListTree ts →
+  helper : ∀ {ts} → Forest ts →
            reverse (map mirror (reverse (map mirror ts))) ≡ ts
-  helper nilLT =
+  helper nilF =
     begin
       reverse (map mirror (reverse (map mirror [])))
         ≡⟨ subst (λ x → reverse (map mirror (reverse (map mirror []))) ≡
@@ -104,7 +104,7 @@ mutual
       []
     ∎
 
-  helper (consLT {t} {ts} Tt LTts) =
+  helper (consF {t} {ts} Tt Fts) =
     begin
       reverse (map mirror (reverse (map mirror (t ∷ ts))))
         ≡⟨ subst (λ x → reverse (map mirror (reverse (map mirror (t ∷ ts)))) ≡
@@ -115,7 +115,7 @@ mutual
       reverse (map mirror (reverse (mirror · t ∷ map mirror ts)))
         ≡⟨ subst (λ x → reverse (map mirror (reverse (mirror · t ∷ map mirror ts))) ≡
                         reverse (map mirror x))
-                 (reverse-∷ (mirror-Tree Tt) (map-ListTree mirror mirror-Tree LTts))
+                 (reverse-∷ (mirror-Tree Tt) (map-Forest mirror mirror-Tree Fts))
                  refl
         ⟩
       reverse (map mirror (reverse (map mirror ts) ++ (mirror · t ∷ [])))
@@ -124,8 +124,8 @@ mutual
                         reverse x)
            (map-++-commute mirror
                    mirror-Tree
-                   (reverse-ListTree (map-ListTree mirror mirror-Tree LTts))
-                   (consLT (mirror-Tree Tt) nilLT))
+                   (reverse-Forest (map-Forest mirror mirror-Tree Fts))
+                   (consF (mirror-Tree Tt) nilF))
            refl
         ⟩
       reverse (map mirror (reverse (map mirror ts)) ++
@@ -134,11 +134,11 @@ mutual
                                              (map mirror (mirror · t ∷ [])))) ≡
                         x)
                  (reverse-++-commute
-                   (map-ListTree mirror mirror-Tree
-                                 (reverse-ListTree
-                                 (map-ListTree mirror mirror-Tree LTts)))
-                   (map-ListTree mirror mirror-Tree
-                                 (consLT (mirror-Tree Tt) nilLT)))
+                   (map-Forest mirror mirror-Tree
+                               (reverse-Forest
+                               (map-Forest mirror mirror-Tree Fts)))
+                   (map-Forest mirror mirror-Tree
+                               (consF (mirror-Tree Tt) nilF)))
                  refl
         ⟩
       reverse (map mirror (mirror · t ∷ [])) ++
@@ -165,7 +165,7 @@ mutual
       mirror · (mirror · t) ∷ [] ++ n₁
         ≡⟨ subst (λ x →  mirror · (mirror · t) ∷ [] ++ n₁ ≡
                          mirror · (mirror · t) ∷ x)
-                 (++-leftIdentity LTn₁)
+                 (++-leftIdentity Fn₁)
                  refl
         ⟩
       mirror · (mirror · t) ∷ reverse (map mirror (reverse (map mirror ts)))
@@ -178,7 +178,7 @@ mutual
       t ∷ reverse (map mirror (reverse (map mirror ts)))
         ≡⟨ subst (λ x → t ∷ reverse (map mirror (reverse (map mirror ts))) ≡
                         t ∷ x)
-                 (helper LTts)
+                 (helper Fts)
                  refl
         ⟩
       t ∷ ts
@@ -187,8 +187,8 @@ mutual
         n₁ : D
         n₁ = reverse (map mirror (reverse (map mirror ts)))
 
-        LTn₁ : ListTree n₁
-        LTn₁ = rev-ListTree
-                 (map-ListTree mirror mirror-Tree
-                               (reverse-ListTree (map-ListTree mirror mirror-Tree LTts)))
-                 nilLT
+        Fn₁ : Forest n₁
+        Fn₁ = rev-Forest
+                (map-Forest mirror mirror-Tree
+                            (reverse-Forest (map-Forest mirror mirror-Tree Fts)))
+                nilF
