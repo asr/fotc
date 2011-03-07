@@ -27,6 +27,7 @@ mutual
 {-# ATP hint consF #-}
 {-# ATP hint treeT #-}
 
+------------------------------------------------------------------------------
 -- From Coq'Art: These induction principles *not cover* the mutual
 -- structure of the types Tree and Rose (p. 401).
 
@@ -44,8 +45,10 @@ indForest : (P : D → Set) →
 indForest P P[] h nilF            = P[]
 indForest P P[] h (consF Tt Fts) = h Tt Fts (indForest P P[] h Fts)
 
+------------------------------------------------------------------------------
 -- Mutual induction for Tree and Forest
--- From the Coq command
+
+-- Adapted from the induction principles generate from the Coq command
 -- Scheme Tree_mutual_ind :=
 --   Minimality for Tree Sort Prop
 -- with Forest_mutual_ind :=
@@ -61,7 +64,7 @@ mutual
   mutualIndTree ihP Q[] _   (treeT d nilF)           = ihP d nilF Q[]
   mutualIndTree ihP Q[] ihQ (treeT d (consF Tt Fts)) =
     ihP d (consF Tt Fts) (ihQ Tt (mutualIndTree ihP Q[] ihQ Tt)
-                         Fts (mutualIndForest ihP Q[] ihQ Fts))
+                              Fts (mutualIndForest ihP Q[] ihQ Fts))
 
   mutualIndForest :
      {P Q : D → Set} →
