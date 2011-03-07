@@ -53,23 +53,23 @@ indForest P P[] h (consF Tt Fts) = h Tt Fts (indForest P P[] h Fts)
 
 mutual
   mutualIndTree :
-    (P Q : D → Set) →
+    {P Q : D → Set} →
     (∀ d {ts} → Forest ts → Q ts → P (node d ts)) →
     Q [] →
     (∀ {t ts} → Tree t → P t → Forest ts → Q ts → Q (t ∷ ts)) →
     ∀ {t} → Tree t → P t
-  mutualIndTree P Q hP Q[] hQ (treeT d nilF) = hP d nilF Q[]
-  mutualIndTree P Q hP Q[] hQ (treeT d (consF Tt Fts)) =
-    hP d (consF Tt Fts) (hQ Tt (mutualIndTree P Q hP Q[] hQ Tt)
-                            Fts (mutualIndForest P Q hP Q[] hQ Fts))
+  mutualIndTree ihP Q[] _   (treeT d nilF)           = ihP d nilF Q[]
+  mutualIndTree ihP Q[] ihQ (treeT d (consF Tt Fts)) =
+    ihP d (consF Tt Fts) (ihQ Tt (mutualIndTree ihP Q[] ihQ Tt)
+                         Fts (mutualIndForest ihP Q[] ihQ Fts))
 
   mutualIndForest :
-     (P Q : D → Set) →
+     {P Q : D → Set} →
      (∀ d {ts} → Forest ts → Q ts → P (node d ts)) →
      Q [] →
      (∀ {t ts} → Tree t → P t → Forest ts → Q ts → Q (t ∷ ts)) →
      ∀ {ts} → Forest ts → Q ts
-  mutualIndForest P Q hP Q[] hQ nilF = Q[]
-  mutualIndForest P Q hP Q[] hQ (consF Tt Fts) =
-    hQ Tt (mutualIndTree P Q hP Q[] hQ Tt) Fts
-      (mutualIndForest P Q hP Q[] hQ Fts)
+  mutualIndForest _   Q[] _   nilF           = Q[]
+  mutualIndForest ihP Q[] ihQ (consF Tt Fts) =
+    ihQ Tt (mutualIndTree ihP Q[] ihQ Tt) Fts
+        (mutualIndForest ihP Q[] ihQ Fts)

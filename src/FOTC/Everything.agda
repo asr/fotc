@@ -96,8 +96,7 @@ open import FOTC.Program.Mirror.Mirror.ConsistencyTest
 open import FOTC.Program.Mirror.Mirror
 open import FOTC.Program.Mirror.PropertiesATP
 open import FOTC.Program.Mirror.PropertiesI
-open import FOTC.Program.Mirror.Tree.ClosuresATP
-open import FOTC.Program.Mirror.Tree.ClosuresI
+open import FOTC.Program.Mirror.Tree.Closures
 open import FOTC.Program.Mirror.Type
 
 open import FOTC.Program.SortList.ProofSpecificationATP

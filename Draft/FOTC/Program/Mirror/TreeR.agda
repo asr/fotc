@@ -12,6 +12,9 @@ open import FOTC.Program.Mirror.Type
 
 ------------------------------------------------------------------------------
 -- Well-founded relation on trees.
+-- A well-founded relation for rose trees is the lexicographical order
+-- (t : ts) < (t' : ts') = t < t' or t ≡ t' and ts < ts'
+-- It seeems we would not to use the first disjunct in the mirror example.
 TreeR : D → D → Set
 TreeR t₁ t₂ = ∃D (λ d →
               ∃D (λ ts₁ →
