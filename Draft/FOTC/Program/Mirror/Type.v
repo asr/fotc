@@ -1,5 +1,5 @@
 (* Tested with Coq 8.3 *)
-(* Induction principle for the data types rose tree and forest *)
+(* The types used by the mirror function *)
 
 Require Import Coq.Unicode.Utf8.
 
