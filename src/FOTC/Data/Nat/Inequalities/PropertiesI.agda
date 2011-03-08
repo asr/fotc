@@ -58,6 +58,9 @@ x≤x : ∀ {n} → N n → LE n n
 x≤x zN          = <-0S zero
 x≤x (sN {n} Nn) = trans (<-SS n (succ n)) (x≤x Nn)
 
+x≥x : ∀ {n} → N n → GE n n
+x≥x Nn = x≤x Nn
+
 x≤y→Sx≤Sy : ∀ {m n} → LE m n → LE (succ m) (succ n)
 x≤y→Sx≤Sy {m} {n} m≤n = trans (<-SS m (succ n)) m≤n
 

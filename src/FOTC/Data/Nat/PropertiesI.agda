@@ -28,10 +28,6 @@ pred-N (sN {n} Nn) = subst N (sym $ pred-S n) Nn
 ∸-N     zN          (sN {n} _)  = subst N (sym $ ∸-0S n) zN
 ∸-N     (sN {m} Nm) (sN {n} Nn) = subst N (sym $ ∸-SS m n) (∸-N Nm Nn)
 
-∸-0x : ∀ {n} → N n → zero ∸ n ≡ zero
-∸-0x zN         = ∸-x0 zero
-∸-0x (sN {n} _) = ∸-0S n
-
 +-leftIdentity : ∀ {n} → N n → zero + n ≡ n
 +-leftIdentity {n} _ = +-0x n
 
@@ -117,6 +113,18 @@ x+Sy≡S[x+y] {n = n} (sN {m} Nm) Nn =
     succ (n + m) ≡⟨ sym $ x+Sy≡S[x+y] Nn Nm ⟩
     n + succ m
    ∎
+
+∸-0x : ∀ {n} → N n → zero ∸ n ≡ zero
+∸-0x zN         = ∸-x0 zero
+∸-0x (sN {n} _) = ∸-0S n
+
+x∸x≡0 : ∀ {n} → N n → n ∸ n ≡ zero
+x∸x≡0 zN          = ∸-x0 zero
+x∸x≡0 (sN {n} Nn) = trans (∸-SS n n) (x∸x≡0 Nn)
+
+Sx∸x≡S0 : ∀ {n} → N n → succ n ∸ n ≡ succ zero
+Sx∸x≡S0 zN          = ∸-x0 (succ zero)
+Sx∸x≡S0 (sN {n} Nn) = trans (∸-SS (succ n) n) (Sx∸x≡S0 Nn)
 
 [x+y]∸[x+z]≡y∸z : ∀ {m n o} → N m → N n → N o → (m + n) ∸ (m + o) ≡ n ∸ o
 [x+y]∸[x+z]≡y∸z {n = n} {o} zN _ _ =
@@ -231,6 +239,9 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn =
     n + n * m     ≡⟨ sym $ x*Sy≡x+xy Nn Nm ⟩
     n * succ m
   ∎
+
+*-rightIdentity : ∀ {n} → N n → n * succ zero ≡ n
+*-rightIdentity {n} Nn = trans (*-comm Nn (sN zN)) (*-leftIdentity Nn)
 
 *∸-leftDistributive : ∀ {m n o} → N m → N n → N o → (m ∸ n) * o ≡ m * o ∸ n * o
 *∸-leftDistributive {m} {o = o} _ zN _ =

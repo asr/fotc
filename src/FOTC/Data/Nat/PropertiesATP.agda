@@ -122,6 +122,10 @@ x+S0≡Sx (sN {n} Nn) = prf (x+S0≡Sx Nn)
 ∸-0x zN         = ∸-x0 zero
 ∸-0x (sN {n} _) = ∸-0S n
 
+x∸x≡0 : ∀ {n} → N n → n ∸ n ≡ zero
+x∸x≡0 zN          = ∸-x0 zero
+x∸x≡0 (sN {n} Nn) = trans (∸-SS n n) (x∸x≡0 Nn)
+
 Sx∸x≡S0 : ∀ {n} → N n → succ n ∸ n ≡ succ zero
 Sx∸x≡S0 zN          = ∸-x0 (succ zero)
 Sx∸x≡S0 (sN {n} Nn) = trans (∸-SS (succ n) n) (Sx∸x≡S0 Nn)
@@ -198,6 +202,9 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
                     succ m * n ≡ n * succ m
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     {-# ATP prove prf x*Sy≡x+xy #-}
+
+*-rightIdentity : ∀ {n} → N n → n * succ zero ≡ n
+*-rightIdentity {n} Nn = trans (*-comm Nn (sN zN)) (*-leftIdentity Nn)
 
 *∸-leftDistributive : ∀ {m n o} → N m → N n → N o → (m ∸ n) * o ≡ m * o ∸ n * o
 *∸-leftDistributive {m} {o = o} _ zN _ = prf

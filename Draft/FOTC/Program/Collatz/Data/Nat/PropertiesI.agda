@@ -9,6 +9,8 @@ open import FOTC.Base
 open import FOTC.Base.PropertiesI
 
 open import FOTC.Data.Nat
+open import FOTC.Data.Nat.Inequalities
+open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.PropertiesI
 open import FOTC.Data.Nat.UnaryNumbers
 
@@ -22,8 +24,29 @@ open import FOTC.Relation.Binary.EqReasoning
 ^-N {m} Nm zN          = subst N (sym (^-0 m)) (sN zN)
 ^-N {m} Nm (sN {n} Nn) = subst N (sym (^-S m n)) (*-N Nm (^-N Nm Nn))
 
-postulate
-  2x/2≡x : ∀ {n} → N n → two * n / two ≡ n
+2x/2≡x : ∀ {n} → N n → two * n / two ≡ n
+2x/2≡x zN = prf
+  where
+    -- See the combined proof.
+    postulate prf : two * zero / two ≡ zero
+
+2x/2≡x (sN zN) =
+  begin
+    (two * succ zero) / two
+      ≡⟨ cong₂ _/_ (*-rightIdentity (sN (sN zN))) refl ⟩
+    two / two
+      ≡⟨ /-x≥y (x≥x (sN (sN zN))) ⟩
+    succ ((two ∸ two) / two)
+      ≡⟨ cong succ (cong₂ _/_ (x∸x≡0 (sN (sN zN))) refl) ⟩
+    succ (zero / two)
+      ≡⟨ cong succ (/-x<y (<-0S (succ zero))) ⟩
+    succ zero
+  ∎
+
+2x/2≡x (sN (sN {n} Nn)) = prf
+  where
+    -- See the combined proof.
+    postulate prf : two * succ (succ n) / two ≡ succ (succ n)
 
 2^[x+1]/2≡x : ∀ {n} → N n → (two ^ (succ n)) / two ≡ two ^ n
 2^[x+1]/2≡x {n} Nn =

@@ -36,3 +36,6 @@ subst₄ P refl refl refl refl Px₁x₂x₃x₄ = Px₁x₂x₃x₄
 
 cong : ∀ {x y} (f : D → D) → x ≡ y → f x ≡ f y
 cong f refl = refl
+
+cong₂ : ∀ {x₁ x₂ y₁ y₂} (f : D → D → D) → x₁ ≡ y₁ → x₂ ≡ y₂ → f x₁ x₂ ≡ f y₁ y₂
+cong₂ f refl refl = refl
