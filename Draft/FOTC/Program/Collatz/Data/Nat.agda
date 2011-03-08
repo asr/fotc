@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- FOTC natural numbers used by the Collatz function
+-- FOTC natural numbers (added for the Collatz function example)
 
 -- (We don't want populate the FOTC library with more FOL axioms)
 ------------------------------------------------------------------------------
