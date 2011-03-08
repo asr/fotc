@@ -52,8 +52,8 @@ postulate
   ∧-idemp : P ∧ P       ↔ P
   ∨-idemp : P ∨ P       ↔ P
   dn      : ¬ ¬ P       ↔ P
-  ∧-comm  : P ∧ Q       ↔ Q ∧ P
-  ∨-comm  : P ∨ Q       ↔ Q ∨ P
+  ∧-comm  : P ∧ Q       ⇒ Q ∧ P
+  ∨-comm  : P ∨ Q       ⇒ Q ∨ P
   ∧-assoc : (P ∧ Q) ∧ R ↔ P ∧ Q ∧ R
   ∨-assoc : (P ∨ Q) ∨ R ↔ P ∨ Q ∨ R
   ∧∨-dist : P ∧ (Q ∨ R) ↔ P ∧ Q ∨ P ∧ R

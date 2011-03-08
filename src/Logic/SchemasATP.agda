@@ -14,7 +14,7 @@ module NonSchemas where
     P Q R : Set
 
   postulate
-    ∧-ident : P ∧ ⊤ → P
+    ∧-ident : P ∧ ⊤ ↔ P
   {-# ATP prove ∧-ident #-}
 
   postulate
@@ -22,13 +22,13 @@ module NonSchemas where
   {-# ATP prove ∨-comm #-}
 
   postulate
-    ∧∨-dist : P ∧ (Q ∨ R) → P ∧ Q ∨ P ∧ R
+    ∧∨-dist : P ∧ (Q ∨ R) ↔ P ∧ Q ∨ P ∧ R
   {-# ATP prove ∧∨-dist #-}
 
 module Schemas where
 
   postulate
-    ∧-ident : {P : Set} → P ∧ ⊤ → P
+    ∧-ident : {P : Set} → P ∧ ⊤ ↔ P
   {-# ATP prove ∧-ident #-}
 
   postulate
@@ -36,5 +36,5 @@ module Schemas where
   {-# ATP prove ∨-comm #-}
 
   postulate
-    ∧∨-dist : {P Q R : Set} → P ∧ (Q ∨ R) → P ∧ Q ∨ P ∧ R
+    ∧∨-dist : {P Q R : Set} → P ∧ (Q ∨ R) ↔ P ∧ Q ∨ P ∧ R
   {-# ATP prove ∧∨-dist #-}
