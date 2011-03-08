@@ -109,6 +109,9 @@ open import Logic.Predicate.PropertiesI
 open import Logic.Predicate.PropertiesATP
 open import Logic.Predicate.PropertiesI
 
+-- Logical schemas
+open import Logic.SchemasATP
+
 ------------------------------------------------------------------------------
 -- FOTC
 
