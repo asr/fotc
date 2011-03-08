@@ -19,5 +19,7 @@ open import Common.Function using ( _$_ )
 ¬S≡0 : ∀ {n} → ¬ (succ n ≡ zero)
 ¬S≡0 S≡0 = 0≠S $ sym S≡0
 
-x≡y→Sx≡Sy : ∀ {m n} → m ≡ n → succ m ≡ succ n
-x≡y→Sx≡Sy refl = refl
+-- We added Common.Relation.Binary.PropositionalEquality.cong, so this
+-- theorem is not necessary.
+-- x≡y→Sx≡Sy : ∀ {m n} → m ≡ n → succ m ≡
+-- succ n x≡y→Sx≡Sy refl = refl

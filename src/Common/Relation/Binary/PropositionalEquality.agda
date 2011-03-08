@@ -33,3 +33,6 @@ subst₄ : ∀ {x₁ x₂ x₃ x₄ y₁ y₂ y₃ y₄} (P : D → D → D → 
          x₁ ≡ y₁ → x₂ ≡ y₂ → x₃ ≡ y₃ → x₄ ≡ y₄ → P x₁ x₂ x₃ x₄ →
          P y₁ y₂ y₃ y₄
 subst₄ P refl refl refl refl Px₁x₂x₃x₄ = Px₁x₂x₃x₄
+
+cong : ∀ {x y} (f : D → D) → x ≡ y → f x ≡ f y
+cong f refl = refl

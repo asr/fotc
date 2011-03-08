@@ -17,10 +17,6 @@ open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 
--- TODO: Put in the Common directory.
-cong : ∀ {x y} (f : D → D) → x ≡ y → f x ≡ f y
-cong f refl = refl
-
 collatz-2^x : ∀ {n} → N n → ∃D (λ k → N k ∧ n ≡ two ^ k) → collatz n ≡ one
 collatz-2^x zN _ = collatz-0
 collatz-2^x (sN {n} Nn) (.zero , zN , Sn≡2^0) =

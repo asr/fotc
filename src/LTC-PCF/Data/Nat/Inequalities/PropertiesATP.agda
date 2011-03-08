@@ -5,7 +5,6 @@
 module LTC-PCF.Data.Nat.Inequalities.PropertiesATP where
 
 open import LTC-PCF.Base
-open import FOTC.Base.Properties using ( x≡y→Sx≡Sy )
 
 open import Common.Function using ( _$_ )
 
@@ -260,7 +259,7 @@ x<Sy→x<y∨x≡y (sN {m} Nm) zN Sm<S0 =
   ⊥-elim $ x<0→⊥ Nm (trans (sym $ <-SS m zero) Sm<S0)
 x<Sy→x<y∨x≡y (sN {m} Nm) (sN {n} Nn) Sm<SSn =
   [ (λ m<n → inj₁ (trans (<-SS m n) m<n))
-  , (λ m≡n → inj₂ (x≡y→Sx≡Sy m≡n))
+  , (λ m≡n → inj₂ (cong succ m≡n))
   ]
   m<n∨m≡n
 
