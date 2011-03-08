@@ -280,8 +280,10 @@ gcd-S>S m n Sm>Sn =
     fix gcdh · (succ m ∸ succ n) · succ n
   ∎
 
--- TODO: This equation requires N m and N n.
 -- Fifth equation.
+
+-- Because we define LE on terms of LT, we need the extra hipotesis
+-- N m and N n.
 gcd-S≤S : ∀ {m n} → N m → N n → LE (succ m) (succ n) →
           gcd (succ m) (succ n) ≡ gcd (succ m) (succ n ∸ succ m)
 gcd-S≤S {m} {n} Nm Nn Sm≤Sn =

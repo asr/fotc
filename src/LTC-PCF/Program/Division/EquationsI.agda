@@ -189,6 +189,8 @@ div-x<y {i} {j} i<j =
 -- The division result when the dividend is greater or equal than the
 -- the divisor.
 
+-- Because we define GE on terms of LT, we need the extra hipotesis
+-- N i and N j.
 div-x≥y : ∀ {i j} → N i → N j → GE i j → div i j ≡ succ (div (i ∸ j) j)
 div-x≥y {i} {j} Ni Nj i≥j =
   begin
