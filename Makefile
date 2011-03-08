@@ -33,6 +33,7 @@ LTC-PCF_path          = src/LTC-PCF
 PA_path               = src/PA
 
 # Programs
+Collatz_path    = $(FOTC_path)/Program/Collatz
 Division_path   = $(LTC-PCF_path)/Program/Division
 GCD_path        = $(FOTC_path)/Program/GCD
 GCD-PCF_path    = $(LTC-PCF_path)/Program/GCD
@@ -108,6 +109,7 @@ conjectures_% :
 # 		  conjectures_Logic \
 # 		  conjectures_LTC-PCF \
 # 		  conjectures_PA \
+#                 conjectures_Collatz \
 #                 conjectures_Division \
 # 		  conjectures_GCD \
 # 		  conjectures_GCD-PCF \

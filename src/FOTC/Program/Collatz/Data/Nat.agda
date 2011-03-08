@@ -4,7 +4,7 @@
 -- (We don't want populate the FOTC library with more FOL axioms)
 ------------------------------------------------------------------------------
 
-module Draft.FOTC.Program.Collatz.Data.Nat where
+module FOTC.Program.Collatz.Data.Nat where
 
 open import FOTC.Base
 

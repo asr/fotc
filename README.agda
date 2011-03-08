@@ -163,6 +163,10 @@ open import FOTC.Data.Nat.List.PropertiesI
 open import FOTC.Data.Nat.UnaryNumbers.IsN-ATP
 open import FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
 
+-- The Collatz function: A function without termination proof
+open import FOTC.Program.Collatz.PropertiesATP
+open import FOTC.Program.Collatz.PropertiesI
+
 -- The GCD algorithm: A non-structurally recursive algorithm
 open import FOTC.Program.GCD.ProofSpecificationATP
 open import FOTC.Program.GCD.ProofSpecificationI

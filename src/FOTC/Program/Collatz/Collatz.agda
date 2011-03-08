@@ -2,14 +2,14 @@
 -- The Collatz function: A function without termination proof
 ------------------------------------------------------------------------------
 
-module Draft.FOTC.Program.Collatz.Collatz where
+module FOTC.Program.Collatz.Collatz where
 
 open import FOTC.Base
 
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.UnaryNumbers
 
-open import Draft.FOTC.Program.Collatz.Data.Nat
+open import FOTC.Program.Collatz.Data.Nat
 
 ------------------------------------------------------------------------------
 -- The Collatz function.

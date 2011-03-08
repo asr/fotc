@@ -2,16 +2,16 @@
 -- Properties of the Collatz function
 ------------------------------------------------------------------------------
 
-module Draft.FOTC.Program.Collatz.PropertiesATP where
+module FOTC.Program.Collatz.PropertiesATP where
 
 open import FOTC.Base
 
 open import FOTC.Data.Nat.Type
 open import FOTC.Data.Nat.UnaryNumbers
 
-open import Draft.FOTC.Program.Collatz.Collatz
-open import Draft.FOTC.Program.Collatz.Data.Nat
-open import Draft.FOTC.Program.Collatz.Data.Nat.PropertiesATP
+open import FOTC.Program.Collatz.Collatz
+open import FOTC.Program.Collatz.Data.Nat
+open import FOTC.Program.Collatz.Data.Nat.PropertiesATP
 
 ------------------------------------------------------------------------------
 

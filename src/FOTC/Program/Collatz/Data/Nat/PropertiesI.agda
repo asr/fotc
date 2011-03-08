@@ -2,7 +2,7 @@
 -- Arithmetic properties (added for the Collatz function example)
 ------------------------------------------------------------------------------
 
-module Draft.FOTC.Program.Collatz.Data.Nat.PropertiesI where
+module FOTC.Program.Collatz.Data.Nat.PropertiesI where
 
 open import FOTC.Base
 
@@ -14,7 +14,7 @@ open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.PropertiesI
 open import FOTC.Data.Nat.UnaryNumbers
 
-open import Draft.FOTC.Program.Collatz.Data.Nat
+open import FOTC.Program.Collatz.Data.Nat
 
 open import FOTC.Relation.Binary.EqReasoning
 

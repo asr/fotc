@@ -65,6 +65,15 @@ open import FOTC.Data.Stream.Bisimilarity.ConsistencyTest
 open import FOTC.Data.Stream.Bisimilarity.PropertiesATP
 open import FOTC.Data.Stream.Bisimilarity.PropertiesI
 
+open import FOTC.Program.Collatz.Collatz
+open import FOTC.Program.Collatz.Collatz.ConsistencyTest
+open import FOTC.Program.Collatz.Data.Nat
+open import FOTC.Program.Collatz.Data.Nat.ConsistencyTest
+open import FOTC.Program.Collatz.Data.Nat.PropertiesATP
+open import FOTC.Program.Collatz.Data.Nat.PropertiesI
+open import FOTC.Program.Collatz.PropertiesI
+open import FOTC.Program.Collatz.PropertiesATP
+
 open import FOTC.Program.GCD.Definitions
 open import FOTC.Program.GCD.GCD
 open import FOTC.Program.GCD.GCD.ConsistencyTest
