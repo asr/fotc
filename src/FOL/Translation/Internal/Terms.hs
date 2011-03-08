@@ -256,7 +256,9 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     -- e.g. the bounded variable is 'd : D' where D : Set,
     --
     -- so we can create a fresh variable and quantify on it without
-    -- any problem. N.B. the pattern matching on (Def _ []).
+    -- any problem.
+    --
+    -- N.B. the pattern matching on (Def _ []).
     El (Type (Lit (LitLevel _ 0))) (Def _ []) →
         do reportSLn "t2f" 20 $
              "Adding universal quantification on variable: " ++ freshVar
@@ -300,29 +302,38 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
 
     -- The bounded variable is quantified on a Set₁,
     --
-    -- e.g. the bounded variable is 'A : Set'.
+    -- e.g. the bounded variable is 'A : Set',
     --
-    El (Type (Lit (LitLevel _ 1))) (Sort _) → __IMPOSSIBLE__
+    -- so we just return the consequent. We use it for translate
+    -- predicate logic schemas, e.g.
+    --
+    -- ∨-comm  : {P Q : Set} → P ∨ Q → Q ∨ P.
+    El (Type (Lit (LitLevel _ 1))) (Sort _) → do
+     reportSLn "t2f" 20 $ "The type tyArg is: " ++ show tyArg
+     return f2
+
     El (Type (Lit (LitLevel _ 1))) _        → __IMPOSSIBLE__
+
+    -- Other cases
     _                                       → __IMPOSSIBLE__
 
--- termToFormula term@(Var n _) = do
---   reportSLn "t2f" 10 $ "termToFormula Var: " ++ show term
+termToFormula term@(Var n _) = do
+  reportSLn "t2f" 10 $ "termToFormula Var: " ++ show term
 
---   state ← get
---   let vars ∷ [String]
---       vars = tVars state
+  state ← get
+  let vars ∷ [String]
+      vars = tVars state
 
---   if length vars <= fromIntegral n
---      then __IMPOSSIBLE__
---      else return $ Predicate (vars !! fromIntegral n) []
+  if length vars <= fromIntegral n
+     then __IMPOSSIBLE__
+     else return $ Predicate (vars !! fromIntegral n) []
 
 termToFormula DontCare    = __IMPOSSIBLE__
 termToFormula (Con _ _)   = __IMPOSSIBLE__
 termToFormula (Lit _)     = __IMPOSSIBLE__
 termToFormula (MetaV _ _) = __IMPOSSIBLE__
 termToFormula (Sort _)    = __IMPOSSIBLE__
-termToFormula (Var _ _)   = __IMPOSSIBLE__
+-- termToFormula (Var _ _)   = __IMPOSSIBLE__
 
 -- Translate 'foo x1 ... xn' to 'kApp (... kApp (kApp(foo, x1), x2), ..., xn)'.
 appArgs ∷ String → Args → T FOLTerm

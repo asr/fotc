@@ -252,8 +252,9 @@ removeReferenceToProofTerm varType index ty =
       --
       -- e.g. the variable is d : D, where D : Set
       --
-      -- so we don't do anything.  N.B. the pattern matching on (Def _
-      -- []).
+      -- so we don't do anything.
+
+      -- N.B. the pattern matching on (Def _ []).
       El (Type (Lit (LitLevel _ 0))) (Def _ []) → ty
 
       -- The variable's type is a proof,
@@ -277,10 +278,14 @@ removeReferenceToProofTerm varType index ty =
 
       -- The variable type is Set₁,
       --
-      -- e.g. the variable is 'A : Set',
+      -- e.g. the variable is 'A : Set'.
       --
-      El (Type (Lit (LitLevel _ 1))) (Sort _) → __IMPOSSIBLE__
+      -- Because the variable is not a proof term we don't do anything.
+      El (Type (Lit (LitLevel _ 1))) (Sort _) → ty
+
       El (Type (Lit (LitLevel _ 1))) _        → __IMPOSSIBLE__
+
+      -- Other cases
       _                                       → __IMPOSSIBLE__
 
 removeReferenceToProofTerms ∷ Type → Type
