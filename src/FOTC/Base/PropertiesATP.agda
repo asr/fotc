@@ -1,12 +1,10 @@
 ------------------------------------------------------------------------------
--- PCF terms properties
+-- FOCT terms properties
 ------------------------------------------------------------------------------
 
 module FOTC.Base.PropertiesATP where
 
 open import FOTC.Base
-
-open import Common.Function using ( _$_ )
 
 ------------------------------------------------------------------------------
 

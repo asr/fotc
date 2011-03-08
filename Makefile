@@ -67,6 +67,9 @@ Agsy_files = $(shell find src/Agsy -name '*.agda' | sort)
 # Only used to publish the drafts, i.e. non type checking.
 main_Draft = Draft/RenderToHTML
 
+# The README main
+main_README = README
+
 ##############################################################################
 # Type checking the Agda modules.
 
@@ -74,9 +77,6 @@ type_checking_Agsy : $(Agsy_files)
 	for file in $(Agsy_files); do \
 	  $(AGDA_Agsy) $${file}; \
 	done
-
-type_checking_README : README.agda
-	$(AGDA_FOT) -i. $<
 
 type_checking_% :
 	$(AGDA_FOT) $(main_$*).agda
