@@ -15,7 +15,7 @@ description:
   automatic theorem provers (ATPs), via the translation of the Agda
   formulae to the TPTP format which is a standard for input and output
   for the ATPs <http://www.cs.miami.edu/~tptp/>.
-tested-with:        GHC == 6.12.3, GHC == 7.0.1
+tested-with:        GHC == 6.12.3, GHC == 7.0.2
 extra-source-files: src/undefined.h
 
 source-repository head
@@ -73,13 +73,17 @@ executable agda2atp
   if impl(ghc >= 6.12) && impl(ghc < 7)
     ghc-options:  -fwarn-simple-patterns
 
-  if impl(ghc >= 7)
+  if impl(ghc >= 7.0.2)
     ghc-options:  -fwarn-missing-local-sigs
     -- This warning is disabled due to the GHC bug #4489.
     --              -fwarn-missing-import-lists
 
-    -- If someone installs agda2atp with the setuid bit set, then the
+    -- From Agda.cabal:
+    -- If someone installs Agda with the setuid bit set, then the
     -- presence of +RTS may be a security problem (see GHC bug #3910).
+    -- However, we sometimes recommend people to use +RTS to control
+    -- Agda's memory usage, so we want this functionality enabled by
+    -- default.
     ghc-options: -rtsopts
 
   ghc-prof-options: -auto-all
