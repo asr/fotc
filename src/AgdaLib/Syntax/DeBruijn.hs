@@ -40,6 +40,8 @@ import Agda.Syntax.Literal   ( Literal(LitLevel) )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
+import Monad.Base ( T )
+
 #include "../../undefined.h"
 
 ------------------------------------------------------------------------------
@@ -177,8 +179,8 @@ instance RenameVar ClauseBody where
 
 -- Def Test.Test._.P [{Var 1 []},(Var 0 []), ...]       (1)
 
--- using its de Brujin name (i.e. (Var 0 [])). After remove this
--- reference (1) is converted to
+-- using its de Brujin name, i.e. (Var 0 []). After remove this
+-- reference the internal term (1) is converted to
 
 -- Def Test.Test._.P [{Var 1 []}, ...].
 
@@ -194,15 +196,16 @@ instance RenameVar ClauseBody where
 -- e.g.  in '(A B C : Set) → ...', A is 2, B is 1, and C is 0,
 --
 -- so we need create the list in the same order.
+
 class VarsTypes a where
-    varsTypes ∷ a → [ Type ]
+    varsTypes ∷ a → [Type]
 
 instance VarsTypes Type where
     varsTypes (El (Type _) term) = varsTypes term
     varsTypes _                  = __IMPOSSIBLE__
 
 instance VarsTypes Term where
-    varsTypes (Pi (Arg _ _ ty) absT) = varsTypes absT ++ [ ty ]
+    varsTypes (Pi (Arg _ _ ty) absT) = varsTypes absT ++ [ty]
     -- We only have bounded variables in Pi terms.
     varsTypes _                      = []
 
@@ -245,7 +248,7 @@ instance RemoveVar Args where
            else Arg h r var : removeVar args index
     removeVar (Arg h r t : args) index = Arg h r t : removeVar args index
 
-removeReferenceToProofTerm ∷ Type → Nat → Type → Type
+removeReferenceToProofTerm ∷ Type → Nat → Type → T Type
 removeReferenceToProofTerm varType index ty =
     case varType of
       -- The variable's type is a Set,
@@ -255,7 +258,7 @@ removeReferenceToProofTerm varType index ty =
       -- so we don't do anything.
 
       -- N.B. the pattern matching on (Def _ []).
-      El (Type (Lit (LitLevel _ 0))) (Def _ []) → ty
+      El (Type (Lit (LitLevel _ 0))) (Def _ []) → return ty
 
       -- The variable's type is a proof,
       --
@@ -263,35 +266,47 @@ removeReferenceToProofTerm varType index ty =
       -- D → Set.
       --
       -- In this case, we remove the reference to this
-      -- variable. N.B. the pattern matching on (Def _ _).
-      El (Type (Lit (LitLevel _ 0))) (Def _ _) → removeVar ty index
+      -- variable.
 
-      -- The variable type is a function type,
+      -- N.B. the pattern matching on (Def _ _).
+      El (Type (Lit (LitLevel _ 0))) (Def _ _) → return (removeVar ty index)
+
+      -- The variable's type is a function type,
       --
-      -- e.g. the variable is f : D → D, where D : Set.  Due to the
-      -- hack in FOL.Translation.Internal.Terms.termToFormula we don't
-      -- do anything.
+      -- e.g. the variable is f : D → D, where D : Set.
+
+      -- Due to the hack in
+      -- FOL.Translation.Internal.Terms.termToFormula we don't do
+      -- anything.
       El (Type (Lit (LitLevel _ 0)))
          (Fun (Arg _ _ (El (Type (Lit (LitLevel _ 0))) (Def _ [])))
               (El (Type (Lit (LitLevel _ 0))) (Def _ []))
-         ) → ty
+         ) → return ty
 
-      -- The variable type is Set₁,
+      -- The variable's type is Set₁,
       --
-      -- e.g. the variable is 'A : Set'.
+      -- e.g. the variable is A : Set.
       --
       -- Because the variable is not a proof term we don't do anything.
-      El (Type (Lit (LitLevel _ 1))) (Sort _) → ty
-
-      El (Type (Lit (LitLevel _ 1))) _        → __IMPOSSIBLE__
+      El (Type (Lit (LitLevel _ 1))) (Sort _) → return ty
 
       -- Other cases
-      _                                       → __IMPOSSIBLE__
+      El (Type (Lit (LitLevel _ 1))) (Def _ _)    → __IMPOSSIBLE__
+      El (Type (Lit (LitLevel _ 1))) DontCare     → __IMPOSSIBLE__
+      El (Type (Lit (LitLevel _ 1))) (Con _ _)    → __IMPOSSIBLE__
+      El (Type (Lit (LitLevel _ 1))) (Fun _ _)    → __IMPOSSIBLE__
+      El (Type (Lit (LitLevel _ 1))) (Lam _ _)    → __IMPOSSIBLE__
+      El (Type (Lit (LitLevel _ 1))) (MetaV _ _)  → __IMPOSSIBLE__
+      El (Type (Lit (LitLevel _ 1))) (Pi _ _)     → __IMPOSSIBLE__
+      El (Type (Lit (LitLevel _ 1))) (Var _ _)    → __IMPOSSIBLE__
 
-removeReferenceToProofTerms ∷ Type → Type
-removeReferenceToProofTerms ty = aux (varsTypes ty) 0 ty
+      _                                           → __IMPOSSIBLE__
+
+removeReferenceToProofTerms ∷ Type → T Type
+removeReferenceToProofTerms ty = helper (varsTypes ty) 0 ty
     where
-      aux ∷ [Type] → Nat → Type → Type
-      aux []             _     tya = tya
-      aux (varType : xs) index tya =
-          aux xs (index + 1) $ removeReferenceToProofTerm varType index tya
+      helper ∷ [Type] → Nat → Type → T Type
+      helper []             _     tya = return tya
+      helper (varType : xs) index tya = do
+        tyAux ← removeReferenceToProofTerm varType index tya
+        helper xs (index + 1) tyAux

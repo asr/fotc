@@ -47,7 +47,7 @@ class EtaExpandible a where
 
 instance EtaExpandible Type where
     etaExpand (El (Type (Lit (LitLevel r n))) term)
-        | n `elem` [ 0, 1 ] =
+        | n `elem` [0,1] =
             do termEtaExpanded ← etaExpand term
                return $ El (Type (Lit (LitLevel r n))) termEtaExpanded
         | otherwise = __IMPOSSIBLE__
@@ -112,7 +112,7 @@ instance EtaExpandible Term where
       return $ Fun tyArgEtaExpanded tyEtaExpanded
 
     etaExpand (Lam h (Abs x termAbs)) = do
-      -- We add the variable x to the enviroment.
+      -- We add the variable x to the environment.
       state ← get
       let vars ∷ [String]
           vars = tVars state
@@ -124,7 +124,7 @@ instance EtaExpandible Term where
     -- It seems it is not necessary to eta-expand the tyArg like in the
     -- case of Fun (Arg Type) Type.
     etaExpand (Pi tyArg (Abs x tyAbs)) = do
-      -- We add the variable x to the enviroment.
+      -- We add the variable x to the environment.
       state ← get
       let vars ∷ [String]
           vars = tVars state

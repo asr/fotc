@@ -82,8 +82,7 @@ toAF role qName def = do
 
   -- We need to remove the references to variables which are proof
   -- terms from the type.
-  let tyReady ∷ Type
-      tyReady = removeReferenceToProofTerms tyEtaExpanded
+  tyReady ← removeReferenceToProofTerms tyEtaExpanded
 
   reportSLn "toAF" 20 $ "tyReady:\n" ++ show tyReady
 

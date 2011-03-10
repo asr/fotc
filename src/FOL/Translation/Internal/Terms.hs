@@ -236,7 +236,8 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
       freshVar = evalState freshName vars
 
   reportSLn "t2f" 20 $
-    "Starting processing in local enviroment with type:\n" ++ show tyAbs
+    "Starting processing in local environment with fresh variable " ++
+    freshVar ++ " and type:\n" ++ show tyAbs
 
   -- The de Bruijn indexes are assigned from right to left,
   --
@@ -248,7 +249,8 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   modify $ \s → s { tVars = vars }
 
   reportSLn "t2f" 20 $
-    "Finalized processing in local enviroment with type:\n" ++ show tyAbs
+    "Finalized processing in local environment with fresh variable " ++
+    freshVar ++ " and type:\n" ++ show tyAbs
 
   case unArg tyArg of
     -- The bounded variable is quantified on a Set,
@@ -304,7 +306,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     --
     -- e.g. the bounded variable is 'A : Set',
     --
-    -- so we just return the consequent. We use it for translate
+    -- so we just return the consequent. We use this case for translate
     -- predicate logic schemas, e.g.
     --
     -- ∨-comm  : {P Q : Set} → P ∨ Q → Q ∨ P.
@@ -312,10 +314,17 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
      reportSLn "t2f" 20 $ "The type tyArg is: " ++ show tyArg
      return f2
 
-    El (Type (Lit (LitLevel _ 1))) _        → __IMPOSSIBLE__
-
     -- Other cases
-    _                                       → __IMPOSSIBLE__
+    El (Type (Lit (LitLevel _ 1))) (Def _ _)    → __IMPOSSIBLE__
+    El (Type (Lit (LitLevel _ 1))) DontCare     → __IMPOSSIBLE__
+    El (Type (Lit (LitLevel _ 1))) (Con _ _)    → __IMPOSSIBLE__
+    El (Type (Lit (LitLevel _ 1))) (Fun _ _)    → __IMPOSSIBLE__
+    El (Type (Lit (LitLevel _ 1))) (Lam _ _)    → __IMPOSSIBLE__
+    El (Type (Lit (LitLevel _ 1))) (MetaV _ _)  → __IMPOSSIBLE__
+    El (Type (Lit (LitLevel _ 1))) (Pi _ _)     → __IMPOSSIBLE__
+    El (Type (Lit (LitLevel _ 1))) (Var _ _)    → __IMPOSSIBLE__
+
+    _                                           → __IMPOSSIBLE__
 
 termToFormula term@(Var n _) = do
   reportSLn "t2f" 10 $ "termToFormula Var: " ++ show term
