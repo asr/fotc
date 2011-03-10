@@ -7,7 +7,7 @@ module Test.Succeed.Conjectures.Eta where
 postulate
   D   : Set
   P   : D → Set
-  ∃D  : (P : D → Set) → Set
+  ∃   : (P : D → Set) → Set
   _≡_ : D → D → Set
 
 -- Due to eta-contraction the Agda internal representation of test₁
@@ -15,11 +15,11 @@ postulate
 -- internal types before the translation to FOL.
 
 postulate
-  test₁ : (d : D) → P d → ∃D (λ e → P e)
-  test₂ : (d : D) → P d → ∃D P
+  test₁ : (d : D) → P d → ∃ (λ e → P e)
+  test₂ : (d : D) → P d → ∃ P
 
-  test₃ : (d : D) → ∃D (λ e → d ≡ e)
-  test₄ : (d : D) → ∃D (_≡_ d)
+  test₃ : (d : D) → ∃ (λ e → d ≡ e)
+  test₄ : (d : D) → ∃ (_≡_ d)
 
 {-# ATP prove test₁ #-}
 {-# ATP prove test₂ #-}

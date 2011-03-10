@@ -32,10 +32,10 @@ FOL true                   : ⊤
 FOL negation               : ¬_
 FOL conjunction            : _∧_
 FOL disjunction            : _∨_
-FOL implication            : _⇒_ or Agda functional space
+FOL implication            : _⇒_ or the Agda functional space
 FOL equivalence            : _↔_
-FOL universal quantifier   : ∀D or Agda functional space
-FOL existential quantifier : ∃D
+FOL universal quantifier   : ⋀ or the Agda functional space
+FOL existential quantifier : ∃
 FOL equality               : _≡_
 *** Agda version
 The tool agda2atp must be compiled using the same version of Agda that

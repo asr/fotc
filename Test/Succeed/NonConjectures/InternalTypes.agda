@@ -78,8 +78,8 @@ module Lam where
 
   postulate
     P       : D → Set
-    ∃D      : (P : D → Set) → Set
-    termLam : ∃D (λ e → P e)
+    ∃       : (P : D → Set) → Set
+    termLam : ∃ (λ e → P e)
   {-# ATP axiom termLam #-}
 
 ------------------------------------------------------------------------------
