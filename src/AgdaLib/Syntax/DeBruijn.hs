@@ -40,7 +40,8 @@ import Agda.Syntax.Literal   ( Literal(LitLevel) )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
-import Monad.Base ( T )
+import Monad.Base    ( T )
+import Monad.Reports ( reportSLn )
 
 #include "../../undefined.h"
 
@@ -275,13 +276,26 @@ removeReferenceToProofTerm varType index ty =
       --
       -- e.g. the variable is f : D → D, where D : Set.
 
-      -- Due to the hack in
-      -- FOL.Translation.Internal.Terms.termToFormula we don't do
-      -- anything.
+      -- Because the variable is not a proof term we don't do anything.
       El (Type (Lit (LitLevel _ 0)))
          (Fun (Arg _ _ (El (Type (Lit (LitLevel _ 0))) (Def _ [])))
               (El (Type (Lit (LitLevel _ 0))) (Def _ []))
          ) → return ty
+
+      -- The variable's type is a function type,
+      --
+      -- e.g. the variable is f : D → D → D, where D : Set.
+
+      -- Because the variable is not a proof term we don't do anything.
+      El (Type (Lit (LitLevel _ 0)))
+         (Fun (Arg _ _ (El (Type (Lit (LitLevel _ 0))) (Def _ [])))
+              (El (Type (Lit (LitLevel _ 0))) (Fun _ _))
+         ) → return ty
+
+      El (Type (Lit (LitLevel _ 0))) someTerm → do
+        reportSLn "removeReferenceToProofTerm" 20 $
+                  "The term someTerm is: " ++ show someTerm
+        __IMPOSSIBLE__
 
       -- The variable's type is Set₁,
       --
@@ -300,7 +314,10 @@ removeReferenceToProofTerm varType index ty =
       El (Type (Lit (LitLevel _ 1))) (Pi _ _)     → __IMPOSSIBLE__
       El (Type (Lit (LitLevel _ 1))) (Var _ _)    → __IMPOSSIBLE__
 
-      _                                           → __IMPOSSIBLE__
+      someType → do
+        reportSLn "removeReferenceToProofTerm" 20 $
+                  "The type varType is: " ++ show someType
+        __IMPOSSIBLE__
 
 removeReferenceToProofTerms ∷ Type → T Type
 removeReferenceToProofTerms ty = helper (varsTypes ty) 0 ty

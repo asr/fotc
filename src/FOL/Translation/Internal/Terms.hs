@@ -284,7 +284,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
        f1 ← argTypeToFormula tyArg
        return $ Implies f1 f2
 
-    -- Hack: The bounded variable is quantified on a function of a Set
+    -- The bounded variable is quantified on a function of a Set
     -- to a Set,
     --
     -- e.g. the bounded variable is f : D → D, where D : Set.
@@ -300,7 +300,26 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
         "Removing a quantification on a function of a Set to a Set"
       return $ ForAll freshVar (\_ → f2)
 
-    El (Type (Lit (LitLevel _ 0))) _ → __IMPOSSIBLE__
+    -- The bounded variable is quantified on a function of a Set
+    -- to a Set,
+    --
+    -- e.g. the bounded variable is f : D → D → D, where D : Set.
+    --
+    -- In this case we handle the bounded variable/function as a FOL
+    -- variable (see termToFOLTerm term@(Var n args)), and we
+    -- quantified on this variable.
+
+    El (Type (Lit (LitLevel _ 0)))
+       (Fun (Arg _ _ (El (Type (Lit (LitLevel _ 0))) (Def _ [])))
+            (El (Type (Lit (LitLevel _ 0))) (Fun _ _))
+       ) → do
+      reportSLn "t2f" 20
+        "Removing a quantification on a function of a Set to a Set"
+      return $ ForAll freshVar (\_ → f2)
+
+    El (Type (Lit (LitLevel _ 0))) someTerm → do
+       reportSLn "t2f" 20 $ "The term someterm is: " ++ show someTerm
+       __IMPOSSIBLE__
 
     -- The bounded variable is quantified on a Set₁,
     --
@@ -324,7 +343,9 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     El (Type (Lit (LitLevel _ 1))) (Pi _ _)     → __IMPOSSIBLE__
     El (Type (Lit (LitLevel _ 1))) (Var _ _)    → __IMPOSSIBLE__
 
-    _                                           → __IMPOSSIBLE__
+    someType → do
+      reportSLn "t2f" 20 $ "The type tyArg is: " ++ show someType
+      __IMPOSSIBLE__
 
 termToFormula term@(Var n _) = do
   reportSLn "t2f" 10 $ "termToFormula Var: " ++ show term
@@ -412,19 +433,20 @@ termToFOLTerm term@(Var n args) = do
        case args of
          [] → return $ FOLVar (vars !! fromIntegral n)
 
-         -- Hack: If we have a bounded variable quantified on a
-         -- function of a Set to a Set, for example, the variable 'f'
-         -- in '(f : D → D) → (a : D) → (lam f) ∙ a ≡ f a'
-         -- we are quantifying on this variable
-         -- (see termToFormula term@(Pi tyArg (Abs _ tyAbs))),
-         -- therefore we need to apply this
-         -- variable/function to a term.
+         -- If we have a bounded variable quantified on a function of
+         -- a Set to a Set, for example, the variable 'f' in
+         --
+         -- (f : D → D) → (a : D) → (lam f) ∙ a ≡ f a
+         --
+         -- we are quantifying on this variable (see termToFormula
+         -- term@(Pi tyArg (Abs _ tyAbs))), therefore we need to apply
+         -- this variable/function to the others variables.
 
-         (a1 : []) → do
-             t ← argTermToFOLTerm a1
-             return $ app (FOLVar (vars !! fromIntegral n)) t
+         varArgs → do
+             termsFOL ← mapM argTermToFOLTerm varArgs
+             return $ foldl' app (FOLVar (vars !! fromIntegral n)) termsFOL
 
-         _  → __IMPOSSIBLE__
+--         _  → __IMPOSSIBLE__
 
 termToFOLTerm DontCare    = __IMPOSSIBLE__
 termToFOLTerm (Fun _ _)   = __IMPOSSIBLE__
