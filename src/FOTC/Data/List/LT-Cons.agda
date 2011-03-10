@@ -9,4 +9,4 @@ open import FOTC.Base
 ------------------------------------------------------------------------------
 -- Well-founded relation on lists based on their structure.
 LTC : D → D → Set
-LTC xs ys = ∃D (λ a → ys ≡ a ∷ xs)
+LTC xs ys = ∃ (λ a → ys ≡ a ∷ xs)

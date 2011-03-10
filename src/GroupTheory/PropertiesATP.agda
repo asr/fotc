@@ -17,8 +17,8 @@ postulate
 {-# ATP prove x≡[xy]y⁻¹ #-}
 
 postulate
-  rightIdentityUnique : ∃D λ u → (∀ x → x · u ≡ x) ∧
-                                 (∀ u' → (∀ x → x · u' ≡ x) → u ≡ u')
+  rightIdentityUnique : ∃ λ u → (∀ x → x · u ≡ x) ∧
+                                (∀ u' → (∀ x → x · u' ≡ x) → u ≡ u')
 {-# ATP prove rightIdentityUnique #-}
 
 -- A more appropiate version to be used in the proofs.
@@ -28,8 +28,8 @@ postulate
 {-# ATP prove rightIdentityUnique' #-}
 
 postulate
-  leftIdentityUnique : ∃D λ u → (∀ x → u · x ≡ x) ∧
-                                (∀ u' → (∀ x → u' · x ≡ x) → u ≡ u')
+  leftIdentityUnique : ∃ λ u → (∀ x → u · x ≡ x) ∧
+                               (∀ u' → (∀ x → u' · x ≡ x) → u ≡ u')
 {-# ATP prove leftIdentityUnique #-}
 
 -- A more appropiate version to be used in the proofs.
@@ -55,8 +55,8 @@ x≡y→zx≡zy : ∀ {a b c} → a ≡ b → c · a ≡ c · b
 x≡y→zx≡zy refl = refl
 
 postulate
-  rightInverseUnique : ∀ {x} → ∃D λ r → (x · r ≡ ε) ∧
-                                        (∀ r' → x · r' ≡ ε → r ≡ r')
+  rightInverseUnique : ∀ {x} → ∃ λ r → (x · r ≡ ε) ∧
+                                       (∀ r' → x · r' ≡ ε → r ≡ r')
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove rightInverseUnique #-}
 
@@ -67,8 +67,8 @@ postulate
 {-# ATP prove rightInverseUnique' #-}
 
 postulate
-  leftInverseUnique : ∀ {x} → ∃D λ l → (l · x ≡ ε) ∧
-                                       (∀ l' → l' · x ≡ ε → l ≡ l')
+  leftInverseUnique : ∀ {x} → ∃ λ l → (l · x ≡ ε) ∧
+                                      (∀ l' → l' · x ≡ ε → l ≡ l')
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove leftInverseUnique #-}
 
@@ -94,15 +94,15 @@ postulate
 
 -- The equation xa = b has an unique solution.
 postulate
-  xa≡b-uniqueSolution : ∀ a b → ∃D λ x → (x · a ≡ b) ∧
-                                         (∀ x' → x' · a ≡ b → x ≡ x')
+  xa≡b-uniqueSolution : ∀ a b → ∃ λ x → (x · a ≡ b) ∧
+                                        (∀ x' → x' · a ≡ b → x ≡ x')
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove xa≡b-uniqueSolution #-}
 
 -- The equation ax = b has an unique solution.
 postulate
-  ax≡b-uniqueSolution : ∀ a b → ∃D λ x → (a · x ≡ b) ∧
-                                         (∀ x' → a · x' ≡ b → x ≡ x')
+  ax≡b-uniqueSolution : ∀ a b → ∃ λ x → (a · x ≡ b) ∧
+                                        (∀ x' → a · x' ≡ b → x ≡ x')
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove ax≡b-uniqueSolution #-}
 

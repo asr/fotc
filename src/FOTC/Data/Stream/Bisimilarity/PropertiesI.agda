@@ -15,16 +15,16 @@ x∷xs≈x∷ys→xs≈ys : ∀ {x xs ys} → x ∷ xs ≈ x ∷ ys → xs ≈ y
 x∷xs≈x∷ys→xs≈ys {x} {xs} {ys} x∷xs≈x∷ys = xs≈ys
   where
     x' : D
-    x' = ∃D-proj₁ (-≈-gfp₁ x∷xs≈x∷ys)
+    x' = ∃-proj₁ (-≈-gfp₁ x∷xs≈x∷ys)
 
     xs' : D
-    xs' = ∃D-proj₁ (∃D-proj₂ (-≈-gfp₁ x∷xs≈x∷ys))
+    xs' = ∃-proj₁ (∃-proj₂ (-≈-gfp₁ x∷xs≈x∷ys))
 
     ys' : D
-    ys' = ∃D-proj₁ (∃D-proj₂ (∃D-proj₂ (-≈-gfp₁ x∷xs≈x∷ys)))
+    ys' = ∃-proj₁ (∃-proj₂ (∃-proj₂ (-≈-gfp₁ x∷xs≈x∷ys)))
 
     helper : xs' ≈ ys' ∧ x ∷ xs ≡ x' ∷ xs' ∧ x ∷ ys ≡ x' ∷ ys'
-    helper = ∃D-proj₂ (∃D-proj₂ (∃D-proj₂ (-≈-gfp₁ x∷xs≈x∷ys)))
+    helper = ∃-proj₂ (∃-proj₂ (∃-proj₂ (-≈-gfp₁ x∷xs≈x∷ys)))
 
     xs'≈ys' : xs' ≈ ys'
     xs'≈ys' = ∧-proj₁ helper
