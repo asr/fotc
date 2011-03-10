@@ -282,6 +282,9 @@ removeReferenceToProofTerm varType index ty =
               (El (Type (Lit (LitLevel _ 0))) (Def _ []))
          ) → return ty
 
+      -- N.B. The next case is just a generalization to various
+      -- arguments of the previous case.
+
       -- The variable's type is a function type,
       --
       -- e.g. the variable is f : D → D → D, where D : Set.
@@ -299,16 +302,25 @@ removeReferenceToProofTerm varType index ty =
 
       -- The variable's type is Set₁,
       --
-      -- e.g. the variable is A : Set.
+      -- e.g. the variable is P : Set.
       --
       -- Because the variable is not a proof term we don't do anything.
       El (Type (Lit (LitLevel _ 1))) (Sort _) → return ty
+
+      -- N.B. The next case is just a generalization to various
+      -- arguments of the previous case.
+
+      -- The variable's type is Set₁,
+      --
+      -- e.g. the variable is P : D → Set.
+      --
+      -- Because the variable is not a proof term we don't do anything.
+      El (Type (Lit (LitLevel _ 1))) (Fun _ _) → return ty
 
       -- Other cases
       El (Type (Lit (LitLevel _ 1))) (Def _ _)    → __IMPOSSIBLE__
       El (Type (Lit (LitLevel _ 1))) DontCare     → __IMPOSSIBLE__
       El (Type (Lit (LitLevel _ 1))) (Con _ _)    → __IMPOSSIBLE__
-      El (Type (Lit (LitLevel _ 1))) (Fun _ _)    → __IMPOSSIBLE__
       El (Type (Lit (LitLevel _ 1))) (Lam _ _)    → __IMPOSSIBLE__
       El (Type (Lit (LitLevel _ 1))) (MetaV _ _)  → __IMPOSSIBLE__
       El (Type (Lit (LitLevel _ 1))) (Pi _ _)     → __IMPOSSIBLE__

@@ -252,6 +252,9 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     "Finalized processing in local environment with fresh variable " ++
     freshVar ++ " and type:\n" ++ show tyAbs
 
+  reportSLn "t2f" 20 $
+    "The formula f2 is: " ++ show f2
+
   case unArg tyArg of
     -- The bounded variable is quantified on a Set,
     --
@@ -300,6 +303,9 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
         "Removing a quantification on a function of a Set to a Set"
       return $ ForAll freshVar (\_ → f2)
 
+    -- N.B. The next case is just a generalization to various
+    -- arguments of the previous case.
+
     -- The bounded variable is quantified on a function of a Set
     -- to a Set,
     --
@@ -323,7 +329,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
 
     -- The bounded variable is quantified on a Set₁,
     --
-    -- e.g. the bounded variable is 'A : Set',
+    -- e.g. the bounded variable is 'P : Set',
     --
     -- so we just return the consequent. We use this case for translate
     -- predicate logic schemas, e.g.
@@ -333,11 +339,26 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
      reportSLn "t2f" 20 $ "The type tyArg is: " ++ show tyArg
      return f2
 
+    -- N.B. The next case is just a generalization to various
+    -- arguments of the previous case.
+
+    -- The bounded variable is quantified on a Set₁,
+    --
+    -- e.g. the bounded variable is 'P : D → Set',
+    --
+    -- so we just return the consequent. We use this case for translate
+    -- predicate logic schemas, e.g.
+    --
+    --   ∨-comm₂ : {P₂ Q₂ : D → D → Set}{x y : D} →
+    --             P₂ x y ∨ Q₂ x y → Q₂ x y ∨ P₂ x y
+
+    El (Type (Lit (LitLevel _ 1))) (Fun _ _) → do
+      return $ f2
+
     -- Other cases
     El (Type (Lit (LitLevel _ 1))) (Def _ _)    → __IMPOSSIBLE__
     El (Type (Lit (LitLevel _ 1))) DontCare     → __IMPOSSIBLE__
     El (Type (Lit (LitLevel _ 1))) (Con _ _)    → __IMPOSSIBLE__
-    El (Type (Lit (LitLevel _ 1))) (Fun _ _)    → __IMPOSSIBLE__
     El (Type (Lit (LitLevel _ 1))) (Lam _ _)    → __IMPOSSIBLE__
     El (Type (Lit (LitLevel _ 1))) (MetaV _ _)  → __IMPOSSIBLE__
     El (Type (Lit (LitLevel _ 1))) (Pi _ _)     → __IMPOSSIBLE__
@@ -347,7 +368,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
       reportSLn "t2f" 20 $ "The type tyArg is: " ++ show someType
       __IMPOSSIBLE__
 
-termToFormula term@(Var n _) = do
+termToFormula term@(Var n args) = do
   reportSLn "t2f" 10 $ "termToFormula Var: " ++ show term
 
   state ← get
@@ -356,14 +377,35 @@ termToFormula term@(Var n _) = do
 
   if length vars <= fromIntegral n
      then __IMPOSSIBLE__
-     else return $ Predicate (vars !! fromIntegral n) []
+     else
+       case args of
+         [] → return $ Predicate (vars !! fromIntegral n) []
+
+         -- N.B. This is similar to the translation in
+         -- termToFOLTerm term@(Var n args).
+
+         -- If we have a bounded variable quantified on a function of
+         -- a Set to a Set₁, for example, the variable/predicate 'P'
+         -- in
+         --
+         -- (P : D → Set) → (x : D) → P x → P x
+         --
+         -- we are quantifying on this variable
+
+         -- (see termToFormula term@(Pi tyArg (Abs _ tyAbs))),
+
+         -- therefore we need to apply this variable/predicate to the
+         -- others variables.
+
+         varArgs → do
+           termsFOL ← mapM argTermToFOLTerm varArgs
+           return $ (Predicate (vars !! fromIntegral n)) termsFOL
 
 termToFormula DontCare    = __IMPOSSIBLE__
 termToFormula (Con _ _)   = __IMPOSSIBLE__
 termToFormula (Lit _)     = __IMPOSSIBLE__
 termToFormula (MetaV _ _) = __IMPOSSIBLE__
 termToFormula (Sort _)    = __IMPOSSIBLE__
--- termToFormula (Var _ _)   = __IMPOSSIBLE__
 
 -- Translate 'foo x1 ... xn' to 'kApp (... kApp (kApp(foo, x1), x2), ..., xn)'.
 appArgs ∷ String → Args → T FOLTerm
@@ -433,20 +475,24 @@ termToFOLTerm term@(Var n args) = do
        case args of
          [] → return $ FOLVar (vars !! fromIntegral n)
 
+         -- N.B. This is similar to the translation in
+         -- termToFormula term@(Var n args).
+
          -- If we have a bounded variable quantified on a function of
-         -- a Set to a Set, for example, the variable 'f' in
+         -- a Set to a Set, for example, the variable/function 'f' in
          --
          -- (f : D → D) → (a : D) → (lam f) ∙ a ≡ f a
          --
-         -- we are quantifying on this variable (see termToFormula
-         -- term@(Pi tyArg (Abs _ tyAbs))), therefore we need to apply
-         -- this variable/function to the others variables.
+         -- we are quantifying on this variable
+
+         -- (see termToFormula term@(Pi tyArg (Abs _ tyAbs))),
+
+         -- therefore we need to apply this variable/function to the
+         -- others variables.
 
          varArgs → do
              termsFOL ← mapM argTermToFOLTerm varArgs
              return $ foldl' app (FOLVar (vars !! fromIntegral n)) termsFOL
-
---         _  → __IMPOSSIBLE__
 
 termToFOLTerm DontCare    = __IMPOSSIBLE__
 termToFOLTerm (Fun _ _)   = __IMPOSSIBLE__
