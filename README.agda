@@ -133,9 +133,9 @@ open import FOTC.Data.List.PropertiesATP
 open import FOTC.Data.List.PropertiesI
 
 -- Lists: Well-founded induction
-open import FOTC.Data.List.LT-Cons.Induction.Acc.WellFoundedInduction
+open import FOTC.Data.List.LT-Cons.Induction.Acc.WellFoundedInductionI
 open import FOTC.Data.List.LT-Cons.PropertiesI
-open import FOTC.Data.List.LT-Length.Induction.Acc.WellFoundedInduction
+open import FOTC.Data.List.LT-Length.Induction.Acc.WellFoundedInductionI
 open import FOTC.Data.List.LT-Length.PropertiesI
 
 -- Naturals numbers: Common properties
@@ -150,9 +150,8 @@ open import FOTC.Data.Nat.Divisibility.PropertiesATP
 open import FOTC.Data.Nat.Divisibility.PropertiesI
 
 -- Naturals numbers: Induction
-open import FOTC.Data.Nat.Induction.NonAcc.LexicographicATP
+open import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI
 open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI
-open import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInduction
 
 -- Naturals numbers: Inequalites
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
@@ -165,6 +164,9 @@ open import FOTC.Data.Nat.List.PropertiesI
 -- Naturals numbers: Unary numbers
 open import FOTC.Data.Nat.UnaryNumbers.IsN-ATP
 open import FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
+
+-- Induction
+open import FOTC.Induction.WellFounded
 
 -- The Collatz function: A function without termination proof
 open import FOTC.Program.Collatz.PropertiesATP
@@ -200,8 +202,8 @@ open import LTC-PCF.Data.Nat.Divisibility.PropertiesATP
 open import LTC-PCF.Data.Nat.Divisibility.PropertiesI
 
 -- Naturals numbers: Induction
-open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicATP
 open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
+open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionI
 
 -- Naturals numbers: Inequalites
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP

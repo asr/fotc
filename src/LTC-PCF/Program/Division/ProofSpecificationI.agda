@@ -22,6 +22,7 @@ open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Inequalities using ( GE ; GT ; LT )
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
 open import LTC-PCF.Data.Nat.PropertiesI using ( ∸-N )
+open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionI
 
 open import LTC-PCF.Program.Division.Division using ( div )
 open import LTC-PCF.Program.Division.IsCorrectI
@@ -29,14 +30,6 @@ open import LTC-PCF.Program.Division.IsCorrectI
 open import LTC-PCF.Program.Division.IsN-I
   using ( div-x<y-N ; div-x≥y-N )
 open import LTC-PCF.Program.Division.Specification using ( DIV )
-
--- Parametrized modules
-
-import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInduction
-open module WFInd =
-  FOTC.Data.Nat.Induction.NonAcc.WellFoundedInduction.WFInd₁
-  x<0→⊥ x<y→Sx≤y ≤-trans Sx≤Sy→x≤y Sx≤y→x<y
-  using ( wfInd-LT )
 
 ------------------------------------------------------------------------------
 -- The division result satifies the specification DIV

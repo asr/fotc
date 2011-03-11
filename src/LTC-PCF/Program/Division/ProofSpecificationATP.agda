@@ -2,6 +2,9 @@
 -- The division program satisfies the specification
 ------------------------------------------------------------------------------
 
+-- N.B This module does not contain combined proofs, but it imports
+-- modules which contain combined proofs.
+
 -- This module proves the correctness of the division program using
 -- repeated subtraction.
 
@@ -25,6 +28,7 @@ open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Inequalities using ( GE ; GT ; LT )
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
 open import LTC-PCF.Data.Nat.PropertiesATP using ( ∸-N )
+open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionATP
 
 open import LTC-PCF.Program.Division.Division using ( div )
 open import LTC-PCF.Program.Division.IsCorrectATP
@@ -32,14 +36,6 @@ open import LTC-PCF.Program.Division.IsCorrectATP
 open import LTC-PCF.Program.Division.IsN-ATP
   using ( div-x<y-N ; div-x≥y-N )
 open import LTC-PCF.Program.Division.Specification using ( DIV )
-
--- Parametrized modules
-
-import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInduction
-open module WFInd =
-  FOTC.Data.Nat.Induction.NonAcc.WellFoundedInduction.WFInd₁
-  x<0→⊥ x<y→Sx≤y ≤-trans Sx≤Sy→x≤y Sx≤y→x<y
-  using ( wfInd-LT )
 
 ------------------------------------------------------------------------------
 -- The division result satifies the specification DIV

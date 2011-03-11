@@ -14,6 +14,8 @@ open import LTC-PCF.Data.Nat.Divisibility.PropertiesATP
 open import LTC-PCF.Data.Nat.Divisibility.PropertiesI
 open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicATP
 open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
+open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionATP
+open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionI
 open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Inequalities.EquationsATP
 open import LTC-PCF.Data.Nat.Inequalities.EquationsI

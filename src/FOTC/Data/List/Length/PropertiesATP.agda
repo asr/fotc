@@ -15,6 +15,10 @@ open import FOTC.Data.List.Type
 
 ------------------------------------------------------------------------------
 
+length-N : ∀ {xs} → List xs → N (length xs)
+length-N nilL               = subst N (sym length-[]) zN
+length-N (consL x {xs} Lxs) = subst N (sym (length-∷ x xs)) (sN (length-N Lxs))
+
 length-replicate : ∀ d {n} → N n → length (replicate n d) ≡ n
 length-replicate d zN = prf
   where

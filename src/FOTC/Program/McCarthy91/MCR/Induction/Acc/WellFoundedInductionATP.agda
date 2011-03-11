@@ -10,22 +10,19 @@ module FOTC.Program.McCarthy91.MCR.Induction.Acc.WellFoundedInductionATP where
 open import FOTC.Base
 
 open import FOTC.Data.Nat
-open import FOTC.Data.Nat.Induction.Acc.WellFounded
+open import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionATP
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.UnaryNumbers
+
+open import FOTC.Induction.WellFounded
 
 open import FOTC.Program.McCarthy91.MCR
 open import FOTC.Program.McCarthy91.MCR.PropertiesATP
 
 -- Parametrized modules
 
-import FOTC.Data.Nat.Induction.Acc.WellFoundedInduction
-open module WF-LT =
-  FOTC.Data.Nat.Induction.Acc.WellFoundedInduction.WF₂-LT
-  x<0→⊥ x≤y→x<y∨x≡y x<Sy→x≤y
-
-open module II = FOTC.Data.Nat.Induction.Acc.WellFounded.InverseImage fnMCR-N
+open module InvImg = FOTC.Induction.WellFounded.InverseImage fnMCR-N
 
 ------------------------------------------------------------------------------
 -- The relation MCR is well-founded.
