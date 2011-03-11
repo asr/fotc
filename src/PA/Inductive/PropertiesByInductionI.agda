@@ -12,7 +12,7 @@ open import PA.Inductive.Relation.Binary.EqReasoning
 ------------------------------------------------------------------------------
 
 +-comm : ∀ m n → m + n ≡ n + m
-+-comm m n = indℕ P P0 iStep m
++-comm m n = indℕ P P0 is m
   where
     P : ℕ → Set
     P i = i + n ≡ n + i
@@ -20,8 +20,8 @@ open import PA.Inductive.Relation.Binary.EqReasoning
     P0 : P zero
     P0 = sym (+-rightIdentity n)
 
-    iStep : ∀ i → P i → P (succ i)
-    iStep i Pi =
+    is : ∀ i → P i → P (succ i)
+    is i Pi =
       begin
         succ i + n   ≡⟨ refl ⟩
         succ (i + n) ≡⟨ cong succ Pi ⟩

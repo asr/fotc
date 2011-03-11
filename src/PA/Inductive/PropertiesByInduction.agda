@@ -13,7 +13,7 @@ open import PA.Inductive.Base
 +-leftIdentity n = refl
 
 +-rightIdentity : ∀ n → n + zero ≡ n
-+-rightIdentity n = indℕ P P0 iStep n
++-rightIdentity n = indℕ P P0 is n
   where
     P : ℕ → Set
     P i = i + zero ≡ i
@@ -21,11 +21,11 @@ open import PA.Inductive.Base
     P0 : P zero
     P0 = refl
 
-    iStep : ∀ i → P i → P (succ i)
-    iStep i Pi = cong succ Pi
+    is : ∀ i → P i → P (succ i)
+    is i Pi = cong succ Pi
 
 +-assoc : ∀ m n o → m + n + o ≡ m + (n + o)
-+-assoc m n o = indℕ P P0 iStep m
++-assoc m n o = indℕ P P0 is m
   where
     P : ℕ → Set
     P i = i + n + o ≡ i + (n + o)
@@ -33,11 +33,11 @@ open import PA.Inductive.Base
     P0 : P zero
     P0 = refl
 
-    iStep : ∀ i → P i → P (succ i)
-    iStep i Pi = cong succ Pi
+    is : ∀ i → P i → P (succ i)
+    is i Pi = cong succ Pi
 
 x+Sy≡S[x+y] : ∀ m n → m + succ n ≡ succ (m + n)
-x+Sy≡S[x+y] m n = indℕ P P0 iStep m
+x+Sy≡S[x+y] m n = indℕ P P0 is m
   where
     P : ℕ → Set
     P i = i + succ n ≡ succ (i + n)
@@ -45,5 +45,5 @@ x+Sy≡S[x+y] m n = indℕ P P0 iStep m
     P0 : P zero
     P0 = refl
 
-    iStep : ∀ i → P i → P (succ i)
-    iStep i Pi = cong succ Pi
+    is : ∀ i → P i → P (succ i)
+    is i Pi = cong succ Pi

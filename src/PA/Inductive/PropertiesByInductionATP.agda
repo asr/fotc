@@ -11,7 +11,7 @@ open import PA.Inductive.PropertiesByInduction
 ------------------------------------------------------------------------------
 
 +-comm : ∀ m n → m + n ≡ n + m
-+-comm m n = indℕ P P0 iStep m
++-comm m n = indℕ P P0 is m
   where
     P : ℕ → Set
     P i = i + n ≡ n + i
@@ -21,5 +21,5 @@ open import PA.Inductive.PropertiesByInduction
     P0 = sym (+-rightIdentity n)
 
     postulate
-      iStep : ∀ i → P i → P (succ i)
-    {-# ATP prove iStep x+Sy≡S[x+y] #-}
+      is : ∀ i → P i → P (succ i)
+    {-# ATP prove is x+Sy≡S[x+y] #-}

@@ -12,7 +12,7 @@ open import PA.Axiomatic.Relation.Binary.PropositionalEqualityI using ( sym )
 ------------------------------------------------------------------------------
 
 +-rightIdentity : ∀ n → n + zero ≣ n
-+-rightIdentity = S₉ P P0 iStep
++-rightIdentity = S₉ P P0 is
   where
     P : ℕ → Set
     P i = i + zero ≣ i
@@ -20,8 +20,8 @@ open import PA.Axiomatic.Relation.Binary.PropositionalEqualityI using ( sym )
     P0 : P zero
     P0 = S₅ zero
 
-    iStep : ∀ i → P i → P (succ i)
-    iStep i Pi =
+    is : ∀ i → P i → P (succ i)
+    is i Pi =
       begin
         succ i + zero   ≣⟨ S₆ i zero ⟩
         succ (i + zero) ≣⟨ S₂ Pi ⟩
@@ -29,7 +29,7 @@ open import PA.Axiomatic.Relation.Binary.PropositionalEqualityI using ( sym )
       ∎
 
 x+Sy≣S[x+y] : ∀ m n → m + succ n ≣ succ (m + n)
-x+Sy≣S[x+y] m n = S₉ P P0 iStep m
+x+Sy≣S[x+y] m n = S₉ P P0 is m
   where
     P : ℕ → Set
     P i = i + succ n ≣ succ (i + n)
@@ -42,8 +42,8 @@ x+Sy≣S[x+y] m n = S₉ P P0 iStep m
         succ (zero + n)
       ∎
 
-    iStep : ∀ i → P i → P (succ i)
-    iStep i Pi =
+    is : ∀ i → P i → P (succ i)
+    is i Pi =
         begin
           succ i + succ n     ≣⟨ S₆ i (succ n) ⟩
           succ (i + succ n)   ≣⟨ S₂ Pi ⟩
@@ -52,7 +52,7 @@ x+Sy≣S[x+y] m n = S₉ P P0 iStep m
         ∎
 
 +-comm : ∀ m n → m + n ≣ n + m
-+-comm m n = S₉ P P0 iStep m
++-comm m n = S₉ P P0 is m
   where
     P : ℕ → Set
     P i = i + n ≣ n + i
@@ -65,8 +65,8 @@ x+Sy≣S[x+y] m n = S₉ P P0 iStep m
         n + zero
       ∎
 
-    iStep : ∀ i → P i → P (succ i)
-    iStep i Pi =
+    is : ∀ i → P i → P (succ i)
+    is i Pi =
        begin
          succ i + n   ≣⟨ S₆ i n ⟩
          succ (i + n) ≣⟨ S₂ Pi ⟩
@@ -75,7 +75,7 @@ x+Sy≣S[x+y] m n = S₉ P P0 iStep m
        ∎
 
 x≣y→x+z≣y+z : ∀ {m n} o → m ≣ n → m + o ≣ n + o
-x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 iStep o
+x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 is o
   where
     P : ℕ → Set
     P i = m + i ≣ n + i
@@ -89,8 +89,8 @@ x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 iStep o
         n + zero
       ∎
 
-    iStep : ∀ i → P i → P (succ i)
-    iStep i Pi =
+    is : ∀ i → P i → P (succ i)
+    is i Pi =
       begin
         m + succ i   ≣⟨ x+Sy≣S[x+y] m i ⟩
         succ (m + i) ≣⟨ S₂ Pi ⟩
@@ -99,7 +99,7 @@ x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 iStep o
       ∎
 
 +-asocc : ∀ m n o → m + n + o ≣ m + (n + o)
-+-asocc m n o = S₉ P P0 iStep m
++-asocc m n o = S₉ P P0 is m
   where
     P : ℕ → Set
     P i = i + n + o ≣ i + (n + o)
@@ -112,8 +112,8 @@ x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 iStep o
         zero + (n + o)
       ∎
 
-    iStep : ∀ i → P i → P (succ i)
-    iStep i Pi =
+    is : ∀ i → P i → P (succ i)
+    is i Pi =
       begin
         succ i + n + o     ≣⟨ x≣y→x+z≣y+z o (S₆ i n) ⟩
         succ (i + n) + o   ≣⟨ S₆ (i + n) o ⟩

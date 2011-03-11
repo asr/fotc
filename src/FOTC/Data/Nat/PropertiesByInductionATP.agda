@@ -20,7 +20,7 @@ open import FOTC.Data.Nat
 +-leftIdentity {n} _ = +-0x n
 
 +-rightIdentity : ∀ {n} → N n → n + zero ≡ n
-+-rightIdentity Nn = indN P P0 iStep Nn
++-rightIdentity Nn = indN P P0 is Nn
   where
     P : D → Set
     P i = i + zero ≡ i
@@ -31,11 +31,11 @@ open import FOTC.Data.Nat
     {-# ATP prove P0 #-}
 
     postulate
-      iStep : ∀ {i} → N i → P i → P (succ i)
-    {-# ATP prove iStep #-}
+      is : ∀ {i} → N i → P i → P (succ i)
+    {-# ATP prove is #-}
 
 +-N : ∀ {m n} → N m → N n → N (m + n)
-+-N {n = n} Nm Nn = indN P P0 iStep Nm
++-N {n = n} Nm Nn = indN P P0 is Nm
   where
     P : D → Set
     P i = N (i + n)
@@ -46,11 +46,11 @@ open import FOTC.Data.Nat
     {-# ATP prove P0 #-}
 
     postulate
-      iStep : ∀ {i} → N i → P i → P (succ i)
-    {-# ATP prove iStep #-}  -- Use the hint sN.
+      is : ∀ {i} → N i → P i → P (succ i)
+    {-# ATP prove is #-}  -- Use the hint sN.
 
 +-assoc : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
-+-assoc {n = n} {o} Nm Nn No = indN P P0 iStep Nm
++-assoc {n = n} {o} Nm Nn No = indN P P0 is Nm
   where
     P : D → Set
     P i = i + n + o ≡ i + (n + o)
@@ -61,12 +61,12 @@ open import FOTC.Data.Nat
     {-# ATP prove P0 #-}
 
     postulate
-      iStep : ∀ {i} → N i → P i → P (succ i)
-    {-# ATP prove iStep #-}
+      is : ∀ {i} → N i → P i → P (succ i)
+    {-# ATP prove is #-}
 
 -- A proof without use ATPs definitions.
 +-assoc' : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
-+-assoc' {n = n} {o} Nm _ _ = indN P P0 iStep Nm
++-assoc' {n = n} {o} Nm _ _ = indN P P0 is Nm
   where
     P : D → Set
     P i = i + n + o ≡ i + (n + o)
@@ -76,13 +76,13 @@ open import FOTC.Data.Nat
     {-# ATP prove P0 #-}
 
     postulate
-      iStep : ∀ {i} → N i →
+      is : ∀ {i} → N i →
               i + n + o ≡ i + (n + o) →  -- IH.
               succ i + n + o ≡ succ i + (n + o)
-    {-# ATP prove iStep #-}
+    {-# ATP prove is #-}
 
 x+Sy≡S[x+y] : ∀ {m n} → N m → N n → m + succ n ≡ succ (m + n)
-x+Sy≡S[x+y] {n = n} Nm Nn = indN P P0 iStep Nm
+x+Sy≡S[x+y] {n = n} Nm Nn = indN P P0 is Nm
   where
     P : D → Set
     P i = i + succ n ≡ succ (i + n)
@@ -93,11 +93,11 @@ x+Sy≡S[x+y] {n = n} Nm Nn = indN P P0 iStep Nm
     {-# ATP prove P0 #-}
 
     postulate
-      iStep : ∀ {i} → N i → P i → P (succ i)
-    {-# ATP prove iStep #-}
+      is : ∀ {i} → N i → P i → P (succ i)
+    {-# ATP prove is #-}
 
 +-comm : ∀ {m n} → N m → N n → m + n ≡ n + m
-+-comm {n = n} Nm Nn = indN P P0 iStep Nm
++-comm {n = n} Nm Nn = indN P P0 is Nm
   where
     P : D → Set
     P i = i + n ≡ n + i
@@ -108,5 +108,5 @@ x+Sy≡S[x+y] {n = n} Nm Nn = indN P P0 iStep Nm
     {-# ATP prove P0 +-rightIdentity #-}
 
     postulate
-      iStep : ∀ {i} → N i → P i → P (succ i)
-    {-# ATP prove iStep x+Sy≡S[x+y] #-}
+      is : ∀ {i} → N i → P i → P (succ i)
+    {-# ATP prove is x+Sy≡S[x+y] #-}

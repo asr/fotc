@@ -40,12 +40,12 @@ open import LTC-PCF.Program.Division.Specification using ( DIV )
 ------------------------------------------------------------------------------
 -- The division result satifies the specification DIV
 -- when the dividend is less than the divisor.
-div-x<y-DIV : ∀ {i j} → N i → N j -> LT i j → DIV i j (div i j)
+div-x<y-DIV : ∀ {i j} → N i → N j → LT i j → DIV i j (div i j)
 div-x<y-DIV Ni Nj i<j = div-x<y-N i<j , div-x<y-correct Ni Nj i<j
 
 -- The division result satisfies the specification DIV when the
 -- dividend is greater or equal than the divisor.
-div-x≥y-DIV : ∀ {i j} → N i -> N j →
+div-x≥y-DIV : ∀ {i j} → N i → N j →
               (∀ {i'} → N i' → LT i' i → DIV i' j (div i' j)) →
               GT j zero →
               GE i j →
@@ -65,7 +65,7 @@ div-x≥y-DIV {i} {j} Ni Nj accH j>0 i≥j =
 
 -- We do the well-founded induction on 'i' and we keep 'j' fixed.
 div-DIV : ∀ {i j} → N i → N j → GT j zero → DIV i j (div i j)
-div-DIV {j = j} Ni Nj j>0 = wfInd-LT P iStep Ni
+div-DIV {j = j} Ni Nj j>0 = wfInd-LT P ih Ni
 
    where
      P : D → Set
@@ -75,8 +75,6 @@ div-DIV {j = j} Ni Nj j>0 = wfInd-LT P iStep Ni
      -- (nor 'Ni'). To make this
      -- clear we write down the inductive step using the variables
      -- 'm' and 'n'.
-     iStep : ∀ {n} → N n →
-             (accH : ∀ {m} → N m → LT m n → P m) →
-             P n
-     iStep {n} Nn accH =
+     ih : ∀ {n} → N n → (accH : ∀ {m} → N m → LT m n → P m) → P n
+     ih {n} Nn accH =
        [ div-x<y-DIV Nn Nj , div-x≥y-DIV Nn Nj accH j>0 ] (x<y∨x≥y Nn Nj)

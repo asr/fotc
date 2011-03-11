@@ -33,11 +33,11 @@ ind-lit : ∀ (P : D → Set)(f : D) y₀ {xs} → ListN xs →
           P y₀ →
           (∀ {x} → N x → ∀ y → P y → P (f · x · y)) →
           P (lit f xs y₀)
-ind-lit P f y₀ nilLN Py₀ iStep = subst (λ t → P t) (sym (lit-[] f y₀)) Py₀
-ind-lit P f y₀ (consLN {i} {is} Ni LNis) Py₀ iStep =
+ind-lit P f y₀ nilLN Py₀ ih = subst (λ t → P t) (sym (lit-[] f y₀)) Py₀
+ind-lit P f y₀ (consLN {i} {is} Ni LNis) Py₀ ih =
   subst (λ t → P t)
         (sym (lit-∷ f i is y₀))
-        (iStep Ni (lit f is y₀) (ind-lit P f y₀ LNis Py₀ iStep))
+        (ih Ni (lit f is y₀) (ind-lit P f y₀ LNis Py₀ ih))
 
 ------------------------------------------------------------------------------
 -- Burstall's lemma: If t is ordered then totree(i, t) is ordered.

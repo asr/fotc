@@ -20,7 +20,7 @@ open import LTC-PCF.Program.Division.Specification using ( DIV )
 
 ------------------------------------------------------------------------------
 -- The division result is a 'N' when the dividend is less than the divisor.
-div-x<y-N : ∀ {i j} -> LT i j → N (div i j)
+div-x<y-N : ∀ {i j} → LT i j → N (div i j)
 div-x<y-N i<j = subst N (sym $ div-x<y i<j) zN
 
 -- The division result is a 'N' when the dividend is greater or equal

@@ -17,5 +17,5 @@ indList : (P : D → Set) →
           P [] →
           (∀ x {xs} → List xs → P xs → P (x ∷ xs)) →
           ∀ {xs} → List xs → P xs
-indList P P[] iStep nilL          = P[]
-indList P P[] iStep (consL x Lxs) = iStep x Lxs (indList P P[] iStep Lxs)
+indList P P[] is nilL          = P[]
+indList P P[] is (consL x Lxs) = is x Lxs (indList P P[] is Lxs)

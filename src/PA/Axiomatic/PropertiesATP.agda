@@ -12,7 +12,7 @@ open import PA.Axiomatic.Relation.Binary.PropositionalEqualityI
 ------------------------------------------------------------------------------
 
 +-rightIdentity : ∀ n → n + zero ≣ n
-+-rightIdentity = S₉ P P0 iStep
++-rightIdentity = S₉ P P0 is
   where
     P : ℕ → Set
     P i = i + zero ≣ i
@@ -22,11 +22,11 @@ open import PA.Axiomatic.Relation.Binary.PropositionalEqualityI
     P0 = S₅ zero
 
     postulate
-      iStep : ∀ i → P i → P (succ i)
-    {-# ATP prove iStep #-}
+      is : ∀ i → P i → P (succ i)
+    {-# ATP prove is #-}
 
 x+Sy≣S[x+y] : ∀ m n → m + succ n ≣ succ (m + n)
-x+Sy≣S[x+y] m n = S₉ P P0 iStep m
+x+Sy≣S[x+y] m n = S₉ P P0 is m
   where
     P : ℕ → Set
     P i = i + succ n ≣ succ (i + n)
@@ -38,13 +38,13 @@ x+Sy≣S[x+y] m n = S₉ P P0 iStep m
     {-# ATP prove P0 #-}
 
     postulate
-      iStep : ∀ i → P i → P (succ i)
+      is : ∀ i → P i → P (succ i)
     -- E 1.2: CPU time limit exceeded (180 sec).
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    {-# ATP prove iStep #-}
+    {-# ATP prove is #-}
 
 +-comm : ∀ m n → m + n ≣ n + m
-+-comm m n = S₉ P P0 iStep m
++-comm m n = S₉ P P0 is m
   where
     P : ℕ → Set
     P i = i + n ≣ n + i
@@ -56,14 +56,14 @@ x+Sy≣S[x+y] m n = S₉ P P0 iStep m
     {-# ATP prove P0 +-rightIdentity #-}
 
     postulate
-      iStep : ∀ i → P i → P (succ i)
+      is : ∀ i → P i → P (succ i)
     -- E 1.2: CPU time limit exceeded (180 sec).
     -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds)
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    {-# ATP prove iStep x+Sy≣S[x+y] #-}
+    {-# ATP prove is x+Sy≣S[x+y] #-}
 
 x≣y→x+z≣y+z : ∀ {m n} o → m ≣ n → m + o ≣ n + o
-x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 iStep o
+x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 is o
   where
     P : ℕ → Set
     P i = m + i ≣ n + i
@@ -76,14 +76,14 @@ x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 iStep o
     {-# ATP prove P0 +-rightIdentity #-}
 
     postulate
-      iStep : ∀ i → P i → P (succ i)
+      is : ∀ i → P i → P (succ i)
     -- E 1.2: CPU time limit exceeded (180 sec).
     -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds)
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    {-# ATP prove iStep x+Sy≣S[x+y] #-}
+    {-# ATP prove is x+Sy≣S[x+y] #-}
 
 +-asocc : ∀ m n o → m + n + o ≣ m + (n + o)
-+-asocc m n o = S₉ P P0 iStep m
++-asocc m n o = S₉ P P0 is m
   where
     P : ℕ → Set
     P i = i + n + o ≣ i + (n + o)
@@ -96,9 +96,9 @@ x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 iStep o
     {-# ATP prove P0 x≣y→x+z≣y+z #-}
 
     postulate
-      iStep : ∀ i → P i → P (succ i)
+      is : ∀ i → P i → P (succ i)
     -- E 1.2: CPU time limit exceeded (180 sec).
     -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds)
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
     -- Vampire 0.6 (revision 903): Time limit (180 sec).
-    -- {-# ATP prove iStep x≣y→x+z≣y+z #-}
+    -- {-# ATP prove is x≣y→x+z≣y+z #-}
