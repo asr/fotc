@@ -19,7 +19,7 @@ open import FOTC.Program.McCarthy91.MCR
 ------------------------------------------------------------------------------
 
 fnMCR-N : ∀ {n} → N n → N (fnMCR n)
-fnMCR-N Nn = ∸-N N101 Nn
+fnMCR-N Nn = ∸-N 101-N Nn
 
 0«x→⊥ : ∀ {n} → N n → ¬ (MCR zero n)
 0«x→⊥ zN 0«n = prf
@@ -34,7 +34,7 @@ fnMCR-N Nn = ∸-N N101 Nn
 
 «-trans : ∀ {m n o} → N m → N n → N o → MCR m n → MCR n o → MCR m o
 «-trans Nm Nn No m«n n«o =
-  <-trans (∸-N N101 Nm) (∸-N N101 Nn) (∸-N N101 No) m«n n«o
+  <-trans (∸-N 101-N Nm) (∸-N 101-N Nn) (∸-N 101-N No) m«n n«o
 
 Sx«Sy→x«y : ∀ {m n} → N m → N n → MCR (succ m) (succ n) → MCR m n
 Sx«Sy→x«y zN zN S0«S0 = prf
@@ -66,8 +66,8 @@ x«Sy→x«y (sN {m} Nm) zN Sm«S0 = prf
      {-# ATP prove prf x∸y<Sx #-}
 
 x«Sy→x«y (sN {m} Nm) (sN {n} Nn) Sm«SSn =
-  x<y→y≤z→x<z (∸-N N101 (sN Nm))
-              (∸-N N101 (sN (sN Nn)))
-              (∸-N N101 (sN Nn))
+  x<y→y≤z→x<z (∸-N 101-N (sN Nm))
+              (∸-N 101-N (sN (sN Nn)))
+              (∸-N 101-N (sN Nn))
               Sm«SSn
-              (x∸Sy≤x∸y N101 (sN Nn))
+              (x∸Sy≤x∸y 101-N (sN Nn))

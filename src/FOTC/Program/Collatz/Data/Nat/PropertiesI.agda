@@ -13,6 +13,7 @@ open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.PropertiesI
 open import FOTC.Data.Nat.UnaryNumbers
+open import FOTC.Data.Nat.UnaryNumbers.IsN-I
 
 open import FOTC.Program.Collatz.Data.Nat
 
@@ -33,11 +34,11 @@ open import FOTC.Relation.Binary.EqReasoning
 2x/2≡x (sN zN) =
   begin
     (two * succ zero) / two
-      ≡⟨ cong₂ _/_ (*-rightIdentity (sN (sN zN))) refl ⟩
+      ≡⟨ cong₂ _/_ (*-rightIdentity 2-N) refl ⟩
     two / two
-      ≡⟨ /-x≥y (x≥x (sN (sN zN))) ⟩
+      ≡⟨ /-x≥y (x≥x 2-N) ⟩
     succ ((two ∸ two) / two)
-      ≡⟨ cong succ (cong₂ _/_ (x∸x≡0 (sN (sN zN))) refl) ⟩
+      ≡⟨ cong succ (cong₂ _/_ (x∸x≡0 2-N) refl) ⟩
     succ (zero / two)
       ≡⟨ cong succ (/-x<y (<-0S (succ zero))) ⟩
     succ zero
@@ -57,7 +58,7 @@ open import FOTC.Relation.Binary.EqReasoning
                refl
       ⟩
     (two * two ^ n) / two
-      ≡⟨ 2x/2≡x (^-N (sN (sN zN)) Nn) ⟩
+      ≡⟨ 2x/2≡x (^-N 2-N Nn) ⟩
     two ^ n
   ∎
 
@@ -67,4 +68,4 @@ open import FOTC.Relation.Binary.EqReasoning
 Sx≡2^0→x≡0 : ∀ {n} → N n → succ n ≡ two ^ zero → n ≡ zero
 Sx≡2^0→x≡0 zN         _       = refl
 Sx≡2^0→x≡0(sN {n} Nn) SSn≡2^0 =
-  ⊥-elim (0≠S (sym (succInjective (trans SSn≡2^0 (^-0 (succ (succ zero)))))))
+  ⊥-elim (0≠S (sym (succInjective (trans SSn≡2^0 (^-0 two)))))

@@ -57,8 +57,8 @@ LT2MCR (sN {n} Nn) zN p h = prfS0
     postulate prfS0 : MCR (succ n) zero
     {-# ATP prove prfS0 x∸y<Sx #-}
 
-LT2MCR (sN {n} Nn) (sN {m} Nm) p h with x<y∨x≥y Nn N100
-... | inj₁ n<100 = LT2MCR-helper Nn Nm N101 m<n Sn≤101 Sm≤101
+LT2MCR (sN {n} Nn) (sN {m} Nm) p h with x<y∨x≥y Nn 100-N
+... | inj₁ n<100 = LT2MCR-helper Nn Nm 101-N m<n Sn≤101 Sm≤101
                                  (LT2MCR Nn Nm m≤100 m<n)
   where
     postulate m≤100  : LE m one-hundred

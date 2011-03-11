@@ -57,6 +57,7 @@ open import FOTC.Data.Nat.Type
 open import FOTC.Data.Nat.UnaryNumbers
 open import FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.UnaryNumbers.IsN-ATP
+open import FOTC.Data.Nat.UnaryNumbers.IsN-I
 
 open import FOTC.Data.Stream.Bisimilarity
 open import FOTC.Data.Stream.Bisimilarity.ConsistencyTest

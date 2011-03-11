@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
-The Collatz function: A function without termination proof
+The Collatz function: A function without a termination proof
 ------------------------------------------------------------------------------
 
 In this directory we prove some properties of the Collatz function

@@ -105,17 +105,19 @@ postulate
 {-# ATP prove 100<102 100<102' 102≡91+11 #-}
 
 x+11-N : ∀ {n} → N n → N (n + eleven)
-x+11-N Nn = +-N Nn N11
+x+11-N Nn = +-N Nn 11-N
 
 x+11∸10≡Sx : ∀ {n} → N n → (n + eleven) ∸ ten ≡ succ n
-x+11∸10≡Sx Nn = [x+Sy]∸y≡Sx Nn N10
+x+11∸10≡Sx Nn = [x+Sy]∸y≡Sx Nn 10-N
 
 postulate 91>100→⊥ : GT ninety-one one-hundred → ⊥
 {-# ATP prove 91>100→⊥ #-}
 
 postulate x+1≤x∸10+11 : ∀ {n} → N n → LE (n + one) ((n ∸ ten) + eleven)
-{-# ATP prove x+1≤x∸10+11 x≤y+x∸y N10 N11 +-N ∸-N +-comm #-}
+{-# ATP prove x+1≤x∸10+11 x≤y+x∸y 10-N 11-N +-N ∸-N +-comm #-}
 
 postulate x≤89→x+11>100→⊥ : ∀ {n} → N n → LE n eighty-nine →
                             GT (n + eleven) one-hundred → ⊥
-{-# ATP prove x≤89→x+11>100→⊥ x>y→x≤y→⊥ x≤y→x+k≤y+k x+11-N N89 N100 100≡89+11 #-}
+{-# ATP prove x≤89→x+11>100→⊥ x>y→x≤y→⊥ x≤y→x+k≤y+k x+11-N 89-N 100-N
+                              100≡89+11
+#-}

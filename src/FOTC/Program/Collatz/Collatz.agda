@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- The Collatz function: A function without termination proof
+-- The Collatz function: A function without a termination proof
 ------------------------------------------------------------------------------
 
 module FOTC.Program.Collatz.Collatz where

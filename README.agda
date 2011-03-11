@@ -168,7 +168,7 @@ open import FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
 -- Induction
 open import FOTC.Induction.WellFounded
 
--- The Collatz function: A function without termination proof
+-- The Collatz function: A function without a termination proof
 open import FOTC.Program.Collatz.PropertiesATP
 open import FOTC.Program.Collatz.PropertiesI
 

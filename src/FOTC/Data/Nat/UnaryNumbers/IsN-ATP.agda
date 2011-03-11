@@ -12,47 +12,49 @@ open import FOTC.Data.Nat.UnaryNumbers
 ------------------------------------------------------------------------------
 
 postulate
-  N0  : N zero
-  N1  : N one
-  N10 : N ten
-{-# ATP prove N0 #-}
-{-# ATP prove N1 #-}
-{-# ATP prove N10 #-}
+  0-N  : N zero
+  1-N  : N one
+  2-N  : N two
+  10-N : N ten
+{-# ATP prove 0-N #-}
+{-# ATP prove 1-N #-}
+{-# ATP prove 2-N #-}
+{-# ATP prove 10-N #-}
 
 postulate
-  N11 : N eleven
-{-# ATP prove N11 #-}
+  11-N : N eleven
+{-# ATP prove 11-N #-}
 
 postulate
-  N89 : N eighty-nine
-  N90 : N ninety
-{-# ATP prove N89 #-}
-{-# ATP prove N90 #-}
+  89-N : N eighty-nine
+  90-N : N ninety
+{-# ATP prove 89-N #-}
+{-# ATP prove 90-N #-}
 
 postulate
-  N91  : N ninety-one
-  N92  : N ninety-two
-  N93  : N ninety-three
-  N94  : N ninety-four
-  N95  : N ninety-five
-  N96  : N ninety-six
-  N97  : N ninety-seven
-  N98  : N ninety-eight
-  N99  : N ninety-nine
-  N100 : N one-hundred
-{-# ATP prove N91 #-}
-{-# ATP prove N92 #-}
-{-# ATP prove N93 #-}
-{-# ATP prove N94 #-}
-{-# ATP prove N95 #-}
-{-# ATP prove N96 #-}
-{-# ATP prove N97 #-}
-{-# ATP prove N98 #-}
-{-# ATP prove N99 #-}
-{-# ATP prove N100 #-}
+  91-N  : N ninety-one
+  92-N  : N ninety-two
+  93-N  : N ninety-three
+  94-N  : N ninety-four
+  95-N  : N ninety-five
+  96-N  : N ninety-six
+  97-N  : N ninety-seven
+  98-N  : N ninety-eight
+  99-N  : N ninety-nine
+  100-N : N one-hundred
+{-# ATP prove 91-N #-}
+{-# ATP prove 92-N #-}
+{-# ATP prove 93-N #-}
+{-# ATP prove 94-N #-}
+{-# ATP prove 95-N #-}
+{-# ATP prove 96-N #-}
+{-# ATP prove 97-N #-}
+{-# ATP prove 98-N #-}
+{-# ATP prove 99-N #-}
+{-# ATP prove 100-N #-}
 
 postulate
-  N101 : N hundred-one
-  N111 : N hundred-eleven
-{-# ATP prove N101 #-}
-{-# ATP prove N111 #-}
+  101-N : N hundred-one
+  111-N : N hundred-eleven
+{-# ATP prove 101-N #-}
+{-# ATP prove 111-N #-}

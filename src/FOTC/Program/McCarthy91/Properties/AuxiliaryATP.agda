@@ -26,9 +26,10 @@ postulate
   Nmc91>100      : ∀ {n} → N n → GT n one-hundred → N (mc91 n)
   x<mc91x+11>100 : ∀ {n} → N n → GT n one-hundred →
                            LT n (mc91 n + eleven)
-{-# ATP prove Nmc91>100 N10 ∸-N #-}
-{-# ATP prove x<mc91x+11>100 +-N ∸-N N10 N11 x<y→y≤z→x<z x<x+1 x+1≤x∸10+11
-              +-comm #-}
+{-# ATP prove Nmc91>100 10-N ∸-N #-}
+{-# ATP prove x<mc91x+11>100 +-N ∸-N 10-N 11-N x<y→y≤z→x<z x<x+1 x+1≤x∸10+11
+                             +-comm
+#-}
 
 -- Most of them not needed
 -- Case n ≡ 100 can be proved automatically
@@ -38,13 +39,12 @@ postulate
   mc91-res-100' : ∀ {n} → n ≡ one-hundred → mc91 n ≡ ninety-one
   mc91<mc91+11  : LT  one-hundred (mc91 one-hundred + eleven)
 {-# ATP prove Nmc91≡100 111>100 101>100 101≡100+11-10 91≡[100+11∸10]∸10
-              Nmc91>100 N111 N101
+                        Nmc91>100 111-N 101-N
 #-}
 {-# ATP prove mc91-res-100 111>100 101>100 101≡100+11-10 91≡[100+11∸10]∸10 #-}
 {-# ATP prove mc91-res-100' mc91-res-100 #-}
-{-# ATP prove Nmc91≡100 111>100 101>100 101≡100+11-10 91≡[100+11∸10]∸10 N91 #-}
+{-# ATP prove Nmc91≡100 111>100 101>100 101≡100+11-10 91≡[100+11∸10]∸10 91-N #-}
 {-# ATP prove mc91<mc91+11 mc91-res-100 102≡91+11 100<102 #-}
-
 
 ---- Case n ≤ 100
 

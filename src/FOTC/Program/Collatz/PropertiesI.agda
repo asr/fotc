@@ -8,6 +8,7 @@ open import FOTC.Base
 
 open import FOTC.Data.Nat.Type
 open import FOTC.Data.Nat.UnaryNumbers
+open import FOTC.Data.Nat.UnaryNumbers.IsN-I
 
 open import FOTC.Program.Collatz.Collatz
 open import FOTC.Program.Collatz.Data.Nat
@@ -32,6 +33,6 @@ collatz-2^x (sN {n} Nn) (.(succ k) , sN {k} Nk , Sn≡2^k+1) =
     collatz ((two ^ (succ k)) / two)
       ≡⟨ cong collatz (2^[x+1]/2≡x Nk) ⟩
     collatz (two ^ k)
-      ≡⟨ collatz-2^x (^-N (sN (sN zN)) Nk) (k , Nk , refl) ⟩
+      ≡⟨ collatz-2^x (^-N 2-N Nk) (k , Nk , refl) ⟩
     one
   ∎
