@@ -86,7 +86,7 @@ div-x≥y-correct {i} {j} Ni Nj ih i≥j =
   r , Nr , r<j , div-x≥y-helper Ni Nj Nr i≥j helperH
 
   where
-    -- The parts of the inductive hipothesis ih.
+    -- The parts of the inductive hypothesis ih.
     r : D
     r = ∃-proj₁ (∧-proj₂ ih)
 

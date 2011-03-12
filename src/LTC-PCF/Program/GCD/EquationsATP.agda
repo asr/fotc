@@ -45,7 +45,7 @@ postulate
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 300 sec).
 {-# ATP prove gcd-S>S #-}
 
--- Because we define LE on terms of LT, we need the extra hipotesis
+-- Because we define LE on terms of LT, we need the extra hypotheses
 -- N m and N n.
 postulate
   gcd-S≤S : ∀ {m n} → N m → N n → LE (succ m) (succ n) →

@@ -282,7 +282,7 @@ gcd-S>S m n Sm>Sn =
 
 -- Fifth equation.
 
--- Because we define LE on terms of LT, we need the extra hipotesis
+-- Because we define LE on terms of LT, we need the extra hypotheses
 -- N m and N n.
 gcd-S≤S : ∀ {m n} → N m → N n → LE (succ m) (succ n) →
           gcd (succ m) (succ n) ≡ gcd (succ m) (succ n ∸ succ m)
