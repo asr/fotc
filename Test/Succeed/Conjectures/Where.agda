@@ -2,9 +2,6 @@
 -- Testing the conjectures inside a where clause
 ------------------------------------------------------------------------------
 
--- TODO: Two conjectures with the *same name* inside two different where
--- clauses should be generate two different TPTP files.
-
 module Test.Succeed.Conjectures.Where where
 
 infixl 6 _+_

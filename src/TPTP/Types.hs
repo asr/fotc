@@ -37,7 +37,10 @@ import FOL.Types ( FOLFormula )
 import Utils.List ( duplicatesElements, nonDuplicate )
 
 ------------------------------------------------------------------------------
--- TODO: Why Haddock 2.8 does not create a link for TPTP.Pretty.PrettyTPTP?
+-- Note: We don't import the module TPTP.Pretty to avoid a circular
+-- importation, therefore Haddock does not create a link for
+-- TPTP.Pretty.PrettyTPTP.
+
 -- | The TPTP annotated formulas.
 -- The annotated formulas are not in TPTP syntax. We get this syntax via
 -- 'TPTP.Pretty.PrettyTPTP'.
