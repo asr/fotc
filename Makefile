@@ -79,6 +79,10 @@ doc :
 	cabal configure
 	cabal haddock --executables
 
+.PHONY : TODO
+TODO :
+	@find \( -name '*.hs' -o -name '*.agda' \) | xargs grep TODO
+
 clean :
 	@find -name '*.agdai' | xargs rm -f
 	@rm -f /tmp/*.tptp
