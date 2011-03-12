@@ -36,7 +36,6 @@ executable agda2atp
 
   other-modules:  AgdaLib.EtaExpansion
                   AgdaLib.Interface
-                  AgdaLib.Syntax.Abstract.Name
                   AgdaLib.Syntax.DeBruijn
                   ATP
                   FOL.Constants
