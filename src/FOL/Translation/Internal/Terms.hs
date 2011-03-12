@@ -352,8 +352,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     --   ∨-comm₂ : {P₂ Q₂ : D → D → Set}{x y : D} →
     --             P₂ x y ∨ Q₂ x y → Q₂ x y ∨ P₂ x y
 
-    El (Type (Lit (LitLevel _ 1))) (Fun _ _) → do
-      return $ f2
+    El (Type (Lit (LitLevel _ 1))) (Fun _ _) → return f2
 
     -- Other cases
     El (Type (Lit (LitLevel _ 1))) (Def _ _)    → __IMPOSSIBLE__
@@ -399,7 +398,7 @@ termToFormula term@(Var n args) = do
 
          varArgs → do
            termsFOL ← mapM argTermToFOLTerm varArgs
-           return $ (Predicate (vars !! fromIntegral n)) termsFOL
+           return $ Predicate (vars !! fromIntegral n) termsFOL
 
 termToFormula DontCare    = __IMPOSSIBLE__
 termToFormula (Con _ _)   = __IMPOSSIBLE__
