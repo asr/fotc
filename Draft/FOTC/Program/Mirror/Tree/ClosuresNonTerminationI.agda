@@ -29,6 +29,14 @@ node-Forest {d} (treeT .d Fts) = Fts
 postulate
   reverse-∷' : ∀ x ys → reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])
 
+-- The termination checker can not determine that the function mirror-Tree
+-- defined by
+--
+-- mirror-Tree (treeT d (consF {t} {ts} Tt Fts)) =
+--   ... mirror-Tree (treeT d Fts) ... mirror-Tree Tt ...
+--
+-- is structurally recursive.
+
 -- Andreas Abel: The function does not terminate because we are using
 -- postulates (i.e. D, _∷_, etc). In particular, x is not structurally
 -- smaller than x ∷ xs.
