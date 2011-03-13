@@ -9,5 +9,5 @@ module PA.Inductive.Base.Core where
 
 -- PA universe.
 data ℕ : Set where
-  zero : ℕ
+  zero :     ℕ
   succ : ℕ → ℕ

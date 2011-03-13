@@ -13,8 +13,8 @@ infixr 4 _∨_
 -- It is not necessary to add the data constructors inj₁ and inj₂ as
 -- (general/local) hints because the ATPs implement them.
 data _∨_ (A B : Set) : Set where
-  inj₁ : (x : A) → A ∨ B
-  inj₂ : (y : B) → A ∨ B
+  inj₁ : A → A ∨ B
+  inj₂ : B → A ∨ B
 
 -- It is not strictly necessary define the eliminator [_,_] because
 -- the ATPs implement it. For the same reason, it is not necessary to

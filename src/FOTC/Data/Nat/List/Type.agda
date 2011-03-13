@@ -13,7 +13,7 @@ open import FOTC.Data.Nat.Type
 ------------------------------------------------------------------------------
 -- The FOTC list of natural numbers type.
 data ListN : D → Set where
-  nilLN  : ListN []
+  nilLN  :                                      ListN []
   consLN : ∀ {n ns} → N n → (LNns : ListN ns) → ListN (n ∷ ns)
 {-# ATP hint nilLN #-}
 {-# ATP hint consLN #-}

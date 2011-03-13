@@ -12,7 +12,7 @@ open import FOTC.Base
 
 -- The FOTC natural numbers type.
 data N : D → Set where
-  zN : N zero
+  zN :               N zero
   sN : ∀ {n} → N n → N (succ n)
 {-# ATP hint zN #-}
 {-# ATP hint sN #-}

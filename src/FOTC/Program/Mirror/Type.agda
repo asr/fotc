@@ -16,7 +16,7 @@ postulate
 mutual
   -- The list of rose trees (called forest).
   data Forest : D → Set where
-    nilF  : Forest []
+    nilF  :                                 Forest []
     consF : ∀ {t ts} → Tree t → Forest ts → Forest (t ∷ ts)
 
   -- The rose tree type.
