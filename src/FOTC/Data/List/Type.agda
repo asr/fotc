@@ -9,7 +9,7 @@ open import FOTC.Base
 ------------------------------------------------------------------------------
 -- The FOTC list type.
 data List : D → Set where
-  nilL  : List []
+  nilL  :                              List []
   consL : ∀ x {xs} → (Lxs : List xs) → List (x ∷ xs)
 
 -- Induction principle for List.
