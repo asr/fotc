@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Propositional logic examples
+-- Propositional logic theorems
 ------------------------------------------------------------------------------
 
-module Logic.Propositional.PropertiesI where
+module Logic.Propositional.TheoremsI where
 
 open import Logic.Constants
 

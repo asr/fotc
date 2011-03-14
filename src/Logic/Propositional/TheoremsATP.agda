@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Propositional logic examples
+-- Propositional logic theorems
 ------------------------------------------------------------------------------
 
 -- This module contains some examples showing the use of the ATPs to
 -- prove theorems from propositional logic.
 
-module Logic.Propositional.PropertiesATP where
+module Logic.Propositional.TheoremsATP where
 
 open import Logic.Constants
 

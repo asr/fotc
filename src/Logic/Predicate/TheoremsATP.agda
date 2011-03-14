@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Predicate logic examples
+-- Predicate logic theorems
 ------------------------------------------------------------------------------
 
 -- This module contains some examples showing the use of the ATPs to
 -- prove theorems from predicate logic.
 
-module Logic.Predicate.PropertiesATP where
+module Logic.Predicate.TheoremsATP where
 
 open import Logic.Constants
 

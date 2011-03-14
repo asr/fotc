@@ -102,12 +102,12 @@ open import GroupTheory.AbelianGroup.PropertiesATP
 -- Logic
 
 -- Propositional logic
-open import Logic.Propositional.PropertiesATP
-open import Logic.Predicate.PropertiesI
+open import Logic.Propositional.TheoremsATP
+open import Logic.Predicate.TheoremsI
 
 -- Predicate logic
-open import Logic.Predicate.PropertiesATP
-open import Logic.Predicate.PropertiesI
+open import Logic.Predicate.TheoremsATP
+open import Logic.Predicate.TheoremsI
 
 -- Logical schemas
 open import Logic.SchemasATP

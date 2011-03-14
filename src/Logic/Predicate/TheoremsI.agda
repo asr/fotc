@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Predicate logic examples
+-- Predicate logic theorems
 ------------------------------------------------------------------------------
 
-module Logic.Predicate.PropertiesI where
+module Logic.Predicate.TheoremsI where
 
 open import Logic.Constants
 
