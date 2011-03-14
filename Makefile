@@ -27,10 +27,10 @@ RSYNC    = rsync --archive --progress --rsh='ssh -p 2024'
 Common_path           = src/Common
 DistributiveLaws_path = src/DistributiveLaws
 GroupTheory_path      = src/GroupTheory
-Logic_path            = src/Logic
 FOTC_path             = src/FOTC
 LTC-PCF_path          = src/LTC-PCF
 PA_path               = src/PA
+PredicateLogic_path   = src/PredicateLogic
 
 # Programs
 Collatz_path    = $(FOTC_path)/Program/Collatz
@@ -53,11 +53,11 @@ main_GroupTheory      = $(GroupTheory_path)/Everything
 
 main_FOTC             = $(FOTC_path)/Everything
 
-main_Logic            = $(Logic_path)/Everything
-
 main_LTC-PCF          = $(LTC-PCF_path)/Everything
 
 main_PA               = $(PA_path)/Everything
+
+main_PredicateLogic   = $(PredicateLogic_path)/Everything
 
 # Agsy examples
 # Because we have unsolved-metas in the Agsy examples, we cannot use a
@@ -85,9 +85,9 @@ all_type_checking : type_checking_Common \
 		    type_checking_DistributiveLaws \
 		    type_checking_GroupTheory \
 		    type_checking_FOTC \
-		    type_checking_Logic \
 		    type_checking_LTC-PCF \
 		    type_checking_PA \
+		    type_checking_PredicateLogic \
 		    type_checking_Agsy \
 		    type_checking_README
 
@@ -106,9 +106,9 @@ conjectures_% :
 # all_conjectures : conjectures_DistributiveLaws \
 # 		  conjectures_GroupTheory \
 # 		  conjectures_FOTC \
-# 		  conjectures_Logic \
 # 		  conjectures_LTC-PCF \
 # 		  conjectures_PA \
+# 		  conjectures_PredicateLogic \
 #                 conjectures_Collatz \
 #                 conjectures_Division \
 # 		  conjectures_GCD \
@@ -120,9 +120,10 @@ conjectures_% :
 all_conjectures : conjectures_DistributiveLaws \
 		  conjectures_GroupTheory \
 		  conjectures_FOTC \
-		  conjectures_Logic \
 		  conjectures_LTC-PCF \
-		  conjectures_PA
+		  conjectures_PA \
+		  conjectures_PredicateLogic \
+
 
 ##############################################################################
 # Consistency test
@@ -160,9 +161,9 @@ all_publish : publish_Common \
 	      publish_DistributiveLaws \
 	      publish_GroupTheory \
 	      publish_FOTC \
-	      publish_Logic \
 	      publish_LTC-PCF \
 	      publish_PA \
+	      publish_PredicateLogic \
               publish_Agsy
 
 ##############################################################################

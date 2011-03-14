@@ -5,9 +5,9 @@
 -- This module contains some examples showing the use of the ATPs to
 -- prove theorems from predicate logic.
 
-module Logic.Predicate.TheoremsATP where
+module PredicateLogic.TheoremsATP where
 
-open import Logic.Constants
+open import PredicateLogic.Constants
 
 ------------------------------------------------------------------------------
 -- We postulate some predicate symbols.
@@ -26,14 +26,13 @@ postulate
 postulate
   ∀I : ((x : D) → P¹ x) → ⋀ P¹
   ∀E : ⋀ P¹ → (t : D) → P¹ t
-  -- This elimination rule cannot prove in Agda/Coq because in Agda/Coq we can
-  -- have empty domains. We do not have this problem because the ATPs
-  -- assume a non-empty domain.
+  -- It is necessary postulate a non-empty domain.
+  -- See PredicateLogic.NonEmptyDomain.TheoremsATP.
+  -- ∃I : ((t : D) → P¹ t) → ∃ P¹
   ∃I : ((t : D) → P¹ t) → ∃ P¹
   ∃E : ∃ P¹ → ((x : D) → P¹ x → P⁰) → P⁰
 {-# ATP prove ∀I #-}
 {-# ATP prove ∀E #-}
-{-# ATP prove ∃I #-}
 {-# ATP prove ∃E #-}
 
 -- Generalization of De Morgan's laws.
@@ -57,13 +56,9 @@ postulate
 -- Quantification over a variable that does not occur can be delete.
 postulate
   ∀-erase  : ⋀ (λ _ → P⁰) ↔ P⁰
-  ∃-erase₁ : ∃ (λ _ → P⁰) ↔ P⁰
-  ∃-erase₂ : ∃ (λ x → P⁰ ∧ P¹ x) ↔ P⁰ ∧ ∃ (λ x → P¹ x)
-  ∃-erase₃ : ∃ (λ x → P⁰ ∨ P¹ x) ↔ P⁰ ∨ ∃ (λ x → P¹ x)
+  ∃-erase : ∃ (λ x → P⁰ ∧ P¹ x) ↔ P⁰ ∧ ∃ (λ x → P¹ x)
 {-# ATP prove ∀-erase #-}
-{-# ATP prove ∃-erase₁ #-}
-{-# ATP prove ∃-erase₂ #-}
-{-# ATP prove ∃-erase₃ #-}
+{-# ATP prove ∃-erase #-}
 
 -- Distributes laws for the quantifiers.
 postulate

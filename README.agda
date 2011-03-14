@@ -58,7 +58,58 @@ module README where
 -- that are used by the combined proofs.
 
 ------------------------------------------------------------------------------
--- Distributive laws on a binary operation
+-- 1. Predicate logic
+
+-- 1.1 Definition of the connectives and quantifiers
+open import Common.LogicalConstants
+open import PredicateLogic.Constants
+
+-- 1.2 The law of the excluded middle
+open import PredicateLogic.ClassicalATP
+
+-- 1.3 Non-empty domains
+open import PredicateLogic.NonEmptyDomain.TheoremsATP
+open import PredicateLogic.NonEmptyDomain.TheoremsI
+
+-- 1.4 Logical schemas
+open import PredicateLogic.SchemasATP
+
+-- 1.5 Propositional logic theorems
+open import PredicateLogic.Propositional.TheoremsATP
+open import PredicateLogic.Propositional.TheoremsI
+
+-- 1.6 Predicate logic theorems
+open import PredicateLogic.TheoremsATP
+open import PredicateLogic.TheoremsI
+
+------------------------------------------------------------------------------
+-- 2. Equality
+
+-- 2.1 Definition of equality and some properties about it
+open import Common.Relation.Binary.PropositionalEquality
+
+-- 2.2 The equality reasoning
+open import Common.Relation.Binary.PreorderReasoning
+
+------------------------------------------------------------------------------
+-- 3. Group theory
+
+-- 3.1 The axioms
+open import GroupTheory.Base
+
+-- 3.2 Basic properties
+open import GroupTheory.PropertiesATP
+open import GroupTheory.PropertiesI
+
+-- 3.3 Commutator properties
+open import GroupTheory.Commutator.PropertiesATP
+open import GroupTheory.Commutator.PropertiesI
+
+-- 3.4 Abelian groups
+open import GroupTheory.AbelianGroup.PropertiesATP
+
+------------------------------------------------------------------------------
+-- 4. Stanovský example (distributive laws on a binary operation)
 
 -- We prove the proposition 2 (task B) of [1]. Let _·_ be a
 -- left-associative binary operation, the task B consist in given the
@@ -77,166 +128,35 @@ module README where
 --     An elementary proof. Commentations Mathematicae Universitatis
 --     Carolinae, 49(4):541–546, 2008.
 
+-- 4.1 The ATPs could not prove the theorem
+open import DistributiveLaws.TaskB-ATP
+
+-- 4.2 The combined interactive-automatic proofs
 open import DistributiveLaws.TaskB-HalvedStepsATP
 open import DistributiveLaws.TaskB-I
 open import DistributiveLaws.TaskB-TopDownATP
 
 ------------------------------------------------------------------------------
--- Group theory
-
--- We formalize the theory of groups using Agda postulates for
--- the group axioms.
-
--- Basic properties
-open import GroupTheory.PropertiesATP
-open import GroupTheory.PropertiesI
-
--- Commutator properties
-open import GroupTheory.Commutator.PropertiesATP
-open import GroupTheory.Commutator.PropertiesI
-
--- Abelian groups
-open import GroupTheory.AbelianGroup.PropertiesATP
-
-------------------------------------------------------------------------------
--- Logic
-
--- Propositional logic
-open import Logic.Propositional.TheoremsATP
-open import Logic.Predicate.TheoremsI
-
--- Predicate logic
-open import Logic.Predicate.TheoremsATP
-open import Logic.Predicate.TheoremsI
-
--- Logical schemas
-open import Logic.SchemasATP
-
-------------------------------------------------------------------------------
--- FOTC
-
--- Formalization of (a version of) Azcel's First Order Theory of Combinators.
-
--- FOTC base
-open import FOTC.Base.Properties
-open import FOTC.Base.PropertiesATP
-open import FOTC.Base.PropertiesI
-
--- Booleans
-open import FOTC.Data.Bool.PropertiesATP
-open import FOTC.Data.Bool.PropertiesI
-
--- Lists: Common properties
-open import FOTC.Data.List.Length.PropertiesATP
-open import FOTC.Data.List.Length.PropertiesI
-open import FOTC.Data.List.PropertiesATP
-open import FOTC.Data.List.PropertiesI
-
--- Lists: Well-founded induction
-open import FOTC.Data.List.LT-Cons.Induction.Acc.WellFoundedInductionI
-open import FOTC.Data.List.LT-Cons.PropertiesI
-open import FOTC.Data.List.LT-Length.Induction.Acc.WellFoundedInductionI
-open import FOTC.Data.List.LT-Length.PropertiesI
-
--- Naturals numbers: Common properties
-open import FOTC.Data.Nat.PropertiesATP
-open import FOTC.Data.Nat.PropertiesI
-
-open import FOTC.Data.Nat.PropertiesByInductionATP
-open import FOTC.Data.Nat.PropertiesByInductionI
-
--- Naturals numbers: Divisibility relation
-open import FOTC.Data.Nat.Divisibility.PropertiesATP
-open import FOTC.Data.Nat.Divisibility.PropertiesI
-
--- Naturals numbers: Induction
-open import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI
-open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI
-
--- Naturals numbers: Inequalites
-open import FOTC.Data.Nat.Inequalities.PropertiesATP
-open import FOTC.Data.Nat.Inequalities.PropertiesI
-
--- Naturals numbers: List
-open import FOTC.Data.Nat.List.PropertiesATP
-open import FOTC.Data.Nat.List.PropertiesI
-
--- Naturals numbers: Unary numbers
-open import FOTC.Data.Nat.UnaryNumbers.IsN-ATP
-open import FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
-
--- Induction
-open import FOTC.Induction.WellFounded
-
--- The Collatz function: A function without a termination proof
-open import FOTC.Program.Collatz.PropertiesATP
-open import FOTC.Program.Collatz.PropertiesI
-
--- The GCD algorithm: A non-structurally recursive algorithm
-open import FOTC.Program.GCD.ProofSpecificationATP
-open import FOTC.Program.GCD.ProofSpecificationI
-
--- The McCarthy 91 function: A function with nested recursion
-open import FOTC.Program.McCarthy91.Properties.MainATP
-
--- The mirror function: A function with higher-order recursion
-open import FOTC.Program.Mirror.PropertiesATP
-open import FOTC.Program.Mirror.PropertiesI
-
--- Burstall's sort list algorithm: A structurally recursive algorithm
-open import FOTC.Program.SortList.ProofSpecificationATP
-open import FOTC.Program.SortList.ProofSpecificationI
-
-------------------------------------------------------------------------------
--- LTC-PCF
-
--- Formalization of a version of Azcel's Logical Theory of Constructions.
-
--- Naturals numbers: Common properties
-open import LTC-PCF.Data.Nat.PropertiesATP
-open import LTC-PCF.Data.Nat.PropertiesI
-
--- Naturals numbers: Divisibility relation
-open import LTC-PCF.Data.Nat.Divisibility.Properties
-open import LTC-PCF.Data.Nat.Divisibility.PropertiesATP
-open import LTC-PCF.Data.Nat.Divisibility.PropertiesI
-
--- Naturals numbers: Induction
-open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
-open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionI
-
--- Naturals numbers: Inequalites
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
-
--- Naturals numbers: The recursive operator
-open import LTC-PCF.Data.Nat.Rec.EquationsATP
-open import LTC-PCF.Data.Nat.Rec.EquationsI
-
--- The division algorithm: A non-structurally recursive algorithm
-open import LTC-PCF.Program.Division.ProofSpecificationATP
-open import LTC-PCF.Program.Division.ProofSpecificationI
-
--- The GCD algorithm: A non-structurally recursive algorithm
-open import LTC-PCF.Program.GCD.ProofSpecificationATP
-open import LTC-PCF.Program.GCD.ProofSpecificationI
-
-------------------------------------------------------------------------------
--- Peano arithmetic (PA)
+-- 5. Peano arithmetic (PA)
 
 -- We write two formalizations of PA. In the axiomatic formalization
 -- we use Agda postulates for Peano's axioms. In the inductive
 -- formalization, we use Agda data types and primitive recursive
 -- functions.
 
--- Axiomatic PA
+-- 5.1 Axiomatic PA
+-- 5.1.1 The axioms
+open import PA.Axiomatic.Base
+
+-- 5.1.2 Some properties
 open import PA.Axiomatic.PropertiesATP
 open import PA.Axiomatic.PropertiesI
 
 open import PA.Axiomatic.Relation.Binary.PropositionalEqualityATP
 open import PA.Axiomatic.Relation.Binary.PropositionalEqualityI
 
--- Inductive PA
+-- 5.2. Inductive PA
+-- 5.2.1 Some properties
 open import PA.Inductive.Properties
 open import PA.Inductive.PropertiesATP
 open import PA.Inductive.PropertiesI
@@ -246,7 +166,94 @@ open import PA.Inductive.PropertiesByInductionATP
 open import PA.Inductive.PropertiesByInductionI
 
 ------------------------------------------------------------------------------
--- ATPs failures
+-- 6. FOTC
+
+-- Formalization of (a version of) Azcel's First Order Theory of Combinators.
+
+-- 6.1 The axioms
+open import FOTC.Base
+
+-- 6.2 Booleans
+
+-- 6.2.2 The axioms
+open import FOTC.Data.Bool
+
+-- 6.2.3 Properties
+open import FOTC.Data.Bool.PropertiesATP
+open import FOTC.Data.Bool.PropertiesI
+
+-- 6.3. Natural numbers
+
+-- 6.3.1 The axioms
+open import FOTC.Data.Nat
+
+-- 6.3.2 Properties
+open import FOTC.Data.Nat.PropertiesATP
+open import FOTC.Data.Nat.PropertiesI
+
+open import FOTC.Data.Nat.PropertiesByInductionATP
+open import FOTC.Data.Nat.PropertiesByInductionI
+
+-- 6.3.3 Divisibility relation
+open import FOTC.Data.Nat.Divisibility.PropertiesATP
+open import FOTC.Data.Nat.Divisibility.PropertiesI
+
+-- 6.3.4 Induction
+open import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI
+open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI
+
+-- 6.3.5 Inequalites
+open import FOTC.Data.Nat.Inequalities.PropertiesATP
+open import FOTC.Data.Nat.Inequalities.PropertiesI
+
+-- 6.3.6 Unary numbers
+open import FOTC.Data.Nat.UnaryNumbers.IsN-ATP
+open import FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
+
+-- 6.4 Lists
+
+-- 6.4.1 The axioms
+open import FOTC.Data.List
+
+-- 6.4.2 Properties
+open import FOTC.Data.List.Length.PropertiesATP
+open import FOTC.Data.List.Length.PropertiesI
+open import FOTC.Data.List.PropertiesATP
+open import FOTC.Data.List.PropertiesI
+
+-- 6.4.3 Well-founded induction
+open import FOTC.Data.List.LT-Cons.Induction.Acc.WellFoundedInductionI
+open import FOTC.Data.List.LT-Cons.PropertiesI
+open import FOTC.Data.List.LT-Length.Induction.Acc.WellFoundedInductionI
+open import FOTC.Data.List.LT-Length.PropertiesI
+
+-- 6.4.4 Lists of natural numbers
+open import FOTC.Data.Nat.List.PropertiesATP
+open import FOTC.Data.Nat.List.PropertiesI
+
+-- 6.5 Programs
+
+-- 6.5.1 The Collatz function: A function without a termination proof
+open import FOTC.Program.Collatz.PropertiesATP
+open import FOTC.Program.Collatz.PropertiesI
+
+-- 6.5.2 The GCD algorithm: A non-structurally recursive algorithm
+open import FOTC.Program.GCD.ProofSpecificationATP
+open import FOTC.Program.GCD.ProofSpecificationI
+
+-- 6.5.3 The McCarthy 91 function: A function with nested recursion
+open import FOTC.Program.McCarthy91.Properties.MainATP
+
+-- 6.5.4 The mirror function: A function with higher-order recursion
+open import FOTC.Program.Mirror.PropertiesATP
+open import FOTC.Program.Mirror.PropertiesI
+
+-- 6.5.5 Burstall's sort list algorithm: A structurally recursive algorithm
+open import FOTC.Program.SortList.ProofSpecificationATP
+open import FOTC.Program.SortList.ProofSpecificationI
+
+------------------------------------------------------------------------------
+-- Other ATPs failures
 ------------------------------------------------------------------------------
 
 -- The ATPs (E, Equinox, Metis and Vampire) could not prove some
@@ -262,3 +269,50 @@ open import PA.Axiomatic.PropertiesATP
 
 -- We cannot import the Agsy examples because some modules contain
 -- unsolved metas, therefore see src/Agsy/README.txt
+
+------------------------------------------------------------------------------
+-- Other theories
+------------------------------------------------------------------------------
+
+-- 1. LTC-PCF
+-- Formalization of a version of Azcel's Logical Theory of Constructions.
+-- N.B. This was the theory shown in our PLPV'09 paper.
+
+-- 1.1. The axioms
+open import LTC-PCF.Base
+
+-- 1.2 Natural numberes
+
+-- 1.2.1 The axioms
+open import LTC-PCF.Data.Nat
+
+-- 1.2.2 Properties
+open import LTC-PCF.Data.Nat.PropertiesATP
+open import LTC-PCF.Data.Nat.PropertiesI
+
+-- 1.2.3 Divisibility relation
+open import LTC-PCF.Data.Nat.Divisibility.Properties
+open import LTC-PCF.Data.Nat.Divisibility.PropertiesATP
+open import LTC-PCF.Data.Nat.Divisibility.PropertiesI
+
+-- 1.2.4 Induction
+open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
+open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionI
+
+-- 1.2.5 Inequalites
+open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
+open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
+
+-- 1.2.6 The recursive operator
+open import LTC-PCF.Data.Nat.Rec.EquationsATP
+open import LTC-PCF.Data.Nat.Rec.EquationsI
+
+-- 1.3 Programs
+
+-- 1.3.1 The division algorithm: A non-structurally recursive algorithm
+open import LTC-PCF.Program.Division.ProofSpecificationATP
+open import LTC-PCF.Program.Division.ProofSpecificationI
+
+-- 1.3.2 The GCD algorithm: A non-structurally recursive algorithm
+open import LTC-PCF.Program.GCD.ProofSpecificationATP
+open import LTC-PCF.Program.GCD.ProofSpecificationI

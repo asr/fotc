@@ -5,9 +5,9 @@
 -- This module contains some examples showing the use of the ATPs to
 -- prove theorems from propositional logic.
 
-module Logic.Propositional.TheoremsATP where
+module PredicateLogic.Propositional.TheoremsATP where
 
-open import Logic.Constants
+open import PredicateLogic.Constants
 
 ------------------------------------------------------------------------------
 -- We postulate some propositional variables (which are translated as
@@ -36,12 +36,6 @@ postulate
 {-# ATP prove ∨I₂ #-}
 {-# ATP prove ∨E #-}
 {-# ATP prove ⊥E #-}
-
--- The ATPs work in classical logic, therefore we also can prove the
--- reductio ab absurdum rule.
-postulate
-  ¬E : (¬ P → ⊥) → P
-{-# ATP prove ¬E #-}
 
 -- Boolean laws.
 postulate

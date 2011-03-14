@@ -2,9 +2,9 @@
 -- Examples of translation of logical schemas
 ------------------------------------------------------------------------------
 
-module Logic.SchemasATP where
+module PredicateLogic.SchemasATP where
 
-open import Logic.Constants
+open import PredicateLogic.Constants
 
 ------------------------------------------------------------------------------
 

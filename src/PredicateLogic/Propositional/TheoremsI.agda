@@ -2,9 +2,9 @@
 -- Propositional logic theorems
 ------------------------------------------------------------------------------
 
-module Logic.Propositional.TheoremsI where
+module PredicateLogic.Propositional.TheoremsI where
 
-open import Logic.Constants
+open import PredicateLogic.Constants
 
 ------------------------------------------------------------------------------
 -- Boolean laws.
