@@ -7,11 +7,11 @@ module Common.LogicalConstants where
 -- This module just exported all the logical constants.
 
 ------------------------------------------------------------------------------
--- The logical connectives
+-- The propositional logical connectives
 
 -- The logical connectives are hard-coded in our translation,
 -- i.e. the symbols ⊥, ⊤, ¬, ∧, ∨, →, and ↔ must be used.
--- For the implication we use the Agda function type.
+-- N.B. For the implication we use the Agda function type.
 open import Common.Data.Empty public using ( ⊥ ; ⊥-elim )
 open import Common.Data.Product public using ( _∧_ ; _,_ ; ∧-proj₁ ; ∧-proj₂ )
 open import Common.Data.Sum public using ( _∨_ ; [_,_] ; inj₁ ; inj₂ )
@@ -33,4 +33,5 @@ P ↔ Q = (P → Q) ∧ (Q → P)
 open import Common.Data.Product public using ( _,_ ; ∃ ; ∃-proj₁ ; ∃-proj₂ )
 
 -- The universal quantifier
--- For the universal quantifier we use the Agda (dependent) function type.
+-- N.B. For the universal quantifier we use the Agda (dependent)
+-- function type.
