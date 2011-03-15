@@ -1,24 +1,24 @@
 module Draft.FixedPoints.Predicates where
 
-open import LTC.Base
+open import FOTC.Base
 
 ------------------------------------------------------------------------------
 
--- The pure (i.e. non-inductive) LTC natural numbers.
+-- The pure (i.e. non-inductive) FOTC natural numbers.
 module Pure where
   postulate
     N  : D → Set
     zN : N zero
-    sN : {n : D} → N n → N (succ n)
+    sN : ∀ {n} → N n → N (succ n)
 
--- The (inductive) LTC natural numbers.
+-- The inductive FOTC natural numbers.
 module Inductive where
 
   data N : D → Set where
     zN : N zero
-    sN : {n : D} → N n → N (succ n)
+    sN : ∀ {n} → N n → N (succ n)
 
--- The (least fixed-point) LTC natural numbers.
+-- The FOT natural numbers as a least fixed-point.
 module LeastFixedPoint where
 
   postulate
@@ -29,7 +29,7 @@ module LeastFixedPoint where
     -- In the first-order version of LTC we cannot use the equality on
     -- predicates
     --
-    -- (i.e. _≣_ : (D → Set) → (D → Set) → Set),
+    -- (i.e. _≡_ : (D → Set) → (D → Set) → Set),
     --
     -- therefore we postulate both directions of the conversion rule
     -- LFP f = f (LFP f).
@@ -39,7 +39,7 @@ module LeastFixedPoint where
   -- Because N is an inductive predicate, we can defined it as the least
   -- fixed-point of an appropriate functor.
 
-  -- The LTC natural numbers functor FN
+  -- The FOTC natural numbers functor FN
 
   -- From Peter: FN if D was an inductive type
   -- FN : (D → Set) → D → Set
@@ -48,9 +48,9 @@ module LeastFixedPoint where
 
   -- From Peter: FN in pure predicate logic
   FN : (D → Set) → D → Set
-  FN X n = n ≡ zero ∨ ∃D λ m → n ≡ succ m ∧ X m
+  FN X n = n ≡ zero ∨ ∃ λ m → n ≡ succ m ∧ X m
 
-  -- The LTC natural numbers using LFP.
+  -- The FOTC natural numbers using LFP.
   N : D → Set
   N = LFP FN
 
