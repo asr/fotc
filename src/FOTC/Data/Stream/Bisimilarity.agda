@@ -20,11 +20,11 @@ postulate
 -- The bisimilarity relation is a post-fixed point of a bisimilar
 -- relation BISI (see below).
 postulate
-  -≈-gfp₁ : ∀ {xs ys} → xs ≈ ys →
-            ∃ λ x' →
-            ∃ λ xs' →
-            ∃ λ ys' → xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
-{-# ATP axiom -≈-gfp₁ #-}
+  ≈-gfp₁ : ∀ {xs ys} → xs ≈ ys →
+             ∃ λ x' →
+             ∃ λ xs' →
+             ∃ λ ys' → xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+{-# ATP axiom ≈-gfp₁ #-}
 
 -- The bisimilarity relation is the greatest post-fixed point of a
 -- bisimilar relation BISI (see below).
@@ -33,13 +33,13 @@ postulate
 -- axiom scheme instead. Therefore, we do not add this postulate as an
 -- ATP axiom.
 postulate
-  -≈-gfp₂ : {_R_ : D → D → Set} →
-            -- R is a post-fixed point of BISI.
-            (∀ {xs ys} → xs R ys →
+  ≈-gfp₂ : {_R_ : D → D → Set} →
+           -- R is a post-fixed point of BISI.
+           (∀ {xs ys} → xs R ys →
               ∃ λ x' →
               ∃ λ xs' →
               ∃ λ ys' → xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
-            -- ≈ is greater than R.
+           -- ≈ is greater than R.
            ∀ {xs ys} → xs R ys → xs ≈ ys
 
 module Bisimulation where
@@ -60,16 +60,16 @@ module Bisimulation where
     ∃ λ x' →
     ∃ λ xs' →
     ∃ λ ys' →
-       xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+      xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 
   -- The bisimilarity relation is a post-fixed point of BISI.
-  -≈→BISI≈ : ∀ {xs ys} → xs ≈ ys → BISI _≈_ xs ys
-  -≈→BISI≈ = -≈-gfp₁
+  ≈→BISI≈ : ∀ {xs ys} → xs ≈ ys → BISI _≈_ xs ys
+  ≈→BISI≈ = ≈-gfp₁
 
   -- The bisimilarity relation is the greatest post-fixed point of BISI.
-  R→BISI-R→R→≈ : {_R_ : D → D → Set} →
-                 -- R is a post-fixed point of BISI.
-                 (∀ {xs ys} → xs R ys → BISI _R_ xs ys) →
-                 -- ≈ is greater than R.
-                 ∀ {xs ys} → xs R ys → xs ≈ ys
-  R→BISI-R→R→≈ = -≈-gfp₂
+  BISI-R→R→≈ : {_R_ : D → D → Set} →
+               -- R is a post-fixed point of BISI.
+               (∀ {xs ys} → xs R ys → BISI _R_ xs ys) →
+               -- ≈ is greater than R.
+               ∀ {xs ys} → xs R ys → xs ≈ ys
+  BISI-R→R→≈ = ≈-gfp₂

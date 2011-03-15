@@ -14,4 +14,3 @@ open import PredicateLogic.Propositional.TheoremsI
 open import PredicateLogic.SchemasATP
 open import PredicateLogic.TheoremsATP
 open import PredicateLogic.TheoremsI
-
