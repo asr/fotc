@@ -34,7 +34,7 @@ succ m * n = n + m * n
 -- We don't traslate the body of functions, only the types. Therefore
 -- we need to feed the ATPs with the functions' equations.
 
--- Addition
+-- Addition axioms
 +-0x : ∀ n → zero + n ≡ n
 +-0x n = refl
 -- {-# ATP hint +-0x #-}
@@ -43,7 +43,7 @@ succ m * n = n + m * n
 +-Sx m n = refl
 {-# ATP hint +-Sx #-}
 
--- Multiplication
+-- Multiplication axioms
 *-0x : ∀ n → zero * n ≡ zero
 *-0x n = refl
 -- {-# ATP hint *-0x #-}
