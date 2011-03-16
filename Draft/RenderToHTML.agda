@@ -4,4 +4,4 @@
 
 module Draft.RenderToHTML where
 
-open import Draft.Mirror.StructurallySmaller
+open import Draft.FOTC.Data.Bool.TestATP
