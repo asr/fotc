@@ -7,7 +7,7 @@ module FOTC.Data.Stream.Bisimilarity.PropertiesI where
 open import FOTC.Base
 open import FOTC.Base.PropertiesI using ( ∷-injective )
 
-open import FOTC.Data.Stream.Bisimilarity using ( _≈_ ; -≈-gfp₁ )
+open import FOTC.Data.Stream.Bisimilarity
 
 ------------------------------------------------------------------------------
 
@@ -15,16 +15,16 @@ x∷xs≈x∷ys→xs≈ys : ∀ {x xs ys} → x ∷ xs ≈ x ∷ ys → xs ≈ y
 x∷xs≈x∷ys→xs≈ys {x} {xs} {ys} x∷xs≈x∷ys = xs≈ys
   where
     x' : D
-    x' = ∃-proj₁ (-≈-gfp₁ x∷xs≈x∷ys)
+    x' = ∃-proj₁ (≈-gfp₁ x∷xs≈x∷ys)
 
     xs' : D
-    xs' = ∃-proj₁ (∃-proj₂ (-≈-gfp₁ x∷xs≈x∷ys))
+    xs' = ∃-proj₁ (∃-proj₂ (≈-gfp₁ x∷xs≈x∷ys))
 
     ys' : D
-    ys' = ∃-proj₁ (∃-proj₂ (∃-proj₂ (-≈-gfp₁ x∷xs≈x∷ys)))
+    ys' = ∃-proj₁ (∃-proj₂ (∃-proj₂ (≈-gfp₁ x∷xs≈x∷ys)))
 
     helper : xs' ≈ ys' ∧ x ∷ xs ≡ x' ∷ xs' ∧ x ∷ ys ≡ x' ∷ ys'
-    helper = ∃-proj₂ (∃-proj₂ (∃-proj₂ (-≈-gfp₁ x∷xs≈x∷ys)))
+    helper = ∃-proj₂ (∃-proj₂ (∃-proj₂ (≈-gfp₁ x∷xs≈x∷ys)))
 
     xs'≈ys' : xs' ≈ ys'
     xs'≈ys' = ∧-proj₁ helper
