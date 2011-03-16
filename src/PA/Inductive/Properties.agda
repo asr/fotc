@@ -5,9 +5,18 @@
 module PA.Inductive.Properties where
 
 open import PA.Inductive.Base
+open import Common.Relation.Nullary
 
 ------------------------------------------------------------------------------
 -- Some proofs are based on the proofs in the standard library.
+
+-- Peano's third axiom.
+P₃ : ∀ {m n} → succ m ≡ succ n → m ≡ n
+P₃ refl = refl
+
+-- Peano's fourth axiom.
+P₄ : ∀ {n} → ¬ (zero ≡ succ n)
+P₄ ()
 
 +-leftIdentity : ∀ n → zero + n ≡ n
 +-leftIdentity n = refl
