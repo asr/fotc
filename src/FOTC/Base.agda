@@ -33,7 +33,7 @@ open import Common.LogicalConstants public
 --   t ::= x    | t t    |
 --      | true  | false  | if t then t else t
 --      | 0     | succ t | pred t             | isZero t
---      | []    | _∷_    | head               | tail
+--      | []    | _∷_    | null               | head     | tail
 --      | error
 
 postulate
@@ -59,6 +59,7 @@ postulate
   -- FOTC lists.
   []   : D
   _∷_  : D → D → D
+  null : D → D
   head : D → D
   tail : D → D
 
@@ -85,6 +86,11 @@ postulate
   isZero-S : ∀ d → isZero (succ d) ≡ false
 {-# ATP axiom isZero-0 #-}
 {-# ATP axiom isZero-S #-}
+
+postulate
+  -- Conversion rules for null.
+  null-[] :          null []       ≡ true
+  null-∷  : ∀ x xs → null (x ∷ xs) ≡ false
 
 postulate
   -- Conversion rule for head.
