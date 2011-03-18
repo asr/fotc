@@ -31,8 +31,7 @@ x && y = if x then y else false
 
 postulate
   &&-Bool : ∀ {x y} → Bool x → Bool y → Bool (x && y)
--- The ATPs couldn't prove this postulate.
--- {-# ATP prove &&-Bool Bool-elim #-}
+{-# ATP prove &&-Bool Bool-elim #-}
 
 &&-Bool₁ : ∀ {x y} → Bool x → Bool y → Bool (x && y)
 &&-Bool₁ {y = y} tB By = prf
