@@ -7,21 +7,26 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module FOL.Primitives ( app, equal ) where
+module FOL.Primitives ( appFn, equal ) where
 
 -- Local imports
 import FOL.Types ( FOLTerm(FOLFun), FOLFormula(Predicate) )
 
 ------------------------------------------------------------------------------
--- This is just an arbitrary constant which we hope doesn't
--- conflict with user constants.
-kApp ∷ String
-kApp = "kApp"
+-- Constant binary function symbol used to translate the functions (we
+-- hope it doesn't conflict with user constants).
 
-app ∷ FOLTerm → FOLTerm → FOLTerm
-app t1 t2 = FOLFun kApp [t1, t2]
+-- The function 'foo x1 ... xn' will be translate to
+-- 'kAppFn (... kAppFn (kAppFn(foo, x1), x2), ..., xn)'.
+
+kAppFn ∷ String
+kAppFn = "kAppFn"
+
+appFn ∷ FOLTerm → FOLTerm → FOLTerm
+appFn t1 t2 = FOLFun kAppFn [t1, t2]
 
 -- This will refer to the predefined equality in the ATPs.
+-- N.B. The name "kEqual" is ***hard-coded*** in the module TPTP.Pretty.
 kEqual ∷ String
 kEqual = "kEqual"
 

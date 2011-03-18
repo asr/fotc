@@ -49,7 +49,7 @@ import FOL.Constants
     ( folTrue, folFalse, folNot, folAnd, folOr
     , folImplies, folEquiv, folExists, folForAll, folEquals
     )
-import FOL.Primitives                ( app, equal )
+import FOL.Primitives                ( appFn, equal )
 import FOL.Translation.Concrete.Name ( concatName )
 import {-# source #-} FOL.Translation.Internal.Types
     ( argTypeToFormula
@@ -406,11 +406,12 @@ termToFormula (Lit _)     = __IMPOSSIBLE__
 termToFormula (MetaV _ _) = __IMPOSSIBLE__
 termToFormula (Sort _)    = __IMPOSSIBLE__
 
--- Translate 'foo x1 ... xn' to 'kApp (... kApp (kApp(foo, x1), x2), ..., xn)'.
-appArgs ∷ String → Args → T FOLTerm
-appArgs fn args = do
+-- Translate the function 'foo x1 ... xn' to
+-- 'kAppFn (... kAppFn(kAppFn(foo, x1), x2), ..., xn)'.
+appArgsFn ∷ String → Args → T FOLTerm
+appArgsFn fn args = do
   termsFOL ← mapM argTermToFOLTerm args
-  return $ foldl' app (FOLFun fn []) termsFOL
+  return $ foldl' appFn (FOLFun fn []) termsFOL
 
 -- Translate an Agda term to an FOL term.
 termToFOLTerm ∷ Term → T FOLTerm
@@ -430,13 +431,13 @@ termToFOLTerm term@(Con (QName _ name) args)  = do
     C.Name _ [C.Id str] →
         case args of
           [] → return $ FOLFun str []
-          _  →  appArgs str args
+          _  →  appArgsFn str args
 
     -- The term Con has holes. It is translated as a FOL function.
     C.Name _ parts →
       case args of
         [] → __IMPOSSIBLE__
-        _  → appArgs (concatName parts) args
+        _  → appArgsFn (concatName parts) args
 
 termToFOLTerm term@(Def (QName _ name) args) = do
   reportSLn "t2t" 10 $ "termToFOLTerm Def:\n" ++ show term
@@ -453,13 +454,13 @@ termToFOLTerm term@(Def (QName _ name) args) = do
     C.Name _ [C.Id str] →
         case args of
           [] → return $ FOLFun str []
-          _  → appArgs str args
+          _  → appArgsFn str args
 
     -- The term Def has holes. It is translated as a FOL function.
     C.Name _ parts →
       case args of
         [] → __IMPOSSIBLE__
-        _  → appArgs (concatName parts) args
+        _  → appArgsFn (concatName parts) args
 
 termToFOLTerm term@(Var n args) = do
   reportSLn "t2t" 10 $ "termToFOLTerm Var:\n" ++ show term
@@ -491,7 +492,7 @@ termToFOLTerm term@(Var n args) = do
 
          varArgs → do
              termsFOL ← mapM argTermToFOLTerm varArgs
-             return $ foldl' app (FOLVar (vars !! fromIntegral n)) termsFOL
+             return $ foldl' appFn (FOLVar (vars !! fromIntegral n)) termsFOL
 
 termToFOLTerm DontCare    = __IMPOSSIBLE__
 termToFOLTerm (Fun _ _)   = __IMPOSSIBLE__
