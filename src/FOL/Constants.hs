@@ -4,7 +4,7 @@
 
 {-# LANGUAGE UnicodeSyntax #-}
 
--- Adapted from agdaLight (Plugins.FOL.Constants)
+-- Adapted from AgdaLight (Plugins.FOL.Constants).
 
 module FOL.Constants
     ( folTrue

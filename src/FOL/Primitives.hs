@@ -1,7 +1,8 @@
 ------------------------------------------------------------------------------
 -- FOL names hard-coded in the translation from Agda types to FOL formulas
 ------------------------------------------------------------------------------
--- Adapted from agdaLight (Plugins.FOL.Primitive).
+
+-- Adapted from AgdaLight (Plugins.FOL.Primitive).
 
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
@@ -20,7 +21,7 @@ kApp = "kApp"
 app ∷ FOLTerm → FOLTerm → FOLTerm
 app t1 t2 = FOLFun kApp [t1, t2]
 
--- This will refer to the predefined equality in the ATP.
+-- This will refer to the predefined equality in the ATPs.
 kEqual ∷ String
 kEqual = "kEqual"
 
