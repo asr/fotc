@@ -49,7 +49,7 @@ import FOL.Constants
     ( folTrue, folFalse, folNot, folAnd, folOr
     , folImplies, folEquiv, folExists, folForAll, folEquals
     )
-import FOL.Primitives                ( appFn, equal )
+import FOL.Primitives ( appFn, appPred1, appPred2, appPred3, appPred4, equal )
 import FOL.Translation.Concrete.Name ( concatName )
 import {-# source #-} FOL.Translation.Internal.Types
     ( argTypeToFormula
@@ -122,9 +122,14 @@ termToFormula term@(Def qName@(QName _ name) args) = do
 
                | isCNameFOLConst folFalse → return FALSE
 
-               | otherwise                → do
-                      folName ← qName2String qName
-                      return $ Predicate folName []
+               | otherwise → do
+                   -- In this guard we translate 0-ary predicates
+                   -- (e.g. P : D → Set).
+
+                   -- N.B. At the moment we *dont'* use the Koen's
+                   -- approach in this case.
+                   folName ← qName2String qName
+                   return $ Predicate folName []
 
             (a:[]) | isCNameFOLConstHoleRight folNot → do
                        f ← argTermToFormula a
@@ -147,12 +152,13 @@ termToFormula term@(Def qName@(QName _ name) args) = do
                           else return $ ForAll freshVar $ \_ → fm
 
                    | otherwise → do
-                      -- In this guard we translate predicates with
-                      -- one argument (e.g. P : D → Set).
-
+                      -- In this guard we translate 1-ary predicates
+                      -- (e.g. P : D → Set). The predicate P x is
+                      -- translate to kAppPred1(p,x), where kAppPred1
+                      -- is a hard-coded 2-ary predicate symbol.
                       t       ← argTermToFOLTerm a
                       folName ← qName2String qName
-                      return $ Predicate folName [t]
+                      return $ appPred1 (FOLFun folName []) t
 
             (a1:a2:[])
                 | isCNameFOLConstTwoHoles folAnd → binConst And a1 a2
@@ -170,18 +176,42 @@ termToFormula term@(Def qName@(QName _ name) args) = do
                     return $ equal t1 t2
 
                 | otherwise → do
-                      reportSLn "t2f" 20 $
-                        "Processing a definition with two arguments which " ++
-                        "is not a FOL constant: " ++ show cName
-                      t1      ← argTermToFOLTerm a1
-                      t2      ← argTermToFOLTerm a2
-                      folName ← qName2String qName
-                      return $ Predicate folName [t1, t2]
+                    -- In this guard we translate 2-ary predicates
+                    -- (e.g. P : D → D → Set). The predicate P x y is
+                    -- translate to kAppPred2(p,x,y), where kAppPred2
+                    -- is a hard-coded 3-ary predicate symbol.
+                    t1 ← argTermToFOLTerm a1
+                    t2 ← argTermToFOLTerm a2
+                    folName ← qName2String qName
+                    return $ appPred2 (FOLFun folName []) t1 t2
 
-            threeOrMore → do
-                      terms   ← mapM argTermToFOLTerm threeOrMore
-                      folName ← qName2String qName
-                      return $ Predicate folName terms
+            (a1:a2:a3:[]) → do
+              -- In this guard we translate 3-ary predicates (e.g. P :
+              -- D → D → D → Set). The predicate P x y z is translate
+              -- to kAppPred3(p,x,y,z), where kAppPred3 is a
+              -- hard-coded 4-ary predicate symbol.
+              t1 ← argTermToFOLTerm a1
+              t2 ← argTermToFOLTerm a2
+              t3 ← argTermToFOLTerm a3
+              folName ← qName2String qName
+              return $ appPred3 (FOLFun folName []) t1 t2 t3
+
+            (a1:a2:a3:a4:[]) → do
+              -- In this guard we translate 4-ary predicates (e.g. P :
+              -- D → D → D → D → Set). The predicate P w x y z is
+              -- translate to kAppPred4(p,w,x,y,z), where kAppPred4 is
+              -- a hard-coded 5-ary predicate symbol.
+              t1 ← argTermToFOLTerm a1
+              t2 ← argTermToFOLTerm a2
+              t3 ← argTermToFOLTerm a3
+              t4 ← argTermToFOLTerm a4
+              folName ← qName2String qName
+              return $ appPred4 (FOLFun folName []) t1 t2 t3 t4
+
+            _ → __IMPOSSIBLE__
+            -- terms   ← mapM argTermToFOLTerm threeOrMore
+            -- folName ← qName2String qName
+            -- return $ Predicate folName terms
 
           where
             isCNameFOLConst ∷ String → Bool
@@ -339,20 +369,18 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
      reportSLn "t2f" 20 $ "The type tyArg is: " ++ show tyArg
      return f2
 
-    -- N.B. The next case is just a generalization to various
-    -- arguments of the previous case.
-
     -- The bounded variable is quantified on a Set₁,
     --
-    -- e.g. the bounded variable is 'P : D → Set',
+    -- e.g. the bounded variable is 'P : D → Set'.
     --
-    -- so we just return the consequent. We use this case for translate
-    -- predicate logic schemas, e.g.
+    -- In this case we return a forall bind on the fresh variable. We
+    -- use this case for translate predicate logic schemas, e.g.
     --
     --   ∨-comm₂ : {P₂ Q₂ : D → D → Set}{x y : D} →
     --             P₂ x y ∨ Q₂ x y → Q₂ x y ∨ P₂ x y
 
-    El (Type (Lit (LitLevel _ 1))) (Fun _ _) → return f2
+    El (Type (Lit (LitLevel _ 1))) (Fun _ _) →
+       return $ ForAll freshVar (\_ → f2)
 
     -- Other cases
     El (Type (Lit (LitLevel _ 1))) (Def _ _)    → __IMPOSSIBLE__
@@ -378,10 +406,8 @@ termToFormula term@(Var n args) = do
      then __IMPOSSIBLE__
      else
        case args of
+         -- N.B. In this case we *don't* use the Koen's approach.
          [] → return $ Predicate (vars !! fromIntegral n) []
-
-         -- N.B. This is similar to the translation in
-         -- termToFOLTerm term@(Var n args).
 
          -- If we have a bounded variable quantified on a function of
          -- a Set to a Set₁, for example, the variable/predicate 'P'
@@ -389,16 +415,29 @@ termToFormula term@(Var n args) = do
          --
          -- (P : D → Set) → (x : D) → P x → P x
          --
-         -- we are quantifying on this variable
+         -- we are quantifying on this variable/function
 
          -- (see termToFormula term@(Pi tyArg (Abs _ tyAbs))),
 
          -- therefore we need to apply this variable/predicate to the
          -- others variables.
 
-         varArgs → do
-           termsFOL ← mapM argTermToFOLTerm varArgs
-           return $ Predicate (vars !! fromIntegral n) termsFOL
+         (v : []) → do
+           t ← argTermToFOLTerm v
+           return $ appPred1 (FOLVar (vars !! fromIntegral n)) t
+
+         (v1 : v2 : []) → do
+           t1 ← argTermToFOLTerm v1
+           t2 ← argTermToFOLTerm v2
+           return $ appPred2 (FOLVar (vars !! fromIntegral n)) t1 t2
+
+         (v1 : v2 : v3 : []) → do
+           t1 ← argTermToFOLTerm v1
+           t2 ← argTermToFOLTerm v2
+           t3 ← argTermToFOLTerm v3
+           return $ appPred3 (FOLVar (vars !! fromIntegral n)) t1 t2 t3
+
+         _ → __IMPOSSIBLE__
 
 termToFormula DontCare    = __IMPOSSIBLE__
 termToFormula (Con _ _)   = __IMPOSSIBLE__
@@ -474,9 +513,6 @@ termToFOLTerm term@(Var n args) = do
      else
        case args of
          [] → return $ FOLVar (vars !! fromIntegral n)
-
-         -- N.B. This is similar to the translation in
-         -- termToFormula term@(Var n args).
 
          -- If we have a bounded variable quantified on a function of
          -- a Set to a Set, for example, the variable/function 'f' in
