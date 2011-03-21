@@ -54,9 +54,8 @@ import Utils.Names                    ( freshName )
 fnToFormula ∷ QName → Type → [Clause] → T FOLFormula
 fnToFormula _      _  []        = __IMPOSSIBLE__
 fnToFormula qName  ty (cl : []) = oneClauseToFormula qName ty cl
-fnToFormula qName  _  _         =
-    throwError $ "In the translating of the symbol " ++ show qName ++
-                 " (the definitions only can have a clause)"
+fnToFormula _      _  _         =
+    throwError $ "The definitions to be translate only can have a clause"
 
 -- A Clause is defined by (Agda.Syntax.Internal)
 -- data Clause = Clause

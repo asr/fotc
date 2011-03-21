@@ -110,5 +110,5 @@ main = do
     Right _ → exitSuccess
     Left  _ → exitFailure
   `catchImpossible` \e → do
-    putStr $ show e
+    hPutStrLn stderr $ show e
     exitFailure

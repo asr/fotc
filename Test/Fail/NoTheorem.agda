@@ -1,4 +1,11 @@
-module Test.Fail.Add where
+------------------------------------------------------------------------------
+-- Error message when the ATPs could not prove a conjecture
+------------------------------------------------------------------------------
+
+module Test.Fail.NoTheorem where
+
+-- Error message (using the option --unproved-conjecture-error):
+-- agda2atp: The ATP(s) ["e","equinox","metis","vampire"] did not prove the conjecture in /tmp/Test.Fail.NoTheorem.43-comm_26.tptp
 
 infix  4 _≡_
 infixl 6 _+_
@@ -20,4 +27,5 @@ postulate
 -- E 1.2 success (SZS status CounterSatisfiable).
 -- Equinox 5.0alpha (2010-03-29) no-success due to timeout.
 -- Metis 2.3 (release 20100920) success (SZS status CounterSatisfiable).
+-- Vampire 0.6 (revision 903): Refutation not found!
 {-# ATP prove +-comm #-}

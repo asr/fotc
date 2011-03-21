@@ -38,7 +38,6 @@ fail_files = $(patsubst %.agda,%, \
 # 		fi \
 # 	done
 
-
 $(succeed_non_conjectures_files) : % : %.agdai
 	@if ! ( $(AGDA2ATP) --only-files $*.agda ); then exit 1; fi
 
@@ -53,8 +52,10 @@ $(succeed_agda_files) : % : %.agdai
 	@if ! ( $(AGDA2ATP) --only-files $*.agda ); then exit 1; fi
 
 $(fail_files) : % : %.agdai
-	@if ! ( $(AGDA2ATP) --time=5 $*.agda ); then \
-		exit 1; \
+	@if ( $(AGDA2ATP) --time=5 \
+                          --unproved-conjecture-error \
+                          $*.agda ); then \
+              exit 1; \
 	fi
 
 # The tests

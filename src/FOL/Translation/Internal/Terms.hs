@@ -10,6 +10,7 @@ module FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
+import Control.Monad.Error ( throwError )
 import Control.Monad.State ( evalState, get, modify )
 import Data.List           ( foldl' )
 
@@ -131,36 +132,37 @@ termToFormula term@(Def qName@(QName _ name) args) = do
                    folName ← qName2String qName
                    return $ Predicate folName []
 
-            (a:[]) | isCNameFOLConstHoleRight folNot → do
-                       f ← argTermToFormula a
-                       return $ Not f
+            (a : [])
+                | isCNameFOLConstHoleRight folNot → do
+                    f ← argTermToFormula a
+                    return $ Not f
 
-                   | isCNameFOLConst folExists ||
-                     isCNameFOLConst folForAll → do
+                | isCNameFOLConst folExists ||
+                  isCNameFOLConst folForAll → do
 
-                       fm ← argTermToFormula a
+                    fm ← argTermToFormula a
 
-                       state ← get
-                       let vars ∷ [String]
-                           vars = tVars state
+                    state ← get
+                    let vars ∷ [String]
+                        vars = tVars state
 
-                       let freshVar ∷ String
-                           freshVar = evalState freshName vars
+                    let freshVar ∷ String
+                        freshVar = evalState freshName vars
 
-                       if isCNameFOLConst folExists
-                          then return $ Exists freshVar $ \_ → fm
-                          else return $ ForAll freshVar $ \_ → fm
+                    if isCNameFOLConst folExists
+                       then return $ Exists freshVar $ \_ → fm
+                       else return $ ForAll freshVar $ \_ → fm
 
-                   | otherwise → do
-                      -- In this guard we translate 1-ary predicates
-                      -- (e.g. P : D → Set). The predicate P x is
-                      -- translate to kAppPred1(p,x), where kAppPred1
-                      -- is a hard-coded 2-ary predicate symbol.
-                      t       ← argTermToFOLTerm a
-                      folName ← qName2String qName
-                      return $ appPred1 (FOLFun folName []) t
+                | otherwise → do
+                    -- In this guard we translate 1-ary predicates
+                    -- (e.g. P : D → Set). The predicate P x is
+                    -- translate to kAppPred1(p,x), where kAppPred1 is
+                    -- a hard-coded 2-ary predicate symbol.
+                    t       ← argTermToFOLTerm a
+                    folName ← qName2String qName
+                    return $ appPred1 (FOLFun folName []) t
 
-            (a1:a2:[])
+            (a1 : a2 : [])
                 | isCNameFOLConstTwoHoles folAnd → binConst And a1 a2
 
                 | isCNameFOLConstTwoHoles folOr → binConst Or a1 a2
@@ -185,7 +187,7 @@ termToFormula term@(Def qName@(QName _ name) args) = do
                     folName ← qName2String qName
                     return $ appPred2 (FOLFun folName []) t1 t2
 
-            (a1:a2:a3:[]) → do
+            (a1 : a2 : a3 : []) → do
               -- In this guard we translate 3-ary predicates (e.g. P :
               -- D → D → D → Set). The predicate P x y z is translate
               -- to kAppPred3(p,x,y,z), where kAppPred3 is a
@@ -196,7 +198,7 @@ termToFormula term@(Def qName@(QName _ name) args) = do
               folName ← qName2String qName
               return $ appPred3 (FOLFun folName []) t1 t2 t3
 
-            (a1:a2:a3:a4:[]) → do
+            (a1 : a2 : a3 : a4 : []) → do
               -- In this guard we translate 4-ary predicates (e.g. P :
               -- D → D → D → D → Set). The predicate P w x y z is
               -- translate to kAppPred4(p,w,x,y,z), where kAppPred4 is
@@ -208,10 +210,9 @@ termToFormula term@(Def qName@(QName _ name) args) = do
               folName ← qName2String qName
               return $ appPred4 (FOLFun folName []) t1 t2 t3 t4
 
-            _ → __IMPOSSIBLE__
-            -- terms   ← mapM argTermToFOLTerm threeOrMore
-            -- folName ← qName2String qName
-            -- return $ Predicate folName terms
+            _ → throwError $
+               "The translation of predicates symbols with arity " ++
+               "greater than or equal to five is not implemented"
 
           where
             isCNameFOLConst ∷ String → Bool
@@ -437,7 +438,17 @@ termToFormula term@(Var n args) = do
            t3 ← argTermToFOLTerm v3
            return $ appPred3 (FOLVar (vars !! fromIntegral n)) t1 t2 t3
 
-         _ → __IMPOSSIBLE__
+         (v1 : v2 : v3 : v4 : []) → do
+           t1 ← argTermToFOLTerm v1
+           t2 ← argTermToFOLTerm v2
+           t3 ← argTermToFOLTerm v3
+           t4 ← argTermToFOLTerm v4
+           return $ appPred4 (FOLVar (vars !! fromIntegral n)) t1 t2 t3 t4
+
+         _ → throwError $
+               "The translation of predicates symbols with arity " ++
+               "greater than or equal to five (used in logical schemas) " ++
+               "is not implemented"
 
 termToFormula DontCare    = __IMPOSSIBLE__
 termToFormula (Con _ _)   = __IMPOSSIBLE__
