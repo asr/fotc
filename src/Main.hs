@@ -46,7 +46,7 @@ import Monad.Base
     , TState(tAllDefs, tOpts)
     )
 import Monad.Options     ( processOptions )
-import Monad.Reports     ( reportS )
+import Monad.Reports     ( reportS, reportSLn )
 import Options           ( Options(optHelp, optVersion) , printUsage )
 import TPTP.Translation  ( conjecturesToAFs, generalRolesToAFs )
 import TPTP.Types        ( ConjectureAFs, GeneralRolesAF )
@@ -73,6 +73,8 @@ translation file = do
 
   let allDefs ∷ AllDefinitions
       allDefs = Map.unions (topLevelDefs : importedDefs)
+
+  reportSLn "translation" 20 $ show allDefs
 
   -- We add allDefs to the state.
   modify $ \s → s { tAllDefs = allDefs }
