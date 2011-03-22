@@ -1,6 +1,6 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
-module Utils.Version ( printVersion ) where
+module Utils.Version ( printVersion , version ) where
 
 -- Haskell imports
 import Data.Version ( showVersion )

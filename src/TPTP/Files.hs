@@ -48,7 +48,8 @@ import TPTP.Types
                     )
     , removeCommonRequiredDefsAF
     )
-import Utils.List ( nonDuplicate )
+import Utils.List    ( nonDuplicate )
+import Utils.Version ( version )
 
 #include "../undefined.h"
 
@@ -83,7 +84,8 @@ conjectureHeader = do
   prgName ← getProgName
   return $
     commentLine ++
-    "% This file was generated automatically by " ++ prgName ++ ".\n" ++
+    "% This file was generated automatically by " ++ prgName ++
+    " version " ++ version ++ ".\n" ++
     commentLineLn
 
 conjectureFooter ∷ String
