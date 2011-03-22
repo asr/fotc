@@ -55,7 +55,7 @@ fnToFormula ∷ QName → Type → [Clause] → T FOLFormula
 fnToFormula _      _  []        = __IMPOSSIBLE__
 fnToFormula qName  ty (cl : []) = oneClauseToFormula qName ty cl
 fnToFormula _      _  _         =
-    throwError $ "The definitions to be translate only can have a clause"
+    throwError "The definitions to be translate only can have a clause"
 
 -- A Clause is defined by (Agda.Syntax.Internal)
 -- data Clause = Clause

@@ -60,7 +60,7 @@ translation ∷ FilePath → T (GeneralRolesAF, [ConjectureAFs])
 translation file = do
   reportS "" 1 $ "Translating " ++ file ++ " ..."
 
-  -- Gettting the interface.
+  -- Gettting the top level interface.
   i ← myReadInterface file
 
   iInterfaces ← getImportedInterfaces i
@@ -74,7 +74,7 @@ translation file = do
   let allDefs ∷ AllDefinitions
       allDefs = Map.unions (topLevelDefs : importedDefs)
 
-  -- We add allDefs to the state
+  -- We add allDefs to the state.
   modify $ \s → s { tAllDefs = allDefs }
 
   liftM2 (,) generalRolesToAFs (conjecturesToAFs topLevelDefs)

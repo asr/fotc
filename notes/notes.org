@@ -24,7 +24,7 @@ type theory he explicitly writes down translations of a number of well
 known theories into type theory, including a translation of first
 order intuitionistic predicate logic using Curry-Howard. This might
 actually be useful to look at, and to cite.
-* About the tool agda2atp
+* About the agda2atp tool
 ** Use
 *** The following symbols are hard-coded, i.e. they should not changed
 FOL false                  : ⊥
@@ -38,7 +38,7 @@ FOL universal quantifier   : ⋀ or the Agda functional space
 FOL existential quantifier : ∃
 FOL equality               : _≡_
 *** Agda version
-The tool agda2atp must be compiled using the same version of Agda that
+The agda2atp tool must be compiled using the same version of Agda that
 is used to generate the Agda interface files.
 * Others
 ** Using reflection.

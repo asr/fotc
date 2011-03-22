@@ -259,7 +259,7 @@ generalHintsToAFs = do
 
   zipWithM (toAF ATPHint) (Map.keys ghDefs) (Map.elems ghDefs)
 
--- We translate the ATP axioms and (general) hints the top level
+-- We translate the ATP axioms and (general) hints from the top level
 -- module and its imported modules. These TPTP roles are common to
 -- every conjecture.
 generalRolesToAFs ∷ T GeneralRolesAF
