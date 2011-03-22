@@ -21,6 +21,8 @@ module AgdaLib.Syntax.DeBruijn
     ) where
 
 -- Haskell imports
+import Control.Monad.Error ( throwError )
+
 import Data.List ( elemIndex )
 
 -- Agda libray imports
@@ -295,10 +297,14 @@ removeReferenceToProofTerm varType index ty =
               (El (Type (Lit (LitLevel _ 0))) (Fun _ _))
          ) → return ty
 
+      -- We don't erase these proofs terms.
       El (Type (Lit (LitLevel _ 0))) someTerm → do
         reportSLn "removeReferenceToProofTerm" 20 $
                   "The term someTerm is: " ++ show someTerm
-        __IMPOSSIBLE__
+        throwError $ "It is necessary to erase a proof term, "++
+                     "but we do know how do it. The internal " ++
+                     "representation of term to be erased is: \n" ++
+                     show someTerm
 
       -- The variable's type is Set₁,
       --
