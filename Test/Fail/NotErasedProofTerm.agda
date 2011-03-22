@@ -4,6 +4,10 @@
 
 module Test.Fail.NotErasedProofTerm where
 
+-- Error message:
+-- agda2atp: It is necessary to erase a proof term, but we do know how do it. The internal representation of term to be erased is:
+-- Pi r(El (Type (Lit (LitLevel  0))) (Def Test.Fail.NotErasedProofTerm.D [])) (Abs "k" El (Type (Lit (LitLevel  0))) (Def Test.Fail.NotErasedProofTerm._≤_ [r(Var 0 []),r(Var 0 [])]))
+
 postulate
   D    : Set
   _≡_  : D → D → Set
