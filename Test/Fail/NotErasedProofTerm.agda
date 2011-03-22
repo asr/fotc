@@ -2,7 +2,7 @@
 -- We do not erase of the proofs terms in the translation
 ------------------------------------------------------------------------------
 
-module Test.Fail.NoEraseProofTerm where
+module Test.Fail.NotErasedProofTerm where
 
 postulate
   D    : Set
