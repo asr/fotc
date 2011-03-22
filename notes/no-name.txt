@@ -12,6 +12,7 @@ $ vampire -t xxx --input_file file_name
 -- Vampire 0.6 (revision 903): (Default) memory limit (using timeout 180 sec).
 -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
 -- Vampire 0.6 (revision 903): Non-tested.
+-- Vampire 0.6 (revision 903): Refutation not found!
 -- Vampire 0.6 (revision 903): Time limit (180 sec).
 
 -- We have not tested which ATPs fail on the ATP conjectures.
