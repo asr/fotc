@@ -2,7 +2,7 @@
 -- Induction principle for N.
 ------------------------------------------------------------------------------
 
-module Draft.FOTC.Data.Nat.Induction where
+module Draft.FOTC.Data.Nat.Induction.Induction where
 
 open import FOTC.Base
 
