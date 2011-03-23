@@ -302,8 +302,8 @@ removeReferenceToProofTerm varType index ty =
         reportSLn "removeReferenceToProofTerm" 20 $
                   "The term someTerm is: " ++ show someTerm
         throwError $ "It is necessary to erase a proof term, "++
-                     "but we do not know how do it. The internal " ++
-                     "representation of term to be erased is: \n" ++
+                     "but we do not know how to do it. The internal " ++
+                     "representation of the term to be erased is: \n" ++
                      show someTerm
 
       -- The variable's type is Set₁,
