@@ -21,8 +21,7 @@ open import FOTC.Data.Nat
 -- Combined proof using an instance of the induction principle.
 indN-instance : (x : D) →
                 N (zero + x) →
-                (∀ {n} → N n → N (n + x) →
-                N (succ n + x) ) →
+                (∀ {n} → N n → N (n + x) → N (succ n + x)) →
                 ∀ {n} → N n → N (n + x)
 indN-instance x = indN (λ i → N (i + x))
 
