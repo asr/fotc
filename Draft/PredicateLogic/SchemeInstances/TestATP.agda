@@ -9,12 +9,11 @@ open import PredicateLogic.Constants
 ------------------------------------------------------------------------------
 
 -- A scheme
--- Current translation: ∀ x. a(x) → b(x), where a and b are fresh
--- predicate names.
+-- Current translation: ∀ p q x. app(p,x) → app(q,x).
 postulate
   scheme : (P Q : D → Set){x : D} → P x → Q x
 
--- Using the current translation, the ATPs cannot prove an instance of
+-- Using the current translation, the ATPs can prove an instance of
 -- the scheme.
 postulate
   d         : D
