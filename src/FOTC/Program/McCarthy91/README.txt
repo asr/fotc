@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
-The McCarthy 91 function
+The McCarthy 91 function: A function with nested recursion
 ------------------------------------------------------------------------------
 
 In this directory we prove some properties of the McCarthy 91 function
