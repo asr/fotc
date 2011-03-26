@@ -3,7 +3,7 @@
 
 # Host directory used by publish
 # Tunneling connection
-root_host_dir = asicard@localhost:tmp/FOT
+root_host_dir = asicard@localhost:code/fotc/FOT
 
 ##############################################################################
 # Programs
