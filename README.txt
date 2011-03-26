@@ -10,10 +10,11 @@ Andrés Sicard-Ramírez.
 Description
 ------------------------------------------------------------------------------
 
-The agda2atp tool is a program for prove first-order formulae written
-in the dependently typed language Agda using first order automatic
-theorem provers (ATPs), via the translation of the Agda formulae to
-the TPTP format which is a standard for input and output for the ATPs.
+The agda2atp tool is a program for proving first order formulae
+written in the dependently typed language Agda using first order
+automatic theorem provers (ATPs), via the translation of the Agda
+formulae to the TPTP format which is a standard for input and output
+for the ATPs.
 
 ------------------------------------------------------------------------------
 Prerequisites

@@ -9,7 +9,7 @@ maintainer:         Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 category:           Dependent types
 synopsis:           Program for prove first-order formulae written in Agda using ATPs
 description:
-  This package provides a program for prove first-order
+  This package provides a program for proving first order
   formulae written in the dependently typed language Agda
   <http://wiki.portal.chalmers.se/agda/pmwiki.php> using (first-order)
   automatic theorem provers (ATPs), via the translation of the Agda
