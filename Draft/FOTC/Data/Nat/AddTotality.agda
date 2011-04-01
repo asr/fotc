@@ -32,11 +32,11 @@ postulate
 -- Combined proof using the induction principle.
 
 -- The translation is
--- ∀ P. app₁(P,zero) →
---      (∀ x. app1(N,x) → app₁(P,x) → app₁(P,succ x)) →   -- indN
---      (∀ x. app₁(N,x) → app₁(P,x))
-------------------------------------------------------------------
--- ∀ x y. app₁(N,x) → app₁(N,y) → app₁(N, x + y)          -- +-N₂
+-- ∀ p. app₁(p,zero) →
+--      (∀ x. app₁(n,x) → app₁(n,x) → app₁(n,appFn(succ,x))) →   -- indN
+--      (∀ x. app₁(n,x) → app₁(p,x))
+----------------------------------------------------------------
+-- ∀ x y. app₁(n,x) → app₁(n,y) → app₁(n,appFn(appFn(+,x),y))    -- +-N₂
 
 postulate
   +-N₂ : ∀ {m n} → N m → N n → N (m + n)
