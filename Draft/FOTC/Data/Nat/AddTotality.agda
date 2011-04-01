@@ -28,3 +28,9 @@ indN-instance x = indN (λ i → N (i + x))
 postulate
   +-N₁ : ∀ {m n} → N m → N n → N (m + n)
 {-# ATP prove +-N₁ indN-instance #-}
+
+-- Combined proof using the induction principle.
+postulate
+  +-N₂ : ∀ {m n} → N m → N n → N (m + n)
+-- The ATPs could not prove this postulate.
+{-# ATP prove +-N₂ indN #-}
