@@ -50,7 +50,7 @@ import FOL.Constants
     ( folTrue, folFalse, folNot, folAnd, folOr
     , folImplies, folEquiv, folExists, folForAll, folEquals
     )
-import FOL.Primitives ( appFn, appPred1, appPred2, appPred3, appPred4, equal )
+import FOL.Primitives ( appFn, appP1, appP2, appP3, appP4, equal )
 import FOL.Translation.Concrete.Name ( concatName )
 import {-# source #-} FOL.Translation.Internal.Types
     ( argTypeToFormula
@@ -156,11 +156,11 @@ termToFormula term@(Def qName@(QName _ name) args) = do
                 | otherwise → do
                     -- In this guard we translate 1-ary predicates
                     -- (e.g. P : D → Set). The predicate P x is
-                    -- translate to kAppPred1(p,x), where kAppPred1 is
-                    -- a hard-coded 2-ary predicate symbol.
+                    -- translate to kAppP1(p,x), where kAppP1 is a
+                    -- hard-coded 2-ary predicate symbol.
                     t       ← argTermToFOLTerm a
                     folName ← qName2String qName
-                    return $ appPred1 (FOLFun folName []) t
+                    return $ appP1 (FOLFun folName []) t
 
             (a1 : a2 : [])
                 | isCNameFOLConstTwoHoles folAnd → binConst And a1 a2
@@ -180,35 +180,35 @@ termToFormula term@(Def qName@(QName _ name) args) = do
                 | otherwise → do
                     -- In this guard we translate 2-ary predicates
                     -- (e.g. P : D → D → Set). The predicate P x y is
-                    -- translate to kAppPred2(p,x,y), where kAppPred2
-                    -- is a hard-coded 3-ary predicate symbol.
+                    -- translate to kAppP2(p,x,y), where kAppP2 is a
+                    -- hard-coded 3-ary predicate symbol.
                     t1 ← argTermToFOLTerm a1
                     t2 ← argTermToFOLTerm a2
                     folName ← qName2String qName
-                    return $ appPred2 (FOLFun folName []) t1 t2
+                    return $ appP2 (FOLFun folName []) t1 t2
 
             (a1 : a2 : a3 : []) → do
               -- In this guard we translate 3-ary predicates (e.g. P :
               -- D → D → D → Set). The predicate P x y z is translate
-              -- to kAppPred3(p,x,y,z), where kAppPred3 is a
-              -- hard-coded 4-ary predicate symbol.
+              -- to kAppP3(p,x,y,z), where kAppP3 is a hard-coded
+              -- 4-ary predicate symbol.
               t1 ← argTermToFOLTerm a1
               t2 ← argTermToFOLTerm a2
               t3 ← argTermToFOLTerm a3
               folName ← qName2String qName
-              return $ appPred3 (FOLFun folName []) t1 t2 t3
+              return $ appP3 (FOLFun folName []) t1 t2 t3
 
             (a1 : a2 : a3 : a4 : []) → do
               -- In this guard we translate 4-ary predicates (e.g. P :
               -- D → D → D → D → Set). The predicate P w x y z is
-              -- translate to kAppPred4(p,w,x,y,z), where kAppPred4 is
-              -- a hard-coded 5-ary predicate symbol.
+              -- translate to kAppP4(p,w,x,y,z), where kAppP4 is a
+              -- hard-coded 5-ary predicate symbol.
               t1 ← argTermToFOLTerm a1
               t2 ← argTermToFOLTerm a2
               t3 ← argTermToFOLTerm a3
               t4 ← argTermToFOLTerm a4
               folName ← qName2String qName
-              return $ appPred4 (FOLFun folName []) t1 t2 t3 t4
+              return $ appP4 (FOLFun folName []) t1 t2 t3 t4
 
             _ → throwError $
                "The translation of predicates symbols with arity " ++
@@ -425,25 +425,25 @@ termToFormula term@(Var n args) = do
 
          (v : []) → do
            t ← argTermToFOLTerm v
-           return $ appPred1 (FOLVar (vars !! fromIntegral n)) t
+           return $ appP1 (FOLVar (vars !! fromIntegral n)) t
 
          (v1 : v2 : []) → do
            t1 ← argTermToFOLTerm v1
            t2 ← argTermToFOLTerm v2
-           return $ appPred2 (FOLVar (vars !! fromIntegral n)) t1 t2
+           return $ appP2 (FOLVar (vars !! fromIntegral n)) t1 t2
 
          (v1 : v2 : v3 : []) → do
            t1 ← argTermToFOLTerm v1
            t2 ← argTermToFOLTerm v2
            t3 ← argTermToFOLTerm v3
-           return $ appPred3 (FOLVar (vars !! fromIntegral n)) t1 t2 t3
+           return $ appP3 (FOLVar (vars !! fromIntegral n)) t1 t2 t3
 
          (v1 : v2 : v3 : v4 : []) → do
            t1 ← argTermToFOLTerm v1
            t2 ← argTermToFOLTerm v2
            t3 ← argTermToFOLTerm v3
            t4 ← argTermToFOLTerm v4
-           return $ appPred4 (FOLVar (vars !! fromIntegral n)) t1 t2 t3 t4
+           return $ appP4 (FOLVar (vars !! fromIntegral n)) t1 t2 t3 t4
 
          _ → throwError $
                "The translation of predicates symbols with arity " ++

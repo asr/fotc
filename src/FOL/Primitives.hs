@@ -9,7 +9,7 @@
 
 module FOL.Primitives
     ( appFn
-    , appPred1, appPred2, appPred3, appPred4
+    , appP1, appP2, appP3, appP4
     , equal
     ) where
 
@@ -30,36 +30,36 @@ appFn ∷ FOLTerm → FOLTerm → FOLTerm
 appFn t1 t2 = FOLFun kAppFn [t1, t2]
 
 -- Constant binary predicate symbol used to translate the monadic predicates.
--- The predicate 'P x' will be translate to 'kAppPred1(p, x).
-kAppPred1 ∷ String
-kAppPred1 = "kAppPred1"
+-- The predicate 'P x' will be translate to 'kAppP1(p, x).
+kAppP1 ∷ String
+kAppP1 = "kAppP1"
 
-appPred1 ∷ FOLTerm → FOLTerm → FOLFormula
-appPred1 p t = Predicate kAppPred1 [p, t]
+appP1 ∷ FOLTerm → FOLTerm → FOLFormula
+appP1 p t = Predicate kAppP1 [p, t]
 
 -- Constant 3-ary predicate symbol used to translate the binary predicates.
--- The predicate 'P x y' will be translate to 'kAppPred2(p, x, y).
-kAppPred2 ∷ String
-kAppPred2 = "kAppPred2"
+-- The predicate 'P x y' will be translate to 'kAppP2(p, x, y).
+kAppP2 ∷ String
+kAppP2 = "kAppP2"
 
-appPred2 ∷ FOLTerm → FOLTerm → FOLTerm → FOLFormula
-appPred2 p t1 t2 = Predicate kAppPred2 [p, t1, t2]
+appP2 ∷ FOLTerm → FOLTerm → FOLTerm → FOLFormula
+appP2 p t1 t2 = Predicate kAppP2 [p, t1, t2]
 
 -- Constant 4-ary predicate symbol used to translate the 3-ary predicates.
--- The predicate 'P x y z' will be translate to 'kAppPred3(p, x, y, z).
-kAppPred3 ∷ String
-kAppPred3 = "kAppPred3"
+-- The predicate 'P x y z' will be translate to 'kAppP3(p, x, y, z).
+kAppP3 ∷ String
+kAppP3 = "kAppP3"
 
-appPred3 ∷ FOLTerm → FOLTerm → FOLTerm → FOLTerm → FOLFormula
-appPred3 p t1 t2 t3 = Predicate kAppPred3 [p, t1, t2, t3]
+appP3 ∷ FOLTerm → FOLTerm → FOLTerm → FOLTerm → FOLFormula
+appP3 p t1 t2 t3 = Predicate kAppP3 [p, t1, t2, t3]
 
 -- Constant 5-ary predicate symbol used to translate the 4-ary predicates.
--- The predicate 'P w x y z' will be translate to 'kAppPred4(p, w, x, y, z).
-kAppPred4 ∷ String
-kAppPred4 = "kAppPred4"
+-- The predicate 'P w x y z' will be translate to 'kAppP4(p, w, x, y, z).
+kAppP4 ∷ String
+kAppP4 = "kAppP4"
 
-appPred4 ∷ FOLTerm → FOLTerm → FOLTerm → FOLTerm → FOLTerm → FOLFormula
-appPred4 p t1 t2 t3 t4 = Predicate kAppPred4 [p, t1, t2, t3, t4]
+appP4 ∷ FOLTerm → FOLTerm → FOLTerm → FOLTerm → FOLTerm → FOLFormula
+appP4 p t1 t2 t3 t4 = Predicate kAppP4 [p, t1, t2, t3, t4]
 
 -- This will refer to the predefined equality in the ATPs.
 -- N.B. The name "kEqual" is ***hard-coded*** in the module TPTP.Pretty.
