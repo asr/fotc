@@ -2,7 +2,7 @@
 -- Testing
 ------------------------------------------------------------------------------
 
-module Draft.FOTC.Data.Bool.TestATP where
+module Draft.FOTC.Data.Bool.AndTotality where
 
 open import FOTC.Base
 
