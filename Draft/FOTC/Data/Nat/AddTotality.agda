@@ -33,7 +33,7 @@ postulate
 
 -- The translation is
 -- ∀ p. app₁(p,zero) →
---      (∀ x. app₁(n,x) → app₁(n,x) → app₁(n,appFn(succ,x))) →   -- indN
+--      (∀ x. app₁(n,x) → app₁(p,x) → app₁(p,appFn(succ,x))) →   -- indN
 --      (∀ x. app₁(n,x) → app₁(p,x))
 ----------------------------------------------------------------
 -- ∀ x y. app₁(n,x) → app₁(n,y) → app₁(n,appFn(appFn(+,x),y))    -- +-N₂
