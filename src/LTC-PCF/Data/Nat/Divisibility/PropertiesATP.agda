@@ -29,13 +29,13 @@ open import LTC-PCF.Data.Nat.PropertiesATP
 ------------------------------------------------------------------------------
 -- Any positive number divides 0.
 postulate S∣0 : ∀ {n} → N n →  succ n ∣ zero
-{-# ATP prove S∣0 *-0x #-}  -- Use the hint zN.
+{-# ATP prove S∣0 *-0x #-}
 
 -- The divisibility relation is reflexive for positive numbers.
 -- For the proof using the ATP we added the helper hypothesis
 -- N (succ zero).
 postulate ∣-refl-S-ah : ∀ {n} → N n → N (succ zero) → succ n ∣ succ n
-{-# ATP prove ∣-refl-S-ah *-leftIdentity #-}  -- Use the hint sN.
+{-# ATP prove ∣-refl-S-ah *-leftIdentity #-}
 
 ∣-refl-S : ∀ {n} → N n → succ n ∣ succ n
 ∣-refl-S Nn = ∣-refl-S-ah Nn (sN zN)
@@ -47,7 +47,7 @@ postulate
                      o ≡ k₂ * succ m →
                      n ∸ o ≡ (k₁ ∸ k₂) * succ m
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-{-# ATP prove x∣y→x∣z→x∣y∸z-ah *∸-leftDistributive #-}  -- Use the hint sN.
+{-# ATP prove x∣y→x∣z→x∣y∸z-ah *∸-leftDistributive #-}
 
 x∣y→x∣z→x∣y∸z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n ∸ o
 x∣y→x∣z→x∣y∸z zN _ _ (0≠0 , _) m∣o = ⊥-elim $ 0≠0 refl
@@ -66,7 +66,7 @@ postulate
                       o ≡ k₂ * succ m →
                       n + o ≡ (k₁ + k₂) * succ m
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-{-# ATP prove x∣y→x∣z→x∣y+z-ah *+-leftDistributive #-}  -- Use the hint sN.
+{-# ATP prove x∣y→x∣z→x∣y+z-ah *+-leftDistributive #-}
 
 x∣y→x∣z→x∣y+z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n + o
 x∣y→x∣z→x∣y+z zN      _  _ (0≠0 , _) m∣o = ⊥-elim $ 0≠0 refl
@@ -81,7 +81,7 @@ x∣y→x∣z→x∣y+z (sN Nm) Nn No
 -- If x divides y, and y is positive, then x ≤ y.
 postulate
   x∣S→x≤S-ah₁ : ∀ {m n} → succ n ≡ zero * succ m → ⊥
-{-# ATP prove x∣S→x≤S-ah₁ *-leftZero *-0x #-}  -- Use the hint sN.
+{-# ATP prove x∣S→x≤S-ah₁ *-leftZero *-0x #-}
 
 -- Nice proof by the ATP.
 postulate
@@ -89,7 +89,7 @@ postulate
                 succ n ≡ succ o * succ m →
                 LE (succ m) (succ n)
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-{-# ATP prove x∣S→x≤S-ah₂ x≤x+y *-N *-Sx #-}  -- Use the hint sN.
+{-# ATP prove x∣S→x≤S-ah₂ x≤x+y *-N *-Sx #-}
 
 x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ n) → LE m (succ n)
 x∣S→x≤S  zN     Nn (0≠0 , _)                  = ⊥-elim $ 0≠0 refl

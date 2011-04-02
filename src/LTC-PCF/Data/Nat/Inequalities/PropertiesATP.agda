@@ -205,7 +205,7 @@ x∸y<Sx (sN {m} Nm) (sN {n} Nn) = prf $ x∸y<Sx Nm Nn
     postulate prf : LT (m ∸ n) (succ m) →  -- IH.
                     LT (succ m ∸ succ n) (succ (succ m))
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    {-# ATP prove prf <-trans ∸-N x<Sx ∸-SS #-}  -- Use the hint sN.
+    {-# ATP prove prf <-trans ∸-N x<Sx ∸-SS #-}
 
 postulate
   Sx∸Sy<Sx : ∀ {m n} → N m → N n → LT (succ m ∸ succ n) (succ m)
@@ -216,7 +216,7 @@ x>y→x∸y+y≡x zN Nn 0>n = ⊥-elim $ 0>x→⊥ Nn 0>n
 x>y→x∸y+y≡x (sN {m} Nm) zN Sm>0 = prf
   where
     postulate prf : (succ m ∸ zero) + zero ≡ succ m
-    {-# ATP prove prf +-rightIdentity ∸-N ∸-x0 #-}  -- Use the hints zN and sN.
+    {-# ATP prove prf +-rightIdentity ∸-N ∸-x0 #-}
 
 x>y→x∸y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn = prf $ x>y→x∸y+y≡x Nm Nn m>n
   where
@@ -226,7 +226,7 @@ x>y→x∸y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn = prf $ x>y→x∸y+y≡x Nm Nn 
     postulate prf : (m ∸ n) + n ≡ m →  -- IH.
                     (succ m ∸ succ n) + succ n ≡ succ m
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    {-# ATP prove prf +-comm ∸-N +-Sx ∸-SS <-SS #-}  -- Use the hint sN.
+    {-# ATP prove prf +-comm ∸-N +-Sx ∸-SS <-SS #-}
 
 x≤y→y∸x+x≡y : ∀ {m n} → N m → N n → LE m n → (n ∸ m) + m ≡ n
 x≤y→y∸x+x≡y {n = n} zN Nn 0≤n  = prf
@@ -244,7 +244,7 @@ x≤y→y∸x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn = prf $ x≤y→y∸x+x≡y 
     postulate prf : (n ∸ m) + m ≡ n →  -- IH.
                     (succ n ∸ succ m) + succ m ≡ succ n
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    {-# ATP prove prf +-comm ∸-N +-Sx ∸-SS <-SS #-}  -- Use the hint sN.
+    {-# ATP prove prf +-comm ∸-N +-Sx ∸-SS <-SS #-}
 
 x<y→x<Sy : ∀ {m n} → N m → N n → LT m n → LT m (succ n)
 x<y→x<Sy Nm          zN          m<0   = ⊥-elim $ x<0→⊥ Nm m<0
@@ -296,12 +296,12 @@ postulate
 
 postulate
   Sxy₁<0y₂→⊥ : ∀ {m n₁ n₂} → N m → N n₁ → N n₂ → ¬ (LT₂ (succ m) n₁ zero n₂)
-{-# ATP prove Sxy₁<0y₂→⊥ x<0→⊥ #-}  -- Use the hint sN.
+{-# ATP prove Sxy₁<0y₂→⊥ x<0→⊥ #-}
 
 postulate
   0Sx<00→⊥ : ∀ {m} → N m → ¬ (LT₂ zero (succ m) zero zero)
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-{-# ATP prove 0Sx<00→⊥ x<0→⊥ #-}  -- Use the hint sN.
+{-# ATP prove 0Sx<00→⊥ x<0→⊥ #-}
 
 postulate
   x₁y<x₂0→x₁<x₂ : ∀ {m₁ n m₂} → N m₁ → N n → N m₂ → LT₂ m₁ n m₂ zero →
@@ -321,11 +321,11 @@ postulate
   where
     postulate prf : LT₂ (succ m ∸ succ n) (succ n) (succ m) (succ n)
     -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    {-# ATP prove prf Sx∸Sy<Sx #-}  -- Use the hint sN.
+    {-# ATP prove prf Sx∸Sy<Sx #-}
 
 [Sx,Sy∸Sx]<[Sx,Sy] : ∀ {m n} → N m → N n →
                      LT₂ (succ m) (succ n ∸ succ m) (succ m) (succ n)
 [Sx,Sy∸Sx]<[Sx,Sy] {m} {n} Nm Nn = prf
   where
     postulate prf : LT₂ (succ m) (succ n ∸ succ m) (succ m) (succ n)
-    {-# ATP prove prf sN Sx∸Sy<Sx #-}  -- Use the hint sN.
+    {-# ATP prove prf sN Sx∸Sy<Sx #-}

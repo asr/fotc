@@ -14,8 +14,8 @@ open import FOTC.Base
 data N : D → Set where
   zN :               N zero
   sN : ∀ {n} → N n → N (succ n)
-{-# ATP hint zN #-}
-{-# ATP hint sN #-}
+{-# ATP axiom zN #-}
+{-# ATP axiom sN #-}
 
 -- Induction principle for N (elimination rule).
 indN : (P : D → Set) →

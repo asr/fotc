@@ -31,13 +31,13 @@ open import FOTC.Program.GCD.GCD using ( gcd )
 -- The 'gcd 0 (succ n)' is N.
 postulate
   gcd-0S-N : ∀ {n} → N n → N (gcd zero (succ n))
-{-# ATP prove gcd-0S-N #-}  -- Use the hint sN.
+{-# ATP prove gcd-0S-N #-}
 
 ------------------------------------------------------------------------------
 -- The 'gcd (succ n) 0' is N.
 postulate
   gcd-S0-N : ∀ {n} → N n → N (gcd (succ n) zero)
-{-# ATP prove gcd-S0-N #-}  -- Use the hint sN.
+{-# ATP prove gcd-S0-N #-}
 
 ------------------------------------------------------------------------------
 -- The 'gcd (succ m) (succ n)' when 'succ m > succ n' is N.

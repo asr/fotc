@@ -11,7 +11,7 @@ infixr 4 _∨_
 -- The disjunction data type.
 
 -- It is not necessary to add the data constructors inj₁ and inj₂ as
--- (general/local) hints because the ATPs implement them.
+-- axioms because the ATPs implement them.
 data _∨_ (A B : Set) : Set where
   inj₁ : A → A ∨ B
   inj₂ : B → A ∨ B

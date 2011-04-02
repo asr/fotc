@@ -14,7 +14,7 @@ infixr 5 _∧_
 -- The conjunction data type.
 
 -- It is not necessary to add the data constructor _,_ as an
--- (general/local) hint because the ATPs implement it.
+-- axiom because the ATPs implement it.
 data _∧_ (A B : Set) : Set where
   _,_ : A → B → A ∧ B
 

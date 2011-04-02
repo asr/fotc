@@ -18,7 +18,7 @@ infix 7 _∣_
 
 -- data _∣_ : D → D → Set where
 --   ∣-i : ∀ {m n} → ∃D λ k → n ≡ k * succ m → succ m ∣ n
--- {-# ATP hint ∣-i #-}
+-- {-# ATP axiom ∣-i #-}
 
 -- The relation of divisibility.
 -- The symbol is '\mid' not '|'.

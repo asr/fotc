@@ -31,9 +31,9 @@ data Tree : D → Set where
   nilT  :                                         Tree nilTree
   tipT  : ∀ {i} → N i →                           Tree (tip i)
   nodeT : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ → Tree (node t₁ i t₂)
-{-# ATP hint nilT #-}
-{-# ATP hint tipT #-}
-{-# ATP hint nodeT #-}
+{-# ATP axiom nilT #-}
+{-# ATP axiom tipT #-}
+{-# ATP axiom nodeT #-}
 
 ------------------------------------------------------------------------------
 -- Inequalites on lists and trees
