@@ -192,6 +192,11 @@ isATPAxiom def =
                     Just _                  → __IMPOSSIBLE__
                     Nothing                 → False
 
+       Constructor{} → case conATP defn of
+                          Just ATPAxiom → True
+                          Just _        → __IMPOSSIBLE__
+                          Nothing       → False
+
        _       → False
 
 isATPConjecture ∷ Definition → Bool
@@ -225,11 +230,6 @@ isATPHint def =
   let defn ∷ Defn
       defn = theDef def
   in case defn of
-       Constructor{} → case conATP defn of
-                          Just ATPHint → True
-                          Just _       → __IMPOSSIBLE__
-                          Nothing      → False
-
        Function{}    → case funATP defn of
                           Just ATPDefinition → False
                           Just ATPHint       → True
