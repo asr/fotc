@@ -1,6 +1,5 @@
 module LTC where
 
-
 module Core where
 
 {-
@@ -12,7 +11,6 @@ LTC                              Agda
 * Term language                  * Postulates
 * Inductive predicates           * Inductive families
 -}
-
 
 -- Fixity declarations (precedence level and associativity)
 -- Agda default: infix 20
@@ -141,7 +139,6 @@ postulate
   -- Conversion rule for the abstraction and the application
   beta : (f : D -> D)(a : D) -> (λ f) ` a == f a
 
-
 --------------------------------------------------------------
 -- Inductive predicate for natural numbers : Inductive family
 --------------------------------------------------------------
@@ -173,7 +170,6 @@ module Recursive-Functions-LTC where
   open module ER-Recursive-Functions-LTC =
               Equality-Reasoning (_==_ {D}) ==-refl ==-trans
 
-
    ------------------------------------------------------------------------
   -- Remark: We are using Agda's definitional equality '=' as
   -- LTC's definitional equality
@@ -184,7 +180,6 @@ module Recursive-Functions-LTC where
   infixl 70 _*_
   infixl 60 _+_ _-_
 
-
   _+_ : D -> D -> D
   m + n = rec# n m (\x y -> suc# y)
 
@@ -194,7 +189,6 @@ module Recursive-Functions-LTC where
 
   pred : D -> D
   pred n = rec# n zero# (\x y -> x)
-
 
   -- m - 0        = m
   -- m - (succ n) = pred (m - n)
@@ -207,7 +201,6 @@ module Recursive-Functions-LTC where
   isZero : D -> D
   isZero n = rec# n true# (\x y -> false#)
 
-
   -- The function 'equi n' return a function which establish if an
   -- argument 'm' is equal to 'n'
   -- equi zero     = \m -> isZero m
@@ -218,7 +211,6 @@ module Recursive-Functions-LTC where
   equi : D -> D
   equi n = rec# n  (λ (\m -> isZero m))
                (\x y -> λ (\m -> rec# m  false#  (\m' z -> y ` m')))
-
 
   -- equality on N#
   eq : D -> D -> D
@@ -233,5 +225,3 @@ module Recursive-Functions-LTC where
   -- inequality on N#
   gt : D -> D -> D
   gt m n = lt n m
-
-
