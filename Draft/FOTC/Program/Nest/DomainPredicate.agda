@@ -24,18 +24,17 @@ postulate
 -- nest-N zN          = subst N (sym nest-0) zN
 -- nest-N (sN {n} Nn) = subst N (sym (nest-S n)) (nest-N (nest-N Nn))
 
-mutual
-  -- The domain predicate of the nest function.
-  data DomNest : (n : D) → N n → Set where
-    dom0 : DomNest zero zN
-    domS : ∀ {n} → (Nn : N n) →
-                   (h₁ : DomNest n Nn) →
-                   (h₂ : DomNest (nest n) (nest-N Nn h₁)) →
-                   DomNest (succ n) (sN Nn)
+data Dom : D → Set where
+  dom0 :                              Dom zero
+  domS : ∀ d → Dom d → Dom (nest d) → Dom (succ d)
 
-  -- The nest function is total (via structural recursion in the
-  -- domain predicate).
-  nest-N : ∀ {n} → (Nn : N n) → DomNest n Nn → N (nest n)
-  nest-N .zN dom0                     = subst N (sym nest-0) zN
-  nest-N .(sN Nn) (domS {n} Nn h₁ h₂) =
-    subst N (sym (nest-S n)) (nest-N (nest-N Nn h₁) h₂)
+-- The domain predicate is total.
+dom-N : ∀ d → Dom d → N d
+dom-N .zero     dom0           = zN
+dom-N .(succ d) (domS d h₁ h₂) = sN (dom-N d h₁)
+
+-- The nest function is total (via structural recursion in the domain
+-- predicate).
+nest-N : ∀ {d} → Dom d → N (nest d)
+nest-N dom0           = subst N (sym nest-0) zN
+nest-N (domS d h₁ h₂) = subst N (sym (nest-S d)) (nest-N h₂)
