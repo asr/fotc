@@ -28,6 +28,14 @@ data Dom : D → Set where
   dom0 :                              Dom zero
   domS : ∀ d → Dom d → Dom (nest d) → Dom (succ d)
 
+-- Inductive principle associated to the domain predicate.
+indDom : (P : D → Set) →
+         P zero →
+         (∀ {d} → Dom d → P d → Dom (nest d) → P (nest d) → P (succ d)) →
+         ∀ {d} → Dom d → P d
+indDom P P0 ih dom0           = P0
+indDom P P0 ih (domS d h₁ h₂) = ih h₁ (indDom P P0 ih h₁) h₂ (indDom P P0 ih h₂)
+
 -- The domain predicate is total.
 dom-N : ∀ d → Dom d → N d
 dom-N .zero     dom0           = zN
