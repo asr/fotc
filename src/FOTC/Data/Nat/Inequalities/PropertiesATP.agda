@@ -130,6 +130,10 @@ x<Sy→x≤y : ∀ {m n} → N m → N n → LT m (succ n) → LE m n
 x<Sy→x≤y zN Nn 0<Sn       = 0≤x Nn
 x<Sy→x≤y (sN Nm) Nn Sm<Sn = Sm<Sn
 
+x≤y→x<Sy : ∀ {m n} → N m → N n → LE m n → LT m (succ n)
+x≤y→x<Sy {n = n} zN      Nn 0≤n  = <-0S n
+x≤y→x<Sy         (sN Nm) Nn Sm≤n = Sm≤n
+
 x≤Sx : ∀ {m} → N m → LE m (succ m)
 x≤Sx Nm = x<y→x≤y Nm (sN Nm) (x<Sx Nm)
 
