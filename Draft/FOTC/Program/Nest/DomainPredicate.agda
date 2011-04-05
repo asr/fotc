@@ -38,11 +38,31 @@ dom-N : ∀ d → Dom d → N d
 dom-N .zero     dom0           = zN
 dom-N .(succ d) (domS d h₁ h₂) = sN (dom-N d h₁)
 
+nest-x≡0 : ∀ {n} → N n → nest n ≡ zero
+nest-x≡0 zN      = nest-0
+nest-x≡0 (sN {n} Nn) =
+  begin
+    nest (succ n)
+      ≡⟨ nest-S n ⟩
+    nest (nest n)
+      ≡⟨ subst (λ t → nest (nest n) ≡ nest t)
+               (nest-x≡0 Nn)  -- IH.
+               refl
+      ⟩
+    nest zero
+      ≡⟨ nest-0 ⟩
+    zero
+  ∎
+
 -- The nest function is total in its domain (via structural recursion
 -- in the domain predicate).
-nest-N : ∀ {d} → Dom d → N (nest d)
-nest-N dom0           = subst N (sym nest-0) zN
-nest-N (domS d h₁ h₂) = subst N (sym (nest-S d)) (nest-N h₂)
+nest-DN : ∀ {d} → Dom d → N (nest d)
+nest-DN dom0           = subst N (sym nest-0) zN
+nest-DN (domS d h₁ h₂) = subst N (sym (nest-S d)) (nest-DN h₂)
+
+-- The nest function is total.
+nest-N : ∀ {n} → N n → N (nest n)
+nest-N Nn = subst N (sym (nest-x≡0 Nn)) zN
 
 nest-≤ : ∀ {n} → N n → Dom n → LE (nest n) n
 nest-≤ Nz dom0           =
@@ -58,7 +78,7 @@ nest-≤ Nz dom0           =
   ∎
 
 nest-≤ NSn (domS n h₁ h₂) =
-  ≤-trans (nest-N (domS n h₁ h₂)) (nest-N h₁) NSn prf₁ prf₂
+  ≤-trans (nest-N (sN (dom-N n h₁))) (nest-N (dom-N n h₁)) NSn prf₁ prf₂
     where
       Nn : N n
       Nn = dom-N n h₁
@@ -77,7 +97,7 @@ nest-≤ NSn (domS n h₁ h₂) =
           ∎
 
       prf₂ : LE (nest n) (succ n)
-      prf₂ = ≤-trans (nest-N h₁) Nn NSn (nest-≤ Nn h₁) (x≤Sx Nn)
+      prf₂ = ≤-trans (nest-N (dom-N n h₁)) Nn NSn (nest-≤ Nn h₁) (x≤Sx Nn)
 
 N→Dom : ∀ {n} → N n → Dom n
 N→Dom = wfInd-LT P ih
@@ -88,7 +108,7 @@ N→Dom = wfInd-LT P ih
     ih : ∀ {x} → N x → (∀ {y} → N y → LT y x → P y) → P x
     ih zN          h = dom0
     ih (sN {x} Nx) h =
-      domS x dn-x (h (nest-N dn-x) (x≤y→x<Sy (nest-N dn-x) Nx (nest-≤ Nx dn-x)))
+      domS x dn-x (h (nest-N Nx ) (x≤y→x<Sy (nest-N Nx) Nx (nest-≤ Nx dn-x)))
       where
         dn-x : Dom x
         dn-x = h Nx (x<Sx Nx)
