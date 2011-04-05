@@ -169,6 +169,10 @@ all_publish : publish_Common \
 ##############################################################################
 # Other stuff
 
+dependency_graph : src/FOTC/Program/GCD/ProofSpecificationATP.agda
+	$(AGDA_FOT) --dependency-graph=/tmp/dependency-graph-gcd.gv $<
+	dot -Tps /tmp/dependency-graph-gcd.gv > /tmp/dependency-graph-gcd.ps
+
 TODO :
 	@find src/ -name '*.agda' | xargs grep TODO
 
