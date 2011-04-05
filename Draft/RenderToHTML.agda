@@ -4,4 +4,4 @@
 
 module Draft.RenderToHTML where
 
-open import Draft.FOTC.Program.Nest.DomainPredicate
+open import Draft.FOTC.Program.Nest.Nest

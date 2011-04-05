@@ -1,12 +1,12 @@
 ------------------------------------------------------------------------------
--- FOTC version of the domain predicate of a nested recursive function
--- given by the Bove-Capretta method
+-- FOTC version of a nested recursive function by the
+-- Bove-Capretta method
 ------------------------------------------------------------------------------
 
 -- From: Ana Bove and Venanzio Capretta. Nested general recursion and
 -- partiality in type theory. Vol. 2152 of LNCS. 2001
 
-module Draft.FOTC.Program.Nest.DomainPredicate where
+module Draft.FOTC.Program.Nest.Nest where
 
 open import FOTC.Base
 
@@ -19,6 +19,7 @@ open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 
+-- The nest function.
 postulate
   nest   : D → D
   nest-0 :       nest zero     ≡ zero
