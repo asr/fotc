@@ -44,8 +44,40 @@ nest-N : ∀ {d} → Dom d → N (nest d)
 nest-N dom0           = subst N (sym nest-0) zN
 nest-N (domS d h₁ h₂) = subst N (sym (nest-S d)) (nest-N h₂)
 
-postulate
-  nest-≤ : ∀ {n} → N n → LE (nest n) n
+nest-≤ : ∀ {n} → N n → Dom n → LE (nest n) n
+nest-≤ Nz dom0           =
+  begin
+    nest zero ≤ zero
+      ≡⟨ subst (λ t → nest zero ≤ zero ≡ t ≤ zero)
+               nest-0
+               refl
+      ⟩
+    zero ≤ zero
+      ≡⟨ x≤x zN ⟩
+    true
+  ∎
+
+nest-≤ NSn (domS n h₁ h₂) =
+  ≤-trans (nest-N (domS n h₁ h₂)) (nest-N h₁) NSn prf₁ prf₂
+    where
+      Nn : N n
+      Nn = dom-N n h₁
+
+      prf₁ : LE (nest (succ n)) (nest n)
+      prf₁ =
+        begin
+          nest (succ n) ≤ nest n
+            ≡⟨ subst (λ t → nest (succ n) ≤ nest n ≡ t ≤ nest n)
+                     (nest-S n)
+                     refl
+            ⟩
+          nest (nest n) ≤ nest n
+            ≡⟨ nest-≤ (dom-N (nest n) h₂) h₂ ⟩
+          true
+          ∎
+
+      prf₂ : LE (nest n) (succ n)
+      prf₂ = ≤-trans (nest-N h₁) Nn NSn (nest-≤ Nn h₁) (x≤Sx Nn)
 
 N→Dom : ∀ {n} → N n → Dom n
 N→Dom = wfInd-LT P ih
@@ -55,8 +87,8 @@ N→Dom = wfInd-LT P ih
 
     ih : ∀ {x} → N x → (∀ {y} → N y → LT y x → P y) → P x
     ih zN          h = dom0
-    ih (sN {x} Nx) h = domS x dn-x (h (nest-N dn-x)
-                                      (x≤y→x<Sy (nest-N dn-x) Nx (nest-≤ Nx)))
+    ih (sN {x} Nx) h =
+      domS x dn-x (h (nest-N dn-x) (x≤y→x<Sy (nest-N dn-x) Nx (nest-≤ Nx dn-x)))
       where
         dn-x : Dom x
         dn-x = h Nx (x<Sx Nx)
