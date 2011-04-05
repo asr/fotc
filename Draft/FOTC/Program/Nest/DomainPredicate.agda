@@ -38,8 +38,8 @@ dom-N : ∀ d → Dom d → N d
 dom-N .zero     dom0           = zN
 dom-N .(succ d) (domS d h₁ h₂) = sN (dom-N d h₁)
 
--- The nest function is total (via structural recursion in the domain
--- predicate).
+-- The nest function is total in its domain (via structural recursion
+-- in the domain predicate).
 nest-N : ∀ {d} → Dom d → N (nest d)
 nest-N dom0           = subst N (sym nest-0) zN
 nest-N (domS d h₁ h₂) = subst N (sym (nest-S d)) (nest-N h₂)
