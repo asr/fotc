@@ -64,8 +64,8 @@ nest-DN (domS d h₁ h₂) = subst N (sym (nest-S d)) (nest-DN h₂)
 nest-N : ∀ {n} → N n → N (nest n)
 nest-N Nn = subst N (sym (nest-x≡0 Nn)) zN
 
-nest-≤ : ∀ {n} → N n → Dom n → LE (nest n) n
-nest-≤ Nz dom0           =
+nest-≤ : ∀ {n} → Dom n → LE (nest n) n
+nest-≤ dom0 =
   begin
     nest zero ≤ zero
       ≡⟨ subst (λ t → nest zero ≤ zero ≡ t ≤ zero)
@@ -77,8 +77,8 @@ nest-≤ Nz dom0           =
     true
   ∎
 
-nest-≤ NSn (domS n h₁ h₂) =
-  ≤-trans (nest-N (sN (dom-N n h₁))) (nest-N (dom-N n h₁)) NSn prf₁ prf₂
+nest-≤ (domS n h₁ h₂) =
+  ≤-trans (nest-N (sN (dom-N n h₁))) (nest-N (dom-N n h₁)) (sN Nn) prf₁ prf₂
     where
       Nn : N n
       Nn = dom-N n h₁
@@ -92,12 +92,12 @@ nest-≤ NSn (domS n h₁ h₂) =
                      refl
             ⟩
           nest (nest n) ≤ nest n
-            ≡⟨ nest-≤ (dom-N (nest n) h₂) h₂ ⟩
+            ≡⟨ nest-≤ h₂ ⟩
           true
           ∎
 
       prf₂ : LE (nest n) (succ n)
-      prf₂ = ≤-trans (nest-N (dom-N n h₁)) Nn NSn (nest-≤ Nn h₁) (x≤Sx Nn)
+      prf₂ = ≤-trans (nest-N (dom-N n h₁)) Nn (sN Nn) (nest-≤ h₁) (x≤Sx Nn)
 
 N→Dom : ∀ {n} → N n → Dom n
 N→Dom = wfInd-LT P ih
@@ -108,7 +108,7 @@ N→Dom = wfInd-LT P ih
     ih : ∀ {x} → N x → (∀ {y} → N y → LT y x → P y) → P x
     ih zN          h = dom0
     ih (sN {x} Nx) h =
-      domS x dn-x (h (nest-N Nx ) (x≤y→x<Sy (nest-N Nx) Nx (nest-≤ Nx dn-x)))
+      domS x dn-x (h (nest-N Nx ) (x≤y→x<Sy (nest-N Nx) Nx (nest-≤ dn-x)))
       where
         dn-x : Dom x
         dn-x = h Nx (x<Sx Nx)
