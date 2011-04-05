@@ -24,11 +24,6 @@ postulate
   nest-0 :       nest zero     ≡ zero
   nest-S : ∀ d → nest (succ d) ≡ nest (nest d)
 
--- The nest function is total (non-terminating version).
--- nest-N : ∀ {n} → N n → N (nest n)
--- nest-N zN          = subst N (sym nest-0) zN
--- nest-N (sN {n} Nn) = subst N (sym (nest-S n)) (nest-N (nest-N Nn))
-
 data Dom : D → Set where
   dom0 :                              Dom zero
   domS : ∀ d → Dom d → Dom (nest d) → Dom (succ d)
