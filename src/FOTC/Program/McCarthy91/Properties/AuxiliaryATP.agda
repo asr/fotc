@@ -27,9 +27,8 @@ postulate
   x<mc91x+11>100 : ∀ {n} → N n → GT n one-hundred →
                            LT n (mc91 n + eleven)
 {-# ATP prove Nmc91>100 10-N ∸-N #-}
-{-# ATP prove x<mc91x+11>100 +-N ∸-N 10-N 11-N x<y→y≤z→x<z x<x+1 x+1≤x∸10+11
-                             +-comm
-#-}
+{-# ATP prove x<mc91x+11>100 +-N ∸-N x<y→y≤z→x<z x<x+1 x+1≤x∸10+11 #-}
+
 
 -- Most of them not needed
 -- Case n ≡ 100 can be proved automatically
@@ -37,18 +36,16 @@ postulate
   Nmc91≡100     : N (mc91 one-hundred)
   mc91-res-100  : mc91 one-hundred ≡ ninety-one
   mc91-res-100' : ∀ {n} → n ≡ one-hundred → mc91 n ≡ ninety-one
-  mc91<mc91+11  : LT  one-hundred (mc91 one-hundred + eleven)
-{-# ATP prove Nmc91≡100 111>100 101>100 101≡100+11-10 91≡[100+11∸10]∸10
-                        Nmc91>100 111-N 101-N
-#-}
+  mc91<mc91+11  : LT  one-hundred (mc91 one-hundred + eleven) 
+{-# ATP prove Nmc91≡100 111>100 101>100 101≡100+11-10 91≡[100+11∸10]∸10 #-}
 {-# ATP prove mc91-res-100 111>100 101>100 101≡100+11-10 91≡[100+11∸10]∸10 #-}
 {-# ATP prove mc91-res-100' mc91-res-100 #-}
-{-# ATP prove Nmc91≡100 111>100 101>100 101≡100+11-10 91≡[100+11∸10]∸10 91-N #-}
 {-# ATP prove mc91<mc91+11 mc91-res-100 102≡91+11 100<102 #-}
 
 ---- Case n ≤ 100
 
 postulate
+  -- Here we only reduce the definition of mc91
   Nmc91≤100'        : ∀ n → LE n one-hundred → N (mc91 (mc91 (n + eleven))) →
                       N (mc91 n)
   x<mc91x+11≤100'   : ∀ n → LE n one-hundred →
@@ -57,12 +54,14 @@ postulate
   mc91x+11<mc91x+11 : ∀ n → LE n one-hundred →
                       LT (mc91 (n + eleven)) (mc91 (mc91 (n + eleven)) + eleven) →
                       LT (mc91 (n + eleven)) (mc91 n + eleven)
-  mc91x-res≤100     : ∀ m n → LE m one-hundred →
-                      mc91 (m + eleven) ≡ n → mc91 n ≡ ninety-one →
-                      mc91 m ≡ ninety-one
 {-# ATP prove Nmc91≤100' #-}
 {-# ATP prove x<mc91x+11≤100' #-}
 {-# ATP prove mc91x+11<mc91x+11 #-}
+
+postulate
+  mc91x-res≤100     : ∀ m n → LE m one-hundred →
+                      mc91 (m + eleven) ≡ n → mc91 n ≡ ninety-one →
+                      mc91 m ≡ ninety-one
 {-# ATP prove mc91x-res≤100 #-}
 
 postulate
