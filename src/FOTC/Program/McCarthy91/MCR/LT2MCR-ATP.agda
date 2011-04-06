@@ -69,7 +69,7 @@ LT2MCR (sN {n} Nn) (sN {m} Nm) p h with x<y∨x≥y Nn 100-N
     {-# ATP prove m<n #-}
     {-# ATP prove Sn≤101 #-}
     {-# ATP prove Sm≤101 #-}
-... | inj₂ n≥199 = prf-n≥100
+... | inj₂ n≥100 = prf-n≥100
   where
     postulate
       101∸Sn≡0  : hundred-one ∸ succ n ≡ zero
