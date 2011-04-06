@@ -76,5 +76,5 @@ LT2MCR (sN {n} Nn) (sN {m} Nm) p h with x<y∨x≥y Nn 100-N
       0<101∸Sm  : LT zero (hundred-one ∸ succ m)
       prf-n≥100 : MCR (succ n) (succ m)
     {-# ATP prove 101∸Sn≡0 x≤y→x-y≡0 #-}
-    {-# ATP prove 0<101∸Sm x<y→0<x∸y #-}
+    {-# ATP prove 0<101∸Sm x<y→0<y∸x #-}
     {-# ATP prove prf-n≥100 101∸Sn≡0 0<101∸Sm #-}

@@ -228,14 +228,14 @@ x<y→Sx∸y≡0 (sN {m} Nm) (sN {n} Nn) h = prfSS (x<y→Sx∸y≡0 Nm Nn m<n)
 postulate x≤y→x-y≡0 : ∀ {m n} → N m → N n → LE m n → (m ∸ n) ≡ zero
 {-# ATP prove x≤y→x-y≡0 x<y→Sx∸y≡0 #-}
 
-x<y→0<x∸y : ∀ {m n} → N m → N n → LT m n → LT zero (n ∸ m)
-x<y→0<x∸y Nm zN h = ⊥-elim (x<0→⊥ Nm h)
-x<y→0<x∸y zN (sN {n} Nn) h = prf0S
+x<y→0<y∸x : ∀ {m n} → N m → N n → LT m n → LT zero (n ∸ m)
+x<y→0<y∸x Nm zN h = ⊥-elim (x<0→⊥ Nm h)
+x<y→0<y∸x zN (sN {n} Nn) h = prf0S
   where
     postulate prf0S : LT zero (succ n ∸ zero)
     {-# ATP prove prf0S #-}
 
-x<y→0<x∸y (sN {m} Nm) (sN {n} Nn) h = prfSS (x<y→0<x∸y Nm Nn m<n)
+x<y→0<y∸x (sN {m} Nm) (sN {n} Nn) h = prfSS (x<y→0<y∸x Nm Nn m<n)
   where
     postulate m<n : LT m n
     {-# ATP prove m<n #-}
