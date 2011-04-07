@@ -6,21 +6,21 @@
 
 module TPTP.Types
     ( AF(MkAF)
-    , allRequiredDefsAF
-    , commonRequiredDefsAF
-    , ConjectureAFs(MkConjectureAFs
-                   , localHintsAF
-                   , requiredDefsByConjectureAF
-                   , requiredDefsByLocalHintsAF
-                   , theConjectureAF
+    , allRequiredDefs
+    , commonRequiredDefs
+    , ConjectureSet(MkConjectureSet
+                   , conjectureLocalHints
+                   , requiredDefsByConjecture
+                   , requiredDefsByLocalHints
+                   , theConjecture
                    )
-    , GeneralRolesAF(MkGeneralRolesAF
-                    , axiomsAF
-                    , hintsAF
-                    , requiredDefsByAxiomsAF
-                    , requiredDefsByHintsAF
-                    )
-    , removeCommonRequiredDefsAF
+    , GeneralRoles(MkGeneralRoles
+                  , axioms
+                  , hints
+                  , requiredDefsByAxioms
+                  , requiredDefsByHints
+                  )
+    , removeCommonRequiredDefs
     )
     where
 
@@ -53,55 +53,55 @@ instance Eq AF where
 instance Ord AF where
     compare (MkAF qName1 _ _) (MkAF qName2 _ _) = compare qName1 qName2
 
-data GeneralRolesAF = MkGeneralRolesAF
-    { axiomsAF               ∷ [AF]  -- ^ The axioms.
-    , requiredDefsByAxiomsAF ∷ [AF]  -- ^ Required ATP definitions by the axioms.
-    , hintsAF                ∷ [AF]  -- ^ The general hints.
-    , requiredDefsByHintsAF  ∷ [AF]  -- ^ Required ATP definitions by the hints.
+data GeneralRoles = MkGeneralRoles
+    { axioms               ∷ [AF]  -- ^ The axioms.
+    , requiredDefsByAxioms ∷ [AF]  -- ^ Required ATP definitions by the axioms.
+    , hints                ∷ [AF]  -- ^ The general hints.
+    , requiredDefsByHints  ∷ [AF]  -- ^ Required ATP definitions by the hints.
     }
 
-data ConjectureAFs = MkConjectureAFs
-    { theConjectureAF            ∷ AF    -- ^ The conjecture.
-    , requiredDefsByConjectureAF ∷ [AF]  -- ^ The conjecture requeried definitions.
-    , localHintsAF               ∷ [AF]  -- ^ The conjecture local hints.
-    , requiredDefsByLocalHintsAF ∷ [AF]  -- ^ The local hints requeried definitions.
+data ConjectureSet = MkConjectureSet
+    { theConjecture            ∷ AF    -- ^ The conjecture.
+    , requiredDefsByConjecture ∷ [AF]  -- ^ The conjecture requeried definitions.
+    , conjectureLocalHints     ∷ [AF]  -- ^ The conjecture local hints.
+    , requiredDefsByLocalHints ∷ [AF]  -- ^ The local hints requeried definitions.
     }
 
-allRequiredDefsAF ∷ GeneralRolesAF → ConjectureAFs → [AF]
-allRequiredDefsAF generalRolesAF conjectureAFs =
-    requiredDefsByAxiomsAF generalRolesAF ++
-    requiredDefsByHintsAF generalRolesAF ++
-    requiredDefsByLocalHintsAF conjectureAFs ++
-    requiredDefsByConjectureAF conjectureAFs
+allRequiredDefs ∷ GeneralRoles → ConjectureSet → [AF]
+allRequiredDefs generalRoles conjectureSet =
+    requiredDefsByAxioms generalRoles ++
+    requiredDefsByHints generalRoles ++
+    requiredDefsByLocalHints conjectureSet ++
+    requiredDefsByConjecture conjectureSet
 
-commonRequiredDefsAF ∷ GeneralRolesAF → ConjectureAFs → [AF]
-commonRequiredDefsAF grlRolesAF conjecturesAFs =
+commonRequiredDefs ∷ GeneralRoles → ConjectureSet → [AF]
+commonRequiredDefs generalRoles conjectureSet =
     if nonDuplicate allDefs
        then []
        else duplicatesElements $ sort allDefs
 
     where
       allDefs ∷ [AF]
-      allDefs = allRequiredDefsAF grlRolesAF conjecturesAFs
+      allDefs = allRequiredDefs generalRoles conjectureSet
 
-removeCommonRequiredDefsAF ∷ GeneralRolesAF → ConjectureAFs →
-                             (GeneralRolesAF, ConjectureAFs)
-removeCommonRequiredDefsAF generalRolesAF conjectureAFs =
+removeCommonRequiredDefs ∷ GeneralRoles → ConjectureSet →
+                           (GeneralRoles, ConjectureSet)
+removeCommonRequiredDefs generalRoles conjectureSet =
     if null commonDefs
-       then (generalRolesAF, conjectureAFs)
+       then (generalRoles, conjectureSet)
        else
-           ( generalRolesAF { requiredDefsByAxiomsAF = w
-                            , requiredDefsByHintsAF  = x
-                            }
-           , conjectureAFs { requiredDefsByLocalHintsAF = y
-                           , requiredDefsByConjectureAF  = z
+           ( generalRoles { requiredDefsByAxioms = w
+                          , requiredDefsByHints  = x
+                          }
+           , conjectureSet { requiredDefsByLocalHints = y
+                           , requiredDefsByConjecture = z
                            }
            )
 
     where
       commonDefs, w, x, y, z ∷ [AF]
-      commonDefs = commonRequiredDefsAF generalRolesAF conjectureAFs
-      w          = requiredDefsByAxiomsAF generalRolesAF \\ commonDefs
-      x          = requiredDefsByHintsAF generalRolesAF \\ commonDefs
-      y          = requiredDefsByLocalHintsAF conjectureAFs \\ commonDefs
-      z          = requiredDefsByConjectureAF conjectureAFs \\ commonDefs
+      commonDefs = commonRequiredDefs generalRoles conjectureSet
+      w          = requiredDefsByAxioms     generalRoles  \\ commonDefs
+      x          = requiredDefsByHints      generalRoles  \\ commonDefs
+      y          = requiredDefsByLocalHints conjectureSet \\ commonDefs
+      z          = requiredDefsByConjecture conjectureSet \\ commonDefs

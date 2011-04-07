@@ -34,19 +34,19 @@ import Options           ( Options(optOutputDir) )
 import TPTP.Pretty       ( prettyTPTP )
 import TPTP.Types
     ( AF(MkAF)
-    , allRequiredDefsAF
-    , commonRequiredDefsAF
-    , ConjectureAFs(localHintsAF
-                   , requiredDefsByConjectureAF
-                   , requiredDefsByLocalHintsAF
-                   , theConjectureAF
+    , allRequiredDefs
+    , commonRequiredDefs
+    , ConjectureSet(conjectureLocalHints
+                   , requiredDefsByConjecture
+                   , requiredDefsByLocalHints
+                   , theConjecture
                    )
-    , GeneralRolesAF(axiomsAF
-                    , hintsAF
-                    , requiredDefsByAxiomsAF
-                    , requiredDefsByHintsAF
-                    )
-    , removeCommonRequiredDefsAF
+    , GeneralRoles(axioms
+                  , hints
+                  , requiredDefsByAxioms
+                  , requiredDefsByHints
+                  )
+    , removeCommonRequiredDefs
     )
 import Utils.List    ( nonDuplicate )
 import Utils.Version ( version )
@@ -123,8 +123,8 @@ addRoles afs role file str = do
   _  ← appendFile file footerRoleComment
   return ()
 
-createConjectureFile ∷ GeneralRolesAF → ConjectureAFs → T FilePath
-createConjectureFile generalRolesAF conjectureAFs = do
+createConjectureFile ∷ GeneralRoles → ConjectureSet → T FilePath
+createConjectureFile generalRoles conjectureSet = do
   -- To avoid clash names with the terms inside a where clause, we
   -- added the line number where the term was defined to the file
   -- name.
@@ -132,7 +132,7 @@ createConjectureFile generalRolesAF conjectureAFs = do
   state ← get
 
   let qName ∷ QName
-      qName = case theConjectureAF conjectureAFs of
+      qName = case theConjecture conjectureSet of
                 MkAF _qName _ _ → _qName
 
   let outputDir ∷ FilePath
@@ -151,30 +151,30 @@ createConjectureFile generalRolesAF conjectureAFs = do
             "Creating the conjecture file " ++ show file ++ " ..."
 
   let commonDefs ∷ [AF]
-      commonDefs = commonRequiredDefsAF generalRolesAF conjectureAFs
+      commonDefs = commonRequiredDefs generalRoles conjectureSet
 
-  let (newGeneralRolesAF, newConjectureAFs) =
-          removeCommonRequiredDefsAF generalRolesAF conjectureAFs
+  let (newGeneralRoles, newConjectureSet) =
+          removeCommonRequiredDefs generalRoles conjectureSet
 
-  unless (nonDuplicate (allRequiredDefsAF newGeneralRolesAF newConjectureAFs))
+  unless (nonDuplicate (allRequiredDefs newGeneralRoles newConjectureSet))
          (__IMPOSSIBLE__)
 
   liftIO $ do
     conjectureH ← conjectureHeader
     _ ← writeFile file conjectureH
     _ ← addRoles commonDefs ATPDefinition file "common required definitions"
-    _ ← addRoles (axiomsAF newGeneralRolesAF) ATPAxiom file "general axioms"
-    _ ← addRoles (requiredDefsByAxiomsAF newGeneralRolesAF) ATPDefinition file
+    _ ← addRoles (axioms newGeneralRoles) ATPAxiom file "general axioms"
+    _ ← addRoles (requiredDefsByAxioms newGeneralRoles) ATPDefinition file
                    "required ATP definitions by the general axioms"
-    _ ← addRoles (hintsAF newGeneralRolesAF) ATPHint file "general hints"
-    _ ← addRoles (requiredDefsByHintsAF newGeneralRolesAF) ATPDefinition file
+    _ ← addRoles (hints newGeneralRoles) ATPHint file "general hints"
+    _ ← addRoles (requiredDefsByHints newGeneralRoles) ATPDefinition file
                    "required ATP definitions by the general hints"
-    _ ← addRoles (localHintsAF newConjectureAFs) ATPHint file "local hints"
-    _ ← addRoles (requiredDefsByLocalHintsAF newConjectureAFs) ATPDefinition file
+    _ ← addRoles (conjectureLocalHints newConjectureSet) ATPHint file "local hints"
+    _ ← addRoles (requiredDefsByLocalHints newConjectureSet) ATPDefinition file
                    "required ATP definitions by the local hints"
-    _ ← addRoles (requiredDefsByConjectureAF newConjectureAFs) ATPDefinition file
+    _ ← addRoles (requiredDefsByConjecture newConjectureSet) ATPDefinition file
                  "required ATP definitions by the conjecture"
-    _ ← addRoles [theConjectureAF newConjectureAFs] ATPConjecture file "conjecture"
+    _ ← addRoles [theConjecture newConjectureSet] ATPConjecture file "conjecture"
     _ ← appendFile file conjectureFooter
     return ()
 

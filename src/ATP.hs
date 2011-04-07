@@ -37,7 +37,7 @@ import Monad.Base    ( T, TState(tOpts) )
 import Monad.Reports ( reportS )
 import Options    ( Options(optATP, optOnlyFiles, optTime, optUnprovedError) )
 import TPTP.Files ( createConjectureFile )
-import TPTP.Types ( ConjectureAFs, GeneralRolesAF )
+import TPTP.Types ( ConjectureSet, GeneralRoles )
 
 #include "undefined.h"
 
@@ -180,15 +180,15 @@ atpsAnswer outputMVar atpsPH file n = do
         (False, _) → atpsAnswer outputMVar atpsPH file (n + 1)
 
 -- | The function 'callATPs' calls the selected ATPs on a TPTP conjecture.
-callATPs ∷ GeneralRolesAF → ConjectureAFs → T ()
-callATPs generalRolesAF conjectureAFs = do
+callATPs ∷ GeneralRoles → ConjectureSet → T ()
+callATPs generalRoles conjectureSet = do
 
   state ← get
 
   let opts ∷ Options
       opts = tOpts state
 
-  file ← createConjectureFile generalRolesAF conjectureAFs
+  file ← createConjectureFile generalRoles conjectureSet
 
   when (optOnlyFiles opts) $
     reportS "" 1 $ "Created the conjecture file " ++ file

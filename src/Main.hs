@@ -49,14 +49,14 @@ import Monad.Options     ( processOptions )
 import Monad.Reports     ( reportS, reportSLn )
 import Options           ( Options(optHelp, optVersion) , printUsage )
 import TPTP.Translation  ( conjecturesToAFs, generalRolesToAFs )
-import TPTP.Types        ( ConjectureAFs, GeneralRolesAF )
+import TPTP.Types        ( ConjectureSet, GeneralRoles )
 import Utils.Version     ( printVersion )
 
 #include "undefined.h"
 
 ------------------------------------------------------------------------------
 
-translation ∷ FilePath → T (GeneralRolesAF, [ConjectureAFs])
+translation ∷ FilePath → T (GeneralRoles, [ConjectureSet])
 translation file = do
   reportS "" 1 $ "Translating " ++ file ++ " ..."
 

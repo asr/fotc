@@ -55,8 +55,8 @@ import Monad.Base                     ( T, TState(tAllDefs, tVars))
 import Monad.Reports                  ( reportSLn )
 import TPTP.Types
     ( AF(MkAF)
-    , ConjectureAFs(MkConjectureAFs)
-    , GeneralRolesAF(MkGeneralRolesAF)
+    , ConjectureSet(MkConjectureSet)
+    , GeneralRoles(MkGeneralRoles)
     )
 
 -- #include "../undefined.h"
@@ -215,8 +215,8 @@ requiredATPDefsByLocalHints def = do
 
   fmap (nub . concat) (mapM requiredATPDefsByDefinition hintsDefs)
 
-conjectureToAF ∷ QName → Definition → T ConjectureAFs
-conjectureToAF qName def = liftM4 MkConjectureAFs
+conjectureToAF ∷ QName → Definition → T ConjectureSet
+conjectureToAF qName def = liftM4 MkConjectureSet
                                   (toAF ATPConjecture qName def)
                                   (requiredATPDefsByDefinition def)
                                   (localHintsToAFs def)
@@ -226,7 +226,7 @@ conjectureToAF qName def = liftM4 MkConjectureAFs
 -- the top level module. For each conjecture we return its translation
 -- and a list of the translation of its local hints, i.e. we return a
 -- pair (AF, [AF]).
-conjecturesToAFs ∷ Definitions → T [ConjectureAFs]
+conjecturesToAFs ∷ Definitions → T [ConjectureSet]
 conjecturesToAFs topLevelDefs = do
 
   let conjecturesDefs ∷ Definitions
@@ -262,8 +262,8 @@ generalHintsToAFs = do
 -- We translate the ATP axioms and (general) hints from the top level
 -- module and its imported modules. These TPTP roles are common to
 -- every conjecture.
-generalRolesToAFs ∷ T GeneralRolesAF
-generalRolesToAFs = liftM4 MkGeneralRolesAF
+generalRolesToAFs ∷ T GeneralRoles
+generalRolesToAFs = liftM4 MkGeneralRoles
                            axiomsToAFs
                            requiredATPDefsByAxioms
                            generalHintsToAFs
