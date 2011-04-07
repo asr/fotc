@@ -1,2 +1,0 @@
-hypothesis, ( n(zero) )
-hypothesis, ( ! \[A\] : ( ( n(A) ) => ( n(kApp(succ,A)) ) ) )

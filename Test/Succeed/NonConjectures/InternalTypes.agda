@@ -38,55 +38,53 @@ module Test.Succeed.NonConjectures.InternalTypes where
 --   deriving (Typeable, Data, Eq, Ord, Show)
 
 postulate
-  D : Set
+  D   : Set
+  _≡_ : D → D → Set
+
+postulate
+  P₁    : D → Set
+  P₃    : D → D → D → Set
+  a b c : D
 
 ------------------------------------------------------------------------------
 -- Testing data Term = Def ...
 
-module Def where
+-- A definition with one argument
+postulate
+  termDef₁ : P₁ a
+{-# ATP axiom termDef₁ #-}
 
-  postulate
-    P₁    : D → Set
-    P₃    : D → D → D → Set
-    a b c : D
-
-  -- A definition with one argument
-  postulate
-    termDef₁ : P₁ a
-  {-# ATP axiom termDef₁ #-}
-
-  -- A definition with three or more arguments
-  postulate
-    termDef₃ : P₃ a b c
-  {-# ATP axiom termDef₃ #-}
+-- A definition with three or more arguments
+postulate
+  termDef₃ : P₃ a b c
+{-# ATP axiom termDef₃ #-}
 
 ------------------------------------------------------------------------------
 -- Testing data Term = Fun ...
 
-module Fun where
-
-  postulate
-    P       : D → Set
-    a       : D
-    termFun : P a → P a
-  {-# ATP axiom termFun #-}
+postulate
+  termFun : P₁ a → P₁ a
+{-# ATP axiom termFun #-}
 
 ------------------------------------------------------------------------------
 -- Testing data Term = Lam ...
 
-module Lam where
-
-  postulate
-    P       : D → Set
-    ∃       : (P : D → Set) → Set
-    termLam : ∃ (λ e → P e)
-  {-# ATP axiom termLam #-}
+postulate
+  ∃       : (P₁ : D → Set) → Set
+  termLam : ∃ (λ e → P₁ e)
+{-# ATP axiom termLam #-}
 
 ------------------------------------------------------------------------------
 -- Testing data Term = Pi ...
 
-module Pi where
-  postulate
-    P      : D → Set
-    termPi : (d : D) → P d
-  {-# ATP axiom termPi #-}
+postulate
+  termPi : (d : D) → P₁ d
+{-# ATP axiom termPi #-}
+
+------------------------------------------------------------------------------
+-- The conjecture
+
+-- We need to have at least one conjecture to generate a TPTP file.
+postulate
+  refl : ∀ d → d ≡ d
+{-# ATP prove refl #-}

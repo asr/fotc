@@ -6,7 +6,7 @@ postulate
   D   : Set
   _≡_ : D → D → Set
 
--- We need some ATP axiom to write down in the file Base.ax.
+-- We need some ATP axiom to write down in the TPTP file.
 postulate
-  refl : ∀ d → d ≡ d
-{-# ATP axiom refl #-}
+  sym : ∀ d e → d ≡ e → e ≡ d
+{-# ATP axiom sym #-}

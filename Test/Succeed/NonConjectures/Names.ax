@@ -1,2 +1,0 @@
-axiom, ( ! \[A\] : ( kApp(fUN33,A) = A ) )
-axiom, ( ! \[A\] : ( pRED33(A) ) )

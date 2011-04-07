@@ -7,49 +7,32 @@ AGDA2ATP = agda2atp  # The defaults ATPs are e, equinox, metis, and vampire.
 # AGDA2ATP = agda2atp --atp=metis
 # AGDA2ATP = agda2atp --atp=vampire
 
-succeed_conjectures_path     = Test/Succeed/Conjectures
-succeed_non_conjectures_path = Test/Succeed/NonConjectures
-succeed_agda_path            = Test/Succeed/Agda
-fail_path                    = Test/Fail
+succeed_path  = Test/Succeed
+fail_path     = Test/Fail
 
-succeed_conjectures_files = $(patsubst %.agda,%, \
-	$(shell find $(succeed_conjectures_path) -name "*.agda"))
+snatshot_dir = Test/snatshot
 
-succeed_non_conjectures_files = $(patsubst %.agda,%, \
-	$(shell find $(succeed_non_conjectures_path) -name "*.agda"))
-
-succeed_agda_files = $(patsubst %.agda,%, \
-	$(shell find $(succeed_agda_path) -name "*.agda"))
+succeed_files = $(patsubst %.agda,%, \
+	$(shell find $(succeed_path) -name "*.agda"))
 
 fail_files = $(patsubst %.agda,%, \
 	$(shell find $(fail_path) -name "*.agda"))
 
+# Ugly hack
+# We need to add a fake extension to the file names to avoid repeated
+# targets.
+snapshot_files = $(foreach file,$(succeed_files), \
+	$(addsuffix .snapshot, $(file)))
+
 %.agdai : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
 
-# TODO: Test if the file *.ax exists.
-# TODO: Is it possible to make this test in the conjecture files?
-# $(succeed_non_conjectures_files) : % : %.agdai
-# 	@if ! ( $(AGDA2ATP) --only-files $*.agda ); then exit 1; fi
-# 	@cat $@.ax | while read -r line; do \
-# 		if ! ( grep --silent "$$line" /tmp/$(subst /,.,$@).tptp ) ; then \
-# 			echo "Testing error. Translation to: $$line"; \
-# 			exit 1; \
-# 		fi \
-# 	done
-
-$(succeed_non_conjectures_files) : % : %.agdai
-	@if ! ( $(AGDA2ATP) --only-files $*.agda ); then exit 1; fi
-
-$(succeed_conjectures_files) : % : %.agdai
+$(succeed_files) : % : %.agdai
 	@if ! ( $(AGDA2ATP) --time=60 \
                             --unproved-conjecture-error \
                             $*.agda ); then \
 		exit 1; \
 	fi
-
-$(succeed_agda_files) : % : %.agdai
-	@if ! ( $(AGDA2ATP) --only-files $*.agda ); then exit 1; fi
 
 $(fail_files) : % : %.agdai
 	@if ( $(AGDA2ATP) --time=5 \
@@ -58,13 +41,20 @@ $(fail_files) : % : %.agdai
               exit 1; \
 	fi
 
-# The tests
-succeed_non_conjectures : $(succeed_non_conjectures_files)
-succeed_conjectures     : $(succeed_conjectures_files)
-succeed_agda            : $(succeed_agda_files)
-fail                    : $(fail_files)
+$(snapshot_files) : %.snapshot : %.agdai
+	@if ! ( $(AGDA2ATP) --only-files \
+		            --output-dir=$(snatshot_dir) \
+                            $*.agda ); then \
+		exit 1; \
+	fi
 
-test : succeed_agda succeed_conjectures succeed_non_conjectures fail
+# Snapshot of the succeed TPTP files.
+snapshot : $(snapshot_files)
+
+# The tests
+succeed : $(succeed_files)
+fail    : $(fail_files)
+test    : succeed fail
 
 ##############################################################################
 # Others
@@ -82,8 +72,11 @@ doc :
 
 .PHONY : TODO
 TODO :
-	@find \( -name '*.hs' -o -name '*.agda' \) | xargs grep TODO
+	find \( -name '*.hs' -o -name '*.agda' \) | xargs grep TODO
 
 clean :
-	@find -name '*.agdai' | xargs rm -f
-	@rm -f /tmp/*.tptp
+	find -name '*.agdai' | xargs rm -f
+	rm -f /tmp/*.tptp
+
+snapshot_clean :
+	rm -r -f $(snatshot_dir)

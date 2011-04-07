@@ -24,6 +24,12 @@ module EraseQuantificationOnProofs where
   {-# ATP axiom sN₁ #-}
   {-# ATP axiom sN₂ #-}
 
+  -- We need to have at least one conjecture to generate a TPTP file.
+  postulate
+    refl : ∀ d → d ≡ d
+  {-# ATP prove refl #-}
+
+
 -- module EraseQuantificationOverFunctionsAndPiTerm
 
 -- -- Possible test

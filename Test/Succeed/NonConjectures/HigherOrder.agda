@@ -20,3 +20,8 @@ postulate
 postulate
   cFix : (f : D → D) → fix f ≡ f (fix  f)
 {-# ATP axiom cFix #-}
+
+-- We need to have at least one conjecture to generate a TPTP file.
+postulate
+  refl : ∀ d → d ≡ d
+{-# ATP prove refl #-}

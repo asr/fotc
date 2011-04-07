@@ -22,3 +22,9 @@ data _×_ ( A B : Set) : Set where
 data WithHoles : D × D → Set where
   withHoles : (x y : D) → WithHoles ( x , y )
 {-# ATP axiom withHoles #-}
+
+-- We need to have at least one conjecture to generate a TPTP file.
+postulate
+  _≡_  : D → D → Set
+  refl : ∀ d → d ≡ d
+{-# ATP prove refl #-}

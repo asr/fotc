@@ -31,3 +31,8 @@ postulate
   -- Using a funny predicate name.
   funnyP : (n : D) → PRED! n
 {-# ATP axiom funnyP #-}
+
+-- We need to have at least one conjecture to generate a TPTP file.
+postulate
+  refl : ∀ d → d ≡ d
+{-# ATP prove refl #-}
