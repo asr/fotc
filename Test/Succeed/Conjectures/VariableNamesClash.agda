@@ -9,13 +9,12 @@ postulate
 
 postulate
   a≡b : a ≡ b
-
 {-# ATP axiom a≡b #-}
 
 foo : (n : D) → a ≡ b
 foo n = prf n
   where
     -- The translation of this postulate must use two diferents
-    -- quantified variables names e.x. ∀ x. ∀ y. a ≡ b.
+    -- quantified variables names e.g. ∀ x. ∀ y. x ≡ y.
   postulate prf : (n : D) → a ≡ b
   {-# ATP prove prf #-}

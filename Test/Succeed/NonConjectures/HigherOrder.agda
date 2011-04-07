@@ -18,5 +18,5 @@ postulate
 {-# ATP axiom cBeta #-}
 
 postulate
-  cFix   : (f : D → D) → fix f ≡ f (fix  f)
+  cFix : (f : D → D) → fix f ≡ f (fix  f)
 {-# ATP axiom cFix #-}

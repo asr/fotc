@@ -11,7 +11,7 @@ postulate
 
 data N : D → Set where
   zN : N zero
-  sN : (n : D) → N n → N (succ n)
+  sN : ∀ {n} → N n → N (succ n)
 {-# ATP axiom zN #-}
 {-# ATP axiom sN #-}
 

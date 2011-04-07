@@ -19,15 +19,15 @@ infix 4 _≡_
 postulate
   D     : Set
   _≡_   : D → D → Set
-  FUN!  : D → D   -- A funny function name
-  PRED! : D → Set -- A funny predicate name
+  FUN!  : D → D   -- A funny function name.
+  PRED! : D → Set -- A funny predicate name.
 
 postulate
-  -- Using a funny function and variable name
+  -- Using a funny function and variable name.
   funnyFV  : (nx∎ : D) → FUN! nx∎ ≡ nx∎
 {-# ATP axiom funnyFV #-}
 
 postulate
-  -- Using a funny predicate name
+  -- Using a funny predicate name.
   funnyP : (n : D) → PRED! n
 {-# ATP axiom funnyP #-}

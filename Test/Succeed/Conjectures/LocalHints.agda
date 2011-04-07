@@ -7,5 +7,5 @@ postulate
 data N : D → Set where
   zN : N zero
 
-postulate foo : N zero
-{-# ATP prove foo zN #-}
+postulate 0-N : N zero
+{-# ATP prove 0-N zN #-}

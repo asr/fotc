@@ -8,5 +8,5 @@ postulate
 
 -- We need some ATP axiom to write down in the file Base.ax.
 postulate
-  refl : (d : D) → d ≡ d
+  refl : ∀ d → d ≡ d
 {-# ATP axiom refl #-}
