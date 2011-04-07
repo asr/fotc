@@ -56,7 +56,7 @@ instance Ord AF where
 data GeneralRolesAF = MkGeneralRolesAF
     { axiomsAF               ∷ [AF]  -- ^ The axioms.
     , requiredDefsByAxiomsAF ∷ [AF]  -- ^ Required ATP definitions by the axioms.
-    , hintsAF                ∷ [AF]  -- ^ The genereal hints.
+    , hintsAF                ∷ [AF]  -- ^ The general hints.
     , requiredDefsByHintsAF  ∷ [AF]  -- ^ Required ATP definitions by the hints.
     }
 
