@@ -9,7 +9,7 @@
 module TPTP.Files ( createConjectureFile ) where
 
 -- Haskell imports
-import Control.Monad        ( unless )
+import Control.Monad        ( unless, when )
 import Control.Monad.State  ( get )
 import Control.Monad.Trans  ( liftIO )
 import Data.Char            ( chr, isAsciiUpper, isAsciiLower, isDigit, ord )
@@ -29,8 +29,8 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 -- Local imports
 import AgdaLib.Interface ( qNameLine )
 import Monad.Base        ( T, TState(tOpts) )
-import Monad.Reports     ( reportSLn )
-import Options           ( Options(optOutputDir) )
+import Monad.Reports     ( reportS, reportSLn )
+import Options           ( Options(optOnlyFiles, optOutputDir) )
 import TPTP.Pretty       ( prettyTPTP )
 import TPTP.Types
     ( AF(MkAF)
@@ -131,12 +131,15 @@ createConjectureFile generalRoles conjectureSet = do
 
   state ← get
 
+  let opts ∷ Options
+      opts = tOpts state
+
   let qName ∷ QName
       qName = case theConjecture conjectureSet of
                 MkAF _qName _ _ → _qName
 
   let outputDir ∷ FilePath
-      outputDir = optOutputDir $ tOpts state
+      outputDir = optOutputDir opts
 
   liftIO $ createDirectoryIfMissing True outputDir
 
@@ -177,5 +180,8 @@ createConjectureFile generalRoles conjectureSet = do
     _ ← addRoles [theConjecture newConjectureSet] ATPConjecture file "conjecture"
     _ ← appendFile file conjectureFooter
     return ()
+
+  when (optOnlyFiles opts) $
+       reportS "" 1 $ "Created the conjecture file " ++ file
 
   return file

@@ -8,7 +8,7 @@ module Main ( main ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad       ( liftM2 )
+import Control.Monad       ( liftM2, unless )
 import Control.Monad.Error ( catchError, throwError )
 import Control.Monad.State ( modify )
 import Control.Monad.Trans ( liftIO )
@@ -47,7 +47,10 @@ import Monad.Base
     )
 import Monad.Options     ( processOptions )
 import Monad.Reports     ( reportS, reportSLn )
-import Options           ( Options(optHelp, optVersion) , printUsage )
+
+import Options ( Options(optHelp, optOnlyFiles, optVersion), printUsage )
+
+import TPTP.Files        ( createConjectureFile )
 import TPTP.Translation  ( conjecturesToAFs, generalRolesToAFs )
 import TPTP.Types        ( ConjectureSet, GeneralRoles )
 import Utils.Version     ( printVersion )
@@ -57,11 +60,11 @@ import Utils.Version     ( printVersion )
 ------------------------------------------------------------------------------
 
 translation ∷ FilePath → T (GeneralRoles, [ConjectureSet])
-translation file = do
-  reportS "" 1 $ "Translating " ++ file ++ " ..."
+translation agdaFile = do
+  reportS "" 1 $ "Translating " ++ agdaFile ++ " ..."
 
   -- Gettting the top level interface.
-  i ← myReadInterface file
+  i ← myReadInterface agdaFile
 
   iInterfaces ← getImportedInterfaces i
 
@@ -88,16 +91,21 @@ runAgda2ATP prgName = do
 
   clo ← processOptions argv
   case clo of
-    (opts, file)
+    (opts, agdaFile)
         | optHelp opts    → liftIO $ printUsage prgName
         | optVersion opts → liftIO $ printVersion prgName
         | otherwise       → do
             modify $ \s → s { tOpts = opts }
 
             -- The ATP pragmas are translated to TPTP annotated formulas.
-            allAFs ← translation file
-            -- The ATPs systems are called on the TPTP annotated formulas.
-            mapM_ (callATPs (fst allAFs)) (snd allAFs)
+            allAFs ← translation agdaFile
+
+            -- Creation of the TPTP files.
+            tptpFiles ← mapM (createConjectureFile (fst allAFs)) (snd allAFs)
+
+            -- The ATPs systems are called on the TPTP files.
+            unless (optOnlyFiles opts) $
+                   mapM_ callATPs tptpFiles
 
 main ∷ IO ()
 main = do

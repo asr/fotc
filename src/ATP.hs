@@ -14,7 +14,7 @@ import Data.Maybe              ( fromMaybe )
 import Control.Exception       ( evaluate )
 import Control.Concurrent      ( forkIO, threadDelay )
 import Control.Concurrent.MVar ( MVar, newEmptyMVar, putMVar, takeMVar )
-import Control.Monad           ( unless, when )
+import Control.Monad           ( when )
 import Control.Monad.Error     ( throwError )
 import Control.Monad.State     ( get )
 import Control.Monad.Trans     ( liftIO )
@@ -35,9 +35,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible) , throwImpossible )
 -- Local imports
 import Monad.Base    ( T, TState(tOpts) )
 import Monad.Reports ( reportS )
-import Options    ( Options(optATP, optOnlyFiles, optTime, optUnprovedError) )
-import TPTP.Files ( createConjectureFile )
-import TPTP.Types ( ConjectureSet, GeneralRoles )
+import Options    ( Options(optATP, optTime, optUnprovedError) )
 
 #include "undefined.h"
 
@@ -180,36 +178,29 @@ atpsAnswer outputMVar atpsPH file n = do
         (False, _) → atpsAnswer outputMVar atpsPH file (n + 1)
 
 -- | The function 'callATPs' calls the selected ATPs on a TPTP conjecture.
-callATPs ∷ GeneralRoles → ConjectureSet → T ()
-callATPs generalRoles conjectureSet = do
+callATPs ∷ FilePath → T ()
+callATPs file = do
 
   state ← get
 
   let opts ∷ Options
       opts = tOpts state
 
-  file ← createConjectureFile generalRoles conjectureSet
+  let atps ∷ [String]
+      atps = optATP opts
 
-  when (optOnlyFiles opts) $
-    reportS "" 1 $ "Created the conjecture file " ++ file
+  when (null atps) (__IMPOSSIBLE__)
 
-  unless (optOnlyFiles opts) $ do
+  let timeLimit ∷ Int
+      timeLimit = optTime opts
 
-    let atps ∷ [String]
-        atps = optATP opts
+  outputMVar ← liftIO (newEmptyMVar ∷ IO (MVar (Bool, ATP)))
 
-    when (null atps) (__IMPOSSIBLE__)
+  reportS "" 1 $ "Proving the conjecture in " ++ file ++ " ..."
+  reportS "" 20 $ "ATPs to be used: " ++ show atps
 
-    let timeLimit ∷ Int
-        timeLimit = optTime opts
+  (atpsPH ∷ [ProcessHandle]) ← liftIO $
+    mapM ((\atp → runATP atp outputMVar timeLimit file) . optATP2ATP)
+                  atps
 
-    outputMVar ← liftIO (newEmptyMVar ∷ IO (MVar (Bool, ATP)))
-
-    reportS "" 1 $ "Proving the conjecture in " ++ file ++ " ..."
-    reportS "" 20 $ "ATPs to be used: " ++ show atps
-
-    (atpsPH ∷ [ProcessHandle]) ← liftIO $
-           mapM ((\atp → runATP atp outputMVar timeLimit file) . optATP2ATP)
-                atps
-
-    atpsAnswer outputMVar atpsPH file 0
+  atpsAnswer outputMVar atpsPH file 0
