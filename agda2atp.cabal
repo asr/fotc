@@ -75,7 +75,7 @@ executable agda2atp
   if impl(ghc >= 6.12) && impl(ghc < 7)
     ghc-options:  -fwarn-simple-patterns
 
-  if impl(ghc >= 7.0.2)
+  if impl(ghc >= 7.0.3)
     ghc-options:  -fwarn-missing-local-sigs
     -- This warning is disabled due to the GHC bug #4489.
     --              -fwarn-missing-import-lists
