@@ -8,7 +8,7 @@ module Main ( main ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad       ( liftM2, unless )
+import Control.Monad       ( liftM2, unless, when )
 import Control.Monad.Error ( catchError, throwError )
 import Control.Monad.State ( modify )
 import Control.Monad.Trans ( liftIO )
@@ -48,8 +48,11 @@ import Monad.Base
 import Monad.Options     ( processOptions )
 import Monad.Reports     ( reportS, reportSLn )
 
-import Options ( Options(optHelp, optOnlyFiles, optVersion), printUsage )
+import Options ( Options(optHelp, optOnlyFiles, optSnapshotTest, optVersion)
+               , printUsage
+               )
 
+import Test.Snapshot     ( snapshotTest )
 import TPTP.Files        ( createConjectureFile )
 import TPTP.Translation  ( conjecturesToAFs, generalRolesToAFs )
 import TPTP.Types        ( ConjectureSet, GeneralRoles )
@@ -102,6 +105,10 @@ runAgda2ATP prgName = do
 
             -- Creation of the TPTP files.
             tptpFiles ← mapM (createConjectureFile (fst allAFs)) (snd allAFs)
+
+            -- Run the snapshot test.
+            when (optSnapshotTest opts) $
+                 mapM_ snapshotTest tptpFiles
 
             -- The ATPs systems are called on the TPTP files.
             unless (optOnlyFiles opts) $

@@ -10,7 +10,7 @@ AGDA2ATP = agda2atp  # The defaults ATPs are e, equinox, metis, and vampire.
 succeed_path  = Test/Succeed
 fail_path     = Test/Fail
 
-snatshot_dir = Test/snatshot
+snapshot_dir = Test/snapshot
 
 succeed_files = $(patsubst %.agda,%, \
 	$(shell find $(succeed_path) -name "*.agda"))
@@ -43,7 +43,7 @@ $(fail_files) : % : %.agdai
 
 $(snapshot_files) : %.snapshot : %.agdai
 	@if ! ( $(AGDA2ATP) --only-files \
-		            --output-dir=$(snatshot_dir) \
+		            --output-dir=$(snapshot_dir) \
                             $*.agda ); then \
 		exit 1; \
 	fi
@@ -79,4 +79,4 @@ clean :
 	rm -f /tmp/*.tptp
 
 snapshot_clean :
-	rm -r -f $(snatshot_dir)
+	rm -r -f $(snapshot_dir)

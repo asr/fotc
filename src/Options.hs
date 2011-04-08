@@ -34,6 +34,8 @@ data Options = MkOptions
     , optHelp            ∷ Bool
     , optOnlyFiles       ∷ Bool
     , optOutputDir       ∷ FilePath
+    , optSnapshotTest    ∷ Bool
+    , optSnapshotDir     ∷ FilePath
     , optTime            ∷ Int
     , optUnprovedError   ∷ Bool
     , optVerbose         ∷ Verbosity
@@ -52,6 +54,8 @@ defaultOptions = MkOptions
   , optHelp            = False
   , optOnlyFiles       = False
   , optOutputDir       = "/tmp"
+  , optSnapshotTest    = False
+  , optSnapshotDir     = "snapshot"
   , optTime            = 300
   , optUnprovedError   = False
   , optVerbose         = Trie.singleton [] 1
@@ -67,6 +71,14 @@ atpOpt name opts = opts { optATP = optATP opts ++ [name] }
 
 helpOpt ∷ Options → Options
 helpOpt opts = opts { optHelp = True }
+
+snapshotTestOpt ∷ Options → Options
+snapshotTestOpt opts = opts { optSnapshotTest = True
+                            , optOnlyFiles = True
+                            }
+
+snapshotDirOpt ∷ FilePath → Options → Options
+snapshotDirOpt dir opts = opts { optSnapshotDir = dir }
 
 timeOpt ∷ String → Options → Options
 timeOpt secs opts = opts { optTime = read secs }
@@ -109,6 +121,11 @@ options =
                "do not call the ATPs, only to create the TPTP files"
   , Option []  ["output-dir"] (ReqArg outputDirOpt "DIR")
                "directory in which TPTP files are placed (default: /tmp)"
+  , Option []  ["snapshot-test"] (NoArg snapshotTestOpt) $
+               "compare the generated TPTP files against a snapshot of them\n" ++
+               "(implies --only-files)"
+  , Option []  ["snapshot-dir"] (ReqArg snapshotDirOpt "DIR")
+               "directory where is the snapshot of the TPTP files (default: snapshot)"
   , Option []  ["time"] (ReqArg timeOpt "secs")
                "set timeout for the ATPs in seconds (default: 300)"
   , Option []  ["unproved-conjecture-error"] (NoArg unprovedErrorOpt)
