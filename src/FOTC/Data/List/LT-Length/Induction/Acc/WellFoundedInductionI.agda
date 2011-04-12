@@ -12,11 +12,14 @@ open import FOTC.Data.List.LT-Length
 open import FOTC.Data.List.LT-Length.PropertiesI
 open import FOTC.Data.List.Type
 open import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI
+open import FOTC.Data.Nat.Inequalities
+open import FOTC.Data.Nat.Type
 
 open import FOTC.Induction.WellFounded
 
 -- Parametrized modules
-open module InvImg = FOTC.Induction.WellFounded.InverseImage length-N
+open module InvImg =
+  FOTC.Induction.WellFounded.InverseImage {List} {N} {LT} length-N
 
 ------------------------------------------------------------------------------
 -- The relation LTL is well-founded (using the inverse image combinator).

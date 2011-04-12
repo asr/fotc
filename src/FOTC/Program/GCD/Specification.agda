@@ -13,13 +13,12 @@ open import FOTC.Program.GCD.Definitions
 open import FOTC.Program.GCD.GCD using ( gcd )
 
 module FOTC.Program.GCD.Specification
-  ( gcd-N         : ∀ {m n} → N m → N n → ¬x≡0∧y≡0 m n → N (gcd m n)
-  ; gcd-CD        : ∀ {m n} → N m → N n → ¬x≡0∧y≡0 m n → CD m n (gcd m n)
-  ; gcd-Divisible : ∀ {m n} → N m → N n → ¬x≡0∧y≡0 m n →
-                    Divisible m n (gcd m n)
-  ; gcd-GACD      : ∀ {m n gcd} → N gcd → CD m n gcd → Divisible m n gcd →
-                    GACD m n gcd
-  )
+  (gcd-N         : ∀ {m n} → N m → N n → ¬x≡0∧y≡0 m n → N (gcd m n))
+  (gcd-CD        : ∀ {m n} → N m → N n → ¬x≡0∧y≡0 m n → CD m n (gcd m n))
+  (gcd-Divisible : ∀ {m n} → N m → N n → ¬x≡0∧y≡0 m n →
+                   Divisible m n (gcd m n))
+  (gcd-GACD      : ∀ {m n gcd} → N gcd → CD m n gcd → Divisible m n gcd →
+                   GACD m n gcd)
   where
 
 ------------------------------------------------------------------------------

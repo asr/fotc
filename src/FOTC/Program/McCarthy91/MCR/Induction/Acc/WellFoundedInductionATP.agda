@@ -22,7 +22,8 @@ open import FOTC.Program.McCarthy91.MCR.PropertiesATP
 
 -- Parametrized modules
 
-open module InvImg = FOTC.Induction.WellFounded.InverseImage fnMCR-N
+open module InvImg =
+  FOTC.Induction.WellFounded.InverseImage {N} {N} {LT} fnMCR-N
 
 ------------------------------------------------------------------------------
 -- The relation MCR is well-founded.
