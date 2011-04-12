@@ -26,7 +26,7 @@ open module InvImg =
   FOTC.Induction.WellFounded.InverseImage {N} {N} {LT} fnMCR-N
 
 ------------------------------------------------------------------------------
--- The relation MCR is well-founded.
+-- The relation MCR is well-founded (using the inverse image combinator).
 wf-MCR : WellFounded MCR
 wf-MCR Nn = wellFounded wf-LT Nn
 
