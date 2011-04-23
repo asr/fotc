@@ -13,16 +13,18 @@ open import FOTC.Data.Nat
 ------------------------------------------------------------------------------
 -- Closure properties
 
-pred-N : ∀ {n} → N n → N (pred n)
-pred-N zN  = prf
-  where
-    postulate prf : N (pred zero)
-    {-# ATP prove prf #-}
+-- We removed the equation pred zero ≡ zero, so we cannot prove the
+-- totality of the function pred.
+-- pred-N : ∀ {n} → N n → N (pred n)
+-- pred-N zN  = prf
+--   where
+--     postulate prf : N (pred zero)
+--     {-# ATP prove prf #-}
 
-pred-N (sN {n} Nn) = prf
-  where
-    postulate prf : N (pred (succ n))
-    {-# ATP prove prf #-}
+-- pred-N (sN {n} Nn) = prf
+--   where
+--     postulate prf : N (pred (succ n))
+--     {-# ATP prove prf #-}
 
 ∸-N : ∀ {m n} → N m → N n → N (m ∸ n)
 ∸-N {m} _ zN = prf

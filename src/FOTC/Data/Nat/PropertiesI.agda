@@ -19,9 +19,11 @@ open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 
-pred-N : ∀ {n} → N n → N (pred n)
-pred-N zN          = subst N (sym pred-0) zN
-pred-N (sN {n} Nn) = subst N (sym $ pred-S n) Nn
+-- We removed the equation pred zero ≡ zero, so we cannot prove the
+-- totality of the function pred.
+-- pred-N : ∀ {n} → N n → N (pred n)
+-- pred-N zN = subst N (sym pred-0) zN
+-- pred-N (sN {n} Nn) = subst N (sym $ pred-S n) Nn
 
 ∸-N : ∀ {m n} → N m → N n → N (m ∸ n)
 ∸-N {m} Nm          zN          = subst N (sym $ ∸-x0 m) Nm

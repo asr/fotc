@@ -75,9 +75,9 @@ postulate
 
 postulate
   -- Conversion rules for pred.
-  pred-0 :       pred zero     ≡ zero
+  -- N.B. We don't need this equation.
+  -- pred-0 :       pred zero     ≡ zero
   pred-S : ∀ d → pred (succ d) ≡ d
-{-# ATP axiom pred-0 #-}
 {-# ATP axiom pred-S #-}
 
 postulate
