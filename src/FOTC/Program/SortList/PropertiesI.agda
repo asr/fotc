@@ -16,13 +16,12 @@ open import FOTC.Data.Nat.List.Type
 open import FOTC.Data.Nat.Type
 open import FOTC.Data.List
 
-open import FOTC.Program.SortList.Properties.Closures.BoolI
-open import FOTC.Program.SortList.Properties.Closures.ListN-I
-open import FOTC.Program.SortList.Properties.Closures.OrdList.FlattenI
-open import FOTC.Program.SortList.Properties.Closures.OrdListI
-
-open import FOTC.Program.SortList.Properties.Closures.OrdTreeI
-open import FOTC.Program.SortList.Properties.Closures.TreeI
+open import FOTC.Program.SortList.Properties.Totality.BoolI
+open import FOTC.Program.SortList.Properties.Totality.ListN-I
+open import FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI
+open import FOTC.Program.SortList.Properties.Totality.OrdListI
+open import FOTC.Program.SortList.Properties.Totality.OrdTreeI
+open import FOTC.Program.SortList.Properties.Totality.TreeI
 open import FOTC.Program.SortList.SortList
 
 open import FOTC.Relation.Binary.EqReasoning

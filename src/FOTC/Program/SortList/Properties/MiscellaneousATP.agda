@@ -28,7 +28,7 @@ open import FOTC.Data.Nat.Type
         )
 open import FOTC.Data.List using ( _++_ ; ++-[] )
 
-open import FOTC.Program.SortList.Properties.Closures.BoolATP
+open import FOTC.Program.SortList.Properties.Totality.BoolATP
   using ( ≤-ItemList-Bool
         ; ≤-Lists-Bool
         ; ordList-Bool

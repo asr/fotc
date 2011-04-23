@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Closures properties respect to ListN
+-- Totality properties respect to ListN
 ------------------------------------------------------------------------------
 
-module FOTC.Program.SortList.Properties.Closures.ListN-ATP where
+module FOTC.Program.SortList.Properties.Totality.ListN-ATP where
 
 open import FOTC.Base
 

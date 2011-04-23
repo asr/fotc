@@ -15,7 +15,7 @@ open import FOTC.Base
 
 open import FOTC.Data.Nat.List.Type
 open import FOTC.Program.SortList.PropertiesATP
-open import FOTC.Program.SortList.Properties.Closures.TreeATP
+open import FOTC.Program.SortList.Properties.Totality.TreeATP
 open import FOTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------

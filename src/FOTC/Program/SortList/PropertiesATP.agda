@@ -15,12 +15,12 @@ open import FOTC.Data.Nat.List.Type
 open import FOTC.Data.Nat.Type
 open import FOTC.Data.List
 
-open import FOTC.Program.SortList.Properties.Closures.BoolATP
-open import FOTC.Program.SortList.Properties.Closures.ListN-ATP
-open import FOTC.Program.SortList.Properties.Closures.OrdList.FlattenATP
-open import FOTC.Program.SortList.Properties.Closures.OrdListATP
-open import FOTC.Program.SortList.Properties.Closures.OrdTreeATP
-open import FOTC.Program.SortList.Properties.Closures.TreeATP
+open import FOTC.Program.SortList.Properties.Totality.BoolATP
+open import FOTC.Program.SortList.Properties.Totality.ListN-ATP
+open import FOTC.Program.SortList.Properties.Totality.OrdList.FlattenATP
+open import FOTC.Program.SortList.Properties.Totality.OrdListATP
+open import FOTC.Program.SortList.Properties.Totality.OrdTreeATP
+open import FOTC.Program.SortList.Properties.Totality.TreeATP
 open import FOTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------

@@ -12,7 +12,7 @@ open import FOTC.Data.List
 open import FOTC.Data.List.Type
 
 ------------------------------------------------------------------------------
--- Closure properties
+-- Totality properties
 
 ++-List : ∀ {xs ys} → List xs → List ys → List (xs ++ ys)
 ++-List {ys = ys} nilL Lys = prf

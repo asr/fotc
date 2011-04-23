@@ -11,7 +11,7 @@ open import Common.Function
 open import FOTC.Data.Nat
 
 ------------------------------------------------------------------------------
--- Closure properties
+-- Totality properties
 
 -- We removed the equation pred zero ≡ zero, so we cannot prove the
 -- totality of the function pred.

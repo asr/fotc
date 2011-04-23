@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Closures properties respect to OrdList (flatten-OrdList-helper)
+-- Totality properties respect to OrdList (flatten-OrdList-helper)
 ------------------------------------------------------------------------------
 
-module FOTC.Program.SortList.Properties.Closures.OrdList.FlattenATP where
+module FOTC.Program.SortList.Properties.Totality.OrdList.FlattenATP where
 
 open import FOTC.Base
 
@@ -11,9 +11,9 @@ open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.Type
 
-open import FOTC.Program.SortList.Properties.Closures.BoolATP
-open import FOTC.Program.SortList.Properties.Closures.ListN-ATP
-open import FOTC.Program.SortList.Properties.Closures.OrdTreeATP
+open import FOTC.Program.SortList.Properties.Totality.BoolATP
+open import FOTC.Program.SortList.Properties.Totality.ListN-ATP
+open import FOTC.Program.SortList.Properties.Totality.OrdTreeATP
 open import FOTC.Program.SortList.Properties.MiscellaneousATP
 open import FOTC.Program.SortList.SortList
 

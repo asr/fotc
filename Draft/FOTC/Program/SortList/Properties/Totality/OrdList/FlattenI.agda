@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Closures properties respect to OrdList (flatten-OrdList-helper)
+-- Totality properties respect to OrdList (flatten-OrdList-helper)
 ------------------------------------------------------------------------------
 
 -- The termination checker can not determine that the function
@@ -8,7 +8,7 @@
 
 {-# OPTIONS --no-termination-check #-}
 
-module Draft.FOTC.Program.SortList.Properties.Closures.OrdList.FlattenI where
+module Draft.FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI where
 
 open import FOTC.Base
 
@@ -21,9 +21,9 @@ open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.Type
 open import FOTC.Data.List
 
-open import FOTC.Program.SortList.Properties.Closures.BoolI
-open import FOTC.Program.SortList.Properties.Closures.ListN-I
-open import FOTC.Program.SortList.Properties.Closures.OrdTreeI
+open import FOTC.Program.SortList.Properties.Totality.BoolI
+open import FOTC.Program.SortList.Properties.Totality.ListN-I
+open import FOTC.Program.SortList.Properties.Totality.OrdTreeI
 open import FOTC.Program.SortList.Properties.MiscellaneousI
 open import FOTC.Program.SortList.SortList
 

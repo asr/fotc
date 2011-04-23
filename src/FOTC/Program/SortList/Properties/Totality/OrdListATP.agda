@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Closures properties respect to OrdList
+-- Totality properties respect to OrdList
 ------------------------------------------------------------------------------
 
-module FOTC.Program.SortList.Properties.Closures.OrdListATP where
+module FOTC.Program.SortList.Properties.Totality.OrdListATP where
 
 open import FOTC.Base
 
@@ -14,7 +14,7 @@ open import FOTC.Data.Nat.List.Type
 open import FOTC.Data.Nat.Type
 open import FOTC.Data.List
 
-open import FOTC.Program.SortList.Properties.Closures.BoolATP
+open import FOTC.Program.SortList.Properties.Totality.BoolATP
 open import FOTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------

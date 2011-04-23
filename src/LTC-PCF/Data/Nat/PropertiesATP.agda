@@ -73,7 +73,7 @@ postulate
 {-# ATP prove *-Sx rec-S #-}
 
 ------------------------------------------------------------------------------
--- Closure properties
+-- Totality properties
 
 ∸-N : ∀ {m n} → N m → N n → N (m ∸ n)
 ∸-N {m} _ zN = prf

@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Closures properties respect to Tree
+-- Totality properties respect to Tree
 ------------------------------------------------------------------------------
 
-module FOTC.Program.SortList.Properties.Closures.TreeATP where
+module FOTC.Program.SortList.Properties.Totality.TreeATP where
 
 open import FOTC.Base
 

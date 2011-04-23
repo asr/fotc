@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Properties related with the closures of the forest type
+-- Totality properties respect to Forest
 ------------------------------------------------------------------------------
 
-module FOTC.Program.Mirror.Forest.Closures where
+module FOTC.Program.Mirror.Forest.Totality where
 
 open import FOTC.Base
 

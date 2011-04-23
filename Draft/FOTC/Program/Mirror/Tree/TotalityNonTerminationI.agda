@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Properties related with the closures of the rose tree type
+-- Properties related with the totality of the rose tree type
 ------------------------------------------------------------------------------
 
 -- {-# OPTIONS --no-termination-check #-}
 {-# OPTIONS --injective-type-constructors #-}
 
-module Draft.FOTC.Program.Mirror.Tree.ClosuresNonTerminationI where
+module Draft.FOTC.Program.Mirror.Tree.TotalityNonTerminationI where
 
 open import FOTC.Base
 
@@ -13,7 +13,7 @@ open import FOTC.Data.List
 
 open import FOTC.Program.Mirror.Mirror
 open import FOTC.Program.Mirror.Type
-open import FOTC.Program.Mirror.Forest.Closures
+open import FOTC.Program.Mirror.Forest.Totality
 open import FOTC.Program.Mirror.Forest.PropertiesI
 
 open import FOTC.Relation.Binary.EqReasoning

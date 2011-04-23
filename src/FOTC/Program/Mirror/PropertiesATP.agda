@@ -10,9 +10,9 @@ open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesATP using ( reverse-[x]≡[x] )
 
 open import FOTC.Program.Mirror.Forest.PropertiesATP
-open import FOTC.Program.Mirror.Forest.Closures
+open import FOTC.Program.Mirror.Forest.Totality
 open import FOTC.Program.Mirror.Mirror
-open import FOTC.Program.Mirror.Tree.Closures
+open import FOTC.Program.Mirror.Tree.Totality
 open import FOTC.Program.Mirror.Type
 
 ------------------------------------------------------------------------------

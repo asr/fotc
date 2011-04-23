@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Closures properties respect to OrdList (flatten-OrdList-helper)
+-- Totality properties respect to OrdList (flatten-OrdList-helper)
 ------------------------------------------------------------------------------
 
-module FOTC.Program.SortList.Properties.Closures.OrdList.FlattenI where
+module FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI where
 
 open import FOTC.Base
 

@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Closures properties respect to Bool
+-- Totality properties respect to Bool
 ------------------------------------------------------------------------------
 
-module FOTC.Program.SortList.Properties.Closures.BoolI where
+module FOTC.Program.SortList.Properties.Totality.BoolI where
 
 open import FOTC.Base
 

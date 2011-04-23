@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Closures properties respect to OrdTree
+-- Totality properties respect to OrdTree
 ------------------------------------------------------------------------------
 
-module FOTC.Program.SortList.Properties.Closures.OrdTreeI where
+module FOTC.Program.SortList.Properties.Totality.OrdTreeI where
 
 open import FOTC.Base
 
@@ -41,12 +41,12 @@ open import FOTC.Program.SortList.SortList
         ; toTree ; toTree-nilTree ; toTree-node ; toTree-tip
         ; Tree ; nilT ; nodeT ; tipT  -- The FOTC tree type.
         )
-open import FOTC.Program.SortList.Properties.Closures.BoolI
+open import FOTC.Program.SortList.Properties.Totality.BoolI
   using ( ≤-ItemTree-Bool
         ; ≤-TreeItem-Bool
         ; ordTree-Bool
         )
-open import FOTC.Program.SortList.Properties.Closures.TreeI
+open import FOTC.Program.SortList.Properties.Totality.TreeI
   using ( makeTree-Tree )
 
 open import FOTC.Relation.Binary.EqReasoning
