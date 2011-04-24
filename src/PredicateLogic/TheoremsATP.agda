@@ -26,9 +26,8 @@ postulate
 postulate
   ∀I : ((x : D) → P¹ x) → ⋀ P¹
   ∀E : ⋀ P¹ → (t : D) → P¹ t
-  -- It is necessary postulate a non-empty domain.
-  -- See PredicateLogic.NonEmptyDomain.TheoremsATP.
-  -- ∃I : ((t : D) → P¹ t) → ∃ P¹
+  -- It is necessary postulate a non-empty domain. See
+  -- PredicateLogic.NonEmptyDomain.TheoremsATP.∃I.
   ∃I : ((t : D) → P¹ t) → ∃ P¹
   ∃E : ∃ P¹ → ((x : D) → P¹ x → P⁰) → P⁰
 {-# ATP prove ∀I #-}
@@ -55,7 +54,7 @@ postulate
 
 -- Quantification over a variable that does not occur can be delete.
 postulate
-  ∀-erase  : ⋀ (λ _ → P⁰) ↔ P⁰
+  ∀-erase : ⋀ (λ _ → P⁰) ↔ P⁰
   ∃-erase : ∃ (λ x → P⁰ ∧ P¹ x) ↔ P⁰ ∧ ∃ (λ x → P¹ x)
 {-# ATP prove ∀-erase #-}
 {-# ATP prove ∃-erase #-}
