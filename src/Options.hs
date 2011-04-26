@@ -34,8 +34,8 @@ data Options = MkOptions
     , optHelp            ∷ Bool
     , optOnlyFiles       ∷ Bool
     , optOutputDir       ∷ FilePath
-    , optSnapshotTest    ∷ Bool
     , optSnapshotDir     ∷ FilePath
+    , optSnapshotTest    ∷ Bool
     , optTime            ∷ Int
     , optUnprovedError   ∷ Bool
     , optVerbose         ∷ Verbosity
@@ -54,8 +54,8 @@ defaultOptions = MkOptions
   , optHelp            = False
   , optOnlyFiles       = False
   , optOutputDir       = "/tmp"
-  , optSnapshotTest    = False
   , optSnapshotDir     = "snapshot"
+  , optSnapshotTest    = False
   , optTime            = 300
   , optUnprovedError   = False
   , optVerbose         = Trie.singleton [] 1
@@ -72,13 +72,13 @@ atpOpt name opts = opts { optATP = optATP opts ++ [name] }
 helpOpt ∷ Options → Options
 helpOpt opts = opts { optHelp = True }
 
+snapshotDirOpt ∷ FilePath → Options → Options
+snapshotDirOpt dir opts = opts { optSnapshotDir = dir }
+
 snapshotTestOpt ∷ Options → Options
 snapshotTestOpt opts = opts { optSnapshotTest = True
                             , optOnlyFiles = True
                             }
-
-snapshotDirOpt ∷ FilePath → Options → Options
-snapshotDirOpt dir opts = opts { optSnapshotDir = dir }
 
 timeOpt ∷ String → Options → Options
 timeOpt secs opts = opts { optTime = read secs }
@@ -112,7 +112,7 @@ versionOpt opts = opts { optVersion = True }
 options ∷ [OptDescr (Options → Options)]
 options =
   [ Option "i" ["agda-include-path"] (ReqArg agdaIncludePathOpt "DIR")
-               "looks for imports in DIR"
+               "look for imports in DIR"
   , Option []  ["atp"] (ReqArg atpOpt "name")
                "set the ATP (default: e, equinox, metis, and vampire)"
   , Option "?" ["help"] (NoArg helpOpt)
@@ -121,11 +121,12 @@ options =
                "do not call the ATPs, only to create the TPTP files"
   , Option []  ["output-dir"] (ReqArg outputDirOpt "DIR")
                "directory in which TPTP files are placed (default: /tmp)"
+  , Option []  ["snapshot-dir"] (ReqArg snapshotDirOpt "DIR") $
+               "directory where is the snapshot of the TPTP files\n" ++
+               "(default: snapshot)"
   , Option []  ["snapshot-test"] (NoArg snapshotTestOpt) $
                "compare the generated TPTP files against a snapshot of them\n" ++
                "(implies --only-files)"
-  , Option []  ["snapshot-dir"] (ReqArg snapshotDirOpt "DIR")
-               "directory where is the snapshot of the TPTP files (default: snapshot)"
   , Option []  ["time"] (ReqArg timeOpt "secs")
                "set timeout for the ATPs in seconds (default: 300)"
   , Option []  ["unproved-conjecture-error"] (NoArg unprovedErrorOpt)
