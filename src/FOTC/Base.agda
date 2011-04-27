@@ -34,7 +34,6 @@ open import Common.LogicalConstants public
 --      | true  | false  | if t then t else t
 --      | 0     | succ t | pred t             | isZero t
 --      | []    | _∷_    | null               | head     | tail
---      | error
 
 postulate
 
@@ -52,9 +51,6 @@ postulate
   -- FOTC application.
   -- The Agda application has higher precedence level than FOTC application.
   _·_ : D → D → D
-
-  -- FOTC error.
-  error : D
 
   -- FOTC lists.
   []   : D

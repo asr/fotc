@@ -12,17 +12,16 @@ open import FOTC.Data.Nat using ( _*_ ; N )
 infix 7 _∣_
 
 ------------------------------------------------------------------------------
--- It seems there is not agreement about if 0∣0 (e.g. see Coq definition
--- (0∣0), Agda library (0∤0), or MathWorld (0∤0)). At the moment, in our
--- definition 0∤0.
-
--- data _∣_ : D → D → Set where
---   ∣-i : ∀ {m n} → ∃D λ k → n ≡ k * succ m → succ m ∣ n
--- {-# ATP axiom ∣-i #-}
-
 -- The relation of divisibility.
 -- The symbol is '\mid' not '|'.
--- What about change '∃' by '(k : D)' (e.g. the standard library uses it)?
+-- It seems there is not agreement about if 0∣0, e.g.
+-- Coq 8.3: 0∣0
+-- Agda standard library, version 0.5: 0|0
+-- Hardy and Wright. An introduction to the theory of numbers. 1975. 4ed: 0∤0
+--
+-- In our definition 0∤0, therefore gcd 0 0 is undefined as it is in
+-- GHC (v. 7.0.3) (but see the discussion about it in
+-- http://www.haskell.org/pipermail/haskell-cafe/2009-May/060788.html).
 _∣_ : D → D → Set
 d ∣ e = ¬ (d ≡ zero) ∧ ∃ λ k → N k ∧ e ≡ k * d
 {-# ATP definition _∣_ #-}
