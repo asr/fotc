@@ -33,9 +33,10 @@ postulate
 -- List transformations
 
 postulate
+  -- NB. The function map is not a higher-order function.
   map    : D → D → D
-  map-[] : (f : D) →        map f []       ≡ []
-  map-∷  : ∀ (f : D) d ds → map f (d ∷ ds) ≡ f · d ∷ map f ds
+  map-[] : ∀ f →      map f []       ≡ []
+  map-∷  : ∀ f d ds → map f (d ∷ ds) ≡ f · d ∷ map f ds
 {-# ATP axiom map-[] #-}
 {-# ATP axiom map-∷ #-}
 
@@ -60,15 +61,17 @@ postulate
 -- Reducing lists
 
 postulate
+  -- NB. The function foldr is not a higher-order function.
   foldr    : D → D → D → D
-  foldr-[] : ∀ (f : D) n  →     foldr f n []       ≡ n
-  foldr-∷  : ∀ (f : D) n d ds → foldr f n (d ∷ ds) ≡ f · d · (foldr f n ds)
+  foldr-[] : ∀ f n  →     foldr f n []       ≡ n
+  foldr-∷  : ∀ f n d ds → foldr f n (d ∷ ds) ≡ f · d · (foldr f n ds)
 {-# ATP axiom foldr-[] #-}
 {-# ATP axiom foldr-∷ #-}
 
 -- Building lists
 
 postulate
+  -- NB. The function iterate is not a higher-order function.
   iterate    : D → D → D
-  iterate-eq : ∀ (f : D) x → iterate f x ≡ x ∷ iterate f (f · x)
+  iterate-eq : ∀ f x → iterate f x ≡ x ∷ iterate f (f · x)
 {-# ATP axiom iterate-eq #-}
