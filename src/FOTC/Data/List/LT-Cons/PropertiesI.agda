@@ -8,10 +8,10 @@ open import FOTC.Base
 
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.List
-open import FOTC.Data.List.Type
-open import FOTC.Data.List.Length.PropertiesI
 open import FOTC.Data.List.LT-Length
 open import FOTC.Data.List.LT-Cons
+open import FOTC.Data.List.PropertiesI
+open import FOTC.Data.List.Type
 
 ------------------------------------------------------------------------------
 

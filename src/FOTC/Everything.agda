@@ -18,8 +18,6 @@ open import FOTC.Data.Bool.Type
 
 open import FOTC.Data.List
 open import FOTC.Data.List.ConsistencyTest
-open import FOTC.Data.List.Length.PropertiesATP
-open import FOTC.Data.List.Length.PropertiesI
 open import FOTC.Data.List.LT-Cons
 open import FOTC.Data.List.LT-Cons.Induction.Acc.WellFoundedInductionI
 open import FOTC.Data.List.LT-Cons.PropertiesI

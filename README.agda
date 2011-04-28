@@ -54,8 +54,9 @@ module README where
 -- The following modules show the formalization of some first order
 -- theories. If the module's name ends in 'I' the module contains
 -- interactive proofs, if it ends in 'ATP' the module contains
--- combined proofs, otherwise the module contains interactive proofs
--- that are used by the combined proofs.
+-- combined proofs, otherwise the module contains definions and/or
+-- interactive proofs that are used by the interactive and combined
+-- proofs.
 
 ------------------------------------------------------------------------------
 -- 1. Predicate logic
@@ -131,7 +132,7 @@ open import GroupTheory.AbelianGroup.PropertiesATP
 -- 4.1 The ATPs could not prove the theorem
 open import DistributiveLaws.TaskB-ATP
 
--- 4.2 The combined interactive-automatic proofs
+-- 4.2 The interactive and combined proofs
 open import DistributiveLaws.TaskB-HalvedStepsATP
 open import DistributiveLaws.TaskB-I
 open import DistributiveLaws.TaskB-TopDownATP
@@ -216,8 +217,6 @@ open import FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
 open import FOTC.Data.List
 
 -- 6.4.2 Properties
-open import FOTC.Data.List.Length.PropertiesATP
-open import FOTC.Data.List.Length.PropertiesI
 open import FOTC.Data.List.PropertiesATP
 open import FOTC.Data.List.PropertiesI
 
@@ -253,13 +252,14 @@ open import FOTC.Program.SortList.ProofSpecificationATP
 open import FOTC.Program.SortList.ProofSpecificationI
 
 ------------------------------------------------------------------------------
--- Other ATPs failures
+-- ATPs failures
 ------------------------------------------------------------------------------
 
 -- The ATPs (E, Equinox, Metis and Vampire) could not prove some
 -- theorems.
 
-open import DistributiveLaws.TaskB-ATP
+-- This module was imported in the Stanovský example
+-- open import DistributiveLaws.TaskB-ATP
 open import LTC-PCF.Program.GCD.EquationsATP
 open import PA.Axiomatic.PropertiesATP
 

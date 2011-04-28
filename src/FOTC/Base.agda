@@ -49,7 +49,6 @@ postulate
   isZero : D → D
 
   -- FOTC application.
-  -- The Agda application has higher precedence level than FOTC application.
   _·_ : D → D → D
 
   -- FOTC lists.
