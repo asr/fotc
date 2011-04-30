@@ -2,9 +2,9 @@
 -- FOT (First Order Theories)
 ------------------------------------------------------------------------------
 
--- Code accompanying the paper "Combining Automatic and Interactive
--- Proof in First Order Theories of Combinators" by Ana Bove,
--- Peter Dybjer, and Andrés Sicard-Ramírez.
+-- Code accompanying the paper "Combining Interactive and Automatic
+-- Theorem Proving for Reasoning about Functional Programs" by Ana
+-- Bove, Peter Dybjer, and Andrés Sicard-Ramírez.
 
 ------------------------------------------------------------------------------
 
