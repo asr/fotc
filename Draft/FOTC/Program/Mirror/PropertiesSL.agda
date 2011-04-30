@@ -5,7 +5,7 @@ module PropertiesSL where
 
 open import Algebra
 open import Data.List as List hiding ( reverse )
-open import Data.List.Properties
+open import Data.List.Properties hiding ( reverse-++-commute )
 
 open import Relation.Binary.PropositionalEquality
 open ≡-Reasoning
@@ -22,14 +22,15 @@ reverse (x ∷ xs) = reverse xs ++ x ∷ []
 ++-rightIdentity []       = refl
 ++-rightIdentity (x ∷ xs) = cong (_∷_ x) (++-rightIdentity xs)
 
-reverse-++ : {A : Set}(xs ys : List A) →
-             reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
-reverse-++ [] ys       = sym (++-rightIdentity (reverse ys))
-reverse-++ (x ∷ xs) [] = cong (λ x' → reverse x' ++ x ∷ []) (++-rightIdentity xs)
-reverse-++ (x ∷ xs) (y ∷ ys) =
+reverse-++-commute : {A : Set}(xs ys : List A) →
+                     reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
+reverse-++-commute [] ys       = sym (++-rightIdentity (reverse ys))
+reverse-++-commute (x ∷ xs) [] = cong (λ x' → reverse x' ++ x ∷ [])
+                                      (++-rightIdentity xs)
+reverse-++-commute (x ∷ xs) (y ∷ ys) =
   begin
     reverse (xs ++ y ∷ ys) ++ x ∷ []
-      ≡⟨ cong (λ x' → x' ++ x ∷ []) (reverse-++ xs (y ∷ ys)) ⟩
+      ≡⟨ cong (λ x' → x' ++ x ∷ []) (reverse-++-commute xs (y ∷ ys)) ⟩
     (reverse (y ∷ ys) ++ reverse xs) ++ x ∷ []
       ≡⟨ LM.assoc (reverse (y ∷ ys)) (reverse xs) (x ∷ []) ⟩
     reverse (y ∷ ys) ++ reverse (x ∷ xs)
@@ -50,16 +51,16 @@ mutual
         ≡⟨ subst (λ x → treeT a (reverse (map mirror (reverse (map mirror ts) ++
                                                       mirror t ∷ []))) ≡
                         treeT a x)
-           (aux (t ∷ ts))
+           (helper (t ∷ ts))
            refl
         ⟩
       treeT a (t ∷ ts)
     ∎
 
-  aux : {A : Set} → (ts : List (Tree A)) →
-        reverse (map mirror (reverse (map mirror ts))) ≡ ts
-  aux []       = refl
-  aux (t ∷ ts) =
+  helper : {A : Set} → (ts : List (Tree A)) →
+           reverse (map mirror (reverse (map mirror ts))) ≡ ts
+  helper []       = refl
+  helper (t ∷ ts) =
     begin
       reverse (map mirror (reverse (map mirror ts) ++ mirror t ∷ []))
         ≡⟨ subst (λ x → (reverse (map mirror (reverse (map mirror ts) ++
@@ -73,8 +74,8 @@ mutual
         ≡⟨ subst (λ x → (reverse (map mirror (reverse (map mirror ts)) ++
                                              (map mirror (mirror t ∷ [])))) ≡
                         x)
-                 (reverse-++ (map mirror (reverse (map mirror ts)))
-                             (map mirror (mirror t ∷ [])))
+                 (reverse-++-commute (map mirror (reverse (map mirror ts)))
+                                     (map mirror (mirror t ∷ [])))
                  refl
         ⟩
       reverse (map mirror (mirror t ∷ [])) ++
@@ -90,7 +91,7 @@ mutual
       t ∷ reverse (map mirror (reverse (map mirror ts)))
         ≡⟨ subst (λ x → t ∷ reverse (map mirror (reverse (map mirror ts))) ≡
                         t ∷ x)
-                 (aux ts)
+                 (helper ts)
                  refl
         ⟩
       t ∷ ts

@@ -48,7 +48,7 @@ indForest P P[] h (consF Tt Fts) = h Tt Fts (indForest P P[] h Fts)
 ------------------------------------------------------------------------------
 -- Mutual induction for Tree and Forest
 
--- Adapted from the induction principles generate from the Coq command
+-- Adapted from the induction principles generate from the Coq 8.3 command
 -- Scheme Tree_mutual_ind :=
 --   Minimality for Tree Sort Prop
 -- with Forest_mutual_ind :=
