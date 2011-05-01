@@ -18,7 +18,7 @@ open import FOTC.Data.Nat.Type
 
 open import LTC-PCF.Data.Nat.Divisibility.PropertiesATP using ( x∣S→x≤S )
 
-open import LTC-PCF.Program.GCD.Definitions using ( ¬x≡0∧y≡0 )
+open import LTC-PCF.Program.GCD.Definitions using ( x≠0≠y )
 open import LTC-PCF.Program.GCD.GCD using ( gcd )
 open import LTC-PCF.Program.GCD.IsCommonDivisorATP using ( gcd-CD )
 open import LTC-PCF.Program.GCD.IsDivisibleATP using ( gcd-Divisible )
@@ -28,7 +28,7 @@ open module IsGreatestAnyCommonDivisorATP =
   LTC-PCF.Program.GCD.IsGreatestAnyCommonDivisor x∣S→x≤S
   using ( gcd-GACD )
 
-open import LTC-PCF.Program.GCD.IsN-ATP using ( gcd-N )
+open import LTC-PCF.Program.GCD.TotalityATP using ( gcd-N )
 
 import LTC-PCF.Program.GCD.Specification
 open module SpecificationATP =
@@ -37,5 +37,5 @@ open module SpecificationATP =
 
 ------------------------------------------------------------------------------
 -- The 'gcd' is the GCD.
-gcd-GCD : ∀ {m n} → N m → N n → ¬x≡0∧y≡0 m n → GCD m n (gcd m n)
+gcd-GCD : ∀ {m n} → N m → N n → x≠0≠y m n → GCD m n (gcd m n)
 gcd-GCD = gcd-GCD-ATP

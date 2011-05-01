@@ -81,11 +81,11 @@ open import FOTC.Program.GCD.IsCommonDivisorI
 open import FOTC.Program.GCD.IsDivisibleATP
 open import FOTC.Program.GCD.IsDivisibleI
 open import FOTC.Program.GCD.IsGreatestAnyCommonDivisor
-open import FOTC.Program.GCD.IsN-ATP
-open import FOTC.Program.GCD.IsN-I
 open import FOTC.Program.GCD.ProofSpecificationATP
 open import FOTC.Program.GCD.ProofSpecificationI
 open import FOTC.Program.GCD.Specification
+open import FOTC.Program.GCD.TotalityATP
+open import FOTC.Program.GCD.TotalityI
 
 open import FOTC.Program.McCarthy91.ArithmeticATP
 open import FOTC.Program.McCarthy91.McCarthy91.ConsistencyTest

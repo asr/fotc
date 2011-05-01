@@ -15,17 +15,17 @@ open import FOTC.Data.Nat.Type
 ------------------------------------------------------------------------------
 -- Common divisor.
 CD : D → D → D → Set
-CD m n d = (d ∣ m) ∧ (d ∣ n)
+CD d₁ d₂ cd = cd ∣ d₁ ∧ cd ∣ d₂
 {-# ATP definition CD #-}
 
 -- Divisible for any common divisor.
 Divisible : D → D → D → Set
-Divisible a b gcd = ∀ c → N c → CD a b c → c ∣ gcd
+Divisible d₁ d₂ gcd = ∀ cd → N cd → CD d₁ d₂ cd → cd ∣ gcd
 {-# ATP definition Divisible #-}
 
 -- Greatest that any common divisor.
 GACD : D → D → D → Set
-GACD a b gcd = ∀ c → N c → CD a b c → LE c gcd
+GACD d₁ d₂ gcd = ∀ cd → N cd → CD d₁ d₂ cd → LE cd gcd
 
-¬x≡0∧y≡0 : D → D → Set
-¬x≡0∧y≡0 d e = ¬ (d ≡ zero ∧ e ≡ zero)
+x≠0≠y : D → D → Set
+x≠0≠y d e = ¬ (d ≡ zero ∧ e ≡ zero)

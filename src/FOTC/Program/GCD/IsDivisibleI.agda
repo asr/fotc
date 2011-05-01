@@ -26,7 +26,7 @@ open import FOTC.Data.Nat.Inequalities.PropertiesI
         )
 open import FOTC.Data.Nat.PropertiesI using ( ∸-N )
 
-open import FOTC.Program.GCD.Definitions using ( ¬x≡0∧y≡0 ; CD ; Divisible )
+open import FOTC.Program.GCD.Definitions using ( x≠0≠y ; CD ; Divisible )
 open import FOTC.Program.GCD.GCD
   using ( gcd ; gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S )
 
@@ -101,10 +101,10 @@ Proof
 -- to prove the second case.
 gcd-x>y-Divisible :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → LT₂ o p m n → ¬x≡0∧y≡0 o p →
+  (∀ {o p} → N o → N p → LT₂ o p m n → x≠0≠y o p →
              Divisible o p (gcd o p)) →
   GT m n →
-  ¬x≡0∧y≡0 m n →
+  x≠0≠y m n →
   Divisible m n (gcd m n)
 gcd-x>y-Divisible zN zN _ _ ¬0≡0∧0≡0 _ _  = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
 gcd-x>y-Divisible zN (sN Nn) _ 0>Sn _ _ _ = ⊥-elim $ 0>x→⊥ (sN Nn) 0>Sn
@@ -127,10 +127,10 @@ gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ c Nc =
 -- to prove the third case.
 gcd-x≤y-Divisible :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → LT₂ o p m n → ¬x≡0∧y≡0 o p →
+  (∀ {o p} → N o → N p → LT₂ o p m n → x≠0≠y o p →
              Divisible o p (gcd o p)) →
   LE m n →
-  ¬x≡0∧y≡0 m n →
+  x≠0≠y m n →
   Divisible m n (gcd m n)
 gcd-x≤y-Divisible zN zN _ _ ¬0≡0∧0≡0 _ _   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
 gcd-x≤y-Divisible zN (sN Nn) _ _  _  c Nc  = gcd-0S-Divisible Nn c Nc
@@ -149,11 +149,11 @@ gcd-x≤y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ c Nc =
 
 ------------------------------------------------------------------------------
 -- The gcd is Divisible.
-gcd-Divisible : ∀ {m n} → N m → N n → ¬x≡0∧y≡0 m n → Divisible m n (gcd m n)
+gcd-Divisible : ∀ {m n} → N m → N n → x≠0≠y m n → Divisible m n (gcd m n)
 gcd-Divisible = wfInd-LT₂ P istep
   where
     P : D → D → Set
-    P i j = ¬x≡0∧y≡0 i j → Divisible i j (gcd i j)
+    P i j = x≠0≠y i j → Divisible i j (gcd i j)
 
     istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → P k l) →
             P i j

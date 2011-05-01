@@ -33,11 +33,11 @@ open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
         )
 open import LTC-PCF.Data.Nat.PropertiesATP using ( ∸-N )
 
-open import LTC-PCF.Program.GCD.Definitions using ( ¬x≡0∧y≡0 ; CD )
+open import LTC-PCF.Program.GCD.Definitions using ( x≠0≠y ; CD )
 open import LTC-PCF.Program.GCD.GCD using ( gcd )
 open import LTC-PCF.Program.GCD.EquationsATP
   using ( gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S )
-open import LTC-PCF.Program.GCD.IsN-ATP using ( gcd-N )
+open import LTC-PCF.Program.GCD.TotalityATP using ( gcd-N )
 
 ------------------------------------------------------------------------------
 -- Some cases of the gcd-∣₁
@@ -224,9 +224,9 @@ gcd-S≤S-CD {m} {n} Nm Nn acc Sm≤Sn =
 -- to prove the second case.
 gcd-x>y-CD :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → LT₂ o p m n → ¬x≡0∧y≡0 o p → CD o p (gcd o p)) →
+  (∀ {o p} → N o → N p → LT₂ o p m n → x≠0≠y o p → CD o p (gcd o p)) →
   GT m n →
-  ¬x≡0∧y≡0 m n →
+  x≠0≠y m n →
   CD m n (gcd m n)
 gcd-x>y-CD zN zN _ _ ¬0≡0∧0≡0   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
 gcd-x>y-CD zN (sN Nn) _ 0>Sn _  = ⊥-elim $ 0>x→⊥ (sN Nn) 0>Sn
@@ -248,9 +248,9 @@ gcd-x>y-CD (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _  =
 -- to prove the third case.
 gcd-x≤y-CD :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → LT₂ o p m n → ¬x≡0∧y≡0 o p → CD o p (gcd o p)) →
+  (∀ {o p} → N o → N p → LT₂ o p m n → x≠0≠y o p → CD o p (gcd o p)) →
   LE m n →
-  ¬x≡0∧y≡0 m n →
+  x≠0≠y m n →
   CD m n (gcd m n)
 gcd-x≤y-CD zN zN _ _ ¬0≡0∧0≡0  = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
 gcd-x≤y-CD zN (sN Nn) _ _ _    = gcd-0S-CD Nn
@@ -268,11 +268,11 @@ gcd-x≤y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
               (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 
 -- The 'gcd' is CD.
-gcd-CD : ∀ {m n} → N m → N n → ¬x≡0∧y≡0 m n → CD m n (gcd m n)
+gcd-CD : ∀ {m n} → N m → N n → x≠0≠y m n → CD m n (gcd m n)
 gcd-CD = wfInd-LT₂ P istep
   where
     P : D → D → Set
-    P i j = ¬x≡0∧y≡0 i j → CD i j (gcd i j)
+    P i j = x≠0≠y i j → CD i j (gcd i j)
 
     istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → P k l) →
             P i j

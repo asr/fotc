@@ -14,7 +14,7 @@ open import FOTC.Data.Nat.Type
   using ( N  -- The FOTC list of natural numbers type.
         )
 
-open import FOTC.Program.GCD.Definitions using ( ¬x≡0∧y≡0 )
+open import FOTC.Program.GCD.Definitions using ( x≠0≠y )
 open import FOTC.Program.GCD.GCD using ( gcd )
 open import FOTC.Program.GCD.IsCommonDivisorI using ( gcd-CD )
 open import FOTC.Program.GCD.IsDivisibleI using ( gcd-Divisible )
@@ -24,7 +24,7 @@ open module IsGreatestAnyCommonDivisorI =
   FOTC.Program.GCD.IsGreatestAnyCommonDivisor x∣S→x≤S
   using ( gcd-GACD )
 
-open import FOTC.Program.GCD.IsN-I using ( gcd-N )
+open import FOTC.Program.GCD.TotalityI using ( gcd-N )
 
 import FOTC.Program.GCD.Specification
 open module SpecificationI =
@@ -33,5 +33,5 @@ open module SpecificationI =
 
 ------------------------------------------------------------------------------
 -- The 'gcd' is the GCD.
-gcd-GCD : ∀ {m n} → N m → N n → ¬x≡0∧y≡0 m n → GCD m n (gcd m n)
+gcd-GCD : ∀ {m n} → N m → N n → x≠0≠y m n → GCD m n (gcd m n)
 gcd-GCD = gcd-GCD-I

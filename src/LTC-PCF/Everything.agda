@@ -48,10 +48,10 @@ open import LTC-PCF.Program.GCD.IsDivisibleATP
 open import LTC-PCF.Program.GCD.IsDivisibleI
 open import LTC-PCF.Program.GCD.IsGreatestAnyCommonDivisor
 open import LTC-PCF.Program.GCD.IsGreatestAnyCommonDivisor
-open import LTC-PCF.Program.GCD.IsN-ATP
-open import LTC-PCF.Program.GCD.IsN-I
 open import LTC-PCF.Program.GCD.ProofSpecificationATP
 open import LTC-PCF.Program.GCD.ProofSpecificationI
 open import LTC-PCF.Program.GCD.Specification
+open import LTC-PCF.Program.GCD.TotalityATP
+open import LTC-PCF.Program.GCD.TotalityI
 
 open import LTC-PCF.Relation.Binary.EqReasoning

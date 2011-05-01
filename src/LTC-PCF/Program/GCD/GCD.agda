@@ -45,11 +45,11 @@ gcd-helper₁ d g e = if (isZero e)
                        then (if (isZero d)
                                 then error
                                 else d)
-                        else (if (isZero d)
-                          then e
-                          else (if (d > e)
-                                   then g · (d ∸ e) · e
-                                   else g · d · (e ∸ d)))
+                       else (if (isZero d)
+                                then e
+                                else (if (d > e)
+                                         then g · (d ∸ e) · e
+                                         else g · d · (e ∸ d)))
 {-# ATP definition gcd-helper₁ #-}
 
 gcd-helper₂ : D → D → D

@@ -3,11 +3,11 @@
 ------------------------------------------------------------------------------
 {-
 
-FOTC                              Agda
-* Logical constants              * Curry-Howard isomorphism
-* Equality                       * Identity type
-* Term language                  * Postulates
-* Inductive predicates           * Inductive families
+FOTC                                  Agda
+* Logical constants                   * Curry-Howard isomorphism
+* Equality                            * Identity type
+* Term language and conversion rules  * Postulates
+* Inductive predicates                * Inductive families
 -}
 
 module FOTC.Base where
