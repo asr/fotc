@@ -1,43 +1,40 @@
 -- Tested with the development version of the standard library on
--- 05 March 2011.
+-- 02 May 2011.
 
-module PropertiesSL where
-
-open import Algebra
-open import Data.List as List hiding ( reverse )
-open import Data.List.Properties hiding ( reverse-++-commute )
+module PropertiesNonListSL where
 
 open import Relation.Binary.PropositionalEquality
 open ≡-Reasoning
 
-module LM {A : Set} = Monoid (List.monoid A)
+infixr 5 _∷_ _++_
 
 ------------------------------------------------------------------------------
 
-reverse : {A : Set} → List A → List A
+mutual
+  data Tree (A : Set) : Set where
+    treeT : A → Forest A → Tree A
+
+  data Forest (A : Set) : Set where
+    []  : Forest A
+    _∷_ : Tree A → Forest A → Forest A
+
+_++_ : {A : Set} → Forest A → Forest A → Forest A
+[]       ++ ys = ys
+(a ∷ xs) ++ ys = a ∷ xs ++ ys
+
+map : {A B : Set} → (Tree A → Tree B) → Forest A → Forest B
+map f []       = []
+map f (a ∷ ts) = f a ∷ map f ts
+
+reverse : {A : Set} → Forest A → Forest A
 reverse []       = []
-reverse (x ∷ xs) = reverse xs ++ x ∷ []
+reverse (a ∷ ts) = reverse ts ++ a ∷ []
 
-++-rightIdentity : {A : Set}(xs : List A) → xs ++ [] ≡ xs
-++-rightIdentity []       = refl
-++-rightIdentity (x ∷ xs) = cong (_∷_ x) (++-rightIdentity xs)
-
-reverse-++-commute : {A : Set}(xs ys : List A) →
-                     reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
-reverse-++-commute [] ys       = sym (++-rightIdentity (reverse ys))
-reverse-++-commute (x ∷ xs) [] = cong (λ x' → reverse x' ++ x ∷ [])
-                                      (++-rightIdentity xs)
-reverse-++-commute (x ∷ xs) (y ∷ ys) =
-  begin
-    reverse (xs ++ y ∷ ys) ++ x ∷ []
-      ≡⟨ cong (λ x' → x' ++ x ∷ []) (reverse-++-commute xs (y ∷ ys)) ⟩
-    (reverse (y ∷ ys) ++ reverse xs) ++ x ∷ []
-      ≡⟨ LM.assoc (reverse (y ∷ ys)) (reverse xs) (x ∷ []) ⟩
-    reverse (y ∷ ys) ++ reverse (x ∷ xs)
-  ∎
-
-data Tree (A : Set) : Set where
-  treeT : A → List (Tree A) → Tree A
+postulate
+  map-++-commute     : {A B : Set}(f : Tree A → Tree B)(xs ys : Forest A) →
+                       map f (xs ++ ys) ≡ map f xs ++ map f ys
+  reverse-++-commute : {A : Set}(xs ys : Forest A) →
+                       reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
 
 mirror : {A : Set} → Tree A → Tree A
 mirror (treeT a ts) = treeT a (reverse (map mirror ts))
@@ -57,7 +54,7 @@ mutual
       treeT a (t ∷ ts)
     ∎
 
-  helper : {A : Set} → (ts : List (Tree A)) →
+  helper : {A : Set} → (ts : Forest A) →
            reverse (map mirror (reverse (map mirror ts))) ≡ ts
   helper []       = refl
   helper (t ∷ ts) =
