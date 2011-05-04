@@ -29,4 +29,4 @@ collatz-2^x (sN {n} Nn) (.(succ k) , sN {k} Nk , Sn≡2^k+1) =
   where
     postulate prf : collatz (two ^ k) ≡ one →  -- IH.
                     collatz (succ n) ≡ one
-    {-# ATP prove prf 2^x-Even 2^[x+1]/2≡x #-}
+    {-# ATP prove prf 2^[x+1]-Even 2^[x+1]/2≡x #-}

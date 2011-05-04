@@ -62,8 +62,8 @@ open import FOTC.Relation.Binary.EqReasoning
     two ^ n
   ∎
 
-2^x-Even : ∀ n → Even (two ^ (succ n))
-2^x-Even n = two ^ n , ^-S two n
+2^[x+1]-Even : ∀ n → Even (two ^ (succ n))
+2^[x+1]-Even n = two ^ n , ^-S two n
 
 Sx≡2^0→x≡0 : ∀ {n} → N n → succ n ≡ two ^ zero → n ≡ zero
 Sx≡2^0→x≡0 zN         _       = refl

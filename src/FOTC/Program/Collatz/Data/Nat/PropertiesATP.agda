@@ -47,8 +47,8 @@ postulate
   2^[x+1]/2≡x : ∀ {n} → N n → (two ^ (succ n)) / two ≡ two ^ n
 {-# ATP prove 2^[x+1]/2≡x 2x/2≡x ^-N #-}
 
-2^x-Even : ∀ n → Even (two ^ (succ n))
-2^x-Even n = two ^ n , ^-S two n
+2^[x+1]-Even : ∀ n → Even (two ^ (succ n))
+2^[x+1]-Even n = two ^ n , ^-S two n
 
 Sx≡2^0→x≡0 : ∀ {n} → N n → succ n ≡ two ^ zero → n ≡ zero
 Sx≡2^0→x≡0 zN         _       = refl
