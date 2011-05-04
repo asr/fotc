@@ -49,32 +49,12 @@ postulate
 {-# ATP prove 111≡100+11 #-}
 
 postulate
-  101>100' : GT hundred-one                    one-hundred
   101>100  : GT ((one-hundred + eleven) ∸ ten) one-hundred
-  102>100  : GT hundred-two                    one-hundred
-  103>100  : GT hundred-three                  one-hundred
-  104>100  : GT hundred-four                   one-hundred
-  105>100  : GT hundred-five                   one-hundred
-  106>100  : GT hundred-six                    one-hundred
-  107>100  : GT hundred-seven                  one-hundred
-  108>100  : GT hundred-eight                  one-hundred
-  109>100  : GT hundred-nine                   one-hundred
-  110>100  : GT hundred-ten                    one-hundred
   111>100' : GT hundred-eleven                 one-hundred
   111>100  : GT (one-hundred + eleven)         one-hundred
-{-# ATP prove 101>100' #-}
-{-# ATP prove 101>100 101>100' 101≡100+11-10 #-}
-{-# ATP prove 102>100 #-}
-{-# ATP prove 103>100 #-}
-{-# ATP prove 104>100 #-}
-{-# ATP prove 105>100 #-}
-{-# ATP prove 106>100 #-}
-{-# ATP prove 107>100 #-}
-{-# ATP prove 108>100 #-}
-{-# ATP prove 109>100 #-}
-{-# ATP prove 110>100 #-}
+{-# ATP prove 101>100 101≡100+11-10 #-}
 {-# ATP prove 111>100' #-}
-{-# ATP prove 111>100 111>100' 111≡100+11 #-}
+{-# ATP prove 111>100 111≡100+11 #-}
 
 postulate
   99+11>100 : GT (ninety-nine + eleven)  one-hundred
@@ -87,16 +67,16 @@ postulate
   92+11>100 : GT (ninety-two + eleven)   one-hundred
   91+11>100 : GT (ninety-one + eleven)   one-hundred
   90+11>100 : GT (ninety + eleven)       one-hundred
-{-# ATP prove 99+11>100 110>100 110≡99+11 #-}
-{-# ATP prove 98+11>100 109>100 109≡99+11 #-}
-{-# ATP prove 97+11>100 108>100 108≡97+11 #-}
-{-# ATP prove 96+11>100 107>100 107≡96+11 #-}
-{-# ATP prove 95+11>100 106>100 106≡95+11 #-}
-{-# ATP prove 94+11>100 105>100 105≡94+11 #-}
-{-# ATP prove 93+11>100 104>100 104≡93+11 #-}
-{-# ATP prove 92+11>100 103>100 103≡92+1 #-}
-{-# ATP prove 91+11>100 102>100 102≡91+11 #-}
-{-# ATP prove 90+11>100 101>100' 101≡90+11≡101 #-}
+{-# ATP prove 99+11>100 110≡99+11 #-}
+{-# ATP prove 98+11>100 109≡99+11 #-}
+{-# ATP prove 97+11>100 108≡97+11 #-}
+{-# ATP prove 96+11>100 107≡96+11 #-}
+{-# ATP prove 95+11>100 106≡95+11 #-}
+{-# ATP prove 94+11>100 105≡94+11 #-}
+{-# ATP prove 93+11>100 104≡93+11 #-}
+{-# ATP prove 92+11>100 103≡92+1 #-}
+{-# ATP prove 91+11>100 102≡91+11 #-}
+{-# ATP prove 90+11>100 101≡90+11≡101 #-}
 
 postulate
   100<102' : LT one-hundred hundred-two
