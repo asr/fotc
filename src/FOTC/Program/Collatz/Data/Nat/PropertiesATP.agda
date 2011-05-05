@@ -44,8 +44,8 @@ postulate
     {-# ATP prove prf 2*SSx≥2 *-leftZero +-rightIdentity +-comm +-N #-}
 
 postulate
-  2^[x+1]/2≡x : ∀ {n} → N n → (two ^ (succ n)) / two ≡ two ^ n
-{-# ATP prove 2^[x+1]/2≡x 2x/2≡x ^-N #-}
+  2^[x+1]/2≡2^x : ∀ {n} → N n → (two ^ (succ n)) / two ≡ two ^ n
+{-# ATP prove 2^[x+1]/2≡2^x 2x/2≡x ^-N #-}
 
 2^[x+1]-Even : ∀ n → Even (two ^ (succ n))
 2^[x+1]-Even n = two ^ n , ^-S two n

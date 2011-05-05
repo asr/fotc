@@ -49,8 +49,8 @@ open import FOTC.Relation.Binary.EqReasoning
     -- See the combined proof.
     postulate prf : two * succ (succ n) / two ≡ succ (succ n)
 
-2^[x+1]/2≡x : ∀ {n} → N n → (two ^ (succ n)) / two ≡ two ^ n
-2^[x+1]/2≡x {n} Nn =
+2^[x+1]/2≡2^x : ∀ {n} → N n → (two ^ (succ n)) / two ≡ two ^ n
+2^[x+1]/2≡2^x {n} Nn =
   begin
     two ^ (succ n) / two
       ≡⟨ subst (λ t → two ^ (succ n) / two ≡ t / two)

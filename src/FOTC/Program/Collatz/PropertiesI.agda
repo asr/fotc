@@ -31,7 +31,7 @@ collatz-2^x (sN {n} Nn) (.(succ k) , sN {k} Nk , Sn≡2^k+1) =
     collatz (two ^ (succ k))
       ≡⟨ collatz-even (2^[x+1]-Even k) ⟩
     collatz ((two ^ (succ k)) / two)
-      ≡⟨ cong collatz (2^[x+1]/2≡x Nk) ⟩
+      ≡⟨ cong collatz (2^[x+1]/2≡2^x Nk) ⟩
     collatz (two ^ k)
       ≡⟨ collatz-2^x (^-N 2-N Nk) (k , Nk , refl) ⟩
     one
