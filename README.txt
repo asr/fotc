@@ -3,8 +3,8 @@ agda2atp
 ==============================================================================
 
 Code accompanying the paper "Combining Interactive and Automatic
-Theorem Proving for Reasoning about Functional Programs" by Ana Bove,
-Peter Dybjer, and Andrés Sicard-Ramírez.
+Reasoning about Functional Programs" by Ana Bove, Peter Dybjer, and
+Andrés Sicard-Ramírez.
 
 ------------------------------------------------------------------------------
 Description
@@ -34,56 +34,7 @@ The agda2atp tool requires at least one of the following ATPs:
 Installation
 ------------------------------------------------------------------------------
 
-1. Prerequisite: A modified version of Agda
-
-  The agda2atp tool requires a modified version of Agda in which have
-  added a new built-in pragma called the ATP pragma. To install this
-  modified version of Agda you need:
-
-  1.1 Getting the modified version of Agda source
-
-      $ darcs get http://patch-tag.com/r/asr/magda
-
-  1.2 To install the modified version of Agda Agda
-
-      You can following the same instructions to install Agda from the
-      Agda wiki http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Main.Download.
-
-      N.B. In our modified version of Agda we bump the Agda
-      development version of from 2.2.9 to 2.2.9.1.
-
-2. Getting the agda2atp source
-
-   $ darcs get http://patch-tag.com/r/asr/agda2atp
-
-3. To install the agda2atp tool
-
-   After to install the modified version of Agda, you need:
-
-   $ cd ~/agda2atp
-   $ cabal install
-
-4. Testing
-
-   In the file ~/agda2atp/Makefile set the AGDA2APT variable to the
-   ATP of your choice. For example, if you choose the Metis ATP, you
-   should set the variable AGDA2APT to
-
-   AGDA2ATP = agda2atp --atp=metis
-
-   To test the correct installation of the agda2apt tool you need:
-
-   $ make test
-
-   After this command you should be see the following output
-
-   Translating Test/Succeed/Agda/InterfaceFile.agda ...
-   Translating Test/Succeed/Conjectures/Eta.agda ...
-   Proving the conjecture in /tmp/Test.Succeed.Conjectures.Eta.test1_18.tptp ...
-   Metis proved the conjecture in /tmp/Test.Succeed.Conjectures.Eta.test1_18.tptp
-   ...
-   Proving the conjecture in /tmp/Test.Fail.Add.43-comm_19.tptp ...
-   The ATP(s) ["metis"] did not prove the conjecture in /tmp/Test.Fail.Add.43-comm_19.tptp
+See http://www1.eafit.edu.co/asicard/code/fotc/.
 
 ------------------------------------------------------------------------------
 Known bugs and/or limitations
