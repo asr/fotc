@@ -3,8 +3,8 @@
 ------------------------------------------------------------------------------
 
 -- Code accompanying the paper "Combining Interactive and Automatic
--- Theorem Proving for Reasoning about Functional Programs" by Ana
--- Bove, Peter Dybjer, and Andrés Sicard-Ramírez.
+-- Reasoning about Functional Programs" by Ana Bove, Peter Dybjer, and
+-- Andrés Sicard-Ramírez.
 
 ------------------------------------------------------------------------------
 
@@ -19,31 +19,10 @@ module README where
 -- out by first order automatic theorem provers (ATPs).
 
 ------------------------------------------------------------------------------
--- Prerequisites
+-- Prerequisites and use
 ------------------------------------------------------------------------------
 
--- You can download the agda2atp tool (described in above paper) using
--- darcs with the following command:
-
--- $ darcs get http://patch-tag.com/r/asr/agda2atp
-
--- The agda2atp tool and the FOT code require a modified version of
--- Agda. See agda2atp/README.txt for the related instructions.
-
-------------------------------------------------------------------------------
--- Use
-------------------------------------------------------------------------------
-
--- Let's suppose you want to use the Metis ATP to prove the group
--- theory properties stated in the module
--- GroupTheory.PropertiesATP. First, you should type-check the module using
--- Agda
-
--- $ agda -isrc src/GroupTheory/PropertiesATP.agda
-
--- Second, you call the agda2tool using the Metis ATP
-
--- $ agda2atp -isrc --atp=metis src/GroupTheory/PropertiesATP.agda
+-- See http://www1.eafit.edu.co/asicard/code/fotc/.
 
 ------------------------------------------------------------------------------
 -- First order theories
