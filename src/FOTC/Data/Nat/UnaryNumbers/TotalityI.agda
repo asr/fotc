@@ -2,7 +2,7 @@
 -- The unary numbers are FOTC natural numbers
 ------------------------------------------------------------------------------
 
-module FOTC.Data.Nat.UnaryNumbers.IsN-I where
+module FOTC.Data.Nat.UnaryNumbers.TotalityI where
 
 open import FOTC.Base
 

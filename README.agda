@@ -187,8 +187,8 @@ open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 
 -- 6.3.6 Unary numbers
-open import FOTC.Data.Nat.UnaryNumbers.IsN-ATP
 open import FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
+open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
 
 -- 6.4 Lists
 

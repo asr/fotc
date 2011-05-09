@@ -11,8 +11,8 @@ open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.PropertiesATP
 open import FOTC.Data.Nat.UnaryNumbers
-open import FOTC.Data.Nat.UnaryNumbers.IsN-ATP
 open import FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
+open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
 
 open import FOTC.Program.McCarthy91.ArithmeticATP
 open import FOTC.Program.McCarthy91.McCarthy91

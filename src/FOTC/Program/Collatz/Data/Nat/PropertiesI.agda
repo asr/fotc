@@ -13,7 +13,7 @@ open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.PropertiesI
 open import FOTC.Data.Nat.UnaryNumbers
-open import FOTC.Data.Nat.UnaryNumbers.IsN-I
+open import FOTC.Data.Nat.UnaryNumbers.TotalityI
 
 open import FOTC.Program.Collatz.Data.Nat
 

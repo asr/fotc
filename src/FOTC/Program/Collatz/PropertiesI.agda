@@ -8,7 +8,7 @@ open import FOTC.Base
 
 open import FOTC.Data.Nat.Type
 open import FOTC.Data.Nat.UnaryNumbers
-open import FOTC.Data.Nat.UnaryNumbers.IsN-I
+open import FOTC.Data.Nat.UnaryNumbers.TotalityI
 
 open import FOTC.Program.Collatz.Collatz
 open import FOTC.Program.Collatz.Data.Nat
