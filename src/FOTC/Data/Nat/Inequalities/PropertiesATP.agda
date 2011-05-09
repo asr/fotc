@@ -148,6 +148,16 @@ Sx≤y→x<y zN          (sN {n} Nn) _      = <-0S n
 Sx≤y→x<y (sN {m} Nm) (sN {n} Nn) SSm≤Sn =
   x<y→Sx<Sy (Sx≤y→x<y Nm Nn (Sx≤Sy→x≤y SSm≤Sn))
 
+x≤y→x≯y : ∀ {m n} → N m → N n → LE m n → NGT m n
+x≤y→x≯y zN          Nn          0≤n   = 0≯x Nn
+x≤y→x≯y (sN Nm)     zN          Sm≤0  = ⊥-elim (S≤0→⊥ Nm Sm≤0)
+x≤y→x≯y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
+  prf (x≤y→x≯y Nm Nn (trans (sym (<-SS m (succ n))) Sm≤Sn))
+  where
+    postulate prf : NGT m n →  -- IH.
+                    NGT (succ m) (succ n)
+    {-# ATP prove prf #-}
+
 <-trans : ∀ {m n o} → N m → N n → N o → LT m n → LT n o → LT m o
 <-trans zN          zN          _           0<0   _     = ⊥-elim $ 0<0→⊥ 0<0
 <-trans zN          (sN Nn)     zN          _     Sn<0  = ⊥-elim $ S<0→⊥ Sn<0
