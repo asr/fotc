@@ -62,12 +62,12 @@ mc91-N-ineq = wfInd-MCR P mc91-N-ineq-aux
           ih2 = f Nih1 (LT2MCR Nih1 Nm m≤100 m<mc91m+11)
 
           Nmc91≤100 : N (mc91 m)
-          Nmc91≤100 = Nmc91≤100' m m≤100 (∧-proj₁ ih2)
+          Nmc91≤100 = Nmc91≤100' Nm m≤100 (∧-proj₁ ih2)
 
       in ( Nmc91≤100 ,
            <-trans Nm Nih1 (x+11-N Nmc91≤100)
                    m<mc91m+11
-                   (mc91x+11<mc91x+11 m m≤100 (∧-proj₂ ih2)))
+                   (mc91x+11<mc91x+11 Nm m≤100 (∧-proj₂ ih2)))
 
 mc91-res : ∀ {n} → N n → (GT n one-hundred ∧ mc91 n ≡ n ∸ ten) ∨
                          (LE n one-hundred ∧ mc91 n ≡ ninety-one)
@@ -112,7 +112,7 @@ mc91-res = wfInd-MCR P mc91-res-aux
             ... | inj₂ ( _ , res ) = res
 
             mc91-res-m≤89 : mc91 m ≡ ninety-one
-            mc91-res-m≤89 = mc91x-res≤100 m ninety-one m≤100
+            mc91-res-m≤89 = mc91x-res≤100 Nm ninety-one m≤100
                                           mc91-res-m+11 mc91-res-91
 
 ------------------------------------------------------------------------------

@@ -16,6 +16,6 @@ open import FOTC.Data.Nat.UnaryNumbers
 postulate
   mc91     : D → D
   mc91-eq₁ : ∀ n → GT n one-hundred → mc91 n ≡ n ∸ ten
-  mc91-eq₂ : ∀ n → LE n one-hundred → mc91 n ≡ mc91 (mc91 (n + eleven))
-{-# ATP axiom mc91-eq₁ #-}
-{-# ATP axiom mc91-eq₂ #-}
+  mc91-eq₂ : ∀ {n} → N n → LE n one-hundred → mc91 n ≡ mc91 (mc91 (n + eleven))
+-- {-# ATP axiom mc91-eq₁ #-}
+-- {-# ATP axiom mc91-eq₂ #-}
