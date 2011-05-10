@@ -20,8 +20,7 @@ infix 7 _∣_
 -- Hardy and Wright. An introduction to the theory of numbers. 1975. 4ed: 0∤0
 --
 -- In our definition 0∤0, therefore gcd 0 0 is undefined as it is in
--- GHC (v. 7.0.3) (but see the discussion about it in
--- http://www.haskell.org/pipermail/haskell-cafe/2009-May/060788.html).
+-- GHC (v. 7.0.3) (but see http://hackage.haskell.org/trac/ghc/ticket/3304).
 _∣_ : D → D → Set
 d ∣ e = ¬ (d ≡ zero) ∧ ∃ λ k → N k ∧ e ≡ k * d
 {-# ATP definition _∣_ #-}
