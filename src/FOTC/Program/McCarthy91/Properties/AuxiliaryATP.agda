@@ -36,7 +36,7 @@ postulate
   Nmc91≡100     : N (mc91 one-hundred)
   mc91-res-100  : mc91 one-hundred ≡ ninety-one
   mc91-res-100' : ∀ {n} → n ≡ one-hundred → mc91 n ≡ ninety-one
-  mc91<mc91+11  : LT  one-hundred (mc91 one-hundred + eleven)
+  mc91<mc91+11  : LT one-hundred (mc91 one-hundred + eleven)
 {-# ATP prove Nmc91≡100 100+11>100 100+11∸10>100 101≡100+11∸10
                         91≡100+11∸10∸10
 #-}
