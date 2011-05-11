@@ -103,13 +103,13 @@ mc91-res = wfInd-MCR P mc91-res-aux
     ... | inj₂ m≡91 = inj₂ ( m≤100 , mc91-res-91' m≡91 )
     ... | inj₁ m≤90 with x<Sy→x<y∨x≡y Nm 90-N m≤90
     ... | inj₂ m≡90 = inj₂ ( m≤100 , mc91-res-90' m≡90 )
-    ... | inj₁ m≤89 =  inj₂ ( m≤100 , mc91-res-m≤89 )
+    ... | inj₁ m≤89 = inj₂ ( m≤100 , mc91-res-m≤89 )
 
       where mc91-res-m+11 : mc91 (m + eleven) ≡ ninety-one
             mc91-res-m+11 with f (x+11-N Nm)
                                  (LT2MCR (x+11-N Nm) Nm m≤100 (x<x+11 Nm))
-            ... | inj₁ ( m+11>100 , _) = ⊥-elim (x≤89→x+11>100→⊥ Nm
-                                                m≤89 m+11>100)
+            ... | inj₁ ( m+11>100 , _ ) = ⊥-elim (x≤89→x+11>100→⊥ Nm
+                                                 m≤89 m+11>100)
             ... | inj₂ ( _ , res ) = res
 
             mc91-res-m≤89 : mc91 m ≡ ninety-one
