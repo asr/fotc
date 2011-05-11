@@ -32,8 +32,9 @@ postulate
 {-# ATP axiom ^-S #-}
 
 -- Some predicates
+
 Even : D → Set
-Even n = ∃ (λ k → n ≡ two * k)
+Even n = ∃ λ k → n ≡ two * k
 
 Odd : D → Set
-Odd n = ∃ (λ k → n ≡ two * k + one)
+Odd n = ∃ λ k → n ≡ two * k + one
