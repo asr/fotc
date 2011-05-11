@@ -20,7 +20,7 @@ import Data.List           ( foldl' )
 import Agda.Syntax.Abstract.Name ( Name(nameConcrete, nameId) , QName(QName) )
 import Agda.Syntax.Common
     ( Arg(Arg, argHiding, unArg)
-    , Hiding(Hidden, ImplicitFromScope, NotHidden)
+    , Hiding(Hidden, Instance, NotHidden)
     , NameId(NameId)
     )
 import qualified Agda.Syntax.Concrete.Name as C
@@ -89,13 +89,13 @@ qName2String qName@(QName _ name) = do
 
 -- We keep the three equations for debugging.
 argTermToFormula ∷ Arg Term → T FOLFormula
-argTermToFormula Arg {argHiding = ImplicitFromScope}    = __IMPOSSIBLE__
+argTermToFormula Arg {argHiding = Instance}             = __IMPOSSIBLE__
 argTermToFormula Arg {argHiding = Hidden}               = __IMPOSSIBLE__
 argTermToFormula Arg {argHiding = NotHidden, unArg = t} = termToFormula t
 
 -- We keep the three equations for debugging.
 argTermToFOLTerm ∷ Arg Term → T FOLTerm
-argTermToFOLTerm Arg {argHiding = ImplicitFromScope}    = __IMPOSSIBLE__
+argTermToFOLTerm Arg {argHiding = Instance}             = __IMPOSSIBLE__
 argTermToFOLTerm Arg {argHiding = Hidden, unArg = t}    = termToFOLTerm t
 argTermToFOLTerm Arg {argHiding = NotHidden, unArg = t} = termToFOLTerm t
 

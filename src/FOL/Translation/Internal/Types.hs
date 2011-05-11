@@ -22,7 +22,7 @@ module FOL.Translation.Internal.Types
 
 import Agda.Syntax.Common
     ( Arg(Arg, argHiding, unArg)
-    , Hiding(Hidden, ImplicitFromScope, NotHidden)
+    , Hiding(Hidden, Instance, NotHidden)
     )
 import Agda.Syntax.Internal  ( Sort(Type) , Term(Lit), Type(El) )
 import Agda.Syntax.Literal   ( Literal(LitLevel) )
@@ -42,7 +42,7 @@ import Monad.Reports                  ( reportSLn )
 
 -- We keep the three equations for debugging.
 argTypeToFormula ∷ Arg Type → T FOLFormula
-argTypeToFormula Arg {argHiding = ImplicitFromScope}     = __IMPOSSIBLE__
+argTypeToFormula Arg {argHiding = Instance}              = __IMPOSSIBLE__
 argTypeToFormula Arg {argHiding = Hidden}                = __IMPOSSIBLE__
 argTypeToFormula Arg {argHiding = NotHidden, unArg = ty} = typeToFormula ty
 
