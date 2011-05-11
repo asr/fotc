@@ -78,10 +78,8 @@ postulate
 {-# ATP prove 90+11>100 101≡90+11 #-}
 
 postulate
-  100<102   : LT one-hundred hundred-two
-  100<91+11 : LT one-hundred (ninety-one + eleven)
+  100<102 : LT one-hundred hundred-two
 {-# ATP prove 100<102 #-}
-{-# ATP prove 100<91+11 100<102 102≡91+11 #-}
 
 x+11-N : ∀ {n} → N n → N (n + eleven)
 x+11-N Nn = +-N Nn 11-N
