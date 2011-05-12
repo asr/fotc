@@ -158,6 +158,17 @@ x≤y→x≯y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
                     NGT (succ m) (succ n)
     {-# ATP prove prf #-}
 
+x≯y→x≤y : ∀ {m n} → N m → N n → NGT m n → LE m n
+x≯y→x≤y zN          Nn          _     = 0≤x Nn
+x≯y→x≤y (sN {m} Nm) zN          Sm≯0  = ⊥-elim (true≠false
+                                                 (trans (sym (<-0S m)) Sm≯0))
+x≯y→x≤y (sN {m} Nm) (sN {n} Nn) Sm≯Sn =
+  prf (x≯y→x≤y Nm Nn (trans (sym (<-SS n m)) Sm≯Sn))
+  where
+    postulate prf : LE m n →  -- IH.
+                    LE (succ m) (succ n)
+    {-# ATP prove prf #-}
+
 x>y∨x≯y : ∀ {m n} → N m → N n → GT m n ∨ NGT m n
 x>y∨x≯y Nm Nn = [ (λ m>n → inj₁ m>n) ,
                   (λ m≤n → inj₂ (x≤y→x≯y Nm Nn m≤n))
@@ -398,6 +409,13 @@ postulate
 postulate
   x≡y→y<z→x<z : ∀ {m n o} → m ≡ n → LT n o → LT m o
 {-# ATP prove x≡y→y<z→x<z #-}
+
+x≯Sy→x≯y∨x≡y : ∀ {m n} → N m → N n → NGT m (succ n) → NGT m n ∨ m ≡ succ n
+x≯Sy→x≯y∨x≡y {m} {n} Nm Nn m≯Sn =
+  [ (λ m<Sn → inj₁ (x≤y→x≯y Nm Nn (x<Sy→x≤y Nm Nn m<Sn)))
+  , (λ m≡Sn → inj₂ m≡Sn)
+  ]
+  (x<Sy→x<y∨x≡y Nm (sN Nn) (x≤y→x<Sy Nm (sN Nn) (x≯y→x≤y Nm (sN Nn) m≯Sn)))
 
 x≥y→y>0→x∸y<x : ∀ {m n} → N m → N n → GE m n → GT n zero → LT (m ∸ n) m
 x≥y→y>0→x∸y<x Nm          zN          _     0>0  = ⊥-elim $ x>x→⊥ zN 0>0
