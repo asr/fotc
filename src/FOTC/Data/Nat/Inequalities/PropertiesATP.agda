@@ -158,6 +158,11 @@ x≤y→x≯y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
                     NGT (succ m) (succ n)
     {-# ATP prove prf #-}
 
+x>y∨x≯y : ∀ {m n} → N m → N n → GT m n ∨ NGT m n
+x>y∨x≯y Nm Nn = [ (λ m>n → inj₁ m>n) ,
+                  (λ m≤n → inj₂ (x≤y→x≯y Nm Nn m≤n))
+                ] (x>y∨x≤y Nm Nn)
+
 <-trans : ∀ {m n o} → N m → N n → N o → LT m n → LT n o → LT m o
 <-trans zN          zN          _           0<0   _     = ⊥-elim $ 0<0→⊥ 0<0
 <-trans zN          (sN Nn)     zN          _     Sn<0  = ⊥-elim $ S<0→⊥ Sn<0
