@@ -4,4 +4,4 @@
 
 module Draft.RenderToHTML where
 
-open import Draft.FOTC.Program.McCarthy91.EquationsATP
+open import Draft.FOTC.Data.Nat.Inequalities
