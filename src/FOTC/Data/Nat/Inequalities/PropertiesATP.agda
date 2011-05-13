@@ -410,8 +410,8 @@ postulate
   x≡y→y<z→x<z : ∀ {m n o} → m ≡ n → LT n o → LT m o
 {-# ATP prove x≡y→y<z→x<z #-}
 
-x≯Sy→x≯y∨x≡y : ∀ {m n} → N m → N n → NGT m (succ n) → NGT m n ∨ m ≡ succ n
-x≯Sy→x≯y∨x≡y {m} {n} Nm Nn m≯Sn =
+x≯Sy→x≯y∨x≡Sy : ∀ {m n} → N m → N n → NGT m (succ n) → NGT m n ∨ m ≡ succ n
+x≯Sy→x≯y∨x≡Sy {m} {n} Nm Nn m≯Sn =
   [ (λ m<Sn → inj₁ (x≤y→x≯y Nm Nn (x<Sy→x≤y Nm Nn m<Sn)))
   , (λ m≡Sn → inj₂ m≡Sn)
   ]
