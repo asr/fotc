@@ -7,14 +7,10 @@ module LTC-PCF.Program.GCD.EquationsATP where
 open import LTC-PCF.Base
 
 open import LTC-PCF.Data.Nat
-open import LTC-PCF.Data.Nat
-  using ( _∸_
-        ; N ; sN -- The LTC natural numbers type.
-        )
-open import LTC-PCF.Data.Nat.Inequalities using ( GT ; LE )
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP using ( x≤y→x≯y )
+open import LTC-PCF.Data.Nat.Inequalities
+open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
 
-open import LTC-PCF.Program.GCD.GCD using ( gcd )
+open import LTC-PCF.Program.GCD.GCD
 
 ------------------------------------------------------------------------------
 
@@ -50,14 +46,4 @@ postulate
 postulate
   gcd-S≤S : ∀ {m n} → N m → N n → LE (succ m) (succ n) →
             gcd (succ m) (succ n) ≡ gcd (succ m) (succ n ∸ succ m)
--- E 1.2: CPU time limit exceeded (180 sec).
--- E 1.2: CPU time limit exceeded (300 sec).
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (300 seconds).
--- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
--- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 300 sec).
--- Vampire 0.6 (revision 903): (Default) memory limit (using timeout 180 sec).
--- Vampire 0.6 (revision 903): (Default) memory limit (using timeout 300 sec).
-
--- TODO: To find an ATP for to prove this postulate
--- {-# ATP prove gcd-S≤S #-}
+{-# ATP prove gcd-S≤S x≤y→x≯y #-}

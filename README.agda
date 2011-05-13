@@ -239,7 +239,6 @@ open import FOTC.Program.SortList.ProofSpecificationI
 
 -- This module was imported in the Stanovský example
 -- open import DistributiveLaws.TaskB-ATP
-open import LTC-PCF.Program.GCD.EquationsATP
 open import PA.Axiomatic.PropertiesATP
 
 ------------------------------------------------------------------------------
