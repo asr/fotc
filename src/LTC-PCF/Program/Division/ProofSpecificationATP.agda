@@ -33,9 +33,9 @@ open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionATP
 open import LTC-PCF.Program.Division.Division using ( div )
 open import LTC-PCF.Program.Division.IsCorrectATP
   using ( div-x<y-correct ; div-x≥y-correct )
-open import LTC-PCF.Program.Division.IsN-ATP
-  using ( div-x<y-N ; div-x≥y-N )
 open import LTC-PCF.Program.Division.Specification using ( DIV )
+open import LTC-PCF.Program.Division.TotalityATP
+  using ( div-x<y-N ; div-x≥y-N )
 
 ------------------------------------------------------------------------------
 -- The division result satifies the specification DIV

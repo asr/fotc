@@ -27,9 +27,9 @@ open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionI
 open import LTC-PCF.Program.Division.Division using ( div )
 open import LTC-PCF.Program.Division.IsCorrectI
   using ( div-x<y-correct ; div-x≥y-correct )
-open import LTC-PCF.Program.Division.IsN-I
-  using ( div-x<y-N ; div-x≥y-N )
 open import LTC-PCF.Program.Division.Specification using ( DIV )
+open import LTC-PCF.Program.Division.TotalityI
+  using ( div-x<y-N ; div-x≥y-N )
 
 ------------------------------------------------------------------------------
 -- The division result satifies the specification DIV

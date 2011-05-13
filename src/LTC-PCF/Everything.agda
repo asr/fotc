@@ -32,11 +32,11 @@ open import LTC-PCF.Program.Division.EquationsATP
 open import LTC-PCF.Program.Division.EquationsI
 open import LTC-PCF.Program.Division.IsCorrectATP
 open import LTC-PCF.Program.Division.IsCorrectI
-open import LTC-PCF.Program.Division.IsN-ATP
-open import LTC-PCF.Program.Division.IsN-I
 open import LTC-PCF.Program.Division.ProofSpecificationATP
 open import LTC-PCF.Program.Division.ProofSpecificationI
 open import LTC-PCF.Program.Division.Specification
+open import LTC-PCF.Program.Division.TotalityATP
+open import LTC-PCF.Program.Division.TotalityI
 
 open import LTC-PCF.Program.GCD.Definitions
 open import LTC-PCF.Program.GCD.EquationsATP
