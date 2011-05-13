@@ -25,52 +25,46 @@ open import FOTC.Program.McCarthy91.McCarthy91
 ---- Case n > 100
 postulate
   Nmc91>100      : ∀ {n} → N n → GT n one-hundred → N (mc91 n)
-  x<mc91x+11>100 : ∀ {n} → N n → GT n one-hundred →
-                           LT n (mc91 n + eleven)
 {-# ATP prove Nmc91>100 10-N mc91-eq₁ ∸-N #-}
+
+postulate
+  x<mc91x+11>100 : ∀ {n} → N n → GT n one-hundred → LT n (mc91 n + eleven)
 {-# ATP prove x<mc91x+11>100 mc91-eq₁ +-N ∸-N x<y→y≤z→x<z x<x+1 x+1≤x∸10+11 #-}
 
 
 -- Most of them not needed
 -- Case n ≡ 100 can be proved automatically
 postulate
-  Nmc91≡100     : N (mc91 one-hundred)
-  mc91-res-100  : mc91 one-hundred ≡ ninety-one
-  mc91-res-100' : ∀ {n} → n ≡ one-hundred → mc91 n ≡ ninety-one
-{-# ATP prove Nmc91≡100 mc91-eq₁ mc91-eq₂ 100+11>100 100+11∸10>100
-                        101≡100+11∸10 91≡100+11∸10∸10
-#-}
+  mc91-res-100 : mc91 one-hundred ≡ ninety-one
 {-# ATP prove mc91-res-100 mc91-eq₁ mc91-eq₂ 100+11>100 100+11∸10>100
                            101≡100+11∸10 91≡100+11∸10∸10
 #-}
+
+postulate
+  mc91-res-100' : ∀ {n} → n ≡ one-hundred → mc91 n ≡ ninety-one
 {-# ATP prove mc91-res-100' mc91-res-100 #-}
 
 ---- Case n ≤ 100
+postulate
+  Nmc91≯100 : ∀ {n} → N n →
+              NGT n one-hundred →
+              N (mc91 (mc91 (n + eleven))) →
+              N (mc91 n)
+{-# ATP prove Nmc91≯100 mc91-eq₂ #-}
 
 postulate
-  -- Here we only reduce the definition of mc91
-  Nmc91≤100'        : ∀ {n} → N n →
-                      LE n one-hundred →
-                      N (mc91 (mc91 (n + eleven))) →
-                      N (mc91 n)
-  x<mc91x+11≤100'   : ∀ {n} → N n →
-                      LE n one-hundred →
-                      LT n (mc91 (mc91 (n + eleven)) + eleven) →
-                      LT n (mc91 n + eleven)
   mc91x+11<mc91x+11 : ∀ {n} → N n →
-                      LE n one-hundred →
+                      NGT n one-hundred →
                       LT (mc91 (n + eleven)) (mc91 (mc91 (n + eleven)) + eleven) →
                       LT (mc91 (n + eleven)) (mc91 n + eleven)
-{-# ATP prove Nmc91≤100' mc91-eq₂ #-}
-{-# ATP prove x<mc91x+11≤100' mc91-eq₂ #-}
 {-# ATP prove mc91x+11<mc91x+11 mc91-eq₂ #-}
 
 postulate
-  mc91x-res≤100 : ∀ {m} → N m → ∀ n →
-                  LE m one-hundred →
+  mc91x-res≯100 : ∀ {m} → N m → ∀ n →
+                  NGT m one-hundred →
                   mc91 (m + eleven) ≡ n → mc91 n ≡ ninety-one →
                   mc91 m ≡ ninety-one
-{-# ATP prove mc91x-res≤100 mc91-eq₂ #-}
+{-# ATP prove mc91x-res≯100 mc91-eq₂ #-}
 
 postulate
   mc91-res-110 : mc91 (ninety-nine + eleven)  ≡ one-hundred
@@ -105,16 +99,16 @@ postulate
   mc91-res-92 : mc91 ninety-two   ≡ ninety-one
   mc91-res-91 : mc91 ninety-one   ≡ ninety-one
   mc91-res-90 : mc91 ninety       ≡ ninety-one
-{-# ATP prove mc91-res-99 mc91x-res≤100 mc91-res-110 mc91-res-100 #-}
-{-# ATP prove mc91-res-98 mc91x-res≤100 mc91-res-109 mc91-res-99 #-}
-{-# ATP prove mc91-res-97 mc91x-res≤100 mc91-res-108 mc91-res-98 #-}
-{-# ATP prove mc91-res-96 mc91x-res≤100 mc91-res-107 mc91-res-97 #-}
-{-# ATP prove mc91-res-95 mc91x-res≤100 mc91-res-106 mc91-res-96 #-}
-{-# ATP prove mc91-res-94 mc91x-res≤100 mc91-res-105 mc91-res-95 #-}
-{-# ATP prove mc91-res-93 mc91x-res≤100 mc91-res-104 mc91-res-94 #-}
-{-# ATP prove mc91-res-92 mc91x-res≤100 mc91-res-103 mc91-res-93 #-}
-{-# ATP prove mc91-res-91 mc91x-res≤100 mc91-res-102 mc91-res-92 #-}
-{-# ATP prove mc91-res-90 mc91x-res≤100 mc91-res-101 mc91-res-91 #-}
+{-# ATP prove mc91-res-99 mc91x-res≯100 mc91-res-110 mc91-res-100 #-}
+{-# ATP prove mc91-res-98 mc91x-res≯100 mc91-res-109 mc91-res-99 #-}
+{-# ATP prove mc91-res-97 mc91x-res≯100 mc91-res-108 mc91-res-98 #-}
+{-# ATP prove mc91-res-96 mc91x-res≯100 mc91-res-107 mc91-res-97 #-}
+{-# ATP prove mc91-res-95 mc91x-res≯100 mc91-res-106 mc91-res-96 #-}
+{-# ATP prove mc91-res-94 mc91x-res≯100 mc91-res-105 mc91-res-95 #-}
+{-# ATP prove mc91-res-93 mc91x-res≯100 mc91-res-104 mc91-res-94 #-}
+{-# ATP prove mc91-res-92 mc91x-res≯100 mc91-res-103 mc91-res-93 #-}
+{-# ATP prove mc91-res-91 mc91x-res≯100 mc91-res-102 mc91-res-92 #-}
+{-# ATP prove mc91-res-90 mc91x-res≯100 mc91-res-101 mc91-res-91 #-}
 
 mc91-res-99' : ∀ {n} → n ≡ ninety-nine → mc91 n ≡ ninety-one
 mc91-res-99' refl = mc91-res-99

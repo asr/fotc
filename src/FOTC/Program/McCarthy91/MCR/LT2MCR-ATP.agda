@@ -50,6 +50,7 @@ LT2MCR-helper (sN {n} Nn) (sN {m} Nm) (sN {k} Nk) p qn qm h =
     {-# ATP prove Sm<k #-}
     {-# ATP prove k∸n<k∸m #-}
 
+-- TODO: To use NGT instead of LE.
 LT2MCR : ∀ {n m} → N n → N m → LE m one-hundred → LT m n → MCR n m
 LT2MCR zN Nm p h = ⊥-elim (x<0→⊥ Nm h)
 LT2MCR (sN {n} Nn) zN p h = prfS0

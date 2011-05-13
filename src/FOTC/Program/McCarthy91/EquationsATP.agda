@@ -18,6 +18,6 @@ open import FOTC.Program.McCarthy91.McCarthy91
 
 postulate
   mc91-eq₁ : ∀ n → GT n one-hundred → mc91 n ≡ n ∸ ten
-  mc91-eq₂ : ∀ {n} → N n → LE n one-hundred → mc91 n ≡ mc91 (mc91 (n + eleven))
+  mc91-eq₂ : ∀ {n} → NGT n one-hundred → mc91 n ≡ mc91 (mc91 (n + eleven))
 {-# ATP prove mc91-eq₁ mc91-eq #-}
-{-# ATP prove mc91-eq₂ mc91-eq x≤y→x≯y 100-N #-}
+{-# ATP prove mc91-eq₂ mc91-eq #-}

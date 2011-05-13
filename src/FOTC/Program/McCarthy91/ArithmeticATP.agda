@@ -49,10 +49,8 @@ postulate
 
 postulate
   100+11∸10>100 : GT (one-hundred + eleven ∸ ten) one-hundred
-  111>100       : GT hundred-eleven               one-hundred
   100+11>100    : GT (one-hundred + eleven)       one-hundred
 {-# ATP prove 100+11∸10>100 101≡100+11∸10 #-}
-{-# ATP prove 111>100 #-}
 {-# ATP prove 100+11>100 111≡100+11 #-}
 
 postulate
