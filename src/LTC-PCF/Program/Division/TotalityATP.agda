@@ -22,14 +22,13 @@ postulate
 -- The division is total when the dividend is greater or equal than
 -- the divisor.
 
---  N (div (i ∸ j) j)       i ≥j → div i j ≡ succ (div (i ∸ j) j)
+--  N (div (i ∸ j) j)       i ≮j → div i j ≡ succ (div (i ∸ j) j)
 ------------------------------------------------------------------
 --                   N (div i j)
 
 postulate
-  div-x≥y-N : ∀ {i j} → N i → N j →
+  div-x≮y-N : ∀ {i j} →
               (DIV (i ∸ j) j (div (i ∸ j) j)) →
-              GE i j →
+              NLT i j →
               N (div i j)
--- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-{-# ATP prove div-x≥y-N div-x≥y #-}
+{-# ATP prove div-x≮y-N div-x≮y #-}

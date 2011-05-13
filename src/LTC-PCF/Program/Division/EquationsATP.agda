@@ -6,12 +6,10 @@ module LTC-PCF.Program.Division.EquationsATP where
 
 open import LTC-PCF.Base
 
-open import LTC-PCF.Data.Nat using ( _∸_ ; N )
-open import LTC-PCF.Data.Nat.Inequalities using ( GE ; LT )
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
-  using ( x≥y→x≮y )
+open import LTC-PCF.Data.Nat
+open import LTC-PCF.Data.Nat.Inequalities
 
-open import LTC-PCF.Program.Division.Division using ( div )
+open import LTC-PCF.Program.Division.Division
 
 ----------------------------------------------------------------------
 -- The division result when the dividend is minor than the
@@ -22,9 +20,6 @@ postulate
 
 -- The division result when the dividend is greater or equal than the
 -- the divisor.
-
--- Because we define GE on terms of LT, we need the extra hypotheses
--- N i and N j.
 postulate
-  div-x≥y : ∀ {i j} → N i → N j → GE i j → div i j ≡ succ (div (i ∸ j) j)
-{-# ATP prove div-x≥y x≥y→x≮y #-}
+  div-x≮y : ∀ {i j} → NLT i j → div i j ≡ succ (div (i ∸ j) j)
+{-# ATP prove div-x≮y #-}

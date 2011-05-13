@@ -110,6 +110,9 @@ x≤x : ∀ {n} → N n → LE n n
 x≤x zN          = <-0S zero
 x≤x (sN {n} Nn) = trans (<-SS n (succ n)) (x≤x Nn)
 
+x≥x : ∀ {n} → N n → GE n n
+x≥x Nn = x≤x Nn
+
 x≤y→Sx≤Sy : ∀ {m n} → LE m n → LE (succ m) (succ n)
 x≤y→Sx≤Sy {m} {n} m≤n = trans (<-SS m (succ n)) m≤n
 
@@ -122,6 +125,13 @@ x≥y→x≮y zN          (sN Nn)     0≥Sn  = ⊥-elim $ 0≥S→⊥ Nn 0≥Sn
 x≥y→x≮y (sN {m} Nm) zN          _     = <-S0 m
 x≥y→x≮y (sN {m} Nm) (sN {n} Nn) Sm≥Sn =
   trans (<-SS m n) (x≥y→x≮y Nm Nn (trans (sym $ <-SS n (succ m)) Sm≥Sn))
+
+x≮y→x≥y : ∀ {m n} → N m → N n → NLT m n → GE m n
+x≮y→x≥y zN zN 0≮0  = x≥x zN
+x≮y→x≥y zN (sN {n} Nn) 0≮Sn = ⊥-elim (true≠false (trans (sym (<-0S n)) 0≮Sn))
+x≮y→x≥y (sN Nm) zN Sm≮n = x≥0 (sN Nm)
+x≮y→x≥y (sN {m} Nm) (sN {n} Nn) Sm≮Sn =
+  trans (<-SS n (succ m)) (x≮y→x≥y Nm Nn (trans (sym (<-SS m n)) Sm≮Sn))
 
 x≤y→x≯y : ∀ {m n} → N m → N n → LE m n → NGT m n
 x≤y→x≯y zN          Nn          _    = 0≯x Nn
@@ -139,6 +149,11 @@ x>y∨x≤y (sN {m} Nm) (sN {n} Nn) =
 
 x<y∨x≥y : ∀ {m n} → N m → N n → LT m n ∨ GE m n
 x<y∨x≥y Nm Nn = x>y∨x≤y Nn Nm
+
+x<y∨x≮y : ∀ {m n} → N m → N n → LT m n ∨ NLT m n
+x<y∨x≮y Nm Nn = [ (λ m<n → inj₁ m<n)
+                , (λ m≥n → inj₂ (x≥y→x≮y Nm Nn m≥n))
+                ] (x<y∨x≥y Nm Nn)
 
 x≡y→x≤y : ∀ {m n} {Nm : N m} {Nn : N n} → m ≡ n → LE m n
 x≡y→x≤y {Nm = Nm} refl = x≤x Nm
@@ -329,10 +344,10 @@ x<y→y≡z→x<z m<n refl = m<n
 x≡y→y<z→x<z : ∀ {m n o} → m ≡ n → LT n o → LT m o
 x≡y→y<z→x<z refl n<o = n<o
 
-x≥y→y>0→x-y<x : ∀ {m n} → N m → N n → GE m n → GT n zero → LT (m ∸ n) m
-x≥y→y>0→x-y<x Nm          zN          _     0>0  = ⊥-elim $ x>x→⊥ zN 0>0
-x≥y→y>0→x-y<x zN          (sN Nn)     0≥Sn  _    = ⊥-elim $ S≤0→⊥ Nn 0≥Sn
-x≥y→y>0→x-y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 =
+x≥y→y>0→x∸y<x : ∀ {m n} → N m → N n → GE m n → GT n zero → LT (m ∸ n) m
+x≥y→y>0→x∸y<x Nm          zN          _     0>0  = ⊥-elim $ x>x→⊥ zN 0>0
+x≥y→y>0→x∸y<x zN          (sN Nn)     0≥Sn  _    = ⊥-elim $ S≤0→⊥ Nn 0≥Sn
+x≥y→y>0→x∸y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 =
   begin
     (succ m ∸ succ n) < (succ m)
       ≡⟨ subst (λ t → (succ m ∸ succ n) < (succ m) ≡ t < (succ m))

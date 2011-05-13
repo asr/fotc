@@ -6,18 +6,15 @@ module LTC-PCF.Program.Division.IsCorrectI where
 
 open import LTC-PCF.Base
 
-open import Common.Function using ( _$_ )
+open import Common.Function
 
-open import LTC-PCF.Data.Nat using ( _+_ ; _∸_ ; _*_ ; N )
-open import LTC-PCF.Data.Nat.Inequalities using ( GE ; LT )
+open import LTC-PCF.Data.Nat
+open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.PropertiesI
-  using ( +-leftIdentity
-        ; *-rightZero
-        )
 
-open import LTC-PCF.Program.Division.Division using ( div )
-open import LTC-PCF.Program.Division.EquationsI using ( div-x<y ; div-x≥y )
-open import LTC-PCF.Program.Division.Specification using ( DIV )
+open import LTC-PCF.Program.Division.Division
+open import LTC-PCF.Program.Division.EquationsI
+open import LTC-PCF.Program.Division.Specification
 
 open import LTC-PCF.Relation.Binary.EqReasoning
 
@@ -59,14 +56,14 @@ div-x<y-correct {i} Ni Nj i<j = i , Ni , i<j , div-x<y-helper Ni Nj i<j
 
 postulate
   helper : ∀ {i j r} → N i → N j → N r →
-         i ∸ j ≡ j * div (i ∸ j) j + r →
-         i ≡ j * succ (div (i ∸ j) j) + r
+           i ∸ j ≡ j * div (i ∸ j) j + r →
+           i ≡ j * succ (div (i ∸ j) j) + r
 
-div-x≥y-helper : ∀ {i j r} → N i → N j → N r →
-                 GE i j →
+div-x≮y-helper : ∀ {i j r} → N i → N j → N r →
+                 NLT i j →
                  i ∸ j ≡ j * div (i ∸ j) j + r →
                  i ≡ j * div i j + r
-div-x≥y-helper {i} {j} {r} Ni Nj Nr i≥j helperH =
+div-x≮y-helper {i} {j} {r} Ni Nj Nr i≮j helperH =
   begin
     i                            ≡⟨ helper Ni Nj Nr helperH ⟩
     j * succ (div (i ∸ j) j) + r ≡⟨ prf ⟩
@@ -75,15 +72,15 @@ div-x≥y-helper {i} {j} {r} Ni Nj Nr i≥j helperH =
   where
     prf : j * succ (div (i ∸ j) j) + r ≡ j * div i j + r
     prf = subst (λ x → j * x + r ≡ j * div i j + r)
-                (div-x≥y Ni Nj i≥j)
+                (div-x≮y i≮j)
                 refl
 
-div-x≥y-correct : ∀ {i j} → N i → N j →
+div-x≮y-correct : ∀ {i j} → N i → N j →
                   (ih : DIV (i ∸ j) j (div (i ∸ j) j)) →
-                  GE i j →
+                  NLT i j →
                   ∃ λ r → N r ∧ LT r j ∧ i ≡ j * div i j + r
-div-x≥y-correct {i} {j} Ni Nj ih i≥j =
-  r , Nr , r<j , div-x≥y-helper Ni Nj Nr i≥j helperH
+div-x≮y-correct {i} {j} Ni Nj ih i≮j =
+  r , Nr , r<j , div-x≮y-helper Ni Nj Nr i≮j helperH
 
   where
     -- The parts of the inductive hypothesis ih.

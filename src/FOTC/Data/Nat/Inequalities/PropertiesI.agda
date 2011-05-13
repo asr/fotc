@@ -83,6 +83,13 @@ x≥y→x≮y (sN {m} Nm) zN          _     = <-S0 m
 x≥y→x≮y (sN {m} Nm) (sN {n} Nn) Sm≥Sn =
   trans (<-SS m n) (x≥y→x≮y Nm Nn (trans (sym $ <-SS n (succ m)) Sm≥Sn))
 
+x≮y→x≥y : ∀ {m n} → N m → N n → NLT m n → GE m n
+x≮y→x≥y zN zN 0≮0  = x≥x zN
+x≮y→x≥y zN (sN {n} Nn) 0≮Sn = ⊥-elim (true≠false (trans (sym (<-0S n)) 0≮Sn))
+x≮y→x≥y (sN Nm) zN Sm≮n = x≥0 (sN Nm)
+x≮y→x≥y (sN {m} Nm) (sN {n} Nn) Sm≮Sn =
+  trans (<-SS n (succ m)) (x≮y→x≥y Nm Nn (trans (sym (<-SS m n)) Sm≮Sn))
+
 x>y→x≰y : ∀ {m n} → N m → N n → GT m n → NLE m n
 x>y→x≰y zN          Nn          0>m   = ⊥-elim $ 0>x→⊥ Nn 0>m
 x>y→x≰y (sN Nm)     zN          _     = S≰0 Nm

@@ -22,20 +22,15 @@ module LTC-PCF.Program.Division.ProofSpecificationATP where
 open import LTC-PCF.Base
 
 open import LTC-PCF.Data.Nat
-  using ( _∸_
-        ; N  -- The LTC natural numbers type.
-        )
-open import LTC-PCF.Data.Nat.Inequalities using ( GE ; GT ; LT )
+open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
-open import LTC-PCF.Data.Nat.PropertiesATP using ( ∸-N )
+open import LTC-PCF.Data.Nat.PropertiesATP
 open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionATP
 
-open import LTC-PCF.Program.Division.Division using ( div )
+open import LTC-PCF.Program.Division.Division
 open import LTC-PCF.Program.Division.IsCorrectATP
-  using ( div-x<y-correct ; div-x≥y-correct )
-open import LTC-PCF.Program.Division.Specification using ( DIV )
+open import LTC-PCF.Program.Division.Specification
 open import LTC-PCF.Program.Division.TotalityATP
-  using ( div-x<y-N ; div-x≥y-N )
 
 ------------------------------------------------------------------------------
 -- The division result satifies the specification DIV
@@ -45,20 +40,20 @@ div-x<y-DIV Ni Nj i<j = div-x<y-N i<j , div-x<y-correct Ni Nj i<j
 
 -- The division result satisfies the specification DIV when the
 -- dividend is greater or equal than the divisor.
-div-x≥y-DIV : ∀ {i j} → N i → N j →
+div-x≮y-DIV : ∀ {i j} → N i → N j →
               (∀ {i'} → N i' → LT i' i → DIV i' j (div i' j)) →
               GT j zero →
-              GE i j →
+              NLT i j →
               DIV i j (div i j)
-div-x≥y-DIV {i} {j} Ni Nj accH j>0 i≥j =
-  div-x≥y-N Ni Nj ih i≥j , div-x≥y-correct Ni Nj ih i≥j
+div-x≮y-DIV {i} {j} Ni Nj accH j>0 i≮j =
+  div-x≮y-N ih i≮j , div-x≮y-correct Ni Nj ih i≮j
 
   where
     -- The inductive hypothesis on 'i ∸ j'.
     ih : DIV (i ∸ j) j (div (i ∸ j) j)
     ih = accH {i ∸ j}
               (∸-N Ni Nj)
-              (x≥y→y>0→x-y<x Ni Nj i≥j j>0)
+              (x≥y→y>0→x-y<x Ni Nj (x≮y→x≥y Ni Nj i≮j) j>0)
 
 ------------------------------------------------------------------------------
 -- The division satisfies the specification.
@@ -77,4 +72,4 @@ div-DIV {j = j} Ni Nj j>0 = wfInd-LT P ih Ni
      -- 'm' and 'n'.
      ih : ∀ {n} → N n → (accH : ∀ {m} → N m → LT m n → P m) → P n
      ih {n} Nn accH =
-       [ div-x<y-DIV Nn Nj , div-x≥y-DIV Nn Nj accH j>0 ] (x<y∨x≥y Nn Nj)
+       [ div-x<y-DIV Nn Nj , div-x≮y-DIV Nn Nj accH j>0 ] (x<y∨x≮y Nn Nj)

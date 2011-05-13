@@ -6,17 +6,12 @@ module LTC-PCF.Program.Division.EquationsI where
 
 open import LTC-PCF.Base
 
-open import Common.Function using ( _$_ )
+open import Common.Function
 
 open import LTC-PCF.Data.Nat
-  using ( _∸_
-        ; N  -- The LTC natural numbers type.
-        )
-open import LTC-PCF.Data.Nat.Inequalities using ( _<_ ; GE ; LT )
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
-  using ( x≥y→x≮y )
+open import LTC-PCF.Data.Nat.Inequalities
 
-open import LTC-PCF.Program.Division.Division using ( div ; divh )
+open import LTC-PCF.Program.Division.Division
 
 open import LTC-PCF.Relation.Binary.EqReasoning
 
@@ -37,11 +32,11 @@ private
     --
     -- (e.g. proof₂₋₃ : ∀ i j → div-s₂ i j ≡ div-s₃ i j).
 
-    -- Initially, the conversion rule fix-f is applied
+    -- Initially, the conversion rule fix-f is applied.
     div-s₁ : D → D → D
     div-s₁ i j = divh (fix divh) · i · j
 
-    -- First argument application
+    -- First argument application.
     div-s₂ : D → D → D
     div-s₂ i j = fun · j
       where
@@ -50,29 +45,29 @@ private
                             then zero
                             else succ (fix divh · (i ∸ j) · j))
 
-    -- Second argument application
+    -- Second argument application.
     div-s₃ : D → D → D
     div-s₃ i j = if (i < j)
                     then zero
                     else succ (fix divh · (i ∸ j) · j)
 
-    -- lt i j ≡ true
+    -- lt i j ≡ true.
     div-s₄ : D → D → D
     div-s₄ i j = if true
                     then zero
                     else succ (fix divh · (i ∸ j) · j)
 
-    -- lt i j ≡ false
+    -- lt i j ≡ false.
     div-s₅ : D → D → D
     div-s₅ i j = if false
                     then zero
                     else succ (fix divh · (i ∸ j) · j)
 
-    -- The conditional is true
+    -- The conditional is true.
     div-s₆ : D
     div-s₆ = zero
 
-    -- The conditional is false
+    -- The conditional is false.
     div-s₇ : D → D → D
     div-s₇ i j = succ (fix divh · (i ∸ j) · j)
 
@@ -99,13 +94,13 @@ private
 
     -}
 
-    -- From 'div · i · j' to div-s₁ using the conversion rule fix-f
+    -- From 'div · i · j' to div-s₁ using the conversion rule fix-f.
     proof₀₋₁ : ∀ i j → fix divh · i · j ≡ div-s₁ i j
     proof₀₋₁ i j = subst (λ t → t · i · j ≡ divh (fix divh) · i · j)
                          (sym $ fix-f divh)
                          refl
 
-    -- From div-s₁ to div-s₂ using the conversion rule beta
+    -- From div-s₁ to div-s₂ using the conversion rule beta.
     proof₁₋₂ : ∀ i j → div-s₁ i j ≡ div-s₂ i j
     proof₁₋₂ i j =
       subst (λ t → t · j ≡ fun i · j)
@@ -121,7 +116,7 @@ private
                                 then zero
                                 else succ (fix divh · (y ∸ j) · j))
 
-    -- From div-s₂ to div-s₃ using the conversion rule beta
+    -- From div-s₂ to div-s₃ using the conversion rule beta.
     proof₂₋₃ : ∀ i j → div-s₂ i j ≡ div-s₃ i j
     proof₂₋₃ i j  = beta fun j
       where
@@ -147,9 +142,9 @@ private
             (sym i<j)
             refl
 
-    -- From div-s₃ to div-s₅ using the proof  i≥j
-    proof₃₋₅ : ∀ {i j} → N i → N j → GE i j → div-s₃ i j ≡ div-s₅ i j
-    proof₃₋₅ {i} {j} Ni Nj i≥j =
+    -- From div-s₃ to div-s₅ using the proof  i≮j.
+    proof₃₋₅ : ∀ i j → NLT i j → div-s₃ i j ≡ div-s₅ i j
+    proof₃₋₅ i j i≮j =
       subst (λ t → if t
                       then zero
                       else succ ((fix divh) · (i ∸ j) · j)
@@ -158,10 +153,10 @@ private
                       then zero
                       else succ ((fix divh) · (i ∸ j) · j)
             )
-            (sym $ x≥y→x≮y Ni Nj i≥j)
+            (sym i≮j)
             refl
 
-    -- From div-s₄ to div-s₆ using the conversion rule if-true
+    -- From div-s₄ to div-s₆ using the conversion rule if-true.
     -- ToDo: Why we need to use 'div-s₄ {i} {j}' instead of div-s₄
     proof₄₋₆ : ∀ i j → div-s₄ i j ≡ div-s₆
     proof₄₋₆ i j = if-true zero
@@ -189,15 +184,13 @@ div-x<y {i} {j} i<j =
 -- The division result when the dividend is greater or equal than the
 -- the divisor.
 
--- Because we define GE on terms of LT, we need the extra hypotheses
--- N i and N j.
-div-x≥y : ∀ {i j} → N i → N j → GE i j → div i j ≡ succ (div (i ∸ j) j)
-div-x≥y {i} {j} Ni Nj i≥j =
+div-x≮y : ∀ {i j} → NLT i j → div i j ≡ succ (div (i ∸ j) j)
+div-x≮y {i} {j} i≮j =
   begin
     div i j    ≡⟨ proof₀₋₁ i j ⟩
     div-s₁ i j ≡⟨ proof₁₋₂ i j ⟩
     div-s₂ i j ≡⟨ proof₂₋₃ i j ⟩
-    div-s₃ i j ≡⟨ proof₃₋₅ Ni Nj i≥j ⟩
+    div-s₃ i j ≡⟨ proof₃₋₅ i j i≮j ⟩
     div-s₅ i j ≡⟨ proof₅₋₇ i j ⟩
     div-s₇ i j
   ∎

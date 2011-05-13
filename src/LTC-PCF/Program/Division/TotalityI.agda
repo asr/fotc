@@ -23,12 +23,12 @@ div-x<y-N i<j = subst N (sym $ div-x<y i<j) zN
 -- The division is total when the dividend is greater or equal than
 -- the divisor.
 
---  N (div (i ∸ j) j)       i ≥j → div i j ≡ succ (div (i ∸ j) j)
+--  N (div (i ∸ j) j)       i ≮ j → div i j ≡ succ (div (i ∸ j) j)
 ------------------------------------------------------------------
 --                   N (div i j)
 
-div-x≥y-N : ∀ {i j} → N i → N j →
+div-x≮y-N : ∀ {i j} →
             (ih : DIV (i ∸ j) j (div (i ∸ j) j)) →
-            GE i j →
+            NLT i j →
             N (div i j)
-div-x≥y-N Ni Nj ih i≥j = subst N (sym $ div-x≥y Ni Nj i≥j) (sN (∧-proj₁ ih))
+div-x≮y-N ih i≮j = subst N (sym $ div-x≮y i≮j) (sN (∧-proj₁ ih))
