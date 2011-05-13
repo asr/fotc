@@ -88,7 +88,6 @@ open import FOTC.Program.GCD.TotalityATP
 open import FOTC.Program.GCD.TotalityI
 
 open import FOTC.Program.McCarthy91.ArithmeticATP
-open import FOTC.Program.McCarthy91.EquationsATP
 open import FOTC.Program.McCarthy91.McCarthy91.ConsistencyTest
 open import FOTC.Program.McCarthy91.McCarthy91
 open import FOTC.Program.McCarthy91.MCR

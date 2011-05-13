@@ -18,4 +18,9 @@ postulate
   mc91-eq : ∀ n → mc91 n ≡ if (n > one-hundred)
                              then n ∸ ten
                              else mc91 (mc91 (n + eleven))
--- {-# ATP axiom mc91-eq #-}
+{-# ATP axiom mc91-eq #-}
+
+-- Auxiliary equations (used only in interactive proofs).
+postulate
+  mc91-eq₁ : ∀ n → GT n one-hundred → mc91 n ≡ n ∸ ten
+{-# ATP prove mc91-eq₁ mc91-eq #-}
