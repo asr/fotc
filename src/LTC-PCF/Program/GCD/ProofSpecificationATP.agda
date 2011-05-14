@@ -13,8 +13,6 @@ module LTC-PCF.Program.GCD.ProofSpecificationATP where
 open import LTC-PCF.Base
 
 open import FOTC.Data.Nat.Type
-  using ( N  -- The LTC list of natural numbers type.
-        )
 
 open import LTC-PCF.Data.Nat.Divisibility.PropertiesATP using ( x∣S→x≤S )
 
@@ -36,6 +34,6 @@ open module SpecificationATP =
   renaming ( gcd-GCD to gcd-GCD-ATP )
 
 ------------------------------------------------------------------------------
--- The 'gcd' is the GCD.
+-- The gcd is the GCD.
 gcd-GCD : ∀ {m n} → N m → N n → x≠0≠y m n → GCD m n (gcd m n)
 gcd-GCD = gcd-GCD-ATP

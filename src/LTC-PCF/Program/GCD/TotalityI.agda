@@ -5,30 +5,19 @@
 module LTC-PCF.Program.GCD.TotalityI where
 
 open import LTC-PCF.Base
-open import FOTC.Base.Properties using ( ¬S≡0 )
+open import FOTC.Base.Properties
 
-open import Common.Function using ( _$_ )
+open import Common.Function
 
 open import LTC-PCF.Data.Nat
-  using ( _∸_
-        ; N ; sN ; zN  -- The LTC natural numbers type.
-        )
 open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
-  using ( wfInd-LT₂ )
-open import LTC-PCF.Data.Nat.Inequalities using ( GT ; LE ; LT₂ )
+open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
-  using ( 0>x→⊥
-        ; S≤0→⊥
-        ; x>y∨x≤y
-        ; [Sx∸Sy,Sy]<[Sx,Sy]
-        ; [Sx,Sy∸Sx]<[Sx,Sy]
-        )
-open import LTC-PCF.Data.Nat.PropertiesI using ( ∸-N )
+open import LTC-PCF.Data.Nat.PropertiesI
 
-open import LTC-PCF.Program.GCD.Definitions using ( x≠0≠y )
-open import LTC-PCF.Program.GCD.GCD using ( gcd )
+open import LTC-PCF.Program.GCD.Definitions
+open import LTC-PCF.Program.GCD.GCD
 open import LTC-PCF.Program.GCD.EquationsI
-  using ( gcd-0S ; gcd-S0 ; gcd-S>S ; gcd-S≤S )
 
 ------------------------------------------------------------------------------
 -- gcd 0 (succ n) is total.
@@ -49,17 +38,15 @@ gcd-S>S-N : ∀ {m n} → N m → N n →
 gcd-S>S-N {m} {n} Nm Nn ih Sm>Sn = subst N (sym $ gcd-S>S m n Sm>Sn) ih
 
 ------------------------------------------------------------------------------
--- gcd (succ m) (succ n) when succ m ≤ succ n is total.
-gcd-S≤S-N : ∀ {m n} → N m → N n →
+-- gcd (succ m) (succ n) when succ m ≯ succ n is total.
+gcd-S≯S-N : ∀ {m n} → N m → N n →
             N (gcd (succ m) (succ n ∸ succ m)) →
-            LE (succ m) (succ n) →
+            NGT (succ m) (succ n) →
             N (gcd (succ m) (succ n))
-gcd-S≤S-N {m} {n} Nm Nn ih Sm≤Sn = subst N (sym $ gcd-S≤S Nm Nn Sm≤Sn) ih
+gcd-S≯S-N {m} {n} Nm Nn ih Sm≯Sn = subst N (sym $ gcd-S≯S m n Sm≯Sn) ih
 
 ------------------------------------------------------------------------------
 -- gcd m n when m > n is total.
--- N.B. If '>' were an inductive data type, we would use the absurd pattern
--- to prove the second case.
 gcd-x>y-N :
   ∀ {m n} → N m → N n →
   (∀ {o p} → N o → N p → LT₂ o p m n → x≠0≠y o p → N (gcd o p)) →
@@ -82,20 +69,19 @@ gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
               (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
 
 ------------------------------------------------------------------------------
--- gcd m n when m ≤ n is total.
--- N.B. If '≤' were an inductive data type, we would use the absurd pattern
--- to prove the third case.
-gcd-x≤y-N :
+-- gcd m n when m ≯ n is total.
+gcd-x≯y-N :
   ∀ {m n} → N m → N n →
   (∀ {o p} → N o → N p → LT₂ o p m n → x≠0≠y o p → N (gcd o p)) →
-  LE m n →
+  NGT m n →
   x≠0≠y m n →
   N (gcd m n)
-gcd-x≤y-N zN zN _ _  ¬0≡0∧0≡0 = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x≤y-N zN (sN Nn) _ _ _      = gcd-0S-N Nn
-gcd-x≤y-N (sN Nm) zN _ Sm≤0  _  = ⊥-elim $ S≤0→⊥ Nm Sm≤0
-gcd-x≤y-N (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
-  gcd-S≤S-N Nm Nn ih Sm≤Sn
+gcd-x≯y-N zN zN _ _  ¬0≡0∧0≡0 = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
+gcd-x≯y-N zN (sN Nn) _ _ _      = gcd-0S-N Nn
+gcd-x≯y-N (sN {m} Nm) zN _ Sm≯0  _  =
+  ⊥-elim (true≠false (trans (sym (<-0S m)) Sm≯0))
+gcd-x≯y-N (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ =
+  gcd-S≯S-N Nm Nn ih Sm≯Sn
   where
     -- Inductive hypothesis.
     ih : N (gcd (succ m) (succ n ∸ succ m))
@@ -118,5 +104,5 @@ gcd-N = wfInd-LT₂ P istep
             P i j
     istep Ni Nj accH =
       [ gcd-x>y-N Ni Nj accH
-      , gcd-x≤y-N Ni Nj accH
-      ] (x>y∨x≤y Ni Nj)
+      , gcd-x≯y-N Ni Nj accH
+      ] (x>y∨x≯y Ni Nj)

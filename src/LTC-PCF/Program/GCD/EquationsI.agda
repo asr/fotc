@@ -7,13 +7,10 @@ module LTC-PCF.Program.GCD.EquationsI where
 open import LTC-PCF.Base
 
 open import LTC-PCF.Data.Nat
-  using ( _∸_
-        ; N ; sN -- The LTC natural numbers type.
-        )
-open import LTC-PCF.Data.Nat.Inequalities using ( _>_ ; GT ; LE )
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesI using ( x≤y→x≯y )
+open import LTC-PCF.Data.Nat.Inequalities
+open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
 
-open import LTC-PCF.Program.GCD.GCD using ( gcd ; gcdh )
+open import LTC-PCF.Program.GCD.GCD
 
 open import LTC-PCF.Relation.Binary.EqReasoning
 
@@ -281,12 +278,9 @@ gcd-S>S m n Sm>Sn =
   ∎
 
 -- Fifth equation.
-
--- Because we define LE on terms of LT, we need the extra hypotheses
--- N m and N n.
-gcd-S≤S : ∀ {m n} → N m → N n → LE (succ m) (succ n) →
+gcd-S≯S : ∀ m n → NGT (succ m) (succ n) →
           gcd (succ m) (succ n) ≡ gcd (succ m) (succ n ∸ succ m)
-gcd-S≤S {m} {n} Nm Nn Sm≤Sn =
+gcd-S≯S m n Sm≯Sn =
   begin
     gcd (succ m) (succ n)           ≡⟨ proof₀₋₁ (succ m) (succ n) ⟩
     gcd-s₁ (succ m) (succ n)        ≡⟨ proof₁₋₂ (succ m) (succ n) ⟩
@@ -301,7 +295,7 @@ gcd-S≤S {m} {n} Nm Nn Sm≤Sn =
     gcd-s₈ (succ m) (succ n) false  ≡⟨ proof₈₋₉ (succ m) (succ n) ⟩
     gcd-s₉ (succ m) (succ n)        ≡⟨ proof₉₋₁₀ (succ m) (succ n)
                                                  false
-                                                 (x≤y→x≯y (sN Nm) (sN Nn) Sm≤Sn)
+                                                 Sm≯Sn
                                     ⟩
     gcd-s₁₀ (succ m) (succ n) false ≡⟨ proof₁₀₋ (succ m) (succ n) ⟩
     fix gcdh · succ m · (succ n ∸ succ m)
