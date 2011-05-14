@@ -5,27 +5,18 @@
 module FOTC.Program.GCD.TotalityATP where
 
 open import FOTC.Base
-open import FOTC.Base.Properties using ( ¬S≡0 )
+open import FOTC.Base.Properties
 
-open import Common.Function using ( _$_ )
+open import Common.Function
 
 open import FOTC.Data.Nat
-  using ( _∸_
-        ; N ; sN ; zN  -- The FOTC natural numbers type.
-        )
-open import FOTC.Data.Nat.Induction.NonAcc.LexicographicATP using ( wfInd-LT₂ )
-open import FOTC.Data.Nat.Inequalities using ( GT ; LE ; LT₂)
+open import FOTC.Data.Nat.Induction.NonAcc.LexicographicATP
+open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
-  using ( 0>x→⊥
-        ; S≤0→⊥
-        ; [Sx∸Sy,Sy]<[Sx,Sy]
-        ; [Sx,Sy∸Sx]<[Sx,Sy]
-        ; x>y∨x≤y
-        )
-open import FOTC.Data.Nat.PropertiesATP using ( ∸-N )
+open import FOTC.Data.Nat.PropertiesATP
 
-open import FOTC.Program.GCD.Definitions using ( x≠0≠y )
-open import FOTC.Program.GCD.GCD using ( gcd )
+open import FOTC.Program.GCD.Definitions
+open import FOTC.Program.GCD.GCD
 
 ------------------------------------------------------------------------------
 -- gcd 0 (succ n) is total.
@@ -50,19 +41,16 @@ postulate
 {-# ATP prove gcd-S>S-N #-}
 
 ------------------------------------------------------------------------------
--- gcd (succ m) (succ n) when succ m ≤ succ n is total.
+-- gcd (succ m) (succ n) when succ m ≯ succ n is total.
 postulate
-  gcd-S≤S-N : ∀ {m n} → N m → N n →
+  gcd-S≯S-N : ∀ {m n} → N m → N n →
               N (gcd (succ m) (succ n ∸ succ m)) →
-              LE (succ m) (succ n) →
+              NGT (succ m) (succ n) →
               N (gcd (succ m) (succ n))
--- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-{-# ATP prove gcd-S≤S-N #-}
+{-# ATP prove gcd-S≯S-N #-}
 
 ------------------------------------------------------------------------------
 -- gcd m n when m > n is total.
--- N.B. If '>' were an inductive data type, we would use the absurd pattern
--- to prove the second case.
 gcd-x>y-N :
   ∀ {m n} → N m → N n →
   (∀ {o p} → N o → N p → LT₂ o p m n → x≠0≠y o p → N (gcd o p)) →
@@ -85,20 +73,18 @@ gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
               (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
 
 ------------------------------------------------------------------------------
--- gcd m n when m ≤ n is total.
--- N.B. If '≤' were an inductive data type, we would use the absurd pattern
--- to prove the third case.
-gcd-x≤y-N :
+-- gcd m n when m ≯ n is total.
+gcd-x≯y-N :
   ∀ {m n} → N m → N n →
   (∀ {o p} → N o → N p → LT₂ o p m n → x≠0≠y o p → N (gcd o p)) →
-  LE m n →
+  NGT m n →
   x≠0≠y m n →
   N (gcd m n)
-gcd-x≤y-N zN zN _ _  ¬0≡0∧0≡0   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x≤y-N zN (sN Nn) _ _ _      = gcd-0S-N Nn
-gcd-x≤y-N (sN Nm) zN _ Sm≤0  _  = ⊥-elim $ S≤0→⊥ Nm Sm≤0
-gcd-x≤y-N (sN {m} Nm) (sN {n} Nn) accH Sm≤Sn _ =
-  gcd-S≤S-N Nm Nn ih Sm≤Sn
+gcd-x≯y-N zN zN _ _  ¬0≡0∧0≡0 = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
+gcd-x≯y-N zN (sN Nn) _ _ _ = gcd-0S-N Nn
+gcd-x≯y-N (sN {m} Nm) zN _ Sm≯0 _  = ⊥-elim (true≠false (trans (sym (<-0S m)) Sm≯0))
+gcd-x≯y-N (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ =
+  gcd-S≯S-N Nm Nn ih Sm≯Sn
   where
     -- Inductive hypothesis.
     ih : N (gcd (succ m) (succ n ∸ succ m))
@@ -121,5 +107,5 @@ gcd-N = wfInd-LT₂ P istep
             P i j
     istep Ni Nj accH =
       [ gcd-x>y-N Ni Nj accH
-      , gcd-x≤y-N Ni Nj accH
-      ] (x>y∨x≤y Ni Nj)
+      , gcd-x≯y-N Ni Nj accH
+      ] (x>y∨x≯y Ni Nj)

@@ -152,6 +152,17 @@ x≤y→x≯y (sN Nm)     zN          Sm≤0 = ⊥-elim $ S≤0→⊥ Nm Sm≤0
 x≤y→x≯y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
   trans (<-SS n m) (x≤y→x≯y Nm Nn (trans (sym $ <-SS m (succ n)) Sm≤Sn))
 
+x≯y→x≤y : ∀ {m n} → N m → N n → NGT m n → LE m n
+x≯y→x≤y zN Nn _ = 0≤x Nn
+x≯y→x≤y (sN {m} Nm) zN Sm≯0 = ⊥-elim (true≠false (trans (sym (<-0S m)) Sm≯0))
+x≯y→x≤y (sN {m} Nm) (sN {n} Nn) Sm≯Sn =
+  trans (<-SS m (succ n)) (x≯y→x≤y Nm Nn (trans (sym (<-SS n m)) Sm≯Sn))
+
+x>y∨x≯y : ∀ {m n} → N m → N n → GT m n ∨ NGT m n
+x>y∨x≯y Nm Nn = [ (λ m>n → inj₁ m>n) ,
+                  (λ m≤n → inj₂ (x≤y→x≯y Nm Nn m≤n))
+                ] (x>y∨x≤y Nm Nn)
+
 <-trans : ∀ {m n o} → N m → N n → N o → LT m n → LT n o → LT m o
 <-trans zN          zN           _          0<0   _    = ⊥-elim $ 0<0→⊥ 0<0
 <-trans zN          (sN Nn)     zN          _     Sn<0 = ⊥-elim $ S<0→⊥ Sn<0

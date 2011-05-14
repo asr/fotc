@@ -7,8 +7,8 @@ module FOTC.Program.GCD.GCD where
 
 open import FOTC.Base
 
-open import FOTC.Data.Nat using ( _∸_ )
-open import FOTC.Data.Nat.Inequalities using ( GT ; LE )
+open import FOTC.Data.Nat
+open import FOTC.Data.Nat.Inequalities
 
 ------------------------------------------------------------------------------
 
@@ -22,10 +22,10 @@ postulate
   gcd-S>S : ∀ m n → GT (succ m) (succ n) →
             gcd (succ m) (succ n) ≡ gcd (succ m ∸ succ n) (succ n)
 
-  gcd-S≤S : ∀ m n → LE (succ m) (succ n) →
+  gcd-S≯S : ∀ m n → NGT (succ m) (succ n) →
             gcd (succ m) (succ n) ≡ gcd (succ m) (succ n ∸ succ m)
 
 {-# ATP axiom gcd-S0 #-}
 {-# ATP axiom gcd-0S #-}
 {-# ATP axiom gcd-S>S #-}
-{-# ATP axiom gcd-S≤S #-}
+{-# ATP axiom gcd-S≯S #-}

@@ -11,8 +11,6 @@ open import FOTC.Base
 
 open import FOTC.Data.Nat.Divisibility.PropertiesI using ( x∣S→x≤S )
 open import FOTC.Data.Nat.Type
-  using ( N  -- The FOTC list of natural numbers type.
-        )
 
 open import FOTC.Program.GCD.Definitions using ( x≠0≠y )
 open import FOTC.Program.GCD.GCD using ( gcd )
@@ -32,6 +30,6 @@ open module SpecificationI =
   renaming ( gcd-GCD to gcd-GCD-I )
 
 ------------------------------------------------------------------------------
--- The 'gcd' is the GCD.
+-- The gcd is the GCD.
 gcd-GCD : ∀ {m n} → N m → N n → x≠0≠y m n → GCD m n (gcd m n)
 gcd-GCD = gcd-GCD-I

@@ -174,9 +174,8 @@ x≤y→x≯y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
     {-# ATP prove prf #-}
 
 x≯y→x≤y : ∀ {m n} → N m → N n → NGT m n → LE m n
-x≯y→x≤y zN          Nn          _     = 0≤x Nn
-x≯y→x≤y (sN {m} Nm) zN          Sm≯0  = ⊥-elim (true≠false
-                                                 (trans (sym (<-0S m)) Sm≯0))
+x≯y→x≤y zN Nn _ = 0≤x Nn
+x≯y→x≤y (sN {m} Nm) zN Sm≯0  = ⊥-elim (true≠false (trans (sym (<-0S m)) Sm≯0))
 x≯y→x≤y (sN {m} Nm) (sN {n} Nn) Sm≯Sn =
   prf (x≯y→x≤y Nm Nn (trans (sym (<-SS n m)) Sm≯Sn))
   where
