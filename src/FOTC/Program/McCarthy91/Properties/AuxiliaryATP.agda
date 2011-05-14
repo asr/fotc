@@ -23,7 +23,7 @@ open import FOTC.Program.McCarthy91.McCarthy91
 
 ---- Case n > 100
 postulate
-  Nmc91>100      : ∀ {n} → N n → GT n one-hundred → N (mc91 n)
+  Nmc91>100 : ∀ {n} → N n → GT n one-hundred → N (mc91 n)
 {-# ATP prove Nmc91>100 10-N ∸-N #-}
 
 postulate
@@ -45,21 +45,21 @@ postulate
 
 ---- Case n ≤ 100
 postulate
-  Nmc91≯100 : ∀ {n} → N n →
+  Nmc91≯100 : ∀ n →
               NGT n one-hundred →
               N (mc91 (mc91 (n + eleven))) →
               N (mc91 n)
 {-# ATP prove Nmc91≯100 #-}
 
 postulate
-  mc91x+11<mc91x+11 : ∀ {n} → N n →
+  mc91x+11<mc91x+11 : ∀ n →
                       NGT n one-hundred →
                       LT (mc91 (n + eleven)) (mc91 (mc91 (n + eleven)) + eleven) →
                       LT (mc91 (n + eleven)) (mc91 n + eleven)
 {-# ATP prove mc91x+11<mc91x+11 #-}
 
 postulate
-  mc91x-res≯100 : ∀ {m} → N m → ∀ n →
+  mc91x-res≯100 : ∀ m n →
                   NGT m one-hundred →
                   mc91 (m + eleven) ≡ n → mc91 n ≡ ninety-one →
                   mc91 m ≡ ninety-one
