@@ -1,5 +1,3 @@
-{-# OPTIONS --no-termination-check #-}
-
 module Draft.FOTC.Program.GCD.GCD where
 
 open import FOTC.Base
@@ -10,17 +8,19 @@ open import FOTC.Data.Nat.Inequalities
 postulate
   loop : D
 
-gcd : D → D → D
-gcd m n = if (isZero m)
-             then (if (isZero n)
-                      then loop
-                      else n)
-             else (if (isZero n)
-                       then m
-                       else (if (m > n)
-                                then gcd (m ∸ n) n
-                                else gcd m (n ∸ n)))
-{-# ATP hint gcd #-}
+postulate
+  gcd    : D → D → D
+  gcd-eq : ∀ m n → gcd m n ≡
+                   if (isZero m)
+                     then (if (isZero n)
+                              then loop
+                              else n)
+                     else (if (isZero n)
+                              then m
+                              else (if (m > n)
+                                       then gcd (m ∸ n) n
+                                       else gcd m (n ∸ m)))
+{-# ATP axiom gcd-eq #-}
 
 postulate
   gcd-S0  : ∀ n → gcd (succ n) zero ≡ succ n
@@ -32,8 +32,7 @@ postulate
 
   gcd-S≯S : ∀ m n → NGT (succ m) (succ n) →
             gcd (succ m) (succ n) ≡ gcd (succ m) (succ n ∸ succ m)
-
--- {-# ATP prove gcd-S0 #-}
+{-# ATP prove gcd-S0 #-}
 {-# ATP prove gcd-0S #-}
--- {-# ATP axiom gcd-S>S #-}
--- {-# ATP axiom gcd-S≯S #-}
+{-# ATP prove gcd-S>S #-}
+{-# ATP prove gcd-S≯S #-}

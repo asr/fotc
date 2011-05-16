@@ -4,4 +4,4 @@
 
 module Draft.RenderToHTML where
 
-open import Draft.FOTC.Data.Nat.Inequalities
+open import Draft.FOTC.Program.GCD.GCD
