@@ -18,6 +18,7 @@ open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.PropertiesI
 
 open import FOTC.Program.GCD.Definitions
+open import FOTC.Program.GCD.EquationsI
 open import FOTC.Program.GCD.GCD
 
 ------------------------------------------------------------------------------

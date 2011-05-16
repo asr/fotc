@@ -2,24 +2,18 @@
 -- Equations for the greatest common divisor
 ------------------------------------------------------------------------------
 
-module LTC-PCF.Program.GCD.EquationsI where
+module FOTC.Program.GCD.EquationsI where
 
-open import LTC-PCF.Base
+open import FOTC.Base
 
-open import LTC-PCF.Data.Nat
-open import LTC-PCF.Data.Nat.Inequalities
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
+open import FOTC.Data.Nat
+open import FOTC.Data.Nat.Inequalities
 
-open import LTC-PCF.Program.GCD.GCD
+open import FOTC.Program.GCD.GCD
 
-open import LTC-PCF.Relation.Binary.EqReasoning
+open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
-
--- Note: This module was written for the version of gcd using the
--- lambda abstractions, but we can use it with the version of gcd
--- using super-combinators.
-
 private
   -- Before to prove some properties for 'gcd i j' it is convenient
   -- to descompose the behavior of the function step by step.
@@ -36,82 +30,65 @@ private
   ----------------------------------------------------------------------------
   -- The steps
 
-  -- Initially, the conversion rule fix-f is applied.
+  -- Initially, the equation gcd-eq is used.
   gcd-s₁ : D → D → D
-  gcd-s₁ m n = gcdh (fix gcdh) · m · n
-
-  -- First argument application.
-  gcd-s₂ : D → D
-  gcd-s₂ m = lam (λ n →
-                    if (isZero n)
-                       then (if (isZero m)
-                                then error
-                                else m)
-                       else (if (isZero m)
-                                then n
-                                else (if (m > n)
-                                         then fix gcdh · (m ∸ n) · n
-                                         else fix gcdh · m · (n ∸ m))))
-
-  -- Second argument application.
-  gcd-s₃ : D → D → D
-  gcd-s₃ m n = if (isZero n)
+  gcd-s₁ m n = if (isZero n)
                   then (if (isZero m)
-                           then error
+                           then loop
                            else m)
                   else (if (isZero m)
                            then n
                            else (if (m > n)
-                                    then fix gcdh · (m ∸ n) · n
-                                    else fix gcdh · m · (n ∸ m)))
+                                    then gcd (m ∸ n) n
+                                    else gcd m (n ∸ m)))
 
   -- Conversion (first if_then_else) 'isZero n = b'.
   gcd-s₄ : D → D → D → D
   gcd-s₄ m n b = if b
                     then (if (isZero m)
-                             then error
+                             then loop
                              else m)
                     else (if (isZero m)
                              then n
                              else (if (m > n)
-                                      then fix gcdh · (m ∸ n) · n
-                                      else fix gcdh · m · (n ∸ m)))
+                                      then gcd (m ∸ n) n
+                                      else gcd m (n ∸ m)))
 
   -- Conversion first if_then_else when 'if true ...'.
   gcd-s₅ : D → D
-  gcd-s₅ m  = if (isZero m) then error else m
+  gcd-s₅ m  = if (isZero m) then loop else m
 
   -- Conversion first if_then_else when 'if false ...'.
   gcd-s₆ : D → D → D
   gcd-s₆ m n = if (isZero m)
                   then n
                   else (if (m > n)
-                           then fix gcdh · (m ∸ n) · n
-                           else fix gcdh · m · (n ∸ m))
+                           then gcd (m ∸ n) n
+                           else gcd m (n ∸ m))
 
   -- Conversion (second if_then_else) 'isZero m = b'.
   gcd-s₇ : D → D → D
-  gcd-s₇ m b = if b then error else m
+  gcd-s₇ m b = if b then loop else m
 
   -- Conversion (third if_then_else) 'isZero m = b'.
   gcd-s₈ : D → D → D → D
   gcd-s₈ m n b = if b
                     then n
                     else (if (m > n)
-                             then fix gcdh · (m ∸ n) · n
-                             else fix gcdh · m · (n ∸ m))
+                             then gcd (m ∸ n) n
+                             else gcd m (n ∸ m))
 
   -- Conversion third if_then_else, when 'if false ...'.
   gcd-s₉ : D → D → D
   gcd-s₉ m n = if (m > n)
-                   then fix gcdh · (m ∸ n) · n
-                   else fix gcdh · m · (n ∸ m)
+                   then gcd (m ∸ n) n
+                   else gcd m (n ∸ m)
 
   -- Conversion (fourth if_then_else) 'gt m n = b'.
   gcd-s₁₀ : D → D → D → D
   gcd-s₁₀ m n b = if b
-                     then fix gcdh · (m ∸ n) · n
-                     else fix gcdh · m · (n ∸ m)
+                     then gcd (m ∸ n) n
+                     else gcd m (n ∸ m)
 
   ----------------------------------------------------------------------------
   -- The execution steps
@@ -137,28 +114,15 @@ private
    P x is given by C [n] ≡ C [n] (i.e. refl).
   -}
 
-  -- Application of the conversion rule fix-f.
-  proof₀₋₁ : ∀ m n → fix gcdh · m · n ≡ gcd-s₁ m n
-  proof₀₋₁ m n = subst (λ x → x · m · n ≡ gcdh (fix gcdh) · m · n)
-                       (sym (fix-f gcdh))
-                       refl
-
-  -- Application of the first argument.
-  proof₁₋₂ : ∀ m n → gcd-s₁ m n ≡ gcd-s₂ m · n
-  proof₁₋₂ m n = subst (λ x → x · n ≡ gcd-s₂ m · n)
-                       (sym (beta gcd-s₂ m))
-                       refl
-
-  -- Second argument application.
-  proof₂₋₃ : ∀ m n → gcd-s₂ m · n ≡ gcd-s₃ m n
-  proof₂₋₃ m n  = beta (gcd-s₃ m) n
+  -- Application of the equation gcd-eq.
+  proof₀₋₁ : ∀ m n → gcd m n ≡ gcd-s₁ m n
+  proof₀₋₁ m n = gcd-eq m n
 
   -- Conversion (first if_then_else) 'isZero n = b' using that proof.
-  proof₃₋₄ : ∀ m n b → isZero n ≡ b → gcd-s₃ m n ≡ gcd-s₄ m n b
-  proof₃₋₄ m n b prf = subst (λ x → gcd-s₄ m n x ≡ gcd-s₄ m n b)
+  proof₁₋₄ : ∀ m n b → isZero n ≡ b → gcd-s₁ m n ≡ gcd-s₄ m n b
+  proof₁₋₄ m n b prf = subst (λ x → gcd-s₄ m n x ≡ gcd-s₄ m n b)
                              (sym prf)
                              refl
-
   -- Conversion first if_then_else when 'if true ...' using if-true.
   proof₄₋₅ : ∀ m n → gcd-s₄ m n true ≡ gcd-s₅ m
   proof₄₋₅ m _ = if-true (gcd-s₅ m)
@@ -180,8 +144,8 @@ private
                              refl
 
   -- Conversion second if_then_else when 'if true ...' using if-true.
-  proof₇₊ : ∀ m → gcd-s₇ m true ≡ error
-  proof₇₊ _ = if-true error
+  proof₇₊ : ∀ m → gcd-s₇ m true ≡ loop
+  proof₇₊ _ = if-true loop
 
   -- Conversion second if_then_else when 'if false ...' using if-false.
   proof₇₋ : ∀ m → gcd-s₇ m false ≡ m
@@ -202,29 +166,27 @@ private
                               refl
 
   -- Conversion fourth if_then_else when 'if true ...' using if-true.
-  proof₁₀₊ : ∀ m n → gcd-s₁₀ m n true ≡ fix gcdh · (m ∸ n) · n
-  proof₁₀₊ m n = if-true (fix gcdh · (m ∸ n) · n)
+  proof₁₀₊ : ∀ m n → gcd-s₁₀ m n true ≡ gcd (m ∸ n) n
+  proof₁₀₊ m n = if-true (gcd (m ∸ n) n)
 
   -- Conversion fourth if_then_else when 'if was ...' using if-false.
-  proof₁₀₋ : ∀ m n → gcd-s₁₀ m n false ≡ fix gcdh · m · (n ∸ m)
-  proof₁₀₋ m n = if-false (fix gcdh · m · (n ∸ m))
+  proof₁₀₋ : ∀ m n → gcd-s₁₀ m n false ≡ gcd m (n ∸ m)
+  proof₁₀₋ m n = if-false (gcd m (n ∸ m))
 
 ------------------------------------------------------------------------------
 -- The five equations for gcd
 
 -- First equation.
 -- We do not use this equation for reasoning about gcd.
-gcd-00 : gcd zero zero ≡ error
+gcd-00 : gcd zero zero ≡ loop
 gcd-00 =
   begin
     gcd zero zero         ≡⟨ proof₀₋₁ zero zero ⟩
-    gcd-s₁ zero zero      ≡⟨ proof₁₋₂ zero zero ⟩
-    gcd-s₂ zero · zero    ≡⟨ proof₂₋₃ zero zero ⟩
-    gcd-s₃ zero zero      ≡⟨ proof₃₋₄ zero zero true isZero-0 ⟩
+    gcd-s₁ zero zero      ≡⟨ proof₁₋₄ zero zero true isZero-0 ⟩
     gcd-s₄ zero zero true ≡⟨ proof₄₋₅ zero zero ⟩
     gcd-s₅ zero           ≡⟨ proof₅₋₇ zero true isZero-0 ⟩
     gcd-s₇ zero true      ≡⟨ proof₇₊  zero ⟩
-    error
+    loop
   ∎
 
 -- Second equation.
@@ -232,9 +194,7 @@ gcd-S0 : ∀ n → gcd (succ n) zero ≡ succ n
 gcd-S0 n =
   begin
     gcd (succ n) zero         ≡⟨ proof₀₋₁ (succ n) zero ⟩
-    gcd-s₁ (succ n) zero      ≡⟨ proof₁₋₂ (succ n) zero ⟩
-    gcd-s₂ (succ n) · zero    ≡⟨ proof₂₋₃ (succ n) zero ⟩
-    gcd-s₃ (succ n) zero      ≡⟨ proof₃₋₄ (succ n) zero true isZero-0 ⟩
+    gcd-s₁ (succ n) zero      ≡⟨ proof₁₋₄ (succ n) zero true isZero-0 ⟩
     gcd-s₄ (succ n) zero true ≡⟨ proof₄₋₅ (succ n) zero ⟩
     gcd-s₅ (succ n)           ≡⟨ proof₅₋₇ (succ n) false (isZero-S n) ⟩
     gcd-s₇ (succ n) false     ≡⟨ proof₇₋  (succ n) ⟩
@@ -246,9 +206,7 @@ gcd-0S : ∀ n → gcd zero (succ n) ≡ succ n
 gcd-0S n =
   begin
     gcd zero (succ n)          ≡⟨ proof₀₋₁ zero (succ n) ⟩
-    gcd-s₁ zero (succ n)       ≡⟨ proof₁₋₂ zero (succ n) ⟩
-    gcd-s₂ zero · (succ n)     ≡⟨ proof₂₋₃ zero (succ n) ⟩
-    gcd-s₃ zero (succ n)       ≡⟨ proof₃₋₄ zero (succ n) false (isZero-S n) ⟩
+    gcd-s₁ zero (succ n)       ≡⟨ proof₁₋₄ zero (succ n) false (isZero-S n) ⟩
     gcd-s₄ zero (succ n) false ≡⟨ proof₄₋₆ zero (succ n) ⟩
     gcd-s₆ zero (succ n)       ≡⟨ proof₆₋₈ zero (succ n) true isZero-0 ⟩
     gcd-s₈ zero (succ n) true  ≡⟨ proof₈₊  zero (succ n) ⟩
@@ -262,9 +220,7 @@ gcd-S>S : ∀ m n → GT (succ m) (succ n) →
 gcd-S>S m n Sm>Sn =
   begin
     gcd (succ m) (succ n)          ≡⟨ proof₀₋₁ (succ m) (succ n) ⟩
-    gcd-s₁ (succ m) (succ n)       ≡⟨ proof₁₋₂ (succ m) (succ n) ⟩
-    gcd-s₂ (succ m) · (succ n)     ≡⟨ proof₂₋₃ (succ m) (succ n) ⟩
-    gcd-s₃ (succ m) (succ n)       ≡⟨ proof₃₋₄ (succ m) (succ n)
+    gcd-s₁ (succ m) (succ n)       ≡⟨ proof₁₋₄ (succ m) (succ n)
                                                false (isZero-S n)
                                    ⟩
     gcd-s₄ (succ m) (succ n) false ≡⟨ proof₄₋₆ (succ m) (succ n) ⟩
@@ -274,7 +230,7 @@ gcd-S>S m n Sm>Sn =
     gcd-s₈ (succ m) (succ n) false ≡⟨ proof₈₋₉ (succ m) (succ n) ⟩
     gcd-s₉ (succ m) (succ n)       ≡⟨ proof₉₋₁₀ (succ m) (succ n) true Sm>Sn ⟩
     gcd-s₁₀ (succ m) (succ n) true ≡⟨ proof₁₀₊  (succ m) (succ n) ⟩
-    fix gcdh · (succ m ∸ succ n) · succ n
+    gcd (succ m ∸ succ n) (succ n)
   ∎
 
 -- Fifth equation.
@@ -283,9 +239,7 @@ gcd-S≯S : ∀ m n → NGT (succ m) (succ n) →
 gcd-S≯S m n Sm≯Sn =
   begin
     gcd (succ m) (succ n)           ≡⟨ proof₀₋₁ (succ m) (succ n) ⟩
-    gcd-s₁ (succ m) (succ n)        ≡⟨ proof₁₋₂ (succ m) (succ n) ⟩
-    gcd-s₂ (succ m) · (succ n)      ≡⟨ proof₂₋₃ (succ m) (succ n) ⟩
-    gcd-s₃ (succ m) (succ n)        ≡⟨ proof₃₋₄ (succ m) (succ n)
+    gcd-s₁ (succ m) (succ n)        ≡⟨ proof₁₋₄ (succ m) (succ n)
                                                 false (isZero-S n)
                                     ⟩
     gcd-s₄ (succ m) (succ n) false  ≡⟨ proof₄₋₆ (succ m) (succ n) ⟩
@@ -298,5 +252,5 @@ gcd-S≯S m n Sm≯Sn =
                                                  Sm≯Sn
                                     ⟩
     gcd-s₁₀ (succ m) (succ n) false ≡⟨ proof₁₀₋ (succ m) (succ n) ⟩
-    fix gcdh · succ m · (succ n ∸ succ m)
+    gcd (succ m) (succ n ∸ succ m)
   ∎

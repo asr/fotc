@@ -89,6 +89,8 @@ open import FOTC.Program.Division.TotalityI
 open import FOTC.Program.GCD.Definitions
 open import FOTC.Program.GCD.GCD
 open import FOTC.Program.GCD.GCD.ConsistencyTest
+open import FOTC.Program.GCD.EquationsATP
+open import FOTC.Program.GCD.EquationsI
 open import FOTC.Program.GCD.IsCommonDivisorATP
 open import FOTC.Program.GCD.IsCommonDivisorI
 open import FOTC.Program.GCD.IsDivisibleATP

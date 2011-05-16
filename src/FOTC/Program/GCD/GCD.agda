@@ -13,19 +13,18 @@ open import FOTC.Data.Nat.Inequalities
 ------------------------------------------------------------------------------
 
 postulate
-  gcd     : D → D → D
+  loop : D
 
-  gcd-S0  : ∀ n → gcd (succ n) zero ≡ succ n
-
-  gcd-0S  : ∀ n → gcd zero (succ n) ≡ succ n
-
-  gcd-S>S : ∀ m n → GT (succ m) (succ n) →
-            gcd (succ m) (succ n) ≡ gcd (succ m ∸ succ n) (succ n)
-
-  gcd-S≯S : ∀ m n → NGT (succ m) (succ n) →
-            gcd (succ m) (succ n) ≡ gcd (succ m) (succ n ∸ succ m)
-
-{-# ATP axiom gcd-S0 #-}
-{-# ATP axiom gcd-0S #-}
-{-# ATP axiom gcd-S>S #-}
-{-# ATP axiom gcd-S≯S #-}
+postulate
+  gcd    : D → D → D
+  gcd-eq : ∀ m n → gcd m n ≡
+                   if (isZero n)
+                      then (if (isZero m)
+                               then loop
+                               else m)
+                      else (if (isZero m)
+                               then n
+                               else (if (m > n)
+                                        then gcd (m ∸ n) n
+                                        else gcd m (n ∸ m)))
+{-# ATP axiom gcd-eq #-}
