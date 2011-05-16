@@ -23,4 +23,4 @@ postulate
 -- Auxiliary equations (used only in interactive proofs).
 postulate
   mc91-eq₁ : ∀ n → GT n one-hundred → mc91 n ≡ n ∸ ten
-{-# ATP prove mc91-eq₁ mc91-eq #-}
+{-# ATP prove mc91-eq₁ #-}
