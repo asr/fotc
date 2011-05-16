@@ -2,24 +2,24 @@
 -- The division result is correct
 ------------------------------------------------------------------------------
 
-module LTC-PCF.Program.Division.IsCorrectATP where
+module FOTC.Program.Division.IsCorrectATP where
 
-open import LTC-PCF.Base
+open import FOTC.Base
 
-open import LTC-PCF.Data.Nat
-open import LTC-PCF.Data.Nat.Inequalities
-open import LTC-PCF.Data.Nat.PropertiesATP
+open import FOTC.Data.Nat
+open import FOTC.Data.Nat.Inequalities
+open import FOTC.Data.Nat.PropertiesATP
 
-open import LTC-PCF.Program.Division.Division
-open import LTC-PCF.Program.Division.EquationsATP
-open import LTC-PCF.Program.Division.Specification
+open import FOTC.Program.Division.Division
+open import FOTC.Program.Division.Specification
 
 ------------------------------------------------------------------------------
 -- The division result is correct when the dividend is less than
 -- the divisor.
+
 postulate
   div-x<y-helper : ∀ {i j} → N i → N j → LT i j → i ≡ j * div i j + i
-{-# ATP prove div-x<y-helper  +-leftIdentity *-rightZero div-x<y #-}
+{-# ATP prove div-x<y-helper  +-leftIdentity *-rightZero #-}
 
 div-x<y-correct : ∀ {i j} → N i → N j → LT i j →
                   ∃ λ r → N r ∧ LT r j ∧ i ≡ j * div i j + r
@@ -43,7 +43,7 @@ postulate
                    NLT i j →
                    i ∸ j ≡ j * div (i ∸ j) j + r →
                    i ≡ j * div i j + r
-{-# ATP prove div-x≮y-helper div-x≮y helper #-}
+{-# ATP prove div-x≮y-helper helper #-}
 
 div-x≮y-correct : ∀ {i j} → N i → N j →
                   (ih : DIV (i ∸ j) j (div (i ∸ j) j)) →

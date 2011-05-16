@@ -11,20 +11,20 @@
 -- LNCS, 1985, pages 334-349. Appears in revised form as Programming
 -- Methodology Group Report 26, June 1986.
 
-module LTC-PCF.Program.Division.ProofSpecificationI where
+module FOTC.Program.Division.ProofSpecificationI where
 
-open import LTC-PCF.Base
+open import FOTC.Base
 
-open import LTC-PCF.Data.Nat
-open import LTC-PCF.Data.Nat.Inequalities
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
-open import LTC-PCF.Data.Nat.PropertiesI
-open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionI
+open import FOTC.Data.Nat
+open import FOTC.Data.Nat.Inequalities
+open import FOTC.Data.Nat.Inequalities.PropertiesI
+open import FOTC.Data.Nat.PropertiesI
+open import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionI
 
-open import LTC-PCF.Program.Division.Division
-open import LTC-PCF.Program.Division.IsCorrectI
-open import LTC-PCF.Program.Division.Specification
-open import LTC-PCF.Program.Division.TotalityI
+open import FOTC.Program.Division.Division
+open import FOTC.Program.Division.IsCorrectI
+open import FOTC.Program.Division.Specification
+open import FOTC.Program.Division.TotalityI
 
 ------------------------------------------------------------------------------
 -- The division result satifies the specification DIV

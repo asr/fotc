@@ -33,13 +33,14 @@ PA_path               = src/PA
 PredicateLogic_path   = src/PredicateLogic
 
 # Programs
-Collatz_path    = $(FOTC_path)/Program/Collatz
-Division_path   = $(LTC-PCF_path)/Program/Division
-GCD_path        = $(FOTC_path)/Program/GCD
-GCD-PCF_path    = $(LTC-PCF_path)/Program/GCD
-McCarthy91_path = $(FOTC_path)/Program/McCarthy91
-Mirror_path     = $(FOTC_path)/Program/Mirror
-SortList_path   = $(FOTC_path)/Program/SortList
+Collatz_path      = $(FOTC_path)/Program/Collatz
+Division_path     = $(FOTC_path)/Program/Division
+Division-PCF_path = $(LTC-PCF_path)/Program/Division
+GCD_path          = $(FOTC_path)/Program/GCD
+GCD-PCF_path      = $(LTC-PCF_path)/Program/GCD
+McCarthy91_path   = $(FOTC_path)/Program/McCarthy91
+Mirror_path       = $(FOTC_path)/Program/Mirror
+SortList_path     = $(FOTC_path)/Program/SortList
 
 ##############################################################################
 # "main" modules
@@ -111,6 +112,7 @@ conjectures_% :
 # 		  conjectures_PredicateLogic \
 #                 conjectures_Collatz \
 #                 conjectures_Division \
+#                 conjectures_Division-PCF \
 # 		  conjectures_GCD \
 # 		  conjectures_GCD-PCF \
 #		  conjectures_McCarthy91 \

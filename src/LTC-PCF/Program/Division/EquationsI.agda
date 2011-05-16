@@ -168,7 +168,6 @@ private
 ----------------------------------------------------------------------
 -- The division result when the dividend is minor than the
 -- the divisor.
-
 div-x<y : ∀ {i j} → LT i j → div i j ≡ zero
 div-x<y {i} {j} i<j =
   begin
@@ -183,7 +182,6 @@ div-x<y {i} {j} i<j =
 ----------------------------------------------------------------------
 -- The division result when the dividend is greater or equal than the
 -- the divisor.
-
 div-x≮y : ∀ {i j} → NLT i j → div i j ≡ succ (div (i ∸ j) j)
 div-x≮y {i} {j} i≮j =
   begin

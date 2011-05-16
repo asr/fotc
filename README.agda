@@ -230,6 +230,10 @@ open import FOTC.Program.Mirror.PropertiesI
 open import FOTC.Program.SortList.ProofSpecificationATP
 open import FOTC.Program.SortList.ProofSpecificationI
 
+-- 6.5.6 The division algorithm: A non-structurally recursive algorithm
+open import FOTC.Program.Division.ProofSpecificationATP
+open import FOTC.Program.Division.ProofSpecificationI
+
 ------------------------------------------------------------------------------
 -- ATPs failures
 ------------------------------------------------------------------------------

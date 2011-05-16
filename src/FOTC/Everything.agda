@@ -39,6 +39,8 @@ open import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionATP
 open import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI
 open import FOTC.Data.Nat.Induction.NonAcc.LexicographicATP
 open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI
+open import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionATP
+open import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionI
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.ConsistencyTest
 open import FOTC.Data.Nat.Inequalities.Properties
@@ -72,6 +74,17 @@ open import FOTC.Program.Collatz.Data.Nat.PropertiesATP
 open import FOTC.Program.Collatz.Data.Nat.PropertiesI
 open import FOTC.Program.Collatz.PropertiesI
 open import FOTC.Program.Collatz.PropertiesATP
+
+open import FOTC.Program.Division.Division
+open import FOTC.Program.Division.EquationsATP
+open import FOTC.Program.Division.EquationsI
+open import FOTC.Program.Division.IsCorrectATP
+open import FOTC.Program.Division.IsCorrectI
+open import FOTC.Program.Division.ProofSpecificationATP
+open import FOTC.Program.Division.ProofSpecificationI
+open import FOTC.Program.Division.Specification
+open import FOTC.Program.Division.TotalityATP
+open import FOTC.Program.Division.TotalityI
 
 open import FOTC.Program.GCD.Definitions
 open import FOTC.Program.GCD.GCD

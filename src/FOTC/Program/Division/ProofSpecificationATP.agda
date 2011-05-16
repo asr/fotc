@@ -2,8 +2,11 @@
 -- The division program satisfies the specification
 ------------------------------------------------------------------------------
 
+-- N.B This module does not contain combined proofs, but it imports
+-- modules which contain combined proofs.
+
 -- This module proves the correctness of the division program using
--- repeated subtraction (Dybjer 1985).
+-- repeated subtraction.
 
 -- Peter Dybjer. Program verification in a logical theory of
 -- constructions. In Jean-Pierre Jouannaud, editor. Functional
@@ -11,20 +14,23 @@
 -- LNCS, 1985, pages 334-349. Appears in revised form as Programming
 -- Methodology Group Report 26, June 1986.
 
-module LTC-PCF.Program.Division.ProofSpecificationI where
+-- N.B This module does not contain combined proofs, but it imports
+-- modules which contain combined proofs.
 
-open import LTC-PCF.Base
+module FOTC.Program.Division.ProofSpecificationATP where
 
-open import LTC-PCF.Data.Nat
-open import LTC-PCF.Data.Nat.Inequalities
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
-open import LTC-PCF.Data.Nat.PropertiesI
-open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionI
+open import FOTC.Base
 
-open import LTC-PCF.Program.Division.Division
-open import LTC-PCF.Program.Division.IsCorrectI
-open import LTC-PCF.Program.Division.Specification
-open import LTC-PCF.Program.Division.TotalityI
+open import FOTC.Data.Nat
+open import FOTC.Data.Nat.Inequalities
+open import FOTC.Data.Nat.Inequalities.PropertiesATP
+open import FOTC.Data.Nat.PropertiesATP
+open import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionATP
+
+open import FOTC.Program.Division.Division
+open import FOTC.Program.Division.IsCorrectATP
+open import FOTC.Program.Division.Specification
+open import FOTC.Program.Division.TotalityATP
 
 ------------------------------------------------------------------------------
 -- The division result satifies the specification DIV

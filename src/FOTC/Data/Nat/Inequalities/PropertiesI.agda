@@ -107,6 +107,11 @@ x>y∨x≤y (sN {m} Nm) (sN {n} Nn) =
 x<y∨x≥y : ∀ {m n} → N m → N n → LT m n ∨ GE m n
 x<y∨x≥y Nm Nn = x>y∨x≤y Nn Nm
 
+x<y∨x≮y : ∀ {m n} → N m → N n → LT m n ∨ NLT m n
+x<y∨x≮y Nm Nn = [ (λ m<n → inj₁ m<n)
+                , (λ m≥n → inj₂ (x≥y→x≮y Nm Nn m≥n))
+                ] (x<y∨x≥y Nm Nn)
+
 x≤y∨x≰y : ∀ {m n} → N m → N n → LE m n ∨ NLE m n
 x≤y∨x≰y zN Nn = inj₁ (0≤x Nn)
 x≤y∨x≰y (sN Nm) zN = inj₂ (S≰0 Nm)
