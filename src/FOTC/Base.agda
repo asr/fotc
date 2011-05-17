@@ -34,6 +34,7 @@ open import Common.LogicalConstants public
 --      | true  | false  | if t then t else t
 --      | 0     | succ t | pred t             | isZero t
 --      | []    | _∷_    | null               | head     | tail
+--      | loop
 
 postulate
 
@@ -57,6 +58,9 @@ postulate
   null : D → D
   head : D → D
   tail : D → D
+
+  -- FOTC looping programs.
+  loop : D
 
 ------------------------------------------------------------------------------
 -- Conversion rules
@@ -96,6 +100,13 @@ postulate
   -- Conversion rule for tail.
   tail-∷ : ∀ x xs → tail (x ∷ xs) ≡ xs
 {-# ATP axiom tail-∷ #-}
+
+postulate
+  -- Looping programs.
+  loop-eq : loop ≡ loop
+  -- The equation loop-eq adds anything to the logic (because
+  -- reflexivity is already an axiom of equality), therefore we won't
+  -- add this equation as a FOL axiom.
 
 ------------------------------------------------------------------------------
 -- Discrimination rules

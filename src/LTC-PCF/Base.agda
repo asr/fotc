@@ -22,9 +22,6 @@ postulate
   fix : (D → D) → D
   -- fixFO  : D
 
-  -- LTC error.
-  error : D
-
 ------------------------------------------------------------------------------
 -- Conversion rules
 

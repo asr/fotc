@@ -45,7 +45,7 @@ private
   gcd-s₂ m = lam (λ n →
                     if (isZero n)
                        then (if (isZero m)
-                                then error
+                                then loop
                                 else m)
                        else (if (isZero m)
                                 then n
@@ -57,7 +57,7 @@ private
   gcd-s₃ : D → D → D
   gcd-s₃ m n = if (isZero n)
                   then (if (isZero m)
-                           then error
+                           then loop
                            else m)
                   else (if (isZero m)
                            then n
@@ -69,7 +69,7 @@ private
   gcd-s₄ : D → D → D → D
   gcd-s₄ m n b = if b
                     then (if (isZero m)
-                             then error
+                             then loop
                              else m)
                     else (if (isZero m)
                              then n
@@ -79,7 +79,7 @@ private
 
   -- Conversion first if_then_else when 'if true ...'.
   gcd-s₅ : D → D
-  gcd-s₅ m  = if (isZero m) then error else m
+  gcd-s₅ m  = if (isZero m) then loop else m
 
   -- Conversion first if_then_else when 'if false ...'.
   gcd-s₆ : D → D → D
@@ -91,7 +91,7 @@ private
 
   -- Conversion (second if_then_else) 'isZero m = b'.
   gcd-s₇ : D → D → D
-  gcd-s₇ m b = if b then error else m
+  gcd-s₇ m b = if b then loop else m
 
   -- Conversion (third if_then_else) 'isZero m = b'.
   gcd-s₈ : D → D → D → D
@@ -180,8 +180,8 @@ private
                              refl
 
   -- Conversion second if_then_else when 'if true ...' using if-true.
-  proof₇₊ : ∀ m → gcd-s₇ m true ≡ error
-  proof₇₊ _ = if-true error
+  proof₇₊ : ∀ m → gcd-s₇ m true ≡ loop
+  proof₇₊ _ = if-true loop
 
   -- Conversion second if_then_else when 'if false ...' using if-false.
   proof₇₋ : ∀ m → gcd-s₇ m false ≡ m
@@ -214,7 +214,7 @@ private
 
 -- First equation.
 -- We do not use this equation for reasoning about gcd.
-gcd-00 : gcd zero zero ≡ error
+gcd-00 : gcd zero zero ≡ loop
 gcd-00 =
   begin
     gcd zero zero         ≡⟨ proof₀₋₁ zero zero ⟩
@@ -224,7 +224,7 @@ gcd-00 =
     gcd-s₄ zero zero true ≡⟨ proof₄₋₅ zero zero ⟩
     gcd-s₅ zero           ≡⟨ proof₅₋₇ zero true isZero-0 ⟩
     gcd-s₇ zero true      ≡⟨ proof₇₊  zero ⟩
-    error
+    loop
   ∎
 
 -- Second equation.

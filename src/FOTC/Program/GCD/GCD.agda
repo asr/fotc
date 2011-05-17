@@ -13,9 +13,6 @@ open import FOTC.Data.Nat.Inequalities
 ------------------------------------------------------------------------------
 
 postulate
-  loop : D
-
-postulate
   gcd    : D → D → D
   gcd-eq : ∀ m n → gcd m n ≡
                    if (isZero n)

@@ -43,7 +43,7 @@ It is possible to define two different versions of gcd based on which
 gcd-helper₁ : D → D → D → D
 gcd-helper₁ d g e = if (isZero e)
                        then (if (isZero d)
-                                then error
+                                then loop
                                 else d)
                        else (if (isZero d)
                                 then e
