@@ -234,6 +234,11 @@ open import FOTC.Program.SortList.ProofSpecificationI
 open import FOTC.Program.Division.ProofSpecificationATP
 open import FOTC.Program.Division.ProofSpecificationI
 
+-- 6.6 Other modules
+-- (These modules are not imported from any module).
+open import FOTC.Program.Division.EquationsATP
+open import FOTC.Program.GCD.EquationsATP
+
 ------------------------------------------------------------------------------
 -- ATPs failures
 ------------------------------------------------------------------------------
