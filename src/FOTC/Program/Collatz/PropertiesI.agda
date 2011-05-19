@@ -39,9 +39,7 @@ collatz-2^x (sN {n} Nn) (.(succ k) , sN {k} Nk , Sn≡2^k+1) =
       ⟩
     collatz ((succ (succ ((two ^ (succ k)) ∸ two))) / two)
       ≡⟨ cong collatz
-              (subst (λ t → succ (succ (succ (succ zero) ^ succ k ∸ succ (succ zero))) /
-                            two ≡
-                            t / two)
+              (subst (λ t → succ (succ (two ^ succ k ∸ two)) / two ≡ t / two)
                      (sym prf)
                      refl)
               ⟩
