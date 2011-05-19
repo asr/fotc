@@ -9,6 +9,7 @@ open import FOTC.Base
 open import Common.Function
 
 open import FOTC.Data.Nat
+open import FOTC.Data.Nat.UnaryNumbers
 
 ------------------------------------------------------------------------------
 -- Totality properties
@@ -265,3 +266,22 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
       -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
       -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
       {-# ATP prove prf +-assoc *-N #-}
+
+xy≡0→x≡0∨y≡0 : ∀ {m n} → N m → N n → m * n ≡ zero → m ≡ zero ∨ n ≡ zero
+xy≡0→x≡0∨y≡0 zN      _  _                   = inj₁ refl
+xy≡0→x≡0∨y≡0 (sN Nm) zN _                   = inj₂ refl
+xy≡0→x≡0∨y≡0 (sN {m} Nm) (sN {n} Nn) SmSn≡0 = ⊥-elim (0≠S prf)
+  where
+    postulate prf : zero ≡ succ (n + m * succ n)
+    {-# ATP prove prf #-}
+
+xy≡1→x≡1∨y≡1 : ∀ {m n} → N m → N n → m * n ≡ one → m ≡ one ∨ n ≡ one
+xy≡1→x≡1∨y≡1 {n = n} zN Nn h = ⊥-elim (0≠S (trans (sym (*-leftZero n)) h))
+xy≡1→x≡1∨y≡1 (sN {m} Nm) zN h =
+  ⊥-elim (0≠S (trans (sym (*-rightZero (sN Nm))) h))
+xy≡1→x≡1∨y≡1 (sN zN) (sN Nn) h = inj₁ refl
+xy≡1→x≡1∨y≡1 (sN (sN Nm)) (sN zN) h = inj₂ refl
+xy≡1→x≡1∨y≡1 (sN (sN {m} Nm)) (sN (sN {n} Nn)) h = prf
+  where
+    postulate prf : succ (succ m) ≡ one ∨ succ (succ n) ≡ one
+    {-# ATP prove prf #-}

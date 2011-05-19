@@ -13,6 +13,7 @@ open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
 open import FOTC.Program.Collatz.Collatz
 open import FOTC.Program.Collatz.Data.Nat
 open import FOTC.Program.Collatz.Data.Nat.PropertiesATP
+open import FOTC.Program.Collatz.EquationsATP
 
 ------------------------------------------------------------------------------
 
@@ -24,9 +25,7 @@ collatz-2^x (sN {n} Nn) (.zero , zN , Sn≡2^0) = prf
     postulate prf : collatz (succ n) ≡ one
     {-# ATP prove prf Sx≡2^0→x≡0 #-}
 
-collatz-2^x (sN {n} Nn) (.(succ k) , sN {k} Nk , Sn≡2^k+1) =
-  prf (collatz-2^x (^-N 2-N Nk) (k , Nk , refl))
+collatz-2^x (sN {n} Nn) (.(succ k) , sN {k} Nk , Sn≡2^k+1) = prf
   where
-    postulate prf : collatz (two ^ k) ≡ one →  -- IH.
-                    collatz (succ n) ≡ one
-    {-# ATP prove prf 2^[x+1]-Even 2^[x+1]/2≡2^x #-}
+    -- See the interactive proof.
+    postulate prf : collatz (succ n) ≡ one

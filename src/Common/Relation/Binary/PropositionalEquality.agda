@@ -22,6 +22,9 @@ sym refl = refl
 trans : ∀ {x y z} → x ≡ y → y ≡ z → x ≡ z
 trans refl y≡z = y≡z
 
+trans₂ : ∀ {w x y z} → w ≡ x → x ≡ y → y ≡ z → w ≡ z
+trans₂ refl refl y≡z = y≡z
+
 subst : ∀ {x y} (P : D → Set) → x ≡ y → P x → P y
 subst P refl Px = Px
 

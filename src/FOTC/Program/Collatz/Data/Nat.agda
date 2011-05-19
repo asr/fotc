@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- FOTC natural numbers (added for the Collatz function example)
+-- Natural numbers (added for the Collatz function example)
 
 -- (We don't want populate the FOTC library with more FOL axioms)
 ------------------------------------------------------------------------------
@@ -31,10 +31,28 @@ postulate
 {-# ATP axiom ^-0 #-}
 {-# ATP axiom ^-S #-}
 
--- Some predicates
+postulate
+  even : D → D
+  odd  : D → D
+
+  even-0 :       even zero     ≡ true
+  even-S : ∀ d → even (succ d) ≡ odd d
+
+  odd-0 :       odd zero     ≡ false
+  odd-S : ∀ d → odd (succ d) ≡ even d
+{-# ATP axiom even-0 #-}
+{-# ATP axiom even-S #-}
+{-# ATP axiom odd-0 #-}
+{-# ATP axiom odd-S #-}
 
 Even : D → Set
-Even n = ∃ λ k → n ≡ two * k
+Even n = even n ≡ true
+{-# ATP definition Even #-}
+
+NotEven : D → Set
+NotEven n = even n ≡ false
+{-# ATP definition NotEven #-}
 
 Odd : D → Set
-Odd n = ∃ λ k → n ≡ two * k + one
+Odd n = odd n ≡ true
+{-# ATP definition Odd #-}

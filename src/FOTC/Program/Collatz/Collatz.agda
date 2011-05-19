@@ -14,12 +14,13 @@ open import FOTC.Program.Collatz.Data.Nat
 ------------------------------------------------------------------------------
 -- The Collatz function.
 postulate
-  collatz      : D → D
-  collatz-0    :                  collatz zero ≡ one
-  collatz-1    :                  collatz one  ≡ one
-  collatz-even : ∀ {n} → Even n → collatz n    ≡ collatz (n / two)
-  collatz-odd  : ∀ {n} → Odd n →  collatz n    ≡ collatz (three * n + one)
-{-# ATP axiom collatz-0 #-}
-{-# ATP axiom collatz-1 #-}
-{-# ATP axiom collatz-even #-}
-{-# ATP axiom collatz-odd #-}
+  collatz    : D → D
+  collatz-eq : ∀ n → collatz n ≡
+                     if (isZero n)
+                        then one
+                        else (if (isZero (pred n))
+                                 then one
+                                 else (if (even n)
+                                          then collatz (n / two)
+                                          else collatz (three * n + one)))
+{-# ATP axiom collatz-eq #-}

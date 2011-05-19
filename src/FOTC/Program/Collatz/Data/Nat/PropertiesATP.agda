@@ -13,6 +13,7 @@ open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.PropertiesATP
 open import FOTC.Data.Nat.UnaryNumbers
+open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
 
 open import FOTC.Program.Collatz.Data.Nat
 
@@ -47,12 +48,84 @@ postulate
   2^[x+1]/2≡2^x : ∀ {n} → N n → (two ^ (succ n)) / two ≡ two ^ n
 {-# ATP prove 2^[x+1]/2≡2^x 2x/2≡x ^-N #-}
 
-2^[x+1]-Even : ∀ n → Even (two ^ (succ n))
-2^[x+1]-Even n = two ^ n , ^-S two n
-
 Sx≡2^0→x≡0 : ∀ {n} → N n → succ n ≡ two ^ zero → n ≡ zero
 Sx≡2^0→x≡0 zN         _       = refl
 Sx≡2^0→x≡0(sN {n} Nn) SSn≡2^0 = ⊥-elim prf
   where
     postulate prf : ⊥
     {-# ATP prove prf #-}
+
++∸2 : ∀ {n} → N n → ¬ (n ≡ zero) → ¬ (n ≡ one) → n ≡ succ (succ (n ∸ two))
++∸2 zN               n≠0 n≠1 = ⊥-elim (n≠0 refl)
++∸2 (sN zN)          n≠0 n≠1 = ⊥-elim (n≠1 refl)
++∸2 (sN (sN {n} Nn)) n≠0 n≠1 = prf
+  where
+    -- See the interactive proof.
+    postulate prf : succ (succ n) ≡ succ (succ (succ (succ n) ∸ two))
+
+2^x≠0 : ∀ {n} → N n → ¬ (two ^ n ≡ zero)
+2^x≠0 zN          h = ⊥-elim (0≠S (trans (sym h) (^-0 two)))
+2^x≠0 (sN {n} Nn) h = prf (2^x≠0 Nn)
+  where
+    postulate prf : ¬ (two ^ n ≡ zero) →  -- IH.
+                    ⊥
+    {-# ATP prove prf xy≡0→x≡0∨y≡0 ^-N #-}
+
+postulate
+  -- ToDo.
+  2^[x+1]≠1 : ∀ {n} → N n → ¬ (two ^ (succ n) ≡ one)
+
+Sx-Even→x-Odd : ∀ {n} → N n → Even (succ n) → Odd n
+Sx-Even→x-Odd zN          h = ⊥-elim prf
+  where
+    postulate prf : ⊥
+    {-# ATP prove prf #-}
+
+Sx-Even→x-Odd (sN {n} Nn) h = trans (sym (even-S (succ n))) h
+
+Sx-Odd→x-Even : ∀ {n} → N n → Odd (succ n) → Even n
+Sx-Odd→x-Even zN          _ = even-0
+Sx-Odd→x-Even (sN {n} Nn) h = trans (sym (odd-S (succ n))) h
+
+mutual
+  ∸-Even : ∀ {m} {n} → N m → N n → Even m → Even n → Even (m ∸ n)
+  ∸-Even {m} Nm zN                   h₁ _ = subst Even (sym (∸-x0 m)) h₁
+  ∸-Even     zN          (sN {n} Nn) h₁ _ = subst Even (sym (∸-0S n)) h₁
+  ∸-Even     (sN {m} Nm) (sN {n} Nn) h₁ h₂ = prf
+    where
+      postulate prf : Even (succ m ∸ succ n)
+      {-# ATP prove prf ∸-Odd Sx-Even→x-Odd #-}
+
+  ∸-Odd : ∀ {m} {n} → N m → N n → Odd m → Odd n → Even (m ∸ n)
+  ∸-Odd zN          Nn          h₁ _  = ⊥-elim (true≠false (trans (sym h₁) odd-0))
+  ∸-Odd (sN Nm)     zN          _  h₂ = ⊥-elim (true≠false (trans (sym h₂) odd-0))
+  ∸-Odd (sN {m} Nm) (sN {n} Nn) h₁ h₂ = prf
+    where
+      postulate prf : Even (succ m ∸ succ n)
+      {-# ATP prove prf ∸-Even Sx-Odd→x-Even #-}
+
+x-Even→SSx-Even : ∀ {n} → N n → Even n → Even (succ (succ n))
+x-Even→SSx-Even zN h = prf
+  where
+    postulate prf : Even (succ (succ zero))
+    {-# ATP prove prf #-}
+
+x-Even→SSx-Even (sN {n} Nn) h = prf
+  where
+    postulate prf : Even (succ (succ (succ n)))
+    {-# ATP prove prf #-}
+
+x+x-Even : ∀ {n} → N n → Even (n + n)
+x+x-Even zN          = subst Even (sym (+-rightIdentity zN)) even-0
+x+x-Even (sN {n} Nn) = prf (x+x-Even Nn)
+  where
+    postulate prf : Even (n + n) →  -- IH.
+                    Even (succ n + succ n)
+    {-# ATP prove prf x-Even→SSx-Even +-N +-comm #-}
+
+2x-Even : ∀ {n} → N n → Even (two * n)
+2x-Even zN          = subst Even (sym (*-rightZero 2-N)) even-0
+2x-Even (sN {n} Nn) = prf
+  where
+    postulate prf : Even (two * succ n)
+    {-# ATP prove prf x-Even→SSx-Even x+x-Even +-N +-comm +-rightIdentity #-}
