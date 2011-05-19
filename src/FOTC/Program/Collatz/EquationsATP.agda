@@ -13,7 +13,7 @@ open import FOTC.Program.Collatz.Collatz
 open import FOTC.Program.Collatz.Data.Nat
 
 ------------------------------------------------------------------------------
--- The Collatz function.
+-- Equations for the Collatz function.
 postulate
   collatz-0       : collatz zero ≡ one
   collatz-1       : collatz one  ≡ one

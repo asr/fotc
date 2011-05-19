@@ -134,7 +134,7 @@ private
   proof₈₋₁₀ n = if-false (collatz-s₁₀ n)
 
 ------------------------------------------------------------------------------
--- The four equations for the Collatz function
+-- Equations for the Collatz function
 
 collatz-0 : collatz zero ≡ one
 collatz-0 =
