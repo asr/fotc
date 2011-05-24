@@ -2,77 +2,138 @@
 -- Quicksort using the Bove-Capretta method
 ------------------------------------------------------------------------------
 
+-- Tested with the development version of the standard library on
+-- 24 May 2011.
+
 module QuickSortBC where
 
 open import Data.Bool
-open import Data.List -- hiding ( filter )
-open import Data.Nat hiding (_≤_ ; _<_ ; _≥_ ; _>_)
+open import Data.List
+open import Data.Nat
+open import Data.Nat.Properties
+open import Data.Sum
+
+open import Induction
+open import Induction.Nat
+open import Induction.WellFounded
+
+open import Relation.Binary
+open import Relation.Nullary
+open import Relation.Nullary.Decidable
+
+module InvImg =
+  Induction.WellFounded.Inverse-image {A = List ℕ} {ℕ} {_<′_} length
 
 ------------------------------------------------------------------------------
 
-_≤_ : ℕ → ℕ → Bool
-zero  ≤ n     = true
-suc m ≤ zero  = false
-suc m ≤ suc n = m ≤ n
-
-_<_ : ℕ → ℕ → Bool
-m < n = suc m ≤ n
-
-_≥_ : ℕ → ℕ → Bool
-m ≥ n = n ≤ m
-
--- filter : {A : Set} → (A → Bool) → List A → List A
--- filter _ []    = []
--- filter P (x ∷ xs) with P x
--- ... | true  = x ∷ filter P xs
--- ... | false = filter P xs
+_≤′?_ : Decidable _≤′_
+m ≤′? n with m ≤? n
+... | yes p = yes (≤⇒≤′ p)
+... | no ¬p = no (λ m≤′n → ¬p (≤′⇒≤ m≤′n))
 
 -- Non-terminating quicksort.
 qsNT : List ℕ → List ℕ
 qsNT []       = []
-qsNT (x ∷ xs) = qsNT (filter (λ y → y < x) xs) ++
-                x ∷ qsNT (filter (λ y → x < y) xs)
+qsNT (x ∷ xs) = qsNT (filter (λ y → ⌊ y ≤′? x ⌋) xs) ++
+                x ∷ qsNT (filter (λ y → not ⌊ y ≤′? x ⌋) xs)
 
 -- Domain predicate for quicksort.
-data Dqs : List ℕ → Set where
-  dnil  : Dqs []
-  dcons : ∀ {x xs} → Dqs (filter (λ y → y < x) xs) →
-                     Dqs (filter (λ y → x < y) xs) →
-                     Dqs (x ∷ xs)
+data QSDom : List ℕ → Set where
+  qsDom-[] : QSDom []
+  qsDom-∷  : ∀ {x xs} →
+             (QSDom (filter (λ y → ⌊ y ≤′? x ⌋) xs)) →
+             (QSDom (filter (λ y → not ⌊ y ≤′? x ⌋) xs)) →
+             QSDom (x ∷ xs)
 
 -- Induction principle associated to the domain predicate of quicksort.
-indDqs : (P : List ℕ → Set) →
-         P [] →
-         (∀ {x xs} → Dqs (filter (λ y → y < x) xs) →
-                     P (filter (λ y → y < x) xs) →
-                     Dqs (filter (λ y → x < y) xs) →
-                     P (filter (λ y → x < y) xs) →
-                     P (x ∷ xs)) →
-         (∀ {xs} → Dqs xs → P xs)
-indDqs P P[] Pcons dnil       = P[]
-indDqs P P[] ih (dcons h₁ h₂) =
-  ih h₁ (indDqs P P[] ih h₁) h₂ (indDqs P P[] ih h₂)
+-- (It was not necessary).
+indQSDom : (P : List ℕ → Set) →
+           P [] →
+           (∀ {x xs} → QSDom (filter (λ y → ⌊ y ≤′? x ⌋) xs) →
+                       P (filter (λ y → ⌊ y ≤′? x ⌋) xs) →
+                       QSDom (filter (λ y → not ⌊ y ≤′? x ⌋) xs) →
+                       P (filter (λ y → not ⌊ y ≤′? x ⌋) xs) →
+                       P (x ∷ xs)) →
+           (∀ {xs} → QSDom xs → P xs)
+indQSDom P P[] ih qsDom-[]        = P[]
+indQSDom P P[] ih (qsDom-∷ h₁ h₂) =
+  ih h₁ (indQSDom P P[] ih h₁) h₂ (indQSDom P P[] ih h₂)
 
--- Quicksort algorithm by structural recursion on the domain predicate.
-qsHelper : ∀ xs → Dqs xs → List ℕ
-qsHelper .[]      dnil = []
-qsHelper (x ∷ xs) (dcons h₁ h₂) =
-  qsHelper (filter (λ y → y < x) xs) h₁ ++
-  x ∷ qsHelper (filter (λ y → x < y) xs) h₂
+-- Well-founded relation on lists.
+_⟪′_ : {A : Set} → List A → List A → Set
+xs ⟪′ ys = length xs <′ length ys
+
+wf-⟪′ : Well-founded _⟪′_
+wf-⟪′ = InvImg.well-founded <-well-founded
+
+-- The well-founded induction principle on _⟪′_.
+-- postulate
+--   wfi-⟪′ : (P : List ℕ → Set) →
+--            (∀ xs → (∀ ys → ys ⟪′ xs → P ys) → P xs) →
+--            ∀ xs → P xs
 
 -- The quicksort algorithm is total.
-postulate
-  allDqs : ∀ xs → Dqs xs
+
+filter-length : ∀ {A : Set} (p : A → Bool) xs →
+                length (filter p xs) ≤′ length xs
+filter-length p []       = ≤′-refl
+filter-length p (x ∷ xs) with p x
+... | true  = ≤⇒≤′ (s≤s (≤′⇒≤ (filter-length p xs)))
+... | false = ≤′-step (filter-length p xs)
+
+module AllWF = Induction.WellFounded.All wf-⟪′
+
+allQSDom : ∀ xs → QSDom xs
+-- If we use wfi-⟪′ then allQSDom =  wfi-⟪′ P ih
+allQSDom = build AllWF.wfRec-builder P ih
+  where
+    P : List ℕ → Set
+    P = QSDom
+
+    -- If we use wfi-⟪′ then
+    -- ih : ∀ zs → (∀ ys → ys ⟪′ zs → P ys) → P zs
+    ih :  ∀ zs → WfRec _⟪′_ P zs → P zs
+    ih []       h = qsDom-[]
+    ih (z ∷ zs) h = qsDom-∷ prf₁ prf₂
+
+       where
+         c₁ : ℕ → Bool
+         c₁ = λ y → ⌊ y ≤′? z ⌋
+
+         c₂ : ℕ → Bool
+         c₂ = λ y → not ⌊ y ≤′? z ⌋
+
+         f₁ : List ℕ
+         f₁ = filter c₁ zs
+
+         f₂ : List ℕ
+         f₂ = filter c₂ zs
+
+         prf₁ : QSDom (filter (λ y → ⌊ y ≤′? z ⌋) zs)
+         prf₁ = h f₁ (≤⇒≤′ (s≤s (≤′⇒≤ (filter-length c₁ zs))))
+
+         prf₂ : QSDom (filter (λ y → not ⌊ y ≤′? z ⌋) zs)
+         prf₂ = h f₂ (≤⇒≤′ (s≤s (≤′⇒≤ (filter-length c₂ zs))))
+
+-- Quicksort algorithm by structural recursion on the domain predicate.
+qsDom : ∀ xs → QSDom xs → List ℕ
+qsDom .[]      qsDom-[]        = []
+qsDom (x ∷ xs) (qsDom-∷ h₁ h₂) =
+  qsDom (filter (λ y → ⌊ y ≤′? x ⌋) xs) h₁ ++
+  x ∷ qsDom (filter (λ y → not ⌊ y ≤′? x ⌋) xs) h₂
 
 -- The quicksort algorithm.
 qs : List ℕ → List ℕ
-qs xs = qsHelper xs (allDqs xs)
+qs xs = qsDom xs (allQSDom xs)
 
+-- Testing.
 l₁ : List ℕ
 l₁ = []
-
 l₂ = 1 ∷ 2 ∷ 3 ∷ 4 ∷ 5 ∷ []
-
 l₃ = 5 ∷ 4 ∷ 3 ∷ 2 ∷ 1 ∷ []
-
 l₄ = 4 ∷ 1 ∷ 3 ∷ 5 ∷ 2 ∷ []
+
+t₁ = qs l₁
+t₂ = qs l₂
+t₃ = qs l₃
+t₄ = qs l₄
