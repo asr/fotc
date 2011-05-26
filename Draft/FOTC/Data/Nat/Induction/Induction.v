@@ -1,4 +1,4 @@
-(* Tested with Coq 8.3 *)
+(* Tested with Coq 8.3pl2 *)
 
 (* Induction principle for N. *)
 

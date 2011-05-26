@@ -1,6 +1,6 @@
 (* Well-founded induction on the relation MCR *)
 
-(* Tested with Coq 8.3 *)
+(* Tested with Coq 8.3pl2 *)
 
 Require Import Inverse_Image.
 Require Import Unicode.Utf8.

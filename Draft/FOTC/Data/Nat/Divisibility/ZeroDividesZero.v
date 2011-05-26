@@ -1,6 +1,6 @@
 (* zero divides zero *)
 
-(* Tested with Coq 8.3 *)
+(* Tested with Coq 8.3pl2 *)
 
 (* The relation the divisibility is defined by *)
 

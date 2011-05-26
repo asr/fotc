@@ -1,4 +1,4 @@
-(* Tested with Coq 8.3 *)
+(* Tested with Coq 8.3pl2 *)
 
 Require Import Unicode.Utf8.
 
@@ -18,7 +18,7 @@ Fixpoint countT (t : D) (Tt : TreeT t) {struct Tt} : nat :=
   match Tt with
     treeT d ts Fts =>
       match Fts with
-        | nilF               => 0
+        | nilF              => O
         | consF x xs Tx Fxs => countT _ Tx
         (* | consF x xs Tx Fxs => countT _ (treeT d xs Fxs) *)
       end
