@@ -1,22 +1,23 @@
 (* Tested with Coq 8.3 *)
+
 (* Induction principle for N. *)
 
-Require Import Coq.Unicode.Utf8.
+Require Import Unicode.Utf8.
 
 Axiom D    : Set.
 Axiom zero : D.
 Axiom succ : D → D.
 
-Inductive NProp : D → Prop :=
-  | zNProp : NProp zero
-  | sNProp : ∀ n, NProp n → NProp (succ n).
+Inductive NP : D → Prop :=
+  | zNP : NP zero
+  | sNP : ∀ n, NP n → NP (succ n).
 
-Check NProp_ind.
+Check NP_ind.
 
-Inductive NSet : D → Set :=
-  | zNSet : NSet zero
-  | sNSet : ∀ n, NSet n → NSet (succ n).
+Inductive NS : D → Set :=
+  | zNS : NS zero
+  | sNS : ∀ n, NS n → NS (succ n).
 
-Check NSet_rec.
-Check NSet_ind.
-Check NSet_rect.
+Check NS_rec.
+Check NS_ind.
+Check NS_rect.

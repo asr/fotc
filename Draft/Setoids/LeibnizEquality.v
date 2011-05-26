@@ -1,6 +1,6 @@
 (* Tested with Coq 8.3 *)
 
-Require Import Coq.Unicode.Utf8.
+Require Import Unicode.Utf8.
 
 (* There is no difference if we use Prop, Set or Type in the
 definitions *)
@@ -26,7 +26,7 @@ Definition Leq {A : Type} (x y : A) : Type :=
 (* [2] Martin Hofmman. Extensional concepts in intensional type *)
 (*     theory. PhD thesis, University of Edinburgh, 1995 *)
 
-Theorem IdToLeq :
+Theorem id2leq :
   forall {A : Type} (x y : A), Id x y → Leq x y.
 compute.
 intros A x y H.
@@ -34,7 +34,7 @@ destruct H.
 auto.
 Qed.
 
-Theorem LeqToId :
+Theorem leq2id :
   forall {A : Type} (x y : A), Leq x y → Id x y.
 compute.
 intros A x y H.

@@ -1,4 +1,6 @@
-(* In Coq 8.3, zero divides zero *)
+(* zero divides zero *)
+
+(* Tested with Coq 8.3 *)
 
 (* The relation the divisibility is defined by *)
 
@@ -10,7 +12,7 @@
 Require Import Znumtheory.
 (* Open Scope Z_scope. *)
 
-Theorem zero_divides_zero : (0 | 0).
+Theorem zeroDividesZero : (0 | 0).
 Proof.
 apply Zdivide_intro with 0.
 auto.

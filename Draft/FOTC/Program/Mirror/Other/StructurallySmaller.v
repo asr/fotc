@@ -1,6 +1,6 @@
 (* Tested with Coq 8.3 *)
 
-Require Import Coq.Unicode.Utf8.
+Require Import Unicode.Utf8.
 
 Axiom D    : Set.
 Axiom nil  : D.
@@ -9,10 +9,10 @@ Axiom node : D → D → D.
 
 Inductive Forest : D → Set :=
 | nilF  : Forest nil
-| consF : forall (t ts : D), TreeT t → Forest ts → Forest (cons t ts)
+| consF : ∀ t ts, TreeT t → Forest ts → Forest (cons t ts)
 
 with TreeT : D → Set :=
-| treeT : forall (d ts : D), Forest ts → TreeT (node d ts).
+| treeT : ∀ d ts, Forest ts → TreeT (node d ts).
 
 Fixpoint countT (t : D) (Tt : TreeT t) {struct Tt} : nat :=
   match Tt with

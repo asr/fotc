@@ -1,7 +1,8 @@
-(* Tested with Coq 8.3 *)
 (* The types used by the mirror function *)
 
-Require Import Coq.Unicode.Utf8.
+(* Tested with Coq 8.3 *)
+
+Require Import Unicode.Utf8.
 
 Axiom D    : Set.
 Axiom nil  : D.
@@ -10,10 +11,10 @@ Axiom node : D → D → D.
 
 Inductive Forest : D → Prop :=
 | nilF  : Forest nil
-| consF : forall (t ts : D), Tree t → Forest ts → Forest (cons t ts)
+| consF : ∀ t ts : D, Tree t → Forest ts → Forest (cons t ts)
 
 with Tree : D → Prop :=
-| treeT : forall (d ts : D), Forest ts → Tree (node d ts).
+| treeT : ∀ d ts, Forest ts → Tree (node d ts).
 
 (* From Coq'Art: The Coq system generates induction principles that do
 not cover the mutual structure of these types (p. 401). *)
