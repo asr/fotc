@@ -7,7 +7,7 @@ module Common.Data.Product where
 open import Common.Universe using ( D )
 
 -- We add 3 to the fixities of the standard library.
-infixr 6 _,_
+infixr 7 _,_
 infixr 5 _∧_
 
 ------------------------------------------------------------------------------
