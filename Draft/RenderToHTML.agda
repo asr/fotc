@@ -4,4 +4,4 @@
 
 module Draft.RenderToHTML where
 
-open import Draft.FOTC.Program.GCD.GCD
+open import Draft.DataBase
