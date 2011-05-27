@@ -7,7 +7,7 @@ module Common.Data.Product where
 open import Common.Universe using ( D )
 
 -- We add 3 to the fixities of the standard library.
-infixr 7 _,_
+infixr 7 _,_ _,′_
 infixr 5 _∧_
 
 ------------------------------------------------------------------------------
@@ -26,6 +26,9 @@ data _∧_ (A B : Set) : Set where
 
 ∧-proj₂ : {A B : Set} → A ∧ B → B
 ∧-proj₂ (x , y) = y
+
+_,′_ : ∀ {A B : Set} → A → B → A ∧ B
+_,′_ = _,_
 
 -- The existential quantifier type on D.
 data ∃ (P : D → Set) : Set where
