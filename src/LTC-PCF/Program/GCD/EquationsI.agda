@@ -155,9 +155,9 @@ private
 
   -- Conversion (first if_then_else) 'isZero n = b' using that proof.
   proof₃₋₄ : ∀ m n b → isZero n ≡ b → gcd-s₃ m n ≡ gcd-s₄ m n b
-  proof₃₋₄ m n b prf = subst (λ x → gcd-s₄ m n x ≡ gcd-s₄ m n b)
-                             (sym prf)
-                             refl
+  proof₃₋₄ m n b h = subst (λ x → gcd-s₄ m n x ≡ gcd-s₄ m n b)
+                           (sym h)
+                           refl
 
   -- Conversion first if_then_else when 'if true ...' using if-true.
   proof₄₋₅ : ∀ m n → gcd-s₄ m n true ≡ gcd-s₅ m
@@ -169,15 +169,15 @@ private
 
   -- -- Conversion (second if_then_else) 'isZero m = b' using that proof.
   proof₅₋₇ : ∀ m b → isZero m ≡ b → gcd-s₅ m ≡ gcd-s₇ m b
-  proof₅₋₇ m b prf = subst (λ x → gcd-s₇ m x ≡ gcd-s₇ m b)
-                           (sym prf)
-                           refl
+  proof₅₋₇ m b h = subst (λ x → gcd-s₇ m x ≡ gcd-s₇ m b)
+                         (sym h)
+                         refl
 
   -- Conversion (third if_then_else) 'isZero m = b' using that proof.
   proof₆₋₈ : ∀ m n b → isZero m ≡ b → gcd-s₆ m n ≡ gcd-s₈ m n b
-  proof₆₋₈ m n b prf = subst (λ x → gcd-s₈ m n x ≡ gcd-s₈ m n b)
-                             (sym prf)
-                             refl
+  proof₆₋₈ m n b h = subst (λ x → gcd-s₈ m n x ≡ gcd-s₈ m n b)
+                           (sym h)
+                           refl
 
   -- Conversion second if_then_else when 'if true ...' using if-true.
   proof₇₊ : ∀ m → gcd-s₇ m true ≡ loop
@@ -197,9 +197,9 @@ private
 
   -- Conversion (fourth if_then_else) 'gt m n = b' using that proof.
   proof₉₋₁₀ : ∀ m n b → m > n ≡ b → gcd-s₉ m n ≡ gcd-s₁₀ m n b
-  proof₉₋₁₀ m n b prf = subst (λ x → gcd-s₁₀ m n x ≡ gcd-s₁₀ m n b)
-                              (sym prf)
-                              refl
+  proof₉₋₁₀ m n b h = subst (λ x → gcd-s₁₀ m n x ≡ gcd-s₁₀ m n b)
+                            (sym h)
+                            refl
 
   -- Conversion fourth if_then_else when 'if true ...' using if-true.
   proof₁₀₊ : ∀ m n → gcd-s₁₀ m n true ≡ fix gcdh · (m ∸ n) · n

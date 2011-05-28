@@ -140,7 +140,7 @@ private
 
   -- Reduction 'isZero e ≡ b' using that proof.
   s₆→s₇ : ∀ d e b → isZero e ≡ b → <-s₆ d e ≡ <-s₇ d e b
-  s₆→s₇ d e b prf = subst (λ t → <-s₆ d e ≡ <-s₇ d e t) prf refl
+  s₆→s₇ d e b h = subst (λ t → <-s₆ d e ≡ <-s₇ d e t) h refl
 
   -- Reduction of 'isZero e ≡ true' using the conversion rule if-true.
   s₇→end : ∀ d e → <-s₇ d e true ≡ false
@@ -152,7 +152,7 @@ private
 
   -- Reduction 'isZero d ≡ b' using that proof.
   s₈→s₉ : ∀ d e b → isZero d ≡ b → <-s₈ d e ≡ <-s₉ d e b
-  s₈→s₉ d e b prf = subst (λ t → <-s₈ d e ≡ <-s₉ d e t) prf refl
+  s₈→s₉ d e b h = subst (λ t → <-s₈ d e ≡ <-s₉ d e t) h refl
 
   -- Reduction of 'isZero d ≡ true' using the conversion rule if-true.
   s₉→end : ∀ d e → <-s₉ d e true ≡ true

@@ -93,9 +93,9 @@ private
 
   -- Conversion (first if_then_else) 'isZero n = b' using that proof.
   proof₁₋₂ : ∀ {n} {b} → isZero n ≡ b → collatz-s₁ n ≡ collatz-s₂ n b
-  proof₁₋₂ {n} {b} prf = subst (λ x → collatz-s₂ n x ≡ collatz-s₂ n b)
-                               (sym prf)
-                               refl
+  proof₁₋₂ {n} {b} h = subst (λ x → collatz-s₂ n x ≡ collatz-s₂ n b)
+                             (sym h)
+                             refl
 
   -- Conversion first if_then_else when 'if true ...' using if-true.
   proof₂₋₃ : ∀ n → collatz-s₂ n true ≡ collatz-s₃ n
@@ -107,9 +107,9 @@ private
 
   -- Conversion (second if_then_else) 'isZero (pred n) = b' using that proof.
   proof₄₋₅ : ∀ {n} {b} → isZero (pred n) ≡ b → collatz-s₄ n ≡ collatz-s₅ n b
-  proof₄₋₅ {n} {b} prf = subst (λ x → collatz-s₅ n x ≡ collatz-s₅ n b)
-                               (sym prf)
-                               refl
+  proof₄₋₅ {n} {b} h = subst (λ x → collatz-s₅ n x ≡ collatz-s₅ n b)
+                             (sym h)
+                             refl
 
   -- Conversion second if_then_else when 'if true ...' using if-true.
   proof₅₋₆ : ∀ n → collatz-s₅ n true ≡ collatz-s₆ n
@@ -121,9 +121,9 @@ private
 
   -- Conversion (third if_then_else) 'even n = b' using that proof.
   proof₇₋₈ : ∀ {n} {b} → even n ≡ b → collatz-s₇ n ≡ collatz-s₈ n b
-  proof₇₋₈ {n} {b} prf = subst (λ x → collatz-s₈ n x ≡ collatz-s₈ n b)
-                               (sym prf)
-                               refl
+  proof₇₋₈ {n} {b} h = subst (λ x → collatz-s₈ n x ≡ collatz-s₈ n b)
+                             (sym h)
+                             refl
 
   -- Conversion third if_then_else when 'if true ...' using if-true.
   proof₈₋₉ : ∀ n → collatz-s₈ n true ≡ collatz-s₉ n
@@ -162,7 +162,7 @@ collatz-1 =
 
 collatz-even : ∀ {n} → Even (succ (succ n)) →
                collatz (succ (succ n)) ≡ collatz ((succ (succ n)) / two)
-collatz-even {n} prf =
+collatz-even {n} h =
   begin
     collatz    (succ (succ n))       ≡⟨ proof₀₋₁ (succ (succ n)) ⟩
     collatz-s₁ (succ (succ n))       ≡⟨ proof₁₋₂ (isZero-S (succ n))
@@ -174,7 +174,7 @@ collatz-even {n} prf =
                                                  )
                                      ⟩
     collatz-s₅ (succ (succ n)) false ≡⟨ proof₅₋₇ (succ (succ n)) ⟩
-    collatz-s₇ (succ (succ n))       ≡⟨ proof₇₋₈ prf ⟩
+    collatz-s₇ (succ (succ n))       ≡⟨ proof₇₋₈ h ⟩
     collatz-s₈ (succ (succ n)) true  ≡⟨ proof₈₋₉ (succ (succ n)) ⟩
     collatz ((succ (succ n)) / two)
   ∎
@@ -182,7 +182,7 @@ collatz-even {n} prf =
 collatz-noteven : ∀ {n} → NotEven (succ (succ n)) →
                   collatz (succ (succ n)) ≡
                   collatz (three * (succ (succ n)) + one)
-collatz-noteven {n} prf =
+collatz-noteven {n} h =
   begin
     collatz    (succ (succ n))       ≡⟨ proof₀₋₁ (succ (succ n)) ⟩
     collatz-s₁ (succ (succ n))       ≡⟨ proof₁₋₂ (isZero-S (succ n))
@@ -194,7 +194,7 @@ collatz-noteven {n} prf =
                                                  )
                                      ⟩
     collatz-s₅ (succ (succ n)) false ≡⟨ proof₅₋₇ (succ (succ n)) ⟩
-    collatz-s₇ (succ (succ n))       ≡⟨ proof₇₋₈ prf ⟩
+    collatz-s₇ (succ (succ n))       ≡⟨ proof₇₋₈ h ⟩
     collatz-s₈ (succ (succ n)) false  ≡⟨ proof₈₋₁₀ (succ (succ n)) ⟩
     collatz (three * (succ (succ n)) + one)
   ∎

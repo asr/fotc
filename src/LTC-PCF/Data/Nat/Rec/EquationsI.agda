@@ -100,9 +100,9 @@ private
 
   -- Cases 'isZero n == b' using that proof.
   proof₄₋₅ : ∀ n a f b → isZero n ≡ b → rec-s₄ n a f ≡ rec-s₅ n a f b
-  proof₄₋₅ n a f b prf = subst (λ x → rec-s₅ n a f x ≡ rec-s₅ n a f b)
-                               (sym prf)
-                               refl
+  proof₄₋₅ n a f b h = subst (λ x → rec-s₅ n a f x ≡ rec-s₅ n a f b)
+                             (sym h)
+                             refl
 
   -- Reduction of 'if true ...' using the conversion rule if-true.
   proof₅₊ : ∀ n a f → rec-s₅ n a f true ≡ a
