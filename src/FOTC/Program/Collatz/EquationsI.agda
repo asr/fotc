@@ -150,7 +150,7 @@ collatz-1 =
   begin
     collatz    one       ≡⟨ proof₀₋₁ one ⟩
     collatz-s₁ one       ≡⟨ proof₁₋₂ (isZero-S zero) ⟩
-    collatz-s₂ one false ≡⟨ proof₂₋₄ one  ⟩
+    collatz-s₂ one false ≡⟨ proof₂₋₄ one ⟩
     collatz-s₄ one       ≡⟨ proof₄₋₅ (subst (λ x → isZero x ≡ true)
                                                    (sym (pred-S zero))
                                                    isZero-0
@@ -165,8 +165,7 @@ collatz-even : ∀ {n} → Even (succ (succ n)) →
 collatz-even {n} h =
   begin
     collatz    (succ (succ n))       ≡⟨ proof₀₋₁ (succ (succ n)) ⟩
-    collatz-s₁ (succ (succ n))       ≡⟨ proof₁₋₂ (isZero-S (succ n))
-                                     ⟩
+    collatz-s₁ (succ (succ n))       ≡⟨ proof₁₋₂ (isZero-S (succ n)) ⟩
     collatz-s₂ (succ (succ n)) false ≡⟨ proof₂₋₄ (succ (succ n)) ⟩
     collatz-s₄ (succ (succ n))       ≡⟨ proof₄₋₅ (subst (λ x → isZero x ≡ false)
                                                         (sym (pred-S (succ n)))
@@ -185,8 +184,7 @@ collatz-noteven : ∀ {n} → NotEven (succ (succ n)) →
 collatz-noteven {n} h =
   begin
     collatz    (succ (succ n))       ≡⟨ proof₀₋₁ (succ (succ n)) ⟩
-    collatz-s₁ (succ (succ n))       ≡⟨ proof₁₋₂ (isZero-S (succ n))
-                                     ⟩
+    collatz-s₁ (succ (succ n))       ≡⟨ proof₁₋₂ (isZero-S (succ n)) ⟩
     collatz-s₂ (succ (succ n)) false ≡⟨ proof₂₋₄ (succ (succ n)) ⟩
     collatz-s₄ (succ (succ n))       ≡⟨ proof₄₋₅ (subst (λ x → isZero x ≡ false)
                                                         (sym (pred-S (succ n)))
@@ -195,6 +193,6 @@ collatz-noteven {n} h =
                                      ⟩
     collatz-s₅ (succ (succ n)) false ≡⟨ proof₅₋₇ (succ (succ n)) ⟩
     collatz-s₇ (succ (succ n))       ≡⟨ proof₇₋₈ h ⟩
-    collatz-s₈ (succ (succ n)) false  ≡⟨ proof₈₋₁₀ (succ (succ n)) ⟩
+    collatz-s₈ (succ (succ n)) false ≡⟨ proof₈₋₁₀ (succ (succ n)) ⟩
     collatz (three * (succ (succ n)) + one)
   ∎
