@@ -22,8 +22,7 @@ open import FOTC.Program.McCarthy91.McCarthy91
 --- Auxiliary properties
 
 ---- Case n > 100
-postulate
-  Nmc91>100 : ∀ {n} → N n → GT n one-hundred → N (mc91 n)
+postulate Nmc91>100 : ∀ {n} → N n → GT n one-hundred → N (mc91 n)
 {-# ATP prove Nmc91>100 10-N ∸-N #-}
 
 postulate
@@ -33,14 +32,12 @@ postulate
 
 -- Most of them not needed
 -- Case n ≡ 100 can be proved automatically
-postulate
-  mc91-res-100 : mc91 one-hundred ≡ ninety-one
+postulate mc91-res-100 : mc91 one-hundred ≡ ninety-one
 {-# ATP prove mc91-res-100 100+11>100 100+11∸10>100
                            101≡100+11∸10 91≡100+11∸10∸10
 #-}
 
-postulate
-  mc91-res-100' : ∀ {n} → n ≡ one-hundred → mc91 n ≡ ninety-one
+postulate mc91-res-100' : ∀ {n} → n ≡ one-hundred → mc91 n ≡ ninety-one
 {-# ATP prove mc91-res-100' mc91-res-100 #-}
 
 ---- Case n ≤ 100
@@ -54,7 +51,8 @@ postulate
 postulate
   mc91x+11<mc91x+11 : ∀ n →
                       NGT n one-hundred →
-                      LT (mc91 (n + eleven)) (mc91 (mc91 (n + eleven)) + eleven) →
+                      LT (mc91 (n + eleven))
+                         (mc91 (mc91 (n + eleven)) + eleven) →
                       LT (mc91 (n + eleven)) (mc91 n + eleven)
 {-# ATP prove mc91x+11<mc91x+11 #-}
 

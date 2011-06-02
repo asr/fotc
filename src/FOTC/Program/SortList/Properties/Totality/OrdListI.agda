@@ -66,13 +66,12 @@ subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js =
     true
   ∎
     where
-      lemma₁ : ≤-ItemList item is ≡ true
-      lemma₁ =  &&-proj₂ (≤-Bool Nitem Ni)
-                         (≤-ItemList-Bool Nitem LNis)
-                         (trans (sym $ ≤-ItemList-∷ item i is) item≤i∷is)
+    lemma₁ : ≤-ItemList item is ≡ true
+    lemma₁ =  &&-proj₂ (≤-Bool Nitem Ni)
+                       (≤-ItemList-Bool Nitem LNis)
+                       (trans (sym $ ≤-ItemList-∷ item i is) item≤i∷is)
 
-
-      lemma₂ : ≤-Lists is js ≡ true
-      lemma₂ = &&-proj₂ (≤-ItemList-Bool Ni LNjs)
-                        (≤-Lists-Bool LNis LNjs)
-                        (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js)
+    lemma₂ : ≤-Lists is js ≡ true
+    lemma₂ = &&-proj₂ (≤-ItemList-Bool Ni LNjs)
+                      (≤-Lists-Bool LNis LNjs)
+                      (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js)

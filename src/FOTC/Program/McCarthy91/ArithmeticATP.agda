@@ -15,8 +15,7 @@ open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
 
 ------------------------------------------------------------------------------
 
-postulate
-  91≡100+11∸10∸10 : ninety-one ≡ one-hundred + eleven ∸ ten ∸ ten
+postulate 91≡100+11∸10∸10 : ninety-one ≡ one-hundred + eleven ∸ ten ∸ ten
 {-# ATP prove 91≡100+11∸10∸10 #-}
 
 postulate
@@ -75,8 +74,7 @@ postulate
 {-# ATP prove 91+11>100 102≡91+11 #-}
 {-# ATP prove 90+11>100 101≡90+11 #-}
 
-postulate
-  100<102 : LT one-hundred hundred-two
+postulate 100<102 : LT one-hundred hundred-two
 {-# ATP prove 100<102 #-}
 
 x+11-N : ∀ {n} → N n → N (n + eleven)
@@ -91,8 +89,9 @@ postulate 91>100→⊥ : GT ninety-one one-hundred → ⊥
 postulate x+1≤x∸10+11 : ∀ {n} → N n → LE (n + one) ((n ∸ ten) + eleven)
 {-# ATP prove x+1≤x∸10+11 x≤y+x∸y 10-N 11-N +-N ∸-N +-comm #-}
 
-postulate x≤89→x+11>100→⊥ : ∀ {n} → N n → LE n eighty-nine →
-                            GT (n + eleven) one-hundred → ⊥
+postulate
+  x≤89→x+11>100→⊥ : ∀ {n} → N n → LE n eighty-nine →
+                    GT (n + eleven) one-hundred → ⊥
 {-# ATP prove x≤89→x+11>100→⊥ x>y→x≤y→⊥ x≤y→x+k≤y+k x+11-N 89-N 100-N
                               100≡89+11
 #-}

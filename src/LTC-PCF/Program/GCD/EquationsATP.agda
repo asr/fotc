@@ -13,19 +13,16 @@ open import LTC-PCF.Program.GCD.GCD
 
 ------------------------------------------------------------------------------
 
-postulate
-  gcd-00 : gcd zero zero ≡ loop
+postulate gcd-00 : gcd zero zero ≡ loop
 -- E 1.2: CPU time limit exceeded (180 sec).
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove gcd-00 #-}
 
-postulate
- gcd-S0 : ∀ n → gcd (succ n) zero ≡ succ n
+postulate gcd-S0 : ∀ n → gcd (succ n) zero ≡ succ n
 -- E 1.2: CPU time limit exceeded (180 sec).
 {-# ATP prove gcd-S0 #-}
 
-postulate
-  gcd-0S : ∀ n → gcd zero (succ n) ≡ succ n
+postulate gcd-0S : ∀ n → gcd zero (succ n) ≡ succ n
 -- E 1.2: CPU time limit exceeded (180 sec).
 {-# ATP prove gcd-0S #-}
 

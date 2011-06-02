@@ -48,66 +48,66 @@ taskB u x y z =
     xz·yu
   ∎
   where
-    -- Two variables abbreviations
+  -- Two variables abbreviations
 
-    xz = x · z
-    yu = y · u
-    yz = y · z
+  xz = x · z
+  yu = y · u
+  yz = y · z
 
-    -- Three variables abbreviations
+  -- Three variables abbreviations
 
-    xyu = x · y · u
-    xyz = x · y · z
-    xzu = x · z · u
-    yxz = y · x · z
+  xyu = x · y · u
+  xyz = x · y · z
+  xzu = x · z · u
+  yxz = y · x · z
 
-    y·xu = y · (x · u)
-    y·yu = y · (y · u)
-    y·zu = y · (z · u)
-    y·zy = y · (z · y)
+  y·xu = y · (x · u)
+  y·yu = y · (y · u)
+  y·zu = y · (z · u)
+  y·zy = y · (z · y)
 
-    z·xu = z · (x · u)
-    z·yu = z · (y · u)
+  z·xu = z · (x · u)
+  z·yu = z · (y · u)
 
-    -- Four variables abbreviations
+  -- Four variables abbreviations
 
-    xu·yu = x · u · (y · u)
-    xu·zu = x · u · (z · u)
+  xu·yu = x · u · (y · u)
+  xu·zu = x · u · (z · u)
 
-    xy·zu = x · y · (z · u)
+  xy·zu = x · y · (z · u)
 
-    xz·yu = x · z · (y · u)
+  xz·yu = x · z · (y · u)
 
-    -- Steps justifications
+  -- Steps justifications
 
-    j₁₋₅ : xy·zu · (xy·zu · xz·yu) ≡
-           xy·zu · (xz · xu·yu · (y·zu · xz·yu))
-    j₁₋₅ = {!-t 20 -m !}  -- Agsy fails
+  j₁₋₅ : xy·zu · (xy·zu · xz·yu) ≡
+         xy·zu · (xz · xu·yu · (y·zu · xz·yu))
+  j₁₋₅ = {!-t 20 -m !}  -- Agsy fails
 
-    j₅₋₉ : xy·zu · (xz · xu·yu · (y·zu · xz·yu)) ≡
-           xy·zu · (xz · xyu · (yxz · yu))
-    j₅₋₉ = {!-t 20 -m !}  -- Agsy fails
+  j₅₋₉ : xy·zu · (xz · xu·yu · (y·zu · xz·yu)) ≡
+         xy·zu · (xz · xyu · (yxz · yu))
+  j₅₋₉ = {!-t 20 -m !}  -- Agsy fails
 
-    j₉₋₁₄ : xy·zu · (xz · xyu · (yxz · yu)) ≡
-            xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu))
-    j₉₋₁₄ = {!-t 20 -m!}  -- Agsy fails
+  j₉₋₁₄ : xy·zu · (xz · xyu · (yxz · yu)) ≡
+          xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu))
+  j₉₋₁₄ = {!-t 20 -m!}  -- Agsy fails
 
-    j₁₄₋₂₀ : xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu)) ≡
-             xz · xyu · (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
-    j₁₄₋₂₀ = {!-t 20 -m!}  -- Agsy fails
+  j₁₄₋₂₀ : xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu)) ≡
+           xz · xyu · (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
+  j₁₄₋₂₀ = {!-t 20 -m!}  -- Agsy fails
 
-    j₂₀₋₂₃ : xz · xyu · (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
-             xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))
-    j₂₀₋₂₃ = {!-t 20 -m!}  -- Agsy fails
+  j₂₀₋₂₃ : xz · xyu · (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
+           xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))
+  j₂₀₋₂₃ = {!-t 20 -m!}  -- Agsy fails
 
-    j₂₃₋₂₅ : xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu))) ≡
-             (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))
-    j₂₃₋₂₅ = {!-t 20 -m!}  -- Agsy fails
+  j₂₃₋₂₅ : xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu))) ≡
+           (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))
+  j₂₃₋₂₅ = {!-t 20 -m!}  -- Agsy fails
 
-    j₂₅₋₃₀ : (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu)) ≡
-             xz · xyu · (y·zy · xzu)
-    j₂₅₋₃₀ = {!-t 20 -m!}  -- Agsy fails
+  j₂₅₋₃₀ : (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu)) ≡
+           xz · xyu · (y·zy · xzu)
+  j₂₅₋₃₀ = {!-t 20 -m!}  -- Agsy fails
 
-    j₃₀₋₃₅ : xz · xyu · (y·zy · xzu) ≡
-             xz·yu
-    j₃₀₋₃₅ = {!-t 20 -m!}  -- Agsy fails
+  j₃₀₋₃₅ : xz · xyu · (y·zy · xzu) ≡
+           xz·yu
+  j₃₀₋₃₅ = {!-t 20 -m!}  -- Agsy fails

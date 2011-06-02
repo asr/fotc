@@ -28,8 +28,8 @@ open import FOTC.Relation.Binary.EqReasoning
 2x/2≡x : ∀ {n} → N n → two * n / two ≡ n
 2x/2≡x zN = prf
   where
-    -- See the combined proof.
-    postulate prf : two * zero / two ≡ zero
+  -- See the combined proof.
+  postulate prf : two * zero / two ≡ zero
 
 2x/2≡x (sN zN) =
   begin
@@ -46,8 +46,8 @@ open import FOTC.Relation.Binary.EqReasoning
 
 2x/2≡x (sN (sN {n} Nn)) = prf
   where
-    -- See the combined proof.
-    postulate prf : two * succ (succ n) / two ≡ succ (succ n)
+  -- See the combined proof.
+  postulate prf : two * succ (succ n) / two ≡ succ (succ n)
 
 2^[x+1]/2≡2^x : ∀ {n} → N n → (two ^ (succ n)) / two ≡ two ^ n
 2^[x+1]/2≡2^x {n} Nn =
@@ -72,17 +72,17 @@ Sx≡2^0→x≡0(sN {n} Nn) SSn≡2^0 =
 +∸2 (sN zN)          n≠0 n≠1 = ⊥-elim (n≠1 refl)
 +∸2 (sN (sN {n} Nn)) n≠0 n≠1 = sym prf
   where
-    prf : succ (succ (succ (succ n) ∸ two)) ≡ succ (succ n)
-    prf =
-      begin
-        succ (succ (succ (succ n) ∸ two))
-          ≡⟨ cong succ (cong succ (∸-SS (succ n) (succ zero))) ⟩
-        succ (succ ((succ n ) ∸ (succ zero)))
-          ≡⟨ cong succ (cong succ (∸-SS n zero)) ⟩
-        succ (succ (n ∸ zero))
-          ≡⟨ cong succ (cong succ (∸-x0 n)) ⟩
-        succ (succ n)
-      ∎
+  prf : succ (succ (succ (succ n) ∸ two)) ≡ succ (succ n)
+  prf =
+    begin
+      succ (succ (succ (succ n) ∸ two))
+        ≡⟨ cong succ (cong succ (∸-SS (succ n) (succ zero))) ⟩
+      succ (succ ((succ n ) ∸ (succ zero)))
+        ≡⟨ cong succ (cong succ (∸-SS n zero)) ⟩
+      succ (succ (n ∸ zero))
+        ≡⟨ cong succ (cong succ (∸-x0 n)) ⟩
+      succ (succ n)
+    ∎
 
 2^x≠0 : ∀ {n} → N n → ¬ (two ^ n ≡ zero)
 2^x≠0 zN          h = ⊥-elim (0≠S (trans (sym h) (^-0 two)))
@@ -148,42 +148,42 @@ x+x-Even zN          = subst Even (sym (+-rightIdentity zN)) even-0
 x+x-Even (sN {n} Nn) = subst Even (sym prf)
                              (x-Even→SSx-Even (+-N Nn Nn) (x+x-Even Nn))
   where
-    prf : succ n + succ n ≡ succ (succ (n + n))
-    prf =
-      begin
-        succ n + succ n
-          ≡⟨ +-Sx n (succ n) ⟩
-        succ (n + succ n)
-          ≡⟨ cong succ (+-comm Nn (sN Nn)) ⟩
-        succ (succ n + n)
-        ≡⟨ cong succ (+-Sx n n) ⟩
-        succ (succ (n + n))
-      ∎
+  prf : succ n + succ n ≡ succ (succ (n + n))
+  prf =
+    begin
+      succ n + succ n
+        ≡⟨ +-Sx n (succ n) ⟩
+      succ (n + succ n)
+        ≡⟨ cong succ (+-comm Nn (sN Nn)) ⟩
+      succ (succ n + n)
+      ≡⟨ cong succ (+-Sx n n) ⟩
+      succ (succ (n + n))
+    ∎
 
 2x-Even : ∀ {n} → N n → Even (two * n)
 2x-Even zN          = subst Even (sym (*-rightZero 2-N)) even-0
 2x-Even (sN {n} Nn) = subst Even (sym prf)
                             (x-Even→SSx-Even (+-N Nn Nn) (x+x-Even Nn))
   where
-    prf : succ (succ zero) * succ n ≡ succ (succ (n + n))
-    prf =
-      begin
-        succ (succ zero) * succ n
-          ≡⟨ *-Sx (succ zero) (succ n) ⟩
-        succ n + succ zero * succ n
-          ≡⟨ +-Sx n (succ zero * succ n) ⟩
-        succ (n + succ zero * succ n)
-          ≡⟨ cong succ (cong (_+_ n) (*-Sx zero (succ n))) ⟩
-        succ (n + (succ n + zero * succ n))
-          ≡⟨ cong succ (cong (_+_ n) (cong (_+_ (succ n)) (*-leftZero (succ n)))) ⟩
-        succ (n + (succ n + zero))
-          ≡⟨ cong succ (cong (_+_ n) (+-rightIdentity (sN Nn))) ⟩
-        succ (n + succ n)
-          ≡⟨ cong succ (+-comm Nn (sN Nn)) ⟩
-        succ (succ n + n)
-          ≡⟨ cong succ (+-Sx n n) ⟩
-        succ (succ (n + n))
-      ∎
+  prf : succ (succ zero) * succ n ≡ succ (succ (n + n))
+  prf =
+    begin
+      succ (succ zero) * succ n
+        ≡⟨ *-Sx (succ zero) (succ n) ⟩
+      succ n + succ zero * succ n
+        ≡⟨ +-Sx n (succ zero * succ n) ⟩
+      succ (n + succ zero * succ n)
+        ≡⟨ cong succ (cong (_+_ n) (*-Sx zero (succ n))) ⟩
+      succ (n + (succ n + zero * succ n))
+        ≡⟨ cong succ (cong (_+_ n) (cong (_+_ (succ n)) (*-leftZero (succ n)))) ⟩
+      succ (n + (succ n + zero))
+        ≡⟨ cong succ (cong (_+_ n) (+-rightIdentity (sN Nn))) ⟩
+      succ (n + succ n)
+        ≡⟨ cong succ (+-comm Nn (sN Nn)) ⟩
+      succ (succ n + n)
+        ≡⟨ cong succ (+-Sx n n) ⟩
+      succ (succ (n + n))
+    ∎
 
 2^[x+1]-Even : ∀ {n} → N n → Even (two ^ (succ n))
 2^[x+1]-Even {n} Nn = subst Even (sym (^-S two n)) (2x-Even (^-N 2-N Nn))

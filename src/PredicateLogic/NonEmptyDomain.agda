@@ -9,5 +9,4 @@ open import Common.Universe
 
 ------------------------------------------------------------------------------
 
-postulate
-  D≠∅ : D
+postulate D≠∅ : D

@@ -8,12 +8,10 @@ open import GroupTheory.Base
 
 ------------------------------------------------------------------------------
 
-postulate
-  y≡x⁻¹[xy] : ∀ a b → b ≡ a ⁻¹ · (a · b)
+postulate y≡x⁻¹[xy] : ∀ a b → b ≡ a ⁻¹ · (a · b)
 {-# ATP prove y≡x⁻¹[xy] #-}
 
-postulate
-  x≡[xy]y⁻¹ : ∀ a b → a ≡ (a · b) · b ⁻¹
+postulate x≡[xy]y⁻¹ : ∀ a b → a ≡ (a · b) · b ⁻¹
 {-# ATP prove x≡[xy]y⁻¹ #-}
 
 postulate
@@ -22,8 +20,7 @@ postulate
 {-# ATP prove rightIdentityUnique #-}
 
 -- A more appropiate version to be used in the proofs.
-postulate
-  rightIdentityUnique' : ∀ x u → x · u ≡ x → ε ≡ u
+postulate rightIdentityUnique' : ∀ x u → x · u ≡ x → ε ≡ u
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove rightIdentityUnique' #-}
 
@@ -33,18 +30,15 @@ postulate
 {-# ATP prove leftIdentityUnique #-}
 
 -- A more appropiate version to be used in the proofs.
-postulate
-  leftIdentityUnique' : ∀ x u → u · x ≡ x → ε ≡ u
+postulate leftIdentityUnique' : ∀ x u → u · x ≡ x → ε ≡ u
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove leftIdentityUnique' #-}
 
-postulate
-  rightCancellation : ∀ {x y z} → y · x ≡ z · x → y ≡ z
+postulate rightCancellation : ∀ {x y z} → y · x ≡ z · x → y ≡ z
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove rightCancellation #-}
 
-postulate
-  leftCancellation : ∀ {x y z} → x · y ≡ x · z → y ≡ z
+postulate leftCancellation : ∀ {x y z} → x · y ≡ x · z → y ≡ z
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove leftCancellation #-}
 
@@ -61,8 +55,7 @@ postulate
 {-# ATP prove rightInverseUnique #-}
 
 -- A more appropiate version to be used in the proofs.
-postulate
-  rightInverseUnique' : ∀ {x r} → x · r ≡ ε → x ⁻¹ ≡ r
+postulate rightInverseUnique' : ∀ {x r} → x · r ≡ ε → x ⁻¹ ≡ r
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove rightInverseUnique' #-}
 
@@ -73,22 +66,18 @@ postulate
 {-# ATP prove leftInverseUnique #-}
 
 -- A more appropiate version to be used in the proofs.
-postulate
-  leftInverseUnique' : ∀ {x l} → l · x ≡ ε → x ⁻¹ ≡ l
+postulate leftInverseUnique' : ∀ {x l} → l · x ≡ ε → x ⁻¹ ≡ l
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove leftInverseUnique' #-}
 
-postulate
-  ⁻¹-involutive : ∀ x → x ⁻¹ ⁻¹ ≡ x
+postulate ⁻¹-involutive : ∀ x → x ⁻¹ ⁻¹ ≡ x
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove ⁻¹-involutive #-}
 
-postulate
-  identityInverse : ε ⁻¹ ≡ ε
+postulate identityInverse : ε ⁻¹ ≡ ε
 {-# ATP prove identityInverse #-}
 
-postulate
-  inverseDistributive : ∀ x y → (x · y) ⁻¹ ≡ y ⁻¹ · x ⁻¹
+postulate inverseDistributive : ∀ x y → (x · y) ⁻¹ ≡ y ⁻¹ · x ⁻¹
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove inverseDistributive #-}
 
@@ -108,6 +97,5 @@ postulate
 
 -- If the square of every element is the identity, the system is commutative.
 -- From: TPTP (v5.0.0). File: Problems/GRP/GRP001-2.p
-postulate
-  x²≡ε→comm : (∀ a → a · a ≡ ε) → ∀ {b c d} → b · c ≡ d → c · b ≡ d
+postulate x²≡ε→comm : (∀ a → a · a ≡ ε) → ∀ {b c d} → b · c ≡ d → c · b ≡ d
 {-# ATP prove x²≡ε→comm #-}

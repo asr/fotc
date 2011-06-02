@@ -21,14 +21,12 @@ open import LTC-PCF.Program.GCD.EquationsATP
 
 ------------------------------------------------------------------------------
 -- gcd 0 (succ n) is total.
-postulate
-  gcd-0S-N : ∀ {n} → N n → N (gcd zero (succ n))
+postulate gcd-0S-N : ∀ {n} → N n → N (gcd zero (succ n))
 {-# ATP prove gcd-0S-N gcd-0S #-}
 
 ------------------------------------------------------------------------------
 -- gcd (succ n) 0 is total.
-postulate
-  gcd-S0-N : ∀ {n} → N n → N (gcd (succ n) zero)
+postulate gcd-S0-N : ∀ {n} → N n → N (gcd (succ n) zero)
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove gcd-S0-N gcd-S0 #-}
 
@@ -65,14 +63,14 @@ gcd-x>y-N (sN Nm) zN  _  _ _   = gcd-S0-N Nm
 gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
   gcd-S>S-N Nm Nn ih Sm>Sn
   where
-    -- Inductive hypothesis.
-    ih : N (gcd (succ m ∸ succ n) (succ n))
-    ih = accH {succ m ∸ succ n}
-              {succ n}
-              (∸-N (sN Nm) (sN Nn))
-              (sN Nn)
-              ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
-              (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
+  -- Inductive hypothesis.
+  ih : N (gcd (succ m ∸ succ n) (succ n))
+  ih = accH {succ m ∸ succ n}
+            {succ n}
+            (∸-N (sN Nm) (sN Nn))
+            (sN Nn)
+            ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
+            (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
 
 ------------------------------------------------------------------------------
 -- gcd m n when m ≯ n is total.
@@ -89,26 +87,26 @@ gcd-x≯y-N (sN {m} Nm) zN _ Sm≯0 _ =
 gcd-x≯y-N (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ =
   gcd-S≯S-N Nm Nn ih Sm≯Sn
   where
-    -- Inductive hypothesis.
-    ih : N (gcd (succ m) (succ n ∸ succ m))
-    ih = accH {succ m}
-              {succ n ∸ succ m}
-              (sN Nm)
-              (∸-N (sN Nn) (sN Nm))
-              ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
-              (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
+  -- Inductive hypothesis.
+  ih : N (gcd (succ m) (succ n ∸ succ m))
+  ih = accH {succ m}
+            {succ n ∸ succ m}
+            (sN Nm)
+            (∸-N (sN Nn) (sN Nm))
+            ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
+            (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 
 ------------------------------------------------------------------------------
 -- gcd m n when m ≠ 0 and n ≠ 0 is total.
 gcd-N : ∀ {m n} → N m → N n → x≠0≠y m n → N (gcd m n)
 gcd-N = wfInd-LT₂ P istep
   where
-    P : D → D → Set
-    P i j = x≠0≠y i j → N (gcd i j)
+  P : D → D → Set
+  P i j = x≠0≠y i j → N (gcd i j)
 
-    istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → P k l) →
-            P i j
-    istep Ni Nj accH =
-      [ gcd-x>y-N Ni Nj accH
-      , gcd-x≯y-N Ni Nj accH
-      ] (x>y∨x≯y Ni Nj)
+  istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → P k l) →
+          P i j
+  istep Ni Nj accH =
+    [ gcd-x>y-N Ni Nj accH
+    , gcd-x≯y-N Ni Nj accH
+    ] (x>y∨x≯y Ni Nj)

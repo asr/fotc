@@ -73,8 +73,7 @@ x∣y→x∣z→x∣y+z (sN Nm) Nn No
   x∣y→x∣z→x∣y+z-ah Nm Nn Nk₁ Nk₂ n≡k₁Sm o≡k₂Sm
 
 -- If x divides y, and y is positive, then x ≤ y.
-postulate
-  x∣S→x≤S-ah₁ : ∀ {m n} → succ n ≡ zero * succ m → ⊥
+postulate x∣S→x≤S-ah₁ : ∀ {m n} → succ n ≡ zero * succ m → ⊥
 {-# ATP prove x∣S→x≤S-ah₁ #-}
 
 -- Nice proof by the ATP.

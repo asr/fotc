@@ -30,18 +30,18 @@ postulate
 gDM₂ : ¬ (∃ P¹) ↔ ((x : D) → ¬ (P¹ x))
 gDM₂ = l→r , r→l
   where
-    l→r : ¬ (∃ P¹) → (x : D) → ¬ (P¹ x)
-    l→r ∃p¹→⊥ x ∀p¹ = ∃p¹→⊥ (x , ∀p¹)
+  l→r : ¬ (∃ P¹) → (x : D) → ¬ (P¹ x)
+  l→r ∃p¹→⊥ x ∀p¹ = ∃p¹→⊥ (x , ∀p¹)
 
-    r→l : ((x : D) → ¬ (P¹ x)) → ¬ (∃ P¹)
-    r→l ∀¬p¹ ∃p¹ = ∀¬p¹ (∃-proj₁ ∃p¹) (∃-proj₂ ∃p¹)
+  r→l : ((x : D) → ¬ (P¹ x)) → ¬ (∃ P¹)
+  r→l ∀¬p¹ ∃p¹ = ∀¬p¹ (∃-proj₁ ∃p¹) (∃-proj₂ ∃p¹)
 
 -- Quantification over a variable that does not occur can be delete.
 ∃-erase : ∃ (λ x → P⁰ ∧ P¹ x) ↔ P⁰ ∧ ∃ (λ x → P¹ x)
 ∃-erase = l→r , r→l
   where
-    l→r : ∃ (λ x → P⁰ ∧ P¹ x) → P⁰ ∧ ∃ (λ x → P¹ x)
-    l→r (x , p0 , p¹x) = p0 , x , p¹x
+  l→r : ∃ (λ x → P⁰ ∧ P¹ x) → P⁰ ∧ ∃ (λ x → P¹ x)
+  l→r (x , p0 , p¹x) = p0 , x , p¹x
 
-    r→l : P⁰ ∧ ∃ (λ x → P¹ x) → ∃ (λ x → P⁰ ∧ P¹ x)
-    r→l (p0 , x , p¹x) = x , p0 , p¹x
+  r→l : P⁰ ∧ ∃ (λ x → P¹ x) → ∃ (λ x → P⁰ ∧ P¹ x)
+  r→l (p0 , x , p¹x) = x , p0 , p¹x

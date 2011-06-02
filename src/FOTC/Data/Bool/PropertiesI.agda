@@ -95,9 +95,8 @@ postulate
 &&₃-proj₁ tB _ _ _ _ = refl
 &&₃-proj₁ {b₂ = b₂} {b₃} {b₄} fB Bb₂ Bb₃ Bb₄ h =
   ⊥-elim $ true≠false $ trans (sym h) prf
-  where
-    prf : false && b₂ && b₃ && b₄ ≡ false
-    prf = false&&x≡false (&&-Bool Bb₂ (&&-Bool Bb₃ Bb₄))
+  where prf : false && b₂ && b₃ && b₄ ≡ false
+        prf = false&&x≡false (&&-Bool Bb₂ (&&-Bool Bb₃ Bb₄))
 
 &&₃-proj₂ : ∀ {b₁ b₂ b₃ b₄} →
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
@@ -107,18 +106,18 @@ postulate
 &&₃-proj₂ {b₁} {b₃ = b₃} {b₄} Bb₁ fB Bb₃ Bb₄ h =
   ⊥-elim $ true≠false $ trans (sym h) prf
   where
-    prf : b₁ && false && b₃ && b₄ ≡ false
-    prf =
-      begin
-        b₁ && false && b₃ && b₄
-          ≡⟨ subst (λ t → b₁ && false && b₃ && b₄ ≡ b₁ && t)
-                   (false&&x≡false (&&-Bool Bb₃ Bb₄))
-                   refl
-          ⟩
-        b₁ && false
-           ≡⟨ x&&false≡false Bb₁ ⟩
-        false
-      ∎
+  prf : b₁ && false && b₃ && b₄ ≡ false
+  prf =
+    begin
+      b₁ && false && b₃ && b₄
+         ≡⟨ subst (λ t → b₁ && false && b₃ && b₄ ≡ b₁ && t)
+                  (false&&x≡false (&&-Bool Bb₃ Bb₄))
+                  refl
+         ⟩
+      b₁ && false
+         ≡⟨ x&&false≡false Bb₁ ⟩
+      false
+    ∎
 
 &&₃-proj₃ : ∀ {b₁ b₂ b₃ b₄} →
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
@@ -128,23 +127,23 @@ postulate
 &&₃-proj₃ {b₁} {b₂} {b₄ = b₄} Bb₁ Bb₂ fB Bb₄ h =
   ⊥-elim $ true≠false $ trans (sym h) prf
   where
-    prf : b₁ && b₂ && false && b₄ ≡ false
-    prf =
-      begin
-        b₁ && b₂ && false && b₄
-          ≡⟨ subst (λ t → b₁ && b₂ && false && b₄ ≡ b₁ && b₂ && t)
-                   (false&&x≡false Bb₄)
-                   refl
-          ⟩
-        b₁ && b₂ && false
-          ≡⟨ subst (λ t → b₁ && b₂ && false ≡ b₁ && t)
-                   (x&&false≡false Bb₂)
-                   refl
-          ⟩
-        b₁ && false
+  prf : b₁ && b₂ && false && b₄ ≡ false
+  prf =
+    begin
+      b₁ && b₂ && false && b₄
+         ≡⟨ subst (λ t → b₁ && b₂ && false && b₄ ≡ b₁ && b₂ && t)
+                  (false&&x≡false Bb₄)
+                  refl
+         ⟩
+      b₁ && b₂ && false
+         ≡⟨ subst (λ t → b₁ && b₂ && false ≡ b₁ && t)
+                  (x&&false≡false Bb₂)
+                  refl
+         ⟩
+      b₁ && false
            ≡⟨ x&&false≡false Bb₁ ⟩
-        false
-      ∎
+      false
+    ∎
 
 &&₃-proj₄ : ∀ {b₁ b₂ b₃ b₄} →
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
@@ -154,23 +153,23 @@ postulate
 &&₃-proj₄ {b₁} {b₂} {b₃} Bb₁ Bb₂ Bb₃ fB h =
   ⊥-elim $ true≠false $ trans (sym h) prf
   where
-    prf : b₁ && b₂ && b₃ && false ≡ false
-    prf =
-      begin
-        b₁ && b₂ && b₃ && false
-          ≡⟨ subst (λ t → b₁ && b₂ && b₃ && false ≡ b₁ && b₂ && t)
-                   (x&&false≡false Bb₃)
-                   refl
-          ⟩
-        b₁ && b₂ && false
-          ≡⟨ subst (λ t → b₁ && b₂ && false ≡ b₁ && t)
-                   (x&&false≡false Bb₂)
-                   refl
-          ⟩
-        b₁ && false
-           ≡⟨ x&&false≡false Bb₁ ⟩
-        false
-      ∎
+  prf : b₁ && b₂ && b₃ && false ≡ false
+  prf =
+    begin
+      b₁ && b₂ && b₃ && false
+         ≡⟨ subst (λ t → b₁ && b₂ && b₃ && false ≡ b₁ && b₂ && t)
+                  (x&&false≡false Bb₃)
+                  refl
+         ⟩
+      b₁ && b₂ && false
+         ≡⟨ subst (λ t → b₁ && b₂ && false ≡ b₁ && t)
+                  (x&&false≡false Bb₂)
+                  refl
+         ⟩
+      b₁ && false
+         ≡⟨ x&&false≡false Bb₁ ⟩
+      false
+    ∎
 
 ------------------------------------------------------------------------------
 -- Properties with inequalities

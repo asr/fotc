@@ -12,8 +12,7 @@ open import PredicateLogic.Constants
 ------------------------------------------------------------------------------
 -- We postulate some propositional variables (which are translated as
 -- 0-ary predicates).
-postulate
-  P Q R : Set
+postulate P Q R : Set
 
 -- The introduction and elimination rules for the intuitionist
 -- propositional connectives are theorems.

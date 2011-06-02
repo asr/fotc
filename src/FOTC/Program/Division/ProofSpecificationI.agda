@@ -43,11 +43,11 @@ div-x≮y-DIV {i} {j} Ni Nj accH j>0 i≮j =
   div-x≮y-N ih i≮j , div-x≮y-correct Ni Nj ih i≮j
 
   where
-    -- The inductive hypothesis on i ∸ j.
-    ih : DIV (i ∸ j) j (div (i ∸ j) j)
-    ih = accH {i ∸ j}
-              (∸-N Ni Nj)
-              (x≥y→y>0→x∸y<x Ni Nj (x≮y→x≥y Ni Nj i≮j) j>0)
+  -- The inductive hypothesis on i ∸ j.
+  ih : DIV (i ∸ j) j (div (i ∸ j) j)
+  ih = accH {i ∸ j}
+            (∸-N Ni Nj)
+            (x≥y→y>0→x∸y<x Ni Nj (x≮y→x≥y Ni Nj i≮j) j>0)
 
 ------------------------------------------------------------------------------
 -- The division satisfies the specification.
@@ -55,14 +55,13 @@ div-x≮y-DIV {i} {j} Ni Nj accH j>0 i≮j =
 -- We do the well-founded induction on i and we keep j fixed.
 div-DIV : ∀ {i j} → N i → N j → GT j zero → DIV i j (div i j)
 div-DIV {j = j} Ni Nj j>0 = wfInd-LT P ih Ni
+  where
+  P : D → Set
+  P d = DIV d j (div d j)
 
-   where
-     P : D → Set
-     P d = DIV d j (div d j)
-
-     -- The inductive step doesn't use the variable i (nor Ni). To
-     -- make this clear we write down the inductive step using the
-     -- variables m and n.
-     ih : ∀ {n} → N n → (accH : ∀ {m} → N m → LT m n → P m) → P n
-     ih {n} Nn accH =
-       [ div-x<y-DIV Nn Nj , div-x≮y-DIV Nn Nj accH j>0 ] (x<y∨x≮y Nn Nj)
+  -- The inductive step doesn't use the variable i (nor Ni). To make
+  -- this clear we write down the inductive step using the variables m
+  -- and n.
+  ih : ∀ {n} → N n → (accH : ∀ {m} → N m → LT m n → P m) → P n
+  ih {n} Nn accH =
+    [ div-x<y-DIV Nn Nj , div-x≮y-DIV Nn Nj accH j>0 ] (x<y∨x≮y Nn Nj)

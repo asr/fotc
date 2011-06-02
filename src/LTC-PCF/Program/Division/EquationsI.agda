@@ -40,10 +40,10 @@ private
     div-s₂ : D → D → D
     div-s₂ i j = fun · j
       where
-        fun : D
-        fun = lam (λ j → if (i < j)
-                            then zero
-                            else succ (fix divh · (i ∸ j) · j))
+      fun : D
+      fun = lam (λ j → if (i < j)
+                          then zero
+                          else succ (fix divh · (i ∸ j) · j))
 
     -- Second argument application.
     div-s₃ : D → D → D
@@ -107,26 +107,26 @@ private
             (sym $ beta fun i)
             refl
          where
-          -- The function fun is the same that the fun part of div-s₂,
-          -- except that we need a fresh variable y to avoid the
-          -- clashing of the variable i in the application of the beta
-          -- rule.
-          fun : D → D
-          fun y = lam (λ j → if (y < j)
-                                then zero
-                                else succ (fix divh · (y ∸ j) · j))
+         -- The function fun is the same that the fun part of div-s₂,
+         -- except that we need a fresh variable y to avoid the
+         -- clashing of the variable i in the application of the beta
+         -- rule.
+         fun : D → D
+         fun y = lam (λ j → if (y < j)
+                               then zero
+                               else succ (fix divh · (y ∸ j) · j))
 
     -- From div-s₂ to div-s₃ using the conversion rule beta.
     proof₂₋₃ : ∀ i j → div-s₂ i j ≡ div-s₃ i j
     proof₂₋₃ i j  = beta fun j
       where
-        -- The function fun is the same that div-s₃, except that we
-        -- need a fresh variable y to avoid the clashing of the
-        -- variable j in the application of the beta rule.
-        fun : D → D
-        fun y = if (i < y)
-                   then zero
-                   else succ ((fix divh) · (i ∸ y) · y)
+      -- The function fun is the same that div-s₃, except that we need
+      -- a fresh variable y to avoid the clashing of the variable j in
+      -- the application of the beta rule.
+      fun : D → D
+      fun y = if (i < y)
+                 then zero
+                 else succ ((fix divh) · (i ∸ y) · y)
 
     -- From div-s₃ to div-s₄ using the proof i<j
     proof₃_₄ : ∀ i j → LT i j → div-s₃ i j ≡ div-s₄ i j

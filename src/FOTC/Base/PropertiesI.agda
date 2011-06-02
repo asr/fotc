@@ -25,26 +25,26 @@ succInjective {d} {e} Sd≡Se =
 ∷-injective : ∀ {x y xs ys} → x ∷ xs ≡ y ∷ ys → x ≡ y ∧ xs ≡ ys
 ∷-injective {x} {y} {xs} {ys} x∷xs≡y∷ys = x≡y , xs≡ys
   where
-    x≡y : x ≡ y
-    x≡y =
-      begin
-        x              ≡⟨ sym (head-∷ x xs) ⟩
-        head (x ∷ xs)  ≡⟨ subst (λ t → head (x ∷ xs) ≡ head t)
-                                x∷xs≡y∷ys
-                                refl
-                       ⟩
-        head (y ∷ ys)  ≡⟨ head-∷ y ys ⟩
-        y
-      ∎
+  x≡y : x ≡ y
+  x≡y =
+    begin
+      x              ≡⟨ sym (head-∷ x xs) ⟩
+      head (x ∷ xs)  ≡⟨ subst (λ t → head (x ∷ xs) ≡ head t)
+                              x∷xs≡y∷ys
+                              refl
+                     ⟩
+      head (y ∷ ys)  ≡⟨ head-∷ y ys ⟩
+      y
+    ∎
 
-    xs≡ys : xs ≡ ys
-    xs≡ys =
-      begin
-        xs             ≡⟨ sym (tail-∷ x xs) ⟩
-        tail (x ∷ xs)  ≡⟨ subst (λ t → tail (x ∷ xs) ≡ tail t)
-                                x∷xs≡y∷ys
-                                refl
-                       ⟩
-        tail (y ∷ ys)  ≡⟨ tail-∷ y ys ⟩
-        ys
-      ∎
+  xs≡ys : xs ≡ ys
+  xs≡ys =
+    begin
+      xs             ≡⟨ sym (tail-∷ x xs) ⟩
+      tail (x ∷ xs)  ≡⟨ subst (λ t → tail (x ∷ xs) ≡ tail t)
+                              x∷xs≡y∷ys
+                              refl
+                     ⟩
+      tail (y ∷ ys)  ≡⟨ tail-∷ y ys ⟩
+      ys
+    ∎

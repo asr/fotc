@@ -184,11 +184,11 @@ mutual
       t ∷ ts
     ∎
       where
-        n₁ : D
-        n₁ = reverse (map mirror (reverse (map mirror ts)))
+      n₁ : D
+      n₁ = reverse (map mirror (reverse (map mirror ts)))
 
-        Fn₁ : Forest n₁
-        Fn₁ = rev-Forest
-                (map-Forest mirror mirror-Tree
-                            (reverse-Forest (map-Forest mirror mirror-Tree Fts)))
-                nilF
+      Fn₁ : Forest n₁
+      Fn₁ = rev-Forest
+            (map-Forest mirror mirror-Tree
+                        (reverse-Forest (map-Forest mirror mirror-Tree Fts)))
+            nilF

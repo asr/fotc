@@ -22,12 +22,10 @@ open import FOTC.Relation.Binary.EqReasoning
 
 collatz-2^x : ∀ {n} → N n → ∃ (λ k → N k ∧ n ≡ two ^ k) → collatz n ≡ one
 collatz-2^x zN _ = collatz-0
-
 collatz-2^x (sN {n} Nn) (.zero , zN , Sn≡2^0) =
   subst (λ t → collatz t ≡ one)
         (cong succ (sym (Sx≡2^0→x≡0 Nn Sn≡2^0)))
         collatz-1
-
 collatz-2^x (sN {n} Nn) (.(succ k) , sN {k} Nk , Sn≡2^k+1) =
   begin
     collatz (succ n)
@@ -52,5 +50,5 @@ collatz-2^x (sN {n} Nn) (.(succ k) , sN {k} Nk , Sn≡2^k+1) =
     one
   ∎
   where
-    prf : two ^ succ k ≡ succ (succ (two ^ succ k ∸ two))
-    prf = (+∸2 (^-N 2-N (sN Nk)) (2^x≠0 (sN Nk)) (2^[x+1]≠1 Nk))
+  prf : two ^ succ k ≡ succ (succ (two ^ succ k ∸ two))
+  prf = (+∸2 (^-N 2-N (sN Nk)) (2^x≠0 (sN Nk)) (2^[x+1]≠1 Nk))

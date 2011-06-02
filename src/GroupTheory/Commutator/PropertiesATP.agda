@@ -10,8 +10,7 @@ open import GroupTheory.Commutator using ( ⟦_,_⟧ ; ⟦⟧-assoc )
 
 ------------------------------------------------------------------------------
 
-postulate
-  ⟦x,y⟧⟦y,x⟧≡ε : ∀ a b → ⟦ a , b ⟧ · ⟦ b , a ⟧ ≡ ε
+postulate ⟦x,y⟧⟦y,x⟧≡ε : ∀ a b → ⟦ a , b ⟧ · ⟦ b , a ⟧ ≡ ε
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove ⟦x,y⟧⟦y,x⟧≡ε #-}
 

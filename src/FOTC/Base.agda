@@ -65,48 +65,45 @@ postulate
 ------------------------------------------------------------------------------
 -- Conversion rules
 
+-- Conversion rules for booleans.
 postulate
-  -- Conversion rules for booleans.
   if-true  : ∀ d₁ {d₂} → if true then d₁ else d₂  ≡ d₁
   if-false : ∀ {d₁} d₂ → if false then d₁ else d₂ ≡ d₂
 {-# ATP axiom if-true #-}
 {-# ATP axiom if-false #-}
 
+-- Conversion rules for pred.
 postulate
-  -- Conversion rules for pred.
   -- N.B. We don't need this equation.
   -- pred-0 :       pred zero     ≡ zero
   pred-S : ∀ d → pred (succ d) ≡ d
 {-# ATP axiom pred-S #-}
 
+-- Conversion rules for isZero.
 postulate
-  -- Conversion rules for isZero.
   isZero-0 :       isZero zero     ≡ true
   isZero-S : ∀ d → isZero (succ d) ≡ false
 {-# ATP axiom isZero-0 #-}
 {-# ATP axiom isZero-S #-}
 
+-- Conversion rules for null.
 postulate
-  -- Conversion rules for null.
   null-[] :          null []       ≡ true
   null-∷  : ∀ x xs → null (x ∷ xs) ≡ false
 
-postulate
-  -- Conversion rule for head.
-  head-∷ : ∀ x xs → head (x ∷ xs) ≡ x
+-- Conversion rule for head.
+postulate head-∷ : ∀ x xs → head (x ∷ xs) ≡ x
 {-# ATP axiom head-∷ #-}
 
-postulate
-  -- Conversion rule for tail.
-  tail-∷ : ∀ x xs → tail (x ∷ xs) ≡ xs
+-- Conversion rule for tail.
+postulate tail-∷ : ∀ x xs → tail (x ∷ xs) ≡ xs
 {-# ATP axiom tail-∷ #-}
 
-postulate
-  -- Looping programs.
-  loop-eq : loop ≡ loop
-  -- The equation loop-eq adds anything to the logic (because
-  -- reflexivity is already an axiom of equality), therefore we won't
-  -- add this equation as a FOL axiom.
+-- Conversion rule for loop.
+-- The equation loop-eq adds anything to the logic (because
+-- reflexivity is already an axiom of equality), therefore we won't
+-- add this equation as a FOL axiom.
+postulate loop-eq : loop ≡ loop
 
 ------------------------------------------------------------------------------
 -- Discrimination rules

@@ -391,17 +391,14 @@ xy≡0→x≡0∨y≡0 zN      _  _                   = inj₁ refl
 xy≡0→x≡0∨y≡0 (sN Nm) zN _                   = inj₂ refl
 xy≡0→x≡0∨y≡0 (sN {m} Nm) (sN {n} Nn) SmSn≡0 = ⊥-elim (0≠S prf)
   where
-    prf : zero ≡ succ (n + m * succ n)
-    prf =
-      begin
-        zero ≡⟨ sym SmSn≡0 ⟩
-        succ m * succ n
-          ≡⟨ *-Sx m (succ n) ⟩
-        succ n + m * succ n
-        ≡⟨ +-Sx n (m * succ n) ⟩
-        succ (n + m * succ n)
-      ∎
+  prf : zero ≡ succ (n + m * succ n)
+  prf =
+    begin
+      zero                ≡⟨ sym SmSn≡0 ⟩
+      succ m * succ n     ≡⟨ *-Sx m (succ n) ⟩
+      succ n + m * succ n ≡⟨ +-Sx n (m * succ n) ⟩
+      succ (n + m * succ n)
+    ∎
 
-postulate
-  -- See the combined proof.
-  xy≡1→x≡1∨y≡1 : ∀ {m n} → N m → N n → m * n ≡ one → m ≡ one ∨ n ≡ one
+-- See the combined proof.
+postulate xy≡1→x≡1∨y≡1 : ∀ {m n} → N m → N n → m * n ≡ one → m ≡ one ∨ n ≡ one

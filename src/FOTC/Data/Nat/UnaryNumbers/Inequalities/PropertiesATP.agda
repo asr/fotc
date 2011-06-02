@@ -14,10 +14,8 @@ open import FOTC.Data.Nat.UnaryNumbers
 
 ------------------------------------------------------------------------------
 
-postulate
-  x<x+1 : ∀ {n} → N n → LT n (n + one)
+postulate x<x+1 : ∀ {n} → N n → LT n (n + one)
 {-# ATP prove x<x+1 x<Sx +-comm #-}
 
-postulate
-  x<x+11 : ∀ {n} → N n → LT n (n + eleven)
+postulate x<x+11 : ∀ {n} → N n → LT n (n + eleven)
 {-# ATP prove x<x+11 x<x+Sy #-}

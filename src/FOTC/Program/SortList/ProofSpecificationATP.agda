@@ -20,6 +20,5 @@ open import FOTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------
 -- Main theorem: The sort program generates an ordered list.
-postulate
-  sort-OrdList : ∀ {is} → ListN is → OrdList (sort is)
+postulate sort-OrdList : ∀ {is} → ListN is → OrdList (sort is)
 {-# ATP prove sort-OrdList flatten-OrdList makeTree-Tree makeTree-OrdTree #-}

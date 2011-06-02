@@ -75,35 +75,35 @@ lg-x<lg-x∷xs x (consL y {xs} Lxs) =
 lg-xs<lg-[]→⊥ : ∀ {xs} → List xs → ¬ (LT (length xs) (length []))
 lg-xs<lg-[]→⊥ nilL lg-[]<lg-[] = ⊥-elim (0<0→⊥ helper)
   where
-    helper : zero < zero ≡ true
-    helper =
-      begin
-        zero < zero
-          ≡⟨ subst₂ (λ t₁ t₂ → zero < zero ≡ t₁ < t₂)
-                    (sym length-[])
-                    (sym length-[])
-                    refl
-          ⟩
-        length [] < length []
-          ≡⟨ lg-[]<lg-[] ⟩
-        true
-      ∎
+  helper : zero < zero ≡ true
+  helper =
+    begin
+      zero < zero
+        ≡⟨ subst₂ (λ t₁ t₂ → zero < zero ≡ t₁ < t₂)
+                  (sym length-[])
+                  (sym length-[])
+                  refl
+        ⟩
+      length [] < length []
+        ≡⟨ lg-[]<lg-[] ⟩
+      true
+    ∎
 
 lg-xs<lg-[]→⊥ (consL x {xs} Lxs) lg-x∷xs<lg-[] = ⊥-elim (S<0→⊥ helper)
   where
-    helper : succ (length xs) < zero ≡ true
-    helper =
-      begin
-        succ (length xs) < zero
-          ≡⟨ subst₂ (λ t₁ t₂ → succ (length xs) < zero ≡ t₁ < t₂)
-                    (sym (length-∷ x xs))
-                    (sym length-[])
-                    refl
-          ⟩
-        length (x ∷ xs) < length []
-          ≡⟨ lg-x∷xs<lg-[] ⟩
-        true
-      ∎
+  helper : succ (length xs) < zero ≡ true
+  helper =
+    begin
+      succ (length xs) < zero
+        ≡⟨ subst₂ (λ t₁ t₂ → succ (length xs) < zero ≡ t₁ < t₂)
+                  (sym (length-∷ x xs))
+                  (sym length-[])
+                  refl
+        ⟩
+      length (x ∷ xs) < length []
+        ≡⟨ lg-x∷xs<lg-[] ⟩
+      true
+    ∎
 
 -- Append properties
 

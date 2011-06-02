@@ -22,10 +22,10 @@ collatz-2^x zN _ = collatz-0
 
 collatz-2^x (sN {n} Nn) (.zero , zN , Sn≡2^0) = prf
   where
-    postulate prf : collatz (succ n) ≡ one
-    {-# ATP prove prf Sx≡2^0→x≡0 #-}
+  postulate prf : collatz (succ n) ≡ one
+  {-# ATP prove prf Sx≡2^0→x≡0 #-}
 
 collatz-2^x (sN {n} Nn) (.(succ k) , sN {k} Nk , Sn≡2^k+1) = prf
   where
-    -- See the interactive proof.
-    postulate prf : collatz (succ n) ≡ one
+  -- See the interactive proof.
+  postulate prf : collatz (succ n) ≡ one

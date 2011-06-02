@@ -90,299 +90,299 @@ prop₂ u x y z =
     xz·yu
   ∎
   where
-    -- Two variables abbreviations
+  -- Two variables abbreviations
 
-    xz = x · z
-    yu = y · u
-    yz = y · z
-    zy = z · y
+  xz = x · z
+  yu = y · u
+  yz = y · z
+  zy = z · y
 
-    -- Three variables abbreviations
+  -- Three variables abbreviations
 
-    xyu = x · y · u
-    xyz = x · y · z
-    xzu = x · z · u
-    xzy = x · z · y
-    yxz = y · x · z
+  xyu = x · y · u
+  xyz = x · y · z
+  xzu = x · z · u
+  xzy = x · z · y
+  yxz = y · x · z
 
-    x·yu = x · (y · u)
-    x·zu = x · (z · u)
-    x·zy = x · (z · y)
+  x·yu = x · (y · u)
+  x·zu = x · (z · u)
+  x·zy = x · (z · y)
 
-    y·xu = y · (x · u)
-    y·yu = y · (y · u)
-    y·zu = y · (z · u)
-    y·zy = y · (z · y)
+  y·xu = y · (x · u)
+  y·yu = y · (y · u)
+  y·zu = y · (z · u)
+  y·zy = y · (z · y)
 
-    z·xu = z · (x · u)
-    z·yu = z · (y · u)
+  z·xu = z · (x · u)
+  z·yu = z · (y · u)
 
-    -- Four variables abbreviations
+  -- Four variables abbreviations
 
-    xu·yu = x · u · (y · u)
-    xu·zu = x · u · (z · u)
+  xu·yu = x · u · (y · u)
+  xu·zu = x · u · (z · u)
 
-    xy·yz = x · y · (y · z)
-    xy·zu = x · y · (z · u)
-    xy·zy = x · y · (z · y)
+  xy·yz = x · y · (y · z)
+  xy·zu = x · y · (z · u)
+  xy·zy = x · y · (z · y)
 
-    xz·xu = x · z · (x · u)
-    xz·xy = x · z · (x · y)
-    xz·yu = x · z · (y · u)
-    xz·yz = x · z · (y · z)
+  xz·xu = x · z · (x · u)
+  xz·xy = x · z · (x · y)
+  xz·yu = x · z · (y · u)
+  xz·yz = x · z · (y · z)
 
-    yx·yu = y · x · (y · u)
+  yx·yu = y · x · (y · u)
 
-    yz·xz = y · z · (x · z)
-    yz·yu = y · z · (y · u)
+  yz·xz = y · z · (x · z)
+  yz·yu = y · z · (y · u)
 
-    zy·xu = z · y · (x · u)
-    zy·zu = z · y · (z · u)
+  zy·xu = z · y · (x · u)
+  zy·zu = z · y · (z · u)
 
-    -- Steps justifications
+  -- Steps justifications
 
-    j₁ : xy·zu · (xy·zu · xz·yu) ≡
-         xy·zu · (x·zu · y·zu · xz·yu)
-    j₁ = subst (λ t → xy·zu · (xy·zu · xz·yu) ≡ xy·zu · (t · xz·yu))
-               (rightDistributive x y (z · u))
-               refl
+  j₁ : xy·zu · (xy·zu · xz·yu) ≡
+       xy·zu · (x·zu · y·zu · xz·yu)
+  j₁ = subst (λ t → xy·zu · (xy·zu · xz·yu) ≡ xy·zu · (t · xz·yu))
+             (rightDistributive x y (z · u))
+             refl
 
-    j₂ : xy·zu · (x·zu · y·zu · xz·yu) ≡
-         xy·zu · (x·zu · xz·yu · (y·zu · xz·yu))
-    j₂ = subst (λ t → xy·zu · (x·zu · y·zu · xz·yu) ≡ xy·zu · t)
-               (rightDistributive x·zu y·zu xz·yu)
-               refl
+  j₂ : xy·zu · (x·zu · y·zu · xz·yu) ≡
+       xy·zu · (x·zu · xz·yu · (y·zu · xz·yu))
+  j₂ = subst (λ t → xy·zu · (x·zu · y·zu · xz·yu) ≡ xy·zu · t)
+             (rightDistributive x·zu y·zu xz·yu)
+             refl
 
-    j₃ : xy·zu · (x·zu · xz·yu · (y·zu · xz·yu)) ≡
-         xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu))
-    j₃ = subst (λ t → xy·zu · (x·zu · xz·yu · (y·zu · xz·yu)) ≡
-                      xy·zu · (t · xz·yu · (y·zu · xz·yu)))
-               (leftDistributive x z u)
-               refl
+  j₃ : xy·zu · (x·zu · xz·yu · (y·zu · xz·yu)) ≡
+       xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu))
+  j₃ = subst (λ t → xy·zu · (x·zu · xz·yu · (y·zu · xz·yu)) ≡
+                    xy·zu · (t · xz·yu · (y·zu · xz·yu)))
+             (leftDistributive x z u)
+             refl
 
-    j₄ : xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu)) ≡
-         xy·zu · (xz · xu·yu · (y·zu · xz·yu))
-    j₄ = subst (λ t → xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu)) ≡
-                      xy·zu · (t · (y·zu · xz·yu)))
-               (sym (leftDistributive (x · z) (x · u) (y · u)))
-               refl
+  j₄ : xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu)) ≡
+       xy·zu · (xz · xu·yu · (y·zu · xz·yu))
+  j₄ = subst (λ t → xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu)) ≡
+                    xy·zu · (t · (y·zu · xz·yu)))
+             (sym (leftDistributive (x · z) (x · u) (y · u)))
+             refl
 
-    j₅ : xy·zu · (xz · xu·yu · (y·zu · xz·yu)) ≡
-         xy·zu · (xz · xyu · (y·zu · xz·yu))
-    j₅ = subst (λ t → xy·zu · (xz · xu·yu · (y·zu · xz·yu)) ≡
-                      xy·zu · (xz · t · (y·zu · xz·yu)))
-               (sym (rightDistributive x y u))
-               refl
+  j₅ : xy·zu · (xz · xu·yu · (y·zu · xz·yu)) ≡
+       xy·zu · (xz · xyu · (y·zu · xz·yu))
+  j₅ = subst (λ t → xy·zu · (xz · xu·yu · (y·zu · xz·yu)) ≡
+                    xy·zu · (xz · t · (y·zu · xz·yu)))
+             (sym (rightDistributive x y u))
+             refl
 
-    j₆ : xy·zu · (xz · xyu · (y·zu · xz·yu)) ≡
-         xy·zu · (xz · xyu · (yz·yu · xz·yu))
-    j₆ = subst (λ t → xy·zu · (xz · xyu · (y·zu · xz·yu)) ≡
-                      xy·zu · (xz · xyu · (t · xz·yu)))
-               (leftDistributive y z u)
-               refl
+  j₆ : xy·zu · (xz · xyu · (y·zu · xz·yu)) ≡
+       xy·zu · (xz · xyu · (yz·yu · xz·yu))
+  j₆ = subst (λ t → xy·zu · (xz · xyu · (y·zu · xz·yu)) ≡
+                    xy·zu · (xz · xyu · (t · xz·yu)))
+             (leftDistributive y z u)
+             refl
 
-    j₇ : xy·zu · (xz · xyu · (yz·yu · xz·yu)) ≡
-         xy·zu · (xz · xyu · (yz·xz · yu))
-    j₇ = subst (λ t → xy·zu · (xz · xyu · (yz·yu · xz·yu)) ≡
-                      xy·zu · (xz · xyu · t))
-               (sym (rightDistributive (y · z) (x · z) (y · u)))
-               refl
+  j₇ : xy·zu · (xz · xyu · (yz·yu · xz·yu)) ≡
+       xy·zu · (xz · xyu · (yz·xz · yu))
+  j₇ = subst (λ t → xy·zu · (xz · xyu · (yz·yu · xz·yu)) ≡
+                    xy·zu · (xz · xyu · t))
+             (sym (rightDistributive (y · z) (x · z) (y · u)))
+             refl
 
-    j₈ : xy·zu · (xz · xyu · (yz·xz · yu)) ≡
-         xy·zu · (xz · xyu · (yxz · yu))
-    j₈ = subst (λ t → xy·zu · (xz · xyu · (yz·xz · yu)) ≡
-                      xy·zu · (xz · xyu · (t · yu)))
-               (sym (rightDistributive y x z))
-               refl
+  j₈ : xy·zu · (xz · xyu · (yz·xz · yu)) ≡
+       xy·zu · (xz · xyu · (yxz · yu))
+  j₈ = subst (λ t → xy·zu · (xz · xyu · (yz·xz · yu)) ≡
+                    xy·zu · (xz · xyu · (t · yu)))
+             (sym (rightDistributive y x z))
+             refl
 
-    j₉ : xy·zu · (xz · xyu · (yxz · yu)) ≡
-         xy·zu · (xz · xyu · (yx·yu · z·yu))
-    j₉ = subst (λ t → xy·zu · (xz · xyu · (yxz · yu)) ≡
-                      xy·zu · (xz · xyu · t))
-               (rightDistributive (y · x) z yu)
-               refl
+  j₉ : xy·zu · (xz · xyu · (yxz · yu)) ≡
+       xy·zu · (xz · xyu · (yx·yu · z·yu))
+  j₉ = subst (λ t → xy·zu · (xz · xyu · (yxz · yu)) ≡
+                    xy·zu · (xz · xyu · t))
+             (rightDistributive (y · x) z yu)
+             refl
 
-    j₁₀ : xy·zu · (xz · xyu · (yx·yu · z·yu)) ≡
-          xy·zu · (xz · xyu · (y·xu · z·yu))
-    j₁₀ = subst (λ t → xy·zu · (xz · xyu · (yx·yu · z·yu)) ≡
-                       xy·zu · (xz · xyu · (t · z·yu)))
-                (sym (leftDistributive y x u))
-                refl
+  j₁₀ : xy·zu · (xz · xyu · (yx·yu · z·yu)) ≡
+        xy·zu · (xz · xyu · (y·xu · z·yu))
+  j₁₀ = subst (λ t → xy·zu · (xz · xyu · (yx·yu · z·yu)) ≡
+                     xy·zu · (xz · xyu · (t · z·yu)))
+              (sym (leftDistributive y x u))
+              refl
 
-    j₁₁ : xy·zu · (xz · xyu · (y·xu · z·yu)) ≡
-          xyz · xyu · (xz · xyu · (y·xu · z·yu))
-    j₁₁ = subst (λ t → xy·zu · (xz · xyu · (y·xu · z·yu)) ≡
-                       t · (xz · xyu · (y·xu · z·yu)))
-                (leftDistributive (x · y) z u)
-                refl
+  j₁₁ : xy·zu · (xz · xyu · (y·xu · z·yu)) ≡
+        xyz · xyu · (xz · xyu · (y·xu · z·yu))
+  j₁₁ = subst (λ t → xy·zu · (xz · xyu · (y·xu · z·yu)) ≡
+                     t · (xz · xyu · (y·xu · z·yu)))
+              (leftDistributive (x · y) z u)
+              refl
 
-    j₁₂ : xyz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
-          xz·yz · xyu · (xz · xyu · (y·xu · z·yu))
-    j₁₂ = subst (λ t → xyz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
-                       t · xyu · (xz · xyu · (y·xu · z·yu)))
-                (rightDistributive x y z)
-                refl
+  j₁₂ : xyz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
+        xz·yz · xyu · (xz · xyu · (y·xu · z·yu))
+  j₁₂ = subst (λ t → xyz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
+                     t · xyu · (xz · xyu · (y·xu · z·yu)))
+              (rightDistributive x y z)
+              refl
 
-    j₁₃ : xz·yz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
-          xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu))
-    j₁₃ = subst (λ t → xz·yz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
-                       t · (xz · xyu · (y·xu · z·yu)))
-                (rightDistributive (x · z) (y · z) xyu)
-                refl
+  j₁₃ : xz·yz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
+        xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu))
+  j₁₃ = subst (λ t → xz·yz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
+                     t · (xz · xyu · (y·xu · z·yu)))
+              (rightDistributive (x · z) (y · z) xyu)
+              refl
 
-    j₁₄ : xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu)) ≡
-          xz · xyu · (yz · xyu · (y·xu · z·yu))
-    j₁₄ = sym (leftDistributive (xz · xyu) (yz · xyu) (y·xu · z·yu))
+  j₁₄ : xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu)) ≡
+        xz · xyu · (yz · xyu · (y·xu · z·yu))
+  j₁₄ = sym (leftDistributive (xz · xyu) (yz · xyu) (y·xu · z·yu))
 
-    j₁₅ : xz · xyu · (yz · xyu · (y·xu · z·yu)) ≡
-          xz · xyu · (yz · xu·yu · (y·xu · z·yu))
-    j₁₅ = subst (λ t → xz · xyu · (yz · xyu · (y·xu · z·yu)) ≡
-                       xz · xyu · (yz · t · (y·xu · z·yu)))
-                (rightDistributive x y u)
-                refl
+  j₁₅ : xz · xyu · (yz · xyu · (y·xu · z·yu)) ≡
+        xz · xyu · (yz · xu·yu · (y·xu · z·yu))
+  j₁₅ = subst (λ t → xz · xyu · (yz · xyu · (y·xu · z·yu)) ≡
+                     xz · xyu · (yz · t · (y·xu · z·yu)))
+              (rightDistributive x y u)
+              refl
 
-    j₁₆ : xz · xyu · (yz · xu·yu · (y·xu · z·yu)) ≡
-          xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu))
-    j₁₆ = subst (λ t → xz · xyu · (yz · xu·yu · (y·xu · z·yu)) ≡
-                       xz · xyu · (t · (y·xu · z·yu)))
-                (rightDistributive y z xu·yu)
-                refl
+  j₁₆ : xz · xyu · (yz · xu·yu · (y·xu · z·yu)) ≡
+        xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu))
+  j₁₆ = subst (λ t → xz · xyu · (yz · xu·yu · (y·xu · z·yu)) ≡
+                     xz · xyu · (t · (y·xu · z·yu)))
+              (rightDistributive y z xu·yu)
+              refl
 
-    j₁₇ : xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu)) ≡
-          xz · xyu ·
-          (y · xu·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
-    j₁₇ = subst (λ t → xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu)) ≡
-                       xz · xyu · t)
-                (rightDistributive (y · xu·yu) (z · xu·yu) (y·xu · z·yu))
-                refl
+  j₁₇ : xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu)) ≡
+        xz · xyu ·
+        (y · xu·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
+  j₁₇ = subst (λ t → xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu)) ≡
+                     xz · xyu · t)
+              (rightDistributive (y · xu·yu) (z · xu·yu) (y·xu · z·yu))
+              refl
 
-    j₁₈ : xz · xyu ·
-          (y · xu·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
-          xz · xyu ·
-          (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
-    j₁₈ = subst (λ t → xz · xyu ·
-                       (y · xu·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
-                       ≡
-                       xz · xyu ·
-                       (t · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu))))
-                (leftDistributive y (x · u) (y · u))
-                refl
+  j₁₈ : xz · xyu ·
+        (y · xu·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
+        xz · xyu ·
+        (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
+  j₁₈ = subst (λ t → xz · xyu ·
+                     (y · xu·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
+                     ≡
+                     xz · xyu ·
+                     (t · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu))))
+              (leftDistributive y (x · u) (y · u))
+              refl
 
-    j₁₉ : xz · xyu ·
-          (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
-          xz · xyu · (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
-    j₁₉ = subst (λ t → xz · xyu ·
-                       (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
-                       ≡
-                       xz · xyu · (t · (z · xu·yu · (y·xu · z·yu))))
-                (sym (leftDistributive y·xu y·yu z·yu))
-                refl
+  j₁₉ : xz · xyu ·
+        (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
+        xz · xyu · (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
+  j₁₉ = subst (λ t → xz · xyu ·
+                     (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
+                     ≡
+                     xz · xyu · (t · (z · xu·yu · (y·xu · z·yu))))
+              (sym (leftDistributive y·xu y·yu z·yu))
+              refl
 
-    j₂₀ : xz · xyu · (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
-          xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu)))
-    j₂₀ = subst (λ t → xz · xyu ·
-                       (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
-                       ≡
-                       xz · xyu ·
-                       (y·xu · t · (z · xu·yu · (y·xu · z·yu))))
-                (sym (rightDistributive y z (y · u)))
-                refl
+  j₂₀ : xz · xyu · (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
+        xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu)))
+  j₂₀ = subst (λ t → xz · xyu ·
+                     (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
+                     ≡
+                     xz · xyu ·
+                     (y·xu · t · (z · xu·yu · (y·xu · z·yu))))
+              (sym (rightDistributive y z (y · u)))
+              refl
 
-    j₂₁ : xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu))) ≡
-          xz · xyu · (y·xu · y·zu · (z · xu·yu · (y·xu · z·yu)))
-    j₂₁ = subst (λ t → xz · xyu ·
-                       (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu)))
-                       ≡
-                       xz · xyu ·
-                       (y·xu · t · (z · xu·yu · (y·xu · z·yu))))
-                (sym (leftDistributive y z u))
-                refl
+  j₂₁ : xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu))) ≡
+        xz · xyu · (y·xu · y·zu · (z · xu·yu · (y·xu · z·yu)))
+  j₂₁ = subst (λ t → xz · xyu ·
+                     (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu)))
+                     ≡
+                     xz · xyu ·
+                     (y·xu · t · (z · xu·yu · (y·xu · z·yu))))
+              (sym (leftDistributive y z u))
+              refl
 
-    j₂₂ : xz · xyu · (y·xu · y·zu · (z · xu·yu · (y·xu · z·yu))) ≡
-          xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))
-    j₂₂ = subst (λ t → xz · xyu ·
-                       (y·xu · y·zu · (z · xu·yu · (y·xu · z·yu)))
-                       ≡
-                       xz · xyu ·
-                       (t · (z · xu·yu · (y·xu · z·yu))))
-                (sym (leftDistributive y (x · u) (z · u)))
-                refl
+  j₂₂ : xz · xyu · (y·xu · y·zu · (z · xu·yu · (y·xu · z·yu))) ≡
+        xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))
+  j₂₂ = subst (λ t → xz · xyu ·
+                     (y·xu · y·zu · (z · xu·yu · (y·xu · z·yu)))
+                     ≡
+                     xz · xyu ·
+                     (t · (z · xu·yu · (y·xu · z·yu))))
+              (sym (leftDistributive y (x · u) (z · u)))
+              refl
 
-    j₂₃ : xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu))) ≡
-          xz · xyu · (y · xu·zu · (z·xu · z·yu · (y·xu · z·yu)))
-    j₂₃ = subst (λ t → xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu))) ≡
-                       xz · xyu · (y · xu·zu · (t · (y·xu · z·yu))))
-                (leftDistributive z (x · u) (y · u))
-                refl
+  j₂₃ : xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu))) ≡
+        xz · xyu · (y · xu·zu · (z·xu · z·yu · (y·xu · z·yu)))
+  j₂₃ = subst (λ t → xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu))) ≡
+                     xz · xyu · (y · xu·zu · (t · (y·xu · z·yu))))
+              (leftDistributive z (x · u) (y · u))
+              refl
 
-    j₂₄ : xz · xyu · (y · xu·zu · (z·xu · z·yu · (y·xu · z·yu))) ≡
-          (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))
-    j₂₄ = subst (λ t → xz · xyu · (y · xu·zu · (z·xu · z·yu · (y·xu · z·yu))) ≡
-                       xz · xyu · (y · xu·zu · t))
-                (sym (rightDistributive z·xu y·xu z·yu))
-                refl
+  j₂₄ : xz · xyu · (y · xu·zu · (z·xu · z·yu · (y·xu · z·yu))) ≡
+        (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))
+  j₂₄ = subst (λ t → xz · xyu · (y · xu·zu · (z·xu · z·yu · (y·xu · z·yu))) ≡
+                     xz · xyu · (y · xu·zu · t))
+              (sym (rightDistributive z·xu y·xu z·yu))
+              refl
 
-    j₂₅ : (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu)) ≡
-          xz · xyu · (y · xu·zu · (zy·xu · z·yu))
-    j₂₅ = subst (λ t → xz · xyu · (y · xu·zu · (z·xu · y·xu · z·yu)) ≡
-                       xz · xyu · (y · xu·zu · (t · z·yu)))
-                (sym (rightDistributive z y (x · u)))
-                refl
+  j₂₅ : (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu)) ≡
+        xz · xyu · (y · xu·zu · (zy·xu · z·yu))
+  j₂₅ = subst (λ t → xz · xyu · (y · xu·zu · (z·xu · y·xu · z·yu)) ≡
+                     xz · xyu · (y · xu·zu · (t · z·yu)))
+              (sym (rightDistributive z y (x · u)))
+              refl
 
-    j₂₆ : xz · xyu · (y · xu·zu · (zy·xu · z·yu)) ≡
-          xz · xyu · (y · xu·zu · (zy·xu · zy·zu))
-    j₂₆ = subst (λ t → xz · xyu · (y · xu·zu · (zy·xu · z·yu)) ≡
-                       xz · xyu · (y · xu·zu · (zy·xu · t)))
-                (leftDistributive z y u)
-                refl
+  j₂₆ : xz · xyu · (y · xu·zu · (zy·xu · z·yu)) ≡
+        xz · xyu · (y · xu·zu · (zy·xu · zy·zu))
+  j₂₆ = subst (λ t → xz · xyu · (y · xu·zu · (zy·xu · z·yu)) ≡
+                     xz · xyu · (y · xu·zu · (zy·xu · t)))
+              (leftDistributive z y u)
+              refl
 
-    j₂₇ : xz · xyu · (y · xu·zu · (zy·xu · zy·zu)) ≡
-          xz · xyu · (y · xu·zu · (zy · xu·zu))
-    j₂₇ = subst (λ t → xz · xyu · (y · xu·zu · (zy·xu · zy·zu)) ≡
-                       xz · xyu · (y · xu·zu · t))
-                (sym (leftDistributive (z · y) (x · u) (z · u)))
-                refl
+  j₂₇ : xz · xyu · (y · xu·zu · (zy·xu · zy·zu)) ≡
+        xz · xyu · (y · xu·zu · (zy · xu·zu))
+  j₂₇ = subst (λ t → xz · xyu · (y · xu·zu · (zy·xu · zy·zu)) ≡
+                     xz · xyu · (y · xu·zu · t))
+              (sym (leftDistributive (z · y) (x · u) (z · u)))
+              refl
 
-    j₂₈ : xz · xyu · (y · xu·zu · (zy · xu·zu)) ≡
-          xz · xyu · (y·zy · xu·zu)
-    j₂₈ = subst (λ t → xz · xyu · (y · xu·zu · (zy · xu·zu)) ≡ xz · xyu · t)
-                (sym (rightDistributive y zy xu·zu))
-                refl
+  j₂₈ : xz · xyu · (y · xu·zu · (zy · xu·zu)) ≡
+        xz · xyu · (y·zy · xu·zu)
+  j₂₈ = subst (λ t → xz · xyu · (y · xu·zu · (zy · xu·zu)) ≡ xz · xyu · t)
+              (sym (rightDistributive y zy xu·zu))
+              refl
 
-    j₂₉ : xz · xyu · (y·zy · xu·zu) ≡
-          xz · xyu · (y·zy · xzu)
-    j₂₉ = subst (λ t → xz · xyu · (y·zy · xu·zu) ≡ xz · xyu · (y·zy · t))
-                (sym (rightDistributive x z u))
-                refl
+  j₂₉ : xz · xyu · (y·zy · xu·zu) ≡
+        xz · xyu · (y·zy · xzu)
+  j₂₉ = subst (λ t → xz · xyu · (y·zy · xu·zu) ≡ xz · xyu · (y·zy · t))
+              (sym (rightDistributive x z u))
+              refl
 
-    j₃₀ : xz · xyu · (y·zy · xzu) ≡
-          xz·xy · xzu · (y·zy · xzu)
-    j₃₀ = subst (λ t → xz · xyu · (y·zy · xzu) ≡ t · (y·zy · xzu))
-                (leftDistributive xz (x · y) u)
-                refl
+  j₃₀ : xz · xyu · (y·zy · xzu) ≡
+        xz·xy · xzu · (y·zy · xzu)
+  j₃₀ = subst (λ t → xz · xyu · (y·zy · xzu) ≡ t · (y·zy · xzu))
+              (leftDistributive xz (x · y) u)
+              refl
 
-    j₃₁ : xz·xy · xzu · (y·zy · xzu) ≡
-          x·zy · xzu · (y·zy · xzu)
-    j₃₁ = subst (λ t → xz·xy · xzu · (y·zy · xzu) ≡ (t · xzu · (y·zy · xzu)))
-                (sym (leftDistributive x z y))
-                refl
+  j₃₁ : xz·xy · xzu · (y·zy · xzu) ≡
+        x·zy · xzu · (y·zy · xzu)
+  j₃₁ = subst (λ t → xz·xy · xzu · (y·zy · xzu) ≡ (t · xzu · (y·zy · xzu)))
+              (sym (leftDistributive x z y))
+              refl
 
-    j₃₂ : x·zy · xzu · (y·zy · xzu) ≡
-          x·zy · y·zy · xzu
-    j₃₂ = sym (rightDistributive x·zy y·zy xzu)
+  j₃₂ : x·zy · xzu · (y·zy · xzu) ≡
+        x·zy · y·zy · xzu
+  j₃₂ = sym (rightDistributive x·zy y·zy xzu)
 
-    j₃₃ : x·zy · y·zy · xzu ≡
-          xy·zy · xzu
-    j₃₃ = subst (λ t → x·zy · y·zy · xzu ≡ t · xzu)
-                (sym (rightDistributive x y zy))
-                refl
+  j₃₃ : x·zy · y·zy · xzu ≡
+        xy·zy · xzu
+  j₃₃ = subst (λ t → x·zy · y·zy · xzu ≡ t · xzu)
+              (sym (rightDistributive x y zy))
+              refl
 
-    j₃₄ : xy·zy · xzu ≡
-          xzy · xzu
-    j₃₄ = subst (λ t → xy·zy · xzu ≡ t · xzu)
-                (sym (rightDistributive x z y))
-                refl
+  j₃₄ : xy·zy · xzu ≡
+        xzy · xzu
+  j₃₄ = subst (λ t → xy·zy · xzu ≡ t · xzu)
+              (sym (rightDistributive x z y))
+              refl
 
-    j₃₅ : xzy · xzu ≡
-          xz·yu
-    j₃₅ = sym (leftDistributive xz y u)
+  j₃₅ : xzy · xzu ≡
+        xz·yu
+  j₃₅ = sym (leftDistributive xz y u)

@@ -32,15 +32,15 @@ div-x<y-helper {i} {j} Ni Nj i<j = sym
       ∎
     )
     where
-      prf₁ : j * div i j + i ≡ j * zero + i
-      prf₁ = subst (λ x → j * x + i ≡ j * zero + i)
-                   (sym $ div-x<y i<j)
-                   refl
+    prf₁ : j * div i j + i ≡ j * zero + i
+    prf₁ = subst (λ x → j * x + i ≡ j * zero + i)
+                 (sym $ div-x<y i<j)
+                 refl
 
-      prf₂ : j * zero + i ≡ zero + i
-      prf₂ = subst (λ x → x + i ≡ zero + i)
-                   (sym $ *-rightZero Nj)
-                   refl
+    prf₂ : j * zero + i ≡ zero + i
+    prf₂ = subst (λ x → x + i ≡ zero + i)
+                 (sym $ *-rightZero Nj)
+                 refl
 
 div-x<y-correct : ∀ {i j} → N i → N j → LT i j →
                   ∃ λ r → N r ∧ LT r j ∧ i ≡ j * div i j + r
@@ -70,10 +70,10 @@ div-x≮y-helper {i} {j} {r} Ni Nj Nr i≮j helperH =
     j * div i j + r
   ∎
   where
-    prf : j * succ (div (i ∸ j) j) + r ≡ j * div i j + r
-    prf = subst (λ x → j * x + r ≡ j * div i j + r)
-                (div-x≮y i≮j)
-                refl
+  prf : j * succ (div (i ∸ j) j) + r ≡ j * div i j + r
+  prf = subst (λ x → j * x + r ≡ j * div i j + r)
+              (div-x≮y i≮j)
+              refl
 
 div-x≮y-correct : ∀ {i j} → N i → N j →
                   (ih : DIV (i ∸ j) j (div (i ∸ j) j)) →
@@ -83,18 +83,18 @@ div-x≮y-correct {i} {j} Ni Nj ih i≮j =
   r , Nr , r<j , div-x≮y-helper Ni Nj Nr i≮j helperH
 
   where
-    -- The parts of the inductive hypothesis ih.
-    r : D
-    r = ∃-proj₁ (∧-proj₂ ih)
+  -- The parts of the inductive hypothesis ih.
+  r : D
+  r = ∃-proj₁ (∧-proj₂ ih)
 
-    r-correct : N r ∧ LT r j ∧ i ∸ j ≡ j * div (i ∸ j) j + r
-    r-correct = ∃-proj₂ (∧-proj₂ ih)
+  r-correct : N r ∧ LT r j ∧ i ∸ j ≡ j * div (i ∸ j) j + r
+  r-correct = ∃-proj₂ (∧-proj₂ ih)
 
-    Nr : N r
-    Nr = ∧-proj₁ r-correct
+  Nr : N r
+  Nr = ∧-proj₁ r-correct
 
-    r<j : LT r j
-    r<j = ∧-proj₁ (∧-proj₂ r-correct)
+  r<j : LT r j
+  r<j = ∧-proj₁ (∧-proj₂ r-correct)
 
-    helperH : i ∸ j ≡ j * div (i ∸ j) j + r
-    helperH = ∧-proj₂ (∧-proj₂ r-correct)
+  helperH : i ∸ j ≡ j * div (i ∸ j) j + r
+  helperH = ∧-proj₂ (∧-proj₂ r-correct)

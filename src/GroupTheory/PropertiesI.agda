@@ -146,28 +146,28 @@ rightInverseUnique {x} =
 -- 2.4  x⁻¹  = r  (Left cancellation).
   (x ⁻¹) , rightInverse x , prf
     where
-      prf : ∀ r' → x · r' ≡ ε → x ⁻¹ ≡ r'
-      prf r' xr'≡ε = leftCancellation xx⁻¹≡xr'
-        where
-          xx⁻¹≡xr' :  x · x ⁻¹ ≡ x · r'
-          xx⁻¹≡xr' =
-            begin
-              x · x ⁻¹ ≡⟨ rightInverse x ⟩
-              ε        ≡⟨ sym xr'≡ε ⟩
-              x · r'
-            ∎
+    prf : ∀ r' → x · r' ≡ ε → x ⁻¹ ≡ r'
+    prf r' xr'≡ε = leftCancellation xx⁻¹≡xr'
+      where
+      xx⁻¹≡xr' :  x · x ⁻¹ ≡ x · r'
+      xx⁻¹≡xr' =
+        begin
+          x · x ⁻¹ ≡⟨ rightInverse x ⟩
+          ε        ≡⟨ sym xr'≡ε ⟩
+          x · r'
+        ∎
 
 -- A more appropiate version to be used in the proofs.
 rightInverseUnique' : ∀ {x r} → x · r ≡ ε → x ⁻¹ ≡ r
 rightInverseUnique' {x} {r} xr≡ε = leftCancellation xx⁻¹≡xr
   where
-    xx⁻¹≡xr :  x · x ⁻¹ ≡ x · r
-    xx⁻¹≡xr =
-      begin
-        x · x ⁻¹ ≡⟨ rightInverse x ⟩
-        ε        ≡⟨ sym xr≡ε ⟩
-        x · r
-      ∎
+  xx⁻¹≡xr :  x · x ⁻¹ ≡ x · r
+  xx⁻¹≡xr =
+    begin
+      x · x ⁻¹ ≡⟨ rightInverse x ⟩
+      ε        ≡⟨ sym xr≡ε ⟩
+      x · r
+    ∎
 
 leftInverseUnique : ∀ {x} → ∃ λ l → (l · x ≡ ε) ∧
                                     (∀ l' → l' · x ≡ ε → l ≡ l')
@@ -181,28 +181,28 @@ leftInverseUnique {x} =
 -- 2.4  x⁻¹  = l  (Right cancellation).
   (x ⁻¹) , leftInverse x , prf
     where
-      prf : ∀ l' → l' · x ≡ ε → x ⁻¹ ≡ l'
-      prf l' l'x≡ε = rightCancellation x⁻¹x≡l'x
-        where
-          x⁻¹x≡l'x : x ⁻¹ · x ≡ l' · x
-          x⁻¹x≡l'x =
-            begin
-              x ⁻¹ · x ≡⟨ leftInverse x ⟩
-              ε        ≡⟨ sym l'x≡ε ⟩
-              l' · x
-            ∎
+    prf : ∀ l' → l' · x ≡ ε → x ⁻¹ ≡ l'
+    prf l' l'x≡ε = rightCancellation x⁻¹x≡l'x
+      where
+      x⁻¹x≡l'x : x ⁻¹ · x ≡ l' · x
+      x⁻¹x≡l'x =
+        begin
+          x ⁻¹ · x ≡⟨ leftInverse x ⟩
+          ε        ≡⟨ sym l'x≡ε ⟩
+          l' · x
+        ∎
 
 -- A more appropiate version to be used in the proofs.
 leftInverseUnique' : ∀ {x l} → l · x ≡ ε → x ⁻¹ ≡ l
 leftInverseUnique' {x} {l} lx≡ε = rightCancellation x⁻¹x≡lx
   where
-    x⁻¹x≡lx : x ⁻¹ · x ≡ l · x
-    x⁻¹x≡lx =
-      begin
-        x ⁻¹ · x ≡⟨ leftInverse x ⟩
-        ε        ≡⟨ sym lx≡ε ⟩
-        l · x
-      ∎
+  x⁻¹x≡lx : x ⁻¹ · x ≡ l · x
+  x⁻¹x≡lx =
+    begin
+      x ⁻¹ · x ≡⟨ leftInverse x ⟩
+      ε        ≡⟨ sym lx≡ε ⟩
+      l · x
+    ∎
 
 ⁻¹-involutive : ∀ x → x ⁻¹ ⁻¹ ≡ x
 -- Paper proof:
@@ -228,27 +228,27 @@ inverseDistribution : ∀ x y → (x · y) ⁻¹ ≡ y ⁻¹ · x ⁻¹
 -- Therefore, y⁻¹x⁻¹ is the unique left inverse of xy.
 inverseDistribution x y = leftInverseUnique' y⁻¹x⁻¹[xy]≡ε
   where
-    y⁻¹x⁻¹[xy]≡ε : y ⁻¹ · x ⁻¹ · (x · y) ≡ ε
-    y⁻¹x⁻¹[xy]≡ε =
-        begin
-          y ⁻¹ · x ⁻¹ · (x · y)   ≡⟨ assoc (y ⁻¹) (x ⁻¹) (x · y) ⟩
-          y ⁻¹ · (x ⁻¹ · (x · y)) ≡⟨ subst (λ t → y ⁻¹ · (x ⁻¹ · (x · y)) ≡
-                                                  y ⁻¹ · t)
-                                           (sym (assoc (x ⁻¹) x y))
-                                           refl
-                                  ⟩
-          y ⁻¹ · (x ⁻¹ · x · y)   ≡⟨ subst (λ t → y ⁻¹ · (x ⁻¹ · x · y) ≡
-                                                  y ⁻¹ · (t · y))
-                                           (leftInverse x)
-                                           refl
-                                  ⟩
-          y ⁻¹ · (ε · y)          ≡⟨ subst (λ t → y ⁻¹ · (ε · y) ≡ y ⁻¹ · t)
-                                           (leftIdentity y)
-                                           refl
-                                  ⟩
-          y ⁻¹ · y                ≡⟨ leftInverse y ⟩
-          ε
-        ∎
+  y⁻¹x⁻¹[xy]≡ε : y ⁻¹ · x ⁻¹ · (x · y) ≡ ε
+  y⁻¹x⁻¹[xy]≡ε =
+      begin
+        y ⁻¹ · x ⁻¹ · (x · y)   ≡⟨ assoc (y ⁻¹) (x ⁻¹) (x · y) ⟩
+        y ⁻¹ · (x ⁻¹ · (x · y)) ≡⟨ subst (λ t → y ⁻¹ · (x ⁻¹ · (x · y)) ≡
+                                                y ⁻¹ · t)
+                                         (sym (assoc (x ⁻¹) x y))
+                                         refl
+                                ⟩
+        y ⁻¹ · (x ⁻¹ · x · y)   ≡⟨ subst (λ t → y ⁻¹ · (x ⁻¹ · x · y) ≡
+                                                y ⁻¹ · (t · y))
+                                         (leftInverse x)
+                                         refl
+                                ⟩
+        y ⁻¹ · (ε · y)          ≡⟨ subst (λ t → y ⁻¹ · (ε · y) ≡ y ⁻¹ · t)
+                                         (leftIdentity y)
+                                         refl
+                                ⟩
+        y ⁻¹ · y                ≡⟨ leftInverse y ⟩
+        ε
+      ∎
 
 -- If the square of every element is the identity, the system is commutative.
 -- From: TPTP (v5.0.0). File: Problems/GRP/GRP001-2.p
@@ -264,43 +264,43 @@ x²≡ε→comm : (∀ a → a · a ≡ ε) → ∀ {b c d} → b · c ≡ d →
 -- 6. d      = cb  (Hypothesis bb = ε).
 x²≡ε→comm hyp {b} {c} {d} bc≡d = sym d≡cb
   where
-    db≡c : d · b ≡ c
-    db≡c =
-      begin
-        d · b            ≡⟨ sym (rightIdentity (d · b)) ⟩
-        d · b · ε        ≡⟨ subst (λ t → d · b · ε ≡ d · b · t)
-                                  (sym (hyp c))
-                                  refl
-                          ⟩
-        d · b · (c · c)   ≡⟨ assoc d b (c · c) ⟩
-        d · (b · (c · c)) ≡⟨ subst (λ t → d · (b · (c · c)) ≡ d · t)
-                                   (sym (assoc b c c))
-                                   refl
-                          ⟩
-        d · ((b · c) · c) ≡⟨ subst (λ t → d · ((b · c) · c) ≡ d · t)
-                                   (subst (λ t → (b · c) · c ≡ t · c )
-                                          bc≡d
-                                          refl
-                                   )
-                                   refl
-                          ⟩
-        d · (d · c)       ≡⟨ sym (assoc d d c) ⟩
-        d · d · c         ≡⟨ subst (λ t → d · d · c ≡ t · c )
-                                   (hyp d)
-                                   refl
-                          ⟩
-        ε · c             ≡⟨ leftIdentity c ⟩
-        c
-      ∎
+  db≡c : d · b ≡ c
+  db≡c =
+    begin
+      d · b            ≡⟨ sym (rightIdentity (d · b)) ⟩
+      d · b · ε        ≡⟨ subst (λ t → d · b · ε ≡ d · b · t)
+                                (sym (hyp c))
+                                refl
+                        ⟩
+      d · b · (c · c)   ≡⟨ assoc d b (c · c) ⟩
+      d · (b · (c · c)) ≡⟨ subst (λ t → d · (b · (c · c)) ≡ d · t)
+                                 (sym (assoc b c c))
+                                 refl
+                        ⟩
+      d · ((b · c) · c) ≡⟨ subst (λ t → d · ((b · c) · c) ≡ d · t)
+                                 (subst (λ t → (b · c) · c ≡ t · c )
+                                        bc≡d
+                                        refl
+                                 )
+                                 refl
+                        ⟩
+      d · (d · c)       ≡⟨ sym (assoc d d c) ⟩
+      d · d · c         ≡⟨ subst (λ t → d · d · c ≡ t · c )
+                                 (hyp d)
+                                 refl
+                        ⟩
+      ε · c             ≡⟨ leftIdentity c ⟩
+      c
+    ∎
 
-    d≡cb : d ≡ c · b
-    d≡cb =
-      begin
-        d           ≡⟨ sym (rightIdentity d) ⟩
-        d · ε       ≡⟨ subst (λ t → d · ε ≡ d · t)
-                             (sym (hyp b))
-                             refl ⟩
-        d · (b · b) ≡⟨ sym (assoc d b b) ⟩
-        d · b · b   ≡⟨ x≡y→xz≡yz db≡c ⟩
-        c · b
-      ∎
+  d≡cb : d ≡ c · b
+  d≡cb =
+    begin
+      d           ≡⟨ sym (rightIdentity d) ⟩
+      d · ε       ≡⟨ subst (λ t → d · ε ≡ d · t)
+                           (sym (hyp b))
+                           refl ⟩
+      d · (b · b) ≡⟨ sym (assoc d b b) ⟩
+      d · b · b   ≡⟨ x≡y→xz≡yz db≡c ⟩
+      c · b
+    ∎

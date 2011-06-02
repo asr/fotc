@@ -31,12 +31,10 @@ open import FOTC.Program.SortList.SortList
         (&&-Bool (≤-Bool Nitem Ni) (≤-ItemList-Bool Nitem Lis))
 
 -- See the ATP version.
-postulate
-  ≤-Lists-Bool : ∀ {is js} → ListN is → ListN js → Bool (≤-Lists is js)
+postulate ≤-Lists-Bool : ∀ {is js} → ListN is → ListN js → Bool (≤-Lists is js)
 
 -- See the ATP version.
-postulate
-  ordList-Bool : ∀ {is} → ListN is → Bool (ordList is)
+postulate ordList-Bool : ∀ {is} → ListN is → Bool (ordList is)
 
 ≤-ItemTree-Bool : ∀ {item t} → N item → Tree t →
                   Bool (≤-ItemTree item t)

@@ -24,19 +24,19 @@ x∷xs<y∷ys→xs<ys : ∀ {x xs y ys} → List xs → List ys →
                   LTL (x ∷ xs) (y ∷ ys) → LTL xs ys
 x∷xs<y∷ys→xs<ys {x} {xs} {y} {ys} Lxs Lys x∷xs<y∷ys = Nat.Sx<Sy→x<y helper
   where
-    helper : LT (succ (length xs)) (succ (length ys))
-    helper =
-        begin
-          succ (length xs) < succ (length ys)
-            ≡⟨ subst₂ (λ t₁ t₂ → succ (length xs) < succ (length ys) ≡ t₁ < t₂)
-                      (sym (length-∷ x xs))
-                      (sym (length-∷ y ys))
-                      refl
-            ⟩
-          length (x ∷ xs) < length (y ∷ ys)
-            ≡⟨ x∷xs<y∷ys ⟩
-          true
-        ∎
+  helper : LT (succ (length xs)) (succ (length ys))
+  helper =
+    begin
+      succ (length xs) < succ (length ys)
+        ≡⟨ subst₂ (λ t₁ t₂ → succ (length xs) < succ (length ys) ≡ t₁ < t₂)
+                  (sym (length-∷ x xs))
+                  (sym (length-∷ y ys))
+                  refl
+        ⟩
+      length (x ∷ xs) < length (y ∷ ys)
+        ≡⟨ x∷xs<y∷ys ⟩
+      true
+    ∎
 
 <-trans : ∀ {xs ys zs} → List xs → List ys → List zs →
           LTL xs ys → LTL ys zs → LTL xs zs
@@ -64,15 +64,15 @@ xs<y∷ys→xs<ys∨lg-xs≡lg-ys : ∀ {xs y ys} → List xs → List ys →
 xs<y∷ys→xs<ys∨lg-xs≡lg-ys {xs} {y} {ys} Lxs Lys xs<y∷ys =
   Nat.x<Sy→x<y∨x≡y (length-N Lxs) (length-N Lys) helper
   where
-    helper : LT (length xs) (succ (length ys))
-    helper =
-      begin
-        length xs < succ (length ys)
-          ≡⟨ subst (λ t → length xs < succ (length ys) ≡ length xs < t)
-                   (sym (length-∷ y ys))
-                   refl
-          ⟩
-        length xs < length (y ∷ ys)
-          ≡⟨ xs<y∷ys ⟩
-        true
-      ∎
+  helper : LT (length xs) (succ (length ys))
+  helper =
+    begin
+      length xs < succ (length ys)
+        ≡⟨ subst (λ t → length xs < succ (length ys) ≡ length xs < t)
+                 (sym (length-∷ y ys))
+                 refl
+        ⟩
+      length xs < length (y ∷ ys)
+        ≡⟨ xs<y∷ys ⟩
+      true
+    ∎

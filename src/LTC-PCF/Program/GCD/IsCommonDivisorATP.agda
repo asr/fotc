@@ -87,11 +87,11 @@ gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
     (x>y→x∸y+y≡x (sN Nm) (sN Nn) Sm>Sn)
 
   where
-    Sm-Sn-N : N (succ m ∸ succ n)
-    Sm-Sn-N = ∸-N (sN Nm) (sN Nn)
+  Sm-Sn-N : N (succ m ∸ succ n)
+  Sm-Sn-N = ∸-N (sN Nm) (sN Nn)
 
-    gcd-Sm-Sn,Sn-N : N (gcd (succ m ∸ succ n) (succ n))
-    gcd-Sm-Sn,Sn-N = gcd-N Sm-Sn-N (sN Nn) (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
+  gcd-Sm-Sn,Sn-N : N (gcd (succ m ∸ succ n) (succ n))
+  gcd-Sm-Sn,Sn-N = gcd-N Sm-Sn-N (sN Nn) (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
 
 ------------------------------------------------------------------------------
 -- Some case of the gcd-∣₂
@@ -143,11 +143,11 @@ gcd-S≯S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≯Sn =
     (x≤y→y∸x+x≡y (sN Nm) (sN Nn) (x≯y→x≤y (sN Nm) (sN Nn) Sm≯Sn))
 
   where
-    Sn-Sm-N : N (succ n ∸ succ m)
-    Sn-Sm-N = ∸-N (sN Nn) (sN Nm)
+  Sn-Sm-N : N (succ n ∸ succ m)
+  Sn-Sm-N = ∸-N (sN Nn) (sN Nm)
 
-    gcd-Sm,Sn-Sm-N : N (gcd (succ m) (succ n ∸ succ m))
-    gcd-Sm,Sn-Sm-N = gcd-N (sN Nm) (Sn-Sm-N) (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
+  gcd-Sm,Sn-Sm-N : N (gcd (succ m) (succ n ∸ succ m))
+  gcd-Sm,Sn-Sm-N = gcd-N (sN Nm) (Sn-Sm-N) (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 
 -- gcd (succ m) (succ n) ∣ succ n when succ m > succ n.
 postulate
@@ -179,11 +179,11 @@ gcd-S>S-CD :
 gcd-S>S-CD {m} {n} Nm Nn acc Sm>Sn =
    (gcd-S>S-∣₁ Nm Nn acc-∣₁ acc-∣₂ Sm>Sn , gcd-S>S-∣₂ Nm Nn acc-∣₂ Sm>Sn)
   where
-    acc-∣₁ : gcd (succ m ∸ succ n) (succ n) ∣ (succ m ∸ succ n)
-    acc-∣₁ = ∧-proj₁ acc
+  acc-∣₁ : gcd (succ m ∸ succ n) (succ n) ∣ (succ m ∸ succ n)
+  acc-∣₁ = ∧-proj₁ acc
 
-    acc-∣₂ : gcd (succ m ∸ succ n) (succ n) ∣ succ n
-    acc-∣₂ = ∧-proj₂ acc
+  acc-∣₂ : gcd (succ m ∸ succ n) (succ n) ∣ succ n
+  acc-∣₂ = ∧-proj₂ acc
 
 -- The gcd (succ m) (succ n) when succ m ≯ succ n is CD.
 gcd-S≯S-CD :
@@ -194,11 +194,11 @@ gcd-S≯S-CD :
 gcd-S≯S-CD {m} {n} Nm Nn acc Sm≯Sn =
   (gcd-S≯S-∣₁ Nm Nn acc-∣₁ Sm≯Sn , gcd-S≯S-∣₂ Nm Nn acc-∣₂ acc-∣₁ Sm≯Sn)
   where
-    acc-∣₁ : gcd (succ m) (succ n ∸ succ m) ∣ succ m
-    acc-∣₁ = ∧-proj₁ acc
+  acc-∣₁ : gcd (succ m) (succ n ∸ succ m) ∣ succ m
+  acc-∣₁ = ∧-proj₁ acc
 
-    acc-∣₂ : gcd (succ m) (succ n ∸ succ m) ∣ (succ n ∸ succ m)
-    acc-∣₂ = ∧-proj₂ acc
+  acc-∣₂ : gcd (succ m) (succ n ∸ succ m) ∣ (succ n ∸ succ m)
+  acc-∣₂ = ∧-proj₂ acc
 
 -- The gcd m n when m > n is CD.
 gcd-x>y-CD :
@@ -213,14 +213,14 @@ gcd-x>y-CD (sN Nm) zN _ _  _    = gcd-S0-CD Nm
 gcd-x>y-CD (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _  =
   gcd-S>S-CD Nm Nn ih Sm>Sn
   where
-    -- Inductive hypothesis.
-    ih : CD (succ m ∸ succ n) (succ n) (gcd (succ m ∸ succ n) (succ n))
-    ih  = accH {succ m ∸ succ n}
-               {succ n}
-               (∸-N (sN Nm) (sN Nn))
-               (sN Nn)
-               ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
-               (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
+  -- Inductive hypothesis.
+  ih : CD (succ m ∸ succ n) (succ n) (gcd (succ m ∸ succ n) (succ n))
+  ih  = accH {succ m ∸ succ n}
+             {succ n}
+             (∸-N (sN Nm) (sN Nn))
+             (sN Nn)
+             ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
+             (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
 
 -- The gcd m n when m ≯ n is CD.
 gcd-x≯y-CD :
@@ -236,25 +236,25 @@ gcd-x≯y-CD (sN {m} Nm) zN _ Sm≯0 _ =
 gcd-x≯y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ =
   gcd-S≯S-CD Nm Nn ih Sm≯Sn
   where
-    -- Inductive hypothesis.
-    ih : CD (succ m) (succ n ∸ succ m)  (gcd (succ m) (succ n ∸ succ m))
-    ih = accH {succ m}
-              {succ n ∸ succ m}
-              (sN Nm)
-              (∸-N (sN Nn) (sN Nm))
-              ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
-              (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
+  -- Inductive hypothesis.
+  ih : CD (succ m) (succ n ∸ succ m)  (gcd (succ m) (succ n ∸ succ m))
+  ih = accH {succ m}
+            {succ n ∸ succ m}
+            (sN Nm)
+            (∸-N (sN Nn) (sN Nm))
+            ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
+            (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 
 -- The gcd is CD.
 gcd-CD : ∀ {m n} → N m → N n → x≠0≠y m n → CD m n (gcd m n)
 gcd-CD = wfInd-LT₂ P istep
   where
-    P : D → D → Set
-    P i j = x≠0≠y i j → CD i j (gcd i j)
+  P : D → D → Set
+  P i j = x≠0≠y i j → CD i j (gcd i j)
 
-    istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → P k l) →
-            P i j
-    istep Ni Nj accH =
-      [ gcd-x>y-CD Ni Nj accH
-      , gcd-x≯y-CD Ni Nj accH
-      ] (x>y∨x≯y Ni Nj)
+  istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → P k l) →
+          P i j
+  istep Ni Nj accH =
+    [ gcd-x>y-CD Ni Nj accH
+    , gcd-x≯y-CD Ni Nj accH
+    ] (x>y∨x≯y Ni Nj)

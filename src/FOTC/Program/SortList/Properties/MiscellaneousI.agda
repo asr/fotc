@@ -63,24 +63,24 @@ x≤ys++zs→x≤zs {i} {ks = ks} Ni nilLN LNks  i≤[]++ks =
 x≤ys++zs→x≤zs {i} {ks = ks} Ni (consLN {j} {js} Nj LNjs) LNks i≤j∷js++ks =
   x≤ys++zs→x≤zs Ni LNjs LNks lemma₂
   where
-    lemma₁ : i ≤ j && ≤-ItemList i (js ++ ks) ≡ true
-    lemma₁ =
-      begin
-        i ≤ j && ≤-ItemList i (js ++ ks)
-          ≡⟨ sym (≤-ItemList-∷ i j (js ++ ks)) ⟩
-        ≤-ItemList i (j ∷ (js ++ ks))
-          ≡⟨ subst (λ t → ≤-ItemList i (j ∷ (js ++ ks)) ≡ ≤-ItemList i t )
-                   (sym (++-∷ j js ks))
-                   refl
-          ⟩
-        ≤-ItemList i ((j ∷ js) ++ ks) ≡⟨ i≤j∷js++ks ⟩
-        true
-      ∎
+  lemma₁ : i ≤ j && ≤-ItemList i (js ++ ks) ≡ true
+  lemma₁ =
+    begin
+      i ≤ j && ≤-ItemList i (js ++ ks)
+        ≡⟨ sym (≤-ItemList-∷ i j (js ++ ks)) ⟩
+      ≤-ItemList i (j ∷ (js ++ ks))
+        ≡⟨ subst (λ t → ≤-ItemList i (j ∷ (js ++ ks)) ≡ ≤-ItemList i t )
+                 (sym (++-∷ j js ks))
+                 refl
+        ⟩
+      ≤-ItemList i ((j ∷ js) ++ ks) ≡⟨ i≤j∷js++ks ⟩
+      true
+    ∎
 
-    lemma₂ : LE-ItemList i (js ++ ks)
-    lemma₂ = &&-proj₂ (≤-Bool Ni Nj)
-                      (≤-ItemList-Bool Ni (++-ListN LNjs LNks))
-                      lemma₁
+  lemma₂ : LE-ItemList i (js ++ ks)
+  lemma₂ = &&-proj₂ (≤-Bool Ni Nj)
+                    (≤-ItemList-Bool Ni (++-ListN LNjs LNks))
+                    lemma₁
 
 xs++ys-OrdList→xs≤ys : ∀ {is js} → ListN is → ListN js →
                        OrdList (is ++ js) → LE-Lists is js
@@ -105,24 +105,24 @@ xs++ys-OrdList→xs≤ys {js = js} (consLN {i} {is} Ni LNis) LNjs OLis++js =
     true
   ∎
   where
-    lemma₀ : ≤-ItemList i (is ++ js) && ordList (is ++ js) ≡ true
-    lemma₀ = trans (sym (ordList-∷ i (is ++ js)))
-                   (trans (subst (λ t → ordList (i ∷ is ++ js) ≡ ordList t)
-                                 (sym (++-∷ i is js))
-                                 refl)
-                   OLis++js)
+  lemma₀ : ≤-ItemList i (is ++ js) && ordList (is ++ js) ≡ true
+  lemma₀ = trans (sym (ordList-∷ i (is ++ js)))
+                 (trans (subst (λ t → ordList (i ∷ is ++ js) ≡ ordList t)
+                               (sym (++-∷ i is js))
+                               refl)
+                 OLis++js)
 
-    helper₁ : Bool (≤-ItemList i (is ++ js))
-    helper₁ = ≤-ItemList-Bool Ni (++-ListN LNis LNjs)
+  helper₁ : Bool (≤-ItemList i (is ++ js))
+  helper₁ = ≤-ItemList-Bool Ni (++-ListN LNis LNjs)
 
-    helper₂ : Bool (ordList (is ++ js))
-    helper₂ = ordList-Bool (++-ListN LNis LNjs)
+  helper₂ : Bool (ordList (is ++ js))
+  helper₂ = ordList-Bool (++-ListN LNis LNjs)
 
-    lemma₁ : ≤-ItemList i (is ++ js) ≡ true
-    lemma₁ = &&-proj₁ helper₁ helper₂ lemma₀
+  lemma₁ : ≤-ItemList i (is ++ js) ≡ true
+  lemma₁ = &&-proj₁ helper₁ helper₂ lemma₀
 
-    lemma₂ : ordList (is ++ js) ≡ true
-    lemma₂ = &&-proj₂ helper₁ helper₂ lemma₀
+  lemma₂ : ordList (is ++ js) ≡ true
+  lemma₂ = &&-proj₂ helper₁ helper₂ lemma₀
 
 x≤ys→x≤zs→x≤ys++zs : ∀ {i js ks} → N i → ListN js → ListN ks →
                      LE-ItemList i js →
@@ -154,14 +154,14 @@ x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni (consLN {j} {js} Nj LNjs) LNks i�
     true
   ∎
   where
-    helper₁ : Bool (i ≤ j)
-    helper₁ = ≤-Bool Ni Nj
+  helper₁ : Bool (i ≤ j)
+  helper₁ = ≤-Bool Ni Nj
 
-    helper₂ : Bool (≤-ItemList i js)
-    helper₂ = ≤-ItemList-Bool Ni LNjs
+  helper₂ : Bool (≤-ItemList i js)
+  helper₂ = ≤-ItemList-Bool Ni LNjs
 
-    helper₃ : i ≤ j && (≤-ItemList i js) ≡ true
-    helper₃ = trans (sym (≤-ItemList-∷ i j js)) i≤j∷js
+  helper₃ : i ≤ j && (≤-ItemList i js) ≡ true
+  helper₃ = trans (sym (≤-ItemList-∷ i j js)) i≤j∷js
 
 xs≤ys→xs≤zs→xs≤ys++zs : ∀ {is js ks} → ListN is → ListN js → ListN ks →
                         LE-Lists is js →
@@ -194,13 +194,13 @@ xs≤ys→xs≤zs→xs≤ys++zs {js = js} {ks} (consLN {i} {is} Ni LNis)
     true
   ∎
   where
-    helper₁ = ≤-ItemList-Bool Ni LNjs
-    helper₂ = ≤-Lists-Bool LNis LNjs
-    helper₃ = trans (sym (≤-Lists-∷ i is js)) i∷is≤js
+  helper₁ = ≤-ItemList-Bool Ni LNjs
+  helper₂ = ≤-Lists-Bool LNis LNjs
+  helper₃ = trans (sym (≤-Lists-∷ i is js)) i∷is≤js
 
-    helper₄ = ≤-ItemList-Bool Ni LNks
-    helper₅ = ≤-Lists-Bool LNis LNks
-    helper₆ = trans (sym (≤-Lists-∷ i is ks)) i∷is≤ks
+  helper₄ = ≤-ItemList-Bool Ni LNks
+  helper₅ = ≤-Lists-Bool LNis LNks
+  helper₆ = trans (sym (≤-Lists-∷ i is ks)) i∷is≤ks
 
 xs≤zs→ys≤zs→xs++ys≤zs : ∀ {is js ks} → ListN is → ListN js → ListN ks →
                         LE-Lists is ks →
@@ -231,16 +231,16 @@ xs≤zs→ys≤zs→xs++ys≤zs {js = js} {ks}
     true
   ∎
   where
-    helper₁ = ≤-ItemList-Bool Ni LNks
-    helper₂ = ≤-Lists-Bool LNis LNks
-    helper₃ = trans (sym (≤-Lists-∷ i is ks)) i∷is≤ks
+  helper₁ = ≤-ItemList-Bool Ni LNks
+  helper₂ = ≤-Lists-Bool LNis LNks
+  helper₃ = trans (sym (≤-Lists-∷ i is ks)) i∷is≤ks
 
-    LE-ItemList-i-ks : LE-ItemList i ks
-    LE-ItemList-i-ks = &&-proj₁ helper₁ helper₂ helper₃
+  LE-ItemList-i-ks : LE-ItemList i ks
+  LE-ItemList-i-ks = &&-proj₁ helper₁ helper₂ helper₃
 
-    -- IH.
-    LE-Lists-is++js-ks : LE-Lists (is ++ js) ks
-    LE-Lists-is++js-ks =
-      xs≤zs→ys≤zs→xs++ys≤zs LNis LNjs LNks
-                            (&&-proj₂ helper₁ helper₂ helper₃)
-                            js≤ks
+  -- IH.
+  LE-Lists-is++js-ks : LE-Lists (is ++ js) ks
+  LE-Lists-is++js-ks =
+    xs≤zs→ys≤zs→xs++ys≤zs LNis LNjs LNks
+                          (&&-proj₂ helper₁ helper₂ helper₃)
+                          js≤ks

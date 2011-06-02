@@ -26,8 +26,7 @@ postulate
 -- The PA equality.
 -- N.B. The symbol _≡_ should not be used because it is hard-coded by
 -- the tool agda2atp as the ATPs equality.
-postulate
-  _≣_ : ℕ → ℕ → Set
+postulate _≣_ : ℕ → ℕ → Set
 
 -- Proper axioms
 -- (From Elliott Mendelson. Introduction to mathematical
@@ -45,20 +44,16 @@ postulate
 -- S₈. succ m * n = (m * n) + m
 -- S₉. P(0) → (∀n.P(n) → P(succ n)) → ∀n.P(n), for any wf P(n) of PA.
 
-postulate
-  S₁ : ∀ {m n o} → m ≣ n → m ≣ o → n ≣ o
+postulate S₁ : ∀ {m n o} → m ≣ n → m ≣ o → n ≣ o
 {-# ATP axiom S₁ #-}
 
-postulate
-  S₂ : ∀ {m n} → m ≣ n → succ m ≣ succ n
+postulate S₂ : ∀ {m n} → m ≣ n → succ m ≣ succ n
 {-# ATP axiom S₂ #-}
 
-postulate
-  S₃ : ∀ {n} → ¬ (zero ≣ succ n)
+postulate S₃ : ∀ {n} → ¬ (zero ≣ succ n)
 {-# ATP axiom S₃ #-}
 
-postulate
-  S₄ : ∀ {m n} → succ m ≣ succ n → m ≣ n
+postulate S₄ : ∀ {m n} → succ m ≣ succ n → m ≣ n
 {-# ATP axiom S₄ #-}
 
 postulate
@@ -73,7 +68,6 @@ postulate
 {-# ATP axiom S₇ #-}
 {-# ATP axiom S₈ #-}
 
-postulate
-  -- The axiom S₉ is a higher-order one, therefore we do not translate it
-  -- as an ATP axiom.
-  S₉ : (P : ℕ → Set) → P zero → (∀ n → P n → P (succ n)) → ∀ n → P n
+-- The axiom S₉ is a higher-order one, therefore we do not translate
+-- it as an ATP axiom.
+postulate S₉ : (P : ℕ → Set) → P zero → (∀ n → P n → P (succ n)) → ∀ n → P n

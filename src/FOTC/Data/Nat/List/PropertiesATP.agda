@@ -18,11 +18,11 @@ open import FOTC.Data.List using ( _++_ )
 ++-ListN : ∀ {ds es} → ListN ds → ListN es → ListN (ds ++ es)
 ++-ListN {es = es} nilLN esL = prf
   where
-    postulate prf : ListN ([] ++ es)
-    {-# ATP prove prf #-}
+  postulate prf : ListN ([] ++ es)
+  {-# ATP prove prf #-}
 
 ++-ListN {es = es} (consLN {d} {ds} Nd LNds) LNes = prf $ ++-ListN LNds LNes
   where
-    postulate prf : ListN (ds ++ es) →  -- IH.
-                    ListN ((d ∷ ds) ++ es)
-    {-# ATP prove prf #-}
+  postulate prf : ListN (ds ++ es) →  -- IH.
+                  ListN ((d ∷ ds) ++ es)
+  {-# ATP prove prf #-}

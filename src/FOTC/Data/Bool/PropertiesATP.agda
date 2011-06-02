@@ -23,21 +23,17 @@ open import FOTC.Data.Nat.Type
 
 &&-Bool : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → Bool (b₁ && b₂)
 &&-Bool tB tB = prf
-  where
-    postulate prf : Bool (true && true)
-    {-# ATP prove prf #-}
+  where postulate prf : Bool (true && true)
+        {-# ATP prove prf #-}
 &&-Bool tB fB = prf
-  where
-    postulate prf : Bool (true && false)
-    {-# ATP prove prf #-}
+  where postulate prf : Bool (true && false)
+        {-# ATP prove prf #-}
 &&-Bool fB tB = prf
-  where
-    postulate prf : Bool (false && true)
-    {-# ATP prove prf #-}
+  where postulate prf : Bool (false && true)
+        {-# ATP prove prf #-}
 &&-Bool fB fB = prf
-  where
-    postulate prf : Bool (false && false)
-    {-# ATP prove prf #-}
+  where postulate prf : Bool (false && false)
+        {-# ATP prove prf #-}
 
 &&-comm : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ b₂ && b₁
 &&-comm tB tB = refl
@@ -60,37 +56,29 @@ true&&x≡x fB = &&-tf
 &&-assoc : ∀ {b₁ b₂ b₃} → Bool b₁ → Bool b₂ → Bool b₃ →
            (b₁ && b₂) && b₃ ≡ b₁ && b₂ && b₃
 &&-assoc tB tB tB = prf
-  where
-    postulate prf : (true && true) && true ≡ true && true && true
-    {-# ATP prove prf #-}
+  where postulate prf : (true && true) && true ≡ true && true && true
+        {-# ATP prove prf #-}
 &&-assoc tB tB fB = prf
-  where
-    postulate prf : (true && true) && false ≡ true && true && false
-    {-# ATP prove prf #-}
+  where postulate prf : (true && true) && false ≡ true && true && false
+        {-# ATP prove prf #-}
 &&-assoc tB fB tB = prf
-  where
-    postulate prf : (true && false) && true ≡ true && false && true
-    {-# ATP prove prf #-}
+  where postulate prf : (true && false) && true ≡ true && false && true
+        {-# ATP prove prf #-}
 &&-assoc tB fB fB = prf
-  where
-    postulate prf : (true && false) && false ≡ true && false && false
-    {-# ATP prove prf #-}
+  where postulate prf : (true && false) && false ≡ true && false && false
+        {-# ATP prove prf #-}
 &&-assoc fB tB tB = prf
-  where
-    postulate prf : (false && true) && true ≡ false && true && true
-    {-# ATP prove prf #-}
+  where postulate prf : (false && true) && true ≡ false && true && true
+        {-# ATP prove prf #-}
 &&-assoc fB tB fB = prf
-  where
-    postulate prf : (false && true) && false ≡ false && true && false
-    {-# ATP prove prf #-}
+  where postulate prf : (false && true) && false ≡ false && true && false
+        {-# ATP prove prf #-}
 &&-assoc fB fB tB = prf
-  where
-    postulate prf : (false && false) && true ≡ false && false && true
-    {-# ATP prove prf #-}
+  where postulate prf : (false && false) && true ≡ false && false && true
+        {-# ATP prove prf #-}
 &&-assoc fB fB fB = prf
-  where
-    postulate prf : (false && false) && false ≡ false && false && false
-    {-# ATP prove prf #-}
+  where postulate prf : (false && false) && false ≡ false && false && false
+        {-# ATP prove prf #-}
 
 &&-proj₁ : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₁ ≡ true
 &&-proj₁ tB _ _    = refl
@@ -108,9 +96,8 @@ true&&x≡x fB = &&-tf
             b₁ ≡ true
 &&₃-proj₁ tB _ _ _ _ = refl
 &&₃-proj₁ fB _ _ _ _ = ⊥-elim prf
-  where
-    postulate prf : ⊥
-    {-# ATP prove prf &&-Bool false&&x≡false #-}
+  where postulate prf : ⊥
+        {-# ATP prove prf &&-Bool false&&x≡false #-}
 
 &&₃-proj₂ : ∀ {b₁ b₂ b₃ b₄} →
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
@@ -118,9 +105,8 @@ true&&x≡x fB = &&-tf
             b₂ ≡ true
 &&₃-proj₂ _ tB _ _ _ = refl
 &&₃-proj₂ _ fB _ _ _ = ⊥-elim prf
-  where
-    postulate prf : ⊥
-    {-# ATP prove prf &&-Bool false&&x≡false x&&false≡false #-}
+  where postulate prf : ⊥
+        {-# ATP prove prf &&-Bool false&&x≡false x&&false≡false #-}
 
 &&₃-proj₃ : ∀ {b₁ b₂ b₃ b₄} →
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
@@ -128,9 +114,8 @@ true&&x≡x fB = &&-tf
             b₃ ≡ true
 &&₃-proj₃ _ _ tB _ _ = refl
 &&₃-proj₃ _ _ fB _ _ = ⊥-elim prf
-  where
-    postulate prf : ⊥
-    {-# ATP prove prf x&&false≡false false&&x≡false #-}
+  where postulate prf : ⊥
+        {-# ATP prove prf x&&false≡false false&&x≡false #-}
 
 &&₃-proj₄ : ∀ {b₁ b₂ b₃ b₄} →
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
@@ -138,23 +123,19 @@ true&&x≡x fB = &&-tf
             b₄ ≡ true
 &&₃-proj₄ _ _ _ tB _ = refl
 &&₃-proj₄ _ _ _ fB _ = ⊥-elim prf
-  where
-    postulate prf : ⊥
-    {-# ATP prove prf x&&false≡false #-}
+  where postulate prf : ⊥
+        {-# ATP prove prf x&&false≡false #-}
 
 ------------------------------------------------------------------------------
 -- Properties with inequalities
 
 ≤-Bool : ∀ {m n} → N m → N n → Bool (m ≤ n)
 ≤-Bool {n = n} zN Nn = prf
-  where
-    postulate prf : Bool (zero ≤ n)
-    {-# ATP prove prf #-}
+  where postulate prf : Bool (zero ≤ n)
+        {-# ATP prove prf #-}
 ≤-Bool (sN {m} Nm) zN = prf
-  where
-    postulate prf : Bool (succ m ≤ zero)
-    {-# ATP prove prf S≰0 #-}
+  where postulate prf : Bool (succ m ≤ zero)
+        {-# ATP prove prf S≰0 #-}
 ≤-Bool (sN {m} Nm) (sN {n} Nn) = prf $ ≤-Bool Nm Nn
-  where
-    postulate prf : Bool (m ≤ n) → Bool (succ m ≤ succ n)
-    {-# ATP prove prf #-}
+  where postulate prf : Bool (m ≤ n) → Bool (succ m ≤ succ n)
+        {-# ATP prove prf #-}

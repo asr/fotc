@@ -9,8 +9,7 @@ open import FOTC.Data.Nat.Divisibility
 open import FOTC.Data.Nat.Inequalities
 
 module FOTC.Program.GCD.IsGreatestAnyCommonDivisor
-  ( x∣1+y→x≤1+y : ∀ {m n} → N m → N n → m ∣ (succ n) → LE m (succ n)
-  )
+  (x∣1+y→x≤1+y : ∀ {m n} → N m → N n → m ∣ (succ n) → LE m (succ n))
   where
 
 open import Common.Function

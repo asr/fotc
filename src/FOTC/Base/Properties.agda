@@ -6,7 +6,7 @@ module FOTC.Base.Properties where
 
 open import FOTC.Base
 
-open import Common.Function using ( _$_ )
+open import Common.Function
 
 ------------------------------------------------------------------------------
 

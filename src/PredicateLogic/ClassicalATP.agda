@@ -17,11 +17,9 @@ postulate
   P : Set
 
 -- The reductio ab absurdum rule.
-postulate
-  ¬E : (¬ P → ⊥) → P
+postulate ¬E : (¬ P → ⊥) → P
 {-# ATP prove ¬E #-}
 
 -- The law of the excluded middle.
-postulate
-  lem : P ∨ ¬ P
+postulate lem : P ∨ ¬ P
 {-# ATP prove lem #-}

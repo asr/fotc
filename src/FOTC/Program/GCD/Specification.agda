@@ -5,8 +5,6 @@
 open import FOTC.Base
 
 open import FOTC.Data.Nat.Type
-  using ( N  -- The FOTC natural numbers type.
-        )
 
 open import FOTC.Program.GCD.Definitions
   using ( x≠0≠y ; CD ; Divisible ; GACD )
@@ -15,10 +13,9 @@ open import FOTC.Program.GCD.GCD using ( gcd )
 module FOTC.Program.GCD.Specification
   (gcd-N         : ∀ {m n} → N m → N n → x≠0≠y m n → N (gcd m n))
   (gcd-CD        : ∀ {m n} → N m → N n → x≠0≠y m n → CD m n (gcd m n))
-  (gcd-Divisible : ∀ {m n} → N m → N n → x≠0≠y m n →
-                   Divisible m n (gcd m n))
+  (gcd-Divisible : ∀ {m n} → N m → N n → x≠0≠y m n → Divisible m n (gcd m n))
   (gcd-GACD      : ∀ {m n gcd} → N gcd → CD m n gcd → Divisible m n gcd →
-                   GACD m n gcd)
+                    GACD m n gcd)
   where
 
 ------------------------------------------------------------------------------

@@ -14,6 +14,6 @@ open import PA.Inductive.Properties
 +-comm zero     n = sym (+-rightIdentity n)
 +-comm (succ m) n = prf (+-comm m n)
   where
-    postulate prf : m + n ≡ n + m →  -- IH.
-                    succ m + n ≡ n + succ m
-    {-# ATP prove prf x+Sy≡S[x+y] #-}
+  postulate prf : m + n ≡ n + m →  -- IH.
+                  succ m + n ≡ n + succ m
+  {-# ATP prove prf x+Sy≡S[x+y] #-}

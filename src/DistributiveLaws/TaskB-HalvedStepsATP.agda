@@ -60,179 +60,179 @@ prop₂ u x y z =
     xz·yu
   ∎
   where
-    -- Two variables abbreviations
+  -- Two variables abbreviations
 
-    xz = x · z
-    yu = y · u
-    yz = y · z
-    zy = z · y
-    {-# ATP definition xz #-}
-    {-# ATP definition yu #-}
-    {-# ATP definition yz #-}
-    {-# ATP definition zy #-}
+  xz = x · z
+  yu = y · u
+  yz = y · z
+  zy = z · y
+  {-# ATP definition xz #-}
+  {-# ATP definition yu #-}
+  {-# ATP definition yz #-}
+  {-# ATP definition zy #-}
 
-    -- Three variables abbreviations
+  -- Three variables abbreviations
 
-    xyu = x · y · u
-    xzu = x · z · u
-    xzy = x · z · y
-    yxz = y · x · z
-    {-# ATP definition xyu #-}
-    {-# ATP definition xzu #-}
-    {-# ATP definition xzy #-}
-    {-# ATP definition yxz #-}
+  xyu = x · y · u
+  xzu = x · z · u
+  xzy = x · z · y
+  yxz = y · x · z
+  {-# ATP definition xyu #-}
+  {-# ATP definition xzu #-}
+  {-# ATP definition xzy #-}
+  {-# ATP definition yxz #-}
 
-    x·zu = x · (z · u)
-    x·zy = x · (z · y)
-    {-# ATP definition x·zu #-}
-    {-# ATP definition x·zy #-}
+  x·zu = x · (z · u)
+  x·zy = x · (z · y)
+  {-# ATP definition x·zu #-}
+  {-# ATP definition x·zy #-}
 
-    y·xu = y · (x · u)
-    y·yu = y · (y · u)
-    y·zu = y · (z · u)
-    y·zy = y · (z · y)
-    {-# ATP definition y·xu  #-}
-    {-# ATP definition y·yu  #-}
-    {-# ATP definition y·zu  #-}
-    {-# ATP definition y·zy  #-}
+  y·xu = y · (x · u)
+  y·yu = y · (y · u)
+  y·zu = y · (z · u)
+  y·zy = y · (z · y)
+  {-# ATP definition y·xu  #-}
+  {-# ATP definition y·yu  #-}
+  {-# ATP definition y·zu  #-}
+  {-# ATP definition y·zy  #-}
 
-    z·xu = z · (x · u)
-    z·yu = z · (y · u)
-    {-# ATP definition z·xu  #-}
-    {-# ATP definition z·yu  #-}
+  z·xu = z · (x · u)
+  z·yu = z · (y · u)
+  {-# ATP definition z·xu  #-}
+  {-# ATP definition z·yu  #-}
 
-    -- Four variables abbreviations
+  -- Four variables abbreviations
 
-    xu·yu = x · u · (y · u)
-    xu·zu = x · u · (z · u)
-    {-# ATP definition xu·yu  #-}
-    {-# ATP definition xu·zu  #-}
+  xu·yu = x · u · (y · u)
+  xu·zu = x · u · (z · u)
+  {-# ATP definition xu·yu  #-}
+  {-# ATP definition xu·zu  #-}
 
-    xy·zu = x · y · (z · u)
-    {-# ATP definition xy·zu  #-}
+  xy·zu = x · y · (z · u)
+  {-# ATP definition xy·zu  #-}
 
-    xz·xy = x · z · (x · y)
-    xz·yu = x · z · (y · u)
-    xz·yz = x · z · (y · z)
-    {-# ATP definition xz·xy  #-}
-    {-# ATP definition xz·yu  #-}
-    {-# ATP definition xz·yz  #-}
+  xz·xy = x · z · (x · y)
+  xz·yu = x · z · (y · u)
+  xz·yz = x · z · (y · z)
+  {-# ATP definition xz·xy  #-}
+  {-# ATP definition xz·yu  #-}
+  {-# ATP definition xz·yz  #-}
 
-    yz·yu = y · z · (y · u)
-    {-# ATP definition yz·yu  #-}
+  yz·yu = y · z · (y · u)
+  {-# ATP definition yz·yu  #-}
 
-    zy·xu = z · y · (x · u)
-    zy·zu = z · y · (z · u)
-    {-# ATP definition zy·xu  #-}
-    {-# ATP definition zy·zu  #-}
+  zy·xu = z · y · (x · u)
+  zy·zu = z · y · (z · u)
+  {-# ATP definition zy·xu  #-}
+  {-# ATP definition zy·zu  #-}
 
-    -- Steps justifications
+  -- Steps justifications
 
-    postulate
-      j₁₋₃   : xy·zu · (xy·zu · xz·yu) ≡
-               xy·zu · (x·zu · xz·yu · (y·zu · xz·yu))
-    {-# ATP prove j₁₋₃ #-}
+  postulate
+    j₁₋₃   : xy·zu · (xy·zu · xz·yu) ≡
+             xy·zu · (x·zu · xz·yu · (y·zu · xz·yu))
+  {-# ATP prove j₁₋₃ #-}
 
-    postulate
-      j₃₋₅   : xy·zu · (x·zu · xz·yu · (y·zu · xz·yu)) ≡
-               xy·zu · (xz · xu·yu · (y·zu · xz·yu))
-    -- E 1.2: CPU time limit exceeded (180 sec).
-    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
-    {-# ATP prove j₃₋₅ #-}
+  postulate
+    j₃₋₅   : xy·zu · (x·zu · xz·yu · (y·zu · xz·yu)) ≡
+             xy·zu · (xz · xu·yu · (y·zu · xz·yu))
+  -- E 1.2: CPU time limit exceeded (180 sec).
+  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+  -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
+  {-# ATP prove j₃₋₅ #-}
 
-    postulate
-      j₅₋₇   : xy·zu · (xz · xu·yu · (y·zu · xz·yu)) ≡
-               xy·zu · (xz · xyu · (yz·yu · xz·yu))
-    {-# ATP prove j₅₋₇ #-}
+  postulate
+    j₅₋₇   : xy·zu · (xz · xu·yu · (y·zu · xz·yu)) ≡
+             xy·zu · (xz · xyu · (yz·yu · xz·yu))
+  {-# ATP prove j₅₋₇ #-}
 
-    postulate
-      j₇₋₉   : xy·zu · (xz · xyu · (yz·yu · xz·yu)) ≡
-               xy·zu · (xz · xyu · (yxz · yu))
-    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    {-# ATP prove j₇₋₉ #-}
+  postulate
+    j₇₋₉   : xy·zu · (xz · xyu · (yz·yu · xz·yu)) ≡
+             xy·zu · (xz · xyu · (yxz · yu))
+  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+  {-# ATP prove j₇₋₉ #-}
 
-    postulate
-      j₉₋₁₁  : xy·zu · (xz · xyu · (yxz · yu)) ≡
-               xy·zu · (xz · xyu · (y·xu · z·yu))
-    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    {-# ATP prove j₉₋₁₁ #-}
+  postulate
+    j₉₋₁₁  : xy·zu · (xz · xyu · (yxz · yu)) ≡
+             xy·zu · (xz · xyu · (y·xu · z·yu))
+  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+  {-# ATP prove j₉₋₁₁ #-}
 
-    postulate
-      j₁₁₋₁₃ : xy·zu · (xz · xyu · (y·xu · z·yu)) ≡
-               xz·yz · xyu · (xz · xyu · (y·xu · z·yu))
-    {-# ATP prove j₁₁₋₁₃ #-}
+  postulate
+    j₁₁₋₁₃ : xy·zu · (xz · xyu · (y·xu · z·yu)) ≡
+             xz·yz · xyu · (xz · xyu · (y·xu · z·yu))
+  {-# ATP prove j₁₁₋₁₃ #-}
 
-    postulate
-      j₁₃₋₁₅ : xz·yz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
-               xz · xyu · (yz · xyu · (y·xu · z·yu))
-    -- E 1.2: CPU time limit exceeded (180 sec).
-    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
-    {-# ATP prove j₁₃₋₁₅ #-}
+  postulate
+    j₁₃₋₁₅ : xz·yz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
+             xz · xyu · (yz · xyu · (y·xu · z·yu))
+  -- E 1.2: CPU time limit exceeded (180 sec).
+  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+  -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
+  {-# ATP prove j₁₃₋₁₅ #-}
 
-    postulate
-      j₁₅₋₁₇ : xz · xyu · (yz · xyu · (y·xu · z·yu)) ≡
-               xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu))
-    {-# ATP prove j₁₅₋₁₇ #-}
+  postulate
+    j₁₅₋₁₇ : xz · xyu · (yz · xyu · (y·xu · z·yu)) ≡
+             xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu))
+  {-# ATP prove j₁₅₋₁₇ #-}
 
-    postulate
-      j₁₇₋₁₉ : xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu)) ≡
-               xz · xyu ·
-               (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
-    -- E 1.2: CPU time limit exceeded (180 sec).
-    {-# ATP prove j₁₇₋₁₉ #-}
+  postulate
+    j₁₇₋₁₉ : xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu)) ≡
+             xz · xyu ·
+             (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
+  -- E 1.2: CPU time limit exceeded (180 sec).
+  {-# ATP prove j₁₇₋₁₉ #-}
 
-    postulate
-      j₁₉₋₂₁ : xz · xyu ·
-               (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
-               xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu)))
-    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
-    {-# ATP prove j₁₉₋₂₁ #-}
+  postulate
+    j₁₉₋₂₁ : xz · xyu ·
+             (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
+             xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu)))
+  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+  -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
+  {-# ATP prove j₁₉₋₂₁ #-}
 
-    postulate
-      j₂₁₋₂₃ : xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu))) ≡
-               xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))
-    {-# ATP prove j₂₁₋₂₃ #-}
+  postulate
+    j₂₁₋₂₃ : xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu))) ≡
+             xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))
+  {-# ATP prove j₂₁₋₂₃ #-}
 
-    postulate
-      j₂₃₋₂₅ : xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu))) ≡
-               (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))
-    -- E 1.2: CPU time limit exceeded (180 sec).
-    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
-    {-# ATP prove j₂₃₋₂₅ #-}
+  postulate
+    j₂₃₋₂₅ : xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu))) ≡
+             (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))
+  -- E 1.2: CPU time limit exceeded (180 sec).
+  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+  -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
+  {-# ATP prove j₂₃₋₂₅ #-}
 
-    postulate
-      j₂₅₋₂₇ : (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu)) ≡
-               xz · xyu · (y · xu·zu · (zy·xu · zy·zu))
-    {-# ATP prove j₂₅₋₂₇ #-}
+  postulate
+    j₂₅₋₂₇ : (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu)) ≡
+             xz · xyu · (y · xu·zu · (zy·xu · zy·zu))
+  {-# ATP prove j₂₅₋₂₇ #-}
 
-    postulate
-      j₂₇₋₂₉ : xz · xyu · (y · xu·zu · (zy·xu · zy·zu)) ≡
-               xz · xyu · (y·zy · xu·zu)
-    -- E 1.2: CPU time limit exceeded (180 sec).
-    -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-    -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
-    {-# ATP prove j₂₇₋₂₉ #-}
+  postulate
+    j₂₇₋₂₉ : xz · xyu · (y · xu·zu · (zy·xu · zy·zu)) ≡
+             xz · xyu · (y·zy · xu·zu)
+  -- E 1.2: CPU time limit exceeded (180 sec).
+  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+  -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
+  {-# ATP prove j₂₇₋₂₉ #-}
 
-    postulate
-      j₂₉₋₃₁ : xz · xyu · (y·zy · xu·zu) ≡
-               xz·xy · xzu · (y·zy · xzu)
-    {-# ATP prove j₂₉₋₃₁ #-}
+  postulate
+    j₂₉₋₃₁ : xz · xyu · (y·zy · xu·zu) ≡
+             xz·xy · xzu · (y·zy · xzu)
+  {-# ATP prove j₂₉₋₃₁ #-}
 
-    postulate
-      j₃₁₋₃₃ : xz·xy · xzu · (y·zy · xzu) ≡
-               x·zy · y·zy · xzu
-    {-# ATP prove j₃₁₋₃₃ #-}
+  postulate
+    j₃₁₋₃₃ : xz·xy · xzu · (y·zy · xzu) ≡
+             x·zy · y·zy · xzu
+  {-# ATP prove j₃₁₋₃₃ #-}
 
-    postulate
-      j₃₃₋₃₅ : x·zy · y·zy · xzu ≡
-               xzy · xzu
-    {-# ATP prove j₃₃₋₃₅ #-}
+  postulate
+    j₃₃₋₃₅ : x·zy · y·zy · xzu ≡
+             xzy · xzu
+  {-# ATP prove j₃₃₋₃₅ #-}
 
-    postulate
-      j₃₅    : xzy · xzu ≡
-               xz·yu
-    {-# ATP prove j₃₅ #-}
+  postulate
+    j₃₅    : xzy · xzu ≡
+             xz·yu
+  {-# ATP prove j₃₅ #-}

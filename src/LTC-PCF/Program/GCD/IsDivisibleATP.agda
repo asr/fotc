@@ -94,14 +94,14 @@ gcd-x>y-Divisible (sN Nm) zN _ _ _  c Nc  = gcd-S0-Divisible Nm c Nc
 gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ c Nc =
   gcd-S>S-Divisible Nm Nn ih Sm>Sn c Nc
   where
-    -- Inductive hypothesis.
-    ih : Divisible (succ m ∸ succ n) (succ n) (gcd (succ m ∸ succ n) (succ n))
-    ih = accH {succ m ∸ succ n}
-              {succ n}
-              (∸-N (sN Nm) (sN Nn))
-              (sN Nn)
-              ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
-              (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
+  -- Inductive hypothesis.
+  ih : Divisible (succ m ∸ succ n) (succ n) (gcd (succ m ∸ succ n) (succ n))
+  ih = accH {succ m ∸ succ n}
+            {succ n}
+            (∸-N (sN Nm) (sN Nn))
+            (sN Nn)
+            ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
+            (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
 
 ------------------------------------------------------------------------------
 -- The gcd m n when m ≯ n is Divisible.
@@ -119,26 +119,26 @@ gcd-x≯y-Divisible (sN {m} Nm) zN _ Sm≯0 _ _ _  =
 gcd-x≯y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ c Nc =
   gcd-S≯S-Divisible Nm Nn ih Sm≯Sn c Nc
   where
-    -- Inductive hypothesis.
-    ih : Divisible (succ m) (succ n ∸ succ m) (gcd (succ m) (succ n ∸ succ m))
-    ih = accH {succ m}
-              {succ n ∸ succ m}
-              (sN Nm)
-              (∸-N (sN Nn) (sN Nm))
-              ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
-              (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
+  -- Inductive hypothesis.
+  ih : Divisible (succ m) (succ n ∸ succ m) (gcd (succ m) (succ n ∸ succ m))
+  ih = accH {succ m}
+            {succ n ∸ succ m}
+            (sN Nm)
+            (∸-N (sN Nn) (sN Nm))
+            ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
+            (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 
 ------------------------------------------------------------------------------
 -- The gcd is Divisible.
 gcd-Divisible : ∀ {m n} → N m → N n → x≠0≠y m n → Divisible m n (gcd m n)
 gcd-Divisible = wfInd-LT₂ P istep
   where
-    P : D → D → Set
-    P i j = x≠0≠y i j → Divisible i j (gcd i j)
+  P : D → D → Set
+  P i j = x≠0≠y i j → Divisible i j (gcd i j)
 
-    istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → P k l) →
-            P i j
-    istep Ni Nj accH =
-      [ gcd-x>y-Divisible Ni Nj accH
-      , gcd-x≯y-Divisible Ni Nj accH
-      ] (x>y∨x≯y Ni Nj)
+  istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → P k l) →
+          P i j
+  istep Ni Nj accH =
+    [ gcd-x>y-Divisible Ni Nj accH
+    , gcd-x≯y-Divisible Ni Nj accH
+    ] (x>y∨x≯y Ni Nj)

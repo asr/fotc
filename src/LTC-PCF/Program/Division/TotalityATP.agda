@@ -15,8 +15,7 @@ open import LTC-PCF.Program.Division.Specification
 
 ------------------------------------------------------------------------------
 -- The division is total when the dividend is less than the divisor.
-postulate
-  div-x<y-N : ∀ {i j} → LT i j → N (div i j)
+postulate div-x<y-N : ∀ {i j} → LT i j → N (div i j)
 {-# ATP prove div-x<y-N div-x<y #-}
 
 -- The division is total when the dividend is greater or equal than
