@@ -44,12 +44,12 @@ import Monad.Base                     ( T )
 -- telescopeToFormula (ExtendTel tyArg _) = typeToFormula $ unArg tyArg
 
 cBodyToFormula ∷ ClauseBody → T FOLFormula
-cBodyToFormula (Body term )         = termToFormula term
+cBodyToFormula (Body term)          = termToFormula term
 cBodyToFormula (Bind (Abs _ cBody)) = cBodyToFormula cBody
 cBodyToFormula _                    = __IMPOSSIBLE__
 
 cBodyToFOLTerm ∷ ClauseBody → T FOLTerm
-cBodyToFOLTerm (Body term )         = termToFOLTerm term
+cBodyToFOLTerm (Body term)          = termToFOLTerm term
 cBodyToFOLTerm (Bind (Abs _ cBody)) = cBodyToFOLTerm cBody
 cBodyToFOLTerm _                    = __IMPOSSIBLE__
 

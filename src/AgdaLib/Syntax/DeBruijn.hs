@@ -101,7 +101,7 @@ varToDeBruijnIndex cBody x =
 -- where 'Var 2' is the de Bruijn index of the variable n. If we
 -- remove the quantification on the proof term Nn
 
--- λ m : D → (λ n : D → (λ h : D → ... ))
+-- λ m : D → (λ n : D → (λ h : D → ...))
 
 -- we need rename 'Var 2' by 'Var 1'.
 

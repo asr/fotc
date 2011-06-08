@@ -123,10 +123,7 @@ fnToAF qName def = do
 
 -- We translate an local hint to an AF.
 localHintToAF ∷ QName → T AF
-localHintToAF qName = do
-  def ← qNameDefinition qName
-
-  toAF ATPHint qName def
+localHintToAF qName = qNameDefinition qName >>= toAF ATPHint qName
 
 -- We translate the local hints of an ATP pragma conjecture to AF's.
 -- Invariant: The 'Definition' must be an ATP pragma conjecture

@@ -244,9 +244,7 @@ qNameDefinition qName = do
     return $ fromMaybe (__IMPOSSIBLE__) $ Map.lookup qName $ tAllDefs state
 
 qNameType ∷ QName → T Type
-qNameType qName = do
-  def ← qNameDefinition qName
-  return $ defType def
+qNameType qName = fmap defType $ qNameDefinition qName
 
 -- The line where a QNname is defined.
 qNameLine ∷ QName → Int32

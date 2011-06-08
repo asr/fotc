@@ -74,7 +74,7 @@ fnToFormula _      _  _         =
 oneClauseToFormula ∷ QName → Type → Clause → T FOLFormula
 
 -- There is at most one variable in the clause's pattern, so ...
-oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
+oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
   case tel of
     -- The bounded variable is quantified on a Set,
     --
@@ -94,7 +94,7 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
               freshVar = evalState freshName vars
 
           -- See the reason for the order in the variables in
-          -- FOL.Translation.Terms.termToFormula term@(Pi ... )
+          -- FOL.Translation.Terms.termToFormula term@(Pi ...)
           modify $ \s → s { tVars = freshVar : vars }
           f ← oneClauseToFormula qName ty (Clause r tels perm pats cBody)
           modify $ \s → s { tVars = vars }
@@ -125,7 +125,7 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
 
            reportSLn "def2f" 20 $ "New body: " ++ show newBody
 
-           f2 ← oneClauseToFormula qName ty (Clause r tels perm pats newBody )
+           f2 ← oneClauseToFormula qName ty (Clause r tels perm pats newBody)
 
            return $ Implies f1 f2
 
@@ -133,7 +133,7 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody ) =
 
 -- The clause's patterns is empty, i.e. we have generated the required
 -- universal quantification, so we translate the LHS and the RHS.
-oneClauseToFormula qName ty (Clause _ _ _ [] cBody ) = do
+oneClauseToFormula qName ty (Clause _ _ _ [] cBody) = do
 
   state ← get
   let vars ∷ [String]
