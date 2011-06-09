@@ -23,15 +23,15 @@ import System.IO          ( hPutStrLn, stderr )
 -- Agda library imports
 
 import Agda.TypeChecking.Monad.Base
-    ( Definitions
-    , Interface(iSignature)
-    , Signature(sigDefinitions)
-    )
+  ( Definitions
+  , Interface(iSignature)
+  , Signature(sigDefinitions)
+  )
 import Agda.Utils.Impossible
-    ( catchImpossible
---    , Impossible(Impossible)
---    , throwImpossible
-    )
+  ( catchImpossible
+--  , Impossible(Impossible)
+--  , throwImpossible
+  )
 
 ------------------------------------------------------------------------------
 -- Local imports
@@ -40,23 +40,24 @@ import Agda.Utils.Impossible
 import AgdaLib.Interface ( getImportedInterfaces, myReadInterface )
 import ATP               ( callATPs )
 import Monad.Base
-    ( AllDefinitions
-    , runT
-    , T
-    , TState(tAllDefs, tOpts)
-    )
+  ( AllDefinitions
+  , runT
+  , T
+  , TState(tAllDefs, tOpts)
+  )
 import Monad.Options     ( processOptions )
 import Monad.Reports     ( reportS, reportSLn )
 
-import Options ( Options(optHelp, optOnlyFiles, optSnapshotTest, optVersion)
-               , printUsage
-               )
+import Options
+  ( Options(optHelp, optOnlyFiles, optSnapshotTest, optVersion)
+  , printUsage
+  )
 
-import Test.Snapshot     ( snapshotTest )
-import TPTP.Files        ( createConjectureFile )
-import TPTP.Translation  ( conjecturesToAFs, generalRolesToAFs )
-import TPTP.Types        ( ConjectureSet, GeneralRoles )
-import Utils.Version     ( printVersion )
+import Test.Snapshot    ( snapshotTest )
+import TPTP.Files       ( createConjectureFile )
+import TPTP.Translation ( conjecturesToAFs, generalRolesToAFs )
+import TPTP.Types       ( ConjectureSet, GeneralRoles )
+import Utils.Version    ( printVersion )
 
 #include "undefined.h"
 
@@ -74,10 +75,10 @@ translation agdaFile = do
   let topLevelDefs ∷ Definitions
       topLevelDefs = sigDefinitions $ iSignature i
 
-  let importedDefs ∷ [Definitions]
+      importedDefs ∷ [Definitions]
       importedDefs = map (sigDefinitions . iSignature) iInterfaces
 
-  let allDefs ∷ AllDefinitions
+      allDefs ∷ AllDefinitions
       allDefs = Map.unions (topLevelDefs : importedDefs)
 
   reportSLn "translation" 20 $ show allDefs
@@ -95,24 +96,22 @@ runAgda2ATP prgName = do
   clo ← processOptions argv
   case clo of
     (opts, agdaFile)
-        | optHelp opts    → liftIO $ printUsage prgName
-        | optVersion opts → liftIO $ printVersion prgName
-        | otherwise       → do
-            modify $ \s → s { tOpts = opts }
+      | optHelp opts    → liftIO $ printUsage prgName
+      | optVersion opts → liftIO $ printVersion prgName
+      | otherwise       → do
+          modify $ \s → s { tOpts = opts }
 
-            -- The ATP pragmas are translated to TPTP annotated formulas.
-            allAFs ← translation agdaFile
+          -- The ATP pragmas are translated to TPTP annotated formulas.
+          allAFs ← translation agdaFile
 
-            -- Creation of the TPTP files.
-            tptpFiles ← mapM (createConjectureFile (fst allAFs)) (snd allAFs)
+          -- Creation of the TPTP files.
+          tptpFiles ← mapM (createConjectureFile (fst allAFs)) (snd allAFs)
 
-            -- Run the snapshot test.
-            when (optSnapshotTest opts) $
-                 mapM_ snapshotTest tptpFiles
+          -- Run the snapshot test.
+          when (optSnapshotTest opts) $ mapM_ snapshotTest tptpFiles
 
-            -- The ATPs systems are called on the TPTP files.
-            unless (optOnlyFiles opts) $
-                   mapM_ callATPs tptpFiles
+          -- The ATPs systems are called on the TPTP files.
+          unless (optOnlyFiles opts) $ mapM_ callATPs tptpFiles
 
 main ∷ IO ()
 main = do

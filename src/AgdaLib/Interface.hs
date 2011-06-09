@@ -7,19 +7,19 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 module AgdaLib.Interface
-    ( getClauses
-    , getImportedInterfaces
-    , getLocalHints
-    , getATPRole
-    , isATPDefinition
-    , myGetInterface
-    , myReadInterface
-    , qNameDefinition
-    , QNamesIn(qNamesIn)
-    , qNameLine
-    , qNameType
-    )
-    where
+  ( getClauses
+  , getImportedInterfaces
+  , getLocalHints
+  , getATPRole
+  , isATPDefinition
+  , myGetInterface
+  , myReadInterface
+  , qNameDefinition
+  , QNamesIn(qNamesIn)
+  , qNameLine
+  , qNameType
+  )
+  where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
@@ -38,55 +38,55 @@ import Data.Maybe                ( fromMaybe )
 import Agda.Interaction.FindFile ( toIFile )
 import Agda.Interaction.Imports  ( getInterface, readInterface )
 import Agda.Interaction.Options
-    ( CommandLineOptions(optIncludeDirs)
-    , defaultOptions
-    , defaultPragmaOptions
-    , PragmaOptions(optVerbose)
-    , Verbosity
-    )
+  ( CommandLineOptions(optIncludeDirs)
+  , defaultOptions
+  , defaultPragmaOptions
+  , PragmaOptions(optVerbose)
+  , Verbosity
+  )
 import Agda.Syntax.Abstract.Name
-    ( ModuleName
-    , Name(nameBindingSite)
-    , QName
-    , qnameName
-    )
+  ( ModuleName
+  , Name(nameBindingSite)
+  , QName
+  , qnameName
+  )
 import Agda.Syntax.Common
-    ( Arg(Arg), ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint) )
+  ( Arg(Arg), ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint) )
 import Agda.Syntax.Internal
-    ( Abs(Abs)
-    , Clause(Clause)
-    , ClauseBody(Bind, Body, NoBind, NoBody)
-    , translatedClause
-    , Term(Con, Def, DontCare, Fun, Lam, Lit, MetaV, Pi, Sort, Var)
-    , Type(El)
-    )
+  ( Abs(Abs)
+  , Clause(Clause)
+  , ClauseBody(Bind, Body, NoBind, NoBody)
+  , translatedClause
+  , Term(Con, Def, DontCare, Fun, Lam, Lit, MetaV, Pi, Sort, Var)
+  , Type(El)
+  )
 import Agda.Syntax.Position
-    ( Interval(iStart)
-    , Position(posLine)
-    , rangeToInterval
-    )
+  ( Interval(iStart)
+  , Position(posLine)
+  , rangeToInterval
+  )
 import Agda.TypeChecking.Monad.Base
-    ( axATP
-    , conATP
-    , Defn(Axiom, Constructor, Function)
-    , Interface(iImportedModules, iModuleName)
-    , Definition(defType)
-    , Definitions
-    , funATP
-    , funClauses
-    , runTCM
-    , TCErr
-    , theDef
-    )
+  ( axATP
+  , conATP
+  , Defn(Axiom, Constructor, Function)
+  , Interface(iImportedModules, iModuleName)
+  , Definition(defType)
+  , Definitions
+  , funATP
+  , funClauses
+  , runTCM
+  , TCErr
+  , theDef
+  )
 import Agda.TypeChecking.Monad.Options
-    ( setCommandLineOptions
-    , setPragmaOptions
-    )
+  ( setCommandLineOptions
+  , setPragmaOptions
+  )
 import Agda.Utils.FileName
-    ( absolute
-    , filePath
---    , mkAbsolute
-    )
+  ( absolute
+  , filePath
+--  , mkAbsolute
+  )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 import qualified Agda.Utils.Trie as Trie ( singleton )
 
@@ -103,12 +103,12 @@ import Options       ( Options(optAgdaIncludePath) )
 
 getATPRole ∷ ATPRole → Definitions → Definitions
 getATPRole role = Map.filter $ isRole role
-    where
-      isRole ∷ ATPRole → Definition → Bool
-      isRole ATPAxiom      = isATPAxiom
-      isRole ATPConjecture = isATPConjecture
-      isRole ATPDefinition = isATPDefinition
-      isRole ATPHint       = isATPHint
+  where
+    isRole ∷ ATPRole → Definition → Bool
+    isRole ATPAxiom      = isATPAxiom
+    isRole ATPConjecture = isATPConjecture
+    isRole ATPDefinition = isATPDefinition
+    isRole ATPHint       = isATPHint
 
 -- getHintsATP ∷ Interface → Definitions
 -- getHintsATP i = Map.filter isAxiomATP $ sigDefinitions $ iSignature i
@@ -120,9 +120,9 @@ getLocalHints def =
       defn = theDef def
   in case defn of
        Axiom{} → case axATP defn of
-                    Just (ATPConjecture, hints) → hints
-                    Just _                      → __IMPOSSIBLE__
-                    Nothing                     → __IMPOSSIBLE__
+                   Just (ATPConjecture, hints) → hints
+                   Just _                      → __IMPOSSIBLE__
+                   Nothing                     → __IMPOSSIBLE__
 
        _       → __IMPOSSIBLE__
 
@@ -173,13 +173,13 @@ myGetInterface x = do
   optsCommandLine ← agdaCommandLineOptions
 
   r ← liftIO $ runTCM $ do
-         setCommandLineOptions optsCommandLine
-         setPragmaOptions agdaPragmaOptions
-         getInterface x
+    setCommandLineOptions optsCommandLine
+    setPragmaOptions agdaPragmaOptions
+    getInterface x
 
   case r of
-        Right (i, _) → return (Just i)
-        Left  _      → return Nothing
+    Right (i, _) → return (Just i)
+    Left  _      → return Nothing
 
 isATPAxiom ∷ Definition → Bool
 isATPAxiom def =
@@ -187,15 +187,15 @@ isATPAxiom def =
       defn = theDef def
   in case defn of
        Axiom{} → case axATP defn of
-                    Just (ATPAxiom, _)      → True
-                    Just (ATPConjecture, _) → False
-                    Just _                  → __IMPOSSIBLE__
-                    Nothing                 → False
+                   Just (ATPAxiom, _)      → True
+                   Just (ATPConjecture, _) → False
+                   Just _                  → __IMPOSSIBLE__
+                   Nothing                 → False
 
        Constructor{} → case conATP defn of
-                          Just ATPAxiom → True
-                          Just _        → __IMPOSSIBLE__
-                          Nothing       → False
+                         Just ATPAxiom → True
+                         Just _        → __IMPOSSIBLE__
+                         Nothing       → False
 
        _       → False
 
@@ -205,10 +205,10 @@ isATPConjecture def =
       defn = theDef def
   in case defn of
        Axiom{} → case axATP defn of
-                    Just (ATPAxiom, _)      → False
-                    Just (ATPConjecture, _) → True
-                    Just _                  → __IMPOSSIBLE__
-                    Nothing                 → False
+                   Just (ATPAxiom, _)      → False
+                   Just (ATPConjecture, _) → True
+                   Just _                  → __IMPOSSIBLE__
+                   Nothing                 → False
 
        _       → False
 
@@ -231,10 +231,10 @@ isATPHint def =
       defn = theDef def
   in case defn of
        Function{}    → case funATP defn of
-                          Just ATPDefinition → False
-                          Just ATPHint       → True
-                          Just _             → __IMPOSSIBLE__
-                          Nothing            → False
+                         Just ATPDefinition → False
+                         Just ATPHint       → True
+                         Just _             → __IMPOSSIBLE__
+                         Nothing            → False
 
        _             → False
 
@@ -249,9 +249,9 @@ qNameType qName = fmap defType $ qNameDefinition qName
 -- The line where a QNname is defined.
 qNameLine ∷ QName → Int32
 qNameLine q =
-    case rangeToInterval $ nameBindingSite $ qnameName q of
-      Nothing → __IMPOSSIBLE__
-      Just i  → posLine $ iStart i
+  case rangeToInterval $ nameBindingSite $ qnameName q of
+    Nothing → __IMPOSSIBLE__
+    Just i  → posLine $ iStart i
 
 getClauses ∷ Definition → [Clause]
 getClauses def =
@@ -263,44 +263,44 @@ getClauses def =
 
 -- | Returns the QNames is an entity
 class QNamesIn a where
-    qNamesIn ∷ a → [QName]
+  qNamesIn ∷ a → [QName]
 
 instance QNamesIn a ⇒ QNamesIn [a] where
-    qNamesIn = concatMap qNamesIn
+  qNamesIn = concatMap qNamesIn
 
 instance QNamesIn a ⇒ QNamesIn (Arg a) where
-    qNamesIn (Arg _ _ t) = qNamesIn t
+  qNamesIn (Arg _ _ t) = qNamesIn t
 
 instance QNamesIn a ⇒ QNamesIn (Abs a) where
-    qNamesIn (Abs _ b) = qNamesIn b
+  qNamesIn (Abs _ b) = qNamesIn b
 
 instance QNamesIn Term where
-    qNamesIn (Con qName args) = qName : qNamesIn args
-    qNamesIn (Def qName args) = qName : qNamesIn args
-    qNamesIn (Fun argTy ty)   = qNamesIn argTy ++ qNamesIn ty
-    qNamesIn (Lam _ absTerm)  = qNamesIn absTerm
-    qNamesIn (Pi argTy absTy) = qNamesIn argTy ++ qNamesIn absTy
-    qNamesIn (Sort _)         = []
-    qNamesIn (Var _ args)     = qNamesIn args
+  qNamesIn (Con qName args) = qName : qNamesIn args
+  qNamesIn (Def qName args) = qName : qNamesIn args
+  qNamesIn (Fun argTy ty)   = qNamesIn argTy ++ qNamesIn ty
+  qNamesIn (Lam _ absTerm)  = qNamesIn absTerm
+  qNamesIn (Pi argTy absTy) = qNamesIn argTy ++ qNamesIn absTy
+  qNamesIn (Sort _)         = []
+  qNamesIn (Var _ args)     = qNamesIn args
 
-    qNamesIn DontCare    = __IMPOSSIBLE__
-    qNamesIn (Lit _)     = __IMPOSSIBLE__
-    qNamesIn (MetaV _ _) = __IMPOSSIBLE__
+  qNamesIn DontCare    = __IMPOSSIBLE__
+  qNamesIn (Lit _)     = __IMPOSSIBLE__
+  qNamesIn (MetaV _ _) = __IMPOSSIBLE__
 
 instance QNamesIn Type where
-    qNamesIn (El _ term) = qNamesIn term
+  qNamesIn (El _ term) = qNamesIn term
 
 instance QNamesIn ClauseBody where
-    qNamesIn (Body term)          = qNamesIn term
-    qNamesIn (Bind absClauseBody) = qNamesIn absClauseBody
-    qNamesIn (NoBind clauseBody)  = qNamesIn clauseBody
-    qNamesIn NoBody               = []
+  qNamesIn (Body term)          = qNamesIn term
+  qNamesIn (Bind absClauseBody) = qNamesIn absClauseBody
+  qNamesIn (NoBind clauseBody)  = qNamesIn clauseBody
+  qNamesIn NoBody               = []
 
 instance QNamesIn Clause where
-    qNamesIn (Clause _ _ _ _ body) = qNamesIn body
+  qNamesIn (Clause _ _ _ _ body) = qNamesIn body
 
 instance QNamesIn Definition where
-    qNamesIn def = qNamesIn $ defType def
+  qNamesIn def = qNamesIn $ defType def
 
 ------------------------------------------------------------------------------
 -- Imported interfaces

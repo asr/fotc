@@ -7,6 +7,4 @@ module Utils.String ( replace ) where
 replace ∷ Char → Char → String → String
 replace _   _    []       = []
 replace src dest (x : xs) =
-    if src == x
-    then dest : replace src dest xs
-    else x    : replace src dest xs
+  if src == x then dest : replace src dest xs else x : replace src dest xs

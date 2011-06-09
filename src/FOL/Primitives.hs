@@ -8,10 +8,10 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 module FOL.Primitives
-    ( appFn
-    , appP1, appP2, appP3, appP4
-    , equal
-    ) where
+  ( appFn
+  , appP1, appP2, appP3, appP4
+  , equal
+  ) where
 
 -- Local imports
 import FOL.Types ( FOLTerm(FOLFun), FOLFormula(Predicate) )

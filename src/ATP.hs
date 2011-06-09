@@ -20,13 +20,13 @@ import Control.Monad.State     ( get )
 import Control.Monad.Trans     ( liftIO )
 import System.IO               ( hGetContents, hPutStrLn, stderr )
 import System.Process
-    ( createProcess
-    , proc
-    , ProcessHandle
-    , StdStream(CreatePipe)
-    , std_out
-    , terminateProcess
-    )
+  ( createProcess
+  , proc
+  , ProcessHandle
+  , StdStream(CreatePipe)
+  , std_out
+  , terminateProcess
+  )
 -- import System.Timeout ( timeout )
 
 -- Agda library imports
@@ -35,7 +35,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible) , throwImpossible )
 -- Local imports
 import Monad.Base    ( T, TState(tOpts) )
 import Monad.Reports ( reportS )
-import Options    ( Options(optATP, optTime, optUnprovedError) )
+import Options       ( Options(optATP, optTime, optUnprovedError) )
 
 #include "undefined.h"
 
@@ -88,13 +88,13 @@ vampireOk = "Termination reason: Refutation\n"
 
 checkAtpOutput ∷ ATP → String → Bool
 checkAtpOutput atp output = atpOk atp `isInfixOf` output
-    where
-      atpOk ∷ ATP → String
-      atpOk E        = eOk
-      atpOk Equinox  = equinoxOk
-      atpOk IleanCoP = ileancopOk
-      atpOk Metis    = metisOk
-      atpOk Vampire  = vampireOk
+  where
+    atpOk ∷ ATP → String
+    atpOk E        = eOk
+    atpOk Equinox  = equinoxOk
+    atpOk IleanCoP = ileancopOk
+    atpOk Metis    = metisOk
+    atpOk Vampire  = vampireOk
 
 -- Equinox bug? The option --no-progress don't make any difference.
 atpArgs ∷ ATP → Int → FilePath → [String]
@@ -122,22 +122,21 @@ atpArgs Vampire  timeLimit file = [ "--input_file", file
 runATP ∷ ATP → MVar (Bool, ATP) → Int → FilePath → IO ProcessHandle
 runATP atp outputMVar timeLimit file = do
 
-    let args ∷ [String]
-        args = atpArgs atp timeLimit file
+  let args ∷ [String]
+      args = atpArgs atp timeLimit file
 
-    -- To create the ATPs process we follow the ideas used by
-    -- System.Process.readProcess.
+  -- To create the ATPs process we follow the ideas used by
+  -- System.Process.readProcess.
 
-    (_, outputH, _, atpPH) ←
-      createProcess (proc (atp2exec atp) args)
-                    { std_out = CreatePipe }
+  (_, outputH, _, atpPH) ←
+    createProcess (proc (atp2exec atp) args) { std_out = CreatePipe }
 
-    output ← hGetContents $ fromMaybe (__IMPOSSIBLE__) outputH
-    _      ← forkIO $
-               evaluate (length output) >>
-               putMVar outputMVar (checkAtpOutput atp output, atp)
+  output ← hGetContents $ fromMaybe (__IMPOSSIBLE__) outputH
+  _      ← forkIO $
+             evaluate (length output) >>
+             putMVar outputMVar (checkAtpOutput atp output, atp)
 
-    return atpPH
+  return atpPH
 
 atpsAnswer ∷ MVar (Bool, ATP) → [ProcessHandle] → FilePath → Int → T ()
 atpsAnswer outputMVar atpsPH file n = do
@@ -147,7 +146,7 @@ atpsAnswer outputMVar atpsPH file n = do
   let opts ∷ Options
       opts = tOpts state
 
-  let atps ∷ [String]
+      atps ∷ [String]
       atps = optATP opts
 
   if n == length atps
@@ -186,7 +185,7 @@ callATPs file = do
   let opts ∷ Options
       opts = tOpts state
 
-  let atps ∷ [String]
+      atps ∷ [String]
       atps = optATP opts
 
   when (null atps) (__IMPOSSIBLE__)

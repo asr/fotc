@@ -8,11 +8,11 @@ module FOL.Translation.Common ( varsToArgs ) where
 
 -- Agda library imports
 import Agda.Syntax.Common
-    ( Arg(Arg)
-    , Hiding(NotHidden)
-    , Nat
-    , Relevance(Relevant)
-    )
+  ( Arg(Arg)
+  , Hiding(NotHidden)
+  , Nat
+  , Relevance(Relevant)
+  )
 import Agda.Syntax.Internal ( Term(Var) )
 
 ------------------------------------------------------------------------------

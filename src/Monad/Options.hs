@@ -10,18 +10,18 @@ module Monad.Options ( processOptions ) where
 import Control.Monad.Error ( throwError )
 import Data.List           ( foldl' )
 import System.Console.GetOpt
-    ( ArgOrder (Permute)
-    , getOpt
-    )
+  ( ArgOrder (Permute)
+  , getOpt
+  )
 
 -- Local imports
 import Monad.Base ( T )
 import Options
-    ( defaultOptions
-    , defaultOptATP
-    , options
-    , Options(optATP, optHelp)
-    )
+  ( defaultOptions
+  , defaultOptATP
+  , options
+  , Options(optATP, optHelp)
+  )
 
 -----------------------------------------------------------------------------
 
@@ -34,7 +34,7 @@ processOptions argv =
       let opts ∷ Options
           opts = foldl' (flip id) defaultOptions o
 
-      let finalOpts ∷ Options
+          finalOpts ∷ Options
           finalOpts =
               if null (optATP opts)  -- No ATPs was chosen.
               then opts { optATP = defaultOptATP }  -- We set up the

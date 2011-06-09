@@ -19,9 +19,9 @@ import System.FilePath      ( (</>), addExtension )
 
 -- Agda library imports
 import Agda.Syntax.Abstract.Name
-    ( Name(nameBindingSite)
-    , QName(qnameName)
-    )
+  ( Name(nameBindingSite)
+  , QName(qnameName)
+  )
 import Agda.Syntax.Common
     ( ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint) )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
@@ -33,21 +33,21 @@ import Monad.Reports     ( reportS, reportSLn )
 import Options           ( Options(optOnlyFiles, optOutputDir) )
 import TPTP.Pretty       ( prettyTPTP )
 import TPTP.Types
-    ( AF(MkAF)
-    , allRequiredDefs
-    , commonRequiredDefs
-    , ConjectureSet(conjectureLocalHints
-                   , requiredDefsByConjecture
-                   , requiredDefsByLocalHints
-                   , theConjecture
-                   )
-    , GeneralRoles(axioms
-                  , hints
-                  , requiredDefsByAxioms
-                  , requiredDefsByHints
-                  )
-    , removeCommonRequiredDefs
-    )
+  ( AF(MkAF)
+  , allRequiredDefs
+  , commonRequiredDefs
+  , ConjectureSet(conjectureLocalHints
+                 , requiredDefsByConjecture
+                 , requiredDefsByLocalHints
+                 , theConjecture
+                 )
+  , GeneralRoles(axioms
+                , hints
+                , requiredDefsByAxioms
+                , requiredDefsByHints
+                )
+  , removeCommonRequiredDefs
+  )
 import Utils.List    ( nonDuplicate )
 import Utils.Version ( version )
 
@@ -56,19 +56,19 @@ import Utils.Version ( version )
 ------------------------------------------------------------------------------
 
 class AsciiName a where
-    asciiName ∷ a → FilePath
+  asciiName ∷ a → FilePath
 
 instance AsciiName Char where
-    asciiName c
-        | c `elem` "._-" = [c]
-        -- The character is a subscript number (i.e. ₀, ₁, ₂, ...).
-        | ord c `elem` [8320 .. 8329] = [chr (ord c - 8272)]
-        | isDigit c || isAsciiUpper c || isAsciiLower c = [c]
-        | otherwise = show $ ord c
+  asciiName c
+    | c `elem` "._-" = [c]
+    -- The character is a subscript number (i.e. ₀, ₁, ₂, ...).
+    | ord c `elem` [8320 .. 8329] = [chr (ord c - 8272)]
+    | isDigit c || isAsciiUpper c || isAsciiLower c = [c]
+    | otherwise = show $ ord c
 
 -- Requires TypeSynonymInstances.
 instance AsciiName String where
-    asciiName = concatMap asciiName
+  asciiName = concatMap asciiName
 
 tptpExt ∷ String
 tptpExt = ".tptp"
@@ -89,23 +89,22 @@ conjectureHeader = do
     commentLineLn
 
 conjectureFooter ∷ String
-conjectureFooter =
-    "% End ATP pragma conjecture file.\n"
+conjectureFooter = "% End ATP pragma conjecture file.\n"
 
 agdaOriginalTerm ∷ QName → ATPRole → String
 agdaOriginalTerm qName role =
-    "% The original Agda term was:\n" ++
-    "% Name:\t\t" ++ show qName ++ "\n" ++
-    "% Role:\t\t" ++ show role ++ "\n" ++
-    "% Position:\t" ++ show (nameBindingSite $ qnameName qName) ++ "\n"
+  "% The original Agda term was:\n" ++
+  "% Name:\t\t" ++ show qName ++ "\n" ++
+  "% Role:\t\t" ++ show role ++ "\n" ++
+  "% Position:\t" ++ show (nameBindingSite $ qnameName qName) ++ "\n"
 
 addRole ∷ AF → ATPRole → FilePath → IO ()
 addRole af@(MkAF qName afRole _) role file =
-    if afRole == role
-      then do
-        appendFile file $ agdaOriginalTerm qName role
-        appendFile file $ prettyTPTP af
-      else __IMPOSSIBLE__
+  if afRole == role
+    then do
+      appendFile file $ agdaOriginalTerm qName role
+      appendFile file $ prettyTPTP af
+    else __IMPOSSIBLE__
 
 addRoles ∷ [AF] → ATPRole → FilePath → String → IO ()
 addRoles afs role file str = do
@@ -114,7 +113,7 @@ addRoles afs role file str = do
           commentLine ++
           "% The " ++ str ++ ".\n\n"
 
-  let footerRoleComment ∷ String
+      footerRoleComment ∷ String
       footerRoleComment =
           "% End " ++ str ++ ".\n\n"
 
@@ -134,11 +133,11 @@ createConjectureFile generalRoles conjectureSet = do
   let opts ∷ Options
       opts = tOpts state
 
-  let qName ∷ QName
+      qName ∷ QName
       qName = case theConjecture conjectureSet of
                 MkAF _qName _ _ → _qName
 
-  let outputDir ∷ FilePath
+      outputDir ∷ FilePath
       outputDir = optOutputDir opts
 
   liftIO $ createDirectoryIfMissing True outputDir
@@ -147,7 +146,7 @@ createConjectureFile generalRoles conjectureSet = do
       f = outputDir </>
           asciiName (show qName) ++ "_" ++ show (qNameLine qName)
 
-  let file ∷ FilePath
+      file ∷ FilePath
       file = addExtension f tptpExt
 
   reportSLn "createConjectureFile" 20 $
@@ -156,7 +155,7 @@ createConjectureFile generalRoles conjectureSet = do
   let commonDefs ∷ [AF]
       commonDefs = commonRequiredDefs generalRoles conjectureSet
 
-  let (newGeneralRoles, newConjectureSet) =
+      (newGeneralRoles, newConjectureSet) =
           removeCommonRequiredDefs generalRoles conjectureSet
 
   unless (nonDuplicate (allRequiredDefs newGeneralRoles newConjectureSet))

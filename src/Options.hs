@@ -6,19 +6,18 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Options
-    ( defaultOptions
-    , defaultOptATP
-    , options
-    , Options(..)
-    , printUsage
-    )
-    where
+  ( defaultOptions
+  , defaultOptATP
+  , options
+  , Options(..)
+  , printUsage
+  ) where
 
 import System.Console.GetOpt
-    ( ArgDescr(NoArg, ReqArg)
-    , OptDescr(Option)
-    , usageInfo
-    )
+  ( ArgDescr(NoArg, ReqArg)
+  , OptDescr(Option)
+  , usageInfo
+  )
 
 -- Agda library imports
 import Agda.Interaction.Options ( Verbosity )
@@ -29,18 +28,18 @@ import qualified Agda.Utils.Trie as Trie ( insert, singleton )
 -----------------------------------------------------------------------------
 
 data Options = MkOptions
-    { optAgdaIncludePath ∷ [FilePath]
-    , optATP             ∷ [String]
-    , optHelp            ∷ Bool
-    , optOnlyFiles       ∷ Bool
-    , optOutputDir       ∷ FilePath
-    , optSnapshotDir     ∷ FilePath
-    , optSnapshotTest    ∷ Bool
-    , optTime            ∷ Int
-    , optUnprovedError   ∷ Bool
-    , optVerbose         ∷ Verbosity
-    , optVersion         ∷ Bool
-    } deriving ( Show )
+  { optAgdaIncludePath ∷ [FilePath]
+  , optATP             ∷ [String]
+  , optHelp            ∷ Bool
+  , optOnlyFiles       ∷ Bool
+  , optOutputDir       ∷ FilePath
+  , optSnapshotDir     ∷ FilePath
+  , optSnapshotTest    ∷ Bool
+  , optTime            ∷ Int
+  , optUnprovedError   ∷ Bool
+  , optVerbose         ∷ Verbosity
+  , optVersion         ∷ Bool
+  } deriving ( Show )
 
 defaultOptATP ∷ [String]
 defaultOptATP = ["e", "equinox", "metis", "vampire"]
@@ -64,7 +63,7 @@ defaultOptions = MkOptions
 
 agdaIncludePathOpt ∷ FilePath → Options → Options
 agdaIncludePathOpt dir opts =
-    opts { optAgdaIncludePath = optAgdaIncludePath opts ++ [dir] }
+  opts { optAgdaIncludePath = optAgdaIncludePath opts ++ [dir] }
 
 atpOpt ∷ String → Options → Options
 atpOpt name opts = opts { optATP = optATP opts ++ [name] }
@@ -95,16 +94,16 @@ unprovedErrorOpt opts = opts { optUnprovedError = True }
 -- Adapted from: Agda.Interaction.Options.verboseFlag.
 verboseOpt ∷ String → Options → Options
 verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
-    where
-      -- Requires ScopedTypeVariables.
-      (k, n) ∷ ([String], Int) = parseVerbose str
-      parseVerbose ∷ String → ([String], Int)
-      parseVerbose s =
-          case wordsBy (`elem` ":.") s of
-            []  → error "Argument to verbose should be on the form x.y.z:N or N"
-            ss  → let m ∷ Int
-                      m = read $ last ss
-                  in  (init ss, m)
+  where
+    -- Requires ScopedTypeVariables.
+    (k, n) ∷ ([String], Int) = parseVerbose str
+    parseVerbose ∷ String → ([String], Int)
+    parseVerbose s =
+      case wordsBy (`elem` ":.") s of
+        []  → error "Argument to verbose should be on the form x.y.z:N or N"
+        ss  → let m ∷ Int
+                  m = read $ last ss
+              in  (init ss, m)
 
 versionOpt ∷ Options → Options
 versionOpt opts = opts { optVersion = True }
@@ -139,7 +138,7 @@ options =
 
 usageHeader ∷ String → String
 usageHeader prgName =
-    "Usage: " ++ prgName ++ " [OPTION...] file \n"
+  "Usage: " ++ prgName ++ " [OPTION...] file \n"
 
 -- | Print usage information.
 printUsage ∷ String → IO ()

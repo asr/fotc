@@ -6,12 +6,11 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Monad.Base
-    ( AllDefinitions
-    , runT
-    , T(MkT)  -- GHC bug? MkT is required by GHC 6.12.1.
-    , TState(tAllDefs, tOpts, tVars)
-    )
-    where
+  ( AllDefinitions
+  , runT
+  , T(MkT)  -- GHC bug? MkT is required by GHC 6.12.1.
+  , TState(tAllDefs, tOpts, tVars)
+  ) where
 
 -- Haskell imports
 import Control.Monad.Error  ( ErrorT, MonadError, runErrorT )
@@ -46,13 +45,13 @@ initTState = MkState { tAllDefs = Map.empty
 -- Adapted from: Real World Haskell (Chapter 18. Monad transformers)
 -- | The translation monad.
 newtype T a = MkT { runA ∷ ErrorT String (StateT TState IO) a }
-        -- Requires GeneralizedNewtypeDeriving
-        deriving ( Functor
-                 , Monad
-                 , MonadIO
-                 , MonadError String
-                 , MonadState TState
-                 )
+  -- Requires GeneralizedNewtypeDeriving
+  deriving ( Functor
+           , Monad
+           , MonadIO
+           , MonadError String
+           , MonadState TState
+           )
 
 runT ∷ T a → IO (Either String a)
 runT ta = evalStateT (runErrorT (runA ta)) initTState

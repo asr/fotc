@@ -7,17 +7,17 @@
 -- Adapted from AgdaLight (Plugins.FOL.Constants).
 
 module FOL.Constants
-    ( folTrue
-    , folFalse
-    , folNot
-    , folAnd
-    , folOr
-    , folImplies
-    , folEquiv
-    , folExists
-    , folForAll
-    , folEquals
-    ) where
+  ( folTrue
+  , folFalse
+  , folNot
+  , folAnd
+  , folOr
+  , folImplies
+  , folEquiv
+  , folExists
+  , folForAll
+  , folEquals
+  ) where
 
 -----------------------------------------------------------------------------
 -- Identifiers recognized by the FOL translator.

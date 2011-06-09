@@ -20,8 +20,8 @@ import qualified Agda.Utils.Trie as Trie ( lookupPath )
 import Agda.Utils.List ( wordsBy )
 
 -- Local imports
-import Monad.Base  ( T, TState(tOpts) )
-import Options     ( Options(optVerbose) )
+import Monad.Base ( T, TState(tOpts) )
+import Options    ( Options(optVerbose) )
 
 #include "../undefined.h"
 
@@ -40,10 +40,10 @@ getVerbosity = do
 verboseS ∷ VerboseKey → Int → T () → T ()
 verboseS k n action | n < 0     =  __IMPOSSIBLE__
                     | otherwise = do
-    t ← getVerbosity
-    let ks = wordsBy (`elem` ".:") k
-        m  = maximum $ 0 : Trie.lookupPath ks t
-    when (n <= m) action
+  t ← getVerbosity
+  let ks = wordsBy (`elem` ".:") k
+      m  = maximum $ 0 : Trie.lookupPath ks t
+  when (n <= m) action
 
 reportS ∷ VerboseKey → Int → String → T ()
 reportS k n s = verboseS k n $ liftIO $ putStr (s ++ "\n")

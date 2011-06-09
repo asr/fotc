@@ -6,10 +6,10 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 module FOL.Translation.Internal
-    ( cBodyToFormula
-    , cBodyToFOLTerm
-    , removeBindingOnCBody
-    ) where
+  ( cBodyToFormula
+  , cBodyToFOLTerm
+  , removeBindingOnCBody
+  ) where
 
 -- Haskell imports
 -- import Control.Monad.Trans.Reader ( ask, local )
@@ -18,10 +18,10 @@ module FOL.Translation.Internal
 -- Agda library imports
 import Agda.Syntax.Common ( Nat )
 import Agda.Syntax.Internal
-    ( Abs(Abs)
-    , ClauseBody(Bind,Body)
---    , Telescope(EmptyTel, ExtendTel)
-    )
+  ( Abs(Abs)
+  , ClauseBody(Bind,Body)
+--  , Telescope(EmptyTel, ExtendTel)
+  )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
@@ -55,10 +55,10 @@ cBodyToFOLTerm _                    = __IMPOSSIBLE__
 
 removeBindingOnCBodyIndex ∷ ClauseBody → String → Nat → ClauseBody
 removeBindingOnCBodyIndex (Bind (Abs x1 cBody)) x2 index =
-    if x1 == x2
-       then renameVar cBody index  -- We remove the bind and rename the
-                                   -- variables inside the body.
-       else Bind (Abs x1 $ removeBindingOnCBodyIndex cBody x2 index)
+  if x1 == x2
+    then renameVar cBody index  -- We remove the bind and rename the
+                                -- variables inside the body.
+  else Bind (Abs x1 $ removeBindingOnCBodyIndex cBody x2 index)
 removeBindingOnCBodyIndex _ _ _ = __IMPOSSIBLE__
 
 -- To remove the binding on a proof term in a ClauseBody,
@@ -69,6 +69,6 @@ removeBindingOnCBodyIndex _ _ _ = __IMPOSSIBLE__
 -- invocation to this function.
 removeBindingOnCBody ∷ ClauseBody → String → ClauseBody
 removeBindingOnCBody cBody x = removeBindingOnCBodyIndex cBody x index
-    where
-      index ∷ Nat
-      index = varToDeBruijnIndex cBody x
+  where
+    index ∷ Nat
+    index = varToDeBruijnIndex cBody x

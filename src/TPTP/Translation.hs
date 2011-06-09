@@ -7,10 +7,9 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 module TPTP.Translation
-    ( conjecturesToAFs
-    , generalRolesToAFs
-    )
-    where
+  ( conjecturesToAFs
+  , generalRolesToAFs
+  ) where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
@@ -27,37 +26,37 @@ import qualified Data.Map as Map ( elems, keys )
 
 import Agda.Syntax.Abstract.Name ( QName )
 import Agda.Syntax.Common
-    ( ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint) )
+  ( ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint) )
 import Agda.Syntax.Internal ( Clause, Type )
 import Agda.TypeChecking.Monad.Base
-    ( Definition
-    , Definitions
-    , defName
-    , defType
-    )
+  ( Definition
+  , Definitions
+  , defName
+  , defType
+  )
 
 ------------------------------------------------------------------------------
 -- Local imports
 
 import AgdaLib.EtaExpansion ( etaExpand )
 import AgdaLib.Interface
-    ( getClauses
-    , getLocalHints
-    , getATPRole
-    , isATPDefinition
-    , qNameDefinition
-    , QNamesIn(qNamesIn)
-    )
+  ( getClauses
+  , getLocalHints
+  , getATPRole
+  , isATPDefinition
+  , qNameDefinition
+  , QNamesIn(qNamesIn)
+  )
 import AgdaLib.Syntax.DeBruijn        ( removeReferenceToProofTerms )
 import FOL.Translation.Functions      ( fnToFormula )
 import FOL.Translation.Internal.Types ( typeToFormula )
 import Monad.Base                     ( T, TState(tAllDefs, tVars))
 import Monad.Reports                  ( reportSLn )
 import TPTP.Types
-    ( AF(MkAF)
-    , ConjectureSet(MkConjectureSet)
-    , GeneralRoles(MkGeneralRoles)
-    )
+  ( AF(MkAF)
+  , ConjectureSet(MkConjectureSet)
+  , GeneralRoles(MkGeneralRoles)
+  )
 
 -- #include "../undefined.h"
 

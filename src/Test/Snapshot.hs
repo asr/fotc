@@ -31,13 +31,13 @@ snapshotTest file = do
   let opts ∷ Options
       opts = tOpts state
 
-  let outputDir ∷ FilePath
+      outputDir ∷ FilePath
       outputDir = optOutputDir opts
 
-  let snapshotDir ∷ FilePath
+      snapshotDir ∷ FilePath
       snapshotDir = optSnapshotDir opts
 
-  let snapshotFile ∷ FilePath
+      snapshotFile ∷ FilePath
       snapshotFile = replaceDirectory file snapshotDir
 
   if outputDir == snapshotDir

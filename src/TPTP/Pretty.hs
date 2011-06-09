@@ -11,21 +11,21 @@ module TPTP.Pretty ( PrettyTPTP(prettyTPTP), TPTP ) where
 
 -- Haskell imports
 import Data.Char
-    ( chr
-    , isAsciiLower
-    , isAsciiUpper
-    , isDigit
-    , ord
-    , toLower
-    , toUpper
-    )
+  ( chr
+  , isAsciiLower
+  , isAsciiUpper
+  , isDigit
+  , ord
+  , toLower
+  , toUpper
+  )
 
 -- Agda library imports
 import Agda.Syntax.Abstract.Name ( Name(nameId), QName(QName) )
 import Agda.Syntax.Common
-    ( NameId(NameId)
-    , ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint)
-    )
+  ( NameId(NameId)
+  , ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint)
+  )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
@@ -39,15 +39,15 @@ import TPTP.Types ( AF(MkAF) )
 type TPTP = String
 
 class PrettyTPTP a where
-    prettyTPTP ∷ a → TPTP
+  prettyTPTP ∷ a → TPTP
 
 -- We prefixed the names with 'n' because TPTP does not accept names
 -- starting with digits or '_'.
 prefixLetter ∷ TPTP → TPTP
 prefixLetter []           = __IMPOSSIBLE__
 prefixLetter name@(x : _)
-    | isDigit x || x == '_'  = 'n' : name
-    | otherwise              = name
+  | isDigit x || x == '_'  = 'n' : name
+  | otherwise              = name
 
 changeCaseFirstSymbol ∷ TPTP → (Char → Char) → TPTP
 changeCaseFirstSymbol []       _ = __IMPOSSIBLE__
@@ -63,25 +63,25 @@ changeToLower name = changeCaseFirstSymbol (prettyTPTP name) toLower
 -- Pretty-printer for Haskell types
 
 instance PrettyTPTP Char where
-    prettyTPTP c
-        | c == '.'                                      = ""
-        | c == '_'                                      = [c]
-        -- The character is a subscript number (i.e. ₀, ₁, ...).
-        | ord c `elem` [8320 .. 8329]                   = [chr (ord c - 8272)]
-        | isDigit c || isAsciiUpper c || isAsciiLower c = [c]
-        | otherwise                                     = show $ ord c
+  prettyTPTP c
+    | c == '.'                                      = ""
+    | c == '_'                                      = [c]
+    -- The character is a subscript number (i.e. ₀, ₁, ...).
+    | ord c `elem` [8320 .. 8329]                   = [chr (ord c - 8272)]
+    | isDigit c || isAsciiUpper c || isAsciiLower c = [c]
+    | otherwise                                     = show $ ord c
 
 ------------------------------------------------------------------------------
 -- Pretty-printer for Agda types
 
 instance PrettyTPTP NameId where
-    -- The Show instance (Agda.Syntax.Abstract.Name) separates the
-    -- unique identifier of the top-level module (the second argument)
-    -- with '@'. We use '_' because '@' is not TPTP valid.
-    prettyTPTP  (NameId x i)  = prefixLetter $ show x ++ "_" ++ show i
+  -- The Show instance (Agda.Syntax.Abstract.Name) separates the
+  -- unique identifier of the top-level module (the second argument)
+  -- with '@'. We use '_' because '@' is not TPTP valid.
+  prettyTPTP  (NameId x i)  = prefixLetter $ show x ++ "_" ++ show i
 
 instance PrettyTPTP QName where
-    prettyTPTP (QName _ name) = prettyTPTP $ nameId name
+  prettyTPTP (QName _ name) = prettyTPTP $ nameId name
 
 ------------------------------------------------------------------------------
 -- Pretty-printer for FOL formulas
@@ -92,74 +92,74 @@ instance PrettyTPTP QName where
 
 -- N.B. This instance requires the flag TypeSynonymInstances.
 instance PrettyTPTP String where
-    prettyTPTP = prefixLetter . concatMap prettyTPTP
+  prettyTPTP = prefixLetter . concatMap prettyTPTP
 
 instance PrettyTPTP FOLTerm where
-    prettyTPTP (FOLFun name [])    = changeToLower name
-    prettyTPTP (FOLFun name terms) = changeToLower name ++
+  prettyTPTP (FOLFun name [])    = changeToLower name
+  prettyTPTP (FOLFun name terms) = changeToLower name ++
                                      "(" ++ prettyTPTP terms ++ ")"
-    prettyTPTP (FOLVar name)       = changeToUpper name
+  prettyTPTP (FOLVar name)       = changeToUpper name
 
 instance PrettyTPTP [FOLTerm] where
-    prettyTPTP [] = []
-    prettyTPTP (a : []) = prettyTPTP a
-    prettyTPTP (a : as) = prettyTPTP a ++ "," ++ prettyTPTP as
+  prettyTPTP [] = []
+  prettyTPTP (a : []) = prettyTPTP a
+  prettyTPTP (a : as) = prettyTPTP a ++ "," ++ prettyTPTP as
 
 instance PrettyTPTP FOLFormula where
-    -- We translate the hard-coded FOL predicate kEqual as the
-    -- predefined equality in the ATP.
-    prettyTPTP (Predicate "kEqual" [t1, t2] ) =
-       "( " ++ prettyTPTP t1 ++ " = " ++ prettyTPTP t2 ++ " )"
+  -- We translate the hard-coded FOL predicate kEqual as the
+  -- predefined equality in the ATP.
+  prettyTPTP (Predicate "kEqual" [t1, t2] ) =
+    "( " ++ prettyTPTP t1 ++ " = " ++ prettyTPTP t2 ++ " )"
 
-    prettyTPTP (Predicate "kEqual" _) = __IMPOSSIBLE__
+  prettyTPTP (Predicate "kEqual" _) = __IMPOSSIBLE__
 
-    -- If the predicate represents a propositional logic variable,
-    -- following the TPTP syntax, we do not print the internal parenthesis.
-    prettyTPTP (Predicate name []) =
-        "( " ++ changeToLower name ++  " )"
+  -- If the predicate represents a propositional logic variable,
+  -- following the TPTP syntax, we do not print the internal
+  -- parenthesis.
+  prettyTPTP (Predicate name []) = "( " ++ changeToLower name ++  " )"
 
-    prettyTPTP (Predicate name terms) =
+  prettyTPTP (Predicate name terms) =
         "( " ++ changeToLower name ++ "(" ++ prettyTPTP terms ++ ")" ++ " )"
 
-    prettyTPTP (And f1 f2) =
-        "( " ++ prettyTPTP f1 ++ " & " ++ prettyTPTP f2 ++ " )"
-    prettyTPTP (Or f1 f2) =
-        "( " ++ prettyTPTP f1 ++ " | " ++ prettyTPTP f2 ++ " )"
+  prettyTPTP (And f1 f2) =
+    "( " ++ prettyTPTP f1 ++ " & " ++ prettyTPTP f2 ++ " )"
+  prettyTPTP (Or f1 f2) =
+    "( " ++ prettyTPTP f1 ++ " | " ++ prettyTPTP f2 ++ " )"
 
-    prettyTPTP (Not f) = "( " ++ '~' : prettyTPTP f ++ " )"
+  prettyTPTP (Not f) = "( " ++ '~' : prettyTPTP f ++ " )"
 
-    prettyTPTP (Implies f1 f2) =
+  prettyTPTP (Implies f1 f2) =
         "( " ++ prettyTPTP f1 ++ " => " ++ prettyTPTP f2 ++ " )"
 
-    prettyTPTP (Equiv f1 f2) =
+  prettyTPTP (Equiv f1 f2) =
         "( " ++ prettyTPTP f1 ++ " <=> " ++ prettyTPTP f2 ++ " )"
 
-    prettyTPTP (ForAll var f) =
-        "( ! [" ++ changeToUpper var ++ "] : " ++
-                prettyTPTP (f (FOLVar var)) ++
-        " )"
+  prettyTPTP (ForAll var f) =
+    "( ! [" ++ changeToUpper var ++ "] : " ++
+    prettyTPTP (f (FOLVar var)) ++
+    " )"
 
-    prettyTPTP (Exists var f) =
-        "( ? [" ++ changeToUpper var ++ "] : " ++
-                    prettyTPTP (f (FOLVar var)) ++
-        " )"
+  prettyTPTP (Exists var f) =
+    "( ? [" ++ changeToUpper var ++ "] : " ++
+    prettyTPTP (f (FOLVar var)) ++
+    " )"
 
-    prettyTPTP TRUE  = "( " ++ "$true" ++ " )"
-    prettyTPTP FALSE = "( " ++ "$false" ++ " )"
+  prettyTPTP TRUE  = "( " ++ "$true" ++ " )"
+  prettyTPTP FALSE = "( " ++ "$false" ++ " )"
 
 ------------------------------------------------------------------------------
 -- Pretty-printer for annotated formulas
 
 instance PrettyTPTP ATPRole where
-    prettyTPTP ATPAxiom      = "axiom"
-    prettyTPTP ATPConjecture = "conjecture"
-    prettyTPTP ATPDefinition = "definition"
-    prettyTPTP ATPHint       = "hypothesis"
+  prettyTPTP ATPAxiom      = "axiom"
+  prettyTPTP ATPConjecture = "conjecture"
+  prettyTPTP ATPDefinition = "definition"
+  prettyTPTP ATPHint       = "hypothesis"
 
 instance PrettyTPTP AF where
-    prettyTPTP (MkAF qName atpRole formula) =
-        "fof(" ++
-        prettyTPTP qName ++ ", " ++
-        prettyTPTP atpRole ++ ", " ++
-        prettyTPTP formula ++
-        ")." ++ "\n\n"
+  prettyTPTP (MkAF qName atpRole formula) =
+    "fof(" ++
+    prettyTPTP qName ++ ", " ++
+    prettyTPTP atpRole ++ ", " ++
+    prettyTPTP formula ++
+    ")." ++ "\n\n"

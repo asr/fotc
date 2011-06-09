@@ -5,10 +5,9 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 module FOL.Translation.Internal.Types
-    ( argTypeToFormula
-    , typeToFormula
-    )
-    where
+  ( argTypeToFormula
+  , typeToFormula
+  ) where
 
 -- Agda library imports
 import Agda.Syntax.Common   ( Arg )

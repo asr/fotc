@@ -18,14 +18,14 @@ import Control.Monad.State ( evalState, get, modify )
 import Agda.Syntax.Common        ( Arg(Arg) )
 import Agda.Syntax.Abstract.Name ( QName )
 import Agda.Syntax.Internal
-    ( Abs(Abs)
-    , Clause(Clause)
-    , ClauseBody
-    , Sort(Type)
-    , Tele(ExtendTel)
-    , Term(Def, Lit)
-    , Type(El)
-    )
+  ( Abs(Abs)
+  , Clause(Clause)
+  , ClauseBody
+  , Sort(Type)
+  , Tele(ExtendTel)
+  , Term(Def, Lit)
+  , Type(El)
+  )
 import Agda.Syntax.Literal   ( Literal(LitLevel) )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
@@ -33,10 +33,10 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 import FOL.Primitives         ( equal )
 import FOL.Translation.Common ( varsToArgs )
 import FOL.Translation.Internal
-    ( cBodyToFormula
-    , cBodyToFOLTerm
-    , removeBindingOnCBody
-    )
+  ( cBodyToFormula
+  , cBodyToFOLTerm
+  , removeBindingOnCBody
+  )
 import FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm )
 import FOL.Translation.Internal.Types ( typeToFormula )
 import FOL.Types                      ( FOLFormula(Implies, Equiv, ForAll) )
@@ -55,7 +55,7 @@ fnToFormula ∷ QName → Type → [Clause] → T FOLFormula
 fnToFormula _      _  []        = __IMPOSSIBLE__
 fnToFormula qName  ty (cl : []) = oneClauseToFormula qName ty cl
 fnToFormula _      _  _         =
-    throwError "The definitions to be translate only can have a clause"
+  throwError "The definitions to be translate only can have a clause"
 
 -- A Clause is defined by (Agda.Syntax.Internal)
 -- data Clause = Clause
@@ -90,7 +90,7 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
           let vars ∷ [String]
               vars = tVars state
 
-          let freshVar ∷ String
+              freshVar ∷ String
               freshVar = evalState freshName vars
 
           -- See the reason for the order in the variables in
@@ -149,24 +149,24 @@ oneClauseToFormula qName ty (Clause _ _ _ [] cBody) = do
   case ty of
     -- The defined symbol is a predicate.
     El (Type (Lit (LitLevel _ 1))) _ → do
-            lhsF ← termToFormula lhs
+      lhsF ← termToFormula lhs
 
-            -- The RHS is the body of the clause.
-            rhsF ← cBodyToFormula cBody
+      -- The RHS is the body of the clause.
+      rhsF ← cBodyToFormula cBody
 
-            -- Because the LHS and RHS are formulas, they are
-            -- related via an equivalence logic.
-            return $ Equiv lhsF rhsF
+      -- Because the LHS and RHS are formulas, they are related via an
+      -- equivalence logic.
+      return $ Equiv lhsF rhsF
 
     -- The defined symbol is a function.
     El (Type (Lit (LitLevel _ 0))) _ → do
-            lhsT ← termToFOLTerm lhs
+      lhsT ← termToFOLTerm lhs
 
-            -- The RHS is the body of the clause.
-            rhsT ← cBodyToFOLTerm cBody
+      -- The RHS is the body of the clause.
+      rhsT ← cBodyToFOLTerm cBody
 
-            -- Because the LHS and RHS are terms, they are related via
-            -- the FOL equality.
-            return $ equal lhsT rhsT
+      -- Because the LHS and RHS are terms, they are related via the
+      -- FOL equality.
+      return $ equal lhsT rhsT
 
     _ → __IMPOSSIBLE__
