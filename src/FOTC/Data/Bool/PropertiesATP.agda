@@ -13,7 +13,7 @@ open import FOTC.Data.Bool
         ; Bool ; fB ; tB  -- The FOTC booleans type.
         )
 open import FOTC.Data.Nat.Inequalities using ( _≤_ )
-open import FOTC.Data.Nat.Inequalities.PropertiesATP using ( S≰0 )
+open import FOTC.Data.Nat.Inequalities.PropertiesATP using ( Sx≰0 )
 open import FOTC.Data.Nat.Type
   using ( N ; sN ; zN  -- The FOTC natural numbers type.
         )
@@ -135,7 +135,7 @@ true&&x≡x fB = &&-tf
         {-# ATP prove prf #-}
 ≤-Bool (sN {m} Nm) zN = prf
   where postulate prf : Bool (succ m ≤ zero)
-        {-# ATP prove prf S≰0 #-}
+        {-# ATP prove prf Sx≰0 #-}
 ≤-Bool (sN {m} Nm) (sN {n} Nn) = prf $ ≤-Bool Nm Nn
   where postulate prf : Bool (m ≤ n) → Bool (succ m ≤ succ n)
         {-# ATP prove prf #-}

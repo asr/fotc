@@ -92,9 +92,9 @@ x≰x : ∀ {n} → N n → NLT n n
 x≰x zN          = <-00
 x≰x (sN {n} Nn) = trans (<-SS n n) (x≰x Nn)
 
-S≰0 : ∀ {n} → N n → NLE (succ n) zero
-S≰0 zN          = x≰x (sN zN)
-S≰0 (sN {n} Nn) = trans (<-SS (succ n) zero) (<-S0 n)
+Sx≰0 : ∀ {n} → N n → NLE (succ n) zero
+Sx≰0 zN          = x≰x (sN zN)
+Sx≰0 (sN {n} Nn) = trans (<-SS (succ n) zero) (<-S0 n)
 
 x<Sx : ∀ {n} → N n → LT n (succ n)
 x<Sx zN          = <-0S zero

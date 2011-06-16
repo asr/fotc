@@ -40,9 +40,9 @@ x≰x : ∀ {n} → N n → NLT n n
 x≰x zN          = <-00
 x≰x (sN {n} Nn) = trans (<-SS n n) (x≰x Nn)
 
-S≰0 : ∀ {n} → N n → NLE (succ n) zero
-S≰0 zN          = x≰x (sN zN)
-S≰0 (sN {n} Nn) = trans (<-SS (succ n) zero) (<-S0 n)
+Sx≰0 : ∀ {n} → N n → NLE (succ n) zero
+Sx≰0 zN          = x≰x (sN zN)
+Sx≰0 (sN {n} Nn) = trans (<-SS (succ n) zero) (<-S0 n)
 
 x<Sx : ∀ {n} → N n → LT n (succ n)
 x<Sx zN          = <-0S zero
@@ -92,7 +92,7 @@ x≮y→x≥y (sN {m} Nm) (sN {n} Nn) Sm≮Sn =
 
 x>y→x≰y : ∀ {m n} → N m → N n → GT m n → NLE m n
 x>y→x≰y zN          Nn          0>m   = ⊥-elim $ 0>x→⊥ Nn 0>m
-x>y→x≰y (sN Nm)     zN          _     = S≰0 Nm
+x>y→x≰y (sN Nm)     zN          _     = Sx≰0 Nm
 x>y→x≰y (sN {m} Nm) (sN {n} Nn) Sm>Sn =
   x≰y→Sx≰Sy m n (x>y→x≰y Nm Nn (trans (sym $ <-SS n m) Sm>Sn))
 
@@ -114,7 +114,7 @@ x<y∨x≮y Nm Nn = [ (λ m<n → inj₁ m<n)
 
 x≤y∨x≰y : ∀ {m n} → N m → N n → LE m n ∨ NLE m n
 x≤y∨x≰y zN Nn = inj₁ (0≤x Nn)
-x≤y∨x≰y (sN Nm) zN = inj₂ (S≰0 Nm)
+x≤y∨x≰y (sN Nm) zN = inj₂ (Sx≰0 Nm)
 x≤y∨x≰y (sN {m} Nm) (sN {n} Nn) =
   [ (λ m≤n → inj₁ (x≤y→Sx≤Sy m≤n))
   , (λ m≰n → inj₂ (x≰y→Sx≰Sy m n m≰n))

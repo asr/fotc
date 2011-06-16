@@ -33,14 +33,15 @@ PA_path               = src/PA
 PredicateLogic_path   = src/PredicateLogic
 
 # Programs
-Collatz_path      = $(FOTC_path)/Program/Collatz
-Division_path     = $(FOTC_path)/Program/Division
-Division-PCF_path = $(LTC-PCF_path)/Program/Division
-GCD_path          = $(FOTC_path)/Program/GCD
-GCD-PCF_path      = $(LTC-PCF_path)/Program/GCD
-McCarthy91_path   = $(FOTC_path)/Program/McCarthy91
-Mirror_path       = $(FOTC_path)/Program/Mirror
-SortList_path     = $(FOTC_path)/Program/SortList
+Collatz_path        = $(FOTC_path)/Program/Collatz
+Division_path       = $(FOTC_path)/Program/Division
+Division-PCF_path   = $(LTC-PCF_path)/Program/Division
+GCDPartial_path     = $(FOTC_path)/Program/GCD/Partial
+GCDTotal_path       = $(FOTC_path)/Program/GCD/Total
+GCD-PCFPartial_path = $(LTC-PCF_path)/Program/GCD/Partial
+McCarthy91_path     = $(FOTC_path)/Program/McCarthy91
+Mirror_path         = $(FOTC_path)/Program/Mirror
+SortList_path       = $(FOTC_path)/Program/SortList
 
 ##############################################################################
 # "main" modules
@@ -113,8 +114,9 @@ conjectures_% :
 #                 conjectures_Collatz \
 #                 conjectures_Division \
 #                 conjectures_Division-PCF \
-# 		  conjectures_GCD \
-# 		  conjectures_GCD-PCF \
+# 		  conjectures_GCDPartial \
+# 		  conjectures_GCDTotal \
+# 		  conjectures_GCD-PCFPartial \
 #		  conjectures_McCarthy91 \
 #		  conjectures_Mirror \
 # 		  conjectures_SortList
@@ -171,7 +173,7 @@ all_publish : publish_Common \
 ##############################################################################
 # Other stuff
 
-dependency_graph : src/FOTC/Program/GCD/ProofSpecificationATP.agda
+dependency_graph : src/FOTC/Program/GCD/Total/ProofSpecificationATP.agda
 	$(AGDA_FOT) --dependency-graph=/tmp/dependency-graph-gcd.gv $<
 	dot -Tps /tmp/dependency-graph-gcd.gv > /tmp/dependency-graph-gcd.ps
 

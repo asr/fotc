@@ -175,14 +175,19 @@ open import FOTC.Data.Nat.PropertiesByInductionATP
 open import FOTC.Data.Nat.PropertiesByInductionI
 
 -- 6.3.3 Divisibility relation
-open import FOTC.Data.Nat.Divisibility.PropertiesATP
-open import FOTC.Data.Nat.Divisibility.PropertiesI
+open import FOTC.Data.Nat.Divisibility.By0.Properties
+open import FOTC.Data.Nat.Divisibility.By0.PropertiesATP
+open import FOTC.Data.Nat.Divisibility.By0.PropertiesI
+open import FOTC.Data.Nat.Divisibility.NotBy0.Properties
+open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP
+open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesI
 
 -- 6.3.4 Induction
 open import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI
 open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI
 
 -- 6.3.5 Inequalites
+open import FOTC.Data.Nat.Inequalities.Properties
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 
@@ -216,8 +221,10 @@ open import FOTC.Program.Collatz.PropertiesATP
 open import FOTC.Program.Collatz.PropertiesI
 
 -- 6.5.2 The GCD algorithm: A non-structurally recursive algorithm
-open import FOTC.Program.GCD.ProofSpecificationATP
-open import FOTC.Program.GCD.ProofSpecificationI
+open import FOTC.Program.GCD.Partial.ProofSpecificationATP
+open import FOTC.Program.GCD.Partial.ProofSpecificationI
+open import FOTC.Program.GCD.Total.ProofSpecificationATP
+open import FOTC.Program.GCD.Total.ProofSpecificationI
 
 -- 6.5.3 The McCarthy 91 function: A function with nested recursion
 open import FOTC.Program.McCarthy91.Properties.MainATP
@@ -237,7 +244,8 @@ open import FOTC.Program.Division.ProofSpecificationI
 -- 6.6 Other modules
 -- (These modules are not imported from any module).
 open import FOTC.Program.Division.EquationsATP
-open import FOTC.Program.GCD.EquationsATP
+open import FOTC.Program.GCD.Partial.EquationsATP
+open import FOTC.Program.GCD.Total.EquationsATP
 
 ------------------------------------------------------------------------------
 -- ATPs failures
@@ -278,9 +286,9 @@ open import LTC-PCF.Data.Nat.PropertiesATP
 open import LTC-PCF.Data.Nat.PropertiesI
 
 -- 1.2.3 Divisibility relation
-open import LTC-PCF.Data.Nat.Divisibility.Properties
-open import LTC-PCF.Data.Nat.Divisibility.PropertiesATP
-open import LTC-PCF.Data.Nat.Divisibility.PropertiesI
+open import LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties
+open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesATP
+open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesI
 
 -- 1.2.4 Induction
 open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
@@ -301,5 +309,5 @@ open import LTC-PCF.Program.Division.ProofSpecificationATP
 open import LTC-PCF.Program.Division.ProofSpecificationI
 
 -- 1.3.2 The GCD algorithm: A non-structurally recursive algorithm
-open import LTC-PCF.Program.GCD.ProofSpecificationATP
-open import LTC-PCF.Program.GCD.ProofSpecificationI
+open import LTC-PCF.Program.GCD.Partial.ProofSpecificationATP
+open import LTC-PCF.Program.GCD.Partial.ProofSpecificationI

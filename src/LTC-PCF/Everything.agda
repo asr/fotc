@@ -8,10 +8,10 @@ open import LTC-PCF.Base
 open import LTC-PCF.Base.ConsistencyTest
 
 open import LTC-PCF.Data.Nat
-open import LTC-PCF.Data.Nat.Divisibility
-open import LTC-PCF.Data.Nat.Divisibility.Properties
-open import LTC-PCF.Data.Nat.Divisibility.PropertiesATP
-open import LTC-PCF.Data.Nat.Divisibility.PropertiesI
+open import LTC-PCF.Data.Nat.Divisibility.NotBy0
+open import LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties
+open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesATP
+open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesI
 open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicATP
 open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
 open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionATP
@@ -38,20 +38,20 @@ open import LTC-PCF.Program.Division.Specification
 open import LTC-PCF.Program.Division.TotalityATP
 open import LTC-PCF.Program.Division.TotalityI
 
-open import LTC-PCF.Program.GCD.Definitions
-open import LTC-PCF.Program.GCD.EquationsATP
-open import LTC-PCF.Program.GCD.EquationsI
-open import LTC-PCF.Program.GCD.GCD
-open import LTC-PCF.Program.GCD.IsCommonDivisorATP
-open import LTC-PCF.Program.GCD.IsCommonDivisorI
-open import LTC-PCF.Program.GCD.IsDivisibleATP
-open import LTC-PCF.Program.GCD.IsDivisibleI
-open import LTC-PCF.Program.GCD.IsGreatestAnyCommonDivisor
-open import LTC-PCF.Program.GCD.IsGreatestAnyCommonDivisor
-open import LTC-PCF.Program.GCD.ProofSpecificationATP
-open import LTC-PCF.Program.GCD.ProofSpecificationI
-open import LTC-PCF.Program.GCD.Specification
-open import LTC-PCF.Program.GCD.TotalityATP
-open import LTC-PCF.Program.GCD.TotalityI
+open import LTC-PCF.Program.GCD.Partial.Definitions
+open import LTC-PCF.Program.GCD.Partial.EquationsATP
+open import LTC-PCF.Program.GCD.Partial.EquationsI
+open import LTC-PCF.Program.GCD.Partial.GCD
+open import LTC-PCF.Program.GCD.Partial.IsCommonDivisorATP
+open import LTC-PCF.Program.GCD.Partial.IsCommonDivisorI
+open import LTC-PCF.Program.GCD.Partial.IsDivisibleATP
+open import LTC-PCF.Program.GCD.Partial.IsDivisibleI
+open import LTC-PCF.Program.GCD.Partial.IsGreatestAnyCommonDivisor
+open import LTC-PCF.Program.GCD.Partial.IsGreatestAnyCommonDivisor
+open import LTC-PCF.Program.GCD.Partial.ProofSpecificationATP
+open import LTC-PCF.Program.GCD.Partial.ProofSpecificationI
+open import LTC-PCF.Program.GCD.Partial.Specification
+open import LTC-PCF.Program.GCD.Partial.TotalityATP
+open import LTC-PCF.Program.GCD.Partial.TotalityI
 
 open import LTC-PCF.Relation.Binary.EqReasoning

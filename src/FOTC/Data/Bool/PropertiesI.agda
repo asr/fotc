@@ -13,7 +13,7 @@ open import FOTC.Data.Bool
         ; Bool ; fB ; tB  -- The FOTC booleans type.
         )
 open import FOTC.Data.Nat.Inequalities using ( _≤_ ; <-0S ; <-SS )
-open import FOTC.Data.Nat.Inequalities.PropertiesI using ( S≰0 )
+open import FOTC.Data.Nat.Inequalities.PropertiesI using ( Sx≰0 )
 open import FOTC.Data.Nat.Type
   using ( N ; sN ; zN  -- The FOTC natural numbers type.
         )
@@ -176,7 +176,7 @@ postulate
 
 ≤-Bool : ∀ {m n} → N m → N n → Bool (m ≤ n)
 ≤-Bool {n = n} zN Nn           = subst (λ t → Bool t) (sym $ <-0S n) tB
-≤-Bool (sN Nm) zN              = subst (λ t → Bool t) (sym $ S≰0 Nm) fB
+≤-Bool (sN Nm) zN              = subst (λ t → Bool t) (sym $ Sx≰0 Nm) fB
 ≤-Bool (sN {m} Nm) (sN {n} Nn) = subst (λ t → Bool t)
                                        (sym $ <-SS m (succ n))
                                        (≤-Bool Nm Nn)
