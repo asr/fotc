@@ -21,8 +21,11 @@ fail_files = $(patsubst %.agda,%, \
 # Ugly hack
 # We need to add a fake extension to the file names to avoid repeated
 # targets.
-snapshot_files = $(foreach file,$(succeed_files), \
-	$(addsuffix .snapshot, $(file)))
+snapshot_files_to_create = $(foreach file,$(succeed_files), \
+	$(addsuffix .snapshotcreate, $(file)))
+
+snapshot_files_to_test = $(foreach file,$(succeed_files), \
+	$(addsuffix .snapshottest, $(file)))
 
 %.agdai : %.agda
 	@if ! ( $(AGDA) $< ); then exit 1; fi
@@ -41,20 +44,29 @@ $(fail_files) : % : %.agdai
               exit 1; \
 	fi
 
-$(snapshot_files) : %.snapshot : %.agdai
+$(snapshot_files_to_create) : %.snapshotcreate : %.agdai
 	@if ! ( $(AGDA2ATP) --only-files \
 		            --output-dir=$(snapshot_dir) \
                             $*.agda ); then \
 		exit 1; \
 	fi
 
+$(snapshot_files_to_test) : %.snapshottest : %.agdai
+	@if ! ( $(AGDA2ATP) --snapshot-test \
+			    --snapshot-dir=$(snapshot_dir) \
+                            $*.agda ); then \
+		exit 1; \
+	fi
+
 # Snapshot of the succeed TPTP files.
-snapshot : $(snapshot_files)
+create_snapshot : $(snapshot_files_to_create)
 
 # The tests
-succeed : $(succeed_files)
-fail    : $(fail_files)
-test    : succeed fail
+succeed  : $(succeed_files)
+fail     : $(fail_files)
+snapshot : $(snapshot_files_to_test)
+
+test     : succeed fail
 
 ##############################################################################
 # Others
