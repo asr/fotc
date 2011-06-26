@@ -24,11 +24,12 @@ import Agda.Syntax.Internal
   ( Abs(Abs)
   , Args
   , arity
-  , Term(Con, Def, DontCare, Fun, Lam, Lit, MetaV, Pi, Sort, Var)
+  , Level(Max)
+  , PlusLevel(ClosedLevel)
+  , Term(Con, Def, DontCare, Fun, Lam, Level, Lit, MetaV, Pi, Sort, Var)
   , Sort(Type)
   , Type(El)
   )
-import Agda.Syntax.Literal   ( Literal(LitLevel) )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
@@ -46,11 +47,13 @@ class EtaExpandible a where
   etaExpand ∷ a → T a
 
 instance EtaExpandible Type where
-  etaExpand (El (Type (Lit (LitLevel r n))) term)
-    | n `elem` [0,1] =
-      do termEtaExpanded ← etaExpand term
-         return $ El (Type (Lit (LitLevel r n))) termEtaExpanded
-    | otherwise = __IMPOSSIBLE__
+  etaExpand (El (Type (Max [])) term) = do
+    termEtaExpanded ← etaExpand term
+    return $ El (Type (Max [])) termEtaExpanded
+
+  etaExpand (El (Type (Max [ClosedLevel 1])) term) = do
+    termEtaExpanded ← etaExpand term
+    return $ El (Type (Max [ClosedLevel 1])) termEtaExpanded
 
   etaExpand _ = __IMPOSSIBLE__
 
@@ -138,6 +141,7 @@ instance EtaExpandible Term where
     return $ Var n argsEtaExpanded
 
   etaExpand DontCare    = __IMPOSSIBLE__
+  etaExpand (Level _)   = __IMPOSSIBLE__
   etaExpand (Lit _)     = __IMPOSSIBLE__
   etaExpand (MetaV _ _) = __IMPOSSIBLE__
   etaExpand (Sort _)    = __IMPOSSIBLE__

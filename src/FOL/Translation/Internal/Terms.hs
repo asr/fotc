@@ -30,11 +30,12 @@ import qualified Agda.Syntax.Concrete.Name as C
 import Agda.Syntax.Internal
   ( Abs(Abs)
   , Args
+  , Level(Max)
+  , PlusLevel(ClosedLevel)
   , Sort(Type)
-  , Term(Con, Def, DontCare, Fun, Lam, Lit, MetaV, Pi, Sort, Var)
+  , Term(Con, Def, DontCare, Fun, Lam, Level, Lit, MetaV, Pi, Sort, Var)
   , Type(El)
   )
-import Agda.Syntax.Literal  ( Literal(LitLevel) )
 import Agda.Syntax.Position ( noRange )
 import Agda.Utils.Impossible
   ( Impossible(Impossible)
@@ -297,7 +298,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     -- any problem.
     --
     -- N.B. the pattern matching on (Def _ []).
-    El (Type (Lit (LitLevel _ 0))) (Def _ []) →
+    El (Type (Max [])) (Def _ []) →
         do reportSLn "t2f" 20 $
              "Adding universal quantification on variable: " ++ freshVar
            return $ ForAll freshVar (\_ → f2)
@@ -314,7 +315,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     -- sN : {n : D} → (Nn : N n) → N (succ n).
     --
     -- N.B. the pattern matching on (Def _ _).
-    El (Type (Lit (LitLevel _ 0))) def@(Def _ _) → do
+    El (Type (Max [])) def@(Def _ _) → do
       reportSLn "t2f" 20 $
         "Removing a quantification on the proof:\n" ++ show def
       f1 ← argTypeToFormula tyArg
@@ -328,9 +329,9 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     -- In this case we handle the bounded variable/function as a FOL
     -- variable (see termToFOLTerm term@(Var n args)), and we
     -- quantified on this variable.
-    El (Type (Lit (LitLevel _ 0)))
-       (Fun (Arg _ _ (El (Type (Lit (LitLevel _ 0))) (Def _ [])))
-            (El (Type (Lit (LitLevel _ 0))) (Def _ []))
+    El (Type (Max []))
+       (Fun (Arg _ _ (El (Type (Max [])) (Def _ [])))
+            (El (Type (Max [])) (Def _ []))
        ) → do
       reportSLn "t2f" 20
         "Removing a quantification on a function of a Set to a Set"
@@ -348,15 +349,15 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     -- variable (see termToFOLTerm term@(Var n args)), and we
     -- quantified on this variable.
 
-    El (Type (Lit (LitLevel _ 0)))
-       (Fun (Arg _ _ (El (Type (Lit (LitLevel _ 0))) (Def _ [])))
-            (El (Type (Lit (LitLevel _ 0))) (Fun _ _))
+    El (Type (Max []))
+       (Fun (Arg _ _ (El (Type (Max [])) (Def _ [])))
+            (El (Type (Max [])) (Fun _ _))
        ) → do
       reportSLn "t2f" 20
         "Removing a quantification on a function of a Set to a Set"
       return $ ForAll freshVar (\_ → f2)
 
-    El (Type (Lit (LitLevel _ 0))) someTerm → do
+    El (Type (Max [])) someTerm → do
       reportSLn "t2f" 20 $ "The term someterm is: " ++ show someTerm
       __IMPOSSIBLE__
 
@@ -368,7 +369,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     -- predicate logic schemas, e.g.
     --
     -- ∨-comm  : {P Q : Set} → P ∨ Q → Q ∨ P.
-    El (Type (Lit (LitLevel _ 1))) (Sort _) → do
+    El (Type (Max [ClosedLevel 1])) (Sort _) → do
       reportSLn "t2f" 20 $ "The type tyArg is: " ++ show tyArg
       return f2
 
@@ -382,17 +383,17 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     --   ∨-comm₂ : {P₂ Q₂ : D → D → Set}{x y : D} →
     --             P₂ x y ∨ Q₂ x y → Q₂ x y ∨ P₂ x y
 
-    El (Type (Lit (LitLevel _ 1))) (Fun _ _) →
+    El (Type (Max [ClosedLevel 1])) (Fun _ _) →
       return $ ForAll freshVar (\_ → f2)
 
     -- Other cases
-    El (Type (Lit (LitLevel _ 1))) (Def _ _)    → __IMPOSSIBLE__
-    El (Type (Lit (LitLevel _ 1))) DontCare     → __IMPOSSIBLE__
-    El (Type (Lit (LitLevel _ 1))) (Con _ _)    → __IMPOSSIBLE__
-    El (Type (Lit (LitLevel _ 1))) (Lam _ _)    → __IMPOSSIBLE__
-    El (Type (Lit (LitLevel _ 1))) (MetaV _ _)  → __IMPOSSIBLE__
-    El (Type (Lit (LitLevel _ 1))) (Pi _ _)     → __IMPOSSIBLE__
-    El (Type (Lit (LitLevel _ 1))) (Var _ _)    → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (Def _ _)    → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) DontCare     → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (Con _ _)    → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (Lam _ _)    → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (MetaV _ _)  → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (Pi _ _)     → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (Var _ _)    → __IMPOSSIBLE__
 
     someType → do
       reportSLn "t2f" 20 $ "The type tyArg is: " ++ show someType
@@ -453,6 +454,7 @@ termToFormula term@(Var n args) = do
 
 termToFormula DontCare    = __IMPOSSIBLE__
 termToFormula (Con _ _)   = __IMPOSSIBLE__
+termToFormula (Level _)   = __IMPOSSIBLE__
 termToFormula (Lit _)     = __IMPOSSIBLE__
 termToFormula (MetaV _ _) = __IMPOSSIBLE__
 termToFormula (Sort _)    = __IMPOSSIBLE__
@@ -545,6 +547,7 @@ termToFOLTerm term@(Var n args) = do
 termToFOLTerm DontCare    = __IMPOSSIBLE__
 termToFOLTerm (Fun _ _)   = __IMPOSSIBLE__
 termToFOLTerm (Lam _ _)   = __IMPOSSIBLE__
+termToFOLTerm (Level _)   = __IMPOSSIBLE__
 termToFOLTerm (Lit _)     = __IMPOSSIBLE__
 termToFOLTerm (MetaV _ _) = __IMPOSSIBLE__
 termToFOLTerm (Pi _ _)    = __IMPOSSIBLE__

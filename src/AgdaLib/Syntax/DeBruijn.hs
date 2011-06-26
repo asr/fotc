@@ -31,11 +31,12 @@ import Agda.Syntax.Internal
   ( Abs(Abs)
   , Args
   , ClauseBody(Bind,Body)
-  , Term(Con, Def, DontCare, Fun, Lam, Lit, MetaV, Pi, Sort, Var)
+  , Level(Max)
+  , PlusLevel(ClosedLevel)
+  , Term(Con, Def, DontCare, Fun, Lam, Level, Lit, MetaV, Pi, Sort, Var)
   , Sort(Type)
   , Type(El)
   )
-import Agda.Syntax.Literal   ( Literal(LitLevel) )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
@@ -52,11 +53,13 @@ class IncreaseByOneVar a where
 instance IncreaseByOneVar Term where
   increaseByOneVar (Var n [])  = Var (n + 1) []
   increaseByOneVar (Var _ _)   = __IMPOSSIBLE__
+
   increaseByOneVar (Con _ _)   = __IMPOSSIBLE__
   increaseByOneVar (Def _ _)   = __IMPOSSIBLE__
   increaseByOneVar DontCare    = __IMPOSSIBLE__
   increaseByOneVar (Fun _ _)   = __IMPOSSIBLE__
   increaseByOneVar (Lam _ _)   = __IMPOSSIBLE__
+  increaseByOneVar (Level _)   = __IMPOSSIBLE__
   increaseByOneVar (Lit _)     = __IMPOSSIBLE__
   increaseByOneVar (MetaV _ _) = __IMPOSSIBLE__
   increaseByOneVar (Pi _ _)    = __IMPOSSIBLE__
@@ -127,6 +130,7 @@ instance RenameVar Term where
   renameVar DontCare    _   = __IMPOSSIBLE__
   renameVar (Fun _ _)   _   = __IMPOSSIBLE__
   renameVar (Lam _ _)   _   = __IMPOSSIBLE__
+  renameVar (Level _)   _   = __IMPOSSIBLE__
   renameVar (Lit _)     _   = __IMPOSSIBLE__
   renameVar (MetaV _ _) _   = __IMPOSSIBLE__
   renameVar (Pi _ _)    _   = __IMPOSSIBLE__
@@ -150,12 +154,13 @@ instance RenameVar ClauseBody where
 -- the Agda internal types.
 
 -- General description
--- Example
--- +-leftIdentity : {n : D} → N n → zero + n ≡ n
--- +-leftIdentity {n} Nn = indN P P0 iStep Nn
+-- Example (Test.Succeed.Conjectures.DefinitionsInsideWhereClauses)
+
+-- +-rightIdentity : ∀ {n} → N n → n + zero ≡ n
+-- +-rightIdentity Nn = indN P P0 iStep Nn
 --   where
 --     P : D → Set
---     P i = zero + i ≡ i
+--     P i = i + zero ≡ i
 --     {-# ATP definition P #-}
 
 --     postulate
@@ -163,26 +168,26 @@ instance RenameVar ClauseBody where
 --     {-# ATP prove P0 #-}
 
 --     postulate
---       iStep : {i : D} → N i → P i → P (succ i)
+--       iStep : ∀ {i} → N i → P i → P (succ i)
 --     {-# ATP prove iStep #-}
 
 -- The Agda internal type of P0 is
 
--- El (Type (Lit (LitLevel  0)))
---    (Pi {El (Type (Lit (LitLevel  0))) (Def Test.Test.D [])}
---        (Abs "n" El (Type (Lit (LitLevel  0)))
---                    (Pi (El (Type (Lit (LitLevel  0))) (Def Test.Test.N [(Var 0 [])]))
---                        (Abs "Nn" El (Type (Lit (LitLevel  0)))
---                                     (Def Test.Test._.P [{Var 1 []},(Var 0 []),(Def Test.Test.zero [])])))))
+-- El (Type (Max []))
+--    (Pi r{El (Type (Max [])) (Def Test.Succeed.Conjectures.DefinitionsInsideWhereClauses.D [])}
+--        (Abs ".n" El (Type (Max []))
+--                     (Pi r(El (Type (Max [])) (Def Test.Succeed.Conjectures.DefinitionsInsideWhereClauses.N [r(Var 0 [])]))
+--                         (Abs "Nn" El (Type (Max []))
+--                                      (Def Test.Succeed.Conjectures.DefinitionsInsideWhereClauses._.P [r{Var 1 []},r(Var 0 []),r(Def Test.Succeed.Conjectures.DefinitionsInsideWhereClauses.zero [])])))))
 
 -- The variable Nn is a proof term (i.e. Nn : N n) and it is referenced in
 
--- Def Test.Test._.P [{Var 1 []},(Var 0 []), ...]       (1)
+-- Def Test.Succeed.Conjectures.DefinitionsInsideWhereClauses._.P [r{Var 1 []},r(Var 0 [])...       (1)
 
--- using its de Brujin name, i.e. (Var 0 []). After remove this
+-- using its de Brujin name, i.e. r(Var 0 []). After remove this
 -- reference the internal term (1) is converted to
 
--- Def Test.Test._.P [{Var 1 []}, ...].
+-- Test.Succeed.Conjectures.DefinitionsInsideWhereClauses._.P [r{Var 1 []}...].
 
 -- In addition the quantification on Nn will be removed too. See
 -- FOL.Translation.Internal.Terms.termToFormula (on Pi terms).
@@ -258,7 +263,7 @@ removeReferenceToProofTerm varType index ty =
     -- so we don't do anything.
 
     -- N.B. the pattern matching on (Def _ []).
-    El (Type (Lit (LitLevel _ 0))) (Def _ []) → return ty
+    El (Type (Max [])) (Def _ []) → return ty
 
     -- The variable's type is a proof,
     --
@@ -269,16 +274,16 @@ removeReferenceToProofTerm varType index ty =
     -- variable.
 
     -- N.B. the pattern matching on (Def _ _).
-    El (Type (Lit (LitLevel _ 0))) (Def _ _) → return (removeVar ty index)
+    El (Type (Max [])) (Def _ _) → return (removeVar ty index)
 
     -- The variable's type is a function type,
     --
     -- e.g. the variable is f : D → D, where D : Set.
 
     -- Because the variable is not a proof term we don't do anything.
-    El (Type (Lit (LitLevel _ 0)))
-       (Fun (Arg _ _ (El (Type (Lit (LitLevel _ 0))) (Def _ [])))
-            (El (Type (Lit (LitLevel _ 0))) (Def _ []))
+    El (Type (Max []))
+       (Fun (Arg _ _ (El (Type (Max [])) (Def _ [])))
+            (El (Type (Max [])) (Def _ []))
        ) → return ty
 
     -- N.B. The next case is just a generalization to various
@@ -289,13 +294,13 @@ removeReferenceToProofTerm varType index ty =
     -- e.g. the variable is f : D → D → D, where D : Set.
 
     -- Because the variable is not a proof term we don't do anything.
-    El (Type (Lit (LitLevel _ 0)))
-       (Fun (Arg _ _ (El (Type (Lit (LitLevel _ 0))) (Def _ [])))
-            (El (Type (Lit (LitLevel _ 0))) (Fun _ _))
+    El (Type (Max []))
+       (Fun (Arg _ _ (El (Type (Max [])) (Def _ [])))
+            (El (Type (Max [])) (Fun _ _))
        ) → return ty
 
     -- We don't erase these proofs terms.
-    El (Type (Lit (LitLevel _ 0))) someTerm → do
+    El (Type (Max [])) someTerm → do
       reportSLn "removeReferenceToProofTerm" 20 $
                 "The term someTerm is: " ++ show someTerm
       throwError $ "It is necessary to erase a proof term, "++
@@ -308,7 +313,7 @@ removeReferenceToProofTerm varType index ty =
     -- e.g. the variable is P : Set.
     --
     -- Because the variable is not a proof term we don't do anything.
-    El (Type (Lit (LitLevel _ 1))) (Sort _) → return ty
+    El (Type (Max [ClosedLevel 1])) (Sort _) → return ty
 
     -- N.B. The next case is just a generalization to various
     -- arguments of the previous case.
@@ -318,16 +323,16 @@ removeReferenceToProofTerm varType index ty =
     -- e.g. the variable is P : D → Set.
     --
     -- Because the variable is not a proof term we don't do anything.
-    El (Type (Lit (LitLevel _ 1))) (Fun _ _) → return ty
+    El (Type (Max [ClosedLevel 1])) (Fun _ _) → return ty
 
     -- Other cases
-    El (Type (Lit (LitLevel _ 1))) (Def _ _)    → __IMPOSSIBLE__
-    El (Type (Lit (LitLevel _ 1))) DontCare     → __IMPOSSIBLE__
-    El (Type (Lit (LitLevel _ 1))) (Con _ _)    → __IMPOSSIBLE__
-    El (Type (Lit (LitLevel _ 1))) (Lam _ _)    → __IMPOSSIBLE__
-    El (Type (Lit (LitLevel _ 1))) (MetaV _ _)  → __IMPOSSIBLE__
-    El (Type (Lit (LitLevel _ 1))) (Pi _ _)     → __IMPOSSIBLE__
-    El (Type (Lit (LitLevel _ 1))) (Var _ _)    → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (Def _ _)    → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) DontCare     → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (Con _ _)    → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (Lam _ _)    → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (MetaV _ _)  → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (Pi _ _)     → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (Var _ _)    → __IMPOSSIBLE__
 
     someType → do
       reportSLn "removeReferenceToProofTerm" 20 $

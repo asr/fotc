@@ -21,12 +21,13 @@ import Agda.Syntax.Internal
   ( Abs(Abs)
   , Clause(Clause)
   , ClauseBody
+  , Level(Max)
+  , PlusLevel(ClosedLevel)
   , Sort(Type)
   , Tele(ExtendTel)
-  , Term(Def, Lit)
+  , Term(Def)
   , Type(El)
   )
-import Agda.Syntax.Literal   ( Literal(LitLevel) )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
@@ -83,7 +84,7 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
     -- so we can create a fresh variable and quantify on it without any
     -- problem. N.B. the pattern matching on (Def _ []).
     ExtendTel
-      (Arg _ _ (El (Type (Lit (LitLevel _ 0))) (Def _ []))) (Abs x tels) → do
+      (Arg _ _ (El (Type (Max [])) (Def _ []))) (Abs x tels) → do
           reportSLn "def2f" 20 $ "Processing var: " ++ x
 
           state ← get
@@ -111,7 +112,7 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
     -- function type (using Implies instead of ForAll). N.B. the
     -- pattern matching on (Def _ _).
     ExtendTel
-      (Arg _ _ tye@(El (Type (Lit (LitLevel _ 0))) (Def _ _))) (Abs x tels) →
+      (Arg _ _ tye@(El (Type (Max [])) (Def _ _))) (Abs x tels) →
         do f1 ← typeToFormula tye
 
            reportSLn "def2f" 20 $ "Processing var: " ++ x
@@ -148,7 +149,7 @@ oneClauseToFormula qName ty (Clause _ _ _ [] cBody) = do
 
   case ty of
     -- The defined symbol is a predicate.
-    El (Type (Lit (LitLevel _ 1))) _ → do
+    El (Type (Max [ClosedLevel 1])) _ → do
       lhsF ← termToFormula lhs
 
       -- The RHS is the body of the clause.
@@ -159,7 +160,7 @@ oneClauseToFormula qName ty (Clause _ _ _ [] cBody) = do
       return $ Equiv lhsF rhsF
 
     -- The defined symbol is a function.
-    El (Type (Lit (LitLevel _ 0))) _ → do
+    El (Type (Max [])) _ → do
       lhsT ← termToFOLTerm lhs
 
       -- The RHS is the body of the clause.

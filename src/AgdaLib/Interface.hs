@@ -57,7 +57,7 @@ import Agda.Syntax.Internal
   , Clause(Clause)
   , ClauseBody(Bind, Body, NoBind, NoBody)
   , translatedClause
-  , Term(Con, Def, DontCare, Fun, Lam, Lit, MetaV, Pi, Sort, Var)
+  , Term(Con, Def, DontCare, Fun, Lam, Level, Lit, MetaV, Pi, Sort, Var)
   , Type(El)
   )
 import Agda.Syntax.Position
@@ -285,6 +285,7 @@ instance QNamesIn Term where
 
   qNamesIn DontCare    = __IMPOSSIBLE__
   qNamesIn (Lit _)     = __IMPOSSIBLE__
+  qNamesIn (Level _)   = __IMPOSSIBLE__
   qNamesIn (MetaV _ _) = __IMPOSSIBLE__
 
 instance QNamesIn Type where
