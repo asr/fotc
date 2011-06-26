@@ -119,7 +119,7 @@ instance PrettyTPTP FOLFormula where
   prettyTPTP (Predicate name []) = "( " ++ changeToLower name ++  " )"
 
   prettyTPTP (Predicate name terms) =
-        "( " ++ changeToLower name ++ "(" ++ prettyTPTP terms ++ ")" ++ " )"
+    "( " ++ changeToLower name ++ "(" ++ prettyTPTP terms ++ ")" ++ " )"
 
   prettyTPTP (And f1 f2) =
     "( " ++ prettyTPTP f1 ++ " & " ++ prettyTPTP f2 ++ " )"
@@ -129,10 +129,10 @@ instance PrettyTPTP FOLFormula where
   prettyTPTP (Not f) = "( " ++ '~' : prettyTPTP f ++ " )"
 
   prettyTPTP (Implies f1 f2) =
-        "( " ++ prettyTPTP f1 ++ " => " ++ prettyTPTP f2 ++ " )"
+    "( " ++ prettyTPTP f1 ++ " => " ++ prettyTPTP f2 ++ " )"
 
   prettyTPTP (Equiv f1 f2) =
-        "( " ++ prettyTPTP f1 ++ " <=> " ++ prettyTPTP f2 ++ " )"
+    "( " ++ prettyTPTP f1 ++ " <=> " ++ prettyTPTP f2 ++ " )"
 
   prettyTPTP (ForAll var f) =
     "( ! [" ++ changeToUpper var ++ "] : " ++

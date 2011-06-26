@@ -36,10 +36,10 @@ processOptions argv =
 
           finalOpts ∷ Options
           finalOpts =
-              if null (optATP opts)  -- No ATPs was chosen.
-              then opts { optATP = defaultOptATP }  -- We set up the
-                                                    -- defaults ATPs.
-              else opts
+            if null (optATP opts)  -- No ATPs was chosen.
+            then opts { optATP = defaultOptATP }  -- We set up the
+                                                  -- defaults ATPs.
+            else opts
 
       case files of
         []       → return (finalOpts, [])

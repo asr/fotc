@@ -261,7 +261,7 @@ getClauses def =
        Function{} → map translatedClause $ funClauses defn
        _          → __IMPOSSIBLE__
 
--- | Returns the QNames is an entity
+-- | Returns the QNames in an entity.
 class QNamesIn a where
   qNamesIn ∷ a → [QName]
 
@@ -284,8 +284,8 @@ instance QNamesIn Term where
   qNamesIn (Var _ args)     = qNamesIn args
 
   qNamesIn DontCare    = __IMPOSSIBLE__
-  qNamesIn (Lit _)     = __IMPOSSIBLE__
   qNamesIn (Level _)   = __IMPOSSIBLE__
+  qNamesIn (Lit _)     = __IMPOSSIBLE__
   qNamesIn (MetaV _ _) = __IMPOSSIBLE__
 
 instance QNamesIn Type where

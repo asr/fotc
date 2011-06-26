@@ -391,6 +391,8 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     El (Type (Max [ClosedLevel 1])) DontCare     → __IMPOSSIBLE__
     El (Type (Max [ClosedLevel 1])) (Con _ _)    → __IMPOSSIBLE__
     El (Type (Max [ClosedLevel 1])) (Lam _ _)    → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (Level _)    → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (Lit _)      → __IMPOSSIBLE__
     El (Type (Max [ClosedLevel 1])) (MetaV _ _)  → __IMPOSSIBLE__
     El (Type (Max [ClosedLevel 1])) (Pi _ _)     → __IMPOSSIBLE__
     El (Type (Max [ClosedLevel 1])) (Var _ _)    → __IMPOSSIBLE__
