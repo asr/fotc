@@ -26,8 +26,8 @@ RSYNC    = rsync --archive --progress --rsh='ssh -p 2024'
 # Theories
 Common_path           = src/Common
 DistributiveLaws_path = src/DistributiveLaws
-GroupTheory_path      = src/GroupTheory
 FOTC_path             = src/FOTC
+GroupTheory_path      = src/GroupTheory
 LTC-PCF_path          = src/LTC-PCF
 PA_path               = src/PA
 PredicateLogic_path   = src/PredicateLogic
@@ -51,9 +51,9 @@ main_Common           = $(Common_path)/Everything
 
 main_DistributiveLaws = $(DistributiveLaws_path)/Everything
 
-main_GroupTheory      = $(GroupTheory_path)/Everything
-
 main_FOTC             = $(FOTC_path)/Everything
+
+main_GroupTheory      = $(GroupTheory_path)/Everything
 
 main_LTC-PCF          = $(LTC-PCF_path)/Everything
 
@@ -85,8 +85,8 @@ type_checking_% :
 
 all_type_checking : type_checking_Common \
 		    type_checking_DistributiveLaws \
-		    type_checking_GroupTheory \
 		    type_checking_FOTC \
+		    type_checking_GroupTheory \
 		    type_checking_LTC-PCF \
 		    type_checking_PA \
 		    type_checking_PredicateLogic \
@@ -106,8 +106,8 @@ conjectures_% :
 # TODO: We add the conjectures related to the programs, but it
 # duplicates the test.
 # all_conjectures : conjectures_DistributiveLaws \
-# 		  conjectures_GroupTheory \
 # 		  conjectures_FOTC \
+# 		  conjectures_GroupTheory \
 # 		  conjectures_LTC-PCF \
 # 		  conjectures_PA \
 # 		  conjectures_PredicateLogic \
@@ -122,8 +122,8 @@ conjectures_% :
 # 		  conjectures_SortList
 
 all_conjectures : conjectures_DistributiveLaws \
-		  conjectures_GroupTheory \
 		  conjectures_FOTC \
+		  conjectures_GroupTheory \
 		  conjectures_LTC-PCF \
 		  conjectures_PA \
 		  conjectures_PredicateLogic \
@@ -163,8 +163,8 @@ publish_% :
 
 all_publish : publish_Common \
 	      publish_DistributiveLaws \
-	      publish_GroupTheory \
 	      publish_FOTC \
+	      publish_GroupTheory \
 	      publish_LTC-PCF \
 	      publish_PA \
 	      publish_PredicateLogic \
