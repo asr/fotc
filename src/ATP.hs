@@ -66,7 +66,7 @@ optATP2ATP "metis"    = Metis
 optATP2ATP "vampire"  = Vampire
 optATP2ATP _          = __IMPOSSIBLE__
 
--- Tested with E 1.2 Badamtam.
+-- Tested with E 1.3 Ringtong.
 eOk ∷ String
 eOk = "Proof found!"
 
