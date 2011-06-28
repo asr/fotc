@@ -28,24 +28,24 @@ out (Wrap x) = x
 -- Functors
 
 --  The identity functor (the functor for the empty and unit types).
-newtype FId x = MkFId x
+newtype IdF x = MkIdF x
 
-instance Functor FId where
-  fmap f (MkFId x) = MkFId (f x)
+instance Functor IdF where
+  fmap f (MkIdF x) = MkIdF (f x)
 
 -- The (co)natural numbers functor.
-data FN x = Z | S x
+data NatF x = Z | S x
 
-instance Functor FN where
+instance Functor NatF where
   fmap _ Z     = Z
   fmap f (S x) = S (f x)
 
 -- The (co)list functor.
-data FL a x = N | C a x
+data ListF a x = Nil | Cons a x
 
-instance Functor (FL a) where
-  fmap _ N        = N
-  fmap f (C x xs) = C x (f xs)
+instance Functor (ListF a) where
+  fmap _ Nil         = Nil
+  fmap f (Cons x xs) = Cons x (f xs)
 
 -- The stream functor.
 data FS a x = St a x
@@ -57,48 +57,48 @@ instance Functor (FS a) where
 -- Types as least fixed-points
 
 -- The empty type is a least fixed-point.
-type Empty = Mu FId
+type Empty = Mu IdF
 
 -- NB. It seems we can create an term of type Empty using
 -- non-structural recursion.
 empty ∷ Empty
-empty = In (MkFId empty)
+empty = In (MkIdF empty)
 
 -- The natural numbers type is a least fixed-point.
-type N = Mu FN
+type Nat = Mu NatF
 
 -- The data constructors for the natural numbers.
-zero ∷ N
+zero ∷ Nat
 zero = In Z
 
-succ ∷ N → N
+succ ∷ Nat → Nat
 succ n = In (S n)
 
 -- The list type is a least fixed-point.
-type List a = Mu (FL a)
+type List a = Mu (ListF a)
 
 -- The data constructors for List.
 nil ∷ List a
-nil = In N
+nil = In Nil
 
 cons ∷ a → List a → List a
-cons x xs = In (C x xs)
+cons x xs = In (Cons x xs)
 
 ------------------------------------------------------------------------------
 -- Types as greatest fixed-points
 
 -- The unit type is a greatest fixed-point.
-type Unit = Nu FId
+type Unit = Nu IdF
 
 unit ∷ Unit
-unit = Wrap (MkFId unit)  -- Non-structural recursion.
+unit = Wrap (MkIdF unit)  -- Non-structural recursion.
 
 -- The unit type destructor.
 idUnit ∷ Unit → Unit
 idUnit u = u
 
 -- The conaturals type is a greatest fixed-point.
-type Conat = Nu FN
+type Conat = Nu NatF
 
 instance Eq Conat where
   Wrap Z     == Wrap Z     = True
@@ -131,30 +131,30 @@ pred cn
                      S x → MkConat x
 
 -- The colist type is a greatest fixed-point.
-type Colist a = Nu (FL a)
+type Colist a = Nu (ListF a)
 
 -- The colist data constructors.
 nilCL ∷ Colist a
-nilCL = Wrap N
+nilCL = Wrap Nil
 
 consCL ∷ a → Colist a → Colist a
-consCL x xs = Wrap (C x xs)
+consCL x xs = Wrap (Cons x xs)
 
 -- The colist destructors.
 nullCL ∷ Colist a → Bool
 nullCL xs = case out xs of
-              N     → True
-              C _ _ → False
+              Nil      → True
+              Cons _ _ → False
 
 headCL ∷ Colist a → a
 headCL xs = case out xs of
-              N     → error "Impossible"
-              C x _ → x
+              Nil     → error "Impossible"
+              Cons x _ → x
 
 tailCL ∷ Colist a → Colist a
 tailCL xs = case out xs of
-              N       → error "Impossible"
-              C _ xs' → xs'
+              Nil       → error "Impossible"
+              Cons _ xs' → xs'
 
 -- The stream type is a greatest fixed-point.
 type Stream a = Nu (FS a)

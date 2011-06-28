@@ -54,31 +54,31 @@ postulate
 -- Functors
 
 --  The identity functor (the functor for the empty and unit types).
-FId : Set → Set
-FId X = X
+IdF : Set → Set
+IdF X = X
 
 -- The (co)natural numbers functor.
-FN : Set → Set
-FN X = One ⊎ X
+NatF : Set → Set
+NatF X = One ⊎ X
 
 -- The (co)list functor.
-FL : Set → Set → Set
-FL A X = One ⊎ (A × X)
+ListF : Set → Set → Set
+ListF A X = One ⊎ (A × X)
 
 -- The stream functor.
-FS : Set → Set → Set
-FS A X = A × X
+StreamF : Set → Set → Set
+StreamF A X = A × X
 
 ------------------------------------------------------------------------------
 -- Types as least fixed-points
 
 -- The empty type is a least fixed-point.
 ⊥ : Set
-⊥ = Mu FId
+⊥ = Mu IdF
 
 -- The natural numbers type is a least fixed-point.
 N : Set
-N = Mu FN
+N = Mu NatF
 
 -- The data constructors for the natural numbers.
 zero : N
@@ -89,7 +89,7 @@ succ n = In (inr n)
 
 -- The list type is a least fixed-point.
 List : Set → Set
-List A = Mu (FL A)
+List A = Mu (ListF A)
 
 -- The data constructors for List.
 nil : {A : Set} → List A
@@ -103,15 +103,15 @@ cons x xs = In (inr (x , xs))
 
 -- The unit type is a greatest fixed-point.
 Unit : Set
-Unit = Nu FId
+Unit = Nu IdF
 
 -- Non-structural recursion
--- unit : Nu FId
--- unit = Wrap FId {!unit!}
+-- unit : Nu IdF
+-- unit = Wrap IdF {!unit!}
 
 -- The conaturals type is a greatest fixed-point.
 Conat : Set
-Conat = Nu FN
+Conat = Nu NatF
 
 zeroC : Conat
 zeroC = Wrap (inl one)
@@ -131,7 +131,7 @@ pred cn with out cn
 
 -- The colist type is a greatest fixed-point.
 Colist : Set → Set
-Colist A = Nu (FL A)
+Colist A = Nu (ListF A)
 
 -- The colist data constructors.
 nilCL : {A : Set} → Colist A
@@ -147,18 +147,18 @@ nullCL xs with out xs
 ... | inr _ = false
 
 -- headCL : {A : Set} → Colist A → A
--- headCL {A} xs with out (FL A) xs
+-- headCL {A} xs with out (ListF A) xs
 -- ... | inl t       =  -- Impossible
 -- ... | inr (x , _) = x
 
 -- tailCL : {A : Set} → Colist A → Colist A
--- tailCL {A} xs with out (FL A) xs
+-- tailCL {A} xs with out (ListF A) xs
 -- ... | inl t         =  -- Impossible
 -- ... | inr (_ , xs') = xs'
 
 -- The stream type is a greatest fixed-point.
 Stream : Set → Set
-Stream A = Nu (FS A)
+Stream A = Nu (StreamF A)
 
 -- The stream data constructor.
 consS : {A : Set} → A → Stream A → Stream A
