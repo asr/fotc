@@ -164,7 +164,11 @@ myReadInterface file = do
 
   case r of
     Right (Just i) → return i
-    Right Nothing  → throwError $ "Error reading the interface file " ++ iFile
+    Right Nothing  → throwError $
+                       "Error reading the interface file " ++ iFile ++ ". " ++
+                       "It is possible that you used a different version " ++
+                       "of Agda to build the agda2atp tool and to " ++
+                       "type-check your module"
     Left  _        → throwError "Error from runTCM in myReadInterface"
 
 myGetInterface ∷ ModuleName → T (Maybe Interface)
