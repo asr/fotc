@@ -2,12 +2,12 @@
 -- Bisimilarity properties
 ------------------------------------------------------------------------------
 
-module FOTC.Data.Stream.Bisimilarity.PropertiesI where
+module Draft.FOTC.Data.Stream.Bisimilarity.PropertiesI where
 
 open import FOTC.Base
 open import FOTC.Base.PropertiesI using ( ∷-injective )
 
-open import FOTC.Data.Stream.Bisimilarity
+open import Draft.FOTC.Data.Stream.Bisimilarity
 
 ------------------------------------------------------------------------------
 
@@ -45,3 +45,6 @@ x∷xs≈x∷ys→xs≈ys {x} {xs} {ys} x∷xs≈x∷ys = xs≈ys
   xs≈ys = subst (λ t → t ≈ ys)
                 (sym xs≡xs')
                 (subst (λ t → xs' ≈ t) (sym ys≡ys') xs'≈ys')
+
+-- xs≈ys→x∷xs≈x∷ys : ∀ {x xs ys} → xs ≈ ys → x ∷ xs ≈ x ∷ ys
+-- xs≈ys→x∷xs≈x∷ys {x} {xs} {ys} xs≈ys = {!!}

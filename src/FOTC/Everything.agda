@@ -63,11 +63,6 @@ open import FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
 open import FOTC.Data.Nat.UnaryNumbers.TotalityI
 
-open import FOTC.Data.Stream.Bisimilarity
-open import FOTC.Data.Stream.Bisimilarity.ConsistencyTest
-open import FOTC.Data.Stream.Bisimilarity.PropertiesATP
-open import FOTC.Data.Stream.Bisimilarity.PropertiesI
-
 open import FOTC.Induction.WellFounded
 
 open import FOTC.Program.Collatz.Collatz

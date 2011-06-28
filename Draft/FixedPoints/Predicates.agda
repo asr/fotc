@@ -6,6 +6,7 @@ open import FOTC.Base
 
 -- The pure (i.e. non-inductive) FOTC natural numbers.
 module Pure where
+
   postulate
     N  : D → Set
     zN : N zero

@@ -1,6 +1,6 @@
--- Tested with Agda 2.2.9 (from 11 October 2010).
+-- Tested with Agda 2.2.11 (from 28 June 2011).
 
-module Functors where
+module Draft.FixedPoints.Functors where
 
 -- The carrier of the initial algebra is (up to isomorphism) a
 -- fixed-point of the functor [1, p. 18].
@@ -26,7 +26,7 @@ data One : Set where
 
 postulate
   -- The least fixed-point.
-  -- The names came from the Haskell definition
+  -- The names came from the Haskell definitions
 
   -- data Mu f = In (f (Mu f))
 
@@ -39,7 +39,7 @@ postulate
 
 postulate
   -- The greatest fixed-point.
-  -- The names came from the Haskell definition
+  -- The names came from the Haskell definitions
 
   -- data Nu f = Wrap (f (Nu f))
 

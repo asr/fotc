@@ -2,7 +2,7 @@
 -- Bisimilarity relation on FOTC streams
 ------------------------------------------------------------------------------
 
-module FOTC.Data.Stream.Bisimilarity where
+module Draft.FOTC.Data.Stream.Bisimilarity where
 
 open import FOTC.Base
 
