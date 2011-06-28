@@ -12,8 +12,8 @@ postulate
   prop₂ : ∀ u x y z → (x · y · (z · u)) ·
                       (( x · y · ( z · u)) · (x · z · (y · u))) ≡
                       x · z · (y · u)
-  -- E 1.2: CPU time limit exceeded (180 sec)
-  -- E 1.2: CPU time limit exceeded (300 sec)
+  -- E 1.3: CPU time limit exceeded (180 sec)
+  -- E 1.3: CPU time limit exceeded (300 sec)
   -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds)
   -- Equinox 5.0alpha (2010-06-29): TIMEOUT (300 seconds)
   -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
