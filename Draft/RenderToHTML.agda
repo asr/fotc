@@ -4,4 +4,4 @@
 
 module Draft.RenderToHTML where
 
-open import Draft.DataBase
+open import Draft.FixedPoints.Predicates
