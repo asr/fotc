@@ -97,7 +97,7 @@ module LFP where
     --
     -- because the type of the equality is
     --
-    -- _≡_ : D → D → Set.
+    -- _≡_ : D → D → Set,
     --
     -- therefore we postulate both directions of the conversion rule (1).
 
