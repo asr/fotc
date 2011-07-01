@@ -84,7 +84,7 @@ module Inductive where
 module LFP where
 
   postulate
-    -- Least fixed-points correspond to inductively defined predicates.
+    -- Least fixed-points correspond to inductively defined types.
     --
     -- N.B. We cannot write LFP in first order logic. We should use an
     -- instance instead.
@@ -101,8 +101,24 @@ module LFP where
     --
     -- therefore we postulate both directions of the conversion rule (1).
 
-    LFP₁ : (f : (D → Set) → D → Set) → (d : D) → LFP f d → f (LFP f) d
-    LFP₂ : (f : (D → Set) → D → Set) → (d : D) → f (LFP f) d → LFP f d
+    LFP₁ : (f : (D → Set) → D → Set)(d : D) → LFP f d → f (LFP f) d
+    LFP₂ : (f : (D → Set) → D → Set)(d : D) → f (LFP f) d → LFP f d
+
+------------------------------------------------------------------------------
+
+-- The greatest fixed-point operator.
+
+-- N.B. At the moment, the definitions of LFP and GFP are the same.
+
+module GFP where
+
+  postulate
+    -- Greatest fixed-points correspond to coinductively defined types.
+
+    GFP : ((D → Set) → D → Set) → D → Set
+
+    GFP₁ : (f : (D → Set) → D → Set)(d : D) → GFP f d → f (GFP f) d
+    GFP₂ : (f : (D → Set) → D → Set)(d : D) → f (GFP f) d → GFP f d
 
 ------------------------------------------------------------------------------
 
@@ -144,7 +160,7 @@ module NLFP where
 
 ------------------------------------------------------------------------------
 
--- The FOTC list type as the least fixed-point of functor.
+-- The FOTC list type as the least fixed-point of a functor.
 
 module ListLFT where
 
@@ -155,7 +171,6 @@ module ListLFT where
   ListF X ds = ds ≡ [] ∨ (∃ λ e → ∃ λ es → ds ≡ e ∷ es ∧ X es)
 
   -- The FOTC list type using LFP.
-
   List : D → Set
   List = LFP ListF
 
@@ -172,7 +187,8 @@ module ListLFT where
 
 ------------------------------------------------------------------------------
 
--- The FOTC list of natural numbers type as the least fixed-point of functor.
+-- The FOTC list of natural numbers type as the least fixed-point of a
+-- functor.
 
 module ListNLFT where
 
@@ -184,7 +200,6 @@ module ListNLFT where
   ListNF X ds = ds ≡ [] ∨ (∃ λ e → ∃ λ es → ds ≡ e ∷ es ∧ N e ∧ X es)
 
   -- The FOTC list type using LFP.
-
   ListN : D → Set
   ListN = LFP ListNF
 
@@ -199,3 +214,35 @@ module ListNLFT where
   -- Example.
   ln : ListN (zero ∷ one ∷ [])
   ln = consLN zN (consLN oneN nilLN)
+
+------------------------------------------------------------------------------
+
+-- The FOTC Colist type as the greatest fixed-point of a functor.
+
+module CoList where
+
+  open GFP
+
+  -- Functor for the FOTC Colists type (the same functor that for the
+  -- List type).
+  ColistF : (D → Set) → D → Set
+  ColistF X ds = ds ≡ [] ∨ (∃ λ e → ∃ λ es → ds ≡ e ∷ es ∧ X es)
+
+  -- The FOTC Colist type using GFP.
+  Colist : D → Set
+  Colist = GFP ColistF
+
+  -- The data constructors of Colist.
+  nilCL : Colist []
+  nilCL = GFP₂ ColistF [] (inj₁ refl)
+
+  consCL : ∀ x xs → Colist xs → Colist (x ∷ xs)
+  consCL x xs CLxs = GFP₂ ColistF (x ∷ xs) (inj₂ (x , xs , refl , CLxs))
+
+  -- Example (finite colist).
+  l : Colist (zero ∷ true ∷ [])
+  l = consCL zero (true ∷ []) (consCL true [] nilCL)
+
+  -- TODO: Example (infinite colist).
+  -- zerosCL : Colist {!!}
+  -- zerosCL = consCL zero {!!} zerosCL
