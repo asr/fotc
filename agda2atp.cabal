@@ -63,6 +63,7 @@ executable agda2atp
                   Utils.Version
 
   -- Required by cabal haddock. Cabal bug?
+  -- cabal-install version 0.10.2 using version 1.10.2.0 of the Cabal library
   extensions:     CPP
 
   ghc-options:    -Wall
