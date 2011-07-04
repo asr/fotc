@@ -15,7 +15,7 @@ description:
   automatic theorem provers (ATPs), via the translation of the Agda
   formulae to the TPTP format which is a standard for input and output
   for the ATPs <http://www.cs.miami.edu/~tptp/>.
-tested-with:        GHC == 6.12.3, GHC == 7.0.3
+tested-with:        GHC == 6.12.3, GHC == 7.0.4
 extra-source-files: src/undefined.h
 
 source-repository head
@@ -75,7 +75,7 @@ executable agda2atp
   if impl(ghc >= 6.12) && impl(ghc < 7)
     ghc-options:  -fwarn-simple-patterns
 
-  if impl(ghc >= 7.0.3)
+  if impl(ghc >= 7.0.4)
     ghc-options:  -fwarn-missing-local-sigs
     -- This warning is disabled due to the GHC bug #4489.
     --              -fwarn-missing-import-lists
