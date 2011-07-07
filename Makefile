@@ -16,9 +16,9 @@ AGDA_Agsy    = agda -v 0 --allow-unsolved-metas \
 
 # N.B. The timeout for the conjectures test should be modify in the
 # conjectures_% target.
-AGDA2ATP = agda2atp -i. -isrc --unproved-conjecture-error
-# AGDA2ATP = agda2atp -i. -isrc --unproved-conjecture-error --only-files
-RSYNC    = rsync --archive --progress --rsh='ssh -p 2024'
+AGDA2ATP                  = agda2atp -i. -isrc --unproved-conjecture-error
+AGDA2ATP_ONLY_CONJECTURES = agda2atp -i. -isrc --only-files
+RSYNC                     = rsync --archive --progress --rsh='ssh -p 2024'
 
 ##############################################################################
 # Paths
@@ -94,6 +94,23 @@ all_type_checking : type_checking_Common \
 		    type_checking_README
 
 ##############################################################################
+# Only create the conjecture files.
+
+only_conjectures_% :
+	for file in \
+          `find $($*_path) -name '*.agda' | xargs grep -l 'ATP prove' | xargs grep -L 'ConsistencyTest' | sort`; do \
+            if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
+	    if ! ( $(AGDA2ATP_ONLY_CONJECTURES) $${file} ); then exit 1; fi; \
+	done
+
+all_only_conjectures : only_conjectures_DistributiveLaws \
+		       only_conjectures_FOTC \
+		       only_conjectures_GroupTheory \
+		       only_conjectures_LTC-PCF \
+		       only_conjectures_PA \
+		       only_conjectures_PredicateLogic \
+
+##############################################################################
 # Test the conjecture files.
 
 conjectures_% :
@@ -127,7 +144,6 @@ all_conjectures : conjectures_DistributiveLaws \
 		  conjectures_LTC-PCF \
 		  conjectures_PA \
 		  conjectures_PredicateLogic \
-
 
 ##############################################################################
 # Consistency test
