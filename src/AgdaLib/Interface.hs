@@ -56,7 +56,6 @@ import Agda.Syntax.Internal
   ( Abs(Abs)
   , Clause(Clause)
   , ClauseBody(Bind, Body, NoBind, NoBody)
-  , translatedClause
   , Term(Con, Def, DontCare, Fun, Lam, Level, Lit, MetaV, Pi, Sort, Var)
   , Type(El)
   )
@@ -262,7 +261,7 @@ getClauses def =
   let defn ∷ Defn
       defn = theDef def
   in case defn of
-       Function{} → map translatedClause $ funClauses defn
+       Function{} → funClauses defn
        _          → __IMPOSSIBLE__
 
 -- | Returns the QNames in an entity.
