@@ -2,6 +2,8 @@ module Draft.FixedPoints.Predicates where
 
 open import FOTC.Base
 
+open import FOTC.Base.PropertiesI
+
 ------------------------------------------------------------------------------
 
 -- The FOTC types without use data, i.e. using Agda as a logical framework.
@@ -246,3 +248,112 @@ module CoList where
   -- TODO: Example (infinite colist).
   -- zerosCL : Colist {!!}
   -- zerosCL = consCL zero {!!} zerosCL
+
+------------------------------------------------------------------------------
+
+-- The FOTC Stream type as the greatest fixed-point of a functor.
+
+module Stream₁ where
+
+  open GFP
+
+  -- Functor for the FOTC Stream type.
+  StreamF : (D → Set) → D → Set
+  StreamF X ds = ∃ λ e → X ds
+
+  -- The FOTC Stream type using GFP.
+  Stream : D → Set
+  Stream = GFP StreamF
+
+  -- The data constructor of Stream.
+  -- Using StreamF we cannot define this data constructor
+  -- consS : ∀ x xs → Stream xs → Stream (x ∷ xs)
+  -- consS x xs Sxs = GFP₂ StreamF (x ∷ xs) {!!}
+
+------------------------------------------------------------------------------
+
+-- The FOTC Stream type as the greatest fixed-point of a functor.
+
+module Stream₂ where
+
+  open GFP
+
+  -- Functor for the FOTC Stream type.
+  StreamF : (D → Set) → D → Set
+  StreamF X ds = ∃ λ e → ∃ λ es → X es
+
+  -- The FOTC Stream type using GFP.
+  Stream : D → Set
+  Stream = GFP StreamF
+
+  -- The data constructor of Stream.
+  -- TODO: To use implicit arguments.
+  consS : ∀ x xs → Stream xs → Stream (x ∷ xs)
+  consS x xs Sxs = GFP₂ StreamF (x ∷ xs) (x , xs , Sxs)
+
+  -- TODO: Example
+  -- zerosS : Stream {!!}
+  -- zerosS = consS zero {!!} zerosS
+
+  headS : ∀ {x xs} → Stream (x ∷ xs) → D
+  headS {x} _ = x
+
+  tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
+  tailS {x} {xs} S = GFP₂ StreamF xs (x , x ∷ xs , S)
+
+  -- The functor StreamF does not link together the parts of the
+  -- stream, so I can get a stream from any stream.
+  bad : ∀ {xs ys} → Stream xs → Stream ys
+  bad {xs} {ys} S = GFP₂ StreamF ys (ys , xs , S)
+
+------------------------------------------------------------------------------
+
+-- The FOTC Stream type as the greatest fixed-point of a functor.
+
+module Stream₃ where
+
+  open GFP
+
+  -- Functor for the FOTC Stream type.
+  StreamF : (D → Set) → D → Set
+  StreamF X ds = ∃ λ e → ∃ λ es → ds ≡ e ∷ es ∧ X es
+
+  -- The FOTC Stream type using GFP.
+  Stream : D → Set
+  Stream = GFP StreamF
+
+  -- The data constructor of Stream.
+  -- TODO: To use implicit arguments.
+  consS : ∀ x xs → Stream xs → Stream (x ∷ xs)
+  consS x xs Sxs = GFP₂ StreamF (x ∷ xs) (x , xs , refl , Sxs)
+
+  -- TODO: Example
+  -- zerosS : Stream {!!}
+  -- zerosS = consS zero {!!} zerosS
+
+  headS : ∀ {x xs} → Stream (x ∷ xs) → D
+  headS {x} _ = x
+
+  tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
+  tailS {x} {xs} Sx∷xs = Sxs
+    where
+    unfoldS : StreamF (GFP StreamF) (x ∷ xs)
+    unfoldS = GFP₁ StreamF (x ∷ xs) Sx∷xs
+
+    e : D
+    e = ∃-proj₁ unfoldS
+
+    Pe : ∃ λ es → x ∷ xs ≡ e ∷ es ∧ GFP StreamF es
+    Pe = ∃-proj₂ unfoldS
+
+    es : D
+    es = ∃-proj₁ Pe
+
+    Pes : x ∷ xs ≡ e ∷ es ∧ GFP StreamF es
+    Pes = ∃-proj₂ Pe
+
+    xs≡es : xs ≡ es
+    xs≡es = ∧-proj₂ (∷-injective (∧-proj₁ Pes))
+
+    Sxs : GFP StreamF xs
+    Sxs = subst (GFP StreamF) (sym xs≡es) (∧-proj₂ Pes)
