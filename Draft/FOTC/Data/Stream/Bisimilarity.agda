@@ -39,7 +39,7 @@ postulate
               ∃ λ x' →
               ∃ λ xs' →
               ∃ λ ys' → xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
-           -- ≈ is greater than R.
+           -- _≈_ is greater than R.
            ∀ {xs ys} → xs R ys → xs ≈ ys
 
 module Bisimulation where
@@ -70,6 +70,6 @@ module Bisimulation where
   BISI-R→R→≈ : {_R_ : D → D → Set} →
                -- R is a post-fixed point of BISI.
                (∀ {xs ys} → xs R ys → BISI _R_ xs ys) →
-               -- ≈ is greater than R.
+               -- _≈_ is greater than R.
                ∀ {xs ys} → xs R ys → xs ≈ ys
   BISI-R→R→≈ = ≈-gfp₂
