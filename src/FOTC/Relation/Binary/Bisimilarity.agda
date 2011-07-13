@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Bisimilarity relation on FOTC streams
+-- Bisimilarity relation on FOTC
 ------------------------------------------------------------------------------
 
-module Draft.FOTC.Data.Stream.Bisimilarity where
+module FOTC.Relation.Binary.Bisimilarity where
 
 open import FOTC.Base
 
@@ -10,9 +10,6 @@ open import FOTC.Base
 infix 7 _≈_
 
 ------------------------------------------------------------------------------
--- Because the FOTC is a first-order theory, we define a first-order
--- version of the bisimilarity relation.
-
 -- The bisimilarity relation.
 postulate
   _≈_ : D → D → Set
@@ -33,7 +30,7 @@ postulate
 -- *must* use an instance. Therefore, we do not add this postulate as
 -- an ATP axiom.
 postulate
-  ≈-gfp₂ : {_R_ : D → D → Set} →
+  ≈-gfp₂ : (_R_ : D → D → Set) →
            -- R is a post-fixed point of BisimilarityF.
            (∀ {xs ys} → xs R ys →
             ∃ λ x' → ∃ λ xs' → ∃ λ ys' → xs' R ys' ∧
@@ -42,26 +39,12 @@ postulate
            -- _≈_ is greater than R.
            ∀ {xs ys} → xs R ys → xs ≈ ys
 
--- Because a greatest post-fixed point is a fixed point, the
--- bisimilarity relation is also a pre-fixed point of the functor
--- BisimilarityF (see below).
-
--- TODO: To prove this property using ≈-gfp₂.
-postulate
-  ≈-gfp₃ : ∀ {xs ys} →
-           (∃ λ x' → ∃ λ xs' → ∃ λ ys' → xs' ≈ ys' ∧
-                                         xs ≡ x' ∷ xs' ∧
-                                         ys ≡ x' ∷ ys') →
-           xs ≈ ys
-
 module BisimilarityF where
   -- In FOTC we won't use the bisimilarity functor. This module is
   -- only for illustrative purposes.
 
   -- Adapted from [1]. In this paper the authors use the name
   -- 'as (R :: R') bs' (p. 310) for the functor BisimilarityF.
-
-  -- N.B. This definition should work on streams.
 
   -- [1] Peter Dybjer and Herbert Sander. A functional programming
   -- approach to the specification and verification of concurrent
@@ -80,7 +63,7 @@ module BisimilarityF where
 
   -- The bisimilarity relation is the greatest post-fixed point of
   -- BisimilarityF.
-  gpfp : {_R_ : D → D → Set} →
+  gpfp : (_R_ : D → D → Set) →
          -- R is a post-fixed point of BisimilarityF.
          (∀ {xs ys} → xs R ys → BisimilarityF _R_ xs ys) →
          -- _≈_ is greater than R.

@@ -214,34 +214,43 @@ open import FOTC.Data.List.LT-Length.PropertiesI
 open import FOTC.Data.Nat.List.PropertiesATP
 open import FOTC.Data.Nat.List.PropertiesI
 
--- 6.5 Programs
+-- 6.5 The bisimilary relation
 
--- 6.5.1 The Collatz function: A function without a termination proof
+-- 6.5.1 The axioms
+open import FOTC.Relation.Binary.Bisimilarity
+
+-- 6.5.2 Properties
+open import FOTC.Relation.Binary.Bisimilarity.PropertiesATP
+open import FOTC.Relation.Binary.Bisimilarity.PropertiesI
+
+-- 6.6 Programs
+
+-- 6.6.1 The Collatz function: A function without a termination proof
 open import FOTC.Program.Collatz.PropertiesATP
 open import FOTC.Program.Collatz.PropertiesI
 
--- 6.5.2 The GCD algorithm: A non-structurally recursive algorithm
+-- 6.6.2 The GCD algorithm: A non-structurally recursive algorithm
 open import FOTC.Program.GCD.Partial.ProofSpecificationATP
 open import FOTC.Program.GCD.Partial.ProofSpecificationI
 open import FOTC.Program.GCD.Total.ProofSpecificationATP
 open import FOTC.Program.GCD.Total.ProofSpecificationI
 
--- 6.5.3 The McCarthy 91 function: A function with nested recursion
+-- 6.6.3 The McCarthy 91 function: A function with nested recursion
 open import FOTC.Program.McCarthy91.Properties.MainATP
 
--- 6.5.4 The mirror function: A function with higher-order recursion
+-- 6.6.4 The mirror function: A function with higher-order recursion
 open import FOTC.Program.Mirror.PropertiesATP
 open import FOTC.Program.Mirror.PropertiesI
 
--- 6.5.5 Burstall's sort list algorithm: A structurally recursive algorithm
+-- 6.6.5 Burstall's sort list algorithm: A structurally recursive algorithm
 open import FOTC.Program.SortList.ProofSpecificationATP
 open import FOTC.Program.SortList.ProofSpecificationI
 
--- 6.5.6 The division algorithm: A non-structurally recursive algorithm
+-- 6.6.6 The division algorithm: A non-structurally recursive algorithm
 open import FOTC.Program.Division.ProofSpecificationATP
 open import FOTC.Program.Division.ProofSpecificationI
 
--- 6.6 Other modules
+-- 6.7 Other modules
 -- (These modules are not imported from any module).
 open import FOTC.Program.Division.EquationsATP
 open import FOTC.Program.GCD.Partial.EquationsATP

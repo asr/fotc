@@ -159,4 +159,9 @@ open import FOTC.Program.SortList.PropertiesATP
 open import FOTC.Program.SortList.SortList
 open import FOTC.Program.SortList.SortList.ConsistencyTest
 
+open import FOTC.Relation.Binary.Bisimilarity
+open import FOTC.Relation.Binary.Bisimilarity.ConsistencyTest
+open import FOTC.Relation.Binary.Bisimilarity.PropertiesATP
+open import FOTC.Relation.Binary.Bisimilarity.PropertiesI
+
 open import FOTC.Relation.Binary.EqReasoning
