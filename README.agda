@@ -250,6 +250,9 @@ open import FOTC.Program.SortList.ProofSpecificationI
 open import FOTC.Program.Division.ProofSpecificationATP
 open import FOTC.Program.Division.ProofSpecificationI
 
+-- 6.6.7 The map-iterate property: A property using coinduction
+open import FOTC.Program.MapIterate.MapIterateATP
+
 -- 6.7 Other modules
 -- (These modules are not imported from any module).
 open import FOTC.Program.Division.EquationsATP
