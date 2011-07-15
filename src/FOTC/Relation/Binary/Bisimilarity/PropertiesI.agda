@@ -45,3 +45,7 @@ x∷xs≈x∷ys→xs≈ys {x} {xs} {ys} x∷xs≈x∷ys = xs≈ys
   xs≈ys = subst (λ t → t ≈ ys)
                 (sym xs≡xs')
                 (subst (λ t → xs' ≈ t) (sym ys≡ys') xs'≈ys')
+
+xs≈ys→x∷xs≈x∷ys : ∀ {x xs ys} → xs ≈ ys → x ∷ xs ≈ x ∷ ys
+xs≈ys→x∷xs≈x∷ys {x} {xs} {ys} xs≈ys =
+  ≈-gfp₃ (x , xs , ys , xs≈ys , refl , refl)
