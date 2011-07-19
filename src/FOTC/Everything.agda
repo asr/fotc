@@ -63,6 +63,9 @@ open import FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
 open import FOTC.Data.Nat.UnaryNumbers.TotalityI
 
+open import FOTC.Data.Stream.PropertiesI
+open import FOTC.Data.Stream.Type
+
 open import FOTC.Induction.WellFounded
 
 open import FOTC.Program.Collatz.Collatz

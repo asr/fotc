@@ -155,8 +155,11 @@ open import FOTC.Base
 
 -- 6.2 Booleans
 
--- 6.2.2 The axioms
+-- 6.2.1 The axioms
 open import FOTC.Data.Bool
+
+-- 6.2.2 The inductive predicate
+open import FOTC.Data.Bool.Type
 
 -- 6.2.3 Properties
 open import FOTC.Data.Bool.PropertiesATP
@@ -167,14 +170,17 @@ open import FOTC.Data.Bool.PropertiesI
 -- 6.3.1 The axioms
 open import FOTC.Data.Nat
 
--- 6.3.2 Properties
+-- 6.3.2 The inductive predicate
+open import FOTC.Data.Nat.Type
+
+-- 6.3.3 Properties
 open import FOTC.Data.Nat.PropertiesATP
 open import FOTC.Data.Nat.PropertiesI
 
 open import FOTC.Data.Nat.PropertiesByInductionATP
 open import FOTC.Data.Nat.PropertiesByInductionI
 
--- 6.3.3 Divisibility relation
+-- 6.3.4 Divisibility relation
 open import FOTC.Data.Nat.Divisibility.By0.Properties
 open import FOTC.Data.Nat.Divisibility.By0.PropertiesATP
 open import FOTC.Data.Nat.Divisibility.By0.PropertiesI
@@ -182,16 +188,16 @@ open import FOTC.Data.Nat.Divisibility.NotBy0.Properties
 open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP
 open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesI
 
--- 6.3.4 Induction
+-- 6.3.5 Induction
 open import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI
 open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI
 
--- 6.3.5 Inequalites
+-- 6.3.6 Inequalites
 open import FOTC.Data.Nat.Inequalities.Properties
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 
--- 6.3.6 Unary numbers
+-- 6.3.7 Unary numbers
 open import FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
 
@@ -200,60 +206,76 @@ open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
 -- 6.4.1 The axioms
 open import FOTC.Data.List
 
--- 6.4.2 Properties
+-- 6.4.2 The inductive predicate
+open import FOTC.Data.List.Type
+
+-- 6.4.3 Properties
 open import FOTC.Data.List.PropertiesATP
 open import FOTC.Data.List.PropertiesI
 
--- 6.4.3 Well-founded induction
+-- 6.4.4 Well-founded induction
 open import FOTC.Data.List.LT-Cons.Induction.Acc.WellFoundedInductionI
 open import FOTC.Data.List.LT-Cons.PropertiesI
 open import FOTC.Data.List.LT-Length.Induction.Acc.WellFoundedInductionI
 open import FOTC.Data.List.LT-Length.PropertiesI
 
--- 6.4.4 Lists of natural numbers
+-- 6.4.5 Lists of natural numbers
+
+-- 6.4.5.1 The inductive predicate
+open import FOTC.Data.Nat.List.Type
+
+-- 6.4.5.2 Properties
 open import FOTC.Data.Nat.List.PropertiesATP
 open import FOTC.Data.Nat.List.PropertiesI
 
--- 6.5 The bisimilary relation
+-- 6.5 Streams
 
--- 6.5.1 The axioms
-open import FOTC.Relation.Binary.Bisimilarity
+-- 6.5.1 The coinductive predicate (axioms)
+open import FOTC.Data.Stream.Type
 
 -- 6.5.2 Properties
+open import FOTC.Data.Stream.PropertiesI
+
+-- 6.6 The bisimilary relation
+
+-- 6.6.1 The coinductive predicate (axioms)
+open import FOTC.Relation.Binary.Bisimilarity
+
+-- 6.6.2 Properties
 open import FOTC.Relation.Binary.Bisimilarity.PropertiesATP
 open import FOTC.Relation.Binary.Bisimilarity.PropertiesI
 
--- 6.6 Programs
+-- 6.7 Programs
 
--- 6.6.1 The Collatz function: A function without a termination proof
+-- 6.7.1 The Collatz function: A function without a termination proof
 open import FOTC.Program.Collatz.PropertiesATP
 open import FOTC.Program.Collatz.PropertiesI
 
--- 6.6.2 The GCD algorithm: A non-structurally recursive algorithm
+-- 6.7.2 The GCD algorithm: A non-structurally recursive algorithm
 open import FOTC.Program.GCD.Partial.ProofSpecificationATP
 open import FOTC.Program.GCD.Partial.ProofSpecificationI
 open import FOTC.Program.GCD.Total.ProofSpecificationATP
 open import FOTC.Program.GCD.Total.ProofSpecificationI
 
--- 6.6.3 The McCarthy 91 function: A function with nested recursion
+-- 6.7.3 The McCarthy 91 function: A function with nested recursion
 open import FOTC.Program.McCarthy91.Properties.MainATP
 
--- 6.6.4 The mirror function: A function with higher-order recursion
+-- 6.7.4 The mirror function: A function with higher-order recursion
 open import FOTC.Program.Mirror.PropertiesATP
 open import FOTC.Program.Mirror.PropertiesI
 
--- 6.6.5 Burstall's sort list algorithm: A structurally recursive algorithm
+-- 6.7.5 Burstall's sort list algorithm: A structurally recursive algorithm
 open import FOTC.Program.SortList.ProofSpecificationATP
 open import FOTC.Program.SortList.ProofSpecificationI
 
--- 6.6.6 The division algorithm: A non-structurally recursive algorithm
+-- 6.7.6 The division algorithm: A non-structurally recursive algorithm
 open import FOTC.Program.Division.ProofSpecificationATP
 open import FOTC.Program.Division.ProofSpecificationI
 
--- 6.6.7 The map-iterate property: A property using coinduction
+-- 6.7.7 The map-iterate property: A property using coinduction
 open import FOTC.Program.MapIterate.MapIterateATP
 
--- 6.7 Other modules
+-- 6.8 Other modules
 -- (These modules are not imported from any module).
 open import FOTC.Program.Division.EquationsATP
 open import FOTC.Program.GCD.Partial.EquationsATP
