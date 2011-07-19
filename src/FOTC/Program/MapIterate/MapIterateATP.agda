@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 -- The map-iterate property [1]:
--- map f (iterate f x) ≡ iterate f (f · x)
+-- map f (iterate f x) = iterate f (f · x)
 
 -- [1] Jeremy Gibbons and Graham Hutton. Proof methods for corecursive
 -- programs. Fundamenta Informaticae, XX:1–14, 2005.
@@ -22,8 +22,8 @@ open import FOTC.Relation.Binary.Bisimilarity
 ≈-map-iterate f x = ≈-gfp₂ R (λ {xs} {ys} → helper xs ys) (x , refl , refl)
   where
   -- The relation R was based on the relation used by Eduardo Giménez
-  -- Pierre Castéran. A Tutorial on [Co-]Inductive Types in Coq May
-  -- 1998 -- August 17, 2007.
+  -- and Pierre Castéran. A Tutorial on [Co-]Inductive Types in
+  -- Coq. May 1998 -- August 17, 2007.
   R : D → D → Set
   R xs ys = ∃ (λ y → xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y))
 
