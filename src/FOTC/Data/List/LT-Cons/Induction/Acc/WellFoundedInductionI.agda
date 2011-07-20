@@ -7,7 +7,6 @@ module FOTC.Data.List.LT-Cons.Induction.Acc.WellFoundedInductionI where
 open import FOTC.Base
 
 open import FOTC.Data.List
-open import FOTC.Data.List.Type
 open import FOTC.Data.List.LT-Cons
 open import FOTC.Data.List.LT-Cons.PropertiesI
 open import FOTC.Data.List.LT-Length

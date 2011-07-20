@@ -2,6 +2,8 @@
 -- The FOTC booleans type
 ------------------------------------------------------------------------------
 
+-- This module is re-exported by FOTC.Data.Bool.
+
 module FOTC.Data.Bool.Type where
 
 open import FOTC.Base

@@ -9,7 +9,6 @@ open import FOTC.Base
 open import Common.Function
 
 open import FOTC.Data.List
-open import FOTC.Data.List.Type
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.Type

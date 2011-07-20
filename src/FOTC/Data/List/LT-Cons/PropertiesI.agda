@@ -11,7 +11,6 @@ open import FOTC.Data.List
 open import FOTC.Data.List.LT-Length
 open import FOTC.Data.List.LT-Cons
 open import FOTC.Data.List.PropertiesI
-open import FOTC.Data.List.Type
 
 ------------------------------------------------------------------------------
 

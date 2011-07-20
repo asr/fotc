@@ -11,7 +11,7 @@ infixr 8 _++_
 
 ------------------------------------------------------------------------------
 -- The FOTC list type.
--- open import FOTC.Data.List.Type public
+open import FOTC.Data.List.Type public
 
 ------------------------------------------------------------------------------
 -- Basic functions

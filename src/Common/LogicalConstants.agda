@@ -2,9 +2,10 @@
 -- Logical constants
 ------------------------------------------------------------------------------
 
-module Common.LogicalConstants where
+-- This module just exported all the logical constants. This module is
+-- re-exported by (some) "base" modules.
 
--- This module just exported all the logical constants.
+module Common.LogicalConstants where
 
 ------------------------------------------------------------------------------
 -- The propositional logical connectives

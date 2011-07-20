@@ -7,8 +7,6 @@ module FOTC.Data.Nat.List.Type where
 open import FOTC.Base
 
 open import FOTC.Data.Nat.Type
-  using ( N  -- The FOTC list of natural numbers type.
-        )
 
 ------------------------------------------------------------------------------
 -- The FOTC list of natural numbers type.

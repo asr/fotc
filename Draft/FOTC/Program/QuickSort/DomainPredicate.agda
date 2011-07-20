@@ -10,7 +10,6 @@ open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.List.Type
 open import FOTC.Data.Nat.Type
 open import FOTC.Data.List
-open import FOTC.Data.List.Type
 
 ------------------------------------------------------------------------------
 

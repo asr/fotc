@@ -2,6 +2,8 @@
 -- The FOTC list type
 ------------------------------------------------------------------------------
 
+-- This module is re-exported by FOTC.Data.List.
+
 module FOTC.Data.List.Type where
 
 open import FOTC.Base

@@ -2,6 +2,8 @@
 -- Propositional equality
 ------------------------------------------------------------------------------
 
+-- This module is re-exported by (some) "base" modules.
+
 module Common.Relation.Binary.PropositionalEquality where
 
 open import Common.Universe using ( D )
