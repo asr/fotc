@@ -18,7 +18,12 @@ AGDA_Agsy    = agda -v 0 --allow-unsolved-metas \
 # conjectures_% target.
 AGDA2ATP                  = agda2atp -i. -isrc --unproved-conjecture-error
 AGDA2ATP_ONLY_CONJECTURES = agda2atp -i. -isrc --only-files
-RSYNC                     = rsync --archive --progress --rsh='ssh -p 2024'
+
+# Equinox has the better parser for TPTP files, so we use it to find problems.
+# See notes/tptp/parsing_error.tptp
+AGDA2ATP_PARSING = agda2atp -i. -isrc --time=1 --atp=equinox
+
+RSYNC = rsync --archive --progress --rsh='ssh -p 2024'
 
 ##############################################################################
 # Paths
@@ -112,9 +117,34 @@ all_only_conjectures : only_conjectures_DistributiveLaws \
 		       only_conjectures_PredicateLogic \
 
 ##############################################################################
+# Only parsing the conjecture files.
+
+parsing_% :
+	for file in \
+          `find $($*_path) -name '*.agda' | xargs grep -l 'ATP prove' | xargs grep -L 'ConsistencyTest' | sort`; do \
+            if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
+	    if ! ( $(AGDA2ATP_PARSING) $${file} \
+                                       >/tmp/xxx.tmp \
+                                       2>/tmp/parsing.error); then \
+		exit 1; \
+	    fi; \
+	    if [ -s /tmp/parsing.error ]; then \
+		echo "Parsing error in $${file}"; \
+		exit 1; \
+	    fi; \
+	done
+
+all_parsing : parsing_DistributiveLaws \
+	      parsing_FOTC \
+	      parsing_GroupTheory \
+	      parsing_LTC-PCF \
+	      parsing_PA \
+	      parsing_PredicateLogic \
+
+##############################################################################
 # Test the conjecture files.
 
-conjectures_% :
+conjectures_% : parsing_%
 	for file in \
           `find $($*_path) -name '*.agda' | xargs grep -l 'ATP prove' | xargs grep -L 'ConsistencyTest' | sort`; do \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
@@ -205,7 +235,7 @@ clean :
 ##############################################################################
 # Main
 
-all_test : all_type_checking all_conjectures all_consistency
+all_tests : all_type_checking all_conjectures all_consistency
 
 # TODO
 # non_conjectures :
