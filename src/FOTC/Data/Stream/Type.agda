@@ -15,11 +15,14 @@ open import FOTC.Base
 postulate
   Stream : D → Set
 
-  -- Stream is post-fixed point of StreamF.
+-- Stream is post-fixed point of StreamF.
+postulate
   Stream-gfp₁ : ∀ {xs} → Stream xs →
                 ∃ λ x' → ∃ λ xs' → xs ≡ x' ∷ xs' ∧ Stream xs'
+{-# ATP axiom Stream-gfp₁ #-}
 
-  -- Stream is the greatest post-fixed of StreamF.
+-- Stream is the greatest post-fixed of StreamF.
+postulate
   Stream-gfp₂ : (P : D → Set) →
                 -- P is post-fixed point of StreamF.
                 (∀ {xs} → P xs → ∃ λ x' → ∃ λ xs' → xs ≡ x' ∷ xs' ∧ P xs') →
