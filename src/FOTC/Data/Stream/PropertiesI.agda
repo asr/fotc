@@ -40,7 +40,7 @@ tailS {x} {xs} h = subst Stream (sym (∧-proj₂ (∷-injective x∷xs≡e∷es
   P₁ ws = ∃ λ zs → ws ≈ zs
 
   helper₁ : ∀ {ws} → P₁ ws →
-           ∃ (λ w' → ∃ (λ ws' → ws ≡ w' ∷ ws' ∧ P₁ ws'))
+            ∃ (λ w' → ∃ (λ ws' → ws ≡ w' ∷ ws' ∧ P₁ ws'))
   helper₁ {ws} (zs , ws≈zs) = w' , ws' , ws≡w'∷ws' , (zs' , ws'≈zs')
     where
     unfold-≈ : ∃ λ w' → ∃ λ ws' → ∃ λ zs' →
@@ -67,7 +67,7 @@ tailS {x} {xs} h = subst Stream (sym (∧-proj₂ (∷-injective x∷xs≡e∷es
   P₂ zs = ∃ λ ws → ws ≈ zs
 
   helper₂ : ∀ {zs} → P₂ zs → ∃ (λ z' → ∃ (λ zs' → zs ≡ z' ∷ zs' ∧ P₂ zs'))
-  helper₂ {zs} (ws , ws≈zs) = w' , zs' , zs≡w'∷zs' , ws' , ws'≈zs'
+  helper₂   {zs} (ws , ws≈zs) = w' , zs' , zs≡w'∷zs' , ws' , ws'≈zs'
     where
     unfold-≈ : ∃ λ w' → ∃ λ ws' → ∃ λ zs' →
                ws' ≈ zs' ∧ ws ≡ w' ∷ ws' ∧ zs ≡ w' ∷ zs'
