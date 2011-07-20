@@ -39,6 +39,7 @@ Division-PCF_path   = $(LTC-PCF_path)/Program/Division
 GCDPartial_path     = $(FOTC_path)/Program/GCD/Partial
 GCDTotal_path       = $(FOTC_path)/Program/GCD/Total
 GCD-PCFPartial_path = $(LTC-PCF_path)/Program/GCD/Partial
+MapIterate_path     = $(FOTC_path)/Program/MapIterate
 McCarthy91_path     = $(FOTC_path)/Program/McCarthy91
 Mirror_path         = $(FOTC_path)/Program/Mirror
 SortList_path       = $(FOTC_path)/Program/SortList
@@ -134,6 +135,7 @@ conjectures_% :
 # 		  conjectures_GCDPartial \
 # 		  conjectures_GCDTotal \
 # 		  conjectures_GCD-PCFPartial \
+#		  conjectures_MapIterate \
 #		  conjectures_McCarthy91 \
 #		  conjectures_Mirror \
 # 		  conjectures_SortList
