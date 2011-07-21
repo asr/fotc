@@ -140,7 +140,7 @@ parsing_% :
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
 	    if ! ( $(AGDA2ATP_PARSING) $${file} \
                                        >/tmp/xxx.tmp \
-                                       2>/tmp/parsing.error); then \
+                                       2>/tmp/parsing.error ); then \
 		exit 1; \
 	    fi; \
 	    if [ -s /tmp/parsing.error ]; then \

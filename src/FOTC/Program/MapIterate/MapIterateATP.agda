@@ -31,11 +31,11 @@ open import FOTC.Relation.Binary.Bisimilarity
              R xs' ys' ∧
              xs ≡ x' ∷ xs' ∧
              ys ≡ x' ∷ ys')))
-  helper xs ys h = (f · y)
-                   , (map f (iterate f (f · y)))
-                   , (iterate f (f · (f · y)))
+  helper xs ys h = f · y
+                   , map f (iterate f (f · y))
+                   , iterate f (f · (f · y))
                    , ((f · y) , refl , refl)
-                   , (trans xs≡map unfoldMap)
+                   , trans xs≡map unfoldMap
                    , trans ys≡iterate unfoldIterate
     where
     y : D
@@ -48,7 +48,7 @@ open import FOTC.Relation.Binary.Bisimilarity
     ys≡iterate = ∧-proj₂ (∃-proj₂ h)
 
     postulate
-      unfoldMap : map f (iterate f y) ≡ f · y ∷ map f (iterate f (f · y))
+      unfoldMap     : map f (iterate f y) ≡ f · y ∷ map f (iterate f (f · y))
       unfoldIterate : iterate f (f · y) ≡ f · y ∷ iterate f (f · (f · y))
     {-# ATP prove unfoldMap #-}
     {-# ATP prove unfoldIterate #-}
