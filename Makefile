@@ -79,6 +79,16 @@ main_Draft = Draft/RenderToHTML
 main_README = README
 
 ##############################################################################
+# Conjectures
+
+define conjectures
+$(shell find $($(*)_path) -name '*.agda' | \
+        xargs grep -l 'ATP prove' | \
+        xargs grep -L 'ConsistencyTest' | \
+        sort)
+endef
+
+##############################################################################
 # Type checking the Agda modules.
 
 type_checking_Agsy : $(Agsy_files)
@@ -103,8 +113,7 @@ all_type_checking : type_checking_Common \
 # Only create the conjecture files.
 
 only_conjectures_% :
-	for file in \
-          `find $($*_path) -name '*.agda' | xargs grep -l 'ATP prove' | xargs grep -L 'ConsistencyTest' | sort`; do \
+	for file in $(conjectures); do \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
 	    if ! ( $(AGDA2ATP_ONLY_CONJECTURES) $${file} ); then exit 1; fi; \
 	done
@@ -120,8 +129,7 @@ all_only_conjectures : only_conjectures_DistributiveLaws \
 # Only parsing the conjecture files.
 
 parsing_% :
-	for file in \
-          `find $($*_path) -name '*.agda' | xargs grep -l 'ATP prove' | xargs grep -L 'ConsistencyTest' | sort`; do \
+	for file in $(conjectures); do \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
 	    if ! ( $(AGDA2ATP_PARSING) $${file} \
                                        >/tmp/xxx.tmp \
@@ -145,8 +153,7 @@ all_parsing : parsing_DistributiveLaws \
 # Test the conjecture files.
 
 conjectures_% : parsing_%
-	for file in \
-          `find $($*_path) -name '*.agda' | xargs grep -l 'ATP prove' | xargs grep -L 'ConsistencyTest' | sort`; do \
+	for file in $(conjectures); do \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
 	    if ! ( $(AGDA2ATP) --time=180 $${file} ); then exit 1; fi; \
 	done
