@@ -1,9 +1,12 @@
 ##############################################################################
-# Gloval variables
+# Some global variables
 
 # Host directory used by publish
 # Tunneling connection
 root_host_dir = asicard@localhost:code/fotc/FOT
+
+# Snapshot directory
+snapshot_dir = snapshot
 
 ##############################################################################
 # Programs
@@ -17,6 +20,10 @@ AGDA_Agsy    = agda -v 0 --allow-unsolved-metas \
 # N.B. The timeout for the conjectures test should be modify in the
 # conjectures_% target.
 AGDA2ATP                  = agda2atp -i. -isrc --unproved-conjecture-error
+AGDA2ATP_CREATE_SNAPSHOT  = agda2atp -i. -isrc --only-file \
+                                     --output-dir=$(snapshot_dir)
+AGDA2ATP_SNAPSHOT_TEST    = agda2atp -i. -isrc --snapshot-test \
+                            --snapshot-dir=$(snapshot_dir)
 AGDA2ATP_ONLY_CONJECTURES = agda2atp -i. -isrc --only-files
 
 # Equinox has the better parser for TPTP files, so we use it to find problems.
@@ -123,7 +130,7 @@ all_only_conjectures : only_conjectures_DistributiveLaws \
 		       only_conjectures_GroupTheory \
 		       only_conjectures_LTC-PCF \
 		       only_conjectures_PA \
-		       only_conjectures_PredicateLogic \
+		       only_conjectures_PredicateLogic
 
 ##############################################################################
 # Only parsing the conjecture files.
@@ -147,7 +154,7 @@ all_parsing : parsing_DistributiveLaws \
 	      parsing_GroupTheory \
 	      parsing_LTC-PCF \
 	      parsing_PA \
-	      parsing_PredicateLogic \
+	      parsing_PredicateLogic
 
 ##############################################################################
 # Test the conjecture files.
@@ -182,7 +189,7 @@ all_conjectures : conjectures_DistributiveLaws \
 		  conjectures_GroupTheory \
 		  conjectures_LTC-PCF \
 		  conjectures_PA \
-		  conjectures_PredicateLogic \
+		  conjectures_PredicateLogic
 
 ##############################################################################
 # Consistency test
@@ -197,6 +204,38 @@ $(consistency_test_files) :
 	if ( $(AGDA2ATP) --time=10 $@.agda ); then exit 1; fi; \
 
 all_consistency : $(consistency_test_files)
+
+##############################################################################
+# Create snapshot files
+
+create_snapshot_% :
+	for file in $(conjectures); do \
+            if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
+	    if ! ( $(AGDA2ATP_CREATE_SNAPSHOT) $${file} ); then exit 1; fi; \
+	done
+
+all_create_snapshot : create_snapshot_DistributiveLaws \
+		      create_snapshot_FOTC \
+		      create_snapshot_GroupTheory \
+		      create_snapshot_LTC-PCF \
+		      create_snapshot_PA \
+		      create_snapshot_PredicateLogic
+
+##############################################################################
+# Test the snapshot files
+
+snapshot_test_% :
+	for file in $(conjectures); do \
+            if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
+	    if ! ( $(AGDA2ATP_SNAPSHOT_TEST) $${file} ); then exit 1; fi; \
+	done
+
+all_snapshot_test : snapshot_test_DistributiveLaws \
+		    snapshot_test_FOTC \
+		    snapshot_test_GroupTheory \
+		    snapshot_test_LTC-PCF \
+		    snapshot_test_PA \
+		    snapshot_test_PredicateLogic
 
 ##############################################################################
 # Publish the .html files
