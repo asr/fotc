@@ -22,17 +22,14 @@ postulate
   FUN!  : D → D   -- A funny function name.
   PRED! : D → Set -- A funny predicate name.
 
-postulate
-  -- Using a funny function and variable name.
-  funnyFV  : (nx∎ : D) → FUN! nx∎ ≡ nx∎
+-- Using a funny function and variable name.
+postulate funnyFV  : (nx∎ : D) → FUN! nx∎ ≡ nx∎
 {-# ATP axiom funnyFV #-}
 
-postulate
-  -- Using a funny predicate name.
-  funnyP : (n : D) → PRED! n
+-- Using a funny predicate name.
+postulate funnyP : (n : D) → PRED! n
 {-# ATP axiom funnyP #-}
 
 -- We need to have at least one conjecture to generate a TPTP file.
-postulate
-  refl : ∀ d → d ≡ d
+postulate refl : ∀ d → d ≡ d
 {-# ATP prove refl #-}

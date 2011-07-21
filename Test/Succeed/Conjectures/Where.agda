@@ -37,17 +37,15 @@ postulate
 -- calling the ATP for the base case and the induction step.
 +-leftIdentity : ∀ {n} → N n → zero + n ≡ n
 +-leftIdentity = indN P P0 iStep
-    where
-      P : D → Set
-      P i = zero + i ≡ i
+  where
+  P : D → Set
+  P i = zero + i ≡ i
 
-      postulate
-        P0 : zero + zero ≡ zero
-      {-# ATP prove P0 #-}
+  postulate P0 : zero + zero ≡ zero
+  {-# ATP prove P0 #-}
 
-      postulate
-        iStep : ∀ {i} → N i → zero + i ≡ i → zero + succ i ≡ succ i
-      {-# ATP prove iStep #-}
+  postulate iStep : ∀ {i} → N i → zero + i ≡ i → zero + succ i ≡ succ i
+  {-# ATP prove iStep #-}
 
 ------------------------------------------------------------------------------
 -- Associativity of addition using the induction principle for N and
@@ -55,15 +53,14 @@ postulate
 +-assoc : ∀ {m n o} → N m → N n → N o → (m + n) + o ≡ m + (n + o)
 +-assoc {m} {n} Nm Nn No = indN P P0 iStep No
   where
-    P : D → Set
-    P i = m + n + i ≡ m + (n + i)
+  P : D → Set
+  P i = m + n + i ≡ m + (n + i)
 
-    postulate
-      P0 : m + n + zero ≡ m + (n + zero)
-    {-# ATP prove P0 #-}
+  postulate P0 : m + n + zero ≡ m + (n + zero)
+  {-# ATP prove P0 #-}
 
-    postulate
-      iStep : ∀ {i} → N i →
-              m + n + i ≡ m + (n + i) → -- IH.
-              m + n + succ i ≡ m + (n + succ i)
-    {-# ATP prove iStep #-}
+  postulate
+    iStep : ∀ {i} → N i →
+            m + n + i ≡ m + (n + i) → -- IH.
+            m + n + succ i ≡ m + (n + succ i)
+  {-# ATP prove iStep #-}

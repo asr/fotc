@@ -33,12 +33,10 @@ P : D → Set
 P i = zero + i ≡ i
 {-# ATP definition P #-}
 
-postulate
-  P0 : P zero
+postulate P0 : P zero
 {-# ATP prove P0 #-}
 
-postulate
-  iStep : ∀ {i} → N i → P i → P (succ i)
+postulate iStep : ∀ {i} → N i → P i → P (succ i)
 {-# ATP prove iStep #-}
 
 +-leftIdentity : ∀ {n} → N n → zero + n ≡ n

@@ -14,13 +14,11 @@ postulate
 data _≡_ (x : D) : D → Set where
   refl : x ≡ x
 
-postulate
-  a≡b : a ≡ b
+postulate a≡b : a ≡ b
 {-# ATP axiom a≡b #-}
 
 foo : {n : D} → b ≡ a
 foo = prf
   where
-    postulate
-      prf : b ≡ a
-    {-# ATP prove prf #-}
+  postulate prf : b ≡ a
+  {-# ATP prove prf #-}

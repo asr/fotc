@@ -13,15 +13,12 @@ postulate
 -- Hack: In both translations we are quantifying on the variable 'f',
 -- i.e. we are treating this variable as if it were of type D.
 
-postulate
-  cBeta : (f : D → D) → (a : D) → (lam f) ∙ a ≡ f a
+postulate cBeta : (f : D → D) → (a : D) → (lam f) ∙ a ≡ f a
 {-# ATP axiom cBeta #-}
 
-postulate
-  cFix : (f : D → D) → fix f ≡ f (fix  f)
+postulate cFix : (f : D → D) → fix f ≡ f (fix  f)
 {-# ATP axiom cFix #-}
 
 -- We need to have at least one conjecture to generate a TPTP file.
-postulate
-  refl : ∀ d → d ≡ d
+postulate refl : ∀ d → d ≡ d
 {-# ATP prove refl #-}

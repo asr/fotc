@@ -21,8 +21,7 @@ postulate
 
 -- We postulate some propositional variables (which are translated as
 -- 0-ary predicates).
-postulate
-  P Q R : Set
+postulate P Q R : Set
 
 -- The introduction and elimination rules for the propositional
 -- connectives are theorems.
@@ -52,8 +51,7 @@ postulate
 -- Predicate logic
 
 -- The universe of discourse.
-postulate
-  D : Set
+postulate D : Set
 
 -- The quantifiers are hard-coded in our implementation, i.e. the
 -- following symbols must be used.

@@ -36,14 +36,12 @@ postulate
 -- calling the ATP for the base case and the induction step.
 +-leftIdentity : ∀ {n} → N n → zero + n ≡ n
 +-leftIdentity {n} = indN P P0 iStep
-    where
-      P : D → Set
-      P i = zero + i ≡ i
+  where
+  P : D → Set
+  P i = zero + i ≡ i
 
-      postulate
-        P0 : zero + zero ≡ zero
-      {-# ATP prove P0 #-}
+  postulate P0 : zero + zero ≡ zero
+  {-# ATP prove P0 #-}
 
-      postulate
-        iStep : ∀ {i} → N i → zero + i ≡ i → zero + succ i ≡ succ i
-      {-# ATP prove iStep #-}
+  postulate iStep : ∀ {i} → N i → zero + i ≡ i → zero + succ i ≡ succ i
+  {-# ATP prove iStep #-}

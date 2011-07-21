@@ -50,20 +50,17 @@ postulate
 -- Testing data Term = Def ...
 
 -- A definition with one argument
-postulate
-  termDef₁ : P₁ a
+postulate termDef₁ : P₁ a
 {-# ATP axiom termDef₁ #-}
 
 -- A definition with three or more arguments
-postulate
-  termDef₃ : P₃ a b c
+postulate termDef₃ : P₃ a b c
 {-# ATP axiom termDef₃ #-}
 
 ------------------------------------------------------------------------------
 -- Testing data Term = Fun ...
 
-postulate
-  termFun : P₁ a → P₁ a
+postulate termFun : P₁ a → P₁ a
 {-# ATP axiom termFun #-}
 
 ------------------------------------------------------------------------------
@@ -77,14 +74,12 @@ postulate
 ------------------------------------------------------------------------------
 -- Testing data Term = Pi ...
 
-postulate
-  termPi : (d : D) → P₁ d
+postulate termPi : (d : D) → P₁ d
 {-# ATP axiom termPi #-}
 
 ------------------------------------------------------------------------------
 -- The conjecture
 
 -- We need to have at least one conjecture to generate a TPTP file.
-postulate
-  refl : ∀ d → d ≡ d
+postulate refl : ∀ d → d ≡ d
 {-# ATP prove refl #-}

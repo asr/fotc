@@ -32,29 +32,25 @@ postulate
 +-rightIdentity : ∀ {n} → N n → n + zero ≡ n
 +-rightIdentity Nn = indN P P0 iStep Nn
   where
-    P : D → Set
-    P i = i + zero ≡ i
-    {-# ATP definition P #-}
+  P : D → Set
+  P i = i + zero ≡ i
+  {-# ATP definition P #-}
 
-    postulate
-      P0 : P zero
-    {-# ATP prove P0 #-}
+  postulate P0 : P zero
+  {-# ATP prove P0 #-}
 
-    postulate
-      iStep : ∀ {i} → N i → P i → P (succ i)
-    {-# ATP prove iStep #-}
+  postulate iStep : ∀ {i} → N i → P i → P (succ i)
+  {-# ATP prove iStep #-}
 
 +-assoc : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
 +-assoc {n = n} {o} Nm Nn No = indN P P0 iStep Nm
   where
-    P : D → Set
-    P i = i + n + o ≡ i + (n + o)
-    {-# ATP definition P #-}
+  P : D → Set
+  P i = i + n + o ≡ i + (n + o)
+  {-# ATP definition P #-}
 
-    postulate
-      P0 : P zero
-    {-# ATP prove P0 #-}
+  postulate P0 : P zero
+  {-# ATP prove P0 #-}
 
-    postulate
-      iStep : ∀ {i} → N i → P i → P (succ i)
-    {-# ATP prove iStep #-}
+  postulate iStep : ∀ {i} → N i → P i → P (succ i)
+  {-# ATP prove iStep #-}

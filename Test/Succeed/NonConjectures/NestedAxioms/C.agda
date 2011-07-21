@@ -21,6 +21,5 @@ postulate
 {-# ATP axiom c₁≡c₂ #-}
 
 -- We need to have at least one conjecture to generate a TPTP file.
-postulate
-  refl : ∀ d → d ≡ d
+postulate refl : ∀ d → d ≡ d
 {-# ATP prove refl #-}
