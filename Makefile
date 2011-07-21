@@ -31,14 +31,10 @@ parsing_files = $(foreach file,$(succeed_files), \
 	$(addsuffix .parsing, $(file)))
 
 %.agdai : %.agda
-	@if ! ( $(AGDA) $< ); then exit 1; fi
+	@$(AGDA) $<
 
 $(succeed_files) : % : %.agdai
-	@if ! ( $(AGDA2ATP) --time=60 \
-                            --unproved-conjecture-error \
-                            $*.agda ); then \
-		exit 1; \
-	fi
+	@$(AGDA2ATP) --time=60 --unproved-conjecture-error $*.agda
 
 $(fail_files) : % : %.agdai
 	@if ( $(AGDA2ATP) --time=5 \
@@ -50,13 +46,8 @@ $(fail_files) : % : %.agdai
 # Equinox has the better parser for TPTP files, so we use it to find problems.
 $(parsing_files) : %.parsing : %.agdai
 	@echo "Parsing file" $*.agda
-	@if ! ( $(AGDA2ATP) --time=1 \
-			    --atp=equinox \
-			    $*.agda \
-			    >/tmp/xxx.tmp \
-			    2>/tmp/parsing.error); then \
-		exit 1; \
-	fi
+	@$(AGDA2ATP) --time=1 --atp=equinox $*.agda \
+		      >/tmp/xxx.tmp 2>/tmp/parsing.error
 
 	@if [ -s /tmp/parsing.error ]; then \
 		echo "Parsing error in $${file}"; \
@@ -64,18 +55,11 @@ $(parsing_files) : %.parsing : %.agdai
 	fi; \
 
 $(snapshot_files_to_create) : %.snapshotcreate : %.agdai
-	@if ! ( $(AGDA2ATP) --only-files \
-		            --output-dir=$(snapshot_dir) \
-                            $*.agda ); then \
-		exit 1; \
-	fi
+	@$(AGDA2ATP) --only-files --output-dir=$(snapshot_dir) $*.agda
 
 $(snapshot_files_to_test) : %.snapshottest : %.agdai
-	@if ! ( $(AGDA2ATP) --snapshot-test \
-			    --snapshot-dir=$(snapshot_dir) \
-                            $*.agda ); then \
-		exit 1; \
-	fi
+	@$(AGDA2ATP) --snapshot-test \ --snapshot-dir=$(snapshot_dir) \
+                     $*.agda
 
 # Snapshot of the succeed TPTP files.
 create_snapshot : $(snapshot_files_to_create)
