@@ -1,14 +1,4 @@
-------------------------------------------------------------------------------
--- The map-iterate property: A property using coinduction
-------------------------------------------------------------------------------
-
--- The map-iterate property [1]:
--- map f (iterate f x) = iterate f (f · x)
-
--- [1] Jeremy Gibbons and Graham Hutton. Proof methods for corecursive
--- programs. Fundamenta Informaticae, XX:1–14, 2005.
-
-module FOTC.Program.MapIterate.MapIterateATP where
+module Draft.Issues.BadProofTermErasure where
 
 open import FOTC.Base
 
@@ -21,16 +11,6 @@ open import FOTC.Relation.Binary.Bisimilarity
 ≈-map-iterate : (f x : D) → map f (iterate f x) ≈ iterate f (f · x)
 ≈-map-iterate f x = ≈-gfp₂ R (λ {xs} {ys} → helper xs ys) (x , refl , refl)
   where
-  postulate
-    unfoldMap : ∀ f y →
-                map f (iterate f y) ≡ f · y ∷ map f (iterate f (f · y))
-  {-# ATP prove unfoldMap #-}
-
-  postulate
-    unfoldIterate : ∀ f y →
-                    iterate f (f · y) ≡ f · y ∷ iterate f (f · (f · y))
-  {-# ATP prove unfoldIterate #-}
-
   -- The relation R was based on the relation used by Eduardo Giménez
   -- and Pierre Castéran. A Tutorial on [Co-]Inductive Types in
   -- Coq. May 1998 -- August 17, 2007.
@@ -45,8 +25,8 @@ open import FOTC.Relation.Binary.Bisimilarity
                    , map f (iterate f (f · y))
                    , iterate f (f · (f · y))
                    , ((f · y) , refl , refl)
-                   , trans xs≡map (unfoldMap f y)
-                   , trans ys≡iterate (unfoldIterate f y)
+                   , trans xs≡map unfoldMap
+                   , trans ys≡iterate unfoldIterate
     where
     y : D
     y = ∃-proj₁ h
@@ -56,3 +36,13 @@ open import FOTC.Relation.Binary.Bisimilarity
 
     ys≡iterate : ys ≡ iterate f (f · y)
     ys≡iterate = ∧-proj₂ (∃-proj₂ h)
+
+    -- We don't know how to erase the proof term h, therefore the
+    -- agda2atp should abort. However, the current version does a
+    -- *bad* translation.
+    postulate
+      unfoldMap : map f (iterate f y) ≡ f · y ∷ map f (iterate f (f · y))
+    {-# ATP prove unfoldMap #-}
+
+    postulate
+      unfoldIterate : iterate f (f · y) ≡ f · y ∷ iterate f (f · (f · y))
