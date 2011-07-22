@@ -42,6 +42,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 -- Local imports
 import Monad.Base    ( T )
 import Monad.Reports ( reportSLn )
+import Utils.List    (myShowList )
 
 #include "../../undefined.h"
 
@@ -153,6 +154,7 @@ instance RenameVar ClauseBody where
 -- Remove references to variables which are proof terms from
 -- the Agda internal types.
 
+------------------------------------------------------------------------------
 -- General description
 -- Example (Test.Succeed.Conjectures.DefinitionsInsideWhereClauses)
 
@@ -193,6 +195,7 @@ instance RenameVar ClauseBody where
 -- FOL.Translation.Internal.Terms.termToFormula (on Pi terms).
 
 -- End general description.
+------------------------------------------------------------------------------
 
 -- We only need to remove the variables which are proof terms, so we
 -- collect the variables' types using the type class VarsTypes. The de
@@ -274,6 +277,9 @@ removeReferenceToProofTerm varType index ty =
     -- variable.
 
     -- N.B. the pattern matching on (Def _ _).
+
+    -- TODO: This case *is not enough* to remove the reference to a
+    -- proof term. See Test.Issues.BadProofTermErase.
     El (Type (Max [])) (Def _ _) → return (removeVar ty index)
 
     -- The variable's type is a function type,
@@ -301,7 +307,7 @@ removeReferenceToProofTerm varType index ty =
 
     -- We don't erase these proofs terms.
     El (Type (Max [])) someTerm → do
-      reportSLn "removeReferenceToProofTerm" 20 $
+      reportSLn "RRTPT" 20 $
                 "The term someTerm is: " ++ show someTerm
       throwError $ "It is necessary to erase a proof term, "++
                    "but we do not know how to do it. The internal " ++
@@ -335,15 +341,18 @@ removeReferenceToProofTerm varType index ty =
     El (Type (Max [ClosedLevel 1])) (Var _ _)    → __IMPOSSIBLE__
 
     someType → do
-      reportSLn "removeReferenceToProofTerm" 20 $
+      reportSLn "RRTPT" 20 $
                 "The type varType is: " ++ show someType
       __IMPOSSIBLE__
 
 removeReferenceToProofTerms ∷ Type → T Type
-removeReferenceToProofTerms ty = helper (varsTypes ty) 0 ty
-  where
-    helper ∷ [Type] → Nat → Type → T Type
-    helper []             _     tya = return tya
-    helper (varType : xs) index tya = do
-      tyAux ← removeReferenceToProofTerm varType index tya
-      helper xs (index + 1) tyAux
+removeReferenceToProofTerms ty = do
+  reportSLn "RRTPTs" 20 $
+            "The varTypes are:\n" ++ myShowList (varsTypes ty)
+  helper (varsTypes ty) 0 ty
+    where
+      helper ∷ [Type] → Nat → Type → T Type
+      helper []             _     tya = return tya
+      helper (varType : xs) index tya = do
+        tyAux ← removeReferenceToProofTerm varType index tya
+        helper xs (index + 1) tyAux
