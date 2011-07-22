@@ -4,7 +4,7 @@
 
 -- The dot in the name of the implicit arguments must be removed.
 
-module Test.Succeed.Conjectures.ImplicitArguments where
+module Test.Succeed.ImplicitArguments where
 
 postulate
   D   : Set

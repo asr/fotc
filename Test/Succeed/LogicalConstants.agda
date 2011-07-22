@@ -1,4 +1,4 @@
-module Test.Succeed.Conjectures.LogicalConstants where
+module Test.Succeed.LogicalConstants where
 
 infix  5 ¬_
 infixr 4 _∧_

@@ -1,4 +1,4 @@
-module Test.Succeed.Conjectures.RepeatedConjecture where
+module Test.Succeed.RepeatedConjecture where
 
 postulate
   D    : Set

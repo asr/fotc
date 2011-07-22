@@ -2,7 +2,7 @@
 -- Testing the eta-expansion
 ------------------------------------------------------------------------------
 
-module Test.Succeed.Conjectures.Eta where
+module Test.Succeed.Eta where
 
 postulate
   D   : Set

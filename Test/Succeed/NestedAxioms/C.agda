@@ -1,4 +1,4 @@
-module Test.Succeed.NonConjectures.NestedAxioms.C where
+module Test.Succeed.NestedAxioms.C where
 
 {-
 Process this file should be generate a tptp file with the
@@ -10,10 +10,10 @@ fof(..., axiom, ( b₁ = b₂ )).
 fof(..., axiom, ( c₁ = c₂ )).
 -}
 
-open import Test.Succeed.NonConjectures.NestedAxioms.Base using ( _≡_ ; D )
+open import Test.Succeed.NestedAxioms.Base using ( _≡_ ; D )
 
 -- Only imported for to translate the axioms.
-open import Test.Succeed.NonConjectures.NestedAxioms.B using ()
+open import Test.Succeed.NestedAxioms.B using ()
 
 postulate
   c₁ c₂ : D

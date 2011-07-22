@@ -1,4 +1,4 @@
-module Test.Succeed.Conjectures.DefinitionsInsideWhereClauses where
+module Test.Succeed.DefinitionsInsideWhereClauses where
 
 infixl 6 _+_
 infix  4 _≡_

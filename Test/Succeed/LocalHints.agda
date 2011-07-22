@@ -1,4 +1,4 @@
-module Test.Succeed.Conjectures.LocalHints where
+module Test.Succeed.LocalHints where
 
 postulate
   D    : Set

@@ -1,4 +1,4 @@
-module Test.Succeed.Conjectures.VariableNamesClash where
+module Test.Succeed.VariableNamesClash where
 
 infix  4 _≡_
 

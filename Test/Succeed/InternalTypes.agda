@@ -1,4 +1,4 @@
-module Test.Succeed.NonConjectures.InternalTypes where
+module Test.Succeed.InternalTypes where
 
 -- Agda 2.2.9 (13 November 2010) internal types (from Agda.Syntax.Internal)
 

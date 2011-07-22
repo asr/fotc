@@ -1,4 +1,4 @@
-module Test.Succeed.Conjectures.Definitions where
+module Test.Succeed.Definitions where
 
 infixl 6 _+_
 infix  4 _≡_

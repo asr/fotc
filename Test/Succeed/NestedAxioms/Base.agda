@@ -1,4 +1,4 @@
-module Test.Succeed.NonConjectures.NestedAxioms.Base where
+module Test.Succeed.NestedAxioms.Base where
 
 infix 4 _≡_
 

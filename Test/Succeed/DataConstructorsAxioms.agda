@@ -2,7 +2,7 @@
 -- Testing the use of ATP <axioms> with data constructors
 ------------------------------------------------------------------------------
 
-module Test.Succeed.NonConjectures.DataConstructorsAxioms where
+module Test.Succeed.DataConstructorsAxioms where
 
 postulate
   D    : Set
