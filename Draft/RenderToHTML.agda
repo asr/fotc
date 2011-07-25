@@ -4,4 +4,4 @@
 
 module Draft.RenderToHTML where
 
-open import Draft.FixedPoints.LeastFixedPoints
+open import Draft.FOTC.Data.Stream.PropertiesATP
