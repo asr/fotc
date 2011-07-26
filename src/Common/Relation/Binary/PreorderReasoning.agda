@@ -10,7 +10,7 @@ module Common.Relation.Binary.PreorderReasoning
   where
 
 -- We add 3 to the fixities of the standard library.
-infix 7 _≃_
+infix  7 _≃_
 infix  4 begin_
 infixr 5 _∼⟨_⟩_
 infix  5 _∎

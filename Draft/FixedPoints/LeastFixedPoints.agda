@@ -2,7 +2,7 @@ module Draft.FixedPoints.LeastFixedPoints where
 
 open import FOTC.Base
 
-infixl 9  _+_
+infixl 9 _+_
 
 ------------------------------------------------------------------------------
 -- Basic definitions

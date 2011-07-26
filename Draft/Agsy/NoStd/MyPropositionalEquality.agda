@@ -5,7 +5,7 @@
 module MyPropositionalEquality where
 
 -- We add 3 to the fixities of the standard library.
-infix  7 _≡_
+infix 7 _≡_
 
 ------------------------------------------------------------------------------
 

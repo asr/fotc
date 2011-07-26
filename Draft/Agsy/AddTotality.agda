@@ -2,7 +2,7 @@ module AddTotality where
 
 open import Relation.Binary.PropositionalEquality
 
-infixl 9  _+_
+infixl 9 _+_
 
 ------------------------------------------------------------------------------
 

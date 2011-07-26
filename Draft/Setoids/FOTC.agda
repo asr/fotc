@@ -17,7 +17,7 @@ module PeterEquality where
   -- From Peter's slides
   -- http://www.cse.chalmers.se/~peterd/slides/Amagasaki.pdf
 
-  infix  7 _≐_
+  infix 7 _≐_
 
   data _≐_ : D → D → Set where
     refl  : ∀ x →                                       x ≐ x
@@ -45,7 +45,7 @@ module LeibnizEquality where
   -- Using the Leibniz equality
   -- (Adapted from Agda/examples/lib/Logic/Leibniz.agda)
 
-  infix  7 _≐_
+  infix 7 _≐_
 
   _≐_ : D → D → Set₁
   x ≐ y = (P : D → Set) → P x → P y
