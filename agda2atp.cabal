@@ -52,7 +52,7 @@ executable agda2atp
                   Monad.Reports
                   Options
                   Paths_agda2atp
-                  Test.Snapshot
+                  Snapshot
                   TPTP.Files
                   TPTP.Pretty
                   TPTP.Translation

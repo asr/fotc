@@ -4,7 +4,7 @@
 
 {-# LANGUAGE UnicodeSyntax #-}
 
-module Test.Snapshot ( snapshotTest ) where
+module Snapshot ( snapshotTest ) where
 
 ------------------------------------------------------------------------------
 -- Haskell imports

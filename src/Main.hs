@@ -53,7 +53,7 @@ import Options
   , printUsage
   )
 
-import Test.Snapshot    ( snapshotTest )
+import Snapshot         ( snapshotTest )
 import TPTP.Files       ( createConjectureFile )
 import TPTP.Translation ( conjecturesToAFs, generalRolesToAFs )
 import TPTP.Types       ( ConjectureSet, GeneralRoles )

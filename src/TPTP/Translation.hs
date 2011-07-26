@@ -103,8 +103,8 @@ fnToAF qName def = do
   reportSLn "symbolToAF" 10 $
     "Symbol: " ++ show qName ++ "\n" ++ "Type: " ++ show ty
 
-  -- We get the clauses that define the symbol
-  -- (All the symbols must be functions)
+  -- We get the clauses that define the symbol (all the symbols must
+  -- be functions).
   let cls ∷ [Clause]
       cls = getClauses def
 
@@ -151,26 +151,8 @@ requiredQName qName = do
                 (requiredATPDefsByATPDefinition qNameDef)
     else return []
 
-requiredATPDefsByAxioms ∷ T [AF]
-requiredATPDefsByAxioms = do
-  state ← get
-
-  let axDefs ∷ Definitions
-      axDefs = getATPRole ATPAxiom $ tAllDefs state
-
-  fmap (nub . concat) (mapM requiredATPDefsByDefinition (Map.elems axDefs))
-
-requiredATPDefsByHints ∷ T [AF]
-requiredATPDefsByHints = do
-  state ← get
-
-  let ghDefs ∷ Definitions
-      ghDefs = getATPRole ATPHint $ tAllDefs state
-
-  fmap (nub . concat) (mapM requiredATPDefsByDefinition (Map.elems ghDefs))
-
 -- If we required an ATP definition, we also required the ATP
--- definitions used in your definition.
+-- definitions used in its definition.
 requiredATPDefsByATPDefinition ∷ Definition → T [AF]
 requiredATPDefsByATPDefinition def = do
 
@@ -186,17 +168,6 @@ requiredATPDefsByATPDefinition def = do
       qNamesInClause = qNamesIn cls
 
   fmap (nub . concat) (mapM requiredQName qNamesInClause)
-
--- We translate the functions marked out by an ATP pragma definition
--- to annotated formulas required by a definition:
-requiredATPDefsByDefinition ∷ Definition → T [AF]
-requiredATPDefsByDefinition def = do
-
-  -- We get all the QNames in the definition.
-  let qNamesInDef ∷ [QName]
-      qNamesInDef = qNamesIn def
-
-  fmap (nub . concat) (mapM requiredQName qNamesInDef)
 
 requiredATPDefsByLocalHints ∷ Definition → T [AF]
 requiredATPDefsByLocalHints def = do
@@ -244,6 +215,26 @@ axiomsToAFs = do
 
   zipWithM (toAF ATPAxiom) (Map.keys axDefs) (Map.elems axDefs)
 
+-- We translate the functions marked out by an ATP pragma definition
+-- to annotated formulas required by a definition:
+requiredATPDefsByDefinition ∷ Definition → T [AF]
+requiredATPDefsByDefinition def = do
+
+  -- We get all the QNames in the definition.
+  let qNamesInDef ∷ [QName]
+      qNamesInDef = qNamesIn def
+
+  fmap (nub . concat) (mapM requiredQName qNamesInDef)
+
+requiredATPDefsByAxioms ∷ T [AF]
+requiredATPDefsByAxioms = do
+  state ← get
+
+  let axDefs ∷ Definitions
+      axDefs = getATPRole ATPAxiom $ tAllDefs state
+
+  fmap (nub . concat) (mapM requiredATPDefsByDefinition (Map.elems axDefs))
+
 -- We translate the ATP pragma general hints in an interface file to
 -- FOL formulas.
 generalHintsToAFs ∷ T [AF]
@@ -254,6 +245,15 @@ generalHintsToAFs = do
       ghDefs = getATPRole ATPHint $ tAllDefs state
 
   zipWithM (toAF ATPHint) (Map.keys ghDefs) (Map.elems ghDefs)
+
+requiredATPDefsByHints ∷ T [AF]
+requiredATPDefsByHints = do
+  state ← get
+
+  let ghDefs ∷ Definitions
+      ghDefs = getATPRole ATPHint $ tAllDefs state
+
+  fmap (nub . concat) (mapM requiredATPDefsByDefinition (Map.elems ghDefs))
 
 -- We translate the ATP axioms and (general) hints from the top level
 -- module and its imported modules. These TPTP roles are common to
