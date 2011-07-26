@@ -29,6 +29,7 @@ import AgdaLib.Syntax.DeBruijn        ( renameVar, varToDeBruijnIndex )
 import FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm )
 import FOL.Types                      ( FOLFormula, FOLTerm )
 import Monad.Base                     ( T )
+import Monad.Reports                  ( reportSLn )
 
 #include "../../undefined.h"
 
@@ -67,8 +68,11 @@ removeBindingOnCBodyIndex _ _ _ = __IMPOSSIBLE__
 --
 -- We know that the bounded variable is a proof term from the
 -- invocation to this function.
-removeBindingOnCBody ∷ ClauseBody → String → ClauseBody
-removeBindingOnCBody cBody x = removeBindingOnCBodyIndex cBody x index
-  where
-    index ∷ Nat
-    index = varToDeBruijnIndex cBody x
+removeBindingOnCBody ∷ ClauseBody → String → T ClauseBody
+removeBindingOnCBody cBody x = do
+  let index ∷ Nat
+      index = varToDeBruijnIndex cBody x
+
+  reportSLn "remove" 20 $ "The index is: " ++ show index
+
+  return $ removeBindingOnCBodyIndex cBody x index

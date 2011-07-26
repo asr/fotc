@@ -81,10 +81,34 @@ instance IncreaseByOneVar (Arg Term) where
 class VarNames a where
   varNames ∷ a → [String]
 
+instance VarNames Term where
+  varNames (Def _ args) = varNames args
+
+  varNames (Lam _ (Abs x term)) = varNames term ++ [x]
+
+  varNames (Var _ [])   = []
+  varNames (Var _ args) = varNames args
+
+  varNames (Con _ _)   = __IMPOSSIBLE__
+  varNames DontCare    = __IMPOSSIBLE__
+  varNames (Fun _ _)   = __IMPOSSIBLE__
+  varNames (Level _)   = __IMPOSSIBLE__
+  varNames (Lit _)     = __IMPOSSIBLE__
+  varNames (MetaV _ _) = __IMPOSSIBLE__
+  varNames (Pi _ _)    = __IMPOSSIBLE__
+  varNames (Sort _)    = __IMPOSSIBLE__
+
+instance VarNames (Arg Term) where
+  varNames (Arg _ _ term) = varNames term
+
+instance VarNames Args where
+  varNames []           = []
+  varNames (arg : args) = varNames arg ++ varNames args
+
 instance VarNames ClauseBody where
   varNames (Bind (Abs x cBody)) = varNames cBody ++ [x]
-  varNames (Body _)            = []
-  varNames _                   = __IMPOSSIBLE__
+  varNames (Body term)          = varNames term
+  varNames _                    = __IMPOSSIBLE__
 
 -- Return the de Bruijn index of a variable in a ClauseBody.
 varToDeBruijnIndex ∷ ClauseBody → String → Nat
@@ -124,13 +148,14 @@ instance RenameVar Term where
                                   -- "unbound" the quantified
                                   -- variable.
 
-    | otherwise = __IMPOSSIBLE__
+    | n == index = __IMPOSSIBLE__
+
+  renameVar (Lam h (Abs x term)) index = Lam h (Abs x (renameVar term index))
 
   renameVar (Var _ _)   _   = __IMPOSSIBLE__
   renameVar (Con _ _)   _   = __IMPOSSIBLE__
   renameVar DontCare    _   = __IMPOSSIBLE__
   renameVar (Fun _ _)   _   = __IMPOSSIBLE__
-  renameVar (Lam _ _)   _   = __IMPOSSIBLE__
   renameVar (Level _)   _   = __IMPOSSIBLE__
   renameVar (Lit _)     _   = __IMPOSSIBLE__
   renameVar (MetaV _ _) _   = __IMPOSSIBLE__
