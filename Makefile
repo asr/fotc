@@ -13,10 +13,10 @@ fail_path     = Test/Fail
 snapshot_dir = Test/snapshot
 
 succeed_files = $(patsubst %.agda,%, \
-	$(shell find $(succeed_path) -name "*.agda"))
+	$(shell find $(succeed_path) -name "*.agda" | sort))
 
 fail_files = $(patsubst %.agda,%, \
-	$(shell find $(fail_path) -name "*.agda"))
+	$(shell find $(fail_path) -name "*.agda" | sort))
 
 # Ugly hack
 # We need to add a fake extension to the file names to avoid repeated
@@ -88,7 +88,7 @@ doc :
 
 .PHONY : TODO
 TODO :
-	find \( -name '*.hs' -o -name '*.agda' \) | xargs grep TODO
+	find \( -name '*.hs' -o -name '*.agda' \) | xargs grep TODO | sort
 
 clean :
 	find -name '*.agdai' | xargs rm -f

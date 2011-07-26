@@ -85,7 +85,7 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
     -- problem. N.B. the pattern matching on (Def _ []).
     ExtendTel
       (Arg _ _ (El (Type (Max [])) (Def _ []))) (Abs x tels) → do
-          reportSLn "def2f" 20 $ "Processing var: " ++ x
+          reportSLn "def2f" 20 $ "Processing variable: " ++ x
 
           state ← get
           let vars ∷ [String]
@@ -115,7 +115,7 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
       (Arg _ _ tye@(El (Type (Max [])) (Def _ _))) (Abs x tels) →
         do f1 ← typeToFormula tye
 
-           reportSLn "def2f" 20 $ "Processing var: " ++ x
+           reportSLn "def2f" 20 $ "Processing variable: " ++ x
 
            reportSLn "def2f" 20 $ "f1: " ++ show f1
 
