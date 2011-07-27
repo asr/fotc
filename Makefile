@@ -7,8 +7,8 @@ AGDA2ATP = agda2atp  # The defaults ATPs are e, equinox, metis, and vampire.
 # AGDA2ATP = agda2atp --atp=metis
 # AGDA2ATP = agda2atp --atp=vampire
 
-succeed_path  = Test/Succeed
-fail_path     = Test/Fail
+succeed_path = Test/Succeed
+fail_path    = Test/Fail
 
 snapshot_dir = Test/snapshot
 
@@ -58,8 +58,7 @@ $(snapshot_files_to_create) : %.snapshotcreate : %.agdai
 	@$(AGDA2ATP) --only-files --output-dir=$(snapshot_dir) $*.agda
 
 $(snapshot_files_to_test) : %.snapshottest : %.agdai
-	@$(AGDA2ATP) --snapshot-test \ --snapshot-dir=$(snapshot_dir) \
-                     $*.agda
+	@$(AGDA2ATP) --snapshot-test --snapshot-dir=$(snapshot_dir) $*.agda
 
 # Snapshot of the succeed TPTP files.
 create_snapshot : $(snapshot_files_to_create)
@@ -70,7 +69,7 @@ fail     : $(fail_files)
 parsing  : $(parsing_files)
 snapshot : $(snapshot_files_to_test)
 
-test     : succeed fail
+test : succeed fail
 
 ##############################################################################
 # Others
@@ -93,6 +92,7 @@ TODO :
 clean :
 	find -name '*.agdai' | xargs rm -f
 	rm -f /tmp/*.tptp
+	rm -f TAGS
 
 snapshot_clean :
 	rm -r -f $(snapshot_dir)
