@@ -1,4 +1,4 @@
-module Test.Issues.BadProofTermErasure where
+module Issues.BadProofTermErasure where
 
 postulate
   D : Set

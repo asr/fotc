@@ -303,23 +303,10 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
              "Adding universal quantification on variable: " ++ freshVar
            return $ ForAll freshVar (\_ → f2)
 
-    -- The bounded variable is quantified on a proof,
-    --
-    -- e.g. the bounded variable is 'Nn : N n', where D : Set, n : D
-    -- and N : D → Set.
-    --
-    -- In this case, we erase the quantification on the bounded
-    -- variable and we try it as a function type. This solve the
-    -- problem of the translation of
-    --
-    -- sN : {n : D} → (Nn : N n) → N (succ n).
-    --
-    -- N.B. the pattern matching on (Def _ _).
-    El (Type (Max [])) def@(Def _ _) → do
-      reportSLn "t2f" 20 $
-        "Removing a quantification on the proof:\n" ++ show def
-      f1 ← argTypeToFormula tyArg
-      return $ Implies f1 f2
+    -- The bounded variable is quantified on a proof. Due to we have
+    -- removed the quantification on proofs terms, this case is
+    -- impossible.
+    El (Type (Max [])) (Def _ _) → __IMPOSSIBLE__
 
     -- The bounded variable is quantified on a function of a Set
     -- to a Set,
@@ -383,7 +370,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     --   ∨-comm₂ : {P₂ Q₂ : D → D → Set}{x y : D} →
     --             P₂ x y ∨ Q₂ x y → Q₂ x y ∨ P₂ x y
 
-    El (Type (Max [ClosedLevel 1])) (Fun _ _) →
+    El (Type (Max [ClosedLevel 1])) (Fun _ _) → do
       return $ ForAll freshVar (\_ → f2)
 
     -- Other cases

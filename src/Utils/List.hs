@@ -5,7 +5,7 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module Utils.List ( duplicatesElements, myShowList, nonDuplicate ) where
+module Utils.List ( duplicatesElements, nonDuplicate ) where
 
 -- Haskell imports
 import Data.List ( nub )
@@ -41,9 +41,3 @@ duplicatesElements zs =
     helper (x : y : xs) = if x == y
                           then x : helper (y : xs)
                           else helper (y : xs)
-
--- | Show version on lists where the elements are separated by newline
--- characters.
-myShowList ∷ Show a => [a] → String
-myShowList []       = []
-myShowList (x : xs) = show x ++ "\n" ++ myShowList xs

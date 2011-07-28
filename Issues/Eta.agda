@@ -1,7 +1,7 @@
 -- Issue: At the moment, we don't eta-expand the equations in the ATP
 -- definitions.
 
-module Test.Issues.Eta where
+module Issues.Eta where
 
 postulate
   D       : Set

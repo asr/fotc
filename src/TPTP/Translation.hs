@@ -34,6 +34,7 @@ import Agda.TypeChecking.Monad.Base
   , defName
   , defType
   )
+-- import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 ------------------------------------------------------------------------------
 -- Local imports
@@ -58,7 +59,7 @@ import TPTP.Types
   , GeneralRoles(MkGeneralRoles)
   )
 
--- #include "../undefined.h"
+#include "../undefined.h"
 
 ------------------------------------------------------------------------------
 
@@ -79,11 +80,18 @@ toAF role qName def = do
 
   reportSLn "toAF" 20 $ "The eta-expanded type is:\n" ++ show tyEtaExpanded
 
+  if ty == tyEtaExpanded
+     then reportSLn "toAF" 20 "The type and the eta-expanded type are equals"
+     else reportSLn "toAF" 20 "The type and the eta-expanded type are different"
+
   -- We need to remove the references to variables which are proof
-  -- terms from the type.
+  -- terms from the type. We run it without variables in the state.
+  modify $ \s → s { tVars = [] }
   tyReady ← removeReferenceToProofTerms tyEtaExpanded
 
   reportSLn "toAF" 20 $ "tyReady:\n" ++ show tyReady
+
+  -- _ ← __IMPOSSIBLE__
 
   -- We run the translation from Agda types to FOL formulas without
   -- variables in the state.

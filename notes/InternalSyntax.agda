@@ -4,56 +4,40 @@
 
 module InternalSyntax where
 
--- Based on Agda.Syntax.Internal
+-- Internal types from Agda.Syntax.Internal.
+
+------------------------------------------------------------------------------
+-- Sets
 
 postulate
   A B C : Set
--- Internal type (old representation):
--- El (Type (Lit (LitLevel  1))) (Sort (Type (Lit (LitLevel  0))))
 
--- Internal type (new representation 2011-06-19):
 -- El (Type (Max [ClosedLevel 1])) (Sort (Type (Max [])))
 
-------------------------------------------------------------------------------
--- Examples
+postulate A₁ : Set₁
 
+-- El (Type (Max [ClosedLevel 2])) (Sort (Type (Max [ClosedLevel 1])))
+
+------------------------------------------------------------------------------
 -- The term is Def
+
 postulate defTerm : A
--- Internal type (old representation):
+
 -- El (Type (Max [])) (Def InternalSyntax.A [])
 
--- Internal type (new representation 2011-06-19):
--- El (Type (Lit (LitLevel  0))) (Def InternalSyntax.A [])
-
+------------------------------------------------------------------------------
 -- The term is Fun
+
 postulate funTerm₁ : A → B
--- Internal type (old representation):
--- El (Type (Lit (LitLevel  0)))
---    (Fun (El (Type (Lit (LitLevel  0)))
---             (Def InternalSyntax.A []))
---         (El (Type (Lit (LitLevel  0)))
+
+-- El (Type (Max []))
+--    (Fun r(El (Type (Max []))
+--              (Def InternalSyntax.A []))
+--         (El (Type (Max []))
 --             (Def InternalSyntax.B [])))
 
--- Internal type (new representation 2011-06-19):
--- El (Type (Max []))
---     (Fun r(El (Type (Max []))
---               (Def InternalSyntax.A []))
---          (El (Type (Max []))
---              (Def InternalSyntax.B [])))
-
-
 postulate funTerm₂ : A → B → C
--- Internal type (old representation):
--- El (Type (Lit (LitLevel  0)))
---    (Fun (El (Type (Lit (LitLevel  0)))
---             (Def InternalSyntax.A []))
---         (El (Type (Lit (LitLevel  0)))
---             (Fun (El (Type (Lit (LitLevel  0)))
---                      (Def InternalSyntax.B []))
---                  (El (Type (Lit (LitLevel  0)))
---                      (Def InternalSyntax.C [])))))
 
--- Internal type (new representation 2011-06-19):
 -- El (Type (Max []))
 --    (Fun r(El (Type (Max []))
 --              (Def InternalSyntax.A []))
@@ -64,18 +48,32 @@ postulate funTerm₂ : A → B → C
 --                      (Def InternalSyntax.C [])))))
 
 
+------------------------------------------------------------------------------
 -- The term is a (fake) Pi
-postulate piTerm : (a : A) → B
--- Internal type (old representation):
--- El (Type (Lit (LitLevel  0)))
---    (Pi (El (Type (Lit (LitLevel  0)))
---            (Def InternalSyntax.A []))
---        (Abs "a" El (Type (Lit (LitLevel  0)))
---                    (Def InternalSyntax.B [])))
 
--- Internal type (new representation 2011-06-19):
+postulate fakePiTerm : (a : A) → B
+
 -- El (Type (Max []))
 --    (Pi r(El (Type (Max []))
 --             (Def InternalSyntax.A []))
 --        (Abs "a" El (Type (Max []))
 --                 (Def InternalSyntax.B [])))
+
+------------------------------------------------------------------------------
+-- The term is Pi
+
+postulate P : A → Set
+
+-- El (Type (Max [ClosedLevel 1]))
+--    (Fun r(El (Type (Max []))
+--              (Def InternalSyntax.A []))
+--         (El (Type (Max [ClosedLevel 1]))
+--             (Sort (Type (Max [])))))
+
+postulate piTerm : (a : A) → P a
+
+-- El (Type (Max []))
+--    (Pi r(El (Type (Max []))
+--             (Def InternalSyntax.A []))
+--        (Abs "a" El (Type (Max []))
+--                    (Def InternalSyntax.P [r(Var 0 [])])))

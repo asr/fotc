@@ -21,9 +21,12 @@ module AgdaLib.Syntax.DeBruijn
   ) where
 
 -- Haskell imports
+import Control.Monad       ( foldM, liftM2 )
 import Control.Monad.Error ( throwError )
+import Control.Monad.State ( get, modify )
 
-import Data.List ( elemIndex )
+-- import Data.Maybe ( fromJust )
+import Data.List  ( elemIndex )
 
 -- Agda libray imports
 import Agda.Syntax.Common ( Arg(Arg) , Nat )
@@ -40,9 +43,9 @@ import Agda.Syntax.Internal
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
-import Monad.Base    ( T )
+import Monad.Base    ( T, TState(tVars) )
 import Monad.Reports ( reportSLn )
-import Utils.List    (myShowList )
+import Utils.Show    ( myShow )
 
 #include "../../undefined.h"
 
@@ -139,14 +142,13 @@ instance RenameVar Term where
   renameVar (Def qName args) index = Def qName $ renameVar args index
 
   renameVar term@(Var n [])  index
-    | n < index = term            -- The variable was before than the
-                                  -- quantified variable, we don't do
-                                  -- nothing.
+    -- The variable was before than the quantified variable, we don't
+    -- do nothing.
+    | n < index = term
 
-    | n > index = Var (n - 1) []  -- The variable was after than the
-                                  -- quantified variable, we need
-                                  -- "unbound" the quantified
-                                  -- variable.
+    -- The variable was after than the quantified variable, we need
+    -- "unbound" the quantified variable.
+    | n > index = Var (n - 1) []
 
     | n == index = __IMPOSSIBLE__
 
@@ -223,67 +225,153 @@ instance RenameVar ClauseBody where
 ------------------------------------------------------------------------------
 
 -- We only need to remove the variables which are proof terms, so we
--- collect the variables' types using the type class VarsTypes. The de
--- Bruijn indexes are assigned from right to left,
+-- collect the types of the variables using the type class
+-- TypesOfVars. The de Bruijn indexes are assigned from right to left,
 --
 -- e.g.  in '(A B C : Set) → ...', A is 2, B is 1, and C is 0,
 --
 -- so we need create the list in the same order.
 
-class VarsTypes a where
-  varsTypes ∷ a → [Type]
+class TypesOfVars a where
+  typesOfVars ∷ a → [(String, Type)]
 
-instance VarsTypes Type where
-  varsTypes (El (Type _) term) = varsTypes term
-  varsTypes _                  = __IMPOSSIBLE__
+instance TypesOfVars Type where
+  typesOfVars (El (Type _) term) = typesOfVars term
+  typesOfVars _                  = __IMPOSSIBLE__
 
-instance VarsTypes Term where
-  varsTypes (Pi (Arg _ _ ty) absT) = varsTypes absT ++ [ty]
-  -- We only have bounded variables in Pi terms.
-  varsTypes _                      = []
+instance TypesOfVars Term where
+  -- TDOO: In Lam terms we bound variables, but they seem doesn't have associated
+  -- types. Therefore, we associate a "DontCare" type.
+  -- typesOfVars (Lam _ (Abs x absTerm)) =
+  --   typesOfVars absTerm ++ [(x, El (Type (Max [])) DontCare)]
 
-instance VarsTypes (Abs Type) where
-    varsTypes (Abs _ ty) = varsTypes ty
+  -- We only have real bounded variables in Pi terms.
+  typesOfVars (Pi (Arg _ _ ty) (Abs x absTy)) = (x, ty) : typesOfVars absTy
+
+  typesOfVars (Def _ args) = typesOfVars args
+
+  typesOfVars (Fun _ ty) = typesOfVars ty
+
+  typesOfVars (Con _ _)   = []
+  typesOfVars DontCare    = []
+  typesOfVars (Lam _ _)   = []
+  typesOfVars (Level _)   = []
+  typesOfVars (Lit _)     = []
+  typesOfVars (MetaV _ _) = []
+  typesOfVars (Sort _)    = []
+  typesOfVars (Var _ _)   = []
+
+instance TypesOfVars (Arg Term) where
+  typesOfVars (Arg _ _ term) = typesOfVars term
+
+instance TypesOfVars Args where
+  typesOfVars []       = []
+  typesOfVars (x : xs) = typesOfVars x ++ typesOfVars xs
+
+
+-- instance TypesOfVars (Abs Type) where
+--   typesOfVars (Abs _ ty) = typesOfVars ty
 
 -- Remove the reference to a variable (i.e. Var n args) from an Agda
 -- internal entity.
 class RemoveVar a where
-  removeVar ∷ a → Nat → a  -- The Nat represents the de Bruijn index
-                           -- of the variable to be removed.
+  removeVar ∷ a → String → T a
 
 instance RemoveVar Type where
-  removeVar (El ty@(Type _) term) index  = El ty (removeVar term index)
-  removeVar _                     _      = __IMPOSSIBLE__
+  removeVar (El ty@(Type _) term) x = fmap (El ty) (removeVar term x)
+  removeVar _                     _ = __IMPOSSIBLE__
 
 instance RemoveVar Term where
-  -- We only need remove variables from Def terms.
-  removeVar (Def qname args) index = Def qname $ removeVar args index
-  removeVar (Fun argT ty) index =
-    Fun (removeVar argT index) $ removeVar ty index
+  removeVar (Def qname args) x = fmap (Def qname) (removeVar args x)
+
+  removeVar (Fun argT ty) x = liftM2 Fun (removeVar argT x) (removeVar ty x)
+                              -- fmap (Fun argT) (removeVar ty x)
+
+  removeVar (Lam h (Abs y absTerm)) x = do
+
+    state ← get
+    let vars ∷ [String]
+        vars = tVars state
+
+    modify $ \s → s { tVars = y : vars }
+    reportSLn "removeVar" 20 $ "Pushed variable: " ++ y
+
+    auxTerm ← removeVar absTerm x
+
+    modify $ \s → s { tVars = vars }
+    reportSLn "RRTPTs" 20 $ "Pop variable: " ++ y
+    return $ Lam h (Abs y auxTerm)
+
   -- N.B. The variables *are not* removed from the (Arg Type), they
   -- are only removed from the (Abs Type).
-  removeVar (Pi argT absT) index = Pi argT $ removeVar absT index
-  removeVar _              _     = __IMPOSSIBLE__
+  removeVar (Pi argT (Abs y absTy)) x = do
 
-instance RemoveVar (Abs Type) where
-  removeVar (Abs h ty) index = Abs h $ removeVar ty index
+    state ← get
+    let vars ∷ [String]
+        vars = tVars state
+
+    modify $ \s → s { tVars = y : vars }
+    reportSLn "removeVar" 20 $ "Pushed variable: " ++ y
+
+    -- If the Pi term is on a proof term, we replace it by a Fun term.
+    newTerm ← if y /= x
+                then do
+                  newType ← removeVar absTy x
+                  return $ Pi argT (Abs y newType)
+                else -- liftM2 Fun (removeVar argT x) (removeVar absTy x)
+                  fmap (Fun argT) (removeVar absTy x)
+    modify $ \s → s { tVars = vars }
+    reportSLn "RRTPTs" 20 $ "Pop variable: " ++ y
+    return newTerm
+
+  removeVar (Con _ _)   _ = __IMPOSSIBLE__
+  removeVar DontCare    _ = __IMPOSSIBLE__
+  removeVar (Level _)   _ = __IMPOSSIBLE__
+  removeVar (Lit _)     _ = __IMPOSSIBLE__
+  removeVar (MetaV _ _) _ = __IMPOSSIBLE__
+  removeVar (Sort _)    _ = __IMPOSSIBLE__
+  removeVar (Var _ _)   _ = __IMPOSSIBLE__
 
 instance RemoveVar (Arg Type) where
-  removeVar (Arg h r ty) index = Arg h r $ removeVar ty index
+  removeVar (Arg h r ty) x = fmap (Arg h r) (removeVar ty x)
+
+-- In Agda source code (Agda.Syntax.Internal) we have
+--
+-- type Args = [Arg Term]
+--
+-- However, we cannot create the instance of Args based on a map,
+-- because in some cases we need to erase the term.
 
 -- Requires TypeSynonymInstances.
--- This instance does the job. This remove the variable.
 instance RemoveVar Args where
-  removeVar [] _ = []
-  removeVar (Arg h r var@(Var n _) : args) index =
-    if n == index
-      then removeVar args index
-      else Arg h r var : removeVar args index
-  removeVar (Arg h r t : args) index = Arg h r t : removeVar args index
+  removeVar [] _ = return []
 
-removeReferenceToProofTerm ∷ Type → Nat → Type → T Type
-removeReferenceToProofTerm varType index ty =
-  case varType of
+  removeVar (Arg h r var@(Var n []) : args) x = do
+    state ← get
+    let vars ∷ [String]
+        vars = tVars state
+
+        index ∷ Integer
+        index = case elemIndex x vars of
+                  Nothing →  __IMPOSSIBLE__
+                  (Just i) → fromIntegral i
+
+    if n == index
+      then removeVar args x
+      else if n < index
+             then fmap ((:) (Arg h r var)) (removeVar args x)
+             else fmap ((:) (Arg h r (Var (n - 1) []))) (removeVar args x)
+
+  removeVar (Arg _ _ (Var _ _) : _) _ = __IMPOSSIBLE__
+
+  removeVar (Arg h r term : args) x = do
+    t  ← removeVar term x
+    ts ← removeVar args x
+    return (Arg h r t : ts)
+
+removeReferenceToProofTerm ∷ Type → (String, Type) → T Type
+removeReferenceToProofTerm ty (x, typeVar) =
+  case typeVar of
     -- The variable's type is a Set,
     --
     -- e.g. the variable is d : D, where D : Set
@@ -305,11 +393,15 @@ removeReferenceToProofTerm varType index ty =
 
     -- TODO: This case *is not enough* to remove the reference to a
     -- proof term. See Test.Issues.BadProofTermErase.
-    El (Type (Max [])) (Def _ _) → return (removeVar ty index)
+    El (Type (Max [])) (Def _ _) → removeVar ty x
 
     -- The variable's type is a function type,
     --
     -- e.g. the variable is f : D → D, where D : Set.
+
+    -- -- In the class TypesOfVar we associated to the variables bounded
+    -- -- in Lam terms the type DontCare.
+    -- El (Type (Max [])) DontCare → return ty
 
     -- Because the variable is not a proof term we don't do anything.
     El (Type (Max []))
@@ -317,8 +409,8 @@ removeReferenceToProofTerm varType index ty =
             (El (Type (Max [])) (Def _ []))
        ) → return ty
 
-    -- N.B. The next case is just a generalization to various
-    -- arguments of the previous case.
+    -- The next case is just a generalization to various arguments of
+    -- the previous case.
 
     -- The variable's type is a function type,
     --
@@ -373,11 +465,6 @@ removeReferenceToProofTerm varType index ty =
 removeReferenceToProofTerms ∷ Type → T Type
 removeReferenceToProofTerms ty = do
   reportSLn "RRTPTs" 20 $
-            "The varTypes are:\n" ++ myShowList (varsTypes ty)
-  helper (varsTypes ty) 0 ty
-    where
-      helper ∷ [Type] → Nat → Type → T Type
-      helper []             _     tya = return tya
-      helper (varType : xs) index tya = do
-        tyAux ← removeReferenceToProofTerm varType index tya
-        helper xs (index + 1) tyAux
+            "The typesOfVars are:\n" ++ myShow (typesOfVars ty)
+
+  foldM removeReferenceToProofTerm ty (reverse $ typesOfVars ty)
