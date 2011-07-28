@@ -2,7 +2,7 @@
 -- Testing the erasure of proof terms
 ------------------------------------------------------------------------------
 
-module Issues.Tmp.ProofTerm1 where
+module Test.Succeed.ProofTerm1 where
 
 postulate
   D   : Set
