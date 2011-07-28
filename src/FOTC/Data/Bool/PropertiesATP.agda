@@ -81,12 +81,12 @@ true&&x≡x fB = &&-tf
         {-# ATP prove prf #-}
 
 &&-proj₁ : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₁ ≡ true
-&&-proj₁ tB _ _    = refl
+&&-proj₁ tB B₂ h = refl
 &&-proj₁ fB tB h = ⊥-elim $ true≠false $ trans (sym h) &&-ft
 &&-proj₁ fB fB h = ⊥-elim $ true≠false $ trans (sym h) &&-ff
 
 &&-proj₂ : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₂ ≡ true
-&&-proj₂ _  tB _   = refl
+&&-proj₂ B₁ tB h   = refl
 &&-proj₂ tB fB h = ⊥-elim $ true≠false $ trans (sym h) &&-tf
 &&-proj₂ fB fB h = ⊥-elim $ true≠false $ trans (sym h) &&-ff
 
@@ -94,8 +94,8 @@ true&&x≡x fB = &&-tf
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
             b₁ && b₂ && b₃ && b₄ ≡ true →
             b₁ ≡ true
-&&₃-proj₁ tB _ _ _ _ = refl
-&&₃-proj₁ fB _ _ _ _ = ⊥-elim prf
+&&₃-proj₁ tB B₂ B₃ B₄ h = refl
+&&₃-proj₁ fB B₂ B₃ B₄ h = ⊥-elim prf
   where postulate prf : ⊥
         {-# ATP prove prf &&-Bool false&&x≡false #-}
 
@@ -103,8 +103,8 @@ true&&x≡x fB = &&-tf
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
             b₁ && b₂ && b₃ && b₄ ≡ true →
             b₂ ≡ true
-&&₃-proj₂ _ tB _ _ _ = refl
-&&₃-proj₂ _ fB _ _ _ = ⊥-elim prf
+&&₃-proj₂ B₁ tB B₃ B₄ h = refl
+&&₃-proj₂ B₁ fB B₃ B₄ h = ⊥-elim prf
   where postulate prf : ⊥
         {-# ATP prove prf &&-Bool false&&x≡false x&&false≡false #-}
 
@@ -112,8 +112,8 @@ true&&x≡x fB = &&-tf
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
             b₁ && b₂ && b₃ && b₄ ≡ true →
             b₃ ≡ true
-&&₃-proj₃ _ _ tB _ _ = refl
-&&₃-proj₃ _ _ fB _ _ = ⊥-elim prf
+&&₃-proj₃ B₁ B₂ tB B₃ h = refl
+&&₃-proj₃ B₁ B₂ fB B₃ h = ⊥-elim prf
   where postulate prf : ⊥
         {-# ATP prove prf x&&false≡false false&&x≡false #-}
 
@@ -121,8 +121,8 @@ true&&x≡x fB = &&-tf
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
             b₁ && b₂ && b₃ && b₄ ≡ true →
             b₄ ≡ true
-&&₃-proj₄ _ _ _ tB _ = refl
-&&₃-proj₄ _ _ _ fB _ = ⊥-elim prf
+&&₃-proj₄ B₁ B₂ B₃ tB h = refl
+&&₃-proj₄ B₁ B₂ B₃ fB h = ⊥-elim prf
   where postulate prf : ⊥
         {-# ATP prove prf x&&false≡false #-}
 

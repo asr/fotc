@@ -132,7 +132,7 @@ toTree-OrdTree-helper₂ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → LE i₁ i
                          Tree t →
                          LE-ItemTree i₁ t →
                          LE-ItemTree i₁ (toTree · i₂ · t)
-toTree-OrdTree-helper₂ {i₁} {i₂} .{nilTree} _ _ i₁≤i₂  nilT _ = prf
+toTree-OrdTree-helper₂ {i₁} {i₂} .{nilTree} Ni₁ Ni₂ i₁≤i₂ nilT i₁≤t = prf
   where
   postulate prf : LE-ItemTree i₁ (toTree · i₂ · nilTree)
   -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).

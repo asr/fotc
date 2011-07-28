@@ -17,7 +17,7 @@ open import FOTC.Data.Nat
 ------------------------------------------------------------------------------
 
 +-leftIdentity : ∀ {n} → N n → zero + n ≡ n
-+-leftIdentity {n} _ = +-0x n
++-leftIdentity {n} Nn = +-0x n
 
 +-rightIdentity : ∀ {n} → N n → n + zero ≡ n
 +-rightIdentity Nn = indN P P0 is Nn
@@ -60,7 +60,7 @@ open import FOTC.Data.Nat
 
 -- A proof without use ATPs definitions.
 +-assoc' : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
-+-assoc' {n = n} {o} Nm _ _ = indN P P0 is Nm
++-assoc' {n = n} {o} Nm Nn No = indN P P0 is Nm
   where
   P : D → Set
   P i = i + n + o ≡ i + (n + o)
