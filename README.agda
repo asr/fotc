@@ -234,6 +234,7 @@ open import FOTC.Data.Nat.List.PropertiesI
 open import FOTC.Data.Stream.Type
 
 -- 6.5.2 Properties
+open import FOTC.Data.Stream.PropertiesATP
 open import FOTC.Data.Stream.PropertiesI
 
 -- 6.6 The bisimilary relation
