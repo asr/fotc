@@ -11,7 +11,7 @@ open import FOTC.Data.Nat.Type
 ------------------------------------------------------------------------------
 -- The FOTC list of natural numbers type.
 data ListN : D → Set where
-  nilLN  :                                      ListN []
-  consLN : ∀ {n ns} → N n → (LNns : ListN ns) → ListN (n ∷ ns)
+  nilLN  :                             ListN []
+  consLN : ∀ {n ns} → N n → ListN ns → ListN (n ∷ ns)
 {-# ATP axiom nilLN #-}
 {-# ATP axiom consLN #-}
