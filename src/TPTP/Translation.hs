@@ -14,7 +14,7 @@ module TPTP.Translation
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad        ( liftM2, liftM4, zipWithM )
+import Control.Monad        ( foldM, liftM2, liftM4, zipWithM )
 import Control.Monad.State  ( get, modify )
 
 import Data.List                 ( nub )
@@ -34,7 +34,8 @@ import Agda.TypeChecking.Monad.Base
   , defName
   , defType
   )
--- import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
+import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
+import Agda.Utils.Monad      ( ifM )
 
 ------------------------------------------------------------------------------
 -- Local imports
@@ -48,16 +49,17 @@ import AgdaLib.Interface
   , qNameDefinition
   , QNamesIn(qNamesIn)
   )
-import AgdaLib.Syntax.DeBruijn        ( removeReferenceToProofTerms )
+import AgdaLib.Syntax.DeBruijn        ( removeReferenceToProofTerm, typesOfVars )
 import FOL.Translation.Functions      ( fnToFormula )
 import FOL.Translation.Internal.Types ( typeToFormula )
-import Monad.Base                     ( T, TState(tAllDefs, tVars))
+import Monad.Base                     ( isTVarsEmpty, T, TState(tAllDefs, tVars))
 import Monad.Reports                  ( reportSLn )
 import TPTP.Types
   ( AF(MkAF)
   , ConjectureSet(MkConjectureSet)
   , GeneralRoles(MkGeneralRoles)
   )
+import Utils.Show ( myShow )
 
 #include "../undefined.h"
 
@@ -73,10 +75,8 @@ toAF role qName def = do
      "Role: " ++ show role ++ "\n" ++
      "Type:\n" ++ show ty
 
-  -- We need eta-expand the type before the translation.
-  -- We run the eta-expansion without variables in the state.
-  modify $ \s → s { tVars = [] }
-  tyEtaExpanded ← etaExpand ty
+  -- We eta-expand the type before the translation.
+  tyEtaExpanded ← ifM isTVarsEmpty (etaExpand ty) (__IMPOSSIBLE__)
 
   reportSLn "toAF" 20 $ "The eta-expanded type is:\n" ++ show tyEtaExpanded
 
@@ -84,23 +84,28 @@ toAF role qName def = do
      then reportSLn "toAF" 20 "The type and the eta-expanded type are equals"
      else reportSLn "toAF" 20 "The type and the eta-expanded type are different"
 
-  -- We need to remove the references to variables which are proof
-  -- terms from the type. We run it without variables in the state.
+  -- We remove the references to variables which are proof terms from
+  -- the type.
+
+  -- TODO: It is necessary to clean the state?
   modify $ \s → s { tVars = [] }
-  tyReady ← removeReferenceToProofTerms tyEtaExpanded
+
+  reportSLn "toAF" 20 $
+            "The typesOfVars are:\n" ++ myShow (typesOfVars tyEtaExpanded)
+
+  tyReady ← foldM removeReferenceToProofTerm
+                  tyEtaExpanded
+                  (reverse $ typesOfVars tyEtaExpanded)
 
   reportSLn "toAF" 20 $ "tyReady:\n" ++ show tyReady
 
-  -- _ ← __IMPOSSIBLE__
+  -- We run the translation from Agda types to FOL.
+  for ← ifM isTVarsEmpty (typeToFormula tyReady) (__IMPOSSIBLE__)
 
-  -- We run the translation from Agda types to FOL formulas without
-  -- variables in the state.
-  modify $ \s → s { tVars = [] }
-  for ← typeToFormula tyReady
   reportSLn "toAF" 20 $
     "The FOL formula for " ++ show qName ++ " is:\n" ++ show for
 
-  return $ MkAF qName role for
+  ifM isTVarsEmpty (return $ MkAF qName role for) (__IMPOSSIBLE__)
 
 -- Translation of an Agda internal function to an AF definition.
 fnToAF ∷ QName → Definition → T AF
@@ -119,10 +124,7 @@ fnToAF qName def = do
   reportSLn "symbolToAF" 10 $
     "Symbol: " ++ show qName ++ "\n" ++ "Clauses: " ++ show cls
 
-  -- We run the translation from Agda types to FOL formulas without
-  -- variables in the state.
-  modify $ \s → s { tVars = [] }
-  for ← fnToFormula qName ty cls
+  for ← ifM isTVarsEmpty (fnToFormula qName ty cls) (__IMPOSSIBLE__)
   reportSLn "symbolToAF" 20 $
     "The FOL formula for " ++ show qName ++ " is:\n" ++ show for
 

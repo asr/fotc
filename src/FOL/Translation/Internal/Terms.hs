@@ -11,7 +11,6 @@ module FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm ) where
 -- Haskell imports
 
 import Control.Monad.Error ( throwError )
-import Control.Monad.State ( evalState, get, modify )
 import Data.List           ( foldl' )
 
 ------------------------------------------------------------------------------
@@ -58,9 +57,14 @@ import {-# source #-} FOL.Translation.Internal.Types
   , typeToFormula
   )
 import FOL.Types     ( FOLFormula(..), FOLTerm(..) )
-import Monad.Base    ( T, TState(tVars) )
+import Monad.Base
+  ( getTVars
+  , newTVar
+  , popTVar
+  , pushTVar
+  , T
+  )
 import Monad.Reports ( reportSLn )
-import Utils.Names   ( freshName )
 
 #include "../../../undefined.h"
 
@@ -145,12 +149,7 @@ termToFormula term@(Def qName@(QName _ name) args) = do
 
              fm ← argTermToFormula a
 
-             state ← get
-             let vars ∷ [String]
-                 vars = tVars state
-
-                 freshVar ∷ String
-                 freshVar = evalState freshName vars
+             freshVar ← newTVar
 
              if isCNameFOLConst folExists
                then return $ Exists freshVar $ \_ → fm
@@ -245,42 +244,25 @@ termToFormula term@(Fun tyArg ty) = do
 termToFormula term@(Lam _ (Abs _ termLam)) = do
   reportSLn "t2f" 10 $ "termToFormula Lam:\n" ++ show term
 
-  state ← get
-  let vars ∷ [String]
-      vars = tVars state
-
-      freshVar ∷ String
-      freshVar = evalState freshName vars
-
-  -- See the reason for the order of the variables in termToFormula
-  -- term@(Pi ... ).
-  modify $ \s → s { tVars = freshVar : vars }
+  freshVar ← newTVar
+  pushTVar freshVar
   f ← termToFormula termLam
-  modify $ \s → s { tVars = vars }
+  popTVar
+
   return f
 
 termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   reportSLn "t2f" 10 $ "termToFormula Pi:\n" ++ show term
 
-  state ← get
-  let vars ∷ [String]
-      vars = tVars state
-
-      freshVar ∷ String
-      freshVar = evalState freshName vars
+  freshVar ← newTVar
 
   reportSLn "t2f" 20 $
     "Starting processing in local environment with fresh variable " ++
     freshVar ++ " and type:\n" ++ show tyAbs
 
-  -- The de Bruijn indexes are assigned from right to left,
-  --
-  -- e.g. in '(A B C : Set) → ...', A is 2, B is 1, and C is 0,
-  --
-  -- so we need create the list in the same order.
-  modify $ \s → s { tVars = freshVar : vars }
+  pushTVar freshVar
   f2 ← typeToFormula tyAbs
-  modify $ \s → s { tVars = vars }
+  popTVar
 
   reportSLn "t2f" 20 $
     "Finalized processing in local environment with fresh variable " ++
@@ -370,7 +352,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     --   ∨-comm₂ : {P₂ Q₂ : D → D → Set}{x y : D} →
     --             P₂ x y ∨ Q₂ x y → Q₂ x y ∨ P₂ x y
 
-    El (Type (Max [ClosedLevel 1])) (Fun _ _) → do
+    El (Type (Max [ClosedLevel 1])) (Fun _ _) →
       return $ ForAll freshVar (\_ → f2)
 
     -- Other cases
@@ -391,9 +373,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
 termToFormula term@(Var n args) = do
   reportSLn "t2f" 10 $ "termToFormula Var: " ++ show term
 
-  state ← get
-  let vars ∷ [String]
-      vars = tVars state
+  vars ← getTVars
 
   if length vars <= fromIntegral n
    then __IMPOSSIBLE__
@@ -473,7 +453,7 @@ termToFOLTerm term@(Con (QName _ name) args)  = do
     C.Name _ [C.Id str] →
      case args of
        [] → return $ FOLFun str []
-       _  →  appArgsFn str args
+       _  → appArgsFn str args
 
     -- The term Con has holes. It is translated as a FOL function.
     C.Name _ parts →
@@ -507,9 +487,7 @@ termToFOLTerm term@(Def (QName _ name) args) = do
 termToFOLTerm term@(Var n args) = do
   reportSLn "t2t" 10 $ "termToFOLTerm Var:\n" ++ show term
 
-  state ← get
-  let vars ∷ [String]
-      vars = tVars state
+  vars ← getTVars
 
   if length vars <= fromIntegral n
    then __IMPOSSIBLE__

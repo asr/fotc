@@ -7,15 +7,27 @@
 
 module Monad.Base
   ( AllDefinitions
+  , getTVars
+  , isTVarsEmpty
+  , newTVar
+  , popTVar
+  , pushTVar
   , runT
   , T(MkT)  -- GHC bug? MkT is required by GHC 6.12.1.
   , TState(tAllDefs, tOpts, tVars)
   ) where
 
 -- Haskell imports
-import Control.Monad.Error  ( ErrorT, MonadError, runErrorT )
-import Control.Monad.State  ( evalStateT, MonadState, StateT )
-import Control.Monad.Trans  ( MonadIO )
+import Control.Monad.Error ( ErrorT, MonadError, runErrorT )
+import Control.Monad.State
+  ( evalState
+  , evalStateT
+  , get
+  , modify
+  , MonadState
+  , StateT
+  )
+import Control.Monad.Trans ( MonadIO )
 
 import qualified Data.Map as Map ( empty )
 
@@ -23,7 +35,8 @@ import qualified Data.Map as Map ( empty )
 import Agda.TypeChecking.Monad.Base ( Definitions )
 
 -- Local imports
-import Options ( defaultOptions, Options )
+import Options     ( defaultOptions, Options )
+import Utils.Names ( freshName )
 
 ------------------------------------------------------------------------------
 
@@ -32,7 +45,6 @@ type AllDefinitions = Definitions
 data TState = MkState { tAllDefs ∷ AllDefinitions
                       , tOpts    ∷ Options
                       , tVars    ∷ [String]
-                        -- ^ Names of variables bounded in the Agda types.
                       }
 
 -- The initial state.
@@ -55,3 +67,26 @@ newtype T a = MkT { runA ∷ ErrorT String (StateT TState IO) a }
 
 runT ∷ T a → IO (Either String a)
 runT ta = evalStateT (runErrorT (runA ta)) initTState
+
+isTVarsEmpty ∷ T Bool
+isTVarsEmpty = fmap (null . tVars) get
+
+pushTVar ∷ String → T ()
+pushTVar x = do
+  state ← get
+  let xs ∷ [String]
+      xs = tVars state
+  modify $ \s → s { tVars = x : xs }
+
+popTVar ∷ T ()
+popTVar = do
+  state ← get
+  let xs ∷ [String]
+      xs = tVars state
+  modify $ \s → s { tVars = tail xs }
+
+newTVar ∷ T String
+newTVar = fmap (evalState freshName . tVars) get
+
+getTVars ∷ T [String]
+getTVars = fmap tVars get

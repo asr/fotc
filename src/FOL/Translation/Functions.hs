@@ -13,7 +13,6 @@ module FOL.Translation.Functions ( fnToFormula ) where
 
 -- Haskell imports
 import Control.Monad.Error ( throwError )
-import Control.Monad.State ( evalState, get, modify )
 
 -- Agda library imports
 import Agda.Syntax.Common        ( Arg(Arg) )
@@ -42,9 +41,14 @@ import FOL.Translation.Internal
 import FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm )
 import FOL.Translation.Internal.Types ( typeToFormula )
 import FOL.Types                      ( FOLFormula(Implies, Equiv, ForAll) )
-import Monad.Base                     ( T, TState(tVars) )
-import Monad.Reports                  ( reportSLn )
-import Utils.Names                    ( freshName )
+import Monad.Base
+  ( getTVars
+  , newTVar
+  , popTVar
+  , pushTVar
+  , T
+  )
+import Monad.Reports ( reportSLn )
 
 #include "../../undefined.h"
 
@@ -88,18 +92,10 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
       (Arg _ _ (El (Type (Max [])) (Def _ []))) (Abs x tels) → do
           reportSLn "def2f" 20 $ "Processing variable: " ++ x
 
-          state ← get
-          let vars ∷ [String]
-              vars = tVars state
-
-              freshVar ∷ String
-              freshVar = evalState freshName vars
-
-          -- See the reason for the order in the variables in
-          -- FOL.Translation.Terms.termToFormula term@(Pi ...)
-          modify $ \s → s { tVars = freshVar : vars }
+          freshVar ← newTVar
+          pushTVar freshVar
           f ← oneClauseToFormula qName ty (Clause r tels perm pats cBody)
-          modify $ \s → s { tVars = vars }
+          popTVar
 
           return $ ForAll freshVar (\_ → f)
 
@@ -137,10 +133,7 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
 -- universal quantification, so we translate the LHS and the RHS.
 oneClauseToFormula qName ty (Clause _ _ _ [] cBody) = do
 
-  state ← get
-  let vars ∷ [String]
-      vars = tVars state
-
+  vars ← getTVars
   reportSLn "def2f" 20 $ "vars: " ++ show vars
 
   -- We create the Agda term corresponds to the LHS of the symbol's

@@ -16,14 +16,14 @@
 module AgdaLib.Syntax.DeBruijn
   ( IncreaseByOneVar(increaseByOneVar)
   , RenameVar(renameVar)
-  , removeReferenceToProofTerms
+  , removeReferenceToProofTerm
+  , typesOfVars
   , varToDeBruijnIndex
   ) where
 
 -- Haskell imports
-import Control.Monad       ( foldM, liftM2 )
+import Control.Monad       ( liftM2 )
 import Control.Monad.Error ( throwError )
-import Control.Monad.State ( get, modify )
 
 -- import Data.Maybe ( fromJust )
 import Data.List  ( elemIndex )
@@ -43,9 +43,8 @@ import Agda.Syntax.Internal
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
-import Monad.Base    ( T, TState(tVars) )
+import Monad.Base    ( getTVars, popTVar, pushTVar, T )
 import Monad.Reports ( reportSLn )
-import Utils.Show    ( myShow )
 
 #include "../../undefined.h"
 
@@ -284,33 +283,28 @@ instance RemoveVar Type where
 instance RemoveVar Term where
   removeVar (Def qname args) x = fmap (Def qname) (removeVar args x)
 
+  -- N.B. The variables *are* removed from the (Arg Type).
   removeVar (Fun argT ty) x = liftM2 Fun (removeVar argT x) (removeVar ty x)
-                              -- fmap (Fun argT) (removeVar ty x)
 
   removeVar (Lam h (Abs y absTerm)) x = do
 
-    state ← get
-    let vars ∷ [String]
-        vars = tVars state
+    pushTVar y
 
-    modify $ \s → s { tVars = y : vars }
     reportSLn "removeVar" 20 $ "Pushed variable: " ++ y
 
     auxTerm ← removeVar absTerm x
 
-    modify $ \s → s { tVars = vars }
+    popTVar
+
     reportSLn "RRTPTs" 20 $ "Pop variable: " ++ y
+
     return $ Lam h (Abs y auxTerm)
 
   -- N.B. The variables *are not* removed from the (Arg Type), they
   -- are only removed from the (Abs Type).
   removeVar (Pi argT (Abs y absTy)) x = do
 
-    state ← get
-    let vars ∷ [String]
-        vars = tVars state
-
-    modify $ \s → s { tVars = y : vars }
+    pushTVar y
     reportSLn "removeVar" 20 $ "Pushed variable: " ++ y
 
     -- If the Pi term is on a proof term, we replace it by a Fun term.
@@ -318,9 +312,8 @@ instance RemoveVar Term where
                 then do
                   newType ← removeVar absTy x
                   return $ Pi argT (Abs y newType)
-                else -- liftM2 Fun (removeVar argT x) (removeVar absTy x)
-                  fmap (Fun argT) (removeVar absTy x)
-    modify $ \s → s { tVars = vars }
+                else fmap (Fun argT) (removeVar absTy x)
+    popTVar
     reportSLn "RRTPTs" 20 $ "Pop variable: " ++ y
     return newTerm
 
@@ -347,11 +340,10 @@ instance RemoveVar Args where
   removeVar [] _ = return []
 
   removeVar (Arg h r var@(Var n []) : args) x = do
-    state ← get
-    let vars ∷ [String]
-        vars = tVars state
 
-        index ∷ Integer
+    vars ← getTVars
+
+    let index ∷ Integer
         index = case elemIndex x vars of
                   Nothing →  __IMPOSSIBLE__
                   (Just i) → fromIntegral i
@@ -364,10 +356,8 @@ instance RemoveVar Args where
 
   removeVar (Arg _ _ (Var _ _) : _) _ = __IMPOSSIBLE__
 
-  removeVar (Arg h r term : args) x = do
-    t  ← removeVar term x
-    ts ← removeVar args x
-    return (Arg h r t : ts)
+  removeVar (Arg h r term : args) x =
+    liftM2 (\t ts → Arg h r t : ts) (removeVar term x) (removeVar args x)
 
 removeReferenceToProofTerm ∷ Type → (String, Type) → T Type
 removeReferenceToProofTerm ty (x, typeVar) =
@@ -461,10 +451,3 @@ removeReferenceToProofTerm ty (x, typeVar) =
       reportSLn "RRTPT" 20 $
                 "The type varType is: " ++ show someType
       __IMPOSSIBLE__
-
-removeReferenceToProofTerms ∷ Type → T Type
-removeReferenceToProofTerms ty = do
-  reportSLn "RRTPTs" 20 $
-            "The typesOfVars are:\n" ++ myShow (typesOfVars ty)
-
-  foldM removeReferenceToProofTerm ty (reverse $ typesOfVars ty)
