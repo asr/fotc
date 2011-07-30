@@ -15,7 +15,7 @@ module TPTP.Translation
 -- Haskell imports
 
 import Control.Monad        ( foldM, liftM2, liftM4, zipWithM )
-import Control.Monad.State  ( get, modify )
+import Control.Monad.State  ( get )
 
 import Data.List                 ( nub )
 -- import Data.Map ( Map )
@@ -52,7 +52,7 @@ import AgdaLib.Interface
 import AgdaLib.Syntax.DeBruijn        ( removeReferenceToProofTerm, typesOfVars )
 import FOL.Translation.Functions      ( fnToFormula )
 import FOL.Translation.Internal.Types ( typeToFormula )
-import Monad.Base                     ( isTVarsEmpty, T, TState(tAllDefs, tVars))
+import Monad.Base                     ( isTVarsEmpty, T, TState(tAllDefs))
 import Monad.Reports                  ( reportSLn )
 import TPTP.Types
   ( AF(MkAF)
@@ -86,10 +86,6 @@ toAF role qName def = do
 
   -- We remove the references to variables which are proof terms from
   -- the type.
-
-  -- TODO: It is necessary to clean the state?
-  modify $ \s → s { tVars = [] }
-
   reportSLn "toAF" 20 $
             "The typesOfVars are:\n" ++ myShow (typesOfVars tyEtaExpanded)
 

@@ -5,7 +5,7 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module AgdaLib.EtaExpansion ( EtaExpandible(etaExpand) ) where
+module AgdaLib.EtaExpansion ( etaExpand ) where
 
 -- Haskell imports
 import Control.Monad ( liftM2 )
@@ -35,11 +35,15 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 import AgdaLib.Interface       ( qNameType )
 import AgdaLib.Syntax.DeBruijn ( increaseByOneVar )
-import Monad.Base              ( newTVar, pushTVar, T )
+import Monad.Base              ( newTVar, T )
 
 #include "../undefined.h"
 
 ------------------------------------------------------------------------------
+
+-- N.B. The class doesn't use the state of the translation monad,
+-- therefore it is not necessary to test for a clean state after its
+-- use.
 
 class EtaExpandible a where
   etaExpand ∷ a → T a
@@ -63,10 +67,6 @@ instance EtaExpandible Term where
 
     argsEtaExpanded ← mapM etaExpand args
 
-    let newVar ∷ Arg Term
-        newVar = Arg NotHidden Relevant (Var 0 [])
-
-    freshVar ← newTVar
     -- The eta-contraction *only* reduces by 1 the number of arguments
     -- of a term, for example:
 
@@ -82,12 +82,17 @@ instance EtaExpandible Term where
       then return $ Def qName argsEtaExpanded
       else if qNameArity - 1 == fromIntegral (length args)
              then do
-               pushTVar freshVar
                -- Because we are going to add a new abstraction, we
                -- need increase by one the numbers associated with the
                -- variables in the arguments.
                let incVarsEtaExpanded ∷ Args
                    incVarsEtaExpanded = map increaseByOneVar argsEtaExpanded
+
+                   newVar ∷ Arg Term
+                   newVar = Arg NotHidden Relevant (Var 0 [])
+
+               freshVar ← newTVar
+
                return $
                  Lam NotHidden
                      (Abs freshVar (Def qName (incVarsEtaExpanded ++ [newVar])))
@@ -100,15 +105,11 @@ instance EtaExpandible Term where
 
   etaExpand (Fun tyArg ty) = liftM2 Fun (etaExpand tyArg) (etaExpand ty)
 
-  etaExpand (Lam h (Abs x termAbs)) = do
-    pushTVar x
-    fmap (Lam h . Abs x) (etaExpand termAbs)
+  etaExpand (Lam h (Abs x termAbs)) = fmap (Lam h . Abs x) (etaExpand termAbs)
 
   -- It seems it is not necessary to eta-expand the tyArg like in the
   -- case of Fun (Arg Type) Type.
-  etaExpand (Pi tyArg (Abs x tyAbs)) = do
-    pushTVar x
-    fmap (Pi tyArg . Abs x) (etaExpand tyAbs)
+  etaExpand (Pi tyArg (Abs x tyAbs)) = fmap (Pi tyArg . Abs x) (etaExpand tyAbs)
 
   etaExpand (Var n args) = fmap (Var n) (mapM etaExpand args)
 

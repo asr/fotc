@@ -1,7 +1,7 @@
 -- Issue: At the moment, we don't eta-expand the equations in the ATP
 -- definitions.
 
-module Issues.Eta where
+module Issues.Eta1 where
 
 postulate
   D       : Set
@@ -22,9 +22,5 @@ P xs = ∃ λ ys → binaryP xs ys
 {-# ATP definition P #-}
 
 postulate
-  foo : ∀ {xs} → (∃ λ ys → binaryP xs ys) → (∃ λ ys → binaryP xs ys)
-{-# ATP prove foo #-}
-
-postulate
-  barP : ∀ {xs} → P xs → (∃ λ ys → binaryP xs ys)
+  bar : ∀ {xs} → P xs → (∃ λ ys → binaryP xs ys)
 {-# ATP prove bar #-}
