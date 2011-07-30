@@ -1,7 +1,8 @@
--- Issue: At the moment, we don't eta-expand the equations in the ATP
--- definitions.
+------------------------------------------------------------------------------
+-- Testing the eta-expansion
+------------------------------------------------------------------------------
 
-module Issues.Eta1 where
+module Test.Succeed.Eta2 where
 
 postulate
   D       : Set
@@ -15,7 +16,7 @@ data ∃ (P : D → Set) : Set where
 --
 -- P xs = ∃ (binary xs)
 --
--- Due to it, we cannot proof the conjecture bar.
+-- We eta-expand the definition of P before the translation to FOL.
 
 P : D → Set
 P xs = ∃ λ ys → binaryP xs ys

@@ -26,6 +26,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
 import AgdaLib.Syntax.DeBruijn        ( renameVar, varToDeBruijnIndex )
+import AgdaLib.EtaExpansion           ( etaExpand )
 import FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm )
 import FOL.Types                      ( FOLFormula, FOLTerm )
 import Monad.Base                     ( T )
@@ -45,11 +46,13 @@ import Monad.Reports                  ( reportSLn )
 -- telescopeToFormula (ExtendTel tyArg _) = typeToFormula $ unArg tyArg
 
 cBodyToFormula ∷ ClauseBody → T FOLFormula
-cBodyToFormula (Body term)          = termToFormula term
+cBodyToFormula (Body term)          = etaExpand term >>= termToFormula
 cBodyToFormula (Bind (Abs _ cBody)) = cBodyToFormula cBody
 cBodyToFormula _                    = __IMPOSSIBLE__
 
 cBodyToFOLTerm ∷ ClauseBody → T FOLTerm
+-- We don't eta-expand the term before the translation, because we
+-- cannot translate the lambda abstractions generated to FOL terms.
 cBodyToFOLTerm (Body term)          = termToFOLTerm term
 cBodyToFOLTerm (Bind (Abs _ cBody)) = cBodyToFOLTerm cBody
 cBodyToFOLTerm _                    = __IMPOSSIBLE__
