@@ -20,17 +20,15 @@ open import FOTC.Relation.Binary.Bisimilarity
   where
   P₁ : D → Set
   P₁ ws = ∃ λ zs → ws ≈ zs
+  {-# ATP definition P₁ #-}
 
   P₂ : D → Set
   P₂ zs = ∃ λ ws → ws ≈ zs
   {-# ATP definition P₂ #-}
 
-  -- TODO: We don't use the predicate P₁ in the type of the function
-  -- helper₁, because at the moment the agda2atp tool doesn't handle
-  -- the eta-expansion for equations.
   postulate
-    helper₁ : ∀ {ws} → (∃ λ zs → ws ≈ zs) →
-              ∃ (λ w' → ∃ (λ ws' → ws ≡ w' ∷ ws' ∧ (∃ λ zs → ws' ≈ zs)))
+    helper₁ : ∀ {ws} → P₁ ws →
+              ∃ (λ w' → ∃ (λ ws' → ws ≡ w' ∷ ws' ∧ P₁ ws'))
   {-# ATP prove helper₁ #-}
 
   postulate
