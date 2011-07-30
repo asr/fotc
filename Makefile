@@ -10,7 +10,7 @@ AGDA2ATP = agda2atp  # The defaults ATPs are e, equinox, metis, and vampire.
 succeed_path = Test/Succeed
 fail_path    = Test/Fail
 
-snapshot_dir = Test/snapshot
+snapshot_dir = snapshot
 
 succeed_files = $(patsubst %.agda,%, \
 	$(shell find $(succeed_path) -name "*.agda" | sort))
