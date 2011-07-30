@@ -14,6 +14,9 @@ open import FOTC.Relation.Binary.Bisimilarity
 
 ------------------------------------------------------------------------------
 
+postulate tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
+{-# ATP prove tailS #-}
+
 ≈→Stream : ∀ {xs ys} → xs ≈ ys → Stream xs ∧ Stream ys
 ≈→Stream {xs} {ys} xs≈ys = Stream-gfp₂ P₁ helper₁ (ys , xs≈ys)
                          , Stream-gfp₂ P₂ helper₂ (xs , xs≈ys)
