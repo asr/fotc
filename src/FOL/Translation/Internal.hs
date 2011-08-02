@@ -25,7 +25,7 @@ import Agda.Syntax.Internal
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
-import AgdaLib.Syntax.DeBruijn        ( renameVar, varToDeBruijnIndex )
+import AgdaLib.Syntax.DeBruijn        ( changeIndex, varToIndex )
 import AgdaLib.EtaExpansion           ( etaExpand )
 import FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm )
 import FOL.Types                      ( FOLFormula, FOLTerm )
@@ -60,8 +60,8 @@ cBodyToFOLTerm _                    = __IMPOSSIBLE__
 removeBindingOnCBodyIndex ∷ ClauseBody → String → Nat → ClauseBody
 removeBindingOnCBodyIndex (Bind (Abs x1 cBody)) x2 index =
   if x1 == x2
-    then renameVar cBody index  -- We remove the bind and rename the
-                                -- variables inside the body.
+    then changeIndex cBody index  -- We remove the bind and rename the
+                                  -- variables inside the body.
   else Bind (Abs x1 $ removeBindingOnCBodyIndex cBody x2 index)
 removeBindingOnCBodyIndex _ _ _ = __IMPOSSIBLE__
 
@@ -74,7 +74,7 @@ removeBindingOnCBodyIndex _ _ _ = __IMPOSSIBLE__
 removeBindingOnCBody ∷ ClauseBody → String → T ClauseBody
 removeBindingOnCBody cBody x = do
   let index ∷ Nat
-      index = varToDeBruijnIndex cBody x
+      index = varToIndex cBody x
 
   reportSLn "remove" 20 $ "The index is: " ++ show index
 

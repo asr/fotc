@@ -14,11 +14,11 @@
 -- Bruijn index in the variable.
 
 module AgdaLib.Syntax.DeBruijn
-  ( IncreaseByOneVar(increaseByOneVar)
-  , RenameVar(renameVar)
+  ( ChangeIndex(changeIndex)
+  , IndexPlus1(indexPlus1)
   , removeReferenceToProofTerm
   , typesOfVars
-  , varToDeBruijnIndex
+  , varToIndex
   ) where
 
 -- Haskell imports
@@ -50,27 +50,27 @@ import Monad.Reports ( reportSLn )
 
 ------------------------------------------------------------------------------
 -- | To increase by one the de Bruijn index of the variable.
-class IncreaseByOneVar a where
-  increaseByOneVar ∷ a → a
+class IndexPlus1 a where
+  indexPlus1 ∷ a → a
 
-instance IncreaseByOneVar Term where
-  increaseByOneVar (Var n [])  = Var (n + 1) []
-  increaseByOneVar (Var _ _)   = __IMPOSSIBLE__
+instance IndexPlus1 Term where
+  indexPlus1 (Var n [])  = Var (n + 1) []
+  indexPlus1 (Var _ _)   = __IMPOSSIBLE__
 
-  increaseByOneVar (Con _ _)   = __IMPOSSIBLE__
-  increaseByOneVar (Def _ _)   = __IMPOSSIBLE__
-  increaseByOneVar DontCare    = __IMPOSSIBLE__
-  increaseByOneVar (Fun _ _)   = __IMPOSSIBLE__
-  increaseByOneVar (Lam _ _)   = __IMPOSSIBLE__
-  increaseByOneVar (Level _)   = __IMPOSSIBLE__
-  increaseByOneVar (Lit _)     = __IMPOSSIBLE__
-  increaseByOneVar (MetaV _ _) = __IMPOSSIBLE__
-  increaseByOneVar (Pi _ _)    = __IMPOSSIBLE__
-  increaseByOneVar (Sort _)    = __IMPOSSIBLE__
+  indexPlus1 (Con _ _)   = __IMPOSSIBLE__
+  indexPlus1 (Def _ _)   = __IMPOSSIBLE__
+  indexPlus1 DontCare    = __IMPOSSIBLE__
+  indexPlus1 (Fun _ _)   = __IMPOSSIBLE__
+  indexPlus1 (Lam _ _)   = __IMPOSSIBLE__
+  indexPlus1 (Level _)   = __IMPOSSIBLE__
+  indexPlus1 (Lit _)     = __IMPOSSIBLE__
+  indexPlus1 (MetaV _ _) = __IMPOSSIBLE__
+  indexPlus1 (Pi _ _)    = __IMPOSSIBLE__
+  indexPlus1 (Sort _)    = __IMPOSSIBLE__
 
 -- Requires FlexibleInstances.
-instance IncreaseByOneVar (Arg Term) where
-  increaseByOneVar (Arg h r term) = Arg h r $ increaseByOneVar term
+instance IndexPlus1 (Arg Term) where
+  indexPlus1 (Arg h r term) = Arg h r $ indexPlus1 term
 
 ------------------------------------------------------------------------------
 -- We collect the variables' names using the type class VarNames. The
@@ -113,14 +113,14 @@ instance VarNames ClauseBody where
   varNames _                    = __IMPOSSIBLE__
 
 -- Return the de Bruijn index of a variable in a ClauseBody.
-varToDeBruijnIndex ∷ ClauseBody → String → Nat
-varToDeBruijnIndex cBody x =
+varToIndex ∷ ClauseBody → String → Nat
+varToIndex cBody x =
   case elemIndex x (varNames cBody) of
     Just n  → fromIntegral n
     Nothing → __IMPOSSIBLE__
 
 ------------------------------------------------------------------------------
--- To rename a de Bruijn index with respect to other index.
+-- To change a de Bruijn index with respect to other index.
 -- Let's suppose we have something like
 
 -- λ m : D → (λ n : D → (λ Nn : N n → (λ h : D → ... Var 2 ...)))
@@ -130,17 +130,17 @@ varToDeBruijnIndex cBody x =
 
 -- λ m : D → (λ n : D → (λ h : D → ...))
 
--- we need rename 'Var 2' by 'Var 1'.
+-- we need change 'Var 2' by 'Var 1'.
 
-class RenameVar a where
-  renameVar ∷ a → Nat → a
+class ChangeIndex a where
+  changeIndex ∷ a → Nat → a
 
-instance RenameVar Term where
-  renameVar term@(Def _ [])  _     = term
+instance ChangeIndex Term where
+  changeIndex term@(Def _ [])  _     = term
 
-  renameVar (Def qName args) index = Def qName $ renameVar args index
+  changeIndex (Def qName args) index = Def qName $ changeIndex args index
 
-  renameVar term@(Var n [])  index
+  changeIndex term@(Var n [])  index
     -- The variable was before than the quantified variable, we don't
     -- do nothing.
     | n < index = term
@@ -151,30 +151,30 @@ instance RenameVar Term where
 
     | n == index = __IMPOSSIBLE__
 
-  renameVar (Lam h (Abs x term)) index = Lam h (Abs x (renameVar term index))
+  changeIndex (Lam h (Abs x term)) index = Lam h (Abs x (changeIndex term index))
 
-  renameVar (Var _ _)   _   = __IMPOSSIBLE__
-  renameVar (Con _ _)   _   = __IMPOSSIBLE__
-  renameVar DontCare    _   = __IMPOSSIBLE__
-  renameVar (Fun _ _)   _   = __IMPOSSIBLE__
-  renameVar (Level _)   _   = __IMPOSSIBLE__
-  renameVar (Lit _)     _   = __IMPOSSIBLE__
-  renameVar (MetaV _ _) _   = __IMPOSSIBLE__
-  renameVar (Pi _ _)    _   = __IMPOSSIBLE__
-  renameVar (Sort _)    _   = __IMPOSSIBLE__
+  changeIndex (Var _ _)   _   = __IMPOSSIBLE__
+  changeIndex (Con _ _)   _   = __IMPOSSIBLE__
+  changeIndex DontCare    _   = __IMPOSSIBLE__
+  changeIndex (Fun _ _)   _   = __IMPOSSIBLE__
+  changeIndex (Level _)   _   = __IMPOSSIBLE__
+  changeIndex (Lit _)     _   = __IMPOSSIBLE__
+  changeIndex (MetaV _ _) _   = __IMPOSSIBLE__
+  changeIndex (Pi _ _)    _   = __IMPOSSIBLE__
+  changeIndex (Sort _)    _   = __IMPOSSIBLE__
 
 -- Requires FlexibleInstances.
-instance RenameVar (Arg Term) where
-  renameVar (Arg h r term) index = Arg h r $ renameVar term index
+instance ChangeIndex (Arg Term) where
+  changeIndex (Arg h r term) index = Arg h r $ changeIndex term index
 
-instance RenameVar Args where
-  renameVar []           _   = []
-  renameVar (arg : args) index = renameVar arg index : renameVar args index
+instance ChangeIndex Args where
+  changeIndex []           _   = []
+  changeIndex (arg : args) index = changeIndex arg index : changeIndex args index
 
-instance RenameVar ClauseBody where
-  renameVar (Bind (Abs x cBody)) index = Bind (Abs x (renameVar cBody index))
-  renameVar (Body term)          index = Body $ renameVar term index
-  renameVar _                    _     = __IMPOSSIBLE__
+instance ChangeIndex ClauseBody where
+  changeIndex (Bind (Abs x cBody)) index = Bind (Abs x (changeIndex cBody index))
+  changeIndex (Body term)          index = Body $ changeIndex term index
+  changeIndex _                    _     = __IMPOSSIBLE__
 
 ------------------------------------------------------------------------------
 -- Remove references to variables which are proof terms from

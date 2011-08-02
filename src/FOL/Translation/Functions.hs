@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
 -- Translation of Agda internal functions to FOL formulas
 
--- (Only are translate the functions that will be translate as TPTP
--- definitions)
+-- Only are translated the functions that will be translate as TPTP
+-- definitions,
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
@@ -59,7 +59,7 @@ import Monad.Reports ( reportSLn )
 -- definitions with only one clause.
 fnToFormula ∷ QName → Type → [Clause] → T FOLFormula
 fnToFormula _      _  []        = __IMPOSSIBLE__
-fnToFormula qName  ty (cl : []) = oneClauseToFormula qName ty cl
+fnToFormula qName  ty (cl : []) = clauseToFormula qName ty cl
 fnToFormula _      _  _         =
   throwError "The definitions to be translate only can have a clause"
 
@@ -77,10 +77,10 @@ fnToFormula _      _  _         =
 -- the RHS (i.e. the body of the clause) it is necessary to generate
 -- an universal quantification on an equal number of variables to
 -- length [Arg Pattern].
-oneClauseToFormula ∷ QName → Type → Clause → T FOLFormula
+clauseToFormula ∷ QName → Type → Clause → T FOLFormula
 
 -- There is at most one variable in the clause's pattern, so ...
-oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
+clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
   case tel of
     -- The bounded variable is quantified on a Set,
     --
@@ -94,7 +94,7 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
 
           freshVar ← newTVar
           pushTVar freshVar
-          f ← oneClauseToFormula qName ty (Clause r tels perm pats cBody)
+          f ← clauseToFormula qName ty (Clause r tels perm pats cBody)
           popTVar
 
           return $ ForAll freshVar (\_ → f)
@@ -123,7 +123,7 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
 
            reportSLn "def2f" 20 $ "New body: " ++ show newBody
 
-           f2 ← oneClauseToFormula qName ty (Clause r tels perm pats newBody)
+           f2 ← clauseToFormula qName ty (Clause r tels perm pats newBody)
 
            return $ Implies f1 f2
 
@@ -131,7 +131,7 @@ oneClauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
 
 -- The clause's patterns is empty, i.e. we have generated the required
 -- universal quantification, so we translate the LHS and the RHS.
-oneClauseToFormula qName ty (Clause _ _ _ [] cBody) = do
+clauseToFormula qName ty (Clause _ _ _ [] cBody) = do
 
   vars ← getTVars
   reportSLn "def2f" 20 $ "vars: " ++ show vars
