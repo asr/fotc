@@ -50,13 +50,13 @@ postulate
 ≈-gfp₃ h = ≈-gfp₂ R helper h
   where
   R : D → D → Set
-  R xs ys = (∃ λ x' → ∃ λ xs' → ∃ λ ys' → xs' ≈ ys' ∧
-                                          xs ≡ x' ∷ xs' ∧
-                                          ys ≡ x' ∷ ys')
+  R xs ys = ∃ λ x' → ∃ λ xs' → ∃ λ ys' → xs' ≈ ys' ∧
+                                         xs ≡ x' ∷ xs' ∧
+                                         ys ≡ x' ∷ ys'
 
   helper : {xs ys : D} → R xs ys →
-           ∃ (λ x' → ∃ (λ xs' → ∃ (λ ys' →
-             R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys')))
+           ∃ λ x' → ∃ λ xs' → ∃ λ ys' →
+             R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
   helper (x' , xs' , ys' , xs'≈ys' , prf) =
     x' , xs' , ys' , (≈-gfp₁ xs'≈ys') , prf
 

@@ -37,10 +37,10 @@ open import FOTC.Relation.Binary.Bisimilarity
   R : D → D → Set
   R xs ys = ∃ (λ y → xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y))
 
-  helper : ∀ xs ys → R xs ys → ∃ (λ x' → ∃ (λ xs' → ∃ (λ ys' →
+  helper : ∀ xs ys → R xs ys → ∃ λ x' → ∃ λ xs' → ∃ λ ys' →
              R xs' ys' ∧
              xs ≡ x' ∷ xs' ∧
-             ys ≡ x' ∷ ys')))
+             ys ≡ x' ∷ ys'
   helper xs ys h = f · y
                    , map f (iterate f (f · y))
                    , iterate f (f · (f · y))

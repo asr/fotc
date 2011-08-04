@@ -18,7 +18,7 @@ postulate
 -- Stream is post-fixed point of StreamF (d ≤ f d).
 postulate
   Stream-gfp₁ : ∀ {xs} → Stream xs →
-                ∃ λ x' → ∃ λ xs' →  Stream xs' ∧ xs ≡ x' ∷ xs'
+                ∃ λ x' → ∃ λ xs' → Stream xs' ∧ xs ≡ x' ∷ xs'
 {-# ATP axiom Stream-gfp₁ #-}
 
 -- Stream is the greatest post-fixed of StreamF
@@ -43,6 +43,6 @@ Stream-gfp₃ h = Stream-gfp₂ P helper h
   P : D → Set
   P ws = ∃ λ w' → ∃ λ ws' → Stream ws' ∧ ws ≡ w' ∷ ws'
 
-  helper : {xs : D} → P xs → ∃ (λ x' → ∃ (λ xs' → P xs' ∧ xs ≡ x' ∷ xs'))
+  helper : {xs : D} → P xs → ∃ λ x' → ∃ λ xs' → P xs' ∧ xs ≡ x' ∷ xs'
   helper (x' , xs' , Sxs' , xs≡x'∷xs') =
     x' , xs' , (Stream-gfp₁ Sxs') , xs≡x'∷xs'

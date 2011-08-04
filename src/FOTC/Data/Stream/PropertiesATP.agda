@@ -30,11 +30,9 @@ postulate tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
   {-# ATP definition P₂ #-}
 
   postulate
-    helper₁ : ∀ {ws} → P₁ ws →
-              ∃ (λ w' → ∃ (λ ws' → P₁ ws' ∧ ws ≡ w' ∷ ws'))
+    helper₁ : ∀ {ws} → P₁ ws → ∃ λ w' → ∃ λ ws' → P₁ ws' ∧ ws ≡ w' ∷ ws'
   {-# ATP prove helper₁ #-}
 
   postulate
-    helper₂ : ∀ {zs} → P₂ zs →
-              ∃ (λ z' → ∃ (λ zs' → P₂ zs' ∧ zs ≡ z' ∷ zs'))
+    helper₂ : ∀ {zs} → P₂ zs → ∃ λ z' → ∃ λ zs' → P₂ zs' ∧ zs ≡ z' ∷ zs'
   {-# ATP prove helper₂ #-}
