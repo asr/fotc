@@ -1,20 +1,37 @@
 module Draft.FOTC.Data.List.PostulatesVersusDataTypes where
 
-data U : Set where
-  _::_ : U → U → U
+-- See Agda mailing list.
+-- Subject: Agda's unification: postulates versus data types
 
-data ListU : U → Set where
-  cons : ∀ x xs → ListU xs → ListU (x :: xs)
+module M₁ where
+  data D : Set where
+    _∷_ : D → D → D
 
-tailU : ∀ {x xs} → ListU (x :: xs) → ListU xs
-tailU {x} {xs} (cons .x .xs xsL) = xsL
+  data List : D → Set where
+    cons : ∀ x xs → List xs → List (x ∷ xs)
 
-postulate
-  D   : Set
+  tail : ∀ {x xs} → List (x ∷ xs) → List xs
+  tail {x} {xs} (cons .x .xs xsL) = xsL
+
+module M₂ where
+  postulate
+    D   : Set
+    _∷_ : D → D → D
+
+  data List : D → Set where
+    cons : ∀ x xs → List xs → List (x ∷ xs)
+
+  tail : ∀ {x xs} → List (x ∷ xs) → List xs
+  tail l = {!!}  -- C-c C-c fails
+
+module M₃ where
+  postulate D : Set
+
   _∷_ : D → D → D
+  x ∷ xs = {!!}
 
-data List : D → Set where
-  cons : ∀ x xs → List xs → List (x ∷ xs)
+  data List : D → Set where
+    cons : ∀ x xs → List xs → List (x ∷ xs)
 
-tail : ∀ {x xs} → List (x ∷ xs) → List xs
-tail l = {!!}
+  tail : ∀ {x xs} → List (x ∷ xs) → List xs
+  tail l = {!!}  -- C-c C-c fails
