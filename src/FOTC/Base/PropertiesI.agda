@@ -11,28 +11,22 @@ open import FOTC.Relation.Binary.EqReasoning
 ------------------------------------------------------------------------------
 
 succInjective : ∀ {d e} → succ d ≡ succ e → d ≡ e
-succInjective {d} {e} Sd≡Se =
+succInjective {d} {e} h =
   begin
     d              ≡⟨ sym (pred-S d) ⟩
-    pred (succ d)  ≡⟨ subst (λ t → pred (succ d) ≡ pred t)
-                            Sd≡Se
-                            refl
-                   ⟩
+    pred (succ d)  ≡⟨ cong pred h ⟩
     pred (succ e)  ≡⟨ pred-S e ⟩
     e
   ∎
 
 ∷-injective : ∀ {x y xs ys} → x ∷ xs ≡ y ∷ ys → x ≡ y ∧ xs ≡ ys
-∷-injective {x} {y} {xs} {ys} x∷xs≡y∷ys = x≡y , xs≡ys
+∷-injective {x} {y} {xs} {ys} h = x≡y , xs≡ys
   where
   x≡y : x ≡ y
   x≡y =
     begin
       x              ≡⟨ sym (head-∷ x xs) ⟩
-      head (x ∷ xs)  ≡⟨ subst (λ t → head (x ∷ xs) ≡ head t)
-                              x∷xs≡y∷ys
-                              refl
-                     ⟩
+      head (x ∷ xs)  ≡⟨ cong head h ⟩
       head (y ∷ ys)  ≡⟨ head-∷ y ys ⟩
       y
     ∎
@@ -41,10 +35,7 @@ succInjective {d} {e} Sd≡Se =
   xs≡ys =
     begin
       xs             ≡⟨ sym (tail-∷ x xs) ⟩
-      tail (x ∷ xs)  ≡⟨ subst (λ t → tail (x ∷ xs) ≡ tail t)
-                              x∷xs≡y∷ys
-                              refl
-                     ⟩
+      tail (x ∷ xs)  ≡⟨ cong tail h ⟩
       tail (y ∷ ys)  ≡⟨ tail-∷ y ys ⟩
       ys
     ∎
