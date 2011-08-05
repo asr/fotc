@@ -2,10 +2,28 @@
 -- Using setoids to formalize the FOTC
 ------------------------------------------------------------------------------
 
+{-
+From Peter emails:
+
+At that time I was considering an inductive data type D and an
+inductively defined equality on D. But I think what we are doing now
+is better.
+
+For = : The reason is that with the propositional identity we have
+identity elimination which lets us replace equals by equals. We cannot
+do that in general if we have setoid equality.
+
+For D: the reason why I prefer to postulate D is that we have no use
+for the inductive structure of D, and this inductive structure would
+make e g 0 + 0 different from 0. So in that case we need setoid
+equality.
+-}
+
 module FOTC where
 
 -- We add 3 to the fixities of the standard library.
 infixl 9 _·_  -- The symbol is '\cdot'.
+
 ------------------------------------------------------------------------------
 
 data D : Set where
@@ -67,5 +85,6 @@ module LeibnizEquality where
   ≐-subst P x≐y = x≐y P
 
   -- but it seems we cannot prove the congruency
+
   -- ≐-cong  : ∀ {x₁ x₂ y₁ y₂} → x₁ ≐ x₂ → y₁ ≐ y₂ → x₁ · y₁ ≐ x₂ · y₂
   -- ≐-cong x₁≐x₂ y₁≐y₂ P Px₁y₁ = {!!}
