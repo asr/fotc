@@ -18,9 +18,8 @@ postulate
 -- BisimilarityF (see below).
 postulate
   ≈-gfp₁ : ∀ {xs ys} → xs ≈ ys →
-           ∃ λ x' → ∃ λ xs' → ∃ λ ys' → xs' ≈ ys' ∧
-                                        xs ≡ x' ∷ xs' ∧
-                                        ys ≡ x' ∷ ys'
+           ∃ λ x' → ∃ λ xs' → ∃ λ ys' →
+           xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 {-# ATP axiom ≈-gfp₁ #-}
 
 -- The bisimilarity relation is the greatest post-fixed point of the
@@ -33,9 +32,8 @@ postulate
   ≈-gfp₂ : (_R_ : D → D → Set) →
            -- R is a post-fixed point of BisimilarityF.
            (∀ {xs ys} → xs R ys →
-            ∃ λ x' → ∃ λ xs' → ∃ λ ys' → xs' R ys' ∧
-                                         xs ≡ x' ∷ xs' ∧
-                                         ys ≡ x' ∷ ys') →
+            ∃ λ x' → ∃ λ xs' → ∃ λ ys' →
+            xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
            -- _≈_ is greater than R.
            ∀ {xs ys} → xs R ys → xs ≈ ys
 
@@ -43,20 +41,18 @@ postulate
 -- bisimilarity relation is also a pre-fixed point of the functor
 -- BisimilarityF (see below).
 ≈-gfp₃ : ∀ {xs ys} →
-         (∃ λ x' → ∃ λ xs' → ∃ λ ys' → xs' ≈ ys' ∧
-                                       xs ≡ x' ∷ xs' ∧
-                                       ys ≡ x' ∷ ys') →
+         (∃ λ x' → ∃ λ xs' → ∃ λ ys' →
+          xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
          xs ≈ ys
 ≈-gfp₃ h = ≈-gfp₂ R helper h
   where
   R : D → D → Set
-  R xs ys = ∃ λ x' → ∃ λ xs' → ∃ λ ys' → xs' ≈ ys' ∧
-                                         xs ≡ x' ∷ xs' ∧
-                                         ys ≡ x' ∷ ys'
+  R xs ys = ∃ λ x' → ∃ λ xs' → ∃ λ ys' →
+            xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 
-  helper : {xs ys : D} → R xs ys →
+  helper : ∀ {xs ys} → R xs ys →
            ∃ λ x' → ∃ λ xs' → ∃ λ ys' →
-             R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+           R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
   helper (x' , xs' , ys' , xs'≈ys' , prf) =
     x' , xs' , ys' , (≈-gfp₁ xs'≈ys') , prf
 
@@ -74,9 +70,8 @@ module BisimilarityF where
   -- The bisimilarity functor.
   BisimilarityF : (D → D → Set) → D → D → Set
   BisimilarityF _R_ xs ys =
-    ∃ λ x' → ∃ λ xs' → ∃ λ ys' → xs' R ys' ∧
-                                 xs ≡ x' ∷ xs' ∧
-                                 ys ≡ x' ∷ ys'
+    ∃ λ x' → ∃ λ xs' → ∃ λ ys' →
+      xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 
   -- The bisimilarity relation is a post-fixed point of BisimilarityF.
   pfp : ∀ {xs ys} → xs ≈ ys → BisimilarityF _≈_ xs ys
