@@ -63,6 +63,7 @@ open import FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
 open import FOTC.Data.Nat.UnaryNumbers.TotalityI
 
+open import FOTC.Data.Stream.ConsistencyTest
 open import FOTC.Data.Stream.PropertiesATP
 open import FOTC.Data.Stream.PropertiesI
 open import FOTC.Data.Stream.Type
