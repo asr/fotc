@@ -6,17 +6,12 @@ module FOTC.Data.Bool.PropertiesI where
 
 open import FOTC.Base
 
-open import Common.Function using ( _$_ )
+open import Common.Function
 
 open import FOTC.Data.Bool
-  using ( _&&_ ; &&-ff ; &&-ft ; &&-tf ; &&-tt
-        ; Bool ; fB ; tB  -- The FOTC booleans type.
-        )
-open import FOTC.Data.Nat.Inequalities using ( _≤_ ; <-0S ; <-SS )
-open import FOTC.Data.Nat.Inequalities.PropertiesI using ( Sx≰0 )
+open import FOTC.Data.Nat.Inequalities
+open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.Type
-  using ( N ; sN ; zN  -- The FOTC natural numbers type.
-        )
 
 open import FOTC.Relation.Binary.EqReasoning
 
@@ -28,6 +23,10 @@ open import FOTC.Relation.Binary.EqReasoning
 &&-Bool tB fB = subst (λ t → Bool t) (sym &&-tf) fB
 &&-Bool fB tB = subst (λ t → Bool t) (sym &&-ft) fB
 &&-Bool fB fB = subst (λ t → Bool t) (sym &&-ff) fB
+
+not-Bool : ∀ {b} → Bool b → Bool (not b)
+not-Bool tB = subst Bool (sym not-t) fB
+not-Bool fB = subst Bool (sym not-f) tB
 
 &&-comm : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ b₂ && b₁
 &&-comm tB tB = refl
@@ -170,6 +169,17 @@ postulate
          ≡⟨ x&&false≡false Bb₁ ⟩
       false
     ∎
+
+x≠not-x : ∀ {b} → Bool b → ¬ (b ≡ not b)
+x≠not-x tB h = true≠false (trans h not-t)
+x≠not-x fB h = true≠false (sym (trans h not-f))
+
+not-x≠x : ∀ {b} → Bool b → ¬ (not b ≡ b)
+not-x≠x Bb h = x≠not-x Bb (sym h)
+
+not² : ∀ {b} → Bool b → not (not b) ≡ b
+not² tB = trans (cong not not-t) not-f
+not² fB = trans (cong not not-f) not-t
 
 ------------------------------------------------------------------------------
 -- Properties with inequalities

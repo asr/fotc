@@ -27,3 +27,9 @@ postulate
 {-# ATP axiom &&-tf #-}
 {-# ATP axiom &&-ft #-}
 {-# ATP axiom &&-ff #-}
+
+-- The negation.
+postulate
+  not : D → D
+  not-t : not true ≡ false
+  not-f : not false ≡ true

@@ -4,4 +4,5 @@
 
 module Draft.RenderToHTML where
 
-open import Draft.FOTC.Data.Stream.PropertiesATP
+open import Draft.FOTC.Program.ABP.Lemma1
+open import Draft.FOTC.Program.ABP.Lemma2
