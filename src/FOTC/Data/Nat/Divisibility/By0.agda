@@ -20,8 +20,8 @@ infix 7 _∣_
 -- * Hardy and Wright. An introduction to the theory of numbers. 1975. 4ed: 0∤0
 -- * Isabelle, version Isabelle2011: 0∣0
 --
--- In our definition 0∣0, which is used to prove properties of the gcd as
--- it is in GHC HEAD (7.1.20110615), where gcd 0 0 = 0 (see
+-- In our definition 0∣0, which is used to prove properties of the gcd
+-- as it is in GHC 7.2.1, where gcd 0 0 = 0 (see
 -- http://hackage.haskell.org/trac/ghc/ticket/3304).
 _∣_ : D → D → Set
 d ∣ e = ∃ λ k → N k ∧ e ≡ k * d
