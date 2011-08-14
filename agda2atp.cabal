@@ -15,7 +15,7 @@ description:
   automatic theorem provers (ATPs), via the translation of the Agda
   formulae to the TPTP format which is a standard for input and output
   for the ATPs <http://www.cs.miami.edu/~tptp/>.
-tested-with:        GHC == 6.12.3, GHC == 7.0.4
+tested-with:        GHC == 6.12.3, GHC == 7.2.1
 extra-source-files: src/undefined.h
 
 source-repository head
@@ -27,13 +27,13 @@ executable agda2atp
   hs-source-dirs: src
 
   build-depends:  Agda         == 2.2.11.1
-                  , base       >= 4.2     && < 4.4
+                  , base       >= 4.2     && < 4.5
                   , Diff       >= 0.1.2   && < 0.2
                   , containers >= 0.3     && < 0.5
                   , directory  >= 1.0     && < 1.2
                   , filepath   >= 1.1     && < 1.3
                   , mtl        == 2.0.*
-                  , process    >= 1.0     && < 1.1
+                  , process    >= 1.0     && < 1.2
 
   other-modules:  AgdaLib.EtaExpansion
                   AgdaLib.Interface
@@ -67,20 +67,34 @@ executable agda2atp
   -- cabal-install version 0.10.2 using version 1.10.2.0 of the Cabal library
   extensions:     CPP
 
-  ghc-options:    -Wall
+  if impl(ghc >= 6.12) && impl(ghc < 7)
+     ghc-options: -Wall
                   -fwarn-incomplete-record-updates
                   -fwarn-monomorphism-restriction
+                  -fwarn-simple-patterns
                   -fwarn-tabs
                   -fwarn-unused-do-bind
                   -Werror
 
-  if impl(ghc >= 6.12) && impl(ghc < 7)
-    ghc-options:  -fwarn-simple-patterns
-
-  if impl(ghc >= 7.0.4)
-    ghc-options:  -fwarn-missing-local-sigs
-    -- This warning is disabled due to the GHC bug #4489.
-    --              -fwarn-missing-import-lists
+  if impl(ghc >= 7.2.1)
+     ghc-options: -Wall
+                  -fwarn-identities
+                  -fwarn-incomplete-record-updates
+                  -fwarn-incomplete-uni-patterns
+                  -- This warning is disabled due to the GHC bug #4489
+                  -- which is fixed for GHC 7.4.1.
+                  -- -fwarn-missing-import-lists
+                  -fwarn-missing-local-sigs
+                  -fwarn-monomorphism-restriction
+                  -fwarn-tabs
+                  -fwarn-unused-do-bind
+                  -fwarn-unrecognised-pragmas
+                  -- The Paths_agda2atp module, which is generated
+                  -- automatically by Cabal, gives rise to a warning
+                  -- under GHC 7.2.1 (at least when Cabal 1.10.2.0 is
+                  -- used), so we disable that warning.
+                  -fno-warn-warnings-deprecations
+                  -Werror
 
     -- From Agda.cabal:
     -- If someone installs Agda with the setuid bit set, then the
