@@ -29,15 +29,19 @@ lemma₁-helper : ∀ {b i' is' os₀ os₁ as bs cs ds js} →
                 Bit b →
                 Fair os₁ →
                 Abp b (i' ∷ is') os₀ os₁ as bs cs ds js →
-                ∀ {ol₀} → O*L ol₀ → ∀ os₀'-aux → os₀ ≡ ol₀ ++ os₀'-aux →
+                ∀ {ol₀} → O*L ol₀ →
+                ∀ {os₀'-aux} → Fair os₀'-aux → os₀ ≡ ol₀ ++ os₀'-aux →
                 ∃ λ os₀' → ∃ λ os₁' →
                 ∃ λ as' → ∃ λ bs' → ∃ λ cs' → ∃ λ ds' → ∃ λ js' →
-                Abp' b i' is' os₀' os₁' as' bs' cs' ds' js'
+                Fair os₀'
+                ∧ Fair os₁'
+                ∧ Abp' b i' is' os₀' os₁' as' bs' cs' ds' js'
                 ∧ js ≡ i' ∷ js'
 lemma₁-helper {b} {i'} {is'} {os₀} {os₁} {as} {bs} {cs} {ds} {js}
-              Bb _ (asAbp , bsAbp , csAbp , dsAbs , jsAbp)
-              nilO*L os₀' os₀-eq =
+              Bb Fos₁ (asAbp , bsAbp , csAbp , dsAbs , jsAbp)
+              nilO*L {os₀'-aux = os₀'} Fos₀' os₀-eq =
                 os₀' , os₁' , as' , bs' , cs' , ds' , js'
+                , Fos₀' , Fos₁
                 , (ds'-eq , refl , refl , refl , refl)
                 , js-eq
   where
@@ -120,8 +124,9 @@ lemma₁-helper {b} {i'} {is'} {os₀} {os₁} {as} {bs} {cs} {ds} {js}
 
 lemma₁-helper {b} {i'} {is'} {os₀} {os₁} {as} {bs} {cs} {ds} {js}
               Bb Fos₁ (asAbp , bsAbp , csAbp , dsAbs , jsAbp)
-              (consO*L ol₀⁵ OLol₀⁵) os₀' os₀-eq =
-                lemma₁-helper Bb (tail-Fair Fos₁) AbpIH OLol₀⁵ os₀' refl
+              (consO*L ol₀⁵ OLol₀⁵)
+              {os₀'-aux = os₀'} Fos₀' os₀-eq =
+                lemma₁-helper Bb (tail-Fair Fos₁) AbpIH OLol₀⁵ Fos₀' refl
   where
   os₀⁵ : D
   os₀⁵ = ol₀⁵ ++ os₀'
@@ -263,9 +268,11 @@ lemma₁ : ∀ {b i' is' os₀ os₁ as bs cs ds js} →
          Abp b (i' ∷ is') os₀ os₁ as bs cs ds js →
          ∃ λ os₀' → ∃ λ os₁' →
          ∃ λ as' → ∃ λ bs' → ∃ λ cs' → ∃ λ ds' → ∃ λ js' →
-         Abp' b i' is' os₀' os₁' as' bs' cs' ds' js'
+         Fair os₀'
+         ∧ Fair os₁'
+         ∧ Abp' b i' is' os₀' os₁' as' bs' cs' ds' js'
          ∧ js ≡ i' ∷ js'
-lemma₁ {os₀ = os₀} Bb Fos₀ Fos₁ h = lemma₁-helper Bb Fos₁ h OLol₀ os₀' os₀-eq
+lemma₁ {os₀ = os₀} Bb Fos₀ Fos₁ h = lemma₁-helper Bb Fos₁ h OLol₀ Fos₀' os₀-eq
   where
   unfold-os₀ : ∃ λ ol₀ → ∃ λ os₀' → O*L ol₀ ∧ Fair os₀' ∧ os₀ ≡ ol₀ ++ os₀'
   unfold-os₀ = Fair-gfp₁ Fos₀
@@ -278,6 +285,9 @@ lemma₁ {os₀ = os₀} Bb Fos₀ Fos₁ h = lemma₁-helper Bb Fos₁ h OLol�
 
   OLol₀ : O*L ol₀
   OLol₀ = ∧-proj₁ (∃-proj₂ (∃-proj₂ unfold-os₀))
+
+  Fos₀' : Fair os₀'
+  Fos₀' = ∧-proj₁ (∧-proj₂ (∃-proj₂ (∃-proj₂ unfold-os₀)))
 
   os₀-eq : os₀ ≡ ol₀ ++ os₀'
   os₀-eq = ∧-proj₂ (∧-proj₂ (∃-proj₂ (∃-proj₂ unfold-os₀)))

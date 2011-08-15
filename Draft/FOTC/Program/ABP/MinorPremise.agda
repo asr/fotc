@@ -6,7 +6,17 @@ module Draft.FOTC.Program.ABP.MinorPremise where
 
 open import FOTC.Base
 
+open import FOTC.Data.Bool
+open import FOTC.Data.Bool.PropertiesI
+open import FOTC.Data.Stream.Type
+
+open import FOTC.Relation.Binary.Bisimilarity
+open import FOTC.Relation.Binary.EqReasoning
+
 open import Draft.FOTC.Program.ABP.ABP
+open import Draft.FOTC.Program.ABP.Fair
+open import Draft.FOTC.Program.ABP.Lemma1
+open import Draft.FOTC.Program.ABP.Lemma2
 
 ------------------------------------------------------------------------------
 
@@ -24,7 +34,71 @@ open import Draft.FOTC.Program.ABP.ABP
 -- state except that the bit has alternated and the first item in the
 -- input stream has been removed.
 
-postulate
-  minorPremise : ∀ {is js} → is B js →
-                 ∃ λ i' → ∃ λ is' → ∃ λ js' →
-                 is' B js' ∧ is ≡ i' ∷ is' ∧ js ≡ i' ∷ js'
+minorPremise : ∀ {is js} → is B js →
+               ∃ λ i' → ∃ λ is' → ∃ λ js' →
+               is' B js' ∧ is ≡ i' ∷ is' ∧ js ≡ i' ∷ js'
+minorPremise {is} {js}
+             (b , os₀ , os₁ , as , bs , cs , ds , Sis , Bb , Fos₀ , Fos₁ , h) =
+  i' , is' , js' , is'Bjs'  , is≡i'∷is , js≡i'∷js'
+
+  where
+  unfold-is : ∃ λ i' → ∃ λ is' → Stream is' ∧ is ≡ i' ∷ is'
+  unfold-is = Stream-gfp₁ Sis
+
+  i' : D
+  i' = ∃-proj₁ unfold-is
+
+  is' : D
+  is' = ∃-proj₁ (∃-proj₂ unfold-is)
+
+  Sis' : Stream is'
+  Sis' = ∧-proj₁ (∃-proj₂ (∃-proj₂ unfold-is))
+
+  is≡i'∷is : is ≡ i' ∷ is'
+  is≡i'∷is = ∧-proj₂ (∃-proj₂ (∃-proj₂ unfold-is))
+
+  P₁ : Set
+  P₁ = ∃ λ os₀' → ∃ λ os₁' →
+       ∃ λ as' → ∃ λ bs' → ∃ λ cs' → ∃ λ ds' → ∃ λ js' →
+       Fair os₀'
+       ∧ Fair os₁'
+       ∧ Abp' b i' is' os₀' os₁' as' bs' cs' ds' js'
+       ∧ js ≡ i' ∷ js'
+
+  Abp-helper : is ≡ i' ∷ is' →
+               Abp b is os₀ os₁ as bs cs ds js →
+               Abp b (i' ∷ is') os₀ os₁ as bs cs ds js
+  Abp-helper h₁ h₂ = subst (λ t → Abp b t os₀ os₁ as bs cs ds js) h₁ h₂
+
+  Abp'-lemma₁ : P₁
+  Abp'-lemma₁ = lemma₁ Bb Fos₀ Fos₁ (Abp-helper is≡i'∷is h)
+
+  -- Following Martin Escardo advice (see Agda mailing list, heap
+  -- mistery) we use pattern matching instead of ∃ eliminators to
+  -- project the elements of the existentials.
+
+  js' : D
+  js' with Abp'-lemma₁
+  ... | _ , _ , _ , _ , _ , _ , js' , _ = js'
+
+  js≡i'∷js' : js ≡ i' ∷ js'
+  js≡i'∷js' with Abp'-lemma₁
+  ... | _ , _ , _ , _ , _ , _ , _ , _ , _ , _ , h = h
+
+  P₂ : Set
+  P₂ = ∃ λ os₀'' → ∃ λ os₁'' →
+       ∃ λ as'' → ∃ λ bs'' → ∃ λ cs'' → ∃ λ ds'' →
+       Fair os₀''
+       ∧ Fair os₁''
+       ∧ Abp (not b) is' os₀'' os₁'' as'' bs'' cs'' ds'' js'
+
+  Abp-lemma₂ : P₂
+  Abp-lemma₂ with Abp'-lemma₁
+  Abp-lemma₂ | _ , _ , _ , _ , _ , _ , _ , Fos₀' , Fos₁' , abp' , _ =
+    lemma₂ Bb Fos₀' Fos₁' abp'
+
+  is'Bjs' : is' B js'
+  is'Bjs' with Abp-lemma₂
+  ... | os₀'' , os₁'' , as'' , bs'' , cs'' , ds'' , Fos₀'' , Fos₁'' , abp =
+    not b , os₀'' , os₁'' , as'' , bs'' , cs'' , ds''
+    , Sis' , not-Bool Bb , Fos₀'' , Fos₁'' , abp
