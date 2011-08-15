@@ -9,6 +9,21 @@ open import Draft.FOTC.Program.ABP.Fair
 open import Draft.FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
+-- Equality on D → D
+
+data _≡²_ (x : D → D) : (D → D) → Set where
+  refl : x ≡² x
+
+sym² : ∀ {x y} → x ≡² y → y ≡² x
+sym² refl = refl
+
+subst²₂ : ∀ {x₁ x₂ y₁ y₂} (P : (D → D) → (D → D) → Set) →
+          x₁ ≡² y₁ → x₂ ≡² y₂ →
+          P x₁ x₂ →
+          P y₁ y₂
+subst²₂ P refl refl Pxs = Pxs
+
+------------------------------------------------------------------------------
 -- ABP equations
 
 postulate
@@ -79,13 +94,6 @@ postulate
     transfer (abpsend b) (abpack b) (abpout b) (corrupt os₀) (corrupt os₁) is
 
 ------------------------------------------------------------------------------
--- TODO: We cannot use Fuct because g ≡ corrupt os is not an equality
--- on D, it is on D → D.
-
--- Futc : (D → D) → Set
--- Futc g = ∃ λ os → Fair os ∧ g ≡ corrupt os
-
-------------------------------------------------------------------------------
 -- ABP relations
 
 -- Abbreviation for the recursive equations of the alternating bit
@@ -114,3 +122,9 @@ is B js = ∃ λ b → ∃ λ os₀ → ∃ λ os₁ → ∃ λ as → ∃ λ bs
           ∧ Fair os₀
           ∧ Fair os₁
           ∧ Abp b is os₀ os₁ as bs cs ds js
+
+------------------------------------------------------------------------------
+-- Fair unrealiable transmission channel
+
+Futc : (D → D) → Set
+Futc g = ∃ λ os → Fair os ∧ g ≡² corrupt os

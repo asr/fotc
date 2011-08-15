@@ -14,23 +14,29 @@ open import Draft.FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 
--- Protocol : (D → D → D) → (D → D) → (D → D) → Set
--- Protocol f₁ f₂ f₃ = {g₁ g₂ : D → D} → Futc g₁ → Futc g₂ →
---                     ∀ {is} → Stream is →
---                     is ≈ transfer f₁ f₂ f₃ g₁ g₂ is
+Protocol : (D → D → D) → (D → D) → (D → D) → Set
+Protocol f₁ f₂ f₃ = ∀ {g₁ g₂} → Futc g₁ → Futc g₂ →
+                    ∀ {is} → Stream is →
+                    is ≈ transfer f₁ f₂ f₃ g₁ g₂ is
 
--- spec-helper : ∀ {b} → Bit b →
---               {g₁ g₂ : D → D} → ∃ Fair → ∃ Fair →
---               {is : D} → Stream is →
---               is ≈ transfer (abpsend b) (abpack b) (abpout b) g₁ g₂ is
--- spec-helper {b} Bb (os₀ , Fos₀) (os₁ , Fos₁) {is} Sis =
+spec-helper₂ : ∀ {b os₀ os₁ is} →
+               Bit b → Fair os₀ → Fair os₁ → Stream is →
+               is ≈ abptrans b os₀ os₁ is
+spec-helper₂ Bb Fos₀ Fos₁ Sis =
+  ≈-gfp₂ _B_ minorPremise (mayorPremise Bb Fos₀ Fos₁ Sis)
 
--- -- Main theorem
--- spec : ∀ {b} → Bit b → Protocol (abpsend b) (abpack b) (abpout b)
--- spec = spec-helper
+spec-helper : ∀ {b} → Bit b →
+              ∀ {g₁ g₂} → Futc g₁ → Futc g₂ →
+              ∀ {is} → Stream is →
+              is ≈ transfer (abpsend b) (abpack b) (abpout b) g₁ g₂ is
+spec-helper {b} Bb (os₀ , Fos₀ , g₁-eq) (os₁ , Fos₁ , g₂-eq) {is} Sis =
+  subst²₂ (λ t₁ t₂ → is ≈ transfer (abpsend b) (abpack b) (abpout b) t₁ t₂ is)
+          (sym² g₁-eq)
+          (sym² g₂-eq)
+          (subst (λ t → is ≈ t)
+                 (abptrans-eq b os₀ os₁ is)
+                 (spec-helper₂ Bb Fos₀ Fos₁ Sis) )
 
 -- Main theorem
-spec : ∀ {b os₀ os₁ is} →
-       Bit b → Fair os₀ → Fair os₁ → Stream is →
-       is ≈ abptrans b os₀ os₁ is
-spec Bb Fos₀ Fos₁ Sis = ≈-gfp₂ _B_ minorPremise (mayorPremise Bb Fos₀ Fos₁ Sis)
+spec : ∀ {b} → Bit b → Protocol (abpsend b) (abpack b) (abpout b)
+spec = spec-helper
