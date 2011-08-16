@@ -2,7 +2,7 @@
 -- ABP mayor premise
 ------------------------------------------------------------------------------
 
-module Draft.FOTC.Program.ABP.MayorPremise where
+module Draft.FOTC.Program.ABP.MayorPremiseI where
 
 open import FOTC.Base
 
@@ -21,10 +21,10 @@ mayorPremise {b} {os₀} {os₁} {is} Bb Fos₀ Fos₁ Sis =
   b
   , os₀
   , os₁
-  , has    (abpsend b) (abpack b) (abpout b) (corrupt os₀) (corrupt os₁) is
-  , hbs    (abpsend b) (abpack b) (abpout b) (corrupt os₀) (corrupt os₁) is
-  , hcs    (abpsend b) (abpack b) (abpout b) (corrupt os₀) (corrupt os₁) is
-  , hds    (abpsend b) (abpack b) (abpout b) (corrupt os₀) (corrupt os₁) is
+  , has (abpsend b) (abpack b) (abpout b) (corrupt os₀) (corrupt os₁) is
+  , hbs (abpsend b) (abpack b) (abpout b) (corrupt os₀) (corrupt os₁) is
+  , hcs (abpsend b) (abpack b) (abpout b) (corrupt os₀) (corrupt os₁) is
+  , hds (abpsend b) (abpack b) (abpout b) (corrupt os₀) (corrupt os₁) is
   , Sis
   , Bb
   , Fos₀

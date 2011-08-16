@@ -67,26 +67,37 @@ postulate
   has hbs hcs hds transfer :
     (D → D → D) → (D → D) → (D → D) → (D → D) → (D → D) → D → D
 
+postulate
   has-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
            has f₁ f₂ f₃ g₁ g₂ is ≡ f₁ is (hds f₁ f₂ f₃ g₁ g₂ is)
+-- {-# ATP axiom has-eq #-}
 
+postulate
   hbs-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
            hbs f₁ f₂ f₃ g₁ g₂ is ≡ g₁ (has f₁ f₂ f₃ g₁ g₂ is)
+-- {-# ATP axiom hbs-eq #-}
 
+postulate
   hcs-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
            hcs f₁ f₂ f₃ g₁ g₂ is ≡ f₂ (hbs f₁ f₂ f₃ g₁ g₂ is)
+-- {-# ATP axiom hcs-eq #-}
 
+postulate
   hds-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
            hds f₁ f₂ f₃ g₁ g₂ is ≡ g₂ (hcs f₁ f₂ f₃ g₁ g₂ is)
+-- {-# ATP axiom hds-eq #-}
 
+postulate
   transfer-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
                 transfer f₁ f₂ f₃ g₁ g₂ is ≡ f₃ (hbs f₁ f₂ f₃ g₁ g₂ is)
+-- {-# ATP axiom transfer-eq #-}
 
 postulate
   abptrans    : D → D → D → D → D
   abptrans-eq :
     ∀ b os₀ os₁ is → abptrans b os₀ os₁ is ≡
     transfer (abpsend b) (abpack b) (abpout b) (corrupt os₀) (corrupt os₁) is
+-- {-# ATP axiom abptrans-eq #-}
 
 ------------------------------------------------------------------------------
 -- ABP relations
@@ -100,6 +111,7 @@ Abp b is os₀ os₁ as bs cs ds js =
   ∧ cs ≡ abpack b bs
   ∧ ds ≡ corrupt os₁ cs
   ∧ js ≡ abpout b bs
+{-# ATP definition Abp #-}
 
 Abp' : D → D → D → D → D → D → D → D → D → D → Set
 Abp' b i' is' os₀' os₁' as' bs' cs' ds' js' =
@@ -108,6 +120,7 @@ Abp' b i' is' os₀' os₁' as' bs' cs' ds' js' =
   ∧ bs' ≡ corrupt os₀' as'
   ∧ cs' ≡ abpack (not b) bs'
   ∧ js' ≡ abpout (not b) bs'
+{-# ATP definition Abp' #-}
 
 -- Auxiliary bisimulation.
 _B_ : D → D → Set
@@ -117,3 +130,4 @@ is B js = ∃ λ b → ∃ λ os₀ → ∃ λ os₁ → ∃ λ as → ∃ λ bs
           ∧ Fair os₀
           ∧ Fair os₁
           ∧ Abp b is os₀ os₁ as bs cs ds js
+{-# ATP definition _B_ #-}

@@ -9,7 +9,7 @@
 --     approach to the specification and verification of concurrent
 --     systems. Formal Aspects of Computing, 1:303–319, 1989.
 
-module Draft.FOTC.Program.ABP.ProofSpecification where
+module Draft.FOTC.Program.ABP.ProofSpecificationI where
 
 open import FOTC.Base
 
@@ -19,7 +19,7 @@ open import FOTC.Relation.Binary.Bisimilarity
 
 open import Draft.FOTC.Program.ABP.ABP
 open import Draft.FOTC.Program.ABP.Fair
-open import Draft.FOTC.Program.ABP.MayorPremise
+open import Draft.FOTC.Program.ABP.MayorPremiseI
 open import Draft.FOTC.Program.ABP.MinorPremise
 open import Draft.FOTC.Program.ABP.Terms
 
