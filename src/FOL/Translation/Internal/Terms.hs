@@ -21,7 +21,8 @@ import Agda.Syntax.Common
   ( Arg(Arg, argHiding, unArg)
   , Hiding(Hidden, Instance, NotHidden)
   , NameId(NameId)
-    )
+  , Nat
+  )
 import qualified Agda.Syntax.Concrete.Name as C
   ( Name(Name, NoName)
   , NamePart(Id, Hole)
@@ -50,7 +51,11 @@ import FOL.Constants
   ( folTrue, folFalse, folNot, folAnd, folOr
   , folImplies, folEquiv, folExists, folForAll, folEquals
   )
-import FOL.Primitives ( appFn, appP1, appP2, appP3, appP4, equal )
+import FOL.Primitives
+  ( appFn
+  , appP1, appP2, appP3, appP4 , appP5, appP6, appP7, appP8 , appP9, appP10
+  , equal
+  )
 import FOL.Translation.Concrete.Name ( concatName )
 import {-# source #-} FOL.Translation.Internal.Types
   ( argTypeToFormula
@@ -113,6 +118,59 @@ binConst op arg1 arg2 = do
   f2 ← argTermToFormula arg2
   return $ op f1 f2
 
+-- We translate n-ary predicates. For example, the predicate
+--
+-- P : D → D → D → Set
+--
+-- is translated to kAppP3(p,x,y,z), where kAppP3 is a hard-coded 4-ary
+-- predicate symbol.
+predicate ∷ QName → Args → T FOLFormula
+predicate qName args = do
+  folName ← qName2String qName
+  case length args of
+    0 → __IMPOSSIBLE__
+
+    1 → fmap (appP1 (FOLFun folName [])) (mapM argTermToFOLTerm args)
+    2 → fmap (appP2 (FOLFun folName [])) (mapM argTermToFOLTerm args)
+    3 → fmap (appP3 (FOLFun folName [])) (mapM argTermToFOLTerm args)
+    4 → fmap (appP4 (FOLFun folName [])) (mapM argTermToFOLTerm args)
+    5 → fmap (appP5 (FOLFun folName [])) (mapM argTermToFOLTerm args)
+    6 → fmap (appP6 (FOLFun folName [])) (mapM argTermToFOLTerm args)
+    7 → fmap (appP7 (FOLFun folName [])) (mapM argTermToFOLTerm args)
+    8 → fmap (appP8 (FOLFun folName [])) (mapM argTermToFOLTerm args)
+    9 → fmap (appP9 (FOLFun folName [])) (mapM argTermToFOLTerm args)
+
+    10 → fmap (appP10 (FOLFun folName [])) (mapM argTermToFOLTerm args)
+
+    _ → throwError $
+        "The translation of predicates symbols with arity " ++
+        "greater than or equal to eleven is not implemented"
+
+predicateLogicalScheme ∷ [String] → Nat → Args → T FOLFormula
+predicateLogicalScheme vars n args = do
+  let var ∷ String
+      var = vars !! fromIntegral n
+
+  case length args of
+    0 → __IMPOSSIBLE__
+
+    1 → fmap (appP1 (FOLVar var)) (mapM argTermToFOLTerm args)
+    2 → fmap (appP2 (FOLVar var)) (mapM argTermToFOLTerm args)
+    3 → fmap (appP3 (FOLVar var)) (mapM argTermToFOLTerm args)
+    4 → fmap (appP4 (FOLVar var)) (mapM argTermToFOLTerm args)
+    5 → fmap (appP5 (FOLVar var)) (mapM argTermToFOLTerm args)
+    6 → fmap (appP6 (FOLVar var)) (mapM argTermToFOLTerm args)
+    7 → fmap (appP7 (FOLVar var)) (mapM argTermToFOLTerm args)
+    8 → fmap (appP8 (FOLVar var)) (mapM argTermToFOLTerm args)
+    9 → fmap (appP9 (FOLVar var)) (mapM argTermToFOLTerm args)
+
+    10 → fmap (appP10 (FOLVar var)) (mapM argTermToFOLTerm args)
+
+    _ → throwError $
+          "The translation of predicates symbols with arity " ++
+          "greater than or equal to eleven (used in logical schemas) " ++
+          "is not implemented"
+
 termToFormula ∷ Term → T FOLFormula
 termToFormula term@(Def qName@(QName _ name) args) = do
   reportSLn "t2f" 10 $ "termToFormula Def:\n" ++ show term
@@ -155,14 +213,7 @@ termToFormula term@(Def qName@(QName _ name) args) = do
                then return $ Exists freshVar $ \_ → fm
                else return $ ForAll freshVar $ \_ → fm
 
-         | otherwise → do
-             -- In this guard we translate 1-ary predicates (e.g. P :
-             -- D → Set). The predicate P x is translate to
-             -- kAppP1(p,x), where kAppP1 is a hard-coded 2-ary
-             -- predicate symbol.
-             t       ← argTermToFOLTerm a
-             folName ← qName2String qName
-             return $ appP1 (FOLFun folName []) t
+         | otherwise → predicate qName args
 
        (a1 : a2 : [])
          | isCNameFOLConstTwoHoles folAnd → binConst And a1 a2
@@ -179,42 +230,9 @@ termToFormula term@(Def qName@(QName _ name) args) = do
              t2 ← argTermToFOLTerm a2
              return $ equal t1 t2
 
-         | otherwise → do
-             -- In this guard we translate 2-ary predicates (e.g. P :
-             -- D → D → Set). The predicate P x y is translate to
-             -- kAppP2(p,x,y), where kAppP2 is a hard-coded 3-ary
-             -- predicate symbol.
-             t1 ← argTermToFOLTerm a1
-             t2 ← argTermToFOLTerm a2
-             folName ← qName2String qName
-             return $ appP2 (FOLFun folName []) t1 t2
+         | otherwise → predicate qName args
 
-       (a1 : a2 : a3 : []) → do
-         -- In this guard we translate 3-ary predicates (e.g. P : D →
-         -- D → D → Set). The predicate P x y z is translate to
-         -- kAppP3(p,x,y,z), where kAppP3 is a hard-coded 4-ary
-         -- predicate symbol.
-         t1 ← argTermToFOLTerm a1
-         t2 ← argTermToFOLTerm a2
-         t3 ← argTermToFOLTerm a3
-         folName ← qName2String qName
-         return $ appP3 (FOLFun folName []) t1 t2 t3
-
-       (a1 : a2 : a3 : a4 : []) → do
-         -- In this guard we translate 4-ary predicates (e.g. P : D →
-         -- D → D → D → Set). The predicate P w x y z is translate to
-         -- kAppP4(p,w,x,y,z), where kAppP4 is a hard-coded 5-ary
-         -- predicate symbol.
-         t1 ← argTermToFOLTerm a1
-         t2 ← argTermToFOLTerm a2
-         t3 ← argTermToFOLTerm a3
-         t4 ← argTermToFOLTerm a4
-         folName ← qName2String qName
-         return $ appP4 (FOLFun folName []) t1 t2 t3 t4
-
-       _ → throwError $
-             "The translation of predicates symbols with arity " ++
-             "greater than or equal to five is not implemented"
+       _ → predicate qName args
 
        where
          isCNameFOLConst ∷ String → Bool
@@ -391,35 +409,10 @@ termToFormula term@(Var n args) = do
 
        -- (see termToFormula term@(Pi tyArg (Abs _ tyAbs))),
 
-         -- therefore we need to apply this variable/predicate to the
-         -- others variables.
+       -- therefore we need to apply this variable/predicate to the
+       -- others variables.
 
-       (v : []) → do
-         t ← argTermToFOLTerm v
-         return $ appP1 (FOLVar (vars !! fromIntegral n)) t
-
-       (v1 : v2 : []) → do
-          t1 ← argTermToFOLTerm v1
-          t2 ← argTermToFOLTerm v2
-          return $ appP2 (FOLVar (vars !! fromIntegral n)) t1 t2
-
-       (v1 : v2 : v3 : []) → do
-         t1 ← argTermToFOLTerm v1
-         t2 ← argTermToFOLTerm v2
-         t3 ← argTermToFOLTerm v3
-         return $ appP3 (FOLVar (vars !! fromIntegral n)) t1 t2 t3
-
-       (v1 : v2 : v3 : v4 : []) → do
-         t1 ← argTermToFOLTerm v1
-         t2 ← argTermToFOLTerm v2
-         t3 ← argTermToFOLTerm v3
-         t4 ← argTermToFOLTerm v4
-         return $ appP4 (FOLVar (vars !! fromIntegral n)) t1 t2 t3 t4
-
-       _ → throwError $
-             "The translation of predicates symbols with arity " ++
-             "greater than or equal to five (used in logical schemas) " ++
-               "is not implemented"
+       _ → predicateLogicalScheme vars n args
 
 termToFormula DontCare    = __IMPOSSIBLE__
 termToFormula (Con _ _)   = __IMPOSSIBLE__
