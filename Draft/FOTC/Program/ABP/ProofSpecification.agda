@@ -1,3 +1,14 @@
+------------------------------------------------------------------------------
+-- The alternating bit protocol (ABP) satisfies the specification
+------------------------------------------------------------------------------
+
+-- This module proves the correctness of the ABP following the
+-- formalization in [1].
+
+-- [1] Peter Dybjer and Herbert Sander. A functional programming
+--     approach to the specification and verification of concurrent
+--     systems. Formal Aspects of Computing, 1:303–319, 1989.
+
 module Draft.FOTC.Program.ABP.ProofSpecification where
 
 open import FOTC.Base
@@ -13,8 +24,7 @@ open import Draft.FOTC.Program.ABP.MinorPremise
 open import Draft.FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
-
--- Main theorem
+-- Main theorem.
 spec : ∀ {b is os₀ os₁} → Bit b → Stream is → Fair os₀ → Fair os₁ →
        is ≈ transfer (abpsend b)
                      (abpack b)

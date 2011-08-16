@@ -1,3 +1,13 @@
+------------------------------------------------------------------------------
+-- The alternating bit protocol (ABP)
+------------------------------------------------------------------------------
+
+-- This module define the ABP following the presentation in [1].
+
+-- [1] Peter Dybjer and Herbert Sander. A functional programming
+--     approach to the specification and verification of concurrent
+--     systems. Formal Aspects of Computing, 1:303–319, 1989.
+
 module Draft.FOTC.Program.ABP.ABP where
 
 open import FOTC.Base
