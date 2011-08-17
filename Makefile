@@ -90,6 +90,7 @@ TODO :
 	find \( -name '*.hs' -o -name '*.agda' \) | xargs grep TODO | sort
 
 clean :
+	cabal clean
 	find -name '*.agdai' | xargs rm -f
 	rm -f /tmp/*.tptp
 	rm -f TAGS

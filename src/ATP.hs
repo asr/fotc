@@ -175,7 +175,7 @@ atpsAnswer outputMVar atpsPH file n = do
             mapM_ terminateProcess atpsPH
 
         (False, atp) → do
-          reportS "" 1 $ show atp ++ " did not prove the conjecture"
+          reportS "" 1 $ show atp ++ " *did not* prove the conjecture"
           atpsAnswer outputMVar atpsPH file (n + 1)
 
 -- | The function 'callATPs' calls the selected ATPs on a TPTP conjecture.
