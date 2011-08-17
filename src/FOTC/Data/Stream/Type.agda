@@ -25,6 +25,10 @@ postulate
 --
 -- (If ∀ e. e ≤ f e => e ≤ d, then d is the greatest post-fixed point
 -- of f).
+
+-- N.B. This is a second-order axiom. In the automatic proofs, we
+-- *must* use an instance. Therefore, we do not add this postulate as
+-- an ATP axiom.
 postulate
   Stream-gfp₂ : (P : D → Set) →
                 -- P is post-fixed point of StreamF.

@@ -21,6 +21,7 @@ open import FOTC.Relation.Binary.EqReasoning
 
 open import Draft.FOTC.Program.ABP.ABP
 open import Draft.FOTC.Program.ABP.Fair
+open import Draft.FOTC.Program.ABP.Fair.PropertiesI
 open import Draft.FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
