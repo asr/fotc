@@ -159,7 +159,7 @@ all_parsing : parsing_DistributiveLaws \
 ##############################################################################
 # Test the conjecture files.
 
-conjectures_% : parsing_%
+conjectures_% :
 	for file in $(conjectures); do \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
 	    if ! ( $(AGDA2ATP) --time=180 $${file} ); then exit 1; fi; \
