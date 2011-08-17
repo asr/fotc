@@ -36,6 +36,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 import AgdaLib.Interface       ( qNameType )
 import AgdaLib.Syntax.DeBruijn ( indexPlus1 )
 import Monad.Base              ( newTVar, T )
+import Monad.Reports           ( reportSLn )
 
 #include "../undefined.h"
 
@@ -97,7 +98,12 @@ instance EtaExpandible Term where
                  Lam NotHidden
                      (Abs freshVar (Def qName (incVarsEtaExpanded ++ [newVar])))
 
-             else __IMPOSSIBLE__
+             else do
+               reportSLn "etaExpand" 20 $
+                 "qname: " ++ show qName ++ "\n"++
+                 "qNameArity: " ++ show qNameArity ++ "\n"++
+                 "length args: " ++ show (length args)
+               __IMPOSSIBLE__
 
   -- We don't know an example of eta-contraction with Con, therefore
   -- we don't do anything.
