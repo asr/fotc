@@ -1,4 +1,8 @@
-module Test.Succeed.Definitions where
+------------------------------------------------------------------------------
+-- Testing the definition of predicates
+------------------------------------------------------------------------------
+
+module Test.Succeed.DefinitionOfPredicates where
 
 infixl 6 _+_
 infix  4 _≡_
