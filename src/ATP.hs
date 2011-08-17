@@ -174,7 +174,9 @@ atpsAnswer outputMVar atpsPH file n = do
             threadDelay 500000
             mapM_ terminateProcess atpsPH
 
-        (False, _) → atpsAnswer outputMVar atpsPH file (n + 1)
+        (False, atp) → do
+          reportS "" 1 $ show atp ++ " did not prove the conjecture"
+          atpsAnswer outputMVar atpsPH file (n + 1)
 
 -- | The function 'callATPs' calls the selected ATPs on a TPTP conjecture.
 callATPs ∷ FilePath → T ()
