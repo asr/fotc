@@ -38,7 +38,7 @@ import Data.Maybe                ( fromMaybe )
 import Agda.Interaction.FindFile ( toIFile )
 import Agda.Interaction.Imports  ( getInterface, readInterface )
 import Agda.Interaction.Options
-  ( CommandLineOptions(optIncludeDirs)
+  ( CommandLineOptions(optIncludeDirs, optPragmaOptions)
   , defaultOptions
   , defaultPragmaOptions
   , PragmaOptions(optVerbose)
@@ -77,10 +77,7 @@ import Agda.TypeChecking.Monad.Base
   , TCErr
   , theDef
   )
-import Agda.TypeChecking.Monad.Options
-  ( setCommandLineOptions
-  , setPragmaOptions
-  )
+import Agda.TypeChecking.Monad.Options ( setCommandLineOptions )
 import Agda.Utils.FileName
   ( absolute
   , filePath
@@ -125,6 +122,14 @@ getLocalHints def =
 
        _       → __IMPOSSIBLE__
 
+-- We do not want any verbosity from the Agda API.
+agdaPragmaOptions ∷ PragmaOptions
+agdaPragmaOptions =
+  let agdaOptVerbose ∷ Verbosity
+      agdaOptVerbose = Trie.singleton [] 0
+
+  in defaultPragmaOptions { optVerbose = agdaOptVerbose }
+
 -- An empty list of relative include directories (Left []) is
 -- interpreted as ["."] (from
 -- Agda.TypeChecking.Monad.Options). Therefore the default of
@@ -137,16 +142,9 @@ agdaCommandLineOptions = do
   let agdaIncludePaths ∷ [FilePath]
       agdaIncludePaths = optAgdaIncludePath $ tOpts state
 
-  return $ defaultOptions { optIncludeDirs = Left agdaIncludePaths }
-
--- TODO: It is not working.
-agdaPragmaOptions ∷ PragmaOptions
-agdaPragmaOptions =
-  -- We do not want any verbosity from the Agda API.
-  let agdaOptVerbose ∷ Verbosity
-      agdaOptVerbose = Trie.singleton [] 0
-
-  in defaultPragmaOptions { optVerbose = agdaOptVerbose }
+  return $ defaultOptions { optIncludeDirs   = Left agdaIncludePaths
+                          , optPragmaOptions = agdaPragmaOptions
+                          }
 
 myReadInterface ∷ FilePath → T Interface
 myReadInterface file = do
@@ -158,7 +156,6 @@ myReadInterface file = do
 
   (r ∷ Either TCErr (Maybe Interface)) ← liftIO $ runTCM $
     do setCommandLineOptions optsCommandLine
-       setPragmaOptions agdaPragmaOptions
        readInterface iFile
 
   case r of
@@ -177,7 +174,6 @@ myGetInterface x = do
 
   r ← liftIO $ runTCM $ do
     setCommandLineOptions optsCommandLine
-    setPragmaOptions agdaPragmaOptions
     getInterface x
 
   case r of
