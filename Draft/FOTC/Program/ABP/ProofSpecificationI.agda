@@ -26,11 +26,11 @@ open import Draft.FOTC.Program.ABP.Terms
 ------------------------------------------------------------------------------
 -- Main theorem.
 spec : ∀ {b is os₀ os₁} → Bit b → Stream is → Fair os₀ → Fair os₁ →
-       is ≈ transfer (abpsend b)
-                     (abpack b)
-                     (abpout b)
-                     (corrupt os₀)
-                     (corrupt os₁)
+       is ≈ transfer (abpsend · b)
+                     (abpack · b)
+                     (abpout · b)
+                     (corrupt · os₀)
+                     (corrupt · os₁)
                      is
 spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ =
   subst (_≈_ is)

@@ -54,18 +54,21 @@ lemma₂-helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
     ∎
 
   ds'' : D
-  ds'' = corrupt os₁'' cs'
+  ds'' = corrupt · os₁'' · cs'
 
   ds'-eq : ds' ≡ ok b ∷ ds''
   ds'-eq =
     begin
       ds'
         ≡⟨ ds'Abp' ⟩
-      corrupt os₁' (b ∷ cs')
-        ≡⟨ cong (flip corrupt (b ∷ cs')) os'₁-eq-helper ⟩
-      corrupt (L ∷ os₁'') (b ∷ cs')
+      corrupt · os₁' · (b ∷ cs')
+        ≡⟨ subst (λ t → corrupt · os₁' · (b ∷ cs') ≡ corrupt · t · (b ∷ cs'))
+                 os'₁-eq-helper
+                 refl
+        ⟩
+      corrupt · (L ∷ os₁'') · (b ∷ cs')
         ≡⟨ corrupt-L os₁'' b cs' ⟩
-      ok b ∷ corrupt os₁'' cs'
+      ok b ∷ corrupt · os₁'' · cs'
         ≡⟨ refl ⟩
       ok b ∷ ds''
     ∎
@@ -73,28 +76,28 @@ lemma₂-helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
   as'' : D
   as'' = as'
 
-  as''-eq : as'' ≡ abpsend (not b) is' ds''
+  as''-eq : as'' ≡ abpsend · (not b) · is' · ds''
   as''-eq =
     begin
       as''                         ≡⟨ as'Abp ⟩
       await b i' is' ds'           ≡⟨ cong (await b i' is') ds'-eq ⟩
       await b i' is' (ok b ∷ ds'') ≡⟨ await-ok≡ b b i' is' ds'' refl ⟩
-      abpsend (not b) is' ds''
+      abpsend · (not b) · is' · ds''
     ∎
 
   bs'' : D
   bs'' = bs'
 
-  bs''-eq : bs'' ≡ corrupt os₀' as'
+  bs''-eq : bs'' ≡ corrupt · os₀' · as'
   bs''-eq = bs'Abp'
 
   cs'' : D
   cs'' = cs'
 
-  cs''-eq : cs'' ≡ abpack (not b) bs'
+  cs''-eq : cs'' ≡ abpack · (not b) · bs'
   cs''-eq = cs'Abp'
 
-  js'-eq : js' ≡ abpout (not b) bs''
+  js'-eq : js' ≡ abpout · (not b) · bs''
   js'-eq = js'Abp'
 
 
@@ -121,18 +124,21 @@ lemma₂-helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
     ∎
 
   ds⁵ : D
-  ds⁵ = corrupt os₁⁵ cs'
+  ds⁵ = corrupt · os₁⁵ · cs'
 
   ds'-eq : ds' ≡ error ∷ ds⁵
   ds'-eq =
     begin
       ds'
         ≡⟨ ds'Abp' ⟩
-      corrupt os₁' (b ∷ cs')
-        ≡⟨ cong (flip corrupt (b ∷ cs')) os₁'-eq-helper ⟩
-      corrupt (O ∷ os₁⁵) (b ∷ cs')
+      corrupt · os₁' · (b ∷ cs')
+        ≡⟨ subst (λ t → corrupt · os₁' · (b ∷ cs') ≡ corrupt · t · (b ∷ cs'))
+                 os₁'-eq-helper
+                 refl
+        ⟩
+      corrupt · (O ∷ os₁⁵) · (b ∷ cs')
         ≡⟨ corrupt-O _ _ _ ⟩
-      error ∷ corrupt os₁⁵ cs'
+      error ∷ corrupt · os₁⁵ · cs'
         ≡⟨ refl ⟩
       error ∷ ds⁵
     ∎
@@ -155,18 +161,22 @@ lemma₂-helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
     ∎
 
   bs⁵ : D
-  bs⁵ = corrupt os₀⁵ as⁵
+  bs⁵ = corrupt · os₀⁵ · as⁵
 
   bs'-eq-helper₁ : os₀' ≡ L ∷ tail os₀' → bs' ≡ ok < i' , b > ∷ bs⁵
   bs'-eq-helper₁ h =
     begin
       bs'
         ≡⟨ bs'Abp' ⟩
-      corrupt os₀' as'
-        ≡⟨ cong₂ corrupt h as'-eq ⟩
-      corrupt (L ∷ tail os₀') (< i' , b > ∷ as⁵)
+      corrupt · os₀' · as'
+        ≡⟨ subst₂ (λ t₁ t₂ → corrupt · os₀' · as' ≡ corrupt · t₁ · t₂)
+                  h
+                  as'-eq
+                  refl
+        ⟩
+      corrupt · (L ∷ tail os₀') · (< i' , b > ∷ as⁵)
         ≡⟨ corrupt-L _ _ _ ⟩
-      ok < i' , b > ∷ corrupt (tail os₀') as⁵
+      ok < i' , b > ∷ corrupt · (tail os₀') · as⁵
         ≡⟨ refl ⟩
       ok < i' , b > ∷ bs⁵
     ∎
@@ -176,11 +186,15 @@ lemma₂-helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
     begin
       bs'
         ≡⟨ bs'Abp' ⟩
-      corrupt os₀' as'
-        ≡⟨ cong₂ corrupt h as'-eq ⟩
-      corrupt (O ∷ tail os₀') (< i' , b > ∷ as⁵)
+      corrupt · os₀' · as'
+        ≡⟨ subst₂ (λ t₁ t₂ → corrupt · os₀' · as' ≡ corrupt · t₁ · t₂)
+                  h
+                  as'-eq
+                  refl
+        ⟩
+      corrupt · (O ∷ tail os₀') · (< i' , b > ∷ as⁵)
         ≡⟨ corrupt-O _ _ _ ⟩
-      error ∷ corrupt (tail os₀') as⁵
+      error ∷ corrupt · (tail os₀') · as⁵
         ≡⟨ refl ⟩
       error ∷ bs⁵
     ∎
@@ -192,20 +206,27 @@ lemma₂-helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
 
 
   cs⁵ : D
-  cs⁵ = abpack (not b) bs⁵
+  cs⁵ = abpack · (not b) · bs⁵
 
   cs'-eq-helper₁ : bs' ≡ ok < i' , b > ∷ bs⁵ → cs' ≡ b ∷ cs⁵
   cs'-eq-helper₁ h =
     begin
       cs'
       ≡⟨ cs'Abp' ⟩
-      abpack (not b) bs'
-        ≡⟨ cong (abpack (not b)) h ⟩
-      abpack (not b) (ok < i' , b > ∷ bs⁵)
+      abpack · (not b) · bs'
+        ≡⟨ subst (λ t → abpack · (not b) · bs' ≡ abpack · (not b) · t)
+                 h
+                 refl
+        ⟩
+      abpack · (not b) · (ok < i' , b > ∷ bs⁵)
         ≡⟨ abpack-ok≠ _ _ _ _ (not-x≠x Bb) ⟩
-      not (not b) ∷ abpack (not b) bs⁵
-        ≡⟨ cong (flip _∷_ (abpack (not b) bs⁵)) (not² Bb) ⟩
-      b ∷ abpack (not b) bs⁵
+      not (not b) ∷ abpack · (not b) · bs⁵
+        ≡⟨ subst (λ t → not (not b) ∷ abpack · (not b) · bs⁵ ≡
+                        t           ∷ abpack · (not b) · bs⁵)
+                 (not² Bb)
+                 refl
+        ⟩
+      b ∷ abpack · (not b) · bs⁵
         ≡⟨ refl ⟩
       b ∷ cs⁵
     ∎
@@ -215,13 +236,20 @@ lemma₂-helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
     begin
       cs'
         ≡⟨ cs'Abp' ⟩
-      abpack (not b) bs'
-        ≡⟨ cong (abpack (not b)) h ⟩
-      abpack (not b) (error ∷ bs⁵)
+      abpack · (not b) · bs'
+        ≡⟨ subst (λ t → abpack · (not b) · bs' ≡ abpack · (not b) · t)
+                 h
+                 refl
+        ⟩
+      abpack · (not b) · (error ∷ bs⁵)
         ≡⟨ abpack-error _ _ ⟩
-      not (not b) ∷ abpack (not b) bs⁵
-        ≡⟨ cong (flip _∷_ (abpack (not b) bs⁵)) (not² Bb) ⟩
-      b ∷ abpack (not b) bs⁵
+      not (not b) ∷ abpack · (not b) · bs⁵
+        ≡⟨ subst (λ t → not (not b) ∷ abpack · (not b) · bs⁵ ≡
+                        t           ∷ abpack · (not b) · bs⁵)
+                 (not² Bb)
+                 refl
+        ⟩
+      b ∷ abpack · (not b) · bs⁵
         ≡⟨ refl ⟩
       b ∷ cs⁵
     ∎
@@ -229,32 +257,42 @@ lemma₂-helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
   cs'-eq : cs' ≡ b ∷ cs⁵
   cs'-eq = [ cs'-eq-helper₁ , cs'-eq-helper₂ ] bs'-eq
 
-  js'-eq-helper₁ : bs' ≡ ok < i' , b > ∷ bs⁵ → js' ≡ abpout (not b) bs⁵
+  js'-eq-helper₁ : bs' ≡ ok < i' , b > ∷ bs⁵ → js' ≡ abpout · (not b) · bs⁵
   js'-eq-helper₁ h  =
     begin
       js'
         ≡⟨ js'Abp' ⟩
-      abpout (not b) bs'
-        ≡⟨ cong (abpout (not b)) h ⟩
-      abpout (not b) (ok < i' , b > ∷ bs⁵)
+      abpout · (not b) · bs'
+        ≡⟨ subst (λ t → abpout · (not b) · bs' ≡ abpout · (not b) · t)
+                 h
+                 refl
+        ⟩
+      abpout · (not b) · (ok < i' , b > ∷ bs⁵)
         ≡⟨ abpout-ok≠ (not b) b i' bs⁵ (not-x≠x Bb) ⟩
-      abpout (not b) bs⁵
+      abpout · (not b) · bs⁵
     ∎
 
-  js'-eq-helper₂ : bs' ≡ error ∷ bs⁵ → js' ≡ abpout (not b) bs⁵
+  js'-eq-helper₂ : bs' ≡ error ∷ bs⁵ → js' ≡ abpout · (not b) · bs⁵
   js'-eq-helper₂ h  =
     begin
-      js'                          ≡⟨ js'Abp' ⟩
-      abpout (not b) bs'           ≡⟨ cong (abpout (not b)) h ⟩
-      abpout (not b) (error ∷ bs⁵) ≡⟨ abpout-error (not b) bs⁵ ⟩
-      abpout (not b) bs⁵
+      js' ≡⟨ js'Abp' ⟩
+      abpout · (not b) · bs'
+        ≡⟨ subst (λ t → abpout · (not b) · bs' ≡ abpout · (not b) · t)
+                 h
+                 refl
+        ⟩
+      abpout · (not b) · (error ∷ bs⁵)
+        ≡⟨ abpout-error (not b) bs⁵ ⟩
+      abpout · (not b) · bs⁵
     ∎
 
-  js'-eq : js' ≡ abpout (not b) bs⁵
+  js'-eq : js' ≡ abpout · (not b) · bs⁵
   js'-eq = [ js'-eq-helper₁ , js'-eq-helper₂ ] bs'-eq
 
-  ds⁵-eq : ds⁵ ≡ corrupt os₁⁵ (b ∷ cs⁵)
-  ds⁵-eq = cong (corrupt os₁⁵) cs'-eq
+  ds⁵-eq : ds⁵ ≡ corrupt · os₁⁵ · (b ∷ cs⁵)
+  ds⁵-eq = trans refl (subst (λ t → corrupt · os₁⁵ · cs' ≡ corrupt · os₁⁵ · t )
+                             cs'-eq
+                             refl)
 
   Abp'IH : Abp' b i' is' os₀⁵ os₁⁵ as⁵ bs⁵ cs⁵ ds⁵ js'
   Abp'IH = ds⁵-eq , refl , refl , refl , js'-eq

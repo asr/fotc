@@ -22,16 +22,19 @@ open import Draft.FOTC.Program.ABP.Terms
 -- ABP equations
 
 postulate
-  abpsend               : D → D → D → D
+  abpsend               : D
   await                 : D → D → D → D → D
-  abpack abpout corrupt : D → D → D
+  abpack abpout corrupt : D
 
+postulate
   abpsend-eq   : ∀ b i is ds →
-                 abpsend b (i ∷ is) ds ≡ < i , b > ∷ await b i is ds
+                 abpsend · b · (i ∷ is) · ds ≡ < i , b > ∷ await b i is ds
+{-# ATP axiom abpsend-eq #-}
 
+postulate
   await-ok≡    : ∀ b b₀ i is ds →
                  b ≡ b₀ →
-                 await b i is (ok b₀ ∷ ds) ≡ abpsend (not b) is ds
+                 await b i is (ok b₀ ∷ ds) ≡ abpsend · (not b) · is · ds
 
   await-ok≠    : ∀ b b₀ i is ds →
                  ¬ (b ≡ b₀) →
@@ -40,64 +43,84 @@ postulate
   await-error  : ∀ b i is ds →
                  await b i is (error ∷ ds) ≡ < i , b > ∷ await b i is ds
 
+{-# ATP axiom await-ok≡ #-}
+{-# ATP axiom await-ok≠ #-}
+{-# ATP axiom await-error #-}
+
+postulate
   abpack-ok≡   : ∀ b b₀ i bs →
                  b ≡ b₀ →
-                 abpack b (ok < i , b₀ > ∷ bs) ≡ b ∷ abpack (not b) bs
+                 abpack · b · (ok < i , b₀ > ∷ bs) ≡ b ∷ abpack · (not b) · bs
 
   abpack-ok≠   : ∀ b b₀ i bs →
                  ¬ (b ≡ b₀) →
-                 abpack b (ok < i , b₀ > ∷ bs) ≡ not b ∷ abpack b bs
+                 abpack · b · (ok < i , b₀ > ∷ bs) ≡ not b ∷ abpack · b · bs
 
-  abpack-error : ∀ b bs → abpack b (error ∷ bs) ≡ not b ∷ abpack b bs
+  abpack-error : ∀ b bs → abpack · b · (error ∷ bs) ≡ not b ∷ abpack · b · bs
 
+{-# ATP axiom abpack-ok≡ #-}
+{-# ATP axiom abpack-ok≠ #-}
+{-# ATP axiom abpack-error #-}
+
+postulate
   abpout-ok≡   : ∀ b b₀ i bs →
                  b ≡ b₀ →
-                 abpout b (ok < i , b₀ > ∷ bs) ≡ i ∷ abpout (not b) bs
+                 abpout · b · (ok < i , b₀ > ∷ bs) ≡ i ∷ abpout · (not b) · bs
 
   abpout-ok≠   : ∀ b b₀ i bs →
                  ¬ (b ≡ b₀) →
-                 abpout b (ok < i , b₀ > ∷ bs) ≡ abpout b bs
+                 abpout · b · (ok < i , b₀ > ∷ bs) ≡ abpout · b · bs
 
-  abpout-error : ∀ b bs → abpout b (error ∷ bs) ≡ abpout b bs
+  abpout-error : ∀ b bs → abpout · b · (error ∷ bs) ≡ abpout · b · bs
 
-  corrupt-L    : ∀ os x xs → corrupt (L ∷ os) (x ∷ xs) ≡ ok x ∷ corrupt os xs
-  corrupt-O    : ∀ os x xs → corrupt (O ∷ os) (x ∷ xs) ≡ error ∷ corrupt os xs
+{-# ATP axiom abpout-ok≡ #-}
+{-# ATP axiom abpout-ok≠ #-}
+{-# ATP axiom abpout-error #-}
 
 postulate
-  has hbs hcs hds transfer :
-    (D → D → D) → (D → D) → (D → D) → (D → D) → (D → D) → D → D
+  corrupt-L    : ∀ os x xs →
+                 corrupt · (L ∷ os) · (x ∷ xs) ≡ ok x ∷ corrupt · os · xs
+  corrupt-O    : ∀ os x xs →
+                 corrupt · (O ∷ os) · (x ∷ xs) ≡ error ∷ corrupt · os · xs
+{-# ATP axiom corrupt-L #-}
+{-# ATP axiom corrupt-O #-}
+
+postulate
+  has hbs hcs hds : D → D → D → D → D → D → D
 
 postulate
   has-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
-           has f₁ f₂ f₃ g₁ g₂ is ≡ f₁ is (hds f₁ f₂ f₃ g₁ g₂ is)
--- {-# ATP axiom has-eq #-}
+           has f₁ f₂ f₃ g₁ g₂ is ≡ f₁ · is · (hds f₁ f₂ f₃ g₁ g₂ is)
+{-# ATP axiom has-eq #-}
 
 postulate
   hbs-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
-           hbs f₁ f₂ f₃ g₁ g₂ is ≡ g₁ (has f₁ f₂ f₃ g₁ g₂ is)
--- {-# ATP axiom hbs-eq #-}
+           hbs f₁ f₂ f₃ g₁ g₂ is ≡ g₁ · (has f₁ f₂ f₃ g₁ g₂ is)
+{-# ATP axiom hbs-eq #-}
 
 postulate
   hcs-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
-           hcs f₁ f₂ f₃ g₁ g₂ is ≡ f₂ (hbs f₁ f₂ f₃ g₁ g₂ is)
--- {-# ATP axiom hcs-eq #-}
+           hcs f₁ f₂ f₃ g₁ g₂ is ≡ f₂ · (hbs f₁ f₂ f₃ g₁ g₂ is)
+{-# ATP axiom hcs-eq #-}
 
 postulate
   hds-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
-           hds f₁ f₂ f₃ g₁ g₂ is ≡ g₂ (hcs f₁ f₂ f₃ g₁ g₂ is)
--- {-# ATP axiom hds-eq #-}
+           hds f₁ f₂ f₃ g₁ g₂ is ≡ g₂ · (hcs f₁ f₂ f₃ g₁ g₂ is)
+{-# ATP axiom hds-eq #-}
 
 postulate
+  transfer : D → D → D → D → D → D → D
   transfer-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
-                transfer f₁ f₂ f₃ g₁ g₂ is ≡ f₃ (hbs f₁ f₂ f₃ g₁ g₂ is)
--- {-# ATP axiom transfer-eq #-}
+                transfer f₁ f₂ f₃ g₁ g₂ is ≡ f₃ · (hbs f₁ f₂ f₃ g₁ g₂ is)
+{-# ATP axiom transfer-eq #-}
 
 postulate
   abptrans    : D → D → D → D → D
   abptrans-eq :
     ∀ b os₀ os₁ is → abptrans b os₀ os₁ is ≡
-    transfer (abpsend b) (abpack b) (abpout b) (corrupt os₀) (corrupt os₁) is
--- {-# ATP axiom abptrans-eq #-}
+    transfer (abpsend · b) (abpack · b) (abpout · b)
+             (corrupt · os₀) (corrupt · os₁) is
+{-# ATP axiom abptrans-eq #-}
 
 ------------------------------------------------------------------------------
 -- ABP relations
@@ -106,20 +129,20 @@ postulate
 -- protocol.
 Abp : D → D → D → D → D → D → D → D → D → Set
 Abp b is os₀ os₁ as bs cs ds js =
-  as ≡ abpsend b is ds
-  ∧ bs ≡ corrupt os₀ as
-  ∧ cs ≡ abpack b bs
-  ∧ ds ≡ corrupt os₁ cs
-  ∧ js ≡ abpout b bs
+  as ≡ abpsend · b · is · ds
+  ∧ bs ≡ corrupt · os₀ · as
+  ∧ cs ≡ abpack · b · bs
+  ∧ ds ≡ corrupt · os₁ · cs
+  ∧ js ≡ abpout · b · bs
 {-# ATP definition Abp #-}
 
 Abp' : D → D → D → D → D → D → D → D → D → D → Set
 Abp' b i' is' os₀' os₁' as' bs' cs' ds' js' =
-  ds' ≡ corrupt os₁' (b ∷ cs')
+  ds' ≡ corrupt · os₁' · (b ∷ cs')
   ∧ as' ≡ await b i' is' ds'  -- Typo in ds'.
-  ∧ bs' ≡ corrupt os₀' as'
-  ∧ cs' ≡ abpack (not b) bs'
-  ∧ js' ≡ abpout (not b) bs'
+  ∧ bs' ≡ corrupt · os₀' · as'
+  ∧ cs' ≡ abpack · (not b) · bs'
+  ∧ js' ≡ abpout · (not b) · bs'
 {-# ATP definition Abp' #-}
 
 -- Auxiliary bisimulation.
