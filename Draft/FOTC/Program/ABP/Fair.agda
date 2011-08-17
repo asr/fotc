@@ -32,7 +32,7 @@ postulate
   Fair-gfp₁ : ∀ {os} → Fair os →
               ∃ λ ol → ∃ λ os' → O*L ol ∧ Fair os' ∧ os ≡ ol ++ os'
 
--- Fair is the greatest post-fixed of FairF
+-- Fair is the greatest post-fixed of FairF.
 --
 -- (If ∀ e. e ≤ f e => e ≤ d, then d is the greatest post-fixed point
 -- of f).
