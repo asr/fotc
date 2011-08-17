@@ -14,6 +14,5 @@ open import FOTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------
 
-postulate
-  impossible : ∀ d e → d ≡ e
+postulate impossible : ∀ d e → d ≡ e
 {-# ATP prove impossible #-}

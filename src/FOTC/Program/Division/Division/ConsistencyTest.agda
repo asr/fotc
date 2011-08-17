@@ -14,6 +14,5 @@ open import FOTC.Program.Division.Division
 
 ------------------------------------------------------------------------------
 
-postulate
-  impossible : ∀ d e → d ≡ e
+postulate impossible : ∀ d e → d ≡ e
 {-# ATP prove impossible #-}

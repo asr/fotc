@@ -12,6 +12,5 @@ open import GroupTheory.AbelianGroup.Base
 
 ------------------------------------------------------------------------------
 
-postulate
-  impossible : (d e : G) → d ≡ e
+postulate impossible : (d e : G) → d ≡ e
 {-# ATP prove impossible #-}

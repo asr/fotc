@@ -14,6 +14,5 @@ open import FOTC.Program.Collatz.Data.Nat
 
 ------------------------------------------------------------------------------
 
-postulate
-  impossible : ∀ d e → d ≡ e
+postulate impossible : ∀ d e → d ≡ e
 {-# ATP prove impossible #-}

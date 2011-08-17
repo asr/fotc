@@ -11,8 +11,8 @@ module FOTC.Data.Nat.Inequalities.ConsistencyTest where
 open import FOTC.Base
 
 open import FOTC.Data.Nat.Inequalities
+
 ------------------------------------------------------------------------------
 
-postulate
-  impossible : ∀ d e → d ≡ e
+postulate impossible : ∀ d e → d ≡ e
 {-# ATP prove impossible #-}
