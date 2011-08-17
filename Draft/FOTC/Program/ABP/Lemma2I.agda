@@ -7,7 +7,7 @@
 -- is identical to the old start state except that the bit has alternated
 -- and the first item in the input stream has been removed.
 
-module Draft.FOTC.Program.ABP.Lemma2 where
+module Draft.FOTC.Program.ABP.Lemma2I where
 
 open import FOTC.Base
 

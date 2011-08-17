@@ -7,7 +7,7 @@
 -- where the message has been received by the receiver, but where the
 -- acknowledgement has not yet been received by the sender.
 
-module Draft.FOTC.Program.ABP.Lemma1 where
+module Draft.FOTC.Program.ABP.Lemma1I where
 
 open import FOTC.Base
 

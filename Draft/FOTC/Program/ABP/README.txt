@@ -2,7 +2,7 @@
 -- The alternating bit protocol: A program using co-inductive types
 ------------------------------------------------------------------------------
 
-In this directory we formalize alternating bit protocol [1].
+In this directory we formalize the alternating bit protocol [1].
 
 [1] Peter Dybjer and Herbert Sander. A functional programming approach
     to the specification and verification of concurrent
