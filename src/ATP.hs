@@ -58,13 +58,13 @@ atp2exec IleanCoP = "ileancop.sh"
 atp2exec Metis    = "metis"
 atp2exec Vampire  = "vampire"
 
-optATP2ATP ∷ String → ATP
-optATP2ATP "e"        = E
-optATP2ATP "equinox"  = Equinox
-optATP2ATP "ileancop" = IleanCoP
-optATP2ATP "metis"    = Metis
-optATP2ATP "vampire"  = Vampire
-optATP2ATP _          = __IMPOSSIBLE__
+optATP2ATP ∷ String → T ATP
+optATP2ATP "e"        = return E
+optATP2ATP "equinox"  = return Equinox
+optATP2ATP "ileancop" = return IleanCoP
+optATP2ATP "metis"    = return Metis
+optATP2ATP "vampire"  = return Vampire
+optATP2ATP nonATP     = throwError $ "ATP " ++ nonATP ++ " unknown"
 
 -- Tested with E 1.3 Ringtong.
 eOk ∷ String
@@ -119,7 +119,7 @@ atpArgs Vampire  timeLimit file = [ "--input_file", file
                                   , "-t", show timeLimit
                                   ]
 
-runATP ∷ ATP → MVar (Bool, ATP) → Int → FilePath → IO ProcessHandle
+runATP ∷ ATP → MVar (Bool, ATP) → Int → FilePath → T ProcessHandle
 runATP atp outputMVar timeLimit file = do
 
   let args ∷ [String]
@@ -128,11 +128,11 @@ runATP atp outputMVar timeLimit file = do
   -- To create the ATPs process we follow the ideas used by
   -- System.Process.readProcess.
 
-  (_, outputH, _, atpPH) ←
+  (_, outputH, _, atpPH) ← liftIO $
     createProcess (proc (atp2exec atp) args) { std_out = CreatePipe }
 
-  output ← hGetContents $ fromMaybe (__IMPOSSIBLE__) outputH
-  _      ← forkIO $
+  output ← liftIO $ hGetContents $ fromMaybe (__IMPOSSIBLE__) outputH
+  _      ← liftIO $ forkIO $
              evaluate (length output) >>
              putMVar outputMVar (checkAtpOutput atp output, atp)
 
@@ -198,8 +198,7 @@ callATPs file = do
   reportS "" 1 $ "Proving the conjecture in " ++ file ++ " ..."
   reportS "" 20 $ "ATPs to be used: " ++ show atps
 
-  (atpsPH ∷ [ProcessHandle]) ← liftIO $
-    mapM ((\atp → runATP atp outputMVar timeLimit file) . optATP2ATP)
-                  atps
+  (atpsPH ∷ [ProcessHandle]) ←
+    mapM optATP2ATP atps >>= mapM (\atp → runATP atp outputMVar timeLimit file)
 
   atpsAnswer outputMVar atpsPH file 0
