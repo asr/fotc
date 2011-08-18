@@ -52,7 +52,7 @@ cBodyToFormula _                    = __IMPOSSIBLE__
 
 cBodyToFOLTerm ∷ ClauseBody → T FOLTerm
 -- We don't eta-expand the term before the translation, because we
--- cannot translate the lambda abstractions generated to FOL terms.
+-- cannot translate the generated lambda abstractions to FOL terms.
 cBodyToFOLTerm (Body term)          = termToFOLTerm term
 cBodyToFOLTerm (Bind (Abs _ cBody)) = cBodyToFOLTerm cBody
 cBodyToFOLTerm _                    = __IMPOSSIBLE__
@@ -62,7 +62,7 @@ removeBindingOnCBodyIndex (Bind (Abs x1 cBody)) x2 index =
   if x1 == x2
     then changeIndex cBody index  -- We remove the bind and rename the
                                   -- variables inside the body.
-  else Bind (Abs x1 $ removeBindingOnCBodyIndex cBody x2 index)
+    else Bind (Abs x1 $ removeBindingOnCBodyIndex cBody x2 index)
 removeBindingOnCBodyIndex _ _ _ = __IMPOSSIBLE__
 
 -- To remove the binding on a proof term in a ClauseBody,

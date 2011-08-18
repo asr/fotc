@@ -328,11 +328,11 @@ instance RemoveVar Term where
 instance RemoveVar (Arg Type) where
   removeVar (Arg h r ty) x = fmap (Arg h r) (removeVar ty x)
 
--- In Agda source code (Agda.Syntax.Internal) we have
+-- In the Agda source code (Agda.Syntax.Internal) we have
 --
 -- type Args = [Arg Term]
 --
--- However, we cannot create the instance of Args based on a map,
+-- however, we cannot create the instance of Args based on a map,
 -- because in some cases we need to erase the term.
 
 -- Requires TypeSynonymInstances.

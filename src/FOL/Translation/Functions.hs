@@ -2,7 +2,7 @@
 -- Translation of Agda internal functions to FOL formulas
 
 -- Only are translated the functions that will be translate as TPTP
--- definitions,
+-- definitions.
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
