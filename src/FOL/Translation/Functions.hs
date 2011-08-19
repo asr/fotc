@@ -121,6 +121,9 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
 
            (newBody ∷ ClauseBody) ← removeBindingOnCBody cBody x
 
+           -- Just to force the evaluation of newBody.
+           if length (show newBody) == 0 then __IMPOSSIBLE__ else return ()
+
            reportSLn "def2f" 20 $ "New body: " ++ show newBody
 
            f2 ← clauseToFormula qName ty (Clause r tels perm pats newBody)

@@ -1,24 +1,4 @@
-module Issues.Lazyness where
-
-{-
-$ agda2atp Issues/Lazyness.agda
-
-yields
-
-An internal error has occurred. Please report this as a bug.
-Location of the error: src/FOL/Translation/Internal/Terms.hs:486
-
-but
-
-$ agda2atp -v 20 Issues/Lazyness.agda
-
-yields
-
-An internal error has occurred. Please report this as a bug.
-Location of the error: src/AgdaLib/Syntax/DeBruijn.hs:152
-
-The internal error should be the same.
--}
+module Issues.ProofTerm1 where
 
 postulate
   D          : Set
