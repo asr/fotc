@@ -136,11 +136,15 @@ class ChangeIndex a where
   changeIndex ∷ a → Nat → a
 
 instance ChangeIndex Term where
-  changeIndex term@(Def _ [])  _     = term
+  changeIndex term@(Def _ []) _ = term
 
   changeIndex (Def qName args) index = Def qName $ changeIndex args index
 
-  changeIndex term@(Var n [])  index
+  changeIndex (Lam h (Abs x term)) index = Lam h (Abs x (changeIndex term index))
+
+  -- When the variable is part of an argument, it was processed in the
+  -- Args instance.
+  changeIndex term@(Var n []) index
     -- The variable was before than the quantified variable, we don't
     -- do nothing.
     | n < index = term
@@ -151,25 +155,46 @@ instance ChangeIndex Term where
 
     | n == index = __IMPOSSIBLE__
 
-  changeIndex (Lam h (Abs x term)) index = Lam h (Abs x (changeIndex term index))
+  changeIndex (Con _ _)   _  = __IMPOSSIBLE__
+  changeIndex DontCare    _  = __IMPOSSIBLE__
+  changeIndex (Fun _ _)   _  = __IMPOSSIBLE__
+  changeIndex (Level _)   _  = __IMPOSSIBLE__
+  changeIndex (Lit _)     _  = __IMPOSSIBLE__
+  changeIndex (MetaV _ _) _  = __IMPOSSIBLE__
+  changeIndex (Pi _ _)    _  = __IMPOSSIBLE__
+  changeIndex (Sort _)    _  = __IMPOSSIBLE__
+  changeIndex (Var _ _)   _  = __IMPOSSIBLE__
 
-  changeIndex (Var _ _)   _   = __IMPOSSIBLE__
-  changeIndex (Con _ _)   _   = __IMPOSSIBLE__
-  changeIndex DontCare    _   = __IMPOSSIBLE__
-  changeIndex (Fun _ _)   _   = __IMPOSSIBLE__
-  changeIndex (Level _)   _   = __IMPOSSIBLE__
-  changeIndex (Lit _)     _   = __IMPOSSIBLE__
-  changeIndex (MetaV _ _) _   = __IMPOSSIBLE__
-  changeIndex (Pi _ _)    _   = __IMPOSSIBLE__
-  changeIndex (Sort _)    _   = __IMPOSSIBLE__
-
--- Requires FlexibleInstances.
-instance ChangeIndex (Arg Term) where
-  changeIndex (Arg h r term) index = Arg h r $ changeIndex term index
+-- In the Agda source code (Agda.Syntax.Internal) we have
+--
+-- type Args = [Arg Term]
+--
+-- however, we cannot create the instance of Args based on a simple
+-- map, because in some cases we need to erase the term.
 
 instance ChangeIndex Args where
-  changeIndex []           _   = []
-  changeIndex (arg : args) index = changeIndex arg index : changeIndex args index
+  changeIndex [] _ = []
+
+  changeIndex (Arg h r var@(Var n []) : args) index
+    -- The variable was before than the quantified variable, we don't
+    -- do nothing.
+    | n < index = Arg h r var : changeIndex args index
+
+    -- The variable was after than the quantified variable, we need
+    -- "unbound" the quantified variable.
+    | n > index = Arg h r (Var (n - 1) []) : changeIndex args index
+
+    -- The variable is the quantified variable. This can happen when
+    -- the quantified variable is used indirectly by other term via
+    -- for example a where clause (see for example xxx). In this case,
+    -- we remove the variable. Before this modification, we returned
+    -- __IMPOSSIBLE__.
+    | n == index = changeIndex args index
+
+  changeIndex (Arg _ _ (Var _ _) : _) _ = __IMPOSSIBLE__
+
+  changeIndex (Arg h r term : args) index = Arg h r (changeIndex term index) :
+                                            changeIndex args index
 
 instance ChangeIndex ClauseBody where
   changeIndex (Bind (Abs x cBody)) index = Bind (Abs x (changeIndex cBody index))
@@ -266,7 +291,6 @@ instance TypesOfVars (Arg Term) where
 instance TypesOfVars Args where
   typesOfVars []       = []
   typesOfVars (x : xs) = typesOfVars x ++ typesOfVars xs
-
 
 -- instance TypesOfVars (Abs Type) where
 --   typesOfVars (Abs _ ty) = typesOfVars ty

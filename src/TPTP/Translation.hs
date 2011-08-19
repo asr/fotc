@@ -18,7 +18,6 @@ import Control.Monad        ( foldM, liftM2, liftM4, zipWithM )
 import Control.Monad.State  ( get )
 
 import Data.List                 ( nub )
--- import Data.Map ( Map )
 import qualified Data.Map as Map ( elems, keys )
 
 ------------------------------------------------------------------------------
