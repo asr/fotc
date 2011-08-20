@@ -12,6 +12,7 @@
 module FOL.Translation.Functions ( fnToFormula ) where
 
 -- Haskell imports
+import Control.Monad       ( liftM2 )
 import Control.Monad.Error ( throwError )
 
 -- Agda library imports
@@ -132,6 +133,8 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
       -- We process forward in the telescope and the pattern.
       f2 ← clauseToFormula qName ty (Clause r (indexMinus1 tels) perm pats newBody)
 
+      reportSLn "def2f" 20 $ "f2: " ++ show f2
+
       return $ Implies f1 f2
 
     _ → __IMPOSSIBLE__
@@ -150,25 +153,15 @@ clauseToFormula qName ty (Clause _ _ _ [] cBody) = do
 
   case ty of
     -- The defined symbol is a predicate.
-    El (Type (Max [ClosedLevel 1])) _ → do
-      lhsF ← termToFormula lhs
-
-      -- The RHS is the body of the clause.
-      rhsF ← cBodyToFormula cBody
-
-      -- Because the LHS and RHS are formulas, they are related via an
-      -- equivalence logic.
-      return $ Equiv lhsF rhsF
+    El (Type (Max [ClosedLevel 1])) _ →
+       -- Because the LHS and the RHS (the body of the clause) are
+       -- formulas, they are related via an equivalence logic.
+       liftM2 Equiv (termToFormula lhs) (cBodyToFormula cBody)
 
     -- The defined symbol is a function.
-    El (Type (Max [])) _ → do
-      lhsT ← termToFOLTerm lhs
-
-      -- The RHS is the body of the clause.
-      rhsT ← cBodyToFOLTerm cBody
-
-      -- Because the LHS and RHS are terms, they are related via the
-      -- FOL equality.
-      return $ equal lhsT rhsT
+    El (Type (Max [])) _ →
+       -- Because the LHS and the RHS (the body of the clause) are
+       -- terms, they are related via the FOL equaliy
+       liftM2 equal (termToFOLTerm lhs) (cBodyToFOLTerm cBody)
 
     _ → __IMPOSSIBLE__

@@ -91,7 +91,6 @@ instance IndexMinus1 Term where
   indexMinus1 (Var _ _)   = __IMPOSSIBLE__
 
   indexMinus1 (Con _ _)   = __IMPOSSIBLE__
-
   indexMinus1 DontCare    = __IMPOSSIBLE__
   indexMinus1 (Fun _ _)   = __IMPOSSIBLE__
   indexMinus1 (Lam _ _)   = __IMPOSSIBLE__
