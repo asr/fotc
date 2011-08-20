@@ -8,15 +8,15 @@
 --     approach to the specification and verification of concurrent
 --     systems. Formal Aspects of Computing, 1:303–319, 1989.
 
-module Draft.FOTC.Program.ABP.ABP where
+module FOTC.Program.ABP.ABP where
 
 open import FOTC.Base
 
 open import FOTC.Data.Bool
 open import FOTC.Data.Stream.Type
 
-open import Draft.FOTC.Program.ABP.Fair
-open import Draft.FOTC.Program.ABP.Terms
+open import FOTC.Program.ABP.Fair
+open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 -- ABP equations

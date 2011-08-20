@@ -1,16 +1,16 @@
 ------------------------------------------------------------------------------
--- Test the consistency of Draft.FOTC.Program.ABP.ABP
+-- Test the consistency of FOTC.Program.ABP.ABP
 ------------------------------------------------------------------------------
 
--- In the module Draft.FOTC.Program.ABP.ABP we declare Agda postulates
--- as FOL axioms. We test if it is possible to prove an unprovable
+-- In the module FOTC.Program.ABP.ABP we declare Agda postulates as
+-- FOL axioms. We test if it is possible to prove an unprovable
 -- theorem from these axioms.
 
-module Draft.FOTC.Program.ABP.ABP.ConsistencyTest where
+module FOTC.Program.ABP.ABP.ConsistencyTest where
 
 open import FOTC.Base
 
-open import Draft.FOTC.Program.ABP.ABP
+open import FOTC.Program.ABP.ABP
 
 ------------------------------------------------------------------------------
 

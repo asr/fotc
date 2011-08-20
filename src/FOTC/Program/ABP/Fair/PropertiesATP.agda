@@ -2,14 +2,14 @@
 -- Fair properties
 ------------------------------------------------------------------------------
 
-module Draft.FOTC.Program.ABP.Fair.PropertiesATP where
+module FOTC.Program.ABP.Fair.PropertiesATP where
 
 open import FOTC.Base
 
 open import FOTC.Data.List
 
-open import Draft.FOTC.Program.ABP.Fair
-open import Draft.FOTC.Program.ABP.Terms
+open import FOTC.Program.ABP.Fair
+open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 

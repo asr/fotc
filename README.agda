@@ -276,6 +276,10 @@ open import FOTC.Program.Division.ProofSpecificationI
 -- 6.7.7 The map-iterate property: A property using coinduction
 open import FOTC.Program.MapIterate.MapIterateATP
 
+-- 6.7.8 The alternating bit protocol: A program using co-inductive types
+open import FOTC.Program.ABP.ProofSpecificationATP
+open import FOTC.Program.ABP.ProofSpecificationI
+
 -- 6.8 Other modules
 -- (These modules are not imported from any module).
 open import FOTC.Program.Division.EquationsATP

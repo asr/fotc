@@ -2,16 +2,16 @@
 -- ABP mayor premise
 ------------------------------------------------------------------------------
 
-module Draft.FOTC.Program.ABP.MayorPremiseATP where
+module FOTC.Program.ABP.MayorPremiseATP where
 
 open import FOTC.Base
 
 open import FOTC.Data.Bool
 open import FOTC.Data.Stream.Type
 
-open import Draft.FOTC.Program.ABP.ABP
-open import Draft.FOTC.Program.ABP.Fair
-open import Draft.FOTC.Program.ABP.Terms
+open import FOTC.Program.ABP.ABP
+open import FOTC.Program.ABP.Fair
+open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 

@@ -2,13 +2,13 @@
 -- Fairness of the ABP channels
 ------------------------------------------------------------------------------
 
-module Draft.FOTC.Program.ABP.Fair where
+module FOTC.Program.ABP.Fair where
 
 open import FOTC.Base
 
 open import FOTC.Data.List
 
-open import Draft.FOTC.Program.ABP.Terms
+open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 -- The Fair co-inductive predicate

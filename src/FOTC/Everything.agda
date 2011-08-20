@@ -70,6 +70,24 @@ open import FOTC.Data.Stream.Type
 
 open import FOTC.Induction.WellFounded
 
+open import FOTC.Program.ABP.ABP
+open import FOTC.Program.ABP.ABP.ConsistencyTest
+open import FOTC.Program.ABP.Fair
+open import FOTC.Program.ABP.Fair.ConsistencyTest
+open import FOTC.Program.ABP.Fair.PropertiesATP
+open import FOTC.Program.ABP.Fair.PropertiesI
+open import FOTC.Program.ABP.Lemma1ATP
+open import FOTC.Program.ABP.Lemma1I
+open import FOTC.Program.ABP.Lemma2ATP
+open import FOTC.Program.ABP.Lemma2ATP
+open import FOTC.Program.ABP.MayorPremiseATP
+open import FOTC.Program.ABP.MayorPremiseI
+open import FOTC.Program.ABP.MinorPremiseATP
+open import FOTC.Program.ABP.MinorPremiseI
+open import FOTC.Program.ABP.ProofSpecificationATP
+open import FOTC.Program.ABP.ProofSpecificationI
+open import FOTC.Program.ABP.Terms
+
 open import FOTC.Program.Collatz.Collatz
 open import FOTC.Program.Collatz.Collatz.ConsistencyTest
 open import FOTC.Program.Collatz.Data.Nat

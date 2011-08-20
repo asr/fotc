@@ -9,7 +9,10 @@
 --     approach to the specification and verification of concurrent
 --     systems. Formal Aspects of Computing, 1:303–319, 1989.
 
-module Draft.FOTC.Program.ABP.ProofSpecificationATP where
+-- N.B This module does not contain combined proofs, but it imports
+-- modules which contain combined proofs.
+
+module FOTC.Program.ABP.ProofSpecificationATP where
 
 open import FOTC.Base
 
@@ -17,11 +20,11 @@ open import FOTC.Data.Stream.Type
 
 open import FOTC.Relation.Binary.Bisimilarity
 
-open import Draft.FOTC.Program.ABP.ABP
-open import Draft.FOTC.Program.ABP.Fair
-open import Draft.FOTC.Program.ABP.MayorPremiseATP
-open import Draft.FOTC.Program.ABP.MinorPremiseATP
-open import Draft.FOTC.Program.ABP.Terms
+open import FOTC.Program.ABP.ABP
+open import FOTC.Program.ABP.Fair
+open import FOTC.Program.ABP.MayorPremiseATP
+open import FOTC.Program.ABP.MinorPremiseATP
+open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 -- Main theorem.

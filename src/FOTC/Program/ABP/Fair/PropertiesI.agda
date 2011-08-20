@@ -2,7 +2,7 @@
 -- Fair properties
 ------------------------------------------------------------------------------
 
-module Draft.FOTC.Program.ABP.Fair.PropertiesI where
+module FOTC.Program.ABP.Fair.PropertiesI where
 
 open import FOTC.Base
 
@@ -10,8 +10,8 @@ open import FOTC.Data.List
 
 open import FOTC.Relation.Binary.EqReasoning
 
-open import Draft.FOTC.Program.ABP.Fair
-open import Draft.FOTC.Program.ABP.Terms
+open import FOTC.Program.ABP.Fair
+open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 

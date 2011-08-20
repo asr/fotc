@@ -2,7 +2,10 @@
 -- ABP minor premise
 ------------------------------------------------------------------------------
 
-module Draft.FOTC.Program.ABP.MinorPremiseATP where
+-- N.B This module does not contain combined proofs, but it imports
+-- modules which contain combined proofs.
+
+module FOTC.Program.ABP.MinorPremiseATP where
 
 open import FOTC.Base
 
@@ -12,10 +15,10 @@ open import FOTC.Data.Stream.Type
 
 open import FOTC.Relation.Binary.Bisimilarity
 
-open import Draft.FOTC.Program.ABP.ABP
-open import Draft.FOTC.Program.ABP.Fair
-open import Draft.FOTC.Program.ABP.Lemma1ATP
-open import Draft.FOTC.Program.ABP.Lemma2ATP
+open import FOTC.Program.ABP.ABP
+open import FOTC.Program.ABP.Fair
+open import FOTC.Program.ABP.Lemma1ATP
+open import FOTC.Program.ABP.Lemma2ATP
 
 ------------------------------------------------------------------------------
 

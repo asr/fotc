@@ -2,7 +2,7 @@
 -- ABP minor premise
 ------------------------------------------------------------------------------
 
-module Draft.FOTC.Program.ABP.MinorPremiseI where
+module FOTC.Program.ABP.MinorPremiseI where
 
 open import FOTC.Base
 
@@ -12,10 +12,10 @@ open import FOTC.Data.Stream.Type
 
 open import FOTC.Relation.Binary.Bisimilarity
 
-open import Draft.FOTC.Program.ABP.ABP
-open import Draft.FOTC.Program.ABP.Fair
-open import Draft.FOTC.Program.ABP.Lemma1I
-open import Draft.FOTC.Program.ABP.Lemma2I
+open import FOTC.Program.ABP.ABP
+open import FOTC.Program.ABP.Fair
+open import FOTC.Program.ABP.Lemma1I
+open import FOTC.Program.ABP.Lemma2I
 
 ------------------------------------------------------------------------------
 
