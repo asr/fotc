@@ -2,20 +2,20 @@
 -- ABP minor premise
 ------------------------------------------------------------------------------
 
-module Draft.FOTC.Program.ABP.MinorPremiseI where
+module Draft.FOTC.Program.ABP.MinorPremiseATP where
 
 open import FOTC.Base
 
 open import FOTC.Data.Bool
-open import FOTC.Data.Bool.PropertiesI
+open import FOTC.Data.Bool.PropertiesATP
 open import FOTC.Data.Stream.Type
 
 open import FOTC.Relation.Binary.Bisimilarity
 
 open import Draft.FOTC.Program.ABP.ABP
 open import Draft.FOTC.Program.ABP.Fair
-open import Draft.FOTC.Program.ABP.Lemma1I
-open import Draft.FOTC.Program.ABP.Lemma2I
+open import Draft.FOTC.Program.ABP.Lemma1ATP
+open import Draft.FOTC.Program.ABP.Lemma2ATP
 
 ------------------------------------------------------------------------------
 
@@ -67,7 +67,6 @@ minorPremise {is} {js}
                 ∧ Fair os₁'
                 ∧ Abp' b i' is' os₀' os₁' as' bs' cs' ds' js'
                 ∧ js ≡ i' ∷ js'
-
   Abp'-lemma₁ = lemma₁ Bb Fos₀ Fos₁ (Abp-helper is≡i'∷is h)
 
   -- Following Martin Escardo advice (see Agda mailing list, heap
@@ -82,12 +81,11 @@ minorPremise {is} {js}
   js≡i'∷js' with Abp'-lemma₁
   ... | _ , _ , _ , _ , _ , _ , _ , _ , _ , _ , h = h
 
-  Abp-lemma₂ :  ∃ λ os₀'' → ∃ λ os₁'' →
-                ∃ λ as'' → ∃ λ bs'' → ∃ λ cs'' → ∃ λ ds'' →
-                Fair os₀''
-                ∧ Fair os₁''
-                ∧ Abp (not b) is' os₀'' os₁'' as'' bs'' cs'' ds'' js'
-
+  Abp-lemma₂ : ∃ λ os₀'' → ∃ λ os₁'' →
+               ∃ λ as'' → ∃ λ bs'' → ∃ λ cs'' → ∃ λ ds'' →
+               Fair os₀''
+               ∧ Fair os₁''
+               ∧ Abp (not b) is' os₀'' os₁'' as'' bs'' cs'' ds'' js'
   Abp-lemma₂ with Abp'-lemma₁
   Abp-lemma₂ | _ , _ , _ , _ , _ , _ , _ , Fos₀' , Fos₁' , abp' , _ =
     lemma₂ Bb Fos₀' Fos₁' abp'

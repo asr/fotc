@@ -30,6 +30,10 @@ open import FOTC.Data.Nat.Type
   where postulate prf : Bool (false && false)
         {-# ATP prove prf #-}
 
+not-Bool : ∀ {b} → Bool b → Bool (not b)
+not-Bool tB = subst Bool (sym not-t) fB
+not-Bool fB = subst Bool (sym not-f) tB
+
 &&-comm : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ b₂ && b₁
 &&-comm tB tB = refl
 &&-comm tB fB = trans &&-tf (sym &&-ft)

@@ -20,7 +20,7 @@ open import FOTC.Relation.Binary.Bisimilarity
 open import Draft.FOTC.Program.ABP.ABP
 open import Draft.FOTC.Program.ABP.Fair
 open import Draft.FOTC.Program.ABP.MayorPremiseATP
-open import Draft.FOTC.Program.ABP.MinorPremise
+open import Draft.FOTC.Program.ABP.MinorPremiseATP
 open import Draft.FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
