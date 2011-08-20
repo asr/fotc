@@ -2,7 +2,10 @@
 -- Testing the erasure of proof terms
 ------------------------------------------------------------------------------
 
-module Issues.Tmp.ProofTerm where
+-- An internal error has occurred. Please report this as a bug.
+-- Location of the error: src/AgdaLib/Syntax/DeBruijn.hs:417
+
+module Issues.ProofTerm where
 
 postulate
   D   : Set
