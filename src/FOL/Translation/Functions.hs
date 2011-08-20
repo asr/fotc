@@ -31,6 +31,8 @@ import Agda.Syntax.Internal
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
+import AgdaLib.Syntax.DeBruijn ( indexMinus1 )
+
 import FOL.Primitives         ( equal )
 import FOL.Translation.Common ( varsToArgs )
 import FOL.Translation.Internal
@@ -79,7 +81,7 @@ fnToFormula _      _  _         =
 -- length [Arg Pattern].
 clauseToFormula ∷ QName → Type → Clause → T FOLFormula
 
--- There is at most one variable in the clause's pattern, so ...
+-- There is at most one variable in the clause's pattern.
 clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
   case tel of
     -- The bounded variable is quantified on a Set,
@@ -88,16 +90,17 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
     --
     -- so we can create a fresh variable and quantify on it without any
     -- problem. N.B. the pattern matching on (Def _ []).
-    ExtendTel
-      (Arg _ _ (El (Type (Max [])) (Def _ []))) (Abs x tels) → do
-          reportSLn "def2f" 20 $ "Processing variable: " ++ x
+    ExtendTel (Arg _ _ (El (Type (Max [])) (Def _ []))) (Abs x tels) → do
 
-          freshVar ← newTVar
-          pushTVar freshVar
-          f ← clauseToFormula qName ty (Clause r tels perm pats cBody)
-          popTVar
+      reportSLn "def2f" 20 $ "Processing variable: " ++ x
 
-          return $ ForAll freshVar (\_ → f)
+      freshVar ← newTVar
+      pushTVar freshVar
+      -- We process forward in the telescope and the pattern.
+      f ← clauseToFormula qName ty (Clause r tels perm pats cBody)
+      popTVar
+
+      return $ ForAll freshVar (\_ → f)
 
     -- The bounded variable is quantified on a proof,
     --
@@ -109,26 +112,27 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
     -- function type (using Implies instead of ForAll).
 
     -- N.B. the pattern matching on (Def _ _).
-    ExtendTel
-      (Arg _ _ tye@(El (Type (Max [])) (Def _ _))) (Abs x tels) →
-        do f1 ← typeToFormula tye
+    ExtendTel (Arg _ _ tye@(El (Type (Max [])) (Def _ _))) (Abs x tels) → do
 
-           reportSLn "def2f" 20 $ "Processing variable: " ++ x
+      reportSLn "def2f" 20 $ "Processing proof term: " ++ x
 
-           reportSLn "def2f" 20 $ "f1: " ++ show f1
+      f1 ← typeToFormula tye
 
-           reportSLn "def2f" 20 $ "Current body: " ++ show cBody
+      reportSLn "def2f" 20 $ "f1: " ++ show f1
 
-           (newBody ∷ ClauseBody) ← removeBindingOnCBody cBody x
+      reportSLn "def2f" 20 $ "Current body: " ++ show cBody
 
-           -- Just to force the evaluation of newBody.
-           if length (show newBody) == 0 then __IMPOSSIBLE__ else return ()
+      (newBody ∷ ClauseBody) ← removeBindingOnCBody cBody x
 
-           reportSLn "def2f" 20 $ "New body: " ++ show newBody
+      -- Just to force the evaluation of newBody.
+      if length (show newBody) == 0 then __IMPOSSIBLE__ else return ()
 
-           f2 ← clauseToFormula qName ty (Clause r tels perm pats newBody)
+      reportSLn "def2f" 20 $ "New body: " ++ show newBody
 
-           return $ Implies f1 f2
+      -- We process forward in the telescope and the pattern.
+      f2 ← clauseToFormula qName ty (Clause r (indexMinus1 tels) perm pats newBody)
+
+      return $ Implies f1 f2
 
     _ → __IMPOSSIBLE__
 

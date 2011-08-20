@@ -5,24 +5,16 @@
 module Test.Succeed.ProofTerm5 where
 
 postulate
-  D          : Set
-  _≡_        : D → D → Set
-  Bool       : D → Set
-  not        : D → D
+  D              : Set
+  _≡_            : D → D → Set
+  SomePredicate  : D → D → D → D → Set
 
--- In this case the proof term Bb is referenced in the types of the
--- definitions of as and bs via the where clause. Therefore in the
--- translation of as and bs, we need to erase this proof term.
-foo : (a : D) → ∀ {b} → Bool b → D
-foo  a Bb = a
+-- We can erase proof terms of type SomePredicate where the type of
+-- SomePredicate is
+--
+-- SomePredicate : D → ... → D → Set.
+foo : ∀ m₁ m₂ m₃ m₄ → SomePredicate m₁ m₂ m₃ m₄ → m₁ ≡ m₁
+foo m₁ m₂ m₃ m₄ h = bar m₁
   where
-  c : D
-  c = a
-  {-# ATP definition c #-}
-
-  d : D
-  d = not c
-  {-# ATP definition d #-}
-
-  postulate bar : d ≡ not a
+  postulate bar : ∀ m → m ≡ m
   {-# ATP prove bar #-}

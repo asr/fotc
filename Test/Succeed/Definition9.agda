@@ -1,4 +1,8 @@
-module Test.Succeed.DefinitionUsingExistential where
+------------------------------------------------------------------------------
+-- Testing the translation of definitions
+------------------------------------------------------------------------------
+
+module Test.Succeed.Definition9 where
 
 postulate
   D   : Set
@@ -8,8 +12,7 @@ postulate
 data ∃ (P : D → Set) : Set where
   _,_ : (witness : D) → P witness → ∃ P
 
-------------------------------------------------------------------------------
-
+-- We test the translation of a definition which Agda eta-reduces.
 foo : ∀ {n} → N n → D
 foo {n} Nn = n
   where

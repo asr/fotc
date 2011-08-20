@@ -1,4 +1,8 @@
-module Test.Succeed.DefinitionInsideWhereClause2 where
+------------------------------------------------------------------------------
+-- Testing the translation of definitions
+------------------------------------------------------------------------------
+
+module Test.Succeed.Definition7 where
 
 infixl 6 _+_
 infix  4 _≡_
@@ -9,12 +13,10 @@ postulate
   succ   : D → D
   _≡_    : D → D → Set
 
--- The LTC natural numbers type.
 data N : D → Set where
   zN : N zero
   sN : ∀ {n} → N n → N (succ n)
 
--- Induction principle for N (elimination rule).
 indN : (P : D → Set) →
        P zero →
        (∀ {n} → N n → P n → P (succ n)) →
@@ -29,11 +31,12 @@ postulate
 {-# ATP axiom +-0x #-}
 {-# ATP axiom +-Sx #-}
 
-+-assoc : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
-+-assoc {n = n} {o} Nm Nn No = indN P P0 iStep Nm
+-- We test the translation of a definition where we need to erase proof terms.
++-rightIdentity : ∀ {n} → N n → n + zero ≡ n
++-rightIdentity Nn = indN P P0 iStep Nn
   where
   P : D → Set
-  P i = i + n + o ≡ i + (n + o)
+  P i = i + zero ≡ i
   {-# ATP definition P #-}
 
   postulate P0 : P zero

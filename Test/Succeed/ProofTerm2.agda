@@ -9,6 +9,5 @@ postulate
   N   : D → Set
   _≡_ : D → D → Set
 
-postulate
-  foo : ∀ {m n} → (Nm : N m) → (Nn : N n) → m ≡ m
+postulate foo : ∀ {m n} → (Nm : N m) → (Nn : N n) → m ≡ m
 {-# ATP prove foo #-}

@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Testing the definition of predicates
+-- Testing the translation of definitions
 ------------------------------------------------------------------------------
 
-module Test.Succeed.DefinitionOfPredicates where
+module Test.Succeed.Definition4 where
 
 infixl 6 _+_
 infix  4 _≡_
@@ -13,12 +13,10 @@ postulate
   succ   : D → D
   _≡_    : D → D → Set
 
--- The LTC natural numbers type.
 data N : D → Set where
   zN : N zero
   sN : ∀ {n} → N n → N (succ n)
 
--- Induction principle for N (elimination rule).
 indN : (P : D → Set) →
        P zero →
        (∀ {n} → N n → P n → P (succ n)) →
@@ -32,6 +30,8 @@ postulate
   +-Sx : ∀ d e → succ d + e ≡ succ (d + e)
 {-# ATP axiom +-0x #-}
 {-# ATP axiom +-Sx #-}
+
+-- We test the translation of the definition of a predicate.
 
 P : D → Set
 P i = zero + i ≡ i

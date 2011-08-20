@@ -16,6 +16,7 @@
 module AgdaLib.Syntax.DeBruijn
   ( ChangeIndex(changeIndex)
   , IndexPlus1(indexPlus1)
+  , IndexMinus1(indexMinus1)
   , removeReferenceToProofTerm
   , typesOfVars
   , varToIndex
@@ -28,7 +29,9 @@ import Control.Monad.Error ( throwError )
 -- import Data.Maybe ( fromJust )
 import Data.List  ( elemIndex )
 
+------------------------------------------------------------------------------
 -- Agda libray imports
+
 import Agda.Syntax.Common ( Arg(Arg) , Nat )
 import Agda.Syntax.Internal
   ( Abs(Abs)
@@ -36,13 +39,16 @@ import Agda.Syntax.Internal
   , ClauseBody(Bind,Body)
   , Level(Max)
   , PlusLevel(ClosedLevel)
+  , Tele(EmptyTel, ExtendTel)
   , Term(Con, Def, DontCare, Fun, Lam, Level, Lit, MetaV, Pi, Sort, Var)
   , Sort(Type)
   , Type(El)
   )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
+------------------------------------------------------------------------------
 -- Local imports
+
 import Monad.Base    ( getTVars, popTVar, pushTVar, T )
 import Monad.Reports ( reportSLn )
 
@@ -71,6 +77,46 @@ instance IndexPlus1 Term where
 -- Requires FlexibleInstances.
 instance IndexPlus1 (Arg Term) where
   indexPlus1 (Arg h r term) = Arg h r $ indexPlus1 term
+
+------------------------------------------------------------------------------
+-- | To reduce by one the de Bruijn index of the variable.
+class IndexMinus1 a where
+  indexMinus1 ∷ a → a
+
+instance IndexMinus1 Term where
+  indexMinus1 (Def qname args) = Def qname $ indexMinus1 args
+
+  indexMinus1 (Var 0 [])  = __IMPOSSIBLE__
+  indexMinus1 (Var n [])  = Var (n - 1) []
+  indexMinus1 (Var _ _)   = __IMPOSSIBLE__
+
+  indexMinus1 (Con _ _)   = __IMPOSSIBLE__
+
+  indexMinus1 DontCare    = __IMPOSSIBLE__
+  indexMinus1 (Fun _ _)   = __IMPOSSIBLE__
+  indexMinus1 (Lam _ _)   = __IMPOSSIBLE__
+  indexMinus1 (Level _)   = __IMPOSSIBLE__
+  indexMinus1 (Lit _)     = __IMPOSSIBLE__
+  indexMinus1 (MetaV _ _) = __IMPOSSIBLE__
+  indexMinus1 (Pi _ _)    = __IMPOSSIBLE__
+  indexMinus1 (Sort _)    = __IMPOSSIBLE__
+
+instance IndexMinus1 a ⇒ IndexMinus1 [a] where
+  indexMinus1 = map indexMinus1
+
+instance IndexMinus1 Type where
+  indexMinus1 (El (Type (Max [])) term) = El (Type (Max [])) (indexMinus1 term)
+  indexMinus1 _                         = __IMPOSSIBLE__
+
+instance IndexMinus1 a ⇒ IndexMinus1 (Arg a) where
+  indexMinus1 (Arg h r a) = Arg h r $ indexMinus1 a
+
+instance IndexMinus1 a ⇒ IndexMinus1 (Abs a) where
+  indexMinus1 (Abs name body) = Abs name $ indexMinus1 body
+
+instance IndexMinus1 a ⇒ IndexMinus1 (Tele a) where
+  indexMinus1 EmptyTel          = EmptyTel
+  indexMinus1 (ExtendTel a tel) = ExtendTel (indexMinus1 a) (indexMinus1 tel)
 
 ------------------------------------------------------------------------------
 -- We collect the variables' names using the type class VarNames. The
