@@ -17,7 +17,7 @@ module AgdaLib.Syntax.DeBruijn
   ( ChangeIndex(changeIndex)
   , IndexPlus1(indexPlus1)
   , IndexMinus1(indexMinus1)
-  , removeReferenceToProofTerm
+  , removeProofTerm
   , typesOfVars
   , varToIndex
   ) where
@@ -365,7 +365,7 @@ instance RemoveVar Term where
 
     popTVar
 
-    reportSLn "RRTPTs" 20 $ "Pop variable: " ++ y
+    reportSLn "removePT" 20 $ "Pop variable: " ++ y
 
     return $ Lam h (Abs y auxTerm)
 
@@ -383,7 +383,7 @@ instance RemoveVar Term where
                   return $ Pi argT (Abs y newType)
                 else fmap (Fun argT) (removeVar absTy x)
     popTVar
-    reportSLn "RRTPTs" 20 $ "Pop variable: " ++ y
+    reportSLn "removePT" 20 $ "Pop variable: " ++ y
     return newTerm
 
   removeVar (Con _ _)   _ = __IMPOSSIBLE__
@@ -415,7 +415,7 @@ instance RemoveVar Args where
     let index ∷ Integer
         index = case elemIndex x vars of
                   Nothing →  __IMPOSSIBLE__
-                  (Just i) → fromIntegral i
+                  Just i  → fromIntegral i
 
     if n == index
       then removeVar args x
@@ -428,8 +428,10 @@ instance RemoveVar Args where
   removeVar (Arg h r term : args) x =
     liftM2 (\t ts → Arg h r t : ts) (removeVar term x) (removeVar args x)
 
-removeReferenceToProofTerm ∷ Type → (String, Type) → T Type
-removeReferenceToProofTerm ty (x, typeVar) =
+removeProofTerm ∷ Type → (String, Type) → T Type
+removeProofTerm ty (x, typeVar) = do
+  reportSLn "removePT" 20 $ "Removing variable: " ++ x
+
   case typeVar of
     -- The variable's type is a Set,
     --
@@ -450,8 +452,6 @@ removeReferenceToProofTerm ty (x, typeVar) =
 
     -- N.B. the pattern matching on (Def _ _).
 
-    -- TODO: This case *is not enough* to remove the reference to a
-    -- proof term. See Test.Issues.BadProofTermErase.
     El (Type (Max [])) (Def _ _) → removeVar ty x
 
     -- The variable's type is a function type,
@@ -483,7 +483,7 @@ removeReferenceToProofTerm ty (x, typeVar) =
 
     -- We don't erase these proofs terms.
     El (Type (Max [])) someTerm → do
-      reportSLn "RRTPT" 20 $
+      reportSLn "removePT" 20 $
                 "The term someTerm is: " ++ show someTerm
       throwError $ "It is necessary to erase a proof term, "++
                    "but we do not know how to do it. The internal " ++
@@ -517,6 +517,6 @@ removeReferenceToProofTerm ty (x, typeVar) =
     El (Type (Max [ClosedLevel 1])) (Var _ _)    → __IMPOSSIBLE__
 
     someType → do
-      reportSLn "RRTPT" 20 $
+      reportSLn "removePT" 20 $
                 "The type varType is: " ++ show someType
       __IMPOSSIBLE__
