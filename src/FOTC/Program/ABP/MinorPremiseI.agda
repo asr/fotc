@@ -87,7 +87,6 @@ minorPremise {is} {js}
                 Fair os₀''
                 ∧ Fair os₁''
                 ∧ Abp (not b) is' os₀'' os₁'' as'' bs'' cs'' ds'' js'
-
   Abp-lemma₂ with Abp'-lemma₁
   Abp-lemma₂ | _ , _ , _ , _ , _ , _ , _ , Fos₀' , Fos₁' , abp' , _ =
     lemma₂ Bb Fos₀' Fos₁' abp'

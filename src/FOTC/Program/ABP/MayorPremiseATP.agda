@@ -25,7 +25,7 @@ open import FOTC.Program.ABP.Terms
 
 mayorPremise : ∀ {b os₀ os₁ is} →
                Bit b → Fair os₀ → Fair os₁ → Stream is →
-               is B abptrans b os₀ os₁ is
+               is B abptransfer b os₀ os₁ is
 mayorPremise {b} {os₀} {os₁} {is} Bb Fos₀ Fos₁ Sis =
   b
   , os₀
@@ -70,7 +70,7 @@ mayorPremise {b} {os₀} {os₁} {is} Bb Fos₀ Fos₁ Sis =
                     hcs (abpsend · b) (abpack · b) (abpout · b) (corrupt · os₀)
                     (corrupt · os₁) is
                     ∧
-                    abptrans b os₀ os₁ is ≡
+                    abptransfer b os₀ os₁ is ≡
                     abpout · b ·
                     hbs (abpsend · b) (abpack · b) (abpout · b) (corrupt · os₀)
                     (corrupt · os₁) is

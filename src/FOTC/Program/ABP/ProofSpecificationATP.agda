@@ -37,5 +37,5 @@ spec : ∀ {b is os₀ os₁} → Bit b → Stream is → Fair os₀ → Fair os
                      is
 spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ =
   subst (_≈_ is)
-        (abptrans-eq b os₀ os₁ is)
+        (abptransfer-eq b os₀ os₁ is)
         (≈-gfp₂ _B_ minorPremise (mayorPremise Bb Fos₀ Fos₁ Sis))

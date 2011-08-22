@@ -115,12 +115,12 @@ postulate
 {-# ATP axiom transfer-eq #-}
 
 postulate
-  abptrans    : D → D → D → D → D
-  abptrans-eq :
-    ∀ b os₀ os₁ is → abptrans b os₀ os₁ is ≡
+  abptransfer    : D → D → D → D → D
+  abptransfer-eq :
+    ∀ b os₀ os₁ is → abptransfer b os₀ os₁ is ≡
     transfer (abpsend · b) (abpack · b) (abpout · b)
              (corrupt · os₀) (corrupt · os₁) is
-{-# ATP axiom abptrans-eq #-}
+{-# ATP axiom abptransfer-eq #-}
 
 ------------------------------------------------------------------------------
 -- ABP relations
