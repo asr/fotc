@@ -45,6 +45,7 @@ PA_path               = src/PA
 PredicateLogic_path   = src/PredicateLogic
 
 # Programs
+ABP_path            = $(FOTC_path)/Program/ABP
 Collatz_path        = $(FOTC_path)/Program/Collatz
 Division_path       = $(FOTC_path)/Program/Division
 Division-PCF_path   = $(LTC-PCF_path)/Program/Division
@@ -173,6 +174,7 @@ conjectures_% :
 # 		  conjectures_LTC-PCF \
 # 		  conjectures_PA \
 # 		  conjectures_PredicateLogic \
+#                 conjectures_ABP \
 #                 conjectures_Collatz \
 #                 conjectures_Division \
 #                 conjectures_Division-PCF \
