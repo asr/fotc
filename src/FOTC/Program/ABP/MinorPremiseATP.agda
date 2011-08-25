@@ -74,8 +74,9 @@ minorPremise {is} {js}
 
   -- Following Martin Escardo advice (see Agda mailing list, heap
   -- mistery) we use pattern matching instead of ∃ eliminators to
-  -- project the elements of the existentials.
-
+  -- project the elements of the existentials. Update on 2011-08-25:
+  -- It does not seems strictly necessary because the Agda issue 415
+  -- was fixed.
   js' : D
   js' with Abp'-lemma₁
   ... | _ , _ , _ , _ , _ , _ , js' , _ = js'
