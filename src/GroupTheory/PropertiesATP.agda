@@ -96,6 +96,6 @@ postulate
 {-# ATP prove ax≡b-uniqueSolution #-}
 
 -- If the square of every element is the identity, the system is commutative.
--- From: TPTP (v5.0.0). File: Problems/GRP/GRP001-2.p
+-- From: TPTP v5.2.0. File: Problems/GRP/GRP001-2.p
 postulate x²≡ε→comm : (∀ a → a · a ≡ ε) → ∀ {b c d} → b · c ≡ d → c · b ≡ d
 {-# ATP prove x²≡ε→comm #-}
