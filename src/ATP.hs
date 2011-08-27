@@ -1,3 +1,4 @@
+
 -----------------------------------------------------------------------------
 -- Call the ATPs
 -----------------------------------------------------------------------------
@@ -45,6 +46,7 @@ data ATP = E
          | Equinox
          | IleanCoP
          | Metis
+         | SPASS
          | Vampire
            deriving (Eq, Show)
 
@@ -56,6 +58,7 @@ atp2exec E        = "eprover"
 atp2exec Equinox  = "equinox"
 atp2exec IleanCoP = "ileancop.sh"
 atp2exec Metis    = "metis"
+atp2exec SPASS    = "SPASS"
 atp2exec Vampire  = "vampire"
 
 optATP2ATP ∷ String → T ATP
@@ -63,6 +66,7 @@ optATP2ATP "e"        = return E
 optATP2ATP "equinox"  = return Equinox
 optATP2ATP "ileancop" = return IleanCoP
 optATP2ATP "metis"    = return Metis
+optATP2ATP "spass"    = return SPASS
 optATP2ATP "vampire"  = return Vampire
 optATP2ATP nonATP     = throwError $ "ATP " ++ nonATP ++ " unknown"
 
@@ -82,6 +86,10 @@ metisOk = "SZS status Theorem"
 ileancopOk ∷ String
 ileancopOk = "Intuitionistic Theorem"
 
+-- Tested with SPASS 3.7.
+spassOk ∷ String
+spassOk = "Proof found"
+
 -- Tested with Vampire 0.6 (revision 903).
 vampireOk ∷ String
 vampireOk = "Termination reason: Refutation\n"
@@ -94,6 +102,7 @@ checkAtpOutput atp output = atpOk atp `isInfixOf` output
     atpOk Equinox  = equinoxOk
     atpOk IleanCoP = ileancopOk
     atpOk Metis    = metisOk
+    atpOk SPASS    = spassOk
     atpOk Vampire  = vampireOk
 
 -- Equinox bug? The option --no-progress don't make any difference.
@@ -115,6 +124,11 @@ atpArgs IleanCoP timeLimit file = [ file
 atpArgs Metis    timeLimit file = [ "--time-limit", show timeLimit
                                   , file
                                   ]
+atpArgs SPASS    timeLimit file = [ "-TPTP"
+                                  , "-TimeLimit=" ++ show timeLimit
+                                  , file
+                                  ]
+
 atpArgs Vampire  timeLimit file = [ "--input_file", file
                                   , "-t", show timeLimit
                                   ]
