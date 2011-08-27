@@ -290,11 +290,11 @@ open import FOTC.Program.GCD.Total.EquationsATP
 -- ATPs failures
 ------------------------------------------------------------------------------
 
--- The ATPs (E, Equinox, Metis and Vampire) could not prove some
+-- The ATPs (E, Equinox, Metis, SPASS and Vampire) could not prove some
 -- theorems.
 
--- This module was imported in the Stanovský example
--- open import DistributiveLaws.TaskB-ATP
+open import DistributiveLaws.TaskB-ATP
+open import FOTC.Program.ABP.MayorPremiseATP
 open import PA.Axiomatic.PropertiesATP
 
 ------------------------------------------------------------------------------
