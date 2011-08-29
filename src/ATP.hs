@@ -70,7 +70,7 @@ optATP2ATP "spass"    = return SPASS
 optATP2ATP "vampire"  = return Vampire
 optATP2ATP nonATP     = throwError $ "ATP " ++ nonATP ++ " unknown"
 
--- Tested with E 1.3 Ringtong.
+-- Tested with E 1.4 Nanring.
 eOk ∷ String
 eOk = "Proof found!"
 
