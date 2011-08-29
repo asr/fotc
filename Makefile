@@ -20,6 +20,11 @@ AGDA_Agsy    = agda -v 0 --allow-unsolved-metas \
 # N.B. The timeout for the conjectures test should be modify in the
 # conjectures_% target.
 AGDA2ATP                  = agda2atp -i. -isrc --unproved-conjecture-error
+# AGDA2ATP                  = agda2atp -i. -isrc --atp=e
+# AGDA2ATP                  = agda2atp -i. -isrc --atp=equinox
+# AGDA2ATP                  = agda2atp -i. -isrc --atp=metis
+# AGDA2ATP                  = agda2atp -i. -isrc --atp=spass
+# AGDA2ATP                  = agda2atp -i. -isrc --atp=vampire
 AGDA2ATP_CREATE_SNAPSHOT  = agda2atp -i. -isrc --only-file \
                                      --output-dir=$(snapshot_dir)
 AGDA2ATP_SNAPSHOT_TEST    = agda2atp -i. -isrc --snapshot-test \
