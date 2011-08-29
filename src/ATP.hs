@@ -110,6 +110,8 @@ atpArgs ∷ ATP → Int → FilePath → [String]
 atpArgs E        timeLimit file = [ "--cpu-limit=" ++ show timeLimit
                                   , "--memory-limit=Auto"
                                   , "--output-level=0"
+                                  , "--term-ordering=Auto"
+                                  , "--expert-heuristic=Auto"
                                   , "--tstp-format"
                                   , file
                                   ]
