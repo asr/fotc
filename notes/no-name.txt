@@ -1,4 +1,4 @@
-$ eprover --tstp-format --cpu-limit=xxx file_name
+$ eprover --cpu-limit=xxx -mAuto -xAuto -tAuto --tstp-format file_name
 $ equinox --time xxx file_name
 $ metis --time-limit xxx file_name
 $ SPASS -TPTP -TimeLimit=xxx file_name
