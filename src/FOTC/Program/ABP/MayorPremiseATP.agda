@@ -21,7 +21,7 @@ open import FOTC.Program.ABP.Terms
 -- postulate
 --   mayorPremise' : ∀ {b os₀ os₁ is} → Bit b → Fair os₀ → Fair os₁ → Stream is →
 --                   is B abptransfer b os₀ os₁ is
--- E 1.3: CPU time limit exceeded (180 sec).
+-- E 1.4: CPU time limit exceeded, terminating (180 sec).
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds)
 -- Metis 2.3 (release 20110531): SZS status Unknown (using timeout 180 sec).
 -- SPASS 3.7: Ran out of time (using timeout 180 sec).
