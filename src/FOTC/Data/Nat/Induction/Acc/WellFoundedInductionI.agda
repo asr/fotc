@@ -55,7 +55,7 @@ module WF₁-LT where
                       (λ Nm m<Sn → helper Nm Nn (wf-LT Nn)
                                           (x<Sy→x≤y Nm Nn m<Sn))
     where
-    helper : ∀ {n m} → N n → N m → Acc LT m → LE n m → Acc LT n
+    helper : ∀ {n m} → N n → N m → Acc {N} LT m → LE n m → Acc LT n
     helper {n} {m} Nn Nm (acc _ h) n≤m =
       [ (λ n<m → h Nn n<m)
       , (λ n≡m → helper₁ (sym n≡m) (acc Nm h))
