@@ -143,8 +143,10 @@ predicate qName args = do
     10 → fmap (appP10 (FOLFun folName [])) (mapM argTermToFOLTerm args)
 
     _ → throwError $
-        "The translation of predicates symbols with arity " ++
-        "greater than or equal to eleven is not implemented"
+        "The translation of predicates symbols with arity "
+        ++ "greater than or equal to eleven as "
+        ++ show qName
+        ++ " is not implemented"
 
 predicateLogicalScheme ∷ [String] → Nat → Args → T FOLFormula
 predicateLogicalScheme vars n args = do

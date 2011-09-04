@@ -5,7 +5,7 @@
 module Test.Fail.NoTheorem where
 
 -- Error message (using the option --unproved-conjecture-error):
--- agda2atp: The ATP(s) ["e","equinox","metis","vampire"] did not prove the conjecture in /tmp/Test.Fail.NoTheorem.43-comm_26.tptp
+-- agda2atp error: The ATP(s) ["e","equinox","metis","vampire"] did not prove the conjecture in /tmp/Test.Fail.NoTheorem.43-comm_26.tptp
 
 infix  4 _≡_
 infixl 6 _+_

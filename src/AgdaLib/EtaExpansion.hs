@@ -8,7 +8,10 @@
 module AgdaLib.EtaExpansion ( etaExpand ) where
 
 -- Haskell imports
-import Control.Monad ( liftM2 )
+import Control.Monad       ( liftM2 )
+import Control.Monad.Error ( throwError )
+
+import Data.Functor ( (<$>) )
 
 -- Agda library imports
 
@@ -33,7 +36,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
 
-import AgdaLib.Interface       ( qNameType )
+import AgdaLib.Interface       ( isProjection, qNameType )
 import AgdaLib.Syntax.DeBruijn ( indexPlus1 )
 import Monad.Base              ( newTVar, T )
 import Monad.Reports           ( reportSLn )
@@ -50,8 +53,7 @@ class EtaExpandible a where
   etaExpand ∷ a → T a
 
 instance EtaExpandible Type where
-  etaExpand (El (Type (Max [])) term) =
-    fmap (El (Type (Max []))) (etaExpand term)
+  etaExpand (El (Type (Max [])) term) =  El (Type (Max [])) <$> etaExpand term
 
   etaExpand (El (Type (Max [ClosedLevel 1])) term) =
     fmap (El (Type (Max [ClosedLevel 1]))) (etaExpand term)
@@ -61,10 +63,17 @@ instance EtaExpandible Type where
 instance EtaExpandible Term where
   etaExpand (Def qName args) = do
 
-    def ← qNameType qName
+    p ← isProjection qName
+    case p of
+      Nothing → return ()
+      Just _  → throwError $
+             "The translation of projection-like functions as "
+             ++ show qName
+             ++ " is not implemented"
 
+    ty ← qNameType qName
     let qNameArity ∷ Nat
-        qNameArity = arity def
+        qNameArity = arity ty
 
     argsEtaExpanded ← mapM etaExpand args
 
@@ -111,13 +120,13 @@ instance EtaExpandible Term where
 
   etaExpand (Fun tyArg ty) = liftM2 Fun (etaExpand tyArg) (etaExpand ty)
 
-  etaExpand (Lam h (Abs x termAbs)) = fmap (Lam h . Abs x) (etaExpand termAbs)
+  etaExpand (Lam h (Abs x termAbs)) = Lam h . Abs x <$> etaExpand termAbs
 
   -- It seems it is not necessary to eta-expand the tyArg like in the
   -- case of Fun (Arg Type) Type.
-  etaExpand (Pi tyArg (Abs x tyAbs)) = fmap (Pi tyArg . Abs x) (etaExpand tyAbs)
+  etaExpand (Pi tyArg (Abs x tyAbs)) = Pi tyArg . Abs x <$> etaExpand tyAbs
 
-  etaExpand (Var n args) = fmap (Var n) (mapM etaExpand args)
+  etaExpand (Var n args) = Var n <$> mapM etaExpand args
 
   etaExpand DontCare    = __IMPOSSIBLE__
   etaExpand (Level _)   = __IMPOSSIBLE__
@@ -126,4 +135,4 @@ instance EtaExpandible Term where
   etaExpand (Sort _)    = __IMPOSSIBLE__
 
 instance EtaExpandible a ⇒ EtaExpandible (Arg a) where
-  etaExpand (Arg h r t) = fmap (Arg h r) (etaExpand t)
+  etaExpand (Arg h r t) = Arg h r <$> etaExpand t

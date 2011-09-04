@@ -485,10 +485,9 @@ removeProofTerm ty (x, typeVar) = do
     El (Type (Max [])) someTerm → do
       reportSLn "removePT" 20 $
                 "The term someTerm is: " ++ show someTerm
-      throwError $ "It is necessary to erase a proof term, "++
-                   "but we do not know how to do it. The internal " ++
-                   "representation of the term to be erased is: \n" ++
-                   show someTerm
+      throwError $ "It is necessary to erase the proof term\n"
+                   ++ show someTerm ++ "\n"
+                   ++ "but we do not know how to do it"
 
     -- The variable's type is Set₁,
     --

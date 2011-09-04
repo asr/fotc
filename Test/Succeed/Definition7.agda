@@ -31,14 +31,16 @@ postulate
 {-# ATP axiom +-0x #-}
 {-# ATP axiom +-Sx #-}
 
+-- The predicate is not inside the where clause because the
+-- translation of projection-like functions is not implemented.
+P : D → Set
+P i = i + zero ≡ i
+{-# ATP definition P #-}
+
 -- We test the translation of a definition where we need to erase proof terms.
 +-rightIdentity : ∀ {n} → N n → n + zero ≡ n
 +-rightIdentity Nn = indN P P0 iStep Nn
   where
-  P : D → Set
-  P i = i + zero ≡ i
-  {-# ATP definition P #-}
-
   postulate P0 : P zero
   {-# ATP prove P0 #-}
 

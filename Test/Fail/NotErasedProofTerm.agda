@@ -5,8 +5,9 @@
 module Test.Fail.NotErasedProofTerm where
 
 -- Error message:
--- agda2atp: It is necessary to erase a proof term, but we do know how do it. The internal representation of term to be erased is:
--- Pi r(El (Type (Lit (LitLevel  0))) (Def Test.Fail.NotErasedProofTerm.D [])) (Abs "k" El (Type (Lit (LitLevel  0))) (Def Test.Fail.NotErasedProofTerm._≤_ [r(Var 0 []),r(Var 0 [])]))
+-- It is necessary to erase the proof term
+-- Pi r(El (Type (Max [])) (Def Test.Fail.NotErasedProofTerm.D [])) (Abs "k" El (Type (Max [])) (Def Test.Fail.NotErasedProofTerm._≤_ [r(Var 0 []),r(Var 0 [])]))
+-- but we do not know how to do it (AgdaLib.Syntax.DeBruijn.removeProofTerm)
 
 postulate
   D    : Set

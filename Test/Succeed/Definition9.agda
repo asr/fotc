@@ -12,14 +12,15 @@ postulate
 data ∃ (P : D → Set) : Set where
   _,_ : (witness : D) → P witness → ∃ P
 
+-- The predicate is not inside the where clause because the
+-- translation of projection-like functions is not implemented.
+P : D → Set
+P d = ∃ λ e → e ≡ d
+{-# ATP definition P #-}
+
 -- We test the translation of a definition which Agda eta-reduces.
 foo : ∀ {n} → N n → D
 foo {n} Nn = n
   where
-  P : D → Set
-  P d = ∃ λ e → e ≡ d
-  {-# ATP definition P #-}
-
-  postulate
-    bar : ∀ {d} → P d → P d
+  postulate bar : ∀ {d} → P d → P d
   {-# ATP prove bar #-}

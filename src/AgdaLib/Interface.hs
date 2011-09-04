@@ -12,6 +12,7 @@ module AgdaLib.Interface
   , getLocalHints
   , getATPRole
   , isATPDefinition
+  , isProjection
   , myGetInterface
   , myReadInterface
   , qNameDefinition
@@ -28,6 +29,7 @@ import Control.Monad.Error ( throwError )
 import Control.Monad.State ( evalStateT, get, put, StateT )
 import Control.Monad.Trans ( lift, liftIO )
 
+import Data.Functor              ( (<$>) )
 import Data.Int                  ( Int32 )
 import qualified Data.Map as Map ( filter, lookup )
 import Data.Maybe                ( fromMaybe )
@@ -73,6 +75,7 @@ import Agda.TypeChecking.Monad.Base
   , Definitions
   , funATP
   , funClauses
+  , funProjection
   , runTCM
   , TCErr
   , theDef
@@ -301,6 +304,15 @@ instance QNamesIn Clause where
 
 instance QNamesIn Definition where
   qNamesIn def = qNamesIn $ defType def
+
+-- | Is it the qname a projection?
+-- Adapted from Agda.TypeChecking.Monad.Signature.isProjection
+isProjection ∷ QName → T (Maybe (QName, Int))
+isProjection qname = do
+  defn ← theDef <$> qNameDefinition qname
+  case defn of
+    Function { funProjection = result } → return result
+    _                                   → return Nothing
 
 ------------------------------------------------------------------------------
 -- Imported interfaces
