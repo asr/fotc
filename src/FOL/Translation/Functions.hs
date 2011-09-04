@@ -12,7 +12,7 @@
 module FOL.Translation.Functions ( fnToFormula ) where
 
 -- Haskell imports
-import Control.Monad       ( liftM2 )
+import Control.Monad       ( liftM2, when )
 import Control.Monad.Error ( throwError )
 
 -- Agda library imports
@@ -126,7 +126,7 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
       (newBody ∷ ClauseBody) ← removeBindingOnCBody cBody x
 
       -- Just to force the evaluation of newBody.
-      if length (show newBody) == 0 then __IMPOSSIBLE__ else return ()
+      when (null $ show newBody) (__IMPOSSIBLE__)
 
       reportSLn "def2f" 20 $ "New body: " ++ show newBody
 
