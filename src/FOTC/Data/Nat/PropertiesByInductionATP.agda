@@ -19,17 +19,19 @@ open import FOTC.Data.Nat
 +-leftIdentity : ∀ {n} → N n → zero + n ≡ n
 +-leftIdentity {n} Nn = +-0x n
 
-+-rightIdentity : ∀ {n} → N n → n + zero ≡ n
-+-rightIdentity Nn = indN P P0 is Nn
-  where
-  P : D → Set
-  P i = i + zero ≡ i
-  {-# ATP definition P #-}
+-- The predicate is not inside the where clause because the
+-- translation of projection-like functions is not implemented.
++-rightIdentity-P : D → Set
++-rightIdentity-P i = i + zero ≡ i
+{-# ATP definition +-rightIdentity-P #-}
 
-  postulate P0 : P zero
++-rightIdentity : ∀ {n} → N n → n + zero ≡ n
++-rightIdentity Nn = indN +-rightIdentity-P P0 is Nn
+  where
+  postulate P0 : +-rightIdentity-P zero
   {-# ATP prove P0 #-}
 
-  postulate is : ∀ {i} → N i → P i → P (succ i)
+  postulate is : ∀ {i} → N i → +-rightIdentity-P i → +-rightIdentity-P (succ i)
   {-# ATP prove is #-}
 
 +-N : ∀ {m n} → N m → N n → N (m + n)
