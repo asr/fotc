@@ -91,9 +91,8 @@ translation agdaFile = do
 -- | The main function.
 runAgda2ATP ∷ String → T ()
 runAgda2ATP prgName = do
-  argv ← liftIO getArgs
 
-  clo ← processOptions argv
+  clo ← liftIO getArgs >>= processOptions
   case clo of
     (opts, agdaFile)
       | optHelp opts    → liftIO $ printUsage prgName
