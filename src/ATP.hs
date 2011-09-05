@@ -9,15 +9,15 @@
 module ATP ( callATPs ) where
 
 -- Haskell imports
-import Data.List               ( isInfixOf )
-import Data.Maybe              ( fromMaybe )
 import Control.Exception       ( evaluate )
 import Control.Concurrent      ( forkIO, threadDelay )
 import Control.Concurrent.MVar ( MVar, newEmptyMVar, putMVar, takeMVar )
 import Control.Monad           ( when )
 import Control.Monad.Error     ( throwError )
-import Control.Monad.State     ( get )
 import Control.Monad.Trans     ( liftIO )
+import Data.List               ( isInfixOf )
+import Data.Maybe              ( fromMaybe )
+import Data.Functor            ( (<$>) )
 import System.IO               ( hGetContents )
 import System.Process
   ( createProcess
@@ -27,13 +27,13 @@ import System.Process
   , std_out
   , terminateProcess
   )
--- import System.Timeout ( timeout )
 
 -- Agda library imports
 import Agda.Utils.Impossible ( Impossible(Impossible) , throwImpossible )
+import Agda.Utils.Monad      ( ifM )
 
 -- Local imports
-import Monad.Base    ( T, TState(tOpts) )
+import Monad.Base    ( getTOpts, T )
 import Monad.Reports ( reportS )
 import Options       ( Options(optATP, optTime, optUnprovedError) )
 
@@ -156,22 +156,16 @@ runATP atp outputMVar timeLimit file = do
 atpsAnswer ∷ MVar (Bool, ATP) → [ProcessHandle] → FilePath → Int → T ()
 atpsAnswer outputMVar atpsPH file n = do
 
-  state ← get
-
-  let opts ∷ Options
-      opts = tOpts state
-
-      atps ∷ [String]
-      atps = optATP opts
+  atps ∷ [String] ← optATP <$> getTOpts
 
   if n == length atps
     then do
       let msg ∷ String
           msg = "The ATP(s) " ++ show atps
                 ++ " did not prove the conjecture in " ++ file
-      if optUnprovedError opts
-        then throwError msg
-        else liftIO $ putStrLn msg
+      ifM (optUnprovedError <$> getTOpts)
+          (throwError msg)
+          (liftIO $ putStrLn msg)
     else do
       output ← liftIO $ takeMVar outputMVar
       case output of
@@ -197,18 +191,11 @@ atpsAnswer outputMVar atpsPH file n = do
 callATPs ∷ FilePath → T ()
 callATPs file = do
 
-  state ← get
-
-  let opts ∷ Options
-      opts = tOpts state
-
-      atps ∷ [String]
-      atps = optATP opts
+  atps ∷ [String] ← optATP <$> getTOpts
 
   when (null atps) (__IMPOSSIBLE__)
 
-  let timeLimit ∷ Int
-      timeLimit = optTime opts
+  timeLimit ∷ Int ← optTime <$> getTOpts
 
   outputMVar ← liftIO (newEmptyMVar ∷ IO (MVar (Bool, ATP)))
 

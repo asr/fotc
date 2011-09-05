@@ -9,14 +9,13 @@ module Snapshot ( snapshotTest ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 import Control.Monad.Error ( throwError )
-import Control.Monad.State ( get )
 import Control.Monad.Trans ( liftIO )
-
-import System.Directory ( doesFileExist )
-import System.FilePath  ( replaceDirectory )
+import Data.Functor        ( (<$>) )
+import System.Directory    ( doesFileExist )
+import System.FilePath     ( replaceDirectory )
 
 -- Local imports
-import Monad.Base      ( T, TState(tOpts) )
+import Monad.Base      ( getTOpts, T )
 import Options         ( Options(optOutputDir, optSnapshotDir) )
 import Monad.Reports   ( reportS )
 import Utils.Directory ( diff )
@@ -26,18 +25,10 @@ import Utils.Directory ( diff )
 snapshotTest ∷ FilePath → T ()
 snapshotTest file = do
 
-  state ← get
+  outputDir   ← optOutputDir <$> getTOpts
+  snapshotDir ← optSnapshotDir <$> getTOpts
 
-  let opts ∷ Options
-      opts = tOpts state
-
-      outputDir ∷ FilePath
-      outputDir = optOutputDir opts
-
-      snapshotDir ∷ FilePath
-      snapshotDir = optSnapshotDir opts
-
-      snapshotFile ∷ FilePath
+  let snapshotFile ∷ FilePath
       snapshotFile = replaceDirectory file snapshotDir
 
   if outputDir == snapshotDir

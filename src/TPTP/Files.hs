@@ -10,10 +10,10 @@
 module TPTP.Files ( createConjectureFile ) where
 
 -- Haskell imports
-import Control.Monad        ( unless, when )
-import Control.Monad.State  ( get )
+import Control.Monad        ( unless )
 import Control.Monad.Trans  ( liftIO )
 import Data.Char            ( chr, isAsciiUpper, isAsciiLower, isDigit, ord )
+import Data.Functor         ( (<$>) )
 import System.Directory     ( createDirectoryIfMissing )
 import System.Environment   ( getProgName )
 import System.FilePath      ( (</>), addExtension )
@@ -29,7 +29,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
 import AgdaLib.Interface ( qNameLine )
-import Monad.Base        ( T, TState(tOpts) )
+import Monad.Base        ( getTOpts, T )
 import Monad.Reports     ( reportS, reportSLn )
 import Options           ( Options(optOnlyFiles, optOutputDir) )
 import TPTP.Pretty       ( prettyTPTP )
@@ -50,6 +50,7 @@ import TPTP.Types
   , removeCommonRequiredDefs
   )
 import Utils.List    ( nonDuplicate )
+import Utils.Monad   ( whenM )
 import Utils.Show    ( showLn )
 import Utils.Version ( version )
 
@@ -129,17 +130,11 @@ createConjectureFile generalRoles conjectureSet = do
   -- added the line number where the term was defined to the file
   -- name.
 
-  state ← get
+  outputDir ← optOutputDir <$> getTOpts
 
-  let opts ∷ Options
-      opts = tOpts state
-
-      qName ∷ QName
+  let qName ∷ QName
       qName = case theConjecture conjectureSet of
                 MkAF _qName _ _ → _qName
-
-      outputDir ∷ FilePath
-      outputDir = optOutputDir opts
 
   liftIO $ createDirectoryIfMissing True outputDir
 
@@ -181,7 +176,7 @@ createConjectureFile generalRoles conjectureSet = do
     _ ← appendFile file conjectureFooter
     return ()
 
-  when (optOnlyFiles opts) $
+  whenM (optOnlyFiles <$> getTOpts) $
        reportS "" 1 $ "Created the conjecture file " ++ file
 
   return file
