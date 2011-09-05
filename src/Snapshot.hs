@@ -50,8 +50,8 @@ snapshotTest file = do
           diffOutput ← liftIO $ diff file snapshotFile
           if diffOutput
             then throwError $
-                 "The files " ++ file ++ " and " ++ snapshotFile ++
-                 " are different"
+                 "The files " ++ file ++ " and " ++ snapshotFile
+                 ++ " are different"
             else reportS "" 1 $
-                 "The files " ++ file ++ " and " ++ snapshotFile ++
-                 " are the same"
+                 "The files " ++ file ++ " and " ++ snapshotFile
+                 ++ " are the same"

@@ -96,8 +96,8 @@ instance PrettyTPTP String where
 
 instance PrettyTPTP FOLTerm where
   prettyTPTP (FOLFun name [])    = changeToLower name
-  prettyTPTP (FOLFun name terms) = changeToLower name ++
-                                     "(" ++ prettyTPTP terms ++ ")"
+  prettyTPTP (FOLFun name terms) = changeToLower name
+                                   ++  "(" ++ prettyTPTP terms ++ ")"
   prettyTPTP (FOLVar name)       = changeToUpper name
 
 instance PrettyTPTP [FOLTerm] where
@@ -135,14 +135,14 @@ instance PrettyTPTP FOLFormula where
     "( " ++ prettyTPTP f1 ++ " <=> " ++ prettyTPTP f2 ++ " )"
 
   prettyTPTP (ForAll var f) =
-    "( ! [" ++ changeToUpper var ++ "] : " ++
-    prettyTPTP (f (FOLVar var)) ++
-    " )"
+    "( ! [" ++ changeToUpper var ++ "] : "
+    ++ prettyTPTP (f (FOLVar var))
+    ++ " )"
 
   prettyTPTP (Exists var f) =
-    "( ? [" ++ changeToUpper var ++ "] : " ++
-    prettyTPTP (f (FOLVar var)) ++
-    " )"
+    "( ? [" ++ changeToUpper var ++ "] : "
+    ++ prettyTPTP (f (FOLVar var))
+    ++ " )"
 
   prettyTPTP TRUE  = "( " ++ "$true" ++ " )"
   prettyTPTP FALSE = "( " ++ "$false" ++ " )"
@@ -158,8 +158,8 @@ instance PrettyTPTP ATPRole where
 
 instance PrettyTPTP AF where
   prettyTPTP (MkAF qName atpRole formula) =
-    "fof(" ++
-    prettyTPTP qName ++ ", " ++
-    prettyTPTP atpRole ++ ", " ++
-    prettyTPTP formula ++
-    ")." ++ "\n\n"
+    "fof("
+    ++ prettyTPTP qName ++ ", "
+    ++ prettyTPTP atpRole ++ ", "
+    ++ prettyTPTP formula
+    ++ ")." ++ "\n\n"

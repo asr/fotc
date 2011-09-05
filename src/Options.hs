@@ -121,11 +121,11 @@ options =
   , Option []  ["output-dir"] (ReqArg outputDirOpt "DIR")
                "directory in which TPTP files are placed (default: /tmp)"
   , Option []  ["snapshot-dir"] (ReqArg snapshotDirOpt "DIR") $
-               "directory where is the snapshot of the TPTP files\n" ++
-               "(default: snapshot)"
+               "directory where is the snapshot of the TPTP files\n"
+               ++ "(default: snapshot)"
   , Option []  ["snapshot-test"] (NoArg snapshotTestOpt) $
-               "compare the generated TPTP files against a snapshot of them\n" ++
-               "(implies --only-files)"
+               "compare the generated TPTP files against a snapshot of them\n"
+               ++ "(implies --only-files)"
   , Option []  ["time"] (ReqArg timeOpt "secs")
                "set timeout for the ATPs in seconds (default: 300)"
   , Option []  ["unproved-conjecture-error"] (NoArg unprovedErrorOpt)

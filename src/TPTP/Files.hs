@@ -50,6 +50,7 @@ import TPTP.Types
   , removeCommonRequiredDefs
   )
 import Utils.List    ( nonDuplicate )
+import Utils.Show    ( showLn )
 import Utils.Version ( version )
 
 #include "../undefined.h"
@@ -84,20 +85,22 @@ conjectureHeader ∷ IO String
 conjectureHeader = do
   prgName ← getProgName
   return $
-    commentLine ++
-    "% This file was generated automatically by " ++ prgName ++
-    " version " ++ version ++ ".\n" ++
-    commentLineLn
+    commentLine
+    ++ "% This file was generated automatically by "
+    ++ prgName
+    ++ " version "
+    ++ version ++ ".\n"
+    ++ commentLineLn
 
 conjectureFooter ∷ String
 conjectureFooter = "% End ATP pragma conjecture file.\n"
 
 agdaOriginalTerm ∷ QName → ATPRole → String
 agdaOriginalTerm qName role =
-  "% The original Agda term was:\n" ++
-  "% Name:\t\t" ++ show qName ++ "\n" ++
-  "% Role:\t\t" ++ show role ++ "\n" ++
-  "% Position:\t" ++ show (nameBindingSite $ qnameName qName) ++ "\n"
+  "% The original Agda term was:\n"
+  ++ "% Name:\t\t" ++ showLn qName
+  ++ "% Role:\t\t" ++ showLn role
+  ++ "% Position:\t" ++ showLn (nameBindingSite $ qnameName qName)
 
 addRole ∷ AF → ATPRole → FilePath → IO ()
 addRole af@(MkAF qName afRole _) role file =
@@ -110,13 +113,10 @@ addRole af@(MkAF qName afRole _) role file =
 addRoles ∷ [AF] → ATPRole → FilePath → String → IO ()
 addRoles afs role file str = do
   let headerRoleComment ∷ String
-      headerRoleComment =
-          commentLine ++
-          "% The " ++ str ++ ".\n\n"
+      headerRoleComment = commentLine ++ "% The " ++ str ++ ".\n\n"
 
       footerRoleComment ∷ String
-      footerRoleComment =
-          "% End " ++ str ++ ".\n\n"
+      footerRoleComment = "% End " ++ str ++ ".\n\n"
 
   _  ← appendFile file headerRoleComment
   _  ← mapM_ (\af → addRole af role file) afs

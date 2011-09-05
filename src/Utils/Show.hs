@@ -2,18 +2,16 @@
 -- Utilities related to show
 ------------------------------------------------------------------------------
 
-{-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module Utils.Show where
+module Utils.Show ( showListLn, showLn ) where
 
 ------------------------------------------------------------------------------
 
-class MyShow a where
-  myShow ∷ a → String
+showLn ∷ Show a ⇒ a → String
+showLn = (++ "\n") . show
 
 -- | Show version on lists where the elements are separated by newline
 -- characters.
-instance Show a ⇒ MyShow [a] where
-  myShow []       = []
-  myShow (x : xs) = show x ++ "\n" ++ myShow xs
+showListLn ∷ Show a ⇒ [a] → String
+showListLn xs = xs >>= showLn  -- From Autoproc.Procmail.

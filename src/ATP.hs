@@ -1,4 +1,3 @@
-
 -----------------------------------------------------------------------------
 -- Call the ATPs
 -----------------------------------------------------------------------------
@@ -168,8 +167,8 @@ atpsAnswer outputMVar atpsPH file n = do
   if n == length atps
     then do
       let msg ∷ String
-          msg = "The ATP(s) " ++ show atps ++
-                " did not prove the conjecture in " ++ file
+          msg = "The ATP(s) " ++ show atps
+                ++ " did not prove the conjecture in " ++ file
       if optUnprovedError opts
         then throwError msg
         else liftIO $ putStrLn msg

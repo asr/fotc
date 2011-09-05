@@ -89,11 +89,9 @@ qName2String qName@(QName _ name) = do
       reportSLn "qName2String" 20 $ "qNameId : " ++ show qNameId
 
       case qNameId of
-        NameId x i → return $ show (nameConcrete name) ++
-                              "_" ++
-                              show x ++
-                              "_" ++
-                              show i
+        NameId x i → return $ show (nameConcrete name) ++ "_"
+                              ++ show x ++ "_"
+                              ++ show i
 
     else return $ show $ nameConcrete name
 
@@ -169,9 +167,9 @@ predicateLogicalScheme vars n args = do
     10 → fmap (appP10 (FOLVar var)) (mapM argTermToFOLTerm args)
 
     _ → throwError $
-          "The translation of predicates symbols with arity " ++
-          "greater than or equal to eleven (used in logical schemas) " ++
-          "is not implemented"
+          "The translation of predicates symbols with arity "
+          ++ "greater than or equal to eleven (used in logical schemas) "
+          ++ "is not implemented"
 
 termToFormula ∷ Term → T FOLFormula
 termToFormula term@(Def qName@(QName _ name) args) = do
@@ -277,16 +275,16 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   freshVar ← newTVar
 
   reportSLn "t2f" 20 $
-    "Starting processing in local environment with fresh variable " ++
-    freshVar ++ " and type:\n" ++ show tyAbs
+    "Starting processing in local environment with fresh variable "
+    ++ freshVar ++ " and type:\n" ++ show tyAbs
 
   pushTVar freshVar
   f2 ← typeToFormula tyAbs
   popTVar
 
   reportSLn "t2f" 20 $
-    "Finalized processing in local environment with fresh variable " ++
-    freshVar ++ " and type:\n" ++ show tyAbs
+    "Finalized processing in local environment with fresh variable "
+    ++ freshVar ++ " and type:\n" ++ show tyAbs
 
   reportSLn "t2f" 20 $
     "The formula f2 is: " ++ show f2

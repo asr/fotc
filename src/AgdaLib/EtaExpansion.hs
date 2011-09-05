@@ -3,6 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module AgdaLib.EtaExpansion ( etaExpand ) where
@@ -40,6 +41,7 @@ import AgdaLib.Interface       ( isProjection, qNameType )
 import AgdaLib.Syntax.DeBruijn ( indexPlus1 )
 import Monad.Base              ( newTVar, T )
 import Monad.Reports           ( reportSLn )
+import Utils.Show              ( showLn )
 
 #include "../undefined.h"
 
@@ -71,9 +73,7 @@ instance EtaExpandible Term where
              ++ show qName
              ++ " is not implemented"
 
-    ty ← qNameType qName
-    let qNameArity ∷ Nat
-        qNameArity = arity ty
+    qNameArity ∷ Nat ← arity <$> qNameType qName
 
     argsEtaExpanded ← mapM etaExpand args
 
@@ -109,9 +109,9 @@ instance EtaExpandible Term where
 
              else do
                reportSLn "etaExpand" 20 $
-                 "qname: " ++ show qName ++ "\n"++
-                 "qNameArity: " ++ show qNameArity ++ "\n"++
-                 "length args: " ++ show (length args)
+                 "qname: " ++ showLn qName
+                 ++ "qNameArity: " ++ showLn qNameArity
+                 ++ "length args: " ++ show (length args)
                __IMPOSSIBLE__
 
   -- We don't know an example of eta-contraction with Con, therefore

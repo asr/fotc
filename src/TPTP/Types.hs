@@ -68,10 +68,10 @@ data ConjectureSet = MkConjectureSet
 
 allRequiredDefs ∷ GeneralRoles → ConjectureSet → [AF]
 allRequiredDefs generalRoles conjectureSet =
-  requiredDefsByAxioms generalRoles ++
-  requiredDefsByHints generalRoles ++
-  requiredDefsByLocalHints conjectureSet ++
-  requiredDefsByConjecture conjectureSet
+  requiredDefsByAxioms generalRoles
+  ++ requiredDefsByHints generalRoles
+  ++ requiredDefsByLocalHints conjectureSet
+  ++ requiredDefsByConjecture conjectureSet
 
 commonRequiredDefs ∷ GeneralRoles → ConjectureSet → [AF]
 commonRequiredDefs generalRoles conjectureSet =

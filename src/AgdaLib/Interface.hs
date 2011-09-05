@@ -164,10 +164,10 @@ myReadInterface file = do
   case r of
     Right (Just i) → return i
     Right Nothing  → throwError $
-                       "Error reading the interface file " ++ iFile ++ ". " ++
-                       "It is possible that you used a different version " ++
-                       "of Agda to build the agda2atp tool and to " ++
-                       "type-check your module"
+                       "Error reading the interface file " ++ iFile ++ ". "
+                       ++ "It is possible that you used a different version "
+                       ++ "of Agda to build the agda2atp tool and to "
+                       ++ "type-check your module"
     Left  _        → throwError "Error from runTCM in myReadInterface"
 
 myGetInterface ∷ ModuleName → T (Maybe Interface)
@@ -250,8 +250,8 @@ qNameType qName = fmap defType $ qNameDefinition qName
 
 -- The line where a QNname is defined.
 qNameLine ∷ QName → Int32
-qNameLine q =
-  case rangeToInterval $ nameBindingSite $ qnameName q of
+qNameLine qName =
+  case rangeToInterval $ nameBindingSite $ qnameName qName of
     Nothing → __IMPOSSIBLE__
     Just i  → posLine $ iStart i
 

@@ -58,7 +58,7 @@ import TPTP.Types
   , ConjectureSet(MkConjectureSet)
   , GeneralRoles(MkGeneralRoles)
   )
-import Utils.Show ( myShow )
+import Utils.Show ( showListLn, showLn )
 
 #include "../undefined.h"
 
@@ -70,9 +70,9 @@ toAF role qName def = do
   let ty ∷ Type
       ty = defType def
   reportSLn "toAF" 20 $
-     "Translating QName: " ++ show qName ++ "\n" ++
-     "Role: " ++ show role ++ "\n" ++
-     "Type:\n" ++ show ty
+     "Translating QName: " ++ showLn qName
+     ++ "Role: " ++ showLn role
+     ++ "Type:\n" ++ show ty
 
   -- We eta-expand the type before the translation.
   tyEtaExpanded ← ifM isTVarsEmpty (etaExpand ty) (__IMPOSSIBLE__)
@@ -85,7 +85,7 @@ toAF role qName def = do
 
   -- We remove the variables which are proof terms from the types.
   reportSLn "toAF" 20 $
-            "The typesOfVars are:\n" ++ myShow (typesOfVars tyEtaExpanded)
+            "The typesOfVars are:\n" ++ showListLn (typesOfVars tyEtaExpanded)
 
   tyReady ← foldM removeProofTerm
                   tyEtaExpanded
@@ -108,7 +108,7 @@ fnToAF qName def = do
   let ty ∷ Type
       ty = defType def
   reportSLn "symbolToAF" 10 $
-    "Symbol: " ++ show qName ++ "\n" ++ "Type: " ++ show ty
+    "Symbol: " ++ showLn qName ++ "Type: " ++ show ty
 
   -- We get the clauses that define the symbol (all the symbols must
   -- be functions).
@@ -116,7 +116,7 @@ fnToAF qName def = do
       cls = getClauses def
 
   reportSLn "symbolToAF" 10 $
-    "Symbol: " ++ show qName ++ "\n" ++ "Clauses: " ++ show cls
+    "Symbol: " ++ showLn qName ++ "Clauses: " ++ show cls
 
   for ← ifM isTVarsEmpty (fnToFormula qName ty cls) (__IMPOSSIBLE__)
   reportSLn "symbolToAF" 20 $
@@ -136,8 +136,8 @@ localHintsToAFs def = do
   let hints ∷ [QName]
       hints = getLocalHints def
   reportSLn "hintsToFOLs" 20 $
-    "The local hints for the conjecture " ++ show (defName def) ++
-    " are:\n" ++ show hints
+    "The local hints for the conjecture " ++ show (defName def)
+    ++ " are:\n" ++ show hints
 
   mapM localHintToAF hints
 
