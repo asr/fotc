@@ -10,7 +10,10 @@ module AgdaLib.Interface
   ( getClauses
   , getImportedInterfaces
   , getLocalHints
-  , getATPRole
+  , getATPAxioms
+  , getATPConjectures
+  , getATPDefinitions
+  , getATPHints
   , isATPDefinition
   , isProjection
   , myGetInterface
@@ -101,16 +104,22 @@ import Options       ( Options(optAgdaIncludePath) )
 ------------------------------------------------------------------------------
 
 getATPRole ∷ ATPRole → Definitions → Definitions
-getATPRole role = Map.filter $ isRole role
-  where
-    isRole ∷ ATPRole → Definition → Bool
-    isRole ATPAxiom      = isATPAxiom
-    isRole ATPConjecture = isATPConjecture
-    isRole ATPDefinition = isATPDefinition
-    isRole ATPHint       = isATPHint
+getATPRole ATPAxiom      = Map.filter isATPAxiom
+getATPRole ATPConjecture = Map.filter isATPConjecture
+getATPRole ATPDefinition = Map.filter isATPDefinition
+getATPRole ATPHint       = Map.filter isATPHint
 
--- getHintsATP ∷ Interface → Definitions
--- getHintsATP i = Map.filter isAxiomATP $ sigDefinitions $ iSignature i
+getATPAxioms ∷ Definitions → Definitions
+getATPAxioms = getATPRole ATPAxiom
+
+getATPConjectures ∷ Definitions → Definitions
+getATPConjectures = getATPRole ATPConjecture
+
+getATPDefinitions ∷ Definitions → Definitions
+getATPDefinitions = getATPRole ATPDefinition
+
+getATPHints ∷ Definitions → Definitions
+getATPHints = getATPRole ATPHint
 
 -- Invariant: The Definition must correspond to an ATP conjecture.
 getLocalHints ∷ Definition → [QName]

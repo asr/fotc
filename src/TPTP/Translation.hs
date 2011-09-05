@@ -15,8 +15,7 @@ module TPTP.Translation
 -- Haskell imports
 
 import Control.Monad        ( foldM, liftM2, liftM4, zipWithM )
-import Control.Monad.State  ( get )
-
+import Data.Functor              ( (<$>) )
 import Data.List                 ( nub )
 import qualified Data.Map as Map ( elems, keys )
 
@@ -41,9 +40,11 @@ import Agda.Utils.Monad      ( ifM )
 
 import AgdaLib.EtaExpansion ( etaExpand )
 import AgdaLib.Interface
-  ( getClauses
+  ( getATPAxioms
+  , getATPConjectures
+  , getATPHints
+  , getClauses
   , getLocalHints
-  , getATPRole
   , isATPDefinition
   , qNameDefinition
   , QNamesIn(qNamesIn)
@@ -51,7 +52,7 @@ import AgdaLib.Interface
 import AgdaLib.Syntax.DeBruijn        ( removeProofTerm, typesOfVars )
 import FOL.Translation.Functions      ( fnToFormula )
 import FOL.Translation.Internal.Types ( typeToFormula )
-import Monad.Base                     ( isTVarsEmpty, T, TState(tAllDefs))
+import Monad.Base                     ( getTAllDefs, isTVarsEmpty, T)
 import Monad.Reports                  ( reportSLn )
 import TPTP.Types
   ( AF(MkAF)
@@ -201,7 +202,7 @@ conjecturesToAFs ∷ Definitions → T [ConjectureSet]
 conjecturesToAFs topLevelDefs = do
 
   let conjecturesDefs ∷ Definitions
-      conjecturesDefs = getATPRole ATPConjecture topLevelDefs
+      conjecturesDefs = getATPConjectures topLevelDefs
   reportSLn "conjecturesToFOLs" 20 $
     "Conjectures:\n" ++ show (Map.keys conjecturesDefs)
 
@@ -212,10 +213,8 @@ conjecturesToAFs topLevelDefs = do
 -- We translate the ATP pragma axioms to FOL formulas.
 axiomsToAFs ∷ T [AF]
 axiomsToAFs = do
-  state ← get
 
-  let axDefs ∷ Definitions
-      axDefs = getATPRole ATPAxiom $ tAllDefs state
+  axDefs ∷ Definitions ← getATPAxioms <$> getTAllDefs
 
   zipWithM (toAF ATPAxiom) (Map.keys axDefs) (Map.elems axDefs)
 
@@ -232,10 +231,8 @@ requiredATPDefsByDefinition def = do
 
 requiredATPDefsByAxioms ∷ T [AF]
 requiredATPDefsByAxioms = do
-  state ← get
 
-  let axDefs ∷ Definitions
-      axDefs = getATPRole ATPAxiom $ tAllDefs state
+  axDefs ∷ Definitions ← getATPAxioms <$> getTAllDefs
 
   fmap (nub . concat) (mapM requiredATPDefsByDefinition (Map.elems axDefs))
 
@@ -243,19 +240,15 @@ requiredATPDefsByAxioms = do
 -- FOL formulas.
 generalHintsToAFs ∷ T [AF]
 generalHintsToAFs = do
-  state ← get
 
-  let ghDefs ∷ Definitions
-      ghDefs = getATPRole ATPHint $ tAllDefs state
+  ghDefs ∷ Definitions ← getATPHints <$> getTAllDefs
 
   zipWithM (toAF ATPHint) (Map.keys ghDefs) (Map.elems ghDefs)
 
 requiredATPDefsByHints ∷ T [AF]
 requiredATPDefsByHints = do
-  state ← get
 
-  let ghDefs ∷ Definitions
-      ghDefs = getATPRole ATPHint $ tAllDefs state
+  ghDefs ∷ Definitions ← getATPHints <$> getTAllDefs
 
   fmap (nub . concat) (mapM requiredATPDefsByDefinition (Map.elems ghDefs))
 

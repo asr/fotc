@@ -7,6 +7,7 @@
 
 module Monad.Base
   ( AllDefinitions
+  , getTAllDefs
   , getTOpts
   , getTVars
   , isTVarsEmpty
@@ -89,8 +90,11 @@ popTVar = do
 newTVar ∷ T String
 newTVar = fmap (evalState freshName . tVars) get
 
-getTVars ∷ T [String]
-getTVars = fmap tVars get
+getTAllDefs ∷ T AllDefinitions
+getTAllDefs = fmap tAllDefs get
 
 getTOpts ∷ T Options
 getTOpts = fmap tOpts get
+
+getTVars ∷ T [String]
+getTVars = fmap tVars get
