@@ -42,12 +42,12 @@ import TPTP.Types
                  , requiredDefsByLocalHints
                  , theConjecture
                  )
+  , dropCommonRequiredDefs
   , GeneralRoles(axioms
                 , hints
                 , requiredDefsByAxioms
                 , requiredDefsByHints
                 )
-  , removeCommonRequiredDefs
   )
 import Utils.List    ( nonDuplicate )
 import Utils.Monad   ( whenM )
@@ -152,7 +152,7 @@ createConjectureFile generalRoles conjectureSet = do
       commonDefs = commonRequiredDefs generalRoles conjectureSet
 
       (newGeneralRoles, newConjectureSet) =
-          removeCommonRequiredDefs generalRoles conjectureSet
+          dropCommonRequiredDefs generalRoles conjectureSet
 
   unless (nonDuplicate (allRequiredDefs newGeneralRoles newConjectureSet))
          (__IMPOSSIBLE__)

@@ -5,8 +5,8 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 module AgdaLib.Syntax.Abstract.Name
-    ( moduleNameToFilePath
-    , removeLastNameModuleName
+    ( dropLastNameModuleName
+    , moduleNameToFilePath
     ) where
 
 -- Haskell imports
@@ -23,5 +23,5 @@ import Agda.Syntax.Abstract.Name
 moduleNameToFilePath ∷ ModuleName → FilePath
 moduleNameToFilePath m = intercalate "/" (map show $ mnameToList m)
 
-removeLastNameModuleName ∷ ModuleName → ModuleName
-removeLastNameModuleName (MName names) = MName (init names)
+dropLastNameModuleName ∷ ModuleName → ModuleName
+dropLastNameModuleName (MName names) = MName (init names)

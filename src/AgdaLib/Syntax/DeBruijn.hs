@@ -15,9 +15,9 @@
 
 module AgdaLib.Syntax.DeBruijn
   ( ChangeIndex(changeIndex)
-  , IndexPlus1(indexPlus1)
-  , IndexMinus1(indexMinus1)
-  , removeProofTerm
+  , decIndex
+  , incIndex
+  , dropProofTerm
   , typesOfVars
   , varToIndex
   ) where
@@ -57,66 +57,66 @@ import Utils.Show    ( showLn )
 
 ------------------------------------------------------------------------------
 -- | To increase by one the de Bruijn index of the variable.
-class IndexPlus1 a where
-  indexPlus1 ∷ a → a
+class IncIndex a where
+  incIndex ∷ a → a
 
-instance IndexPlus1 Term where
-  indexPlus1 (Var n [])  = Var (n + 1) []
-  indexPlus1 (Var _ _)   = __IMPOSSIBLE__
+instance IncIndex Term where
+  incIndex (Var n [])  = Var (n + 1) []
+  incIndex (Var _ _)   = __IMPOSSIBLE__
 
-  indexPlus1 (Con _ _)   = __IMPOSSIBLE__
-  indexPlus1 (Def _ _)   = __IMPOSSIBLE__
-  indexPlus1 DontCare    = __IMPOSSIBLE__
-  indexPlus1 (Fun _ _)   = __IMPOSSIBLE__
-  indexPlus1 (Lam _ _)   = __IMPOSSIBLE__
-  indexPlus1 (Level _)   = __IMPOSSIBLE__
-  indexPlus1 (Lit _)     = __IMPOSSIBLE__
-  indexPlus1 (MetaV _ _) = __IMPOSSIBLE__
-  indexPlus1 (Pi _ _)    = __IMPOSSIBLE__
-  indexPlus1 (Sort _)    = __IMPOSSIBLE__
+  incIndex (Con _ _)   = __IMPOSSIBLE__
+  incIndex (Def _ _)   = __IMPOSSIBLE__
+  incIndex DontCare    = __IMPOSSIBLE__
+  incIndex (Fun _ _)   = __IMPOSSIBLE__
+  incIndex (Lam _ _)   = __IMPOSSIBLE__
+  incIndex (Level _)   = __IMPOSSIBLE__
+  incIndex (Lit _)     = __IMPOSSIBLE__
+  incIndex (MetaV _ _) = __IMPOSSIBLE__
+  incIndex (Pi _ _)    = __IMPOSSIBLE__
+  incIndex (Sort _)    = __IMPOSSIBLE__
 
 -- Requires FlexibleInstances.
-instance IndexPlus1 (Arg Term) where
-  indexPlus1 (Arg h r term) = Arg h r $ indexPlus1 term
+instance IncIndex (Arg Term) where
+  incIndex (Arg h r term) = Arg h r $ incIndex term
 
 ------------------------------------------------------------------------------
--- | To reduce by one the de Bruijn index of the variable.
-class IndexMinus1 a where
-  indexMinus1 ∷ a → a
+-- | To decrease by one the de Bruijn index of the variable.
+class DecIndex a where
+  decIndex ∷ a → a
 
-instance IndexMinus1 Term where
-  indexMinus1 (Def qname args) = Def qname $ indexMinus1 args
+instance DecIndex Term where
+  decIndex (Def qname args) = Def qname $ decIndex args
 
-  indexMinus1 (Var 0 [])  = __IMPOSSIBLE__
-  indexMinus1 (Var n [])  = Var (n - 1) []
-  indexMinus1 (Var _ _)   = __IMPOSSIBLE__
+  decIndex (Var 0 [])  = __IMPOSSIBLE__
+  decIndex (Var n [])  = Var (n - 1) []
+  decIndex (Var _ _)   = __IMPOSSIBLE__
 
-  indexMinus1 (Con _ _)   = __IMPOSSIBLE__
-  indexMinus1 DontCare    = __IMPOSSIBLE__
-  indexMinus1 (Fun _ _)   = __IMPOSSIBLE__
-  indexMinus1 (Lam _ _)   = __IMPOSSIBLE__
-  indexMinus1 (Level _)   = __IMPOSSIBLE__
-  indexMinus1 (Lit _)     = __IMPOSSIBLE__
-  indexMinus1 (MetaV _ _) = __IMPOSSIBLE__
-  indexMinus1 (Pi _ _)    = __IMPOSSIBLE__
-  indexMinus1 (Sort _)    = __IMPOSSIBLE__
+  decIndex (Con _ _)   = __IMPOSSIBLE__
+  decIndex DontCare    = __IMPOSSIBLE__
+  decIndex (Fun _ _)   = __IMPOSSIBLE__
+  decIndex (Lam _ _)   = __IMPOSSIBLE__
+  decIndex (Level _)   = __IMPOSSIBLE__
+  decIndex (Lit _)     = __IMPOSSIBLE__
+  decIndex (MetaV _ _) = __IMPOSSIBLE__
+  decIndex (Pi _ _)    = __IMPOSSIBLE__
+  decIndex (Sort _)    = __IMPOSSIBLE__
 
-instance IndexMinus1 a ⇒ IndexMinus1 [a] where
-  indexMinus1 = map indexMinus1
+instance DecIndex a ⇒ DecIndex [a] where
+  decIndex = map decIndex
 
-instance IndexMinus1 Type where
-  indexMinus1 (El (Type (Max [])) term) = El (Type (Max [])) (indexMinus1 term)
-  indexMinus1 _                         = __IMPOSSIBLE__
+instance DecIndex Type where
+  decIndex (El (Type (Max [])) term) = El (Type (Max [])) (decIndex term)
+  decIndex _                         = __IMPOSSIBLE__
 
-instance IndexMinus1 a ⇒ IndexMinus1 (Arg a) where
-  indexMinus1 (Arg h r a) = Arg h r $ indexMinus1 a
+instance DecIndex a ⇒ DecIndex (Arg a) where
+  decIndex (Arg h r a) = Arg h r $ decIndex a
 
-instance IndexMinus1 a ⇒ IndexMinus1 (Abs a) where
-  indexMinus1 (Abs name body) = Abs name $ indexMinus1 body
+instance DecIndex a ⇒ DecIndex (Abs a) where
+  decIndex (Abs name body) = Abs name $ decIndex body
 
-instance IndexMinus1 a ⇒ IndexMinus1 (Tele a) where
-  indexMinus1 EmptyTel          = EmptyTel
-  indexMinus1 (ExtendTel a tel) = ExtendTel (indexMinus1 a) (indexMinus1 tel)
+instance DecIndex a ⇒ DecIndex (Tele a) where
+  decIndex EmptyTel          = EmptyTel
+  decIndex (ExtendTel a tel) = ExtendTel (decIndex a) (decIndex tel)
 
 ------------------------------------------------------------------------------
 -- We collect the variables' names using the type class VarNames. The
@@ -172,7 +172,7 @@ varToIndex cBody x =
 -- λ m : D → (λ n : D → (λ Nn : N n → (λ h : D → ... Var 2 ...)))
 
 -- where 'Var 2' is the de Bruijn index of the variable n. If we
--- remove the quantification on the proof term Nn
+-- drop the quantification on the proof term Nn
 
 -- λ m : D → (λ n : D → (λ h : D → ...))
 
@@ -233,7 +233,7 @@ instance ChangeIndex Args where
     -- The variable is the quantified variable. This can happen when
     -- the quantified variable is used indirectly by other term via
     -- for example a where clause (see for example xxx). In this case,
-    -- we remove the variable. Before this modification, we returned
+    -- we drop the variable. Before this modification, we returned
     -- __IMPOSSIBLE__.
     | n == index = changeIndex args index
 
@@ -283,18 +283,18 @@ instance ChangeIndex ClauseBody where
 
 -- Def Test.Succeed.Conjectures.DefinitionsInsideWhereClauses._.P [r{Var 1 []},r(Var 0 [])...       (1)
 
--- using its de Brujin name, i.e. r(Var 0 []). After remove this
+-- using its de Brujin name, i.e. r(Var 0 []). After drop this
 -- reference the internal term (1) is converted to
 
 -- Test.Succeed.Conjectures.DefinitionsInsideWhereClauses._.P [r{Var 1 []}...].
 
--- In addition the quantification on Nn will be removed too. See
+-- In addition the quantification on Nn will be dropped too. See
 -- FOL.Translation.Internal.Terms.termToFormula (on Pi terms).
 
 -- End general description.
 ------------------------------------------------------------------------------
 
--- We only need to remove the variables which are proof terms, so we
+-- We only need to drop the variables which are proof terms, so we
 -- collect the types of the variables using the type class
 -- TypesOfVars. The de Bruijn indexes are assigned from right to left,
 --
@@ -343,60 +343,60 @@ instance TypesOfVars Args where
 
 -- Remove the reference to a variable (i.e. Var n args) from an Agda
 -- internal entity.
-class RemoveVar a where
-  removeVar ∷ a → String → T a
+class DropVar a where
+  dropVar ∷ a → String → T a
 
-instance RemoveVar Type where
-  removeVar (El ty@(Type _) term) x = fmap (El ty) (removeVar term x)
-  removeVar _                     _ = __IMPOSSIBLE__
+instance DropVar Type where
+  dropVar (El ty@(Type _) term) x = fmap (El ty) (dropVar term x)
+  dropVar _                     _ = __IMPOSSIBLE__
 
-instance RemoveVar Term where
-  removeVar (Def qname args) x = fmap (Def qname) (removeVar args x)
+instance DropVar Term where
+  dropVar (Def qname args) x = fmap (Def qname) (dropVar args x)
 
-  -- N.B. The variables *are* removed from the (Arg Type).
-  removeVar (Fun argT ty) x = liftM2 Fun (removeVar argT x) (removeVar ty x)
+  -- N.B. The variables *are* dropped from the (Arg Type).
+  dropVar (Fun argT ty) x = liftM2 Fun (dropVar argT x) (dropVar ty x)
 
-  removeVar (Lam h (Abs y absTerm)) x = do
+  dropVar (Lam h (Abs y absTerm)) x = do
 
     pushTVar y
 
-    reportSLn "removeVar" 20 $ "Pushed variable: " ++ y
+    reportSLn "dropVar" 20 $ "Pushed variable: " ++ y
 
-    auxTerm ← removeVar absTerm x
+    auxTerm ← dropVar absTerm x
 
     popTVar
 
-    reportSLn "removePT" 20 $ "Pop variable: " ++ y
+    reportSLn "dropPT" 20 $ "Pop variable: " ++ y
 
     return $ Lam h (Abs y auxTerm)
 
-  -- N.B. The variables *are not* removed from the (Arg Type), they
-  -- are only removed from the (Abs Type).
-  removeVar (Pi argT (Abs y absTy)) x = do
+  -- N.B. The variables *are not* dropped from the (Arg Type), they
+  -- are only dropped from the (Abs Type).
+  dropVar (Pi argT (Abs y absTy)) x = do
 
     pushTVar y
-    reportSLn "removeVar" 20 $ "Pushed variable: " ++ y
+    reportSLn "dropVar" 20 $ "Pushed variable: " ++ y
 
     -- If the Pi term is on a proof term, we replace it by a Fun term.
     newTerm ← if y /= x
                 then do
-                  newType ← removeVar absTy x
+                  newType ← dropVar absTy x
                   return $ Pi argT (Abs y newType)
-                else fmap (Fun argT) (removeVar absTy x)
+                else fmap (Fun argT) (dropVar absTy x)
     popTVar
-    reportSLn "removePT" 20 $ "Pop variable: " ++ y
+    reportSLn "dropPT" 20 $ "Pop variable: " ++ y
     return newTerm
 
-  removeVar (Con _ _)   _ = __IMPOSSIBLE__
-  removeVar DontCare    _ = __IMPOSSIBLE__
-  removeVar (Level _)   _ = __IMPOSSIBLE__
-  removeVar (Lit _)     _ = __IMPOSSIBLE__
-  removeVar (MetaV _ _) _ = __IMPOSSIBLE__
-  removeVar (Sort _)    _ = __IMPOSSIBLE__
-  removeVar (Var _ _)   _ = __IMPOSSIBLE__
+  dropVar (Con _ _)   _ = __IMPOSSIBLE__
+  dropVar DontCare    _ = __IMPOSSIBLE__
+  dropVar (Level _)   _ = __IMPOSSIBLE__
+  dropVar (Lit _)     _ = __IMPOSSIBLE__
+  dropVar (MetaV _ _) _ = __IMPOSSIBLE__
+  dropVar (Sort _)    _ = __IMPOSSIBLE__
+  dropVar (Var _ _)   _ = __IMPOSSIBLE__
 
-instance RemoveVar (Arg Type) where
-  removeVar (Arg h r ty) x = fmap (Arg h r) (removeVar ty x)
+instance DropVar (Arg Type) where
+  dropVar (Arg h r ty) x = fmap (Arg h r) (dropVar ty x)
 
 -- In the Agda source code (Agda.Syntax.Internal) we have
 --
@@ -406,10 +406,10 @@ instance RemoveVar (Arg Type) where
 -- because in some cases we need to erase the term.
 
 -- Requires TypeSynonymInstances.
-instance RemoveVar Args where
-  removeVar [] _ = return []
+instance DropVar Args where
+  dropVar [] _ = return []
 
-  removeVar (Arg h r var@(Var n []) : args) x = do
+  dropVar (Arg h r var@(Var n []) : args) x = do
 
     vars ← getTVars
 
@@ -419,19 +419,19 @@ instance RemoveVar Args where
                   Just i  → fromIntegral i
 
     if n == index
-      then removeVar args x
+      then dropVar args x
       else if n < index
-             then fmap ((:) (Arg h r var)) (removeVar args x)
-             else fmap ((:) (Arg h r (Var (n - 1) []))) (removeVar args x)
+             then fmap ((:) (Arg h r var)) (dropVar args x)
+             else fmap ((:) (Arg h r (Var (n - 1) []))) (dropVar args x)
 
-  removeVar (Arg _ _ (Var _ _) : _) _ = __IMPOSSIBLE__
+  dropVar (Arg _ _ (Var _ _) : _) _ = __IMPOSSIBLE__
 
-  removeVar (Arg h r term : args) x =
-    liftM2 (\t ts → Arg h r t : ts) (removeVar term x) (removeVar args x)
+  dropVar (Arg h r term : args) x =
+    liftM2 (\t ts → Arg h r t : ts) (dropVar term x) (dropVar args x)
 
-removeProofTerm ∷ Type → (String, Type) → T Type
-removeProofTerm ty (x, typeVar) = do
-  reportSLn "removePT" 20 $ "Removing variable: " ++ x
+dropProofTerm ∷ Type → (String, Type) → T Type
+dropProofTerm ty (x, typeVar) = do
+  reportSLn "dropPT" 20 $ "Dropping variable: " ++ x
 
   case typeVar of
     -- The variable's type is a Set,
@@ -448,12 +448,12 @@ removeProofTerm ty (x, typeVar) = do
     -- e.g. the variable is 'Nn : N n' where D : Set, n : D and N :
     -- D → Set.
     --
-    -- In this case, we remove the reference to this
+    -- In this case, we drop the reference to this
     -- variable.
 
     -- N.B. the pattern matching on (Def _ _).
 
-    El (Type (Max [])) (Def _ _) → removeVar ty x
+    El (Type (Max [])) (Def _ _) → dropVar ty x
 
     -- The variable's type is a function type,
     --
@@ -484,7 +484,7 @@ removeProofTerm ty (x, typeVar) = do
 
     -- We don't erase these proofs terms.
     El (Type (Max [])) someTerm → do
-      reportSLn "removePT" 20 $
+      reportSLn "dropPT" 20 $
                 "The term someTerm is: " ++ show someTerm
       throwError $ "It is necessary to erase the proof term\n"
                    ++ showLn someTerm
@@ -517,6 +517,6 @@ removeProofTerm ty (x, typeVar) = do
     El (Type (Max [ClosedLevel 1])) (Var _ _)    → __IMPOSSIBLE__
 
     someType → do
-      reportSLn "removePT" 20 $
+      reportSLn "dropPT" 20 $
                 "The type varType is: " ++ show someType
       __IMPOSSIBLE__

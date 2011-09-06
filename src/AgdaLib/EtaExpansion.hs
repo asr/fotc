@@ -38,7 +38,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 -- Local imports
 
 import AgdaLib.Interface       ( isProjection, qNameType )
-import AgdaLib.Syntax.DeBruijn ( indexPlus1 )
+import AgdaLib.Syntax.DeBruijn ( incIndex )
 import Monad.Base              ( newTVar, T )
 import Monad.Reports           ( reportSLn )
 import Utils.Show              ( showLn )
@@ -96,7 +96,7 @@ instance EtaExpandible Term where
                -- need increase by one the numbers associated with the
                -- variables in the arguments.
                let incVarsEtaExpanded ∷ Args
-                   incVarsEtaExpanded = map indexPlus1 argsEtaExpanded
+                   incVarsEtaExpanded = map incIndex argsEtaExpanded
 
                    newVar ∷ Arg Term
                    newVar = Arg NotHidden Relevant (Var 0 [])

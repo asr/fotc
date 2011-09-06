@@ -49,7 +49,7 @@ import AgdaLib.Interface
   , qNameDefinition
   , QNamesIn(qNamesIn)
   )
-import AgdaLib.Syntax.DeBruijn        ( removeProofTerm, typesOfVars )
+import AgdaLib.Syntax.DeBruijn        ( dropProofTerm, typesOfVars )
 import FOL.Translation.Functions      ( fnToFormula )
 import FOL.Translation.Internal.Types ( typeToFormula )
 import Monad.Base                     ( getTAllDefs, isTVarsEmpty, T)
@@ -84,11 +84,11 @@ toAF role qName def = do
      then reportSLn "toAF" 20 "The type and the eta-expanded type are equals"
      else reportSLn "toAF" 20 "The type and the eta-expanded type are different"
 
-  -- We remove the variables which are proof terms from the types.
+  -- We drop the variables which are proof terms from the types.
   reportSLn "toAF" 20 $
             "The typesOfVars are:\n" ++ showListLn (typesOfVars tyEtaExpanded)
 
-  tyReady ← foldM removeProofTerm
+  tyReady ← foldM dropProofTerm
                   tyEtaExpanded
                   (reverse $ typesOfVars tyEtaExpanded)
 

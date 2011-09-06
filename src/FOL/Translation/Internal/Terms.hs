@@ -304,7 +304,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
            return $ ForAll freshVar (\_ → f2)
 
     -- The bounded variable is quantified on a proof. Due to we have
-    -- removed the quantification on proofs terms, this case is
+    -- drop the quantification on proofs terms, this case is
     -- impossible.
     El (Type (Max [])) (Def _ _) → __IMPOSSIBLE__
 

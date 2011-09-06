@@ -32,14 +32,14 @@ import Agda.Syntax.Internal
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
-import AgdaLib.Syntax.DeBruijn ( indexMinus1 )
+import AgdaLib.Syntax.DeBruijn ( decIndex )
 
 import FOL.Primitives         ( equal )
 import FOL.Translation.Common ( varsToArgs )
 import FOL.Translation.Internal
   ( cBodyToFormula
   , cBodyToFOLTerm
-  , removeBindingOnCBody
+  , dropBindingOnCBody
   )
 import FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm )
 import FOL.Translation.Internal.Types ( typeToFormula )
@@ -108,8 +108,8 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
     -- e.g. the bounded variable is 'Nn : N n' where D : Set, n : D,
     -- and N : D → Set,
     --
-    -- so we need remove this quantification. In this case, we erase
-    -- the quantification on the bounded variable and we try it as a
+    -- so we need drop this quantification. In this case, we erase the
+    -- quantification on the bounded variable and we try it as a
     -- function type (using Implies instead of ForAll).
 
     -- N.B. the pattern matching on (Def _ _).
@@ -123,7 +123,7 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
 
       reportSLn "def2f" 20 $ "Current body: " ++ show cBody
 
-      (newBody ∷ ClauseBody) ← removeBindingOnCBody cBody x
+      (newBody ∷ ClauseBody) ← dropBindingOnCBody cBody x
 
       -- Just to force the evaluation of newBody.
       when (null $ show newBody) (__IMPOSSIBLE__)
@@ -131,7 +131,7 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
       reportSLn "def2f" 20 $ "New body: " ++ show newBody
 
       -- We process forward in the telescope and the pattern.
-      f2 ← clauseToFormula qName ty (Clause r (indexMinus1 tels) perm pats newBody)
+      f2 ← clauseToFormula qName ty (Clause r (decIndex tels) perm pats newBody)
 
       reportSLn "def2f" 20 $ "f2: " ++ show f2
 

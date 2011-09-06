@@ -14,13 +14,13 @@ module TPTP.Types
                  , requiredDefsByLocalHints
                  , theConjecture
                  )
+  , dropCommonRequiredDefs
   , GeneralRoles(MkGeneralRoles
                 , axioms
                 , hints
                 , requiredDefsByAxioms
                 , requiredDefsByHints
                 )
-  , removeCommonRequiredDefs
   ) where
 
 -- Haskell import
@@ -83,9 +83,9 @@ commonRequiredDefs generalRoles conjectureSet =
     allDefs ∷ [AF]
     allDefs = allRequiredDefs generalRoles conjectureSet
 
-removeCommonRequiredDefs ∷ GeneralRoles → ConjectureSet →
-                           (GeneralRoles, ConjectureSet)
-removeCommonRequiredDefs generalRoles conjectureSet =
+dropCommonRequiredDefs ∷ GeneralRoles → ConjectureSet →
+                         (GeneralRoles, ConjectureSet)
+dropCommonRequiredDefs generalRoles conjectureSet =
   if null commonDefs
     then (generalRoles, conjectureSet)
     else

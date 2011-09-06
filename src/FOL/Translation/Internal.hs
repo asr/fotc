@@ -8,7 +8,7 @@
 module FOL.Translation.Internal
   ( cBodyToFormula
   , cBodyToFOLTerm
-  , removeBindingOnCBody
+  , dropBindingOnCBody
   ) where
 
 -- Haskell imports
@@ -57,25 +57,25 @@ cBodyToFOLTerm (Body term)          = termToFOLTerm term
 cBodyToFOLTerm (Bind (Abs _ cBody)) = cBodyToFOLTerm cBody
 cBodyToFOLTerm _                    = __IMPOSSIBLE__
 
-removeBindingOnCBodyIndex ∷ ClauseBody → String → Nat → ClauseBody
-removeBindingOnCBodyIndex (Bind (Abs x1 cBody)) x2 index =
+dropBindingOnCBodyIndex ∷ ClauseBody → String → Nat → ClauseBody
+dropBindingOnCBodyIndex (Bind (Abs x1 cBody)) x2 index =
   if x1 == x2
-    then changeIndex cBody index  -- We remove the bind and rename the
+    then changeIndex cBody index  -- We drop the bind and rename the
                                   -- variables inside the body.
-    else Bind (Abs x1 $ removeBindingOnCBodyIndex cBody x2 index)
-removeBindingOnCBodyIndex _ _ _ = __IMPOSSIBLE__
+    else Bind (Abs x1 $ dropBindingOnCBodyIndex cBody x2 index)
+dropBindingOnCBodyIndex _ _ _ = __IMPOSSIBLE__
 
--- To remove the binding on a proof term in a ClauseBody,
+-- To drop the binding on a proof term in a ClauseBody,
 --
--- e.g. remove the binding on Nn : N n where D : Set, n : D and N : D → Set.
+-- e.g. drop the binding on Nn : N n where D : Set, n : D and N : D → Set.
 --
 -- We know that the bounded variable is a proof term from the
 -- invocation to this function.
-removeBindingOnCBody ∷ ClauseBody → String → T ClauseBody
-removeBindingOnCBody cBody x = do
+dropBindingOnCBody ∷ ClauseBody → String → T ClauseBody
+dropBindingOnCBody cBody x = do
   let index ∷ Nat
       index = varToIndex cBody x
 
-  reportSLn "remove" 20 $ "The index is: " ++ show index
+  reportSLn "drop" 20 $ "The index is: " ++ show index
 
-  return $ removeBindingOnCBodyIndex cBody x index
+  return $ dropBindingOnCBodyIndex cBody x index
