@@ -66,12 +66,26 @@ $(snapshot_files_to_test) : %.snapshottest : %.agdai
 create_snapshot : $(snapshot_files_to_create)
 
 # The tests
-succeed  : $(parsing_files) $(succeed_files)
+succeed  : $(succeed_files)
 fail     : $(fail_files)
 parsing  : $(parsing_files)
 snapshot : $(snapshot_files_to_test)
 
-test : succeed fail
+test :
+	@echo "======================================================================"
+	@echo "=============== Testing the parsing of tptp files ===================="
+	@echo "======================================================================"
+	@make parsing
+
+	@echo "======================================================================"
+	@echo "================== Testing the successfull tests ====================="
+	@echo "======================================================================"
+	@make succeed
+
+	@echo "======================================================================"
+	@echo "==================== Testing the failing tests ======================="
+	@echo "======================================================================"
+	@make fail
 
 ##############################################################################
 # Others
