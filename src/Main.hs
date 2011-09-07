@@ -27,16 +27,11 @@ import Agda.TypeChecking.Monad.Base
   , Interface(iSignature)
   , Signature(sigDefinitions)
   )
-import Agda.Utils.Impossible
-  ( catchImpossible
---  , Impossible(Impossible)
---  , throwImpossible
-  )
+import Agda.Utils.Impossible ( catchImpossible )
 
 ------------------------------------------------------------------------------
 -- Local imports
 
--- import FOL.Pretty
 import AgdaLib.Interface ( getImportedInterfaces, myReadInterface )
 import ATP               ( callATPs )
 import Monad.Base

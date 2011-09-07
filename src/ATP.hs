@@ -68,40 +68,16 @@ optATP2ATP "spass"    = return SPASS
 optATP2ATP "vampire"  = return Vampire
 optATP2ATP nonATP     = throwError $ "ATP " ++ nonATP ++ " unknown"
 
--- Tested with E 1.4 Nanring.
-eOk ∷ String
-eOk = "Proof found!"
+atpOk ∷ ATP → String
+atpOk E        = "Proof found!"                      -- E 1.4 Nanring
+atpOk Equinox  = "+++ RESULT: Theorem"               -- Equinox 5.0alpha (2010-06-29)
+atpOk IleanCoP = "Intuitionistic Theorem"            -- ileanCoP 1.3 beta1
+atpOk Metis    = "SZS status Theorem"                -- Metis 2.3 (release 20110531)
+atpOk SPASS    = "Proof found"                       -- SPASS 3.7
+atpOk Vampire  = "Termination reason: Refutation\n"  -- Vampire 0.6 (revision 903)
 
--- Tested with Equinox 5.0alpha (2010-06-29).
-equinoxOk ∷ String
-equinoxOk = "+++ RESULT: Theorem"
-
--- Tested with Metis 2.3 (release 20110531).
-metisOk ∷ String
-metisOk = "SZS status Theorem"
-
--- Tested with ileanCoP 1.3 beta1.
-ileancopOk ∷ String
-ileancopOk = "Intuitionistic Theorem"
-
--- Tested with SPASS 3.7.
-spassOk ∷ String
-spassOk = "Proof found"
-
--- Tested with Vampire 0.6 (revision 903).
-vampireOk ∷ String
-vampireOk = "Termination reason: Refutation\n"
-
-checkAtpOutput ∷ ATP → String → Bool
-checkAtpOutput atp output = atpOk atp `isInfixOf` output
-  where
-    atpOk ∷ ATP → String
-    atpOk E        = eOk
-    atpOk Equinox  = equinoxOk
-    atpOk IleanCoP = ileancopOk
-    atpOk Metis    = metisOk
-    atpOk SPASS    = spassOk
-    atpOk Vampire  = vampireOk
+checkOutput ∷ ATP → String → Bool
+checkOutput atp output = atpOk atp `isInfixOf` output
 
 -- Equinox bug? The option --no-progress don't make any difference.
 atpArgs ∷ ATP → Int → FilePath → [String]
@@ -156,7 +132,7 @@ runATP atp outputMVar timeLimit file = do
   output ← liftIO $ hGetContents $ fromMaybe (__IMPOSSIBLE__) outputH
   _      ← liftIO $ forkIO $
              evaluate (length output) >>
-             putMVar outputMVar (checkAtpOutput atp output, atp)
+             putMVar outputMVar (checkOutput atp output, atp)
 
   return atpPH
 

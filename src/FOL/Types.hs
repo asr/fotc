@@ -12,7 +12,7 @@ module FOL.Types ( FOLFormula(..), FOLTerm(..) ) where
 -- Adapted from AgdaLight (Plugins.FOL.Types).
 data FOLTerm = FOLFun String [FOLTerm]
              | FOLVar String
-               deriving ( Show )
+               deriving Show
 
 data FOLFormula = TRUE
                 | FALSE
