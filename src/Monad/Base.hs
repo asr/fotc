@@ -15,7 +15,7 @@ module Monad.Base
   , popTVar
   , pushTVar
   , runT
-  , T(MkT)  -- GHC bug? MkT is required by GHC 6.12.1.
+  , T
   , TState(tAllDefs, tOpts, tVars)
   ) where
 
