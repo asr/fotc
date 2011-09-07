@@ -51,13 +51,13 @@ data ATP = E
          | Vampire
            deriving (Eq, Show)
 
-atp2exec ∷ ATP → T String
-atp2exec E        = return "eprover"
-atp2exec Equinox  = return "equinox"
-atp2exec IleanCoP = return "ileancop.sh"
-atp2exec Metis    = return "metis"
-atp2exec SPASS    = return "SPASS"
-atp2exec Vampire  = optVampireExec <$> getTOpts
+atpExec ∷ ATP → T String
+atpExec E        = return "eprover"
+atpExec Equinox  = return "equinox"
+atpExec IleanCoP = return "ileancop.sh"
+atpExec Metis    = return "metis"
+atpExec SPASS    = return "SPASS"
+atpExec Vampire  = optVampireExec <$> getTOpts
 
 optATP2ATP ∷ String → T ATP
 optATP2ATP "e"        = return E
@@ -139,7 +139,7 @@ runATP atp outputMVar timeLimit file = do
   let args ∷ [String]
       args = atpArgs atp timeLimit file
 
-  exec ∷ String ← atp2exec atp
+  exec ∷ String ← atpExec atp
 
   e ← liftIO $ findExecutable exec
   case e of
