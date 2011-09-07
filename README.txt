@@ -28,6 +28,8 @@ The agda2atp tool requires at least one of the following ATPs:
 
 * Metis (http://www.gilith.com/software/metis/)
 
+* SPASS (http://www.spass-prover.org/)
+
 * Vampire (http://www.vprover.org/)
 
 ------------------------------------------------------------------------------
