@@ -37,9 +37,10 @@ data Options = MkOptions
   , optSnapshotTest    ∷ Bool
   , optTime            ∷ Int
   , optUnprovedError   ∷ Bool
+  , optVampireExec     ∷ String
   , optVerbose         ∷ Verbosity
   , optVersion         ∷ Bool
-  } deriving ( Show )
+  } deriving Show
 
 defaultOptATP ∷ [String]
 defaultOptATP = ["e", "equinox", "metis", "spass", "vampire"]
@@ -57,6 +58,7 @@ defaultOptions = MkOptions
   , optSnapshotTest    = False
   , optTime            = 300
   , optUnprovedError   = False
+  , optVampireExec     = "vampire_lin64"
   , optVerbose         = Trie.singleton [] 1
   , optVersion         = False
   }
@@ -91,6 +93,9 @@ outputDirOpt dir opts = opts { optOutputDir = dir }
 unprovedErrorOpt ∷ Options → Options
 unprovedErrorOpt opts = opts { optUnprovedError = True }
 
+vampireExecOpt ∷ String → Options → Options
+vampireExecOpt name opts = opts { optVampireExec = name }
+
 -- Adapted from: Agda.Interaction.Options.verboseFlag.
 verboseOpt ∷ String → Options → Options
 verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
@@ -112,7 +117,7 @@ options ∷ [OptDescr (Options → Options)]
 options =
   [ Option "i" ["agda-include-path"] (ReqArg agdaIncludePathOpt "DIR")
                "look for imports in DIR"
-  , Option []  ["atp"] (ReqArg atpOpt "name")
+  , Option []  ["atp"] (ReqArg atpOpt "NAME")
                "set the ATP (default: e, equinox, metis, spass, and vampire)"
   , Option "?" ["help"] (NoArg helpOpt)
                "show this help"
@@ -130,6 +135,8 @@ options =
                "set timeout for the ATPs in seconds (default: 300)"
   , Option []  ["unproved-conjecture-error"] (NoArg unprovedErrorOpt)
                "an unproved TPTP conjecture generates an error"
+  , Option []  ["vampire-exec"] (ReqArg vampireExecOpt "COMMAND")
+               "set the vampire executable (default: vampire_lin64)"
   , Option "v" ["verbose"] (ReqArg verboseOpt "N")
                "set verbosity level to N"
   , Option "V" ["version"] (NoArg versionOpt)

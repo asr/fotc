@@ -65,12 +65,6 @@ is used to generate the Agda interface files.
 The ATP pragmas should be declared in the same module that the Agda
 entity (type, definition, data constructor) which it refers.
 
-4. Vampire executable
-
-The vampire executable name is based on the architecture
-(e.g. vampire_lin32, vampire_lin64, vampire_mac, and vampire_win.exe),
-therefore the agda2atp tool expects the generic name "vampire".
-
 ------------------------------------------------------------------------------
 Bug report
 ------------------------------------------------------------------------------

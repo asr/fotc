@@ -35,7 +35,8 @@ import Agda.Utils.Monad      ( ifM )
 -- Local imports
 import Monad.Base    ( getTOpts, T )
 import Monad.Reports ( reportS )
-import Options       ( Options(optATP, optTime, optUnprovedError) )
+
+import Options ( Options(optATP, optTime, optUnprovedError, optVampireExec) )
 
 #include "undefined.h"
 
@@ -49,16 +50,13 @@ data ATP = E
          | Vampire
            deriving (Eq, Show)
 
--- The vampire executables are vampire_lin32, vampire_lin64,
--- vampire_mac, and vampire_win.exe, therefore I use the generic
--- name "vampire".
-atp2exec ∷ ATP → String
-atp2exec E        = "eprover"
-atp2exec Equinox  = "equinox"
-atp2exec IleanCoP = "ileancop.sh"
-atp2exec Metis    = "metis"
-atp2exec SPASS    = "SPASS"
-atp2exec Vampire  = "vampire"
+atp2exec ∷ ATP → T String
+atp2exec E        = return "eprover"
+atp2exec Equinox  = return "equinox"
+atp2exec IleanCoP = return "ileancop.sh"
+atp2exec Metis    = return "metis"
+atp2exec SPASS    = return "SPASS"
+atp2exec Vampire  = optVampireExec <$> getTOpts
 
 optATP2ATP ∷ String → T ATP
 optATP2ATP "e"        = return E
@@ -140,11 +138,13 @@ runATP atp outputMVar timeLimit file = do
   let args ∷ [String]
       args = atpArgs atp timeLimit file
 
+  exec ∷ String ← atp2exec atp
+
   -- To create the ATPs process we follow the ideas used by
   -- System.Process.readProcess.
 
   (_, outputH, _, atpPH) ← liftIO $
-    createProcess (proc (atp2exec atp) args) { std_out = CreatePipe }
+    createProcess (proc exec args) { std_out = CreatePipe }
 
   output ← liftIO $ hGetContents $ fromMaybe (__IMPOSSIBLE__) outputH
   _      ← liftIO $ forkIO $
