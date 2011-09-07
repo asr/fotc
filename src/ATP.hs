@@ -18,6 +18,7 @@ import Control.Monad.Trans     ( liftIO )
 import Data.List               ( isInfixOf )
 import Data.Maybe              ( fromMaybe )
 import Data.Functor            ( (<$>) )
+import System.Directory        ( findExecutable )
 import System.IO               ( hGetContents )
 import System.Process
   ( createProcess
@@ -139,6 +140,12 @@ runATP atp outputMVar timeLimit file = do
       args = atpArgs atp timeLimit file
 
   exec ∷ String ← atp2exec atp
+
+  e ← liftIO $ findExecutable exec
+  case e of
+    Nothing → reportS "" 1 $ "Warning: We could not find the command " ++ exec
+                             ++ " associated to the ATP " ++ show atp
+    Just _  → return ()
 
   -- To create the ATPs process we follow the ideas used by
   -- System.Process.readProcess.

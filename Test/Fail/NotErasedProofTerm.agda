@@ -4,10 +4,9 @@
 
 module Test.Fail.NotErasedProofTerm where
 
--- Error message:
--- It is necessary to erase the proof term
+-- Error: It is necessary to erase the proof term
 -- Pi r(El (Type (Max [])) (Def Test.Fail.NotErasedProofTerm.D [])) (Abs "k" El (Type (Max [])) (Def Test.Fail.NotErasedProofTerm._≤_ [r(Var 0 []),r(Var 0 [])]))
--- but we do not know how to do it (AgdaLib.Syntax.DeBruijn.removeProofTerm)
+-- but we do not know how to do it
 
 postulate
   D    : Set

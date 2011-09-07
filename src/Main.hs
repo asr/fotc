@@ -118,7 +118,7 @@ main = do
 
   -- Adapted from Agda.Main.main.
   (r ∷ Either String ()) ← runT $ runAgda2ATP prgName `catchError` \err →
-    do liftIO $ hPutStrLn stderr $ prgName ++ " error: " ++ err
+    do liftIO $ hPutStrLn stderr $ "Error: " ++ err
        throwError err
 
   case r of

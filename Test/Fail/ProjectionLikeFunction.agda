@@ -4,8 +4,7 @@
 
 module Test.Fail.ProjectionLikeFunction where
 
--- Error message:
--- The translation of projection-like functions Test.Fail.ProjectionLikeFunction._.P is not implemented (AgdaLib.EtaExpansion.etaExpand).
+-- Error: The translation of projection-like functions Test.Fail.ProjectionLikeFunction._.P is not implemented.
 
 postulate
   D    : Set

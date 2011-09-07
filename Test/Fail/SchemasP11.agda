@@ -5,8 +5,7 @@
 
 module Test.Fail.SchemasP11 where
 
--- Error message:
--- agda2atp error: The translation of predicates symbols with arity greater than or equal to eleven (used in logical schemas) is not implemented
+-- Error: The translation of predicates symbols with arity greater than or equal to eleven (used in logical schemas) is not implemented
 
 postulate
   D : Set

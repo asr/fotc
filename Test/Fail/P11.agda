@@ -5,8 +5,7 @@
 
 module Test.Fail.P11 where
 
--- Error message:
--- agda2atp error: The translation of predicates symbols with arity greater than or equal to eleven as Test.Fail.P11.P₁₁ is not implemented
+-- Error: The translation of predicates symbols with arity greater than or equal to eleven as Test.Fail.P11.P₁₁ is not implemented
 
 postulate
   D   : Set
