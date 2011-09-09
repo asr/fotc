@@ -185,7 +185,7 @@ callATPs file = do
   reportS "" 1 $ "Proving the conjecture in " ++ file ++ " ..."
   reportS "" 20 $ "ATPs to be used: " ++ show atps
 
-  (atpsPH ∷ [ProcessHandle]) ←
+  atpsPH ∷ [ProcessHandle] ←
     mapM optATP2ATP atps >>= mapM (\atp → runATP atp outputMVar timeLimit file)
 
   atpsAnswer outputMVar atpsPH file 0

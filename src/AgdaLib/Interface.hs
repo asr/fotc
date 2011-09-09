@@ -166,13 +166,13 @@ myReadInterface file = do
   optsCommandLine ← agdaCommandLineOptions
 
   -- The physical interface file.
-  (iFile ∷ FilePath) ← liftIO $ fmap (filePath . toIFile) (absolute file)
+  iFile ∷ FilePath ← liftIO $ fmap (filePath . toIFile) (absolute file)
 
   unlessM (liftIO $ doesFileExist iFile)
           (throwError $ "The interface file " ++ iFile
                         ++ " does not exist. Use Agda to generate it")
 
-  (r ∷ Either TCErr (Maybe Interface)) ← liftIO $ runTCM $
+  r ∷ Either TCErr (Maybe Interface) ← liftIO $ runTCM $
     do setCommandLineOptions optsCommandLine
        readInterface iFile
 
