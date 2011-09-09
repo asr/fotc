@@ -37,6 +37,7 @@ import Data.Int                  ( Int32 )
 import qualified Data.Map as Map ( filter, lookup )
 import Data.Maybe                ( fromMaybe )
 
+import System.Directory ( doesFileExist )
 ------------------------------------------------------------------------------
 -- Agda library imports
 
@@ -98,6 +99,7 @@ import qualified Agda.Utils.Trie as Trie ( singleton )
 import Monad.Base    ( T, TState(tAllDefs, tOpts) )
 import Monad.Reports ( reportSLn )
 import Options       ( Options(optAgdaIncludePath) )
+import Utils.Monad   ( unlessM )
 
 #include "../undefined.h"
 
@@ -166,6 +168,10 @@ myReadInterface file = do
   -- The physical interface file.
   (iFile ∷ FilePath) ← liftIO $ fmap (filePath . toIFile) (absolute file)
 
+  unlessM (liftIO $ doesFileExist iFile)
+          (throwError $ "The interface file " ++ iFile
+                        ++ " does not exist. Use Agda to generate it")
+
   (r ∷ Either TCErr (Maybe Interface)) ← liftIO $ runTCM $
     do setCommandLineOptions optsCommandLine
        readInterface iFile
@@ -173,11 +179,12 @@ myReadInterface file = do
   case r of
     Right (Just i) → return i
     Right Nothing  → throwError $
-                       "Error reading the interface file " ++ iFile ++ ". "
+                       "The reading of the interface file "
+                       ++ iFile ++ " failed. "
                        ++ "It is possible that you used a different version "
                        ++ "of Agda to build the agda2atp tool and to "
                        ++ "type-check your module"
-    Left  _        → throwError "Error from runTCM in myReadInterface"
+    Left  _        → throwError "From runTCM in myReadInterface"
 
 myGetInterface ∷ ModuleName → T (Maybe Interface)
 myGetInterface x = do
