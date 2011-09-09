@@ -128,11 +128,11 @@ instance EtaExpandible Term where
 
   etaExpand (Var n args) = Var n <$> mapM etaExpand args
 
-  etaExpand DontCare    = __IMPOSSIBLE__
-  etaExpand (Level _)   = __IMPOSSIBLE__
-  etaExpand (Lit _)     = __IMPOSSIBLE__
-  etaExpand (MetaV _ _) = __IMPOSSIBLE__
-  etaExpand (Sort _)    = __IMPOSSIBLE__
+  etaExpand (DontCare _) = __IMPOSSIBLE__
+  etaExpand (Level _)    = __IMPOSSIBLE__
+  etaExpand (Lit _)      = __IMPOSSIBLE__
+  etaExpand (MetaV _ _)  = __IMPOSSIBLE__
+  etaExpand (Sort _)     = __IMPOSSIBLE__
 
 instance EtaExpandible a ⇒ EtaExpandible (Arg a) where
   etaExpand (Arg h r t) = Arg h r <$> etaExpand t

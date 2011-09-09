@@ -64,16 +64,16 @@ instance IncIndex Term where
   incIndex (Var n [])  = Var (n + 1) []
   incIndex (Var _ _)   = __IMPOSSIBLE__
 
-  incIndex (Con _ _)   = __IMPOSSIBLE__
-  incIndex (Def _ _)   = __IMPOSSIBLE__
-  incIndex DontCare    = __IMPOSSIBLE__
-  incIndex (Fun _ _)   = __IMPOSSIBLE__
-  incIndex (Lam _ _)   = __IMPOSSIBLE__
-  incIndex (Level _)   = __IMPOSSIBLE__
-  incIndex (Lit _)     = __IMPOSSIBLE__
-  incIndex (MetaV _ _) = __IMPOSSIBLE__
-  incIndex (Pi _ _)    = __IMPOSSIBLE__
-  incIndex (Sort _)    = __IMPOSSIBLE__
+  incIndex (Con _ _)    = __IMPOSSIBLE__
+  incIndex (Def _ _)    = __IMPOSSIBLE__
+  incIndex (DontCare _) = __IMPOSSIBLE__
+  incIndex (Fun _ _)    = __IMPOSSIBLE__
+  incIndex (Lam _ _)    = __IMPOSSIBLE__
+  incIndex (Level _)    = __IMPOSSIBLE__
+  incIndex (Lit _)      = __IMPOSSIBLE__
+  incIndex (MetaV _ _)  = __IMPOSSIBLE__
+  incIndex (Pi _ _)     = __IMPOSSIBLE__
+  incIndex (Sort _)     = __IMPOSSIBLE__
 
 -- Requires FlexibleInstances.
 instance IncIndex (Arg Term) where
@@ -91,15 +91,15 @@ instance DecIndex Term where
   decIndex (Var n [])  = Var (n - 1) []
   decIndex (Var _ _)   = __IMPOSSIBLE__
 
-  decIndex (Con _ _)   = __IMPOSSIBLE__
-  decIndex DontCare    = __IMPOSSIBLE__
-  decIndex (Fun _ _)   = __IMPOSSIBLE__
-  decIndex (Lam _ _)   = __IMPOSSIBLE__
-  decIndex (Level _)   = __IMPOSSIBLE__
-  decIndex (Lit _)     = __IMPOSSIBLE__
-  decIndex (MetaV _ _) = __IMPOSSIBLE__
-  decIndex (Pi _ _)    = __IMPOSSIBLE__
-  decIndex (Sort _)    = __IMPOSSIBLE__
+  decIndex (Con _ _)    = __IMPOSSIBLE__
+  decIndex (DontCare _) = __IMPOSSIBLE__
+  decIndex (Fun _ _)    = __IMPOSSIBLE__
+  decIndex (Lam _ _)    = __IMPOSSIBLE__
+  decIndex (Level _)    = __IMPOSSIBLE__
+  decIndex (Lit _)      = __IMPOSSIBLE__
+  decIndex (MetaV _ _)  = __IMPOSSIBLE__
+  decIndex (Pi _ _)     = __IMPOSSIBLE__
+  decIndex (Sort _)     = __IMPOSSIBLE__
 
 instance DecIndex a ⇒ DecIndex [a] where
   decIndex = map decIndex
@@ -137,14 +137,14 @@ instance VarNames Term where
   varNames (Var _ [])   = []
   varNames (Var _ args) = varNames args
 
-  varNames (Con _ _)   = __IMPOSSIBLE__
-  varNames DontCare    = __IMPOSSIBLE__
-  varNames (Fun _ _)   = __IMPOSSIBLE__
-  varNames (Level _)   = __IMPOSSIBLE__
-  varNames (Lit _)     = __IMPOSSIBLE__
-  varNames (MetaV _ _) = __IMPOSSIBLE__
-  varNames (Pi _ _)    = __IMPOSSIBLE__
-  varNames (Sort _)    = __IMPOSSIBLE__
+  varNames (Con _ _)    = __IMPOSSIBLE__
+  varNames (DontCare _) = __IMPOSSIBLE__
+  varNames (Fun _ _)    = __IMPOSSIBLE__
+  varNames (Level _)    = __IMPOSSIBLE__
+  varNames (Lit _)      = __IMPOSSIBLE__
+  varNames (MetaV _ _)  = __IMPOSSIBLE__
+  varNames (Pi _ _)     = __IMPOSSIBLE__
+  varNames (Sort _)     = __IMPOSSIBLE__
 
 instance VarNames (Arg Term) where
   varNames (Arg _ _ term) = varNames term
@@ -201,15 +201,15 @@ instance ChangeIndex Term where
 
     | n == index = __IMPOSSIBLE__
 
-  changeIndex (Con _ _)   _  = __IMPOSSIBLE__
-  changeIndex DontCare    _  = __IMPOSSIBLE__
-  changeIndex (Fun _ _)   _  = __IMPOSSIBLE__
-  changeIndex (Level _)   _  = __IMPOSSIBLE__
-  changeIndex (Lit _)     _  = __IMPOSSIBLE__
-  changeIndex (MetaV _ _) _  = __IMPOSSIBLE__
-  changeIndex (Pi _ _)    _  = __IMPOSSIBLE__
-  changeIndex (Sort _)    _  = __IMPOSSIBLE__
-  changeIndex (Var _ _)   _  = __IMPOSSIBLE__
+  changeIndex (Con _ _)    _  = __IMPOSSIBLE__
+  changeIndex (DontCare _) _  = __IMPOSSIBLE__
+  changeIndex (Fun _ _)    _  = __IMPOSSIBLE__
+  changeIndex (Level _)    _  = __IMPOSSIBLE__
+  changeIndex (Lit _)      _  = __IMPOSSIBLE__
+  changeIndex (MetaV _ _)  _  = __IMPOSSIBLE__
+  changeIndex (Pi _ _)     _  = __IMPOSSIBLE__
+  changeIndex (Sort _)     _  = __IMPOSSIBLE__
+  changeIndex (Var _ _)    _  = __IMPOSSIBLE__
 
 -- In the Agda source code (Agda.Syntax.Internal) we have
 --
@@ -322,14 +322,14 @@ instance TypesOfVars Term where
 
   typesOfVars (Fun _ ty) = typesOfVars ty
 
-  typesOfVars (Con _ _)   = []
-  typesOfVars DontCare    = []
-  typesOfVars (Lam _ _)   = []
-  typesOfVars (Level _)   = []
-  typesOfVars (Lit _)     = []
-  typesOfVars (MetaV _ _) = []
-  typesOfVars (Sort _)    = []
-  typesOfVars (Var _ _)   = []
+  typesOfVars (Con _ _)    = []
+  typesOfVars (DontCare _) = []
+  typesOfVars (Lam _ _)    = []
+  typesOfVars (Level _)    = []
+  typesOfVars (Lit _)      = []
+  typesOfVars (MetaV _ _)  = []
+  typesOfVars (Sort _)     = []
+  typesOfVars (Var _ _)    = []
 
 instance TypesOfVars (Arg Term) where
   typesOfVars (Arg _ _ term) = typesOfVars term
@@ -387,13 +387,13 @@ instance DropVar Term where
     reportSLn "dropPT" 20 $ "Pop variable: " ++ y
     return newTerm
 
-  dropVar (Con _ _)   _ = __IMPOSSIBLE__
-  dropVar DontCare    _ = __IMPOSSIBLE__
-  dropVar (Level _)   _ = __IMPOSSIBLE__
-  dropVar (Lit _)     _ = __IMPOSSIBLE__
-  dropVar (MetaV _ _) _ = __IMPOSSIBLE__
-  dropVar (Sort _)    _ = __IMPOSSIBLE__
-  dropVar (Var _ _)   _ = __IMPOSSIBLE__
+  dropVar (Con _ _)    _ = __IMPOSSIBLE__
+  dropVar (DontCare _) _ = __IMPOSSIBLE__
+  dropVar (Level _)    _ = __IMPOSSIBLE__
+  dropVar (Lit _)      _ = __IMPOSSIBLE__
+  dropVar (MetaV _ _)  _ = __IMPOSSIBLE__
+  dropVar (Sort _)     _ = __IMPOSSIBLE__
+  dropVar (Var _ _)    _ = __IMPOSSIBLE__
 
 instance DropVar (Arg Type) where
   dropVar (Arg h r ty) x = fmap (Arg h r) (dropVar ty x)
@@ -509,7 +509,7 @@ dropProofTerm ty (x, typeVar) = do
 
     -- Other cases
     El (Type (Max [ClosedLevel 1])) (Def _ _)    → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) DontCare     → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (DontCare _) → __IMPOSSIBLE__
     El (Type (Max [ClosedLevel 1])) (Con _ _)    → __IMPOSSIBLE__
     El (Type (Max [ClosedLevel 1])) (Lam _ _)    → __IMPOSSIBLE__
     El (Type (Max [ClosedLevel 1])) (MetaV _ _)  → __IMPOSSIBLE__

@@ -375,7 +375,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
 
     -- Other cases
     El (Type (Max [ClosedLevel 1])) (Def _ _)    → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) DontCare     → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (DontCare _) → __IMPOSSIBLE__
     El (Type (Max [ClosedLevel 1])) (Con _ _)    → __IMPOSSIBLE__
     El (Type (Max [ClosedLevel 1])) (Lam _ _)    → __IMPOSSIBLE__
     El (Type (Max [ClosedLevel 1])) (Level _)    → __IMPOSSIBLE__
@@ -414,12 +414,12 @@ termToFormula term@(Var n args) = do
 
        _ → predicateLogicalScheme vars n args
 
-termToFormula DontCare    = __IMPOSSIBLE__
-termToFormula (Con _ _)   = __IMPOSSIBLE__
-termToFormula (Level _)   = __IMPOSSIBLE__
-termToFormula (Lit _)     = __IMPOSSIBLE__
-termToFormula (MetaV _ _) = __IMPOSSIBLE__
-termToFormula (Sort _)    = __IMPOSSIBLE__
+termToFormula (DontCare _) = __IMPOSSIBLE__
+termToFormula (Con _ _)    = __IMPOSSIBLE__
+termToFormula (Level _)    = __IMPOSSIBLE__
+termToFormula (Lit _)      = __IMPOSSIBLE__
+termToFormula (MetaV _ _)  = __IMPOSSIBLE__
+termToFormula (Sort _)     = __IMPOSSIBLE__
 
 -- Translate the function 'foo x1 ... xn' to
 -- 'kAppFn (... kAppFn(kAppFn(foo, x1), x2), ..., xn)'.
@@ -504,11 +504,11 @@ termToFOLTerm term@(Var n args) = do
          termsFOL ← mapM argTermToFOLTerm varArgs
          return $ foldl' appFn (FOLVar (vars !! fromIntegral n)) termsFOL
 
-termToFOLTerm DontCare    = __IMPOSSIBLE__
-termToFOLTerm (Fun _ _)   = __IMPOSSIBLE__
-termToFOLTerm (Lam _ _)   = __IMPOSSIBLE__
-termToFOLTerm (Level _)   = __IMPOSSIBLE__
-termToFOLTerm (Lit _)     = __IMPOSSIBLE__
-termToFOLTerm (MetaV _ _) = __IMPOSSIBLE__
-termToFOLTerm (Pi _ _)    = __IMPOSSIBLE__
-termToFOLTerm (Sort _)    = __IMPOSSIBLE__
+termToFOLTerm (DontCare _) = __IMPOSSIBLE__
+termToFOLTerm (Fun _ _)    = __IMPOSSIBLE__
+termToFOLTerm (Lam _ _)    = __IMPOSSIBLE__
+termToFOLTerm (Level _)    = __IMPOSSIBLE__
+termToFOLTerm (Lit _)      = __IMPOSSIBLE__
+termToFOLTerm (MetaV _ _)  = __IMPOSSIBLE__
+termToFOLTerm (Pi _ _)     = __IMPOSSIBLE__
+termToFOLTerm (Sort _)     = __IMPOSSIBLE__

@@ -301,10 +301,10 @@ instance QNamesIn Term where
   qNamesIn (Sort _)         = []
   qNamesIn (Var _ args)     = qNamesIn args
 
-  qNamesIn DontCare    = __IMPOSSIBLE__
-  qNamesIn (Level _)   = __IMPOSSIBLE__
-  qNamesIn (Lit _)     = __IMPOSSIBLE__
-  qNamesIn (MetaV _ _) = __IMPOSSIBLE__
+  qNamesIn (DontCare _) = __IMPOSSIBLE__
+  qNamesIn (Level _)    = __IMPOSSIBLE__
+  qNamesIn (Lit _)      = __IMPOSSIBLE__
+  qNamesIn (MetaV _ _)  = __IMPOSSIBLE__
 
 instance QNamesIn Type where
   qNamesIn (El _ term) = qNamesIn term
