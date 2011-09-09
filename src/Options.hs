@@ -132,7 +132,7 @@ options =
   , Option []  ["snapshot-test"] (NoArg snapshotTestOpt) $
                "compare the generated TPTP files against a snapshot of them\n"
                ++ "(implies --only-files)"
-  , Option []  ["time"] (ReqArg timeOpt "secs")
+  , Option []  ["time"] (ReqArg timeOpt "NUM")
                "set timeout for the ATPs in seconds (default: 300)"
   , Option []  ["unproved-conjecture-error"] (NoArg unprovedErrorOpt)
                "an unproved TPTP conjecture generates an error"
