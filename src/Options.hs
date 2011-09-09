@@ -117,8 +117,9 @@ options ∷ [OptDescr (Options → Options)]
 options =
   [ Option "i" ["agda-include-path"] (ReqArg agdaIncludePathOpt "DIR")
                "look for imports in DIR"
-  , Option []  ["atp"] (ReqArg atpOpt "NAME")
-               "set the ATP (default: e, equinox, metis, spass, and vampire)"
+  , Option []  ["atp"] (ReqArg atpOpt "NAME") $
+               "set the ATP (e, equinox, metis, spass, vampire)\n"
+               ++ "(default: e, equinox, metis, spass, and vampire)"
   , Option "?" ["help"] (NoArg helpOpt)
                "show this help"
   , Option []  ["only-files"] (NoArg onlyFilesOpt)
