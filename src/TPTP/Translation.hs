@@ -30,7 +30,11 @@ import qualified Data.Map as Map ( elems, keys )
 ------------------------------------------------------------------------------
 -- Agda library imports
 
-import Agda.Syntax.Abstract.Name ( QName )
+import Agda.Syntax.Abstract.Name
+  ( Name(nameBindingSite)
+  , QName(qnameName)
+  )
+
 import Agda.Syntax.Common
   ( ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint) )
 import Agda.Syntax.Internal ( Clause, Type )
@@ -80,6 +84,7 @@ toAF role qName def = do
       ty = defType def
   reportSLn "toAF" 20 $
      "Translating QName: " ++ showLn qName
+     ++ "Position: " ++ showLn (nameBindingSite $ qnameName qName)
      ++ "Role: " ++ showLn role
      ++ "Type:\n" ++ show ty
 
