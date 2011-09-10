@@ -1,8 +1,16 @@
-------------------------------------------------------------------------------
--- Translation of things about Agda concrete names
-------------------------------------------------------------------------------
-
 {-# LANGUAGE UnicodeSyntax #-}
+
+------------------------------------------------------------------------------
+-- |
+-- Module      : FOL.Translation.Concrete.Name
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- Translation of things about Agda concrete names.
+------------------------------------------------------------------------------
 
 module FOL.Translation.Concrete.Name ( concatName ) where
 

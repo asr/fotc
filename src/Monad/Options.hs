@@ -1,8 +1,16 @@
------------------------------------------------------------------------------
--- Process the command line arguments
------------------------------------------------------------------------------
-
 {-# LANGUAGE UnicodeSyntax #-}
+
+-----------------------------------------------------------------------------
+-- |
+-- Module      : Monad.Options
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- Process the command line arguments.
+-----------------------------------------------------------------------------
 
 module Monad.Options ( processOptions ) where
 

@@ -1,8 +1,16 @@
-------------------------------------------------------------------------------
--- Snapshot test
-------------------------------------------------------------------------------
-
 {-# LANGUAGE UnicodeSyntax #-}
+
+------------------------------------------------------------------------------
+-- |
+-- Module      : Snapshot
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- Snapshot test.
+------------------------------------------------------------------------------
 
 module Snapshot ( snapshotTest ) where
 

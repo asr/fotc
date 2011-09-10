@@ -1,11 +1,19 @@
-------------------------------------------------------------------------------
--- Functions on de Bruijn indexes
-------------------------------------------------------------------------------
-
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE UnicodeSyntax #-}
+
+------------------------------------------------------------------------------
+-- |
+-- Module      : AgdaLib.Syntax.DeBruijn
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- Functions on de Bruijn indexes.
+------------------------------------------------------------------------------
 
 -- There are various cases (e.g. eta-expansion, translation of
 -- symbols' definitions, elimination of quantification on variables
@@ -15,10 +23,10 @@
 
 module AgdaLib.Syntax.DeBruijn
   ( ChangeIndex(changeIndex)
-  , decIndex
-  , incIndex
+  , DecIndex(decIndex)
+  , IncIndex(incIndex)
   , dropProofTerm
-  , typesOfVars
+  , TypesOfVars(typesOfVars)
   , varToIndex
   ) where
 

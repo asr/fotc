@@ -1,5 +1,17 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
+------------------------------------------------------------------------------
+-- |
+-- Module      : Utils.String
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- Utilities related to 'String'.
+------------------------------------------------------------------------------
+
 module Utils.String ( replace ) where
 
 ------------------------------------------------------------------------------

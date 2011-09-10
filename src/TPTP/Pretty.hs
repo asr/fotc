@@ -1,11 +1,19 @@
-------------------------------------------------------------------------------
--- Pretty printer for TPTP
-------------------------------------------------------------------------------
-
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE UnicodeSyntax #-}
+
+------------------------------------------------------------------------------
+-- |
+-- Module      : TPTP.Pretty
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- Pretty printer for TPTP.
+------------------------------------------------------------------------------
 
 module TPTP.Pretty ( PrettyTPTP(prettyTPTP), TPTP ) where
 

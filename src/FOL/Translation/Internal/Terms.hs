@@ -1,13 +1,20 @@
-------------------------------------------------------------------------------
--- Translation from Agda *internal* terms to FOL formulas
-------------------------------------------------------------------------------
-
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
+------------------------------------------------------------------------------
+-- |
+-- Module      : FOL.Translation.Internal.Terms
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- Translation from Agda internal terms to FOL formulas.
+------------------------------------------------------------------------------
+
 module FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm ) where
 
-------------------------------------------------------------------------------
 -- Haskell imports
 
 import Control.Monad.Error ( throwError )

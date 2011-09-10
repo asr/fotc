@@ -1,19 +1,29 @@
-------------------------------------------------------------------------------
--- FOL types
-------------------------------------------------------------------------------
-
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE UnicodeSyntax #-}
+
+------------------------------------------------------------------------------
+-- |
+-- Module      : FOL.Types
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- FOL types.
+------------------------------------------------------------------------------
 
 module FOL.Types ( FOLFormula(..), FOLTerm(..) ) where
 
 ------------------------------------------------------------------------------
--- FOL formulas.
 -- Adapted from AgdaLight (Plugins.FOL.Types).
+
+-- FOL terms.
 data FOLTerm = FOLFun String [FOLTerm]
              | FOLVar String
                deriving Show
 
+-- | FOL formulas.
 data FOLFormula = TRUE
                 | FALSE
                 | Predicate String     [FOLTerm]

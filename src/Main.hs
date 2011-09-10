@@ -3,9 +3,22 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
+------------------------------------------------------------------------------
+-- |
+-- Module      : Main
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- agda2atp: a program for proving first order formulae written in the
+-- dependently typed language Agda using (first-order) automatic
+-- theorem provers.
+------------------------------------------------------------------------------
+
 module Main ( main ) where
 
-------------------------------------------------------------------------------
 -- Haskell imports
 
 import Control.Monad       ( liftM2, unless, when )

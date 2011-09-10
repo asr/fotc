@@ -1,8 +1,16 @@
-------------------------------------------------------------------------------
--- Common entities used in the translation from Agda to FOL Formulas
-------------------------------------------------------------------------------
-
 {-# LANGUAGE UnicodeSyntax #-}
+
+------------------------------------------------------------------------------
+-- |
+-- Module      : FOL.Translation.Common
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- Common entities used in the translation from Agda to FOL formulas.
+------------------------------------------------------------------------------
 
 module FOL.Translation.Common ( varsToArgs ) where
 

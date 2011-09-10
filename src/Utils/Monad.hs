@@ -1,8 +1,16 @@
-------------------------------------------------------------------------------
--- Utilities on monads
-------------------------------------------------------------------------------
-
 {-# LANGUAGE UnicodeSyntax #-}
+
+------------------------------------------------------------------------------
+-- |
+-- Module      : Utils.Monad
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- Utilities on monads.
+------------------------------------------------------------------------------
 
 module Utils.Monad ( unlessM, whenM ) where
 

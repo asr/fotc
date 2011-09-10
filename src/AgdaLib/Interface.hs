@@ -1,10 +1,18 @@
-------------------------------------------------------------------------------
--- Handling of Agda interface files (*.agdai)
-------------------------------------------------------------------------------
-
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
+
+------------------------------------------------------------------------------
+-- |
+-- Module      : AgdaLib.Interface
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- Handling of Agda interface files (*.agdai).
+------------------------------------------------------------------------------
 
 module AgdaLib.Interface
   ( getClauses

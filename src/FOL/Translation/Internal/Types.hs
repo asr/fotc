@@ -1,9 +1,17 @@
-------------------------------------------------------------------------------
--- Translation from Agda *internal* types to FOL formulas
-------------------------------------------------------------------------------
-
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
+
+------------------------------------------------------------------------------
+-- |
+-- Module      : FOL.Translation.Internal.Types
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- Translation from Agda internal types to FOL formulas.
+------------------------------------------------------------------------------
 
 module FOL.Translation.Internal.Types
   ( argTypeToFormula

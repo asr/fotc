@@ -1,10 +1,18 @@
-------------------------------------------------------------------------------
--- Translation of Agda ATP pragmas to TPTP formulas
-------------------------------------------------------------------------------
-
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
+
+------------------------------------------------------------------------------
+-- |
+-- Module      : TPTP.Translation
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- Translation of Agda ATP pragmas to TPTP formulas.
+------------------------------------------------------------------------------
 
 module TPTP.Translation
   ( conjecturesToAFs

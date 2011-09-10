@@ -1,9 +1,17 @@
-------------------------------------------------------------------------------
--- The translation monad
-------------------------------------------------------------------------------
-
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE UnicodeSyntax #-}
+
+------------------------------------------------------------------------------
+-- |
+-- Module      : Monad.Base
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- The translation monad.
+------------------------------------------------------------------------------
 
 module Monad.Base
   ( AllDefinitions

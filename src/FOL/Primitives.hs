@@ -1,11 +1,19 @@
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE UnicodeSyntax #-}
+
 ------------------------------------------------------------------------------
--- FOL names hard-coded in the translation from Agda types to FOL formulas
+-- |
+-- Module      : FOL.Primitives
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- FOL names hard-coded in the translation from Agda types to FOL formulas.
 ------------------------------------------------------------------------------
 
 -- Adapted from AgdaLight (Plugins.FOL.Primitive).
-
-{-# LANGUAGE CPP #-}
-{-# LANGUAGE UnicodeSyntax #-}
 
 module FOL.Primitives
   ( appFn

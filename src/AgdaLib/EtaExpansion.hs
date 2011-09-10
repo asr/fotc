@@ -1,12 +1,20 @@
-------------------------------------------------------------------------------
--- Eta expansion of Agda internal types
-------------------------------------------------------------------------------
-
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module AgdaLib.EtaExpansion ( etaExpand ) where
+------------------------------------------------------------------------------
+-- |
+-- Module      : AgdaLib.EtaExpansion
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- Eta expansion of Agda internal types.
+------------------------------------------------------------------------------
+
+module AgdaLib.EtaExpansion ( EtaExpandible(etaExpand) ) where
 
 -- Haskell imports
 import Control.Monad       ( liftM2 )

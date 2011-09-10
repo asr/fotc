@@ -1,8 +1,16 @@
------------------------------------------------------------------------------
--- The FOL constants
------------------------------------------------------------------------------
-
 {-# LANGUAGE UnicodeSyntax #-}
+
+-----------------------------------------------------------------------------
+-- |
+-- Module      : FOL.Constants
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- The FOL constants.
+-----------------------------------------------------------------------------
 
 -- Adapted from AgdaLight (Plugins.FOL.Constants).
 

@@ -1,9 +1,17 @@
------------------------------------------------------------------------------
--- Reports via the verbose option
------------------------------------------------------------------------------
-
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
+
+-----------------------------------------------------------------------------
+-- |
+-- Module      : Monad.Reports
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- Reports via the verbose option.
+-----------------------------------------------------------------------------
 
 module Monad.Reports ( reportS, reportSLn, VerboseKey ) where
 

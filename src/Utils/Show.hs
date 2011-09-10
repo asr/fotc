@@ -1,8 +1,16 @@
-------------------------------------------------------------------------------
--- Utilities related to show
-------------------------------------------------------------------------------
-
 {-# LANGUAGE UnicodeSyntax #-}
+
+------------------------------------------------------------------------------
+-- |
+-- Module      : Utils.Show
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- Utilities related to 'Show'.
+------------------------------------------------------------------------------
 
 module Utils.Show ( showListLn, showLn ) where
 

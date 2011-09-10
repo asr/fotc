@@ -1,9 +1,17 @@
-------------------------------------------------------------------------------
--- Utilities on lists
-------------------------------------------------------------------------------
-
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
+
+------------------------------------------------------------------------------
+-- |
+-- Module      : Utils.List
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- Utilities on lists.
+------------------------------------------------------------------------------
 
 module Utils.List ( duplicatesElements, nonDuplicate ) where
 

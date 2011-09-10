@@ -1,13 +1,21 @@
-------------------------------------------------------------------------------
--- Translation of Agda internal functions to FOL formulas
-
--- Only are translated the functions that will be translate as TPTP
--- definitions.
-------------------------------------------------------------------------------
-
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
+
+------------------------------------------------------------------------------
+-- |
+-- Module      : FOL.Translation.Functions
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- License     : See the file LICENSE.
+--
+-- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+-- Stability   : experimental
+--
+-- Translation of Agda internal functions to FOL formulas.
+------------------------------------------------------------------------------
+
+-- Only are translated the functions that will be translate as TPTP
+-- definitions.
 
 module FOL.Translation.Functions ( fnToFormula ) where
 
