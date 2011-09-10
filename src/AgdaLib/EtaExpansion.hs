@@ -59,6 +59,7 @@ import Utils.Show              ( showLn )
 -- therefore it is not necessary to test for a clean state after its
 -- use.
 
+-- | Eta-expandible entities.
 class EtaExpandible a where
   etaExpand ∷ a → T a
 

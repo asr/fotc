@@ -12,7 +12,7 @@
 -- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 -- Stability   : experimental
 --
--- Pretty printer for TPTP.
+-- Pretty printer for TPTP formulas.
 ------------------------------------------------------------------------------
 
 module TPTP.Pretty ( PrettyTPTP(prettyTPTP), TPTP ) where

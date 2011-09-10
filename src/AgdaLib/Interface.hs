@@ -287,7 +287,7 @@ getClauses def =
        Function{} → funClauses defn
        _          → __IMPOSSIBLE__
 
--- | Returns the QNames in an entity.
+-- | Returns the 'QName's in an entity.
 class QNamesIn a where
   qNamesIn ∷ a → [QName]
 
@@ -329,8 +329,8 @@ instance QNamesIn Clause where
 instance QNamesIn Definition where
   qNamesIn def = qNamesIn $ defType def
 
+-- Adapted from Agda.TypeChecking.Monad.Signature.isProjection.
 -- | Is it the qname a projection?
--- Adapted from Agda.TypeChecking.Monad.Signature.isProjection
 isProjection ∷ QName → T (Maybe (QName, Int))
 isProjection qname = do
   defn ← theDef <$> qNameDefinition qname

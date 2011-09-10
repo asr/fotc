@@ -349,7 +349,7 @@ instance TypesOfVars Args where
 -- instance TypesOfVars (Abs Type) where
 --   typesOfVars (Abs _ ty) = typesOfVars ty
 
--- Remove the reference to a variable (i.e. Var n args) from an Agda
+-- | Remove the reference to a variable (i.e. Var n args) from an Agda
 -- internal entity.
 class DropVar a where
   dropVar ∷ a → String → T a

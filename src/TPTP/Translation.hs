@@ -55,7 +55,7 @@ import AgdaLib.Interface
   , getLocalHints
   , isATPDefinition
   , qNameDefinition
-  , QNamesIn(qNamesIn)
+  , qNamesIn
   )
 import AgdaLib.Syntax.DeBruijn        ( dropProofTerm, typesOfVars )
 import FOL.Translation.Functions      ( fnToFormula )
