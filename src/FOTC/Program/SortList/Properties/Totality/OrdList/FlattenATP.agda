@@ -28,7 +28,7 @@ flatten-OrdList-helper {t₂ = t₂} nilT Ni Tt₂ OTt =
         (sym (flatten-nilTree))
         (≤-Lists-[] (flatten t₂))
 
-flatten-OrdList-helper (tipT {i₁} Ni₁) _ nilT OTt = prf
+flatten-OrdList-helper (tipT {i₁} Ni₁) Tt₁ nilT OTt = prf
   where
   postulate prf : LE-Lists (flatten (tip i₁)) (flatten nilTree)
   -- Equinox 5.0alpha (2010-06-29): Non-tested.

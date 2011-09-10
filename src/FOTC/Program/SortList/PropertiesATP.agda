@@ -27,12 +27,12 @@ open import FOTC.Program.SortList.SortList
 -- Burstall's lemma: If t is ordered then totree(i, t) is ordered.
 toTree-OrdTree : ∀ {item t} → N item → Tree t → OrdTree t →
                  OrdTree (toTree · item · t)
-toTree-OrdTree {item} Nitem nilT _ = prf
+toTree-OrdTree {item} Nitem nilT OTt = prf
   where
   postulate prf : OrdTree (toTree · item · nilTree)
   {-# ATP prove prf #-}
 
-toTree-OrdTree {item} Nitem (tipT {i} Ni) _ =
+toTree-OrdTree {item} Nitem (tipT {i} Ni) OTt =
   [ prf₁ , prf₂ ] (x>y∨x≤y Ni Nitem)
   where
   postulate prf₁ : GT i item → OrdTree (toTree · item · tip i)
