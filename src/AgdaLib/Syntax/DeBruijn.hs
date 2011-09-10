@@ -31,7 +31,7 @@ module AgdaLib.Syntax.DeBruijn
   ) where
 
 -- Haskell imports
-import Control.Monad       ( liftM2 )
+import Control.Monad       ( liftM2, when )
 import Control.Monad.Error ( throwError )
 
 -- import Data.Maybe ( fromJust )
@@ -420,6 +420,8 @@ instance DropVar Args where
   dropVar (Arg h r var@(Var n []) : args) x = do
 
     vars ← getTVars
+
+    when (x == "_") $ throwError "We do not translate underscore variables"
 
     let index ∷ Integer
         index = case elemIndex x vars of
