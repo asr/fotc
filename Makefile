@@ -1,3 +1,5 @@
+# Tested with GNU Make 3.81
+
 haskell_files = $(shell find src/ -name '*.hs')
 
 AGDA     = agda -v 0
@@ -14,31 +16,28 @@ fail_path    = Test/Fail
 
 snapshot_dir = snapshot
 
-succeed_files = $(patsubst %.agda,%, \
+succeed_files = $(patsubst %.agda,%.succeed, \
 	$(shell find $(succeed_path) -name "*.agda" | sort))
 
-fail_files = $(patsubst %.agda,%, \
+fail_files = $(patsubst %.agda,%.fail, \
 	$(shell find $(fail_path) -name "*.agda" | sort))
 
-# Ugly hack
-# We need to add a fake extension to the file names to avoid repeated
-# targets.
-snapshot_files_to_create = $(foreach file,$(succeed_files), \
-	$(addsuffix .snapshotcreate, $(file)))
+parsing_files = $(patsubst %.agda,%.parsing, \
+	$(shell find $(succeed_path) -name "*.agda" | sort))
 
-snapshot_files_to_test = $(foreach file,$(succeed_files), \
-	$(addsuffix .snapshottest, $(file)))
+snapshot_files_to_create = $(patsubst %.agda,%.snapshotcreate, \
+	$(shell find $(succeed_path) -name "*.agda" | sort))
 
-parsing_files = $(foreach file,$(succeed_files), \
-	$(addsuffix .parsing, $(file)))
+snapshot_files_to_test = $(patsubst %.agda,%.snapshottest, \
+	$(shell find $(succeed_path) -name "*.agda" | sort))
 
 %.agdai : %.agda
 	@$(AGDA) $<
 
-$(succeed_files) : % : %.agdai
+%.succeed : %.agdai
 	@$(AGDA2ATP) --time=60 --unproved-conjecture-error $*.agda
 
-$(fail_files) : % : %.agdai
+%.fail : %.agdai
 	@if ( $(AGDA2ATP) --time=5 \
                           --unproved-conjecture-error \
                           $*.agda ); then \
@@ -46,7 +45,7 @@ $(fail_files) : % : %.agdai
 	fi
 
 # Equinox has the better parser for TPTP files, so we use it to find problems.
-$(parsing_files) : %.parsing : %.agdai
+%.parsing : %.agdai
 	@echo "Parsing file" $*.agda
 	@$(AGDA2ATP) --time=1 --atp=equinox $*.agda \
 		      >/tmp/xxx.tmp 2>/tmp/parsing.error
@@ -56,10 +55,10 @@ $(parsing_files) : %.parsing : %.agdai
 		exit 1; \
 	fi; \
 
-$(snapshot_files_to_create) : %.snapshotcreate : %.agdai
+%.snapshotcreate : %.agdai
 	@$(AGDA2ATP) --only-files --output-dir=$(snapshot_dir) $*.agda
 
-$(snapshot_files_to_test) : %.snapshottest : %.agdai
+%.snapshottest : %.agdai
 	@$(AGDA2ATP) --snapshot-test --snapshot-dir=$(snapshot_dir) $*.agda
 
 # Snapshot of the succeed TPTP files.
@@ -107,7 +106,6 @@ TODO :
 
 clean :
 	cabal clean
-	find -name '*.agdai' | xargs rm -f
 	rm -f /tmp/*.tptp
 	rm -f TAGS
 
