@@ -11,6 +11,7 @@ open import PredicateLogic.Constants
 postulate
   P⁰ : Set
   P¹ : D → Set
+  P² : D → D → Set
 
 -- The introduction and elimination rules for the quantifiers are theorems.
 {-
@@ -45,3 +46,8 @@ gDM₂ = l→r , r→l
 
   r→l : P⁰ ∧ ∃ (λ x → P¹ x) → ∃ (λ x → P⁰ ∧ P¹ x)
   r→l (p0 , x , p¹x) = x , p0 , p¹x
+
+-- Interchange of quantifiers.
+-- The related theorem ∀x∃y.Pxy → ∃y∀x.Pxy is not (classically) valid.
+∃∀ : ∃ (λ x → ⋀ λ y → P² x y) → ⋀ λ y → ∃ λ x → P² x y
+∃∀ (x , h) y = x , h y

@@ -65,3 +65,8 @@ postulate
   ∃-dist : ∃ (λ x → P¹ x ∨ Q¹ x) ↔ (∃ P¹ ∨ ∃ Q¹)
 {-# ATP prove ∀-dist #-}
 {-# ATP prove ∃-dist #-}
+
+-- Interchange of quantifiers.
+-- The related theorem ∀x∃y.Pxy → ∃y∀x.Pxy is not (classically) valid.
+postulate ∃∀ : ∃ (λ x → ⋀ λ y → P² x y) → ⋀ λ y → ∃ λ x → P² x y
+{-# ATP prove ∃∀ #-}
