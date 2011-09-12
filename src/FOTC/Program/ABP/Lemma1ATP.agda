@@ -121,7 +121,7 @@ lemma₁-helper {b} {i'} {is'} {os₀} {os₁} {as} {bs} {cs} {ds} {js}
   postulate
     as⁵-eq-helper₂ : ds ≡ error ∷ ds⁵ b i' is' ds (os₀⁵ os₀' ol₀⁵) (os₁⁵ os₁) →
                      as⁵ b i' is' ds ≡
-                     abpsend · b · (i' ∷ is') · ds⁵ b i' is' ds (os₀⁵ os₀' ol₀⁵ )(os₁⁵ os₁)
+                     abpsend · b · (i' ∷ is') · ds⁵ b i' is' ds (os₀⁵ os₀' ol₀⁵) (os₁⁵ os₁)
   {- ATP prove as⁵-eq-helper₂ #-}
 
   as⁵-eq : as⁵ b i' is' ds ≡
