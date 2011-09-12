@@ -24,8 +24,8 @@ open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 
--- TODO: These variables are outside the where clause due to an issue
--- in the translation.
+-- We have these TPTP definitions outside the where clause to keep
+-- them simple for the ATPs.
 
 ds⁵ : ∀ cs' os₁⁵ → D
 ds⁵ cs' os₁⁵ = corrupt · os₁⁵ · cs'

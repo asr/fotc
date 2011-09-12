@@ -24,8 +24,8 @@ open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 
--- TODO: These variables are outside the where clause due to an issue
--- in the translation.
+-- We have these TPTP definitions outside the where clause to keep
+-- them simple for the ATPs.
 
 as⁵ : ∀ b i' is' ds → D
 as⁵ b i' is' ds = await b i' is' ds
