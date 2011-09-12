@@ -34,6 +34,7 @@ import Agda.Syntax.Internal
   , PlusLevel(ClosedLevel)
   , Sort(Type)
   , Tele(ExtendTel)
+  , Telescope
   , Term(Def)
   , Type(El)
   )
@@ -125,6 +126,8 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
 
       reportSLn "def2f" 20 $ "Processing proof term: " ++ x
 
+      reportSLn "def2f" 20 $ "tye: " ++ show tye
+
       f1 ← typeToFormula tye
 
       reportSLn "def2f" 20 $ "f1: " ++ show f1
@@ -138,8 +141,14 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
 
       reportSLn "def2f" 20 $ "New body: " ++ show newBody
 
+      let decTels ∷ Telescope
+          decTels = decIndex tels
+
+      reportSLn "def2f" 20 $ "tels: " ++ show tels
+      reportSLn "def2f" 20 $ "decTels: " ++ show decTels
+
       -- We process forward in the telescope and the pattern.
-      f2 ← clauseToFormula qName ty (Clause r (decIndex tels) perm pats newBody)
+      f2 ← clauseToFormula qName ty (Clause r decTels perm pats newBody)
 
       reportSLn "def2f" 20 $ "f2: " ++ show f2
 
