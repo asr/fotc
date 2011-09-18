@@ -4,4 +4,4 @@
 
 module Draft.RenderToHTML where
 
-open import Draft.FOTC.Program.ABP.ProofSpecification
+open import Draft.Berry.Berry
