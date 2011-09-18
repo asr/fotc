@@ -69,7 +69,7 @@ import Agda.Syntax.Common
 import Agda.Syntax.Internal
   ( Abs(Abs)
   , Clause(Clause)
-  , ClauseBody(Bind, Body, NoBind, NoBody)
+  , ClauseBody(Bind, Body, NoBody)
   , Term(Con, Def, DontCare, Fun, Lam, Level, Lit, MetaV, Pi, Sort, Var)
   , Type(El)
   )
@@ -320,7 +320,6 @@ instance QNamesIn Type where
 instance QNamesIn ClauseBody where
   qNamesIn (Body term)          = qNamesIn term
   qNamesIn (Bind absClauseBody) = qNamesIn absClauseBody
-  qNamesIn (NoBind clauseBody)  = qNamesIn clauseBody
   qNamesIn NoBody               = []
 
 instance QNamesIn Clause where
