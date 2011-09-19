@@ -1,5 +1,9 @@
 ------------------------------------------------------------------------------
 -- The translation of projection-like functions is not implemented
+
+-- 2011-09-19: Maybe the information in the issue 465 (Missing
+-- patterns in funClauses) is useful.
+
 ------------------------------------------------------------------------------
 
 module Test.Fail.ProjectionLikeFunction where
