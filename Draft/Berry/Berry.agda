@@ -6,7 +6,7 @@
 -- From: Herbert P. Sander. A logic of functional programs with an
 -- application to concurrency. PhD thesis, Chalmers University of
 -- Technology and University of Gothenburg, Department of Computer
--- Sciences, 1992. p. 13.
+-- Sciences, 1992. pp. 12-13.
 
 ------------------------------------------------------------------------------
 
@@ -14,7 +14,7 @@ module Draft.Berry.Berry where
 
 open import FOTC.Base
 
--- For example the translation of the Haskell function
+-- For example, the translation of the Haskell function
 
 -- f ∷ Nat → Nat → Nat → Nat
 -- f Zero        (Succ Zero) x           = Succ Zero
@@ -34,9 +34,9 @@ postulate
 
 -- is not correct, because using the Haskell equations we have
 --
--- f loop zero (succ zero) = *** Exception
+-- f loop zero (succ zero) = *** Non-terminating ***
 --
 -- but using the equational axioms we can proof that
 postulate
-  thm : f loop zero (succ zero) ≡ succ (succ (succ zero))
-{-# ATP prove thm #-}
+  bad : f loop zero (succ zero) ≡ succ (succ (succ zero))
+{-# ATP prove bad #-}
