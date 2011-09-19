@@ -19,7 +19,7 @@ open import FOTC.Data.Nat
     ih {i} Ni Pi = subst N (sym (+-Sx i n)) (sN Pi)
 
 -- Combined proof using an instance of the induction principle.
-indN-instance : (x : D) →
+indN-instance : ∀ x →
                 N (zero + x) →
                 (∀ {n} → N n → N (n + x) → N (succ n + x)) →
                 ∀ {n} → N n → N (n + x)
