@@ -18,8 +18,8 @@ open import FOTC.Data.Stream.Equality
 ------------------------------------------------------------------------------
 -- The map-iterate property.
 
-≈-map-iterate : (f x : D) → map f (iterate f x) ≈ iterate f (f · x)
-≈-map-iterate f x = ≈-gfp₂ R (λ {xs} {ys} → helper xs ys) (x , refl , refl)
+≈-map-iterate : ∀ f x → map f (iterate f x) ≈ iterate f (f · x)
+≈-map-iterate f x = ≈-gfp₂ R helper (x , refl , refl)
   where
   postulate
     unfoldMap : ∀ f y →
@@ -35,18 +35,16 @@ open import FOTC.Data.Stream.Equality
   -- and Pierre Castéran. A Tutorial on [Co-]Inductive Types in
   -- Coq. May 1998 -- August 17, 2007.
   R : D → D → Set
-  R xs ys = ∃ (λ y → xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y))
+  R xs ys = ∃ λ y → xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y)
 
-  helper : ∀ xs ys → R xs ys → ∃ λ x' → ∃ λ xs' → ∃ λ ys' →
-             R xs' ys' ∧
-             xs ≡ x' ∷ xs' ∧
-             ys ≡ x' ∷ ys'
-  helper xs ys h = f · y
-                   , map f (iterate f (f · y))
-                   , iterate f (f · (f · y))
-                   , ((f · y) , refl , refl)
-                   , trans xs≡map (unfoldMap f y)
-                   , trans ys≡iterate (unfoldIterate f y)
+  helper : ∀ {xs ys} → R xs ys → ∃ λ x' → ∃ λ xs' → ∃ λ ys' →
+           R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+  helper {xs} {ys} h = f · y
+                     , map f (iterate f (f · y))
+                     , iterate f (f · (f · y))
+                     , ((f · y) , refl , refl)
+                     , trans xs≡map (unfoldMap f y)
+                     , trans ys≡iterate (unfoldIterate f y)
     where
     y : D
     y = ∃-proj₁ h
