@@ -17,21 +17,22 @@ open import LTC-PCF.Base
 -- Version using lambda lifting via super-combinators.
 -- (Hughes. Super-combinators. 1982)
 
-<-helper₁ : D → D → D → D
-<-helper₁ d lt e = if (isZero e)
-                      then false
-                      else (if (isZero d)
-                               then true
-                               else (lt · (pred d) · (pred e)))
-{-# ATP definition <-helper₁ #-}
+abstract
+  <-helper₁ : D → D → D → D
+  <-helper₁ d lt e = if (isZero e)
+                        then false
+                        else (if (isZero d)
+                                 then true
+                                 else (lt · (pred d) · (pred e)))
+  {-# ATP definition <-helper₁ #-}
 
-<-helper₂ : D → D → D
-<-helper₂ lt d = lam (<-helper₁ d lt)
-{-# ATP definition <-helper₂ #-}
+  <-helper₂ : D → D → D
+  <-helper₂ lt d = lam (<-helper₁ d lt)
+  {-# ATP definition <-helper₂ #-}
 
-<-h : D → D
-<-h lt = lam (<-helper₂ lt)
-{-# ATP definition <-h #-}
+  <-h : D → D
+  <-h lt = lam (<-helper₂ lt)
+  {-# ATP definition <-h #-}
 
 _<_ : D → D → D
 d < e = fix <-h · d · e
