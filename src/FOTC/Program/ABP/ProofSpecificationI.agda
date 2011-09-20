@@ -13,9 +13,8 @@ module FOTC.Program.ABP.ProofSpecificationI where
 
 open import FOTC.Base
 
+open import FOTC.Data.Stream.Equality
 open import FOTC.Data.Stream.Type
-
-open import FOTC.Relation.Binary.Bisimilarity
 
 open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.Fair

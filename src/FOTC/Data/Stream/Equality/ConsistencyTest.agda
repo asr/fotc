@@ -1,16 +1,16 @@
 ------------------------------------------------------------------------------
--- Test the consistency of FOTC.Relation.Binary.Bisimilarity
+-- Test the consistency of FOTC.Data.Stream.Equality
 ------------------------------------------------------------------------------
 
--- In the module FOTC.Relation.Binary.Bisimilarity we declare Agda
+-- In the module FOTC.Data.Stream.Equality we declare Agda
 -- postulates as FOL axioms. We test if it is possible to prove an
 -- unprovable theorem from these axioms.
 
-module FOTC.Relation.Binary.Bisimilarity.ConsistencyTest where
+module FOTC.Data.Stream.Equality.ConsistencyTest where
 
 open import FOTC.Base
 
-open import FOTC.Relation.Binary.Bisimilarity
+open import FOTC.Data.Stream.Equality
 
 ------------------------------------------------------------------------------
 

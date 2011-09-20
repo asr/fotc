@@ -1,13 +1,13 @@
 ------------------------------------------------------------------------------
--- Bisimilarity properties
+-- Properties for the equality on streams
 ------------------------------------------------------------------------------
 
-module FOTC.Relation.Binary.Bisimilarity.PropertiesI where
+module FOTC.Data.Stream.Equality.PropertiesI where
 
 open import FOTC.Base
 open import FOTC.Base.PropertiesI using ( ∷-injective )
 
-open import FOTC.Relation.Binary.Bisimilarity
+open import FOTC.Data.Stream.Equality
 
 ------------------------------------------------------------------------------
 

@@ -8,9 +8,9 @@ open import FOTC.Base
 
 ------------------------------------------------------------------------------
 
--- Functor for the FOTC Stream type.
+-- Functional for the FOTC Stream type.
 -- StreamF : (D → Set) → D → Set
--- StreamF X ds = ∃ λ e → ∃ λ es → X es ∧ ds ≡ e ∷ es
+-- StreamF P ds = ∃ λ e → ∃ λ es → P es ∧ ds ≡ e ∷ es
 
 postulate
   Stream : D → Set
@@ -47,6 +47,6 @@ Stream-gfp₃ h = Stream-gfp₂ P helper h
   P : D → Set
   P ws = ∃ λ w' → ∃ λ ws' → Stream ws' ∧ ws ≡ w' ∷ ws'
 
-  helper : {xs : D} → P xs → ∃ λ x' → ∃ λ xs' → P xs' ∧ xs ≡ x' ∷ xs'
+  helper : ∀ {xs} → P xs → ∃ λ x' → ∃ λ xs' → P xs' ∧ xs ≡ x' ∷ xs'
   helper (x' , xs' , Sxs' , xs≡x'∷xs') =
     x' , xs' , (Stream-gfp₁ Sxs') , xs≡x'∷xs'

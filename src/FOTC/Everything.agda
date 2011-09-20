@@ -64,6 +64,10 @@ open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
 open import FOTC.Data.Nat.UnaryNumbers.TotalityI
 
 open import FOTC.Data.Stream.ConsistencyTest
+open import FOTC.Data.Stream.Equality
+open import FOTC.Data.Stream.Equality.ConsistencyTest
+open import FOTC.Data.Stream.Equality.PropertiesATP
+open import FOTC.Data.Stream.Equality.PropertiesI
 open import FOTC.Data.Stream.PropertiesATP
 open import FOTC.Data.Stream.PropertiesI
 open import FOTC.Data.Stream.Type
@@ -183,10 +187,5 @@ open import FOTC.Program.SortList.PropertiesI
 open import FOTC.Program.SortList.PropertiesATP
 open import FOTC.Program.SortList.SortList
 open import FOTC.Program.SortList.SortList.ConsistencyTest
-
-open import FOTC.Relation.Binary.Bisimilarity
-open import FOTC.Relation.Binary.Bisimilarity.ConsistencyTest
-open import FOTC.Relation.Binary.Bisimilarity.PropertiesATP
-open import FOTC.Relation.Binary.Bisimilarity.PropertiesI
 
 open import FOTC.Relation.Binary.EqReasoning

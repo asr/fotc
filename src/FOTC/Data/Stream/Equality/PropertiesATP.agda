@@ -1,12 +1,12 @@
 ------------------------------------------------------------------------------
--- Bisimilarity properties
+-- Properties for the equality on streams
 ------------------------------------------------------------------------------
 
-module FOTC.Relation.Binary.Bisimilarity.PropertiesATP where
+module FOTC.Data.Stream.Equality.PropertiesATP where
 
 open import FOTC.Base
 
-open import FOTC.Relation.Binary.Bisimilarity
+open import FOTC.Data.Stream.Equality
 
 ------------------------------------------------------------------------------
 

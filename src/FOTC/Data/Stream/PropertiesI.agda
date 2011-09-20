@@ -8,11 +8,10 @@ open import FOTC.Base
 
 open import FOTC.Base.PropertiesI
 
+open import FOTC.Data.Stream.Equality
 open import FOTC.Data.Stream.Type
 
-open import FOTC.Relation.Binary.Bisimilarity
-
-------------------------------------------------------------------------------
+-----------------------------------------------------------------------------
 
 tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 tailS {x} {xs} h = subst Stream (sym (∧-proj₂ (∷-injective x∷xs≡e∷es))) Ses
@@ -45,7 +44,6 @@ tailS {x} {xs} h = subst Stream (sym (∧-proj₂ (∷-injective x∷xs≡e∷es
     where
     unfold-≈ : ∃ λ w' → ∃ λ ws' → ∃ λ zs' →
                ws' ≈ zs' ∧ ws ≡ w' ∷ ws' ∧ zs ≡ w' ∷ zs'
-
     unfold-≈ = ≈-gfp₁ ws≈zs
 
     w' : D

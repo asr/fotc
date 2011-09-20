@@ -233,18 +233,14 @@ open import FOTC.Data.Nat.List.PropertiesI
 -- 6.5.1 The coinductive predicate (axioms)
 open import FOTC.Data.Stream.Type
 
--- 6.5.2 Properties
+-- 6.5.2 Equality on streams
+open import FOTC.Data.Stream.Equality
+open import FOTC.Data.Stream.Equality.PropertiesATP
+open import FOTC.Data.Stream.Equality.PropertiesI
+
+-- 6.5.3 Properties
 open import FOTC.Data.Stream.PropertiesATP
 open import FOTC.Data.Stream.PropertiesI
-
--- 6.6 The bisimilary relation
-
--- 6.6.1 The coinductive predicate (axioms)
-open import FOTC.Relation.Binary.Bisimilarity
-
--- 6.6.2 Properties
-open import FOTC.Relation.Binary.Bisimilarity.PropertiesATP
-open import FOTC.Relation.Binary.Bisimilarity.PropertiesI
 
 -- 6.7 Programs
 

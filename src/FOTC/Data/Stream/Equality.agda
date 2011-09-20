@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Bisimilarity relation on FOTC
+-- Equality on streams
 ------------------------------------------------------------------------------
 
-module FOTC.Relation.Binary.Bisimilarity where
+module FOTC.Data.Stream.Equality where
 
 open import FOTC.Base
 
@@ -10,36 +10,36 @@ open import FOTC.Base
 infix 7 _≈_
 
 ------------------------------------------------------------------------------
--- The bisimilarity relation.
+-- The equality on streams.
 postulate
   _≈_ : D → D → Set
 
--- The bisimilarity relation is a post-fixed point of the functor
--- BisimilarityF (see below).
+-- The relation _≈_ is a post-fixed point of the bisimulation functional
+-- (see below).
 postulate
   ≈-gfp₁ : ∀ {xs ys} → xs ≈ ys →
            ∃ λ x' → ∃ λ xs' → ∃ λ ys' →
            xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 {-# ATP axiom ≈-gfp₁ #-}
 
--- The bisimilarity relation is the greatest post-fixed point of the
--- functor BisimilarityF (see below).
+-- The relation _≈_ is the greatest post-fixed point of the
+-- bisimulation functional (see below).
 
 -- N.B. This is a second-order axiom. In the automatic proofs, we
 -- *must* use an instance. Therefore, we do not add this postulate as
 -- an ATP axiom.
 postulate
   ≈-gfp₂ : (_R_ : D → D → Set) →
-           -- R is a post-fixed point of BisimilarityF.
+           -- R is a post-fixed point of the bisimulation functional.
            (∀ {xs ys} → xs R ys →
             ∃ λ x' → ∃ λ xs' → ∃ λ ys' →
             xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
            -- _≈_ is greater than R.
            ∀ {xs ys} → xs R ys → xs ≈ ys
 
--- Because a greatest post-fixed point is a fixed point, the
--- bisimilarity relation is also a pre-fixed point of the functor
--- BisimilarityF (see below).
+-- Because a greatest post-fixed point is a fixed point, the relation
+-- _≈_ is also a pre-fixed point of the bisimulation functional (see
+-- below).
 ≈-gfp₃ : ∀ {xs ys} →
          (∃ λ x' → ∃ λ xs' → ∃ λ ys' →
           xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
@@ -56,32 +56,40 @@ postulate
   helper (x' , xs' , ys' , xs'≈ys' , prf) =
     x' , xs' , ys' , (≈-gfp₁ xs'≈ys') , prf
 
-module BisimilarityF where
-  -- In FOTC we won't use the bisimilarity functor. This module is
+module Bisimulation where
+  -- In FOTC we won't use the bisimulation functional. This module is
   -- only for illustrative purposes.
 
   -- Adapted from [1]. In this paper the authors use the name
-  -- 'as (R :: R') bs' (p. 310) for the functor BisimilarityF.
+
+  -- as (R :: R') bs' (p. 310)
+
+  -- for the bisimulation functional.
 
   -- [1] Peter Dybjer and Herbert Sander. A functional programming
   -- approach to the specification and verification of concurrent
   -- systems. Formal Aspects of Computing, 1:303–319, 1989.
 
-  -- The bisimilarity functor.
-  BisimilarityF : (D → D → Set) → D → D → Set
-  BisimilarityF _R_ xs ys =
-    ∃ λ x' → ∃ λ xs' → ∃ λ ys' →
-      xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+  -- The bisimulation functional (Bart Jacobs and Jan
+  -- Rutten. (Co)algebras and (co)induction. EATCS Bulletin,
+  -- 62:222–259, 1997).
+  Bisimulation : (D → D → Set) → D → D → Set
+  Bisimulation _R_ xs ys =
+    ∃ λ x' → ∃ λ xs' → ∃ λ ys' → xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 
-  -- The bisimilarity relation is a post-fixed point of BisimilarityF.
-  pfp : ∀ {xs ys} → xs ≈ ys → BisimilarityF _≈_ xs ys
-  pfp = ≈-gfp₁
+  -- The relation _≈_ is a post-fixed point of Bisimulation.
+  post-fp : ∀ {xs ys} → xs ≈ ys → Bisimulation _≈_ xs ys
+  post-fp = ≈-gfp₁
 
-  -- The bisimilarity relation is the greatest post-fixed point of
-  -- BisimilarityF.
+  -- The relation _≈_ is the greatest post-fixed point of
+  -- Bisimulation.
   gpfp : (_R_ : D → D → Set) →
-         -- R is a post-fixed point of BisimilarityF.
-         (∀ {xs ys} → xs R ys → BisimilarityF _R_ xs ys) →
+         -- R is a post-fixed point of Bisimulation.
+         (∀ {xs ys} → xs R ys → Bisimulation _R_ xs ys) →
          -- _≈_ is greater than R.
          ∀ {xs ys} → xs R ys → xs ≈ ys
   gpfp = ≈-gfp₂
+
+  -- The relation _≈_ is a pre-fixed point of Bisimulation.
+  pre-fp : ∀ {xs ys} → Bisimulation _≈_ xs ys → xs ≈ ys
+  pre-fp = ≈-gfp₃
