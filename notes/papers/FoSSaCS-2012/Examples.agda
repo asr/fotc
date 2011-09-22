@@ -1,4 +1,4 @@
-module SEFM-2011 where
+module Examples where
 
 data _∨_ (A B : Set) : Set where
   inl : A → A ∨ B
