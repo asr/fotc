@@ -7,11 +7,6 @@ module LTC-PCF.Data.Nat.Inequalities.EquationsI where
 open import LTC-PCF.Base
 
 open import LTC-PCF.Data.Nat.Inequalities
-  using ( _<_ ; <-helper₁ ; <-helper₂ ; <-h
-        ; _≤_
-        ; GE ; GT ; LE ; LT ; NGT ; NLE ; NLT
-        )
-
 open import LTC-PCF.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
@@ -118,7 +113,9 @@ private
 
   -- The definition of <-h.
   s₁→s₂ : ∀ d e → <-s₁ d e ≡ <-s₂ d e
-  s₁→s₂ d e = refl
+  s₁→s₂ d e = subst (λ t → <-h (fix <-h) · d · e ≡ t · d · e)
+                    (<-h-≡ (fix <-h))
+                    refl
 
   -- Beta application.
   s₂→s₃ : ∀ d e → <-s₂ d e ≡ <-s₃ d e
@@ -128,7 +125,9 @@ private
 
   -- Definition of lt-helper₂
   s₃→s₄ : ∀ d e → <-s₃ d e ≡ <-s₄ d e
-  s₃→s₄ d e = refl
+  s₃→s₄ d e = subst (λ t → <-helper₂ (fix <-h) d · e ≡ t · e)
+                    (<-helper₂-≡ (fix <-h) d)
+                    refl
 
   -- Beta application.
   s₄→s₅ : ∀ d e → <-s₄ d e ≡ <-s₅ d e
@@ -136,7 +135,7 @@ private
 
   -- Definition of lt-helper₁.
   s₅→s₆ : ∀ d e → <-s₅ d e ≡ <-s₆ d e
-  s₅→s₆ d e = refl
+  s₅→s₆ d e = <-helper₁-≡ d (fix <-h) e
 
   -- Reduction 'isZero e ≡ b' using that proof.
   s₆→s₇ : ∀ d e b → isZero e ≡ b → <-s₆ d e ≡ <-s₇ d e b
