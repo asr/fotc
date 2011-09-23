@@ -1,6 +1,10 @@
 ------------------------------------------------------------------------------
 -- The translation of projection-like functions is not implemented
 
+-- 2011-09-23: From the Agda mailing list
+-- Subject: Compiler internals for projection functions
+-- There is some additional information about this issue.
+
 -- 2011-09-19: Maybe the information in the issue 465 (Missing
 -- patterns in funClauses) is useful.
 
