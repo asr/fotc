@@ -4,9 +4,9 @@
 
 module Draft.LambdaLifting where
 
-open import LTC.Base
+open import LTC-PCF.Base
 
-open import LTC.Data.Nat using ( _*_ )
+open import LTC-PCF.Data.Nat using ( _*_ )
 
 ------------------------------------------------------------------------------
 
