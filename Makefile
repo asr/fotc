@@ -106,6 +106,7 @@ TODO :
 
 clean :
 	cabal clean
+	find -name '*.agdai' | xargs rm -f
 	rm -f /tmp/*.tptp
 	rm -f TAGS
 

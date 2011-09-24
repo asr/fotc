@@ -17,7 +17,6 @@
 module AgdaLib.EtaExpansion ( EtaExpandible(etaExpand) ) where
 
 -- Haskell imports
-import Control.Monad       ( liftM2 )
 import Control.Monad.Error ( throwError )
 
 import Data.Functor ( (<$>) )
@@ -32,12 +31,12 @@ import Agda.Syntax.Common
   , Relevance(Relevant)
   )
 import Agda.Syntax.Internal
-  ( Abs(Abs)
+  ( Abs(Abs, NoAbs)
   , Args
   , arity
   , Level(Max)
   , PlusLevel(ClosedLevel)
-  , Term(Con, Def, DontCare, Fun, Lam, Level, Lit, MetaV, Pi, Sort, Var)
+  , Term(Con, Def, DontCare, Lam, Level, Lit, MetaV, Pi, Sort, Var)
   , Sort(Type)
   , Type(El)
   )
@@ -127,21 +126,24 @@ instance EtaExpandible Term where
   -- we don't do anything.
   etaExpand term@(Con _ _) = return term
 
-  etaExpand (Fun tyArg ty) = liftM2 Fun (etaExpand tyArg) (etaExpand ty)
-
   etaExpand (Lam h (Abs x termAbs)) = Lam h . Abs x <$> etaExpand termAbs
 
+  etaExpand (Pi tyArg (NoAbs x tyAbs)) = do
+     tArg ← etaExpand tyArg
+     tAbs ← etaExpand tyAbs
+     return $ Pi tArg (NoAbs x tAbs)
   -- It seems it is not necessary to eta-expand the tyArg like in the
-  -- case of Fun (Arg Type) Type.
+  -- case of Pi _ (NoAbs _ _).
   etaExpand (Pi tyArg (Abs x tyAbs)) = Pi tyArg . Abs x <$> etaExpand tyAbs
 
   etaExpand (Var n args) = Var n <$> mapM etaExpand args
 
-  etaExpand (DontCare _) = __IMPOSSIBLE__
-  etaExpand (Level _)    = __IMPOSSIBLE__
-  etaExpand (Lit _)      = __IMPOSSIBLE__
-  etaExpand (MetaV _ _)  = __IMPOSSIBLE__
-  etaExpand (Sort _)     = __IMPOSSIBLE__
+  etaExpand (DontCare _)        = __IMPOSSIBLE__
+  etaExpand (Level _)           = __IMPOSSIBLE__
+  etaExpand (Lam _ (NoAbs _ _)) = __IMPOSSIBLE__
+  etaExpand (Lit _)             = __IMPOSSIBLE__
+  etaExpand (MetaV _ _)         = __IMPOSSIBLE__
+  etaExpand (Sort _)            = __IMPOSSIBLE__
 
 instance EtaExpandible a ⇒ EtaExpandible (Arg a) where
   etaExpand (Arg h r t) = Arg h r <$> etaExpand t

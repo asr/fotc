@@ -67,10 +67,10 @@ import Agda.Syntax.Abstract.Name
 import Agda.Syntax.Common
   ( Arg(Arg), ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint) )
 import Agda.Syntax.Internal
-  ( Abs(Abs)
+  ( Abs(Abs, NoAbs)
   , Clause(Clause)
   , ClauseBody(Bind, Body, NoBody)
-  , Term(Con, Def, DontCare, Fun, Lam, Level, Lit, MetaV, Pi, Sort, Var)
+  , Term(Con, Def, DontCare, Lam, Level, Lit, MetaV, Pi, Sort, Var)
   , Type(El)
   )
 import Agda.Syntax.Position
@@ -298,12 +298,12 @@ instance QNamesIn a ⇒ QNamesIn (Arg a) where
   qNamesIn (Arg _ _ t) = qNamesIn t
 
 instance QNamesIn a ⇒ QNamesIn (Abs a) where
-  qNamesIn (Abs _ b) = qNamesIn b
+  qNamesIn (Abs _ b)   = qNamesIn b
+  qNamesIn (NoAbs _ b) = qNamesIn b
 
 instance QNamesIn Term where
   qNamesIn (Con qName args) = qName : qNamesIn args
   qNamesIn (Def qName args) = qName : qNamesIn args
-  qNamesIn (Fun argTy ty)   = qNamesIn argTy ++ qNamesIn ty
   qNamesIn (Lam _ absTerm)  = qNamesIn absTerm
   qNamesIn (Pi argTy absTy) = qNamesIn argTy ++ qNamesIn absTy
   qNamesIn (Sort _)         = []

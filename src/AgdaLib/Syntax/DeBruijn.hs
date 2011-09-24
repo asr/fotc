@@ -42,13 +42,13 @@ import Data.List  ( elemIndex )
 
 import Agda.Syntax.Common ( Arg(Arg) , Nat )
 import Agda.Syntax.Internal
-  ( Abs(Abs)
+  ( Abs(Abs, NoAbs)
   , Args
   , ClauseBody(Bind,Body)
   , Level(Max)
   , PlusLevel(ClosedLevel)
   , Tele(EmptyTel, ExtendTel)
-  , Term(Con, Def, DontCare, Fun, Lam, Level, Lit, MetaV, Pi, Sort, Var)
+  , Term(Con, Def, DontCare, Lam, Level, Lit, MetaV, Pi, Sort, Var)
   , Sort(Type)
   , Type(El)
   )
@@ -75,7 +75,6 @@ instance IncIndex Term where
   incIndex (Con _ _)    = __IMPOSSIBLE__
   incIndex (Def _ _)    = __IMPOSSIBLE__
   incIndex (DontCare _) = __IMPOSSIBLE__
-  incIndex (Fun _ _)    = __IMPOSSIBLE__
   incIndex (Lam _ _)    = __IMPOSSIBLE__
   incIndex (Level _)    = __IMPOSSIBLE__
   incIndex (Lit _)      = __IMPOSSIBLE__
@@ -101,7 +100,6 @@ instance DecIndex Term where
 
   decIndex (Con _ _)    = __IMPOSSIBLE__
   decIndex (DontCare _) = __IMPOSSIBLE__
-  decIndex (Fun _ _)    = __IMPOSSIBLE__
   decIndex (Lam _ _)    = __IMPOSSIBLE__
   decIndex (Level _)    = __IMPOSSIBLE__
   decIndex (Lit _)      = __IMPOSSIBLE__
@@ -121,6 +119,7 @@ instance DecIndex a ⇒ DecIndex (Arg a) where
 
 instance DecIndex a ⇒ DecIndex (Abs a) where
   decIndex (Abs name body) = Abs name $ decIndex body
+  decIndex (NoAbs _ _)     = __IMPOSSIBLE__
 
 instance DecIndex a ⇒ DecIndex (Tele a) where
   decIndex EmptyTel          = EmptyTel
@@ -145,14 +144,14 @@ instance VarNames Term where
   varNames (Var _ [])   = []
   varNames (Var _ args) = varNames args
 
-  varNames (Con _ _)    = __IMPOSSIBLE__
-  varNames (DontCare _) = __IMPOSSIBLE__
-  varNames (Fun _ _)    = __IMPOSSIBLE__
-  varNames (Level _)    = __IMPOSSIBLE__
-  varNames (Lit _)      = __IMPOSSIBLE__
-  varNames (MetaV _ _)  = __IMPOSSIBLE__
-  varNames (Pi _ _)     = __IMPOSSIBLE__
-  varNames (Sort _)     = __IMPOSSIBLE__
+  varNames (Con _ _)           = __IMPOSSIBLE__
+  varNames (DontCare _)        = __IMPOSSIBLE__
+  varNames (Lam _ (NoAbs _ _)) = __IMPOSSIBLE__
+  varNames (Level _)           = __IMPOSSIBLE__
+  varNames (Lit _)             = __IMPOSSIBLE__
+  varNames (MetaV _ _)         = __IMPOSSIBLE__
+  varNames (Pi _ _)            = __IMPOSSIBLE__
+  varNames (Sort _)            = __IMPOSSIBLE__
 
 instance VarNames (Arg Term) where
   varNames (Arg _ _ term) = varNames term
@@ -209,15 +208,15 @@ instance ChangeIndex Term where
 
     | n == index = __IMPOSSIBLE__
 
-  changeIndex (Con _ _)    _  = __IMPOSSIBLE__
-  changeIndex (DontCare _) _  = __IMPOSSIBLE__
-  changeIndex (Fun _ _)    _  = __IMPOSSIBLE__
-  changeIndex (Level _)    _  = __IMPOSSIBLE__
-  changeIndex (Lit _)      _  = __IMPOSSIBLE__
-  changeIndex (MetaV _ _)  _  = __IMPOSSIBLE__
-  changeIndex (Pi _ _)     _  = __IMPOSSIBLE__
-  changeIndex (Sort _)     _  = __IMPOSSIBLE__
-  changeIndex (Var _ _)    _  = __IMPOSSIBLE__
+  changeIndex (Con _ _)           _ = __IMPOSSIBLE__
+  changeIndex (DontCare _)        _ = __IMPOSSIBLE__
+  changeIndex (Lam _ (NoAbs _ _)) _ = __IMPOSSIBLE__
+  changeIndex (Level _)           _ = __IMPOSSIBLE__
+  changeIndex (Lit _)             _ = __IMPOSSIBLE__
+  changeIndex (MetaV _ _)         _ = __IMPOSSIBLE__
+  changeIndex (Pi _ _)            _ = __IMPOSSIBLE__
+  changeIndex (Sort _)            _ = __IMPOSSIBLE__
+  changeIndex (Var _ _)           _ = __IMPOSSIBLE__
 
 -- In the Agda source code (Agda.Syntax.Internal) we have
 --
@@ -323,21 +322,20 @@ instance TypesOfVars Term where
   -- typesOfVars (Lam _ (Abs x absTerm)) =
   --   typesOfVars absTerm ++ [(x, El (Type (Max [])) DontCare)]
 
-  -- We only have real bounded variables in Pi terms.
-  typesOfVars (Pi (Arg _ _ ty) (Abs x absTy)) = (x, ty) : typesOfVars absTy
+  -- We only have real bounded variables in Pi _ (Abs _ _) terms.
+  typesOfVars (Pi _            (NoAbs _ absTy)) = typesOfVars absTy
+  typesOfVars (Pi (Arg _ _ ty) (Abs x absTy))   = (x, ty) : typesOfVars absTy
 
   typesOfVars (Def _ args) = typesOfVars args
 
-  typesOfVars (Fun _ ty) = typesOfVars ty
-
-  typesOfVars (Con _ _)    = []
-  typesOfVars (DontCare _) = []
-  typesOfVars (Lam _ _)    = []
-  typesOfVars (Level _)    = []
-  typesOfVars (Lit _)      = []
-  typesOfVars (MetaV _ _)  = []
-  typesOfVars (Sort _)     = []
-  typesOfVars (Var _ _)    = []
+  typesOfVars (Con _ _)                    = []
+  typesOfVars (DontCare _)                 = []
+  typesOfVars (Lam _ _)                    = []
+  typesOfVars (Level _)                    = []
+  typesOfVars (Lit _)                      = []
+  typesOfVars (MetaV _ _)                  = []
+  typesOfVars (Sort _)                     = []
+  typesOfVars (Var _ _)                    = []
 
 instance TypesOfVars (Arg Term) where
   typesOfVars (Arg _ _ term) = typesOfVars term
@@ -361,9 +359,6 @@ instance DropVar Type where
 instance DropVar Term where
   dropVar (Def qname args) x = fmap (Def qname) (dropVar args x)
 
-  -- N.B. The variables *are* dropped from the (Arg Type).
-  dropVar (Fun argT ty) x = liftM2 Fun (dropVar argT x) (dropVar ty x)
-
   dropVar (Lam h (Abs y absTerm)) x = do
 
     pushTVar y
@@ -378,30 +373,42 @@ instance DropVar Term where
 
     return $ Lam h (Abs y auxTerm)
 
+  -- N.B. The variables *are* dropped from the (Arg Type).
+  dropVar (Pi argTy (NoAbs y absTy)) x = do
+    newArgTy ← dropVar argTy x
+    newAbsTy ← dropVar absTy x
+    return $ Pi newArgTy (NoAbs y newAbsTy)
+
   -- N.B. The variables *are not* dropped from the (Arg Type), they
   -- are only dropped from the (Abs Type).
-  dropVar (Pi argT (Abs y absTy)) x = do
+  dropVar (Pi argTy (Abs y absTy)) x = do
 
     pushTVar y
     reportSLn "dropVar" 20 $ "Pushed variable: " ++ y
 
-    -- If the Pi term is on a proof term, we replace it by a Fun term.
+    -- If the Pi term is on a proof term, we replace it by a Pi term
+    -- which is not a proof term.
     newTerm ← if y /= x
                 then do
                   newType ← dropVar absTy x
-                  return $ Pi argT (Abs y newType)
-                else fmap (Fun argT) (dropVar absTy x)
+                  return $ Pi argTy (Abs y newType)
+                else do
+                  newType ← dropVar absTy x
+                  -- We use "_" because Agda uses it.
+                  return $ Pi argTy (NoAbs "_" newType)
+
     popTVar
     reportSLn "dropPT" 20 $ "Pop variable: " ++ y
     return newTerm
 
-  dropVar (Con _ _)    _ = __IMPOSSIBLE__
-  dropVar (DontCare _) _ = __IMPOSSIBLE__
-  dropVar (Level _)    _ = __IMPOSSIBLE__
-  dropVar (Lit _)      _ = __IMPOSSIBLE__
-  dropVar (MetaV _ _)  _ = __IMPOSSIBLE__
-  dropVar (Sort _)     _ = __IMPOSSIBLE__
-  dropVar (Var _ _)    _ = __IMPOSSIBLE__
+  dropVar (Con _ _)           _ = __IMPOSSIBLE__
+  dropVar (DontCare _)        _ = __IMPOSSIBLE__
+  dropVar (Lam _ (NoAbs _ _)) _ = __IMPOSSIBLE__
+  dropVar (Level _)           _ = __IMPOSSIBLE__
+  dropVar (Lit _)             _ = __IMPOSSIBLE__
+  dropVar (MetaV _ _)         _ = __IMPOSSIBLE__
+  dropVar (Sort _)            _ = __IMPOSSIBLE__
+  dropVar (Var _ _)           _ = __IMPOSSIBLE__
 
 instance DropVar (Arg Type) where
   dropVar (Arg h r ty) x = fmap (Arg h r) (dropVar ty x)
@@ -465,7 +472,7 @@ dropProofTerm ty (x, typeVar) = do
 
     El (Type (Max [])) (Def _ _) → dropVar ty x
 
-    -- The variable's type is a function type,
+    -- The variable's type is a function type, i.e. Pi _ (NoAbs _ _ )
     --
     -- e.g. the variable is f : D → D, where D : Set.
 
@@ -475,8 +482,8 @@ dropProofTerm ty (x, typeVar) = do
 
     -- Because the variable is not a proof term we don't do anything.
     El (Type (Max []))
-       (Fun (Arg _ _ (El (Type (Max [])) (Def _ [])))
-            (El (Type (Max [])) (Def _ []))
+       (Pi (Arg _ _ (El (Type (Max [])) (Def _ [])))
+           (NoAbs _ (El (Type (Max [])) (Def _ [])))
        ) → return ty
 
     -- The next case is just a generalization to various arguments of
@@ -488,8 +495,8 @@ dropProofTerm ty (x, typeVar) = do
 
     -- Because the variable is not a proof term we don't do anything.
     El (Type (Max []))
-       (Fun (Arg _ _ (El (Type (Max [])) (Def _ [])))
-            (El (Type (Max [])) (Fun _ _))
+       (Pi (Arg _ _ (El (Type (Max [])) (Def _ [])))
+           (NoAbs _ (El (Type (Max [])) (Pi _ (NoAbs _ _))))
        ) → return ty
 
     -- We don't erase these proofs terms.
@@ -515,16 +522,16 @@ dropProofTerm ty (x, typeVar) = do
     -- e.g. the variable is P : D → Set.
     --
     -- Because the variable is not a proof term we don't do anything.
-    El (Type (Max [ClosedLevel 1])) (Fun _ _) → return ty
+    El (Type (Max [ClosedLevel 1])) (Pi _ (NoAbs  _ _)) → return ty
 
     -- Other cases
-    El (Type (Max [ClosedLevel 1])) (Def _ _)    → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) (DontCare _) → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) (Con _ _)    → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) (Lam _ _)    → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) (MetaV _ _)  → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) (Pi _ _)     → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) (Var _ _)    → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (Def _ _)        → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (DontCare _)     → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (Con _ _)        → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (Lam _ _)        → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (MetaV _ _)      → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (Pi _ (Abs _ _)) → __IMPOSSIBLE__
+    El (Type (Max [ClosedLevel 1])) (Var _ _)        → __IMPOSSIBLE__
 
     someType → do
       reportSLn "dropPT" 20 $

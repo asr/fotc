@@ -1,3 +1,7 @@
+------------------------------------------------------------------------------
+-- Testing the translation of the logical constants
+------------------------------------------------------------------------------
+
 module Test.Succeed.LogicalConstants where
 
 infix  5 ¬_
