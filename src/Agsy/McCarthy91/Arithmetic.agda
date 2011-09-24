@@ -1,6 +1,5 @@
 ------------------------------------------------------------------------------
--- Testing Agsy on the kind of arithmetic properties used by the
--- McCarthy 91 function
+-- Testing Agsy arithmetic properties used by the McCarthy 91 function
 ------------------------------------------------------------------------------
 
 module Agsy.McCarthy91.Arithmetic where

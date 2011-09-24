@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
 -- The first order theory of combinators (FOTC) base
 ------------------------------------------------------------------------------
-{-
 
+{-
 FOTC                                  Agda
 * Logical constants                   * Curry-Howard isomorphism
 * Equality                            * Identity type

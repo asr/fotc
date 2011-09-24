@@ -1,7 +1,9 @@
 ------------------------------------------------------------------------------
--- Property LT2MCR which proves that the recursive calls of the
--- McCarthy 91 function are on smaller arguments.
+-- LT2MCR property
 ------------------------------------------------------------------------------
+
+-- The LT2MCR property proves that the recursive calls of the McCarthy
+-- 91 function are on smaller arguments.
 
 module FOTC.Program.McCarthy91.MCR.LT2MCR-ATP where
 

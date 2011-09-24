@@ -1,6 +1,5 @@
 ------------------------------------------------------------------------------
--- Common (interactive and automatic) inductive PA properties using
--- the induction principle
+-- Common (interactive and automatic) properties using the induction principle
 ------------------------------------------------------------------------------
 
 module PA.Inductive.PropertiesByInduction where

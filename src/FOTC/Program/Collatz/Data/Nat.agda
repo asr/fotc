@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
 -- Natural numbers (added for the Collatz function example)
-
--- (We don't want populate the FOTC library with more FOL axioms)
 ------------------------------------------------------------------------------
+
+-- We don't want populate the FOTC library with more FOL axioms.
 
 module FOTC.Program.Collatz.Data.Nat where
 

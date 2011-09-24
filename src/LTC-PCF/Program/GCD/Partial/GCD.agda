@@ -1,6 +1,5 @@
 ------------------------------------------------------------------------------
--- Definition of the greatest common divisor of two natural numbers
--- using the Euclid's algorithm
+-- Definition of the gcd of two natural numbers using the Euclid's algorithm
 ------------------------------------------------------------------------------
 
 module LTC-PCF.Program.GCD.Partial.GCD where
