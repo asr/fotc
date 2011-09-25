@@ -1,7 +1,3 @@
-{-# LANGUAGE CPP #-}
-{-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE UnicodeSyntax #-}
-
 -----------------------------------------------------------------------------
 -- |
 -- Module      : ATP
@@ -13,6 +9,10 @@
 --
 -- Call the ATPs.
 -----------------------------------------------------------------------------
+
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module ATP ( callATPs ) where
 

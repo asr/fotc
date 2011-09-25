@@ -1,5 +1,3 @@
-{-# LANGUAGE UnicodeSyntax #-}
-
 ------------------------------------------------------------------------------
 -- |
 -- Module      : Utils.Directory
@@ -11,6 +9,8 @@
 --
 -- Utilities on directories.
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE UnicodeSyntax #-}
 
 module Utils.Directory ( diff ) where
 

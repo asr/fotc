@@ -1,5 +1,3 @@
-{-# LANGUAGE UnicodeSyntax #-}
-
 ------------------------------------------------------------------------------
 -- |
 -- Module      : TPTP.Types
@@ -11,6 +9,8 @@
 --
 -- TPTP types and common functions on them.
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE UnicodeSyntax #-}
 
 module TPTP.Types
   ( AF(MkAF)

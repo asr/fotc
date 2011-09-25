@@ -1,6 +1,3 @@
-{-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE UnicodeSyntax #-}
-
 -----------------------------------------------------------------------------
 -- |
 -- Module      : Options
@@ -12,6 +9,9 @@
 --
 -- Process the arguments.
 -----------------------------------------------------------------------------
+
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module Options
   ( defaultOptions

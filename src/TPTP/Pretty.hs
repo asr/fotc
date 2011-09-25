@@ -1,8 +1,3 @@
-{-# LANGUAGE CPP #-}
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE TypeSynonymInstances #-}
-{-# LANGUAGE UnicodeSyntax #-}
-
 ------------------------------------------------------------------------------
 -- |
 -- Module      : TPTP.Pretty
@@ -14,6 +9,11 @@
 --
 -- Pretty printer for TPTP formulas.
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE TypeSynonymInstances #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module TPTP.Pretty ( PrettyTPTP(prettyTPTP), TPTP ) where
 

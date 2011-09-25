@@ -1,5 +1,3 @@
-{-# LANGUAGE UnicodeSyntax #-}
-
 ------------------------------------------------------------------------------
 -- |
 -- Module      : Utils.Version
@@ -11,6 +9,8 @@
 --
 -- Utilities related to 'Version'.
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE UnicodeSyntax #-}
 
 module Utils.Version ( printVersion , version ) where
 

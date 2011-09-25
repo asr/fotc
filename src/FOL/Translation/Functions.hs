@@ -1,7 +1,3 @@
-{-# LANGUAGE CPP #-}
-{-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE UnicodeSyntax #-}
-
 ------------------------------------------------------------------------------
 -- |
 -- Module      : FOL.Translation.Functions
@@ -13,6 +9,10 @@
 --
 -- Translation of Agda internal functions to FOL formulas.
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 -- Only are translated the functions that will be translate as TPTP
 -- definitions.

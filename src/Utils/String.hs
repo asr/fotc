@@ -1,5 +1,3 @@
-{-# LANGUAGE UnicodeSyntax #-}
-
 ------------------------------------------------------------------------------
 -- |
 -- Module      : Utils.String
@@ -11,6 +9,8 @@
 --
 -- Utilities related to 'String'.
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE UnicodeSyntax #-}
 
 module Utils.String ( replace ) where
 

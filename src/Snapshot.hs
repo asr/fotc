@@ -1,5 +1,3 @@
-{-# LANGUAGE UnicodeSyntax #-}
-
 ------------------------------------------------------------------------------
 -- |
 -- Module      : Snapshot
@@ -11,6 +9,8 @@
 --
 -- Snapshot test.
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE UnicodeSyntax #-}
 
 module Snapshot ( snapshotTest ) where
 

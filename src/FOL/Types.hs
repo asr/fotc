@@ -1,6 +1,3 @@
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE UnicodeSyntax #-}
-
 ------------------------------------------------------------------------------
 -- |
 -- Module      : FOL.Types
@@ -12,6 +9,9 @@
 --
 -- FOL types.
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module FOL.Types ( FOLFormula(..), FOLTerm(..) ) where
 

@@ -1,6 +1,3 @@
-{-# LANGUAGE CPP #-}
-{-# LANGUAGE UnicodeSyntax #-}
-
 ------------------------------------------------------------------------------
 -- |
 -- Module      : FOL.Translation.Internal.Types
@@ -12,6 +9,9 @@
 --
 -- Translation from Agda internal types to FOL formulas.
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module FOL.Translation.Internal.Types
   ( argTypeToFormula

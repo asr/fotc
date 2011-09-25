@@ -1,5 +1,3 @@
-{-# LANGUAGE UnicodeSyntax #-}
-
 ------------------------------------------------------------------------------
 -- |
 -- Module      : Utils.Show
@@ -11,6 +9,8 @@
 --
 -- Utilities related to 'Show'.
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE UnicodeSyntax #-}
 
 module Utils.Show ( showListLn, showLn ) where
 

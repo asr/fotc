@@ -1,5 +1,3 @@
-{-# LANGUAGE UnicodeSyntax #-}
-
 ------------------------------------------------------------------------------
 -- |
 -- Module      : FOL.Translation.Concrete.Name
@@ -11,6 +9,8 @@
 --
 -- Translation of things about Agda concrete names.
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE UnicodeSyntax #-}
 
 module FOL.Translation.Concrete.Name ( concatName ) where
 

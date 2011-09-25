@@ -1,6 +1,3 @@
-{-# LANGUAGE CPP #-}
-{-# LANGUAGE UnicodeSyntax #-}
-
 ------------------------------------------------------------------------------
 -- |
 -- Module      : Utils.Names
@@ -12,6 +9,9 @@
 --
 -- Utilities on names.
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module Utils.Names ( freshName ) where
 

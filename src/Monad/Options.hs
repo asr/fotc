@@ -1,5 +1,3 @@
-{-# LANGUAGE UnicodeSyntax #-}
-
 -----------------------------------------------------------------------------
 -- |
 -- Module      : Monad.Options
@@ -11,6 +9,8 @@
 --
 -- Process the command line arguments.
 -----------------------------------------------------------------------------
+
+{-# LANGUAGE UnicodeSyntax #-}
 
 module Monad.Options ( processOptions ) where
 

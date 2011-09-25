@@ -1,5 +1,3 @@
-{-# LANGUAGE UnicodeSyntax #-}
-
 -----------------------------------------------------------------------------
 -- |
 -- Module      : FOL.Constants
@@ -11,6 +9,8 @@
 --
 -- The FOL constants.
 -----------------------------------------------------------------------------
+
+{-# LANGUAGE UnicodeSyntax #-}
 
 -- Adapted from AgdaLight (Plugins.FOL.Constants).
 

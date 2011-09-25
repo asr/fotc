@@ -1,6 +1,3 @@
-{-# LANGUAGE CPP #-}
-{-# LANGUAGE UnicodeSyntax #-}
-
 -----------------------------------------------------------------------------
 -- |
 -- Module      : Monad.Reports
@@ -12,6 +9,9 @@
 --
 -- Reports via the verbose option.
 -----------------------------------------------------------------------------
+
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module Monad.Reports ( reportS, reportSLn, VerboseKey ) where
 

@@ -1,5 +1,3 @@
-{-# LANGUAGE UnicodeSyntax #-}
-
 ------------------------------------------------------------------------------
 -- |
 -- Module      : FOL.Translation.Common
@@ -11,6 +9,8 @@
 --
 -- Common entities used in the translation from Agda to FOL formulas.
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE UnicodeSyntax #-}
 
 module FOL.Translation.Common ( varsToArgs ) where
 

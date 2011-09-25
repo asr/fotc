@@ -1,5 +1,3 @@
-{-# LANGUAGE UnicodeSyntax #-}
-
 ------------------------------------------------------------------------------
 -- |
 -- Module      : Utils.Monad
@@ -11,6 +9,8 @@
 --
 -- Utilities on monads.
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE UnicodeSyntax #-}
 
 module Utils.Monad ( unlessM, whenM ) where
 

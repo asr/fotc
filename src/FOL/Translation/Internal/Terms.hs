@@ -1,6 +1,3 @@
-{-# LANGUAGE CPP #-}
-{-# LANGUAGE UnicodeSyntax #-}
-
 ------------------------------------------------------------------------------
 -- |
 -- Module      : FOL.Translation.Internal.Terms
@@ -12,6 +9,9 @@
 --
 -- Translation from Agda internal terms to FOL formulas.
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm ) where
 

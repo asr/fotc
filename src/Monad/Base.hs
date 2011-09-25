@@ -1,6 +1,3 @@
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE UnicodeSyntax #-}
-
 ------------------------------------------------------------------------------
 -- |
 -- Module      : Monad.Base
@@ -12,6 +9,9 @@
 --
 -- The translation monad.
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module Monad.Base
   ( AllDefinitions

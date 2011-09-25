@@ -1,6 +1,3 @@
-{-# LANGUAGE CPP #-}
-{-# LANGUAGE UnicodeSyntax #-}
-
 ------------------------------------------------------------------------------
 -- |
 -- Module      : FOL.Primitives
@@ -12,6 +9,9 @@
 --
 -- FOL names hard-coded in the translation from Agda types to FOL formulas.
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 -- Adapted from AgdaLight (Plugins.FOL.Primitive).
 

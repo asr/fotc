@@ -1,8 +1,8 @@
-{-# LANGUAGE UnicodeSyntax #-}
-
 ------------------------------------------------------------------------------
 -- hs-boot file for FOL.Translation.Syntax.Internal.Types.
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE UnicodeSyntax #-}
 
 module FOL.Translation.Internal.Types
   ( argTypeToFormula
