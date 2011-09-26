@@ -6,7 +6,7 @@ module Draft.FOTC.Data.Stream.Examples where
 
 open import FOTC.Base
 
-open import FOTC.Data.Stream.Type
+open import FOTC.Data.Stream
 
 ------------------------------------------------------------------------------
 

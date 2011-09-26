@@ -231,7 +231,7 @@ open import FOTC.Data.Nat.List.PropertiesI
 -- 6.5 Streams
 
 -- 6.5.1 The coinductive predicate (axioms)
-open import FOTC.Data.Stream.Type
+open import FOTC.Data.Stream
 
 -- 6.5.2 Equality on streams
 open import FOTC.Data.Stream.Equality

@@ -63,7 +63,7 @@ open import FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
 open import FOTC.Data.Nat.UnaryNumbers.TotalityI
 
-open import FOTC.Data.Stream.ConsistencyTest
+open import FOTC.Data.Stream
 open import FOTC.Data.Stream.Equality
 open import FOTC.Data.Stream.Equality.ConsistencyTest
 open import FOTC.Data.Stream.Equality.PropertiesATP
@@ -71,6 +71,7 @@ open import FOTC.Data.Stream.Equality.PropertiesI
 open import FOTC.Data.Stream.PropertiesATP
 open import FOTC.Data.Stream.PropertiesI
 open import FOTC.Data.Stream.Type
+open import FOTC.Data.Stream.Type.ConsistencyTest
 
 open import FOTC.Induction.WellFounded
 

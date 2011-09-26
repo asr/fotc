@@ -6,7 +6,7 @@
 -- FOL axioms. We test if it is possible to prove an unprovable
 -- theorem from these axioms.
 
-module FOTC.Data.Stream.ConsistencyTest where
+module FOTC.Data.Stream.Type.ConsistencyTest where
 
 open import FOTC.Base
 
