@@ -428,7 +428,8 @@ instance DropVar Args where
 
     vars ← getTVars
 
-    when (x == "_") $ throwError "We do not translate underscore variables"
+    when (x == "_") $
+      throwError "The translation of underscore variables is not implemented"
 
     let index ∷ Integer
         index = case elemIndex x vars of

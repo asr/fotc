@@ -2,7 +2,7 @@
 -- We do not translate underscore variables
 ------------------------------------------------------------------------------
 
--- Error: We do not translate underscore variables
+-- Error: The translation of underscore variables is not implemented
 
 module Test.Fail.Underscore where
 
