@@ -19,6 +19,10 @@ data D : Set where
 data Stream : D → Set where
   consS : ∀ x {xs} → ∞ (Stream xs) → Stream (x ∷ xs)
 
+Stream-gfp₁ : ∀ {xs} → Stream xs →
+              ∃ λ x' → ∃ λ xs' → Stream xs' ∧ xs ≡ x' ∷ xs'
+Stream-gfp₁ (consS x' {xs'} Sxs') = x' , xs' , ♭ Sxs' , refl
+
 Stream-gfp₂ : (P : D → Set) →
               -- P is post-fixed point of StreamF.
               (∀ {xs} → P xs → ∃ λ x' → ∃ λ xs' → P xs' ∧ xs ≡ x' ∷ xs') →
