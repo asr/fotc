@@ -4,7 +4,7 @@
 
 Require Import Unicode.Utf8.
 
-Theorem sim {A : Set}{x y : A} : x = y → y = x.
+Theorem sym {A : Set}{x y : A} : x = y → y = x.
 intro h.
 destruct h.
 auto.
@@ -31,10 +31,12 @@ CoFixpoint Stream_gfp₂
   (Pxs : P xs) : Stream xs :=
 
   match h xs Pxs with
-    | existS x' h1 => match h1 with
-                        | exist xs' h2 => match h2 with
-                                            | conj c1 c2 =>
-                                                subst Stream (sim c2) (consS x' xs' (Stream_gfp₂ P h xs' c1))
-                                          end
-                      end
+    | existS x' h1 =>
+      match h1 with
+        | exist xs' h2 =>
+          match h2 with
+            | conj c1 c2 =>
+              subst Stream (sym c2) (consS x' xs' (Stream_gfp₂ P h xs' c1))
+          end
+      end
   end.
