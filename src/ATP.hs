@@ -80,7 +80,7 @@ atpOk ∷ ATP → String
 atpOk E        = "Proof found!"                      -- E 1.4 Nanring
 atpOk Equinox  = "+++ RESULT: Theorem"               -- Equinox 5.0alpha (2010-06-29)
 atpOk IleanCoP = "Intuitionistic Theorem"            -- ileanCoP 1.3 beta1
-atpOk Metis    = "SZS status Theorem"                -- Metis 2.3 (release 20110531)
+atpOk Metis    = "SZS status Theorem"                -- Metis 2.3 (release 20110926)
 atpOk SPASS    = "Proof found"                       -- SPASS 3.7
 atpOk Vampire  = "Termination reason: Refutation\n"  -- Vampire 0.6 (revision 903)
 
