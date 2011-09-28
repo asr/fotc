@@ -228,17 +228,28 @@ open import FOTC.Data.Nat.List.Type
 open import FOTC.Data.Nat.List.PropertiesATP
 open import FOTC.Data.Nat.List.PropertiesI
 
--- 6.5 Streams
+-- 6.5 Coinductive natural numbers
 
--- 6.5.1 The coinductive predicate (axioms)
+-- 6.5.1 The coinductive predicate
+open import FOTC.Data.Conat
+
+-- 6.5.2 Equality on coinductive natural numbers
+open import FOTC.Data.Conat.Equality
+
+-- 6.5.3 Properties
+open import FOTC.Data.Conat.PropertiesI
+
+-- 6.6 Streams
+
+-- 6.6.1 The coinductive predicate (axioms)
 open import FOTC.Data.Stream
 
--- 6.5.2 Equality on streams
+-- 6.6.2 Equality on streams
 open import FOTC.Data.Stream.Equality
 open import FOTC.Data.Stream.Equality.PropertiesATP
 open import FOTC.Data.Stream.Equality.PropertiesI
 
--- 6.5.3 Properties
+-- 6.6.3 Properties
 open import FOTC.Data.Stream.PropertiesATP
 open import FOTC.Data.Stream.PropertiesI
 

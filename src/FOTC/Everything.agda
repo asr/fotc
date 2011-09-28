@@ -16,6 +16,13 @@ open import FOTC.Data.Bool.PropertiesATP
 open import FOTC.Data.Bool.PropertiesI
 open import FOTC.Data.Bool.Type
 
+open import FOTC.Data.Conat
+open import FOTC.Data.Conat.Equality
+open import FOTC.Data.Conat.Equality.ConsistencyTest
+open import FOTC.Data.Conat.PropertiesI
+open import FOTC.Data.Conat.Type
+open import FOTC.Data.Conat.Type.ConsistencyTest
+
 open import FOTC.Data.List
 open import FOTC.Data.List.ConsistencyTest
 open import FOTC.Data.List.LT-Cons

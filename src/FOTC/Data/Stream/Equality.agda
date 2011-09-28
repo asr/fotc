@@ -44,15 +44,15 @@ postulate
          (∃ λ x' → ∃ λ xs' → ∃ λ ys' →
           xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
          xs ≈ ys
-≈-gfp₃ h = ≈-gfp₂ R helper h
+≈-gfp₃ h = ≈-gfp₂ _R_ helper h
   where
-  R : D → D → Set
-  R xs ys = ∃ λ x' → ∃ λ xs' → ∃ λ ys' →
+  _R_ : D → D → Set
+  _R_ xs ys = ∃ λ x' → ∃ λ xs' → ∃ λ ys' →
             xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 
-  helper : ∀ {xs ys} → R xs ys →
+  helper : ∀ {xs ys} → xs R ys →
            ∃ λ x' → ∃ λ xs' → ∃ λ ys' →
-           R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+           xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
   helper (x' , xs' , ys' , xs'≈ys' , prf) =
     x' , xs' , ys' , (≈-gfp₁ xs'≈ys') , prf
 
