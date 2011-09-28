@@ -183,6 +183,4 @@ reverse² (consL x {xs} Lxs) = prf $ reverse² Lxs
   -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
   -- Metis 2.3 (release 20110531): SZS status Unknown (using timeout 180 sec).
   -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
-  {-# ATP prove prf rev-List rev-++-commute reverse-++-commute ++-List
-                    ++-rightIdentity
-  #-}
+  {-# ATP prove prf rev-List reverse-++-commute ++-List ++-rightIdentity #-}
