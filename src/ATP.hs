@@ -32,6 +32,7 @@ import System.Process
   ( createProcess
   , proc
   , ProcessHandle
+  , readProcess
   , StdStream(CreatePipe)
   , std_out
   , terminateProcess
@@ -83,6 +84,14 @@ atpOk IleanCoP = "Intuitionistic Theorem"            -- ileanCoP 1.3 beta1
 atpOk Metis    = "SZS status Theorem"                -- Metis 2.3 (release 20110926)
 atpOk SPASS    = "Proof found"                       -- SPASS 3.7
 atpOk Vampire  = "Termination reason: Refutation\n"  -- Vampire 0.6 (revision 903)
+
+atpVersion ∷ ATP → T String
+atpVersion Equinox = return $ show Equinox -- Don't version option in Equinox.
+atpVersion SPASS   = return $ show SPASS   -- Don't version option in SPASS.
+-- Didn't tested with IleanCop.
+atpVersion atp = do
+  exec ← atpExec atp
+  liftIO $ fmap init (readProcess exec ["--version"] "")
 
 checkOutput ∷ ATP → String → Bool
 checkOutput atp output = atpOk atp `isInfixOf` output
@@ -152,16 +161,16 @@ atpsAnswer outputMVar atpsPH file n = do
   if n == length atps
     then do
       let msg ∷ String
-          msg = "The ATP(s) " ++ show atps
-                ++ " did not prove the conjecture in " ++ file
+          msg = "The ATP(s) did not prove the conjecture in " ++ file
       ifM (optUnprovedError <$> getTOpts)
           (throwError msg)
           (liftIO $ putStrLn msg)
     else do
       output ← liftIO $ takeMVar outputMVar
-      case output of
-        (True, atp) → do
-          reportS "" 1 $ show atp ++ " proved the conjecture in " ++ file
+      atpWithVersion ← atpVersion (snd output)
+      if fst output
+        then do
+          reportS "" 1 $ atpWithVersion ++ " proved the conjecture in " ++ file
           liftIO $ do
             -- It seems that terminateProcess is a nop if the process
             -- is finished, therefore we don't care on terminate all
@@ -173,9 +182,8 @@ atpsAnswer outputMVar atpsPH file n = do
             mapM_ terminateProcess atpsPH
             threadDelay 500000
             mapM_ terminateProcess atpsPH
-
-        (False, atp) → do
-          reportS "" 1 $ show atp ++ " *did not* prove the conjecture"
+        else do
+          reportS "" 1 $ atpWithVersion ++ " *did not* prove the conjecture"
           atpsAnswer outputMVar atpsPH file (n + 1)
 
 -- | The function 'callATPs' calls the selected ATPs on a TPTP conjecture.
