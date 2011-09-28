@@ -13,6 +13,8 @@ open import FOTC.Base
 data List : D → Set where
   nilL  :                              List []
   consL : ∀ x {xs} → (Lxs : List xs) → List (x ∷ xs)
+{-# ATP axiom nilL #-}
+{-# ATP axiom consL #-}
 
 -- Induction principle for List.
 indList : (P : D → Set) →
