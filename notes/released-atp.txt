@@ -1,0 +1,17 @@
+When there is a new release of an ATP, we should follow the following
+procedure:
+
+* In agda2atp, to update src/ATP.hs with the new version.
+
+* In agda2atp, to run the suite of successfull tests on agda2atp with
+  the new ATP.
+
+* In FOTC, to test the ATPs failures in FOTC/README.agda with the new
+  ATP.
+
+* In FOTC, to generate the conjectures files
+  (FOTC/notes/atps/conjectures/new-atp-conjectures.txt) for the new ATP.
+
+* In FOTC, to look for regressions with the previous version of the ATP.
+
+* To update the website.
