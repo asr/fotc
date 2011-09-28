@@ -99,7 +99,7 @@ x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 is o
     is : ∀ i → P i → P (succ i)
   -- E 1.4: CPU time limit exceeded, terminating (180 sec).
   -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds)
-  -- Metis 2.3 (release 20110531): SZS status Unknown (using timeout 180 sec).
+  -- Metis 2.3 (release 20110926): SZS status Unknown (using timeout 180 sec).
   -- SPASS 3.7: Ran out of time (using timeout 180 sec).
   -- Vampire 0.6 (revision 903): Time limit (180 sec).
   -- {-# ATP prove is x≣y→x+z≣y+z #-}
