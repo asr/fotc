@@ -30,7 +30,6 @@ import System.Console.GetOpt
 -- Agda library imports
 import Agda.Interaction.Options ( Verbosity )
 import Agda.Utils.List          ( wordsBy )
--- import Agda.Utils.Trie ( Trie )
 import qualified Agda.Utils.Trie as Trie ( insert, singleton )
 
 -----------------------------------------------------------------------------
@@ -51,7 +50,7 @@ data Options = MkOptions
   } deriving Show
 
 defaultOptATP ∷ [String]
-defaultOptATP = ["e", "equinox", "metis", "spass", "vampire"]
+defaultOptATP = ["e", "equinox", "vampire"]
 
 defaultOptions ∷ Options
 defaultOptions = MkOptions
@@ -127,7 +126,7 @@ options =
                "look for imports in DIR"
   , Option []  ["atp"] (ReqArg atpOpt "NAME") $
                "set the ATP (e, equinox, metis, spass, vampire)\n"
-               ++ "(default: e, equinox, metis, spass, and vampire)"
+               ++ "(default: e, equinox, and vampire)"
   , Option "?" ["help"] (NoArg helpOpt)
                "show this help"
   , Option []  ["only-files"] (NoArg onlyFilesOpt)
