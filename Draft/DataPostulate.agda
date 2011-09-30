@@ -38,17 +38,18 @@ postulate
 ------------------------------------------------------------------------------
 -- The predicates
 
--- From the data predicate to the postulate predicate: Using the
--- induction principle.
+-- From the data predicate to the postulated one: Using the induction
+-- principle.
 nat-D2P : ∀ {n} → N n → M n
 nat-D2P = indN M zM (λ _ Mn → sM Mn)
 
--- From the data predicate to the postulate predicate: Using pattern matching.
+-- From the data predicate to the postulated one: Using pattern
+-- matching.
 nat-D2P' : ∀ {n} → N n → M n
 nat-D2P' zN      = zM
 nat-D2P' (sN Nn) = sM (nat-D2P' Nn)
 
--- From the postulate predicate to the data predicate
+-- From the postulated predicate to the data one.
 nat-P2D : ∀ {n} → M n → N n
 nat-P2D = indM N zN (λ _ Nn → sN Nn)
 
