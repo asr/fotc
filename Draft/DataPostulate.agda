@@ -25,7 +25,7 @@ indN : (P : D → Set) →
 indN P P0 h zN      = P0
 indN P P0 h (sN Nn) = h Nn (indN P P0 h Nn)
 
--- The FOTC natural numbers using postulates (we choose 'M' by 'Model').
+-- The FOTC natural numbers using postulates (we chose 'M' by 'Model').
 postulate
   M    : D → Set
   zM   : M zero
