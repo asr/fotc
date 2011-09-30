@@ -36,20 +36,33 @@ postulate
          ∀ {n} → M n → P n
 
 ------------------------------------------------------------------------------
--- From data to postulates
+-- The predicates
 
--- The predicate: Using the induction principle.
+-- From the data predicate to the postulate predicate: Using the
+-- induction principle.
 nat-D2P : ∀ {n} → N n → M n
 nat-D2P = indN M zM (λ _ Mn → sM Mn)
 
--- The predicate: Using pattern matching.
+-- From the data predicate to the postulate predicate: Using pattern matching.
 nat-D2P' : ∀ {n} → N n → M n
 nat-D2P' zN      = zM
 nat-D2P' (sN Nn) = sM (nat-D2P' Nn)
 
-------------------------------------------------------------------------------
--- From postulates to data
-
--- The predicate.
+-- From the postulate predicate to the data predicate
 nat-P2D : ∀ {n} → M n → N n
 nat-P2D = indM N zN (λ _ Nn → sN Nn)
+
+------------------------------------------------------------------------------
+-- The induction principles
+
+-- The postulate inductive principle from the data inductive principle.
+indD2P : (P : D → Set) → P zero →
+         (∀ {n} → M n → P n → P (succ n)) →
+         ∀ {n} → M n → P n
+indD2P P P0 ih Mn = indN P P0 (λ {n} Nn → ih (nat-D2P Nn)) (nat-P2D Mn)
+
+-- The data inductive principle from the postulate predicate.
+indP2D : (P : D → Set) → P zero →
+         (∀ {n} → N n → P n → P (succ n)) →
+         ∀ {n} → N n → P n
+indP2D P P0 ih Nn = indM P P0 (λ {n} Mn → ih (nat-P2D Mn)) (nat-D2P Nn)
