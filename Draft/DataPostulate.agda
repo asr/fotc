@@ -55,13 +55,13 @@ nat-P2D = indM N zN (λ _ Nn → sN Nn)
 ------------------------------------------------------------------------------
 -- The induction principles
 
--- The postulate inductive principle from the data inductive principle.
+-- The postulated inductive principle from the data one.
 indD2P : (P : D → Set) → P zero →
          (∀ {n} → M n → P n → P (succ n)) →
          ∀ {n} → M n → P n
 indD2P P P0 ih Mn = indN P P0 (λ {n} Nn → ih (nat-D2P Nn)) (nat-P2D Mn)
 
--- The data inductive principle from the postulate predicate.
+-- The data inductive principle from the postulated one.
 indP2D : (P : D → Set) → P zero →
          (∀ {n} → N n → P n → P (succ n)) →
          ∀ {n} → N n → P n
