@@ -2,7 +2,7 @@
 -- Data and postulates
 ------------------------------------------------------------------------------
 
--- Are the FOTC natural numbers defined by data and postulate the
+-- Are the FOTC natural numbers defined by data and postulates the
 -- same?
 
 module DataPostulate where
@@ -13,8 +13,7 @@ postulate
   zero : D
   succ : D → D
 
--- The FOTC natural numbers using data
-
+-- The FOTC natural numbers using data.
 data N : D → Set where
   zN :               N zero
   sN : ∀ {n} → N n → N (succ n)
@@ -26,7 +25,7 @@ indN : (P : D → Set) →
 indN P P0 h zN      = P0
 indN P P0 h (sN Nn) = h Nn (indN P P0 h Nn)
 
--- The FOTC natural numbers using postulates (we choose 'M' by 'Model')
+-- The FOTC natural numbers using postulates (we choose 'M' by 'Model').
 postulate
   M    : D → Set
   zM   : M zero
@@ -49,7 +48,7 @@ nat-D2P' zN      = zM
 nat-D2P' (sN Nn) = sM (nat-D2P' Nn)
 
 ------------------------------------------------------------------------------
--- From postulate to data
+-- From postulates to data
 
 -- The predicate.
 nat-P2D : ∀ {n} → M n → N n
