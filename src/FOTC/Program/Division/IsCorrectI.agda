@@ -16,7 +16,7 @@ open import FOTC.Program.Division.Division
 open import FOTC.Program.Division.EquationsI
 open import FOTC.Program.Division.Specification
 
-open import FOTC.Relation.Binary.EqReasoning
+open import FOTC.Relation.Binary.EqReasoning hiding ( prf )
 
 ------------------------------------------------------------------------------
 -- The division result is correct when the dividend is less than

@@ -16,7 +16,7 @@ open import FOTC.Program.Collatz.Data.Nat
 open import FOTC.Program.Collatz.Data.Nat.PropertiesI
 open import FOTC.Program.Collatz.EquationsI
 
-open import FOTC.Relation.Binary.EqReasoning
+open import FOTC.Relation.Binary.EqReasoning hiding ( prf )
 
 ------------------------------------------------------------------------------
 

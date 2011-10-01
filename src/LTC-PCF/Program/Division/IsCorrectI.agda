@@ -16,7 +16,7 @@ open import LTC-PCF.Program.Division.Division
 open import LTC-PCF.Program.Division.EquationsI
 open import LTC-PCF.Program.Division.Specification
 
-open import LTC-PCF.Relation.Binary.EqReasoning
+open import LTC-PCF.Relation.Binary.EqReasoning hiding ( prf )
 
 ------------------------------------------------------------------------------
 -- The division result is correct when the dividend is less than
