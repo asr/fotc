@@ -179,8 +179,8 @@ x<y∨x≮y Nm Nn = [ (λ m<n → inj₁ m<n)
                 , (λ m≥n → inj₂ (x≥y→x≮y Nm Nn m≥n))
                 ] (x<y∨x≥y Nm Nn)
 
-x≡y→x≤y : ∀ {m n} {Nm : N m} {Nn : N n} → m ≡ n → LE m n
-x≡y→x≤y {Nm = Nm} refl = x≤x Nm
+x≡y→x≤y : ∀ {m n} → N m → N n → m ≡ n → LE m n
+x≡y→x≤y {n = n} Nm Nn m≡n = subst (λ m' → LE m' n) (sym m≡n) (x≤x Nn)
 
 x<y→x≤y : ∀ {m n} → N m → N n → LT m n → LE m n
 x<y→x≤y Nm zN          m<0            = ⊥-elim $ x<0→⊥ Nm m<0

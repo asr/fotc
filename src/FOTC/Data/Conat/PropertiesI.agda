@@ -21,7 +21,7 @@ open import FOTC.Data.Stream
   P n = n ≡ ω
 
   helper : {n : D} → P n → ∃ (λ n' → P n' ∧ n ≡ succ n')
-  helper refl = ω , refl , ω-eq
+  helper Pn = ω , refl , trans Pn ω-eq
 
 -- Adapted from Herbert's thesis, p. 58.
 stream-length : ∀ {xs} → Stream xs → length xs ≈N ω

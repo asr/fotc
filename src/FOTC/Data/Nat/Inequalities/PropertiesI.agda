@@ -120,8 +120,8 @@ x≤y∨x≰y (sN {m} Nm) (sN {n} Nn) =
   , (λ m≰n → inj₂ (x≰y→Sx≰Sy m n m≰n))
   ] (x≤y∨x≰y Nm Nn)
 
-x≡y→x≤y : ∀ {m n} {Nm : N m} {Nn : N n} → m ≡ n → LE m n
-x≡y→x≤y {Nm = Nm} refl = x≤x Nm
+x≡y→x≤y : ∀ {m n} → N m → N n → m ≡ n → LE m n
+x≡y→x≤y {n = n} Nm Nn m≡n = subst (λ m' → LE m' n) (sym m≡n) (x≤x Nn)
 
 x<y→x≤y : ∀ {m n} → N m → N n → LT m n → LE m n
 x<y→x≤y Nm zN          m<0            = ⊥-elim $ x<0→⊥ Nm m<0
@@ -323,10 +323,10 @@ x≤y→x<y∨x≡y : ∀ {m n} → N m → N n → LE m n → LT m n ∨ m ≡ 
 x≤y→x<y∨x≡y = x<Sy→x<y∨x≡y
 
 x<y→y≡z→x<z : ∀ {m n o} → LT m n → n ≡ o → LT m o
-x<y→y≡z→x<z m<n refl = m<n
+x<y→y≡z→x<z {m} m<n n≡o = subst (λ n' → LT m n') n≡o m<n
 
 x≡y→y<z→x<z : ∀ {m n o} → m ≡ n → LT n o → LT m o
-x≡y→y<z→x<z refl n<o = n<o
+x≡y→y<z→x<z {o = o} m≡n n<o = subst (λ m' → LT m' o) (sym m≡n) n<o
 
 x≥y→y>0→x∸y<x : ∀ {m n} → N m → N n → GE m n → GT n zero → LT (m ∸ n) m
 x≥y→y>0→x∸y<x Nm          zN          _     0>0  = ⊥-elim $ x>x→⊥ zN 0>0

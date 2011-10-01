@@ -14,7 +14,9 @@ open import Common.Universe public renaming ( D to G )
 
 -- The equality
 -- The equality is the propositional identity on the group universe.
-open import Common.Relation.Binary.PropositionalEquality public
+import Common.Relation.Binary.PropositionalEquality
+open module Eq =
+  Common.Relation.Binary.PropositionalEquality.Inductive public
 
 -- Logical constants
 open import Common.LogicalConstants public

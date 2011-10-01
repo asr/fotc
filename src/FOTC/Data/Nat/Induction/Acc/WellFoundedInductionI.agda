@@ -62,4 +62,4 @@ module WF₁-LT where
       ] (x≤y→x<y∨x≡y Nn Nm n≤m)
       where
       helper₁ : ∀ {a b} → a ≡ b → Acc LT a → Acc LT b
-      helper₁ refl acc-a = acc-a
+      helper₁ a≡b acc-a = subst (Acc LT) a≡b acc-a

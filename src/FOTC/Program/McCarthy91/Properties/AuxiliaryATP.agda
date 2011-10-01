@@ -108,31 +108,31 @@ postulate
 {-# ATP prove mc91-res-90 mc91x-res≯100 mc91-res-101 mc91-res-91 #-}
 
 mc91-res-99' : ∀ {n} → n ≡ ninety-nine → mc91 n ≡ ninety-one
-mc91-res-99' refl = mc91-res-99
+mc91-res-99' h = subst (λ n' → mc91 n' ≡ ninety-one) (sym h) mc91-res-99
 
 mc91-res-98' : ∀ {n} → n ≡ ninety-eight → mc91 n ≡ ninety-one
-mc91-res-98' refl = mc91-res-98
+mc91-res-98' h = subst (λ n' → mc91 n' ≡ ninety-one) (sym h) mc91-res-98
 
 mc91-res-97' : ∀ {n} → n ≡ ninety-seven → mc91 n ≡ ninety-one
-mc91-res-97' refl = mc91-res-97
+mc91-res-97' h = subst (λ n' → mc91 n' ≡ ninety-one) (sym h) mc91-res-97
 
 mc91-res-96' : ∀ {n} → n ≡ ninety-six → mc91 n ≡ ninety-one
-mc91-res-96' refl = mc91-res-96
+mc91-res-96' h = subst (λ n' → mc91 n' ≡ ninety-one) (sym h) mc91-res-96
 
 mc91-res-95' : ∀ {n} → n ≡ ninety-five → mc91 n ≡ ninety-one
-mc91-res-95' refl = mc91-res-95
+mc91-res-95' h = subst (λ n' → mc91 n' ≡ ninety-one) (sym h) mc91-res-95
 
 mc91-res-94' : ∀ {n} → n ≡ ninety-four → mc91 n ≡ ninety-one
-mc91-res-94' refl = mc91-res-94
+mc91-res-94' h = subst (λ n' → mc91 n' ≡ ninety-one) (sym h) mc91-res-94
 
 mc91-res-93' : ∀ {n} → n ≡ ninety-three → mc91 n ≡ ninety-one
-mc91-res-93' refl = mc91-res-93
+mc91-res-93' h = subst (λ n' → mc91 n' ≡ ninety-one) (sym h) mc91-res-93
 
 mc91-res-92' : ∀ {n} → n ≡ ninety-two → mc91 n ≡ ninety-one
-mc91-res-92' refl = mc91-res-92
+mc91-res-92' h = subst (λ n' → mc91 n' ≡ ninety-one) (sym h) mc91-res-92
 
 mc91-res-91' : ∀ {n} → n ≡ ninety-one → mc91 n ≡ ninety-one
-mc91-res-91' refl = mc91-res-91
+mc91-res-91' h = subst (λ n' → mc91 n' ≡ ninety-one) (sym h) mc91-res-91
 
 mc91-res-90' : ∀ {n} → n ≡ ninety → mc91 n ≡ ninety-one
-mc91-res-90' refl = mc91-res-90
+mc91-res-90' h = subst (λ n' → mc91 n' ≡ ninety-one) (sym h) mc91-res-90

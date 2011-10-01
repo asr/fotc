@@ -11,7 +11,8 @@ open import Common.Function
 ------------------------------------------------------------------------------
 
 ≡-list : ∀ {x y xs ys} → x ≡ y → xs ≡ ys → x ∷ xs ≡ y ∷ ys
-≡-list refl refl = refl
+≡-list {y = y} {ys = ys} x≡y xs≡ys =
+  subst₂ (λ x' xs' → x' ∷ xs' ≡ y ∷ ys) (sym x≡y) (sym xs≡ys) refl
 
 ≡-stream : ∀ {x y xs ys} → x ≡ y → xs ≡ ys → x ∷ xs ≡ y ∷ ys
 ≡-stream = ≡-list

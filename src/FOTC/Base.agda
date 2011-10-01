@@ -22,7 +22,9 @@ open import Common.Universe public
 
 -- The FOTC equality
 -- The FOTC equality is the propositional identity on the universal domain.
-open import Common.Relation.Binary.PropositionalEquality public
+import Common.Relation.Binary.PropositionalEquality
+open module Eq =
+  Common.Relation.Binary.PropositionalEquality.NonInductive public
 
 -- Logical constants
 open import Common.LogicalConstants public
