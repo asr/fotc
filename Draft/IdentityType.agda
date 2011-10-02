@@ -31,24 +31,24 @@ module TypeTheory where
   trans : ∀ {x y z} → x ≡ y → y ≡ z → x ≡ z
   trans {x} {y} {z} = J (λ x' y' _ → y' ≡ z → x' ≡ z) (λ x' pr → pr) x y
 
-  subst : ∀ {x} {y} → (P : D → Set) → x ≡ y → P x → P y
-  subst {x} {y} P x≡y = J (λ x' y' _ → P x' → P y') (λ x' pr → pr) x y x≡y
+  subst : ∀ (P : D → Set) {x y} → x ≡ y → P x → P y
+  subst P {x} {y} x≡y = J (λ x' y' _ → P x' → P y') (λ x' pr → pr) x y x≡y
 
 module FOL where
 
   -- Using the usual elimination schema for predicate logic.
 
   postulate
-    J : (C : D → Set) → ∀ x y → x ≡ y → C x → C y
+    J : ∀ (P : D → Set) {x y} → x ≡ y → P x → P y
 
   sym : ∀ {x y} → x ≡ y → y ≡ x
-  sym {x} {y} x≡y = J (λ y' → y' ≡ x) x y x≡y refl
+  sym {x} {y} x≡y = J (λ y' → y' ≡ x) x≡y refl
 
   trans : ∀ {x y z} → x ≡ y → y ≡ z → x ≡ z
-  trans {x} {y} {z} x≡y = J (λ y' → y' ≡ z → x ≡ z) x y x≡y (λ pr → pr)
+  trans {x} {y} {z} x≡y = J (λ y' → y' ≡ z → x ≡ z) x≡y (λ pr → pr)
 
-  subst : ∀ {x} {y} → (P : D → Set) → x ≡ y → P x → P y
-  subst {x} {y} P x≡y Px = J P x y x≡y Px
+  subst : ∀ (P : D → Set) {x y} → x ≡ y → P x → P y
+  subst = J
 
 module ML where
 
@@ -65,5 +65,5 @@ module ML where
   trans : ∀ {x y z} → x ≡ y → y ≡ z → x ≡ z
   trans {x} {y} {z} = J (λ x' y' → y' ≡ z → x' ≡ z) (λ x' pr → pr) x y
 
-  subst : ∀ {x} {y} → (P : D → Set) → x ≡ y → P x → P y
-  subst {x} {y} P x≡y = J (λ x' y' → P x' → P y') (λ x' pr → pr) x y x≡y
+  subst : ∀ (P : D → Set) {x y} → x ≡ y → P x → P y
+  subst P {x} {y} x≡y = J (λ x' y' → P x' → P y') (λ x' pr → pr) x y x≡y
