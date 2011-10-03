@@ -6,7 +6,7 @@ module GroupTheory.PropertiesI where
 
 open import GroupTheory.Base
 
-open import GroupTheory.Relation.Binary.EqReasoning hiding ( prf )
+open import GroupTheory.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 

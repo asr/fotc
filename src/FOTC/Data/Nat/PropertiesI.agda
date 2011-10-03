@@ -11,7 +11,7 @@ open import Common.Function
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.UnaryNumbers
 
-open import FOTC.Relation.Binary.EqReasoning hiding ( prf )
+open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 

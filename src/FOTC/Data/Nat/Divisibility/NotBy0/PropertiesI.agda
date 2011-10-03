@@ -15,7 +15,7 @@ open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.PropertiesI
 
-open import FOTC.Relation.Binary.EqReasoning hiding ( prf )
+open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- The divisibility relation is reflexive for positive numbers.

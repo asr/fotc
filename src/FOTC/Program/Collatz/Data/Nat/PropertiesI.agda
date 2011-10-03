@@ -17,7 +17,7 @@ open import FOTC.Data.Nat.UnaryNumbers.TotalityI
 
 open import FOTC.Program.Collatz.Data.Nat
 
-open import FOTC.Relation.Binary.EqReasoning hiding ( prf )
+open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 

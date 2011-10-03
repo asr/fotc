@@ -13,7 +13,7 @@ open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.Type
 
-open import FOTC.Relation.Binary.EqReasoning hiding ( prf )
+open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- Basic properties

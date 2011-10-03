@@ -26,7 +26,7 @@ open import LTC-PCF.Data.Nat.PropertiesI
         ; *∸-leftDistributive
         )
 
-open import LTC-PCF.Relation.Binary.EqReasoning hiding ( prf )
+open import LTC-PCF.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- Any positive number divides 0.
