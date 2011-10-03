@@ -29,7 +29,7 @@ open import FOTC.Relation.Binary.EqReasoning
 2x/2≡x zN = prf
   where
   -- See the combined proof.
-    postulate prf : two * zero / two ≡ zero
+  postulate prf : two * zero / two ≡ zero
 
 2x/2≡x (sN zN) =
   begin
