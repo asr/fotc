@@ -10,9 +10,17 @@
 
 ------------------------------------------------------------------------------
 
-module Draft.Berry.Berry where
+module Berry.Berry where
 
-open import FOTC.Base
+infix 7 _≡_
+
+postulate
+  D         : Set
+  zero loop : D
+  succ      : D → D
+
+data _≡_ (x : D) : D → Set where
+  refl : x ≡ x
 
 -- For example, the translation of the Haskell function
 

@@ -2,6 +2,8 @@
 -- The identity type
 ------------------------------------------------------------------------------
 
+-- Tested with Agda 2.2.11 on 03 October 2011.
+
 -- We can prove the properties of equality used in the formalization
 -- of FOTC, from refl and J.
 

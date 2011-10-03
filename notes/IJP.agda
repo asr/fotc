@@ -1,16 +1,25 @@
 ------------------------------------------------------------------------------
--- Conversion functions between inductive natural numbers and LTC
+-- Conversion functions between inductive natural numbers and FOTC
 -- natural numbers
 ------------------------------------------------------------------------------
 
+-- Tested with Agda 2.2.11 on 03 October 2011.
+
 module IJP where
 
-open import LTC.Base
-
-open import LTC.Data.Nat
+postulate
+  D : Set
+  zero : D
+  succ : D → D
 
 ------------------------------------------------------------------------------
 
+-- The FOTC natural numbers type.
+data N : D → Set where
+  zN :               N zero
+  sN : ∀ {n} → N n → N (succ n)
+
+-- The inductive natural numbers.
 data IN : Set where
   zeroIN : IN
   succIN : IN → IN

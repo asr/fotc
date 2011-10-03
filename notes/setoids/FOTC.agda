@@ -2,6 +2,8 @@
 -- Using setoids to formalize the FOTC
 ------------------------------------------------------------------------------
 
+-- Tested with Agda 2.2.11 on 03 October 2011.
+
 {-
 From Peter emails:
 

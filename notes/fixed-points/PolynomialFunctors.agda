@@ -1,6 +1,6 @@
--- Tested with Agda 2.2.11 on 28 June 2011.
+-- Tested with Agda 2.2.11 on 03 October 2011.
 
-module Draft.FixedPoints.PolynomialFunctors where
+module PolynomialFunctors where
 
 -- From: Ulf Norell. Dependently typed programming in Agda. In Koopman
 -- et al., editors. Advanced Functional Programming (AFP 2008), volume

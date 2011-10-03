@@ -1,4 +1,6 @@
-module Draft.FixedPoints.LeastFixedPoints where
+-- Tested with Agda 2.2.11 on 03 October 2011.
+
+module LeastFixedPoints where
 
 open import FOTC.Base
 

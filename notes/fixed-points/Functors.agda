@@ -1,6 +1,6 @@
--- Tested with Agda 2.2.11 (from 28 June 2011).
+-- Tested with Agda 2.2.11 on 03 October 2011.
 
-module Draft.FixedPoints.Functors where
+module Functors where
 
 -- The carrier of the initial algebra is (up to isomorphism) a
 -- fixed-point of the functor [1, p. 18].
