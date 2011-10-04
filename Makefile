@@ -290,6 +290,8 @@ clean :
 
 all_tests : all_type_checking all_conjectures all_consistency
 
+agda_changed_test : clean all_type_checking all_only_conjectures
+
 # TODO
 # non_conjectures :
 # 	./Test/non-conjectures.bash
