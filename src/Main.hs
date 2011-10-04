@@ -47,14 +47,15 @@ import Agda.Utils.Impossible ( catchImpossible )
 
 import AgdaLib.Interface ( getImportedInterfaces, myReadInterface )
 import ATP               ( callATPs )
+
 import Monad.Base
   ( AllDefinitions
   , runT
   , T
   , TState(tAllDefs, tOpts)
   )
-import Monad.Options     ( processOptions )
-import Monad.Reports     ( reportS, reportSLn )
+import Monad.Options ( processOptions )
+import Monad.Reports ( reportSLn )
 
 import Options
   ( Options(optHelp, optOnlyFiles, optSnapshotTest, optVersion)
@@ -73,7 +74,6 @@ import Utils.Version    ( printVersion )
 
 translation ∷ FilePath → T (GeneralRoles, [ConjectureSet])
 translation agdaFile = do
-  reportS "" 1 $ "Translating " ++ agdaFile ++ " ..."
 
   -- Gettting the top level interface.
   i ← myReadInterface agdaFile
