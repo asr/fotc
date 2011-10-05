@@ -7,14 +7,14 @@
 -- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 -- Stability   : experimental
 --
--- Call the ATPs.
+-- Call the automatic theorem provers (ATPs).
 -----------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module ATP ( callATPs ) where
+module ATP ( ATP(..), callATPs ) where
 
 -- Haskell imports
 import Control.Exception       ( evaluate )
@@ -51,7 +51,7 @@ import Options ( Options(optATP, optTime, optUnprovedError, optVampireExec) )
 #include "undefined.h"
 
 ------------------------------------------------------------------------------
--- The ATPs.
+-- | The ATPs.
 data ATP = E
          | Equinox
          | IleanCoP
@@ -186,7 +186,7 @@ atpsAnswer outputMVar atpsPH file n = do
           reportS "" 1 $ atpWithVersion ++ " *did not* prove the conjecture"
           atpsAnswer outputMVar atpsPH file (n + 1)
 
--- | The function 'callATPs' calls the selected ATPs on a TPTP conjecture.
+-- | The function 'callATPs' calls the selected 'ATP'(s) on a TPTP conjecture.
 callATPs ∷ FilePath → T ()
 callATPs file = do
 

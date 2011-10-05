@@ -132,6 +132,8 @@ addRoles afs role file str = do
   _  ← appendFile file footerRoleComment
   return ()
 
+-- | The function 'createConjectureFile' creates a TPTP file with a
+-- conjecture.
 createConjectureFile ∷ GeneralRoles → ConjectureSet → T FilePath
 createConjectureFile generalRoles conjectureSet = do
   -- To avoid clash names with the terms inside a where clause, we
