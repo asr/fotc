@@ -67,6 +67,15 @@ postulate
 ------------------------------------------------------------------------------
 -- Conversion rules
 
+-- Note: The conversion relation _conv_ satifies (Aczel 1977. The
+-- strength of Martin-Löf's intuitionistic type theory with one
+-- universe, p. 8).
+--
+-- x conv y <=> FOTC ⊢ x ≡ y,
+--
+-- therefore, we introduce the conversion rules as FOL non-logical
+-- axioms.
+
 -- Conversion rules for booleans.
 postulate
   if-true  : ∀ d₁ {d₂} → if true then d₁ else d₂  ≡ d₁
