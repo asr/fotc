@@ -17,8 +17,7 @@ module FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm ) where
 
 -- Haskell imports
 
-import Control.Monad.Error ( throwError )
-import Data.List           ( foldl' )
+import Data.List ( foldl' )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
@@ -58,17 +57,15 @@ import FOL.Constants
   ( folTrue, folFalse, folNot, folAnd, folOr
   , folImplies, folEquiv, folExists, folForAll, folEquals
   )
-import FOL.Primitives
-  ( appFn
-  , appP1, appP2, appP3, appP4 , appP5, appP6, appP7, appP8 , appP9, appP10
-  , equal
-  )
+import FOL.Primitives                ( appFn, appP, equal )
 import FOL.Translation.Concrete.Name ( concatName )
+
 import {-# source #-} FOL.Translation.Internal.Types
   ( argTypeToFormula
   , typeToFormula
   )
-import FOL.Types     ( FOLFormula(..), FOLTerm(..) )
+import FOL.Types ( FOLFormula(..), FOLTerm(..) )
+
 import Monad.Base
   ( getTVars
   , newTVar
@@ -134,24 +131,7 @@ predicate qName args = do
   folName ← qName2String qName
   case length args of
     0 → __IMPOSSIBLE__
-
-    1 → fmap (appP1 (FOLFun folName [])) (mapM argTermToFOLTerm args)
-    2 → fmap (appP2 (FOLFun folName [])) (mapM argTermToFOLTerm args)
-    3 → fmap (appP3 (FOLFun folName [])) (mapM argTermToFOLTerm args)
-    4 → fmap (appP4 (FOLFun folName [])) (mapM argTermToFOLTerm args)
-    5 → fmap (appP5 (FOLFun folName [])) (mapM argTermToFOLTerm args)
-    6 → fmap (appP6 (FOLFun folName [])) (mapM argTermToFOLTerm args)
-    7 → fmap (appP7 (FOLFun folName [])) (mapM argTermToFOLTerm args)
-    8 → fmap (appP8 (FOLFun folName [])) (mapM argTermToFOLTerm args)
-    9 → fmap (appP9 (FOLFun folName [])) (mapM argTermToFOLTerm args)
-
-    10 → fmap (appP10 (FOLFun folName [])) (mapM argTermToFOLTerm args)
-
-    _ → throwError $
-        "The translation of predicates symbols with arity "
-        ++ "greater than or equal to eleven as "
-        ++ show qName
-        ++ " is not implemented"
+    _ → fmap (appP (FOLFun folName [])) (mapM argTermToFOLTerm args)
 
 predicateLogicalScheme ∷ [String] → Nat → Args → T FOLFormula
 predicateLogicalScheme vars n args = do
@@ -160,23 +140,7 @@ predicateLogicalScheme vars n args = do
 
   case length args of
     0 → __IMPOSSIBLE__
-
-    1 → fmap (appP1 (FOLVar var)) (mapM argTermToFOLTerm args)
-    2 → fmap (appP2 (FOLVar var)) (mapM argTermToFOLTerm args)
-    3 → fmap (appP3 (FOLVar var)) (mapM argTermToFOLTerm args)
-    4 → fmap (appP4 (FOLVar var)) (mapM argTermToFOLTerm args)
-    5 → fmap (appP5 (FOLVar var)) (mapM argTermToFOLTerm args)
-    6 → fmap (appP6 (FOLVar var)) (mapM argTermToFOLTerm args)
-    7 → fmap (appP7 (FOLVar var)) (mapM argTermToFOLTerm args)
-    8 → fmap (appP8 (FOLVar var)) (mapM argTermToFOLTerm args)
-    9 → fmap (appP9 (FOLVar var)) (mapM argTermToFOLTerm args)
-
-    10 → fmap (appP10 (FOLVar var)) (mapM argTermToFOLTerm args)
-
-    _ → throwError $
-          "The translation of predicates symbols with arity "
-          ++ "greater than or equal to eleven (used in logical schemas) "
-          ++ "is not implemented"
+    _ → fmap (appP (FOLVar var)) (mapM argTermToFOLTerm args)
 
 termToFormula ∷ Term → T FOLFormula
 termToFormula term@(Def qName@(QName _ name) args) = do
