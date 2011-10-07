@@ -3,6 +3,8 @@
 -- Bove-Capretta method
 ------------------------------------------------------------------------------
 
+-- Tested with Agda 2.2.11 on 07 October 2011.
+
 module Draft.FOTC.Program.QuickSort.DomainPredicate where
 
 open import FOTC.Base
@@ -15,13 +17,12 @@ open import FOTC.Data.List
 
 -- We need to define monadic inequalities.
 postulate
-  le : D
+  le gt : D
+
   le-00 :         le · zero   · zero   ≡ false
   le-0S : ∀ d →   le · zero   · succ d ≡ true
   le-S0 : ∀ d →   le · succ d · zero   ≡ false
   le-SS : ∀ d e → le · succ d · succ e ≡ d < e
-
-  gt : D
 
 postulate
   filter    : D → D → D

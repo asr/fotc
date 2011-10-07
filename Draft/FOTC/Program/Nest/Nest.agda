@@ -3,6 +3,8 @@
 -- Bove-Capretta method
 ------------------------------------------------------------------------------
 
+-- Tested with Agda 2.1.11 on 07 October 2011.
+
 -- From: Ana Bove and Venanzio Capretta. Nested general recursion and
 -- partiality in type theory. Vol. 2152 of LNCS. 2001
 
@@ -11,7 +13,10 @@ module Draft.FOTC.Program.Nest.Nest where
 open import FOTC.Base
 
 open import FOTC.Data.Nat
-open import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI
+
+import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI
+open module WF = FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI.WF-LT
+
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 
@@ -84,35 +89,35 @@ nest-≤ dom0 =
 nest-≤ (domS n h₁ h₂) =
   ≤-trans (nest-N (sN (dom-N n h₁))) (nest-N (dom-N n h₁)) (sN Nn) prf₁ prf₂
     where
-      Nn : N n
-      Nn = dom-N n h₁
+    Nn : N n
+    Nn = dom-N n h₁
 
-      prf₁ : LE (nest (succ n)) (nest n)
-      prf₁ =
-        begin
-          nest (succ n) ≤ nest n
-            ≡⟨ subst (λ t → nest (succ n) ≤ nest n ≡ t ≤ nest n)
-                     (nest-S n)
-                     refl
-            ⟩
-          nest (nest n) ≤ nest n
-            ≡⟨ nest-≤ h₂ ⟩
-          true
-          ∎
+    prf₁ : LE (nest (succ n)) (nest n)
+    prf₁ =
+      begin
+        nest (succ n) ≤ nest n
+          ≡⟨ subst (λ t → nest (succ n) ≤ nest n ≡ t ≤ nest n)
+                   (nest-S n)
+                   refl
+          ⟩
+        nest (nest n) ≤ nest n
+          ≡⟨ nest-≤ h₂ ⟩
+        true
+      ∎
 
-      prf₂ : LE (nest n) (succ n)
-      prf₂ = ≤-trans (nest-N (dom-N n h₁)) Nn (sN Nn) (nest-≤ h₁) (x≤Sx Nn)
+    prf₂ : LE (nest n) (succ n)
+    prf₂ = ≤-trans (nest-N (dom-N n h₁)) Nn (sN Nn) (nest-≤ h₁) (x≤Sx Nn)
 
 N→Dom : ∀ {n} → N n → Dom n
 N→Dom = wfInd-LT P ih
   where
-    P : D → Set
-    P = Dom
+  P : D → Set
+  P = Dom
 
-    ih : ∀ {x} → N x → (∀ {y} → N y → LT y x → P y) → P x
-    ih zN          h = dom0
-    ih (sN {x} Nx) h =
-      domS x dn-x (h (nest-N Nx ) (x≤y→x<Sy (nest-N Nx) Nx (nest-≤ dn-x)))
+  ih : ∀ {x} → N x → (∀ {y} → N y → LT y x → P y) → P x
+  ih zN          h = dom0
+  ih (sN {x} Nx) h =
+    domS x dn-x (h (nest-N Nx ) (x≤y→x<Sy (nest-N Nx) Nx (nest-≤ dn-x)))
       where
-        dn-x : Dom x
-        dn-x = h Nx (x<Sx Nx)
+      dn-x : Dom x
+      dn-x = h Nx (x<Sx Nx)

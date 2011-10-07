@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 -- Tested with the development version of the standard library on
--- 24 May 2011.
+-- 07 October 2011.
 
 module QuickSortBC where
 
@@ -87,33 +87,32 @@ allQSDom : ∀ xs → QSDom xs
 -- If we use wfi-⟪′ then allQSDom =  wfi-⟪′ P ih
 allQSDom = build AllWF.wfRec-builder P ih
   where
-    P : List ℕ → Set
-    P = QSDom
+  P : List ℕ → Set
+  P = QSDom
 
-    -- If we use wfi-⟪′ then
-    -- ih : ∀ zs → (∀ ys → ys ⟪′ zs → P ys) → P zs
-    ih :  ∀ zs → WfRec _⟪′_ P zs → P zs
-    ih []       h = qsDom-[]
-    ih (z ∷ zs) h = qsDom-∷ prf₁ prf₂
+  -- If we use wfi-⟪′ then
+  -- ih : ∀ zs → (∀ ys → ys ⟪′ zs → P ys) → P zs
+  ih :  ∀ zs → WfRec _⟪′_ P zs → P zs
+  ih []       h = qsDom-[]
+  ih (z ∷ zs) h = qsDom-∷ prf₁ prf₂
+    where
+    c₁ : ℕ → Bool
+    c₁ = λ y → ⌊ y ≤′? z ⌋
 
-       where
-         c₁ : ℕ → Bool
-         c₁ = λ y → ⌊ y ≤′? z ⌋
+    c₂ : ℕ → Bool
+    c₂ = λ y → not ⌊ y ≤′? z ⌋
 
-         c₂ : ℕ → Bool
-         c₂ = λ y → not ⌊ y ≤′? z ⌋
+    f₁ : List ℕ
+    f₁ = filter c₁ zs
 
-         f₁ : List ℕ
-         f₁ = filter c₁ zs
+    f₂ : List ℕ
+    f₂ = filter c₂ zs
 
-         f₂ : List ℕ
-         f₂ = filter c₂ zs
+    prf₁ : QSDom (filter (λ y → ⌊ y ≤′? z ⌋) zs)
+    prf₁ = h f₁ (≤⇒≤′ (s≤s (≤′⇒≤ (filter-length c₁ zs))))
 
-         prf₁ : QSDom (filter (λ y → ⌊ y ≤′? z ⌋) zs)
-         prf₁ = h f₁ (≤⇒≤′ (s≤s (≤′⇒≤ (filter-length c₁ zs))))
-
-         prf₂ : QSDom (filter (λ y → not ⌊ y ≤′? z ⌋) zs)
-         prf₂ = h f₂ (≤⇒≤′ (s≤s (≤′⇒≤ (filter-length c₂ zs))))
+    prf₂ : QSDom (filter (λ y → not ⌊ y ≤′? z ⌋) zs)
+    prf₂ = h f₂ (≤⇒≤′ (s≤s (≤′⇒≤ (filter-length c₂ zs))))
 
 -- Quicksort algorithm by structural recursion on the domain predicate.
 qsDom : ∀ xs → QSDom xs → List ℕ

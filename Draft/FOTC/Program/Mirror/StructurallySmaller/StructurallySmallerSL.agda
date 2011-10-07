@@ -1,3 +1,6 @@
+-- Tested with the development version of the standard library on
+-- 07 October 2011.
+
 module StructurallySmallerSL where
 
 open import Data.List
@@ -10,7 +13,7 @@ foo (treeT a [])       = a
 foo (treeT a (t ∷ ts)) = foo (treeT a ts)
 
 bar : {D : Set} → Tree D → D
-bar (treeT a [])           = a
+bar     (treeT a [])       = a
 bar {D} (treeT a (t ∷ ts)) = helper (bar t) (bar (treeT a ts))
   where
-    postulate helper : D → D → D
+  postulate helper : D → D → D
