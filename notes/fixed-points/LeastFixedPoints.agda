@@ -1,8 +1,9 @@
--- Tested with Agda 2.2.11 on 03 October 2011.
+-- Tested with Agda 2.2.11 on 11 October 2011.
 
 module LeastFixedPoints where
 
 open import FOTC.Base
+open import FOTC.Base.PropertiesI
 
 infixl 9 _+_
 
@@ -53,16 +54,65 @@ postulate
   -- N is the least prefixed-point of NatF.
   -- Peter: It corresponds to the elimination rule of an inductively
   -- defined predicate.
-  N-lfp₂ : ∀ n (O : D → Set) → (n ≡ zero ∨ (∃ λ m → n ≡ succ m ∧ O m) → O n) →
-           N n → O n
+  N-lfp₂ : ∀ (P : D → Set) {n} →
+           (n ≡ zero ∨ (∃ λ m → n ≡ succ m ∧ P m) → P n) →
+           N n → P n
 
 ------------------------------------------------------------------------------
 -- The data constructors of N.
 zN : N zero
 zN = N-lfp₁ zero (inj₁ refl)
 
-sN : {n : D} → N n → N (succ n)
+sN : ∀ {n} → N n → N (succ n)
 sN {n} Nn = N-lfp₁ (succ n) (inj₂ (n , (refl , Nn)))
+
+------------------------------------------------------------------------------
+-- Because N is the least pre-fixed point of NatF (i.e. N-lfp₁ and
+-- N-lfp₂), we can proof that N is also post-fixed point of NatF.
+
+-- N is a post-fixed point of NatF.
+N-lfp₃ : ∀ {n} → N n → n ≡ zero ∨ (∃ λ m → n ≡ succ m ∧ N m)
+N-lfp₃ {n} Nn = N-lfp₂ P prf Nn
+  where
+  P : D → Set
+  P x = x ≡ zero ∨ ∃ λ m → x ≡ succ m ∧ N m
+
+  prf : n ≡ zero ∨ ∃ (λ m → n ≡ succ m ∧ P m) → P n
+  prf h = [ inj₁ , (λ h₁ → inj₂ (prf₁ h₁)) ] h
+    where
+    prf₁ : ∃ (λ m → n ≡ succ m ∧ (m ≡ zero ∨ ∃ (λ m' → m ≡ succ m' ∧ N m'))) →
+           ∃ λ m → n ≡ succ m ∧ N m
+    prf₁ (m , n=Sm , h₂) = m , n=Sm , prf₂ h₂
+      where
+      prf₂ : m ≡ zero ∨ ∃ (λ m' → m ≡ succ m' ∧ N m') → N m
+      prf₂ h₂ = [ (λ h₃ → subst N (sym h₃) zN) , prf₃ ] h₂
+        where
+        prf₃ : ∃ (λ m' → m ≡ succ m' ∧ N m') → N m
+        prf₃ (m' , m≡Sm' , Nm') = subst N (sym m≡Sm') (sN Nm')
+
+------------------------------------------------------------------------------
+-- The induction principle for N.
+indN : (P : D → Set) →
+       P zero →
+       (∀ {n} → N n → P n → P (succ n)) →
+       ∀ {n} → N n → P n
+indN P P0 is {n} Nn = N-lfp₂ P [ prf₁ , prf₂ ] Nn
+  where
+  prf₁ : n ≡ zero → P n
+  prf₁ n≡0 = subst P (sym n≡0) P0
+
+  prf₂ : ∃ (λ m → n ≡ succ m ∧ P m) → P n
+  prf₂ (m , n≡Sm , Pm) = subst P (sym n≡Sm) (is helper Pm)
+    where
+    helper : N m
+    helper = [ prf₃ , prf₄ ] (N-lfp₃ Nn)
+      where
+      prf₃ : n ≡ zero → N m
+      prf₃ n≡0 = ⊥-elim (0≠S (trans (sym n≡0) n≡Sm))
+
+      prf₄ : ∃ (λ m' → n ≡ succ m' ∧ N m') → N m
+      prf₄ (m' , n≡Sm' , Nm') =
+        subst N (succInjective (trans (sym n≡Sm') n≡Sm)) Nm'
 
 ------------------------------------------------------------------------------
 -- Example: We will use N-lfp₂ as the induction principle on N.
@@ -75,7 +125,7 @@ postulate
 +-leftIdentity {n} _ = +-0x n
 
 +-N : ∀ {m n} → N m → N n → N (m + n)
-+-N {m} {n} Nm Nn = N-lfp₂ m P prf Nm
++-N {m} {n} Nm Nn = N-lfp₂ P prf Nm
 
   where
   P : D → Set
@@ -95,27 +145,3 @@ postulate
 
     prf₂ : ∃ (λ m' → m ≡ succ m' ∧ P m') → P m
     prf₂ (m' , m≡Sm' , Pm') = subst N (cong (flip _+_ n) (sym m≡Sm')) (is Pm')
-
-------------------------------------------------------------------------------
--- Because N is the least pre-fixed point of NatF (i.e. N-lfp₁ and
--- N-lfp₂), we can proof that N is also post-fixed point of NatF.
-
--- N is a post-fixed point of NatF.
-N-lfp₃ : ∀ n → N n → n ≡ zero ∨ (∃ λ m → n ≡ succ m ∧ N m)
-N-lfp₃ n Nn = N-lfp₂ n O prf Nn
-  where
-    O : D → Set
-    O x = x ≡ zero ∨ (∃ λ m → x ≡ succ m ∧ N m)
-
-    prf : n ≡ zero ∨ ∃ (λ m → n ≡ succ m ∧ O m) → O n
-    prf h = [ inj₁ , (λ h₁ → inj₂ (prf₁ h₁)) ] h
-      where
-      prf₁ : ∃ (λ m → n ≡ succ m ∧ (m ≡ zero ∨ ∃ (λ m' → m ≡ succ m' ∧ N m'))) →
-             ∃ (λ m → n ≡ succ m ∧ N m)
-      prf₁ (m , n=Sm , h₂) = m , n=Sm , prf₂ h₂
-        where
-          prf₂ : m ≡ zero ∨ ∃ (λ m' → m ≡ succ m' ∧ N m') → N m
-          prf₂ h₂ = [ (λ h₃ → subst N (sym h₃) zN) , prf₃ ] h₂
-            where
-              prf₃ : ∃ (λ m' → m ≡ succ m' ∧ N m') → N m
-              prf₃ (m' , m≡Sm' , Nm') = subst N (sym m≡Sm') (sN Nm')
