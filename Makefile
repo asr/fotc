@@ -236,18 +236,25 @@ all_create_snapshot : create_snapshot_DistributiveLaws \
 ##############################################################################
 # Test the snapshot files
 
-snapshot_test_% :
+snapshot_% :
 	for file in $(conjectures); do \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
 	    if ! ( $(AGDA2ATP_SNAPSHOT_TEST) $${file} ); then exit 1; fi; \
 	done
 
-all_snapshot_test : snapshot_test_DistributiveLaws \
-		    snapshot_test_FOTC \
-		    snapshot_test_GroupTheory \
-		    snapshot_test_LTC-PCF \
-		    snapshot_test_PA \
-		    snapshot_test_PredicateLogic
+all_snapshot : snapshot_DistributiveLaws \
+	       snapshot_FOTC \
+	       snapshot_GroupTheory \
+	       snapshot_LTC-PCF \
+	       snapshot_PA \
+	       snapshot_PredicateLogic
+	@echo "The $@ test succeeded!"
+
+
+##############################################################################
+# Test used when there is a modification to Agda
+
+agda_changed : clean all_type_checking all_only_conjectures
 	@echo "The $@ test succeeded!"
 
 ##############################################################################
@@ -291,13 +298,11 @@ clean :
 	@find -name '*.agdai' | xargs rm -f
 	@rm -f /tmp/*.tptp
 
+
 ##############################################################################
 # Main
 
 all_tests : all_type_checking all_conjectures all_consistency
-	@echo "The $@ test succeeded!"
-
-agda_changed_test : clean all_type_checking all_only_conjectures
 	@echo "The $@ test succeeded!"
 
 # TODO
