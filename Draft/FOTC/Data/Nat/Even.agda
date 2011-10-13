@@ -1,7 +1,10 @@
+------------------------------------------------------------------------------
+-- Even predicate
+------------------------------------------------------------------------------
+
 module Draft.FOTC.Data.Nat.Even where
 
 open import FOTC.Base
-open import FOTC.Data.Nat.Type
 
 data Even : D → Set where
   zeroeven : Even zero
