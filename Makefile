@@ -121,6 +121,7 @@ all_type_checking : type_checking_Common \
 		    type_checking_PredicateLogic \
 		    type_checking_Agsy \
 		    type_checking_README
+	@echo "The $@ test succeeded!"
 
 ##############################################################################
 # Only create the conjecture files.
@@ -137,6 +138,7 @@ all_only_conjectures : only_conjectures_DistributiveLaws \
 		       only_conjectures_LTC-PCF \
 		       only_conjectures_PA \
 		       only_conjectures_PredicateLogic
+	@echo "The $@ test succeeded!"
 
 ##############################################################################
 # Only parsing the conjecture files.
@@ -161,6 +163,7 @@ all_parsing : parsing_DistributiveLaws \
 	      parsing_LTC-PCF \
 	      parsing_PA \
 	      parsing_PredicateLogic
+	@echo "The $@ test succeeded!"
 
 ##############################################################################
 # Test the conjecture files.
@@ -197,6 +200,7 @@ all_conjectures : conjectures_DistributiveLaws \
 		  conjectures_LTC-PCF \
 		  conjectures_PA \
 		  conjectures_PredicateLogic
+	@echo "The $@ test succeeded!"
 
 ##############################################################################
 # Consistency test
@@ -211,6 +215,7 @@ $(consistency_test_files) :
 	if ( $(AGDA2ATP) --time=10 $@.agda ); then exit 1; fi; \
 
 all_consistency : $(consistency_test_files)
+	@echo "The $@ test succeeded!"
 
 ##############################################################################
 # Create snapshot files
@@ -243,6 +248,7 @@ all_snapshot_test : snapshot_test_DistributiveLaws \
 		    snapshot_test_LTC-PCF \
 		    snapshot_test_PA \
 		    snapshot_test_PredicateLogic
+	@echo "The $@ test succeeded!"
 
 ##############################################################################
 # Publish the .html files
@@ -289,8 +295,10 @@ clean :
 # Main
 
 all_tests : all_type_checking all_conjectures all_consistency
+	@echo "The $@ test succeeded!"
 
 agda_changed_test : clean all_type_checking all_only_conjectures
+	@echo "The $@ test succeeded!"
 
 # TODO
 # non_conjectures :
