@@ -6,6 +6,8 @@ module Draft.FOTC.Data.Nat.Even where
 
 open import FOTC.Base
 
+------------------------------------------------------------------------------
+
 data Even : D → Set where
   zeroeven : Even zero
   nexteven : ∀ {d} → Even d → Even (succ (succ d))
