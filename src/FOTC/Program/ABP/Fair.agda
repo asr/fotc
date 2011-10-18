@@ -42,8 +42,8 @@ postulate
 postulate
   Fair-gfp₂ : (P : D → Set) →
               -- P is post-fixed point of FairF.
-              ( ∀ {os} → P os →
-                ∃ λ ol → ∃ λ os' → O*L ol ∧ P os' ∧ os ≡ ol ++ os' ) →
+              (∀ {os} → P os →
+               ∃ λ ol → ∃ λ os' → O*L ol ∧ P os' ∧ os ≡ ol ++ os') →
               -- Fair is greater than P.
               ∀ {os} → P os → Fair os
 
