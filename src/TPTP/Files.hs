@@ -121,15 +121,13 @@ addRole af@(MkAF qName afRole _) role file =
 
 addRoles ∷ [AF] → ATPRole → FilePath → String → IO ()
 addRoles afs role file str = do
-  let headerRoleComment ∷ String
-      headerRoleComment = commentLine ++ "% The " ++ str ++ ".\n\n"
+  let header, footer ∷ String
+      header = commentLine ++ "% The " ++ str ++ ".\n\n"
+      footer = "% End " ++ str ++ ".\n\n"
 
-      footerRoleComment ∷ String
-      footerRoleComment = "% End " ++ str ++ ".\n\n"
-
-  _  ← appendFile file headerRoleComment
+  _  ← appendFile file header
   _  ← mapM_ (\af → addRole af role file) afs
-  _  ← appendFile file footerRoleComment
+  _  ← appendFile file footer
   return ()
 
 -- | The function 'createConjectureFile' creates a TPTP file with a
