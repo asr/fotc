@@ -43,10 +43,13 @@ import qualified Data.Map as Map ( empty )
 
 -- Agda library imports
 import Agda.TypeChecking.Monad.Base ( Definitions )
+import Agda.Utils.Impossible        ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
 import Options     ( defaultOptions, Options )
 import Utils.Names ( freshName )
+
+#include "../undefined.h"
 
 ------------------------------------------------------------------------------
 
@@ -93,7 +96,9 @@ popTVar = do
   state ← get
   let xs ∷ [String]
       xs = tVars state
-  modify $ \s → s { tVars = tail xs }
+  case xs of
+    [] → __IMPOSSIBLE__
+    _  → modify $ \s → s { tVars = tail xs }
 
 newTVar ∷ T String
 newTVar = fmap (evalState freshName . tVars) get
