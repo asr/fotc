@@ -87,18 +87,14 @@ isTVarsEmpty = fmap (null . tVars) get
 pushTVar ∷ String → T ()
 pushTVar x = do
   state ← get
-  let xs ∷ [String]
-      xs = tVars state
-  modify $ \s → s { tVars = x : xs }
+  modify $ \s → s { tVars = x : tVars state }
 
 popTVar ∷ T ()
 popTVar = do
   state ← get
-  let xs ∷ [String]
-      xs = tVars state
-  case xs of
-    [] → __IMPOSSIBLE__
-    _  → modify $ \s → s { tVars = tail xs }
+  case tVars state of
+    []       → __IMPOSSIBLE__
+    (_ : xs) → modify $ \s → s { tVars = xs }
 
 newTVar ∷ T String
 newTVar = fmap (evalState freshName . tVars) get
