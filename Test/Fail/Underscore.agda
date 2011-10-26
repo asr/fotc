@@ -6,7 +6,7 @@
 
 module Test.Fail.Underscore where
 
-infix  4 _≡_
+infix 4 _≡_
 
 postulate
   D      : Set
