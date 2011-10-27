@@ -1,5 +1,5 @@
 ##############################################################################
-# Some global variables
+# Global variables
 
 # Host directory used by publish
 # Tunneling connection
@@ -13,22 +13,22 @@ snapshot_dir = snapshot
 
 # The current directory (\ie. '.') in the Agda path is required only
 # for work with the Draft directory.
-AGDA_FOT     = agda -v 0 -i. -isrc
-AGDA_Agsy    = agda -v 0 --allow-unsolved-metas \
-                    -isrc -i/home/asr/Agda/std-lib/src/
+AGDA_FOT  = agda -v 0 -i. -isrc
+AGDA_Agsy = agda -v 0 --allow-unsolved-metas \
+                 -isrc -i/home/asr/Agda/std-lib/src/
 
 # N.B. The timeout for the conjectures test should be modify in the
 # conjectures_% target.
-AGDA2ATP                  = agda2atp -i. -isrc --unproved-conjecture-error
-# AGDA2ATP                  = agda2atp -i. -isrc --atp=e
-# AGDA2ATP                  = agda2atp -i. -isrc --atp=equinox
-# AGDA2ATP                  = agda2atp -i. -isrc --atp=metis
-# AGDA2ATP                  = agda2atp -i. -isrc --atp=spass
-# AGDA2ATP                  = agda2atp -i. -isrc --atp=vampire
-AGDA2ATP_CREATE_SNAPSHOT  = agda2atp -i. -isrc --only-file \
-                                     --output-dir=$(snapshot_dir)
-AGDA2ATP_SNAPSHOT_TEST    = agda2atp -i. -isrc --snapshot-test \
-                            --snapshot-dir=$(snapshot_dir)
+AGDA2ATP = agda2atp -i. -isrc --unproved-conjecture-error
+# AGDA2ATP = agda2atp -i. -isrc --atp=e
+# AGDA2ATP = agda2atp -i. -isrc --atp=equinox
+# AGDA2ATP = agda2atp -i. -isrc --atp=metis
+# AGDA2ATP = agda2atp -i. -isrc --atp=spass
+# AGDA2ATP = agda2atp -i. -isrc --atp=vampire
+AGDA2ATP_CREATE_SNAPSHOT = agda2atp -i. -isrc --only-file \
+                                    --output-dir=$(snapshot_dir)
+AGDA2ATP_SNAPSHOT_TEST = agda2atp -i. -isrc --snapshot-test \
+                                  --snapshot-dir=$(snapshot_dir)
 AGDA2ATP_ONLY_CONJECTURES = agda2atp -i. -isrc --only-files
 
 # Equinox has the better parser for TPTP files, so we use it to find problems.
@@ -50,34 +50,28 @@ PA_path               = src/PA
 PredicateLogic_path   = src/PredicateLogic
 
 # Programs
-ABP_path            = $(FOTC_path)/Program/ABP
-Collatz_path        = $(FOTC_path)/Program/Collatz
-Division_path       = $(FOTC_path)/Program/Division
-Division-PCF_path   = $(LTC-PCF_path)/Program/Division
-GCDPartial_path     = $(FOTC_path)/Program/GCD/Partial
-GCDTotal_path       = $(FOTC_path)/Program/GCD/Total
-GCD-PCFPartial_path = $(LTC-PCF_path)/Program/GCD/Partial
-MapIterate_path     = $(FOTC_path)/Program/MapIterate
-McCarthy91_path     = $(FOTC_path)/Program/McCarthy91
-Mirror_path         = $(FOTC_path)/Program/Mirror
-SortList_path       = $(FOTC_path)/Program/SortList
+ABP_path             = $(FOTC_path)/Program/ABP
+Collatz_path         = $(FOTC_path)/Program/Collatz
+Division_path        = $(FOTC_path)/Program/Division
+Division-PCF_path    = $(LTC-PCF_path)/Program/Division
+GCD-Partial_path     = $(FOTC_path)/Program/GCD/Partial
+GCD-Total_path       = $(FOTC_path)/Program/GCD/Total
+GCD-PCF-Partial_path = $(LTC-PCF_path)/Program/GCD/Partial
+MapIterate_path      = $(FOTC_path)/Program/MapIterate
+McCarthy91_path      = $(FOTC_path)/Program/McCarthy91
+Mirror_path          = $(FOTC_path)/Program/Mirror
+SortList_path        = $(FOTC_path)/Program/SortList
 
 ##############################################################################
 # "main" modules
 
 # Theories
 main_Common           = $(Common_path)/Everything
-
 main_DistributiveLaws = $(DistributiveLaws_path)/Everything
-
 main_FOTC             = $(FOTC_path)/Everything
-
 main_GroupTheory      = $(GroupTheory_path)/Everything
-
 main_LTC-PCF          = $(LTC-PCF_path)/Everything
-
 main_PA               = $(PA_path)/Everything
-
 main_PredicateLogic   = $(PredicateLogic_path)/Everything
 
 # Agsy examples
@@ -102,7 +96,7 @@ $(shell find $($(*)_path) -name '*.agda' | \
 endef
 
 ##############################################################################
-# Type checking the Agda modules.
+# Type checking the Agda modules
 
 type_checking_Agsy : $(Agsy_files)
 	for file in $(Agsy_files); do \
@@ -124,7 +118,7 @@ all_type_checking : type_checking_Common \
 	@echo "The $@ test succeeded!"
 
 ##############################################################################
-# Only create the conjecture files.
+# Only create the conjecture files
 
 only_conjectures_% :
 	for file in $(conjectures); do \
@@ -141,7 +135,7 @@ all_only_conjectures : only_conjectures_DistributiveLaws \
 	@echo "The $@ test succeeded!"
 
 ##############################################################################
-# Only parsing the conjecture files.
+# Only parsing the conjecture files
 
 parsing_% :
 	for file in $(conjectures); do \
@@ -166,7 +160,7 @@ all_parsing : parsing_DistributiveLaws \
 	@echo "The $@ test succeeded!"
 
 ##############################################################################
-# Test the conjecture files.
+# Test the conjecture files
 
 conjectures_% :
 	for file in $(conjectures); do \
@@ -186,9 +180,9 @@ conjectures_% :
 #                 conjectures_Collatz \
 #                 conjectures_Division \
 #                 conjectures_Division-PCF \
-# 		  conjectures_GCDPartial \
-# 		  conjectures_GCDTotal \
-# 		  conjectures_GCD-PCFPartial \
+# 		  conjectures_GCD-Partial \
+# 		  conjectures_GCD-Total \
+# 		  conjectures_GCD-PCF-Partial \
 #		  conjectures_MapIterate \
 #		  conjectures_McCarthy91 \
 #		  conjectures_Mirror \
@@ -260,9 +254,6 @@ agda_changed : clean all_type_checking all_only_conjectures
 ##############################################################################
 # Publish the .html files
 
-# html_dir_XXX = /tmp/XXX/html/
-# host_dir_XXX = $(root_host_dir)/XXX/
-
 publish_Agsy : $(Agsy_files)
 	rm -r -f /tmp/Agsy/html/
 	for file in $(Agsy_files); do \
@@ -304,7 +295,3 @@ clean :
 
 all_tests : all_type_checking all_conjectures all_consistency
 	@echo "The $@ test succeeded!"
-
-# TODO
-# non_conjectures :
-# 	./Test/non-conjectures.bash
