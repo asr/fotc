@@ -16,32 +16,8 @@ open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 
--- We have these TPTP definitions outside the where clauses to keep
+-- We have these TPTP definitions outside the where clause to keep
 -- them simple for the ATPs.
-
--- Definitions for the base case
-
-as' : D → D → D → D → D
-as' b i' is' ds = await b i' is' ds
-{-# ATP definition as' #-}
-
-bs' : D → D → D → D → D → D
-bs' b i' is' ds os₀' = corrupt · os₀' · as' b i' is' ds
-{-# ATP definition bs' #-}
-
-cs' : D → D → D → D → D → D
-cs' b i' is' ds os₀' = abpack · (not b) · bs' b i' is' ds os₀'
-{-# ATP definition cs' #-}
-
-js' : D → D → D → D → D → D
-js' b i' is' ds os₀' = abpout · (not b) · bs' b i' is' ds os₀'
-{-# ATP definition js' #-}
-
-ds' : D → D
-ds' ds = ds
-{-# ATP definition ds' #-}
-
--- Definitions for the inductive step
 
 as⁵ : ∀ b i' is' ds → D
 as⁵ b i' is' ds = await b i' is' ds
@@ -79,41 +55,20 @@ helper : ∀ {b i' is' os₀ os₁ as bs cs ds js} →
            ∧ Fair os₁'
            ∧ Abp' b i' is' os₀' os₁' as' bs' cs' ds' js'
            ∧ js ≡ i' ∷ js'
-helper {b} {i'} {is'} {os₀} {os₁} {as} {bs} {cs} {ds} {js}
-       Bb Fos₁ (asAbp , bsAbp , csAbp , dsAbs , jsAbp)
-       nilO*L {os₀'-aux = os₀'} Fos₀' os₀-eq =
-       os₀' , os₁'
-       , as' b i' is' ds
-       , bs' b i' is' ds os₀'
-       , cs' b i' is' ds os₀'
-       , ds' ds
-       , js' b i' is' ds os₀'
-       , Fos₀' , Fos₁
-       , (ds'-eq , refl , refl , refl , refl)
-       , js-eq
+helper {b} {i'} {is'} {js = js} Bb Fos₁ h nilO*L Fos₀' os₀-eq = prf
   where
-  postulate os₀-eq-helper : os₀ ≡ L ∷ os₀'
-  {-# ATP prove os₀-eq-helper #-}
-
-  postulate as-eq : as ≡ < i' , b > ∷ as' b i' is' ds
-  {-# ATP prove as-eq #-}
-
-  postulate bs-eq : bs ≡ ok < i' , b > ∷ bs' b i' is' ds os₀'
-  {-# ATP prove bs-eq os₀-eq-helper #-}
-
-  postulate cs-eq : cs ≡ b ∷ cs' b i' is' ds os₀'
-  {-# ATP prove cs-eq bs-eq #-}
-
-  postulate js-eq : js ≡ i' ∷ js' b i' is' ds os₀'
-  {-# ATP prove js-eq bs-eq #-}
-
-  os₁' : D
-  os₁' = os₁
-
   postulate
-    ds'-eq : ds' ds ≡ corrupt · os₁ · (b ∷ abpack · (not b) ·
-                      (corrupt · os₀' · (await b i' is' ds)))
-  {-# ATP prove ds'-eq cs-eq #-}
+    prf : ∃ (λ os₀' → ∃ (λ os₁' →
+          ∃ (λ as' → ∃ (λ bs' → ∃ (λ cs' → ∃ (λ ds' → ∃ (λ js' →
+          Fair os₀'
+          ∧ Fair os₁'
+          ∧ (ds' ≡ corrupt · os₁' · (b ∷ cs')
+             ∧ as' ≡ await b i' is' ds'
+             ∧ bs' ≡ corrupt · os₀' · as'
+             ∧ cs' ≡ abpack · (not b) · bs'
+             ∧ js' ≡ abpout · (not b) · bs')
+             ∧ js ≡ i' ∷ js')))))))
+  {-# ATP prove prf #-}
 
 helper {b} {i'} {is'} {os₀} {os₁} {as} {bs} {cs} {ds} {js}
        Bb Fos₁ abp

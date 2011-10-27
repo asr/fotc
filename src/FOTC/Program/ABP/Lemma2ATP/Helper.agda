@@ -19,20 +19,8 @@ open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 
--- We have these TPTP definitions outside the where clauses to keep
+-- We have these TPTP definitions outside the where clause to keep
 -- them simple for the ATPs.
-
--- Definitions for the base case
-
-ds'' : D → D → D
-ds'' cs' os₁'' = corrupt · os₁'' · cs'
-{-# ATP definition ds'' #-}
-
-as'' : D → D
-as'' as' = as'
-{-# ATP definition as'' #-}
-
--- Definitions for the inductive step
 
 ds⁵ : D → D → D
 ds⁵ cs' os₁⁵ = corrupt · os₁⁵ · cs'
@@ -69,41 +57,20 @@ helper : ∀ {b i' is' os₀' os₁' as' bs' cs' ds' js'} →
          Fair os₀''
          ∧ Fair os₁''
          ∧ Abp (not b) is' os₀'' os₁'' as'' bs'' cs'' ds'' js'
-helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
-       Bb Fos₀' (ds'Abp' , as'Abp , bs'Abp' , cs'Abp' , js'Abp')
-       {os₁''-aux = os₁''} nilO*L Fos₁'' os₁'-eq =
-         os₀'
-         , os₁''
-         , as'' as'
-         , bs''
-         , cs''
-         , ds'' cs' os₁''
-         , Fos₀' , Fos₁''
-         , as''-eq , bs''-eq ,  cs''-eq , refl , js'-eq
+
+helper {b} {i'} {is'} {js' = js'} Bb Fos₀' h nilO*L Fos₁'' os₁'-eq = prf
   where
-  postulate os'₁-eq-helper : os₁' ≡ L ∷ os₁''
-  {-# ATP prove os'₁-eq-helper #-}
-
-  postulate ds'-eq : ds' ≡ ok b ∷ ds'' cs' os₁''
-  {-# ATP prove ds'-eq os'₁-eq-helper #-}
-
-  postulate as''-eq : as'' as' ≡ abpsend · (not b) · is' · ds'' cs' os₁''
-  {-# ATP prove as''-eq ds'-eq #-}
-
-  bs'' : D
-  bs'' = bs'
-
-  bs''-eq : bs'' ≡ corrupt · os₀' · as'
-  bs''-eq = bs'Abp'
-
-  cs'' : D
-  cs'' = cs'
-
-  cs''-eq : cs'' ≡ abpack · (not b) · bs'
-  cs''-eq = cs'Abp'
-
-  js'-eq : js' ≡ abpout · (not b) · bs''
-  js'-eq = js'Abp'
+  postulate
+    prf : ∃ (λ os₀'' → ∃ (λ os₁'' →
+          ∃ (λ as'' → ∃ (λ bs'' → ∃ (λ cs'' → ∃ (λ ds'' →
+          Fair os₀''
+          ∧ Fair os₁''
+          ∧ as'' ≡ abpsend · not b · is' · ds''
+          ∧ bs'' ≡ corrupt · os₀'' · as''
+          ∧ cs'' ≡ abpack · not b · bs''
+          ∧ ds'' ≡ corrupt · os₁'' · cs''
+          ∧ js' ≡ abpout · not b · bs''))))))
+  {-# ATP prove prf #-}
 
 helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
        Bb Fos₀' abp'
