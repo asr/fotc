@@ -26,7 +26,7 @@ postulate
 
 -- Conversion rule for pred.
 -- N.B. We don't need this equation in the FOTC.
-postulate pred-0 : pred · zero ≡ zero
+postulate pred-0 : pred₁ zero ≡ zero
 {-# ATP axiom pred-0 #-}
 
 -- Conversion rule for the abstraction and the application.

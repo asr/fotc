@@ -50,47 +50,106 @@ postulate
   loop                    : D          -- FOTC looping programs.
 
 ------------------------------------------------------------------------------
+-- Definitions
+
+-- We define some function symbols for convenience in writing.
+abstract
+  if_then_else_ : D → D → D → D
+  if b then d₁ else d₂ = if · b · d₁ · d₂
+  -- {-# ATP definition if_then_else_ #-}
+
+  succ₁ : D → D
+  succ₁ d = succ · d
+  -- {-# ATP definition succ₁ #-}
+
+  pred₁ : D → D
+  pred₁ d = pred · d
+  -- {-# ATP definition pred₁ #-}
+
+  iszero₁ : D → D
+  iszero₁ d = iszero · d
+  -- {-# ATP definition iszero₁ #-}
+
+  [] : D
+  [] = nil
+  -- {-# ATP definition [] #-}
+
+  _∷_  : D → D → D
+  x ∷ xs = cons · x · xs
+  -- {-# ATP definition _∷_ #-}
+
+  head₁ : D → D
+  head₁ xs = head · xs
+  -- {-# ATP definition head₁ #-}
+
+  tail₁ : D → D
+  tail₁ xs = tail · xs
+  -- {-# ATP definition tail₁ #-}
+
+  null₁ : D → D
+  null₁ xs = null · xs
+  -- {-# ATP definition null₁ #-}
+
+------------------------------------------------------------------------------
 -- Conversion rules
 
--- Note: The conversion relation _conv_ satifies (Aczel 1977. The
--- strength of Martin-Löf's intuitionistic type theory with one
--- universe, p. 8).
+-- The conversion relation _conv_ satifies (Aczel 1977. The strength
+-- of Martin-Löf's intuitionistic type theory with one universe,
+-- p. 8).
 --
 -- x conv y <=> FOTC ⊢ x ≡ y,
 --
 -- therefore, we introduce the conversion rules as FOL non-logical
 -- axioms.
 
+-- N.B. Looking for an optimization for the ATPs, we write the
+-- conversion rules on the defined function symbols instead of on the
+-- PCF constants.
+
+-- Note to myself: If we switch the conversion rules between constants
+-- and function symbols, it is necessary to modify the LTC-PCF base.
+
 -- Conversion rules for booleans.
 postulate
-  if-true  : ∀ d₁ {d₂} → if · true  · d₁ · d₂ ≡ d₁
-  if-false : ∀ {d₁} d₂ → if · false · d₁ · d₂ ≡ d₂
+  -- if-true  : ∀ d₁ {d₂} → if · true  · d₁ · d₂ ≡ d₁
+  -- if-false : ∀ {d₁} d₂ → if · false · d₁ · d₂ ≡ d₂
+  if-true  : ∀ d₁ {d₂} → if true  then d₁ else d₂ ≡ d₁
+  if-false : ∀ {d₁} d₂ → if false then d₁ else d₂ ≡ d₂
 {-# ATP axiom if-true if-false #-}
 
 -- Conversion rules for pred.
 postulate
   -- N.B. We don't need this equation.
   -- pred-0 :       pred zero     ≡ zero
-  pred-S : ∀ d → pred · (succ · d) ≡ d
+  -- pred-S : ∀ d → pred · (succ · d) ≡ d
+  pred-S : ∀ d → pred₁ (succ₁ d) ≡ d
 {-# ATP axiom pred-S #-}
 
 -- Conversion rules for iszero₁.
 postulate
-  iszero-0 :       iszero · zero       ≡ true
-  iszero-S : ∀ d → iszero · (succ · d) ≡ false
+  -- iszero-0 :       iszero · zero       ≡ true
+  -- iszero-S : ∀ d → iszero · (succ · d) ≡ false
+  iszero-0 :       iszero₁ zero      ≡ true
+  iszero-S : ∀ d → iszero₁ (succ₁ d) ≡ false
 {-# ATP axiom iszero-0 iszero-S #-}
 
 -- Conversion rules for null.
 postulate
-  null-[] :          null · nil             ≡ true
-  null-∷  : ∀ x xs → null · (cons · x · xs) ≡ false
+  -- null-[] :          null · nil             ≡ true
+  -- null-∷  : ∀ x xs → null · (cons · x · xs) ≡ false
+  null-[] :          null₁ []       ≡ true
+  null-∷  : ∀ x xs → null₁ (x ∷ xs) ≡ false
 
 -- Conversion rule for head.
-postulate head-∷ : ∀ x xs → head · (cons · x · xs) ≡ x
+postulate
+--  head-∷ : ∀ x xs → head · (cons · x · xs) ≡ x
+  head-∷ : ∀ x xs → head₁ (x ∷ xs) ≡ x
 {-# ATP axiom head-∷ #-}
 
 -- Conversion rule for tail.
-postulate tail-∷ : ∀ x xs → tail · (cons · x · xs) ≡ xs
+postulate
+--  tail-∷ : ∀ x xs → tail · (cons · x · xs) ≡ xs
+  tail-∷ : ∀ x xs → tail₁ (x ∷ xs) ≡ xs
 {-# ATP axiom tail-∷ #-}
 
 -- Conversion rule for loop.
@@ -104,42 +163,6 @@ postulate loop-eq : loop ≡ loop
 
 postulate
   true≠false : ¬ (true ≡ false)
-  0≠S        : ∀ {d} → ¬ (zero ≡ succ · d)
+--  0≠S        : ∀ {d} → ¬ (zero ≡ succ · d)
+  0≠S        : ∀ {d} → ¬ (zero ≡ succ₁ d)
 {-# ATP axiom true≠false 0≠S #-}
-
-------------------------------------------------------------------------------
--- Definitions
-
--- We define some function symbols for convenience in writing.
-
-if_then_else_ : D → D → D → D
-if b then d₁ else d₂ = if · b · d₁ · d₂
-{-# ATP definition if_then_else_ #-}
-
-succ₁ : D → D
-succ₁ d = succ · d
-{-# ATP definition succ₁ #-}
-
-pred₁ : D → D
-pred₁ d = pred · d
-{-# ATP definition pred₁ #-}
-
-iszero₁ : D → D
-iszero₁ d = iszero · d
-{-# ATP definition iszero₁ #-}
-
-[] : D
-[] = nil
-{-# ATP definition [] #-}
-
-_∷_  : D → D → D
-x ∷ xs = cons · x · xs
-{-# ATP definition _∷_ #-}
-
-head₁ : D → D
-head₁ xs = head · xs
-{-# ATP definition head₁ #-}
-
-tail₁ : D → D
-tail₁ xs = tail · xs
-{-# ATP definition tail₁ #-}
