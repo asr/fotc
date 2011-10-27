@@ -20,7 +20,7 @@ open import FOTC.Data.Stream
   P : D → Set
   P n = n ≡ ω
 
-  helper : {n : D} → P n → ∃ (λ n' → P n' ∧ n ≡ succ n')
+  helper : {n : D} → P n → ∃ (λ n' → P n' ∧ n ≡ succ₁ n')
   helper Pn = ω , refl , trans Pn ω-eq
 
 -- Adapted from Herbert's thesis, p. 58.
@@ -31,7 +31,7 @@ stream-length {xs} Sxs = ≈N-gfp₂ _R_ helper₁ helper₂
   m R n = ∃ λ ys → Stream ys ∧ m ≡ length ys ∧ n ≡ ω
 
   helper₁ : ∀ {m n} → m R n →
-            ∃ λ m' → ∃ λ n' → m' R n' ∧ m ≡ succ m' ∧ n ≡ succ n'
+            ∃ λ m' → ∃ λ n' → m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
   helper₁ {m} {n} (ys , Sys , h₁ , h₂) =
     length ys' , n , (ys' , Sys' , refl , h₂) , prf₁ , prf₂
     where
@@ -50,11 +50,11 @@ stream-length {xs} Sxs = ≈N-gfp₂ _R_ helper₁ helper₂
     ys≡y'∷ys' : ys ≡ y' ∷ ys'
     ys≡y'∷ys' = ∧-proj₂ (∃-proj₂ (∃-proj₂ unfold-ys))
 
-    prf₁ : m ≡ succ (length ys')
+    prf₁ : m ≡ succ₁ (length ys')
     prf₁ = trans₂ h₁ (cong length ys≡y'∷ys') (length-∷ y' ys')
 
-    prf₂ : n ≡ succ n
-    prf₂ = trans₂ h₂ ω-eq (cong succ (sym h₂))
+    prf₂ : n ≡ succ₁ n
+    prf₂ = trans₂ h₂ ω-eq (cong succ₁ (sym h₂))
 
   helper₂ : length xs R ω
   helper₂ = xs , Sxs , refl , refl

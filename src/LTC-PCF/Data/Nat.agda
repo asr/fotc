@@ -21,13 +21,13 @@ open import FOTC.Data.Nat.Type public
 
 -- Version using lambda-abstraction.
 -- _+_ : D → D → D
--- m + n = rec m n (lam (λ x → lam (λ y → succ y)))
+-- m + n = rec m n (lam (λ x → lam (λ y → succ₁ y)))
 
 -- Version using lambda lifting via super-combinators.
 -- (Hughes. Super-combinators. 1982)
 
 +-helper : D → D
-+-helper _ = lam succ
++-helper _ = lam succ₁
 {-# ATP definition +-helper #-}
 
 _+_ : D → D → D
@@ -45,7 +45,7 @@ m + n = rec m n (lam +-helper)
 -- (Hughes. Super-combinators. 1982)
 
 ∸-helper : D → D
-∸-helper _ = lam pred
+∸-helper _ = lam pred₁
 {-# ATP definition ∸-helper #-}
 
 _∸_ : D → D → D

@@ -20,31 +20,31 @@ open import FOTC.Program.GCD.Partial.GCD
 
 ------------------------------------------------------------------------------
 -- gcd 0 (succ n) is total.
-postulate gcd-0S-N : ∀ {n} → N n → N (gcd zero (succ n))
+postulate gcd-0S-N : ∀ {n} → N n → N (gcd zero (succ₁ n))
 {-# ATP prove gcd-0S-N #-}
 
 ------------------------------------------------------------------------------
--- gcd (succ n) 0 is total.
-postulate gcd-S0-N : ∀ {n} → N n → N (gcd (succ n) zero)
+-- gcd (succ₁ n) 0 is total.
+postulate gcd-S0-N : ∀ {n} → N n → N (gcd (succ₁ n) zero)
 {-# ATP prove gcd-S0-N #-}
 
 ------------------------------------------------------------------------------
--- gcd (succ m) (succ n) when succ m > succ n is total.
+-- gcd (succ₁ m) (succ₁ n) when succ₁ m > succ₁ n is total.
 postulate
   gcd-S>S-N : ∀ {m n} → N m → N n →
-              N (gcd (succ m ∸ succ n) (succ n)) →
-              GT (succ m) (succ n) →
-              N (gcd (succ m) (succ n))
+              N (gcd (succ₁ m ∸ succ₁ n) (succ₁ n)) →
+              GT (succ₁ m) (succ₁ n) →
+              N (gcd (succ₁ m) (succ₁ n))
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove gcd-S>S-N #-}
 
 ------------------------------------------------------------------------------
--- gcd (succ m) (succ n) when succ m ≯ succ n is total.
+-- gcd (succ₁ m) (succ₁ n) when succ₁ m ≯ succ₁ n is total.
 postulate
   gcd-S≯S-N : ∀ {m n} → N m → N n →
-              N (gcd (succ m) (succ n ∸ succ m)) →
-              NGT (succ m) (succ n) →
-              N (gcd (succ m) (succ n))
+              N (gcd (succ₁ m) (succ₁ n ∸ succ₁ m)) →
+              NGT (succ₁ m) (succ₁ n) →
+              N (gcd (succ₁ m) (succ₁ n))
 {-# ATP prove gcd-S≯S-N #-}
 
 ------------------------------------------------------------------------------
@@ -62,9 +62,9 @@ gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
   gcd-S>S-N Nm Nn ih Sm>Sn
   where
   -- Inductive hypothesis.
-  ih : N (gcd (succ m ∸ succ n) (succ n))
-  ih = accH {succ m ∸ succ n}
-            {succ n}
+  ih : N (gcd (succ₁ m ∸ succ₁ n) (succ₁ n))
+  ih = accH {succ₁ m ∸ succ₁ n}
+            {succ₁ n}
             (∸-N (sN Nm) (sN Nn))
             (sN Nn)
             ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
@@ -85,9 +85,9 @@ gcd-x≯y-N (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ =
   gcd-S≯S-N Nm Nn ih Sm≯Sn
   where
   -- Inductive hypothesis.
-  ih : N (gcd (succ m) (succ n ∸ succ m))
-  ih = accH {succ m}
-            {succ n ∸ succ m}
+  ih : N (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))
+  ih = accH {succ₁ m}
+            {succ₁ n ∸ succ₁ m}
             (sN Nm)
             (∸-N (sN Nn) (sN Nm))
             ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)

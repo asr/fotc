@@ -9,7 +9,7 @@ open import FOTC.Data.Nat.Divisibility.NotBy0
 open import FOTC.Data.Nat.Inequalities
 
 module FOTC.Program.GCD.Partial.IsGreatestAnyCommonDivisor
-  (x∣Sy→x≤Sy : ∀ {m n} → N m → N n → m ∣ (succ n) → LE m (succ n))
+  (x∣Sy→x≤Sy : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → LE m (succ₁ n))
   where
 
 open import Common.Function

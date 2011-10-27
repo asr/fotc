@@ -37,37 +37,37 @@ gcd-00∣0 = subst (λ x → x ∣ zero) (sym gcd-00) 0∣0
 -- of them), we proved it using well-founded induction.
 
 -- gcd 0 (succ n) ∣ 0.
-gcd-0S-∣₁ : ∀ {n} → N n → gcd zero (succ n) ∣ zero
+gcd-0S-∣₁ : ∀ {n} → N n → gcd zero (succ₁ n) ∣ zero
 gcd-0S-∣₁ {n} Nn = subst (λ x → x ∣ zero)
                          (sym $ gcd-0S n)
                          (S∣0 Nn)
 
--- gcd (succ m) 0 ∣ succ m.
-gcd-S0-∣₁ : ∀ {m} → N m → gcd (succ m) zero ∣ succ m
-gcd-S0-∣₁ {m} Nm = subst (λ x → x ∣ succ m)
+-- gcd (succ₁ m) 0 ∣ succ₁ m.
+gcd-S0-∣₁ : ∀ {m} → N m → gcd (succ₁ m) zero ∣ succ₁ m
+gcd-S0-∣₁ {m} Nm = subst (λ x → x ∣ succ₁ m)
                          (sym $ gcd-S0 m)
                          (∣-refl (sN Nm))
 
--- gcd (succ m) (succ n) ∣ succ m, when succ m ≯ succ n.
+-- gcd (succ₁ m) (succ₁ n) ∣ succ₁ m, when succ₁ m ≯ succ₁ n.
 gcd-S≯S-∣₁ :
   ∀ {m n} → N m → N n →
-  (gcd (succ m) (succ n ∸ succ m) ∣ succ m) →
-  NGT (succ m) (succ n) →
-  gcd (succ m) (succ n) ∣ succ m
+  (gcd (succ₁ m) (succ₁ n ∸ succ₁ m) ∣ succ₁ m) →
+  NGT (succ₁ m) (succ₁ n) →
+  gcd (succ₁ m) (succ₁ n) ∣ succ₁ m
 gcd-S≯S-∣₁ {m} {n} Nm Nn ih Sm≯Sn =
-  subst (λ x → x ∣ succ m)
+  subst (λ x → x ∣ succ₁ m)
         (sym $ gcd-S≯S m n Sm≯Sn)
         ih
 
--- gcd (succ m) (succ n) ∣ succ m when succ m > succ n.
+-- gcd (succ₁ m) (succ₁ n) ∣ succ₁ m when succ₁ m > succ₁ n.
 -- We use gcd-∣₂.
 -- We apply the theorem that if m∣n and m∣o then m∣(n+o).
 gcd-S>S-∣₁ :
   ∀ {m n} → N m → N n →
-  (gcd (succ m ∸ succ n) (succ n) ∣ (succ m ∸ succ n)) →
-  (gcd (succ m ∸ succ n) (succ n) ∣ succ n) →
-  GT (succ m) (succ n) →
-  gcd (succ m) (succ n) ∣ succ m
+  (gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∣ (succ₁ m ∸ succ₁ n)) →
+  (gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∣ succ₁ n) →
+  GT (succ₁ m) (succ₁ n) →
+  gcd (succ₁ m) (succ₁ n) ∣ succ₁ m
 
 {- Proof:
 1. gcd (Sm ∸ Sn) Sn | (Sm ∸ Sn)        IH
@@ -81,17 +81,17 @@ gcd-S>S-∣₁ :
 
 gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
   -- The first substitution is based on
-  -- 'gcd (succ m) (succ n) = gcd (succ m ∸ succ n) (succ n)'.
-  subst (λ x → x ∣ succ m)
+  -- 'gcd (succ₁ m) (succ₁ n) = gcd (succ₁ m ∸ succ₁ n) (succ₁ n)'.
+  subst (λ x → x ∣ succ₁ m)
         (sym $ gcd-S>S m n Sm>Sn)
         -- The second substitution is based on
         -- 'm = (m ∸ n) + n'.
-        (subst (λ y → gcd (succ m ∸ succ n) (succ n) ∣ y)
+        (subst (λ y → gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∣ y)
                (x>y→x∸y+y≡x (sN Nm) (sN Nn) Sm>Sn)
                (x∣y→x∣z→x∣y+z
-                 {gcd (succ m ∸ succ n) (succ n)}
-                 {succ m ∸ succ n}
-                 {succ n}
+                 {gcd (succ₁ m ∸ succ₁ n) (succ₁ n)}
+                 {succ₁ m ∸ succ₁ n}
+                 {succ₁ n}
                  (gcd-N Sm-Sn-N (sN Nn))
                  Sm-Sn-N
                  (sN Nn)
@@ -100,7 +100,7 @@ gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
                )
        )
   where
-  Sm-Sn-N : N (succ m ∸ succ n)
+  Sm-Sn-N : N (succ₁ m ∸ succ₁ n)
   Sm-Sn-N = ∸-N (sN Nm) (sN Nn)
 
 ------------------------------------------------------------------------------
@@ -108,39 +108,39 @@ gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
 -- We don't prove that gcd-∣₂ : ... → gcd m n ∣ n. The reason is
 -- the same to don't prove gcd-∣₁ : ... → gcd m n ∣ m.
 
--- gcd 0 (succ n) ∣₂ succ n.
-gcd-0S-∣₂ : ∀ {n} → N n → gcd zero (succ n) ∣ succ n
-gcd-0S-∣₂ {n} Nn = subst (λ x → x ∣ succ n)
+-- gcd 0 (succ₁ n) ∣₂ succ₁ n.
+gcd-0S-∣₂ : ∀ {n} → N n → gcd zero (succ₁ n) ∣ succ₁ n
+gcd-0S-∣₂ {n} Nn = subst (λ x → x ∣ succ₁ n)
                          (sym $ gcd-0S n)
                          (∣-refl (sN Nn))
 
--- gcd (succ m) 0 ∣ 0.
-gcd-S0-∣₂ : ∀ {m} → N m → gcd (succ m) zero ∣ zero
+-- gcd (succ₁ m) 0 ∣ 0.
+gcd-S0-∣₂ : ∀ {m} → N m → gcd (succ₁ m) zero ∣ zero
 gcd-S0-∣₂  {m} Nm = subst (λ x → x ∣ zero)
                           (sym $ gcd-S0 m)
                           (S∣0 Nm)
 
--- gcd (succ m) (succ n) ∣ succ n when succ m > succ n.
+-- gcd (succ₁ m) (succ₁ n) ∣ succ₁ n when succ₁ m > succ₁ n.
 gcd-S>S-∣₂ :
   ∀ {m n} → N m → N n →
-  (gcd (succ m ∸ succ n) (succ n) ∣ succ n) →
-  GT (succ m) (succ n) →
-  gcd (succ m) (succ n) ∣ succ n
+  (gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∣ succ₁ n) →
+  GT (succ₁ m) (succ₁ n) →
+  gcd (succ₁ m) (succ₁ n) ∣ succ₁ n
 
 gcd-S>S-∣₂ {m} {n} Nm Nn ih Sm>Sn =
-  subst (λ x → x ∣ succ n)
+  subst (λ x → x ∣ succ₁ n)
         (sym $ gcd-S>S m n Sm>Sn)
         ih
 
--- gcd (succ m) (succ n) ∣ succ n when succ m ≯ succ n.
+-- gcd (succ₁ m) (succ₁ n) ∣ succ₁ n when succ₁ m ≯ succ₁ n.
 -- We use gcd-∣₁.
 -- We apply the theorem that if m∣n and m∣o then m∣(n+o).
 gcd-S≯S-∣₂ :
   ∀ {m n} → N m → N n →
-  (gcd (succ m) (succ n ∸ succ m) ∣ (succ n ∸ succ m)) →
-  (gcd (succ m) (succ n ∸ succ m) ∣ succ m) →
-  NGT (succ m) (succ n) →
-  gcd (succ m) (succ n) ∣ succ n
+  (gcd (succ₁ m) (succ₁ n ∸ succ₁ m) ∣ (succ₁ n ∸ succ₁ m)) →
+  (gcd (succ₁ m) (succ₁ n ∸ succ₁ m) ∣ succ₁ m) →
+  NGT (succ₁ m) (succ₁ n) →
+  gcd (succ₁ m) (succ₁ n) ∣ succ₁ n
 
 {- Proof:
 1. gcd Sm (Sn ∸ Sm) | (Sn ∸ Sm)        IH
@@ -154,16 +154,16 @@ gcd-S≯S-∣₂ :
 
 gcd-S≯S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≯Sn =
   -- The first substitution is based on gcd m n = gcd m (n ∸ m).
-  subst (λ x → x ∣ succ n)
+  subst (λ x → x ∣ succ₁ n)
         (sym $ gcd-S≯S m n Sm≯Sn)
          -- The second substitution is based on.
          -- 'n = (n ∸ m) + m'
-        (subst (λ y → gcd (succ m) (succ n ∸ succ m) ∣ y)
+        (subst (λ y → gcd (succ₁ m) (succ₁ n ∸ succ₁ m) ∣ y)
                (x≤y→y∸x+x≡y (sN Nm) (sN Nn) (x≯y→x≤y (sN Nm) (sN Nn) Sm≯Sn))
                (x∣y→x∣z→x∣y+z
-                 {gcd (succ m) (succ n ∸ succ m)}
-                 {succ n ∸ succ m}
-                 {succ m}
+                 {gcd (succ₁ m) (succ₁ n ∸ succ₁ m)}
+                 {succ₁ n ∸ succ₁ m}
+                 {succ₁ m}
                  (gcd-N (sN Nm) Sn-Sm-N)
                  Sn-Sm-N
                  (sN Nm)
@@ -173,7 +173,7 @@ gcd-S≯S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≯Sn =
         )
 
   where
-  Sn-Sm-N : N (succ n ∸ succ m)
+  Sn-Sm-N : N (succ₁ n ∸ succ₁ m)
   Sn-Sm-N = ∸-N (sN Nn) (sN Nm)
 
 ------------------------------------------------------------------------------
@@ -184,42 +184,42 @@ gcd-S≯S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≯Sn =
 gcd-00-CD : CD zero zero (gcd zero zero)
 gcd-00-CD = gcd-00∣0 , gcd-00∣0
 
--- The gcd 0 (succ n) is CD.
-gcd-0S-CD : ∀ {n} → N n → CD zero (succ n) (gcd zero (succ n))
+-- The gcd 0 (succ₁ n) is CD.
+gcd-0S-CD : ∀ {n} → N n → CD zero (succ₁ n) (gcd zero (succ₁ n))
 gcd-0S-CD Nn = (gcd-0S-∣₁ Nn , gcd-0S-∣₂ Nn)
 
--- The gcd (succ m) 0 is CD.
-gcd-S0-CD : ∀ {m} → N m → CD (succ m) zero (gcd (succ m) zero)
+-- The gcd (succ₁ m) 0 is CD.
+gcd-S0-CD : ∀ {m} → N m → CD (succ₁ m) zero (gcd (succ₁ m) zero)
 gcd-S0-CD Nm = (gcd-S0-∣₁ Nm , gcd-S0-∣₂ Nm)
 
--- The gcd (succ m) (succ n) when succ m > succ n is CD.
+-- The gcd (succ₁ m) (succ₁ n) when succ₁ m > succ₁ n is CD.
 gcd-S>S-CD :
   ∀ {m n} → N m → N n →
-  (CD (succ m ∸ succ n) (succ n) (gcd (succ m ∸ succ n) (succ n))) →
-  GT (succ m) (succ n) →
-  CD (succ m) (succ n) (gcd (succ m) (succ n))
+  (CD (succ₁ m ∸ succ₁ n) (succ₁ n) (gcd (succ₁ m ∸ succ₁ n) (succ₁ n))) →
+  GT (succ₁ m) (succ₁ n) →
+  CD (succ₁ m) (succ₁ n) (gcd (succ₁ m) (succ₁ n))
 gcd-S>S-CD {m} {n} Nm Nn acc Sm>Sn =
    (gcd-S>S-∣₁ Nm Nn acc-∣₁ acc-∣₂ Sm>Sn , gcd-S>S-∣₂ Nm Nn acc-∣₂ Sm>Sn)
   where
-  acc-∣₁ : gcd (succ m ∸ succ n) (succ n) ∣ (succ m ∸ succ n)
+  acc-∣₁ : gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∣ (succ₁ m ∸ succ₁ n)
   acc-∣₁ = ∧-proj₁ acc
 
-  acc-∣₂ : gcd (succ m ∸ succ n) (succ n) ∣ succ n
+  acc-∣₂ : gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∣ succ₁ n
   acc-∣₂ = ∧-proj₂ acc
 
--- The gcd (succ m) (succ n) when succ m ≯ succ n is CD.
+-- The gcd (succ₁ m) (succ₁ n) when succ₁ m ≯ succ₁ n is CD.
 gcd-S≯S-CD :
   ∀ {m n} → N m → N n →
-  (CD (succ m) (succ n ∸ succ m) (gcd (succ m) (succ n ∸ succ m))) →
-  NGT (succ m) (succ n) →
-  CD (succ m) (succ n) (gcd (succ m) (succ n))
+  (CD (succ₁ m) (succ₁ n ∸ succ₁ m) (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))) →
+  NGT (succ₁ m) (succ₁ n) →
+  CD (succ₁ m) (succ₁ n) (gcd (succ₁ m) (succ₁ n))
 gcd-S≯S-CD {m} {n} Nm Nn acc Sm≯Sn =
   (gcd-S≯S-∣₁ Nm Nn acc-∣₁ Sm≯Sn , gcd-S≯S-∣₂ Nm Nn acc-∣₂ acc-∣₁ Sm≯Sn)
   where
-  acc-∣₁ : gcd (succ m) (succ n ∸ succ m) ∣ succ m
+  acc-∣₁ : gcd (succ₁ m) (succ₁ n ∸ succ₁ m) ∣ succ₁ m
   acc-∣₁ = ∧-proj₁ acc
 
-  acc-∣₂ : gcd (succ m) (succ n ∸ succ m) ∣ (succ n ∸ succ m)
+  acc-∣₂ : gcd (succ₁ m) (succ₁ n ∸ succ₁ m) ∣ (succ₁ n ∸ succ₁ m)
   acc-∣₂ = ∧-proj₂ acc
 
 -- The gcd m n when m > n is CD.
@@ -234,9 +234,9 @@ gcd-x>y-CD (sN Nm)     zN          _    _     = gcd-S0-CD Nm
 gcd-x>y-CD (sN {m} Nm) (sN {n} Nn) accH Sm>Sn = gcd-S>S-CD Nm Nn ih Sm>Sn
   where
   -- Inductive hypothesis.
-  ih : CD (succ m ∸ succ n) (succ n) (gcd (succ m ∸ succ n) (succ n))
-  ih  = accH {succ m ∸ succ n}
-             {succ n}
+  ih : CD (succ₁ m ∸ succ₁ n) (succ₁ n) (gcd (succ₁ m ∸ succ₁ n) (succ₁ n))
+  ih  = accH {succ₁ m ∸ succ₁ n}
+             {succ₁ n}
              (∸-N (sN Nm) (sN Nn))
              (sN Nn)
              ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
@@ -254,9 +254,9 @@ gcd-x≯y-CD (sN {m} Nm) zN      _ Sm≯0 =
 gcd-x≯y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn = gcd-S≯S-CD Nm Nn ih Sm≯Sn
   where
   -- Inductive hypothesis.
-  ih : CD (succ m) (succ n ∸ succ m)  (gcd (succ m) (succ n ∸ succ m))
-  ih = accH {succ m}
-            {succ n ∸ succ m}
+  ih : CD (succ₁ m) (succ₁ n ∸ succ₁ m)  (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))
+  ih = accH {succ₁ m}
+            {succ₁ n ∸ succ₁ m}
             (sN Nm)
             (∸-N (sN Nn) (sN Nm))
             ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)

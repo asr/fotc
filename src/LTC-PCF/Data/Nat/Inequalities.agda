@@ -26,11 +26,11 @@ open import LTC-PCF.Base
 -- Therefore, to avoid the new evaluation we use an abstrac block
 abstract
   <-helper₁ : D → D → D → D
-  <-helper₁ d lt e = if (isZero e)
+  <-helper₁ d lt e = if (iszero₁ e)
                         then false
-                        else (if (isZero d)
+                        else (if (iszero₁ d)
                                  then true
-                                 else (lt · (pred d) · (pred e)))
+                                 else (lt · (pred₁ d) · (pred₁ e)))
   {-# ATP definition <-helper₁ #-}
 
   <-helper₂ : D → D → D
@@ -52,11 +52,11 @@ abstract
   <-helper₂-≡ lt d = refl
 
   <-helper₁-≡ : ∀ d lt e → <-helper₁ d lt e ≡
-                           if (isZero e)
+                           if (iszero₁ e)
                               then false
-                              else (if (isZero d)
+                              else (if (iszero₁ d)
                                        then true
-                                       else (lt · (pred d) · (pred e)))
+                                       else (lt · (pred₁ d) · (pred₁ e)))
   <-helper₁-≡ d lt e = refl
 
 _<_ : D → D → D
@@ -64,7 +64,7 @@ d < e = fix <-h · d · e
 {-# ATP definition _<_ #-}
 
 _≤_ : D → D → D
-d ≤ e = d < succ e
+d ≤ e = d < succ₁ e
 {-# ATP definition _≤_ #-}
 
 _>_ : D → D → D

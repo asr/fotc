@@ -144,8 +144,8 @@ not² fB = trans (cong not not-f) not-t
   where postulate prf : Bool (zero ≤ n)
         {-# ATP prove prf #-}
 ≤-Bool (sN {m} Nm) zN = prf
-  where postulate prf : Bool (succ m ≤ zero)
+  where postulate prf : Bool (succ₁ m ≤ zero)
         {-# ATP prove prf Sx≰0 #-}
 ≤-Bool (sN {m} Nm) (sN {n} Nn) = prf $ ≤-Bool Nm Nn
-  where postulate prf : Bool (m ≤ n) → Bool (succ m ≤ succ n)
+  where postulate prf : Bool (m ≤ n) → Bool (succ₁ m ≤ succ₁ n)
         {-# ATP prove prf #-}

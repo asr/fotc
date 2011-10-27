@@ -18,17 +18,17 @@ postulate gcd-00 : gcd zero zero ≡ loop
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove gcd-00 #-}
 
-postulate gcd-S0 : ∀ n → gcd (succ n) zero ≡ succ n
+postulate gcd-S0 : ∀ n → gcd (succ₁ n) zero ≡ succ₁ n
 -- E 1.2: CPU time limit exceeded (180 sec).
 {-# ATP prove gcd-S0 #-}
 
-postulate gcd-0S : ∀ n → gcd zero (succ n) ≡ succ n
+postulate gcd-0S : ∀ n → gcd zero (succ₁ n) ≡ succ₁ n
 -- E 1.2: CPU time limit exceeded (180 sec).
 {-# ATP prove gcd-0S #-}
 
 postulate
-  gcd-S>S : ∀ m n → GT (succ m) (succ n) →
-            gcd (succ m) (succ n) ≡ gcd (succ m ∸ succ n) (succ n)
+  gcd-S>S : ∀ m n → GT (succ₁ m) (succ₁ n) →
+            gcd (succ₁ m) (succ₁ n) ≡ gcd (succ₁ m ∸ succ₁ n) (succ₁ n)
 -- E 1.2: CPU time limit exceeded (180 sec).
 -- E 1.2: CPU time limit exceeded (300 sec).
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
@@ -38,6 +38,6 @@ postulate
 {-# ATP prove gcd-S>S #-}
 
 postulate
-  gcd-S≯S : ∀ {m n} → NGT (succ m) (succ n) →
-            gcd (succ m) (succ n) ≡ gcd (succ m) (succ n ∸ succ m)
+  gcd-S≯S : ∀ {m n} → NGT (succ₁ m) (succ₁ n) →
+            gcd (succ₁ m) (succ₁ n) ≡ gcd (succ₁ m) (succ₁ n ∸ succ₁ m)
 {-# ATP prove gcd-S≯S #-}

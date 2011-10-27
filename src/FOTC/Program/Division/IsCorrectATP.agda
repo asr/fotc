@@ -35,7 +35,7 @@ div-x<y-correct {i} Ni Nj i<j = i , Ni , i<j , div-x<y-helper Ni Nj i<j
 postulate
   helper : ∀ {i j r} → N i → N j → N r →
            i ∸ j ≡ j * div (i ∸ j) j + r →
-           i ≡ j * succ (div (i ∸ j) j) + r
+           i ≡ j * succ₁ (div (i ∸ j) j) + r
 
 postulate
   div-x≮y-helper : ∀ {i j r} → N i → N j → N r →

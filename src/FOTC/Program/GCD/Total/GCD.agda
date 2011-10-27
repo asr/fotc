@@ -15,9 +15,9 @@ open import FOTC.Data.Nat.Inequalities
 postulate
   gcd    : D → D → D
   gcd-eq : ∀ m n → gcd m n ≡
-                   if (isZero n)
+                   if (iszero₁ n)
                       then m
-                      else (if (isZero m)
+                      else (if (iszero₁ m)
                                then n
                                else (if (m > n)
                                         then gcd (m ∸ n) n

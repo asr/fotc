@@ -13,4 +13,4 @@ open import FOTC.Data.Conat.Type public
 
 postulate
   ω    : D
-  ω-eq : ω ≡ succ ω
+  ω-eq : ω ≡ succ₁ ω

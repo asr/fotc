@@ -51,7 +51,7 @@ lg-x<lg-x∷xs x nilL =
                 (length-∷ x [])
                 refl
       ⟩
-    zero < succ (length [])
+    zero < succ₁ (length [])
       ≡⟨ <-0S (length []) ⟩
     true
   ∎
@@ -64,7 +64,7 @@ lg-x<lg-x∷xs x (consL y {xs} Lxs) =
                 (length-∷ x (y ∷ xs))
                 refl
       ⟩
-    succ (length xs) < succ (length (y ∷ xs))
+    succ₁ (length xs) < succ₁ (length (y ∷ xs))
       ≡⟨ <-SS (length xs) (length (y ∷ xs)) ⟩
     length xs < length (y ∷ xs)
       ≡⟨ lg-x<lg-x∷xs y Lxs ⟩
@@ -90,11 +90,11 @@ lg-xs<lg-[]→⊥ nilL lg-[]<lg-[] = ⊥-elim (0<0→⊥ helper)
 
 lg-xs<lg-[]→⊥ (consL x {xs} Lxs) lg-x∷xs<lg-[] = ⊥-elim (S<0→⊥ helper)
   where
-  helper : succ (length xs) < zero ≡ true
+  helper : succ₁ (length xs) < zero ≡ true
   helper =
     begin
-      succ (length xs) < zero
-        ≡⟨ subst₂ (λ t₁ t₂ → succ (length xs) < zero ≡ t₁ < t₂)
+      succ₁ (length xs) < zero
+        ≡⟨ subst₂ (λ t₁ t₂ → succ₁ (length xs) < zero ≡ t₁ < t₂)
                   (sym (length-∷ x xs))
                   (sym length-[])
                   refl
@@ -116,10 +116,7 @@ lg-xs<lg-[]→⊥ (consL x {xs} Lxs) lg-x∷xs<lg-[] = ⊥-elim (S<0→⊥ helpe
     (x ∷ xs) ++ []
       ≡⟨ ++-∷ x xs [] ⟩
     x ∷ (xs ++ [])
-      ≡⟨ subst (λ t → x ∷ (xs ++ []) ≡ x ∷ t)
-               (++-rightIdentity Lxs)
-               refl
-      ⟩
+      ≡⟨ subst (λ t → x ∷ (xs ++ []) ≡ x ∷ t) (++-rightIdentity Lxs) refl ⟩
     x ∷ xs
   ∎
 
@@ -128,10 +125,7 @@ lg-xs<lg-[]→⊥ (consL x {xs} Lxs) lg-x∷xs<lg-[] = ⊥-elim (S<0→⊥ helpe
 ++-assoc {ys = ys} {zs} nilL Lys Lzs =
   begin
     ([] ++ ys) ++ zs
-      ≡⟨ subst (λ t → ([] ++ ys) ++ zs ≡ t ++ zs)
-               (++-[] ys)
-               refl
-      ⟩
+      ≡⟨ subst (λ t → ([] ++ ys) ++ zs ≡ t ++ zs) (++-[] ys) refl ⟩
     ys ++ zs
       ≡⟨ sym (++-leftIdentity (++-List Lys Lzs)) ⟩
     [] ++ ys ++ zs
@@ -140,10 +134,7 @@ lg-xs<lg-[]→⊥ (consL x {xs} Lxs) lg-x∷xs<lg-[] = ⊥-elim (S<0→⊥ helpe
 ++-assoc {ys = ys} {zs} (consL x {xs} Lxs) Lys Lzs =
   begin
     ((x ∷ xs) ++ ys) ++ zs
-      ≡⟨ subst (λ t → ((x ∷ xs) ++ ys) ++ zs ≡ t ++ zs)
-               (++-∷ x xs ys)
-               refl
-      ⟩
+      ≡⟨ subst (λ t → ((x ∷ xs) ++ ys) ++ zs ≡ t ++ zs) (++-∷ x xs ys) refl ⟩
     (x ∷ (xs ++ ys)) ++ zs
       ≡⟨ ++-∷ x (xs ++ ys) zs ⟩
     x ∷ ((xs ++ ys) ++ zs)
@@ -163,16 +154,11 @@ map-++-commute : ∀ f {xs ys} → List xs → List ys →
 map-++-commute f {ys = ys} nilL Lys =
   begin
     map f ([] ++ ys)
-      ≡⟨ subst (λ t → map f ([] ++ ys) ≡ map f t)
-               (++-[] ys)
-               refl
-      ⟩
+      ≡⟨ subst (λ t → map f ([] ++ ys) ≡ map f t) (++-[] ys) refl ⟩
     map f ys
       ≡⟨ sym (++-leftIdentity (map-List f Lys)) ⟩
     [] ++ map f ys
-      ≡⟨ subst (λ t → [] ++ map f ys ≡ t ++ map f ys)
-               (sym (map-[] f))
-               refl
+      ≡⟨ subst (λ t → [] ++ map f ys ≡ t ++ map f ys) (sym (map-[] f)) refl
       ⟩
     map f [] ++ map f ys
   ∎
@@ -180,9 +166,7 @@ map-++-commute f {ys = ys} nilL Lys =
 map-++-commute f {ys = ys} (consL x {xs} Lxs) Lys =
   begin
     map f ((x ∷ xs) ++ ys)
-      ≡⟨ subst (λ t → map f ((x ∷ xs) ++ ys) ≡ map f t)
-               (++-∷ x xs ys)
-               refl
+      ≡⟨ subst (λ t → map f ((x ∷ xs) ++ ys) ≡ map f t) (++-∷ x xs ys) refl
       ⟩
     map f (x ∷ xs ++ ys)
       ≡⟨ map-∷ f x (xs ++ ys) ⟩
@@ -227,8 +211,8 @@ rev-++-commute {ys = ys} nilL Lys =
   ∎
 rev-++-commute {ys = ys} (consL x {xs} Lxs) Lys =
   begin
-    rev (x ∷ xs) ys      ≡⟨ rev-∷ x xs ys ⟩
-    rev xs (x ∷ ys)      ≡⟨ rev-++-commute Lxs (consL x Lys) ⟩  -- IH.
+    rev (x ∷ xs) ys ≡⟨ rev-∷ x xs ys ⟩
+    rev xs (x ∷ ys) ≡⟨ rev-++-commute Lxs (consL x Lys) ⟩  -- IH.
     rev xs [] ++ x ∷ ys
       ≡⟨ subst (λ t → rev xs [] ++ x ∷ ys ≡ rev xs [] ++ t)
                (sym
@@ -264,10 +248,7 @@ reverse-++-commute : ∀ {xs ys} → List xs → List ys →
 reverse-++-commute {ys = ys} nilL Lys =
   begin
     reverse ([] ++ ys)
-      ≡⟨ subst (λ t → reverse ([] ++ ys) ≡ reverse t)
-               (++-[] ys)
-               refl
-      ⟩
+      ≡⟨ subst (λ t → reverse ([] ++ ys) ≡ reverse t) (++-[] ys) refl ⟩
     reverse ys
       ≡⟨ sym (++-rightIdentity (reverse-List Lys)) ⟩
     reverse ys ++ []
@@ -359,9 +340,7 @@ reverse-∷ x nilL =
     x ∷ []
       ≡⟨ sym (++-leftIdentity (consL x nilL)) ⟩
     [] ++ x ∷ []
-      ≡⟨ subst (λ p → [] ++ x ∷ [] ≡ p ++ x ∷ [])
-               (sym (rev-[] []))
-               refl
+      ≡⟨ subst (λ p → [] ++ x ∷ [] ≡ p ++ x ∷ []) (sym (rev-[] [])) refl
       ⟩
     rev [] [] ++ x ∷ []
   ∎

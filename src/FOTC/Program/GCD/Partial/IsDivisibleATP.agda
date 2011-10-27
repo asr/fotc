@@ -23,57 +23,57 @@ open import FOTC.Program.GCD.Partial.GCD
 ------------------------------------------------------------------------------
 -- The gcd 0 (succ n) is Divisible.
 postulate
-  gcd-0S-Divisible : ∀ {n} → N n → Divisible zero (succ n) (gcd zero (succ n))
+  gcd-0S-Divisible : ∀ {n} → N n → Divisible zero (succ₁ n) (gcd zero (succ₁ n))
 {-# ATP prove gcd-0S-Divisible #-}
 
 postulate
-  gcd-S0-Divisible : ∀ {n} → N n → Divisible (succ n) zero (gcd (succ n) zero)
+  gcd-S0-Divisible : ∀ {n} → N n → Divisible (succ₁ n) zero (gcd (succ₁ n) zero)
 {-# ATP prove gcd-S0-Divisible #-}
 
 ------------------------------------------------------------------------------
--- The gcd (succ m) (succ n) when succ m > succ n is Divisible.
+-- The gcd (succ₁ m) (succ₁ n) when succ₁ m > succ₁ n is Divisible.
 -- For the proof using the ATP we added the helper hypothesis
--- c | succ m → c | succ c → c | succ m ∸ succ n.
+-- c | succ₁ m → c | succ₁ c → c | succ₁ m ∸ succ₁ n.
 postulate
   gcd-S>S-Divisible-ah :
     ∀ {m n} → N m → N n →
-    (Divisible (succ m ∸ succ n) (succ n) (gcd (succ m ∸ succ n) (succ n))) →
-    GT (succ m) (succ n) →
-    ∀ c → N c → CD (succ m) (succ n) c →
-    (c ∣ succ m ∸ succ n) →
-    c ∣ gcd (succ m) (succ n)
+    (Divisible (succ₁ m ∸ succ₁ n) (succ₁ n) (gcd (succ₁ m ∸ succ₁ n) (succ₁ n))) →
+    GT (succ₁ m) (succ₁ n) →
+    ∀ c → N c → CD (succ₁ m) (succ₁ n) c →
+    (c ∣ succ₁ m ∸ succ₁ n) →
+    c ∣ gcd (succ₁ m) (succ₁ n)
 -- E 1.2: CPU time limit exceeded (180 sec).
 -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove gcd-S>S-Divisible-ah #-}
 
 gcd-S>S-Divisible :
   ∀ {m n} → N m → N n →
-  (Divisible (succ m ∸ succ n) (succ n) (gcd (succ m ∸ succ n) (succ n))) →
-  GT (succ m) (succ n) →
-  Divisible (succ m) (succ n) (gcd (succ m) (succ n))
+  (Divisible (succ₁ m ∸ succ₁ n) (succ₁ n) (gcd (succ₁ m ∸ succ₁ n) (succ₁ n))) →
+  GT (succ₁ m) (succ₁ n) →
+  Divisible (succ₁ m) (succ₁ n) (gcd (succ₁ m) (succ₁ n))
 gcd-S>S-Divisible {m} {n} Nm Nn acc Sm>Sn c Nc (c∣Sm , c∣Sn) =
     gcd-S>S-Divisible-ah Nm Nn acc Sm>Sn c Nc (c∣Sm , c∣Sn)
                          (x∣y→x∣z→x∣y∸z Nc (sN Nm) (sN Nn) c∣Sm c∣Sn)
 
 ------------------------------------------------------------------------------
--- The gcd (succ m) (succ n) when succ m ≯ succ n is Divisible.
+-- The gcd (succ₁ m) (succ₁ n) when succ₁ m ≯ succ₁ n is Divisible.
 -- For the proof using the ATP we added the helper hypothesis
--- c | succ n → c | succ m → c | succ n ∸ succ m.
+-- c | succ₁ n → c | succ₁ m → c | succ₁ n ∸ succ₁ m.
 postulate
   gcd-S≯S-Divisible-ah :
     ∀ {m n} → N m → N n →
-    (Divisible (succ m) (succ n ∸ succ m) (gcd (succ m) (succ n ∸ succ m))) →
-    NGT (succ m) (succ n) →
-    ∀ c → N c → CD (succ m) (succ n) c →
-    (c ∣ succ n ∸ succ m) →
-    c ∣ gcd (succ m) (succ n)
+    (Divisible (succ₁ m) (succ₁ n ∸ succ₁ m) (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))) →
+    NGT (succ₁ m) (succ₁ n) →
+    ∀ c → N c → CD (succ₁ m) (succ₁ n) c →
+    (c ∣ succ₁ n ∸ succ₁ m) →
+    c ∣ gcd (succ₁ m) (succ₁ n)
 {-# ATP prove gcd-S≯S-Divisible-ah #-}
 
 gcd-S≯S-Divisible :
   ∀ {m n} → N m → N n →
-  (Divisible (succ m) (succ n ∸ succ m) (gcd (succ m) (succ n ∸ succ m))) →
-  NGT (succ m) (succ n) →
-  Divisible (succ m) (succ n) (gcd (succ m) (succ n))
+  (Divisible (succ₁ m) (succ₁ n ∸ succ₁ m) (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))) →
+  NGT (succ₁ m) (succ₁ n) →
+  Divisible (succ₁ m) (succ₁ n) (gcd (succ₁ m) (succ₁ n))
 gcd-S≯S-Divisible {m} {n} Nm Nn acc Sm≯Sn c Nc (c∣Sm , c∣Sn) =
     gcd-S≯S-Divisible-ah Nm Nn acc Sm≯Sn c Nc (c∣Sm , c∣Sn)
                          (x∣y→x∣z→x∣y∸z Nc (sN Nn) (sN Nm) c∣Sn c∣Sm)
@@ -94,9 +94,9 @@ gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ c Nc =
   gcd-S>S-Divisible Nm Nn ih Sm>Sn c Nc
   where
   -- Inductive hypothesis.
-  ih : Divisible (succ m ∸ succ n) (succ n) (gcd (succ m ∸ succ n) (succ n))
-  ih = accH {succ m ∸ succ n}
-            {succ n}
+  ih : Divisible (succ₁ m ∸ succ₁ n) (succ₁ n) (gcd (succ₁ m ∸ succ₁ n) (succ₁ n))
+  ih = accH {succ₁ m ∸ succ₁ n}
+            {succ₁ n}
             (∸-N (sN Nm) (sN Nn))
             (sN Nn)
             ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
@@ -119,9 +119,9 @@ gcd-x≯y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ c Nc =
   gcd-S≯S-Divisible Nm Nn ih Sm≯Sn c Nc
   where
   -- Inductive hypothesis.
-  ih : Divisible (succ m) (succ n ∸ succ m) (gcd (succ m) (succ n ∸ succ m))
-  ih = accH {succ m}
-            {succ n ∸ succ m}
+  ih : Divisible (succ₁ m) (succ₁ n ∸ succ₁ m) (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))
+  ih = accH {succ₁ m}
+            {succ₁ n ∸ succ₁ m}
             (sN Nm)
             (∸-N (sN Nn) (sN Nm))
             ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)

@@ -26,28 +26,28 @@ gcd-00-N = subst N (sym $ gcd-00) zN
 
 ------------------------------------------------------------------------------
 -- gcd 0 (succ n) is total.
-gcd-0S-N : ∀ {n} → N n → N (gcd zero (succ n))
+gcd-0S-N : ∀ {n} → N n → N (gcd zero (succ₁ n))
 gcd-0S-N {n} Nn = subst N (sym $ gcd-0S n) (sN Nn)
 
 ------------------------------------------------------------------------------
--- gcd (succ n) 0 is total.
-gcd-S0-N : ∀ {n} → N n → N (gcd (succ n) zero)
+-- gcd (succ₁ n) 0 is total.
+gcd-S0-N : ∀ {n} → N n → N (gcd (succ₁ n) zero)
 gcd-S0-N {n} Nn = subst N (sym $ gcd-S0 n) (sN Nn)
 
 ------------------------------------------------------------------------------
--- gcd (succ m) (succ n) when succ m > succ n is total.
+-- gcd (succ₁ m) (succ₁ n) when succ₁ m > succ₁ n is total.
 gcd-S>S-N : ∀ {m n} → N m → N n →
-            N (gcd (succ m ∸ succ n) (succ n)) →
-            GT (succ m) (succ n) →
-            N (gcd (succ m) (succ n))
+            N (gcd (succ₁ m ∸ succ₁ n) (succ₁ n)) →
+            GT (succ₁ m) (succ₁ n) →
+            N (gcd (succ₁ m) (succ₁ n))
 gcd-S>S-N {m} {n} Nm Nn ih Sm>Sn = subst N (sym $ gcd-S>S m n Sm>Sn) ih
 
 ------------------------------------------------------------------------------
--- gcd (succ m) (succ n) when succ m ≯ succ n is total.
+-- gcd (succ₁ m) (succ₁ n) when succ₁ m ≯ succ₁ n is total.
 gcd-S≯S-N : ∀ {m n} → N m → N n →
-            N (gcd (succ m) (succ n ∸ succ m)) →
-            NGT (succ m) (succ n) →
-            N (gcd (succ m) (succ n))
+            N (gcd (succ₁ m) (succ₁ n ∸ succ₁ m)) →
+            NGT (succ₁ m) (succ₁ n) →
+            N (gcd (succ₁ m) (succ₁ n))
 gcd-S≯S-N {m} {n} Nm Nn ih Sm≯Sn = subst N (sym $ gcd-S≯S m n Sm≯Sn) ih
 
 ------------------------------------------------------------------------------
@@ -63,9 +63,9 @@ gcd-x>y-N (sN Nm)     zN          _    _     = gcd-S0-N Nm
 gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn = gcd-S>S-N Nm Nn ih Sm>Sn
   where
   -- Inductive hypothesis.
-  ih : N (gcd (succ m ∸ succ n) (succ n))
-  ih = accH {succ m ∸ succ n}
-            {succ n}
+  ih : N (gcd (succ₁ m ∸ succ₁ n) (succ₁ n))
+  ih = accH {succ₁ m ∸ succ₁ n}
+            {succ₁ n}
             (∸-N (sN Nm) (sN Nn))
             (sN Nn)
             ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
@@ -84,9 +84,9 @@ gcd-x≯y-N (sN {m} Nm) zN      _ Sm≯0 =
 gcd-x≯y-N (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn = gcd-S≯S-N Nm Nn ih Sm≯Sn
   where
   -- Inductive hypothesis.
-  ih : N (gcd (succ m) (succ n ∸ succ m))
-  ih = accH {succ m}
-            {succ n ∸ succ m}
+  ih : N (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))
+  ih = accH {succ₁ m}
+            {succ₁ n ∸ succ₁ m}
             (sN Nm)
             (∸-N (sN Nn) (sN Nm))
             ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)

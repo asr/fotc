@@ -18,15 +18,15 @@ private
   postulate
     gcd-00  : gcd zero zero ≡ loop
 
-    gcd-S0  : ∀ n → gcd (succ n) zero ≡ succ n
+    gcd-S0  : ∀ n → gcd (succ₁ n) zero ≡ succ₁ n
 
-    gcd-0S  : ∀ n → gcd zero (succ n) ≡ succ n
+    gcd-0S  : ∀ n → gcd zero (succ₁ n) ≡ succ₁ n
 
-    gcd-S>S : ∀ m n → GT (succ m) (succ n) →
-              gcd (succ m) (succ n) ≡ gcd (succ m ∸ succ n) (succ n)
+    gcd-S>S : ∀ m n → GT (succ₁ m) (succ₁ n) →
+              gcd (succ₁ m) (succ₁ n) ≡ gcd (succ₁ m ∸ succ₁ n) (succ₁ n)
 
-    gcd-S≯S : ∀ m n → NGT (succ m) (succ n) →
-              gcd (succ m) (succ n) ≡ gcd (succ m) (succ n ∸ succ m)
+    gcd-S≯S : ∀ m n → NGT (succ₁ m) (succ₁ n) →
+              gcd (succ₁ m) (succ₁ n) ≡ gcd (succ₁ m) (succ₁ n ∸ succ₁ m)
   {-# ATP prove gcd-00 #-}
   {-# ATP prove gcd-S0 #-}
   {-# ATP prove gcd-0S #-}

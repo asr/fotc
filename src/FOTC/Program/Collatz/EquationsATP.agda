@@ -17,11 +17,11 @@ open import FOTC.Program.Collatz.Data.Nat
 postulate
   collatz-0       : collatz zero ≡ one
   collatz-1       : collatz one  ≡ one
-  collatz-even    : ∀ {n} → Even (succ (succ n)) →
-                    collatz (succ (succ n)) ≡ collatz ((succ (succ n)) / two)
-  collatz-noteven : ∀ {n} → NotEven (succ (succ n)) →
-                    collatz (succ (succ n)) ≡
-                    collatz (three * (succ (succ n)) + one)
+  collatz-even    : ∀ {n} → Even (succ₁ (succ₁ n)) →
+                    collatz (succ₁ (succ₁ n)) ≡ collatz ((succ₁ (succ₁ n)) / two)
+  collatz-noteven : ∀ {n} → NotEven (succ₁ (succ₁ n)) →
+                    collatz (succ₁ (succ₁ n)) ≡
+                    collatz (three * (succ₁ (succ₁ n)) + one)
 {-# ATP prove collatz-0 #-}
 {-# ATP prove collatz-1 #-}
 {-# ATP prove collatz-even #-}

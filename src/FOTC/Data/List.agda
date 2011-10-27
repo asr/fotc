@@ -19,7 +19,7 @@ open import FOTC.Data.List.Type public
 postulate
   length    : D → D
   length-[] :          length []       ≡ zero
-  length-∷  : ∀ d ds → length (d ∷ ds) ≡ succ (length ds)
+  length-∷  : ∀ d ds → length (d ∷ ds) ≡ succ₁ (length ds)
 {-# ATP axiom length-[] #-}
 {-# ATP axiom length-∷ #-}
 
@@ -53,8 +53,8 @@ reverse ds = rev ds []
 
 postulate
   replicate   : D → D → D
-  replicate-0 : ∀ d →   replicate zero     d ≡ []
-  replicate-S : ∀ d e → replicate (succ e) d ≡ d ∷ replicate e d
+  replicate-0 : ∀ d →   replicate zero     d  ≡ []
+  replicate-S : ∀ d e → replicate (succ₁ e) d ≡ d ∷ replicate e d
 {-# ATP axiom replicate-0 #-}
 {-# ATP axiom replicate-S #-}
 

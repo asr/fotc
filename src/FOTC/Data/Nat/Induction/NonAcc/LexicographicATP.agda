@@ -41,7 +41,7 @@ wfInd-LT₂ :
   ∀ {m n} → N m → N n → P m n
 wfInd-LT₂ P accH Nm Nn = accH Nm Nn (helper₂ Nm Nn)
   where
-  helper₁ : ∀ {m n o} → N m → N n → N o → LT m o → LT o (succ n) → LT m n
+  helper₁ : ∀ {m n o} → N m → N n → N o → LT m o → LT o (succ₁ n) → LT m n
   helper₁ {m} {n} {o} Nm Nn No m<o o<Sn =
     Sx≤y→x<y Nm Nn (≤-trans (sN Nm) No Nn
                             (x<y→Sx≤y Nm No m<o)
@@ -96,7 +96,7 @@ wfInd-LT₂ P accH Nm Nn = accH Nm Nn (helper₂ Nm Nn)
               m'n'<0Nn₂))
 
     where
-    0<Sm₁ : LT zero (succ m₁)
+    0<Sm₁ : LT zero (succ₁ m₁)
     0<Sm₁ = x₁y<x₂0→x₁<x₂ zN (sN Nn₂) (sN Nm₁) 0Sn₂<Sm₁0
 
   helper₂ zN (sN Nn₁) zN (sN Nn₂) 0Sn₂<0Sn₁ =
@@ -143,7 +143,7 @@ wfInd-LT₂ P accH Nm Nn = accH Nm Nn (helper₂ Nm Nn)
         ] m'n'<Sm₂Sn₂))
 
     where
-    Sm₂<Sm₁ : LT (succ m₂) (succ m₁)
+    Sm₂<Sm₁ : LT (succ₁ m₂) (succ₁ m₁)
     Sm₂<Sm₁ = x₁y<x₂0→x₁<x₂ (sN Nm₂) (sN Nn₂) (sN Nm₁) Sm₂Sn₂<Sm₁0
 
   helper₂ zN (sN Nn₁) (sN Nm₂) (sN Nn₂) Sm₂Sn₂<0Sn₁

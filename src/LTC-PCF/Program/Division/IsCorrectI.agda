@@ -56,7 +56,7 @@ div-x<y-correct {i} Ni Nj i<j = i , Ni , i<j , div-x<y-helper Ni Nj i<j
 postulate
   helper : ∀ {i j r} → N i → N j → N r →
            i ∸ j ≡ j * div (i ∸ j) j + r →
-           i ≡ j * succ (div (i ∸ j) j) + r
+           i ≡ j * succ₁ (div (i ∸ j) j) + r
 
 div-x≮y-helper : ∀ {i j r} → N i → N j → N r →
                  NLT i j →
@@ -65,11 +65,11 @@ div-x≮y-helper : ∀ {i j r} → N i → N j → N r →
 div-x≮y-helper {i} {j} {r} Ni Nj Nr i≮j helperH =
   begin
     i                            ≡⟨ helper Ni Nj Nr helperH ⟩
-    j * succ (div (i ∸ j) j) + r ≡⟨ prf ⟩
+    j * succ₁ (div (i ∸ j) j) + r ≡⟨ prf ⟩
     j * div i j + r
   ∎
   where
-  prf : j * succ (div (i ∸ j) j) + r ≡ j * div i j + r
+  prf : j * succ₁ (div (i ∸ j) j) + r ≡ j * div i j + r
   prf = subst (λ x → j * x + r ≡ j * div i j + r)
               (div-x≮y i≮j)
               refl

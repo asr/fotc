@@ -30,7 +30,7 @@ open import LTC-PCF.Data.Nat.Inequalities using ( _<_ )
 -- (Hughes. Super-combinators. 1982).
 
 div-helper₁ : D → D → D → D
-div-helper₁ i g j = if (i < j) then zero else succ (g · (i ∸ j) · j)
+div-helper₁ i g j = if (i < j) then zero else succ₁ (g · (i ∸ j) · j)
 {-# ATP definition div-helper₁ #-}
 
 div-helper₂ : D → D → D

@@ -22,9 +22,9 @@ open import LTC-PCF.Base
 
 private
   rec-helper₁ : D → D → D → D → D
-  rec-helper₁ n a r f = if (isZero n)
+  rec-helper₁ n a r f = if (iszero₁ n)
                            then a
-                           else f · (pred n) · (r · (pred n) · a · f)
+                           else f · (pred₁ n) · (r · (pred₁ n) · a · f)
   {-# ATP definition rec-helper₁ #-}
 
   rec-helper₂ : D → D → D → D

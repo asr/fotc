@@ -32,13 +32,13 @@ module WFInd where
 
     helper (sN {n} Nn) (sN {m} Nm) Sm<Sn = accH (sN Nm)
       (λ {m'} Nm' m'<Sm →
-        let Sm'≤Sm : LE (succ m') (succ m)
+        let Sm'≤Sm : LE (succ₁ m') (succ₁ m)
             Sm'≤Sm = x<y→Sx≤y Nm' (sN Nm) m'<Sm
 
-            Sm≤n : LE (succ m) n
+            Sm≤n : LE (succ₁ m) n
             Sm≤n = Sx≤Sy→x≤y (x<y→Sx≤y (sN Nm) (sN Nn) Sm<Sn)
 
-            Sm'≤n : LE (succ m') n
+            Sm'≤n : LE (succ₁ m') n
             Sm'≤n = ≤-trans (sN Nm') (sN Nm) Nn Sm'≤Sm Sm≤n
 
             m'<n : LT m' n

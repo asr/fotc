@@ -20,14 +20,14 @@ infixl 10 _/_
 postulate
   _/_   : D → D → D
   /-x<y : ∀ {m n} → LT m n → m / n ≡ zero
-  /-x≥y : ∀ {m n} → GE m n → m / n ≡ succ ((m ∸ n) / n)
+  /-x≥y : ∀ {m n} → GE m n → m / n ≡ succ₁ ((m ∸ n) / n)
 {-# ATP axiom /-x<y #-}
 {-# ATP axiom /-x≥y #-}
 
 postulate
   _^_ : D → D → D
-  ^-0 : ∀ n →   n ^ zero   ≡ one
-  ^-S : ∀ m n → m ^ succ n ≡ m * m ^ n
+  ^-0 : ∀ n →   n ^ zero    ≡ one
+  ^-S : ∀ m n → m ^ succ₁ n ≡ m * m ^ n
 {-# ATP axiom ^-0 #-}
 {-# ATP axiom ^-S #-}
 
@@ -35,11 +35,11 @@ postulate
   even : D → D
   odd  : D → D
 
-  even-0 :       even zero     ≡ true
-  even-S : ∀ d → even (succ d) ≡ odd d
+  even-0 :       even zero      ≡ true
+  even-S : ∀ d → even (succ₁ d) ≡ odd d
 
-  odd-0 :       odd zero     ≡ false
-  odd-S : ∀ d → odd (succ d) ≡ even d
+  odd-0 :       odd zero      ≡ false
+  odd-S : ∀ d → odd (succ₁ d) ≡ even d
 {-# ATP axiom even-0 #-}
 {-# ATP axiom even-S #-}
 {-# ATP axiom odd-0 #-}

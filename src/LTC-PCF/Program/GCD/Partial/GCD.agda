@@ -35,11 +35,11 @@ open import LTC-PCF.Data.Nat.Inequalities
 -- (Hughes. Super-combinators. 1982)
 
 gcd-helper₁ : D → D → D → D
-gcd-helper₁ d g e = if (isZero e)
-                       then (if (isZero d)
+gcd-helper₁ d g e = if (iszero₁ e)
+                       then (if (iszero₁ d)
                                 then loop
                                 else d)
-                       else (if (isZero d)
+                       else (if (iszero₁ d)
                                 then e
                                 else (if (d > e)
                                          then g · (d ∸ e) · e

@@ -9,7 +9,7 @@ open import FOTC.Base
 ------------------------------------------------------------------------------
 
 postulate
-  succInjective : ∀ {d e} → succ d ≡ succ e → d ≡ e
+  succInjective : ∀ {d e} → succ₁ d ≡ succ₁ e → d ≡ e
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove succInjective #-}
 

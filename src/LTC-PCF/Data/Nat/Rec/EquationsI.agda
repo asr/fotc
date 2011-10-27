@@ -32,40 +32,40 @@ private
   -- First argument application.
   rec-s₂ : D → D
   rec-s₂ n = lam (λ a → lam (λ f →
-                    (if (isZero n)
+                    (if (iszero₁ n)
                         then a
-                        else f · (pred n) · ((fix rech) · (pred n) · a · f))))
+                        else f · (pred₁ n) · ((fix rech) · (pred₁ n) · a · f))))
 
   -- Second argument application.
   rec-s₃ : D → D → D
   rec-s₃ n a = lam (λ f →
-                   (if (isZero n)
+                   (if (iszero₁ n)
                        then a
-                       else f · (pred n) · ((fix rech) · (pred n) · a · f)))
+                       else f · (pred₁ n) · ((fix rech) · (pred₁ n) · a · f)))
 
   -- Third argument application.
   rec-s₄ : D → D → D → D
-  rec-s₄ n a f = if (isZero n)
+  rec-s₄ n a f = if (iszero₁ n)
                      then a
-                     else f · (pred n) · ((fix rech) · (pred n) · a · f)
+                     else f · (pred₁ n) · ((fix rech) · (pred₁ n) · a · f)
 
-  -- Reduction 'isZero n == b'.
+  -- Reduction 'iszero₁ n == b'.
   rec-s₅ : D → D → D → D → D
   rec-s₅ n a f b = if b
                       then a
-                      else f · (pred n) · ((fix rech) · (pred n) · a · f)
+                      else f · (pred₁ n) · ((fix rech) · (pred₁ n) · a · f)
 
-  -- Reduction of 'isZero n == true'
+  -- Reduction of 'iszero₁ n == true'
   -- It should be
   -- rec-s₆ : D → D → D → D
   -- rec-s₆ n a f = a
   -- but we do not give a name to this step.
 
-  -- Reduction 'isZero n == false'.
+  -- Reduction 'iszero₁ n == false'.
   rec-s₆ : D → D → D → D
-  rec-s₆ n a f = f · (pred n) · ((fix rech) · (pred n) · a · f)
+  rec-s₆ n a f = f · (pred₁ n) · ((fix rech) · (pred₁ n) · a · f)
 
-  -- Reduction 'pred (succ n) == n'.
+  -- Reduction 'pred₁ (succ n) == n'.
   rec-s₇ : D → D → D → D
   rec-s₇ n a f = f · n · ((fix rech) · n · a · f)
 
@@ -98,8 +98,8 @@ private
   proof₃₋₄ : ∀ n a f → rec-s₃ n a · f ≡ rec-s₄ n a f
   proof₃₋₄ n a f = beta (rec-s₄ n a) f
 
-  -- Cases 'isZero n == b' using that proof.
-  proof₄₋₅ : ∀ n a f b → isZero n ≡ b → rec-s₄ n a f ≡ rec-s₅ n a f b
+  -- Cases 'iszero₁ n == b' using that proof.
+  proof₄₋₅ : ∀ n a f b → iszero₁ n ≡ b → rec-s₄ n a f ≡ rec-s₅ n a f b
   proof₄₋₅ n a f b h = subst (λ x → rec-s₅ n a f x ≡ rec-s₅ n a f b)
                              (sym h)
                              refl
@@ -112,8 +112,8 @@ private
   proof₅₋₆ : ∀ n a f → rec-s₅ n a f false ≡ rec-s₆ n a f
   proof₅₋₆ n a f = if-false (rec-s₆ n a f)
 
-  -- Reduction 'pred (succ n) == n' using the conversion rule pred-S.
-  proof₆₋₇ : ∀ n a f → rec-s₆ (succ n) a f ≡ rec-s₇ n a f
+  -- Reduction 'pred₁ (succ n) == n' using the conversion rule pred₁-S.
+  proof₆₋₇ : ∀ n a f → rec-s₆ (succ₁ n) a f ≡ rec-s₇ n a f
   proof₆₋₇ n a f = subst (λ x → rec-s₇ x a f ≡ rec-s₇ n a f)
                          (sym (pred-S n))
                          refl
@@ -128,20 +128,20 @@ rec-0 a {f} =
     rec-s₁ zero a f           ≡⟨ proof₁₋₂ zero a f ⟩
     rec-s₂ zero · a · f       ≡⟨ proof₂₋₃ zero a f ⟩
     rec-s₃ zero a · f         ≡⟨ proof₃₋₄ zero a f ⟩
-    rec-s₄ zero a f           ≡⟨ proof₄₋₅ zero a f true isZero-0 ⟩
+    rec-s₄ zero a f           ≡⟨ proof₄₋₅ zero a f true iszero-0 ⟩
     rec-s₅ zero a f true      ≡⟨ proof₅₊ zero a f ⟩
     a
   ∎
 
-rec-S : ∀ n a (f : D) → rec (succ n) a f ≡ f · n · (rec n a f)
+rec-S : ∀ n a (f : D) → rec (succ₁ n) a f ≡ f · n · (rec n a f)
 rec-S n a f =
   begin
-    (fix rech · (succ n) · a · f) ≡⟨ proof₀₋₁ (succ n) a f ⟩
-    rec-s₁ (succ n) a f           ≡⟨ proof₁₋₂ (succ n) a f ⟩
-    rec-s₂ (succ n) · a · f       ≡⟨ proof₂₋₃ (succ n) a f ⟩
-    rec-s₃ (succ n) a · f         ≡⟨ proof₃₋₄ (succ n) a f ⟩
-    rec-s₄ (succ n) a f           ≡⟨ proof₄₋₅ (succ n) a f false (isZero-S n) ⟩
-    rec-s₅ (succ n) a f false     ≡⟨ proof₅₋₆ (succ n) a f ⟩
-    rec-s₆ (succ n) a f           ≡⟨ proof₆₋₇ n a f ⟩
+    (fix rech · (succ₁ n) · a · f) ≡⟨ proof₀₋₁ (succ₁ n) a f ⟩
+    rec-s₁ (succ₁ n) a f           ≡⟨ proof₁₋₂ (succ₁ n) a f ⟩
+    rec-s₂ (succ₁ n) · a · f       ≡⟨ proof₂₋₃ (succ₁ n) a f ⟩
+    rec-s₃ (succ₁ n) a · f         ≡⟨ proof₃₋₄ (succ₁ n) a f ⟩
+    rec-s₄ (succ₁ n) a f           ≡⟨ proof₄₋₅ (succ₁ n) a f false (iszero-S n) ⟩
+    rec-s₅ (succ₁ n) a f false     ≡⟨ proof₅₋₆ (succ₁ n) a f ⟩
+    rec-s₆ (succ₁ n) a f           ≡⟨ proof₆₋₇ n a f ⟩
     rec-s₇ n a f
   ∎

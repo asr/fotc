@@ -19,10 +19,10 @@ open import FOTC.Relation.Binary.EqReasoning
 -- Basic properties
 
 &&-Bool : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → Bool (b₁ && b₂)
-&&-Bool tB tB = subst (λ t → Bool t) (sym &&-tt) tB
-&&-Bool tB fB = subst (λ t → Bool t) (sym &&-tf) fB
-&&-Bool fB tB = subst (λ t → Bool t) (sym &&-ft) fB
-&&-Bool fB fB = subst (λ t → Bool t) (sym &&-ff) fB
+&&-Bool tB tB = subst Bool (sym &&-tt) tB
+&&-Bool tB fB = subst Bool (sym &&-tf) fB
+&&-Bool fB tB = subst Bool (sym &&-ft) fB
+&&-Bool fB fB = subst Bool (sym &&-ff) fB
 
 not-Bool : ∀ {b} → Bool b → Bool (not b)
 not-Bool tB = subst Bool (sym not-t) fB
@@ -55,10 +55,7 @@ postulate
 &&-true₃ =
   begin
     true && true && true
-      ≡⟨ subst (λ t → true && true && true ≡ true && t)
-               &&-tt
-               refl
-      ⟩
+      ≡⟨ subst (λ t → true && true && true ≡ true && t) &&-tt refl ⟩
     true && true
       ≡⟨ &&-tt ⟩
     true
@@ -68,10 +65,7 @@ postulate
 &&-true₄ =
   begin
     true && true && true && true
-      ≡⟨ subst (λ t → true && true && true && true ≡ true && t)
-               &&-true₃
-               refl
-      ⟩
+      ≡⟨ subst (λ t → true && true && true && true ≡ true && t) &&-true₃ refl ⟩
     true && true
       ≡⟨ &&-tt ⟩
     true
@@ -94,8 +88,9 @@ postulate
 &&₃-proj₁ tB _ _ _ _ = refl
 &&₃-proj₁ {b₂ = b₂} {b₃} {b₄} fB Bb₂ Bb₃ Bb₄ h =
   ⊥-elim $ true≠false $ trans (sym h) prf
-  where prf : false && b₂ && b₃ && b₄ ≡ false
-        prf = false&&x≡false (&&-Bool Bb₂ (&&-Bool Bb₃ Bb₄))
+  where
+  prf : false && b₂ && b₃ && b₄ ≡ false
+  prf = false&&x≡false (&&-Bool Bb₂ (&&-Bool Bb₃ Bb₄))
 
 &&₃-proj₂ : ∀ {b₁ b₂ b₃ b₄} →
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
@@ -109,12 +104,12 @@ postulate
   prf =
     begin
       b₁ && false && b₃ && b₄
-         ≡⟨ subst (λ t → b₁ && false && b₃ && b₄ ≡ b₁ && t)
-                  (false&&x≡false (&&-Bool Bb₃ Bb₄))
-                  refl
+        ≡⟨ subst (λ t → b₁ && false && b₃ && b₄ ≡ b₁ && t)
+                 (false&&x≡false (&&-Bool Bb₃ Bb₄))
+                 refl
          ⟩
       b₁ && false
-         ≡⟨ x&&false≡false Bb₁ ⟩
+        ≡⟨ x&&false≡false Bb₁ ⟩
       false
     ∎
 
@@ -130,17 +125,14 @@ postulate
   prf =
     begin
       b₁ && b₂ && false && b₄
-         ≡⟨ subst (λ t → b₁ && b₂ && false && b₄ ≡ b₁ && b₂ && t)
-                  (false&&x≡false Bb₄)
-                  refl
-         ⟩
+        ≡⟨ subst (λ t → b₁ && b₂ && false && b₄ ≡ b₁ && b₂ && t)
+                 (false&&x≡false Bb₄)
+                 refl
+        ⟩
       b₁ && b₂ && false
-         ≡⟨ subst (λ t → b₁ && b₂ && false ≡ b₁ && t)
-                  (x&&false≡false Bb₂)
-                  refl
-         ⟩
+        ≡⟨ subst (λ t → b₁ && b₂ && false ≡ b₁ && t) (x&&false≡false Bb₂) refl ⟩
       b₁ && false
-           ≡⟨ x&&false≡false Bb₁ ⟩
+        ≡⟨ x&&false≡false Bb₁ ⟩
       false
     ∎
 
@@ -156,17 +148,14 @@ postulate
   prf =
     begin
       b₁ && b₂ && b₃ && false
-         ≡⟨ subst (λ t → b₁ && b₂ && b₃ && false ≡ b₁ && b₂ && t)
-                  (x&&false≡false Bb₃)
-                  refl
+        ≡⟨ subst (λ t → b₁ && b₂ && b₃ && false ≡ b₁ && b₂ && t)
+                 (x&&false≡false Bb₃)
+                 refl
          ⟩
       b₁ && b₂ && false
-         ≡⟨ subst (λ t → b₁ && b₂ && false ≡ b₁ && t)
-                  (x&&false≡false Bb₂)
-                  refl
-         ⟩
+        ≡⟨ subst (λ t → b₁ && b₂ && false ≡ b₁ && t) (x&&false≡false Bb₂) refl ⟩
       b₁ && false
-         ≡⟨ x&&false≡false Bb₁ ⟩
+        ≡⟨ x&&false≡false Bb₁ ⟩
       false
     ∎
 
@@ -185,8 +174,8 @@ not² fB = trans (cong not not-f) not-t
 -- Properties with inequalities
 
 ≤-Bool : ∀ {m n} → N m → N n → Bool (m ≤ n)
-≤-Bool {n = n} zN Nn           = subst (λ t → Bool t) (sym $ <-0S n) tB
-≤-Bool (sN Nm) zN              = subst (λ t → Bool t) (sym $ Sx≰0 Nm) fB
-≤-Bool (sN {m} Nm) (sN {n} Nn) = subst (λ t → Bool t)
-                                       (sym $ <-SS m (succ n))
+≤-Bool {n = n} zN Nn           = subst Bool (sym $ <-0S n) tB
+≤-Bool (sN Nm) zN              = subst Bool (sym $ Sx≰0 Nm) fB
+≤-Bool (sN {m} Nm) (sN {n} Nn) = subst Bool
+                                       (sym $ <-SS m (succ₁ n))
                                        (≤-Bool Nm Nn)

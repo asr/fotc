@@ -80,7 +80,7 @@ postulate 100<102 : LT one-hundred hundred-two
 x+11-N : ∀ {n} → N n → N (n + eleven)
 x+11-N Nn = +-N Nn 11-N
 
-x+11∸10≡Sx : ∀ {n} → N n → (n + eleven) ∸ ten ≡ succ n
+x+11∸10≡Sx : ∀ {n} → N n → (n + eleven) ∸ ten ≡ succ₁ n
 x+11∸10≡Sx Nn = [x+Sy]∸y≡Sx Nn 10-N
 
 postulate 91>100→⊥ : GT ninety-one one-hundred → ⊥

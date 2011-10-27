@@ -13,14 +13,14 @@ open import FOTC.Base
 -- The FOTC natural numbers type.
 data N : D → Set where
   zN :               N zero
-  sN : ∀ {n} → N n → N (succ n)
+  sN : ∀ {n} → N n → N (succ₁ n)
 {-# ATP axiom zN #-}
 {-# ATP axiom sN #-}
 
 -- Induction principle for N (elimination rule).
 indN : (P : D → Set) →
        P zero →
-       (∀ {n} → N n → P n → P (succ n)) →
+       (∀ {n} → N n → P n → P (succ₁ n)) →
        ∀ {n} → N n → P n
 indN P P0 h zN      = P0
 indN P P0 h (sN Nn) = h Nn (indN P P0 h Nn)

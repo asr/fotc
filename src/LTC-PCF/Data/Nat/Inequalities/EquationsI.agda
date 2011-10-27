@@ -51,35 +51,35 @@ private
 
   -- Definition lt-helper₁.
   <-s₆ : D → D → D
-  <-s₆ d e = if (isZero e) then false
-                else (if (isZero d) then true
-                         else ((fix <-h) · (pred d) · (pred e)))
+  <-s₆ d e = if (iszero₁ e) then false
+                else (if (iszero₁ d) then true
+                         else ((fix <-h) · (pred₁ d) · (pred₁ e)))
 
-  -- Reduction 'isZero e ≡ b'.
+  -- Reduction 'iszero₁ e ≡ b'.
   <-s₇ : D → D → D → D
   <-s₇ d e b = if b then false
-                  else (if (isZero d) then true
-                           else ((fix <-h) · (pred d) · (pred e)))
+                  else (if (iszero₁ d) then true
+                           else ((fix <-h) · (pred₁ d) · (pred₁ e)))
 
-  -- Reduction 'isZero e ≡ false'.
+  -- Reduction 'iszero₁ e ≡ false'.
   <-s₈ : D → D → D
-  <-s₈ d e = if (isZero d) then true
-                 else ((fix <-h) · (pred d) · (pred e))
+  <-s₈ d e = if (iszero₁ d) then true
+                 else ((fix <-h) · (pred₁ d) · (pred₁ e))
 
-  -- Reduction 'isZero d ≡ b'.
+  -- Reduction 'iszero₁ d ≡ b'.
   <-s₉ : D → D → D → D
   <-s₉ d e b = if b then true
-                  else ((fix <-h) · (pred d) · (pred e))
+                  else ((fix <-h) · (pred₁ d) · (pred₁ e))
 
-  -- Reduction 'isZero d ≡ false'.
+  -- Reduction 'iszero₁ d ≡ false'.
   <-s₁₀ : D → D → D
-  <-s₁₀ d e = (fix <-h) · (pred d) · (pred e)
+  <-s₁₀ d e = (fix <-h) · (pred₁ d) · (pred₁ e)
 
-  -- Reduction 'pred (succ d) ≡ d'.
+  -- Reduction 'pred₁ (succ d) ≡ d'.
   <-s₁₁ : D → D → D
-  <-s₁₁ d e = (fix <-h) · d · (pred e)
+  <-s₁₁ d e = (fix <-h) · d · (pred₁ e)
 
-  -- Reduction 'pred (succ e) ≡ e'.
+  -- Reduction 'pred₁ (succ e) ≡ e'.
   <-s₁₂ : D → D → D
   <-s₁₂ d e = (fix <-h) · d · e
 
@@ -137,37 +137,37 @@ private
   s₅→s₆ : ∀ d e → <-s₅ d e ≡ <-s₆ d e
   s₅→s₆ d e = <-helper₁-≡ d (fix <-h) e
 
-  -- Reduction 'isZero e ≡ b' using that proof.
-  s₆→s₇ : ∀ d e b → isZero e ≡ b → <-s₆ d e ≡ <-s₇ d e b
+  -- Reduction 'iszero₁ e ≡ b' using that proof.
+  s₆→s₇ : ∀ d e b → iszero₁ e ≡ b → <-s₆ d e ≡ <-s₇ d e b
   s₆→s₇ d e b h = subst (λ t → <-s₆ d e ≡ <-s₇ d e t) h refl
 
-  -- Reduction of 'isZero e ≡ true' using the conversion rule if-true.
+  -- Reduction of 'iszero₁ e ≡ true' using the conversion rule if-true.
   s₇→end : ∀ d e → <-s₇ d e true ≡ false
   s₇→end _ _ = if-true false
 
-  -- Reduction of 'isZero e ≡ false ...' using the conversion rule if-false.
+  -- Reduction of 'iszero₁ e ≡ false ...' using the conversion rule if-false.
   s₇→s₈ : ∀ d e → <-s₇ d e false ≡ <-s₈ d e
   s₇→s₈ d e = if-false (<-s₈ d e)
 
-  -- Reduction 'isZero d ≡ b' using that proof.
-  s₈→s₉ : ∀ d e b → isZero d ≡ b → <-s₈ d e ≡ <-s₉ d e b
+  -- Reduction 'iszero₁ d ≡ b' using that proof.
+  s₈→s₉ : ∀ d e b → iszero₁ d ≡ b → <-s₈ d e ≡ <-s₉ d e b
   s₈→s₉ d e b h = subst (λ t → <-s₈ d e ≡ <-s₉ d e t) h refl
 
-  -- Reduction of 'isZero d ≡ true' using the conversion rule if-true.
+  -- Reduction of 'iszero₁ d ≡ true' using the conversion rule if-true.
   s₉→end : ∀ d e → <-s₉ d e true ≡ true
   s₉→end _ _ = if-true true
 
-  -- Reduction of 'isZero d ≡ false ...' using the conversion rule if-false.
+  -- Reduction of 'iszero₁ d ≡ false ...' using the conversion rule if-false.
   s₉→s₁₀ : ∀ d e → <-s₉ d e false ≡ <-s₁₀ d e
   s₉→s₁₀ d e = if-false (<-s₁₀ d e)
 
-  -- Reduction 'pred (succ d) ≡ d' using the conversion rule pred-S.
-  s₁₀→s₁₁ : ∀ d e → <-s₁₀ (succ d) e ≡ <-s₁₁ d e
-  s₁₀→s₁₁ d e = subst (λ t → <-s₁₀ (succ d) e ≡ <-s₁₁ t e) (pred-S d) refl
+  -- Reduction 'pred₁ (succ d) ≡ d' using the conversion rule pred₁-S.
+  s₁₀→s₁₁ : ∀ d e → <-s₁₀ (succ₁ d) e ≡ <-s₁₁ d e
+  s₁₀→s₁₁ d e = subst (λ t → <-s₁₀ (succ₁ d) e ≡ <-s₁₁ t e) (pred-S d) refl
 
-  -- Reduction 'pred (succ e) ≡ e' using the conversion rule pred-S.
-  s₁₁→s₁₂ : ∀ d e → <-s₁₁ d (succ e) ≡ <-s₁₂ d e
-  s₁₁→s₁₂ d e = subst (λ t → <-s₁₁ d (succ e) ≡ <-s₁₂ d t) (pred-S e) refl
+  -- Reduction 'pred₁ (succ₁ e) ≡ e' using the conversion rule pred₁-S.
+  s₁₁→s₁₂ : ∀ d e → <-s₁₁ d (succ₁ e) ≡ <-s₁₂ d e
+  s₁₁→s₁₂ d e = subst (λ t → <-s₁₁ d (succ₁ e) ≡ <-s₁₂ d t) (pred-S e) refl
 
 ------------------------------------------------------------------------------
 
@@ -180,60 +180,60 @@ private
     <-s₃ zero zero        ≡⟨ s₃→s₄ zero zero ⟩
     <-s₄ zero zero        ≡⟨ s₄→s₅ zero zero ⟩
     <-s₅ zero zero        ≡⟨ s₅→s₆ zero zero ⟩
-    <-s₆ zero zero        ≡⟨ s₆→s₇ zero zero true isZero-0 ⟩
+    <-s₆ zero zero        ≡⟨ s₆→s₇ zero zero true iszero-0 ⟩
     <-s₇ zero zero true   ≡⟨ s₇→end zero zero ⟩
     false
     ∎
 
-<-0S : ∀ d → LT zero (succ d)
+<-0S : ∀ d → LT zero (succ₁ d)
 <-0S d =
   begin
-    fix <-h · zero · (succ d) ≡⟨ initial→s₁ zero (succ d) ⟩
-    <-s₁ zero (succ d)        ≡⟨ s₁→s₂ zero (succ d) ⟩
-    <-s₂ zero (succ d)        ≡⟨ s₂→s₃ zero (succ d) ⟩
-    <-s₃ zero (succ d)        ≡⟨ s₃→s₄ zero (succ d) ⟩
-    <-s₄ zero (succ d)        ≡⟨ s₄→s₅ zero (succ d) ⟩
-    <-s₅ zero (succ d)        ≡⟨ s₅→s₆ zero (succ d) ⟩
-    <-s₆ zero (succ d)        ≡⟨ s₆→s₇ zero (succ d) false (isZero-S d) ⟩
-    <-s₇ zero (succ d) false  ≡⟨ s₇→s₈ zero (succ d) ⟩
-    <-s₈ zero (succ d)        ≡⟨ s₈→s₉ zero (succ d) true isZero-0 ⟩
-    <-s₉ zero (succ d) true   ≡⟨ s₉→end zero (succ d) ⟩
+    fix <-h · zero · (succ₁ d) ≡⟨ initial→s₁ zero (succ₁ d) ⟩
+    <-s₁ zero (succ₁ d)        ≡⟨ s₁→s₂ zero (succ₁ d) ⟩
+    <-s₂ zero (succ₁ d)        ≡⟨ s₂→s₃ zero (succ₁ d) ⟩
+    <-s₃ zero (succ₁ d)        ≡⟨ s₃→s₄ zero (succ₁ d) ⟩
+    <-s₄ zero (succ₁ d)        ≡⟨ s₄→s₅ zero (succ₁ d) ⟩
+    <-s₅ zero (succ₁ d)        ≡⟨ s₅→s₆ zero (succ₁ d) ⟩
+    <-s₆ zero (succ₁ d)        ≡⟨ s₆→s₇ zero (succ₁ d) false (iszero-S d) ⟩
+    <-s₇ zero (succ₁ d) false  ≡⟨ s₇→s₈ zero (succ₁ d) ⟩
+    <-s₈ zero (succ₁ d)        ≡⟨ s₈→s₉ zero (succ₁ d) true iszero-0 ⟩
+    <-s₉ zero (succ₁ d) true   ≡⟨ s₉→end zero (succ₁ d) ⟩
     true
   ∎
 
-<-S0 : ∀ d → NLT (succ d) zero
+<-S0 : ∀ d → NLT (succ₁ d) zero
 <-S0 d =
   begin
-    fix <-h · (succ d) · zero ≡⟨ initial→s₁ (succ d) zero ⟩
-    <-s₁ (succ d) zero        ≡⟨ s₁→s₂ (succ d) zero ⟩
-    <-s₂ (succ d) zero        ≡⟨ s₂→s₃ (succ d) zero ⟩
-    <-s₃ (succ d) zero        ≡⟨ s₃→s₄ (succ d) zero ⟩
-    <-s₄ (succ d) zero        ≡⟨ s₄→s₅ (succ d) zero ⟩
-    <-s₅ (succ d) zero        ≡⟨ s₅→s₆ (succ d) zero ⟩
-    <-s₆ (succ d) zero        ≡⟨ s₆→s₇ (succ d) zero true isZero-0 ⟩
-    <-s₇ (succ d) zero true   ≡⟨ s₇→end (succ d) zero ⟩
+    fix <-h · (succ₁ d) · zero ≡⟨ initial→s₁ (succ₁ d) zero ⟩
+    <-s₁ (succ₁ d) zero        ≡⟨ s₁→s₂ (succ₁ d) zero ⟩
+    <-s₂ (succ₁ d) zero        ≡⟨ s₂→s₃ (succ₁ d) zero ⟩
+    <-s₃ (succ₁ d) zero        ≡⟨ s₃→s₄ (succ₁ d) zero ⟩
+    <-s₄ (succ₁ d) zero        ≡⟨ s₄→s₅ (succ₁ d) zero ⟩
+    <-s₅ (succ₁ d) zero        ≡⟨ s₅→s₆ (succ₁ d) zero ⟩
+    <-s₆ (succ₁ d) zero        ≡⟨ s₆→s₇ (succ₁ d) zero true iszero-0 ⟩
+    <-s₇ (succ₁ d) zero true   ≡⟨ s₇→end (succ₁ d) zero ⟩
     false
   ∎
 
-<-SS : ∀ d e → succ d < succ e ≡ d < e
+<-SS : ∀ d e → succ₁ d < succ₁ e ≡ d < e
 <-SS d e =
   begin
-    fix <-h · (succ d) · (succ e) ≡⟨ initial→s₁ (succ d) (succ e) ⟩
-    <-s₁ (succ d) (succ e)        ≡⟨ s₁→s₂ (succ d) (succ e) ⟩
-    <-s₂ (succ d) (succ e)        ≡⟨ s₂→s₃ (succ d) (succ e) ⟩
-    <-s₃ (succ d) (succ e)        ≡⟨ s₃→s₄ (succ d) (succ e) ⟩
-    <-s₄ (succ d) (succ e)        ≡⟨ s₄→s₅ (succ d) (succ e) ⟩
-    <-s₅ (succ d) (succ e)        ≡⟨ s₅→s₆ (succ d) (succ e) ⟩
-    <-s₆ (succ d) (succ e)        ≡⟨ s₆→s₇ (succ d) (succ e)
-                                           false (isZero-S e)
-                                  ⟩
-    <-s₇ (succ d) (succ e) false  ≡⟨ s₇→s₈ (succ d) (succ e) ⟩
-    <-s₈ (succ d) (succ e)        ≡⟨ s₈→s₉ (succ d) (succ e)
-                                           false (isZero-S d)
-                                  ⟩
-    <-s₉ (succ d) (succ e) false  ≡⟨ s₉→s₁₀ (succ d) (succ e) ⟩
-    <-s₁₀ (succ d) (succ e)       ≡⟨ s₁₀→s₁₁ d (succ e) ⟩
-    <-s₁₁ d (succ e)              ≡⟨ s₁₁→s₁₂ d e ⟩
-    <-s₁₂ d e                     ≡⟨ refl ⟩
+    fix <-h · (succ₁ d) · (succ₁ e) ≡⟨ initial→s₁ (succ₁ d) (succ₁ e) ⟩
+    <-s₁ (succ₁ d) (succ₁ e)        ≡⟨ s₁→s₂ (succ₁ d) (succ₁ e) ⟩
+    <-s₂ (succ₁ d) (succ₁ e)        ≡⟨ s₂→s₃ (succ₁ d) (succ₁ e) ⟩
+    <-s₃ (succ₁ d) (succ₁ e)        ≡⟨ s₃→s₄ (succ₁ d) (succ₁ e) ⟩
+    <-s₄ (succ₁ d) (succ₁ e)        ≡⟨ s₄→s₅ (succ₁ d) (succ₁ e) ⟩
+    <-s₅ (succ₁ d) (succ₁ e)        ≡⟨ s₅→s₆ (succ₁ d) (succ₁ e) ⟩
+    <-s₆ (succ₁ d) (succ₁ e)        ≡⟨ s₆→s₇ (succ₁ d) (succ₁ e)
+                                             false (iszero-S e)
+                                    ⟩
+    <-s₇ (succ₁ d) (succ₁ e) false  ≡⟨ s₇→s₈ (succ₁ d) (succ₁ e) ⟩
+    <-s₈ (succ₁ d) (succ₁ e)        ≡⟨ s₈→s₉ (succ₁ d) (succ₁ e)
+                                             false (iszero-S d)
+                                    ⟩
+    <-s₉ (succ₁ d) (succ₁ e) false  ≡⟨ s₉→s₁₀ (succ₁ d) (succ₁ e) ⟩
+    <-s₁₀ (succ₁ d) (succ₁ e)       ≡⟨ s₁₀→s₁₁ d (succ₁ e) ⟩
+    <-s₁₁ d (succ₁ e)               ≡⟨ s₁₁→s₁₂ d e ⟩
+    <-s₁₂ d e                       ≡⟨ refl ⟩
     d < e
   ∎

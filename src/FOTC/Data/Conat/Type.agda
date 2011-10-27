@@ -22,7 +22,7 @@ postulate
 
 -- Conat is post-fixed point of ConatF (d ≤ f d).
 postulate
-  Conat-gfp₁ : ∀ {n} → Conat n → ∃ λ n' → Conat n' ∧ n ≡ succ n'
+  Conat-gfp₁ : ∀ {n} → Conat n → ∃ λ n' → Conat n' ∧ n ≡ succ₁ n'
 {-# ATP axiom Conat-gfp₁ #-}
 
 -- Conat is the greatest post-fixed of ConatF
@@ -36,7 +36,7 @@ postulate
 postulate
   Conat-gfp₂ : (P : D → Set) →
                -- P is post-fixed point of ConatF.
-               (∀ {n} → P n → ∃ λ n' → P n' ∧ n ≡ succ n') →
+               (∀ {n} → P n → ∃ λ n' → P n' ∧ n ≡ succ₁ n') →
                -- Conat is greater than P.
                ∀ {n} → P n → Conat n
 
@@ -44,12 +44,12 @@ postulate
 -- Conat predicate is also a pre-fixed point of the functor ConatF
 -- (f d ≤ d).
 Conat-gfp₃ : ∀ {n} →
-             (∃ λ n' → Conat n' ∧ n ≡ succ n') →
+             (∃ λ n' → Conat n' ∧ n ≡ succ₁ n') →
              Conat n
 Conat-gfp₃ h = Conat-gfp₂ P helper h
   where
   P : D → Set
-  P m = ∃ λ m' → Conat m' ∧ m ≡ succ m'
+  P m = ∃ λ m' → Conat m' ∧ m ≡ succ₁ m'
 
-  helper : ∀ {n} → P n → ∃ λ n' → P n' ∧ n ≡ succ n'
+  helper : ∀ {n} → P n → ∃ λ n' → P n' ∧ n ≡ succ₁ n'
   helper (n' , CNn' , n≡Sn') = n' , (Conat-gfp₁ CNn') , n≡Sn'

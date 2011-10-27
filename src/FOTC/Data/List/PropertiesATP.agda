@@ -61,7 +61,7 @@ length-replicate d zN = prf
 length-replicate d (sN {n} Nn) = prf $ length-replicate d Nn
   where
   postulate prf : length (replicate n d) ≡ n →  -- IH.
-                  length (replicate (succ n) d) ≡ succ n
+                  length (replicate (succ₁ n) d) ≡ succ₁ n
   {-# ATP prove prf #-}
 
 -- Append properties

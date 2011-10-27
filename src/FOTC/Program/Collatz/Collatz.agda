@@ -16,9 +16,9 @@ open import FOTC.Program.Collatz.Data.Nat
 postulate
   collatz    : D → D
   collatz-eq : ∀ n → collatz n ≡
-                     if (isZero n)
+                     if (iszero₁ n)
                         then one
-                        else (if (isZero (pred n))
+                        else (if (iszero₁ (pred₁ n))
                                  then one
                                  else (if (even n)
                                           then collatz (n / two)

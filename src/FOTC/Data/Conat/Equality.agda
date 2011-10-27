@@ -22,7 +22,7 @@ postulate
 -- The relation _≈N_ is a post-fixed point of the functional ≈NF.
 postulate
   ≈N-gfp₁ : ∀ {m n} → m ≈N n →
-            ∃ λ m' → ∃ λ n' → m' ≈N n' ∧ m ≡ succ m' ∧ n ≡ succ n'
+            ∃ λ m' → ∃ λ n' → m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
 {-# ATP axiom ≈N-gfp₁ #-}
 
 -- The relation _≈N_ is the greatest post-fixed point of the
@@ -35,21 +35,21 @@ postulate
   ≈N-gfp₂ : (_R_ : D → D → Set) →
             -- R is a post-fixed point of the functional ≈NF.
            (∀ {m n} → m R n →
-            ∃ λ m' → ∃ λ n' → m' R n' ∧ m ≡ succ m' ∧ n ≡ succ n') →
+            ∃ λ m' → ∃ λ n' → m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n') →
            -- _≈N_ is greater than R.
            ∀ {m n} → m R n → m ≈N n
 
 -- Because a greatest post-fixed point is a fixed point, the relation
 -- _≈N_ is also a pre-fixed point of functional ≈NF.
 ≈N-gfp₃ : ∀ {m n} →
-          (∃ λ m' → ∃ λ n' → m' ≈N n' ∧ m ≡ succ m' ∧ n ≡ succ n') →
+          (∃ λ m' → ∃ λ n' → m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n') →
           m ≈N n
 ≈N-gfp₃ h = ≈N-gfp₂ _R_ helper h
   where
   _R_ : D → D → Set
-  _R_ m n = ∃ λ m' → ∃ λ n' → m' ≈N n' ∧ m ≡ succ m' ∧ n ≡ succ n'
+  _R_ m n = ∃ λ m' → ∃ λ n' → m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
 
   helper : ∀ {m n} → m R n →
-           ∃ λ m' → ∃ λ n' → m' R n' ∧ m ≡ succ m' ∧ n ≡ succ n'
+           ∃ λ m' → ∃ λ n' → m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
   helper (m' , n' , m'≈Nn' , prf) =
     m' , n' , (≈N-gfp₁ m'≈Nn') , prf

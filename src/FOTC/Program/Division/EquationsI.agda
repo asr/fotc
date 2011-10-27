@@ -30,19 +30,19 @@ private
 
     -- Initially, the conversion rule fix-f is applied.
     div-s₁ : D → D → D
-    div-s₁ i j = if (i < j) then zero else succ (div (i ∸ j) j)
+    div-s₁ i j = if (i < j) then zero else succ₁ (div (i ∸ j) j)
 
     -- lt i j ≡ true.
     div-s₂ : D → D → D
     div-s₂ i j = if true
                     then zero
-                    else succ (div (i ∸ j) j)
+                    else succ₁ (div (i ∸ j) j)
 
     -- lt i j ≡ false.
     div-s₃ : D → D → D
     div-s₃ i j = if false
                     then zero
-                    else succ (div (i ∸ j) j)
+                    else succ₁ (div (i ∸ j) j)
 
     -- The conditional is true.
     div-s₄ : D
@@ -50,7 +50,7 @@ private
 
     -- The conditional is false.
     div-s₅ : D → D → D
-    div-s₅ i j = succ (div (i ∸ j) j)
+    div-s₅ i j = succ₁ (div (i ∸ j) j)
 
     {-
     To prove the execution steps
@@ -84,11 +84,11 @@ private
     proof₁₋₂ i j i<j =
       subst (λ t → if t
                       then zero
-                      else succ (div (i ∸ j) j)
+                      else succ₁ (div (i ∸ j) j)
                       ≡
                    if true
                       then zero
-                      else succ (div (i ∸ j) j)
+                      else succ₁ (div (i ∸ j) j)
             )
             (sym i<j)
             refl
@@ -98,11 +98,11 @@ private
     proof₁₋₃ i j i≮j =
       subst (λ t → if t
                       then zero
-                      else succ (div (i ∸ j) j)
+                      else succ₁ (div (i ∸ j) j)
                       ≡
                    if false
                       then zero
-                      else succ (div (i ∸ j) j)
+                      else succ₁ (div (i ∸ j) j)
             )
             (sym i≮j)
             refl
@@ -113,7 +113,7 @@ private
 
     -- From div-s₃ to div-s₅ using the conversion rule if-false.
     proof₃₋₅ : ∀ i j → div-s₃ i j ≡ div-s₅ i j
-    proof₃₋₅ i j = if-false (succ (div (i ∸ j) j))
+    proof₃₋₅ i j = if-false (succ₁ (div (i ∸ j) j))
 
 ----------------------------------------------------------------------
 -- The division result when the dividend is minor than the
@@ -130,7 +130,7 @@ div-x<y {i} {j} i<j =
 ----------------------------------------------------------------------
 -- The division result when the dividend is greater or equal than the
 -- the divisor.
-div-x≮y : ∀ {i j} → NLT i j → div i j ≡ succ (div (i ∸ j) j)
+div-x≮y : ∀ {i j} → NLT i j → div i j ≡ succ₁ (div (i ∸ j) j)
 div-x≮y {i} {j} i≮j =
   begin
     div i j    ≡⟨ proof₀₋₁ i j ⟩

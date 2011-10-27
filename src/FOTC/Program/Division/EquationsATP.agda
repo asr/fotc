@@ -23,5 +23,5 @@ private
 
   -- The division result when the dividend is greater or equal than the
   -- the divisor.
-  postulate div-x≮y : ∀ {i j} → NLT i j → div i j ≡ succ (div (i ∸ j) j)
+  postulate div-x≮y : ∀ {i j} → NLT i j → div i j ≡ succ₁ (div (i ∸ j) j)
   {-# ATP prove div-x≮y #-}

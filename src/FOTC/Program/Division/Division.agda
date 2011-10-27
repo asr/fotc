@@ -22,5 +22,5 @@ open import FOTC.Data.Nat.Inequalities
 
 postulate
   div    : D → D → D
-  div-eq : ∀ i j → div i j ≡ if (i < j) then zero else succ (div (i ∸ j) j)
+  div-eq : ∀ i j → div i j ≡ if (i < j) then zero else succ₁ (div (i ∸ j) j)
 {-# ATP axiom div-eq #-}
