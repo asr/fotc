@@ -10,6 +10,7 @@
 -- The translation monad.
 ------------------------------------------------------------------------------
 
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
