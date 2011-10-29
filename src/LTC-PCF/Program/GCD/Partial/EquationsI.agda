@@ -38,7 +38,7 @@ private
 
   -- Initially, the conversion rule fix-f is applied.
   gcd-s₁ : D → D → D
-  gcd-s₁ m n = gcdh (fix gcdh) · m · n
+  gcd-s₁ m n = gcdh (fix₁ gcdh) · m · n
 
   -- First argument application.
   gcd-s₂ : D → D
@@ -50,8 +50,8 @@ private
                        else (if (iszero₁ m)
                                 then n
                                 else (if (m > n)
-                                         then fix gcdh · (m ∸ n) · n
-                                         else fix gcdh · m · (n ∸ m))))
+                                         then fix₁ gcdh · (m ∸ n) · n
+                                         else fix₁ gcdh · m · (n ∸ m))))
 
   -- Second argument application.
   gcd-s₃ : D → D → D
@@ -62,8 +62,8 @@ private
                   else (if (iszero₁ m)
                            then n
                            else (if (m > n)
-                                    then fix gcdh · (m ∸ n) · n
-                                    else fix gcdh · m · (n ∸ m)))
+                                    then fix₁ gcdh · (m ∸ n) · n
+                                    else fix₁ gcdh · m · (n ∸ m)))
 
   -- Conversion (first if_then_else) 'iszero₁ n = b'.
   gcd-s₄ : D → D → D → D
@@ -74,8 +74,8 @@ private
                     else (if (iszero₁ m)
                              then n
                              else (if (m > n)
-                                      then fix gcdh · (m ∸ n) · n
-                                      else fix gcdh · m · (n ∸ m)))
+                                      then fix₁ gcdh · (m ∸ n) · n
+                                      else fix₁ gcdh · m · (n ∸ m)))
 
   -- Conversion first if_then_else when 'if true ...'.
   gcd-s₅ : D → D
@@ -86,8 +86,8 @@ private
   gcd-s₆ m n = if (iszero₁ m)
                   then n
                   else (if (m > n)
-                           then fix gcdh · (m ∸ n) · n
-                           else fix gcdh · m · (n ∸ m))
+                           then fix₁ gcdh · (m ∸ n) · n
+                           else fix₁ gcdh · m · (n ∸ m))
 
   -- Conversion (second if_then_else) 'iszero₁ m = b'.
   gcd-s₇ : D → D → D
@@ -98,20 +98,20 @@ private
   gcd-s₈ m n b = if b
                     then n
                     else (if (m > n)
-                             then fix gcdh · (m ∸ n) · n
-                             else fix gcdh · m · (n ∸ m))
+                             then fix₁ gcdh · (m ∸ n) · n
+                             else fix₁ gcdh · m · (n ∸ m))
 
   -- Conversion third if_then_else, when 'if false ...'.
   gcd-s₉ : D → D → D
   gcd-s₉ m n = if (m > n)
-                   then fix gcdh · (m ∸ n) · n
-                   else fix gcdh · m · (n ∸ m)
+                   then fix₁ gcdh · (m ∸ n) · n
+                   else fix₁ gcdh · m · (n ∸ m)
 
   -- Conversion (fourth if_then_else) 'gt m n = b'.
   gcd-s₁₀ : D → D → D → D
   gcd-s₁₀ m n b = if b
-                     then fix gcdh · (m ∸ n) · n
-                     else fix gcdh · m · (n ∸ m)
+                     then fix₁ gcdh · (m ∸ n) · n
+                     else fix₁ gcdh · m · (n ∸ m)
 
   ----------------------------------------------------------------------------
   -- The execution steps
@@ -138,8 +138,8 @@ private
   -}
 
   -- Application of the conversion rule fix-f.
-  proof₀₋₁ : ∀ m n → fix gcdh · m · n ≡ gcd-s₁ m n
-  proof₀₋₁ m n = subst (λ x → x · m · n ≡ gcdh (fix gcdh) · m · n)
+  proof₀₋₁ : ∀ m n → fix₁ gcdh · m · n ≡ gcd-s₁ m n
+  proof₀₋₁ m n = subst (λ x → x · m · n ≡ gcdh (fix₁ gcdh) · m · n)
                        (sym (fix-f gcdh))
                        refl
 
@@ -202,12 +202,12 @@ private
                             refl
 
   -- Conversion fourth if_then_else when 'if true ...' using if-true.
-  proof₁₀₊ : ∀ m n → gcd-s₁₀ m n true ≡ fix gcdh · (m ∸ n) · n
-  proof₁₀₊ m n = if-true (fix gcdh · (m ∸ n) · n)
+  proof₁₀₊ : ∀ m n → gcd-s₁₀ m n true ≡ fix₁ gcdh · (m ∸ n) · n
+  proof₁₀₊ m n = if-true (fix₁ gcdh · (m ∸ n) · n)
 
   -- Conversion fourth if_then_else when 'if was ...' using if-false.
-  proof₁₀₋ : ∀ m n → gcd-s₁₀ m n false ≡ fix gcdh · m · (n ∸ m)
-  proof₁₀₋ m n = if-false (fix gcdh · m · (n ∸ m))
+  proof₁₀₋ : ∀ m n → gcd-s₁₀ m n false ≡ fix₁ gcdh · m · (n ∸ m)
+  proof₁₀₋ m n = if-false (fix₁ gcdh · m · (n ∸ m))
 
 ------------------------------------------------------------------------------
 -- The five equations for gcd
@@ -274,7 +274,7 @@ gcd-S>S m n Sm>Sn =
     gcd-s₈ (succ₁ m) (succ₁ n) false ≡⟨ proof₈₋₉ (succ₁ m) (succ₁ n) ⟩
     gcd-s₉ (succ₁ m) (succ₁ n)       ≡⟨ proof₉₋₁₀ (succ₁ m) (succ₁ n) true Sm>Sn ⟩
     gcd-s₁₀ (succ₁ m) (succ₁ n) true ≡⟨ proof₁₀₊  (succ₁ m) (succ₁ n) ⟩
-    fix gcdh · (succ₁ m ∸ succ₁ n) · succ₁ n
+    fix₁ gcdh · (succ₁ m ∸ succ₁ n) · succ₁ n
   ∎
 
 -- Fifth equation.
@@ -298,5 +298,5 @@ gcd-S≯S m n Sm≯Sn =
                                                    Sm≯Sn
                                       ⟩
     gcd-s₁₀ (succ₁ m) (succ₁ n) false ≡⟨ proof₁₀₋ (succ₁ m) (succ₁ n) ⟩
-    fix gcdh · succ₁ m · (succ₁ n ∸ succ₁ m)
+    fix₁ gcdh · succ₁ m · (succ₁ n ∸ succ₁ m)
   ∎

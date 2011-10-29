@@ -4,9 +4,11 @@
 
 module LTC-PCF.Base where
 
--- We added to the FOTC base the following higher-order terms
+-- We added to the FOTC base the following terms
+--
 -- lam : (D → D) → D
--- fix : (D → D) → D
+-- fix : D
+--
 -- and their conversion rules
 
 open import FOTC.Base public
@@ -15,14 +17,20 @@ open import FOTC.Base public
 -- New terms for LTC
 
 postulate
-  -- LTC abstraction.
-  lam : (D → D) → D
+  lam : (D → D) → D  -- LTC abstraction.
+  fix : D            -- LTC fixed point operator.
 
-  -- LTC fixed point operator.
-  fix : (D → D) → D
+------------------------------------------------------------------------------
+-- Definitions for LTC
+
+abstract
+  fix₁ : (D → D) → D
+  fix₁ f = fix · lam f
 
 ------------------------------------------------------------------------------
 -- Conversion rules
+
+-- See the comments in FOTC.Base.
 
 -- Conversion rule for pred.
 -- N.B. We don't need this equation in the FOTC.
@@ -34,5 +42,5 @@ postulate beta : (f : D → D)(a : D) → lam f · a ≡ f a
 {-# ATP axiom beta #-}
 
 -- Conversion rule for the fixed pointed operator.
-postulate fix-f : (f : D → D) → fix f ≡ f (fix  f)
+postulate fix-f : (f : D → D) → fix₁ f ≡ f (fix₁ f)
 {-# ATP axiom fix-f #-}

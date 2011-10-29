@@ -43,5 +43,5 @@ rech r = lam (rec-helper₃ r)
 {-# ATP definition rech #-}
 
 rec : D → D → D → D
-rec n a f = fix rech · n · a · f
+rec n a f = fix₁ rech · n · a · f
 {-# ATP definition rec #-}
