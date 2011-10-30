@@ -8,6 +8,8 @@ open import LTC-PCF.Base
 
 open import LTC-PCF.Data.Nat.Rec using ( rec )
 
+open import LTC-PCF.Fix.Properties  -- Required to use the fix-f hint.
+
 ------------------------------------------------------------------------------
 
 postulate rec-0 : ∀ a {f : D} → rec zero a f ≡ a

@@ -10,6 +10,9 @@ open import Common.Function using ( _$_ )
 
 open import LTC-PCF.Data.Nat.Rec using ( rec ; rech )
 
+open import LTC-PCF.Fix
+open import LTC-PCF.Fix.Properties
+
 open import LTC-PCF.Relation.Binary.EqReasoning
 
 ----------------------------------------------------------------------------

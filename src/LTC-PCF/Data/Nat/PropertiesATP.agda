@@ -14,6 +14,8 @@ open import LTC-PCF.Data.Nat
         )
 open import LTC-PCF.Data.Nat.Rec.EquationsATP using ( rec-0 ; rec-S )
 
+open import LTC-PCF.Fix.Properties  -- Required to use the fix-f hint.
+
 ------------------------------------------------------------------------------
 
 postulate +-0x : ∀ d → zero + d ≡ d
