@@ -27,6 +27,9 @@ open import LTC-PCF.Data.Nat.Rec
 open import LTC-PCF.Data.Nat.Rec.EquationsATP
 open import LTC-PCF.Data.Nat.Rec.EquationsI
 
+open import LTC-PCF.Fix
+open import LTC-PCF.Fix.Properties
+
 open import LTC-PCF.Program.Division.Division
 open import LTC-PCF.Program.Division.EquationsATP
 open import LTC-PCF.Program.Division.EquationsI
