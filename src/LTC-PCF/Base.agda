@@ -21,7 +21,7 @@ postulate
 ------------------------------------------------------------------------------
 -- Conversion rules
 
--- See the comments in FOTC.Base.
+-- See the comments to the conversion rules in FOTC.Base.
 
 -- Conversion rule for pred.
 -- N.B. We don't need this equation in the FOTC.

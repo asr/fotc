@@ -20,5 +20,5 @@ abstract
   fix₁ : (D → D) → D
   fix₁ f = fix · lam f
 
-  fix₁-helper : ∀ (f : D → D) → fix₁ f ≡ fix · lam f
+  fix₁-helper : (f : D → D) → fix₁ f ≡ fix · lam f
   fix₁-helper f = refl
