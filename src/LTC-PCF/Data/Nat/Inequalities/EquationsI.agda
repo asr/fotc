@@ -7,10 +7,6 @@ module LTC-PCF.Data.Nat.Inequalities.EquationsI where
 open import LTC-PCF.Base
 
 open import LTC-PCF.Data.Nat.Inequalities
-
-open import LTC-PCF.Fix
-open import LTC-PCF.Fix.Properties
-
 open import LTC-PCF.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------

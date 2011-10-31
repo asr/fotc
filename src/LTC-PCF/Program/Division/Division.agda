@@ -18,8 +18,6 @@ open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat using ( _∸_ )
 open import LTC-PCF.Data.Nat.Inequalities using ( _<_ )
 
-open import LTC-PCF.Fix
-
 ------------------------------------------------------------------------------
 -- Version using lambda-abstraction.
 -- divh : D → D

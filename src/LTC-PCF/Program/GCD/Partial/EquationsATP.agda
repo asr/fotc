@@ -9,8 +9,6 @@ open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Inequalities
 
-open import LTC-PCF.Fix.Properties  -- Required to use the fix-f hint.
-
 open import LTC-PCF.Program.GCD.Partial.GCD
 
 ------------------------------------------------------------------------------

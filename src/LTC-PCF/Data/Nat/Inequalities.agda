@@ -5,7 +5,6 @@
 module LTC-PCF.Data.Nat.Inequalities where
 
 open import LTC-PCF.Base
-open import LTC-PCF.Fix
 
 ------------------------------------------------------------------------------
 -- Version using lambda-abstraction.

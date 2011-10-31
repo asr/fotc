@@ -322,42 +322,38 @@ open import PA.Axiomatic.PropertiesATP
 -- 1.1. The axioms
 open import LTC-PCF.Base
 
--- 1.2 The fixed-point operator
-open import LTC-PCF.Fix
-open import LTC-PCF.Fix.Properties
+-- 1.2 Natural numberes
 
--- 1.3 Natural numberes
-
--- 1.3.1 The axioms
+-- 1.2.1 The axioms
 open import LTC-PCF.Data.Nat
 
--- 1.3.2 Properties
+-- 1.2.2 Properties
 open import LTC-PCF.Data.Nat.PropertiesATP
 open import LTC-PCF.Data.Nat.PropertiesI
 
--- 1.3.3 Divisibility relation
+-- 1.2.3 Divisibility relation
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesATP
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesI
 
--- 1.3.4 Induction
+-- 1.2.4 Induction
 open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
 open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionI
 
--- 1.3.5 Inequalites
+-- 1.2.5 Inequalites
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
 
--- 1.3.6 The recursive operator
+-- 1.2.6 The recursive operator
 open import LTC-PCF.Data.Nat.Rec.EquationsATP
 open import LTC-PCF.Data.Nat.Rec.EquationsI
 
--- 1.4 Programs
+-- 1.3 Programs
 
--- 1.4.1 The division algorithm: A non-structurally recursive algorithm
+-- 1.3.1 The division algorithm: A non-structurally recursive algorithm
 open import LTC-PCF.Program.Division.ProofSpecificationATP
 open import LTC-PCF.Program.Division.ProofSpecificationI
 
--- 1.4.2 The GCD algorithm: A non-structurally recursive algorithm
+-- 1.3.2 The GCD algorithm: A non-structurally recursive algorithm
 open import LTC-PCF.Program.GCD.Partial.ProofSpecificationATP
 open import LTC-PCF.Program.GCD.Partial.ProofSpecificationI

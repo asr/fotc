@@ -11,9 +11,6 @@ open import Common.Function
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Inequalities
 
-open import LTC-PCF.Fix
-open import LTC-PCF.Fix.Properties
-
 open import LTC-PCF.Program.Division.Division
 
 open import LTC-PCF.Relation.Binary.EqReasoning

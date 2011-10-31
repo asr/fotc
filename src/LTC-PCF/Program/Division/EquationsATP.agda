@@ -11,8 +11,6 @@ open import LTC-PCF.Data.Nat.Inequalities
 
 open import LTC-PCF.Program.Division.Division
 
-open import LTC-PCF.Fix.Properties  -- Required to use the fix-f hint.
-
 ----------------------------------------------------------------------
 -- The division result when the dividend is minor than the
 -- the divisor.

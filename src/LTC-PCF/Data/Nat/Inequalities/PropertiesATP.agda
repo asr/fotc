@@ -27,8 +27,6 @@ open import LTC-PCF.Data.Nat.PropertiesATP
         ; ∸-0S ; ∸-SS ; ∸-x0
         )
 
-open import LTC-PCF.Fix.Properties  -- Required to use the hint fix-f.
-
 ------------------------------------------------------------------------------
 -- Elimination properties
 -- (See LTC.Data.Nat.Inequalities.Properties)
