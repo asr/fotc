@@ -4,19 +4,19 @@
 
 Require Import Unicode.Utf8.
 
-Axiom D    : Set.
-Axiom zero : D.
-Axiom succ : D → D.
+Axiom D     : Set.
+Axiom zero  : D.
+Axiom succ₁ : D → D.
 
 Inductive NP : D → Prop :=
   | zNP : NP zero
-  | sNP : ∀ n, NP n → NP (succ n).
+  | sNP : ∀ n, NP n → NP (succ₁ n).
 
 Check NP_ind.
 
 Inductive NS : D → Set :=
   | zNS : NS zero
-  | sNS : ∀ n, NS n → NS (succ n).
+  | sNS : ∀ n, NS n → NS (succ₁ n).
 
 Check NS_rec.
 Check NS_ind.

@@ -2,17 +2,17 @@
 -- Induction principle for N.
 ------------------------------------------------------------------------------
 
-module Draft.FOTC.Data.Nat.Induction.Induction where
+module Draft.FOTC.Data.Nat.Type where
 
 open import FOTC.Base
 
 data N : D → Set where
   zN : N zero
-  sN : ∀ {n} → N n → N (succ n)
+  sN : ∀ {n} → N n → N (succ₁ n)
 
 indN : (P : D → Set) →
        P zero →
-       (∀ {n} → N n → P n → P (succ n)) →
+       (∀ {n} → N n → P n → P (succ₁ n)) →
        ∀ {n} → N n → P n
 indN P p0 h zN      = p0
 indN P p0 h (sN Nn) = h Nn (indN P p0 h Nn)

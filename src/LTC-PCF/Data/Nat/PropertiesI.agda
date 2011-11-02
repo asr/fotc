@@ -189,24 +189,24 @@ open import LTC-PCF.Relation.Binary.EqReasoning
 ∸-N     zN      (sN Nn) = subst N (sym $ ∸-0S Nn) zN
 ∸-N     (sN Nm) (sN Nn) = subst N (sym $ ∸-SS Nm Nn) (∸-N Nm Nn)
 
-+-leftIdentity : ∀ {n} → N n → zero + n ≡ n
-+-leftIdentity {n} _ = +-0x n
++-leftIdentity : ∀ n → zero + n ≡ n
++-leftIdentity n = +-0x n
 
 +-rightIdentity : ∀ {n} → N n → n + zero ≡ n
-+-rightIdentity zN          = +-leftIdentity zN
++-rightIdentity zN          = +-leftIdentity zero
 +-rightIdentity (sN {n} Nn) =
   trans (+-Sx n zero)
         (subst (λ t → succ₁ (n + zero) ≡ succ₁ t) (+-rightIdentity Nn) refl)
 
 +-N : ∀ {m n} → N m → N n → N (m + n)
-+-N zN       Nn            = subst N (sym $ +-leftIdentity Nn) Nn
++-N {n = n} zN          Nn = subst N (sym $ +-leftIdentity n) Nn
 +-N {n = n} (sN {m} Nm) Nn = subst N (sym $ +-Sx m n) (sN (+-N Nm Nn))
 
 +-assoc : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
 +-assoc {n = n} {o} zN Nn No =
   begin
-    zero + n + o ≡⟨ subst (λ t → zero + n + o ≡ t + o) (+-leftIdentity Nn) refl ⟩
-    n + o        ≡⟨ sym $ +-leftIdentity (+-N Nn No) ⟩
+    zero + n + o ≡⟨ subst (λ t → zero + n + o ≡ t + o) (+-leftIdentity n) refl ⟩
+    n + o        ≡⟨ sym $ +-leftIdentity (n + o) ⟩
     zero + (n + o)
   ∎
 
@@ -223,20 +223,20 @@ open import LTC-PCF.Relation.Binary.EqReasoning
     succ₁ m + (n + o)
   ∎
 
-x+Sy≡S[x+y] : ∀ {m n} → N m → N n → m + succ₁ n ≡ succ₁ (m + n)
-x+Sy≡S[x+y] {n = n} zN Nn =
+x+Sy≡S[x+y] : ∀ {m} n → N m → m + succ₁ n ≡ succ₁ (m + n)
+x+Sy≡S[x+y] n zN =
   begin
     zero + succ₁ n ≡⟨ +-0x (succ₁ n) ⟩
-    succ₁ n ≡⟨ subst (λ t → succ₁ n ≡ succ₁ t) (sym $ +-leftIdentity Nn) refl ⟩
+    succ₁ n ≡⟨ subst (λ t → succ₁ n ≡ succ₁ t) (sym $ +-leftIdentity n) refl ⟩
     succ₁ (zero + n)
   ∎
 
-x+Sy≡S[x+y] {n = n} (sN {m} Nm) Nn =
+x+Sy≡S[x+y] n (sN {m} Nm) =
   begin
     succ₁ m + succ₁ n
       ≡⟨ +-Sx m (succ₁ n) ⟩
     succ₁ (m + succ₁ n)
-      ≡⟨ subst (λ t → succ₁ (m + succ₁ n) ≡ succ₁ t) (x+Sy≡S[x+y] Nm Nn) refl ⟩
+      ≡⟨ subst (λ t → succ₁ (m + succ₁ n) ≡ succ₁ t) (x+Sy≡S[x+y] n Nm) refl ⟩
     succ₁ (succ₁ (m + n))
       ≡⟨ subst (λ t → succ₁ (succ₁ (m + n)) ≡ succ₁ t) (sym $ +-Sx m n) refl ⟩
     succ₁ (succ₁ m + n)
@@ -272,7 +272,7 @@ x+Sy≡S[x+y] {n = n} (sN {m} Nm) Nn =
 +-comm : ∀ {m n} → N m → N n → m + n ≡ n + m
 +-comm {n = n} zN Nn =
   begin
-    zero + n ≡⟨ +-leftIdentity Nn ⟩
+    zero + n ≡⟨ +-leftIdentity n ⟩
     n        ≡⟨ sym $ +-rightIdentity Nn ⟩
     n + zero
    ∎
@@ -281,7 +281,7 @@ x+Sy≡S[x+y] {n = n} (sN {m} Nm) Nn =
   begin
     succ₁ m + n   ≡⟨ +-Sx m n ⟩
     succ₁ (m + n) ≡⟨ subst (λ t → succ₁ (m + n) ≡ succ₁ t) (+-comm Nm Nn) refl ⟩
-    succ₁ (n + m) ≡⟨ sym $ x+Sy≡S[x+y] Nn Nm ⟩
+    succ₁ (n + m) ≡⟨ sym $ x+Sy≡S[x+y] m Nn ⟩
     n + succ₁ m
    ∎
 
@@ -296,7 +296,7 @@ x+Sy≡S[x+y] {n = n} (sN {m} Nm) Nn =
 *-rightZero zN          = *-leftZero zero
 *-rightZero (sN {n} Nn) =
   trans (*-Sx n zero)
-        (trans (+-leftIdentity (*-N Nn zN)) (*-rightZero Nn))
+        (trans (+-leftIdentity (n * zero)) (*-rightZero Nn))
 
 *-leftIdentity : ∀ {n} → N n → succ₁ zero * n ≡ n
 *-leftIdentity {n} Nn =
@@ -314,7 +314,7 @@ x*Sy≡x+xy {n = n} zN _ = sym
       zero + zero * n
         ≡⟨ subst (λ t → zero + zero * n ≡ zero + t) (*-leftZero n) refl ⟩
       zero + zero
-        ≡⟨ +-leftIdentity zN ⟩
+        ≡⟨ +-leftIdentity zero ⟩
       zero
         ≡⟨ sym $ *-leftZero (succ₁ n) ⟩
       zero * succ₁ n
@@ -453,10 +453,10 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn =
 *+-leftDistributive {n = n} zN Nn (sN {o} No) =
   begin
     (zero + n) * succ₁ o  ≡⟨ subst (λ t → (zero + n) * succ₁ o ≡ t * succ₁ o)
-                                   (+-leftIdentity Nn)
+                                   (+-leftIdentity n)
                                    refl
                           ⟩
-    n * succ₁ o           ≡⟨ sym $ +-leftIdentity (*-N Nn (sN No)) ⟩
+    n * succ₁ o           ≡⟨ sym $ +-leftIdentity (n * succ₁ o) ⟩
     zero + n * succ₁ o    ≡⟨ subst (λ t → zero + n * succ₁ o ≡ t +  n * succ₁ o)
                                    (sym $ *-0x (succ₁ o))
                                    refl

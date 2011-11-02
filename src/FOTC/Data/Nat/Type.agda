@@ -20,7 +20,7 @@ data N : D → Set where
 -- Induction principle for N (elimination rule).
 indN : (P : D → Set) →
        P zero →
-       (∀ {n} → N n → P n → P (succ₁ n)) →
+       (∀ {n} → P n → P (succ₁ n)) →
        ∀ {n} → N n → P n
 indN P P0 h zN      = P0
-indN P P0 h (sN Nn) = h Nn (indN P P0 h Nn)
+indN P P0 h (sN Nn) = h (indN P P0 h Nn)

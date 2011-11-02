@@ -18,8 +18,8 @@ open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 
-+-leftIdentity : ∀ {n} → N n → zero + n ≡ n
-+-leftIdentity {n} _ = +-0x n
++-leftIdentity : ∀ n → zero + n ≡ n
++-leftIdentity n = +-0x n
 
 +-rightIdentity : ∀ {n} → N n → n + zero ≡ n
 +-rightIdentity Nn = indN P P0 is Nn
@@ -28,14 +28,14 @@ open import FOTC.Relation.Binary.EqReasoning
   P i = i + zero ≡ i
 
   P0 : P zero
-  P0 = +-leftIdentity zN
+  P0 = +-leftIdentity zero
 
-  is : ∀ {i} → N i → P i → P (succ₁ i)
-  is {i} Ni Pi = trans (+-Sx i zero)
-                       (subst (λ t → succ₁ (i + zero) ≡ succ₁ t)
-                              Pi
-                              refl
-                       )
+  is : ∀ {i} → P i → P (succ₁ i)
+  is {i} Pi = trans (+-Sx i zero)
+                    (subst (λ t → succ₁ (i + zero) ≡ succ₁ t)
+                           Pi
+                             refl
+                    )
 
 +-N : ∀ {m n} → N m → N n → N (m + n)
 +-N {n = n} Nm Nn = indN P P0 is Nm
@@ -44,10 +44,10 @@ open import FOTC.Relation.Binary.EqReasoning
   P i = N (i + n)
 
   P0 : P zero
-  P0 = subst N (sym $ +-leftIdentity Nn) Nn
+  P0 = subst N (sym $ +-leftIdentity n) Nn
 
-  is : ∀ {i} → N i → P i → P (succ₁ i)
-  is {i} Ni Pi = subst N (sym $ +-Sx i n) (sN Pi)
+  is : ∀ {i} → P i → P (succ₁ i)
+  is {i} Pi = subst N (sym $ +-Sx i n) (sN Pi)
 
 +-assoc : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
 +-assoc {n = n} {o} Nm Nn No = indN P P0 is Nm
@@ -60,15 +60,15 @@ open import FOTC.Relation.Binary.EqReasoning
      begin
        zero + n + o
          ≡⟨ subst (λ t → zero + n + o ≡ t + o)
-                  (+-leftIdentity Nn)
+                  (+-leftIdentity n)
                   refl
          ⟩
-       n + o ≡⟨ sym $ +-leftIdentity (+-N Nn No) ⟩
+       n + o ≡⟨ sym $ +-leftIdentity (n + o) ⟩
        zero + (n + o)
      ∎
 
-  is : ∀ {i} → N i → P i → P (succ₁ i)
-  is {i} Ni Pi =
+  is : ∀ {i} → P i → P (succ₁ i)
+  is {i} Pi =
      begin
        succ₁ i + n + o
          ≡⟨ subst (λ t → succ₁ i + n + o ≡ t + o)
@@ -85,8 +85,8 @@ open import FOTC.Relation.Binary.EqReasoning
        succ₁ i + (n + o)
      ∎
 
-x+Sy≡S[x+y] : ∀ {m n} → N m → N n → m + succ₁ n ≡ succ₁ (m + n)
-x+Sy≡S[x+y] {n = n} Nm Nn = indN P P0 is Nm
+x+Sy≡S[x+y] : ∀ {m} n → N m → m + succ₁ n ≡ succ₁ (m + n)
+x+Sy≡S[x+y] n Nm = indN P P0 is Nm
   where
   P : D → Set
   P i = i + succ₁ n ≡ succ₁ (i + n)
@@ -97,14 +97,14 @@ x+Sy≡S[x+y] {n = n} Nm Nn = indN P P0 is Nm
       zero + succ₁ n ≡⟨ +-0x (succ₁ n) ⟩
       succ₁ n
         ≡⟨ subst (λ t → succ₁ n ≡ succ₁ t)
-                 (sym $ +-leftIdentity Nn)
+                 (sym $ +-leftIdentity n)
                  refl
                  ⟩
       succ₁ (zero + n)
     ∎
 
-  is : ∀ {i} → N i → P i → P (succ₁ i)
-  is {i} Ni Pi =
+  is : ∀ {i} → P i → P (succ₁ i)
+  is {i} Pi =
     begin
       succ₁ i + succ₁ n ≡⟨ +-Sx i (succ₁ n) ⟩
       succ₁ (i + succ₁ n)
@@ -129,13 +129,13 @@ x+Sy≡S[x+y] {n = n} Nm Nn = indN P P0 is Nm
   P0 : P zero
   P0 =
     begin
-      zero + n ≡⟨ +-leftIdentity Nn ⟩
+      zero + n ≡⟨ +-leftIdentity n ⟩
       n        ≡⟨ sym $ +-rightIdentity Nn ⟩
       n + zero
     ∎
 
-  is : ∀ {i} → N i → P i → P (succ₁ i)
-  is {i} Ni Pi =
+  is : ∀ {i} → P i → P (succ₁ i)
+  is {i} Pi =
     begin
       succ₁ i + n ≡⟨ +-Sx i n ⟩
       succ₁ (i + n)
@@ -143,6 +143,6 @@ x+Sy≡S[x+y] {n = n} Nm Nn = indN P P0 is Nm
                  Pi
                  refl
         ⟩
-      succ₁ (n + i) ≡⟨ sym $ x+Sy≡S[x+y] Nn Ni ⟩
+      succ₁ (n + i) ≡⟨ sym $ x+Sy≡S[x+y] i Nn ⟩
       n + succ₁ i
     ∎

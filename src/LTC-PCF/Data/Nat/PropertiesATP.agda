@@ -6,13 +6,10 @@ module LTC-PCF.Data.Nat.PropertiesATP where
 
 open import LTC-PCF.Base
 
-open import Common.Function using ( _$_ )
+open import Common.Function
 
 open import LTC-PCF.Data.Nat
-  using ( _+_ ; _∸_ ; _*_
-        ; N ; sN ; zN  -- The LTC natural numbers type.
-        )
-open import LTC-PCF.Data.Nat.Rec.EquationsATP using ( rec-0 ; rec-S )
+open import LTC-PCF.Data.Nat.Rec.EquationsATP
 
 ------------------------------------------------------------------------------
 
@@ -112,11 +109,11 @@ postulate *-Sx : ∀ d e → succ₁ d * e ≡ e + (d * e)
 ------------------------------------------------------------------------------
 -- Some proofs are based on the proofs in the standard library.
 
-+-leftIdentity : ∀ {n} → N n → zero + n ≡ n
-+-leftIdentity {n} Nn = +-0x n
++-leftIdentity : ∀ n → zero + n ≡ n
++-leftIdentity n = +-0x n
 
 +-rightIdentity : ∀ {n} → N n → n + zero ≡ n
-+-rightIdentity zN          = +-leftIdentity zN
++-rightIdentity zN          = +-leftIdentity zero
 +-rightIdentity (sN {n} Nn) = prf $ +-rightIdentity Nn
    where
    postulate prf : n + zero ≡ n →  -- IH.
@@ -134,12 +131,12 @@ postulate *-Sx : ∀ d e → succ₁ d * e ≡ e + (d * e)
                   succ₁ m + n + o ≡ succ₁ m + (n + o)
   {-# ATP prove prf +-Sx #-}
 
-x+Sy≡S[x+y] : ∀ {m n} → N m → N n → m + succ₁ n ≡ succ₁ (m + n)
-x+Sy≡S[x+y] {n = n} zN Nn = prf
+x+Sy≡S[x+y] : ∀ {m} n → N m → m + succ₁ n ≡ succ₁ (m + n)
+x+Sy≡S[x+y] n zN = prf
   where
   postulate prf : zero + succ₁ n ≡ succ₁ (zero + n)
   {-# ATP prove prf +-0x #-}
-x+Sy≡S[x+y] {n = n} (sN {m} Nm) Nn = prf $ x+Sy≡S[x+y] Nm Nn
+x+Sy≡S[x+y] n (sN {m} Nm) = prf $ x+Sy≡S[x+y] n Nm
   where
   postulate prf : m + succ₁ n ≡ succ₁ (m + n) →  -- IH.
                   succ₁ m + succ₁ n ≡ succ₁ (succ₁ m + n)

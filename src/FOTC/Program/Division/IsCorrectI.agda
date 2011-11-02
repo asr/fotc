@@ -27,7 +27,7 @@ div-x<y-helper {i} {j} Ni Nj i<j = sym
     ( begin
         j * div i j + i ≡⟨ prf₁ ⟩
         j * zero + i    ≡⟨ prf₂ ⟩
-        zero + i        ≡⟨ +-leftIdentity Ni ⟩
+        zero + i        ≡⟨ +-leftIdentity i ⟩
         i
       ∎
     )

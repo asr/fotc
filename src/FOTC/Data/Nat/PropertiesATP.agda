@@ -69,11 +69,11 @@ open import FOTC.Data.Nat.UnaryNumbers
 ------------------------------------------------------------------------------
 -- Some proofs are based on the proofs in the standard library.
 
-+-leftIdentity : ∀ {n} → N n → zero + n ≡ n
-+-leftIdentity {n} Nn = +-0x n
++-leftIdentity : ∀ n → zero + n ≡ n
++-leftIdentity n = +-0x n
 
 +-rightIdentity : ∀ {n} → N n → n + zero ≡ n
-+-rightIdentity zN          = +-leftIdentity zN
++-rightIdentity zN          = +-leftIdentity zero
 +-rightIdentity (sN {n} Nn) = prf $ +-rightIdentity Nn
    where
    postulate prf : n + zero ≡ n →  -- IH.
@@ -91,12 +91,12 @@ open import FOTC.Data.Nat.UnaryNumbers
                   succ₁ m + n + o ≡ succ₁ m + (n + o)
   {-# ATP prove prf #-}
 
-x+Sy≡S[x+y] : ∀ {m n} → N m → N n → m + succ₁ n ≡ succ₁ (m + n)
-x+Sy≡S[x+y] {n = n} zN Nn = prf
+x+Sy≡S[x+y] : ∀ {m} n → N m → m + succ₁ n ≡ succ₁ (m + n)
+x+Sy≡S[x+y] n zN = prf
   where
   postulate prf : zero + succ₁ n ≡ succ₁ (zero + n)
   {-# ATP prove prf #-}
-x+Sy≡S[x+y] {n = n} (sN {m} Nm) Nn = prf $ x+Sy≡S[x+y] Nm Nn
+x+Sy≡S[x+y] n (sN {m} Nm) = prf $ x+Sy≡S[x+y] n Nm
   where
   postulate prf : m + succ₁ n ≡ succ₁ (m + n) →  -- IH.
                   succ₁ m + succ₁ n ≡ succ₁ (succ₁ m + n)
