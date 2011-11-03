@@ -23,6 +23,8 @@ data O*L : D → Set where
 -- FairF : (D → Set) → D → Set
 -- FairF X os = ∃ λ ol → ∃ λ os' → O*L ol ∧ X os' ∧ os ≡ ol ++ os'
 
+-- Fair is the greatest post-fixed of FairF (by Fair-gfp₁ and Fair-gfp₂).
+
 postulate Fair : D → Set
 
 -- Fair is post-fixed point of FairF (d ≤ f d).
@@ -31,11 +33,8 @@ postulate
               ∃ λ ol → ∃ λ os' → O*L ol ∧ Fair os' ∧ os ≡ ol ++ os'
 {-# ATP axiom Fair-gfp₁ #-}
 
--- Fair is the greatest post-fixed of FairF.
+-- ∀ e. e ≤ f e => e ≤ d.
 --
--- (If ∀ e. e ≤ f e => e ≤ d, then d is the greatest post-fixed point
--- of f).
-
 -- N.B. This is a second-order axiom. In the automatic proofs, we
 -- *must* use an instance. Therefore, we do not add this postulate as
 -- an ATP axiom.

@@ -10,11 +10,14 @@ open import FOTC.Base
 infix 7 _≈N_
 
 ------------------------------------------------------------------------------
--- The equality on conat.
+-- The equality on Conat.
 postulate
   _≈N_ : D → D → Set
 
--- The equality on conat functional.
+-- The relation _≈N_ is the greatest post-fixed point of the
+-- functional ≈NF (by ≈N-gfp₁ and ≈N-gfp₂).
+
+-- The equality on Conat functional.
 -- Adapted from Herbert's thesis, p. 58.
 -- ≈NF : (D → D → Set) → D → D → Set
 -- ≈NF _R_ m n = ∃ λ m' → ∃ λ n' → m' R n' ∧ m ≡ succ m' ∧ n ≡ succ n'
@@ -24,9 +27,6 @@ postulate
   ≈N-gfp₁ : ∀ {m n} → m ≈N n →
             ∃ λ m' → ∃ λ n' → m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
 {-# ATP axiom ≈N-gfp₁ #-}
-
--- The relation _≈N_ is the greatest post-fixed point of the
--- functional ≈NF.
 
 -- N.B. This is a second-order axiom. In the automatic proofs, we
 -- *must* use an instance. Therefore, we do not add this postulate as

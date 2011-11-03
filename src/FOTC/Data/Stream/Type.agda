@@ -12,20 +12,19 @@ open import FOTC.Base
 -- StreamF : (D → Set) → D → Set
 -- StreamF P ds = ∃ λ e → ∃ λ es → P es ∧ ds ≡ e ∷ es
 
+-- Stream is the greatest post-fixed of StreamF (by Stream-gfp₁ and
+-- Stream-gfp₂).
+
 postulate
   Stream : D → Set
 
--- Stream is post-fixed point of StreamF (d ≤ f d).
-postulate
+-- Stream is post-fixed point of StreamF (d ≤ f d)postulate
   Stream-gfp₁ : ∀ {xs} → Stream xs →
                 ∃ λ x' → ∃ λ xs' → Stream xs' ∧ xs ≡ x' ∷ xs'
 {-# ATP axiom Stream-gfp₁ #-}
 
--- Stream is the greatest post-fixed of StreamF
+-- ∀ e. e ≤ f e => e ≤ d
 --
--- (If ∀ e. e ≤ f e => e ≤ d, then d is the greatest post-fixed point
--- of f).
-
 -- N.B. This is a second-order axiom. In the automatic proofs, we
 -- *must* use an instance. Therefore, we do not add this postulate as
 -- an ATP axiom.

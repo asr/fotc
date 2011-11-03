@@ -14,6 +14,9 @@ infix 7 _≈_
 postulate
   _≈_ : D → D → Set
 
+-- The relation _≈_ is the greatest post-fixed point (by ≈-gfp₁ and
+-- ≈-gfp₂) of the bisimulation functional (see below).
+
 -- The relation _≈_ is a post-fixed point of the bisimulation functional
 -- (see below).
 postulate
@@ -21,9 +24,6 @@ postulate
            ∃ λ x' → ∃ λ xs' → ∃ λ ys' →
            xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 {-# ATP axiom ≈-gfp₁ #-}
-
--- The relation _≈_ is the greatest post-fixed point of the
--- bisimulation functional (see below).
 
 -- N.B. This is a second-order axiom. In the automatic proofs, we
 -- *must* use an instance. Therefore, we do not add this postulate as
@@ -77,12 +77,13 @@ module Bisimulation where
   Bisimulation _R_ xs ys =
     ∃ λ x' → ∃ λ xs' → ∃ λ ys' → xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 
+  -- The relation _≈_ is the greatest post-fixed point of
+  -- Bisimulation (by post-fp and gpfp).
+
   -- The relation _≈_ is a post-fixed point of Bisimulation.
   post-fp : ∀ {xs ys} → xs ≈ ys → Bisimulation _≈_ xs ys
   post-fp = ≈-gfp₁
 
-  -- The relation _≈_ is the greatest post-fixed point of
-  -- Bisimulation.
   gpfp : (_R_ : D → D → Set) →
          -- R is a post-fixed point of Bisimulation.
          (∀ {xs ys} → xs R ys → Bisimulation _R_ xs ys) →

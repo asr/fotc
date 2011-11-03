@@ -17,6 +17,8 @@ open import FOTC.Base
 -- ConatF : (D → Set) → D → Set
 -- ConatF P n = ∃ λ n' → P n' ∧ n = succ n'
 
+-- Conat is the greatest post-fixed of ConatF (by Conat-gfp₁ and Conat-gfp₂).
+
 postulate
   Conat : D → Set
 
@@ -25,11 +27,8 @@ postulate
   Conat-gfp₁ : ∀ {n} → Conat n → ∃ λ n' → Conat n' ∧ n ≡ succ₁ n'
 {-# ATP axiom Conat-gfp₁ #-}
 
--- Conat is the greatest post-fixed of ConatF
+-- ∀ e. e ≤ f e => e ≤ d.
 --
--- (If ∀ e. e ≤ f e => e ≤ d, then d is the greatest post-fixed point
--- of f).
-
 -- N.B. This is a second-order axiom. In the automatic proofs, we
 -- *must* use an instance. Therefore, we do not add this postulate as
 -- an ATP axiom.
