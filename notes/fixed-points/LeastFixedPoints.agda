@@ -1,4 +1,4 @@
--- Tested with Agda 2.2.11 on 11 October 2011.
+-- Tested with Agda 2.2.11 on 03 November 2011.
 
 module LeastFixedPoints where
 
@@ -17,12 +17,12 @@ infixl 9 _+_
 -- Fixed-point      : d is a fixed-point of f if f d = d
 
 -- Least pre-fixed point : d is the least pre-fixed point of f if
--- 1. f d ≤ d               -- d is a pre-fixed point of f
--- 2. ∀ e. f e ≤ e ⇒ d ≤ e  -- d is the least prefixed-point of f
+-- 1. f d ≤ d  -- d is a pre-fixed point of f
+-- 2. ∀ e. f e ≤ e ⇒ d ≤ e
 
 -- Least fixed-point : d is the least fixed-point of f if
--- 1. f d = d               -- d is a fixed-point of f
--- 2. ∀ e. f e ≤ e ⇒ d ≤ e  -- d is the least prefixed-point of f
+-- 1. f d = d  -- d is a fixed-point of f
+-- 2. ∀ e. f e ≤ e ⇒ d ≤ e
 
 -- Thm: If d is the least pre-fixed point of f, then d is a fixed
 -- point of f (TODO: source).
@@ -40,8 +40,8 @@ flip f b a = f a b
 -- operator, we will define it using an instance of that operator.
 
 -- The functor
--- NatF : (D → Set) → D → Set
--- NatF X n = n ≡ zero ∨ (∃ λ m → n ≡ succ m ∧ X m)
+NatF : (D → Set) → D → Set
+NatF X n = n ≡ zero ∨ (∃ λ m → n ≡ succ₁ m ∧ X m)
 
 -- The natural numbers are the least pre-fixed point of NatF.
 postulate
@@ -49,14 +49,17 @@ postulate
 
   -- N is pre-fixed point of NatF.
   -- Peter: It corresponds to the introduction rules.
-  N-lfp₁ : ∀ n → n ≡ zero ∨ (∃ λ m → n ≡ succ₁ m ∧ N m) → N n
+  N-lfp₁    : ∀ n → n ≡ zero ∨ (∃ λ m → n ≡ succ₁ m ∧ N m) → N n
+  -- N-lfp₁ : ∀ n → NatF N n → N n  -- Higher-order version
 
-  -- N is the least prefixed-point of NatF.
   -- Peter: It corresponds to the elimination rule of an inductively
   -- defined predicate.
-  N-lfp₂ : ∀ (P : D → Set) {n} →
-           (n ≡ zero ∨ (∃ λ m → n ≡ succ₁ m ∧ P m) → P n) →
-           N n → P n
+  N-lfp₂    : ∀ (P : D → Set) {n} →
+              (n ≡ zero ∨ (∃ λ m → n ≡ succ₁ m ∧ P m) → P n) →
+              N n → P n
+  -- N-lfp₂ : ∀ (P : D → Set) {n} →  -- Higher-order version
+  --          (NatF P n → P n) →
+  --          N n → P n
 
 ------------------------------------------------------------------------------
 -- The data constructors of N.
@@ -68,7 +71,7 @@ sN {n} Nn = N-lfp₁ (succ₁ n) (inj₂ (n , (refl , Nn)))
 
 ------------------------------------------------------------------------------
 -- Because N is the least pre-fixed point of NatF (i.e. N-lfp₁ and
--- N-lfp₂), we can proof that N is also post-fixed point of NatF.
+-- N-lfp₂), we can proof that N is also a post-fixed point of NatF.
 
 -- N is a post-fixed point of NatF.
 N-lfp₃ : ∀ {n} → N n → n ≡ zero ∨ (∃ λ m → n ≡ succ₁ m ∧ N m)
@@ -91,18 +94,43 @@ N-lfp₃ {n} Nn = N-lfp₂ P prf Nn
         prf₃ (m' , m≡Sm' , Nm') = subst N (sym m≡Sm') (sN Nm')
 
 ------------------------------------------------------------------------------
--- The induction principle for N.
-indN : (P : D → Set) →
+-- The induction principle for N *without* the hypothesis N n in the
+-- induction step.
+indN₁ : (P : D → Set) →
        P zero →
        (∀ {n} → P n → P (succ₁ n)) →
        ∀ {n} → N n → P n
-indN P P0 is {n} Nn = N-lfp₂ P [ prf₁ , prf₂ ] Nn
+indN₁ P P0 is {n} Nn = N-lfp₂ P [ prf₁ , prf₂ ] Nn
   where
   prf₁ : n ≡ zero → P n
   prf₁ n≡0 = subst P (sym n≡0) P0
 
   prf₂ : ∃ (λ m → n ≡ succ₁ m ∧ P m) → P n
   prf₂ (m , n≡Sm , Pm) = subst P (sym n≡Sm) (is Pm)
+
+-- The induction principle for N *with* the hypothesis N n in the
+-- induction step.
+indN₂ : (P : D → Set) →
+       P zero →
+       (∀ {n} → N n → P n → P (succ₁ n)) →
+       ∀ {n} → N n → P n
+indN₂ P P0 is {n} Nn = N-lfp₂ P [ prf₁ , prf₂ ] Nn
+  where
+  prf₁ : n ≡ zero → P n
+  prf₁ n≡0 = subst P (sym n≡0) P0
+
+  prf₂ : ∃ (λ m → n ≡ succ₁ m ∧ P m) → P n
+  prf₂ (m , n≡Sm , Pm) = subst P (sym n≡Sm) (is helper Pm)
+    where
+    helper : N m
+    helper = [ prf₃ , prf₄ ] (N-lfp₃ Nn)
+      where
+      prf₃ : n ≡ zero → N m
+      prf₃ n≡0 = ⊥-elim (0≠S (trans (sym n≡0) n≡Sm))
+
+      prf₄ : ∃ (λ m' → n ≡ succ₁ m' ∧ N m') → N m
+      prf₄ (m' , n≡Sm' , Nm') =
+        subst N (succInjective (trans (sym n≡Sm') n≡Sm)) Nm'
 
 ------------------------------------------------------------------------------
 -- Example: We will use N-lfp₂ as the induction principle on N.
