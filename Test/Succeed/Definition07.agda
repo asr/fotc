@@ -2,7 +2,7 @@
 -- Testing the translation of definitions
 ------------------------------------------------------------------------------
 
-module Test.Succeed.Definition7 where
+module Test.Succeed.Definition07 where
 
 infixl 6 _+_
 infix  4 _≡_

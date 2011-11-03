@@ -2,7 +2,7 @@
 -- Testing the translation of definitions
 ------------------------------------------------------------------------------
 
-module Test.Succeed.Definition6 where
+module Test.Succeed.Definition06 where
 
 postulate
   D          : Set

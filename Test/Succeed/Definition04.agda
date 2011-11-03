@@ -2,7 +2,7 @@
 -- Testing the translation of definitions
 ------------------------------------------------------------------------------
 
-module Test.Succeed.Definition8 where
+module Test.Succeed.Definition04 where
 
 infixl 6 _+_
 infix  4 _≡_
@@ -31,16 +31,17 @@ postulate
 {-# ATP axiom +-0x #-}
 {-# ATP axiom +-Sx #-}
 
--- We test the translation of a definition where we need to erase proof terms.
-+-assoc : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
-+-assoc {n = n} {o} Nm Nn No = indN P P0 iStep Nm
-  where
-  P : D → Set
-  P i = i + n + o ≡ i + (n + o)
-  {-# ATP definition P #-}
+-- We test the translation of the definition of a predicate.
 
-  postulate P0 : P zero
-  {-# ATP prove P0 #-}
+P : D → Set
+P i = zero + i ≡ i
+{-# ATP definition P #-}
 
-  postulate iStep : ∀ {i} → N i → P i → P (succ i)
-  {-# ATP prove iStep #-}
+postulate P0 : P zero
+{-# ATP prove P0 #-}
+
+postulate iStep : ∀ {i} → N i → P i → P (succ i)
+{-# ATP prove iStep #-}
+
++-leftIdentity : ∀ {n} → N n → zero + n ≡ n
++-leftIdentity = indN P P0 iStep
