@@ -327,24 +327,27 @@ open import LTC-PCF.Base
 -- 1.2.1 The axioms
 open import LTC-PCF.Data.Nat
 
--- 1.2.2 Properties
+-- 1.2.2 The inductive predicate
+open import LTC-PCF.Data.Nat.Type
+
+-- 1.2.3 Properties
 open import LTC-PCF.Data.Nat.PropertiesATP
 open import LTC-PCF.Data.Nat.PropertiesI
 
--- 1.2.3 Divisibility relation
+-- 1.2.4 Divisibility relation
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesATP
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesI
 
--- 1.2.4 Induction
+-- 1.2.5 Induction
 open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
 open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionI
 
--- 1.2.5 Inequalites
+-- 1.2.6 Inequalites
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
 
--- 1.2.6 The recursive operator
+-- 1.2.7 The recursive operator
 open import LTC-PCF.Data.Nat.Rec.EquationsATP
 open import LTC-PCF.Data.Nat.Rec.EquationsI
 

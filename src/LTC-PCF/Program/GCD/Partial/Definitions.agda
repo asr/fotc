@@ -6,12 +6,9 @@ module LTC-PCF.Program.GCD.Partial.Definitions where
 
 open import LTC-PCF.Base
 
-open import FOTC.Data.Nat.Type
-  using ( N  -- The LTC natural numbers type.
-        )
-
-open import LTC-PCF.Data.Nat.Divisibility.NotBy0 using ( _∣_ )
-open import LTC-PCF.Data.Nat.Inequalities using ( LE )
+open import LTC-PCF.Data.Nat.Divisibility.NotBy0
+open import LTC-PCF.Data.Nat.Inequalities
+open import LTC-PCF.Data.Nat.Type
 
 ------------------------------------------------------------------------------
 -- Common divisor.

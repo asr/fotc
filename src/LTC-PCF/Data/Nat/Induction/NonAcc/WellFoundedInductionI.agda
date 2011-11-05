@@ -10,7 +10,7 @@ open import Common.Function
 
 open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
-open import FOTC.Data.Nat.Type
+open import LTC-PCF.Data.Nat.Type
 
 ------------------------------------------------------------------------------
 -- Well-founded induction on the natural numbers.

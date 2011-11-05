@@ -3,17 +3,19 @@
 ------------------------------------------------------------------------------
 
 {-
-FOTC                                  Agda
+FOTC                                  The logical framework (Agda)
+
 * Logical constants                   * Curry-Howard isomorphism
 * Equality                            * Identity type
 * Term language and conversion rules  * Postulates
-* Inductive predicates                * Inductive families
+* Inductively defined predicates      * Inductive families
 -}
 
 module FOTC.Base where
 
+-- We add 3 to the fixities of the standard library.
 infixl 9 _·_  -- The symbol is '\cdot'.
-infixr 8 _∷_  -- We add 3 to the fixities of the standard library.
+infixr 8 _∷_
 infix  8 if_then_else_
 
 ------------------------------------------------------------------------------
@@ -32,9 +34,9 @@ open import Common.LogicalConstants public
 ------------------------------------------------------------------------------
 -- The term language of FOTC correspond to the PCF terms.
 
---   t ::= x   | t t   |
+--   t ::= x   | t · t |
 --      | true | false | if
---      | 0    | succ  | pred | iszero
+--      | zero | succ  | pred | iszero
 --      | nil  | cons  | null | head   | tail
 --      | loop
 
@@ -106,9 +108,6 @@ abstract
 -- conversion rules on the defined function symbols instead of on the
 -- PCF constants.
 
--- Note to myself: If we switch the conversion rules between constants
--- and function symbols, it is necessary to modify the LTC-PCF base.
-
 -- Conversion rules for booleans.
 postulate
   -- if-true  : ∀ d₁ {d₂} → if · true  · d₁ · d₂ ≡ d₁
@@ -125,7 +124,7 @@ postulate
   pred-S : ∀ d → pred₁ (succ₁ d) ≡ d
 {-# ATP axiom pred-S #-}
 
--- Conversion rules for iszero₁.
+-- Conversion rules for iszero.
 postulate
   -- iszero-0 :       iszero · zero       ≡ true
   -- iszero-S : ∀ d → iszero · (succ · d) ≡ false

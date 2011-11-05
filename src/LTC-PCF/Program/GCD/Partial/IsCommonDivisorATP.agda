@@ -5,7 +5,7 @@
 module LTC-PCF.Program.GCD.Partial.IsCommonDivisorATP where
 
 open import LTC-PCF.Base
-open import FOTC.Base.Properties
+open import LTC-PCF.Base.Properties
 
 open import Common.Function
 

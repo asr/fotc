@@ -5,26 +5,15 @@
 module LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesI where
 
 open import LTC-PCF.Base
-open import FOTC.Base.Properties using ( ¬S≡0 )
+open import LTC-PCF.Base.Properties
 
-open import Common.Function using ( _$_ )
+open import Common.Function
 
 open import LTC-PCF.Data.Nat
-  using ( _+_ ; _∸_ ; _*_
-        ; N ; sN ; zN  -- The LTC natural numbers type.
-        )
-open import LTC-PCF.Data.Nat.Divisibility.NotBy0 using ( _∣_ )
-open import LTC-PCF.Data.Nat.Inequalities using ( LE )
+open import LTC-PCF.Data.Nat.Divisibility.NotBy0
+open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
-  using ( x≤x+y )
 open import LTC-PCF.Data.Nat.PropertiesI
-  using ( +-N ; ∸-N ; *-N
-        ; *-0x ; *-Sx
-        ; *-leftIdentity
-        ; *-leftZero
-        ; *+-leftDistributive
-        ; *∸-leftDistributive
-        )
 
 open import LTC-PCF.Relation.Binary.EqReasoning
 

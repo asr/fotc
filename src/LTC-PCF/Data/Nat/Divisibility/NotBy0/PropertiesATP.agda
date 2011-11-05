@@ -5,7 +5,7 @@
 module LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesATP where
 
 open import LTC-PCF.Base
-open import FOTC.Base.Properties using ( ¬S≡0 )
+open import LTC-PCF.Base.Properties using ( ¬S≡0 )
 
 open import Common.Function using ( _$_ )
 

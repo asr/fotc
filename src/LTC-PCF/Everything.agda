@@ -6,6 +6,7 @@ module LTC-PCF.Everything where
 
 open import LTC-PCF.Base
 open import LTC-PCF.Base.ConsistencyTest
+open import LTC-PCF.Base.Properties
 
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0
@@ -26,6 +27,7 @@ open import LTC-PCF.Data.Nat.PropertiesI
 open import LTC-PCF.Data.Nat.Rec
 open import LTC-PCF.Data.Nat.Rec.EquationsATP
 open import LTC-PCF.Data.Nat.Rec.EquationsI
+open import LTC-PCF.Data.Nat.Type
 
 open import LTC-PCF.Program.Division.Division
 open import LTC-PCF.Program.Division.EquationsATP

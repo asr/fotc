@@ -13,8 +13,8 @@ infixl 10 _*_
 infixl 9  _+_ _∸_
 
 ------------------------------------------------------------------------------
--- The LTC natural numbers type.
-open import FOTC.Data.Nat.Type public
+-- The LTC-PCF natural numbers type.
+open import LTC-PCF.Data.Nat.Type public
 
 ------------------------------------------------------------------------------
 -- Addition with recursion on the first argument.
