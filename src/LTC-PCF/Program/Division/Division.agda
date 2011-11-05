@@ -42,5 +42,5 @@ divh g = lam (div-helper₂ g)
 {-# ATP definition divh #-}
 
 div : D → D → D
-div i j = fix₁ divh · i · j
+div i j = fix divh · i · j
 {-# ATP definition div #-}

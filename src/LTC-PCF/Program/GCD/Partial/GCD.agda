@@ -57,5 +57,5 @@ gcdh g = lam (gcd-helper₂ g)
 {-# ATP definition gcdh #-}
 
 gcd : D → D → D
-gcd d e = fix₁ gcdh · d · e
+gcd d e = fix gcdh · d · e
 {-# ATP definition gcd #-}

@@ -31,57 +31,57 @@ private
 
   -- The conversion rule fix-f is applied.
   <-s₁ : D → D → D
-  <-s₁ d e = <-h (fix₁ <-h) · d · e
+  <-s₁ d e = <-h (fix <-h) · d · e
 
   -- Definition of <-h.
   <-s₂ : D → D → D
-  <-s₂ d e = lam (<-helper₂ (fix₁ <-h)) · d · e
+  <-s₂ d e = lam (<-helper₂ (fix <-h)) · d · e
 
   -- Beta application.
   <-s₃ : D → D → D
-  <-s₃ d e = <-helper₂ (fix₁ <-h) d · e
+  <-s₃ d e = <-helper₂ (fix <-h) d · e
 
   -- Definition of lt-helper₂.
   <-s₄ : D → D → D
-  <-s₄ d e = lam (<-helper₁ d (fix₁ <-h)) · e
+  <-s₄ d e = lam (<-helper₁ d (fix <-h)) · e
 
   -- Beta application.
   <-s₅ : D → D → D
-  <-s₅ d e = <-helper₁ d (fix₁ <-h) e
+  <-s₅ d e = <-helper₁ d (fix <-h) e
 
   -- Definition lt-helper₁.
   <-s₆ : D → D → D
   <-s₆ d e = if (iszero₁ e) then false
                 else (if (iszero₁ d) then true
-                         else ((fix₁ <-h) · (pred₁ d) · (pred₁ e)))
+                         else ((fix <-h) · (pred₁ d) · (pred₁ e)))
 
   -- Reduction 'iszero₁ e ≡ b'.
   <-s₇ : D → D → D → D
   <-s₇ d e b = if b then false
                   else (if (iszero₁ d) then true
-                           else ((fix₁ <-h) · (pred₁ d) · (pred₁ e)))
+                           else ((fix <-h) · (pred₁ d) · (pred₁ e)))
 
   -- Reduction 'iszero₁ e ≡ false'.
   <-s₈ : D → D → D
   <-s₈ d e = if (iszero₁ d) then true
-                 else ((fix₁ <-h) · (pred₁ d) · (pred₁ e))
+                 else ((fix <-h) · (pred₁ d) · (pred₁ e))
 
   -- Reduction 'iszero₁ d ≡ b'.
   <-s₉ : D → D → D → D
   <-s₉ d e b = if b then true
-                  else ((fix₁ <-h) · (pred₁ d) · (pred₁ e))
+                  else ((fix <-h) · (pred₁ d) · (pred₁ e))
 
   -- Reduction 'iszero₁ d ≡ false'.
   <-s₁₀ : D → D → D
-  <-s₁₀ d e = (fix₁ <-h) · (pred₁ d) · (pred₁ e)
+  <-s₁₀ d e = (fix <-h) · (pred₁ d) · (pred₁ e)
 
   -- Reduction 'pred₁ (succ d) ≡ d'.
   <-s₁₁ : D → D → D
-  <-s₁₁ d e = (fix₁ <-h) · d · (pred₁ e)
+  <-s₁₁ d e = (fix <-h) · d · (pred₁ e)
 
   -- Reduction 'pred₁ (succ e) ≡ e'.
   <-s₁₂ : D → D → D
-  <-s₁₂ d e = (fix₁ <-h) · d · e
+  <-s₁₂ d e = (fix <-h) · d · e
 
   ----------------------------------------------------------------------
   -- The execution steps
@@ -108,34 +108,34 @@ private
   -}
 
   -- Application of the conversion rule fix₁-f.
-  initial→s₁ : ∀ d e → fix₁ <-h · d · e ≡ <-s₁ d e
-  initial→s₁ d e = subst (λ t → fix₁ <-h · d · e ≡ t · d · e) (fix-f <-h) refl
+  initial→s₁ : ∀ d e → fix <-h · d · e ≡ <-s₁ d e
+  initial→s₁ d e = subst (λ t → fix <-h · d · e ≡ t · d · e) (fix-f <-h) refl
 
   -- The definition of <-h.
   s₁→s₂ : ∀ d e → <-s₁ d e ≡ <-s₂ d e
-  s₁→s₂ d e = subst (λ t → <-h (fix₁ <-h) · d · e ≡ t · d · e)
-                    (<-h-≡ (fix₁ <-h))
+  s₁→s₂ d e = subst (λ t → <-h (fix <-h) · d · e ≡ t · d · e)
+                    (<-h-≡ (fix <-h))
                     refl
 
   -- Beta application.
   s₂→s₃ : ∀ d e → <-s₂ d e ≡ <-s₃ d e
-  s₂→s₃ d e = subst (λ t → lam (<-helper₂ (fix₁ <-h)) · d · e ≡ t · e)
-                    (beta (<-helper₂ (fix₁ <-h)) d)
+  s₂→s₃ d e = subst (λ t → lam (<-helper₂ (fix <-h)) · d · e ≡ t · e)
+                    (beta (<-helper₂ (fix <-h)) d)
                     refl
 
   -- Definition of lt-helper₂
   s₃→s₄ : ∀ d e → <-s₃ d e ≡ <-s₄ d e
-  s₃→s₄ d e = subst (λ t → <-helper₂ (fix₁ <-h) d · e ≡ t · e)
-                    (<-helper₂-≡ (fix₁ <-h) d)
+  s₃→s₄ d e = subst (λ t → <-helper₂ (fix <-h) d · e ≡ t · e)
+                    (<-helper₂-≡ (fix <-h) d)
                     refl
 
   -- Beta application.
   s₄→s₅ : ∀ d e → <-s₄ d e ≡ <-s₅ d e
-  s₄→s₅ d e = beta (<-helper₁ d (fix₁ <-h)) e
+  s₄→s₅ d e = beta (<-helper₁ d (fix <-h)) e
 
   -- Definition of lt-helper₁.
   s₅→s₆ : ∀ d e → <-s₅ d e ≡ <-s₆ d e
-  s₅→s₆ d e = <-helper₁-≡ d (fix₁ <-h) e
+  s₅→s₆ d e = <-helper₁-≡ d (fix <-h) e
 
   -- Reduction 'iszero₁ e ≡ b' using that proof.
   s₆→s₇ : ∀ d e b → iszero₁ e ≡ b → <-s₆ d e ≡ <-s₇ d e b
@@ -174,7 +174,7 @@ private
 <-00 : NLT zero zero
 <-00 =
   begin
-    fix₁ <-h · zero · zero ≡⟨ initial→s₁ zero zero ⟩
+    fix <-h · zero · zero ≡⟨ initial→s₁ zero zero ⟩
     <-s₁ zero zero         ≡⟨ s₁→s₂ zero zero ⟩
     <-s₂ zero zero         ≡⟨ s₂→s₃ zero zero ⟩
     <-s₃ zero zero         ≡⟨ s₃→s₄ zero zero ⟩
@@ -188,7 +188,7 @@ private
 <-0S : ∀ d → LT zero (succ₁ d)
 <-0S d =
   begin
-    fix₁ <-h · zero · (succ₁ d) ≡⟨ initial→s₁ zero (succ₁ d) ⟩
+    fix <-h · zero · (succ₁ d) ≡⟨ initial→s₁ zero (succ₁ d) ⟩
     <-s₁ zero (succ₁ d)         ≡⟨ s₁→s₂ zero (succ₁ d) ⟩
     <-s₂ zero (succ₁ d)         ≡⟨ s₂→s₃ zero (succ₁ d) ⟩
     <-s₃ zero (succ₁ d)         ≡⟨ s₃→s₄ zero (succ₁ d) ⟩
@@ -204,7 +204,7 @@ private
 <-S0 : ∀ d → NLT (succ₁ d) zero
 <-S0 d =
   begin
-    fix₁ <-h · (succ₁ d) · zero ≡⟨ initial→s₁ (succ₁ d) zero ⟩
+    fix <-h · (succ₁ d) · zero ≡⟨ initial→s₁ (succ₁ d) zero ⟩
     <-s₁ (succ₁ d) zero         ≡⟨ s₁→s₂ (succ₁ d) zero ⟩
     <-s₂ (succ₁ d) zero         ≡⟨ s₂→s₃ (succ₁ d) zero ⟩
     <-s₃ (succ₁ d) zero         ≡⟨ s₃→s₄ (succ₁ d) zero ⟩
@@ -218,7 +218,7 @@ private
 <-SS : ∀ d e → succ₁ d < succ₁ e ≡ d < e
 <-SS d e =
   begin
-    fix₁ <-h · (succ₁ d) · (succ₁ e) ≡⟨ initial→s₁ (succ₁ d) (succ₁ e) ⟩
+    fix <-h · (succ₁ d) · (succ₁ e) ≡⟨ initial→s₁ (succ₁ d) (succ₁ e) ⟩
     <-s₁ (succ₁ d) (succ₁ e)         ≡⟨ s₁→s₂ (succ₁ d) (succ₁ e) ⟩
     <-s₂ (succ₁ d) (succ₁ e)         ≡⟨ s₂→s₃ (succ₁ d) (succ₁ e) ⟩
     <-s₃ (succ₁ d) (succ₁ e)         ≡⟨ s₃→s₄ (succ₁ d) (succ₁ e) ⟩

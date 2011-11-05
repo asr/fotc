@@ -60,7 +60,7 @@ abstract
   <-helper₁-≡ d lt e = refl
 
 _<_ : D → D → D
-d < e = fix₁ <-h · d · e
+d < e = fix <-h · d · e
 {-# ATP definition _<_ #-}
 
 _≤_ : D → D → D

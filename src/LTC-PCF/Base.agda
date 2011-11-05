@@ -36,7 +36,7 @@ open import Common.LogicalConstants public
 --   t ::= x   | t · t | λ x.t
 --      | true | false | if
 --      | zero | succ  | pred | iszero
---      | fix
+--      | fix x.t
 
 -- NB. We define the PCF terms as constants. After that, we will
 -- define some function symbols based on these constants for
@@ -45,9 +45,9 @@ open import Common.LogicalConstants public
 postulate
   _·_                   : D → D → D    -- LTC-PCF application.
   lam                   : (D → D) → D  -- LTC-PCF abstraction.
+  fix                   : (D → D) → D  -- LTC fixed point operator.
   true false if         : D            -- LTC-PCF partial booleans.
   zero succ pred iszero : D            -- LTC-PCF partial natural numbers.
-  fix                   : D            -- LTC fixed point operator.
 
 ------------------------------------------------------------------------------
 -- Definitions
@@ -69,9 +69,6 @@ abstract
   iszero₁ : D → D
   iszero₁ d = iszero · d
   -- {-# ATP definition iszero₁ #-}
-
-  fix₁ : (D → D) → D
-  fix₁ f = fix · lam f
 
 ------------------------------------------------------------------------------
 -- Conversion rules
@@ -121,7 +118,7 @@ postulate beta : (f : D → D)(a : D) → lam f · a ≡ f a
 
 -- Conversion rule for the fixed pointed operator.
 postulate
-  fix-f : (f : D → D) → fix₁ f ≡ f (fix₁ f)
+  fix-f : ∀ (f : D → D) → fix f ≡ f (fix f)
 {-# ATP axiom fix-f #-}
 
 ------------------------------------------------------------------------------
