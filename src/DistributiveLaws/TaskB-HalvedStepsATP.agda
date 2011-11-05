@@ -5,7 +5,6 @@
 module DistributiveLaws.TaskB-HalvedStepsATP where
 
 open import DistributiveLaws.Base
-
 open import DistributiveLaws.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------

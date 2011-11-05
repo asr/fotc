@@ -4,14 +4,11 @@
 
 module FOTC.Data.Nat.List.PropertiesATP where
 
+open import Common.Function
+
 open import FOTC.Base
-
-open import Common.Function using ( _$_ )
-
 open import FOTC.Data.Nat.List.Type
-  using ( ListN ; consLN ; nilLN  -- The FOTC list of natural numbers type.
-        )
-open import FOTC.Data.List using ( _++_ )
+open import FOTC.Data.List
 
 ------------------------------------------------------------------------------
 

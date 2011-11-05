@@ -5,16 +5,13 @@
 module FOTC.Program.ABP.Lemma2ATP.Helper where
 
 open import FOTC.Base
-
 open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesATP
 open import FOTC.Data.List
-
 open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.Fair.PropertiesATP
 open import FOTC.Program.ABP.Terms
-
 open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------

@@ -5,11 +5,9 @@
 module FOTC.Program.Division.IsCorrectATP where
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.PropertiesATP
-
 open import FOTC.Program.Division.Division
 open import FOTC.Program.Division.Specification
 

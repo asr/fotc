@@ -4,28 +4,13 @@
 
 module LTC-PCF.Data.Nat.Inequalities.PropertiesATP where
 
+open import Common.Function
+
 open import LTC-PCF.Base
-
-open import Common.Function using ( _$_ )
-
 open import LTC-PCF.Data.Nat
-  using ( _+_ ; _∸_
-        ; N ; sN ; zN  -- The LTC natural numbers type.
-        )
 open import LTC-PCF.Data.Nat.Inequalities
-  using ( _<_
-        ; GE ; GT ; LE ; LT ; NGT ; NLT
-        ; LT₂
-        )
 open import LTC-PCF.Data.Nat.Inequalities.EquationsATP public
-  using ( <-00 ; <-S0 ; <-0S ; <-SS )
 open import LTC-PCF.Data.Nat.PropertiesATP
-  using ( +-N ; ∸-N
-        ; +-Sx
-        ; +-comm
-        ; +-rightIdentity
-        ; ∸-0S ; ∸-SS ; ∸-x0
-        )
 
 ------------------------------------------------------------------------------
 -- Elimination properties

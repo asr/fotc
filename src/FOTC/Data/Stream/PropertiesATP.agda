@@ -5,9 +5,7 @@
 module FOTC.Data.Stream.PropertiesATP where
 
 open import FOTC.Base
-
 open import FOTC.Base.PropertiesATP
-
 open import FOTC.Data.Stream
 open import FOTC.Data.Stream.Equality
 

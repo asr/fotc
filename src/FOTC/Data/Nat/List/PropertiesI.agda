@@ -5,11 +5,8 @@
 module FOTC.Data.Nat.List.PropertiesI where
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat.List.Type
-  using ( ListN  -- The FOTC list of natural numbers type.
-        )
-open import FOTC.Data.List using ( _++_ )
+open import FOTC.Data.List
 
 ------------------------------------------------------------------------------
 -- See the ATP version.

@@ -5,7 +5,6 @@
 module FOTC.Program.GCD.Total.Definitions where
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat.Divisibility.By0
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Type

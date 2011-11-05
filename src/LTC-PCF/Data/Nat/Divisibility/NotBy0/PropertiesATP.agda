@@ -4,27 +4,15 @@
 
 module LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesATP where
 
+open import Common.Function
+
 open import LTC-PCF.Base
-open import LTC-PCF.Base.Properties using ( ¬S≡0 )
-
-open import Common.Function using ( _$_ )
-
+open import LTC-PCF.Base.Properties
 open import LTC-PCF.Data.Nat
-  using ( _+_ ; _∸_ ; _*_
-        ; N ; sN ; zN  -- The LTC natural numbers type.
-        )
-open import LTC-PCF.Data.Nat.Divisibility.NotBy0 using ( _∣_ )
-open import LTC-PCF.Data.Nat.Inequalities using ( LE )
+open import LTC-PCF.Data.Nat.Divisibility.NotBy0
+open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
-  using ( x≤x+y )
 open import LTC-PCF.Data.Nat.PropertiesATP
-  using ( +-N ; ∸-N ; *-N
-        ; *-0x ; *-Sx
-        ; *-leftIdentity
-        ; *-leftZero
-        ; *+-leftDistributive
-        ; *∸-leftDistributive
-        )
 
 ------------------------------------------------------------------------------
 -- Any positive number divides 0.

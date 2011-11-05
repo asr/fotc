@@ -4,10 +4,9 @@
 
 module FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionI where
 
-open import FOTC.Base
-
 open import Common.Function
 
+open import FOTC.Base
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.Type

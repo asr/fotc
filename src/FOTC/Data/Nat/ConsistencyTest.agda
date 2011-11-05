@@ -9,7 +9,6 @@
 module FOTC.Data.Nat.ConsistencyTest where
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat
 
 ------------------------------------------------------------------------------

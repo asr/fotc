@@ -5,7 +5,6 @@
 module FOTC.Data.Nat.List.Type where
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat.Type
 
 ------------------------------------------------------------------------------

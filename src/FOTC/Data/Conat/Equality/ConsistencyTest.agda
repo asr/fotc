@@ -9,7 +9,6 @@
 module FOTC.Data.Conat.Equality.ConsistencyTest where
 
 open import FOTC.Base
-
 open import FOTC.Data.Conat.Equality
 
 ------------------------------------------------------------------------------

@@ -5,9 +5,7 @@
 module FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI where
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat.Type
-
 open import FOTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------

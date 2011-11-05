@@ -9,7 +9,6 @@
 module FOTC.Data.Nat.Inequalities.ConsistencyTest where
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat.Inequalities
 
 ------------------------------------------------------------------------------

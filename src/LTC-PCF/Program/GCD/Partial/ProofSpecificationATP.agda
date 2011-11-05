@@ -11,7 +11,6 @@
 module LTC-PCF.Program.GCD.Partial.ProofSpecificationATP where
 
 open import LTC-PCF.Base
-
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesATP
   using ( x∣Sy→x≤Sy )
 open import LTC-PCF.Data.Nat.Type

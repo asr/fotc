@@ -5,8 +5,7 @@
 module LTC-PCF.Data.Nat.Rec.EquationsATP where
 
 open import LTC-PCF.Base
-
-open import LTC-PCF.Data.Nat.Rec using ( rec )
+open import LTC-PCF.Data.Nat.Rec
 
 ------------------------------------------------------------------------------
 

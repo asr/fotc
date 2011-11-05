@@ -5,10 +5,8 @@
 module FOTC.Program.Mirror.PropertiesATP where
 
 open import FOTC.Base
-
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesATP using ( reverse-[x]≡[x] )
-
 open import FOTC.Program.Mirror.Forest.PropertiesATP
 open import FOTC.Program.Mirror.Forest.Totality
 open import FOTC.Program.Mirror.Mirror

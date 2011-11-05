@@ -16,7 +16,6 @@ open import FOTC.Data.Nat.Induction.NonAcc.LexicographicATP
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.PropertiesATP
-
 open import FOTC.Program.GCD.Partial.Definitions
 open import FOTC.Program.GCD.Partial.GCD
 open import FOTC.Program.GCD.Partial.TotalityATP

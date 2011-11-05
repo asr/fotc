@@ -4,51 +4,18 @@
 
 module FOTC.Program.SortList.Properties.Totality.OrdTreeI where
 
+open import Common.Function
+
 open import FOTC.Base
-
-open import Common.Function using ( _$_ )
-
-open import FOTC.Data.Bool using ( _&&_ ; &&-tt )
+open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesI
-  using ( &&-Bool
-        ; &&-proj₁
-        ; &&-proj₂
-        ; &&₃-proj₃
-        ; &&₃-proj₄
-        )
-open import FOTC.Data.Nat.Inequalities using ( _≤_ ; GT ; LE )
+open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI
-  using ( x<y→x≤y
-        ; x>y→x≰y
-        ; x>y∨x≤y
-        ; x≤x
-        )
 open import FOTC.Data.Nat.List.Type
-  using ( ListN ; consLN ; nilLN  -- The FOTC list of natural numbers type.
-        )
 open import FOTC.Data.Nat.Type
-  using ( N  -- The FOTC natural numbers type.
-        )
-
 open import FOTC.Program.SortList.SortList
-  using ( ≤-ItemTree ; ≤-ItemTree-node ; ≤-ItemTree-tip
-        ; ≤-TreeItem ; ≤-TreeItem-node ; ≤-TreeItem-tip
-        ; LE-ItemTree ; LE-TreeItem
-        ; lit ; lit-[] ; lit-∷
-        ; makeTree
-        ; nilTree ; node ; tip
-        ; ordTree ; ordTree-nilTree ; ordTree-node ; ordTree-tip ; OrdTree
-        ; toTree ; toTree-nilTree ; toTree-node ; toTree-tip
-        ; Tree ; nilT ; nodeT ; tipT  -- The FOTC tree type.
-        )
 open import FOTC.Program.SortList.Properties.Totality.BoolI
-  using ( ≤-ItemTree-Bool
-        ; ≤-TreeItem-Bool
-        ; ordTree-Bool
-        )
 open import FOTC.Program.SortList.Properties.Totality.TreeI
-  using ( makeTree-Tree )
-
 open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------

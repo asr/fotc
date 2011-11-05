@@ -4,19 +4,12 @@
 
 module LTC-PCF.Data.Nat.PropertiesI where
 
+open import Common.Function
+
 open import LTC-PCF.Base
-
-open import Common.Function using ( _$_ )
-
 open import LTC-PCF.Data.Nat
-  using ( _+_ ; +-helper
-        ; _∸_ ; ∸-helper
-        ; _*_ ; *-helper₁ ; *-helper₂
-        ; N ; sN ; zN  -- The LTC natural numbers type.
-        )
-open import LTC-PCF.Data.Nat.Rec using ( rec )
-open import LTC-PCF.Data.Nat.Rec.EquationsI using ( rec-0 ; rec-S )
-
+open import LTC-PCF.Data.Nat.Rec
+open import LTC-PCF.Data.Nat.Rec.EquationsI
 open import LTC-PCF.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------

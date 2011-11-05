@@ -8,9 +8,9 @@
 
 module FOTC.Induction.WellFounded where
 
-open import FOTC.Base
-
 open import Common.Relation.Unary
+
+open import FOTC.Base
 
 ------------------------------------------------------------------------------
 -- The accessibility predicate: x is accessible if everything which is

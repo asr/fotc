@@ -8,7 +8,6 @@
 module LTC-PCF.Program.GCD.Partial.ProofSpecificationI where
 
 open import LTC-PCF.Base
-
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesI
   using ( x∣Sy→x≤Sy )
 open import LTC-PCF.Data.Nat.Type

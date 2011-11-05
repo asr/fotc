@@ -4,17 +4,15 @@
 
 module LTC-PCF.Program.GCD.Partial.TotalityATP where
 
-open import LTC-PCF.Base
-open import LTC-PCF.Base.Properties
-
 open import Common.Function
 
+open import LTC-PCF.Base
+open import LTC-PCF.Base.Properties
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicATP
 open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
 open import LTC-PCF.Data.Nat.PropertiesATP
-
 open import LTC-PCF.Program.GCD.Partial.Definitions
 open import LTC-PCF.Program.GCD.Partial.GCD
 open import LTC-PCF.Program.GCD.Partial.EquationsATP

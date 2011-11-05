@@ -9,7 +9,6 @@
 module FOTC.Program.McCarthy91.McCarthy91.ConsistencyTest where
 
 open import FOTC.Base
-
 open import FOTC.Program.McCarthy91.McCarthy91
 
 ------------------------------------------------------------------------------

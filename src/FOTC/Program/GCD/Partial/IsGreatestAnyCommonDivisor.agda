@@ -3,7 +3,6 @@
 ---------------------------------------------------------------------------
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat.Type
 open import FOTC.Data.Nat.Divisibility.NotBy0
 open import FOTC.Data.Nat.Inequalities
@@ -13,9 +12,7 @@ module FOTC.Program.GCD.Partial.IsGreatestAnyCommonDivisor
   where
 
 open import Common.Function
-
 open import FOTC.Data.Nat.Divisibility.NotBy0.Properties
-
 open import FOTC.Program.GCD.Partial.Definitions
 
 ---------------------------------------------------------------------------

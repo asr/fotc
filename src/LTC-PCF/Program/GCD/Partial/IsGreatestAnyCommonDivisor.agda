@@ -3,7 +3,6 @@
 ---------------------------------------------------------------------------
 
 open import LTC-PCF.Base
-
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0
 open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Type
@@ -15,7 +14,6 @@ module LTC-PCF.Program.GCD.Partial.IsGreatestAnyCommonDivisor
 open import Common.Function
 
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties
-
 open import LTC-PCF.Program.GCD.Partial.Definitions
 
 ---------------------------------------------------------------------------

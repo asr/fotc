@@ -5,7 +5,6 @@
 module FOTC.Program.GCD.Partial.GCD where
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
 

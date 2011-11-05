@@ -4,29 +4,13 @@
 
 module LTC-PCF.Data.Nat.Inequalities.PropertiesI where
 
+open import Common.Function
+
 open import LTC-PCF.Base
-
-open import Common.Function using ( _$_ )
-
 open import LTC-PCF.Data.Nat
-  using ( _+_ ; _∸_
-        ; N ; sN ; zN  -- The LTC natural numbers type.
-        )
 open import LTC-PCF.Data.Nat.Inequalities
-   using ( _<_ ; _≤_
-         ; GE ; GT ; LE ; LT ; NGT ; NLE ; NLT
-         ; LT₂
-         )
 open import LTC-PCF.Data.Nat.Inequalities.EquationsI public
-  using ( <-00 ; <-S0 ; <-0S ; <-SS )
 open import LTC-PCF.Data.Nat.PropertiesI
-  using ( +-N ; ∸-N
-        ; +-Sx
-        ; +-comm
-        ; +-rightIdentity
-        ; ∸-0S ; ∸-SS ; ∸-x0
-        )
-
 open import LTC-PCF.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------

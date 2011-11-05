@@ -15,10 +15,8 @@
 module FOTC.Program.ABP.ProofSpecificationATP where
 
 open import FOTC.Base
-
 open import FOTC.Data.Stream
 open import FOTC.Data.Stream.Equality
-
 open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.MayorPremiseATP

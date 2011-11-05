@@ -9,7 +9,6 @@
 module FOTC.Program.Collatz.Data.Nat.ConsistencyTest where
 
 open import FOTC.Base
-
 open import FOTC.Program.Collatz.Data.Nat
 
 ------------------------------------------------------------------------------

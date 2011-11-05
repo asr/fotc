@@ -4,23 +4,13 @@
 
 module FOTC.Data.Nat.Inequalities.PropertiesI where
 
+open import Common.Function
+
 open import FOTC.Base
-
-open import Common.Function using ( _$_ )
-
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
-  using ( _<_ ; <-00 ; <-0S ; <-S0 ; <-SS
-        ; _≤_
-        ; GE ; GT ; LE ; LT ; NGT ; NLE ; NLT
-        ; LT₂
-        )
 open import FOTC.Data.Nat.Inequalities.Properties public
 open import FOTC.Data.Nat.PropertiesI
-  using ( +-N ; ∸-N
-        ; +-comm ; +-rightIdentity
-        )
-
 open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------

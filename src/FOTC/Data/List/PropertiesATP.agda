@@ -4,10 +4,9 @@
 
 module FOTC.Data.List.PropertiesATP where
 
-open import FOTC.Base
-
 open import Common.Function
 
+open import FOTC.Base
 open import FOTC.Data.List
 open import FOTC.Data.Nat.Type
 

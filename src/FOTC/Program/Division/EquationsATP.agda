@@ -5,10 +5,8 @@
 module FOTC.Program.Division.EquationsATP where
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
-
 open import FOTC.Program.Division.Division
 
 ----------------------------------------------------------------------

@@ -4,16 +4,13 @@
 
 module FOTC.Program.Mirror.Forest.PropertiesATP where
 
-open import FOTC.Base
-
 open import Common.Function
 
+open import FOTC.Base
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI using (reverse-[x]≡[x])
-
 open import FOTC.Program.Mirror.Forest.Totality
 open import FOTC.Program.Mirror.Type
-
 open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------

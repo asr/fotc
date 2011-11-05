@@ -4,15 +4,11 @@
 
 module FOTC.Program.SortList.Properties.Totality.ListN-I where
 
+open import Common.Function
+
 open import FOTC.Base
-
-open import Common.Function using ( _$_ )
-
 open import FOTC.Data.Nat.List.Type
-  using ( ListN ; consLN ; nilLN  -- The FOTC list of natural numbers type.
-        )
-open import FOTC.Data.Nat.List.PropertiesI using ( ++-ListN )
-
+open import FOTC.Data.Nat.List.PropertiesI
 open import FOTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------

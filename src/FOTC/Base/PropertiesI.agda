@@ -5,7 +5,6 @@
 module FOTC.Base.PropertiesI where
 
 open import FOTC.Base
-
 open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------

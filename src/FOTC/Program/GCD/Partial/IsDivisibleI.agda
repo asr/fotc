@@ -4,11 +4,10 @@
 
 module FOTC.Program.GCD.Partial.IsDivisibleI where
 
-open import FOTC.Base
-open import FOTC.Base.Properties
-
 open import Common.Function
 
+open import FOTC.Base
+open import FOTC.Base.Properties
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Divisibility.NotBy0
 open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesI
@@ -16,7 +15,6 @@ open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.PropertiesI
-
 open import FOTC.Program.GCD.Partial.Definitions
 open import FOTC.Program.GCD.Partial.EquationsI
 open import FOTC.Program.GCD.Partial.GCD

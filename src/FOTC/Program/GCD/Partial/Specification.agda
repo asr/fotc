@@ -3,12 +3,9 @@
 ------------------------------------------------------------------------------
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat.Type
-
 open import FOTC.Program.GCD.Partial.Definitions
-  using ( x≠0≠y ; CD ; Divisible ; GACD )
-open import FOTC.Program.GCD.Partial.GCD using ( gcd )
+open import FOTC.Program.GCD.Partial.GCD
 
 module FOTC.Program.GCD.Partial.Specification
   (gcd-N         : ∀ {m n} → N m → N n → x≠0≠y m n → N (gcd m n))

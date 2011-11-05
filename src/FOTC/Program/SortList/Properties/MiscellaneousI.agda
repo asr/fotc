@@ -4,32 +4,18 @@
 
 module FOTC.Program.SortList.Properties.MiscellaneousI where
 
+open import Common.Function
+
 open import FOTC.Base
-
-open import Common.Function using ( _$_ )
-
 open import FOTC.Data.Bool
-  using ( _&&_ ; &&-tt
-        ; Bool  -- The FOTC booleans type.
-        )
-open import FOTC.Data.Bool.PropertiesI using ( &&-proj₁ ; &&-proj₂ ; ≤-Bool )
-open import FOTC.Data.Nat.Inequalities using ( _≤_ )
-open import FOTC.Data.Nat.List.PropertiesI using ( ++-ListN )
+open import FOTC.Data.Bool.PropertiesI
+open import FOTC.Data.Nat.Inequalities
+open import FOTC.Data.Nat.List.PropertiesI
 open import FOTC.Data.Nat.List.Type
-  using ( ListN ; consLN ; nilLN  -- The FOTC list of natural numbers type.
-        )
 open import FOTC.Data.Nat.Type
-  using ( N  -- The FOTC natural numbers type.
-        )
-open import FOTC.Data.List using ( _++_ ; ++-[] ; ++-∷ )
-
+open import FOTC.Data.List
 open import FOTC.Program.SortList.Properties.Totality.BoolI
-  using ( ≤-ItemList-Bool
-        ; ≤-Lists-Bool
-        ; ordList-Bool
-        )
 open import FOTC.Program.SortList.SortList
-
 open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------

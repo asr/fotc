@@ -10,9 +10,7 @@
 module FOTC.Program.ABP.Lemma1I where
 
 open import FOTC.Base
-
 open import FOTC.Data.List
-
 open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.Lemma1I.Helper

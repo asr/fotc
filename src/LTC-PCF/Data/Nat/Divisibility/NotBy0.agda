@@ -5,7 +5,6 @@
 module LTC-PCF.Data.Nat.Divisibility.NotBy0 where
 
 open import LTC-PCF.Base
-
 open import LTC-PCF.Data.Nat
 
 -- We add 3 to the fixities of the standard library.

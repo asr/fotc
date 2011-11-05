@@ -9,7 +9,6 @@
 module FOTC.Program.GCD.Partial.GCD.ConsistencyTest where
 
 open import FOTC.Base
-
 open import FOTC.Program.GCD.Partial.GCD
 
 ------------------------------------------------------------------------------

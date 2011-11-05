@@ -5,8 +5,7 @@
 module LTC-PCF.Data.Nat where
 
 open import LTC-PCF.Base
-
-open import LTC-PCF.Data.Nat.Rec using ( rec )
+open import LTC-PCF.Data.Nat.Rec
 
 -- We add 3 to the fixities of the standard library.
 infixl 10 _*_

@@ -5,10 +5,8 @@
 module FOTC.Program.Mirror.Forest.Totality where
 
 open import FOTC.Base
-
-open import FOTC.Program.Mirror.Type
-
 open import FOTC.Data.List
+open import FOTC.Program.Mirror.Type
 
 ------------------------------------------------------------------------------
 

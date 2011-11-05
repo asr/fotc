@@ -11,10 +11,8 @@
 module FOTC.Program.ABP.ABP where
 
 open import FOTC.Base
-
 open import FOTC.Data.Bool
 open import FOTC.Data.Stream
-
 open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.Terms
 

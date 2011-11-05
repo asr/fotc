@@ -9,7 +9,6 @@
 module FOTC.Program.Division.Division.ConsistencyTest where
 
 open import FOTC.Base
-
 open import FOTC.Program.Division.Division
 
 ------------------------------------------------------------------------------

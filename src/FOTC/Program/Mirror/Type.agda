@@ -5,7 +5,6 @@
 module FOTC.Program.Mirror.Type where
 
 open import FOTC.Base
-
 open import FOTC.Data.List
 
 ------------------------------------------------------------------------------

@@ -4,11 +4,10 @@
 
 module FOTC.Program.GCD.Total.IsCommonDivisorI where
 
-open import FOTC.Base
-open import FOTC.Base.Properties
-
 open import Common.Function
 
+open import FOTC.Base
+open import FOTC.Base.Properties
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Divisibility.By0
 open import FOTC.Data.Nat.Divisibility.By0.Properties
@@ -17,7 +16,6 @@ open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.PropertiesI
-
 open import FOTC.Program.GCD.Total.Definitions
 open import FOTC.Program.GCD.Total.EquationsI
 open import FOTC.Program.GCD.Total.GCD

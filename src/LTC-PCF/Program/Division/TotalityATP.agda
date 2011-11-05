@@ -5,10 +5,8 @@
 module LTC-PCF.Program.Division.TotalityATP where
 
 open import LTC-PCF.Base
-
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Inequalities
-
 open import LTC-PCF.Program.Division.Division
 open import LTC-PCF.Program.Division.EquationsATP
 open import LTC-PCF.Program.Division.Specification

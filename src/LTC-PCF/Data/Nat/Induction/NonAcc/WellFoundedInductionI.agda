@@ -4,10 +4,9 @@
 
 module LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionI where
 
-open import LTC-PCF.Base
-
 open import Common.Function
 
+open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
 open import LTC-PCF.Data.Nat.Type

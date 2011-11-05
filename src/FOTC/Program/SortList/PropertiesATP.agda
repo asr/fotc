@@ -4,17 +4,15 @@
 
 module FOTC.Program.SortList.PropertiesATP where
 
-open import FOTC.Base
-
 open import Common.Function
 
+open import FOTC.Base
 open import FOTC.Data.Bool.PropertiesATP
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.List.Type
 open import FOTC.Data.Nat.Type
 open import FOTC.Data.List
-
 open import FOTC.Program.SortList.Properties.Totality.BoolATP
 open import FOTC.Program.SortList.Properties.Totality.ListN-ATP
 open import FOTC.Program.SortList.Properties.Totality.OrdList.FlattenATP

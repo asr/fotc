@@ -9,7 +9,6 @@
 module FOTC.Program.SortList.SortList.ConsistencyTest where
 
 open import FOTC.Base
-
 open import FOTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------

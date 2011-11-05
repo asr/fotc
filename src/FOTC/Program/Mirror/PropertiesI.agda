@@ -5,16 +5,13 @@
 module FOTC.Program.Mirror.PropertiesI where
 
 open import FOTC.Base
-
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI using ( reverse-[x]≡[x] )
-
 open import FOTC.Program.Mirror.Type
 open import FOTC.Program.Mirror.Forest.PropertiesI
 open import FOTC.Program.Mirror.Forest.Totality
 open import FOTC.Program.Mirror.Mirror
 open import FOTC.Program.Mirror.Tree.Totality
-
 open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------

@@ -5,12 +5,10 @@
 module FOTC.Program.ABP.MinorPremiseI where
 
 open import FOTC.Base
-
 open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesI
 open import FOTC.Data.Stream
 open import FOTC.Data.Stream.Equality
-
 open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.Lemma1I

@@ -5,7 +5,6 @@
 module FOTC.Data.Conat.PropertiesI where
 
 open import FOTC.Base
-
 open import FOTC.Data.List
 open import FOTC.Data.Conat
 open import FOTC.Data.Conat.Equality

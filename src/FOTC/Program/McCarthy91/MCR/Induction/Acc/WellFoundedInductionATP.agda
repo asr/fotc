@@ -8,7 +8,6 @@
 module FOTC.Program.McCarthy91.MCR.Induction.Acc.WellFoundedInductionATP where
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat
 
 import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionATP
@@ -17,14 +16,11 @@ open module WF-LT = FOTC.Data.Nat.Induction.Acc.WellFoundedInductionATP.WF-LT
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.UnaryNumbers
-
 open import FOTC.Induction.WellFounded
-
 open import FOTC.Program.McCarthy91.MCR
 open import FOTC.Program.McCarthy91.MCR.PropertiesATP
 
 -- Parametrized modules
-
 open module InvImg =
   FOTC.Induction.WellFounded.InverseImage {N} {N} {LT} fnMCR-N
 

@@ -4,26 +4,13 @@
 
 module FOTC.Data.Nat.Inequalities.PropertiesATP where
 
+open import Common.Function
+
 open import FOTC.Base
-
-open import Common.Function using ( _$_ )
-
 open import FOTC.Data.Nat
-  using ( _+_ ; _∸_ ; ∸-SS
-        ; N ; sN ; zN  -- The FOTC natural numbers type
-        )
 open import FOTC.Data.Nat.Inequalities
-  using ( <-00 ; <-0S ; <-S0 ; <-SS
-        ; GE ; GT ; LE ; LT ; NGT ; NLE ; NLT
-        ; LT₂
-        )
 open import FOTC.Data.Nat.Inequalities.Properties public
 open import FOTC.Data.Nat.PropertiesATP
-  using ( +-N ; ∸-N
-        ; +-comm
-        ; +-rightIdentity
-        ; ∸-0x
-        )
 
 ------------------------------------------------------------------------------
 

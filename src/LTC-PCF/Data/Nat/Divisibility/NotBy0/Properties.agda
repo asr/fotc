@@ -4,10 +4,9 @@
 
 module LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties where
 
-open import LTC-PCF.Base
-
 open import Common.Function
 
+open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0
 
 ------------------------------------------------------------------------------

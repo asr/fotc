@@ -4,26 +4,14 @@
 
 module FOTC.Program.SortList.Properties.Totality.TreeATP where
 
+open import Common.Function
+
 open import FOTC.Base
-
-open import Common.Function using ( _$_ )
-
-open import FOTC.Data.Nat.Inequalities.PropertiesATP using ( x>y∨x≤y ; x>y→x≰y )
+open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.List.Type
-  using ( ListN ; consLN ; nilLN  -- The FOTC list of natural numbers type.
-        )
 open import FOTC.Data.Nat.Type
-  using ( N  -- The FOTC natural numbers type.
-        )
-
 open import FOTC.Program.SortList.SortList
-  using ( nilTree ; node ; tip
-        ; makeTree
-        ; toTree
-        ; Tree ; nilT ; nodeT ; tipT  -- The FOTC tree type.
-        )
-
-open import FOTC.Data.Nat.Inequalities using ( GT ; LE )
+open import FOTC.Data.Nat.Inequalities
 
 ------------------------------------------------------------------------------
 

@@ -20,7 +20,6 @@
 module FOTC.Program.Division.ProofSpecificationATP where
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesATP

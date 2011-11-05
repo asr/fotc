@@ -9,7 +9,6 @@
 module FOTC.Data.Stream.Equality.ConsistencyTest where
 
 open import FOTC.Base
-
 open import FOTC.Data.Stream.Equality
 
 ------------------------------------------------------------------------------

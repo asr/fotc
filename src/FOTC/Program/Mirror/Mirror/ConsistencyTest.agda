@@ -9,7 +9,6 @@
 module FOTC.Program.Mirror.Mirror.ConsistencyTest where
 
 open import FOTC.Base
-
 open import FOTC.Program.Mirror.Mirror
 
 ------------------------------------------------------------------------------

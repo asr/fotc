@@ -4,10 +4,9 @@
 
 module FOTC.Data.Bool.PropertiesATP where
 
-open import FOTC.Base
-
 open import Common.Function
 
+open import FOTC.Base
 open import FOTC.Data.Bool
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesATP

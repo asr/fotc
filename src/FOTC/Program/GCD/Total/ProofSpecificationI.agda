@@ -8,10 +8,8 @@
 module FOTC.Program.GCD.Total.ProofSpecificationI where
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat.Divisibility.By0.PropertiesI using ( x∣Sy→x≤Sy )
 open import FOTC.Data.Nat.Type
-
 open import FOTC.Program.GCD.Total.GCD using ( gcd )
 open import FOTC.Program.GCD.Total.IsCommonDivisorI using ( gcd-CD )
 open import FOTC.Program.GCD.Total.IsDivisibleI using ( gcd-Divisible )

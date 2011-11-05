@@ -5,8 +5,7 @@
 module LTC-PCF.Data.Nat.Inequalities.EquationsATP where
 
 open import LTC-PCF.Base
-
-open import LTC-PCF.Data.Nat.Inequalities using ( _<_ ; LT ; NLT )
+open import LTC-PCF.Data.Nat.Inequalities
 
 ------------------------------------------------------------------------------
 

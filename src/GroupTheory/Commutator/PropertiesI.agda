@@ -5,11 +5,9 @@
 module GroupTheory.Commutator.PropertiesI where
 
 open import GroupTheory.Base
-
+open import GroupTheory.Commutator
+open import GroupTheory.PropertiesI
 open import GroupTheory.Relation.Binary.EqReasoning
-
-open import GroupTheory.Commutator using ( ⟦_,_⟧ )
-open import GroupTheory.PropertiesI using ( inverseDistribution )
 
 ------------------------------------------------------------------------------
 

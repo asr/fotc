@@ -9,7 +9,6 @@
 module FOTC.Program.ABP.ABP.ConsistencyTest where
 
 open import FOTC.Base
-
 open import FOTC.Program.ABP.ABP
 
 ------------------------------------------------------------------------------

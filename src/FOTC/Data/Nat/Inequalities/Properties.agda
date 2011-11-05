@@ -4,10 +4,9 @@
 
 module FOTC.Data.Nat.Inequalities.Properties where
 
+open import Common.Function
+
 open import FOTC.Base
-
-open import Common.Function using ( _$_ )
-
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
 

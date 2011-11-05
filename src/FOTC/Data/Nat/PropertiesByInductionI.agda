@@ -8,12 +8,10 @@
 
 module FOTC.Data.Nat.PropertiesByInductionI where
 
-open import FOTC.Base
-
 open import Common.Function
 
+open import FOTC.Base
 open import FOTC.Data.Nat
-
 open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------

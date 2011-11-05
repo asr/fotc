@@ -9,7 +9,6 @@
 module FOTC.Data.Bool.ConsistencyTest where
 
 open import FOTC.Base
-
 open import FOTC.Data.Bool
 
 ------------------------------------------------------------------------------

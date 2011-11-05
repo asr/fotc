@@ -5,7 +5,6 @@
 module PA.Axiomatic.PropertiesI where
 
 open import PA.Axiomatic.Base
-
 open import PA.Axiomatic.Relation.Binary.EqReasoning
 open import PA.Axiomatic.Relation.Binary.PropositionalEqualityI using ( sym )
 

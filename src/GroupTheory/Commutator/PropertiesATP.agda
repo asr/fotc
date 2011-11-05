@@ -5,8 +5,7 @@
 module GroupTheory.Commutator.PropertiesATP where
 
 open import GroupTheory.Base
-
-open import GroupTheory.Commutator using ( ⟦_,_⟧ ; ⟦⟧-assoc )
+open import GroupTheory.Commutator
 
 ------------------------------------------------------------------------------
 

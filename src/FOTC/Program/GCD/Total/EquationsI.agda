@@ -5,12 +5,9 @@
 module FOTC.Program.GCD.Total.EquationsI where
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
-
 open import FOTC.Program.GCD.Total.GCD
-
 open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------

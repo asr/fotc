@@ -4,18 +4,15 @@
 
 module LTC-PCF.Program.Division.IsCorrectI where
 
-open import LTC-PCF.Base
-
 open import Common.Function
 
+open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.PropertiesI
-
 open import LTC-PCF.Program.Division.Division
 open import LTC-PCF.Program.Division.EquationsI
 open import LTC-PCF.Program.Division.Specification
-
 open import LTC-PCF.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------

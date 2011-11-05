@@ -5,8 +5,7 @@
 module FOTC.Data.Stream.Equality.PropertiesI where
 
 open import FOTC.Base
-open import FOTC.Base.PropertiesI using ( ∷-injective )
-
+open import FOTC.Base.PropertiesI
 open import FOTC.Data.Stream.Equality
 
 ------------------------------------------------------------------------------

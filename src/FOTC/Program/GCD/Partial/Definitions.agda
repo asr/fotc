@@ -5,7 +5,6 @@
 module FOTC.Program.GCD.Partial.Definitions where
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat.Divisibility.NotBy0
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Type

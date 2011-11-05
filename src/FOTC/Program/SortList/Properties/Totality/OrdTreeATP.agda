@@ -4,49 +4,17 @@
 
 module FOTC.Program.SortList.Properties.Totality.OrdTreeATP where
 
+open import Common.Function
+
 open import FOTC.Base
-
-open import Common.Function using ( _$_ )
-
 open import FOTC.Data.Bool.PropertiesI
-  using ( &&-Bool
-        ; &&-proj₁
-        ; &&-proj₂
-        ; &&₃-proj₃
-        ; &&₃-proj₄
-        )
-open import FOTC.Data.Nat.Inequalities using ( GT ; LE )
+open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
-  using ( x<y→x≤y
-        ; x>y→x≰y
-        ; x>y∨x≤y
-        ; x≤x
-        )
 open import FOTC.Data.Nat.List.Type
-  using ( ListN ; consLN ; nilLN  -- The FOTC list of natural numbers type.
-        )
 open import FOTC.Data.Nat.Type
-  using ( N  -- The FOTC list of natural numbers type.
-        )
-
 open import FOTC.Program.SortList.SortList
-  using ( ≤-TreeItem-node
-        ; ≤-ItemTree-node
-        ; LE-ItemTree
-        ; LE-TreeItem
-        ; makeTree
-        ; nilTree ; node ; tip
-        ; ordTree ; OrdTree
-        ; toTree
-        ; Tree ; nilT ; nodeT ; tipT  -- The FOTC tree type.
-        )
 open import FOTC.Program.SortList.Properties.Totality.BoolATP
-  using ( ≤-ItemTree-Bool
-        ; ≤-TreeItem-Bool
-        ; ordTree-Bool
-        )
 open import FOTC.Program.SortList.Properties.Totality.TreeATP
-  using ( makeTree-Tree )
 
 ------------------------------------------------------------------------------
 -- Subtrees

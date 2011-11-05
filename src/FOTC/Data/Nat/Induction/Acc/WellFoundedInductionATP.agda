@@ -7,14 +7,12 @@
 
 module FOTC.Data.Nat.Induction.Acc.WellFoundedInductionATP where
 
-open import FOTC.Base
-
 open import Common.Function
 
+open import FOTC.Base
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.Type
-
 open import FOTC.Induction.WellFounded
 
 ------------------------------------------------------------------------------

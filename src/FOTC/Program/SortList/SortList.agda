@@ -11,13 +11,10 @@
 module FOTC.Program.SortList.SortList where
 
 open import FOTC.Base
-
-open import FOTC.Data.Bool using ( _&&_ )
-open import FOTC.Data.Nat.Inequalities using ( _≤_ )
+open import FOTC.Data.Bool
+open import FOTC.Data.List
+open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Type
-  using ( N  -- The FOTC natural numbers type.
-        )
-open import FOTC.Data.List using ( _++_ )
 
 ------------------------------------------------------------------------------
 -- Tree terms.

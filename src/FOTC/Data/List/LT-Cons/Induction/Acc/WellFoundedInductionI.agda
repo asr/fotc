@@ -5,17 +5,14 @@
 module FOTC.Data.List.LT-Cons.Induction.Acc.WellFoundedInductionI where
 
 open import FOTC.Base
-
 open import FOTC.Data.List
 open import FOTC.Data.List.LT-Cons
 open import FOTC.Data.List.LT-Cons.PropertiesI
 open import FOTC.Data.List.LT-Length
 open import FOTC.Data.List.LT-Length.Induction.Acc.WellFoundedInductionI
-
 open import FOTC.Induction.WellFounded
 
 -- Parametrized modules
-
 open module S = FOTC.Induction.WellFounded.Subrelation {List} LTC→LTL
 
 ------------------------------------------------------------------------------

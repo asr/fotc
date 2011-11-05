@@ -7,7 +7,6 @@
 module FOTC.Program.Collatz.Data.Nat where
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.UnaryNumbers

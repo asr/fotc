@@ -4,11 +4,10 @@
 
 module LTC-PCF.Program.GCD.Partial.IsDivisibleI where
 
-open import LTC-PCF.Base
-open import LTC-PCF.Base.Properties
-
 open import Common.Function
 
+open import LTC-PCF.Base
+open import LTC-PCF.Base.Properties
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesI
@@ -16,7 +15,6 @@ open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
 open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
 open import LTC-PCF.Data.Nat.PropertiesI
-
 open import LTC-PCF.Program.GCD.Partial.Definitions
 open import LTC-PCF.Program.GCD.Partial.GCD
 open import LTC-PCF.Program.GCD.Partial.EquationsI

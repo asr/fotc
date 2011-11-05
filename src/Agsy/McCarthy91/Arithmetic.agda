@@ -5,7 +5,6 @@
 module Agsy.McCarthy91.Arithmetic where
 
 open import Data.Nat
-
 open import Relation.Binary.PropositionalEquality
 
 ------------------------------------------------------------------------------

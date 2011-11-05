@@ -4,11 +4,10 @@
 
 module FOTC.Data.Nat.Divisibility.By0.Properties where
 
-open import FOTC.Base
-open import FOTC.Base.Properties
-
 open import Common.Function
 
+open import FOTC.Base
+open import FOTC.Base.Properties
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Divisibility.By0
 

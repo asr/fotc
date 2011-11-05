@@ -14,7 +14,6 @@
 module FOTC.Program.Division.Division where
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
 

@@ -5,7 +5,6 @@
 module FOTC.Data.Nat.Divisibility.By0 where
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat
 
 -- We add 3 to the fixities of the standard library.

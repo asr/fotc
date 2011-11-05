@@ -4,10 +4,9 @@
 
 module FOTC.Data.Nat.PropertiesATP where
 
-open import FOTC.Base
-
 open import Common.Function
 
+open import FOTC.Base
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.UnaryNumbers
 

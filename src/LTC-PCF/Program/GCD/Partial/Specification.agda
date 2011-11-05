@@ -3,9 +3,7 @@
 ------------------------------------------------------------------------------
 
 open import LTC-PCF.Base
-
 open import LTC-PCF.Data.Nat.Type
-
 open import LTC-PCF.Program.GCD.Partial.Definitions
 open import LTC-PCF.Program.GCD.Partial.GCD
 

@@ -5,7 +5,6 @@
 module FOTC.Program.McCarthy91.ArithmeticATP where
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesATP

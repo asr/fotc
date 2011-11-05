@@ -3,9 +3,7 @@
 ------------------------------------------------------------------------------
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat.Type
-
 open import FOTC.Program.GCD.Total.Definitions
 open import FOTC.Program.GCD.Total.GCD
 

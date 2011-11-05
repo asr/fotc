@@ -5,9 +5,7 @@
 module FOTC.Data.Stream.PropertiesI where
 
 open import FOTC.Base
-
 open import FOTC.Base.PropertiesI
-
 open import FOTC.Data.Stream
 open import FOTC.Data.Stream.Equality
 

@@ -5,7 +5,6 @@
 module FOTC.Data.Nat.UnaryNumbers.TotalityATP where
 
 open import FOTC.Base
-
 open import FOTC.Data.Nat.Type
 open import FOTC.Data.Nat.UnaryNumbers
 

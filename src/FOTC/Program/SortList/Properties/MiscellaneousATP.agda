@@ -4,35 +4,17 @@
 
 module FOTC.Program.SortList.Properties.MiscellaneousATP where
 
+open import Common.Function
+
 open import FOTC.Base
-
-open import Common.Function using ( _$_ )
-
 open import FOTC.Data.Bool
-  using ( _&&_
-        ; Bool -- The FOTC booleans type.
-        )
 open import FOTC.Data.Bool.PropertiesATP
-  using ( ≤-Bool
-        ; &&-proj₁
-        ; &&-proj₂
-        )
-
-open import FOTC.Data.Nat.Inequalities using ( _≤_ )
-open import FOTC.Data.Nat.List.PropertiesATP using ( ++-ListN )
+open import FOTC.Data.Nat.Inequalities
+open import FOTC.Data.Nat.List.PropertiesATP
 open import FOTC.Data.Nat.List.Type
-  using ( ListN ; consLN ; nilLN  -- The FOTC list of natural numbers type.
-        )
 open import FOTC.Data.Nat.Type
-  using ( N  -- The FOTC list of natural numbers type.
-        )
-open import FOTC.Data.List using ( _++_ ; ++-[] )
-
+open import FOTC.Data.List
 open import FOTC.Program.SortList.Properties.Totality.BoolATP
-  using ( ≤-ItemList-Bool
-        ; ≤-Lists-Bool
-        ; ordList-Bool
-        )
 open import FOTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------

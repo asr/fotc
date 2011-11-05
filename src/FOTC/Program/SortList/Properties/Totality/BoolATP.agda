@@ -4,21 +4,13 @@
 
 module FOTC.Program.SortList.Properties.Totality.BoolATP where
 
+open import Common.Function
+
 open import FOTC.Base
-
-open import Common.Function using ( _$_ )
-
-open import FOTC.Data.Bool.PropertiesATP using ( &&-Bool ; ≤-Bool )
+open import FOTC.Data.Bool.PropertiesATP
 open import FOTC.Data.Bool.Type
-  using ( Bool  -- The FOTC booleans type.
-        )
 open import FOTC.Data.Nat.List.Type
-  using ( ListN ; consLN ; nilLN  -- The FOTC list of natural numbers type.
-        )
 open import FOTC.Data.Nat.Type
-  using ( N  -- The FOTC natural numbers type.
-        )
-
 open import FOTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------
