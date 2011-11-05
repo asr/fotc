@@ -9,6 +9,8 @@ open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Inequalities
 
+open import LTC-PCF.Loop
+
 ------------------------------------------------------------------------------
 -- In GHC 7.0.3 the gcd is a partial function, i.e. gcd 0 0 = undefined.
 

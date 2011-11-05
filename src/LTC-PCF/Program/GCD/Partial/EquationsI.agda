@@ -10,6 +10,8 @@ open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
 
+open import LTC-PCF.Loop
+
 open import LTC-PCF.Program.GCD.Partial.GCD
 
 open import LTC-PCF.Relation.Binary.EqReasoning

@@ -351,6 +351,9 @@ open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
 open import LTC-PCF.Data.Nat.Rec.EquationsATP
 open import LTC-PCF.Data.Nat.Rec.EquationsI
 
+-- 1.2.8 A looping combinator
+open import LTC-PCF.Loop
+
 -- 1.3 Programs
 
 -- 1.3.1 The division algorithm: A non-structurally recursive algorithm

@@ -29,6 +29,8 @@ open import LTC-PCF.Data.Nat.Rec.EquationsATP
 open import LTC-PCF.Data.Nat.Rec.EquationsI
 open import LTC-PCF.Data.Nat.Type
 
+open import LTC-PCF.Loop
+
 open import LTC-PCF.Program.Division.Division
 open import LTC-PCF.Program.Division.EquationsATP
 open import LTC-PCF.Program.Division.EquationsI
