@@ -15,7 +15,7 @@ description:
   automatic theorem provers (ATPs), via the translation of the Agda
   formulae to the TPTP format which is a standard for input and output
   for the ATPs <http://www.cs.miami.edu/~tptp/>.
-tested-with:        GHC == 6.12.3, GHC == 7.2.1
+tested-with:        GHC == 6.12.3, GHC == 7.2.2
 extra-source-files: src/undefined.h
 
 source-repository head
@@ -68,7 +68,7 @@ executable agda2atp
   -- cabal-install version 0.10.2 using version 1.10.2.0 of the Cabal library
   extensions:     CPP
 
-  if impl(ghc >= 6.12) && impl(ghc < 7)
+  if impl(ghc == 6.12.3)
      ghc-options: -Wall
                   -fwarn-incomplete-record-updates
                   -fwarn-monomorphism-restriction
@@ -77,7 +77,7 @@ executable agda2atp
                   -fwarn-unused-do-bind
                   -Werror
 
-  if impl(ghc >= 7.2.1)
+  if impl(ghc == 7.2.1) || impl(ghc == 7.2.2)
      ghc-options: -Wall
                   -fwarn-identities
                   -fwarn-incomplete-record-updates
@@ -90,10 +90,10 @@ executable agda2atp
                   -fwarn-tabs
                   -fwarn-unused-do-bind
                   -fwarn-unrecognised-pragmas
-                  -- The Paths_agda2atp module, which is generated
-                  -- automatically by Cabal, gives rise to a warning
-                  -- under GHC 7.2.1 (at least when Cabal 1.10.2.0 is
-                  -- used), so we disable that warning.
+                  -- The Cabal-generated module Paths_Agda triggers a
+                  -- warning under GHC 7.2.1/7.2.2 (cabal-install version
+                  -- 0.10.2 using version 1.10.2.0 of the Cabal
+                  -- library), therefore we disable that warning.
                   -fno-warn-warnings-deprecations
                   -Werror
 
