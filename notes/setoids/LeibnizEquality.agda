@@ -1,4 +1,4 @@
--- Tested with Agda 2.2.11 on 03 October 2011.
+-- Tested with Agda 2.2.11 on 18 November 2011.
 
 module LeibnizEquality where
 
@@ -13,7 +13,7 @@ data _≡_ {A : Set}(x : A) : A → Set where
 --     Computer Science. Oxford University Press, 1994.
 
 -- (From Agda/examples/lib/Logic/Leibniz.agda)
-_≐_ : {A : Set} → A → A → Set1
+_≐_ : {A : Set} → A → A → Set₁
 x ≐ y = (P : _ → Set) → P x → P y
 
 -- Properties

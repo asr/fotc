@@ -1,4 +1,4 @@
--- Tested with Agda 2.2.11 on 03 October 2011.
+-- Tested with Agda 2.2.11 on 18 November 2011.
 
 module PolynomialFunctors where
 
@@ -18,7 +18,7 @@ data _⊕_ (A B : Set) : Set where
 data _×_ (A B : Set) : Set where
   _,_ : A → B → A × B
 
-data Functor : Set1 where
+data Functor : Set₁ where
   |Id|  : Functor
   |K|   : Set → Functor
   _|+|_ : Functor → Functor → Functor
