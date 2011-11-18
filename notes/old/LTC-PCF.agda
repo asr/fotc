@@ -1,11 +1,11 @@
-module LTC where
+module LTC-PCF where
 
 module Core where
 
 {-
-Agda as a logical framework for LTC
+Agda as a logical framework for LTC-PCF
 
-LTC                              Agda
+LTC-PCF                              Agda
 * Logical constants              * Curry-Howard isomorphism
 * Equality                       * Identity type
 * Term language                  * Postulates
@@ -107,18 +107,18 @@ postulate D : Set
 
 postulate
 
-  -- LTC booleans
+  -- LTC-PCF booleans
   true#          : D
   false#         : D
   if#_then_else_ : D -> D -> D -> D
 
-  -- LTC natural numbers
+  -- LTC-PCF natural numbers
   -- We will refer to these partial numbers as 'N#'
   zero# : D
   suc#  : D -> D
   rec#  : D -> D -> (D -> D -> D) -> D
 
-  -- LTC abstraction and application
+  -- LTC-PCF abstraction and application
   λ   : (D -> D) -> D
   -- Left associative aplication operator
   _`_ : D -> D -> D
@@ -160,19 +160,19 @@ N-ind P p0 h (N-suc Nn) = h Nn (N-ind P  p0  h Nn)
 
 
 
-module Recursive-Functions-LTC where
+module Recursive-Functions where
 
-  -- We define some primitive recursive functions via LTC terms
+  -- We define some primitive recursive functions via LTC-PCF terms
 
   open Core
 
   import Equality-Reasoning
-  open module ER-Recursive-Functions-LTC =
+  open module ER-Recursive-Functions =
               Equality-Reasoning (_==_ {D}) ==-refl ==-trans
 
    ------------------------------------------------------------------------
   -- Remark: We are using Agda's definitional equality '=' as
-  -- LTC's definitional equality
+  -- LTC-PCF's definitional equality
 
   -- Fixity declarations (precedence level and associativity)
   -- Agda default: infix 20

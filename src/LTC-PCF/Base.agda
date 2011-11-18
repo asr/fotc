@@ -33,10 +33,12 @@ open import Common.LogicalConstants public
 ------------------------------------------------------------------------------
 -- The term language of LTC-PCF correspond to the PCF terms.
 
---   t ::= x   | t · t | λ x.t
+--   t ::= x
+--      | t · t
+--      | λ x.t
+--      | fix x.t
 --      | true | false | if
 --      | zero | succ  | pred | iszero
---      | fix x.t
 
 -- NB. We define the PCF terms as constants. After that, we will
 -- define some function symbols based on these constants for
@@ -45,7 +47,7 @@ open import Common.LogicalConstants public
 postulate
   _·_                   : D → D → D    -- LTC-PCF application.
   lam                   : (D → D) → D  -- LTC-PCF abstraction.
-  fix                   : (D → D) → D  -- LTC fixed point operator.
+  fix                   : (D → D) → D  -- LTC-PCF fixed point operator.
   true false if         : D            -- LTC-PCF partial booleans.
   zero succ pred iszero : D            -- LTC-PCF partial natural numbers.
 
@@ -86,6 +88,14 @@ abstract
 -- conversion rules on the defined function symbols instead of on the
 -- PCF constants.
 
+-- Conversion rule for the abstraction and the application.
+postulate beta : (f : D → D)(a : D) → lam f · a ≡ f a
+{-# ATP axiom beta #-}
+
+-- Conversion rule for the fixed pointed operator.
+postulate fix-f : ∀ (f : D → D) → fix f ≡ f (fix f)
+{-# ATP axiom fix-f #-}
+
 -- Conversion rules for booleans.
 postulate
   -- if-true  : ∀ d₁ {d₂} → if · true  · d₁ · d₂ ≡ d₁
@@ -111,15 +121,6 @@ postulate
   iszero-0 :       iszero₁ zero      ≡ true
   iszero-S : ∀ d → iszero₁ (succ₁ d) ≡ false
 {-# ATP axiom iszero-0 iszero-S #-}
-
--- Conversion rule for the abstraction and the application.
-postulate beta : (f : D → D)(a : D) → lam f · a ≡ f a
-{-# ATP axiom beta #-}
-
--- Conversion rule for the fixed pointed operator.
-postulate
-  fix-f : ∀ (f : D → D) → fix f ≡ f (fix f)
-{-# ATP axiom fix-f #-}
 
 ------------------------------------------------------------------------------
 -- Discrimination rules
