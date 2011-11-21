@@ -3,7 +3,7 @@ module Equality where
 postulate
   D     : Set
   _≡_   : D → D → Set
-  refl  : ∀ d → d ≡ d
+  refl  : ∀ x → x ≡ x
   subst : ∀ (P : D → Set) {x y} → x ≡ y → P x → P y
 
 sym : ∀ {x y} → x ≡ y → y ≡ x
