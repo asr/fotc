@@ -29,10 +29,10 @@ data _∧_ (A B : Set) : Set where
 
 -- The existential quantifier type on D.
 data ∃ (P : D → Set) : Set where
-  _,_ : (witness : D) → P witness → ∃ P
+  _,_ : (d : D) → P d → ∃ P
 
 ∃-proj₁ : ∀ {P} → ∃ P → D
-∃-proj₁ (x , _) = x
+∃-proj₁ (d , _) = d
 
-∃-proj₂ : ∀ {P}(∃p : ∃ P) → P (∃-proj₁ ∃p)
-∃-proj₂ (_ , px) = px
+∃-proj₂ : ∀ {P}(p : ∃ P) → P (∃-proj₁ p)
+∃-proj₂ (_ , Pd) = Pd

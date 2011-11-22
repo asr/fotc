@@ -3,8 +3,8 @@ module Equality where
 postulate
   D     : Set
   _≡_   : D → D → Set
-  refl  : ∀ x → x ≡ x
-  subst : ∀ (P : D → Set) {x y} → x ≡ y → P x → P y
+  refl  : (x : D) → x ≡ x
+  subst : (P : D → Set) {x y : D} → x ≡ y → P x → P y
 
 sym : ∀ {x y} → x ≡ y → y ≡ x
 sym {x} h = subst (λ t → t ≡ x) h (refl x)
