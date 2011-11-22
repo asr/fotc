@@ -15,7 +15,7 @@ open import FOTC.Program.Collatz.EquationsATP
 
 ------------------------------------------------------------------------------
 
-collatz-2^x : ∀ {n} → N n → ∃ (λ k → N k ∧ n ≡ two ^ k) → collatz n ≡ one
+collatz-2^x : ∀ {n} → N n → (∃ λ k → N k ∧ n ≡ two ^ k) → collatz n ≡ one
 collatz-2^x zN _ = collatz-0
 
 collatz-2^x (sN {n} Nn) (.zero , zN , Sn≡2^0) = prf

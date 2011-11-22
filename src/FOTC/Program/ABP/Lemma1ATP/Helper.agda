@@ -56,8 +56,8 @@ helper : ∀ {b i' is' os₀ os₁ as bs cs ds js} →
 helper {b} {i'} {is'} {js = js} Bb Fos₁ h nilO*L Fos₀' os₀-eq = prf
   where
   postulate
-    prf : ∃ (λ os₀' → ∃ (λ os₁' →
-          ∃ (λ as' → ∃ (λ bs' → ∃ (λ cs' → ∃ (λ ds' → ∃ (λ js' →
+    prf : ∃ λ os₀' → ∃ λ os₁' →
+          ∃ λ as' → ∃ λ bs' → ∃ λ cs' → ∃ λ ds' → ∃ λ js' →
           Fair os₀'
           ∧ Fair os₁'
           ∧ (ds' ≡ corrupt · os₁' · (b ∷ cs')
@@ -65,7 +65,7 @@ helper {b} {i'} {is'} {js = js} Bb Fos₁ h nilO*L Fos₀' os₀-eq = prf
              ∧ bs' ≡ corrupt · os₀' · as'
              ∧ cs' ≡ abpack · (not b) · bs'
              ∧ js' ≡ abpout · (not b) · bs')
-             ∧ js ≡ i' ∷ js')))))))
+          ∧ js ≡ i' ∷ js'
   {-# ATP prove prf #-}
 
 helper {b} {i'} {is'} {os₀} {os₁} {as} {bs} {cs} {ds} {js}
