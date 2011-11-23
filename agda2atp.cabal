@@ -1,5 +1,5 @@
 name:               agda2atp
-version:            2.2.11.1
+version:            2.3.1.1
 build-type:         Simple
 cabal-version:      >= 1.8 && < 2
 author:             Andrés Sicard-Ramírez
@@ -26,7 +26,7 @@ executable agda2atp
   main-is:        Main.hs
   hs-source-dirs: src
 
-  build-depends:  Agda         == 2.2.11.1
+  build-depends:  Agda         == 2.3.1.1
                   , base       >= 4.2     && < 4.5
                   , Diff       >= 0.1.2   && < 0.2
                   , containers >= 0.3     && < 0.5
