@@ -1,3 +1,5 @@
+-- Tested with FOTC on 29 November 2011.
+
 module Draft.FOTC.Data.Nat.AddTotality where
 
 open import FOTC.Base
@@ -15,13 +17,13 @@ open import FOTC.Data.Nat
     P0 : P zero
     P0 = subst N (sym (+-0x n)) Nn
 
-    ih : ∀ {i} → N i → P i → P (succ i)
-    ih {i} Ni Pi = subst N (sym (+-Sx i n)) (sN Pi)
+    ih : ∀ {i} → P i → P (succ₁ i)
+    ih {i} Pi = subst N (sym (+-Sx i n)) (sN Pi)
 
 -- Combined proof using an instance of the induction principle.
 indN-instance : ∀ x →
                 N (zero + x) →
-                (∀ {n} → N n → N (n + x) → N (succ n + x)) →
+                (∀ {n} → N (n + x) → N (succ₁ n + x)) →
                 ∀ {n} → N n → N (n + x)
 indN-instance x = indN (λ i → N (i + x))
 
@@ -41,4 +43,4 @@ postulate
 postulate
   +-N₂ : ∀ {m n} → N m → N n → N (m + n)
 -- The ATPs could not prove this postulate.
-{-# ATP prove +-N₂ indN #-}
+-- {-# ATP prove +-N₂ indN #-}
