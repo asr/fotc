@@ -44,23 +44,24 @@ module README where
 open import Common.LogicalConstants
 open import PredicateLogic.Constants
 
--- 1.2 The law of the excluded middle
-open import PredicateLogic.ClassicalATP
+-- 1.2 Propositional logic theorems
+open import PredicateLogic.Propositional.TheoremsATP
+open import PredicateLogic.Propositional.TheoremsI
 
--- 1.3 Non-empty domains
-open import PredicateLogic.NonEmptyDomain.TheoremsATP
-open import PredicateLogic.NonEmptyDomain.TheoremsI
+-- 1.3 Predicate logic theorems
+open import PredicateLogic.TheoremsATP
+open import PredicateLogic.TheoremsI
 
 -- 1.4 Logical schemas
 open import PredicateLogic.SchemasATP
 
--- 1.5 Propositional logic theorems
-open import PredicateLogic.Propositional.TheoremsATP
-open import PredicateLogic.Propositional.TheoremsI
+-- 1.5 Non-empty domains
+open import PredicateLogic.NonEmptyDomain.TheoremsATP
+open import PredicateLogic.NonEmptyDomain.TheoremsI
 
--- 1.6 Predicate logic theorems
-open import PredicateLogic.TheoremsATP
-open import PredicateLogic.TheoremsI
+-- 1.6 Classical predicate logic theorems
+open import PredicateLogic.ClassicalATP
+open import PredicateLogic.ClassicalI
 
 ------------------------------------------------------------------------------
 -- 2. Equality

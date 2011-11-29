@@ -2,10 +2,10 @@
 -- Classical logic theorems
 ------------------------------------------------------------------------------
 
--- The ATPs work in classical logic, therefore we also can prove some
--- classical logic theorems.
+-- The ATPs work in classical logic, therefore we add the principle of
+-- the exclude middle for prove some classical logic theorems.
 
-module PredicateLogic.ClassicalATP where
+module PredicateLogic.ClassicalI where
 
 open import PredicateLogic.Constants
 
@@ -16,10 +16,10 @@ postulate pem : ∀ {P} → P ∨ ¬ P
 {-# ATP prove pem #-}
 
 -- The principle of indirect proof (proof by contradiction).
-postulate ¬E : ∀ {P} → (¬ P → ⊥) → P
-{-# ATP prove ¬E #-}
+¬E : ∀ {P} → (¬ P → ⊥) → P
+¬E h = [ (λ p → p) , (λ ¬p → ⊥-elim (h ¬p)) ] pem
 
 -- The reductio ab absurdum rule. (Some authors uses this name for the
 -- principle of indirect proof).
-postulate raa : ∀ {P} → (¬ P → P) → P
-{-# ATP prove raa #-}
+raa : ∀ {P} → (¬ P → P) → P
+raa h = [ (λ p → p) , h ] pem

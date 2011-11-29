@@ -5,6 +5,7 @@
 module PredicateLogic.Everything where
 
 open import PredicateLogic.ClassicalATP
+open import PredicateLogic.ClassicalI
 open import PredicateLogic.Constants
 open import PredicateLogic.NonEmptyDomain
 open import PredicateLogic.NonEmptyDomain.TheoremsATP
