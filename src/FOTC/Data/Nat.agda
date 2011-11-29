@@ -21,21 +21,17 @@ postulate
   _+_  : D → D → D
   +-0x : ∀ d →   zero    + d ≡ d
   +-Sx : ∀ d e → succ₁ d + e ≡ succ₁ (d + e)
-{-# ATP axiom +-0x #-}
-{-# ATP axiom +-Sx #-}
+{-# ATP axiom +-0x +-Sx #-}
 
 postulate
   _∸_  : D → D → D
   ∸-x0 : ∀ d →   d       ∸ zero    ≡ d
   ∸-0S : ∀ d →   zero    ∸ succ₁ d ≡ zero
   ∸-SS : ∀ d e → succ₁ d ∸ succ₁ e ≡ d ∸ e
-{-# ATP axiom ∸-x0 #-}
-{-# ATP axiom ∸-0S #-}
-{-# ATP axiom ∸-SS #-}
+{-# ATP axiom ∸-x0 ∸-0S ∸-SS #-}
 
 postulate
   _*_  : D → D → D
   *-0x : ∀ d →   zero    * d ≡ zero
   *-Sx : ∀ d e → succ₁ d * e ≡ e + d * e
-{-# ATP axiom *-0x #-}
-{-# ATP axiom *-Sx #-}
+{-# ATP axiom *-0x *-Sx #-}

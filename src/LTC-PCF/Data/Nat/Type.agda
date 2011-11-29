@@ -14,8 +14,7 @@ open import LTC-PCF.Base
 data N : D → Set where
   zN :               N zero
   sN : ∀ {n} → N n → N (succ₁ n)
-{-# ATP axiom zN #-}
-{-# ATP axiom sN #-}
+{-# ATP axiom zN sN #-}
 
 -- Induction principle for N (elimination rule).
 indN : (P : D → Set) →

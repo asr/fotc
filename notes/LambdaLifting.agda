@@ -32,8 +32,7 @@ data _≡_ (x : D) : D → Set where
 postulate
   if-true  : ∀ d₁ {d₂} → if true then d₁ else d₂  ≡ d₁
   if-false : ∀ {d₁} d₂ → if false then d₁ else d₂ ≡ d₂
-{-# ATP axiom if-true #-}
-{-# ATP axiom if-false #-}
+{-# ATP axiom if-true if-false #-}
 
 -- Conversion rules for pred.
 postulate
@@ -46,8 +45,7 @@ postulate
 postulate
   isZero-0 :       isZero zero     ≡ true
   isZero-S : ∀ d → isZero (succ d) ≡ false
-{-# ATP axiom isZero-0 #-}
-{-# ATP axiom isZero-S #-}
+{-# ATP axiom isZero-0 isZero-S #-}
 
 -- Conversion rule for the abstraction and the application.
 postulate beta : (f : D → D)(a : D) → lam f · a ≡ f a
@@ -61,15 +59,13 @@ postulate
   _+_  : D → D → D
   +-0x : ∀ d →   zero   + d ≡ d
   +-Sx : ∀ d e → succ d + e ≡ succ (d + e)
-{-# ATP axiom +-0x #-}
-{-# ATP axiom +-Sx #-}
+{-# ATP axiom +-0x +-Sx #-}
 
 postulate
   _*_  : D → D → D
   *-0x : ∀ d →   zero   * d ≡ zero
   *-Sx : ∀ d e → succ d * e ≡ e + d * e
-{-# ATP axiom *-0x #-}
-{-# ATP axiom *-Sx #-}
+{-# ATP axiom *-0x *-Sx #-}
 
 ------------------------------------------------------------------------------
 -- The original fach

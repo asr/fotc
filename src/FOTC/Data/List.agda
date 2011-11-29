@@ -20,15 +20,13 @@ postulate
   length    : D → D
   length-[] :          length []       ≡ zero
   length-∷  : ∀ d ds → length (d ∷ ds) ≡ succ₁ (length ds)
-{-# ATP axiom length-[] #-}
-{-# ATP axiom length-∷ #-}
+{-# ATP axiom length-[] length-∷ #-}
 
 postulate
   _++_  : D → D → D
   ++-[] : ∀ ds →      []       ++ ds ≡ ds
   ++-∷  : ∀ d ds es → (d ∷ ds) ++ es ≡ d ∷ (ds ++ es)
-{-# ATP axiom ++-[] #-}
-{-# ATP axiom ++-∷ #-}
+{-# ATP axiom ++-[] ++-∷ #-}
 
 -- List transformations
 
@@ -37,15 +35,13 @@ postulate
   map    : D → D → D
   map-[] : ∀ f →      map f []       ≡ []
   map-∷  : ∀ f d ds → map f (d ∷ ds) ≡ f · d ∷ map f ds
-{-# ATP axiom map-[] #-}
-{-# ATP axiom map-∷ #-}
+{-# ATP axiom map-[] map-∷ #-}
 
 postulate
   rev    : D → D → D
   rev-[] : ∀ es →      rev []       es ≡ es
   rev-∷  : ∀ d ds es → rev (d ∷ ds) es ≡ rev ds (d ∷ es)
-{-# ATP axiom rev-[] #-}
-{-# ATP axiom rev-∷ #-}
+{-# ATP axiom rev-[] rev-∷ #-}
 
 reverse : D → D
 reverse ds = rev ds []
@@ -55,8 +51,7 @@ postulate
   replicate   : D → D → D
   replicate-0 : ∀ d →   replicate zero     d  ≡ []
   replicate-S : ∀ d e → replicate (succ₁ e) d ≡ d ∷ replicate e d
-{-# ATP axiom replicate-0 #-}
-{-# ATP axiom replicate-S #-}
+{-# ATP axiom replicate-0 replicate-S #-}
 
 -- Reducing lists
 
@@ -65,8 +60,7 @@ postulate
   foldr    : D → D → D → D
   foldr-[] : ∀ f n  →     foldr f n []       ≡ n
   foldr-∷  : ∀ f n d ds → foldr f n (d ∷ ds) ≡ f · d · (foldr f n ds)
-{-# ATP axiom foldr-[] #-}
-{-# ATP axiom foldr-∷ #-}
+{-# ATP axiom foldr-[] foldr-∷ #-}
 
 -- Building lists
 

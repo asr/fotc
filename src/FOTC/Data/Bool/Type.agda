@@ -13,8 +13,7 @@ open import FOTC.Base
 data Bool : D → Set where
   tB : Bool true
   fB : Bool false
-{-# ATP axiom tB #-}
-{-# ATP axiom fB #-}
+{-# ATP axiom tB fB #-}
 
 -- The rule of proof by case analysis on Bool.
 indBool : (P : D → Set) → P true → P false → ∀ {b} → Bool b → P b

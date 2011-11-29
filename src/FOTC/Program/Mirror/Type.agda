@@ -22,9 +22,7 @@ mutual
   data Tree : D → Set where
     treeT : ∀ d {ts} → Forest ts → Tree (node d ts)
 
-{-# ATP axiom nilF #-}
-{-# ATP axiom consF #-}
-{-# ATP axiom treeT #-}
+{-# ATP axiom nilF consF treeT #-}
 
 ------------------------------------------------------------------------------
 -- From Coq'Art: These induction principles *not cover* the mutual

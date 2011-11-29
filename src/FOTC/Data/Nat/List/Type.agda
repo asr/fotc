@@ -12,5 +12,4 @@ open import FOTC.Data.Nat.Type
 data ListN : D → Set where
   nilLN  :                             ListN []
   consLN : ∀ {n ns} → N n → ListN ns → ListN (n ∷ ns)
-{-# ATP axiom nilLN #-}
-{-# ATP axiom consLN #-}
+{-# ATP axiom nilLN consLN #-}

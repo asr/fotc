@@ -40,10 +40,7 @@ postulate
 
   await-error  : ∀ b i is ds →
                  await b i is (error ∷ ds) ≡ < i , b > ∷ await b i is ds
-
-{-# ATP axiom await-ok≡ #-}
-{-# ATP axiom await-ok≠ #-}
-{-# ATP axiom await-error #-}
+{-# ATP axiom await-ok≡ await-ok≠ await-error #-}
 
 postulate
   abpack-ok≡   : ∀ b b₀ i bs →
@@ -55,10 +52,7 @@ postulate
                  abpack · b · (ok < i , b₀ > ∷ bs) ≡ not b ∷ abpack · b · bs
 
   abpack-error : ∀ b bs → abpack · b · (error ∷ bs) ≡ not b ∷ abpack · b · bs
-
-{-# ATP axiom abpack-ok≡ #-}
-{-# ATP axiom abpack-ok≠ #-}
-{-# ATP axiom abpack-error #-}
+{-# ATP axiom abpack-ok≡ abpack-ok≠ abpack-error #-}
 
 postulate
   abpout-ok≡   : ∀ b b₀ i bs →
@@ -70,18 +64,14 @@ postulate
                  abpout · b · (ok < i , b₀ > ∷ bs) ≡ abpout · b · bs
 
   abpout-error : ∀ b bs → abpout · b · (error ∷ bs) ≡ abpout · b · bs
-
-{-# ATP axiom abpout-ok≡ #-}
-{-# ATP axiom abpout-ok≠ #-}
-{-# ATP axiom abpout-error #-}
+{-# ATP axiom abpout-ok≡ abpout-ok≠ abpout-error #-}
 
 postulate
   corrupt-L    : ∀ os x xs →
                  corrupt · (L ∷ os) · (x ∷ xs) ≡ ok x ∷ corrupt · os · xs
   corrupt-O    : ∀ os x xs →
                  corrupt · (O ∷ os) · (x ∷ xs) ≡ error ∷ corrupt · os · xs
-{-# ATP axiom corrupt-L #-}
-{-# ATP axiom corrupt-O #-}
+{-# ATP axiom corrupt-L corrupt-O #-}
 
 postulate
   has hbs hcs hds : D → D → D → D → D → D → D

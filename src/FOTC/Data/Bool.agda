@@ -23,10 +23,7 @@ postulate
   &&-tf : true  && false ≡ false
   &&-ft : false && true  ≡ false
   &&-ff : false && false ≡ false
-{-# ATP axiom &&-tt #-}
-{-# ATP axiom &&-tf #-}
-{-# ATP axiom &&-ft #-}
-{-# ATP axiom &&-ff #-}
+{-# ATP axiom &&-tt &&-tf &&-ft &&-ff #-}
 
 -- The negation.
 postulate

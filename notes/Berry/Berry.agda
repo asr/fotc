@@ -36,9 +36,7 @@ postulate
   f-eq₁ : ∀ x → f zero        (succ zero) x           ≡ succ zero
   f-eq₂ : ∀ x → f (succ zero) x           zero        ≡ succ (succ zero)
   f-eq₃ : ∀ x → f x           zero        (succ zero) ≡ succ (succ (succ zero))
-{-# ATP axiom f-eq₁ #-}
-{-# ATP axiom f-eq₂ #-}
-{-# ATP axiom f-eq₃ #-}
+{-# ATP axiom f-eq₁ f-eq₂ f-eq₃ #-}
 
 -- is not correct, because using the Haskell equations we have
 --

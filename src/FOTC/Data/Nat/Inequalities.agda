@@ -14,11 +14,7 @@ postulate
   <-0S : ∀ d →   zero   < succ₁ d  ≡ true
   <-S0 : ∀ d →   succ₁ d < zero    ≡ false
   <-SS : ∀ d e → succ₁ d < succ₁ e ≡ d < e
-
-{-# ATP axiom <-00 #-}
-{-# ATP axiom <-0S #-}
-{-# ATP axiom <-S0 #-}
-{-# ATP axiom <-SS #-}
+{-# ATP axiom <-00 <-0S <-S0 <-SS #-}
 
 _≤_ : D → D → D
 d ≤ e = d < succ₁ e

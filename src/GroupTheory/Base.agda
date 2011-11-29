@@ -32,8 +32,4 @@ postulate
   rightIdentity : ∀ x     →     x · ε    ≡ x
   leftInverse   : ∀ x     →  x ⁻¹ · x    ≡ ε
   rightInverse  : ∀ x     →  x    · x ⁻¹ ≡ ε
-{-# ATP axiom assoc #-}
-{-# ATP axiom leftIdentity #-}
-{-# ATP axiom rightIdentity #-}
-{-# ATP axiom leftInverse #-}
-{-# ATP axiom rightInverse #-}
+{-# ATP axiom assoc leftIdentity rightIdentity leftInverse rightInverse #-}

@@ -44,29 +44,16 @@ postulate _≣_ : ℕ → ℕ → Set
 -- S₈. succ m * n = (m * n) + m
 -- S₉. P(0) → (∀n.P(n) → P(succ n)) → ∀n.P(n), for any wf P(n) of PA.
 
-postulate S₁ : ∀ {m n o} → m ≣ n → m ≣ o → n ≣ o
-{-# ATP axiom S₁ #-}
-
-postulate S₂ : ∀ {m n} → m ≣ n → succ m ≣ succ n
-{-# ATP axiom S₂ #-}
-
-postulate S₃ : ∀ {n} → ¬ (zero ≣ succ n)
-{-# ATP axiom S₃ #-}
-
-postulate S₄ : ∀ {m n} → succ m ≣ succ n → m ≣ n
-{-# ATP axiom S₄ #-}
-
 postulate
-  S₅ : ∀ n →   zero   + n ≣ n
+  S₁ : ∀ {m n o} → m ≣ n → m ≣ o → n ≣ o
+  S₂ : ∀ {m n} → m ≣ n → succ m ≣ succ n
+  S₃ : ∀ {n} → ¬ (zero ≣ succ n)
+  S₄ : ∀ {m n} → succ m ≣ succ n → m ≣ n
+  S₅ : ∀ n → zero + n ≣ n
   S₆ : ∀ m n → succ m + n ≣ succ (m + n)
-{-# ATP axiom S₅ #-}
-{-# ATP axiom S₆ #-}
-
-postulate
-  S₇ : ∀ n →   zero   * n ≣ zero
+  S₇ : ∀ n → zero   * n ≣ zero
   S₈ : ∀ m n → succ m * n ≣ n + m * n
-{-# ATP axiom S₇ #-}
-{-# ATP axiom S₈ #-}
+{-# ATP axiom S₁ S₂ S₃ S₄ S₅ S₆ S₇ S₈ #-}
 
 -- The axiom S₉ is a higher-order one, therefore we do not translate
 -- it as an ATP axiom.

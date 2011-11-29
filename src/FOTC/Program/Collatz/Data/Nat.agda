@@ -20,15 +20,13 @@ postulate
   _/_   : D → D → D
   /-x<y : ∀ {m n} → LT m n → m / n ≡ zero
   /-x≥y : ∀ {m n} → GE m n → m / n ≡ succ₁ ((m ∸ n) / n)
-{-# ATP axiom /-x<y #-}
-{-# ATP axiom /-x≥y #-}
+{-# ATP axiom /-x<y /-x≥y #-}
 
 postulate
   _^_ : D → D → D
   ^-0 : ∀ n →   n ^ zero    ≡ one
   ^-S : ∀ m n → m ^ succ₁ n ≡ m * m ^ n
-{-# ATP axiom ^-0 #-}
-{-# ATP axiom ^-S #-}
+{-# ATP axiom ^-0  ^-S #-}
 
 postulate
   even : D → D
@@ -39,10 +37,7 @@ postulate
 
   odd-0 :       odd zero      ≡ false
   odd-S : ∀ d → odd (succ₁ d) ≡ even d
-{-# ATP axiom even-0 #-}
-{-# ATP axiom even-S #-}
-{-# ATP axiom odd-0 #-}
-{-# ATP axiom odd-S #-}
+{-# ATP axiom even-0 even-S odd-0 odd-S #-}
 
 Even : D → Set
 Even n = even n ≡ true
