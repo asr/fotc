@@ -1,11 +1,12 @@
 -- Tested with the development version of the standard library on
--- 02 May 2011.
+-- 29 November 2011.
 
 module PropertiesListSL where
 
 open import Algebra
 open import Data.List as List hiding ( reverse )
 open import Data.List.Properties hiding ( reverse-++-commute )
+open import Data.Product hiding (map)
 
 open import Relation.Binary.PropositionalEquality
 open ≡-Reasoning
@@ -19,8 +20,7 @@ reverse []       = []
 reverse (x ∷ xs) = reverse xs ++ x ∷ []
 
 ++-rightIdentity : {A : Set}(xs : List A) → xs ++ [] ≡ xs
-++-rightIdentity []       = refl
-++-rightIdentity (x ∷ xs) = cong (_∷_ x) (++-rightIdentity xs)
+++-rightIdentity = proj₂ LM.identity
 
 reverse-++-commute : {A : Set}(xs ys : List A) →
                      reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
