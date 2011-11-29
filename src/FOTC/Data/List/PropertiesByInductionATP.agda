@@ -21,6 +21,6 @@ open import FOTC.Data.List
   -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove p[] #-}
 
-  postulate is : ∀ d {ds} → List ds → P ds → P (d ∷ ds)
+  postulate is : ∀ d {ds} → P ds → P (d ∷ ds)
   -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove is #-}

@@ -18,7 +18,7 @@ data List : D → Set where
 -- Induction principle for List.
 indList : (P : D → Set) →
           P [] →
-          (∀ x {xs} → List xs → P xs → P (x ∷ xs)) →
+          (∀ x {xs} → P xs → P (x ∷ xs)) →
           ∀ {xs} → List xs → P xs
 indList P P[] is nilL          = P[]
-indList P P[] is (consL x Lxs) = is x Lxs (indList P P[] is Lxs)
+indList P P[] is (consL x Lxs) = is x (indList P P[] is Lxs)
