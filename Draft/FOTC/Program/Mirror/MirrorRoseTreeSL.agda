@@ -1,7 +1,7 @@
--- Tested with the development version of the standard library on
--- 02 May 2011.
+-- Tested with the development versions of Agda and the standard library on
+-- 29 November 2011.
 
-module PropertiesNonListSL where
+module MirrorRoseTreeSL where
 
 open import Relation.Binary.PropositionalEquality
 open ≡-Reasoning

@@ -1,7 +1,7 @@
--- Tested with the development version of the standard library on
+-- Tested with the development versions of Agda and the standard library on
 -- 29 November 2011.
 
-module PropertiesListSL where
+module MirrorListSL where
 
 open import Algebra
 open import Data.List as List hiding ( reverse )
