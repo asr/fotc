@@ -10,8 +10,8 @@ open import FOTC.Base
 
 postulate
   _<_  : D → D → D
-  <-00 :         zero   < zero     ≡ false
-  <-0S : ∀ d →   zero   < succ₁ d  ≡ true
+  <-00 :         zero    < zero    ≡ false
+  <-0S : ∀ d →   zero    < succ₁ d ≡ true
   <-S0 : ∀ d →   succ₁ d < zero    ≡ false
   <-SS : ∀ d e → succ₁ d < succ₁ e ≡ d < e
 {-# ATP axiom <-00 <-0S <-S0 <-SS #-}
