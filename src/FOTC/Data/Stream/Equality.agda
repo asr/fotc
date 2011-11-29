@@ -21,8 +21,7 @@ postulate
 -- (see below).
 postulate
   ≈-gfp₁ : ∀ {xs ys} → xs ≈ ys →
-           ∃ λ x' → ∃ λ xs' → ∃ λ ys' →
-           xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+           ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 {-# ATP axiom ≈-gfp₁ #-}
 
 -- N.B. This is a second-order axiom. In the automatic proofs, we
@@ -32,7 +31,7 @@ postulate
   ≈-gfp₂ : (_R_ : D → D → Set) →
            -- R is a post-fixed point of the bisimulation functional.
            (∀ {xs ys} → xs R ys →
-            ∃ λ x' → ∃ λ xs' → ∃ λ ys' →
+            ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
             xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
            -- _≈_ is greater than R.
            ∀ {xs ys} → xs R ys → xs ≈ ys
@@ -41,18 +40,16 @@ postulate
 -- _≈_ is also a pre-fixed point of the bisimulation functional (see
 -- below).
 ≈-gfp₃ : ∀ {xs ys} →
-         (∃ λ x' → ∃ λ xs' → ∃ λ ys' →
+         (∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
           xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
          xs ≈ ys
 ≈-gfp₃ h = ≈-gfp₂ _R_ helper h
   where
   _R_ : D → D → Set
-  _R_ xs ys = ∃ λ x' → ∃ λ xs' → ∃ λ ys' →
-            xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+  _R_ xs ys = ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 
   helper : ∀ {xs ys} → xs R ys →
-           ∃ λ x' → ∃ λ xs' → ∃ λ ys' →
-           xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+           ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
   helper (x' , xs' , ys' , xs'≈ys' , prf) =
     x' , xs' , ys' , (≈-gfp₁ xs'≈ys') , prf
 
@@ -75,7 +72,7 @@ module Bisimulation where
   -- 62:222–259, 1997).
   Bisimulation : (D → D → Set) → D → D → Set
   Bisimulation _R_ xs ys =
-    ∃ λ x' → ∃ λ xs' → ∃ λ ys' → xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+    ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 
   -- The relation _≈_ is the greatest post-fixed point of
   -- Bisimulation (by post-fp and gpfp).

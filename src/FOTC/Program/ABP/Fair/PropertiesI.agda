@@ -69,7 +69,7 @@ head-tail-Fair-helper {os} {os' = os'} (consO*L ol OLol) h = inj₂ prf₃
 head-tail-Fair : ∀ {os} → Fair os → os ≡ L ∷ tail₁ os ∨ os ≡ O ∷ tail₁ os
 head-tail-Fair {os} Fos = head-tail-Fair-helper OLol os≡ol++os'
   where
-  unfold-os : ∃ λ ol → ∃ λ os' → O*L ol ∧ Fair os' ∧ os ≡ ol ++ os'
+  unfold-os : ∃[ ol ] ∃[ os' ] O*L ol ∧ Fair os' ∧ os ≡ ol ++ os'
   unfold-os = Fair-gfp₁ Fos
 
   ol : D
@@ -127,7 +127,7 @@ tail-Fair-helper {os} {os' = os'} (consO*L ol OLol) h Fos' =
 tail-Fair : ∀ {os} → Fair os → Fair (tail₁ os)
 tail-Fair {os} Fos = tail-Fair-helper OLol os≡ol++os' Fos'
   where
-  unfold-os : ∃ λ ol → ∃ λ os' → O*L ol ∧ Fair os' ∧ os ≡ ol ++ os'
+  unfold-os : ∃[ ol ] ∃[ os' ] O*L ol ∧ Fair os' ∧ os ≡ ol ++ os'
   unfold-os = Fair-gfp₁ Fos
 
   ol : D

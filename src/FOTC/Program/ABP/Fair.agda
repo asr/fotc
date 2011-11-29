@@ -28,7 +28,7 @@ postulate Fair : D → Set
 -- Fair is post-fixed point of FairF (d ≤ f d).
 postulate
   Fair-gfp₁ : ∀ {os} → Fair os →
-              ∃ λ ol → ∃ λ os' → O*L ol ∧ Fair os' ∧ os ≡ ol ++ os'
+              ∃[ ol ] ∃[ os' ] O*L ol ∧ Fair os' ∧ os ≡ ol ++ os'
 {-# ATP axiom Fair-gfp₁ #-}
 
 -- ∀ e. e ≤ f e => e ≤ d.
@@ -40,19 +40,19 @@ postulate
   Fair-gfp₂ : (P : D → Set) →
               -- P is post-fixed point of FairF.
               (∀ {os} → P os →
-               ∃ λ ol → ∃ λ os' → O*L ol ∧ P os' ∧ os ≡ ol ++ os') →
+               ∃[ ol ] ∃[ os' ] O*L ol ∧ P os' ∧ os ≡ ol ++ os') →
               -- Fair is greater than P.
               ∀ {os} → P os → Fair os
 
 -- Because a greatest post-fixed point is a fixed point, then the Fair
 -- predicate is also a pre-fixed point of the functor FairF (f d ≤ d).
 Fair-gfp₃ : ∀ {os} →
-            (∃ λ ol → ∃ λ os' → O*L ol ∧ Fair os' ∧ os ≡ ol ++ os') →
+            (∃[ ol ] ∃[ os' ] O*L ol ∧ Fair os' ∧ os ≡ ol ++ os') →
             Fair os
 Fair-gfp₃ h = Fair-gfp₂ P helper h
   where
   P : D → Set
-  P ws = ∃ λ wl → ∃ λ ws' → O*L wl ∧ Fair ws' ∧ ws ≡ wl ++ ws'
+  P ws = ∃[ wl ] ∃[ ws' ] O*L wl ∧ Fair ws' ∧ ws ≡ wl ++ ws'
 
-  helper : {os : D} → P os → ∃ λ ol → ∃ λ os' → O*L ol ∧ P os' ∧ os ≡ ol ++ os'
+  helper : {os : D} → P os → ∃[ ol ] ∃[ os' ] O*L ol ∧ P os' ∧ os ≡ ol ++ os'
   helper (ol , os' , OLol , Fos' , h) = ol , os' , OLol , Fair-gfp₁ Fos' , h

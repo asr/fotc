@@ -14,7 +14,7 @@ open import FOTC.Data.Stream.Equality
 tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 tailS {x} {xs} h = subst Stream (sym (∧-proj₂ (∷-injective x∷xs≡e∷es))) Ses
   where
-  unfold : ∃ λ e → ∃ λ es → Stream es ∧ x ∷ xs ≡ e ∷ es
+  unfold : ∃[ e ] ∃[ es ] Stream es ∧ x ∷ xs ≡ e ∷ es
   unfold = Stream-gfp₁ h
 
   e : D
@@ -34,13 +34,13 @@ tailS {x} {xs} h = subst Stream (sym (∧-proj₂ (∷-injective x∷xs≡e∷es
                          , Stream-gfp₂ P₂ helper₂ (xs , xs≈ys)
   where
   P₁ : D → Set
-  P₁ ws = ∃ λ zs → ws ≈ zs
+  P₁ ws = ∃[ zs ] ws ≈ zs
 
   helper₁ : ∀ {ws} → P₁ ws →
-            ∃ λ w' → ∃ λ ws' → P₁ ws' ∧ ws ≡ w' ∷ ws'
+            ∃[ w' ] ∃[ ws' ] P₁ ws' ∧ ws ≡ w' ∷ ws'
   helper₁ {ws} (zs , ws≈zs) = w' , ws' , (zs' , ws'≈zs') , ws≡w'∷ws'
     where
-    unfold-≈ : ∃ λ w' → ∃ λ ws' → ∃ λ zs' →
+    unfold-≈ : ∃[ w' ] ∃[ ws' ] ∃[ zs' ]
                ws' ≈ zs' ∧ ws ≡ w' ∷ ws' ∧ zs ≡ w' ∷ zs'
     unfold-≈ = ≈-gfp₁ ws≈zs
 
@@ -60,12 +60,12 @@ tailS {x} {xs} h = subst Stream (sym (∧-proj₂ (∷-injective x∷xs≡e∷es
     ws≡w'∷ws' = ∧-proj₁ (∧-proj₂ (∃-proj₂ (∃-proj₂ (∃-proj₂ unfold-≈))))
 
   P₂ : D → Set
-  P₂ zs = ∃ λ ws → ws ≈ zs
+  P₂ zs = ∃[ ws ] ws ≈ zs
 
-  helper₂ : ∀ {zs} → P₂ zs → ∃ λ z' → ∃ λ zs' → P₂ zs' ∧ zs ≡ z' ∷ zs'
+  helper₂ : ∀ {zs} → P₂ zs → ∃[ z' ] ∃[ zs' ] P₂ zs' ∧ zs ≡ z' ∷ zs'
   helper₂   {zs} (ws , ws≈zs) = w' , zs' , (ws' , ws'≈zs') , zs≡w'∷zs'
     where
-    unfold-≈ : ∃ λ w' → ∃ λ ws' → ∃ λ zs' →
+    unfold-≈ : ∃[ w' ] ∃[ ws' ] ∃[ zs' ]
                ws' ≈ zs' ∧ ws ≡ w' ∷ ws' ∧ zs ≡ w' ∷ zs'
 
     unfold-≈ = ≈-gfp₁ ws≈zs

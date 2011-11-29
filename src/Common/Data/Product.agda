@@ -31,6 +31,8 @@ data _∧_ (A B : Set) : Set where
 data ∃ (P : D → Set) : Set where
   _,_ : (d : D) → P d → ∃ P
 
+syntax ∃ (λ x → e) = ∃[ x ] e
+
 ∃-proj₁ : ∀ {P} → ∃ P → D
 ∃-proj₁ (d , _) = d
 

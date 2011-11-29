@@ -135,7 +135,7 @@ Abp' b i' is' os₀' os₁' as' bs' cs' ds' js' =
 
 -- Auxiliary bisimulation.
 _B_ : D → D → Set
-is B js = ∃ λ b → ∃ λ os₀ → ∃ λ os₁ → ∃ λ as → ∃ λ bs → ∃ λ cs → ∃ λ ds →
+is B js = ∃[ b ] ∃[ os₀ ] ∃[ os₁ ] ∃[ as ] ∃[ bs ] ∃[ cs ] ∃[ ds ]
           Stream is
           ∧ Bit b
           ∧ Fair os₀

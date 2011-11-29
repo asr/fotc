@@ -10,7 +10,7 @@ open import FOTC.Base
 
 -- Functional for the FOTC Stream type.
 -- StreamF : (D → Set) → D → Set
--- StreamF P ds = ∃ λ e → ∃ λ es → P es ∧ ds ≡ e ∷ es
+-- StreamF P ds = ∃[ e ] ∃[ es ] P es ∧ ds ≡ e ∷ es
 
 -- Stream is the greatest post-fixed of StreamF (by Stream-gfp₁ and
 -- Stream-gfp₂).
@@ -20,7 +20,7 @@ postulate
 
 -- Stream is post-fixed point of StreamF (d ≤ f d)postulate
   Stream-gfp₁ : ∀ {xs} → Stream xs →
-                ∃ λ x' → ∃ λ xs' → Stream xs' ∧ xs ≡ x' ∷ xs'
+                ∃[ x' ] ∃[ xs' ] Stream xs' ∧ xs ≡ x' ∷ xs'
 {-# ATP axiom Stream-gfp₁ #-}
 
 -- ∀ e. e ≤ f e => e ≤ d
@@ -31,7 +31,7 @@ postulate
 postulate
   Stream-gfp₂ : (P : D → Set) →
                 -- P is post-fixed point of StreamF.
-                (∀ {xs} → P xs → ∃ λ x' → ∃ λ xs' → P xs' ∧ xs ≡ x' ∷ xs') →
+                (∀ {xs} → P xs → ∃[ x' ] ∃[ xs' ] P xs' ∧ xs ≡ x' ∷ xs') →
                 -- Stream is greater than P.
                 ∀ {xs} → P xs → Stream xs
 
@@ -39,13 +39,13 @@ postulate
 -- Stream predicate is also a pre-fixed point of the functor StreamF
 -- (f d ≤ d).
 Stream-gfp₃ : ∀ {xs} →
-              (∃ λ x' → ∃ λ xs' → Stream xs' ∧ xs ≡ x' ∷ xs') →
+              (∃[ x' ] ∃[ xs' ] Stream xs' ∧ xs ≡ x' ∷ xs') →
               Stream xs
 Stream-gfp₃ h = Stream-gfp₂ P helper h
   where
   P : D → Set
-  P ws = ∃ λ w' → ∃ λ ws' → Stream ws' ∧ ws ≡ w' ∷ ws'
+  P ws = ∃[ w' ] ∃[ ws' ] Stream ws' ∧ ws ≡ w' ∷ ws'
 
-  helper : ∀ {xs} → P xs → ∃ λ x' → ∃ λ xs' → P xs' ∧ xs ≡ x' ∷ xs'
+  helper : ∀ {xs} → P xs → ∃[ x' ] ∃[ xs' ] P xs' ∧ xs ≡ x' ∷ xs'
   helper (x' , xs' , Sxs' , xs≡x'∷xs') =
     x' , xs' , (Stream-gfp₁ Sxs') , xs≡x'∷xs'
