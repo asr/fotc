@@ -1,3 +1,5 @@
+-- Tested on 30 November 2011.
+
 module Existential where
 
 postulate
@@ -7,7 +9,9 @@ postulate
   ∃-proj₁ : {P : D → Set} → ∃ P → D
   ∃-proj₂ : {P : D → Set}(p : ∃ P) → P (∃-proj₁ p)
 
+syntax ∃ (λ x → e) = ∃[ x ] e
+
 postulate P : D → D → Set
 
-∃∀ : (∃ λ x → ∀ y → P x y) → ∀ y → ∃ λ x → P x y
+∃∀ : ∃[ x ](∀ y → P x y) → ∀ y → ∃[ x ] P x y
 ∃∀ h y = ∃-proj₁ h , (∃-proj₂ h) y
