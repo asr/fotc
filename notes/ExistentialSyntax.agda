@@ -34,8 +34,8 @@ module ∃₂ where
   data ∃₂ (P : D → D → Set) : Set where
     _,_,_ : (x y : D) → P x y → ∃₂ P
 
-  -- Parse error
-  -- syntax ∃₂ (λ x y → e) = ∃₂[ x y ] e
+  -- Agda issue: 536
+  -- syntax ∃₂ (λ x y → e) = ∃₂[ x , y ] e
 
   t₁ : ∃₂ λ x y → x ≡ y
   t₁ = d , d , refl
