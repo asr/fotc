@@ -1,27 +1,41 @@
+-- Tested on 01 December 2011.
+
 module ExistentialSyntax where
 
-infixr 4 _,_
-
 postulate
-  D : Set
-  _≡_ : D → D → Set
+  D    : Set
+  _≡_  : D → D → Set
   refl : ∀ {d} → d ≡ d
-  d : D
+  d    : D
 
--- The existential quantifier type on D.
-data ∃ (P : D → Set) : Set where
-  _,_ : (d : D) → P d → ∃ P
+module ∃₁ where
+  infixr 4 _,_
 
-syntax ∃ (λ x → e)  = ∃[ x ] e
+  data ∃ (P : D → Set) : Set where
+    _,_ : (x : D) → P x → ∃ P
 
-t1 : ∃ λ x → x ≡ x
-t1 = d , refl
+  syntax ∃ (λ x → e)  = ∃[ x ] e
 
-t2 : ∃[ x ] (x ≡ x)
-t2 = d , refl
+  t₁ : ∃ λ x → x ≡ x
+  t₁ = d , refl
 
-t3 : ∃ λ x → ∃ λ y → x ≡ y
-t3 = d , d , refl
+  t₂ : ∃[ x ] x ≡ x
+  t₂ = d , refl
 
-t4 : ∃[ x ] ∃[ y ] x ≡ y
-t4 = d , d ,  refl
+  t₃ : ∃ λ x → ∃ λ y → x ≡ y
+  t₃ = d , d , refl
+
+  t₄ : ∃[ x ] ∃[ y ] x ≡ y
+  t₄ = d , d ,  refl
+
+module ∃₂ where
+  infixr 4 _,_,_
+
+  data ∃₂ (P : D → D → Set) : Set where
+    _,_,_ : (x y : D) → P x y → ∃₂ P
+
+  -- Parse error
+  -- syntax ∃₂ (λ x y → e) = ∃₂[ x y ] e
+
+  t₁ : ∃₂ λ x y → x ≡ y
+  t₁ = d , d , refl
