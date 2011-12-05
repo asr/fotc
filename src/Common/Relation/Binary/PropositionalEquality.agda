@@ -75,10 +75,10 @@ module NonInductive where
   -- Identity properties
 
   sym : ∀ {x y} → x ≡ y → y ≡ x
-  sym {x} {y} x≡y = J (λ y' → y' ≡ x) x≡y refl
+  sym {x} x≡y = J (λ y' → y' ≡ x) x≡y refl
 
   trans : ∀ {x y z} → x ≡ y → y ≡ z → x ≡ z
-  trans {x} {y} {z} x≡y = J (λ y' → y' ≡ z → x ≡ z) x≡y (λ pr → pr)
+  trans {x} {z = z} x≡y = J (λ y' → y' ≡ z → x ≡ z) x≡y (λ pr → pr)
 
   trans₂ : ∀ {w x y z} → w ≡ x → x ≡ y → y ≡ z → w ≡ z
   trans₂ w≡x x≡y y≡z = trans (trans w≡x x≡y) y≡z

@@ -22,10 +22,10 @@ data _∧_ (A B : Set) : Set where
 -- ∧-proj₂ because the ATPs implement them. For the same reason, it is
 -- not necessary to add them as (general/local) hints.
 ∧-proj₁ : ∀ {A B} → A ∧ B → A
-∧-proj₁ (x , y) = x
+∧-proj₁ (x , _) = x
 
 ∧-proj₂ : ∀ {A B} → A ∧ B → B
-∧-proj₂ (x , y) = y
+∧-proj₂ (_ , y) = y
 
 -- The existential quantifier type on D.
 data ∃ (P : D → Set) : Set where
