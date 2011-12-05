@@ -15,19 +15,19 @@ open import FOTC.Base
 ------------------------------------------------------------------------------
 -- The accessibility predicate: x is accessible if everything which is
 -- smaller than x is also accessible (inductively).
-data Acc {T : D → Set}(_<_ : D → D → Set) : D → Set where
- acc : ∀ {x} → T x → (∀ {y} → T y → y < x → Acc {T} _<_ y) → Acc _<_ x
+data Acc (T : D → Set)(_<_ : D → D → Set) : D → Set where
+ acc : ∀ {x} → T x → (∀ {y} → T y → y < x → Acc T _<_ y) → Acc T _<_ x
 
 accFold : {T P : D → Set}(_<_ : D → D → Set) →
           (∀ {x} → T x → (∀ {y} → T y → y < x → P y) → P x) →
-          ∀ {x} → T x → Acc _<_ x → P x
+          ∀ {x} → T x → Acc T _<_ x → P x
 accFold _<_ f Tx (acc _ h) = f Tx (λ Ty y<x → accFold _<_ f Ty (h Ty y<x))
 
 -- The accessibility predicate encodes what it means to be
 -- well-founded; if all elements are accessible, then _<_ is
 -- well-founded.
 WellFounded : {T : D → Set} → (D → D → Set) → Set
-WellFounded {T} _<_ = ∀ {x} → T x → Acc {T} _<_ x
+WellFounded {T} _<_ = ∀ {x} → T x → Acc T _<_ x
 
 WellFoundedInduction : {T P : D → Set} {_<_ : D → D → Set} →
                        WellFounded _<_ →
@@ -40,7 +40,7 @@ module Subrelation {T : D → Set}
                    (<₁⇒<₂ : ∀ {x y} → T x → T y → x <₁ y → x <₂ y)
                    where
 
-  accessible : Acc {T} _<₂_ ⊆ Acc _<₁_
+  accessible : Acc T _<₂_ ⊆ Acc T _<₁_
   accessible (acc Tx rs) =
     acc Tx (λ Ty y<₁x → accessible (rs Ty (<₁⇒<₂ Ty Tx y<₁x)))
 
@@ -54,7 +54,7 @@ module InverseImage {T₁ T₂ : D → Set}
                     where
 
   accessible : ∀ {x} → T₁ x →
-               Acc {T₂} _<_ (f x) → Acc (λ x₁ y₁ → f x₁ < f y₁) x
+               Acc T₂ _<_ (f x) → Acc T₁ (λ x₁ y₁ → f x₁ < f y₁) x
   accessible T₁x (acc _ rs) =
     acc T₁x (λ {y} T₁y fy<fx → accessible T₁y (rs (f-T₂ T₁y) fy<fx))
 

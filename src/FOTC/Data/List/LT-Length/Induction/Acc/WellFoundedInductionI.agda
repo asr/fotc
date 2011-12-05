@@ -40,7 +40,7 @@ module WF₁-LTL where
 wf-LTL₁ : WellFounded LTL
 wf-LTL₁ Lxs = acc Lxs (helper Lxs)
   where
-  helper : ∀ {xs ys} → List xs → List ys → LTL ys xs → Acc LTL ys
+  helper : ∀ {xs ys} → List xs → List ys → LTL ys xs → Acc List LTL ys
   helper nilL Lys ys<[] = ⊥-elim (xs<[]→⊥ Lys ys<[])
   helper (consL x {xs} Lxs) nilL []<x∷xs =
     acc nilL (λ Lys ys<[] → ⊥-elim (xs<[]→⊥ Lys ys<[]))
