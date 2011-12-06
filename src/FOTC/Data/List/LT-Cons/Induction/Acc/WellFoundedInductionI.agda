@@ -13,7 +13,7 @@ open import FOTC.Data.List.LT-Length.Induction.Acc.WellFoundedInductionI
 open import FOTC.Induction.WellFounded
 
 -- Parametrized modules
-open module S = FOTC.Induction.WellFounded.Subrelation {List} LTC→LTL
+open module S = FOTC.Induction.WellFounded.Subrelation {List} {LTC} LTC→LTL
 
 ------------------------------------------------------------------------------
 -- The relation LTL is well-founded (using the subrelation combinator).

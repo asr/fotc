@@ -38,21 +38,21 @@ wfInd-LTL P = WellFoundedInduction wf-LTL
 module WF₁-LTL where
 
 wf-LTL₁ : WellFounded LTL
-wf-LTL₁ Lxs = acc Lxs (helper Lxs)
+wf-LTL₁ Lxs = acc (helper Lxs)
   where
   helper : ∀ {xs ys} → List xs → List ys → LTL ys xs → Acc List LTL ys
   helper nilL Lys ys<[] = ⊥-elim (xs<[]→⊥ Lys ys<[])
   helper (consL x {xs} Lxs) nilL []<x∷xs =
-    acc nilL (λ Lys ys<[] → ⊥-elim (xs<[]→⊥ Lys ys<[]))
-  helper (consL x {xs} Lxs) (consL y {ys} Lys) y∷ys<x∷xs = acc (consL y Lys)
-    (λ {zs} Lzs zs<y∷ys →
-       let ys<xs : LTL ys xs
-           ys<xs = x∷xs<y∷ys→xs<ys Lys Lxs y∷ys<x∷xs
+    acc (λ Lys ys<[] → ⊥-elim (xs<[]→⊥ Lys ys<[]))
+  helper (consL x {xs} Lxs) (consL y {ys} Lys) y∷ys<x∷xs =
+    acc (λ {zs} Lzs zs<y∷ys →
+           let ys<xs : LTL ys xs
+               ys<xs = x∷xs<y∷ys→xs<ys Lys Lxs y∷ys<x∷xs
 
-           zs<xs : LTL zs xs
-           zs<xs = [ (λ zs<ys → <-trans Lzs Lys Lxs zs<ys ys<xs)
-                   , (λ h → lg-xs≡lg-ys→ys<zx→xs<zs h ys<xs)
-                   ] (xs<y∷ys→xs<ys∨lg-xs≡lg-ys Lzs Lys zs<y∷ys)
+               zs<xs : LTL zs xs
+               zs<xs = [ (λ zs<ys → <-trans Lzs Lys Lxs zs<ys ys<xs)
+                       , (λ h → lg-xs≡lg-ys→ys<zx→xs<zs h ys<xs)
+                       ] (xs<y∷ys→xs<ys∨lg-xs≡lg-ys Lzs Lys zs<y∷ys)
 
-       in  helper Lxs Lzs zs<xs
-    )
+           in  helper Lxs Lzs zs<xs
+        )

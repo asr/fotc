@@ -13,8 +13,8 @@ open import FOTC.Data.List.PropertiesI
 
 ------------------------------------------------------------------------------
 -- LTC ⊆ LTL.
-LTC→LTL : ∀ {xs ys} → List xs → List ys → LTC xs ys → LTL xs ys
-LTC→LTL Lxs _ (x , ys≡x∷xs) = helper Lxs ys≡x∷xs
+LTC→LTL : ∀ {xs ys} → List xs → LTC xs ys → LTL xs ys
+LTC→LTL Lxs (x , ys≡x∷xs) = helper Lxs ys≡x∷xs
   where
   helper : ∀ {x xs ys} → List xs → ys ≡ x ∷ xs → LT (length xs) (length ys)
   helper {x} {xs} Lxs ys≡x∷xs = subst (λ ys' → LT (length xs) (length ys'))
