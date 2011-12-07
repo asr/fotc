@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- FOT (First Order Theories)
+-- FOT (First-Order Theories)
 ------------------------------------------------------------------------------
 
 -- Code accompanying the paper "Combining Interactive and Automatic
@@ -11,9 +11,9 @@ module README where
 ------------------------------------------------------------------------------
 -- Description
 
--- Examples of the formalization of first order theories showing the
+-- Examples of the formalization of first-order theories showing the
 -- combination of interactive proofs with automatics proofs carried
--- out by first order automatic theorem provers (ATPs).
+-- out by first-order automatic theorem provers (ATPs).
 
 ------------------------------------------------------------------------------
 -- Prerequisites and use
@@ -23,7 +23,7 @@ module README where
 ------------------------------------------------------------------------------
 -- Conventions
 
--- The following modules show the formalization of some first order
+-- The following modules show the formalization of some first-order
 -- theories. If the module's name ends in 'I' the module contains
 -- interactive proofs, if it ends in 'ATP' the module contains
 -- combined proofs, otherwise the module contains definions and/or
@@ -31,6 +31,9 @@ module README where
 -- proofs.
 
 ------------------------------------------------------------------------------
+-- First order theories
+------------------------------------------------------------------------------
+
 -- 1. Predicate logic
 
 -- 1.1 Definition of the connectives and quantifiers
@@ -288,6 +291,57 @@ open import FOTC.Program.GCD.Partial.EquationsATP
 open import FOTC.Program.GCD.Total.EquationsATP
 
 ------------------------------------------------------------------------------
+-- LTC-PCF (Almost a first-order theory)
+
+-- Formalization of (a version of) Azcel's Logical Theory of Constructions.
+-- N.B. This was the theory shown in our PLPV'09 paper.
+
+-- 7.1. The axioms
+open import LTC-PCF.Base
+
+-- 7.2. Natural numberes
+
+-- 7.2.1 The axioms
+open import LTC-PCF.Data.Nat
+
+-- 7.2.2 The inductive predicate
+open import LTC-PCF.Data.Nat.Type
+
+-- 7.2.3 Properties
+open import LTC-PCF.Data.Nat.PropertiesATP
+open import LTC-PCF.Data.Nat.PropertiesI
+
+-- 7.2.4 Divisibility relation
+open import LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties
+open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesATP
+open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesI
+
+-- 7.2.5 Induction
+open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
+open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionI
+
+-- 7.2.6 Inequalites
+open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
+open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
+
+-- 7.2.7 The recursive operator
+open import LTC-PCF.Data.Nat.Rec.EquationsATP
+open import LTC-PCF.Data.Nat.Rec.EquationsI
+
+-- 7.2.8 A looping combinator
+open import LTC-PCF.Loop
+
+-- 7.3 Programs
+
+-- 7.3.1 The division algorithm: A non-structurally recursive algorithm
+open import LTC-PCF.Program.Division.ProofSpecificationATP
+open import LTC-PCF.Program.Division.ProofSpecificationI
+
+-- 7.3.2 The GCD algorithm: A non-structurally recursive algorithm
+open import LTC-PCF.Program.GCD.Partial.ProofSpecificationATP
+open import LTC-PCF.Program.GCD.Partial.ProofSpecificationI
+
+------------------------------------------------------------------------------
 -- ATPs failures
 ------------------------------------------------------------------------------
 
@@ -304,56 +358,3 @@ open import PA.Axiomatic.PropertiesATP
 
 -- We cannot import the Agsy examples because some modules contain
 -- unsolved metas, therefore see src/Agsy/README.txt
-
-------------------------------------------------------------------------------
--- Other theories
-------------------------------------------------------------------------------
-
--- 1. LTC-PCF
--- Formalization of a version of Azcel's Logical Theory of Constructions.
--- N.B. This was the theory shown in our PLPV'09 paper.
-
--- 1.1. The axioms
-open import LTC-PCF.Base
-
--- 1.2 Natural numberes
-
--- 1.2.1 The axioms
-open import LTC-PCF.Data.Nat
-
--- 1.2.2 The inductive predicate
-open import LTC-PCF.Data.Nat.Type
-
--- 1.2.3 Properties
-open import LTC-PCF.Data.Nat.PropertiesATP
-open import LTC-PCF.Data.Nat.PropertiesI
-
--- 1.2.4 Divisibility relation
-open import LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties
-open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesATP
-open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesI
-
--- 1.2.5 Induction
-open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
-open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionI
-
--- 1.2.6 Inequalites
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
-
--- 1.2.7 The recursive operator
-open import LTC-PCF.Data.Nat.Rec.EquationsATP
-open import LTC-PCF.Data.Nat.Rec.EquationsI
-
--- 1.2.8 A looping combinator
-open import LTC-PCF.Loop
-
--- 1.3 Programs
-
--- 1.3.1 The division algorithm: A non-structurally recursive algorithm
-open import LTC-PCF.Program.Division.ProofSpecificationATP
-open import LTC-PCF.Program.Division.ProofSpecificationI
-
--- 1.3.2 The GCD algorithm: A non-structurally recursive algorithm
-open import LTC-PCF.Program.GCD.Partial.ProofSpecificationATP
-open import LTC-PCF.Program.GCD.Partial.ProofSpecificationI
