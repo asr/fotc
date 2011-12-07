@@ -6,13 +6,10 @@
 -- Reasoning about Functional Programs" by Ana Bove, Peter Dybjer, and
 -- Andrés Sicard-Ramírez.
 
-------------------------------------------------------------------------------
-
 module README where
 
 ------------------------------------------------------------------------------
 -- Description
-------------------------------------------------------------------------------
 
 -- Examples of the formalization of first order theories showing the
 -- combination of interactive proofs with automatics proofs carried
@@ -20,14 +17,10 @@ module README where
 
 ------------------------------------------------------------------------------
 -- Prerequisites and use
-------------------------------------------------------------------------------
 
 -- See http://www1.eafit.edu.co/asicard/code/fotc/.
 
 ------------------------------------------------------------------------------
--- First order theories
-------------------------------------------------------------------------------
-
 -- Conventions
 
 -- The following modules show the formalization of some first order
