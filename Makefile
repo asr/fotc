@@ -256,6 +256,10 @@ agda_changed : clean all_type_checking all_only_conjectures
 ##############################################################################
 # Publish the .html files
 
+publish_note :
+	$(RSYNC) html/ $(root_host_dir)/notes/
+	rm -r html
+
 publish_Agsy : $(Agsy_files)
 	rm -r -f /tmp/Agsy/html/
 	for file in $(Agsy_files); do \

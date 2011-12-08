@@ -4,4 +4,5 @@
 
 module Draft.RenderToHTML where
 
-open import Draft.FOTC.Data.Nat.AddTotality
+open import Draft.Bottom
+open import Draft.BottomBottom
