@@ -36,5 +36,5 @@ syntax ∃ (λ x → e) = ∃[ x ] e
 ∃-proj₁ : ∀ {P} → ∃ P → D
 ∃-proj₁ (x , _) = x
 
-∃-proj₂ : ∀ {P}(p : ∃ P) → P (∃-proj₁ p)
+∃-proj₂ : ∀ {P} (p : ∃ P) → P (∃-proj₁ p)
 ∃-proj₂ (_ , Px) = Px

@@ -1,6 +1,8 @@
 ------------------------------------------------------------------------------
--- Testing
+-- Totality of Boolean conjunction
 ------------------------------------------------------------------------------
+
+-- Tested on 10 December 2011.
 
 module Draft.FOTC.Data.Bool.AndTotality where
 
@@ -11,17 +13,17 @@ open import FOTC.Data.Bool.Type
 ------------------------------------------------------------------------------
 
 postulate
-  thm : ∀ {b}(P : D → Set) → (Bool b ∧ P true ∧ P false) → P b
+  thm : ∀ (P : D → Set) {b}  → (Bool b ∧ P true ∧ P false) → P b
 -- The ATPs couldn't prove this postulate.
 -- {-# ATP prove thm #-}
 
 postulate
-  thm₁ : ∀ {P : D → Set}{x y z} → Bool x → P y → P z → P (if x then y else z)
+  thm₁ : ∀ {P : D → Set} {x y z} → Bool x → P y → P z → P (if x then y else z)
 -- The ATPs couldn't prove this postulate.
 -- {-# ATP prove thm₁ #-}
 
 -- Typing of the if-then-else.
-if-T : ∀ (P : D → Set){x y z} → Bool x → P y → P z →
+if-T : ∀ (P : D → Set) {x y z} → Bool x → P y → P z →
        P (if x then y else z)
 if-T P {y = y} tB Py Pz = subst P (sym (if-true y)) Py
 if-T P {z = z} fB Py Pz = subst P (sym (if-false z)) Pz

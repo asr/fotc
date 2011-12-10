@@ -3,7 +3,7 @@
 -- Bove-Capretta method
 ------------------------------------------------------------------------------
 
--- Tested with Agda 2.2.11 on 07 October 2011.
+-- Tested on 10 December 2011.
 
 module Draft.FOTC.Program.QuickSort.DomainPredicate where
 
@@ -19,10 +19,10 @@ open import FOTC.Data.List
 postulate
   le gt : D
 
-  le-00 :         le · zero   · zero   ≡ false
-  le-0S : ∀ d →   le · zero   · succ d ≡ true
-  le-S0 : ∀ d →   le · succ d · zero   ≡ false
-  le-SS : ∀ d e → le · succ d · succ e ≡ d < e
+  le-00 :         le · zero    · zero    ≡ false
+  le-0S : ∀ d →   le · zero    · succ₁ d ≡ true
+  le-S0 : ∀ d →   le · succ₁ d · zero    ≡ false
+  le-SS : ∀ d e → le · succ₁ d · succ₁ e ≡ d < e
 
 postulate
   filter    : D → D → D
@@ -31,7 +31,7 @@ postulate
                 if f · d then d ∷ filter f (d ∷ ds) else filter f (d ∷ ds)
 
 postulate
-  filter-List : ∀ (f : D){xs : D} → List xs → List (filter f xs)
+  filter-List : ∀ (f : D) {xs : D} → List xs → List (filter f xs)
 
 postulate
   qs    : D → D

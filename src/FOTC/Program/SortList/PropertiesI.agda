@@ -25,7 +25,7 @@ open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- Induction on lit.
-ind-lit : ∀ (P : D → Set)(f : D) y₀ {xs} → ListN xs →
+ind-lit : ∀ (P : D → Set) (f : D) y₀ {xs} → ListN xs →
           P y₀ →
           (∀ {x} → N x → ∀ y → P y → P (f · x · y)) →
           P (lit f xs y₀)

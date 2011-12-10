@@ -82,7 +82,7 @@ Sx-Odd→x-Even zN          _ = even-0
 Sx-Odd→x-Even (sN {n} Nn) h = trans (sym (odd-S (succ₁ n))) h
 
 mutual
-  ∸-Even : ∀ {m} {n} → N m → N n → Even m → Even n → Even (m ∸ n)
+  ∸-Even : ∀ {m n} → N m → N n → Even m → Even n → Even (m ∸ n)
   ∸-Even {m} Nm zN                   h₁ _ = subst Even (sym (∸-x0 m)) h₁
   ∸-Even     zN          (sN {n} Nn) h₁ _ = subst Even (sym (∸-0S n)) h₁
   ∸-Even     (sN {m} Nm) (sN {n} Nn) h₁ h₂ = prf
@@ -90,7 +90,7 @@ mutual
     postulate prf : Even (succ₁ m ∸ succ₁ n)
     {-# ATP prove prf ∸-Odd Sx-Even→x-Odd #-}
 
-  ∸-Odd : ∀ {m} {n} → N m → N n → Odd m → Odd n → Even (m ∸ n)
+  ∸-Odd : ∀ {m n} → N m → N n → Odd m → Odd n → Even (m ∸ n)
   ∸-Odd zN          Nn          h₁ _  = ⊥-elim (true≠false (trans (sym h₁) odd-0))
   ∸-Odd (sN Nm)     zN          _  h₂ = ⊥-elim (true≠false (trans (sym h₂) odd-0))
   ∸-Odd (sN {m} Nm) (sN {n} Nn) h₁ h₂ = prf

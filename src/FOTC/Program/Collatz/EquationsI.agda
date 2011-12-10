@@ -89,7 +89,7 @@ private
   proof₀₋₁ n = collatz-eq n
 
   -- Conversion (first if_then_else) 'iszero₁ n = b' using that proof.
-  proof₁₋₂ : ∀ {n} {b} → iszero₁ n ≡ b → collatz-s₁ n ≡ collatz-s₂ n b
+  proof₁₋₂ : ∀ {n b} → iszero₁ n ≡ b → collatz-s₁ n ≡ collatz-s₂ n b
   proof₁₋₂ {n} {b} h = subst (λ x → collatz-s₂ n x ≡ collatz-s₂ n b)
                              (sym h)
                              refl
@@ -103,7 +103,7 @@ private
   proof₂₋₄ n = if-false (collatz-s₄ n)
 
   -- Conversion (second if_then_else) 'iszero₁ (pred₁ n) = b' using that proof.
-  proof₄₋₅ : ∀ {n} {b} → iszero₁ (pred₁ n) ≡ b → collatz-s₄ n ≡ collatz-s₅ n b
+  proof₄₋₅ : ∀ {n b} → iszero₁ (pred₁ n) ≡ b → collatz-s₄ n ≡ collatz-s₅ n b
   proof₄₋₅ {n} {b} h = subst (λ x → collatz-s₅ n x ≡ collatz-s₅ n b)
                              (sym h)
                              refl
@@ -117,7 +117,7 @@ private
   proof₅₋₇ n = if-false (collatz-s₇ n)
 
   -- Conversion (third if_then_else) 'even n = b' using that proof.
-  proof₇₋₈ : ∀ {n} {b} → even n ≡ b → collatz-s₇ n ≡ collatz-s₈ n b
+  proof₇₋₈ : ∀ {n b} → even n ≡ b → collatz-s₇ n ≡ collatz-s₈ n b
   proof₇₋₈ {n} {b} h = subst (λ x → collatz-s₈ n x ≡ collatz-s₈ n b)
                              (sym h)
                              refl
