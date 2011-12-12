@@ -11,7 +11,6 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Monad.Base
@@ -29,7 +28,7 @@ module Monad.Base
   ) where
 
 -- Haskell imports
-import Control.Monad.Error ( ErrorT, MonadError, runErrorT )
+import Control.Monad.Error ( ErrorT, runErrorT )
 import Control.Monad.State
   ( evalState
   , evalStateT
@@ -38,7 +37,6 @@ import Control.Monad.State
   , MonadState
   , StateT
   )
-import Control.Monad.Trans ( MonadIO )
 
 import qualified Data.Map as Map ( empty )
 
@@ -68,19 +66,11 @@ initTState = MkState { tAllDefs = Map.empty
                      , tVars    = []
                      }
 
--- Adapted from: Real World Haskell (Chapter 18. Monad transformers)
 -- | The translation monad.
-newtype T a = MkT { runA ∷ ErrorT String (StateT TState IO) a }
-  -- Requires GeneralizedNewtypeDeriving
-  deriving ( Functor
-           , Monad
-           , MonadIO
-           , MonadError String
-           , MonadState TState
-           )
+type T = ErrorT String (StateT TState IO)
 
 runT ∷ T a → IO (Either String a)
-runT ta = evalStateT (runErrorT (runA ta)) initTState
+runT ta = evalStateT (runErrorT ta) initTState
 
 isTVarsEmpty ∷ T Bool
 isTVarsEmpty = fmap (null . tVars) get
