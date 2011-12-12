@@ -2,7 +2,7 @@
 -- Example of lambda-lifting
 ------------------------------------------------------------------------------
 
--- Tested with Agda 2.2.11 on 03 October 2011.
+-- Tested with Agda 2.3.1 on 11 December 2011.
 
 module LambdaLifting where
 
@@ -48,11 +48,11 @@ postulate
 {-# ATP axiom isZero-0 isZero-S #-}
 
 -- Conversion rule for the abstraction and the application.
-postulate beta : (f : D → D)(a : D) → lam f · a ≡ f a
+postulate beta : ∀ f a → lam f · a ≡ f a
 {-# ATP axiom beta #-}
 
 -- Conversion rule for the fixed pointed operator.
-postulate fix-f : (f : D → D) → fix f ≡ f (fix  f)
+postulate fix-f : ∀ f → fix f ≡ f (fix  f)
 {-# ATP axiom fix-f #-}
 
 postulate
@@ -102,10 +102,9 @@ postulate
 -- Ouput:
 --
 -- $ agda2atp -inotes notes/LambdaLifting.agda
--- Translating notes/LambdaLifting.agda ...
--- Proving the conjecture in /tmp/LambdaLifting.fac0_95.tptp ...
--- E 1.4 Namring proved the conjecture in /tmp/LambdaLifting.fac0_95.tptp
--- Proving the conjecture in /tmp/LambdaLifting.fac1_99.tptp ...
--- E 1.4 Namring proved the conjecture in /tmp/LambdaLifting.fac1_99.tptp
--- Proving the conjecture in /tmp/LambdaLifting.fac2_103.tptp ...
--- E 1.4 Namring proved the conjecture in /tmp/LambdaLifting.fac2_103.tptp
+-- Proving the conjecture in /tmp/LambdaLifting.fac0_90.tptp ...
+-- E 1.4 Namring proved the conjecture in /tmp/LambdaLifting.fac0_90.tptp
+-- Proving the conjecture in /tmp/LambdaLifting.fac1_94.tptp ...
+-- E 1.4 Namring proved the conjecture in /tmp/LambdaLifting.fac1_94.tptp
+-- Proving the conjecture in /tmp/LambdaLifting.fac2_98.tptp ...
+-- E 1.4 Namring proved the conjecture in /tmp/LambdaLifting.fac2_98.tptp

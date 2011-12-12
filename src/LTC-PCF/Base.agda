@@ -89,11 +89,11 @@ abstract
 -- PCF constants.
 
 -- Conversion rule for the abstraction and the application.
-postulate beta : (f : D → D)(a : D) → lam f · a ≡ f a
+postulate beta : ∀ f a → lam f · a ≡ f a
 {-# ATP axiom beta #-}
 
 -- Conversion rule for the fixed pointed operator.
-postulate fix-f : ∀ (f : D → D) → fix f ≡ f (fix f)
+postulate fix-f : ∀ f → fix f ≡ f (fix f)
 {-# ATP axiom fix-f #-}
 
 -- Conversion rules for booleans.

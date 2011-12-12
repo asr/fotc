@@ -15,7 +15,7 @@ open import FOTC.Base
 ------------------------------------------------------------------------------
 -- The accessibility predicate: x is accessible if everything which is
 -- smaller than x is also accessible (inductively).
-data Acc (T : D → Set)(_<_ : D → D → Set)(x : D): Set where
+data Acc (T : D → Set)(_<_ : D → D → Set)(x : D) : Set where
  acc : (∀ {y} → T y → y < x → Acc T _<_ y) → Acc T _<_ x
 
 accFold : {T P : D → Set}(_<_ : D → D → Set) →
@@ -29,7 +29,7 @@ accFold _<_ f Tx (acc h) = f Tx (λ Ty y<x → accFold _<_ f Ty (h Ty y<x))
 WellFounded : {T : D → Set} → (D → D → Set) → Set
 WellFounded {T} _<_ = ∀ {x} → T x → Acc T _<_ x
 
-WellFoundedInduction : {T P : D → Set} {_<_ : D → D → Set} →
+WellFoundedInduction : {T P : D → Set}{_<_ : D → D → Set} →
                        WellFounded _<_ →
                        (∀ {x} → T x → (∀ {y} → T y → y < x → P y) → P x) →
                        ∀ {x} → T x → P x
