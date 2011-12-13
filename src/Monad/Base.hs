@@ -24,7 +24,7 @@ module Monad.Base
   , pushTVar
   , runT
   , T
-  , TState(tAllDefs, tOpts, tVars)
+  , TState(MkState, tAllDefs, tOpts, tVars)
   ) where
 
 -- Haskell imports
@@ -54,9 +54,10 @@ import Utils.Names ( freshName )
 
 type AllDefinitions = Definitions
 
-data TState = MkState { tAllDefs ∷ AllDefinitions
-                      , tOpts    ∷ Options
-                      , tVars    ∷ [String]
+-- | The translation monad state.
+data TState = MkState { tAllDefs ∷ AllDefinitions -- ^ Agda definitions.
+                      , tOpts    ∷ Options        -- ^ Command-line options.
+                      , tVars    ∷ [String]       -- ^ Variables names.
                       }
 
 -- The initial state.

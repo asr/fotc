@@ -7,7 +7,7 @@
 -- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 -- Stability   : experimental
 --
--- agda2atp: a program for proving first order formulae written in the
+-- agda2atp: A program for proving first order formulae written in the
 -- dependently typed language Agda using (first-order) automatic
 -- theorem provers.
 ------------------------------------------------------------------------------
@@ -120,6 +120,7 @@ runAgda2ATP prgName = do
           -- The ATPs systems are called on the TPTP files.
           unless (optOnlyFiles opts) $ mapM_ callATPs tptpFiles
 
+-- | Main.
 main ∷ IO ()
 main = do
   prgName ← getProgName

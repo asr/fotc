@@ -25,8 +25,8 @@ import System.Console.GetOpt
 -- Local imports
 import Monad.Base ( T )
 import Options
-  ( defaultOptions
-  , defaultOptATP
+  ( defaultATPs
+  , defaultOptions
   , options
   , Options(optATP, optHelp)
   )
@@ -45,8 +45,7 @@ processOptions argv =
           finalOpts ∷ Options
           finalOpts =
             if null (optATP opts)  -- No ATPs was chosen.
-            then opts { optATP = defaultOptATP }  -- We set up the
-                                                  -- defaults ATPs.
+            then opts { optATP = defaultATPs }  -- We set up the defaults ATPs.
             else opts
 
       case files of

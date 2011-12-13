@@ -44,7 +44,7 @@ getVerbosity = do
   state ← get
   return $ optVerbose $ tOpts state
 
--- | Precondition: The level must be non-negative.
+-- Precondition: The level must be non-negative.
 verboseS ∷ VerboseKey → Int → T () → T ()
 verboseS k n action | n < 0     =  __IMPOSSIBLE__
                     | otherwise = do

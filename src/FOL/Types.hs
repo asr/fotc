@@ -18,12 +18,12 @@ module FOL.Types ( FOLFormula(..), FOLTerm(..) ) where
 ------------------------------------------------------------------------------
 -- Adapted from AgdaLight (Plugins.FOL.Types).
 
--- FOL terms.
+-- | FOL terms.
 data FOLTerm = FOLFun String [FOLTerm]
              | FOLVar String
                deriving Show
 
--- | FOL formulas.
+-- | FOL formulae.
 data FOLFormula = TRUE
                 | FALSE
                 | Predicate String     [FOLTerm]

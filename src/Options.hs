@@ -14,8 +14,8 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Options
-  ( defaultOptions
-  , defaultOptATP
+  ( defaultATPs
+  , defaultOptions
   , options
   , Options(..)
   , printUsage
@@ -34,6 +34,7 @@ import qualified Agda.Utils.Trie as Trie ( insert, singleton )
 
 -----------------------------------------------------------------------------
 
+-- | Program command-line options.
 data Options = MkOptions
   { optAgdaIncludePath ∷ [FilePath]
   , optATP             ∷ [String]
@@ -49,14 +50,16 @@ data Options = MkOptions
   , optVersion         ∷ Bool
   } deriving Show
 
-defaultOptATP ∷ [String]
-defaultOptATP = ["e", "equinox", "vampire"]
+-- | Default ATPs called by the program.
+defaultATPs ∷ [String]
+defaultATPs = ["e", "equinox", "vampire"]
 
+-- | Default options use by the program.
 defaultOptions ∷ Options
 defaultOptions = MkOptions
   { optAgdaIncludePath = []
   , optATP             = []  -- N.B. The default is defined by
-                             -- defaultOptATP and it is handle by
+                             -- defaultATPs and it is handle by
                              -- Options.Process.processOptions.
   , optHelp            = False
   , optOnlyFiles       = False
