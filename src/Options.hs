@@ -156,7 +156,7 @@ options =
 
 usageHeader ∷ String → String
 usageHeader prgName =
-  "Usage: " ++ prgName ++ " [OPTION...] file \n"
+  "Usage: " ++ prgName ++ " [OPTIONS] FILE\n"
 
 -- | Print usage information.
 printUsage ∷ String → IO ()
