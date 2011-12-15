@@ -2,6 +2,9 @@
 -- Theorems which require a non-empty domain
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- Using the ATPs we don't have to postulate a non-empty domain because
 -- the ATPs assume it.
 

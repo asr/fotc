@@ -2,6 +2,9 @@
 -- Conversion rules for the recursive operator rec
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module LTC-PCF.Data.Nat.Rec.EquationsATP where
 
 open import LTC-PCF.Base

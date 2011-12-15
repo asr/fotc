@@ -2,6 +2,9 @@
 -- The division result is correct
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module LTC-PCF.Program.Division.IsCorrectI where
 
 open import Common.Function

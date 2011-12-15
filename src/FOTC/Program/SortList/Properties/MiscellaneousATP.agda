@@ -2,6 +2,9 @@
 -- Miscellaneous properties
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.SortList.Properties.MiscellaneousATP where
 
 open import Common.Function

@@ -2,6 +2,9 @@
 -- Totality properties respect to OrdList (flatten-OrdList-helper)
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI where
 
 open import FOTC.Base

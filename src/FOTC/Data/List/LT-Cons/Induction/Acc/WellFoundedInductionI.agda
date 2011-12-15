@@ -2,6 +2,9 @@
 -- Well-founded induction on the relation LTC
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Data.List.LT-Cons.Induction.Acc.WellFoundedInductionI where
 
 open import FOTC.Base

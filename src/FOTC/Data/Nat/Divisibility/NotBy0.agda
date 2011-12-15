@@ -2,6 +2,9 @@
 -- The relation of divisibility on partial natural numbers
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Data.Nat.Divisibility.NotBy0 where
 
 open import FOTC.Base

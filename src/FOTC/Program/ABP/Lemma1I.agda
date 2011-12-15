@@ -2,6 +2,9 @@
 -- ABP lemma 1
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- From the paper: The first lemma states that given a start state Abp
 -- (of the alternating bit protocol) we will arrive at a state Abp',
 -- where the message has been received by the receiver, but where the

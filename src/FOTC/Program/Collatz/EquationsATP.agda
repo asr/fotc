@@ -2,6 +2,9 @@
 -- Equations for the Collatz function
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.Collatz.EquationsATP where
 
 open import FOTC.Base

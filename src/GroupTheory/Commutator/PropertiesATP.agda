@@ -2,6 +2,9 @@
 -- Properties related with the commutator operation
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module GroupTheory.Commutator.PropertiesATP where
 
 open import GroupTheory.Base

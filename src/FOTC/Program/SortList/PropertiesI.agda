@@ -2,6 +2,9 @@
 -- Properties stated in the Burstall's paper
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.SortList.PropertiesI where
 
 open import Common.Function

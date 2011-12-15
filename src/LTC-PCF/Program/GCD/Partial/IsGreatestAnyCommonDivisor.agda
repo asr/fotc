@@ -2,6 +2,9 @@
 -- The 'gcd' is greatest that any common divisor
 ---------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0
 open import LTC-PCF.Data.Nat.Inequalities

@@ -2,6 +2,9 @@
 -- Equations for the division
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module LTC-PCF.Program.Division.EquationsATP where
 
 open import LTC-PCF.Base

@@ -2,6 +2,9 @@
 -- The first order theory of combinators (FOTC) base
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 {-
 FOTC                                  The logical framework (Agda)
 

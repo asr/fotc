@@ -2,6 +2,9 @@
 -- Propositional logic theorems
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module PredicateLogic.Propositional.TheoremsI where
 
 open import PredicateLogic.Constants

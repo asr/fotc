@@ -2,6 +2,9 @@
 -- Arithmetic properties used by the McCarthy 91 function
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.McCarthy91.ArithmeticATP where
 
 open import FOTC.Base

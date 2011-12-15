@@ -2,6 +2,9 @@
 -- Inductive PA properties using the induction principle
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module PA.Inductive.PropertiesByInductionI where
 
 open import PA.Inductive.Base

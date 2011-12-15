@@ -2,6 +2,9 @@
 -- The program to sort a list satisfies the specification
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- This module prove the correctness of a program which sorts a list
 -- by converting it into an ordered tree and then back to a list
 -- (Burstall, 1969, pp. 45).

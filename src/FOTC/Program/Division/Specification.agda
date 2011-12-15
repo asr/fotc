@@ -2,6 +2,9 @@
 -- The division specification
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.Division.Specification where
 
 open import FOTC.Base

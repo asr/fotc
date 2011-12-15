@@ -2,6 +2,9 @@
 -- Group theory properties using Agsy
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Agsy.GroupTheory where
 
 open import Data.Product

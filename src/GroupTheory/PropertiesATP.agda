@@ -2,6 +2,9 @@
 -- Group theory properties
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module GroupTheory.PropertiesATP where
 
 open import GroupTheory.Base

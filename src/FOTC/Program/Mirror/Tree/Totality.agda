@@ -2,6 +2,9 @@
 -- Totality properties respect to Tree
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.Mirror.Tree.Totality where
 
 open import FOTC.Base

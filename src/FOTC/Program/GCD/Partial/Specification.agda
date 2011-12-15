@@ -2,6 +2,9 @@
 -- The gcd (parametric) specification
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 open import FOTC.Base
 open import FOTC.Data.Nat.Type
 open import FOTC.Program.GCD.Partial.Definitions

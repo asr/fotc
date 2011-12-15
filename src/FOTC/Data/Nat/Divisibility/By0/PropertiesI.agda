@@ -2,6 +2,9 @@
 -- Properties of the divisibility relation
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Data.Nat.Divisibility.By0.PropertiesI where
 
 open import Common.Function

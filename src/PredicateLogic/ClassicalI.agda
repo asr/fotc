@@ -2,6 +2,9 @@
 -- Classical logic theorems
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- The ATPs work in classical logic, therefore we add the principle of
 -- the exclude middle for prove some classical logic theorems.
 

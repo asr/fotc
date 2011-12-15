@@ -2,6 +2,9 @@
 -- Equality reasoning for the distributive laws
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- This module only re-export the preorder reasoning instanced on
 -- the distributive laws propositional equality.
 

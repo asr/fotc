@@ -2,6 +2,9 @@
 -- The alternating bit protocol (ABP)
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- This module define the ABP following the presentation in [1].
 
 -- [1] Peter Dybjer and Herbert Sander. A functional programming

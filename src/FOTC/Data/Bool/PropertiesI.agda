@@ -2,6 +2,9 @@
 -- The booleans properties
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Data.Bool.PropertiesI where
 
 open import Common.Function

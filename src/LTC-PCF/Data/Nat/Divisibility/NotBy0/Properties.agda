@@ -2,6 +2,9 @@
 -- Properties of the divisibility relation
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties where
 
 open import Common.Function

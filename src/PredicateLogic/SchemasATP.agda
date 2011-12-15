@@ -2,6 +2,9 @@
 -- Examples of translation of logical schemas
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module PredicateLogic.SchemasATP where
 
 open import PredicateLogic.Constants

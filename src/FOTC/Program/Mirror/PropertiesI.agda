@@ -2,6 +2,9 @@
 -- Properties of the mirror function
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.Mirror.PropertiesI where
 
 open import FOTC.Base

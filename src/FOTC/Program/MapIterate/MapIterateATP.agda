@@ -2,6 +2,9 @@
 -- The map-iterate property: A property using coinduction
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- The map-iterate property [1]:
 -- map f (iterate f x) = iterate f (f · x)
 

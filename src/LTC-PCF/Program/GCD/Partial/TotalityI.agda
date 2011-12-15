@@ -2,6 +2,9 @@
 -- Totality properties of the gcd
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module LTC-PCF.Program.GCD.Partial.TotalityI where
 
 open import Common.Function

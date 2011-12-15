@@ -2,6 +2,9 @@
 -- The 'rec' definition using the fixed point combinator
 ---------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module LTC-PCF.Data.Nat.Rec where
 
 open import LTC-PCF.Base

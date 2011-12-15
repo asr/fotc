@@ -2,6 +2,9 @@
 -- Equality reasoning on group theory
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- This module only re-export the preorder reasoning instanced on
 -- the group theory propositional equality.
 

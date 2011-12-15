@@ -2,6 +2,9 @@
 -- Propositional equality on inductive PA
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- This file contains some definitions which are reexported by
 -- PA.Inductive.Base.
 

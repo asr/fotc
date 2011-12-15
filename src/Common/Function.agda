@@ -2,6 +2,9 @@
 -- Operations on and with functions
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Common.Function where
 
 -- The same fixity used in the standard library.

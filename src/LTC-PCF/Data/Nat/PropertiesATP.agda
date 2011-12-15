@@ -2,6 +2,9 @@
 -- Arithmetic properties on total natural numbers
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module LTC-PCF.Data.Nat.PropertiesATP where
 
 open import Common.Function

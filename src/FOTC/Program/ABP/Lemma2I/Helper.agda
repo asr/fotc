@@ -2,6 +2,9 @@
 -- Helper function for the ABP lemma 2
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.ABP.Lemma2I.Helper where
 
 open import FOTC.Base

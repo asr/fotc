@@ -2,6 +2,9 @@
 -- Conat properties
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Data.Conat.PropertiesI where
 
 open import FOTC.Base

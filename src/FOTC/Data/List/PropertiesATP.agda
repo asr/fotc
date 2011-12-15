@@ -2,6 +2,9 @@
 -- Properties related with lists
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Data.List.PropertiesATP where
 
 open import Common.Function

@@ -2,6 +2,9 @@
 -- The relation of divisibility on partial natural numbers
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module LTC-PCF.Data.Nat.Divisibility.NotBy0 where
 
 open import LTC-PCF.Base

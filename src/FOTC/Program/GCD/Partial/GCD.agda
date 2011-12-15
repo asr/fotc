@@ -2,6 +2,9 @@
 -- Definition of the gcd of two natural numbers using the Euclid's algorithm
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.GCD.Partial.GCD where
 
 open import FOTC.Base

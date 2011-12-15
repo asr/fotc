@@ -2,6 +2,9 @@
 -- Equality reasoning on FOTC
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- This module only re-export the preorder reasoning instanced on the
 -- FOTC propositional equality.
 

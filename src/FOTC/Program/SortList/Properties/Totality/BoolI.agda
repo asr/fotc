@@ -2,6 +2,9 @@
 -- Totality properties respect to Bool
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.SortList.Properties.Totality.BoolI where
 
 open import Common.Function

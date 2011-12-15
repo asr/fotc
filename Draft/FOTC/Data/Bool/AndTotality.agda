@@ -2,12 +2,14 @@
 -- Totality of Boolean conjunction
 ------------------------------------------------------------------------------
 
--- Tested on 10 December 2011.
+-- Tested on 15 December 2011.
+
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
 
 module Draft.FOTC.Data.Bool.AndTotality where
 
 open import FOTC.Base
-
 open import FOTC.Data.Bool.Type
 
 ------------------------------------------------------------------------------

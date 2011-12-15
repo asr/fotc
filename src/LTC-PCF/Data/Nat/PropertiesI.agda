@@ -2,6 +2,9 @@
 -- Arithmetic properties
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module LTC-PCF.Data.Nat.PropertiesI where
 
 open import Common.Function

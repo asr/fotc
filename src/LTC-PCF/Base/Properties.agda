@@ -2,6 +2,9 @@
 -- LTC-PCF terms properties
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module LTC-PCF.Base.Properties where
 
 open import LTC-PCF.Base

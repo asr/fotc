@@ -2,6 +2,9 @@
 -- The gcd is a common divisor
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.GCD.Partial.IsCommonDivisorI where
 
 open import Common.Function

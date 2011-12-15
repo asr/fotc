@@ -2,6 +2,9 @@
 -- Main properties of the McCarthy 91 function
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- The main properties proved of the McCarthy 91 function (called
 -- mc91) are
 

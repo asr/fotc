@@ -2,6 +2,9 @@
 -- The commutator operation
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module GroupTheory.Commutator where
 
 open import GroupTheory.Base

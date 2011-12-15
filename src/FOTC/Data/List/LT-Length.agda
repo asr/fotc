@@ -2,6 +2,9 @@
 -- Well-founded relation on lists based on their length
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Data.List.LT-Length where
 
 open import FOTC.Base

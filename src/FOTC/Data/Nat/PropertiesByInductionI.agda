@@ -2,6 +2,9 @@
 -- Arithmetic properties (using induction on the FOTC natural numbers type)
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- Usually our proofs use pattern matching instead of the induction
 -- principle associated with the FOTC natural numbers. The following
 -- examples show some proofs using it.

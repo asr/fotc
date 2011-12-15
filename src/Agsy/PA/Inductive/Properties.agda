@@ -2,6 +2,9 @@
 -- Inductive PA arithmetic properties using Agsy
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Agsy.PA.Inductive.Properties where
 
 open import Data.Nat renaming (suc to succ)

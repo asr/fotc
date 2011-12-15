@@ -2,6 +2,9 @@
 -- Testing Agsy arithmetic properties used by the McCarthy 91 function
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Agsy.McCarthy91.Arithmetic where
 
 open import Data.Nat

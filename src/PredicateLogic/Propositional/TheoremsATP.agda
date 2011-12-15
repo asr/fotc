@@ -2,6 +2,9 @@
 -- Propositional logic theorems
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- This module contains some examples showing the use of the ATPs to
 -- prove theorems from propositional logic.
 

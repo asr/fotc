@@ -2,6 +2,9 @@
 -- The booleans
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Data.Bool where
 
 open import FOTC.Base

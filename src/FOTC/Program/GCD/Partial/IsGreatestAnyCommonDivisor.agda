@@ -2,6 +2,9 @@
 -- The 'gcd' is greatest that any common divisor
 ---------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 open import FOTC.Base
 open import FOTC.Data.Nat.Type
 open import FOTC.Data.Nat.Divisibility.NotBy0

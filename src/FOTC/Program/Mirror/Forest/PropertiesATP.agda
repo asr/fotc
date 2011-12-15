@@ -2,6 +2,9 @@
 -- Properties related with the forest type
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.Mirror.Forest.PropertiesATP where
 
 open import Common.Function

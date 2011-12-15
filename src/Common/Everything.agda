@@ -2,6 +2,9 @@
 -- All the common modules
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Common.Everything where
 
 open import Common.Data.Empty

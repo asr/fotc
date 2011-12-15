@@ -2,6 +2,9 @@
 -- From inductive PA to axiomatic PA
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- From the definition of PA using Agda data types and primitive
 -- recursive functions for addition and multiplication, we can prove the
 -- Mendelson's axioms [1]

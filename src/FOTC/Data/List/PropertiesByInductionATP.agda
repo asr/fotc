@@ -2,6 +2,9 @@
 --  Properties related with lists (using induction on the FOTC list type)
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Data.List.PropertiesByInductionATP where
 
 open import FOTC.Base

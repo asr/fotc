@@ -2,6 +2,9 @@
 -- Inductive Peano arithmetic base
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module PA.Inductive.Base where
 
 -- We add 3 to the fixities of the standard library.

@@ -2,6 +2,9 @@
 -- ABP minor premise
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.ABP.MinorPremiseI where
 
 open import FOTC.Base

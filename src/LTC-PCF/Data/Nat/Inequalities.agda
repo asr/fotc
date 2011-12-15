@@ -2,6 +2,9 @@
 -- Inequalities on partial natural numbers
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module LTC-PCF.Data.Nat.Inequalities where
 
 open import LTC-PCF.Base

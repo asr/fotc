@@ -2,6 +2,9 @@
 -- The mirror function: A function with higher-order recursion
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.Mirror.Mirror where
 
 open import FOTC.Base

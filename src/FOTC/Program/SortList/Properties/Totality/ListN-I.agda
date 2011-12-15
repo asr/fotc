@@ -2,6 +2,9 @@
 -- Totality properties respect to ListN
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.SortList.Properties.Totality.ListN-I where
 
 open import Common.Function

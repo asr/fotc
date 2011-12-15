@@ -2,6 +2,9 @@
 -- Common (interactive and automatic) properties using the induction principle
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module PA.Inductive.PropertiesByInduction where
 
 open import PA.Inductive.Base

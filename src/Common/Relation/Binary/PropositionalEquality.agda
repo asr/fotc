@@ -2,6 +2,9 @@
 -- Propositional equality
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- This module is re-exported by (some) "base" modules.
 
 module Common.Relation.Binary.PropositionalEquality where

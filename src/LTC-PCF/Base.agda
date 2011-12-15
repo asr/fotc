@@ -2,6 +2,9 @@
 -- The LTC-PCF base
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 {-
 LTC-PCF                               The logical framework (Agda)
 

@@ -2,6 +2,9 @@
 -- Properties of the inequalities
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module LTC-PCF.Data.Nat.Inequalities.PropertiesI where
 
 open import Common.Function

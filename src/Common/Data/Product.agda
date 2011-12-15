@@ -2,6 +2,9 @@
 -- Products
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Common.Data.Product where
 
 open import Common.Universe using ( D )

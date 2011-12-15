@@ -2,6 +2,9 @@
 -- Lists
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Data.List where
 
 open import FOTC.Base

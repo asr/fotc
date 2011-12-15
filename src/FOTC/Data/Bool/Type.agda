@@ -2,6 +2,9 @@
 -- The FOTC booleans type
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- This module is re-exported by FOTC.Data.Bool.
 
 module FOTC.Data.Bool.Type where

@@ -2,6 +2,9 @@
 -- Abelian group base
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module GroupTheory.AbelianGroup.Base where
 
 -- We use the group theory base

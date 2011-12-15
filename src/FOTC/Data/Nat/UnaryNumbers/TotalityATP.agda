@@ -2,6 +2,9 @@
 -- The unary numbers are FOTC natural numbers
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Data.Nat.UnaryNumbers.TotalityATP where
 
 open import FOTC.Base

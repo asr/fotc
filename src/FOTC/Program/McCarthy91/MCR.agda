@@ -2,6 +2,9 @@
 -- Well-founded relation use by the properties of the McCarthy 91 function
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.McCarthy91.MCR where
 
 open import FOTC.Base

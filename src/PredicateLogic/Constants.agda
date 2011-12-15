@@ -2,6 +2,9 @@
 -- Logical constants
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module PredicateLogic.Constants where
 
 open import Common.Universe public using ( D )

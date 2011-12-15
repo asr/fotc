@@ -2,6 +2,9 @@
 -- The FOTC coinductive natural numbers type
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- Adapted from: Herbert P. Sander. A logic of functional programs
 -- with an application to concurrency. PhD thesis, Chalmers University
 -- of Technology and University of Gothenburg, Department of Computer

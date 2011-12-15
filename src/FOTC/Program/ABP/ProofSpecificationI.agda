@@ -2,6 +2,9 @@
 -- The alternating bit protocol (ABP) satisfies the specification
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- This module proves the correctness of the ABP following the
 -- formalization in [1].
 

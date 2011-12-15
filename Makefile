@@ -14,10 +14,9 @@ snapshot_dir = snapshot
 # The current directory (\ie. '.') in the Agda path is required only
 # for work with the Draft directory.
 # AGDA_FOT  = agda -v 0 -i. -isrc
-AGDA_FOT  = agda -v 0 -i. -isrc --without-K
+AGDA_FOT  = agda -v 0 -i. -isrc
 AGDA_Agsy = agda -v 0 --allow-unsolved-metas \
-                 -isrc -i/home/asr/Agda/std-lib/src/ \
-		 --without-K
+                 -isrc -i/home/asr/Agda/std-lib/src/
 
 # N.B. The timeout for the conjectures test should be modify in the
 # conjectures_% target.

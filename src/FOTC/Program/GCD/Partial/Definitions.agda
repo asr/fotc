@@ -2,6 +2,9 @@
 -- Common stuff used by the gcd example
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.GCD.Partial.Definitions where
 
 open import FOTC.Base

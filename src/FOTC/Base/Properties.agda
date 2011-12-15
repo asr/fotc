@@ -2,6 +2,9 @@
 -- FOTC terms properties
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Base.Properties where
 
 open import Common.Function

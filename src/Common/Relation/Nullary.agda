@@ -2,6 +2,9 @@
 -- Operations on nullary relations
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Common.Relation.Nullary where
 
 open import Common.Data.Empty using ( ⊥ )

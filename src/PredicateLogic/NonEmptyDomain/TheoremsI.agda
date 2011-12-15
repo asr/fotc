@@ -2,6 +2,9 @@
 -- Theorems which require a non-empty domain
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module PredicateLogic.NonEmptyDomain.TheoremsI where
 
 open import PredicateLogic.Constants

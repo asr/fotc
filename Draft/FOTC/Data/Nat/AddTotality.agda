@@ -1,4 +1,11 @@
--- Tested with FOTC on 29 November 2011.
+------------------------------------------------------------------------------
+-- Totality of natural numbers addition
+------------------------------------------------------------------------------
+
+-- Tested on 15 December 2011.
+
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
 
 module Draft.FOTC.Data.Nat.AddTotality where
 

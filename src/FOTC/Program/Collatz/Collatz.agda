@@ -2,6 +2,9 @@
 -- The Collatz function: A function without a termination proof
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.Collatz.Collatz where
 
 open import FOTC.Base

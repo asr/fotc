@@ -2,6 +2,9 @@
 -- All the FOTC modules
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Everything where
 
 open import FOTC.Base

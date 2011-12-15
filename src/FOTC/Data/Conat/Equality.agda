@@ -2,6 +2,9 @@
 -- Equality on conat
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Data.Conat.Equality where
 
 open import FOTC.Base

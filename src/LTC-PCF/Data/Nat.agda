@@ -2,6 +2,9 @@
 -- Natural numbers (PCF version)
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module LTC-PCF.Data.Nat where
 
 open import LTC-PCF.Base

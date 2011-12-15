@@ -2,6 +2,9 @@
 -- All the Peano arithmetic modules
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module PA.Everything where
 
 open import PA.Axiomatic.Base

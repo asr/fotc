@@ -2,6 +2,9 @@
 -- Unary relations
 ------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- Adapted from the standard library.
 
 module Common.Relation.Unary where

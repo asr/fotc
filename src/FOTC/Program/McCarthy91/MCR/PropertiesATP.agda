@@ -2,6 +2,9 @@
 -- Properties for the MCR relation
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.McCarthy91.MCR.PropertiesATP where
 
 open import FOTC.Base

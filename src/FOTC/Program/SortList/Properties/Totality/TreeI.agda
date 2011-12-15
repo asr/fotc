@@ -2,6 +2,9 @@
 -- Totality properties respect to Tree
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.SortList.Properties.Totality.TreeI where
 
 open import Common.Function

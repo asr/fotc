@@ -2,6 +2,9 @@
 -- Totality properties of the gcd
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.GCD.Total.TotalityI where
 
 open import Common.Function

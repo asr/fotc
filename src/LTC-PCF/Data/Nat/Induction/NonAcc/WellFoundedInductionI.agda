@@ -2,6 +2,9 @@
 -- Well-founded induction on the natural numbers
 ----------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionI where
 
 open import Common.Function

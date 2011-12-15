@@ -2,6 +2,9 @@
 -- Well-founded induction on the natural numbers
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- N.B This module does not contain combined proofs, but it imports
 -- modules which contain combined proofs.
 

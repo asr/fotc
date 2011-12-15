@@ -2,6 +2,9 @@
 -- Arithmetic properties (added for the Collatz function example)
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.Collatz.Data.Nat.PropertiesATP where
 
 open import FOTC.Base

@@ -2,6 +2,9 @@
 -- LT2MCR property
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- The LT2MCR property proves that the recursive calls of the McCarthy
 -- 91 function are on smaller arguments.
 

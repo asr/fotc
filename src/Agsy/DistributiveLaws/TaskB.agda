@@ -2,6 +2,9 @@
 -- Example using distributive laws on a binary operation via Agsy
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Agsy.DistributiveLaws.TaskB where
 
 open import Relation.Binary.PropositionalEquality

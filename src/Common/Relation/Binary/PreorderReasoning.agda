@@ -2,6 +2,9 @@
 -- Parametrized preorder reasoning
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Common.Relation.Binary.PreorderReasoning
   {D     : Set}
   (_∼_   : D → D → Set)

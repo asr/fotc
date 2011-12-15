@@ -2,6 +2,9 @@
 -- FOTC natural numbers
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Data.Nat where
 
 open import FOTC.Base

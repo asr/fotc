@@ -2,6 +2,9 @@
 -- Totality properties respect to OrdTree
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.SortList.Properties.Totality.OrdTreeATP where
 
 open import Common.Function

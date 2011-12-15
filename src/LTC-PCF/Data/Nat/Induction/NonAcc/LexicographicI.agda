@@ -2,6 +2,9 @@
 -- Well-founded induction on the lexicographic order the natural numbers
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI where
 
 open import Common.Function

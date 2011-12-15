@@ -2,6 +2,9 @@
 -- Properties for the relation LTL
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Data.List.LT-Length.PropertiesI where
 
 open import FOTC.Base

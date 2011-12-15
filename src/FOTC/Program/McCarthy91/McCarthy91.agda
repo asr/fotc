@@ -2,6 +2,9 @@
 -- The McCarthy 91 function: A function with nested recursion
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.McCarthy91.McCarthy91 where
 
 open import FOTC.Base

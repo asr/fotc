@@ -2,6 +2,9 @@
 -- FOT (First-Order Theories)
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- Code accompanying the paper "Combining Interactive and Automatic
 -- Reasoning about Functional Programs" by Ana Bove, Peter Dybjer, and
 -- Andrés Sicard-Ramírez.

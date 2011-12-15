@@ -2,6 +2,9 @@
 -- Logical constants
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- This module just exported all the logical constants. This module is
 -- re-exported by (some) "base" modules.
 

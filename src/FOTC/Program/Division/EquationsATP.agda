@@ -2,6 +2,9 @@
 -- Equations for the division
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.Division.EquationsATP where
 
 open import FOTC.Base

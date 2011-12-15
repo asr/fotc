@@ -2,6 +2,9 @@
 -- The gcd is a common divisor
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.GCD.Total.IsCommonDivisorATP where
 
 open import Common.Function

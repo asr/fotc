@@ -2,6 +2,9 @@
 -- Inductive PA properties
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module PA.Inductive.PropertiesATP where
 
 open import PA.Inductive.Base

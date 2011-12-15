@@ -2,6 +2,9 @@
 -- ABP lemma 2
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- From the paper: The second lemma states that given a state of the
 -- latter kind (see lemma 1) we will arrive at a new start state, which
 -- is identical to the old start state except that the bit has alternated

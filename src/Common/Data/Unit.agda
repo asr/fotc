@@ -2,6 +2,9 @@
 -- The unit type
 ------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Common.Data.Unit where
 
 ------------------------------------------------------------------------

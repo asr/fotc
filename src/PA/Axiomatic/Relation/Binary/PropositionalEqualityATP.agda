@@ -2,6 +2,9 @@
 -- Axiomatic PA propositional equality
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module PA.Axiomatic.Relation.Binary.PropositionalEqualityATP where
 
 open import PA.Axiomatic.Base

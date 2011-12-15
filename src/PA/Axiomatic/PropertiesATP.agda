@@ -2,6 +2,9 @@
 -- PA properties
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module PA.Axiomatic.PropertiesATP where
 
 open import PA.Axiomatic.Base

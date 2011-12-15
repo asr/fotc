@@ -2,6 +2,9 @@
 -- The types used by the mirror function
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.Mirror.Type where
 
 open import FOTC.Base

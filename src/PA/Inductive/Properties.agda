@@ -2,6 +2,9 @@
 -- Common (interactive and automatic) inductive PA properties
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module PA.Inductive.Properties where
 
 open import PA.Inductive.Base

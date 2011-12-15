@@ -2,6 +2,9 @@
 -- The division result is correct
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Program.Division.IsCorrectATP where
 
 open import FOTC.Base

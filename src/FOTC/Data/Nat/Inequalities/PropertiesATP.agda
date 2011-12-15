@@ -2,6 +2,9 @@
 -- Properties of the inequalities
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Data.Nat.Inequalities.PropertiesATP where
 
 open import Common.Function

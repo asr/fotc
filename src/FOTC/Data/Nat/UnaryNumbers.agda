@@ -2,6 +2,9 @@
 -- Unary naturales numbers terms
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Data.Nat.UnaryNumbers where
 
 open import FOTC.Base

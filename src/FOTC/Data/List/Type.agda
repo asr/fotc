@@ -2,6 +2,9 @@
 -- The FOTC list type
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- This module is re-exported by FOTC.Data.List.
 
 module FOTC.Data.List.Type where

@@ -2,6 +2,9 @@
 -- Abelian group theory properties
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module GroupTheory.AbelianGroup.PropertiesATP where
 
 open import GroupTheory.AbelianGroup.Base

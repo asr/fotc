@@ -2,6 +2,9 @@
 -- Equations for the inequalities
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module LTC-PCF.Data.Nat.Inequalities.EquationsATP where
 
 open import LTC-PCF.Base
