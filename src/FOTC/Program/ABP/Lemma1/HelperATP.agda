@@ -46,22 +46,20 @@ os₁⁵ os₁ = tail₁ os₁
 {-# ATP definition os₁⁵ #-}
 
 helper : ∀ {b i' is' os₀ os₁ as bs cs ds js} →
-           Bit b →
-           Fair os₁ →
-           Abp b (i' ∷ is') os₀ os₁ as bs cs ds js →
-           ∀ {ol₀} → O*L ol₀ →
-           ∀ {os₀'-aux} → Fair os₀'-aux → os₀ ≡ ol₀ ++ os₀'-aux →
-           ∃ λ os₀' → ∃ λ os₁' →
-           ∃ λ as' → ∃ λ bs' → ∃ λ cs' → ∃ λ ds' → ∃ λ js' →
-           Fair os₀'
-           ∧ Fair os₁'
-           ∧ Abp' b i' is' os₀' os₁' as' bs' cs' ds' js'
-           ∧ js ≡ i' ∷ js'
+         Bit b →
+         Fair os₁ →
+         Abp b (i' ∷ is') os₀ os₁ as bs cs ds js →
+         ∀ {ol₀} → O*L ol₀ →
+         ∀ {os₀'-aux} → Fair os₀'-aux → os₀ ≡ ol₀ ++ os₀'-aux →
+         ∃[ os₀' ] ∃[ os₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
+         Fair os₀'
+         ∧ Fair os₁'
+         ∧ Abp' b i' is' os₀' os₁' as' bs' cs' ds' js'
+         ∧ js ≡ i' ∷ js'
 helper {b} {i'} {is'} {js = js} Bb Fos₁ h nilO*L Fos₀' os₀-eq = prf
   where
   postulate
-    prf : ∃ λ os₀' → ∃ λ os₁' →
-          ∃ λ as' → ∃ λ bs' → ∃ λ cs' → ∃ λ ds' → ∃ λ js' →
+    prf : ∃[ os₀' ] ∃[ os₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
           Fair os₀'
           ∧ Fair os₁'
           ∧ (ds' ≡ corrupt · os₁' · (b ∷ cs')

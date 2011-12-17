@@ -18,7 +18,7 @@ open import FOTC.Base
 
 -- Functional for the FOTC coinductive natural numbers type.
 -- ConatF : (D → Set) → D → Set
--- ConatF P n = ∃ λ n' → P n' ∧ n = succ n'
+-- ConatF P n = ∃[ n' ] P n' ∧ n = succ n'
 
 -- Conat is the greatest post-fixed of ConatF (by Conat-gfp₁ and Conat-gfp₂).
 

@@ -38,8 +38,8 @@ x≡[xy]y⁻¹ a b =
     a · b · b ⁻¹
   ∎
 
-rightIdentityUnique : ∃ λ u → (∀ x → x · u ≡ x) ∧
-                              (∀ u' → (∀ x → x · u' ≡ x) → u ≡ u')
+rightIdentityUnique : ∃[ u ] (∀ x → x · u ≡ x) ∧
+                             (∀ u' → (∀ x → x · u' ≡ x) → u ≡ u')
 rightIdentityUnique =
 -- Paper proof:
 -- 1.  We know that ε is a right identity.
@@ -63,8 +63,8 @@ rightIdentityUnique' x u xu≡x =
     u
   ∎
 
-leftIdentityUnique : ∃ λ u → (∀ x → u · x ≡ x) ∧
-                             (∀ u' → (∀ x → u' · x ≡ x) → u ≡ u')
+leftIdentityUnique : ∃[ u ] (∀ x → u · x ≡ x) ∧
+                            (∀ u' → (∀ x → u' · x ≡ x) → u ≡ u')
 leftIdentityUnique =
 -- Paper proof:
 -- 1.  We know that ε is a left identity.
@@ -136,8 +136,8 @@ x≡y→xz≡yz refl = refl
 x≡y→zx≡zy : ∀ {a b c} → a ≡ b → c · a ≡ c · b
 x≡y→zx≡zy refl = refl
 
-rightInverseUnique : ∀ {x} → ∃ λ r → (x · r ≡ ε) ∧
-                                     (∀ r' → x · r' ≡ ε → r ≡ r')
+rightInverseUnique : ∀ {x} → ∃[ r ] (x · r ≡ ε) ∧
+                                    (∀ r' → x · r' ≡ ε → r ≡ r')
 rightInverseUnique {x} =
 -- Paper proof:
 -- 1.   We know that (x ⁻¹) is a right inverse for x.
@@ -171,8 +171,8 @@ rightInverseUnique' {x} {r} xr≡ε = leftCancellation xx⁻¹≡xr
       x · r
     ∎
 
-leftInverseUnique : ∀ {x} → ∃ λ l → (l · x ≡ ε) ∧
-                                    (∀ l' → l' · x ≡ ε → l ≡ l')
+leftInverseUnique : ∀ {x} → ∃[ l ] (l · x ≡ ε) ∧
+                                   (∀ l' → l' · x ≡ ε → l ≡ l')
 leftInverseUnique {x} =
 -- Paper proof:
 -- 1.   We know that (x ⁻¹) is a left inverse for x.

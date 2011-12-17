@@ -25,8 +25,7 @@ helper : ∀ {b i' is' os₀' os₁' as' bs' cs' ds' js'} →
          Abp' b i' is' os₀' os₁' as' bs' cs' ds' js' →
          ∀ {ol₁ os₁''-aux} →
          O*L ol₁ → Fair (os₁''-aux) → os₁' ≡ ol₁ ++ os₁''-aux →
-         ∃ λ os₀'' → ∃ λ os₁'' →
-         ∃ λ as'' → ∃ λ bs'' → ∃ λ cs'' → ∃ λ ds'' →
+         ∃[ os₀'' ] ∃[ os₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
          Fair os₀''
          ∧ Fair os₁''
          ∧ Abp (not b) is' os₀'' os₁'' as'' bs'' cs'' ds'' js'

@@ -34,14 +34,13 @@ lemma₂ : ∀ {b i' is' os₀' os₁' as' bs' cs' ds' js'} →
          Fair os₀' →
          Fair os₁' →
          Abp' b i' is' os₀' os₁' as' bs' cs' ds' js' →
-         ∃ λ os₀'' → ∃ λ os₁'' →
-         ∃ λ as'' → ∃ λ bs'' → ∃ λ cs'' → ∃ λ ds'' →
+         ∃[ os₀'' ] ∃[ os₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
          Fair os₀''
          ∧ Fair os₁''
          ∧ Abp (not b) is' os₀'' os₁'' as'' bs'' cs'' ds'' js'
 lemma₂ {os₁' = os₁'} Bb Fos₀' Fos₁' h = helper Bb Fos₀' h OLol₀ Fos₁'' os₁'-eq
   where
-  unfold-os₁' : ∃ λ ol₁ → ∃ λ os₁'' → O*L ol₁ ∧ Fair os₁'' ∧ os₁' ≡ ol₁ ++ os₁''
+  unfold-os₁' : ∃[ ol₁ ] ∃[ os₁'' ] O*L ol₁ ∧ Fair os₁'' ∧ os₁' ≡ ol₁ ++ os₁''
   unfold-os₁' = Fair-gfp₁ Fos₁'
 
   ol₁ : D

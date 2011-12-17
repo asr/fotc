@@ -23,12 +23,12 @@ postulate
 -- The equality on Conat functional.
 -- Adapted from Herbert's thesis, p. 58.
 -- ≈NF : (D → D → Set) → D → D → Set
--- ≈NF _R_ m n = ∃ λ m' → ∃ λ n' → m' R n' ∧ m ≡ succ m' ∧ n ≡ succ n'
+-- ≈NF _R_ m n = ∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ m' ∧ n ≡ succ n'
 
 -- The relation _≈N_ is a post-fixed point of the functional ≈NF.
 postulate
   ≈N-gfp₁ : ∀ {m n} → m ≈N n →
-            ∃ λ m' → ∃ λ n' → m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
+            ∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
 {-# ATP axiom ≈N-gfp₁ #-}
 
 -- N.B. This is a second-order axiom. In the automatic proofs, we
@@ -38,21 +38,21 @@ postulate
   ≈N-gfp₂ : (_R_ : D → D → Set) →
             -- R is a post-fixed point of the functional ≈NF.
            (∀ {m n} → m R n →
-            ∃ λ m' → ∃ λ n' → m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n') →
+            ∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n') →
            -- _≈N_ is greater than R.
            ∀ {m n} → m R n → m ≈N n
 
 -- Because a greatest post-fixed point is a fixed point, the relation
 -- _≈N_ is also a pre-fixed point of functional ≈NF.
 ≈N-gfp₃ : ∀ {m n} →
-          (∃ λ m' → ∃ λ n' → m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n') →
+          (∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n') →
           m ≈N n
 ≈N-gfp₃ h = ≈N-gfp₂ _R_ helper h
   where
   _R_ : D → D → Set
-  _R_ m n = ∃ λ m' → ∃ λ n' → m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
+  _R_ m n = ∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
 
   helper : ∀ {m n} → m R n →
-           ∃ λ m' → ∃ λ n' → m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
+           ∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
   helper (m' , n' , m'≈Nn' , prf) =
     m' , n' , (≈N-gfp₁ m'≈Nn') , prf

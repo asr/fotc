@@ -39,9 +39,9 @@ postulate
 
 -- Generalization of De Morgan's laws.
 postulate
-  gDM₁ : ¬ (⋀ P¹) ↔ ∃ (λ x → ¬ (P¹ x))
+  gDM₁ : ¬ (⋀ P¹) ↔ (∃[ x ] ¬ (P¹ x))
   gDM₂ : ¬ (∃ P¹) ↔ ⋀ (λ x → ¬ (P¹ x))
-  gDM₃ : ⋀ P¹     ↔ ¬ (∃ (λ x → ¬ (P¹ x)))
+  gDM₃ : ⋀ P¹     ↔ ¬ (∃[ x ] ¬ (P¹ x))
   gDM₄ : ∃ P¹     ↔ ¬ (⋀ (λ x → ¬ (P¹ x)))
 {-# ATP prove gDM₁ #-}
 {-# ATP prove gDM₂ #-}
@@ -51,25 +51,25 @@ postulate
 -- The order of quantifiers of the same sort is irrelevant.
 postulate
   ∀-ord : ⋀ (λ x → ⋀ (λ y → P² x y)) ↔ ⋀ (λ y → ⋀ (λ x → P² x y))
-  ∃-ord : ∃ (λ x → ∃ (λ y → P² x y)) ↔ ∃ (λ y → ∃ (λ x → P² x y))
+  ∃-ord : (∃[ x ] ∃[ y ] P² x y) ↔ (∃[ y ] ∃[ x ] P² x y)
 {-# ATP prove ∀-ord #-}
 {-# ATP prove ∃-ord #-}
 
 -- Quantification over a variable that does not occur can be delete.
 postulate
   ∀-erase : ⋀ (λ _ → P⁰) ↔ P⁰
-  ∃-erase : ∃ (λ x → P⁰ ∧ P¹ x) ↔ P⁰ ∧ ∃ (λ x → P¹ x)
+  ∃-erase : (∃[ x ] P⁰ ∧ P¹ x) ↔ P⁰ ∧ (∃[ x ] P¹ x)
 {-# ATP prove ∀-erase #-}
 {-# ATP prove ∃-erase #-}
 
 -- Distributes laws for the quantifiers.
 postulate
   ∀-dist : ⋀ (λ x → P¹ x ∧ Q¹ x) ↔ (⋀ P¹ ∧ ⋀ Q¹)
-  ∃-dist : ∃ (λ x → P¹ x ∨ Q¹ x) ↔ (∃ P¹ ∨ ∃ Q¹)
+  ∃-dist : (∃[ x ] P¹ x ∨ Q¹ x) ↔ (∃ P¹ ∨ ∃ Q¹)
 {-# ATP prove ∀-dist #-}
 {-# ATP prove ∃-dist #-}
 
 -- Interchange of quantifiers.
 -- The related theorem ∀x∃y.Pxy → ∃y∀x.Pxy is not (classically) valid.
-postulate ∃∀ : ∃ (λ x → ⋀ λ y → P² x y) → ⋀ λ y → ∃ λ x → P² x y
+postulate ∃∀ : ∃[ x ] (⋀ λ y → P² x y) → ⋀ λ y → ∃[ x ] P² x y
 {-# ATP prove ∃∀ #-}

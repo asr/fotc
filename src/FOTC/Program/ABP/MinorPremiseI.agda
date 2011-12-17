@@ -34,14 +34,14 @@ open import FOTC.Program.ABP.Lemma2I
 -- first item in the input stream has been removed.
 
 minorPremise : ∀ {is js} → is B js →
-               ∃ λ i' → ∃ λ is' → ∃ λ js' →
+               ∃[ i' ] ∃[ is' ] ∃[ js' ]
                is' B js' ∧ is ≡ i' ∷ is' ∧ js ≡ i' ∷ js'
 minorPremise {is} {js}
              (b , os₀ , os₁ , as , bs , cs , ds , Sis , Bb , Fos₀ , Fos₁ , h) =
   i' , is' , js' , is'Bjs' , is≡i'∷is , js≡i'∷js'
 
   where
-  unfold-is : ∃ λ i' → ∃ λ is' → Stream is' ∧ is ≡ i' ∷ is'
+  unfold-is : ∃[ i' ] ∃[ is' ] Stream is' ∧ is ≡ i' ∷ is'
   unfold-is = Stream-gfp₁ Sis
 
   i' : D
@@ -61,13 +61,11 @@ minorPremise {is} {js}
                Abp b (i' ∷ is') os₀ os₁ as bs cs ds js
   Abp-helper h₁ h₂ = subst (λ t → Abp b t os₀ os₁ as bs cs ds js) h₁ h₂
 
-  Abp'-lemma₁ : ∃ λ os₀' → ∃ λ os₁' →
-                ∃ λ as' → ∃ λ bs' → ∃ λ cs' → ∃ λ ds' → ∃ λ js' →
+  Abp'-lemma₁ : ∃[ os₀' ] ∃[ os₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
                 Fair os₀'
                 ∧ Fair os₁'
                 ∧ Abp' b i' is' os₀' os₁' as' bs' cs' ds' js'
                 ∧ js ≡ i' ∷ js'
-
   Abp'-lemma₁ = lemma₁ Bb Fos₀ Fos₁ (Abp-helper is≡i'∷is h)
 
   -- Following Martin Escardo advice (see Agda mailing list, heap
@@ -83,11 +81,10 @@ minorPremise {is} {js}
   js≡i'∷js' with Abp'-lemma₁
   ... | _ , _ , _ , _ , _ , _ , _ , _ , _ , _ , h = h
 
-  Abp-lemma₂ :  ∃ λ os₀'' → ∃ λ os₁'' →
-                ∃ λ as'' → ∃ λ bs'' → ∃ λ cs'' → ∃ λ ds'' →
-                Fair os₀''
-                ∧ Fair os₁''
-                ∧ Abp (not b) is' os₀'' os₁'' as'' bs'' cs'' ds'' js'
+  Abp-lemma₂ : ∃[ os₀'' ] ∃[ os₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
+               Fair os₀''
+               ∧ Fair os₁''
+               ∧ Abp (not b) is' os₀'' os₁'' as'' bs'' cs'' ds'' js'
   Abp-lemma₂ with Abp'-lemma₁
   Abp-lemma₂ | _ , _ , _ , _ , _ , _ , _ , Fos₀' , Fos₁' , abp' , _ =
     lemma₂ Bb Fos₀' Fos₁' abp'

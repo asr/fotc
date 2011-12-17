@@ -22,7 +22,7 @@ open import FOTC.Data.Stream
   P : D → Set
   P n = n ≡ ω
 
-  helper : {n : D} → P n → ∃ λ n' → P n' ∧ n ≡ succ₁ n'
+  helper : {n : D} → P n → ∃[ n' ] P n' ∧ n ≡ succ₁ n'
   helper Pn = ω , refl , trans Pn ω-eq
 
 -- Adapted from Herbert's thesis, p. 58.
@@ -30,14 +30,14 @@ stream-length : ∀ {xs} → Stream xs → length xs ≈N ω
 stream-length {xs} Sxs = ≈N-gfp₂ _R_ helper₁ helper₂
   where
   _R_ : D → D → Set
-  m R n = ∃ λ ys → Stream ys ∧ m ≡ length ys ∧ n ≡ ω
+  m R n = ∃[ ys ] Stream ys ∧ m ≡ length ys ∧ n ≡ ω
 
   helper₁ : ∀ {m n} → m R n →
-            ∃ λ m' → ∃ λ n' → m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
+            ∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
   helper₁ {m} {n} (ys , Sys , h₁ , h₂) =
     length ys' , n , (ys' , Sys' , refl , h₂) , prf₁ , prf₂
     where
-    unfold-ys : ∃ λ y' → ∃ λ ys' → Stream ys' ∧ ys ≡ y' ∷ ys'
+    unfold-ys : ∃[ y' ] ∃[ ys' ] Stream ys' ∧ ys ≡ y' ∷ ys'
     unfold-ys = Stream-gfp₁ Sys
 
     y' : D

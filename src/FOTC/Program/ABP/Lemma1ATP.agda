@@ -32,15 +32,14 @@ lemma₁ : ∀ {b i' is' os₀ os₁ as bs cs ds js} →
          Fair os₀ →
          Fair os₁ →
          Abp b (i' ∷ is') os₀ os₁ as bs cs ds js →
-         ∃ λ os₀' → ∃ λ os₁' →
-         ∃ λ as' → ∃ λ bs' → ∃ λ cs' → ∃ λ ds' → ∃ λ js' →
+         ∃[ os₀' ] ∃[ os₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
          Fair os₀'
          ∧ Fair os₁'
          ∧ Abp' b i' is' os₀' os₁' as' bs' cs' ds' js'
          ∧ js ≡ i' ∷ js'
 lemma₁ {os₀ = os₀} Bb Fos₀ Fos₁ h = helper Bb Fos₁ h OLol₀ Fos₀' os₀-eq
   where
-  unfold-os₀ : ∃ λ ol₀ → ∃ λ os₀' → O*L ol₀ ∧ Fair os₀' ∧ os₀ ≡ ol₀ ++ os₀'
+  unfold-os₀ : ∃[ ol₀ ] ∃[ os₀' ] O*L ol₀ ∧ Fair os₀' ∧ os₀ ≡ ol₀ ++ os₀'
   unfold-os₀ = Fair-gfp₁ Fos₀
 
   ol₀ : D

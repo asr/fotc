@@ -21,11 +21,11 @@ postulate tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 -- because the translation of projection-like functions is not
 -- implemented.
 ≈→Stream-P₁ : D → Set
-≈→Stream-P₁ ws = ∃ λ zs → ws ≈ zs
+≈→Stream-P₁ ws = ∃[ zs ] ws ≈ zs
 {-# ATP definition ≈→Stream-P₁ #-}
 
 ≈→Stream-P₂ : D → Set
-≈→Stream-P₂ zs = ∃ λ ws → ws ≈ zs
+≈→Stream-P₂ zs = ∃[ ws ] ws ≈ zs
 {-# ATP definition ≈→Stream-P₂ #-}
 
 ≈→Stream : ∀ {xs ys} → xs ≈ ys → Stream xs ∧ Stream ys
@@ -33,11 +33,11 @@ postulate tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
                          , Stream-gfp₂ ≈→Stream-P₂ helper₂ (xs , xs≈ys)
   where
   postulate
-    helper₁ : ∀ {ws} → ≈→Stream-P₁ ws → ∃ λ w' → ∃ λ ws' →
-              ≈→Stream-P₁ ws' ∧ ws ≡ w' ∷ ws'
+    helper₁ : ∀ {ws} → ≈→Stream-P₁ ws →
+              ∃[ w' ] ∃[ ws' ] ≈→Stream-P₁ ws' ∧ ws ≡ w' ∷ ws'
   {-# ATP prove helper₁ #-}
 
   postulate
-    helper₂ : ∀ {zs} → ≈→Stream-P₂ zs → ∃ λ z' → ∃ λ zs' →
-              ≈→Stream-P₂ zs' ∧ zs ≡ z' ∷ zs'
+    helper₂ : ∀ {zs} → ≈→Stream-P₂ zs →
+              ∃[ z' ] ∃[ zs' ] ≈→Stream-P₂ zs' ∧ zs ≡ z' ∷ zs'
   {-# ATP prove helper₂ #-}

@@ -22,7 +22,7 @@ data O*L : D → Set where
 
 -- Functor for the Fair type.
 -- FairF : (D → Set) → D → Set
--- FairF X os = ∃ λ ol → ∃ λ os' → O*L ol ∧ X os' ∧ os ≡ ol ++ os'
+-- FairF X os = ∃[ ol ] ∃[ os' ] O*L ol ∧ X os' ∧ os ≡ ol ++ os'
 
 -- Fair is the greatest post-fixed of FairF (by Fair-gfp₁ and Fair-gfp₂).
 

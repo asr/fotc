@@ -41,16 +41,16 @@ gDM₂ = l→r , r→l
   r→l ∀¬p¹ ∃p¹ = ∀¬p¹ (∃-proj₁ ∃p¹) (∃-proj₂ ∃p¹)
 
 -- Quantification over a variable that does not occur can be delete.
-∃-erase : ∃ (λ x → P⁰ ∧ P¹ x) ↔ P⁰ ∧ ∃ (λ x → P¹ x)
+∃-erase : (∃[ x ] P⁰ ∧ P¹ x) ↔ P⁰ ∧ (∃[ x ] P¹ x)
 ∃-erase = l→r , r→l
   where
-  l→r : ∃ (λ x → P⁰ ∧ P¹ x) → P⁰ ∧ ∃ (λ x → P¹ x)
+  l→r : ∃[ x ] P⁰ ∧ P¹ x → P⁰ ∧ (∃[ x ] P¹ x)
   l→r (x , p0 , p¹x) = p0 , x , p¹x
 
-  r→l : P⁰ ∧ ∃ (λ x → P¹ x) → ∃ (λ x → P⁰ ∧ P¹ x)
+  r→l : P⁰ ∧ (∃[ x ] P¹ x) → ∃[ x ] P⁰ ∧ P¹ x
   r→l (p0 , x , p¹x) = x , p0 , p¹x
 
 -- Interchange of quantifiers.
 -- The related theorem ∀x∃y.Pxy → ∃y∀x.Pxy is not (classically) valid.
-∃∀ : ∃ (λ x → ⋀ λ y → P² x y) → ⋀ λ y → ∃ λ x → P² x y
+∃∀ : ∃[ x ] (⋀ λ y → P² x y) → ⋀ λ y → ∃[ x ] P² x y
 ∃∀ (x , h) y = x , h y
