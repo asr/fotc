@@ -5,10 +5,11 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- From the paper: The second lemma states that given a state of the
--- latter kind (see lemma 1) we will arrive at a new start state, which
--- is identical to the old start state except that the bit has alternated
--- and the first item in the input stream has been removed.
+-- From Dybjer and Sander's paper: The second lemma states that given
+-- a state of the latter kind (see lemma 1) we will arrive at a new
+-- start state, which is identical to the old start state except that
+-- the bit has alternated and the first item in the input stream has
+-- been removed.
 
 module FOTC.Program.ABP.Lemma2ATP where
 
@@ -22,11 +23,9 @@ open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 
--- From the paper: From the assumption that os₁ ∈ Fair, and hence by
--- unfolding Fair we conclude that there are ol₁ : O*L and os₁'' :
--- Fair, such that
---
--- os₁' = ol₁ ++ os₁''.
+-- From Dybjer and Sander's paper: From the assumption that os₁ ∈
+-- Fair, and hence by unfolding Fair we conclude that there are ol₁ :
+-- O*L and os₁'' : Fair, such that os₁' = ol₁ ++ os₁''.
 --
 -- We proceed by induction on ol₁ : O*L using lemma₂-helper.
 

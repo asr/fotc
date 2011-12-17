@@ -5,10 +5,11 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- From the paper: The first lemma states that given a start state Abp
--- (of the alternating bit protocol) we will arrive at a state Abp',
--- where the message has been received by the receiver, but where the
--- acknowledgement has not yet been received by the sender.
+-- From Dybjer and Sander's paper: The first lemma states that given a
+-- start state Abp (of the alternating bit protocol) we will arrive at
+-- a state Abp', where the message has been received by the receiver,
+-- but where the acknowledgement has not yet been received by the
+-- sender.
 
 module FOTC.Program.ABP.Lemma1ATP where
 
@@ -21,11 +22,9 @@ open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 
--- From the paper: From the assumption that os₀ ∈ Fair, and hence by
--- unfolding Fair we conclude that there are ol₀ : O*L and os₀' :
--- Fair, such that
---
--- os₀ = ol₀ ++ os₀'.
+-- From Dybjer and Sander's paper: From the assumption that os₀ ∈
+-- Fair, and hence by unfolding Fair we conclude that there are ol₀ :
+-- O*L and os₀' : Fair, such that os₀ = ol₀ ++ os₀'.
 --
 -- We proceed by induction on ol₀ : O*L using lemma₁-helper.
 lemma₁ : ∀ {b i' is' os₀ os₁ as bs cs ds js} →

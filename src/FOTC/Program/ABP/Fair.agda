@@ -14,8 +14,8 @@ open import FOTC.Program.ABP.Terms
 ------------------------------------------------------------------------------
 -- The Fair co-inductive predicate
 
--- From the paper: al : O*L if al is a list of zero or more O's
--- followed by a final L.
+-- From Dybjer and Sander's paper: al : O*L if al is a list of zero or
+-- more O's followed by a final L.
 data O*L : D → Set where
   nilO*L  :                 O*L (L ∷ [])
   consO*L : ∀ ol → O*L ol → O*L (O ∷ ol)
