@@ -23,7 +23,7 @@ open import LTC-PCF.Relation.Binary.EqReasoning
 0<0→⊥ : ¬ LT zero zero
 0<0→⊥ 0<0 = true≠false $ trans (sym 0<0) <-00
 
-S<0→⊥ : {d : D} → ¬ LT (succ₁ d) zero
+S<0→⊥ : ∀ {d}  → ¬ LT (succ₁ d) zero
 S<0→⊥ {d} Sd<0 = true≠false $ trans (sym Sd<0) (<-S0 d)
 
 x<0→⊥ : ∀ {n} → N n → ¬ (LT n zero)
@@ -37,7 +37,7 @@ x<x→⊥ (sN {n} Nn) Sn<Sn = ⊥-elim $ x<x→⊥ Nn (trans (sym $ <-SS n n) Sn
 0>0→⊥ : ¬ GT zero zero
 0>0→⊥ 0>0 = true≠false $ trans (sym 0>0) <-00
 
-0>S→⊥ : {d : D} → ¬ GT zero (succ₁ d)
+0>S→⊥ : ∀ {d} → ¬ GT zero (succ₁ d)
 0>S→⊥ {d} 0>Sd = true≠false (trans (sym 0>Sd) (<-S0 d))
 
 0>x→⊥ : ∀ {n} → N n → ¬ (GT zero n)

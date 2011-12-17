@@ -32,6 +32,6 @@ mirror-Tree Tt = mutualIndTree {P} {Q} ihP Q[] ihQ Tt
   Q[] : Forest (map mirror [])
   Q[] = subst Forest (sym (map-[] mirror)) nilF
 
-  ihQ : {t ts : D} → Tree t → P t → Forest ts → Q ts → Q (t ∷ ts)
+  ihQ : ∀ {t ts} → Tree t → P t → Forest ts → Q ts → Q (t ∷ ts)
   ihQ {t} {ts} Tt Pt Fts Qts =
     subst Forest (sym (map-∷ mirror t ts)) (consF Pt Qts)

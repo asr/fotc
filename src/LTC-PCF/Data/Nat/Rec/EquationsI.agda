@@ -122,7 +122,7 @@ private
 ------------------------------------------------------------------------------
 -- The conversion rules for rec.
 
-rec-0 : ∀ a {f : D} → rec zero a f ≡ a
+rec-0 : ∀ a {f} → rec zero a f ≡ a
 rec-0 a {f} =
   begin
     fix rech · zero · a · f ≡⟨ proof₀₋₁ zero a f ⟩
@@ -134,7 +134,7 @@ rec-0 a {f} =
     a
   ∎
 
-rec-S : ∀ n a (f : D) → rec (succ₁ n) a f ≡ f · n · (rec n a f)
+rec-S : ∀ n a f → rec (succ₁ n) a f ≡ f · n · (rec n a f)
 rec-S n a f =
   begin
     fix rech · (succ₁ n) · a · f ≡⟨ proof₀₋₁ (succ₁ n) a f ⟩

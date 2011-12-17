@@ -57,5 +57,5 @@ Fair-gfp₃ h = Fair-gfp₂ P helper h
   P : D → Set
   P ws = ∃[ wl ] ∃[ ws' ] O*L wl ∧ Fair ws' ∧ ws ≡ wl ++ ws'
 
-  helper : {os : D} → P os → ∃[ ol ] ∃[ os' ] O*L ol ∧ P os' ∧ os ≡ ol ++ os'
+  helper : ∀ {os} → P os → ∃[ ol ] ∃[ os' ] O*L ol ∧ P os' ∧ os ≡ ol ++ os'
   helper (ol , os' , OLol , Fos' , h) = ol , os' , OLol , Fair-gfp₁ Fos' , h

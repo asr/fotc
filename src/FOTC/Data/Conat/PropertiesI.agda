@@ -22,7 +22,7 @@ open import FOTC.Data.Stream
   P : D → Set
   P n = n ≡ ω
 
-  helper : {n : D} → P n → ∃[ n' ] P n' ∧ n ≡ succ₁ n'
+  helper : ∀ {n} → P n → ∃[ n' ] P n' ∧ n ≡ succ₁ n'
   helper Pn = ω , refl , trans Pn ω-eq
 
 -- Adapted from Herbert's thesis, p. 58.
