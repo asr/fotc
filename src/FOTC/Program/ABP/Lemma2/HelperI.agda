@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Program.ABP.Lemma2I.Helper where
+module FOTC.Program.ABP.Lemma2.HelperI where
 
 open import FOTC.Base
 open import FOTC.Data.Bool

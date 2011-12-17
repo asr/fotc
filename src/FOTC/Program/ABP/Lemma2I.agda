@@ -17,7 +17,7 @@ open import FOTC.Data.Bool
 open import FOTC.Data.List
 open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.Fair
-open import FOTC.Program.ABP.Lemma2I.Helper
+open import FOTC.Program.ABP.Lemma2.HelperI
 open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
