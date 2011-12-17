@@ -9,6 +9,7 @@ module FOTC.Program.ABP.Lemma1ATP.Helper where
 
 open import FOTC.Base
 open import FOTC.Data.Bool
+open import FOTC.Data.Bool.PropertiesATP
 open import FOTC.Data.List
 open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.Fair
@@ -109,13 +110,13 @@ helper {b} {i'} {is'} {os₀} {os₁} {as} {bs} {cs} {ds} {js}
     as⁵-eq-helper₁ : ds ≡ ok (not b) ∷ ds⁵ b i' is' ds (os₀⁵ os₀' ol₀⁵) (os₁⁵ os₁) →
                      as⁵ b i' is' ds ≡
                      abpsend · b · (i' ∷ is') · ds⁵ b i' is' ds (os₀⁵ os₀' ol₀⁵) (os₁⁵ os₁)
-  {- ATP prove as⁵-eq-helper₁ #-}
+  {-# ATP prove as⁵-eq-helper₁ x≠not-x #-}
 
   postulate
     as⁵-eq-helper₂ : ds ≡ error ∷ ds⁵ b i' is' ds (os₀⁵ os₀' ol₀⁵) (os₁⁵ os₁) →
                      as⁵ b i' is' ds ≡
                      abpsend · b · (i' ∷ is') · ds⁵ b i' is' ds (os₀⁵ os₀' ol₀⁵) (os₁⁵ os₁)
-  {- ATP prove as⁵-eq-helper₂ #-}
+  {-# ATP prove as⁵-eq-helper₂ #-}
 
   as⁵-eq : as⁵ b i' is' ds ≡
            abpsend · b · (i' ∷ is') · ds⁵ b i' is' ds (os₀⁵ os₀' ol₀⁵) (os₁⁵ os₁)
