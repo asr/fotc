@@ -30,5 +30,4 @@ open import FOTC.Program.ABP.Terms
 -- Main theorem.
 spec : ∀ {b is os₀ os₁} → Bit b → Stream is → Fair os₀ → Fair os₁ →
        is ≈ abptransfer b os₀ os₁ is
-spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ =
-  ≈-gfp₂ _B_ minorPremise (mayorPremise Bb Fos₀ Fos₁ Sis)
+spec Bb Sis Fos₀ Fos₁ = ≈-gfp₂ _B_ minorPremise (mayorPremise Bb Fos₀ Fos₁ Sis)
