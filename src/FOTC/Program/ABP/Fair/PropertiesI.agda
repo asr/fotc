@@ -43,7 +43,7 @@ head-tail-Fair-helper {os} {os' = os'} nilO*L h = inj₁ prf₃
       L ∷ tail₁ os
     ∎
 
-head-tail-Fair-helper {os} {os' = os'} (consO*L ol OLol) h = inj₂ prf₃
+head-tail-Fair-helper {os} {os' = os'} (consO*L {ol} OLol) h = inj₂ prf₃
   where
   prf₁ : os ≡ O ∷ ol ++ os'
   prf₁ =
@@ -108,7 +108,7 @@ tail-Fair-helper {os} {os' = os'} nilO*L h Fos' = subst Fair (sym prf₂) Fos'
       os'
     ∎
 
-tail-Fair-helper {os} {os' = os'} (consO*L ol OLol) h Fos' =
+tail-Fair-helper {os} {os' = os'} (consO*L {ol} OLol) h Fos' =
   subst Fair (sym prf₂) (Fair-gfp₃ (ol , os' , OLol , Fos' , refl))
   where
   prf₁ : os ≡ O ∷ ol ++ os'

@@ -94,7 +94,7 @@ helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
 
 helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
        Bb Fos₀' (ds'Abp' , as'Abp , bs'Abp' , cs'Abp' , js'Abp')
-       {os₁''-aux = os₁''} (consO*L ol₁ OLol₁)
+       {os₁''-aux = os₁''} (consO*L {ol₁} OLol₁)
        Fos₁'' os₁'-eq = helper Bb (tail-Fair Fos₀') Abp'IH OLol₁ Fos₁'' refl
 
   where

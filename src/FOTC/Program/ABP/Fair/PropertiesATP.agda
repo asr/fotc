@@ -21,7 +21,7 @@ head-tail-Fair-helper {os} {os' = os'} nilO*L h = prf
   postulate prf : os ≡ L ∷ tail₁ os ∨ os ≡ O ∷ tail₁ os
   {-# ATP prove prf #-}
 
-head-tail-Fair-helper {os} {os' = os'} (consO*L ol OLol) h = prf
+head-tail-Fair-helper {os} {os' = os'} (consO*L OLol) h = prf
   where
   postulate prf : os ≡ L ∷ tail₁ os ∨ os ≡ O ∷ tail₁ os
   {-# ATP prove prf #-}
@@ -39,7 +39,7 @@ tail-Fair-helper {os} {os' = os'} nilO*L h Fos' = prf
   postulate prf : Fair (tail₁ os)
   {-# ATP prove prf #-}
 
-tail-Fair-helper {os} {os' = os'} (consO*L ol OLol) h Fos' = prf
+tail-Fair-helper {os} {os' = os'} (consO*L OLol) h Fos' = prf
   where
   postulate prf : Fair (tail₁ os)
   {-# ATP prove prf Fair-gfp₃ #-}

@@ -72,7 +72,7 @@ helper {b} {i'} {is'} {js' = js'} Bb Fos₀' h nilO*L Fos₁'' os₁'-eq = prf
 
 helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
        Bb Fos₀' abp'
-       {os₁''-aux = os₁''} (consO*L ol₁ OLol₁)
+       {os₁''-aux = os₁''} (consO*L {ol₁} OLol₁)
        Fos₁'' os₁'-eq = helper Bb (tail-Fair Fos₀') Abp'IH OLol₁ Fos₁'' refl
   where
   postulate os₁'-eq-helper : os₁' ≡ O ∷ os₁⁵ ol₁ os₁''

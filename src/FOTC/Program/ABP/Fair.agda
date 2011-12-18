@@ -18,7 +18,7 @@ open import FOTC.Program.ABP.Terms
 -- more O's followed by a final L.
 data O*L : D → Set where
   nilO*L  :                 O*L (L ∷ [])
-  consO*L : ∀ ol → O*L ol → O*L (O ∷ ol)
+  consO*L : ∀ {ol} → O*L ol → O*L (O ∷ ol)
 
 -- Functor for the Fair type.
 -- FairF : (D → Set) → D → Set
