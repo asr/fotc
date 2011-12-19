@@ -1,22 +1,21 @@
 ------------------------------------------------------------------------------
--- FOT (First-Order Theories)
+-- FOT (First Order Theories)
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
-
 -- Code accompanying the paper "Combining Interactive and Automatic
--- Reasoning about Functional Programs" by Ana Bove, Peter Dybjer, and
--- Andrés Sicard-Ramírez.
+-- Reasoning in First Order Theories of Functional Programs" by Ana
+-- Bove, Peter Dybjer, and Andrés Sicard-Ramírez (FoSSaCS 2012).
+
+-- The code presented here does not match the paper exactly.
 
 module README where
 
 ------------------------------------------------------------------------------
 -- Description
 
--- Examples of the formalization of first-order theories showing the
+-- Examples of the formalization of first order theories showing the
 -- combination of interactive proofs with automatics proofs carried
--- out by first-order automatic theorem provers (ATPs).
+-- out by first order automatic theorem provers (ATPs).
 
 ------------------------------------------------------------------------------
 -- Prerequisites and use
@@ -26,7 +25,7 @@ module README where
 ------------------------------------------------------------------------------
 -- Conventions
 
--- The following modules show the formalization of some first-order
+-- The following modules show the formalization of some first order
 -- theories. If the module's name ends in 'I' the module contains
 -- interactive proofs, if it ends in 'ATP' the module contains
 -- combined proofs, otherwise the module contains definions and/or
@@ -294,7 +293,7 @@ open import FOTC.Program.GCD.Partial.EquationsATP
 open import FOTC.Program.GCD.Total.EquationsATP
 
 ------------------------------------------------------------------------------
--- LTC-PCF (Almost a first-order theory)
+-- LTC-PCF (Almost a first order theory)
 
 -- Formalization of (a version of) Azcel's Logical Theory of Constructions.
 -- N.B. This was the theory shown in our PLPV'09 paper.
