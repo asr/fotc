@@ -1,9 +1,10 @@
 ##############################################################################
 # Global variables
 
-# Host directory used by publish
-# Tunneling connection
-root_host_dir = asicard@localhost:code/fotc/FOT
+publish = $(shell if [ -e publish.mk ]; then echo Yes; else echo No; fi)
+ifeq ($(publish),Yes)
+include publish.mk
+endif
 
 # Snapshot directory
 snapshot_dir = snapshot
@@ -35,8 +36,6 @@ AGDA2ATP_ONLY_CONJECTURES = agda2atp -i. -isrc --only-files
 # Equinox has the better parser for TPTP files, so we use it to find problems.
 # See notes/tptp/parsing_error.tptp
 AGDA2ATP_PARSING = agda2atp -i. -isrc --time=1 --atp=equinox
-
-RSYNC = rsync --archive --progress --rsh='ssh -p 2024'
 
 ##############################################################################
 # Paths
