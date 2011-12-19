@@ -2,9 +2,6 @@
 -- All the group theory modules
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
-
 module GroupTheory.Everything where
 
 open import GroupTheory.Base

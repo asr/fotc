@@ -2,9 +2,6 @@
 -- All the distributive laws modules
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
-
 module DistributiveLaws.Everything where
 
 open import DistributiveLaws.Base

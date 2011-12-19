@@ -2,9 +2,6 @@
 -- All the LTC-PCF modules
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
-
 module LTC-PCF.Everything where
 
 open import LTC-PCF.Base

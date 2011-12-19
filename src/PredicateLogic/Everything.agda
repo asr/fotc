@@ -2,9 +2,6 @@
 -- All the predicate logic modules
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
-
 module PredicateLogic.Everything where
 
 open import PredicateLogic.ClassicalATP
