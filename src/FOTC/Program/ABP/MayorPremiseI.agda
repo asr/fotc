@@ -15,25 +15,25 @@ open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 
-mayorPremise : ∀ {b os₀ os₁ is} →
-               Bit b → Fair os₀ → Fair os₁ → Stream is →
-               is B abptransfer b os₀ os₁ is
-mayorPremise {b} {os₀} {os₁} {is} Bb Fos₀ Fos₁ Sis =
+mayorPremise : ∀ {b fs₀ fs₁ is} →
+               Bit b → Fair fs₀ → Fair fs₁ → Stream is →
+               is B abptransfer b fs₀ fs₁ is
+mayorPremise {b} {fs₀} {fs₁} {is} Bb Ffs₀ Ffs₁ Sis =
   b
-  , os₀
-  , os₁
-  , has (abpsend · b) (abpack · b) (abpout · b) (corrupt · os₀) (corrupt · os₁) is
-  , hbs (abpsend · b) (abpack · b) (abpout · b) (corrupt · os₀) (corrupt · os₁) is
-  , hcs (abpsend · b) (abpack · b) (abpout · b) (corrupt · os₀) (corrupt · os₁) is
-  , hds (abpsend · b) (abpack · b) (abpout · b) (corrupt · os₀) (corrupt · os₁) is
+  , fs₀
+  , fs₁
+  , has (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
+  , hbs (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
+  , hcs (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
+  , hds (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
   , Sis
   , Bb
-  , Fos₀
-  , Fos₁
-  , has-eq (abpsend · b) (abpack · b) (abpout · b) (corrupt · os₀) (corrupt · os₁) is
-  , hbs-eq (abpsend · b) (abpack · b) (abpout · b) (corrupt · os₀) (corrupt · os₁) is
-  , hcs-eq (abpsend · b) (abpack · b) (abpout · b) (corrupt · os₀) (corrupt · os₁) is
-  , hds-eq (abpsend · b) (abpack · b) (abpout · b) (corrupt · os₀) (corrupt · os₁) is
-  , trans (abptransfer-eq b os₀ os₁ is)
-          (transfer-eq (abpsend · b) (abpack · b) (abpout · b) (corrupt · os₀)
-                       (corrupt · os₁) is)
+  , Ffs₀
+  , Ffs₁
+  , has-eq (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
+  , hbs-eq (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
+  , hcs-eq (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
+  , hds-eq (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
+  , trans (abptransfer-eq b fs₀ fs₁ is)
+          (transfer-eq (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀)
+                       (corrupt · fs₁) is)

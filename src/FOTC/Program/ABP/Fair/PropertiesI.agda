@@ -15,135 +15,135 @@ open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 
-head-tail-Fair-helper : ∀ {os ol os'} → O*L ol → os ≡ ol ++ os' →
-                        os ≡ L ∷ tail₁ os ∨ os ≡ O ∷ tail₁ os
-head-tail-Fair-helper {os} {os' = os'} nilO*L h = inj₁ prf₃
+head-tail-Fair-helper : ∀ {fs ft fs'} → F*T ft → fs ≡ ft ++ fs' →
+                        fs ≡ T ∷ tail₁ fs ∨ fs ≡ F ∷ tail₁ fs
+head-tail-Fair-helper {fs} {fs' = fs'} nilF*T h = inj₁ prf₃
   where
-  prf₁ : os ≡ L ∷ [] ++ os'
+  prf₁ : fs ≡ T ∷ [] ++ fs'
   prf₁ =
     begin
-      os              ≡⟨ h ⟩
-      (L ∷ []) ++ os' ≡⟨ ++-∷ L [] os' ⟩
-      L ∷ [] ++ os'
+      fs              ≡⟨ h ⟩
+      (T ∷ []) ++ fs' ≡⟨ ++-∷ T [] fs' ⟩
+      T ∷ [] ++ fs'
     ∎
 
-  prf₂ : tail₁ os ≡ [] ++ os'
+  prf₂ : tail₁ fs ≡ [] ++ fs'
   prf₂ =
     begin
-      tail₁ os              ≡⟨ cong tail₁ prf₁ ⟩
-      tail₁ (L ∷ [] ++ os') ≡⟨ tail-∷ L ([] ++ os') ⟩
-      [] ++ os'
+      tail₁ fs              ≡⟨ cong tail₁ prf₁ ⟩
+      tail₁ (T ∷ [] ++ fs') ≡⟨ tail-∷ T ([] ++ fs') ⟩
+      [] ++ fs'
     ∎
 
-  prf₃ : os ≡ L ∷ tail₁ os
+  prf₃ : fs ≡ T ∷ tail₁ fs
   prf₃ =
     begin
-      os             ≡⟨ prf₁ ⟩
-      L ∷ [] ++ os'  ≡⟨ cong (_∷_ L) (sym prf₂) ⟩
-      L ∷ tail₁ os
+      fs             ≡⟨ prf₁ ⟩
+      T ∷ [] ++ fs'  ≡⟨ cong (_∷_ T) (sym prf₂) ⟩
+      T ∷ tail₁ fs
     ∎
 
-head-tail-Fair-helper {os} {os' = os'} (consO*L {ol} OLol) h = inj₂ prf₃
+head-tail-Fair-helper {fs} {fs' = fs'} (consF*T {ft} FTft) h = inj₂ prf₃
   where
-  prf₁ : os ≡ O ∷ ol ++ os'
+  prf₁ : fs ≡ F ∷ ft ++ fs'
   prf₁ =
     begin
-      os              ≡⟨ h ⟩
-      (O ∷ ol) ++ os' ≡⟨ ++-∷ O ol os' ⟩
-      O ∷ ol ++ os'
+      fs              ≡⟨ h ⟩
+      (F ∷ ft) ++ fs' ≡⟨ ++-∷ F ft fs' ⟩
+      F ∷ ft ++ fs'
     ∎
 
-  prf₂ : tail₁ os ≡ ol ++ os'
+  prf₂ : tail₁ fs ≡ ft ++ fs'
   prf₂ =
     begin
-      tail₁ os              ≡⟨ cong tail₁ prf₁ ⟩
-      tail₁ (O ∷ ol ++ os') ≡⟨ tail-∷ O (ol ++ os') ⟩
-      ol ++ os'
+      tail₁ fs              ≡⟨ cong tail₁ prf₁ ⟩
+      tail₁ (F ∷ ft ++ fs') ≡⟨ tail-∷ F (ft ++ fs') ⟩
+      ft ++ fs'
     ∎
 
-  prf₃ : os ≡ O ∷ tail₁ os
+  prf₃ : fs ≡ F ∷ tail₁ fs
   prf₃ =
     begin
-      os             ≡⟨ prf₁ ⟩
-      O ∷ ol ++ os'  ≡⟨ cong (_∷_ O) (sym prf₂) ⟩
-      O ∷ tail₁ os
+      fs             ≡⟨ prf₁ ⟩
+      F ∷ ft ++ fs'  ≡⟨ cong (_∷_ F) (sym prf₂) ⟩
+      F ∷ tail₁ fs
     ∎
 
-head-tail-Fair : ∀ {os} → Fair os → os ≡ L ∷ tail₁ os ∨ os ≡ O ∷ tail₁ os
-head-tail-Fair {os} Fos = head-tail-Fair-helper OLol os≡ol++os'
+head-tail-Fair : ∀ {fs} → Fair fs → fs ≡ T ∷ tail₁ fs ∨ fs ≡ F ∷ tail₁ fs
+head-tail-Fair {fs} Ffs = head-tail-Fair-helper FTft fs≡ol++fs'
   where
-  unfold-os : ∃[ ol ] ∃[ os' ] O*L ol ∧ Fair os' ∧ os ≡ ol ++ os'
-  unfold-os = Fair-gfp₁ Fos
+  unfold-fs : ∃[ ft ] ∃[ fs' ] F*T ft ∧ Fair fs' ∧ fs ≡ ft ++ fs'
+  unfold-fs = Fair-gfp₁ Ffs
 
-  ol : D
-  ol = ∃-proj₁ unfold-os
+  ft : D
+  ft = ∃-proj₁ unfold-fs
 
-  os' : D
-  os' = ∃-proj₁ (∃-proj₂ unfold-os)
+  fs' : D
+  fs' = ∃-proj₁ (∃-proj₂ unfold-fs)
 
-  OLol : O*L ol
-  OLol = ∧-proj₁ (∃-proj₂ (∃-proj₂ unfold-os))
+  FTft : F*T ft
+  FTft = ∧-proj₁ (∃-proj₂ (∃-proj₂ unfold-fs))
 
-  os≡ol++os' : os ≡ ol ++ os'
-  os≡ol++os' = ∧-proj₂ (∧-proj₂ (∃-proj₂ (∃-proj₂ unfold-os)))
+  fs≡ol++fs' : fs ≡ ft ++ fs'
+  fs≡ol++fs' = ∧-proj₂ (∧-proj₂ (∃-proj₂ (∃-proj₂ unfold-fs)))
 
-tail-Fair-helper : ∀ {os ol os'} → O*L ol → os ≡ ol ++ os' → Fair os' →
-                   Fair (tail₁ os)
-tail-Fair-helper {os} {os' = os'} nilO*L h Fos' = subst Fair (sym prf₂) Fos'
+tail-Fair-helper : ∀ {fs ft fs'} → F*T ft → fs ≡ ft ++ fs' → Fair fs' →
+                   Fair (tail₁ fs)
+tail-Fair-helper {fs} {fs' = fs'} nilF*T h Ffs' = subst Fair (sym prf₂) Ffs'
   where
-  prf₁ : os ≡ L ∷ os'
+  prf₁ : fs ≡ T ∷ fs'
   prf₁ =
     begin
-      os              ≡⟨ h ⟩
-      (L ∷ []) ++ os' ≡⟨ ++-∷ L [] os' ⟩
-      L ∷ [] ++ os'   ≡⟨ cong (_∷_ L) (++-[] os') ⟩
-      L ∷ os'
+      fs              ≡⟨ h ⟩
+      (T ∷ []) ++ fs' ≡⟨ ++-∷ T [] fs' ⟩
+      T ∷ [] ++ fs'   ≡⟨ cong (_∷_ T) (++-[] fs') ⟩
+      T ∷ fs'
     ∎
 
-  prf₂ : tail₁ os ≡ os'
+  prf₂ : tail₁ fs ≡ fs'
   prf₂ =
     begin
-      tail₁ os        ≡⟨ cong tail₁ prf₁ ⟩
-      tail₁ (L ∷ os') ≡⟨ tail-∷ L os' ⟩
-      os'
+      tail₁ fs        ≡⟨ cong tail₁ prf₁ ⟩
+      tail₁ (T ∷ fs') ≡⟨ tail-∷ T fs' ⟩
+      fs'
     ∎
 
-tail-Fair-helper {os} {os' = os'} (consO*L {ol} OLol) h Fos' =
-  subst Fair (sym prf₂) (Fair-gfp₃ (ol , os' , OLol , Fos' , refl))
+tail-Fair-helper {fs} {fs' = fs'} (consF*T {ft} FTft) h Ffs' =
+  subst Fair (sym prf₂) (Fair-gfp₃ (ft , fs' , FTft , Ffs' , refl))
   where
-  prf₁ : os ≡ O ∷ ol ++ os'
+  prf₁ : fs ≡ F ∷ ft ++ fs'
   prf₁ =
     begin
-      os              ≡⟨ h ⟩
-      (O ∷ ol) ++ os' ≡⟨ ++-∷ O ol os' ⟩
-      O ∷ ol ++ os'
+      fs              ≡⟨ h ⟩
+      (F ∷ ft) ++ fs' ≡⟨ ++-∷ F ft fs' ⟩
+      F ∷ ft ++ fs'
     ∎
 
-  prf₂ : tail₁ os ≡ ol ++ os'
+  prf₂ : tail₁ fs ≡ ft ++ fs'
   prf₂ =
     begin
-      tail₁ os              ≡⟨ cong tail₁ prf₁ ⟩
-      tail₁ (O ∷ ol ++ os') ≡⟨ tail-∷ O (ol ++ os') ⟩
-      ol ++ os'
+      tail₁ fs              ≡⟨ cong tail₁ prf₁ ⟩
+      tail₁ (F ∷ ft ++ fs') ≡⟨ tail-∷ F (ft ++ fs') ⟩
+      ft ++ fs'
     ∎
 
-tail-Fair : ∀ {os} → Fair os → Fair (tail₁ os)
-tail-Fair {os} Fos = tail-Fair-helper OLol os≡ol++os' Fos'
+tail-Fair : ∀ {fs} → Fair fs → Fair (tail₁ fs)
+tail-Fair {fs} Ffs = tail-Fair-helper FTft fs≡ol++fs' Ffs'
   where
-  unfold-os : ∃[ ol ] ∃[ os' ] O*L ol ∧ Fair os' ∧ os ≡ ol ++ os'
-  unfold-os = Fair-gfp₁ Fos
+  unfold-fs : ∃[ ft ] ∃[ fs' ] F*T ft ∧ Fair fs' ∧ fs ≡ ft ++ fs'
+  unfold-fs = Fair-gfp₁ Ffs
 
-  ol : D
-  ol = ∃-proj₁ unfold-os
+  ft : D
+  ft = ∃-proj₁ unfold-fs
 
-  os' : D
-  os' = ∃-proj₁ (∃-proj₂ unfold-os)
+  fs' : D
+  fs' = ∃-proj₁ (∃-proj₂ unfold-fs)
 
-  OLol : O*L ol
-  OLol = ∧-proj₁ (∃-proj₂ (∃-proj₂ unfold-os))
+  FTft : F*T ft
+  FTft = ∧-proj₁ (∃-proj₂ (∃-proj₂ unfold-fs))
 
-  Fos' : Fair os'
-  Fos' = ∧-proj₁ (∧-proj₂ (∃-proj₂ (∃-proj₂ unfold-os)))
+  Ffs' : Fair fs'
+  Ffs' = ∧-proj₁ (∧-proj₂ (∃-proj₂ (∃-proj₂ unfold-fs)))
 
-  os≡ol++os' : os ≡ ol ++ os'
-  os≡ol++os' = ∧-proj₂ (∧-proj₂ (∃-proj₂ (∃-proj₂ unfold-os)))
+  fs≡ol++fs' : fs ≡ ft ++ fs'
+  fs≡ol++fs' = ∧-proj₂ (∧-proj₂ (∃-proj₂ (∃-proj₂ unfold-fs)))

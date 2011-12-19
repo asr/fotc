@@ -37,7 +37,7 @@ minorPremise : ∀ {is js} → is B js →
                ∃[ i' ] ∃[ is' ] ∃[ js' ]
                is' B js' ∧ is ≡ i' ∷ is' ∧ js ≡ i' ∷ js'
 minorPremise {is} {js}
-             (b , os₀ , os₁ , as , bs , cs , ds , Sis , Bb , Fos₀ , Fos₁ , h) =
+             (b , fs₀ , fs₁ , as , bs , cs , ds , Sis , Bb , Ffs₀ , Ffs₁ , h) =
   i' , is' , js' , is'Bjs' , is≡i'∷is , js≡i'∷js'
 
   where
@@ -57,16 +57,16 @@ minorPremise {is} {js}
   is≡i'∷is = ∧-proj₂ (∃-proj₂ (∃-proj₂ unfold-is))
 
   Abp-helper : is ≡ i' ∷ is' →
-               Abp b is os₀ os₁ as bs cs ds js →
-               Abp b (i' ∷ is') os₀ os₁ as bs cs ds js
-  Abp-helper h₁ h₂ = subst (λ t → Abp b t os₀ os₁ as bs cs ds js) h₁ h₂
+               Abp b is fs₀ fs₁ as bs cs ds js →
+               Abp b (i' ∷ is') fs₀ fs₁ as bs cs ds js
+  Abp-helper h₁ h₂ = subst (λ t → Abp b t fs₀ fs₁ as bs cs ds js) h₁ h₂
 
-  Abp'-lemma₁ : ∃[ os₀' ] ∃[ os₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-                Fair os₀'
-                ∧ Fair os₁'
-                ∧ Abp' b i' is' os₀' os₁' as' bs' cs' ds' js'
+  Abp'-lemma₁ : ∃[ fs₀' ] ∃[ fs₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
+                Fair fs₀'
+                ∧ Fair fs₁'
+                ∧ Abp' b i' is' fs₀' fs₁' as' bs' cs' ds' js'
                 ∧ js ≡ i' ∷ js'
-  Abp'-lemma₁ = lemma₁ Bb Fos₀ Fos₁ (Abp-helper is≡i'∷is h)
+  Abp'-lemma₁ = lemma₁ Bb Ffs₀ Ffs₁ (Abp-helper is≡i'∷is h)
 
   -- Following Martin Escardo advice (see Agda mailing list, heap
   -- mistery) we use pattern matching instead of ∃ eliminators to
@@ -81,16 +81,16 @@ minorPremise {is} {js}
   js≡i'∷js' with Abp'-lemma₁
   ... | _ , _ , _ , _ , _ , _ , _ , _ , _ , _ , h = h
 
-  Abp-lemma₂ : ∃[ os₀'' ] ∃[ os₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
-               Fair os₀''
-               ∧ Fair os₁''
-               ∧ Abp (not b) is' os₀'' os₁'' as'' bs'' cs'' ds'' js'
+  Abp-lemma₂ : ∃[ fs₀'' ] ∃[ fs₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
+               Fair fs₀''
+               ∧ Fair fs₁''
+               ∧ Abp (not b) is' fs₀'' fs₁'' as'' bs'' cs'' ds'' js'
   Abp-lemma₂ with Abp'-lemma₁
-  Abp-lemma₂ | _ , _ , _ , _ , _ , _ , _ , Fos₀' , Fos₁' , abp' , _ =
-    lemma₂ Bb Fos₀' Fos₁' abp'
+  Abp-lemma₂ | _ , _ , _ , _ , _ , _ , _ , Ffs₀' , Ffs₁' , abp' , _ =
+    lemma₂ Bb Ffs₀' Ffs₁' abp'
 
   is'Bjs' : is' B js'
   is'Bjs' with Abp-lemma₂
-  ... | os₀'' , os₁'' , as'' , bs'' , cs'' , ds'' , Fos₀'' , Fos₁'' , abp =
-    not b , os₀'' , os₁'' , as'' , bs'' , cs'' , ds''
-    , Sis' , not-Bool Bb , Fos₀'' , Fos₁'' , abp
+  ... | fs₀'' , fs₁'' , as'' , bs'' , cs'' , ds'' , Ffs₀'' , Ffs₁'' , abp =
+    not b , fs₀'' , fs₁'' , as'' , bs'' , cs'' , ds''
+    , Sis' , not-Bool Bb , Ffs₀'' , Ffs₁'' , abp

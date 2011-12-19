@@ -19,48 +19,48 @@ open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 
-helper : ∀ {b i' is' os₀' os₁' as' bs' cs' ds' js'} →
+helper : ∀ {b i' is' fs₀' fs₁' as' bs' cs' ds' js'} →
          Bit b →
-         Fair os₀' →
-         Abp' b i' is' os₀' os₁' as' bs' cs' ds' js' →
-         ∀ {ol₁ os₁''-aux} →
-         O*L ol₁ → Fair (os₁''-aux) → os₁' ≡ ol₁ ++ os₁''-aux →
-         ∃[ os₀'' ] ∃[ os₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
-         Fair os₀''
-         ∧ Fair os₁''
-         ∧ Abp (not b) is' os₀'' os₁'' as'' bs'' cs'' ds'' js'
-helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
-       Bb Fos₀' (ds'Abp' , as'Abp , bs'Abp' , cs'Abp' , js'Abp')
-       {os₁''-aux = os₁''} nilO*L Fos₁'' os₁'-eq =
-         os₀' , os₁'' , as'' , bs'' , cs'' , ds''
-         , Fos₀' , Fos₁''
+         Fair fs₀' →
+         Abp' b i' is' fs₀' fs₁' as' bs' cs' ds' js' →
+         ∀ {ft₁ fs₁''-aux} →
+         F*T ft₁ → Fair (fs₁''-aux) → fs₁' ≡ ft₁ ++ fs₁''-aux →
+         ∃[ fs₀'' ] ∃[ fs₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
+         Fair fs₀''
+         ∧ Fair fs₁''
+         ∧ Abp (not b) is' fs₀'' fs₁'' as'' bs'' cs'' ds'' js'
+helper {b} {i'} {is'} {fs₀'} {fs₁'} {as'} {bs'} {cs'} {ds'} {js'}
+       Bb Ffs₀' (ds'Abp' , as'Abp , bs'Abp' , cs'Abp' , js'Abp')
+       {fs₁''-aux = fs₁''} nilF*T Ffs₁'' fs₁'-eq =
+         fs₀' , fs₁'' , as'' , bs'' , cs'' , ds''
+         , Ffs₀' , Ffs₁''
          , as''-eq , bs''-eq ,  cs''-eq , refl , js'-eq
   where
-  os'₁-eq-helper : os₁' ≡ L ∷ os₁''
-  os'₁-eq-helper =
+  fs'₁-eq-helper : fs₁' ≡ T ∷ fs₁''
+  fs'₁-eq-helper =
     begin
-      os₁'                 ≡⟨ os₁'-eq ⟩
-      (true ∷ []) ++ os₁'' ≡⟨ ++-∷ true [] os₁'' ⟩
-      true ∷ [] ++ os₁''   ≡⟨ cong (_∷_ true) (++-[] os₁'') ⟩
-      true ∷ os₁''
+      fs₁'                 ≡⟨ fs₁'-eq ⟩
+      (true ∷ []) ++ fs₁'' ≡⟨ ++-∷ true [] fs₁'' ⟩
+      true ∷ [] ++ fs₁''   ≡⟨ cong (_∷_ true) (++-[] fs₁'') ⟩
+      true ∷ fs₁''
     ∎
 
   ds'' : D
-  ds'' = corrupt · os₁'' · cs'
+  ds'' = corrupt · fs₁'' · cs'
 
   ds'-eq : ds' ≡ ok b ∷ ds''
   ds'-eq =
     begin
       ds'
         ≡⟨ ds'Abp' ⟩
-      corrupt · os₁' · (b ∷ cs')
-        ≡⟨ subst (λ t → corrupt · os₁' · (b ∷ cs') ≡ corrupt · t · (b ∷ cs'))
-                 os'₁-eq-helper
+      corrupt · fs₁' · (b ∷ cs')
+        ≡⟨ subst (λ t → corrupt · fs₁' · (b ∷ cs') ≡ corrupt · t · (b ∷ cs'))
+                 fs'₁-eq-helper
                  refl
         ⟩
-      corrupt · (L ∷ os₁'') · (b ∷ cs')
-        ≡⟨ corrupt-L os₁'' b cs' ⟩
-      ok b ∷ corrupt · os₁'' · cs'
+      corrupt · (T ∷ fs₁'') · (b ∷ cs')
+        ≡⟨ corrupt-T fs₁'' b cs' ⟩
+      ok b ∷ corrupt · fs₁'' · cs'
         ≡⟨ refl ⟩
       ok b ∷ ds''
     ∎
@@ -80,7 +80,7 @@ helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
   bs'' : D
   bs'' = bs'
 
-  bs''-eq : bs'' ≡ corrupt · os₀' · as'
+  bs''-eq : bs'' ≡ corrupt · fs₀' · as'
   bs''-eq = bs'Abp'
 
   cs'' : D
@@ -92,43 +92,43 @@ helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
   js'-eq : js' ≡ abpout · (not b) · bs''
   js'-eq = js'Abp'
 
-helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
-       Bb Fos₀' (ds'Abp' , as'Abp , bs'Abp' , cs'Abp' , js'Abp')
-       {os₁''-aux = os₁''} (consO*L {ol₁} OLol₁)
-       Fos₁'' os₁'-eq = helper Bb (tail-Fair Fos₀') Abp'IH OLol₁ Fos₁'' refl
+helper {b} {i'} {is'} {fs₀'} {fs₁'} {as'} {bs'} {cs'} {ds'} {js'}
+       Bb Ffs₀' (ds'Abp' , as'Abp , bs'Abp' , cs'Abp' , js'Abp')
+       {fs₁''-aux = fs₁''} (consF*T {ft₁} FTft₁)
+       Ffs₁'' fs₁'-eq = helper Bb (tail-Fair Ffs₀') Abp'IH FTft₁ Ffs₁'' refl
 
   where
-  os₀⁵ : D
-  os₀⁵ = tail₁ os₀'
+  fs₀⁵ : D
+  fs₀⁵ = tail₁ fs₀'
 
-  os₁⁵ : D
-  os₁⁵ = ol₁ ++ os₁''
+  fs₁⁵ : D
+  fs₁⁵ = ft₁ ++ fs₁''
 
-  os₁'-eq-helper : os₁' ≡ O ∷ os₁⁵
-  os₁'-eq-helper =
+  fs₁'-eq-helper : fs₁' ≡ F ∷ fs₁⁵
+  fs₁'-eq-helper =
     begin
-      os₁'               ≡⟨ os₁'-eq ⟩
-      (O ∷ ol₁) ++ os₁'' ≡⟨ ++-∷ _ _ _ ⟩
-      O ∷ ol₁ ++ os₁''   ≡⟨ refl ⟩
-      O ∷ os₁⁵
+      fs₁'               ≡⟨ fs₁'-eq ⟩
+      (F ∷ ft₁) ++ fs₁'' ≡⟨ ++-∷ _ _ _ ⟩
+      F ∷ ft₁ ++ fs₁''   ≡⟨ refl ⟩
+      F ∷ fs₁⁵
     ∎
 
   ds⁵ : D
-  ds⁵ = corrupt · os₁⁵ · cs'
+  ds⁵ = corrupt · fs₁⁵ · cs'
 
   ds'-eq : ds' ≡ error ∷ ds⁵
   ds'-eq =
     begin
       ds'
         ≡⟨ ds'Abp' ⟩
-      corrupt · os₁' · (b ∷ cs')
-        ≡⟨ subst (λ t → corrupt · os₁' · (b ∷ cs') ≡ corrupt · t · (b ∷ cs'))
-                 os₁'-eq-helper
+      corrupt · fs₁' · (b ∷ cs')
+        ≡⟨ subst (λ t → corrupt · fs₁' · (b ∷ cs') ≡ corrupt · t · (b ∷ cs'))
+                 fs₁'-eq-helper
                  refl
         ⟩
-      corrupt · (O ∷ os₁⁵) · (b ∷ cs')
-        ≡⟨ corrupt-O _ _ _ ⟩
-      error ∷ corrupt · os₁⁵ · cs'
+      corrupt · (F ∷ fs₁⁵) · (b ∷ cs')
+        ≡⟨ corrupt-F _ _ _ ⟩
+      error ∷ corrupt · fs₁⁵ · cs'
         ≡⟨ refl ⟩
       error ∷ ds⁵
     ∎
@@ -151,40 +151,40 @@ helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
     ∎
 
   bs⁵ : D
-  bs⁵ = corrupt · os₀⁵ · as⁵
+  bs⁵ = corrupt · fs₀⁵ · as⁵
 
-  bs'-eq-helper₁ : os₀' ≡ L ∷ tail₁ os₀' → bs' ≡ ok < i' , b > ∷ bs⁵
+  bs'-eq-helper₁ : fs₀' ≡ T ∷ tail₁ fs₀' → bs' ≡ ok < i' , b > ∷ bs⁵
   bs'-eq-helper₁ h =
     begin
       bs'
         ≡⟨ bs'Abp' ⟩
-      corrupt · os₀' · as'
-        ≡⟨ subst₂ (λ t₁ t₂ → corrupt · os₀' · as' ≡ corrupt · t₁ · t₂)
+      corrupt · fs₀' · as'
+        ≡⟨ subst₂ (λ t₁ t₂ → corrupt · fs₀' · as' ≡ corrupt · t₁ · t₂)
                   h
                   as'-eq
                   refl
         ⟩
-      corrupt · (L ∷ tail₁ os₀') · (< i' , b > ∷ as⁵)
-        ≡⟨ corrupt-L _ _ _ ⟩
-      ok < i' , b > ∷ corrupt · (tail₁ os₀') · as⁵
+      corrupt · (T ∷ tail₁ fs₀') · (< i' , b > ∷ as⁵)
+        ≡⟨ corrupt-T _ _ _ ⟩
+      ok < i' , b > ∷ corrupt · (tail₁ fs₀') · as⁵
         ≡⟨ refl ⟩
       ok < i' , b > ∷ bs⁵
     ∎
 
-  bs'-eq-helper₂ : os₀' ≡ O ∷ tail₁ os₀' → bs' ≡ error ∷ bs⁵
+  bs'-eq-helper₂ : fs₀' ≡ F ∷ tail₁ fs₀' → bs' ≡ error ∷ bs⁵
   bs'-eq-helper₂ h =
     begin
       bs'
         ≡⟨ bs'Abp' ⟩
-      corrupt · os₀' · as'
-        ≡⟨ subst₂ (λ t₁ t₂ → corrupt · os₀' · as' ≡ corrupt · t₁ · t₂)
+      corrupt · fs₀' · as'
+        ≡⟨ subst₂ (λ t₁ t₂ → corrupt · fs₀' · as' ≡ corrupt · t₁ · t₂)
                   h
                   as'-eq
                   refl
         ⟩
-      corrupt · (O ∷ tail₁ os₀') · (< i' , b > ∷ as⁵)
-        ≡⟨ corrupt-O _ _ _ ⟩
-      error ∷ corrupt · (tail₁ os₀') · as⁵
+      corrupt · (F ∷ tail₁ fs₀') · (< i' , b > ∷ as⁵)
+        ≡⟨ corrupt-F _ _ _ ⟩
+      error ∷ corrupt · (tail₁ fs₀') · as⁵
         ≡⟨ refl ⟩
       error ∷ bs⁵
     ∎
@@ -192,7 +192,7 @@ helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
   bs'-eq : bs' ≡ ok < i' , b > ∷ bs⁵ ∨ bs' ≡ error ∷ bs⁵
   bs'-eq = [ (λ h → inj₁ (bs'-eq-helper₁ h))
            , (λ h → inj₂ (bs'-eq-helper₂ h))
-           ] (head-tail-Fair Fos₀')
+           ] (head-tail-Fair Ffs₀')
 
 
   cs⁵ : D
@@ -279,10 +279,10 @@ helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
   js'-eq : js' ≡ abpout · (not b) · bs⁵
   js'-eq = [ js'-eq-helper₁ , js'-eq-helper₂ ] bs'-eq
 
-  ds⁵-eq : ds⁵ ≡ corrupt · os₁⁵ · (b ∷ cs⁵)
-  ds⁵-eq = trans refl (subst (λ t → corrupt · os₁⁵ · cs' ≡ corrupt · os₁⁵ · t )
+  ds⁵-eq : ds⁵ ≡ corrupt · fs₁⁵ · (b ∷ cs⁵)
+  ds⁵-eq = trans refl (subst (λ t → corrupt · fs₁⁵ · cs' ≡ corrupt · fs₁⁵ · t )
                              cs'-eq
                              refl)
 
-  Abp'IH : Abp' b i' is' os₀⁵ os₁⁵ as⁵ bs⁵ cs⁵ ds⁵ js'
+  Abp'IH : Abp' b i' is' fs₀⁵ fs₁⁵ as⁵ bs⁵ cs⁵ ds⁵ js'
   Abp'IH = ds⁵-eq , refl , refl , refl , js'-eq

@@ -22,37 +22,37 @@ open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 
--- From Dybjer and Sander's paper: From the assumption that os₀ ∈
--- Fair, and hence by unfolding Fair we conclude that there are ol₀ :
--- O*L and os₀' : Fair, such that os₀ = ol₀ ++ os₀'.
+-- From Dybjer and Sander's paper: From the assumption that fs₀ ∈
+-- Fair, and hence by unfolding Fair we conclude that there are ft₀ :
+-- F*T and fs₀' : Fair, such that fs₀ = ft₀ ++ fs₀'.
 --
--- We proceed by induction on ol₀ : O*L using lemma₁-helper.
-lemma₁ : ∀ {b i' is' os₀ os₁ as bs cs ds js} →
+-- We proceed by induction on ft₀ : F*T using lemma₁-helper.
+lemma₁ : ∀ {b i' is' fs₀ fs₁ as bs cs ds js} →
          Bit b →
-         Fair os₀ →
-         Fair os₁ →
-         Abp b (i' ∷ is') os₀ os₁ as bs cs ds js →
-         ∃[ os₀' ] ∃[ os₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-         Fair os₀'
-         ∧ Fair os₁'
-         ∧ Abp' b i' is' os₀' os₁' as' bs' cs' ds' js'
+         Fair fs₀ →
+         Fair fs₁ →
+         Abp b (i' ∷ is') fs₀ fs₁ as bs cs ds js →
+         ∃[ fs₀' ] ∃[ fs₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
+         Fair fs₀'
+         ∧ Fair fs₁'
+         ∧ Abp' b i' is' fs₀' fs₁' as' bs' cs' ds' js'
          ∧ js ≡ i' ∷ js'
-lemma₁ {os₀ = os₀} Bb Fos₀ Fos₁ h = helper Bb Fos₁ h OLol₀ Fos₀' os₀-eq
+lemma₁ {fs₀ = fs₀} Bb Ffs₀ Ffs₁ h = helper Bb Ffs₁ h FTft₀ Ffs₀' fs₀-eq
   where
-  unfold-os₀ : ∃[ ol₀ ] ∃[ os₀' ] O*L ol₀ ∧ Fair os₀' ∧ os₀ ≡ ol₀ ++ os₀'
-  unfold-os₀ = Fair-gfp₁ Fos₀
+  unfold-fs₀ : ∃[ ft₀ ] ∃[ fs₀' ] F*T ft₀ ∧ Fair fs₀' ∧ fs₀ ≡ ft₀ ++ fs₀'
+  unfold-fs₀ = Fair-gfp₁ Ffs₀
 
-  ol₀ : D
-  ol₀ = ∃-proj₁ unfold-os₀
+  ft₀ : D
+  ft₀ = ∃-proj₁ unfold-fs₀
 
-  os₀' : D
-  os₀' = ∃-proj₁ (∃-proj₂ unfold-os₀)
+  fs₀' : D
+  fs₀' = ∃-proj₁ (∃-proj₂ unfold-fs₀)
 
-  OLol₀ : O*L ol₀
-  OLol₀ = ∧-proj₁ (∃-proj₂ (∃-proj₂ unfold-os₀))
+  FTft₀ : F*T ft₀
+  FTft₀ = ∧-proj₁ (∃-proj₂ (∃-proj₂ unfold-fs₀))
 
-  Fos₀' : Fair os₀'
-  Fos₀' = ∧-proj₁ (∧-proj₂ (∃-proj₂ (∃-proj₂ unfold-os₀)))
+  Ffs₀' : Fair fs₀'
+  Ffs₀' = ∧-proj₁ (∧-proj₂ (∃-proj₂ (∃-proj₂ unfold-fs₀)))
 
-  os₀-eq : os₀ ≡ ol₀ ++ os₀'
-  os₀-eq = ∧-proj₂ (∧-proj₂ (∃-proj₂ (∃-proj₂ unfold-os₀)))
+  fs₀-eq : fs₀ ≡ ft₀ ++ fs₀'
+  fs₀-eq = ∧-proj₂ (∧-proj₂ (∃-proj₂ (∃-proj₂ unfold-fs₀)))

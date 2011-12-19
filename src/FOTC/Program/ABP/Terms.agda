@@ -17,13 +17,13 @@ Bit : D → Set
 Bit b = Bool b
 {-# ATP definition Bit #-}
 
-O : D
-O = false
-{-# ATP definition O #-}
+F : D
+F = false
+{-# ATP definition F #-}
 
-L : D
-L = true
-{-# ATP definition L #-}
+T : D
+T = true
+{-# ATP definition T #-}
 
 error : D
 error = loop

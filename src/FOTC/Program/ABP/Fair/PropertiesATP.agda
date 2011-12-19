@@ -14,38 +14,38 @@ open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 
-head-tail-Fair-helper : ∀ {os ol os'} → O*L ol → os ≡ ol ++ os' →
-                        os ≡ L ∷ tail₁ os ∨ os ≡ O ∷ tail₁ os
-head-tail-Fair-helper {os} nilO*L h = prf
+head-tail-Fair-helper : ∀ {fs ft fs'} → F*T ft → fs ≡ ft ++ fs' →
+                        fs ≡ T ∷ tail₁ fs ∨ fs ≡ F ∷ tail₁ fs
+head-tail-Fair-helper {fs} nilF*T h = prf
   where
-  postulate prf : os ≡ L ∷ tail₁ os ∨ os ≡ O ∷ tail₁ os
+  postulate prf : fs ≡ T ∷ tail₁ fs ∨ fs ≡ F ∷ tail₁ fs
   {-# ATP prove prf #-}
 
-head-tail-Fair-helper {os} (consO*L OLol) h = prf
+head-tail-Fair-helper {fs} (consF*T FTft) h = prf
   where
-  postulate prf : os ≡ L ∷ tail₁ os ∨ os ≡ O ∷ tail₁ os
+  postulate prf : fs ≡ T ∷ tail₁ fs ∨ fs ≡ F ∷ tail₁ fs
   {-# ATP prove prf #-}
 
-head-tail-Fair : ∀ {os} → Fair os → os ≡ L ∷ tail₁ os ∨ os ≡ O ∷ tail₁ os
-head-tail-Fair {os} Fos = prf
+head-tail-Fair : ∀ {fs} → Fair fs → fs ≡ T ∷ tail₁ fs ∨ fs ≡ F ∷ tail₁ fs
+head-tail-Fair {fs} Ffs = prf
   where
-  postulate prf : os ≡ L ∷ tail₁ os ∨ os ≡ O ∷ tail₁ os
+  postulate prf : fs ≡ T ∷ tail₁ fs ∨ fs ≡ F ∷ tail₁ fs
   {-# ATP prove prf head-tail-Fair-helper #-}
 
-tail-Fair-helper : ∀ {os ol os'} → O*L ol → os ≡ ol ++ os' → Fair os' →
-                   Fair (tail₁ os)
-tail-Fair-helper {os} nilO*L h Fos' = prf
+tail-Fair-helper : ∀ {fs ft fs'} → F*T ft → fs ≡ ft ++ fs' → Fair fs' →
+                   Fair (tail₁ fs)
+tail-Fair-helper {fs} nilF*T h Ffs' = prf
   where
-  postulate prf : Fair (tail₁ os)
+  postulate prf : Fair (tail₁ fs)
   {-# ATP prove prf #-}
 
-tail-Fair-helper {os} (consO*L OLol) h Fos' = prf
+tail-Fair-helper {fs} (consF*T FTft) h Ffs' = prf
   where
-  postulate prf : Fair (tail₁ os)
+  postulate prf : Fair (tail₁ fs)
   {-# ATP prove prf Fair-gfp₃ #-}
 
-tail-Fair : ∀ {os} → Fair os → Fair (tail₁ os)
-tail-Fair {os} Fos = prf
+tail-Fair : ∀ {fs} → Fair fs → Fair (tail₁ fs)
+tail-Fair {fs} Ffs = prf
   where
-  postulate prf : Fair (tail₁ os)
+  postulate prf : Fair (tail₁ fs)
   {-# ATP prove prf tail-Fair-helper #-}

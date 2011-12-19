@@ -27,7 +27,8 @@ open import FOTC.Program.ABP.MinorPremiseATP
 open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
+
 -- Main theorem.
-spec : ∀ {b is os₀ os₁} → Bit b → Stream is → Fair os₀ → Fair os₁ →
-       is ≈ abptransfer b os₀ os₁ is
-spec Bb Sis Fos₀ Fos₁ = ≈-gfp₂ _B_ minorPremise (mayorPremise Bb Fos₀ Fos₁ Sis)
+spec : ∀ {b is fs₀ fs₁} → Bit b → Stream is → Fair fs₀ → Fair fs₁ →
+       is ≈ abptransfer b fs₀ fs₁ is
+spec Bb Sis Ffs₀ Ffs₁ = ≈-gfp₂ _B_ minorPremise (mayorPremise Bb Ffs₀ Ffs₁ Sis)

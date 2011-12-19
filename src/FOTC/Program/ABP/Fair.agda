@@ -14,15 +14,15 @@ open import FOTC.Program.ABP.Terms
 ------------------------------------------------------------------------------
 -- The Fair co-inductive predicate
 
--- From Dybjer and Sander's paper: al : O*L if al is a list of zero or
--- more O's followed by a final L.
-data O*L : D → Set where
-  nilO*L  :                 O*L (L ∷ [])
-  consO*L : ∀ {ol} → O*L ol → O*L (O ∷ ol)
+-- From Dybjer and Sander's paper: al : F*T if al is a list of zero or
+-- more 0's followed by a final 1.
+data F*T : D → Set where
+  nilF*T  :                   F*T (T ∷ [])
+  consF*T : ∀ {ft} → F*T ft → F*T (F ∷ ft)
 
 -- Functor for the Fair type.
 -- FairF : (D → Set) → D → Set
--- FairF X os = ∃[ ol ] ∃[ os' ] O*L ol ∧ X os' ∧ os ≡ ol ++ os'
+-- FairF X fs = ∃[ ft ] ∃[ fs' ] F*T ft ∧ X fs' ∧ fs ≡ ft ++ fs'
 
 -- Fair is the greatest post-fixed of FairF (by Fair-gfp₁ and Fair-gfp₂).
 
@@ -30,8 +30,8 @@ postulate Fair : D → Set
 
 -- Fair is post-fixed point of FairF (d ≤ f d).
 postulate
-  Fair-gfp₁ : ∀ {os} → Fair os →
-              ∃[ ol ] ∃[ os' ] O*L ol ∧ Fair os' ∧ os ≡ ol ++ os'
+  Fair-gfp₁ : ∀ {fs} → Fair fs →
+              ∃[ ft ] ∃[ fs' ] F*T ft ∧ Fair fs' ∧ fs ≡ ft ++ fs'
 {-# ATP axiom Fair-gfp₁ #-}
 
 -- ∀ e. e ≤ f e => e ≤ d.
@@ -42,20 +42,20 @@ postulate
 postulate
   Fair-gfp₂ : (P : D → Set) →
               -- P is post-fixed point of FairF.
-              (∀ {os} → P os →
-               ∃[ ol ] ∃[ os' ] O*L ol ∧ P os' ∧ os ≡ ol ++ os') →
+              (∀ {fs} → P fs →
+               ∃[ ft ] ∃[ fs' ] F*T ft ∧ P fs' ∧ fs ≡ ft ++ fs') →
               -- Fair is greater than P.
-              ∀ {os} → P os → Fair os
+              ∀ {fs} → P fs → Fair fs
 
 -- Because a greatest post-fixed point is a fixed point, then the Fair
 -- predicate is also a pre-fixed point of the functor FairF (f d ≤ d).
-Fair-gfp₃ : ∀ {os} →
-            (∃[ ol ] ∃[ os' ] O*L ol ∧ Fair os' ∧ os ≡ ol ++ os') →
-            Fair os
+Fair-gfp₃ : ∀ {fs} →
+            (∃[ ft ] ∃[ fs' ] F*T ft ∧ Fair fs' ∧ fs ≡ ft ++ fs') →
+            Fair fs
 Fair-gfp₃ h = Fair-gfp₂ P helper h
   where
   P : D → Set
-  P ws = ∃[ wl ] ∃[ ws' ] O*L wl ∧ Fair ws' ∧ ws ≡ wl ++ ws'
+  P ws = ∃[ wl ] ∃[ ws' ] F*T wl ∧ Fair ws' ∧ ws ≡ wl ++ ws'
 
-  helper : ∀ {os} → P os → ∃[ ol ] ∃[ os' ] O*L ol ∧ P os' ∧ os ≡ ol ++ os'
-  helper (ol , os' , OLol , Fos' , h) = ol , os' , OLol , Fair-gfp₁ Fos' , h
+  helper : ∀ {fs} → P fs → ∃[ ft ] ∃[ fs' ] F*T ft ∧ P fs' ∧ fs ≡ ft ++ fs'
+  helper (ft , fs' , FTft , Ffs' , h) = ft , fs' , FTft , Fair-gfp₁ Ffs' , h
