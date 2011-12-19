@@ -2,8 +2,8 @@
 -- FOT (First Order Theories)
 ------------------------------------------------------------------------------
 
--- Code accompanying the paper "Combining Interactive and Automatic
--- Reasoning in First Order Theories of Functional Programs" by Ana
+-- Code accompanying the paper Combining Interactive and Automatic
+-- Reasoning in First Order Theories of Functional Programs by Ana
 -- Bove, Peter Dybjer, and Andrés Sicard-Ramírez (FoSSaCS 2012).
 
 -- The code presented here does not match the paper exactly.
