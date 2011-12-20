@@ -104,7 +104,7 @@ import qualified Agda.Utils.Trie as Trie ( singleton )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import Monad.Base    ( T, TState(tAllDefs, tOpts) )
+import Monad.Base    ( getTAllDefs, getTOpts, T )
 import Monad.Reports ( reportSLn )
 import Options       ( Options(optAgdaIncludePath) )
 import Utils.Monad   ( unlessM )
@@ -159,10 +159,10 @@ agdaPragmaOptions =
 agdaCommandLineOptions ∷ T CommandLineOptions
 agdaCommandLineOptions = do
 
-  state ← get
+  opts ← getTOpts
 
   let agdaIncludePaths ∷ [FilePath]
-      agdaIncludePaths = optAgdaIncludePath $ tOpts state
+      agdaIncludePaths = optAgdaIncludePath opts
 
   return $ defaultOptions { optIncludeDirs   = Left agdaIncludePaths
                           , optPragmaOptions = agdaPragmaOptions
@@ -266,8 +266,8 @@ isATPHint def =
 
 qNameDefinition ∷ QName → T Definition
 qNameDefinition qName = do
-    state ← get
-    return $ fromMaybe (__IMPOSSIBLE__) $ Map.lookup qName $ tAllDefs state
+    allDefs ← getTAllDefs
+    return $ fromMaybe (__IMPOSSIBLE__) $ Map.lookup qName allDefs
 
 qNameType ∷ QName → T Type
 qNameType qName = fmap defType $ qNameDefinition qName
