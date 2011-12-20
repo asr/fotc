@@ -33,8 +33,8 @@ import Control.Monad.State
   ( evalState
   , evalStateT
   , get
-  , modify
   , MonadState
+  , put
   , StateT
   )
 
@@ -79,14 +79,14 @@ isTVarsEmpty = fmap (null . tVars) get
 pushTVar ∷ String → T ()
 pushTVar x = do
   state ← get
-  modify $ \s → s { tVars = x : tVars state }
+  put state { tVars = x : tVars state }
 
 popTVar ∷ T ()
 popTVar = do
   state ← get
   case tVars state of
     []       → __IMPOSSIBLE__
-    (_ : xs) → modify $ \s → s { tVars = xs }
+    (_ : xs) → put state { tVars = xs }
 
 newTVar ∷ T String
 newTVar = fmap (evalState freshName . tVars) get
