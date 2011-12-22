@@ -17,7 +17,8 @@ module FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm ) where
 
 -- Haskell imports
 
-import Data.List ( foldl' )
+import Control.Monad ( liftM2 )
+import Data.List     ( foldl' )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
@@ -115,10 +116,8 @@ binConst ∷ (FOLFormula → FOLFormula → FOLFormula) →
            Arg Term →
            Arg Term →
            T FOLFormula
-binConst op arg1 arg2 = do
-  f1 ← argTermToFormula arg1
-  f2 ← argTermToFormula arg2
-  return $ op f1 f2
+binConst op arg1 arg2 =
+  liftM2 op (argTermToFormula arg1) (argTermToFormula arg2)
 
 -- We translate n-ary predicates. For example, the predicate
 --
@@ -169,9 +168,7 @@ termToFormula term@(Def qName@(QName _ name) args) = do
             return $ Predicate folName []
 
        (a : [])
-         | isCNameFOLConstHoleRight folNot → do
-             f ← argTermToFormula a
-             return $ Not f
+         | isCNameFOLConstHoleRight folNot → fmap Not (argTermToFormula a)
 
          | isCNameFOLConst folExists ||
            isCNameFOLConst folForAll → do
@@ -197,9 +194,7 @@ termToFormula term@(Def qName@(QName _ name) args) = do
 
          | isCNameFOLConstTwoHoles folEquals → do
              reportSLn "t2f" 20 "Processing equals"
-             t1 ← argTermToFOLTerm a1
-             t2 ← argTermToFOLTerm a2
-             return $ equal t1 t2
+             liftM2 equal (argTermToFOLTerm a1) (argTermToFOLTerm a2)
 
          | otherwise → predicate qName args
 
@@ -236,9 +231,7 @@ termToFormula term@(Lam _ (Abs _ termLam)) = do
 
 termToFormula term@(Pi tyArg (NoAbs _ tyAbs)) = do
   reportSLn "t2f" 10 $ "termToFormula Pi _ (NoAbs _ _):\n" ++ show term
-  f1 ← argTypeToFormula tyArg
-  f2 ← typeToFormula tyAbs
-  return $ Implies f1 f2
+  liftM2 Implies (argTypeToFormula tyArg) (typeToFormula tyAbs)
 
 termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   reportSLn "t2f" 10 $ "termToFormula Pi _ (Abs _ _):\n" ++ show term
