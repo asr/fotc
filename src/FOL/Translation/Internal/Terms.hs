@@ -65,7 +65,11 @@ import {-# source #-} FOL.Translation.Internal.Types
   ( argTypeToFormula
   , typeToFormula
   )
-import FOL.Types ( FOLFormula(..), FOLTerm(..) )
+
+import FOL.Types
+  ( FOLFormula(TRUE, FALSE, Predicate, Not, And, Or, Implies, Equiv, ForAll, Exists)
+  , FOLTerm(FOLFun, FOLVar)
+  )
 
 import Monad.Base
   ( getTVars

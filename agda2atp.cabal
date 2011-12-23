@@ -82,8 +82,10 @@ executable agda2atp
                   -fwarn-identities
                   -fwarn-incomplete-record-updates
                   -fwarn-incomplete-uni-patterns
-                  -- This warning is disabled due to the GHC bug #4489
-                  -- which is fixed for GHC 7.4.1.
+                  -- The Cabal-generated module Paths_agda2atp triggers a
+                  -- warning under GHC 7.2.1/7.2.2 (cabal-install version
+                  -- 0.10.2 using version 1.10.2.0 of the Cabal
+                  -- library), therefore we disable this warning.
                   -- -fwarn-missing-import-lists
                   -fwarn-missing-local-sigs
                   -fwarn-monomorphism-restriction
@@ -102,15 +104,18 @@ executable agda2atp
                   -fwarn-identities
                   -fwarn-incomplete-record-updates
                   -fwarn-incomplete-uni-patterns
-                  -- This warning is disabled due to the GHC bug #4489
-                  -- which is fixed for GHC 7.4.1.
+                  -- The Cabal-generated module Paths_agda2atp
+                  -- triggers a warning under GHC 7.4.0.20111219
+                  -- (cabal-install version 0.10.2 using version
+                  -- 1.10.2.0 of the Cabal library), therefore we
+                  -- disable this warning.
                   -- -fwarn-missing-import-lists
                   -fwarn-missing-local-sigs
                   -fwarn-monomorphism-restriction
                   -fwarn-tabs
                   -fwarn-unused-do-bind
                   -fwarn-unrecognised-pragmas
-                  -- The Cabal-generated module Paths_Agda triggers a
+                  -- The Cabal-generated module Paths_agda2atp triggers a
                   -- warning under GHC 7.2.1/7.2.2 (cabal-install version
                   -- 0.10.2 using version 1.10.2.0 of the Cabal
                   -- library), therefore we disable that warning.

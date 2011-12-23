@@ -37,7 +37,10 @@ import Agda.Syntax.Common
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 -- Local imports
-import FOL.Types  ( FOLFormula(..), FOLTerm(..) )
+import FOL.Types
+  ( FOLFormula(TRUE, FALSE, Predicate, Not, And, Or, Implies, Equiv, ForAll, Exists)
+  , FOLTerm(FOLFun, FOLVar)
+  )
 import TPTP.Types ( AF(MkAF) )
 
 #include "../undefined.h"
