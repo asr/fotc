@@ -28,8 +28,10 @@ import System.FilePath      ( (</>), addExtension )
 
 -- Agda library imports
 import Agda.Syntax.Abstract.Name
-  ( Name(nameBindingSite)
-  , QName(qnameName)
+  ( Name
+  , nameBindingSite
+  , QName
+  , qnameName
   )
 import Agda.Syntax.Common
     ( ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint) )
@@ -39,23 +41,23 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 import AgdaLib.Interface ( qNameLine )
 import Monad.Base        ( getTOpts, T )
 import Monad.Reports     ( reportS, reportSLn )
-import Options           ( Options(optOnlyFiles, optOutputDir) )
+import Options           ( Options, optOnlyFiles, optOutputDir )
 import TPTP.Pretty       ( prettyTPTP )
 import TPTP.Types
   ( AF(MkAF)
   , allRequiredDefs
+  , axioms
+  , ConjectureSet
+  , conjectureLocalHints
   , commonRequiredDefs
-  , ConjectureSet(conjectureLocalHints
-                 , requiredDefsByConjecture
-                 , requiredDefsByLocalHints
-                 , theConjecture
-                 )
   , dropCommonRequiredDefs
-  , GeneralRoles(axioms
-                , hints
-                , requiredDefsByAxioms
-                , requiredDefsByHints
-                )
+  , GeneralRoles
+  , hints
+  , requiredDefsByAxioms
+  , requiredDefsByConjecture
+  , requiredDefsByHints
+  , requiredDefsByLocalHints
+  , theConjecture
   )
 import Utils.List    ( nonDuplicate )
 import Utils.Monad   ( whenM )

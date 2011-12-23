@@ -52,15 +52,19 @@ import System.Directory ( doesFileExist )
 import Agda.Interaction.FindFile ( toIFile )
 import Agda.Interaction.Imports  ( getInterface, readInterface )
 import Agda.Interaction.Options
-  ( CommandLineOptions(optIncludeDirs, optPragmaOptions)
+  ( CommandLineOptions
   , defaultOptions
   , defaultPragmaOptions
-  , PragmaOptions(optVerbose)
+  , optIncludeDirs
+  , optPragmaOptions
+  , optVerbose
+  , PragmaOptions
   , Verbosity
   )
 import Agda.Syntax.Abstract.Name
   ( ModuleName
-  , Name(nameBindingSite)
+  , Name
+  , nameBindingSite
   , QName
   , qnameName
   )
@@ -74,20 +78,25 @@ import Agda.Syntax.Internal
   , Type(El)
   )
 import Agda.Syntax.Position
-  ( Interval(iStart)
-  , Position(posLine)
+  ( Interval
+  , iStart
+  , Position
+  , posLine
   , rangeToInterval
   )
 import Agda.TypeChecking.Monad.Base
   ( axATP
   , conATP
   , Defn(Axiom, Constructor, Function)
-  , Interface(iImportedModules, iModuleName)
-  , Definition(defType)
+  , Definition
   , Definitions
+  , defType
   , funATP
   , funClauses
   , funProjection
+  , Interface
+  , iImportedModules
+  , iModuleName
   , runTCM
   , TCErr
   , theDef
@@ -96,7 +105,6 @@ import Agda.TypeChecking.Monad.Options ( setCommandLineOptions )
 import Agda.Utils.FileName
   ( absolute
   , filePath
---  , mkAbsolute
   )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 import qualified Agda.Utils.Trie as Trie ( singleton )
@@ -106,7 +114,7 @@ import qualified Agda.Utils.Trie as Trie ( singleton )
 
 import Monad.Base    ( getTAllDefs, getTOpts, T )
 import Monad.Reports ( reportSLn )
-import Options       ( Options(optAgdaIncludePath) )
+import Options       ( Options, optAgdaIncludePath )
 import Utils.Monad   ( unlessM )
 
 #include "../undefined.h"

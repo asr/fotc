@@ -22,11 +22,15 @@
 -- Bruijn index in the variable.
 
 module AgdaLib.Syntax.DeBruijn
-  ( ChangeIndex(changeIndex)
-  , DecIndex(decIndex)
-  , IncIndex(incIndex)
+  ( changeIndex
+  , ChangeIndex
+  , decIndex
+  , DecIndex
+  , incIndex
+  , IncIndex
   , dropProofTerm
-  , TypesOfVars(typesOfVars)
+  , typesOfVars
+  , TypesOfVars
   , varToIndex
   ) where
 
@@ -35,7 +39,7 @@ import Control.Monad       ( liftM2, when )
 import Control.Monad.Error ( throwError )
 
 -- import Data.Maybe ( fromJust )
-import Data.List  ( elemIndex )
+import Data.List ( elemIndex )
 
 ------------------------------------------------------------------------------
 -- Agda libray imports

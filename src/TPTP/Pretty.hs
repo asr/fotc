@@ -29,7 +29,7 @@ import Data.Char
   )
 
 -- Agda library imports
-import Agda.Syntax.Abstract.Name ( Name(nameId), QName(QName) )
+import Agda.Syntax.Abstract.Name ( Name, nameId, QName(QName) )
 import Agda.Syntax.Common
   ( NameId(NameId)
   , ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint)

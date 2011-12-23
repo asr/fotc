@@ -25,10 +25,12 @@ import Data.List     ( foldl' )
 
 import Agda.Syntax.Abstract.Name ( Name(nameConcrete, nameId) , QName(QName) )
 import Agda.Syntax.Common
-  ( Arg(Arg, argHiding, unArg)
+  ( Arg(Arg)
+  , argHiding
   , Hiding(Hidden, Instance, NotHidden)
   , NameId(NameId)
   , Nat
+  , unArg
   )
 import qualified Agda.Syntax.Concrete.Name as C
   ( Name(Name, NoName)
@@ -43,11 +45,8 @@ import Agda.Syntax.Internal
   , Term(Con, Def, DontCare, Lam, Level, Lit, MetaV, Pi, Sort, Var)
   , Type(El)
   )
-import Agda.Syntax.Position ( noRange )
-import Agda.Utils.Impossible
-  ( Impossible(Impossible)
-  , throwImpossible
-  )
+import Agda.Syntax.Position  ( noRange )
+import Agda.Utils.Impossible ( Impossible(Impossible) , throwImpossible )
 
 ------------------------------------------------------------------------------
 -- Local imports
@@ -78,6 +77,7 @@ import Monad.Base
   , pushTVar
   , T
   )
+
 import Monad.Reports ( reportSLn )
 
 #include "../../../undefined.h"

@@ -18,7 +18,7 @@ module Monad.Options ( processOptions ) where
 import Control.Monad.Error ( throwError )
 import Data.List           ( foldl' )
 import System.Console.GetOpt
-  ( ArgOrder (Permute)
+  ( ArgOrder(Permute)
   , getOpt
   )
 
@@ -27,8 +27,10 @@ import Monad.Base ( T )
 import Options
   ( defaultATPs
   , defaultOptions
+  , optATP
+  , optHelp
   , options
-  , Options(optATP, optHelp)
+  , Options
   )
 
 -----------------------------------------------------------------------------

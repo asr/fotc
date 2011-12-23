@@ -22,7 +22,7 @@ module TPTP.Translation
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad        ( foldM, liftM2, liftM4, zipWithM )
+import Control.Monad             ( foldM, liftM2, liftM4, zipWithM )
 import Data.Functor              ( (<$>) )
 import Data.List                 ( nub )
 import qualified Data.Map as Map ( elems, keys )
@@ -31,8 +31,10 @@ import qualified Data.Map as Map ( elems, keys )
 -- Agda library imports
 
 import Agda.Syntax.Abstract.Name
-  ( Name(nameBindingSite)
-  , QName(qnameName)
+  ( Name
+  , nameBindingSite
+  , QName
+  , qnameName
   )
 
 import Agda.Syntax.Common

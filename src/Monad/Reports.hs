@@ -28,7 +28,7 @@ import Agda.Utils.List ( wordsBy )
 
 -- Local imports
 import Monad.Base ( getTOpts, T )
-import Options    ( Options(optVerbose) )
+import Options    ( Options, optVerbose )
 
 #include "../undefined.h"
 

@@ -24,7 +24,10 @@ module Monad.Base
   , pushTVar
   , runT
   , T
-  , TState(MkState, tAllDefs, tOpts, tVars)
+  , tAllDefs
+  , tOpts
+  , TState(MkState)
+  , tVars
   ) where
 
 -- Haskell imports

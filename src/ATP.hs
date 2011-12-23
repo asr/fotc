@@ -46,7 +46,7 @@ import Agda.Utils.Monad      ( ifM )
 import Monad.Base    ( getTOpts, T )
 import Monad.Reports ( reportS )
 
-import Options ( Options(optATP, optTime, optUnprovedError, optVampireExec) )
+import Options ( Options, optATP, optTime, optUnprovedError, optVampireExec )
 
 #include "undefined.h"
 

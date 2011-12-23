@@ -37,8 +37,10 @@ import System.IO          ( hPutStrLn, stderr )
 
 import Agda.TypeChecking.Monad.Base
   ( Definitions
-  , Interface(iSignature)
-  , Signature(sigDefinitions)
+  , Interface
+  , iSignature
+  , sigDefinitions
+  , Signature
   )
 import Agda.Utils.Impossible ( catchImpossible )
 
@@ -52,13 +54,19 @@ import Monad.Base
   ( AllDefinitions
   , runT
   , T
-  , TState(tAllDefs, tOpts)
+  , tAllDefs
+  , TState
+  , tOpts
   )
 import Monad.Options ( processOptions )
 import Monad.Reports ( reportSLn )
 
 import Options
-  ( Options(optHelp, optOnlyFiles, optSnapshotTest, optVersion)
+  ( Options
+  , optHelp
+  , optOnlyFiles
+  , optSnapshotTest
+  , optVersion
   , printUsage
   )
 

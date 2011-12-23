@@ -18,10 +18,7 @@
 module FOL.Primitives ( appFn, appP, equal ) where
 
 -- Agda library imports
-import Agda.Utils.Impossible
-  ( Impossible(Impossible)
-  , throwImpossible
-  )
+import Agda.Utils.Impossible ( Impossible(Impossible) , throwImpossible )
 
 -- Local imports
 import FOL.Types ( FOLTerm(FOLFun), FOLFormula(Predicate) )

@@ -28,8 +28,10 @@ module FOL.Translation.Internal.Types
 -- Agda library imports
 
 import Agda.Syntax.Common
-  ( Arg(Arg, argHiding, unArg)
+  ( Arg(Arg)
+  , argHiding
   , Hiding(Hidden, Instance, NotHidden)
+  , unArg
   )
 import Agda.Syntax.Internal
   ( Level(Max)

@@ -15,20 +15,10 @@
 module TPTP.Types
   ( AF(MkAF)
   , allRequiredDefs
+  , ConjectureSet(..)
   , commonRequiredDefs
-  , ConjectureSet(MkConjectureSet
-                 , conjectureLocalHints
-                 , requiredDefsByConjecture
-                 , requiredDefsByLocalHints
-                 , theConjecture
-                 )
   , dropCommonRequiredDefs
-  , GeneralRoles(MkGeneralRoles
-                , axioms
-                , hints
-                , requiredDefsByAxioms
-                , requiredDefsByHints
-                )
+  , GeneralRoles(..)
   ) where
 
 -- Haskell import
@@ -36,11 +26,10 @@ import Data.List ( (\\), sort )
 
 -- Agda library imports
 import Agda.Syntax.Abstract.Name ( QName )
-import Agda.Syntax.Common   ( ATPRole )
--- import qualified Agda.Utils.IO.Locale as LocIO
+import Agda.Syntax.Common        ( ATPRole )
 
 -- Local imports
-import FOL.Types ( FOLFormula )
+import FOL.Types  ( FOLFormula )
 import Utils.List ( duplicatesElements, nonDuplicate )
 
 ------------------------------------------------------------------------------

@@ -24,7 +24,7 @@ import System.FilePath     ( replaceDirectory )
 
 -- Local imports
 import Monad.Base      ( getTOpts, T )
-import Options         ( Options(optOutputDir, optSnapshotDir) )
+import Options         ( Options, optOutputDir, optSnapshotDir )
 import Monad.Reports   ( reportS )
 import Utils.Directory ( diff )
 
