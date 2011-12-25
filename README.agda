@@ -20,7 +20,7 @@ module README where
 ------------------------------------------------------------------------------
 -- Prerequisites and use
 
--- See http://www1.eafit.edu.co/asicard/code/fotc/.
+-- See http://www1.eafit.edu.co/asicard/code/fossacs-2012/.
 
 ------------------------------------------------------------------------------
 -- Conventions
