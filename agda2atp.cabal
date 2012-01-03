@@ -122,12 +122,11 @@ executable agda2atp
                   -fno-warn-warnings-deprecations
                   -Werror
 
-    -- From Agda.cabal:
-    -- If someone installs Agda with the setuid bit set, then the
-    -- presence of +RTS may be a security problem (see GHC bug #3910).
-    -- However, we sometimes recommend people to use +RTS to control
-    -- Agda's memory usage, so we want this functionality enabled by
-    -- default.
-    ghc-options: -rtsopts
+  -- From Agda.cabal: If someone installs Agda with the setuid bit
+  -- set, then the presence of +RTS may be a security problem (see GHC
+  -- bug #3910).  However, we sometimes recommend people to use +RTS
+  -- to control Agda's memory usage, so we want this functionality
+  -- enabled by default.
+  ghc-options: -rtsopts
 
   ghc-prof-options: -auto-all
