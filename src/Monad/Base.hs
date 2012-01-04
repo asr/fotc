@@ -1,7 +1,7 @@
 ------------------------------------------------------------------------------
 -- |
 -- Module      : Monad.Base
--- Copyright   : (c) Andrés Sicard-Ramírez 2009-2011
+-- Copyright   : (c) Andrés Sicard-Ramírez 2009-2012
 -- License     : See the file LICENSE.
 --
 -- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
