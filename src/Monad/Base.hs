@@ -30,7 +30,9 @@ module Monad.Base
   , tVars
   ) where
 
+------------------------------------------------------------------------------
 -- Haskell imports
+
 import Control.Monad.Error ( ErrorT, runErrorT )
 import Control.Monad.State
   ( evalState
@@ -43,11 +45,15 @@ import Control.Monad.State
 
 import qualified Data.Map as Map ( empty )
 
+------------------------------------------------------------------------------
 -- Agda library imports
+
 import Agda.TypeChecking.Monad.Base ( Definitions )
 import Agda.Utils.Impossible        ( Impossible(Impossible), throwImpossible )
 
+------------------------------------------------------------------------------
 -- Local imports
+
 import Options     ( defaultOptions, Options )
 import Utils.Names ( freshName )
 

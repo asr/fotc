@@ -19,6 +19,7 @@
 
 module Main ( main ) where
 
+------------------------------------------------------------------------------
 -- Haskell imports
 
 import Control.Monad       ( liftM2, unless, when )

@@ -34,12 +34,12 @@ module AgdaLib.Syntax.DeBruijn
   , varToIndex
   ) where
 
+------------------------------------------------------------------------------
 -- Haskell imports
+
 import Control.Monad       ( liftM2, when )
 import Control.Monad.Error ( throwError )
-
--- import Data.Maybe ( fromJust )
-import Data.List ( elemIndex )
+import Data.List           ( elemIndex )
 
 ------------------------------------------------------------------------------
 -- Agda libray imports

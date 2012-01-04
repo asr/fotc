@@ -16,7 +16,9 @@
 
 module ATP ( ATP(..), callATPs ) where
 
+------------------------------------------------------------------------------
 -- Haskell imports
+
 import Control.Exception       ( evaluate )
 import Control.Concurrent      ( forkIO, threadDelay )
 import Control.Concurrent.MVar ( MVar, newEmptyMVar, putMVar, takeMVar )
@@ -38,11 +40,15 @@ import System.Process
   , terminateProcess
   )
 
+------------------------------------------------------------------------------
 -- Agda library imports
+
 import Agda.Utils.Impossible ( Impossible(Impossible) , throwImpossible )
 import Agda.Utils.Monad      ( ifM )
 
+------------------------------------------------------------------------------
 -- Local imports
+
 import Monad.Base    ( getTOpts, T )
 import Monad.Reports ( reportS )
 

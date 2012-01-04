@@ -17,7 +17,9 @@
 
 module TPTP.Pretty ( PrettyTPTP(prettyTPTP), TPTP ) where
 
+------------------------------------------------------------------------------
 -- Haskell imports
+
 import Data.Char
   ( chr
   , isAsciiLower
@@ -28,7 +30,9 @@ import Data.Char
   , toUpper
   )
 
+------------------------------------------------------------------------------
 -- Agda library imports
+
 import Agda.Syntax.Abstract.Name ( Name, nameId, QName(QName) )
 import Agda.Syntax.Common
   ( NameId(NameId)
@@ -36,7 +40,9 @@ import Agda.Syntax.Common
   )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
+------------------------------------------------------------------------------
 -- Local imports
+
 import FOL.Types
   ( FOLFormula(TRUE, FALSE, Predicate, Not, And, Or, Implies, Equiv, ForAll, Exists)
   , FOLTerm(FOLFun, FOLVar)

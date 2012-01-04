@@ -16,11 +16,14 @@
 
 module AgdaLib.EtaExpansion ( EtaExpandible(etaExpand) ) where
 
+------------------------------------------------------------------------------
 -- Haskell imports
+
 import Control.Monad.Error ( throwError )
 
 import Data.Functor ( (<$>) )
 
+------------------------------------------------------------------------------
 -- Agda library imports
 
 -- import Agda.Syntax.Abstract.Name ( QName )
@@ -42,6 +45,7 @@ import Agda.Syntax.Internal
   )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
+------------------------------------------------------------------------------
 -- Local imports
 
 import AgdaLib.Interface       ( isProjection, qNameType )

@@ -14,7 +14,9 @@
 
 module FOL.Translation.Concrete.Name ( concatName ) where
 
+------------------------------------------------------------------------------
 -- Agda library imports
+
 import Agda.Syntax.Concrete.Name ( NamePart(Id, Hole) )
 
 ------------------------------------------------------------------------------

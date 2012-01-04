@@ -9,11 +9,15 @@ module FOL.Translation.Internal.Types
   , typeToFormula
   ) where
 
+------------------------------------------------------------------------------
 -- Agda library imports
+
 import Agda.Syntax.Common   ( Arg )
 import Agda.Syntax.Internal ( Type )
 
+------------------------------------------------------------------------------
 -- Local imports
+
 import FOL.Types  ( FOLFormula )
 import Monad.Base ( T )
 

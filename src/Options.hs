@@ -21,15 +21,21 @@ module Options
   , printUsage
   ) where
 
+------------------------------------------------------------------------------
+-- Haskell imports
+
 import System.Console.GetOpt
   ( ArgDescr(NoArg, ReqArg)
   , OptDescr(Option)
   , usageInfo
   )
 
+------------------------------------------------------------------------------
 -- Agda library imports
+
 import Agda.Interaction.Options ( Verbosity )
 import Agda.Utils.List          ( wordsBy )
+
 import qualified Agda.Utils.Trie as Trie ( insert, singleton )
 
 -----------------------------------------------------------------------------

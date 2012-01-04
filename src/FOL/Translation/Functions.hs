@@ -19,11 +19,15 @@
 
 module FOL.Translation.Functions ( fnToFormula ) where
 
+------------------------------------------------------------------------------
 -- Haskell imports
+
 import Control.Monad       ( liftM2, when )
 import Control.Monad.Error ( throwError )
 
+------------------------------------------------------------------------------
 -- Agda library imports
+
 import Agda.Syntax.Common        ( Arg(Arg) )
 import Agda.Syntax.Abstract.Name ( QName )
 import Agda.Syntax.Internal
@@ -40,7 +44,9 @@ import Agda.Syntax.Internal
   )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
+------------------------------------------------------------------------------
 -- Local imports
+
 import AgdaLib.Syntax.DeBruijn ( decIndex )
 
 import FOL.Primitives         ( equal )

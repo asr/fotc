@@ -17,7 +17,9 @@
 
 module TPTP.Files ( createConjectureFile ) where
 
+------------------------------------------------------------------------------
 -- Haskell imports
+
 import Control.Monad        ( unless )
 import Control.Monad.Trans  ( liftIO )
 import Data.Char            ( chr, isAsciiUpper, isAsciiLower, isDigit, ord )
@@ -26,7 +28,9 @@ import System.Directory     ( createDirectoryIfMissing )
 import System.Environment   ( getProgName )
 import System.FilePath      ( (</>), addExtension )
 
+------------------------------------------------------------------------------
 -- Agda library imports
+
 import Agda.Syntax.Abstract.Name
   ( Name
   , nameBindingSite
@@ -37,7 +41,9 @@ import Agda.Syntax.Common
     ( ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint) )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
+------------------------------------------------------------------------------
 -- Local imports
+
 import AgdaLib.Interface ( qNameLine )
 import Monad.Base        ( getTOpts, T )
 import Monad.Reports     ( reportS, reportSLn )

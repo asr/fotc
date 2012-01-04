@@ -21,14 +21,20 @@ module TPTP.Types
   , GeneralRoles(..)
   ) where
 
+------------------------------------------------------------------------------
 -- Haskell import
+
 import Data.List ( (\\), sort )
 
+------------------------------------------------------------------------------
 -- Agda library imports
+
 import Agda.Syntax.Abstract.Name ( QName )
 import Agda.Syntax.Common        ( ATPRole )
 
+------------------------------------------------------------------------------
 -- Local imports
+
 import FOL.Types  ( FOLFormula )
 import Utils.List ( duplicatesElements, nonDuplicate )
 

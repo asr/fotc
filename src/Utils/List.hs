@@ -15,13 +15,19 @@
 
 module Utils.List ( duplicatesElements, nonDuplicate ) where
 
+------------------------------------------------------------------------------
 -- Haskell imports
+
 import Data.List ( nub )
 
+------------------------------------------------------------------------------
 -- Agda library imports
+
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
+------------------------------------------------------------------------------
 -- Local imports
+
 #include "../undefined.h"
 
 ------------------------------------------------------------------------------

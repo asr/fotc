@@ -19,11 +19,9 @@ module FOL.Translation.Internal
   , dropBindingOnCBody
   ) where
 
--- Haskell imports
--- import Control.Monad.Trans.Reader ( ask, local )
--- import Control.Monad.Trans.State ( evalState )
-
+------------------------------------------------------------------------------
 -- Agda library imports
+
 import Agda.Syntax.Common ( Nat )
 import Agda.Syntax.Internal
   ( Abs(Abs)
@@ -32,7 +30,9 @@ import Agda.Syntax.Internal
   )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
+------------------------------------------------------------------------------
 -- Local imports
+
 import AgdaLib.Syntax.DeBruijn        ( changeIndex, varToIndex )
 import AgdaLib.EtaExpansion           ( etaExpand )
 import FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm )

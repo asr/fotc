@@ -46,6 +46,7 @@ import qualified Data.Map as Map ( filter, lookup )
 import Data.Maybe                ( fromMaybe )
 
 import System.Directory ( doesFileExist )
+
 ------------------------------------------------------------------------------
 -- Agda library imports
 

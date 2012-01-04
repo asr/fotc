@@ -14,7 +14,9 @@
 
 module Monad.Options ( processOptions ) where
 
+------------------------------------------------------------------------------
 -- Haskell imports
+
 import Control.Monad.Error ( throwError )
 import Data.List           ( foldl' )
 import System.Console.GetOpt
@@ -22,7 +24,9 @@ import System.Console.GetOpt
   , getOpt
   )
 
+------------------------------------------------------------------------------
 -- Local imports
+
 import Monad.Base ( T )
 import Options
   ( defaultATPs

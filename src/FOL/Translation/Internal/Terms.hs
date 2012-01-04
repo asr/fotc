@@ -15,6 +15,7 @@
 
 module FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm ) where
 
+------------------------------------------------------------------------------
 -- Haskell imports
 
 import Control.Monad ( liftM2 )
