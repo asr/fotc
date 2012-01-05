@@ -107,21 +107,20 @@ mc91-res = wfInd-MCR P mc91-res-aux
   ... | inj₁ m≯90 with x≯Sy→x≯y∨x≡Sy Nm 89-N m≯90
   ... | inj₂ m≡90 = inj₂ ( m≯100 , mc91-res-90' m≡90 )
   ... | inj₁ m≯89 = inj₂ ( m≯100 , mc91-res-m≯89 )
-
     where
-      m≤100 : LE m one-hundred
-      m≤100 = x≯y→x≤y Nm 100-N m≯100
+    m≤100 : LE m one-hundred
+    m≤100 = x≯y→x≤y Nm 100-N m≯100
 
-      m≤89 : LE m eighty-nine
-      m≤89 = x≯y→x≤y Nm 89-N m≯89
+    m≤89 : LE m eighty-nine
+    m≤89 = x≯y→x≤y Nm 89-N m≯89
 
-      mc91-res-m+11 : mc91 (m + eleven) ≡ ninety-one
-      mc91-res-m+11 with f (x+11-N Nm) (LT2MCR (x+11-N Nm) Nm m≤100 (x<x+11 Nm))
-      ... | inj₁ ( m+11>100 , _ ) = ⊥-elim (x≤89→x+11>100→⊥ Nm m≤89 m+11>100)
-      ... | inj₂ ( _ , res ) = res
+    mc91-res-m+11 : mc91 (m + eleven) ≡ ninety-one
+    mc91-res-m+11 with f (x+11-N Nm) (LT2MCR (x+11-N Nm) Nm m≤100 (x<x+11 Nm))
+    ... | inj₁ ( m+11>100 , _ ) = ⊥-elim (x≤89→x+11>100→⊥ Nm m≤89 m+11>100)
+    ... | inj₂ ( _ , res ) = res
 
-      mc91-res-m≯89 : mc91 m ≡ ninety-one
-      mc91-res-m≯89 = mc91x-res≯100 m ninety-one m≯100 mc91-res-m+11 mc91-res-91
+    mc91-res-m≯89 : mc91 m ≡ ninety-one
+    mc91-res-m≯89 = mc91x-res≯100 m ninety-one m≯100 mc91-res-m+11 mc91-res-91
 
 ------------------------------------------------------------------------------
 -- Main properties
@@ -140,7 +139,6 @@ mc91-res>100 Nn n>100 with mc91-res Nn
 ... | inj₁ ( _     , res ) = res
 ... | inj₂ ( n≯100 , _ )   = ⊥-elim (x>y→x≤y→⊥ Nn 100-N n>100
                                                (x≯y→x≤y Nn 100-N n≯100))
-
 -- For all n <= 100, then mc91 n = 91.
 mc91-res≯100 : ∀ {n} → N n → NGT n one-hundred → mc91 n ≡ ninety-one
 mc91-res≯100 Nn n≯100 with mc91-res Nn
