@@ -50,6 +50,3 @@ freshName = do
       newName = findFreeName names freeNames
   put $ newName : names
   return newName
-
--- bindVar ∷ String → T a → T a
--- bindVar name = local $ \(o, vars) → (o, name : vars)

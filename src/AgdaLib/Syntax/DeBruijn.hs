@@ -364,7 +364,6 @@ instance DropVar Term where
   dropVar (Def qname args) x = fmap (Def qname) (dropVar args x)
 
   dropVar (Lam h (Abs y absTerm)) x = do
-
     pushTVar y
 
     reportSLn "dropVar" 20 $ "Pushed variable: " ++ y
@@ -429,7 +428,6 @@ instance DropVar Args where
   dropVar [] _ = return []
 
   dropVar (Arg h r var@(Var n []) : args) x = do
-
     vars ← getTVars
 
     when (x == "_") $

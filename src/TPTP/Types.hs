@@ -81,7 +81,6 @@ commonRequiredDefs generalRoles conjectureSet =
   if nonDuplicate allDefs
     then []
     else duplicatesElements $ sort allDefs
-
   where
     allDefs ∷ [AF]
     allDefs = allRequiredDefs generalRoles conjectureSet
@@ -99,7 +98,6 @@ dropCommonRequiredDefs generalRoles conjectureSet =
                       , requiredDefsByConjecture = z
                       }
       )
-
   where
     commonDefs, w, x, y, z ∷ [AF]
     commonDefs = commonRequiredDefs generalRoles conjectureSet

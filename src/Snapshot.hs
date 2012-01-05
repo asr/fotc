@@ -35,7 +35,6 @@ import Utils.Directory ( diff )
 
 snapshotTest ∷ FilePath → T ()
 snapshotTest file = do
-
   outputDir   ← optOutputDir <$> getTOpts
   snapshotDir ← optSnapshotDir <$> getTOpts
 

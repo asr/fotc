@@ -83,7 +83,6 @@ import Utils.Version    ( printVersion )
 
 translation ∷ FilePath → T (GeneralRoles, [ConjectureSet])
 translation agdaFile = do
-
   -- Gettting the top level interface.
   i ← myReadInterface agdaFile
 
@@ -108,7 +107,6 @@ translation agdaFile = do
 -- | The main function.
 runAgda2ATP ∷ String → T ()
 runAgda2ATP prgName = do
-
   clo ← liftIO getArgs >>= processOptions
   case clo of
     (opts, agdaFile)

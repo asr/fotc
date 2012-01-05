@@ -155,11 +155,9 @@ getLocalHints def =
 
 -- We do not want any verbosity from the Agda API.
 agdaPragmaOptions ∷ PragmaOptions
-agdaPragmaOptions =
-  let agdaOptVerbose ∷ Verbosity
-      agdaOptVerbose = Trie.singleton [] 0
-
-  in defaultPragmaOptions { optVerbose = agdaOptVerbose }
+agdaPragmaOptions = let agdaOptVerbose ∷ Verbosity
+                        agdaOptVerbose = Trie.singleton [] 0
+                    in defaultPragmaOptions { optVerbose = agdaOptVerbose }
 
 -- An empty list of relative include directories (Left []) is
 -- interpreted as ["."] (from
@@ -167,7 +165,6 @@ agdaPragmaOptions =
 -- Options.optAgdaIncludePath is [].
 agdaCommandLineOptions ∷ T CommandLineOptions
 agdaCommandLineOptions = do
-
   opts ← getTOpts
 
   let agdaIncludePaths ∷ [FilePath]
@@ -179,7 +176,6 @@ agdaCommandLineOptions = do
 
 myReadInterface ∷ FilePath → T Interface
 myReadInterface file = do
-
   optsCommandLine ← agdaCommandLineOptions
 
   -- The physical interface file.
@@ -205,7 +201,6 @@ myReadInterface file = do
 
 myGetInterface ∷ ModuleName → T (Maybe Interface)
 myGetInterface x = do
-
   optsCommandLine ← agdaCommandLineOptions
 
   r ← liftIO $ runTCM $ do
@@ -275,8 +270,8 @@ isATPHint def =
 
 qNameDefinition ∷ QName → T Definition
 qNameDefinition qName = do
-    allDefs ← getTAllDefs
-    return $ fromMaybe (__IMPOSSIBLE__) $ Map.lookup qName allDefs
+  allDefs ← getTAllDefs
+  return $ fromMaybe (__IMPOSSIBLE__) $ Map.lookup qName allDefs
 
 qNameType ∷ QName → T Type
 qNameType qName = fmap defType $ qNameDefinition qName
@@ -367,7 +362,6 @@ importedInterfaces x = do
 
       is ← fmap concat $ mapM importedInterfaces iModules
       return $ i : is
-
     else return []
 
 -- Return the interfaces recursively imported by the top level interface.

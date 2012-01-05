@@ -20,8 +20,7 @@ module AgdaLib.EtaExpansion ( EtaExpandible(etaExpand) ) where
 -- Haskell imports
 
 import Control.Monad.Error ( throwError )
-
-import Data.Functor ( (<$>) )
+import Data.Functor        ( (<$>) )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
@@ -76,7 +75,6 @@ instance EtaExpandible Type where
 
 instance EtaExpandible Term where
   etaExpand (Def qName args) = do
-
     p ← isProjection qName
     case p of
       Nothing → return ()
@@ -118,7 +116,6 @@ instance EtaExpandible Term where
                return $
                  Lam NotHidden
                      (Abs freshVar (Def qName (incVarsEtaExpanded ++ [newVar])))
-
              else do
                reportSLn "etaExpand" 20 $
                  "qname: " ++ showLn qName

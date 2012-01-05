@@ -53,5 +53,5 @@ duplicatesElements zs =
     helper []           = []
     helper [_]          = []
     helper (x : y : xs) = if x == y
-                          then x : helper (y : xs)
-                          else helper (y : xs)
+                            then x : helper (y : xs)
+                            else helper (y : xs)

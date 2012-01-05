@@ -102,7 +102,6 @@ qName2String qName@(QName _ name) = do
         NameId x i → return $ show (nameConcrete name) ++ "_"
                               ++ show x ++ "_"
                               ++ show i
-
     else return $ show $ nameConcrete name
 
 -- We keep the three equations for debugging.
@@ -177,7 +176,6 @@ termToFormula term@(Def qName@(QName _ name) args) = do
 
          | isCNameFOLConst folExists ||
            isCNameFOLConst folForAll → do
-
              fm ← argTermToFormula a
 
              freshVar ← newTVar
@@ -267,10 +265,10 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     -- any problem.
     --
     -- N.B. the pattern matching on (Def _ []).
-    El (Type (Max [])) (Def _ []) →
-        do reportSLn "t2f" 20 $
-             "Adding universal quantification on variable: " ++ freshVar
-           return $ ForAll freshVar (\_ → f2)
+    El (Type (Max [])) (Def _ []) → do
+      reportSLn "t2f" 20 $
+        "Adding universal quantification on variable: " ++ freshVar
+      return $ ForAll freshVar (\_ → f2)
 
     -- The bounded variable is quantified on a proof. Due to we have
     -- drop the quantification on proofs terms, this case is
@@ -399,7 +397,7 @@ appArgsFn fn args = do
 
 -- Translate an Agda term to an FOL term.
 termToFOLTerm ∷ Term → T FOLTerm
-termToFOLTerm term@(Con (QName _ name) args)  = do
+termToFOLTerm term@(Con (QName _ name) args) = do
   reportSLn "t2t" 10 $ "termToFOLTerm Con:\n" ++ show term
 
   let cName ∷ C.Name

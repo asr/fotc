@@ -134,7 +134,6 @@ atpArgs Vampire  timeLimit file = [ "--input_file", file
 
 runATP ∷ ATP → MVar (Bool, ATP) → Int → FilePath → T ProcessHandle
 runATP atp outputMVar timeLimit file = do
-
   let args ∷ [String]
       args = atpArgs atp timeLimit file
 
@@ -161,7 +160,6 @@ runATP atp outputMVar timeLimit file = do
 
 atpsAnswer ∷ MVar (Bool, ATP) → [ProcessHandle] → FilePath → Int → T ()
 atpsAnswer outputMVar atpsPH file n = do
-
   atps ∷ [String] ← optATP <$> getTOpts
 
   if n == length atps
@@ -195,7 +193,6 @@ atpsAnswer outputMVar atpsPH file n = do
 -- | The function 'callATPs' calls the selected 'ATP'(s) on a TPTP conjecture.
 callATPs ∷ FilePath → T ()
 callATPs file = do
-
   atps ∷ [String] ← optATP <$> getTOpts
 
   when (null atps) (__IMPOSSIBLE__)

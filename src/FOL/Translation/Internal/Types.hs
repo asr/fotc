@@ -65,7 +65,7 @@ typeToFormula ty@(El (Type (Max [])) term) = do
   termToFormula term
 
 typeToFormula ty@(El (Type (Max [ClosedLevel 1])) term) = do
-    reportSLn "typeToFormula" 10 $ "Processing type ty:\n" ++ show ty
-    termToFormula term
+  reportSLn "typeToFormula" 10 $ "Processing type ty:\n" ++ show ty
+  termToFormula term
 
 typeToFormula _ = __IMPOSSIBLE__

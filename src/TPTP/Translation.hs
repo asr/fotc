@@ -36,7 +36,6 @@ import Agda.Syntax.Abstract.Name
   , QName
   , qnameName
   )
-
 import Agda.Syntax.Common
   ( ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint) )
 import Agda.Syntax.Internal ( Clause, Type )
@@ -81,7 +80,6 @@ import Utils.Show ( showListLn, showLn )
 
 toAF ∷ ATPRole → QName → Definition → T AF
 toAF role qName def = do
-
   let ty ∷ Type
       ty = defType def
   reportSLn "toAF" 20 $
@@ -120,7 +118,6 @@ toAF role qName def = do
 -- Translation of an Agda internal function to an AF definition.
 fnToAF ∷ QName → Definition → T AF
 fnToAF qName def = do
-
   let ty ∷ Type
       ty = defType def
   reportSLn "symbolToAF" 10 $
@@ -148,7 +145,6 @@ localHintToAF qName = qNameDefinition qName >>= toAF ATPHint qName
 -- Invariant: The 'Definition' must be an ATP pragma conjecture
 localHintsToAFs ∷ Definition → T [AF]
 localHintsToAFs def = do
-
   let hints ∷ [QName]
       hints = getLocalHints def
   reportSLn "hintsToFOLs" 20 $
@@ -160,7 +156,6 @@ localHintsToAFs def = do
 -- If a QName is an ATP definition then we required it.
 requiredQName ∷ QName → T [AF]
 requiredQName qName = do
-
   qNameDef ← qNameDefinition qName
 
   -- We don't have recursive ATP definitions, therefore we don't get
@@ -175,7 +170,6 @@ requiredQName qName = do
 -- definitions used in its definition.
 requiredATPDefsByATPDefinition ∷ Definition → T [AF]
 requiredATPDefsByATPDefinition def = do
-
   -- TODO: To add test case. See
   -- LTC.Data.Nat.Inequalities.PropertiesATP.Sx≤Sy→x≤y
 
@@ -191,7 +185,6 @@ requiredATPDefsByATPDefinition def = do
 
 requiredATPDefsByLocalHints ∷ Definition → T [AF]
 requiredATPDefsByLocalHints def = do
-
   -- TODO: Add a test case. See {-# ATP prove prf S≰0 #-} from
   -- LTC.Data.Bool.PropertiesATP.≤-Bool.
 
@@ -215,9 +208,9 @@ conjectureToAF qName def = liftM4 MkConjectureSet
 -- pair (AF, [AF]).
 conjecturesToAFs ∷ Definitions → T [ConjectureSet]
 conjecturesToAFs topLevelDefs = do
-
   let conjecturesDefs ∷ Definitions
       conjecturesDefs = getATPConjectures topLevelDefs
+
   reportSLn "conjecturesToFOLs" 20 $
     "Conjectures:\n" ++ show (Map.keys conjecturesDefs)
 
@@ -228,7 +221,6 @@ conjecturesToAFs topLevelDefs = do
 -- We translate the ATP pragma axioms to FOL formulas.
 axiomsToAFs ∷ T [AF]
 axiomsToAFs = do
-
   axDefs ∷ Definitions ← getATPAxioms <$> getTAllDefs
 
   zipWithM (toAF ATPAxiom) (Map.keys axDefs) (Map.elems axDefs)
@@ -237,7 +229,6 @@ axiomsToAFs = do
 -- to annotated formulas required by a definition:
 requiredATPDefsByDefinition ∷ Definition → T [AF]
 requiredATPDefsByDefinition def = do
-
   -- We get all the QNames in the definition.
   let qNamesInDef ∷ [QName]
       qNamesInDef = qNamesIn def
@@ -246,7 +237,6 @@ requiredATPDefsByDefinition def = do
 
 requiredATPDefsByAxioms ∷ T [AF]
 requiredATPDefsByAxioms = do
-
   axDefs ∷ Definitions ← getATPAxioms <$> getTAllDefs
 
   fmap (nub . concat) (mapM requiredATPDefsByDefinition (Map.elems axDefs))
@@ -255,14 +245,12 @@ requiredATPDefsByAxioms = do
 -- FOL formulas.
 generalHintsToAFs ∷ T [AF]
 generalHintsToAFs = do
-
   ghDefs ∷ Definitions ← getATPHints <$> getTAllDefs
 
   zipWithM (toAF ATPHint) (Map.keys ghDefs) (Map.elems ghDefs)
 
 requiredATPDefsByHints ∷ T [AF]
 requiredATPDefsByHints = do
-
   ghDefs ∷ Definitions ← getATPHints <$> getTAllDefs
 
   fmap (nub . concat) (mapM requiredATPDefsByDefinition (Map.elems ghDefs))

@@ -66,6 +66,7 @@ import Monad.Base
   , pushTVar
   , T
   )
+
 import Monad.Reports ( reportSLn )
 
 #include "../../undefined.h"
@@ -107,7 +108,6 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
     -- so we can create a fresh variable and quantify on it without any
     -- problem. N.B. the pattern matching on (Def _ []).
     ExtendTel (Arg _ _ (El (Type (Max [])) (Def _ []))) (Abs x tels) → do
-
       reportSLn "def2f" 20 $ "Processing variable: " ++ x
 
       freshVar ← newTVar
@@ -129,7 +129,6 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
 
     -- N.B. the pattern matching on (Def _ _).
     ExtendTel (Arg _ _ tye@(El (Type (Max [])) (Def _ _))) (Abs x tels) → do
-
       reportSLn "def2f" 20 $ "Processing proof term: " ++ x
 
       reportSLn "def2f" 20 $ "tye: " ++ show tye
@@ -165,7 +164,6 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
 -- The clause's patterns is empty, i.e. we have generated the required
 -- universal quantification, so we translate the LHS and the RHS.
 clauseToFormula qName ty (Clause _ _ _ [] cBody) = do
-
   vars ← getTVars
   reportSLn "def2f" 20 $ "vars: " ++ show vars
 
