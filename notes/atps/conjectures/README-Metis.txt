@@ -5,5 +5,5 @@ option. Therefore, to test Metis in the conjectures it is necessary to
 use
 
 $ ulimit -S -t 180
-$ make make only_conjectures_FOTC
+$ make all_conjectures
 $ ulimit -S -t unlimited
