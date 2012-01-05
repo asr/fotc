@@ -104,33 +104,38 @@ checkOutput atp output = atpOk atp `isInfixOf` output
 
 -- Equinox bug? The option --no-progress don't make any difference.
 atpArgs ∷ ATP → Int → FilePath → [String]
-atpArgs E        timeLimit file = [ "--cpu-limit=" ++ show timeLimit
-                                  , "-m" ++ "Auto"
-                                  , "-l" ++ "0"
-                                  , "-x" ++ "Auto"
-                                  , "-t" ++ "Auto"
-                                  , "--tstp-format"
-                                  , file
-                                  ]
-atpArgs Equinox  timeLimit file = [ "--no-progress"
-                                  , "--time", show timeLimit
-                                  , file
-                                  ]
+atpArgs E timeLimit file = [ "--cpu-limit=" ++ show timeLimit
+                           , "-m" ++ "Auto"
+                           , "-l" ++ "0"
+                           , "-x" ++ "Auto"
+                           , "-t" ++ "Auto"
+                           , "--tstp-format"
+                           , file
+                           ]
+
+-- Equinox bug? The option --no-progress don't make any difference.
+atpArgs Equinox timeLimit file = [ "--no-progress"
+                                 , "--time", show timeLimit
+                                 , file
+                                 ]
+
 -- N.B. The order of the IleanCop arguments is fixed.
 atpArgs IleanCoP timeLimit file = [ file
                                   , show timeLimit
                                   ]
-atpArgs Metis    timeLimit file = [ "--time-limit", show timeLimit
-                                  , file
-                                  ]
-atpArgs SPASS    timeLimit file = [ "-TPTP"
-                                  , "-TimeLimit=" ++ show timeLimit
-                                  , file
-                                  ]
 
-atpArgs Vampire  timeLimit file = [ "--input_file", file
-                                  , "-t", show timeLimit
-                                  ]
+atpArgs Metis timeLimit file = [ "--time-limit", show timeLimit
+                               , file
+                               ]
+
+atpArgs SPASS timeLimit file = [ "-TPTP"
+                               , "-TimeLimit=" ++ show timeLimit
+                               , file
+                               ]
+
+atpArgs Vampire timeLimit file = [ "--input_file", file
+                                 , "-t", show timeLimit
+                                 ]
 
 runATP ∷ ATP → MVar (Bool, ATP) → Int → FilePath → T ProcessHandle
 runATP atp outputMVar timeLimit file = do
