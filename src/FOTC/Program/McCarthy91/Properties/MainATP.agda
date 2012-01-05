@@ -83,7 +83,7 @@ mc91-res = wfInd-MCR P mc91-res-aux
 
   mc91-res-aux : ∀ {m} → N m → (∀ {k} → N k → MCR k m → P k) → P m
   mc91-res-aux {m} Nm f with x>y∨x≯y Nm 100-N
-  ... | inj₁ m>100 = inj₁ ( m>100 , mc91-eq₁ m m>100 )
+  ... | inj₁ m>100 = inj₁ ( m>100 , mc91-eq-aux m m>100 )
   ... | inj₂ m≯100 with x≯Sy→x≯y∨x≡Sy Nm 99-N m≯100
   ... | inj₂ m≡100 = inj₂ ( m≯100 , mc91-res-100' m≡100 )
   ... | inj₁ m≯99 with x≯Sy→x≯y∨x≡Sy Nm 98-N m≯99

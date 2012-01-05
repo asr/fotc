@@ -22,6 +22,6 @@ postulate
                              else mc91 (mc91 (n + eleven))
 {-# ATP axiom mc91-eq #-}
 
--- Auxiliary equations (used only in interactive proofs).
-postulate mc91-eq₁ : ∀ n → GT n one-hundred → mc91 n ≡ n ∸ ten
-{-# ATP prove mc91-eq₁ #-}
+-- Auxiliary equation.
+postulate mc91-eq-aux : ∀ n → GT n one-hundred → mc91 n ≡ n ∸ ten
+{-# ATP prove mc91-eq-aux #-}
