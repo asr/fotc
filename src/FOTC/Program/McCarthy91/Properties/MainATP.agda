@@ -41,37 +41,34 @@ mc91-N-ineq = wfInd-MCR P mc91-N-ineq-aux
   P d = N (mc91 d) ∧ LT d (mc91 d + eleven)
 
   mc91-N-ineq-aux : ∀ {m} → N m → (∀ {k} → N k → MCR k m → P k) → P m
-  mc91-N-ineq-aux {m} Nm f with x>y∨x≤y Nm 100-N
+  mc91-N-ineq-aux {m} Nm f with x>y∨x≯y Nm 100-N
   ... | inj₁ m>100 = ( Nmc91>100 Nm m>100 , x<mc91x+11>100 Nm m>100 )
-  ... | inj₂ m≤100 =
+  ... | inj₂ m≯100 =
     let Nm+11 : N (m + eleven)
         Nm+11 = x+11-N Nm
 
-        ih1 : P (m + eleven)
-        ih1 = f Nm+11 (LT2MCR (x+11-N Nm) Nm m≤100 (x<x+11 Nm))
+        ih₁ : P (m + eleven)
+        ih₁ = f Nm+11 (LT2MCR (x+11-N Nm) Nm m≯100 (x<x+11 Nm))
 
-        Nih1 : N (mc91 (m + eleven))
-        Nih1 = ∧-proj₁ ih1
+        Nih₁ : N (mc91 (m + eleven))
+        Nih₁ = ∧-proj₁ ih₁
 
-        LTih1 : LT (m + eleven) (mc91 (m + eleven) + eleven)
-        LTih1 = ∧-proj₂ ih1
+        LTih₁ : LT (m + eleven) (mc91 (m + eleven) + eleven)
+        LTih₁ = ∧-proj₂ ih₁
 
         m<mc91m+11 : LT m (mc91 (m + eleven))
-        m<mc91m+11 = x+k<y+k→x<y Nm Nih1 11-N LTih1
+        m<mc91m+11 = x+k<y+k→x<y Nm Nih₁ 11-N LTih₁
 
-        ih2 : P (mc91 (m + eleven))
-        ih2 = f Nih1 (LT2MCR Nih1 Nm m≤100 m<mc91m+11)
-
-        m≯100 : NGT m one-hundred
-        m≯100 = x≤y→x≯y Nm 100-N m≤100
+        ih₁ : P (mc91 (m + eleven))
+        ih₁ = f Nih₁ (LT2MCR Nih₁ Nm m≯100 m<mc91m+11)
 
         Nmc91≤100 : N (mc91 m)
-        Nmc91≤100 = Nmc91≯100 m m≯100 (∧-proj₁ ih2)
+        Nmc91≤100 = Nmc91≯100 m m≯100 (∧-proj₁ ih₁)
 
     in ( Nmc91≤100 ,
-         <-trans Nm Nih1 (x+11-N Nmc91≤100)
+         <-trans Nm Nih₁ (x+11-N Nmc91≤100)
                  m<mc91m+11
-                 (mc91x+11<mc91x+11 m m≯100 (∧-proj₂ ih2)))
+                 (mc91x+11<mc91x+11 m m≯100 (∧-proj₂ ih₁)))
 
 mc91-res : ∀ {n} → N n → (GT n one-hundred ∧ mc91 n ≡ n ∸ ten) ∨
                          (NGT n one-hundred ∧ mc91 n ≡ ninety-one)
@@ -108,14 +105,11 @@ mc91-res = wfInd-MCR P mc91-res-aux
   ... | inj₂ m≡90 = inj₂ ( m≯100 , mc91-res-90' m≡90 )
   ... | inj₁ m≯89 = inj₂ ( m≯100 , mc91-res-m≯89 )
     where
-    m≤100 : LE m one-hundred
-    m≤100 = x≯y→x≤y Nm 100-N m≯100
-
     m≤89 : LE m eighty-nine
     m≤89 = x≯y→x≤y Nm 89-N m≯89
 
     mc91-res-m+11 : mc91 (m + eleven) ≡ ninety-one
-    mc91-res-m+11 with f (x+11-N Nm) (LT2MCR (x+11-N Nm) Nm m≤100 (x<x+11 Nm))
+    mc91-res-m+11 with f (x+11-N Nm) (LT2MCR (x+11-N Nm) Nm m≯100 (x<x+11 Nm))
     ... | inj₁ ( m+11>100 , _ ) = ⊥-elim (x≤89→x+11>100→⊥ Nm m≤89 m+11>100)
     ... | inj₂ ( _ , res ) = res
 

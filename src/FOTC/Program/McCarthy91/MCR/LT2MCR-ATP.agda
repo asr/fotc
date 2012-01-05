@@ -54,9 +54,8 @@ LT2MCR-helper (sN {n} Nn) (sN {m} Nm) (sN {k} Nk) p qn qm h =
   {-# ATP prove Sm<k #-}
   {-# ATP prove k∸n<k∸m #-}
 
--- TODO: To use NGT instead of LE.
-LT2MCR : ∀ {n m} → N n → N m → LE m one-hundred → LT m n → MCR n m
-LT2MCR zN Nm p h = ⊥-elim (x<0→⊥ Nm h)
+LT2MCR : ∀ {n m} → N n → N m → NGT m one-hundred → LT m n → MCR n m
+LT2MCR zN          Nm p h = ⊥-elim (x<0→⊥ Nm h)
 LT2MCR (sN {n} Nn) zN p h = prfS0
   where
   postulate prfS0 : MCR (succ₁ n) zero
@@ -64,23 +63,24 @@ LT2MCR (sN {n} Nn) zN p h = prfS0
 
 LT2MCR (sN {n} Nn) (sN {m} Nm) p h with x<y∨x≥y Nn 100-N
 ... | inj₁ n<100 = LT2MCR-helper Nn Nm 101-N m<n Sn≤101 Sm≤101
-                                 (LT2MCR Nn Nm m≤100 m<n)
+                                 (LT2MCR Nn Nm m≯100 m<n)
   where
   postulate
-    m≤100  : LE m one-hundred
+    m≯100  : NGT m one-hundred
     m<n    : LT m n
     Sn≤101 : LT (succ₁ n) hundred-one
     Sm≤101 : LT (succ₁ m) hundred-one
-  {-# ATP prove m≤100 x<y→x≤y #-}
+  {-# ATP prove m≯100 Sx≯y→x≯y #-}
   {-# ATP prove m<n #-}
   {-# ATP prove Sn≤101 #-}
-  {-# ATP prove Sm≤101 #-}
+  {-# ATP prove Sm≤101 x≯y→x≤y #-}
 ... | inj₂ n≥100 = prf-n≥100
   where
   postulate
-    101∸Sn≡0  : hundred-one ∸ succ₁ n ≡ zero
+    0≡101∸Sn  : zero ≡ hundred-one ∸ succ₁ n
     0<101∸Sm  : LT zero (hundred-one ∸ succ₁ m)
-    prf-n≥100 : MCR (succ₁ n) (succ₁ m)
-  {-# ATP prove 101∸Sn≡0 x≤y→x-y≡0 #-}
-  {-# ATP prove 0<101∸Sm x<y→0<y∸x #-}
-  {-# ATP prove prf-n≥100 101∸Sn≡0 0<101∸Sm #-}
+  {-# ATP prove 0≡101∸Sn x≤y→x-y≡0 #-}
+  {-# ATP prove 0<101∸Sm x≯y→x≤y x<y→0<y∸x #-}
+
+  prf-n≥100 : MCR (succ₁ n) (succ₁ m)
+  prf-n≥100 = subst (λ t → LT t (hundred-one ∸ succ₁ m)) 0≡101∸Sn 0<101∸Sm

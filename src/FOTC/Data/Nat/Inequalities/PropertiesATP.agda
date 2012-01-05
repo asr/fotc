@@ -48,6 +48,12 @@ postulate
   Sx<Sy→x<y : ∀ {m n} → LT (succ₁ m) (succ₁ n) → LT m n
 {-# ATP prove Sx<Sy→x<y #-}
 
+x<y→x<Sy : ∀ {m n} → N m → N n → LT m n → LT m (succ₁ n)
+x<y→x<Sy Nm          zN          m<0   = ⊥-elim $ x<0→⊥ Nm m<0
+x<y→x<Sy zN          (sN {n} Nn) 0<Sn  = <-0S $ succ₁ n
+x<y→x<Sy (sN {m} Nm) (sN {n} Nn) Sm<Sn =
+  x<y→Sx<Sy (x<y→x<Sy Nm Nn (Sx<Sy→x<y Sm<Sn))
+
 x≤x : ∀ {n} → N n → LE n n
 x≤x zN          = <-0S zero
 x≤x (sN {n} Nn) = trans (<-SS n (succ₁ n)) (x≤x Nn)
@@ -61,6 +67,9 @@ x≤y→Sx≤Sy {m} {n} m≤n = trans (<-SS m (succ₁ n)) m≤n
 postulate
   Sx≤Sy→x≤y : ∀ {m n} → LE (succ₁ m) (succ₁ n) → LE m n
 {-# ATP prove Sx≤Sy→x≤y #-}
+
+Sx≤y→x≤y : ∀ {m n} → N m → N n → LE (succ₁ m) n → LE m n
+Sx≤y→x≤y {m} {n} Nm Nn Sm≤n = x<y→x<Sy Nm Nn (trans (sym (<-SS m n)) Sm≤n)
 
 x≰y→Sx≰Sy : ∀ m n → NLE m n → NLE (succ₁ m) (succ₁ n)
 x≰y→Sx≰Sy m n m≰n = trans (<-SS m (succ₁ n)) m≰n
@@ -177,6 +186,9 @@ x≯y→x≤y (sN {m} Nm) (sN {n} Nn) Sm≯Sn =
   postulate prf : LE m n →  -- IH.
                   LE (succ₁ m) (succ₁ n)
   {-# ATP prove prf #-}
+
+Sx≯y→x≯y : ∀ {m n} → N m → N n → NGT (succ₁ m) n → NGT m n
+Sx≯y→x≯y Nm Nn Sm≤n = x≤y→x≯y Nm Nn (Sx≤y→x≤y Nm Nn (x≯y→x≤y (sN Nm) Nn Sm≤n))
 
 x>y∨x≯y : ∀ {m n} → N m → N n → GT m n ∨ NGT m n
 x>y∨x≯y Nm Nn = [ (λ m>n → inj₁ m>n) ,
@@ -385,12 +397,6 @@ x≤y→y∸x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn = prf $ x≤y→y∸x+x≡y 
   -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
   {-# ATP prove prf +-comm ∸-N #-}
-
-x<y→x<Sy : ∀ {m n} → N m → N n → LT m n → LT m (succ₁ n)
-x<y→x<Sy Nm          zN          m<0   = ⊥-elim $ x<0→⊥ Nm m<0
-x<y→x<Sy zN          (sN {n} Nn) 0<Sn  = <-0S $ succ₁ n
-x<y→x<Sy (sN {m} Nm) (sN {n} Nn) Sm<Sn =
-  x<y→Sx<Sy (x<y→x<Sy Nm Nn (Sx<Sy→x<y Sm<Sn))
 
 x<Sy→x<y∨x≡y : ∀ {m n} → N m → N n → LT m (succ₁ n) → LT m n ∨ m ≡ n
 x<Sy→x<y∨x≡y zN zN 0<S0 = inj₂ refl
