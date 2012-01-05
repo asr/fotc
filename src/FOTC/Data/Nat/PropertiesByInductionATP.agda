@@ -9,8 +9,6 @@
 -- principle associated with the FOTC natural numbers. The following
 -- examples show some proofs using it.
 
--- TODO: We have not tested which ATPs fail on the ATP conjectures.
-
 module FOTC.Data.Nat.PropertiesByInductionATP where
 
 open import FOTC.Base
@@ -47,6 +45,7 @@ open import FOTC.Data.Nat
   {-# ATP prove P0 #-}
 
   postulate is : ∀ {i} → P i → P (succ₁ i)
+  -- Metis 2.3 (release 20110926): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove is #-}
 
 +-assoc : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
@@ -57,9 +56,11 @@ open import FOTC.Data.Nat
   {-# ATP definition P #-}
 
   postulate P0 : P zero
+  -- Metis 2.3 (release 20110926): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove P0 #-}
 
   postulate is : ∀ {i} → P i → P (succ₁ i)
+  -- Metis 2.3 (release 20110926): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove is #-}
 
 -- A proof without use ATPs definitions.
@@ -89,6 +90,7 @@ x+Sy≡S[x+y] n Nm = indN P P0 is Nm
   {-# ATP prove P0 #-}
 
   postulate is : ∀ {i} → P i → P (succ₁ i)
+  -- Metis 2.3 (release 20110926): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove is #-}
 
 +-comm : ∀ {m n} → N m → N n → m + n ≡ n + m
@@ -99,7 +101,9 @@ x+Sy≡S[x+y] n Nm = indN P P0 is Nm
   {-# ATP definition P #-}
 
   postulate P0 : P zero
+  -- Metis 2.3 (release 20110926): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove P0 +-rightIdentity #-}
 
   postulate is : ∀ {i} → P i → P (succ₁ i)
+  -- Metis 2.3 (release 20110926): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove is x+Sy≡S[x+y] #-}
