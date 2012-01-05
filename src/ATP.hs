@@ -141,8 +141,11 @@ runATP atp outputMVar timeLimit file = do
 
   e ← liftIO $ findExecutable exec
   case e of
-    Nothing → reportS "" 1 $ "Warning: We could not find the command " ++ exec
-                             ++ " associated to the ATP " ++ show atp
+    Nothing → throwError $
+              "We could not find the command " ++ exec
+              ++ " associated to the ATP " ++ show atp
+              ++ ". Maybe you should use the flag --atp=NAME "
+              ++ "to avoid calling the defaults ATPs"
     Just _  → return ()
 
   -- To create the ATPs process we follow the ideas used by
