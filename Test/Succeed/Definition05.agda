@@ -7,15 +7,17 @@ module Test.Succeed.Definition05 where
 postulate
   D   : Set
   _≡_ : D → D → Set
-  P   : D → Set
+  op  : D → D
+  a   : D
 
--- We test the translation of a definition where we need to erase proof terms.
-foo : ∀ {a b} → P a → P b → D
-foo {a} {b} Pa Pb = a
-  where
-  c : D
-  c = a
-  {-# ATP definition c #-}
+b : D
+b = a
+{-# ATP definition b #-}
 
-  postulate bar : c ≡ a
-  {-# ATP prove bar #-}
+c : D
+c = op b
+{-# ATP definition c #-}
+
+-- We test the use of an ATP definition inside other ATP definition.
+postulate foo : c ≡ op a
+{-# ATP prove foo #-}

@@ -171,9 +171,6 @@ requiredQName qName = do
 -- definitions used in its definition.
 requiredATPDefsByATPDefinition ∷ Definition → T [AF]
 requiredATPDefsByATPDefinition def = do
-  -- TODO: To add test case. See
-  -- LTC.Data.Nat.Inequalities.PropertiesATP.Sx≤Sy→x≤y
-
   -- We get all the QNames in the definition's clauses.
   let cls ∷ [Clause]
       cls = getClauses def
