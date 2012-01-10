@@ -5,24 +5,17 @@
 module Test.Succeed.Definition07 where
 
 postulate
-  D    : Set
-  _≡_  : D → D → Set
-  P    : D → Set
-  op   : D → D
+  D   : Set
+  _≡_ : D → D → Set
+  P   : D → Set
 
--- In this case the proof term Pb is referenced in the types of the
--- definitions of c and d via the where clause. Therefore in the
--- translation of c and d, we need to erase this proof term.
-foo : D → ∀ {b} → P b → D
-foo  a Pb = a
+-- We test the translation of a definition where we need to erase proof terms.
+foo : ∀ {a b} → P a → P b → D
+foo {a} {b} Pa Pb = a
   where
   c : D
   c = a
   {-# ATP definition c #-}
 
-  d : D
-  d = op c
-  {-# ATP definition d #-}
-
-  postulate bar : d ≡ op a
+  postulate bar : c ≡ a
   {-# ATP prove bar #-}

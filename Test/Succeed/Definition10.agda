@@ -4,23 +4,43 @@
 
 module Test.Succeed.Definition10 where
 
+infixl 6 _+_
+infix  4 _≡_
+
 postulate
-  D   : Set
-  N   : D → Set
-  _≡_ : D → D → Set
+  D      : Set
+  zero   : D
+  succ   : D → D
+  _≡_    : D → D → Set
 
-data ∃ (P : D → Set) : Set where
-  _,_ : (witness : D) → P witness → ∃ P
+data N : D → Set where
+  zN : N zero
+  sN : ∀ {n} → N n → N (succ n)
 
--- The predicate is not inside the where clause because the
--- translation of projection-like functions is not implemented.
-P : D → Set
-P d = ∃ λ e → e ≡ d
-{-# ATP definition P #-}
+indN : (P : D → Set) →
+       P zero →
+       (∀ {n} → N n → P n → P (succ n)) →
+       ∀ {n} → N n → P n
+indN P P0 h zN      = P0
+indN P P0 h (sN Nn) = h Nn (indN P P0 h Nn)
 
--- We test the translation of a definition which Agda eta-reduces.
-foo : ∀ {n} → N n → D
-foo {n} Nn = n
+postulate
+  _+_  : D → D → D
+  +-0x : ∀ d → zero + d     ≡ d
+  +-Sx : ∀ d e → succ d + e ≡ succ (d + e)
+{-# ATP axiom +-0x #-}
+{-# ATP axiom +-Sx #-}
+
+-- We test the translation of a definition where we need to erase proof terms.
++-assoc : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
++-assoc {n = n} {o} Nm Nn No = indN P P0 iStep Nm
   where
-  postulate bar : ∀ {d} → P d → P d
-  {-# ATP prove bar #-}
+  P : D → Set
+  P i = i + n + o ≡ i + (n + o)
+  {-# ATP definition P #-}
+
+  postulate P0 : P zero
+  {-# ATP prove P0 #-}
+
+  postulate iStep : ∀ {i} → N i → P i → P (succ i)
+  {-# ATP prove iStep #-}

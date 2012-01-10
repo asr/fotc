@@ -183,9 +183,6 @@ requiredATPDefsByATPDefinition def = do
 
 requiredATPDefsByLocalHints ∷ Definition → T [AF]
 requiredATPDefsByLocalHints def = do
-  -- TODO: Add a test case. See {-# ATP prove prf S≰0 #-} from
-  -- LTC.Data.Bool.PropertiesATP.≤-Bool.
-
   let hints ∷ [QName]
       hints = getLocalHints def
 
