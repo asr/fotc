@@ -137,12 +137,12 @@ fnToAF qName def = do
 
   return $ MkAF qName ATPDefinition for
 
--- We translate an local hint to an AF.
+-- We translate a local hint to an AF.
 localHintToAF ∷ QName → T AF
 localHintToAF qName = qNameDefinition qName >>= toAF ATPHint qName
 
--- We translate the local hints of an ATP pragma conjecture to AF's.
--- Invariant: The 'Definition' must be an ATP pragma conjecture
+-- We translate the local hints of an ATP conjecture to AF's.
+-- Invariant: The 'Definition' must be an ATP conjecture.
 localHintsToAFs ∷ Definition → T [AF]
 localHintsToAFs def = do
   let hints ∷ [QName]
@@ -202,10 +202,10 @@ conjectureToAF qName def = liftM4 MkConjectureSet
                                   (localHintsToAFs def)
                                   (requiredATPDefsByLocalHints def)
 
--- We translate the ATP pragma conjectures and their local hints in
--- the top level module. For each conjecture we return its translation
--- and a list of the translation of its local hints, i.e. we return a
--- pair (AF, [AF]).
+-- We translate the ATP conjectures and their local hints in the top
+-- level module. For each conjecture we return its translation and a
+-- list of the translation of its local hints, i.e. we return a pair
+-- (AF, [AF]).
 conjecturesToAFs ∷ Definitions → T [ConjectureSet]
 conjecturesToAFs topLevelDefs = do
   let conjecturesDefs ∷ Definitions
@@ -218,15 +218,13 @@ conjecturesToAFs topLevelDefs = do
            (Map.keys conjecturesDefs)
            (Map.elems conjecturesDefs)
 
--- We translate the ATP pragma axioms to FOL formulas.
+-- We translate the ATP axioms to FOL formulas.
 axiomsToAFs ∷ T [AF]
 axiomsToAFs = do
   axDefs ∷ Definitions ← getATPAxioms <$> getTAllDefs
 
   zipWithM (toAF ATPAxiom) (Map.keys axDefs) (Map.elems axDefs)
 
--- We translate the functions marked out by an ATP pragma definition
--- to annotated formulas required by a definition:
 requiredATPDefsByDefinition ∷ Definition → T [AF]
 requiredATPDefsByDefinition def = do
   -- We get all the QNames in the definition.
@@ -241,8 +239,7 @@ requiredATPDefsByAxioms = do
 
   fmap (nub . concat) (mapM requiredATPDefsByDefinition (Map.elems axDefs))
 
--- We translate the ATP pragma general hints in an interface file to
--- FOL formulas.
+-- We translate the ATP general hints to FOL formulas.
 generalHintsToAFs ∷ T [AF]
 generalHintsToAFs = do
   ghDefs ∷ Definitions ← getATPHints <$> getTAllDefs
@@ -255,7 +252,7 @@ requiredATPDefsByHints = do
 
   fmap (nub . concat) (mapM requiredATPDefsByDefinition (Map.elems ghDefs))
 
--- We translate the ATP axioms and (general) hints from the top level
+-- We translate the ATP axioms and general hints from the top level
 -- module and its imported modules. These TPTP roles are common to
 -- every conjecture.
 generalRolesToAFs ∷ T GeneralRoles

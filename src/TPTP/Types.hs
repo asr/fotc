@@ -56,25 +56,25 @@ instance Ord AF where
   compare (MkAF qName1 _ _) (MkAF qName2 _ _) = compare qName1 qName2
 
 data GeneralRoles = MkGeneralRoles
-  { axioms               ∷ [AF]  -- ^ The axioms.
-  , requiredDefsByAxioms ∷ [AF]  -- ^ Required ATP definitions by the axioms.
-  , hints                ∷ [AF]  -- ^ The general hints.
-  , requiredDefsByHints  ∷ [AF]  -- ^ Required ATP definitions by the hints.
+  { axioms     ∷ [AF]  -- ^ The axioms.
+  , axiomsDefs ∷ [AF]  -- ^ ATP definitions used by the axioms.
+  , hints      ∷ [AF]  -- ^ The general hints.
+  , hintsDefs  ∷ [AF]  -- ^ ATP definitions used by the general hints.
   }
 
 data ConjectureSet = MkConjectureSet
-  { theConjecture            ∷ AF    -- ^ The conjecture.
-  , requiredDefsByConjecture ∷ [AF]  -- ^ The conjecture requeried definitions.
-  , conjectureLocalHints     ∷ [AF]  -- ^ The conjecture local hints.
-  , requiredDefsByLocalHints ∷ [AF]  -- ^ The local hints requeried definitions.
+  { theConjecture        ∷ AF    -- ^ The conjecture.
+  , conjectureDefs       ∷ [AF]  -- ^ ATP definitions used by the conjecture.
+  , conjectureLocalHints ∷ [AF]  -- ^ The conjecture local hints.
+  , localHintsDefs       ∷ [AF]  -- ^ ATP definitions used by the local hints.
   }
 
 allRequiredDefs ∷ GeneralRoles → ConjectureSet → [AF]
 allRequiredDefs generalRoles conjectureSet =
-  requiredDefsByAxioms generalRoles
-  ++ requiredDefsByHints generalRoles
-  ++ requiredDefsByLocalHints conjectureSet
-  ++ requiredDefsByConjecture conjectureSet
+  axiomsDefs generalRoles
+  ++ hintsDefs generalRoles
+  ++ localHintsDefs conjectureSet
+  ++ conjectureDefs conjectureSet
 
 commonRequiredDefs ∷ GeneralRoles → ConjectureSet → [AF]
 commonRequiredDefs generalRoles conjectureSet =
@@ -91,17 +91,17 @@ dropCommonRequiredDefs generalRoles conjectureSet =
   if null commonDefs
     then (generalRoles, conjectureSet)
     else
-      ( generalRoles { requiredDefsByAxioms = w
-                     , requiredDefsByHints  = x
+      ( generalRoles { axiomsDefs = w
+                     , hintsDefs  = x
                      }
-      , conjectureSet { requiredDefsByLocalHints = y
-                      , requiredDefsByConjecture = z
+      , conjectureSet { localHintsDefs = y
+                      , conjectureDefs = z
                       }
       )
   where
     commonDefs, w, x, y, z ∷ [AF]
     commonDefs = commonRequiredDefs generalRoles conjectureSet
-    w          = requiredDefsByAxioms     generalRoles  \\ commonDefs
-    x          = requiredDefsByHints      generalRoles  \\ commonDefs
-    y          = requiredDefsByLocalHints conjectureSet \\ commonDefs
-    z          = requiredDefsByConjecture conjectureSet \\ commonDefs
+    w          = axiomsDefs     generalRoles  \\ commonDefs
+    x          = hintsDefs      generalRoles  \\ commonDefs
+    y          = localHintsDefs conjectureSet \\ commonDefs
+    z          = conjectureDefs conjectureSet \\ commonDefs

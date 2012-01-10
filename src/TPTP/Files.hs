@@ -53,16 +53,16 @@ import TPTP.Types
   ( AF(MkAF)
   , allRequiredDefs
   , axioms
+  , axiomsDefs
+  , conjectureDefs
   , ConjectureSet
   , conjectureLocalHints
   , commonRequiredDefs
   , dropCommonRequiredDefs
   , GeneralRoles
   , hints
-  , requiredDefsByAxioms
-  , requiredDefsByConjecture
-  , requiredDefsByHints
-  , requiredDefsByLocalHints
+  , hintsDefs
+  , localHintsDefs
   , theConjecture
   )
 import Utils.List    ( nonDuplicate )
@@ -178,15 +178,15 @@ createConjectureFile generalRoles conjectureSet = do
     _ ← writeFile file conjectureH
     _ ← addRoles commonDefs ATPDefinition file "common required definitions"
     _ ← addRoles (axioms newGeneralRoles) ATPAxiom file "general axioms"
-    _ ← addRoles (requiredDefsByAxioms newGeneralRoles) ATPDefinition file
+    _ ← addRoles (axiomsDefs newGeneralRoles) ATPDefinition file
                    "required ATP definitions by the general axioms"
     _ ← addRoles (hints newGeneralRoles) ATPHint file "general hints"
-    _ ← addRoles (requiredDefsByHints newGeneralRoles) ATPDefinition file
+    _ ← addRoles (hintsDefs newGeneralRoles) ATPDefinition file
                    "required ATP definitions by the general hints"
     _ ← addRoles (conjectureLocalHints newConjectureSet) ATPHint file "local hints"
-    _ ← addRoles (requiredDefsByLocalHints newConjectureSet) ATPDefinition file
+    _ ← addRoles (localHintsDefs newConjectureSet) ATPDefinition file
                    "required ATP definitions by the local hints"
-    _ ← addRoles (requiredDefsByConjecture newConjectureSet) ATPDefinition file
+    _ ← addRoles (conjectureDefs newConjectureSet) ATPDefinition file
                  "required ATP definitions by the conjecture"
     _ ← addRoles [theConjecture newConjectureSet] ATPConjecture file "conjecture"
     _ ← appendFile file conjectureFooter
