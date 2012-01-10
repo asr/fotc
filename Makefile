@@ -95,6 +95,7 @@ doc:
 	cabal configure
 	cabal haddock --executables
 
+.PHONY : TAGS
 TAGS : $(haskell_files)
 	hasktags -e $(haskell_files)
 
@@ -102,6 +103,7 @@ TAGS : $(haskell_files)
 hlint :
 	hlint src/
 
+.PHONY : TODO
 TODO :
 	find \( -name '*.hs' -o -name '*.agda' \) | xargs grep TODO | sort
 
