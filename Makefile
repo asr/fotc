@@ -105,7 +105,8 @@ hlint :
 
 .PHONY : TODO
 TODO :
-	find \( -name '*.hs' -o -name '*.agda' \) | xargs grep TODO | sort
+	find \( -name '*.hs' -o -name '*.hs-boot' -o -name '*.agda' \) \
+	| xargs grep TODO | sort
 
 clean :
 	cabal clean
