@@ -53,21 +53,16 @@ import System.Directory ( doesFileExist )
 import Agda.Interaction.FindFile ( toIFile )
 import Agda.Interaction.Imports  ( getInterface, readInterface )
 import Agda.Interaction.Options
-  ( CommandLineOptions
+  ( CommandLineOptions(optIncludeDirs, optPragmaOptions)
   , defaultOptions
   , defaultPragmaOptions
-  , optIncludeDirs
-  , optPragmaOptions
-  , optVerbose
-  , PragmaOptions
+  , PragmaOptions(optVerbose)
   , Verbosity
   )
 import Agda.Syntax.Abstract.Name
   ( ModuleName
-  , Name
-  , nameBindingSite
-  , QName
-  , qnameName
+  , Name(nameBindingSite)
+  , QName(qnameName)
   )
 import Agda.Syntax.Common
   ( Arg(Arg), ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint) )
@@ -79,28 +74,25 @@ import Agda.Syntax.Internal
   , Type(El)
   )
 import Agda.Syntax.Position
-  ( Interval
-  , iStart
-  , Position
-  , posLine
+  ( Interval(iStart)
+  , Position(posLine)
   , rangeToInterval
   )
 import Agda.TypeChecking.Monad.Base
-  ( axATP
-  , conATP
-  , Defn(Axiom, Constructor, Function)
-  , Definition
+  ( Defn(Axiom
+        , axATP
+        , conATP
+        , Constructor
+        , Function
+        , funATP
+        , funClauses
+        , funProjection
+        )
+  , Definition(defType, theDef)
   , Definitions
-  , defType
-  , funATP
-  , funClauses
-  , funProjection
-  , Interface
-  , iImportedModules
-  , iModuleName
+  , Interface(iImportedModules, iModuleName)
   , runTCM
   , TCErr
-  , theDef
   )
 import Agda.TypeChecking.Monad.Options ( setCommandLineOptions )
 import Agda.Utils.FileName
@@ -115,7 +107,7 @@ import qualified Agda.Utils.Trie as Trie ( singleton )
 
 import Monad.Base    ( getTAllDefs, getTOpts, T )
 import Monad.Reports ( reportSLn )
-import Options       ( Options, optAgdaIncludePath )
+import Options       ( Options(optAgdaIncludePath) )
 import Utils.Monad   ( unlessM )
 
 #include "../undefined.h"

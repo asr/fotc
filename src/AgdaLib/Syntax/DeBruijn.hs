@@ -22,15 +22,11 @@
 -- Bruijn index in the variable.
 
 module AgdaLib.Syntax.DeBruijn
-  ( changeIndex
-  , ChangeIndex
-  , decIndex
-  , DecIndex
-  , incIndex
-  , IncIndex
+  ( ChangeIndex(changeIndex)
+  , DecIndex(decIndex)
+  , IncIndex(incIndex)
   , dropProofTerm
-  , typesOfVars
-  , TypesOfVars
+  , TypesOfVars(typesOfVars)
   , varToIndex
   ) where
 

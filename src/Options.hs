@@ -17,7 +17,19 @@ module Options
   ( defaultATPs
   , defaultOptions
   , options
-  , Options(..)
+  , Options(optATP
+           , optHelp
+           , optAgdaIncludePath
+           , optOnlyFiles
+           , optOutputDir
+           , optSnapshotDir
+           , optSnapshotTest
+           , optTime
+           , optUnprovedError
+           , optVampireExec
+           , optVerbose
+           , optVersion
+           )
   , printUsage
   ) where
 

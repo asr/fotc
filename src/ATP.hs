@@ -14,7 +14,7 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module ATP ( ATP(..), callATPs ) where
+module ATP ( callATPs ) where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
@@ -52,7 +52,7 @@ import Agda.Utils.Monad      ( ifM )
 import Monad.Base    ( getTOpts, T )
 import Monad.Reports ( reportS )
 
-import Options ( Options, optATP, optTime, optUnprovedError, optVampireExec )
+import Options ( Options(optATP, optTime, optUnprovedError, optVampireExec) )
 
 #include "undefined.h"
 

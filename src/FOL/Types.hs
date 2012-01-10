@@ -13,7 +13,20 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module FOL.Types ( FOLFormula(..), FOLTerm(..) ) where
+module FOL.Types
+  ( FOLFormula(And
+              , Equiv
+              , Exists
+              , FALSE
+              , ForAll
+              , Implies
+              , Not
+              , Or
+              , Predicate
+              , TRUE
+              )
+  , FOLTerm(FOLFun, FOLVar)
+  ) where
 
 ------------------------------------------------------------------------------
 -- Adapted from AgdaLight (Plugins.FOL.Types).

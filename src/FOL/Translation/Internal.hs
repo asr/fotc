@@ -26,15 +26,14 @@ import Agda.Syntax.Common ( Nat )
 import Agda.Syntax.Internal
   ( Abs(Abs)
   , ClauseBody(Bind,Body)
---  , Telescope(EmptyTel, ExtendTel)
   )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 ------------------------------------------------------------------------------
 -- Local imports
 
-import AgdaLib.Syntax.DeBruijn        ( changeIndex, varToIndex )
-import AgdaLib.EtaExpansion           ( etaExpand )
+import AgdaLib.Syntax.DeBruijn        ( ChangeIndex(changeIndex), varToIndex )
+import AgdaLib.EtaExpansion           ( EtaExpandible(etaExpand) )
 import FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm )
 import FOL.Types                      ( FOLFormula, FOLTerm )
 import Monad.Base                     ( T )

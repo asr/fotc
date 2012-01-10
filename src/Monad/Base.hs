@@ -24,10 +24,7 @@ module Monad.Base
   , pushTVar
   , runT
   , T
-  , tAllDefs
-  , tOpts
-  , TState(MkState)
-  , tVars
+  , TState(MkState, tAllDefs, tOpts, tVars)
   ) where
 
 ------------------------------------------------------------------------------

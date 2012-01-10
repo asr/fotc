@@ -33,7 +33,7 @@ import Data.Char
 ------------------------------------------------------------------------------
 -- Agda library imports
 
-import Agda.Syntax.Abstract.Name ( Name, nameId, QName(QName) )
+import Agda.Syntax.Abstract.Name ( Name(nameId), QName(QName) )
 import Agda.Syntax.Common
   ( NameId(NameId)
   , ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint)
@@ -44,7 +44,17 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 -- Local imports
 
 import FOL.Types
-  ( FOLFormula(TRUE, FALSE, Predicate, Not, And, Or, Implies, Equiv, ForAll, Exists)
+  ( FOLFormula(And
+              , Equiv
+              , Exists
+              , FALSE
+              , ForAll
+              , Implies
+              , Not
+              , Or
+              , Predicate
+              , TRUE
+              )
   , FOLTerm(FOLFun, FOLVar)
   )
 import TPTP.Types ( AF(MkAF) )

@@ -47,7 +47,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import AgdaLib.Syntax.DeBruijn ( decIndex )
+import AgdaLib.Syntax.DeBruijn ( DecIndex(decIndex) )
 
 import FOL.Primitives         ( equal )
 import FOL.Translation.Common ( varsToArgs )

@@ -25,7 +25,6 @@ import Data.Functor        ( (<$>) )
 ------------------------------------------------------------------------------
 -- Agda library imports
 
--- import Agda.Syntax.Abstract.Name ( QName )
 import Agda.Syntax.Common
   ( Arg(Arg)
   , Hiding(NotHidden)
@@ -48,7 +47,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 -- Local imports
 
 import AgdaLib.Interface       ( isProjection, qNameType )
-import AgdaLib.Syntax.DeBruijn ( incIndex )
+import AgdaLib.Syntax.DeBruijn ( IncIndex(incIndex) )
 import Monad.Base              ( newTVar, T )
 import Monad.Reports           ( reportSLn )
 import Utils.Show              ( showLn )

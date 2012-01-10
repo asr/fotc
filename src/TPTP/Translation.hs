@@ -40,10 +40,8 @@ import Agda.Syntax.Common
   ( ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint) )
 import Agda.Syntax.Internal ( Clause, Type )
 import Agda.TypeChecking.Monad.Base
-  ( Definition
+  ( Definition(defName, defType)
   , Definitions
-  , defName
-  , defType
   )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 import Agda.Utils.Monad      ( ifM )
@@ -51,7 +49,7 @@ import Agda.Utils.Monad      ( ifM )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import AgdaLib.EtaExpansion ( etaExpand )
+import AgdaLib.EtaExpansion ( EtaExpandible(etaExpand) )
 import AgdaLib.Interface
   ( getATPAxioms
   , getATPConjectures
@@ -60,9 +58,12 @@ import AgdaLib.Interface
   , getLocalHints
   , isATPDefinition
   , qNameDefinition
-  , qNamesIn
+  , QNamesIn(qNamesIn)
   )
-import AgdaLib.Syntax.DeBruijn        ( dropProofTerm, typesOfVars )
+import AgdaLib.Syntax.DeBruijn
+  ( dropProofTerm
+  , TypesOfVars(typesOfVars)
+  )
 import FOL.Translation.Functions      ( fnToFormula )
 import FOL.Translation.Internal.Types ( typeToFormula )
 import Monad.Base                     ( getTAllDefs, isTVarsEmpty, T)

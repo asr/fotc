@@ -91,6 +91,10 @@ test :
 ##############################################################################
 # Others
 
+doc:
+	cabal configure
+	cabal haddock --executables
+
 TAGS : $(haskell_files)
 	hasktags -e $(haskell_files)
 
@@ -98,11 +102,6 @@ TAGS : $(haskell_files)
 hlint :
 	hlint src/
 
-doc :
-	cabal configure
-	cabal haddock --executables
-
-.PHONY : TODO
 TODO :
 	find \( -name '*.hs' -o -name '*.agda' \) | xargs grep TODO | sort
 

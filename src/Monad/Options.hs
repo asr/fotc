@@ -31,10 +31,8 @@ import Monad.Base ( T )
 import Options
   ( defaultATPs
   , defaultOptions
-  , optATP
-  , optHelp
   , options
-  , Options
+  , Options(optATP, optHelp)
   )
 
 -----------------------------------------------------------------------------

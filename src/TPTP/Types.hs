@@ -15,10 +15,15 @@
 module TPTP.Types
   ( AF(MkAF)
   , allRequiredDefs
-  , ConjectureSet(..)
+  , ConjectureSet(conjectureDefs
+                 , conjectureLocalHints
+                 , localHintsDefs
+                 , MkConjectureSet
+                 , theConjecture
+                 )
   , commonRequiredDefs
   , dropCommonRequiredDefs
-  , GeneralRoles(..)
+  , GeneralRoles(axioms, axiomsDefs, hints, hintsDefs, MkGeneralRoles)
   ) where
 
 ------------------------------------------------------------------------------
