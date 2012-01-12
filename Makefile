@@ -14,7 +14,6 @@ snapshot_dir = snapshot
 
 # The current directory (\ie. '.') in the Agda path is required only
 # for work with the Draft directory.
-# AGDA_FOT  = agda -v 0 -i. -isrc
 AGDA_FOT  = agda -v 0 -i. -isrc
 AGDA_Agsy = agda -v 0 --allow-unsolved-metas \
                  -isrc -i/home/asr/Agda/std-lib/src/
@@ -248,7 +247,7 @@ all_snapshot : snapshot_DistributiveLaws \
 ##############################################################################
 # Test used when there is a modification to Agda
 
-agda_changed : clean all_type_checking all_only_conjectures
+agda_changed : clean_interfaces all_type_checking all_only_conjectures
 	@echo "The $@ test succeeded!"
 
 ##############################################################################
@@ -287,12 +286,13 @@ dependency_graph : src/FOTC/Program/GCD/Total/ProofSpecificationATP.agda
 	dot -Tps /tmp/dependency-graph-gcd.gv > /tmp/dependency-graph-gcd.ps
 
 TODO :
-	@find src/ -name '*.agda' | xargs grep TODO
+	find src/ -name '*.agda' | xargs grep TODO
 
-clean :
-	@find -name '*.agdai' | xargs rm -f
-	@rm -f /tmp/*.tptp
+clean_interfaces :
+	find -name '*.agdai' | xargs rm -f
 
+clean : clean_interfaces
+	rm -f /tmp/*.tptp
 
 ##############################################################################
 # Main
