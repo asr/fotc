@@ -43,6 +43,7 @@ findFreeName _         []     = __IMPOSSIBLE__
 findFreeName usedNames (x:xs) =
   if x `elem` usedNames then findFreeName usedNames xs else x
 
+-- | Generate a fresh name.
 freshName ∷ State [String] String
 freshName = do
   names ← get

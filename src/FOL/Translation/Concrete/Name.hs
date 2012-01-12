@@ -25,7 +25,7 @@ takeId ∷ NamePart → String
 takeId Hole         = []
 takeId (Id strName) = strName
 
--- We use the parts of a name to produce a new function name,
--- e.g. the function 'if_then_else_' is called 'ifthenelse'.
+-- | Use the parts of a name to produce a new function name, e.g. the
+-- function @if_then_else_@ is called @ifthenelseq@.
 concatName ∷ [NamePart] → String
 concatName = concatMap takeId

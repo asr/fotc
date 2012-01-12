@@ -32,7 +32,8 @@ import Monad.Reports   ( reportS )
 import Utils.Directory ( diff )
 
 ------------------------------------------------------------------------------
-
+-- | Compare the generated TPTP files against a snapshot of them in
+-- the directory indicated by the flag @--snapshot-dir@.
 snapshotTest ∷ FilePath → T ()
 snapshotTest file = do
   outputDir   ← optOutputDir <$> getTOpts

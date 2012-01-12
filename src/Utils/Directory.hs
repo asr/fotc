@@ -20,8 +20,8 @@ module Utils.Directory ( diff ) where
 import Data.Algorithm.Diff ( DI(F, S), getDiff )
 
 ------------------------------------------------------------------------------
--- | The function 'diff' returns 'True' if the files are different,
--- otherwise the function returns 'False'.
+-- | Return 'True' if the files are different, otherwise the function
+-- returns 'False'.
 diff ∷ FilePath → FilePath → IO Bool
 diff f1 f2 = do
   l1 ← readFile f1

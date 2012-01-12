@@ -51,12 +51,13 @@ import Monad.Reports                  ( reportSLn )
 
 ------------------------------------------------------------------------------
 
--- We keep the three equations for debugging.
+-- | Translate an Agda internal Arg Type to a FOL formula.
 argTypeToFormula ∷ Arg Type → T FOLFormula
 argTypeToFormula Arg {argHiding = Instance}              = __IMPOSSIBLE__
 argTypeToFormula Arg {argHiding = Hidden}                = __IMPOSSIBLE__
 argTypeToFormula Arg {argHiding = NotHidden, unArg = ty} = typeToFormula ty
 
+-- | Translate an Agda internal Type to a FOL formula.
 typeToFormula ∷ Type → T FOLFormula
 typeToFormula ty@(El (Type (Max [])) term) = do
   reportSLn "typeToFormula" 10 $ "Processing type ty:\n" ++ show ty

@@ -143,6 +143,7 @@ predicateLogicalScheme vars n args = do
     0 → __IMPOSSIBLE__
     _ → fmap (appP (FOLVar var)) (mapM argTermToFOLTerm args)
 
+-- | Translate an Agda internal Term to a FOL formula.
 termToFormula ∷ Term → T FOLFormula
 termToFormula term@(Def qName@(QName _ name) args) = do
   reportSLn "t2f" 10 $ "termToFormula Def:\n" ++ show term
@@ -393,7 +394,7 @@ appArgsFn fn args = do
   termsFOL ← mapM argTermToFOLTerm args
   return $ foldl' appFn (FOLFun fn []) termsFOL
 
--- Translate an Agda term to an FOL term.
+-- | Translate an Agda internal Term to an FOL term.
 termToFOLTerm ∷ Term → T FOLTerm
 termToFOLTerm term@(Con (QName _ name) args) = do
   reportSLn "t2t" 10 $ "termToFOLTerm Con:\n" ++ show term

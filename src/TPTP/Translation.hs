@@ -7,7 +7,7 @@
 -- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 -- Stability   : experimental
 --
--- Translation of Agda ATP pragmas to TPTP formulas.
+-- Translation of ATP pragmas to TPTP formulas.
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
@@ -197,10 +197,8 @@ conjectureToAF qName def = liftM4 MkConjectureSet
                                   (localHintsToAFs def)
                                   (requiredATPDefsByLocalHints def)
 
--- We translate the ATP conjectures and their local hints in the top
--- level module. For each conjecture we return its translation and a
--- list of the translation of its local hints, i.e. we return a pair
--- (AF, [AF]).
+-- | Translate the ATP conjectures and their local hints in the top
+-- level module to TPTP formulas.
 conjecturesToAFs ∷ Definitions → T [ConjectureSet]
 conjecturesToAFs topLevelDefs = do
   let conjecturesDefs ∷ Definitions
@@ -247,9 +245,9 @@ requiredATPDefsByHints = do
 
   fmap (nub . concat) (mapM requiredATPDefsByDefinition (Map.elems ghDefs))
 
--- We translate the ATP axioms and general hints from the top level
--- module and its imported modules. These TPTP roles are common to
--- every conjecture.
+-- | Translate the ATP axioms, the ATP general hints, and the ATP
+-- definitions in the top level module and its imported modules to
+-- TPTP formulas.
 generalRolesToAFs ∷ T GeneralRoles
 generalRolesToAFs = liftM4 MkGeneralRoles
                            axiomsToAFs

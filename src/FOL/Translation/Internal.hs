@@ -52,11 +52,13 @@ import Monad.Reports                  ( reportSLn )
 -- telescopeToFormula EmptyTel             = __IMPOSSIBLE__
 -- telescopeToFormula (ExtendTel tyArg _) = typeToFormula $ unArg tyArg
 
+-- | Translate an Agda internal ClauseBody to an FOL formula.
 cBodyToFormula ∷ ClauseBody → T FOLFormula
 cBodyToFormula (Body term)          = etaExpand term >>= termToFormula
 cBodyToFormula (Bind (Abs _ cBody)) = cBodyToFormula cBody
 cBodyToFormula _                    = __IMPOSSIBLE__
 
+-- | Translate an Agda internal ClauseBody to an FOL term.
 cBodyToFOLTerm ∷ ClauseBody → T FOLTerm
 -- We don't eta-expand the term before the translation, because we
 -- cannot translate the generated lambda abstractions to FOL terms.

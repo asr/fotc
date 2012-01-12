@@ -76,6 +76,8 @@ import Monad.Reports ( reportSLn )
 -- (i.e. equations), for example every equation in a definition by
 -- pattern matching. In our case it is only necessary to translate
 -- definitions with only one clause.
+
+-- | Translate an ATP definition to an FOL formula.
 fnToFormula ∷ QName → Type → [Clause] → T FOLFormula
 fnToFormula _      _  []        = __IMPOSSIBLE__
 fnToFormula qName  ty (cl : []) = clauseToFormula qName ty cl
