@@ -31,6 +31,7 @@ module Monad.Base
 -- Haskell imports
 
 import Control.Monad.Error ( ErrorT, runErrorT )
+
 import Control.Monad.State
   ( evalState
   , evalStateT

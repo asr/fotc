@@ -30,6 +30,7 @@ import Control.Monad.Error ( throwError )
 
 import Agda.Syntax.Common        ( Arg(Arg) )
 import Agda.Syntax.Abstract.Name ( QName )
+
 import Agda.Syntax.Internal
   ( Abs(Abs)
   , Clause(Clause)
@@ -42,6 +43,7 @@ import Agda.Syntax.Internal
   , Term(Def)
   , Type(El)
   )
+
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 ------------------------------------------------------------------------------

@@ -25,12 +25,14 @@ import Agda.Syntax.Common
   ( Arg(Arg, argHiding, unArg)
   , Hiding(Hidden, Instance, NotHidden)
   )
+
 import Agda.Syntax.Internal
   ( Level(Max)
   , PlusLevel(ClosedLevel)
   , Sort(Type)
   , Type(El)
   )
+
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 ------------------------------------------------------------------------------

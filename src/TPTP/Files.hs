@@ -35,8 +35,10 @@ import Agda.Syntax.Abstract.Name
   ( Name(nameBindingSite)
   , QName(qnameName)
   )
+
 import Agda.Syntax.Common
     ( ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint) )
+
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 ------------------------------------------------------------------------------
@@ -47,6 +49,7 @@ import Monad.Base        ( getTOpts, T )
 import Monad.Reports     ( reportS, reportSLn )
 import Options           ( Options(optOnlyFiles, optOutputDir) )
 import TPTP.Pretty       ( PrettyTPTP(prettyTPTP) )
+
 import TPTP.Types
   ( AF(MkAF)
   , allRequiredDefs
@@ -59,6 +62,7 @@ import TPTP.Types
   , dropCommonRequiredDefs
   , GeneralRoles(axioms, axiomsDefs, hints, hintsDefs)
   )
+
 import Utils.List    ( nonDuplicate )
 import Utils.Monad   ( whenM )
 import Utils.Show    ( showLn )

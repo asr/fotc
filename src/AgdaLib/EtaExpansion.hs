@@ -31,6 +31,7 @@ import Agda.Syntax.Common
   , Nat
   , Relevance(Relevant)
   )
+
 import Agda.Syntax.Internal
   ( Abs(Abs, NoAbs)
   , Args
@@ -41,6 +42,7 @@ import Agda.Syntax.Internal
   , Sort(Type)
   , Type(El)
   )
+
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 ------------------------------------------------------------------------------

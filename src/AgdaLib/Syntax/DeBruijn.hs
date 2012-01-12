@@ -40,7 +40,8 @@ import Data.List           ( elemIndex )
 ------------------------------------------------------------------------------
 -- Agda libray imports
 
-import Agda.Syntax.Common ( Arg(Arg) , Nat )
+import Agda.Syntax.Common ( Arg(Arg), Nat )
+
 import Agda.Syntax.Internal
   ( Abs(Abs, NoAbs)
   , Args
@@ -52,6 +53,7 @@ import Agda.Syntax.Internal
   , Sort(Type)
   , Type(El)
   )
+
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 ------------------------------------------------------------------------------

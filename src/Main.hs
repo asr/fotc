@@ -41,6 +41,7 @@ import Agda.TypeChecking.Monad.Base
   , Interface(iSignature)
   , Signature(sigDefinitions)
   )
+
 import Agda.Utils.Impossible ( catchImpossible )
 
 ------------------------------------------------------------------------------
@@ -55,6 +56,7 @@ import Monad.Base
   , T
   , TState(tAllDefs,  tOpts)
   )
+
 import Monad.Options ( processOptions )
 import Monad.Reports ( reportSLn )
 

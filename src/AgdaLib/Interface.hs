@@ -52,6 +52,7 @@ import System.Directory ( doesFileExist )
 
 import Agda.Interaction.FindFile ( toIFile )
 import Agda.Interaction.Imports  ( getInterface, readInterface )
+
 import Agda.Interaction.Options
   ( CommandLineOptions(optIncludeDirs, optPragmaOptions)
   , defaultOptions
@@ -59,13 +60,16 @@ import Agda.Interaction.Options
   , PragmaOptions(optVerbose)
   , Verbosity
   )
+
 import Agda.Syntax.Abstract.Name
   ( ModuleName
   , Name(nameBindingSite)
   , QName(qnameName)
   )
+
 import Agda.Syntax.Common
   ( Arg(Arg), ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint) )
+
 import Agda.Syntax.Internal
   ( Abs(Abs, NoAbs)
   , Clause(Clause)
@@ -73,11 +77,13 @@ import Agda.Syntax.Internal
   , Term(Con, Def, DontCare, Lam, Level, Lit, MetaV, Pi, Sort, Var)
   , Type(El)
   )
+
 import Agda.Syntax.Position
   ( Interval(iStart)
   , Position(posLine)
   , rangeToInterval
   )
+
 import Agda.TypeChecking.Monad.Base
   ( Defn(Axiom
         , axATP
@@ -94,12 +100,16 @@ import Agda.TypeChecking.Monad.Base
   , runTCM
   , TCErr
   )
+
 import Agda.TypeChecking.Monad.Options ( setCommandLineOptions )
+
 import Agda.Utils.FileName
   ( absolute
   , filePath
   )
+
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
+
 import qualified Agda.Utils.Trie as Trie ( singleton )
 
 ------------------------------------------------------------------------------

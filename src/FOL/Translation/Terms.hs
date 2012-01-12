@@ -28,16 +28,19 @@ import Data.List     ( foldl' )
 -- Agda library imports
 
 import Agda.Syntax.Abstract.Name ( Name(nameConcrete, nameId) , QName(QName) )
+
 import Agda.Syntax.Common
   ( Arg(Arg, argHiding, unArg)
   , Hiding(Hidden, Instance, NotHidden)
   , NameId(NameId)
   , Nat
   )
+
 import qualified Agda.Syntax.Concrete.Name as C
   ( Name(Name, NoName)
   , NamePart(Id, Hole)
   )
+
 import Agda.Syntax.Internal
   ( Abs(Abs, NoAbs)
   , Args
@@ -47,8 +50,9 @@ import Agda.Syntax.Internal
   , Term(Con, Def, DontCare, Lam, Level, Lit, MetaV, Pi, Sort, Var)
   , Type(El)
   )
+
 import Agda.Syntax.Position  ( noRange )
-import Agda.Utils.Impossible ( Impossible(Impossible) , throwImpossible )
+import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 ------------------------------------------------------------------------------
 -- Local imports

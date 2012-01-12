@@ -36,13 +36,17 @@ import Agda.Syntax.Abstract.Name
   , QName
   , qnameName
   )
+
 import Agda.Syntax.Common
   ( ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint) )
+
 import Agda.Syntax.Internal ( Clause, Type )
+
 import Agda.TypeChecking.Monad.Base
   ( Definition(defName, defType)
   , Definitions
   )
+
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 import Agda.Utils.Monad      ( ifM )
 

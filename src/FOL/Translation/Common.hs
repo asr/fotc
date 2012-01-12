@@ -23,6 +23,7 @@ import Agda.Syntax.Common
   , Nat
   , Relevance(Relevant)
   )
+
 import Agda.Syntax.Internal ( Term(Var) )
 
 ------------------------------------------------------------------------------

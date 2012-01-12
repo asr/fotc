@@ -30,6 +30,7 @@ import Data.Maybe              ( fromMaybe )
 import Data.Functor            ( (<$>) )
 import System.Directory        ( findExecutable )
 import System.IO               ( hGetContents )
+
 import System.Process
   ( createProcess
   , proc

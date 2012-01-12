@@ -23,10 +23,12 @@ module FOL.Translation.Internal
 -- Agda library imports
 
 import Agda.Syntax.Common ( Nat )
+
 import Agda.Syntax.Internal
   ( Abs(Abs)
   , ClauseBody(Bind,Body)
   )
+
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 ------------------------------------------------------------------------------
