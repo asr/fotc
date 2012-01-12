@@ -13,16 +13,10 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module FOL.Translation.Internal.Types
+module FOL.Translation.Types
   ( argTypeToFormula
   , typeToFormula
   ) where
-
-------------------------------------------------------------------------------
--- Haskell imports
-
--- import Control.Monad.IO.Class ( liftIO )
--- import Control.Monad.Trans.Class ( lift )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
@@ -42,12 +36,12 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import FOL.Translation.Internal.Terms ( termToFormula )
-import FOL.Types                      ( FOLFormula )
-import Monad.Base                     ( T )
-import Monad.Reports                  ( reportSLn )
+import FOL.Translation.Terms ( termToFormula )
+import FOL.Types             ( FOLFormula )
+import Monad.Base            ( T )
+import Monad.Reports         ( reportSLn )
 
-#include "../../../undefined.h"
+#include "../../undefined.h"
 
 ------------------------------------------------------------------------------
 

@@ -51,14 +51,17 @@ import AgdaLib.Syntax.DeBruijn ( DecIndex(decIndex) )
 
 import FOL.Primitives         ( equal )
 import FOL.Translation.Common ( varsToArgs )
+
 import FOL.Translation.Internal
   ( cBodyToFormula
   , cBodyToFOLTerm
   , dropBindingOnCBody
   )
-import FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm )
-import FOL.Translation.Internal.Types ( typeToFormula )
-import FOL.Types                      ( FOLFormula(Implies, Equiv, ForAll) )
+
+import FOL.Translation.Terms ( termToFormula, termToFOLTerm )
+import FOL.Translation.Types ( typeToFormula )
+import FOL.Types             ( FOLFormula(Implies, Equiv, ForAll) )
+
 import Monad.Base
   ( getTVars
   , newTVar

@@ -42,11 +42,11 @@ executable agda2atp
                   FOL.Constants
                   FOL.Primitives
                   FOL.Translation.Common
-                  FOL.Translation.Concrete.Name
                   FOL.Translation.Functions
+                  FOL.Translation.Name
                   FOL.Translation.Internal
-                  FOL.Translation.Internal.Terms
-                  FOL.Translation.Internal.Types
+                  FOL.Translation.Terms
+                  FOL.Translation.Types
                   FOL.Types
                   Monad.Base
                   Monad.Reports

@@ -13,7 +13,10 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module FOL.Translation.Internal.Terms ( termToFormula, termToFOLTerm ) where
+module FOL.Translation.Terms
+  ( termToFormula
+  , termToFOLTerm
+  ) where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
@@ -56,10 +59,11 @@ import FOL.Constants
   ( folTrue, folFalse, folNot, folAnd, folOr
   , folImplies, folEquiv, folExists, folForAll, folEquals
   )
-import FOL.Primitives                ( appFn, appP, equal )
-import FOL.Translation.Concrete.Name ( concatName )
 
-import {-# source #-} FOL.Translation.Internal.Types
+import FOL.Primitives       ( appFn, appP, equal )
+import FOL.Translation.Name ( concatName )
+
+import {-# source #-} FOL.Translation.Types
   ( argTypeToFormula
   , typeToFormula
   )
@@ -79,7 +83,7 @@ import Monad.Base
 
 import Monad.Reports ( reportSLn )
 
-#include "../../../undefined.h"
+#include "../../undefined.h"
 
 ------------------------------------------------------------------------------
 

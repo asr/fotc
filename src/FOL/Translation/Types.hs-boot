@@ -4,7 +4,7 @@
 
 {-# LANGUAGE UnicodeSyntax #-}
 
-module FOL.Translation.Internal.Types
+module FOL.Translation.Types
   ( argTypeToFormula
   , typeToFormula
   ) where

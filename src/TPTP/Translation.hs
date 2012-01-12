@@ -64,10 +64,10 @@ import AgdaLib.Syntax.DeBruijn
   ( dropProofTerm
   , TypesOfVars(typesOfVars)
   )
-import FOL.Translation.Functions      ( fnToFormula )
-import FOL.Translation.Internal.Types ( typeToFormula )
-import Monad.Base                     ( getTAllDefs, isTVarsEmpty, T)
-import Monad.Reports                  ( reportSLn )
+import FOL.Translation.Functions ( fnToFormula )
+import FOL.Translation.Types     ( typeToFormula )
+import Monad.Base                ( getTAllDefs, isTVarsEmpty, T)
+import Monad.Reports             ( reportSLn )
 import TPTP.Types
   ( AF(MkAF)
   , ConjectureSet(MkConjectureSet)

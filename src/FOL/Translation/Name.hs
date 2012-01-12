@@ -12,7 +12,7 @@
 
 {-# LANGUAGE UnicodeSyntax #-}
 
-module FOL.Translation.Concrete.Name ( concatName ) where
+module FOL.Translation.Name ( concatName ) where
 
 ------------------------------------------------------------------------------
 -- Agda library imports
