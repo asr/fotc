@@ -33,6 +33,7 @@ import System.IO               ( hGetContents )
 
 import System.Process
   ( createProcess
+--  , interruptProcessGroupOf
   , proc
   , ProcessHandle
   , readProcess
@@ -188,11 +189,20 @@ atpsAnswer outputMVar atpsPH file n = do
             -- It seems that terminateProcess is a nop if the process
             -- is finished, therefore we don't care on terminate all
             -- the ATPs processes.
+            mapM_ terminateProcess atpsPH
 
             -- TODO: Ugly hack. Using the thread delay and repeating
             -- the terminateProcess instruction was the way to kill
             -- the Vampire process.
-            mapM_ terminateProcess atpsPH
+            --
+            -- 2012-01-12: It seems in GHC 7.4.1 we may use
+            --
+            -- mapM_ interruptProcessGroupOf atpsPH
+            --
+            -- instead of the current hack. See
+            -- http://hackage.haskell.org/trac/ghc/ticket/5223. In GHC
+            -- 7.2.2 the above expression yields the error
+            -- "signalProcessGroup: does not exist (No such process)".
             threadDelay 500000
             mapM_ terminateProcess atpsPH
         else do
