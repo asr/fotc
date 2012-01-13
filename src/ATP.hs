@@ -33,7 +33,6 @@ import System.IO               ( hGetContents )
 
 import System.Process
   ( createProcess
---  , interruptProcessGroupOf
   , proc
   , ProcessHandle
   , readProcess
@@ -195,14 +194,13 @@ atpsAnswer outputMVar atpsPH file n = do
             -- the terminateProcess instruction was the way to kill
             -- the Vampire process.
             --
-            -- 2012-01-12: It seems in GHC 7.4.1 we may use
-            --
-            -- mapM_ interruptProcessGroupOf atpsPH
-            --
-            -- instead of the current hack. See
-            -- http://hackage.haskell.org/trac/ghc/ticket/5223. In GHC
-            -- 7.2.2 the above expression yields the error
-            -- "signalProcessGroup: does not exist (No such process)".
+            -- 2012-01-13: Using the new field create_group ∷ Bool for
+            -- the datatype CreateProcess in System.Process-1.1.0.0,
+            -- it is possible to use the function
+            -- interruptProcessGroupOf to kill the process, however
+            -- some ATPs continued running after using this
+            -- function. See
+            -- http://thread.gmane.org/gmane.comp.lang.haskell.cafe/95473/.
             threadDelay 500000
             mapM_ terminateProcess atpsPH
         else do
