@@ -21,7 +21,7 @@ module TPTP.Files ( createConjectureFile ) where
 -- Haskell imports
 
 import Control.Monad        ( unless )
-import Control.Monad.Trans  ( liftIO )
+import Control.Monad.Trans  ( MonadIO(liftIO) )
 import Data.Char            ( chr, isAsciiUpper, isAsciiLower, isDigit, ord )
 import Data.Functor         ( (<$>) )
 import System.Directory     ( createDirectoryIfMissing )

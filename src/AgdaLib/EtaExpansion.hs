@@ -19,7 +19,7 @@ module AgdaLib.EtaExpansion ( EtaExpandible(etaExpand) ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad.Error ( throwError )
+import Control.Monad.Error ( MonadError(throwError) )
 import Data.Functor        ( (<$>) )
 
 ------------------------------------------------------------------------------

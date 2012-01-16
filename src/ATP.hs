@@ -23,8 +23,8 @@ import Control.Exception       ( evaluate )
 import Control.Concurrent      ( forkIO, threadDelay )
 import Control.Concurrent.MVar ( MVar, newEmptyMVar, putMVar, takeMVar )
 import Control.Monad           ( when )
-import Control.Monad.Error     ( throwError )
-import Control.Monad.Trans     ( liftIO )
+import Control.Monad.Error     ( MonadError(throwError) )
+import Control.Monad.Trans     ( MonadIO(liftIO) )
 import Data.List               ( isInfixOf )
 import Data.Maybe              ( fromMaybe )
 import Data.Functor            ( (<$>) )
@@ -33,11 +33,11 @@ import System.IO               ( hGetContents )
 
 import System.Process
   ( createProcess
+  , CreateProcess(std_out)
   , proc
   , ProcessHandle
   , readProcess
   , StdStream(CreatePipe)
-  , std_out
   , terminateProcess
   )
 

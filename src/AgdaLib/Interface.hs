@@ -36,9 +36,9 @@ module AgdaLib.Interface
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad.Error ( throwError )
-import Control.Monad.State ( evalStateT, get, put, StateT )
-import Control.Monad.Trans ( lift, liftIO )
+import Control.Monad.Error ( MonadError(throwError) )
+import Control.Monad.State ( evalStateT, MonadState(get, put), StateT )
+import Control.Monad.Trans ( MonadIO(liftIO), MonadTrans(lift) )
 
 import Data.Functor              ( (<$>) )
 import Data.Int                  ( Int32 )

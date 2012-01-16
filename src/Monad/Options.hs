@@ -17,7 +17,7 @@ module Monad.Options ( processOptions ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad.Error ( throwError )
+import Control.Monad.Error ( MonadError(throwError) )
 import Data.List           ( foldl' )
 
 import System.Console.GetOpt

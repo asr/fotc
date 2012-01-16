@@ -19,7 +19,7 @@ module Monad.Reports ( reportS, reportSLn, VerboseKey ) where
 -- Haskell imports
 
 import Control.Monad       ( when )
-import Control.Monad.Trans ( liftIO )
+import Control.Monad.Trans ( MonadIO(liftIO) )
 
 ------------------------------------------------------------------------------
 -- Agda library imports

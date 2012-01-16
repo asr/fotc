@@ -23,9 +23,9 @@ module Main ( main ) where
 -- Haskell imports
 
 import Control.Monad       ( liftM2, unless, when )
-import Control.Monad.Error ( catchError, throwError )
+import Control.Monad.Error ( MonadError(catchError, throwError) )
 import Control.Monad.State ( modify )
-import Control.Monad.Trans ( liftIO )
+import Control.Monad.Trans ( MonadIO(liftIO) )
 
 import qualified Data.Map as Map ( unions )
 
@@ -54,7 +54,7 @@ import Monad.Base
   ( AllDefinitions
   , runT
   , T
-  , TState(tAllDefs,  tOpts)
+  , TState(tAllDefs, tOpts)
   )
 
 import Monad.Options ( processOptions )

@@ -126,7 +126,7 @@ instance PrettyTPTP String where
 instance PrettyTPTP FOLTerm where
   prettyTPTP (FOLFun name [])    = changeToLower name
   prettyTPTP (FOLFun name terms) = changeToLower name
-                                   ++  "(" ++ prettyTPTP terms ++ ")"
+                                   ++ "(" ++ prettyTPTP terms ++ ")"
   prettyTPTP (FOLVar name)       = changeToUpper name
 
 instance PrettyTPTP [FOLTerm] where
@@ -145,7 +145,7 @@ instance PrettyTPTP FOLFormula where
   -- If the predicate represents a propositional logic variable,
   -- following the TPTP syntax, we do not print the internal
   -- parenthesis.
-  prettyTPTP (Predicate name []) = "( " ++ changeToLower name ++  " )"
+  prettyTPTP (Predicate name []) = "( " ++ changeToLower name ++ " )"
 
   prettyTPTP (Predicate name terms) =
     "( " ++ changeToLower name ++ "(" ++ prettyTPTP terms ++ ")" ++ " )"

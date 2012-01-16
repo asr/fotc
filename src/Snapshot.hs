@@ -17,7 +17,7 @@ module Snapshot ( snapshotTest ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad.Error ( throwError )
+import Control.Monad.Error ( MonadError(throwError) )
 import Control.Monad.Trans ( liftIO )
 import Data.Functor        ( (<$>) )
 import System.Directory    ( doesFileExist )

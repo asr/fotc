@@ -34,7 +34,7 @@ module AgdaLib.Syntax.DeBruijn
 -- Haskell imports
 
 import Control.Monad       ( liftM2, when )
-import Control.Monad.Error ( throwError )
+import Control.Monad.Error ( MonadError(throwError) )
 import Data.List           ( elemIndex )
 
 ------------------------------------------------------------------------------
@@ -523,7 +523,7 @@ dropProofTerm ty (x, typeVar) = do
     -- e.g. the variable is P : D → Set.
     --
     -- Because the variable is not a proof term we don't do anything.
-    El (Type (Max [ClosedLevel 1])) (Pi _ (NoAbs  _ _)) → return ty
+    El (Type (Max [ClosedLevel 1])) (Pi _ (NoAbs _ _)) → return ty
 
     -- Other cases
     El (Type (Max [ClosedLevel 1])) (Def _ _)        → __IMPOSSIBLE__
