@@ -29,7 +29,7 @@ import Control.Monad.Trans ( MonadIO(liftIO) )
 
 import qualified Data.Map as Map ( unions )
 
-import System.Environment ( getArgs, getProgName )
+import System.Environment ( getArgs )
 import System.Exit        ( exitFailure, exitSuccess )
 import System.IO          ( hPutStrLn, stderr )
 
@@ -99,13 +99,13 @@ translation agdaFile = do
   liftM2 (,) generalRolesToAFs (conjecturesToAFs topLevelDefs)
 
 -- | The main function.
-runAgda2ATP ∷ String → T ()
-runAgda2ATP prgName = do
+runAgda2ATP ∷ T ()
+runAgda2ATP = do
   clo ← liftIO getArgs >>= processOptions
   case clo of
     (opts, agdaFile)
-      | optHelp opts    → liftIO $ printUsage prgName
-      | optVersion opts → liftIO $ printVersion prgName
+      | optHelp opts    → liftIO printUsage
+      | optVersion opts → liftIO printVersion
       | otherwise       → do
           modify $ \s → s { tOpts = opts }
 
@@ -124,10 +124,8 @@ runAgda2ATP prgName = do
 -- | Main.
 main ∷ IO ()
 main = do
-  prgName ← getProgName
-
   -- Adapted from Agda.Main.main.
-  (r ∷ Either String ()) ← runT $ runAgda2ATP prgName `catchError` \err →
+  (r ∷ Either String ()) ← runT $ runAgda2ATP `catchError` \err →
     do liftIO $ hPutStrLn stderr $ "Error: " ++ err
        throwError err
 

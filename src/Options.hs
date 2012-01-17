@@ -42,6 +42,8 @@ import System.Console.GetOpt
   , usageInfo
   )
 
+import System.Environment ( getProgName )
+
 ------------------------------------------------------------------------------
 -- Agda library imports
 
@@ -177,5 +179,7 @@ usageHeader prgName =
   "Usage: " ++ prgName ++ " [OPTIONS] FILE\n"
 
 -- | Print usage information.
-printUsage ∷ String → IO ()
-printUsage prgName = putStrLn $ usageInfo (usageHeader prgName) options
+printUsage ∷ IO ()
+printUsage = do
+  progName ← getProgName
+  putStrLn $ usageInfo (usageHeader progName) options

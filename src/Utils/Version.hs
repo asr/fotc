@@ -17,7 +17,8 @@ module Utils.Version ( printVersion , version ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Data.Version ( showVersion )
+import Data.Version       ( showVersion )
+import System.Environment ( getProgName )
 
 ------------------------------------------------------------------------------
 -- Local imports
@@ -30,5 +31,7 @@ version ∷ String
 version = showVersion P.version
 
 -- | Print version information.
-printVersion ∷ String → IO ()
-printVersion prgName = putStrLn $ prgName ++ " version " ++ version
+printVersion ∷ IO ()
+printVersion = do
+  progName ← getProgName
+  putStrLn $ progName ++ " version " ++ version
