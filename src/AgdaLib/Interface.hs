@@ -115,7 +115,7 @@ import qualified Agda.Utils.Trie as Trie ( singleton )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import Monad.Base    ( getTAllDefs, getTOpts, T )
+import Monad.Base    ( getTDefs, getTOpts, T )
 import Monad.Reports ( reportSLn )
 import Options       ( Options(optAgdaIncludePath) )
 import Utils.Monad   ( unlessM )
@@ -272,7 +272,7 @@ isATPHint def =
 
 qNameDefinition ∷ QName → T Definition
 qNameDefinition qName = do
-  allDefs ← getTAllDefs
+  allDefs ← getTDefs
   return $ fromMaybe (__IMPOSSIBLE__) $ Map.lookup qName allDefs
 
 qNameType ∷ QName → T Type

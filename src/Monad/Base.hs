@@ -14,8 +14,7 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Monad.Base
-  ( AllDefinitions
-  , getTAllDefs
+  ( getTDefs
   , getTOpts
   , getTVars
   , isTVarsEmpty
@@ -24,7 +23,7 @@ module Monad.Base
   , pushTVar
   , runT
   , T
-  , TState(MkState, tAllDefs, tOpts, tVars)
+  , TState(MkState, tDefs, tOpts, tVars)
   ) where
 
 ------------------------------------------------------------------------------
@@ -56,20 +55,17 @@ import Utils.Names ( freshName )
 #include "../undefined.h"
 
 ------------------------------------------------------------------------------
-
-type AllDefinitions = Definitions
-
 -- | The translation monad state.
-data TState = MkState { tAllDefs ∷ AllDefinitions -- ^ Agda definitions.
-                      , tOpts    ∷ Options        -- ^ Command-line options.
-                      , tVars    ∷ [String]       -- ^ Variables names.
+data TState = MkState { tDefs ∷ Definitions -- ^ Agda definitions.
+                      , tOpts ∷ Options     -- ^ Command-line options.
+                      , tVars ∷ [String]    -- ^ Variables names.
                       }
 
 -- The initial state.
 initTState ∷ TState
-initTState = MkState { tAllDefs = Map.empty
-                     , tOpts    = defaultOptions
-                     , tVars    = []
+initTState = MkState { tDefs = Map.empty
+                     , tOpts = defaultOptions
+                     , tVars = []
                      }
 
 -- | The translation monad.
@@ -96,8 +92,8 @@ popTVar = do
 newTVar ∷ T String
 newTVar = fmap (evalState freshName . tVars) get
 
-getTAllDefs ∷ T AllDefinitions
-getTAllDefs = fmap tAllDefs get
+getTDefs ∷ T Definitions
+getTDefs = fmap tDefs get
 
 getTOpts ∷ T Options
 getTOpts = fmap tOpts get

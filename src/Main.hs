@@ -51,10 +51,9 @@ import AgdaLib.Interface ( getImportedInterfaces, myReadInterface )
 import ATP               ( callATPs )
 
 import Monad.Base
-  ( AllDefinitions
-  , runT
+  ( runT
   , T
-  , TState(tAllDefs, tOpts)
+  , TState(tDefs, tOpts)
   )
 
 import Monad.Options ( processOptions )
@@ -88,13 +87,13 @@ translation agdaFile = do
       importedDefs ∷ [Definitions]
       importedDefs = map (sigDefinitions . iSignature) iInterfaces
 
-      allDefs ∷ AllDefinitions
+      allDefs ∷ Definitions
       allDefs = Map.unions (topLevelDefs : importedDefs)
 
   reportSLn "translation" 20 $ show allDefs
 
   -- We add allDefs to the state.
-  modify $ \s → s { tAllDefs = allDefs }
+  modify $ \s → s { tDefs = allDefs }
 
   liftM2 (,) generalRolesToAFs (conjecturesToAFs topLevelDefs)
 

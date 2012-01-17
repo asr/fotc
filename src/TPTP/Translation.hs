@@ -70,7 +70,7 @@ import AgdaLib.Syntax.DeBruijn
   )
 import FOL.Translation.Functions ( fnToFormula )
 import FOL.Translation.Types     ( typeToFormula )
-import Monad.Base                ( getTAllDefs, isTVarsEmpty, T)
+import Monad.Base                ( getTDefs, isTVarsEmpty, T)
 import Monad.Reports             ( reportSLn )
 import TPTP.Types
   ( AF(MkAF)
@@ -218,7 +218,7 @@ conjecturesToAFs topLevelDefs = do
 -- We translate the ATP axioms to FOL formulas.
 axiomsToAFs ∷ T [AF]
 axiomsToAFs = do
-  axDefs ∷ Definitions ← getATPAxioms <$> getTAllDefs
+  axDefs ∷ Definitions ← getATPAxioms <$> getTDefs
 
   zipWithM (toAF ATPAxiom) (Map.keys axDefs) (Map.elems axDefs)
 
@@ -232,20 +232,20 @@ requiredATPDefsByDefinition def = do
 
 requiredATPDefsByAxioms ∷ T [AF]
 requiredATPDefsByAxioms = do
-  axDefs ∷ Definitions ← getATPAxioms <$> getTAllDefs
+  axDefs ∷ Definitions ← getATPAxioms <$> getTDefs
 
   fmap (nub . concat) (mapM requiredATPDefsByDefinition (Map.elems axDefs))
 
 -- We translate the ATP general hints to FOL formulas.
 generalHintsToAFs ∷ T [AF]
 generalHintsToAFs = do
-  ghDefs ∷ Definitions ← getATPHints <$> getTAllDefs
+  ghDefs ∷ Definitions ← getATPHints <$> getTDefs
 
   zipWithM (toAF ATPHint) (Map.keys ghDefs) (Map.elems ghDefs)
 
 requiredATPDefsByHints ∷ T [AF]
 requiredATPDefsByHints = do
-  ghDefs ∷ Definitions ← getATPHints <$> getTAllDefs
+  ghDefs ∷ Definitions ← getATPHints <$> getTDefs
 
   fmap (nub . concat) (mapM requiredATPDefsByDefinition (Map.elems ghDefs))
 
