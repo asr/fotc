@@ -24,8 +24,8 @@
 module AgdaLib.DeBruijn
   ( ChangeIndex(changeIndex)
   , DecIndex(decIndex)
-  , IncIndex(incIndex)
   , dropProofTerm
+  , IncIndex(incIndex)
   , TypesOfVars(typesOfVars)
   , varToIndex
   ) where

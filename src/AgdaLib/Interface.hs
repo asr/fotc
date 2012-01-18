@@ -15,16 +15,15 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 module AgdaLib.Interface
-  ( getClauses
-  , getImportedInterfaces
-  , getLocalHints
-  , getATPAxioms
+  ( getATPAxioms
   , getATPConjectures
   , getATPDefinitions
   , getATPHints
+  , getClauses
+  , getImportedInterfaces
+  , getLocalHints
   , isATPDefinition
   , isProjection
-  , myGetInterface
   , myReadInterface
   , qNameDefinition
   , QNamesIn(qNamesIn)

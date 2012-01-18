@@ -13,7 +13,7 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module Monad.Reports ( reportS, reportSLn, VerboseKey ) where
+module Monad.Reports ( reportS, reportSLn ) where
 
 ------------------------------------------------------------------------------
 -- Haskell imports

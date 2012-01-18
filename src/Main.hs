@@ -68,7 +68,7 @@ import Snapshot         ( snapshotTest )
 import TPTP.Files       ( createConjectureFile )
 import TPTP.Translation ( conjecturesToAFs, generalRolesToAFs )
 import TPTP.Types       ( ConjectureSet, GeneralRoles )
-import Utils.Version    ( printVersion )
+import Utils.Version    ( progNameVersion )
 
 #include "undefined.h"
 
@@ -104,7 +104,7 @@ runAgda2ATP = do
   case clo of
     (opts, agdaFile)
       | optHelp opts    → liftIO printUsage
-      | optVersion opts → liftIO printVersion
+      | optVersion opts → liftIO $ progNameVersion >>= putStrLn
       | otherwise       → do
           modify $ \s → s { tOpts = opts }
 

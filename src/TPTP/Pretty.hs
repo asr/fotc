@@ -15,7 +15,7 @@
 {-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module TPTP.Pretty ( PrettyTPTP(prettyTPTP), TPTP ) where
+module TPTP.Pretty ( PrettyTPTP(prettyTPTP) ) where
 
 ------------------------------------------------------------------------------
 -- Haskell imports

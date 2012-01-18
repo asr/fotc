@@ -12,7 +12,7 @@
 
 {-# LANGUAGE UnicodeSyntax #-}
 
-module Utils.Version ( printVersion , version ) where
+module Utils.Version ( progNameVersion ) where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
@@ -27,11 +27,8 @@ import qualified Paths_agda2atp as P ( version )
 
 ------------------------------------------------------------------------------
 
-version ∷ String
-version = showVersion P.version
-
--- | Print version information.
-printVersion ∷ IO ()
-printVersion = do
+-- | Return program name and version information.
+progNameVersion ∷ IO String
+progNameVersion = do
   progName ← getProgName
-  putStrLn $ progName ++ " version " ++ version
+  return $ progName ++ " version " ++ showVersion P.version

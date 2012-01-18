@@ -25,7 +25,6 @@ import Control.Monad.Trans  ( MonadIO(liftIO) )
 import Data.Char            ( chr, isAsciiUpper, isAsciiLower, isDigit, ord )
 import Data.Functor         ( (<$>) )
 import System.Directory     ( createDirectoryIfMissing )
-import System.Environment   ( getProgName )
 import System.FilePath      ( (</>), addExtension )
 
 ------------------------------------------------------------------------------
@@ -66,7 +65,7 @@ import TPTP.Types
 import Utils.List    ( nonDuplicate )
 import Utils.Monad   ( whenM )
 import Utils.Show    ( showLn )
-import Utils.Version ( version )
+import Utils.Version ( progNameVersion )
 
 #include "../undefined.h"
 
@@ -98,13 +97,11 @@ commentLineLn = commentLine ++ "\n"
 
 conjectureHeader ∷ IO String
 conjectureHeader = do
-  prgName ← getProgName
+  prg ← progNameVersion
   return $
     commentLine
     ++ "% This file was generated automatically by "
-    ++ prgName
-    ++ " version "
-    ++ version ++ ".\n"
+    ++ prg ++ ".\n"
     ++ commentLineLn
 
 conjectureFooter ∷ String
