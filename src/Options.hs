@@ -10,7 +10,6 @@
 -- Process the arguments.
 -----------------------------------------------------------------------------
 
-{-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Options
@@ -130,8 +129,10 @@ vampireExecOpt name opts = opts { optVampireExec = name }
 verboseOpt ∷ String → Options → Options
 verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
   where
-    -- Requires ScopedTypeVariables.
-    (k, n) ∷ ([String], Int) = parseVerbose str
+    k ∷ [String]
+    n ∷ Int
+    (k, n) = parseVerbose str
+
     parseVerbose ∷ String → ([String], Int)
     parseVerbose s =
       case wordsBy (`elem` ":.") s of

@@ -54,6 +54,7 @@ import Agda.Utils.Monad      ( ifM )
 -- Local imports
 
 import AgdaLib.EtaExpansion ( EtaExpandible(etaExpand) )
+
 import AgdaLib.Interface
   ( getATPAxioms
   , getATPConjectures
@@ -64,19 +65,23 @@ import AgdaLib.Interface
   , qNameDefinition
   , QNamesIn(qNamesIn)
   )
+
 import AgdaLib.Syntax.DeBruijn
   ( dropProofTerm
   , TypesOfVars(typesOfVars)
   )
+
 import FOL.Translation.Functions ( fnToFormula )
 import FOL.Translation.Types     ( typeToFormula )
 import Monad.Base                ( getTDefs, isTVarsEmpty, T)
 import Monad.Reports             ( reportSLn )
+
 import TPTP.Types
   ( AF(MkAF)
   , ConjectureSet(MkConjectureSet)
   , GeneralRoles(MkGeneralRoles)
   )
+
 import Utils.Show ( showListLn, showLn )
 
 #include "../undefined.h"

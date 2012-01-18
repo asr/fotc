@@ -124,13 +124,13 @@ runAgda2ATP = do
 main ∷ IO ()
 main = do
   -- Adapted from Agda.Main.main.
-  (r ∷ Either String ()) ← runT $ runAgda2ATP `catchError` \err →
+  r ∷ Either String () ← runT $ runAgda2ATP `catchError` \err →
     do liftIO $ hPutStrLn stderr $ "Error: " ++ err
        throwError err
 
   case r of
     Right _ → exitSuccess
     Left  _ → exitFailure
-  `catchImpossible` \e → do
-    hPutStrLn stderr $ show e
-    exitFailure
+  `catchImpossible` \e →
+    do hPutStrLn stderr $ show e
+       exitFailure

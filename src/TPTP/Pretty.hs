@@ -59,6 +59,7 @@ import FOL.Types
               )
   , FOLTerm(FOLFun, FOLVar)
   )
+
 import TPTP.Types ( AF(MkAF) )
 
 #include "../undefined.h"
