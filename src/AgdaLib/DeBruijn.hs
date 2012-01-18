@@ -21,7 +21,7 @@
 -- in the Agda internal terms, i.e. it is necessary to modify the
 -- Bruijn index in the variable.
 
-module AgdaLib.Syntax.DeBruijn
+module AgdaLib.DeBruijn
   ( ChangeIndex(changeIndex)
   , DecIndex(decIndex)
   , IncIndex(incIndex)
@@ -63,7 +63,7 @@ import Monad.Base    ( getTVars, popTVar, pushTVar, T )
 import Monad.Reports ( reportSLn )
 import Utils.Show    ( showLn )
 
-#include "../../undefined.h"
+#include "../undefined.h"
 
 ------------------------------------------------------------------------------
 -- | To increase by one the de Bruijn index of the variable.

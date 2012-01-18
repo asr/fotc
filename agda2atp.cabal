@@ -35,9 +35,9 @@ executable agda2atp
                   , mtl        == 2.0.*
                   , process    >= 1.0     && < 1.2
 
-  other-modules:  AgdaLib.EtaExpansion
+  other-modules:  AgdaLib.DeBruijn
+                  AgdaLib.EtaExpansion
                   AgdaLib.Interface
-                  AgdaLib.Syntax.DeBruijn
                   ATP
                   FOL.Constants
                   FOL.Primitives

@@ -48,11 +48,11 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import AgdaLib.Interface       ( isProjection, qNameType )
-import AgdaLib.Syntax.DeBruijn ( IncIndex(incIndex) )
-import Monad.Base              ( newTVar, T )
-import Monad.Reports           ( reportSLn )
-import Utils.Show              ( showLn )
+import AgdaLib.DeBruijn  ( IncIndex(incIndex) )
+import AgdaLib.Interface ( isProjection, qNameType )
+import Monad.Base        ( newTVar, T )
+import Monad.Reports     ( reportSLn )
+import Utils.Show        ( showLn )
 
 #include "../undefined.h"
 

@@ -53,6 +53,7 @@ import Agda.Utils.Monad      ( ifM )
 ------------------------------------------------------------------------------
 -- Local imports
 
+import AgdaLib.DeBruijn     ( dropProofTerm , TypesOfVars(typesOfVars) )
 import AgdaLib.EtaExpansion ( EtaExpandible(etaExpand) )
 
 import AgdaLib.Interface
@@ -64,11 +65,6 @@ import AgdaLib.Interface
   , isATPDefinition
   , qNameDefinition
   , QNamesIn(qNamesIn)
-  )
-
-import AgdaLib.Syntax.DeBruijn
-  ( dropProofTerm
-  , TypesOfVars(typesOfVars)
   )
 
 import FOL.Translation.Functions ( fnToFormula )
