@@ -209,10 +209,9 @@ gcd-x>y-CD :
   GT m n →
   x≠0≠y m n →
   CD m n (gcd m n)
-gcd-x>y-CD zN zN _ _ ¬0≡0∧0≡0   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x>y-CD zN (sN Nn) _ 0>Sn _  = ⊥-elim $ 0>x→⊥ (sN Nn) 0>Sn
-gcd-x>y-CD (sN Nm) zN _ _  _    = gcd-S0-CD Nm
-gcd-x>y-CD (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _  =
+gcd-x>y-CD zN Nn _ 0>n _ = ⊥-elim $ 0>x→⊥ Nn 0>n
+gcd-x>y-CD (sN Nm) zN _ _ _ = gcd-S0-CD Nm
+gcd-x>y-CD (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
   gcd-S>S-CD Nm Nn ih Sm>Sn
   where
   -- Inductive hypothesis.
@@ -232,7 +231,7 @@ gcd-x≯y-CD :
   x≠0≠y m n →
   CD m n (gcd m n)
 gcd-x≯y-CD zN zN _ _ ¬0≡0∧0≡0 = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x≯y-CD zN (sN Nn) _ _ _  = gcd-0S-CD Nn
+gcd-x≯y-CD zN (sN Nn) _ _ _ = gcd-0S-CD Nn
 gcd-x≯y-CD (sN {m} Nm) zN _ Sm≯0 _ = ⊥-elim (true≠false (trans (sym (<-0S m)) Sm≯0))
 gcd-x≯y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ =
   gcd-S≯S-CD Nm Nn ih Sm≯Sn

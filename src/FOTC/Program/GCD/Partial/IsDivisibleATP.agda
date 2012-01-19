@@ -88,9 +88,8 @@ gcd-x>y-Divisible :
   GT m n →
   x≠0≠y m n →
   Divisible m n (gcd m n)
-gcd-x>y-Divisible zN zN _ _ ¬0≡0∧0≡0 _ _  = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x>y-Divisible zN (sN Nn) _ 0>Sn _ _ _ = ⊥-elim $ 0>x→⊥ (sN Nn) 0>Sn
-gcd-x>y-Divisible (sN Nm) zN _ _ _  c Nc  = gcd-S0-Divisible Nm c Nc
+gcd-x>y-Divisible zN Nn _ 0>n _ _ _ = ⊥-elim $ 0>x→⊥ Nn 0>n
+gcd-x>y-Divisible (sN Nm) zN _ _ _  c Nc = gcd-S0-Divisible Nm c Nc
 gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ c Nc =
   gcd-S>S-Divisible Nm Nn ih Sm>Sn c Nc
   where
@@ -112,9 +111,9 @@ gcd-x≯y-Divisible :
   NGT m n →
   x≠0≠y m n →
   Divisible m n (gcd m n)
-gcd-x≯y-Divisible zN zN _ _ ¬0≡0∧0≡0 _ _   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x≯y-Divisible zN (sN Nn) _ _  _  c Nc  = gcd-0S-Divisible Nn c Nc
-gcd-x≯y-Divisible (sN {m} Nm) zN _ Sm≯0 _ _ _  =
+gcd-x≯y-Divisible zN zN _ _ ¬0≡0∧0≡0 _ _  = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
+gcd-x≯y-Divisible zN (sN Nn) _ _  _  c Nc = gcd-0S-Divisible Nn c Nc
+gcd-x≯y-Divisible (sN {m} Nm) zN _ Sm≯0 _ _ _ =
   ⊥-elim (true≠false (trans (sym (<-0S m)) Sm≯0))
 gcd-x≯y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ c Nc =
   gcd-S≯S-Divisible Nm Nn ih Sm≯Sn c Nc

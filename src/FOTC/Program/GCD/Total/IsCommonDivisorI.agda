@@ -229,8 +229,7 @@ gcd-x>y-CD :
   (∀ {o p} → N o → N p → LT₂ o p m n → CD o p (gcd o p)) →
   GT m n →
   CD m n (gcd m n)
-gcd-x>y-CD zN          zN          _    _     = gcd-00-CD
-gcd-x>y-CD zN          (sN Nn)     _    0>Sn  = ⊥-elim $ 0>x→⊥ (sN Nn) 0>Sn
+gcd-x>y-CD zN          Nn          _    0>n   = ⊥-elim $ 0>x→⊥ Nn 0>n
 gcd-x>y-CD (sN Nm)     zN          _    _     = gcd-S0-CD Nm
 gcd-x>y-CD (sN {m} Nm) (sN {n} Nn) accH Sm>Sn = gcd-S>S-CD Nm Nn ih Sm>Sn
   where

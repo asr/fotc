@@ -58,8 +58,7 @@ gcd-x>y-N :
   (∀ {o p} → N o → N p → LT₂ o p m n → N (gcd o p)) →
   GT m n →
   N (gcd m n)
-gcd-x>y-N zN          zN          _    _     = gcd-00-N
-gcd-x>y-N zN          (sN Nn)     _    0>Sn  = ⊥-elim $ 0>x→⊥ (sN Nn) 0>Sn
+gcd-x>y-N zN          Nn          _    0>n   = ⊥-elim $ 0>x→⊥ Nn 0>n
 gcd-x>y-N (sN Nm)     zN          _    _     = gcd-S0-N Nm
 gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn = gcd-S>S-N Nm Nn ih Sm>Sn
   where
