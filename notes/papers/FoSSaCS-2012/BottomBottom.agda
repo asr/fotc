@@ -14,4 +14,3 @@ postulate bot₁ bot₂ : ⊥
 -- Vampire 0.6 (revision 903) proved the conjecture in /tmp/BottomBottom.bot1_8.tptp
 -- Proving the conjecture in /tmp/BottomBottom.bot2_8.tptp ...
 -- Vampire 0.6 (revision 903) proved the conjecture in /tmp/BottomBottom.bot2_8.tptp
-
