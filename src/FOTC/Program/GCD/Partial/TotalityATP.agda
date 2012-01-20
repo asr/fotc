@@ -79,11 +79,10 @@ gcd-x≯y-N :
   NGT m n →
   x≠0≠y m n →
   N (gcd m n)
-gcd-x≯y-N zN zN _ _ ¬0≡0∧0≡0 = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x≯y-N zN (sN Nn) _ _ _ = gcd-0S-N Nn
-gcd-x≯y-N (sN {m} Nm) zN _ Sm≯0 _ = ⊥-elim (true≠false (trans (sym (<-0S m)) Sm≯0))
-gcd-x≯y-N (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ =
-  gcd-S≯S-N Nm Nn ih Sm≯Sn
+gcd-x≯y-N zN          zN          _    _     h = ⊥-elim $ h (refl , refl)
+gcd-x≯y-N zN          (sN Nn)     _    _     _ = gcd-0S-N Nn
+gcd-x≯y-N (sN {m} Nm) zN          _    Sm≯0  _ = ⊥-elim $ S≯0→⊥ Sm≯0
+gcd-x≯y-N (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ = gcd-S≯S-N Nm Nn ih Sm≯Sn
   where
   -- Inductive hypothesis.
   ih : N (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))

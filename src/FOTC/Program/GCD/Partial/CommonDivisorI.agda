@@ -243,12 +243,10 @@ gcd-x≯y-CD :
   NGT m n →
   x≠0≠y m n →
   CD m n (gcd m n)
-gcd-x≯y-CD zN zN _ _ ¬0≡0∧0≡0 = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x≯y-CD zN (sN Nn) _ _ _ = gcd-0S-CD Nn
-gcd-x≯y-CD (sN {m} Nm) zN _ Sm≯0 _ =
-  ⊥-elim (true≠false (trans (sym (<-0S m)) Sm≯0))
-gcd-x≯y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ =
-  gcd-S≯S-CD Nm Nn ih Sm≯Sn
+gcd-x≯y-CD zN          zN          _    _     h = ⊥-elim $ h (refl , refl)
+gcd-x≯y-CD zN          (sN Nn)     _    _     _ = gcd-0S-CD Nn
+gcd-x≯y-CD (sN {m} Nm) zN          _    Sm≯0  _ = ⊥-elim $ S≯0→⊥ Sm≯0
+gcd-x≯y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ = gcd-S≯S-CD Nm Nn ih Sm≯Sn
   where
   -- Inductive hypothesis.
   ih : CD (succ₁ m) (succ₁ n ∸ succ₁ m)  (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))

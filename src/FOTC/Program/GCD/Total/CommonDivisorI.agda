@@ -248,10 +248,9 @@ gcd-x≯y-CD :
   (∀ {o p} → N o → N p → LT₂ o p m n → CD o p (gcd o p)) →
   NGT m n →
   CD m n (gcd m n)
-gcd-x≯y-CD zN          zN      _ _    = gcd-00-CD
-gcd-x≯y-CD zN          (sN Nn) _ _    = gcd-0S-CD Nn
-gcd-x≯y-CD (sN {m} Nm) zN      _ Sm≯0 =
-  ⊥-elim (true≠false (trans (sym (<-0S m)) Sm≯0))
+gcd-x≯y-CD zN          zN          _    _     = gcd-00-CD
+gcd-x≯y-CD zN          (sN Nn)     _    _     = gcd-0S-CD Nn
+gcd-x≯y-CD (sN {m} Nm) zN          _    Sm≯0  = ⊥-elim $ S≯0→⊥ Sm≯0
 gcd-x≯y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn = gcd-S≯S-CD Nm Nn ih Sm≯Sn
   where
   -- Inductive hypothesis.

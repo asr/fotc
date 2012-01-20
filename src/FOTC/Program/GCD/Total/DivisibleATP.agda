@@ -114,8 +114,7 @@ gcd-x≯y-Divisible :
   Divisible m n (gcd m n)
 gcd-x≯y-Divisible zN zN _ _ c Nc = gcd-00-Divisible c Nc
 gcd-x≯y-Divisible zN (sN Nn) _ _ c Nc = gcd-0S-Divisible Nn c Nc
-gcd-x≯y-Divisible (sN {m} Nm) zN _ Sm≯0 _ _ =
-  ⊥-elim (true≠false (trans (sym (<-0S m)) Sm≯0))
+gcd-x≯y-Divisible (sN {m} Nm) zN _ Sm≯0 _ _ = ⊥-elim $ S≯0→⊥ Sm≯0
 gcd-x≯y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn c Nc =
   gcd-S≯S-Divisible Nm Nn ih Sm≯Sn c Nc
   where

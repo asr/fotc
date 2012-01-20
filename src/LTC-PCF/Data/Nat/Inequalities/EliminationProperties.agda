@@ -58,3 +58,5 @@ x<y→y<x→⊥ (sN Nm) zN              Sm<0  0<Sm  = ⊥-elim (0>x→⊥ (sN Nm
 x<y→y<x→⊥ (sN {m} Nm) (sN {n} Nn) Sm<Sn Sn<Sm =
   x<y→y<x→⊥ Nm Nn (trans (sym (<-SS m n)) Sm<Sn) (trans (sym (<-SS n m)) Sn<Sm)
 
+S≯0→⊥ : ∀ {d} → ¬ (NGT (succ₁ d) zero)
+S≯0→⊥ {d} S≯0 = ⊥-elim (true≠false (trans (sym (<-0S d)) S≯0))
