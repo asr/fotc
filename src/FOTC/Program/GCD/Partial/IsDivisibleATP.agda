@@ -15,10 +15,10 @@ open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Divisibility.NotBy0
 open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP
 open import FOTC.Data.Nat.Induction.NonAcc.LexicographicATP
-open import FOTC.Data.Nat.PropertiesATP
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.EliminationProperties
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
+open import FOTC.Data.Nat.PropertiesATP
 open import FOTC.Program.GCD.Partial.Definitions
 open import FOTC.Program.GCD.Partial.GCD
 
