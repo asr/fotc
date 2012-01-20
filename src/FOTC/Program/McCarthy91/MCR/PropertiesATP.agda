@@ -10,6 +10,7 @@ module FOTC.Program.McCarthy91.MCR.PropertiesATP where
 open import FOTC.Base
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
+open import FOTC.Data.Nat.Inequalities.EliminationProperties
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.PropertiesATP
 open import FOTC.Data.Nat.UnaryNumbers

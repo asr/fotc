@@ -1,29 +1,25 @@
 ------------------------------------------------------------------------------
--- Properties of the inequalities
+-- Elimation properties of the inequalities
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Data.Nat.Inequalities.Properties where
+module LTC-PCF.Data.Nat.Inequalities.EliminationProperties where
 
 open import Common.Function
 
-open import FOTC.Base
-open import FOTC.Data.Nat
-open import FOTC.Data.Nat.Inequalities
+open import LTC-PCF.Base
+open import LTC-PCF.Data.Nat
+open import LTC-PCF.Data.Nat.Inequalities
+open import LTC-PCF.Data.Nat.Inequalities.EquationsATP
 
 ------------------------------------------------------------------------------
--- Some elimination properties.
-
--- There are others elimination properties in the module
--- FOTC.Data.Nat.Inequalities.Properties(I/ATP) which exports this
--- module.
 
 0<0→⊥ : ¬ LT zero zero
 0<0→⊥ 0<0 = true≠false $ trans (sym 0<0) <-00
 
-S<0→⊥ : ∀ {d} → ¬ LT (succ₁ d) zero
+S<0→⊥ : ∀ {d}  → ¬ LT (succ₁ d) zero
 S<0→⊥ {d} Sd<0 = true≠false $ trans (sym Sd<0) (<-S0 d)
 
 x<0→⊥ : ∀ {n} → N n → ¬ (LT n zero)
@@ -61,3 +57,4 @@ x<y→y<x→⊥ zN      Nn              0<n   n<0   = ⊥-elim (0>x→⊥ Nn n<0
 x<y→y<x→⊥ (sN Nm) zN              Sm<0  0<Sm  = ⊥-elim (0>x→⊥ (sN Nm) Sm<0)
 x<y→y<x→⊥ (sN {m} Nm) (sN {n} Nn) Sm<Sn Sn<Sm =
   x<y→y<x→⊥ Nm Nn (trans (sym (<-SS m n)) Sm<Sn) (trans (sym (<-SS n m)) Sn<Sm)
+

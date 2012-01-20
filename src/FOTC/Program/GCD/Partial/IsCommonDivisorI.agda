@@ -17,6 +17,7 @@ open import FOTC.Data.Nat.Divisibility.NotBy0.Properties
 open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesI
 open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI
 open import FOTC.Data.Nat.Inequalities
+open import FOTC.Data.Nat.Inequalities.EliminationProperties
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.PropertiesI
 open import FOTC.Program.GCD.Partial.Definitions

@@ -54,7 +54,7 @@ open import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionATP
 open import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionI
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.ConsistencyTest
-open import FOTC.Data.Nat.Inequalities.Properties
+open import FOTC.Data.Nat.Inequalities.EliminationProperties
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.List.PropertiesATP

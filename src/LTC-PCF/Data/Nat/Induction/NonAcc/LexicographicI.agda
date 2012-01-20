@@ -11,6 +11,7 @@ open import Common.Function
 
 open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat.Inequalities
+open import LTC-PCF.Data.Nat.Inequalities.EliminationProperties
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
 open import LTC-PCF.Data.Nat.Type
 

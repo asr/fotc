@@ -14,6 +14,7 @@ open import LTC-PCF.Base.Properties
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicATP
 open import LTC-PCF.Data.Nat.Inequalities
+open import LTC-PCF.Data.Nat.Inequalities.EliminationProperties
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
 open import LTC-PCF.Data.Nat.PropertiesATP
 open import LTC-PCF.Program.GCD.Partial.Definitions

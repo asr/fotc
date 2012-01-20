@@ -12,10 +12,12 @@ open import Common.Function
 open import FOTC.Base
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
-open import FOTC.Data.Nat.Inequalities.Properties public
+open import FOTC.Data.Nat.Inequalities.EliminationProperties
 open import FOTC.Data.Nat.PropertiesATP
 
 ------------------------------------------------------------------------------
+-- N.B. The elimination properties are in the module
+-- FOTC.Data.Nat.Inequalities.EliminationProperties.
 
 x≥0 : ∀ {n} → N n → GE n zero
 x≥0 zN          = <-0S zero

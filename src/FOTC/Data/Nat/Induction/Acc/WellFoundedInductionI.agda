@@ -11,6 +11,7 @@ open import Common.Function
 
 open import FOTC.Base
 open import FOTC.Data.Nat.Inequalities
+open import FOTC.Data.Nat.Inequalities.EliminationProperties
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.Type
 open import FOTC.Induction.WellFounded

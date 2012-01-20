@@ -192,7 +192,7 @@ open import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI
 open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI
 
 -- 6.3.6 Inequalites
-open import FOTC.Data.Nat.Inequalities.Properties
+open import FOTC.Data.Nat.Inequalities.EliminationProperties
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 
@@ -323,6 +323,7 @@ open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
 open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionI
 
 -- 7.2.6 Inequalites
+open import LTC-PCF.Data.Nat.Inequalities.EliminationProperties
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
 
