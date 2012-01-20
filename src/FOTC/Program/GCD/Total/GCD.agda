@@ -12,7 +12,7 @@ open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
 
 ------------------------------------------------------------------------------
--- In GHC HEAD (7.1.20110615) the gcd is a total function, i.e. gcd 0 0 = 0.
+-- In GHC 7.2 the gcd is a total function, i.e. gcd 0 0 = 0.
 
 postulate
   gcd    : D → D → D
