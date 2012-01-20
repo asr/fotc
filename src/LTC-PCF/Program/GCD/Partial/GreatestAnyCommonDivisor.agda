@@ -10,7 +10,7 @@ open import LTC-PCF.Data.Nat.Divisibility.NotBy0
 open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Type
 
-module LTC-PCF.Program.GCD.Partial.IsGreatestAnyCommonDivisor
+module LTC-PCF.Program.GCD.Partial.GreatestAnyCommonDivisor
   (x∣Sy→x≤Sy : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → LE m (succ₁ n))
   where
 

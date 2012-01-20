@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- The gcd is divisible by any common divisor (using equational reasoning)
+-- The gcd is divisible by any common divisor
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Program.GCD.Total.IsDivisibleI where
+module FOTC.Program.GCD.Total.DivisibleATP where
 
 open import Common.Function
 
@@ -13,85 +13,77 @@ open import FOTC.Base
 open import FOTC.Base.Properties
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Divisibility.By0
-open import FOTC.Data.Nat.Divisibility.By0.PropertiesI
-open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI
+open import FOTC.Data.Nat.Divisibility.By0.PropertiesATP
+open import FOTC.Data.Nat.Induction.NonAcc.LexicographicATP
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.EliminationProperties
-open import FOTC.Data.Nat.Inequalities.PropertiesI
-open import FOTC.Data.Nat.PropertiesI
+open import FOTC.Data.Nat.Inequalities.PropertiesATP
+open import FOTC.Data.Nat.PropertiesATP
 open import FOTC.Program.GCD.Total.Definitions
-open import FOTC.Program.GCD.Total.EquationsI
 open import FOTC.Program.GCD.Total.GCD
 
 ------------------------------------------------------------------------------
 -- The gcd 0 0 is Divisible.
-gcd-00-Divisible : Divisible zero zero (gcd zero zero)
-gcd-00-Divisible c Ncd (c∣0 , _) = subst ((λ x → c ∣ x)) (sym gcd-00) c∣0
+postulate
+  gcd-00-Divisible : Divisible zero zero (gcd zero zero)
+{-# ATP prove gcd-00-Divisible #-}
 
-------------------------------------------------------------------------------
 -- The gcd 0 (succ n) is Divisible.
-gcd-0S-Divisible : ∀ {n} → N n → Divisible zero (succ₁ n) (gcd zero (succ₁ n))
-gcd-0S-Divisible {n} _ c _ (c∣0 , c∣Sn) =
-  subst (λ x → c ∣ x) (sym $ gcd-0S n) c∣Sn
+postulate
+  gcd-0S-Divisible : ∀ {n} → N n → Divisible zero (succ₁ n) (gcd zero (succ₁ n))
+{-# ATP prove gcd-0S-Divisible #-}
 
-------------------------------------------------------------------------------
--- The gcd (succ₁ n) 0 is Divisible.
-gcd-S0-Divisible : ∀ {n} → N n → Divisible (succ₁ n) zero (gcd (succ₁ n) zero)
-gcd-S0-Divisible {n} _ c _ (c∣Sn , c∣0) =
-  subst (λ x → c ∣ x) (sym $ gcd-S0 n) c∣Sn
+postulate
+  gcd-S0-Divisible : ∀ {n} → N n → Divisible (succ₁ n) zero (gcd (succ₁ n) zero)
+{-# ATP prove gcd-S0-Divisible #-}
 
 ------------------------------------------------------------------------------
 -- The gcd (succ₁ m) (succ₁ n) when succ₁ m > succ₁ n is Divisible.
+-- For the proof using the ATP we added the helper hypothesis
+-- c | succ₁ m → c | succ₁ c → c | succ₁ m ∸ succ₁ n.
+postulate
+  gcd-S>S-Divisible-ah :
+    ∀ {m n} → N m → N n →
+    (Divisible (succ₁ m ∸ succ₁ n) (succ₁ n) (gcd (succ₁ m ∸ succ₁ n) (succ₁ n))) →
+    GT (succ₁ m) (succ₁ n) →
+    ∀ c → N c → CD (succ₁ m) (succ₁ n) c →
+    (c ∣ succ₁ m ∸ succ₁ n) →
+    c ∣ gcd (succ₁ m) (succ₁ n)
+-- E 1.2: CPU time limit exceeded (180 sec).
+-- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+{-# ATP prove gcd-S>S-Divisible-ah #-}
+
 gcd-S>S-Divisible :
   ∀ {m n} → N m → N n →
   (Divisible (succ₁ m ∸ succ₁ n) (succ₁ n) (gcd (succ₁ m ∸ succ₁ n) (succ₁ n))) →
   GT (succ₁ m) (succ₁ n) →
   Divisible (succ₁ m) (succ₁ n) (gcd (succ₁ m) (succ₁ n))
 gcd-S>S-Divisible {m} {n} Nm Nn acc Sm>Sn c Nc (c∣Sm , c∣Sn) =
-{-
-Proof:
-   ----------------- (Hip.)
-     c | m    c | n
-   ---------------------- (Thm.)   -------- (Hip.)
-       c | (m ∸ n)                   c | n
-     ------------------------------------------ (IH)
-              c | gcd m (n ∸ m)                          m > n
-             --------------------------------------------------- (gcd def.)
-                             c | gcd m n
--}
- subst (λ x → c ∣ x)
-       (sym $ gcd-S>S m n Sm>Sn)
-       (acc c Nc (c|Sm-Sn , c∣Sn))
- where
- c|Sm-Sn : c ∣ succ₁ m ∸ succ₁ n
- c|Sm-Sn = x∣y→x∣z→x∣y∸z Nc (sN Nm) (sN Nn) c∣Sm c∣Sn
+    gcd-S>S-Divisible-ah Nm Nn acc Sm>Sn c Nc (c∣Sm , c∣Sn)
+                         (x∣y→x∣z→x∣y∸z Nc (sN Nm) (sN Nn) c∣Sm c∣Sn)
 
 ------------------------------------------------------------------------------
 -- The gcd (succ₁ m) (succ₁ n) when succ₁ m ≯ succ₁ n is Divisible.
+-- For the proof using the ATP we added the helper hypothesis
+-- c | succ₁ n → c | succ₁ m → c | succ₁ n ∸ succ₁ m.
+postulate
+  gcd-S≯S-Divisible-ah :
+    ∀ {m n} → N m → N n →
+    (Divisible (succ₁ m) (succ₁ n ∸ succ₁ m) (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))) →
+    NGT (succ₁ m) (succ₁ n) →
+    ∀ c → N c → CD (succ₁ m) (succ₁ n) c →
+    (c ∣ succ₁ n ∸ succ₁ m) →
+    c ∣ gcd (succ₁ m) (succ₁ n)
+{-# ATP prove gcd-S≯S-Divisible-ah #-}
+
 gcd-S≯S-Divisible :
   ∀ {m n} → N m → N n →
   (Divisible (succ₁ m) (succ₁ n ∸ succ₁ m) (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))) →
   NGT (succ₁ m) (succ₁ n) →
   Divisible (succ₁ m) (succ₁ n) (gcd (succ₁ m) (succ₁ n))
 gcd-S≯S-Divisible {m} {n} Nm Nn acc Sm≯Sn c Nc (c∣Sm , c∣Sn) =
-{-
-Proof
-                            ----------------- (Hip.)
-                                c | m    c | n
-        -------- (Hip.)       ---------------------- (Thm.)
-         c | m                      c | n ∸ m
-     ------------------------------------------ (IH)
-              c | gcd m (n ∸ m)                          m ≯ n
-             --------------------------------------------------- (gcd def.)
-                             c | gcd m n
--}
-
-  subst (λ x → c ∣ x)
-        (sym $ gcd-S≯S m n Sm≯Sn)
-        (acc c Nc (c∣Sm , c|Sn-Sm))
-  where
-  c|Sn-Sm : c ∣ succ₁ n ∸ succ₁ m
-  c|Sn-Sm = x∣y→x∣z→x∣y∸z Nc (sN Nn) (sN Nm) c∣Sn c∣Sm
+    gcd-S≯S-Divisible-ah Nm Nn acc Sm≯Sn c Nc (c∣Sm , c∣Sn)
+                         (x∣y→x∣z→x∣y∸z Nc (sN Nn) (sN Nm) c∣Sn c∣Sm)
 
 ------------------------------------------------------------------------------
 -- The gcd m n when m > n is Divisible.

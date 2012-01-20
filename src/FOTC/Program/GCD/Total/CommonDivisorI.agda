@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Program.GCD.Total.IsCommonDivisorI where
+module FOTC.Program.GCD.Total.CommonDivisorI where
 
 open import Common.Function
 

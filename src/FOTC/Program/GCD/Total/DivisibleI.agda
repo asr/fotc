@@ -5,23 +5,28 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Program.GCD.Partial.IsDivisibleI where
+module FOTC.Program.GCD.Total.DivisibleI where
 
 open import Common.Function
 
 open import FOTC.Base
 open import FOTC.Base.Properties
 open import FOTC.Data.Nat
-open import FOTC.Data.Nat.Divisibility.NotBy0
-open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesI
+open import FOTC.Data.Nat.Divisibility.By0
+open import FOTC.Data.Nat.Divisibility.By0.PropertiesI
 open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.EliminationProperties
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.PropertiesI
-open import FOTC.Program.GCD.Partial.Definitions
-open import FOTC.Program.GCD.Partial.EquationsI
-open import FOTC.Program.GCD.Partial.GCD
+open import FOTC.Program.GCD.Total.Definitions
+open import FOTC.Program.GCD.Total.EquationsI
+open import FOTC.Program.GCD.Total.GCD
+
+------------------------------------------------------------------------------
+-- The gcd 0 0 is Divisible.
+gcd-00-Divisible : Divisible zero zero (gcd zero zero)
+gcd-00-Divisible c Ncd (c∣0 , _) = subst ((λ x → c ∣ x)) (sym gcd-00) c∣0
 
 ------------------------------------------------------------------------------
 -- The gcd 0 (succ n) is Divisible.
@@ -92,15 +97,12 @@ Proof
 -- The gcd m n when m > n is Divisible.
 gcd-x>y-Divisible :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → LT₂ o p m n → x≠0≠y o p →
-             Divisible o p (gcd o p)) →
+  (∀ {o p} → N o → N p → LT₂ o p m n → Divisible o p (gcd o p)) →
   GT m n →
-  x≠0≠y m n →
   Divisible m n (gcd m n)
-gcd-x>y-Divisible zN zN _ _ ¬0≡0∧0≡0 _ _  = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x>y-Divisible zN (sN Nn) _ 0>Sn _ _ _ = ⊥-elim $ 0>x→⊥ (sN Nn) 0>Sn
-gcd-x>y-Divisible (sN Nm) zN _ _ _  c Nc  = gcd-S0-Divisible Nm c Nc
-gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ c Nc =
+gcd-x>y-Divisible zN Nn _ 0>n _ _ = ⊥-elim $ 0>x→⊥ Nn 0>n
+gcd-x>y-Divisible (sN Nm) zN _ _ c Nc = gcd-S0-Divisible Nm c Nc
+gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn c Nc =
   gcd-S>S-Divisible Nm Nn ih Sm>Sn c Nc
   where
   -- Inductive hypothesis.
@@ -110,22 +112,19 @@ gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ c Nc =
             (∸-N (sN Nm) (sN Nn))
             (sN Nn)
             ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
-            (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
 
 ------------------------------------------------------------------------------
 -- The gcd m n when m ≯ n is Divisible.
 gcd-x≯y-Divisible :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → LT₂ o p m n → x≠0≠y o p →
-             Divisible o p (gcd o p)) →
+  (∀ {o p} → N o → N p → LT₂ o p m n → Divisible o p (gcd o p)) →
   NGT m n →
-  x≠0≠y m n →
   Divisible m n (gcd m n)
-gcd-x≯y-Divisible zN zN _ _ ¬0≡0∧0≡0 _ _   = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
-gcd-x≯y-Divisible zN (sN Nn) _ _  _  c Nc  = gcd-0S-Divisible Nn c Nc
-gcd-x≯y-Divisible (sN {m} Nm) zN _ Sm≯0 _ _ _  =
+gcd-x≯y-Divisible zN zN _ _ c Nc = gcd-00-Divisible c Nc
+gcd-x≯y-Divisible zN (sN Nn) _ _ c Nc = gcd-0S-Divisible Nn c Nc
+gcd-x≯y-Divisible (sN {m} Nm) zN _ Sm≯0 _ _ =
   ⊥-elim (true≠false (trans (sym (<-0S m)) Sm≯0))
-gcd-x≯y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ c Nc =
+gcd-x≯y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn c Nc =
   gcd-S≯S-Divisible Nm Nn ih Sm≯Sn c Nc
   where
   -- Inductive hypothesis.
@@ -135,15 +134,14 @@ gcd-x≯y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ c Nc =
             (sN Nm)
             (∸-N (sN Nn) (sN Nm))
             ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
-            (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
 
 ------------------------------------------------------------------------------
 -- The gcd is Divisible.
-gcd-Divisible : ∀ {m n} → N m → N n → x≠0≠y m n → Divisible m n (gcd m n)
+gcd-Divisible : ∀ {m n} → N m → N n → Divisible m n (gcd m n)
 gcd-Divisible = wfInd-LT₂ P istep
   where
   P : D → D → Set
-  P i j = x≠0≠y i j → Divisible i j (gcd i j)
+  P i j = Divisible i j (gcd i j)
 
   istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → P k l) →
           P i j

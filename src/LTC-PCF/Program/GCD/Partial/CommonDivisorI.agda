@@ -5,25 +5,24 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Program.GCD.Partial.IsCommonDivisorI where
+module LTC-PCF.Program.GCD.Partial.CommonDivisorI where
 
 open import Common.Function
 
-open import FOTC.Base
-open import FOTC.Base.Properties
-open import FOTC.Data.Nat
-open import FOTC.Data.Nat.Divisibility.NotBy0
-open import FOTC.Data.Nat.Divisibility.NotBy0.Properties
-open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesI
-open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI
-open import FOTC.Data.Nat.Inequalities
-open import FOTC.Data.Nat.Inequalities.EliminationProperties
-open import FOTC.Data.Nat.Inequalities.PropertiesI
-open import FOTC.Data.Nat.PropertiesI
-open import FOTC.Program.GCD.Partial.Definitions
-open import FOTC.Program.GCD.Partial.EquationsI
-open import FOTC.Program.GCD.Partial.GCD
-open import FOTC.Program.GCD.Partial.TotalityI
+open import LTC-PCF.Base
+open import LTC-PCF.Base.Properties
+open import LTC-PCF.Data.Nat
+open import LTC-PCF.Data.Nat.Divisibility.NotBy0
+open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesI
+open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
+open import LTC-PCF.Data.Nat.Inequalities
+open import LTC-PCF.Data.Nat.Inequalities.EliminationProperties
+open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
+open import LTC-PCF.Data.Nat.PropertiesI
+open import LTC-PCF.Program.GCD.Partial.Definitions
+open import LTC-PCF.Program.GCD.Partial.GCD
+open import LTC-PCF.Program.GCD.Partial.EquationsI
+open import LTC-PCF.Program.GCD.Partial.TotalityI
 
 ------------------------------------------------------------------------------
 -- Some cases of the gcd-∣₁
@@ -78,11 +77,11 @@ gcd-S>S-∣₁ :
 
 gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
   -- The first substitution is based on
-  -- 'gcd (succ₁ m) (succ₁ n) = gcd (succ₁ m ∸ succ₁ n) (succ₁ n)'.
+  -- gcd (succ₁ m) (succ₁ n) = gcd (succ₁ m ∸ succ₁ n) (succ₁ n).
   subst (λ x → x ∣ succ₁ m)
         (sym $ gcd-S>S m n Sm>Sn)
         -- The second substitution is based on
-        -- 'm = (m ∸ n) + n'.
+        -- m = (m ∸ n) + n.
         (subst (λ y → gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∣ y)
                (x>y→x∸y+y≡x (sN Nm) (sN Nn) Sm>Sn)
                (x∣y→x∣z→x∣y+z
@@ -153,8 +152,8 @@ gcd-S≯S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≯Sn =
   -- The first substitution is based on gcd m n = gcd m (n ∸ m).
   subst (λ x → x ∣ succ₁ n)
         (sym $ gcd-S≯S m n Sm≯Sn)
-         -- The second substitution is based on.
-         -- 'n = (n ∸ m) + m'
+         -- The second substitution is based on
+         -- n = (n ∸ m) + m.
         (subst (λ y → gcd (succ₁ m) (succ₁ n ∸ succ₁ m) ∣ y)
                (x≤y→y∸x+x≡y (sN Nm) (sN Nn) (x≯y→x≤y (sN Nm) (sN Nn) Sm≯Sn))
                (x∣y→x∣z→x∣y+z

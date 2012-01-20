@@ -43,16 +43,16 @@ open import LTC-PCF.Program.Division.Specification
 open import LTC-PCF.Program.Division.TotalityATP
 open import LTC-PCF.Program.Division.TotalityI
 
+open import LTC-PCF.Program.GCD.Partial.CommonDivisorATP
+open import LTC-PCF.Program.GCD.Partial.CommonDivisorI
 open import LTC-PCF.Program.GCD.Partial.Definitions
+open import LTC-PCF.Program.GCD.Partial.DivisibleATP
+open import LTC-PCF.Program.GCD.Partial.DivisibleI
 open import LTC-PCF.Program.GCD.Partial.EquationsATP
 open import LTC-PCF.Program.GCD.Partial.EquationsI
 open import LTC-PCF.Program.GCD.Partial.GCD
-open import LTC-PCF.Program.GCD.Partial.IsCommonDivisorATP
-open import LTC-PCF.Program.GCD.Partial.IsCommonDivisorI
-open import LTC-PCF.Program.GCD.Partial.IsDivisibleATP
-open import LTC-PCF.Program.GCD.Partial.IsDivisibleI
-open import LTC-PCF.Program.GCD.Partial.IsGreatestAnyCommonDivisor
-open import LTC-PCF.Program.GCD.Partial.IsGreatestAnyCommonDivisor
+open import LTC-PCF.Program.GCD.Partial.GreatestAnyCommonDivisor
+open import LTC-PCF.Program.GCD.Partial.GreatestAnyCommonDivisor
 open import LTC-PCF.Program.GCD.Partial.ProofSpecificationATP
 open import LTC-PCF.Program.GCD.Partial.ProofSpecificationI
 open import LTC-PCF.Program.GCD.Partial.Specification

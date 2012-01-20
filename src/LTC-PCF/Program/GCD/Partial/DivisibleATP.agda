@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module LTC-PCF.Program.GCD.Partial.IsDivisibleATP where
+module LTC-PCF.Program.GCD.Partial.DivisibleATP where
 
 open import Common.Function
 

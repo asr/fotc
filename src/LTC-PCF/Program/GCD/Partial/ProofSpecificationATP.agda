@@ -18,14 +18,14 @@ open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesATP
   using ( x∣Sy→x≤Sy )
 open import LTC-PCF.Data.Nat.Type
 
+open import LTC-PCF.Program.GCD.Partial.CommonDivisorATP using ( gcd-CD )
 open import LTC-PCF.Program.GCD.Partial.Definitions using ( x≠0≠y )
+open import LTC-PCF.Program.GCD.Partial.DivisibleATP using ( gcd-Divisible )
 open import LTC-PCF.Program.GCD.Partial.GCD using ( gcd )
-open import LTC-PCF.Program.GCD.Partial.IsCommonDivisorATP using ( gcd-CD )
-open import LTC-PCF.Program.GCD.Partial.IsDivisibleATP using ( gcd-Divisible )
 
-import LTC-PCF.Program.GCD.Partial.IsGreatestAnyCommonDivisor
-open module IsGreatestAnyCommonDivisorATP =
-  LTC-PCF.Program.GCD.Partial.IsGreatestAnyCommonDivisor x∣Sy→x≤Sy
+import LTC-PCF.Program.GCD.Partial.GreatestAnyCommonDivisor
+open module GreatestAnyCommonDivisorATP =
+  LTC-PCF.Program.GCD.Partial.GreatestAnyCommonDivisor x∣Sy→x≤Sy
   using ( gcd-GACD )
 
 open import LTC-PCF.Program.GCD.Partial.TotalityATP using ( gcd-N )

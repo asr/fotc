@@ -5,27 +5,28 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module LTC-PCF.Program.GCD.Partial.IsCommonDivisorATP where
+module FOTC.Program.GCD.Partial.CommonDivisorATP where
+
+open import FOTC.Base
+open import FOTC.Base.Properties
 
 open import Common.Function
 
-open import LTC-PCF.Base
-open import LTC-PCF.Base.Properties
-open import LTC-PCF.Data.Nat
-open import LTC-PCF.Data.Nat.Divisibility.NotBy0
-open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesATP
-open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicATP
-open import LTC-PCF.Data.Nat.Inequalities
-open import LTC-PCF.Data.Nat.Inequalities.EliminationProperties
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesATP
-open import LTC-PCF.Data.Nat.PropertiesATP
-open import LTC-PCF.Program.GCD.Partial.Definitions
-open import LTC-PCF.Program.GCD.Partial.GCD
-open import LTC-PCF.Program.GCD.Partial.EquationsATP
-open import LTC-PCF.Program.GCD.Partial.TotalityATP
+open import FOTC.Data.Nat
+open import FOTC.Data.Nat.Divisibility.NotBy0
+open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP
+open import FOTC.Data.Nat.Induction.NonAcc.LexicographicATP
+open import FOTC.Data.Nat.Inequalities
+open import FOTC.Data.Nat.Inequalities.EliminationProperties
+open import FOTC.Data.Nat.Inequalities.PropertiesATP
+open import FOTC.Data.Nat.PropertiesATP
+open import FOTC.Program.GCD.Partial.Definitions
+open import FOTC.Program.GCD.Partial.GCD
+open import FOTC.Program.GCD.Partial.TotalityATP
 
 ------------------------------------------------------------------------------
--- Some cases of the gcd-∣₁
+-- Some cases of the gcd-∣₁.
+
 -- We don't prove that 'gcd-∣₁ : ... → (gcd m n) ∣ m'
 -- because this proof should be defined mutually recursive with the proof
 -- 'gcd-∣₂ : ... → (gcd m n) ∣ n'. Therefore, instead of prove
@@ -34,11 +35,11 @@ open import LTC-PCF.Program.GCD.Partial.TotalityATP
 
 -- gcd 0 (succ n) ∣ 0.
 postulate gcd-0S-∣₁ : ∀ {n} → N n → gcd zero (succ₁ n) ∣ zero
-{-# ATP prove gcd-0S-∣₁ S∣0 gcd-0S #-}
+{-# ATP prove gcd-0S-∣₁ #-}
 
 -- gcd (succ₁ m) 0 ∣ succ₁ m.
 postulate gcd-S0-∣₁ : ∀ {n} → N n → gcd (succ₁ n) zero ∣ succ₁ n
-{-# ATP prove gcd-S0-∣₁ ∣-refl-S gcd-S0 #-}
+{-# ATP prove gcd-S0-∣₁ ∣-refl-S #-}
 
 -- gcd (succ₁ m) (succ₁ n) ∣ succ₁ m, when succ₁ m ≯ succ₁ n.
 postulate
@@ -47,9 +48,7 @@ postulate
     (gcd (succ₁ m) (succ₁ n ∸ succ₁ m) ∣ succ₁ m) →
     NGT (succ₁ m) (succ₁ n) →
     gcd (succ₁ m) (succ₁ n) ∣ succ₁ m
--- Equinox 5.0alpha (2010-06-29) proved this conjecture very fast.
--- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-{-# ATP prove gcd-S≯S-∣₁ gcd-S≯S #-}
+{-# ATP prove gcd-S≯S-∣₁ #-}
 
 -- gcd (succ₁ m) (succ₁ n) ∣ succ₁ m when succ₁ m > succ₁ n.
 {- Proof:
@@ -75,7 +74,8 @@ postulate
     ((succ₁ m ∸ succ₁ n) + succ₁ n ≡ succ₁ m) →
     gcd (succ₁ m) (succ₁ n) ∣ succ₁ m
 -- E 1.2: CPU time limit exceeded (180 sec).
-{-# ATP prove gcd-S>S-∣₁-ah gcd-S>S #-}
+-- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+{-# ATP prove gcd-S>S-∣₁-ah #-}
 
 gcd-S>S-∣₁ :
   ∀ {m n} → N m → N n →
@@ -96,17 +96,17 @@ gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
   gcd-Sm-Sn,Sn-N = gcd-N Sm-Sn-N (sN Nn) (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
 
 ------------------------------------------------------------------------------
--- Some case of the gcd-∣₂
+-- Some case of the gcd-∣₂.
 -- We don't prove that gcd-∣₂ : ... → gcd m n ∣ n. The reason is
 -- the same to don't prove gcd-∣₁ : ... → gcd m n ∣ m.
 
 -- gcd 0 (succ₁ n) ∣₂ succ₁ n.
 postulate gcd-0S-∣₂ : ∀ {n} → N n → gcd zero (succ₁ n) ∣ succ₁ n
-{-# ATP prove gcd-0S-∣₂ ∣-refl-S gcd-0S #-}
+{-# ATP prove gcd-0S-∣₂ ∣-refl-S #-}
 
 -- gcd (succ₁ m) 0 ∣ 0.
 postulate gcd-S0-∣₂ : ∀ {m} → N m → gcd (succ₁ m) zero ∣ zero
-{-# ATP prove gcd-S0-∣₂ S∣0 gcd-S0 #-}
+{-# ATP prove gcd-S0-∣₂ #-}
 
 -- gcd (succ₁ m) (succ₁ n) ∣ succ₁ n when succ₁ m ≯ succ₁ n.
 {- Proof:
@@ -131,7 +131,7 @@ postulate
     (gcd (succ₁ m) (succ₁ n ∸ succ₁ m) ∣ (succ₁ n ∸ succ₁ m) + succ₁ m) →
     ((succ₁ n ∸ succ₁ m) + succ₁ m ≡ succ₁ n) →
     gcd (succ₁ m) (succ₁ n) ∣ succ₁ n
-{-# ATP prove gcd-S≯S-∣₂-ah gcd-S≯S #-}
+{-# ATP prove gcd-S≯S-∣₂-ah #-}
 
 gcd-S≯S-∣₂ :
   ∀ {m n} → N m → N n →
@@ -158,7 +158,8 @@ postulate
     (gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∣ succ₁ n) →
     GT (succ₁ m) (succ₁ n) →
     gcd (succ₁ m) (succ₁ n) ∣ succ₁ n
-{-# ATP prove gcd-S>S-∣₂ gcd-S>S #-}
+-- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+{-# ATP prove gcd-S>S-∣₂ #-}
 
 ------------------------------------------------------------------------------
 -- The gcd is CD.
@@ -232,8 +233,7 @@ gcd-x≯y-CD :
   CD m n (gcd m n)
 gcd-x≯y-CD zN zN _ _ ¬0≡0∧0≡0 = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
 gcd-x≯y-CD zN (sN Nn) _ _ _ = gcd-0S-CD Nn
-gcd-x≯y-CD (sN {m} Nm) zN _ Sm≯0 _ =
-  ⊥-elim (true≠false (trans (sym (<-0S m)) Sm≯0))
+gcd-x≯y-CD (sN {m} Nm) zN _ Sm≯0 _ = ⊥-elim (true≠false (trans (sym (<-0S m)) Sm≯0))
 gcd-x≯y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ =
   gcd-S≯S-CD Nm Nn ih Sm≯Sn
   where

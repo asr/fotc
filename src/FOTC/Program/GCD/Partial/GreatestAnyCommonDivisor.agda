@@ -10,7 +10,7 @@ open import FOTC.Data.Nat.Type
 open import FOTC.Data.Nat.Divisibility.NotBy0
 open import FOTC.Data.Nat.Inequalities
 
-module FOTC.Program.GCD.Partial.IsGreatestAnyCommonDivisor
+module FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor
   (x∣Sy→x≤Sy : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → LE m (succ₁ n))
   where
 
