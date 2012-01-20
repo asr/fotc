@@ -19,8 +19,8 @@ open import FOTC.Base
 ≡-stream : ∀ {x y xs ys} → x ≡ y → xs ≡ ys → x ∷ xs ≡ y ∷ ys
 ≡-stream = ≡-list
 
-¬S≡0 : ∀ {n} → ¬ (succ₁ n ≡ zero)
-¬S≡0 S≡0 = 0≠S $ sym S≡0
+S≠0 : ∀ {n} → ¬ (succ₁ n ≡ zero)
+S≠0 S≡0 = 0≠S $ sym S≡0
 
 -- We added Common.Relation.Binary.PropositionalEquality.cong, so this
 -- theorem is not necessary.

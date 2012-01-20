@@ -71,7 +71,7 @@ gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
             (∸-N (sN Nm) (sN Nn))
             (sN Nn)
             ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
-            (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
+            (λ p → ⊥-elim $ S≠0 $ ∧-proj₂ p)
 
 ------------------------------------------------------------------------------
 -- gcd m n when m ≯ n is total.
@@ -93,7 +93,7 @@ gcd-x≯y-N (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ = gcd-S≯S-N Nm Nn ih Sm≯S
             (sN Nm)
             (∸-N (sN Nn) (sN Nm))
             ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
-            (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
+            (λ p → ⊥-elim $ S≠0 $ ∧-proj₁ p)
 
 ------------------------------------------------------------------------------
 -- gcd m n when m ≠ 0 and n ≠ 0 is total.

@@ -110,7 +110,7 @@ gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ c Nc =
             (∸-N (sN Nm) (sN Nn))
             (sN Nn)
             ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
-            (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₂ p)
+            (λ p → ⊥-elim $ S≠0 $ ∧-proj₂ p)
 
 ------------------------------------------------------------------------------
 -- The gcd m n when m ≯ n is Divisible.
@@ -134,7 +134,7 @@ gcd-x≯y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ c Nc =
             (sN Nm)
             (∸-N (sN Nn) (sN Nm))
             ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
-            (λ p → ⊥-elim $ ¬S≡0 $ ∧-proj₁ p)
+            (λ p → ⊥-elim $ S≠0 $ ∧-proj₁ p)
 
 ------------------------------------------------------------------------------
 -- The gcd is Divisible.
