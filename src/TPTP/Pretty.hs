@@ -15,7 +15,10 @@
 {-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module TPTP.Pretty ( PrettyTPTP(prettyTPTP) ) where
+module TPTP.Pretty
+  ( PrettyTPTP(prettyTPTP)
+  , TPTP  -- Required to avoid a Haddock warning.
+  ) where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
