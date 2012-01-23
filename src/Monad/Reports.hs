@@ -57,8 +57,11 @@ verboseS ∷ VerboseKey → Int → T () → T ()
 verboseS k n action | n < 0     =  __IMPOSSIBLE__
                     | otherwise = do
   t ← getVerbosity
-  let ks = wordsBy (`elem` ".:") k
-      m  = maximum $ 0 : Trie.lookupPath ks t
+  let ks ∷ [String]
+      ks = wordsBy (`elem` ".:") k
+
+      m ∷ Int
+      m = maximum $ 0 : Trie.lookupPath ks t
   when (n <= m) action
 
 reportS ∷ VerboseKey → Int → String → T ()
