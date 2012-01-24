@@ -81,9 +81,9 @@ gcd-x≯y-N :
   (∀ {o p} → N o → N p → LT₂ o p m n → N (gcd o p)) →
   NGT m n →
   N (gcd m n)
-gcd-x≯y-N zN         zN           _    _     = gcd-00-N
-gcd-x≯y-N zN         (sN Nn)      _    _     = gcd-0S-N Nn
-gcd-x≯y-N (sN {m} Nm) zN          _    Sm≯0  = ⊥-elim $ S≯0→⊥ Sm≯0
+gcd-x≯y-N zN          zN          _    _     = gcd-00-N
+gcd-x≯y-N zN          (sN Nn)     _    _     = gcd-0S-N Nn
+gcd-x≯y-N (sN _)      zN          _    Sm≯0  = ⊥-elim $ S≯0→⊥ Sm≯0
 gcd-x≯y-N (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn = gcd-S≯S-N Nm Nn ih Sm≯Sn
   where
   -- Inductive hypothesis.

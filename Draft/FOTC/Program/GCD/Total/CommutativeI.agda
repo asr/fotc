@@ -127,7 +127,7 @@ gcd-x≯y-comm :
   Comm m n
 gcd-x≯y-comm zN          zN          _    _     = gcd-00-comm
 gcd-x≯y-comm zN          (sN {n} _)  _    _     = sym (gcd-S0-comm n)
-gcd-x≯y-comm (sN {m} Nm) zN          _    Sm≯0  = ⊥-elim $ S≯0→⊥ Sm≯0
+gcd-x≯y-comm (sN _)      zN          _    Sm≯0  = ⊥-elim $ S≯0→⊥ Sm≯0
 gcd-x≯y-comm (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn = gcd-S≯S-comm Nm Nn ih Sm≯Sn
   where
   -- Inductive hypothesis.
