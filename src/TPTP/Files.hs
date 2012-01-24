@@ -117,10 +117,10 @@ agdaOriginalTerm qName role =
 addRole ∷ AF → ATPRole → FilePath → IO ()
 addRole af@(MkAF qName afRole _) role file =
   if afRole == role
-    then do
-      appendFile file $ agdaOriginalTerm qName role
-      appendFile file $ prettyTPTP af
-    else __IMPOSSIBLE__
+  then do
+    appendFile file $ agdaOriginalTerm qName role
+    appendFile file $ prettyTPTP af
+  else __IMPOSSIBLE__
 
 addRoles ∷ [AF] → ATPRole → FilePath → String → IO ()
 addRoles afs role file str = do

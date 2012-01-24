@@ -71,9 +71,9 @@ cBodyToFOLTerm _                    = __IMPOSSIBLE__
 dropBindingOnCBodyIndex ∷ ClauseBody → String → Nat → ClauseBody
 dropBindingOnCBodyIndex (Bind (Abs x1 cBody)) x2 index =
   if x1 == x2
-    then changeIndex cBody index  -- We drop the bind and rename the
-                                  -- variables inside the body.
-    else Bind (Abs x1 $ dropBindingOnCBodyIndex cBody x2 index)
+  then changeIndex cBody index  -- We drop the bind and rename the
+                                -- variables inside the body.
+  else Bind (Abs x1 $ dropBindingOnCBodyIndex cBody x2 index)
 dropBindingOnCBodyIndex _ _ _ = __IMPOSSIBLE__
 
 -- To drop the binding on a proof term in a ClauseBody,

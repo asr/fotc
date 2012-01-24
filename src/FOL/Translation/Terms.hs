@@ -367,25 +367,25 @@ termToFormula term@(Var n args) = do
   vars ← getTVars
 
   if length vars <= fromIntegral n
-   then __IMPOSSIBLE__
-   else
-     case args of
-       -- N.B. In this case we *don't* use the Koen's approach.
-       [] → return $ Predicate (vars !! fromIntegral n) []
+    then __IMPOSSIBLE__
+    else
+      case args of
+        -- N.B. In this case we *don't* use the Koen's approach.
+        [] → return $ Predicate (vars !! fromIntegral n) []
 
-       -- If we have a bounded variable quantified on a function of a
-       -- Set to a Set₁, for example, the variable/predicate 'P' in
-       --
-       -- (P : D → Set) → (x : D) → P x → P x
-       --
-       -- we are quantifying on this variable/function
+        -- If we have a bounded variable quantified on a function of a
+        -- Set to a Set₁, for example, the variable/predicate 'P' in
+        --
+        -- (P : D → Set) → (x : D) → P x → P x
+        --
+        -- we are quantifying on this variable/function
 
-       -- (see termToFormula term@(Pi tyArg (Abs _ tyAbs))),
+        -- (see termToFormula term@(Pi tyArg (Abs _ tyAbs))),
 
-       -- therefore we need to apply this variable/predicate to the
-       -- others variables.
+        -- therefore we need to apply this variable/predicate to the
+        -- others variables.
 
-       _ → predicateLogicalScheme vars n args
+        _ → predicateLogicalScheme vars n args
 
 termToFormula (DontCare _)        = __IMPOSSIBLE__
 termToFormula (Con _ _)           = __IMPOSSIBLE__
@@ -457,26 +457,26 @@ termToFOLTerm term@(Var n args) = do
   vars ← getTVars
 
   if length vars <= fromIntegral n
-   then __IMPOSSIBLE__
-   else
-     case args of
-       [] → return $ FOLVar (vars !! fromIntegral n)
+    then __IMPOSSIBLE__
+    else
+      case args of
+        [] → return $ FOLVar (vars !! fromIntegral n)
 
-       -- If we have a bounded variable quantified on a function of a
-       -- Set to a Set, for example, the variable/function 'f' in
-       --
-       -- (f : D → D) → (a : D) → (lam f) ∙ a ≡ f a
-       --
-       -- we are quantifying on this variable
+        -- If we have a bounded variable quantified on a function of a
+        -- Set to a Set, for example, the variable/function 'f' in
+        --
+        -- (f : D → D) → (a : D) → (lam f) ∙ a ≡ f a
+        --
+        -- we are quantifying on this variable
 
-       -- (see termToFormula term@(Pi tyArg (Abs _ tyAbs))),
+        -- (see termToFormula term@(Pi tyArg (Abs _ tyAbs))),
 
-       -- therefore we need to apply this variable/function to the
-       -- others variables.
+        -- therefore we need to apply this variable/function to the
+        -- others variables.
 
-       varArgs → do
-         termsFOL ← mapM argTermToFOLTerm varArgs
-         return $ foldl' appFn (FOLVar (vars !! fromIntegral n)) termsFOL
+        varArgs → do
+          termsFOL ← mapM argTermToFOLTerm varArgs
+          return $ foldl' appFn (FOLVar (vars !! fromIntegral n)) termsFOL
 
 termToFOLTerm (DontCare _) = __IMPOSSIBLE__
 termToFOLTerm (Lam _ _)    = __IMPOSSIBLE__
