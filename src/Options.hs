@@ -129,17 +129,17 @@ vampireExecOpt name opts = opts { optVampireExec = name }
 verboseOpt ∷ String → Options → Options
 verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
   where
-    k ∷ [String]
-    n ∷ Int
-    (k, n) = parseVerbose str
+  k ∷ [String]
+  n ∷ Int
+  (k, n) = parseVerbose str
 
-    parseVerbose ∷ String → ([String], Int)
-    parseVerbose s =
-      case wordsBy (`elem` ":.") s of
-        []  → error "Argument to verbose should be on the form x.y.z:N or N"
-        ss  → let m ∷ Int
-                  m = read $ last ss
-              in  (init ss, m)
+  parseVerbose ∷ String → ([String], Int)
+  parseVerbose s =
+    case wordsBy (`elem` ":.") s of
+      []  → error "Argument to verbose should be on the form x.y.z:N or N"
+      ss  → let m ∷ Int
+                m = read $ last ss
+            in  (init ss, m)
 
 versionOpt ∷ Options → Options
 versionOpt opts = opts { optVersion = True }

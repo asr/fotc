@@ -211,23 +211,23 @@ termToFormula term@(Def qName@(QName _ name) args) = do
        _ → predicate qName args
 
        where
-         isCNameFOLConst ∷ String → Bool
-         isCNameFOLConst constFOL =
-           -- The equality on the data type C.Name is defined to
-           -- ignore ranges, so we use noRange.
-           cName == C.Name noRange [C.Id constFOL]
+       isCNameFOLConst ∷ String → Bool
+       isCNameFOLConst constFOL =
+         -- The equality on the data type C.Name is defined to ignore
+         -- ranges, so we use noRange.
+         cName == C.Name noRange [C.Id constFOL]
 
-         isCNameFOLConstHoleRight ∷ String → Bool
-         isCNameFOLConstHoleRight constFOL =
-           -- The operators are represented by a list with Hole's.
-           -- See the documentation for C.Name.
-           cName == C.Name noRange [C.Id constFOL, C.Hole]
+       isCNameFOLConstHoleRight ∷ String → Bool
+       isCNameFOLConstHoleRight constFOL =
+         -- The operators are represented by a list with Hole's.  See
+         -- the documentation for C.Name.
+         cName == C.Name noRange [C.Id constFOL, C.Hole]
 
-         isCNameFOLConstTwoHoles ∷ String → Bool
-         isCNameFOLConstTwoHoles constFOL =
-           -- The operators are represented by a list with Hole's.
-           -- See the documentation for C.Name.
-           cName == C.Name noRange [C.Hole, C.Id constFOL, C.Hole]
+       isCNameFOLConstTwoHoles ∷ String → Bool
+       isCNameFOLConstTwoHoles constFOL =
+         -- The operators are represented by a list with Hole's.  See
+         -- the documentation for C.Name.
+         cName == C.Name noRange [C.Hole, C.Id constFOL, C.Hole]
 
 termToFormula term@(Lam _ (Abs _ termLam)) = do
   reportSLn "t2f" 10 $ "termToFormula Lam:\n" ++ show term

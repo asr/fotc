@@ -85,8 +85,8 @@ commonRequiredDefs ∷ GeneralRoles → ConjectureSet → [AF]
 commonRequiredDefs generalRoles conjectureSet =
   if nonDuplicate allDefs then [] else duplicatesElements $ sort allDefs
   where
-    allDefs ∷ [AF]
-    allDefs = allRequiredDefs generalRoles conjectureSet
+  allDefs ∷ [AF]
+  allDefs = allRequiredDefs generalRoles conjectureSet
 
 dropCommonRequiredDefs ∷ GeneralRoles → ConjectureSet →
                          (GeneralRoles, ConjectureSet)
@@ -101,10 +101,11 @@ dropCommonRequiredDefs generalRoles conjectureSet =
                     , conjectureDefs = z
                     }
     )
+
   where
-    commonDefs, w, x, y, z ∷ [AF]
-    commonDefs = commonRequiredDefs generalRoles conjectureSet
-    w          = axiomsDefs     generalRoles  \\ commonDefs
-    x          = hintsDefs      generalRoles  \\ commonDefs
-    y          = localHintsDefs conjectureSet \\ commonDefs
-    z          = conjectureDefs conjectureSet \\ commonDefs
+  commonDefs, w, x, y, z ∷ [AF]
+  commonDefs = commonRequiredDefs generalRoles conjectureSet
+  w          = axiomsDefs     generalRoles  \\ commonDefs
+  x          = hintsDefs      generalRoles  \\ commonDefs
+  y          = localHintsDefs conjectureSet \\ commonDefs
+  z          = conjectureDefs conjectureSet \\ commonDefs
