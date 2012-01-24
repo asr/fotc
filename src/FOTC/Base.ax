@@ -1,4 +1,0 @@
-axiom, ( kApp(pred,zero) = zero )
-axiom, ( ! \[A\] : ( kApp(pred,kApp(succ,A)) = A ) )
-axiom, ( ~( true = false ) )
-axiom, ( ! \[A\] : ( ~( zero = kApp(succ,A) ) ) )

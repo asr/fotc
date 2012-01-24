@@ -1,1 +1,0 @@
-* Why Vampire proves LTC-PCF...gcd-S>S, but it doesn't prove gcd-S≤S?
