@@ -31,7 +31,7 @@ import qualified Data.Map as Map ( unions )
 
 import System.Environment ( getArgs )
 import System.Exit        ( exitFailure, exitSuccess )
-import System.IO          ( hPutStrLn, stderr )
+import System.IO          ( hPrint, hPutStrLn, stderr )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
@@ -132,5 +132,5 @@ main = do
     Right _ → exitSuccess
     Left  _ → exitFailure
   `catchImpossible` \e →
-    do hPutStrLn stderr $ show e
+    do hPrint stderr e
        exitFailure
