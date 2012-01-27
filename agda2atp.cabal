@@ -102,6 +102,12 @@ executable agda2atp
 
   if impl(ghc == 7.4.0.20111219)
      ghc-options: -Wall
+                  -- The Cabal-generated module Paths_agda2atp
+                  -- triggers a warning under GHC 7.4.0.20111219
+                  -- (cabal-install version 0.10.2 using version
+                  -- 1.10.2.0 of the Cabal library), therefore we
+                  -- disable that warning.
+                  -fno-warn-warnings-deprecations
                   -fwarn-identities
                   -fwarn-incomplete-record-updates
                   -fwarn-incomplete-uni-patterns
@@ -116,12 +122,6 @@ executable agda2atp
                   -fwarn-tabs
                   -fwarn-unused-do-bind
                   -fwarn-unrecognised-pragmas
-                  -- The Cabal-generated module Paths_agda2atp
-                  -- triggers a warning under GHC 7.4.0.20111219
-                  -- (cabal-install version 0.10.2 using version
-                  -- 1.10.2.0 of the Cabal library), therefore we
-                  -- disable that warning.
-                  -fno-warn-warnings-deprecations
                   -Werror
 
   -- From Agda.cabal: If someone installs Agda with the setuid bit
