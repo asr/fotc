@@ -79,6 +79,12 @@ executable agda2atp
 
   if impl(ghc == 7.2.1) || impl(ghc == 7.2.2)
      ghc-options: -Wall
+                  -- The Cabal-generated module Paths_Agda triggers a
+                  -- warning under GHC 7.2.1/7.2.2 (cabal-install
+                  -- version 0.10.2 using version 1.10.2.0 of the
+                  -- Cabal library), therefore we disable that
+                  -- warning.
+                  -fno-warn-warnings-deprecations
                   -fwarn-identities
                   -fwarn-incomplete-record-updates
                   -fwarn-incomplete-uni-patterns
@@ -92,12 +98,6 @@ executable agda2atp
                   -fwarn-tabs
                   -fwarn-unused-do-bind
                   -fwarn-unrecognised-pragmas
-                  -- The Cabal-generated module Paths_Agda triggers a
-                  -- warning under GHC 7.2.1/7.2.2 (cabal-install
-                  -- version 0.10.2 using version 1.10.2.0 of the
-                  -- Cabal library), therefore we disable that
-                  -- warning.
-                  -fno-warn-warnings-deprecations
                   -Werror
 
   if impl(ghc == 7.4.0.20111219)
