@@ -100,10 +100,10 @@ executable agda2atp
                   -fwarn-unrecognised-pragmas
                   -Werror
 
-  if impl(ghc == 7.4.0.20111219)
+  if impl(ghc == 7.4.0.20120126)
      ghc-options: -Wall
                   -- The Cabal-generated module Paths_agda2atp
-                  -- triggers a warning under GHC 7.4.0.20111219
+                  -- triggers a warning under GHC 7.4.0.20120126
                   -- (cabal-install version 0.10.2 using version
                   -- 1.10.2.0 of the Cabal library), therefore we
                   -- disable that warning.
@@ -112,7 +112,7 @@ executable agda2atp
                   -fwarn-incomplete-record-updates
                   -fwarn-incomplete-uni-patterns
                   -- The Cabal-generated module Paths_agda2atp
-                  -- triggers a warning under GHC 7.4.0.20111219
+                  -- triggers a warning under GHC 7.4.0.20120126
                   -- (cabal-install version 0.10.2 using version
                   -- 1.10.2.0 of the Cabal library), therefore we
                   -- disable this warning.
