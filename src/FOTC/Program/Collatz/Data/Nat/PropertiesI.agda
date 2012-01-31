@@ -31,17 +31,15 @@ open import FOTC.Relation.Binary.EqReasoning
   postulate prf : two * zero / two ≡ zero
 
 2x/2≡x (sN zN) =
-  begin
-    (two * succ₁ zero) / two
-      ≡⟨ cong₂ _/_ (*-rightIdentity 2-N) refl ⟩
-    two / two
-      ≡⟨ /-x≥y (x≥x 2-N) ⟩
-    succ₁ ((two ∸ two) / two)
-      ≡⟨ cong succ₁ (cong₂ _/_ (x∸x≡0 2-N) refl) ⟩
-    succ₁ (zero / two)
-      ≡⟨ cong succ₁ (/-x<y (<-0S (succ₁ zero))) ⟩
-    succ₁ zero
-  ∎
+  (two * succ₁ zero) / two
+    ≡⟨ cong₂ _/_ (*-rightIdentity 2-N) refl ⟩
+  two / two
+    ≡⟨ /-x≥y (x≥x 2-N) ⟩
+  succ₁ ((two ∸ two) / two)
+    ≡⟨ cong succ₁ (cong₂ _/_ (x∸x≡0 2-N) refl) ⟩
+  succ₁ (zero / two)
+    ≡⟨ cong succ₁ (/-x<y (<-0S (succ₁ zero))) ⟩
+  succ₁ zero ∎
 
 2x/2≡x (sN (sN {n} Nn)) = prf
   where
@@ -50,16 +48,11 @@ open import FOTC.Relation.Binary.EqReasoning
 
 2^[x+1]/2≡2^x : ∀ {n} → N n → (two ^ (succ₁ n)) / two ≡ two ^ n
 2^[x+1]/2≡2^x {n} Nn =
-  begin
-    two ^ (succ₁ n) / two
-      ≡⟨ subst (λ t → two ^ (succ₁ n) / two ≡ t / two)
-               (^-S two n)
-               refl
-      ⟩
-    (two * two ^ n) / two
-      ≡⟨ 2x/2≡x (^-N 2-N Nn) ⟩
-    two ^ n
-  ∎
+  two ^ (succ₁ n) / two
+    ≡⟨ subst (λ t → two ^ (succ₁ n) / two ≡ t / two) (^-S two n) refl ⟩
+  (two * two ^ n) / two
+    ≡⟨ 2x/2≡x (^-N 2-N Nn) ⟩
+  two ^ n ∎
 
 Sx≡2^0→x≡0 : ∀ {n} → N n → succ₁ n ≡ two ^ zero → n ≡ zero
 Sx≡2^0→x≡0 zN         _       = refl
@@ -73,15 +66,13 @@ Sx≡2^0→x≡0(sN {n} Nn) SSn≡2^0 =
   where
   prf : succ₁ (succ₁ (succ₁ (succ₁ n) ∸ two)) ≡ succ₁ (succ₁ n)
   prf =
-    begin
-      succ₁ (succ₁ (succ₁ (succ₁ n) ∸ two))
-        ≡⟨ cong succ₁ (cong succ₁ (∸-SS (succ₁ n) (succ₁ zero))) ⟩
-      succ₁ (succ₁ ((succ₁ n ) ∸ (succ₁ zero)))
-        ≡⟨ cong succ₁ (cong succ₁ (∸-SS n zero)) ⟩
-      succ₁ (succ₁ (n ∸ zero))
-        ≡⟨ cong succ₁ (cong succ₁ (∸-x0 n)) ⟩
-      succ₁ (succ₁ n)
-    ∎
+    succ₁ (succ₁ (succ₁ (succ₁ n) ∸ two))
+      ≡⟨ cong succ₁ (cong succ₁ (∸-SS (succ₁ n) (succ₁ zero))) ⟩
+    succ₁ (succ₁ ((succ₁ n ) ∸ (succ₁ zero)))
+      ≡⟨ cong succ₁ (cong succ₁ (∸-SS n zero)) ⟩
+    succ₁ (succ₁ (n ∸ zero))
+      ≡⟨ cong succ₁ (cong succ₁ (∸-x0 n)) ⟩
+    succ₁ (succ₁ n) ∎
 
 2^x≠0 : ∀ {n} → N n → ¬ (two ^ n ≡ zero)
 2^x≠0 zN          h = ⊥-elim (0≠S (trans (sym h) (^-0 two)))
@@ -121,26 +112,22 @@ mutual
 
 x-Even→SSx-Even : ∀ {n} → N n → Even n → Even (succ₁ (succ₁ n))
 x-Even→SSx-Even zN h =
-  begin
-    even (succ₁ (succ₁ zero))
-      ≡⟨ even-S (succ₁ zero) ⟩
-    odd (succ₁ zero)
-      ≡⟨ odd-S zero ⟩
-    even zero
-      ≡⟨ even-0 ⟩
-    true
-  ∎
+  even (succ₁ (succ₁ zero))
+    ≡⟨ even-S (succ₁ zero) ⟩
+  odd (succ₁ zero)
+    ≡⟨ odd-S zero ⟩
+  even zero
+    ≡⟨ even-0 ⟩
+  true ∎
 
 x-Even→SSx-Even (sN {n} Nn) h =
-  begin
-    even (succ₁ (succ₁ (succ₁ n)))
-      ≡⟨ even-S (succ₁ (succ₁ n)) ⟩
-    odd (succ₁ (succ₁ n))
-      ≡⟨ odd-S (succ₁ n) ⟩
-    even (succ₁ n)
-      ≡⟨ h ⟩
-    true
-  ∎
+  even (succ₁ (succ₁ (succ₁ n)))
+    ≡⟨ even-S (succ₁ (succ₁ n)) ⟩
+  odd (succ₁ (succ₁ n))
+    ≡⟨ odd-S (succ₁ n) ⟩
+  even (succ₁ n)
+    ≡⟨ h ⟩
+  true ∎
 
 x+x-Even : ∀ {n} → N n → Even (n + n)
 x+x-Even zN          = subst Even (sym (+-rightIdentity zN)) even-0
@@ -149,15 +136,13 @@ x+x-Even (sN {n} Nn) = subst Even (sym prf)
   where
   prf : succ₁ n + succ₁ n ≡ succ₁ (succ₁ (n + n))
   prf =
-    begin
-      succ₁ n + succ₁ n
-        ≡⟨ +-Sx n (succ₁ n) ⟩
-      succ₁ (n + succ₁ n)
-        ≡⟨ cong succ₁ (+-comm Nn (sN Nn)) ⟩
-      succ₁ (succ₁ n + n)
-      ≡⟨ cong succ₁ (+-Sx n n) ⟩
-      succ₁ (succ₁ (n + n))
-    ∎
+    succ₁ n + succ₁ n
+      ≡⟨ +-Sx n (succ₁ n) ⟩
+    succ₁ (n + succ₁ n)
+      ≡⟨ cong succ₁ (+-comm Nn (sN Nn)) ⟩
+    succ₁ (succ₁ n + n)
+    ≡⟨ cong succ₁ (+-Sx n n) ⟩
+    succ₁ (succ₁ (n + n)) ∎
 
 2x-Even : ∀ {n} → N n → Even (two * n)
 2x-Even zN          = subst Even (sym (*-rightZero 2-N)) even-0
@@ -166,23 +151,21 @@ x+x-Even (sN {n} Nn) = subst Even (sym prf)
   where
   prf : succ₁ (succ₁ zero) * succ₁ n ≡ succ₁ (succ₁ (n + n))
   prf =
-    begin
-      succ₁ (succ₁ zero) * succ₁ n
-        ≡⟨ *-Sx (succ₁ zero) (succ₁ n) ⟩
-      succ₁ n + succ₁ zero * succ₁ n
-        ≡⟨ +-Sx n (succ₁ zero * succ₁ n) ⟩
-      succ₁ (n + succ₁ zero * succ₁ n)
-        ≡⟨ cong succ₁ (cong (_+_ n) (*-Sx zero (succ₁ n))) ⟩
-      succ₁ (n + (succ₁ n + zero * succ₁ n))
-        ≡⟨ cong succ₁ (cong (_+_ n) (cong (_+_ (succ₁ n)) (*-leftZero (succ₁ n)))) ⟩
-      succ₁ (n + (succ₁ n + zero))
-        ≡⟨ cong succ₁ (cong (_+_ n) (+-rightIdentity (sN Nn))) ⟩
-      succ₁ (n + succ₁ n)
-        ≡⟨ cong succ₁ (+-comm Nn (sN Nn)) ⟩
-      succ₁ (succ₁ n + n)
-        ≡⟨ cong succ₁ (+-Sx n n) ⟩
-      succ₁ (succ₁ (n + n))
-    ∎
+    succ₁ (succ₁ zero) * succ₁ n
+      ≡⟨ *-Sx (succ₁ zero) (succ₁ n) ⟩
+    succ₁ n + succ₁ zero * succ₁ n
+      ≡⟨ +-Sx n (succ₁ zero * succ₁ n) ⟩
+    succ₁ (n + succ₁ zero * succ₁ n)
+      ≡⟨ cong succ₁ (cong (_+_ n) (*-Sx zero (succ₁ n))) ⟩
+    succ₁ (n + (succ₁ n + zero * succ₁ n))
+      ≡⟨ cong succ₁ (cong (_+_ n) (cong (_+_ (succ₁ n)) (*-leftZero (succ₁ n)))) ⟩
+    succ₁ (n + (succ₁ n + zero))
+      ≡⟨ cong succ₁ (cong (_+_ n) (+-rightIdentity (sN Nn))) ⟩
+    succ₁ (n + succ₁ n)
+      ≡⟨ cong succ₁ (+-comm Nn (sN Nn)) ⟩
+    succ₁ (succ₁ n + n)
+      ≡⟨ cong succ₁ (+-Sx n n) ⟩
+    succ₁ (succ₁ (n + n)) ∎
 
 2^[x+1]-Even : ∀ {n} → N n → Even (two ^ (succ₁ n))
 2^[x+1]-Even {n} Nn = subst Even (sym (^-S two n)) (2x-Even (^-N 2-N Nn))

@@ -19,27 +19,27 @@ prop₂ : ∀ u x y z → (x · y · (z · u)) ·
                     (( x · y · ( z · u)) · (x · z · (y · u))) ≡
                     x · z · (y · u)
 prop₂ u x y z =
+
 -- The numbering of the proof step justifications are associated with
 -- the numbers used in DistributiveLaws.TaskB-I.
-  begin
-    xy·zu · (xy·zu · xz·yu)                                         ≡⟨ j₁₋₅ ⟩
 
-    xy·zu · (xz · xu·yu · (y·zu · xz·yu))                           ≡⟨ j₅₋₉ ⟩
+   xy·zu · (xy·zu · xz·yu)                                         ≡⟨ j₁₋₅ ⟩
 
-    xy·zu · (xz · xyu · (yxz · yu))                                 ≡⟨ j₉₋₁₄ ⟩
+   xy·zu · (xz · xu·yu · (y·zu · xz·yu))                           ≡⟨ j₅₋₉ ⟩
 
-    xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu))              ≡⟨ j₁₄₋₂₀ ⟩
+   xy·zu · (xz · xyu · (yxz · yu))                                 ≡⟨ j₉₋₁₄ ⟩
 
-    xz · xyu · (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡⟨ j₂₀₋₂₃ ⟩
+   xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu))              ≡⟨ j₁₄₋₂₀ ⟩
 
-    xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))            ≡⟨ j₂₃₋₂₅ ⟩
+   xz · xyu · (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡⟨ j₂₀₋₂₃ ⟩
 
-    (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))                 ≡⟨ j₂₅₋₃₀ ⟩
+   xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))            ≡⟨ j₂₃₋₂₅ ⟩
 
-    xz · xyu · (y·zy · xzu)                                         ≡⟨ j₃₀₋₃₅ ⟩
+   (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))                 ≡⟨ j₂₅₋₃₀ ⟩
 
-    xz·yu
-  ∎
+   xz · xyu · (y·zy · xzu)                                         ≡⟨ j₃₀₋₃₅ ⟩
+
+   xz·yu ∎
   where
   -- Two variables abbreviations
 

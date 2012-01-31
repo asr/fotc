@@ -96,42 +96,29 @@ map-++-commute : ∀ f {xs ys} → (∀ {x} → Tree x → Tree (f · x)) →
                  Forest xs → Forest ys →
                  map f (xs ++ ys) ≡ map f xs ++ map f ys
 map-++-commute f {ys = ys} fTree nilF Fys =
-  begin
-    map f ([] ++ ys)
-      ≡⟨ subst (λ t → map f ([] ++ ys) ≡ map f t)
-               (++-[] ys)
-               refl
-      ⟩
-    map f ys
-      ≡⟨ sym (++-leftIdentity (map-Forest f fTree Fys)) ⟩
-    [] ++ map f ys
-      ≡⟨ subst (λ t → [] ++ map f ys ≡ t ++ map f ys)
-               (sym (map-[] f))
-               refl
-      ⟩
-    map f [] ++ map f ys
-  ∎
+  map f ([] ++ ys)
+    ≡⟨ subst (λ t → map f ([] ++ ys) ≡ map f t) (++-[] ys) refl ⟩
+  map f ys
+    ≡⟨ sym (++-leftIdentity (map-Forest f fTree Fys)) ⟩
+  [] ++ map f ys
+     ≡⟨ subst (λ t → [] ++ map f ys ≡ t ++ map f ys) (sym (map-[] f)) refl ⟩
+  map f [] ++ map f ys ∎
 
 map-++-commute f {ys = ys} fTree (consF {x} {xs} Tx Fxs) Fys =
-  begin
-    map f ((x ∷ xs) ++ ys)
-      ≡⟨ subst (λ t → map f ((x ∷ xs) ++ ys) ≡ map f t)
-               (++-∷ x xs ys)
-               refl
-      ⟩
-    map f (x ∷ xs ++ ys)
-      ≡⟨ map-∷ f x (xs ++ ys) ⟩
-    f · x ∷ map f (xs ++ ys)
-      ≡⟨ subst (λ t → f · x ∷ map f (xs ++ ys) ≡ f · x ∷ t)
-               (map-++-commute f fTree Fxs Fys) -- IH.
-               refl
-      ⟩
-    f · x ∷ (map f xs ++ map f ys)
-      ≡⟨ sym (++-∷ (f · x) (map f xs) (map f ys)) ⟩
-    (f · x ∷ map f xs) ++ map f ys
-      ≡⟨ subst (λ t → (f · x ∷ map f xs) ++ map f ys ≡ t ++ map f ys)
-               (sym (map-∷ f x xs))
-               refl
-      ⟩
-    map f (x ∷ xs) ++ map f ys
-  ∎
+  map f ((x ∷ xs) ++ ys)
+    ≡⟨ subst (λ t → map f ((x ∷ xs) ++ ys) ≡ map f t) (++-∷ x xs ys) refl ⟩
+  map f (x ∷ xs ++ ys)
+    ≡⟨ map-∷ f x (xs ++ ys) ⟩
+  f · x ∷ map f (xs ++ ys)
+    ≡⟨ subst (λ t → f · x ∷ map f (xs ++ ys) ≡ f · x ∷ t)
+             (map-++-commute f fTree Fxs Fys) -- IH.
+             refl
+    ⟩
+  f · x ∷ (map f xs ++ map f ys)
+    ≡⟨ sym (++-∷ (f · x) (map f xs) (map f ys)) ⟩
+  (f · x ∷ map f xs) ++ map f ys
+     ≡⟨ subst (λ t → (f · x ∷ map f xs) ++ map f ys ≡ t ++ map f ys)
+              (sym (map-∷ f x xs))
+              refl
+     ⟩
+  map f (x ∷ xs) ++ map f ys ∎

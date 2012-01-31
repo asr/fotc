@@ -58,33 +58,23 @@ open import FOTC.Relation.Binary.EqReasoning
 
   P0 : P zero
   P0 =
-     begin
-       zero + n + o
-         ≡⟨ subst (λ t → zero + n + o ≡ t + o)
-                  (+-leftIdentity n)
-                  refl
-         ⟩
-       n + o ≡⟨ sym $ +-leftIdentity (n + o) ⟩
-       zero + (n + o)
-     ∎
+     zero + n + o
+       ≡⟨ subst (λ t → zero + n + o ≡ t + o) (+-leftIdentity n) refl ⟩
+     n + o
+       ≡⟨ sym $ +-leftIdentity (n + o) ⟩
+     zero + (n + o) ∎
 
   is : ∀ {i} → P i → P (succ₁ i)
   is {i} Pi =
-     begin
-       succ₁ i + n + o
-         ≡⟨ subst (λ t → succ₁ i + n + o ≡ t + o)
-                  (+-Sx i n)
-                  refl
-         ⟩
-       succ₁ (i + n) + o ≡⟨ +-Sx (i + n) o ⟩
-       succ₁ (i + n + o)
-         ≡⟨ subst (λ t → succ₁ (i + n + o) ≡ succ₁ t)
-                  Pi
-                  refl
-         ⟩
-       succ₁ (i + (n + o)) ≡⟨ sym $ +-Sx i (n + o) ⟩
-       succ₁ i + (n + o)
-     ∎
+    succ₁ i + n + o
+      ≡⟨ subst (λ t → succ₁ i + n + o ≡ t + o) (+-Sx i n) refl ⟩
+    succ₁ (i + n) + o
+      ≡⟨ +-Sx (i + n) o ⟩
+    succ₁ (i + n + o)
+      ≡⟨ subst (λ t → succ₁ (i + n + o) ≡ succ₁ t) Pi refl ⟩
+    succ₁ (i + (n + o))
+      ≡⟨ sym $ +-Sx i (n + o) ⟩
+    succ₁ i + (n + o) ∎
 
 x+Sy≡S[x+y] : ∀ {m} n → N m → m + succ₁ n ≡ succ₁ (m + n)
 x+Sy≡S[x+y] n Nm = indN P P0 is Nm
@@ -94,32 +84,21 @@ x+Sy≡S[x+y] n Nm = indN P P0 is Nm
 
   P0 : P zero
   P0 =
-    begin
-      zero + succ₁ n ≡⟨ +-0x (succ₁ n) ⟩
-      succ₁ n
-        ≡⟨ subst (λ t → succ₁ n ≡ succ₁ t)
-                 (sym $ +-leftIdentity n)
-                 refl
-                 ⟩
-      succ₁ (zero + n)
-    ∎
+    zero + succ₁ n
+      ≡⟨ +-0x (succ₁ n) ⟩
+    succ₁ n
+      ≡⟨ subst (λ t → succ₁ n ≡ succ₁ t) (sym $ +-leftIdentity n) refl ⟩
+    succ₁ (zero + n) ∎
 
   is : ∀ {i} → P i → P (succ₁ i)
   is {i} Pi =
-    begin
-      succ₁ i + succ₁ n ≡⟨ +-Sx i (succ₁ n) ⟩
-      succ₁ (i + succ₁ n)
-        ≡⟨ subst (λ t → succ₁ (i + succ₁ n) ≡ succ₁ t)
-                 Pi
-                 refl
-        ⟩
-      succ₁ (succ₁ (i + n))
-        ≡⟨ subst (λ t → succ₁ (succ₁ (i + n)) ≡ succ₁ t)
-                 (sym $ +-Sx i n)
-                 refl
-        ⟩
-      succ₁ (succ₁ i + n)
-    ∎
+    succ₁ i + succ₁ n
+      ≡⟨ +-Sx i (succ₁ n) ⟩
+    succ₁ (i + succ₁ n)
+      ≡⟨ subst (λ t → succ₁ (i + succ₁ n) ≡ succ₁ t) Pi refl ⟩
+    succ₁ (succ₁ (i + n))
+      ≡⟨ subst (λ t → succ₁ (succ₁ (i + n)) ≡ succ₁ t) (sym $ +-Sx i n) refl ⟩
+    succ₁ (succ₁ i + n) ∎
 
 +-comm : ∀ {m n} → N m → N n → m + n ≡ n + m
 +-comm {n = n} Nm Nn = indN P P0 is Nm
@@ -129,21 +108,16 @@ x+Sy≡S[x+y] n Nm = indN P P0 is Nm
 
   P0 : P zero
   P0 =
-    begin
-      zero + n ≡⟨ +-leftIdentity n ⟩
-      n        ≡⟨ sym $ +-rightIdentity Nn ⟩
-      n + zero
-    ∎
+    zero + n ≡⟨ +-leftIdentity n ⟩
+    n        ≡⟨ sym $ +-rightIdentity Nn ⟩
+    n + zero ∎
 
   is : ∀ {i} → P i → P (succ₁ i)
   is {i} Pi =
-    begin
-      succ₁ i + n ≡⟨ +-Sx i n ⟩
-      succ₁ (i + n)
-        ≡⟨ subst (λ t → succ₁ (i + n) ≡ succ₁ t)
-                 Pi
-                 refl
-        ⟩
-      succ₁ (n + i) ≡⟨ sym $ x+Sy≡S[x+y] i Nn ⟩
-      n + succ₁ i
-    ∎
+     succ₁ i + n
+       ≡⟨ +-Sx i n ⟩
+     succ₁ (i + n)
+        ≡⟨ subst (λ t → succ₁ (i + n) ≡ succ₁ t) Pi refl ⟩
+     succ₁ (n + i)
+       ≡⟨ sym $ x+Sy≡S[x+y] i Nn ⟩
+     n + succ₁ i ∎

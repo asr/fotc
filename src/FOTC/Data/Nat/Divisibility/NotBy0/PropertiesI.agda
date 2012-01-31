@@ -34,18 +34,13 @@ x∣y→x∣z→x∣y∸z {n = n} {o} (sN {m} Nm) Nn No
   where
   prf : n ∸ o ≡ (k₁ ∸ k₂) * succ₁ m
   prf =
-    begin
-      n ∸ o
-        ≡⟨ subst (λ t → n ∸ o ≡ t ∸ o)
-                 n≡k₁Sm
-                 refl
-        ⟩
-      k₁ * succ₁ m ∸ o
-        ≡⟨ cong (_∸_ (k₁ * succ₁ m)) o≡k₂Sm ⟩
-      (k₁ * succ₁ m) ∸ (k₂ * succ₁ m)
-        ≡⟨ sym $ *∸-leftDistributive Nk₁ Nk₂ (sN Nm) ⟩
-      (k₁ ∸ k₂) * succ₁ m
-    ∎
+    n ∸ o
+      ≡⟨ subst (λ t → n ∸ o ≡ t ∸ o) n≡k₁Sm refl ⟩
+    k₁ * succ₁ m ∸ o
+       ≡⟨ cong (_∸_ (k₁ * succ₁ m)) o≡k₂Sm ⟩
+    (k₁ * succ₁ m) ∸ (k₂ * succ₁ m)
+      ≡⟨ sym $ *∸-leftDistributive Nk₁ Nk₂ (sN Nm) ⟩
+    (k₁ ∸ k₂) * succ₁ m ∎
 
 -- If 'x' divides 'y' and 'z' then 'x' divides 'y + z'.
 x∣y→x∣z→x∣y+z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n + o
@@ -58,18 +53,13 @@ x∣y→x∣z→x∣y+z {n = n} {o} (sN {m} Nm) Nn No
   where
   prf : n + o ≡ (k₁ + k₂) * succ₁ m
   prf =
-    begin
-      n + o
-        ≡⟨ subst (λ t → n + o ≡ t + o)
-                 n≡k₁Sm
-                 refl
-        ⟩
-      k₁ * succ₁ m + o
-        ≡⟨ cong (_+_ (k₁ * succ₁ m)) o≡k₂Sm ⟩
-      (k₁ * succ₁ m) + (k₂ * succ₁ m)
-        ≡⟨ sym $ *+-leftDistributive Nk₁ Nk₂ (sN Nm) ⟩
-      (k₁ + k₂) * succ₁ m
-    ∎
+    n + o
+      ≡⟨ subst (λ t → n + o ≡ t + o) n≡k₁Sm refl ⟩
+    k₁ * succ₁ m + o
+       ≡⟨ cong (_+_ (k₁ * succ₁ m)) o≡k₂Sm ⟩
+    (k₁ * succ₁ m) + (k₂ * succ₁ m)
+      ≡⟨ sym $ *+-leftDistributive Nk₁ Nk₂ (sN Nm) ⟩
+    (k₁ + k₂) * succ₁ m ∎
 
 -- If x divides y, and y is positive, then x ≤ y.
 x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → LE m (succ₁ n)

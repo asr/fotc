@@ -175,67 +175,55 @@ private
 
 <-00 : NLT zero zero
 <-00 =
-  begin
-    fix <-h · zero · zero ≡⟨ initial→s₁ zero zero ⟩
-    <-s₁ zero zero         ≡⟨ s₁→s₂ zero zero ⟩
-    <-s₂ zero zero         ≡⟨ s₂→s₃ zero zero ⟩
-    <-s₃ zero zero         ≡⟨ s₃→s₄ zero zero ⟩
-    <-s₄ zero zero         ≡⟨ s₄→s₅ zero zero ⟩
-    <-s₅ zero zero         ≡⟨ s₅→s₆ zero zero ⟩
-    <-s₆ zero zero         ≡⟨ s₆→s₇ zero zero true iszero-0 ⟩
-    <-s₇ zero zero true    ≡⟨ s₇→end zero zero ⟩
-    false
-    ∎
+  fix <-h · zero · zero ≡⟨ initial→s₁ zero zero ⟩
+  <-s₁ zero zero        ≡⟨ s₁→s₂ zero zero ⟩
+  <-s₂ zero zero        ≡⟨ s₂→s₃ zero zero ⟩
+  <-s₃ zero zero        ≡⟨ s₃→s₄ zero zero ⟩
+  <-s₄ zero zero        ≡⟨ s₄→s₅ zero zero ⟩
+  <-s₅ zero zero        ≡⟨ s₅→s₆ zero zero ⟩
+  <-s₆ zero zero        ≡⟨ s₆→s₇ zero zero true iszero-0 ⟩
+  <-s₇ zero zero true   ≡⟨ s₇→end zero zero ⟩
+  false ∎
 
 <-0S : ∀ d → LT zero (succ₁ d)
 <-0S d =
-  begin
-    fix <-h · zero · (succ₁ d) ≡⟨ initial→s₁ zero (succ₁ d) ⟩
-    <-s₁ zero (succ₁ d)         ≡⟨ s₁→s₂ zero (succ₁ d) ⟩
-    <-s₂ zero (succ₁ d)         ≡⟨ s₂→s₃ zero (succ₁ d) ⟩
-    <-s₃ zero (succ₁ d)         ≡⟨ s₃→s₄ zero (succ₁ d) ⟩
-    <-s₄ zero (succ₁ d)         ≡⟨ s₄→s₅ zero (succ₁ d) ⟩
-    <-s₅ zero (succ₁ d)         ≡⟨ s₅→s₆ zero (succ₁ d) ⟩
-    <-s₆ zero (succ₁ d)         ≡⟨ s₆→s₇ zero (succ₁ d) false (iszero-S d) ⟩
-    <-s₇ zero (succ₁ d) false   ≡⟨ s₇→s₈ zero (succ₁ d) ⟩
-    <-s₈ zero (succ₁ d)         ≡⟨ s₈→s₉ zero (succ₁ d) true iszero-0 ⟩
-    <-s₉ zero (succ₁ d) true    ≡⟨ s₉→end zero (succ₁ d) ⟩
-    true
-  ∎
+  fix <-h · zero · (succ₁ d) ≡⟨ initial→s₁ zero (succ₁ d) ⟩
+  <-s₁ zero (succ₁ d)        ≡⟨ s₁→s₂ zero (succ₁ d) ⟩
+  <-s₂ zero (succ₁ d)        ≡⟨ s₂→s₃ zero (succ₁ d) ⟩
+  <-s₃ zero (succ₁ d)        ≡⟨ s₃→s₄ zero (succ₁ d) ⟩
+  <-s₄ zero (succ₁ d)        ≡⟨ s₄→s₅ zero (succ₁ d) ⟩
+  <-s₅ zero (succ₁ d)        ≡⟨ s₅→s₆ zero (succ₁ d) ⟩
+  <-s₆ zero (succ₁ d)        ≡⟨ s₆→s₇ zero (succ₁ d) false (iszero-S d) ⟩
+  <-s₇ zero (succ₁ d) false  ≡⟨ s₇→s₈ zero (succ₁ d) ⟩
+  <-s₈ zero (succ₁ d)        ≡⟨ s₈→s₉ zero (succ₁ d) true iszero-0 ⟩
+  <-s₉ zero (succ₁ d) true   ≡⟨ s₉→end zero (succ₁ d) ⟩
+  true ∎
 
 <-S0 : ∀ d → NLT (succ₁ d) zero
 <-S0 d =
-  begin
-    fix <-h · (succ₁ d) · zero ≡⟨ initial→s₁ (succ₁ d) zero ⟩
-    <-s₁ (succ₁ d) zero         ≡⟨ s₁→s₂ (succ₁ d) zero ⟩
-    <-s₂ (succ₁ d) zero         ≡⟨ s₂→s₃ (succ₁ d) zero ⟩
-    <-s₃ (succ₁ d) zero         ≡⟨ s₃→s₄ (succ₁ d) zero ⟩
-    <-s₄ (succ₁ d) zero         ≡⟨ s₄→s₅ (succ₁ d) zero ⟩
-    <-s₅ (succ₁ d) zero         ≡⟨ s₅→s₆ (succ₁ d) zero ⟩
-    <-s₆ (succ₁ d) zero         ≡⟨ s₆→s₇ (succ₁ d) zero true iszero-0 ⟩
-    <-s₇ (succ₁ d) zero true    ≡⟨ s₇→end (succ₁ d) zero ⟩
-    false
-  ∎
+  fix <-h · (succ₁ d) · zero ≡⟨ initial→s₁ (succ₁ d) zero ⟩
+  <-s₁ (succ₁ d) zero        ≡⟨ s₁→s₂ (succ₁ d) zero ⟩
+  <-s₂ (succ₁ d) zero        ≡⟨ s₂→s₃ (succ₁ d) zero ⟩
+  <-s₃ (succ₁ d) zero        ≡⟨ s₃→s₄ (succ₁ d) zero ⟩
+  <-s₄ (succ₁ d) zero        ≡⟨ s₄→s₅ (succ₁ d) zero ⟩
+  <-s₅ (succ₁ d) zero        ≡⟨ s₅→s₆ (succ₁ d) zero ⟩
+  <-s₆ (succ₁ d) zero        ≡⟨ s₆→s₇ (succ₁ d) zero true iszero-0 ⟩
+  <-s₇ (succ₁ d) zero true   ≡⟨ s₇→end (succ₁ d) zero ⟩
+  false ∎
 
 <-SS : ∀ d e → succ₁ d < succ₁ e ≡ d < e
 <-SS d e =
-  begin
-    fix <-h · (succ₁ d) · (succ₁ e) ≡⟨ initial→s₁ (succ₁ d) (succ₁ e) ⟩
-    <-s₁ (succ₁ d) (succ₁ e)         ≡⟨ s₁→s₂ (succ₁ d) (succ₁ e) ⟩
-    <-s₂ (succ₁ d) (succ₁ e)         ≡⟨ s₂→s₃ (succ₁ d) (succ₁ e) ⟩
-    <-s₃ (succ₁ d) (succ₁ e)         ≡⟨ s₃→s₄ (succ₁ d) (succ₁ e) ⟩
-    <-s₄ (succ₁ d) (succ₁ e)         ≡⟨ s₄→s₅ (succ₁ d) (succ₁ e) ⟩
-    <-s₅ (succ₁ d) (succ₁ e)         ≡⟨ s₅→s₆ (succ₁ d) (succ₁ e) ⟩
-    <-s₆ (succ₁ d) (succ₁ e)         ≡⟨ s₆→s₇ (succ₁ d) (succ₁ e)
-                                              false (iszero-S e)
-                                     ⟩
-    <-s₇ (succ₁ d) (succ₁ e) false   ≡⟨ s₇→s₈ (succ₁ d) (succ₁ e) ⟩
-    <-s₈ (succ₁ d) (succ₁ e)         ≡⟨ s₈→s₉ (succ₁ d) (succ₁ e)
-                                              false (iszero-S d)
-                                     ⟩
-    <-s₉ (succ₁ d) (succ₁ e) false   ≡⟨ s₉→s₁₀ (succ₁ d) (succ₁ e) ⟩
-    <-s₁₀ (succ₁ d) (succ₁ e)        ≡⟨ s₁₀→s₁₁ d (succ₁ e) ⟩
-    <-s₁₁ d (succ₁ e)                ≡⟨ s₁₁→s₁₂ d e ⟩
-    <-s₁₂ d e                        ≡⟨ refl ⟩
-    d < e
-  ∎
+  fix <-h · (succ₁ d) · (succ₁ e) ≡⟨ initial→s₁ (succ₁ d) (succ₁ e) ⟩
+  <-s₁ (succ₁ d) (succ₁ e)        ≡⟨ s₁→s₂ (succ₁ d) (succ₁ e) ⟩
+  <-s₂ (succ₁ d) (succ₁ e)        ≡⟨ s₂→s₃ (succ₁ d) (succ₁ e) ⟩
+  <-s₃ (succ₁ d) (succ₁ e)        ≡⟨ s₃→s₄ (succ₁ d) (succ₁ e) ⟩
+  <-s₄ (succ₁ d) (succ₁ e)        ≡⟨ s₄→s₅ (succ₁ d) (succ₁ e) ⟩
+  <-s₅ (succ₁ d) (succ₁ e)        ≡⟨ s₅→s₆ (succ₁ d) (succ₁ e) ⟩
+  <-s₆ (succ₁ d) (succ₁ e)        ≡⟨ s₆→s₇ (succ₁ d) (succ₁ e) false (iszero-S e) ⟩
+  <-s₇ (succ₁ d) (succ₁ e) false  ≡⟨ s₇→s₈ (succ₁ d) (succ₁ e) ⟩
+  <-s₈ (succ₁ d) (succ₁ e)        ≡⟨ s₈→s₉ (succ₁ d) (succ₁ e) false (iszero-S d) ⟩
+  <-s₉ (succ₁ d) (succ₁ e) false  ≡⟨ s₉→s₁₀ (succ₁ d) (succ₁ e) ⟩
+  <-s₁₀ (succ₁ d) (succ₁ e)       ≡⟨ s₁₀→s₁₁ d (succ₁ e) ⟩
+  <-s₁₁ d (succ₁ e)               ≡⟨ s₁₁→s₁₂ d e ⟩
+  <-s₁₂ d e                       ≡⟨ refl ⟩
+  d < e ∎

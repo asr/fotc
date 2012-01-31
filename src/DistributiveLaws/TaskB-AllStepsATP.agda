@@ -19,81 +19,79 @@ prop₂ : ∀ u x y z → (x · y · (z · u)) ·
                     (( x · y · ( z · u)) · (x · z · (y · u))) ≡
                     x · z · (y · u)
 prop₂ u x y z =
-  begin
-    xy·zu · (xy·zu · xz·yu)                                         ≡⟨ j₁ ⟩
+  xy·zu · (xy·zu · xz·yu)                                         ≡⟨ j₁ ⟩
 
-    xy·zu · (x·zu · y·zu · xz·yu)                                   ≡⟨ j₂ ⟩
+  xy·zu · (x·zu · y·zu · xz·yu)                                   ≡⟨ j₂ ⟩
 
-    xy·zu · (x·zu · xz·yu · (y·zu · xz·yu))                         ≡⟨ j₃ ⟩
+  xy·zu · (x·zu · xz·yu · (y·zu · xz·yu))                         ≡⟨ j₃ ⟩
 
-    xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu))                        ≡⟨ j₄ ⟩
+  xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu))                        ≡⟨ j₄ ⟩
 
-    xy·zu · (xz · xu·yu · (y·zu · xz·yu))                           ≡⟨ j₅ ⟩
+  xy·zu · (xz · xu·yu · (y·zu · xz·yu))                           ≡⟨ j₅ ⟩
 
-    xy·zu · (xz · xyu · (y·zu · xz·yu))                             ≡⟨ j₆ ⟩
+  xy·zu · (xz · xyu · (y·zu · xz·yu))                             ≡⟨ j₆ ⟩
 
-    xy·zu · (xz · xyu · (yz·yu · xz·yu))                            ≡⟨ j₇ ⟩
+  xy·zu · (xz · xyu · (yz·yu · xz·yu))                            ≡⟨ j₇ ⟩
 
-    xy·zu · (xz · xyu · (yz·xz · yu))                               ≡⟨ j₈ ⟩
+  xy·zu · (xz · xyu · (yz·xz · yu))                               ≡⟨ j₈ ⟩
 
-    xy·zu · (xz · xyu · (yxz · yu))                                 ≡⟨ j₉ ⟩
+  xy·zu · (xz · xyu · (yxz · yu))                                 ≡⟨ j₉ ⟩
 
-    xy·zu · (xz · xyu · (yx·yu · z·yu))                             ≡⟨ j₁₀ ⟩
+  xy·zu · (xz · xyu · (yx·yu · z·yu))                             ≡⟨ j₁₀ ⟩
 
-    xy·zu · (xz · xyu · (y·xu · z·yu))                              ≡⟨ j₁₁ ⟩
+  xy·zu · (xz · xyu · (y·xu · z·yu))                              ≡⟨ j₁₁ ⟩
 
-    xyz · xyu · (xz · xyu · (y·xu · z·yu))                          ≡⟨ j₁₂ ⟩
+  xyz · xyu · (xz · xyu · (y·xu · z·yu))                          ≡⟨ j₁₂ ⟩
 
-    xz·yz · xyu · (xz · xyu · (y·xu · z·yu))                        ≡⟨ j₁₃ ⟩
+  xz·yz · xyu · (xz · xyu · (y·xu · z·yu))                        ≡⟨ j₁₃ ⟩
 
-    xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu))              ≡⟨ j₁₄ ⟩
+  xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu))              ≡⟨ j₁₄ ⟩
 
-    xz · xyu · (yz · xyu · (y·xu · z·yu))                           ≡⟨ j₁₅ ⟩
+  xz · xyu · (yz · xyu · (y·xu · z·yu))                           ≡⟨ j₁₅ ⟩
 
-    xz · xyu · (yz · xu·yu · (y·xu · z·yu))                         ≡⟨ j₁₆ ⟩
+  xz · xyu · (yz · xu·yu · (y·xu · z·yu))                         ≡⟨ j₁₆ ⟩
 
-    xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu))            ≡⟨ j₁₇ ⟩
+  xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu))            ≡⟨ j₁₇ ⟩
 
-    xz · xyu ·
-    (y · xu·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))       ≡⟨ j₁₈ ⟩
+  xz · xyu ·
+  (y · xu·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))       ≡⟨ j₁₈ ⟩
 
-    xz · xyu ·
-    (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))     ≡⟨ j₁₉ ⟩
+  xz · xyu ·
+  (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))     ≡⟨ j₁₉ ⟩
 
-    xz · xyu · (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡⟨ j₂₀ ⟩
+  xz · xyu · (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡⟨ j₂₀ ⟩
 
-    xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu)))         ≡⟨ j₂₁ ⟩
+  xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu)))         ≡⟨ j₂₁ ⟩
 
-    xz · xyu · (y·xu · y·zu · (z · xu·yu · (y·xu · z·yu)))          ≡⟨ j₂₂ ⟩
+  xz · xyu · (y·xu · y·zu · (z · xu·yu · (y·xu · z·yu)))          ≡⟨ j₂₂ ⟩
 
-    xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))            ≡⟨ j₂₃ ⟩
+  xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))            ≡⟨ j₂₃ ⟩
 
-    xz · xyu · (y · xu·zu · (z·xu · z·yu · (y·xu · z·yu)))          ≡⟨ j₂₄ ⟩
+  xz · xyu · (y · xu·zu · (z·xu · z·yu · (y·xu · z·yu)))          ≡⟨ j₂₄ ⟩
 
-    (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))                 ≡⟨ j₂₅ ⟩
+  (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))                 ≡⟨ j₂₅ ⟩
 
-    xz · xyu · (y · xu·zu · (zy·xu · z·yu))                         ≡⟨ j₂₆ ⟩
+  xz · xyu · (y · xu·zu · (zy·xu · z·yu))                         ≡⟨ j₂₆ ⟩
 
-    xz · xyu · (y · xu·zu · (zy·xu · zy·zu))                        ≡⟨ j₂₇ ⟩
+  xz · xyu · (y · xu·zu · (zy·xu · zy·zu))                        ≡⟨ j₂₇ ⟩
 
-    xz · xyu · (y · xu·zu · (zy · xu·zu))                           ≡⟨ j₂₈ ⟩
+  xz · xyu · (y · xu·zu · (zy · xu·zu))                           ≡⟨ j₂₈ ⟩
 
-    xz · xyu · (y·zy · xu·zu)                                       ≡⟨ j₂₉ ⟩
+  xz · xyu · (y·zy · xu·zu)                                       ≡⟨ j₂₉ ⟩
 
-    xz · xyu · (y·zy · xzu)                                         ≡⟨ j₃₀ ⟩
+  xz · xyu · (y·zy · xzu)                                         ≡⟨ j₃₀ ⟩
 
-    xz·xy · xzu · (y·zy · xzu)                                      ≡⟨ j₃₁ ⟩
+  xz·xy · xzu · (y·zy · xzu)                                      ≡⟨ j₃₁ ⟩
 
-    x·zy · xzu · (y·zy · xzu)                                       ≡⟨ j₃₂ ⟩
+  x·zy · xzu · (y·zy · xzu)                                       ≡⟨ j₃₂ ⟩
 
-    x·zy · y·zy · xzu                                               ≡⟨ j₃₃ ⟩
+  x·zy · y·zy · xzu                                               ≡⟨ j₃₃ ⟩
 
-    xy·zy · xzu                                                     ≡⟨ j₃₄ ⟩
+  xy·zy · xzu                                                     ≡⟨ j₃₄ ⟩
 
-    xzy · xzu                                                       ≡⟨ j₃₅ ⟩
+  xzy · xzu                                                       ≡⟨ j₃₅ ⟩
 
-    xz·yu
-  ∎
+  xz·yu ∎
   where
   -- Two variables abbreviations
 

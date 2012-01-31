@@ -24,10 +24,7 @@ open import PA.Inductive.Relation.Binary.EqReasoning
   P0 = sym (+-rightIdentity n)
 
   is : ∀ i → P i → P (succ i)
-  is i Pi =
-    begin
-      succ i + n   ≡⟨ refl ⟩
-      succ (i + n) ≡⟨ cong succ Pi ⟩
-      succ (n + i) ≡⟨ sym (x+Sy≡S[x+y] n i) ⟩
-      n + succ i
-    ∎
+  is i Pi = succ i + n   ≡⟨ refl ⟩
+            succ (i + n) ≡⟨ cong succ Pi ⟩
+            succ (n + i) ≡⟨ sym (x+Sy≡S[x+y] n i) ⟩
+            n + succ i ∎

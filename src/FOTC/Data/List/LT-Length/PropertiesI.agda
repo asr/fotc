@@ -26,17 +26,15 @@ x∷xs<y∷ys→xs<ys {x} {xs} {y} {ys} Lxs Lys x∷xs<y∷ys = Nat.Sx<Sy→x<y 
   where
   helper : LT (succ₁ (length xs)) (succ₁ (length ys))
   helper =
-    begin
-      succ₁ (length xs) < succ₁ (length ys)
-        ≡⟨ subst₂ (λ t₁ t₂ → succ₁ (length xs) < succ₁ (length ys) ≡ t₁ < t₂)
-                  (sym (length-∷ x xs))
-                  (sym (length-∷ y ys))
-                  refl
-        ⟩
-      length (x ∷ xs) < length (y ∷ ys)
-        ≡⟨ x∷xs<y∷ys ⟩
-      true
-    ∎
+    succ₁ (length xs) < succ₁ (length ys)
+      ≡⟨ subst₂ (λ t₁ t₂ → succ₁ (length xs) < succ₁ (length ys) ≡ t₁ < t₂)
+                (sym (length-∷ x xs))
+                (sym (length-∷ y ys))
+                refl
+      ⟩
+    length (x ∷ xs) < length (y ∷ ys)
+      ≡⟨ x∷xs<y∷ys ⟩
+    true ∎
 
 <-trans : ∀ {xs ys zs} → List xs → List ys → List zs →
           LTL xs ys → LTL ys zs → LTL xs zs
@@ -47,13 +45,11 @@ x∷xs<y∷ys→xs<ys {x} {xs} {y} {ys} Lxs Lys x∷xs<y∷ys = Nat.Sx<Sy→x<y 
 lg-xs≡lg-ys→ys<zx→xs<zs : ∀ {xs ys zs} → length xs ≡ length ys →
                           LTL ys zs → LTL xs zs
 lg-xs≡lg-ys→ys<zx→xs<zs {xs} {ys} {zs} lg-xs≡lg-ys ys<zs =
-  begin
-    length xs < length zs
-      ≡⟨ subst (λ t → length xs < length zs ≡ t < length zs) lg-xs≡lg-ys refl ⟩
-    length ys < length zs
-      ≡⟨ ys<zs ⟩
-    true
-  ∎
+  length xs < length zs
+    ≡⟨ subst (λ t → length xs < length zs ≡ t < length zs) lg-xs≡lg-ys refl ⟩
+  length ys < length zs
+    ≡⟨ ys<zs ⟩
+  true ∎
 
 xs<y∷ys→xs<ys∨lg-xs≡lg-ys : ∀ {xs y ys} → List xs → List ys →
                             LTL xs (y ∷ ys) →
@@ -63,13 +59,11 @@ xs<y∷ys→xs<ys∨lg-xs≡lg-ys {xs} {y} {ys} Lxs Lys xs<y∷ys =
   where
   helper : LT (length xs) (succ₁ (length ys))
   helper =
-    begin
-      length xs < succ₁ (length ys)
-        ≡⟨ subst (λ t → length xs < succ₁ (length ys) ≡ length xs < t)
-                 (sym (length-∷ y ys))
-                 refl
-        ⟩
-      length xs < length (y ∷ ys)
-        ≡⟨ xs<y∷ys ⟩
-      true
-    ∎
+    length xs < succ₁ (length ys)
+      ≡⟨ subst (λ t → length xs < succ₁ (length ys) ≡ length xs < t)
+               (sym (length-∷ y ys))
+               refl
+      ⟩
+    length xs < length (y ∷ ys)
+      ≡⟨ xs<y∷ys ⟩
+    true ∎

@@ -124,25 +124,21 @@ private
 
 rec-0 : ∀ a {f} → rec zero a f ≡ a
 rec-0 a {f} =
-  begin
-    fix rech · zero · a · f ≡⟨ proof₀₋₁ zero a f ⟩
-    rec-s₁ zero a f          ≡⟨ proof₁₋₂ zero a f ⟩
-    rec-s₂ zero · a · f      ≡⟨ proof₂₋₃ zero a f ⟩
-    rec-s₃ zero a · f        ≡⟨ proof₃₋₄ zero a f ⟩
-    rec-s₄ zero a f          ≡⟨ proof₄₋₅ zero a f true iszero-0 ⟩
-    rec-s₅ zero a f true     ≡⟨ proof₅₊ zero a f ⟩
-    a
-  ∎
+  fix rech · zero · a · f  ≡⟨ proof₀₋₁ zero a f ⟩
+  rec-s₁ zero a f          ≡⟨ proof₁₋₂ zero a f ⟩
+  rec-s₂ zero · a · f      ≡⟨ proof₂₋₃ zero a f ⟩
+  rec-s₃ zero a · f        ≡⟨ proof₃₋₄ zero a f ⟩
+  rec-s₄ zero a f          ≡⟨ proof₄₋₅ zero a f true iszero-0 ⟩
+  rec-s₅ zero a f true     ≡⟨ proof₅₊ zero a f ⟩
+  a ∎
 
 rec-S : ∀ n a f → rec (succ₁ n) a f ≡ f · n · (rec n a f)
 rec-S n a f =
-  begin
-    fix rech · (succ₁ n) · a · f ≡⟨ proof₀₋₁ (succ₁ n) a f ⟩
-    rec-s₁ (succ₁ n) a f          ≡⟨ proof₁₋₂ (succ₁ n) a f ⟩
-    rec-s₂ (succ₁ n) · a · f      ≡⟨ proof₂₋₃ (succ₁ n) a f ⟩
-    rec-s₃ (succ₁ n) a · f        ≡⟨ proof₃₋₄ (succ₁ n) a f ⟩
-    rec-s₄ (succ₁ n) a f          ≡⟨ proof₄₋₅ (succ₁ n) a f false (iszero-S n) ⟩
-    rec-s₅ (succ₁ n) a f false    ≡⟨ proof₅₋₆ (succ₁ n) a f ⟩
-    rec-s₆ (succ₁ n) a f          ≡⟨ proof₆₋₇ n a f ⟩
-    rec-s₇ n a f
-  ∎
+  fix rech · (succ₁ n) · a · f  ≡⟨ proof₀₋₁ (succ₁ n) a f ⟩
+  rec-s₁ (succ₁ n) a f          ≡⟨ proof₁₋₂ (succ₁ n) a f ⟩
+  rec-s₂ (succ₁ n) · a · f      ≡⟨ proof₂₋₃ (succ₁ n) a f ⟩
+  rec-s₃ (succ₁ n) a · f        ≡⟨ proof₃₋₄ (succ₁ n) a f ⟩
+  rec-s₄ (succ₁ n) a f          ≡⟨ proof₄₋₅ (succ₁ n) a f false (iszero-S n) ⟩
+  rec-s₅ (succ₁ n) a f false    ≡⟨ proof₅₋₆ (succ₁ n) a f ⟩
+  rec-s₆ (succ₁ n) a f          ≡⟨ proof₆₋₇ n a f ⟩
+  rec-s₇ n a f ∎

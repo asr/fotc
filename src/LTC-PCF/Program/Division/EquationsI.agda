@@ -170,25 +170,21 @@ private
 -- the divisor.
 div-x<y : ∀ {i j} → LT i j → div i j ≡ zero
 div-x<y {i} {j} i<j =
-  begin
-    div i j    ≡⟨ proof₀₋₁ i j ⟩
-    div-s₁ i j ≡⟨ proof₁₋₂ i j ⟩
-    div-s₂ i j ≡⟨ proof₂₋₃ i j ⟩
-    div-s₃ i j ≡⟨ proof₃_₄ i j i<j ⟩
-    div-s₄ i j ≡⟨ proof₄₋₆ i j ⟩
-    div-s₆
-  ∎
+  div i j    ≡⟨ proof₀₋₁ i j ⟩
+  div-s₁ i j ≡⟨ proof₁₋₂ i j ⟩
+  div-s₂ i j ≡⟨ proof₂₋₃ i j ⟩
+  div-s₃ i j ≡⟨ proof₃_₄ i j i<j ⟩
+  div-s₄ i j ≡⟨ proof₄₋₆ i j ⟩
+  div-s₆ ∎
 
 ----------------------------------------------------------------------
 -- The division result when the dividend is greater or equal than the
 -- the divisor.
 div-x≮y : ∀ {i j} → NLT i j → div i j ≡ succ₁ (div (i ∸ j) j)
 div-x≮y {i} {j} i≮j =
-  begin
-    div i j    ≡⟨ proof₀₋₁ i j ⟩
-    div-s₁ i j ≡⟨ proof₁₋₂ i j ⟩
-    div-s₂ i j ≡⟨ proof₂₋₃ i j ⟩
-    div-s₃ i j ≡⟨ proof₃₋₅ i j i≮j ⟩
-    div-s₅ i j ≡⟨ proof₅₋₇ i j ⟩
-    div-s₇ i j
-  ∎
+  div i j    ≡⟨ proof₀₋₁ i j ⟩
+  div-s₁ i j ≡⟨ proof₁₋₂ i j ⟩
+  div-s₂ i j ≡⟨ proof₂₋₃ i j ⟩
+  div-s₃ i j ≡⟨ proof₃₋₅ i j i≮j ⟩
+  div-s₅ i j ≡⟨ proof₅₋₇ i j ⟩
+  div-s₇ i j ∎

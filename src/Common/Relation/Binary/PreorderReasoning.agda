@@ -13,22 +13,19 @@ module Common.Relation.Binary.PreorderReasoning
   where
 
 -- We add 3 to the fixities of the standard library.
-infix  7 _≃_
-infix  4 begin_
 infixr 5 _∼⟨_⟩_
 infix  5 _∎
 
 ------------------------------------------------------------------------------
--- Adapted from the standard library (Relation.Binary.PreorderReasoning).
-private
-  data _≃_ (x y : D) : Set where
-    prf : x ∼ y → x ≃ y
+-- From: Shin-Cheng Mu, Hsiang-Shang Ko, and Patrick Jansson. Algebra
+-- of programming in Agda: Dependent types for relational program
+-- derivation. Journal of Functional Programming, 19(5):545–579, 2009.
 
-begin_ : ∀ {x y} → x ≃ y → x ∼ y
-begin prf x∼y = x∼y
+-- N.B. Unlike Ulf's thesis (and the Agda standard library) this set
+-- of combinators do not need a wrapper data type.
 
-_∼⟨_⟩_ : ∀ x {y z} → x ∼ y → y ≃ z → x ≃ z
-_ ∼⟨ x∼y ⟩ prf y∼z = prf (trans x∼y y∼z)
+_∼⟨_⟩_ : ∀ x {y z} → x ∼ y → y ∼ z → x ∼ z
+_ ∼⟨ x∼y ⟩ y∼z = trans x∼y y∼z
 
-_∎ : ∀ x → x ≃ x
-_∎ _ = prf refl
+_∎ : ∀ x → x ∼ x
+_∎ _ = refl

@@ -24,23 +24,21 @@ open import FOTC.Relation.Binary.EqReasoning
 
 div-x<y-helper : ∀ {i j} → N i → N j → LT i j → i ≡ j * div i j + i
 div-x<y-helper {i} {j} Ni Nj i<j = sym
-    ( begin
-        j * div i j + i ≡⟨ prf₁ ⟩
-        j * zero + i    ≡⟨ prf₂ ⟩
-        zero + i        ≡⟨ +-leftIdentity i ⟩
-        i
-      ∎
-    )
-    where
-    prf₁ : j * div i j + i ≡ j * zero + i
-    prf₁ = subst (λ x → j * x + i ≡ j * zero + i)
-                 (sym $ div-x<y i<j)
-                 refl
+  ( j * div i j + i ≡⟨ prf₁ ⟩
+    j * zero + i    ≡⟨ prf₂ ⟩
+    zero + i        ≡⟨ +-leftIdentity i ⟩
+    i ∎
+  )
+  where
+  prf₁ : j * div i j + i ≡ j * zero + i
+  prf₁ = subst (λ x → j * x + i ≡ j * zero + i)
+               (sym $ div-x<y i<j)
+               refl
 
-    prf₂ : j * zero + i ≡ zero + i
-    prf₂ = subst (λ x → x + i ≡ zero + i)
-                 (sym $ *-rightZero Nj)
-                 refl
+  prf₂ : j * zero + i ≡ zero + i
+  prf₂ = subst (λ x → x + i ≡ zero + i)
+               (sym $ *-rightZero Nj)
+               refl
 
 div-x<y-correct : ∀ {i j} → N i → N j → LT i j →
                   ∃[ r ] N r ∧ LT r j ∧ i ≡ j * div i j + r
@@ -64,11 +62,9 @@ div-x≮y-helper : ∀ {i j r} → N i → N j → N r →
                  i ∸ j ≡ j * div (i ∸ j) j + r →
                  i ≡ j * div i j + r
 div-x≮y-helper {i} {j} {r} Ni Nj Nr i≮j helperH =
-  begin
-    i                            ≡⟨ helper Ni Nj Nr helperH ⟩
-    j * succ₁ (div (i ∸ j) j) + r ≡⟨ prf ⟩
-    j * div i j + r
-  ∎
+  i                             ≡⟨ helper Ni Nj Nr helperH ⟩
+  j * succ₁ (div (i ∸ j) j) + r ≡⟨ prf ⟩
+  j * div i j + r ∎
   where
   prf : j * succ₁ (div (i ∸ j) j) + r ≡ j * div i j + r
   prf = subst (λ x → j * x + r ≡ j * div i j + r)

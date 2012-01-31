@@ -138,58 +138,66 @@ private
 
 collatz-0 : collatz zero ≡ one
 collatz-0 =
-  begin
-    collatz    zero      ≡⟨ proof₀₋₁ zero ⟩
-    collatz-s₁ zero      ≡⟨ proof₁₋₂ iszero-0 ⟩
-    collatz-s₂ zero true ≡⟨ proof₂₋₃ zero ⟩
-    one
-  ∎
+  collatz    zero      ≡⟨ proof₀₋₁ zero ⟩
+  collatz-s₁ zero      ≡⟨ proof₁₋₂ iszero-0 ⟩
+  collatz-s₂ zero true ≡⟨ proof₂₋₃ zero ⟩
+  one ∎
 
 collatz-1 : collatz one  ≡ one
 collatz-1 =
-  begin
-    collatz    one ≡⟨ proof₀₋₁ one ⟩
-    collatz-s₁ one ≡⟨ proof₁₋₂ (iszero-S zero) ⟩
-    collatz-s₂ one false ≡⟨ proof₂₋₄ one  ⟩
-    collatz-s₄ one
-      ≡⟨ proof₄₋₅ (subst (λ x → iszero₁ x ≡ true) (sym (pred-S zero)) iszero-0) ⟩
-    collatz-s₅ one true ≡⟨ proof₅₋₆ one ⟩
-    one
-  ∎
+  collatz one
+    ≡⟨ proof₀₋₁ one ⟩
+  collatz-s₁ one
+    ≡⟨ proof₁₋₂ (iszero-S zero) ⟩
+  collatz-s₂ one false
+    ≡⟨ proof₂₋₄ one  ⟩
+  collatz-s₄ one
+    ≡⟨ proof₄₋₅ (subst (λ x → iszero₁ x ≡ true) (sym (pred-S zero)) iszero-0) ⟩
+  collatz-s₅ one true
+    ≡⟨ proof₅₋₆ one ⟩
+  one ∎
 
 collatz-even : ∀ {n} → Even (succ₁ (succ₁ n)) →
                collatz (succ₁ (succ₁ n)) ≡ collatz ((succ₁ (succ₁ n)) / two)
 collatz-even {n} h =
-  begin
-    collatz    (succ₁ (succ₁ n)) ≡⟨ proof₀₋₁ (succ₁ (succ₁ n)) ⟩
-    collatz-s₁ (succ₁ (succ₁ n)) ≡⟨ proof₁₋₂ (iszero-S (succ₁ n)) ⟩
-    collatz-s₂ (succ₁ (succ₁ n)) false ≡⟨ proof₂₋₄ (succ₁ (succ₁ n)) ⟩
-    collatz-s₄ (succ₁ (succ₁ n))
-      ≡⟨ proof₄₋₅ (subst (λ x → iszero₁ x ≡ false)
-                         (sym (pred-S (succ₁ n)))
-                         (iszero-S n))
-      ⟩
-    collatz-s₅ (succ₁ (succ₁ n)) false ≡⟨ proof₅₋₇ (succ₁ (succ₁ n)) ⟩
-    collatz-s₇ (succ₁ (succ₁ n))       ≡⟨ proof₇₋₈ h ⟩
-    collatz-s₈ (succ₁ (succ₁ n)) true  ≡⟨ proof₈₋₉ (succ₁ (succ₁ n)) ⟩
-    collatz ((succ₁ (succ₁ n)) / two)
-  ∎
+  collatz (succ₁ (succ₁ n))
+    ≡⟨ proof₀₋₁ (succ₁ (succ₁ n)) ⟩
+  collatz-s₁ (succ₁ (succ₁ n))
+    ≡⟨ proof₁₋₂ (iszero-S (succ₁ n)) ⟩
+  collatz-s₂ (succ₁ (succ₁ n)) false
+    ≡⟨ proof₂₋₄ (succ₁ (succ₁ n)) ⟩
+  collatz-s₄ (succ₁ (succ₁ n))
+    ≡⟨ proof₄₋₅ (subst (λ x → iszero₁ x ≡ false)
+                       (sym (pred-S (succ₁ n)))
+                       (iszero-S n))
+    ⟩
+  collatz-s₅ (succ₁ (succ₁ n)) false
+    ≡⟨ proof₅₋₇ (succ₁ (succ₁ n)) ⟩
+  collatz-s₇ (succ₁ (succ₁ n))
+    ≡⟨ proof₇₋₈ h ⟩
+  collatz-s₈ (succ₁ (succ₁ n)) true
+    ≡⟨ proof₈₋₉ (succ₁ (succ₁ n)) ⟩
+  collatz ((succ₁ (succ₁ n)) / two) ∎
 
 collatz-noteven : ∀ {n} → NotEven (succ₁ (succ₁ n)) →
                   collatz (succ₁ (succ₁ n)) ≡
                   collatz (three * (succ₁ (succ₁ n)) + one)
 collatz-noteven {n} h =
-  begin
-    collatz    (succ₁ (succ₁ n)) ≡⟨ proof₀₋₁ (succ₁ (succ₁ n)) ⟩
-    collatz-s₁ (succ₁ (succ₁ n)) ≡⟨ proof₁₋₂ (iszero-S (succ₁ n)) ⟩
-    collatz-s₂ (succ₁ (succ₁ n)) false ≡⟨ proof₂₋₄ (succ₁ (succ₁ n)) ⟩
-    collatz-s₄ (succ₁ (succ₁ n))
-      ≡⟨ proof₄₋₅ (subst (λ x → iszero₁ x ≡ false)
-                         (sym (pred-S (succ₁ n)))
-                         (iszero-S n))
-      ⟩
-    collatz-s₅ (succ₁ (succ₁ n)) false ≡⟨ proof₅₋₇ (succ₁ (succ₁ n)) ⟩
-    collatz-s₇ (succ₁ (succ₁ n))       ≡⟨ proof₇₋₈ h ⟩
-    collatz-s₈ (succ₁ (succ₁ n)) false ≡⟨ proof₈₋₁₀ (succ₁ (succ₁ n)) ⟩
-    collatz (three * (succ₁ (succ₁ n)) + one)
-  ∎
+  collatz (succ₁ (succ₁ n))
+    ≡⟨ proof₀₋₁ (succ₁ (succ₁ n)) ⟩
+  collatz-s₁ (succ₁ (succ₁ n))
+    ≡⟨ proof₁₋₂ (iszero-S (succ₁ n)) ⟩
+  collatz-s₂ (succ₁ (succ₁ n)) false
+    ≡⟨ proof₂₋₄ (succ₁ (succ₁ n)) ⟩
+  collatz-s₄ (succ₁ (succ₁ n))
+    ≡⟨ proof₄₋₅ (subst (λ x → iszero₁ x ≡ false)
+                       (sym (pred-S (succ₁ n)))
+                       (iszero-S n))
+    ⟩
+  collatz-s₅ (succ₁ (succ₁ n)) false
+    ≡⟨ proof₅₋₇ (succ₁ (succ₁ n)) ⟩
+  collatz-s₇ (succ₁ (succ₁ n))
+    ≡⟨ proof₇₋₈ h ⟩
+  collatz-s₈ (succ₁ (succ₁ n)) false
+    ≡⟨ proof₈₋₁₀ (succ₁ (succ₁ n)) ⟩
+  collatz (three * (succ₁ (succ₁ n)) + one) ∎

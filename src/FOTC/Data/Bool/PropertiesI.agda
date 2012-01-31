@@ -54,23 +54,19 @@ postulate
 
 &&-true₃ : true && true && true ≡ true
 &&-true₃ =
-  begin
-    true && true && true
-      ≡⟨ subst (λ t → true && true && true ≡ true && t) &&-tt refl ⟩
-    true && true
-      ≡⟨ &&-tt ⟩
-    true
-  ∎
+  true && true && true
+    ≡⟨ subst (λ t → true && true && true ≡ true && t) &&-tt refl ⟩
+  true && true
+    ≡⟨ &&-tt ⟩
+  true ∎
 
 &&-true₄ : true && true && true && true ≡ true
 &&-true₄ =
-  begin
-    true && true && true && true
-      ≡⟨ subst (λ t → true && true && true && true ≡ true && t) &&-true₃ refl ⟩
-    true && true
-      ≡⟨ &&-tt ⟩
-    true
-  ∎
+  true && true && true && true
+    ≡⟨ subst (λ t → true && true && true && true ≡ true && t) &&-true₃ refl ⟩
+  true && true
+    ≡⟨ &&-tt ⟩
+  true ∎
 
 &&-proj₁ : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₁ ≡ true
 &&-proj₁ tB _ _    = refl
@@ -103,16 +99,14 @@ postulate
   where
   prf : b₁ && false && b₃ && b₄ ≡ false
   prf =
-    begin
-      b₁ && false && b₃ && b₄
-        ≡⟨ subst (λ t → b₁ && false && b₃ && b₄ ≡ b₁ && t)
-                 (false&&x≡false (&&-Bool Bb₃ Bb₄))
-                 refl
-         ⟩
-      b₁ && false
-        ≡⟨ x&&false≡false Bb₁ ⟩
-      false
-    ∎
+    b₁ && false && b₃ && b₄
+       ≡⟨ subst (λ t → b₁ && false && b₃ && b₄ ≡ b₁ && t)
+                (false&&x≡false (&&-Bool Bb₃ Bb₄))
+                refl
+       ⟩
+    b₁ && false
+       ≡⟨ x&&false≡false Bb₁ ⟩
+    false ∎
 
 &&₃-proj₃ : ∀ {b₁ b₂ b₃ b₄} →
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
@@ -124,18 +118,16 @@ postulate
   where
   prf : b₁ && b₂ && false && b₄ ≡ false
   prf =
-    begin
-      b₁ && b₂ && false && b₄
-        ≡⟨ subst (λ t → b₁ && b₂ && false && b₄ ≡ b₁ && b₂ && t)
-                 (false&&x≡false Bb₄)
-                 refl
-        ⟩
-      b₁ && b₂ && false
-        ≡⟨ subst (λ t → b₁ && b₂ && false ≡ b₁ && t) (x&&false≡false Bb₂) refl ⟩
-      b₁ && false
-        ≡⟨ x&&false≡false Bb₁ ⟩
-      false
-    ∎
+    b₁ && b₂ && false && b₄
+       ≡⟨ subst (λ t → b₁ && b₂ && false && b₄ ≡ b₁ && b₂ && t)
+                (false&&x≡false Bb₄)
+                refl
+       ⟩
+    b₁ && b₂ && false
+       ≡⟨ subst (λ t → b₁ && b₂ && false ≡ b₁ && t) (x&&false≡false Bb₂) refl ⟩
+    b₁ && false
+       ≡⟨ x&&false≡false Bb₁ ⟩
+    false ∎
 
 &&₃-proj₄ : ∀ {b₁ b₂ b₃ b₄} →
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
@@ -147,18 +139,16 @@ postulate
   where
   prf : b₁ && b₂ && b₃ && false ≡ false
   prf =
-    begin
-      b₁ && b₂ && b₃ && false
-        ≡⟨ subst (λ t → b₁ && b₂ && b₃ && false ≡ b₁ && b₂ && t)
-                 (x&&false≡false Bb₃)
-                 refl
-         ⟩
-      b₁ && b₂ && false
-        ≡⟨ subst (λ t → b₁ && b₂ && false ≡ b₁ && t) (x&&false≡false Bb₂) refl ⟩
-      b₁ && false
-        ≡⟨ x&&false≡false Bb₁ ⟩
-      false
-    ∎
+    b₁ && b₂ && b₃ && false
+       ≡⟨ subst (λ t → b₁ && b₂ && b₃ && false ≡ b₁ && b₂ && t)
+                (x&&false≡false Bb₃)
+                refl
+       ⟩
+    b₁ && b₂ && false
+       ≡⟨ subst (λ t → b₁ && b₂ && false ≡ b₁ && t) (x&&false≡false Bb₂) refl ⟩
+    b₁ && false
+       ≡⟨ x&&false≡false Bb₁ ⟩
+    false ∎
 
 x≠not-x : ∀ {b} → Bool b → ¬ (b ≡ not b)
 x≠not-x tB h = true≠false (trans h not-t)

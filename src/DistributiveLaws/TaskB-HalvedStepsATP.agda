@@ -19,48 +19,48 @@ prop₂ : ∀ u x y z → (x · y · (z · u)) ·
                     (( x · y · ( z · u)) · (x · z · (y · u))) ≡
                     x · z · (y · u)
 prop₂ u x y z =
+
 -- The numbering of the proof step justifications are associated with
 -- the numbers used in DistributiveLaws.TaskB-I.
-  begin
-    xy·zu · (xy·zu · xz·yu)                                       ≡⟨ j₁₋₃ ⟩
 
-    xy·zu · (x·zu · xz·yu · (y·zu · xz·yu))                       ≡⟨ j₃₋₅ ⟩
+  xy·zu · (xy·zu · xz·yu)                                       ≡⟨ j₁₋₃ ⟩
 
-    xy·zu · (xz · xu·yu · (y·zu · xz·yu))                         ≡⟨ j₅₋₇ ⟩
+  xy·zu · (x·zu · xz·yu · (y·zu · xz·yu))                       ≡⟨ j₃₋₅ ⟩
 
-    xy·zu · (xz · xyu · (yz·yu · xz·yu))                          ≡⟨ j₇₋₉ ⟩
+  xy·zu · (xz · xu·yu · (y·zu · xz·yu))                         ≡⟨ j₅₋₇ ⟩
 
-    xy·zu · (xz · xyu · (yxz · yu))                               ≡⟨ j₉₋₁₁ ⟩
+  xy·zu · (xz · xyu · (yz·yu · xz·yu))                          ≡⟨ j₇₋₉ ⟩
 
-    xy·zu · (xz · xyu · (y·xu · z·yu))                            ≡⟨ j₁₁₋₁₃ ⟩
+  xy·zu · (xz · xyu · (yxz · yu))                               ≡⟨ j₉₋₁₁ ⟩
 
-    xz·yz · xyu · (xz · xyu · (y·xu · z·yu))                      ≡⟨ j₁₃₋₁₅ ⟩
+  xy·zu · (xz · xyu · (y·xu · z·yu))                            ≡⟨ j₁₁₋₁₃ ⟩
 
-    xz · xyu · (yz · xyu · (y·xu · z·yu))                         ≡⟨ j₁₅₋₁₇ ⟩
+  xz·yz · xyu · (xz · xyu · (y·xu · z·yu))                      ≡⟨ j₁₃₋₁₅ ⟩
 
-    xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu))          ≡⟨ j₁₇₋₁₉ ⟩
+  xz · xyu · (yz · xyu · (y·xu · z·yu))                         ≡⟨ j₁₅₋₁₇ ⟩
 
-    xz · xyu ·
-    (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))   ≡⟨ j₁₉₋₂₁ ⟩
+  xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu))          ≡⟨ j₁₇₋₁₉ ⟩
 
-    xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu)))       ≡⟨ j₂₁₋₂₃ ⟩
+  xz · xyu ·
+  (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))   ≡⟨ j₁₉₋₂₁ ⟩
 
-    xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))          ≡⟨ j₂₃₋₂₅ ⟩
+  xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu)))       ≡⟨ j₂₁₋₂₃ ⟩
 
-    (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))               ≡⟨ j₂₅₋₂₇ ⟩
+  xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))          ≡⟨ j₂₃₋₂₅ ⟩
 
-    xz · xyu · (y · xu·zu · (zy·xu · zy·zu))                      ≡⟨ j₂₇₋₂₉ ⟩
+  (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))               ≡⟨ j₂₅₋₂₇ ⟩
 
-    xz · xyu · (y·zy · xu·zu)                                     ≡⟨ j₂₉₋₃₁ ⟩
+  xz · xyu · (y · xu·zu · (zy·xu · zy·zu))                      ≡⟨ j₂₇₋₂₉ ⟩
 
-    xz·xy · xzu · (y·zy · xzu)                                    ≡⟨ j₃₁₋₃₃ ⟩
+  xz · xyu · (y·zy · xu·zu)                                     ≡⟨ j₂₉₋₃₁ ⟩
 
-    x·zy · y·zy · xzu                                             ≡⟨ j₃₃₋₃₅ ⟩
+  xz·xy · xzu · (y·zy · xzu)                                    ≡⟨ j₃₁₋₃₃ ⟩
 
-    xzy · xzu                                                     ≡⟨ j₃₅ ⟩
+  x·zy · y·zy · xzu                                             ≡⟨ j₃₃₋₃₅ ⟩
 
-    xz·yu
-  ∎
+  xzy · xzu                                                     ≡⟨ j₃₅ ⟩
+
+  xz·yu ∎
   where
   -- Two variables abbreviations
 

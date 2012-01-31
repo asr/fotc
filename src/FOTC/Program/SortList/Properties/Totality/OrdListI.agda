@@ -40,31 +40,30 @@ subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js =
 
 ++-OrdList-helper {item} {js = js} Nitem
                   (consLN {i} {is} Ni LNis) LNjs item≤i∷is item≤js i∷is≤js =
-  begin
-    ≤-ItemList item ((i ∷ is) ++ js)
-      ≡⟨ subst (λ t → ≤-ItemList item ((i ∷ is) ++ js) ≡ ≤-ItemList item t)
-               (++-∷ i is js)
-               refl
-      ⟩
-    ≤-ItemList item (i ∷ (is ++ js))
-      ≡⟨ ≤-ItemList-∷ item i (is ++ js) ⟩
-    item ≤ i && ≤-ItemList item (is ++ js)
-      ≡⟨ subst (λ t → item ≤ i && ≤-ItemList item (is ++ js) ≡
-                      t && ≤-ItemList item (is ++ js))
-               (&&-proj₁ (≤-Bool Nitem Ni)
-                         (≤-ItemList-Bool Nitem LNis)
-                         (trans (sym $ ≤-ItemList-∷ item i is) item≤i∷is))
-               refl
-      ⟩
-    true && ≤-ItemList item (is ++ js)
-      ≡⟨ subst (λ t → true && ≤-ItemList item (is ++ js) ≡ true && t)
-               -- IH.
-               (++-OrdList-helper Nitem LNis LNjs lemma₁ item≤js lemma₂)
-               refl
-      ⟩
-    true && true ≡⟨ &&-tt ⟩
-    true
-  ∎
+  ≤-ItemList item ((i ∷ is) ++ js)
+    ≡⟨ subst (λ t → ≤-ItemList item ((i ∷ is) ++ js) ≡ ≤-ItemList item t)
+             (++-∷ i is js)
+             refl
+    ⟩
+  ≤-ItemList item (i ∷ (is ++ js))
+    ≡⟨ ≤-ItemList-∷ item i (is ++ js) ⟩
+  item ≤ i && ≤-ItemList item (is ++ js)
+    ≡⟨ subst (λ t → item ≤ i && ≤-ItemList item (is ++ js) ≡
+                    t && ≤-ItemList item (is ++ js))
+             (&&-proj₁ (≤-Bool Nitem Ni)
+                       (≤-ItemList-Bool Nitem LNis)
+                       (trans (sym $ ≤-ItemList-∷ item i is) item≤i∷is))
+             refl
+    ⟩
+  true && ≤-ItemList item (is ++ js)
+    ≡⟨ subst (λ t → true && ≤-ItemList item (is ++ js) ≡ true && t)
+             -- IH.
+             (++-OrdList-helper Nitem LNis LNjs lemma₁ item≤js lemma₂)
+             refl
+    ⟩
+  true && true
+    ≡⟨ &&-tt ⟩
+  true ∎
     where
     lemma₁ : ≤-ItemList item is ≡ true
     lemma₁ =  &&-proj₂ (≤-Bool Nitem Ni)
