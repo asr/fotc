@@ -27,7 +27,7 @@ open import Common.LogicalConstants public
 -- Group theory axioms
 postulate
   ε   : G          -- The identity element.
-  _·_ : G → G → G  -- The group binary operation.
+  _·_ : G → G → G  -- The binary operation.
   _⁻¹ : G → G      -- The inverse function.
 
   assoc         : ∀ x y z → x · y · z    ≡ x · (y · z)
