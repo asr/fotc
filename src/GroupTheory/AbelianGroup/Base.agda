@@ -14,5 +14,5 @@ open import GroupTheory.Base public
 -- Abelian group theory axioms
 
 -- We only need to add the commutativity axiom.
-postulate comm : ∀ x y → x · y ≡ y · x
+postulate comm : ∀ a b → a · b ≡ b · a
 {-# ATP axiom comm #-}

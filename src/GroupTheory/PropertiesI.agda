@@ -28,12 +28,12 @@ x≡[xy]y⁻¹ a b =
   a · (b · b ⁻¹) ≡⟨ sym (assoc a b (b ⁻¹)) ⟩
   a · b · b ⁻¹ ∎
 
-rightIdentityUnique : ∃[ u ] (∀ x → x · u ≡ x) ∧
-                             (∀ u' → (∀ x → x · u' ≡ x) → u ≡ u')
+rightIdentityUnique : ∃[ u ] (∀ a → a · u ≡ a) ∧
+                             (∀ u' → (∀ a → a · u' ≡ a) → u ≡ u')
 rightIdentityUnique =
 -- Paper proof:
 -- 1.  We know that ε is a right identity.
--- 2.  Let suppose there is other right identity u', i.e. ∀ x → xu' ≡ x, then
+-- 2.  Let suppose there is other right identity u', i.e. ∀ a → au' ≡ a, then
 -- 2.1 ε   = εu'  (Hypothesis)
 -- 2.2 εu' = u    (Left identity)
 -- 2.3 ε   = u    (Transitivity)
@@ -41,19 +41,19 @@ rightIdentityUnique =
 
 -- A more appropiate version to be used in the proofs.
 -- Adapted from the standard library.
-rightIdentityUnique' : ∀ x u → x · u ≡ x → ε ≡ u
-rightIdentityUnique' x u xu≡x =
-  ε              ≡⟨ sym (leftInverse x) ⟩
-  x ⁻¹ · x       ≡⟨ subst (λ t → x ⁻¹ · x ≡ x ⁻¹ · t ) (sym xu≡x) refl ⟩
-  x ⁻¹ · (x · u) ≡⟨ sym (y≡x⁻¹[xy] x u) ⟩
+rightIdentityUnique' : ∀ a u → a · u ≡ a → ε ≡ u
+rightIdentityUnique' a u h =
+  ε              ≡⟨ sym (leftInverse a) ⟩
+  a ⁻¹ · a       ≡⟨ subst (λ t → a ⁻¹ · a ≡ a ⁻¹ · t ) (sym h) refl ⟩
+  a ⁻¹ · (a · u) ≡⟨ sym (y≡x⁻¹[xy] a u) ⟩
   u ∎
 
-leftIdentityUnique : ∃[ u ] (∀ x → u · x ≡ x) ∧
-                            (∀ u' → (∀ x → u' · x ≡ x) → u ≡ u')
+leftIdentityUnique : ∃[ u ] (∀ a → u · a ≡ a) ∧
+                            (∀ u' → (∀ a → u' · a ≡ a) → u ≡ u')
 leftIdentityUnique =
 -- Paper proof:
 -- 1.  We know that ε is a left identity.
--- 2.  Let's suppose there is other left identity u', i.e. ∀ x → u'x ≡ x, then
+-- 2.  Let's suppose there is other left identity u', i.e. ∀ a → u'a ≡ a, then
 -- 2.1 ε   = u'ε  (Hypothesis)
 -- 2.2 u'ε = u    (Right identity)
 -- 2.3 ε   = u    (Transitivity)
@@ -61,44 +61,44 @@ leftIdentityUnique =
 
 -- A more appropiate version to be used in the proofs.
 -- Adapted from the standard library.
-leftIdentityUnique' : ∀ x u → u · x ≡ x → ε ≡ u
-leftIdentityUnique' x u ux≡x =
-  ε              ≡⟨ sym (rightInverse x) ⟩
-  x · x ⁻¹       ≡⟨ subst (λ t → x · x ⁻¹ ≡ t · x ⁻¹) (sym ux≡x) refl ⟩
-  u · x · x ⁻¹   ≡⟨ sym (x≡[xy]y⁻¹ u x) ⟩
+leftIdentityUnique' : ∀ a u → u · a ≡ a → ε ≡ u
+leftIdentityUnique' a u h =
+  ε              ≡⟨ sym (rightInverse a) ⟩
+  a · a ⁻¹       ≡⟨ subst (λ t → a · a ⁻¹ ≡ t · a ⁻¹) (sym h) refl ⟩
+  u · a · a ⁻¹   ≡⟨ sym (x≡[xy]y⁻¹ u a) ⟩
   u ∎
 
-rightCancellation : ∀ {x y z} → y · x ≡ z · x → y ≡ z
-rightCancellation {x} {y} {z} yx≡zx =
+rightCancellation : ∀ {a b c} → b · a ≡ c · a → b ≡ c
+rightCancellation {a} {b} {c} h =
 -- Paper proof:
--- 1. (yx)x⁻¹  = (zx)x⁻¹  (Hypothesis xy = xz).
--- 2. (y)xx⁻¹  = (z)xx⁻¹  (Associative).
--- 3. yε       = zε       (Right inverse).
--- 4. y        = z        (Right identity).
-  y              ≡⟨ sym (rightIdentity y) ⟩
-  y · ε          ≡⟨ subst (λ t → y · ε ≡ y · t) (sym (rightInverse x)) refl ⟩
-  y · (x · x ⁻¹) ≡⟨ sym (assoc y x (x ⁻¹)) ⟩
-  y · x · x ⁻¹   ≡⟨ subst (λ t → y · x · x ⁻¹ ≡ t · x ⁻¹) yx≡zx refl ⟩
-  z · x · x ⁻¹   ≡⟨ assoc z x (x ⁻¹) ⟩
-  z · (x · x ⁻¹) ≡⟨ subst (λ t → z · (x · x ⁻¹) ≡ z · t) (rightInverse x) refl ⟩
-  z · ε          ≡⟨ rightIdentity z ⟩
-  z ∎
+-- 1. (ba)a⁻¹  = (ca)a⁻¹  (Hypothesis ab = ac).
+-- 2. (b)aa⁻¹  = (c)aa⁻¹  (Associative).
+-- 3. bε       = cε       (Right inverse).
+-- 4. b        = c        (Right identity).
+  b              ≡⟨ sym (rightIdentity b) ⟩
+  b · ε          ≡⟨ subst (λ t → b · ε ≡ b · t) (sym (rightInverse a)) refl ⟩
+  b · (a · a ⁻¹) ≡⟨ sym (assoc b a (a ⁻¹)) ⟩
+  b · a · a ⁻¹   ≡⟨ subst (λ t → b · a · a ⁻¹ ≡ t · a ⁻¹) h refl ⟩
+  c · a · a ⁻¹   ≡⟨ assoc c a (a ⁻¹) ⟩
+  c · (a · a ⁻¹) ≡⟨ subst (λ t → c · (a · a ⁻¹) ≡ c · t) (rightInverse a) refl ⟩
+  c · ε          ≡⟨ rightIdentity c ⟩
+  c ∎
 
-leftCancellation : ∀ {x y z} → x · y ≡ x · z → y ≡ z
-leftCancellation {x} {y} {z} xy≡xz =
+leftCancellation : ∀ {a b c} → a · b ≡ a · c → b ≡ c
+leftCancellation {a} {b} {c} h =
 -- Paper proof:
--- 1. x⁻¹(xy)  = x⁻¹(xz)  (Hypothesis xy = xz).
--- 2. x⁻¹x(y)  = x⁻¹x(z)  (Associative).
--- 3. εy       = εz       (Left inverse).
--- 4. y        = z        (Left identity).
-  y              ≡⟨ sym (leftIdentity y) ⟩
-  ε · y          ≡⟨ subst (λ t → ε · y ≡ t · y) (sym (leftInverse x)) refl ⟩
-  x ⁻¹ · x · y   ≡⟨ assoc (x ⁻¹) x y ⟩
-  x ⁻¹ · (x · y) ≡⟨ subst (λ t → x ⁻¹ · (x · y) ≡ x ⁻¹ · t) xy≡xz refl ⟩
-  x ⁻¹ · (x · z) ≡⟨ sym (assoc (x ⁻¹) x z) ⟩
-  x ⁻¹ · x · z   ≡⟨ subst (λ t → x ⁻¹ · x · z ≡ t · z) (leftInverse x) refl ⟩
-  ε · z          ≡⟨ leftIdentity z ⟩
-  z ∎
+-- 1. a⁻¹(ab)  = a⁻¹(ac)  (Hypothesis ab = ac).
+-- 2. a⁻¹a(b)  = a⁻¹a(c)  (Associative).
+-- 3. εb       = εc       (Left inverse).
+-- 4. b        = c        (Left identity).
+  b              ≡⟨ sym (leftIdentity b) ⟩
+  ε · b          ≡⟨ subst (λ t → ε · b ≡ t · b) (sym (leftInverse a)) refl ⟩
+  a ⁻¹ · a · b   ≡⟨ assoc (a ⁻¹) a b ⟩
+  a ⁻¹ · (a · b) ≡⟨ subst (λ t → a ⁻¹ · (a · b) ≡ a ⁻¹ · t) h refl ⟩
+  a ⁻¹ · (a · c) ≡⟨ sym (assoc (a ⁻¹) a c) ⟩
+  a ⁻¹ · a · c   ≡⟨ subst (λ t → a ⁻¹ · a · c ≡ t · c) (leftInverse a) refl ⟩
+  ε · c          ≡⟨ leftIdentity c ⟩
+  c ∎
 
 x≡y→xz≡yz : ∀ {a b c} → a ≡ b → a · c ≡ b · c
 x≡y→xz≡yz refl = refl
@@ -106,70 +106,70 @@ x≡y→xz≡yz refl = refl
 x≡y→zx≡zy : ∀ {a b c} → a ≡ b → c · a ≡ c · b
 x≡y→zx≡zy refl = refl
 
-rightInverseUnique : ∀ {x} → ∃[ r ] (x · r ≡ ε) ∧
-                                    (∀ r' → x · r' ≡ ε → r ≡ r')
-rightInverseUnique {x} =
+rightInverseUnique : ∀ {a} → ∃[ r ] (a · r ≡ ε) ∧
+                                    (∀ r' → a · r' ≡ ε → r ≡ r')
+rightInverseUnique {a} =
 -- Paper proof:
--- 1.   We know that (x ⁻¹) is a right inverse for x.
--- 2.   Let's suppose there is other right inverse r for x, i.e. xr ≡ ε, then
--- 2.1. xx⁻¹ = ε  (Right inverse).
--- 2.2. xr   = ε  (Hypothesis).
--- 2.3. xx⁻¹ = xr (Transitivity).
--- 2.4  x⁻¹  = r  (Left cancellation).
-  (x ⁻¹) , rightInverse x , prf
+-- 1.   We know that (a⁻¹) is a right inverse for a.
+-- 2.   Let's suppose there is other right inverse r for a, i.e. ar ≡ ε, then
+-- 2.1. aa⁻¹ = ε  (Right inverse).
+-- 2.2. ar   = ε  (Hypothesis).
+-- 2.3. aa⁻¹ = ar (Transitivity).
+-- 2.4  a⁻¹  = a  (Left cancellation).
+  (a ⁻¹) , rightInverse a , prf
     where
-    prf : ∀ r' → x · r' ≡ ε → x ⁻¹ ≡ r'
-    prf r' xr'≡ε = leftCancellation xx⁻¹≡xr'
+    prf : ∀ r' → a · r' ≡ ε → a ⁻¹ ≡ r'
+    prf r' ar'≡ε = leftCancellation aa⁻¹≡ar'
       where
-      xx⁻¹≡xr' :  x · x ⁻¹ ≡ x · r'
-      xx⁻¹≡xr' = x · x ⁻¹ ≡⟨ rightInverse x ⟩
-                 ε        ≡⟨ sym xr'≡ε ⟩
-                 x · r' ∎
+      aa⁻¹≡ar' : a · a ⁻¹ ≡ a · r'
+      aa⁻¹≡ar' = a · a ⁻¹ ≡⟨ rightInverse a ⟩
+                 ε        ≡⟨ sym ar'≡ε ⟩
+                 a · r' ∎
 
 -- A more appropiate version to be used in the proofs.
-rightInverseUnique' : ∀ {x r} → x · r ≡ ε → x ⁻¹ ≡ r
-rightInverseUnique' {x} {r} xr≡ε = leftCancellation xx⁻¹≡xr
+rightInverseUnique' : ∀ {a r} → a · r ≡ ε → a ⁻¹ ≡ r
+rightInverseUnique' {a} {r} ar≡ε = leftCancellation aa⁻¹≡ar
   where
-  xx⁻¹≡xr :  x · x ⁻¹ ≡ x · r
-  xx⁻¹≡xr = x · x ⁻¹ ≡⟨ rightInverse x ⟩
-            ε        ≡⟨ sym xr≡ε ⟩
-            x · r ∎
+  aa⁻¹≡ar : a · a ⁻¹ ≡ a · r
+  aa⁻¹≡ar = a · a ⁻¹ ≡⟨ rightInverse a ⟩
+            ε        ≡⟨ sym ar≡ε ⟩
+            a · r ∎
 
-leftInverseUnique : ∀ {x} → ∃[ l ] (l · x ≡ ε) ∧
-                                   (∀ l' → l' · x ≡ ε → l ≡ l')
-leftInverseUnique {x} =
+leftInverseUnique : ∀ {a} → ∃[ l ] (l · a ≡ ε) ∧
+                                   (∀ l' → l' · a ≡ ε → l ≡ l')
+leftInverseUnique {a} =
 -- Paper proof:
--- 1.   We know that (x ⁻¹) is a left inverse for x.
--- 2.   Let's suppose there is other right inverse l for x, i.e. lx ≡ ε, then
--- 2.1. x⁻¹x = ε  (Left inverse).
--- 2.2. lx   = ε  (Hypothesis).
--- 2.3. x⁻¹x = lx (Transitivity).
--- 2.4  x⁻¹  = l  (Right cancellation).
-  (x ⁻¹) , leftInverse x , prf
+-- 1.   We know that (a⁻¹) is a left inverse for a.
+-- 2.   Let's suppose there is other right inverse l for a, i.e. la ≡ ε, then
+-- 2.1. a⁻¹a = ε  (Left inverse).
+-- 2.2. la   = ε  (Hypothesis).
+-- 2.3. a⁻¹a = la (Transitivity).
+-- 2.4  a⁻¹  = l  (Right cancellation).
+  (a ⁻¹) , leftInverse a , prf
     where
-    prf : ∀ l' → l' · x ≡ ε → x ⁻¹ ≡ l'
-    prf l' l'x≡ε = rightCancellation x⁻¹x≡l'x
+    prf : ∀ l' → l' · a ≡ ε → a ⁻¹ ≡ l'
+    prf l' l'a≡ε = rightCancellation a⁻¹a≡l'a
       where
-      x⁻¹x≡l'x : x ⁻¹ · x ≡ l' · x
-      x⁻¹x≡l'x = x ⁻¹ · x ≡⟨ leftInverse x ⟩
-                 ε        ≡⟨ sym l'x≡ε ⟩
-                 l' · x ∎
+      a⁻¹a≡l'a : a ⁻¹ · a ≡ l' · a
+      a⁻¹a≡l'a = a ⁻¹ · a ≡⟨ leftInverse a ⟩
+                 ε        ≡⟨ sym l'a≡ε ⟩
+                 l' · a ∎
 
 -- A more appropiate version to be used in the proofs.
-leftInverseUnique' : ∀ {x l} → l · x ≡ ε → x ⁻¹ ≡ l
-leftInverseUnique' {x} {l} lx≡ε = rightCancellation x⁻¹x≡lx
+leftInverseUnique' : ∀ {a l} → l · a ≡ ε → a ⁻¹ ≡ l
+leftInverseUnique' {a} {l} la≡ε = rightCancellation a⁻¹a≡la
   where
-  x⁻¹x≡lx : x ⁻¹ · x ≡ l · x
-  x⁻¹x≡lx = x ⁻¹ · x ≡⟨ leftInverse x ⟩
-          ε        ≡⟨ sym lx≡ε ⟩
-          l · x ∎
+  a⁻¹a≡la : a ⁻¹ · a ≡ l · a
+  a⁻¹a≡la = a ⁻¹ · a ≡⟨ leftInverse a ⟩
+            ε        ≡⟨ sym la≡ε ⟩
+            l · a ∎
 
-⁻¹-involutive : ∀ x → x ⁻¹ ⁻¹ ≡ x
+⁻¹-involutive : ∀ a → a ⁻¹ ⁻¹ ≡ a
 -- Paper proof:
--- 1. x⁻¹x = ε  (Left inverse).
--- 2. The previous equation states that x is the unique right
--- inverse (x⁻¹)⁻¹ of x⁻¹.
-⁻¹-involutive x = rightInverseUnique' (leftInverse x)
+-- 1. a⁻¹a = ε  (Left inverse).
+-- 2. The previous equation states that a is the unique right
+-- inverse (a⁻¹)⁻¹ of a⁻¹.
+⁻¹-involutive a = rightInverseUnique' (leftInverse a)
 
 identityInverse : ε ⁻¹ ≡ ε
 -- Paper proof:
@@ -178,37 +178,37 @@ identityInverse : ε ⁻¹ ≡ ε
 -- inverse ε⁻¹ of ε.
 identityInverse = rightInverseUnique' (leftIdentity ε)
 
-inverseDistribution : ∀ x y → (x · y) ⁻¹ ≡ y ⁻¹ · x ⁻¹
+inverseDistribution : ∀ a b → (a · b) ⁻¹ ≡ b ⁻¹ · a ⁻¹
 -- Paper proof:
--- (y⁻¹x⁻¹)(xy) = y⁻¹(x ⁻¹(xy))  (Associative).
---              = y⁻¹(x ⁻¹x)y    (Associative).
---              = y⁻¹(εy)        (Left inverse).
---              = y⁻¹y           (Left identity).
---              = ε              (Left inverse)
--- Therefore, y⁻¹x⁻¹ is the unique left inverse of xy.
-inverseDistribution x y = leftInverseUnique' y⁻¹x⁻¹[xy]≡ε
+-- (b⁻¹a⁻¹)(ab) = b⁻¹(a⁻¹(ab))  (Associative).
+--              = b⁻¹(a⁻¹a)b    (Associative).
+--              = b⁻¹(εb)       (Left inverse).
+--              = b⁻¹b          (Left identity).
+--              = ε             (Left inverse)
+-- Therefore, b⁻¹a⁻¹ is the unique left inverse of ab.
+inverseDistribution a b = leftInverseUnique' b⁻¹a⁻¹[ab]≡ε
   where
-  y⁻¹x⁻¹[xy]≡ε : y ⁻¹ · x ⁻¹ · (x · y) ≡ ε
-  y⁻¹x⁻¹[xy]≡ε =
-    y ⁻¹ · x ⁻¹ · (x · y)
-      ≡⟨ assoc (y ⁻¹) (x ⁻¹) (x · y) ⟩
-    y ⁻¹ · (x ⁻¹ · (x · y))
-      ≡⟨ subst (λ t → y ⁻¹ · (x ⁻¹ · (x · y)) ≡ y ⁻¹ · t)
-               (sym (assoc (x ⁻¹) x y))
+  b⁻¹a⁻¹[ab]≡ε : b ⁻¹ · a ⁻¹ · (a · b) ≡ ε
+  b⁻¹a⁻¹[ab]≡ε =
+    b ⁻¹ · a ⁻¹ · (a · b)
+      ≡⟨ assoc (b ⁻¹) (a ⁻¹) (a · b) ⟩
+    b ⁻¹ · (a ⁻¹ · (a · b))
+      ≡⟨ subst (λ t → b ⁻¹ · (a ⁻¹ · (a · b)) ≡ b ⁻¹ · t)
+               (sym (assoc (a ⁻¹) a b))
                refl
       ⟩
-    y ⁻¹ · (x ⁻¹ · x · y)
-      ≡⟨ subst (λ t → y ⁻¹ · (x ⁻¹ · x · y) ≡ y ⁻¹ · (t · y))
-               (leftInverse x)
+    b ⁻¹ · (a ⁻¹ · a · b)
+      ≡⟨ subst (λ t → b ⁻¹ · (a ⁻¹ · a · b) ≡ b ⁻¹ · (t · b))
+               (leftInverse a)
                refl
       ⟩
-    y ⁻¹ · (ε · y)
-      ≡⟨ subst (λ t → y ⁻¹ · (ε · y) ≡ y ⁻¹ · t)
-               (leftIdentity y)
+    b ⁻¹ · (ε · b)
+      ≡⟨ subst (λ t → b ⁻¹ · (ε · b) ≡ b ⁻¹ · t)
+               (leftIdentity b)
                refl
       ⟩
-    y ⁻¹ · y
-      ≡⟨ leftInverse y ⟩
+    b ⁻¹ · b
+      ≡⟨ leftInverse b ⟩
     ε ∎
 
 -- If the square of every element is the identity, the system is commutative.

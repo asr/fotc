@@ -30,9 +30,9 @@ postulate
   _·_ : G → G → G  -- The binary operation.
   _⁻¹ : G → G      -- The inverse function.
 
-  assoc         : ∀ x y z → x · y · z    ≡ x · (y · z)
-  leftIdentity  : ∀ x     →     ε · x    ≡ x
-  rightIdentity : ∀ x     →     x · ε    ≡ x
-  leftInverse   : ∀ x     →  x ⁻¹ · x    ≡ ε
-  rightInverse  : ∀ x     →  x    · x ⁻¹ ≡ ε
+  assoc         : ∀ a b c → a · b · c    ≡ a · (b · c)
+  leftIdentity  : ∀ a     →     ε · a    ≡ a
+  rightIdentity : ∀ a     →     a · ε    ≡ a
+  leftInverse   : ∀ a     →  a ⁻¹ · a    ≡ ε
+  rightInverse  : ∀ a     →  a    · a ⁻¹ ≡ ε
 {-# ATP axiom assoc leftIdentity rightIdentity leftInverse rightInverse #-}

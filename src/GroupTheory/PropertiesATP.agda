@@ -18,30 +18,30 @@ postulate x≡[xy]y⁻¹ : ∀ a b → a ≡ (a · b) · b ⁻¹
 {-# ATP prove x≡[xy]y⁻¹ #-}
 
 postulate
-  rightIdentityUnique : ∃[ u ] (∀ x → x · u ≡ x) ∧
-                               (∀ u' → (∀ x → x · u' ≡ x) → u ≡ u')
+  rightIdentityUnique : ∃[ u ] (∀ a → a · u ≡ a) ∧
+                               (∀ u' → (∀ a → a · u' ≡ a) → u ≡ u')
 {-# ATP prove rightIdentityUnique #-}
 
 -- A more appropiate version to be used in the proofs.
-postulate rightIdentityUnique' : ∀ x u → x · u ≡ x → ε ≡ u
+postulate rightIdentityUnique' : ∀ a u → a · u ≡ a → ε ≡ u
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove rightIdentityUnique' #-}
 
 postulate
-  leftIdentityUnique : ∃[ u ] (∀ x → u · x ≡ x) ∧
-                              (∀ u' → (∀ x → u' · x ≡ x) → u ≡ u')
+  leftIdentityUnique : ∃[ u ] (∀ a → u · a ≡ a) ∧
+                              (∀ u' → (∀ a → u' · a ≡ a) → u ≡ u')
 {-# ATP prove leftIdentityUnique #-}
 
 -- A more appropiate version to be used in the proofs.
-postulate leftIdentityUnique' : ∀ x u → u · x ≡ x → ε ≡ u
+postulate leftIdentityUnique' : ∀ a u → u · a ≡ a → ε ≡ u
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove leftIdentityUnique' #-}
 
-postulate rightCancellation : ∀ {x y z} → y · x ≡ z · x → y ≡ z
+postulate rightCancellation : ∀ {a b c} → b · a ≡ c · a → b ≡ c
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove rightCancellation #-}
 
-postulate leftCancellation : ∀ {x y z} → x · y ≡ x · z → y ≡ z
+postulate leftCancellation : ∀ {a b c} → a · b ≡ a · c → b ≡ c
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove leftCancellation #-}
 
@@ -52,35 +52,35 @@ x≡y→zx≡zy : ∀ {a b c} → a ≡ b → c · a ≡ c · b
 x≡y→zx≡zy refl = refl
 
 postulate
-  rightInverseUnique : ∀ {x} → ∃[ r ] (x · r ≡ ε) ∧
-                                      (∀ r' → x · r' ≡ ε → r ≡ r')
+  rightInverseUnique : ∀ {a} → ∃[ r ] (a · r ≡ ε) ∧
+                                      (∀ r' → a · r' ≡ ε → r ≡ r')
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove rightInverseUnique #-}
 
 -- A more appropiate version to be used in the proofs.
-postulate rightInverseUnique' : ∀ {x r} → x · r ≡ ε → x ⁻¹ ≡ r
+postulate rightInverseUnique' : ∀ {a r} → a · r ≡ ε → a ⁻¹ ≡ r
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove rightInverseUnique' #-}
 
 postulate
-  leftInverseUnique : ∀ {x} → ∃[ l ] (l · x ≡ ε) ∧
-                                     (∀ l' → l' · x ≡ ε → l ≡ l')
+  leftInverseUnique : ∀ {a} → ∃[ l ] (l · a ≡ ε) ∧
+                                     (∀ l' → l' · a ≡ ε → l ≡ l')
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove leftInverseUnique #-}
 
 -- A more appropiate version to be used in the proofs.
-postulate leftInverseUnique' : ∀ {x l} → l · x ≡ ε → x ⁻¹ ≡ l
+postulate leftInverseUnique' : ∀ {a l} → l · a ≡ ε → a ⁻¹ ≡ l
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove leftInverseUnique' #-}
 
-postulate ⁻¹-involutive : ∀ x → x ⁻¹ ⁻¹ ≡ x
+postulate ⁻¹-involutive : ∀ a → a ⁻¹ ⁻¹ ≡ a
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove ⁻¹-involutive #-}
 
 postulate identityInverse : ε ⁻¹ ≡ ε
 {-# ATP prove identityInverse #-}
 
-postulate inverseDistributive : ∀ x y → (x · y) ⁻¹ ≡ y ⁻¹ · x ⁻¹
+postulate inverseDistributive : ∀ a b → (a · b) ⁻¹ ≡ b ⁻¹ · a ⁻¹
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove inverseDistributive #-}
 
