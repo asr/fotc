@@ -1,4 +1,4 @@
--- Tested on 11 December 2011.
+-- Tested with magda and agda2atp on 11 December 2011.
 
 module Draft.PredicateLogic.SchemasATP where
 

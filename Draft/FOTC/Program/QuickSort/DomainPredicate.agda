@@ -3,7 +3,7 @@
 -- Bove-Capretta method
 ------------------------------------------------------------------------------
 
--- Tested on 10 December 2011.
+-- Tested with the development version of Agda on 02 February 2012.
 
 module Draft.FOTC.Program.QuickSort.DomainPredicate where
 

@@ -1,4 +1,4 @@
--- Tested on 05 December 2011.
+-- Tested with the development version of Agda on 02 February 2012.
 
 module K where
 

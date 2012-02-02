@@ -2,7 +2,8 @@
 -- The map-iterate property using the standard library
 ------------------------------------------------------------------------------
 
--- Tested with the development version on 12 July 2011.
+-- Tested with the development version of the standard libray on
+-- 02 February 2012.
 
 -- From: Nils Anders Danielsson and Thorsten Altenkirch. Mixing
 -- Induction and Coinduction. Draft 2009.

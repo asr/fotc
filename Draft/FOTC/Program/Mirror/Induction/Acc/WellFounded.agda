@@ -2,7 +2,7 @@
 -- Generic well-founded induction on trees
 ------------------------------------------------------------------------------
 
--- Tested on 11 December 2011.
+-- Tested with the development version of Agda on 02 February 2012.
 
 -- Adapted from FOTC.Data.Nat.Induction.Acc.WellFounded.
 

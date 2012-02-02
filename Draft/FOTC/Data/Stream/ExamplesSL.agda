@@ -2,7 +2,8 @@
 -- Stream examples using the standard libray
 ------------------------------------------------------------------------------
 
--- Tested with the development version on 29 June 2011.
+-- Tested with the development version of the standard libray on
+-- 02 February 2012.
 
 module Draft.FOTC.Data.Stream.ExamplesSL where
 

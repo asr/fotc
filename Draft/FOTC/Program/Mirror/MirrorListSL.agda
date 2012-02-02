@@ -1,5 +1,5 @@
--- Tested with the development versions of Agda and the standard library on
--- 29 November 2011.
+-- Tested with the development version of the standard libray on
+-- 02 February 2012.
 
 module MirrorListSL where
 

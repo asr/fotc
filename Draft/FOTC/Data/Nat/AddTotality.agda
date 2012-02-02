@@ -2,7 +2,7 @@
 -- Totality of natural numbers addition
 ------------------------------------------------------------------------------
 
--- Tested on 15 December 2011.
+-- Tested with magda and agda2atp on 15 December 2011.
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
