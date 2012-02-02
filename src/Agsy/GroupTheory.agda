@@ -42,13 +42,14 @@ x≡[xy]y⁻¹ a b = {!-t 20 -m!}  -- Agsy fails
 rightIdentityUnique : Σ G λ u → (∀ x → x · u ≡ x) ×
                                 (∀ u' → (∀ x → x · u' ≡ x) → u ≡ u')
 -- Via Agsy {-m}
-rightIdentityUnique = ε ,
-                      rightIdentity ,
-                      λ x x' → begin
-                                 ε     ≡⟨ sym (x' ε) ⟩
-                                 ε · x ≡⟨ leftIdentity x ⟩
-                                 x
-                               ∎
+rightIdentityUnique =
+  ε
+  , rightIdentity
+  , λ x x' → begin
+               ε     ≡⟨ sym (x' ε) ⟩
+               ε · x ≡⟨ leftIdentity x ⟩
+               x
+             ∎
 
 rightIdentityUnique' : ∀ x u → x · u ≡ x → ε ≡ u
 rightIdentityUnique' x u xu≡x = {!-t 20 -m!}  -- Agsy fails
@@ -56,13 +57,14 @@ rightIdentityUnique' x u xu≡x = {!-t 20 -m!}  -- Agsy fails
 leftIdentityUnique : Σ G λ u → (∀ x → u · x ≡ x) ×
                                (∀ u' → (∀ x → u' · x ≡ x) → u ≡ u')
 -- Via Agsy {-m}
-leftIdentityUnique = ε ,
-                     leftIdentity ,
-                     λ x x' → begin
-                                ε     ≡⟨ sym (x' ε) ⟩
-                                x · ε ≡⟨ rightIdentity x ⟩
-                                x
-                              ∎
+leftIdentityUnique =
+  ε
+  , leftIdentity
+  , λ x x' → begin
+               ε     ≡⟨ sym (x' ε) ⟩
+               x · ε ≡⟨ rightIdentity x ⟩
+               x
+             ∎
 
 leftIdentityUnique' : ∀ x u → u · x ≡ x → ε ≡ u
 leftIdentityUnique' x u ux≡x = {!-t 20 -m!}

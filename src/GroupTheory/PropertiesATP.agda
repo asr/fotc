@@ -18,22 +18,20 @@ postulate x≡[xy]y⁻¹ : ∀ a b → a ≡ (a · b) · b ⁻¹
 {-# ATP prove x≡[xy]y⁻¹ #-}
 
 postulate
-  rightIdentityUnique : ∃[ u ] (∀ a → a · u ≡ a) ∧
-                               (∀ u' → (∀ a → a · u' ≡ a) → u ≡ u')
+  rightIdentityUnique : ∀ r → (∀ a → a · r ≡ a) → ε ≡ r
 {-# ATP prove rightIdentityUnique #-}
 
 -- A more appropiate version to be used in the proofs.
-postulate rightIdentityUnique' : ∀ a u → a · u ≡ a → ε ≡ u
+postulate rightIdentityUnique' : ∀ a r → a · r ≡ a → ε ≡ r
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove rightIdentityUnique' #-}
 
 postulate
-  leftIdentityUnique : ∃[ u ] (∀ a → u · a ≡ a) ∧
-                              (∀ u' → (∀ a → u' · a ≡ a) → u ≡ u')
+  leftIdentityUnique : ∀ l → (∀ a → l · a ≡ a) → ε ≡ l
 {-# ATP prove leftIdentityUnique #-}
 
 -- A more appropiate version to be used in the proofs.
-postulate leftIdentityUnique' : ∀ a u → u · a ≡ a → ε ≡ u
+postulate leftIdentityUnique' : ∀ a l → l · a ≡ a → ε ≡ l
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove leftIdentityUnique' #-}
 

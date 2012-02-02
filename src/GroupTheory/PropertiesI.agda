@@ -28,45 +28,41 @@ x≡[xy]y⁻¹ a b =
   a · (b · b ⁻¹) ≡⟨ sym (assoc a b (b ⁻¹)) ⟩
   a · b · b ⁻¹ ∎
 
-rightIdentityUnique : ∃[ u ] (∀ a → a · u ≡ a) ∧
-                             (∀ u' → (∀ a → a · u' ≡ a) → u ≡ u')
-rightIdentityUnique =
+rightIdentityUnique : ∀ r → (∀ a → a · r ≡ a) → ε ≡ r
 -- Paper proof:
 -- 1.  We know that ε is a right identity.
--- 2.  Let suppose there is other right identity u', i.e. ∀ a → au' ≡ a, then
--- 2.1 ε   = εu'  (Hypothesis)
--- 2.2 εu' = u    (Left identity)
--- 2.3 ε   = u    (Transitivity)
-  ε , rightIdentity , λ u' hyp → trans (sym (hyp ε)) (leftIdentity u')
+-- 2.  Let suppose there is other right identity r, i.e. ∀ a → ar ≡ a, then
+-- 2.1 ε  = εr  (Hypothesis)
+-- 2.2 εr = r   (Left identity)
+-- 2.3 ε  = r   (Transitivity)
+rightIdentityUnique r h = trans (sym (h ε)) (leftIdentity r)
 
 -- A more appropiate version to be used in the proofs.
 -- Adapted from the standard library.
-rightIdentityUnique' : ∀ a u → a · u ≡ a → ε ≡ u
-rightIdentityUnique' a u h =
+rightIdentityUnique' : ∀ a r → a · r ≡ a → ε ≡ r
+rightIdentityUnique' a r h =
   ε              ≡⟨ sym (leftInverse a) ⟩
   a ⁻¹ · a       ≡⟨ subst (λ t → a ⁻¹ · a ≡ a ⁻¹ · t ) (sym h) refl ⟩
-  a ⁻¹ · (a · u) ≡⟨ sym (y≡x⁻¹[xy] a u) ⟩
-  u ∎
+  a ⁻¹ · (a · r) ≡⟨ sym (y≡x⁻¹[xy] a r) ⟩
+  r ∎
 
-leftIdentityUnique : ∃[ u ] (∀ a → u · a ≡ a) ∧
-                            (∀ u' → (∀ a → u' · a ≡ a) → u ≡ u')
-leftIdentityUnique =
+leftIdentityUnique : ∀ l → (∀ a → l · a ≡ a) → ε ≡ l
 -- Paper proof:
 -- 1.  We know that ε is a left identity.
--- 2.  Let's suppose there is other left identity u', i.e. ∀ a → u'a ≡ a, then
--- 2.1 ε   = u'ε  (Hypothesis)
--- 2.2 u'ε = u    (Right identity)
--- 2.3 ε   = u    (Transitivity)
-  ε , leftIdentity , λ u' hyp → trans (sym (hyp ε)) (rightIdentity u')
+-- 2.  Let's suppose there is other left identity l, i.e. ∀ a → la ≡ a, then
+-- 2.1 ε  = lε  (Hypothesis)
+-- 2.2 lε = l   (Right identity)
+-- 2.3 ε  = l   (Transitivity)
+leftIdentityUnique l h = trans (sym (h ε)) (rightIdentity l)
 
 -- A more appropiate version to be used in the proofs.
 -- Adapted from the standard library.
-leftIdentityUnique' : ∀ a u → u · a ≡ a → ε ≡ u
-leftIdentityUnique' a u h =
+leftIdentityUnique' : ∀ a l → l · a ≡ a → ε ≡ l
+leftIdentityUnique' a l h =
   ε              ≡⟨ sym (rightInverse a) ⟩
   a · a ⁻¹       ≡⟨ subst (λ t → a · a ⁻¹ ≡ t · a ⁻¹) (sym h) refl ⟩
-  u · a · a ⁻¹   ≡⟨ sym (x≡[xy]y⁻¹ u a) ⟩
-  u ∎
+  l · a · a ⁻¹   ≡⟨ sym (x≡[xy]y⁻¹ l a) ⟩
+  l ∎
 
 rightCancellation : ∀ {a b c} → b · a ≡ c · a → b ≡ c
 rightCancellation {a} {b} {c} h =
@@ -223,14 +219,14 @@ x²≡ε→comm : (∀ a → a · a ≡ ε) → ∀ {b c d} → b · c ≡ d →
 -- 6. (db)b  = cb  (By 5).
 -- 7. d(bb)  = cb  (Associativity).
 -- 6. d      = cb  (Hypothesis bb = ε).
-x²≡ε→comm hyp {b} {c} {d} bc≡d = sym d≡cb
+x²≡ε→comm h {b} {c} {d} bc≡d = sym d≡cb
   where
   db≡c : d · b ≡ c
   db≡c =
     d · b
       ≡⟨ sym (rightIdentity (d · b)) ⟩
     d · b · ε
-      ≡⟨ subst (λ t → d · b · ε ≡ d · b · t) (sym (hyp c)) refl ⟩
+      ≡⟨ subst (λ t → d · b · ε ≡ d · b · t) (sym (h c)) refl ⟩
     d · b · (c · c)
       ≡⟨ assoc d b (c · c) ⟩
     d · (b · (c · c))
@@ -246,7 +242,7 @@ x²≡ε→comm hyp {b} {c} {d} bc≡d = sym d≡cb
     d · (d · c)
       ≡⟨ sym (assoc d d c) ⟩
     d · d · c
-      ≡⟨ subst (λ t → d · d · c ≡ t · c ) (hyp d) refl ⟩
+      ≡⟨ subst (λ t → d · d · c ≡ t · c ) (h d) refl ⟩
     ε · c
       ≡⟨ leftIdentity c ⟩
     c ∎
@@ -254,7 +250,7 @@ x²≡ε→comm hyp {b} {c} {d} bc≡d = sym d≡cb
   d≡cb : d ≡ c · b
   d≡cb =
     d           ≡⟨ sym (rightIdentity d) ⟩
-    d · ε       ≡⟨ subst (λ t → d · ε ≡ d · t) (sym (hyp b)) refl ⟩
+    d · ε       ≡⟨ subst (λ t → d · ε ≡ d · t) (sym (h b)) refl ⟩
     d · (b · b) ≡⟨ sym (assoc d b b) ⟩
     d · b · b   ≡⟨ x≡y→xz≡yz db≡c ⟩
     c · b ∎
