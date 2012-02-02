@@ -5,6 +5,9 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
+-- Tested with the development version of the standard libray on
+-- 02 February 2012.
+
 module Agsy.PA.Inductive.Properties where
 
 open import Data.Nat renaming (suc to succ)

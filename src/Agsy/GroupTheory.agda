@@ -5,6 +5,9 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
+-- Tested with the development version of the standard libray on
+-- 02 February 2012.
+
 module Agsy.GroupTheory where
 
 open import Data.Product
@@ -20,9 +23,9 @@ infixl 10 _·_  -- The symbol is '\cdot'
 -- Group theory axioms
 
 postulate
-  G   : Set        -- The group universe.
+  G   : Set        -- The universe.
   ε   : G          -- The identity element.
-  _·_ : G → G → G  -- The group binary operation.
+  _·_ : G → G → G  -- The binary operation.
   _⁻¹ : G → G      -- The inverse function.
 
   assoc         : ∀ x y z → x · y · z    ≡ x · (y · z)
@@ -41,30 +44,28 @@ x≡[xy]y⁻¹ a b = {!-t 20 -m!}  -- Agsy fails
 
 rightIdentityUnique : Σ G λ u → (∀ x → x · u ≡ x) ×
                                 (∀ u' → (∀ x → x · u' ≡ x) → u ≡ u')
--- Via Agsy {-m}
-rightIdentityUnique =
-  ε
-  , rightIdentity
-  , λ x x' → begin
-               ε     ≡⟨ sym (x' ε) ⟩
-               ε · x ≡⟨ leftIdentity x ⟩
-               x
-             ∎
+rightIdentityUnique = {!-t 20 -m!}  -- Agsy fails
+  -- ε
+  -- , rightIdentity
+  -- , λ x x' → begin
+  --              ε     ≡⟨ sym (x' ε) ⟩
+  --              ε · x ≡⟨ leftIdentity x ⟩
+  --              x
+  --            ∎
 
 rightIdentityUnique' : ∀ x u → x · u ≡ x → ε ≡ u
 rightIdentityUnique' x u xu≡x = {!-t 20 -m!}  -- Agsy fails
 
 leftIdentityUnique : Σ G λ u → (∀ x → u · x ≡ x) ×
                                (∀ u' → (∀ x → u' · x ≡ x) → u ≡ u')
--- Via Agsy {-m}
-leftIdentityUnique =
-  ε
-  , leftIdentity
-  , λ x x' → begin
-               ε     ≡⟨ sym (x' ε) ⟩
-               x · ε ≡⟨ rightIdentity x ⟩
-               x
-             ∎
+leftIdentityUnique = {!-t 20 -m!}  -- Agsy fails
+  -- ε
+  -- , leftIdentity
+  -- , λ x x' → begin
+  --              ε     ≡⟨ sym (x' ε) ⟩
+  --              x · ε ≡⟨ rightIdentity x ⟩
+  --              x
+  --            ∎
 
 leftIdentityUnique' : ∀ x u → u · x ≡ x → ε ≡ u
 leftIdentityUnique' x u ux≡x = {!-t 20 -m!}
