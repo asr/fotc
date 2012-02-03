@@ -97,9 +97,6 @@ leftCancellation {a} {b} {c} h =
 x≡y→xz≡yz : ∀ {a b c} → a ≡ b → a · c ≡ b · c
 x≡y→xz≡yz refl = refl
 
-x≡y→zx≡zy : ∀ {a b c} → a ≡ b → c · a ≡ c · b
-x≡y→zx≡zy refl = refl
-
 rightInverseUnique : ∀ {a} → ∃[ r ] (a · r ≡ ε) ∧
                                     (∀ r' → a · r' ≡ ε → r ≡ r')
 rightInverseUnique {a} =
