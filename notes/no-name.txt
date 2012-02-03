@@ -28,15 +28,11 @@ $ vampire -t xxx --input_file file_name
 -- Use the hint sN.
 -- Use the hints zN and sN.
 
-  -- begin
-  --   {!!}
-  --     ≡⟨ {!!} ⟩
-  --   {!!}
-  --     ≡⟨ {!!} ⟩
-  --   {!!}
-  --     ≡⟨ {!!} ⟩
-  --   {!!}
-  -- ∎
+Equational reasoning
+  {!!} ≡⟨ {!!} ⟩
+  {!!} ≡⟨ {!!} ⟩
+  {!!} ≡⟨ {!!} ⟩
+  {!!} ∎
 
 -- Tested with magda and agda2atp on
 -- Tested with the development version of Agda on
