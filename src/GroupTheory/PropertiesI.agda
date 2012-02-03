@@ -28,49 +28,47 @@ x≡[xy]y⁻¹ a b =
   a · (b · b ⁻¹) ≡⟨ sym (assoc a b (b ⁻¹)) ⟩
   a · b · b ⁻¹ ∎
 
-rightIdentityUnique : ∀ r → (∀ a → a · r ≡ a) → ε ≡ r
--- Paper proof:
--- 1.  We know that ε is a right identity.
--- 2.  Let suppose there is other right identity r, i.e. ∀ a → ar ≡ a, then
--- 2.1 ε  = εr  (Hypothesis)
--- 2.2 εr = r   (Left identity)
--- 2.3 ε  = r   (Transitivity)
-rightIdentityUnique r h = trans (sym (h ε)) (leftIdentity r)
+rightIdentityUnique : ∀ r → (∀ a → a · r ≡ a) → r ≡ ε
+-- Paper proof (Saunders Mac Lane and Garret Birkhoff. Algebra. AMS
+-- Chelsea Publishing, 3rd edition, 1999. p. 48):
+--
+-- 1. r  = εr (ε is an identity)
+-- 2. εr = r  (hypothesis)
+-- 3. r  = ε  (transitivity)
+rightIdentityUnique r h = trans (sym (leftIdentity r)) (h ε)
 
 -- A more appropiate version to be used in the proofs.
 -- Adapted from the standard library.
-rightIdentityUnique' : ∀ a r → a · r ≡ a → ε ≡ r
+rightIdentityUnique' : ∀ a r → a · r ≡ a → r ≡ ε
 rightIdentityUnique' a r h =
-  ε              ≡⟨ sym (leftInverse a) ⟩
-  a ⁻¹ · a       ≡⟨ subst (λ t → a ⁻¹ · a ≡ a ⁻¹ · t ) (sym h) refl ⟩
-  a ⁻¹ · (a · r) ≡⟨ sym (y≡x⁻¹[xy] a r) ⟩
-  r ∎
+  r              ≡⟨ y≡x⁻¹[xy] a r ⟩
+  a ⁻¹ · (a · r) ≡⟨ cong (_·_ (a ⁻¹)) h ⟩
+  a ⁻¹ · a       ≡⟨ leftInverse a ⟩
+  ε ∎
 
-leftIdentityUnique : ∀ l → (∀ a → l · a ≡ a) → ε ≡ l
+leftIdentityUnique : ∀ l → (∀ a → l · a ≡ a) → l ≡ ε
 -- Paper proof:
--- 1.  We know that ε is a left identity.
--- 2.  Let's suppose there is other left identity l, i.e. ∀ a → la ≡ a, then
--- 2.1 ε  = lε  (Hypothesis)
--- 2.2 lε = l   (Right identity)
--- 2.3 ε  = l   (Transitivity)
-leftIdentityUnique l h = trans (sym (h ε)) (rightIdentity l)
+-- 1. l  = le (ε is an identity)
+-- 2. le = e  (hypothesis)
+-- 3. l  = e  (transitivity)
+leftIdentityUnique l h = trans (sym (rightIdentity l)) (h ε)
 
 -- A more appropiate version to be used in the proofs.
 -- Adapted from the standard library.
-leftIdentityUnique' : ∀ a l → l · a ≡ a → ε ≡ l
+leftIdentityUnique' : ∀ a l → l · a ≡ a → l ≡ ε
 leftIdentityUnique' a l h =
-  ε              ≡⟨ sym (rightInverse a) ⟩
-  a · a ⁻¹       ≡⟨ subst (λ t → a · a ⁻¹ ≡ t · a ⁻¹) (sym h) refl ⟩
-  l · a · a ⁻¹   ≡⟨ sym (x≡[xy]y⁻¹ l a) ⟩
-  l ∎
+  l            ≡⟨ x≡[xy]y⁻¹ l a ⟩
+  l · a · a ⁻¹ ≡⟨ subst (λ t → l · a · a ⁻¹ ≡ t · a ⁻¹ ) h refl ⟩
+  a · a ⁻¹ ≡⟨ rightInverse a ⟩
+  ε ∎
 
 rightCancellation : ∀ {a b c} → b · a ≡ c · a → b ≡ c
 rightCancellation {a} {b} {c} h =
 -- Paper proof:
--- 1. (ba)a⁻¹  = (ca)a⁻¹  (Hypothesis ab = ac).
--- 2. (b)aa⁻¹  = (c)aa⁻¹  (Associative).
--- 3. bε       = cε       (Right inverse).
--- 4. b        = c        (Right identity).
+-- 1. (ba)a⁻¹  = (ca)a⁻¹  (hypothesis ab = ac)
+-- 2. (b)aa⁻¹  = (c)aa⁻¹  (associative axiom)
+-- 3. bε       = cε       (right-inverse axiom for a⁻¹)
+-- 4. b        = c        (right-identity axiom)
   b              ≡⟨ sym (rightIdentity b) ⟩
   b · ε          ≡⟨ subst (λ t → b · ε ≡ b · t) (sym (rightInverse a)) refl ⟩
   b · (a · a ⁻¹) ≡⟨ sym (assoc b a (a ⁻¹)) ⟩
@@ -83,10 +81,10 @@ rightCancellation {a} {b} {c} h =
 leftCancellation : ∀ {a b c} → a · b ≡ a · c → b ≡ c
 leftCancellation {a} {b} {c} h =
 -- Paper proof:
--- 1. a⁻¹(ab)  = a⁻¹(ac)  (Hypothesis ab = ac).
--- 2. a⁻¹a(b)  = a⁻¹a(c)  (Associative).
--- 3. εb       = εc       (Left inverse).
--- 4. b        = c        (Left identity).
+-- 1. a⁻¹(ab)  = a⁻¹(ac)  (hypothesis ab = ac)
+-- 2. a⁻¹a(b)  = a⁻¹a(c)  (associative axiom)
+-- 3. εb       = εc       (left-inverse axiom for a⁻¹)
+-- 4. b        = c        (left-identity axiom)
   b              ≡⟨ sym (leftIdentity b) ⟩
   ε · b          ≡⟨ subst (λ t → ε · b ≡ t · b) (sym (leftInverse a)) refl ⟩
   a ⁻¹ · a · b   ≡⟨ assoc (a ⁻¹) a b ⟩
@@ -108,10 +106,10 @@ rightInverseUnique {a} =
 -- Paper proof:
 -- 1.   We know that (a⁻¹) is a right inverse for a.
 -- 2.   Let's suppose there is other right inverse r for a, i.e. ar ≡ ε, then
--- 2.1. aa⁻¹ = ε  (Right inverse).
--- 2.2. ar   = ε  (Hypothesis).
--- 2.3. aa⁻¹ = ar (Transitivity).
--- 2.4  a⁻¹  = a  (Left cancellation).
+-- 2.1. aa⁻¹ = ε  (right-inverse axiom)
+-- 2.2. ar   = ε  (hypothesis)
+-- 2.3. aa⁻¹ = ar (transitivity)
+-- 2.4  a⁻¹  = a  (left-cancellation)
   (a ⁻¹) , rightInverse a , prf
     where
     prf : ∀ r' → a · r' ≡ ε → a ⁻¹ ≡ r'
@@ -137,10 +135,10 @@ leftInverseUnique {a} =
 -- Paper proof:
 -- 1.   We know that (a⁻¹) is a left inverse for a.
 -- 2.   Let's suppose there is other right inverse l for a, i.e. la ≡ ε, then
--- 2.1. a⁻¹a = ε  (Left inverse).
--- 2.2. la   = ε  (Hypothesis).
--- 2.3. a⁻¹a = la (Transitivity).
--- 2.4  a⁻¹  = l  (Right cancellation).
+-- 2.1. a⁻¹a = ε  (left-inverse axiom)
+-- 2.2. la   = ε  (hypothesis)
+-- 2.3. a⁻¹a = la (transitivity)
+-- 2.4  a⁻¹  = l  (right-cancellation)
   (a ⁻¹) , leftInverse a , prf
     where
     prf : ∀ l' → l' · a ≡ ε → a ⁻¹ ≡ l'
@@ -162,25 +160,25 @@ leftInverseUnique' {a} {l} la≡ε = rightCancellation a⁻¹a≡la
 
 ⁻¹-involutive : ∀ a → a ⁻¹ ⁻¹ ≡ a
 -- Paper proof:
--- 1. a⁻¹a = ε  (Left inverse).
+-- 1. a⁻¹a = ε  (left-inverse axiom)
 -- 2. The previous equation states that a is the unique right
 -- inverse (a⁻¹)⁻¹ of a⁻¹.
 ⁻¹-involutive a = rightInverseUnique' (leftInverse a)
 
 identityInverse : ε ⁻¹ ≡ ε
 -- Paper proof:
--- 1. εε = ε  (Left/Right identity).
+-- 1. εε = ε  (left/right-identity axiom)
 -- 2. The previous equation states that ε is the unique left/right
 -- inverse ε⁻¹ of ε.
 identityInverse = rightInverseUnique' (leftIdentity ε)
 
 inverseDistribution : ∀ a b → (a · b) ⁻¹ ≡ b ⁻¹ · a ⁻¹
 -- Paper proof:
--- (b⁻¹a⁻¹)(ab) = b⁻¹(a⁻¹(ab))  (Associative).
---              = b⁻¹(a⁻¹a)b    (Associative).
---              = b⁻¹(εb)       (Left inverse).
---              = b⁻¹b          (Left identity).
---              = ε             (Left inverse)
+-- (b⁻¹a⁻¹)(ab) = b⁻¹(a⁻¹(ab))  (associative axiom)
+--              = b⁻¹(a⁻¹a)b    (associative axiom)
+--              = b⁻¹(εb)       (left-inverse axiom)
+--              = b⁻¹b          (left-identity axiom)
+--              = ε             (left-inverse axiom)
 -- Therefore, b⁻¹a⁻¹ is the unique left inverse of ab.
 inverseDistribution a b = leftInverseUnique' b⁻¹a⁻¹[ab]≡ε
   where
@@ -211,14 +209,14 @@ inverseDistribution a b = leftInverseUnique' b⁻¹a⁻¹[ab]≡ε
 -- From: TPTP v5.3.0. File: Problems/GRP/GRP001-2.p
 x²≡ε→comm : (∀ a → a · a ≡ ε) → ∀ {b c d} → b · c ≡ d → c · b ≡ d
 -- Paper proof:
--- 1. d(bc)  = dd  (Hypothesis bc = d).
--- 2. d(bc)  = ε   (Hypothesis dd = ε).
--- 3. d(bc)c = c   (By 2).
--- 4. db(cc) = c   (Associativity).
--- 5. db     = c   (Hypothesis cc = ε).
--- 6. (db)b  = cb  (By 5).
--- 7. d(bb)  = cb  (Associativity).
--- 6. d      = cb  (Hypothesis bb = ε).
+-- 1. d(bc)  = dd  (hypothesis bc = d)
+-- 2. d(bc)  = ε   (hypothesis dd = ε)
+-- 3. d(bc)c = c   (by 2)
+-- 4. db(cc) = c   (associativity axiom)
+-- 5. db     = c   (hypothesis cc = ε)
+-- 6. (db)b  = cb  (by 5)
+-- 7. d(bb)  = cb  (associativity axiom)
+-- 6. d      = cb  (hypothesis bb = ε)
 x²≡ε→comm h {b} {c} {d} bc≡d = sym d≡cb
   where
   db≡c : d · b ≡ c
