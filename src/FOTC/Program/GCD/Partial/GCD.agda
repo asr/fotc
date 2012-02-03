@@ -12,7 +12,7 @@ open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
 
 ------------------------------------------------------------------------------
--- In GHC 7.0.3 the gcd is a partial function, i.e. gcd 0 0 = undefined.
+-- In GHC <= 7.0.4 the gcd is a partial function, i.e. gcd 0 0 = undefined.
 
 postulate
   gcd    : D → D → D

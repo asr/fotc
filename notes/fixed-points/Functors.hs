@@ -1,6 +1,7 @@
--- Tested with GHC 7.0.3
+-- Tested with GHC 7.2.2
 
 {-# LANGUAGE ExistentialQuantification #-}
+{-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE UnicodeSyntax #-}
 

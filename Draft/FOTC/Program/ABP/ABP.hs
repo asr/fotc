@@ -1,7 +1,7 @@
+-- Tested with GHC 7.2.2.
+
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
-
--- Tested with GHC 7.2.1
 
 -- The alternating bit protocol following [1].
 
