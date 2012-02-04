@@ -9,8 +9,8 @@ module PA.Axiomatic.Base where
 
 -- We add 3 to the fixities of the standard library.
 infixl 10 _*_
-infix  7  _≣_
 infixl 9  _+_
+infix  7  _≣_
 
 ------------------------------------------------------------------------------
 -- PA universe
@@ -54,7 +54,7 @@ postulate
   S₄ : ∀ {m n} → succ m ≣ succ n → m ≣ n
   S₅ : ∀ n → zero + n ≣ n
   S₆ : ∀ m n → succ m + n ≣ succ (m + n)
-  S₇ : ∀ n → zero   * n ≣ zero
+  S₇ : ∀ n → zero * n ≣ zero
   S₈ : ∀ m n → succ m * n ≣ n + m * n
 {-# ATP axiom S₁ S₂ S₃ S₄ S₅ S₆ S₇ S₈ #-}
 
