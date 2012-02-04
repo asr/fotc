@@ -28,7 +28,7 @@ postulate
 
 -- The PA equality.
 -- N.B. The symbol _≡_ should not be used because it is hard-coded by
--- the tool agda2atp as the ATPs equality.
+-- the program agda2atp as the ATPs equality.
 postulate _≣_ : ℕ → ℕ → Set
 
 -- Proper axioms

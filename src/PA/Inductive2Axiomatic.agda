@@ -7,7 +7,7 @@
 
 -- From the definition of PA using Agda data types and primitive
 -- recursive functions for addition and multiplication, we can prove the
--- Mendelson's axioms [1]
+-- Mendelson's axioms [1].
 
 -- N.B. We make the recursion in the first argument for _+_ and _*_.
 
@@ -21,8 +21,8 @@
 -- S₈. succ m * n = (m * n) + m
 -- S₉. P(0) → (∀n.P(n) → P(succ n)) → ∀n.P(n), for any wf P(n) of PA.
 
--- [1]. Elliott Mendelson. Introduction to mathematical logic. Chapman
--- & Hall, 4th edition, 1997, p. 155.
+-- [1]. Elliott Mendelson. Introduction to mathematical
+--      logic. Chapman& Hall, 4th edition, 1997, p. 155.
 
 module PA.Inductive2Axiomatic where
 
