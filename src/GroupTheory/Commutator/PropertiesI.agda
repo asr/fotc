@@ -14,6 +14,8 @@ open import GroupTheory.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 
+-- From: A. G. Kurosh. The Theory of Groups, vol. 1. Chelsea Publising
+-- Company, 2nd edition, 1960. p. 99.
 ⟦x,y⟧⟦y,x⟧≡ε : ∀ a b → ⟦ a , b ⟧ · ⟦ b , a ⟧ ≡ ε
 ⟦x,y⟧⟦y,x⟧≡ε a b =
   a ⁻¹ · b ⁻¹ · a · b · (b ⁻¹ · a ⁻¹ · b · a)
