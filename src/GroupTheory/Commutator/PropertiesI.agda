@@ -16,8 +16,8 @@ open import GroupTheory.Relation.Binary.EqReasoning
 
 -- From: A. G. Kurosh. The Theory of Groups, vol. 1. Chelsea Publising
 -- Company, 2nd edition, 1960. p. 99.
-⟦x,y⟧⟦y,x⟧≡ε : ∀ a b → ⟦ a , b ⟧ · ⟦ b , a ⟧ ≡ ε
-⟦x,y⟧⟦y,x⟧≡ε a b =
+commutatorInverse : ∀ a b → ⟦ a , b ⟧ · ⟦ b , a ⟧ ≡ ε
+commutatorInverse a b =
   a ⁻¹ · b ⁻¹ · a · b · (b ⁻¹ · a ⁻¹ · b · a)
     ≡⟨ assoc (a ⁻¹ · b ⁻¹ · a) b (b ⁻¹ · a ⁻¹ · b · a) ⟩
   a ⁻¹ · b ⁻¹ · a · (b · (b ⁻¹ · a ⁻¹ · b · a))
@@ -71,10 +71,25 @@ open import GroupTheory.Relation.Binary.EqReasoning
              refl
     ⟩
   a ⁻¹ · b ⁻¹ · (b · a)
-    ≡⟨ subst (λ t → a ⁻¹ · b ⁻¹ · (b · a) ≡ t · (b · a))
-             (sym (inverseDistribution b a))
+    ≡⟨ subst (λ t → a ⁻¹ · b ⁻¹ · (b · a) ≡ t)
+             (assoc (a ⁻¹) (b ⁻¹) ((b · a)))
              refl
     ⟩
-  (b · a)⁻¹ · (b · a)
-     ≡⟨ leftInverse (b · a) ⟩
+  a ⁻¹ · (b ⁻¹ · (b · a))
+     ≡⟨ subst (λ t → a ⁻¹ · (b ⁻¹ · (b · a)) ≡ a ⁻¹ · t)
+              (sym (assoc (b ⁻¹) b a))
+              refl
+     ⟩
+  a ⁻¹ · ((b ⁻¹ · b) · a)
+     ≡⟨ subst (λ t → a ⁻¹ · ((b ⁻¹ · b) · a) ≡ a ⁻¹ · (t · a))
+              (leftInverse b)
+              refl
+     ⟩
+  a ⁻¹ · (ε · a)
+     ≡⟨ subst (λ t → a ⁻¹ · (ε · a) ≡ a ⁻¹ · t)
+              (leftIdentity a)
+              refl
+     ⟩
+  a ⁻¹ · a
+     ≡⟨ leftInverse a ⟩
   ε ∎
