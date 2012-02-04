@@ -65,8 +65,8 @@ x+Sy≣S[x+y] m n = S₉ P P0 is m
   -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove is x+Sy≣S[x+y] #-}
 
-x≣y→x+z≣y+z : ∀ {m n} o → m ≣ n → m + o ≣ n + o
-x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 is o
++-cong₁ : ∀ {m n} o → m ≣ n → m + o ≣ n + o
++-cong₁ {m} {n} o m≣n = S₉ P P0 is o
   where
   P : ℕ → Set
   P i = m + i ≣ n + i
@@ -96,7 +96,7 @@ x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 is o
     P0 : P zero
   -- E 1.2: CPU time limit exceeded (180 sec).
   -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-  {-# ATP prove P0 x≣y→x+z≣y+z #-}
+  {-# ATP prove P0 +-cong₁ #-}
 
   postulate
     is : ∀ i → P i → P (succ i)
@@ -105,4 +105,4 @@ x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 is o
   -- Metis 2.3 (release 20110926): SZS status Unknown (using timeout 180 sec).
   -- SPASS 3.7: Ran out of time (using timeout 180 sec).
   -- Vampire 0.6 (revision 903): Time limit (180 sec).
-  -- {-# ATP prove is x≣y→x+z≣y+z #-}
+  -- {-# ATP prove is +-cong₁ #-}

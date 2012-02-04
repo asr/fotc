@@ -94,8 +94,8 @@ leftCancellation {a} {b} {c} h =
   ε · c          ≡⟨ leftIdentity c ⟩
   c ∎
 
-x≡y→xz≡yz : ∀ {a b c} → a ≡ b → a · c ≡ b · c
-x≡y→xz≡yz refl = refl
+·-cong₁ : ∀ {a b c} → a ≡ b → a · c ≡ b · c
+·-cong₁ refl = refl
 
 rightInverseUnique : ∀ {a} → ∃[ r ] (a · r ≡ ε) ∧
                                     (∀ r' → a · r' ≡ ε → r ≡ r')
@@ -247,5 +247,5 @@ x²≡ε→comm h {b} {c} {d} bc≡d = sym d≡cb
     d           ≡⟨ sym (rightIdentity d) ⟩
     d · ε       ≡⟨ subst (λ t → d · ε ≡ d · t) (sym (h b)) refl ⟩
     d · (b · b) ≡⟨ sym (assoc d b b) ⟩
-    d · b · b   ≡⟨ x≡y→xz≡yz db≡c ⟩
+    d · b · b   ≡⟨ ·-cong₁ db≡c ⟩
     c · b ∎

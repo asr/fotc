@@ -61,8 +61,8 @@ x+Sy≣S[x+y] m n = S₉ P P0 is m
             succ (n + i) ≣⟨ sym (x+Sy≣S[x+y] n i) ⟩
             n + succ i ∎
 
-x≣y→x+z≣y+z : ∀ {m n} o → m ≣ n → m + o ≣ n + o
-x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 is o
++-cong₁ : ∀ {m n} o → m ≣ n → m + o ≣ n + o
++-cong₁ {m} {n} o m≣n = S₉ P P0 is o
   where
   P : ℕ → Set
   P i = m + i ≣ n + i
@@ -86,12 +86,12 @@ x≣y→x+z≣y+z {m} {n} o m≣n = S₉ P P0 is o
   P i = i + n + o ≣ i + (n + o)
 
   P0 : P zero
-  P0 = zero + n + o  ≣⟨ x≣y→x+z≣y+z o (S₅ n) ⟩
+  P0 = zero + n + o  ≣⟨ +-cong₁ o (S₅ n) ⟩
        n + o         ≣⟨ sym (S₅ (n + o)) ⟩
        zero + (n + o) ∎
 
   is : ∀ i → P i → P (succ i)
-  is i Pi = succ i + n + o     ≣⟨ x≣y→x+z≣y+z o (S₆ i n) ⟩
+  is i Pi = succ i + n + o     ≣⟨ +-cong₁ o (S₆ i n) ⟩
             succ (i + n) + o   ≣⟨ S₆ (i + n) o ⟩
             succ (i + n + o)   ≣⟨ S₂ Pi ⟩
             succ (i + (n + o)) ≣⟨ sym (S₆ i (n + o)) ⟩
