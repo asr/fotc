@@ -43,12 +43,6 @@ postulate leftCancellation : ∀ {a b c} → a · b ≡ a · c → b ≡ c
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove leftCancellation #-}
 
-x≡y→xz≡yz : ∀ {a b c} → a ≡ b → a · c ≡ b · c
-x≡y→xz≡yz refl = refl
-
-x≡y→zx≡zy : ∀ {a b c} → a ≡ b → c · a ≡ c · b
-x≡y→zx≡zy refl = refl
-
 postulate
   rightInverseUnique : ∀ {a} → ∃[ r ] (a · r ≡ ε) ∧
                                       (∀ r' → a · r' ≡ ε → r ≡ r')
