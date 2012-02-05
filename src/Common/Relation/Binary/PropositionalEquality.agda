@@ -28,10 +28,10 @@ module Inductive where
   sym refl = refl
 
   trans : ∀ {x y z} → x ≡ y → y ≡ z → x ≡ z
-  trans refl y≡z = y≡z
+  trans refl h = h
 
   trans₂ : ∀ {w x y z} → w ≡ x → x ≡ y → y ≡ z → w ≡ z
-  trans₂ refl refl y≡z = y≡z
+  trans₂ refl refl h = h
 
   subst : ∀ (P : D → Set) {x y} → x ≡ y → P x → P y
   subst P refl Px = Px
@@ -61,6 +61,9 @@ module Inductive where
           f x₁ x₂ ≡ f y₁ y₂
   cong₂ f refl refl = refl
 
+  leftCong₂ : ∀ (f : D → D → D) {x y z} → x ≡ y → f x z ≡ f y z
+  leftCong₂ f refl = refl
+
 ------------------------------------------------------------------------------
 -- The propositional equality via its induction principle.
 
@@ -78,13 +81,13 @@ module NonInductive where
   -- Identity properties
 
   sym : ∀ {x y} → x ≡ y → y ≡ x
-  sym {x} x≡y = J (λ y' → y' ≡ x) x≡y refl
+  sym {x} h = J (λ y' → y' ≡ x) h refl
 
   trans : ∀ {x y z} → x ≡ y → y ≡ z → x ≡ z
-  trans {x} {z = z} x≡y = J (λ y' → y' ≡ z → x ≡ z) x≡y (λ pr → pr)
+  trans {x} {z = z} h = J (λ y' → y' ≡ z → x ≡ z) h (λ pr → pr)
 
   trans₂ : ∀ {w x y z} → w ≡ x → x ≡ y → y ≡ z → w ≡ z
-  trans₂ w≡x x≡y y≡z = trans (trans w≡x x≡y) y≡z
+  trans₂ h₁ h₂ h₃ = trans (trans h₁ h₂) h₃
 
   subst : ∀ (P : D → Set) {x y} → x ≡ y → P x → P y
   subst = J
@@ -99,11 +102,14 @@ module NonInductive where
           (subst (λ y₂' → P x₁ y₂') x₂≡y₂ Px₁x₂)
 
   cong : ∀ (f : D → D) {x y} → x ≡ y → f x ≡ f y
-  cong f {x} x≡y = subst (λ x' → f x ≡ f x') x≡y refl
+  cong f {x} h = subst (λ x' → f x ≡ f x') h refl
 
   cong₂ : ∀ (f : D → D → D) {x₁ x₂ y₁ y₂} → x₁ ≡ y₁ → x₂ ≡ y₂ →
           f x₁ x₂ ≡ f y₁ y₂
-  cong₂ f {x₁} {x₂} {y₁} {y₂} x₁≡y₁ x₂≡y₂ =
+  cong₂ f {x₁} {x₂} {y₁} {y₂} h₁ h₂ =
     subst (λ x₁' → f x₁ x₂ ≡ f x₁' y₂)
-          x₁≡y₁
-          (subst (λ x₂' → f x₁ x₂ ≡ f x₁ x₂') x₂≡y₂ refl)
+          h₁
+          (subst (λ x₂' → f x₁ x₂ ≡ f x₁ x₂') h₂ refl)
+
+  leftCong₂ : ∀ (f : D → D → D) {x y z} → x ≡ y → f x z ≡ f y z
+  leftCong₂ f {x} {z = z} h = subst (λ x' → f x z ≡ f x' z) h refl

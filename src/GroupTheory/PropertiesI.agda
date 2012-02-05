@@ -94,8 +94,17 @@ leftCancellation {a} {b} {c} h =
   ε · c          ≡⟨ leftIdentity c ⟩
   c ∎
 
-·-cong₁ : ∀ {a b c} → a ≡ b → a · c ≡ b · c
-·-cong₁ refl = refl
+-- A different proof using congruence.
+leftCancellation₁ : ∀ {a b c} → a · b ≡ a · c → b ≡ c
+leftCancellation₁ {a} {b} {c} h =
+  b              ≡⟨ sym (leftIdentity b) ⟩
+  ε · b          ≡⟨ leftCong₂ _·_ (sym (leftInverse a)) ⟩
+  a ⁻¹ · a · b   ≡⟨ assoc (a ⁻¹) a b ⟩
+  a ⁻¹ · (a · b) ≡⟨ cong (_·_ (a ⁻¹)) h ⟩
+  a ⁻¹ · (a · c) ≡⟨ sym (assoc (a ⁻¹) a c) ⟩
+  a ⁻¹ · a · c   ≡⟨ leftCong₂ _·_ (leftInverse a) ⟩
+  ε · c          ≡⟨ leftIdentity c ⟩
+  c ∎
 
 rightInverseUnique : ∀ {a} → ∃[ r ] (a · r ≡ ε) ∧
                                     (∀ r' → a · r' ≡ ε → r ≡ r')
@@ -247,5 +256,5 @@ x²≡ε→comm h {b} {c} {d} bc≡d = sym d≡cb
     d           ≡⟨ sym (rightIdentity d) ⟩
     d · ε       ≡⟨ subst (λ t → d · ε ≡ d · t) (sym (h b)) refl ⟩
     d · (b · b) ≡⟨ sym (assoc d b b) ⟩
-    d · b · b   ≡⟨ ·-cong₁ db≡c ⟩
+    d · b · b   ≡⟨ leftCong₂ _·_ db≡c ⟩
     c · b ∎
