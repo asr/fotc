@@ -12,6 +12,6 @@ open import PredicateLogic.NonEmptyDomain.TheoremsATP
 open import PredicateLogic.NonEmptyDomain.TheoremsI
 open import PredicateLogic.Propositional.TheoremsATP
 open import PredicateLogic.Propositional.TheoremsI
-open import PredicateLogic.SchemasATP
+open import PredicateLogic.SchemataATP
 open import PredicateLogic.TheoremsATP
 open import PredicateLogic.TheoremsI

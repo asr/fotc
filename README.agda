@@ -50,8 +50,8 @@ open import PredicateLogic.Propositional.TheoremsI
 open import PredicateLogic.TheoremsATP
 open import PredicateLogic.TheoremsI
 
--- 1.4 Logical schemas
-open import PredicateLogic.SchemasATP
+-- 1.4 Logical schemata
+open import PredicateLogic.SchemataATP
 
 -- 1.5 Non-empty domains
 open import PredicateLogic.NonEmptyDomain.TheoremsATP

@@ -1,10 +1,10 @@
 ------------------------------------------------------------------------------
--- Testing the use of schemas
+-- Testing the use of schemata
 ------------------------------------------------------------------------------
 
 -- Tested with magda and agda2atp on 07 February 2012.
 
-module Draft.PredicateLogic.SchemasInstances.TestATP where
+module Draft.PredicateLogic.SchemataInstances.TestATP where
 
 open import PredicateLogic.Constants
 

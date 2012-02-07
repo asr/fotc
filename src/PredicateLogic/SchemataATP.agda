@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Examples of translation of logical schemas
+-- Examples of translation of logical schemata
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module PredicateLogic.SchemasATP where
+module PredicateLogic.SchemataATP where
 
 open import PredicateLogic.Constants
 
