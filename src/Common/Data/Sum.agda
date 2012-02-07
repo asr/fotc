@@ -22,6 +22,6 @@ data _∨_ (A B : Set) : Set where
 -- It is not strictly necessary define the eliminator [_,_] because
 -- the ATPs implement it. For the same reason, it is not necessary to
 -- add it as a (general/local) hint.
-[_,_] : ∀ {A B} {C : Set} → (A → C) → (B → C) → A ∨ B → C
+[_,_] : ∀ {A B} → {C : Set} → (A → C) → (B → C) → A ∨ B → C
 [ f , g ] (inj₁ x) = f x
 [ f , g ] (inj₂ y) = g y

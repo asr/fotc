@@ -2,6 +2,8 @@
 -- Propositional equality
 ------------------------------------------------------------------------------
 
+-- Tested with the development version of Agda on 07 February 2012.
+
 module MyPropositionalEquality where
 
 -- We add 3 to the fixities of the standard library.
@@ -14,13 +16,13 @@ data _≡_ {A : Set}(x : A) : A → Set where
 
 -- Identity properties
 
-sym : ∀ {A} {x y : A} → x ≡ y → y ≡ x
+sym : ∀ {A} → {x y : A} → x ≡ y → y ≡ x
 sym refl = refl
 
-trans : ∀ {A} {x y z : A} → x ≡ y → y ≡ z → x ≡ z
+trans : ∀ {A} → {x y z : A} → x ≡ y → y ≡ z → x ≡ z
 trans refl y≡z = y≡z
 
-cong : ∀ {A B : Set} (f : A → B) {x y} → x ≡ y → f x ≡ f y
+cong : {A B : Set} (f : A → B) → ∀ {x y} → x ≡ y → f x ≡ f y
 cong f refl = refl
 
 module ≡-Reasoning where

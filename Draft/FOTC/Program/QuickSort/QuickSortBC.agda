@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 -- Tested with the development version of the standard library on
--- 07 October 2011.
+-- 07 February 2012.
 
 module QuickSortBC where
 
@@ -74,7 +74,7 @@ wf-⟪′ = InvImg.well-founded <-well-founded
 
 -- The quicksort algorithm is total.
 
-filter-length : ∀ {A : Set} (p : A → Bool) xs →
+filter-length : {A : Set}(p : A → Bool) → ∀ xs →
                 length (filter p xs) ≤′ length xs
 filter-length p []       = ≤′-refl
 filter-length p (x ∷ xs) with p x
