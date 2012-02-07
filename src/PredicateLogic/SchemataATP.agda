@@ -16,7 +16,7 @@ postulate _≡_ : D → D → Set
 module NonSchemas where
 
   postulate
-    P Q R    : Set
+    A B C    : Set
     P₁       : D → Set
     P₂ Q₂    : D → D → Set
     P₃ Q₃ R₃ : D → D → D → Set
@@ -33,7 +33,7 @@ module NonSchemas where
   postulate f₃-refl : ∀ x y z  → f₃ x y z ≡ f₃ x y z
   {-# ATP prove f₃-refl #-}
 
-  postulate id : P → P
+  postulate id : A → A
   {-# ATP prove id #-}
 
   postulate id₁ : ∀ {x} → P₁ x → P₁ x
@@ -42,13 +42,13 @@ module NonSchemas where
   postulate id₂ : ∀ {x y} → P₂ x y → P₂ x y
   {-# ATP prove id₂ #-}
 
-  postulate ∨-comm : P ∨ Q → Q ∨ P
+  postulate ∨-comm : A ∨ B → B ∨ A
   {-# ATP prove ∨-comm #-}
 
   postulate ∨-comm₂ : ∀ {x y} → P₂ x y ∨ Q₂ x y → Q₂ x y ∨ P₂ x y
   {-# ATP prove ∨-comm₂ #-}
 
-  postulate ∧∨-dist : P ∧ (Q ∨ R) ↔ P ∧ Q ∨ P ∧ R
+  postulate ∧∨-dist : A ∧ (B ∨ C) ↔ A ∧ B ∨ A ∧ C
   {-# ATP prove ∧∨-dist #-}
 
   postulate

@@ -18,7 +18,7 @@ infixr 3 _⇒_
 
 -- Implication.
 _⇒_ : Set → Set → Set
-P ⇒ Q = P → Q
+A ⇒ B = A → B
 
 -- Universal quantification.
 ⋀ : (P : D → Set) → Set

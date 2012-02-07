@@ -15,14 +15,14 @@ open import PredicateLogic.Constants
 ------------------------------------------------------------------------------
 
 -- The principle of the excluded middle.
-postulate pem : ∀ {P} → P ∨ ¬ P
+postulate pem : ∀ {A} → A ∨ ¬ A
 {-# ATP prove pem #-}
 
 -- The principle of indirect proof (proof by contradiction).
-postulate ¬E : ∀ {P} → (¬ P → ⊥) → P
+postulate ¬E : ∀ {A} → (¬ A → ⊥) → A
 {-# ATP prove ¬E #-}
 
 -- The reductio ab absurdum rule. (Some authors uses this name for the
 -- principle of indirect proof).
-postulate raa : ∀ {P} → (¬ P → P) → P
+postulate raa : ∀ {A} → (¬ A → A) → A
 {-# ATP prove raa #-}

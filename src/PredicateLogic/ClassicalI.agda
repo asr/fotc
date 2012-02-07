@@ -15,14 +15,14 @@ open import PredicateLogic.Constants
 ------------------------------------------------------------------------------
 
 -- The principle of the excluded middle.
-postulate pem : ∀ {P} → P ∨ ¬ P
+postulate pem : ∀ {A} → A ∨ ¬ A
 {-# ATP prove pem #-}
 
 -- The principle of indirect proof (proof by contradiction).
-¬E : ∀ {P} → (¬ P → ⊥) → P
-¬E h = [ (λ p → p) , (λ ¬p → ⊥-elim (h ¬p)) ] pem
+¬E : ∀ {A} → (¬ A → ⊥) → A
+¬E h = [ (λ a → a) , (λ ¬a → ⊥-elim (h ¬a)) ] pem
 
 -- The reductio ab absurdum rule. (Some authors uses this name for the
 -- principle of indirect proof).
-raa : ∀ {P} → (¬ P → P) → P
-raa h = [ (λ p → p) , h ] pem
+raa : ∀ {A} → (¬ A → A) → A
+raa h = [ (λ a → a) , h ] pem

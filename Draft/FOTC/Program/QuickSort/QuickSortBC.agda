@@ -74,12 +74,12 @@ wf-⟪′ = InvImg.well-founded <-well-founded
 
 -- The quicksort algorithm is total.
 
-filter-length : {A : Set}(p : A → Bool) → ∀ xs →
-                length (filter p xs) ≤′ length xs
-filter-length p []       = ≤′-refl
-filter-length p (x ∷ xs) with p x
-... | true  = ≤⇒≤′ (s≤s (≤′⇒≤ (filter-length p xs)))
-... | false = ≤′-step (filter-length p xs)
+filter-length : {A : Set}(P : A → Bool) → ∀ xs →
+                length (filter P xs) ≤′ length xs
+filter-length P []       = ≤′-refl
+filter-length P (x ∷ xs) with P x
+... | true  = ≤⇒≤′ (s≤s (≤′⇒≤ (filter-length P xs)))
+... | false = ≤′-step (filter-length P xs)
 
 module AllWF = Induction.WellFounded.All wf-⟪′
 
