@@ -4,23 +4,23 @@
 
 -- Tested with magda and agda2atp on 07 February 2012.
 
-module Draft.PredicateLogic.SchemeInstances.TestATP where
+module Draft.PredicateLogic.SchemasInstances.TestATP where
 
 open import PredicateLogic.Constants
 
 ------------------------------------------------------------------------------
 
--- A scheme
+-- A schema
 -- Current translation: ∀ p q x. app(p,x) → app(q,x).
-postulate scheme : (P Q : D → Set) → ∀ {x} → P x → Q x
+postulate schema : (P Q : D → Set) → ∀ {x} → P x → Q x
 
 -- Using the current translation, the ATPs can prove an instance of
--- the scheme.
+-- the schema.
 postulate
   d         : D
   P Q       : D → Set
   instanceC : P d → Q d
-{-# ATP prove instanceC scheme #-}
+{-# ATP prove instanceC schema #-}
 
 instanceI : P d → Q d
-instanceI Pd = scheme P Q Pd
+instanceI Pd = schema P Q Pd

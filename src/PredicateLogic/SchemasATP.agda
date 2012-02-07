@@ -94,16 +94,16 @@ module Schemas where
                (P₃ x y z ∧ Q₃ x y z ∨ P₃ x y z ∧ R₃ x y z)
   {-# ATP prove ∧∨-dist₃ #-}
 
-module SchemeInstances where
+module SchemaInstances where
 
-  -- A scheme
+  -- A schema
   -- Current translation: ∀ p q x. app(p,x) → app(q,x).
-  postulate scheme : (P Q : D → Set) → ∀ {x} → P x → Q x
+  postulate schema : (P Q : D → Set) → ∀ {x} → P x → Q x
 
   -- Using the current translation, the ATPs can prove an instance of
-  -- the scheme.
+  -- the schema.
   postulate
     d         : D
     P Q       : D → Set
     instanceC : P d → Q d
-  {-# ATP prove instanceC scheme #-}
+  {-# ATP prove instanceC schema #-}

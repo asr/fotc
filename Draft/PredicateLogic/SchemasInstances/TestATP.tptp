@@ -1,12 +1,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Testing the use of schema
+% Testing the use of schemas
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % The Agda version of the scheme
-% scheme : (P Q : D → Set){x : D} → P x → Q x
+% schema : (P Q : D → Set){x : D} → P x → Q x
 
 % Koen's translation
-fof(scheme, axiom, ( ! [P,Q,X] : (app(P,X) => app(Q,X)))).
+fof(schema, axiom, ( ! [P,Q,X] : (app(P,X) => app(Q,X)))).
 
-% Scheme instance
+% Schema instance
 fof(instance, conjecture, app(p,x) => app(p,x)).

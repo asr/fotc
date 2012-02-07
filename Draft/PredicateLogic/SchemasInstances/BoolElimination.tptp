@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Testing the use of schema
+% Testing the use of schemas
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Tested with Equinox, version 5.0alpha, 2010-06-29.
@@ -15,7 +15,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % The Agda version of the Bool elimination
-% scheme : Bool-elim : ∀ (P : D → Set){x y z} → Bool x → P y → P z →
+% schema : Bool-elim : ∀ (P : D → Set){x y z} → Bool x → P y → P z →
 %          P (if x then y else z)
 
 % Koen's translation
