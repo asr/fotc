@@ -59,29 +59,29 @@ module NonSchemas where
 
 module Schemas where
 
-  postulate f₁-refl : ∀ (f₁ : D → D) x → f₁ x ≡ f₁ x
+  postulate f₁-refl : (f₁ : D → D) → ∀ x → f₁ x ≡ f₁ x
   {-# ATP prove f₁-refl #-}
 
-  postulate f₂-refl : ∀ (f₂ : D → D → D) x y → f₂ x y ≡ f₂ x y
+  postulate f₂-refl : (f₂ : D → D → D) → ∀ x y → f₂ x y ≡ f₂ x y
   {-# ATP prove f₂-refl #-}
 
-  postulate f₃-refl : ∀ (f₃ : D → D → D → D) x y z → f₃ x y z ≡ f₃ x y z
+  postulate f₃-refl : (f₃ : D → D → D → D) → ∀ x y z → f₃ x y z ≡ f₃ x y z
   {-# ATP prove f₃-refl #-}
 
   postulate id : {P : Set} → P → P
   {-# ATP prove id #-}
 
-  postulate id₁ : ∀ {P₁ : D → Set} {x} → P₁ x → P₁ x
+  postulate id₁ : {P₁ : D → Set} → ∀ {x} → P₁ x → P₁ x
   {-# ATP prove id₁ #-}
 
-  postulate id₂ : ∀ {P₂ : D → D → Set} {x y} → P₂ x y → P₂ x y
+  postulate id₂ : {P₂ : D → D → Set} → ∀ {x y} → P₂ x y → P₂ x y
   {-# ATP prove id₂ #-}
 
   postulate ∨-comm : {P Q : Set} → P ∨ Q → Q ∨ P
   {-# ATP prove ∨-comm #-}
 
   postulate
-    ∨-comm₂ : ∀ {P₂ Q₂ : D → D → Set} {x y} →
+    ∨-comm₂ : {P₂ Q₂ : D → D → Set} → ∀ {x y} →
               P₂ x y ∨ Q₂ x y → Q₂ x y ∨ P₂ x y
   {-# ATP prove ∨-comm₂ #-}
 
@@ -89,7 +89,7 @@ module Schemas where
   {-# ATP prove ∧∨-dist #-}
 
   postulate
-    ∧∨-dist₃ : ∀ {P₃ Q₃ R₃ : D → D → D → Set} {x y z} →
+    ∧∨-dist₃ : {P₃ Q₃ R₃ : D → D → D → Set} → ∀ {x y z} →
                (P₃ x y z ∧ (Q₃ x y z ∨ R₃ x y z)) ↔
                (P₃ x y z ∧ Q₃ x y z ∨ P₃ x y z ∧ R₃ x y z)
   {-# ATP prove ∧∨-dist₃ #-}
@@ -98,7 +98,7 @@ module SchemeInstances where
 
   -- A scheme
   -- Current translation: ∀ p q x. app(p,x) → app(q,x).
-  postulate scheme : ∀ (P Q : D → Set) {x} → P x → Q x
+  postulate scheme : (P Q : D → Set) → ∀ {x} → P x → Q x
 
   -- Using the current translation, the ATPs can prove an instance of
   -- the scheme.

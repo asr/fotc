@@ -1,4 +1,4 @@
--- Tested with Agda 2.3.1 on 15 December 2011.
+-- Tested with the development version of Agda on 07 February 2012.
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}

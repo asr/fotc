@@ -3,7 +3,7 @@
 -- Bove-Capretta method
 ------------------------------------------------------------------------------
 
--- Tested with the development version of Agda on 02 February 2012.
+-- Tested with the development version of Agda on 07 February 2012.
 
 module Draft.FOTC.Program.QuickSort.DomainPredicate where
 
@@ -26,12 +26,12 @@ postulate
 
 postulate
   filter    : D → D → D
-  filter-[] : (f : D) →        filter f []       ≡ []
-  filter-∷  : ∀ (f : D) d ds → filter f (d ∷ ds) ≡
+  filter-[] : ∀ f →      filter f []       ≡ []
+  filter-∷  : ∀ f d ds → filter f (d ∷ ds) ≡
                 if f · d then d ∷ filter f (d ∷ ds) else filter f (d ∷ ds)
 
 postulate
-  filter-List : ∀ (f : D) {xs : D} → List xs → List (filter f xs)
+  filter-List : ∀ f {xs} → List xs → List (filter f xs)
 
 postulate
   qs    : D → D

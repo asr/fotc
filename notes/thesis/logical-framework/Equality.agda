@@ -1,4 +1,4 @@
--- Tested with Agda 2.3.1 on 15 December 2011.
+-- Tested with the development version of Agda on 07 February 2012.
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
@@ -10,7 +10,7 @@ module LF where
     D     : Set
     _≡_   : D → D → Set
     refl  : ∀ {x} → x ≡ x
-    subst : ∀ (P : D → Set) {x y} → x ≡ y → P x → P y
+    subst : (P : D → Set) → ∀ {x y} → x ≡ y → P x → P y
 
   sym : ∀ {x y} → x ≡ y → y ≡ x
   sym {x} h = subst (λ t → t ≡ x) h refl

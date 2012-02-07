@@ -2,7 +2,7 @@
 -- Using setoids to formalize the FOTC
 ------------------------------------------------------------------------------
 
--- Tested with Agda 2.2.11 on 03 October 2011.
+-- Tested with the development version of Agda on 07 February 2012.
 
 {-
 From Peter emails:
@@ -83,7 +83,7 @@ module LeibnizEquality where
 
   -- and the identity elimination
 
-  ≐-subst : ∀ (P : D → Set) {x y} → x ≐ y → P x → P y
+  ≐-subst : (P : D → Set) → ∀ {x y} → x ≐ y → P x → P y
   ≐-subst P x≐y = x≐y P
 
   -- but it seems we cannot prove the congruency

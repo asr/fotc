@@ -1,4 +1,4 @@
--- Tested with Agda 2.2.11 on 03 November 2011.
+-- Tested with the development version of Agda on 07 February 2012.
 
 module LeastFixedPoints where
 
@@ -54,10 +54,10 @@ postulate
 
   -- Peter: It corresponds to the elimination rule of an inductively
   -- defined predicate.
-  N-lfp₂    : ∀ (P : D → Set) {n} →
+  N-lfp₂    : (P : D → Set) → ∀ {n} →
               (n ≡ zero ∨ (∃ λ m → n ≡ succ₁ m ∧ P m) → P n) →
               N n → P n
-  -- N-lfp₂ : ∀ (P : D → Set) {n} →  -- Higher-order version
+  -- N-lfp₂ : (P : D → Set) → ∀ {n} →  -- Higher-order version
   --          (NatF P n → P n) →
   --          N n → P n
 

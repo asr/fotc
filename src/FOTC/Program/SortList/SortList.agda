@@ -95,8 +95,8 @@ LE-TreeItem t item = ≤-TreeItem t item ≡ true
 postulate
   -- The foldr function with the last two args flipped.
   lit    : D → D → D → D
-  lit-[] : ∀ (f : D) n →      lit f []       n ≡ n
-  lit-∷  : ∀ (f : D) d ds n → lit f (d ∷ ds) n ≡ f · d · (lit f ds n)
+  lit-[] : ∀ f n →      lit f []       n ≡ n
+  lit-∷  : ∀ f d ds n → lit f (d ∷ ds) n ≡ f · d · (lit f ds n)
 {-# ATP axiom lit-[] lit-∷ #-}
 
 ------------------------------------------------------------------------------
