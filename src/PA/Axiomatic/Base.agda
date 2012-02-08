@@ -21,10 +21,9 @@ open import Common.LogicalConstants public
 
 -- Non-logical constants
 postulate
-  zero : ℕ
-  succ : ℕ → ℕ
-  _+_  : ℕ → ℕ → ℕ
-  _*_  : ℕ → ℕ → ℕ
+  zero    : ℕ
+  succ    : ℕ → ℕ
+  _+_ _*_ : ℕ → ℕ → ℕ
 
 -- The PA equality.
 -- N.B. The symbol _≡_ should not be used because it is hard-coded by
