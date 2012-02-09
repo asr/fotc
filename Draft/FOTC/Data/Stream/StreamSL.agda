@@ -2,7 +2,7 @@
 -- Definition of FOTC streams using the Agda coinductive combinators
 ------------------------------------------------------------------------------
 
--- Tested with the development version of the standard libray on
+-- Tested with the development version of the standard library on
 -- 02 February 2012.
 
 module StreamSL where

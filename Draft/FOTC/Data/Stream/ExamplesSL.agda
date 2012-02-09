@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Stream examples using the standard libray
+-- Stream examples using the standard library
 ------------------------------------------------------------------------------
 
--- Tested with the development version of the standard libray on
+-- Tested with the development version of the standard library on
 -- 02 February 2012.
 
 module Draft.FOTC.Data.Stream.ExamplesSL where

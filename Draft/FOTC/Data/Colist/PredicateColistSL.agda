@@ -3,7 +3,8 @@
 -- coinductive types.
 ------------------------------------------------------------------------------
 
--- Tested with the development version of the standard libray on 30 June 2011.
+-- Tested with the development version of the standard library on
+-- 30 June 2011.
 
 module Draft.FOTC.Data.Colist.PredicateColistSL where
 
