@@ -34,6 +34,7 @@ Equational reasoning
   {!!} ≡⟨ {!!} ⟩
   {!!} ∎
 
--- Tested with magda and agda2atp on
--- Tested with the development version of Agda on
--- Tested with the development version of the standard libray on
+-- Tested with FOT on .
+-- Tested with magda and agda2atp on .
+-- Tested with the development version of Agda on .
+-- Tested with the development version of the standard libray on .
