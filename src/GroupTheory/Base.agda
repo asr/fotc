@@ -36,3 +36,7 @@ postulate
   leftInverse   : ∀ a     →  a ⁻¹ · a    ≡ ε
   rightInverse  : ∀ a     →  a    · a ⁻¹ ≡ ε
 {-# ATP axiom assoc leftIdentity rightIdentity leftInverse rightInverse #-}
+
+-- Congruence property.
+·-cong : ∀ {x₁ x₂ y₁ y₂} → x₁ ≡ y₁ → x₂ ≡ y₂ → x₁ · x₂ ≡ y₁ · y₂
+·-cong = cong₂ _·_

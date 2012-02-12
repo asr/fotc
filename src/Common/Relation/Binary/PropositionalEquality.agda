@@ -61,9 +61,6 @@ module Inductive where
           f x₁ x₂ ≡ f y₁ y₂
   cong₂ f refl refl = refl
 
-  leftCong₂ : (f : D → D → D) → ∀ {x y z} → x ≡ y → f x z ≡ f y z
-  leftCong₂ f refl = refl
-
 ------------------------------------------------------------------------------
 -- The propositional equality via its induction principle.
 
@@ -110,6 +107,3 @@ module NonInductive where
     subst (λ x₁' → f x₁ x₂ ≡ f x₁' y₂)
           h₁
           (subst (λ x₂' → f x₁ x₂ ≡ f x₁ x₂') h₂ refl)
-
-  leftCong₂ : (f : D → D → D) → ∀ {x y z} → x ≡ y → f x z ≡ f y z
-  leftCong₂ f {x} {z = z} h = subst (λ x' → f x z ≡ f x' z) h refl

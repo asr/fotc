@@ -16,7 +16,7 @@ open import GroupTheory.Relation.Binary.EqReasoning
 y≡x⁻¹[xy] : ∀ a b → b ≡ a ⁻¹ · (a · b)
 y≡x⁻¹[xy] a b =
   b              ≡⟨ sym (leftIdentity b) ⟩
-  ε · b          ≡⟨ subst (λ t → ε · b ≡ t · b ) (sym (leftInverse a)) refl ⟩
+  ε · b          ≡⟨ ·-cong (sym (leftInverse a)) refl ⟩
   a ⁻¹ · a · b   ≡⟨ assoc (a ⁻¹) a b ⟩
   a ⁻¹ · (a · b) ∎
 
@@ -24,7 +24,7 @@ y≡x⁻¹[xy] a b =
 x≡[xy]y⁻¹ : ∀ a b → a ≡ (a · b) · b ⁻¹
 x≡[xy]y⁻¹ a b =
   a              ≡⟨ sym (rightIdentity a) ⟩
-  a · ε          ≡⟨ subst (λ t → a · ε ≡ a · t ) (sym (rightInverse b)) refl ⟩
+  a · ε          ≡⟨ ·-cong refl (sym (rightInverse b)) ⟩
   a · (b · b ⁻¹) ≡⟨ sym (assoc a b (b ⁻¹)) ⟩
   a · b · b ⁻¹ ∎
 
@@ -42,7 +42,7 @@ rightIdentityUnique r h = trans (sym (leftIdentity r)) (h ε)
 rightIdentityUnique' : ∀ a r → a · r ≡ a → r ≡ ε
 rightIdentityUnique' a r h =
   r              ≡⟨ y≡x⁻¹[xy] a r ⟩
-  a ⁻¹ · (a · r) ≡⟨ cong (_·_ (a ⁻¹)) h ⟩
+  a ⁻¹ · (a · r) ≡⟨ ·-cong refl h ⟩
   a ⁻¹ · a       ≡⟨ leftInverse a ⟩
   ε ∎
 
@@ -58,8 +58,8 @@ leftIdentityUnique l h = trans (sym (rightIdentity l)) (h ε)
 leftIdentityUnique' : ∀ a l → l · a ≡ a → l ≡ ε
 leftIdentityUnique' a l h =
   l            ≡⟨ x≡[xy]y⁻¹ l a ⟩
-  l · a · a ⁻¹ ≡⟨ subst (λ t → l · a · a ⁻¹ ≡ t · a ⁻¹ ) h refl ⟩
-  a · a ⁻¹ ≡⟨ rightInverse a ⟩
+  l · a · a ⁻¹ ≡⟨ ·-cong h refl ⟩
+  a · a ⁻¹     ≡⟨ rightInverse a ⟩
   ε ∎
 
 rightCancellation : ∀ {a b c} → b · a ≡ c · a → b ≡ c
@@ -70,16 +70,28 @@ rightCancellation {a} {b} {c} h =
 -- 3. bε       = cε       (right-inverse axiom for a⁻¹)
 -- 4. b        = c        (right-identity axiom)
   b              ≡⟨ sym (rightIdentity b) ⟩
-  b · ε          ≡⟨ subst (λ t → b · ε ≡ b · t) (sym (rightInverse a)) refl ⟩
+  b · ε          ≡⟨ ·-cong refl (sym (rightInverse a)) ⟩
   b · (a · a ⁻¹) ≡⟨ sym (assoc b a (a ⁻¹)) ⟩
-  b · a · a ⁻¹   ≡⟨ subst (λ t → b · a · a ⁻¹ ≡ t · a ⁻¹) h refl ⟩
+  b · a · a ⁻¹   ≡⟨ ·-cong h refl ⟩
   c · a · a ⁻¹   ≡⟨ assoc c a (a ⁻¹) ⟩
-  c · (a · a ⁻¹) ≡⟨ subst (λ t → c · (a · a ⁻¹) ≡ c · t) (rightInverse a) refl ⟩
+  c · (a · a ⁻¹) ≡⟨ ·-cong refl (rightInverse a) ⟩
   c · ε          ≡⟨ rightIdentity c ⟩
   c ∎
 
 leftCancellation : ∀ {a b c} → a · b ≡ a · c → b ≡ c
 leftCancellation {a} {b} {c} h =
+  b              ≡⟨ sym (leftIdentity b) ⟩
+  ε · b          ≡⟨ ·-cong (sym (leftInverse a)) refl ⟩
+  a ⁻¹ · a · b   ≡⟨ assoc (a ⁻¹) a b ⟩
+  a ⁻¹ · (a · b) ≡⟨ ·-cong refl h ⟩
+  a ⁻¹ · (a · c) ≡⟨ sym (assoc (a ⁻¹) a c) ⟩
+  a ⁻¹ · a · c   ≡⟨ ·-cong (leftInverse a) refl ⟩
+  ε · c          ≡⟨ leftIdentity c ⟩
+  c ∎
+
+-- A different proof without using congruence.
+leftCancellation₁ : ∀ {a b c} → a · b ≡ a · c → b ≡ c
+leftCancellation₁ {a} {b} {c} h =
 -- Paper proof:
 -- 1. a⁻¹(ab)  = a⁻¹(ac)  (hypothesis ab = ac)
 -- 2. a⁻¹a(b)  = a⁻¹a(c)  (associative axiom)
@@ -91,18 +103,6 @@ leftCancellation {a} {b} {c} h =
   a ⁻¹ · (a · b) ≡⟨ subst (λ t → a ⁻¹ · (a · b) ≡ a ⁻¹ · t) h refl ⟩
   a ⁻¹ · (a · c) ≡⟨ sym (assoc (a ⁻¹) a c) ⟩
   a ⁻¹ · a · c   ≡⟨ subst (λ t → a ⁻¹ · a · c ≡ t · c) (leftInverse a) refl ⟩
-  ε · c          ≡⟨ leftIdentity c ⟩
-  c ∎
-
--- A different proof using congruence.
-leftCancellation₁ : ∀ {a b c} → a · b ≡ a · c → b ≡ c
-leftCancellation₁ {a} {b} {c} h =
-  b              ≡⟨ sym (leftIdentity b) ⟩
-  ε · b          ≡⟨ leftCong₂ _·_ (sym (leftInverse a)) ⟩
-  a ⁻¹ · a · b   ≡⟨ assoc (a ⁻¹) a b ⟩
-  a ⁻¹ · (a · b) ≡⟨ cong (_·_ (a ⁻¹)) h ⟩
-  a ⁻¹ · (a · c) ≡⟨ sym (assoc (a ⁻¹) a c) ⟩
-  a ⁻¹ · a · c   ≡⟨ leftCong₂ _·_ (leftInverse a) ⟩
   ε · c          ≡⟨ leftIdentity c ⟩
   c ∎
 
@@ -193,20 +193,11 @@ inverseDistribution a b = leftInverseUnique' b⁻¹a⁻¹[ab]≡ε
     b ⁻¹ · a ⁻¹ · (a · b)
       ≡⟨ assoc (b ⁻¹) (a ⁻¹) (a · b) ⟩
     b ⁻¹ · (a ⁻¹ · (a · b))
-      ≡⟨ subst (λ t → b ⁻¹ · (a ⁻¹ · (a · b)) ≡ b ⁻¹ · t)
-               (sym (assoc (a ⁻¹) a b))
-               refl
-      ⟩
+      ≡⟨ ·-cong refl (sym (assoc (a ⁻¹) a b)) ⟩
     b ⁻¹ · (a ⁻¹ · a · b)
-      ≡⟨ subst (λ t → b ⁻¹ · (a ⁻¹ · a · b) ≡ b ⁻¹ · (t · b))
-               (leftInverse a)
-               refl
-      ⟩
+      ≡⟨ ·-cong refl (·-cong  (leftInverse a) refl) ⟩
     b ⁻¹ · (ε · b)
-      ≡⟨ subst (λ t → b ⁻¹ · (ε · b) ≡ b ⁻¹ · t)
-               (leftIdentity b)
-               refl
-      ⟩
+      ≡⟨ ·-cong refl (leftIdentity b) ⟩
     b ⁻¹ · b
       ≡⟨ leftInverse b ⟩
     ε ∎
@@ -230,23 +221,17 @@ x²≡ε→comm h {b} {c} {d} bc≡d = sym d≡cb
     d · b
       ≡⟨ sym (rightIdentity (d · b)) ⟩
     d · b · ε
-      ≡⟨ subst (λ t → d · b · ε ≡ d · b · t) (sym (h c)) refl ⟩
+      ≡⟨ ·-cong refl (sym (h c)) ⟩
     d · b · (c · c)
       ≡⟨ assoc d b (c · c) ⟩
     d · (b · (c · c))
-      ≡⟨ subst (λ t → d · (b · (c · c)) ≡ d · t) (sym (assoc b c c)) refl ⟩
+      ≡⟨ ·-cong refl (sym (assoc b c c)) ⟩
     d · ((b · c) · c)
-      ≡⟨ subst (λ t → d · ((b · c) · c) ≡ d · t)
-               (subst (λ t → (b · c) · c ≡ t · c )
-                      bc≡d
-                      refl
-               )
-               refl
-      ⟩
+      ≡⟨ ·-cong refl (·-cong bc≡d refl) ⟩
     d · (d · c)
       ≡⟨ sym (assoc d d c) ⟩
     d · d · c
-      ≡⟨ subst (λ t → d · d · c ≡ t · c ) (h d) refl ⟩
+      ≡⟨ ·-cong (h d) refl ⟩
     ε · c
       ≡⟨ leftIdentity c ⟩
     c ∎
@@ -254,7 +239,7 @@ x²≡ε→comm h {b} {c} {d} bc≡d = sym d≡cb
   d≡cb : d ≡ c · b
   d≡cb =
     d           ≡⟨ sym (rightIdentity d) ⟩
-    d · ε       ≡⟨ subst (λ t → d · ε ≡ d · t) (sym (h b)) refl ⟩
+    d · ε       ≡⟨ ·-cong refl (sym (h b)) ⟩
     d · (b · b) ≡⟨ sym (assoc d b b) ⟩
-    d · b · b   ≡⟨ leftCong₂ _·_ db≡c ⟩
+    d · b · b   ≡⟨ ·-cong db≡c refl ⟩
     c · b ∎
