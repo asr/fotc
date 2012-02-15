@@ -81,7 +81,7 @@ module NonInductive where
   sym {x} h = J (λ y' → y' ≡ x) h refl
 
   trans : ∀ {x y z} → x ≡ y → y ≡ z → x ≡ z
-  trans {x} {z = z} h = J (λ y' → y' ≡ z → x ≡ z) h (λ pr → pr)
+  trans {x} h₁ h₂ = J (λ y' → x ≡ y') h₂ h₁
 
   trans₂ : ∀ {w x y z} → w ≡ x → x ≡ y → y ≡ z → w ≡ z
   trans₂ h₁ h₂ h₃ = trans (trans h₁ h₂) h₃
