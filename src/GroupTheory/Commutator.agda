@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- The commutator operation
+-- The group commutator
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -10,9 +10,9 @@ module GroupTheory.Commutator where
 open import GroupTheory.Base
 
 ------------------------------------------------------------------------------
--- The commutator operation
+-- The group commutator
 --
--- There are two definitions for the commutator operation:
+-- There are two definitions for the group commutator:
 --
 -- [a,b] = aba⁻¹b⁻¹
 -- (Saunders Mac Lane and Garret Birkhoff. Algebra. AMS Chelsea

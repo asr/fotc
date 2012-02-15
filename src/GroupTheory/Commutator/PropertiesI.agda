@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Properties related with the commutator operation
+-- Properties related with the group commutator
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
