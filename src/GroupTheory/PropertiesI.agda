@@ -11,7 +11,27 @@ open import GroupTheory.Base
 open import GroupTheory.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
+-- The propositional equality is a congruence relation on a group
+-- (i.e. it is an equivalence relation compatible with the group
+-- structure).
 
+-- The propositional equality is compatible with the binary operation.
+·-cong : ∀ {a b c d} → a ≡ b → c ≡ d → a · c ≡ b · d
+·-cong = cong₂ _·_
+
+-- A proof using pattern matching.
+-- ·-cong : ∀ {a b c d} → a ≡ b → c ≡ d → a · c ≡ b · d
+-- ·-cong refl refl = refl
+
+-- The propositional equality is compatible with the inverse function.
+⁻¹-cong : ∀ {a b} → a ≡ b → a ⁻¹ ≡ b ⁻¹
+⁻¹-cong = cong _⁻¹
+
+-- A proof using pattern matching.
+-- ⁻¹-cong : ∀ {a b} → a ≡ b → a ⁻¹ ≡ b ⁻¹
+-- ⁻¹-cong refl = refl
+
+------------------------------------------------------------------------------
 -- Adapted from the standard library.
 y≡x⁻¹[xy] : ∀ a b → b ≡ a ⁻¹ · (a · b)
 y≡x⁻¹[xy] a b =

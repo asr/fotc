@@ -10,6 +10,19 @@ module GroupTheory.PropertiesATP where
 open import GroupTheory.Base
 
 ------------------------------------------------------------------------------
+-- The propositional equality is a congruence relation on a group
+-- (i.e. it is an equivalence relation compatible with the group
+-- structure).
+
+-- The propositional equality is compatible with the binary operation.
+postulate ·-cong : ∀ {a b c d} → a ≡ b → c ≡ d → a · c ≡ b · d
+{-# ATP prove ·-cong #-}
+
+-- The propositional equality is compatible with the inverse function.
+postulate ⁻¹-cong : ∀ {a b} → a ≡ b → a ⁻¹ ≡ b ⁻¹
+{-# ATP prove ⁻¹-cong #-}
+
+------------------------------------------------------------------------------
 
 postulate y≡x⁻¹[xy] : ∀ a b → b ≡ a ⁻¹ · (a · b)
 {-# ATP prove y≡x⁻¹[xy] #-}
