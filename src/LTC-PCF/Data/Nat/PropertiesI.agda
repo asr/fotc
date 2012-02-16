@@ -16,6 +16,21 @@ open import LTC-PCF.Data.Nat.Rec.EquationsI
 open import LTC-PCF.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
+-- Congruence properties
+
++-leftCong : ∀ {m n o} → m ≡ n → m + o ≡ n + o
++-leftCong h = cong₂ _+_ h refl
+
++-rightCong : ∀ {m n o} → n ≡ o → m + n ≡ m + o
++-rightCong h = cong₂ _+_ refl h
+
+*-leftCong : ∀ {m n o} → m ≡ n → m * o ≡ n * o
+*-leftCong h = cong₂ _*_ h refl
+
+*-rightCong : ∀ {m n o} → n ≡ o → m * n ≡ m * o
+*-rightCong h = cong₂ _*_ refl h
+
+------------------------------------------------------------------------------
 
 +-0x : ∀ d → zero + d ≡ d
 +-0x d = rec zero d (lam +-helper) ≡⟨ rec-0 d ⟩

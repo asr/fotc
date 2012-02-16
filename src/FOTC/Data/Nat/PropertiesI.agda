@@ -15,6 +15,21 @@ open import FOTC.Data.Nat.UnaryNumbers
 open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
+-- Congruence properties
+
++-leftCong : ∀ {m n o} → m ≡ n → m + o ≡ n + o
++-leftCong h = cong₂ _+_ h refl
+
++-rightCong : ∀ {m n o} → n ≡ o → m + n ≡ m + o
++-rightCong h = cong₂ _+_ refl h
+
+*-leftCong : ∀ {m n o} → m ≡ n → m * o ≡ n * o
+*-leftCong h = cong₂ _*_ h refl
+
+*-rightCong : ∀ {m n o} → n ≡ o → m * n ≡ m * o
+*-rightCong h = cong₂ _*_ refl h
+
+------------------------------------------------------------------------------
 
 -- We removed the equation pred zero ≡ zero, so we cannot prove the
 -- totality of the function pred.

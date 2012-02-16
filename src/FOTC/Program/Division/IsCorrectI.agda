@@ -23,22 +23,13 @@ open import FOTC.Relation.Binary.EqReasoning
 -- the divisor.
 
 div-x<y-helper : ∀ {i j} → N i → N j → LT i j → i ≡ j * div i j + i
-div-x<y-helper {i} {j} Ni Nj i<j = sym
-  ( j * div i j + i ≡⟨ prf₁ ⟩
-    j * zero + i    ≡⟨ prf₂ ⟩
-    zero + i        ≡⟨ +-leftIdentity i ⟩
-    i ∎
-  )
+div-x<y-helper {i} {j} Ni Nj i<j = sym prf
   where
-  prf₁ : j * div i j + i ≡ j * zero + i
-  prf₁ = subst (λ x → j * x + i ≡ j * zero + i)
-               (sym $ div-x<y i<j)
-               refl
-
-  prf₂ : j * zero + i ≡ zero + i
-  prf₂ = subst (λ x → x + i ≡ zero + i)
-               (sym $ *-rightZero Nj)
-               refl
+  prf : j * div i j + i ≡ i
+  prf = j * div i j + i ≡⟨ +-leftCong (*-rightCong (div-x<y i<j)) ⟩
+        j * zero + i    ≡⟨ +-leftCong (*-rightZero Nj) ⟩
+        zero + i        ≡⟨ +-leftIdentity i ⟩
+        i ∎
 
 div-x<y-correct : ∀ {i j} → N i → N j → LT i j →
                   ∃[ r ] N r ∧ LT r j ∧ i ≡ j * div i j + r
