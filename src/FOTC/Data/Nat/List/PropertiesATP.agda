@@ -15,14 +15,14 @@ open import FOTC.Data.List
 
 ------------------------------------------------------------------------------
 
-++-ListN : ∀ {ds es} → ListN ds → ListN es → ListN (ds ++ es)
-++-ListN {es = es} nilLN esL = prf
+++-ListN : ∀ {ms ns} → ListN ms → ListN ns → ListN (ms ++ ns)
+++-ListN {ns = ns} nilLN nsL = prf
   where
-  postulate prf : ListN ([] ++ es)
+  postulate prf : ListN ([] ++ ns)
   {-# ATP prove prf #-}
 
-++-ListN {es = es} (consLN {d} {ds} Nd LNds) LNes = prf $ ++-ListN LNds LNes
+++-ListN {ns = ns} (consLN {m} {ms} Nd LNms) LNns = prf $ ++-ListN LNms LNns
   where
-  postulate prf : ListN (ds ++ es) →  -- IH.
-                  ListN ((d ∷ ds) ++ es)
+  postulate prf : ListN (ms ++ ns) →  -- IH.
+                  ListN ((m ∷ ms) ++ ns)
   {-# ATP prove prf #-}

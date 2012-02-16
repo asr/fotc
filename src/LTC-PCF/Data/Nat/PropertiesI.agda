@@ -32,28 +32,28 @@ open import LTC-PCF.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 
-+-0x : ∀ d → zero + d ≡ d
-+-0x d = rec zero d (lam +-helper) ≡⟨ rec-0 d ⟩
-         d ∎
++-0x : ∀ n → zero + n ≡ n
++-0x n = rec zero n (lam +-helper) ≡⟨ rec-0 n ⟩
+         n ∎
 
-+-Sx : ∀ d e → succ₁ d + e ≡ succ₁ (d + e)
-+-Sx d e =
-  rec (succ₁ d) e (lam +-helper)
-    ≡⟨ rec-S d e (lam +-helper) ⟩
-  lam +-helper · d · (d + e)
-    ≡⟨ subst (λ t → lam +-helper · d · (d + e) ≡ t · (d + e))
-             (beta +-helper d)
++-Sx : ∀ m n → succ₁ m + n ≡ succ₁ (m + n)
++-Sx m n =
+  rec (succ₁ m) n (lam +-helper)
+    ≡⟨ rec-S m n (lam +-helper) ⟩
+  lam +-helper · m · (m + n)
+    ≡⟨ subst (λ t → lam +-helper · m · (m + n) ≡ t · (m + n))
+             (beta +-helper m)
              refl
     ⟩
-  +-helper d · (d + e)
+  +-helper m · (m + n)
     ≡⟨ refl ⟩
-  lam succ₁ · (d + e)
-    ≡⟨ beta succ₁ (d + e) ⟩
-  succ₁ (d + e) ∎
+  lam succ₁ · (m + n)
+    ≡⟨ beta succ₁ (m + n) ⟩
+  succ₁ (m + n) ∎
 
-∸-x0 : ∀ d → d ∸ zero ≡ d
-∸-x0 d = rec zero d (lam ∸-helper) ≡⟨ rec-0 d ⟩
-         d ∎
+∸-x0 : ∀ n → n ∸ zero ≡ n
+∸-x0 n = rec zero n (lam ∸-helper) ≡⟨ rec-0 n ⟩
+         n ∎
 
 ∸-0S : ∀ {n} → N n → zero ∸ succ₁ n ≡ zero
 ∸-0S zN =
@@ -176,26 +176,26 @@ open import LTC-PCF.Relation.Binary.EqReasoning
     ≡⟨ refl ⟩
   succ₁ m ∸ succ₁ n ∎
 
-*-0x : ∀ d → zero * d ≡ zero
-*-0x d = rec zero zero (lam (*-helper₂ d)) ≡⟨ rec-0 zero ⟩
+*-0x : ∀ n → zero * n ≡ zero
+*-0x n = rec zero zero (lam (*-helper₂ n)) ≡⟨ rec-0 zero ⟩
          zero ∎
 
-*-Sx : ∀ d e → succ₁ d * e ≡ e + d * e
-*-Sx d e =
-  rec (succ₁ d) zero (lam (*-helper₂ e))
-    ≡⟨ rec-S d zero (lam (*-helper₂ e)) ⟩
-  lam (*-helper₂ e) · d · (d * e)
-    ≡⟨ subst (λ t → lam (*-helper₂ e) · d · (d * e) ≡ t · (d * e))
-             (beta (*-helper₂ e) d)
+*-Sx : ∀ m n → succ₁ m * n ≡ n + m * n
+*-Sx m n =
+  rec (succ₁ m) zero (lam (*-helper₂ n))
+    ≡⟨ rec-S m zero (lam (*-helper₂ n)) ⟩
+  lam (*-helper₂ n) · m · (m * n)
+    ≡⟨ subst (λ t → lam (*-helper₂ n) · m · (m * n) ≡ t · (m * n))
+             (beta (*-helper₂ n) m)
              refl
     ⟩
-  *-helper₂ e d · (d * e)
+  *-helper₂ n m · (m * n)
     ≡⟨ refl ⟩
-  lam (*-helper₁ e) · (d * e)
-    ≡⟨ beta (*-helper₁ e) (d * e) ⟩
-  *-helper₁ e (d * e)
+  lam (*-helper₁ n) · (m * n)
+    ≡⟨ beta (*-helper₁ n) (m * n) ⟩
+  *-helper₁ n (m * n)
     ≡⟨ refl ⟩
-  e + (d * e) ∎
+  n + (m * n) ∎
 
 ∸-N : ∀ {m n} → N m → N n → N (m ∸ n)
 ∸-N {m} Nm       zN     = subst N (sym $ ∸-x0 m) Nm

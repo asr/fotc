@@ -13,4 +13,4 @@ open import FOTC.Data.List
 
 ------------------------------------------------------------------------------
 -- See the ATP version.
-postulate ++-ListN : ∀ {ds es} → ListN ds → ListN es → ListN (ds ++ es)
+postulate ++-ListN : ∀ {ms ns} → ListN ms → ListN ns → ListN (ms ++ ns)

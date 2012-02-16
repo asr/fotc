@@ -14,56 +14,56 @@ open import FOTC.Base
 postulate
   _<_  : D → D → D
   <-00 :         zero    < zero    ≡ false
-  <-0S : ∀ d →   zero    < succ₁ d ≡ true
-  <-S0 : ∀ d →   succ₁ d < zero    ≡ false
-  <-SS : ∀ d e → succ₁ d < succ₁ e ≡ d < e
+  <-0S : ∀ n →   zero    < succ₁ n ≡ true
+  <-S0 : ∀ n →   succ₁ n < zero    ≡ false
+  <-SS : ∀ m n → succ₁ m < succ₁ n ≡ m < n
 {-# ATP axiom <-00 <-0S <-S0 <-SS #-}
 
 _≤_ : D → D → D
-d ≤ e = d < succ₁ e
+m ≤ n = m < succ₁ n
 {-# ATP definition _≤_ #-}
 
 _>_ : D → D → D
-d > e = e < d
+m > n = n < m
 {-# ATP definition _>_ #-}
 
 _≥_ : D → D → D
-_≥_ d e = e ≤ d
+m ≥ n = n ≤ m
 {-# ATP definition _≥_ #-}
 
 ------------------------------------------------------------------------
 -- The data types
 
 GT : D → D → Set
-GT d e = d > e ≡ true
+GT m n = m > n ≡ true
 {-# ATP definition GT #-}
 
 NGT : D → D → Set
-NGT d e = d > e ≡ false
+NGT m n = m > n ≡ false
 {-# ATP definition NGT #-}
 
 LT : D → D → Set
-LT d e = d < e ≡ true
+LT m n = m < n ≡ true
 {-# ATP definition LT #-}
 
 NLT : D → D → Set
-NLT d e = d < e ≡ false
+NLT m n = m < n ≡ false
 {-# ATP definition NLT #-}
 
 LE : D → D → Set
-LE d e = d ≤ e ≡ true
+LE m n = m ≤ n ≡ true
 {-# ATP definition LE #-}
 
 NLE : D → D → Set
-NLE d e = d ≤ e ≡ false
+NLE m n = m ≤ n ≡ false
 {-# ATP definition NLE #-}
 
 GE : D → D → Set
-GE d e = d ≥ e ≡ true
+GE m n = m ≥ n ≡ true
 {-# ATP definition GE #-}
 
 NGE : D → D → Set
-NGE d e = d ≥ e ≡ false
+NGE m n = m ≥ n ≡ false
 {-# ATP definition NGE #-}
 
 ------------------------------------------------------------------------------

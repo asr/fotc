@@ -22,19 +22,19 @@ open import FOTC.Data.Nat.Type public
 
 postulate
   _+_  : D → D → D
-  +-0x : ∀ d →   zero    + d ≡ d
-  +-Sx : ∀ d e → succ₁ d + e ≡ succ₁ (d + e)
+  +-0x : ∀ n →   zero    + n ≡ n
+  +-Sx : ∀ m n → succ₁ m + n ≡ succ₁ (m + n)
 {-# ATP axiom +-0x +-Sx #-}
 
 postulate
   _∸_  : D → D → D
-  ∸-x0 : ∀ d →   d       ∸ zero    ≡ d
-  ∸-0S : ∀ d →   zero    ∸ succ₁ d ≡ zero
-  ∸-SS : ∀ d e → succ₁ d ∸ succ₁ e ≡ d ∸ e
+  ∸-x0 : ∀ n →   n       ∸ zero    ≡ n
+  ∸-0S : ∀ n →   zero    ∸ succ₁ n ≡ zero
+  ∸-SS : ∀ m n → succ₁ m ∸ succ₁ n ≡ m ∸ n
 {-# ATP axiom ∸-x0 ∸-0S ∸-SS #-}
 
 postulate
   _*_  : D → D → D
-  *-0x : ∀ d →   zero    * d ≡ zero
-  *-Sx : ∀ d e → succ₁ d * e ≡ e + d * e
+  *-0x : ∀ n →   zero    * n ≡ zero
+  *-Sx : ∀ m n → succ₁ m * n ≡ n + m * n
 {-# ATP axiom *-0x *-Sx #-}

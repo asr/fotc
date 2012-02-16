@@ -19,7 +19,7 @@ open import FOTC.Program.Division.Specification
 -- the divisor.
 
 postulate div-x<y-helper : ∀ {i j} → N i → N j → LT i j → i ≡ j * div i j + i
-{-# ATP prove div-x<y-helper  +-leftIdentity *-rightZero #-}
+{-# ATP prove div-x<y-helper +-leftIdentity *-rightZero #-}
 
 div-x<y-correct : ∀ {i j} → N i → N j → LT i j →
                   ∃[ r ] N r ∧ LT r j ∧ i ≡ j * div i j + r

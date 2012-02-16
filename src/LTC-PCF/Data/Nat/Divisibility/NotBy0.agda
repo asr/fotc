@@ -26,5 +26,5 @@ infix 7 _∣_
 -- as it is in GHC <= 7.0.4, where gcd 0 0 = error (see
 -- http://hackage.haskell.org/trac/ghc/ticket/3304).
 _∣_ : D → D → Set
-d ∣ e = ¬ (d ≡ zero) ∧ (∃[ k ] N k ∧ e ≡ k * d)
+m ∣ n = ¬ (m ≡ zero) ∧ (∃[ k ] N k ∧ n ≡ k * m)
 {-# ATP definition _∣_ #-}

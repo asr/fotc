@@ -29,15 +29,15 @@ open import LTC-PCF.Base
 -- Therefore, to avoid the new evaluation we use an abstrac block
 abstract
   <-helper₁ : D → D → D → D
-  <-helper₁ d lt e = if (iszero₁ e)
+  <-helper₁ m lt n = if (iszero₁ n)
                         then false
-                        else (if (iszero₁ d)
+                        else (if (iszero₁ m)
                                  then true
-                                 else (lt · (pred₁ d) · (pred₁ e)))
+                                 else (lt · (pred₁ m) · (pred₁ n)))
   {-# ATP definition <-helper₁ #-}
 
   <-helper₂ : D → D → D
-  <-helper₂ lt d = lam (<-helper₁ d lt)
+  <-helper₂ lt n = lam (<-helper₁ n lt)
   {-# ATP definition <-helper₂ #-}
 
   <-h : D → D
@@ -51,66 +51,66 @@ abstract
   <-h-≡ : ∀ lt → <-h lt ≡ lam (<-helper₂ lt)
   <-h-≡ lt = refl
 
-  <-helper₂-≡ : ∀ lt d → <-helper₂ lt d ≡ lam (<-helper₁ d lt)
-  <-helper₂-≡ lt d = refl
+  <-helper₂-≡ : ∀ lt n → <-helper₂ lt n ≡ lam (<-helper₁ n lt)
+  <-helper₂-≡ lt n = refl
 
-  <-helper₁-≡ : ∀ d lt e → <-helper₁ d lt e ≡
-                           if (iszero₁ e)
+  <-helper₁-≡ : ∀ m lt n → <-helper₁ m lt n ≡
+                           if (iszero₁ n)
                               then false
-                              else (if (iszero₁ d)
+                              else (if (iszero₁ m)
                                        then true
-                                       else (lt · (pred₁ d) · (pred₁ e)))
-  <-helper₁-≡ d lt e = refl
+                                       else (lt · (pred₁ m) · (pred₁ n)))
+  <-helper₁-≡ m lt n = refl
 
 _<_ : D → D → D
-d < e = fix <-h · d · e
+m < n = fix <-h · m · n
 {-# ATP definition _<_ #-}
 
 _≤_ : D → D → D
-d ≤ e = d < succ₁ e
+m ≤ n = m < succ₁ n
 {-# ATP definition _≤_ #-}
 
 _>_ : D → D → D
-d > e = e < d
+m > n = n < m
 {-# ATP definition _>_ #-}
 
 _≥_ : D → D → D
-d ≥ e = e ≤ d
+m ≥ n = n ≤ m
 {-# ATP definition _≥_ #-}
 
 ------------------------------------------------------------------------
 -- The data types
 
 GT : D → D → Set
-GT d e = d > e ≡ true
+GT m n = m > n ≡ true
 {-# ATP definition GT #-}
 
 NGT : D → D → Set
-NGT d e = d > e ≡ false
+NGT m n = m > n ≡ false
 {-# ATP definition NGT #-}
 
 LT : D → D → Set
-LT d e = d < e ≡ true
+LT m n = m < n ≡ true
 {-# ATP definition LT #-}
 
 NLT : D → D → Set
-NLT d e = d < e ≡ false
+NLT m n = m < n ≡ false
 {-# ATP definition NLT #-}
 
 LE : D → D → Set
-LE d e = d ≤ e ≡ true
+LE m n = m ≤ n ≡ true
 {-# ATP definition LE #-}
 
 NLE : D → D → Set
-NLE d e = d ≤ e ≡ false
+NLE m n = m ≤ n ≡ false
 {-# ATP definition NLE #-}
 
 GE : D → D → Set
-GE d e = d ≥ e ≡ true
+GE m n = m ≥ n ≡ true
 {-# ATP definition GE #-}
 
 NGE : D → D → Set
-NGE d e = d ≥ e ≡ false
+NGE m n = m ≥ n ≡ false
 {-# ATP definition NGE #-}
 
 ------------------------------------------------------------------------------

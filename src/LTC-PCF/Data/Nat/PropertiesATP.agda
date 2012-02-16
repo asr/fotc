@@ -30,13 +30,13 @@ postulate *-rightCong : ∀ {m n o} → n ≡ o → m * n ≡ m * o
 
 ------------------------------------------------------------------------------
 
-postulate +-0x : ∀ d → zero + d ≡ d
+postulate +-0x : ∀ n → zero + n ≡ n
 {-# ATP prove +-0x rec-0 #-}
 
-postulate +-Sx : ∀ d e → succ₁ d + e ≡ succ₁ (d + e)
+postulate +-Sx : ∀ m n → succ₁ m + n ≡ succ₁ (m + n)
 {-# ATP prove +-Sx rec-S #-}
 
-postulate ∸-x0 : ∀ d → d ∸ zero ≡ d
+postulate ∸-x0 : ∀ n → n ∸ zero ≡ n
 -- E 1.2: CPU time limit exceeded (180 sec).
 {-# ATP prove ∸-x0 rec-0 #-}
 
@@ -75,10 +75,10 @@ postulate ∸-x0 : ∀ d → d ∸ zero ≡ d
   -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
   {-# ATP prove prf rec-S #-}
 
-postulate *-0x : ∀ d → zero * d ≡ zero
+postulate *-0x : ∀ n → zero * n ≡ zero
 {-# ATP prove *-0x rec-0 #-}
 
-postulate *-Sx : ∀ d e → succ₁ d * e ≡ e + (d * e)
+postulate *-Sx : ∀ m n → succ₁ m * n ≡ n + (m * n)
 {-# ATP prove *-Sx rec-S #-}
 
 ------------------------------------------------------------------------------

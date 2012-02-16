@@ -14,5 +14,5 @@ open import LTC-PCF.Data.Nat.Divisibility.NotBy0
 
 ------------------------------------------------------------------------------
 -- 0 doesn't divide any number.
-0∤x : ∀ {d} → ¬ (zero ∣ d)
+0∤x : ∀ {n} → ¬ (zero ∣ n)
 0∤x (0≠0 , _) = ⊥-elim $ 0≠0 refl
