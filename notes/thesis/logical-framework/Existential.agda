@@ -1,4 +1,4 @@
--- Tested with the development version of Agda on 07 February 2012.
+-- Tested with FOT on 16 February 2012.
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
