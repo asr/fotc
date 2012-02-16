@@ -29,7 +29,7 @@ div-x<y-N i<j = subst N (sym $ div-x<y i<j) zN
 --                   N (div i j)
 
 div-x≮y-N : ∀ {i j} →
-            (ih : DIV (i ∸ j) j (div (i ∸ j) j)) →
+            (DIV (i ∸ j) j (div (i ∸ j) j)) →
             NLT i j →
             N (div i j)
 div-x≮y-N ih i≮j = subst N (sym $ div-x≮y i≮j) (sN (∧-proj₁ ih))

@@ -72,7 +72,7 @@ div-x≮y-helper {i} {j} {r} Ni Nj Nr i≮j helperH =
               refl
 
 div-x≮y-correct : ∀ {i j} → N i → N j →
-                  (ih : DIV (i ∸ j) j (div (i ∸ j) j)) →
+                  (DIV (i ∸ j) j (div (i ∸ j) j)) →
                   NLT i j →
                   ∃[ r ] N r ∧ LT r j ∧ i ≡ j * div i j + r
 div-x≮y-correct {i} {j} Ni Nj ih i≮j =
