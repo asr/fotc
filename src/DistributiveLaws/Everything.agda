@@ -9,9 +9,8 @@ open import DistributiveLaws.Base.ConsistencyTest
 
 open import DistributiveLaws.Relation.Binary.EqReasoning
 
-open import DistributiveLaws.TaskB-I
-
 open import DistributiveLaws.TaskB-ATP
+open import DistributiveLaws.TaskB-I
 open import DistributiveLaws.TaskB-AllStepsATP
 open import DistributiveLaws.TaskB-HalvedStepsATP
 open import DistributiveLaws.TaskB-TopDownATP
