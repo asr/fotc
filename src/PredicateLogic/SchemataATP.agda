@@ -17,82 +17,82 @@ module NonSchemas where
 
   postulate
     A B C    : Set
-    P₁       : D → Set
-    P₂ Q₂    : D → D → Set
-    P₃ Q₃ R₃ : D → D → D → Set
-    f₁       : D → D
-    f₂       : D → D → D
-    f₃       : D → D → D → D
+    P¹       : D → Set
+    P² Q²    : D → D → Set
+    P³ Q³ R³ : D → D → D → Set
+    f¹       : D → D
+    f²       : D → D → D
+    f³       : D → D → D → D
 
-  postulate f₁-refl : ∀ x → f₁ x ≡ f₁ x
-  {-# ATP prove f₁-refl #-}
+  postulate f¹-refl : ∀ x → f¹ x ≡ f¹ x
+  {-# ATP prove f¹-refl #-}
 
-  postulate f₂-refl : ∀ x y → f₂ x y ≡ f₂ x y
-  {-# ATP prove f₂-refl #-}
+  postulate f²-refl : ∀ x y → f² x y ≡ f² x y
+  {-# ATP prove f²-refl #-}
 
-  postulate f₃-refl : ∀ x y z  → f₃ x y z ≡ f₃ x y z
-  {-# ATP prove f₃-refl #-}
+  postulate f³-refl : ∀ x y z  → f³ x y z ≡ f³ x y z
+  {-# ATP prove f³-refl #-}
 
   postulate id : A → A
   {-# ATP prove id #-}
 
-  postulate id₁ : ∀ {x} → P₁ x → P₁ x
-  {-# ATP prove id₁ #-}
+  postulate id¹ : ∀ {x} → P¹ x → P¹ x
+  {-# ATP prove id¹ #-}
 
-  postulate id₂ : ∀ {x y} → P₂ x y → P₂ x y
-  {-# ATP prove id₂ #-}
+  postulate id² : ∀ {x y} → P² x y → P² x y
+  {-# ATP prove id² #-}
 
   postulate ∨-comm : A ∨ B → B ∨ A
   {-# ATP prove ∨-comm #-}
 
-  postulate ∨-comm₂ : ∀ {x y} → P₂ x y ∨ Q₂ x y → Q₂ x y ∨ P₂ x y
-  {-# ATP prove ∨-comm₂ #-}
+  postulate ∨-comm² : ∀ {x y} → P² x y ∨ Q² x y → Q² x y ∨ P² x y
+  {-# ATP prove ∨-comm² #-}
 
   postulate ∧∨-dist : A ∧ (B ∨ C) ↔ A ∧ B ∨ A ∧ C
   {-# ATP prove ∧∨-dist #-}
 
   postulate
-    ∧∨-dist₃ : ∀ {x y z} →
-               (P₃ x y z ∧ (Q₃ x y z ∨ R₃ x y z )) ↔
-               (P₃ x y z ∧ Q₃ x y z ∨ P₃ x y z ∧ R₃ x y z)
-  {-# ATP prove ∧∨-dist₃ #-}
+    ∧∨-dist³ : ∀ {x y z} →
+               (P³ x y z ∧ (Q³ x y z ∨ R³ x y z )) ↔
+               (P³ x y z ∧ Q³ x y z ∨ P³ x y z ∧ R³ x y z)
+  {-# ATP prove ∧∨-dist³ #-}
 
 module Schemas where
 
-  postulate f₁-refl : (f₁ : D → D) → ∀ x → f₁ x ≡ f₁ x
-  {-# ATP prove f₁-refl #-}
+  postulate f¹-refl : (f¹ : D → D) → ∀ x → f¹ x ≡ f¹ x
+  {-# ATP prove f¹-refl #-}
 
-  postulate f₂-refl : (f₂ : D → D → D) → ∀ x y → f₂ x y ≡ f₂ x y
-  {-# ATP prove f₂-refl #-}
+  postulate f²-refl : (f² : D → D → D) → ∀ x y → f² x y ≡ f² x y
+  {-# ATP prove f²-refl #-}
 
-  postulate f₃-refl : (f₃ : D → D → D → D) → ∀ x y z → f₃ x y z ≡ f₃ x y z
-  {-# ATP prove f₃-refl #-}
+  postulate f³-refl : (f³ : D → D → D → D) → ∀ x y z → f³ x y z ≡ f³ x y z
+  {-# ATP prove f³-refl #-}
 
   postulate id : {P : Set} → P → P
   {-# ATP prove id #-}
 
-  postulate id₁ : {P₁ : D → Set} → ∀ {x} → P₁ x → P₁ x
-  {-# ATP prove id₁ #-}
+  postulate id¹ : {P¹ : D → Set} → ∀ {x} → P¹ x → P¹ x
+  {-# ATP prove id¹ #-}
 
-  postulate id₂ : {P₂ : D → D → Set} → ∀ {x y} → P₂ x y → P₂ x y
-  {-# ATP prove id₂ #-}
+  postulate id² : {P² : D → D → Set} → ∀ {x y} → P² x y → P² x y
+  {-# ATP prove id² #-}
 
   postulate ∨-comm : {P Q : Set} → P ∨ Q → Q ∨ P
   {-# ATP prove ∨-comm #-}
 
   postulate
-    ∨-comm₂ : {P₂ Q₂ : D → D → Set} → ∀ {x y} →
-              P₂ x y ∨ Q₂ x y → Q₂ x y ∨ P₂ x y
-  {-# ATP prove ∨-comm₂ #-}
+    ∨-comm² : {P² Q² : D → D → Set} → ∀ {x y} →
+              P² x y ∨ Q² x y → Q² x y ∨ P² x y
+  {-# ATP prove ∨-comm² #-}
 
   postulate ∧∨-dist : {P Q R : Set} → P ∧ (Q ∨ R) ↔ P ∧ Q ∨ P ∧ R
   {-# ATP prove ∧∨-dist #-}
 
   postulate
-    ∧∨-dist₃ : {P₃ Q₃ R₃ : D → D → D → Set} → ∀ {x y z} →
-               (P₃ x y z ∧ (Q₃ x y z ∨ R₃ x y z)) ↔
-               (P₃ x y z ∧ Q₃ x y z ∨ P₃ x y z ∧ R₃ x y z)
-  {-# ATP prove ∧∨-dist₃ #-}
+    ∧∨-dist³ : {P³ Q³ R³ : D → D → D → Set} → ∀ {x y z} →
+               (P³ x y z ∧ (Q³ x y z ∨ R³ x y z)) ↔
+               (P³ x y z ∧ Q³ x y z ∨ P³ x y z ∧ R³ x y z)
+  {-# ATP prove ∧∨-dist³ #-}
 
 module SchemaInstances where
 

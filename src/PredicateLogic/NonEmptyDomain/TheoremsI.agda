@@ -17,25 +17,25 @@ postulate
   P¹ : D → Set
 
 ∃I : ((t : D) → P¹ t) → ∃ P¹
-∃I ∀p¹ = D≠∅ , ∀p¹ D≠∅
+∃I h = D≠∅ , h D≠∅
 
 -- Quantification over a variable that does not occur can be delete.
 ∃-erase₁ : ∃ (λ _ → P⁰) ↔ P⁰
 ∃-erase₁ = l→r , r→l
   where
   l→r : ∃ (λ _ → P⁰) → P⁰
-  l→r (_ , p0) = p0
+  l→r (_ , p⁰) = p⁰
 
   r→l : P⁰ → ∃ (λ _ → P⁰)
-  r→l p0 = D≠∅ , p0
+  r→l p⁰ = D≠∅ , p⁰
 
 ∃-erase₂ : (∃[ x ] P⁰ ∨ P¹ x) ↔ P⁰ ∨ (∃[ x ] P¹ x)
 ∃-erase₂ = l→r , r→l
   where
   l→r : ∃[ x ] (P⁰ ∨ P¹ x) → P⁰ ∨ (∃[ x ] P¹ x)
-  l→r (x , inj₁ p0)  = inj₁ p0
-  l→r (x , inj₂ p¹x) = inj₂ (x , p¹x)
+  l→r (x , inj₁ p⁰) = inj₁ p⁰
+  l→r (x , inj₂ p¹) = inj₂ (x , p¹)
 
   r→l : P⁰ ∨ (∃[ x ] P¹ x) → ∃[ x ] P⁰ ∨ P¹ x
-  r→l (inj₁ p0)        = D≠∅ , (inj₁ p0)
-  r→l (inj₂ (x , p¹x)) = x , inj₂ p¹x
+  r→l (inj₁ p⁰)       = D≠∅ , (inj₁ p⁰)
+  r→l (inj₂ (x , p¹)) = x , inj₂ p¹
