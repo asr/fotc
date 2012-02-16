@@ -34,6 +34,7 @@ data _∧_ (A B : Set) : Set where
 data ∃ (P : D → Set) : Set where
   _,_ : (x : D) → P x → ∃ P
 
+-- Sugar syntax for the existential.
 syntax ∃ (λ x → e) = ∃[ x ] e
 
 ∃-proj₁ : ∀ {P} → ∃ P → D
