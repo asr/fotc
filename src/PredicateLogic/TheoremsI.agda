@@ -23,8 +23,8 @@ postulate
       ∀x.φ(x)          φ(t)           ∃x.φ(x)               ψ
 -}
 
--- It is necessary postulate a non-empty domain.
--- See PredicateLogic.NonEmptyDomainI.
+-- It is necessary postulate a non-empty domain. See
+-- PredicateLogic.NonEmptyDomain.TheoremsI/ATP.∃I.
 -- ∃I : ((t : D) → P¹ t) → ∃ P¹
 
 ∃E : ∃ P¹ → ((x : D) → P¹ x → P⁰) → P⁰

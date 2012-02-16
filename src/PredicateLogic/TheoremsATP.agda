@@ -30,7 +30,7 @@ postulate
   ∀I : ((x : D) → P¹ x) → ⋀ P¹
   ∀E : ⋀ P¹ → (t : D) → P¹ t
   -- It is necessary postulate a non-empty domain. See
-  -- PredicateLogic.NonEmptyDomain.TheoremsATP.∃I.
+  -- PredicateLogic.NonEmptyDomain.TheoremsI/ATP.∃I.
   ∃I : ((t : D) → P¹ t) → ∃ P¹
   ∃E : ∃ P¹ → ((x : D) → P¹ x → P⁰) → P⁰
 {-# ATP prove ∀I #-}
