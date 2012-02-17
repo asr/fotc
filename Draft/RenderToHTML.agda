@@ -4,5 +4,4 @@
 
 module Draft.RenderToHTML where
 
-open import Draft.Bottom
-open import Draft.BottomBottom
+open import Draft.FOTC.Data.Stream.Existential
