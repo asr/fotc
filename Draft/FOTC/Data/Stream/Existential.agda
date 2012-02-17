@@ -16,12 +16,12 @@ open import FOTC.Data.Stream.Equality
 
 ------------------------------------------------------------------------------
 
--- A proof using pattern matching (via the with mechanisms).
+-- A proof using pattern matching (via the with mechanism).
 tailS₁ : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 tailS₁ {x} {xs} h₁ with (Stream-gfp₁ h₁)
 ... | e , es , Ses , h₂ = subst Stream (sym (∧-proj₂ (∷-injective h₂))) Ses
 
--- A proof using elimination.
+-- A proof using existential elimination.
 tailS₂ : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 tailS₂ {x} {xs} h =
   ∃-elim (Stream-gfp₁ h)
