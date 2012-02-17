@@ -73,11 +73,11 @@ commutatorInverse a b =
   a ⁻¹ · b ⁻¹ · (b · a)
     ≡⟨ assoc (a ⁻¹) (b ⁻¹) (b · a) ⟩
   a ⁻¹ · (b ⁻¹ · (b · a))
-     ≡⟨ ·-cong refl (sym (assoc (b ⁻¹) b a)) ⟩
+     ≡⟨ ·-rightCong (sym (assoc (b ⁻¹) b a)) ⟩
   a ⁻¹ · ((b ⁻¹ · b) · a)
-     ≡⟨ ·-cong refl (·-cong (leftInverse b) refl) ⟩
+     ≡⟨ ·-rightCong (·-leftCong (leftInverse b)) ⟩
   a ⁻¹ · (ε · a)
-     ≡⟨ ·-cong refl (leftIdentity a) ⟩
+     ≡⟨ ·-rightCong (leftIdentity a) ⟩
   a ⁻¹ · a
      ≡⟨ leftInverse a ⟩
   ε ∎
