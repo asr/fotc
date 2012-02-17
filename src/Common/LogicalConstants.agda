@@ -34,7 +34,7 @@ P ↔ Q = (P → Q) ∧ (Q → P)
 -- The existential quantifier is hard-coded in our translation,
 -- i.e. the symbol ∃ must be used.
 
-open import Common.Data.Product public using ( _,_ ; ∃ ; ∃-proj₁ ; ∃-proj₂ )
+open import Common.Data.Product public using ( _,_ ; ∃ ; ∃-elim )
 
 -- The universal quantifier
 -- N.B. For the universal quantifier we use the Agda (dependent)

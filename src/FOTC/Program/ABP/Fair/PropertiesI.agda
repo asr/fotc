@@ -15,12 +15,13 @@ open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 
-head-tail-Fair-helper : ∀ {fs ft fs'} → F*T ft → fs ≡ ft ++ fs' →
+head-tail-Fair-helper : ∀ {fs} →
+                        ∃[ ft ] ∃[ fs' ] F*T ft ∧ Fair fs' ∧ fs ≡ ft ++ fs' →
                         fs ≡ T ∷ tail₁ fs ∨ fs ≡ F ∷ tail₁ fs
-head-tail-Fair-helper {fs} {fs' = fs'} nilF*T h = inj₁ prf₃
+head-tail-Fair-helper {fs} (.(true ∷ []) , fs' , nilF*T , h₁ , h₂) = inj₁ prf₃
   where
   prf₁ : fs ≡ T ∷ [] ++ fs'
-  prf₁ = fs              ≡⟨ h ⟩
+  prf₁ = fs              ≡⟨ h₂ ⟩
          (T ∷ []) ++ fs' ≡⟨ ++-∷ T [] fs' ⟩
          T ∷ [] ++ fs' ∎
 
@@ -34,10 +35,11 @@ head-tail-Fair-helper {fs} {fs' = fs'} nilF*T h = inj₁ prf₃
          T ∷ [] ++ fs'  ≡⟨ cong (_∷_ T) (sym prf₂) ⟩
          T ∷ tail₁ fs ∎
 
-head-tail-Fair-helper {fs} {fs' = fs'} (consF*T {ft} FTft) h = inj₂ prf₃
+head-tail-Fair-helper {fs} (.(false ∷ ft) , fs' , consF*T {ft} y , h₁ , h₂) =
+  inj₂ prf₃
   where
   prf₁ : fs ≡ F ∷ ft ++ fs'
-  prf₁ = fs              ≡⟨ h ⟩
+  prf₁ = fs              ≡⟨ h₂ ⟩
          (F ∷ ft) ++ fs' ≡⟨ ++-∷ F ft fs' ⟩
          F ∷ ft ++ fs' ∎
 
@@ -52,26 +54,13 @@ head-tail-Fair-helper {fs} {fs' = fs'} (consF*T {ft} FTft) h = inj₂ prf₃
          F ∷ tail₁ fs ∎
 
 head-tail-Fair : ∀ {fs} → Fair fs → fs ≡ T ∷ tail₁ fs ∨ fs ≡ F ∷ tail₁ fs
-head-tail-Fair {fs} Ffs = head-tail-Fair-helper FTft fs≡ol++fs'
-  where
-  unfold-fs : ∃[ ft ] ∃[ fs' ] F*T ft ∧ Fair fs' ∧ fs ≡ ft ++ fs'
-  unfold-fs = Fair-gfp₁ Ffs
+head-tail-Fair {fs} Ffs = head-tail-Fair-helper (Fair-gfp₁ Ffs)
 
-  ft : D
-  ft = ∃-proj₁ unfold-fs
-
-  fs' : D
-  fs' = ∃-proj₁ (∃-proj₂ unfold-fs)
-
-  FTft : F*T ft
-  FTft = ∧-proj₁ (∃-proj₂ (∃-proj₂ unfold-fs))
-
-  fs≡ol++fs' : fs ≡ ft ++ fs'
-  fs≡ol++fs' = ∧-proj₂ (∧-proj₂ (∃-proj₂ (∃-proj₂ unfold-fs)))
-
-tail-Fair-helper : ∀ {fs ft fs'} → F*T ft → fs ≡ ft ++ fs' → Fair fs' →
+tail-Fair-helper : ∀ {fs} →
+                   ∃[ ft ] ∃[ fs' ] F*T ft ∧ Fair fs' ∧ fs ≡ ft ++ fs' →
                    Fair (tail₁ fs)
-tail-Fair-helper {fs} {fs' = fs'} nilF*T h Ffs' = subst Fair (sym prf₂) Ffs'
+tail-Fair-helper {fs} (.(true ∷ []) , fs' , nilF*T , Ffs' , h) =
+  subst Fair (sym prf₂) Ffs'
   where
   prf₁ : fs ≡ T ∷ fs'
   prf₁ = fs              ≡⟨ h ⟩
@@ -84,7 +73,7 @@ tail-Fair-helper {fs} {fs' = fs'} nilF*T h Ffs' = subst Fair (sym prf₂) Ffs'
          tail₁ (T ∷ fs') ≡⟨ tail-∷ T fs' ⟩
          fs' ∎
 
-tail-Fair-helper {fs} {fs' = fs'} (consF*T {ft} FTft) h Ffs' =
+tail-Fair-helper {fs} (.(false ∷ ft) , fs' , consF*T {ft} FTft , Ffs' , h) =
   subst Fair (sym prf₂) (Fair-gfp₃ (ft , fs' , FTft , Ffs' , refl))
   where
   prf₁ : fs ≡ F ∷ ft ++ fs'
@@ -98,22 +87,4 @@ tail-Fair-helper {fs} {fs' = fs'} (consF*T {ft} FTft) h Ffs' =
          ft ++ fs' ∎
 
 tail-Fair : ∀ {fs} → Fair fs → Fair (tail₁ fs)
-tail-Fair {fs} Ffs = tail-Fair-helper FTft fs≡ol++fs' Ffs'
-  where
-  unfold-fs : ∃[ ft ] ∃[ fs' ] F*T ft ∧ Fair fs' ∧ fs ≡ ft ++ fs'
-  unfold-fs = Fair-gfp₁ Ffs
-
-  ft : D
-  ft = ∃-proj₁ unfold-fs
-
-  fs' : D
-  fs' = ∃-proj₁ (∃-proj₂ unfold-fs)
-
-  FTft : F*T ft
-  FTft = ∧-proj₁ (∃-proj₂ (∃-proj₂ unfold-fs))
-
-  Ffs' : Fair fs'
-  Ffs' = ∧-proj₁ (∧-proj₂ (∃-proj₂ (∃-proj₂ unfold-fs)))
-
-  fs≡ol++fs' : fs ≡ ft ++ fs'
-  fs≡ol++fs' = ∧-proj₂ (∧-proj₂ (∃-proj₂ (∃-proj₂ unfold-fs)))
+tail-Fair {fs} Ffs = tail-Fair-helper (Fair-gfp₁ Ffs)

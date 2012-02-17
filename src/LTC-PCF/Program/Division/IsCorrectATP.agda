@@ -45,20 +45,14 @@ postulate
                    i ≡ j * div i j + r
 {-# ATP prove div-x≮y-helper div-x≮y helper #-}
 
+-- TODO: To test an ATP proof.
 div-x≮y-correct : ∀ {i j} → N i → N j →
                   (ih : DIV (i ∸ j) j (div (i ∸ j) j)) →
                   NLT i j →
                   ∃[ r ] N r ∧ LT r j ∧ i ≡ j * div i j + r
-div-x≮y-correct {i} {j} Ni Nj ih i≮j =
+div-x≮y-correct {i} {j} Ni Nj (h₁ , r , r-correct) i≮j =
   r , Nr , r<j , div-x≮y-helper Ni Nj Nr i≮j helperH
   where
-  -- The parts of the inductive hypothesis ih.
-  r : D
-  r = ∃-proj₁ (∧-proj₂ ih)
-
-  r-correct : N r ∧ LT r j ∧ i ∸ j ≡ j * div (i ∸ j) j + r
-  r-correct = ∃-proj₂ (∧-proj₂ ih)
-
   Nr : N r
   Nr = ∧-proj₁ r-correct
 

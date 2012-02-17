@@ -41,18 +41,17 @@ open import FOTC.Data.Stream.Equality
 
   helper : ∀ {xs ys} → R xs ys →
            ∃[ x' ] ∃[ xs' ] ∃[ ys' ] R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
-  helper {xs} {ys} h = f · y
-                     , map f (iterate f (f · y))
-                     , iterate f (f · (f · y))
-                     , ((f · y) , refl , refl)
-                     , trans xs≡map (unfoldMap f y)
-                     , trans ys≡iterate (unfoldIterate f y)
-    where
-    y : D
-    y = ∃-proj₁ h
+  helper {xs} {ys} (y , h) =
+    f · y
+    , map f (iterate f (f · y))
+    , iterate f (f · (f · y))
+    , ((f · y) , refl , refl)
+    , trans xs≡map (unfoldMap f y)
+    , trans ys≡iterate (unfoldIterate f y)
 
+    where
     xs≡map : xs ≡ map f (iterate f y)
-    xs≡map = ∧-proj₁ (∃-proj₂ h)
+    xs≡map = ∧-proj₁ h
 
     ys≡iterate : ys ≡ iterate f (f · y)
-    ys≡iterate = ∧-proj₂ (∃-proj₂ h)
+    ys≡iterate = ∧-proj₂ h

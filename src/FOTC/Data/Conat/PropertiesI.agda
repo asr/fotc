@@ -34,24 +34,10 @@ stream-length {xs} Sxs = ≈N-gfp₂ _R_ helper₁ helper₂
 
   helper₁ : ∀ {m n} → m R n →
             ∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
-  helper₁ {m} {n} (ys , Sys , h₁ , h₂) =
+  helper₁ {m} {n} (ys , Sys , h₁ , h₂) with Stream-gfp₁ Sys
+  ... | y' , ys' , Sys' , ys≡y'∷ys' =
     length ys' , n , (ys' , Sys' , refl , h₂) , prf₁ , prf₂
     where
-    unfold-ys : ∃[ y' ] ∃[ ys' ] Stream ys' ∧ ys ≡ y' ∷ ys'
-    unfold-ys = Stream-gfp₁ Sys
-
-    y' : D
-    y' = ∃-proj₁ unfold-ys
-
-    ys' : D
-    ys' = ∃-proj₁ (∃-proj₂ unfold-ys)
-
-    Sys' : Stream ys'
-    Sys' = ∧-proj₁ (∃-proj₂ (∃-proj₂ unfold-ys))
-
-    ys≡y'∷ys' : ys ≡ y' ∷ ys'
-    ys≡y'∷ys' = ∧-proj₂ (∃-proj₂ (∃-proj₂ unfold-ys))
-
     prf₁ : m ≡ succ₁ (length ys')
     prf₁ = trans₂ h₁ (cong length ys≡y'∷ys') (length-∷ y' ys')
 

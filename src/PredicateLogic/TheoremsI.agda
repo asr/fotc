@@ -38,7 +38,7 @@ gDM₂ = l→r , r→l
   l→r h x p¹ = h (x , p¹)
 
   r→l : ((x : D) → ¬ (P¹ x)) → ¬ (∃ P¹)
-  r→l h ∃p¹ = h (∃-proj₁ ∃p¹) (∃-proj₂ ∃p¹)
+  r→l h (x , p¹) = h x p¹
 
 -- Quantification over a variable that does not occur can be delete.
 ∃-erase : (∃[ x ] P⁰ ∧ P¹ x) ↔ P⁰ ∧ (∃[ x ] P¹ x)

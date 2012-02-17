@@ -39,26 +39,13 @@ open import FOTC.Program.ABP.Lemma2ATP
 minorPremise : ∀ {is js} → is B js →
                ∃[ i' ] ∃[ is' ] ∃[ js' ]
                is' B js' ∧ is ≡ i' ∷ is' ∧ js ≡ i' ∷ js'
-minorPremise {is} {js}
-             (b , fs₀ , fs₁ , as , bs , cs , ds , Sis , Bb , Ffs₀ , Ffs₁ , h) =
-  i' , is' , js' , is'Bjs' , is≡i'∷is , js≡i'∷js'
+minorPremise
+  {is} {js}
+  (b , fs₀ , fs₁ , as , bs , cs , ds , Sis , Bb , Ffs₀ , Ffs₁ , h)
+  with (Stream-gfp₁ Sis)
+... | (i' , is' , Sis' , is≡i'∷is) = i' , is' , js' , is'Bjs' , is≡i'∷is , js≡i'∷js'
 
   where
-  unfold-is : ∃[ i' ] ∃[ is' ] Stream is' ∧ is ≡ i' ∷ is'
-  unfold-is = Stream-gfp₁ Sis
-
-  i' : D
-  i' = ∃-proj₁ unfold-is
-
-  is' : D
-  is' = ∃-proj₁ (∃-proj₂ unfold-is)
-
-  Sis' : Stream is'
-  Sis' = ∧-proj₁ (∃-proj₂ (∃-proj₂ unfold-is))
-
-  is≡i'∷is : is ≡ i' ∷ is'
-  is≡i'∷is = ∧-proj₂ (∃-proj₂ (∃-proj₂ unfold-is))
-
   Abp-helper : is ≡ i' ∷ is' →
                Abp b is fs₀ fs₁ as bs cs ds js →
                Abp b (i' ∷ is') fs₀ fs₁ as bs cs ds js
@@ -73,9 +60,11 @@ minorPremise {is} {js}
 
   -- Following Martin Escardo advice (see Agda mailing list, heap
   -- mistery) we use pattern matching instead of ∃ eliminators to
-  -- project the elements of the existentials. Update on 2011-08-25:
-  -- It does not seems strictly necessary because the Agda issue 415
-  -- was fixed.
+  -- project the elements of the existentials.
+
+  -- 2011-08-25 update: It does not seems strictly necessary because
+  -- the Agda issue 415 was fixed.
+
   js' : D
   js' with Abp'-lemma₁
   ... | _ , _ , _ , _ , _ , _ , js' , _ = js'

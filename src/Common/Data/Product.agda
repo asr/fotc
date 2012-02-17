@@ -34,11 +34,13 @@ data _∧_ (A B : Set) : Set where
 data ∃ (P : D → Set) : Set where
   _,_ : (x : D) → P x → ∃ P
 
--- Sugar syntax for the existential.
+-- Sugar syntax for the existential quantifier.
 syntax ∃ (λ x → e) = ∃[ x ] e
 
-∃-proj₁ : ∀ {P} → ∃ P → D
-∃-proj₁ (x , _) = x
+-- The existential elimination.
 
-∃-proj₂ : ∀ {P} → (p : ∃ P) → P (∃-proj₁ p)
-∃-proj₂ (_ , Px) = Px
+-- NB. We do not use the usual type theory elimination with two
+-- projections because we are working in first-order logic where we
+-- cannot extract a term from an existence proof.
+∃-elim : {P : D → Set}{Q : Set} → ∃ P → ((x : D) → P x → Q) → Q
+∃-elim (x , p) h = h x p
