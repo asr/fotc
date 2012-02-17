@@ -93,10 +93,8 @@ module NonInductive where
            x₁ ≡ y₁ → x₂ ≡ y₂ →
            P x₁ x₂ →
            P y₁ y₂
-  subst₂ P {x₁} {x₂} {y₁} {y₂} x₁≡y₁ x₂≡y₂ Px₁x₂ =
-    subst (λ y₁' → P y₁' y₂)
-          x₁≡y₁
-          (subst (λ y₂' → P x₁ y₂') x₂≡y₂ Px₁x₂)
+  subst₂ P {x₁} {x₂} {y₁} {y₂} h₁ h₂ h₃ =
+    subst (λ y₁' → P y₁' y₂) h₁ (subst (λ y₂' → P x₁ y₂') h₂ h₃)
 
   cong : (f : D → D) → ∀ {x y} → x ≡ y → f x ≡ f y
   cong f {x} h = subst (λ x' → f x ≡ f x') h refl
