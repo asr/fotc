@@ -15,9 +15,8 @@ open import FOTC.Data.Stream.Equality
 -----------------------------------------------------------------------------
 
 tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
-tailS {x} {xs} h with (Stream-gfp₁ h)
-... | e , es , Ses , x∷xs≡e∷es =
-  subst Stream (sym (∧-proj₂ (∷-injective x∷xs≡e∷es))) Ses
+tailS {x} {xs} h₁ with (Stream-gfp₁ h₁)
+... | e , es , Ses , h₂ = subst Stream (sym (∧-proj₂ (∷-injective h₂))) Ses
 
 ≈→Stream : ∀ {xs ys} → xs ≈ ys → Stream xs ∧ Stream ys
 ≈→Stream {xs} {ys} xs≈ys = Stream-gfp₂ P₁ helper₁ (ys , xs≈ys)
