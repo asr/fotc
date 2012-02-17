@@ -24,7 +24,7 @@ postulate
 ∃-erase₁ = l→r , r→l
   where
   l→r : ∃ (λ _ → P⁰) → P⁰
-  l→r (_ , p⁰) = p⁰
+  l→r h = ∃-elim h (λ _ prf → prf)
 
   r→l : P⁰ → ∃ (λ _ → P⁰)
   r→l p⁰ = D≠∅ , p⁰
@@ -33,9 +33,8 @@ postulate
 ∃-erase₂ = l→r , r→l
   where
   l→r : ∃[ x ] (P⁰ ∨ P¹ x) → P⁰ ∨ (∃[ x ] P¹ x)
-  l→r (x , inj₁ p⁰) = inj₁ p⁰
-  l→r (x , inj₂ p¹) = inj₂ (x , p¹)
+  l→r h = ∃-elim h (λ x prf → [ (λ p⁰ → inj₁ p⁰) , (λ p¹ → inj₂ (x , p¹)) ] prf)
 
   r→l : P⁰ ∨ (∃[ x ] P¹ x) → ∃[ x ] P⁰ ∨ P¹ x
-  r→l (inj₁ p⁰)       = D≠∅ , (inj₁ p⁰)
-  r→l (inj₂ (x , p¹)) = x , inj₂ p¹
+  r→l (inj₁ p⁰) = D≠∅ , (inj₁ p⁰)
+  r→l (inj₂ h)  = ∃-elim h (λ x p¹ → x , (inj₂ p¹))
