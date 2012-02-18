@@ -29,55 +29,59 @@ open import GroupTheory.Relation.Binary.EqReasoning
 ⁻¹-cong = cong _⁻¹
 
 ------------------------------------------------------------------------------
--- Adapted from the standard library.
-y≡x⁻¹[xy] : ∀ a b → b ≡ a ⁻¹ · (a · b)
-y≡x⁻¹[xy] a b =
+
+leftCancellation : ∀ {a b c} → a · b ≡ a · c → b ≡ c
+leftCancellation {a} {b} {c} h =
   b              ≡⟨ sym (leftIdentity b) ⟩
   ε · b          ≡⟨ ·-leftCong (sym (leftInverse a)) ⟩
   a ⁻¹ · a · b   ≡⟨ assoc (a ⁻¹) a b ⟩
-  a ⁻¹ · (a · b) ∎
+  a ⁻¹ · (a · b) ≡⟨ ·-rightCong h ⟩
+  a ⁻¹ · (a · c) ≡⟨ sym (assoc (a ⁻¹) a c) ⟩
+  a ⁻¹ · a · c   ≡⟨ ·-leftCong (leftInverse a) ⟩
+  ε · c          ≡⟨ leftIdentity c ⟩
+  c ∎
 
--- Adapted from the standard library.
-x≡[xy]y⁻¹ : ∀ a b → a ≡ (a · b) · b ⁻¹
-x≡[xy]y⁻¹ a b =
-  a              ≡⟨ sym (rightIdentity a) ⟩
-  a · ε          ≡⟨ ·-rightCong (sym (rightInverse b)) ⟩
-  a · (b · b ⁻¹) ≡⟨ sym (assoc a b (b ⁻¹)) ⟩
-  a · b · b ⁻¹ ∎
-
-rightIdentityUnique : ∀ r → (∀ a → a · r ≡ a) → r ≡ ε
+-- A different proof without using congruence.
+leftCancellation' : ∀ {a b c} → a · b ≡ a · c → b ≡ c
 -- Paper proof (Saunders Mac Lane and Garret Birkhoff. Algebra. AMS
--- Chelsea Publishing, 3rd edition, 1999. p. 48):
---
--- 1. r  = εr (ε is an identity)
--- 2. εr = r  (hypothesis)
--- 3. r  = ε  (transitivity)
-rightIdentityUnique r h = trans (sym (leftIdentity r)) (h ε)
+-- Chelsea Publishing, 3rd edition, 1999. p. 48)
+-- 1. a⁻¹(ab)  = a⁻¹(ac)  (hypothesis ab = ac)
+-- 2. a⁻¹a(b)  = a⁻¹a(c)  (associative axiom)
+-- 3. εb       = εc       (left-inverse axiom for a⁻¹)
+-- 4. b        = c        (left-identity axiom)
+leftCancellation' {a} {b} {c} h =
+  b              ≡⟨ sym (leftIdentity b) ⟩
+  ε · b          ≡⟨ subst (λ t → ε · b ≡ t · b) (sym (leftInverse a)) refl ⟩
+  a ⁻¹ · a · b   ≡⟨ assoc (a ⁻¹) a b ⟩
+  a ⁻¹ · (a · b) ≡⟨ subst (λ t → a ⁻¹ · (a · b) ≡ a ⁻¹ · t) h refl ⟩
+  a ⁻¹ · (a · c) ≡⟨ sym (assoc (a ⁻¹) a c) ⟩
+  a ⁻¹ · a · c   ≡⟨ subst (λ t → a ⁻¹ · a · c ≡ t · c) (leftInverse a) refl ⟩
+  ε · c          ≡⟨ leftIdentity c ⟩
+  c ∎
 
--- A more appropiate version to be used in the proofs.
--- Adapted from the standard library.
-rightIdentityUnique' : ∀ a r → a · r ≡ a → r ≡ ε
-rightIdentityUnique' a r h =
-  r              ≡⟨ y≡x⁻¹[xy] a r ⟩
-  a ⁻¹ · (a · r) ≡⟨ ·-rightCong h ⟩
-  a ⁻¹ · a       ≡⟨ leftInverse a ⟩
-  ε ∎
+-- Saunders Mac Lane and Garret Birkhoff. Algebra. AMS Chelsea
+-- Publishing, 3rd edition, 1999. p. 50, exercise 6.
+rightIdentity : ∀ a → a · ε ≡ a
+rightIdentity a = leftCancellation prf
+  where
+  prf : a ⁻¹ · (a · ε) ≡ a ⁻¹ · a
+  prf = a ⁻¹ · (a · ε) ≡⟨ sym (assoc (a ⁻¹) a ε) ⟩
+        a ⁻¹ · a · ε   ≡⟨ ·-leftCong (leftInverse a) ⟩
+        ε · ε          ≡⟨ leftIdentity ε ⟩
+        ε              ≡⟨ sym (leftInverse a) ⟩
+        a ⁻¹ · a ∎
 
-leftIdentityUnique : ∀ l → (∀ a → l · a ≡ a) → l ≡ ε
--- Paper proof:
--- 1. l  = le (ε is an identity)
--- 2. le = e  (hypothesis)
--- 3. l  = e  (transitivity)
-leftIdentityUnique l h = trans (sym (rightIdentity l)) (h ε)
-
--- A more appropiate version to be used in the proofs.
--- Adapted from the standard library.
-leftIdentityUnique' : ∀ a l → l · a ≡ a → l ≡ ε
-leftIdentityUnique' a l h =
-  l            ≡⟨ x≡[xy]y⁻¹ l a ⟩
-  l · a · a ⁻¹ ≡⟨ ·-leftCong h ⟩
-  a · a ⁻¹     ≡⟨ rightInverse a ⟩
-  ε ∎
+-- Saunders Mac Lane and Garret Birkhoff. Algebra. AMS Chelsea
+-- Publishing, 3rd edition, 1999. p. 50, exercise 6.
+rightInverse : ∀ a → a · a ⁻¹ ≡ ε
+rightInverse a = leftCancellation prf
+  where
+  prf : a ⁻¹ · (a · a ⁻¹) ≡ a ⁻¹ · ε
+  prf = a ⁻¹ · (a · a ⁻¹) ≡⟨ sym (assoc (a ⁻¹) a (a ⁻¹)) ⟩
+        a ⁻¹ · a · a ⁻¹   ≡⟨ ·-leftCong (leftInverse a) ⟩
+        ε · a ⁻¹          ≡⟨ leftIdentity (a ⁻¹)  ⟩
+        a ⁻¹              ≡⟨ sym (rightIdentity (a ⁻¹)) ⟩
+        a ⁻¹ · ε ∎
 
 rightCancellation : ∀ {a b c} → b · a ≡ c · a → b ≡ c
 rightCancellation {a} {b} {c} h =
@@ -95,33 +99,59 @@ rightCancellation {a} {b} {c} h =
   c · ε          ≡⟨ rightIdentity c ⟩
   c ∎
 
-leftCancellation : ∀ {a b c} → a · b ≡ a · c → b ≡ c
-leftCancellation {a} {b} {c} h =
+-- Adapted from the Agda standard library v0.6 (see
+-- Algebra.Props.Group.right-helper).
+y≡x⁻¹[xy] : ∀ a b → b ≡ a ⁻¹ · (a · b)
+y≡x⁻¹[xy] a b =
   b              ≡⟨ sym (leftIdentity b) ⟩
   ε · b          ≡⟨ ·-leftCong (sym (leftInverse a)) ⟩
   a ⁻¹ · a · b   ≡⟨ assoc (a ⁻¹) a b ⟩
-  a ⁻¹ · (a · b) ≡⟨ ·-rightCong h ⟩
-  a ⁻¹ · (a · c) ≡⟨ sym (assoc (a ⁻¹) a c) ⟩
-  a ⁻¹ · a · c   ≡⟨ ·-leftCong (leftInverse a) ⟩
-  ε · c          ≡⟨ leftIdentity c ⟩
-  c ∎
+  a ⁻¹ · (a · b) ∎
 
--- A different proof without using congruence.
-leftCancellation₁ : ∀ {a b c} → a · b ≡ a · c → b ≡ c
-leftCancellation₁ {a} {b} {c} h =
+-- Adapted from the Agda standard library v0.6 (see
+-- Algebra.Props.Group.left-helper).
+x≡[xy]y⁻¹ : ∀ a b → a ≡ (a · b) · b ⁻¹
+x≡[xy]y⁻¹ a b =
+  a              ≡⟨ sym (rightIdentity a) ⟩
+  a · ε          ≡⟨ ·-rightCong (sym (rightInverse b)) ⟩
+  a · (b · b ⁻¹) ≡⟨ sym (assoc a b (b ⁻¹)) ⟩
+  a · b · b ⁻¹ ∎
+
+rightIdentityUnique : ∀ r → (∀ a → a · r ≡ a) → r ≡ ε
+-- Paper proof (Saunders Mac Lane and Garret Birkhoff. Algebra. AMS
+-- Chelsea Publishing, 3rd edition, 1999. p. 48):
+--
+-- 1. r  = εr (ε is an identity)
+-- 2. εr = r  (hypothesis)
+-- 3. r  = ε  (transitivity)
+rightIdentityUnique r h = trans (sym (leftIdentity r)) (h ε)
+
+-- A more appropiate version to be used in the proofs.
+-- Adapted from the Agda standard library v0.6 (see
+-- Algebra.Props.Group.right-identity-unique).
+rightIdentityUnique' : ∀ a r → a · r ≡ a → r ≡ ε
+rightIdentityUnique' a r h =
+  r              ≡⟨ y≡x⁻¹[xy] a r ⟩
+  a ⁻¹ · (a · r) ≡⟨ ·-rightCong h ⟩
+  a ⁻¹ · a       ≡⟨ leftInverse a ⟩
+  ε ∎
+
+leftIdentityUnique : ∀ l → (∀ a → l · a ≡ a) → l ≡ ε
 -- Paper proof:
--- 1. a⁻¹(ab)  = a⁻¹(ac)  (hypothesis ab = ac)
--- 2. a⁻¹a(b)  = a⁻¹a(c)  (associative axiom)
--- 3. εb       = εc       (left-inverse axiom for a⁻¹)
--- 4. b        = c        (left-identity axiom)
-  b              ≡⟨ sym (leftIdentity b) ⟩
-  ε · b          ≡⟨ subst (λ t → ε · b ≡ t · b) (sym (leftInverse a)) refl ⟩
-  a ⁻¹ · a · b   ≡⟨ assoc (a ⁻¹) a b ⟩
-  a ⁻¹ · (a · b) ≡⟨ subst (λ t → a ⁻¹ · (a · b) ≡ a ⁻¹ · t) h refl ⟩
-  a ⁻¹ · (a · c) ≡⟨ sym (assoc (a ⁻¹) a c) ⟩
-  a ⁻¹ · a · c   ≡⟨ subst (λ t → a ⁻¹ · a · c ≡ t · c) (leftInverse a) refl ⟩
-  ε · c          ≡⟨ leftIdentity c ⟩
-  c ∎
+-- 1. l  = le (ε is an identity)
+-- 2. le = e  (hypothesis)
+-- 3. l  = e  (transitivity)
+leftIdentityUnique l h = trans (sym (rightIdentity l)) (h ε)
+
+-- A more appropiate version to be used in the proofs.
+-- Adapted from the Agda standard library v0.6 (see
+-- Algebra.Props.Group.left-identity-unique).
+leftIdentityUnique' : ∀ a l → l · a ≡ a → l ≡ ε
+leftIdentityUnique' a l h =
+  l            ≡⟨ x≡[xy]y⁻¹ l a ⟩
+  l · a · a ⁻¹ ≡⟨ ·-leftCong h ⟩
+  a · a ⁻¹     ≡⟨ rightInverse a ⟩
+  ε ∎
 
 rightInverseUnique : ∀ {a} → ∃[ r ] (a · r ≡ ε) ∧
                                     (∀ r' → a · r' ≡ ε → r ≡ r')

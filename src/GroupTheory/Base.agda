@@ -30,9 +30,10 @@ postulate
   _·_ : G → G → G  -- The binary operation.
   _⁻¹ : G → G      -- The inverse function.
 
+  -- We choose a mininal set of axioms. See for example Saunders Mac
+  -- Lane and Garret Birkhoff. Algebra. AMS Chelsea Publishing, 3rd
+  -- edition, 1999. exercises 5-7, p. 50-51.
   assoc         : ∀ a b c → a · b · c ≡ a · (b · c)
   leftIdentity  : ∀ a → ε · a         ≡ a
-  rightIdentity : ∀ a → a · ε         ≡ a
   leftInverse   : ∀ a → a ⁻¹ · a      ≡ ε
-  rightInverse  : ∀ a → a · a ⁻¹      ≡ ε
-{-# ATP axiom assoc leftIdentity rightIdentity leftInverse rightInverse #-}
+{-# ATP axiom assoc leftIdentity leftInverse  #-}

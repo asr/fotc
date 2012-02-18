@@ -28,6 +28,20 @@ postulate ⁻¹-cong : ∀ {a b} → a ≡ b → a ⁻¹ ≡ b ⁻¹
 
 ------------------------------------------------------------------------------
 
+postulate leftCancellation : ∀ {a b c} → a · b ≡ a · c → b ≡ c
+-- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
+{-# ATP prove leftCancellation #-}
+
+postulate rightIdentity : ∀ a → a · ε ≡ a
+{-# ATP prove rightIdentity #-}
+
+postulate rightInverse : ∀ a → a · a ⁻¹ ≡ ε
+{-# ATP prove rightInverse #-}
+
+postulate rightCancellation : ∀ {a b c} → b · a ≡ c · a → b ≡ c
+-- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
+{-# ATP prove rightCancellation #-}
+
 postulate y≡x⁻¹[xy] : ∀ a b → b ≡ a ⁻¹ · (a · b)
 {-# ATP prove y≡x⁻¹[xy] #-}
 
@@ -51,14 +65,6 @@ postulate
 postulate leftIdentityUnique' : ∀ a l → l · a ≡ a → l ≡ ε
 -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove leftIdentityUnique' #-}
-
-postulate rightCancellation : ∀ {a b c} → b · a ≡ c · a → b ≡ c
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
-{-# ATP prove rightCancellation #-}
-
-postulate leftCancellation : ∀ {a b c} → a · b ≡ a · c → b ≡ c
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
-{-# ATP prove leftCancellation #-}
 
 postulate
   rightInverseUnique : ∀ {a} → ∃[ r ] (a · r ≡ ε) ∧
