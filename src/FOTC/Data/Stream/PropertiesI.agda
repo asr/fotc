@@ -16,25 +16,22 @@ open import FOTC.Data.Stream.Equality
 
 tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 tailS {x} {xs} h₁ with (Stream-gfp₁ h₁)
-... | e , es , Ses , h₂ = subst Stream (sym (∧-proj₂ (∷-injective h₂))) Ses
+... | x' , xs' , Sxs' , h₂ = subst Stream (sym (∧-proj₂ (∷-injective h₂))) Sxs'
 
 ≈→Stream : ∀ {xs ys} → xs ≈ ys → Stream xs ∧ Stream ys
-≈→Stream {xs} {ys} xs≈ys = Stream-gfp₂ P₁ helper₁ (ys , xs≈ys)
-                         , Stream-gfp₂ P₂ helper₂ (xs , xs≈ys)
+≈→Stream {xs} {ys} h = Stream-gfp₂ P₁ helper₁ (ys , h)
+                       , Stream-gfp₂ P₂ helper₂ (xs , h)
   where
   P₁ : D → Set
   P₁ ws = ∃[ zs ] ws ≈ zs
 
-  helper₁ : ∀ {ws} → P₁ ws →
-            ∃[ w' ] ∃[ ws' ] P₁ ws' ∧ ws ≡ w' ∷ ws'
-  helper₁ {ws} (zs , ws≈zs) with ≈-gfp₁ ws≈zs
-  ... | w' , ws' , zs' , ws'≈zs' , ws≡w'∷ws' , _ =
-    w' , ws' , (zs' , ws'≈zs') , ws≡w'∷ws'
+  helper₁ : ∀ {ws} → P₁ ws → ∃[ w' ] ∃[ ws' ] P₁ ws' ∧ ws ≡ w' ∷ ws'
+  helper₁ {ws} (zs , h₁) with ≈-gfp₁ h₁
+  ... | w' , ws' , zs' , prf₁ , prf₂ , _ = w' , ws' , (zs' , prf₁) , prf₂
 
   P₂ : D → Set
   P₂ zs = ∃[ ws ] ws ≈ zs
 
   helper₂ : ∀ {zs} → P₂ zs → ∃[ z' ] ∃[ zs' ] P₂ zs' ∧ zs ≡ z' ∷ zs'
-  helper₂  {zs} (ws , ws≈zs) with ≈-gfp₁ ws≈zs
-  ... | w' , ws' , zs' , ws'≈zs' , _ , zs≡w'∷zs' =
-    w' , zs' , (ws' , ws'≈zs') , zs≡w'∷zs'
+  helper₂  {zs} (ws , h₁) with ≈-gfp₁ h₁
+  ... | w' , ws' , zs' , prf₁ , _ , prf₂ = w' , zs' , (ws' , prf₁) , prf₂
