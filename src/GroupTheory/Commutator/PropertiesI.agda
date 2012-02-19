@@ -59,17 +59,9 @@ commutatorInverse a b =
              refl
     ⟩
   a ⁻¹ · b ⁻¹ · (a · a ⁻¹ · (b · a))
-    ≡⟨ subst (λ t → a ⁻¹ · b ⁻¹ · (a · a ⁻¹ · (b · a)) ≡
-                    a ⁻¹ · b ⁻¹ · (t · (b · a)))
-             (rightInverse a)
-             refl
-    ⟩
+    ≡⟨ ·-rightCong (·-leftCong (rightInverse a)) ⟩
   a ⁻¹ · b ⁻¹ · (ε · (b · a))
-    ≡⟨ subst (λ t → a ⁻¹ · b ⁻¹ · (ε · (b · a)) ≡
-                    a ⁻¹ · b ⁻¹ · t)
-             (leftIdentity (b · a))
-             refl
-    ⟩
+    ≡⟨ ·-rightCong (leftIdentity (b · a)) ⟩
   a ⁻¹ · b ⁻¹ · (b · a)
     ≡⟨ assoc (a ⁻¹) (b ⁻¹) (b · a) ⟩
   a ⁻¹ · (b ⁻¹ · (b · a))
