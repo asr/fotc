@@ -14,21 +14,21 @@ infix  7  _≐_
 
 ------------------------------------------------------------------------------
 -- PA universe
-open import Common.Universe public renaming ( D to ℕ )
+open import Common.Universe public renaming ( D to PA )
 
 -- Logical constants
 open import Common.LogicalConstants public
 
 -- Non-logical constants
 postulate
-  zero    : ℕ
-  succ    : ℕ → ℕ
-  _+_ _*_ : ℕ → ℕ → ℕ
+  zero    : PA
+  succ    : PA → PA
+  _+_ _*_ : PA → PA → PA
 
 -- The PA equality.
 -- N.B. The symbol _≡_ should not be used because it is hard-coded by
 -- the program agda2atp as the ATPs equality.
-postulate _≐_ : ℕ → ℕ → Set
+postulate _≐_ : PA → PA → Set
 
 -- Proper axioms
 -- (From Elliott Mendelson. Introduction to mathematical
@@ -59,4 +59,4 @@ postulate
 
 -- The axiom S₉ is a higher-order one, therefore we do not translate
 -- it as an ATP axiom.
-postulate S₉ : (P : ℕ → Set) → P zero → (∀ n → P n → P (succ n)) → ∀ n → P n
+postulate S₉ : (P : PA → Set) → P zero → (∀ n → P n → P (succ n)) → ∀ n → P n
