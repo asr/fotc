@@ -16,8 +16,8 @@ postulate
   P⁰ : Set
   P¹ : D → Set
 
-∃I : ((t : D) → P¹ t) → ∃ P¹
-∃I h = D≠∅ , h D≠∅
+∃-intro : ((t : D) → P¹ t) → ∃ P¹
+∃-intro h = D≠∅ , h D≠∅
 
 -- Quantification over a variable that does not occur can be delete.
 ∃-erase₁ : ∃ (λ _ → P⁰) ↔ P⁰

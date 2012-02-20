@@ -18,17 +18,29 @@ postulate
 
 -- The introduction and elimination rules for the quantifiers are theorems.
 {-
-        φ(x)          ∀x.φ(x)          φ(t)           ∃x.φ(x)   φ(x) → ψ
-  ∀I ---------    ∀E ---------    ∃I ---------    ∃E --------------------
-      ∀x.φ(x)          φ(t)           ∃x.φ(x)               ψ
+      φ(x)
+  -----------  ∀-intro
+    ∀x.φ(x)
+
+    ∀x.φ(x)
+  -----------  ∀-elim
+     φ(t)
+
+      φ(t)
+  -----------  ∃-intro
+    ∃x.φ(x)
+
+   ∃x.φ(x)   φ(x) → ψ
+ ----------------------  ∃-elim
+           ψ
 -}
 
 -- It is necessary postulate a non-empty domain. See
 -- PredicateLogic.NonEmptyDomain.TheoremsI/ATP.∃I.
--- ∃I : ((t : D) → P¹ t) → ∃ P¹
+-- ∃-intro : ((t : D) → P¹ t) → ∃ P¹
 
-∃E : ∃ P¹ → ((x : D) → P¹ x → P⁰) → P⁰
-∃E h₁ h₂ = ∃-elim h₁ h₂
+∃-elim' : ∃ P¹ → ((x : D) → P¹ x → P⁰) → P⁰
+∃-elim' = ∃-elim
 
 -- Generalization of De Morgan's laws.
 gDM₂ : ¬ (∃ P¹) ↔ ((x : D) → ¬ (P¹ x))

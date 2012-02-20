@@ -21,21 +21,34 @@ postulate
 
 -- The introduction and elimination rules for the quantifiers are theorems.
 {-
-        φ(x)          ∀x.φ(x)          φ(t)           ∃x.φ(x)   φ(x) → ψ
-  ∀I ---------    ∀E ---------    ∃I ---------    ∃E --------------------
-      ∀x.φ(x)          φ(t)           ∃x.φ(x)               ψ
+      φ(x)
+  -----------  ∀-intro
+    ∀x.φ(x)
+
+    ∀x.φ(x)
+  -----------  ∀-elim
+     φ(t)
+
+      φ(t)
+  -----------  ∃-intro
+    ∃x.φ(x)
+
+   ∃x.φ(x)   φ(x) → ψ
+ ----------------------  ∃-elim
+           ψ
 -}
 
 postulate
-  ∀I : ((x : D) → P¹ x) → ⋀ P¹
-  ∀E : ⋀ P¹ → (t : D) → P¹ t
-  -- It is necessary postulate a non-empty domain. See
+  ∀-intro : ((x : D) → P¹ x) → ⋀ P¹
+  ∀-elim  : ⋀ P¹ → (t : D) → P¹ t
+  -- It is necessary to assume a non-empty domain. See
   -- PredicateLogic.NonEmptyDomain.TheoremsI/ATP.∃I.
-  ∃I : ((t : D) → P¹ t) → ∃ P¹
-  ∃E : ∃ P¹ → ((x : D) → P¹ x → P⁰) → P⁰
-{-# ATP prove ∀I #-}
-{-# ATP prove ∀E #-}
-{-# ATP prove ∃E #-}
+  ∃-intro : ((t : D) → P¹ t) → ∃ P¹
+  ∃-elim'  : ∃ P¹ → ((x : D) → P¹ x → P⁰) → P⁰
+{-# ATP prove ∀-intro #-}
+{-# ATP prove ∀-elim #-}
+{-# ATP prove ∃-intro #-}
+{-# ATP prove ∃-elim' #-}
 
 -- Generalization of De Morgan's laws.
 postulate

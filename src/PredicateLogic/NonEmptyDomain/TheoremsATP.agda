@@ -18,8 +18,8 @@ postulate
   P⁰ : Set
   P¹ : D → Set
 
-postulate ∃I : ((t : D) → P¹ t) → ∃ P¹
-{-# ATP prove ∃I #-}
+postulate ∃-intro : ((t : D) → P¹ t) → ∃ P¹
+{-# ATP prove ∃-intro #-}
 
 -- Quantification over a variable that does not occur can be delete.
 postulate
