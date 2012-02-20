@@ -15,5 +15,5 @@ open import PA.Axiomatic.Base
 
 ------------------------------------------------------------------------------
 
-postulate impossible : (m n : PA) → m ≐ n
+postulate impossible : (m n : M) → m ≐ n
 {-# ATP prove impossible #-}

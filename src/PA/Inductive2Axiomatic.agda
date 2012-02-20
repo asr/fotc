@@ -56,6 +56,6 @@ S₇ n = refl
 S₈ : ∀ m n → succ m * n ≡ n + m * n
 S₈ m n = refl
 
-S₉ : (P : ℕ → Set) → P zero → (∀ n → P n → P (succ n)) → ∀ n → P n
+S₉ : (P : M → Set) → P zero → (∀ n → P n → P (succ n)) → ∀ n → P n
 S₉ P P0 h zero     = P0
 S₉ P P0 h (succ n) = h n (S₉ P P0 h n)

@@ -17,7 +17,7 @@ open import PA.Axiomatic.Relation.Binary.PropositionalEqualityI
 +-rightIdentity : ∀ n → n + zero ≐ n
 +-rightIdentity = S₉ P P0 is
   where
-  P : PA → Set
+  P : M → Set
   P i = i + zero ≐ i
   {-# ATP definition P #-}
 
@@ -31,7 +31,7 @@ open import PA.Axiomatic.Relation.Binary.PropositionalEqualityI
 x+Sy≐S[x+y] : ∀ m n → m + succ n ≐ succ (m + n)
 x+Sy≐S[x+y] m n = S₉ P P0 is m
   where
-  P : PA → Set
+  P : M → Set
   P i = i + succ n ≐ succ (i + n)
   {-# ATP definition P #-}
 
@@ -49,7 +49,7 @@ x+Sy≐S[x+y] m n = S₉ P P0 is m
 +-comm : ∀ m n → m + n ≐ n + m
 +-comm m n = S₉ P P0 is m
   where
-  P : PA → Set
+  P : M → Set
   P i = i + n ≐ n + i
   {-# ATP definition P #-}
 
@@ -68,7 +68,7 @@ x+Sy≐S[x+y] m n = S₉ P P0 is m
 +-cong₁ : ∀ {m n} o → m ≐ n → m + o ≐ n + o
 +-cong₁ {m} {n} o m≐n = S₉ P P0 is o
   where
-  P : PA → Set
+  P : M → Set
   P i = m + i ≐ n + i
   {-# ATP definition P #-}
 
@@ -88,7 +88,7 @@ x+Sy≐S[x+y] m n = S₉ P P0 is m
 +-asocc : ∀ m n o → m + n + o ≐ m + (n + o)
 +-asocc m n o = S₉ P P0 is m
   where
-  P : PA → Set
+  P : M → Set
   P i = i + n + o ≐ i + (n + o)
   {-# ATP definition P #-}
 

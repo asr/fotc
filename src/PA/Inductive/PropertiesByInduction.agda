@@ -15,9 +15,9 @@ open import PA.Inductive.Base
 +-leftIdentity n = refl
 
 +-rightIdentity : ∀ n → n + zero ≡ n
-+-rightIdentity n = indℕ P P0 is n
++-rightIdentity n = PA-ind P P0 is n
   where
-  P : ℕ → Set
+  P : M → Set
   P i = i + zero ≡ i
 
   P0 : P zero
@@ -27,9 +27,9 @@ open import PA.Inductive.Base
   is i Pi = cong succ Pi
 
 +-assoc : ∀ m n o → m + n + o ≡ m + (n + o)
-+-assoc m n o = indℕ P P0 is m
++-assoc m n o = PA-ind P P0 is m
   where
-  P : ℕ → Set
+  P : M → Set
   P i = i + n + o ≡ i + (n + o)
 
   P0 : P zero
@@ -39,9 +39,9 @@ open import PA.Inductive.Base
   is i Pi = cong succ Pi
 
 x+Sy≡S[x+y] : ∀ m n → m + succ n ≡ succ (m + n)
-x+Sy≡S[x+y] m n = indℕ P P0 is m
+x+Sy≡S[x+y] m n = PA-ind P P0 is m
   where
-  P : ℕ → Set
+  P : M → Set
   P i = i + succ n ≡ succ (i + n)
 
   P0 : P zero

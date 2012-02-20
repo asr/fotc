@@ -11,6 +11,9 @@
 module PA.Inductive.Base.Core where
 
 -- PA universe.
-data ℕ : Set where
-  zero :     ℕ
-  succ : ℕ → ℕ
+-- We chose the symbol M because there are non-standard models of
+-- Peano Arithmetic, where the domain is not the set of natural
+-- numbers.
+data M : Set where
+  zero :     M
+  succ : M → M

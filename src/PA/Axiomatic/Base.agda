@@ -13,22 +13,25 @@ infixl 9  _+_
 infix  7  _≐_
 
 ------------------------------------------------------------------------------
--- PA universe
-open import Common.Universe public renaming ( D to PA )
+-- PA universe.
+-- We chose the symbol M because there are non-standard models of
+-- Peano Arithmetic, where the domain is not the set of natural
+-- numbers.
+open import Common.Universe public renaming ( D to M )
 
 -- Logical constants
 open import Common.LogicalConstants public
 
 -- Non-logical constants
 postulate
-  zero    : PA
-  succ    : PA → PA
-  _+_ _*_ : PA → PA → PA
+  zero    : M
+  succ    : M → M
+  _+_ _*_ : M → M → M
 
 -- The PA equality.
 -- N.B. The symbol _≡_ should not be used because it is hard-coded by
 -- the program agda2atp as the ATPs equality.
-postulate _≐_ : PA → PA → Set
+postulate _≐_ : M → M → Set
 
 -- Proper axioms
 -- (From Elliott Mendelson. Introduction to mathematical
@@ -59,4 +62,4 @@ postulate
 
 -- The axiom S₉ is a higher-order one, therefore we do not translate
 -- it as an ATP axiom.
-postulate S₉ : (P : PA → Set) → P zero → (∀ n → P n → P (succ n)) → ∀ n → P n
+postulate S₉ : (P : M → Set) → P zero → (∀ n → P n → P (succ n)) → ∀ n → P n
