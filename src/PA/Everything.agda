@@ -4,13 +4,13 @@
 
 module PA.Everything where
 
-open import PA.Axiomatic.Base
-open import PA.Axiomatic.Base.ConsistencyTest
-open import PA.Axiomatic.PropertiesATP
-open import PA.Axiomatic.PropertiesI
-open import PA.Axiomatic.Relation.Binary.EqReasoning
-open import PA.Axiomatic.Relation.Binary.PropositionalEqualityI
-open import PA.Axiomatic.Relation.Binary.PropositionalEqualityATP
+open import PA.Axiomatic.Mendelson.Base
+open import PA.Axiomatic.Mendelson.Base.ConsistencyTest
+open import PA.Axiomatic.Mendelson.PropertiesATP
+open import PA.Axiomatic.Mendelson.PropertiesI
+open import PA.Axiomatic.Mendelson.Relation.Binary.EqReasoning
+open import PA.Axiomatic.Mendelson.Relation.Binary.PropositionalEqualityI
+open import PA.Axiomatic.Mendelson.Relation.Binary.PropositionalEqualityATP
 
 open import PA.Inductive.Base
 open import PA.Inductive.Base.Core
@@ -23,4 +23,4 @@ open import PA.Inductive.PropertiesByInductionI
 open import PA.Inductive.Relation.Binary.EqReasoning
 open import PA.Inductive.Relation.Binary.PropositionalEquality
 
-open import PA.Inductive2Axiomatic
+open import PA.Inductive2Mendelson

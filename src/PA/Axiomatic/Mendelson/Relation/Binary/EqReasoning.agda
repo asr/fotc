@@ -8,10 +8,10 @@
 -- This module only re-export the preorder reasoning instanced on
 -- the axiomatic PA propositional equality.
 
-module PA.Axiomatic.Relation.Binary.EqReasoning where
+module PA.Axiomatic.Mendelson.Relation.Binary.EqReasoning where
 
-open import PA.Axiomatic.Base
-open import PA.Axiomatic.Relation.Binary.PropositionalEqualityI
+open import PA.Axiomatic.Mendelson.Base
+open import PA.Axiomatic.Mendelson.Relation.Binary.PropositionalEqualityI
   using ( ≐-refl ; ≐-trans)
 
 import Common.Relation.Binary.PreorderReasoning

@@ -5,11 +5,12 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module PA.Axiomatic.PropertiesI where
+module PA.Axiomatic.Mendelson.PropertiesI where
 
-open import PA.Axiomatic.Base
-open import PA.Axiomatic.Relation.Binary.EqReasoning
-open import PA.Axiomatic.Relation.Binary.PropositionalEqualityI using ( ≐-sym )
+open import PA.Axiomatic.Mendelson.Base
+open import PA.Axiomatic.Mendelson.Relation.Binary.EqReasoning
+open import PA.Axiomatic.Mendelson.Relation.Binary.PropositionalEqualityI
+  using ( ≐-sym )
 
 ------------------------------------------------------------------------------
 

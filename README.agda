@@ -125,14 +125,14 @@ open import DistributiveLaws.TaskB-TopDownATP
 
 -- 5.1 Axiomatic PA
 -- 5.1.1 The axioms
-open import PA.Axiomatic.Base
+-- open import PA.Axiomatic.Base
 
 -- 5.1.2 Some properties
-open import PA.Axiomatic.PropertiesATP
-open import PA.Axiomatic.PropertiesI
+-- open import PA.Axiomatic.PropertiesATP
+-- open import PA.Axiomatic.PropertiesI
 
-open import PA.Axiomatic.Relation.Binary.PropositionalEqualityATP
-open import PA.Axiomatic.Relation.Binary.PropositionalEqualityI
+-- open import PA.Axiomatic.Relation.Binary.PropositionalEqualityATP
+-- open import PA.Axiomatic.Relation.Binary.PropositionalEqualityI
 
 -- 5.2. Inductive PA
 -- 5.2.1 Some properties
@@ -353,7 +353,7 @@ open import LTC-PCF.Program.GCD.Partial.ProofSpecificationI
 
 open import DistributiveLaws.TaskB-ATP
 open import FOTC.Program.ABP.MayorPremiseATP
-open import PA.Axiomatic.PropertiesATP
+open import PA.Axiomatic.Mendelson.PropertiesATP
 
 ------------------------------------------------------------------------------
 -- Agsy examples

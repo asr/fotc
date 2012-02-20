@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Test the consistency of PA.Axiomatic.Base
+-- Test the consistency of PA.Axiomatic.Mendelson.Base
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -9,9 +9,9 @@
 -- axioms. We test if it is possible to prove an unprovable theorem
 -- from these axioms.
 
-module PA.Axiomatic.Base.ConsistencyTest where
+module PA.Axiomatic.Mendelson.Base.ConsistencyTest where
 
-open import PA.Axiomatic.Base
+open import PA.Axiomatic.Mendelson.Base
 
 ------------------------------------------------------------------------------
 

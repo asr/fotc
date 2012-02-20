@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- From inductive PA to axiomatic PA
+-- From inductive PA to Mendelson's axioms for PA
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -24,7 +24,7 @@
 -- [1]. Elliott Mendelson. Introduction to mathematical
 --      logic. Chapman& Hall, 4th edition, 1997, p. 155.
 
-module PA.Inductive2Axiomatic where
+module PA.Inductive2Mendelson where
 
 open import PA.Inductive.Base
 

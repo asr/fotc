@@ -5,7 +5,13 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module PA.Axiomatic.Base where
+-- Mendelson's axioms for first-order Peano arithmetic [1].
+-- NB. These axioms formalize the propositional equality.
+
+-- [1] Elliott Mendelson. Introduction to mathematical logic. Chapman &
+--     Hall, 4th edition, 1997, p. 155.
+
+module PA.Axiomatic.Mendelson.Base where
 
 -- We add 3 to the fixities of the standard library.
 infixl 10 _*_
@@ -34,10 +40,6 @@ postulate
 postulate _≐_ : M → M → Set
 
 -- Proper axioms
--- (From Elliott Mendelson. Introduction to mathematical
--- logic. Chapman & Hall, 4th edition, 1997, p. 155)
-
--- N.B. We make the recursion in the first argument for _+_ and _*_.
 
 -- S₁. m = n → m = o → n = o
 -- S₂. m = n → succ m = succ n

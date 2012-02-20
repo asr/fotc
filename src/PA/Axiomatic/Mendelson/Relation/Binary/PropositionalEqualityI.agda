@@ -5,9 +5,9 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module PA.Axiomatic.Relation.Binary.PropositionalEqualityI where
+module PA.Axiomatic.Mendelson.Relation.Binary.PropositionalEqualityI where
 
-open import PA.Axiomatic.Base
+open import PA.Axiomatic.Mendelson.Base
 
 ------------------------------------------------------------------------------
 -- Identity properties

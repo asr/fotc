@@ -5,11 +5,11 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module PA.Axiomatic.PropertiesATP where
+module PA.Axiomatic.Mendelson.PropertiesATP where
 
-open import PA.Axiomatic.Base
+open import PA.Axiomatic.Mendelson.Base
 
-open import PA.Axiomatic.Relation.Binary.PropositionalEqualityI
+open import PA.Axiomatic.Mendelson.Relation.Binary.PropositionalEqualityI
   using ()  -- We include this module due to its general hints.
 
 ------------------------------------------------------------------------------
