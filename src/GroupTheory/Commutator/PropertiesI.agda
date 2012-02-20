@@ -21,43 +21,19 @@ commutatorInverse a b =
   a ⁻¹ · b ⁻¹ · a · b · (b ⁻¹ · a ⁻¹ · b · a)
     ≡⟨ assoc (a ⁻¹ · b ⁻¹ · a) b (b ⁻¹ · a ⁻¹ · b · a) ⟩
   a ⁻¹ · b ⁻¹ · a · (b · (b ⁻¹ · a ⁻¹ · b · a))
-    ≡⟨ subst (λ t → a ⁻¹ · b ⁻¹ · a · (b · (b ⁻¹ · a ⁻¹ · b · a)) ≡
-                    a ⁻¹ · b ⁻¹ · a · (b · t))
-             (assoc (b ⁻¹ · a ⁻¹) b a)
-             refl
-    ⟩
+    ≡⟨ ·-rightCong (·-rightCong (assoc (b ⁻¹ · a ⁻¹) b a)) ⟩
   a ⁻¹ · b ⁻¹ · a · (b · (b ⁻¹ · a ⁻¹ · (b · a)))
-    ≡⟨ subst (λ t → a ⁻¹ · b ⁻¹ · a · (b · (b ⁻¹ · a ⁻¹ · (b · a))) ≡
-                    a ⁻¹ · b ⁻¹ · a · (b · t))
-             (assoc (b ⁻¹) (a ⁻¹) (b · a))
-             refl
-    ⟩
+    ≡⟨ ·-rightCong (·-rightCong (assoc (b ⁻¹) (a ⁻¹) (b · a))) ⟩
   a ⁻¹ · b ⁻¹ · a · (b · (b ⁻¹ · (a ⁻¹ · (b · a))))
-    ≡⟨ subst (λ t → a ⁻¹ · b ⁻¹ · a · (b · (b ⁻¹ · (a ⁻¹ · (b · a)))) ≡
-                    a ⁻¹ · b ⁻¹ · a · t)
-             (sym (assoc b (b ⁻¹) (a ⁻¹ · (b · a))))
-             refl
-    ⟩
+    ≡⟨ ·-rightCong (sym (assoc b (b ⁻¹) (a ⁻¹ · (b · a)))) ⟩
   a ⁻¹ · b ⁻¹ · a · (b · b ⁻¹ · (a ⁻¹ · (b · a)))
-    ≡⟨ subst (λ t → a ⁻¹ · b ⁻¹ · a · (b · b ⁻¹ · (a ⁻¹ · (b · a))) ≡
-                    a ⁻¹ · b ⁻¹ · a · (t · (a ⁻¹ · (b · a))))
-             (rightInverse b)
-             refl
-    ⟩
+    ≡⟨ ·-rightCong (·-leftCong (rightInverse b)) ⟩
   a ⁻¹ · b ⁻¹ · a · (ε · (a ⁻¹ · (b · a)))
-    ≡⟨ subst (λ t → a ⁻¹ · b ⁻¹ · a · (ε · (a ⁻¹ · (b · a))) ≡
-                    a ⁻¹ · b ⁻¹ · a · t)
-             (leftIdentity (a ⁻¹ · (b · a)))
-             refl
-    ⟩
+    ≡⟨ ·-rightCong (leftIdentity (a ⁻¹ · (b · a))) ⟩
   a ⁻¹ · b ⁻¹ · a · (a ⁻¹ · (b · a))
     ≡⟨ assoc (a ⁻¹ · b ⁻¹) a (a ⁻¹ · (b · a)) ⟩
   a ⁻¹ · b ⁻¹ · (a · (a ⁻¹ · (b · a)))
-    ≡⟨ subst (λ t → a ⁻¹ · b ⁻¹ · (a · (a ⁻¹ · (b · a))) ≡
-                    a ⁻¹ · b ⁻¹ · t)
-             (sym (assoc a (a ⁻¹) (b · a)))
-             refl
-    ⟩
+    ≡⟨ ·-rightCong (sym (assoc a (a ⁻¹) (b · a))) ⟩
   a ⁻¹ · b ⁻¹ · (a · a ⁻¹ · (b · a))
     ≡⟨ ·-rightCong (·-leftCong (rightInverse a)) ⟩
   a ⁻¹ · b ⁻¹ · (ε · (b · a))
