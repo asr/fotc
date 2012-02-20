@@ -19,6 +19,6 @@ data Bool : D → Set where
 {-# ATP axiom tB fB #-}
 
 -- The rule of proof by case analysis on Bool.
-indBool : (P : D → Set) → P true → P false → ∀ {b} → Bool b → P b
-indBool P Pt Pf tB = Pt
-indBool P Pt Pf fB = Pf
+Bool-ind : (P : D → Set) → P true → P false → ∀ {b} → Bool b → P b
+Bool-ind P Pt Pf tB = Pt
+Bool-ind P Pt Pf fB = Pf

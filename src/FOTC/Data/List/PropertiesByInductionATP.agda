@@ -14,7 +14,7 @@ open import FOTC.Data.List
 
 ++-assoc : ∀ {xs ys zs} → List xs → List ys → List zs →
            (xs ++ ys) ++ zs ≡ xs ++ ys ++ zs
-++-assoc {xs} {ys} {zs} Lxs Lys Lzs = indList P p[] is Lxs
+++-assoc {xs} {ys} {zs} Lxs Lys Lzs = List-ind P p[] is Lxs
   where
   P : D → Set
   P ds = (ds ++ ys) ++ zs ≡ ds ++ ys ++ zs

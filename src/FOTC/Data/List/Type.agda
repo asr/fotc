@@ -19,9 +19,9 @@ data List : D → Set where
 {-# ATP axiom nilL consL #-}
 
 -- Induction principle for List.
-indList : (P : D → Set) →
+List-ind : (P : D → Set) →
           P [] →
           (∀ x {xs} → P xs → P (x ∷ xs)) →
           ∀ {xs} → List xs → P xs
-indList P P[] is nilL          = P[]
-indList P P[] is (consL x Lxs) = is x (indList P P[] is Lxs)
+List-ind P P[] is nilL          = P[]
+List-ind P P[] is (consL x Lxs) = is x (List-ind P P[] is Lxs)

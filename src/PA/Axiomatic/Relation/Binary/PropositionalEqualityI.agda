@@ -17,9 +17,9 @@ open import PA.Axiomatic.Base
 {-# ATP hint ≐-refl #-}
 
 ≐-sym : ∀ {m n} → m ≐ n → n ≐ m
-≐-sym m≐n = S₁ m≐n ≐-refl
+≐-sym h = S₁ h ≐-refl
 {-# ATP hint ≐-sym #-}
 
 ≐-trans : ∀ {m n o} → m ≐ n → n ≐ o → m ≐ o
-≐-trans m≐n = S₁ (≐-sym m≐n)
+≐-trans h = S₁ (≐-sym h)
 {-# ATP hint ≐-trans #-}

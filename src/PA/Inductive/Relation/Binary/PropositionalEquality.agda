@@ -26,7 +26,7 @@ sym : ∀ {x y} → x ≡ y → y ≡ x
 sym refl = refl
 
 trans : ∀ {x y z} → x ≡ y → y ≡ z → x ≡ z
-trans refl y≡z = y≡z
+trans refl h = h
 
 subst : ∀ {x y} (P : M → Set) → x ≡ y → P x → P y
 subst P refl Px = Px
