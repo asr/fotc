@@ -49,7 +49,7 @@ postulate _≐_ : M → M → Set
 -- S₆. succ m + n = succ (m + n)
 -- S₇. 0 * n = 0
 -- S₈. succ m * n = (m * n) + m
--- S₉. P(0) → (∀n.P(n) → P(succ n)) → ∀n.P(n), for any wf P(n) of PA.
+-- S₉. P(0) → (∀n.P(n) → P(succ n)) → ∀n.P(n), for any wff P(n) of PA.
 
 postulate
   S₁ : ∀ {m n o} → m ≐ n → m ≐ o → n ≐ o
@@ -62,6 +62,5 @@ postulate
   S₈ : ∀ m n → succ m * n ≐ n + m * n
 {-# ATP axiom S₁ S₂ S₃ S₄ S₅ S₆ S₇ S₈ #-}
 
--- The axiom S₉ is a higher-order one, therefore we do not translate
--- it as an ATP axiom.
+-- S₉ is an axiom schema, therefore we do not translate it to TPTP.
 postulate S₉ : (P : M → Set) → P zero → (∀ n → P n → P (succ n)) → ∀ n → P n

@@ -22,7 +22,7 @@ open import GroupTheory.Relation.Binary.EqReasoning
 ·-leftCong h = cong₂ _·_ h refl
 
 ·-rightCong : ∀ {a b c} → b ≡ c → a · b ≡ a · c
-·-rightCong h = cong₂ _·_ refl h
+·-rightCong = cong₂ _·_ refl
 
 -- The propositional equality is compatible with the inverse function.
 ⁻¹-cong : ∀ {a b} → a ≡ b → a ⁻¹ ≡ b ⁻¹

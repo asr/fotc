@@ -125,14 +125,11 @@ open import DistributiveLaws.TaskB-TopDownATP
 
 -- 5.1 Axiomatic PA
 -- 5.1.1 The axioms
--- open import PA.Axiomatic.Base
+open import PA.Axiomatic.Standard.Base
 
 -- 5.1.2 Some properties
--- open import PA.Axiomatic.PropertiesATP
--- open import PA.Axiomatic.PropertiesI
-
--- open import PA.Axiomatic.Relation.Binary.PropositionalEqualityATP
--- open import PA.Axiomatic.Relation.Binary.PropositionalEqualityI
+open import PA.Axiomatic.Standard.PropertiesATP
+open import PA.Axiomatic.Standard.PropertiesI
 
 -- 5.2. Inductive PA
 -- 5.2.1 Some properties

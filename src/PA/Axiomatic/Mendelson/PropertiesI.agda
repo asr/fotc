@@ -45,32 +45,15 @@ x+Sy≐S[x+y] m n = S₉ P P0 is m
             succ (succ (i + n)) ≐⟨ S₂ (≐-sym (S₆ i n)) ⟩
             succ (succ i + n) ∎
 
-+-comm : ∀ m n → m + n ≐ n + m
-+-comm m n = S₉ P P0 is m
-  where
-  P : M → Set
-  P i = i + n ≐ n + i
-
-  P0 : P zero
-  P0 = zero + n   ≐⟨ S₅ n ⟩
-       n          ≐⟨ ≐-sym (+-rightIdentity n) ⟩
-       n + zero ∎
-
-  is : ∀ i → P i → P (succ i)
-  is i Pi = succ i + n   ≐⟨ S₆ i n ⟩
-            succ (i + n) ≐⟨ S₂ Pi ⟩
-            succ (n + i) ≐⟨ ≐-sym (x+Sy≐S[x+y] n i) ⟩
-            n + succ i ∎
-
-+-cong₁ : ∀ {m n} o → m ≐ n → m + o ≐ n + o
-+-cong₁ {m} {n} o m≐n = S₉ P P0 is o
++-leftCong : ∀ {m n o} → m ≐ n → m + o ≐ n + o
++-leftCong {m} {n} {o} h = S₉ P P0 is o
   where
   P : M → Set
   P i = m + i ≐ n + i
 
   P0 : P zero
   P0 = m + zero ≐⟨ +-rightIdentity m ⟩
-       m        ≐⟨ m≐n ⟩
+       m        ≐⟨ h ⟩
        n        ≐⟨ ≐-sym (+-rightIdentity n) ⟩
        n + zero ∎
 
@@ -87,13 +70,30 @@ x+Sy≐S[x+y] m n = S₉ P P0 is m
   P i = i + n + o ≐ i + (n + o)
 
   P0 : P zero
-  P0 = zero + n + o  ≐⟨ +-cong₁ o (S₅ n) ⟩
+  P0 = zero + n + o  ≐⟨ +-leftCong (S₅ n) ⟩
        n + o         ≐⟨ ≐-sym (S₅ (n + o)) ⟩
        zero + (n + o) ∎
 
   is : ∀ i → P i → P (succ i)
-  is i Pi = succ i + n + o     ≐⟨ +-cong₁ o (S₆ i n) ⟩
+  is i Pi = succ i + n + o     ≐⟨ +-leftCong (S₆ i n) ⟩
             succ (i + n) + o   ≐⟨ S₆ (i + n) o ⟩
             succ (i + n + o)   ≐⟨ S₂ Pi ⟩
             succ (i + (n + o)) ≐⟨ ≐-sym (S₆ i (n + o)) ⟩
             succ i + (n + o) ∎
+
++-comm : ∀ m n → m + n ≐ n + m
++-comm m n = S₉ P P0 is m
+  where
+  P : M → Set
+  P i = i + n ≐ n + i
+
+  P0 : P zero
+  P0 = zero + n   ≐⟨ S₅ n ⟩
+       n          ≐⟨ ≐-sym (+-rightIdentity n) ⟩
+       n + zero ∎
+
+  is : ∀ i → P i → P (succ i)
+  is i Pi = succ i + n   ≐⟨ S₆ i n ⟩
+            succ (i + n) ≐⟨ S₂ Pi ⟩
+            succ (n + i) ≐⟨ ≐-sym (x+Sy≐S[x+y] n i) ⟩
+            n + succ i ∎
