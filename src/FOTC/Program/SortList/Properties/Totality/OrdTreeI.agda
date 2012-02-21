@@ -9,6 +9,8 @@ module FOTC.Program.SortList.Properties.Totality.OrdTreeI where
 
 open import Common.Function
 
+open import FOL.Relation.Binary.EqReasoning
+
 open import FOTC.Base
 open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesI
@@ -19,7 +21,6 @@ open import FOTC.Data.Nat.Type
 open import FOTC.Program.SortList.SortList
 open import FOTC.Program.SortList.Properties.Totality.BoolI
 open import FOTC.Program.SortList.Properties.Totality.TreeI
-open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- Subtrees

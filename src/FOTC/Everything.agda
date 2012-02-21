@@ -195,5 +195,3 @@ open import FOTC.Program.SortList.PropertiesI
 open import FOTC.Program.SortList.PropertiesATP
 open import FOTC.Program.SortList.SortList
 open import FOTC.Program.SortList.SortList.ConsistencyTest
-
-open import FOTC.Relation.Binary.EqReasoning

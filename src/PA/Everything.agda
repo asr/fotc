@@ -16,7 +16,6 @@ open import PA.Axiomatic.Standard.Base
 open import PA.Axiomatic.Standard.Base.ConsistencyTest
 open import PA.Axiomatic.Standard.PropertiesATP
 open import PA.Axiomatic.Standard.PropertiesI
-open import PA.Axiomatic.Standard.Relation.Binary.EqReasoning
 
 open import PA.Inductive.Base
 open import PA.Inductive.Base.Core

@@ -5,9 +5,12 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
+-- TODO: It seems this module is not used.
 module FOTC.Program.SortList.Properties.MiscellaneousI where
 
 open import Common.Function
+
+open import FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
 open import FOTC.Data.Bool
@@ -19,7 +22,6 @@ open import FOTC.Data.Nat.Type
 open import FOTC.Data.List
 open import FOTC.Program.SortList.Properties.Totality.BoolI
 open import FOTC.Program.SortList.SortList
-open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- This is a weird result but recall that "the relation ≤ between

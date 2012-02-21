@@ -1,14 +1,15 @@
 ------------------------------------------------------------------------------
--- Logical constants
+-- FOL (without equality)
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- This module just exported all the logical constants. This module is
--- re-exported by (some) "base" modules.
+-- This module exported all the logical constants and the
+-- propositional equality. This module is re-exported by the "base"
+-- modules whose theories are defined on FOL (without equality)
 
-module Common.LogicalConstants where
+module FOL.FOL where
 
 ------------------------------------------------------------------------------
 -- The propositional logical connectives
@@ -16,11 +17,11 @@ module Common.LogicalConstants where
 -- The logical connectives are hard-coded in our translation,
 -- i.e. the symbols ⊥, ⊤, ¬, ∧, ∨, →, and ↔ must be used.
 -- N.B. For the implication we use the Agda function type.
-open import Common.Data.Empty public using ( ⊥ ; ⊥-elim )
-open import Common.Data.Product public using ( _∧_ ; _,_ ; ∧-proj₁ ; ∧-proj₂ )
-open import Common.Data.Sum public using ( _∨_ ; [_,_] ; inj₁ ; inj₂ )
-open import Common.Data.Unit public using ( ⊤ )
-open import Common.Relation.Nullary public using ( ¬_ )
+open import FOL.Data.Empty public using ( ⊥ ; ⊥-elim )
+open import FOL.Data.Product public using ( _∧_ ; _,_ ; ∧-proj₁ ; ∧-proj₂ )
+open import FOL.Data.Sum public using ( _∨_ ; [_,_] ; inj₁ ; inj₂ )
+open import FOL.Data.Unit public using ( ⊤ )
+open import FOL.Relation.Nullary public using ( ¬_ )
 
 infixr 2 _↔_
 
@@ -34,7 +35,7 @@ P ↔ Q = (P → Q) ∧ (Q → P)
 -- The existential quantifier is hard-coded in our translation,
 -- i.e. the symbol ∃ must be used.
 
-open import Common.Data.Product public using ( _,_ ; ∃ ; ∃-elim )
+open import FOL.Data.Product public using ( _,_ ; ∃ ; ∃-elim )
 
 -- The universal quantifier
 -- N.B. For the universal quantifier we use the Agda (dependent)

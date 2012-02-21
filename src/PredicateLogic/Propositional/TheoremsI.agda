@@ -7,7 +7,7 @@
 
 module PredicateLogic.Propositional.TheoremsI where
 
-open import PredicateLogic.Constants
+open import PredicateLogic.Base
 
 ------------------------------------------------------------------------------
 -- Boolean laws.

@@ -9,6 +9,8 @@ module FOTC.Program.SortList.Properties.Totality.OrdListI where
 
 open import Common.Function
 
+open import FOL.Relation.Binary.EqReasoning
+
 open import FOTC.Base
 open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesI
@@ -18,7 +20,6 @@ open import FOTC.Data.Nat.Type
 open import FOTC.Data.List
 open import FOTC.Program.SortList.Properties.Totality.BoolI
 open import FOTC.Program.SortList.SortList
-open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- If (i ∷ is) is ordered then 'is' is ordered.

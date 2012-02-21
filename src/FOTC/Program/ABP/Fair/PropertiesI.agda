@@ -7,9 +7,10 @@
 
 module FOTC.Program.ABP.Fair.PropertiesI where
 
+open import FOL.Relation.Binary.EqReasoning
+
 open import FOTC.Base
 open import FOTC.Data.List
-open import FOTC.Relation.Binary.EqReasoning
 open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.Terms
 

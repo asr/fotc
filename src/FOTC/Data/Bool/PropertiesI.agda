@@ -9,12 +9,14 @@ module FOTC.Data.Bool.PropertiesI where
 
 open import Common.Function
 
+open import FOL.Relation.Binary.EqReasoning
+
 open import FOTC.Base
 open import FOTC.Data.Bool
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.Type
-open import FOTC.Relation.Binary.EqReasoning
+
 
 ------------------------------------------------------------------------------
 -- Basic properties

@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Common.Data.Sum where
+module FOL.Data.Sum where
 
 -- We add 3 to the fixities of the standard library.
 infixr 4 _∨_

@@ -7,8 +7,9 @@
 
 module PA.Axiomatic.Standard.PropertiesI where
 
+open import FOL.Relation.Binary.EqReasoning
+
 open import PA.Axiomatic.Standard.Base
-open import PA.Axiomatic.Standard.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- Congruence properties

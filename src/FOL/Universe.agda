@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Common.Universe where
+module FOL.Universe where
 
 ----------------------------------------------------------------------------
 -- The universe of discourse/universal domain.

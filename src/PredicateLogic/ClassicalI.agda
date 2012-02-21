@@ -10,7 +10,7 @@
 
 module PredicateLogic.ClassicalI where
 
-open import PredicateLogic.Constants
+open import PredicateLogic.Base
 
 ------------------------------------------------------------------------------
 

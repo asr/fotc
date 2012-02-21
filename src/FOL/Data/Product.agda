@@ -5,9 +5,9 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Common.Data.Product where
+module FOL.Data.Product where
 
-open import Common.Universe using ( D )
+open import FOL.Universe using ( D )
 
 -- We add 3 to the fixities of the standard library.
 infixr 7 _,_

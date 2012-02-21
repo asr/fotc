@@ -7,6 +7,8 @@
 
 module FOTC.Program.Collatz.PropertiesI where
 
+open import FOL.Relation.Binary.EqReasoning
+
 open import FOTC.Base
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.PropertiesI
@@ -16,7 +18,6 @@ open import FOTC.Program.Collatz.Collatz
 open import FOTC.Program.Collatz.Data.Nat
 open import FOTC.Program.Collatz.Data.Nat.PropertiesI
 open import FOTC.Program.Collatz.EquationsI
-open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 

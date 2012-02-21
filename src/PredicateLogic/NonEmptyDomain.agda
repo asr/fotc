@@ -10,7 +10,7 @@
 
 module PredicateLogic.NonEmptyDomain where
 
-open import Common.Universe
+open import FOL.Universe
 
 ------------------------------------------------------------------------------
 

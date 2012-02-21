@@ -7,7 +7,7 @@
 
 module PredicateLogic.SchemataATP where
 
-open import PredicateLogic.Constants
+open import PredicateLogic.Base
 
 ------------------------------------------------------------------------------
 

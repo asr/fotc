@@ -22,16 +22,10 @@ infix  8 if_then_else_
 
 ------------------------------------------------------------------------------
 -- The universal domain.
-open import Common.Universe public
+open import FOL.Universe public
 
--- The LTC-PCF equality
--- The LTC-PCF equality is the propositional identity on the universal domain.
-import Common.Relation.Binary.PropositionalEquality
-open module Eq =
-  Common.Relation.Binary.PropositionalEquality.NonInductive public
-
--- Logical constants
-open import Common.LogicalConstants public
+-- FOL with equality.
+open import FOL.FOL-Eq public
 
 ------------------------------------------------------------------------------
 -- The term language of LTC-PCF correspond to the PCF terms.

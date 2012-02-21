@@ -7,8 +7,9 @@
 
 module FOTC.Base.PropertiesI where
 
+open import FOL.Relation.Binary.EqReasoning
+
 open import FOTC.Base
-open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 

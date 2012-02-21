@@ -13,13 +13,11 @@ infixl 10 _·_  -- The symbol is '\cdot'.
 ------------------------------------------------------------------------------
 
 -- The universe
-open import Common.Universe public
+open import FOL.Universe public
 
--- The equality
--- The equality is the propositional identity on the universe.
-import Common.Relation.Binary.PropositionalEquality
-open module Eq =
-  Common.Relation.Binary.PropositionalEquality.Inductive public
+-- FOL with equality.
+-- NB. This is an equational theory.
+open import FOL.FOL-Eq public using ( _≡_ ; refl ; subst ; sym )
 
 -- Distributive laws axioms
 

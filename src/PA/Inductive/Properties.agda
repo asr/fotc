@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Common (interactive and automatic) inductive PA properties
+-- Inductive PA properties commons to the interactive and automatic proofs
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -7,8 +7,8 @@
 
 module PA.Inductive.Properties where
 
+open import FOL.Relation.Nullary
 open import PA.Inductive.Base
-open import Common.Relation.Nullary
 
 ------------------------------------------------------------------------------
 -- Some proofs are based on the proofs in the standard library.

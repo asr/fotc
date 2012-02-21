@@ -7,7 +7,7 @@
 
 module PredicateLogic.TheoremsI where
 
-open import PredicateLogic.Constants
+open import PredicateLogic.Base
 
 ------------------------------------------------------------------------------
 -- We postulate some predicate symbols.

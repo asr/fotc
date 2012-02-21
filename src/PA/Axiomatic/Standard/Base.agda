@@ -16,16 +16,10 @@ infixl 9  _+_
 -- We chose the symbol M because there are non-standard models of
 -- Peano Arithmetic, where the domain is not the set of natural
 -- numbers.
-open import Common.Universe public renaming ( D to M )
+open import FOL.Universe public renaming ( D to M )
 
--- The PA equality
--- The PA equality is the propositional identity on the universal domain.
-import Common.Relation.Binary.PropositionalEquality
-open module Eq =
-  Common.Relation.Binary.PropositionalEquality.Inductive public
-
--- Logical constants
-open import Common.LogicalConstants public
+-- FOL with equality.
+open import FOL.FOL-Eq public
 
 -- Non-logical constants
 postulate

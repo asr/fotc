@@ -9,12 +9,13 @@ module FOTC.Data.Nat.Inequalities.PropertiesI where
 
 open import Common.Function
 
+open import FOL.Relation.Binary.EqReasoning
+
 open import FOTC.Base
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.EliminationProperties
 open import FOTC.Data.Nat.PropertiesI
-open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- N.B. The elimination properties are in the module

@@ -8,7 +8,8 @@
 module DistributiveLaws.TaskB-TopDownATP where
 
 open import DistributiveLaws.Base
-open import DistributiveLaws.Relation.Binary.EqReasoning
+
+open import FOL.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- We found the longest chains of equalities from

@@ -1,16 +1,16 @@
 ------------------------------------------------------------------------------
--- Equality reasoning on group theory
+-- Equality reasoning on FOL
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- This module only re-export the preorder reasoning instanced on
--- the group theory propositional equality.
+-- This module only re-export the preorder reasoning instanced on the
+-- propositional equality.
 
-module GroupTheory.Relation.Binary.EqReasoning where
+module FOL.Relation.Binary.EqReasoning where
 
-open import GroupTheory.Base
+open import FOL.FOL-Eq using (_≡_ ; refl ; trans )
 
 import Common.Relation.Binary.PreorderReasoning
 open module ≡-Reasoning =

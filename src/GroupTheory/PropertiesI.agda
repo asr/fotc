@@ -8,7 +8,8 @@
 module GroupTheory.PropertiesI where
 
 open import GroupTheory.Base
-open import GroupTheory.Relation.Binary.EqReasoning
+
+open import FOL.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- Congruence properties

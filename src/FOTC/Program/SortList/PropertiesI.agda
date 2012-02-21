@@ -9,6 +9,8 @@ module FOTC.Program.SortList.PropertiesI where
 
 open import Common.Function
 
+open import FOL.Relation.Binary.EqReasoning
+
 open import FOTC.Base
 open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesI
@@ -24,7 +26,6 @@ open import FOTC.Program.SortList.Properties.Totality.OrdListI
 open import FOTC.Program.SortList.Properties.Totality.OrdTreeI
 open import FOTC.Program.SortList.Properties.Totality.TreeI
 open import FOTC.Program.SortList.SortList
-open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- Induction on lit.

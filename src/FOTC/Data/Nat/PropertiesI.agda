@@ -9,10 +9,11 @@ module FOTC.Data.Nat.PropertiesI where
 
 open import Common.Function
 
+open import FOL.Relation.Binary.EqReasoning
+
 open import FOTC.Base
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.UnaryNumbers
-open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- Congruence properties

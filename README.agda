@@ -39,8 +39,7 @@ module README where
 -- 1. Predicate logic
 
 -- 1.1 Definition of the connectives and quantifiers
-open import Common.LogicalConstants
-open import PredicateLogic.Constants
+open import PredicateLogic.Base
 
 -- 1.2 Propositional logic theorems
 open import PredicateLogic.Propositional.TheoremsATP
@@ -65,10 +64,10 @@ open import PredicateLogic.ClassicalI
 -- 2. Equality
 
 -- 2.1 Definition of equality and some properties about it
-open import Common.Relation.Binary.PropositionalEquality
+open import FOL.Relation.Binary.PropositionalEquality
 
 -- 2.2 The equality reasoning
-open import Common.Relation.Binary.PreorderReasoning
+open import FOL.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- 3. Group theory

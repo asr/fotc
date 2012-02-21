@@ -9,12 +9,13 @@ module FOTC.Program.Mirror.Forest.PropertiesATP where
 
 open import Common.Function
 
+open import FOL.Relation.Binary.EqReasoning
+
 open import FOTC.Base
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI using (reverse-[x]≡[x])
 open import FOTC.Program.Mirror.Forest.Totality
 open import FOTC.Program.Mirror.Type
-open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 
@@ -92,6 +93,8 @@ reverse-∷ {x} Tx (consF {y} {ys} Ty Fys) = prf
   postulate prf : reverse (x ∷ y ∷ ys) ≡ reverse (y ∷ ys) ++ x ∷ []
   {-# ATP prove prf reverse-[x]≡[x] reverse-++-commute ++-leftIdentity #-}
 
+-- We don't use an automatic proof, because it is necessary to erase
+-- a proof term which we don't know how to erase.
 map-++-commute : ∀ f {xs ys} → (∀ {x} → Tree x → Tree (f · x)) →
                  Forest xs → Forest ys →
                  map f (xs ++ ys) ≡ map f xs ++ map f ys

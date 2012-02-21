@@ -7,9 +7,9 @@
 
 -- This module is re-exported by (some) "base" modules.
 
-module Common.Relation.Binary.PropositionalEquality where
+module FOL.Relation.Binary.PropositionalEquality where
 
-open import Common.Universe using ( D )
+open import FOL.Universe using ( D )
 
 ------------------------------------------------------------------------------
 -- The propositional equality via pattern matching.

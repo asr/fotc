@@ -7,7 +7,7 @@
 
 module PredicateLogic.NonEmptyDomain.TheoremsI where
 
-open import PredicateLogic.Constants
+open import PredicateLogic.Base
 open import PredicateLogic.NonEmptyDomain
 
 ------------------------------------------------------------------------------

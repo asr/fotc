@@ -1,20 +1,22 @@
 ------------------------------------------------------------------------------
--- Logical constants
+-- Predicate logic base
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module PredicateLogic.Constants where
-
-open import Common.Universe public using ( D )
-open import Common.LogicalConstants public
+module PredicateLogic.Base where
 
 infixr 3 _⇒_
 
-------------------------------------------------------------------------------
+-- The universal domain.
+open import FOL.Universe public using ( D )
+
+-- FOL (without equality).
+open import FOL.FOL public
+
 -- We added extra symbols for the implication and the universal
--- quantification (see module Common.LogicalConstants).
+-- quantification (see module FOL.FOL).
 
 -- Implication.
 _⇒_ : Set → Set → Set

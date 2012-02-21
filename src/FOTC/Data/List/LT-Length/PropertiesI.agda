@@ -7,13 +7,14 @@
 
 module FOTC.Data.List.LT-Length.PropertiesI where
 
+open import FOL.Relation.Binary.EqReasoning
+
 open import FOTC.Base
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI as Nat using ()
 open import FOTC.Data.List
 open import FOTC.Data.List.LT-Length
 open import FOTC.Data.List.PropertiesI
-open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 

@@ -23,10 +23,10 @@ infix  7  _≐_
 -- We chose the symbol M because there are non-standard models of
 -- Peano Arithmetic, where the domain is not the set of natural
 -- numbers.
-open import Common.Universe public renaming ( D to M )
+open import FOL.Universe public renaming ( D to M )
 
--- Logical constants
-open import Common.LogicalConstants public
+-- FOL (without equality)
+open import FOL.FOL public
 
 -- Non-logical constants
 postulate

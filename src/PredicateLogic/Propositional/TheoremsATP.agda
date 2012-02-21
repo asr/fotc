@@ -10,7 +10,7 @@
 
 module PredicateLogic.Propositional.TheoremsATP where
 
-open import PredicateLogic.Constants
+open import PredicateLogic.Base
 
 ------------------------------------------------------------------------------
 -- We postulate some propositional variables (which are translated as

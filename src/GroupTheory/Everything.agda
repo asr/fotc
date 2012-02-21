@@ -17,5 +17,3 @@ open import GroupTheory.Commutator.PropertiesI
 
 open import GroupTheory.PropertiesATP
 open import GroupTheory.PropertiesI
-
-open import GroupTheory.Relation.Binary.EqReasoning

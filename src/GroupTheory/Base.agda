@@ -13,16 +13,10 @@ infixl 10 _·_  -- The symbol is '\cdot'.
 
 ------------------------------------------------------------------------------
 -- The group universe
-open import Common.Universe public renaming ( D to G )
+open import FOL.Universe public renaming ( D to G )
 
--- The equality
--- The equality is the propositional identity on the group universe.
-import Common.Relation.Binary.PropositionalEquality
-open module Eq =
-  Common.Relation.Binary.PropositionalEquality.Inductive public
-
--- Logical constants
-open import Common.LogicalConstants public
+-- FOL with equality.
+open import FOL.FOL-Eq public
 
 -- Group theory axioms
 postulate

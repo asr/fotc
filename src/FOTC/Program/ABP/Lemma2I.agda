@@ -13,6 +13,8 @@
 
 module FOTC.Program.ABP.Lemma2I where
 
+open import FOL.Relation.Binary.EqReasoning
+
 open import FOTC.Base
 open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesI
@@ -21,7 +23,6 @@ open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.Fair.PropertiesI
 open import FOTC.Program.ABP.Terms
-open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- Helper function for the ABP lemma 1

@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Common.Data.Unit where
+module FOL.Data.Unit where
 
 ------------------------------------------------------------------------
 -- The unit type.

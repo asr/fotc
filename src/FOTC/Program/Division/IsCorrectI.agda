@@ -9,6 +9,8 @@ module FOTC.Program.Division.IsCorrectI where
 
 open import Common.Function
 
+open import FOL.Relation.Binary.EqReasoning
+
 open import FOTC.Base
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
@@ -16,7 +18,6 @@ open import FOTC.Data.Nat.PropertiesI
 open import FOTC.Program.Division.Division
 open import FOTC.Program.Division.EquationsI
 open import FOTC.Program.Division.Specification
-open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- The division result is correct when the dividend is less than

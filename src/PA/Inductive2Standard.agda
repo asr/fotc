@@ -28,9 +28,9 @@
 
 module PA.Inductive2Standard where
 
-open import PA.Inductive.Base
+open import FOL.Relation.Nullary
 
-open import Common.Relation.Nullary
+open import PA.Inductive.Base
 
 ------------------------------------------------------------------------------
 
