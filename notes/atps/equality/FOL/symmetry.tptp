@@ -1,0 +1,3 @@
+% Symmetry of equality.
+
+fof(symm, conjecture, ( ! [X,Y] : ( X = Y => Y = X ) )).

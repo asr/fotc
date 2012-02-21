@@ -1,0 +1,3 @@
+% Transitivity of equality.
+
+fof(trans, conjecture, (! [X,Y,Z] : ( (X = Y & Y = Z) => X = Z ) )).
