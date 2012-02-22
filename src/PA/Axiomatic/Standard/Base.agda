@@ -40,7 +40,7 @@ postulate
 -- A₃. 0 + n = n
 -- A₄. succ m + n = succ (m + n)
 -- A₅. 0 * n = 0
--- A₆. succ m * n = (m * n) + m
+-- A₆. succ m * n = (m * n) + n
 -- A₇. P(0) → (∀n.P(n) → P(succ n)) → ∀n.P(n), for any wff P(n) of PA.
 
 postulate
