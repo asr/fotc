@@ -1,0 +1,23 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Transitivity of equality
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Tested on 21 February 2012.
+
+% Tested with the following ATPs:
+
+% E 1.4
+% $ eprover --tstp-format file_name
+
+% Equinox 5.0alpha (2010-06-29)
+% $ equinox file_name
+
+% Metis 2.3 (release 20110926)
+% $ metis file_name
+
+% Vampire 0.6 (revision 903)
+% $ vampire_lin64 --input_file file_name
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+fof(trans, conjecture, (! [X,Y,Z] : ( (X = Y & Y = Z) => X = Z ) )).

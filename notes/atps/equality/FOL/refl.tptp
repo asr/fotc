@@ -1,3 +1,0 @@
-% Reflexivity of equality.
-
-fof(refl, conjecture, (! [X] : (X = X))).

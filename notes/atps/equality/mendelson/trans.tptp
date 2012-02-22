@@ -1,0 +1,33 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Transitivity of Mendelson's equality
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Tested on 21 February 2012.
+
+% Tested with the following ATPs:
+
+% E 1.4
+% $ eprover --tstp-format file_name
+
+% Equinox 5.0alpha (2010-06-29)
+% $ equinox file_name
+
+% Metis 2.3 (release 20110926)
+% $ metis file_name
+
+% Vampire 0.6 (revision 903)
+% $ vampire_lin64 --input_file file_name
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Mendelson's axioms (p. 155).
+% Elliott Mendelson. Introduction to mathematical logic. Chapman &
+% Hall, 4th edition, 1997.
+
+fof(s1, axiom, (! [M,N,O] : (eq(M,N) => (eq(M,O) => eq(N,O))))).
+fof(s2, axiom, (! [M,N] : (eq(M,N) => eq(succ(M),succ(N))))).
+fof(s5, axiom, (! [N] : eq(add(zero,N),N))).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+fof(sym, conjecture, (! [M,N,O] : ((eq(M,N) & eq(N,O)) => eq(M,O)))).
