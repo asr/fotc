@@ -1,0 +1,121 @@
+% The conjecture was proved with E 1.2, but it was not proved with E 1.3
+% or E 1.4 using the command
+
+% $ eprover --cpu-limit=180 -mAuto -xAuto -tAuto regression.tptp
+
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The common required definitions.
+
+% End common required definitions.
+
+%-----------------------------------------------------------------------------
+% The general axioms.
+
+% The original Agda term was:
+% Name:		PA.Axiomatic.Mendelson.Base.S₁
+% Role:		axiom
+% Position:	/home/asr/code/phd/FOT/src/PA/Axiomatic/Mendelson/Base.agda:57,3-5
+fof(n12_250877945, axiom, ( ! [A] : ( ! [B] : ( ! [C] : ( ( kAppP2(n_8784_,A,B) ) => ( ( kAppP2(n_8784_,A,C) ) => ( kAppP2(n_8784_,B,C) ) ) ) ) ) )).
+
+% The original Agda term was:
+% Name:		PA.Axiomatic.Mendelson.Base.S₂
+% Role:		axiom
+% Position:	/home/asr/code/phd/FOT/src/PA/Axiomatic/Mendelson/Base.agda:58,3-5
+fof(n15_250877945, axiom, ( ! [A] : ( ! [B] : ( ( kAppP2(n_8784_,A,B) ) => ( kAppP2(n_8784_,kAppFn(succ,A),kAppFn(succ,B)) ) ) ) )).
+
+% The original Agda term was:
+% Name:		PA.Axiomatic.Mendelson.Base.S₃
+% Role:		axiom
+% Position:	/home/asr/code/phd/FOT/src/PA/Axiomatic/Mendelson/Base.agda:59,3-5
+fof(n17_250877945, axiom, ( ! [A] : ( ~( kAppP2(n_8784_,zero,kAppFn(succ,A)) ) ) )).
+
+% The original Agda term was:
+% Name:		PA.Axiomatic.Mendelson.Base.S₄
+% Role:		axiom
+% Position:	/home/asr/code/phd/FOT/src/PA/Axiomatic/Mendelson/Base.agda:60,3-5
+fof(n20_250877945, axiom, ( ! [A] : ( ! [B] : ( ( kAppP2(n_8784_,kAppFn(succ,A),kAppFn(succ,B)) ) => ( kAppP2(n_8784_,A,B) ) ) ) )).
+
+% The original Agda term was:
+% Name:		PA.Axiomatic.Mendelson.Base.S₅
+% Role:		axiom
+% Position:	/home/asr/code/phd/FOT/src/PA/Axiomatic/Mendelson/Base.agda:61,3-5
+fof(n22_250877945, axiom, ( ! [A] : ( kAppP2(n_8784_,kAppFn(kAppFn(n43,zero),A),A) ) )).
+
+% The original Agda term was:
+% Name:		PA.Axiomatic.Mendelson.Base.S₆
+% Role:		axiom
+% Position:	/home/asr/code/phd/FOT/src/PA/Axiomatic/Mendelson/Base.agda:62,3-5
+fof(n25_250877945, axiom, ( ! [A] : ( ! [B] : ( kAppP2(n_8784_,kAppFn(kAppFn(n43,kAppFn(succ,A)),B),kAppFn(succ,kAppFn(kAppFn(n43,A),B))) ) ) )).
+
+% The original Agda term was:
+% Name:		PA.Axiomatic.Mendelson.Base.S₇
+% Role:		axiom
+% Position:	/home/asr/code/phd/FOT/src/PA/Axiomatic/Mendelson/Base.agda:63,3-5
+fof(n27_250877945, axiom, ( ! [A] : ( kAppP2(n_8784_,kAppFn(kAppFn(n42,zero),A),zero) ) )).
+
+% The original Agda term was:
+% Name:		PA.Axiomatic.Mendelson.Base.S₈
+% Role:		axiom
+% Position:	/home/asr/code/phd/FOT/src/PA/Axiomatic/Mendelson/Base.agda:64,3-5
+fof(n30_250877945, axiom, ( ! [A] : ( ! [B] : ( kAppP2(n_8784_,kAppFn(kAppFn(n42,kAppFn(succ,A)),B),kAppFn(kAppFn(n43,B),kAppFn(kAppFn(n42,A),B))) ) ) )).
+
+% End general axioms.
+
+%-----------------------------------------------------------------------------
+% The required ATP definitions by the general axioms.
+
+% End required ATP definitions by the general axioms.
+
+%-----------------------------------------------------------------------------
+% The general hints.
+
+% End general hints.
+
+%-----------------------------------------------------------------------------
+% The required ATP definitions by the general hints.
+
+% End required ATP definitions by the general hints.
+
+%-----------------------------------------------------------------------------
+% The local hints.
+
+% The original Agda term was:
+% Name:		Draft.PA.Axiomatic.Mendelson.AssocAdditionATP.+-leftCong
+% Role:		hint
+% Position:	/home/asr/code/phd/FOT/Draft/PA/Axiomatic/Mendelson/AssocAdditionATP.agda:10,11-21
+fof(n8_260290675, hypothesis, ( ! [A] : ( ! [B] : ( ! [C] : ( ( kAppP2(n_8784_,A,B) ) => ( kAppP2(n_8784_,kAppFn(kAppFn(n43,A),C),kAppFn(kAppFn(n43,B),C)) ) ) ) ) )).
+
+% End local hints.
+
+%-----------------------------------------------------------------------------
+% The required ATP definitions by the local hints.
+
+% End required ATP definitions by the local hints.
+
+%-----------------------------------------------------------------------------
+% The required ATP definitions by the conjecture.
+
+% The original Agda term was:
+% Name:		Draft.PA.Axiomatic.Mendelson.AssocAdditionATP._.P
+% Role:		definition
+% Position:	/home/asr/code/phd/FOT/Draft/PA/Axiomatic/Mendelson/AssocAdditionATP.agda:15,3-4
+fof(n18_260290675, definition, ( ! [A] : ( ! [B] : ( ! [C] : ( ! [D] : ( ( kAppP4(p_18_260290675,A,B,C,D) ) <=> ( kAppP2(n_8784_,kAppFn(kAppFn(n43,kAppFn(kAppFn(n43,D),B)),C),kAppFn(kAppFn(n43,D),kAppFn(kAppFn(n43,B),C))) ) ) ) ) ) )).
+
+% End required ATP definitions by the conjecture.
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:		Draft.PA.Axiomatic.Mendelson.AssocAdditionATP._.is
+% Role:		prove
+% Position:	/home/asr/code/phd/FOT/Draft/PA/Axiomatic/Mendelson/AssocAdditionATP.agda:22,13-15
+fof(n22_260290675, conjecture, ( ! [A] : ( ! [B] : ( ! [C] : ( ! [D] : ( ( kAppP4(p_18_260290675,A,B,C,D) ) => ( kAppP4(p_18_260290675,A,B,C,kAppFn(succ,D)) ) ) ) ) ) )).
+
+% End conjecture.
+
+% End ATP pragma conjecture file.
