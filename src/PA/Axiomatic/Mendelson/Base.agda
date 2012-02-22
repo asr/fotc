@@ -48,7 +48,7 @@ postulate _≐_ : M → M → Set
 -- S₅. 0 + n = n
 -- S₆. succ m + n = succ (m + n)
 -- S₇. 0 * n = 0
--- S₈. succ m * n = (m * n) + m
+-- S₈. succ m * n = (m * n) + n
 -- S₉. P(0) → (∀n.P(n) → P(succ n)) → ∀n.P(n), for any wff P(n) of PA.
 
 postulate
