@@ -4,18 +4,18 @@ $ metis --time-limit xxx file_name
 $ SPASS -TPTP -TimeLimit=xxx file_name
 $ vampire_lin64 -t xxx --input_file file_name
 
--- E 1.4: CPU time limit exceeded, terminating (180 sec).
--- E 1.3: Non-tested.
--- Equinox 5.0alpha (2010-06-29): Non-tested.
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
--- Metis 2.3 (release 20110926): Non-tested.
--- Metis 2.3 (release 20110926): SZS status Unknown (using timeout 180 sec).
--- SPASS 3.7: Ran out of time (using timeout 180 sec).
--- Vampire 0.6 (revision 903): (Default) memory limit (using timeout 180 sec).
--- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
--- Vampire 0.6 (revision 903): Non-tested.
--- Vampire 0.6 (revision 903): Refutation not found!
--- Vampire 0.6 (revision 903): Time limit (180 sec).
+-- E 1.4. CPU time limit exceeded, terminating (180 sec).
+-- E 1.3. Non-tested.
+-- Equinox 5.0alpha (2010-06-29). Non-tested.
+-- Equinox 5.0alpha (2010-06-29). TIMEOUT (180 sec).
+-- Metis 2.3 (release 20110926). Non-tested.
+-- Metis 2.3 (release 20110926). SZS status Unknown (180 sec).
+-- SPASS 3.7. Ran out of time (180 sec).
+-- Vampire 0.6 (revision 903). (Default) memory limit (180 sec).
+-- Vampire 0.6 (revision 903). No-success (180 sec).
+-- Vampire 0.6 (revision 903). Non-tested.
+-- Vampire 0.6 (revision 903). Refutation not found!
+-- Vampire 0.6 (revision 903). Time limit reached! (180 sec).
 
 -- We have not tested which ATPs fail on the ATP conjectures.
 

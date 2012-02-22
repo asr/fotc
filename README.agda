@@ -349,7 +349,6 @@ open import LTC-PCF.Program.GCD.Partial.ProofSpecificationI
 
 open import DistributiveLaws.TaskB-ATP
 open import FOTC.Program.ABP.MayorPremiseATP
-open import PA.Axiomatic.Mendelson.PropertiesATP
 
 ------------------------------------------------------------------------------
 -- Agsy examples
