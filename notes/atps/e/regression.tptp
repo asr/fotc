@@ -1,4 +1,4 @@
-% The conjecture was proved with E 1.2, but it was not proved with E 1.3
+% The conjecture was proved by E 1.2, but it was not proved by E 1.3
 % or E 1.4 using the command
 
 % $ eprover --tstp-format --cpu-limit=180 -mAuto -xAuto -tAuto regression.tptp
