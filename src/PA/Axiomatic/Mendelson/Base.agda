@@ -5,11 +5,13 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Mendelson's axioms for first-order Peano arithmetic [1].
--- NB. These axioms formalize the propositional equality.
+-- Mendelson's axioms for first-order Peano arithmetic [Mendelson,
+-- 1977, p. 155].
 
--- [1] Elliott Mendelson. Introduction to mathematical logic. Chapman &
---     Hall, 4th edition, 1997, p. 155.
+-- Elliott Mendelson. Introduction to mathematical logic. Chapman &
+-- Hall, 4th edition, 1997, p. 155.
+
+-- NB. These axioms formalize the propositional equality.
 
 module PA.Axiomatic.Mendelson.Base where
 

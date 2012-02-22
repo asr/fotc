@@ -33,8 +33,7 @@ postulate +-rightCong : ∀ {m n o} → n ≡ o → m + n ≡ m + o
   P0 : P zero
   P0 = A₃ zero
 
-  postulate
-    is : ∀ i → P i → P (succ i)
+  postulate is : ∀ i → P i → P (succ i)
   {-# ATP prove is #-}
 
 +-asocc : ∀ m n o → m + n + o ≡ m + (n + o)
@@ -44,12 +43,10 @@ postulate +-rightCong : ∀ {m n o} → n ≡ o → m + n ≡ m + o
   P i = i + n + o ≡ i + (n + o)
   {-# ATP definition P #-}
 
-  postulate
-    P0 : P zero
+  postulate P0 : P zero
   {-# ATP prove P0 #-}
 
-  postulate
-    is : ∀ i → P i → P (succ i)
+  postulate is : ∀ i → P i → P (succ i)
   {-# ATP prove is #-}
 
 x+Sy≡S[x+y] : ∀ m n → m + succ n ≡ succ (m + n)
@@ -59,12 +56,10 @@ x+Sy≡S[x+y] m n = A₇ P P0 is m
   P i = i + succ n ≡ succ (i + n)
   {-# ATP definition P #-}
 
-  postulate
-    P0 : P zero
+  postulate P0 : P zero
   {-# ATP prove P0 #-}
 
-  postulate
-    is : ∀ i → P i → P (succ i)
+  postulate is : ∀ i → P i → P (succ i)
   {-# ATP prove is #-}
 
 +-comm : ∀ m n → m + n ≡ n + m
@@ -74,10 +69,8 @@ x+Sy≡S[x+y] m n = A₇ P P0 is m
   P i = i + n ≡ n + i
   {-# ATP definition P #-}
 
-  postulate
-    P0 : P zero
+  postulate P0 : P zero
   {-# ATP prove P0 +-rightIdentity #-}
 
-  postulate
-    is : ∀ i → P i → P (succ i)
+  postulate is : ∀ i → P i → P (succ i)
   {-# ATP prove is x+Sy≡S[x+y] #-}
