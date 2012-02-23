@@ -18,7 +18,7 @@ module README where
 -- out by first order automatic theorem provers (ATPs).
 
 ------------------------------------------------------------------------------
--- Prerequisites and use
+-- Prerequisites, tested versions of the ATPS, and use
 
 -- See http://www1.eafit.edu.co/asicard/code/fossacs-2012/.
 
