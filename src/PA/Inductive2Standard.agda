@@ -11,15 +11,14 @@
 -- the following axioms (see [Machover, 1996, p. 263], [Hájek and
 -- Pudlák, 1998, p. 28]):
 
--- N.B. We make the recursion in the first argument for _+_ and _*_.
-
--- A₁. 0 ≠ succ n
--- A₂. succ m = succ n → m = n
+-- A₁. 0 ≠ n'
+-- A₂. m' = n' → m = n
 -- A₃. 0 + n = n
--- A₄. succ m + n = succ (m + n)
+-- A₄. m' + n = (m + n)'
 -- A₅. 0 * n = 0
--- A₆. succ m * n = (m * n) + m
--- A₇. P(0) → (∀n.P(n) → P(succ n)) → ∀n.P(n), for any wff P(n) of PA.
+-- A₆. m' * n = n + (m * n)
+-- Axiom of induction:
+-- φ(0) → (∀n.φ(n) → φ(succ n)) → ∀n.φ(n), for any formulae φ
 
 -- [1] Moshé Machover. Set theory, logic and their
 -- limitations. Cambridge University Press, 1996.
@@ -52,7 +51,3 @@ A₅ n = refl
 
 A₆ : ∀ m n → succ m * n ≡ n + m * n
 A₆ m n = refl
-
-A₇ : (P : M → Set) → P zero → (∀ n → P n → P (succ n)) → ∀ n → P n
-A₇ P P0 h zero     = P0
-A₇ P P0 h (succ n) = h n (A₇ P P0 h n)

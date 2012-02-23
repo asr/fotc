@@ -36,13 +36,14 @@ postulate
 -- * Petr Hájek and Pavel Pudlák. Metamathematics of First-Order
 --   Arithmetic. Springer, 1998. 2nd printing.
 
--- A₁. 0 ≠ succ n
--- A₂. succ m = succ n → m = n
+-- A₁. 0 ≠ n'
+-- A₂. m' = n' → m = n
 -- A₃. 0 + n = n
--- A₄. succ m + n = succ (m + n)
+-- A₄. m' + n = (m + n)'
 -- A₅. 0 * n = 0
--- A₆. succ m * n = (m * n) + n
--- A₇. P(0) → (∀n.P(n) → P(succ n)) → ∀n.P(n), for any wff P(n) of PA.
+-- A₆. m' * n = n + (m * n)
+-- Axiom of induction:
+-- φ(0) → (∀n.φ(n) → φ(succ n)) → ∀n.φ(n), for any formulae φ
 
 postulate
   A₁ : ∀ {n} → ¬ (zero ≡ succ n)
@@ -53,5 +54,7 @@ postulate
   A₆ : ∀ m n → succ m * n ≡ n + m * n
 {-# ATP axiom A₁ A₂ A₃ A₄ A₅ A₆ #-}
 
--- A₇ is an axiom schema, therefore we do not translate it to TPTP.
-postulate A₇ : (P : M → Set) → P zero → (∀ n → P n → P (succ n)) → ∀ n → P n
+-- The axiom of induction is an axiom schema, therefore we do not
+-- translate it to TPTP.
+postulate
+  PA-ind : (P : M → Set) → P zero → (∀ n → P n → P (succ n)) → ∀ n → P n

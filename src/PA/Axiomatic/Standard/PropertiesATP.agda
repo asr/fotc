@@ -24,7 +24,7 @@ postulate +-rightCong : ∀ {m n o} → n ≡ o → m + n ≡ m + o
 ------------------------------------------------------------------------------
 
 +-rightIdentity : ∀ n → n + zero ≡ n
-+-rightIdentity = A₇ P P0 is
++-rightIdentity = PA-ind P P0 is
   where
   P : M → Set
   P i = i + zero ≡ i
@@ -37,7 +37,7 @@ postulate +-rightCong : ∀ {m n o} → n ≡ o → m + n ≡ m + o
   {-# ATP prove is #-}
 
 +-asocc : ∀ m n o → m + n + o ≡ m + (n + o)
-+-asocc m n o = A₇ P P0 is m
++-asocc m n o = PA-ind P P0 is m
   where
   P : M → Set
   P i = i + n + o ≡ i + (n + o)
@@ -50,7 +50,7 @@ postulate +-rightCong : ∀ {m n o} → n ≡ o → m + n ≡ m + o
   {-# ATP prove is #-}
 
 x+Sy≡S[x+y] : ∀ m n → m + succ n ≡ succ (m + n)
-x+Sy≡S[x+y] m n = A₇ P P0 is m
+x+Sy≡S[x+y] m n = PA-ind P P0 is m
   where
   P : M → Set
   P i = i + succ n ≡ succ (i + n)
@@ -63,7 +63,7 @@ x+Sy≡S[x+y] m n = A₇ P P0 is m
   {-# ATP prove is #-}
 
 +-comm : ∀ m n → m + n ≡ n + m
-+-comm m n = A₇ P P0 is m
++-comm m n = PA-ind P P0 is m
   where
   P : M → Set
   P i = i + n ≡ n + i
