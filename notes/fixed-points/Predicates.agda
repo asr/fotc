@@ -90,7 +90,7 @@ module LFP where
   postulate
     -- Least fixed-points correspond to inductively defined types.
     --
-    -- N.B. We cannot write LFP in first order logic. We should use an
+    -- N.B. We cannot write LFP in first-order logic. We should use an
     -- instance instead.
     LFP : ((D → Set) → D → Set) → D → Set
 

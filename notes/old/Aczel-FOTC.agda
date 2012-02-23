@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Formalization of Azcel's First Order Theory of Combinators (FOTC) [*]
+-- Formalization of Azcel's First-Order Theory of Combinators (FOTC) [*]
 
 -- [*] Peter Aczel. The strength of Martin-Löf's intuitionistic type
 -- theory with one universe. In S. Miettinen and J. Väänanen, editors,

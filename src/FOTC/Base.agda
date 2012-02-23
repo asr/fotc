@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- The first order theory of combinators (FOTC) base
+-- The first-order theory of combinators (FOTC) base
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}

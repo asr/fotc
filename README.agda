@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- FOT (First Order Theories)
+-- FOT (First-Order Theories)
 ------------------------------------------------------------------------------
 
 -- Code accompanying the paper Combining Interactive and Automatic
@@ -13,9 +13,9 @@ module README where
 ------------------------------------------------------------------------------
 -- Description
 
--- Examples of the formalization of first order theories showing the
+-- Examples of the formalization of first-order theories showing the
 -- combination of interactive proofs with automatics proofs carried
--- out by first order automatic theorem provers (ATPs).
+-- out by first-order automatic theorem provers (ATPs).
 
 ------------------------------------------------------------------------------
 -- Prerequisites, tested versions of the ATPS, and use
@@ -25,7 +25,7 @@ module README where
 ------------------------------------------------------------------------------
 -- Conventions
 
--- The following modules show the formalization of some first order
+-- The following modules show the formalization of some first-order
 -- theories. If the module's name ends in 'I' the module contains
 -- interactive proofs, if it ends in 'ATP' the module contains
 -- combined proofs, otherwise the module contains definions and/or
@@ -33,7 +33,7 @@ module README where
 -- proofs.
 
 ------------------------------------------------------------------------------
--- First order theories
+-- First-order theories
 ------------------------------------------------------------------------------
 
 -- 1. Predicate logic
@@ -143,7 +143,7 @@ open import PA.Inductive.PropertiesByInductionI
 ------------------------------------------------------------------------------
 -- 6. FOTC
 
--- Formalization of (a version of) Azcel's First Order Theory of Combinators.
+-- Formalization of (a version of) Azcel's First-Order Theory of Combinators.
 
 -- 6.1 The axioms
 open import FOTC.Base
@@ -289,7 +289,7 @@ open import FOTC.Program.GCD.Partial.EquationsATP
 open import FOTC.Program.GCD.Total.EquationsATP
 
 ------------------------------------------------------------------------------
--- LTC-PCF (Almost a first order theory)
+-- LTC-PCF (Almost a first-order theory)
 
 -- Formalization of (a version of) Azcel's Logical Theory of Constructions.
 -- N.B. This was the theory shown in our PLPV'09 paper.
