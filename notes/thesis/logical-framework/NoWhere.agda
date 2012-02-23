@@ -5,36 +5,37 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with FOT on 09 February 2012.
+-- Tested with FOT on 23 February 2012.
 
 -- See the original proof in
 -- PA.Axiomatic.Relation.Binary.PropositionalEqualityI where
 
 module NoWhere where
 
-open import PA.Axiomatic.Base
-open import PA.Axiomatic.Relation.Binary.EqReasoning
-open import PA.Axiomatic.Relation.Binary.PropositionalEqualityI using ( ≐-sym )
+open import FOL.Relation.Binary.EqReasoning
+
+open import PA.Axiomatic.Standard.Base
 
 ------------------------------------------------------------------------------
 
 postulate
-  +-rightIdentity : ∀ n → n + zero ≐ n
-  x+Sy≐S[x+y]     : ∀ m n → m + succ n ≐ succ (m + n)
+  +-rightIdentity : ∀ n → n + zero ≡ n
+  x+Sy≡S[x+y]     : ∀ m n → m + succ n ≡ succ (m + n)
+  succ-cong       : ∀ {m n} → m ≡ n → succ m ≡ succ n
 
-P : ℕ → ℕ → Set
-P n i = i + n ≐ n + i
+P : M → M → Set
+P n i = i + n ≡ n + i
 
 P0 : ∀ n → P n zero
-P0 n = zero + n   ≐⟨ S₅ n ⟩
-       n          ≐⟨ ≐-sym (+-rightIdentity n) ⟩
+P0 n = zero + n   ≡⟨ A₃ n ⟩
+       n          ≡⟨ sym (+-rightIdentity n) ⟩
        n + zero ∎
 
 is : ∀ n i → P n i → P n (succ i)
-is n i Pi = succ i + n   ≐⟨ S₆ i n ⟩
-            succ (i + n) ≐⟨ S₂ Pi ⟩
-            succ (n + i) ≐⟨ ≐-sym (x+Sy≐S[x+y] n i) ⟩
+is n i Pi = succ i + n   ≡⟨ A₄ i n ⟩
+            succ (i + n) ≡⟨ succ-cong Pi ⟩
+            succ (n + i) ≡⟨ sym (x+Sy≡S[x+y] n i) ⟩
             n + succ i ∎
 
-+-comm : ∀ m n → m + n ≐ n + m
-+-comm m n = S₉ (P n) (P0 n) (is n) m
++-comm : ∀ m n → m + n ≡ n + m
++-comm m n = A₇ (P n) (P0 n) (is n) m
