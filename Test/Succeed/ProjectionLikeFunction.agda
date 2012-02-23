@@ -1,5 +1,11 @@
 ------------------------------------------------------------------------------
--- The translation of projection-like functions is not implemented
+-- Translation of projection-like functions
+
+-- 2012-02-23: The function P is not considered a projection-like
+-- function after the patch:
+
+--   Tue Feb 21 11:41:08 COT 2012  Nils Anders Danielsson <nils.anders.danielsson@gmail.com>
+--   * The positivity checker (and more) is now only run once per mutual block.
 
 -- 2011-09-23: From the Agda mailing list
 -- Subject: Compiler internals for projection functions
@@ -10,9 +16,7 @@
 
 ------------------------------------------------------------------------------
 
-module Test.Fail.ProjectionLikeFunction where
-
--- Error: The translation of projection-like functions Test.Fail.ProjectionLikeFunction._.P is not implemented.
+module Test.Succeed.ProjectionLikeFunction where
 
 postulate
   D    : Set
