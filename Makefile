@@ -66,13 +66,17 @@ create_snapshot : $(snapshot_files_to_create)
 
 # The tests
 succeed  : $(succeed_files)
+	@echo "The $@ test succeeded!"
 fail     : $(fail_files)
+	@echo "The $@ test succeeded!"
 parsing  : $(parsing_files)
+	@echo "The $@ test succeeded!"
 snapshot : $(snapshot_files_to_test)
+	@echo "The $@ test succeeded!"
 
 test :
 	@echo "======================================================================"
-	@echo "== Testing the TPTP files ============================================"
+	@echo "== Suite of parsing test ============================================="
 	@echo "======================================================================"
 	@make parsing
 
