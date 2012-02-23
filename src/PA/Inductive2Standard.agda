@@ -7,8 +7,9 @@
 {-# OPTIONS --without-K #-}
 
 -- From the definition of PA using Agda data types and primitive
--- recursive functions for addition and multiplication, we can prove the
--- following axioms (see [p. 263, 1], [p. 28, 2]):
+-- recursive functions for addition and multiplication, we can prove
+-- the following axioms (see [Machover, 1996, p. 263], [Hájek and
+-- Pudlák, 1998, p. 28]):
 
 -- N.B. We make the recursion in the first argument for _+_ and _*_.
 
@@ -23,7 +24,7 @@
 -- [1] Moshé Machover. Set theory, logic and their
 -- limitations. Cambridge University Press, 1996.
 
--- [2] Petr Hájeck and Pavel Pudlák. Metamathematics of First-Order
+-- [2] Petr Hájek and Pavel Pudlák. Metamathematics of First-Order
 --     Arithmetic. Springer, 1998. 2nd printing.
 
 module PA.Inductive2Standard where

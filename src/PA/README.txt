@@ -11,8 +11,7 @@ formalizations:
 
 * Agda postulates for the non-logical constants and the Peano's
   axioms, using axioms based on the propositional equality (see, for
-  example, [Machover, 1996, p. 263], [Hájeck and Pudlák, 1998,
-  p. 28]).
+  example, [Machover, 1996, p. 263], [Hájek and Pudlák, 1998, p. 28]).
 
 * Agda data types and primitive recursive functions for addition and
   multiplication.
@@ -23,5 +22,5 @@ formalizations:
 - Moshé Machover. Set theory, logic and their limitations. Cambridge
   University Press, 1996.
 
-- Petr Hájeck and Pavel Pudlák. Metamathematics of First-Order
+- Petr Hájek and Pavel Pudlák. Metamathematics of First-Order
   Arithmetic. Springer, 1998. 2nd printing.
