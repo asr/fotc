@@ -42,7 +42,6 @@ postulate
               N (gcd (succ₁ m ∸ succ₁ n) (succ₁ n)) →
               GT (succ₁ m) (succ₁ n) →
               N (gcd (succ₁ m) (succ₁ n))
--- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove gcd-S>S-N #-}
 
 ------------------------------------------------------------------------------

@@ -44,8 +44,6 @@ postulate
     ∀ c → N c → CD (succ₁ m) (succ₁ n) c →
     (c ∣ succ₁ m ∸ succ₁ n) →
     c ∣ gcd (succ₁ m) (succ₁ n)
--- E 1.2: CPU time limit exceeded (180 sec).
--- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove gcd-S>S-Divisible-ah #-}
 
 gcd-S>S-Divisible :

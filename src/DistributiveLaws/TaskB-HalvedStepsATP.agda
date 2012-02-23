@@ -136,12 +136,10 @@ prop₂ u x y z =
              xy·zu · (x·zu · xz·yu · (y·zu · xz·yu))
   {-# ATP prove j₁₋₃ #-}
 
+  -- 2012-02-23: Only Equinox 5.0alpha (2010-06-29) proved the theorem (180 sec).
   postulate
     j₃₋₅   : xy·zu · (x·zu · xz·yu · (y·zu · xz·yu)) ≡
              xy·zu · (xz · xu·yu · (y·zu · xz·yu))
-  -- E 1.2: CPU time limit exceeded (180 sec).
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-  -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
   {-# ATP prove j₃₋₅ #-}
 
   postulate
@@ -152,13 +150,11 @@ prop₂ u x y z =
   postulate
     j₇₋₉   : xy·zu · (xz · xyu · (yz·yu · xz·yu)) ≡
              xy·zu · (xz · xyu · (yxz · yu))
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove j₇₋₉ #-}
 
   postulate
     j₉₋₁₁  : xy·zu · (xz · xyu · (yxz · yu)) ≡
              xy·zu · (xz · xyu · (y·xu · z·yu))
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove j₉₋₁₁ #-}
 
   postulate
@@ -166,12 +162,10 @@ prop₂ u x y z =
              xz·yz · xyu · (xz · xyu · (y·xu · z·yu))
   {-# ATP prove j₁₁₋₁₃ #-}
 
+  -- 2012-02-23: Only Equinox 5.0alpha (2010-06-29) proved the theorem (180 sec).
   postulate
     j₁₃₋₁₅ : xz·yz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
              xz · xyu · (yz · xyu · (y·xu · z·yu))
-  -- E 1.2: CPU time limit exceeded (180 sec).
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-  -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
   {-# ATP prove j₁₃₋₁₅ #-}
 
   postulate
@@ -183,15 +177,13 @@ prop₂ u x y z =
     j₁₇₋₁₉ : xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu)) ≡
              xz · xyu ·
              (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
-  -- E 1.2: CPU time limit exceeded (180 sec).
   {-# ATP prove j₁₇₋₁₉ #-}
 
+  -- 2012-02-23: Only Equinox 5.0alpha (2010-06-29) proved the theorem (180 sec).
   postulate
     j₁₉₋₂₁ : xz · xyu ·
              (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
              xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu)))
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-  -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
   {-# ATP prove j₁₉₋₂₁ #-}
 
   postulate
@@ -199,12 +191,10 @@ prop₂ u x y z =
              xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))
   {-# ATP prove j₂₁₋₂₃ #-}
 
+  -- 2012-02-23: Only Equinox 5.0alpha (2010-06-29) proved the theorem (180 sec).
   postulate
     j₂₃₋₂₅ : xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu))) ≡
              (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))
-  -- E 1.2: CPU time limit exceeded (180 sec).
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-  -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
   {-# ATP prove j₂₃₋₂₅ #-}
 
   postulate
@@ -212,12 +202,10 @@ prop₂ u x y z =
              xz · xyu · (y · xu·zu · (zy·xu · zy·zu))
   {-# ATP prove j₂₅₋₂₇ #-}
 
+  -- 2012-02-23: Only Equinox 5.0alpha (2010-06-29) proved the theorem (180 sec).
   postulate
     j₂₇₋₂₉ : xz · xyu · (y · xu·zu · (zy·xu · zy·zu)) ≡
              xz · xyu · (y·zy · xu·zu)
-  -- E 1.2: CPU time limit exceeded (180 sec).
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-  -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
   {-# ATP prove j₂₇₋₂₉ #-}
 
   postulate

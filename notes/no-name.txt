@@ -4,6 +4,14 @@ $ metis --time-limit xxx file_name
 $ SPASS -TPTP -TimeLimit=xxx file_name
 $ vampire_lin64 -t xxx --input_file file_name
 
+-- 2012-02-23: The ATPs (see README.agda) do not prove the theorem (180 sec).
+
+-- 2012-02-23: Only E 1.4 proved the theorem (180 sec).
+-- 2012-02-23: Only Equinox 5.0alpha (2010-06-29) proved the theorem (180 sec).
+-- 2012-02-23: Only Metis 2.3 (release 20110926) proved the theorem (180 sec).
+-- 2012-02-23: Only SPASS 3.7 proved the theorem (180 sec).
+-- 2012-02-23: Only Vampire 0.6 (revision 903) proved the theorem (180 sec).
+
 -- E 1.4. CPU time limit exceeded, terminating (180 sec).
 -- E 1.3. Non-tested.
 -- Equinox 5.0alpha (2010-06-29). Non-tested.

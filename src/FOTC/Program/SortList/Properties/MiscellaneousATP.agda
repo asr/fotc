@@ -30,7 +30,6 @@ open import FOTC.Program.SortList.SortList
 --   where
 --     postulate prf : LE-Lists is [] →  --IH.
 --                     LE-Lists (i ∷ is) []
---     -- Metis 2.3 (release 20101019): No-success due to timeout (180 sec).
 --     {-# ATP prove prf ≤-ItemList-Bool ordList-Bool x&&y≡true→x≡true #-}
 
 x≤ys→x≤zs→x≤ys++zs : ∀ {i js ks} → N i → ListN js → ListN ks →
@@ -53,9 +52,6 @@ x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni (consLN {j} {js} Nj LNjs) LNks i�
 
   postulate prf : LE-ItemList i (js ++ ks) →  -- IH.
                   LE-ItemList i ((j ∷ js) ++ ks)
-  -- E 1.2: Non-tested.
-  -- Metis 2.3 (release 20101019): Non-tested.
-  -- Vampire 0.6 (revision 903): Non-tested.
   {-# ATP prove prf &&-proj₁ helper₁ helper₂ helper₃ #-}
 
 xs≤ys→xs≤zs→xs≤ys++zs : ∀ {is js ks} → ListN is → ListN js → ListN ks →
@@ -79,9 +75,6 @@ xs≤ys→xs≤zs→xs≤ys++zs {js = js} {ks} (consLN {i} {is} Ni LNis)
 
   postulate prf : LE-Lists is (js ++ ks) →  -- IH.
                   LE-Lists (i ∷ is) (js ++ ks)
-  -- E 1.2: Non-tested.
-  -- Metis 2.3 (release 20101019): Non-tested.
-  -- Vampire 0.6 (revision 903): Non-tested.
   {-# ATP prove prf x≤ys→x≤zs→x≤ys++zs &&-proj₁
                     helper₁ helper₂ helper₃ helper₄ helper₅ helper₆
   #-}
@@ -106,7 +99,4 @@ xs≤zs→ys≤zs→xs++ys≤zs {js = js} {ks}
 
   postulate prf : LE-Lists (is ++ js) ks →  -- IH.
                   LE-Lists ((i ∷ is) ++ js) ks
-  -- E 1.2: Non-tested.
-  -- Metis 2.3 (release 20101019): Non-tested.
-  -- Vampire 0.6 (revision 903): Non-tested.
   {-# ATP prove prf &&-proj₁ helper₁ helper₂ helper₃ #-}

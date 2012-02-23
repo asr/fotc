@@ -22,7 +22,6 @@ flatten-ListN nilT = prf
 flatten-ListN (tipT {i} Ni) = prf
   where
   postulate prf : ListN (flatten (tip i))
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove prf #-}
 
 flatten-ListN (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) =

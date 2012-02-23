@@ -25,9 +25,6 @@ subList-OrdList {i} Ni nilLN LOi∷is = ordList-[]
 subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js = prf
   where
   postulate prf : OrdList (j ∷ js)
-  -- E 1.2: Non-tested.
-  -- Equinox 5.0alpha (2010-06-29): Non-tested.
-  -- Metis 2.3 : Non-tested.
   {-# ATP prove prf &&-proj₂ ≤-ItemList-Bool ordList-Bool #-}
 
 ++-OrdList-helper : ∀ {item is js} → N item → ListN is → ListN js →
@@ -55,7 +52,4 @@ subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js = prf
 
   postulate prf : LE-ItemList item (is ++ js) →  -- IH.
                   LE-ItemList item ((i ∷ is) ++ js)
-  -- E 1.2: Non-tested.
-  -- Metis 2.3 : Non-tested.
-  -- Vampire 0.6 (revision 903): Non-tested.
   {-# ATP prove prf ≤-Bool ≤-ItemList-Bool &&-proj₁ #-}

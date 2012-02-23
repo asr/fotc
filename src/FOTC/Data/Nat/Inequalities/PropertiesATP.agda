@@ -219,7 +219,6 @@ x≤x+y {n = n} (sN {m} Nm) Nn = prf $ x≤x+y Nm Nn
   where
   postulate prf : LE m (m + n) →  -- IH.
                   LE (succ₁ m) (succ₁ m + n)
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove prf #-}
 
 x<x+Sy : ∀ {m n} → N m → N n → LT m (m + succ₁ n)
@@ -326,7 +325,6 @@ x∸y<Sx (sN {m} Nm) (sN {n} Nn) = prf $ x∸y<Sx Nm Nn
   where
   postulate prf : LT (m ∸ n) (succ₁ m) →  -- IH.
                   LT (succ₁ m ∸ succ₁ n) (succ₁ (succ₁ m))
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove prf <-trans ∸-N x<Sx #-}
 
 postulate Sx∸Sy<Sx : ∀ {m n} → N m → N n → LT (succ₁ m ∸ succ₁ n) (succ₁ m)
@@ -377,8 +375,6 @@ x>y→x∸y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn = prf $ x>y→x∸y+y≡x Nm Nn 
 
   postulate prf : (m ∸ n) + n ≡ m →  -- IH.
                   (succ₁ m ∸ succ₁ n) + succ₁ n ≡ succ₁ m
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-  -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
   {-# ATP prove prf +-comm ∸-N #-}
 
 x≤y→y∸x+x≡y : ∀ {m n} → N m → N n → LE m n → (n ∸ m) + m ≡ n
@@ -396,8 +392,6 @@ x≤y→y∸x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn = prf $ x≤y→y∸x+x≡y 
 
   postulate prf : (n ∸ m) + m ≡ n →  -- IH.
                   (succ₁ n ∸ succ₁ m) + succ₁ m ≡ succ₁ n
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-  -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
   {-# ATP prove prf +-comm ∸-N #-}
 
 x<Sy→x<y∨x≡y : ∀ {m n} → N m → N n → LT m (succ₁ n) → LT m n ∨ m ≡ n
@@ -489,27 +483,22 @@ x∸y<x∸z→Sx∸y<Sx∸z (sN {m} Nm) (sN {n} Nn) (sN {o} No) Sm∸Sn<Sm∸So 
 -- Properties about LT₂
 
 postulate xy<00→⊥ : ∀ {m n} → N m → N n → ¬ (LT₂ m n zero zero)
--- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove xy<00→⊥ x<0→⊥ #-}
 
 postulate
   Sxy₁<0y₂→⊥ : ∀ {m n₁ n₂} → N m → N n₁ → N n₂ → ¬ (LT₂ (succ₁ m) n₁ zero n₂)
--- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove Sxy₁<0y₂→⊥ x<0→⊥ #-}
 
 postulate 0Sx<00→⊥ : ∀ {m} → N m → ¬ (LT₂ zero (succ₁ m) zero zero)
--- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove 0Sx<00→⊥ x<0→⊥ #-}
 
 postulate
   x₁y<x₂0→x₁<x₂ : ∀ {m₁ n m₂} → N m₁ → N n → N m₂ → LT₂ m₁ n m₂ zero → LT m₁ m₂
--- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove x₁y<x₂0→x₁<x₂ x<0→⊥ #-}
 
 postulate
   xy₁<0y₂→x≡0∧y₁<y₂ : ∀ {m n₁ n₂} → N m → N n₁ → N n₂ → LT₂ m n₁ zero n₂ →
                       m ≡ zero ∧ LT n₁ n₂
--- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove xy₁<0y₂→x≡0∧y₁<y₂ x<0→⊥ #-}
 
 [Sx∸Sy,Sy]<[Sx,Sy] : ∀ {m n} → N m → N n →
@@ -517,7 +506,6 @@ postulate
 [Sx∸Sy,Sy]<[Sx,Sy] {m} {n} Nm Nn = prf
   where
   postulate prf : LT₂ (succ₁ m ∸ succ₁ n) (succ₁ n) (succ₁ m) (succ₁ n)
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove prf x∸y<Sx #-}
 
 [Sx,Sy∸Sx]<[Sx,Sy] : ∀ {m n} → N m → N n →
@@ -525,5 +513,4 @@ postulate
 [Sx,Sy∸Sx]<[Sx,Sy] {m} {n} Nm Nn = prf
   where
   postulate prf : LT₂ (succ₁ m) (succ₁ n ∸ succ₁ m) (succ₁ m) (succ₁ n)
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove prf x∸y<Sx #-}

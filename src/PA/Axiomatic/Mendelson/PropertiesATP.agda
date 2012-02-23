@@ -32,12 +32,9 @@ x+Sy≐S[x+y] m n = S₉ P P0 is m
   {-# ATP definition P #-}
 
   postulate P0 : P zero
-  -- E 1.2: CPU time limit exceeded (180 sec).
   {-# ATP prove P0 #-}
 
   postulate is : ∀ i → P i → P (succ i)
-  -- E 1.2: CPU time limit exceeded (180 sec).
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove is #-}
 
 +-leftCong : ∀ {m n o} → m ≐ n → m + o ≐ n + o
@@ -48,14 +45,9 @@ x+Sy≐S[x+y] m n = S₉ P P0 is m
   {-# ATP definition P #-}
 
   postulate P0 : P zero
-  -- E 1.2: CPU time limit exceeded (180 sec).
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove P0 +-rightIdentity #-}
 
   postulate is : ∀ i → P i → P (succ i)
-  -- E 1.2: CPU time limit exceeded (180 sec).
-  -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds)
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove is x+Sy≐S[x+y] #-}
 
 +-asocc : ∀ m n o → m + n + o ≐ m + (n + o)
@@ -68,10 +60,8 @@ x+Sy≐S[x+y] m n = S₉ P P0 is m
   postulate P0 : P zero
   {-# ATP prove P0 +-leftCong #-}
 
+  -- 2012-02-23: Only Equinox 5.0alpha (2010-06-29) proved the theorem (180 sec).
   postulate is : ∀ i → P i → P (succ i)
-  -- (2012-02-22) E 1.4. CPU time limit exceeded, terminating (180 sec).
-  -- (2012-02-22) Metis 2.3 (release 20110926). SZS status Unknown (180 sec).
-  -- (2012-02-22) Vampire 0.6 (revision 903). Time limit reached! (180 sec).
   {-# ATP prove is +-leftCong #-}
 
 +-comm : ∀ m n → m + n ≐ n + m
@@ -82,11 +72,7 @@ x+Sy≐S[x+y] m n = S₉ P P0 is m
   {-# ATP definition P #-}
 
   postulate P0 : P zero
-  -- E 1.2: CPU time limit exceeded (180 sec).
   {-# ATP prove P0 +-rightIdentity #-}
 
   postulate is : ∀ i → P i → P (succ i)
-  -- E 1.2: CPU time limit exceeded (180 sec).
-  -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds)
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove is x+Sy≐S[x+y] #-}

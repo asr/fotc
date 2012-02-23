@@ -127,7 +127,6 @@ x+Sy≡S[x+y] n (sN {m} Nm) = prf $ x+Sy≡S[x+y] n Nm
 +-comm {n = n} (sN {m} Nm) Nn = prf $ +-comm Nm Nn
   where
   postulate prf : m + n ≡ n + m → succ₁ m + n ≡ n + succ₁ m
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove prf x+Sy≡S[x+y] #-}
 
 x+S0≡Sx : ∀ {n} → N n → n + succ₁ zero ≡ succ₁ n
@@ -208,7 +207,6 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
                    (n + m) + (m * n) ≡ n + (m + (m * n)) →  -- Associative law
                    (m + n) + (m * n) ≡ m + (n + (m * n)) →  -- Associateve law
                    succ₁ m * succ₁ n ≡ succ₁ m + succ₁ m * n
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove prf +-comm #-}
 
 *-comm : ∀ {m n} → N m → N n → m * n ≡ n * m
@@ -220,7 +218,6 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
   where
   postulate prf : m * n ≡ n * m →  -- IH.
                   succ₁ m * n ≡ n * succ₁ m
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove prf x*Sy≡x+xy #-}
 
 *-rightIdentity : ∀ {n} → N n → n * succ₁ zero ≡ n
@@ -241,7 +238,6 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
 *∸-leftDistributive (sN {m} Nm) (sN {n} Nn) zN = prf
   where
   postulate prf : (succ₁ m ∸ succ₁ n) * zero ≡ succ₁ m * zero ∸ succ₁ n * zero
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove prf ∸-N *-comm #-}
 
 *∸-leftDistributive (sN {m} Nm) (sN {n} Nn) (sN {o} No) =
@@ -250,16 +246,12 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
   postulate prf : (m ∸ n) * succ₁ o ≡ m * succ₁ o ∸ n * succ₁ o →  -- IH
                   (succ₁ m ∸ succ₁ n) * succ₁ o ≡
                   succ₁ m * succ₁ o ∸ succ₁ n * succ₁ o
-  -- E 1.2: CPU time limit exceeded (180 sec).
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-  -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
   {-# ATP prove prf *-N [x+y]∸[x+z]≡y∸z #-}
 
 *+-leftDistributive : ∀ {m n o} → N m → N n → N o → (m + n) * o ≡ m * o + n * o
 *+-leftDistributive {m} {n} Nm Nn zN = prf
   where
   postulate prf : (m + n) * zero ≡ m * zero + n * zero
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove prf *-comm +-rightIdentity *-N +-N #-}
 
 *+-leftDistributive {n = n} zN Nn (sN {o} No) = prf
@@ -270,8 +262,6 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
 *+-leftDistributive (sN {m} Nm) zN (sN {o} No) = prf
   where
   postulate prf : (succ₁ m + zero) * succ₁ o ≡ succ₁ m * succ₁ o + zero * succ₁ o
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-  -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
   {-# ATP prove prf +-rightIdentity *-leftZero *-N #-}
 
 *+-leftDistributive (sN {m} Nm) (sN {n} Nn) (sN {o} No) =
@@ -280,8 +270,6 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
   postulate
     prf : (m + succ₁ n) * succ₁ o ≡ m * succ₁ o + succ₁ n * succ₁ o →  -- IH.
           (succ₁ m + succ₁ n) * succ₁ o ≡ succ₁ m * succ₁ o + succ₁ n * succ₁ o
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-  -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
   {-# ATP prove prf +-assoc *-N #-}
 
 xy≡0→x≡0∨y≡0 : ∀ {m n} → N m → N n → m * n ≡ zero → m ≡ zero ∨ n ≡ zero

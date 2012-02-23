@@ -29,7 +29,6 @@ postulate gcd-0S-N : ∀ {n} → N n → N (gcd zero (succ₁ n))
 ------------------------------------------------------------------------------
 -- gcd (succ₁ n) 0 is total.
 postulate gcd-S0-N : ∀ {n} → N n → N (gcd (succ₁ n) zero)
--- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove gcd-S0-N gcd-S0 #-}
 
 ------------------------------------------------------------------------------
@@ -39,7 +38,6 @@ postulate
               N (gcd (succ₁ m ∸ succ₁ n) (succ₁ n)) →
               GT (succ₁ m) (succ₁ n) →
               N (gcd (succ₁ m) (succ₁ n))
--- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove gcd-S>S-N gcd-S>S #-}
 
 ------------------------------------------------------------------------------

@@ -29,7 +29,6 @@ postulate ⁻¹-cong : ∀ {a b} → a ≡ b → a ⁻¹ ≡ b ⁻¹
 ------------------------------------------------------------------------------
 
 postulate leftCancellation : ∀ {a b c} → a · b ≡ a · c → b ≡ c
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove leftCancellation #-}
 
 postulate rightIdentity : ∀ a → a · ε ≡ a
@@ -39,7 +38,6 @@ postulate rightInverse : ∀ a → a · a ⁻¹ ≡ ε
 {-# ATP prove rightInverse #-}
 
 postulate rightCancellation : ∀ {a b c} → b · a ≡ c · a → b ≡ c
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove rightCancellation #-}
 
 postulate y≡x⁻¹[xy] : ∀ a b → b ≡ a ⁻¹ · (a · b)
@@ -54,7 +52,6 @@ postulate
 
 -- A more appropiate version to be used in the proofs.
 postulate rightIdentityUnique' : ∀ a r → a · r ≡ a → r ≡ ε
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove rightIdentityUnique' #-}
 
 postulate
@@ -63,54 +60,45 @@ postulate
 
 -- A more appropiate version to be used in the proofs.
 postulate leftIdentityUnique' : ∀ a l → l · a ≡ a → l ≡ ε
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove leftIdentityUnique' #-}
 
 postulate
   rightInverseUnique : ∀ {a} → ∃[ r ] (a · r ≡ ε) ∧
                                       (∀ r' → a · r' ≡ ε → r ≡ r')
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove rightInverseUnique #-}
 
 -- A more appropiate version to be used in the proofs.
 postulate rightInverseUnique' : ∀ {a r} → a · r ≡ ε → a ⁻¹ ≡ r
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove rightInverseUnique' #-}
 
 postulate
   leftInverseUnique : ∀ {a} → ∃[ l ] (l · a ≡ ε) ∧
                                      (∀ l' → l' · a ≡ ε → l ≡ l')
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove leftInverseUnique #-}
 
 -- A more appropiate version to be used in the proofs.
 postulate leftInverseUnique' : ∀ {a l} → l · a ≡ ε → a ⁻¹ ≡ l
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove leftInverseUnique' #-}
 
 postulate ⁻¹-involutive : ∀ a → a ⁻¹ ⁻¹ ≡ a
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove ⁻¹-involutive #-}
 
 postulate identityInverse : ε ⁻¹ ≡ ε
 {-# ATP prove identityInverse #-}
 
 postulate inverseDistributive : ∀ a b → (a · b) ⁻¹ ≡ b ⁻¹ · a ⁻¹
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove inverseDistributive #-}
 
 -- The equation xa = b has an unique solution.
 postulate
   xa≡b-uniqueSolution : ∀ a b → ∃[ x ] (x · a ≡ b) ∧
                                        (∀ x' → x' · a ≡ b → x ≡ x')
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove xa≡b-uniqueSolution #-}
 
 -- The equation ax = b has an unique solution.
 postulate
   ax≡b-uniqueSolution : ∀ a b → ∃[ x ] (a · x ≡ b) ∧
                                        (∀ x' → a · x' ≡ b → x ≡ x')
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
 {-# ATP prove ax≡b-uniqueSolution #-}
 
 -- If the square of every element is the identity, the system is commutative.

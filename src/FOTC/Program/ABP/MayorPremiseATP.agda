@@ -19,14 +19,10 @@ open import FOTC.Program.ABP.Terms
 -- Although the interactive proof is easy, as expected the ATPs could not
 -- prove the theorem.
 
+-- 2012-02-23: The ATPs (see README.agda) do not prove the theorem (180 sec).
 -- postulate
 --   mayorPremise' : ∀ {b fs₀ fs₁ is} → Bit b → Fair fs₀ → Fair fs₁ → Stream is →
 --                   is B abptransfer b fs₀ fs₁ is
--- E 1.4: CPU time limit exceeded, terminating (180 sec).
--- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds)
--- Metis 2.3 (release 20110926): SZS status Unknown (using timeout 180 sec).
--- SPASS 3.7: Ran out of time (using timeout 180 sec).
--- Vampire 0.6 (revision 903): Time limit (180 sec).
 -- {-# ATP prove mayorPremise' #-}
 
 mayorPremise : ∀ {b fs₀ fs₁ is} →

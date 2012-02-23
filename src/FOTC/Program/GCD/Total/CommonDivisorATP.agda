@@ -78,8 +78,6 @@ postulate
     gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∣ (succ₁ m ∸ succ₁ n) + succ₁ n →
     ((succ₁ m ∸ succ₁ n) + succ₁ n ≡ succ₁ m) →
     gcd (succ₁ m) (succ₁ n) ∣ succ₁ m
--- E 1.2: CPU time limit exceeded (180 sec).
--- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove gcd-S>S-∣₁-ah #-}
 
 gcd-S>S-∣₁ :
@@ -163,7 +161,6 @@ postulate
     (gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∣ succ₁ n) →
     GT (succ₁ m) (succ₁ n) →
     gcd (succ₁ m) (succ₁ n) ∣ succ₁ n
--- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove gcd-S>S-∣₂ #-}
 
 ------------------------------------------------------------------------------

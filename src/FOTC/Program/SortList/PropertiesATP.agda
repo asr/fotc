@@ -37,14 +37,9 @@ toTree-OrdTree {item} Nitem (tipT {i} Ni) OTt =
   [ prf₁ , prf₂ ] (x>y∨x≤y Ni Nitem)
   where
   postulate prf₁ : GT i item → OrdTree (toTree · item · tip i)
-  -- E 1.2: CPU time limit exceeded (180 sec).
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-  -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
   {-# ATP prove prf₁ x≤x x<y→x≤y x>y→x≰y #-}
 
   postulate prf₂ : LE i item → OrdTree (toTree · item · tip i)
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-  -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
   {-# ATP prove prf₂ x≤x #-}
 
 toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
@@ -58,9 +53,6 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
                    OrdTree t₂ →
                    GT i item →
                    OrdTree (toTree · item · node t₁ i t₂)
-  -- E 1.2: CPU time limit exceeded (180 sec).
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-  -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
   {-# ATP prove prf₁ ≤-ItemTree-Bool ≤-TreeItem-Bool ordTree-Bool
                      x>y→x≰y &&₃-proj₃ &&₃-proj₄
                      ordTree-Bool toTree-OrdTree-helper₁
@@ -70,8 +62,6 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
                    OrdTree t₁ →
                    LE i item →
                    OrdTree (toTree · item · node t₁ i t₂)
-  -- E 1.2: CPU time limit exceeded (180 sec).
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove prf₂ ≤-ItemTree-Bool ≤-TreeItem-Bool ordTree-Bool
                      &&₃-proj₃ &&₃-proj₄
                      toTree-OrdTree-helper₂
@@ -95,8 +85,6 @@ makeTree-OrdTree (consLN {i} {is} Ni Lis) = prf $ makeTree-OrdTree Lis
   where
   postulate prf : OrdTree (makeTree is) →  -- IH.
                   OrdTree (makeTree (i ∷ is))
-  -- E 1.2: CPU time limit exceeded (180 sec).
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove prf makeTree-Tree toTree-OrdTree #-}
 
 ------------------------------------------------------------------------------
@@ -120,9 +108,6 @@ makeTree-OrdTree (consLN {i} {is} Ni Lis) = prf $ makeTree-OrdTree Lis
   where
   postulate lemma : OrdList (is ++ js) →  -- IH
                     OrdList (i ∷ is ++ js)
-  -- E 1.2: Non-tested.
-  -- Metis 2.3 : Non-tested.
-  -- Vampire 0.6 (revision 903): Non-tested.
   {-# ATP prove lemma ≤-ItemList-Bool ≤-Lists-Bool ordList-Bool
                       &&-proj₁ &&-proj₂
                       ++-OrdList-helper
@@ -137,9 +122,6 @@ flatten-OrdList nilT OTt =
 flatten-OrdList (tipT {i} Ni) OTt = prf
   where
   postulate prf : OrdList (flatten (tip i))
-  -- E 1.2: Non-tested.
-  -- Equinox 5.0alpha (2010-06-29): Non-tested.
-  -- Metis 2.3 (release 20101019): Non-tested.
   -- {-# ATP prove prf #-}
 
 flatten-OrdList (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTt
@@ -151,7 +133,4 @@ flatten-OrdList (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTt
   where
   postulate prf : OrdList (flatten t₁ ++ flatten t₂) → -- Indirect IH.
                   OrdList (flatten (node t₁ i t₂))
-  -- Equinox 5.0alpha (2010-06-29): Non-tested.
-  -- Metis 2.3 (release 20101019): Non-tested.
-  -- Vampire 0.6 (revision 903): Non-tested.
   {-# ATP prove prf #-}

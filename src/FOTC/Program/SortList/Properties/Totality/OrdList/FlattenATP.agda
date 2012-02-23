@@ -32,25 +32,16 @@ flatten-OrdList-helper {t₂ = t₂} nilT Ni Tt₂ OTt =
 flatten-OrdList-helper (tipT {i₁} Ni₁) Tt₁ nilT OTt = prf
   where
   postulate prf : LE-Lists (flatten (tip i₁)) (flatten nilTree)
-  -- Equinox 5.0alpha (2010-06-29): Non-tested.
-  -- Metis 2.3 : Non-tested.
-  -- Vampire 0.6 (revision 903): Non-tested.
   {-# ATP prove prf #-}
 
 flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni (tipT {i₂} Ni₂) OTt = prf
   where
   postulate lemma : LE i₁ i₂
-  -- E 1.2: Non-tested.
-  -- Equinox 5.0alpha (2010-06-29): Non-tested.
-  -- Metis 2.3 : Non-tested.
   {-# ATP prove lemma ≤-ItemTree-Bool ≤-TreeItem-Bool ordTree-Bool
                 ≤-trans &&₃-proj₃ &&₃-proj₄
   #-}
 
   postulate prf : LE-Lists (flatten (tip i₁)) (flatten (tip i₂))
-  -- Equinox 5.0alpha (2010-06-29): Non-tested.
-  -- Metis 2.3 : Non-tested.
-  -- Vampire 0.6 (revision 903): Non-tested.
   {-# ATP prove prf lemma #-}
 
 flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni
@@ -90,9 +81,6 @@ flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni
     LE-ItemTree-i-t₂₁ = &&-proj₁ helper₆ helper₇ helper₈
 
     postulate OT : OrdTree (node (tip i₁) i t₂₁)
-    -- E 1.2: Non-tested.
-    -- Metis 2.3 : Non-tested.
-    -- Vampire 0.6 (revision 903): Non-tested.
     {-# ATP prove OT OrdTree-tip-i₁
                      OrdTree-t₂₁
                      LE-TreeItem-tip-i₁-i
@@ -112,9 +100,6 @@ flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni
     LE-ItemTree-i-t₂₂ = &&-proj₂ helper₆ helper₇ helper₈
 
     postulate OT : OrdTree (node (tip i₁) i t₂₂)
-    -- E 1.2: Non-tested.
-    -- Metis 2.3 : Non-tested.
-    -- Vampire 0.6 (revision 903): Non-tested.
     {-# ATP prove OT OrdTree-tip-i₁
                      OrdTree-t₂₂
                      LE-TreeItem-tip-i₁-i
@@ -122,9 +107,6 @@ flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni
     #-}
 
   postulate prf : LE-Lists (flatten (tip i₁)) (flatten (node t₂₁ i₂ t₂₂))
-  -- E 1.2: Non-tested.
-  -- Metis 2.3 : Non-tested.
-  -- Vampire 0.6 (revision 903): Non-tested.
   {-# ATP prove prf xs≤ys→xs≤zs→xs≤ys++zs flatten-ListN lemma₁ lemma₂ #-}
 
 flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂)
@@ -147,9 +129,6 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
   lemma₁ = flatten-OrdList-helper Tt₁₁ Ni nilT OT  -- IH.
     where
     postulate OT : OrdTree (node t₁₁ i nilTree)
-    -- E 1.2: Non-tested.
-    -- Equinox 5.0alpha (2010-06-29): Non-tested.
-    -- Metis 2.3 : Non-tested.
     {-# ATP prove OT leftSubTree-OrdTree
                      &&₃-proj₁ &&-proj₁ &&₃-proj₄
                      helper₁ helper₂ helper₃ helper₄ helper₅ helper₆
@@ -160,9 +139,6 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
   lemma₂ = flatten-OrdList-helper Tt₁₂ Ni nilT OT
     where
     postulate OT : OrdTree (node t₁₂ i nilTree)
-      -- E 1.2: Non-tested.
-      -- Metis 2.3 : Non-tested.
-      -- Vampire 0.6 (revision 903): Non-tested.
     {-# ATP prove OT rightSubTree-OrdTree
                      &&₃-proj₁ &&₃-proj₂ &&₃-proj₄
                      helper₁ helper₂ helper₃ helper₄ helper₅ helper₆
@@ -170,9 +146,6 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
     #-}
 
   postulate prf : LE-Lists (flatten (node t₁₁ i₁ t₁₂)) (flatten nilTree)
-  -- E 1.2: Non-tested.
-  -- Equinox 5.0alpha (2010-06-29): Non-tested.
-  -- Metis 2.3 : Non-tested.
   {-# ATP prove prf xs≤zs→ys≤zs→xs++ys≤zs flatten-ListN lemma₁ lemma₂ #-}
 
 flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂) Ni
@@ -195,9 +168,6 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
   lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (tipT Ni₂) OT  -- IH.
     where
     postulate OT : OrdTree (node t₁₁ i (tip i₂))
-    -- E 1.2: Non-tested.
-    -- Metis 2.3 : Non-tested.
-    -- Vampire 0.6 (revision 903): Non-tested.
     {-# ATP prove OT leftSubTree-OrdTree
                      &&₃-proj₁ &&₃-proj₂ &&-proj₁ &&₃-proj₄
                      helper₁ helper₂ helper₃ helper₄ helper₅ helper₆
@@ -208,9 +178,6 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
   lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (tipT Ni₂) OT  -- IH.
     where
     postulate OT : OrdTree (node t₁₂ i (tip i₂))
-    -- E 1.2: Non-tested.
-    -- Metis 2.3 : Non-tested.
-    -- Vampire 0.6 (revision 903): Non-tested.
     {-# ATP prove OT rightSubTree-OrdTree
                      &&-proj₂ &&₃-proj₁ &&₃-proj₂ &&₃-proj₄
                      helper₁ helper₂ helper₃ helper₄ helper₅ helper₆
@@ -218,9 +185,6 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
     #-}
 
   postulate prf : LE-Lists (flatten (node t₁₁ i₁ t₁₂)) (flatten (tip i₂))
-  -- E 1.2: Non-tested.
-  -- Metis 2.3 : Non-tested.
-  -- Vampire 0.6 (revision 903): Non-tested.
   {-# ATP prove prf xs≤zs→ys≤zs→xs++ys≤zs flatten-ListN lemma₁ lemma₂ #-}
 
 flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂) Ni
@@ -244,9 +208,6 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
   lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (nodeT Tt₂₁ Ni₂ Tt₂₂) OT  -- IH.
     where
     postulate OT : OrdTree (node t₁₁ i (node t₂₁ i₂ t₂₂))
-    -- E 1.2: Non-tested.
-    -- Metis 2.3 : Non-tested.
-    -- Vampire 0.6 (revision 903): Non-tested.
     {-# ATP prove OT leftSubTree-OrdTree
                      &&₃-proj₁ &&₃-proj₂ &&-proj₁ &&₃-proj₄
                      helper₁ helper₂ helper₃ helper₄ helper₅ helper₆
@@ -257,9 +218,6 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
   lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (nodeT Tt₂₁ Ni₂ Tt₂₂) OT  -- IH.
     where
     postulate OT : OrdTree (node t₁₂ i (node t₂₁ i₂ t₂₂))
-    -- E 1.2: Non-tested.
-    -- Metis 2.3 : Non-tested.
-    -- Vampire 0.6 (revision 903): Non-tested.
     {-# ATP prove OT rightSubTree-OrdTree
                      &&-proj₂ &&₃-proj₁ &&₃-proj₂ &&₃-proj₄
                      helper₁ helper₂ helper₃ helper₄ helper₅ helper₆
@@ -268,7 +226,4 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
 
   postulate prf : LE-Lists (flatten (node t₁₁ i₁ t₁₂))
                   (flatten (node t₂₁ i₂ t₂₂))
-  -- E 1.2: Non-tested.
-  -- Metis 2.3 : Non-tested.
-  -- Equinox 5.0alpha (2010-06-29): Non-tested.
   {-# ATP prove prf xs≤zs→ys≤zs→xs++ys≤zs flatten-ListN lemma₁ lemma₂ #-}

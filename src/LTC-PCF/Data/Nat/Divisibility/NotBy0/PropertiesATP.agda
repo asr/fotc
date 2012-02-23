@@ -37,7 +37,6 @@ postulate
                      n ≡ k₁ * succ₁ m →
                      o ≡ k₂ * succ₁ m →
                      n ∸ o ≡ (k₁ ∸ k₂) * succ₁ m
--- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove x∣y→x∣z→x∣y∸z-ah *∸-leftDistributive #-}
 
 x∣y→x∣z→x∣y∸z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n ∸ o
@@ -56,7 +55,6 @@ postulate
                       n ≡ k₁ * succ₁ m →
                       o ≡ k₂ * succ₁ m →
                       n + o ≡ (k₁ + k₂) * succ₁ m
--- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove x∣y→x∣z→x∣y+z-ah *+-leftDistributive #-}
 
 x∣y→x∣z→x∣y+z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n + o
@@ -78,7 +76,6 @@ postulate
   x∣Sy→x≤Sy-helper₂ : ∀ {m n o} → N m → N n → N o →
                       succ₁ n ≡ succ₁ o * succ₁ m →
                       LE (succ₁ m) (succ₁ n)
--- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
 {-# ATP prove x∣Sy→x≤Sy-helper₂ x≤x+y *-N *-Sx #-}
 
 x∣Sy→x≤Sy : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → LE m (succ₁ n)

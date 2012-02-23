@@ -111,7 +111,6 @@ map-++-commute f {ys = ys} (consL x {xs} Lxs) Lys =
   where
   postulate prf : map f (xs ++ ys) ≡ map f xs ++ map f ys →  -- IH.
                   map f ((x ∷ xs) ++ ys) ≡ map f (x ∷ xs) ++ map f ys
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove prf #-}
 
 -- Reverse properties
@@ -128,12 +127,10 @@ rev-++-commute {ys = ys} nilL Lys = prf
 rev-++-commute {ys = ys} (consL x {xs} Lxs) Lys =
   prf (rev-++-commute Lxs (consL x Lys)) (rev-++-commute Lxs (consL x nilL))
   where
+  -- 2012-02-23: Only Equinox 5.0alpha (2010-06-29) proved the theorem (180 sec).
   postulate prf : rev xs (x ∷ ys) ≡ rev xs [] ++ x ∷ ys →  -- IH.
                   rev xs (x ∷ []) ≡ rev xs [] ++ x ∷ [] →  -- IH.
                   rev (x ∷ xs) ys ≡ rev (x ∷ xs) [] ++ ys
-  -- E 1.2: CPU time limit exceeded (180 sec).
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-  -- Vampire 0.6 (revision 903): (Default) memory limit (timeout 180 sec).
   {-# ATP prove prf ++-assoc rev-List ++-List #-}
 
 reverse-++-commute : ∀ {xs ys} → List xs → List ys →
@@ -155,9 +152,6 @@ reverse-++-commute (consL x {xs} Lxs) (consL y {ys} Lys) =
                                            reverse xs →  -- IH.
                   reverse ((x ∷ xs) ++ y ∷ ys) ≡ reverse (y ∷ ys) ++
                                                  reverse (x ∷ xs)
-  -- E 1.2: CPU time limit exceeded (180 sec).
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-  -- Vampire 0.6 (revision 903): (Default) memory limit (using timeout 180 sec).
   {-# ATP prove prf reverse-List ++-List rev-++-commute ++-assoc #-}
 
 reverse-∷ : ∀ x {ys} → List ys →
@@ -182,7 +176,4 @@ reverse² (consL x {xs} Lxs) = prf $ reverse² Lxs
   where
   postulate prf : reverse (reverse xs) ≡ xs →  -- IH.
                   reverse (reverse (x ∷ xs)) ≡ x ∷ xs
-  -- Equinox 5.0alpha (2010-06-29): TIMEOUT (180 seconds).
-  -- Metis 2.3 (release 20110531): SZS status Unknown (using timeout 180 sec).
-  -- Vampire 0.6 (revision 903): No-success (using timeout 180 sec).
   {-# ATP prove prf rev-List reverse-++-commute ++-List ++-rightIdentity #-}
