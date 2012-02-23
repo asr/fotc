@@ -28,14 +28,13 @@ postulate
   _+_ _*_ : M → M → M
 
 -- Proper axioms
--- From [Machover, 1977, p. 263] and [Hájeck and Pudlák, 1998, p. 28]
+-- From [Machover, 1977, p. 263] and [Hájeck and Pudlák, 1998, p. 28]:
 --
 -- * Moshé Machover. Set theory, logic and their
 --   limitations. Cambridge University Press, 1996.
 --
 -- * Petr Hájeck and Pavel Pudlák. Metamathematics of First-Order
 --   Arithmetic. Springer, 1998. 2nd printing.
--- )
 
 -- A₁. 0 ≠ succ n
 -- A₂. succ m = succ n → m = n
