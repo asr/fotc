@@ -1,4 +1,4 @@
--- Tested with the development version of Agda on 07 February 2012.
+-- Tested with the development version of Agda on 24 February 2012.
 
 module LeastFixedPoints where
 
@@ -159,7 +159,7 @@ postulate
     prf₁ h₁ = subst N (cong (flip _+_ n) (sym h₁)) P0
 
     is : ∀ {i} → P i → P (succ₁ i)
-    is {i} Pi = subst N (sym (+-Sx i n)) (sN Pi)
+    is {i} ih = subst N (sym (+-Sx i n)) (sN ih)
 
     prf₂ : ∃ (λ m' → m ≡ succ₁ m' ∧ P m') → P m
     prf₂ (m' , m≡Sm' , Pm') = subst N (cong (flip _+_ n) (sym m≡Sm')) (is Pm')

@@ -33,10 +33,10 @@ open import FOTC.Data.Nat
   P0 = +-leftIdentity zero
 
   is : ∀ {i} → P i → P (succ₁ i)
-  is {i} Pi = trans (+-Sx i zero)
+  is {i} ih = trans (+-Sx i zero)
                     (subst (λ t → succ₁ (i + zero) ≡ succ₁ t)
-                           Pi
-                             refl
+                           ih
+                           refl
                     )
 
 +-N : ∀ {m n} → N m → N n → N (m + n)
@@ -49,7 +49,7 @@ open import FOTC.Data.Nat
   P0 = subst N (sym $ +-leftIdentity n) Nn
 
   is : ∀ {i} → P i → P (succ₁ i)
-  is {i} Pi = subst N (sym $ +-Sx i n) (sN Pi)
+  is {i} ih = subst N (sym $ +-Sx i n) (sN ih)
 
 +-assoc : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
 +-assoc {n = n} {o} Nm Nn No = N-ind P P0 is Nm
@@ -66,13 +66,13 @@ open import FOTC.Data.Nat
      zero + (n + o) ∎
 
   is : ∀ {i} → P i → P (succ₁ i)
-  is {i} Pi =
+  is {i} ih =
     succ₁ i + n + o
       ≡⟨ subst (λ t → succ₁ i + n + o ≡ t + o) (+-Sx i n) refl ⟩
     succ₁ (i + n) + o
       ≡⟨ +-Sx (i + n) o ⟩
     succ₁ (i + n + o)
-      ≡⟨ subst (λ t → succ₁ (i + n + o) ≡ succ₁ t) Pi refl ⟩
+      ≡⟨ subst (λ t → succ₁ (i + n + o) ≡ succ₁ t) ih refl ⟩
     succ₁ (i + (n + o))
       ≡⟨ sym $ +-Sx i (n + o) ⟩
     succ₁ i + (n + o) ∎
@@ -92,11 +92,11 @@ x+Sy≡S[x+y] n Nm = N-ind P P0 is Nm
     succ₁ (zero + n) ∎
 
   is : ∀ {i} → P i → P (succ₁ i)
-  is {i} Pi =
+  is {i} ih =
     succ₁ i + succ₁ n
       ≡⟨ +-Sx i (succ₁ n) ⟩
     succ₁ (i + succ₁ n)
-      ≡⟨ subst (λ t → succ₁ (i + succ₁ n) ≡ succ₁ t) Pi refl ⟩
+      ≡⟨ subst (λ t → succ₁ (i + succ₁ n) ≡ succ₁ t) ih refl ⟩
     succ₁ (succ₁ (i + n))
       ≡⟨ subst (λ t → succ₁ (succ₁ (i + n)) ≡ succ₁ t) (sym $ +-Sx i n) refl ⟩
     succ₁ (succ₁ i + n) ∎
@@ -114,11 +114,11 @@ x+Sy≡S[x+y] n Nm = N-ind P P0 is Nm
     n + zero ∎
 
   is : ∀ {i} → P i → P (succ₁ i)
-  is {i} Pi =
+  is {i} ih =
      succ₁ i + n
        ≡⟨ +-Sx i n ⟩
      succ₁ (i + n)
-        ≡⟨ subst (λ t → succ₁ (i + n) ≡ succ₁ t) Pi refl ⟩
+        ≡⟨ subst (λ t → succ₁ (i + n) ≡ succ₁ t) ih refl ⟩
      succ₁ (n + i)
        ≡⟨ sym $ x+Sy≡S[x+y] i Nn ⟩
      n + succ₁ i ∎

@@ -35,10 +35,9 @@ succ-cong = cong succ
   P0 = A₃ zero
 
   is : ∀ i → P i → P (succ i)
-  is i Pi = succ i + zero   ≡⟨ A₄ i zero ⟩
-            succ (i + zero) ≡⟨ succ-cong Pi ⟩
+  is i ih = succ i + zero   ≡⟨ A₄ i zero ⟩
+            succ (i + zero) ≡⟨ succ-cong ih ⟩
             succ i ∎
-
 
 +-asocc : ∀ m n o → m + n + o ≡ m + (n + o)
 +-asocc m n o = PA-ind P P0 is m
@@ -52,9 +51,9 @@ succ-cong = cong succ
        zero + (n + o) ∎
 
   is : ∀ i → P i → P (succ i)
-  is i Pi = succ i + n + o     ≡⟨ +-leftCong (A₄ i n) ⟩
+  is i ih = succ i + n + o     ≡⟨ +-leftCong (A₄ i n) ⟩
             succ (i + n) + o   ≡⟨ A₄ (i + n) o ⟩
-            succ (i + n + o)   ≡⟨ succ-cong Pi ⟩
+            succ (i + n + o)   ≡⟨ succ-cong ih ⟩
             succ (i + (n + o)) ≡⟨ sym (A₄ i (n + o)) ⟩
             succ i + (n + o) ∎
 
@@ -70,8 +69,8 @@ x+Sy≡S[x+y] m n = PA-ind P P0 is m
        succ (zero + n) ∎
 
   is : ∀ i → P i → P (succ i)
-  is i Pi = succ i + succ n     ≡⟨ A₄ i (succ n) ⟩
-            succ (i + succ n)   ≡⟨ succ-cong Pi ⟩
+  is i ih = succ i + succ n     ≡⟨ A₄ i (succ n) ⟩
+            succ (i + succ n)   ≡⟨ succ-cong ih ⟩
             succ (succ (i + n)) ≡⟨ succ-cong (sym (A₄ i n)) ⟩
             succ (succ i + n) ∎
 
@@ -87,7 +86,7 @@ x+Sy≡S[x+y] m n = PA-ind P P0 is m
        n + zero ∎
 
   is : ∀ i → P i → P (succ i)
-  is i Pi = succ i + n   ≡⟨ A₄ i n ⟩
-            succ (i + n) ≡⟨ succ-cong Pi ⟩
+  is i ih = succ i + n   ≡⟨ A₄ i n ⟩
+            succ (i + n) ≡⟨ succ-cong ih ⟩
             succ (n + i) ≡⟨ sym (x+Sy≡S[x+y] n i) ⟩
             n + succ i ∎

@@ -24,7 +24,7 @@ open import PA.Inductive.Base
   P0 = refl
 
   is : ∀ i → P i → P (succ i)
-  is i Pi = cong succ Pi
+  is i ih = cong succ ih
 
 +-assoc : ∀ m n o → m + n + o ≡ m + (n + o)
 +-assoc m n o = PA-ind P P0 is m
@@ -36,7 +36,7 @@ open import PA.Inductive.Base
   P0 = refl
 
   is : ∀ i → P i → P (succ i)
-  is i Pi = cong succ Pi
+  is i ih = cong succ ih
 
 x+Sy≡S[x+y] : ∀ m n → m + succ n ≡ succ (m + n)
 x+Sy≡S[x+y] m n = PA-ind P P0 is m
@@ -48,4 +48,4 @@ x+Sy≡S[x+y] m n = PA-ind P P0 is m
   P0 = refl
 
   is : ∀ i → P i → P (succ i)
-  is i Pi = cong succ Pi
+  is i ih = cong succ ih

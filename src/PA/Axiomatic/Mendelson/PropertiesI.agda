@@ -24,8 +24,8 @@ open import PA.Axiomatic.Mendelson.Relation.Binary.PropositionalEqualityI
   P0 = S₅ zero
 
   is : ∀ i → P i → P (succ i)
-  is i Pi = succ i + zero   ≐⟨ S₆ i zero ⟩
-            succ (i + zero) ≐⟨ S₂ Pi ⟩
+  is i ih = succ i + zero   ≐⟨ S₆ i zero ⟩
+            succ (i + zero) ≐⟨ S₂ ih ⟩
             succ i ∎
 
 x+Sy≐S[x+y] : ∀ m n → m + succ n ≐ succ (m + n)
@@ -40,8 +40,8 @@ x+Sy≐S[x+y] m n = S₉ P P0 is m
        succ (zero + n) ∎
 
   is : ∀ i → P i → P (succ i)
-  is i Pi = succ i + succ n     ≐⟨ S₆ i (succ n) ⟩
-            succ (i + succ n)   ≐⟨ S₂ Pi ⟩
+  is i ih = succ i + succ n     ≐⟨ S₆ i (succ n) ⟩
+            succ (i + succ n)   ≐⟨ S₂ ih ⟩
             succ (succ (i + n)) ≐⟨ S₂ (≐-sym (S₆ i n)) ⟩
             succ (succ i + n) ∎
 
@@ -58,8 +58,8 @@ x+Sy≐S[x+y] m n = S₉ P P0 is m
        n + zero ∎
 
   is : ∀ i → P i → P (succ i)
-  is i Pi = m + succ i   ≐⟨ x+Sy≐S[x+y] m i ⟩
-            succ (m + i) ≐⟨ S₂ Pi ⟩
+  is i ih = m + succ i   ≐⟨ x+Sy≐S[x+y] m i ⟩
+            succ (m + i) ≐⟨ S₂ ih ⟩
             succ (n + i) ≐⟨ ≐-sym (x+Sy≐S[x+y] n i) ⟩
             n + succ i ∎
 
@@ -75,9 +75,9 @@ x+Sy≐S[x+y] m n = S₉ P P0 is m
        zero + (n + o) ∎
 
   is : ∀ i → P i → P (succ i)
-  is i Pi = succ i + n + o     ≐⟨ +-leftCong (S₆ i n) ⟩
+  is i ih = succ i + n + o     ≐⟨ +-leftCong (S₆ i n) ⟩
             succ (i + n) + o   ≐⟨ S₆ (i + n) o ⟩
-            succ (i + n + o)   ≐⟨ S₂ Pi ⟩
+            succ (i + n + o)   ≐⟨ S₂ ih ⟩
             succ (i + (n + o)) ≐⟨ ≐-sym (S₆ i (n + o)) ⟩
             succ i + (n + o) ∎
 
@@ -93,7 +93,7 @@ x+Sy≐S[x+y] m n = S₉ P P0 is m
        n + zero ∎
 
   is : ∀ i → P i → P (succ i)
-  is i Pi = succ i + n   ≐⟨ S₆ i n ⟩
-            succ (i + n) ≐⟨ S₂ Pi ⟩
+  is i ih = succ i + n   ≐⟨ S₆ i n ⟩
+            succ (i + n) ≐⟨ S₂ ih ⟩
             succ (n + i) ≐⟨ ≐-sym (x+Sy≐S[x+y] n i) ⟩
             n + succ i ∎
