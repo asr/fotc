@@ -5,9 +5,9 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with FOT on 17 February 2012.
+-- Tested with FOT on 24 February 2012.
 
-module Congruence where
+module GroupCongruence where
 
 open import GroupTheory.Base
 
