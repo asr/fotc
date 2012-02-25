@@ -50,5 +50,5 @@ Stream-gfp₃ h = Stream-gfp₂ P helper h
   P ws = ∃[ w' ] ∃[ ws' ] Stream ws' ∧ ws ≡ w' ∷ ws'
 
   helper : ∀ {xs} → P xs → ∃[ x' ] ∃[ xs' ] P xs' ∧ xs ≡ x' ∷ xs'
-  helper (x' , xs' , Sxs' , xs≡x'∷xs') =
-    x' , xs' , (Stream-gfp₁ Sxs') , xs≡x'∷xs'
+  helper (x' ,, xs' ,, Sxs' , xs≡x'∷xs') =
+    x' ,, xs' ,, (Stream-gfp₁ Sxs') , xs≡x'∷xs'

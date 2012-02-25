@@ -54,5 +54,5 @@ postulate
 
   helper : ∀ {m n} → m R n →
            ∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
-  helper (m' , n' , m'≈Nn' , prf) =
-    m' , n' , (≈N-gfp₁ m'≈Nn') , prf
+  helper (m' ,, n' ,, m'≈Nn' , prf) =
+    m' ,, n' ,, (≈N-gfp₁ m'≈Nn') , prf

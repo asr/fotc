@@ -38,10 +38,10 @@ postulate
 x∣y→x∣z→x∣y∸z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n ∸ o
 x∣y→x∣z→x∣y∸z zN _ _ (0≠0 , _) m∣o = ⊥-elim $ 0≠0 refl
 x∣y→x∣z→x∣y∸z (sN Nm) Nn No
-              (0≠0 , k₁ , Nk₁ , n≡k₁Sm)
-              (_   , k₂ , Nk₂ , o≡k₂Sm) =
+              (0≠0 , k₁ ,, Nk₁ , n≡k₁Sm)
+              (_   , k₂ ,, Nk₂ , o≡k₂Sm) =
   (λ S≡0 → ⊥-elim $ S≠0 S≡0) ,
-  k₁ ∸ k₂ ,
+  k₁ ∸ k₂ ,,
   ∸-N Nk₁ Nk₂ ,
   x∣y→x∣z→x∣y∸z-ah Nm Nn Nk₁ Nk₂ n≡k₁Sm o≡k₂Sm
 
@@ -56,10 +56,10 @@ postulate
 x∣y→x∣z→x∣y+z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n + o
 x∣y→x∣z→x∣y+z zN      _  _ (0≠0 , _) m∣o = ⊥-elim $ 0≠0 refl
 x∣y→x∣z→x∣y+z (sN Nm) Nn No
-              (0≠0 , k₁ , Nk₁ , n≡k₁Sm)
-              (_   , k₂ , Nk₂ , o≡k₂Sm) =
+              (0≠0 , k₁ ,, Nk₁ , n≡k₁Sm)
+              (_   , k₂ ,, Nk₂ , o≡k₂Sm) =
   (λ S≡0 → ⊥-elim $ S≠0 S≡0) ,
-  k₁ + k₂ ,
+  k₁ + k₂ ,,
   +-N Nk₁ Nk₂ ,
   x∣y→x∣z→x∣y+z-ah Nm Nn Nk₁ Nk₂ n≡k₁Sm o≡k₂Sm
 
@@ -76,6 +76,6 @@ postulate
 
 x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → LE m (succ₁ n)
 x∣S→x≤S  zN     Nn (0≠0 , _)                  = ⊥-elim $ 0≠0 refl
-x∣S→x≤S (sN Nm) Nn (_ , .zero , zN , Sn≡0*Sm) = ⊥-elim $ x∣S→x≤S-ah₁ Sn≡0*Sm
-x∣S→x≤S (sN {m} Nm) Nn (_ , .(succ₁ k) , sN {k} Nk , Sn≡Sk*Sm) =
+x∣S→x≤S (sN Nm) Nn (_ , .zero ,, zN , Sn≡0*Sm) = ⊥-elim $ x∣S→x≤S-ah₁ Sn≡0*Sm
+x∣S→x≤S (sN {m} Nm) Nn (_ , .(succ₁ k) ,, sN {k} Nk , Sn≡Sk*Sm) =
   x∣S→x≤S-ah₂ Nm Nn Nk Sn≡Sk*Sm

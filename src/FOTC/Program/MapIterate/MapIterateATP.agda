@@ -21,7 +21,7 @@ open import FOTC.Data.Stream.Equality
 -- The map-iterate property.
 
 ≈-map-iterate : ∀ f x → map f (iterate f x) ≈ iterate f (f · x)
-≈-map-iterate f x = ≈-gfp₂ R helper (x , refl , refl)
+≈-map-iterate f x = ≈-gfp₂ R helper (x ,, refl , refl)
   where
   postulate
     unfoldMap : ∀ f y →
@@ -41,11 +41,11 @@ open import FOTC.Data.Stream.Equality
 
   helper : ∀ {xs ys} → R xs ys →
            ∃[ x' ] ∃[ xs' ] ∃[ ys' ] R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
-  helper {xs} {ys} (y , h) =
+  helper {xs} {ys} (y ,, h) =
     f · y
-    , map f (iterate f (f · y))
-    , iterate f (f · (f · y))
-    , ((f · y) , refl , refl)
+    ,, map f (iterate f (f · y))
+    ,, iterate f (f · (f · y))
+    ,, ((f · y) ,, refl , refl)
     , trans xs≡map (unfoldMap f y)
     , trans ys≡iterate (unfoldIterate f y)
 

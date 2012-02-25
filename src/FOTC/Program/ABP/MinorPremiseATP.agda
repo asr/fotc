@@ -41,9 +41,9 @@ minorPremise : ∀ {is js} → is B js →
                is' B js' ∧ is ≡ i' ∷ is' ∧ js ≡ i' ∷ js'
 minorPremise
   {is} {js}
-  (b , fs₀ , fs₁ , as , bs , cs , ds , Sis , Bb , Ffs₀ , Ffs₁ , h)
+  (b ,, fs₀ ,, fs₁ ,, as ,, bs ,, cs ,, ds ,, Sis , Bb , Ffs₀ , Ffs₁ , h)
   with (Stream-gfp₁ Sis)
-... | (i' , is' , Sis' , is≡i'∷is) = i' , is' , js' , is'Bjs' , is≡i'∷is , js≡i'∷js'
+... | (i' ,, is' ,, Sis' , is≡i'∷is) = i' ,, is' ,, js' ,, is'Bjs' , is≡i'∷is , js≡i'∷js'
 
   where
   Abp-helper : is ≡ i' ∷ is' →
@@ -67,22 +67,22 @@ minorPremise
 
   js' : D
   js' with Abp'-lemma₁
-  ... | _ , _ , _ , _ , _ , _ , js' , _ = js'
+  ... | _ ,, _ ,, _ ,, _ ,, _ ,, _ ,, js' ,, _ = js'
 
   js≡i'∷js' : js ≡ i' ∷ js'
   js≡i'∷js' with Abp'-lemma₁
-  ... | _ , _ , _ , _ , _ , _ , _ , _ , _ , _ , h = h
+  ... | _ ,, _ ,, _ ,, _ ,, _ ,, _ ,, _ ,, _ , _ , _ , h = h
 
   Abp-lemma₂ : ∃[ fs₀'' ] ∃[ fs₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
                Fair fs₀''
                ∧ Fair fs₁''
                ∧ Abp (not b) is' fs₀'' fs₁'' as'' bs'' cs'' ds'' js'
   Abp-lemma₂ with Abp'-lemma₁
-  Abp-lemma₂ | _ , _ , _ , _ , _ , _ , _ , Ffs₀' , Ffs₁' , abp' , _ =
+  Abp-lemma₂ | _ ,, _ ,, _ ,, _ ,, _ ,, _ ,, _ ,, Ffs₀' , Ffs₁' , abp' , _ =
     lemma₂ Bb Ffs₀' Ffs₁' abp'
 
   is'Bjs' : is' B js'
   is'Bjs' with Abp-lemma₂
-  ... | fs₀'' , fs₁'' , as'' , bs'' , cs'' , ds'' , Ffs₀'' , Ffs₁'' , abp =
-    not b , fs₀'' , fs₁'' , as'' , bs'' , cs'' , ds''
-    , Sis' , not-Bool Bb , Ffs₀'' , Ffs₁'' , abp
+  ... | fs₀'' ,, fs₁'' ,, as'' ,, bs'' ,, cs'' ,, ds'' ,, Ffs₀'' , Ffs₁'' , abp =
+    not b ,, fs₀'' ,, fs₁'' ,, as'' ,, bs'' ,, cs'' ,, ds''
+    ,, Sis' , not-Bool Bb , Ffs₀'' , Ffs₁'' , abp

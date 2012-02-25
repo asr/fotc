@@ -18,7 +18,7 @@ module FOL.FOL where
 -- i.e. the symbols ⊥, ⊤, ¬, ∧, ∨, →, and ↔ must be used.
 -- N.B. For the implication we use the Agda function type.
 open import FOL.Data.Empty public using ( ⊥ ; ⊥-elim )
-open import FOL.Data.Product public using ( _∧_ ; _,_ ; ∧-proj₁ ; ∧-proj₂ )
+open import FOL.Data.Product public using ( _∧_ ; _,_ ; _,,_ ; ∧-proj₁ ; ∧-proj₂ )
 open import FOL.Data.Sum public using ( _∨_ ; [_,_] ; inj₁ ; inj₂ )
 open import FOL.Data.Unit public using ( ⊤ )
 open import FOL.Relation.Nullary public using ( ¬_ )

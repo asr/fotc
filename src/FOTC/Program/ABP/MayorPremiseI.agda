@@ -20,13 +20,13 @@ mayorPremise : ∀ {b fs₀ fs₁ is} →
                is B abptransfer b fs₀ fs₁ is
 mayorPremise {b} {fs₀} {fs₁} {is} Bb Ffs₀ Ffs₁ Sis =
   b
-  , fs₀
-  , fs₁
-  , has (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
-  , hbs (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
-  , hcs (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
-  , hds (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
-  , Sis
+  ,, fs₀
+  ,, fs₁
+  ,, has (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
+  ,, hbs (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
+  ,, hcs (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
+  ,, hds (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
+  ,, Sis
   , Bb
   , Ffs₀
   , Ffs₁

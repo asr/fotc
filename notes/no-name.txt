@@ -46,3 +46,7 @@ Equational reasoning
 -- Tested with magda and agda2atp on .
 -- Tested with the development version of Agda on .
 -- Tested with the development version of the standard library on .
+
+2012-02-24:
+$ find src/ -name '*.agda' | xargs grep '.* ,, .*=' | wc - l
+68

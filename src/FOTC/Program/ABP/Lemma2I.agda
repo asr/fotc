@@ -40,9 +40,9 @@ module Helper where
            ∧ Abp (not b) is' fs₀'' fs₁'' as'' bs'' cs'' ds'' js'
   helper {b} {i'} {is'} {fs₀'} {fs₁'} {as'} {bs'} {cs'} {ds'} {js'}
          Bb Ffs₀' (ds'Abp' , as'Abp , bs'Abp' , cs'Abp' , js'Abp')
-         (.(T ∷ []) , fs₁'' , nilF*T , Ffs₁'' , fs₁'-eq) =
-         fs₀' , fs₁'' , as'' , bs'' , cs'' , ds''
-         , Ffs₀' , Ffs₁''
+         (.(T ∷ []) ,, fs₁'' ,, nilF*T , Ffs₁'' , fs₁'-eq) =
+         fs₀' ,, fs₁'' ,, as'' ,, bs'' ,, cs'' ,, ds''
+         ,, Ffs₀' , Ffs₁''
          , as''-eq , bs''-eq ,  cs''-eq , refl , js'-eq
     where
     fs'₁-eq-helper : fs₁' ≡ T ∷ fs₁''
@@ -96,8 +96,8 @@ module Helper where
 
   helper {b} {i'} {is'} {fs₀'} {fs₁'} {as'} {bs'} {cs'} {ds'} {js'}
          Bb Ffs₀' (ds'Abp' , as'Abp , bs'Abp' , cs'Abp' , js'Abp')
-         (.(F ∷ ft₁) , fs₁'' , consF*T {ft₁} FTft₁ , Ffs₁'' , fs₁'-eq)
-         = helper Bb (tail-Fair Ffs₀') Abp'IH (ft₁ , fs₁'' , FTft₁ , Ffs₁'' , refl)
+         (.(F ∷ ft₁) ,, fs₁'' ,, consF*T {ft₁} FTft₁ , Ffs₁'' , fs₁'-eq)
+         = helper Bb (tail-Fair Ffs₀') Abp'IH (ft₁ ,, fs₁'' ,, FTft₁ , Ffs₁'' , refl)
     where
     fs₀⁵ : D
     fs₀⁵ = tail₁ fs₀'

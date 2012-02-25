@@ -58,4 +58,4 @@ Fair-gfp₃ h = Fair-gfp₂ P helper h
   P ws = ∃[ wl ] ∃[ ws' ] F*T wl ∧ Fair ws' ∧ ws ≡ wl ++ ws'
 
   helper : ∀ {fs} → P fs → ∃[ ft ] ∃[ fs' ] F*T ft ∧ P fs' ∧ fs ≡ ft ++ fs'
-  helper (ft , fs' , FTft , Ffs' , h) = ft , fs' , FTft , Fair-gfp₁ Ffs' , h
+  helper (ft ,, fs' ,, FTft , Ffs' , h) = ft ,, fs' ,, FTft , Fair-gfp₁ Ffs' , h
