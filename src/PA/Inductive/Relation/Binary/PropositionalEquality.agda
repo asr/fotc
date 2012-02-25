@@ -28,8 +28,12 @@ sym refl = refl
 trans : ∀ {x y z} → x ≡ y → y ≡ z → x ≡ z
 trans refl h = h
 
-subst : ∀ {x y} (P : M → Set) → x ≡ y → P x → P y
+subst : (P : M → Set) → ∀ {x y} → x ≡ y → P x → P y
 subst P refl Px = Px
 
-cong : ∀ {x y} (f : M → M) → x ≡ y → f x ≡ f y
+cong : (f : M → M) → ∀ {x y} → x ≡ y → f x ≡ f y
 cong f refl = refl
+
+cong₂ : (f : M → M → M) → ∀ {x₁ x₂ y₁ y₂} → x₁ ≡ y₁ → x₂ ≡ y₂ →
+        f x₁ x₂ ≡ f y₁ y₂
+cong₂ f refl refl = refl
