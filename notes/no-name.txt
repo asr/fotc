@@ -45,5 +45,5 @@ $ vampire_lin64 -t xxx --input_file file_name
 -- Finding the proofs using pattern matching on the existential quantifier
 ------------------------------------------------------------------------------
 
-2012-02-24: There is 68 proofs.
+2012-02-24: There are 68 proofs.
 $ find src/ -name '*.agda' | xargs grep '.* ,, .*=' | wc - l
