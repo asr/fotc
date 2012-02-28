@@ -43,11 +43,12 @@ postulate
   ∀-elim  : ⋀ P¹ → (t : D) → P¹ t
   -- It is necessary to assume a non-empty domain. See
   -- PredicateLogic.NonEmptyDomain.TheoremsI/ATP.∃I.
-  ∃-intro : ((t : D) → P¹ t) → ∃ P¹
+  -- TODO: 2012-02-28. Fix the existential introduction rule.
+  -- ∃-intro : ((t : D) → P¹ t) → ∃ P¹
   ∃-elim'  : ∃ P¹ → ((x : D) → P¹ x → P⁰) → P⁰
 {-# ATP prove ∀-intro #-}
 {-# ATP prove ∀-elim #-}
-{-# ATP prove ∃-intro #-}
+-- {-# ATP prove ∃-intro #-}
 {-# ATP prove ∃-elim' #-}
 
 -- Generalization of De Morgan's laws.

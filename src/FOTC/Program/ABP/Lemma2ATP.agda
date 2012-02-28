@@ -65,7 +65,7 @@ module Helper where
            ∧ Fair fs₁''
            ∧ Abp (not b) is' fs₀'' fs₁'' as'' bs'' cs'' ds'' js'
   helper {b} {i'} {is'} {js' = js'} Bb Ffs₀' abp'
-         (.(T ∷ []) ,, fs₁'' ,, nilF*T , Ffs₁'' , fs₁'-eq) = prf
+         (∃-intro (∃-intro (nilF*T , Ffs₁'' , fs₁'-eq))) = prf
     where
     postulate
       prf : ∃[ fs₀'' ] ∃[ fs₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
@@ -78,10 +78,14 @@ module Helper where
             ∧ js' ≡ abpout · not b · bs''
     {-# ATP prove prf #-}
 
+  -- 2012-02-28. We required the existential witness on a pattern matching.
   helper {b} {i'} {is'} {fs₀'} {fs₁'} {as'} {bs'} {cs'} {ds'} {js'}
          Bb Ffs₀' abp'
-         (.(F ∷ ft₁) ,, fs₁'' ,, consF*T {ft₁} FTft₁ , Ffs₁'' , fs₁'-eq)
-         = helper Bb (tail-Fair Ffs₀') Abp'IH (ft₁ ,, fs₁'' ,, FTft₁ , Ffs₁'' , refl)
+         (∃-intro (∃-intro {fs₁''} (consF*T {ft₁} FTft₁ , Ffs₁'' , fs₁'-eq)))
+         = helper Bb
+                  (tail-Fair Ffs₀')
+                  Abp'IH
+                  (∃-intro (∃-intro (FTft₁ , Ffs₁'' , refl)))
     where
     postulate fs₁'-eq-helper : fs₁' ≡ F ∷ fs₁⁵ ft₁ fs₁''
     {-# ATP prove fs₁'-eq-helper #-}

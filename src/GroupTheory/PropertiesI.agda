@@ -164,7 +164,7 @@ rightInverseUnique {a} =
 -- 2.2. ar   = ε  (hypothesis)
 -- 2.3. aa⁻¹ = ar (transitivity)
 -- 2.4  a⁻¹  = a  (left-cancellation)
-  (a ⁻¹) ,, rightInverse a , prf
+  ∃-intro (rightInverse a , prf)
     where
     prf : ∀ r' → a · r' ≡ ε → a ⁻¹ ≡ r'
     prf r' ar'≡ε = leftCancellation aa⁻¹≡ar'
@@ -193,7 +193,7 @@ leftInverseUnique {a} =
 -- 2.2. la   = ε  (hypothesis)
 -- 2.3. a⁻¹a = la (transitivity)
 -- 2.4  a⁻¹  = l  (right-cancellation)
-  (a ⁻¹) ,, leftInverse a , prf
+  ∃-intro (leftInverse a , prf)
     where
     prf : ∀ l' → l' · a ≡ ε → a ⁻¹ ≡ l'
     prf l' l'a≡ε = rightCancellation a⁻¹a≡l'a

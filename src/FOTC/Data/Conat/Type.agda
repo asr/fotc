@@ -54,4 +54,4 @@ Conat-gfp₃ h = Conat-gfp₂ P helper h
   P m = ∃[ m' ] Conat m' ∧ m ≡ succ₁ m'
 
   helper : ∀ {n} → P n → ∃[ n' ] P n' ∧ n ≡ succ₁ n'
-  helper (n' ,, CNn' , n≡Sn') = n' ,, (Conat-gfp₁ CNn') , n≡Sn'
+  helper (∃-intro (CNn' , n≡Sn')) = ∃-intro (Conat-gfp₁ CNn' , n≡Sn')

@@ -10,7 +10,7 @@ module FOL.Data.Product where
 open import FOL.Universe using ( D )
 
 -- We add 3 to the fixities of the standard library.
-infixr 7 _,_ _,,_
+infixr 7 _,_
 infixr 5 _∧_
 
 ------------------------------------------------------------------------------
@@ -30,11 +30,9 @@ data _∧_ (A B : Set) : Set where
 ∧-proj₂ : ∀ {A B} → A ∧ B → B
 ∧-proj₂ (_ , y) = y
 
--- 2012-02-24: We are using a *temporal* notation for the data constructor.
--- TODO: To rename the data constructor!
 -- The existential quantifier type on D.
 data ∃ (P : D → Set) : Set where
-  _,,_ : (x : D) → P x → ∃ P
+  ∃-intro : ∀ {x} → P x → ∃ P
 
 -- Sugar syntax for the existential quantifier.
 syntax ∃ (λ x → e) = ∃[ x ] e
@@ -44,5 +42,5 @@ syntax ∃ (λ x → e) = ∃[ x ] e
 -- NB. We do not use the usual type theory elimination with two
 -- projections because we are working in first-order logic where we
 -- cannot extract a term from an existence proof.
-∃-elim : {P : D → Set}{Q : Set} → ∃ P → ((x : D) → P x → Q) → Q
-∃-elim (x ,, p) h = h x p
+∃-elim : {P : D → Set}{Q : Set} → ∃ P → (∀ {x} → P x → Q) → Q
+∃-elim (∃-intro Px) h = h Px

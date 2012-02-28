@@ -7,15 +7,17 @@
 
 module FOTC.Data.Stream.Equality.PropertiesI where
 
+open import Common.Function
 open import FOTC.Base
 open import FOTC.Base.PropertiesI
 open import FOTC.Data.Stream.Equality
 
 ------------------------------------------------------------------------------
 
+-- 2012-02-28. We required the existential witness on a pattern matching.
 x∷xs≈x∷ys→xs≈ys : ∀ {x xs ys} → x ∷ xs ≈ x ∷ ys → xs ≈ ys
 x∷xs≈x∷ys→xs≈ys {x} {xs} {ys} h with (≈-gfp₁ h)
-... | x' ,, xs' ,, ys' ,, prf₁ , prf₂ , prf₃ = xs≈ys
+... | ∃-intro (∃-intro {xs'} (∃-intro {ys'} (prf₁ , prf₂ , prf₃))) = xs≈ys
   where
   xs≡xs' : xs ≡ xs'
   xs≡xs' = ∧-proj₂ (∷-injective prf₂)
@@ -29,4 +31,4 @@ x∷xs≈x∷ys→xs≈ys {x} {xs} {ys} h with (≈-gfp₁ h)
                 (subst (λ t → xs' ≈ t) (sym ys≡ys') prf₁)
 
 xs≈ys→x∷xs≈x∷ys : ∀ {x xs ys} → xs ≈ ys → x ∷ xs ≈ x ∷ ys
-xs≈ys→x∷xs≈x∷ys {x} {xs} {ys} h = ≈-gfp₃ (x ,, xs ,, ys ,, h , refl , refl)
+xs≈ys→x∷xs≈x∷ys h = ≈-gfp₃ $ ∃-intro $ ∃-intro $ ∃-intro $ h , refl , refl

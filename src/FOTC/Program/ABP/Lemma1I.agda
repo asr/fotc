@@ -13,6 +13,8 @@
 
 module FOTC.Program.ABP.Lemma1I where
 
+open import Common.Function
+
 open import FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
@@ -39,14 +41,12 @@ module Helper where
            ∧ Fair fs₁'
            ∧ Abp' b i' is' fs₀' fs₁' as' bs' cs' ds' js'
            ∧ js ≡ i' ∷ js'
+  -- 2012-02-28. We required the existential witness on the pattern matching.
   helper {b} {i'} {is'} {fs₀} {fs₁} {as} {bs} {cs} {ds} {js} Bb Ffs₁
          (asAbp , bsAbp , csAbp , dsAbs , jsAbp)
-         (.(T ∷ []) ,, fs₀' ,, nilF*T , Ffs₀' , fs₀-eq) =
-         fs₀' ,, fs₁' ,, as' ,, bs' ,, cs' ,, ds' ,, js'
-         ,, Ffs₀' , Ffs₁
-         , (ds'-eq , refl , refl , refl , refl)
-         , js-eq
-
+         (∃-intro (∃-intro {fs₀'} (nilF*T , Ffs₀' , fs₀-eq))) =
+         ∃-intro $ ∃-intro $ ∃-intro $ ∃-intro $ ∃-intro $ ∃-intro $ ∃-intro $
+           (Ffs₀' , Ffs₁ , (ds'-eq , refl , refl , refl , refl) , js-eq)
     where
     fs₀-eq-helper : fs₀ ≡ T ∷ fs₀'
     fs₀-eq-helper =
@@ -136,10 +136,14 @@ module Helper where
       corrupt · fs₁ · (b ∷ abpack · (not b) ·
                 (corrupt · fs₀' · (await b i' is' ds))) ∎
 
+  -- 2012-02-28. We required the existential witness on the pattern matching.
   helper {b} {i'} {is'} {fs₀} {fs₁} {as} {bs} {cs} {ds} {js}
          Bb Ffs₁ (asAbp , bsAbp , csAbp , dsAbs , jsAbp)
-         (.(F ∷ ft₀⁵) ,, fs₀' ,, consF*T {ft₀⁵} FTft₀⁵ , Ffs₀' , fs₀-eq)
-         = helper Bb (tail-Fair Ffs₁) AbpIH (ft₀⁵ ,, fs₀' ,, FTft₀⁵ , Ffs₀' , refl)
+         (∃-intro (∃-intro {fs₀'} (consF*T {ft₀⁵} FTft₀⁵ , Ffs₀' , fs₀-eq)))
+         = helper Bb
+                  (tail-Fair Ffs₁)
+                  AbpIH
+                  (∃-intro (∃-intro (FTft₀⁵ , Ffs₀' , refl)))
     where
     fs₀⁵ : D
     fs₀⁵ = ft₀⁵ ++ fs₀'

@@ -7,6 +7,8 @@
 
 module FOTC.Program.ABP.MayorPremiseI where
 
+open import Common.Function
+
 open import FOTC.Base
 open import FOTC.Data.Stream
 open import FOTC.Program.ABP.ABP
@@ -19,14 +21,8 @@ mayorPremise : ∀ {b fs₀ fs₁ is} →
                Bit b → Fair fs₀ → Fair fs₁ → Stream is →
                is B abptransfer b fs₀ fs₁ is
 mayorPremise {b} {fs₀} {fs₁} {is} Bb Ffs₀ Ffs₁ Sis =
-  b
-  ,, fs₀
-  ,, fs₁
-  ,, has (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
-  ,, hbs (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
-  ,, hcs (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
-  ,, hds (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
-  ,, Sis
+  ∃-intro $ ∃-intro $ ∃-intro $ ∃-intro $ ∃-intro $ ∃-intro $ ∃-intro $
+  Sis
   , Bb
   , Ffs₀
   , Ffs₁

@@ -53,8 +53,8 @@ postulate
 
   helper : ∀ {xs ys} → xs R ys →
            ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
-  helper (x' ,, xs' ,, ys' ,, xs'≈ys' , prf) =
-    x' ,, xs' ,, ys' ,, (≈-gfp₁ xs'≈ys') , prf
+  helper (∃-intro (∃-intro (∃-intro (xs'≈ys' , prf)))) =
+    ∃-intro (∃-intro (∃-intro (≈-gfp₁ xs'≈ys' , prf)))
 
 module Bisimulation where
   -- In FOTC we won't use the bisimulation functional. This module is

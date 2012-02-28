@@ -29,8 +29,8 @@ postulate tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 {-# ATP definition ≈→Stream-P₂ #-}
 
 ≈→Stream : ∀ {xs ys} → xs ≈ ys → Stream xs ∧ Stream ys
-≈→Stream {xs} {ys} xs≈ys = Stream-gfp₂ ≈→Stream-P₁ helper₁ (ys ,, xs≈ys)
-                         , Stream-gfp₂ ≈→Stream-P₂ helper₂ (xs ,, xs≈ys)
+≈→Stream xs≈ys = Stream-gfp₂ ≈→Stream-P₁ helper₁ (∃-intro xs≈ys)
+                 , Stream-gfp₂ ≈→Stream-P₂ helper₂ (∃-intro xs≈ys)
   where
   postulate
     helper₁ : ∀ {ws} → ≈→Stream-P₁ ws →

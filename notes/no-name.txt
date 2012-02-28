@@ -47,3 +47,10 @@ $ vampire_lin64 -t xxx --input_file file_name
 
 2012-02-24: There are 68 proofs.
 $ find src/ -name '*.agda' | xargs grep '.* ,, .*=' | wc - l
+
+------------------------------------------------------------------------------
+-- Comments about using the existential witness.
+------------------------------------------------------------------------------
+
+-- 2012-02-28. We required the existential witness.
+-- 2012-02-28. We required the existential witness on a pattern matching.

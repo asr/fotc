@@ -39,17 +39,17 @@ postulate
 -- PredicateLogic.NonEmptyDomain.TheoremsI/ATP.∃I.
 -- ∃-intro : ((t : D) → P¹ t) → ∃ P¹
 
-∃-elim' : ∃ P¹ → ((x : D) → P¹ x → P⁰) → P⁰
+∃-elim' : ∃ P¹ → ({x : D} → P¹ x → P⁰) → P⁰
 ∃-elim' = ∃-elim
 
 -- Generalization of De Morgan's laws.
-gDM₂ : ¬ (∃ P¹) ↔ ((x : D) → ¬ (P¹ x))
+gDM₂ : ¬ (∃ P¹) ↔ (∀ {x} → ¬ (P¹ x))
 gDM₂ = l→r , r→l
   where
-  l→r : ¬ (∃ P¹) → (x : D) → ¬ (P¹ x)
-  l→r h x p¹ = h (x ,, p¹)
+  l→r : ¬ (∃ P¹) → ∀ {x} → ¬ (P¹ x)
+  l→r h p¹ = h (∃-intro p¹)
 
-  r→l : ((x : D) → ¬ (P¹ x)) → ¬ (∃ P¹)
+  r→l : (∀ {x} → ¬ (P¹ x)) → ¬ (∃ P¹)
   r→l h₁ h₂ = ∃-elim h₂ h₁
 
 -- Quantification over a variable that does not occur can be delete.
@@ -57,12 +57,12 @@ gDM₂ = l→r , r→l
 ∃-erase = l→r , r→l
   where
   l→r : ∃[ x ] P⁰ ∧ P¹ x → P⁰ ∧ (∃[ x ] P¹ x)
-  l→r h = ∃-elim h (λ x prf → (∧-proj₁ prf) , (x ,, (∧-proj₂ prf)))
+  l→r h = ∃-elim h (λ prf → (∧-proj₁ prf) , ∃-intro (∧-proj₂ prf))
 
   r→l : P⁰ ∧ (∃[ x ] P¹ x) → ∃[ x ] P⁰ ∧ P¹ x
-  r→l (p⁰ , h) = ∃-elim h (λ x prf → x ,, p⁰ , prf)
+  r→l (p⁰ , h) = ∃-elim h (λ prf → ∃-intro (p⁰ , prf))
 
 -- Interchange of quantifiers.
 -- The related theorem ∀x∃y.Pxy → ∃y∀x.Pxy is not (classically) valid.
 ∃∀ : ∃[ x ] (⋀ λ y → P² x y) → ⋀ λ y → ∃[ x ] P² x y
-∃∀ h y = ∃-elim h (λ x prf → x ,, (prf y))
+∃∀ h y = ∃-elim h (λ prf → ∃-intro (prf y))

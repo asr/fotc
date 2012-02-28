@@ -18,8 +18,9 @@ postulate
   P⁰ : Set
   P¹ : D → Set
 
-postulate ∃-intro : ((t : D) → P¹ t) → ∃ P¹
-{-# ATP prove ∃-intro #-}
+-- TODO: 2012-02-28. Fix the existential introduction rule.
+-- ∃-intro : ((t : D) → P¹ t) → ∃ P¹
+-- {-# ATP prove ∃-intro #-}
 
 -- Quantification over a variable that does not occur can be delete.
 postulate
