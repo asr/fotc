@@ -18,7 +18,7 @@ module FOL.FOL where
 -- i.e. the symbols ⊥, ⊤, ¬, ∧, ∨, →, and ↔ must be used.
 -- N.B. For the implication we use the Agda function type.
 open import FOL.Data.Empty public using ( ⊥ ; ⊥-elim )
-open import FOL.Data.Product public using ( _∧_ ; _,_ ; _,,_ ; ∧-proj₁ ; ∧-proj₂ )
+open import FOL.Data.Product public using ( _∧_ ; _,_ ; ∧-proj₁ ; ∧-proj₂ )
 open import FOL.Data.Sum public using ( _∨_ ; [_,_] ; inj₁ ; inj₂ )
 open import FOL.Data.Unit public using ( ⊤ )
 open import FOL.Relation.Nullary public using ( ¬_ )
@@ -35,7 +35,7 @@ P ↔ Q = (P → Q) ∧ (Q → P)
 -- The existential quantifier is hard-coded in our translation,
 -- i.e. the symbol ∃ must be used.
 
-open import FOL.Data.Product public using ( _,_ ; ∃ ; ∃-elim )
+open import FOL.Data.Product public using ( _,,_ ; ∃ ; ∃-elim )
 
 -- The universal quantifier
 -- N.B. For the universal quantifier we use the Agda (dependent)
