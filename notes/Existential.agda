@@ -5,7 +5,7 @@
 -- From: Elliott Mendelson. Introduction to mathematical logic. Chapman &
 -- Hall, 4th edition, 1997, p. 155.
 
--- Rule A4: (∀x)A(x) ⇒ B(t) (with some conditions)
+-- Rule A4: (∀x)A(x) ⇒ A(t) (with some conditions)
 -- Rule E4: A(t) ⇒ (∃x)A(x) (with some conditions)
 -- Rule C: From (∃x)A(x) to A(t) (with some conditions)
 
