@@ -14,7 +14,8 @@ open import FOTC.Data.Stream.Equality
 
 ------------------------------------------------------------------------------
 
--- 2012-02-28. We required the existential witness on a pattern matching.
+-- 2012-02-29. The existential witnesses could be avoid using a helper
+-- function.
 x∷xs≈x∷ys→xs≈ys : ∀ {x xs ys} → x ∷ xs ≈ x ∷ ys → xs ≈ ys
 x∷xs≈x∷ys→xs≈ys {x} {xs} {ys} h with (≈-gfp₁ h)
 ... | ∃-intro (∃-intro {xs'} (∃-intro {ys'} (prf₁ , prf₂ , prf₃))) = xs≈ys

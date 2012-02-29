@@ -79,7 +79,8 @@ module Helper where
             ∧ js ≡ i' ∷ js'
     {-# ATP prove prf #-}
 
-  -- 2012-02-28. We required the existential witness on a pattern matching.
+  -- 2012-02-29. The existential witnesses could be avoid not using
+  -- the auxiliary postulated proofs inside the where clause.
   helper {b} {i'} {is'} {fs₀} {fs₁} {as} {bs} {cs} {ds} {js} Bb Ffs₁ abp
          (∃-intro (∃-intro {fs₀'} (consF*T {ft₀⁵} FTft₀⁵ , Ffs₀' , fs₀-eq)))
          = helper Bb

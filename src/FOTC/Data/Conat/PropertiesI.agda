@@ -32,7 +32,8 @@ stream-length {xs} Sxs = ≈N-gfp₂ _R_ helper₁ helper₂
   _R_ : D → D → Set
   m R n = ∃[ ys ] Stream ys ∧ m ≡ length ys ∧ n ≡ ω
 
-  -- 2012-02-28. We required the existential witness on a pattern matching.
+  -- 2012-02-29. The existential witnesses could be avoid not using
+  -- the auxiliary proofs inside the where clause.
   helper₁ : ∀ {m n} → m R n →
             ∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
   helper₁ {m} {n} (∃-intro (Sys , h₁ , h₂)) with Stream-gfp₁ Sys

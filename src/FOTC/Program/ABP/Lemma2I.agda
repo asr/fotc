@@ -40,7 +40,8 @@ module Helper where
            Fair fs₀''
            ∧ Fair fs₁''
            ∧ Abp (not b) is' fs₀'' fs₁'' as'' bs'' cs'' ds'' js'
-  -- 2012-02-28. We required the existential witness on the pattern matching.
+  -- 2012-02-29. The existential witnesses could be avoid not using
+  -- the auxiliary proofs inside the where clause.
   helper {b} {i'} {is'} {fs₀'} {fs₁'} {as'} {bs'} {cs'} {ds'} {js'}
          Bb Ffs₀' (ds'Abp' , as'Abp , bs'Abp' , cs'Abp' , js'Abp')
          (∃-intro (∃-intro {fs₁''} (nilF*T , Ffs₁'' , fs₁'-eq))) =
@@ -96,7 +97,8 @@ module Helper where
     js'-eq : js' ≡ abpout · (not b) · bs''
     js'-eq = js'Abp'
 
-  -- 2012-02-28. We required the existential witness on the pattern matching.
+  -- 2012-02-29. The existential witnesses could be avoid not using
+  -- the auxiliary proofs inside the where clause.
   helper {b} {i'} {is'} {fs₀'} {fs₁'} {as'} {bs'} {cs'} {ds'} {js'}
          Bb Ffs₀' (ds'Abp' , as'Abp , bs'Abp' , cs'Abp' , js'Abp')
          (∃-intro (∃-intro {fs₁''} (consF*T {ft₁} FTft₁ , Ffs₁'' , fs₁'-eq)))

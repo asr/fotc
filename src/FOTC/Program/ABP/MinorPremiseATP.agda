@@ -41,7 +41,8 @@ open import FOTC.Program.ABP.Lemma2ATP
 minorPremise : ∀ {is js} → is B js →
                ∃[ i' ] ∃[ is' ] ∃[ js' ]
                is' B js' ∧ is ≡ i' ∷ is' ∧ js ≡ i' ∷ js'
--- 2012-02-28. We required the existential witness on a pattern matching.
+-- 2012-02-29. The existential witnesses could be avoid using a
+-- minorPremise-helper function.
 minorPremise {is} {js}
  (∃-intro {b}
    (∃-intro {fs₀}
@@ -74,7 +75,8 @@ minorPremise {is} {js}
   -- 2011-08-25 update: It does not seems strictly necessary because
   -- the Agda issue 415 was fixed.
 
-  -- 2012-02-28. We required the existential witness on a pattern matching.
+  -- 2012-02-29. The existential witness could be avoid using a
+  -- projection on Abp'-lemma₁.
   js' : D
   js' with Abp'-lemma₁
   ... | ∃-intro

@@ -52,5 +52,13 @@ $ find src/ -name '*.agda' | xargs grep '.* ,, .*=' | wc - l
 -- Comments about using the existential witness.
 ------------------------------------------------------------------------------
 
+-- 2012-02-29. The existential witnesses could be avoid not using the
+-- auxiliary proofs inside the where clause.
+
+-- 2012-02-29. The existential witnesses could be avoid using a helper
+-- function.
+
 -- 2012-02-28. We required the existential witness.
+
 -- 2012-02-28. We required the existential witness on a pattern matching.
+
