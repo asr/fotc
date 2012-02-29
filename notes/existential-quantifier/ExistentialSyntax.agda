@@ -1,4 +1,4 @@
--- Tested with the development version of Agda on 02 February 2012.
+-- Tested with the development version of Agda on 29 February 2012.
 
 module ExistentialSyntax where
 

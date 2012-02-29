@@ -1,4 +1,4 @@
--- Tested with the development version of Agda on 27 February 2012.
+-- Tested with the development version of Agda on 29 February 2012.
 
 -- Thm: (∃x)A(x), (∀x)(A(x) ⇒ B(x)) ⊢ (∃x)B(x)
 
