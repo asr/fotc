@@ -63,7 +63,8 @@ div-x≮y-helper {i} {j} {r} Ni Nj Nr i≮j helperH =
               (div-x≮y i≮j)
               refl
 
--- 2012-02-28. We required the existential witness on a pattern matching.
+-- 2012-02-29: We are using the existential witness only for
+-- documenting the types in the where clause. They could be removed.
 div-x≮y-correct : ∀ {i j} → N i → N j →
                   (DIV (i ∸ j) j (div (i ∸ j) j)) →
                   NLT i j →

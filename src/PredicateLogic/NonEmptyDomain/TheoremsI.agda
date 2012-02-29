@@ -37,7 +37,7 @@ postulate
   l→r : ∃[ x ] (P⁰ ∨ P¹ x) → P⁰ ∨ (∃[ x ] P¹ x)
   l→r h = ∃-elim h (λ prf → [ (λ p⁰ → inj₁ p⁰) , (λ p¹ → inj₂ (∃-intro p¹)) ] prf)
 
-  -- 2012-02.28. We required the existential witness.
+  -- 2012-02-28. We required the existential witness.
   r→l : P⁰ ∨ (∃[ x ] P¹ x) → ∃[ x ] P⁰ ∨ P¹ x
   r→l (inj₁ p⁰) = ∃-intro {x = D≠∅} (inj₁ p⁰)
   r→l (inj₂ h)  = ∃-elim h (λ p¹ → ∃-intro (inj₂ p¹))

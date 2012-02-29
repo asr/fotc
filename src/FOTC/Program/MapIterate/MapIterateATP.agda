@@ -41,11 +41,11 @@ open import FOTC.Data.Stream.Equality
   R : D → D → Set
   R xs ys = ∃[ y ] xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y)
 
-  -- 2012-02-28. We required the existential witness on a pattern matching.
+  -- 2012-02-29: We are using the existential witness only for
+  -- documentation.
   helper : ∀ {xs ys} → R xs ys →
            ∃[ x' ] ∃[ xs' ] ∃[ ys' ] R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
   helper {xs} {ys} (∃-intro {y} h) =
-  -- NB. We write the witness *only* for documentation.
     ∃-intro {x = f · y} $
     ∃-intro {x = map f (iterate f (f · y))} $
     ∃-intro {x = iterate f (f · (f · y))} $

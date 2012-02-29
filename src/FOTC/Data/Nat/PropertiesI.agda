@@ -141,15 +141,15 @@ Sx∸x≡S0 (sN {n} Nn) = trans (∸-SS (succ₁ n) n) (Sx∸x≡S0 Nn)
     ≡⟨ [x+y]∸[x+z]≡y∸z Nm Nn No ⟩
   n ∸ o ∎
 
-*-leftZero : ∀ n → zero * n ≡ zero
-*-leftZero = *-0x
+*-leftZero : ∀ {n} → N n → zero * n ≡ zero
+*-leftZero {n} _ = *-0x n
 
 *-N : ∀ {m n} → N m → N n → N (m * n)
-*-N {n = n} zN          _  = subst N (sym $ *-leftZero n) zN
+*-N         zN          Nn = subst N (sym $ *-leftZero Nn) zN
 *-N {n = n} (sN {m} Nm) Nn = subst N (sym $ *-Sx m n) (+-N Nn (*-N Nm Nn))
 
 *-rightZero : ∀ {n} → N n → n * zero ≡ zero
-*-rightZero zN          = *-leftZero zero
+*-rightZero zN          = *-leftZero zN
 *-rightZero (sN {n} Nn) =
   trans (*-Sx n zero)
         (trans (+-leftIdentity (n * zero)) (*-rightZero Nn))
@@ -157,19 +157,19 @@ Sx∸x≡S0 (sN {n} Nn) = trans (∸-SS (succ₁ n) n) (Sx∸x≡S0 Nn)
 *-leftIdentity : ∀ {n} → N n → succ₁ zero * n ≡ n
 *-leftIdentity {n} Nn =
   succ₁ zero * n ≡⟨ *-Sx zero n ⟩
-  n + zero * n   ≡⟨ subst (λ t → n + zero * n ≡ n + t) (*-leftZero n) refl ⟩
+  n + zero * n   ≡⟨ subst (λ t → n + zero * n ≡ n + t) (*-leftZero Nn) refl ⟩
   n + zero       ≡⟨ +-rightIdentity Nn ⟩
   n ∎
 
 x*Sy≡x+xy : ∀ {m n} → N m → N n → m * succ₁ n ≡ m + m * n
-x*Sy≡x+xy {n = n} zN _ = sym
+x*Sy≡x+xy {n = n} zN Nn = sym
   (
     zero + zero * n
-      ≡⟨ subst (λ t → zero + zero * n ≡ zero + t) (*-leftZero n) refl ⟩
+      ≡⟨ subst (λ t → zero + zero * n ≡ zero + t) (*-leftZero Nn) refl ⟩
     zero + zero
       ≡⟨ +-leftIdentity zero ⟩
     zero
-      ≡⟨ sym $ *-leftZero (succ₁ n) ⟩
+      ≡⟨ sym $ *-leftZero (sN Nn) ⟩
     zero * succ₁ n ∎
   )
 
@@ -208,7 +208,7 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn =
   succ₁ m + succ₁ m * n ∎
 
 *-comm : ∀ {m n} → N m → N n → m * n ≡ n * m
-*-comm {n = n} zN Nn          = trans (*-leftZero n) (sym $ *-rightZero Nn)
+*-comm {n = n} zN Nn          = trans (*-leftZero Nn) (sym $ *-rightZero Nn)
 *-comm {n = n} (sN {m} Nm) Nn =
   succ₁ m * n ≡⟨ *-Sx m n ⟩
   n + m * n   ≡⟨ subst (λ t → n + m * n ≡ n + t) (*-comm Nm Nn) refl ⟩
@@ -323,7 +323,7 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn =
     ≡⟨ sym $ +-rightIdentity (*-N (sN Nm) (sN No)) ⟩
   succ₁ m * succ₁ o + zero
     ≡⟨ subst (λ t → succ₁ m * succ₁ o + zero ≡ succ₁ m * succ₁ o + t)
-             (sym $ *-leftZero (succ₁ o))
+             (sym $ *-leftZero (sN No))
              refl
     ⟩
   succ₁ m * succ₁ o + zero * succ₁ o ∎

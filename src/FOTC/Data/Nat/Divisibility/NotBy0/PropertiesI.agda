@@ -25,50 +25,54 @@ open import FOTC.Data.Nat.PropertiesI
 ∣-refl-S {n} Nn = S≠0 , ∃-intro (sN zN , sym (*-leftIdentity (sN Nn)))
 
 -- If 'x' divides 'y' and 'z' then 'x' divides 'y - z'.
--- 2012-02-28. We required the existential witness on a pattern matching.
+x∣y→x∣z→x∣y∸z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →
+                       n ≡ k₁ * succ₁ m →
+                       o ≡ k₂ * succ₁ m →
+                       n ∸ o ≡ (k₁ ∸ k₂) * succ₁ m
+x∣y→x∣z→x∣y∸z-helper {m} {n} {o} {k₁} {k₂} Nm Nk₁ Nk₂ h₁ h₂ =
+  n ∸ o
+    ≡⟨ subst (λ t → n ∸ o ≡ t ∸ o) h₁ refl ⟩
+  k₁ * succ₁ m ∸ o
+     ≡⟨ cong (_∸_ (k₁ * succ₁ m)) h₂ ⟩
+  (k₁ * succ₁ m) ∸ (k₂ * succ₁ m)
+    ≡⟨ sym $ *∸-leftDistributive Nk₁ Nk₂ (sN Nm) ⟩
+  (k₁ ∸ k₂) * succ₁ m ∎
+
 x∣y→x∣z→x∣y∸z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n ∸ o
 x∣y→x∣z→x∣y∸z zN Nn No (0≠0 , _) m∣o = ⊥-elim $ 0≠0 refl
-x∣y→x∣z→x∣y∸z {n = n} {o} (sN {m} Nm) Nn No
-              (_ , ∃-intro {k₁} (Nk₁ , n≡k₁Sm))
-              (_ , ∃-intro {k₂} (Nk₂ , o≡k₂Sm)) =
-  (λ S≡0 → ⊥-elim $ S≠0 S≡0) , ∃-intro (∸-N Nk₁ Nk₂ , prf)
-
-  where
-  prf : n ∸ o ≡ (k₁ ∸ k₂) * succ₁ m
-  prf =
-    n ∸ o
-      ≡⟨ subst (λ t → n ∸ o ≡ t ∸ o) n≡k₁Sm refl ⟩
-    k₁ * succ₁ m ∸ o
-       ≡⟨ cong (_∸_ (k₁ * succ₁ m)) o≡k₂Sm ⟩
-    (k₁ * succ₁ m) ∸ (k₂ * succ₁ m)
-      ≡⟨ sym $ *∸-leftDistributive Nk₁ Nk₂ (sN Nm) ⟩
-    (k₁ ∸ k₂) * succ₁ m ∎
+x∣y→x∣z→x∣y∸z (sN {m} Nm) Nn No
+              (_ , ∃-intro (Nk₁ , h₁))
+              (_ , ∃-intro (Nk₂ , h₂)) =
+  (λ S≡0 → ⊥-elim $ S≠0 S≡0)
+  , ∃-intro (∸-N Nk₁ Nk₂ , x∣y→x∣z→x∣y∸z-helper Nm Nk₁ Nk₂ h₁ h₂)
 
 -- If 'x' divides 'y' and 'z' then 'x' divides 'y + z'.
--- 2012-02-28. We required the existential witness on a pattern matching.
+x∣y→x∣z→x∣y+z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →
+                       n ≡ k₁ * succ₁ m →
+                       o ≡ k₂ * succ₁ m →
+                       n + o ≡ (k₁ + k₂) * succ₁ m
+x∣y→x∣z→x∣y+z-helper {m} {n} {o} {k₁} {k₂} Nm Nk₁ Nk₂ h₁ h₂ =
+  n + o
+    ≡⟨ subst (λ t → n + o ≡ t + o) h₁ refl ⟩
+  k₁ * succ₁ m + o
+     ≡⟨ cong (_+_ (k₁ * succ₁ m)) h₂ ⟩
+  (k₁ * succ₁ m) + (k₂ * succ₁ m)
+    ≡⟨ sym $ *+-leftDistributive Nk₁ Nk₂ (sN Nm) ⟩
+  (k₁ + k₂) * succ₁ m ∎
+
 x∣y→x∣z→x∣y+z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n + o
 x∣y→x∣z→x∣y+z             zN          Nn No (0≠0 , _) m∣o = ⊥-elim $ 0≠0 refl
 x∣y→x∣z→x∣y+z {n = n} {o} (sN {m} Nm) Nn No
-              (_ , ∃-intro {k₁} (Nk₁ , n≡k₁Sm))
-              (_ , ∃-intro {k₂} (Nk₂ , o≡k₂Sm))=
-  (λ S≡0 → ⊥-elim $ S≠0 S≡0) , ∃-intro (+-N Nk₁ Nk₂ , prf)
-
-  where
-  prf : n + o ≡ (k₁ + k₂) * succ₁ m
-  prf =
-    n + o
-      ≡⟨ subst (λ t → n + o ≡ t + o) n≡k₁Sm refl ⟩
-    k₁ * succ₁ m + o
-       ≡⟨ cong (_+_ (k₁ * succ₁ m)) o≡k₂Sm ⟩
-    (k₁ * succ₁ m) + (k₂ * succ₁ m)
-      ≡⟨ sym $ *+-leftDistributive Nk₁ Nk₂ (sN Nm) ⟩
-    (k₁ + k₂) * succ₁ m ∎
+              (_ , ∃-intro {k₁} (Nk₁ , h₁))
+              (_ , ∃-intro {k₂} (Nk₂ , h₂)) =
+  (λ S≡0 → ⊥-elim $ S≠0 S≡0)
+  , ∃-intro (+-N Nk₁ Nk₂ , x∣y→x∣z→x∣y+z-helper Nm Nk₁ Nk₂ h₁ h₂)
 
 -- If x divides y, and y is positive, then x ≤ y.
 x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → LE m (succ₁ n)
-x∣S→x≤S  zN     Nn  (0≠0 , _)                     = ⊥-elim $ 0≠0 refl
-x∣S→x≤S (sN {m} Nm) Nn (_ , ∃-intro (zN , Sn≡0*Sm)) =
-  ⊥-elim $ 0≠S $ trans (sym $ *-leftZero (succ₁ m)) (sym Sn≡0*Sm)
+x∣S→x≤S  zN     Nn (0≠0 , _)                    = ⊥-elim $ 0≠0 refl
+x∣S→x≤S (sN Nm) Nn (_ , ∃-intro (zN , Sn≡0*Sm)) =
+  ⊥-elim $ 0≠S $ trans (sym $ *-leftZero (sN Nm)) (sym Sn≡0*Sm)
 x∣S→x≤S (sN {m} Nm) Nn (_ , ∃-intro (sN {k} Nk , Sn≡Sk*Sm)) =
   subst (λ t₁ → LE (succ₁ m) t₁)
         (sym Sn≡Sk*Sm)

@@ -179,11 +179,11 @@ Sx∸x≡S0 (sN {n} Nn) = trans (∸-SS (succ₁ n) n) (Sx∸x≡S0 Nn)
                   (succ₁ m + n) ∸ (succ₁ m + o) ≡ n ∸ o
   {-# ATP prove prf #-}
 
-*-leftZero : ∀ n → zero * n ≡ zero
-*-leftZero = *-0x
+*-leftZero : ∀ {n} → N n → zero * n ≡ zero
+*-leftZero {n} _ = *-0x n
 
 *-rightZero : ∀ {n} → N n → n * zero ≡ zero
-*-rightZero zN          = *-leftZero zero
+*-rightZero zN          = *-leftZero zN
 *-rightZero (sN {n} Nn) = prf $ *-rightZero Nn
   where
   postulate prf : n * zero ≡ zero →  -- IH.
@@ -281,7 +281,7 @@ xy≡0→x≡0∨y≡0 (sN {m} Nm) (sN {n} Nn) SmSn≡0 = ⊥-elim (0≠S prf)
   {-# ATP prove prf #-}
 
 xy≡1→x≡1∨y≡1 : ∀ {m n} → N m → N n → m * n ≡ one → m ≡ one ∨ n ≡ one
-xy≡1→x≡1∨y≡1 {n = n} zN Nn h = ⊥-elim (0≠S (trans (sym (*-leftZero n)) h))
+xy≡1→x≡1∨y≡1 zN Nn h = ⊥-elim (0≠S (trans (sym (*-leftZero Nn)) h))
 xy≡1→x≡1∨y≡1 (sN {m} Nm) zN h =
   ⊥-elim (0≠S (trans (sym (*-rightZero (sN Nm))) h))
 xy≡1→x≡1∨y≡1 (sN zN) (sN Nn) h = inj₁ refl

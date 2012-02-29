@@ -35,7 +35,7 @@ stream-length {xs} Sxs = ≈N-gfp₂ _R_ helper₁ helper₂
   -- 2012-02-28. We required the existential witness on a pattern matching.
   helper₁ : ∀ {m n} → m R n →
             ∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
-  helper₁ {m} {n} (∃-intro {ys} (Sys , h₁ , h₂)) with Stream-gfp₁ Sys
+  helper₁ {m} {n} (∃-intro (Sys , h₁ , h₂)) with Stream-gfp₁ Sys
   ... | ∃-intro {y'} (∃-intro {ys'} (Sys' , ys≡y'∷ys')) =
     ∃-intro (∃-intro ((∃-intro (Sys' , refl , h₂)) , (prf₁ , prf₂)))
     where

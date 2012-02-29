@@ -25,27 +25,27 @@ postulate
 
 -- If 'x' divides 'y' and 'z' then 'x' divides 'y ∸ z'.
 postulate
-  x∣y→x∣z→x∣y∸z-helper : ∀ {m n o k₁ k₂} → N m → N n → N k₁ → N k₂ →
+  x∣y→x∣z→x∣y∸z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →
                          n ≡ k₁ * m →
                          o ≡ k₂ * m →
                          n ∸ o ≡ (k₁ ∸ k₂) * m
 {-# ATP prove x∣y→x∣z→x∣y∸z-helper *∸-leftDistributive #-}
 
 x∣y→x∣z→x∣y∸z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n ∸ o
-x∣y→x∣z→x∣y∸z Nm Nn No (∃-intro (Nk₁ , n≡k₁m)) (∃-intro (Nk₂ , o≡k₂m)) =
-  ∃-intro (∸-N Nk₁ Nk₂ , x∣y→x∣z→x∣y∸z-helper Nm Nn Nk₁ Nk₂ n≡k₁m o≡k₂m)
+x∣y→x∣z→x∣y∸z Nm Nn No (∃-intro (Nk₁ , h₁)) (∃-intro (Nk₂ , h₂)) =
+  ∃-intro (∸-N Nk₁ Nk₂ , x∣y→x∣z→x∣y∸z-helper Nm Nk₁ Nk₂ h₁ h₂)
 
 -- If 'x' divides 'y' and 'z' then 'x' divides 'y + z'.
 postulate
-  x∣y→x∣z→x∣y+z-helper : ∀ {m n o k₁ k₂} → N m → N n → N k₁ → N k₂ →
+  x∣y→x∣z→x∣y+z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →
                          n ≡ k₁ * m →
                          o ≡ k₂ * m →
                          n + o ≡ (k₁ + k₂) * m
 {-# ATP prove x∣y→x∣z→x∣y+z-helper *+-leftDistributive #-}
 
 x∣y→x∣z→x∣y+z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n + o
-x∣y→x∣z→x∣y+z Nm Nn No (∃-intro (Nk₁ , n≡k₁m)) (∃-intro (Nk₂ , o≡k₂m)) =
-  ∃-intro (+-N Nk₁ Nk₂ , x∣y→x∣z→x∣y+z-helper Nm Nn Nk₁ Nk₂ n≡k₁m o≡k₂m)
+x∣y→x∣z→x∣y+z Nm Nn No (∃-intro (Nk₁ , h₁)) (∃-intro (Nk₂ , h₂)) =
+  ∃-intro (+-N Nk₁ Nk₂ , x∣y→x∣z→x∣y+z-helper Nm Nk₁ Nk₂ h₁ h₂)
 
 -- If x divides y, and y is positive, then x ≤ y.
 postulate x∣Sy→x≤Sy-helper₁ : ∀ {m n} → succ₁ n ≡ zero * m → ⊥
