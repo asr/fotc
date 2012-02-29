@@ -1,5 +1,8 @@
 -- Tested with the development version of Agda on 29 February 2012.
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Witness where
 
 -- We need to use the existential witness in some proofs based on the

@@ -61,4 +61,3 @@ $ find src/ -name '*.agda' | xargs grep '.* ,, .*=' | wc - l
 -- 2012-02-28. We required the existential witness.
 
 -- 2012-02-28. We required the existential witness on a pattern matching.
-

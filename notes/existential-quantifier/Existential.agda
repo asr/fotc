@@ -16,6 +16,9 @@
 -- 5. B(b)              4,3 MP
 -- 6. (∃x)B(x)          5, rule E4
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Existential where
 
 postulate
