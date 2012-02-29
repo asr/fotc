@@ -52,9 +52,10 @@ gDM₂ = l→r , r→l
   r→l : (∀ {x} → ¬ (P¹ x)) → ¬ (∃ P¹)
   r→l h₁ h₂ = ∃-elim h₂ h₁
 
--- Quantification over a variable that does not occur can be delete.
-∃-erase : (∃[ x ] P⁰ ∧ P¹ x) ↔ P⁰ ∧ (∃[ x ] P¹ x)
-∃-erase = l→r , r→l
+-- Quantification over a variable that does not occur can be erased or
+-- added.
+∃-erase-add : (∃[ x ] P⁰ ∧ P¹ x) ↔ P⁰ ∧ (∃[ x ] P¹ x)
+∃-erase-add = l→r , r→l
   where
   l→r : ∃[ x ] P⁰ ∧ P¹ x → P⁰ ∧ (∃[ x ] P¹ x)
   l→r h = ∃-elim h (λ prf → (∧-proj₁ prf) , ∃-intro (∧-proj₂ prf))

@@ -10,6 +10,10 @@ module PredicateLogic.NonEmptyDomain.TheoremsI where
 open import PredicateLogic.Base
 open import PredicateLogic.NonEmptyDomain
 
+-- References:
+-- Elliott Mendelson. Introduction to mathematical logic. Chapman &
+-- Hall, 4th edition, 1997.
+
 ------------------------------------------------------------------------------
 -- We postulate some predicate symbols.
 postulate
@@ -20,9 +24,10 @@ postulate
 -- ∃-intro : ((t : D) → P¹ t) → ∃ P¹
 -- ∃-intro h = D≠∅ ,, h D≠∅
 
--- Quantification over a variable that does not occur can be delete.
-∃-erase₁ : ∃ (λ _ → P⁰) ↔ P⁰
-∃-erase₁ = l→r , r→l
+-- Let A be a formula. If x is not free in A then ⊢ (∃x)A ↔ A
+-- (Mendelson, 1997, proposition 2.18 (b), p. 70).
+∃-erase-add₁ : ∃ (λ _ → P⁰) ↔ P⁰
+∃-erase-add₁ = l→r , r→l
   where
   l→r : ∃ (λ _ → P⁰) → P⁰
   l→r h = ∃-elim h (λ prf → prf)
@@ -31,8 +36,10 @@ postulate
   r→l : P⁰ → ∃ (λ _ → P⁰)
   r→l p⁰ = ∃-intro {x = D≠∅} p⁰
 
-∃-erase₂ : (∃[ x ] P⁰ ∨ P¹ x) ↔ P⁰ ∨ (∃[ x ] P¹ x)
-∃-erase₂ = l→r , r→l
+-- Quantification over a variable that does not occur can be erased or
+-- added.
+∃-erase-add₂ : (∃[ x ] P⁰ ∨ P¹ x) ↔ P⁰ ∨ (∃[ x ] P¹ x)
+∃-erase-add₂ = l→r , r→l
   where
   l→r : ∃[ x ] (P⁰ ∨ P¹ x) → P⁰ ∨ (∃[ x ] P¹ x)
   l→r h = ∃-elim h (λ prf → [ (λ p⁰ → inj₁ p⁰) , (λ p¹ → inj₂ (∃-intro p¹)) ] prf)

@@ -69,12 +69,13 @@ postulate
 {-# ATP prove ∀-ord #-}
 {-# ATP prove ∃-ord #-}
 
--- Quantification over a variable that does not occur can be delete.
+-- Quantification over a variable that does not occur can be erased or
+-- added.
 postulate
-  ∀-erase : ⋀ (λ _ → P⁰) ↔ P⁰
-  ∃-erase : (∃[ x ] P⁰ ∧ P¹ x) ↔ P⁰ ∧ (∃[ x ] P¹ x)
-{-# ATP prove ∀-erase #-}
-{-# ATP prove ∃-erase #-}
+  ∀-erase-add : ⋀ (λ _ → P⁰) ↔ P⁰
+  ∃-erase-add : (∃[ x ] P⁰ ∧ P¹ x) ↔ P⁰ ∧ (∃[ x ] P¹ x)
+{-# ATP prove ∀-erase-add #-}
+{-# ATP prove ∃-erase-add #-}
 
 -- Distributes laws for the quantifiers.
 postulate

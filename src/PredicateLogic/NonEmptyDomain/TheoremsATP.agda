@@ -12,6 +12,10 @@ module PredicateLogic.NonEmptyDomain.TheoremsATP where
 
 open import PredicateLogic.Base
 
+-- References:
+-- Elliott Mendelson. Introduction to mathematical logic. Chapman &
+-- Hall, 4th edition, 1997.
+
 ------------------------------------------------------------------------------
 -- We postulate some predicate symbols.
 postulate
@@ -22,9 +26,14 @@ postulate
 -- ∃-intro : ((t : D) → P¹ t) → ∃ P¹
 -- {-# ATP prove ∃-intro #-}
 
--- Quantification over a variable that does not occur can be delete.
+-- Let A be a formula. If x is not free in A then ⊢ (∃x)A ↔ A
+-- (Mendelson, 1997, proposition 2.18 (b), p. 70).
 postulate
-  ∃-erase₁ : ∃ (λ _ → P⁰) ↔ P⁰
-  ∃-erase₂ : (∃[ x ] P⁰ ∨ P¹ x) ↔ P⁰ ∨ (∃[ x ] P¹ x)
-{-# ATP prove ∃-erase₁ #-}
-{-# ATP prove ∃-erase₂ #-}
+  ∃-erase-add₁ : ∃ (λ _ → P⁰) ↔ P⁰
+{-# ATP prove ∃-erase-add₁ #-}
+
+-- Quantification over a variable that does not occur can be erased or
+-- added.
+postulate
+  ∃-erase-add₂ : (∃[ x ] P⁰ ∨ P¹ x) ↔ P⁰ ∨ (∃[ x ] P¹ x)
+{-# ATP prove ∃-erase-add₂ #-}
