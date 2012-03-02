@@ -7,7 +7,6 @@ module PredicateLogic.Everything where
 open import PredicateLogic.Base
 open import PredicateLogic.ClassicalATP
 open import PredicateLogic.ClassicalI
-open import PredicateLogic.NonEmptyDomain
 open import PredicateLogic.NonEmptyDomain.TheoremsATP
 open import PredicateLogic.NonEmptyDomain.TheoremsI
 open import PredicateLogic.Propositional.TheoremsATP

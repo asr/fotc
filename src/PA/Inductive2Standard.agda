@@ -28,8 +28,6 @@
 
 module PA.Inductive2Standard where
 
-open import FOL.Relation.Nullary
-
 open import PA.Inductive.Base
 
 ------------------------------------------------------------------------------

@@ -22,11 +22,8 @@ infixr 8 _∷_
 infix  8 if_then_else_
 
 ------------------------------------------------------------------------------
--- The universal domain.
-open import FOL.Universe public
-
 -- FOL with equality.
-open import FOL.FOL-Eq public
+open import Common.FOL.FOL-Eq public
 
 ------------------------------------------------------------------------------
 -- The term language of FOTC correspond to the PCF terms.

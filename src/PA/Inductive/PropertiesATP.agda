@@ -8,7 +8,6 @@
 module PA.Inductive.PropertiesATP where
 
 open import PA.Inductive.Base
-
 open import PA.Inductive.Properties
 
 ------------------------------------------------------------------------------

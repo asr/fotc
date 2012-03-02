@@ -13,8 +13,6 @@
 
 module FOTC.Program.ABP.Lemma2ATP where
 
-open import FOL.Relation.Binary.EqReasoning
-
 open import FOTC.Base
 open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesATP

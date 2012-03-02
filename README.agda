@@ -64,10 +64,10 @@ open import PredicateLogic.ClassicalI
 -- 2. Equality
 
 -- 2.1 Definition of equality and some properties about it
-open import FOL.Relation.Binary.PropositionalEquality
+open import Common.FOL.Relation.Binary.PropositionalEquality
 
 -- 2.2 The equality reasoning
-open import FOL.Relation.Binary.EqReasoning
+open import Common.FOL.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- 3. Group theory

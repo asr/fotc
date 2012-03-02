@@ -8,7 +8,6 @@
 module PA.Inductive.PropertiesI where
 
 open import PA.Inductive.Base
-
 open import PA.Inductive.Properties
 open import PA.Inductive.Relation.Binary.EqReasoning
 

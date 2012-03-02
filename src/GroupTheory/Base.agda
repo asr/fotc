@@ -12,11 +12,8 @@ infix  11 _⁻¹
 infixl 10 _·_  -- The symbol is '\cdot'.
 
 ------------------------------------------------------------------------------
--- The group universe
-open import FOL.Universe public renaming ( D to G )
-
 -- FOL with equality.
-open import FOL.FOL-Eq public
+open import Common.FOL.FOL-Eq public renaming ( D to G )
 
 -- Group theory axioms
 postulate

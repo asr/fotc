@@ -9,7 +9,7 @@ module DistributiveLaws.TaskB-AllStepsATP where
 
 open import DistributiveLaws.Base
 
-open import FOL.Relation.Binary.EqReasoning
+open import Common.FOL.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 

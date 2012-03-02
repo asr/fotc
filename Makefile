@@ -42,7 +42,6 @@ AGDA2ATP_PARSING = agda2atp -i. -isrc --time=1 --atp=equinox
 # Theories
 Common_path           = src/Common
 DistributiveLaws_path = src/DistributiveLaws
-FOL_path              = src/FOL
 FOTC_path             = src/FOTC
 GroupTheory_path      = src/GroupTheory
 LTC-PCF_path          = src/LTC-PCF
@@ -68,7 +67,6 @@ SortList_path        = $(FOTC_path)/Program/SortList
 # Theories
 main_Common           = $(Common_path)/Everything
 main_DistributiveLaws = $(DistributiveLaws_path)/Everything
-main_FOL              = $(FOL_path)/Everything
 main_FOTC             = $(FOTC_path)/Everything
 main_GroupTheory      = $(GroupTheory_path)/Everything
 main_LTC-PCF          = $(LTC-PCF_path)/Everything
@@ -109,7 +107,6 @@ type_checking_% :
 
 all_type_checking : type_checking_Common \
 		    type_checking_DistributiveLaws \
-		    type_checking_FOL \
 		    type_checking_FOTC \
 		    type_checking_GroupTheory \
 		    type_checking_LTC-PCF \
@@ -274,7 +271,6 @@ publish_% :
 
 all_publish : publish_Common \
 	      publish_DistributiveLaws \
-	      publish_FOL \
 	      publish_FOTC \
 	      publish_GroupTheory \
 	      publish_LTC-PCF \

@@ -12,14 +12,12 @@ infixl 10 _*_
 infixl 9  _+_
 
 ------------------------------------------------------------------------------
--- PA universe.
+-- FOL with equality.
+--
 -- We chose the symbol M because there are non-standard models of
 -- Peano Arithmetic, where the domain is not the set of natural
 -- numbers.
-open import FOL.Universe public renaming ( D to M )
-
--- FOL with equality.
-open import FOL.FOL-Eq public
+open import Common.FOL.FOL-Eq public renaming ( D to M )
 
 -- Non-logical constants
 postulate

@@ -11,13 +11,10 @@ module DistributiveLaws.Base where
 infixl 10 _·_  -- The symbol is '\cdot'.
 
 ------------------------------------------------------------------------------
-
--- The universe
-open import FOL.Universe public
-
 -- FOL with equality.
--- NB. This is an equational theory.
-open import FOL.FOL-Eq public using ( _≡_ ; refl ; subst ; sym )
+-- NB. This is an equational theory, so we do not import the logical
+-- constants.
+open import Common.FOL.FOL-Eq public using ( _≡_ ; D ; refl ; subst ; sym )
 
 -- Distributive laws axioms
 

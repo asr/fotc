@@ -8,9 +8,9 @@
 -- This module only re-export the preorder reasoning instanced on the
 -- propositional equality.
 
-module FOL.Relation.Binary.EqReasoning where
+module Common.FOL.Relation.Binary.EqReasoning where
 
-open import FOL.FOL-Eq using (_≡_ ; refl ; trans )
+open import Common.FOL.FOL-Eq using (_≡_ ; refl ; trans )
 
 import Common.Relation.Binary.PreorderReasoning
 open module ≡-Reasoning =

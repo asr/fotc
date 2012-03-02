@@ -26,8 +26,6 @@
 
 module PA.Inductive2Mendelson where
 
-open import FOL.Relation.Nullary
-
 open import PA.Inductive.Base
 
 ------------------------------------------------------------------------------

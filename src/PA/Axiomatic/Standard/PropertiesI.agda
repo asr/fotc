@@ -7,7 +7,7 @@
 
 module PA.Axiomatic.Standard.PropertiesI where
 
-open import FOL.Relation.Binary.EqReasoning
+open import Common.FOL.Relation.Binary.EqReasoning
 
 open import PA.Axiomatic.Standard.Base
 

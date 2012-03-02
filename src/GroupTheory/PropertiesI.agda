@@ -9,7 +9,7 @@ module GroupTheory.PropertiesI where
 
 open import GroupTheory.Base
 
-open import FOL.Relation.Binary.EqReasoning
+open import Common.FOL.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- Congruence properties

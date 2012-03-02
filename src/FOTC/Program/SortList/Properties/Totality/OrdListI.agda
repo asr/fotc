@@ -7,9 +7,8 @@
 
 module FOTC.Program.SortList.Properties.Totality.OrdListI where
 
+open import Common.FOL.Relation.Binary.EqReasoning
 open import Common.Function
-
-open import FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
 open import FOTC.Data.Bool

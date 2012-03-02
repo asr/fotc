@@ -7,7 +7,6 @@
 
 module PA.Inductive.Properties where
 
-open import FOL.Relation.Nullary
 open import PA.Inductive.Base
 
 ------------------------------------------------------------------------------

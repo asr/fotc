@@ -7,7 +7,7 @@
 
 module FOTC.Program.Collatz.Data.Nat.PropertiesI where
 
-open import FOL.Relation.Binary.EqReasoning
+open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
 open import FOTC.Base.PropertiesI

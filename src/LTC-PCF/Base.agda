@@ -21,11 +21,8 @@ infixl 9 _·_  -- The symbol is '\cdot'.
 infix  8 if_then_else_
 
 ------------------------------------------------------------------------------
--- The universal domain.
-open import FOL.Universe public
-
 -- FOL with equality.
-open import FOL.FOL-Eq public
+open import Common.FOL.FOL-Eq public
 
 ------------------------------------------------------------------------------
 -- The term language of LTC-PCF correspond to the PCF terms.

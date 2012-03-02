@@ -5,8 +5,8 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Using the ATPs we don't have to postulate a non-empty domain because
--- the ATPs assume it.
+-- Using the ATPs we don't have to use the postulate about a non-empty
+-- domain because the ATPs assume it.
 
 module PredicateLogic.NonEmptyDomain.TheoremsATP where
 

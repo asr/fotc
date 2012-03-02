@@ -9,12 +9,12 @@
 -- propositional equality. This module is re-exported by the "base"
 -- modules whose theories are defined on FOL + equality.
 
-module FOL.FOL-Eq where
+module Common.FOL.FOL-Eq where
 
 -- FOL (without equality).
-open import FOL.FOL public
+open import Common.FOL.FOL public
 
 -- The propositional equality.
-import FOL.Relation.Binary.PropositionalEquality
+import Common.FOL.Relation.Binary.PropositionalEquality
 open module Eq =
-  FOL.Relation.Binary.PropositionalEquality.Inductive public
+  Common.FOL.Relation.Binary.PropositionalEquality.Inductive public

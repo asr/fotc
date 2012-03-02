@@ -8,7 +8,6 @@
 module PredicateLogic.NonEmptyDomain.TheoremsI where
 
 open import PredicateLogic.Base
-open import PredicateLogic.NonEmptyDomain
 
 -- References:
 -- Elliott Mendelson. Introduction to mathematical logic. Chapman &
