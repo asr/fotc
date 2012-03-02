@@ -8,12 +8,12 @@
 -- This module contains some examples showing the use of the ATPs to
 -- prove theorems from propositional logic.
 
-module PredicateLogic.Propositional.TheoremsATP where
+module FOL.Propositional.TheoremsATP where
 
-open import PredicateLogic.Base
+open import FOL.Base
 
 ------------------------------------------------------------------------------
--- We postulate some propositional variables (which are translated as
+-- We postulate some propositional formulae (which are translated as
 -- 0-ary predicates).
 postulate P Q R : Set
 

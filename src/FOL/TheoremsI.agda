@@ -5,12 +5,12 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module PredicateLogic.TheoremsI where
+module FOL.TheoremsI where
 
-open import PredicateLogic.Base
+open import FOL.Base
 
 ------------------------------------------------------------------------------
--- We postulate some predicate symbols.
+-- We postulate some formulae and propositional functions.
 postulate
   P⁰ : Set
   P¹ : D → Set
@@ -36,7 +36,8 @@ postulate
 -}
 
 -- It is necessary postulate a non-empty domain. See
--- PredicateLogic.NonEmptyDomain.TheoremsI/ATP.∃I.
+-- FOL.NonEmptyDomain.TheoremsI/ATP.∃I.
+--
 -- ∃-intro : ((t : D) → P¹ t) → ∃ P¹
 
 ∃-elim' : ∃ P¹ → ({x : D} → P¹ x → P⁰) → P⁰

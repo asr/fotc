@@ -5,9 +5,9 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module PredicateLogic.Propositional.TheoremsI where
+module FOL.Propositional.TheoremsI where
 
-open import PredicateLogic.Base
+open import FOL.Base
 
 ------------------------------------------------------------------------------
 -- Boolean laws.

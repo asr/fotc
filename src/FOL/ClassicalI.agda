@@ -8,9 +8,9 @@
 -- The ATPs work in classical logic, therefore we add the principle of
 -- the exclude middle for prove some classical logic theorems.
 
-module PredicateLogic.ClassicalI where
+module FOL.ClassicalI where
 
-open import PredicateLogic.Base
+open import FOL.Base
 
 ------------------------------------------------------------------------------
 

@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Predicate logic base
+-- FOL base
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module PredicateLogic.Base where
+module FOL.Base where
 
 infixr 3 _⇒_
 
@@ -25,6 +25,5 @@ A ⇒ B = A → B
 ⋀ : (P : D → Set) → Set
 ⋀ P = (d : D) → P d
 
--- In predicate logic it is assumed that the universe of discourse is
--- nonempty.
+-- In FOL it is assumed that the universe of discourse is nonempty.
 postulate D≠∅ : D

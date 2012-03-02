@@ -5,9 +5,9 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module PredicateLogic.SchemataATP where
+module FOL.SchemataATP where
 
-open import PredicateLogic.Base
+open import FOL.Base
 
 ------------------------------------------------------------------------------
 

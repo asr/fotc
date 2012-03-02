@@ -8,16 +8,16 @@
 -- Using the ATPs we don't have to use the postulate about a non-empty
 -- domain because the ATPs assume it.
 
-module PredicateLogic.NonEmptyDomain.TheoremsATP where
+module FOL.NonEmptyDomain.TheoremsATP where
 
-open import PredicateLogic.Base
+open import FOL.Base
 
 -- References:
 -- Elliott Mendelson. Introduction to mathematical logic. Chapman &
 -- Hall, 4th edition, 1997.
 
 ------------------------------------------------------------------------------
--- We postulate some predicate symbols.
+-- We postulate some formulae and propositional functions.
 postulate
   P⁰ : Set
   P¹ : D → Set

@@ -1,19 +1,19 @@
 ------------------------------------------------------------------------------
--- Predicate logic theorems
+-- FOL theorems
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- This module contains some examples showing the use of the ATPs to
--- prove theorems from predicate logic.
+-- This module contains some examples showing the use of the ATPs for
+-- proving FOL theorems.
 
-module PredicateLogic.TheoremsATP where
+module FOL.TheoremsATP where
 
-open import PredicateLogic.Base
+open import FOL.Base
 
 ------------------------------------------------------------------------------
--- We postulate some predicate symbols.
+-- We postulate some formulae and propositional functions.
 postulate
   P⁰    : Set
   P¹ Q¹ : D → Set
@@ -42,7 +42,8 @@ postulate
   ∀-intro : ((x : D) → P¹ x) → ⋀ P¹
   ∀-elim  : ⋀ P¹ → (t : D) → P¹ t
   -- It is necessary to assume a non-empty domain. See
-  -- PredicateLogic.NonEmptyDomain.TheoremsI/ATP.∃I.
+  -- FOL.NonEmptyDomain.TheoremsI/ATP.∃I.
+  --
   -- TODO: 2012-02-28. Fix the existential introduction rule.
   -- ∃-intro : ((t : D) → P¹ t) → ∃ P¹
   ∃-elim'  : ∃ P¹ → ((x : D) → P¹ x → P⁰) → P⁰

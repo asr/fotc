@@ -8,9 +8,9 @@
 -- The ATPs work in classical logic, therefore we also can prove some
 -- classical logic theorems.
 
-module PredicateLogic.ClassicalATP where
+module FOL.ClassicalATP where
 
-open import PredicateLogic.Base
+open import FOL.Base
 
 ------------------------------------------------------------------------------
 

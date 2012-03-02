@@ -42,11 +42,11 @@ AGDA2ATP_PARSING = agda2atp -i. -isrc --time=1 --atp=equinox
 # Theories
 Common_path           = src/Common
 DistributiveLaws_path = src/DistributiveLaws
+FOL_path              = src/FOL
 FOTC_path             = src/FOTC
 GroupTheory_path      = src/GroupTheory
 LTC-PCF_path          = src/LTC-PCF
 PA_path               = src/PA
-PredicateLogic_path   = src/PredicateLogic
 
 # Programs
 ABP_path             = $(FOTC_path)/Program/ABP
@@ -67,11 +67,11 @@ SortList_path        = $(FOTC_path)/Program/SortList
 # Theories
 main_Common           = $(Common_path)/Everything
 main_DistributiveLaws = $(DistributiveLaws_path)/Everything
+main_FOL              = $(FOL_path)/Everything
 main_FOTC             = $(FOTC_path)/Everything
 main_GroupTheory      = $(GroupTheory_path)/Everything
 main_LTC-PCF          = $(LTC-PCF_path)/Everything
 main_PA               = $(PA_path)/Everything
-main_PredicateLogic   = $(PredicateLogic_path)/Everything
 
 # Agsy examples
 # Because we have unsolved-metas in the Agsy examples, we cannot use a
@@ -107,11 +107,11 @@ type_checking_% :
 
 all_type_checking : type_checking_Common \
 		    type_checking_DistributiveLaws \
+		    type_checking_FOL \
 		    type_checking_FOTC \
 		    type_checking_GroupTheory \
 		    type_checking_LTC-PCF \
 		    type_checking_PA \
-		    type_checking_PredicateLogic \
 		    type_checking_Agsy \
 		    type_checking_README
 	@echo "The $@ test succeeded!"
@@ -126,11 +126,11 @@ only_conjectures_% :
 	done
 
 all_only_conjectures : only_conjectures_DistributiveLaws \
+		       only_conjectures_FOL \
 		       only_conjectures_FOTC \
 		       only_conjectures_GroupTheory \
 		       only_conjectures_LTC-PCF \
-		       only_conjectures_PA \
-		       only_conjectures_PredicateLogic
+		       only_conjectures_PA
 	@echo "The $@ test succeeded!"
 
 ##############################################################################
@@ -151,11 +151,11 @@ parsing_% :
 	done
 
 all_parsing : parsing_DistributiveLaws \
+	      parsing_FOL \
 	      parsing_FOTC \
 	      parsing_GroupTheory \
 	      parsing_LTC-PCF \
-	      parsing_PA \
-	      parsing_PredicateLogic
+	      parsing_PA
 	@echo "The $@ test succeeded!"
 
 ##############################################################################
@@ -170,11 +170,11 @@ conjectures_% :
 # TODO: We add the conjectures related to the programs, but it
 # duplicates the test.
 # all_conjectures : conjectures_DistributiveLaws \
+# 		  conjectures_FOL \
 # 		  conjectures_FOTC \
 # 		  conjectures_GroupTheory \
 # 		  conjectures_LTC-PCF \
 # 		  conjectures_PA \
-# 		  conjectures_PredicateLogic \
 #                 conjectures_ABP \
 #                 conjectures_Collatz \
 #                 conjectures_Division \
@@ -188,11 +188,11 @@ conjectures_% :
 # 		  conjectures_SortList
 
 all_conjectures : conjectures_DistributiveLaws \
+		  conjectures_FOL \
 		  conjectures_FOTC \
 		  conjectures_GroupTheory \
 		  conjectures_LTC-PCF \
-		  conjectures_PA \
-		  conjectures_PredicateLogic
+		  conjectures_PA
 	@echo "The $@ test succeeded!"
 
 ##############################################################################
@@ -220,11 +220,11 @@ create_snapshot_% :
 	done
 
 all_create_snapshot : create_snapshot_DistributiveLaws \
+		      create_snapshot_FOL \
 		      create_snapshot_FOTC \
 		      create_snapshot_GroupTheory \
 		      create_snapshot_LTC-PCF \
-		      create_snapshot_PA \
-		      create_snapshot_PredicateLogic
+		      create_snapshot_PA
 
 ##############################################################################
 # Test the snapshot files
@@ -236,13 +236,12 @@ snapshot_% :
 	done
 
 all_snapshot : snapshot_DistributiveLaws \
+	       snapshot_FOL \
 	       snapshot_FOTC \
 	       snapshot_GroupTheory \
 	       snapshot_LTC-PCF \
-	       snapshot_PA \
-	       snapshot_PredicateLogic
+	       snapshot_PA
 	@echo "The $@ test succeeded!"
-
 
 ##############################################################################
 # Test used when there is a modification to Agda
@@ -271,11 +270,11 @@ publish_% :
 
 all_publish : publish_Common \
 	      publish_DistributiveLaws \
+	      publish_FOL \
 	      publish_FOTC \
 	      publish_GroupTheory \
 	      publish_LTC-PCF \
 	      publish_PA \
-	      publish_PredicateLogic \
               publish_Agsy
 
 ##############################################################################

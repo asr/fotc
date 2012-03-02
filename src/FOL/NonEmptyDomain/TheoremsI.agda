@@ -5,16 +5,16 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module PredicateLogic.NonEmptyDomain.TheoremsI where
+module FOL.NonEmptyDomain.TheoremsI where
 
-open import PredicateLogic.Base
+open import FOL.Base
 
 -- References:
 -- Elliott Mendelson. Introduction to mathematical logic. Chapman &
 -- Hall, 4th edition, 1997.
 
 ------------------------------------------------------------------------------
--- We postulate some predicate symbols.
+-- We postulate some formulae and propositional functions.
 postulate
   P⁰ : Set
   P¹ : D → Set

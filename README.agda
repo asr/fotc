@@ -36,29 +36,29 @@ module README where
 -- First-order theories
 ------------------------------------------------------------------------------
 
--- 1. Predicate logic
+-- 1. First-order logic
 
 -- 1.1 Definition of the connectives and quantifiers
-open import PredicateLogic.Base
+open import FOL.Base
 
 -- 1.2 Propositional logic theorems
-open import PredicateLogic.Propositional.TheoremsATP
-open import PredicateLogic.Propositional.TheoremsI
+open import FOL.Propositional.TheoremsATP
+open import FOL.Propositional.TheoremsI
 
--- 1.3 Predicate logic theorems
-open import PredicateLogic.TheoremsATP
-open import PredicateLogic.TheoremsI
+-- 1.3 FOL theorems
+open import FOL.TheoremsATP
+open import FOL.TheoremsI
 
 -- 1.4 Logical schemata
-open import PredicateLogic.SchemataATP
+open import FOL.SchemataATP
 
 -- 1.5 Non-empty domains
-open import PredicateLogic.NonEmptyDomain.TheoremsATP
-open import PredicateLogic.NonEmptyDomain.TheoremsI
+open import FOL.NonEmptyDomain.TheoremsATP
+open import FOL.NonEmptyDomain.TheoremsI
 
 -- 1.6 Classical predicate logic theorems
-open import PredicateLogic.ClassicalATP
-open import PredicateLogic.ClassicalI
+open import FOL.ClassicalATP
+open import FOL.ClassicalI
 
 ------------------------------------------------------------------------------
 -- 2. Equality
