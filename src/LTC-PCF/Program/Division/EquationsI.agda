@@ -7,13 +7,13 @@
 
 module LTC-PCF.Program.Division.EquationsI where
 
+open import Common.FOL.Relation.Binary.EqReasoning
 open import Common.Function
 
 open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Program.Division.Division
-open import LTC-PCF.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- Division properties

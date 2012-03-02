@@ -7,6 +7,7 @@
 
 module LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesI where
 
+open import Common.FOL.Relation.Binary.EqReasoning
 open import Common.Function
 
 open import LTC-PCF.Base
@@ -16,7 +17,6 @@ open import LTC-PCF.Data.Nat.Divisibility.NotBy0
 open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
 open import LTC-PCF.Data.Nat.PropertiesI
-open import LTC-PCF.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- Any positive number divides 0.

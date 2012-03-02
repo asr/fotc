@@ -7,6 +7,7 @@
 
 module LTC-PCF.Data.Nat.Inequalities.PropertiesI where
 
+open import Common.FOL.Relation.Binary.EqReasoning
 open import Common.Function
 
 open import LTC-PCF.Base
@@ -15,7 +16,6 @@ open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Inequalities.EliminationProperties
 open import LTC-PCF.Data.Nat.Inequalities.EquationsI public
 open import LTC-PCF.Data.Nat.PropertiesI
-open import LTC-PCF.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- N.B. The elimination properties are in the module

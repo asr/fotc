@@ -7,13 +7,13 @@
 
 module LTC-PCF.Data.Nat.PropertiesI where
 
+open import Common.FOL.Relation.Binary.EqReasoning
 open import Common.Function
 
 open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Rec
 open import LTC-PCF.Data.Nat.Rec.EquationsI
-open import LTC-PCF.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- Congruence properties

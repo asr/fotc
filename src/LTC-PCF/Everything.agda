@@ -58,5 +58,3 @@ open import LTC-PCF.Program.GCD.Partial.ProofSpecificationI
 open import LTC-PCF.Program.GCD.Partial.Specification
 open import LTC-PCF.Program.GCD.Partial.TotalityATP
 open import LTC-PCF.Program.GCD.Partial.TotalityI
-
-open import LTC-PCF.Relation.Binary.EqReasoning

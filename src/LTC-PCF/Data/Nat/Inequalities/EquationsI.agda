@@ -7,9 +7,10 @@
 
 module LTC-PCF.Data.Nat.Inequalities.EquationsI where
 
+open import Common.FOL.Relation.Binary.EqReasoning
+
 open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat.Inequalities
-open import LTC-PCF.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 
