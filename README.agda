@@ -131,7 +131,10 @@ open import PA.Axiomatic.Standard.PropertiesATP
 open import PA.Axiomatic.Standard.PropertiesI
 
 -- 5.2. Inductive PA
--- 5.2.1 Some properties
+-- 5.2.1 Inductive definitions
+open import PA.Inductive.Base
+
+-- 5.2.2 Some properties
 open import PA.Inductive.Properties
 open import PA.Inductive.PropertiesATP
 open import PA.Inductive.PropertiesI
