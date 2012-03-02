@@ -66,7 +66,7 @@ gDM₂ = l→r , r→l
 
 -- Interchange of quantifiers.
 -- The related theorem ∀x∃y.Axy → ∃y∀x.Axy is not (classically) valid.
-∃∀ : ∃[ x ] (⋀ λ y → A² x y) → ⋀ λ y → ∃[ x ] A² x y
+∃∀ : ∃[ x ] (∀ y → A² x y) → ∀ y → ∃[ x ] A² x y
 ∃∀ h y = ∃-elim h (λ prf → ∃-intro (prf y))
 
 -- ∃ in terms of ∀ and ¬.

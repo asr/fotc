@@ -22,8 +22,11 @@ _⇒_ : Set → Set → Set
 A ⇒ B = A → B
 
 -- Universal quantification.
-⋀ : (A : D → Set) → Set
-⋀ A = (d : D) → A d
+--
+-- 2012-02-03: Not used by the current formalization, but it is
+-- accepted by the agda2atp program.
+-- ⋀ : (A : D → Set) → Set
+-- ⋀ A = (d : D) → A d
 
 ------------------------------------------------------------------------------
 -- In FOL it is assumed that the universe of discourse is nonempty.
