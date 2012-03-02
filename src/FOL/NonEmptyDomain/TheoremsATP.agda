@@ -19,14 +19,14 @@ open import FOL.Base
 ------------------------------------------------------------------------------
 -- We postulate some formulae and propositional functions.
 postulate
-  A : Set
-  B : D → Set
+  A  : Set
+  A¹ : D → Set
 
 -- TODO: 2012-02-28. Fix the existential introduction rule.
--- ∃-intro : ((t : D) → B t) → ∃ B
+-- ∃-intro : ((t : D) → A¹ t) → ∃ A¹
 -- {-# ATP prove ∃-intro #-}
 
-postulate ∀→∃ : (∀ {x} → B x) → ∃ B
+postulate ∀→∃ : (∀ {x} → A¹ x) → ∃ A¹
 {-# ATP prove ∀→∃ #-}
 
 -- Let A be a formula. If x is not free in A then ⊢ (∃x)A ↔ A
@@ -38,5 +38,5 @@ postulate
 -- Quantification over a variable that does not occur can be erased or
 -- added.
 postulate
-  ∃-erase-add₂ : (∃[ x ] A ∨ B x) ↔ A ∨ (∃[ x ] B x)
+  ∃-erase-add₂ : (∃[ x ] A ∨ A¹ x) ↔ A ∨ (∃[ x ] A¹ x)
 {-# ATP prove ∃-erase-add₂ #-}

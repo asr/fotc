@@ -16,14 +16,14 @@ open import FOL.Base
 ------------------------------------------------------------------------------
 -- We postulate some formulae and propositional functions.
 postulate
-  A : Set
-  B : D → Set
+  A  : Set
+  A¹ : D → Set
 
 -- TODO: 2012-02-28. Fix the existential introduction rule.
--- ∃-intro : ((t : D) → B t) → ∃ B
+-- ∃-intro : ((t : D) → A¹ t) → ∃ A¹
 -- ∃-intro h = D≠∅ ,, h D≠∅
 
-∀→∃ : (∀ {x} → B x) → ∃ B
+∀→∃ : (∀ {x} → A¹ x) → ∃ A¹
 ∀→∃ h = ∃-intro {x = D≠∅} h
 
 -- Let A be a formula. If x is not free in A then ⊢ (∃x)A ↔ A
@@ -40,13 +40,16 @@ postulate
 
 -- Quantification over a variable that does not occur can be erased or
 -- added.
-∃-erase-add₂ : (∃[ x ] A ∨ B x) ↔ A ∨ (∃[ x ] B x)
+∃-erase-add₂ : (∃[ x ] A ∨ A¹ x) ↔ A ∨ (∃[ x ] A¹ x)
 ∃-erase-add₂ = l→r , r→l
   where
-  l→r : ∃[ x ] (A ∨ B x) → A ∨ (∃[ x ] B x)
-  l→r h = ∃-elim h (λ prf → [ (λ p⁰ → inj₁ p⁰) , (λ p¹ → inj₂ (∃-intro p¹)) ] prf)
+  l→r : ∃[ x ] (A ∨ A¹ x) → A ∨ (∃[ x ] A¹ x)
+  l→r h = ∃-elim h (λ prf → [ (λ a → inj₁ a )
+                            , (λ A¹x → inj₂ (∃-intro A¹x))
+                            ] prf
+                   )
 
   -- 2012-02-28. We required the existential witness.
-  r→l : A ∨ (∃[ x ] B x) → ∃[ x ] A ∨ B x
+  r→l : A ∨ (∃[ x ] A¹ x) → ∃[ x ] A ∨ A¹ x
   r→l (inj₁ a) = ∃-intro {x = D≠∅} (inj₁ a)
-  r→l (inj₂ h)  = ∃-elim h (λ p¹ → ∃-intro (inj₂ p¹))
+  r→l (inj₂ h) = ∃-elim h (λ A¹x → ∃-intro (inj₂ A¹x))
