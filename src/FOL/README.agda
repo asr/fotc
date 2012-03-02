@@ -25,6 +25,6 @@ open import FOL.SchemataATP
 open import FOL.NonEmptyDomain.TheoremsATP
 open import FOL.NonEmptyDomain.TheoremsI
 
--- Classical predicate logic theorems
-open import FOL.ClassicalATP
-open import FOL.ClassicalI
+-- Non-intuitionistic logic theorems
+open import FOL.NonIntuitionistic.TheoremsATP
+open import FOL.NonIntuitionistic.TheoremsI
