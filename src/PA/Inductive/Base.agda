@@ -19,9 +19,9 @@ open import PA.Inductive.Base.Core public
 open import Common.FOL.FOL public using ( ¬_ )
 
 -- The induction principle on the PA universe
-PA-ind : (P : M → Set) → P zero → (∀ n → P n → P (succ n)) → ∀ n → P n
-PA-ind P P0 h zero     = P0
-PA-ind P P0 h (succ n) = h n (PA-ind P P0 h n)
+PA-ind : (A : M → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
+PA-ind A A0 h zero     = A0
+PA-ind A A0 h (succ n) = h n (PA-ind A A0 h n)
 
 -- The identity type on the PA universe
 open import PA.Inductive.Relation.Binary.PropositionalEquality public

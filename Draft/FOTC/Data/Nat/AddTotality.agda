@@ -2,7 +2,7 @@
 -- Totality of natural numbers addition
 ------------------------------------------------------------------------------
 
--- Tested with FOT and agda2atp on 24 February 2012.
+-- Tested with FOT and agda2atp on 02 March 2012.
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
@@ -16,15 +16,15 @@ open import FOTC.Data.Nat
 
 -- Interactive proof using the induction principle for natural numbers.
 +-N : ∀ {m n} → N m → N n → N (m + n)
-+-N {m} {n} Nm Nn = N-ind P P0 ih Nm
++-N {m} {n} Nm Nn = N-ind A A0 ih Nm
   where
-    P : D → Set
-    P i = N (i + n)
+    A : D → Set
+    A i = N (i + n)
 
-    P0 : P zero
-    P0 = subst N (sym (+-0x n)) Nn
+    A0 : A zero
+    A0 = subst N (sym (+-0x n)) Nn
 
-    ih : ∀ {i} → P i → P (succ₁ i)
+    ih : ∀ {i} → A i → A (succ₁ i)
     ih {i} ih = subst N (sym (+-Sx i n)) (sN ih)
 
 -- Combined proof using an instance of the induction principle.

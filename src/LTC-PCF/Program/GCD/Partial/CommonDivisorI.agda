@@ -258,13 +258,13 @@ gcd-x≯y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ = gcd-S≯S-CD Nm Nn ih Sm�
 
 -- The gcd is CD.
 gcd-CD : ∀ {m n} → N m → N n → x≠0≠y m n → CD m n (gcd m n)
-gcd-CD = wfInd-LT₂ P istep
+gcd-CD = wfInd-LT₂ A istep
   where
-  P : D → D → Set
-  P i j = x≠0≠y i j → CD i j (gcd i j)
+  A : D → D → Set
+  A i j = x≠0≠y i j → CD i j (gcd i j)
 
-  istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → P k l) →
-          P i j
+  istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → A k l) →
+          A i j
   istep Ni Nj accH =
     [ gcd-x>y-CD Ni Nj accH
     , gcd-x≯y-CD Ni Nj accH

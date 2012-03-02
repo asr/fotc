@@ -19,56 +19,58 @@ open import FOTC.Data.Nat
 +-leftIdentity : ∀ n → zero + n ≡ n
 +-leftIdentity n = +-0x n
 
--- The predicate is not inside the where clause because the
--- translation of projection-like functions is not implemented.
-+-rightIdentity-P : D → Set
-+-rightIdentity-P i = i + zero ≡ i
-{-# ATP definition +-rightIdentity-P #-}
+-- TODO: Check it!
+--
+-- The propositional formula is not inside the where clause because
+-- the translation of projection-like functions is not implemented.
++-rightIdentity-A : D → Set
++-rightIdentity-A i = i + zero ≡ i
+{-# ATP definition +-rightIdentity-A #-}
 
 +-rightIdentity : ∀ {n} → N n → n + zero ≡ n
-+-rightIdentity Nn = N-ind +-rightIdentity-P P0 is Nn
++-rightIdentity Nn = N-ind +-rightIdentity-A A0 is Nn
   where
-  postulate P0 : +-rightIdentity-P zero
-  {-# ATP prove P0 #-}
+  postulate A0 : +-rightIdentity-A zero
+  {-# ATP prove A0 #-}
 
-  postulate is : ∀ {i} → +-rightIdentity-P i → +-rightIdentity-P (succ₁ i)
+  postulate is : ∀ {i} → +-rightIdentity-A i → +-rightIdentity-A (succ₁ i)
   {-# ATP prove is #-}
 
 +-N : ∀ {m n} → N m → N n → N (m + n)
-+-N {n = n} Nm Nn = N-ind P P0 is Nm
++-N {n = n} Nm Nn = N-ind A A0 is Nm
   where
-  P : D → Set
-  P i = N (i + n)
-  {-# ATP definition P #-}
+  A : D → Set
+  A i = N (i + n)
+  {-# ATP definition A #-}
 
-  postulate P0 : P zero
-  {-# ATP prove P0 #-}
+  postulate A0 : A zero
+  {-# ATP prove A0 #-}
 
-  postulate is : ∀ {i} → P i → P (succ₁ i)
+  postulate is : ∀ {i} → A i → A (succ₁ i)
   {-# ATP prove is #-}
 
 +-assoc : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
-+-assoc {n = n} {o} Nm Nn No = N-ind P P0 is Nm
++-assoc {n = n} {o} Nm Nn No = N-ind A A0 is Nm
   where
-  P : D → Set
-  P i = i + n + o ≡ i + (n + o)
-  {-# ATP definition P #-}
+  A : D → Set
+  A i = i + n + o ≡ i + (n + o)
+  {-# ATP definition A #-}
 
-  postulate P0 : P zero
-  {-# ATP prove P0 #-}
+  postulate A0 : A zero
+  {-# ATP prove A0 #-}
 
-  postulate is : ∀ {i} → P i → P (succ₁ i)
+  postulate is : ∀ {i} → A i → A (succ₁ i)
   {-# ATP prove is #-}
 
 -- A proof without use ATPs definitions.
 +-assoc' : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
-+-assoc' {n = n} {o} Nm Nn No = N-ind P P0 is Nm
++-assoc' {n = n} {o} Nm Nn No = N-ind A A0 is Nm
   where
-  P : D → Set
-  P i = i + n + o ≡ i + (n + o)
+  A : D → Set
+  A i = i + n + o ≡ i + (n + o)
 
-  postulate P0 : zero + n + o ≡ zero + (n + o)
-  {-# ATP prove P0 #-}
+  postulate A0 : zero + n + o ≡ zero + (n + o)
+  {-# ATP prove A0 #-}
 
   postulate
     is : ∀ {i} →
@@ -77,27 +79,27 @@ open import FOTC.Data.Nat
   {-# ATP prove is #-}
 
 x+Sy≡S[x+y] : ∀ {m} n → N m → m + succ₁ n ≡ succ₁ (m + n)
-x+Sy≡S[x+y] n Nm = N-ind P P0 is Nm
+x+Sy≡S[x+y] n Nm = N-ind A A0 is Nm
   where
-  P : D → Set
-  P i = i + succ₁ n ≡ succ₁ (i + n)
-  {-# ATP definition P #-}
+  A : D → Set
+  A i = i + succ₁ n ≡ succ₁ (i + n)
+  {-# ATP definition A #-}
 
-  postulate P0 : P zero
-  {-# ATP prove P0 #-}
+  postulate A0 : A zero
+  {-# ATP prove A0 #-}
 
-  postulate is : ∀ {i} → P i → P (succ₁ i)
+  postulate is : ∀ {i} → A i → A (succ₁ i)
   {-# ATP prove is #-}
 
 +-comm : ∀ {m n} → N m → N n → m + n ≡ n + m
-+-comm {n = n} Nm Nn = N-ind P P0 is Nm
++-comm {n = n} Nm Nn = N-ind A A0 is Nm
   where
-  P : D → Set
-  P i = i + n ≡ n + i
-  {-# ATP definition P #-}
+  A : D → Set
+  A i = i + n ≡ n + i
+  {-# ATP definition A #-}
 
-  postulate P0 : P zero
-  {-# ATP prove P0 +-rightIdentity #-}
+  postulate A0 : A zero
+  {-# ATP prove A0 +-rightIdentity #-}
 
-  postulate is : ∀ {i} → P i → P (succ₁ i)
+  postulate is : ∀ {i} → A i → A (succ₁ i)
   {-# ATP prove is x+Sy≡S[x+y] #-}

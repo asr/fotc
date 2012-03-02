@@ -14,14 +14,14 @@ open import PA.Inductive.PropertiesByInduction
 ------------------------------------------------------------------------------
 
 +-comm : ∀ m n → m + n ≡ n + m
-+-comm m n = PA-ind P P0 is m
++-comm m n = PA-ind A A0 is m
   where
-  P : M → Set
-  P i = i + n ≡ n + i
-  {-# ATP definition P #-}
+  A : M → Set
+  A i = i + n ≡ n + i
+  {-# ATP definition A #-}
 
-  P0 : P zero
-  P0 = sym (+-rightIdentity n)
+  A0 : A zero
+  A0 = sym (+-rightIdentity n)
 
-  postulate is : ∀ i → P i → P (succ i)
+  postulate is : ∀ i → A i → A (succ i)
   {-# ATP prove is x+Sy≡S[x+y] #-}

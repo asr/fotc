@@ -22,8 +22,8 @@ _⇒_ : Set → Set → Set
 A ⇒ B = A → B
 
 -- Universal quantification.
-⋀ : (P : D → Set) → Set
-⋀ P = (d : D) → P d
+⋀ : (A : D → Set) → Set
+⋀ A = (d : D) → A d
 
 -- In FOL it is assumed that the universe of discourse is nonempty.
 postulate D≠∅ : D

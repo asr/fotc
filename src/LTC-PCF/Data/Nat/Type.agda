@@ -20,9 +20,9 @@ data N : D → Set where
 {-# ATP axiom zN sN #-}
 
 -- Induction principle for N (elimination rule).
-N-ind : (P : D → Set) →
-       P zero →
-       (∀ {n} → P n → P (succ₁ n)) →
-       ∀ {n} → N n → P n
-N-ind P P0 h zN      = P0
-N-ind P P0 h (sN Nn) = h (N-ind P P0 h Nn)
+N-ind : (A : D → Set) →
+       A zero →
+       (∀ {n} → A n → A (succ₁ n)) →
+       ∀ {n} → N n → A n
+N-ind A A0 h zN      = A0
+N-ind A A0 h (sN Nn) = h (N-ind A A0 h Nn)

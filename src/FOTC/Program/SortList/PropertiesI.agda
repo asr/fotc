@@ -29,15 +29,15 @@ open import FOTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------
 -- Induction on lit.
-ind-lit : (P : D → Set) (f : D) → ∀ y₀ {xs} → ListN xs →
-          P y₀ →
-          (∀ {x} → N x → ∀ y → P y → P (f · x · y)) →
-          P (lit f xs y₀)
-ind-lit P f y₀ nilLN Py₀ ih = subst (λ t → P t) (sym (lit-[] f y₀)) Py₀
-ind-lit P f y₀ (consLN {i} {is} Ni LNis) Py₀ ih =
-  subst (λ t → P t)
+ind-lit : (A : D → Set) (f : D) → ∀ y₀ {xs} → ListN xs →
+          A y₀ →
+          (∀ {x} → N x → ∀ y → A y → A (f · x · y)) →
+          A (lit f xs y₀)
+ind-lit A f y₀ nilLN Ay₀ ih = subst (λ t → A t) (sym (lit-[] f y₀)) Ay₀
+ind-lit A f y₀ (consLN {i} {is} Ni LNis) Ay₀ ih =
+  subst (λ t → A t)
         (sym (lit-∷ f i is y₀))
-        (ih Ni (lit f is y₀) (ind-lit P f y₀ LNis Py₀ ih))
+        (ih Ni (lit f is y₀) (ind-lit A f y₀ LNis Ay₀ ih))
 
 ------------------------------------------------------------------------------
 -- Burstall's lemma: If t is ordered then totree(i, t) is ordered.

@@ -14,16 +14,14 @@ open import FOTC.Data.List
 
 ++-assoc : ∀ {xs ys zs} → List xs → List ys → List zs →
            (xs ++ ys) ++ zs ≡ xs ++ ys ++ zs
-++-assoc {xs} {ys} {zs} Lxs Lys Lzs = List-ind P p[] is Lxs
+++-assoc {xs} {ys} {zs} Lxs Lys Lzs = List-ind A A[] is Lxs
   where
-  P : D → Set
-  P ds = (ds ++ ys) ++ zs ≡ ds ++ ys ++ zs
-  {-# ATP definition P #-}
+  A : D → Set
+  A ds = (ds ++ ys) ++ zs ≡ ds ++ ys ++ zs
+  {-# ATP definition A #-}
 
-  postulate p[] : P []
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
-  {-# ATP prove p[] #-}
+  postulate A[] : A []
+  {-# ATP prove A[] #-}
 
-  postulate is : ∀ d {ds} → P ds → P (d ∷ ds)
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
+  postulate is : ∀ d {ds} → A ds → A (d ∷ ds)
   {-# ATP prove is #-}

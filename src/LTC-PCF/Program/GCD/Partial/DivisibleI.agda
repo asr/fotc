@@ -138,13 +138,13 @@ gcd-x≯y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ c Nc =
 ------------------------------------------------------------------------------
 -- The gcd is Divisible.
 gcd-Divisible : ∀ {m n} → N m → N n → x≠0≠y m n → Divisible m n (gcd m n)
-gcd-Divisible = wfInd-LT₂ P istep
+gcd-Divisible = wfInd-LT₂ A istep
   where
-  P : D → D → Set
-  P i j = x≠0≠y i j → Divisible i j (gcd i j)
+  A : D → D → Set
+  A i j = x≠0≠y i j → Divisible i j (gcd i j)
 
-  istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → P k l) →
-          P i j
+  istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → A k l) →
+          A i j
   istep Ni Nj accH =
     [ gcd-x>y-Divisible Ni Nj accH
     , gcd-x≯y-Divisible Ni Nj accH

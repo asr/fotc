@@ -5,11 +5,11 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with FOT on 24 February 2012.
+-- Tested with FOT on 02 March 2012.
 
 module AdditionComm where
 
-open import FOL.Relation.Binary.EqReasoning
+open import Common.FOL.Relation.Binary.EqReasoning
 
 open import PA.Axiomatic.Standard.Base
 
@@ -20,19 +20,19 @@ postulate
   x+Sy≡S[x+y]     : ∀ m n → m + succ n ≡ succ (m + n)
   succ-cong       : ∀ {m n} → m ≡ n → succ m ≡ succ n
 
-P : M → Set
-P m = ∀ n → m + n ≡ n + m
+A : M → Set
+A m = ∀ n → m + n ≡ n + m
 
-P0 : P zero
-P0 n = zero + n   ≡⟨ A₃ n ⟩
+A0 : A zero
+A0 n = zero + n   ≡⟨ A₃ n ⟩
        n          ≡⟨ sym (+-rightIdentity n) ⟩
        n + zero ∎
 
-is : ∀ m → P m → P (succ m)
+is : ∀ m → A m → A (succ m)
 is m ih n = succ m + n   ≡⟨ A₄ m n ⟩
             succ (m + n) ≡⟨ succ-cong (ih n) ⟩
             succ (n + m) ≡⟨ sym (x+Sy≡S[x+y] n m) ⟩
             n + succ m ∎
 
 +-comm : ∀ m n → m + n ≡ n + m
-+-comm = PA-ind P P0 is
++-comm = PA-ind A A0 is

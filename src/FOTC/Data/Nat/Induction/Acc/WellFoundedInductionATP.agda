@@ -45,10 +45,10 @@ module WF-LT where
           )
 
   -- Well-founded induction on the natural numbers.
-  wfInd-LT : (P : D → Set) →
-             (∀ {n} → N n → (∀ {m} → N m → LT m n → P m) → P n) →
-             ∀ {n} → N n → P n
-  wfInd-LT P = WellFoundedInduction wf-LT
+  wfInd-LT : (A : D → Set) →
+             (∀ {n} → N n → (∀ {m} → N m → LT m n → A m) → A n) →
+             ∀ {n} → N n → A n
+  wfInd-LT A = WellFoundedInduction wf-LT
 
 ------------------------------------------------------------------------------
 -- The relation LT is well-founded (a different proof).

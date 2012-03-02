@@ -2,7 +2,7 @@
 -- Totality of Boolean conjunction
 ------------------------------------------------------------------------------
 
--- Tested with FOT and agda2atp on 07 February 2012.
+-- Tested with FOT and agda2atp on 02 March 2012.
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
@@ -15,20 +15,20 @@ open import FOTC.Data.Bool.Type
 ------------------------------------------------------------------------------
 
 postulate
-  thm : (P : D → Set) → ∀ {b}  → (Bool b ∧ P true ∧ P false) → P b
+  thm : (A : D → Set) → ∀ {b} → (Bool b ∧ A true ∧ A false) → A b
 -- The ATPs couldn't prove this postulate.
 -- {-# ATP prove thm #-}
 
 postulate
-  thm₁ : {P : D → Set} → ∀ {x y z} → Bool x → P y → P z → P (if x then y else z)
+  thm₁ : {A : D → Set} → ∀ {x y z} → Bool x → A y → A z → A (if x then y else z)
 -- The ATPs couldn't prove this postulate.
 -- {-# ATP prove thm₁ #-}
 
 -- Typing of the if-then-else.
-if-T : (P : D → Set) → ∀ {x y z} → Bool x → P y → P z →
-       P (if x then y else z)
-if-T P {y = y} tB Py Pz = subst P (sym (if-true y)) Py
-if-T P {z = z} fB Py Pz = subst P (sym (if-false z)) Pz
+if-T : (A : D → Set) → ∀ {x y z} → Bool x → A y → A z →
+       A (if x then y else z)
+if-T A {y = y} tB Ay Az = subst A (sym (if-true y)) Ay
+if-T A {z = z} fB Ay Az = subst A (sym (if-false z)) Az
 
 _&&_ : D → D → D
 x && y = if x then y else false

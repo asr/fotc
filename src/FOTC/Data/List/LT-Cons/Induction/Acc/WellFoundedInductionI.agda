@@ -24,7 +24,7 @@ wf-LTC : WellFounded LTC
 wf-LTC Lxs = well-founded wf-LTL Lxs
 
 -- Well-founded induction on the relation LTC.
-wfInd-LTC : (P : D → Set) →
-            (∀ {xs} → List xs → (∀ {ys} → List ys → LTC ys xs → P ys) → P xs) →
-            ∀ {xs} → List xs → P xs
-wfInd-LTC P = WellFoundedInduction wf-LTC
+wfInd-LTC : (A : D → Set) →
+            (∀ {xs} → List xs → (∀ {ys} → List ys → LTC ys xs → A ys) → A xs) →
+            ∀ {xs} → List xs → A xs
+wfInd-LTC A = WellFoundedInduction wf-LTC

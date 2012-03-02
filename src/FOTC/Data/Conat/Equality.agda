@@ -25,15 +25,17 @@ postulate
 -- ≈NF : (D → D → Set) → D → D → Set
 -- ≈NF _R_ m n = ∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ m' ∧ n ≡ succ n'
 
--- The relation _≈N_ is a post-fixed point of the functional ≈NF.
+-- The relation _≈N_ is a post-fixed point of the functional ≈NF (d ≤ f d).
 postulate
   ≈N-gfp₁ : ∀ {m n} → m ≈N n →
             ∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
 {-# ATP axiom ≈N-gfp₁ #-}
 
--- N.B. This is a second-order axiom. In the automatic proofs, we
--- *must* use an instance. Therefore, we do not add this postulate as
--- an ATP axiom.
+-- ∀ e. e ≤ f e => e ≤ d
+--
+-- N.B. This is an axiom schema. Because in the automatic proofs we
+-- *must* use an instance, we do not add this postulate as an ATP
+-- axiom.
 postulate
   ≈N-gfp₂ : (_R_ : D → D → Set) →
             -- R is a post-fixed point of the functional ≈NF.

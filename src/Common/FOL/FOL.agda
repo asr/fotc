@@ -88,8 +88,8 @@ A ↔ B = (A → B) ∧ (B → A)
 
 ------------------------------------------------------------------------------
 -- The existential quantifier type on D.
-data ∃ (P : D → Set) : Set where
-  ∃-intro : ∀ {x} → P x → ∃ P
+data ∃ (A : D → Set) : Set where
+  ∃-intro : ∀ {x} → A x → ∃ A
 
 -- Sugar syntax for the existential quantifier.
 syntax ∃ (λ x → e) = ∃[ x ] e
@@ -99,5 +99,5 @@ syntax ∃ (λ x → e) = ∃[ x ] e
 -- NB. We do not use the usual type theory elimination with two
 -- projections because we are working in first-order logic where we do
 -- need extract a witness from an existence proof.
-∃-elim : {P : D → Set}{Q : Set} → ∃ P → (∀ {x} → P x → Q) → Q
-∃-elim (∃-intro Px) h = h Px
+∃-elim : {A : D → Set}{B : Set} → ∃ A → (∀ {x} → A x → B) → B
+∃-elim (∃-intro Ax) h = h Ax

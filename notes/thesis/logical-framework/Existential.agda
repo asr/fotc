@@ -8,16 +8,16 @@ module Existential where
 module LF where
   postulate
     D       : Set
-    ∃       : (P : D → Set) → Set
-    _,_     : {P : D → Set}(x : D) → P x → ∃ P
-    ∃-proj₁ : {P : D → Set} → ∃ P → D
-    ∃-proj₂ : {P : D → Set}(p : ∃ P) → P (∃-proj₁ p)
+    ∃       : (A : D → Set) → Set
+    _,_     : {A : D → Set}(x : D) → A x → ∃ A
+    ∃-proj₁ : {A : D → Set} → ∃ A → D
+    ∃-proj₂ : {A : D → Set}(a : ∃ A) → A (∃-proj₁ p)
 
   syntax ∃ (λ x → e) = ∃[ x ] e
 
-  postulate P : D → D → Set
+  postulate A : D → D → Set
 
-  ∃∀ : ∃[ x ](∀ y → P x y) → ∀ y → ∃[ x ] P x y
+  ∃∀ : ∃[ x ](∀ y → A x y) → ∀ y → ∃[ x ] A x y
   ∃∀ h y = ∃-proj₁ h , (∃-proj₂ h) y
 
 module Inductive where
@@ -25,10 +25,10 @@ module Inductive where
   open import Common.Universe
   open import Common.Data.Product
 
-  postulate P : D → D → Set
+  postulate A : D → D → Set
 
-  ∃∀-el : ∃[ x ](∀ y → P x y) → ∀ y → ∃[ x ] P x y
+  ∃∀-el : ∃[ x ](∀ y → A x y) → ∀ y → ∃[ x ] A x y
   ∃∀-el h y = ∃-proj₁ h , (∃-proj₂ h) y
 
-  ∃∀ : ∃[ x ](∀ y → P x y) → ∀ y → ∃[ x ] P x y
-  ∃∀ (x , Px) y = x , Px y
+  ∃∀ : ∃[ x ](∀ y → A x y) → ∀ y → ∃[ x ] A x y
+  ∃∀ (x , Ax) y = x , Ax y

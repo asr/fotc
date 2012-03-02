@@ -26,31 +26,31 @@ succ-cong = cong succ
 ------------------------------------------------------------------------------
 
 +-rightIdentity : ∀ n → n + zero ≡ n
-+-rightIdentity = PA-ind P P0 is
++-rightIdentity = PA-ind A A0 is
   where
-  P : M → Set
-  P i = i + zero ≡ i
+  A : M → Set
+  A i = i + zero ≡ i
 
-  P0 : P zero
-  P0 = A₃ zero
+  A0 : A zero
+  A0 = A₃ zero
 
-  is : ∀ i → P i → P (succ i)
+  is : ∀ i → A i → A (succ i)
   is i ih = succ i + zero   ≡⟨ A₄ i zero ⟩
             succ (i + zero) ≡⟨ succ-cong ih ⟩
             succ i ∎
 
 +-asocc : ∀ m n o → m + n + o ≡ m + (n + o)
-+-asocc m n o = PA-ind P P0 is m
++-asocc m n o = PA-ind A A0 is m
   where
-  P : M → Set
-  P i = i + n + o ≡ i + (n + o)
+  A : M → Set
+  A i = i + n + o ≡ i + (n + o)
 
-  P0 : P zero
-  P0 = zero + n + o  ≡⟨ +-leftCong (A₃ n) ⟩
+  A0 : A zero
+  A0 = zero + n + o  ≡⟨ +-leftCong (A₃ n) ⟩
        n + o         ≡⟨ sym (A₃ (n + o)) ⟩
        zero + (n + o) ∎
 
-  is : ∀ i → P i → P (succ i)
+  is : ∀ i → A i → A (succ i)
   is i ih = succ i + n + o     ≡⟨ +-leftCong (A₄ i n) ⟩
             succ (i + n) + o   ≡⟨ A₄ (i + n) o ⟩
             succ (i + n + o)   ≡⟨ succ-cong ih ⟩
@@ -58,34 +58,34 @@ succ-cong = cong succ
             succ i + (n + o) ∎
 
 x+Sy≡S[x+y] : ∀ m n → m + succ n ≡ succ (m + n)
-x+Sy≡S[x+y] m n = PA-ind P P0 is m
+x+Sy≡S[x+y] m n = PA-ind A A0 is m
   where
-  P : M → Set
-  P i = i + succ n ≡ succ (i + n)
+  A : M → Set
+  A i = i + succ n ≡ succ (i + n)
 
-  P0 : P zero
-  P0 = zero + succ n   ≡⟨ A₃ (succ n) ⟩
+  A0 : A zero
+  A0 = zero + succ n   ≡⟨ A₃ (succ n) ⟩
        succ n          ≡⟨ succ-cong (sym (A₃ n)) ⟩
        succ (zero + n) ∎
 
-  is : ∀ i → P i → P (succ i)
+  is : ∀ i → A i → A (succ i)
   is i ih = succ i + succ n     ≡⟨ A₄ i (succ n) ⟩
             succ (i + succ n)   ≡⟨ succ-cong ih ⟩
             succ (succ (i + n)) ≡⟨ succ-cong (sym (A₄ i n)) ⟩
             succ (succ i + n) ∎
 
 +-comm : ∀ m n → m + n ≡ n + m
-+-comm m n = PA-ind P P0 is m
++-comm m n = PA-ind A A0 is m
   where
-  P : M → Set
-  P i = i + n ≡ n + i
+  A : M → Set
+  A i = i + n ≡ n + i
 
-  P0 : P zero
-  P0 = zero + n   ≡⟨ A₃ n ⟩
+  A0 : A zero
+  A0 = zero + n   ≡⟨ A₃ n ⟩
        n          ≡⟨ sym (+-rightIdentity n) ⟩
        n + zero ∎
 
-  is : ∀ i → P i → P (succ i)
+  is : ∀ i → A i → A (succ i)
   is i ih = succ i + n   ≡⟨ A₄ i n ⟩
             succ (i + n) ≡⟨ succ-cong ih ⟩
             succ (n + i) ≡⟨ sym (x+Sy≡S[x+y] n i) ⟩

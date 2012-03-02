@@ -24,12 +24,12 @@ open import LTC-PCF.Data.Nat.Type
 
 module WFInd where
 
-  wfInd-LT : (P : D → Set) →
-             (∀ {n} → N n → (∀ {m} → N m → LT m n → P m) → P n) →
-             ∀ {n} → N n → P n
-  wfInd-LT P accH Nn = accH Nn (helper Nn)
+  wfInd-LT : (A : D → Set) →
+             (∀ {n} → N n → (∀ {m} → N m → LT m n → A m) → A n) →
+             ∀ {n} → N n → A n
+  wfInd-LT A accH Nn = accH Nn (helper Nn)
     where
-    helper : ∀ {n m} → N n → N m → LT m n → P m
+    helper : ∀ {n m} → N n → N m → LT m n → A m
     helper zN     Nm m<0  = ⊥-elim $ x<0→⊥ Nm m<0
     helper (sN _) zN 0<Sn = accH zN (λ Nm' m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
 
@@ -56,12 +56,12 @@ module WFInd where
 
 module WFInd₁ where
 
-  wfInd-LT : (P : D → Set) →
-             (∀ {n} → N n → (∀ {m} → N m → LT m n → P m) → P n) →
-             ∀ {n} → N n → P n
-  wfInd-LT P accH Nn = accH Nn (helper Nn)
+  wfInd-LT : (A : D → Set) →
+             (∀ {n} → N n → (∀ {m} → N m → LT m n → A m) → A n) →
+             ∀ {n} → N n → A n
+  wfInd-LT A accH Nn = accH Nn (helper Nn)
     where
-    helper : ∀ {n m} → N n → N m → LT m n → P m
+    helper : ∀ {n m} → N n → N m → LT m n → A m
     helper zN     Nm m<0  = ⊥-elim $ x<0→⊥ Nm m<0
     helper (sN _) zN 0<Sn = accH zN (λ Nm' m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
 

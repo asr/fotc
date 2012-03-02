@@ -21,11 +21,11 @@ open import FOTC.Data.Nat.Type
 ------------------------------------------------------------------------------
 
 wfInd-LT₂ :
-  (P : D → D → Set) →
+  (A : D → D → Set) →
   (∀ {m₁ n₁} → N m₁ → N n₁ →
-     (∀ {m₂ n₂} → N m₂ → N n₂ → LT₂ m₂ n₂ m₁ n₁ → P m₂ n₂) → P m₁ n₁) →
-  ∀ {m n} → N m → N n → P m n
-wfInd-LT₂ P accH Nm Nn = accH Nm Nn (helper₂ Nm Nn)
+     (∀ {m₂ n₂} → N m₂ → N n₂ → LT₂ m₂ n₂ m₁ n₁ → A m₂ n₂) → A m₁ n₁) →
+  ∀ {m n} → N m → N n → A m n
+wfInd-LT₂ A accH Nm Nn = accH Nm Nn (helper₂ Nm Nn)
   where
   helper₁ : ∀ {m n o} → N m → N n → N o → LT m o → LT o (succ₁ n) → LT m n
   helper₁ {m} {n} {o} Nm Nn No m<o o<Sn =
@@ -34,7 +34,7 @@ wfInd-LT₂ P accH Nm Nn = accH Nm Nn (helper₂ Nm Nn)
                             (Sx≤Sy→x≤y {o} {n} (x<y→Sx≤y No (sN Nn) o<Sn)))
 
   helper₂ : ∀ {m₁ n₁ m₂ n₂} → N m₁ → N n₁ → N m₂ → N n₂ →
-            LT₂ m₂ n₂ m₁ n₁ → P m₂ n₂
+            LT₂ m₂ n₂ m₁ n₁ → A m₂ n₂
 
   helper₂ Nm₁ Nn₂ zN zN 00<00 =
     accH zN zN (λ Nm' Nn' m'n'<00 → ⊥-elim $ xy<00→⊥ Nm' Nn' m'n'<00)

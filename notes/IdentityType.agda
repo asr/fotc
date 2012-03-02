@@ -2,7 +2,7 @@
 -- The identity type
 ------------------------------------------------------------------------------
 
--- Tested with the development version of Agda on 07 February 2012.
+-- Tested with the development version of Agda on 02 March 2012.
 
 -- We can prove the properties of equality used in the formalization
 -- of FOTC, from refl and J.
@@ -33,15 +33,15 @@ module TypeTheory where
   trans : ∀ {x y z} → x ≡ y → y ≡ z → x ≡ z
   trans {x} {y} {z} = J (λ x' y' _ → y' ≡ z → x' ≡ z) (λ x' pr → pr) x y
 
-  subst : (P : D → Set) → ∀ {x y} → x ≡ y → P x → P y
-  subst P {x} {y} x≡y = J (λ x' y' _ → P x' → P y') (λ x' pr → pr) x y x≡y
+  subst : (A : D → Set) → ∀ {x y} → x ≡ y → A x → A y
+  subst A {x} {y} x≡y = J (λ x' y' _ → A x' → A y') (λ x' pr → pr) x y x≡y
 
 module FOL where
 
   -- Using the usual elimination schema for predicate logic.
 
   postulate
-    J : (P : D → Set) → ∀ {x y} → x ≡ y → P x → P y
+    J : (A : D → Set) → ∀ {x y} → x ≡ y → A x → A y
 
   sym : ∀ {x y} → x ≡ y → y ≡ x
   sym {x} {y} x≡y = J (λ y' → y' ≡ x) x≡y refl
@@ -49,7 +49,7 @@ module FOL where
   trans : ∀ {x y z} → x ≡ y → y ≡ z → x ≡ z
   trans {x} {y} {z} x≡y = J (λ y' → y' ≡ z → x ≡ z) x≡y (λ pr → pr)
 
-  subst : (P : D → Set) → ∀ {x y} → x ≡ y → P x → P y
+  subst : (A : D → Set) → ∀ {x y} → x ≡ y → A x → A y
   subst = J
 
 module ML where
@@ -67,5 +67,5 @@ module ML where
   trans : ∀ {x y z} → x ≡ y → y ≡ z → x ≡ z
   trans {x} {y} {z} = J (λ x' y' → y' ≡ z → x' ≡ z) (λ x' pr → pr) x y
 
-  subst : (P : D → Set) → ∀ {x y} → x ≡ y → P x → P y
-  subst P {x} {y} x≡y = J (λ x' y' → P x' → P y') (λ x' pr → pr) x y x≡y
+  subst : (A : D → Set) → ∀ {x y} → x ≡ y → A x → A y
+  subst A {x} {y} x≡y = J (λ x' y' → A x' → A y') (λ x' pr → pr) x y x≡y

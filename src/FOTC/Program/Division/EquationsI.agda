@@ -66,7 +66,7 @@ private
 
     We prove (1) using
 
-    subst : ∀ {x y} (P : D → Set) → x ≡ y → P x → P y
+    subst : ∀ {x y} (A : D → Set) → x ≡ y → A x → A y
 
     where
       ∸ P is given by \m → ... m ... ≡ ... n ...,

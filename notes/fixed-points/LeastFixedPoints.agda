@@ -1,4 +1,7 @@
--- Tested with the development version of Agda on 24 February 2012.
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
+-- Tested with FOT on 02 March 2012.
 
 module LeastFixedPoints where
 
@@ -54,12 +57,12 @@ postulate
 
   -- Peter: It corresponds to the elimination rule of an inductively
   -- defined predicate.
-  N-lfp₂    : (P : D → Set) → ∀ {n} →
-              (n ≡ zero ∨ (∃ λ m → n ≡ succ₁ m ∧ P m) → P n) →
-              N n → P n
-  -- N-lfp₂ : (P : D → Set) → ∀ {n} →  -- Higher-order version
-  --          (NatF P n → P n) →
-  --          N n → P n
+  N-lfp₂    : (A : D → Set) → ∀ {n} →
+              (n ≡ zero ∨ (∃ λ m → n ≡ succ₁ m ∧ A m) → A n) →
+              N n → A n
+  -- N-lfp₂ : (A : D → Set) → ∀ {n} →  -- Higher-order version
+  --          (NatF A n → A n) →
+  --          N n → A n
 
 ------------------------------------------------------------------------------
 -- The data constructors of N.
@@ -67,7 +70,7 @@ zN : N zero
 zN = N-lfp₁ zero (inj₁ refl)
 
 sN : ∀ {n} → N n → N (succ₁ n)
-sN {n} Nn = N-lfp₁ (succ₁ n) (inj₂ (n , (refl , Nn)))
+sN {n} Nn = N-lfp₁ (succ₁ n) (inj₂ (∃-intro (refl , Nn)))
 
 ------------------------------------------------------------------------------
 -- Because N is the least pre-fixed point of NatF (i.e. N-lfp₁ and
@@ -75,52 +78,52 @@ sN {n} Nn = N-lfp₁ (succ₁ n) (inj₂ (n , (refl , Nn)))
 
 -- N is a post-fixed point of NatF.
 N-lfp₃ : ∀ {n} → N n → n ≡ zero ∨ (∃ λ m → n ≡ succ₁ m ∧ N m)
-N-lfp₃ {n} Nn = N-lfp₂ P prf Nn
+N-lfp₃ {n} Nn = N-lfp₂ A prf Nn
   where
-  P : D → Set
-  P x = x ≡ zero ∨ ∃ λ m → x ≡ succ₁ m ∧ N m
+  A : D → Set
+  A x = x ≡ zero ∨ ∃ λ m → x ≡ succ₁ m ∧ N m
 
-  prf : n ≡ zero ∨ ∃ (λ m → n ≡ succ₁ m ∧ P m) → P n
+  prf : n ≡ zero ∨ ∃ (λ m → n ≡ succ₁ m ∧ A m) → A n
   prf h = [ inj₁ , (λ h₁ → inj₂ (prf₁ h₁)) ] h
     where
     prf₁ : ∃ (λ m → n ≡ succ₁ m ∧ (m ≡ zero ∨ ∃ (λ m' → m ≡ succ₁ m' ∧ N m'))) →
            ∃ λ m → n ≡ succ₁ m ∧ N m
-    prf₁ (m , n=Sm , h₂) = m , n=Sm , prf₂ h₂
+    prf₁ (∃-intro {m} (n=Sm , h₂)) = ∃-intro (n=Sm , prf₂ h₂)
       where
       prf₂ : m ≡ zero ∨ ∃ (λ m' → m ≡ succ₁ m' ∧ N m') → N m
       prf₂ h₂ = [ (λ h₃ → subst N (sym h₃) zN) , prf₃ ] h₂
         where
         prf₃ : ∃ (λ m' → m ≡ succ₁ m' ∧ N m') → N m
-        prf₃ (m' , m≡Sm' , Nm') = subst N (sym m≡Sm') (sN Nm')
+        prf₃ (∃-intro (m≡Sm' , Nm')) = subst N (sym m≡Sm') (sN Nm')
 
 ------------------------------------------------------------------------------
 -- The induction principle for N *without* the hypothesis N n in the
 -- induction step.
-indN₁ : (P : D → Set) →
-       P zero →
-       (∀ {n} → P n → P (succ₁ n)) →
-       ∀ {n} → N n → P n
-indN₁ P P0 is {n} Nn = N-lfp₂ P [ prf₁ , prf₂ ] Nn
+indN₁ : (A : D → Set) →
+       A zero →
+       (∀ {n} → A n → A (succ₁ n)) →
+       ∀ {n} → N n → A n
+indN₁ A A0 is {n} Nn = N-lfp₂ A [ prf₁ , prf₂ ] Nn
   where
-  prf₁ : n ≡ zero → P n
-  prf₁ n≡0 = subst P (sym n≡0) P0
+  prf₁ : n ≡ zero → A n
+  prf₁ n≡0 = subst A (sym n≡0) A0
 
-  prf₂ : ∃ (λ m → n ≡ succ₁ m ∧ P m) → P n
-  prf₂ (m , n≡Sm , Pm) = subst P (sym n≡Sm) (is Pm)
+  prf₂ : ∃ (λ m → n ≡ succ₁ m ∧ A m) → A n
+  prf₂ (∃-intro (n≡Sm , Am)) = subst A (sym n≡Sm) (is Am)
 
 -- The induction principle for N *with* the hypothesis N n in the
 -- induction step.
-indN₂ : (P : D → Set) →
-       P zero →
-       (∀ {n} → N n → P n → P (succ₁ n)) →
-       ∀ {n} → N n → P n
-indN₂ P P0 is {n} Nn = N-lfp₂ P [ prf₁ , prf₂ ] Nn
+indN₂ : (A : D → Set) →
+       A zero →
+       (∀ {n} → N n → A n → A (succ₁ n)) →
+       ∀ {n} → N n → A n
+indN₂ A A0 is {n} Nn = N-lfp₂ A [ prf₁ , prf₂ ] Nn
   where
-  prf₁ : n ≡ zero → P n
-  prf₁ n≡0 = subst P (sym n≡0) P0
+  prf₁ : n ≡ zero → A n
+  prf₁ n≡0 = subst A (sym n≡0) A0
 
-  prf₂ : ∃ (λ m → n ≡ succ₁ m ∧ P m) → P n
-  prf₂ (m , n≡Sm , Pm) = subst P (sym n≡Sm) (is helper Pm)
+  prf₂ : ∃ (λ m → n ≡ succ₁ m ∧ A m) → A n
+  prf₂ (∃-intro {m} (n≡Sm , Am)) = subst A (sym n≡Sm) (is helper Am)
     where
     helper : N m
     helper = [ prf₃ , prf₄ ] (N-lfp₃ Nn)
@@ -129,7 +132,7 @@ indN₂ P P0 is {n} Nn = N-lfp₂ P [ prf₁ , prf₂ ] Nn
       prf₃ n≡0 = ⊥-elim (0≠S (trans (sym n≡0) n≡Sm))
 
       prf₄ : ∃ (λ m' → n ≡ succ₁ m' ∧ N m') → N m
-      prf₄ (m' , n≡Sm' , Nm') =
+      prf₄ (∃-intro (n≡Sm' , Nm')) =
         subst N (succInjective (trans (sym n≡Sm') n≡Sm)) Nm'
 
 ------------------------------------------------------------------------------
@@ -143,23 +146,23 @@ postulate
 +-leftIdentity n = +-0x n
 
 +-N : ∀ {m n} → N m → N n → N (m + n)
-+-N {m} {n} Nm Nn = N-lfp₂ P prf Nm
-
++-N {m} {n} Nm Nn = N-lfp₂ A prf Nm
   where
-  P : D → Set
-  P i = N (i + n)
+  A : D → Set
+  A i = N (i + n)
 
-  prf : m ≡ zero ∨ ∃ (λ m' → m ≡ succ₁ m' ∧ P m') → P m
+  prf : m ≡ zero ∨ ∃ (λ m' → m ≡ succ₁ m' ∧ A m') → A m
   prf h = [ prf₁ , prf₂ ] h
     where
-    P0 : P zero
-    P0 = subst N (sym (+-leftIdentity n)) Nn
+    A0 : A zero
+    A0 = subst N (sym (+-leftIdentity n)) Nn
 
-    prf₁ : m ≡ zero → P m
-    prf₁ h₁ = subst N (cong (flip _+_ n) (sym h₁)) P0
+    prf₁ : m ≡ zero → A m
+    prf₁ h₁ = subst N (cong (flip _+_ n) (sym h₁)) A0
 
-    is : ∀ {i} → P i → P (succ₁ i)
+    is : ∀ {i} → A i → A (succ₁ i)
     is {i} ih = subst N (sym (+-Sx i n)) (sN ih)
 
-    prf₂ : ∃ (λ m' → m ≡ succ₁ m' ∧ P m') → P m
-    prf₂ (m' , m≡Sm' , Pm') = subst N (cong (flip _+_ n) (sym m≡Sm')) (is Pm')
+    prf₂ : ∃ (λ m' → m ≡ succ₁ m' ∧ A m') → A m
+    prf₂ (∃-intro (m≡Sm' , Am')) =
+      subst N (cong (flip _+_ n) (sym m≡Sm')) (is Am')

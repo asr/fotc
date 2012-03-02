@@ -37,19 +37,19 @@ open import FOTC.Program.McCarthy91.Properties.AuxiliaryATP
 ------------------------------------------------------------------------------
 
 mc91-N-ineq : ∀ {n} → N n → N (mc91 n) ∧ LT n (mc91 n + eleven)
-mc91-N-ineq = wfInd-MCR P mc91-N-ineq-aux
+mc91-N-ineq = wfInd-MCR A mc91-N-ineq-aux
   where
-  P : D → Set
-  P d = N (mc91 d) ∧ LT d (mc91 d + eleven)
+  A : D → Set
+  A d = N (mc91 d) ∧ LT d (mc91 d + eleven)
 
-  mc91-N-ineq-aux : ∀ {m} → N m → (∀ {k} → N k → MCR k m → P k) → P m
+  mc91-N-ineq-aux : ∀ {m} → N m → (∀ {k} → N k → MCR k m → A k) → A m
   mc91-N-ineq-aux {m} Nm f with x>y∨x≯y Nm 100-N
   ... | inj₁ m>100 = ( Nmc91>100 Nm m>100 , x<mc91x+11>100 Nm m>100 )
   ... | inj₂ m≯100 =
     let Nm+11 : N (m + eleven)
         Nm+11 = x+11-N Nm
 
-        ih₁ : P (m + eleven)
+        ih₁ : A (m + eleven)
         ih₁ = f Nm+11 (LT2MCR (x+11-N Nm) Nm m≯100 (x<x+11 Nm))
 
         Nih₁ : N (mc91 (m + eleven))
@@ -61,7 +61,7 @@ mc91-N-ineq = wfInd-MCR P mc91-N-ineq-aux
         m<mc91m+11 : LT m (mc91 (m + eleven))
         m<mc91m+11 = x+k<y+k→x<y Nm Nih₁ 11-N LTih₁
 
-        ih₁ : P (mc91 (m + eleven))
+        ih₁ : A (mc91 (m + eleven))
         ih₁ = f Nih₁ (LT2MCR Nih₁ Nm m≯100 m<mc91m+11)
 
         Nmc91≤100 : N (mc91 m)
@@ -74,13 +74,13 @@ mc91-N-ineq = wfInd-MCR P mc91-N-ineq-aux
 
 mc91-res : ∀ {n} → N n → (GT n one-hundred ∧ mc91 n ≡ n ∸ ten) ∨
                          (NGT n one-hundred ∧ mc91 n ≡ ninety-one)
-mc91-res = wfInd-MCR P mc91-res-aux
+mc91-res = wfInd-MCR A mc91-res-aux
   where
-  P : D → Set
-  P d = (GT d one-hundred ∧ mc91 d ≡ d ∸ ten) ∨
+  A : D → Set
+  A d = (GT d one-hundred ∧ mc91 d ≡ d ∸ ten) ∨
         (NGT d one-hundred ∧ mc91 d ≡ ninety-one)
 
-  mc91-res-aux : ∀ {m} → N m → (∀ {k} → N k → MCR k m → P k) → P m
+  mc91-res-aux : ∀ {m} → N m → (∀ {k} → N k → MCR k m → A k) → A m
   mc91-res-aux {m} Nm f with x>y∨x≯y Nm 100-N
   ... | inj₁ m>100 = inj₁ ( m>100 , mc91-eq-aux m m>100 )
   ... | inj₂ m≯100 with x≯Sy→x≯y∨x≡Sy Nm 99-N m≯100

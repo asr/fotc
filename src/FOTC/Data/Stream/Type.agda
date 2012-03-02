@@ -10,7 +10,6 @@ module FOTC.Data.Stream.Type where
 open import FOTC.Base
 
 ------------------------------------------------------------------------------
-
 -- Functional for the FOTC Stream type.
 -- StreamF : (D → Set) → D → Set
 -- StreamF P ds = ∃[ e ] ∃[ es ] P es ∧ ds ≡ e ∷ es
@@ -21,16 +20,17 @@ open import FOTC.Base
 postulate
   Stream : D → Set
 
--- Stream is post-fixed point of StreamF (d ≤ f d)postulate
+postulate
+-- Stream is post-fixed point of StreamF (d ≤ f d)
   Stream-gfp₁ : ∀ {xs} → Stream xs →
                 ∃[ x' ] ∃[ xs' ] Stream xs' ∧ xs ≡ x' ∷ xs'
 {-# ATP axiom Stream-gfp₁ #-}
 
 -- ∀ e. e ≤ f e => e ≤ d
 --
--- N.B. This is a second-order axiom. In the automatic proofs, we
--- *must* use an instance. Therefore, we do not add this postulate as
--- an ATP axiom.
+-- N.B. This is an axiom schema. Because in the automatic proofs we
+-- *must* use an instance, we do not add this postulate as an ATP
+-- axiom.
 postulate
   Stream-gfp₂ : (P : D → Set) →
                 -- P is post-fixed point of StreamF.

@@ -63,4 +63,4 @@ postulate
 {-# ATP axiom S₁ S₂ S₃ S₄ S₅ S₆ S₇ S₈ #-}
 
 -- S₉ is an axiom schema, therefore we do not translate it to TPTP.
-postulate S₉ : (P : M → Set) → P zero → (∀ n → P n → P (succ n)) → ∀ n → P n
+postulate S₉ : (A : M → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n

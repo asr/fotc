@@ -18,47 +18,47 @@ open import FOTC.Base
 ------------------------------------------------------------------------------
 -- The accessibility predicate: x is accessible if everything which is
 -- smaller than x is also accessible (inductively).
-data Acc (T : D → Set)(_<_ : D → D → Set)(x : D) : Set where
- acc : (∀ {y} → T y → y < x → Acc T _<_ y) → Acc T _<_ x
+data Acc (P : D → Set)(_<_ : D → D → Set)(x : D) : Set where
+ acc : (∀ {y} → P y → y < x → Acc P _<_ y) → Acc P _<_ x
 
-accFold : {T P : D → Set}(_<_ : D → D → Set) →
-          (∀ {x} → T x → (∀ {y} → T y → y < x → P y) → P x) →
-          ∀ {x} → T x → Acc T _<_ x → P x
-accFold _<_ f Tx (acc h) = f Tx (λ Ty y<x → accFold _<_ f Ty (h Ty y<x))
+accFold : {P Q : D → Set}(_<_ : D → D → Set) →
+          (∀ {x} → Q x → (∀ {y} → Q y → y < x → P y) → P x) →
+          ∀ {x} → Q x → Acc Q _<_ x → P x
+accFold _<_ f Qx (acc h) = f Qx (λ Qy y<x → accFold _<_ f Qy (h Qy y<x))
 
 -- The accessibility predicate encodes what it means to be
 -- well-founded; if all elements are accessible, then _<_ is
 -- well-founded.
-WellFounded : {T : D → Set} → (D → D → Set) → Set
-WellFounded {T} _<_ = ∀ {x} → T x → Acc T _<_ x
+WellFounded : {P : D → Set} → (D → D → Set) → Set
+WellFounded {P} _<_ = ∀ {x} → P x → Acc P _<_ x
 
-WellFoundedInduction : {T P : D → Set}{_<_ : D → D → Set} →
+WellFoundedInduction : {P Q : D → Set}{_<_ : D → D → Set} →
                        WellFounded _<_ →
-                       (∀ {x} → T x → (∀ {y} → T y → y < x → P y) → P x) →
-                       ∀ {x} → T x → P x
-WellFoundedInduction {_<_ = _<_} wf f Tx = accFold _<_ f Tx (wf Tx)
+                       (∀ {x} → Q x → (∀ {y} → Q y → y < x → P y) → P x) →
+                       ∀ {x} → Q x → P x
+WellFoundedInduction {_<_ = _<_} wf f Qx = accFold _<_ f Qx (wf Qx)
 
-module Subrelation {T : D → Set}
+module Subrelation {P : D → Set}
                    {_<₁_ _<₂_ : D → D → Set}
-                   (<₁⇒<₂ : ∀ {x y} → T x → x <₁ y → x <₂ y)
+                   (<₁⇒<₂ : ∀ {x y} → P x → x <₁ y → x <₂ y)
                    where
 
-  accessible : Acc T _<₂_ ⊆ Acc T _<₁_
-  accessible (acc h) = acc (λ Ty y<₁x → accessible (h Ty (<₁⇒<₂ Ty y<₁x)))
+  accessible : Acc P _<₂_ ⊆ Acc P _<₁_
+  accessible (acc h) = acc (λ Py y<₁x → accessible (h Py (<₁⇒<₂ Py y<₁x)))
 
   well-founded : WellFounded _<₂_ → WellFounded _<₁_
-  well-founded wf = λ Tx → accessible (wf Tx)
+  well-founded wf = λ Px → accessible (wf Px)
 
-module InverseImage {T₁ T₂ : D → Set}
+module InverseImage {P₁ P₂ : D → Set}
                     {_<_ : D → D → Set}
                     {f : D → D}
-                    (f-T₂ : ∀ {x} → T₁ x → T₂ (f x))
+                    (f-P₂ : ∀ {x} → P₁ x → P₂ (f x))
                     where
 
-  accessible : ∀ {x} → T₁ x →
-               Acc T₂ _<_ (f x) → Acc T₁ (λ x₁ y₁ → f x₁ < f y₁) x
-  accessible T₁x (acc h) =
-    acc (λ {y} T₁y fy<fx → accessible T₁y (h (f-T₂ T₁y) fy<fx))
+  accessible : ∀ {x} → P₁ x →
+               Acc P₂ _<_ (f x) → Acc P₁ (λ x₁ y₁ → f x₁ < f y₁) x
+  accessible P₁x (acc h) =
+    acc (λ {y} P₁y fy<fx → accessible P₁y (h (f-P₂ P₁y) fy<fx))
 
   wellFounded : WellFounded _<_ → WellFounded (λ x y → f x < f y)
-  wellFounded wf = λ Tx → accessible Tx (wf (f-T₂ Tx))
+  wellFounded wf = λ Px → accessible Px (wf (f-P₂ Px))

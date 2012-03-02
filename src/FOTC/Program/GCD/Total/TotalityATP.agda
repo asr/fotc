@@ -96,13 +96,13 @@ gcd-x≯y-N (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn = gcd-S≯S-N Nm Nn ih Sm≯Sn
 ------------------------------------------------------------------------------
 -- gcd m n is total.
 gcd-N : ∀ {m n} → N m → N n → N (gcd m n)
-gcd-N = wfInd-LT₂ P istep
+gcd-N = wfInd-LT₂ A istep
   where
-  P : D → D → Set
-  P i j = N (gcd i j)
+  A : D → D → Set
+  A i j = N (gcd i j)
 
-  istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → P k l) →
-          P i j
+  istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → A k l) →
+          A i j
   istep Ni Nj accH =
     [ gcd-x>y-N Ni Nj accH
     , gcd-x≯y-N Ni Nj accH

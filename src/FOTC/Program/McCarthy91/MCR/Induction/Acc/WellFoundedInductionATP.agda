@@ -33,7 +33,7 @@ wf-MCR : WellFounded MCR
 wf-MCR Nn = wellFounded wf-LT Nn
 
 -- Well-founded induction on the relation MCR.
-wfInd-MCR : (P : D → Set) →
-            (∀ {n} → N n → (∀ {m} → N m → MCR m n → P m) → P n) →
-            ∀ {n} → N n → P n
-wfInd-MCR P = WellFoundedInduction wf-MCR
+wfInd-MCR : (A : D → Set) →
+            (∀ {n} → N n → (∀ {m} → N m → MCR m n → A m) → A n) →
+            ∀ {n} → N n → A n
+wfInd-MCR A = WellFoundedInduction wf-MCR

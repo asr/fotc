@@ -16,22 +16,22 @@ open import FOTC.Program.Mirror.Type
 ------------------------------------------------------------------------------
 
 mirror-Tree : ∀ {t} → Tree t → Tree (mirror · t)
-mirror-Tree Tt = mutualIndTree {P} {Q} ihP Q[] ihQ Tt
+mirror-Tree Tt = mutualIndTree {A} {B} ihA B[] ihB Tt
   where
-  P : D → Set
-  P t = Tree (mirror · t)
+  A : D → Set
+  A t = Tree (mirror · t)
 
-  Q : D → Set
-  Q ts = Forest (map mirror ts)
+  B : D → Set
+  B ts = Forest (map mirror ts)
 
-  ihP : ∀ d {ts} → Forest ts → Q ts → P (node d ts)
-  ihP d {ts} Fts Qts = subst Tree
+  ihA : ∀ d {ts} → Forest ts → B ts → A (node d ts)
+  ihA d {ts} Fts Bts = subst Tree
                              (sym (mirror-eq d ts))
-                             (treeT d (reverse-Forest Qts))
+                             (treeT d (reverse-Forest Bts))
 
-  Q[] : Forest (map mirror [])
-  Q[] = subst Forest (sym (map-[] mirror)) nilF
+  B[] : Forest (map mirror [])
+  B[] = subst Forest (sym (map-[] mirror)) nilF
 
-  ihQ : ∀ {t ts} → Tree t → P t → Forest ts → Q ts → Q (t ∷ ts)
-  ihQ {t} {ts} Tt Pt Fts Qts =
-    subst Forest (sym (map-∷ mirror t ts)) (consF Pt Qts)
+  ihB : ∀ {t ts} → Tree t → A t → Forest ts → B ts → B (t ∷ ts)
+  ihB {t} {ts} Tt At Fts Bts =
+    subst Forest (sym (map-∷ mirror t ts)) (consF At Bts)

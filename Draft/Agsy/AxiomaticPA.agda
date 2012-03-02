@@ -2,17 +2,20 @@
 -- Axiomatic Peano arithmetic using Agsy
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
+-- Tested with FOT on 02 March 2012.
+
 module AxiomaticPA where
 
-open import Common.Relation.Nullary
+open import Common.FOL.FOL public renaming ( D to ℕ )
 
 infixl 10 _*_
-infix  7  _≣_
+infix  7  _≐_
 infixl 9  _+_
 
 ------------------------------------------------------------------------------
--- PA universe
-open import Common.Universe public renaming ( D to ℕ )
 
 -- Non-logical constants
 postulate
@@ -20,7 +23,7 @@ postulate
   succ : ℕ → ℕ
   _+_  : ℕ → ℕ → ℕ
   _*_  : ℕ → ℕ → ℕ
-  _≣_  : ℕ → ℕ → Set
+  _≐_  : ℕ → ℕ → Set
 
 -- Proper axioms
 -- (From Elliott Mendelson. Introduction to mathematical
@@ -39,26 +42,26 @@ postulate
 -- S₉. P(0) → (∀n.P(n) → P(succ n)) → ∀n.P(n), for any wf P(n) of PA.
 
 postulate
-  S₁ : {m n o : ℕ} → m ≣ n → m ≣ o → n ≣ o
-  S₂ : ∀ {m n} → m ≣ n → succ m ≣ succ n
-  S₃ : ∀ {n} → ¬ (zero ≣ succ n)
-  S₄ : ∀ {m n} → succ m ≣ succ n → m ≣ n
-  S₅ : ∀ n →   zero   + n ≣ n
-  S₆ : ∀ m n → succ m + n ≣ succ (m + n)
-  S₇ : ∀ n →   zero   * n ≣ zero
-  S₈ : ∀ m n → succ m * n ≣ n + m * n
-  S₉ : (P : ℕ → Set) → P zero → (∀ n → P n → P (succ n)) → ∀ n → P n
+  S₁ : {m n o : ℕ} → m ≐ n → m ≐ o → n ≐ o
+  S₂ : ∀ {m n} → m ≐ n → succ m ≐ succ n
+  S₃ : ∀ {n} → ¬ (zero ≐ succ n)
+  S₄ : ∀ {m n} → succ m ≐ succ n → m ≐ n
+  S₅ : ∀ n →   zero   + n ≐ n
+  S₆ : ∀ m n → succ m + n ≐ succ (m + n)
+  S₇ : ∀ n →   zero   * n ≐ zero
+  S₈ : ∀ m n → succ m * n ≐ n + m * n
+  S₉ : (A : ℕ → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
 
 -- Properties
 
-refl : ∀ {n} → n ≣ n
+refl : ∀ {n} → n ≐ n
 refl {n} = S₁ (S₅ n) (S₅ n) -- Via Agsy {-m}
 
-sym : ∀ {m n} → m ≣ n → n ≣ m
-sym m≣n = S₁ m≣n refl  -- Via Agsy {-m}
+sym : ∀ {m n} → m ≐ n → n ≐ m
+sym h = S₁ h refl  -- Via Agsy {-m}
 
-trans : ∀ {m n o} → m ≣ n → n ≣ o → m ≣ o
-trans m≣n n≣o = S₁ (sym m≣n) n≣o  -- Via Agsy {-m}
+trans : ∀ {m n o} → m ≐ n → n ≐ o → m ≐ o
+trans h₁ h₂ = S₁ (sym h₁) h₂  -- Via Agsy {-m}
 
-+-rightIdentity : ∀ n → n + zero ≣ n
++-rightIdentity : ∀ n → n + zero ≐ n
 +-rightIdentity n = {!-t 20 -m!}  -- Agsy fails

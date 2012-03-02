@@ -15,37 +15,37 @@ open import PA.Inductive.Base
 +-leftIdentity n = refl
 
 +-rightIdentity : ∀ n → n + zero ≡ n
-+-rightIdentity n = PA-ind P P0 is n
++-rightIdentity n = PA-ind A A0 is n
   where
-  P : M → Set
-  P i = i + zero ≡ i
+  A : M → Set
+  A i = i + zero ≡ i
 
-  P0 : P zero
-  P0 = refl
+  A0 : A zero
+  A0 = refl
 
-  is : ∀ i → P i → P (succ i)
+  is : ∀ i → A i → A (succ i)
   is i ih = cong succ ih
 
 +-assoc : ∀ m n o → m + n + o ≡ m + (n + o)
-+-assoc m n o = PA-ind P P0 is m
++-assoc m n o = PA-ind A A0 is m
   where
-  P : M → Set
-  P i = i + n + o ≡ i + (n + o)
+  A : M → Set
+  A i = i + n + o ≡ i + (n + o)
 
-  P0 : P zero
-  P0 = refl
+  A0 : A zero
+  A0 = refl
 
-  is : ∀ i → P i → P (succ i)
+  is : ∀ i → A i → A (succ i)
   is i ih = cong succ ih
 
 x+Sy≡S[x+y] : ∀ m n → m + succ n ≡ succ (m + n)
-x+Sy≡S[x+y] m n = PA-ind P P0 is m
+x+Sy≡S[x+y] m n = PA-ind A A0 is m
   where
-  P : M → Set
-  P i = i + succ n ≡ succ (i + n)
+  A : M → Set
+  A i = i + succ n ≡ succ (i + n)
 
-  P0 : P zero
-  P0 = refl
+  A0 : A zero
+  A0 = refl
 
-  is : ∀ i → P i → P (succ i)
+  is : ∀ i → A i → A (succ i)
   is i ih = cong succ ih

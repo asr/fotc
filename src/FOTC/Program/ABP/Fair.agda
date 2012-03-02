@@ -36,9 +36,9 @@ postulate
 
 -- ∀ e. e ≤ f e => e ≤ d.
 --
--- N.B. This is a second-order axiom. In the automatic proofs, we
--- *must* use an instance. Therefore, we do not add this postulate as
--- an ATP axiom.
+-- N.B. This is an axiom schema. Because in the automatic proofs we
+-- *must* use an instance, we do not add this postulate as an ATP
+-- axiom.
 postulate
   Fair-gfp₂ : (P : D → Set) →
               -- P is post-fixed point of FairF.
