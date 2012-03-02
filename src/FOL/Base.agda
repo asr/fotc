@@ -15,7 +15,7 @@ open import Common.FOL.FOL public
 
 ------------------------------------------------------------------------------
 -- We added extra symbols for the implication and the universal
--- quantification (see module FOL.FOL).
+-- quantification (see module Common.FOL.FOL).
 
 -- Implication.
 _⇒_ : Set → Set → Set
