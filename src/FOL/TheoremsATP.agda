@@ -89,3 +89,17 @@ postulate
 -- The related theorem ∀x∃y.Axy → ∃y∀x.Axy is not (classically) valid.
 postulate ∃∀ : ∃[ x ] (⋀ λ y → A² x y) → ⋀ λ y → ∃[ x ] A² x y
 {-# ATP prove ∃∀ #-}
+
+-- ∃ in terms of ∀ and ¬.
+postulate
+  ∃→¬∀¬ : ∃[ x ] A¹ x → ¬ (∀ {x} → ¬ A¹ x)
+  ∃¬→¬∀ : ∃[ x ] ¬ A¹ x → ¬ (∀ {x} → A¹ x)
+{-# ATP prove ∃→¬∀¬ #-}
+{-# ATP prove ∃¬→¬∀ #-}
+
+-- ∀ in terms of ∃ and ¬.
+postulate
+  ∀→¬∃¬ : (∀ {x} → A¹ x) → ¬ (∃[ x ] ¬ A¹ x)
+  ∀¬→¬∃ : (∀ {x} → ¬ A¹ x) → ¬ (∃[ x ] A¹ x)
+{-# ATP prove ∀→¬∃¬ #-}
+{-# ATP prove ∀¬→¬∃ #-}

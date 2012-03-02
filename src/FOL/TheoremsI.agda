@@ -68,3 +68,17 @@ gDM₂ = l→r , r→l
 -- The related theorem ∀x∃y.Axy → ∃y∀x.Axy is not (classically) valid.
 ∃∀ : ∃[ x ] (⋀ λ y → A² x y) → ⋀ λ y → ∃[ x ] A² x y
 ∃∀ h y = ∃-elim h (λ prf → ∃-intro (prf y))
+
+-- ∃ in terms of ∀ and ¬.
+∃→¬∀¬ : ∃[ x ] A¹ x → ¬ (∀ {x} → ¬ A¹ x)
+∃→¬∀¬ (∃-intro A¹x) h = h A¹x
+
+∃¬→¬∀ : ∃[ x ] ¬ A¹ x → ¬ (∀ {x} → A¹ x)
+∃¬→¬∀ (∃-intro h₁) h₂ = h₁ h₂
+
+-- ∀ in terms of ∃ and ¬.
+∀→¬∃¬ : (∀ {x} → A¹ x) → ¬ (∃[ x ] ¬ A¹ x)
+∀→¬∃¬ h₁ (∃-intro h₂) = h₂ h₁
+
+∀¬→¬∃ : (∀ {x} → ¬ A¹ x) → ¬ (∃[ x ] A¹ x)
+∀¬→¬∃ h₁ (∃-intro h₂) = h₁ h₂
