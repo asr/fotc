@@ -2,7 +2,7 @@
 -- Totality of Boolean conjunction
 ------------------------------------------------------------------------------
 
--- Tested with magda and agda2atp on 07 February 2012.
+-- Tested with FOT and agda2atp on 07 February 2012.
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}

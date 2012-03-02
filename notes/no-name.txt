@@ -37,7 +37,7 @@ $ vampire_lin64 -t xxx --input_file file_name
    ModuleName.FunctionName).
 
 -- Tested with FOT on .
--- Tested with magda and agda2atp on .
+-- Tested with FOT and agda2atp on .
 -- Tested with the development version of Agda on .
 -- Tested with the development version of the standard library on .
 

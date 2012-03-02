@@ -1,4 +1,4 @@
--- Tested with magda and agda2atp on 08 December 2011.
+-- Tested with FOT and agda2atp on 08 December 2011.
 
 module BottomBottom where
 
