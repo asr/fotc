@@ -19,21 +19,21 @@ open import FOL.Base
 ------------------------------------------------------------------------------
 -- We postulate some formulae and propositional functions.
 postulate
-  P⁰ : Set
-  P¹ : D → Set
+  A : Set
+  B : D → Set
 
 -- TODO: 2012-02-28. Fix the existential introduction rule.
--- ∃-intro : ((t : D) → P¹ t) → ∃ P¹
+-- ∃-intro : ((t : D) → B t) → ∃ B
 -- {-# ATP prove ∃-intro #-}
 
 -- Let A be a formula. If x is not free in A then ⊢ (∃x)A ↔ A
 -- (Mendelson, 1997, proposition 2.18 (b), p. 70).
 postulate
-  ∃-erase-add₁ : ∃ (λ _ → P⁰) ↔ P⁰
+  ∃-erase-add₁ : ∃ (λ _ → A) ↔ A
 {-# ATP prove ∃-erase-add₁ #-}
 
 -- Quantification over a variable that does not occur can be erased or
 -- added.
 postulate
-  ∃-erase-add₂ : (∃[ x ] P⁰ ∨ P¹ x) ↔ P⁰ ∨ (∃[ x ] P¹ x)
+  ∃-erase-add₂ : (∃[ x ] A ∨ B x) ↔ A ∨ (∃[ x ] B x)
 {-# ATP prove ∃-erase-add₂ #-}
