@@ -23,6 +23,9 @@ postulate
 -- ∃-intro : ((t : D) → B t) → ∃ B
 -- ∃-intro h = D≠∅ ,, h D≠∅
 
+∀→∃ : (∀ {x} → B x) → ∃ B
+∀→∃ h = ∃-intro {x = D≠∅} h
+
 -- Let A be a formula. If x is not free in A then ⊢ (∃x)A ↔ A
 -- (Mendelson, 1997, proposition 2.18 (b), p. 70).
 ∃-erase-add₁ : ∃ (λ _ → A) ↔ A

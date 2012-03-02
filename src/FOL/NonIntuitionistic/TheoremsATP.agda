@@ -21,6 +21,10 @@ postulate pem : ∀ {A} → A ∨ ¬ A
 postulate ¬-elim : ∀ {A} → (¬ A → ⊥) → A
 {-# ATP prove ¬-elim #-}
 
+-- Double negation elimination.
+postulate ¬¬-elim : ∀ {A} → ¬ ¬ A → A
+{-# ATP prove ¬¬-elim #-}
+
 -- The reductio ab absurdum rule. (Some authors uses this name for the
 -- principle of indirect proof).
 postulate raa : ∀ {A} → (¬ A → A) → A

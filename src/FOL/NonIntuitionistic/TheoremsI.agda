@@ -14,6 +14,10 @@ open import FOL.Base
 ¬-elim : ∀ {A} → (¬ A → ⊥) → A
 ¬-elim h = [ (λ a → a) , (λ ¬a → ⊥-elim (h ¬a)) ] pem
 
+-- Double negation elimination.
+¬¬-elim : ∀ {A} → ¬ ¬ A → A
+¬¬-elim {A} h = ¬-elim h
+
 -- The reductio ab absurdum rule. (Some authors uses this name for the
 -- principle of indirect proof).
 raa : ∀ {A} → (¬ A → A) → A

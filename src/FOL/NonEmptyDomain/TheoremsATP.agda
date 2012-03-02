@@ -26,6 +26,9 @@ postulate
 -- ∃-intro : ((t : D) → B t) → ∃ B
 -- {-# ATP prove ∃-intro #-}
 
+postulate ∀→∃ : (∀ {x} → B x) → ∃ B
+{-# ATP prove ∀→∃ #-}
+
 -- Let A be a formula. If x is not free in A then ⊢ (∃x)A ↔ A
 -- (Mendelson, 1997, proposition 2.18 (b), p. 70).
 postulate
