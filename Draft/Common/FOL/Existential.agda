@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of Agda on 02 March 2012.
+-- Tested with the development version of Agda on 03 March 2012.
 
 module Existential where
 
@@ -27,7 +27,7 @@ module ∃₁ where
   -- Sugar syntax for the existential quantifier.
   syntax ∃ (λ x → e) = ∃[ x ] e
 
-  -- The existential elimination.
+  -- The existential proyections.
   ∃-proj₁ : ∀ {A} → ∃ A → D
   ∃-proj₁ (x , _) = x
 
@@ -59,8 +59,12 @@ module ∃₂ where
   --     ∃x.A(x)   A(x) → B
   --  ------------------------
   --             B
+
+  -- NB. We do not use the usual type theory elimination with two
+  -- projections because we are working in first-order logic where we
+  -- do need extract a witness from an existence proof.
   ∃-elim : {A : D → Set}{B : Set} → ∃ A → ((x : D) → A x → B) → B
-  ∃-elim (x , p) h = h x p
+  ∃-elim (x , Ax) h = h x Ax
 
   -- Some examples
 
