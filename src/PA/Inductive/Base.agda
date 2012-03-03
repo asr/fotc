@@ -20,7 +20,7 @@ open import PA.Inductive.Base.Core public
 -- TODO: 20120-03-02. We only need to hide the existential quantifier
 -- from FOL.
 open import Common.FOL.FOL public using ( ⊥ ; ¬_ )
-open import PA.Inductive.Existential public
+-- open import PA.Inductive.Existential public
 
 -- The induction principle on the PA universe
 PA-ind : (A : M → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
