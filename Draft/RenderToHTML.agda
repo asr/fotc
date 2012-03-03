@@ -4,4 +4,4 @@
 
 module Draft.RenderToHTML where
 
-open import Draft.FOTC.Data.Stream.Existential
+open import Draft.PA.Inductive.Witness
