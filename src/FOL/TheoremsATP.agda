@@ -82,7 +82,7 @@ postulate
 
 -- Distributes laws for the quantifiers.
 postulate
-  ∀-dist : ∀ x → A¹ x ∧ B¹ x ↔ ((∀ x → A¹ x) ∧ (∀ x → B¹ x))
+  ∀-dist : (∀ x → A¹ x ∧ B¹ x) ↔ ((∀ x → A¹ x) ∧ (∀ x → B¹ x))
   ∃-dist : (∃[ x ] A¹ x ∨ B¹ x) ↔ (∃ A¹ ∨ ∃ B¹)
 {-# ATP prove ∀-dist #-}
 {-# ATP prove ∃-dist #-}
