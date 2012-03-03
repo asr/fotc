@@ -23,8 +23,6 @@ succ-cong = cong succ
 +-rightCong {m} h = cong₂ _+_ {m} refl h
 
 ------------------------------------------------------------------------------
--- Some proofs are based on the proofs in the standard library.
-
 -- Peano's third axiom.
 P₃ : ∀ {m n} → succ m ≡ succ n → m ≡ n
 P₃ refl = refl
@@ -32,6 +30,10 @@ P₃ refl = refl
 -- Peano's fourth axiom.
 P₄ : ∀ {n} → ¬ (zero ≡ succ n)
 P₄ ()
+
+x≠Sx : ∀ {n} → ¬ (n ≡ succ n)
+x≠Sx {zero} ()
+x≠Sx {succ n} h = x≠Sx (P₃ h)
 
 +-leftIdentity : ∀ n → zero + n ≡ n
 +-leftIdentity n = refl
