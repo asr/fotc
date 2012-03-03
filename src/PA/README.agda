@@ -6,11 +6,11 @@ module PA.README where
 
 -- Two formalizations of first-order Peano aritmetic using:
 
--- * Agda postulates for the non-logical constants and the Peano's
+-- • Agda postulates for the non-logical constants and the Peano's
 --   axioms, using axioms based on the propositional equality (see, for
 --   example, [Machover, 1996, p. 263], [Hájek and Pudlák, 1998, p. 28]).
 
--- * Agda data types and primitive recursive functions for addition and
+-- • Agda data types and primitive recursive functions for addition and
 --   multiplication.
 
 -- References;
