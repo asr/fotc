@@ -19,6 +19,7 @@ open import PA.Axiomatic.Standard.PropertiesI
 
 open import PA.Inductive.Base
 open import PA.Inductive.Base.Core
+open import PA.Inductive.Existential
 open import PA.Inductive.Properties
 open import PA.Inductive.PropertiesATP
 open import PA.Inductive.PropertiesI
