@@ -33,7 +33,7 @@ div-x<y-helper {i} {j} Ni Nj i<j = sym prf
 
 div-x<y-correct : ∀ {i j} → N i → N j → LT i j →
                   ∃[ r ] N r ∧ LT r j ∧ i ≡ j * div i j + r
-div-x<y-correct {i} Ni Nj i<j = ∃-intro (Ni , i<j , div-x<y-helper Ni Nj i<j)
+div-x<y-correct Ni Nj i<j = _ , Ni , i<j , div-x<y-helper Ni Nj i<j
 
 -- The division result is correct when the dividend is greater or equal
 -- than the divisor.
@@ -68,8 +68,8 @@ div-x≮y-correct : ∀ {i j} → N i → N j →
                   (DIV (i ∸ j) j (div (i ∸ j) j)) →
                   NLT i j →
                   ∃[ r ] N r ∧ LT r j ∧ i ≡ j * div i j + r
-div-x≮y-correct {i} {j} Ni Nj (h₁ , ∃-intro {r} r-correct) i≮j =
-  ∃-intro (Nr , r<j , div-x≮y-helper Ni Nj Nr i≮j helperH)
+div-x≮y-correct {i} {j} Ni Nj (h₁ , r , r-correct) i≮j =
+  r , Nr , r<j , div-x≮y-helper Ni Nj Nr i≮j helperH
   where
   Nr : N r
   Nr = ∧-proj₁ r-correct

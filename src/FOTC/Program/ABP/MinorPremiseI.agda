@@ -38,19 +38,11 @@ open import FOTC.Program.ABP.Lemma2I
 minorPremise : ∀ {is js} → is B js →
                ∃[ i' ] ∃[ is' ] ∃[ js' ]
                is' B js' ∧ is ≡ i' ∷ is' ∧ js ≡ i' ∷ js'
--- 2012-02-29. The existential witnesses could be avoid using a
--- minorPremise-helper function.
-minorPremise {is} {js}
- (∃-intro {b}
-   (∃-intro {fs₀}
-     (∃-intro {fs₁}
-       (∃-intro {as}
-         (∃-intro {bs}
-           (∃-intro {cs}
-             (∃-intro {ds}
-               (Sis , Bb , Ffs₀ , Ffs₁ , h)))))))) with (Stream-gfp₁ Sis)
-... | (∃-intro {i'} (∃-intro {is'} (Sis' , is≡i'∷is))) =
-  ∃-intro $ ∃-intro $ ∃-intro $ is'Bjs' , is≡i'∷is , js≡i'∷js'
+minorPremise
+  {is} {js}
+  (b , fs₀ , fs₁ , as , bs , cs , ds , Sis , Bb , Ffs₀ , Ffs₁ , h)
+  with (Stream-gfp₁ Sis)
+... | (i' , is' , Sis' , is≡i'∷is) = i' , is' , js' , is'Bjs' , is≡i'∷is , js≡i'∷js'
 
   where
   Abp-helper : is ≡ i' ∷ is' →
@@ -72,37 +64,24 @@ minorPremise {is} {js}
   -- 2011-08-25 update: It does not seems strictly necessary because
   -- the Agda issue 415 was fixed.
 
-  -- 2012-02-29. The existential witness could be avoid using a
-  -- projection on Abp'-lemma₁.
   js' : D
   js' with Abp'-lemma₁
-  ... | ∃-intro
-          (∃-intro
-            (∃-intro (∃-intro (∃-intro (∃-intro (∃-intro {js'} _)))))) = js'
+  ... | _ , _ , _ , _ , _ , _ , js' , _ = js'
 
   js≡i'∷js' : js ≡ i' ∷ js'
   js≡i'∷js' with Abp'-lemma₁
-  ... | ∃-intro
-          (∃-intro
-            (∃-intro
-              (∃-intro (∃-intro (∃-intro (∃-intro (_ , _ , _ , h))))))) = h
+  ... | _ , _ , _ , _ , _ , _ , _ , _ , _ , _ , h = h
 
   Abp-lemma₂ : ∃[ fs₀'' ] ∃[ fs₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
                Fair fs₀''
                ∧ Fair fs₁''
                ∧ Abp (not b) is' fs₀'' fs₁'' as'' bs'' cs'' ds'' js'
   Abp-lemma₂ with Abp'-lemma₁
-  ... | ∃-intro
-          (∃-intro
-            (∃-intro
-              (∃-intro
-                (∃-intro (∃-intro (∃-intro (Ffs₀' , Ffs₁' , abp' , _))))))) =
+  Abp-lemma₂ | _ , _ , _ , _ , _ , _ , _ , Ffs₀' , Ffs₁' , abp' , _ =
     lemma₂ Bb Ffs₀' Ffs₁' abp'
 
   is'Bjs' : is' B js'
   is'Bjs' with Abp-lemma₂
-  ... | ∃-intro
-          (∃-intro
-            (∃-intro (∃-intro (∃-intro (∃-intro (Ffs₀'' , Ffs₁'' , abp)))))) =
-    ∃-intro $ ∃-intro $ ∃-intro $ ∃-intro $ ∃-intro $ ∃-intro $ ∃-intro $
-      Sis' , not-Bool Bb , Ffs₀'' , Ffs₁'' , abp
+  ... | fs₀'' , fs₁'' , as'' , bs'' , cs'' , ds'' , Ffs₀'' , Ffs₁'' , abp =
+    not b , fs₀'' , fs₁'' , as'' , bs'' , cs'' , ds''
+    , Sis' , not-Bool Bb , Ffs₀'' , Ffs₁'' , abp

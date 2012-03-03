@@ -42,10 +42,10 @@ postulate
 x∣y→x∣z→x∣y∸z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n ∸ o
 x∣y→x∣z→x∣y∸z zN _ _ (0≠0 , _) m∣o = ⊥-elim $ 0≠0 refl
 x∣y→x∣z→x∣y∸z (sN Nm) Nn No
-              (_ , ∃-intro (Nk₁ , h₁))
-              (_ , ∃-intro (Nk₂ , h₂)) =
+              (_ , _ , Nk₁ , h₁)
+              (_ , _ , Nk₂ , h₂) =
   (λ S≡0 → ⊥-elim $ S≠0 S≡0)
-  , ∃-intro (∸-N Nk₁ Nk₂ , x∣y→x∣z→x∣y∸z-helper Nm Nk₁ Nk₂ h₁ h₂)
+  , _ , ∸-N Nk₁ Nk₂ , x∣y→x∣z→x∣y∸z-helper Nm Nk₁ Nk₂ h₁ h₂
 
 -- If 'x' divides 'y' and 'z' then 'x' divides 'y + z'.
 postulate
@@ -58,10 +58,10 @@ postulate
 x∣y→x∣z→x∣y+z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n + o
 x∣y→x∣z→x∣y+z zN      _  _ (0≠0 , _) m∣o = ⊥-elim $ 0≠0 refl
 x∣y→x∣z→x∣y+z (sN Nm) Nn No
-              (_ , ∃-intro (Nk₁ , h₁))
-              (_ , ∃-intro (Nk₂ , h₂)) =
+              (_ , _ , Nk₁ , h₁)
+              (_ , _ , Nk₂ , h₂) =
   (λ S≡0 → ⊥-elim $ S≠0 S≡0)
-  , ∃-intro (+-N Nk₁ Nk₂ , x∣y→x∣z→x∣y+z-helper Nm Nk₁ Nk₂ h₁ h₂)
+  , _ , +-N Nk₁ Nk₂ , x∣y→x∣z→x∣y+z-helper Nm Nk₁ Nk₂ h₁ h₂
 
 -- If x divides y, and y is positive, then x ≤ y.
 postulate x∣Sy→x≤Sy-helper₁ : ∀ {m n} → succ₁ n ≡ zero * succ₁ m → ⊥
@@ -76,7 +76,7 @@ postulate
 
 x∣Sy→x≤Sy : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → LE m (succ₁ n)
 x∣Sy→x≤Sy  zN     Nn (0≠0 , _)                  = ⊥-elim $ 0≠0 refl
-x∣Sy→x≤Sy (sN Nm) Nn (_ , ∃-intro (zN , Sn≡0*Sm)) =
+x∣Sy→x≤Sy (sN {m} Nm) Nn (_ , .zero , zN , Sn≡0*Sm) =
   ⊥-elim $ x∣Sy→x≤Sy-helper₁ Sn≡0*Sm
-x∣Sy→x≤Sy (sN {m} Nm) Nn (_ , ∃-intro (sN Nk , Sn≡Sk*Sm)) =
+x∣Sy→x≤Sy (sN Nm) Nn (_ , .(succ₁ k) , sN {k} Nk , Sn≡Sk*Sm) =
   x∣Sy→x≤Sy-helper₂ Nm Nn Nk Sn≡Sk*Sm

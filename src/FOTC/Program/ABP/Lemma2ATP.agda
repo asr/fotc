@@ -23,7 +23,7 @@ open import FOTC.Program.ABP.Fair.PropertiesATP
 open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
--- Helper function for the ABP lemma 1
+-- Helper function for the ABP lemma 2
 
 module Helper where
   -- We have these TPTP definitions outside the where clause to keep
@@ -63,7 +63,7 @@ module Helper where
            ∧ Fair fs₁''
            ∧ Abp (not b) is' fs₀'' fs₁'' as'' bs'' cs'' ds'' js'
   helper {b} {i'} {is'} {js' = js'} Bb Ffs₀' abp'
-         (∃-intro (∃-intro (nilF*T , Ffs₁'' , fs₁'-eq))) = prf
+         (.(T ∷ []) , fs₁'' , nilF*T , Ffs₁'' , fs₁'-eq) = prf
     where
     postulate
       prf : ∃[ fs₀'' ] ∃[ fs₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
@@ -76,15 +76,10 @@ module Helper where
             ∧ js' ≡ abpout · not b · bs''
     {-# ATP prove prf #-}
 
-  -- 2012-02-29. The existential witnesses could be avoid not using
-  -- the auxiliary postulated proofs inside the where clause.
   helper {b} {i'} {is'} {fs₀'} {fs₁'} {as'} {bs'} {cs'} {ds'} {js'}
          Bb Ffs₀' abp'
-         (∃-intro (∃-intro {fs₁''} (consF*T {ft₁} FTft₁ , Ffs₁'' , fs₁'-eq)))
-         = helper Bb
-                  (tail-Fair Ffs₀')
-                  Abp'IH
-                  (∃-intro (∃-intro (FTft₁ , Ffs₁'' , refl)))
+         (.(F ∷ ft₁) , fs₁'' , consF*T {ft₁} FTft₁ , Ffs₁'' , fs₁'-eq)
+         = helper Bb (tail-Fair Ffs₀') Abp'IH (ft₁ , fs₁'' , FTft₁ , Ffs₁'' , refl)
     where
     postulate fs₁'-eq-helper : fs₁' ≡ F ∷ fs₁⁵ ft₁ fs₁''
     {-# ATP prove fs₁'-eq-helper #-}

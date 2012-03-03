@@ -26,7 +26,7 @@ open import FOTC.Program.ABP.Fair.PropertiesI
 open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
--- Helper function for the ABP lemma 1
+-- Helper function for the ABP lemma 2
 
 module Helper where
 
@@ -39,13 +39,13 @@ module Helper where
            Fair fs₀''
            ∧ Fair fs₁''
            ∧ Abp (not b) is' fs₀'' fs₁'' as'' bs'' cs'' ds'' js'
-  -- 2012-02-29. The existential witnesses could be avoid not using
-  -- the auxiliary proofs inside the where clause.
   helper {b} {i'} {is'} {fs₀'} {fs₁'} {as'} {bs'} {cs'} {ds'} {js'}
          Bb Ffs₀' (ds'Abp' , as'Abp , bs'Abp' , cs'Abp' , js'Abp')
-         (∃-intro (∃-intro {fs₁''} (nilF*T , Ffs₁'' , fs₁'-eq))) =
-         ∃-intro $ ∃-intro $ ∃-intro $ ∃-intro $ ∃-intro $ ∃-intro $
-           (Ffs₀' , Ffs₁'' , as''-eq , bs''-eq ,  cs''-eq , refl , js'-eq)
+         (.(T ∷ []) , fs₁'' , nilF*T , Ffs₁'' , fs₁'-eq) =
+         fs₀' , fs₁'' , as'' , bs'' , cs'' , ds''
+         , Ffs₀' , Ffs₁''
+         , as''-eq , bs''-eq ,  cs''-eq , refl , js'-eq
+
     where
     fs'₁-eq-helper : fs₁' ≡ T ∷ fs₁''
     fs'₁-eq-helper = fs₁'                 ≡⟨ fs₁'-eq ⟩
@@ -96,15 +96,11 @@ module Helper where
     js'-eq : js' ≡ abpout · (not b) · bs''
     js'-eq = js'Abp'
 
-  -- 2012-02-29. The existential witnesses could be avoid not using
-  -- the auxiliary proofs inside the where clause.
   helper {b} {i'} {is'} {fs₀'} {fs₁'} {as'} {bs'} {cs'} {ds'} {js'}
          Bb Ffs₀' (ds'Abp' , as'Abp , bs'Abp' , cs'Abp' , js'Abp')
-         (∃-intro (∃-intro {fs₁''} (consF*T {ft₁} FTft₁ , Ffs₁'' , fs₁'-eq)))
-         = helper Bb
-                  (tail-Fair Ffs₀')
-                  Abp'IH
-                  (∃-intro (∃-intro (FTft₁ , Ffs₁'' , refl)))
+         (.(F ∷ ft₁) , fs₁'' , consF*T {ft₁} FTft₁ , Ffs₁'' , fs₁'-eq)
+         = helper Bb (tail-Fair Ffs₀') Abp'IH (ft₁ , fs₁'' , FTft₁ , Ffs₁'' , refl)
+
     where
     fs₀⁵ : D
     fs₀⁵ = tail₁ fs₀'

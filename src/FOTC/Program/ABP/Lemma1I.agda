@@ -44,9 +44,12 @@ module Helper where
   -- the auxiliary proofs inside the where clause.
   helper {b} {i'} {is'} {fs₀} {fs₁} {as} {bs} {cs} {ds} {js} Bb Ffs₁
          (asAbp , bsAbp , csAbp , dsAbs , jsAbp)
-         (∃-intro (∃-intro {fs₀'} (nilF*T , Ffs₀' , fs₀-eq))) =
-         ∃-intro $ ∃-intro $ ∃-intro $ ∃-intro $ ∃-intro $ ∃-intro $ ∃-intro $
-           (Ffs₀' , Ffs₁ , (ds'-eq , refl , refl , refl , refl) , js-eq)
+         (.(T ∷ []) , fs₀' , nilF*T , Ffs₀' , fs₀-eq) =
+         fs₀' , fs₁' , as' , bs' , cs' , ds' , js'
+         , Ffs₀' , Ffs₁
+         , (ds'-eq , refl , refl , refl , refl)
+         , js-eq
+
     where
     fs₀-eq-helper : fs₀ ≡ T ∷ fs₀'
     fs₀-eq-helper =
@@ -136,15 +139,11 @@ module Helper where
       corrupt · fs₁ · (b ∷ abpack · (not b) ·
                 (corrupt · fs₀' · (await b i' is' ds))) ∎
 
-  -- 2012-02-29. The existential witnesses could be avoid not using
-  -- the auxiliary proofs inside the where clause.
   helper {b} {i'} {is'} {fs₀} {fs₁} {as} {bs} {cs} {ds} {js}
          Bb Ffs₁ (asAbp , bsAbp , csAbp , dsAbs , jsAbp)
-         (∃-intro (∃-intro {fs₀'} (consF*T {ft₀⁵} FTft₀⁵ , Ffs₀' , fs₀-eq)))
-         = helper Bb
-                  (tail-Fair Ffs₁)
-                  AbpIH
-                  (∃-intro (∃-intro (FTft₀⁵ , Ffs₀' , refl)))
+         (.(F ∷ ft₀⁵) , fs₀' , consF*T {ft₀⁵} FTft₀⁵ , Ffs₀' , fs₀-eq)
+         = helper Bb (tail-Fair Ffs₁) AbpIH (ft₀⁵ , fs₀' , FTft₀⁵ , Ffs₀' , refl)
+
     where
     fs₀⁵ : D
     fs₀⁵ = ft₀⁵ ++ fs₀'

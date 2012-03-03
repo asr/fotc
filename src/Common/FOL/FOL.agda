@@ -89,7 +89,7 @@ A ↔ B = (A → B) ∧ (B → A)
 ------------------------------------------------------------------------------
 -- The existential quantifier type on D.
 data ∃ (A : D → Set) : Set where
-  ∃-intro : ∀ {x} → A x → ∃ A
+  _,_ : (x : D) → A x → ∃ A
 
 -- Sugar syntax for the existential quantifier.
 syntax ∃ (λ x → e) = ∃[ x ] e
@@ -100,4 +100,4 @@ syntax ∃ (λ x → e) = ∃[ x ] e
 -- projections because we are working in first-order logic where we do
 -- need extract a witness from an existence proof.
 ∃-elim : {A : D → Set}{B : Set} → ∃ A → (∀ {x} → A x → B) → B
-∃-elim (∃-intro Ax) h = h Ax
+∃-elim (_ , Ax) h = h Ax

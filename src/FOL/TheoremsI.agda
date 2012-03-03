@@ -48,7 +48,7 @@ gDM₂ : ¬ (∃ A¹) ↔ (∀ {x} → ¬ (A¹ x))
 gDM₂ = l→r , r→l
   where
   l→r : ¬ (∃ A¹) → ∀ {x} → ¬ (A¹ x)
-  l→r h A¹x = h (∃-intro A¹x)
+  l→r h A¹x = h (_ , A¹x)
 
   r→l : (∀ {x} → ¬ (A¹ x)) → ¬ (∃ A¹)
   r→l h₁ h₂ = ∃-elim h₂ h₁
@@ -59,26 +59,26 @@ gDM₂ = l→r , r→l
 ∃-erase-add = l→r , r→l
   where
   l→r : ∃[ x ] A ∧ A¹ x → A ∧ (∃[ x ] A¹ x)
-  l→r h = ∃-elim h (λ prf → (∧-proj₁ prf) , ∃-intro (∧-proj₂ prf))
+  l→r h = ∃-elim h (λ prf → (∧-proj₁ prf) , _ , ∧-proj₂ prf)
 
   r→l : A ∧ (∃[ x ] A¹ x) → ∃[ x ] A ∧ A¹ x
-  r→l (a , h) = ∃-elim h (λ prf → ∃-intro (a , prf))
+  r→l (a , h) = ∃-elim h (λ prf → _ , a , prf)
 
 -- Interchange of quantifiers.
 -- The related theorem ∀x∃y.Axy → ∃y∀x.Axy is not (classically) valid.
 ∃∀ : ∃[ x ] (∀ y → A² x y) → ∀ y → ∃[ x ] A² x y
-∃∀ h y = ∃-elim h (λ prf → ∃-intro (prf y))
+∃∀ h y = ∃-elim h (λ prf → _ , prf y)
 
 -- ∃ in terms of ∀ and ¬.
 ∃→¬∀¬ : ∃[ x ] A¹ x → ¬ (∀ {x} → ¬ A¹ x)
-∃→¬∀¬ (∃-intro A¹x) h = h A¹x
+∃→¬∀¬ (_ , A¹x) h = h A¹x
 
 ∃¬→¬∀ : ∃[ x ] ¬ A¹ x → ¬ (∀ {x} → A¹ x)
-∃¬→¬∀ (∃-intro h₁) h₂ = h₁ h₂
+∃¬→¬∀ (_ , h₁) h₂ = h₁ h₂
 
 -- ∀ in terms of ∃ and ¬.
 ∀→¬∃¬ : (∀ {x} → A¹ x) → ¬ (∃[ x ] ¬ A¹ x)
-∀→¬∃¬ h₁ (∃-intro h₂) = h₂ h₁
+∀→¬∃¬ h₁ (_ ,  h₂) = h₂ h₁
 
 ∀¬→¬∃ : (∀ {x} → ¬ A¹ x) → ¬ (∃[ x ] A¹ x)
-∀¬→¬∃ h₁ (∃-intro h₂) = h₁ h₂
+∀¬→¬∃ h₁ (_ , h₂) = h₁ h₂

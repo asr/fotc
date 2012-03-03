@@ -13,8 +13,6 @@
 
 module FOTC.Program.MapIterate.MapIterateATP where
 
-open import Common.Function
-
 open import FOTC.Base
 open import FOTC.Data.List
 open import FOTC.Data.Stream.Equality
@@ -23,7 +21,7 @@ open import FOTC.Data.Stream.Equality
 -- The map-iterate property.
 
 ≈-map-iterate : ∀ f x → map f (iterate f x) ≈ iterate f (f · x)
-≈-map-iterate f x = ≈-gfp₂ R helper (∃-intro (refl , refl))
+≈-map-iterate f x = ≈-gfp₂ R helper (x , refl , refl)
   where
   postulate
     unfoldMap : ∀ f y →
@@ -41,17 +39,16 @@ open import FOTC.Data.Stream.Equality
   R : D → D → Set
   R xs ys = ∃[ y ] xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y)
 
-  -- 2012-02-29: We are using the existential witness only for
-  -- documentation.
   helper : ∀ {xs ys} → R xs ys →
            ∃[ x' ] ∃[ xs' ] ∃[ ys' ] R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
-  helper {xs} {ys} (∃-intro {y} h) =
-    ∃-intro {x = f · y} $
-    ∃-intro {x = map f (iterate f (f · y))} $
-    ∃-intro {x = iterate f (f · (f · y))} $
-    (∃-intro {x = f · y} (refl , refl)
-             , trans xs≡map (unfoldMap f y)
-             , trans ys≡iterate (unfoldIterate f y))
+  helper {xs} {ys} (y , h) =
+    f · y
+    , map f (iterate f (f · y))
+    , iterate f (f · (f · y))
+    , ((f · y) , refl , refl)
+    , trans xs≡map (unfoldMap f y)
+    , trans ys≡iterate (unfoldIterate f y)
+
     where
     xs≡map : xs ≡ map f (iterate f y)
     xs≡map = ∧-proj₁ h

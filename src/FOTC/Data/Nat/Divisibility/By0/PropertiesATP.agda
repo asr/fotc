@@ -32,8 +32,8 @@ postulate
 {-# ATP prove x∣y→x∣z→x∣y∸z-helper *∸-leftDistributive #-}
 
 x∣y→x∣z→x∣y∸z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n ∸ o
-x∣y→x∣z→x∣y∸z Nm Nn No (∃-intro (Nk₁ , h₁)) (∃-intro (Nk₂ , h₂)) =
-  ∃-intro (∸-N Nk₁ Nk₂ , x∣y→x∣z→x∣y∸z-helper Nm Nk₁ Nk₂ h₁ h₂)
+x∣y→x∣z→x∣y∸z Nm Nn No (k₁ , Nk₁ , h₁) (k₂ , Nk₂ , h₂) =
+  k₁ ∸ k₂ , ∸-N Nk₁ Nk₂ , x∣y→x∣z→x∣y∸z-helper Nm Nk₁ Nk₂ h₁ h₂
 
 -- If 'x' divides 'y' and 'z' then 'x' divides 'y + z'.
 postulate
@@ -44,8 +44,8 @@ postulate
 {-# ATP prove x∣y→x∣z→x∣y+z-helper *+-leftDistributive #-}
 
 x∣y→x∣z→x∣y+z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n + o
-x∣y→x∣z→x∣y+z Nm Nn No (∃-intro (Nk₁ , h₁)) (∃-intro (Nk₂ , h₂)) =
-  ∃-intro (+-N Nk₁ Nk₂ , x∣y→x∣z→x∣y+z-helper Nm Nk₁ Nk₂ h₁ h₂)
+x∣y→x∣z→x∣y+z Nm Nn No (k₁ , Nk₁ , h₁) (k₂ , Nk₂ , h₂) =
+  k₁ + k₂ , +-N Nk₁ Nk₂ , x∣y→x∣z→x∣y+z-helper Nm Nk₁ Nk₂ h₁ h₂
 
 -- If x divides y, and y is positive, then x ≤ y.
 postulate x∣Sy→x≤Sy-helper₁ : ∀ {m n} → succ₁ n ≡ zero * m → ⊥
@@ -59,6 +59,6 @@ postulate
 {-# ATP prove x∣Sy→x≤Sy-helper₂ x≤x+y *-N #-}
 
 x∣Sy→x≤Sy : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → LE m (succ₁ n)
-x∣Sy→x≤Sy Nm Nn (∃-intro (zN , Sn≡0*m)) = ⊥-elim $ x∣Sy→x≤Sy-helper₁ Sn≡0*m
-x∣Sy→x≤Sy Nm Nn (∃-intro (sN {k} Nk , Sn≡Sk*m)) =
+x∣Sy→x≤Sy Nm Nn (.zero , zN , Sn≡0*m) = ⊥-elim $ x∣Sy→x≤Sy-helper₁ Sn≡0*m
+x∣Sy→x≤Sy Nm Nn (.(succ₁ k) , sN {k} Nk , Sn≡Sk*m) =
   x∣Sy→x≤Sy-helper₂ Nm Nn Nk Sn≡Sk*m

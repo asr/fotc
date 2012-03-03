@@ -24,7 +24,7 @@ postulate
 -- ∃-intro h = D≠∅ ,, h D≠∅
 
 ∀→∃ : (∀ {x} → A¹ x) → ∃ A¹
-∀→∃ h = ∃-intro {x = D≠∅} h
+∀→∃ h = D≠∅ , h
 
 -- Let A be a formula. If x is not free in A then ⊢ (∃x)A ↔ A
 -- (Mendelson, 1997, proposition 2.18 (b), p. 70).
@@ -36,7 +36,7 @@ postulate
 
   -- 2012-02-28. We required the existential witness.
   r→l : A → ∃ (λ _ → A)
-  r→l A = ∃-intro {x = D≠∅} A
+  r→l A = D≠∅ , A
 
 -- Quantification over a variable that does not occur can be erased or
 -- added.
@@ -45,11 +45,11 @@ postulate
   where
   l→r : ∃[ x ] (A ∨ A¹ x) → A ∨ (∃[ x ] A¹ x)
   l→r h = ∃-elim h (λ prf → [ (λ a → inj₁ a )
-                            , (λ A¹x → inj₂ (∃-intro A¹x))
+                            , (λ A¹x → inj₂ (_ , A¹x))
                             ] prf
                    )
 
   -- 2012-02-28. We required the existential witness.
   r→l : A ∨ (∃[ x ] A¹ x) → ∃[ x ] A ∨ A¹ x
-  r→l (inj₁ a) = ∃-intro {x = D≠∅} (inj₁ a)
-  r→l (inj₂ h) = ∃-elim h (λ A¹x → ∃-intro (inj₂ A¹x))
+  r→l (inj₁ a) = D≠∅ , inj₁ a
+  r→l (inj₂ h) = ∃-elim h (λ A¹x → _ , inj₂ A¹x)

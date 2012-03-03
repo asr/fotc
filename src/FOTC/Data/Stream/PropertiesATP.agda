@@ -20,6 +20,8 @@ postulate tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 -- The next couple of predicates are not inside the where clause
 -- because the translation of projection-like functions is not
 -- implemented.
+--
+-- TODO: Check it.
 ≈→Stream-P₁ : D → Set
 ≈→Stream-P₁ ws = ∃[ zs ] ws ≈ zs
 {-# ATP definition ≈→Stream-P₁ #-}
@@ -29,8 +31,8 @@ postulate tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 {-# ATP definition ≈→Stream-P₂ #-}
 
 ≈→Stream : ∀ {xs ys} → xs ≈ ys → Stream xs ∧ Stream ys
-≈→Stream xs≈ys = Stream-gfp₂ ≈→Stream-P₁ helper₁ (∃-intro xs≈ys)
-                 , Stream-gfp₂ ≈→Stream-P₂ helper₂ (∃-intro xs≈ys)
+≈→Stream {xs} {ys} xs≈ys = Stream-gfp₂ ≈→Stream-P₁ helper₁ (ys , xs≈ys)
+                         , Stream-gfp₂ ≈→Stream-P₂ helper₂ (xs , xs≈ys)
   where
   postulate
     helper₁ : ∀ {ws} → ≈→Stream-P₁ ws →

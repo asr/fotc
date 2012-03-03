@@ -65,7 +65,7 @@ module Helper where
            ∧ Abp' b i' is' fs₀' fs₁' as' bs' cs' ds' js'
            ∧ js ≡ i' ∷ js'
   helper {b} {i'} {is'} {js = js} Bb Ffs₁ abp
-         (∃-intro (∃-intro (nilF*T , Ffs₀' , fs₀-eq))) = prf
+         (.(T ∷ []) , fs₀' , nilF*T , Ffs₀' , fs₀-eq) = prf
     where
     postulate
       prf : ∃[ fs₀' ] ∃[ fs₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
@@ -78,15 +78,9 @@ module Helper where
               ∧ js' ≡ abpout · (not b) · bs')
             ∧ js ≡ i' ∷ js'
     {-# ATP prove prf #-}
-
-  -- 2012-02-29. The existential witnesses could be avoid not using
-  -- the auxiliary postulated proofs inside the where clause.
   helper {b} {i'} {is'} {fs₀} {fs₁} {as} {bs} {cs} {ds} {js} Bb Ffs₁ abp
-         (∃-intro (∃-intro {fs₀'} (consF*T {ft₀⁵} FTft₀⁵ , Ffs₀' , fs₀-eq)))
-         = helper Bb
-                  (tail-Fair Ffs₁)
-                  AbpIH
-                  (∃-intro (∃-intro (FTft₀⁵ , Ffs₀' , refl)))
+         (.(F ∷ ft₀⁵) , fs₀' , consF*T {ft₀⁵} FTft₀⁵ , Ffs₀' , fs₀-eq)
+         = helper Bb (tail-Fair Ffs₁) AbpIH (ft₀⁵ , fs₀' , FTft₀⁵ , Ffs₀' , refl)
     where
     postulate fs₀-eq-helper : fs₀ ≡ F ∷ fs₀⁵ fs₀' ft₀⁵
     {-# ATP prove fs₀-eq-helper #-}
