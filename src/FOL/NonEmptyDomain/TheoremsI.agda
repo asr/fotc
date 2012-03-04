@@ -39,6 +39,15 @@ postulate
 
 -- Quantification over a variable that does not occur can be erased or
 -- added.
+∀-erase-add : ((x : D) → A) ↔ A
+∀-erase-add = l→r , r→l
+  where
+  l→r : ((x : D) → A) → A
+  l→r h = h D≠∅
+
+  r→l : A → (x : D) → A
+  r→l a _ = a
+
 ∃-erase-add₂ : (∃[ x ] A ∨ A¹ x) ↔ A ∨ (∃[ x ] A¹ x)
 ∃-erase-add₂ = l→r , r→l
   where

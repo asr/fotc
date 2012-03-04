@@ -37,6 +37,11 @@ postulate
 
 -- Quantification over a variable that does not occur can be erased or
 -- added.
+-- postulate
+  -- TODO: 2012-02-03. The ATPs are not proving the theorem.
+  -- ∀-erase-add : ((x : D) → A) ↔ A
+-- {-# ATP prove ∀-erase-add #-}
+
 postulate
   ∃-erase-add₂ : (∃[ x ] A ∨ A¹ x) ↔ A ∨ (∃[ x ] A¹ x)
 {-# ATP prove ∃-erase-add₂ #-}
