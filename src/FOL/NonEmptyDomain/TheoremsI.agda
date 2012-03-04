@@ -32,9 +32,8 @@ postulate
 ∃-erase-add₁ = l→r , r→l
   where
   l→r : ∃ (λ _ → A) → A
-  l→r h = ∃-elim h (λ prf → prf)
+  l→r (_ , a) = a
 
-  -- 2012-02-28. We required the existential witness.
   r→l : A → ∃ (λ _ → A)
   r→l A = D≠∅ , A
 
@@ -44,12 +43,9 @@ postulate
 ∃-erase-add₂ = l→r , r→l
   where
   l→r : ∃[ x ] (A ∨ A¹ x) → A ∨ (∃[ x ] A¹ x)
-  l→r h = ∃-elim h (λ prf → [ (λ a → inj₁ a )
-                            , (λ A¹x → inj₂ (_ , A¹x))
-                            ] prf
-                   )
+  l→r (x , inj₁ a)   = inj₁ a
+  l→r (x , inj₂ A¹x) = inj₂ (x , A¹x )
 
-  -- 2012-02-28. We required the existential witness.
   r→l : A ∨ (∃[ x ] A¹ x) → ∃[ x ] A ∨ A¹ x
-  r→l (inj₁ a) = D≠∅ , inj₁ a
-  r→l (inj₂ h) = ∃-elim h (λ A¹x → _ , inj₂ A¹x)
+  r→l (inj₁ a)         = D≠∅ , inj₁ a
+  r→l (inj₂ (x , A¹x)) = x , inj₂ A¹x

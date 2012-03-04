@@ -41,7 +41,7 @@ postulate
 -- ∃-intro : ((t : D) → A¹ t) → ∃ A¹
 
 ∃-elim' : ∃ A¹ → ({x : D} → A¹ x → A) → A
-∃-elim' = ∃-elim
+∃-elim' (x , A¹x) h = h A¹x
 
 -- Generalization of De Morgan's laws.
 gDM₂ : ¬ (∃ A¹) ↔ (∀ {x} → ¬ (A¹ x))
@@ -51,7 +51,7 @@ gDM₂ = l→r , r→l
   l→r h A¹x = h (_ , A¹x)
 
   r→l : (∀ {x} → ¬ (A¹ x)) → ¬ (∃ A¹)
-  r→l h₁ h₂ = ∃-elim h₂ h₁
+  r→l h (x , A¹x) = h A¹x
 
 -- Quantification over a variable that does not occur can be erased or
 -- added.
@@ -59,15 +59,15 @@ gDM₂ = l→r , r→l
 ∃-erase-add = l→r , r→l
   where
   l→r : ∃[ x ] A ∧ A¹ x → A ∧ (∃[ x ] A¹ x)
-  l→r h = ∃-elim h (λ prf → (∧-proj₁ prf) , _ , ∧-proj₂ prf)
+  l→r (x , a , A¹x) = a , x , A¹x
 
   r→l : A ∧ (∃[ x ] A¹ x) → ∃[ x ] A ∧ A¹ x
-  r→l (a , h) = ∃-elim h (λ prf → _ , a , prf)
+  r→l (a , x , A¹x) = x , a , A¹x
 
 -- Interchange of quantifiers.
 -- The related theorem ∀x∃y.Axy → ∃y∀x.Axy is not (classically) valid.
 ∃∀ : ∃[ x ] (∀ y → A² x y) → ∀ y → ∃[ x ] A² x y
-∃∀ h y = ∃-elim h (λ prf → _ , prf y)
+∃∀ (x , h) y = x , h y
 
 -- ∃ in terms of ∀ and ¬.
 ∃→¬∀¬ : ∃[ x ] A¹ x → ¬ (∀ {x} → ¬ A¹ x)

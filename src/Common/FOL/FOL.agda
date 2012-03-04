@@ -99,5 +99,12 @@ syntax ∃ (λ x → e) = ∃[ x ] e
 -- NB. We do not use the usual type theory elimination with two
 -- projections because we are working in first-order logic where we do
 -- need extract a witness from an existence proof.
-∃-elim : {A : D → Set}{B : Set} → ∃ A → (∀ {x} → A x → B) → B
-∃-elim (_ , Ax) h = h Ax
+-- ∃-elim : {A : D → Set}{B : Set} → ∃ A → (∀ {x} → A x → B) → B
+-- ∃-elim (_ , Ax) h = h Ax
+
+-- The existential proyections.
+-- ∃-proj₁ : ∀ {A} → ∃ A → D
+-- ∃-proj₁ (x , _) = x
+
+-- ∃-proj₂ : ∀ {A} → (h : ∃ A) → A (∃-proj₁ h)
+-- ∃-proj₂ (_ , Ax) = Ax
