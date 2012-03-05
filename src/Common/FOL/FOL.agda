@@ -98,7 +98,7 @@ syntax ∃ (λ x → e) = ∃[ x ] e
 --
 -- NB. We do not use the usual type theory elimination with two
 -- projections because we are working in first-order logic where we do
--- need extract a witness from an existence proof.
+-- not need extract a witness from an existence proof.
 -- ∃-elim : {A : D → Set}{B : Set} → ∃ A → (∀ {x} → A x → B) → B
 -- ∃-elim (_ , Ax) h = h Ax
 
