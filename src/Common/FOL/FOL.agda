@@ -94,6 +94,10 @@ data ∃ (A : D → Set) : Set where
 -- Sugar syntax for the existential quantifier.
 syntax ∃ (λ x → e) = ∃[ x ] e
 
+-- 2012-03-05: We avoid to use the existential elimination or the
+-- existential projections because we use pattern matching (and the
+-- Agda's with constructor).
+
 -- The existential elimination.
 --
 -- NB. We do not use the usual type theory elimination with two
