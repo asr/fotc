@@ -7,6 +7,13 @@
 
 module FOTC.Data.Stream.Equality where
 
+-- 2012-02-05. Although this module does not use the predicate Stream,
+-- it is defined in the Stream directory due to the theorem
+--
+-- ≈→Stream : ∀ {xs ys} → xs ≈ ys → Stream xs ∧ Stream ys
+--
+-- in the module FOTC.Data.Stream.PropertiesI/ATP.
+
 open import FOTC.Base
 
 -- We add 3 to the fixities of the standard library.
@@ -60,19 +67,24 @@ private
   -- In FOTC we won't use the bisimulation functional. This module is
   -- only for illustrative purposes.
 
-  -- Adapted from [1]. In this paper the authors use the name
-
-  -- as (R :: R') bs' (p. 310)
-
-  -- for the bisimulation functional.
-
-  -- [1] Peter Dybjer and Herbert Sander. A functional programming
+  -- References:
+  --
+  -- • Peter Dybjer and Herbert Sander. A functional programming
   -- approach to the specification and verification of concurrent
   -- systems. Formal Aspects of Computing, 1:303–319, 1989.
 
-  -- The bisimulation functional (Bart Jacobs and Jan
-  -- Rutten. (Co)algebras and (co)induction. EATCS Bulletin,
-  -- 62:222–259, 1997).
+  -- • Bart Jacobs and Jan Rutten. (Co)algebras and
+  -- (co)induction. EATCS Bulletin, 62:222–259, 1997.
+
+  ----------------------------------------------------------------------------
+  -- Adapted from (Dybjer and Sander, 1989, p. 310). In this paper, the
+  -- authors use the name
+
+  -- as (R :: R') bs'
+
+  -- for the bisimulation functional.
+
+  -- The bisimulation functional (Jacobs and Rutten, 1997, p. 30).
   Bisimulation : (D → D → Set) → D → D → Set
   Bisimulation _R_ xs ys =
     ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
