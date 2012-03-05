@@ -5,9 +5,13 @@
 {-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
--- Based on [1].
+module Functor where
 
--- [1] Varmo Vene. Categorical programming with inductive and
+-- Based on (Vene, 2000).
+
+-- References:
+--
+-- • Varmo Vene. Categorical programming with inductive and
 -- coinductive types. PhD thesis, University of Taru, Estonia, 2000.
 
 import Prelude hiding ( pred )
