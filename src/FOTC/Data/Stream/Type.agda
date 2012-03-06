@@ -12,7 +12,7 @@ open import FOTC.Base
 ------------------------------------------------------------------------------
 -- Functional for the FOTC Stream type.
 -- StreamF : (D → Set) → D → Set
--- StreamF P ds = ∃[ e ] ∃[ es ] P es ∧ ds ≡ e ∷ es
+-- StreamF P xs = ∃[ x' ] ∃[ xs' ] P xs' ∧ xs ≡ x' ∷ xs'
 
 -- Stream is the greatest fixed-point of StreamF (by Stream-gfp₁ and
 -- Stream-gfp₂).
