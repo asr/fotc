@@ -14,19 +14,23 @@ open import FOTC.Base
 -- StreamF : (D → Set) → D → Set
 -- StreamF P ds = ∃[ e ] ∃[ es ] P es ∧ ds ≡ e ∷ es
 
--- Stream is the greatest post-fixed of StreamF (by Stream-gfp₁ and
+-- Stream is the greatest fixed-point of StreamF (by Stream-gfp₁ and
 -- Stream-gfp₂).
 
 postulate
   Stream : D → Set
 
 postulate
--- Stream is post-fixed point of StreamF (d ≤ f d)
+-- Stream is a post-fixed point of StreamF, i.e.
+--
+-- Stream ≤ StreamF Stream.
   Stream-gfp₁ : ∀ {xs} → Stream xs →
                 ∃[ x' ] ∃[ xs' ] Stream xs' ∧ xs ≡ x' ∷ xs'
 {-# ATP axiom Stream-gfp₁ #-}
 
--- ∀ e. e ≤ f e => e ≤ d
+-- Stream is the greatest post-fixed point of StreamF, i.e
+--
+-- ∀ P. P ≤ StreamF P ⇒ P ≤ Stream.
 --
 -- N.B. This is an axiom schema. Because in the automatic proofs we
 -- *must* use an instance, we do not add this postulate as an ATP
@@ -38,9 +42,10 @@ postulate
                 -- Stream is greater than P.
                 ∀ {xs} → P xs → Stream xs
 
--- Because a greatest post-fixed point is a fixed point, then the
--- Stream predicate is also a pre-fixed point of the functor StreamF
--- (f d ≤ d).
+-- Because a greatest post-fixed point is a fixed-point, then the
+-- Stream predicate is also a pre-fixed point of the functor StreamF, i.e.
+--
+-- StreamF Stream ≤ Stream.
 Stream-gfp₃ : ∀ {xs} →
               (∃[ x' ] ∃[ xs' ] Stream xs' ∧ xs ≡ x' ∷ xs') →
               Stream xs
