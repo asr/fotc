@@ -154,6 +154,7 @@ open import FOTC.Program.GCD.Total.TotalityATP
 open import FOTC.Program.GCD.Total.TotalityI
 
 open import FOTC.Program.MapIterate.MapIterateATP
+open import FOTC.Program.MapIterate.MapIterateI
 
 open import FOTC.Program.McCarthy91.ArithmeticATP
 open import FOTC.Program.McCarthy91.McCarthy91.ConsistencyTest

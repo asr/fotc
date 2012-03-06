@@ -16,7 +16,9 @@
 -- • Jeremy Gibbons and Graham Hutton. Proof methods for corecursive
 --   programs. Fundamenta Informaticae, XX:1–14, 2005.
 
-module FOTC.Program.MapIterate.MapIterateATP where
+module FOTC.Program.MapIterate.MapIterateI where
+
+open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
 open import FOTC.Data.List
@@ -32,9 +34,22 @@ open import FOTC.Data.Stream.Equality
   -- Castéran, 2007).
   R : D → D → Set
   R xs ys = ∃[ y ] xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y)
-  {-# ATP definition R #-}
 
-  postulate
-    helper : ∀ {xs ys} → R xs ys →
-             ∃[ x' ] ∃[ xs' ] ∃[ ys' ] R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
-  {-# ATP prove helper #-}
+  helper : ∀ {xs ys} → R xs ys →
+           ∃[ x' ] ∃[ xs' ] ∃[ ys' ] R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+  helper {xs} {ys} (y , h) =
+    f · y
+    , map f (iterate f (f · y))
+    , iterate f (f · (f · y))
+    , ((f · y) , refl , refl)
+    , trans (∧-proj₁ h) (unfoldMap y)
+    , trans (∧-proj₂ h) (iterate-eq f (f · y))
+
+    where
+    unfoldMap : ∀ y →
+                map f (iterate f y) ≡ f · y ∷ map f (iterate f (f · y))
+    unfoldMap y = map f (iterate f y)
+                    ≡⟨ cong (map f) (iterate-eq f y) ⟩
+                  map f (y ∷ iterate f (f · y))
+                    ≡⟨ map-∷ f y (iterate f (f · y)) ⟩
+                  f · y ∷ map f (iterate f (f · y)) ∎
