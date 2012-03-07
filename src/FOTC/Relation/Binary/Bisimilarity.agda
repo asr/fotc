@@ -1,18 +1,11 @@
 ------------------------------------------------------------------------------
--- Equality on streams
+-- Bisimilarity relation
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Data.Stream.Equality where
-
--- 2012-02-05. Although this module does not use the predicate Stream,
--- it is defined in the Stream directory due to the theorem
---
--- ≈→Stream : ∀ {xs ys} → xs ≈ ys → Stream xs ∧ Stream ys
---
--- in the module FOTC.Data.Stream.PropertiesI/ATP.
+module FOTC.Relation.Binary.Bisimilarity where
 
 open import FOTC.Base
 
@@ -20,22 +13,22 @@ open import FOTC.Base
 infix 7 _≈_
 
 ------------------------------------------------------------------------------
--- The relation _≈_ is the greatest fixed point (by ≈-gfp₁ and ≈-gfp₂)
--- of the bisimulation functional (see below).
+-- The bisimilarity relation _≈_ is the greatest fixed point (by
+-- ≈-gfp₁ and ≈-gfp₂) of the bisimulation functional (see below).
 
--- The equality on streams.
+-- The bisimilarity relation.
 postulate
   _≈_ : D → D → Set
 
--- The relation _≈_ is a post-fixed point of the bisimulation
--- functional (see below).
+-- The bisimilarity relation _≈_ is a post-fixed point of the
+-- bisimulation functional (see below).
 postulate
   ≈-gfp₁ : ∀ {xs ys} → xs ≈ ys →
            ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 {-# ATP axiom ≈-gfp₁ #-}
 
--- The relation _≈_ is the greatest post-fixed point of the
--- bisimulation functional (see below).
+-- The bisimilarity relation _≈_ is the greatest post-fixed point of
+-- the bisimulation functional (see below).
 --
 -- N.B. This is an axiom schema. Because in the automatic proofs we
 -- *must* use an instance, we do not add this postulate as an ATP
@@ -49,9 +42,9 @@ postulate
            -- _≈_ is greater than R.
            ∀ {xs ys} → xs R ys → xs ≈ ys
 
--- Because a greatest post-fixed point is a fixed-point, the relation
--- _≈_ is also a pre-fixed point of the bisimulation functional (see
--- below).
+-- Because a greatest post-fixed point is a fixed-point, the
+-- bisimilarity relation _≈_ is also a pre-fixed point of the
+-- bisimulation functional (see below).
 ≈-gfp₃ : ∀ {xs ys} →
          (∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
           xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
@@ -87,21 +80,22 @@ private
 
   -- for the bisimulation functional.
 
-  -- The relation _≈_ is the greatest post-fixed point of Bisimulation
-  -- (by post-fp and gpfp).
+  -- The bisimilarity relation _≈_ is the greatest post-fixed point of
+  -- Bisimulation (by post-fp and gpfp).
 
   -- The bisimulation functional (Jacobs and Rutten, 1997, p. 30).
   Bisimulation : (D → D → Set) → D → D → Set
   Bisimulation _R_ xs ys =
     ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 
-  -- The relation _≈_ is a post-fixed point of Bisimulation, i.e,
+  -- The bisimilarity relation _≈_ is a post-fixed point of
+  -- Bisimulation, i.e,
   --
   -- _≈_ ≤ Bisimulation _≈_.
   post-fp : ∀ {xs ys} → xs ≈ ys → Bisimulation _≈_ xs ys
   post-fp = ≈-gfp₁
 
-  -- The relation _≈_ is the greatest post-fixed point of
+  -- The bisimilarity relation _≈_ is the greatest post-fixed point of
   -- Bisimulation, i.e
   --
   -- ∀ R. R ≤ Bisimulation R ⇒ R ≤ _≈_.
@@ -113,7 +107,8 @@ private
   gpfp = ≈-gfp₂
 
   -- Because a greatest post-fixed point is a fixed-point, the
-  -- relation _≈_ is also a pre-fixed point of Bisimulation, i.e.
+  -- bisimilarity relation _≈_ is also a pre-fixed point of
+  -- Bisimulation, i.e.
   --
   -- Bisimulation _≈_ ≤ _≈_.
   pre-fp : ∀ {xs ys} → Bisimulation _≈_ xs ys → xs ≈ ys

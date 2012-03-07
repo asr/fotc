@@ -20,7 +20,7 @@ module FOTC.Program.MapIterate.MapIterateATP where
 
 open import FOTC.Base
 open import FOTC.Data.List
-open import FOTC.Data.Stream.Equality
+open import FOTC.Relation.Binary.Bisimilarity
 
 ------------------------------------------------------------------------------
 -- The map-iterate property.

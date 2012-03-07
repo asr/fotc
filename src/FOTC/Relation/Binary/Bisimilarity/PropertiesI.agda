@@ -1,15 +1,15 @@
 ------------------------------------------------------------------------------
--- Properties for the equality on streams
+-- Properties for the bisimilarity relation
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Data.Stream.Equality.PropertiesI where
+module FOTC.Relation.Binary.Bisimilarity.PropertiesI where
 
 open import FOTC.Base
 open import FOTC.Base.PropertiesI
-open import FOTC.Data.Stream.Equality
+open import FOTC.Relation.Binary.Bisimilarity
 
 ------------------------------------------------------------------------------
 

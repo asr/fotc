@@ -108,14 +108,19 @@ open import FOTC.Data.Conat.PropertiesI
 -- The coinductive predicate (axioms)
 open import FOTC.Data.Stream
 
--- Equality on streams
-open import FOTC.Data.Stream.Equality
-open import FOTC.Data.Stream.Equality.PropertiesATP
-open import FOTC.Data.Stream.Equality.PropertiesI
-
 -- Properties
 open import FOTC.Data.Stream.PropertiesATP
 open import FOTC.Data.Stream.PropertiesI
+
+------------------------------------------------------------------------------
+-- Bisimilary relation
+
+-- The axioms
+open import FOTC.Relation.Binary.Bisimilarity
+
+-- Properties
+open import FOTC.Relation.Binary.Bisimilarity.PropertiesATP
+open import FOTC.Relation.Binary.Bisimilarity.PropertiesI
 
 ------------------------------------------------------------------------------
 -- Verification of programs
