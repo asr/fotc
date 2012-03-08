@@ -117,7 +117,7 @@ x+Sy≡S[x+y] n Nm = N-ind A A0 is Nm
      succ₁ i + n
        ≡⟨ +-Sx i n ⟩
      succ₁ (i + n)
-        ≡⟨ subst (λ t → succ₁ (i + n) ≡ succ₁ t) ih refl ⟩
+        ≡⟨ cong succ₁ ih ⟩
      succ₁ (n + i)
        ≡⟨ sym $ x+Sy≡S[x+y] i Nn ⟩
      n + succ₁ i ∎

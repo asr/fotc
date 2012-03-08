@@ -280,7 +280,7 @@ x+Sy≡S[x+y] n (sN {m} Nm) =
 
 +-comm {n = n} (sN {m} Nm) Nn =
   succ₁ m + n   ≡⟨ +-Sx m n ⟩
-  succ₁ (m + n) ≡⟨ subst (λ t → succ₁ (m + n) ≡ succ₁ t) (+-comm Nm Nn) refl ⟩
+  succ₁ (m + n) ≡⟨ cong succ₁ (+-comm Nm Nn) ⟩
   succ₁ (n + m) ≡⟨ sym $ x+Sy≡S[x+y] m Nn ⟩
   n + succ₁ m ∎
 
