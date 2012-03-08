@@ -150,10 +150,10 @@ open import FOTC.Program.SortList.ProofSpecificationI
 open import FOTC.Program.Division.ProofSpecificationATP
 open import FOTC.Program.Division.ProofSpecificationI
 
--- The map-iterate property: A property using coinduction
+-- The map-iterate property: A property using co-induction
 open import FOTC.Program.MapIterate.MapIterateATP
 open import FOTC.Program.MapIterate.MapIterateI
 
--- The alternating bit protocol: A program using co-inductive types
+-- The alternating bit protocol: A program using induction and co-induction
 open import FOTC.Program.ABP.ProofSpecificationATP
 open import FOTC.Program.ABP.ProofSpecificationI
