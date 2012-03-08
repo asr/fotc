@@ -2,7 +2,7 @@
 -- Totality of natural numbers addition
 ------------------------------------------------------------------------------
 
--- Tested with FOT and agda2atp on 02 March 2012.
+-- Tested with FOT and agda2atp on 07 March 2012.
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
@@ -13,7 +13,6 @@ open import FOTC.Base
 open import FOTC.Data.Nat
 
 ------------------------------------------------------------------------------
-
 -- Interactive proof using the induction principle for natural numbers.
 +-N : ∀ {m n} → N m → N n → N (m + n)
 +-N {m} {n} Nm Nn = N-ind A A0 ih Nm
@@ -28,15 +27,15 @@ open import FOTC.Data.Nat
     ih {i} ih = subst N (sym (+-Sx i n)) (sN ih)
 
 -- Combined proof using an instance of the induction principle.
-indN-instance : ∀ x →
-                N (zero + x) →
-                (∀ {n} → N (n + x) → N (succ₁ n + x)) →
-                ∀ {n} → N n → N (n + x)
-indN-instance x = N-ind (λ i → N (i + x))
+N-ind-instance : ∀ n →
+                N (zero + n) →
+                (∀ {m} → N (m + n) → N (succ₁ m + n)) →
+                ∀ {m} → N m → N (m + n)
+N-ind-instance n = N-ind (λ i → N (i + n))
 
 postulate
   +-N₁ : ∀ {m n} → N m → N n → N (m + n)
-{-# ATP prove +-N₁ indN-instance #-}
+{-# ATP prove +-N₁ N-ind-instance #-}
 
 -- Combined proof using the induction principle.
 
@@ -47,7 +46,6 @@ postulate
 ----------------------------------------------------------------
 -- ∀ x y. app₁(n,x) → app₁(n,y) → app₁(n,appFn(appFn(+,x),y))    -- +-N₂
 
-postulate
-  +-N₂ : ∀ {m n} → N m → N n → N (m + n)
+postulate +-N₂ : ∀ {m n} → N m → N n → N (m + n)
 -- The ATPs could not prove this postulate.
--- {-# ATP prove +-N₂ indN #-}
+-- {-# ATP prove +-N₂ N-ind #-}
