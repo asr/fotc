@@ -16,7 +16,7 @@ open import FOTC.Program.Mirror.Type
 ------------------------------------------------------------------------------
 
 mirror-Tree : ∀ {t} → Tree t → Tree (mirror · t)
-mirror-Tree Tt = mutualIndTree {A} {B} ihA B[] ihB Tt
+mirror-Tree Tt = Tree-ind {A} {B} ihA B[] ihB Tt
   where
   A : D → Set
   A t = Tree (mirror · t)
