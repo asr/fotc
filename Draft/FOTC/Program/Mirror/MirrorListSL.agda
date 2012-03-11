@@ -1,12 +1,12 @@
 -- Tested with the development version of the standard library on
--- 02 February 2012.
+-- 11 March 2012.
 
 module MirrorListSL where
 
 open import Algebra
 open import Data.List as List hiding ( reverse )
 open import Data.List.Properties hiding ( reverse-++-commute )
-open import Data.Product hiding (map)
+open import Data.Product hiding ( map )
 
 open import Relation.Binary.PropositionalEquality
 open ≡-Reasoning

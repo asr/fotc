@@ -1,12 +1,12 @@
--- Tested with the development versions of Agda and the standard library on
--- 29 November 2011.
+-- Tested with the development version of the standard library on
+-- 11 March 2012.
 
 module MirrorRoseTreeSL where
 
+infixr 5 _∷_ _++_
+
 open import Relation.Binary.PropositionalEquality
 open ≡-Reasoning
-
-infixr 5 _∷_ _++_
 
 ------------------------------------------------------------------------------
 
