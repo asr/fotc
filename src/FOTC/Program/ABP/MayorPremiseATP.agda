@@ -27,15 +27,15 @@ open import FOTC.Program.ABP.Terms
 
 mayorPremise : ∀ {b fs₀ fs₁ is} →
                Bit b → Fair fs₀ → Fair fs₁ → Stream is →
-               is B abptransfer b fs₀ fs₁ is
+               is B transfer b fs₀ fs₁ is
 mayorPremise {b} {fs₀} {fs₁} {is} Bb Ffs₀ Ffs₁ Sis =
   b
   , fs₀
   , fs₁
-  , has (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
-  , hbs (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
-  , hcs (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
-  , hds (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
+  , has (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
+  , hbs (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
+  , hcs (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
+  , hds (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
   , prf
 
   where
@@ -44,36 +44,36 @@ mayorPremise {b} {fs₀} {fs₁} {is} Bb Ffs₀ Ffs₁ Sis =
                     Bool b ∧
                     Fair fs₀ ∧
                     Fair fs₁ ∧
-                    has (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀)
+                    has (send · b) (ack · b) (out · b) (corrupt · fs₀)
                     (corrupt · fs₁) is
                     ≡
-                    abpsend · b · is ·
-                    hds (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀)
+                    send · b · is ·
+                    hds (send · b) (ack · b) (out · b) (corrupt · fs₀)
                     (corrupt · fs₁) is
                     ∧
-                    hbs (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀)
+                    hbs (send · b) (ack · b) (out · b) (corrupt · fs₀)
                     (corrupt · fs₁) is
                     ≡
                     corrupt · fs₀ ·
-                    has (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀)
+                    has (send · b) (ack · b) (out · b) (corrupt · fs₀)
                     (corrupt · fs₁) is
                     ∧
-                    hcs (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀)
+                    hcs (send · b) (ack · b) (out · b) (corrupt · fs₀)
                     (corrupt · fs₁) is
                     ≡
-                    abpack · b ·
-                    hbs (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀)
+                    ack · b ·
+                    hbs (send · b) (ack · b) (out · b) (corrupt · fs₀)
                     (corrupt · fs₁) is
                     ∧
-                    hds (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀)
+                    hds (send · b) (ack · b) (out · b) (corrupt · fs₀)
                     (corrupt · fs₁) is
                     ≡
                     corrupt · fs₁ ·
-                    hcs (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀)
+                    hcs (send · b) (ack · b) (out · b) (corrupt · fs₀)
                     (corrupt · fs₁) is
                     ∧
-                    abptransfer b fs₀ fs₁ is ≡
-                    abpout · b ·
-                    hbs (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀)
+                    transfer b fs₀ fs₁ is ≡
+                    out · b ·
+                    hbs (send · b) (ack · b) (out · b) (corrupt · fs₀)
                     (corrupt · fs₁) is
   {-# ATP prove prf #-}

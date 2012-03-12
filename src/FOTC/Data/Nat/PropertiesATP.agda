@@ -275,15 +275,15 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
 xy≡0→x≡0∨y≡0 : ∀ {m n} → N m → N n → m * n ≡ zero → m ≡ zero ∨ n ≡ zero
 xy≡0→x≡0∨y≡0 zN      _  _                   = inj₁ refl
 xy≡0→x≡0∨y≡0 (sN Nm) zN _                   = inj₂ refl
-xy≡0→x≡0∨y≡0 (sN {m} Nm) (sN {n} Nn) SmSn≡0 = ⊥-elim (0≠S prf)
+xy≡0→x≡0∨y≡0 (sN {m} Nm) (sN {n} Nn) SmSn≡0 = ⊥-elim (0≢S prf)
   where
   postulate prf : zero ≡ succ₁ (n + m * succ₁ n)
   {-# ATP prove prf #-}
 
 xy≡1→x≡1∨y≡1 : ∀ {m n} → N m → N n → m * n ≡ one → m ≡ one ∨ n ≡ one
-xy≡1→x≡1∨y≡1 zN Nn h = ⊥-elim (0≠S (trans (sym (*-leftZero Nn)) h))
+xy≡1→x≡1∨y≡1 zN Nn h = ⊥-elim (0≢S (trans (sym (*-leftZero Nn)) h))
 xy≡1→x≡1∨y≡1 (sN {m} Nm) zN h =
-  ⊥-elim (0≠S (trans (sym (*-rightZero (sN Nm))) h))
+  ⊥-elim (0≢S (trans (sym (*-rightZero (sN Nm))) h))
 xy≡1→x≡1∨y≡1 (sN zN) (sN Nn) h = inj₁ refl
 xy≡1→x≡1∨y≡1 (sN (sN Nm)) (sN zN) h = inj₂ refl
 xy≡1→x≡1∨y≡1 (sN (sN {m} Nm)) (sN (sN {n} Nn)) h = prf

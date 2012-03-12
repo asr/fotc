@@ -17,10 +17,10 @@ open import LTC-PCF.Data.Nat.Inequalities.EquationsATP
 ------------------------------------------------------------------------------
 
 0<0→⊥ : ¬ LT zero zero
-0<0→⊥ 0<0 = true≠false $ trans (sym 0<0) <-00
+0<0→⊥ 0<0 = true≢false $ trans (sym 0<0) <-00
 
 S<0→⊥ : ∀ {n}  → ¬ LT (succ₁ n) zero
-S<0→⊥ {n} h = true≠false $ trans (sym h) (<-S0 n)
+S<0→⊥ {n} h = true≢false $ trans (sym h) (<-S0 n)
 
 x<0→⊥ : ∀ {n} → N n → ¬ (LT n zero)
 x<0→⊥ zN     0<0  = 0<0→⊥ 0<0
@@ -31,10 +31,10 @@ x<x→⊥ zN          0<0   = 0<0→⊥ 0<0
 x<x→⊥ (sN {n} Nn) Sn<Sn = ⊥-elim $ x<x→⊥ Nn (trans (sym $ <-SS n n) Sn<Sn)
 
 0>0→⊥ : ¬ GT zero zero
-0>0→⊥ 0>0 = true≠false $ trans (sym 0>0) <-00
+0>0→⊥ 0>0 = true≢false $ trans (sym 0>0) <-00
 
 0>S→⊥ : ∀ {n} → ¬ GT zero (succ₁ n)
-0>S→⊥ {n} h = true≠false (trans (sym h) (<-S0 n))
+0>S→⊥ {n} h = true≢false (trans (sym h) (<-S0 n))
 
 0>x→⊥ : ∀ {n} → N n → ¬ (GT zero n)
 0>x→⊥ zN     0>0  = 0>0→⊥ 0>0
@@ -44,9 +44,9 @@ x>x→⊥ : ∀ {n} → N n → ¬ (GT n n)
 x>x→⊥ Nn = x<x→⊥ Nn
 
 S≤0→⊥ : ∀ {n} → N n → ¬ (LE (succ₁ n) zero)
-S≤0→⊥ zN         S0≤0  = true≠false (trans (sym S0≤0)
+S≤0→⊥ zN         S0≤0  = true≢false (trans (sym S0≤0)
                                            (trans (<-SS zero zero) <-00))
-S≤0→⊥ (sN {n} _) SSn≤0 = true≠false (trans (sym SSn≤0)
+S≤0→⊥ (sN {n} _) SSn≤0 = true≢false (trans (sym SSn≤0)
                                            (trans (<-SS (succ₁ n) zero) (<-S0 n)))
 
 0≥S→⊥ : ∀ {n} → N n → ¬ (GE zero (succ₁ n))
@@ -59,4 +59,4 @@ x<y→y<x→⊥ (sN {m} Nm) (sN {n} Nn) Sm<Sn Sn<Sm =
   x<y→y<x→⊥ Nm Nn (trans (sym (<-SS m n)) Sm<Sn) (trans (sym (<-SS n m)) Sn<Sm)
 
 S≯0→⊥ : ∀ {n} → ¬ (NGT (succ₁ n) zero)
-S≯0→⊥ {n} h = ⊥-elim (true≠false (trans (sym (<-0S n)) h))
+S≯0→⊥ {n} h = ⊥-elim (true≢false (trans (sym (<-0S n)) h))

@@ -31,9 +31,9 @@ P₃ refl = refl
 P₄ : ∀ {n} → ¬ (zero ≡ succ n)
 P₄ ()
 
-x≠Sx : ∀ {n} → ¬ (n ≡ succ n)
-x≠Sx {zero} ()
-x≠Sx {succ n} h = x≠Sx (P₃ h)
+x≢Sx : ∀ {n} → ¬ (n ≡ succ n)
+x≢Sx {zero} ()
+x≢Sx {succ n} h = x≢Sx (P₃ h)
 
 +-leftIdentity : ∀ n → zero + n ≡ n
 +-leftIdentity n = refl

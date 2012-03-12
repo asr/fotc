@@ -94,7 +94,7 @@ module ∃₃ where
   postulate d : D
 
   -- FOL existential elimination.
-  -- NB. It is neccesary that D ≠ ∅.
+  -- NB. It is neccesary that D ≢ ∅.
   ∃-elim : {A : D → Set}{B : Set} → ∃ A → ((x : D) → A x → B) → B
   ∃-elim (∃-intro h₁) h₂ = h₂ d (h₁ d)
 

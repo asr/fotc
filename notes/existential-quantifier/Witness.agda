@@ -17,7 +17,7 @@ module Witness where
 
 postulate
   D   : Set
-  D≠∅ : D  -- Non-empty domain.
+  D≢∅ : D  -- Non-empty domain.
 
 -- The existential quantifier type on D.
 data ∃ (P : D → Set) : Set where
@@ -28,4 +28,4 @@ data ∃ (P : D → Set) : Set where
 
 -- A version of the right-to-left implication.
 l→r : {A : Set} → A → ∃ (λ _ → A)
-l→r a = ∃-intro {x = D≠∅} a
+l→r a = ∃-intro {x = D≢∅} a

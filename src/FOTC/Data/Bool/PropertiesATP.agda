@@ -83,13 +83,13 @@ true&&x≡x fB = &&-tf
 
 &&-proj₁ : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₁ ≡ true
 &&-proj₁ tB B₂ h = refl
-&&-proj₁ fB tB h = ⊥-elim $ true≠false $ trans (sym h) &&-ft
-&&-proj₁ fB fB h = ⊥-elim $ true≠false $ trans (sym h) &&-ff
+&&-proj₁ fB tB h = ⊥-elim $ true≢false $ trans (sym h) &&-ft
+&&-proj₁ fB fB h = ⊥-elim $ true≢false $ trans (sym h) &&-ff
 
 &&-proj₂ : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₂ ≡ true
 &&-proj₂ B₁ tB h   = refl
-&&-proj₂ tB fB h = ⊥-elim $ true≠false $ trans (sym h) &&-tf
-&&-proj₂ fB fB h = ⊥-elim $ true≠false $ trans (sym h) &&-ff
+&&-proj₂ tB fB h = ⊥-elim $ true≢false $ trans (sym h) &&-tf
+&&-proj₂ fB fB h = ⊥-elim $ true≢false $ trans (sym h) &&-ff
 
 &&₃-proj₁ : ∀ {b₁ b₂ b₃ b₄} →
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
@@ -127,12 +127,12 @@ true&&x≡x fB = &&-tf
   where postulate prf : ⊥
         {-# ATP prove prf x&&false≡false #-}
 
-x≠not-x : ∀ {b} → Bool b → ¬ (b ≡ not b)
-x≠not-x tB h = true≠false (trans h not-t)
-x≠not-x fB h = true≠false (sym (trans h not-f))
+x≢not-x : ∀ {b} → Bool b → ¬ (b ≡ not b)
+x≢not-x tB h = true≢false (trans h not-t)
+x≢not-x fB h = true≢false (sym (trans h not-f))
 
-not-x≠x : ∀ {b} → Bool b → ¬ (not b ≡ b)
-not-x≠x Bb h = x≠not-x Bb (sym h)
+not-x≢x : ∀ {b} → Bool b → ¬ (not b ≡ b)
+not-x≢x Bb h = x≢not-x Bb (sym h)
 
 not² : ∀ {b} → Bool b → not (not b) ≡ b
 not² tB = trans (cong not not-t) not-f

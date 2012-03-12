@@ -17,23 +17,23 @@ open import FOTC.Program.ABP.Terms
 
 mayorPremise : ∀ {b fs₀ fs₁ is} →
                Bit b → Fair fs₀ → Fair fs₁ → Stream is →
-               is B abptransfer b fs₀ fs₁ is
+               is B transfer b fs₀ fs₁ is
 mayorPremise {b} {fs₀} {fs₁} {is} Bb Ffs₀ Ffs₁ Sis =
   b
   , fs₀
   , fs₁
-  , has (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
-  , hbs (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
-  , hcs (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
-  , hds (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
+  , has (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
+  , hbs (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
+  , hcs (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
+  , hds (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
   , Sis
   , Bb
   , Ffs₀
   , Ffs₁
-  , has-eq (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
-  , hbs-eq (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
-  , hcs-eq (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
-  , hds-eq (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀) (corrupt · fs₁) is
-  , trans (abptransfer-eq b fs₀ fs₁ is)
-          (transfer-eq (abpsend · b) (abpack · b) (abpout · b) (corrupt · fs₀)
+  , has-eq (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
+  , hbs-eq (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
+  , hcs-eq (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
+  , hds-eq (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
+  , trans (transfer-eq b fs₀ fs₁ is)
+          (genTransfer-eq (send · b) (ack · b) (out · b) (corrupt · fs₀)
                        (corrupt · fs₁) is)

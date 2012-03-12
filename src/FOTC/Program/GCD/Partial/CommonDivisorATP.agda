@@ -91,7 +91,7 @@ gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
   Sm-Sn-N = ∸-N (sN Nm) (sN Nn)
 
   gcd-Sm-Sn,Sn-N : N (gcd (succ₁ m ∸ succ₁ n) (succ₁ n))
-  gcd-Sm-Sn,Sn-N = gcd-N Sm-Sn-N (sN Nn) (λ p → ⊥-elim $ S≠0 $ ∧-proj₂ p)
+  gcd-Sm-Sn,Sn-N = gcd-N Sm-Sn-N (sN Nn) (λ p → ⊥-elim $ S≢0 $ ∧-proj₂ p)
 
 ------------------------------------------------------------------------------
 -- Some case of the gcd-∣₂.
@@ -147,7 +147,7 @@ gcd-S≯S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≯Sn =
   Sn-Sm-N = ∸-N (sN Nn) (sN Nm)
 
   gcd-Sm,Sn-Sm-N : N (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))
-  gcd-Sm,Sn-Sm-N = gcd-N (sN Nm) (Sn-Sm-N) (λ p → ⊥-elim $ S≠0 $ ∧-proj₁ p)
+  gcd-Sm,Sn-Sm-N = gcd-N (sN Nm) (Sn-Sm-N) (λ p → ⊥-elim $ S≢0 $ ∧-proj₁ p)
 
 -- gcd (succ₁ m) (succ₁ n) ∣ succ₁ n when succ₁ m > succ₁ n.
 postulate
@@ -203,9 +203,9 @@ gcd-S≯S-CD {m} {n} Nm Nn acc Sm≯Sn =
 -- The gcd m n when m > n is CD.
 gcd-x>y-CD :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → LT₂ o p m n → x≠0≠y o p → CD o p (gcd o p)) →
+  (∀ {o p} → N o → N p → LT₂ o p m n → x≢0≢y o p → CD o p (gcd o p)) →
   GT m n →
-  x≠0≠y m n →
+  x≢0≢y m n →
   CD m n (gcd m n)
 gcd-x>y-CD zN Nn _ 0>n _ = ⊥-elim $ 0>x→⊥ Nn 0>n
 gcd-x>y-CD (sN Nm) zN _ _ _ = gcd-S0-CD Nm
@@ -219,14 +219,14 @@ gcd-x>y-CD (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
              (∸-N (sN Nm) (sN Nn))
              (sN Nn)
              ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
-             (λ p → ⊥-elim $ S≠0 $ ∧-proj₂ p)
+             (λ p → ⊥-elim $ S≢0 $ ∧-proj₂ p)
 
 -- The gcd m n when m ≯ n is CD.
 gcd-x≯y-CD :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → LT₂ o p m n → x≠0≠y o p → CD o p (gcd o p)) →
+  (∀ {o p} → N o → N p → LT₂ o p m n → x≢0≢y o p → CD o p (gcd o p)) →
   NGT m n →
-  x≠0≠y m n →
+  x≢0≢y m n →
   CD m n (gcd m n)
 gcd-x≯y-CD zN          zN         _     _     h = ⊥-elim $ h (refl , refl)
 gcd-x≯y-CD zN          (sN Nn)     _    _     _ = gcd-0S-CD Nn
@@ -240,14 +240,14 @@ gcd-x≯y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ = gcd-S≯S-CD Nm Nn ih Sm�
             (sN Nm)
             (∸-N (sN Nn) (sN Nm))
             ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
-            (λ p → ⊥-elim $ S≠0 $ ∧-proj₁ p)
+            (λ p → ⊥-elim $ S≢0 $ ∧-proj₁ p)
 
 -- The gcd is CD.
-gcd-CD : ∀ {m n} → N m → N n → x≠0≠y m n → CD m n (gcd m n)
+gcd-CD : ∀ {m n} → N m → N n → x≢0≢y m n → CD m n (gcd m n)
 gcd-CD = wfInd-LT₂ A istep
   where
   A : D → D → Set
-  A i j = x≠0≠y i j → CD i j (gcd i j)
+  A i j = x≢0≢y i j → CD i j (gcd i j)
 
   istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → A k l) →
           A i j

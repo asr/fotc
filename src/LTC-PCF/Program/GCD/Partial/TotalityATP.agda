@@ -53,9 +53,9 @@ postulate
 -- gcd m n when m > n is total.
 gcd-x>y-N :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → LT₂ o p m n → x≠0≠y o p → N (gcd o p)) →
+  (∀ {o p} → N o → N p → LT₂ o p m n → x≢0≢y o p → N (gcd o p)) →
   GT m n →
-  x≠0≠y m n →
+  x≢0≢y m n →
   N (gcd m n)
 gcd-x>y-N zN Nn _ 0>n _ = ⊥-elim $ 0>x→⊥ Nn 0>n
 gcd-x>y-N (sN Nm) zN _ _ _  = gcd-S0-N Nm
@@ -69,15 +69,15 @@ gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
             (∸-N (sN Nm) (sN Nn))
             (sN Nn)
             ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
-            (λ p → ⊥-elim $ S≠0 $ ∧-proj₂ p)
+            (λ p → ⊥-elim $ S≢0 $ ∧-proj₂ p)
 
 ------------------------------------------------------------------------------
 -- gcd m n when m ≯ n is total.
 gcd-x≯y-N :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → LT₂ o p m n → x≠0≠y o p → N (gcd o p)) →
+  (∀ {o p} → N o → N p → LT₂ o p m n → x≢0≢y o p → N (gcd o p)) →
   NGT m n →
-  x≠0≠y m n →
+  x≢0≢y m n →
   N (gcd m n)
 gcd-x≯y-N zN          zN          _    _     h = ⊥-elim $ h (refl , refl)
 gcd-x≯y-N zN          (sN Nn)     _    _     _ = gcd-0S-N Nn
@@ -91,15 +91,15 @@ gcd-x≯y-N (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ = gcd-S≯S-N Nm Nn ih Sm≯S
             (sN Nm)
             (∸-N (sN Nn) (sN Nm))
             ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
-            (λ p → ⊥-elim $ S≠0 $ ∧-proj₁ p)
+            (λ p → ⊥-elim $ S≢0 $ ∧-proj₁ p)
 
 ------------------------------------------------------------------------------
--- gcd m n when m ≠ 0 and n ≠ 0 is total.
-gcd-N : ∀ {m n} → N m → N n → x≠0≠y m n → N (gcd m n)
+-- gcd m n when m ≢ 0 and n ≢ 0 is total.
+gcd-N : ∀ {m n} → N m → N n → x≢0≢y m n → N (gcd m n)
 gcd-N = wfInd-LT₂ A istep
   where
   A : D → D → Set
-  A i j = x≠0≠y i j → N (gcd i j)
+  A i j = x≢0≢y i j → N (gcd i j)
 
   istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → A k l) →
           A i j

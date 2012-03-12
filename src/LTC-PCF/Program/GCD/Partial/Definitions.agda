@@ -27,5 +27,5 @@ Divisible d₁ d₂ gcd = ∀ cd → N cd → CD d₁ d₂ cd → cd ∣ gcd
 GACD : D → D → D → Set
 GACD d₁ d₂ gcd = ∀ cd → N cd → CD d₁ d₂ cd → LE cd gcd
 
-x≠0≠y : D → D → Set
-x≠0≠y d e = ¬ (d ≡ zero ∧ e ≡ zero)
+x≢0≢y : D → D → Set
+x≢0≢y d e = ¬ (d ≡ zero ∧ e ≡ zero)

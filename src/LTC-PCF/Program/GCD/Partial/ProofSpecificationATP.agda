@@ -19,7 +19,7 @@ open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesATP
 open import LTC-PCF.Data.Nat.Type
 
 open import LTC-PCF.Program.GCD.Partial.CommonDivisorATP using ( gcd-CD )
-open import LTC-PCF.Program.GCD.Partial.Definitions using ( x≠0≠y )
+open import LTC-PCF.Program.GCD.Partial.Definitions using ( x≢0≢y )
 open import LTC-PCF.Program.GCD.Partial.DivisibleATP using ( gcd-Divisible )
 open import LTC-PCF.Program.GCD.Partial.GCD using ( gcd )
 
@@ -37,5 +37,5 @@ open module SpecificationATP =
 
 ------------------------------------------------------------------------------
 -- The gcd is the GCD.
-gcd-GCD : ∀ {m n} → N m → N n → x≠0≠y m n → GCD m n (gcd m n)
+gcd-GCD : ∀ {m n} → N m → N n → x≢0≢y m n → GCD m n (gcd m n)
 gcd-GCD = gcd-GCD-ATP

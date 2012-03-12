@@ -33,14 +33,14 @@ module Helper where
   helper : ∀ {b i' is' fs₀' fs₁' as' bs' cs' ds' js'} →
            Bit b →
            Fair fs₀' →
-           Abp' b i' is' fs₀' fs₁' as' bs' cs' ds' js' →
+           ABP' b i' is' fs₀' fs₁' as' bs' cs' ds' js' →
            ∃[ ft₁ ] ∃[ fs₁'' ] F*T ft₁ ∧ Fair fs₁'' ∧ fs₁' ≡ ft₁ ++ fs₁'' →
            ∃[ fs₀'' ] ∃[ fs₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
            Fair fs₀''
            ∧ Fair fs₁''
-           ∧ Abp (not b) is' fs₀'' fs₁'' as'' bs'' cs'' ds'' js'
+           ∧ ABP (not b) is' fs₀'' fs₁'' as'' bs'' cs'' ds'' js'
   helper {b} {i'} {is'} {fs₀'} {fs₁'} {as'} {bs'} {cs'} {ds'} {js'}
-         Bb Ffs₀' (ds'Abp' , as'Abp , bs'Abp' , cs'Abp' , js'Abp')
+         Bb Ffs₀' (ds'ABP' , as'ABP , bs'ABP' , cs'ABP' , js'ABP')
          (.(T ∷ []) , fs₁'' , nilF*T , Ffs₁'' , fs₁'-eq) =
          fs₀' , fs₁'' , as'' , bs'' , cs'' , ds''
          , Ffs₀' , Ffs₁''
@@ -59,7 +59,7 @@ module Helper where
     ds'-eq : ds' ≡ ok b ∷ ds''
     ds'-eq =
       ds'
-        ≡⟨ ds'Abp' ⟩
+        ≡⟨ ds'ABP' ⟩
       corrupt · fs₁' · (b ∷ cs')
         ≡⟨ subst (λ t → corrupt · fs₁' · (b ∷ cs') ≡ corrupt · t · (b ∷ cs'))
                  fs'₁-eq-helper
@@ -74,32 +74,32 @@ module Helper where
     as'' : D
     as'' = as'
 
-    as''-eq : as'' ≡ abpsend · (not b) · is' · ds''
+    as''-eq : as'' ≡ send · not b · is' · ds''
     as''-eq =
-      as''                         ≡⟨ as'Abp ⟩
+      as''                         ≡⟨ as'ABP ⟩
       await b i' is' ds'           ≡⟨ cong (await b i' is') ds'-eq ⟩
       await b i' is' (ok b ∷ ds'') ≡⟨ await-ok≡ b b i' is' ds'' refl ⟩
-      abpsend · (not b) · is' · ds'' ∎
+      send · not b · is' · ds'' ∎
 
     bs'' : D
     bs'' = bs'
 
     bs''-eq : bs'' ≡ corrupt · fs₀' · as'
-    bs''-eq = bs'Abp'
+    bs''-eq = bs'ABP'
 
     cs'' : D
     cs'' = cs'
 
-    cs''-eq : cs'' ≡ abpack · (not b) · bs'
-    cs''-eq = cs'Abp'
+    cs''-eq : cs'' ≡ ack · not b · bs'
+    cs''-eq = cs'ABP'
 
-    js'-eq : js' ≡ abpout · (not b) · bs''
-    js'-eq = js'Abp'
+    js'-eq : js' ≡ out · not b · bs''
+    js'-eq = js'ABP'
 
   helper {b} {i'} {is'} {fs₀'} {fs₁'} {as'} {bs'} {cs'} {ds'} {js'}
-         Bb Ffs₀' (ds'Abp' , as'Abp , bs'Abp' , cs'Abp' , js'Abp')
+         Bb Ffs₀' (ds'ABP' , as'ABP , bs'ABP' , cs'ABP' , js'ABP')
          (.(F ∷ ft₁) , fs₁'' , consF*T {ft₁} FTft₁ , Ffs₁'' , fs₁'-eq)
-         = helper Bb (tail-Fair Ffs₀') Abp'IH (ft₁ , fs₁'' , FTft₁ , Ffs₁'' , refl)
+         = helper Bb (tail-Fair Ffs₀') ABP'IH (ft₁ , fs₁'' , FTft₁ , Ffs₁'' , refl)
 
     where
     fs₀⁵ : D
@@ -121,7 +121,7 @@ module Helper where
     ds'-eq : ds' ≡ error ∷ ds⁵
     ds'-eq =
       ds'
-        ≡⟨ ds'Abp' ⟩
+        ≡⟨ ds'ABP' ⟩
       corrupt · fs₁' · (b ∷ cs')
         ≡⟨ subst (λ t → corrupt · fs₁' · (b ∷ cs') ≡ corrupt · t · (b ∷ cs'))
                  fs₁'-eq-helper
@@ -139,7 +139,7 @@ module Helper where
     as'-eq : as' ≡ < i' , b > ∷ as⁵
     as'-eq =
       as'
-        ≡⟨ as'Abp ⟩
+        ≡⟨ as'ABP ⟩
       await b i' is' ds'
         ≡⟨ cong (await b i' is') ds'-eq ⟩
       await b i' is' (error ∷ ds⁵)
@@ -154,7 +154,7 @@ module Helper where
     bs'-eq-helper₁ : fs₀' ≡ T ∷ tail₁ fs₀' → bs' ≡ ok < i' , b > ∷ bs⁵
     bs'-eq-helper₁ h =
       bs'
-        ≡⟨ bs'Abp' ⟩
+        ≡⟨ bs'ABP' ⟩
       corrupt · fs₀' · as'
         ≡⟨ subst₂ (λ t₁ t₂ → corrupt · fs₀' · as' ≡ corrupt · t₁ · t₂)
                   h
@@ -170,7 +170,7 @@ module Helper where
     bs'-eq-helper₂ : fs₀' ≡ F ∷ tail₁ fs₀' → bs' ≡ error ∷ bs⁵
     bs'-eq-helper₂ h =
       bs'
-        ≡⟨ bs'Abp' ⟩
+        ≡⟨ bs'ABP' ⟩
       corrupt · fs₀' · as'
         ≡⟨ subst₂ (λ t₁ t₂ → corrupt · fs₀' · as' ≡ corrupt · t₁ · t₂)
                   h
@@ -189,80 +189,80 @@ module Helper where
              ] (head-tail-Fair Ffs₀')
 
     cs⁵ : D
-    cs⁵ = abpack · (not b) · bs⁵
+    cs⁵ = ack · not b · bs⁵
 
     cs'-eq-helper₁ : bs' ≡ ok < i' , b > ∷ bs⁵ → cs' ≡ b ∷ cs⁵
     cs'-eq-helper₁ h =
       cs'
-      ≡⟨ cs'Abp' ⟩
-      abpack · (not b) · bs'
-        ≡⟨ subst (λ t → abpack · (not b) · bs' ≡ abpack · (not b) · t)
+      ≡⟨ cs'ABP' ⟩
+      ack · not b · bs'
+        ≡⟨ subst (λ t → ack · not b · bs' ≡ ack · not b · t)
                  h
                  refl
         ⟩
-      abpack · (not b) · (ok < i' , b > ∷ bs⁵)
-        ≡⟨ abpack-ok≠ _ _ _ _ (not-x≠x Bb) ⟩
-      not (not b) ∷ abpack · (not b) · bs⁵
-        ≡⟨ subst (λ t → not (not b) ∷ abpack · (not b) · bs⁵ ≡
-                        t           ∷ abpack · (not b) · bs⁵)
+      ack · not b · (ok < i' , b > ∷ bs⁵)
+        ≡⟨ ack-ok≢ _ _ _ _ (not-x≢x Bb) ⟩
+      not (not b) ∷ ack · not b · bs⁵
+        ≡⟨ subst (λ t → not (not b) ∷ ack · not b · bs⁵ ≡
+                        t           ∷ ack · not b · bs⁵)
                  (not² Bb)
                  refl
         ⟩
-      b ∷ abpack · (not b) · bs⁵
+      b ∷ ack · not b · bs⁵
         ≡⟨ refl ⟩
       b ∷ cs⁵ ∎
 
     cs'-eq-helper₂ : bs' ≡ error ∷ bs⁵ → cs' ≡ b ∷ cs⁵
     cs'-eq-helper₂ h =
       cs'
-        ≡⟨ cs'Abp' ⟩
-      abpack · (not b) · bs'
-        ≡⟨ subst (λ t → abpack · (not b) · bs' ≡ abpack · (not b) · t)
+        ≡⟨ cs'ABP' ⟩
+      ack · not b · bs'
+        ≡⟨ subst (λ t → ack · not b · bs' ≡ ack · not b · t)
                  h
                  refl
         ⟩
-      abpack · (not b) · (error ∷ bs⁵)
-        ≡⟨ abpack-error _ _ ⟩
-      not (not b) ∷ abpack · (not b) · bs⁵
-        ≡⟨ subst (λ t → not (not b) ∷ abpack · (not b) · bs⁵ ≡
-                        t           ∷ abpack · (not b) · bs⁵)
+      ack · not b · (error ∷ bs⁵)
+        ≡⟨ ack-error _ _ ⟩
+      not (not b) ∷ ack · not b · bs⁵
+        ≡⟨ subst (λ t → not (not b) ∷ ack · not b · bs⁵ ≡
+                        t           ∷ ack · not b · bs⁵)
                  (not² Bb)
                  refl
         ⟩
-      b ∷ abpack · (not b) · bs⁵
+      b ∷ ack · not b · bs⁵
         ≡⟨ refl ⟩
       b ∷ cs⁵ ∎
 
     cs'-eq : cs' ≡ b ∷ cs⁵
     cs'-eq = [ cs'-eq-helper₁ , cs'-eq-helper₂ ] bs'-eq
 
-    js'-eq-helper₁ : bs' ≡ ok < i' , b > ∷ bs⁵ → js' ≡ abpout · (not b) · bs⁵
+    js'-eq-helper₁ : bs' ≡ ok < i' , b > ∷ bs⁵ → js' ≡ out · not b · bs⁵
     js'-eq-helper₁ h  =
       js'
-        ≡⟨ js'Abp' ⟩
-      abpout · (not b) · bs'
-        ≡⟨ subst (λ t → abpout · (not b) · bs' ≡ abpout · (not b) · t)
+        ≡⟨ js'ABP' ⟩
+      out · not b · bs'
+        ≡⟨ subst (λ t → out · not b · bs' ≡ out · not b · t)
                  h
                  refl
         ⟩
-      abpout · (not b) · (ok < i' , b > ∷ bs⁵)
-        ≡⟨ abpout-ok≠ (not b) b i' bs⁵ (not-x≠x Bb) ⟩
-      abpout · (not b) · bs⁵ ∎
+      out · not b · (ok < i' , b > ∷ bs⁵)
+        ≡⟨ out-ok≢ (not b) b i' bs⁵ (not-x≢x Bb) ⟩
+      out · not b · bs⁵ ∎
 
-    js'-eq-helper₂ : bs' ≡ error ∷ bs⁵ → js' ≡ abpout · (not b) · bs⁵
+    js'-eq-helper₂ : bs' ≡ error ∷ bs⁵ → js' ≡ out · not b · bs⁵
     js'-eq-helper₂ h  =
       js'
-        ≡⟨ js'Abp' ⟩
-      abpout · (not b) · bs'
-        ≡⟨ subst (λ t → abpout · (not b) · bs' ≡ abpout · (not b) · t)
+        ≡⟨ js'ABP' ⟩
+      out · not b · bs'
+        ≡⟨ subst (λ t → out · not b · bs' ≡ out · not b · t)
                  h
                  refl
         ⟩
-      abpout · (not b) · (error ∷ bs⁵)
-        ≡⟨ abpout-error (not b) bs⁵ ⟩
-      abpout · (not b) · bs⁵ ∎
+      out · not b · (error ∷ bs⁵)
+        ≡⟨ out-error (not b) bs⁵ ⟩
+      out · not b · bs⁵ ∎
 
-    js'-eq : js' ≡ abpout · (not b) · bs⁵
+    js'-eq : js' ≡ out · not b · bs⁵
     js'-eq = [ js'-eq-helper₁ , js'-eq-helper₂ ] bs'-eq
 
     ds⁵-eq : ds⁵ ≡ corrupt · fs₁⁵ · (b ∷ cs⁵)
@@ -270,8 +270,8 @@ module Helper where
                                cs'-eq
                                refl)
 
-    Abp'IH : Abp' b i' is' fs₀⁵ fs₁⁵ as⁵ bs⁵ cs⁵ ds⁵ js'
-    Abp'IH = ds⁵-eq , refl , refl , refl , js'-eq
+    ABP'IH : ABP' b i' is' fs₀⁵ fs₁⁵ as⁵ bs⁵ cs⁵ ds⁵ js'
+    ABP'IH = ds⁵-eq , refl , refl , refl , js'-eq
 
 ------------------------------------------------------------------------------
 -- From Dybjer and Sander's paper: From the assumption that fs₁ ∈
@@ -285,9 +285,9 @@ lemma₂ : ∀ {b i' is' fs₀' fs₁' as' bs' cs' ds' js'} →
          Bit b →
          Fair fs₀' →
          Fair fs₁' →
-         Abp' b i' is' fs₀' fs₁' as' bs' cs' ds' js' →
+         ABP' b i' is' fs₀' fs₁' as' bs' cs' ds' js' →
          ∃[ fs₀'' ] ∃[ fs₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
          Fair fs₀''
          ∧ Fair fs₁''
-         ∧ Abp (not b) is' fs₀'' fs₁'' as'' bs'' cs'' ds'' js'
+         ∧ ABP (not b) is' fs₀'' fs₁'' as'' bs'' cs'' ds'' js'
 lemma₂ Bb Ffs₀' Ffs₁' abp' = helper Bb Ffs₀' abp' (Fair-gfp₁ Ffs₁')

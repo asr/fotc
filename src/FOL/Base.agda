@@ -30,7 +30,7 @@ A ⇒ B = A → B
 
 ------------------------------------------------------------------------------
 -- In FOL it is assumed that the universe of discourse is nonempty.
-postulate D≠∅ : D
+postulate D≢∅ : D
 
 ------------------------------------------------------------------------------
 -- The ATPs work in classical logic, therefore we add the principle of

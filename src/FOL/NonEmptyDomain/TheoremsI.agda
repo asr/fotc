@@ -21,10 +21,10 @@ postulate
 
 -- TODO: 2012-02-28. Fix the existential introduction rule.
 -- ∃-intro : ((t : D) → A¹ t) → ∃ A¹
--- ∃-intro h = D≠∅ ,, h D≠∅
+-- ∃-intro h = D≢∅ ,, h D≢∅
 
 ∀→∃ : (∀ {x} → A¹ x) → ∃ A¹
-∀→∃ h = D≠∅ , h
+∀→∃ h = D≢∅ , h
 
 -- Let A be a formula. If x is not free in A then ⊢ (∃x)A ↔ A
 -- (Mendelson, 1997, proposition 2.18 (b), p. 70).
@@ -35,7 +35,7 @@ postulate
   l→r (_ , a) = a
 
   r→l : A → ∃ (λ _ → A)
-  r→l A = D≠∅ , A
+  r→l A = D≢∅ , A
 
 -- Quantification over a variable that does not occur can be erased or
 -- added.
@@ -43,7 +43,7 @@ postulate
 ∀-erase-add = l→r , r→l
   where
   l→r : ((x : D) → A) → A
-  l→r h = h D≠∅
+  l→r h = h D≢∅
 
   r→l : A → (x : D) → A
   r→l a _ = a
@@ -56,5 +56,5 @@ postulate
   l→r (x , inj₂ A¹x) = inj₂ (x , A¹x )
 
   r→l : A ∨ (∃[ x ] A¹ x) → ∃[ x ] A ∨ A¹ x
-  r→l (inj₁ a)         = D≠∅ , inj₁ a
+  r→l (inj₁ a)         = D≢∅ , inj₁ a
   r→l (inj₂ (x , A¹x)) = x , inj₂ A¹x

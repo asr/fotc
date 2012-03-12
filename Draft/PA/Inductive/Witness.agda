@@ -1,4 +1,4 @@
--- Tested with FOT on 03 March 2012.
+-- Tested with FOT on 12 March 2012.
 
 module Draft.PA.Inductive.Witness where
 
@@ -40,11 +40,11 @@ postulate
 
 -- Constructive proof.
 proof₁ : ∃[ x ] ¬ (x ≡ succ x)
-proof₁ = succ zero , x≠Sx
+proof₁ = succ zero , x≢Sx
 
 -- Non-constructive proof.
 proof₂ : ∃[ x ] ¬ (x ≡ succ x)
-proof₂ = ¬-elim (λ h → x≠Sx {succ zero} (¬∃¬→∀ h))
+proof₂ = ¬-elim (λ h → x≢Sx {succ zero} (¬∃¬→∀ h))
 
 -- We can extract an existential witness from a constructive proof.
 witness₁ : ∃-proj₁ proof₁ ≡ succ zero

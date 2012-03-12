@@ -353,7 +353,7 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn =
 xy≡0→x≡0∨y≡0 : ∀ {m n} → N m → N n → m * n ≡ zero → m ≡ zero ∨ n ≡ zero
 xy≡0→x≡0∨y≡0 zN      _  _                   = inj₁ refl
 xy≡0→x≡0∨y≡0 (sN Nm) zN _                   = inj₂ refl
-xy≡0→x≡0∨y≡0 (sN {m} Nm) (sN {n} Nn) SmSn≡0 = ⊥-elim (0≠S prf)
+xy≡0→x≡0∨y≡0 (sN {m} Nm) (sN {n} Nn) SmSn≡0 = ⊥-elim (0≢S prf)
   where
   prf : zero ≡ succ₁ (n + m * succ₁ n)
   prf = zero                  ≡⟨ sym SmSn≡0 ⟩

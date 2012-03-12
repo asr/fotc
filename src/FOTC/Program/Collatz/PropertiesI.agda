@@ -50,4 +50,4 @@ collatz-2^x (sN {n} Nn) (.(succ₁ k) , sN {k} Nk , Sn≡2^k+1) =
   one ∎
   where
   prf : two ^ succ₁ k ≡ succ₁ (succ₁ (two ^ succ₁ k ∸ two))
-  prf = (+∸2 (^-N 2-N (sN Nk)) (2^x≠0 (sN Nk)) (2^[x+1]≠1 Nk))
+  prf = (+∸2 (^-N 2-N (sN Nk)) (2^x≢0 (sN Nk)) (2^[x+1]≢1 Nk))

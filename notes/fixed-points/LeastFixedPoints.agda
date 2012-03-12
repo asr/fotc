@@ -1,7 +1,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with FOT on 06 March 2012.
+-- Tested with FOT on 12 March 2012.
 
 module LeastFixedPoints where
 
@@ -139,7 +139,7 @@ indN₁ A A0 is Nn = N-lfp₂ A [ prf₁ , prf₂ ] Nn
 --     helper = [ prf₃ , prf₄ ] (N-lfp₃ {!!})
 --       where
 --       prf₃ : n' ≡ zero → N m
---       prf₃ n'≡0 = ⊥-elim (0≠S (trans (sym n'≡0) n'≡Sm))
+--       prf₃ n'≡0 = ⊥-elim (0≢S (trans (sym n'≡0) n'≡Sm))
 
 --       prf₄ : ∃ (λ m' → n' ≡ succ₁ m' ∧ N m') → N m
 --       prf₄ (_ , n'≡Sm' , Nm') =

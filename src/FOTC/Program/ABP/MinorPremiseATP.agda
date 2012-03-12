@@ -30,8 +30,8 @@ open import FOTC.Relation.Binary.Bisimilarity
 
 -- From Dybjer and Sander's paper: The proof of the minor premise uses
 -- two lemmas. The first lemma (lemma₁) states that given a start
--- state Abp (of the alternating bit protocol) we will arrive at a
--- state Abp', where the message has been received by the receiver,
+-- state ABP (of the alternating bit protocol) we will arrive at a
+-- state ABP', where the message has been received by the receiver,
 -- but where the acknowledgement has not yet been received by the
 -- sender. The second lemma (lemma₂) states that given a state of the
 -- latter kind we will arrive at a new start state, which is identical
@@ -48,17 +48,17 @@ minorPremise
 ... | (i' , is' , Sis' , is≡i'∷is) = i' , is' , js' , is'Bjs' , is≡i'∷is , js≡i'∷js'
 
   where
-  Abp-helper : is ≡ i' ∷ is' →
-               Abp b is fs₀ fs₁ as bs cs ds js →
-               Abp b (i' ∷ is') fs₀ fs₁ as bs cs ds js
-  Abp-helper h₁ h₂ = subst (λ t → Abp b t fs₀ fs₁ as bs cs ds js) h₁ h₂
+  ABP-helper : is ≡ i' ∷ is' →
+               ABP b is fs₀ fs₁ as bs cs ds js →
+               ABP b (i' ∷ is') fs₀ fs₁ as bs cs ds js
+  ABP-helper h₁ h₂ = subst (λ t → ABP b t fs₀ fs₁ as bs cs ds js) h₁ h₂
 
-  Abp'-lemma₁ : ∃[ fs₀' ] ∃[ fs₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
+  ABP'-lemma₁ : ∃[ fs₀' ] ∃[ fs₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
                 Fair fs₀'
                 ∧ Fair fs₁'
-                ∧ Abp' b i' is' fs₀' fs₁' as' bs' cs' ds' js'
+                ∧ ABP' b i' is' fs₀' fs₁' as' bs' cs' ds' js'
                 ∧ js ≡ i' ∷ js'
-  Abp'-lemma₁ = lemma₁ Bb Ffs₀ Ffs₁ (Abp-helper is≡i'∷is h)
+  ABP'-lemma₁ = lemma₁ Bb Ffs₀ Ffs₁ (ABP-helper is≡i'∷is h)
 
   -- Following Martin Escardo advice (see Agda mailing list, heap
   -- mistery) we use pattern matching instead of ∃ eliminators to
@@ -68,23 +68,23 @@ minorPremise
   -- the Agda issue 415 was fixed.
 
   js' : D
-  js' with Abp'-lemma₁
+  js' with ABP'-lemma₁
   ... | _ , _ , _ , _ , _ , _ , js' , _ = js'
 
   js≡i'∷js' : js ≡ i' ∷ js'
-  js≡i'∷js' with Abp'-lemma₁
+  js≡i'∷js' with ABP'-lemma₁
   ... | _ , _ , _ , _ , _ , _ , _ , _ , _ , _ , h = h
 
-  Abp-lemma₂ : ∃[ fs₀'' ] ∃[ fs₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
+  ABP-lemma₂ : ∃[ fs₀'' ] ∃[ fs₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
                Fair fs₀''
                ∧ Fair fs₁''
-               ∧ Abp (not b) is' fs₀'' fs₁'' as'' bs'' cs'' ds'' js'
-  Abp-lemma₂ with Abp'-lemma₁
-  Abp-lemma₂ | _ , _ , _ , _ , _ , _ , _ , Ffs₀' , Ffs₁' , abp' , _ =
+               ∧ ABP (not b) is' fs₀'' fs₁'' as'' bs'' cs'' ds'' js'
+  ABP-lemma₂ with ABP'-lemma₁
+  ABP-lemma₂ | _ , _ , _ , _ , _ , _ , _ , Ffs₀' , Ffs₁' , abp' , _ =
     lemma₂ Bb Ffs₀' Ffs₁' abp'
 
   is'Bjs' : is' B js'
-  is'Bjs' with Abp-lemma₂
+  is'Bjs' with ABP-lemma₂
   ... | fs₀'' , fs₁'' , as'' , bs'' , cs'' , ds'' , Ffs₀'' , Ffs₁'' , abp =
     not b , fs₀'' , fs₁'' , as'' , bs'' , cs'' , ds''
     , Sis' , not-Bool Bb , Ffs₀'' , Ffs₁'' , abp

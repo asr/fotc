@@ -54,23 +54,23 @@ Sx≡2^0→x≡0(sN {n} Nn) SSn≡2^0 = ⊥-elim prf
   {-# ATP prove prf #-}
 
 +∸2 : ∀ {n} → N n → ¬ (n ≡ zero) → ¬ (n ≡ one) → n ≡ succ₁ (succ₁ (n ∸ two))
-+∸2 zN               n≠0 n≠1 = ⊥-elim (n≠0 refl)
-+∸2 (sN zN)          n≠0 n≠1 = ⊥-elim (n≠1 refl)
-+∸2 (sN (sN {n} Nn)) n≠0 n≠1 = prf
++∸2 zN               n≢0 n≢1 = ⊥-elim (n≢0 refl)
++∸2 (sN zN)          n≢0 n≢1 = ⊥-elim (n≢1 refl)
++∸2 (sN (sN {n} Nn)) n≢0 n≢1 = prf
   where
   -- See the interactive proof.
   postulate prf : succ₁ (succ₁ n) ≡ succ₁ (succ₁ (succ₁ (succ₁ n) ∸ two))
 
-2^x≠0 : ∀ {n} → N n → ¬ (two ^ n ≡ zero)
-2^x≠0 zN          h = ⊥-elim (0≠S (trans (sym h) (^-0 two)))
-2^x≠0 (sN {n} Nn) h = prf (2^x≠0 Nn)
+2^x≢0 : ∀ {n} → N n → ¬ (two ^ n ≡ zero)
+2^x≢0 zN          h = ⊥-elim (0≢S (trans (sym h) (^-0 two)))
+2^x≢0 (sN {n} Nn) h = prf (2^x≢0 Nn)
   where
   postulate prf : ¬ (two ^ n ≡ zero) →  -- IH.
                   ⊥
   {-# ATP prove prf xy≡0→x≡0∨y≡0 ^-N #-}
 
 -- ToDo.
-postulate 2^[x+1]≠1 : ∀ {n} → N n → ¬ (two ^ (succ₁ n) ≡ one)
+postulate 2^[x+1]≢1 : ∀ {n} → N n → ¬ (two ^ (succ₁ n) ≡ one)
 
 Sx-Even→x-Odd : ∀ {n} → N n → Even (succ₁ n) → Odd n
 Sx-Even→x-Odd zN          h = ⊥-elim prf
@@ -94,8 +94,8 @@ mutual
     {-# ATP prove prf ∸-Odd Sx-Even→x-Odd #-}
 
   ∸-Odd : ∀ {m n} → N m → N n → Odd m → Odd n → Even (m ∸ n)
-  ∸-Odd zN          Nn          h₁ _  = ⊥-elim (true≠false (trans (sym h₁) odd-0))
-  ∸-Odd (sN Nm)     zN          _  h₂ = ⊥-elim (true≠false (trans (sym h₂) odd-0))
+  ∸-Odd zN          Nn          h₁ _  = ⊥-elim (true≢false (trans (sym h₁) odd-0))
+  ∸-Odd (sN Nm)     zN          _  h₂ = ⊥-elim (true≢false (trans (sym h₂) odd-0))
   ∸-Odd (sN {m} Nm) (sN {n} Nn) h₁ h₂ = prf
     where
     postulate prf : Even (succ₁ m ∸ succ₁ n)

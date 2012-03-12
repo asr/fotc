@@ -71,13 +71,13 @@ postulate
 
 &&-proj₁ : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₁ ≡ true
 &&-proj₁ tB _ _    = refl
-&&-proj₁ fB tB h = ⊥-elim $ true≠false $ trans (sym h) &&-ft
-&&-proj₁ fB fB h = ⊥-elim $ true≠false $ trans (sym h) &&-ff
+&&-proj₁ fB tB h = ⊥-elim $ true≢false $ trans (sym h) &&-ft
+&&-proj₁ fB fB h = ⊥-elim $ true≢false $ trans (sym h) &&-ff
 
 &&-proj₂ : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₂ ≡ true
 &&-proj₂ _  tB _   = refl
-&&-proj₂ tB fB h = ⊥-elim $ true≠false $ trans (sym h) &&-tf
-&&-proj₂ fB fB h = ⊥-elim $ true≠false $ trans (sym h) &&-ff
+&&-proj₂ tB fB h = ⊥-elim $ true≢false $ trans (sym h) &&-tf
+&&-proj₂ fB fB h = ⊥-elim $ true≢false $ trans (sym h) &&-ff
 
 &&₃-proj₁ : ∀ {b₁ b₂ b₃ b₄} →
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
@@ -85,7 +85,7 @@ postulate
             b₁ ≡ true
 &&₃-proj₁ tB _ _ _ _ = refl
 &&₃-proj₁ {b₂ = b₂} {b₃} {b₄} fB Bb₂ Bb₃ Bb₄ h =
-  ⊥-elim $ true≠false $ trans (sym h) prf
+  ⊥-elim $ true≢false $ trans (sym h) prf
   where
   prf : false && b₂ && b₃ && b₄ ≡ false
   prf = false&&x≡false (&&-Bool Bb₂ (&&-Bool Bb₃ Bb₄))
@@ -96,7 +96,7 @@ postulate
             b₂ ≡ true
 &&₃-proj₂ _ tB _ _ _ = refl
 &&₃-proj₂ {b₁} {b₃ = b₃} {b₄} Bb₁ fB Bb₃ Bb₄ h =
-  ⊥-elim $ true≠false $ trans (sym h) prf
+  ⊥-elim $ true≢false $ trans (sym h) prf
   where
   prf : b₁ && false && b₃ && b₄ ≡ false
   prf =
@@ -115,7 +115,7 @@ postulate
             b₃ ≡ true
 &&₃-proj₃ _ _ tB _ _ = refl
 &&₃-proj₃ {b₁} {b₂} {b₄ = b₄} Bb₁ Bb₂ fB Bb₄ h =
-  ⊥-elim $ true≠false $ trans (sym h) prf
+  ⊥-elim $ true≢false $ trans (sym h) prf
   where
   prf : b₁ && b₂ && false && b₄ ≡ false
   prf =
@@ -136,7 +136,7 @@ postulate
             b₄ ≡ true
 &&₃-proj₄ _ _ _ tB _ = refl
 &&₃-proj₄ {b₁} {b₂} {b₃} Bb₁ Bb₂ Bb₃ fB h =
-  ⊥-elim $ true≠false $ trans (sym h) prf
+  ⊥-elim $ true≢false $ trans (sym h) prf
   where
   prf : b₁ && b₂ && b₃ && false ≡ false
   prf =
@@ -151,12 +151,12 @@ postulate
        ≡⟨ x&&false≡false Bb₁ ⟩
     false ∎
 
-x≠not-x : ∀ {b} → Bool b → ¬ (b ≡ not b)
-x≠not-x tB h = true≠false (trans h not-t)
-x≠not-x fB h = true≠false (sym (trans h not-f))
+x≢not-x : ∀ {b} → Bool b → ¬ (b ≡ not b)
+x≢not-x tB h = true≢false (trans h not-t)
+x≢not-x fB h = true≢false (sym (trans h not-f))
 
-not-x≠x : ∀ {b} → Bool b → ¬ (not b ≡ b)
-not-x≠x Bb h = x≠not-x Bb (sym h)
+not-x≢x : ∀ {b} → Bool b → ¬ (not b ≡ b)
+not-x≢x Bb h = x≢not-x Bb (sym h)
 
 not² : ∀ {b} → Bool b → not (not b) ≡ b
 not² tB = trans (cong not not-t) not-f

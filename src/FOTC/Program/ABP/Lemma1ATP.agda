@@ -39,7 +39,7 @@ module Helper where
   {-# ATP definition bs⁵ #-}
 
   cs⁵ : D → D → D → D → D → D
-  cs⁵ b i' is' ds fs₀⁵ = abpack · b · (bs⁵ b i' is' ds fs₀⁵)
+  cs⁵ b i' is' ds fs₀⁵ = ack · b · (bs⁵ b i' is' ds fs₀⁵)
   {-# ATP definition cs⁵ #-}
 
   ds⁵ : D → D → D → D → D → D → D
@@ -57,12 +57,12 @@ module Helper where
   helper : ∀ {b i' is' fs₀ fs₁ as bs cs ds js} →
            Bit b →
            Fair fs₁ →
-           Abp b (i' ∷ is') fs₀ fs₁ as bs cs ds js →
+           ABP b (i' ∷ is') fs₀ fs₁ as bs cs ds js →
            ∃[ ft₀ ] ∃[ fs₀' ] F*T ft₀ ∧ Fair fs₀' ∧ fs₀ ≡ ft₀ ++ fs₀' →
            ∃[ fs₀' ] ∃[ fs₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
            Fair fs₀'
            ∧ Fair fs₁'
-           ∧ Abp' b i' is' fs₀' fs₁' as' bs' cs' ds' js'
+           ∧ ABP' b i' is' fs₀' fs₁' as' bs' cs' ds' js'
            ∧ js ≡ i' ∷ js'
   helper {b} {i'} {is'} {js = js} Bb Ffs₁ abp
          (.(T ∷ []) , fs₀' , nilF*T , Ffs₀' , fs₀-eq) = prf
@@ -74,13 +74,13 @@ module Helper where
             ∧ (ds' ≡ corrupt · fs₁' · (b ∷ cs')
               ∧ as' ≡ await b i' is' ds'
               ∧ bs' ≡ corrupt · fs₀' · as'
-              ∧ cs' ≡ abpack · (not b) · bs'
-              ∧ js' ≡ abpout · (not b) · bs')
+              ∧ cs' ≡ ack · not b · bs'
+              ∧ js' ≡ out · not b · bs')
             ∧ js ≡ i' ∷ js'
     {-# ATP prove prf #-}
   helper {b} {i'} {is'} {fs₀} {fs₁} {as} {bs} {cs} {ds} {js} Bb Ffs₁ abp
          (.(F ∷ ft₀⁵) , fs₀' , consF*T {ft₀⁵} FTft₀⁵ , Ffs₀' , fs₀-eq)
-         = helper Bb (tail-Fair Ffs₁) AbpIH (ft₀⁵ , fs₀' , FTft₀⁵ , Ffs₀' , refl)
+         = helper Bb (tail-Fair Ffs₁) ABPIH (ft₀⁵ , fs₀' , FTft₀⁵ , Ffs₀' , refl)
     where
     postulate fs₀-eq-helper : fs₀ ≡ F ∷ fs₀⁵ fs₀' ft₀⁵
     {-# ATP prove fs₀-eq-helper #-}
@@ -113,23 +113,23 @@ module Helper where
     postulate
       as⁵-eq-helper₁ : ds ≡ ok (not b) ∷ ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁) →
                        as⁵ b i' is' ds ≡
-                       abpsend · b · (i' ∷ is') · ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁)
-    {-# ATP prove as⁵-eq-helper₁ x≠not-x #-}
+                       send · b · (i' ∷ is') · ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁)
+    {-# ATP prove as⁵-eq-helper₁ x≢not-x #-}
 
     postulate
       as⁵-eq-helper₂ : ds ≡ error ∷ ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁) →
                        as⁵ b i' is' ds ≡
-                       abpsend · b · (i' ∷ is') · ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁)
+                       send · b · (i' ∷ is') · ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁)
     {-# ATP prove as⁵-eq-helper₂ #-}
 
     as⁵-eq : as⁵ b i' is' ds ≡
-             abpsend · b · (i' ∷ is') · ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁)
+             send · b · (i' ∷ is') · ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁)
     as⁵-eq = [ as⁵-eq-helper₁ , as⁵-eq-helper₂ ] ds-eq
 
-    postulate js-eq : js ≡ abpout · b · bs⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵)
+    postulate js-eq : js ≡ out · b · bs⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵)
     {-# ATP prove js-eq bs-eq #-}
 
-    AbpIH : Abp b
+    ABPIH : ABP b
                 (i' ∷ is')
                 (fs₀⁵ fs₀' ft₀⁵)
                 (fs₁⁵ fs₁)
@@ -138,7 +138,7 @@ module Helper where
                 (cs⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵))
                 (ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁))
                 js
-    AbpIH = as⁵-eq , refl , refl , refl , js-eq
+    ABPIH = as⁵-eq , refl , refl , refl , js-eq
 
 ------------------------------------------------------------------------------
 -- From Dybjer and Sander's paper: From the assumption that fs₀ ∈
@@ -152,10 +152,10 @@ lemma₁ : ∀ {b i' is' fs₀ fs₁ as bs cs ds js} →
          Bit b →
          Fair fs₀ →
          Fair fs₁ →
-         Abp b (i' ∷ is') fs₀ fs₁ as bs cs ds js →
+         ABP b (i' ∷ is') fs₀ fs₁ as bs cs ds js →
          ∃[ fs₀' ] ∃[ fs₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
          Fair fs₀'
          ∧ Fair fs₁'
-         ∧ Abp' b i' is' fs₀' fs₁' as' bs' cs' ds' js'
+         ∧ ABP' b i' is' fs₀' fs₁' as' bs' cs' ds' js'
          ∧ js ≡ i' ∷ js'
 lemma₁ Bb Ffs₀ Ffs₁ abp = helper Bb Ffs₁ abp (Fair-gfp₁ Ffs₀)

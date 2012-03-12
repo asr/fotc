@@ -89,7 +89,7 @@ x≥y→x≮y (sN {m} Nm) (sN {n} Nn) Sm≥Sn =
 
 x≮y→x≥y : ∀ {m n} → N m → N n → NLT m n → GE m n
 x≮y→x≥y zN zN 0≮0  = x≥x zN
-x≮y→x≥y zN (sN {n} Nn) 0≮Sn = ⊥-elim (true≠false (trans (sym (<-0S n)) 0≮Sn))
+x≮y→x≥y zN (sN {n} Nn) 0≮Sn = ⊥-elim (true≢false (trans (sym (<-0S n)) 0≮Sn))
 x≮y→x≥y (sN Nm) zN Sm≮n = x≥0 (sN Nm)
 x≮y→x≥y (sN {m} Nm) (sN {n} Nn) Sm≮Sn =
   trans (<-SS n (succ₁ m)) (x≮y→x≥y Nm Nn (trans (sym (<-SS m n)) Sm≮Sn))
@@ -163,7 +163,7 @@ x≤y→x≯y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
 
 x≯y→x≤y : ∀ {m n} → N m → N n → NGT m n → LE m n
 x≯y→x≤y zN Nn _ = 0≤x Nn
-x≯y→x≤y (sN {m} Nm) zN Sm≯0 = ⊥-elim (true≠false (trans (sym (<-0S m)) Sm≯0))
+x≯y→x≤y (sN {m} Nm) zN Sm≯0 = ⊥-elim (true≢false (trans (sym (<-0S m)) Sm≯0))
 x≯y→x≤y (sN {m} Nm) (sN {n} Nn) Sm≯Sn =
   trans (<-SS m (succ₁ n)) (x≯y→x≤y Nm Nn (trans (sym (<-SS n m)) Sm≯Sn))
 
@@ -361,7 +361,7 @@ xy<00→⊥ Nm Nn mn<00 =
 Sxy₁<0y₂→⊥ : ∀ {m n₁ n₂} → N m → N n₁ → N n₂ → ¬ (LT₂ (succ₁ m) n₁ zero n₂)
 Sxy₁<0y₂→⊥ Nm Nn₁ Nn₂ Smn₁<0n₂ =
   [ S<0→⊥
-  , (λ Sm≡0∧n₁<n₂ → ⊥-elim $ 0≠S $ sym $ ∧-proj₁ Sm≡0∧n₁<n₂)
+  , (λ Sm≡0∧n₁<n₂ → ⊥-elim $ 0≢S $ sym $ ∧-proj₁ Sm≡0∧n₁<n₂)
   ]
   Smn₁<0n₂
 

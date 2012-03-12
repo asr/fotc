@@ -33,17 +33,17 @@ module Helper where
   helper : ∀ {b i' is' fs₀ fs₁ as bs cs ds js} →
            Bit b →
            Fair fs₁ →
-           Abp b (i' ∷ is') fs₀ fs₁ as bs cs ds js →
+           ABP b (i' ∷ is') fs₀ fs₁ as bs cs ds js →
            ∃[ ft₀ ] ∃[ fs₀' ] F*T ft₀ ∧ Fair fs₀' ∧ fs₀ ≡ ft₀ ++ fs₀' →
            ∃[ fs₀' ] ∃[ fs₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
            Fair fs₀'
            ∧ Fair fs₁'
-           ∧ Abp' b i' is' fs₀' fs₁' as' bs' cs' ds' js'
+           ∧ ABP' b i' is' fs₀' fs₁' as' bs' cs' ds' js'
            ∧ js ≡ i' ∷ js'
   -- 2012-02-29. The existential witnesses could be avoid not using
   -- the auxiliary proofs inside the where clause.
   helper {b} {i'} {is'} {fs₀} {fs₁} {as} {bs} {cs} {ds} {js} Bb Ffs₁
-         (asAbp , bsAbp , csAbp , dsAbs , jsAbp)
+         (asABP , bsABP , csABP , dsAbs , jsABP)
          (.(T ∷ []) , fs₀' , nilF*T , Ffs₀' , fs₀-eq) =
          fs₀' , fs₁' , as' , bs' , cs' , ds' , js'
          , Ffs₀' , Ffs₁
@@ -62,7 +62,7 @@ module Helper where
     as' = await b i' is' ds
 
     as-eq : as ≡ < i' , b > ∷ as'
-    as-eq = trans asAbp (abpsend-eq b i' is' ds)
+    as-eq = trans asABP (send-eq b i' is' ds)
 
     bs' : D
     bs' = corrupt · fs₀' · as'
@@ -70,7 +70,7 @@ module Helper where
     bs-eq : bs ≡ ok < i' , b > ∷ bs'
     bs-eq =
       bs
-        ≡⟨ bsAbp ⟩
+        ≡⟨ bsABP ⟩
       corrupt · fs₀ · as
         ≡⟨ subst₂ (λ t₁ t₂ → corrupt · fs₀ · as ≡ corrupt · t₁ · t₂ )
                   fs₀-eq-helper
@@ -84,37 +84,37 @@ module Helper where
       ok < i' , b > ∷ bs' ∎
 
     cs' : D
-    cs' = abpack · (not b) · bs'
+    cs' = ack · not b · bs'
 
     cs-eq : cs ≡ b ∷ cs'
     cs-eq =
-      cs ≡⟨ csAbp ⟩
-      abpack · b · bs
-        ≡⟨ subst (λ t → abpack · b · bs ≡ abpack · b · t )
+      cs ≡⟨ csABP ⟩
+      ack · b · bs
+        ≡⟨ subst (λ t → ack · b · bs ≡ ack · b · t )
                  bs-eq
                  refl
         ⟩
-      abpack · b · (ok < i' , b > ∷ bs')
-        ≡⟨ abpack-ok≡ b b i' bs' refl ⟩
-      b ∷ abpack · (not b) · bs'
+      ack · b · (ok < i' , b > ∷ bs')
+        ≡⟨ ack-ok≡ b b i' bs' refl ⟩
+      b ∷ ack · not b · bs'
         ≡⟨ refl ⟩
       b ∷ cs' ∎
 
     js' : D
-    js' = abpout · (not b) · bs'
+    js' = out · not b · bs'
 
     js-eq : js ≡ i' ∷ js'
     js-eq =
       js
-        ≡⟨ jsAbp ⟩
-      abpout · b · bs
-        ≡⟨ subst (λ t → abpout · b · bs ≡ abpout · b · t)
+        ≡⟨ jsABP ⟩
+      out · b · bs
+        ≡⟨ subst (λ t → out · b · bs ≡ out · b · t)
                  bs-eq
                  refl
         ⟩
-      abpout · b · (ok < i' , b > ∷ bs')
-        ≡⟨ abpout-ok≡ b b i' bs' refl ⟩
-      i' ∷ abpout · (not b) · bs'
+      out · b · (ok < i' , b > ∷ bs')
+        ≡⟨ out-ok≡ b b i' bs' refl ⟩
+      i' ∷ out · not b · bs'
         ≡⟨ refl ⟩
       i' ∷ js' ∎
 
@@ -124,7 +124,7 @@ module Helper where
     fs₁' : D
     fs₁' = fs₁
 
-    ds'-eq : ds' ≡ corrupt · fs₁ · (b ∷ abpack · (not b) ·
+    ds'-eq : ds' ≡ corrupt · fs₁ · (b ∷ ack · not b ·
                    (corrupt · fs₀' · (await b i' is' ds)))
     ds'-eq =
       ds'
@@ -136,13 +136,13 @@ module Helper where
         ⟩
       corrupt · fs₁ · (b ∷ cs')
         ≡⟨ refl ⟩
-      corrupt · fs₁ · (b ∷ abpack · (not b) ·
+      corrupt · fs₁ · (b ∷ ack · not b ·
                 (corrupt · fs₀' · (await b i' is' ds))) ∎
 
   helper {b} {i'} {is'} {fs₀} {fs₁} {as} {bs} {cs} {ds} {js}
-         Bb Ffs₁ (asAbp , bsAbp , csAbp , dsAbs , jsAbp)
+         Bb Ffs₁ (asABP , bsABP , csABP , dsAbs , jsABP)
          (.(F ∷ ft₀⁵) , fs₀' , consF*T {ft₀⁵} FTft₀⁵ , Ffs₀' , fs₀-eq)
-         = helper Bb (tail-Fair Ffs₁) AbpIH (ft₀⁵ , fs₀' , FTft₀⁵ , Ffs₀' , refl)
+         = helper Bb (tail-Fair Ffs₁) ABPIH (ft₀⁵ , fs₀' , FTft₀⁵ , Ffs₀' , refl)
 
     where
     fs₀⁵ : D
@@ -162,7 +162,7 @@ module Helper where
     as⁵ = await b i' is' ds
 
     as-eq : as ≡ < i' , b > ∷ as⁵
-    as-eq = trans asAbp (abpsend-eq b i' is' ds)
+    as-eq = trans asABP (send-eq b i' is' ds)
 
     bs⁵ : D
     bs⁵ = corrupt · fs₀⁵ · as⁵
@@ -170,7 +170,7 @@ module Helper where
     bs-eq : bs ≡ error ∷ bs⁵
     bs-eq =
       bs
-        ≡⟨ bsAbp ⟩
+        ≡⟨ bsABP ⟩
       corrupt · fs₀ · as
         ≡⟨ subst₂ (λ t₁ t₂ → corrupt · fs₀ · as ≡ corrupt · t₁ · t₂)
                   fs₀-eq-helper
@@ -184,20 +184,20 @@ module Helper where
       error ∷ bs⁵ ∎
 
     cs⁵ : D
-    cs⁵ = abpack · b · bs⁵
+    cs⁵ = ack · b · bs⁵
 
     cs-eq : cs ≡ not b ∷ cs⁵
     cs-eq =
       cs
-        ≡⟨ csAbp ⟩
-      abpack · b · bs
-        ≡⟨ subst (λ t → abpack · b · bs ≡ abpack · b · t)
+        ≡⟨ csABP ⟩
+      ack · b · bs
+        ≡⟨ subst (λ t → ack · b · bs ≡ ack · b · t)
                  bs-eq
                  refl
         ⟩
-      abpack · b · (error ∷ bs⁵)
-        ≡⟨ abpack-error b bs⁵ ⟩
-      not b ∷ abpack · b · bs⁵
+      ack · b · (error ∷ bs⁵)
+        ≡⟨ ack-error b bs⁵ ⟩
+      not b ∷ ack · b · bs⁵
         ≡⟨ refl ⟩
       not b ∷ cs⁵ ∎
 
@@ -241,44 +241,44 @@ module Helper where
             , (λ h → inj₂ (ds-eq-helper₂ h))
             ] (head-tail-Fair Ffs₁)
 
-    as⁵-eq-helper₁ : ds ≡ ok (not b) ∷ ds⁵ → as⁵ ≡ abpsend · b · (i' ∷ is') · ds⁵
+    as⁵-eq-helper₁ : ds ≡ ok (not b) ∷ ds⁵ → as⁵ ≡ send · b · (i' ∷ is') · ds⁵
     as⁵-eq-helper₁ h =
       await b i' is' ds
         ≡⟨ cong (await b i' is') h ⟩
       await b i' is' (ok (not b) ∷ ds⁵)
-        ≡⟨ await-ok≠ b (not b) i' is' ds⁵ (x≠not-x Bb) ⟩
+        ≡⟨ await-ok≢ b (not b) i' is' ds⁵ (x≢not-x Bb) ⟩
       < i' , b > ∷ await b i' is' ds⁵
-        ≡⟨ sym (abpsend-eq b i' is' ds⁵) ⟩
-      abpsend · b · (i' ∷ is') · ds⁵ ∎
+        ≡⟨ sym (send-eq b i' is' ds⁵) ⟩
+      send · b · (i' ∷ is') · ds⁵ ∎
 
-    as⁵-eq-helper₂ : ds ≡ error ∷ ds⁵ → as⁵ ≡ abpsend · b · (i' ∷ is') · ds⁵
+    as⁵-eq-helper₂ : ds ≡ error ∷ ds⁵ → as⁵ ≡ send · b · (i' ∷ is') · ds⁵
     as⁵-eq-helper₂ h =
       await b i' is' ds
         ≡⟨ cong (await b i' is') h ⟩
       await b i' is' (error ∷ ds⁵)
         ≡⟨ await-error b i' is' ds⁵ ⟩
       < i' , b > ∷ await b i' is' ds⁵
-        ≡⟨ sym (abpsend-eq b i' is' ds⁵) ⟩
-      abpsend · b · (i' ∷ is') · ds⁵ ∎
+        ≡⟨ sym (send-eq b i' is' ds⁵) ⟩
+      send · b · (i' ∷ is') · ds⁵ ∎
 
-    as⁵-eq : as⁵ ≡ abpsend · b · (i' ∷ is') · ds⁵
+    as⁵-eq : as⁵ ≡ send · b · (i' ∷ is') · ds⁵
     as⁵-eq = [ as⁵-eq-helper₁ , as⁵-eq-helper₂ ] ds-eq
 
-    js-eq : js ≡ abpout · b · bs⁵
+    js-eq : js ≡ out · b · bs⁵
     js-eq =
       js
-        ≡⟨ jsAbp ⟩
-      abpout · b · bs
-        ≡⟨ subst (λ t → abpout · b · bs ≡ abpout · b · t)
+        ≡⟨ jsABP ⟩
+      out · b · bs
+        ≡⟨ subst (λ t → out · b · bs ≡ out · b · t)
                  bs-eq
                  refl
         ⟩
-      abpout · b · (error ∷ bs⁵)
-        ≡⟨ abpout-error b bs⁵ ⟩
-      abpout · b · bs⁵ ∎
+      out · b · (error ∷ bs⁵)
+        ≡⟨ out-error b bs⁵ ⟩
+      out · b · bs⁵ ∎
 
-    AbpIH : Abp b (i' ∷ is') fs₀⁵ fs₁⁵ as⁵ bs⁵ cs⁵ ds⁵ js
-    AbpIH = as⁵-eq , refl , refl , refl , js-eq
+    ABPIH : ABP b (i' ∷ is') fs₀⁵ fs₁⁵ as⁵ bs⁵ cs⁵ ds⁵ js
+    ABPIH = as⁵-eq , refl , refl , refl , js-eq
 
 ------------------------------------------------------------------------------
 -- From Dybjer and Sander's paper: From the assumption that fs₀ ∈
@@ -292,10 +292,10 @@ lemma₁ : ∀ {b i' is' fs₀ fs₁ as bs cs ds js} →
          Bit b →
          Fair fs₀ →
          Fair fs₁ →
-         Abp b (i' ∷ is') fs₀ fs₁ as bs cs ds js →
+         ABP b (i' ∷ is') fs₀ fs₁ as bs cs ds js →
          ∃[ fs₀' ] ∃[ fs₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
          Fair fs₀'
          ∧ Fair fs₁'
-         ∧ Abp' b i' is' fs₀' fs₁' as' bs' cs' ds' js'
+         ∧ ABP' b i' is' fs₀' fs₁' as' bs' cs' ds' js'
          ∧ js ≡ i' ∷ js'
 lemma₁ Bb Ffs₀ Ffs₁ abp = helper Bb Ffs₁ abp (Fair-gfp₁ Ffs₀)

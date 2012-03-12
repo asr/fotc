@@ -56,7 +56,7 @@ x∣y→x∣z→x∣y+z Nm Nn No (k₁ , Nk₁ , h₁) (k₂ , Nk₂ , h₂) =
 -- If x divides y, and y is positive, then x ≤ y.
 x∣Sy→x≤Sy : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → LE m (succ₁ n)
 x∣Sy→x≤Sy Nm Nn (.zero , zN , Sn≡0*m) =
-  ⊥-elim $ 0≠S $ trans (sym $ *-leftZero Nm) (sym Sn≡0*m)
+  ⊥-elim $ 0≢S $ trans (sym $ *-leftZero Nm) (sym Sn≡0*m)
 x∣Sy→x≤Sy {m} Nm Nn (.(succ₁ k) , sN {k} Nk , Sn≡Sk*m) =
   subst (λ t₁ → LE m t₁)
         (sym Sn≡Sk*m)
@@ -68,5 +68,5 @@ x∣Sy→x≤Sy {m} Nm Nn (.(succ₁ k) , sN {k} Nk , Sn≡Sk*m) =
 0∣x→x≡0 : ∀ {m} → N m → zero ∣ m → m ≡ zero
 0∣x→x≡0 zN          _                          = refl
 0∣x→x≡0 (sN {m} Nm) (k , Nk , Sm≡k*zero) =
-  ⊥-elim (0≠S (trans (sym (*-leftZero Nk))
+  ⊥-elim (0≢S (trans (sym (*-leftZero Nk))
                      (trans (*-comm zN Nk) (sym Sm≡k*zero))))

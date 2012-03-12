@@ -92,10 +92,10 @@ Proof
 -- The gcd m n when m > n is Divisible.
 gcd-x>y-Divisible :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → LT₂ o p m n → x≠0≠y o p →
+  (∀ {o p} → N o → N p → LT₂ o p m n → x≢0≢y o p →
              Divisible o p (gcd o p)) →
   GT m n →
-  x≠0≠y m n →
+  x≢0≢y m n →
   Divisible m n (gcd m n)
 gcd-x>y-Divisible zN zN _ _ ¬0≡0∧0≡0 _ _  = ⊥-elim $ ¬0≡0∧0≡0 (refl , refl)
 gcd-x>y-Divisible zN (sN Nn) _ 0>Sn _ _ _ = ⊥-elim $ 0>x→⊥ (sN Nn) 0>Sn
@@ -110,16 +110,16 @@ gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ c Nc =
             (∸-N (sN Nm) (sN Nn))
             (sN Nn)
             ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
-            (λ p → ⊥-elim $ S≠0 $ ∧-proj₂ p)
+            (λ p → ⊥-elim $ S≢0 $ ∧-proj₂ p)
 
 ------------------------------------------------------------------------------
 -- The gcd m n when m ≯ n is Divisible.
 gcd-x≯y-Divisible :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → LT₂ o p m n → x≠0≠y o p →
+  (∀ {o p} → N o → N p → LT₂ o p m n → x≢0≢y o p →
              Divisible o p (gcd o p)) →
   NGT m n →
-  x≠0≠y m n →
+  x≢0≢y m n →
   Divisible m n (gcd m n)
 gcd-x≯y-Divisible zN zN _ _ h _ _   = ⊥-elim $ h (refl , refl)
 gcd-x≯y-Divisible zN (sN Nn) _ _  _  c Nc  = gcd-0S-Divisible Nn c Nc
@@ -134,15 +134,15 @@ gcd-x≯y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ c Nc =
             (sN Nm)
             (∸-N (sN Nn) (sN Nm))
             ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
-            (λ p → ⊥-elim $ S≠0 $ ∧-proj₁ p)
+            (λ p → ⊥-elim $ S≢0 $ ∧-proj₁ p)
 
 ------------------------------------------------------------------------------
 -- The gcd is Divisible.
-gcd-Divisible : ∀ {m n} → N m → N n → x≠0≠y m n → Divisible m n (gcd m n)
+gcd-Divisible : ∀ {m n} → N m → N n → x≢0≢y m n → Divisible m n (gcd m n)
 gcd-Divisible = wfInd-LT₂ A istep
   where
   A : D → D → Set
-  A i j = x≠0≠y i j → Divisible i j (gcd i j)
+  A i j = x≢0≢y i j → Divisible i j (gcd i j)
 
   istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → A k l) →
           A i j

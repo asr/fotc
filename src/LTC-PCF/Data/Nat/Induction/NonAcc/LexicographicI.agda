@@ -104,7 +104,7 @@ wfInd-LT₂ A accH Nm Nn = accH Nm Nn (helper₂ Nm Nn)
         ([ (λ m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
          , (λ m'≡0∧n'<Sn₂ →
               [ (λ 0<Sm₁ → inj₁ (x≡y→y<z→x<z (∧-proj₁ m'≡0∧n'<Sn₂) 0<Sm₁))
-              , (λ 0≡Sn₂∧Sn₂<Sn₁ → ⊥-elim $ 0≠S $ ∧-proj₁ 0≡Sn₂∧Sn₂<Sn₁)
+              , (λ 0≡Sn₂∧Sn₂<Sn₁ → ⊥-elim $ 0≢S $ ∧-proj₁ 0≡Sn₂∧Sn₂<Sn₁)
               ] 0Sn₂<Sm₁Sn₁)
          ]
          m'n'<0Sn₂))

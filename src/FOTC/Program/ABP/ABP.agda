@@ -23,51 +23,51 @@ open import FOTC.Program.ABP.Terms
 -- ABP equations
 
 postulate
-  abpsend               : D
-  await                 : D → D → D → D → D
-  abpack abpout corrupt : D
+  send            : D
+  await           : D → D → D → D → D
+  ack out corrupt : D
 
 postulate
-  abpsend-eq   : ∀ b i is ds →
-                 abpsend · b · (i ∷ is) · ds ≡ < i , b > ∷ await b i is ds
-{-# ATP axiom abpsend-eq #-}
+  send-eq   : ∀ b i is ds →
+              send · b · (i ∷ is) · ds ≡ < i , b > ∷ await b i is ds
+{-# ATP axiom send-eq #-}
 
 postulate
   await-ok≡    : ∀ b b₀ i is ds →
                  b ≡ b₀ →
-                 await b i is (ok b₀ ∷ ds) ≡ abpsend · (not b) · is · ds
+                 await b i is (ok b₀ ∷ ds) ≡ send · not b · is · ds
 
-  await-ok≠    : ∀ b b₀ i is ds →
+  await-ok≢    : ∀ b b₀ i is ds →
                  ¬ (b ≡ b₀) →
                  await b i is (ok b₀ ∷ ds) ≡ < i , b > ∷ await b i is ds
 
   await-error  : ∀ b i is ds →
                  await b i is (error ∷ ds) ≡ < i , b > ∷ await b i is ds
-{-# ATP axiom await-ok≡ await-ok≠ await-error #-}
+{-# ATP axiom await-ok≡ await-ok≢ await-error #-}
 
 postulate
-  abpack-ok≡   : ∀ b b₀ i bs →
-                 b ≡ b₀ →
-                 abpack · b · (ok < i , b₀ > ∷ bs) ≡ b ∷ abpack · (not b) · bs
+  ack-ok≡   : ∀ b b₀ i bs →
+              b ≡ b₀ →
+              ack · b · (ok < i , b₀ > ∷ bs) ≡ b ∷ ack · not b · bs
 
-  abpack-ok≠   : ∀ b b₀ i bs →
-                 ¬ (b ≡ b₀) →
-                 abpack · b · (ok < i , b₀ > ∷ bs) ≡ not b ∷ abpack · b · bs
+  ack-ok≢   : ∀ b b₀ i bs →
+              ¬ (b ≡ b₀) →
+              ack · b · (ok < i , b₀ > ∷ bs) ≡ not b ∷ ack · b · bs
 
-  abpack-error : ∀ b bs → abpack · b · (error ∷ bs) ≡ not b ∷ abpack · b · bs
-{-# ATP axiom abpack-ok≡ abpack-ok≠ abpack-error #-}
+  ack-error : ∀ b bs → ack · b · (error ∷ bs) ≡ not b ∷ ack · b · bs
+{-# ATP axiom ack-ok≡ ack-ok≢ ack-error #-}
 
 postulate
-  abpout-ok≡   : ∀ b b₀ i bs →
-                 b ≡ b₀ →
-                 abpout · b · (ok < i , b₀ > ∷ bs) ≡ i ∷ abpout · (not b) · bs
+  out-ok≡   : ∀ b b₀ i bs →
+              b ≡ b₀ →
+              out · b · (ok < i , b₀ > ∷ bs) ≡ i ∷ out · not b · bs
 
-  abpout-ok≠   : ∀ b b₀ i bs →
-                 ¬ (b ≡ b₀) →
-                 abpout · b · (ok < i , b₀ > ∷ bs) ≡ abpout · b · bs
+  out-ok≢   : ∀ b b₀ i bs →
+              ¬ (b ≡ b₀) →
+              out · b · (ok < i , b₀ > ∷ bs) ≡ out · b · bs
 
-  abpout-error : ∀ b bs → abpout · b · (error ∷ bs) ≡ abpout · b · bs
-{-# ATP axiom abpout-ok≡ abpout-ok≠ abpout-error #-}
+  out-error : ∀ b bs → out · b · (error ∷ bs) ≡ out · b · bs
+{-# ATP axiom out-ok≡ out-ok≢ out-error #-}
 
 postulate
   corrupt-T    : ∀ fs x xs →
@@ -100,41 +100,40 @@ postulate
 {-# ATP axiom hds-eq #-}
 
 postulate
-  transfer : D → D → D → D → D → D → D
-  transfer-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
-                transfer f₁ f₂ f₃ g₁ g₂ is ≡ f₃ · (hbs f₁ f₂ f₃ g₁ g₂ is)
-{-# ATP axiom transfer-eq #-}
+  genTransfer    : D → D → D → D → D → D → D
+  genTransfer-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
+                   genTransfer f₁ f₂ f₃ g₁ g₂ is ≡ f₃ · (hbs f₁ f₂ f₃ g₁ g₂ is)
+{-# ATP axiom genTransfer-eq #-}
 
 postulate
-  abptransfer    : D → D → D → D → D
-  abptransfer-eq :
-    ∀ b fs₀ fs₁ is → abptransfer b fs₀ fs₁ is ≡
-    transfer (abpsend · b) (abpack · b) (abpout · b)
-             (corrupt · fs₀) (corrupt · fs₁) is
-{-# ATP axiom abptransfer-eq #-}
+  transfer    : D → D → D → D → D
+  transfer-eq :
+    ∀ b fs₀ fs₁ is → transfer b fs₀ fs₁ is ≡
+    genTransfer (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
+{-# ATP axiom transfer-eq #-}
 
 ------------------------------------------------------------------------------
 -- ABP relations
 
 -- Abbreviation for the recursive equations of the alternating bit
 -- protocol.
-Abp : D → D → D → D → D → D → D → D → D → Set
-Abp b is fs₀ fs₁ as bs cs ds js =
-  as ≡ abpsend · b · is · ds
+ABP : D → D → D → D → D → D → D → D → D → Set
+ABP b is fs₀ fs₁ as bs cs ds js =
+  as ≡ send · b · is · ds
   ∧ bs ≡ corrupt · fs₀ · as
-  ∧ cs ≡ abpack · b · bs
+  ∧ cs ≡ ack · b · bs
   ∧ ds ≡ corrupt · fs₁ · cs
-  ∧ js ≡ abpout · b · bs
-{-# ATP definition Abp #-}
+  ∧ js ≡ out · b · bs
+{-# ATP definition ABP #-}
 
-Abp' : D → D → D → D → D → D → D → D → D → D → Set
-Abp' b i' is' fs₀' fs₁' as' bs' cs' ds' js' =
+ABP' : D → D → D → D → D → D → D → D → D → D → Set
+ABP' b i' is' fs₀' fs₁' as' bs' cs' ds' js' =
   ds' ≡ corrupt · fs₁' · (b ∷ cs')
   ∧ as' ≡ await b i' is' ds'  -- Typo in ds'.
   ∧ bs' ≡ corrupt · fs₀' · as'
-  ∧ cs' ≡ abpack · (not b) · bs'
-  ∧ js' ≡ abpout · (not b) · bs'
-{-# ATP definition Abp' #-}
+  ∧ cs' ≡ ack · not b · bs'
+  ∧ js' ≡ out · not b · bs'
+{-# ATP definition ABP' #-}
 
 -- Auxiliary bisimulation.
 _B_ : D → D → Set
@@ -143,5 +142,5 @@ is B js = ∃[ b ] ∃[ fs₀ ] ∃[ fs₁ ] ∃[ as ] ∃[ bs ] ∃[ cs ] ∃[ 
           ∧ Bit b
           ∧ Fair fs₀
           ∧ Fair fs₁
-          ∧ Abp b is fs₀ fs₁ as bs cs ds js
+          ∧ ABP b is fs₀ fs₁ as bs cs ds js
 {-# ATP definition _B_ #-}
