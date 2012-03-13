@@ -62,27 +62,28 @@ Mirror_path          = $(FOTC_path)/Program/Mirror
 SortList_path        = $(FOTC_path)/Program/SortList
 
 ##############################################################################
-# "main" modules
+# Everything modules
 
 # Theories
-main_Common           = $(Common_path)/Everything
-main_DistributiveLaws = $(DistributiveLaws_path)/Everything
-main_FOL              = $(FOL_path)/Everything
-main_FOTC             = $(FOTC_path)/Everything
-main_GroupTheory      = $(GroupTheory_path)/Everything
-main_LTC-PCF          = $(LTC-PCF_path)/Everything
-main_PA               = $(PA_path)/Everything
+everything_Common           = $(Common_path)/Everything
+everything_DistributiveLaws = $(DistributiveLaws_path)/Everything
+everything_FOL              = $(FOL_path)/Everything
+everything_FOTC             = $(FOTC_path)/Everything
+everything_GroupTheory      = $(GroupTheory_path)/Everything
+everything_LTC-PCF          = $(LTC-PCF_path)/Everything
+everything_PA               = $(PA_path)/Everything
 
 # Agsy examples
+#
 # Because we have unsolved-metas in the Agsy examples, we cannot use a
-# "main" module.
+# Everything module.
 Agsy_files = $(shell find src/Agsy -name '*.agda' | sort)
 
 # Only used to publish the drafts, i.e. non type checking.
-main_Draft = Draft/RenderToHTML
+everything_Draft = Draft/RenderToHTML
 
-# The README main
-main_README = README
+# The README everything
+everything_README = README
 
 ##############################################################################
 # Conjectures
@@ -103,7 +104,7 @@ type_checking_Agsy : $(Agsy_files)
 	done
 
 type_checking_% :
-	$(AGDA_FOT) $(main_$*).agda
+	$(AGDA_FOT) $(everything_$*).agda
 
 all_type_checking : type_checking_Common \
 		    type_checking_DistributiveLaws \
@@ -265,7 +266,7 @@ publish_Agsy : $(Agsy_files)
 
 publish_% :
 	rm -r -f /tmp/$*/html/
-	$(AGDA_FOT) --html --html-dir=/tmp/$*/html/ $(main_$*).agda
+	$(AGDA_FOT) --html --html-dir=/tmp/$*/html/ $(everything_$*).agda
 	$(RSYNC) /tmp/$*/html/ $(root_host_dir)/$*/
 
 all_publish : publish_Common \

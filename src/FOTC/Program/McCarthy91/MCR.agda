@@ -16,7 +16,7 @@ open import FOTC.Data.Nat.UnaryNumbers
 -- The MCR relation.
 
 fnMCR : D → D
-fnMCR d = hundred-one ∸ d
+fnMCR n = hundred-one ∸ n
 {-# ATP definition fnMCR #-}
 
 -- To avoid use the name 'MCR' in the name of the properties related
