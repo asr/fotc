@@ -29,7 +29,7 @@ length-N (consL x {xs} Lxs) = subst N (sym (length-∷ x xs)) (sN (length-N Lxs)
 ++-List {ys = ys} (consL x {xs} Lxs) Lys =
   subst List (sym (++-∷ x xs ys)) (consL x (++-List Lxs Lys))
 
-map-List : ∀ {xs} f → List xs → List (map f xs)
+map-List : ∀ f {xs} → List xs → List (map f xs)
 map-List f nilL = subst List (sym (map-[] f)) nilL
 map-List f (consL x {xs} Lxs) =
   subst List (sym (map-∷ f x xs)) (consL (f · x) (map-List f Lxs))

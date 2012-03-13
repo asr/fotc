@@ -28,7 +28,7 @@ open import FOTC.Data.Nat.Type
                   List ((x ∷ xs) ++ ys)
   {-# ATP prove prf #-}
 
-map-List : ∀ {xs} f → List xs → List (map f xs)
+map-List : ∀ f {xs} → List xs → List (map f xs)
 map-List f nilL = prf
   where
   postulate prf : List (map f [])
@@ -55,15 +55,15 @@ reverse-List Lxs = rev-List Lxs nilL
 
 -- Length properties
 
-length-replicate : ∀ d {n} → N n → length (replicate n d) ≡ n
-length-replicate d zN = prf
+length-replicate : ∀ x {n} → N n → length (replicate n x) ≡ n
+length-replicate x zN = prf
   where
-  postulate prf : length (replicate zero d) ≡ zero
+  postulate prf : length (replicate zero x) ≡ zero
   {-# ATP prove prf #-}
-length-replicate d (sN {n} Nn) = prf $ length-replicate d Nn
+length-replicate x (sN {n} Nn) = prf $ length-replicate x Nn
   where
-  postulate prf : length (replicate n d) ≡ n →  -- IH.
-                  length (replicate (succ₁ n) d) ≡ succ₁ n
+  postulate prf : length (replicate n x) ≡ n →  -- IH.
+                  length (replicate (succ₁ n) x) ≡ succ₁ n
   {-# ATP prove prf #-}
 
 -- Append properties
