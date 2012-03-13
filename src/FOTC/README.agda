@@ -84,7 +84,7 @@ open import FOTC.Data.List.LT-Length.PropertiesI
 -- Lists of natural numbers
 
 -- The inductive predicate
-open import FOTC.Data.Nat.List.Type
+open import FOTC.Data.Nat.List
 
 -- Properties
 open import FOTC.Data.Nat.List.PropertiesATP

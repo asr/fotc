@@ -10,7 +10,7 @@ module FOTC.Data.Nat.List.PropertiesATP where
 open import Common.Function
 
 open import FOTC.Base
-open import FOTC.Data.Nat.List.Type
+open import FOTC.Data.Nat.List
 open import FOTC.Data.List
 
 ------------------------------------------------------------------------------

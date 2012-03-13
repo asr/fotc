@@ -57,6 +57,7 @@ open import FOTC.Data.Nat.Inequalities.ConsistencyTest
 open import FOTC.Data.Nat.Inequalities.EliminationProperties
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.Inequalities.PropertiesI
+open import FOTC.Data.Nat.List
 open import FOTC.Data.Nat.List.PropertiesATP
 open import FOTC.Data.Nat.List.PropertiesI
 open import FOTC.Data.Nat.List.Type
