@@ -136,7 +136,7 @@ open import FOTC.Program.GCD.Total.ProofSpecificationATP
 open import FOTC.Program.GCD.Total.ProofSpecificationI
 
 -- The McCarthy 91 function: A function with nested recursion
-open import FOTC.Program.McCarthy91.Properties.MainATP
+open import FOTC.Program.McCarthy91.PropertiesATP
 
 -- The mirror function: A function with higher-order recursion
 open import FOTC.Program.Mirror.PropertiesATP

@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Program.McCarthy91.Properties.AuxiliaryATP where
+module FOTC.Program.McCarthy91.AuxiliaryPropertiesATP where
 
 open import FOTC.Base
 open import FOTC.Data.Nat
