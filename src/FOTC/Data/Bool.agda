@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- The booleans
+-- The Booleans
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -13,7 +13,7 @@ open import FOTC.Base
 infixr 9 _&&_
 
 ------------------------------------------------------------------------------
--- The FOTC booleans type.
+-- The FOTC Booleans type (inductive predicate for total Booleans).
 open import FOTC.Data.Bool.Type public
 
 ------------------------------------------------------------------------------

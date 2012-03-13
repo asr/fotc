@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------
--- The FOTC list of natural numbers type
+-- The FOTC lists of natural numbers type
 ----------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -11,7 +11,8 @@ open import FOTC.Base
 open import FOTC.Data.Nat.Type
 
 ------------------------------------------------------------------------------
--- The FOTC list of natural numbers type.
+-- The FOTC lists of natural numbers type (inductive predicate for
+-- total lists of natural numbers).
 data ListN : D → Set where
   nilLN  :                             ListN []
   consLN : ∀ {n ns} → N n → ListN ns → ListN (n ∷ ns)

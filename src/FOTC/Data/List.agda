@@ -13,7 +13,7 @@ open import FOTC.Base
 infixr 8 _++_
 
 ------------------------------------------------------------------------------
--- The FOTC list type.
+-- The FOTC lists type (inductive predicate for total lists).
 open import FOTC.Data.List.Type public
 
 ------------------------------------------------------------------------------

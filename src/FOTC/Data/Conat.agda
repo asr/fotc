@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Coinductive natural numbers
+-- Co-inductive natural numbers
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -9,7 +9,8 @@ module FOTC.Data.Conat where
 
 open import FOTC.Base
 
--- The FOTC coinductive natural numbers type.
+-- The FOTC co-inductive natural numbers type (co-inductive predicate
+-- for total co-inductive natural)
 open import FOTC.Data.Conat.Type public
 
 ------------------------------------------------------------------------------

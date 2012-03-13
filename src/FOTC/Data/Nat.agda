@@ -14,7 +14,8 @@ infixl 10 _*_
 infixl 9  _+_ _∸_
 
 ------------------------------------------------------------------------------
--- The FOTC natural numbers type.
+-- The FOTC natural numbers type (inductive predicate for the total
+-- natural numbers).
 open import FOTC.Data.Nat.Type public
 
 ------------------------------------------------------------------------------

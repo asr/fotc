@@ -1,24 +1,24 @@
 ------------------------------------------------------------------------------
--- The FOTC list type
+-- The FOTC lists type
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- This module is re-exported by FOTC.Data.List.
+-- N.B. This module is re-exported by FOTC.Data.List.
 
 module FOTC.Data.List.Type where
 
 open import FOTC.Base
 
 ------------------------------------------------------------------------------
--- The FOTC list type.
+-- The FOTC lists type (inductive predicate for total lists).
 data List : D → Set where
   nilL  :                              List []
   consL : ∀ x {xs} → (Lxs : List xs) → List (x ∷ xs)
 {-# ATP axiom nilL consL #-}
 
--- Induction principle for List.
+-- Induction principle.
 List-ind : (A : D → Set) →
           A [] →
           (∀ x {xs} → A xs → A (x ∷ xs)) →

@@ -1,9 +1,11 @@
 ------------------------------------------------------------------------------
--- The FOTC coinductive natural numbers type
+-- The FOTC co-inductive natural numbers type
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
+
+-- N.B. This module is re-exported by FOTC.Data.Conat.
 
 -- Adapted from (Sander, 1992).
 
@@ -19,7 +21,10 @@ module FOTC.Data.Conat.Type where
 open import FOTC.Base
 
 ------------------------------------------------------------------------------
--- Functional for the FOTC coinductive natural numbers type.
+-- The FOTC co-inductive natural numbers type (co-inductive predicate
+-- for total co-inductive natural)
+
+-- Functional for the ConatF predicate.
 -- ConatF : (D → Set) → D → Set
 -- ConatF P n = ∃[ n' ] P n' ∧ n = succ n'
 

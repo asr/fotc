@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
---  Properties related with lists (using induction on the FOTC list type)
+--  Properties related with lists (using induction on the FOTC lists type)
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}

@@ -1,16 +1,20 @@
 ------------------------------------------------------------------------------
--- The FOTC stream type
+-- The FOTC streams type
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
+
+-- N.B. This module is re-exported by FOTC.Data.Stream.
 
 module FOTC.Data.Stream.Type where
 
 open import FOTC.Base
 
 ------------------------------------------------------------------------------
--- Functional for the FOTC Stream type.
+-- The FOTC streams type (co-inductive predicate for total streams).
+
+-- Functional for the Stream predicate.
 -- StreamF : (D → Set) → D → Set
 -- StreamF P xs = ∃[ x' ] ∃[ xs' ] P xs' ∧ xs ≡ x' ∷ xs'
 
