@@ -68,12 +68,12 @@ private
   -- • Peter Dybjer and Herbert Sander. A functional programming
   --   approach to the specification and verification of concurrent
   --   systems. Formal Aspects of Computing, 1:303–319, 1989.
-
+  --
   -- • Bart Jacobs and Jan Rutten. (Co)algebras and
   --   (co)induction. EATCS Bulletin, 62:222–259, 1997.
 
   ----------------------------------------------------------------------------
-  -- Adapted from (Dybjer and Sander, 1989, p. 310). In this paper, the
+  -- Adapted from (Dybjer and Sander 1989, p. 310). In this paper, the
   -- authors use the name
 
   -- as (R :: R') bs'
@@ -83,7 +83,7 @@ private
   -- The bisimilarity relation _≈_ is the greatest post-fixed point of
   -- Bisimulation (by post-fp and gpfp).
 
-  -- The bisimulation functional (Jacobs and Rutten, 1997, p. 30).
+  -- The bisimulation functional (Jacobs and Rutten 1997, p. 30).
   Bisimulation : (D → D → Set) → D → D → Set
   Bisimulation _R_ xs ys =
     ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'

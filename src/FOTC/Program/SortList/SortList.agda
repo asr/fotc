@@ -6,10 +6,13 @@
 {-# OPTIONS --without-K #-}
 
 -- This module define the program which sorts a list by converting it
--- into an ordered tree and then back to a list (Burstall, 1969, pp. 45-46).
+-- into an ordered tree and then back to a list (Burstall 1969,
+-- pp. 45-46).
 
--- R. M. Burstall. Proving properties of programs by structural
--- induction. The Computer Journal, 12(1):41–48, 1969.
+-- References:
+--
+-- • R. M. Burstall. Proving properties of programs by structural
+--   induction. The Computer Journal, 12(1):41–48, 1969.
 
 module FOTC.Program.SortList.SortList where
 

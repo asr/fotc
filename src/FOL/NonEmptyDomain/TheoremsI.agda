@@ -10,8 +10,9 @@ module FOL.NonEmptyDomain.TheoremsI where
 open import FOL.Base
 
 -- References:
--- Elliott Mendelson. Introduction to mathematical logic. Chapman &
--- Hall, 4th edition, 1997.
+--
+-- • Elliott Mendelson. Introduction to mathematical logic. Chapman &
+--   Hall, 4th edition, 1997.
 
 ------------------------------------------------------------------------------
 -- We postulate some formulae and propositional functions.
@@ -23,7 +24,7 @@ postulate
 ∀→∃ h = D≢∅ , h
 
 -- Let A be a formula. If x is not free in A then ⊢ (∃x)A ↔ A
--- (Mendelson, 1997, proposition 2.18 (b), p. 70).
+-- (Mendelson 1997, proposition 2.18 (b), p. 70).
 ∃-erase-add₁ : ∃ (λ _ → A) ↔ A
 ∃-erase-add₁ = l→r , r→l
   where

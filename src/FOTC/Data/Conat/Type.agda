@@ -7,7 +7,7 @@
 
 -- N.B. This module is re-exported by FOTC.Data.Conat.
 
--- Adapted from (Sander, 1992).
+-- Adapted from (Sander 1992).
 
 -- References:
 --

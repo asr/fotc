@@ -5,7 +5,11 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- TODO: It seems this module is not used.
+-- References:
+--
+-- • R. M. Burstall. Proving properties of programs by structural
+--   induction. The Computer Journal, 12(1):41–48, 1969.
+
 module FOTC.Program.SortList.Properties.MiscellaneousI where
 
 open import Common.FOL.Relation.Binary.EqReasoning
@@ -24,7 +28,8 @@ open import FOTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------
 -- This is a weird result but recall that "the relation ≤ between
--- lists is only an ordering if nil is excluded" (Burstall, pp. 46).
+-- lists is only an ordering if nil is excluded" (Burstall 1969,
+-- p. 46).
 -- xs≤[] : ∀ {is} → ListN is → OrdList is → LE-Lists is []
 -- xs≤[] nilLN                     _       = ≤-Lists-[] []
 -- xs≤[] (consLN {i} {is} Ni LNis) LOconsL =

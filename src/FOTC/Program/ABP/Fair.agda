@@ -20,7 +20,7 @@ open import FOTC.Program.ABP.Terms
 ------------------------------------------------------------------------------
 -- The Fair co-inductive predicate
 
--- From (Dybjer and Sander, 1989): al : F*T if al is a list of zero or
+-- From (Dybjer and Sander 1989): al : F*T if al is a list of zero or
 -- more 0's followed by a final 1.
 data F*T : D → Set where
   nilF*T  :                   F*T (T ∷ [])

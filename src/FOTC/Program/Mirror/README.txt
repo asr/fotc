@@ -2,7 +2,7 @@
 The mirror function: A function with higher-order recursion
 ------------------------------------------------------------------------------
 
-Given the constructor [1]
+Given the constructor (Bove, Krauss, and Sozeua 2010)
 
 tree : A → [ Tree A ] → Tree A
 
@@ -14,6 +14,6 @@ we prove that
 
 mirror (mirror t) = t
 
-[1] Ana Bove, Alexander Krauss, and Mattieu Sozeua. Partiality and
-recursion in interactive theorem provers. An overview. Submitted to
-publication, 2010.
+• Ana Bove, Alexander Krauss, and Mattieu Sozeua. Partiality and
+  recursion in interactive theorem provers. An overview. Submitted to
+  publication, 2010.
