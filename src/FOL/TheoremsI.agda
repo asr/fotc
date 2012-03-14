@@ -35,10 +35,8 @@ postulate
            ψ
 -}
 
--- It is necessary postulate a non-empty domain. See
--- FOL.NonEmptyDomain.TheoremsI/ATP.∃I.
---
--- ∃-intro : ((t : D) → A¹ t) → ∃ A¹
+∃-intro : (t : D) → A¹ t → ∃ A¹
+∃-intro t A¹x = t , A¹x
 
 ∃-elim' : ∃ A¹ → ({x : D} → A¹ x → A) → A
 ∃-elim' (x , A¹x) h = h A¹x

@@ -19,10 +19,6 @@ postulate
   A  : Set
   A¹ : D → Set
 
--- TODO: 2012-02-28. Fix the existential introduction rule.
--- ∃-intro : ((t : D) → A¹ t) → ∃ A¹
--- ∃-intro h = D≢∅ ,, h D≢∅
-
 ∀→∃ : (∀ {x} → A¹ x) → ∃ A¹
 ∀→∃ h = D≢∅ , h
 

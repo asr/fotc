@@ -39,18 +39,13 @@ postulate
 -}
 
 postulate
-  -- TODO: 2012-03-02. Fix? the universal introduction
-  ∀-intro : (∀ x → A¹ x) → ∀ x → A¹ x
-  ∀-elim  : (∀ x → A¹ x) → (t : D) → A¹ t
-  -- It is necessary to assume a non-empty domain. See
-  -- FOL.NonEmptyDomain.TheoremsI/ATP.∃I.
-  --
-  -- TODO: 2012-02-28. Fix the existential introduction rule.
-  -- ∃-intro : ((t : D) → A¹ t) → ∃ A¹
-  ∃-elim'  : ∃ A¹ → ((x : D) → A¹ x → A) → A
--- {-# ATP prove ∀-intro #-}
+  ∀-intro : (x : D) → A¹ x → ∀ x → A¹ x
+  ∀-elim  : ((x : D) → A¹ x) → (t : D) → A¹ t
+  ∃-intro : (t : D) → A¹ t → ∃ A¹
+  ∃-elim' : ∃ A¹ → ((x : D) → A¹ x → A) → A
+{-# ATP prove ∀-intro #-}
 {-# ATP prove ∀-elim #-}
--- {-# ATP prove ∃-intro #-}
+{-# ATP prove ∃-intro #-}
 {-# ATP prove ∃-elim' #-}
 
 -- Generalization of De Morgan's laws.
@@ -73,8 +68,7 @@ postulate
 
 -- Quantification over a variable that does not occur can be erased or
 -- added.
-postulate
-  ∃-erase-add : (∃[ x ] A ∧ A¹ x) ↔ A ∧ (∃[ x ] A¹ x)
+postulate ∃-erase-add : (∃[ x ] A ∧ A¹ x) ↔ A ∧ (∃[ x ] A¹ x)
 {-# ATP prove ∃-erase-add #-}
 
 -- Distributes laws for the quantifiers.
