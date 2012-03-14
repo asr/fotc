@@ -17,8 +17,8 @@ open import PA.Inductive.Base.Core public
 
 -- FOL (without equality)
 --
--- TODO: 20120-03-02. We only need to hide the existential quantifier
--- from FOL.
+-- 2012-03-13. Agda bug? We only need to hide the existential quantifier
+-- from FOL, but it was not possible.
 open import Common.FOL.FOL public using ( ⊥ ; ¬_ )
 -- open import PA.Inductive.Existential public
 

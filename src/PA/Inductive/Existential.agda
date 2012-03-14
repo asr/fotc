@@ -6,7 +6,7 @@ module PA.Inductive.Existential where
 
 ------------------------------------------------------------------------------
 -- PA universe
-open import PA.Inductive.Base.Core public
+open import PA.Inductive.Base.Core
 
 -- The existential quantifier type on M.
 data ∃ (A : M → Set) : Set where
