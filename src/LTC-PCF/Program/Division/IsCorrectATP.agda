@@ -45,19 +45,9 @@ postulate
                    i ≡ j * div i j + r
 {-# ATP prove div-x≮y-helper div-x≮y helper #-}
 
--- TODO: To test an ATP proof.
-div-x≮y-correct : ∀ {i j} → N i → N j →
-                  (ih : DIV (i ∸ j) j (div (i ∸ j) j)) →
-                  NLT i j →
-                  ∃[ r ] N r ∧ LT r j ∧ i ≡ j * div i j + r
-div-x≮y-correct {i} {j} Ni Nj (h₁ , r , r-correct) i≮j =
-  r , Nr , r<j , div-x≮y-helper Ni Nj Nr i≮j helperH
-  where
-  Nr : N r
-  Nr = ∧-proj₁ r-correct
-
-  r<j : LT r j
-  r<j = ∧-proj₁ (∧-proj₂ r-correct)
-
-  helperH : i ∸ j ≡ j * div (i ∸ j) j + r
-  helperH = ∧-proj₂ (∧-proj₂ r-correct)
+postulate
+  div-x≮y-correct : ∀ {i j} → N i → N j →
+                    (ih : DIV (i ∸ j) j (div (i ∸ j) j)) →
+                    NLT i j →
+                    ∃[ r ] N r ∧ LT r j ∧ i ≡ j * div i j + r
+{-# ATP prove div-x≮y-correct div-x≮y-helper #-}
