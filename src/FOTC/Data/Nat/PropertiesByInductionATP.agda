@@ -19,21 +19,17 @@ open import FOTC.Data.Nat
 +-leftIdentity : ∀ n → zero + n ≡ n
 +-leftIdentity n = +-0x n
 
--- TODO: Check it!
---
--- The propositional formula is not inside the where clause because
--- the translation of projection-like functions is not implemented.
-+-rightIdentity-A : D → Set
-+-rightIdentity-A i = i + zero ≡ i
-{-# ATP definition +-rightIdentity-A #-}
-
 +-rightIdentity : ∀ {n} → N n → n + zero ≡ n
-+-rightIdentity Nn = N-ind +-rightIdentity-A A0 is Nn
++-rightIdentity Nn = N-ind A A0 is Nn
   where
-  postulate A0 : +-rightIdentity-A zero
+  A : D → Set
+  A i = i + zero ≡ i
+  {-# ATP definition A #-}
+
+  postulate A0 : A zero
   {-# ATP prove A0 #-}
 
-  postulate is : ∀ {i} → +-rightIdentity-A i → +-rightIdentity-A (succ₁ i)
+  postulate is : ∀ {i} → A i → A (succ₁ i)
   {-# ATP prove is #-}
 
 +-N : ∀ {m n} → N m → N n → N (m + n)
