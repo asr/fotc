@@ -13,14 +13,13 @@ open import PA.Inductive.Base
 -- Congruence properties
 
 succ-cong : ∀ {m n} → m ≡ n → succ m ≡ succ n
-succ-cong = cong succ
+succ-cong refl = refl
 
 +-leftCong : ∀ {m n o} → m ≡ n → m + o ≡ n + o
-+-leftCong h = cong₂ _+_ h refl
++-leftCong refl = refl
 
--- TODO: It is strictly necessary the implicit argument m?
 +-rightCong : ∀ {m n o} → n ≡ o → m + n ≡ m + o
-+-rightCong {m} h = cong₂ _+_ {m} refl h
++-rightCong refl = refl
 
 ------------------------------------------------------------------------------
 -- Peano's third axiom.
