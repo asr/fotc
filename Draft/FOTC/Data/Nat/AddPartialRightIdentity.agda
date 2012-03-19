@@ -5,7 +5,7 @@
 -- We cannot reasoning partially about partial functions intended to
 -- operate in total values.
 
--- Tested with FOT and agda2atp on 17 March 2012.
+-- Tested with FOT on 19 March 2012.
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
