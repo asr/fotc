@@ -30,7 +30,7 @@ open import Common.FOL.FOL-Eq public
 
 --   t ::= x   | t · t |
 --      | true | false | if
---      | zero | succ  | pred | iszero
+--      | 0    | succ  | pred | iszero
 --      | nil  | cons  | null | head   | tail
 --      | loop
 
@@ -113,7 +113,7 @@ postulate
 -- Conversion rules for pred.
 postulate
   -- N.B. We don't need this equation.
-  -- pred-0 :       pred zero     ≡ zero
+  -- pred-0 :       pred · zero     ≡ zero
   -- pred-S : ∀ d → pred · (succ · d) ≡ d
   pred-S : ∀ d → pred₁ (succ₁ d) ≡ d
 {-# ATP axiom pred-S #-}

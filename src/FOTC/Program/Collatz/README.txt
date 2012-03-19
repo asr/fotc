@@ -10,6 +10,4 @@ collatz 1          = 1
 collatz n | even n = collatz (n / 2)
 collatz n | odd n  = collatz (3n + 1)
 
-The main property proved is:
-
-exists k. n = 2 ^ k → collatz n = 1.
+The main property proved is: ∃ k. n = 2 ^ k → collatz n = 1.
