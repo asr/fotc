@@ -26,7 +26,7 @@ open import FOTC.Base
 
 -- Functional for the ConatF predicate.
 -- ConatF : (D → Set) → D → Set
--- ConatF P n = ∃[ n' ] P n' ∧ n = succ n'
+-- ConatF P n = n = zero ∨ (∃[ n' ] P n' ∧ n = succ n')
 
 -- Conat is the greatest fixed-point of ConatF (by Conat-gfp₁ and
 -- Conat-gfp₂).
@@ -38,7 +38,7 @@ postulate
 --
 -- Conat ≤ ConatF Stream.
 postulate
-  Conat-gfp₁ : ∀ {n} → Conat n → ∃[ n' ] Conat n' ∧ n ≡ succ₁ n'
+  Conat-gfp₁ : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] Conat n' ∧ n ≡ succ₁ n')
 {-# ATP axiom Conat-gfp₁ #-}
 
 -- Conat is the greatest post-fixed point of ConatF, i.e
@@ -51,7 +51,7 @@ postulate
 postulate
   Conat-gfp₂ : (P : D → Set) →
                -- P is post-fixed point of ConatF.
-               (∀ {n} → P n → ∃[ n' ] P n' ∧ n ≡ succ₁ n') →
+               (∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')) →
                -- Conat is greater than P.
                ∀ {n} → P n → Conat n
 
@@ -61,12 +61,13 @@ postulate
 --
 -- ConatF Conat ≤ Conat.
 Conat-gfp₃ : ∀ {n} →
-             (∃[ n' ] Conat n' ∧ n ≡ succ₁ n') →
+             (n ≡ zero ∨ (∃[ n' ] Conat n' ∧ n ≡ succ₁ n')) →
              Conat n
 Conat-gfp₃ h = Conat-gfp₂ P helper h
   where
   P : D → Set
-  P m = ∃[ m' ] Conat m' ∧ m ≡ succ₁ m'
+  P m = m ≡ zero ∨ (∃[ m' ] Conat m' ∧ m ≡ succ₁ m')
 
-  helper : ∀ {n} → P n → ∃[ n' ] P n' ∧ n ≡ succ₁ n'
-  helper (n' , CNn' , n≡Sn') = n' , (Conat-gfp₁ CNn') , n≡Sn'
+  helper : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
+  helper (inj₁ n≡0) = inj₁ n≡0
+  helper (inj₂ (n' , CNn' , n≡Sn')) = inj₂ (n' , Conat-gfp₁ CNn' , n≡Sn')

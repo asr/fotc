@@ -24,7 +24,8 @@ infix 7 _≈N_
 -- p. 58)).
 --
 -- ≈NF : (D → D → Set) → D → D → Set
--- ≈NF _R_ m n = ∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ m' ∧ n ≡ succ n'
+-- ≈NF _R_ m n =
+-- (m ≡ zero ∧ n ≡ zero) ∨ (∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ m' ∧ n ≡ succ n')
 
 -- The relation _≈N_ is the greatest post-fixed point of the
 -- functional ≈NF (by ≈N-gfp₁ and ≈N-gfp₂).
@@ -38,7 +39,8 @@ postulate
 -- _≈N_ ≤ ≈NF _≈N_.
 postulate
   ≈N-gfp₁ : ∀ {m n} → m ≈N n →
-            ∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
+            m ≡ zero ∧ n ≡ zero
+            ∨ (∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
 {-# ATP axiom ≈N-gfp₁ #-}
 
 -- The relation _N≈_ is the greatest post-fixed point of _N≈_, i.e
@@ -52,20 +54,25 @@ postulate
   ≈N-gfp₂ : (_R_ : D → D → Set) →
             -- R is a post-fixed point of the functional ≈NF.
            (∀ {m n} → m R n →
-            ∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n') →
+            m ≡ zero ∧ n ≡ zero
+            ∨ (∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')) →
            -- _≈N_ is greater than R.
            ∀ {m n} → m R n → m ≈N n
 
 -- Because a greatest post-fixed point is a fixed point, then the
 -- relation _≈N_ is also a pre-fixed point of the functional ≈NF.
 ≈N-gfp₃ : ∀ {m n} →
-          (∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n') →
+          (m ≡ zero ∧ n ≡ zero
+           ∨ (∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')) →
           m ≈N n
 ≈N-gfp₃ h = ≈N-gfp₂ _R_ helper h
   where
   _R_ : D → D → Set
-  _R_ m n = ∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
+  _R_ m n = m ≡ zero ∧ n ≡ zero
+            ∨ (∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
 
   helper : ∀ {m n} → m R n →
-           ∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
-  helper (m' , n' , m'≈Nn' , prf) = m' , n' , (≈N-gfp₁ m'≈Nn') , prf
+           m ≡ zero ∧ n ≡ zero
+           ∨ (∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
+  helper (inj₁ prf) = inj₁ prf
+  helper (inj₂ (m' , n' , m'≈Nn' , prf)) = inj₂ (m' , n' , ≈N-gfp₁ m'≈Nn' , prf)
