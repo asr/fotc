@@ -35,7 +35,15 @@ Conat→N Cn with Conat-gfp₁ Cn
 ... | inj₂ (n' , Cn' , prf) = subst N (sym prf) (sN {!Conat→N Cn'!})
 -- Agda error: Failed to give (Conat→N Cn')
 
-N→Conat : ∀ {n} → N n → Conat n
-N→Conat zN          = Conat-gfp₃ (inj₁ refl)
-N→Conat (sN {n} Nn) = Conat-gfp₃ (inj₂ (n , ({!N→Conat Nn!} , refl)))
+-- TODO: 2012-03-20. Agda bug?
+-- N→Conat : ∀ {n} → N n → Conat n
+-- N→Conat zN          = Conat-gfp₃ (inj₁ refl)
+-- N→Conat (sN {n} Nn) = Conat-gfp₃ (inj₂ (n , ({!N→Conat Nn!} , refl)))
 -- Agda error: Failed to give N→Conat Nn
+
+N→Conat : ∀ {n} → N n → Conat n
+N→Conat Nn = Conat-gfp₂ N helper Nn
+  where
+  helper : ∀ {m} → N m → m ≡ zero ∨ ∃ (λ m' → N m' ∧ m ≡ succ₁ m')
+  helper zN          = inj₁ refl
+  helper (sN {m} Nm) = inj₂ (m , Nm , refl)
