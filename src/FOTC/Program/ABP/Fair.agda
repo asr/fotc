@@ -58,7 +58,7 @@ postulate
               ∀ {fs} → P fs → Fair fs
 
 -- Because a greatest post-fixed point is a fixed-point, then the Fair
--- predicate is also a pre-fixed point of the functor FairF, i.e.
+-- predicate is also a pre-fixed point of the functional FairF, i.e.
 --
 -- FairF Fair ≤ Fair.
 Fair-gfp₃ : ∀ {fs} →

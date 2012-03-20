@@ -56,7 +56,7 @@ postulate
                ∀ {n} → P n → Conat n
 
 -- Because a greatest post-fixed point is a fixed-point, then the
--- Conat predicate is also a pre-fixed point of the functor ConatF,
+-- Conat predicate is also a pre-fixed point of the functional ConatF,
 -- i.e,
 --
 -- ConatF Conat ≤ Conat.

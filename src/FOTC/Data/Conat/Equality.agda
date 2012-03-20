@@ -1,9 +1,16 @@
 ------------------------------------------------------------------------------
--- Equality on conat
+-- Equality on Conat
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
+
+-- References:
+--
+-- • Herbert P. Sander. A logic of functional programs with an
+--   application to concurrency. PhD thesis, Chalmers University of
+--   Technology and University of Gothenburg, Department of Computer
+--   Sciences, 1992.
 
 module FOTC.Data.Conat.Equality where
 
@@ -13,25 +20,30 @@ open import FOTC.Base
 infix 7 _≈N_
 
 ------------------------------------------------------------------------------
--- The equality on Conat.
-postulate
-  _≈N_ : D → D → Set
+-- Functional for the relation _≈N_ (adapted from (Sander 1992,
+-- p. 58)).
+--
+-- ≈NF : (D → D → Set) → D → D → Set
+-- ≈NF _R_ m n = ∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ m' ∧ n ≡ succ n'
 
 -- The relation _≈N_ is the greatest post-fixed point of the
 -- functional ≈NF (by ≈N-gfp₁ and ≈N-gfp₂).
 
--- The equality on Conat functional.
--- Adapted from Herbert's thesis, p. 58.
--- ≈NF : (D → D → Set) → D → D → Set
--- ≈NF _R_ m n = ∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ m' ∧ n ≡ succ n'
+-- The equality on Conat.
+postulate
+  _≈N_ : D → D → Set
 
--- The relation _≈N_ is a post-fixed point of the functional ≈NF (d ≤ f d).
+-- The relation _≈N_ is a post-fixed point of the functional ≈NF, i.e.
+--
+-- _≈N_ ≤ ≈NF _≈N_.
 postulate
   ≈N-gfp₁ : ∀ {m n} → m ≈N n →
             ∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n'
 {-# ATP axiom ≈N-gfp₁ #-}
 
--- ∀ e. e ≤ f e => e ≤ d
+-- The relation _N≈_ is the greatest post-fixed point of _N≈_, i.e
+--
+-- ∀ R. R ≤ ≈NF R ⇒ R ≤ _N≈_.
 --
 -- N.B. This is an axiom schema. Because in the automatic proofs we
 -- *must* use an instance, we do not add this postulate as an ATP
@@ -44,8 +56,8 @@ postulate
            -- _≈N_ is greater than R.
            ∀ {m n} → m R n → m ≈N n
 
--- Because a greatest post-fixed point is a fixed point, the relation
--- _≈N_ is also a pre-fixed point of functional ≈NF.
+-- Because a greatest post-fixed point is a fixed point, then the
+-- relation _≈N_ is also a pre-fixed point of the functional ≈NF.
 ≈N-gfp₃ : ∀ {m n} →
           (∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n') →
           m ≈N n

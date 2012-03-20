@@ -47,7 +47,8 @@ postulate
                 ∀ {xs} → P xs → Stream xs
 
 -- Because a greatest post-fixed point is a fixed-point, then the
--- Stream predicate is also a pre-fixed point of the functor StreamF, i.e.
+-- Stream predicate is also a pre-fixed point of the functional
+-- StreamF, i.e.
 --
 -- StreamF Stream ≤ Stream.
 Stream-gfp₃ : ∀ {xs} →

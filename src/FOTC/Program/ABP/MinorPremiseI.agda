@@ -21,9 +21,9 @@ open import FOTC.Relation.Binary.Bisimilarity
 
 ------------------------------------------------------------------------------
 
--- The relation _B_ is a post-fixed point of the bisimilarity functor
--- (see FOTC.Relation.Binary.Bisimilarity). The paper calls it the
--- minor premise.
+-- The relation _B_ is a post-fixed point of the bisimilarity
+-- functional (see FOTC.Relation.Binary.Bisimilarity). The paper calls
+-- it the minor premise.
 
 -- From Dybjer and Sander's paper: The proof of the minor premise uses
 -- two lemmas. The first lemma (lemma₁) states that given a start
