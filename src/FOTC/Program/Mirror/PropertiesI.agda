@@ -21,8 +21,8 @@ open import FOTC.Program.Mirror.Tree.Totality
 ------------------------------------------------------------------------------
 
 mirror² : ∀ {t} → Tree t → mirror · (mirror · t) ≡ t
-helper : ∀ {ts} → Forest ts →
-         reverse (map mirror (reverse (map mirror ts))) ≡ ts
+helper  : ∀ {ts} → Forest ts →
+          reverse (map mirror (reverse (map mirror ts))) ≡ ts
 
 mirror² (treeT d nilF) =
   mirror · (mirror · (node d []))
@@ -167,12 +167,12 @@ helper (consF {t} {ts} Tt Fts) =
              refl
     ⟩
   t ∷ ts ∎
-    where
-    n₁ : D
-    n₁ = reverse (map mirror (reverse (map mirror ts)))
+  where
+  n₁ : D
+  n₁ = reverse (map mirror (reverse (map mirror ts)))
 
-    Fn₁ : Forest n₁
-    Fn₁ = rev-Forest
+  Fn₁ : Forest n₁
+  Fn₁ = rev-Forest
           (map-Forest mirror mirror-Tree
                       (reverse-Forest (map-Forest mirror mirror-Tree Fts)))
           nilF

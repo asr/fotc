@@ -19,8 +19,8 @@ open import FOTC.Program.Mirror.Type
 ------------------------------------------------------------------------------
 
 mirror² : ∀ {t} → Tree t → mirror · (mirror · t) ≡ t
-helper : ∀ {ts} → Forest ts →
-         reverse (map mirror (reverse (map mirror ts))) ≡ ts
+helper  : ∀ {ts} → Forest ts →
+          reverse (map mirror (reverse (map mirror ts))) ≡ ts
 
 mirror² (treeT d nilF) = prf
   where
