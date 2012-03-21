@@ -91,21 +91,26 @@ open import FOTC.Data.Nat.List.PropertiesATP
 open import FOTC.Data.Nat.List.PropertiesI
 
 ------------------------------------------------------------------------------
--- Coinductive natural numbers
+-- Co-inductive natural numbers
 
--- The coinductive predicate
+-- The co-inductive predicate
 open import FOTC.Data.Conat
 
--- Equality on coinductive natural numbers
+-- Properties
+open import FOTC.Data.Conat.PropertiesATP
+open import FOTC.Data.Conat.PropertiesI
+
+-- Equality
 open import FOTC.Data.Conat.Equality
 
--- Properties
-open import FOTC.Data.Conat.PropertiesI
+-- Equality properties
+open import FOTC.Data.Conat.Equality.PropertiesATP
+open import FOTC.Data.Conat.Equality.PropertiesI
 
 ------------------------------------------------------------------------------
 -- Streams
 
--- The coinductive predicate (axioms)
+-- The co-inductive predicate
 open import FOTC.Data.Stream
 
 -- Properties
@@ -115,7 +120,7 @@ open import FOTC.Data.Stream.PropertiesI
 ------------------------------------------------------------------------------
 -- Bisimilary relation
 
--- The axioms
+-- The co-inductive predicate
 open import FOTC.Relation.Binary.Bisimilarity
 
 -- Properties

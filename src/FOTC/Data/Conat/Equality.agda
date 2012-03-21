@@ -60,7 +60,9 @@ postulate
            ∀ {m n} → m R n → m ≈N n
 
 -- Because a greatest post-fixed point is a fixed point, then the
--- relation _≈N_ is also a pre-fixed point of the functional ≈NF.
+-- relation _≈N_ is also a pre-fixed point of the functional ≈NF, i.e.
+--
+-- ≈NF _≈N_ ≤ _≈N_.
 ≈N-gfp₃ : ∀ {m n} →
           (m ≡ zero ∧ n ≡ zero
            ∨ (∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')) →

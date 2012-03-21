@@ -12,7 +12,7 @@
 --   Technology and University of Gothenburg, Department of Computer
 --   Sciences, 1992.
 
-module FOTC.Data.Conat.PropertiesI where
+module FOTC.Data.Conat.PropertiesATP where
 
 open import FOTC.Base
 open import FOTC.Data.Conat
@@ -25,9 +25,10 @@ open import FOTC.Data.Nat
   where
   P : D → Set
   P n = n ≡ zero
+  {-# ATP definition P #-}
 
-  helper : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
-  helper Pn = inj₁ Pn
+  postulate helper : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
+  {-# ATP prove helper #-}
 
 -- Adapted from (Sander 1992, p. 57).
 ω-Conat : Conat ω
@@ -35,9 +36,10 @@ open import FOTC.Data.Nat
   where
   P : D → Set
   P n = n ≡ ω
+  {-# ATP definition P #-}
 
-  helper : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
-  helper Pn = inj₂ (ω , refl , trans Pn ω-eq)
+  postulate helper : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
+  {-# ATP prove helper #-}
 
 N→Conat : ∀ {n} → N n → Conat n
 N→Conat Nn = Conat-gfp₂ N helper Nn
@@ -45,9 +47,3 @@ N→Conat Nn = Conat-gfp₂ N helper Nn
   helper : ∀ {m} → N m → m ≡ zero ∨ ∃ (λ m' → N m' ∧ m ≡ succ₁ m')
   helper zN          = inj₁ refl
   helper (sN {m} Nm) = inj₂ (m , Nm , refl)
-
--- A different proof.
-N→Conat₁ : ∀ {n} → N n → Conat n
-N→Conat₁ zN          = Conat-gfp₃ (inj₁ refl)
-N→Conat₁ (sN {n} Nn) = Conat-gfp₃ (inj₂ (n , (N→Conat Nn , refl)))
-
