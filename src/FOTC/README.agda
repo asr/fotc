@@ -130,9 +130,13 @@ open import FOTC.Relation.Binary.Bisimilarity.PropertiesI
 ------------------------------------------------------------------------------
 -- Verification of programs
 
--- The Collatz function: A function without a termination proof
-open import FOTC.Program.Collatz.PropertiesATP
-open import FOTC.Program.Collatz.PropertiesI
+-- Burstall's sort list algorithm: A structurally recursive algorithm
+open import FOTC.Program.SortList.ProofSpecificationATP
+open import FOTC.Program.SortList.ProofSpecificationI
+
+-- The division algorithm: A non-structurally recursive algorithm
+open import FOTC.Program.Division.ProofSpecificationATP
+open import FOTC.Program.Division.ProofSpecificationI
 
 -- The GCD algorithm: A non-structurally recursive algorithm
 open import FOTC.Program.GCD.Partial.ProofSpecificationATP
@@ -147,14 +151,6 @@ open import FOTC.Program.McCarthy91.PropertiesATP
 open import FOTC.Program.Mirror.PropertiesATP
 open import FOTC.Program.Mirror.PropertiesI
 
--- Burstall's sort list algorithm: A structurally recursive algorithm
-open import FOTC.Program.SortList.ProofSpecificationATP
-open import FOTC.Program.SortList.ProofSpecificationI
-
--- The division algorithm: A non-structurally recursive algorithm
-open import FOTC.Program.Division.ProofSpecificationATP
-open import FOTC.Program.Division.ProofSpecificationI
-
 -- The map-iterate property: A property using co-induction
 open import FOTC.Program.MapIterate.MapIterateATP
 open import FOTC.Program.MapIterate.MapIterateI
@@ -162,3 +158,7 @@ open import FOTC.Program.MapIterate.MapIterateI
 -- The alternating bit protocol: A program using induction and co-induction
 open import FOTC.Program.ABP.ProofSpecificationATP
 open import FOTC.Program.ABP.ProofSpecificationI
+
+-- The Collatz function: A function without a termination proof
+open import FOTC.Program.Collatz.PropertiesATP
+open import FOTC.Program.Collatz.PropertiesI
