@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Bisimilarity relation
+-- Bisimilarity relation on unbounded lists
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -13,22 +13,23 @@ open import FOTC.Base
 infix 7 _≈_
 
 ------------------------------------------------------------------------------
--- The bisimilarity relation _≈_ is the greatest fixed point (by
--- ≈-gfp₁ and ≈-gfp₂) of the bisimulation functional (see below).
+-- The bisimilarity relation _≈_ on unbounded lists is the greatest
+-- fixed point (by ≈-gfp₁ and ≈-gfp₂) of the bisimulation functional
+-- (see below).
 
--- The bisimilarity relation.
+-- The bisimilarity relation on unbounded lists.
 postulate
   _≈_ : D → D → Set
 
--- The bisimilarity relation _≈_ is a post-fixed point of the
--- bisimulation functional (see below).
+-- The bisimilarity relation _≈_ on unbounded lists is a post-fixed
+-- point of the bisimulation functional (see below).
 postulate
   ≈-gfp₁ : ∀ {xs ys} → xs ≈ ys →
            ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 {-# ATP axiom ≈-gfp₁ #-}
 
--- The bisimilarity relation _≈_ is the greatest post-fixed point of
--- the bisimulation functional (see below).
+-- The bisimilarity relation _≈_ on unbounded lists is the greatest
+-- post-fixed point of the bisimulation functional (see below).
 --
 -- N.B. This is an axiom schema. Because in the automatic proofs we
 -- *must* use an instance, we do not add this postulate as an ATP
@@ -43,8 +44,8 @@ postulate
            ∀ {xs ys} → xs R ys → xs ≈ ys
 
 -- Because a greatest post-fixed point is a fixed-point, the
--- bisimilarity relation _≈_ is also a pre-fixed point of the
--- bisimulation functional (see below).
+-- bisimilarity relation _≈_ on unbounded lists is also a pre-fixed
+-- point of the bisimulation functional (see below).
 ≈-gfp₃ : ∀ {xs ys} →
          (∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
           xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
@@ -60,8 +61,8 @@ postulate
 
 private
   module Bisimulation where
-  -- In FOTC we won't use the bisimulation functional. This module is
-  -- only for illustrative purposes.
+  -- In FOTC we won't use the bisimulation functional on unbounded
+  -- lists. This module is only for illustrative purposes.
 
   -- References:
   --
@@ -73,30 +74,25 @@ private
   --   (co)induction. EATCS Bulletin, 62:222–259, 1997.
 
   ----------------------------------------------------------------------------
-  -- Adapted from (Dybjer and Sander 1989, p. 310). In this paper, the
-  -- authors use the name
+  -- The bisimilarity relation _≈_ on unbounded lists is the greatest
+  -- post-fixed point of Bisimulation (by post-fp and gpfp).
 
-  -- as (R :: R') bs'
-
-  -- for the bisimulation functional.
-
-  -- The bisimilarity relation _≈_ is the greatest post-fixed point of
-  -- Bisimulation (by post-fp and gpfp).
-
-  -- The bisimulation functional (Jacobs and Rutten 1997, p. 30).
+  -- The bisimulation functional on unbounded lists (adapted from
+  -- Dybjer and Sander 1989, p. 310, and Jacobs and Rutten 1997,
+  -- p. 30).
   BisimulationF : (D → D → Set) → D → D → Set
   BisimulationF _R_ xs ys =
     ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 
-  -- The bisimilarity relation _≈_ is a post-fixed point of
-  -- Bisimulation, i.e,
+  -- The bisimilarity relation _≈_ on unbounded lists is a post-fixed
+  -- point of Bisimulation, i.e,
   --
   -- _≈_ ≤ Bisimulation _≈_.
   post-fp : ∀ {xs ys} → xs ≈ ys → BisimulationF _≈_ xs ys
   post-fp = ≈-gfp₁
 
-  -- The bisimilarity relation _≈_ is the greatest post-fixed point of
-  -- Bisimulation, i.e
+  -- The bisimilarity relation _≈_ on unbounded lists is the greatest
+  -- post-fixed point of Bisimulation, i.e
   --
   -- ∀ R. R ≤ Bisimulation R ⇒ R ≤ _≈_.
   gpfp : (_R_ : D → D → Set) →
@@ -107,8 +103,8 @@ private
   gpfp = ≈-gfp₂
 
   -- Because a greatest post-fixed point is a fixed-point, the
-  -- bisimilarity relation _≈_ is also a pre-fixed point of
-  -- Bisimulation, i.e.
+  -- bisimilarity relation _≈_ on unbounded lists is also a pre-fixed
+  -- point of Bisimulation, i.e.
   --
   -- Bisimulation _≈_ ≤ _≈_.
   pre-fp : ∀ {xs ys} → BisimulationF _≈_ xs ys → xs ≈ ys
