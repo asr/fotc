@@ -84,15 +84,15 @@ private
   -- Bisimulation (by post-fp and gpfp).
 
   -- The bisimulation functional (Jacobs and Rutten 1997, p. 30).
-  Bisimulation : (D → D → Set) → D → D → Set
-  Bisimulation _R_ xs ys =
+  BisimulationF : (D → D → Set) → D → D → Set
+  BisimulationF _R_ xs ys =
     ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 
   -- The bisimilarity relation _≈_ is a post-fixed point of
   -- Bisimulation, i.e,
   --
   -- _≈_ ≤ Bisimulation _≈_.
-  post-fp : ∀ {xs ys} → xs ≈ ys → Bisimulation _≈_ xs ys
+  post-fp : ∀ {xs ys} → xs ≈ ys → BisimulationF _≈_ xs ys
   post-fp = ≈-gfp₁
 
   -- The bisimilarity relation _≈_ is the greatest post-fixed point of
@@ -101,7 +101,7 @@ private
   -- ∀ R. R ≤ Bisimulation R ⇒ R ≤ _≈_.
   gpfp : (_R_ : D → D → Set) →
          -- R is a post-fixed point of Bisimulation.
-         (∀ {xs ys} → xs R ys → Bisimulation _R_ xs ys) →
+         (∀ {xs ys} → xs R ys → BisimulationF _R_ xs ys) →
          -- _≈_ is greater than R.
          ∀ {xs ys} → xs R ys → xs ≈ ys
   gpfp = ≈-gfp₂
@@ -111,5 +111,5 @@ private
   -- Bisimulation, i.e.
   --
   -- Bisimulation _≈_ ≤ _≈_.
-  pre-fp : ∀ {xs ys} → Bisimulation _≈_ xs ys → xs ≈ ys
+  pre-fp : ∀ {xs ys} → BisimulationF _≈_ xs ys → xs ≈ ys
   pre-fp = ≈-gfp₃
