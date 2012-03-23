@@ -1,8 +1,8 @@
 ------------------------------------------------------------------------------
--- Using setoids to formalize the FOTC
+-- Using setoids for formalizing the FOTC
 ------------------------------------------------------------------------------
 
--- Tested with the development version of Agda on 07 February 2012.
+-- Tested with the development version of Agda on 23 March 2012.
 
 {-
 From Peter emails:
@@ -23,70 +23,101 @@ equality.
 
 module FOTC where
 
--- We add 3 to the fixities of the standard library.
-infixl 9 _·_  -- The symbol is '\cdot'.
-
 ------------------------------------------------------------------------------
 
-data D : Set where
-  K S : D
-  _·_ : D → D → D
-
 module PeterEquality where
+
+  -- We add 3 to the fixities of the standard library.
+  infixl 9 _·_  -- The symbol is '\cdot'.
+
+  data D : Set where
+    K S : D
+    _·_ : D → D → D
 
   -- From Peter's slides
   -- http://www.cse.chalmers.se/~peterd/slides/Amagasaki.pdf
 
-  infix 7 _≐_
+  infix 7 _≡_
 
-  data _≐_ : D → D → Set where
-    refl  : ∀ x →                                       x ≐ x
-    sym   : ∀ {x y} → x ≐ y →                           y ≐ x
-    trans : ∀ {x y z} → x ≐ y → y ≐ z →                 x ≐ z
-    cong  : ∀ {x₁ x₂ y₁ y₂} → x₁ ≐ x₂ → y₁ ≐ y₂ → x₁ · y₁ ≐ x₂ · y₂
-    Kax   : ∀ x y →                            K · x · y  ≐ x
-    Sax   : ∀ x y z →                      S · x · y · z  ≐ x · z · (y · z)
+  data _≡_ : D → D → Set where
+    refl  : ∀ x →                                       x ≡ x
+    sym   : ∀ {x y} → x ≡ y →                           y ≡ x
+    trans : ∀ {x y z} → x ≡ y → y ≡ z →                 x ≡ z
+    cong  : ∀ {x₁ x₂ y₁ y₂} → x₁ ≡ x₂ → y₁ ≡ y₂ → x₁ · y₁ ≡ x₂ · y₂
+    Kax   : ∀ x y →                            K · x · y  ≡ x
+    Sax   : ∀ x y z →                      S · x · y · z  ≡ x · z · (y · z)
 
   -- It seems we cannot define the identity elimination using the setoid
-  -- equality
-  -- subst : ∀ {x y} (P : D → Set) → x ≐ y → P x → P y
-  -- subst P x≐y Px = {!!}
+  -- equality.
+  --
+  -- subst : ∀ {x y} (A : D → Set) → x ≡ y → A x → A y
+
+module PeterD where
+
+  -- We add 3 to the fixities of the standard library.
+  infixl 9 _·_  -- The symbol is '\cdot'.
+
+  data D : Set where
+    zero succ true false : D
+    _·_             : D → D → D
+    loop            : D
+
+  data _≡_ (x : D) : D → Set where
+    refl : x ≡ x
+
+  subst : (A : D → Set) → ∀ {x y} → x ≡ y → A x → A y
+  subst A refl Ax = Ax
+
+  data N : D → Set where
+    zN :               N zero
+    sN : ∀ {n} → N n → N (succ · n)
+
+  -- 2012-03-23: Why the inductive structure makes 0 + 0 different
+  -- from 0? How to define _+_ ?
 
 ------------------------------------------------------------------------------
 
 module LeibnizEquality where
 
-  -- Barthe et al. [*, p. 262] use the Leibniz equality when
+  -- We add 3 to the fixities of the standard library.
+  infixl 9 _·_  -- The symbol is '\cdot'.
+
+  data D : Set where
+    K S : D
+    _·_ : D → D → D
+
+  -- (Barthe et al. 2003, p. 262) use the Leibniz equality when
   -- they talk about setoids.
 
-  -- [*] Gilles Barthe, Venanzio Capretta, and Olivier Pons. Setoids in
-  -- type theory. Journal of Functional Programming, 13(2):261–293, 2003
+  -- • Gilles Barthe, Venanzio Capretta, and Olivier Pons. Setoids in
+  --   type theory. Journal of Functional Programming, 13(2):261–293,
+  --   2003
 
   -- Using the Leibniz equality
   -- (Adapted from Agda/examples/lib/Logic/Leibniz.agda)
 
-  infix 7 _≐_
+  infix 7 _≡_
 
-  _≐_ : D → D → Set₁
-  x ≐ y = (P : D → Set) → P x → P y
+  _≡_ : D → D → Set₁
+  x ≡ y = (A : D → Set) → A x → A y
 
-  -- We can proof the setoids properties
+  -- we can prove the setoids properties
 
-  ≐-refl : ∀ x → x ≐ x
-  ≐-refl x P Px = Px
+  refl : ∀ x → x ≡ x
+  refl x A Ax = Ax
 
-  ≐-sym : ∀ {x y} → x ≐ y → y ≐ x
-  ≐-sym {x} x≐y P Py = x≐y (λ z → P z → P x) (λ Px → Px) Py
+  sym : ∀ {x y} → x ≡ y → y ≡ x
+  sym {x} x≡y A Ay = x≡y (λ z → A z → A x) (λ Ax → Ax) Ay
 
-  ≐-trans : ∀ x y z → x ≐ y → y ≐ z → x ≐ z
-  ≐-trans x y z x≐y y≐z P Px = y≐z P (x≐y P Px)
+  trans : ∀ x y z → x ≡ y → y ≡ z → x ≡ z
+  trans x y z x≡y y≡z A Ax = y≡z A (x≡y A Ax)
 
   -- and the identity elimination
 
-  ≐-subst : (P : D → Set) → ∀ {x y} → x ≐ y → P x → P y
-  ≐-subst P x≐y = x≐y P
+  subst : (A : D → Set) → ∀ {x y} → x ≡ y → A x → A y
+  subst A x≡y = x≡y A
 
   -- but it seems we cannot prove the congruency
 
-  -- ≐-cong  : ∀ {x₁ x₂ y₁ y₂} → x₁ ≐ x₂ → y₁ ≐ y₂ → x₁ · y₁ ≐ x₂ · y₂
-  -- ≐-cong x₁≐x₂ y₁≐y₂ P Px₁y₁ = {!!}
+  -- cong  : ∀ {x₁ x₂ y₁ y₂} → x₁ ≡ x₂ → y₁ ≡ y₂ → x₁ · y₁ ≡ x₂ · y₂
+  -- cong x₁≡x₂ y₁≡y₂ A Ax₁y₁ = {!!}
