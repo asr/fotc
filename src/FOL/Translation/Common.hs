@@ -24,10 +24,10 @@ import Agda.Syntax.Common
   , Relevance(Relevant)
   )
 
-import Agda.Syntax.Internal ( Term(Var) )
+import Agda.Syntax.Internal ( var, Term )
 
 ------------------------------------------------------------------------------
 
 varsToArgs ∷ Nat → [Arg Term]
 varsToArgs 0 = []
-varsToArgs n = Arg NotHidden Relevant (Var (n - 1) []) : varsToArgs (n - 1)
+varsToArgs n = Arg NotHidden Relevant (var (n - 1)) : varsToArgs (n - 1)

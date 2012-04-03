@@ -52,6 +52,7 @@ import Agda.Syntax.Internal
   , Term(Con, Def, DontCare, Lam, Level, Lit, MetaV, Pi, Sort, Var)
   , Sort(Type)
   , Type(El)
+  , var
   )
 
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
@@ -71,7 +72,7 @@ class IncIndex a where
   incIndex ∷ a → a
 
 instance IncIndex Term where
-  incIndex (Var n [])  = Var (n + 1) []
+  incIndex (Var n [])  = var (n + 1)
   incIndex (Var _ _)   = __IMPOSSIBLE__
 
   incIndex (Con _ _)    = __IMPOSSIBLE__
@@ -97,7 +98,7 @@ instance DecIndex Term where
   decIndex (Def qname args) = Def qname $ decIndex args
 
   decIndex (Var 0 [])  = __IMPOSSIBLE__
-  decIndex (Var n [])  = Var (n - 1) []
+  decIndex (Var n [])  = var (n - 1)
   decIndex (Var _ _)   = __IMPOSSIBLE__
 
   decIndex (Con _ _)    = __IMPOSSIBLE__
@@ -206,7 +207,7 @@ instance ChangeIndex Term where
 
     -- The variable was after than the quantified variable, we need
     -- "unbound" the quantified variable.
-    | n > index = Var (n - 1) []
+    | n > index = var (n - 1)
 
     | n == index = __IMPOSSIBLE__
 
@@ -230,14 +231,14 @@ instance ChangeIndex Term where
 instance ChangeIndex Args where
   changeIndex [] _ = []
 
-  changeIndex (Arg h r var@(Var n []) : args) index
+  changeIndex (Arg h r term@(Var n []) : args) index
     -- The variable was before than the quantified variable, we don't
     -- do nothing.
-    | n < index = Arg h r var : changeIndex args index
+    | n < index = Arg h r term : changeIndex args index
 
     -- The variable was after than the quantified variable, we need
     -- "unbound" the quantified variable.
-    | n > index = Arg h r (Var (n - 1) []) : changeIndex args index
+    | n > index = Arg h r (var (n - 1)) : changeIndex args index
 
     -- The variable is the quantified variable. This can happen when
     -- the quantified variable is used indirectly by other term via
@@ -425,7 +426,7 @@ instance DropVar (Arg Type) where
 instance DropVar Args where
   dropVar [] _ = return []
 
-  dropVar (Arg h r var@(Var n []) : args) x = do
+  dropVar (Arg h r term@(Var n []) : args) x = do
     vars ← getTVars
 
     when (x == "_") $
@@ -439,8 +440,8 @@ instance DropVar Args where
     if n == index
       then dropVar args x
       else if n < index
-             then fmap ((:) (Arg h r var)) (dropVar args x)
-             else fmap ((:) (Arg h r (Var (n - 1) []))) (dropVar args x)
+             then fmap ((:) (Arg h r term)) (dropVar args x)
+             else fmap ((:) (Arg h r (var (n - 1)))) (dropVar args x)
 
   dropVar (Arg _ _ (Var _ _) : _) _ = __IMPOSSIBLE__
 

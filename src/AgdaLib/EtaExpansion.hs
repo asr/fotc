@@ -41,6 +41,7 @@ import Agda.Syntax.Internal
   , Term(Con, Def, DontCare, Lam, Level, Lit, MetaV, Pi, Sort, Var)
   , Sort(Type)
   , Type(El)
+  , var
   )
 
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
@@ -110,7 +111,7 @@ instance EtaExpandible Term where
                    incVarsEtaExpanded = map incIndex argsEtaExpanded
 
                    newVar ∷ Arg Term
-                   newVar = Arg NotHidden Relevant (Var 0 [])
+                   newVar = Arg NotHidden Relevant (var 0)
 
                freshVar ← newTVar
 
