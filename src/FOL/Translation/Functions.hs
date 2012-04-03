@@ -28,7 +28,7 @@ import Control.Monad.Error ( MonadError(throwError) )
 ------------------------------------------------------------------------------
 -- Agda library imports
 
-import Agda.Syntax.Common        ( Arg(Arg) )
+import Agda.Syntax.Common        ( Dom(Dom) )
 import Agda.Syntax.Abstract.Name ( QName )
 
 import Agda.Syntax.Internal
@@ -113,7 +113,7 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
     --
     -- so we can create a fresh variable and quantify on it without any
     -- problem. N.B. the pattern matching on (Def _ []).
-    ExtendTel (Arg _ _ (El (Type (Max [])) (Def _ []))) (Abs x tels) → do
+    ExtendTel (Dom _ _ (El (Type (Max [])) (Def _ []))) (Abs x tels) → do
       reportSLn "def2f" 20 $ "Processing variable: " ++ x
 
       freshVar ← newTVar
@@ -134,7 +134,7 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
     -- function type (using Implies instead of ForAll).
 
     -- N.B. the pattern matching on (Def _ _).
-    ExtendTel (Arg _ _ tye@(El (Type (Max [])) (Def _ _))) (Abs x tels) → do
+    ExtendTel (Dom _ _ tye@(El (Type (Max [])) (Def _ _))) (Abs x tels) → do
       reportSLn "def2f" 20 $ "Processing proof term: " ++ x
 
       reportSLn "def2f" 20 $ "tye: " ++ show tye

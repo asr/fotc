@@ -67,7 +67,10 @@ import Agda.Syntax.Abstract.Name
   )
 
 import Agda.Syntax.Common
-  ( Arg(Arg), ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint) )
+  ( Arg(Arg)
+  , ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint)
+  , Dom(Dom)
+  )
 
 import Agda.Syntax.Internal
   ( Abs(Abs, NoAbs)
@@ -302,6 +305,9 @@ instance QNamesIn a ⇒ QNamesIn [a] where
 instance QNamesIn a ⇒ QNamesIn (Arg a) where
   qNamesIn (Arg _ _ t) = qNamesIn t
 
+instance QNamesIn a ⇒ QNamesIn (Dom a) where
+  qNamesIn (Dom _ _ t) = qNamesIn t
+
 instance QNamesIn a ⇒ QNamesIn (Abs a) where
   qNamesIn (Abs _ b)   = qNamesIn b
   qNamesIn (NoAbs _ b) = qNamesIn b
@@ -310,7 +316,7 @@ instance QNamesIn Term where
   qNamesIn (Con qName args) = qName : qNamesIn args
   qNamesIn (Def qName args) = qName : qNamesIn args
   qNamesIn (Lam _ absTerm)  = qNamesIn absTerm
-  qNamesIn (Pi argTy absTy) = qNamesIn argTy ++ qNamesIn absTy
+  qNamesIn (Pi domTy absTy) = qNamesIn domTy ++ qNamesIn absTy
   qNamesIn (Sort _)         = []
   qNamesIn (Var _ args)     = qNamesIn args
 

@@ -27,6 +27,7 @@ import Data.Functor        ( (<$>) )
 
 import Agda.Syntax.Common
   ( Arg(Arg)
+  , Dom(Dom)
   , Hiding(NotHidden)
   , Nat
   , Relevance(Relevant)
@@ -150,3 +151,6 @@ instance EtaExpandible Term where
 
 instance EtaExpandible a ⇒ EtaExpandible (Arg a) where
   etaExpand (Arg h r t) = Arg h r <$> etaExpand t
+
+instance EtaExpandible a ⇒ EtaExpandible (Dom a) where
+  etaExpand (Dom h r t) = Dom h r <$> etaExpand t

@@ -40,7 +40,7 @@ import Data.List           ( elemIndex )
 ------------------------------------------------------------------------------
 -- Agda libray imports
 
-import Agda.Syntax.Common ( Arg(Arg), Nat )
+import Agda.Syntax.Common ( Arg(Arg), Dom(Dom), Nat )
 
 import Agda.Syntax.Internal
   ( Abs(Abs, NoAbs)
@@ -119,6 +119,9 @@ instance DecIndex Type where
 
 instance DecIndex a ⇒ DecIndex (Arg a) where
   decIndex (Arg h r a) = Arg h r $ decIndex a
+
+instance DecIndex a ⇒ DecIndex (Dom a) where
+  decIndex (Dom h r a) = Dom h r $ decIndex a
 
 instance DecIndex a ⇒ DecIndex (Abs a) where
   decIndex (Abs name body) = Abs name $ decIndex body
@@ -328,7 +331,7 @@ instance TypesOfVars Term where
 
   -- We only have real bounded variables in Pi _ (Abs _ _) terms.
   typesOfVars (Pi _            (NoAbs _ absTy)) = typesOfVars absTy
-  typesOfVars (Pi (Arg _ _ ty) (Abs x absTy))   = (x, ty) : typesOfVars absTy
+  typesOfVars (Pi (Dom _ _ ty) (Abs x absTy))   = (x, ty) : typesOfVars absTy
 
   typesOfVars (Def _ args) = typesOfVars args
 
@@ -377,14 +380,14 @@ instance DropVar Term where
     return $ Lam h (Abs y auxTerm)
 
   -- N.B. The variables *are* dropped from the (Arg Type).
-  dropVar (Pi argTy (NoAbs y absTy)) x = do
-    newArgTy ← dropVar argTy x
+  dropVar (Pi domTy (NoAbs y absTy)) x = do
+    newArgTy ← dropVar domTy x
     newAbsTy ← dropVar absTy x
     return $ Pi newArgTy (NoAbs y newAbsTy)
 
   -- N.B. The variables *are not* dropped from the (Arg Type), they
   -- are only dropped from the (Abs Type).
-  dropVar (Pi argTy (Abs y absTy)) x = do
+  dropVar (Pi domTy (Abs y absTy)) x = do
 
     pushTVar y
     reportSLn "dropVar" 20 $ "Pushed variable: " ++ y
@@ -394,11 +397,11 @@ instance DropVar Term where
     newTerm ← if y /= x
                 then do
                   newType ← dropVar absTy x
-                  return $ Pi argTy (Abs y newType)
+                  return $ Pi domTy (Abs y newType)
                 else do
                   newType ← dropVar absTy x
                   -- We use "_" because Agda uses it.
-                  return $ Pi argTy (NoAbs "_" newType)
+                  return $ Pi domTy (NoAbs "_" newType)
 
     popTVar
     reportSLn "dropPT" 20 $ "Pop variable: " ++ y
@@ -415,6 +418,9 @@ instance DropVar Term where
 
 instance DropVar (Arg Type) where
   dropVar (Arg h r ty) x = fmap (Arg h r) (dropVar ty x)
+
+instance DropVar (Dom Type) where
+  dropVar (Dom h r ty) x = fmap (Dom h r) (dropVar ty x)
 
 -- In the Agda source code (Agda.Syntax.Internal) we have
 --
@@ -485,7 +491,7 @@ dropProofTerm ty (x, typeVar) = do
 
     -- Because the variable is not a proof term we don't do anything.
     El (Type (Max []))
-       (Pi (Arg _ _ (El (Type (Max [])) (Def _ [])))
+       (Pi (Dom _ _ (El (Type (Max [])) (Def _ [])))
            (NoAbs _ (El (Type (Max [])) (Def _ [])))
        ) → return ty
 
@@ -498,7 +504,7 @@ dropProofTerm ty (x, typeVar) = do
 
     -- Because the variable is not a proof term we don't do anything.
     El (Type (Max []))
-       (Pi (Arg _ _ (El (Type (Max [])) (Def _ [])))
+       (Pi (Dom _ _ (El (Type (Max [])) (Def _ [])))
            (NoAbs _ (El (Type (Max [])) (Pi _ (NoAbs _ _))))
        ) → return ty
 

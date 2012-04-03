@@ -5,14 +5,14 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 module FOL.Translation.Types
-  ( argTypeToFormula
+  ( domTypeToFormula
   , typeToFormula
   ) where
 
 ------------------------------------------------------------------------------
 -- Agda library imports
 
-import Agda.Syntax.Common   ( Arg )
+import Agda.Syntax.Common   ( Dom )
 import Agda.Syntax.Internal ( Type )
 
 ------------------------------------------------------------------------------
@@ -23,5 +23,5 @@ import Monad.Base ( T )
 
 ------------------------------------------------------------------------------
 
-argTypeToFormula ∷ Arg Type → T FOLFormula
+domTypeToFormula ∷ Dom Type → T FOLFormula
 typeToFormula    ∷ Type → T FOLFormula

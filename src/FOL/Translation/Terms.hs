@@ -31,6 +31,7 @@ import Agda.Syntax.Abstract.Name ( Name(nameConcrete, nameId) , QName(QName) )
 
 import Agda.Syntax.Common
   ( Arg(Arg, argHiding, unArg)
+  , Dom(Dom, unDom)
   , Hiding(Hidden, Instance, NotHidden)
   , NameId(NameId)
   , Nat
@@ -68,7 +69,7 @@ import FOL.Primitives       ( appFn, appP, equal )
 import FOL.Translation.Name ( concatName )
 
 import {-# source #-} FOL.Translation.Types
-  ( argTypeToFormula
+  ( domTypeToFormula
   , typeToFormula
   )
 
@@ -239,11 +240,11 @@ termToFormula term@(Lam _ (Abs _ termLam)) = do
 
   return f
 
-termToFormula term@(Pi tyArg (NoAbs _ tyAbs)) = do
+termToFormula term@(Pi domArg (NoAbs _ tyAbs)) = do
   reportSLn "t2f" 10 $ "termToFormula Pi _ (NoAbs _ _):\n" ++ show term
-  liftM2 Implies (argTypeToFormula tyArg) (typeToFormula tyAbs)
+  liftM2 Implies (domTypeToFormula domArg) (typeToFormula tyAbs)
 
-termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
+termToFormula term@(Pi domTy (Abs _ tyAbs)) = do
   reportSLn "t2f" 10 $ "termToFormula Pi _ (Abs _ _):\n" ++ show term
 
   freshVar ← newTVar
@@ -263,7 +264,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
   reportSLn "t2f" 20 $
     "The formula f2 is: " ++ show f2
 
-  case unArg tyArg of
+  case unDom domTy of
     -- The bounded variable is quantified on a Set,
     --
     -- e.g. the bounded variable is 'd : D' where D : Set,
@@ -291,7 +292,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     -- variable (see termToFOLTerm term@(Var n args)), and we
     -- quantified on this variable.
     El (Type (Max []))
-       (Pi (Arg _ _ (El (Type (Max [])) (Def _ [])))
+       (Pi (Dom _ _ (El (Type (Max [])) (Def _ [])))
            (NoAbs _ (El (Type (Max [])) (Def _ [])))
        ) → do
       reportSLn "t2f" 20
@@ -310,7 +311,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     -- variable (see termToFOLTerm term@(Var n args)), and we
     -- quantified on this variable.
     El (Type (Max []))
-       (Pi (Arg _ _ (El (Type (Max [])) (Def _ [])))
+       (Pi (Dom _ _ (El (Type (Max [])) (Def _ [])))
            (NoAbs _ (El (Type (Max [])) (Pi _ (NoAbs _ _))))
        ) → do
       reportSLn "t2f" 20
@@ -330,7 +331,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     --
     -- ∨-comm  : {P Q : Set} → P ∨ Q → Q ∨ P.
     El (Type (Max [ClosedLevel 1])) (Sort _) → do
-      reportSLn "t2f" 20 $ "The type tyArg is: " ++ show tyArg
+      reportSLn "t2f" 20 $ "The type domTy is: " ++ show domTy
       return f2
 
     -- The bounded variable is quantified on a Set₁,
@@ -358,7 +359,7 @@ termToFormula term@(Pi tyArg (Abs _ tyAbs)) = do
     El (Type (Max [ClosedLevel 1])) (Var _ _)        → __IMPOSSIBLE__
 
     someType → do
-      reportSLn "t2f" 20 $ "The type tyArg is: " ++ show someType
+      reportSLn "t2f" 20 $ "The type domTy is: " ++ show someType
       __IMPOSSIBLE__
 
 termToFormula term@(Var n args) = do
@@ -380,7 +381,7 @@ termToFormula term@(Var n args) = do
         --
         -- we are quantifying on this variable/function
 
-        -- (see termToFormula term@(Pi tyArg (Abs _ tyAbs))),
+        -- (see termToFormula term@(Pi domTy (Abs _ tyAbs))),
 
         -- therefore we need to apply this variable/predicate to the
         -- others variables.
@@ -469,7 +470,7 @@ termToFOLTerm term@(Var n args) = do
         --
         -- we are quantifying on this variable
 
-        -- (see termToFormula term@(Pi tyArg (Abs _ tyAbs))),
+        -- (see termToFormula term@(Pi domTy (Abs _ tyAbs))),
 
         -- therefore we need to apply this variable/function to the
         -- others variables.

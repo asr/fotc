@@ -14,7 +14,7 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 module FOL.Translation.Types
-  ( argTypeToFormula
+  ( domTypeToFormula
   , typeToFormula
   ) where
 
@@ -22,7 +22,7 @@ module FOL.Translation.Types
 -- Agda library imports
 
 import Agda.Syntax.Common
-  ( Arg(Arg, argHiding, unArg)
+  ( Dom(Dom, domHiding, unDom)
   , Hiding(Hidden, Instance, NotHidden)
   )
 
@@ -46,12 +46,11 @@ import Monad.Reports         ( reportSLn )
 #include "../../undefined.h"
 
 ------------------------------------------------------------------------------
-
--- | Translate an Agda internal Arg Type to a FOL formula.
-argTypeToFormula ∷ Arg Type → T FOLFormula
-argTypeToFormula Arg {argHiding = Instance}              = __IMPOSSIBLE__
-argTypeToFormula Arg {argHiding = Hidden}                = __IMPOSSIBLE__
-argTypeToFormula Arg {argHiding = NotHidden, unArg = ty} = typeToFormula ty
+-- | Translate an Agda internal Dom Type to a FOL formula.
+domTypeToFormula ∷ Dom Type → T FOLFormula
+domTypeToFormula Dom {domHiding = Instance}              = __IMPOSSIBLE__
+domTypeToFormula Dom {domHiding = Hidden}                = __IMPOSSIBLE__
+domTypeToFormula Dom {domHiding = NotHidden, unDom = ty} = typeToFormula ty
 
 -- | Translate an Agda internal Type to a FOL formula.
 typeToFormula ∷ Type → T FOLFormula
