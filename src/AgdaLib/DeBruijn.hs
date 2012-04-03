@@ -320,8 +320,9 @@ instance TypesOfVars Type where
   typesOfVars _                  = __IMPOSSIBLE__
 
 instance TypesOfVars Term where
-  -- TDOO: In Lam terms we bound variables, but they seem doesn't have associated
-  -- types. Therefore, we associate a "DontCare" type.
+  -- TODO: In Lam terms we bound variables, but they seem doesn't have
+  -- associated types. Therefore, we associate a "DontCare" type.
+  --
   -- typesOfVars (Lam _ (Abs x absTerm)) =
   --   typesOfVars absTerm ++ [(x, El (Type (Max [])) DontCare)]
 
