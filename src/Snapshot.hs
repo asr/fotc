@@ -20,8 +20,12 @@ module Snapshot ( snapshotTest ) where
 import Control.Monad.Error ( MonadError(throwError) )
 import Control.Monad.Trans ( liftIO )
 import Data.Functor        ( (<$>) )
-import System.Directory    ( doesFileExist )
 import System.FilePath     ( replaceDirectory )
+
+------------------------------------------------------------------------------
+-- Agda library imports
+
+import Agda.Utils.FileName ( doesFileExistCaseSensitive )
 
 ------------------------------------------------------------------------------
 -- Local imports
@@ -45,7 +49,7 @@ snapshotTest file = do
   if outputDir == snapshotDir
     then throwError "The --output-dir cannot be the same than the --snapshot-dir"
     else do
-      b ← liftIO $ doesFileExist snapshotFile
+      b ← liftIO $ doesFileExistCaseSensitive snapshotFile
       if not b
         then throwError $ "The file " ++ snapshotFile ++ " does not exist"
         else do

@@ -44,8 +44,6 @@ import Data.Int                  ( Int32 )
 import qualified Data.Map as Map ( filter, lookup )
 import Data.Maybe                ( fromMaybe )
 
-import System.Directory ( doesFileExist )
-
 ------------------------------------------------------------------------------
 -- Agda library imports
 
@@ -107,6 +105,7 @@ import Agda.TypeChecking.Monad.Options ( setCommandLineOptions )
 
 import Agda.Utils.FileName
   ( absolute
+  , doesFileExistCaseSensitive
   , filePath
   )
 
@@ -185,7 +184,7 @@ myReadInterface file = do
   -- The physical interface file.
   iFile ∷ FilePath ← liftIO $ fmap (filePath . toIFile) (absolute file)
 
-  unlessM (liftIO $ doesFileExist iFile)
+  unlessM (liftIO $ doesFileExistCaseSensitive iFile)
           (throwError $ "The interface file " ++ iFile
                         ++ " does not exist. Use Agda to generate it")
 
