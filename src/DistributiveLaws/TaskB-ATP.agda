@@ -12,7 +12,7 @@ open import DistributiveLaws.Base
 ------------------------------------------------------------------------------
 
 postulate
-  -- 2012-02-23: The ATPs (see README.agda) do not prove the theorem (180 sec).
+  -- 2012-02-23: The ATPs could not prove the theorem (180 sec).
   prop₂ : ∀ u x y z → (x · y · (z · u)) ·
                       (( x · y · ( z · u)) · (x · z · (y · u))) ≡
                       x · z · (y · u)
