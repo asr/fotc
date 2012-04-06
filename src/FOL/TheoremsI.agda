@@ -35,11 +35,17 @@ postulate
            ψ
 -}
 
+∀-intro : ((x : D) → A¹ x) → ∀ x → A¹ x
+∀-intro h = h
+
+∀-elim : (t : D) → (∀ x → A¹ x) → A¹ t
+∀-elim t h = h t
+
 ∃-intro : (t : D) → A¹ t → ∃ A¹
 ∃-intro t A¹x = t , A¹x
 
-∃-elim' : ∃ A¹ → ({x : D} → A¹ x → A) → A
-∃-elim' (x , A¹x) h = h A¹x
+∃-elim : ∃ A¹ → ((x : D) → A¹ x → A) → A
+∃-elim (x , A¹x) h = h x A¹x
 
 -- Generalization of De Morgan's laws.
 gDM₂ : ¬ (∃ A¹) ↔ (∀ {x} → ¬ (A¹ x))

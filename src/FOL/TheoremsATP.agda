@@ -38,18 +38,15 @@ postulate
            ψ
 -}
 
--- TODO: 2012-04-03
--- postulate
---   ∀-intro : (x : D) → A¹ x → ∀ x → A¹ x
--- {-# ATP prove ∀-intro #-}
-
 postulate
-  ∀-elim  : ((x : D) → A¹ x) → (t : D) → A¹ t
+  ∀-intro : ((x : D) → A¹ x) → ∀ x → A¹ x
+  ∀-elim  : (t : D) → (∀ x → A¹ x) → A¹ t
   ∃-intro : (t : D) → A¹ t → ∃ A¹
-  ∃-elim' : ∃ A¹ → ((x : D) → A¹ x → A) → A
+  ∃-elim  : ∃ A¹ → ((x : D) → A¹ x → A) → A
+{-# ATP prove ∀-intro #-}
 {-# ATP prove ∀-elim #-}
 {-# ATP prove ∃-intro #-}
-{-# ATP prove ∃-elim' #-}
+{-# ATP prove ∃-elim #-}
 
 -- Generalization of De Morgan's laws.
 postulate
