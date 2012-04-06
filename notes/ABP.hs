@@ -15,7 +15,7 @@
 
 module ABP where
 
-import System.Random ( getStdGen, randoms )
+import System.Random ( newStdGen, randoms )
 
 ------------------------------------------------------------------------------
 
@@ -60,30 +60,28 @@ corrupt _            _        = error "Impossible (corrupt)"
 
 -- The ABP transfer function.
 --
--- (Requires the flag ScopedTypeVariables to write the type signatures
--- of the terms defined in the where clauses).
+-- Requires the flag ScopedTypeVariables to write the type signatures
+-- of the terms defined in the where clauses.
 trans ∷ forall a. Bit → Stream Bit → Stream Bit → Stream a → Stream a
 trans b os0 os1 is = out b bs
   where
-    as ∷ Stream (a, Bit)
-    as = send b is ds
+  as ∷ Stream (a, Bit)
+  as = send b is ds
 
-    bs ∷ Stream (Err (a, Bit))
-    bs = corrupt os0 as
+  bs ∷ Stream (Err (a, Bit))
+  bs = corrupt os0 as
 
-    cs ∷ Stream Bit
-    cs = ack b bs
+  cs ∷ Stream Bit
+  cs = ack b bs
 
-    ds ∷ Stream (Err Bit)
-    ds = corrupt os1 cs
+  ds ∷ Stream (Err Bit)
+  ds = corrupt os1 cs
 
 -- Simulation.
-
 main ∷ IO ()
 main = do
-
-  gen₁ ← getStdGen
-  gen₂ ← getStdGen
+  gen₁ ← newStdGen
+  gen₂ ← newStdGen
 
   let input ∷ Stream Int
       input = [1 ..]
@@ -98,4 +96,6 @@ main = do
       output ∷ Stream Int
       output = trans initialBit channel₁ channel₂ input
 
+  print gen₁
+  print gen₂
   print (take 20 output)
