@@ -1,4 +1,4 @@
--- Tested with GHC 7.2.2.
+-- Tested with GHC 7.4.1.
 
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}

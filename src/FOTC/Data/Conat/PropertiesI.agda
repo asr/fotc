@@ -50,4 +50,3 @@ N→Conat Nn = Conat-gfp₂ N helper Nn
 N→Conat₁ : ∀ {n} → N n → Conat n
 N→Conat₁ zN          = Conat-gfp₃ (inj₁ refl)
 N→Conat₁ (sN {n} Nn) = Conat-gfp₃ (inj₂ (n , (N→Conat Nn , refl)))
-
