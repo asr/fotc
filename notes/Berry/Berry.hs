@@ -22,13 +22,12 @@ loop = loop
 --            (Succ (Succ _)) (Succ _) _
 --            ...
 
-
 f ∷ Nat → Nat → Nat → Nat
 f Zero        (Succ Zero) _           = Succ Zero
 f (Succ Zero) _           Zero        = Succ (Succ Zero)
 f _           Zero        (Succ Zero) = Succ (Succ (Succ Zero))
 
 -- Tests:
--- f (Succ Zero) loop Zero        = Succ Zero
+-- f Zero        (Succ Zero) loop = Succ Zero
 -- f (Succ Zero) loop Zero        = Succ (Succ Zero)
 -- f loop        Zero (Succ Zero) = *** Non-terminating ***
