@@ -65,7 +65,9 @@ executable agda2atp
                  Utils.Version
 
   -- Required by cabal haddock. Cabal bug?
-  -- cabal-install version 0.10.2 using version 1.10.2.0 of the Cabal library
+  --
+  -- cabal-install version 0.10.4 using version 1.12.0 of the Cabal
+  -- library from the cabal-install-ghc72 package.
   extensions: CPP
 
   if impl(ghc == 6.12.3)
@@ -89,7 +91,8 @@ executable agda2atp
                   -- triggers a warning under GHC 7.0.* (cabal-install
                   -- version 0.10.2 using version 1.10.2.0 of the
                   -- Cabal library), therefore we disable this
-                  -- warning.  -fwarn-missing-import-lists
+                  -- warning.
+                  -- -fwarn-missing-import-lists
                   -fwarn-missing-local-sigs
                   -fwarn-monomorphism-restriction
                   -fwarn-tabs
@@ -98,27 +101,21 @@ executable agda2atp
 
   if impl(ghc == 7.2.1) || impl(ghc == 7.2.2) || impl(ghc == 7.4.1)
           ghc-options: -Wall
-                  -- The Cabal-generated module Paths_Agda triggers a
-                  -- warning under GHC 7.2.1/7.2.2/7.4.1
-                  -- (cabal-install version 0.10.2 using version
-                  -- 1.10.2.0 of the Cabal library), therefore we
-                  -- disable that warning.
-                  -fno-warn-warnings-deprecations
-                  -fwarn-identities
-                  -fwarn-incomplete-record-updates
-                  -fwarn-incomplete-uni-patterns
-                  -- The Cabal-generated module Paths_agda2atp
-                  -- triggers a warning under GHC 7.2.1/7.2.2/7.4.1
-                  -- (cabal-install version 0.10.2 using version
-                  -- 1.10.2.0 of the Cabal library), therefore we
-                  -- disable this warning.
-                  -- -fwarn-missing-import-lists
-                  -fwarn-missing-local-sigs
-                  -fwarn-monomorphism-restriction
-                  -fwarn-tabs
-                  -fwarn-unused-do-bind
-                  -fwarn-unrecognised-pragmas
-                  -Werror
+                       -fwarn-identities
+                       -fwarn-incomplete-record-updates
+                       -fwarn-incomplete-uni-patterns
+                       -- The Cabal-generated module Paths_agda2atp
+                       -- triggers a warning under GHC
+                       -- 7.2.1/7.2.2/7.4.1 (cabal-install version
+                       -- 0.10.4 using version 1.12.0 of the Cabal
+                       -- library), therefore we disable this warning.
+                       -- -fwarn-missing-import-lists
+                       -fwarn-missing-local-sigs
+                       -fwarn-monomorphism-restriction
+                       -fwarn-tabs
+                       -fwarn-unused-do-bind
+                       -fwarn-unrecognised-pragmas
+                       -Werror
 
   -- From Agda.cabal: If someone installs Agda with the setuid bit
   -- set, then the presence of +RTS may be a security problem (see GHC
