@@ -5,6 +5,14 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
+-- References:
+--
+-- M. J. Beeson. Proving programs and programming proofs. In Ruth
+-- Barcan Marcus, George J. W. Dorn, and Paul Weingartner,
+-- editors. Logic, Methodology and Philosophy of Science VII (1983),
+-- volume 114 of Studies in Logic and the Foundations of
+-- Mathematics. North-Holland Publishing Company, 1988, pages 51–82.
+
 module FOTC.Data.Nat.PropertiesI where
 
 open import Common.FOL.Relation.Binary.EqReasoning
@@ -363,3 +371,8 @@ xy≡0→x≡0∨y≡0 (sN {m} Nm) (sN {n} Nn) SmSn≡0 = ⊥-elim (0≢S prf)
 
 -- See the combined proof.
 postulate xy≡1→x≡1∨y≡1 : ∀ {m n} → N m → N n → m * n ≡ one → m ≡ one ∨ n ≡ one
+
+-- Feferman's axiom as presented by (Beeson 1986, p. 74).
+succ-onto : ∀ {n} → N n → ¬ (n ≡ zero) → succ₁ (pred₁ n) ≡ n
+succ-onto zN          h = ⊥-elim (h refl)
+succ-onto (sN {n} Nn) h = cong succ₁ (pred-S n)
