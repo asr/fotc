@@ -8,7 +8,7 @@ license-file:       LICENSE
 maintainer:         Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 category:           Dependent types
 synopsis:           Program for prove first-order formulae written in Agda using ATPs
-tested-with:        GHC == 6.12.3, GHC == 7.4.1
+tested-with:        GHC == 7.4.1
 extra-source-files: src/undefined.h
 description:
   This package provides a program for proving first order
