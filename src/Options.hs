@@ -59,10 +59,9 @@ import System.Console.GetOpt
   )
 
 #if __GLASGOW_HASKELL__ == 612
-import Prelude ( fromInteger )
+import GHC.Num ( Num(fromInteger) )
 #endif
-import Prelude ( error )
-
+import GHC.Err ( error )
 
 import System.Environment ( getProgName )
 import System.IO          ( FilePath, IO, putStrLn )

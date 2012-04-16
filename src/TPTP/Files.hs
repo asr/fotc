@@ -42,9 +42,9 @@ import Data.Functor  ( (<$>) )
 import Data.List     ( (++), concatMap, elem )
 
 #if __GLASGOW_HASKELL__ == 612
-import Prelude ( fromInteger )
+import GHC.Num ( Num(fromInteger) )
 #endif
-import Prelude ( Num((-)) )
+import GHC.Num ( Num((-)) )
 
 import System.Directory ( createDirectoryIfMissing )
 import System.FilePath  ( (</>), addExtension )

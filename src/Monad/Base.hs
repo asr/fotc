@@ -57,7 +57,7 @@ import Data.List                 ( null )
 import qualified Data.Map as Map ( empty )
 
 #if __GLASGOW_HASKELL__ == 612
-import Prelude ( fromInteger )
+import GHC.Num ( Num(fromInteger) )
 #endif
 
 import System.IO ( IO )

@@ -33,7 +33,7 @@ import Data.Functor  ( (<$>) )
 import Data.List     ( (++) )
 
 #if __GLASGOW_HASKELL__ == 612
-import Prelude ( fromInteger )
+import GHC.Num ( Num(fromInteger) )
 #endif
 
 import System.FilePath ( replaceDirectory )

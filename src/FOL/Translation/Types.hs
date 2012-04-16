@@ -35,7 +35,7 @@ import Data.Function ( ($) )
 import Data.List     ( (++) )
 
 #if __GLASGOW_HASKELL__ == 612
-import Prelude ( fromInteger )
+import GHC.Num ( Num(fromInteger) )
 #endif
 
 import Text.Show ( Show(show) )

@@ -34,9 +34,10 @@ import Data.List     ( (++), length, map )
 import Data.Maybe    ( Maybe(Just, Nothing) )
 
 #if __GLASGOW_HASKELL__ == 612
-import Prelude ( fromInteger )
+import GHC.Num ( Num(fromInteger) )
 #endif
-import Prelude ( fromIntegral, Num((-)) )
+import GHC.Num  ( Num((-)) )
+import GHC.Real ( fromIntegral )
 
 import Text.Show ( Show(show) )
 

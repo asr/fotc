@@ -50,7 +50,7 @@ import System.Exit        ( exitFailure, exitSuccess )
 import System.IO          ( FilePath, hPrint, hPutStrLn, IO, putStrLn, stderr )
 
 #if __GLASGOW_HASKELL__ == 612
-import Prelude ( fromInteger )
+import GHC.Num ( Num(fromInteger) )
 #endif
 
 import Text.Show ( Show(show) )

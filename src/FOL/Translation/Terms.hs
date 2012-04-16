@@ -41,9 +41,9 @@ import Data.List     ( (++), (!!), length, foldl' )
 import Data.Ord      ( Ord((<=)) )
 
 #if __GLASGOW_HASKELL__ == 612
-import Prelude ( fromInteger )
+import GHC.Num ( Num(fromInteger) )
 #endif
-import Prelude ( fromIntegral )
+import GHC.Real ( fromIntegral )
 
 import Text.Show ( Show(show) )
 

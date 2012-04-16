@@ -25,9 +25,9 @@ import Data.Eq ( Eq((==)) )
 #endif
 
 #if __GLASGOW_HASKELL__ == 612
-import Prelude ( fromInteger )
+import GHC.Num ( Num(fromInteger) )
 #endif
-import Prelude ( Num((-)) )
+import GHC.Num ( Num((-)) )
 
 ------------------------------------------------------------------------------
 -- Agda library imports

@@ -48,9 +48,9 @@ import Data.Maybe    ( fromMaybe, Maybe(Just, Nothing) )
 import Data.Tuple    ( fst, snd )
 
 #if __GLASGOW_HASKELL__ == 612
-import Prelude ( fromInteger )
+import GHC.Num ( Num(fromInteger) )
 #endif
-import Prelude ( Num((+)) )
+import GHC.Num ( Num((+)) )
 
 import System.Directory ( findExecutable )
 import System.IO        ( FilePath, hGetContents, IO, putStrLn )

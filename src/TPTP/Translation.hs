@@ -43,7 +43,7 @@ import Data.List                 ( (++), concat, nub, reverse )
 import qualified Data.Map as Map ( elems, keys )
 
 #if __GLASGOW_HASKELL__ == 612
-import Prelude ( fromInteger )
+import GHC.Num ( Num(fromInteger) )
 #endif
 
 import Text.Show ( Show(show) )
