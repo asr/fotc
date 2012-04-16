@@ -11,6 +11,7 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
@@ -22,8 +23,27 @@ module FOL.Translation.Functions ( fnToFormula ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad       ( liftM2, when )
+#if __GLASGOW_HASKELL__ == 612
+import Control.Monad ( Monad((>>), (>>=), fail) )
+#endif
+import Control.Monad ( liftM2, Monad(return), when )
+
 import Control.Monad.Error ( MonadError(throwError) )
+
+-- TODO: 2012-04-16. Why is it necessary?
+#if __GLASGOW_HASKELL__ == 612
+import Data.Eq ( Eq((==)) )
+#endif
+
+import Data.Function ( ($) )
+import Data.List     ( (++), length, null )
+
+#if __GLASGOW_HASKELL__ == 612
+import Prelude ( fromInteger )
+#endif
+import Prelude ( fromIntegral )
+
+import Text.Show ( Show(show) )
 
 ------------------------------------------------------------------------------
 -- Agda library imports

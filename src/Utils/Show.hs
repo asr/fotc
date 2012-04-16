@@ -10,9 +10,27 @@
 -- Utilities related to 'Show'.
 ------------------------------------------------------------------------------
 
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Utils.Show ( showListLn, showLn ) where
+
+------------------------------------------------------------------------------
+-- Haskell imports
+
+import Control.Monad ( Monad((>>=)) )
+
+#if __GLASGOW_HASKELL__ < 702
+import Data.Char ( String )
+#else
+import Data.String ( String )
+#endif
+
+import Data.Function ( (.) )
+import Data.List     ( (++) )
+
+import Text.Show ( Show(show) )
 
 ------------------------------------------------------------------------------
 

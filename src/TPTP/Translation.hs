@@ -11,6 +11,7 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
@@ -22,10 +23,30 @@ module TPTP.Translation
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad             ( foldM, liftM2, liftM4, zipWithM )
-import Data.Functor              ( (<$>) )
-import Data.List                 ( nub )
+#if __GLASGOW_HASKELL__ == 612
+import Control.Monad ( Monad((>>), fail) )
+#endif
+import Control.Monad
+  ( foldM
+  , liftM2
+  , liftM4
+  , mapM
+  , Monad((>>=))
+  , return
+  , zipWithM
+  )
+
+import Data.Eq                   ( Eq((==)) )
+import Data.Function             ( ($), (.) )
+import Data.Functor              ( (<$>), fmap )
+import Data.List                 ( (++), concat, nub, reverse )
 import qualified Data.Map as Map ( elems, keys )
+
+#if __GLASGOW_HASKELL__ == 612
+import Prelude ( fromInteger )
+#endif
+
+import Text.Show ( Show(show) )
 
 ------------------------------------------------------------------------------
 -- Agda library imports

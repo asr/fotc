@@ -12,6 +12,7 @@
 
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
@@ -20,12 +21,36 @@ module TPTP.Files ( createConjectureFile ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad        ( unless )
+#if __GLASGOW_HASKELL__ == 612
+import Control.Monad ( Monad((>>), (>>=), fail) )
+#endif
+import Control.Monad ( mapM_, Monad(return), unless )
+
 import Control.Monad.Trans  ( MonadIO(liftIO) )
-import Data.Char            ( chr, isAsciiUpper, isAsciiLower, isDigit, ord )
-import Data.Functor         ( (<$>) )
-import System.Directory     ( createDirectoryIfMissing )
-import System.FilePath      ( (</>), addExtension )
+
+#if __GLASGOW_HASKELL__ < 702
+import Data.Char ( String )
+#else
+import Data.String ( String )
+#endif
+
+import Data.Char     ( Char, chr, isAsciiUpper, isAsciiLower, isDigit, ord )
+import Data.Bool     ( (||), Bool(True), otherwise )
+import Data.Eq       ( Eq((==)) )
+import Data.Function ( ($) )
+import Data.Functor  ( (<$>) )
+import Data.List     ( (++), concatMap, elem )
+
+#if __GLASGOW_HASKELL__ == 612
+import Prelude ( fromInteger )
+#endif
+import Prelude ( Num((-)) )
+
+import System.Directory ( createDirectoryIfMissing )
+import System.FilePath  ( (</>), addExtension )
+import System.IO        ( appendFile, FilePath, IO, writeFile )
+
+import Text.Show ( Show(show) )
 
 ------------------------------------------------------------------------------
 -- Agda library imports

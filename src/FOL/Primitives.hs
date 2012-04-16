@@ -11,11 +11,29 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 -- Adapted from AgdaLight (Plugins.FOL.Primitive).
 
 module FOL.Primitives ( appFn, appP, equal ) where
+
+------------------------------------------------------------------------------
+-- Haskell imports
+
+#if __GLASGOW_HASKELL__ < 702
+import Data.Char ( String )
+#else
+import Data.String ( String )
+#endif
+
+import Data.List ( (++), length )
+
+#if __GLASGOW_HASKELL__ == 612
+import Prelude ( fromInteger )
+#endif
+
+import Text.Show ( Show(show) )
 
 ------------------------------------------------------------------------------
 -- Agda library imports

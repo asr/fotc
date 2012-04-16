@@ -11,6 +11,7 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
@@ -19,8 +20,25 @@ module AgdaLib.EtaExpansion ( EtaExpandible(etaExpand) ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
+#if __GLASGOW_HASKELL__ == 612
+import Control.Monad ( Monad((>>), (>>=), fail) )
+#endif
+import Control.Monad ( mapM, Monad(return) )
+
 import Control.Monad.Error ( MonadError(throwError) )
-import Data.Functor        ( (<$>) )
+
+import Data.Eq       ( Eq((==)) )
+import Data.Function ( ($), (.) )
+import Data.Functor  ( (<$>) )
+import Data.List     ( (++), length, map )
+import Data.Maybe    ( Maybe(Just, Nothing) )
+
+#if __GLASGOW_HASKELL__ == 612
+import Prelude ( fromInteger )
+#endif
+import Prelude ( fromIntegral, Num((-)) )
+
+import Text.Show ( Show(show) )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
@@ -72,7 +90,7 @@ instance EtaExpandible Type where
   etaExpand (El (Type (Max [])) term) =  El (Type (Max [])) <$> etaExpand term
 
   etaExpand (El (Type (Max [ClosedLevel 1])) term) =
-    fmap (El (Type (Max [ClosedLevel 1]))) (etaExpand term)
+    El (Type (Max [ClosedLevel 1])) <$> etaExpand term
 
   etaExpand _ = __IMPOSSIBLE__
 

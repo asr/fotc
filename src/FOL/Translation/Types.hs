@@ -11,12 +11,34 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module FOL.Translation.Types
   ( domTypeToFormula
   , typeToFormula
   ) where
+
+------------------------------------------------------------------------------
+-- Haskell imports
+
+#if __GLASGOW_HASKELL__ == 612
+import Control.Monad ( Monad((>>)) )
+#endif
+
+-- TODO: 2012-04-16. Why is it necessary?
+#if __GLASGOW_HASKELL__ == 612
+import Data.Eq ( Eq((==)) )
+#endif
+
+import Data.Function ( ($) )
+import Data.List     ( (++) )
+
+#if __GLASGOW_HASKELL__ == 612
+import Prelude ( fromInteger )
+#endif
+
+import Text.Show ( Show(show) )
 
 ------------------------------------------------------------------------------
 -- Agda library imports

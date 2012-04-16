@@ -10,6 +10,8 @@
 -- Process the command line arguments.
 -----------------------------------------------------------------------------
 
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Monad.Options ( processOptions ) where
@@ -17,8 +19,18 @@ module Monad.Options ( processOptions ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
+import Control.Monad       ( Monad(return) )
 import Control.Monad.Error ( MonadError(throwError) )
-import Data.List           ( foldl' )
+
+#if __GLASGOW_HASKELL__ < 702
+import Data.Char ( String )
+#else
+import Data.String ( String )
+#endif
+
+import Data.Bool     ( Bool(True) )
+import Data.Function ( ($), flip, id )
+import Data.List     ( foldl', null, unlines )
 
 import System.Console.GetOpt
   ( ArgOrder(Permute)

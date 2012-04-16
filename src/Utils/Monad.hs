@@ -10,6 +10,7 @@
 -- Utilities on monads.
 ------------------------------------------------------------------------------
 
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Utils.Monad ( unlessM, whenM ) where
@@ -17,7 +18,9 @@ module Utils.Monad ( unlessM, whenM ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad ( unless, when )
+import Control.Monad ( Monad((>>=)), unless, when )
+
+import Data.Bool ( Bool )
 
 ------------------------------------------------------------------------------
 -- | Lifted version of 'when'.

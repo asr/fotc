@@ -10,9 +10,17 @@
 -- Utilities related to 'String'.
 ------------------------------------------------------------------------------
 
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Utils.String ( replace ) where
+
+------------------------------------------------------------------------------
+-- Haskell imports
+
+import Data.Char   ( Char )
+import Data.Eq     ( Eq((==)) )
+import Data.String ( String )
 
 ------------------------------------------------------------------------------
 -- | Replace the first argument by the second one on the string.

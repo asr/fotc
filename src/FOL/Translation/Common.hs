@@ -10,9 +10,24 @@
 -- Common entities used in the translation from Agda to FOL formulas.
 ------------------------------------------------------------------------------
 
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module FOL.Translation.Common ( varsToArgs ) where
+
+------------------------------------------------------------------------------
+-- Haskell imports
+
+-- TODO: 2012-04-16. Why is it necessary?
+#if __GLASGOW_HASKELL__ == 612
+import Data.Eq ( Eq((==)) )
+#endif
+
+#if __GLASGOW_HASKELL__ == 612
+import Prelude ( fromInteger )
+#endif
+import Prelude ( Num((-)) )
 
 ------------------------------------------------------------------------------
 -- Agda library imports

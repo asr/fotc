@@ -11,6 +11,7 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module FOL.Translation.Internal
@@ -18,6 +19,30 @@ module FOL.Translation.Internal
   , cBodyToFOLTerm
   , dropBindingOnCBody
   ) where
+
+------------------------------------------------------------------------------
+-- Haskell imports
+
+#if __GLASGOW_HASKELL__ == 612
+import Control.Monad ( Monad((>>)) )
+#endif
+import Control.Monad ( Monad((>>=), return) )
+
+#if __GLASGOW_HASKELL__ < 702
+import Data.Char ( String )
+#else
+import Data.String ( String )
+#endif
+
+import Data.Eq       ( Eq((==)) )
+import Data.Function ( ($) )
+import Data.List     ( (++) )
+
+#if __GLASGOW_HASKELL__ == 612
+import Prelude ( fromInteger )
+#endif
+
+import Text.Show ( Show(show) )
 
 ------------------------------------------------------------------------------
 -- Agda library imports

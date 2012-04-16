@@ -11,6 +11,7 @@
 -----------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Monad.Reports
@@ -22,8 +23,31 @@ module Monad.Reports
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad       ( when )
+#if __GLASGOW_HASKELL__ == 612
+import Control.Monad ( Monad((>>=), (>>), fail) )
+#endif
+import Control.Monad ( when )
+
 import Control.Monad.Trans ( MonadIO(liftIO) )
+
+#if __GLASGOW_HASKELL__ < 702
+import Data.Char ( String )
+#else
+import Data.String ( String )
+#endif
+
+import Data.Bool     ( otherwise )
+import Data.Int      ( Int )
+import Data.Function ( ($) )
+import Data.Functor  ( fmap )
+import Data.List     ( (++), elem, maximum )
+import Data.Ord      ( Ord((<), (<=)) )
+
+#if __GLASGOW_HASKELL__ == 612
+import Prelude ( fromInteger )
+#endif
+
+import System.IO ( putStr, putStrLn )
 
 ------------------------------------------------------------------------------
 -- Agda library imports

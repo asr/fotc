@@ -14,6 +14,7 @@
 
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
@@ -22,16 +23,37 @@ module Main ( main ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad       ( liftM2, unless, when )
+#if __GLASGOW_HASKELL__ == 612
+import Control.Monad ( Monad((>>), fail) )
+#endif
+import Control.Monad ( liftM2, mapM, mapM_, Monad((>>=)), unless, when )
+
 import Control.Monad.Error ( MonadError(catchError, throwError) )
 import Control.Monad.State ( modify )
 import Control.Monad.Trans ( MonadIO(liftIO) )
 
+#if __GLASGOW_HASKELL__ < 702
+import Data.Char ( String )
+#else
+import Data.String ( String )
+#endif
+
+import Data.Bool                 ( otherwise )
+import Data.Either               ( Either(Left, Right) )
+import Data.Function             ( ($), (.) )
+import Data.List                 ( (++), map )
 import qualified Data.Map as Map ( unions )
+import Data.Tuple                ( fst, snd )
 
 import System.Environment ( getArgs )
 import System.Exit        ( exitFailure, exitSuccess )
-import System.IO          ( hPrint, hPutStrLn, stderr )
+import System.IO          ( FilePath, hPrint, hPutStrLn, IO, putStrLn, stderr )
+
+#if __GLASGOW_HASKELL__ == 612
+import Prelude ( fromInteger )
+#endif
+
+import Text.Show ( Show(show) )
 
 ------------------------------------------------------------------------------
 -- Agda library imports

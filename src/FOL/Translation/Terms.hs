@@ -11,6 +11,7 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module FOL.Translation.Terms
@@ -21,8 +22,30 @@ module FOL.Translation.Terms
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad ( liftM2 )
-import Data.List     ( foldl' )
+#if __GLASGOW_HASKELL__ == 612
+import Control.Monad ( Monad((>>), (>>=), fail) )
+#endif
+import Control.Monad ( liftM2, mapM, Monad(return) )
+
+#if __GLASGOW_HASKELL__ < 702
+import Data.Char ( String )
+#else
+import Data.String ( String )
+#endif
+
+import Data.Bool     ( (||), Bool, otherwise )
+import Data.Eq       ( Eq((==)) )
+import Data.Function ( ($) )
+import Data.Functor  ( fmap )
+import Data.List     ( (++), (!!), length, foldl' )
+import Data.Ord      ( Ord((<=)) )
+
+#if __GLASGOW_HASKELL__ == 612
+import Prelude ( fromInteger )
+#endif
+import Prelude ( fromIntegral )
+
+import Text.Show ( Show(show) )
 
 ------------------------------------------------------------------------------
 -- Agda library imports

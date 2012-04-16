@@ -12,6 +12,7 @@
 
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
@@ -33,9 +34,32 @@ module AgdaLib.DeBruijn
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad       ( liftM2, when )
+#if __GLASGOW_HASKELL__ == 612
+import Control.Monad ( Monad((>>), (>>=), fail) )
+#endif
+import Control.Monad ( liftM2, Monad(return), when )
+
 import Control.Monad.Error ( MonadError(throwError) )
-import Data.List           ( elemIndex )
+
+#if __GLASGOW_HASKELL__ < 702
+import Data.Char ( String )
+#else
+import Data.String ( String )
+#endif
+
+import Data.Eq       ( Eq((==), (/=)) )
+import Data.Function ( ($) )
+import Data.Functor  ( fmap )
+import Data.List     ( (++), elemIndex, map )
+import Data.Maybe    ( Maybe(Just, Nothing) )
+import Data.Ord      ( Ord((<), (>)) )
+
+#if __GLASGOW_HASKELL__ == 612
+import Prelude ( fromInteger )
+#endif
+import Prelude ( fromIntegral, Integer, Num((+), (-)) )
+
+import Text.Show ( Show(show) )
 
 ------------------------------------------------------------------------------
 -- Agda libray imports

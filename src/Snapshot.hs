@@ -10,6 +10,8 @@
 -- Snapshot test.
 ------------------------------------------------------------------------------
 
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Snapshot ( snapshotTest ) where
@@ -17,10 +19,25 @@ module Snapshot ( snapshotTest ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
+#if __GLASGOW_HASKELL__ == 612
+import Control.Monad ( Monad((>>=), fail) )
+#endif
+
 import Control.Monad.Error ( MonadError(throwError) )
 import Control.Monad.Trans ( liftIO )
-import Data.Functor        ( (<$>) )
-import System.FilePath     ( replaceDirectory )
+
+import Data.Bool     ( not )
+import Data.Eq       ( Eq((==)) )
+import Data.Function ( ($) )
+import Data.Functor  ( (<$>) )
+import Data.List     ( (++) )
+
+#if __GLASGOW_HASKELL__ == 612
+import Prelude ( fromInteger )
+#endif
+
+import System.FilePath ( replaceDirectory )
+import System.IO       ( FilePath )
 
 ------------------------------------------------------------------------------
 -- Agda library imports

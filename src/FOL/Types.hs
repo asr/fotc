@@ -10,7 +10,9 @@
 -- FOL types.
 ------------------------------------------------------------------------------
 
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module FOL.Types
@@ -27,6 +29,20 @@ module FOL.Types
               )
   , FOLTerm(FOLFun, FOLVar)
   ) where
+
+------------------------------------------------------------------------------
+-- Haskell imports
+
+#if __GLASGOW_HASKELL__ < 702
+import Data.Char ( String )
+#else
+import Data.String ( String )
+#endif
+
+import Data.Function ( ($) )
+import Data.List     ( (++) )
+
+import Text.Show ( Show(show) )
 
 ------------------------------------------------------------------------------
 -- Adapted from AgdaLight (Plugins.FOL.Types).

@@ -11,6 +11,7 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
@@ -35,14 +36,31 @@ module AgdaLib.Interface
 ------------------------------------------------------------------------------
 -- Haskell imports
 
+#if __GLASGOW_HASKELL__ == 612
+import Control.Monad ( Monad((>>), (>>=), fail) )
+#endif
+import Control.Monad ( mapM, Monad(return) )
+
 import Control.Monad.Error ( MonadError(throwError) )
 import Control.Monad.State ( evalStateT, MonadState(get, put), StateT )
 import Control.Monad.Trans ( MonadIO(liftIO), MonadTrans(lift) )
 
-import Data.Functor              ( (<$>) )
-import Data.Int                  ( Int32 )
+import Data.Bool                 ( Bool(False, True) )
+import Data.Either               ( Either(Left, Right) )
+import Data.Function             ( ($), (.) )
+import Data.Functor              ( (<$>), fmap )
+import Data.Int                  ( Int, Int32 )
+import Data.List                 ( (++), concat, concatMap, map, notElem )
 import qualified Data.Map as Map ( filter, lookup )
-import Data.Maybe                ( fromMaybe )
+import Data.Maybe                ( fromMaybe, Maybe(Just, Nothing) )
+
+#if __GLASGOW_HASKELL__ == 612
+import Prelude ( fromInteger )
+#endif
+
+import System.IO ( FilePath )
+
+import Text.Show ( Show(show) )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
