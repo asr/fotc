@@ -57,7 +57,7 @@ import Data.Ord      ( Ord((<), (>)) )
 #if __GLASGOW_HASKELL__ == 612
 import GHC.Num ( Num(fromInteger) )
 #endif
-import GHC.Num  ( Integer, Num((+), (-)) )
+import GHC.Num  ( Num((+), (-)) )
 import GHC.Real ( fromIntegral )
 
 import Text.Show ( Show(show) )
@@ -464,7 +464,7 @@ instance DropVar Args where
     when (x == "_") $
       throwError "The translation of underscore variables is not implemented"
 
-    let index ∷ Integer
+    let index ∷ Nat
         index = case elemIndex x vars of
                   Nothing →  __IMPOSSIBLE__
                   Just i  → fromIntegral i
