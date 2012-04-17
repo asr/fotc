@@ -26,7 +26,7 @@ AGDA2ATP = agda2atp -i. -isrc
 # AGDA2ATP = agda2atp -i. -isrc --atp=metis
 # AGDA2ATP = agda2atp -i. -isrc --atp=spass
 # AGDA2ATP = agda2atp -i. -isrc --atp=vampire
-AGDA2ATP_CREATE_SNAPSHOT = agda2atp -i. -isrc --only-file \
+AGDA2ATP_CREATE_SNAPSHOT = agda2atp -i. -isrc --only-files \
                                     --output-dir=$(snapshot_dir)
 AGDA2ATP_SNAPSHOT_TEST = agda2atp -i. -isrc --snapshot-test \
                                   --snapshot-dir=$(snapshot_dir)
