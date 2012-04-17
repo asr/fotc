@@ -11,7 +11,7 @@ open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
 open import FOTC.Data.List
-open import FOTC.Data.List.PropertiesI using ( reverse-[x]≡[x] )
+open import FOTC.Data.List.PropertiesI using ( ++-leftIdentity ; reverse-[x]≡[x] )
 open import FOTC.Program.Mirror.Type
 open import FOTC.Program.Mirror.Forest.PropertiesI
 open import FOTC.Program.Mirror.Forest.Totality
@@ -113,7 +113,7 @@ helper (consF {t} {ts} Tt Fts) =
              (map-++-commute mirror
                mirror-Tree
                (reverse-Forest (map-Forest mirror mirror-Tree Fts))
-               (consF (mirror-Tree Tt) nilF))
+               (mirror · t ∷ []))
        refl
     ⟩
   reverse (map mirror (reverse (map mirror ts)) ++
@@ -151,7 +151,7 @@ helper (consF {t} {ts} Tt Fts) =
   mirror · (mirror · t) ∷ [] ++ n₁
     ≡⟨ subst (λ x →  mirror · (mirror · t) ∷ [] ++ n₁ ≡
                      mirror · (mirror · t) ∷ x)
-             (++-leftIdentity Fn₁)
+             (++-leftIdentity n₁)
              refl
     ⟩
   mirror · (mirror · t) ∷ reverse (map mirror (reverse (map mirror ts)))

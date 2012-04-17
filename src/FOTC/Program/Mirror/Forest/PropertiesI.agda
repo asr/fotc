@@ -12,17 +12,14 @@ open import Common.Function
 
 open import FOTC.Base
 open import FOTC.Data.List
-open import FOTC.Data.List.PropertiesI using (reverse-[x]≡[x])
+open import FOTC.Data.List.PropertiesI using (++-leftIdentity ; reverse-[x]≡[x])
 open import FOTC.Program.Mirror.Forest.Totality
 open import FOTC.Program.Mirror.Type
 
 ------------------------------------------------------------------------------
 
-++-leftIdentity : ∀ {xs} → Forest xs → [] ++ xs ≡ xs
-++-leftIdentity {xs} _ = ++-[] xs
-
 ++-rightIdentity : ∀ {xs} → Forest xs → xs ++ [] ≡ xs
-++-rightIdentity nilF                     = ++-[] []
+++-rightIdentity nilF                    = ++-[] []
 ++-rightIdentity (consF {x} {xs} Tx Fxs) =
   (x ∷ xs) ++ []
      ≡⟨ ++-∷ x xs [] ⟩
@@ -33,19 +30,18 @@ open import FOTC.Program.Mirror.Type
     ⟩
   x ∷ xs ∎
 
-++-assoc : ∀ {xs ys zs} → Forest xs → Forest ys → Forest zs →
-           (xs ++ ys) ++ zs ≡ xs ++ (ys ++ zs)
-++-assoc {ys = ys} {zs} nilF Fys Fzs =
+++-assoc : ∀ {xs} → Forest xs → ∀ ys zs → (xs ++ ys) ++ zs ≡ xs ++ (ys ++ zs)
+++-assoc nilF ys zs =
   ([] ++ ys) ++ zs
     ≡⟨ subst (λ t → ([] ++ ys) ++ zs ≡ t ++ zs)
              (++-[] ys)
              refl
     ⟩
   ys ++ zs
-     ≡⟨ sym (++-leftIdentity (++-Forest Fys Fzs)) ⟩
+     ≡⟨ sym (++-leftIdentity (ys ++ zs)) ⟩
   [] ++ ys ++ zs ∎
 
-++-assoc {ys = ys} {zs} (consF {x} {xs} Tx Fxs) Fys Fzs =
+++-assoc (consF {x} {xs} Tx Fxs) ys zs =
   ((x ∷ xs) ++ ys) ++ zs
     ≡⟨ subst (λ t → ((x ∷ xs) ++ ys) ++ zs ≡ t ++ zs)
              (++-∷ x xs ys)
@@ -55,28 +51,59 @@ open import FOTC.Program.Mirror.Type
      ≡⟨ ++-∷ x (xs ++ ys) zs ⟩
   x ∷ ((xs ++ ys) ++ zs)
     ≡⟨ subst (λ t → x ∷ ((xs ++ ys) ++ zs) ≡ x ∷ t)
-             (++-assoc Fxs Fys Fzs) -- IH.
+             (++-assoc Fxs ys zs) -- IH.
              refl
     ⟩
   x ∷ (xs ++ ys ++ zs)
     ≡⟨ sym (++-∷ x xs (ys ++ zs)) ⟩
   (x ∷ xs) ++ ys ++ zs ∎
 
-rev-++-commute : ∀ {xs ys} → Forest xs → Forest ys →
-                 rev xs ys ≡ rev xs [] ++ ys
-rev-++-commute {ys = ys} nilF Fys =
+map-++-commute : ∀ f {xs} → (∀ {x} → Tree x → Tree (f · x)) →
+                 Forest xs → ∀ ys →
+                 map f (xs ++ ys) ≡ map f xs ++ map f ys
+map-++-commute f h nilF ys =
+  map f ([] ++ ys)
+    ≡⟨ subst (λ t → map f ([] ++ ys) ≡ map f t) (++-[] ys) refl ⟩
+  map f ys
+    ≡⟨ sym (++-leftIdentity (map f ys)) ⟩
+  [] ++ map f ys
+     ≡⟨ subst (λ t → [] ++ map f ys ≡ t ++ map f ys) (sym (map-[] f)) refl ⟩
+  map f [] ++ map f ys ∎
+
+map-++-commute f h (consF {x} {xs} Tx Fxs) ys =
+  map f ((x ∷ xs) ++ ys)
+    ≡⟨ subst (λ t → map f ((x ∷ xs) ++ ys) ≡ map f t) (++-∷ x xs ys) refl ⟩
+  map f (x ∷ xs ++ ys)
+    ≡⟨ map-∷ f x (xs ++ ys) ⟩
+  f · x ∷ map f (xs ++ ys)
+    ≡⟨ subst (λ t → f · x ∷ map f (xs ++ ys) ≡ f · x ∷ t)
+             (map-++-commute f h Fxs ys) -- IH.
+             refl
+    ⟩
+  f · x ∷ (map f xs ++ map f ys)
+    ≡⟨ sym (++-∷ (f · x) (map f xs) (map f ys)) ⟩
+  (f · x ∷ map f xs) ++ map f ys
+     ≡⟨ subst (λ t → (f · x ∷ map f xs) ++ map f ys ≡ t ++ map f ys)
+              (sym (map-∷ f x xs))
+              refl
+     ⟩
+  map f (x ∷ xs) ++ map f ys ∎
+
+rev-++-commute : ∀ {xs} → Forest xs → ∀ ys → rev xs ys ≡ rev xs [] ++ ys
+rev-++-commute nilF ys =
   rev [] ys ≡⟨ rev-[] ys ⟩
-  ys        ≡⟨ sym $ ++-leftIdentity Fys ⟩
+  ys        ≡⟨ sym $ ++-leftIdentity ys ⟩
   [] ++ ys  ≡⟨ subst (λ t → [] ++ ys ≡ t ++ ys)
                      (sym $ rev-[] [])
                      refl
             ⟩
   rev [] [] ++ ys ∎
-rev-++-commute {ys = ys} (consF {x} {xs} Tx Fxs) Fys =
+
+rev-++-commute (consF {x} {xs} Tx Fxs) ys =
   rev (x ∷ xs) ys
     ≡⟨ rev-∷ x xs ys ⟩
   rev xs (x ∷ ys)
-    ≡⟨ rev-++-commute Fxs (consF Tx Fys) ⟩  -- IH.
+    ≡⟨ rev-++-commute Fxs (x ∷ ys) ⟩  -- IH.
   rev xs [] ++ x ∷ ys
     ≡⟨ subst (λ t → rev xs [] ++ x ∷ ys ≡ rev xs [] ++ t)
              (sym
@@ -84,7 +111,7 @@ rev-++-commute {ys = ys} (consF {x} {xs} Tx Fxs) Fys =
                     ≡⟨ ++-∷ x [] ys ⟩
                  x ∷ ([] ++ ys)
                    ≡⟨ subst (λ t → x ∷ ([] ++ ys) ≡ x ∷ t)
-                            (++-leftIdentity Fys)
+                            (++-leftIdentity ys)
                             refl
                    ⟩
                  x ∷ ys ∎
@@ -93,10 +120,10 @@ rev-++-commute {ys = ys} (consF {x} {xs} Tx Fxs) Fys =
              refl
     ⟩
   rev xs [] ++ (x ∷ []) ++ ys
-    ≡⟨ sym $ ++-assoc (rev-Forest Fxs nilF) (consF Tx nilF) Fys ⟩
+    ≡⟨ sym $ ++-assoc (rev-Forest Fxs nilF) (x ∷ []) ys ⟩
   (rev xs [] ++ (x ∷ [])) ++ ys
     ≡⟨ subst (λ t → (rev xs [] ++ (x ∷ [])) ++ ys ≡ t ++ ys)
-             (sym $ rev-++-commute Fxs (consF Tx nilF))  -- IH.
+             (sym $ rev-++-commute Fxs (x ∷ []))  -- IH.
              refl
     ⟩
   rev xs (x ∷ []) ++ ys
@@ -143,7 +170,7 @@ reverse-++-commute (consF {x} {xs} Tx Fxs) (consF {y} {ys} Ty Fys) =
   rev (x ∷ (xs ++ y ∷ ys)) []
     ≡⟨ rev-∷ x (xs ++ y ∷ ys) [] ⟩
   rev (xs ++ y ∷ ys) (x ∷ [])
-    ≡⟨ rev-++-commute (++-Forest Fxs (consF Ty Fys)) (consF Tx nilF) ⟩
+    ≡⟨ rev-++-commute (++-Forest Fxs (consF Ty Fys)) (x ∷ []) ⟩
   rev (xs ++ y ∷ ys) [] ++ (x ∷ [])
     ≡⟨ subst (λ t → rev (xs ++ y ∷ ys) [] ++ (x ∷ []) ≡ t ++ (x ∷ []))
              refl
@@ -156,8 +183,8 @@ reverse-++-commute (consF {x} {xs} Tx Fxs) (consF {y} {ys} Ty Fys) =
     ⟩
   (reverse (y ∷ ys) ++ reverse xs) ++ x ∷ []
     ≡⟨ ++-assoc (reverse-Forest (consF Ty Fys))
-                (reverse-Forest Fxs)
-                (consF Tx nilF)
+                (reverse xs)
+                (x ∷ [])
     ⟩
   reverse (y ∷ ys) ++ reverse xs ++ x ∷ []
     ≡⟨ subst (λ t → reverse (y ∷ ys) ++ reverse xs ++ x ∷ [] ≡
@@ -168,7 +195,7 @@ reverse-++-commute (consF {x} {xs} Tx Fxs) (consF {y} {ys} Ty Fys) =
   reverse (y ∷ ys) ++ rev xs [] ++ x ∷ []
     ≡⟨ subst (λ t → reverse (y ∷ ys) ++ rev xs [] ++ x ∷ [] ≡
                     reverse (y ∷ ys) ++ t)
-             (sym $ rev-++-commute Fxs (consF Tx nilF))
+             (sym $ rev-++-commute Fxs (x ∷ []))
              refl
     ⟩
   reverse (y ∷ ys) ++ rev xs (x ∷ [])
@@ -193,7 +220,7 @@ reverse-∷ {x} Tx nilF =
   rev [] (x ∷ [])
     ≡⟨ rev-[] (x ∷ []) ⟩
   x ∷ []
-    ≡⟨ sym (++-leftIdentity (consF Tx nilF)) ⟩
+    ≡⟨ sym (++-leftIdentity (x ∷ [])) ⟩
   [] ++ x ∷ []
      ≡⟨ subst (λ p → [] ++ x ∷ [] ≡ p ++ x ∷ []) (sym (rev-[] [])) refl ⟩
   rev [] [] ++ x ∷ [] ∎
@@ -213,39 +240,8 @@ reverse-∷ {x} Tx (consF {y} {ys} Ty Fys) = sym
       ⟩
     reverse (x ∷ ([] ++ (y ∷ ys)))
       ≡⟨ subst (λ p → reverse (x ∷ ([] ++ (y ∷ ys))) ≡ reverse (x ∷ p))
-               (++-leftIdentity (consF Ty Fys))
+               (++-leftIdentity (y ∷ ys))
                refl
       ⟩
     reverse (x ∷ y ∷ ys) ∎
   )
-
-map-++-commute : ∀ f {xs ys} → (∀ {x} → Tree x → Tree (f · x)) →
-                 Forest xs → Forest ys →
-                 map f (xs ++ ys) ≡ map f xs ++ map f ys
-map-++-commute f {ys = ys} fTree nilF Fys =
-  map f ([] ++ ys)
-    ≡⟨ subst (λ t → map f ([] ++ ys) ≡ map f t) (++-[] ys) refl ⟩
-  map f ys
-    ≡⟨ sym (++-leftIdentity (map-Forest f fTree Fys)) ⟩
-  [] ++ map f ys
-     ≡⟨ subst (λ t → [] ++ map f ys ≡ t ++ map f ys) (sym (map-[] f)) refl ⟩
-  map f [] ++ map f ys ∎
-
-map-++-commute f {ys = ys} fTree (consF {x} {xs} Tx Fxs) Fys =
-  map f ((x ∷ xs) ++ ys)
-    ≡⟨ subst (λ t → map f ((x ∷ xs) ++ ys) ≡ map f t) (++-∷ x xs ys) refl ⟩
-  map f (x ∷ xs ++ ys)
-    ≡⟨ map-∷ f x (xs ++ ys) ⟩
-  f · x ∷ map f (xs ++ ys)
-    ≡⟨ subst (λ t → f · x ∷ map f (xs ++ ys) ≡ f · x ∷ t)
-             (map-++-commute f fTree Fxs Fys) -- IH.
-             refl
-    ⟩
-  f · x ∷ (map f xs ++ map f ys)
-    ≡⟨ sym (++-∷ (f · x) (map f xs) (map f ys)) ⟩
-  (f · x ∷ map f xs) ++ map f ys
-     ≡⟨ subst (λ t → (f · x ∷ map f xs) ++ map f ys ≡ t ++ map f ys)
-              (sym (map-∷ f x xs))
-              refl
-     ⟩
-  map f (x ∷ xs) ++ map f ys ∎

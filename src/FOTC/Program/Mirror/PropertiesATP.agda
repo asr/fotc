@@ -41,7 +41,7 @@ helper (consF {t} {ts} Tt Fts) =
   prf (map-++-commute mirror
                       mirror-Tree
                       (reverse-Forest (map-Forest mirror mirror-Tree Fts))
-                      (consF (mirror-Tree Tt) nilF))
+                      (mirror · t ∷ []))
       (mirror² Tt)
       (helper Fts)
   where
@@ -54,5 +54,5 @@ helper (consF {t} {ts} Tt Fts) =
           reverse (map mirror (reverse (map mirror ts))) ≡ ts →  -- IH.
           reverse (map mirror (reverse (map mirror (t ∷ ts)))) ≡ t ∷ ts
   {-# ATP prove prf reverse-∷ mirror-Tree map-Forest reverse-++-commute
-                    reverse-Forest reverse-[x]≡[x] ++-leftIdentity
+                    reverse-Forest reverse-[x]≡[x]
   #-}
