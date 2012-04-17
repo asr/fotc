@@ -159,12 +159,12 @@ reverse-∷ : ∀ x {ys} → List ys →
 reverse-∷ x nilL = prf
   where
   postulate prf : reverse (x ∷ []) ≡ reverse [] ++ x ∷ []
-  {-# ATP prove prf ++-leftIdentity #-}
+  {-# ATP prove prf #-}
 
 reverse-∷ x (consL y {ys} Lys) = prf
   where
   postulate prf : reverse (x ∷ y ∷ ys) ≡ reverse (y ∷ ys) ++ x ∷ []
-  {-# ATP prove prf reverse-[x]≡[x] reverse-++-commute ++-leftIdentity #-}
+  {-# ATP prove prf reverse-[x]≡[x] reverse-++-commute #-}
 
 reverse² : ∀ {xs} → List xs → reverse (reverse xs) ≡ xs
 reverse² nilL = prf
