@@ -97,7 +97,7 @@ test :
 
 doc:
 	cabal configure
-	cabal haddock --executables
+	cabal haddock --hyperlink-source --executables
 
 .PHONY : TAGS
 TAGS : $(haskell_files)
