@@ -20,7 +20,7 @@ AGDA_Agsy = agda -v 0 --allow-unsolved-metas \
 
 # N.B. The timeout for the conjectures test should be modify in the
 # conjectures_% target.
-AGDA2ATP = agda2atp -i. -isrc --unproved-conjecture-error
+AGDA2ATP = agda2atp -i. -isrc
 # AGDA2ATP = agda2atp -i. -isrc --atp=e
 # AGDA2ATP = agda2atp -i. -isrc --atp=equinox
 # AGDA2ATP = agda2atp -i. -isrc --atp=metis
