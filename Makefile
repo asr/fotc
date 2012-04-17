@@ -35,14 +35,10 @@ snapshot_files_to_test = $(patsubst %.agda,%.snapshottest, \
 	@$(AGDA) $<
 
 %.succeed : %.agdai
-	@$(AGDA2ATP) --time=60 --unproved-conjecture-error $*.agda
+	@$(AGDA2ATP) --time=60 $*.agda
 
 %.fail : %.agdai
-	@if ( $(AGDA2ATP) --time=5 \
-                          --unproved-conjecture-error \
-                          $*.agda ); then \
-              exit 1; \
-	fi
+	@if ( $(AGDA2ATP) --time=5 $*.agda ); then exit 1; fi
 
 # Equinox has the better parser for TPTP files, so we use it to find problems.
 %.parsing : %.agdai

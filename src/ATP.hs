@@ -79,7 +79,7 @@ import Agda.Utils.Monad      ( ifM )
 import Monad.Base    ( getTOpts, T )
 import Monad.Reports ( reportS )
 
-import Options ( Options(optATP, optTime, optUnprovedError, optVampireExec) )
+import Options ( Options(optATP, optTime, optUnprovedNoError, optVampireExec) )
 
 #include "undefined.h"
 
@@ -201,9 +201,9 @@ atpsAnswer outputMVar atpsPH file n = do
     then do
       let msg ∷ String
           msg = "The ATP(s) did not prove the conjecture in " ++ file
-      ifM (optUnprovedError <$> getTOpts)
-          (throwError msg)
+      ifM (optUnprovedNoError <$> getTOpts)
           (liftIO $ putStrLn msg)
+          (throwError msg)
     else do
       output ← liftIO $ takeMVar outputMVar
       atpWithVersion ← atpVersion (snd output)

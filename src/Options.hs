@@ -26,7 +26,7 @@ module Options
            , optSnapshotDir
            , optSnapshotTest
            , optTime
-           , optUnprovedError
+           , optUnprovedNoError
            , optVampireExec
            , optVerbose
            , optVersion
@@ -89,7 +89,7 @@ data Options = MkOptions
   , optSnapshotDir     ∷ FilePath
   , optSnapshotTest    ∷ Bool
   , optTime            ∷ Int
-  , optUnprovedError   ∷ Bool
+  , optUnprovedNoError ∷ Bool
   , optVampireExec     ∷ String
   , optVerbose         ∷ Verbosity
   , optVersion         ∷ Bool
@@ -112,7 +112,7 @@ defaultOptions = MkOptions
   , optSnapshotDir     = "snapshot"
   , optSnapshotTest    = False
   , optTime            = 300
-  , optUnprovedError   = False
+  , optUnprovedNoError = False
   , optVampireExec     = "vampire_lin64"
   , optVerbose         = Trie.singleton [] 1
   , optVersion         = False
@@ -145,8 +145,8 @@ onlyFilesOpt opts = opts { optOnlyFiles = True }
 outputDirOpt ∷ FilePath → Options → Options
 outputDirOpt dir opts = opts { optOutputDir = dir }
 
-unprovedErrorOpt ∷ Options → Options
-unprovedErrorOpt opts = opts { optUnprovedError = True }
+unprovedNoErrorOpt ∷ Options → Options
+unprovedNoErrorOpt opts = opts { optUnprovedNoError = True }
 
 vampireExecOpt ∷ String → Options → Options
 vampireExecOpt name opts = opts { optVampireExec = name }
@@ -191,8 +191,8 @@ options =
                ++ "(implies --only-files)"
   , Option []  ["time"] (ReqArg timeOpt "NUM")
                "set timeout for the ATPs in seconds (default: 300)"
-  , Option []  ["unproved-conjecture-error"] (NoArg unprovedErrorOpt)
-               "an unproved TPTP conjecture generates an error"
+  , Option []  ["unproved-conjecture-no-error"] (NoArg unprovedNoErrorOpt)
+               "an unproved TPTP conjecture does not generate an error"
   , Option []  ["vampire-exec"] (ReqArg vampireExecOpt "COMMAND")
                "set the vampire executable (default: vampire_lin64)"
   , Option "v" ["verbose"] (ReqArg verboseOpt "N")
