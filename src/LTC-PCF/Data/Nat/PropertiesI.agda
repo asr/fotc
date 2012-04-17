@@ -203,7 +203,7 @@ open import LTC-PCF.Data.Nat.Rec.EquationsI
 ∸-N     (sN Nm) (sN Nn) = subst N (sym $ ∸-SS Nm Nn) (∸-N Nm Nn)
 
 +-leftIdentity : ∀ n → zero + n ≡ n
-+-leftIdentity n = +-0x n
++-leftIdentity = +-0x
 
 +-rightIdentity : ∀ {n} → N n → n + zero ≡ n
 +-rightIdentity zN          = +-leftIdentity zero

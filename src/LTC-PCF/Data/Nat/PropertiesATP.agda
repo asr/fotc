@@ -261,7 +261,7 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
 *+-leftDistributive (sN {m} Nm) zN (sN {o} Nn) = prf
   where
   postulate prf : (succ₁ m + zero) * succ₁ o ≡ succ₁ m * succ₁ o + zero * succ₁ o
-  {-# ATP prove prf +-rightIdentity *-leftZero *-N #-}
+  {-# ATP prove prf +-rightIdentity *-N #-}
 
 *+-leftDistributive (sN {m} Nm) (sN {n} Nn) (sN {o} No) =
   prf $ *+-leftDistributive Nm (sN Nn) (sN No)

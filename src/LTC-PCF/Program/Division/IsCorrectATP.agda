@@ -19,7 +19,7 @@ open import LTC-PCF.Program.Division.Specification
 -- The division result is correct when the dividend is less than
 -- the divisor.
 postulate div-x<y-helper : ∀ {i j} → N i → N j → LT i j → i ≡ j * div i j + i
-{-# ATP prove div-x<y-helper +-leftIdentity *-rightZero div-x<y #-}
+{-# ATP prove div-x<y-helper *-rightZero div-x<y #-}
 
 div-x<y-correct : ∀ {i j} → N i → N j → LT i j →
                   ∃[ r ] N r ∧ LT r j ∧ i ≡ j * div i j + r

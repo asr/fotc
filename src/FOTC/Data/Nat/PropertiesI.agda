@@ -51,7 +51,7 @@ open import FOTC.Data.Nat.UnaryNumbers
 ∸-N     (sN {m} Nm) (sN {n} Nn) = subst N (sym $ ∸-SS m n) (∸-N Nm Nn)
 
 +-leftIdentity : ∀ n → zero + n ≡ n
-+-leftIdentity n = +-0x n
++-leftIdentity = +-0x
 
 +-rightIdentity : ∀ {n} → N n → n + zero ≡ n
 +-rightIdentity zN          = +-leftIdentity zero

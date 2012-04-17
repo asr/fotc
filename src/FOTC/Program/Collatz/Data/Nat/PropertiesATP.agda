@@ -41,7 +41,7 @@ postulate 2*SSx≥2 : ∀ {n} → N n → GE (two * succ₁ (succ₁ n)) two
   where
   postulate prf : two * succ₁ n / two ≡ succ₁ n →  -- IH.
                   two * succ₁ (succ₁ n) / two ≡ succ₁ (succ₁ n)
-  {-# ATP prove prf 2*SSx≥2 *-leftZero +-rightIdentity +-comm +-N #-}
+  {-# ATP prove prf 2*SSx≥2 +-rightIdentity +-comm +-N #-}
 
 postulate 2^[x+1]/2≡2^x : ∀ {n} → N n → (two ^ (succ₁ n)) / two ≡ two ^ n
 {-# ATP prove 2^[x+1]/2≡2^x 2x/2≡x ^-N #-}

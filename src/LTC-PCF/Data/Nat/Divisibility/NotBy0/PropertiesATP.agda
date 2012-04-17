@@ -65,7 +65,7 @@ x∣y→x∣z→x∣y+z (sN Nm) Nn No
 
 -- If x divides y, and y is positive, then x ≤ y.
 postulate x∣Sy→x≤Sy-helper₁ : ∀ {m n} → succ₁ n ≡ zero * succ₁ m → ⊥
-{-# ATP prove x∣Sy→x≤Sy-helper₁ *-leftZero *-0x #-}
+{-# ATP prove x∣Sy→x≤Sy-helper₁ *-0x #-}
 
 -- Nice proof by the ATP.
 postulate
