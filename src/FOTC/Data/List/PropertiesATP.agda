@@ -68,8 +68,8 @@ length-replicate x (sN {n} Nn) = prf $ length-replicate x Nn
 
 -- Append properties
 
-++-leftIdentity : ∀ {xs} → List xs → [] ++ xs ≡ xs
-++-leftIdentity {xs} _ = ++-[] xs
+++-leftIdentity : ∀ xs → [] ++ xs ≡ xs
+++-leftIdentity = ++-[]
 
 ++-rightIdentity : ∀ {xs} → List xs → xs ++ [] ≡ xs
 ++-rightIdentity nilL = prf

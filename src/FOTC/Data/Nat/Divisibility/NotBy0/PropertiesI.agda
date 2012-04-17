@@ -69,9 +69,9 @@ x∣y→x∣z→x∣y+z {n = n} {o} (sN {m} Nm) Nn No
 
 -- If x divides y, and y is positive, then x ≤ y.
 x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → LE m (succ₁ n)
-x∣S→x≤S  zN     Nn (0≢0 , _)                    = ⊥-elim $ 0≢0 refl
-x∣S→x≤S (sN Nm) Nn (_ , .zero , zN , Sn≡0*Sm) =
-  ⊥-elim $ 0≢S $ trans (sym $ *-leftZero (sN Nm)) (sym Sn≡0*Sm)
+x∣S→x≤S  zN          Nn (0≢0 , _)                  = ⊥-elim $ 0≢0 refl
+x∣S→x≤S  (sN {m} Nm) Nn (_ , .zero , zN , Sn≡0*Sm) =
+  ⊥-elim $ 0≢S $ trans (sym $ *-leftZero (succ₁ m)) (sym Sn≡0*Sm)
 x∣S→x≤S (sN {m} Nm) Nn (_ , .(succ₁ k) , sN {k} Nk , Sn≡Sk*Sm) =
   subst (λ t₁ → LE (succ₁ m) t₁)
         (sym Sn≡Sk*Sm)

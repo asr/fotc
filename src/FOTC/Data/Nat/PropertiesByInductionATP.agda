@@ -45,8 +45,8 @@ open import FOTC.Data.Nat
   postulate is : ∀ {i} → A i → A (succ₁ i)
   {-# ATP prove is #-}
 
-+-assoc : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
-+-assoc {n = n} {o} Nm Nn No = N-ind A A0 is Nm
++-assoc : ∀ {m} → N m → ∀ n o → m + n + o ≡ m + (n + o)
++-assoc Nm n o = N-ind A A0 is Nm
   where
   A : D → Set
   A i = i + n + o ≡ i + (n + o)
@@ -59,8 +59,8 @@ open import FOTC.Data.Nat
   {-# ATP prove is #-}
 
 -- A proof without use ATPs definitions.
-+-assoc' : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
-+-assoc' {n = n} {o} Nm Nn No = N-ind A A0 is Nm
++-assoc' : ∀ {m} → N m → ∀ n o → m + n + o ≡ m + (n + o)
++-assoc' Nm n o = N-ind A A0 is Nm
   where
   A : D → Set
   A i = i + n + o ≡ i + (n + o)
@@ -74,8 +74,8 @@ open import FOTC.Data.Nat
          succ₁ i + n + o ≡ succ₁ i + (n + o)
   {-# ATP prove is #-}
 
-x+Sy≡S[x+y] : ∀ {m} n → N m → m + succ₁ n ≡ succ₁ (m + n)
-x+Sy≡S[x+y] n Nm = N-ind A A0 is Nm
+x+Sy≡S[x+y] : ∀ {m} → N m → ∀ n → m + succ₁ n ≡ succ₁ (m + n)
+x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
   where
   A : D → Set
   A i = i + succ₁ n ≡ succ₁ (i + n)

@@ -134,23 +134,23 @@ postulate *-Sx : ∀ m n → succ₁ m * n ≡ n + (m * n)
                    succ₁ n + zero ≡ succ₁ n
    {-# ATP prove prf +-Sx #-}
 
-+-assoc : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
-+-assoc {n = n} {o} zN Nn No = prf
++-assoc : ∀ {m} → N m → ∀ n o → m + n + o ≡ m + (n + o)
++-assoc zN n o = prf
   where
   postulate prf : zero + n + o ≡ zero + (n + o)
   {-# ATP prove prf +-0x #-}
-+-assoc {n = n} {o} (sN {m} Nm) Nn No = prf $ +-assoc Nm Nn No
++-assoc (sN {m} Nm) n o = prf $ +-assoc Nm n o
   where
   postulate prf : m + n + o ≡ m + (n + o) →  -- IH.
                   succ₁ m + n + o ≡ succ₁ m + (n + o)
   {-# ATP prove prf +-Sx #-}
 
-x+Sy≡S[x+y] : ∀ {m} n → N m → m + succ₁ n ≡ succ₁ (m + n)
-x+Sy≡S[x+y] n zN = prf
+x+Sy≡S[x+y] : ∀ {m} → N m → ∀ n → m + succ₁ n ≡ succ₁ (m + n)
+x+Sy≡S[x+y] zN n = prf
   where
   postulate prf : zero + succ₁ n ≡ succ₁ (zero + n)
   {-# ATP prove prf +-0x #-}
-x+Sy≡S[x+y] n (sN {m} Nm) = prf $ x+Sy≡S[x+y] n Nm
+x+Sy≡S[x+y] (sN {m} Nm) n = prf $ x+Sy≡S[x+y] Nm n
   where
   postulate prf : m + succ₁ n ≡ succ₁ (m + n) →  -- IH.
                   succ₁ m + succ₁ n ≡ succ₁ (succ₁ m + n)
@@ -201,8 +201,8 @@ x*Sy≡x+xy {n = n} zN Nn = prf
   postulate prf : zero * succ₁ n ≡ zero + zero * n
   {-# ATP prove prf +-0x *-0x #-}
 x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
-                                       (+-assoc Nn Nm (*-N Nm Nn))
-                                       (+-assoc Nm Nn (*-N Nm Nn))
+                                       (+-assoc Nn m (m * n))
+                                       (+-assoc Nm n (m * n))
   where
   -- N.B. We had to feed the ATP with the instances of the associate law
   postulate prf :  m * succ₁ n ≡ m + m * n →  -- IH

@@ -97,23 +97,23 @@ postulate *-rightCong : ∀ {m n o} → n ≡ o → m * n ≡ m * o
                    succ₁ n + zero ≡ succ₁ n
    {-# ATP prove prf #-}
 
-+-assoc : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
-+-assoc {n = n} {o} zN Nn No = prf
++-assoc : ∀ {m} → N m → ∀ n o → m + n + o ≡ m + (n + o)
++-assoc zN n o = prf
   where
   postulate prf : zero + n + o ≡ zero + (n + o)
   {-# ATP prove prf #-}
-+-assoc {n = n} {o} (sN {m} Nm) Nn No = prf $ +-assoc Nm Nn No
++-assoc (sN {m} Nm) n o = prf $ +-assoc Nm n o
   where
   postulate prf : m + n + o ≡ m + (n + o) →  -- IH.
                   succ₁ m + n + o ≡ succ₁ m + (n + o)
   {-# ATP prove prf #-}
 
-x+Sy≡S[x+y] : ∀ {m} n → N m → m + succ₁ n ≡ succ₁ (m + n)
-x+Sy≡S[x+y] n zN = prf
+x+Sy≡S[x+y] : ∀ {m} → N m → ∀ n → m + succ₁ n ≡ succ₁ (m + n)
+x+Sy≡S[x+y] zN n = prf
   where
   postulate prf : zero + succ₁ n ≡ succ₁ (zero + n)
   {-# ATP prove prf #-}
-x+Sy≡S[x+y] n (sN {m} Nm) = prf $ x+Sy≡S[x+y] n Nm
+x+Sy≡S[x+y] (sN {m} Nm) n = prf $ x+Sy≡S[x+y] Nm n
   where
   postulate prf : m + succ₁ n ≡ succ₁ (m + n) →  -- IH.
                   succ₁ m + succ₁ n ≡ succ₁ (succ₁ m + n)
@@ -165,25 +165,25 @@ Sx∸x≡S0 (sN {n} Nn) = trans (∸-SS (succ₁ n) n) (Sx∸x≡S0 Nn)
                   succ₁ m + succ₁ (succ₁ n) ∸ succ₁ n ≡ succ₁ (succ₁ m)
   {-# ATP prove prf +-comm #-}
 
-[x+y]∸[x+z]≡y∸z : ∀ {m n o} → N m → N n → N o → (m + n) ∸ (m + o) ≡ n ∸ o
-[x+y]∸[x+z]≡y∸z {n = n} {o} zN Nn No = prf
+[x+y]∸[x+z]≡y∸z : ∀ {m} → N m → ∀ n o → (m + n) ∸ (m + o) ≡ n ∸ o
+[x+y]∸[x+z]≡y∸z zN n o = prf
   where
   postulate prf : (zero + n) ∸ (zero + o) ≡ n ∸ o
   {-# ATP prove prf #-}
 
 -- Nice proof by the ATP.
-[x+y]∸[x+z]≡y∸z {n = n} {o} (sN {m} Nm) Nn No =
-  prf $ [x+y]∸[x+z]≡y∸z Nm Nn No
+[x+y]∸[x+z]≡y∸z (sN {m} Nm) n o =
+  prf $ [x+y]∸[x+z]≡y∸z Nm n o
   where
   postulate prf : (m + n) ∸ (m + o) ≡ n ∸ o →  -- IH.
                   (succ₁ m + n) ∸ (succ₁ m + o) ≡ n ∸ o
   {-# ATP prove prf #-}
 
-*-leftZero : ∀ {n} → N n → zero * n ≡ zero
-*-leftZero {n} _ = *-0x n
+*-leftZero : ∀ n → zero * n ≡ zero
+*-leftZero = *-0x
 
 *-rightZero : ∀ {n} → N n → n * zero ≡ zero
-*-rightZero zN          = *-leftZero zN
+*-rightZero zN          = *-leftZero zero
 *-rightZero (sN {n} Nn) = prf $ *-rightZero Nn
   where
   postulate prf : n * zero ≡ zero →  -- IH.
@@ -199,8 +199,8 @@ x*Sy≡x+xy {n = n} zN Nn = prf
   postulate prf : zero * succ₁ n ≡ zero + zero * n
   {-# ATP prove prf #-}
 x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
-                                       (+-assoc Nn Nm (*-N Nm Nn))
-                                       (+-assoc Nm Nn (*-N Nm Nn))
+                                       (+-assoc Nn m (m * n))
+                                       (+-assoc Nm n (m * n))
   where
   -- N.B. We had to feed the ATP with the instances of the associate law
   postulate prf :  m * succ₁ n ≡ m + m * n →  -- IH
@@ -246,7 +246,7 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
   postulate prf : (m ∸ n) * succ₁ o ≡ m * succ₁ o ∸ n * succ₁ o →  -- IH
                   (succ₁ m ∸ succ₁ n) * succ₁ o ≡
                   succ₁ m * succ₁ o ∸ succ₁ n * succ₁ o
-  {-# ATP prove prf *-N [x+y]∸[x+z]≡y∸z #-}
+  {-# ATP prove prf [x+y]∸[x+z]≡y∸z #-}
 
 *+-leftDistributive : ∀ {m n o} → N m → N n → N o → (m + n) * o ≡ m * o + n * o
 *+-leftDistributive {m} {n} Nm Nn zN = prf
@@ -281,7 +281,7 @@ xy≡0→x≡0∨y≡0 (sN {m} Nm) (sN {n} Nn) SmSn≡0 = ⊥-elim (0≢S prf)
   {-# ATP prove prf #-}
 
 xy≡1→x≡1∨y≡1 : ∀ {m n} → N m → N n → m * n ≡ one → m ≡ one ∨ n ≡ one
-xy≡1→x≡1∨y≡1 zN Nn h = ⊥-elim (0≢S (trans (sym (*-leftZero Nn)) h))
+xy≡1→x≡1∨y≡1 {n = n} zN Nn h = ⊥-elim (0≢S (trans (sym (*-leftZero n)) h))
 xy≡1→x≡1∨y≡1 (sN {m} Nm) zN h =
   ⊥-elim (0≢S (trans (sym (*-rightZero (sN Nm))) h))
 xy≡1→x≡1∨y≡1 (sN zN) (sN Nn) h = inj₁ refl

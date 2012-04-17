@@ -269,23 +269,24 @@ x≥y→y>0→x∸y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 = prf
 ------------------------------------------------------------------------------
 -- Properties about LT₂
 
+-- TODO: 2012-04-17. Is it possible to eliminate the FOTC types?
 postulate xy<00→⊥ : ∀ {m n} → N m → N n → ¬ (LT₂ m n zero zero)
 {-# ATP prove xy<00→⊥ x<0→⊥ #-}
 
-postulate
-  Sxy₁<0y₂→⊥ : ∀ {m n₁ n₂} → N m → N n₁ → N n₂ → ¬ (LT₂ (succ₁ m) n₁ zero n₂)
-{-# ATP prove Sxy₁<0y₂→⊥ x<0→⊥ #-}
+-- TODO: 2012-04-17. Is it possible to eliminate the FOTC types?
+postulate 0Sx<00→⊥ : ∀ {m} → ¬ (LT₂ zero (succ₁ m) zero zero)
+{-# ATP prove 0Sx<00→⊥ S<0→⊥ #-}
 
-postulate 0Sx<00→⊥ : ∀ {m} → N m → ¬ (LT₂ zero (succ₁ m) zero zero)
-{-# ATP prove 0Sx<00→⊥ x<0→⊥ #-}
+postulate Sxy₁<0y₂→⊥ : ∀ {m n₁ n₂} → ¬ (LT₂ (succ₁ m) n₁ zero n₂)
+{-# ATP prove Sxy₁<0y₂→⊥ #-}
 
-postulate
-  x₁y<x₂0→x₁<x₂ : ∀ {m₁ n m₂} → N m₁ → N n → N m₂ → LT₂ m₁ n m₂ zero →
-                  LT m₁ m₂
+-- TODO: 2012-04-17. Is it possible to eliminate the FOTC types?
+postulate x₁y<x₂0→x₁<x₂ : ∀ {m₁ n} → N n → ∀ {m₂} → LT₂ m₁ n m₂ zero → LT m₁ m₂
 {-# ATP prove x₁y<x₂0→x₁<x₂ x<0→⊥ #-}
 
+-- TODO: 2012-04-17. Is it possible to eliminate the FOTC types?
 postulate
-  xy₁<0y₂→x≡0∧y₁<y₂ : ∀ {m n₁ n₂} → N m → N n₁ → N n₂ → LT₂ m n₁ zero n₂ →
+  xy₁<0y₂→x≡0∧y₁<y₂ : ∀ {m} → N m → ∀ {n₁ n₂} → LT₂ m n₁ zero n₂ →
                       m ≡ zero ∧ LT n₁ n₂
 {-# ATP prove xy₁<0y₂→x≡0∧y₁<y₂ x<0→⊥ #-}
 

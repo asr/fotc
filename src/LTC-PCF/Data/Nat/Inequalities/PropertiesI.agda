@@ -304,6 +304,7 @@ x≥y→y>0→x∸y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 =
 ------------------------------------------------------------------------------
 -- Properties about LT₂
 
+-- TODO: 2012-04-17. Is it possible to eliminate the FOTC types?
 xy<00→⊥ : ∀ {m n} → N m → N n → ¬ (LT₂ m n zero zero)
 xy<00→⊥ Nm Nn mn<00 =
   [ (λ m<0     → ⊥-elim $ x<0→⊥ Nm m<0)
@@ -311,30 +312,32 @@ xy<00→⊥ Nm Nn mn<00 =
   ]
   mn<00
 
-0Sx<00→⊥ : ∀ {m} → N m → ¬ (LT₂ zero (succ₁ m) zero zero)
-0Sx<00→⊥ Nm 0Sm<00 =
+0Sx<00→⊥ : ∀ {m} → ¬ (LT₂ zero (succ₁ m) zero zero)
+0Sx<00→⊥ 0Sm<00 =
   [ 0<0→⊥
   , (λ 0≡0∧Sm<0 → S<0→⊥ (∧-proj₂ 0≡0∧Sm<0))
   ]
   0Sm<00
 
-Sxy₁<0y₂→⊥ : ∀ {m n₁ n₂} → N m → N n₁ → N n₂ → ¬ (LT₂ (succ₁ m) n₁ zero n₂)
-Sxy₁<0y₂→⊥ Nm Nn₁ Nn₂ Smn₁<0n₂ =
+Sxy₁<0y₂→⊥ : ∀ {m n₁ n₂} → ¬ (LT₂ (succ₁ m) n₁ zero n₂)
+Sxy₁<0y₂→⊥ Smn₁<0n₂ =
   [ S<0→⊥
   , (λ Sm≡0∧n₁<n₂ → ⊥-elim $ 0≢S $ sym $ ∧-proj₁ Sm≡0∧n₁<n₂)
   ]
   Smn₁<0n₂
 
-x₁y<x₂0→x₁<x₂ : ∀ {m₁ n m₂} → N m₁ → N n → N m₂ → LT₂ m₁ n m₂ zero → LT m₁ m₂
-x₁y<x₂0→x₁<x₂ Nm₁ Nn Nm₂ m₁n<m₂zero =
+-- TODO: 2012-04-17. Is it possible to eliminate the FOTC types?
+x₁y<x₂0→x₁<x₂ : ∀ {m₁ n} → N n → ∀ {m₂} → LT₂ m₁ n m₂ zero → LT m₁ m₂
+x₁y<x₂0→x₁<x₂ Nn m₁n<m₂zero =
   [ (λ m₁<n₁     → m₁<n₁)
   , (λ m₁≡n₁∧n<0 → ⊥-elim $ x<0→⊥ Nn (∧-proj₂ m₁≡n₁∧n<0))
   ]
   m₁n<m₂zero
 
-xy₁<0y₂→x≡0∧y₁<y₂ : ∀ {m n₁ n₂} → N m → N n₁ → N n₂ → LT₂ m n₁ zero n₂ →
+-- TODO: 2012-04-17. Is it possible to eliminate the FOTC types?
+xy₁<0y₂→x≡0∧y₁<y₂ : ∀ {m} → N m → ∀ {n₁ n₂} → LT₂ m n₁ zero n₂ →
                     m ≡ zero ∧ LT n₁ n₂
-xy₁<0y₂→x≡0∧y₁<y₂ Nm Nn₁ Nn₂ mn₁<0n₂ =
+xy₁<0y₂→x≡0∧y₁<y₂ Nm mn₁<0n₂ =
   [ (λ m<0          → ⊥-elim $ x<0→⊥ Nm m<0)
   , (λ m≡zero∧n₁<n₂ → m≡zero∧n₁<n₂)
   ]
@@ -342,8 +345,8 @@ xy₁<0y₂→x≡0∧y₁<y₂ Nm Nn₁ Nn₂ mn₁<0n₂ =
 
 [Sx∸Sy,Sy]<[Sx,Sy] : ∀ {m n} → N m → N n →
                      LT₂ (succ₁ m ∸ succ₁ n) (succ₁ n) (succ₁ m) (succ₁ n)
-[Sx∸Sy,Sy]<[Sx,Sy] {m} {n} Nm Nn = inj₁ (Sx∸Sy<Sx Nm Nn)
+[Sx∸Sy,Sy]<[Sx,Sy] Nm Nn = inj₁ (Sx∸Sy<Sx Nm Nn)
 
 [Sx,Sy∸Sx]<[Sx,Sy] : ∀ {m n} → N m → N n →
                      LT₂ (succ₁ m) (succ₁ n ∸ succ₁ m) (succ₁ m) (succ₁ n)
-[Sx,Sy∸Sx]<[Sx,Sy] {m} {n} Nm Nn = inj₂ (refl , Sx∸Sy<Sx Nn Nm)
+[Sx,Sy∸Sx]<[Sx,Sy] Nm Nn = inj₂ (refl , Sx∸Sy<Sx Nn Nm)

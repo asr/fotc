@@ -37,7 +37,7 @@ open import FOTC.Program.GCD.Partial.TotalityI
 gcd-0S-∣₁ : ∀ {n} → N n → gcd zero (succ₁ n) ∣ zero
 gcd-0S-∣₁ {n} Nn = subst (λ x → x ∣ zero)
                          (sym $ gcd-0S n)
-                         (S∣0 Nn)
+                         (S∣0 n)
 
 -- gcd (succ₁ m) 0 ∣ succ₁ m.
 gcd-S0-∣₁ : ∀ {m} → N m → gcd (succ₁ m) zero ∣ succ₁ m
@@ -115,7 +115,7 @@ gcd-0S-∣₂ {n} Nn = subst (λ x → x ∣ succ₁ n)
 gcd-S0-∣₂ : ∀ {m} → N m → gcd (succ₁ m) zero ∣ zero
 gcd-S0-∣₂  {m} Nm = subst (λ x → x ∣ zero)
                           (sym $ gcd-S0 m)
-                          (S∣0 Nm)
+                          (S∣0 m)
 
 -- gcd (succ₁ m) (succ₁ n) ∣ succ₁ n when succ₁ m > succ₁ n.
 gcd-S>S-∣₂ :

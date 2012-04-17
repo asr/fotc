@@ -50,8 +50,8 @@ open import FOTC.Data.Nat
   is : ∀ {i} → A i → A (succ₁ i)
   is {i} ih = subst N (sym $ +-Sx i n) (sN ih)
 
-+-assoc : ∀ {m n o} → N m → N n → N o → m + n + o ≡ m + (n + o)
-+-assoc {n = n} {o} Nm Nn No = N-ind A A0 is Nm
++-assoc : ∀ {m} → N m → ∀ n o → m + n + o ≡ m + (n + o)
++-assoc Nm n o = N-ind A A0 is Nm
   where
   A : D → Set
   A i = i + n + o ≡ i + (n + o)
@@ -76,8 +76,8 @@ open import FOTC.Data.Nat
       ≡⟨ sym $ +-Sx i (n + o) ⟩
     succ₁ i + (n + o) ∎
 
-x+Sy≡S[x+y] : ∀ {m} n → N m → m + succ₁ n ≡ succ₁ (m + n)
-x+Sy≡S[x+y] n Nm = N-ind A A0 is Nm
+x+Sy≡S[x+y] : ∀ {m} → N m → ∀ n → m + succ₁ n ≡ succ₁ (m + n)
+x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
   where
   A : D → Set
   A i = i + succ₁ n ≡ succ₁ (i + n)
@@ -119,5 +119,5 @@ x+Sy≡S[x+y] n Nm = N-ind A A0 is Nm
      succ₁ (i + n)
         ≡⟨ cong succ₁ ih ⟩
      succ₁ (n + i)
-       ≡⟨ sym $ x+Sy≡S[x+y] i Nn ⟩
+       ≡⟨ sym $ x+Sy≡S[x+y] Nn i ⟩
      n + succ₁ i ∎

@@ -39,33 +39,31 @@ wfInd-LT₂ A accH Nm Nn = accH Nm Nn (helper₂ Nm Nn)
   helper₂ Nm₁ Nn₂ zN zN 00<00 =
     accH zN zN (λ Nm' Nn' m'n'<00 → ⊥-elim $ xy<00→⊥ Nm' Nn' m'n'<00)
 
-  helper₂ zN zN (sN Nm₂) zN Sm₂0<00 = ⊥-elim $ Sxy₁<0y₂→⊥ Nm₂ zN zN Sm₂0<00
+  helper₂ zN zN (sN Nm₂) zN Sm₂0<00 = ⊥-elim $ Sxy₁<0y₂→⊥ Sm₂0<00
 
   helper₂ (sN Nm₁) zN (sN Nm₂) zN Sm₂0<Sm₁0 =
     accH (sN Nm₂) zN (λ Nm' Nn' m'n'<Sm₂0 →
       helper₂ Nm₁ zN Nm' Nn'
               (inj₁ (helper₁ Nm' Nm₁ (sN Nm₂)
-                             (x₁y<x₂0→x₁<x₂ Nm' Nn' (sN Nm₂) m'n'<Sm₂0)
-                             (x₁y<x₂0→x₁<x₂ (sN Nm₂) zN (sN Nm₁) Sm₂0<Sm₁0))))
+                             (x₁y<x₂0→x₁<x₂ Nn' m'n'<Sm₂0)
+                             (x₁y<x₂0→x₁<x₂ zN Sm₂0<Sm₁0))))
 
   helper₂ zN (sN Nn₁) (sN Nm₂) zN Sm₂0<0Sn₁ =
-    ⊥-elim $ Sxy₁<0y₂→⊥ Nm₂ zN (sN Nn₁) Sm₂0<0Sn₁
+    ⊥-elim $ Sxy₁<0y₂→⊥ Sm₂0<0Sn₁
 
   helper₂ (sN Nm₁) (sN Nn₁) (sN Nm₂) zN Sm₂0<Sm₁Sn₁ =
     accH (sN Nm₂) zN (λ Nm' Nn' m'n'<Sm₂0 →
       helper₂ (sN Nm₁) Nn₁ Nm' Nn'
         (inj₁ ([ (λ Sm₂<Sm₁ → x<y→x<Sy Nm' Nm₁
                                        (helper₁ Nm' Nm₁ (sN Nm₂)
-                                                (x₁y<x₂0→x₁<x₂ Nm' Nn' (sN Nm₂)
-                                                               m'n'<Sm₂0)
+                                                (x₁y<x₂0→x₁<x₂ Nn' m'n'<Sm₂0)
                                                 Sm₂<Sm₁))
-               , (λ Sm₂≡Sm₁∧0<Sn₁ → x<y→y≡z→x<z (x₁y<x₂0→x₁<x₂ Nm' Nn' (sN Nm₂)
-                                                               m'n'<Sm₂0)
+               , (λ Sm₂≡Sm₁∧0<Sn₁ → x<y→y≡z→x<z (x₁y<x₂0→x₁<x₂ Nn' m'n'<Sm₂0)
                                                 (∧-proj₁ Sm₂≡Sm₁∧0<Sn₁))
                ]
               Sm₂0<Sm₁Sn₁)))
 
-  helper₂ zN zN zN (sN Nn₂) 0Sn₂<00 = ⊥-elim $ 0Sx<00→⊥ Nn₂ 0Sn₂<00
+  helper₂ zN zN zN (sN Nn₂) 0Sn₂<00 = ⊥-elim $ 0Sx<00→⊥ 0Sn₂<00
 
   helper₂ (sN {m₁} Nm₁) zN zN (sN Nn₂) 0Sn₂<Sm₁0 =
     accH zN (sN Nn₂) (λ Nm' Nn' m'n'<0Nn₂ →
@@ -83,7 +81,7 @@ wfInd-LT₂ A accH Nm Nn = accH Nm Nn (helper₂ Nm Nn)
 
     where
     0<Sm₁ : LT zero (succ₁ m₁)
-    0<Sm₁ = x₁y<x₂0→x₁<x₂ zN (sN Nn₂) (sN Nm₁) 0Sn₂<Sm₁0
+    0<Sm₁ = x₁y<x₂0→x₁<x₂ (sN Nn₂) 0Sn₂<Sm₁0
 
   helper₂ zN (sN Nn₁) zN (sN Nn₂) 0Sn₂<0Sn₁ =
     [ (λ 0<0 → ⊥-elim $ 0<0→⊥ 0<0)
@@ -130,10 +128,10 @@ wfInd-LT₂ A accH Nm Nn = accH Nm Nn (helper₂ Nm Nn)
 
       where
       Sm₂<Sm₁ : LT (succ₁ m₂) (succ₁ m₁)
-      Sm₂<Sm₁ = x₁y<x₂0→x₁<x₂ (sN Nm₂) (sN Nn₂) (sN Nm₁) Sm₂Sn₂<Sm₁0
+      Sm₂<Sm₁ = x₁y<x₂0→x₁<x₂ (sN Nn₂) Sm₂Sn₂<Sm₁0
 
   helper₂ zN (sN Nn₁) (sN Nm₂) (sN Nn₂) Sm₂Sn₂<0Sn₁
-    = ⊥-elim $ Sxy₁<0y₂→⊥ Nm₂ (sN Nn₂) (sN Nn₁) Sm₂Sn₂<0Sn₁
+    = ⊥-elim $ Sxy₁<0y₂→⊥ Sm₂Sn₂<0Sn₁
 
   helper₂ (sN Nm₁) (sN Nn₁) (sN Nm₂) (sN Nn₂) Sm₂Sn₂<Sm₁Sn₁ =
     accH (sN Nm₂) (sN Nn₂) (λ Nm' Nn' m'n'<Sm₂Sn₂ →

@@ -159,7 +159,7 @@ x+x-Even (sN {n} Nn) = subst Even (sym prf)
     succ₁ (n + succ₁ zero * succ₁ n)
       ≡⟨ cong succ₁ (cong (_+_ n) (*-Sx zero (succ₁ n))) ⟩
     succ₁ (n + (succ₁ n + zero * succ₁ n))
-      ≡⟨ cong succ₁ (cong (_+_ n) (cong (_+_ (succ₁ n)) (*-leftZero (sN Nn)))) ⟩
+      ≡⟨ cong succ₁ (cong (_+_ n) (cong (_+_ (succ₁ n)) (*-leftZero (succ₁ n)))) ⟩
     succ₁ (n + (succ₁ n + zero))
       ≡⟨ cong succ₁ (cong (_+_ n) (+-rightIdentity (sN Nn))) ⟩
     succ₁ (n + succ₁ n)

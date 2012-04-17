@@ -16,8 +16,8 @@ open import FOTC.Data.Nat.Divisibility.By0
 
 ------------------------------------------------------------------------------
 -- Any positive number divides 0.
-S∣0 : ∀ {n} → N n → succ₁ n ∣ zero
-S∣0 {n} Nn = zero , zN , sym (*-0x (succ₁ n))
+S∣0 : ∀ n → succ₁ n ∣ zero
+S∣0 n = zero , zN , sym (*-0x (succ₁ n))
 
 -- 0 divides 0.
 0∣0 : zero ∣ zero
