@@ -17,7 +17,9 @@ description:
   formulae to the TPTP format which is a standard for input and output
   for the ATPs <http://www.cs.miami.edu/~tptp/>.
 extra-source-files:
-        README.txt CHANGES.txt src/undefined.h
+        CHANGES.txt
+        README.txt
+        src/undefined.h
 
 source-repository head
   type:     darcs
