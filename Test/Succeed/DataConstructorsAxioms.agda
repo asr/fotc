@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Testing the use of ATP <axioms> with data constructors
+-- Testing the use of ATP axioms with data constructors
 ------------------------------------------------------------------------------
 
 module Test.Succeed.DataConstructorsAxioms where
@@ -15,16 +15,8 @@ data N : D → Set where
 {-# ATP axiom zN #-}
 {-# ATP axiom sN #-}
 
--- Testing a data constructor with holes.
-data _×_ ( A B : Set) : Set where
-  _,_ : A → B → A × B
-
-data WithHoles : D × D → Set where
-  withHoles : (x y : D) → WithHoles ( x , y )
-{-# ATP axiom withHoles #-}
-
--- We need to have at least one conjecture to generate a TPTP file.
 postulate
-  _≡_  : D → D → Set
-  refl : ∀ d → d ≡ d
-{-# ATP prove refl #-}
+  0-N : N zero
+  1-N : N (succ zero)
+{-# ATP prove 0-N #-}
+{-# ATP prove 1-N #-}

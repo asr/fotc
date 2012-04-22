@@ -428,6 +428,7 @@ appArgsFn fn args = do
 
 -- | Translate an Agda internal Term to an FOL term.
 termToFOLTerm ∷ Term → T FOLTerm
+
 termToFOLTerm term@(Con (QName _ name) args) = do
   reportSLn "t2t" 10 $ "termToFOLTerm Con:\n" ++ show term
 
@@ -447,10 +448,12 @@ termToFOLTerm term@(Con (QName _ name) args) = do
        _  → appArgsFn str args
 
     -- The term Con has holes. It is translated as a FOL function.
-    C.Name _ parts →
-      case args of
-        [] → __IMPOSSIBLE__
-        _  → appArgsFn (concatName parts) args
+    C.Name _ _ → __IMPOSSIBLE__
+    -- 2012-04-22: We do not have an example of it.
+    -- C.Name _ parts →
+    --   case args of
+    --     [] → __IMPOSSIBLE__
+    --     _  → appArgsFn (concatName parts) args
 
 termToFOLTerm term@(Def (QName _ name) args) = do
   reportSLn "t2t" 10 $ "termToFOLTerm Def:\n" ++ show term
