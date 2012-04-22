@@ -122,6 +122,7 @@ all_type_checking : type_checking_Common \
 
 only_conjectures_% :
 	for file in $(conjectures); do \
+	    echo "Processing file $$file"; \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
 	    if ! ( $(AGDA2ATP_ONLY_CONJECTURES) $${file} ); then exit 1; fi; \
 	done
@@ -164,6 +165,7 @@ all_parsing : parsing_DistributiveLaws \
 
 conjectures_% :
 	for file in $(conjectures); do \
+	    echo "Processing file $$file"; \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
 	    if ! ( $(AGDA2ATP) --time=180 $${file} ); then exit 1; fi; \
 	done
