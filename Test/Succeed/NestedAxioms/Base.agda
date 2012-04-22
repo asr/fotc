@@ -1,3 +1,6 @@
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Test.Succeed.NestedAxioms.Base where
 
 infix 4 _≡_

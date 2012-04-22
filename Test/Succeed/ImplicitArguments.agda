@@ -2,6 +2,9 @@
 -- Testing the use of implicit arguments
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- The dot in the name of the implicit arguments must be removed.
 
 module Test.Succeed.ImplicitArguments where

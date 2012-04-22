@@ -2,6 +2,9 @@
 -- Testing the erasure of proof terms
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Test.Succeed.ProofTerm1 where
 
 postulate

@@ -2,6 +2,9 @@
 -- Testing the eta-expansion
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Test.Succeed.Eta1 where
 
 postulate

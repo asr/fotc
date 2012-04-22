@@ -2,6 +2,9 @@
 -- Testing the translation of 11-ary predicates symbols
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Test.Succeed.P11 where
 
 postulate

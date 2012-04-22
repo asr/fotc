@@ -2,6 +2,9 @@
 -- We do not translate underscore variables
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- Error: The translation of underscore variables is not implemented
 
 module Test.Fail.Underscore where
@@ -9,9 +12,9 @@ module Test.Fail.Underscore where
 infix 4 _≡_
 
 postulate
-  D      : Set
-  zero   : D
-  succ   : D → D
+  D    : Set
+  zero : D
+  succ : D → D
 
 -- The identity type.
 data _≡_ (x : D) : D → Set where

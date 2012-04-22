@@ -2,6 +2,9 @@
 -- Testing various arguments in the ATP pragmas
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Test.Succeed.VariousArguments where
 
 postulate

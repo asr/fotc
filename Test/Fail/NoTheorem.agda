@@ -2,6 +2,9 @@
 -- Error message when the ATPs could not prove a conjecture
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Test.Fail.NoTheorem where
 
 -- Error message (using the option --unproved-conjecture-error):

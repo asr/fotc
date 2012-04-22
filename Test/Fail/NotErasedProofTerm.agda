@@ -2,6 +2,9 @@
 -- We do not erase of the proofs terms in the translation
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Test.Fail.NotErasedProofTerm where
 
 -- Error: It is necessary to erase the proof term

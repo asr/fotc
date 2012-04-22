@@ -1,3 +1,6 @@
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Test.Succeed.NestedAxioms.B where
 
 open import Test.Succeed.NestedAxioms.Base using ( _≡_ ; D )

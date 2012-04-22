@@ -2,6 +2,9 @@
 -- Testing the translation of schemas with 11-ary predicates symbols
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Test.Succeed.SchemasP11 where
 
 postulate

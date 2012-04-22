@@ -2,6 +2,9 @@
 -- Testing the translation of the logical constants
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Test.Succeed.LogicalConstants where
 
 infix  5 ¬_
