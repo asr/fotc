@@ -119,16 +119,31 @@ defaultOptions = MkOptions
   }
 
 agdaIncludePathOpt ∷ FilePath → Options → Options
+agdaIncludePathOpt [] _ =
+  error "Option --agda-include-path (or -i) requires an argument DIR"
 agdaIncludePathOpt dir opts =
   opts { optAgdaIncludePath = optAgdaIncludePath opts ++ [dir] }
 
 atpOpt ∷ String → Options → Options
+atpOpt []   _    = error "Option --atp requires an argument NAME"
 atpOpt name opts = opts { optATP = optATP opts ++ [name] }
 
 helpOpt ∷ Options → Options
 helpOpt opts = opts { optHelp = True }
 
+timeOpt ∷ String → Options → Options
+timeOpt []   _    = error "Option --time requires an argument NUM"
+timeOpt secs opts = opts { optTime = read secs }
+
+onlyFilesOpt ∷ Options → Options
+onlyFilesOpt opts = opts { optOnlyFiles = True }
+
+outputDirOpt ∷ FilePath → Options → Options
+outputDirOpt []  _    = error "Option --output-dir requires an argument DIR"
+outputDirOpt dir opts = opts { optOutputDir = dir }
+
 snapshotDirOpt ∷ FilePath → Options → Options
+snapshotDirOpt []  _    = error "Option --snapshot-dir requires an argument DIR"
 snapshotDirOpt dir opts = opts { optSnapshotDir = dir }
 
 snapshotTestOpt ∷ Options → Options
@@ -136,19 +151,11 @@ snapshotTestOpt opts = opts { optSnapshotTest = True
                             , optOnlyFiles = True
                             }
 
-timeOpt ∷ String → Options → Options
-timeOpt secs opts = opts { optTime = read secs }
-
-onlyFilesOpt ∷ Options → Options
-onlyFilesOpt opts = opts { optOnlyFiles = True }
-
-outputDirOpt ∷ FilePath → Options → Options
-outputDirOpt dir opts = opts { optOutputDir = dir }
-
 unprovedNoErrorOpt ∷ Options → Options
 unprovedNoErrorOpt opts = opts { optUnprovedNoError = True }
 
 vampireExecOpt ∷ String → Options → Options
+vampireExecOpt []   _    = error "Option --vampire-exec requires an argument COMMAND"
 vampireExecOpt name opts = opts { optVampireExec = name }
 
 -- Adapted from @Agda.Interaction.Options.verboseFlag@.
@@ -162,7 +169,7 @@ verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
   parseVerbose ∷ String → ([String], Int)
   parseVerbose s =
     case wordsBy (`elem` ":.") s of
-      []  → error "Argument to verbose should be on the form x.y.z:N or N"
+      []  → error "Option --verbose requieres an argument the form x.y.z:N or N"
       ss  → let m ∷ Int
                 m = read $ last ss
             in  (init ss, m)

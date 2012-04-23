@@ -68,8 +68,8 @@ import Options    ( Options(optVerbose) )
 #include "../undefined.h"
 
 -----------------------------------------------------------------------------
--- Nice way to report things via the verbose option.
--- Adapted from Agda.TypeChecking.Monad.Options.
+-- Nice way to report things via the @--verbose@ option. Adapted from
+-- @Agda.TypeChecking.Monad.Options@.
 
 type VerboseKey = String
 
