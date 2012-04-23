@@ -5,9 +5,9 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- The following conjecture uses the internal Agda term Lam.
+-- The following conjecture uses the internal Agda term @Lam@.
 
-module Test.Succeed.LamTerm where
+module Test.Succeed.AgdaInternalTerms.Lam where
 
 postulate
   D : Set

@@ -398,7 +398,7 @@ termToFormula term@(Var n args) = do
         [] → return $ Predicate (vars !! fromIntegral n) []
 
         -- If we have a bounded variable quantified on a function of a
-        -- Set to a Set₁, for example, the variable/predicate 'P' in
+        -- Set to a Set₁, for example, the variable/predicate P in
         --
         -- (P : D → Set) → (x : D) → P x → P x
         --
@@ -407,7 +407,7 @@ termToFormula term@(Var n args) = do
         -- (see termToFormula term@(Pi domTy (Abs _ tyAbs))),
 
         -- therefore we need to apply this variable/predicate to the
-        -- others variables.
+        -- others variables, see Test.Succeed.AgdaInternalTerms.Var.
 
         _ → predicateLogicalScheme vars n args
 
