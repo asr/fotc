@@ -1,4 +1,4 @@
--- Tested with FOT on 12 March 2012.
+-- Tested with FOT on 23 April 2012.
 
 module Draft.PA.Inductive.Witness where
 
@@ -53,4 +53,10 @@ witness₁ = refl
 -- We cannot extract an existential witness from a non-constructive
 -- proof.
 -- witness₂ : ∃-proj₁ proof₂ ≡ succ zero
--- witness₂ = {!!}
+-- witness₂ = {!refl!}
+
+-- Agda error:
+--
+-- ∃-proj₁ (¬-elim (λ h → x≢Sx (¬∃¬→∀ h))) != succ zero of type M
+-- when checking that the expression refl has type
+-- ∃-proj₁ proof₂ ≡ succ zero
