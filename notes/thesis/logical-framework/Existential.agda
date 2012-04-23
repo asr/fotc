@@ -11,8 +11,8 @@ module LF where
     ∃       : (A : D → Set) → Set
     _,_     : {A : D → Set}(x : D) → A x → ∃ A
     ∃-proj₁ : {A : D → Set} → ∃ A → D
-    ∃-proj₂ : {A : D → Set}(a : ∃ A) → A (∃-proj₁ a)
-    ∃-elim : {A : D → Set}{B : Set} → ∃ A → (∀ {x} → A x → B) → B
+    ∃-proj₂ : {A : D → Set}(h : ∃ A) → A (∃-proj₁ h)
+    ∃-elim  : {A : D → Set}{B : Set} → ∃ A → (∀ {x} → A x → B) → B
 
   syntax ∃ (λ x → e) = ∃[ x ] e
 
