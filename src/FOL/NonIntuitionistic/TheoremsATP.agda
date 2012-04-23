@@ -29,3 +29,6 @@ postulate ¬¬-elim : ∀ {A} → ¬ ¬ A → A
 -- principle of indirect proof).
 postulate raa : ∀ {A} → (¬ A → A) → A
 {-# ATP prove raa #-}
+
+-- ∃ in terms of ∀ and ¬.
+postulate ¬∃¬→∀ : {A : D → Set} → ¬ (∃[ x ] ¬ A x) → ∀ {x} → A x
