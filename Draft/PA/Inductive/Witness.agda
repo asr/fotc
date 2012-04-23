@@ -5,8 +5,14 @@ module Draft.PA.Inductive.Witness where
 -- We cannot extract an existential witness from a non-constructive
 -- proof.
 
+open import Common.FOL.FOL using ( ⊥-elim ; _∨_ ; [_,_] )
+
 open import PA.Inductive.Base
 open import PA.Inductive.Properties
+
+------------------------------------------------------------------------------
+-- The principle of the excluded middle.
+postulate pem : ∀ {A} → A ∨ ¬ A
 
 ------------------------------------------------------------------------------
 -- The existential quantifier type on M
@@ -29,12 +35,13 @@ syntax ∃ (λ x → e) = ∃[ x ] e
 ------------------------------------------------------------------------------
 -- Non-intuitionistic logic theorems
 
-postulate
-  -- The principle of indirect proof (proof by contradiction).
-  ¬-elim : ∀ {A} → (¬ A → ⊥) → A
+-- The principle of indirect proof (proof by contradiction).
+¬-elim : ∀ {A} → (¬ A → ⊥) → A
+¬-elim h = [ (λ a → a) , (λ ¬a → ⊥-elim (h ¬a)) ] pem
 
-  -- ∃ in terms of ∀ and ¬.
-  ¬∃¬→∀ : {A : M → Set} → ¬ (∃[ x ] ¬ A x) → ∀ {x} → A x
+-- ∃ in terms of ∀ and ¬.
+¬∃¬→∀ : {A : M → Set} → ¬ (∃[ x ] ¬ A x) → ∀ {x} → A x
+¬∃¬→∀ h {x} = ¬-elim (λ h₁ → h (x , h₁))
 
 ------------------------------------------------------------------------------
 
