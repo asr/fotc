@@ -52,7 +52,7 @@ import Utils.List ( duplicatesElements, nonDuplicate )
 ------------------------------------------------------------------------------
 -- Note: We don't import the module TPTP.Pretty to avoid a circular
 -- importation, therefore Haddock does not create a link for
--- TPTP.Pretty.PrettyTPTP.
+-- 'TPTP.Pretty.PrettyTPTP'.
 
 -- | The TPTP annotated formulas.
 -- The annotated formulas are not in TPTP syntax. We get this syntax via
@@ -107,7 +107,6 @@ dropCommonRequiredDefs generalRoles conjectureSet =
                     , conjectureDefs = z
                     }
     )
-
   where
   commonDefs, w, x, y, z ∷ [AF]
   commonDefs = commonRequiredDefs generalRoles conjectureSet

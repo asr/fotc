@@ -105,7 +105,7 @@ defaultOptions = MkOptions
   { optAgdaIncludePath = []
   , optATP             = []  -- N.B. The default is defined by
                              -- defaultATPs and it is handle by
-                             -- Options.Process.processOptions.
+                             -- @Options.Process.processOptions@.
   , optHelp            = False
   , optOnlyFiles       = False
   , optOutputDir       = "/tmp"
@@ -151,7 +151,7 @@ unprovedNoErrorOpt opts = opts { optUnprovedNoError = True }
 vampireExecOpt ∷ String → Options → Options
 vampireExecOpt name opts = opts { optVampireExec = name }
 
--- Adapted from: Agda.Interaction.Options.verboseFlag.
+-- Adapted from @Agda.Interaction.Options.verboseFlag@.
 verboseOpt ∷ String → Options → Options
 verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
   where

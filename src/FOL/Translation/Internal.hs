@@ -79,13 +79,13 @@ import Monad.Reports         ( reportSLn )
 -- telescopeToFormula EmptyTel             = __IMPOSSIBLE__
 -- telescopeToFormula (ExtendTel tyArg _) = typeToFormula $ unArg tyArg
 
--- | Translate an Agda internal ClauseBody to an FOL formula.
+-- | Translate an Agda internal 'ClauseBody' to an FOL formula.
 cBodyToFormula ∷ ClauseBody → T FOLFormula
 cBodyToFormula (Body term)          = etaExpand term >>= termToFormula
 cBodyToFormula (Bind (Abs _ cBody)) = cBodyToFormula cBody
 cBodyToFormula _                    = __IMPOSSIBLE__
 
--- | Translate an Agda internal ClauseBody to an FOL term.
+-- | Translate an Agda internal 'ClauseBody' to an FOL term.
 cBodyToFOLTerm ∷ ClauseBody → T FOLTerm
 -- We don't eta-expand the term before the translation, because we
 -- cannot translate the generated lambda abstractions to FOL terms.
@@ -101,9 +101,10 @@ dropBindingOnCBodyIndex (Bind (Abs x1 cBody)) x2 index =
   else Bind (Abs x1 $ dropBindingOnCBodyIndex cBody x2 index)
 dropBindingOnCBodyIndex _ _ _ = __IMPOSSIBLE__
 
--- To drop the binding on a proof term in a ClauseBody,
+-- To drop the binding on a proof term in a @ClauseBody@,
 --
--- e.g. drop the binding on Nn : N n where D : Set, n : D and N : D → Set.
+-- e.g. drop the binding on @Nn : N n@ where @D : Set@, @n : D@ and @N
+-- : D → Set@.
 --
 -- We know that the bounded variable is a proof term from the
 -- invocation to this function.

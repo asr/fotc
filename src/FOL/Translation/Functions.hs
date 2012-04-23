@@ -117,22 +117,24 @@ fnToFormula _      _  _         =
 --     , clauseBody      ∷ ClauseBody
 --     }
 
--- The LHS of the definition's function is given by the QName and the
--- Type. The RHS is given by the Clause. Before translate the LHS and
--- the RHS (i.e. the body of the clause) it is necessary to generate
--- an universal quantification on an equal number of variables to
--- length [Arg Pattern].
+-- The LHS of the definition's function is given by the @QName@ and
+-- the @Type@. The RHS is given by the @Clause@. Before translate the
+-- LHS and the RHS (i.e. the body of the clause) it is necessary to
+-- generate an universal quantification on an equal number of
+-- variables to length @[Arg Pattern]@.
 clauseToFormula ∷ QName → Type → Clause → T FOLFormula
 
 -- There is at most one variable in the clause's pattern.
 clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
   case tel of
-    -- The bounded variable is quantified on a Set,
+    -- The bounded variable is quantified on a @Set@,
     --
-    -- e.g. the bounded variable is 'd : D' where D : Set,
+    -- e.g. the bounded variable is @d : D@ where @D : Set@,
     --
     -- so we can create a fresh variable and quantify on it without any
-    -- problem. N.B. the pattern matching on (Def _ []).
+    -- problem.
+    --
+    -- N.B. the pattern matching on @(Def _ [])@.
     ExtendTel (Dom _ _ (El (Type (Max [])) (Def _ []))) (Abs x tels) → do
       reportSLn "def2f" 20 $ "Processing variable: " ++ x
 
@@ -146,14 +148,14 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
 
     -- The bounded variable is quantified on a proof,
     --
-    -- e.g. the bounded variable is 'Nn : N n' where D : Set, n : D,
-    -- and N : D → Set,
+    -- e.g. the bounded variable is @Nn : N n@ where @D : Set@, @n :
+    -- D@, and @N : D → Set@,
     --
     -- so we need drop this quantification. In this case, we erase the
     -- quantification on the bounded variable and we try it as a
-    -- function type (using Implies instead of ForAll).
+    -- function type (using @Implies@ instead of @ForAll@).
 
-    -- N.B. the pattern matching on (Def _ _).
+    -- N.B. the pattern matching on @(Def _ _)@.
     ExtendTel (Dom _ _ tye@(El (Type (Max [])) (Def _ _))) (Abs x tels) → do
       reportSLn "def2f" 20 $ "Processing proof term: " ++ x
 
@@ -167,7 +169,7 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
 
       newBody ∷ ClauseBody ← dropBindingOnCBody cBody x
 
-      -- Just to force the evaluation of newBody.
+      -- Just to force the evaluation of @newBody@.
       when (null $ show newBody) (__IMPOSSIBLE__)
 
       reportSLn "def2f" 20 $ "New body: " ++ show newBody

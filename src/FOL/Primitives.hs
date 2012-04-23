@@ -68,9 +68,9 @@ appP p ts = Predicate name (p : ts)
   where name ∷ String
         name = "kAppP" ++ show (length ts)
 
--- The constant 'kEqual' refers to the predefined equality in the
+-- The constant @kEqual@ refers to the predefined equality in the
 -- ATPs.
--- N.B. The name "kEqual" is ***hard-coded*** in the module
+-- N.B. The name @kEqual@ is ***hard-coded*** in the module
 -- TPTP.Pretty.
 kEqual ∷ String
 kEqual = "kEqual"

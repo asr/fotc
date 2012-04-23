@@ -114,7 +114,7 @@ translation agdaFile = do
 
   reportSLn "translation" 20 $ show allDefs
 
-  -- We add allDefs to the state.
+  -- We add @allDefs@ to the state.
   modify $ \s → s { tDefs = allDefs }
 
   liftM2 (,) generalRolesToAFs (conjecturesToAFs topLevelDefs)
@@ -145,7 +145,7 @@ runAgda2ATP = do
 -- | Main.
 main ∷ IO ()
 main = do
-  -- Adapted from Agda.Main.main.
+  -- Adapted from @Agda.Main.main@.
   r ∷ Either String () ← runT $ runAgda2ATP `catchError` \err →
     do liftIO $ hPutStrLn stderr $ "Error: " ++ err
        throwError err

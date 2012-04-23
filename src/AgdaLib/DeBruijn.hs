@@ -160,7 +160,7 @@ instance DecIndex a ⇒ DecIndex (Tele a) where
 -- We collect the variables' names using the type class VarNames. The
 -- de Bruijn indexes are assigned from right to left,
 --
--- e.g.  in '(A B C : Set) → ...', A is 2, B is 1, and C is 0,
+-- e.g.  in @(A B C : Set) → ...@, @A@ is 2, @B@ is 1, and @C@ is 0,
 --
 -- so we need create the list in the same order.
 
@@ -207,14 +207,14 @@ varToIndex cBody x =
 -- To change a de Bruijn index with respect to other index.
 -- Let's suppose we have something like
 
--- λ m : D → (λ n : D → (λ Nn : N n → (λ h : D → ... Var 2 ...)))
+-- @λ m : D → (λ n : D → (λ Nn : N n → (λ h : D → ... Var 2 ...)))@
 
--- where 'Var 2' is the de Bruijn index of the variable n. If we
--- drop the quantification on the proof term Nn
+-- where @Var 2@ is the de Bruijn index of the variable @n@. If we
+-- drop the quantification on the proof term @Nn@
 
--- λ m : D → (λ n : D → (λ h : D → ...))
+-- @λ m : D → (λ n : D → (λ h : D → ...))@
 
--- we need change 'Var 2' by 'Var 1'.
+-- we need change @Var 2@ by @Var 1@.
 
 class ChangeIndex a where
   changeIndex ∷ a → Nat → a
@@ -336,7 +336,7 @@ instance ChangeIndex ClauseBody where
 -- collect the types of the variables using the type class
 -- TypesOfVars. The de Bruijn indexes are assigned from right to left,
 --
--- e.g.  in '(A B C : Set) → ...', A is 2, B is 1, and C is 0,
+-- e.g.  in @(A B C : Set) → ...@, @A@ is 2, @B@ is 1, and @C@ is 0,
 --
 -- so we need create the list in the same order.
 
@@ -485,30 +485,30 @@ dropProofTerm ty (x, typeVar) = do
   reportSLn "dropPT" 20 $ "Dropping variable: " ++ x
 
   case typeVar of
-    -- The variable's type is a Set,
+    -- The variable's type is a @Set@,
     --
-    -- e.g. the variable is d : D, where D : Set
+    -- e.g. the variable is @d : D@, where @D : Set@
     --
     -- so we don't do anything.
 
-    -- N.B. the pattern matching on (Def _ []).
+    -- N.B. the pattern matching on @(Def _ [])@.
     El (Type (Max [])) (Def _ []) → return ty
 
     -- The variable's type is a proof,
     --
-    -- e.g. the variable is 'Nn : N n' where D : Set, n : D and N :
-    -- D → Set.
+    -- e.g. the variable is @Nn : N n@ where @D : Set@, @n : D@ and @N
+    -- : D → Set@.
     --
     -- In this case, we drop the reference to this
     -- variable.
 
-    -- N.B. the pattern matching on (Def _ _).
+    -- N.B. the pattern matching on @(Def _ _)@.
 
     El (Type (Max [])) (Def _ _) → dropVar ty x
 
-    -- The variable's type is a function type, i.e. Pi _ (NoAbs _ _ )
+    -- The variable's type is a function type, i.e. @Pi _ (NoAbs _ _ )@
     --
-    -- e.g. the variable is f : D → D, where D : Set.
+    -- e.g. the variable is @f : D → D@, where @D : Set@.
 
     -- -- In the class TypesOfVar we associated to the variables bounded
     -- -- in Lam terms the type DontCare.
@@ -525,7 +525,7 @@ dropProofTerm ty (x, typeVar) = do
 
     -- The variable's type is a function type,
     --
-    -- e.g. the variable is f : D → D → D, where D : Set.
+    -- e.g. the variable is @f : D → D → D@, where @D : Set@.
 
     -- Because the variable is not a proof term we don't do anything.
     El (Type (Max []))
@@ -541,9 +541,9 @@ dropProofTerm ty (x, typeVar) = do
                    ++ showLn someTerm
                    ++ "but we do not know how to do it"
 
-    -- The variable's type is Set₁,
+    -- The variable's type is @Set₁@,
     --
-    -- e.g. the variable is P : Set.
+    -- e.g. the variable is @P : Set@.
     --
     -- Because the variable is not a proof term we don't do anything.
     El (Type (Max [ClosedLevel 1])) (Sort _) → return ty
@@ -551,9 +551,9 @@ dropProofTerm ty (x, typeVar) = do
     -- N.B. The next case is just a generalization to various
     -- arguments of the previous case.
 
-    -- The variable's type is Set₁,
+    -- The variable's type is @Set₁@,
     --
-    -- e.g. the variable is P : D → Set.
+    -- e.g. the variable is @P : D → Set@.
     --
     -- Because the variable is not a proof term we don't do anything.
     El (Type (Max [ClosedLevel 1])) (Pi _ (NoAbs _ _)) → return ty

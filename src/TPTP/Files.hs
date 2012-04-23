@@ -107,7 +107,7 @@ instance AsciiName Char where
     | isDigit c || isAsciiUpper c || isAsciiLower c = [c]
     | otherwise = show $ ord c
 
--- Requires TypeSynonymInstances.
+-- Requires @TypeSynonymInstances@.
 instance AsciiName String where
   asciiName = concatMap asciiName
 

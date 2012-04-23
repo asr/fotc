@@ -180,7 +180,7 @@ localHintsToAFs def = do
 
   mapM localHintToAF hints
 
--- If a QName is an ATP definition then we required it.
+-- If a 'QName' is an ATP definition then we required it.
 requiredQName ∷ QName → T [AF]
 requiredQName qName = do
   qNameDef ← qNameDefinition qName
@@ -197,7 +197,7 @@ requiredQName qName = do
 -- definitions used in its definition.
 requiredATPDefsByATPDefinition ∷ Definition → T [AF]
 requiredATPDefsByATPDefinition def = do
-  -- We get all the QNames in the definition's clauses.
+  -- We get all the 'QName's in the definition's clauses.
   let cls ∷ [Clause]
       cls = getClauses def
 
@@ -246,7 +246,7 @@ axiomsToAFs = do
 
 requiredATPDefsByDefinition ∷ Definition → T [AF]
 requiredATPDefsByDefinition def = do
-  -- We get all the QNames in the definition.
+  -- We get all the @QNames@ in the definition.
   let qNamesInDef ∷ [QName]
       qNamesInDef = qNamesIn def
 

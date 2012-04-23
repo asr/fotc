@@ -120,7 +120,7 @@ qName2String qName@(QName _ name) = do
   def ← qNameDefinition qName
 
   -- Because the ATP pragma definitions are global, we need an unique
-  -- name. In this case, we append to the qName the qName id.
+  -- name. In this case, we append to the @qName@ the @qName@ id.
   if isATPDefinition def
     then do
       let qNameId ∷ NameId
@@ -155,9 +155,9 @@ binConst op arg1 arg2 =
 
 -- We translate n-ary predicates. For example, the predicate
 --
--- P : D → D → D → Set
+-- @P : D → D → D → Set@
 --
--- is translated to kAppP3(p,x,y,z), where kAppP3 is a hard-coded 4-ary
+-- is translated to @kAppP3(p,x,y,z)@, where @kAppP3@ is a hard-coded 4-ary
 -- predicate symbol.
 predicate ∷ QName → Args → T FOLFormula
 predicate qName args = do
@@ -175,7 +175,7 @@ predicateLogicalScheme vars n args = do
     0 → __IMPOSSIBLE__
     _ → fmap (appP (FOLVar var)) (mapM argTermToFOLTerm args)
 
--- | Translate an Agda internal Term to a FOL formula.
+-- | Translate an Agda internal 'Term' to a FOL formula.
 termToFormula ∷ Term → T FOLFormula
 termToFormula term@(Def qName@(QName _ name) args) = do
   reportSLn "t2f" 10 $ "termToFormula Def:\n" ++ show term
@@ -195,7 +195,9 @@ termToFormula term@(Def qName@(QName _ name) args) = do
           | isCNameFOLConst folFalse → return FALSE
 
           | otherwise → do
-            -- In this guard we translate 0-ary predicates (e.g. P : D → Set).
+            -- In this guard we translate 0-ary predicates
+            --
+            -- e.g. @P : D → Set@.
 
             -- N.B. At the moment we *dont'* use the Koen's approach in this
             -- case.
@@ -237,20 +239,20 @@ termToFormula term@(Def qName@(QName _ name) args) = do
        where
        isCNameFOLConst ∷ String → Bool
        isCNameFOLConst constFOL =
-         -- The equality on the data type C.Name is defined to ignore
-         -- ranges, so we use noRange.
+         -- The equality on the data type @C.Name@ is defined to ignore
+         -- ranges, so we use @noRange@.
          cName == C.Name noRange [C.Id constFOL]
 
        isCNameFOLConstHoleRight ∷ String → Bool
        isCNameFOLConstHoleRight constFOL =
-         -- The operators are represented by a list with Hole's.  See
-         -- the documentation for C.Name.
+         -- The operators are represented by a list with @Hole@'s.  See
+         -- the documentation for @C.Name@.
          cName == C.Name noRange [C.Id constFOL, C.Hole]
 
        isCNameFOLConstTwoHoles ∷ String → Bool
        isCNameFOLConstTwoHoles constFOL =
-         -- The operators are represented by a list with Hole's.  See
-         -- the documentation for C.Name.
+         -- The operators are represented by a list with @Hole@'s.  See
+         -- the documentation for @C.Name@.
          cName == C.Name noRange [C.Hole, C.Id constFOL, C.Hole]
 
 termToFormula term@(Lam _ (Abs _ termLam)) = do
@@ -288,14 +290,14 @@ termToFormula term@(Pi domTy (Abs _ tyAbs)) = do
     "The formula f2 is: " ++ show f2
 
   case unDom domTy of
-    -- The bounded variable is quantified on a Set,
+    -- The bounded variable is quantified on a @Set@,
     --
-    -- e.g. the bounded variable is 'd : D' where D : Set,
+    -- e.g. the bounded variable is @d : D@ where @D : Set@,
     --
     -- so we can create a fresh variable and quantify on it without
     -- any problem.
     --
-    -- N.B. the pattern matching on (Def _ []).
+    -- N.B. the pattern matching on @(Def _ [])@.
     El (Type (Max [])) (Def _ []) → do
       reportSLn "t2f" 20 $
         "Adding universal quantification on variable: " ++ freshVar
@@ -306,13 +308,13 @@ termToFormula term@(Pi domTy (Abs _ tyAbs)) = do
     -- impossible.
     El (Type (Max [])) (Def _ _) → __IMPOSSIBLE__
 
-    -- The bounded variable is quantified on a function of a Set
-    -- to a Set,
+    -- The bounded variable is quantified on a function of a @Set@ to
+    -- a @Set@,
     --
-    -- e.g. the bounded variable is f : D → D, where D : Set.
+    -- e.g. the bounded variable is @f : D → D@, where @D : Set@.
     --
     -- In this case we handle the bounded variable/function as a FOL
-    -- variable (see termToFOLTerm term@(Var n args)), and we
+    -- variable (see @termToFOLTerm term@(Var n args)@), and we
     -- quantified on this variable.
     El (Type (Max []))
        (Pi (Dom _ _ (El (Type (Max [])) (Def _ [])))
@@ -325,13 +327,13 @@ termToFormula term@(Pi domTy (Abs _ tyAbs)) = do
     -- N.B. The next case is just a generalization to various
     -- arguments of the previous case.
 
-    -- The bounded variable is quantified on a function of a Set
-    -- to a Set,
+    -- The bounded variable is quantified on a function of a @Set@ to
+    -- a @Set@,
     --
-    -- e.g. the bounded variable is f : D → D → D, where D : Set.
+    -- e.g. the bounded variable is @f : D → D → D@, where @D : Set@.
     --
     -- In this case we handle the bounded variable/function as a FOL
-    -- variable (see termToFOLTerm term@(Var n args)), and we
+    -- variable (see @termToFOLTerm term@(Var n args)@), and we
     -- quantified on this variable.
     El (Type (Max []))
        (Pi (Dom _ _ (El (Type (Max [])) (Def _ [])))
@@ -345,21 +347,21 @@ termToFormula term@(Pi domTy (Abs _ tyAbs)) = do
       reportSLn "t2f" 20 $ "The term someterm is: " ++ show someTerm
       __IMPOSSIBLE__
 
-    -- The bounded variable is quantified on a Set₁,
+    -- The bounded variable is quantified on a @Set₁@,
     --
-    -- e.g. the bounded variable is 'P : Set',
+    -- e.g. the bounded variable is @P : Set@,
     --
     -- so we just return the consequent. We use this case for translate
     -- predicate logic schemas, e.g.
     --
-    -- ∨-comm  : {P Q : Set} → P ∨ Q → Q ∨ P.
+    -- @∨-comm  : {P Q : Set} → P ∨ Q → Q ∨ P@.
     El (Type (Max [ClosedLevel 1])) (Sort _) → do
       reportSLn "t2f" 20 $ "The type domTy is: " ++ show domTy
       return f2
 
-    -- The bounded variable is quantified on a Set₁,
+    -- The bounded variable is quantified on a @Set₁@,
     --
-    -- e.g. the bounded variable is 'P : D → Set'.
+    -- e.g. the bounded variable is @P : D → Set@.
     --
     -- In this case we return a forall bind on the fresh variable. We
     -- use this case for translate predicate logic schemas, e.g.
@@ -398,16 +400,17 @@ termToFormula term@(Var n args) = do
         [] → return $ Predicate (vars !! fromIntegral n) []
 
         -- If we have a bounded variable quantified on a function of a
-        -- Set to a Set₁, for example, the variable/predicate P in
+        -- @Set@ to a @Set₁@, for example, the variable/predicate @P@ in
         --
-        -- (P : D → Set) → (x : D) → P x → P x
+        -- @(P : D → Set) → (x : D) → P x → P x@
         --
         -- we are quantifying on this variable/function
 
-        -- (see termToFormula term@(Pi domTy (Abs _ tyAbs))),
+        -- (see @termToFormula term@(Pi domTy (Abs _ tyAbs)@)),
 
         -- therefore we need to apply this variable/predicate to the
-        -- others variables, see Test.Succeed.AgdaInternalTerms.Var.
+        -- others variables. See an example in
+        -- Test.Succeed.AgdaInternalTerms.Var1.agda.
 
         _ → predicateLogicalScheme vars n args
 
@@ -419,14 +422,15 @@ termToFormula (Lit _)             = __IMPOSSIBLE__
 termToFormula (MetaV _ _)         = __IMPOSSIBLE__
 termToFormula (Sort _)            = __IMPOSSIBLE__
 
--- Translate the function 'foo x1 ... xn' to
--- 'kAppFn (... kAppFn(kAppFn(foo, x1), x2), ..., xn)'.
+-- Translate the function @foo x1 ... xn@ to
+--
+-- @kAppFn (... kAppFn(kAppFn(foo, x1), x2), ..., xn)@.
 appArgsFn ∷ String → Args → T FOLTerm
 appArgsFn fn args = do
   termsFOL ← mapM argTermToFOLTerm args
   return $ foldl' appFn (FOLFun fn []) termsFOL
 
--- | Translate an Agda internal Term to an FOL term.
+-- | Translate an Agda internal 'Term' to an FOL term.
 termToFOLTerm ∷ Term → T FOLTerm
 
 termToFOLTerm term@(Con (QName _ name) args) = do
@@ -440,14 +444,14 @@ termToFOLTerm term@(Con (QName _ name) args) = do
 
     C.Name _ [] → __IMPOSSIBLE__
 
-    -- The term Con doesn't have holes. It should be translated as a
+    -- The term @Con@ doesn't have holes. It should be translated as a
     -- FOL function.
     C.Name _ [C.Id str] →
      case args of
        [] → return $ FOLFun str []
        _  → appArgsFn str args
 
-    -- The term Con has holes. It is translated as a FOL function.
+    -- The term @Con@ has holes. It is translated as a FOL function.
     C.Name _ _ → __IMPOSSIBLE__
     -- 2012-04-22: We do not have an example of it.
     -- C.Name _ parts →
@@ -466,13 +470,13 @@ termToFOLTerm term@(Def (QName _ name) args) = do
 
     C.Name _ [] → __IMPOSSIBLE__
 
-    -- The term Def doesn't have holes. It is translated as a FOL function.
+    -- The term @Def@ doesn't have holes. It is translated as a FOL function.
     C.Name _ [C.Id str] →
      case args of
        [] → return $ FOLFun str []
        _  → appArgsFn str args
 
-    -- The term Def has holes. It is translated as a FOL function.
+    -- The term @Def@ has holes. It is translated as a FOL function.
     C.Name _ parts →
       case args of
         [] → __IMPOSSIBLE__
@@ -490,16 +494,17 @@ termToFOLTerm term@(Var n args) = do
         [] → return $ FOLVar (vars !! fromIntegral n)
 
         -- If we have a bounded variable quantified on a function of a
-        -- Set to a Set, for example, the variable/function 'f' in
+        -- Set to a Set, for example, the variable/function @f@ in
         --
-        -- (f : D → D) → (a : D) → (lam f) ∙ a ≡ f a
+        -- @(f : D → D) → (a : D) → (lam f) ∙ a ≡ f a@
         --
         -- we are quantifying on this variable
 
-        -- (see termToFormula term@(Pi domTy (Abs _ tyAbs))),
+        -- (see termToFormula @term@(Pi domTy (Abs _ tyAbs))@),
 
         -- therefore we need to apply this variable/function to the
-        -- others variables.
+        -- others variables. See an example in
+        -- Test.Succeed.AgdaInternalTerms.Var2.agda
 
         varArgs → do
           termsFOL ← mapM argTermToFOLTerm varArgs

@@ -129,7 +129,7 @@ atpVersion atp = do
 checkOutput ∷ ATP → String → Bool
 checkOutput atp output = atpOk atp `isInfixOf` output
 
--- Equinox bug? The option --no-progress don't make any difference.
+-- Equinox bug? The option @--no-progress@ don't make any difference.
 atpArgs ∷ ATP → Int → FilePath → [String]
 atpArgs E timeLimit file = [ "--cpu-limit=" ++ show timeLimit
                            , "-m" ++ "Auto"
@@ -140,7 +140,7 @@ atpArgs E timeLimit file = [ "--cpu-limit=" ++ show timeLimit
                            , file
                            ]
 
--- Equinox bug? The option --no-progress don't make any difference.
+-- Equinox bug? The option @--no-progress@ don't make any difference.
 atpArgs Equinox timeLimit file = [ "--no-progress"
                                  , "--time", show timeLimit
                                  , file
@@ -211,19 +211,19 @@ atpsAnswer outputMVar atpsPH file n = do
         then do
           reportS "" 1 $ atpWithVersion ++ " proved the conjecture in " ++ file
           liftIO $ do
-            -- It seems that terminateProcess is a nop if the process
+            -- It seems that @terminateProcess@ is a nop if the process
             -- is finished, therefore we don't care on terminate all
             -- the ATPs processes.
             mapM_ terminateProcess atpsPH
 
             -- TODO: Ugly hack. Using the thread delay and repeating
-            -- the terminateProcess instruction was the way to kill
+            -- the @terminateProcess@ instruction was the way to kill
             -- the Vampire process.
             --
-            -- 2012-01-13: Using the new field create_group ∷ Bool for
-            -- the datatype CreateProcess in System.Process-1.1.0.0,
+            -- 2012-01-13: Using the new field @create_group ∷ Bool@ for
+            -- the datatype @CreateProcess@ in System.Process-1.1.0.0,
             -- it is possible to use the function
-            -- interruptProcessGroupOf to kill the process, however
+            -- @interruptProcessGroupOf@ to kill the process, however
             -- some ATPs continued running after using this
             -- function. See
             -- http://thread.gmane.org/gmane.comp.lang.haskell.cafe/95473/.

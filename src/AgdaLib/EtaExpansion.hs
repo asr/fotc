@@ -112,11 +112,11 @@ instance EtaExpandible Term where
     -- The eta-contraction *only* reduces by 1 the number of arguments
     -- of a term, for example:
 
-    -- Given P : D → Set,
-    -- λ x → P x eta-contracts to P or
+    -- Given @P : D → Set@,
+    -- @λ x → P x@ eta-contracts to @P@ or
 
-    -- Given _≡_ : D → D → Set,
-    -- (x : D) → (λ y → x ≡ y) eta-contracts to (x : D) → _≡_ x
+    -- Given @_≡_ : D → D → Set@,
+    -- @(x : D) → (λ y → x ≡ y)@ eta-contracts to @(x : D) → _≡_ x@
 
     -- therefore we only applied the eta-expansion in this case.
 
@@ -145,7 +145,7 @@ instance EtaExpandible Term where
                  ++ "length args: " ++ show (length args)
                __IMPOSSIBLE__
 
-  -- We don't know an example of eta-contraction with Con, therefore
+  -- We don't know an example of eta-contraction with @Con@, therefore
   -- we don't do anything.
   etaExpand term@(Con _ _) = return term
 
@@ -155,8 +155,8 @@ instance EtaExpandible Term where
      tArg ← etaExpand tyArg
      tAbs ← etaExpand tyAbs
      return $ Pi tArg (NoAbs x tAbs)
-  -- It seems it is not necessary to eta-expand the tyArg like in the
-  -- case of Pi _ (NoAbs _ _).
+  -- It seems it is not necessary to eta-expand the @tyArg@ like in the
+  -- case of @Pi _ (NoAbs _ _)@.
   etaExpand (Pi tyArg (Abs x tyAbs)) = Pi tyArg . Abs x <$> etaExpand tyAbs
 
   etaExpand (Var n args) = Var n <$> mapM etaExpand args

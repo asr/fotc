@@ -161,7 +161,7 @@ getATPDefinitions = getATPRole ATPDefinition
 getATPHints ∷ Definitions → Definitions
 getATPHints = getATPRole ATPHint
 
--- Invariant: The Definition must correspond to an ATP conjecture.
+-- Invariant: The @Definition@ must correspond to an ATP conjecture.
 getLocalHints ∷ Definition → [QName]
 getLocalHints def =
   let defn ∷ Defn
@@ -180,10 +180,10 @@ agdaPragmaOptions = let agdaOptVerbose ∷ Verbosity
                         agdaOptVerbose = Trie.singleton [] 0
                     in defaultPragmaOptions { optVerbose = agdaOptVerbose }
 
--- An empty list of relative include directories (Left []) is
--- interpreted as ["."] (from
+-- An empty list of relative include directories @(Left [])@ is
+-- interpreted as @["."]@ (from
 -- Agda.TypeChecking.Monad.Options). Therefore the default of
--- Options.optAgdaIncludePath is [].
+-- Options.optAgdaIncludePath is @[]@.
 agdaCommandLineOptions ∷ T CommandLineOptions
 agdaCommandLineOptions = do
   opts ← getTOpts
@@ -297,7 +297,7 @@ qNameDefinition qName = do
 qNameType ∷ QName → T Type
 qNameType qName = fmap defType $ qNameDefinition qName
 
--- The line where a QNname is defined.
+-- The line where a 'QNname' is defined.
 qNameLine ∷ QName → Int32
 qNameLine qName =
   case rangeToInterval $ nameBindingSite $ qnameName qName of
@@ -357,7 +357,7 @@ instance QNamesIn Definition where
   qNamesIn def = qNamesIn $ defType def
 
 -- Adapted from Agda.TypeChecking.Monad.Signature.isProjection.
--- | Is it the qname a projection?
+-- | Is it the 'Qname' a projection?
 isProjection ∷ QName → T (Maybe (QName, Int))
 isProjection qname = do
   defn ← theDef <$> qNameDefinition qname

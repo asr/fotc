@@ -54,7 +54,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 chars ∷ String
 chars = ['a'..'z']
 
--- The set of free names for variables (a, b, ..., aa, ab, ...).
+-- The set of free names for variables @(a, b, ..., aa, ab, ...)@.
 freeNames ∷ [String]
 freeNames = map (:[]) chars ++ [ s ++ [c] | s ← freeNames, c ← chars ]
 
