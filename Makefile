@@ -35,9 +35,11 @@ snapshot_files_to_test = $(patsubst %.agda,%.snapshottest, \
 	@$(AGDA) $<
 
 %.succeed : %.agdai
+	echo "Processing file $*.agda"
 	@$(AGDA2ATP) --time=60 $*.agda
 
 %.fail : %.agdai
+	echo "Processing file $*.agda"
 	@if ( $(AGDA2ATP) --time=5 $*.agda ); then exit 1; fi
 
 # Equinox has the better parser for TPTP files, so we use it to find problems.
