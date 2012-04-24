@@ -368,18 +368,18 @@ Sxy₁<0y₂→⊥ Smn₁<0n₂ =
 
 -- TODO: 2012-04-17. Is it possible to eliminate the FOTC types?
 x₁y<x₂0→x₁<x₂ : ∀ {m₁ n} → N n → ∀ {m₂} → LT₂ m₁ n m₂ zero → LT m₁ m₂
-x₁y<x₂0→x₁<x₂ Nn m₁n<m₂zero =
+x₁y<x₂0→x₁<x₂ Nn m₁n<m₂0 =
   [ (λ m₁<n₁     → m₁<n₁)
   , (λ m₁≡n₁∧n<0 → ⊥-elim $ x<0→⊥ Nn (∧-proj₂ m₁≡n₁∧n<0))
   ]
-  m₁n<m₂zero
+  m₁n<m₂0
 
 -- TODO: 2012-04-17. Is it possible to eliminate the FOTC types?
 xy₁<0y₂→x≡0∧y₁<y₂ : ∀ {m} → N m → ∀ {n₁ n₂} → LT₂ m n₁ zero n₂ →
                     m ≡ zero ∧ LT n₁ n₂
 xy₁<0y₂→x≡0∧y₁<y₂ Nm mn₁<0n₂ =
-  [ (λ m<0          → ⊥-elim $ x<0→⊥ Nm m<0)
-  , (λ m≡zero∧n₁<n₂ → m≡zero∧n₁<n₂)
+  [ (λ m<0       → ⊥-elim $ x<0→⊥ Nm m<0)
+  , (λ m≡0∧n₁<n₂ → m≡0∧n₁<n₂)
   ]
   mn₁<0n₂
 
