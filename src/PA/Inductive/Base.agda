@@ -17,10 +17,10 @@ open import PA.Inductive.Base.Core public
 
 -- FOL (without equality)
 --
--- 2012-03-13. Agda bug? We only need to hide the existential quantifier
--- from FOL, but it was not possible.
-open import Common.FOL.FOL public using ( ⊥ ; ¬_ )
--- open import PA.Inductive.Existential public
+open import Common.FOL.FOL public hiding ( _,_ ; ∃ )
+-- 2012-04-24. Agda bug? Why it is necessary to use the modifier
+-- @using@ in the following importation?
+open import PA.Inductive.Existential public using ( _,_ ; ∃ )
 
 -- The induction principle on the PA universe
 PA-ind : (A : M → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n

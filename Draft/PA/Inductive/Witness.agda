@@ -1,11 +1,9 @@
--- Tested with FOT on 23 April 2012.
+-- Tested with FOT on 24 April 2012.
 
 module Draft.PA.Inductive.Witness where
 
 -- We cannot extract an existential witness from a non-constructive
 -- proof.
-
-open import Common.FOL.FOL using ( ⊥-elim ; _∨_ ; [_,_] )
 
 open import PA.Inductive.Base
 open import PA.Inductive.Properties
@@ -15,16 +13,7 @@ open import PA.Inductive.Properties
 postulate pem : ∀ {A} → A ∨ ¬ A
 
 ------------------------------------------------------------------------------
--- The existential quantifier type on M
-
--- We add 3 to the fixities of the standard library.
-infixr 7 _,_
-
-data ∃ (A : M → Set) : Set where
-  _,_ : (x : M) → A x → ∃ A
-
--- Sugar syntax for the existential quantifier.
-syntax ∃ (λ x → e) = ∃[ x ] e
+-- The existential projections
 
 ∃-proj₁ : ∀ {A} → ∃ A → M
 ∃-proj₁ (x , _) = x
