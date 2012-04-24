@@ -31,7 +31,7 @@ postulate +-rightCong : ∀ {m n o} → n ≡ o → m + n ≡ m + o
   {-# ATP definition A #-}
 
   A0 : A zero
-  A0 = A₃ zero
+  A0 = PA₃ zero
 
   postulate is : ∀ i → A i → A (succ i)
   {-# ATP prove is #-}

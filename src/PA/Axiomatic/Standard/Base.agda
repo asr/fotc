@@ -28,29 +28,31 @@ postulate
 -- Proper axioms
 -- From [Machover, 1996, p. 263] and [Hájek and Pudlák, 1998, p. 28]:
 --
--- * Moshé Machover. Set theory, logic and their
+-- References:
+--
+-- • Moshé Machover. Set theory, logic and their
 --   limitations. Cambridge University Press, 1996.
 --
--- * Petr Hájek and Pavel Pudlák. Metamathematics of First-Order
+-- • Petr Hájek and Pavel Pudlák. Metamathematics of First-Order
 --   Arithmetic. Springer, 1998. 2nd printing.
 
--- A₁. 0 ≠ n'
--- A₂. m' = n' → m = n
--- A₃. 0 + n = n
--- A₄. m' + n = (m + n)'
--- A₅. 0 * n = 0
--- A₆. m' * n = n + (m * n)
+-- PA₁. 0 ≠ n'
+-- PA₂. m' = n' → m = n
+-- PA₃. 0 + n = n
+-- PA₄. m' + n = (m + n)'
+-- PA₅. 0 * n = 0
+-- PA₆. m' * n = n + (m * n)
 -- Axiom of induction:
 -- φ(0) → (∀n.φ(n) → φ(succ n)) → ∀n.φ(n), for any formulae φ
 
 postulate
-  A₁ : ∀ {n} → ¬ (zero ≡ succ n)
-  A₂ : ∀ {m n} → succ m ≡ succ n → m ≡ n
-  A₃ : ∀ n → zero + n ≡ n
-  A₄ : ∀ m n → succ m + n ≡ succ (m + n)
-  A₅ : ∀ n → zero * n ≡ zero
-  A₆ : ∀ m n → succ m * n ≡ n + m * n
-{-# ATP axiom A₁ A₂ A₃ A₄ A₅ A₆ #-}
+  PA₁ : ∀ {n} → ¬ (zero ≡ succ n)
+  PA₂ : ∀ {m n} → succ m ≡ succ n → m ≡ n
+  PA₃ : ∀ n → zero + n ≡ n
+  PA₄ : ∀ m n → succ m + n ≡ succ (m + n)
+  PA₅ : ∀ n → zero * n ≡ zero
+  PA₆ : ∀ m n → succ m * n ≡ n + m * n
+{-# ATP axiom PA₁ PA₂ PA₃ PA₄ PA₅ PA₆ #-}
 
 -- The axiom of induction is an axiom schema, therefore we do not
 -- translate it to TPTP.

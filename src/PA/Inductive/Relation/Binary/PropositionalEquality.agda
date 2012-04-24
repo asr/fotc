@@ -17,8 +17,8 @@ infix 7 _≡_
 
 ------------------------------------------------------------------------------
 -- The identity type on PA
-data _≡_ (n : M) : M → Set where
-  refl : n ≡ n
+data _≡_ (m : M) : M → Set where
+  refl : m ≡ m
 
 -- Identity properties
 

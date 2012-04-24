@@ -11,20 +11,22 @@
 -- the following axioms (see [Machover, 1996, p. 263], [Hájek and
 -- Pudlák, 1998, p. 28]):
 
--- A₁. 0 ≠ n'
--- A₂. m' = n' → m = n
--- A₃. 0 + n = n
--- A₄. m' + n = (m + n)'
--- A₅. 0 * n = 0
--- A₆. m' * n = n + (m * n)
+-- PA₁. 0 ≠ n'
+-- PA₂. m' = n' → m = n
+-- PA₃. 0 + n = n
+-- PA₄. m' + n = (m + n)'
+-- PA₅. 0 * n = 0
+-- PA₆. m' * n = n + (m * n)
 -- Axiom of induction:
 -- φ(0) → (∀n.φ(n) → φ(succ n)) → ∀n.φ(n), for any formulae φ
 
--- [1] Moshé Machover. Set theory, logic and their
--- limitations. Cambridge University Press, 1996.
+-- References:
+--
+-- • Moshé Machover. Set theory, logic and their
+--   limitations. Cambridge University Press, 1996.
 
--- [2] Petr Hájek and Pavel Pudlák. Metamathematics of First-Order
---     Arithmetic. Springer, 1998. 2nd printing.
+-- • Petr Hájek and Pavel Pudlák. Metamathematics of First-Order
+--   Arithmetic. Springer, 1998. 2nd printing.
 
 module PA.Inductive2Standard where
 
@@ -32,20 +34,20 @@ open import PA.Inductive.Base
 
 ------------------------------------------------------------------------------
 
-A₁ : ∀ {n} → ¬ (zero ≡ succ n)
-A₁ ()
+PA₁ : ∀ {n} → ¬ (zero ≡ succ n)
+PA₁ ()
 
-A₂ : ∀ {m n} → succ m ≡ succ n → m ≡ n
-A₂ refl = refl
+PA₂ : ∀ {m n} → succ m ≡ succ n → m ≡ n
+PA₂ refl = refl
 
-A₃ : ∀ n → zero + n ≡ n
-A₃ n = refl
+PA₃ : ∀ n → zero + n ≡ n
+PA₃ n = refl
 
-A₄ : ∀ m n → succ m + n ≡ succ (m + n)
-A₄ m n = refl
+PA₄ : ∀ m n → succ m + n ≡ succ (m + n)
+PA₄ m n = refl
 
-A₅ : ∀ n → zero * n ≡ zero
-A₅ n = refl
+PA₅ : ∀ n → zero * n ≡ zero
+PA₅ n = refl
 
-A₆ : ∀ m n → succ m * n ≡ n + m * n
-A₆ m n = refl
+PA₆ : ∀ m n → succ m * n ≡ n + m * n
+PA₆ m n = refl

@@ -32,10 +32,10 @@ succ-cong = cong succ
   A i = i + zero ≡ i
 
   A0 : A zero
-  A0 = A₃ zero
+  A0 = PA₃ zero
 
   is : ∀ i → A i → A (succ i)
-  is i ih = succ i + zero   ≡⟨ A₄ i zero ⟩
+  is i ih = succ i + zero   ≡⟨ PA₄ i zero ⟩
             succ (i + zero) ≡⟨ succ-cong ih ⟩
             succ i ∎
 
@@ -46,15 +46,15 @@ succ-cong = cong succ
   A i = i + n + o ≡ i + (n + o)
 
   A0 : A zero
-  A0 = zero + n + o  ≡⟨ +-leftCong (A₃ n) ⟩
-       n + o         ≡⟨ sym (A₃ (n + o)) ⟩
+  A0 = zero + n + o  ≡⟨ +-leftCong (PA₃ n) ⟩
+       n + o         ≡⟨ sym (PA₃ (n + o)) ⟩
        zero + (n + o) ∎
 
   is : ∀ i → A i → A (succ i)
-  is i ih = succ i + n + o     ≡⟨ +-leftCong (A₄ i n) ⟩
-            succ (i + n) + o   ≡⟨ A₄ (i + n) o ⟩
+  is i ih = succ i + n + o     ≡⟨ +-leftCong (PA₄ i n) ⟩
+            succ (i + n) + o   ≡⟨ PA₄ (i + n) o ⟩
             succ (i + n + o)   ≡⟨ succ-cong ih ⟩
-            succ (i + (n + o)) ≡⟨ sym (A₄ i (n + o)) ⟩
+            succ (i + (n + o)) ≡⟨ sym (PA₄ i (n + o)) ⟩
             succ i + (n + o) ∎
 
 x+Sy≡S[x+y] : ∀ m n → m + succ n ≡ succ (m + n)
@@ -64,14 +64,14 @@ x+Sy≡S[x+y] m n = PA-ind A A0 is m
   A i = i + succ n ≡ succ (i + n)
 
   A0 : A zero
-  A0 = zero + succ n   ≡⟨ A₃ (succ n) ⟩
-       succ n          ≡⟨ succ-cong (sym (A₃ n)) ⟩
+  A0 = zero + succ n   ≡⟨ PA₃ (succ n) ⟩
+       succ n          ≡⟨ succ-cong (sym (PA₃ n)) ⟩
        succ (zero + n) ∎
 
   is : ∀ i → A i → A (succ i)
-  is i ih = succ i + succ n     ≡⟨ A₄ i (succ n) ⟩
+  is i ih = succ i + succ n     ≡⟨ PA₄ i (succ n) ⟩
             succ (i + succ n)   ≡⟨ succ-cong ih ⟩
-            succ (succ (i + n)) ≡⟨ succ-cong (sym (A₄ i n)) ⟩
+            succ (succ (i + n)) ≡⟨ succ-cong (sym (PA₄ i n)) ⟩
             succ (succ i + n) ∎
 
 +-comm : ∀ m n → m + n ≡ n + m
@@ -81,12 +81,12 @@ x+Sy≡S[x+y] m n = PA-ind A A0 is m
   A i = i + n ≡ n + i
 
   A0 : A zero
-  A0 = zero + n   ≡⟨ A₃ n ⟩
+  A0 = zero + n   ≡⟨ PA₃ n ⟩
        n          ≡⟨ sym (+-rightIdentity n) ⟩
        n + zero ∎
 
   is : ∀ i → A i → A (succ i)
-  is i ih = succ i + n   ≡⟨ A₄ i n ⟩
+  is i ih = succ i + n   ≡⟨ PA₄ i n ⟩
             succ (i + n) ≡⟨ succ-cong ih ⟩
             succ (n + i) ≡⟨ sym (x+Sy≡S[x+y] n i) ⟩
             n + succ i ∎
