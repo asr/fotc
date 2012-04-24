@@ -1,16 +1,11 @@
 -- Tested with FOT on 24 April 2012.
 
-module Draft.PA.Inductive.Witness where
+module Draft.PA.Inductive.CanonicalTerm where
 
--- We cannot extract an existential witness from a non-constructive
--- proof.
+-- We cannot extract a canonical term from a non-intuitionistic proof.
 
 open import PA.Inductive.Base
 open import PA.Inductive.Properties
-
-------------------------------------------------------------------------------
--- The principle of the excluded middle.
-postulate pem : ∀ {A} → A ∨ ¬ A
 
 ------------------------------------------------------------------------------
 -- The existential projections
@@ -24,6 +19,9 @@ postulate pem : ∀ {A} → A ∨ ¬ A
 ------------------------------------------------------------------------------
 -- Non-intuitionistic logic theorems
 
+-- The principle of the excluded middle.
+postulate pem : ∀ {A} → A ∨ ¬ A
+
 -- The principle of indirect proof (proof by contradiction).
 ¬-elim : ∀ {A} → (¬ A → ⊥) → A
 ¬-elim h = [ (λ a → a) , (λ ¬a → ⊥-elim (h ¬a)) ] pem
@@ -34,25 +32,25 @@ postulate pem : ∀ {A} → A ∨ ¬ A
 
 ------------------------------------------------------------------------------
 
--- Constructive proof.
+-- Intuitionistic proof.
 proof₁ : ∃[ x ] ¬ (x ≡ succ x)
 proof₁ = succ zero , x≢Sx
 
--- Non-constructive proof.
+-- Non-intuitionistic proof.
 proof₂ : ∃[ x ] ¬ (x ≡ succ x)
 proof₂ = ¬-elim (λ h → x≢Sx {succ zero} (¬∃¬→∀ h))
 
--- We can extract an existential witness from a constructive proof.
-witness₁ : ∃-proj₁ proof₁ ≡ succ zero
-witness₁ = refl
+-- We can extract a canonical term from an intuitionistic proof.
+canonicalTerm₁ : ∃-proj₁ proof₁ ≡ succ zero
+canonicalTerm₁ = refl
 
--- We cannot extract an existential witness from a non-constructive
--- proof.
--- witness₂ : ∃-proj₁ proof₂ ≡ succ zero
--- witness₂ = {!refl!}
+-- We cannot extract a canonical term from a non-intuitionistic proof.
+-- canonicalTerm₂ : ∃-proj₁ proof₂ ≡ succ zero
+-- canonicalTerm₂ = {!refl!}
 
 -- Agda error:
 --
--- ∃-proj₁ (¬-elim (λ h → x≢Sx (¬∃¬→∀ h))) != succ zero of type M
+-- ∃-proj₁ ([ (λ a → a) , (λ ¬a → ⊥-elim (x≢Sx (¬∃¬→∀ ¬a))) ] pem) !=
+-- succ zero of type M
 -- when checking that the expression refl has type
 -- ∃-proj₁ proof₂ ≡ succ zero
