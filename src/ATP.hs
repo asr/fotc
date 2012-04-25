@@ -27,7 +27,7 @@ import Control.Concurrent.MVar ( MVar, newEmptyMVar, putMVar, takeMVar )
 #if __GLASGOW_HASKELL__ == 612
 import Control.Monad ( Monad(fail) )
 #endif
-import Control.Monad ( mapM, mapM_, Monad((>>), (>>=), return), void, when )
+import Control.Monad ( mapM, mapM_, Monad((>>), (>>=), return), when )
 
 import Control.Monad.Error     ( MonadError(throwError) )
 import Control.Monad.Trans     ( MonadIO(liftIO) )
@@ -187,9 +187,9 @@ runATP atp outputMVar timeLimit file = do
     createProcess (proc exec args) { std_out = CreatePipe }
 
   output ← liftIO $ hGetContents $ fromMaybe (__IMPOSSIBLE__) outputH
-  void $ liftIO $ forkIO $
-         evaluate (length output) >>
-         putMVar outputMVar (checkOutput atp output, atp)
+  _      ← liftIO $ forkIO $
+             evaluate (length output) >>
+             putMVar outputMVar (checkOutput atp output, atp)
 
   return atpPH
 

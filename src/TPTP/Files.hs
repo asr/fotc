@@ -24,7 +24,7 @@ module TPTP.Files ( createConjectureFile ) where
 #if __GLASGOW_HASKELL__ == 612
 import Control.Monad ( Monad((>>), (>>=), fail) )
 #endif
-import Control.Monad ( mapM_, Monad(return), unless, void )
+import Control.Monad ( mapM_, Monad(return), unless )
 
 import Control.Monad.Trans  ( MonadIO(liftIO) )
 
@@ -153,9 +153,10 @@ addRoles afs role file str = do
       header = commentLine ++ "% The " ++ str ++ ".\n\n"
       footer = "% End " ++ str ++ ".\n\n"
 
-  void $ appendFile file header
-  void $ mapM_ (\af → addRole af role file) afs
-  void $ appendFile file footer
+  _  ← appendFile file header
+  _  ← mapM_ (\af → addRole af role file) afs
+  _  ← appendFile file footer
+  return ()
 
 -- | The function 'createConjectureFile' creates a TPTP file with a
 -- conjecture.
@@ -194,21 +195,22 @@ createConjectureFile generalRoles conjectureSet = do
 
   liftIO $ do
     conjectureH ← conjectureHeader
-    void $ writeFile file conjectureH
-    void $ addRoles commonDefs ATPDefinition file "common required definitions"
-    void $ addRoles (axioms newGeneralRoles) ATPAxiom file "general axioms"
-    void $ addRoles (axiomsDefs newGeneralRoles) ATPDefinition file
-                    "required ATP definitions by the general axioms"
-    void $ addRoles (hints newGeneralRoles) ATPHint file "general hints"
-    void $ addRoles (hintsDefs newGeneralRoles) ATPDefinition file
-                    "required ATP definitions by the general hints"
-    void $ addRoles (conjectureLocalHints newConjectureSet) ATPHint file "local hints"
-    void $ addRoles (localHintsDefs newConjectureSet) ATPDefinition file
-                    "required ATP definitions by the local hints"
-    void $ addRoles (conjectureDefs newConjectureSet) ATPDefinition file
+    _ ← writeFile file conjectureH
+    _ ← addRoles commonDefs ATPDefinition file "common required definitions"
+    _ ← addRoles (axioms newGeneralRoles) ATPAxiom file "general axioms"
+    _ ← addRoles (axiomsDefs newGeneralRoles) ATPDefinition file
+                   "required ATP definitions by the general axioms"
+    _ ← addRoles (hints newGeneralRoles) ATPHint file "general hints"
+    _ ← addRoles (hintsDefs newGeneralRoles) ATPDefinition file
+                   "required ATP definitions by the general hints"
+    _ ← addRoles (conjectureLocalHints newConjectureSet) ATPHint file "local hints"
+    _ ← addRoles (localHintsDefs newConjectureSet) ATPDefinition file
+                   "required ATP definitions by the local hints"
+    _ ← addRoles (conjectureDefs newConjectureSet) ATPDefinition file
                  "required ATP definitions by the conjecture"
-    void $ addRoles [theConjecture newConjectureSet] ATPConjecture file "conjecture"
-    void $ appendFile file conjectureFooter
+    _ ← addRoles [theConjecture newConjectureSet] ATPConjecture file "conjecture"
+    _ ← appendFile file conjectureFooter
+    return ()
 
   whenM (optOnlyFiles <$> getTOpts) $
        reportS "" 1 $ "Created the conjecture file " ++ file
