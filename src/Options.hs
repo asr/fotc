@@ -48,9 +48,10 @@ import Data.String ( String )
 #endif
 
 import Data.Bool     ( Bool(True, False) )
+import Data.Char     ( isDigit )
 import Data.Function ( ($) )
 import Data.Int      ( Int )
-import Data.List     ( (++), elem, init, last )
+import Data.List     ( (++), all, elem, init, last )
 
 import System.Console.GetOpt
   ( ArgDescr(NoArg, ReqArg)
@@ -133,7 +134,9 @@ helpOpt opts = opts { optHelp = True }
 
 timeOpt ∷ String → Options → Options
 timeOpt []   _    = error "Option --time requires an argument NUM"
-timeOpt secs opts = opts { optTime = read secs }
+timeOpt secs opts = if all isDigit secs
+                    then opts { optTime = read secs }
+                    else error "Option --time requires an argument of type NUM"
 
 onlyFilesOpt ∷ Options → Options
 onlyFilesOpt opts = opts { optOnlyFiles = True }
