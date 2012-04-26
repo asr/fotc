@@ -134,9 +134,10 @@ helpOpt opts = opts { optHelp = True }
 
 timeOpt ∷ String → Options → Options
 timeOpt []   _    = error "Option --time requires an argument NUM"
-timeOpt secs opts = if all isDigit secs
-                    then opts { optTime = read secs }
-                    else error "Option --time requires an argument of type NUM"
+timeOpt secs opts =
+  if all isDigit secs
+  then opts { optTime = read secs }
+  else error "Option --time requires an non-negative integer argument"
 
 onlyFilesOpt ∷ Options → Options
 onlyFilesOpt opts = opts { optOnlyFiles = True }
