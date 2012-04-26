@@ -106,15 +106,15 @@ prefixLetter name@(x : _)
   | isDigit x || x == '_'  = 'n' : name
   | otherwise              = name
 
-changeCaseFirstSymbol ∷ TPTP → (Char → Char) → TPTP
-changeCaseFirstSymbol []       _ = __IMPOSSIBLE__
-changeCaseFirstSymbol (x : xs) f = f x : xs
+toCaseFirstSymbol ∷ TPTP → (Char → Char) → TPTP
+toCaseFirstSymbol []       _ = __IMPOSSIBLE__
+toCaseFirstSymbol (x : xs) f = f x : xs
 
-changeToUpper ∷ TPTP → TPTP
-changeToUpper name = changeCaseFirstSymbol (prettyTPTP name) toUpper
+toUpperFirstSymbol ∷ TPTP → TPTP
+toUpperFirstSymbol name = toCaseFirstSymbol (prettyTPTP name) toUpper
 
-changeToLower ∷ TPTP → TPTP
-changeToLower name = changeCaseFirstSymbol (prettyTPTP name) toLower
+toLowerFirstSymbol ∷ TPTP → TPTP
+toLowerFirstSymbol name = toCaseFirstSymbol (prettyTPTP name) toLower
 
 ------------------------------------------------------------------------------
 -- Pretty-printer for Haskell types
@@ -152,10 +152,10 @@ instance PrettyTPTP String where
   prettyTPTP = prefixLetter . concatMap prettyTPTP
 
 instance PrettyTPTP FOLTerm where
-  prettyTPTP (FOLFun name [])    = changeToLower name
-  prettyTPTP (FOLFun name terms) = changeToLower name
+  prettyTPTP (FOLFun name [])    = toLowerFirstSymbol name
+  prettyTPTP (FOLFun name terms) = toLowerFirstSymbol name
                                    ++ "(" ++ prettyTPTP terms ++ ")"
-  prettyTPTP (FOLVar name)       = changeToUpper name
+  prettyTPTP (FOLVar name)       = toUpperFirstSymbol name
 
 instance PrettyTPTP [FOLTerm] where
   prettyTPTP [] = []
@@ -173,10 +173,10 @@ instance PrettyTPTP FOLFormula where
   -- If the predicate represents a propositional logic variable,
   -- following the TPTP syntax, we do not print the internal
   -- parenthesis.
-  prettyTPTP (Predicate name []) = "( " ++ changeToLower name ++ " )"
+  prettyTPTP (Predicate name []) = "( " ++ toLowerFirstSymbol name ++ " )"
 
   prettyTPTP (Predicate name terms) =
-    "( " ++ changeToLower name ++ "(" ++ prettyTPTP terms ++ ")" ++ " )"
+    "( " ++ toLowerFirstSymbol name ++ "(" ++ prettyTPTP terms ++ ")" ++ " )"
 
   prettyTPTP (And f1 f2) =
     "( " ++ prettyTPTP f1 ++ " & " ++ prettyTPTP f2 ++ " )"
@@ -192,12 +192,12 @@ instance PrettyTPTP FOLFormula where
     "( " ++ prettyTPTP f1 ++ " <=> " ++ prettyTPTP f2 ++ " )"
 
   prettyTPTP (ForAll var f) =
-    "( ! [" ++ changeToUpper var ++ "] : "
+    "( ! [" ++ toUpperFirstSymbol var ++ "] : "
     ++ prettyTPTP (f (FOLVar var))
     ++ " )"
 
   prettyTPTP (Exists var f) =
-    "( ? [" ++ changeToUpper var ++ "] : "
+    "( ? [" ++ toUpperFirstSymbol var ++ "] : "
     ++ prettyTPTP (f (FOLVar var))
     ++ " )"
 
