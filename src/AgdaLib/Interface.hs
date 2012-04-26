@@ -199,7 +199,13 @@ myReadInterface ∷ FilePath → T Interface
 myReadInterface file = do
   optsCommandLine ← agdaCommandLineOptions
 
-  -- The physical interface file.
+  -- The physical Agda file (used only to test if the file exists).
+  pFile ∷ FilePath ← liftIO $ fmap filePath (absolute file)
+
+  unlessM (liftIO $ doesFileExistCaseSensitive pFile)
+          (throwError $ "The file " ++ pFile ++ " does not exist")
+
+  -- The physical Agda interface file.
   iFile ∷ FilePath ← liftIO $ fmap (filePath . toIFile) (absolute file)
 
   unlessM (liftIO $ doesFileExistCaseSensitive iFile)
