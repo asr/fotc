@@ -41,7 +41,7 @@ import Data.String ( String )
 import Data.Bool                 ( otherwise )
 import Data.Either               ( Either(Left, Right) )
 import Data.Function             ( ($), (.) )
-import Data.List                 ( (++), map )
+import Data.List                 ( (++), map, null )
 import qualified Data.Map as Map ( unions )
 import Data.Tuple                ( fst, snd )
 
@@ -127,6 +127,7 @@ runAgda2ATP = do
     (opts, agdaFile)
       | optHelp opts    → liftIO printUsage
       | optVersion opts → liftIO $ progNameVersion >>= putStrLn
+      | null agdaFile   → throwError "Missing input file"
       | otherwise       → do
           modify $ \s → s { tOpts = opts }
 
