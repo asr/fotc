@@ -195,21 +195,21 @@ createConjectureFile generalRoles conjectureSet = do
 
   liftIO $ do
     conjectureH ← conjectureHeader
-    _ ← writeFile file conjectureH
-    _ ← addRoles commonDefs ATPDefinition file "common required definitions"
-    _ ← addRoles (axioms newGeneralRoles) ATPAxiom file "general axioms"
-    _ ← addRoles (axiomsDefs newGeneralRoles) ATPDefinition file
-                   "required ATP definitions by the general axioms"
-    _ ← addRoles (hints newGeneralRoles) ATPHint file "general hints"
-    _ ← addRoles (hintsDefs newGeneralRoles) ATPDefinition file
-                   "required ATP definitions by the general hints"
-    _ ← addRoles (conjectureLocalHints newConjectureSet) ATPHint file "local hints"
-    _ ← addRoles (localHintsDefs newConjectureSet) ATPDefinition file
-                   "required ATP definitions by the local hints"
-    _ ← addRoles (conjectureDefs newConjectureSet) ATPDefinition file
-                 "required ATP definitions by the conjecture"
-    _ ← addRoles [theConjecture newConjectureSet] ATPConjecture file "conjecture"
-    _ ← appendFile file conjectureFooter
+    writeFile file conjectureH
+    addRoles commonDefs ATPDefinition file "common required definitions"
+    addRoles (axioms newGeneralRoles) ATPAxiom file "general axioms"
+    addRoles (axiomsDefs newGeneralRoles) ATPDefinition file
+             "required ATP definitions by the general axioms"
+    addRoles (hints newGeneralRoles) ATPHint file "general hints"
+    addRoles (hintsDefs newGeneralRoles) ATPDefinition file
+             "required ATP definitions by the general hints"
+    addRoles (conjectureLocalHints newConjectureSet) ATPHint file "local hints"
+    addRoles (localHintsDefs newConjectureSet) ATPDefinition file
+             "required ATP definitions by the local hints"
+    addRoles (conjectureDefs newConjectureSet) ATPDefinition file
+             "required ATP definitions by the conjecture"
+    addRoles [theConjecture newConjectureSet] ATPConjecture file "conjecture"
+    appendFile file conjectureFooter
     return ()
 
   whenM (optOnlyFiles <$> getTOpts) $
