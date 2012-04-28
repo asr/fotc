@@ -7,7 +7,7 @@
 
 -- Tested with FOT on 27 April 2012.
 
--- See [Barendregt, 2004, corollary 6.1.3.].
+-- See (Barendregt 2004, corollary 6.1.3).
 --
 -- • Henk Barendregt. The Lambda Calculus. Its Syntax and
 --   Semantics. Elsevier, revised edition, 2004. 6th. impression.

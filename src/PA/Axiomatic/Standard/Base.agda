@@ -26,16 +26,8 @@ postulate
   _+_ _*_ : M → M → M
 
 -- Proper axioms
--- From [Machover, 1996, p. 263] and [Hájek and Pudlák, 1998, p. 28]:
+-- From (Machover 1996, p. 263) and (Hájek and Pudlák 1998, p. 28):
 --
--- References:
---
--- • Moshé Machover. Set theory, logic and their
---   limitations. Cambridge University Press, 1996.
---
--- • Petr Hájek and Pavel Pudlák. Metamathematics of First-Order
---   Arithmetic. Springer, 1998. 2nd printing.
-
 -- PA₁. 0 ≠ n'
 -- PA₂. m' = n' → m = n
 -- PA₃. 0 + n = n
@@ -44,6 +36,14 @@ postulate
 -- PA₆. m' * n = n + (m * n)
 -- Axiom of induction:
 -- φ(0) → (∀n.φ(n) → φ(succ n)) → ∀n.φ(n), for any formulae φ
+
+-- References:
+--
+-- • Moshé Machover. Set theory, logic and their
+--   limitations. Cambridge University Press, 1996.
+--
+-- • Petr Hájek and Pavel Pudlák. Metamathematics of First-Order
+--   Arithmetic. Springer, 1998. 2nd printing.
 
 postulate
   PA₁ : ∀ {n} → ¬ (zero ≡ succ n)

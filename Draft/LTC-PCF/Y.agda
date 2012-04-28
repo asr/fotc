@@ -7,9 +7,10 @@
 
 -- Tested with FOT on 27 April 2012.
 
--- See [Barendregt, 2004, corollary 6.1.3.].
+-- See (Barendregt 2004, corollary 6.1.3).
 --
--- N.B. This is the fixed-point combinator used by [Dybjer, 1985].
+-- N.B. This is the fixed-point combinator used by (Dybjer 1985).
+--
 -- References:
 --
 -- • Henk Barendregt. The Lambda Calculus. Its Syntax and

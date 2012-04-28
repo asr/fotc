@@ -8,8 +8,8 @@
 
 -- From the definition of PA using Agda data types and primitive
 -- recursive functions for addition and multiplication, we can prove
--- the following axioms (see [Machover, 1996, p. 263], [Hájek and
--- Pudlák, 1998, p. 28]):
+-- the following axioms (see (Machover 1996, p. 263) and (Hájek and
+-- Pudlák 1998, p. 28)):
 
 -- PA₁. 0 ≠ n'
 -- PA₂. m' = n' → m = n
