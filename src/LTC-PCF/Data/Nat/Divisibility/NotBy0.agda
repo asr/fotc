@@ -27,4 +27,3 @@ infix 7 _∣_
 -- http://hackage.haskell.org/trac/ghc/ticket/3304).
 _∣_ : D → D → Set
 m ∣ n = ¬ (m ≡ zero) ∧ (∃[ k ] N k ∧ n ≡ k * m)
-{-# ATP definition _∣_ #-}

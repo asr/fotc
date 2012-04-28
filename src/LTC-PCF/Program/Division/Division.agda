@@ -33,16 +33,12 @@ open import LTC-PCF.Data.Nat.Inequalities
 
 div-helper₁ : D → D → D → D
 div-helper₁ i g j = if (i < j) then zero else succ₁ (g · (i ∸ j) · j)
-{-# ATP definition div-helper₁ #-}
 
 div-helper₂ : D → D → D
 div-helper₂ g i = lam (div-helper₁ i g)
-{-# ATP definition div-helper₂ #-}
 
 divh : D → D
 divh g = lam (div-helper₂ g)
-{-# ATP definition divh #-}
 
 div : D → D → D
 div i j = fix divh · i · j
-{-# ATP definition div #-}

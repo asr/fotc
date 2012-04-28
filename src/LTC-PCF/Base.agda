@@ -52,19 +52,15 @@ postulate
 abstract
   if_then_else_ : D → D → D → D
   if b then d₁ else d₂ = if · b · d₁ · d₂
-  -- {-# ATP definition if_then_else_ #-}
 
   succ₁ : D → D
   succ₁ d = succ · d
-  -- {-# ATP definition succ₁ #-}
 
   pred₁ : D → D
   pred₁ d = pred · d
-  -- {-# ATP definition pred₁ #-}
 
   iszero₁ : D → D
   iszero₁ d = iszero · d
-  -- {-# ATP definition iszero₁ #-}
 
 ------------------------------------------------------------------------------
 -- Conversion rules
@@ -78,17 +74,14 @@ abstract
 -- therefore, we introduce the conversion rules as FOL non-logical
 -- axioms.
 
--- N.B. Looking for an optimization for the ATPs, we write the
--- conversion rules on the defined function symbols instead of on the
--- PCF constants.
+-- N.B. We write the conversion rules on the defined function symbols
+-- instead of on the PCF constants.
 
 -- Conversion rule for the abstraction and the application.
 postulate beta : ∀ f a → lam f · a ≡ f a
-{-# ATP axiom beta #-}
 
 -- Conversion rule for the fixed pointed operator.
 postulate fix-f : ∀ f → fix f ≡ f (fix f)
-{-# ATP axiom fix-f #-}
 
 -- Conversion rules for booleans.
 postulate
@@ -96,17 +89,15 @@ postulate
   -- if-false : ∀ {d₁} d₂ → if · false · d₁ · d₂ ≡ d₂
   if-true  : ∀ d₁ {d₂} → if true  then d₁ else d₂ ≡ d₁
   if-false : ∀ {d₁} d₂ → if false then d₁ else d₂ ≡ d₂
-{-# ATP axiom if-true if-false #-}
 
 -- Conversion rules for pred.
 postulate
   -- pred-0 : ∀ d → pred · zero ≡ zero
   -- pred-S : ∀ d → pred · (succ · d) ≡ d
 
- -- N.B. We don't need this equation in the FOTC.
+ -- N.B. We don't need this equation in FOTC.
   pred-0 : pred₁ zero ≡ zero
   pred-S : ∀ d → pred₁ (succ₁ d) ≡ d
-{-# ATP axiom pred-0 pred-S #-}
 
 -- Conversion rules for iszero.
 postulate
@@ -114,7 +105,6 @@ postulate
   -- iszero-S : ∀ d → iszero · (succ · d) ≡ false
   iszero-0 :       iszero₁ zero      ≡ true
   iszero-S : ∀ d → iszero₁ (succ₁ d) ≡ false
-{-# ATP axiom iszero-0 iszero-S #-}
 
 ------------------------------------------------------------------------------
 -- Discrimination rules
@@ -123,4 +113,3 @@ postulate
   true≢false : ¬ (true ≡ false)
 --  0≢S        : ∀ {d} → ¬ (zero ≡ succ · d)
   0≢S        : ∀ {d} → ¬ (zero ≡ succ₁ d)
-{-# ATP axiom true≢false 0≢S #-}

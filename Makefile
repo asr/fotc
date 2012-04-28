@@ -131,7 +131,6 @@ all_only_conjectures : only_conjectures_DistributiveLaws \
 		       only_conjectures_FOL \
 		       only_conjectures_FOTC \
 		       only_conjectures_GroupTheory \
-		       only_conjectures_LTC-PCF \
 		       only_conjectures_PA
 	@echo "The $@ test succeeded!"
 
@@ -176,7 +175,6 @@ conjectures_% :
 # 		  conjectures_FOL \
 # 		  conjectures_FOTC \
 # 		  conjectures_GroupTheory \
-# 		  conjectures_LTC-PCF \
 # 		  conjectures_PA \
 #                 conjectures_ABP \
 #                 conjectures_Collatz \
@@ -194,7 +192,6 @@ all_conjectures : conjectures_DistributiveLaws \
 		  conjectures_FOL \
 		  conjectures_FOTC \
 		  conjectures_GroupTheory \
-		  conjectures_LTC-PCF \
 		  conjectures_PA
 	@echo "The $@ test succeeded!"
 
@@ -226,7 +223,6 @@ all_create_snapshot : create_snapshot_DistributiveLaws \
 		      create_snapshot_FOL \
 		      create_snapshot_FOTC \
 		      create_snapshot_GroupTheory \
-		      create_snapshot_LTC-PCF \
 		      create_snapshot_PA
 
 ##############################################################################
@@ -242,7 +238,6 @@ all_snapshot : snapshot_DistributiveLaws \
 	       snapshot_FOL \
 	       snapshot_FOTC \
 	       snapshot_GroupTheory \
-	       snapshot_LTC-PCF \
 	       snapshot_PA
 	@echo "The $@ test succeeded!"
 

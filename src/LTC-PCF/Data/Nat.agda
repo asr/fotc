@@ -30,11 +30,9 @@ open import LTC-PCF.Data.Nat.Type public
 
 +-helper : D → D
 +-helper _ = lam succ₁
-{-# ATP definition +-helper #-}
 
 _+_ : D → D → D
 m + n = rec m n (lam +-helper)
-{-# ATP definition _+_ #-}
 
 ------------------------------------------------------------------------------
 -- Substraction.
@@ -48,11 +46,9 @@ m + n = rec m n (lam +-helper)
 
 ∸-helper : D → D
 ∸-helper _ = lam pred₁
-{-# ATP definition ∸-helper #-}
 
 _∸_ : D → D → D
 m ∸ n = rec n m (lam ∸-helper)
-{-# ATP definition _∸_ #-}
 
 ------------------------------------------------------------------------------
 -- Multiplication with recursion on the first argument.
@@ -66,12 +62,9 @@ m ∸ n = rec n m (lam ∸-helper)
 
 *-helper₁ : D → D → D
 *-helper₁ n y = n + y
-{-# ATP definition *-helper₁ #-}
 
 *-helper₂ : D → D → D
 *-helper₂ n x = lam (*-helper₁ n)
-{-# ATP definition *-helper₂ #-}
 
 _*_ : D → D → D
 m * n = rec m zero (lam (*-helper₂ n))
-{-# ATP definition _*_ #-}

@@ -47,16 +47,12 @@ gcd-helper₁ d g e = if (iszero₁ e)
                                 else (if (d > e)
                                          then g · (d ∸ e) · e
                                          else g · d · (e ∸ d)))
-{-# ATP definition gcd-helper₁ #-}
 
 gcd-helper₂ : D → D → D
 gcd-helper₂ g d = lam (gcd-helper₁ d g)
-{-# ATP definition gcd-helper₂ #-}
 
 gcdh : D → D
 gcdh g = lam (gcd-helper₂ g)
-{-# ATP definition gcdh #-}
 
 gcd : D → D → D
 gcd d e = fix gcdh · d · e
-{-# ATP definition gcd #-}
