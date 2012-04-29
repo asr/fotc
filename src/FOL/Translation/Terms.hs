@@ -313,14 +313,16 @@ termToFormula term@(Pi domTy (Abs _ tyAbs)) = do
     -- impossible.
     El (Type (Max [])) (Def _ _) → __IMPOSSIBLE__
 
+    -- Non-FOL translation: FOL universal quantified functions term.
+    --
     -- The bounded variable is quantified on a function of a @Set@ to
     -- a @Set@,
     --
     -- e.g. the bounded variable is @f : D → D@, where @D : Set@.
     --
     -- In this case we handle the bounded variable/function as a FOL
-    -- variable (see @termToFOLTerm term@(Var n args)@), and we
-    -- quantified on this variable.
+    -- variable in @termToFOLTerm (Var n args)@, which is processed
+    -- first due to lazyness. We quantified on this variable.
     El (Type (Max []))
        (Pi (Dom _ _ (El (Type (Max [])) (Def _ [])))
            (NoAbs _ (El (Type (Max [])) (Def _ [])))
@@ -332,14 +334,16 @@ termToFormula term@(Pi domTy (Abs _ tyAbs)) = do
     -- N.B. The next case is just a generalization to various
     -- arguments of the previous case.
 
+    -- Non-FOL translation: FOL universal quantified functions term.
+    --
     -- The bounded variable is quantified on a function of a @Set@ to
     -- a @Set@,
     --
     -- e.g. the bounded variable is @f : D → D → D@, where @D : Set@.
     --
     -- In this case we handle the bounded variable/function as a FOL
-    -- variable (see @termToFOLTerm term@(Var n args)@), and we
-    -- quantified on this variable.
+    -- variable in @termToFOLTerm (Var n args)@, which is processed
+    -- first due to lazyness. We quantified on this variable.
     El (Type (Max []))
        (Pi (Dom _ _ (El (Type (Max [])) (Def _ [])))
            (NoAbs _ (El (Type (Max [])) (Pi _ (NoAbs _ _))))
