@@ -5,7 +5,9 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Test.Succeed.FOL.SchemasP11 where
+-- Requires option --non-fol-propositional-function-quantification@.
+
+module Test.Succeed.NonFOL.SchemasP11 where
 
 postulate
   D      : Set

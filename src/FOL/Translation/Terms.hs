@@ -115,7 +115,11 @@ import Monad.Base
 import Monad.Reports ( reportSLn )
 
 import Options
- ( Options(optNonFOLFormulaQuantification , optNonFOLTermQuantification) )
+ ( Options( optNonFOLFormulaQuantification
+          , optNonFOLPropositionalFunctionQuantification
+          , optNonFOLTermQuantification
+          )
+ )
 
 import Utils.Monad   ( unlessM )
 
@@ -369,6 +373,11 @@ termToFormula term@(Pi domTy (Abs _ tyAbs)) = do
     -- predicate logical schemata such
     --
     -- @∨-comm  : {P Q : Set} → P ∨ Q → Q ∨ P@.
+    --
+    -- In this case we handle the bounded variable/function in
+    -- @termToFormula (Var n args)@, which is processed first due to
+    -- lazyness.
+
     El (Type (Max [ClosedLevel 1])) (Sort _) → do
       reportSLn "t2f" 20 $ "The type domTy is: " ++ show domTy
 
@@ -378,6 +387,9 @@ termToFormula term@(Pi domTy (Abs _ tyAbs)) = do
                             ++ " Use option --non-fol-formula-quantification"
       return f2
 
+    -- Non-FOL translation: FOL universal quantified propositional
+    -- functions.
+    --
     -- The bounded variable is quantified on a @Set₁@,
     --
     -- e.g. the bounded variable is @P : D → Set@.
@@ -389,7 +401,7 @@ termToFormula term@(Pi domTy (Abs _ tyAbs)) = do
     --             P₂ x y ∨ Q₂ x y → Q₂ x y ∨ P₂ x y
 
     El (Type (Max [ClosedLevel 1])) (Pi _ (NoAbs _ _)) →
-       return $ ForAll freshVar (\_ → f2)
+      return $ ForAll freshVar (\_ → f2)
 
     -- Other cases
     El (Type (Max [ClosedLevel 1])) (Def _ _)        → __IMPOSSIBLE__
@@ -418,6 +430,9 @@ termToFormula term@(Var n args) = do
         -- N.B. In this case we *don't* use the Koen's approach.
         [] → return $ Predicate (vars !! fromIntegral n) []
 
+        -- Non-FOL translation: FOL universal quantified propositional
+        -- functions.
+
         -- If we have a bounded variable quantified on a function of a
         -- @Set@ to a @Set₁@, for example, the variable/predicate @P@
         -- in
@@ -425,12 +440,18 @@ termToFormula term@(Var n args) = do
         -- @(P : D → Set) → (x : D) → P x → P x@
         --
         -- we are quantifying on this variable/function
-        -- (see @termToFormula term@(Pi domTy (Abs _ tyAbs)@)),
+        -- (see @termToFormula (Pi domTy (Abs _ tyAbs))@),
 
         -- therefore we need to apply this variable/predicate to the
         -- others variables. See an example in
         -- Test.Succeed.AgdaInternalTerms.Var1.agda.
-        _ → predicateLogicalScheme vars n args
+        _ → do
+          unlessM (optNonFOLPropositionalFunctionQuantification <$> getTOpts) $
+                   throwError $ "The translation of FOL universal quantified"
+                                ++ " function terms is disable by default."
+                                ++ " Use option --non-fol-propositional-function-quantification"
+
+          predicateLogicalScheme vars n args
 
 termToFormula (DontCare _)        = __IMPOSSIBLE__
 termToFormula (Con _ _)           = __IMPOSSIBLE__
@@ -527,7 +548,9 @@ termToFOLTerm term@(Var n args) = do
         -- Test.Succeed.AgdaInternalTerms.Var2.agda
         varArgs → do
           unlessM (optNonFOLTermQuantification <$> getTOpts) $
-                  throwError $ "The translation of FOL universal quantified function terms is disable by default. Use option --non-fol-term-quantification"
+                  throwError $ "The translation of FOL universal quantified"
+                               ++ " function terms is disable by default."
+                               ++ " Use option --non-fol-term-quantification"
 
           termsFOL ← mapM argTermToFOLTerm varArgs
           return $ foldl' appFn (FOLVar (vars !! fromIntegral n)) termsFOL

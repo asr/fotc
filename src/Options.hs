@@ -23,6 +23,7 @@ module Options
            , optHelp
            , optNonFOL
            , optNonFOLFormulaQuantification
+           , optNonFOLPropositionalFunctionQuantification
            , optNonFOLTermQuantification
            , optOnlyFiles
            , optOutputDir
@@ -85,21 +86,22 @@ import qualified Agda.Utils.Trie as Trie ( insert, singleton )
 
 -- | Program command-line options.
 data Options = MkOptions
-  { optAgdaIncludePath             ∷ [FilePath]
-  , optATP                         ∷ [String]
-  , optHelp                        ∷ Bool
-  , optNonFOL                      ∷ Bool
-  , optNonFOLFormulaQuantification ∷ Bool
-  , optNonFOLTermQuantification    ∷ Bool
-  , optOnlyFiles                   ∷ Bool
-  , optOutputDir                   ∷ FilePath
-  , optSnapshotDir                 ∷ FilePath
-  , optSnapshotTest                ∷ Bool
-  , optTime                        ∷ Int
-  , optUnprovedNoError             ∷ Bool
-  , optVampireExec                 ∷ String
-  , optVerbose                     ∷ Verbosity
-  , optVersion                     ∷ Bool
+  { optAgdaIncludePath                           ∷ [FilePath]
+  , optATP                                       ∷ [String]
+  , optHelp                                      ∷ Bool
+  , optNonFOL                                    ∷ Bool
+  , optNonFOLFormulaQuantification               ∷ Bool
+  , optNonFOLPropositionalFunctionQuantification ∷ Bool
+  , optNonFOLTermQuantification                  ∷ Bool
+  , optOnlyFiles                                 ∷ Bool
+  , optOutputDir                                 ∷ FilePath
+  , optSnapshotDir                               ∷ FilePath
+  , optSnapshotTest                              ∷ Bool
+  , optTime                                      ∷ Int
+  , optUnprovedNoError                           ∷ Bool
+  , optVampireExec                               ∷ String
+  , optVerbose                                   ∷ Verbosity
+  , optVersion                                   ∷ Bool
   } deriving Show
 
 -- | Default ATPs called by the program.
@@ -112,21 +114,22 @@ defaultATPs = ["e", "equinox", "vampire"]
 -- by @Options.Process.processOptions@.
 defaultOptions ∷ Options
 defaultOptions = MkOptions
-  { optAgdaIncludePath             = []
-  , optATP                         = []
-  , optHelp                        = False
-  , optNonFOL                      = False
-  , optNonFOLFormulaQuantification = False
-  , optNonFOLTermQuantification    = False
-  , optOnlyFiles                   = False
-  , optOutputDir                   = "/tmp"
-  , optSnapshotDir                 = "snapshot"
-  , optSnapshotTest                = False
-  , optTime                        = 300
-  , optUnprovedNoError             = False
-  , optVampireExec                 = "vampire_lin64"
-  , optVerbose                     = Trie.singleton [] 1
-  , optVersion                     = False
+  { optAgdaIncludePath                           = []
+  , optATP                                       = []
+  , optHelp                                      = False
+  , optNonFOL                                    = False
+  , optNonFOLFormulaQuantification               = False
+  , optNonFOLPropositionalFunctionQuantification = False
+  , optNonFOLTermQuantification                  = False
+  , optOnlyFiles                                 = False
+  , optOutputDir                                 = "/tmp"
+  , optSnapshotDir                               = "snapshot"
+  , optSnapshotTest                              = False
+  , optTime                                      = 300
+  , optUnprovedNoError                           = False
+  , optVampireExec                               = "vampire_lin64"
+  , optVerbose                                   = Trie.singleton [] 1
+  , optVersion                                   = False
   }
 
 agdaIncludePathOpt ∷ FilePath → Options → Options
@@ -143,14 +146,19 @@ helpOpt ∷ Options → Options
 helpOpt opts = opts { optHelp = True }
 
 nonFOLOpt ∷ Options → Options
-nonFOLOpt opts = opts { optNonFOL                      = True
-                      , optNonFOLFormulaQuantification = True
-                      , optNonFOLTermQuantification    = True
+nonFOLOpt opts = opts { optNonFOL                                    = True
+                      , optNonFOLFormulaQuantification               = True
+                      , optNonFOLPropositionalFunctionQuantification = True
+                      , optNonFOLTermQuantification                  = True
                       }
 
 nonFOLFormulaQuantificationOpt ∷ Options → Options
 nonFOLFormulaQuantificationOpt opts =
   opts { optNonFOLFormulaQuantification = True }
+
+nonFOLPropositionalFunctionQuantificationOpt ∷ Options → Options
+nonFOLPropositionalFunctionQuantificationOpt opts =
+  opts { optNonFOLPropositionalFunctionQuantification = True }
 
 nonFOLTermQuantificationOpt ∷ Options → Options
 nonFOLTermQuantificationOpt opts = opts { optNonFOLTermQuantification = True }
@@ -218,6 +226,9 @@ options =
   , Option []  ["non-fol-formula-quantification"]
                (NoArg nonFOLFormulaQuantificationOpt)
                "translate FOL universal quantified formulae"
+  , Option []  ["non-fol-propositional-function-quantification"]
+               (NoArg nonFOLPropositionalFunctionQuantificationOpt)
+               "translate FOL universal quantified propositional functions"
   , Option []  ["non-fol-term-quantification"]
                (NoArg nonFOLTermQuantificationOpt)
                "translate FOL universal quantified function terms"

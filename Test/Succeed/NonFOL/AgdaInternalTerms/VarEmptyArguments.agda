@@ -5,7 +5,9 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Test.Succeed.FOL.AgdaInternalTerms.VarEmptyArguments where
+-- Requires option --non-fol-propositional-function-quantification@.
+
+module Test.Succeed.NonFOL.AgdaInternalTerms.VarEmptyArguments where
 
 postulate D : Set
 
