@@ -115,9 +115,9 @@ import Monad.Base
 import Monad.Reports ( reportSLn )
 
 import Options
- ( Options( optNonFOLFormulaQuantification
-          , optNonFOLPropositionalFunctionQuantification
-          , optNonFOLTermQuantification
+ ( Options( optNonFOLFormula
+          , optNonFOLFunction
+          , optNonFOLPropositionalFunction
           )
  )
 
@@ -381,10 +381,10 @@ termToFormula term@(Pi domTy (Abs _ tyAbs)) = do
     El (Type (Max [ClosedLevel 1])) (Sort _) → do
       reportSLn "t2f" 20 $ "The type domTy is: " ++ show domTy
 
-      unlessM (optNonFOLFormulaQuantification <$> getTOpts) $
+      unlessM (optNonFOLFormula <$> getTOpts) $
                throwError $ "The translation of FOL universal quantified"
                             ++ " formulae is disable by default."
-                            ++ " Use option --non-fol-formula-quantification"
+                            ++ " Use option --non-fol-formula"
       return f2
 
     -- Non-FOL translation: FOL universal quantified propositional
@@ -446,10 +446,10 @@ termToFormula term@(Var n args) = do
         -- others variables. See an example in
         -- Test.Succeed.AgdaInternalTerms.Var1.agda.
         _ → do
-          unlessM (optNonFOLPropositionalFunctionQuantification <$> getTOpts) $
+          unlessM (optNonFOLPropositionalFunction <$> getTOpts) $
                    throwError $ "The translation of FOL universal quantified"
                                 ++ " function terms is disable by default."
-                                ++ " Use option --non-fol-propositional-function-quantification"
+                                ++ " Use option --non-fol-propositional-function"
 
           predicateLogicalScheme vars n args
 
@@ -547,10 +547,10 @@ termToFOLTerm term@(Var n args) = do
         -- others variables. See an example in
         -- Test.Succeed.AgdaInternalTerms.Var2.agda
         varArgs → do
-          unlessM (optNonFOLTermQuantification <$> getTOpts) $
+          unlessM (optNonFOLFunction <$> getTOpts) $
                   throwError $ "The translation of FOL universal quantified"
                                ++ " function terms is disable by default."
-                               ++ " Use option --non-fol-term-quantification"
+                               ++ " Use option --non-fol-function"
 
           termsFOL ← mapM argTermToFOLTerm varArgs
           return $ foldl' appFn (FOLVar (vars !! fromIntegral n)) termsFOL

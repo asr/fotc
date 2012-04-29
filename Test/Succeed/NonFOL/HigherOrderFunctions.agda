@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- We can use the option @--non-fol-term-quantification@ to translate
+-- We can use the option @--non-fol-function@ to translate
 -- higher-order functions. The canonical examples are the conversion
 -- rules for the λ-abstraction and the fixed-point operator.
 

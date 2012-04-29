@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Requires option @--non-fol-term-quantification@.
+-- Requires option @--non-fol-function@.
 
 module Test.Succeed.NonFOL.AgdaInternalTerms.VarNonEmptyArguments where
 

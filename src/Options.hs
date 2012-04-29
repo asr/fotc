@@ -22,9 +22,9 @@ module Options
            , optATP
            , optHelp
            , optNonFOL
-           , optNonFOLFormulaQuantification
-           , optNonFOLPropositionalFunctionQuantification
-           , optNonFOLTermQuantification
+           , optNonFOLFormula
+           , optNonFOLFunction
+           , optNonFOLPropositionalFunction
            , optOnlyFiles
            , optOutputDir
            , optSnapshotDir
@@ -86,22 +86,22 @@ import qualified Agda.Utils.Trie as Trie ( insert, singleton )
 
 -- | Program command-line options.
 data Options = MkOptions
-  { optAgdaIncludePath                           ∷ [FilePath]
-  , optATP                                       ∷ [String]
-  , optHelp                                      ∷ Bool
-  , optNonFOL                                    ∷ Bool
-  , optNonFOLFormulaQuantification               ∷ Bool
-  , optNonFOLPropositionalFunctionQuantification ∷ Bool
-  , optNonFOLTermQuantification                  ∷ Bool
-  , optOnlyFiles                                 ∷ Bool
-  , optOutputDir                                 ∷ FilePath
-  , optSnapshotDir                               ∷ FilePath
-  , optSnapshotTest                              ∷ Bool
-  , optTime                                      ∷ Int
-  , optUnprovedNoError                           ∷ Bool
-  , optVampireExec                               ∷ String
-  , optVerbose                                   ∷ Verbosity
-  , optVersion                                   ∷ Bool
+  { optAgdaIncludePath             ∷ [FilePath]
+  , optATP                         ∷ [String]
+  , optHelp                        ∷ Bool
+  , optNonFOL                      ∷ Bool
+  , optNonFOLFormula               ∷ Bool
+  , optNonFOLFunction              ∷ Bool
+  , optNonFOLPropositionalFunction ∷ Bool
+  , optOnlyFiles                   ∷ Bool
+  , optOutputDir                   ∷ FilePath
+  , optSnapshotDir                 ∷ FilePath
+  , optSnapshotTest                ∷ Bool
+  , optTime                        ∷ Int
+  , optUnprovedNoError             ∷ Bool
+  , optVampireExec                 ∷ String
+  , optVerbose                     ∷ Verbosity
+  , optVersion                     ∷ Bool
   } deriving Show
 
 -- | Default ATPs called by the program.
@@ -114,22 +114,22 @@ defaultATPs = ["e", "equinox", "vampire"]
 -- by @Options.Process.processOptions@.
 defaultOptions ∷ Options
 defaultOptions = MkOptions
-  { optAgdaIncludePath                           = []
-  , optATP                                       = []
-  , optHelp                                      = False
-  , optNonFOL                                    = False
-  , optNonFOLFormulaQuantification               = False
-  , optNonFOLPropositionalFunctionQuantification = False
-  , optNonFOLTermQuantification                  = False
-  , optOnlyFiles                                 = False
-  , optOutputDir                                 = "/tmp"
-  , optSnapshotDir                               = "snapshot"
-  , optSnapshotTest                              = False
-  , optTime                                      = 300
-  , optUnprovedNoError                           = False
-  , optVampireExec                               = "vampire_lin64"
-  , optVerbose                                   = Trie.singleton [] 1
-  , optVersion                                   = False
+  { optAgdaIncludePath             = []
+  , optATP                         = []
+  , optHelp                        = False
+  , optNonFOL                      = False
+  , optNonFOLFormula               = False
+  , optNonFOLFunction              = False
+  , optNonFOLPropositionalFunction = False
+  , optOnlyFiles                   = False
+  , optOutputDir                   = "/tmp"
+  , optSnapshotDir                 = "snapshot"
+  , optSnapshotTest                = False
+  , optTime                        = 300
+  , optUnprovedNoError             = False
+  , optVampireExec                 = "vampire_lin64"
+  , optVerbose                     = Trie.singleton [] 1
+  , optVersion                     = False
   }
 
 agdaIncludePathOpt ∷ FilePath → Options → Options
@@ -146,22 +146,21 @@ helpOpt ∷ Options → Options
 helpOpt opts = opts { optHelp = True }
 
 nonFOLOpt ∷ Options → Options
-nonFOLOpt opts = opts { optNonFOL                                    = True
-                      , optNonFOLFormulaQuantification               = True
-                      , optNonFOLPropositionalFunctionQuantification = True
-                      , optNonFOLTermQuantification                  = True
+nonFOLOpt opts = opts { optNonFOL                      = True
+                      , optNonFOLFormula               = True
+                      , optNonFOLFunction              = True
+                      , optNonFOLPropositionalFunction = True
                       }
 
-nonFOLFormulaQuantificationOpt ∷ Options → Options
-nonFOLFormulaQuantificationOpt opts =
-  opts { optNonFOLFormulaQuantification = True }
+nonFOLFormulaOpt ∷ Options → Options
+nonFOLFormulaOpt opts = opts { optNonFOLFormula = True }
 
-nonFOLPropositionalFunctionQuantificationOpt ∷ Options → Options
-nonFOLPropositionalFunctionQuantificationOpt opts =
-  opts { optNonFOLPropositionalFunctionQuantification = True }
+nonFOLFunctionOpt ∷ Options → Options
+nonFOLFunctionOpt opts = opts { optNonFOLFunction = True }
 
-nonFOLTermQuantificationOpt ∷ Options → Options
-nonFOLTermQuantificationOpt opts = opts { optNonFOLTermQuantification = True }
+nonFOLPropositionalFunctionOpt ∷ Options → Options
+nonFOLPropositionalFunctionOpt opts =
+  opts { optNonFOLPropositionalFunction = True }
 
 onlyFilesOpt ∷ Options → Options
 onlyFilesOpt opts = opts { optOnlyFiles = True }
@@ -223,15 +222,13 @@ options =
                "show this help"
   , Option []  ["non-fol"] (NoArg nonFOLOpt)
                "enable the non-FOL translations"
-  , Option []  ["non-fol-formula-quantification"]
-               (NoArg nonFOLFormulaQuantificationOpt)
+  , Option []  ["non-fol-formula"] (NoArg nonFOLFormulaOpt)
                "translate FOL universal quantified formulae"
-  , Option []  ["non-fol-propositional-function-quantification"]
-               (NoArg nonFOLPropositionalFunctionQuantificationOpt)
+  , Option []  ["non-fol-function"] (NoArg nonFOLFunctionOpt)
+               "translate FOL universal quantified functions"
+  , Option []  ["non-fol-propositional-function"]
+               (NoArg nonFOLPropositionalFunctionOpt)
                "translate FOL universal quantified propositional functions"
-  , Option []  ["non-fol-term-quantification"]
-               (NoArg nonFOLTermQuantificationOpt)
-               "translate FOL universal quantified function terms"
   , Option []  ["only-files"] (NoArg onlyFilesOpt)
                "do not call the ATPs, only to create the TPTP files"
   , Option []  ["output-dir"] (ReqArg outputDirOpt "DIR")
