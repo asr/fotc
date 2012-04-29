@@ -18,9 +18,10 @@ module Options
   ( defaultATPs
   , defaultOptions
   , options
-  , Options(optATP
+  , Options( optAgdaIncludePath
+           , optATP
            , optHelp
-           , optAgdaIncludePath
+           , optNonFOLTermQuantification
            , optOnlyFiles
            , optOutputDir
            , optSnapshotDir
@@ -82,18 +83,19 @@ import qualified Agda.Utils.Trie as Trie ( insert, singleton )
 
 -- | Program command-line options.
 data Options = MkOptions
-  { optAgdaIncludePath ∷ [FilePath]
-  , optATP             ∷ [String]
-  , optHelp            ∷ Bool
-  , optOnlyFiles       ∷ Bool
-  , optOutputDir       ∷ FilePath
-  , optSnapshotDir     ∷ FilePath
-  , optSnapshotTest    ∷ Bool
-  , optTime            ∷ Int
-  , optUnprovedNoError ∷ Bool
-  , optVampireExec     ∷ String
-  , optVerbose         ∷ Verbosity
-  , optVersion         ∷ Bool
+  { optAgdaIncludePath          ∷ [FilePath]
+  , optATP                      ∷ [String]
+  , optHelp                     ∷ Bool
+  , optNonFOLTermQuantification ∷ Bool
+  , optOnlyFiles                ∷ Bool
+  , optOutputDir                ∷ FilePath
+  , optSnapshotDir              ∷ FilePath
+  , optSnapshotTest             ∷ Bool
+  , optTime                     ∷ Int
+  , optUnprovedNoError          ∷ Bool
+  , optVampireExec              ∷ String
+  , optVerbose                  ∷ Verbosity
+  , optVersion                  ∷ Bool
   } deriving Show
 
 -- | Default ATPs called by the program.
@@ -101,22 +103,24 @@ defaultATPs ∷ [String]
 defaultATPs = ["e", "equinox", "vampire"]
 
 -- | Default options use by the program.
+
+-- N.B. The default ATPs are defined by @defaultATPs@ and they are handle
+-- by @Options.Process.processOptions@.
 defaultOptions ∷ Options
 defaultOptions = MkOptions
-  { optAgdaIncludePath = []
-  , optATP             = []  -- N.B. The default is defined by
-                             -- defaultATPs and it is handle by
-                             -- @Options.Process.processOptions@.
-  , optHelp            = False
-  , optOnlyFiles       = False
-  , optOutputDir       = "/tmp"
-  , optSnapshotDir     = "snapshot"
-  , optSnapshotTest    = False
-  , optTime            = 300
-  , optUnprovedNoError = False
-  , optVampireExec     = "vampire_lin64"
-  , optVerbose         = Trie.singleton [] 1
-  , optVersion         = False
+  { optAgdaIncludePath          = []
+  , optATP                      = []
+  , optHelp                     = False
+  , optNonFOLTermQuantification = False
+  , optOnlyFiles                = False
+  , optOutputDir                = "/tmp"
+  , optSnapshotDir              = "snapshot"
+  , optSnapshotTest             = False
+  , optTime                     = 300
+  , optUnprovedNoError          = False
+  , optVampireExec              = "vampire_lin64"
+  , optVerbose                  = Trie.singleton [] 1
+  , optVersion                  = False
   }
 
 agdaIncludePathOpt ∷ FilePath → Options → Options
@@ -131,6 +135,9 @@ atpOpt name opts = opts { optATP = optATP opts ++ [name] }
 
 helpOpt ∷ Options → Options
 helpOpt opts = opts { optHelp = True }
+
+nonFOLTermQuantificationOpt ∷ Options → Options
+nonFOLTermQuantificationOpt opts = opts { optNonFOLTermQuantification = True }
 
 timeOpt ∷ String → Options → Options
 timeOpt []   _    = error "Option --time requires an argument NUM"
@@ -190,6 +197,8 @@ options =
                ++ "(default: e, equinox, and vampire)"
   , Option "?" ["help"] (NoArg helpOpt)
                "show this help"
+  , Option []  ["non-fol-term-quantification"] (NoArg nonFOLTermQuantificationOpt)
+               "translate FOL universal quantified function terms"
   , Option []  ["only-files"] (NoArg onlyFilesOpt)
                "do not call the ATPs, only to create the TPTP files"
   , Option []  ["output-dir"] (ReqArg outputDirOpt "DIR")

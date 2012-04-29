@@ -27,6 +27,8 @@ import Control.Monad ( Monad((>>), (>>=), fail) )
 #endif
 import Control.Monad ( liftM2, mapM, Monad(return) )
 
+import Control.Monad.Error ( MonadError(throwError) )
+
 #if __GLASGOW_HASKELL__ < 702
 import Data.Char ( String )
 #else
@@ -36,7 +38,7 @@ import Data.String ( String )
 import Data.Bool     ( (||), Bool, otherwise )
 import Data.Eq       ( Eq((==)) )
 import Data.Function ( ($) )
-import Data.Functor  ( fmap )
+import Data.Functor  ( (<$>), fmap )
 import Data.List     ( (++), (!!), length, foldl' )
 import Data.Ord      ( Ord((<=)) )
 
@@ -103,6 +105,7 @@ import FOL.Types
 
 import Monad.Base
   ( getTVars
+  , getTOpts
   , newTVar
   , popTVar
   , pushTVar
@@ -110,6 +113,8 @@ import Monad.Base
   )
 
 import Monad.Reports ( reportSLn )
+import Options       ( Options(optNonFOLTermQuantification) )
+import Utils.Monad   ( unlessM )
 
 #include "../../undefined.h"
 
@@ -493,20 +498,25 @@ termToFOLTerm term@(Var n args) = do
       case args of
         [] → return $ FOLVar (vars !! fromIntegral n)
 
-        -- If we have a bounded variable quantified on a function of a
-        -- Set to a Set, for example, the variable/function @f@ in
-        --
-        -- @(f : D → D) → (a : D) → (lam f) ∙ a ≡ f a@
-        --
-        -- we are quantifying on this variable
-
-        -- (see termToFormula @term@(Pi domTy (Abs _ tyAbs))@),
-
-        -- therefore we need to apply this variable/function to the
-        -- others variables. See an example in
-        -- Test.Succeed.AgdaInternalTerms.Var2.agda
-
         varArgs → do
+          -- Non-FOL translation: FOL universal quantified functions term.
+
+          -- If we have a bounded variable quantified on a function of
+          -- a Set to a Set, for example, the variable/function @f@ in
+          --
+          -- @(f : D → D) → (a : D) → (lam f) ∙ a ≡ f a@
+          --
+          -- we are quantifying on this variable/function
+
+          -- (see @termToFormula (Pi domTy (Abs _ tyAbs))@),
+
+          -- therefore we need to apply this variable/function to the
+          -- others variables. See an example in
+          -- Test.Succeed.AgdaInternalTerms.Var2.agda
+
+          unlessM (optNonFOLTermQuantification <$> getTOpts) $
+                  throwError $ "The translation of FOL universal quantified function terms is disable by default. Use option --non-fol-term-quantification"
+
           termsFOL ← mapM argTermToFOLTerm varArgs
           return $ foldl' appFn (FOLVar (vars !! fromIntegral n)) termsFOL
 
