@@ -11,6 +11,7 @@ open import Common.FOL.Relation.Binary.EqReasoning
 open import Common.Function
 
 open import LTC-PCF.Base
+open import LTC-PCF.Base.Properties
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Rec
 open import LTC-PCF.Data.Nat.Rec.EquationsI
@@ -18,78 +19,67 @@ open import LTC-PCF.Data.Nat.Rec.EquationsI
 ------------------------------------------------------------------------------
 -- Congruence properties
 
-+-leftCong : ∀ {m n o} → m ≡ n → m + o ≡ n + o
++-leftCong : ∀ {a b c} → a ≡ b → a + c ≡ b + c
 +-leftCong h = cong₂ _+_ h refl
 
-+-rightCong : ∀ {m n o} → n ≡ o → m + n ≡ m + o
++-rightCong : ∀ {a b c} → b ≡ c → a + b ≡ a + c
 +-rightCong h = cong₂ _+_ refl h
 
-*-leftCong : ∀ {m n o} → m ≡ n → m * o ≡ n * o
+*-leftCong : ∀ {a b c} → a ≡ b → a * c ≡ b * c
 *-leftCong h = cong₂ _*_ h refl
 
-*-rightCong : ∀ {m n o} → n ≡ o → m * n ≡ m * o
+*-rightCong : ∀ {a b c} → b ≡ c → a * b ≡ a * c
 *-rightCong h = cong₂ _*_ refl h
 
 ------------------------------------------------------------------------------
 
 +-0x : ∀ n → zero + n ≡ n
-+-0x n = rec zero n (lam +-helper) ≡⟨ rec-0 n ⟩
++-0x n = rec zero n _ ≡⟨ rec-0 n ⟩
          n ∎
 
 +-Sx : ∀ m n → succ₁ m + n ≡ succ₁ (m + n)
 +-Sx m n =
-  rec (succ₁ m) n (lam +-helper)
-    ≡⟨ rec-S m n (lam +-helper) ⟩
-  lam +-helper · m · (m + n)
-    ≡⟨ subst (λ t → lam +-helper · m · (m + n) ≡ t · (m + n))
-             (beta +-helper m)
-             refl
-    ⟩
-  +-helper m · (m + n)
+  rec (succ₁ m) n (lam (λ x → lam (λ y → succ₁ y)))
+    ≡⟨ rec-S m n (lam (λ x → lam (λ y → succ₁ y))) ⟩
+  (lam (λ x → lam (λ y → succ₁ y))) · m · (m + n)
+    ≡⟨ ·-leftCong (beta (λ x → lam (λ y → succ₁ y)) m) ⟩
+  (λ x → lam (λ y → succ₁ y)) m · (m + n)
     ≡⟨ refl ⟩
   lam succ₁ · (m + n)
     ≡⟨ beta succ₁ (m + n) ⟩
   succ₁ (m + n) ∎
 
 ∸-x0 : ∀ n → n ∸ zero ≡ n
-∸-x0 n = rec zero n (lam ∸-helper) ≡⟨ rec-0 n ⟩
+∸-x0 n = rec zero n _ ≡⟨ rec-0 n ⟩
          n ∎
 
 ∸-0S : ∀ {n} → N n → zero ∸ succ₁ n ≡ zero
 ∸-0S zN =
-  rec (succ₁ zero) zero (lam ∸-helper)
-    ≡⟨ rec-S zero zero (lam ∸-helper) ⟩
-  lam ∸-helper · zero · (zero ∸ zero)
-    ≡⟨ subst (λ t → lam ∸-helper · zero · (zero ∸ zero) ≡
-                    t · (zero ∸ zero))
-             (beta ∸-helper zero)
-             refl
-    ⟩
-  ∸-helper zero · (zero ∸ zero)
+  rec (succ₁ zero) zero (lam (λ x → lam (λ y → pred₁ y)))
+    ≡⟨ rec-S zero zero (lam (λ x → lam (λ y → pred₁ y))) ⟩
+  lam (λ x → lam (λ y → pred₁ y)) · zero · (zero ∸ zero)
+    ≡⟨ ·-leftCong (beta (λ x → lam (λ y → pred₁ y)) zero) ⟩
+  (λ x → lam (λ y → pred₁ y)) zero · (zero ∸ zero)
     ≡⟨ refl ⟩
   lam pred₁ · (zero ∸ zero)
     ≡⟨ beta pred₁ (zero ∸ zero) ⟩
   pred₁ (zero ∸ zero)
-    ≡⟨ subst (λ t → pred₁ (zero ∸ zero) ≡ pred₁ t) (∸-x0 zero) refl ⟩
+    ≡⟨ cong pred₁ (∸-x0 zero) ⟩
   pred₁ zero
     ≡⟨ pred-0 ⟩
   zero ∎
 
 ∸-0S (sN {n} Nn) =
-  rec (succ₁ (succ₁ n)) zero (lam ∸-helper)
-    ≡⟨ rec-S (succ₁ n) zero (lam ∸-helper) ⟩
-  lam ∸-helper · (succ₁ n) · (zero ∸ (succ₁ n))
-    ≡⟨ subst (λ t → lam ∸-helper · (succ₁ n) · (zero ∸ (succ₁ n)) ≡
-                    t · (zero ∸ (succ₁ n)))
-             (beta ∸-helper (succ₁ n))
-             refl
-    ⟩
-  ∸-helper (succ₁ n) · (zero ∸ (succ₁ n))
+  rec (succ₁ (succ₁ n)) zero (lam (λ x → lam (λ y → pred₁ y)))
+    ≡⟨ rec-S (succ₁ n) zero (lam (λ x → lam (λ y → pred₁ y))) ⟩
+  lam (λ x → lam (λ y → pred₁ y)) · (succ₁ n) · (zero ∸ (succ₁ n))
+    ≡⟨ ·-leftCong (beta (λ x → lam (λ y → pred₁ y)) (succ₁ n)) ⟩
+  (λ x → lam (λ y → pred₁ y))  (succ₁ n) · (zero ∸ (succ₁ n))
     ≡⟨ refl ⟩
   lam pred₁ · (zero ∸ (succ₁ n))
     ≡⟨ beta pred₁ (zero ∸ (succ₁ n)) ⟩
   pred₁ (zero ∸ (succ₁ n))
-    ≡⟨ subst (λ t → pred₁ (zero ∸ (succ₁ n)) ≡ pred₁ t) (∸-0S Nn) refl ⟩
+    ≡⟨ cong pred₁ (∸-0S Nn) ⟩
   pred₁ zero
     ≡⟨ pred-0 ⟩
   zero ∎
@@ -100,20 +90,16 @@ open import LTC-PCF.Data.Nat.Rec.EquationsI
 
 ∸-SS : ∀ {m n} → N m → N n → succ₁ m ∸ succ₁ n ≡ m ∸ n
 ∸-SS {m} _ zN =
-  rec (succ₁ zero) (succ₁ m) (lam ∸-helper)
-    ≡⟨ rec-S zero (succ₁ m) (lam ∸-helper) ⟩
-  lam ∸-helper · zero · (succ₁ m ∸ zero)
-    ≡⟨ subst (λ t → lam ∸-helper · zero · (succ₁ m ∸ zero) ≡
-                    t · (succ₁ m ∸ zero))
-             (beta ∸-helper zero)
-             refl
-    ⟩
-  ∸-helper zero · (succ₁ m ∸ zero)
+  rec (succ₁ zero) (succ₁ m) (lam (λ x → lam (λ y → pred₁ y)))
+    ≡⟨ rec-S zero (succ₁ m) (lam (λ x → lam (λ y → pred₁ y))) ⟩
+  lam (λ x → lam (λ y → pred₁ y))  · zero · (succ₁ m ∸ zero)
+    ≡⟨ ·-leftCong (beta (λ x → lam (λ y → pred₁ y)) zero) ⟩
+  (λ x → lam (λ y → pred₁ y)) zero · (succ₁ m ∸ zero)
     ≡⟨ refl ⟩
   lam pred₁ · (succ₁ m ∸ zero)
     ≡⟨ beta pred₁ (succ₁ m ∸ zero) ⟩
   pred₁ (succ₁ m ∸ zero)
-    ≡⟨ subst (λ t → pred₁ (succ₁ m ∸ zero) ≡ pred₁ t) (∸-x0 (succ₁ m)) refl ⟩
+    ≡⟨ cong pred₁ (∸-x0 (succ₁ m)) ⟩
   pred₁ (succ₁ m)
     ≡⟨ pred-S m ⟩
   m
@@ -121,22 +107,18 @@ open import LTC-PCF.Data.Nat.Rec.EquationsI
   m ∸ zero ∎
 
 ∸-SS zN (sN {n} Nn) =
-  rec (succ₁ (succ₁ n)) (succ₁ zero) (lam ∸-helper)
-    ≡⟨ rec-S (succ₁ n) (succ₁ zero) (lam ∸-helper) ⟩
-  lam ∸-helper · (succ₁ n) · (succ₁ zero ∸ succ₁ n)
-    ≡⟨ subst (λ t → lam ∸-helper · (succ₁ n) · (succ₁ zero ∸ succ₁ n) ≡
-                    t · (succ₁ zero ∸ succ₁ n))
-             (beta ∸-helper (succ₁ n))
-             refl
-    ⟩
-  ∸-helper (succ₁ n) · (succ₁ zero ∸ succ₁ n)
+  rec (succ₁ (succ₁ n)) (succ₁ zero) (lam (λ x → lam (λ y → pred₁ y)))
+    ≡⟨ rec-S (succ₁ n) (succ₁ zero) (lam (λ x → lam (λ y → pred₁ y)))  ⟩
+  lam (λ x → lam (λ y → pred₁ y)) · (succ₁ n) · (succ₁ zero ∸ succ₁ n)
+    ≡⟨ ·-leftCong (beta (λ x → lam (λ y → pred₁ y)) (succ₁ n)) ⟩
+  (λ x → lam (λ y → pred₁ y)) (succ₁ n) · (succ₁ zero ∸ succ₁ n)
     ≡⟨ refl ⟩
   lam pred₁ · (succ₁ zero ∸ succ₁ n)
     ≡⟨ beta pred₁ (succ₁ zero ∸ succ₁ n) ⟩
   pred₁ (succ₁ zero ∸ succ₁ n)
-    ≡⟨ subst (λ t → pred₁ (succ₁ zero ∸ succ₁ n) ≡ pred₁ t) (∸-SS zN Nn) refl ⟩
+    ≡⟨ cong pred₁ (∸-SS zN Nn) ⟩
   pred₁ (zero ∸ n)
-    ≡⟨ subst (λ t → pred₁ (zero ∸ n) ≡ pred₁ t) (∸-0x Nn) refl ⟩
+    ≡⟨ cong pred₁ (∸-0x Nn) ⟩
   pred₁ zero
     ≡⟨ pred-0 ⟩
   zero
@@ -144,56 +126,43 @@ open import LTC-PCF.Data.Nat.Rec.EquationsI
   zero ∸ succ₁ n ∎
 
 ∸-SS (sN {m} Nm) (sN {n} Nn) =
-  rec (succ₁ (succ₁ n)) (succ₁ (succ₁ m)) (lam ∸-helper)
-    ≡⟨ rec-S (succ₁ n) (succ₁ (succ₁ m)) (lam ∸-helper) ⟩
-  lam ∸-helper · (succ₁ n) · (succ₁ (succ₁ m) ∸ succ₁ n)
-    ≡⟨ subst (λ t → lam ∸-helper · (succ₁ n) · (succ₁ (succ₁ m) ∸ succ₁ n) ≡
-                    t · (succ₁ (succ₁ m) ∸ succ₁ n))
-             (beta ∸-helper (succ₁ n))
-             refl
-    ⟩
-  ∸-helper (succ₁ n) · (succ₁ (succ₁ m) ∸ succ₁ n)
+  rec (succ₁ (succ₁ n)) (succ₁ (succ₁ m)) (lam (λ x → lam (λ y → pred₁ y)))
+    ≡⟨ rec-S (succ₁ n) (succ₁ (succ₁ m)) (lam (λ x → lam (λ y → pred₁ y))) ⟩
+  lam (λ x → lam (λ y → pred₁ y)) · (succ₁ n) · (succ₁ (succ₁ m) ∸ succ₁ n)
+    ≡⟨ ·-leftCong (beta (λ x → lam (λ y → pred₁ y)) (succ₁ n)) ⟩
+  (λ x → lam (λ y → pred₁ y)) (succ₁ n) · (succ₁ (succ₁ m) ∸ succ₁ n)
     ≡⟨ refl ⟩
   lam pred₁ · (succ₁ (succ₁ m) ∸ succ₁ n)
     ≡⟨ beta pred₁ (succ₁ (succ₁ m) ∸ succ₁ n) ⟩
   pred₁ (succ₁ (succ₁ m) ∸ succ₁ n)
-    ≡⟨ subst (λ t → pred₁ (succ₁ (succ₁ m) ∸ succ₁ n) ≡ pred₁ t)
-             (∸-SS (sN Nm) Nn)
-             refl
-    ⟩
+    ≡⟨ cong pred₁ (∸-SS (sN Nm) Nn) ⟩
   pred₁ (succ₁ m ∸ n)
     ≡⟨ sym $ beta pred₁ (succ₁ m ∸ n) ⟩
   lam pred₁ · (succ₁ m ∸ n)
     ≡⟨ refl ⟩
-  ∸-helper n · (succ₁ m ∸ n)
-    ≡⟨ subst (λ t → ∸-helper n · (succ₁ m ∸ n) ≡ t · (succ₁ m ∸ n))
-             (sym $ beta ∸-helper n)
-             refl
-    ⟩
-  (lam ∸-helper) · n · (succ₁ m ∸ n)
-    ≡⟨ sym $ rec-S n (succ₁ m) (lam ∸-helper) ⟩
-  rec (succ₁ n) (succ₁ m) (lam ∸-helper)
+  (λ x → lam (λ y → pred₁ y)) n · (succ₁ m ∸ n)
+    ≡⟨ ·-leftCong (sym $ beta (λ x → lam (λ y → pred₁ y)) n) ⟩
+  (lam (λ x → lam (λ y → pred₁ y))) · n · (succ₁ m ∸ n)
+    ≡⟨ sym $ rec-S n (succ₁ m) (lam (λ x → lam (λ y → pred₁ y))) ⟩
+  rec (succ₁ n) (succ₁ m) (lam (λ x → lam (λ y → pred₁ y)))
     ≡⟨ refl ⟩
   succ₁ m ∸ succ₁ n ∎
 
 *-0x : ∀ n → zero * n ≡ zero
-*-0x n = rec zero zero (lam (*-helper₂ n)) ≡⟨ rec-0 zero ⟩
+*-0x n = rec zero zero (lam (λ _ → lam (λ y → n + y))) ≡⟨ rec-0 zero ⟩
          zero ∎
 
 *-Sx : ∀ m n → succ₁ m * n ≡ n + m * n
 *-Sx m n =
-  rec (succ₁ m) zero (lam (*-helper₂ n))
-    ≡⟨ rec-S m zero (lam (*-helper₂ n)) ⟩
-  lam (*-helper₂ n) · m · (m * n)
-    ≡⟨ subst (λ t → lam (*-helper₂ n) · m · (m * n) ≡ t · (m * n))
-             (beta (*-helper₂ n) m)
-             refl
-    ⟩
-  *-helper₂ n m · (m * n)
+  rec (succ₁ m) zero (lam (λ _ → lam (λ y → n + y)))
+    ≡⟨ rec-S m zero (lam (λ _ → lam (λ y → n + y))) ⟩
+  (lam (λ _ → lam (λ y → n + y))) · m · (m * n)
+    ≡⟨ ·-leftCong (beta (λ _ → lam (λ y → n + y)) m) ⟩
+  (λ _ → lam (λ y → n + y)) m · (m * n)
     ≡⟨ refl ⟩
-  lam (*-helper₁ n) · (m * n)
-    ≡⟨ beta (*-helper₁ n) (m * n) ⟩
-  *-helper₁ n (m * n)
+  lam (λ y → n + y) · (m * n)
+    ≡⟨ beta (λ y → n + y) (m * n) ⟩
+  (λ y → n + y) (m * n)
     ≡⟨ refl ⟩
   n + (m * n) ∎
 

@@ -11,6 +11,7 @@ open import Common.FOL.Relation.Binary.EqReasoning
 open import Common.Function
 
 open import Draft.FO-LTC-PCF.Base
+open import Draft.FO-LTC-PCF.Base.Properties
 open import Draft.FO-LTC-PCF.Data.Nat
 open import Draft.FO-LTC-PCF.Data.Nat.Rec
 open import Draft.FO-LTC-PCF.Data.Nat.Rec.EquationsI
@@ -41,10 +42,7 @@ open import Draft.FO-LTC-PCF.Data.Nat.Rec.EquationsI
   rec (succ₁ m) n (lam +-helper)
     ≡⟨ rec-S m n (lam +-helper) ⟩
   lam +-helper · m · (m + n)
-    ≡⟨ subst (λ t → lam +-helper · m · (m + n) ≡ t · (m + n))
-             (beta +-helper m)
-             refl
-    ⟩
+    ≡⟨ ·-leftCong (beta +-helper m) ⟩
   +-helper m · (m + n)
     ≡⟨ refl ⟩
   lam succ₁ · (m + n)
@@ -60,17 +58,13 @@ open import Draft.FO-LTC-PCF.Data.Nat.Rec.EquationsI
   rec (succ₁ zero) zero (lam ∸-helper)
     ≡⟨ rec-S zero zero (lam ∸-helper) ⟩
   lam ∸-helper · zero · (zero ∸ zero)
-    ≡⟨ subst (λ t → lam ∸-helper · zero · (zero ∸ zero) ≡
-                    t · (zero ∸ zero))
-             (beta ∸-helper zero)
-             refl
-    ⟩
+    ≡⟨ ·-leftCong (beta ∸-helper zero) ⟩
   ∸-helper zero · (zero ∸ zero)
     ≡⟨ refl ⟩
   lam pred₁ · (zero ∸ zero)
     ≡⟨ beta pred₁ (zero ∸ zero) ⟩
   pred₁ (zero ∸ zero)
-    ≡⟨ subst (λ t → pred₁ (zero ∸ zero) ≡ pred₁ t) (∸-x0 zero) refl ⟩
+    ≡⟨ cong pred₁ (∸-x0 zero) ⟩
   pred₁ zero
     ≡⟨ pred-0 ⟩
   zero ∎
@@ -79,17 +73,13 @@ open import Draft.FO-LTC-PCF.Data.Nat.Rec.EquationsI
   rec (succ₁ (succ₁ n)) zero (lam ∸-helper)
     ≡⟨ rec-S (succ₁ n) zero (lam ∸-helper) ⟩
   lam ∸-helper · (succ₁ n) · (zero ∸ (succ₁ n))
-    ≡⟨ subst (λ t → lam ∸-helper · (succ₁ n) · (zero ∸ (succ₁ n)) ≡
-                    t · (zero ∸ (succ₁ n)))
-             (beta ∸-helper (succ₁ n))
-             refl
-    ⟩
+    ≡⟨ ·-leftCong (beta ∸-helper (succ₁ n)) ⟩
   ∸-helper (succ₁ n) · (zero ∸ (succ₁ n))
     ≡⟨ refl ⟩
   lam pred₁ · (zero ∸ (succ₁ n))
     ≡⟨ beta pred₁ (zero ∸ (succ₁ n)) ⟩
   pred₁ (zero ∸ (succ₁ n))
-    ≡⟨ subst (λ t → pred₁ (zero ∸ (succ₁ n)) ≡ pred₁ t) (∸-0S Nn) refl ⟩
+    ≡⟨ cong pred₁ (∸-0S Nn) ⟩
   pred₁ zero
     ≡⟨ pred-0 ⟩
   zero ∎
@@ -103,17 +93,13 @@ open import Draft.FO-LTC-PCF.Data.Nat.Rec.EquationsI
   rec (succ₁ zero) (succ₁ m) (lam ∸-helper)
     ≡⟨ rec-S zero (succ₁ m) (lam ∸-helper) ⟩
   lam ∸-helper · zero · (succ₁ m ∸ zero)
-    ≡⟨ subst (λ t → lam ∸-helper · zero · (succ₁ m ∸ zero) ≡
-                    t · (succ₁ m ∸ zero))
-             (beta ∸-helper zero)
-             refl
-    ⟩
+    ≡⟨ ·-leftCong (beta ∸-helper zero) ⟩
   ∸-helper zero · (succ₁ m ∸ zero)
     ≡⟨ refl ⟩
   lam pred₁ · (succ₁ m ∸ zero)
     ≡⟨ beta pred₁ (succ₁ m ∸ zero) ⟩
   pred₁ (succ₁ m ∸ zero)
-    ≡⟨ subst (λ t → pred₁ (succ₁ m ∸ zero) ≡ pred₁ t) (∸-x0 (succ₁ m)) refl ⟩
+    ≡⟨ cong pred₁ (∸-x0 (succ₁ m)) ⟩
   pred₁ (succ₁ m)
     ≡⟨ pred-S m ⟩
   m
@@ -124,19 +110,15 @@ open import Draft.FO-LTC-PCF.Data.Nat.Rec.EquationsI
   rec (succ₁ (succ₁ n)) (succ₁ zero) (lam ∸-helper)
     ≡⟨ rec-S (succ₁ n) (succ₁ zero) (lam ∸-helper) ⟩
   lam ∸-helper · (succ₁ n) · (succ₁ zero ∸ succ₁ n)
-    ≡⟨ subst (λ t → lam ∸-helper · (succ₁ n) · (succ₁ zero ∸ succ₁ n) ≡
-                    t · (succ₁ zero ∸ succ₁ n))
-             (beta ∸-helper (succ₁ n))
-             refl
-    ⟩
+    ≡⟨ ·-leftCong (beta ∸-helper (succ₁ n)) ⟩
   ∸-helper (succ₁ n) · (succ₁ zero ∸ succ₁ n)
     ≡⟨ refl ⟩
   lam pred₁ · (succ₁ zero ∸ succ₁ n)
     ≡⟨ beta pred₁ (succ₁ zero ∸ succ₁ n) ⟩
   pred₁ (succ₁ zero ∸ succ₁ n)
-    ≡⟨ subst (λ t → pred₁ (succ₁ zero ∸ succ₁ n) ≡ pred₁ t) (∸-SS zN Nn) refl ⟩
+    ≡⟨ cong pred₁ (∸-SS zN Nn) ⟩
   pred₁ (zero ∸ n)
-    ≡⟨ subst (λ t → pred₁ (zero ∸ n) ≡ pred₁ t) (∸-0x Nn) refl ⟩
+    ≡⟨ cong pred₁ (∸-0x Nn) ⟩
   pred₁ zero
     ≡⟨ pred-0 ⟩
   zero
@@ -147,29 +129,19 @@ open import Draft.FO-LTC-PCF.Data.Nat.Rec.EquationsI
   rec (succ₁ (succ₁ n)) (succ₁ (succ₁ m)) (lam ∸-helper)
     ≡⟨ rec-S (succ₁ n) (succ₁ (succ₁ m)) (lam ∸-helper) ⟩
   lam ∸-helper · (succ₁ n) · (succ₁ (succ₁ m) ∸ succ₁ n)
-    ≡⟨ subst (λ t → lam ∸-helper · (succ₁ n) · (succ₁ (succ₁ m) ∸ succ₁ n) ≡
-                    t · (succ₁ (succ₁ m) ∸ succ₁ n))
-             (beta ∸-helper (succ₁ n))
-             refl
-    ⟩
+    ≡⟨ ·-leftCong (beta ∸-helper (succ₁ n)) ⟩
   ∸-helper (succ₁ n) · (succ₁ (succ₁ m) ∸ succ₁ n)
     ≡⟨ refl ⟩
   lam pred₁ · (succ₁ (succ₁ m) ∸ succ₁ n)
     ≡⟨ beta pred₁ (succ₁ (succ₁ m) ∸ succ₁ n) ⟩
   pred₁ (succ₁ (succ₁ m) ∸ succ₁ n)
-    ≡⟨ subst (λ t → pred₁ (succ₁ (succ₁ m) ∸ succ₁ n) ≡ pred₁ t)
-             (∸-SS (sN Nm) Nn)
-             refl
-    ⟩
+    ≡⟨ cong pred₁ (∸-SS (sN Nm) Nn) ⟩
   pred₁ (succ₁ m ∸ n)
     ≡⟨ sym $ beta pred₁ (succ₁ m ∸ n) ⟩
   lam pred₁ · (succ₁ m ∸ n)
     ≡⟨ refl ⟩
   ∸-helper n · (succ₁ m ∸ n)
-    ≡⟨ subst (λ t → ∸-helper n · (succ₁ m ∸ n) ≡ t · (succ₁ m ∸ n))
-             (sym $ beta ∸-helper n)
-             refl
-    ⟩
+    ≡⟨ ·-leftCong (sym $ beta ∸-helper n) ⟩
   (lam ∸-helper) · n · (succ₁ m ∸ n)
     ≡⟨ sym $ rec-S n (succ₁ m) (lam ∸-helper) ⟩
   rec (succ₁ n) (succ₁ m) (lam ∸-helper)
@@ -185,10 +157,7 @@ open import Draft.FO-LTC-PCF.Data.Nat.Rec.EquationsI
   rec (succ₁ m) zero (lam (*-helper₂ n))
     ≡⟨ rec-S m zero (lam (*-helper₂ n)) ⟩
   lam (*-helper₂ n) · m · (m * n)
-    ≡⟨ subst (λ t → lam (*-helper₂ n) · m · (m * n) ≡ t · (m * n))
-             (beta (*-helper₂ n) m)
-             refl
-    ⟩
+    ≡⟨ ·-leftCong (beta (*-helper₂ n) m) ⟩
   *-helper₂ n m · (m * n)
     ≡⟨ refl ⟩
   lam (*-helper₁ n) · (m * n)

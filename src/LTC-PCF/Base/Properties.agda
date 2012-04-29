@@ -10,6 +10,15 @@ module LTC-PCF.Base.Properties where
 open import LTC-PCF.Base
 
 ------------------------------------------------------------------------------
+-- Congruence properties
+
+·-leftCong : ∀ {m n o} → m ≡ n → m · o ≡ n · o
+·-leftCong h = cong₂ _·_ h refl
+
+·-rightCong : ∀ {m n o} → n ≡ o → m · n ≡ m · o
+·-rightCong h = cong₂ _·_ refl h
+
+------------------------------------------------------------------------------
 
 S≢0 : ∀ {n} → ¬ (succ₁ n ≡ zero)
 S≢0 S≡0 = 0≢S (sym S≡0)

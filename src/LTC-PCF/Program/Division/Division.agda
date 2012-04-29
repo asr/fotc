@@ -21,24 +21,12 @@ open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Inequalities
 
 ------------------------------------------------------------------------------
--- Version using lambda-abstraction.
--- divh : D → D
--- divh g = lam (λ i → lam (λ j →
---              if (lt i j)
---                then zero
---                else (succ (g · (i ∸ j) · j))))
-
--- Version using lambda lifting via super-combinators
--- (Hughes. Super-combinators. 1982).
-
-div-helper₁ : D → D → D → D
-div-helper₁ i g j = if (i < j) then zero else succ₁ (g · (i ∸ j) · j)
-
-div-helper₂ : D → D → D
-div-helper₂ g i = lam (div-helper₁ i g)
 
 divh : D → D
-divh g = lam (div-helper₂ g)
+divh g = lam (λ i → lam (λ j →
+             if (i < j)
+                then zero
+                else (succ₁ (g · (i ∸ j) · j))))
 
 div : D → D → D
 div i j = fix divh · i · j

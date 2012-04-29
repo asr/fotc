@@ -13,12 +13,12 @@ open import Draft.FO-LTC-PCF.Data.Nat.Inequalities
 open import Draft.FO-LTC-PCF.Loop
 
 ------------------------------------------------------------------------------
--- In GHC <= 7.0.4 the gcd is a partial function, i.e. gcd 0 0 = undefined.
+-- In GHC <= 7.0.4 the gcd is a partial function, i.e. @gcd 0 0 =
+-- undefined@.
 
--- Instead of define
--- 'gcdh : ((D → D → D) → (D → D → D)) → D → D → D', we use the LTC
--- abstraction ('lam') and application ('·') to avoid use a polymorphic fixed
--- point operator.
+-- Instead of define @gcdh : ((D → D → D) → (D → D → D)) → D → D → D@,
+-- we use the LTC-PCF abstraction @lam@ and application @_·@ to avoid
+-- use a polymorphic fixed point operator.
 
 -- Version using lambda-abstraction.
 
@@ -47,16 +47,12 @@ gcd-helper₁ d g e = if (iszero₁ e)
                                 else (if (d > e)
                                          then g · (d ∸ e) · e
                                          else g · d · (e ∸ d)))
-{-# ATP definition gcd-helper₁ #-}
 
 gcd-helper₂ : D → D → D
 gcd-helper₂ g d = lam (gcd-helper₁ d g)
-{-# ATP definition gcd-helper₂ #-}
 
 gcdh : D → D
 gcdh g = lam (gcd-helper₂ g)
-{-# ATP definition gcdh #-}
 
 gcd : D → D → D
 gcd d e = fix gcdh · d · e
-{-# ATP definition gcd #-}

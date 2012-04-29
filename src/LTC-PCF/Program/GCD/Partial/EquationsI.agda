@@ -18,27 +18,24 @@ open import LTC-PCF.Program.GCD.Partial.GCD
 
 ------------------------------------------------------------------------------
 
--- Note: This module was written for the version of gcd using the
--- lambda abstractions, but we can use it with the version of gcd
--- using super-combinators.
-
 private
-  -- Before to prove some properties for 'gcd i j' it is convenient
-  -- to descompose the behavior of the function step by step.
+  -- Before to prove some properties for @gcd i j@ it is convenient to
+  -- descompose the behavior of the function step by step.
 
-  -- Initially, we define the possible states (gcd-s₁,
-  -- gcd-s₂, ...). Then we write down the proof for
-  -- the execution step from the state p to the state q
-  -- (e.g proof₂₋₃ : ∀ m n → gcd-s₂ m n → gcd-s₃ m n).
+  -- Initially, we define the possible states (@gcd-s₁, gcd-s₂,
+  -- ...@). Then we write down the proof for the execution step from
+  -- the state p to the state q, eg.
+  --
+  -- @proof₂₋₃ : ∀ m n → gcd-s₂ m n → gcd-s₃ m n@.
 
-  -- The functions gcd-00, gcd-S0, gcd-0S, gcd-Sm>Sn and gcd-Sm≯Sn
-  -- show the use of the states gcd-s₁, gcd-s₂, ..., and the proofs
-  -- associated with the execution steps.
+  -- The functions @gcd-00@, @gcd-S0@, @gcd-0S@, @gcd-Sm>Sn@ and
+  -- @gcd-Sm≯Sn@ show the use of the states @gcd-s₁, gcd-s₂, ...@, and
+  -- the proofs associated with the execution steps.
 
   ----------------------------------------------------------------------------
   -- The steps
 
-  -- Initially, the conversion rule fix-f is applied.
+  -- Initially, the conversion rule @fix-f@ is applied.
   gcd-s₁ : D → D → D
   gcd-s₁ m n = gcdh (fix gcdh) · m · n
 
@@ -67,7 +64,7 @@ private
                                     then fix gcdh · (m ∸ n) · n
                                     else fix gcdh · m · (n ∸ m)))
 
-  -- Conversion (first if_then_else) 'iszero₁ n = b'.
+  -- Conversion (first if_then_else) @iszero₁ n = b@.
   gcd-s₄ : D → D → D → D
   gcd-s₄ m n b = if b
                     then (if (iszero₁ m)
@@ -79,11 +76,11 @@ private
                                       then fix gcdh · (m ∸ n) · n
                                       else fix gcdh · m · (n ∸ m)))
 
-  -- Conversion first if_then_else when 'if true ...'.
+  -- Conversion first if_then_else when @if true ...@.
   gcd-s₅ : D → D
   gcd-s₅ m  = if (iszero₁ m) then loop else m
 
-  -- Conversion first if_then_else when 'if false ...'.
+  -- Conversion first if_then_else when @if false ...@.
   gcd-s₆ : D → D → D
   gcd-s₆ m n = if (iszero₁ m)
                   then n
@@ -91,11 +88,11 @@ private
                            then fix gcdh · (m ∸ n) · n
                            else fix gcdh · m · (n ∸ m))
 
-  -- Conversion (second if_then_else) 'iszero₁ m = b'.
+  -- Conversion (second if_then_else) @iszero₁ m = b@.
   gcd-s₇ : D → D → D
   gcd-s₇ m b = if b then loop else m
 
-  -- Conversion (third if_then_else) 'iszero₁ m = b'.
+  -- Conversion (third if_then_else) @iszero₁ m = b@.
   gcd-s₈ : D → D → D → D
   gcd-s₈ m n b = if b
                     then n
@@ -103,13 +100,13 @@ private
                              then fix gcdh · (m ∸ n) · n
                              else fix gcdh · m · (n ∸ m))
 
-  -- Conversion third if_then_else, when 'if false ...'.
+  -- Conversion third if_then_else, when @if false ...@.
   gcd-s₉ : D → D → D
   gcd-s₉ m n = if (m > n)
                    then fix gcdh · (m ∸ n) · n
                    else fix gcdh · m · (n ∸ m)
 
-  -- Conversion (fourth if_then_else) 'gt m n = b'.
+  -- Conversion (fourth if_then_else) @gt m n = b@.
   gcd-s₁₀ : D → D → D → D
   gcd-s₁₀ m n b = if b
                      then fix gcdh · (m ∸ n) · n
@@ -119,8 +116,11 @@ private
   -- The execution steps
 
   {-
-  To prove the execution steps
-  (e.g. proof₃₋₄ : ∀ m n → gcd-s₃ m n → gcd_s₄ m n),
+
+  To prove the execution steps, e.g.
+
+  @proof₃₋₄ : ∀ m n → gcd-s₃ m n → gcd_s₄ m n@,
+
   we usually need to prove that
 
                          C [m] ≡ C [n] (1)
@@ -139,7 +139,7 @@ private
    P x is given by C [n] ≡ C [n] (i.e. refl).
   -}
 
-  -- Application of the conversion rule fix-f.
+  -- Application of the conversion rule @fix-f@.
   proof₀₋₁ : ∀ m n → fix gcdh · m · n ≡ gcd-s₁ m n
   proof₀₋₁ m n = subst (λ x → x · m · n ≡ gcdh (fix gcdh) · m · n)
                        (sym (fix-f gcdh))
@@ -155,64 +155,71 @@ private
   proof₂₋₃ : ∀ m n → gcd-s₂ m · n ≡ gcd-s₃ m n
   proof₂₋₃ m n  = beta (gcd-s₃ m) n
 
-  -- Conversion (first if_then_else) 'iszero₁ n = b' using that proof.
+  -- Conversion (first if_then_else) @iszero₁ n = b@ using that proof.
   proof₃₋₄ : ∀ m n b → iszero₁ n ≡ b → gcd-s₃ m n ≡ gcd-s₄ m n b
   proof₃₋₄ m n b h = subst (λ x → gcd-s₄ m n x ≡ gcd-s₄ m n b)
                            (sym h)
                            refl
 
-  -- Conversion first if_then_else when 'if true ...' using if-true.
+  -- Conversion first if_then_else when @if true ...@ using @if-true@.
   proof₄₋₅ : ∀ m n → gcd-s₄ m n true ≡ gcd-s₅ m
   proof₄₋₅ m _ = if-true (gcd-s₅ m)
 
-  -- Conversion first if_then_else when 'if false ...' using if-false.
+  -- Conversion first if_then_else when @if false ...@ using
+  -- @if-false@.
   proof₄₋₆ : ∀ m n → gcd-s₄ m n false ≡ gcd-s₆ m n
   proof₄₋₆ m n = if-false (gcd-s₆ m n)
 
-  -- -- Conversion (second if_then_else) 'iszero₁ m = b' using that proof.
+  -- Conversion (second if_then_else) @iszero₁ m = b@ using that
+  -- proof.
   proof₅₋₇ : ∀ m b → iszero₁ m ≡ b → gcd-s₅ m ≡ gcd-s₇ m b
   proof₅₋₇ m b h = subst (λ x → gcd-s₇ m x ≡ gcd-s₇ m b)
                          (sym h)
                          refl
 
-  -- Conversion (third if_then_else) 'iszero₁ m = b' using that proof.
+  -- Conversion (third if_then_else) @iszero₁ m = b@ using that proof.
   proof₆₋₈ : ∀ m n b → iszero₁ m ≡ b → gcd-s₆ m n ≡ gcd-s₈ m n b
   proof₆₋₈ m n b h = subst (λ x → gcd-s₈ m n x ≡ gcd-s₈ m n b)
                            (sym h)
                            refl
 
-  -- Conversion second if_then_else when 'if true ...' using if-true.
+  -- Conversion second if_then_else when @if true ...@ using
+  -- @if-true@.
   proof₇₊ : ∀ m → gcd-s₇ m true ≡ loop
   proof₇₊ _ = if-true loop
 
-  -- Conversion second if_then_else when 'if false ...' using if-false.
+  -- Conversion second if_then_else when @if false ...@ using
+  -- @if-false@.
   proof₇₋ : ∀ m → gcd-s₇ m false ≡ m
   proof₇₋ m = if-false m
 
-  -- Conversion third if_then_else when 'if true ...' using if-true.
+  -- Conversion third if_then_else when @if true ...@ using @if-true@.
   proof₈₊ : ∀ m n → gcd-s₈ m n true ≡ n
   proof₈₊ _ n = if-true n
 
-  -- Conversion third if_then_else when 'if false ...' using if-false.
+  -- Conversion third if_then_else when @if false ...@ using
+  -- @if-false@.
   proof₈₋₉ : ∀ m n → gcd-s₈ m n false ≡ gcd-s₉ m n
   proof₈₋₉ m n = if-false (gcd-s₉ m n)
 
-  -- Conversion (fourth if_then_else) 'gt m n = b' using that proof.
+  -- Conversion (fourth if_then_else) @gt m n = b@ using that proof.
   proof₉₋₁₀ : ∀ m n b → m > n ≡ b → gcd-s₉ m n ≡ gcd-s₁₀ m n b
   proof₉₋₁₀ m n b h = subst (λ x → gcd-s₁₀ m n x ≡ gcd-s₁₀ m n b)
                             (sym h)
                             refl
 
-  -- Conversion fourth if_then_else when 'if true ...' using if-true.
+  -- Conversion fourth if_then_else when @if true ...@ using
+  -- @if-true@.
   proof₁₀₊ : ∀ m n → gcd-s₁₀ m n true ≡ fix gcdh · (m ∸ n) · n
   proof₁₀₊ m n = if-true (fix gcdh · (m ∸ n) · n)
 
-  -- Conversion fourth if_then_else when 'if was ...' using if-false.
+  -- Conversion fourth if_then_else when @if was ...@ using
+  -- @if-false@.
   proof₁₀₋ : ∀ m n → gcd-s₁₀ m n false ≡ fix gcdh · m · (n ∸ m)
   proof₁₀₋ m n = if-false (fix gcdh · m · (n ∸ m))
 
 ------------------------------------------------------------------------------
--- The five equations for gcd
+-- The five equations for @gcd@
 
 -- First equation.
 -- We do not use this equation for reasoning about gcd.
