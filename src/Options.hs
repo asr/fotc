@@ -21,6 +21,7 @@ module Options
   , Options( optAgdaIncludePath
            , optATP
            , optHelp
+           , optNonFOLFormulaQuantification
            , optNonFOLTermQuantification
            , optOnlyFiles
            , optOutputDir
@@ -83,19 +84,20 @@ import qualified Agda.Utils.Trie as Trie ( insert, singleton )
 
 -- | Program command-line options.
 data Options = MkOptions
-  { optAgdaIncludePath          ∷ [FilePath]
-  , optATP                      ∷ [String]
-  , optHelp                     ∷ Bool
-  , optNonFOLTermQuantification ∷ Bool
-  , optOnlyFiles                ∷ Bool
-  , optOutputDir                ∷ FilePath
-  , optSnapshotDir              ∷ FilePath
-  , optSnapshotTest             ∷ Bool
-  , optTime                     ∷ Int
-  , optUnprovedNoError          ∷ Bool
-  , optVampireExec              ∷ String
-  , optVerbose                  ∷ Verbosity
-  , optVersion                  ∷ Bool
+  { optAgdaIncludePath             ∷ [FilePath]
+  , optATP                         ∷ [String]
+  , optHelp                        ∷ Bool
+  , optNonFOLFormulaQuantification ∷ Bool
+  , optNonFOLTermQuantification    ∷ Bool
+  , optOnlyFiles                   ∷ Bool
+  , optOutputDir                   ∷ FilePath
+  , optSnapshotDir                 ∷ FilePath
+  , optSnapshotTest                ∷ Bool
+  , optTime                        ∷ Int
+  , optUnprovedNoError             ∷ Bool
+  , optVampireExec                 ∷ String
+  , optVerbose                     ∷ Verbosity
+  , optVersion                     ∷ Bool
   } deriving Show
 
 -- | Default ATPs called by the program.
@@ -108,19 +110,20 @@ defaultATPs = ["e", "equinox", "vampire"]
 -- by @Options.Process.processOptions@.
 defaultOptions ∷ Options
 defaultOptions = MkOptions
-  { optAgdaIncludePath          = []
-  , optATP                      = []
-  , optHelp                     = False
-  , optNonFOLTermQuantification = False
-  , optOnlyFiles                = False
-  , optOutputDir                = "/tmp"
-  , optSnapshotDir              = "snapshot"
-  , optSnapshotTest             = False
-  , optTime                     = 300
-  , optUnprovedNoError          = False
-  , optVampireExec              = "vampire_lin64"
-  , optVerbose                  = Trie.singleton [] 1
-  , optVersion                  = False
+  { optAgdaIncludePath             = []
+  , optATP                         = []
+  , optHelp                        = False
+  , optNonFOLFormulaQuantification = False
+  , optNonFOLTermQuantification    = False
+  , optOnlyFiles                   = False
+  , optOutputDir                   = "/tmp"
+  , optSnapshotDir                 = "snapshot"
+  , optSnapshotTest                = False
+  , optTime                        = 300
+  , optUnprovedNoError             = False
+  , optVampireExec                 = "vampire_lin64"
+  , optVerbose                     = Trie.singleton [] 1
+  , optVersion                     = False
   }
 
 agdaIncludePathOpt ∷ FilePath → Options → Options
@@ -139,12 +142,9 @@ helpOpt opts = opts { optHelp = True }
 nonFOLTermQuantificationOpt ∷ Options → Options
 nonFOLTermQuantificationOpt opts = opts { optNonFOLTermQuantification = True }
 
-timeOpt ∷ String → Options → Options
-timeOpt []   _    = error "Option --time requires an argument NUM"
-timeOpt secs opts =
-  if all isDigit secs
-  then opts { optTime = read secs }
-  else error "Option --time requires an non-negative integer argument"
+nonFOLFormulaQuantificationOpt ∷ Options → Options
+nonFOLFormulaQuantificationOpt opts =
+  opts { optNonFOLFormulaQuantification = True }
 
 onlyFilesOpt ∷ Options → Options
 onlyFilesOpt opts = opts { optOnlyFiles = True }
@@ -161,6 +161,13 @@ snapshotTestOpt ∷ Options → Options
 snapshotTestOpt opts = opts { optSnapshotTest = True
                             , optOnlyFiles = True
                             }
+
+timeOpt ∷ String → Options → Options
+timeOpt []   _    = error "Option --time requires an argument NUM"
+timeOpt secs opts =
+  if all isDigit secs
+  then opts { optTime = read secs }
+  else error "Option --time requires an non-negative integer argument"
 
 unprovedNoErrorOpt ∷ Options → Options
 unprovedNoErrorOpt opts = opts { optUnprovedNoError = True }
@@ -197,7 +204,11 @@ options =
                ++ "(default: e, equinox, and vampire)"
   , Option "?" ["help"] (NoArg helpOpt)
                "show this help"
-  , Option []  ["non-fol-term-quantification"] (NoArg nonFOLTermQuantificationOpt)
+  , Option []  ["non-fol-formula-quantification"]
+               (NoArg nonFOLFormulaQuantificationOpt)
+               "translate FOL universal quantified formulae"
+  , Option []  ["non-fol-term-quantification"]
+               (NoArg nonFOLTermQuantificationOpt)
                "translate FOL universal quantified function terms"
   , Option []  ["only-files"] (NoArg onlyFilesOpt)
                "do not call the ATPs, only to create the TPTP files"

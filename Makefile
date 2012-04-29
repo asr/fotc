@@ -50,7 +50,9 @@ snapshot_files_to_test = $(patsubst %.agda,%.snapshottest, \
 
 %.succeed_NonFOL : %.agdai
 	echo "Processing file $*.agda"
-	@$(AGDA2ATP) --time=60 --non-fol-term-quantification $*.agda
+	@$(AGDA2ATP) --time=60 \
+                     --non-fol-formula-quantification \
+                     --non-fol-term-quantification $*.agda
 
 %.fail_FOL : %.agdai
 	echo "Processing file $*.agda"
@@ -61,7 +63,9 @@ snapshot_files_to_test = $(patsubst %.agda,%.snapshottest, \
 	@echo "Parsing file" $*.agda
 	@$(AGDA2ATP) --time=1 \
                      --atp=equinox \
-                     --non-fol-term-quantification $*.agda \
+                     --non-fol-formula-quantification \
+                     --non-fol-term-quantification \
+                     $*.agda \
 		      >/tmp/xxx.tmp 2>/tmp/parsing.error
 
 	@if [ -s /tmp/parsing.error ]; then \
@@ -71,11 +75,13 @@ snapshot_files_to_test = $(patsubst %.agda,%.snapshottest, \
 
 %.snapshotcreate : %.agdai
 	@$(AGDA2ATP) --only-files \
+                     --non-fol-formula-quantification \
                      --non-fol-term-quantification \
                      --output-dir=$(snapshot_dir) $*.agda
 
 %.snapshottest : %.agdai
-	@$(AGDA2ATP) --non-fol-term-quantification \
+	@$(AGDA2ATP) --non-fol-formula-quantification \
+		     --non-fol-term-quantification \
                      --snapshot-test \
                      --snapshot-dir=$(snapshot_dir) $*.agda
 

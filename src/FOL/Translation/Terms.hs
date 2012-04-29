@@ -113,7 +113,10 @@ import Monad.Base
   )
 
 import Monad.Reports ( reportSLn )
-import Options       ( Options(optNonFOLTermQuantification) )
+
+import Options
+ ( Options(optNonFOLFormulaQuantification , optNonFOLTermQuantification) )
+
 import Utils.Monad   ( unlessM )
 
 #include "../../undefined.h"
@@ -356,16 +359,23 @@ termToFormula term@(Pi domTy (Abs _ tyAbs)) = do
       reportSLn "t2f" 20 $ "The term someterm is: " ++ show someTerm
       __IMPOSSIBLE__
 
+    -- Non-FOL translation: FOL universal quantified formulae.
+    --
     -- The bounded variable is quantified on a @Set₁@,
     --
     -- e.g. the bounded variable is @P : Set@,
     --
     -- so we just return the consequent. We use this case for translate
-    -- predicate logic schemas, e.g.
+    -- predicate logical schemata such
     --
     -- @∨-comm  : {P Q : Set} → P ∨ Q → Q ∨ P@.
     El (Type (Max [ClosedLevel 1])) (Sort _) → do
       reportSLn "t2f" 20 $ "The type domTy is: " ++ show domTy
+
+      unlessM (optNonFOLFormulaQuantification <$> getTOpts) $
+               throwError $ "The translation of FOL universal quantified"
+                            ++ " formulae is disable by default."
+                            ++ " Use option --non-fol-formula-quantification"
       return f2
 
     -- The bounded variable is quantified on a @Set₁@,
@@ -409,18 +419,17 @@ termToFormula term@(Var n args) = do
         [] → return $ Predicate (vars !! fromIntegral n) []
 
         -- If we have a bounded variable quantified on a function of a
-        -- @Set@ to a @Set₁@, for example, the variable/predicate @P@ in
+        -- @Set@ to a @Set₁@, for example, the variable/predicate @P@
+        -- in
         --
         -- @(P : D → Set) → (x : D) → P x → P x@
         --
         -- we are quantifying on this variable/function
-
         -- (see @termToFormula term@(Pi domTy (Abs _ tyAbs)@)),
 
         -- therefore we need to apply this variable/predicate to the
         -- others variables. See an example in
         -- Test.Succeed.AgdaInternalTerms.Var1.agda.
-
         _ → predicateLogicalScheme vars n args
 
 termToFormula (DontCare _)        = __IMPOSSIBLE__
@@ -502,22 +511,21 @@ termToFOLTerm term@(Var n args) = do
       case args of
         [] → return $ FOLVar (vars !! fromIntegral n)
 
+        -- Non-FOL translation: FOL universal quantified functions term.
+
+        -- If we have a bounded variable quantified on a function of a
+        -- Set to a Set, for example, the variable/function @f@ in
+        --
+        -- @(f : D → D) → (a : D) → (lam f) ∙ a ≡ f a@
+        --
+        -- we are quantifying on this variable/function
+
+        -- (see @termToFormula (Pi domTy (Abs _ tyAbs))@),
+
+        -- therefore we need to apply this variable/function to the
+        -- others variables. See an example in
+        -- Test.Succeed.AgdaInternalTerms.Var2.agda
         varArgs → do
-          -- Non-FOL translation: FOL universal quantified functions term.
-
-          -- If we have a bounded variable quantified on a function of
-          -- a Set to a Set, for example, the variable/function @f@ in
-          --
-          -- @(f : D → D) → (a : D) → (lam f) ∙ a ≡ f a@
-          --
-          -- we are quantifying on this variable/function
-
-          -- (see @termToFormula (Pi domTy (Abs _ tyAbs))@),
-
-          -- therefore we need to apply this variable/function to the
-          -- others variables. See an example in
-          -- Test.Succeed.AgdaInternalTerms.Var2.agda
-
           unlessM (optNonFOLTermQuantification <$> getTOpts) $
                   throwError $ "The translation of FOL universal quantified function terms is disable by default. Use option --non-fol-term-quantification"
 
