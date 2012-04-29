@@ -21,6 +21,7 @@ module Options
   , Options( optAgdaIncludePath
            , optATP
            , optHelp
+           , optNonFOL
            , optNonFOLFormulaQuantification
            , optNonFOLTermQuantification
            , optOnlyFiles
@@ -87,6 +88,7 @@ data Options = MkOptions
   { optAgdaIncludePath             ∷ [FilePath]
   , optATP                         ∷ [String]
   , optHelp                        ∷ Bool
+  , optNonFOL                      ∷ Bool
   , optNonFOLFormulaQuantification ∷ Bool
   , optNonFOLTermQuantification    ∷ Bool
   , optOnlyFiles                   ∷ Bool
@@ -113,6 +115,7 @@ defaultOptions = MkOptions
   { optAgdaIncludePath             = []
   , optATP                         = []
   , optHelp                        = False
+  , optNonFOL                      = False
   , optNonFOLFormulaQuantification = False
   , optNonFOLTermQuantification    = False
   , optOnlyFiles                   = False
@@ -139,12 +142,18 @@ atpOpt name opts = opts { optATP = optATP opts ++ [name] }
 helpOpt ∷ Options → Options
 helpOpt opts = opts { optHelp = True }
 
-nonFOLTermQuantificationOpt ∷ Options → Options
-nonFOLTermQuantificationOpt opts = opts { optNonFOLTermQuantification = True }
+nonFOLOpt ∷ Options → Options
+nonFOLOpt opts = opts { optNonFOL                      = True
+                      , optNonFOLFormulaQuantification = True
+                      , optNonFOLTermQuantification    = True
+                      }
 
 nonFOLFormulaQuantificationOpt ∷ Options → Options
 nonFOLFormulaQuantificationOpt opts =
   opts { optNonFOLFormulaQuantification = True }
+
+nonFOLTermQuantificationOpt ∷ Options → Options
+nonFOLTermQuantificationOpt opts = opts { optNonFOLTermQuantification = True }
 
 onlyFilesOpt ∷ Options → Options
 onlyFilesOpt opts = opts { optOnlyFiles = True }
@@ -204,6 +213,8 @@ options =
                ++ "(default: e, equinox, and vampire)"
   , Option "?" ["help"] (NoArg helpOpt)
                "show this help"
+  , Option []  ["non-fol"] (NoArg nonFOLOpt)
+               "enable the non-FOL translations"
   , Option []  ["non-fol-formula-quantification"]
                (NoArg nonFOLFormulaQuantificationOpt)
                "translate FOL universal quantified formulae"

@@ -2,6 +2,9 @@ Change log for agda2atp
 
 0.9.1 XXX
 
+      * Added command-line option --non-fol which enables the
+        non-FOL-translations.
+
       * The translation of FOL universal quantified functions terms
       and formulae is disable by default. The command-line options
       --non-fol-term-quantification and
