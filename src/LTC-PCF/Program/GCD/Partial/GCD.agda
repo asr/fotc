@@ -17,8 +17,8 @@ open import LTC-PCF.Loop
 -- undefined@.
 
 -- Instead of define @gcdh : ((D → D → D) → (D → D → D)) → D → D → D@,
--- we use the LTC-PCF abstraction @lam@ and application @_·@ to avoid
--- use a polymorphic fixed point operator.
+-- we use the LTC-PCF abstraction @lam@ and application @_·_@ to avoid
+-- use a polymorphic fixed-point operator.
 
 gcdh : D → D
 gcdh g = lam (λ d → lam (λ e →

@@ -59,7 +59,7 @@ postulate
            -- _≈N_ is greater than R.
            ∀ {m n} → m R n → m ≈N n
 
--- Because a greatest post-fixed point is a fixed point, then the
+-- Because a greatest post-fixed point is a fixed-point, then the
 -- relation _≈N_ is also a pre-fixed point of the functional ≈NF, i.e.
 --
 -- ≈NF _≈N_ ≤ _≈N_.

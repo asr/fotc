@@ -51,7 +51,7 @@ postulate
 postulate beta : ∀ f a → lam f · a ≡ f a
 {-# ATP axiom beta #-}
 
--- Conversion rule for the fixed pointed operator.
+-- Conversion rule for the fixed-pointed operator.
 postulate fix-f : ∀ f → fix f ≡ f (fix  f)
 {-# ATP axiom fix-f #-}
 

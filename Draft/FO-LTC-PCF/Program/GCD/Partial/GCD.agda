@@ -17,8 +17,8 @@ open import Draft.FO-LTC-PCF.Loop
 -- undefined@.
 
 -- Instead of define @gcdh : ((D → D → D) → (D → D → D)) → D → D → D@,
--- we use the LTC-PCF abstraction @lam@ and application @_·@ to avoid
--- use a polymorphic fixed point operator.
+-- we use the LTC-PCF abstraction @lam@ and application @_·_@ to avoid
+-- use a polymorphic fixed-point operator.
 
 -- Version using lambda-abstraction.
 

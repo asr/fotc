@@ -40,7 +40,7 @@ flip : {A B C : Set} → (A → B → C) → B → A → C
 flip f b a = f a b
 
 ------------------------------------------------------------------------------
--- N is a least fixed point of a functor
+-- N is a least fixed-point of a functor
 
 -- Instead defining the least fixed-point via a (higher-order)
 -- operator, we will define it using an instance of that operator.

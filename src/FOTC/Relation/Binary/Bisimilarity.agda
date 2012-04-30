@@ -14,7 +14,7 @@ infix 7 _≈_
 
 ------------------------------------------------------------------------------
 -- The bisimilarity relation _≈_ on unbounded lists is the greatest
--- fixed point (by ≈-gfp₁ and ≈-gfp₂) of the bisimulation functional
+-- fixed-point (by ≈-gfp₁ and ≈-gfp₂) of the bisimulation functional
 -- (see below).
 
 -- The bisimilarity relation on unbounded lists.

@@ -41,7 +41,7 @@ open import Common.FOL.FOL-Eq public
 postulate
   _·_                   : D → D → D    -- LTC-PCF application.
   lam                   : (D → D) → D  -- LTC-PCF abstraction.
-  fix                   : (D → D) → D  -- LTC-PCF fixed point operator.
+  fix                   : (D → D) → D  -- LTC-PCF fixed-point operator.
   true false if         : D            -- LTC-PCF partial booleans.
   zero succ pred iszero : D            -- LTC-PCF partial natural numbers.
 
@@ -86,7 +86,7 @@ abstract
 postulate beta : ∀ f a → lam f · a ≡ f a
 {-# ATP axiom beta #-}
 
--- Conversion rule for the fixed pointed operator.
+-- Conversion rule for the fixed-pointed operator.
 postulate fix-f : ∀ f → fix f ≡ f (fix f)
 {-# ATP axiom fix-f #-}
 
