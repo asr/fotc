@@ -124,7 +124,12 @@ only_conjectures_% :
 	for file in $(conjectures); do \
 	    echo "Processing file $$file"; \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
-	    if ! ( $(AGDA2ATP_ONLY_CONJECTURES) $${file} ); then exit 1; fi; \
+	    if [ "src/FOL/NonIntuitionistic/TheoremsATP.agda" = $${file} ] || \
+               [ "src/FOL/SchemataATP.agda" = $${file} ]; then \
+	       if ! ( $(AGDA2ATP_ONLY_CONJECTURES) --non-fol $${file} ); then exit 1; fi; \
+            else \
+	      if ! ( $(AGDA2ATP_ONLY_CONJECTURES) $${file} ); then exit 1; fi; \
+            fi; \
 	done
 
 all_only_conjectures : only_conjectures_DistributiveLaws \
@@ -140,7 +145,8 @@ all_only_conjectures : only_conjectures_DistributiveLaws \
 parsing_% :
 	for file in $(conjectures); do \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
-	    if ! ( $(AGDA2ATP_PARSING) $${file} \
+	    if ! ( $(AGDA2ATP_PARSING) --non-fol \
+                                       $${file} \
                                        >/tmp/xxx.tmp \
                                        2>/tmp/parsing.error ); then \
 		exit 1; \
@@ -166,7 +172,12 @@ conjectures_% :
 	for file in $(conjectures); do \
 	    echo "Processing file $$file"; \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
-	    if ! ( $(AGDA2ATP) --time=180 $${file} ); then exit 1; fi; \
+	    if [ "src/FOL/NonIntuitionistic/TheoremsATP.agda" = $${file} ] || \
+               [ "src/FOL/SchemataATP.agda" = $${file} ]; then \
+	       if ! ( $(AGDA2ATP) --non-fol --time=180 $${file} ); then exit 1; fi; \
+            else \
+	      if ! ( $(AGDA2ATP) --time=180 $${file} ); then exit 1; fi; \
+            fi; \
 	done
 
 # TODO: We add the conjectures related to the programs, but it
@@ -216,7 +227,9 @@ all_consistency : $(consistency_test_files)
 create_snapshot_% :
 	for file in $(conjectures); do \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
-	    if ! ( $(AGDA2ATP_CREATE_SNAPSHOT) $${file} ); then exit 1; fi; \
+	    if ! ( $(AGDA2ATP_CREATE_SNAPSHOT) --non-fol $${file} ); then \
+	       exit 1; \
+            fi; \
 	done
 
 all_create_snapshot : create_snapshot_DistributiveLaws \
@@ -231,7 +244,9 @@ all_create_snapshot : create_snapshot_DistributiveLaws \
 snapshot_% :
 	for file in $(conjectures); do \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
-	    if ! ( $(AGDA2ATP_SNAPSHOT_TEST) $${file} ); then exit 1; fi; \
+	    if ! ( $(AGDA2ATP_SNAPSHOT_TEST) --non-fol $${file} ); then \
+	       exit 1; \
+        fi; \
 	done
 
 all_snapshot : snapshot_DistributiveLaws \
