@@ -5,6 +5,9 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
+-- Requires @agda2atp@ options @--non-fol-formula@ and
+-- @--non-fol-propositional-function@.
+
 module FOL.SchemataATP where
 
 open import FOL.Base
