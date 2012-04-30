@@ -29,14 +29,15 @@ executable agda2atp
   main-is:        Main.hs
   hs-source-dirs: src
 
-  build-depends: Agda         == 2.3.1.1
-                 , base       >= 4.2     && < 4.6
-                 , Diff       >= 0.1.2   && < 0.2
-                 , containers >= 0.3     && < 0.5
-                 , directory  >= 1.0     && < 1.2
-                 , filepath   >= 1.1     && < 1.4
-                 , mtl        >= 2.0     && < 2.1
-                 , process    >= 1.0     && < 1.2
+  build-depends: Agda                   == 2.3.1.1
+                 , base                 >= 4.2     && < 4.6
+                 , Diff                 >= 0.1.2   && < 0.2
+                 , containers           >= 0.3     && < 0.5
+                 , directory            >= 1.0     && < 1.2
+                 , filepath             >= 1.1     && < 1.4
+                 , mtl                  >= 2.0     && < 2.1
+                 , process              >= 1.0     && < 1.2
+                 , unordered-containers == 0.2.*
 
   other-modules: AgdaLib.DeBruijn
                  AgdaLib.EtaExpansion

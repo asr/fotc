@@ -38,12 +38,14 @@ import Data.Char ( String )
 import Data.String ( String )
 #endif
 
-import Data.Bool                 ( otherwise )
-import Data.Either               ( Either(Left, Right) )
-import Data.Function             ( ($), (.) )
-import Data.List                 ( (++), map, null )
-import qualified Data.Map as Map ( unions )
-import Data.Tuple                ( fst, snd )
+import Data.Bool     ( otherwise )
+import Data.Either   ( Either(Left, Right) )
+import Data.Function ( ($), (.) )
+
+import qualified Data.HashMap.Strict as HashMap ( unions )
+
+import Data.List  ( (++), map, null )
+import Data.Tuple ( fst, snd )
 
 import System.Environment ( getArgs )
 import System.Exit        ( exitFailure, exitSuccess )
@@ -110,7 +112,7 @@ translation agdaFile = do
       importedDefs = map (sigDefinitions . iSignature) iInterfaces
 
       allDefs ∷ Definitions
-      allDefs = Map.unions (topLevelDefs : importedDefs)
+      allDefs = HashMap.unions (topLevelDefs : importedDefs)
 
   reportSLn "translation" 20 $ show allDefs
 

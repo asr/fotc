@@ -49,12 +49,14 @@ import Data.Char ( String )
 import Data.String ( String )
 #endif
 
-import Data.Bool                 ( Bool )
-import Data.Either               ( Either )
-import Data.Function             ( (.) )
-import Data.Functor              ( fmap )
-import Data.List                 ( null )
-import qualified Data.Map as Map ( empty )
+import Data.Bool     ( Bool )
+import Data.Either   ( Either )
+import Data.Function ( (.) )
+import Data.Functor  ( fmap )
+
+import qualified Data.HashMap.Strict as HashMap ( empty )
+
+import Data.List     ( null )
 
 #if __GLASGOW_HASKELL__ == 612
 import GHC.Num ( Num(fromInteger) )
@@ -85,7 +87,7 @@ data TState = MkState { tDefs ∷ Definitions -- ^ Agda definitions.
 
 -- The initial state.
 initTState ∷ TState
-initTState = MkState { tDefs = Map.empty
+initTState = MkState { tDefs = HashMap.empty
                      , tOpts = defaultOptions
                      , tVars = []
                      }

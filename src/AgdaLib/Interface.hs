@@ -45,14 +45,16 @@ import Control.Monad.Error ( MonadError(throwError) )
 import Control.Monad.State ( evalStateT, MonadState(get, put), StateT )
 import Control.Monad.Trans ( MonadIO(liftIO), MonadTrans(lift) )
 
-import Data.Bool                 ( Bool(False, True) )
-import Data.Either               ( Either(Left, Right) )
-import Data.Function             ( ($), (.) )
-import Data.Functor              ( (<$>), fmap )
-import Data.Int                  ( Int, Int32 )
-import Data.List                 ( (++), concat, concatMap, map, notElem )
-import qualified Data.Map as Map ( filter, lookup )
-import Data.Maybe                ( fromMaybe, Maybe(Just, Nothing) )
+import Data.Bool     ( Bool(False, True) )
+import Data.Either   ( Either(Left, Right) )
+import Data.Function ( ($), (.) )
+import Data.Functor  ( (<$>), fmap )
+import Data.Int      ( Int, Int32 )
+
+import qualified Data.HashMap.Strict as HashMap ( filter, lookup )
+
+import Data.List  ( (++), concat, concatMap, map, notElem )
+import Data.Maybe ( fromMaybe, Maybe(Just, Nothing) )
 
 #if __GLASGOW_HASKELL__ == 612
 import GHC.Num ( Num(fromInteger) )
@@ -144,10 +146,10 @@ import Utils.Monad   ( unlessM )
 ------------------------------------------------------------------------------
 
 getATPRole ∷ ATPRole → Definitions → Definitions
-getATPRole ATPAxiom      = Map.filter isATPAxiom
-getATPRole ATPConjecture = Map.filter isATPConjecture
-getATPRole ATPDefinition = Map.filter isATPDefinition
-getATPRole ATPHint       = Map.filter isATPHint
+getATPRole ATPAxiom      = HashMap.filter isATPAxiom
+getATPRole ATPConjecture = HashMap.filter isATPConjecture
+getATPRole ATPDefinition = HashMap.filter isATPDefinition
+getATPRole ATPHint       = HashMap.filter isATPHint
 
 getATPAxioms ∷ Definitions → Definitions
 getATPAxioms = getATPRole ATPAxiom
@@ -298,7 +300,7 @@ isATPHint def =
 qNameDefinition ∷ QName → T Definition
 qNameDefinition qName = do
   allDefs ← getTDefs
-  return $ fromMaybe (__IMPOSSIBLE__) $ Map.lookup qName allDefs
+  return $ fromMaybe (__IMPOSSIBLE__) $ HashMap.lookup qName allDefs
 
 qNameType ∷ QName → T Type
 qNameType qName = fmap defType $ qNameDefinition qName

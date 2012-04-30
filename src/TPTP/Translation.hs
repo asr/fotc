@@ -36,11 +36,13 @@ import Control.Monad
   , zipWithM
   )
 
-import Data.Eq                   ( Eq((==)) )
-import Data.Function             ( ($), (.) )
-import Data.Functor              ( (<$>), fmap )
-import Data.List                 ( (++), concat, nub, reverse )
-import qualified Data.Map as Map ( elems, keys )
+import Data.Eq       ( Eq((==)) )
+import Data.Function ( ($), (.) )
+import Data.Functor  ( (<$>), fmap )
+
+import qualified Data.HashMap.Strict as HashMap ( elems, keys )
+
+import Data.List ( (++), concat, nub, reverse )
 
 #if __GLASGOW_HASKELL__ == 612
 import GHC.Num ( Num(fromInteger) )
@@ -231,18 +233,18 @@ conjecturesToAFs topLevelDefs = do
       conjecturesDefs = getATPConjectures topLevelDefs
 
   reportSLn "conjecturesToFOLs" 20 $
-    "Conjectures:\n" ++ show (Map.keys conjecturesDefs)
+    "Conjectures:\n" ++ show (HashMap.keys conjecturesDefs)
 
   zipWithM conjectureToAF
-           (Map.keys conjecturesDefs)
-           (Map.elems conjecturesDefs)
+           (HashMap.keys conjecturesDefs)
+           (HashMap.elems conjecturesDefs)
 
 -- We translate the ATP axioms to FOL formulas.
 axiomsToAFs ∷ T [AF]
 axiomsToAFs = do
   axDefs ∷ Definitions ← getATPAxioms <$> getTDefs
 
-  zipWithM (toAF ATPAxiom) (Map.keys axDefs) (Map.elems axDefs)
+  zipWithM (toAF ATPAxiom) (HashMap.keys axDefs) (HashMap.elems axDefs)
 
 requiredATPDefsByDefinition ∷ Definition → T [AF]
 requiredATPDefsByDefinition def = do
@@ -256,20 +258,20 @@ requiredATPDefsByAxioms ∷ T [AF]
 requiredATPDefsByAxioms = do
   axDefs ∷ Definitions ← getATPAxioms <$> getTDefs
 
-  fmap (nub . concat) (mapM requiredATPDefsByDefinition (Map.elems axDefs))
+  fmap (nub . concat) (mapM requiredATPDefsByDefinition (HashMap.elems axDefs))
 
 -- We translate the ATP general hints to FOL formulas.
 generalHintsToAFs ∷ T [AF]
 generalHintsToAFs = do
   ghDefs ∷ Definitions ← getATPHints <$> getTDefs
 
-  zipWithM (toAF ATPHint) (Map.keys ghDefs) (Map.elems ghDefs)
+  zipWithM (toAF ATPHint) (HashMap.keys ghDefs) (HashMap.elems ghDefs)
 
 requiredATPDefsByHints ∷ T [AF]
 requiredATPDefsByHints = do
   ghDefs ∷ Definitions ← getATPHints <$> getTDefs
 
-  fmap (nub . concat) (mapM requiredATPDefsByDefinition (Map.elems ghDefs))
+  fmap (nub . concat) (mapM requiredATPDefsByDefinition (HashMap.elems ghDefs))
 
 -- | Translate the ATP axioms, the ATP general hints, and the ATP
 -- definitions in the top level module and its imported modules to
