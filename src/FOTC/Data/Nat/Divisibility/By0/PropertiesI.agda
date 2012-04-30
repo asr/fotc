@@ -64,7 +64,7 @@ x∣Sy→x≤Sy {m} Nm Nn (.(succ₁ k) , sN {k} Nk , Sn≡Sk*m) =
                (sym $ *-Sx k m)
                (x≤x+y Nm (*-N Nk Nm)))
 
--- If 0 divides x, the x = 0.
+-- If 0 divides x, then x = 0.
 0∣x→x≡0 : ∀ {m} → N m → zero ∣ m → m ≡ zero
 0∣x→x≡0 zN          _                 = refl
 0∣x→x≡0 (sN {m} Nm) (k , Nk , Sm≡k*0) =
