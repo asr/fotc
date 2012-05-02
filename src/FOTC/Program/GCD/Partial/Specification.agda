@@ -30,7 +30,7 @@ record GCD (a b gcd : D) : Set where
     -- relation "is less than or equal to".
     greatest : GACD a b gcd
 
--- The 'gcd' is the GCD.
+-- The gcd is the GCD.
 gcd-GCD : ∀ {m n} → N m → N n → x≢0≢y m n → GCD m n (gcd m n)
 gcd-GCD Nm Nn m≢0≢n = is (gcd-CD Nm Nn m≢0≢n)
                          (gcd-GACD (gcd-N Nm Nn m≢0≢n)

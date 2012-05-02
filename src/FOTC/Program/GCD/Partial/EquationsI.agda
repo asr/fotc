@@ -16,15 +16,16 @@ open import FOTC.Program.GCD.Partial.GCD
 
 ------------------------------------------------------------------------------
 private
-  -- Before to prove some properties for 'gcd i j' it is convenient
-  -- to descompose the behavior of the function step by step.
+  -- Before to prove some properties for the gcd it is convenient to
+  -- descompose the behavior of the function step by step.
 
-  -- Initially, we define the possible states (gcd-s₁,
-  -- gcd-s₂, ...). Then we write down the proof for
-  -- the execution step from the state p to the state q
-  -- (e.g proof₂₋₃ : ∀ m n → gcd-s₂ m n → gcd-s₃ m n).
+  -- Initially, we define the possible states (gcd-s₁, gcd-s₂,
+  -- ...). Then we write down the proof for the execution step from
+  -- the state p to the state q, e.g.
 
-  -- The functions gcd-00, gcd-S0, gcd-0S, gcd-Sm>Sn and gcd-Sm≯Sn
+  -- proof₂₋₃ : ∀ m n → gcd-s₂ m n → gcd-s₃ m n.
+
+  -- The functions gcd-00, gcd-S0, gcd-0S, gcd-Sm>Sn, and gcd-Sm≯Sn
   -- show the use of the states gcd-s₁, gcd-s₂, ..., and the proofs
   -- associated with the execution steps.
 
@@ -43,7 +44,7 @@ private
                                     then gcd (m ∸ n) n
                                     else gcd m (n ∸ m)))
 
-  -- First if_then_else (iszero₁ n).
+  -- First if_then_else_ (iszero₁ n).
   gcd-s₂ : D → D → D → D
   gcd-s₂ m n b = if b
                     then (if (iszero₁ m)
@@ -55,11 +56,11 @@ private
                                       then gcd (m ∸ n) n
                                       else gcd m (n ∸ m)))
 
-  -- First if_then_else when iszero₁ n = true.
+  -- First if_then_else_ when iszero₁ n = true.
   gcd-s₃ : D → D
   gcd-s₃ m  = if (iszero₁ m) then loop else m
 
-  -- First if_then_else when iszero₁ n = false.
+  -- First if_then_else_ when iszero₁ n = false.
   gcd-s₄ : D → D → D
   gcd-s₄ m n = if (iszero₁ m)
                   then n
@@ -67,19 +68,19 @@ private
                            then gcd (m ∸ n) n
                            else gcd m (n ∸ m))
 
-  -- Second if_then_else (iszero₁ m).
+  -- Second if_then_else_ (iszero₁ m).
   gcd-s₅ : D → D → D
   gcd-s₅ m b = if b then loop else m
 
-  -- Second if_then_else when iszero₁ m = true.
+  -- Second if_then_else_ when iszero₁ m = true.
   gcd-s₆ : D
   gcd-s₆ = loop
 
-  -- Second if_then_else when iszero₁ m = false.
+  -- Second if_then_else_ when iszero₁ m = false.
   gcd-s₇ : D → D
   gcd-s₇ m = m
 
-  -- Third if_then_else (iszero₁ m).
+  -- Third if_then_else_ (iszero₁ m).
   gcd-s₈ : D → D → D → D
   gcd-s₈ m n b = if b
                     then n
@@ -87,27 +88,27 @@ private
                              then gcd (m ∸ n) n
                              else gcd m (n ∸ m))
 
-  -- Third if_then_else, when iszero₁ m = true.
+  -- Third if_then_else_, when iszero₁ m = true.
   gcd-s₉ : D → D
   gcd-s₉ n = n
 
-  -- Third if_then_else, when iszero₁ m = false.
+  -- Third if_then_else_, when iszero₁ m = false.
   gcd-s₁₀ : D → D → D
   gcd-s₁₀ m n = if (m > n)
                    then gcd (m ∸ n) n
                    else gcd m (n ∸ m)
 
-  -- Fourth if_then_else (gt m n).
+  -- Fourth if_then_else_ (gt m n).
   gcd-s₁₁ : D → D → D → D
   gcd-s₁₁ m n b = if b
                      then gcd (m ∸ n) n
                      else gcd m (n ∸ m)
 
-  -- Fourth if_then_else when gt m n = true.
+  -- Fourth if_then_else_ when gt m n = true.
   gcd-s₁₂ : D → D → D
   gcd-s₁₂ m n = gcd (m ∸ n) n
 
-  -- Fourth if_then_else when gt m n = false.
+  -- Fourth if_then_else_ when gt m n = false.
   gcd-s₁₃ : D → D → D
   gcd-s₁₃ m n = gcd m (n ∸ m)
 
@@ -115,8 +116,11 @@ private
   -- The execution steps
 
   {-
-  To prove the execution steps
-  (e.g. proof₃₋₄ : ∀ m n → gcd-s₃ m n → gcd_s₄ m n),
+
+  To prove the execution steps, e.g.
+
+  proof₃₋₄ : ∀ m n → gcd-s₃ m n → gcd_s₄ m n,
+
   we usually need to prove that
 
                          C [m] ≡ C [n] (1)
@@ -130,9 +134,9 @@ private
   subst : ∀ {x y} (D : A → Set) → x ≡ y → P x → P y
 
   where
-   P is given by λ m → C [m ] ≡ C [n],
-   x ≡ y is given n ≡ m (actually, we use sym (m ≡ n)), and
-   P x is given by C [n] ≡ C [n] (i.e. refl).
+   • P is given by λ m → C [m ] ≡ C [n],
+   • x ≡ y is given n ≡ m (actually, we use sym (m ≡ n)), and
+   • P x is given by C [n] ≡ C [n] (i.e. refl).
   -}
 
   proof₀₋₁ : ∀ m n → gcd m n ≡ gcd-s₁ m n

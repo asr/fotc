@@ -26,12 +26,23 @@ open import FOTC.Program.GCD.Partial.GCD
 open import FOTC.Program.GCD.Partial.TotalityI
 
 ------------------------------------------------------------------------------
--- Some cases of the gcd-∣₁
--- We don't prove that 'gcd-∣₁ : ... → (gcd m n) ∣ m'
--- because this proof should be defined mutually recursive with the proof
--- 'gcd-∣₂ : ... → (gcd m n) ∣ n'. Therefore, instead of prove
--- 'gcd-CD : ... → CD m n (gcd m n)' using these proofs (i.e. the conjunction
--- of them), we proved it using well-founded induction.
+-- Some cases of the gcd-∣₁.
+
+-- We don't prove that
+--
+-- gcd-∣₁ : ... → (gcd m n) ∣ m
+
+-- because this proof should be defined mutually recursive with the
+-- proof
+--
+-- gcd-∣₂ : ... → (gcd m n) ∣ n.
+--
+-- Therefore, instead of prove
+--
+-- gcd-CD : ... → CD m n (gcd m n)
+--
+-- using these proofs (i.e. the conjunction of them), we proved it
+-- using well-founded induction.
 
 -- gcd 0 (succ n) ∣ 0.
 gcd-0S-∣₁ : ∀ {n} → N n → gcd zero (succ₁ n) ∣ zero
@@ -78,11 +89,11 @@ gcd-S>S-∣₁ :
 
 gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
   -- The first substitution is based on
-  -- 'gcd (succ₁ m) (succ₁ n) = gcd (succ₁ m ∸ succ₁ n) (succ₁ n)'.
+  --
+  -- gcd (succ₁ m) (succ₁ n) = gcd (succ₁ m ∸ succ₁ n) (succ₁ n).
   subst (λ x → x ∣ succ₁ m)
         (sym $ gcd-S>S m n Sm>Sn)
-        -- The second substitution is based on
-        -- 'm = (m ∸ n) + n'.
+        -- The second substitution is based on m = (m ∸ n) + n.
         (subst (λ y → gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∣ y)
                (x>y→x∸y+y≡x (sN Nm) (sN Nn) Sm>Sn)
                (x∣y→x∣z→x∣y+z
@@ -153,8 +164,7 @@ gcd-S≯S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≯Sn =
   -- The first substitution is based on gcd m n = gcd m (n ∸ m).
   subst (λ x → x ∣ succ₁ n)
         (sym $ gcd-S≯S m n Sm≯Sn)
-         -- The second substitution is based on.
-         -- 'n = (n ∸ m) + m'
+         -- The second substitution is based on n = (n ∸ m) + m.
         (subst (λ y → gcd (succ₁ m) (succ₁ n ∸ succ₁ m) ∣ y)
                (x≤y→y∸x+x≡y (sN Nm) (sN Nn) (x≯y→x≤y (sN Nm) (sN Nn) Sm≯Sn))
                (x∣y→x∣z→x∣y+z

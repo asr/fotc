@@ -31,7 +31,7 @@ private
                                       then collatz (n / two)
                                       else collatz (three * n + one)))
 
-  -- Conversion (first if_then_else) 'iszero₁ n = b'.
+  -- First if_then_else_ iszero₁ n = b.
   collatz-s₂ : D → D → D
   collatz-s₂ n b = if b
                       then one
@@ -41,11 +41,11 @@ private
                                         then collatz (n / two)
                                         else collatz (three * n + one)))
 
-  -- Conversion first if_then_else when 'if true ...'.
+  -- First if_then_else_ when if true ....
   collatz-s₃ : D → D
   collatz-s₃ n = one
 
-  -- Conversion first if_then_else when 'if false ...'.
+  -- First if_then_else_ when if false ....
   collatz-s₄ : D → D
   collatz-s₄ n = if (iszero₁ (pred₁ n))
                     then one
@@ -53,7 +53,7 @@ private
                              then collatz (n / two)
                              else collatz (three * n + one))
 
-  -- Conversion (second if_then_else) 'iszero₁ (pred₁ n) = b'.
+  -- Second if_then_else_ iszero₁ (pred₁ n) = b.
   collatz-s₅ : D → D → D
   collatz-s₅ n b = if b
                       then one
@@ -61,76 +61,66 @@ private
                                then collatz (n / two)
                                else collatz (three * n + one))
 
-  -- Conversion second if_then_else when 'if true ...'.
+  -- Second if_then_else_ when if true ....
   collatz-s₆ : D → D
   collatz-s₆ n = one
 
-  -- Conversion second if_then_else when 'if false ...'.
+  -- Second if_then_else_ when if false ....
   collatz-s₇ : D → D
   collatz-s₇ n = if (even n)
                     then collatz (n / two)
                     else collatz (three * n + one)
 
-  -- Conversion (third if_then_else) 'even n b'.
+  -- Third if_then_else_ even n b.
   collatz-s₈ : D → D → D
   collatz-s₈ n b = if b
                       then collatz (n / two)
                       else collatz (three * n + one)
 
-  -- Conversion third if_then_else when 'if true ...'.
+  -- Third if_then_else_ when if true ....
   collatz-s₉ : D → D
   collatz-s₉ n = collatz (n / two)
 
-  -- Conversion third if_then_else when 'if false ...'.
+  -- Third if_then_else_ when if false ....
   collatz-s₁₀ : D → D
   collatz-s₁₀ n = collatz (three * n + one)
 
   ----------------------------------------------------------------------------
   -- The execution steps
 
-  -- Application of the equation collatz-eq.
   proof₀₋₁ : ∀ n → collatz n ≡ collatz-s₁ n
   proof₀₋₁ n = collatz-eq n
 
-  -- Conversion (first if_then_else) 'iszero₁ n = b' using that proof.
   proof₁₋₂ : ∀ {n b} → iszero₁ n ≡ b → collatz-s₁ n ≡ collatz-s₂ n b
   proof₁₋₂ {n} {b} h = subst (λ x → collatz-s₂ n x ≡ collatz-s₂ n b)
                              (sym h)
                              refl
 
-  -- Conversion first if_then_else when 'if true ...' using if-true.
   proof₂₋₃ : ∀ n → collatz-s₂ n true ≡ collatz-s₃ n
   proof₂₋₃ n = if-true (collatz-s₃ n)
 
-  -- Conversion first if_then_else when 'if true ...' using if-false.
   proof₂₋₄ : ∀ n → collatz-s₂ n false ≡ collatz-s₄ n
   proof₂₋₄ n = if-false (collatz-s₄ n)
 
-  -- Conversion (second if_then_else) 'iszero₁ (pred₁ n) = b' using that proof.
   proof₄₋₅ : ∀ {n b} → iszero₁ (pred₁ n) ≡ b → collatz-s₄ n ≡ collatz-s₅ n b
   proof₄₋₅ {n} {b} h = subst (λ x → collatz-s₅ n x ≡ collatz-s₅ n b)
                              (sym h)
                              refl
 
-  -- Conversion second if_then_else when 'if true ...' using if-true.
   proof₅₋₆ : ∀ n → collatz-s₅ n true ≡ collatz-s₆ n
   proof₅₋₆ n = if-true (collatz-s₆ n)
 
-  -- Conversion second if_then_else when 'if false ...' using if-false.
   proof₅₋₇ : ∀ n → collatz-s₅ n false ≡ collatz-s₇ n
   proof₅₋₇ n = if-false (collatz-s₇ n)
 
-  -- Conversion (third if_then_else) 'even n = b' using that proof.
   proof₇₋₈ : ∀ {n b} → even n ≡ b → collatz-s₇ n ≡ collatz-s₈ n b
   proof₇₋₈ {n} {b} h = subst (λ x → collatz-s₈ n x ≡ collatz-s₈ n b)
                              (sym h)
                              refl
 
-  -- Conversion third if_then_else when 'if true ...' using if-true.
   proof₈₋₉ : ∀ n → collatz-s₈ n true ≡ collatz-s₉ n
   proof₈₋₉ n = if-true (collatz-s₉ n)
 
-  -- Conversion third if_then_else when 'if false ...' using if-false.
   proof₈₋₁₀ : ∀ n → collatz-s₈ n false ≡ collatz-s₁₀ n
   proof₈₋₁₀ n = if-false (collatz-s₁₀ n)
 

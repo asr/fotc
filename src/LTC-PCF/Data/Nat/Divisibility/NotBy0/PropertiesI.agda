@@ -27,7 +27,7 @@ S∣0 {n} Nn = S≢0 , _ , zN , sym (*-0x (succ₁ n))
 ∣-refl-S : ∀ {n} → N n → succ₁ n ∣ succ₁ n
 ∣-refl-S {n} Nn = S≢0 , _ , sN zN , sym (*-leftIdentity (sN Nn))
 
--- If 'x' divides 'y' and 'z' then 'x' divides 'y ∸ z'.
+-- If x divides y and z then x divides y ∸ z.
 x∣y→x∣z→x∣y∸z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →
                        n ≡ k₁ * succ₁ m →
                        o ≡ k₂ * succ₁ m →
@@ -49,7 +49,7 @@ x∣y→x∣z→x∣y∸z {n = n} {o} (sN {m} Nm) Nn No
   (λ S≡0 → ⊥-elim $ S≢0 S≡0)
   , k₁ ∸ k₂ , ∸-N Nk₁ Nk₂ , x∣y→x∣z→x∣y∸z-helper Nm Nk₁ Nk₂ h₁ h₂
 
--- If 'x' divides 'y' and 'z' then 'x' divides 'y + z'.
+-- If x divides y and z then x divides y + z.
 x∣y→x∣z→x∣y+z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →
                        n ≡ k₁ * succ₁ m →
                        o ≡ k₂ * succ₁ m →

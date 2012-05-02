@@ -19,14 +19,14 @@ open import FOTC.Program.Division.Division
 -- Division properties
 
 private
-    -- Before to prove some properties for 'div i j' it is convenient
+    -- Before to prove some properties for div it is convenient
     -- to have a proof for each possible execution step.
 
     -- Initially, we define the possible states (div-s₁, div-s₂, ...)
     -- and after that, we write down the proof for the execution step
-    -- from the state p to the state q,
+    -- from the state p to the state q, e.g.
     --
-    -- (e.g. proof₂₋₃ : ∀ i j → div-s₂ i j ≡ div-s₃ i j).
+    -- proof₂₋₃ : ∀ i j → div-s₂ i j ≡ div-s₃ i j.
 
     -- Initially, the conversion rule fix-f is applied.
     div-s₁ : D → D → D
@@ -53,8 +53,11 @@ private
     div-s₅ i j = succ₁ (div (i ∸ j) j)
 
     {-
-    To prove the execution steps
-    (e.g. proof₃₋₄ : ∀ i j → div-s₃ i j → divh_s₄ i j),
+
+    To prove the execution steps, e.g.
+
+    proof₃₋₄ : ∀ i j → div-s₃ i j → divh_s₄ i j,
+
     we usually need to prove that
 
                              ... m ... ≡ ... n ...    (1)
@@ -69,17 +72,17 @@ private
     subst : ∀ {x y} (A : D → Set) → x ≡ y → A x → A y
 
     where
-      ∸ P is given by \m → ... m ... ≡ ... n ...,
-      ∸ x ≡ y is given n ≡ m (actually, we use ≡-sym (m ≡ n)), and
-      ∸ P x is given by ... n ... ≡ ... n ... (i.e. ≡-refl)
+      • P is given by \m → ... m ... ≡ ... n ...,
+      • x ≡ y is given n ≡ m (actually, we use ≡-sym (m ≡ n)), and
+      • P x is given by ... n ... ≡ ... n ... (i.e. ≡-refl)
 
     -}
 
-    -- From div i j to div-s₁ using the equation div-eq
+    -- From div i j to div-s₁ using the equation div-eq.
     proof₀₋₁ : ∀ i j → div i j ≡ div-s₁ i j
     proof₀₋₁ i j = div-eq i j
 
-    -- From div-s₁ to div-s₂ using the proof i<j
+    -- From div-s₁ to div-s₂ using the proof i<j.
     proof₁₋₂ : ∀ i j → LT i j → div-s₁ i j ≡ div-s₂ i j
     proof₁₋₂ i j i<j =
       subst (λ t → if t

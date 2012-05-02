@@ -5,8 +5,8 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Requires @agda2atp@ options @--non-fol-formula@ and
--- @--non-fol-propositional-function@.
+-- Requires agda2atp options --non-fol-formula and
+-- --non-fol-propositional-function.
 
 module FOL.NonIntuitionistic.TheoremsATP where
 

@@ -28,6 +28,6 @@ record GCD (a b gcd : D) : Set where
     -- greatest common divisor according to the partial order _∣_.
     greatest : Divisible a b gcd
 
--- The 'gcd' is the GCD.
+-- The gcd is the GCD.
 gcd-GCD : ∀ {m n} → N m → N n → GCD m n (gcd m n)
 gcd-GCD Nm Nn = is (gcd-CD Nm Nn) (gcd-Divisible Nm Nn)

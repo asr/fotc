@@ -16,23 +16,23 @@ open import LTC-PCF.Data.Nat.Inequalities
 
 private
 
-  -- Before to prove some properties for @i < j@ it is convenient
+  -- Before to prove some properties for _<_ it is convenient
   -- to descompose the behavior of the function step by step.
 
-  -- Initially, we define the possible states (@<-s₁,
-  -- <-s₂, ...@). Then we write down the proof for
+  -- Initially, we define the possible states (<-s₁,
+  -- <-s₂, ...). Then we write down the proof for
   -- the execution step from the state p to the state q, e.g.
   --
-  -- proof₁→proof₂ : ∀ m n → <-s₂ m n → <-s₃ m n).
+  -- proof₁→proof₂ : ∀ m n → <-s₂ m n → <-s₃ m n.
 
-  -- The terms @<-00@, @<-0S@, @<-S0@, and @<-SS@ show the use of the
-  -- states @<-s₁, <-s₂, ...@, and the proofs associated with the
-  -- execution steps.
+  -- The terms <-00, <-0S, <-S0, and <-SS show the use of the states
+  -- <-s₁, <-s₂, ..., and the proofs associated with the execution
+  -- steps.
 
   ----------------------------------------------------------------------
-  -- The steps of @_<_@
+  -- The steps of _<_.
 
-  -- Initially, the conversion rule @fix-f@ is applied.
+  -- Initially, the conversion rule fix-f is applied.
   <-s₁ : D → D → D
   <-s₁ m n = lth (fix lth) · m · n
 
@@ -50,44 +50,44 @@ private
                 else (if (iszero₁ m) then true
                          else ((fix lth) · (pred₁ m) · (pred₁ n)))
 
-  -- Reduction @iszero₁ n ≡ b@.
+  -- Reduction iszero₁ n ≡ b.
   <-s₄ : D → D → D → D
   <-s₄ m n b = if b then false
                   else (if (iszero₁ m) then true
                            else ((fix lth) · (pred₁ m) · (pred₁ n)))
 
-  -- Reduction @iszero₁ n ≡ true@.
+  -- Reduction iszero₁ n ≡ true.
   -- It should be
   -- <-s₅ : D → D → D
   -- <-s₅ m n = false
   -- but we do not give a name to this step.
 
-  -- Reduction @iszero₁ n ≡ false@.
+  -- Reduction iszero₁ n ≡ false.
   <-s₅ : D → D → D
   <-s₅ m n = if (iszero₁ m) then true
                  else ((fix lth) · (pred₁ m) · (pred₁ n))
 
 
-  -- Reduction @iszero₁ m ≡ b@.
+  -- Reduction iszero₁ m ≡ b.
   <-s₆ : D → D → D → D
   <-s₆ m n b = if b then true
                   else ((fix lth) · (pred₁ m) · (pred₁ n))
 
-  -- Reduction @iszero₁ m ≡ true@.
+  -- Reduction iszero₁ m ≡ true.
   -- It should be
   -- <-s₇ : D → D → D
   -- <-s₇ m n = true
   -- but we do not give a name to this step.
 
-   -- Reduction @iszero₁ m ≡ false@.
+   -- Reduction iszero₁ m ≡ false.
   <-s₇ : D → D → D
   <-s₇ m n = (fix lth) · (pred₁ m) · (pred₁ n)
 
-  -- Reduction @pred₁ (succ m) ≡ m@.
+  -- Reduction pred₁ (succ m) ≡ m.
   <-s₈ : D → D → D
   <-s₈ m n = (fix lth) · m · (pred₁ n)
 
-  -- Reduction @pred₁ (succ n) ≡ n@.
+  -- Reduction pred₁ (succ n) ≡ n.
   <-s₉ : D → D → D
   <-s₉ m n = (fix lth) · m · n
 
@@ -98,7 +98,7 @@ private
 
     To prove the execution steps, e.g.
 
-    @proof₃→proof₄ : ∀ m n → <-s₃ m n → <-s₄ m n)@
+    proof₃→proof₄ : ∀ m n → <-s₃ m n → <-s₄ m n)
 
     we usually need to prove that
 
@@ -119,7 +119,7 @@ private
       • P x is given by C [m] ≡ C [m] (i.e. refl).
   -}
 
-  -- Application of the conversion rule @fix-f@.
+  -- Application of the conversion rule fix-f.
   proof₀₋₁ : (m n : D) → fix lth · m · n  ≡ <-s₁ m n
   proof₀₋₁ m n = subst (λ x → x · m · n  ≡
                               lth (fix lth) · m · n )
@@ -137,48 +137,46 @@ private
   proof₂₋₃ m n = beta (<-s₃ m) n
 
 
-  -- Reduction @isZero n ≡ b@ using that proof.
+  -- Reduction isZero n ≡ b using that proof.
   proof₃₋₄ : (m n b : D) → iszero₁ n ≡ b →
              <-s₃ m n ≡ <-s₄ m n b
   proof₃₋₄ m n b prf = subst (λ x → <-s₄ m n x ≡ <-s₄ m n b )
                              (sym prf )
                              refl
 
-  -- Reduction of @iszero₁ n ≡ true@ using the conversion rule
-  -- @if-true@.
+  -- Reduction of iszero₁ n ≡ true using the conversion rule if-true.
   proof₄₊ : (m n : D) → <-s₄ m n true ≡ false
   proof₄₊ m n = if-true false
 
-  -- Reduction of @iszero₁ n ≡ false ...@ using the conversion rule
-  -- @if-false@.
+  -- Reduction of iszero₁ n ≡ false ... using the conversion rule
+  -- if-false.
   proof₄₋₅ : (m n : D) → <-s₄ m n false ≡ <-s₅ m n
   proof₄₋₅ m n = if-false (<-s₅ m n)
 
 
-  -- Reduction @iszero₁ m ≡ b@ using that proof.
+  -- Reduction iszero₁ m ≡ b using that proof.
   proof₅₋₆ : (m n b : D) → iszero₁ m ≡ b →
              <-s₅ m n ≡ <-s₆ m n b
   proof₅₋₆ m n b prf = subst (λ x → <-s₆ m n x ≡ <-s₆ m n b )
                              (sym prf )
                              refl
 
-  -- Reduction of @iszero₁ m ≡ true@ using the conversion rule
-  -- @if-true@.
+  -- Reduction of iszero₁ m ≡ true using the conversion rule if-true.
   proof₆₊ : (m n : D) → <-s₆ m n true ≡ true
   proof₆₊ m n = if-true true
 
-  -- Reduction of @iszero₁ m ≡ false ...@ using the conversion rule
-  -- @if-false@.
+  -- Reduction of iszero₁ m ≡ false ... using the conversion rule
+  -- if-false.
   proof₆₋₇ : (m n : D) → <-s₆ m n false ≡ <-s₇ m n
   proof₆₋₇ m n = if-false (<-s₇ m n)
 
-  -- Reduction @pred (succ m) ≡ m@ using the conversion rule @pred-S@.
+  -- Reduction pred (succ m) ≡ m using the conversion rule pred-S.
   proof₇₋₈ : (m n : D) → <-s₇ (succ₁ m) n  ≡ <-s₈ m n
   proof₇₋₈ m n = subst (λ x → <-s₈ x n ≡ <-s₈ m n)
                        (sym (pred-S m ))
                        refl
 
-  -- Reduction @pred (succ n) ≡ n@ using the conversion rule @pred-S@.
+  -- Reduction pred (succ n) ≡ n using the conversion rule pred-S.
   proof₈₋₉ : (m n : D) → <-s₈ m (succ₁ n)  ≡ <-s₉ m n
   proof₈₋₉ m n = subst (λ x → <-s₉ m x ≡ <-s₉ m n)
                        (sym (pred-S n ))

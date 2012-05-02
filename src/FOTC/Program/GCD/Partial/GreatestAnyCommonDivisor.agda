@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------------
--- The 'gcd' is greatest that any common divisor
+-- The gcd is greatest that any common divisor
 ---------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}

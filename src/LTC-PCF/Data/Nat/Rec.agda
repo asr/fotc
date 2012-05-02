@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------------
--- The @rec@ definition using the fixed-point combinator
+-- The rec definition using the fixed-point combinator
 ---------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}

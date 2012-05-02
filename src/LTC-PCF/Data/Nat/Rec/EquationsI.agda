@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Conversion rules for the recursive operator @rec@
+-- Conversion rules for the recursive operator rec
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -15,13 +15,10 @@ open import LTC-PCF.Data.Nat.Rec
 
 ----------------------------------------------------------------------------
 
--- Note: This module was written for the version of gcd using the
--- lambda abstractions, but we can use it with the version of gcd
--- using super-combinators.
-
 private
   -- We follow the same methodology used in
-  -- PCF.Examples.GCD.EquationsER (see it for the documentation).
+  -- LTC-PCF.Program.Division.EquationsI (see it for the
+  -- documentation).
 
   ----------------------------------------------------------------------------
   -- The steps
@@ -50,13 +47,13 @@ private
                      then a
                      else f · (pred₁ n) · ((fix rech) · (pred₁ n) · a · f)
 
-  -- Reduction @iszero₁ n ≡ b@.
+  -- Reduction iszero₁ n ≡ b.
   rec-s₅ : D → D → D → D → D
   rec-s₅ n a f b = if b
                       then a
                       else f · (pred₁ n) · ((fix rech) · (pred₁ n) · a · f)
 
-  -- Reduction of @iszero₁ n ≡ true@
+  -- Reduction of iszero₁ n ≡ true
   --
   -- It should be
   -- rec-s₆ : D → D → D → D
@@ -64,21 +61,22 @@ private
   --
   -- but we do not give a name to this step.
 
-  -- Reduction @iszero₁ n ≡ false@.
+  -- Reduction iszero₁ n ≡ false.
   rec-s₆ : D → D → D → D
   rec-s₆ n a f = f · (pred₁ n) · ((fix rech) · (pred₁ n) · a · f)
 
-  -- Reduction @pred₁ (succ n) ≡ n@.
+  -- Reduction pred₁ (succ n) ≡ n.
   rec-s₇ : D → D → D → D
   rec-s₇ n a f = f · n · ((fix rech) · n · a · f)
 
   ----------------------------------------------------------------------------
   -- The execution steps
 
-  -- We follow the same methodology used in Inductive.GCD.Equations
-  -- (see it for the documentation).
+  -- We follow the same methodology used in
+  -- LTC-PCF.Program.Division.EquationsI (see it for the
+  -- documentation).
 
-  -- Application of the conversion rule @fix-f@.
+  -- Application of the conversion rule fix-f.
   proof₀₋₁ : ∀ n a f → fix rech · n · a · f ≡ rec-s₁ n a f
   proof₀₋₁ n a f = subst (λ x → x · n · a · f ≡
                                 rech (fix rech) · n · a · f )
@@ -101,28 +99,28 @@ private
   proof₃₋₄ : ∀ n a f → rec-s₃ n a · f ≡ rec-s₄ n a f
   proof₃₋₄ n a f = beta (rec-s₄ n a) f
 
-  -- Cases @iszero₁ n ≡ b@ using that proof.
+  -- Cases iszero₁ n ≡ b using that proof.
   proof₄₋₅ : ∀ n a f b → iszero₁ n ≡ b → rec-s₄ n a f ≡ rec-s₅ n a f b
   proof₄₋₅ n a f b h = subst (λ x → rec-s₅ n a f x ≡ rec-s₅ n a f b)
                              (sym h)
                              refl
 
-  -- Reduction of @if true ...@ using the conversion rule @if-true@.
+  -- Reduction of if true ... using the conversion rule if-true.
   proof₅₊ : ∀ n a f → rec-s₅ n a f true ≡ a
   proof₅₊ n a f = if-true a
 
-   -- Reduction of @if false ...@ using the conversion rule @if-false@.
+   -- Reduction of if false ... using the conversion rule if-false.
   proof₅₋₆ : ∀ n a f → rec-s₅ n a f false ≡ rec-s₆ n a f
   proof₅₋₆ n a f = if-false (rec-s₆ n a f)
 
-  -- Reduction @pred₁ (succ n) ≡ n@ using the conversion rule @pred₁-S@.
+  -- Reduction pred₁ (succ n) ≡ n using the conversion rule pred₁-S.
   proof₆₋₇ : ∀ n a f → rec-s₆ (succ₁ n) a f ≡ rec-s₇ n a f
   proof₆₋₇ n a f = subst (λ x → rec-s₇ x a f ≡ rec-s₇ n a f)
                          (sym (pred-S n))
                          refl
 
 ------------------------------------------------------------------------------
--- The conversion rules for @rec@.
+-- The conversion rules for rec.
 
 rec-0 : ∀ a {f} → rec zero a f ≡ a
 rec-0 a {f} =

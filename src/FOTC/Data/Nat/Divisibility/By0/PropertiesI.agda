@@ -23,7 +23,7 @@ open import FOTC.Data.Nat.PropertiesI
 ∣-refl : ∀ {n} → N n → n ∣ n
 ∣-refl {n} Nn = succ₁ zero , (sN zN) , (sym (*-leftIdentity Nn))
 
--- If 'x' divides 'y' and 'z' then 'x' divides 'y - z'.
+-- If x divides y and z then x divides y - z.
 x∣y→x∣z→x∣y∸z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →
                        n ≡ k₁ * m →
                        o ≡ k₂ * m →
@@ -38,7 +38,7 @@ x∣y→x∣z→x∣y∸z : ∀ {m n o} → N m → N n → N o → m ∣ n → 
 x∣y→x∣z→x∣y∸z Nm Nn No (k₁ , Nk₁ , h₁) (k₂ , Nk₂ , h₂) =
   k₁ ∸ k₂ , ∸-N Nk₁ Nk₂ , x∣y→x∣z→x∣y∸z-helper Nm Nk₁ Nk₂ h₁ h₂
 
--- If 'x' divides 'y' and 'z' then 'x' divides 'y + z'.
+-- If x divides y and z then x divides y + z.
 x∣y→x∣z→x∣y+z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →
                        n ≡ k₁ * m →
                        o ≡ k₂ * m →

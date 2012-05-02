@@ -37,12 +37,18 @@ div-x<y-correct Ni Nj i<j = _ , Ni , i<j , div-x<y-helper Ni Nj i<j
 
 -- The division result is correct when the dividend is greater or equal
 -- than the divisor.
--- Using the inductive hypothesis 'ih' we know that
--- 'i ∸ j = j * (div (i ∸ j) j) + r'. From
--- that we get 'i = j * (succ (div (i ∸ j) j)) + r', and
--- we know 'div i j = succ (div (i ∸ j) j); therefore we
--- get 'i = j * div i j + r'.
+--
+-- Using the inductive hypothesis ih we know that
+--
+-- i ∸ j = j * (div (i ∸ j) j) + r.
 
+-- From that we get
+--
+-- i = j * (succ (div (i ∸ j) j)) + r, and we know
+--
+-- div i j = succ (div (i ∸ j) j) therefore we get
+--
+-- i = j * div i j + r.
 postulate
   helper : ∀ {i j r} → N i → N j → N r →
            i ∸ j ≡ j * div (i ∸ j) j + r →

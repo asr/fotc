@@ -27,11 +27,21 @@ open import FOTC.Program.GCD.Partial.TotalityATP
 ------------------------------------------------------------------------------
 -- Some cases of the gcd-∣₁.
 
--- We don't prove that 'gcd-∣₁ : ... → (gcd m n) ∣ m'
--- because this proof should be defined mutually recursive with the proof
--- 'gcd-∣₂ : ... → (gcd m n) ∣ n'. Therefore, instead of prove
--- 'gcd-CD : ... → CD m n (gcd m n)' using these proof (i.e. the conjunction
--- of them), we proved it using well-founded induction.
+-- We don't prove that
+--
+-- gcd-∣₁ : ... → (gcd m n) ∣ m
+
+-- because this proof should be defined mutually recursive with the
+-- proof
+--
+-- gcd-∣₂ : ... → (gcd m n) ∣ n.
+--
+-- Therefore, instead of prove
+--
+-- gcd-CD : ... → CD m n (gcd m n)
+--
+-- using these proofs (i.e. the conjunction of them), we proved it
+-- using well-founded induction.
 
 -- gcd 0 (succ n) ∣ 0.
 postulate gcd-0S-∣₁ : ∀ {n} → N n → gcd zero (succ₁ n) ∣ zero
