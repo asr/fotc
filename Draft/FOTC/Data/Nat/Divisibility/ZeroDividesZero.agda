@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- In the standard library (development version on 27 April 2011),
+-- In the standard library (development version on 03 May 2012),
 -- zero divides zero
 ------------------------------------------------------------------------------
 

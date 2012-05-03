@@ -17,10 +17,10 @@ infix 7 _∣_
 -- The relation of divisibility.
 -- The symbol is '\mid' not '|'.
 -- It seems there is not agreement about if 0∣0, e.g.
--- * Agda standard library, version 0.5: 0|0
--- * Coq 8.3pl2: 0∣0
--- * Hardy and Wright. An introduction to the theory of numbers. 1975. 4ed: 0∤0
--- * Isabelle, version Isabelle2011: 0∣0
+-- • Hardy and Wright. An introduction to the theory of numbers. 1975. 4ed: 0∤0
+-- • Agda standard library, version 0.6: 0|0
+-- • Coq, version 8.3pl2: 0∣0
+-- • Isabelle, version Isabelle2011: 0∣0
 --
 -- In our definition 0∣0, which is used to prove properties of the gcd
 -- as it is in GHC ≥ 7.2.1, where gcd 0 0 = 0 (see
