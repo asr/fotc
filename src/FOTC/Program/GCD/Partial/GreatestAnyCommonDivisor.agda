@@ -12,10 +12,10 @@ open import FOTC.Data.Nat.Inequalities
 
 module FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor
   (x∣Sy→x≤Sy : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → LE m (succ₁ n))
+  (0∤x       : ∀ {n} → ¬ (zero ∣ n))
   where
 
 open import Common.Function
-open import FOTC.Data.Nat.Divisibility.NotBy0.Properties
 open import FOTC.Program.GCD.Partial.Definitions
 
 ---------------------------------------------------------------------------

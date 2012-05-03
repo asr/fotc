@@ -12,7 +12,7 @@ module LTC-PCF.Program.GCD.Partial.ProofSpecificationI where
 
 open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesI
-  using ( x∣Sy→x≤Sy )
+  using ( 0∤x ; x∣S→x≤S )
 open import LTC-PCF.Data.Nat.Type
 
 open import LTC-PCF.Program.GCD.Partial.CommonDivisorI using ( gcd-CD )
@@ -22,7 +22,7 @@ open import LTC-PCF.Program.GCD.Partial.GCD using ( gcd )
 
 import LTC-PCF.Program.GCD.Partial.GreatestAnyCommonDivisor
 open module GreatestAnyCommonDivisorI =
-  LTC-PCF.Program.GCD.Partial.GreatestAnyCommonDivisor x∣Sy→x≤Sy
+  LTC-PCF.Program.GCD.Partial.GreatestAnyCommonDivisor x∣S→x≤S 0∤x
   using ( gcd-GACD )
 
 open import LTC-PCF.Program.GCD.Partial.TotalityI using ( gcd-N )

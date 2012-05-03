@@ -14,7 +14,7 @@
 module FOTC.Program.GCD.Total.ProofSpecificationATP where
 
 open import FOTC.Base
-open import FOTC.Data.Nat.Divisibility.By0.PropertiesATP using ( x∣Sy→x≤Sy )
+open import FOTC.Data.Nat.Divisibility.By0.PropertiesATP using ( x∣S→x≤S )
 open import FOTC.Data.Nat.Type
 open import FOTC.Program.GCD.Total.CommonDivisorATP using ( gcd-CD )
 open import FOTC.Program.GCD.Total.DivisibleATP using ( gcd-Divisible )

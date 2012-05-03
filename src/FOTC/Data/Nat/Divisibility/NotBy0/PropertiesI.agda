@@ -13,28 +13,34 @@ open import Common.Function
 open import FOTC.Base
 open import FOTC.Base.Properties
 open import FOTC.Data.Nat
+open import FOTC.Data.Nat.PropertiesI
 open import FOTC.Data.Nat.Divisibility.NotBy0
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.PropertiesI
 
 ------------------------------------------------------------------------------
+-- Any positive number divides 0.
+S∣0 : ∀ n → succ₁ n ∣ zero
+S∣0 n = S≢0 , zero ,  zN , sym (*-0x (succ₁ n))
+
+-- 0 doesn't divide any number.
+0∤x : ∀ {n} → ¬ (zero ∣ n)
+0∤x (0≢0 , _) = ⊥-elim $ 0≢0 refl
+
 -- The divisibility relation is reflexive for positive numbers.
 ∣-refl-S : ∀ {n} → N n → succ₁ n ∣ succ₁ n
 ∣-refl-S {n} Nn = S≢0 , succ₁ zero , sN zN , sym (*-leftIdentity (sN Nn))
 
--- If 'x' divides 'y' and 'z' then 'x' divides 'y - z'.
+-- If x divides y and z then x divides y ∸ z.
 x∣y→x∣z→x∣y∸z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →
                        n ≡ k₁ * succ₁ m →
                        o ≡ k₂ * succ₁ m →
                        n ∸ o ≡ (k₁ ∸ k₂) * succ₁ m
 x∣y→x∣z→x∣y∸z-helper {m} {n} {o} {k₁} {k₂} Nm Nk₁ Nk₂ h₁ h₂ =
-  n ∸ o
-    ≡⟨ subst (λ t → n ∸ o ≡ t ∸ o) h₁ refl ⟩
-  k₁ * succ₁ m ∸ o
-     ≡⟨ cong (_∸_ (k₁ * succ₁ m)) h₂ ⟩
-  (k₁ * succ₁ m) ∸ (k₂ * succ₁ m)
-    ≡⟨ sym $ *∸-leftDistributive Nk₁ Nk₂ (sN Nm) ⟩
+  n ∸ o                           ≡⟨ ∸-leftCong h₁ ⟩
+  k₁ * succ₁ m ∸ o                ≡⟨ ∸-rightCong h₂ ⟩
+  (k₁ * succ₁ m) ∸ (k₂ * succ₁ m) ≡⟨ sym $ *∸-leftDistributive Nk₁ Nk₂ (sN Nm) ⟩
   (k₁ ∸ k₂) * succ₁ m ∎
 
 x∣y→x∣z→x∣y∸z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n ∸ o
@@ -45,18 +51,15 @@ x∣y→x∣z→x∣y∸z (sN {m} Nm) Nn No
   (λ S≡0 → ⊥-elim $ S≢0 S≡0)
   , k₁ ∸ k₂ , ∸-N Nk₁ Nk₂ , x∣y→x∣z→x∣y∸z-helper Nm Nk₁ Nk₂ h₁ h₂
 
--- If 'x' divides 'y' and 'z' then 'x' divides 'y + z'.
+-- If x divides y and z then x divides y + z.
 x∣y→x∣z→x∣y+z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →
                        n ≡ k₁ * succ₁ m →
                        o ≡ k₂ * succ₁ m →
                        n + o ≡ (k₁ + k₂) * succ₁ m
 x∣y→x∣z→x∣y+z-helper {m} {n} {o} {k₁} {k₂} Nm Nk₁ Nk₂ h₁ h₂ =
-  n + o
-    ≡⟨ subst (λ t → n + o ≡ t + o) h₁ refl ⟩
-  k₁ * succ₁ m + o
-     ≡⟨ cong (_+_ (k₁ * succ₁ m)) h₂ ⟩
-  (k₁ * succ₁ m) + (k₂ * succ₁ m)
-    ≡⟨ sym $ *+-leftDistributive Nk₁ Nk₂ (sN Nm) ⟩
+  n + o                           ≡⟨ +-leftCong h₁ ⟩
+  k₁ * succ₁ m + o                ≡⟨ +-rightCong h₂ ⟩
+  (k₁ * succ₁ m) + (k₂ * succ₁ m) ≡⟨ sym $ *+-leftDistributive Nk₁ Nk₂ (sN Nm) ⟩
   (k₁ + k₂) * succ₁ m ∎
 
 x∣y→x∣z→x∣y+z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n + o

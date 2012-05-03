@@ -18,8 +18,18 @@ open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.PropertiesATP
 
 ------------------------------------------------------------------------------
+-- Any positive number divides 0.
+postulate S∣0 : ∀ n → succ₁ n ∣ zero
+{-# ATP prove S∣0 #-}
+
+-- 0 doesn't divide any number.
+postulate 0∤x : ∀ {n} → ¬ (zero ∣ n)
+{-# ATP prove 0∤x #-}
+
 -- The divisibility relation is reflexive for positive numbers.
--- For the proof using the ATP we added the helper hypothesis
+--
+-- For the proof using the ATPs we added the helper hypothesis
+--
 -- N (succ zero).
 postulate ∣-refl-S-ah : ∀ {n} → N n → N (succ₁ zero) → succ₁ n ∣ succ₁ n
 {-# ATP prove ∣-refl-S-ah *-leftIdentity #-}
@@ -27,7 +37,7 @@ postulate ∣-refl-S-ah : ∀ {n} → N n → N (succ₁ zero) → succ₁ n ∣
 ∣-refl-S : ∀ {n} → N n → succ₁ n ∣ succ₁ n
 ∣-refl-S Nn = ∣-refl-S-ah Nn (sN zN)
 
--- If 'x' divides 'y' and 'z' then 'x' divides 'y ∸ z'.
+-- If x divides y and z then x divides y ∸ z.
 postulate
   x∣y→x∣z→x∣y∸z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →
                          n ≡ k₁ * succ₁ m →
@@ -43,7 +53,7 @@ x∣y→x∣z→x∣y∸z (sN Nm) Nn No
   (λ S≡0 → ⊥-elim $ S≢0 S≡0)
   , k₁ ∸ k₂ , ∸-N Nk₁ Nk₂ , x∣y→x∣z→x∣y∸z-helper Nm Nk₁ Nk₂ h₁ h₂
 
--- If 'x' divides 'y' and 'z' then 'x' divides 'y + z'.
+-- If x divides y and z then x divides y + z.
 postulate
   x∣y→x∣z→x∣y+z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →
                          n ≡ k₁ * succ₁ m →

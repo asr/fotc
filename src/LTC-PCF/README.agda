@@ -26,7 +26,6 @@ open import LTC-PCF.Data.Nat.Type
 open import LTC-PCF.Data.Nat.PropertiesI
 
 -- Divisibility relation
-open import LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesI
 
 -- Induction

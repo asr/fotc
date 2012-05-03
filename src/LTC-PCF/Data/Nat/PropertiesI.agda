@@ -19,17 +19,23 @@ open import LTC-PCF.Data.Nat.Rec.EquationsI
 ------------------------------------------------------------------------------
 -- Congruence properties
 
-+-leftCong : ∀ {a b c} → a ≡ b → a + c ≡ b + c
-+-leftCong h = cong₂ _+_ h refl
++-leftCong : ∀ {m n o} → m ≡ n → m + o ≡ n + o
++-leftCong refl = refl
 
-+-rightCong : ∀ {a b c} → b ≡ c → a + b ≡ a + c
-+-rightCong h = cong₂ _+_ refl h
++-rightCong : ∀ {m n o} → n ≡ o → m + n ≡ m + o
++-rightCong refl = refl
 
-*-leftCong : ∀ {a b c} → a ≡ b → a * c ≡ b * c
-*-leftCong h = cong₂ _*_ h refl
+∸-leftCong : ∀ {m n o} → m ≡ n → m ∸ o ≡ n ∸ o
+∸-leftCong refl = refl
 
-*-rightCong : ∀ {a b c} → b ≡ c → a * b ≡ a * c
-*-rightCong h = cong₂ _*_ refl h
+∸-rightCong : ∀ {m n o} → n ≡ o → m ∸ n ≡ m ∸ o
+∸-rightCong refl = refl
+
+*-leftCong : ∀ {m n o} → m ≡ n → m * o ≡ n * o
+*-leftCong refl = refl
+
+*-rightCong : ∀ {m n o} → n ≡ o → m * n ≡ m * o
+*-rightCong refl = refl
 
 ------------------------------------------------------------------------------
 

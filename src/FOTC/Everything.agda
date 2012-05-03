@@ -39,11 +39,9 @@ open import FOTC.Data.List.Type
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.ConsistencyTest
 open import FOTC.Data.Nat.Divisibility.By0
-open import FOTC.Data.Nat.Divisibility.By0.Properties
 open import FOTC.Data.Nat.Divisibility.By0.PropertiesATP
 open import FOTC.Data.Nat.Divisibility.By0.PropertiesI
 open import FOTC.Data.Nat.Divisibility.NotBy0
-open import FOTC.Data.Nat.Divisibility.NotBy0.Properties
 open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP
 open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesI
 open import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionATP

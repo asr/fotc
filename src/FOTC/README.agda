@@ -41,10 +41,8 @@ open import FOTC.Data.Nat.PropertiesByInductionATP
 open import FOTC.Data.Nat.PropertiesByInductionI
 
 -- Divisibility relation
-open import FOTC.Data.Nat.Divisibility.By0.Properties
 open import FOTC.Data.Nat.Divisibility.By0.PropertiesATP
 open import FOTC.Data.Nat.Divisibility.By0.PropertiesI
-open import FOTC.Data.Nat.Divisibility.NotBy0.Properties
 open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP
 open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesI
 

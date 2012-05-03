@@ -26,16 +26,22 @@ open import FOTC.Data.Nat.UnaryNumbers
 -- Congruence properties
 
 +-leftCong : ∀ {m n o} → m ≡ n → m + o ≡ n + o
-+-leftCong h = cong₂ _+_ h refl
++-leftCong refl = refl
 
 +-rightCong : ∀ {m n o} → n ≡ o → m + n ≡ m + o
-+-rightCong h = cong₂ _+_ refl h
++-rightCong refl = refl
+
+∸-leftCong : ∀ {m n o} → m ≡ n → m ∸ o ≡ n ∸ o
+∸-leftCong refl = refl
+
+∸-rightCong : ∀ {m n o} → n ≡ o → m ∸ n ≡ m ∸ o
+∸-rightCong refl = refl
 
 *-leftCong : ∀ {m n o} → m ≡ n → m * o ≡ n * o
-*-leftCong h = cong₂ _*_ h refl
+*-leftCong refl = refl
 
 *-rightCong : ∀ {m n o} → n ≡ o → m * n ≡ m * o
-*-rightCong h = cong₂ _*_ refl h
+*-rightCong refl = refl
 
 ------------------------------------------------------------------------------
 
