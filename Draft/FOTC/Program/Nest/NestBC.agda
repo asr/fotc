@@ -4,7 +4,7 @@
 ------------------------------------------------------------------------------
 
 -- Tested with the development version of the standard library on
--- 07 October 2011.
+-- 04 May 2012.
 
 -- From: Ana Bove and Venanzio Capretta. Nested general recursion and
 -- partiality in type theory. vol 2152 LNCS. 2001
@@ -22,6 +22,11 @@ open import Relation.Binary
 module NDTO = DecTotalOrder decTotalOrder
 
 ------------------------------------------------------------------------------
+
+-- The original function.
+nestI : ℕ → ℕ
+nestI 0       = 0
+nestI (suc n) = nestI (nestI n)
 
 ≤′-trans : Transitive _≤′_
 ≤′-trans i≤′j j≤′k = ≤⇒≤′ (NDTO.trans (≤′⇒≤ i≤′j) (≤′⇒≤ j≤′k))

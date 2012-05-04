@@ -3,12 +3,14 @@
 -- Bove-Capretta method
 ------------------------------------------------------------------------------
 
--- Tested with Agda 2.1.11 on 07 October 2011.
+-- Tested with FOTC on 04 May 2012.
 
 -- From: Ana Bove and Venanzio Capretta. Nested general recursion and
 -- partiality in type theory. Vol. 2152 of LNCS. 2001
 
 module Draft.FOTC.Program.Nest.Nest where
+
+open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
 
@@ -20,48 +22,38 @@ open module WF = FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI.WF-LT
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 
-open import FOTC.Relation.Binary.EqReasoning
-
 ------------------------------------------------------------------------------
 
 -- The nest function.
 postulate
   nest   : D → D
-  nest-0 :       nest zero     ≡ zero
-  nest-S : ∀ d → nest (succ d) ≡ nest (nest d)
+  nest-0 :       nest zero      ≡ zero
+  nest-S : ∀ d → nest (succ₁ d) ≡ nest (nest d)
 
 data Dom : D → Set where
   dom0 :                              Dom zero
-  domS : ∀ d → Dom d → Dom (nest d) → Dom (succ d)
+  domS : ∀ d → Dom d → Dom (nest d) → Dom (succ₁ d)
 
 -- Inductive principle associated to the domain predicate.
 indDom : (P : D → Set) →
          P zero →
-         (∀ {d} → Dom d → P d → Dom (nest d) → P (nest d) → P (succ d)) →
+         (∀ {d} → Dom d → P d → Dom (nest d) → P (nest d) → P (succ₁ d)) →
          ∀ {d} → Dom d → P d
 indDom P P0 ih dom0           = P0
 indDom P P0 ih (domS d h₁ h₂) = ih h₁ (indDom P P0 ih h₁) h₂ (indDom P P0 ih h₂)
 
 -- The domain predicate is total.
 dom-N : ∀ d → Dom d → N d
-dom-N .zero     dom0           = zN
-dom-N .(succ d) (domS d h₁ h₂) = sN (dom-N d h₁)
+dom-N .zero      dom0           = zN
+dom-N .(succ₁ d) (domS d h₁ h₂) = sN (dom-N d h₁)
 
 nest-x≡0 : ∀ {n} → N n → nest n ≡ zero
 nest-x≡0 zN      = nest-0
 nest-x≡0 (sN {n} Nn) =
-  begin
-    nest (succ n)
-      ≡⟨ nest-S n ⟩
-    nest (nest n)
-      ≡⟨ subst (λ t → nest (nest n) ≡ nest t)
-               (nest-x≡0 Nn)  -- IH.
-               refl
-      ⟩
-    nest zero
-      ≡⟨ nest-0 ⟩
-    zero
-  ∎
+  nest (succ₁ n) ≡⟨ nest-S n ⟩
+  nest (nest n)  ≡⟨ cong nest (nest-x≡0 Nn) ⟩  -- IH.
+  nest zero      ≡⟨ nest-0 ⟩
+  zero ∎
 
 -- The nest function is total in its domain (via structural recursion
 -- in the domain predicate).
@@ -75,16 +67,9 @@ nest-N Nn = subst N (sym (nest-x≡0 Nn)) zN
 
 nest-≤ : ∀ {n} → Dom n → LE (nest n) n
 nest-≤ dom0 =
-  begin
-    nest zero ≤ zero
-      ≡⟨ subst (λ t → nest zero ≤ zero ≡ t ≤ zero)
-               nest-0
-               refl
-      ⟩
-    zero ≤ zero
-      ≡⟨ x≤x zN ⟩
-    true
-  ∎
+  nest zero ≤ zero ≡⟨ cong₂ _≤_ nest-0 refl ⟩
+  zero ≤ zero      ≡⟨ x≤x zN ⟩
+  true ∎
 
 nest-≤ (domS n h₁ h₂) =
   ≤-trans (nest-N (sN (dom-N n h₁))) (nest-N (dom-N n h₁)) (sN Nn) prf₁ prf₂
@@ -92,20 +77,13 @@ nest-≤ (domS n h₁ h₂) =
     Nn : N n
     Nn = dom-N n h₁
 
-    prf₁ : LE (nest (succ n)) (nest n)
+    prf₁ : LE (nest (succ₁ n)) (nest n)
     prf₁ =
-      begin
-        nest (succ n) ≤ nest n
-          ≡⟨ subst (λ t → nest (succ n) ≤ nest n ≡ t ≤ nest n)
-                   (nest-S n)
-                   refl
-          ⟩
-        nest (nest n) ≤ nest n
-          ≡⟨ nest-≤ h₂ ⟩
-        true
-      ∎
+      nest (succ₁ n) ≤ nest n ≡⟨ cong₂ _≤_ (nest-S n) refl ⟩
+      nest (nest n) ≤ nest n  ≡⟨ nest-≤ h₂ ⟩
+      true ∎
 
-    prf₂ : LE (nest n) (succ n)
+    prf₂ : LE (nest n) (succ₁ n)
     prf₂ = ≤-trans (nest-N (dom-N n h₁)) Nn (sN Nn) (nest-≤ h₁) (x≤Sx Nn)
 
 N→Dom : ∀ {n} → N n → Dom n
