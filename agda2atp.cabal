@@ -103,6 +103,7 @@ executable agda2atp
 
   if impl(ghc == 7.2.1) || impl(ghc == 7.2.2)
      ghc-options: -Wall
+                  -fwarn-auto-orphans
                   -fwarn-identities
                   -fwarn-incomplete-record-updates
                   -fwarn-incomplete-uni-patterns
