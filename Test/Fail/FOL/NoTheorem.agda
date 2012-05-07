@@ -27,7 +27,7 @@ postulate
 -- The ATPs should not prove this postulate.
 postulate
   +-comm : (d e : D) → d + e ≡ e + d
--- E 1.3 success (SZS status CounterSatisfiable).
+-- E 1.5 success (SZS status CounterSatisfiable).
 -- Equinox 5.0alpha (2010-03-29) no-success due to timeout.
 -- Metis 2.3 (release 20100920) success (SZS status CounterSatisfiable).
 -- Vampire 0.6 (revision 903): Refutation not found!

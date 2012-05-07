@@ -111,7 +111,7 @@ optATP2ATP "vampire"  = return Vampire
 optATP2ATP nonATP     = throwError $ "ATP " ++ nonATP ++ " unknown"
 
 atpOk ∷ ATP → String
-atpOk E        = "Proof found!"                      -- E 1.4 Namring
+atpOk E        = "Proof found!"                      -- E 1.5 Pussimbing
 atpOk Equinox  = "+++ RESULT: Theorem"               -- Equinox 5.0alpha (2010-06-29)
 atpOk IleanCoP = "Intuitionistic Theorem"            -- ileanCoP 1.3 beta1
 atpOk Metis    = "SZS status Theorem"                -- Metis 2.3 (release 20110926)
