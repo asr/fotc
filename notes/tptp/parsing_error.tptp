@@ -1,8 +1,8 @@
 % Only Equinox detects the parsing error.
 
-% Tested with
+% Tested with:
 
-% E 1.3
+% E 1.5 Pussimbing
 % Equinox 5.0alpha (2010-06-29)
 % Metis 2.3 (release 20110531)
 % Vampire 0.6 (revision 903)

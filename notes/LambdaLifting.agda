@@ -101,10 +101,10 @@ postulate
 ------------------------------------------------------------------------------
 -- Ouput:
 --
--- $ agda2atp -inotes notes/LambdaLifting.agda
--- Proving the conjecture in /tmp/LambdaLifting.fac0_90.tptp ...
--- E 1.4 Namring proved the conjecture in /tmp/LambdaLifting.fac0_90.tptp
+-- $ agda2atp -inotes --non-fol-function notes/LambdaLifting.agda
 -- Proving the conjecture in /tmp/LambdaLifting.fac1_94.tptp ...
--- E 1.4 Namring proved the conjecture in /tmp/LambdaLifting.fac1_94.tptp
+-- E 1.5 Pussimbing proved the conjecture in /tmp/LambdaLifting.fac1_94.tptp
 -- Proving the conjecture in /tmp/LambdaLifting.fac2_98.tptp ...
--- E 1.4 Namring proved the conjecture in /tmp/LambdaLifting.fac2_98.tptp
+-- E 1.5 Pussimbing proved the conjecture in /tmp/LambdaLifting.fac2_98.tptp
+-- Proving the conjecture in /tmp/LambdaLifting.fac0_90.tptp ...
+-- Vampire 0.6 (revision 903) proved the conjecture in /tmp/LambdaLifting.fac0_90.tptp

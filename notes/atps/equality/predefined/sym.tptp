@@ -2,11 +2,11 @@
 % Symmetry of equality
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Tested on 21 February 2012.
+% Tested on 07 May 2012.
 
 % Tested with the following ATPs:
 
-% E 1.4
+% E 1.5 Pussimbing
 % $ eprover --tstp-format file_name
 
 % Equinox 5.0alpha (2010-06-29)
