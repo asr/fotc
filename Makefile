@@ -3,7 +3,7 @@
 haskell_files = $(shell find src/ -name '*.hs')
 
 AGDA     = agda -v 0
-# The defaults ATPs are e, equinox, metis, spass, and vampire.
+# The defaults ATPs are e, equinox, and vampire.
 AGDA2ATP = agda2atp
 # AGDA2ATP = agda2atp --atp=e
 # AGDA2ATP = agda2atp --atp=equinox
