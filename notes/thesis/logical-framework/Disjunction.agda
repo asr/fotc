@@ -1,4 +1,4 @@
--- Tested with the development version of Agda on 07 February 2012.
+-- Tested with the development version of Agda on 07 May 2012.
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
@@ -17,7 +17,7 @@ module LF where
 
 module Inductive where
 
-  open import Common.Data.Sum
+  open import Common.FOL.FOL
 
   ∨-comm-el : {A B : Set} → A ∨ B → B ∨ A
   ∨-comm-el = [ inj₂ , inj₁ ]
