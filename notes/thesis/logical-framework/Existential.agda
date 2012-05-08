@@ -1,4 +1,4 @@
--- Tested with FOT on 23 April 2012.
+-- Tested with FOT on 08 May 2012.
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
@@ -9,7 +9,7 @@ module LF where
   postulate
     D       : Set
     ∃       : (A : D → Set) → Set
-    _,_     : {A : D → Set}(x : D) → A x → ∃ A
+    _,_     : {A : D → Set}(t : D) → A t → ∃ A
     ∃-proj₁ : {A : D → Set} → ∃ A → D
     ∃-proj₂ : {A : D → Set}(h : ∃ A) → A (∃-proj₁ h)
     ∃-elim  : {A : D → Set}{B : Set} → ∃ A → (∀ {x} → A x → B) → B

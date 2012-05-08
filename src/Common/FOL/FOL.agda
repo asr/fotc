@@ -89,7 +89,7 @@ A ↔ B = (A → B) ∧ (B → A)
 ------------------------------------------------------------------------------
 -- The existential quantifier type on D.
 data ∃ (A : D → Set) : Set where
-  _,_ : (x : D) → A x → ∃ A
+  _,_ : (t : D) → A t → ∃ A
 
 -- Sugar syntax for the existential quantifier.
 syntax ∃ (λ x → e) = ∃[ x ] e
