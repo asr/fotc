@@ -8,6 +8,14 @@ module Existential where
 module LF where
   postulate
     D       : Set
+
+    -- Disjunction.
+    _∨_   : Set → Set → Set
+    inj₁  : {A B : Set} → A → A ∨ B
+    inj₂  : {A B : Set} → B → A ∨ B
+    [_,_] : {A B C : Set} → (A → C) → (B → C) → A ∨ B → C
+
+    -- The existential quantifier type on D.
     ∃       : (A : D → Set) → Set
     _,_     : {A : D → Set}(t : D) → A t → ∃ A
     ∃-proj₁ : {A : D → Set} → ∃ A → D
@@ -16,18 +24,26 @@ module LF where
 
   syntax ∃ (λ x → e) = ∃[ x ] e
 
-  module FOL-Example where
-    postulate A : D → D → Set
-
+  module FOL-Examples where
     -- Using the projections.
-    ∃∀₁ : ∃[ x ](∀ y → A x y) → ∀ y → ∃[ x ] A x y
+    ∃∀₁ : {A : D → D → Set} → ∃[ x ](∀ y → A x y) → ∀ y → ∃[ x ] A x y
     ∃∀₁ h y = ∃-proj₁ h , (∃-proj₂ h) y
 
+    ∃∨₁ : {A B : D → Set} → ∃[ x ](A x ∨ B x) → (∃[ x ] A x) ∨ (∃[ x ] B x)
+    ∃∨₁ h = [ (λ Ax → inj₁ (∃-proj₁ h , Ax))
+            , (λ Bx → inj₂ (∃-proj₁ h , Bx))
+            ] (∃-proj₂ h)
+
     -- Using the elimination
-    ∃∀₂ : ∃[ x ](∀ y → A x y) → ∀ y → ∃[ x ] A x y
+    ∃∀₂ : {A : D → D → Set} → ∃[ x ](∀ y → A x y) → ∀ y → ∃[ x ] A x y
     ∃∀₂ h y = ∃-elim h (λ {x} h₁ → x , h₁ y)
 
-  module NonFOL-Example where
+    ∃∨₂ : {A B : D → Set} → ∃[ x ](A x ∨ B x) → (∃[ x ] A x) ∨ (∃[ x ] B x)
+    ∃∨₂ h = ∃-elim h (λ {x} h₁ → [ (λ Ax → inj₁ (x , Ax))
+                                 , (λ Bx → inj₂ (x , Bx))
+                                 ] h₁)
+
+  module NonFOL-Examples where
 
     -- Using the projections.
     non-FOL₁ : {A : D → Set} → ∃ A → D
@@ -52,22 +68,34 @@ module Inductive where
   ∃-elim : {A : D → Set}{B : Set} → ∃ A → (∀ {x} → A x → B) → B
   ∃-elim (_ , Ax) h = h Ax
 
-  module FOL-Example where
-    postulate A : D → D → Set
-
+  module FOL-Examples where
     -- Using the projections.
-    ∃∀₁ : ∃[ x ](∀ y → A x y) → ∀ y → ∃[ x ] A x y
+    ∃∀₁ : {A : D → D → Set} → ∃[ x ](∀ y → A x y) → ∀ y → ∃[ x ] A x y
     ∃∀₁ h y = ∃-proj₁ h , (∃-proj₂ h) y
 
+    ∃∨₁ : {A B : D → Set} → ∃[ x ](A x ∨ B x) → (∃[ x ] A x) ∨ (∃[ x ] B x)
+    ∃∨₁ h = [ (λ Ax → inj₁ (∃-proj₁ h , Ax))
+            , (λ Bx → inj₂ (∃-proj₁ h , Bx))
+            ] (∃-proj₂ h)
+
     -- Using the elimination.
-    ∃∀₂ : ∃[ x ](∀ y → A x y) → ∀ y → ∃[ x ] A x y
+    ∃∀₂ : {A : D → D → Set} → ∃[ x ](∀ y → A x y) → ∀ y → ∃[ x ] A x y
     ∃∀₂ h y = ∃-elim h (λ {x} h₁ → x , h₁ y)
 
+    ∃∨₂ : {A B : D → Set} → ∃[ x ](A x ∨ B x) → (∃[ x ] A x) ∨ (∃[ x ] B x)
+    ∃∨₂ h = ∃-elim h (λ {x} h₁ → [ (λ Ax → inj₁ (x , Ax))
+                                 , (λ Bx → inj₂ (x , Bx))
+                                 ] h₁)
+
     -- Using pattern matching.
-    ∃∀₃ : ∃[ x ](∀ y → A x y) → ∀ y → ∃[ x ] A x y
+    ∃∀₃ : {A : D → D → Set} → ∃[ x ](∀ y → A x y) → ∀ y → ∃[ x ] A x y
     ∃∀₃ (x , Ax) y = x , Ax y
 
-  module NonFOL-Example where
+    ∃∨₃ : {A B : D → Set} → ∃[ x ](A x ∨ B x) → (∃[ x ] A x) ∨ (∃[ x ] B x)
+    ∃∨₃ (x , inj₁ Ax) = inj₁ (x , Ax)
+    ∃∨₃ (x , inj₂ Bx) = inj₂ (x , Bx)
+
+  module NonFOL-Examples where
 
     -- Using the projections.
     non-FOL₁ : {A : D → Set} → ∃ A → D

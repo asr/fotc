@@ -96,3 +96,7 @@ postulate
   ∀¬→¬∃ : (∀ {x} → ¬ A¹ x) → ¬ (∃[ x ] A¹ x)
 {-# ATP prove ∀→¬∃¬ #-}
 {-# ATP prove ∀¬→¬∃ #-}
+
+-- Distribution of ∃ and ∨.
+postulate ∃∨ : ∃[ x ](A¹ x ∨ B¹ x) → (∃[ x ] A¹ x) ∨ (∃[ x ] B¹ x)
+{-# ATP prove ∃∨ #-}

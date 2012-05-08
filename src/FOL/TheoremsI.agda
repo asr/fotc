@@ -12,9 +12,9 @@ open import FOL.Base
 ------------------------------------------------------------------------------
 -- We postulate some formulae and propositional functions.
 postulate
-  A  : Set
-  A¹ : D → Set
-  A² : D → D → Set
+  A     : Set
+  A¹ B¹ : D → Set
+  A²    : D → D → Set
 
 -- The introduction and elimination rules for the quantifiers are theorems.
 {-
@@ -86,3 +86,8 @@ gDM₂ = l→r , r→l
 
 ∀¬→¬∃ : (∀ {x} → ¬ A¹ x) → ¬ (∃[ x ] A¹ x)
 ∀¬→¬∃ h₁ (_ , h₂) = h₁ h₂
+
+-- Distribution of ∃ and ∨.
+∃∨ : ∃[ x ](A¹ x ∨ B¹ x) → (∃[ x ] A¹ x) ∨ (∃[ x ] B¹ x)
+∃∨ (x , inj₁ A¹x) = inj₁ (x , A¹x)
+∃∨ (x , inj₂ B¹x) = inj₂ (x , B¹x)
