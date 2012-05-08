@@ -7,16 +7,14 @@ procedure:
 * In agda2atp, to run the suite of successfull tests on agda2atp with
   the new ATP.
 
-* If the ATP is not a default one, to add it as an default. In FOTC,
-  to test all the conjectures. Compare the results with the file
-  notes/atps/conjectures/default-atps-conjectures-XXXX-XX-XX.txt.
+* In FOTC, to test all the conjectures.
 
 * In FOTC, to test the ATPs failures in FOTC/README.agda with the new
   ATP.
 
-* In FOTC, to generate the conjectures files
-  (FOTC/notes/atps/conjectures/new-atp-conjectures.txt) for the new ATP.
+* In agda2atp and FOTC, to search for comments using the old version,
+  i.e. something like
 
-* In FOTC, to look for regressions with the previous version of the ATP.
+  $ find -name '*.*' | xargs grep 'old version'
 
 * To update the website.
