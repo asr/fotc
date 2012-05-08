@@ -25,4 +25,4 @@ raa h = [ (λ a → a) , h ] pem
 
 -- ∃ in terms of ∀ and ¬.
 ¬∃¬→∀ : {A : D → Set} → ¬ (∃[ x ] ¬ A x) → ∀ {x} → A x
-¬∃¬→∀ h {x} = ¬-elim (λ h₁ → h (x , h₁))
+¬∃¬→∀ h {x} = ¬-elim (λ ah → h (x , ah))

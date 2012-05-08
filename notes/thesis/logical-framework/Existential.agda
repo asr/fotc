@@ -36,12 +36,12 @@ module LF where
 
     -- Using the elimination
     ∃∀₂ : {A : D → D → Set} → ∃[ x ](∀ y → A x y) → ∀ y → ∃[ x ] A x y
-    ∃∀₂ h y = ∃-elim h (λ {x} h₁ → x , h₁ y)
+    ∃∀₂ h y = ∃-elim h (λ {x} ah → x , ah y)
 
     ∃∨₂ : {A B : D → Set} → ∃[ x ](A x ∨ B x) → (∃[ x ] A x) ∨ (∃[ x ] B x)
-    ∃∨₂ h = ∃-elim h (λ {x} h₁ → [ (λ Ax → inj₁ (x , Ax))
+    ∃∨₂ h = ∃-elim h (λ {x} ah → [ (λ Ax → inj₁ (x , Ax))
                                  , (λ Bx → inj₂ (x , Bx))
-                                 ] h₁)
+                                 ] ah)
 
   module NonFOL-Examples where
 
@@ -80,12 +80,12 @@ module Inductive where
 
     -- Using the elimination.
     ∃∀₂ : {A : D → D → Set} → ∃[ x ](∀ y → A x y) → ∀ y → ∃[ x ] A x y
-    ∃∀₂ h y = ∃-elim h (λ {x} h₁ → x , h₁ y)
+    ∃∀₂ h y = ∃-elim h (λ {x} ah → x , ah y)
 
     ∃∨₂ : {A B : D → Set} → ∃[ x ](A x ∨ B x) → (∃[ x ] A x) ∨ (∃[ x ] B x)
-    ∃∨₂ h = ∃-elim h (λ {x} h₁ → [ (λ Ax → inj₁ (x , Ax))
+    ∃∨₂ h = ∃-elim h (λ {x} ah₁ → [ (λ Ax → inj₁ (x , Ax))
                                  , (λ Bx → inj₂ (x , Bx))
-                                 ] h₁)
+                                 ] ah)
 
     -- Using pattern matching.
     ∃∀₃ : {A : D → D → Set} → ∃[ x ](∀ y → A x y) → ∀ y → ∃[ x ] A x y

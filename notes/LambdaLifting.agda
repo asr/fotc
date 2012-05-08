@@ -2,13 +2,13 @@
 -- Example of lambda-lifting
 ------------------------------------------------------------------------------
 
--- Tested with Agda 2.3.1 on 11 December 2011.
+-- Tested with the development version of Agda on 08 May 2012.
 
 module LambdaLifting where
 
-infixl 9 _·_  -- The symbol is '\cdot'.
+infixl 9 _·_
 infix  8 if_then_else_
-infix 7 _≡_
+infix  7 _≡_
 
 infixl 10 _*_
 infixl 9  _+_
@@ -16,12 +16,12 @@ infixl 9  _+_
 ------------------------------------------------------------------------------
 
 postulate
-  D                 : Set
-  zero true false   : D
-  succ isZero pred  : D → D
-  _·_               : D → D → D
-  if_then_else_     : D → D → D → D
-  lam fix           : (D → D) → D
+  D                : Set
+  zero true false  : D
+  succ isZero pred : D → D
+  _·_              : D → D → D
+  if_then_else_    : D → D → D → D
+  lam fix          : (D → D) → D
 
 data _≡_ (x : D) : D → Set where
   refl : x ≡ x
