@@ -7,7 +7,7 @@ module Existential where
 
 module LF where
   postulate
-    D       : Set
+    D : Set
 
     -- Disjunction.
     _∨_   : Set → Set → Set
@@ -83,7 +83,7 @@ module Inductive where
     ∃∀₂ h y = ∃-elim h (λ {x} ah → x , ah y)
 
     ∃∨₂ : {A B : D → Set} → ∃[ x ](A x ∨ B x) → (∃[ x ] A x) ∨ (∃[ x ] B x)
-    ∃∨₂ h = ∃-elim h (λ {x} ah₁ → [ (λ Ax → inj₁ (x , Ax))
+    ∃∨₂ h = ∃-elim h (λ {x} ah → [ (λ Ax → inj₁ (x , Ax))
                                  , (λ Bx → inj₂ (x , Bx))
                                  ] ah)
 
