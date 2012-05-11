@@ -92,7 +92,7 @@ postulate
 
 -- Conversion rules for pred.
 postulate
-  -- pred-0 : ∀ d → pred · zero ≡ zero
+  -- pred-0 : pred · zero ≡ zero
   -- pred-S : ∀ d → pred · (succ · d) ≡ d
 
  -- N.B. We don't need this equation in FOTC.
