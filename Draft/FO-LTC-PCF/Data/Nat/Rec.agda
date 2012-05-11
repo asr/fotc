@@ -10,7 +10,7 @@ module Draft.FO-LTC-PCF.Data.Nat.Rec where
 open import Draft.FO-LTC-PCF.Base
 
 ---------------------------------------------------------------------------
--- Version using lambda-abstraction.
+-- Version using λ-abstraction.
 -- rech : D → D
 -- rech r = lam (λ n → lam (λ a → lam (λ f →
 --              (if (isZero n)

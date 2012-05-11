@@ -15,8 +15,8 @@ open import FOTC.Base
 data Fun : D → Set where
   fun : (f : D) → Fun f
 
--- But using a lambda-abstraction we could make a distinguish:
-postulate lam : (D → D) → D  -- LTC-PCF abstraction.
+-- But using a λ-abstraction we could make a distinguish:
+postulate lam : (D → D) → D  -- LTC-PCF λ-abstraction.
 
 data Fun₁ : D → Set where
   fun₁ : (f : D → D) → Fun₁ (lam f)

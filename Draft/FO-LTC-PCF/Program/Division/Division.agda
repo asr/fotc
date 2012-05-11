@@ -21,7 +21,7 @@ open import Draft.FO-LTC-PCF.Data.Nat
 open import Draft.FO-LTC-PCF.Data.Nat.Inequalities
 
 ------------------------------------------------------------------------------
--- Version using lambda-abstraction.
+-- Version using λ-abstraction.
 -- divh : D → D
 -- divh g = lam (λ i → lam (λ j →
 --              if (lt i j)

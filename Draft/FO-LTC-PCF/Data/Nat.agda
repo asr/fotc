@@ -21,7 +21,7 @@ open import Draft.FO-LTC-PCF.Data.Nat.Type public
 ------------------------------------------------------------------------------
 -- Addition with recursion on the first argument.
 
--- Version using lambda-abstraction.
+-- Version using λ-abstraction.
 -- _+_ : D → D → D
 -- m + n = rec m n (lam (λ x → lam (λ y → succ₁ y)))
 
@@ -39,7 +39,7 @@ m + n = rec m n (lam +-helper)
 ------------------------------------------------------------------------------
 -- Substraction.
 
--- Version using lambda-abstraction.
+-- Version using λ-abstraction.
 -- _∸_ : D → D → D
 -- m ∸ n = rec n m (lam (λ x → lam (λ y → pred y)))
 
@@ -57,7 +57,7 @@ m ∸ n = rec n m (lam ∸-helper)
 ------------------------------------------------------------------------------
 -- Multiplication with recursion on the first argument.
 
--- Version using lambda-abstraction.
+-- Version using λ-abstraction.
 -- _*_ : D → D → D
 -- m * n = rec m zero (lam (λ _ → lam (λ y → n + y)))
 

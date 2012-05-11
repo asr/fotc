@@ -47,7 +47,7 @@ postulate
   isZero-S : ∀ d → isZero (succ d) ≡ false
 {-# ATP axiom isZero-0 isZero-S #-}
 
--- Conversion rule for the abstraction and the application.
+-- Conversion rule for the λ-abstraction and the application.
 postulate beta : ∀ f a → lam f · a ≡ f a
 {-# ATP axiom beta #-}
 

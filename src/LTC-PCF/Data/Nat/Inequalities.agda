@@ -10,7 +10,7 @@ module LTC-PCF.Data.Nat.Inequalities where
 open import LTC-PCF.Base
 
 ------------------------------------------------------------------------------
--- Version using lambda-abstraction.
+
 lth : D → D
 lth lt = lam (λ m → lam (λ n →
               if (iszero₁ n) then false

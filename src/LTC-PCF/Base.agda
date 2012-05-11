@@ -40,7 +40,7 @@ open import Common.FOL.FOL-Eq public
 
 postulate
   _·_                   : D → D → D    -- LTC-PCF application.
-  lam                   : (D → D) → D  -- LTC-PCF abstraction.
+  lam                   : (D → D) → D  -- LTC-PCF λ-abstraction.
   fix                   : (D → D) → D  -- LTC-PCF fixed-point operator.
   true false if         : D            -- LTC-PCF partial Booleans.
   zero succ pred iszero : D            -- LTC-PCF partial natural numbers.
@@ -77,7 +77,7 @@ abstract
 -- N.B. We write the conversion rules on the defined function symbols
 -- instead of on the PCF constants.
 
--- Conversion rule for the abstraction and the application.
+-- Conversion rule for the λ-abstraction and the application.
 postulate beta : ∀ f a → lam f · a ≡ f a
 
 -- Conversion rule for the fixed-pointed operator.

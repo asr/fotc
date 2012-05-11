@@ -16,8 +16,8 @@ open import Draft.FO-LTC-PCF.Data.Nat.Rec
 ----------------------------------------------------------------------------
 
 -- Note: This module was written for the version of gcd using the
--- lambda abstractions, but we can use it with the version of gcd
--- using super-combinators.
+-- λ-abstractions, but we can use it with the version of gcd using
+-- super-combinators.
 
 private
   -- We follow the same methodology used in

@@ -118,7 +118,7 @@ postulate
   suc#  : D -> D
   rec#  : D -> D -> (D -> D -> D) -> D
 
-  -- LTC-PCF abstraction and application
+  -- LTC-PCF λ-abstraction and application
   λ   : (D -> D) -> D
   -- Left associative aplication operator
   _`_ : D -> D -> D
@@ -136,7 +136,7 @@ postulate
   CN2 : (a n : D)(f : D -> D -> D) ->
         rec# (suc# n) a f == f n (rec# n a f)
 
-  -- Conversion rule for the abstraction and the application
+  -- Conversion rule for the λ-abstraction and the application
   beta : (f : D -> D)(a : D) -> (λ f) ` a == f a
 
 --------------------------------------------------------------

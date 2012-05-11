@@ -10,7 +10,7 @@ module Draft.FO-LTC-PCF.Data.Nat.Inequalities where
 open import Draft.FO-LTC-PCF.Base
 
 ------------------------------------------------------------------------------
--- Version using lambda-abstraction.
+-- Version using λ-abstraction.
 -- lth : D → D
 -- lth lt = lam (λ m → lam (λ n →
 --               if (isZero n) then false

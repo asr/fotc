@@ -19,8 +19,8 @@ open import Draft.FO-LTC-PCF.Program.GCD.Partial.GCD
 ------------------------------------------------------------------------------
 
 -- Note: This module was written for the version of gcd using the
--- lambda abstractions, but we can use it with the version of gcd
--- using super-combinators.
+-- λ-abstractions, but we can use it with the version of gcd using
+-- super-combinators.
 
 private
   -- Before to prove some properties for @gcd i j@ it is convenient to
