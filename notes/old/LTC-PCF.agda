@@ -107,7 +107,7 @@ postulate D : Set
 
 postulate
 
-  -- LTC-PCF booleans
+  -- LTC-PCF Booleans
   true#          : D
   false#         : D
   if#_then_else_ : D -> D -> D -> D
@@ -127,7 +127,7 @@ postulate
 -- Conversion rules
 
 postulate
-  -- Conversion rules for booleans
+  -- Conversion rules for Booleans
   CB1 : (a : D){b : D} -> if# true# then a else b == a
   CB2 : {a : D}(b : D) -> if# false# then a else b == b
 

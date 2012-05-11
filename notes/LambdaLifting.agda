@@ -28,7 +28,7 @@ data _≡_ (x : D) : D → Set where
 
 -- Conversion rules
 
--- Conversion rules for booleans.
+-- Conversion rules for Booleans.
 postulate
   if-true  : ∀ d₁ {d₂} → if true then d₁ else d₂  ≡ d₁
   if-false : ∀ {d₁} d₂ → if false then d₁ else d₂ ≡ d₂

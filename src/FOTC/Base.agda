@@ -45,7 +45,7 @@ open import Common.FOL.FOL-Eq public
 
 postulate
   _·_                     : D → D → D  -- FOTC application.
-  true false if           : D          -- FOTC partial booleans.
+  true false if           : D          -- FOTC partial Booleans.
   zero succ pred iszero   : D          -- FOTC partial natural numbers.
   nil cons head tail null : D          -- FOTC lists.
   loop                    : D          -- FOTC looping programs.
@@ -111,7 +111,7 @@ abstract
 -- conversion rules on the defined function symbols instead of on the
 -- term constants.
 
--- Conversion rules for booleans.
+-- Conversion rules for Booleans.
 postulate
   -- if-true  : ∀ d₁ {d₂} → if · true  · d₁ · d₂ ≡ d₁
   -- if-false : ∀ {d₁} d₂ → if · false · d₁ · d₂ ≡ d₂

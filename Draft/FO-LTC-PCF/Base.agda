@@ -42,7 +42,7 @@ postulate
   _·_                   : D → D → D    -- LTC-PCF application.
   lam                   : (D → D) → D  -- LTC-PCF abstraction.
   fix                   : (D → D) → D  -- LTC-PCF fixed-point operator.
-  true false if         : D            -- LTC-PCF partial booleans.
+  true false if         : D            -- LTC-PCF partial Booleans.
   zero succ pred iszero : D            -- LTC-PCF partial natural numbers.
 
 ------------------------------------------------------------------------------
@@ -90,7 +90,7 @@ postulate beta : ∀ f a → lam f · a ≡ f a
 postulate fix-f : ∀ f → fix f ≡ f (fix f)
 {-# ATP axiom fix-f #-}
 
--- Conversion rules for booleans.
+-- Conversion rules for Booleans.
 postulate
   -- if-true  : ∀ d₁ {d₂} → if · true  · d₁ · d₂ ≡ d₁
   -- if-false : ∀ {d₁} d₂ → if · false · d₁ · d₂ ≡ d₂
