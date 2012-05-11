@@ -13,7 +13,8 @@ open import LTC-PCF.Base
 -- The inductive predicate 'N' represents the type of the natural
 -- numbers. They are a subset of 'D'.
 
--- The LTC-PCF natural numbers type.
+-- The LTC-PCF natural numbers type (inductive predicate for total
+-- natural numbers).
 data N : D → Set where
   zN :               N zero
   sN : ∀ {n} → N n → N (succ₁ n)

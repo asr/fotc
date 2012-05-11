@@ -14,9 +14,15 @@ module LTC-PCF.README where
 open import LTC-PCF.Base
 
 ------------------------------------------------------------------------------
+-- Booleans
+
+-- The inductive predicate
+open import FOTC.Data.Bool.Type
+
+------------------------------------------------------------------------------
 -- Natural numberes
 
--- The axioms
+-- The arithmetical functions
 open import LTC-PCF.Data.Nat
 
 -- The inductive predicate

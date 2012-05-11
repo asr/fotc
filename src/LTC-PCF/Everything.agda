@@ -7,6 +7,9 @@ module LTC-PCF.Everything where
 open import LTC-PCF.Base
 open import LTC-PCF.Base.Properties
 
+open import LTC-PCF.Data.Bool
+open import LTC-PCF.Data.Bool.Type
+
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesI

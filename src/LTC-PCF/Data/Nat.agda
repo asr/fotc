@@ -15,7 +15,8 @@ infixl 10 _*_
 infixl 9  _+_ _∸_
 
 ------------------------------------------------------------------------------
--- The LTC-PCF natural numbers type.
+-- The LTC-PCF natural numbers type (inductive predicate for total
+-- natural numbers).
 open import LTC-PCF.Data.Nat.Type public
 
 ------------------------------------------------------------------------------
