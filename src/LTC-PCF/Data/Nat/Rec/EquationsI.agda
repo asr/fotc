@@ -23,7 +23,7 @@ private
   ----------------------------------------------------------------------------
   -- The steps
 
-  -- Initially, the conversion rule fix-f is applied.
+  -- Initially, the conversion rule fix-eq is applied.
   rec-s₁ : D → D → D → D
   rec-s₁ n a f =  rech (fix rech) · n · a · f
 
@@ -76,11 +76,11 @@ private
   -- LTC-PCF.Program.Division.EquationsI (see it for the
   -- documentation).
 
-  -- Application of the conversion rule fix-f.
+  -- Application of the conversion rule fix-eq.
   proof₀₋₁ : ∀ n a f → fix rech · n · a · f ≡ rec-s₁ n a f
   proof₀₋₁ n a f = subst (λ x → x · n · a · f ≡
                                 rech (fix rech) · n · a · f )
-                         (sym (fix-f rech))
+                         (sym (fix-eq rech))
                          refl
 
   -- Application of the first argument.

@@ -35,7 +35,7 @@ private
   ----------------------------------------------------------------------------
   -- The steps
 
-  -- Initially, the conversion rule fix-f is applied.
+  -- Initially, the conversion rule fix-eq is applied.
   gcd-s₁ : D → D → D
   gcd-s₁ m n = gcdh (fix gcdh) · m · n
 
@@ -141,7 +141,7 @@ private
 
   proof₀₋₁ : ∀ m n → fix gcdh · m · n ≡ gcd-s₁ m n
   proof₀₋₁ m n = subst (λ x → x · m · n ≡ gcdh (fix gcdh) · m · n)
-                       (sym (fix-f gcdh))
+                       (sym (fix-eq gcdh))
                        refl
 
   proof₁₋₂ : ∀ m n → gcd-s₁ m n ≡ gcd-s₂ m · n

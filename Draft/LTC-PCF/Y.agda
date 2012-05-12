@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with FOT on 27 April 2012.
+-- Tested with FOT on 12 May 2012.
 
 -- See (Barendregt 2004, corollary 6.1.3).
 --
@@ -25,7 +25,7 @@
 
 module Draft.LTC-PCF.Y where
 
-open import LTC-PCF.Base hiding ( fix ; fix-f )
+open import LTC-PCF.Base hiding ( fix ; fix-eq )
 
 ------------------------------------------------------------------------------
 

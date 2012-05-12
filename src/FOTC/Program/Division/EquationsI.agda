@@ -28,7 +28,7 @@ private
     --
     -- proof₂₋₃ : ∀ i j → div-s₂ i j ≡ div-s₃ i j.
 
-    -- Initially, the conversion rule fix-f is applied.
+    -- Initially, the conversion rule div-eq is applied.
     div-s₁ : D → D → D
     div-s₁ i j = if (i < j) then zero else succ₁ (div (i ∸ j) j)
 

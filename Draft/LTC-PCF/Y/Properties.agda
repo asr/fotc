@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with FOT on 27 April 2012.
+-- Tested with FOT on 12 May 2012.
 
 -- See (Barendregt 2004, corollary 6.1.3).
 --
@@ -18,13 +18,13 @@ open import Common.FOL.Relation.Binary.EqReasoning
 
 open import Draft.LTC-PCF.Y
 
-open import LTC-PCF.Base hiding ( fix ; fix-f )
+open import LTC-PCF.Base hiding ( fix ; fix-eq )
 
 ------------------------------------------------------------------------------
 
 -- The conversion rule for Y.
-Y-c : ∀ f → Y · f ≡ f · (Y · f)
-Y-c f =
+Y-eq : ∀ f → Y · f ≡ f · (Y · f)
+Y-eq f =
   Y · f             ≡⟨ beta helper f ⟩
   lamW · lamW       ≡⟨ beta W lamW ⟩
   W lamW            ≡⟨ refl ⟩
@@ -40,11 +40,11 @@ Y-c f =
   lamW : D
   lamW = lam W
 
--- The conversion rule for (the higher-order) Y₁.
-Y₁-f : (f : D → D) → Y₁ f ≡ f (Y₁ f)
-Y₁-f f =
+-- The conversion rule for the higher-order Y₁.
+Y₁-eq : (f : D → D) → Y₁ f ≡ f (Y₁ f)
+Y₁-eq f =
   Y₁ f                ≡⟨ refl ⟩
-  Y · lam f           ≡⟨ Y-c (lam f) ⟩
+  Y · lam f           ≡⟨ Y-eq (lam f) ⟩
   lam f · (Y · lam f) ≡⟨ cong (_·_ (lam f)) refl ⟩
   lam f · Y₁ f        ≡⟨ beta f (Y₁ f) ⟩
   f (Y₁ f) ∎

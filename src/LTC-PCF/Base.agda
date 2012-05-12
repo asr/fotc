@@ -81,7 +81,7 @@ abstract
 postulate beta : ∀ f a → lam f · a ≡ f a
 
 -- Conversion rule for the fixed-pointed operator.
-postulate fix-f : ∀ f → fix f ≡ f (fix f)
+postulate fix-eq : ∀ f → fix f ≡ f (fix f)
 
 -- Conversion rules for Booleans.
 postulate

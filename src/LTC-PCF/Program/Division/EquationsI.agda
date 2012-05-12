@@ -28,7 +28,7 @@ private
     --
     -- proof₂₋₃ : ∀ i j → div-s₂ i j ≡ div-s₃ i j.
 
-    -- Initially, the conversion rule fix-f is applied.
+    -- Initially, the conversion rule fix-eq is applied.
     div-s₁ : D → D → D
     div-s₁ i j = divh (fix divh) · i · j
 
@@ -92,10 +92,10 @@ private
       • P x is given by ... n ... ≡ ... n ... (i.e. ≡-refl)
     -}
 
-    -- From div · i · j to div-s₁ using the conversion rule fix-f.
+    -- From div · i · j to div-s₁ using the conversion rule fix-eq.
     proof₀₋₁ : ∀ i j → fix divh · i · j ≡ div-s₁ i j
     proof₀₋₁ i j = subst (λ t → t · i · j ≡ divh (fix divh) · i · j)
-                         (sym $ fix-f divh)
+                         (sym $ fix-eq divh)
                          refl
 
     -- From div-s₁ to div-s₂ using the conversion rule beta.

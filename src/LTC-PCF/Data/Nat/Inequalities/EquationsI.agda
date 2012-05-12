@@ -32,7 +32,7 @@ private
   ----------------------------------------------------------------------
   -- The steps of _<_.
 
-  -- Initially, the conversion rule fix-f is applied.
+  -- Initially, the conversion rule fix-eq is applied.
   <-s₁ : D → D → D
   <-s₁ m n = lth (fix lth) · m · n
 
@@ -119,11 +119,11 @@ private
       • P x is given by C [m] ≡ C [m] (i.e. refl).
   -}
 
-  -- Application of the conversion rule fix-f.
+  -- Application of the conversion rule fix-eq.
   proof₀₋₁ : (m n : D) → fix lth · m · n  ≡ <-s₁ m n
   proof₀₋₁ m n = subst (λ x → x · m · n  ≡
                               lth (fix lth) · m · n )
-                       (sym (fix-f lth ))
+                       (sym (fix-eq lth ))
                        refl
 
   -- Application of the first argument.

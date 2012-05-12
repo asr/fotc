@@ -32,7 +32,7 @@ private
   ----------------------------------------------------------------------
   -- The steps of lt
 
-  -- The conversion rule fix-f is applied.
+  -- The conversion rule fix-eq is applied.
   <-s₁ : D → D → D
   <-s₁ m n = <-h (fix <-h) · m · n
 
@@ -112,7 +112,7 @@ private
 
   -- Application of the conversion rule fix₁-f.
   initial→s₁ : ∀ m n → fix <-h · m · n ≡ <-s₁ m n
-  initial→s₁ m n = subst (λ t → fix <-h · m · n ≡ t · m · n) (fix-f <-h) refl
+  initial→s₁ m n = subst (λ t → fix <-h · m · n ≡ t · m · n) (fix-eq <-h) refl
 
   -- The definition of <-h.
   s₁→s₂ : ∀ m n → <-s₁ m n ≡ <-s₂ m n
