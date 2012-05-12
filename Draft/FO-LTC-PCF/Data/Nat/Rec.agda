@@ -20,7 +20,7 @@ open import Draft.FO-LTC-PCF.Base
 -- rec : D → D → D → D
 -- rec n a f = fix rech · n · a · f
 
--- Version using lambda lifting via super-combinators.
+-- Version using lambda-lifting via super-combinators.
 -- (Hughes. Super-combinators. 1982)
 
 private

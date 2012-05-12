@@ -17,7 +17,7 @@ open import Draft.FO-LTC-PCF.Base
 --                  else (if (isZero m) then true
 --                           else (lt · (pred m) · (pred n)))))
 
--- Version using lambda lifting via super-combinators.
+-- Version using lambda-lifting via super-combinators.
 -- (Hughes. Super-combinators. 1982)
 
 -- Agda changes the evaluation behaviour (we have not identified in

@@ -34,7 +34,7 @@ open import Draft.FO-LTC-PCF.Loop
 --                                 then g · (d ∸ e) · e
 --                                 else g · d · (e ∸ d)))))
 
--- Version using lambda lifting via super-combinators.
+-- Version using lambda-lifting via super-combinators.
 -- (Hughes. Super-combinators. 1982)
 
 gcd-helper₁ : D → D → D → D

@@ -90,7 +90,7 @@ data ∃ (A : Set)(P : A -> Set) : Set where
 {-
 D : a universal domain of terms
 
-Pre-types (or weak types): Agda's simple type lambda calculus on 'D'
+Pre-types (or weak types): Agda's simple type λ-calculus on 'D'
 
               T ::= D | T -> T
                 t := x | \x -> t | t t | c (constants)

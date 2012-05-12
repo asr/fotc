@@ -28,7 +28,7 @@ open import Draft.FO-LTC-PCF.Data.Nat.Inequalities
 --                then zero
 --                else (succ (g · (i ∸ j) · j))))
 
--- Version using lambda lifting via super-combinators
+-- Version using lambda-lifting via super-combinators
 -- (Hughes. Super-combinators. 1982).
 
 div-helper₁ : D → D → D → D

@@ -25,7 +25,7 @@ open import Draft.FO-LTC-PCF.Data.Nat.Type public
 -- _+_ : D → D → D
 -- m + n = rec m n (lam (λ x → lam (λ y → succ₁ y)))
 
--- Version using lambda lifting via super-combinators.
+-- Version using lambda-lifting via super-combinators.
 -- (Hughes. Super-combinators. 1982)
 
 +-helper : D → D
@@ -43,7 +43,7 @@ m + n = rec m n (lam +-helper)
 -- _∸_ : D → D → D
 -- m ∸ n = rec n m (lam (λ x → lam (λ y → pred y)))
 
--- Version using lambda lifting via super-combinators.
+-- Version using lambda-lifting via super-combinators.
 -- (Hughes. Super-combinators. 1982)
 
 ∸-helper : D → D
@@ -61,7 +61,7 @@ m ∸ n = rec n m (lam ∸-helper)
 -- _*_ : D → D → D
 -- m * n = rec m zero (lam (λ _ → lam (λ y → n + y)))
 
--- Version using lambda lifting via super-combinators.
+-- Version using lambda-lifting via super-combinators.
 -- (Hughes. Super-combinators. 1982)
 
 *-helper₁ : D → D → D

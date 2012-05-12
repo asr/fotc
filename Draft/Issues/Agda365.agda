@@ -22,8 +22,8 @@ open import LTC-PCF.Data.Nat.PropertiesATP
 -- An internal error has occurred. Please report this as a bug.
 -- Location of the error: src/FOL/Translation/Internal/Terms.hs:516
 --
--- because we don't translate the Agda internal lambda terms. We fixed
--- the issue using an abstract block to avoid the reduction (see
+-- because we don't translate the Agda internal λ-terms. We fixed the
+-- issue using an abstract block to avoid the reduction (see
 -- LTC-PCF.Data.Nat.Inequalities). I am keeping this example as an
 -- possible test case for the translation of the Agda internal lambda
 -- terms.
