@@ -93,6 +93,10 @@ module Setoid where
 
   -- but this doesn't hold because "x ≡ y" (propositional equality)
   -- means identical expressions. We do NOT have K · x · y ≡ x.
+  --
+  -- The point is that ≐ is a non-trivial equivalence relation, and
+  -- not all properties preserve it. However, all properties are
+  -- preserved by ≡.
 
 ------------------------------------------------------------------------------
 
