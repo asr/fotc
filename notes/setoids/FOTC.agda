@@ -58,21 +58,41 @@ module Setoid where
     Kax   : ∀ x y →                            K · x · y  ≐ x
     Sax   : ∀ x y z →                      S · x · y · z  ≐ x · z · (y · z)
 
-  -- 14 May 2012. We cannot define the identity elimination using the
-  -- setoid equality.
-  --
-  -- subst : (A : D → Set) → ∀ x y → x ≐ y → A x → A y
-
   -- The identity type.
   data _≡_ (x : D) : D → Set where
     refl : x ≡ x
 
+  ----------------------------------------------------------------------------
   -- 14 May 2012: Using the inductive structure we cannot prove
   --
   -- K · x · y ≡ x,
   --
   -- we need the setoid equality.
   -- K-eq : ∀ {x y} → (K · x · y) ≡ x
+
+  ----------------------------------------------------------------------------
+  -- 14 May 2012. We cannot define the identity elimination using the
+  -- setoid equality.
+  --
+  -- Adapted from Peter's email:
+
+  -- Given
+  postulate subst : (A : D → Set) → ∀ x y → x ≐ y → A x → A y
+
+  -- you can get the instance
+
+  subst-aux : ∀ x y → x ≐ y → x ≡ x → x ≡ y
+  subst-aux x y h₁ h₂ = subst A x y h₁ refl
+    where A : D → Set
+          A z = x ≡ z
+
+  -- hence you can prove
+
+  thm : ∀ {x y} → x ≐ y → x ≡ y
+  thm {x} {y} h = subst-aux x y h refl
+
+  -- but this doesn't hold because "x ≡ y" (propositional equality)
+  -- means identical expressions. We do NOT have K · x · y ≡ x.
 
 ------------------------------------------------------------------------------
 
