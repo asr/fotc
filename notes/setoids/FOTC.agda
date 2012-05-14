@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of Agda on 13 May 2012.
+-- Tested with the development version of Agda on 14 May 2012.
 
 {-
 
@@ -49,7 +49,7 @@ module Setoid where
     K S : D
     _·_ : D → D → D
 
-  -- The setoid equality
+  -- The setoid equality.
   data _≐_ : D → D → Set where
     refl  : ∀ x →                                       x ≐ x
     sym   : ∀ {x y} → x ≐ y →                           y ≐ x
@@ -58,16 +58,16 @@ module Setoid where
     Kax   : ∀ x y →                            K · x · y  ≐ x
     Sax   : ∀ x y z →                      S · x · y · z  ≐ x · z · (y · z)
 
-  -- 13 May 2012. It seems we cannot define the identity elimination
-  -- using the setoid equality.
+  -- 14 May 2012. We cannot define the identity elimination using the
+  -- setoid equality.
   --
   -- subst : (A : D → Set) → ∀ x y → x ≐ y → A x → A y
 
-  -- The identity type
+  -- The identity type.
   data _≡_ (x : D) : D → Set where
     refl : x ≡ x
 
-  -- 13 May 2012: Using the inductive structure we cannot prove
+  -- 14 May 2012: Using the inductive structure we cannot prove
   --
   -- K · x · y ≡ x,
   --
@@ -78,6 +78,8 @@ module Setoid where
 
 module LeibnizEquality where
 
+  infix 7 _≡_
+
   data D : Set where
     K S : D
     _·_ : D → D → D
@@ -85,10 +87,8 @@ module LeibnizEquality where
   -- (Barthe et al. 2003, p. 262) use the Leibniz equality when
   -- they talk about setoids.
 
-  -- Using the Leibniz equality
-  -- (Adapted from Agda/examples/lib/Logic/Leibniz.agda)
-
-  infix 7 _≡_
+  -- Using the Leibniz equality (adapted from
+  -- Agda/examples/lib/Logic/Leibniz.agda)
 
   _≡_ : D → D → Set₁
   x ≡ y = (A : D → Set) → A x → A y
