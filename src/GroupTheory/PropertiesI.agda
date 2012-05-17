@@ -40,7 +40,7 @@ leftCancellation {a} {b} {c} h =
   a ⁻¹ · (a · c) ≡⟨ sym (assoc (a ⁻¹) a c) ⟩
   a ⁻¹ · a · c   ≡⟨ ·-leftCong (leftInverse a) ⟩
   ε · c          ≡⟨ leftIdentity c ⟩
-  c ∎
+  c              ∎
 
 -- A different proof without using congruence.
 leftCancellation' : ∀ {a b c} → a · b ≡ a · c → b ≡ c
@@ -58,7 +58,7 @@ leftCancellation' {a} {b} {c} h =
   a ⁻¹ · (a · c) ≡⟨ sym (assoc (a ⁻¹) a c) ⟩
   a ⁻¹ · a · c   ≡⟨ subst (λ t → a ⁻¹ · a · c ≡ t · c) (leftInverse a) refl ⟩
   ε · c          ≡⟨ leftIdentity c ⟩
-  c ∎
+  c              ∎
 
 -- Saunders Mac Lane and Garret Birkhoff. Algebra. AMS Chelsea
 -- Publishing, 3rd edition, 1999. p. 50, exercise 6.
@@ -70,7 +70,7 @@ rightIdentity a = leftCancellation prf
         a ⁻¹ · a · ε   ≡⟨ ·-leftCong (leftInverse a) ⟩
         ε · ε          ≡⟨ leftIdentity ε ⟩
         ε              ≡⟨ sym (leftInverse a) ⟩
-        a ⁻¹ · a ∎
+        a ⁻¹ · a       ∎
 
 -- Saunders Mac Lane and Garret Birkhoff. Algebra. AMS Chelsea
 -- Publishing, 3rd edition, 1999. p. 50, exercise 6.
@@ -82,7 +82,7 @@ rightInverse a = leftCancellation prf
         a ⁻¹ · a · a ⁻¹   ≡⟨ ·-leftCong (leftInverse a) ⟩
         ε · a ⁻¹          ≡⟨ leftIdentity (a ⁻¹)  ⟩
         a ⁻¹              ≡⟨ sym (rightIdentity (a ⁻¹)) ⟩
-        a ⁻¹ · ε ∎
+        a ⁻¹ · ε          ∎
 
 rightCancellation : ∀ {a b c} → b · a ≡ c · a → b ≡ c
 rightCancellation {a} {b} {c} h =
@@ -98,25 +98,23 @@ rightCancellation {a} {b} {c} h =
   c · a · a ⁻¹   ≡⟨ assoc c a (a ⁻¹) ⟩
   c · (a · a ⁻¹) ≡⟨ ·-rightCong (rightInverse a) ⟩
   c · ε          ≡⟨ rightIdentity c ⟩
-  c ∎
+  c              ∎
 
 -- Adapted from the Agda standard library v0.6 (see
 -- Algebra.Props.Group.right-helper).
 y≡x⁻¹[xy] : ∀ a b → b ≡ a ⁻¹ · (a · b)
-y≡x⁻¹[xy] a b =
-  b              ≡⟨ sym (leftIdentity b) ⟩
-  ε · b          ≡⟨ ·-leftCong (sym (leftInverse a)) ⟩
-  a ⁻¹ · a · b   ≡⟨ assoc (a ⁻¹) a b ⟩
-  a ⁻¹ · (a · b) ∎
+y≡x⁻¹[xy] a b = b              ≡⟨ sym (leftIdentity b) ⟩
+                ε · b          ≡⟨ ·-leftCong (sym (leftInverse a)) ⟩
+                a ⁻¹ · a · b   ≡⟨ assoc (a ⁻¹) a b ⟩
+                a ⁻¹ · (a · b) ∎
 
 -- Adapted from the Agda standard library v0.6 (see
 -- Algebra.Props.Group.left-helper).
 x≡[xy]y⁻¹ : ∀ a b → a ≡ (a · b) · b ⁻¹
-x≡[xy]y⁻¹ a b =
-  a              ≡⟨ sym (rightIdentity a) ⟩
-  a · ε          ≡⟨ ·-rightCong (sym (rightInverse b)) ⟩
-  a · (b · b ⁻¹) ≡⟨ sym (assoc a b (b ⁻¹)) ⟩
-  a · b · b ⁻¹ ∎
+x≡[xy]y⁻¹ a b = a              ≡⟨ sym (rightIdentity a) ⟩
+                a · ε          ≡⟨ ·-rightCong (sym (rightInverse b)) ⟩
+                a · (b · b ⁻¹) ≡⟨ sym (assoc a b (b ⁻¹)) ⟩
+                a · b · b ⁻¹   ∎
 
 rightIdentityUnique : ∀ r → (∀ a → a · r ≡ a) → r ≡ ε
 -- Paper proof (Saunders Mac Lane and Garret Birkhoff. Algebra. AMS
@@ -131,11 +129,10 @@ rightIdentityUnique r h = trans (sym (leftIdentity r)) (h ε)
 -- Adapted from the Agda standard library v0.6 (see
 -- Algebra.Props.Group.right-identity-unique).
 rightIdentityUnique' : ∀ a r → a · r ≡ a → r ≡ ε
-rightIdentityUnique' a r h =
-  r              ≡⟨ y≡x⁻¹[xy] a r ⟩
-  a ⁻¹ · (a · r) ≡⟨ ·-rightCong h ⟩
-  a ⁻¹ · a       ≡⟨ leftInverse a ⟩
-  ε ∎
+rightIdentityUnique' a r h = r              ≡⟨ y≡x⁻¹[xy] a r ⟩
+                             a ⁻¹ · (a · r) ≡⟨ ·-rightCong h ⟩
+                             a ⁻¹ · a       ≡⟨ leftInverse a ⟩
+                             ε              ∎
 
 leftIdentityUnique : ∀ l → (∀ a → l · a ≡ a) → l ≡ ε
 -- Paper proof:
@@ -148,11 +145,10 @@ leftIdentityUnique l h = trans (sym (rightIdentity l)) (h ε)
 -- Adapted from the Agda standard library v0.6 (see
 -- Algebra.Props.Group.left-identity-unique).
 leftIdentityUnique' : ∀ a l → l · a ≡ a → l ≡ ε
-leftIdentityUnique' a l h =
-  l            ≡⟨ x≡[xy]y⁻¹ l a ⟩
-  l · a · a ⁻¹ ≡⟨ ·-leftCong h ⟩
-  a · a ⁻¹     ≡⟨ rightInverse a ⟩
-  ε ∎
+leftIdentityUnique' a l h = l            ≡⟨ x≡[xy]y⁻¹ l a ⟩
+                            l · a · a ⁻¹ ≡⟨ ·-leftCong h ⟩
+                            a · a ⁻¹     ≡⟨ rightInverse a ⟩
+                            ε            ∎
 
 rightInverseUnique : ∀ {a} → ∃[ r ] (a · r ≡ ε) ∧
                                     (∀ r' → a · r' ≡ ε → r ≡ r')
@@ -172,7 +168,7 @@ rightInverseUnique {a} =
       aa⁻¹≡ar' : a · a ⁻¹ ≡ a · r'
       aa⁻¹≡ar' = a · a ⁻¹ ≡⟨ rightInverse a ⟩
                  ε        ≡⟨ sym ar'≡ε ⟩
-                 a · r' ∎
+                 a · r'   ∎
 
 -- A more appropiate version to be used in the proofs.
 rightInverseUnique' : ∀ {a r} → a · r ≡ ε → a ⁻¹ ≡ r
@@ -181,7 +177,7 @@ rightInverseUnique' {a} {r} ar≡ε = leftCancellation aa⁻¹≡ar
   aa⁻¹≡ar : a · a ⁻¹ ≡ a · r
   aa⁻¹≡ar = a · a ⁻¹ ≡⟨ rightInverse a ⟩
             ε        ≡⟨ sym ar≡ε ⟩
-            a · r ∎
+            a · r    ∎
 
 leftInverseUnique : ∀ {a} → ∃[ l ] (l · a ≡ ε) ∧
                                    (∀ l' → l' · a ≡ ε → l ≡ l')
@@ -201,7 +197,7 @@ leftInverseUnique {a} =
       a⁻¹a≡l'a : a ⁻¹ · a ≡ l' · a
       a⁻¹a≡l'a = a ⁻¹ · a ≡⟨ leftInverse a ⟩
                  ε        ≡⟨ sym l'a≡ε ⟩
-                 l' · a ∎
+                 l' · a   ∎
 
 -- A more appropiate version to be used in the proofs.
 leftInverseUnique' : ∀ {a l} → l · a ≡ ε → a ⁻¹ ≡ l
@@ -210,7 +206,7 @@ leftInverseUnique' {a} {l} la≡ε = rightCancellation a⁻¹a≡la
   a⁻¹a≡la : a ⁻¹ · a ≡ l · a
   a⁻¹a≡la = a ⁻¹ · a ≡⟨ leftInverse a ⟩
             ε        ≡⟨ sym la≡ε ⟩
-            l · a ∎
+            l · a    ∎
 
 ⁻¹-involutive : ∀ a → a ⁻¹ ⁻¹ ≡ a
 -- Paper proof:
@@ -285,9 +281,8 @@ x²≡ε→comm h {b} {c} {d} bc≡d = sym d≡cb
     c ∎
 
   d≡cb : d ≡ c · b
-  d≡cb =
-    d           ≡⟨ sym (rightIdentity d) ⟩
-    d · ε       ≡⟨ ·-rightCong (sym (h b)) ⟩
-    d · (b · b) ≡⟨ sym (assoc d b b) ⟩
-    d · b · b   ≡⟨ ·-leftCong db≡c ⟩
-    c · b ∎
+  d≡cb = d           ≡⟨ sym (rightIdentity d) ⟩
+         d · ε       ≡⟨ ·-rightCong (sym (h b)) ⟩
+         d · (b · b) ≡⟨ sym (assoc d b b) ⟩
+         d · b · b   ≡⟨ ·-leftCong db≡c ⟩
+         c · b       ∎

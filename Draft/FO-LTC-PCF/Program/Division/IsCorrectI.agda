@@ -29,7 +29,7 @@ div-x<y-helper {i} {j} Ni Nj i<j = sym prf
   prf = j * div i j + i ≡⟨ +-leftCong (*-rightCong (div-x<y i<j)) ⟩
         j * zero + i    ≡⟨ +-leftCong (*-rightZero Nj) ⟩
         zero + i        ≡⟨ +-leftIdentity i ⟩
-        i ∎
+        i               ∎
 
 div-x<y-correct : ∀ {i j} → N i → N j → LT i j →
                   ∃[ r ] N r ∧ LT r j ∧ i ≡ j * div i j + r
@@ -55,7 +55,7 @@ div-x≮y-helper : ∀ {i j r} → N i → N j → N r →
 div-x≮y-helper {i} {j} {r} Ni Nj Nr i≮j helperH =
   i                             ≡⟨ helper Ni Nj Nr helperH ⟩
   j * succ₁ (div (i ∸ j) j) + r ≡⟨ prf ⟩
-  j * div i j + r ∎
+  j * div i j + r               ∎
   where
   prf : j * succ₁ (div (i ∸ j) j) + r ≡ j * div i j + r
   prf = subst (λ x → j * x + r ≡ j * div i j + r)

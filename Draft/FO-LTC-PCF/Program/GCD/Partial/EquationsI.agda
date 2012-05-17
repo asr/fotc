@@ -236,7 +236,7 @@ gcd-00 =
   gcd-s₄ zero zero true ≡⟨ proof₄₋₅ zero zero ⟩
   gcd-s₅ zero           ≡⟨ proof₅₋₇ zero true iszero-0 ⟩
   gcd-s₇ zero true      ≡⟨ proof₇₊  zero ⟩
-  loop ∎
+  loop                  ∎
 
 -- Second equation.
 gcd-S0 : ∀ n → gcd (succ₁ n) zero ≡ succ₁ n
@@ -248,7 +248,7 @@ gcd-S0 n =
   gcd-s₄ (succ₁ n) zero true ≡⟨ proof₄₋₅ (succ₁ n) zero ⟩
   gcd-s₅ (succ₁ n)           ≡⟨ proof₅₋₇ (succ₁ n) false (iszero-S n) ⟩
   gcd-s₇ (succ₁ n) false     ≡⟨ proof₇₋  (succ₁ n) ⟩
-  succ₁ n ∎
+  succ₁ n                    ∎
 
 -- Third equation.
 gcd-0S : ∀ n → gcd zero (succ₁ n) ≡ succ₁ n

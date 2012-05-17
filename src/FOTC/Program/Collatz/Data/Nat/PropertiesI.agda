@@ -66,14 +66,13 @@ Sx≡2^0→x≡0(sN {n} Nn) SSn≡2^0 =
 +∸2 (sN (sN {n} Nn)) n≢0 n≢1 = sym prf
   where
   prf : succ₁ (succ₁ (succ₁ (succ₁ n) ∸ two)) ≡ succ₁ (succ₁ n)
-  prf =
-    succ₁ (succ₁ (succ₁ (succ₁ n) ∸ two))
-      ≡⟨ cong succ₁ (cong succ₁ (∸-SS (succ₁ n) (succ₁ zero))) ⟩
-    succ₁ (succ₁ ((succ₁ n ) ∸ (succ₁ zero)))
-      ≡⟨ cong succ₁ (cong succ₁ (∸-SS n zero)) ⟩
-    succ₁ (succ₁ (n ∸ zero))
-      ≡⟨ cong succ₁ (cong succ₁ (∸-x0 n)) ⟩
-    succ₁ (succ₁ n) ∎
+  prf = succ₁ (succ₁ (succ₁ (succ₁ n) ∸ two))
+          ≡⟨ cong succ₁ (cong succ₁ (∸-SS (succ₁ n) (succ₁ zero))) ⟩
+        succ₁ (succ₁ ((succ₁ n ) ∸ (succ₁ zero)))
+          ≡⟨ cong succ₁ (cong succ₁ (∸-SS n zero)) ⟩
+        succ₁ (succ₁ (n ∸ zero))
+          ≡⟨ cong succ₁ (cong succ₁ (∸-x0 n)) ⟩
+        succ₁ (succ₁ n) ∎
 
 2^x≢0 : ∀ {n} → N n → ¬ (two ^ n ≡ zero)
 2^x≢0 zN          h = ⊥-elim (0≢S (trans (sym h) (^-0 two)))
@@ -136,14 +135,13 @@ x+x-Even (sN {n} Nn) = subst Even (sym prf)
                              (x-Even→SSx-Even (+-N Nn Nn) (x+x-Even Nn))
   where
   prf : succ₁ n + succ₁ n ≡ succ₁ (succ₁ (n + n))
-  prf =
-    succ₁ n + succ₁ n
-      ≡⟨ +-Sx n (succ₁ n) ⟩
-    succ₁ (n + succ₁ n)
-      ≡⟨ cong succ₁ (+-comm Nn (sN Nn)) ⟩
-    succ₁ (succ₁ n + n)
-    ≡⟨ cong succ₁ (+-Sx n n) ⟩
-    succ₁ (succ₁ (n + n)) ∎
+  prf = succ₁ n + succ₁ n
+          ≡⟨ +-Sx n (succ₁ n) ⟩
+        succ₁ (n + succ₁ n)
+          ≡⟨ cong succ₁ (+-comm Nn (sN Nn)) ⟩
+        succ₁ (succ₁ n + n)
+          ≡⟨ cong succ₁ (+-Sx n n) ⟩
+        succ₁ (succ₁ (n + n)) ∎
 
 2x-Even : ∀ {n} → N n → Even (two * n)
 2x-Even zN          = subst Even (sym (*-rightZero 2-N)) even-0

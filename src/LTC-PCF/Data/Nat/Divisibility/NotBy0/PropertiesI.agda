@@ -41,7 +41,7 @@ x∣y→x∣z→x∣y∸z-helper {m} {n} {o} {k₁} {k₂} Nm Nk₁ Nk₂ h₁ h
   n ∸ o                           ≡⟨ ∸-leftCong h₁ ⟩
   k₁ * succ₁ m ∸ o                ≡⟨ ∸-rightCong h₂ ⟩
   (k₁ * succ₁ m) ∸ (k₂ * succ₁ m) ≡⟨ sym $ *∸-leftDistributive Nk₁ Nk₂ (sN Nm) ⟩
-  (k₁ ∸ k₂) * succ₁ m ∎
+  (k₁ ∸ k₂) * succ₁ m             ∎
 
 x∣y→x∣z→x∣y∸z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n ∸ o
 x∣y→x∣z→x∣y∸z zN Nn No (0≢0 , _) m∣o = ⊥-elim $ 0≢0 refl
@@ -60,7 +60,7 @@ x∣y→x∣z→x∣y+z-helper {m} {n} {o} {k₁} {k₂} Nm Nk₁ Nk₂ h₁ h�
   n + o                           ≡⟨ +-leftCong h₁ ⟩
   k₁ * succ₁ m + o                ≡⟨ +-rightCong h₂ ⟩
   (k₁ * succ₁ m) + (k₂ * succ₁ m) ≡⟨ sym $ *+-leftDistributive Nk₁ Nk₂ (sN Nm) ⟩
-  (k₁ + k₂) * succ₁ m ∎
+  (k₁ + k₂) * succ₁ m             ∎
 
 x∣y→x∣z→x∣y+z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n + o
 x∣y→x∣z→x∣y+z             zN          Nn No (0≢0 , _) m∣o = ⊥-elim $ 0≢0 refl

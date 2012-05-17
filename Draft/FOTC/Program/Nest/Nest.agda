@@ -3,7 +3,7 @@
 -- Bove-Capretta method
 ------------------------------------------------------------------------------
 
--- Tested with FOTC on 04 May 2012.
+-- Tested with FOTC on 17 May 2012.
 
 -- From: Ana Bove and Venanzio Capretta. Nested general recursion and
 -- partiality in type theory. Vol. 2152 of LNCS. 2001
@@ -53,7 +53,7 @@ nest-x≡0 (sN {n} Nn) =
   nest (succ₁ n) ≡⟨ nest-S n ⟩
   nest (nest n)  ≡⟨ cong nest (nest-x≡0 Nn) ⟩  -- IH.
   nest zero      ≡⟨ nest-0 ⟩
-  zero ∎
+  zero           ∎
 
 -- The nest function is total in its domain (via structural recursion
 -- in the domain predicate).
@@ -66,10 +66,9 @@ nest-N : ∀ {n} → N n → N (nest n)
 nest-N Nn = subst N (sym (nest-x≡0 Nn)) zN
 
 nest-≤ : ∀ {n} → Dom n → LE (nest n) n
-nest-≤ dom0 =
-  nest zero ≤ zero ≡⟨ cong₂ _≤_ nest-0 refl ⟩
-  zero ≤ zero      ≡⟨ x≤x zN ⟩
-  true ∎
+nest-≤ dom0 = nest zero ≤ zero ≡⟨ cong₂ _≤_ nest-0 refl ⟩
+              zero ≤ zero      ≡⟨ x≤x zN ⟩
+              true             ∎
 
 nest-≤ (domS n h₁ h₂) =
   ≤-trans (nest-N (sN (dom-N n h₁))) (nest-N (dom-N n h₁)) (sN Nn) prf₁ prf₂
@@ -78,10 +77,9 @@ nest-≤ (domS n h₁ h₂) =
     Nn = dom-N n h₁
 
     prf₁ : LE (nest (succ₁ n)) (nest n)
-    prf₁ =
-      nest (succ₁ n) ≤ nest n ≡⟨ cong₂ _≤_ (nest-S n) refl ⟩
-      nest (nest n) ≤ nest n  ≡⟨ nest-≤ h₂ ⟩
-      true ∎
+    prf₁ = nest (succ₁ n) ≤ nest n ≡⟨ cong₂ _≤_ (nest-S n) refl ⟩
+           nest (nest n) ≤ nest n  ≡⟨ nest-≤ h₂ ⟩
+           true                    ∎
 
     prf₂ : LE (nest n) (succ₁ n)
     prf₂ = ≤-trans (nest-N (dom-N n h₁)) Nn (sN Nn) (nest-≤ h₁) (x≤Sx Nn)

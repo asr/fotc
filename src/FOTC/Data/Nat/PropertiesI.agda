@@ -74,8 +74,8 @@ open import FOTC.Data.Nat.UnaryNumbers
 
 +-assoc : ∀ {m} → N m → ∀ n o → m + n + o ≡ m + (n + o)
 +-assoc zN n o =
-  zero + n + o ≡⟨ subst (λ t → zero + n + o ≡ t + o) (+-leftIdentity n) refl ⟩
-  n + o        ≡⟨ sym $ +-leftIdentity (n + o) ⟩
+  zero + n + o   ≡⟨ subst (λ t → zero + n + o ≡ t + o) (+-leftIdentity n) refl ⟩
+  n + o          ≡⟨ sym $ +-leftIdentity (n + o) ⟩
   zero + (n + o) ∎
 
 +-assoc (sN {m} Nm) n o =
@@ -115,7 +115,7 @@ x+Sy≡S[x+y] (sN {m} Nm) n =
   succ₁ m + n   ≡⟨ +-Sx m n ⟩
   succ₁ (m + n) ≡⟨ cong succ₁ (+-comm Nm Nn) ⟩
   succ₁ (n + m) ≡⟨ sym $ x+Sy≡S[x+y] Nn m ⟩
-  n + succ₁ m ∎
+  n + succ₁ m   ∎
 
 ∸-0x : ∀ {n} → N n → zero ∸ n ≡ zero
 ∸-0x zN         = ∸-x0 zero
@@ -172,7 +172,7 @@ Sx∸x≡S0 (sN {n} Nn) = trans (∸-SS (succ₁ n) n) (Sx∸x≡S0 Nn)
   succ₁ zero * n ≡⟨ *-Sx zero n ⟩
   n + zero * n   ≡⟨ subst (λ t → n + zero * n ≡ n + t) (*-leftZero n) refl ⟩
   n + zero       ≡⟨ +-rightIdentity Nn ⟩
-  n ∎
+  n              ∎
 
 x*Sy≡x+xy : ∀ {m n} → N m → N n → m * succ₁ n ≡ m + m * n
 x*Sy≡x+xy {n = n} zN Nn = sym
@@ -370,9 +370,9 @@ xy≡0→x≡0∨y≡0 (sN Nm) zN _                   = inj₂ refl
 xy≡0→x≡0∨y≡0 (sN {m} Nm) (sN {n} Nn) SmSn≡0 = ⊥-elim (0≢S prf)
   where
   prf : zero ≡ succ₁ (n + m * succ₁ n)
-  prf = zero                  ≡⟨ sym SmSn≡0 ⟩
-        succ₁ m * succ₁ n     ≡⟨ *-Sx m (succ₁ n) ⟩
-        succ₁ n + m * succ₁ n ≡⟨ +-Sx n (m * succ₁ n) ⟩
+  prf = zero                    ≡⟨ sym SmSn≡0 ⟩
+        succ₁ m * succ₁ n       ≡⟨ *-Sx m (succ₁ n) ⟩
+        succ₁ n + m * succ₁ n   ≡⟨ +-Sx n (m * succ₁ n) ⟩
         succ₁ (n + m * succ₁ n) ∎
 
 -- See the combined proof.

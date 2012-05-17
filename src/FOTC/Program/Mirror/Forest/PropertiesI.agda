@@ -91,12 +91,9 @@ map-++-commute f h (consF {x} {xs} Tx Fxs) ys =
 
 rev-++-commute : ∀ {xs} → Forest xs → ∀ ys → rev xs ys ≡ rev xs [] ++ ys
 rev-++-commute nilF ys =
-  rev [] ys ≡⟨ rev-[] ys ⟩
-  ys        ≡⟨ sym $ ++-leftIdentity ys ⟩
-  [] ++ ys  ≡⟨ subst (λ t → [] ++ ys ≡ t ++ ys)
-                     (sym $ rev-[] [])
-                     refl
-            ⟩
+  rev [] ys       ≡⟨ rev-[] ys ⟩
+  ys              ≡⟨ sym $ ++-leftIdentity ys ⟩
+  [] ++ ys        ≡⟨ subst (λ t → [] ++ ys ≡ t ++ ys) (sym $ rev-[] []) refl ⟩
   rev [] [] ++ ys ∎
 
 rev-++-commute (consF {x} {xs} Tx Fxs) ys =

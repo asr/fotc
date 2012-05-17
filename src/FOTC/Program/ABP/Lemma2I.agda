@@ -51,7 +51,7 @@ module Helper where
     fs'₁-eq-helper = fs₁'                 ≡⟨ fs₁'-eq ⟩
                      (true ∷ []) ++ fs₁'' ≡⟨ ++-∷ true [] fs₁'' ⟩
                      true ∷ [] ++ fs₁''   ≡⟨ cong (_∷_ true) (++-[] fs₁'') ⟩
-                     true ∷ fs₁'' ∎
+                     true ∷ fs₁''         ∎
 
     ds'' : D
     ds'' = corrupt · fs₁'' · cs'
@@ -79,7 +79,7 @@ module Helper where
       as''                         ≡⟨ as'ABP ⟩
       await b i' is' ds'           ≡⟨ cong (await b i' is') ds'-eq ⟩
       await b i' is' (ok b ∷ ds'') ≡⟨ await-ok≡ b b i' is' ds'' refl ⟩
-      send · not b · is' · ds'' ∎
+      send · not b · is' · ds''    ∎
 
     bs'' : D
     bs'' = bs'
@@ -109,11 +109,10 @@ module Helper where
     fs₁⁵ = ft₁ ++ fs₁''
 
     fs₁'-eq-helper : fs₁' ≡ F ∷ fs₁⁵
-    fs₁'-eq-helper =
-      fs₁'               ≡⟨ fs₁'-eq ⟩
-      (F ∷ ft₁) ++ fs₁'' ≡⟨ ++-∷ _ _ _ ⟩
-      F ∷ ft₁ ++ fs₁''   ≡⟨ refl ⟩
-      F ∷ fs₁⁵ ∎
+    fs₁'-eq-helper = fs₁'               ≡⟨ fs₁'-eq ⟩
+                     (F ∷ ft₁) ++ fs₁'' ≡⟨ ++-∷ _ _ _ ⟩
+                     F ∷ ft₁ ++ fs₁''   ≡⟨ refl ⟩
+                     F ∷ fs₁⁵           ∎
 
     ds⁵ : D
     ds⁵ = corrupt · fs₁⁵ · cs'

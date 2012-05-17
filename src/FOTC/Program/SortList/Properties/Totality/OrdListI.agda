@@ -47,8 +47,8 @@ subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js =
     ⟩
   ≤-ItemList item (i ∷ (is ++ js))
     ≡⟨ ≤-ItemList-∷ item i (is ++ js) ⟩
-  item ≤ i && ≤-ItemList item (is ++ js)
-    ≡⟨ subst (λ t → item ≤ i && ≤-ItemList item (is ++ js) ≡
+  (item ≤ i) && ≤-ItemList item (is ++ js)
+    ≡⟨ subst (λ t → (item ≤ i) && ≤-ItemList item (is ++ js) ≡
                     t && ≤-ItemList item (is ++ js))
              (&&-proj₁ (≤-Bool Nitem Ni)
                        (≤-ItemList-Bool Nitem LNis)

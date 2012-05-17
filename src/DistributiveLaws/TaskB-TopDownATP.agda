@@ -25,22 +25,14 @@ prop₂ u x y z =
 -- the numbers used in DistributiveLaws.TaskB-I.
 
    xy·zu · (xy·zu · xz·yu)                                         ≡⟨ j₁₋₅ ⟩
-
    xy·zu · (xz · xu·yu · (y·zu · xz·yu))                           ≡⟨ j₅₋₉ ⟩
-
    xy·zu · (xz · xyu · (yxz · yu))                                 ≡⟨ j₉₋₁₄ ⟩
-
    xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu))              ≡⟨ j₁₄₋₂₀ ⟩
-
    xz · xyu · (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡⟨ j₂₀₋₂₃ ⟩
-
    xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))            ≡⟨ j₂₃₋₂₅ ⟩
-
    (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))                 ≡⟨ j₂₅₋₃₀ ⟩
-
    xz · xyu · (y·zy · xzu)                                         ≡⟨ j₃₀₋₃₅ ⟩
-
-   xz·yu ∎
+   xz·yu                                                           ∎
   where
   -- Two variables abbreviations
 

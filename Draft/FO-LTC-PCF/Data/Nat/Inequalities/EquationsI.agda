@@ -184,7 +184,7 @@ private
   <-s₅ zero zero        ≡⟨ s₅→s₆ zero zero ⟩
   <-s₆ zero zero        ≡⟨ s₆→s₇ zero zero true iszero-0 ⟩
   <-s₇ zero zero true   ≡⟨ s₇→end zero zero ⟩
-  false ∎
+  false                 ∎
 
 <-0S : ∀ n → LT zero (succ₁ n)
 <-0S n =
@@ -198,7 +198,7 @@ private
   <-s₇ zero (succ₁ n) false  ≡⟨ s₇→s₈ zero (succ₁ n) ⟩
   <-s₈ zero (succ₁ n)        ≡⟨ s₈→s₉ zero (succ₁ n) true iszero-0 ⟩
   <-s₉ zero (succ₁ n) true   ≡⟨ s₉→end zero (succ₁ n) ⟩
-  true ∎
+  true                       ∎
 
 <-S0 : ∀ n → NLT (succ₁ n) zero
 <-S0 n =
@@ -210,7 +210,7 @@ private
   <-s₅ (succ₁ n) zero        ≡⟨ s₅→s₆ (succ₁ n) zero ⟩
   <-s₆ (succ₁ n) zero        ≡⟨ s₆→s₇ (succ₁ n) zero true iszero-0 ⟩
   <-s₇ (succ₁ n) zero true   ≡⟨ s₇→end (succ₁ n) zero ⟩
-  false ∎
+  false                      ∎
 
 <-SS : ∀ m n → succ₁ m < succ₁ n ≡ m < n
 <-SS m n =
@@ -227,4 +227,4 @@ private
   <-s₁₀ (succ₁ m) (succ₁ n)       ≡⟨ s₁₀→s₁₁ m (succ₁ n) ⟩
   <-s₁₁ m (succ₁ n)               ≡⟨ s₁₁→s₁₂ m n ⟩
   <-s₁₂ m n                       ≡⟨ refl ⟩
-  m < n ∎
+  m < n                           ∎

@@ -187,13 +187,12 @@ private
 private
   -- NB. This property is true for *any* n.
   X≮0 : ∀ n → NLT n zero
-  X≮0 n =
-    fix lth · n · zero ≡⟨ proof₀₋₁ n zero ⟩
-    <-s₁ n zero        ≡⟨ proof₁₋₂ n zero ⟩
-    <-s₂ n · zero      ≡⟨ proof₂₋₃ n zero ⟩
-    <-s₃ n zero        ≡⟨ proof₃₋₄ n zero true iszero-0 ⟩
-    <-s₄ n zero true   ≡⟨ proof₄₊ n zero ⟩
-    false ∎
+  X≮0 n = fix lth · n · zero ≡⟨ proof₀₋₁ n zero ⟩
+          <-s₁ n zero        ≡⟨ proof₁₋₂ n zero ⟩
+          <-s₂ n · zero      ≡⟨ proof₂₋₃ n zero ⟩
+          <-s₃ n zero        ≡⟨ proof₃₋₄ n zero true iszero-0 ⟩
+          <-s₄ n zero true   ≡⟨ proof₄₊ n zero ⟩
+          false              ∎
 
 <-00 : NLT zero zero
 <-00 = X≮0 zero
@@ -207,7 +206,7 @@ private
   <-s₄ zero (succ₁ n) false    ≡⟨ proof₄₋₅ zero (succ₁ n) ⟩
   <-s₅ zero (succ₁ n)          ≡⟨ proof₅₋₆ zero (succ₁ n) true iszero-0 ⟩
   <-s₆ zero (succ₁ n) true     ≡⟨ proof₆₊  zero (succ₁ n) ⟩
-  true ∎
+  true                         ∎
 
 <-S0 : ∀ n → NLT (succ₁ n) zero
 <-S0 n = X≮0 (succ₁ n)
@@ -223,4 +222,4 @@ private
   <-s₆ (succ₁ m) (succ₁ n) false  ≡⟨ proof₆₋₇ (succ₁ m) (succ₁ n) ⟩
   <-s₇ (succ₁ m) (succ₁ n)        ≡⟨ proof₇₋₈ m (succ₁ n) ⟩
   <-s₈ m (succ₁ n)                ≡⟨ proof₈₋₉ m n ⟩
-  <-s₉ m n ∎
+  <-s₉ m n                        ∎

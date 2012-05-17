@@ -53,7 +53,7 @@ x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni (consLN {j} {js} Nj LNjs) LNks i�
   helper₂ : Bool (≤-ItemList i js)
   helper₂ = ≤-ItemList-Bool Ni LNjs
 
-  helper₃ : i ≤ j && (≤-ItemList i js) ≡ true
+  helper₃ : (i ≤ j) && ≤-ItemList i js ≡ true
   helper₃ = trans (sym (≤-ItemList-∷ i j js)) i≤j∷js
 
   postulate prf : LE-ItemList i (js ++ ks) →  -- IH.

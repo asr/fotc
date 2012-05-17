@@ -211,7 +211,7 @@ gcd-00 =
   gcd-s₄ zero zero true ≡⟨ proof₄₋₅ zero zero ⟩
   gcd-s₅ zero           ≡⟨ proof₅₋₇ zero true iszero-0 ⟩
   gcd-s₇ zero true      ≡⟨ proof₇₊  zero ⟩
-  loop ∎
+  loop                  ∎
 
 -- Second equation.
 gcd-S0 : ∀ n → gcd (succ₁ n) zero ≡ succ₁ n
@@ -223,7 +223,7 @@ gcd-S0 n =
   gcd-s₄ (succ₁ n) zero true ≡⟨ proof₄₋₅ (succ₁ n) zero ⟩
   gcd-s₅ (succ₁ n)           ≡⟨ proof₅₋₇ (succ₁ n) false (iszero-S n) ⟩
   gcd-s₇ (succ₁ n) false     ≡⟨ proof₇₋  (succ₁ n) ⟩
-  succ₁ n ∎
+  succ₁ n                    ∎
 
 -- Third equation.
 gcd-0S : ∀ n → gcd zero (succ₁ n) ≡ succ₁ n
@@ -235,35 +235,53 @@ gcd-0S n =
   gcd-s₄ zero (succ₁ n) false ≡⟨ proof₄₋₆ zero (succ₁ n) ⟩
   gcd-s₆ zero (succ₁ n)       ≡⟨ proof₆₋₈ zero (succ₁ n) true iszero-0 ⟩
   gcd-s₈ zero (succ₁ n) true  ≡⟨ proof₈₊  zero (succ₁ n) ⟩
-  succ₁ n ∎
+  succ₁ n                     ∎
 
 -- Fourth equation.
 gcd-S>S : ∀ m n → GT (succ₁ m) (succ₁ n) →
           gcd (succ₁ m) (succ₁ n) ≡ gcd (succ₁ m ∸ succ₁ n) (succ₁ n)
 
 gcd-S>S m n Sm>Sn =
-  gcd (succ₁ m) (succ₁ n)          ≡⟨ proof₀₋₁ (succ₁ m) (succ₁ n) ⟩
-  gcd-s₁ (succ₁ m) (succ₁ n)       ≡⟨ proof₁₋₂ (succ₁ m) (succ₁ n) ⟩
-  gcd-s₂ (succ₁ m) · (succ₁ n)     ≡⟨ proof₂₋₃ (succ₁ m) (succ₁ n) ⟩
-  gcd-s₃ (succ₁ m) (succ₁ n)       ≡⟨ proof₃₋₄ (succ₁ m) (succ₁ n) false (iszero-S n) ⟩
-  gcd-s₄ (succ₁ m) (succ₁ n) false ≡⟨ proof₄₋₆ (succ₁ m) (succ₁ n) ⟩
-  gcd-s₆ (succ₁ m) (succ₁ n)       ≡⟨ proof₆₋₈ (succ₁ m) (succ₁ n) false (iszero-S m) ⟩
-  gcd-s₈ (succ₁ m) (succ₁ n) false ≡⟨ proof₈₋₉ (succ₁ m) (succ₁ n) ⟩
-  gcd-s₉ (succ₁ m) (succ₁ n)       ≡⟨ proof₉₋₁₀ (succ₁ m) (succ₁ n) true Sm>Sn ⟩
-  gcd-s₁₀ (succ₁ m) (succ₁ n) true ≡⟨ proof₁₀₊  (succ₁ m) (succ₁ n) ⟩
+  gcd (succ₁ m) (succ₁ n)
+    ≡⟨ proof₀₋₁ (succ₁ m) (succ₁ n) ⟩
+  gcd-s₁ (succ₁ m) (succ₁ n)
+    ≡⟨ proof₁₋₂ (succ₁ m) (succ₁ n) ⟩
+  gcd-s₂ (succ₁ m) · (succ₁ n)
+    ≡⟨ proof₂₋₃ (succ₁ m) (succ₁ n) ⟩
+  gcd-s₃ (succ₁ m) (succ₁ n)
+    ≡⟨ proof₃₋₄ (succ₁ m) (succ₁ n) false (iszero-S n) ⟩
+  gcd-s₄ (succ₁ m) (succ₁ n) false
+    ≡⟨ proof₄₋₆ (succ₁ m) (succ₁ n) ⟩
+  gcd-s₆ (succ₁ m) (succ₁ n)
+    ≡⟨ proof₆₋₈ (succ₁ m) (succ₁ n) false (iszero-S m) ⟩
+  gcd-s₈ (succ₁ m) (succ₁ n) false
+    ≡⟨ proof₈₋₉ (succ₁ m) (succ₁ n) ⟩
+  gcd-s₉ (succ₁ m) (succ₁ n)
+    ≡⟨ proof₉₋₁₀ (succ₁ m) (succ₁ n) true Sm>Sn ⟩
+  gcd-s₁₀ (succ₁ m) (succ₁ n) true
+    ≡⟨ proof₁₀₊  (succ₁ m) (succ₁ n) ⟩
   fix gcdh · (succ₁ m ∸ succ₁ n) · succ₁ n ∎
 
 -- Fifth equation.
 gcd-S≯S : ∀ m n → NGT (succ₁ m) (succ₁ n) →
           gcd (succ₁ m) (succ₁ n) ≡ gcd (succ₁ m) (succ₁ n ∸ succ₁ m)
 gcd-S≯S m n Sm≯Sn =
-  gcd (succ₁ m) (succ₁ n)           ≡⟨ proof₀₋₁ (succ₁ m) (succ₁ n) ⟩
-  gcd-s₁ (succ₁ m) (succ₁ n)        ≡⟨ proof₁₋₂ (succ₁ m) (succ₁ n) ⟩
-  gcd-s₂ (succ₁ m) · (succ₁ n)      ≡⟨ proof₂₋₃ (succ₁ m) (succ₁ n) ⟩
-  gcd-s₃ (succ₁ m) (succ₁ n)        ≡⟨ proof₃₋₄ (succ₁ m) (succ₁ n) false (iszero-S n) ⟩
-  gcd-s₄ (succ₁ m) (succ₁ n) false  ≡⟨ proof₄₋₆ (succ₁ m) (succ₁ n) ⟩
-  gcd-s₆ (succ₁ m) (succ₁ n)        ≡⟨ proof₆₋₈ (succ₁ m) (succ₁ n) false (iszero-S m) ⟩
-  gcd-s₈ (succ₁ m) (succ₁ n) false  ≡⟨ proof₈₋₉ (succ₁ m) (succ₁ n) ⟩
-  gcd-s₉ (succ₁ m) (succ₁ n)        ≡⟨ proof₉₋₁₀ (succ₁ m) (succ₁ n) false Sm≯Sn ⟩
-  gcd-s₁₀ (succ₁ m) (succ₁ n) false ≡⟨ proof₁₀₋ (succ₁ m) (succ₁ n) ⟩
+  gcd (succ₁ m) (succ₁ n)
+    ≡⟨ proof₀₋₁ (succ₁ m) (succ₁ n) ⟩
+  gcd-s₁ (succ₁ m) (succ₁ n)
+    ≡⟨ proof₁₋₂ (succ₁ m) (succ₁ n) ⟩
+  gcd-s₂ (succ₁ m) · (succ₁ n)
+    ≡⟨ proof₂₋₃ (succ₁ m) (succ₁ n) ⟩
+  gcd-s₃ (succ₁ m) (succ₁ n)
+    ≡⟨ proof₃₋₄ (succ₁ m) (succ₁ n) false (iszero-S n) ⟩
+  gcd-s₄ (succ₁ m) (succ₁ n) false
+    ≡⟨ proof₄₋₆ (succ₁ m) (succ₁ n) ⟩
+  gcd-s₆ (succ₁ m) (succ₁ n)
+    ≡⟨ proof₆₋₈ (succ₁ m) (succ₁ n) false (iszero-S m) ⟩
+  gcd-s₈ (succ₁ m) (succ₁ n) false
+    ≡⟨ proof₈₋₉ (succ₁ m) (succ₁ n) ⟩
+  gcd-s₉ (succ₁ m) (succ₁ n)
+    ≡⟨ proof₉₋₁₀ (succ₁ m) (succ₁ n) false Sm≯Sn ⟩
+  gcd-s₁₀ (succ₁ m) (succ₁ n) false
+    ≡⟨ proof₁₀₋ (succ₁ m) (succ₁ n) ⟩
   fix gcdh · succ₁ m · (succ₁ n ∸ succ₁ m) ∎

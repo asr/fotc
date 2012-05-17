@@ -47,7 +47,7 @@ postulate
   ≤-ItemList    : D → D → D
   ≤-ItemList-[] : ∀ item → ≤-ItemList item [] ≡ true
   ≤-ItemList-∷  : ∀ item i is →
-                  ≤-ItemList item (i ∷ is) ≡ item ≤ i && ≤-ItemList item is
+                  ≤-ItemList item (i ∷ is) ≡ (item ≤ i) && ≤-ItemList item is
 {-# ATP axiom ≤-ItemList-[] ≤-ItemList-∷ #-}
 
 LE-ItemList : D → D → Set

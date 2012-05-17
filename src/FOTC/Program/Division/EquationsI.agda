@@ -126,7 +126,7 @@ div-x<y {i} {j} i<j =
   div i j    ≡⟨ proof₀₋₁ i j ⟩
   div-s₁ i j ≡⟨ proof₁₋₂ i j i<j ⟩
   div-s₂ i j ≡⟨ proof₂₋₄ i j ⟩
-  div-s₄ ∎
+  div-s₄     ∎
 
 ----------------------------------------------------------------------
 -- The division result when the dividend is greater or equal than the

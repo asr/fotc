@@ -123,8 +123,8 @@ toTree-OrdTree {item} Nitem (tipT {i} Ni) _ =
                (≤-TreeItem-tip item i)
                refl
       ⟩
-    true && true && item ≤ i && ≤-ItemTree i (tip i)
-      ≡⟨ subst (λ t → true && true && item ≤ i && ≤-ItemTree i (tip i) ≡
+    true && true && (item ≤ i) && ≤-ItemTree i (tip i)
+      ≡⟨ subst (λ t → true && true && (item ≤ i) && ≤-ItemTree i (tip i) ≡
                       true && true && t && ≤-ItemTree i (tip i))
                (x<y→x≤y Nitem Ni i>item)
                refl
@@ -135,8 +135,8 @@ toTree-OrdTree {item} Nitem (tipT {i} Ni) _ =
                (≤-ItemTree-tip i i)
                refl
       ⟩
-    true && true && true && i ≤ i
-      ≡⟨ subst (λ t → true && true && true && i ≤ i ≡
+    true && true && true && (i ≤ i)
+      ≡⟨ subst (λ t → true && true && true && (i ≤ i) ≡
                       true && true && true && t)
                (x≤x Ni)
                refl
@@ -219,8 +219,8 @@ toTree-OrdTree {item} Nitem (tipT {i} Ni) _ =
                (≤-TreeItem-tip i item)
                refl
       ⟩
-    true && true && i ≤ item && ≤-ItemTree item (tip item)
-      ≡⟨ subst (λ t → true && true && i ≤ item && ≤-ItemTree item (tip item) ≡
+    true && true && (i ≤ item) && ≤-ItemTree item (tip item)
+      ≡⟨ subst (λ t → true && true && (i ≤ item) && ≤-ItemTree item (tip item) ≡
                       true && true && t && ≤-ItemTree item (tip item))
                i≤item
                refl
@@ -231,8 +231,8 @@ toTree-OrdTree {item} Nitem (tipT {i} Ni) _ =
                (≤-ItemTree-tip item item)
                refl
       ⟩
-    true && true && true && item ≤ item
-      ≡⟨ subst (λ t → true && true && true && item ≤ item ≡
+    true && true && true && (item ≤ item)
+      ≡⟨ subst (λ t → true && true && true && (item ≤ item) ≡
                       true && true && true && t)
                (x≤x Nitem)
                refl

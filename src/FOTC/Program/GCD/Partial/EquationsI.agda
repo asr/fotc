@@ -197,7 +197,7 @@ gcd-00 =
   gcd-s₂ zero zero true ≡⟨ proof₂₋₃ zero zero ⟩
   gcd-s₃ zero           ≡⟨ proof₃₋₅ zero true iszero-0 ⟩
   gcd-s₅ zero true      ≡⟨ proof₅₋₆ zero ⟩
-  loop ∎
+  loop                  ∎
 
 -- Second equation.
 gcd-S0 : ∀ n → gcd (succ₁ n) zero ≡ succ₁ n
@@ -207,7 +207,7 @@ gcd-S0 n =
   gcd-s₂ (succ₁ n) zero true ≡⟨ proof₂₋₃ (succ₁ n) zero ⟩
   gcd-s₃ (succ₁ n)           ≡⟨ proof₃₋₅ (succ₁ n) false (iszero-S n) ⟩
   gcd-s₅ (succ₁ n) false     ≡⟨ proof₅₋₇ (succ₁ n) ⟩
-  succ₁ n ∎
+  succ₁ n                    ∎
 
 -- Third equation.
 gcd-0S : ∀ n → gcd zero (succ₁ n) ≡ succ₁ n
@@ -217,20 +217,20 @@ gcd-0S n =
   gcd-s₂ zero (succ₁ n) false ≡⟨ proof₂₋₄ zero (succ₁ n) ⟩
   gcd-s₄ zero (succ₁ n)       ≡⟨ proof₄₋₈ zero (succ₁ n) true iszero-0 ⟩
   gcd-s₈ zero (succ₁ n) true  ≡⟨ proof₈₋₉  zero (succ₁ n) ⟩
-  succ₁ n ∎
+  succ₁ n                     ∎
 
 -- Fourth equation.
 gcd-S>S : ∀ m n → GT (succ₁ m) (succ₁ n) →
           gcd (succ₁ m) (succ₁ n) ≡ gcd (succ₁ m ∸ succ₁ n) (succ₁ n)
 
 gcd-S>S m n Sm>Sn =
-  gcd (succ₁ m) (succ₁ n)          ≡⟨ proof₀₋₁ (succ₁ m) (succ₁ n) ⟩
-  gcd-s₁ (succ₁ m) (succ₁ n)       ≡⟨ proof₁₋₂ (succ₁ m) (succ₁ n) false (iszero-S n) ⟩
-  gcd-s₂ (succ₁ m) (succ₁ n) false ≡⟨ proof₂₋₄ (succ₁ m) (succ₁ n) ⟩
-  gcd-s₄ (succ₁ m) (succ₁ n)       ≡⟨ proof₄₋₈ (succ₁ m) (succ₁ n) false (iszero-S m) ⟩
-  gcd-s₈ (succ₁ m) (succ₁ n) false ≡⟨ proof₈₋₁₀ (succ₁ m) (succ₁ n) ⟩
-  gcd-s₁₀ (succ₁ m) (succ₁ n)      ≡⟨ proof₁₀₋₁₁ (succ₁ m) (succ₁ n) true Sm>Sn ⟩
-  gcd-s₁₁ (succ₁ m) (succ₁ n) true ≡⟨ proof₁₁₋₁₂ (succ₁ m) (succ₁ n) ⟩
+  gcd (succ₁ m) (succ₁ n)           ≡⟨ proof₀₋₁ (succ₁ m) (succ₁ n) ⟩
+  gcd-s₁ (succ₁ m) (succ₁ n)        ≡⟨ proof₁₋₂ (succ₁ m) (succ₁ n) false (iszero-S n) ⟩
+  gcd-s₂ (succ₁ m) (succ₁ n) false  ≡⟨ proof₂₋₄ (succ₁ m) (succ₁ n) ⟩
+  gcd-s₄ (succ₁ m) (succ₁ n)        ≡⟨ proof₄₋₈ (succ₁ m) (succ₁ n) false (iszero-S m) ⟩
+  gcd-s₈ (succ₁ m) (succ₁ n) false  ≡⟨ proof₈₋₁₀ (succ₁ m) (succ₁ n) ⟩
+  gcd-s₁₀ (succ₁ m) (succ₁ n)       ≡⟨ proof₁₀₋₁₁ (succ₁ m) (succ₁ n) true Sm>Sn ⟩
+  gcd-s₁₁ (succ₁ m) (succ₁ n) true  ≡⟨ proof₁₁₋₁₂ (succ₁ m) (succ₁ n) ⟩
   gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∎
 
 -- Fifth equation.

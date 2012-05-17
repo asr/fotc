@@ -173,13 +173,13 @@ reverse-[x]≡[x] : ∀ x → reverse (x ∷ []) ≡ x ∷ []
 reverse-[x]≡[x] x =
   rev (x ∷ []) [] ≡⟨ rev-∷ x [] [] ⟩
   rev [] (x ∷ []) ≡⟨ rev-[] (x ∷ []) ⟩
-  x ∷ [] ∎
+  x ∷ []          ∎
 
 rev-++-commute : ∀ {xs} → List xs → ∀ ys → rev xs ys ≡ rev xs [] ++ ys
 rev-++-commute nilL ys =
-  rev [] ys ≡⟨ rev-[] ys ⟩
-  ys        ≡⟨ sym $ ++-leftIdentity ys ⟩
-  [] ++ ys  ≡⟨ subst (λ t → [] ++ ys ≡ t ++ ys) (sym $ rev-[] []) refl ⟩
+  rev [] ys       ≡⟨ rev-[] ys ⟩
+  ys              ≡⟨ sym $ ++-leftIdentity ys ⟩
+  [] ++ ys        ≡⟨ subst (λ t → [] ++ ys ≡ t ++ ys) (sym $ rev-[] []) refl ⟩
   rev [] [] ++ ys ∎
 
 rev-++-commute (consL x {xs} Lxs) ys =

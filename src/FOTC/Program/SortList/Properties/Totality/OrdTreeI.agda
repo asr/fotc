@@ -115,8 +115,8 @@ toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i
                (≤-TreeItem-tip i₂ i₁)
                refl
       ⟩
-    i₂ ≤ i₁ && ≤-TreeItem (tip j) i₁
-       ≡⟨ subst (λ t → i₂ ≤ i₁ && ≤-TreeItem (tip j) i₁ ≡
+    (i₂ ≤ i₁) && ≤-TreeItem (tip j) i₁
+       ≡⟨ subst (λ t → (i₂ ≤ i₁) && ≤-TreeItem (tip j) i₁ ≡
                        t && ≤-TreeItem (tip j) i₁)
                 (x<y→x≤y Ni₂ Ni₁ i₁>i₂)
                 refl
@@ -126,8 +126,8 @@ toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i
                (≤-TreeItem-tip j i₁)
                refl
       ⟩
-    true && j ≤ i₁
-      ≡⟨ subst (λ t → true && j ≤ i₁ ≡ true && t)
+    true && (j ≤ i₁)
+      ≡⟨ subst (λ t → true && (j ≤ i₁) ≡ true && t)
                -- j ≤ i₁ because by hypothesis we have (tip j) ≤ i₁.
                (trans (sym $ ≤-TreeItem-tip j i₁) t≤i₁)
                refl
@@ -175,8 +175,8 @@ toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i
                (≤-TreeItem-tip j i₁)
                refl
       ⟩
-    j ≤ i₁ && ≤-TreeItem (tip i₂) i₁
-      ≡⟨ subst (λ t → j ≤ i₁ && ≤-TreeItem (tip i₂) i₁ ≡
+    (j ≤ i₁) && ≤-TreeItem (tip i₂) i₁
+      ≡⟨ subst (λ t → (j ≤ i₁) && ≤-TreeItem (tip i₂) i₁ ≡
                       t && ≤-TreeItem (tip i₂) i₁)
                -- j ≤ i₁ because by hypothesis we have (tip j) ≤ i₁.
                (trans (sym $ ≤-TreeItem-tip j i₁) t≤i₁)
@@ -187,8 +187,8 @@ toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i
                (≤-TreeItem-tip i₂ i₁)
                refl
       ⟩
-    true && i₂ ≤ i₁
-      ≡⟨ subst (λ t → true && i₂ ≤ i₁ ≡ true && t)
+    true && (i₂ ≤ i₁)
+      ≡⟨ subst (λ t → true && (i₂ ≤ i₁) ≡ true && t)
                (x<y→x≤y Ni₂ Ni₁ i₁>i₂)
                refl
       ⟩
@@ -374,8 +374,8 @@ toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i�
                (≤-ItemTree-tip i₁ i₂)
                refl
       ⟩
-    i₁ ≤ i₂ && ≤-ItemTree i₁ (tip j)
-       ≡⟨ subst (λ t → i₁ ≤ i₂ && ≤-ItemTree i₁ (tip j) ≡
+    (i₁ ≤ i₂) && ≤-ItemTree i₁ (tip j)
+       ≡⟨ subst (λ t → (i₁ ≤ i₂) && ≤-ItemTree i₁ (tip j) ≡
                        t && ≤-ItemTree i₁ (tip j))
                 i₁≤i₂
                 refl
@@ -385,8 +385,8 @@ toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i�
                (≤-ItemTree-tip i₁ j)
                refl
       ⟩
-    true && i₁ ≤ j
-      ≡⟨ subst (λ t → true && i₁ ≤ j ≡ true && t)
+    true && (i₁ ≤ j)
+      ≡⟨ subst (λ t → true && (i₁ ≤ j) ≡ true && t)
                -- i₁ ≤ j because by hypothesis we have i₁ ≤ (tip j).
                (trans (sym $ ≤-ItemTree-tip i₁ j) i₁≤t)
                refl
@@ -433,8 +433,8 @@ toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i�
                (≤-ItemTree-tip i₁ j)
                refl
       ⟩
-    i₁ ≤ j && ≤-ItemTree i₁ (tip i₂)
-       ≡⟨ subst (λ t → i₁ ≤ j && ≤-ItemTree i₁ (tip i₂) ≡
+    (i₁ ≤ j) && ≤-ItemTree i₁ (tip i₂)
+       ≡⟨ subst (λ t → (i₁ ≤ j) && ≤-ItemTree i₁ (tip i₂) ≡
                        t && ≤-ItemTree i₁ (tip i₂))
           -- i₁ ≤ j because by hypothesis we have i₁ ≤ (tip j).
                 (trans (sym $ ≤-ItemTree-tip i₁ j) i₁≤t)
@@ -445,8 +445,8 @@ toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i�
                (≤-ItemTree-tip i₁ i₂)
                refl
       ⟩
-      true && i₁ ≤ i₂
-      ≡⟨ subst (λ t → true && i₁ ≤ i₂ ≡ true && t)
+      true && (i₁ ≤ i₂)
+      ≡⟨ subst (λ t → true && (i₁ ≤ i₂) ≡ true && t)
                i₁≤i₂
                refl
       ⟩

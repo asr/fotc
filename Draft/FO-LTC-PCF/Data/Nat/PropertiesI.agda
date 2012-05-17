@@ -35,7 +35,7 @@ open import Draft.FO-LTC-PCF.Data.Nat.Rec.EquationsI
 
 +-0x : ∀ n → zero + n ≡ n
 +-0x n = rec zero n (lam +-helper) ≡⟨ rec-0 n ⟩
-         n ∎
+         n                         ∎
 
 +-Sx : ∀ m n → succ₁ m + n ≡ succ₁ (m + n)
 +-Sx m n =
@@ -51,7 +51,7 @@ open import Draft.FO-LTC-PCF.Data.Nat.Rec.EquationsI
 
 ∸-x0 : ∀ n → n ∸ zero ≡ n
 ∸-x0 n = rec zero n (lam ∸-helper) ≡⟨ rec-0 n ⟩
-         n ∎
+         n                         ∎
 
 ∸-0S : ∀ {n} → N n → zero ∸ succ₁ n ≡ zero
 ∸-0S zN =
@@ -150,7 +150,7 @@ open import Draft.FO-LTC-PCF.Data.Nat.Rec.EquationsI
 
 *-0x : ∀ n → zero * n ≡ zero
 *-0x n = rec zero zero (lam (*-helper₂ n)) ≡⟨ rec-0 zero ⟩
-         zero ∎
+         zero                              ∎
 
 *-Sx : ∀ m n → succ₁ m * n ≡ n + m * n
 *-Sx m n =
@@ -186,8 +186,8 @@ open import Draft.FO-LTC-PCF.Data.Nat.Rec.EquationsI
 
 +-assoc : ∀ {m} → N m →  ∀ n o → m + n + o ≡ m + (n + o)
 +-assoc zN n o =
-  zero + n + o ≡⟨ subst (λ t → zero + n + o ≡ t + o) (+-leftIdentity n) refl ⟩
-  n + o        ≡⟨ sym $ +-leftIdentity (n + o) ⟩
+  zero + n + o   ≡⟨ subst (λ t → zero + n + o ≡ t + o) (+-leftIdentity n) refl ⟩
+  n + o          ≡⟨ sym $ +-leftIdentity (n + o) ⟩
   zero + (n + o) ∎
 
 +-assoc (sN {m} Nm) n o =
@@ -203,8 +203,10 @@ open import Draft.FO-LTC-PCF.Data.Nat.Rec.EquationsI
 
 x+Sy≡S[x+y] : ∀ {m} → N m → ∀ n → m + succ₁ n ≡ succ₁ (m + n)
 x+Sy≡S[x+y] zN n =
-  zero + succ₁ n ≡⟨ +-0x (succ₁ n) ⟩
-  succ₁ n ≡⟨ subst (λ t → succ₁ n ≡ succ₁ t) (sym $ +-leftIdentity n) refl ⟩
+  zero + succ₁ n
+    ≡⟨ +-0x (succ₁ n) ⟩
+  succ₁ n
+    ≡⟨ subst (λ t → succ₁ n ≡ succ₁ t) (sym $ +-leftIdentity n) refl ⟩
   succ₁ (zero + n) ∎
 
 x+Sy≡S[x+y] (sN {m} Nm) n =
@@ -251,7 +253,7 @@ x+Sy≡S[x+y] (sN {m} Nm) n =
   succ₁ m + n   ≡⟨ +-Sx m n ⟩
   succ₁ (m + n) ≡⟨ cong succ₁ (+-comm Nm Nn) ⟩
   succ₁ (n + m) ≡⟨ sym $ x+Sy≡S[x+y] Nn m ⟩
-  n + succ₁ m ∎
+  n + succ₁ m   ∎
 
 *-leftZero : ∀ n → zero * n ≡ zero
 *-leftZero = *-0x
@@ -270,8 +272,8 @@ x+Sy≡S[x+y] (sN {m} Nm) n =
 *-leftIdentity {n} Nn =
   succ₁ zero * n ≡⟨ *-Sx zero n ⟩
   n + zero * n   ≡⟨ subst (λ t → n + zero * n ≡ n + t) (*-leftZero n) refl ⟩
-  n + zero     ≡⟨ +-rightIdentity Nn ⟩
-  n ∎
+  n + zero       ≡⟨ +-rightIdentity Nn ⟩
+  n              ∎
 
 x*Sy≡x+xy : ∀ {m n} → N m → N n → m * succ₁ n ≡ m + m * n
 x*Sy≡x+xy {n = n} zN _ = sym
@@ -324,13 +326,13 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn =
   succ₁ m * n   ≡⟨ *-Sx m n ⟩
   n + m * n     ≡⟨ subst (λ t → n + m * n ≡ n + t) (*-comm Nm Nn) refl ⟩
   n + n * m     ≡⟨ sym $ x*Sy≡x+xy Nn Nm ⟩
-  n * succ₁ m ∎
+  n * succ₁ m   ∎
 
 *∸-leftDistributive : ∀ {m n o} → N m → N n → N o → (m ∸ n) * o ≡ m * o ∸ n * o
 *∸-leftDistributive {m} {o = o} _ zN _ =
-  (m ∸ zero) * o ≡⟨ subst (λ t → (m ∸ zero) * o ≡ t * o) (∸-x0 m) refl ⟩
-  m * o ≡⟨ sym $ ∸-x0 (m * o) ⟩
-  m * o ∸ zero ≡⟨ subst (λ t → m * o ∸ zero ≡ m * o ∸ t) (sym $ *-0x o) refl ⟩
+  (m ∸ zero) * o   ≡⟨ subst (λ t → (m ∸ zero) * o ≡ t * o) (∸-x0 m) refl ⟩
+  m * o            ≡⟨ sym $ ∸-x0 (m * o) ⟩
+  m * o ∸ zero     ≡⟨ subst (λ t → m * o ∸ zero ≡ m * o ∸ t) (sym $ *-0x o) refl ⟩
   m * o ∸ zero * o ∎
 
 *∸-leftDistributive {o = o} zN (sN {n} Nn) No =
@@ -399,9 +401,8 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn =
   m * zero             ≡⟨ sym $ +-rightIdentity (*-N Nm zN) ⟩
   m * zero + zero      ≡⟨ subst (λ t → m * zero + zero ≡ m * zero + t)
                                 (trans (sym $ *-0x n) (*-comm zN Nn))
-                                  refl
-                       ⟩
-  m * zero + n * zero ∎
+                                  refl ⟩
+  m * zero + n * zero  ∎
 
 *+-leftDistributive {n = n} zN Nn (sN {o} No) =
   (zero + n) * succ₁ o

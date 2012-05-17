@@ -130,7 +130,7 @@ rec-0 a {f} =
   rec-s₃ zero a · f        ≡⟨ proof₃₋₄ zero a f ⟩
   rec-s₄ zero a f          ≡⟨ proof₄₋₅ zero a f true iszero-0 ⟩
   rec-s₅ zero a f true     ≡⟨ proof₅₊ zero a f ⟩
-  a ∎
+  a                        ∎
 
 rec-S : ∀ n a f → rec (succ₁ n) a f ≡ f · n · (rec n a f)
 rec-S n a f =
@@ -141,4 +141,4 @@ rec-S n a f =
   rec-s₄ (succ₁ n) a f          ≡⟨ proof₄₋₅ (succ₁ n) a f false (iszero-S n) ⟩
   rec-s₅ (succ₁ n) a f false    ≡⟨ proof₅₋₆ (succ₁ n) a f ⟩
   rec-s₆ (succ₁ n) a f          ≡⟨ proof₆₋₇ n a f ⟩
-  rec-s₇ n a f ∎
+  rec-s₇ n a f                  ∎

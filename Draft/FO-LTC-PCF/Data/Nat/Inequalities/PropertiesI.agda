@@ -156,27 +156,27 @@ Sx≤y→x<y (sN {m} Nm) (sN {n} Nn) SSm≤Sn =
 x≤x+y : ∀ {m n} → N m → N n → LE m (m + n)
 x≤x+y         zN          Nn = x≥0 (+-N zN Nn)
 x≤x+y {n = n} (sN {m} Nm) Nn =
-  (succ₁ m) < (succ₁ (succ₁ m + n))
+  succ₁ m < succ₁ (succ₁ m + n)
     ≡⟨ <-SS m (succ₁ m + n) ⟩
-  m < (succ₁ m + n)
-    ≡⟨ subst (λ t → m < (succ₁ m + n) ≡ m < t) (+-Sx m n) refl ⟩
-  m < (succ₁ (m + n))
+  m < succ₁ m + n
+    ≡⟨ subst (λ t → m < succ₁ m + n ≡ m < t) (+-Sx m n) refl ⟩
+  m < succ₁ (m + n)
     ≡⟨ refl ⟩
-  m ≤ (m + n)
+  m ≤ m + n
     ≡⟨ x≤x+y Nm Nn ⟩
   true ∎
 
 x∸y<Sx : ∀ {m n} → N m → N n → LT (m ∸ n) (succ₁ m)
 x∸y<Sx {m} Nm zN =
-  (m ∸ zero) < (succ₁ m)
-     ≡⟨ subst (λ t → (m ∸ zero) < (succ₁ m) ≡ t  < (succ₁ m)) (∸-x0 m) refl ⟩
-  m < (succ₁ m)
+  m ∸ zero < succ₁ m
+     ≡⟨ subst (λ t → m ∸ zero < succ₁ m ≡ t  < succ₁ m) (∸-x0 m) refl ⟩
+  m < succ₁ m
     ≡⟨ x<Sx Nm ⟩
   true ∎
 
 x∸y<Sx zN (sN {n} Nn) =
-  (zero ∸ succ₁ n) < (succ₁ zero)
-    ≡⟨ subst (λ t → (zero ∸ succ₁ n) < (succ₁ zero) ≡ t < (succ₁ zero))
+  zero ∸ succ₁ n < succ₁ zero
+    ≡⟨ subst (λ t → zero ∸ succ₁ n < succ₁ zero ≡ t < succ₁ zero)
              (∸-0S Nn)
              refl
     ⟩
@@ -185,24 +185,24 @@ x∸y<Sx zN (sN {n} Nn) =
   true ∎
 
 x∸y<Sx (sN {m} Nm) (sN {n} Nn) =
-  (succ₁ m ∸ succ₁ n) < (succ₁ (succ₁ m))
-    ≡⟨ subst (λ t → (succ₁ m ∸ succ₁ n) < (succ₁ (succ₁ m)) ≡
-                    t < (succ₁ (succ₁ m)))
+  succ₁ m ∸ succ₁ n < succ₁ (succ₁ m)
+    ≡⟨ subst (λ t → succ₁ m ∸ succ₁ n < succ₁ (succ₁ m) ≡
+                    t < succ₁ (succ₁ m))
              (∸-SS Nm Nn)
              refl
     ⟩
-  (m ∸ n) < (succ₁ (succ₁ m))
+  m ∸ n < succ₁ (succ₁ m)
      ≡⟨ <-trans (∸-N Nm Nn) (sN Nm) (sN (sN Nm)) (x∸y<Sx Nm Nn) (x<Sx (sN Nm)) ⟩
   true ∎
 
 Sx∸Sy<Sx : ∀ {m n} → N m → N n → LT (succ₁ m ∸ succ₁ n) (succ₁ m)
 Sx∸Sy<Sx {m} {n} Nm Nn =
-  (succ₁ m ∸ succ₁ n) < (succ₁ m)
-    ≡⟨ subst (λ t → (succ₁ m ∸ succ₁ n) < (succ₁ m) ≡ t < (succ₁ m))
+  succ₁ m ∸ succ₁ n < succ₁ m
+    ≡⟨ subst (λ t → succ₁ m ∸ succ₁ n < succ₁ m ≡ t < succ₁ m)
              (∸-SS Nm Nn)
              refl
     ⟩
-  (m ∸ n) < (succ₁ m)
+  m ∸ n < succ₁ m
      ≡⟨ x∸y<Sx Nm Nn ⟩
   true ∎
 
@@ -292,12 +292,12 @@ x≥y→y>0→x∸y<x : ∀ {m n} → N m → N n → GE m n → GT n zero → L
 x≥y→y>0→x∸y<x Nm          zN          _     0>0  = ⊥-elim $ x>x→⊥ zN 0>0
 x≥y→y>0→x∸y<x zN          (sN Nn)     0≥Sn  _    = ⊥-elim $ S≤0→⊥ Nn 0≥Sn
 x≥y→y>0→x∸y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 =
-  (succ₁ m ∸ succ₁ n) < (succ₁ m)
-    ≡⟨ subst (λ t → (succ₁ m ∸ succ₁ n) < (succ₁ m) ≡ t < (succ₁ m))
+  succ₁ m ∸ succ₁ n < succ₁ m
+    ≡⟨ subst (λ t → succ₁ m ∸ succ₁ n < succ₁ m ≡ t < succ₁ m)
              (∸-SS Nm Nn)
              refl
     ⟩
-  (m ∸ n) < (succ₁ m)
+  m ∸ n < succ₁ m
      ≡⟨ x∸y<Sx Nm Nn ⟩
   true ∎
 

@@ -6,7 +6,7 @@
 {-# OPTIONS --without-K #-}
 
 -- Tested with the development version of the standard library on
--- 02 February 2012.
+-- 17 May 2012.
 
 module Agsy.DistributiveLaws.TaskB-TopDown where
 
@@ -36,21 +36,13 @@ taskB u x y z =
 -- the numbers used in DistributiveLaws.TaskB-I.
   begin
     xy·zu · (xy·zu · xz·yu)                                         ≡⟨ j₁₋₅ ⟩
-
     xy·zu · (xz · xu·yu · (y·zu · xz·yu))                           ≡⟨ j₅₋₉ ⟩
-
     xy·zu · (xz · xyu · (yxz · yu))                                 ≡⟨ j₉₋₁₄ ⟩
-
     xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu))              ≡⟨ j₁₄₋₂₀ ⟩
-
     xz · xyu · (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡⟨ j₂₀₋₂₃ ⟩
-
     xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))            ≡⟨ j₂₃₋₂₅ ⟩
-
     (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))                 ≡⟨ j₂₅₋₃₀ ⟩
-
     xz · xyu · (y·zy · xzu)                                         ≡⟨ j₃₀₋₃₅ ⟩
-
     xz·yu
   ∎
   where

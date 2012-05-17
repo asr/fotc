@@ -57,12 +57,11 @@ open import FOTC.Data.Nat
   A i = i + n + o ≡ i + (n + o)
 
   A0 : A zero
-  A0 =
-     zero + n + o
-       ≡⟨ subst (λ t → zero + n + o ≡ t + o) (+-leftIdentity n) refl ⟩
-     n + o
-       ≡⟨ sym $ +-leftIdentity (n + o) ⟩
-     zero + (n + o) ∎
+  A0 = zero + n + o
+         ≡⟨ subst (λ t → zero + n + o ≡ t + o) (+-leftIdentity n) refl ⟩
+       n + o
+         ≡⟨ sym $ +-leftIdentity (n + o) ⟩
+       zero + (n + o) ∎
 
   is : ∀ {i} → A i → A (succ₁ i)
   is {i} ih =
@@ -83,12 +82,11 @@ x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
   A i = i + succ₁ n ≡ succ₁ (i + n)
 
   A0 : A zero
-  A0 =
-    zero + succ₁ n
-      ≡⟨ +-0x (succ₁ n) ⟩
-    succ₁ n
-      ≡⟨ subst (λ t → succ₁ n ≡ succ₁ t) (sym $ +-leftIdentity n) refl ⟩
-    succ₁ (zero + n) ∎
+  A0 = zero + succ₁ n
+        ≡⟨ +-0x (succ₁ n) ⟩
+       succ₁ n
+         ≡⟨ subst (λ t → succ₁ n ≡ succ₁ t) (sym $ +-leftIdentity n) refl ⟩
+       succ₁ (zero + n) ∎
 
   is : ∀ {i} → A i → A (succ₁ i)
   is {i} ih =
@@ -107,10 +105,9 @@ x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
   A i = i + n ≡ n + i
 
   A0 : A zero
-  A0 =
-    zero + n ≡⟨ +-leftIdentity n ⟩
-    n        ≡⟨ sym $ +-rightIdentity Nn ⟩
-    n + zero ∎
+  A0 = zero + n ≡⟨ +-leftIdentity n ⟩
+       n        ≡⟨ sym $ +-rightIdentity Nn ⟩
+       n + zero ∎
 
   is : ∀ {i} → A i → A (succ₁ i)
   is {i} ih =

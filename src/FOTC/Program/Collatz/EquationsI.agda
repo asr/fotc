@@ -132,7 +132,7 @@ collatz-0 =
   collatz    zero      ≡⟨ proof₀₋₁ zero ⟩
   collatz-s₁ zero      ≡⟨ proof₁₋₂ iszero-0 ⟩
   collatz-s₂ zero true ≡⟨ proof₂₋₃ zero ⟩
-  one ∎
+  one                  ∎
 
 collatz-1 : collatz one  ≡ one
 collatz-1 =

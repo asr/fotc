@@ -172,7 +172,7 @@ div-x<y {i} {j} i<j =
   div-s₂ i j ≡⟨ proof₂₋₃ i j ⟩
   div-s₃ i j ≡⟨ proof₃_₄ i j i<j ⟩
   div-s₄ i j ≡⟨ proof₄₋₆ i j ⟩
-  div-s₆ ∎
+  div-s₆     ∎
 
 ----------------------------------------------------------------------
 -- The division result when the dividend is greater or equal than the

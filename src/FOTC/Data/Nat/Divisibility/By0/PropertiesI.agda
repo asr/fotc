@@ -41,7 +41,7 @@ x∣y→x∣z→x∣y∸z-helper {m} {n} {o} {k₁} {k₂} Nm Nk₁ Nk₂ h₁ h
   n ∸ o               ≡⟨ ∸-leftCong h₁ ⟩
   k₁ * m ∸ o          ≡⟨ ∸-rightCong h₂ ⟩
   (k₁ * m) ∸ (k₂ * m) ≡⟨ sym $ *∸-leftDistributive Nk₁ Nk₂ Nm ⟩
-  (k₁ ∸ k₂) * m ∎
+  (k₁ ∸ k₂) * m       ∎
 
 x∣y→x∣z→x∣y∸z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n ∸ o
 x∣y→x∣z→x∣y∸z Nm Nn No (k₁ , Nk₁ , h₁) (k₂ , Nk₂ , h₂) =
@@ -56,7 +56,7 @@ x∣y→x∣z→x∣y+z-helper {m} {n} {o} {k₁} {k₂} Nm Nk₁ Nk₂ h₁ h�
   n + o               ≡⟨ +-leftCong h₁ ⟩
   k₁ * m + o          ≡⟨ +-rightCong h₂ ⟩
   (k₁ * m) + (k₂ * m) ≡⟨ sym $ *+-leftDistributive Nk₁ Nk₂ Nm ⟩
-  (k₁ + k₂) * m ∎
+  (k₁ + k₂) * m       ∎
 
 x∣y→x∣z→x∣y+z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n + o
 x∣y→x∣z→x∣y+z Nm Nn No (k₁ , Nk₁ , h₁) (k₂ , Nk₂ , h₂) =

@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with FOT on 12 May 2012.
+-- Tested with FOT on 17 May 2012.
 
 -- See (Barendregt 2004, corollary 6.1.3).
 --
@@ -24,12 +24,11 @@ open import LTC-PCF.Base hiding ( fix ; fix-eq )
 
 -- The conversion rule for Y.
 Y-eq : ∀ f → Y · f ≡ f · (Y · f)
-Y-eq f =
-  Y · f             ≡⟨ beta helper f ⟩
-  lamW · lamW       ≡⟨ beta W lamW ⟩
-  W lamW            ≡⟨ refl ⟩
-  f · (lamW · lamW) ≡⟨ cong (_·_ f) (sym (beta helper f)) ⟩
-  f · (Y · f) ∎
+Y-eq f = Y · f             ≡⟨ beta helper f ⟩
+         lamW · lamW       ≡⟨ beta W lamW ⟩
+         W lamW            ≡⟨ refl ⟩
+         f · (lamW · lamW) ≡⟨ cong (_·_ f) (sym (beta helper f)) ⟩
+         f · (Y · f)       ∎
   where
   helper : D → D
   helper = λ f → lam (λ x → f · (x · x)) · lam (λ x → f · (x · x))
@@ -42,9 +41,8 @@ Y-eq f =
 
 -- The conversion rule for the higher-order Y₁.
 Y₁-eq : (f : D → D) → Y₁ f ≡ f (Y₁ f)
-Y₁-eq f =
-  Y₁ f                ≡⟨ refl ⟩
-  Y · lam f           ≡⟨ Y-eq (lam f) ⟩
-  lam f · (Y · lam f) ≡⟨ cong (_·_ (lam f)) refl ⟩
-  lam f · Y₁ f        ≡⟨ beta f (Y₁ f) ⟩
-  f (Y₁ f) ∎
+Y₁-eq f = Y₁ f                ≡⟨ refl ⟩
+          Y · lam f           ≡⟨ Y-eq (lam f) ⟩
+          lam f · (Y · lam f) ≡⟨ cong (_·_ (lam f)) refl ⟩
+          lam f · Y₁ f        ≡⟨ beta f (Y₁ f) ⟩
+          f (Y₁ f)            ∎

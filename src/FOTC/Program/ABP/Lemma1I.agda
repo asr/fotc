@@ -52,11 +52,10 @@ module Helper where
 
     where
     fs₀-eq-helper : fs₀ ≡ T ∷ fs₀'
-    fs₀-eq-helper =
-      fs₀              ≡⟨ fs₀-eq ⟩
-      (T ∷ []) ++ fs₀' ≡⟨ ++-∷ T [] fs₀' ⟩
-      T ∷ ([] ++ fs₀') ≡⟨ cong (_∷_ T) (++-[] fs₀') ⟩
-      T ∷ fs₀' ∎
+    fs₀-eq-helper = fs₀              ≡⟨ fs₀-eq ⟩
+                    (T ∷ []) ++ fs₀' ≡⟨ ++-∷ T [] fs₀' ⟩
+                    T ∷ ([] ++ fs₀') ≡⟨ cong (_∷_ T) (++-[] fs₀') ⟩
+                    T ∷ fs₀'         ∎
 
     as' : D
     as' = await b i' is' ds
@@ -152,11 +151,10 @@ module Helper where
     fs₁⁵ = tail₁ fs₁
 
     fs₀-eq-helper : fs₀ ≡ F ∷ fs₀⁵
-    fs₀-eq-helper =
-      fs₀                ≡⟨ fs₀-eq ⟩
-      (F ∷ ft₀⁵) ++ fs₀' ≡⟨ ++-∷ F ft₀⁵ fs₀' ⟩
-      F ∷ ft₀⁵ ++ fs₀'   ≡⟨ refl ⟩
-      F ∷ fs₀⁵ ∎
+    fs₀-eq-helper = fs₀                ≡⟨ fs₀-eq ⟩
+                    (F ∷ ft₀⁵) ++ fs₀' ≡⟨ ++-∷ F ft₀⁵ fs₀' ⟩
+                    F ∷ ft₀⁵ ++ fs₀'   ≡⟨ refl ⟩
+                    F ∷ fs₀⁵           ∎
 
     as⁵ : D
     as⁵ = await b i' is' ds

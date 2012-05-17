@@ -9,6 +9,9 @@ module FOTC.Data.Nat.Inequalities where
 
 open import FOTC.Base
 
+-- We add 4 to the fixities of the standard library.
+infix 8 _<_ _≤_  _≥_ _>_
+
 ------------------------------------------------------------------------------
 
 postulate

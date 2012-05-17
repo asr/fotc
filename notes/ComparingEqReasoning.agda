@@ -2,6 +2,11 @@
 -- Comparing styles for equational reasoning
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
+-- Tested with the development version of Agda on 17 May 2012.
+
 module ComparingEqReasoning where
 
 infix  7 _≡_
@@ -96,9 +101,6 @@ module NonWrapper where
   _∎ _ = refl
 
   +-leftIdentity : (n : ℕ) → zero + n ≡ n
-  +-leftIdentity n =
-    zero + n
-      ≡⟨ +-comm zero n ⟩
-    n + zero
-      ≡⟨ +-rightIdentity n ⟩
-    n ∎
+  +-leftIdentity n = zero + n ≡⟨ +-comm zero n ⟩
+                     n + zero ≡⟨ +-rightIdentity n ⟩
+                     n        ∎
