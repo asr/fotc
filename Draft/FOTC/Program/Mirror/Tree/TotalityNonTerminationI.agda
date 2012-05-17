@@ -5,18 +5,18 @@
 -- {-# OPTIONS --no-termination-check #-}
 {-# OPTIONS --injective-type-constructors #-}
 
+-- Tested with FOT on 17 May 2012.
+
 module Draft.FOTC.Program.Mirror.Tree.TotalityNonTerminationI where
 
+open import Common.FOL.Relation.Binary.EqReasoning
+
 open import FOTC.Base
-
 open import FOTC.Data.List
-
 open import FOTC.Program.Mirror.Mirror
 open import FOTC.Program.Mirror.Type
 open import FOTC.Program.Mirror.Forest.Totality
 open import FOTC.Program.Mirror.Forest.PropertiesI
-
-open import FOTC.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 
@@ -47,16 +47,14 @@ mirror-Tree (treeT d nilF) =
     where
       helper₁ : rev (map mirror []) [] ≡ []
       helper₁ =
-        begin
           rev (map mirror []) []
-          ≡⟨ subst (λ x → rev (map mirror []) [] ≡ rev x [])
-                   (map-[] mirror)
-                   refl
-          ⟩
+            ≡⟨ subst (λ x → rev (map mirror []) [] ≡ rev x [])
+                     (map-[] mirror)
+                     refl
+           ⟩
           rev [] []
             ≡⟨ rev-[] [] ⟩
-          []
-        ∎
+          [] ∎
 
       helper₂ : Forest (rev (map mirror []) [])
       helper₂ = subst Forest (sym helper₁) nilF
