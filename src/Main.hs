@@ -100,7 +100,7 @@ import Utils.Version    ( progNameVersion )
 
 translation ∷ FilePath → T (GeneralRoles, [ConjectureSet])
 translation agdaFile = do
-  -- Gettting the top level interface.
+  -- Getting the top level interface.
   i ← myReadInterface agdaFile
 
   iInterfaces ← getImportedInterfaces i
