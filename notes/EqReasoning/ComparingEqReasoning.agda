@@ -25,7 +25,7 @@ postulate
   +-comm          : (m n : ℕ) → m + n ≡ n + m
   +-rightIdentity : (n : ℕ) → n + zero ≡ n
 
-module Ulf where
+module Thesis where
   -- From Ulf's thesis (p. 112).
 
   infix  7 _≃_
@@ -45,7 +45,7 @@ module Ulf where
   _qed : {x y : ℕ} → x ≃ y → x ≡ y
   prf p qed = p
 
-  -- Example
+  -- Example.
   +-leftIdentity : (n : ℕ) → zero + n ≡ n
   +-leftIdentity n =
     chain> zero + n
@@ -53,7 +53,7 @@ module Ulf where
        === n        by +-rightIdentity n
     qed
 
-module Nils where
+module SL where
   -- Adapted from the standard library (Relation.Binary.PreorderReasoning).
 
   infix  7 _≃_
@@ -83,13 +83,12 @@ module Nils where
     ∎
 
 module NonWrapper where
-
   -- A set of combinators without request a wrapper data type.
 
   -- From: Shin-Cheng Mu, Hsiang-Shang Ko, and Patrick
   -- Jansson. Algebra of programming in Agda: Dependent types for
   -- relational program derivation. Journal of Functional Programming,
-  -- 19(5):545–579, 2009
+  -- 19(5):545–579, 2009.
 
   infixr 5 _≡⟨_⟩_
   infix  5 _∎
@@ -100,6 +99,7 @@ module NonWrapper where
   _∎ : (x : ℕ) → x ≡ x
   _∎ _ = refl
 
+  -- Example.
   +-leftIdentity : (n : ℕ) → zero + n ≡ n
   +-leftIdentity n = zero + n ≡⟨ +-comm zero n ⟩
                      n + zero ≡⟨ +-rightIdentity n ⟩
