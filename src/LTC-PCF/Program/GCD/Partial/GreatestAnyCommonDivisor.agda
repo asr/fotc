@@ -23,7 +23,7 @@ open import LTC-PCF.Program.GCD.Partial.Definitions
 -- common divisor of m and n divides it, we can prove that gcd is the
 -- largest common divisor.
 
--- We need N d.
+-- It requires the totality of gcd, ie. N gcd.
 gcd-GACD : ∀ {m n gcd} → N gcd → CD m n gcd → Divisible m n gcd → GACD m n gcd
 gcd-GACD zN              (0∣m , _) = ⊥-elim $ 0∤x 0∣m
 gcd-GACD (sN {gcd} Ngcd) _         =

@@ -11,7 +11,6 @@ open import FOTC.Program.GCD.Total.Definitions
 open import FOTC.Program.GCD.Total.GCD
 
 module FOTC.Program.GCD.Total.Specification
-  (gcd-N         : ∀ {m n} → N m → N n → N (gcd m n))
   (gcd-CD        : ∀ {m n} → N m → N n → CD m n (gcd m n))
   (gcd-Divisible : ∀ {m n} → N m → N n → Divisible m n (gcd m n))
   where

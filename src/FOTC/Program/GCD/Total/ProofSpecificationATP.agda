@@ -20,11 +20,9 @@ open import FOTC.Program.GCD.Total.CommonDivisorATP using ( gcd-CD )
 open import FOTC.Program.GCD.Total.DivisibleATP using ( gcd-Divisible )
 open import FOTC.Program.GCD.Total.GCD using ( gcd )
 
-open import FOTC.Program.GCD.Total.TotalityATP using ( gcd-N )
-
 import FOTC.Program.GCD.Total.Specification
 open module SpecificationATP =
-  FOTC.Program.GCD.Total.Specification gcd-N gcd-CD gcd-Divisible
+  FOTC.Program.GCD.Total.Specification gcd-CD gcd-Divisible
   renaming ( gcd-GCD to gcd-GCD-ATP )
 
 ------------------------------------------------------------------------------
