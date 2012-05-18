@@ -236,7 +236,7 @@ gcd-S≯S-CD {m} {n} Nm Nn acc Sm≯Sn =
 -- The gcd m n when m > n is CD.
 gcd-x>y-CD :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → LT₂ o p m n → CD o p (gcd o p)) →
+  (∀ {o p} → N o → N p → Lexi o p m n → CD o p (gcd o p)) →
   GT m n →
   CD m n (gcd m n)
 gcd-x>y-CD zN          Nn          _    0>n   = ⊥-elim $ 0>x→⊥ Nn 0>n
@@ -254,7 +254,7 @@ gcd-x>y-CD (sN {m} Nm) (sN {n} Nn) accH Sm>Sn = gcd-S>S-CD Nm Nn ih Sm>Sn
 -- The gcd m n when m ≯ n is CD.
 gcd-x≯y-CD :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → LT₂ o p m n → CD o p (gcd o p)) →
+  (∀ {o p} → N o → N p → Lexi o p m n → CD o p (gcd o p)) →
   NGT m n →
   CD m n (gcd m n)
 gcd-x≯y-CD zN          zN          _    _     = gcd-00-CD
@@ -272,12 +272,12 @@ gcd-x≯y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn = gcd-S≯S-CD Nm Nn ih Sm≯S
 
 -- The gcd is CD.
 gcd-CD : ∀ {m n} → N m → N n → CD m n (gcd m n)
-gcd-CD = wfInd-LT₂ A istep
+gcd-CD = Lexi-wfind A istep
   where
   A : D → D → Set
   A i j = CD i j (gcd i j)
 
-  istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → A k l) →
+  istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → Lexi k l i j → A k l) →
           A i j
   istep Ni Nj accH =
     [ gcd-x>y-CD Ni Nj accH

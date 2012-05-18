@@ -342,24 +342,24 @@ x<y→y≤z→x<z Nm Nn No m<n n≤o =
   ] (x<Sy→x<y∨x≡y Nn No n≤o)
 
 ------------------------------------------------------------------------------
--- Properties about LT₂
+-- Properties about the lexicographical order
 
 -- TODO: 2012-04-17. Is it possible to eliminate the FOTC types?
-xy<00→⊥ : ∀ {m n} → N m → N n → ¬ (LT₂ m n zero zero)
+xy<00→⊥ : ∀ {m n} → N m → N n → ¬ (Lexi m n zero zero)
 xy<00→⊥ Nm Nn mn<00 =
   [ (λ m<0     → ⊥-elim $ x<0→⊥ Nm m<0)
   , (λ m≡0∧n<0 → ⊥-elim $ x<0→⊥ Nn (∧-proj₂ m≡0∧n<0))
   ]
   mn<00
 
-0Sx<00→⊥ : ∀ {m} → ¬ (LT₂ zero (succ₁ m) zero zero)
+0Sx<00→⊥ : ∀ {m} → ¬ (Lexi zero (succ₁ m) zero zero)
 0Sx<00→⊥ 0Sm<00 =
   [ 0<0→⊥
   , (λ 0≡0∧Sm<0 → S<0→⊥ (∧-proj₂ 0≡0∧Sm<0))
   ]
   0Sm<00
 
-Sxy₁<0y₂→⊥ : ∀ {m n₁ n₂} → ¬ (LT₂ (succ₁ m) n₁ zero n₂)
+Sxy₁<0y₂→⊥ : ∀ {m n₁ n₂} → ¬ (Lexi (succ₁ m) n₁ zero n₂)
 Sxy₁<0y₂→⊥ Smn₁<0n₂ =
   [ S<0→⊥
   , (λ Sm≡0∧n₁<n₂ → ⊥-elim $ 0≢S $ sym $ ∧-proj₁ Sm≡0∧n₁<n₂)
@@ -367,7 +367,7 @@ Sxy₁<0y₂→⊥ Smn₁<0n₂ =
   Smn₁<0n₂
 
 -- TODO: 2012-04-17. Is it possible to eliminate the FOTC types?
-x₁y<x₂0→x₁<x₂ : ∀ {m₁ n} → N n → ∀ {m₂} → LT₂ m₁ n m₂ zero → LT m₁ m₂
+x₁y<x₂0→x₁<x₂ : ∀ {m₁ n} → N n → ∀ {m₂} → Lexi m₁ n m₂ zero → LT m₁ m₂
 x₁y<x₂0→x₁<x₂ Nn m₁n<m₂0 =
   [ (λ m₁<n₁     → m₁<n₁)
   , (λ m₁≡n₁∧n<0 → ⊥-elim $ x<0→⊥ Nn (∧-proj₂ m₁≡n₁∧n<0))
@@ -375,7 +375,7 @@ x₁y<x₂0→x₁<x₂ Nn m₁n<m₂0 =
   m₁n<m₂0
 
 -- TODO: 2012-04-17. Is it possible to eliminate the FOTC types?
-xy₁<0y₂→x≡0∧y₁<y₂ : ∀ {m} → N m → ∀ {n₁ n₂} → LT₂ m n₁ zero n₂ →
+xy₁<0y₂→x≡0∧y₁<y₂ : ∀ {m} → N m → ∀ {n₁ n₂} → Lexi m n₁ zero n₂ →
                     m ≡ zero ∧ LT n₁ n₂
 xy₁<0y₂→x≡0∧y₁<y₂ Nm mn₁<0n₂ =
   [ (λ m<0       → ⊥-elim $ x<0→⊥ Nm m<0)
@@ -384,9 +384,9 @@ xy₁<0y₂→x≡0∧y₁<y₂ Nm mn₁<0n₂ =
   mn₁<0n₂
 
 [Sx∸Sy,Sy]<[Sx,Sy] : ∀ {m n} → N m → N n →
-                     LT₂ (succ₁ m ∸ succ₁ n) (succ₁ n) (succ₁ m) (succ₁ n)
+                     Lexi (succ₁ m ∸ succ₁ n) (succ₁ n) (succ₁ m) (succ₁ n)
 [Sx∸Sy,Sy]<[Sx,Sy] Nm Nn = inj₁ (Sx∸Sy<Sx Nm Nn)
 
 [Sx,Sy∸Sx]<[Sx,Sy] : ∀ {m n} → N m → N n →
-                     LT₂ (succ₁ m) (succ₁ n ∸ succ₁ m) (succ₁ m) (succ₁ n)
+                     Lexi (succ₁ m) (succ₁ n ∸ succ₁ m) (succ₁ m) (succ₁ n)
 [Sx,Sy∸Sx]<[Sx,Sy] Nm Nn = inj₂ (refl , Sx∸Sy<Sx Nn Nm)

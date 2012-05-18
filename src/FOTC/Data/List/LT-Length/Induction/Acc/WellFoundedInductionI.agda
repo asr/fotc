@@ -30,10 +30,10 @@ wf-LTL : WellFounded LTL
 wf-LTL Lxs = wellFounded wf-LT Lxs
 
 -- Well-founded induction on the relation LTL.
-wfInd-LTL : (A : D → Set) →
+LTL-wfind : (A : D → Set) →
             (∀ {xs} → List xs → (∀ {ys} → List ys → LTL ys xs → A ys) → A xs) →
             ∀ {xs} → List xs → A xs
-wfInd-LTL A = WellFoundedInduction wf-LTL
+LTL-wfind A = WellFoundedInduction wf-LTL
 
 ------------------------------------------------------------------------------
 -- The relation LTL is well-founded (a different proof).

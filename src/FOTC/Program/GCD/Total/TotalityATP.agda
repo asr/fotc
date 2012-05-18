@@ -57,7 +57,7 @@ postulate
 -- gcd m n when m > n is total.
 gcd-x>y-N :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → LT₂ o p m n → N (gcd o p)) →
+  (∀ {o p} → N o → N p → Lexi o p m n → N (gcd o p)) →
   GT m n →
   N (gcd m n)
 gcd-x>y-N zN          Nn          _    0>n   = ⊥-elim $ 0>x→⊥ Nn 0>n
@@ -77,7 +77,7 @@ gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn =
 -- gcd m n when m ≯ n is total.
 gcd-x≯y-N :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → LT₂ o p m n → N (gcd o p)) →
+  (∀ {o p} → N o → N p → Lexi o p m n → N (gcd o p)) →
   NGT m n →
   N (gcd m n)
 gcd-x≯y-N zN          zN          _    _     = gcd-00-N
@@ -96,12 +96,12 @@ gcd-x≯y-N (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn = gcd-S≯S-N Nm Nn ih Sm≯Sn
 ------------------------------------------------------------------------------
 -- gcd m n is total.
 gcd-N : ∀ {m n} → N m → N n → N (gcd m n)
-gcd-N = wfInd-LT₂ A istep
+gcd-N = Lexi-wfind A istep
   where
   A : D → D → Set
   A i j = N (gcd i j)
 
-  istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → A k l) →
+  istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → Lexi k l i j → A k l) →
           A i j
   istep Ni Nj accH =
     [ gcd-x>y-N Ni Nj accH

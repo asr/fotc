@@ -60,7 +60,7 @@ div-x≮y-DIV {i} {j} Ni Nj accH j>0 i≮j =
 
 -- We do the well-founded induction on i and we keep j fixed.
 div-DIV : ∀ {i j} → N i → N j → GT j zero → DIV i j (div i j)
-div-DIV {j = j} Ni Nj j>0 = wfInd-LT A ih Ni
+div-DIV {j = j} Ni Nj j>0 = LT-wfind A ih Ni
   where
   A : D → Set
   A d = DIV d j (div d j)

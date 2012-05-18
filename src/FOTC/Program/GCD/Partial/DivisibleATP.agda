@@ -82,7 +82,7 @@ gcd-S≯S-Divisible {m} {n} Nm Nn acc Sm≯Sn c Nc (c∣Sm , c∣Sn) =
 -- The gcd m n when m > n is Divisible.
 gcd-x>y-Divisible :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → LT₂ o p m n → x≢0≢y o p →
+  (∀ {o p} → N o → N p → Lexi o p m n → x≢0≢y o p →
                Divisible o p (gcd o p)) →
   GT m n →
   x≢0≢y m n →
@@ -105,7 +105,7 @@ gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ c Nc =
 -- The gcd m n when m ≯ n is Divisible.
 gcd-x≯y-Divisible :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → LT₂ o p m n → x≢0≢y o p →
+  (∀ {o p} → N o → N p → Lexi o p m n → x≢0≢y o p →
                Divisible o p (gcd o p)) →
   NGT m n →
   x≢0≢y m n →
@@ -128,12 +128,12 @@ gcd-x≯y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ c Nc =
 ------------------------------------------------------------------------------
 -- The gcd is Divisible.
 gcd-Divisible : ∀ {m n} → N m → N n → x≢0≢y m n → Divisible m n (gcd m n)
-gcd-Divisible = wfInd-LT₂ A istep
+gcd-Divisible = Lexi-wfind A istep
   where
   A : D → D → Set
   A i j = x≢0≢y i j → Divisible i j (gcd i j)
 
-  istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → LT₂ k l i j → A k l) →
+  istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → Lexi k l i j → A k l) →
           A i j
   istep Ni Nj accH =
     [ gcd-x>y-Divisible Ni Nj accH

@@ -480,38 +480,38 @@ x∸y<x∸z→Sx∸y<Sx∸z (sN {m} Nm) (sN {n} Nn) (sN {o} No) Sm∸Sn<Sm∸So 
   {-# ATP prove prf #-}
 
 ------------------------------------------------------------------------------
--- Properties about LT₂
+-- Properties about the lexicographical order
 
 -- TODO: 2012-04-17. Is it possible to eliminate the FOTC types?
-postulate xy<00→⊥ : ∀ {m n} → N m → N n → ¬ (LT₂ m n zero zero)
+postulate xy<00→⊥ : ∀ {m n} → N m → N n → ¬ (Lexi m n zero zero)
 {-# ATP prove xy<00→⊥ x<0→⊥ #-}
 
-postulate 0Sx<00→⊥ : ∀ {m} → ¬ (LT₂ zero (succ₁ m) zero zero)
+postulate 0Sx<00→⊥ : ∀ {m} → ¬ (Lexi zero (succ₁ m) zero zero)
 {-# ATP prove 0Sx<00→⊥ S<0→⊥ #-}
 
-postulate Sxy₁<0y₂→⊥ : ∀ {m n₁ n₂} → ¬ (LT₂ (succ₁ m) n₁ zero n₂)
+postulate Sxy₁<0y₂→⊥ : ∀ {m n₁ n₂} → ¬ (Lexi (succ₁ m) n₁ zero n₂)
 {-# ATP prove Sxy₁<0y₂→⊥ #-}
 
 -- TODO: 2012-04-17. Is it possible to eliminate the FOTC types?
-postulate x₁y<x₂0→x₁<x₂ : ∀ {m₁ n} → N n → ∀ {m₂} → LT₂ m₁ n m₂ zero → LT m₁ m₂
+postulate x₁y<x₂0→x₁<x₂ : ∀ {m₁ n} → N n → ∀ {m₂} → Lexi m₁ n m₂ zero → LT m₁ m₂
 {-# ATP prove x₁y<x₂0→x₁<x₂ x<0→⊥ #-}
 
 -- TODO: 2012-04-17. Is it possible to eliminate the FOTC types?
 postulate
-  xy₁<0y₂→x≡0∧y₁<y₂ : ∀ {m} → N m → ∀ {n₁ n₂} → LT₂ m n₁ zero n₂ →
+  xy₁<0y₂→x≡0∧y₁<y₂ : ∀ {m} → N m → ∀ {n₁ n₂} → Lexi m n₁ zero n₂ →
                       m ≡ zero ∧ LT n₁ n₂
 {-# ATP prove xy₁<0y₂→x≡0∧y₁<y₂ x<0→⊥ #-}
 
 [Sx∸Sy,Sy]<[Sx,Sy] : ∀ {m n} → N m → N n →
-                     LT₂ (succ₁ m ∸ succ₁ n) (succ₁ n) (succ₁ m) (succ₁ n)
+                     Lexi (succ₁ m ∸ succ₁ n) (succ₁ n) (succ₁ m) (succ₁ n)
 [Sx∸Sy,Sy]<[Sx,Sy] {m} {n} Nm Nn = prf
   where
-  postulate prf : LT₂ (succ₁ m ∸ succ₁ n) (succ₁ n) (succ₁ m) (succ₁ n)
+  postulate prf : Lexi (succ₁ m ∸ succ₁ n) (succ₁ n) (succ₁ m) (succ₁ n)
   {-# ATP prove prf x∸y<Sx #-}
 
 [Sx,Sy∸Sx]<[Sx,Sy] : ∀ {m n} → N m → N n →
-                     LT₂ (succ₁ m) (succ₁ n ∸ succ₁ m) (succ₁ m) (succ₁ n)
+                     Lexi (succ₁ m) (succ₁ n ∸ succ₁ m) (succ₁ m) (succ₁ n)
 [Sx,Sy∸Sx]<[Sx,Sy] {m} {n} Nm Nn = prf
   where
-  postulate prf : LT₂ (succ₁ m) (succ₁ n ∸ succ₁ m) (succ₁ m) (succ₁ n)
+  postulate prf : Lexi (succ₁ m) (succ₁ n ∸ succ₁ m) (succ₁ m) (succ₁ n)
   {-# ATP prove prf x∸y<Sx #-}

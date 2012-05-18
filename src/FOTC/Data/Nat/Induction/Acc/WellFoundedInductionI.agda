@@ -42,10 +42,10 @@ module WF-LT where
           )
 
   -- Well-founded induction on the natural numbers.
-  wfInd-LT : (A : D → Set) →
+  LT-wfind : (A : D → Set) →
              (∀ {n} → N n → (∀ {m} → N m → LT m n → A m) → A n) →
              ∀ {n} → N n → A n
-  wfInd-LT A = WellFoundedInduction wf-LT
+  LT-wfind A = WellFoundedInduction wf-LT
 
 ------------------------------------------------------------------------------
 -- The relation LT is well-founded (a different proof).

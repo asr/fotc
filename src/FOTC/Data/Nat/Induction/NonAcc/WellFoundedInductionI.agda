@@ -20,10 +20,10 @@ open import FOTC.Data.Nat.Type
 -- Adapted from http://code.haskell.org/~dolio/agda-share/induction/.
 
 module WFInd where
-  wfInd-LT : (A : D → Set) →
+  LT-wfind : (A : D → Set) →
              (∀ {n} → N n → (∀ {m} → N m → LT m n → A m) → A n) →
              ∀ {n} → N n → A n
-  wfInd-LT A accH Nn = accH Nn (helper Nn)
+  LT-wfind A accH Nn = accH Nn (helper Nn)
     where
     helper : ∀ {n m} → N n → N m → LT m n → A m
     helper zN     Nm m<0  = ⊥-elim $ x<0→⊥ Nm m<0
@@ -52,10 +52,10 @@ module WFInd where
 
 module WFInd₁ where
 
-  wfInd-LT : (A : D → Set) →
+  LT-wfind : (A : D → Set) →
              (∀ {n} → N n → (∀ {m} → N m → LT m n → A m) → A n) →
              ∀ {n} → N n → A n
-  wfInd-LT A accH Nn = accH Nn (helper Nn)
+  LT-wfind A accH Nn = accH Nn (helper Nn)
     where
     helper : ∀ {n m} → N n → N m → LT m n → A m
     helper zN     Nm m<0  = ⊥-elim $ x<0→⊥ Nm m<0
