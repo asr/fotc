@@ -10,6 +10,12 @@ module PA.Inductive.PropertiesByInduction where
 open import PA.Inductive.Base
 
 ------------------------------------------------------------------------------
+-- Congruence properties
+
+succ-cong : ∀ {m n} → m ≡ n → succ m ≡ succ n
+succ-cong refl = refl
+
+------------------------------------------------------------------------------
 
 +-leftIdentity : ∀ n → zero + n ≡ n
 +-leftIdentity n = refl
@@ -24,7 +30,7 @@ open import PA.Inductive.Base
   A0 = refl
 
   is : ∀ i → A i → A (succ i)
-  is i ih = cong succ ih
+  is i ih = succ-cong ih
 
 +-assoc : ∀ m n o → m + n + o ≡ m + (n + o)
 +-assoc m n o = PA-ind A A0 is m
@@ -36,7 +42,7 @@ open import PA.Inductive.Base
   A0 = refl
 
   is : ∀ i → A i → A (succ i)
-  is i ih = cong succ ih
+  is i ih = succ-cong ih
 
 x+Sy≡S[x+y] : ∀ m n → m + succ n ≡ succ (m + n)
 x+Sy≡S[x+y] m n = PA-ind A A0 is m
@@ -48,4 +54,4 @@ x+Sy≡S[x+y] m n = PA-ind A A0 is m
   A0 = refl
 
   is : ∀ i → A i → A (succ i)
-  is i ih = cong succ ih
+  is i ih = succ-cong ih

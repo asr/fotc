@@ -20,4 +20,4 @@ open import PA.Inductive.Relation.Binary.EqReasoning
 +-comm (succ m) n = succ m + n   ≡⟨ refl ⟩
                     succ (m + n) ≡⟨ succ-cong (+-comm m n) ⟩
                     succ (n + m) ≡⟨ sym (x+Sy≡S[x+y] n m) ⟩
-                    n + succ m ∎
+                    n + succ m   ∎

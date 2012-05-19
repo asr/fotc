@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Inductive PA properties commons to the interactive and automatic proofs
+-- Inductive PA properties common to the interactive and automatic proofs
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
