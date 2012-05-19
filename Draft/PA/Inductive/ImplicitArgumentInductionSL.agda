@@ -7,7 +7,7 @@
 
 -- Tested with the development version of the standard library on 19 May 2012.
 
-module ImplicitArgumentInduction where
+module ImplicitArgumentInductionSL where
 
 open import Data.Nat renaming ( suc to succ )
 open import Relation.Binary.PropositionalEquality
