@@ -56,5 +56,9 @@ postulate
 
 -- The axiom of induction is an axiom schema, therefore we do not
 -- translate it to TPTP.
+
+-- TODO: 19 May 2012. We don't use an implicit argument for the
+-- inductive step, because it yields some unsolved meta-variables in
+-- the inductive version of PA (see PA.Inductive.Base).
 postulate
   PA-ind : (A : M → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n

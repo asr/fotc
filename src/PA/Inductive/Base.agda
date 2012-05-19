@@ -23,6 +23,10 @@ open import Common.FOL.FOL public hiding ( _,_ ; ∃ )
 open import PA.Inductive.Existential public using ( _,_ ; ∃ )
 
 -- The induction principle on the PA universe
+
+-- TODO: 19 May 2012. We don't use an implicit argument for the
+-- inductive step, because it yields some unsolved meta-variables (see
+-- Draft.PA.Inductive.ImplicitArgumentInduction).
 PA-ind : (A : M → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
 PA-ind A A0 h zero     = A0
 PA-ind A A0 h (succ n) = h n (PA-ind A A0 h n)

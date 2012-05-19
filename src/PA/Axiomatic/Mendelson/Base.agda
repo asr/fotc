@@ -63,4 +63,9 @@ postulate
 {-# ATP axiom S₁ S₂ S₃ S₄ S₅ S₆ S₇ S₈ #-}
 
 -- S₉ is an axiom schema, therefore we do not translate it to TPTP.
+
+-- TODO: 19 May 2012. We don't use an implicit argument for the
+-- inductive step, because it yields some unsolved meta-variables in
+-- the inductive version of PA (see PA.Inductive.Base).
+
 postulate S₉ : (A : M → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
