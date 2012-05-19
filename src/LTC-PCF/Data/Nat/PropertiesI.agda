@@ -41,7 +41,7 @@ open import LTC-PCF.Data.Nat.Rec.EquationsI
 
 +-0x : ∀ n → zero + n ≡ n
 +-0x n = rec zero n _ ≡⟨ rec-0 n ⟩
-         n ∎
+         n            ∎
 
 +-Sx : ∀ m n → succ₁ m + n ≡ succ₁ (m + n)
 +-Sx m n =
