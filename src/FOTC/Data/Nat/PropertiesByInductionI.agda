@@ -19,6 +19,18 @@ open import FOTC.Data.Nat
 
 ------------------------------------------------------------------------------
 
++-N : ∀ {m n} → N m → N n → N (m + n)
++-N {n = n} Nm Nn = N-ind A A0 is Nm
+  where
+  A : D → Set
+  A i = N (i + n)
+
+  A0 : A zero
+  A0 = subst N (sym $ +-0x n) Nn
+
+  is : ∀ {i} → A i → A (succ₁ i)
+  is {i} ih = subst N (sym $ +-Sx i n) (sN ih)
+
 +-leftIdentity : ∀ n → zero + n ≡ n
 +-leftIdentity n = +-0x n
 
@@ -37,18 +49,6 @@ open import FOTC.Data.Nat
                            ih
                            refl
                     )
-
-+-N : ∀ {m n} → N m → N n → N (m + n)
-+-N {n = n} Nm Nn = N-ind A A0 is Nm
-  where
-  A : D → Set
-  A i = N (i + n)
-
-  A0 : A zero
-  A0 = subst N (sym $ +-leftIdentity n) Nn
-
-  is : ∀ {i} → A i → A (succ₁ i)
-  is {i} ih = subst N (sym $ +-Sx i n) (sN ih)
 
 +-assoc : ∀ {m} → N m → ∀ n o → m + n + o ≡ m + (n + o)
 +-assoc Nm n o = N-ind A A0 is Nm

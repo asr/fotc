@@ -44,6 +44,17 @@ postulate *-rightCong : ∀ {m n o} → n ≡ o → m * n ≡ m * o
 --   postulate prf : N (pred (succ n))
 --   {-# ATP prove prf #-}
 
++-N : ∀ {m n} → N m → N n → N (m + n)
++-N {n = n} zN Nn = prf
+  where
+  postulate prf : N (zero + n)
+  {-# ATP prove prf #-}
++-N {n = n} (sN {m} Nm) Nn = prf $ +-N Nm Nn
+  where
+  postulate prf : N (m + n) →  -- IH.
+                  N (succ₁ m + n)
+  {-# ATP prove prf #-}
+
 ∸-N : ∀ {m n} → N m → N n → N (m ∸ n)
 ∸-N {m} Nm zN = prf
   where
@@ -59,17 +70,6 @@ postulate *-rightCong : ∀ {m n o} → n ≡ o → m * n ≡ m * o
   where
   postulate prf : N (m ∸ n) →  -- IH.
                   N (succ₁ m ∸ succ₁ n)
-  {-# ATP prove prf #-}
-
-+-N : ∀ {m n} → N m → N n → N (m + n)
-+-N {n = n} zN Nn = prf
-  where
-  postulate prf : N (zero + n)
-  {-# ATP prove prf #-}
-+-N {n = n} (sN {m} Nm) Nn = prf $ +-N Nm Nn
-  where
-  postulate prf : N (m + n) →  -- IH.
-                  N (succ₁ m + n)
   {-# ATP prove prf #-}
 
 *-N : ∀ {m n} → N m → N n → N (m * n)

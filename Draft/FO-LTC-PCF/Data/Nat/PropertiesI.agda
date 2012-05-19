@@ -166,6 +166,10 @@ open import Draft.FO-LTC-PCF.Data.Nat.Rec.EquationsI
     ≡⟨ refl ⟩
   n + (m * n) ∎
 
++-N : ∀ {m n} → N m → N n → N (m + n)
++-N {n = n} zN          Nn = subst N (sym $ +-0x n) Nn
++-N {n = n} (sN {m} Nm) Nn = subst N (sym $ +-Sx m n) (sN (+-N Nm Nn))
+
 ∸-N : ∀ {m n} → N m → N n → N (m ∸ n)
 ∸-N {m} Nm       zN     = subst N (sym $ ∸-x0 m) Nm
 ∸-N     zN      (sN Nn) = subst N (sym $ ∸-0S Nn) zN
@@ -179,10 +183,6 @@ open import Draft.FO-LTC-PCF.Data.Nat.Rec.EquationsI
 +-rightIdentity (sN {n} Nn) =
   trans (+-Sx n zero)
         (subst (λ t → succ₁ (n + zero) ≡ succ₁ t) (+-rightIdentity Nn) refl)
-
-+-N : ∀ {m n} → N m → N n → N (m + n)
-+-N {n = n} zN          Nn = subst N (sym $ +-leftIdentity n) Nn
-+-N {n = n} (sN {m} Nm) Nn = subst N (sym $ +-Sx m n) (sN (+-N Nm Nn))
 
 +-assoc : ∀ {m} → N m →  ∀ n o → m + n + o ≡ m + (n + o)
 +-assoc zN n o =
@@ -255,12 +255,12 @@ x+Sy≡S[x+y] (sN {m} Nm) n =
   succ₁ (n + m) ≡⟨ sym $ x+Sy≡S[x+y] Nn m ⟩
   n + succ₁ m   ∎
 
+*-N : ∀ {m n} → N m → N n → N (m * n)
+*-N {n = n} zN          _  = subst N (sym $ *-0x n) zN
+*-N {n = n} (sN {m} Nm) Nn = subst N (sym $ *-Sx m n) (+-N Nn (*-N Nm Nn))
+
 *-leftZero : ∀ n → zero * n ≡ zero
 *-leftZero = *-0x
-
-*-N : ∀ {m n} → N m → N n → N (m * n)
-*-N {n = n} zN          _  = subst N (sym $ *-leftZero n) zN
-*-N {n = n} (sN {m} Nm) Nn = subst N (sym $ *-Sx m n) (+-N Nn (*-N Nm Nn))
 
 *-rightZero : ∀ {n} → N n → n * zero ≡ zero
 *-rightZero zN          = *-leftZero zero

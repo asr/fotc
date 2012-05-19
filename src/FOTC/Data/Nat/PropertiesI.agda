@@ -51,6 +51,10 @@ open import FOTC.Data.Nat.UnaryNumbers
 -- pred-N zN = subst N (sym pred-0) zN
 -- pred-N (sN {n} Nn) = subst N (sym $ pred-S n) Nn
 
++-N : ∀ {m n} → N m → N n → N (m + n)
++-N {n = n} zN          Nn = subst N (sym $ +-0x n) Nn
++-N {n = n} (sN {m} Nm) Nn = subst N (sym $ +-Sx m n) (sN (+-N Nm Nn))
+
 ∸-N : ∀ {m n} → N m → N n → N (m ∸ n)
 ∸-N {m} Nm          zN          = subst N (sym $ ∸-x0 m) Nm
 ∸-N     zN          (sN {n} _)  = subst N (sym $ ∸-0S n) zN
@@ -67,10 +71,6 @@ open import FOTC.Data.Nat.UnaryNumbers
                (+-rightIdentity Nn)
                refl
         )
-
-+-N : ∀ {m n} → N m → N n → N (m + n)
-+-N {n = n} zN          Nn = subst N (sym $ +-leftIdentity n) Nn
-+-N {n = n} (sN {m} Nm) Nn = subst N (sym $ +-Sx m n) (sN (+-N Nm Nn))
 
 +-assoc : ∀ {m} → N m → ∀ n o → m + n + o ≡ m + (n + o)
 +-assoc zN n o =
@@ -154,12 +154,12 @@ Sx∸x≡S0 (sN {n} Nn) = trans (∸-SS (succ₁ n) n) (Sx∸x≡S0 Nn)
     ≡⟨ [x+y]∸[x+z]≡y∸z Nm n o ⟩
   n ∸ o ∎
 
+*-N : ∀ {m n} → N m → N n → N (m * n)
+*-N {n = n} zN          Nn = subst N (sym $ *-0x n) zN
+*-N {n = n} (sN {m} Nm) Nn = subst N (sym $ *-Sx m n) (+-N Nn (*-N Nm Nn))
+
 *-leftZero : ∀ n → zero * n ≡ zero
 *-leftZero = *-0x
-
-*-N : ∀ {m n} → N m → N n → N (m * n)
-*-N {n = n} zN          Nn = subst N (sym $ *-leftZero n) zN
-*-N {n = n} (sN {m} Nm) Nn = subst N (sym $ *-Sx m n) (+-N Nn (*-N Nm Nn))
 
 *-rightZero : ∀ {n} → N n → n * zero ≡ zero
 *-rightZero zN          = *-leftZero zero

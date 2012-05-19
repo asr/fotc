@@ -81,6 +81,17 @@ postulate *-Sx : ∀ m n → succ₁ m * n ≡ n + (m * n)
 ------------------------------------------------------------------------------
 -- Totality properties
 
++-N : ∀ {m n} → N m → N n → N (m + n)
++-N {n = n} zN Nn = prf
+  where
+  postulate prf : N (zero + n)
+  {-# ATP prove prf +-0x #-}
++-N {n = n} (sN {m} Nm) Nn = prf $ +-N Nm Nn
+  where
+  postulate prf : N (m + n) →  -- IH.
+                  N (succ₁ m + n)
+  {-# ATP prove prf +-Sx #-}
+
 ∸-N : ∀ {m n} → N m → N n → N (m ∸ n)
 ∸-N {m} Nm zN = prf
   where
@@ -97,17 +108,6 @@ postulate *-Sx : ∀ m n → succ₁ m * n ≡ n + (m * n)
   postulate prf : N (m ∸ n) →  -- IH.
                   N (succ₁ m ∸ succ₁ n)
   {-# ATP prove prf ∸-SS #-}
-
-+-N : ∀ {m n} → N m → N n → N (m + n)
-+-N {n = n} zN Nn = prf
-  where
-  postulate prf : N (zero + n)
-  {-# ATP prove prf +-0x #-}
-+-N {n = n} (sN {m} Nm) Nn = prf $ +-N Nm Nn
-  where
-  postulate prf : N (m + n) →  -- IH.
-                  N (succ₁ m + n)
-  {-# ATP prove prf +-Sx #-}
 
 *-N : ∀ {m n} → N m → N n → N (m * n)
 *-N {n = n} zN Nn = prf
