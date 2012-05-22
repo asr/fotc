@@ -36,7 +36,7 @@ S₁ refl refl = refl
 S₂ : ∀ {m n} → m ≡ n → succ m ≡ succ n
 S₂ refl = refl
 
-S₃ : ∀ {n} → ¬ (zero ≡ succ n)
+S₃ : ∀ {n} → zero ≢ succ n
 S₃ ()
 
 S₄ : ∀ {m n} → succ m ≡ succ n → m ≡ n

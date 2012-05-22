@@ -10,15 +10,21 @@
 
 module PA.Inductive.Relation.Binary.PropositionalEquality where
 
+open import Common.FOL.FOL using ( ¬_ )
 open import PA.Inductive.Base.Core
 
 -- We add 3 to the fixities of the standard library.
-infix 7 _≡_
+infix 7 _≡_ _≢_
 
 ------------------------------------------------------------------------------
 -- The identity type on PA
 data _≡_ (m : M) : M → Set where
   refl : m ≡ m
+
+-- Inequality.
+_≢_ : M → M → Set
+x ≢ y = ¬ x ≡ y
+{-# ATP definition _≢_ #-}
 
 -- Identity properties
 

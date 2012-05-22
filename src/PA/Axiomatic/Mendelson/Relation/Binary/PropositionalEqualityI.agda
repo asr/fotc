@@ -12,11 +12,11 @@ open import PA.Axiomatic.Mendelson.Base
 ------------------------------------------------------------------------------
 -- Identity properties
 
-≐-refl : ∀ {n} → n ≐ n
-≐-refl {n} = S₁ (S₅ n) (S₅ n)
+≈-refl : ∀ {n} → n ≈ n
+≈-refl {n} = S₁ (S₅ n) (S₅ n)
 
-≐-sym : ∀ {m n} → m ≐ n → n ≐ m
-≐-sym h = S₁ h ≐-refl
+≈-sym : ∀ {m n} → m ≈ n → n ≈ m
+≈-sym h = S₁ h ≈-refl
 
-≐-trans : ∀ {m n o} → m ≐ n → n ≐ o → m ≐ o
-≐-trans h = S₁ (≐-sym h)
+≈-trans : ∀ {m n o} → m ≈ n → n ≈ o → m ≈ o
+≈-trans h = S₁ (≈-sym h)

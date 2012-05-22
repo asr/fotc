@@ -151,11 +151,11 @@ postulate
        ≡⟨ x&&false≡false Bb₁ ⟩
     false ∎
 
-x≢not-x : ∀ {b} → Bool b → ¬ (b ≡ not b)
+x≢not-x : ∀ {b} → Bool b → b ≢ not b
 x≢not-x tB h = true≢false (trans h not-t)
 x≢not-x fB h = true≢false (sym (trans h not-f))
 
-not-x≢x : ∀ {b} → Bool b → ¬ (not b ≡ b)
+not-x≢x : ∀ {b} → Bool b → not b ≢ b
 not-x≢x Bb h = x≢not-x Bb (sym h)
 
 not² : ∀ {b} → Bool b → not (not b) ≡ b

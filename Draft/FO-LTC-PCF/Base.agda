@@ -120,7 +120,7 @@ postulate
 -- Discrimination rules
 
 postulate
-  true≢false : ¬ (true ≡ false)
---  0≢S        : ∀ {d} → ¬ (zero ≡ succ · d)
-  0≢S        : ∀ {d} → ¬ (zero ≡ succ₁ d)
+  true≢false : true ≢ false
+--  0≢S        : ∀ {d} → zero ≢ succ · d
+  0≢S        : ∀ {d} → zero ≢ succ₁ d
 {-# ATP axiom true≢false 0≢S #-}

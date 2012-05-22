@@ -33,11 +33,11 @@ postulate pem : ∀ {A} → A ∨ ¬ A
 ------------------------------------------------------------------------------
 
 -- Intuitionistic proof.
-proof₁ : ∃[ x ] ¬ (x ≡ succ x)
+proof₁ : ∃[ x ] x ≢ succ x
 proof₁ = succ zero , x≢Sx
 
 -- Non-intuitionistic proof.
-proof₂ : ∃[ x ] ¬ (x ≡ succ x)
+proof₂ : ∃[ x ] x ≢ succ x
 proof₂ = ¬-elim (λ h → x≢Sx {succ zero} (¬∃¬→∀ h))
 
 -- We can extract a canonical term from an intuitionistic proof.

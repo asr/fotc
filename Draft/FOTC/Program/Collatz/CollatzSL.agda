@@ -6,7 +6,7 @@
 {-# OPTIONS --without-K #-}
 
 -- Tested with the development version of the standard library on
--- 19 March 2012.
+-- 22 May 2012.
 
 module Draft.FOTC.Program.Collatz.CollatzSL where
 
@@ -42,12 +42,12 @@ xy≡0→x≡0∨y≡0 zero n h = inj₁ refl
 xy≡0→x≡0∨y≡0 (succ m) zero h = inj₂ refl
 xy≡0→x≡0∨y≡0 (succ m) (succ n) ()
 
-+∸2 : ∀ {n} → ¬ (n ≡ zero) → ¬ (n ≡ 1) → n ≡ succ (succ (n ∸ 2))
++∸2 : ∀ {n} → n ≢ zero → n ≢ 1 → n ≡ succ (succ (n ∸ 2))
 +∸2 {zero} 0≢0 _ = ⊥-elim (0≢0 refl)
 +∸2 {succ zero} _ 1≢1 = ⊥-elim (1≢1 refl)
 +∸2 {succ (succ n)} _ _ = refl
 
-2^x≢0 : (n : ℕ) → ¬ (2 ^ n ≡ zero)
+2^x≢0 : (n : ℕ) → 2 ^ n ≢ zero
 2^x≢0 zero ()
 2^x≢0 (succ n) h = [ (λ ())
                    , (λ 2^n≡0 → ⊥-elim (2^x≢0 n 2^n≡0))

@@ -60,7 +60,7 @@ Sx≡2^0→x≡0 zN         _       = refl
 Sx≡2^0→x≡0(sN {n} Nn) SSn≡2^0 =
   ⊥-elim (0≢S (sym (succInjective (trans SSn≡2^0 (^-0 two)))))
 
-+∸2 : ∀ {n} → N n → ¬ (n ≡ zero) → ¬ (n ≡ one) → n ≡ succ₁ (succ₁ (n ∸ two))
++∸2 : ∀ {n} → N n → n ≢ zero → n ≢ one → n ≡ succ₁ (succ₁ (n ∸ two))
 +∸2 zN               n≢0 n≢1 = ⊥-elim (n≢0 refl)
 +∸2 (sN zN)          n≢0 n≢1 = ⊥-elim (n≢1 refl)
 +∸2 (sN (sN {n} Nn)) n≢0 n≢1 = sym prf
@@ -74,7 +74,7 @@ Sx≡2^0→x≡0(sN {n} Nn) SSn≡2^0 =
           ≡⟨ cong succ₁ (cong succ₁ (∸-x0 n)) ⟩
         succ₁ (succ₁ n) ∎
 
-2^x≢0 : ∀ {n} → N n → ¬ (two ^ n ≡ zero)
+2^x≢0 : ∀ {n} → N n → two ^ n ≢ zero
 2^x≢0 zN          h = ⊥-elim (0≢S (trans (sym h) (^-0 two)))
 2^x≢0 (sN {n} Nn) h =
   [ (λ 2≡0 → ⊥-elim (0≢S (sym 2≡0)))
@@ -84,7 +84,7 @@ Sx≡2^0→x≡0(sN {n} Nn) SSn≡2^0 =
 
 postulate
   -- See the combined proof.
-  2^[x+1]≢1 : ∀ {n} → N n → ¬ (two ^ (succ₁ n) ≡ one)
+  2^[x+1]≢1 : ∀ {n} → N n → two ^ (succ₁ n) ≢ one
 
 Sx-Even→x-Odd : ∀ {n} → N n → Even (succ₁ n) → Odd n
 Sx-Even→x-Odd zN          h = ⊥-elim (true≢false

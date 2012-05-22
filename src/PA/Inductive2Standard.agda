@@ -34,7 +34,7 @@ open import PA.Inductive.Base
 
 ------------------------------------------------------------------------------
 
-PA₁ : ∀ {n} → ¬ (zero ≡ succ n)
+PA₁ : ∀ {n} → zero ≢ succ n
 PA₁ ()
 
 PA₂ : ∀ {m n} → succ m ≡ succ n → m ≡ n

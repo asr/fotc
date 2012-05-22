@@ -20,7 +20,7 @@ open import Draft.FO-LTC-PCF.Base
 
 ------------------------------------------------------------------------------
 
-S≢0 : ∀ {n} → ¬ (succ₁ n ≡ zero)
+S≢0 : ∀ {n} → succ₁ n ≢ zero
 S≢0 S≡0 = 0≢S (sym S≡0)
 
 -- We added Common.Relation.Binary.PropositionalEquality.cong, so this

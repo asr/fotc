@@ -46,7 +46,7 @@ postulate
 --   Arithmetic. Springer, 1998. 2nd printing.
 
 postulate
-  PA₁ : ∀ {n} → ¬ (zero ≡ succ n)
+  PA₁ : ∀ {n} → zero ≢ succ n
   PA₂ : ∀ {m n} → succ m ≡ succ n → m ≡ n
   PA₃ : ∀ n → zero + n ≡ n
   PA₄ : ∀ m n → succ m + n ≡ succ (m + n)

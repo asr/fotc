@@ -18,7 +18,7 @@ module PA.Axiomatic.Mendelson.Base where
 -- We add 3 to the fixities of the standard library.
 infixl 10 _*_
 infixl 9  _+_
-infix  7  _≐_
+infix  7  _≈_ _≉_
 
 ------------------------------------------------------------------------------
 -- FOL (without equality)
@@ -37,7 +37,12 @@ postulate
 -- The PA equality.
 -- N.B. The symbol _≡_ should not be used because it is hard-coded by
 -- the program agda2atp as the ATPs equality.
-postulate _≐_ : M → M → Set
+postulate _≈_ : M → M → Set
+
+-- Inequality.
+_≉_ : M → M → Set
+x ≉ y = ¬ x ≈ y
+{-# ATP definition _≉_ #-}
 
 -- Proper axioms
 
@@ -52,14 +57,14 @@ postulate _≐_ : M → M → Set
 -- S₉. P(0) → (∀n.P(n) → P(succ n)) → ∀n.P(n), for any wff P(n) of PA.
 
 postulate
-  S₁ : ∀ {m n o} → m ≐ n → m ≐ o → n ≐ o
-  S₂ : ∀ {m n} → m ≐ n → succ m ≐ succ n
-  S₃ : ∀ {n} → ¬ (zero ≐ succ n)
-  S₄ : ∀ {m n} → succ m ≐ succ n → m ≐ n
-  S₅ : ∀ n → zero + n ≐ n
-  S₆ : ∀ m n → succ m + n ≐ succ (m + n)
-  S₇ : ∀ n → zero * n ≐ zero
-  S₈ : ∀ m n → succ m * n ≐ n + m * n
+  S₁ : ∀ {m n o} → m ≈ n → m ≈ o → n ≈ o
+  S₂ : ∀ {m n} → m ≈ n → succ m ≈ succ n
+  S₃ : ∀ {n} → zero ≉ succ n
+  S₄ : ∀ {m n} → succ m ≈ succ n → m ≈ n
+  S₅ : ∀ n → zero + n ≈ n
+  S₆ : ∀ m n → succ m + n ≈ succ (m + n)
+  S₇ : ∀ n → zero * n ≈ zero
+  S₈ : ∀ m n → succ m * n ≈ n + m * n
 {-# ATP axiom S₁ S₂ S₃ S₄ S₅ S₆ S₇ S₈ #-}
 
 -- S₉ is an axiom schema, therefore we do not translate it to TPTP.

@@ -12,9 +12,9 @@ module PA.Axiomatic.Mendelson.Relation.Binary.EqReasoning where
 
 open import PA.Axiomatic.Mendelson.Base
 open import PA.Axiomatic.Mendelson.Relation.Binary.PropositionalEqualityI
-  using ( ≐-refl ; ≐-trans)
+  using ( ≈-refl ; ≈-trans)
 
 import Common.Relation.Binary.PreorderReasoning
-open module ≐-Reasoning =
-  Common.Relation.Binary.PreorderReasoning _≐_ ≐-refl ≐-trans public
-    renaming ( _∼⟨_⟩_ to _≐⟨_⟩_ )
+open module ≈-Reasoning =
+  Common.Relation.Binary.PreorderReasoning _≈_ ≈-refl ≈-trans public
+    renaming ( _∼⟨_⟩_ to _≈⟨_⟩_ )

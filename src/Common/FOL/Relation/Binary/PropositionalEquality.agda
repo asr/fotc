@@ -9,15 +9,20 @@
 
 module Common.FOL.Relation.Binary.PropositionalEquality where
 
-open import Common.FOL.FOL using ( D )
+open import Common.FOL.FOL using ( ¬_ ; D )
 
 -- We add 3 to the fixities of the standard library.
-infix 7 _≡_
+infix 7 _≡_ _≢_
 
 ------------------------------------------------------------------------------
 -- The identity type on the universe of discourse.
 data _≡_ (x : D) : D → Set where
   refl : x ≡ x
+
+-- Inequality.
+_≢_ : D → D → Set
+x ≢ y = ¬ x ≡ y
+{-# ATP definition _≢_ #-}
 
 -- Identity properties
 

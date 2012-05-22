@@ -27,10 +27,10 @@ P₃ : ∀ {m n} → succ m ≡ succ n → m ≡ n
 P₃ refl = refl
 
 -- Peano's fourth axiom.
-P₄ : ∀ {n} → ¬ (zero ≡ succ n)
+P₄ : ∀ {n} → zero ≢ succ n
 P₄ ()
 
-x≢Sx : ∀ {n} → ¬ (n ≡ succ n)
+x≢Sx : ∀ {n} → n ≢ succ n
 x≢Sx {zero} ()
 x≢Sx {succ n} h = x≢Sx (P₃ h)
 

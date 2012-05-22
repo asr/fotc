@@ -38,7 +38,7 @@ postulate
                  await b i is (ok b₀ ∷ ds) ≡ send · not b · is · ds
 
   await-ok≢    : ∀ b b₀ i is ds →
-                 ¬ (b ≡ b₀) →
+                 b ≢ b₀ →
                  await b i is (ok b₀ ∷ ds) ≡ < i , b > ∷ await b i is ds
 
   await-error  : ∀ b i is ds →
@@ -51,7 +51,7 @@ postulate
               ack · b · (ok < i , b₀ > ∷ bs) ≡ b ∷ ack · not b · bs
 
   ack-ok≢   : ∀ b b₀ i bs →
-              ¬ (b ≡ b₀) →
+              b ≢ b₀ →
               ack · b · (ok < i , b₀ > ∷ bs) ≡ not b ∷ ack · b · bs
 
   ack-error : ∀ b bs → ack · b · (error ∷ bs) ≡ not b ∷ ack · b · bs
@@ -63,7 +63,7 @@ postulate
               out · b · (ok < i , b₀ > ∷ bs) ≡ i ∷ out · not b · bs
 
   out-ok≢   : ∀ b b₀ i bs →
-              ¬ (b ≡ b₀) →
+              b ≢ b₀ →
               out · b · (ok < i , b₀ > ∷ bs) ≡ out · b · bs
 
   out-error : ∀ b bs → out · b · (error ∷ bs) ≡ out · b · bs
