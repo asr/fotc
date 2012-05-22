@@ -14,7 +14,5 @@ module Common.FOL.FOL-Eq where
 -- FOL (without equality).
 open import Common.FOL.FOL public
 
--- The propositional equality.
-import Common.FOL.Relation.Binary.PropositionalEquality
-open module Eq =
-  Common.FOL.Relation.Binary.PropositionalEquality.Inductive public
+-- Propositional equality.
+open import Common.FOL.Relation.Binary.PropositionalEquality public
