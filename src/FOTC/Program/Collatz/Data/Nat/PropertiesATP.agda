@@ -69,7 +69,7 @@ Sx≡2^0→x≡0(sN {n} Nn) SSn≡2^0 = ⊥-elim prf
                   ⊥
   {-# ATP prove prf xy≡0→x≡0∨y≡0 ^-N #-}
 
--- ToDo.
+-- TODO.
 postulate 2^[x+1]≢1 : ∀ {n} → N n → ¬ (two ^ (succ₁ n) ≡ one)
 
 Sx-Even→x-Odd : ∀ {n} → N n → Even (succ₁ n) → Odd n
