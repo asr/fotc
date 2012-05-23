@@ -75,6 +75,7 @@ executable agda2atp
   extensions: CPP
 
   if impl(ghc == 6.12.3)
+     -- Only warnings.
      ghc-options: -Wall
                   -fwarn-incomplete-record-updates
                   -fwarn-monomorphism-restriction
@@ -83,6 +84,7 @@ executable agda2atp
                   -Werror
 
   if impl(ghc == 7.0.1) || impl(ghc == 7.0.2) || impl(ghc == 7.0.3) || impl(ghc == 7.0.4)
+     -- Only warnings.
      ghc-options: -Wall
                   -- The Cabal-generated module Paths_Agda triggers a
                   -- warning under GHC 7.0.* (cabal-install version
@@ -102,6 +104,7 @@ executable agda2atp
                   -Werror
 
   if impl(ghc == 7.2.1) || impl(ghc == 7.2.2)
+     -- Only warnings.
      ghc-options: -Wall
                   -fwarn-auto-orphans
                   -fwarn-identities
@@ -118,6 +121,7 @@ executable agda2atp
                   -Werror
 
   if impl(ghc == 7.4.1)
+     -- Only warnings.
      ghc-options: -Wall
                   -fwarn-auto-orphans
                   -fwarn-identities

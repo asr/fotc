@@ -207,12 +207,9 @@ termToFormula term@(Def qName@(QName _ name) args) = do
           | isCNameFOLConst folFalse → return FALSE
 
           | otherwise → do
-            -- In this guard we translate 0-ary predicates
+            -- In this guard we translate 0-ary predicates,
             --
-            -- e.g. @P : D → Set@.
-
-            -- N.B. At the moment we *dont'* use the Koen's approach in this
-            -- case.
+            -- e.g.  @P : Set@.
             folName ← qName2String qName
             return $ Predicate folName []
 
@@ -392,7 +389,7 @@ termToFormula term@(Pi domTy (Abs _ tyAbs)) = do
     --
     -- The bounded variable is quantified on a @Set₁@,
     --
-    -- e.g. the bounded variable is @P : D → Set@.
+    -- e.g. the bounded variable is @P : D → D → Set@.
     --
     -- In this case we return a forall bind on the fresh variable. We
     -- use this case for translate predicate logic schemas, e.g.
