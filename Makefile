@@ -19,6 +19,7 @@ succeed_path_NonFOL = $(succeed_path)/NonFOL
 fail_path_FOL = Test/Fail
 
 snapshot_dir = snapshot
+output_dir = /tmp/agda2atp
 
 succeed_files = $(patsubst %.agda,%.succeed, \
 	$(shell find $(succeed_path) -name "*.agda" | sort))
@@ -46,20 +47,21 @@ snapshot_files_to_test = $(patsubst %.agda,%.snapshottest, \
 
 %.succeed_FOL : %.agdai
 	echo "Processing file $*.agda"
-	@$(AGDA2ATP) --time=60 $*.agda
+	@$(AGDA2ATP) --output-dir=$(output_dir) --time=60 $*.agda
 
 %.succeed_NonFOL : %.agdai
 	echo "Processing file $*.agda"
-	@$(AGDA2ATP) --time=60 --non-fol $*.agda
+	@$(AGDA2ATP) --output-dir=$(output_dir) --time=60 --non-fol $*.agda
 
 %.fail_FOL : %.agdai
 	echo "Processing file $*.agda"
-	@if ( $(AGDA2ATP) --time=5 $*.agda ); then exit 1; fi
+	@if ( $(AGDA2ATP) --output-dir=$(output_dir) --time=5 $*.agda ); then exit 1; fi
 
 # Equinox has the better parser for TPTP files, so we use it to find problems.
 %.parsing : %.agdai
 	@echo "Parsing file" $*.agda
-	@$(AGDA2ATP) --time=1 \
+	@$(AGDA2ATP) --output-dir=$(output_dir) \
+                     --time=1 \
                      --atp=equinox \
                      --non-fol \
                      $*.agda \
@@ -93,7 +95,7 @@ parsing  : $(parsing_files)
 snapshot : $(snapshot_files_to_test)
 	@echo "The $@ test succeeded!"
 
-test :
+test : clean
 	@echo "======================================================================"
 	@echo "== Suite of parsing tests ============================================"
 	@echo "======================================================================"
@@ -132,9 +134,8 @@ TODO :
 	| xargs grep TODO | sort
 
 clean :
-	cabal clean
 	find -name '*.agdai' | xargs rm -f
-	rm -f /tmp/*.tptp
+	rm -f -r $(output_dir)
 	rm -f TAGS
 
 snapshot_clean :
