@@ -91,7 +91,7 @@ data ATP = E
          | Metis
          | SPASS
          | Vampire
-           deriving (Eq, Show)
+           deriving Show
 
 atpExec ∷ ATP → T String
 atpExec E        = return "eprover"
