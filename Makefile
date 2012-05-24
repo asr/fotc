@@ -18,8 +18,9 @@ succeed_path_NonFOL = $(succeed_path)/NonFOL
 # 2012-04-29: We don't have fail tests in NonFOL
 fail_path_FOL = Test/Fail
 
+hpc_html_dir = hpc
+output_dir   = /tmp/agda2atp
 snapshot_dir = snapshot
-output_dir = /tmp/agda2atp
 
 succeed_files = $(patsubst %.agda,%.succeed, \
 	$(shell find $(succeed_path) -name "*.agda" | sort))
@@ -85,7 +86,13 @@ snapshot_files_to_test = $(patsubst %.agda,%.snapshottest, \
 # Snapshot of the succeed TPTP files.
 create_snapshot : $(snapshot_files_to_create)
 
-# The tests
+# Haskell program coverage.
+.PHONY : hpc
+hpc : hpc_clean $(succeed_files_FOL) $(succeed_files_NonFOL) $(fail_files_FOL)
+	hpc markup --destdir=$(hpc_html_dir) agda2atp
+	hpc report --decl-list agda2atp
+
+# The tests.
 succeed  : $(succeed_files_FOL) $(succeed_files_NonFOL)
 	@echo "The $@ test succeeded!"
 fail     : $(fail_files_FOL)
@@ -137,8 +144,10 @@ clean :
 	find -name '*.agdai' | xargs rm -f
 	rm -f -r $(output_dir)
 	rm -f TAGS
-	rm -f -r .hpc/
-	rm -f *.tix
 
 snapshot_clean :
 	rm -r -f $(snapshot_dir)
+
+hpc_clean :
+	rm -f *.tix
+	rm -f -r $(hpc_html_dir)
