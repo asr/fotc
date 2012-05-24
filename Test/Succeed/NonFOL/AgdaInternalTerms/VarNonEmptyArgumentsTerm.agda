@@ -7,7 +7,7 @@
 
 -- Requires option @--non-fol-function@.
 
-module Test.Succeed.NonFOL.AgdaInternalTerms.VarNonEmptyArguments where
+module Test.Succeed.NonFOL.AgdaInternalTerms.VarNonEmptyArgumentsTerm where
 
 postulate
   D   : Set

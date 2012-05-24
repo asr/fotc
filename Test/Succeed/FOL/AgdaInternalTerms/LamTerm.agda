@@ -7,7 +7,7 @@
 
 -- The following conjecture uses the internal Agda term @Lam@.
 
-module Test.Succeed.FOL.AgdaInternalTerms.Lam where
+module Test.Succeed.FOL.AgdaInternalTerms.LamTerm where
 
 postulate
   D : Set
