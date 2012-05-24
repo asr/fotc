@@ -18,7 +18,6 @@
 module AgdaLib.Interface
   ( getATPAxioms
   , getATPConjectures
-  , getATPDefinitions
   , getATPHints
   , getClauses
   , getImportedInterfaces
@@ -157,8 +156,8 @@ getATPAxioms = getATPRole ATPAxiom
 getATPConjectures ∷ Definitions → Definitions
 getATPConjectures = getATPRole ATPConjecture
 
-getATPDefinitions ∷ Definitions → Definitions
-getATPDefinitions = getATPRole ATPDefinition
+-- getATPDefinitions ∷ Definitions → Definitions
+-- getATPDefinitions = getATPRole ATPDefinition
 
 getATPHints ∷ Definitions → Definitions
 getATPHints = getATPRole ATPHint
