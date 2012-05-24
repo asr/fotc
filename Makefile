@@ -137,6 +137,8 @@ clean :
 	find -name '*.agdai' | xargs rm -f
 	rm -f -r $(output_dir)
 	rm -f TAGS
+	rm -f -r .hpc/
+	rm -f *.tix
 
 snapshot_clean :
 	rm -r -f $(snapshot_dir)
