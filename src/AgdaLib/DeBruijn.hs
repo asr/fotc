@@ -441,8 +441,8 @@ instance DropVar Term where
   dropVar (Sort _)            _ = __IMPOSSIBLE__
   dropVar (Var _ _)           _ = __IMPOSSIBLE__
 
-instance DropVar (Arg Type) where
-  dropVar (Arg h r ty) x = fmap (Arg h r) (dropVar ty x)
+-- instance DropVar (Arg Type) where
+--   dropVar (Arg h r ty) x = fmap (Arg h r) (dropVar ty x)
 
 instance DropVar (Dom Type) where
   dropVar (Dom h r ty) x = fmap (Dom h r) (dropVar ty x)
