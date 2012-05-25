@@ -36,7 +36,6 @@ import Data.String ( String )
 
 import Data.Char     ( Char, chr, isAsciiUpper, isAsciiLower, isDigit, ord )
 import Data.Bool     ( (||), Bool(True), otherwise )
-import Data.Eq       ( Eq((==)) )
 import Data.Function ( ($) )
 import Data.Functor  ( (<$>) )
 import Data.List     ( (++), concatMap, elem )
@@ -60,9 +59,7 @@ import Agda.Syntax.Abstract.Name
   , QName(qnameName)
   )
 
-import Agda.Syntax.Common
-    ( ATPRole(ATPAxiom, ATPConjecture, ATPDefinition, ATPHint) )
-
+import Agda.Syntax.Common    ( ATPRole )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 ------------------------------------------------------------------------------
@@ -139,22 +136,19 @@ agdaOriginalTerm qName role =
   ++ "% Role:\t\t" ++ showLn role
   ++ "% Position:\t" ++ showLn (nameBindingSite $ qnameName qName)
 
-addRole ∷ AF → ATPRole → FilePath → IO ()
-addRole af@(MkAF qName afRole _) role file =
-  if afRole == role
-  then do
-    appendFile file $ agdaOriginalTerm qName role
-    appendFile file $ prettyTPTP af
-  else __IMPOSSIBLE__
+addRole ∷ AF → FilePath → IO ()
+addRole af@(MkAF qName afRole _) file = do
+  appendFile file $ agdaOriginalTerm qName afRole
+  appendFile file $ prettyTPTP af
 
-addRoles ∷ [AF] → ATPRole → FilePath → String → IO ()
-addRoles afs role file str = do
+addRoles ∷ [AF] → FilePath → String → IO ()
+addRoles afs file str = do
   let header, footer ∷ String
       header = commentLine ++ "% The " ++ str ++ ".\n\n"
       footer = "% End " ++ str ++ ".\n\n"
 
   _  ← appendFile file header
-  _  ← mapM_ (\af → addRole af role file) afs
+  _  ← mapM_ (`addRole` file) afs
   _  ← appendFile file footer
   return ()
 
@@ -205,19 +199,19 @@ createConjectureFile generalRoles conjectureSet = do
   liftIO $ do
     conjectureH ← conjectureHeader
     writeFile file conjectureH
-    addRoles commonDefs ATPDefinition file "common required definitions"
-    addRoles (axioms newGeneralRoles) ATPAxiom file "general axioms"
-    addRoles (defsAxioms newGeneralRoles) ATPDefinition file
+    addRoles commonDefs file "common required definitions"
+    addRoles (axioms newGeneralRoles) file "general axioms"
+    addRoles (defsAxioms newGeneralRoles) file
              "required ATP definitions by the general axioms"
-    addRoles (hints newGeneralRoles) ATPHint file "general hints"
-    addRoles (defsHints newGeneralRoles) ATPDefinition file
+    addRoles (hints newGeneralRoles) file "general hints"
+    addRoles (defsHints newGeneralRoles) file
              "required ATP definitions by the general hints"
-    addRoles (localHintsConjecture  newConjectureSet) ATPHint file "local hints"
-    addRoles (defsLocalHints newConjectureSet) ATPDefinition file
+    addRoles (localHintsConjecture  newConjectureSet) file "local hints"
+    addRoles (defsLocalHints newConjectureSet) file
              "required ATP definitions by the local hints"
-    addRoles (defsConjecture newConjectureSet) ATPDefinition file
+    addRoles (defsConjecture newConjectureSet) file
              "required ATP definitions by the conjecture"
-    addRoles [theConjecture newConjectureSet] ATPConjecture file "conjecture"
+    addRoles [theConjecture newConjectureSet] file "conjecture"
     appendFile file conjectureFooter
     return ()
 
