@@ -55,7 +55,7 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
                    OrdTree (toTree · item · node t₁ i t₂)
   {-# ATP prove prf₁ ≤-ItemTree-Bool ≤-TreeItem-Bool ordTree-Bool
                      x>y→x≰y &&₃-proj₃ &&₃-proj₄
-                     ordTree-Bool toTree-OrdTree-helper₁
+                     toTree-OrdTree-helper₁
   #-}
 
   postulate prf₂ : ordTree (toTree · item · t₂) ≡ true → -- IH.
