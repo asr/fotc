@@ -46,10 +46,10 @@ folFalse   = "⊥"
 folNot     = "¬"
 folAnd     = "∧"
 folOr      = "∨"
-folImplies = "⇒"  -- The Agda functional space can be used instead.
+folImplies = "⇒"  -- The non-dependent function space @→@ can be used instead.
 folEquiv   = "↔"
 
 folExists, folForAll, folEquals ∷ String
 folExists = "∃"
-folForAll = "⋀"  -- The Agda dependent functional space can be used instead.
+folForAll = "⋀"  -- The dependent function space @∀ x → A@ can be used instead.
 folEquals = "≡"
