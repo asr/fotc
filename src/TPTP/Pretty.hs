@@ -117,12 +117,23 @@ toLowerFirstSymbol ∷ TPTP → TPTP
 toLowerFirstSymbol name = toCaseFirstSymbol (prettyTPTP name) toLower
 
 ------------------------------------------------------------------------------
--- Pretty-printer for Haskell types
+-- Pretty-printer for Agda/Haskell types
 
 instance PrettyTPTP Char where
   prettyTPTP c
-    | c == '.'                                      = ""
-    | c == '_'                                      = [c]
+    -- From Agda wiki: A name part is a string of printable characters
+    -- not containing any of the following characters: _;.’”(){}@.
+    | c == ';'  = __IMPOSSIBLE__
+    | c == '\'' = __IMPOSSIBLE__
+    | c == '"'  = __IMPOSSIBLE__
+    | c == '('  = __IMPOSSIBLE__
+    | c == ')'  = __IMPOSSIBLE__
+    | c == '{'  = __IMPOSSIBLE__
+    | c == '}'  = __IMPOSSIBLE__
+    | c == '@'  = __IMPOSSIBLE__
+    -- We use the character @_@ to separate the Agda NameId (see
+    -- below).
+    | c == '_' = [c]
     -- The character is a subscript number (i.e. ₀, ₁, ...).
     | ord c `elem` [8320 .. 8329]                   = [chr (ord c - 8272)]
     | isDigit c || isAsciiUpper c || isAsciiLower c = [c]
