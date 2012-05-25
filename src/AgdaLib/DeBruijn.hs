@@ -41,6 +41,8 @@ import Control.Monad ( liftM2, Monad(return), when )
 
 import Control.Monad.Error ( MonadError(throwError) )
 
+import Data.Bool ( otherwise )
+
 #if __GLASGOW_HASKELL__ < 702
 import Data.Char ( String )
 #else
@@ -228,16 +230,15 @@ instance ChangeIndex Term where
 
   -- When the variable is part of an argument, it was processed in the
   -- Args instance.
-  changeIndex term@(Var n []) index
-    -- The variable was before than the quantified variable, we don't
-    -- do nothing.
-    | n < index = term
-
+  changeIndex (Var n []) index
     -- The variable was after than the quantified variable, we need
     -- "unbound" the quantified variable.
     | n > index = var (n - 1)
 
-    | n == index = __IMPOSSIBLE__
+    -- In the case @n < index@ the variable was before than the
+    -- quantified variable, therefore we shouldn't do nothing, i.e. we
+    -- should return the term.
+    | otherwise = __IMPOSSIBLE__
 
   changeIndex (Con _ _)           _ = __IMPOSSIBLE__
   changeIndex (DontCare _)        _ = __IMPOSSIBLE__
