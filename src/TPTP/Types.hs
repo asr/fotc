@@ -108,8 +108,10 @@ dropCommonRequiredDefs generalRoles conjectureSet =
                     }
     )
   where
-  commonDefs, w, x, y, z ∷ [AF]
+  commonDefs ∷ [AF]
   commonDefs = commonRequiredDefs generalRoles conjectureSet
+
+  w, x, y, z ∷ [AF]
   w          = defsAxioms     generalRoles  \\ commonDefs
   x          = defsHints      generalRoles  \\ commonDefs
   y          = defsLocalHints conjectureSet \\ commonDefs
