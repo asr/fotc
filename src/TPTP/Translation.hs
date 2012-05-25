@@ -31,10 +31,12 @@ import Control.Monad
   , liftM2
   , liftM4
   , mapM
-  , Monad((>>=))
-  , return
+  , Monad((>>=), return)
+  , unless
   , zipWithM
   )
+
+import Control.Monad.Error ( MonadError(throwError) )
 
 import Data.Eq       ( Eq((==)) )
 import Data.Function ( ($), (.) )
@@ -101,6 +103,7 @@ import TPTP.Types
   , GeneralRoles(MkGeneralRoles)
   )
 
+import Utils.List ( nonDuplicate )
 import Utils.Show ( showListLn, showLn )
 
 #include "../undefined.h"
@@ -176,6 +179,12 @@ localHintsToAFs ∷ Definition → T [AF]
 localHintsToAFs def = do
   let hints ∷ [QName]
       hints = getLocalHints def
+
+  -- TODO: 24 May 2012. To move this validation to Agda.
+  unless (nonDuplicate hints) $
+         throwError $ "Duplicate local hints in conjecture "
+                      ++ show (defName def)
+
   reportSLn "hintsToFOLs" 20 $
     "The local hints for the conjecture " ++ show (defName def)
     ++ " are:\n" ++ show hints

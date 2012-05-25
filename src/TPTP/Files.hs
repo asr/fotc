@@ -77,14 +77,14 @@ import TPTP.Pretty       ( PrettyTPTP(prettyTPTP) )
 import TPTP.Types
   ( AF(MkAF)
   , allRequiredDefs
-  , ConjectureSet(conjectureDefs
-                 , conjectureLocalHints
-                 , localHintsDefs
+  , ConjectureSet(defsConjecture
+                 , defsLocalHints
+                 , localHintsConjecture
                  , theConjecture
                  )
   , commonRequiredDefs
   , dropCommonRequiredDefs
-  , GeneralRoles(axioms, axiomsDefs, hints, hintsDefs)
+  , GeneralRoles(axioms, defsAxioms, defsHints, hints)
   )
 
 import Utils.List    ( nonDuplicate )
@@ -166,6 +166,15 @@ createConjectureFile generalRoles conjectureSet = do
   -- added the line number where the term was defined to the file
   -- name.
 
+  unless (nonDuplicate (axioms generalRoles))     (__IMPOSSIBLE__)
+  unless (nonDuplicate (defsAxioms generalRoles)) (__IMPOSSIBLE__)
+  unless (nonDuplicate (hints generalRoles))      (__IMPOSSIBLE__)
+  unless (nonDuplicate (defsHints generalRoles))  (__IMPOSSIBLE__)
+
+  unless (nonDuplicate (defsConjecture conjectureSet))       (__IMPOSSIBLE__)
+  unless (nonDuplicate (localHintsConjecture conjectureSet)) (__IMPOSSIBLE__)
+  unless (nonDuplicate (defsLocalHints conjectureSet))       (__IMPOSSIBLE__)
+
   outputDir ← optOutputDir <$> getTOpts
 
   let qName ∷ QName
@@ -198,15 +207,15 @@ createConjectureFile generalRoles conjectureSet = do
     writeFile file conjectureH
     addRoles commonDefs ATPDefinition file "common required definitions"
     addRoles (axioms newGeneralRoles) ATPAxiom file "general axioms"
-    addRoles (axiomsDefs newGeneralRoles) ATPDefinition file
+    addRoles (defsAxioms newGeneralRoles) ATPDefinition file
              "required ATP definitions by the general axioms"
     addRoles (hints newGeneralRoles) ATPHint file "general hints"
-    addRoles (hintsDefs newGeneralRoles) ATPDefinition file
+    addRoles (defsHints newGeneralRoles) ATPDefinition file
              "required ATP definitions by the general hints"
-    addRoles (conjectureLocalHints newConjectureSet) ATPHint file "local hints"
-    addRoles (localHintsDefs newConjectureSet) ATPDefinition file
+    addRoles (localHintsConjecture  newConjectureSet) ATPHint file "local hints"
+    addRoles (defsLocalHints newConjectureSet) ATPDefinition file
              "required ATP definitions by the local hints"
-    addRoles (conjectureDefs newConjectureSet) ATPDefinition file
+    addRoles (defsConjecture newConjectureSet) ATPDefinition file
              "required ATP definitions by the conjecture"
     addRoles [theConjecture newConjectureSet] ATPConjecture file "conjecture"
     appendFile file conjectureFooter

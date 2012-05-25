@@ -17,14 +17,14 @@ module TPTP.Types
   ( AF(MkAF)
   , allRequiredDefs
   , commonRequiredDefs
-  , ConjectureSet(conjectureDefs
-                 , conjectureLocalHints
-                 , localHintsDefs
+  , ConjectureSet(defsConjecture
+                 , defsLocalHints
+                 , localHintsConjecture
                  , MkConjectureSet
                  , theConjecture
                  )
   , dropCommonRequiredDefs
-  , GeneralRoles(axioms, axiomsDefs, hints, hintsDefs, MkGeneralRoles)
+  , GeneralRoles(axioms, defsAxioms, defsHints, hints, MkGeneralRoles)
   ) where
 
 ------------------------------------------------------------------------------
@@ -68,24 +68,24 @@ instance Ord AF where
 
 data GeneralRoles = MkGeneralRoles
   { axioms     ∷ [AF]  -- ^ The axioms.
-  , axiomsDefs ∷ [AF]  -- ^ ATP definitions used by the axioms.
+  , defsAxioms ∷ [AF]  -- ^ ATP definitions used by the axioms.
   , hints      ∷ [AF]  -- ^ The general hints.
-  , hintsDefs  ∷ [AF]  -- ^ ATP definitions used by the general hints.
+  , defsHints  ∷ [AF]  -- ^ ATP definitions used by the general hints.
   }
 
 data ConjectureSet = MkConjectureSet
   { theConjecture        ∷ AF    -- ^ The conjecture.
-  , conjectureDefs       ∷ [AF]  -- ^ ATP definitions used by the conjecture.
-  , conjectureLocalHints ∷ [AF]  -- ^ The conjecture local hints.
-  , localHintsDefs       ∷ [AF]  -- ^ ATP definitions used by the local hints.
+  , defsConjecture       ∷ [AF]  -- ^ ATP definitions used by the conjecture.
+  , localHintsConjecture ∷ [AF]  -- ^ The conjecture local hints.
+  , defsLocalHints       ∷ [AF]  -- ^ ATP definitions used by the local hints.
   }
 
 allRequiredDefs ∷ GeneralRoles → ConjectureSet → [AF]
 allRequiredDefs generalRoles conjectureSet =
-  axiomsDefs generalRoles
-  ++ hintsDefs generalRoles
-  ++ localHintsDefs conjectureSet
-  ++ conjectureDefs conjectureSet
+  defsAxioms generalRoles
+  ++ defsHints generalRoles
+  ++ defsLocalHints conjectureSet
+  ++ defsConjecture conjectureSet
 
 commonRequiredDefs ∷ GeneralRoles → ConjectureSet → [AF]
 commonRequiredDefs generalRoles conjectureSet =
@@ -100,17 +100,17 @@ dropCommonRequiredDefs generalRoles conjectureSet =
   if null commonDefs
   then (generalRoles, conjectureSet)
   else
-    ( generalRoles { axiomsDefs = w
-                   , hintsDefs  = x
+    ( generalRoles { defsAxioms = w
+                   , defsHints  = x
                    }
-    , conjectureSet { localHintsDefs = y
-                    , conjectureDefs = z
+    , conjectureSet { defsLocalHints = y
+                    , defsConjecture = z
                     }
     )
   where
   commonDefs, w, x, y, z ∷ [AF]
   commonDefs = commonRequiredDefs generalRoles conjectureSet
-  w          = axiomsDefs     generalRoles  \\ commonDefs
-  x          = hintsDefs      generalRoles  \\ commonDefs
-  y          = localHintsDefs conjectureSet \\ commonDefs
-  z          = conjectureDefs conjectureSet \\ commonDefs
+  w          = defsAxioms     generalRoles  \\ commonDefs
+  x          = defsHints      generalRoles  \\ commonDefs
+  y          = defsLocalHints conjectureSet \\ commonDefs
+  z          = defsConjecture conjectureSet \\ commonDefs
