@@ -31,12 +31,12 @@ x≥0 (sN {n} Nn) = <-0S $ succ₁ n
 0≯x zN          = <-00
 0≯x (sN {n} Nn) = <-S0 n
 
-x≰x : ∀ {n} → N n → NLT n n
-x≰x zN          = <-00
-x≰x (sN {n} Nn) = trans (<-SS n n) (x≰x Nn)
+x≮x : ∀ {n} → N n → NLT n n
+x≮x zN          = <-00
+x≮x (sN {n} Nn) = trans (<-SS n n) (x≮x Nn)
 
 Sx≰0 : ∀ {n} → N n → NLE (succ₁ n) zero
-Sx≰0 zN          = x≰x (sN zN)
+Sx≰0 zN          = x≮x (sN zN)
 Sx≰0 (sN {n} Nn) = trans (<-SS (succ₁ n) zero) (<-S0 n)
 
 x<Sx : ∀ {n} → N n → LT n (succ₁ n)
@@ -81,7 +81,7 @@ x>y→y<x (sN {m} Nm) (sN {n} Nn) Sm>Sn =
   trans (<-SS n m) (x>y→y<x Nm Nn (trans (sym $ <-SS n m) Sm>Sn))
 
 x≥y→x≮y : ∀ {m n} → N m → N n → GE m n → NLT m n
-x≥y→x≮y zN          zN          _     = x≰x zN
+x≥y→x≮y zN          zN          _     = x≮x zN
 x≥y→x≮y zN          (sN Nn)     0≥Sn  = ⊥-elim $ 0≥S→⊥ Nn 0≥Sn
 x≥y→x≮y (sN {m} Nm) zN          _     = <-S0 m
 x≥y→x≮y (sN {m} Nm) (sN {n} Nn) Sm≥Sn =
