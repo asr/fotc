@@ -89,8 +89,14 @@ create_snapshot : $(snapshot_files_to_create)
 # Haskell program coverage.
 .PHONY : hpc
 hpc : hpc_clean $(succeed_files_FOL) $(succeed_files_NonFOL) $(fail_files_FOL)
-	hpc markup --destdir=$(hpc_html_dir) agda2atp
-	hpc report --decl-list agda2atp
+	hpc markup --exclude=Snapshot \
+                   --exclude=Paths_agda2atp \
+                   --destdir=$(hpc_html_dir) \
+                   agda2atp
+	hpc report --exclude=Snapshot \
+                   --exclude=Paths_agda2atp \
+                   --decl-list \
+                   agda2atp
 
 # The tests.
 succeed  : $(succeed_files_FOL) $(succeed_files_NonFOL)
