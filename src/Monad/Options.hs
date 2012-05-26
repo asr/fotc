@@ -28,7 +28,6 @@ import Data.Char ( String )
 import Data.String ( String )
 #endif
 
-import Data.Bool     ( Bool(True) )
 import Data.Function ( ($), flip, id )
 import Data.List     ( foldl', null, unlines )
 
@@ -46,7 +45,7 @@ import Options
   ( defaultATPs
   , defaultOptions
   , options
-  , Options(optATP, optHelp)
+  , Options(optATP)
   )
 
 -----------------------------------------------------------------------------
@@ -54,7 +53,7 @@ import Options
 processOptions ∷ [String] → T (Options, String)
 processOptions argv =
   case getOpt Permute options argv of
-    ([], [], []) → return (defaultOptions { optHelp = True } , [])
+    ([], [], []) → throwError "Missing input file (try --help)"
 
     (o, files, []) → do
       let opts ∷ Options
