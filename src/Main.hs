@@ -47,7 +47,7 @@ import qualified Data.HashMap.Strict as HashMap ( unions )
 import Data.List  ( (++), map )
 import Data.Tuple ( fst, snd )
 
-import System.Environment ( getArgs )
+import System.Environment ( getArgs, getProgName )
 import System.Exit        ( exitFailure, exitSuccess )
 import System.IO          ( FilePath, hPrint, hPutStrLn, IO, putStrLn, stderr )
 
@@ -147,9 +147,11 @@ runAgda2ATP = do
 -- | Main.
 main ∷ IO ()
 main = do
+  progName ← getProgName
+
   -- Adapted from @Agda.Main.main@.
   r ∷ Either String () ← runT $ runAgda2ATP `catchError` \err →
-    do liftIO $ hPutStrLn stderr $ "Error: " ++ err
+    do liftIO $ hPutStrLn stderr $ progName ++ ": " ++ err
        throwError err
 
   case r of
