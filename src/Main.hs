@@ -44,7 +44,7 @@ import Data.Function ( ($), (.) )
 
 import qualified Data.HashMap.Strict as HashMap ( unions )
 
-import Data.List  ( (++), map )
+import Data.List  ( (++), map, null )
 import Data.Tuple ( fst, snd )
 
 import System.Environment ( getArgs, getProgName )
@@ -129,6 +129,7 @@ runAgda2ATP = do
     (opts, agdaFile)
       | optHelp opts    → liftIO printUsage
       | optVersion opts → liftIO $ progNameVersion >>= putStrLn
+      | null agdaFile   → throwError "Missing input file (try --help)"
       | otherwise       → do
           modify $ \s → s { tOpts = opts }
 

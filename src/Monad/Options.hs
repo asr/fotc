@@ -53,7 +53,7 @@ import Options
 processOptions ∷ [String] → T (Options, String)
 processOptions argv =
   case getOpt Permute options argv of
-    ([], [], []) → throwError "Missing input file (try --help)"
+    ([], [], []) → return (defaultOptions, [])
 
     (o, files, []) → do
       let opts ∷ Options
