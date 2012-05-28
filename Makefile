@@ -4,12 +4,12 @@ haskell_files = $(shell find src/ -name '*.hs')
 
 AGDA     = agda -v 0
 # The defaults ATPs are e, equinox, and vampire.
-AGDA2ATP = agda2atp
-# AGDA2ATP = agda2atp --atp=e
-# AGDA2ATP = agda2atp --atp=equinox
-# AGDA2ATP = agda2atp --atp=metis
-# AGDA2ATP = agda2atp --atp=spass
-# AGDA2ATP = agda2atp --atp=vampire
+AGDA2ATP = agda2atp --output-dir=$(output_dir)
+# AGDA2ATP = agda2atp --atp=e --output-dir=$(output_dir)
+# AGDA2ATP = agda2atp --atp=equinox --output-dir=$(output_dir)
+# AGDA2ATP = agda2atp --atp=metis --output-dir=$(output_dir)
+# AGDA2ATP = agda2atp --atp=spass --output-dir=$(output_dir)
+# AGDA2ATP = agda2atp --atp=vampire --output-dir=$(output_dir)
 
 succeed_path        = Test/Succeed
 succeed_path_FOL    = $(succeed_path)/FOL
@@ -46,27 +46,20 @@ snapshot_files_to_test = $(patsubst %.agda,%.snapshottest, \
 	$(shell find $(succeed_path) -name "*.agda" | sort))
 
 %.agdai : %.agda
-	@$(AGDA) $<
+	$(AGDA) $<
 
 %.succeed_FOL : %.agdai
-	echo "Processing file $*.agda"
-	@$(AGDA2ATP) --output-dir=$(output_dir) --time=60 $*.agda
+	$(AGDA2ATP) --time=60 $*.agda
 
 %.succeed_NonFOL : %.agdai
-	echo "Processing file $*.agda"
-	@$(AGDA2ATP) --output-dir=$(output_dir) --time=60 --non-fol $*.agda
+	$(AGDA2ATP) --time=60 --non-fol $*.agda
 
 %.fail_FOL : %.agdai
-	echo "Processing file $*.agda"
-	@if ( $(AGDA2ATP) --output-dir=$(output_dir) --time=5 $*.agda ); then exit 1; fi
+	if ( $(AGDA2ATP) --time=5 $*.agda ); then exit 1; fi
 
 # We use tptp4X from the TPTP library to parse the TPTP files.
 %.parsing : %.agdai
-	@echo "Parsing file" $*.agda
-	@$(AGDA2ATP) --non-fol \
-	             --only-files \
-	             --output-dir=$(output_dir) \
-		     $*.agda
+	$(AGDA2ATP) --non-fol  --only-files $*.agda
 
 	for file in $(output_dir)/*.tptp; do \
 	  tptp4X $${file}; \
@@ -74,14 +67,10 @@ snapshot_files_to_test = $(patsubst %.agda,%.snapshottest, \
 	rm $(output_dir)/*.tptp
 
 %.snapshotcreate : %.agdai
-	@$(AGDA2ATP) --only-files \
-                     --non-fol \
-                     --output-dir=$(snapshot_dir) $*.agda
+	agda2atp --only-files --non-fol --output-dir=$(snapshot_dir) $*.agda
 
 %.snapshottest : %.agdai
-	@$(AGDA2ATP) --non-fol \
-                     --snapshot-test \
-                     --snapshot-dir=$(snapshot_dir) $*.agda
+	agda2atp --non-fol --snapshot-test --snapshot-dir=$(snapshot_dir) $*.agda
 
 # Snapshot of the succeed TPTP files.
 create_snapshot : $(snapshot_files_to_create)
@@ -112,17 +101,17 @@ test : clean
 	@echo "======================================================================"
 	@echo "== Suite of parsing tests ============================================"
 	@echo "======================================================================"
-	@make parsing
+	make parsing
 
 	@echo "======================================================================"
 	@echo "== Suite of successfull tests ========================================"
 	@echo "======================================================================"
-	@make succeed
+	make succeed
 
 	@echo "======================================================================"
 	@echo "== Suite of failing tests ============================================"
 	@echo "======================================================================"
-	@make fail
+	make fail
 
 	@echo "All tests succeeded!"
 
