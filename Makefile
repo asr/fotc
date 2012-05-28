@@ -35,7 +35,9 @@ fail_files_FOL = $(patsubst %.agda,%.fail_FOL, \
 	$(shell find $(fail_path_FOL) -name "*.agda" | sort))
 
 parsing_files = $(patsubst %.agda,%.parsing, \
-	$(shell find $(succeed_path) -name "*.agda" | sort))
+	$(shell find $(succeed_path) -name "*.agda" | \
+                     xargs grep -l 'ATP prove' | \
+                sort))
 
 snapshot_files_to_create = $(patsubst %.agda,%.snapshotcreate, \
 	$(shell find $(succeed_path) -name "*.agda" | sort))
@@ -58,20 +60,18 @@ snapshot_files_to_test = $(patsubst %.agda,%.snapshottest, \
 	echo "Processing file $*.agda"
 	@if ( $(AGDA2ATP) --output-dir=$(output_dir) --time=5 $*.agda ); then exit 1; fi
 
-# Equinox has the better parser for TPTP files, so we use it to find problems.
+# We use tptp4X from the TPTP library to parse the TPTP files.
 %.parsing : %.agdai
 	@echo "Parsing file" $*.agda
-	@$(AGDA2ATP) --output-dir=$(output_dir) \
-                     --time=1 \
-                     --atp=equinox \
-                     --non-fol \
-                     $*.agda \
-		      >/tmp/xxx.tmp 2>/tmp/parsing.error
+	@$(AGDA2ATP) --non-fol \
+	             --only-files \
+	             --output-dir=$(output_dir) \
+		     $*.agda
 
-	@if [ -s /tmp/parsing.error ]; then \
-		echo "Parsing error in $${file}"; \
-		exit 1; \
-	fi; \
+	for file in $(output_dir)/*.tptp; do \
+	  tptp4X $${file}; \
+	done
+	rm $(output_dir)/*.tptp
 
 %.snapshotcreate : %.agdai
 	@$(AGDA2ATP) --only-files \
