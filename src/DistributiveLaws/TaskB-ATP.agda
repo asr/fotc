@@ -16,4 +16,4 @@ postulate
   prop₂ : ∀ u x y z → (x · y · (z · u)) ·
                       (( x · y · ( z · u)) · (x · z · (y · u))) ≡
                       x · z · (y · u)
--- {-# ATP prove prop₂ #-}
+

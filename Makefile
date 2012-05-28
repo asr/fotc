@@ -9,6 +9,9 @@ endif
 # Snapshot directory
 snapshot_dir = snapshot
 
+# Output directory
+output_dir = /tmp/FOT
+
 ##############################################################################
 # Programs
 
@@ -20,21 +23,16 @@ AGDA_Agsy = agda -v 0 --allow-unsolved-metas \
 
 # N.B. The timeout for the conjectures test should be modify in the
 # conjectures_% target.
-AGDA2ATP = agda2atp -i. -isrc
-# AGDA2ATP = agda2atp -i. -isrc --atp=e
-# AGDA2ATP = agda2atp -i. -isrc --atp=equinox
-# AGDA2ATP = agda2atp -i. -isrc --atp=metis
-# AGDA2ATP = agda2atp -i. -isrc --atp=spass
-# AGDA2ATP = agda2atp -i. -isrc --atp=vampire
+AGDA2ATP = agda2atp -i. -isrc --output-dir=$(output_dir)
+# AGDA2ATP = agda2atp -i. -isrc --atp=e --output-dir=$(output_dir)
+# AGDA2ATP = agda2atp -i. -isrc --atp=equinox --output-dir=$(output_dir)
+# AGDA2ATP = agda2atp -i. -isrc --atp=metis --output-dir=$(output_dir)
+# AGDA2ATP = agda2atp -i. -isrc --atp=spass --output-dir=$(output_dir)
+# AGDA2ATP = agda2atp -i. -isrc --atp=vampire --output-dir=$(output_dir)
 AGDA2ATP_CREATE_SNAPSHOT = agda2atp -i. -isrc --only-files \
                                     --output-dir=$(snapshot_dir)
 AGDA2ATP_SNAPSHOT_TEST = agda2atp -i. -isrc --snapshot-test \
                                   --snapshot-dir=$(snapshot_dir)
-AGDA2ATP_ONLY_CONJECTURES = agda2atp -i. -isrc --only-files
-
-# Equinox has the better parser for TPTP files, so we use it to find problems.
-# See notes/tptp/parsing_error.tptp
-AGDA2ATP_PARSING = agda2atp -i. -isrc --time=1 --atp=equinox
 
 ##############################################################################
 # Paths
@@ -126,9 +124,9 @@ only_conjectures_% :
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
 	    if [ "src/FOL/NonIntuitionistic/TheoremsATP.agda" = $${file} ] || \
                [ "src/FOL/SchemataATP.agda" = $${file} ]; then \
-	       if ! ( $(AGDA2ATP_ONLY_CONJECTURES) --non-fol $${file} ); then exit 1; fi; \
+	       if ! ( $(AGDA2ATP) --only-files --non-fol $${file} ); then exit 1; fi; \
             else \
-	      if ! ( $(AGDA2ATP_ONLY_CONJECTURES) $${file} ); then exit 1; fi; \
+	      if ! ( $(AGDA2ATP) --only-files $${file} ); then exit 1; fi; \
             fi; \
 	done
 
@@ -142,26 +140,23 @@ all_only_conjectures : only_conjectures_DistributiveLaws \
 ##############################################################################
 # Only parsing the conjecture files
 
+# We use tptp4X from the TPTP library to parse the TPTP files. See
+# notes/tptp/parsing_error.tptp
 parsing_% :
 	for file in $(conjectures); do \
+	    echo "Processing file $$file"; \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
-	    if ! ( $(AGDA2ATP_PARSING) --non-fol \
-                                       $${file} \
-                                       >/tmp/xxx.tmp \
-                                       2>/tmp/parsing.error ); then \
-		exit 1; \
-	    fi; \
-	    if [ -s /tmp/parsing.error ]; then \
-		echo "Parsing error in $${file}"; \
-		exit 1; \
-	    fi; \
+	    if ! ( $(AGDA2ATP) --non-fol --only-files $${file} ); then exit 1; fi; \
+	    for tptp_file in $(output_dir)/*.tptp; do \
+              if ! ( tptp4X $${tptp_file} ); then exit 1; fi; \
+	    done; \
+	    rm $(output_dir)/*.tptp; \
 	done
 
 all_parsing : parsing_DistributiveLaws \
 	      parsing_FOL \
 	      parsing_FOTC \
 	      parsing_GroupTheory \
-	      parsing_LTC-PCF \
 	      parsing_PA
 	@echo "The $@ test succeeded!"
 
