@@ -7,7 +7,7 @@
 -- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 -- Stability   : experimental
 --
--- Translation of ATP pragmas to TPTP formulas.
+-- Translation of ATP pragmas to TPTP formulae.
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
@@ -235,7 +235,7 @@ conjectureToAF qName def = liftM4 MkConjectureSet
                                   (requiredATPDefsByLocalHints def)
 
 -- | Translate the ATP conjectures and their local hints in the top
--- level module to TPTP formulas.
+-- level module to TPTP formulae.
 conjecturesToAFs ∷ Definitions → T [ConjectureSet]
 conjecturesToAFs topLevelDefs = do
   let conjecturesDefs ∷ Definitions
@@ -248,7 +248,7 @@ conjecturesToAFs topLevelDefs = do
            (HashMap.keys conjecturesDefs)
            (HashMap.elems conjecturesDefs)
 
--- We translate the ATP axioms to FOL formulas.
+-- We translate the ATP axioms to FOL formulae.
 axiomsToAFs ∷ T [AF]
 axiomsToAFs = do
   axDefs ∷ Definitions ← getATPAxioms <$> getTDefs
@@ -269,7 +269,7 @@ requiredATPDefsByAxioms = do
 
   fmap (nub . concat) (mapM requiredATPDefsByDefinition (HashMap.elems axDefs))
 
--- We translate the ATP general hints to FOL formulas.
+-- We translate the ATP general hints to FOL formulae.
 generalHintsToAFs ∷ T [AF]
 generalHintsToAFs = do
   ghDefs ∷ Definitions ← getATPHints <$> getTDefs
@@ -284,7 +284,7 @@ requiredATPDefsByHints = do
 
 -- | Translate the ATP axioms, the ATP general hints, and the ATP
 -- definitions in the top level module and its imported modules to
--- TPTP formulas.
+-- TPTP formulae.
 generalRolesToAFs ∷ T GeneralRoles
 generalRolesToAFs = liftM4 MkGeneralRoles
                            axiomsToAFs

@@ -54,8 +54,8 @@ import Utils.List ( duplicatesElements, nonDuplicate )
 -- importation, therefore Haddock does not create a link for
 -- 'TPTP.Pretty.PrettyTPTP'.
 
--- | The TPTP annotated formulas.
--- The annotated formulas are not in TPTP syntax. We get this syntax via
+-- | The TPTP annotated formulae.
+-- The annotated formulae are not in TPTP syntax. We get this syntax via
 -- 'TPTP.Pretty.PrettyTPTP'.
 data AF = MkAF QName ATPRole FOLFormula
           deriving Show

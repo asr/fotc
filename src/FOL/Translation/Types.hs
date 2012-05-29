@@ -7,7 +7,7 @@
 -- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 -- Stability   : experimental
 --
--- Translation from Agda internal types to FOL formulas.
+-- Translation from Agda internal types to FOL formulae.
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}

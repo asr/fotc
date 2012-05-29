@@ -7,7 +7,7 @@
 -- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 -- Stability   : experimental
 --
--- Translation of Agda internal functions to FOL formulas.
+-- Translation of Agda internal functions to FOL formulae.
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
@@ -220,7 +220,7 @@ clauseToFormula qName ty (Clause _ _ _ [] cBody) = do
     -- The defined symbol is a predicate.
     El (Type (Max [ClosedLevel 1])) _ →
        -- Because the LHS and the RHS (the body of the clause) are
-       -- formulas, they are related via an equivalence logic.
+       -- formulae, they are related via an equivalence logic.
        liftM2 Equiv (termToFormula lhs) (cBodyToFormula cBody)
 
     -- The defined symbol is a function.

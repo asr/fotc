@@ -7,7 +7,7 @@
 -- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 -- Stability   : experimental
 --
--- Translation of Agda internal syntax entities to FOL formulas.
+-- Translation of Agda internal syntax entities to FOL formulae.
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}

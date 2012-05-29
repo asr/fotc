@@ -7,7 +7,7 @@
 -- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 -- Stability   : experimental
 --
--- FOL names hard-coded in the translation from Agda types to FOL formulas.
+-- FOL names hard-coded in the translation from Agda types to FOL formulae.
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}

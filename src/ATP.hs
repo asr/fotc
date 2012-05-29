@@ -16,7 +16,7 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 module ATP
-  ( ATP(..)  -- Used only for documentation purpose.
+  ( ATP(..)  -- Required to avoid an Haddock warning.
   , callATPs
   ) where
 

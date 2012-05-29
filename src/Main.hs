@@ -133,7 +133,7 @@ runAgda2ATP = do
       | otherwise       → do
           modify $ \s → s { tOpts = opts }
 
-          -- The ATP pragmas are translated to TPTP annotated formulas.
+          -- The ATP pragmas are translated to TPTP annotated formulae.
           allAFs ← translation agdaFile
 
           -- Creation of the TPTP files.
