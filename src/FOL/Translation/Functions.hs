@@ -41,6 +41,8 @@ import Data.List     ( (++), length, null )
 #if __GLASGOW_HASKELL__ == 612
 import GHC.Num ( Num(fromInteger) )
 #endif
+import GHC.Num ( Num((-)) )
+
 import GHC.Real ( fromIntegral )
 
 import Text.Show ( Show(show) )
@@ -48,7 +50,14 @@ import Text.Show ( Show(show) )
 ------------------------------------------------------------------------------
 -- Agda library imports
 
-import Agda.Syntax.Common        ( Dom(Dom) )
+import Agda.Syntax.Common
+  ( Arg(Arg)
+  , Dom(Dom)
+  , Hiding(NotHidden)
+  , Nat
+  , Relevance(Relevant)
+  )
+
 import Agda.Syntax.Abstract.Name ( QName )
 
 import Agda.Syntax.Internal
@@ -62,6 +71,7 @@ import Agda.Syntax.Internal
   , Telescope
   , Term(Def)
   , Type(El)
+  , var
   )
 
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
@@ -71,7 +81,6 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 import AgdaLib.DeBruijn       ( DecIndex(decIndex) )
 import FOL.Primitives         ( equal )
-import FOL.Translation.Common ( varsToArgs )
 
 import FOL.Translation.Internal
   ( cBodyToFormula
@@ -94,6 +103,13 @@ import Monad.Base
 import Monad.Reports ( reportSLn )
 
 #include "../../undefined.h"
+
+------------------------------------------------------------------------------
+-- Auxiliary functions
+
+varsToArgs ∷ Nat → [Arg Term]
+varsToArgs 0 = []
+varsToArgs n = Arg NotHidden Relevant (var (n - 1)) : varsToArgs (n - 1)
 
 ------------------------------------------------------------------------------
 -- In general a definition's function is given by various clauses
