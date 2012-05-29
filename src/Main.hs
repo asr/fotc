@@ -29,7 +29,6 @@ import Control.Monad ( Monad((>>), fail) )
 import Control.Monad ( liftM2, mapM, mapM_, Monad((>>=)), unless, when )
 
 import Control.Monad.Error ( MonadError(catchError, throwError) )
-import Control.Monad.State ( modify )
 import Control.Monad.Trans ( MonadIO(liftIO) )
 
 #if __GLASGOW_HASKELL__ < 702
@@ -75,9 +74,10 @@ import AgdaLib.Interface ( getImportedInterfaces, myReadInterface )
 import ATP               ( callATPs )
 
 import Monad.Base
-  ( runT
+  ( modifyDefs
+  , modifyOpts
+  , runT
   , T
-  , TState(tDefs, tOpts)
   )
 
 import Monad.Options ( processOptions )
@@ -117,7 +117,7 @@ translation agdaFile = do
   reportSLn "translation" 20 $ show allDefs
 
   -- We add @allDefs@ to the state.
-  modify $ \s → s { tDefs = allDefs }
+  modifyDefs allDefs
 
   liftM2 (,) generalRolesToAFs (conjecturesToAFs topLevelDefs)
 
@@ -131,7 +131,7 @@ runAgda2ATP = do
       | optVersion opts → liftIO $ progNameVersion >>= putStrLn
       | null agdaFile   → throwError "Missing input file (try --help)"
       | otherwise       → do
-          modify $ \s → s { tOpts = opts }
+          modifyOpts opts
 
           -- The ATP pragmas are translated to TPTP annotated formulae.
           allAFs ← translation agdaFile

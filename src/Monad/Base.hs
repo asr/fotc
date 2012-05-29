@@ -22,12 +22,14 @@ module Monad.Base
   , getTOpts
   , getTVars
   , isTVarsEmpty
+  , modifyDefs
+  , modifyOpts
   , newTVar
   , popTVar
   , pushTVar
   , runT
   , T
-  , TState(tDefs, tOpts)
+  , TState(..)  -- Required to avoid an Haddock warning.
   ) where
 
 ------------------------------------------------------------------------------
@@ -42,6 +44,7 @@ import Control.Monad.Error ( ErrorT(runErrorT) )
 import Control.Monad.State
   ( evalState
   , evalStateT
+  , modify
   , MonadState(get, put)
   , StateT
   )
@@ -54,7 +57,7 @@ import Data.String ( String )
 
 import Data.Bool     ( Bool )
 import Data.Either   ( Either )
-import Data.Function ( (.) )
+import Data.Function ( ($), (.) )
 import Data.Functor  ( fmap )
 
 import qualified Data.HashMap.Strict as HashMap ( empty )
@@ -127,3 +130,9 @@ getTOpts = fmap tOpts get
 
 getTVars ∷ T [String]
 getTVars = fmap tVars get
+
+modifyDefs ∷ Definitions → T ()
+modifyDefs defs = modify $ \s → s { tDefs = defs }
+
+modifyOpts ∷ Options → T ()
+modifyOpts opts = modify $ \s → s { tOpts = opts }
