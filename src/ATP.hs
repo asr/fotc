@@ -15,7 +15,10 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module ATP ( callATPs ) where
+module ATP
+  ( ATP(..)  -- Used only for documentation purpose.
+  , callATPs
+  ) where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
@@ -233,7 +236,7 @@ atpsAnswer outputMVar atpsPH file n = do
           reportS "" 1 $ atpWithVersion ++ " *did not* prove the conjecture"
           atpsAnswer outputMVar atpsPH file (n + 1)
 
--- | The function 'callATPs' calls the selected 'ATP'(s) on a TPTP conjecture.
+-- | The function 'callATPs' calls the selected 'ATP's on a TPTP conjecture.
 callATPs ∷ FilePath → T ()
 callATPs file = do
   atps ∷ [String] ← optATP <$> getTOpts
