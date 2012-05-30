@@ -71,7 +71,7 @@ appP p ts = Predicate name (p : ts)
 -- The constant @kEqual@ refers to the predefined equality in the
 -- ATPs.
 -- N.B. The name @kEqual@ is ***hard-coded*** in the module
--- TPTP.Pretty.
+-- TPTP.ConcreteSyntax.
 kEqual ∷ String
 kEqual = "kEqual"
 

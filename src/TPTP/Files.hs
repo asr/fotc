@@ -65,11 +65,11 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import AgdaLib.Interface ( qNameLine )
-import Monad.Base        ( getTOpts, T )
-import Monad.Reports     ( reportS, reportSLn )
-import Options           ( Options(optOnlyFiles, optOutputDir) )
-import TPTP.Pretty       ( PrettyTPTP(prettyTPTP) )
+import AgdaLib.Interface   ( qNameLine )
+import Monad.Base          ( getTOpts, T )
+import Monad.Reports       ( reportS, reportSLn )
+import Options             ( Options(optOnlyFiles, optOutputDir) )
+import TPTP.ConcreteSyntax ( ToTPTP(toTPTP) )
 
 import TPTP.Types
   ( AF(MkAF)
@@ -139,7 +139,7 @@ agdaOriginalTerm qName role =
 addRole ∷ AF → FilePath → IO ()
 addRole af@(MkAF qName afRole _) file = do
   appendFile file $ agdaOriginalTerm qName afRole
-  appendFile file $ prettyTPTP af
+  appendFile file $ toTPTP af
 
 addRoles ∷ [AF] → FilePath → String → IO ()
 addRoles afs file str = do

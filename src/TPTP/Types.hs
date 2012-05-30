@@ -50,13 +50,13 @@ import FOL.Types  ( FOLFormula )
 import Utils.List ( duplicatesElements, nonDuplicate )
 
 ------------------------------------------------------------------------------
--- Note: We don't import the module TPTP.Pretty to avoid a circular
+-- Note: We don't import the module TPTP.ConcreteSyntax to avoid a circular
 -- importation, therefore Haddock does not create a link for
--- 'TPTP.Pretty.PrettyTPTP'.
+-- 'TPTP.ConcreteSyntax.ToTPTP'.
 
 -- | The TPTP annotated formulae.
--- The annotated formulae are not in TPTP syntax. We get this syntax via
--- 'TPTP.Pretty.PrettyTPTP'.
+-- The annotated formulae are not in TPTP concrete syntax. We get this
+-- syntax via 'TPTP.TPTP.ConcreteSyntax.ToTPTP'.
 data AF = MkAF QName ATPRole FOLFormula
           deriving Show
 

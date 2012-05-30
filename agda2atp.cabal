@@ -56,8 +56,8 @@ executable agda2atp
                  Options
                  Paths_agda2atp
                  Snapshot
+                 TPTP.ConcreteSyntax
                  TPTP.Files
-                 TPTP.Pretty
                  TPTP.Translation
                  TPTP.Types
                  Utils.Directory
