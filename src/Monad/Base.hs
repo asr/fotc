@@ -2,8 +2,8 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
--- TODO: 29 May 2012. Only in this module, Haddock 2.10.0 requires the
--- LANGUAGE pragmas before the module description.
+-- TODO: 29 May 2012. Haddock 2.10.0 requires the LANGUAGE pragmas
+-- before the module description.
 
 ------------------------------------------------------------------------------
 -- |
