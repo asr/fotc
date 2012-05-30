@@ -80,6 +80,7 @@ data ConjectureSet = MkConjectureSet
   , defsLocalHints       ∷ [AF]  -- ^ ATP definitions used by the local hints.
   }
 
+-- | All the required definitions by a conjecture.
 allRequiredDefs ∷ GeneralRoles → ConjectureSet → [AF]
 allRequiredDefs generalRoles conjectureSet =
   defsAxioms generalRoles
@@ -87,6 +88,7 @@ allRequiredDefs generalRoles conjectureSet =
   ++ defsLocalHints conjectureSet
   ++ defsConjecture conjectureSet
 
+-- | Common required definitions by a conjecture.
 commonRequiredDefs ∷ GeneralRoles → ConjectureSet → [AF]
 commonRequiredDefs generalRoles conjectureSet =
   if nonDuplicate allDefs then [] else duplicatesElements $ sort allDefs
@@ -94,6 +96,7 @@ commonRequiredDefs generalRoles conjectureSet =
   allDefs ∷ [AF]
   allDefs = allRequiredDefs generalRoles conjectureSet
 
+-- | Drop the common required definitions by a conjecture.
 dropCommonRequiredDefs ∷ GeneralRoles → ConjectureSet →
                          (GeneralRoles, ConjectureSet)
 dropCommonRequiredDefs generalRoles conjectureSet =
