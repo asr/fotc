@@ -171,7 +171,7 @@ instance ToTPTP FOLTerm where
   toTPTP (FOLVar name)       = toUpperFirstSymbol name
 
 instance ToTPTP [FOLTerm] where
-  toTPTP []       = []
+  toTPTP []       = __IMPOSSIBLE__
   toTPTP (a : []) = toTPTP a
   toTPTP (a : as) = toTPTP a ++ "," ++ toTPTP as
 
