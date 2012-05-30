@@ -39,7 +39,7 @@ import Data.String ( String )
 #endif
 
 ------------------------------------------------------------------------------
--- Identifiers recognized by the FOL translator.
+-- | Identifiers recognized by the FOL translator.
 folTrue, folFalse, folNot, folAnd, folOr, folImplies, folEquiv ∷ String
 folTrue    = "⊤"
 folFalse   = "⊥"
@@ -49,6 +49,7 @@ folOr      = "∨"
 folImplies = "⇒"  -- The non-dependent function space @→@ can be used instead.
 folEquiv   = "↔"
 
+-- | Identifiers recognized by the FOL translator.
 folExists, folForAll, folEquals ∷ String
 folExists = "∃"
 folForAll = "⋀"  -- The dependent function space @∀ x → A@ can be used instead.

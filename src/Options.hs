@@ -108,10 +108,9 @@ data Options = MkOptions
 defaultATPs ∷ [String]
 defaultATPs = ["e", "equinox", "vampire"]
 
--- | Default options use by the program.
-
 -- N.B. The default ATPs are defined by @defaultATPs@ and they are handle
 -- by @Options.Process.processOptions@.
+-- | Default options use by the program.
 defaultOptions ∷ Options
 defaultOptions = MkOptions
   { optAgdaIncludePath             = []
@@ -211,6 +210,7 @@ verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
 versionOpt ∷ Options → Options
 versionOpt opts = opts { optVersion = True }
 
+-- | Description of the command-line 'Options'.
 options ∷ [OptDescr (Options → Options)]
 options =
   [ Option "i" ["agda-include-path"] (ReqArg agdaIncludePathOpt "DIR")

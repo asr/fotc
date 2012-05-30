@@ -150,19 +150,23 @@ getATPRole ATPConjecture = HashMap.filter isATPConjecture
 getATPRole ATPDefinition = HashMap.filter isATPDefinition
 getATPRole ATPHint       = HashMap.filter isATPHint
 
+-- | Return the ATP axioms from a set of Agda 'Definitions'.
 getATPAxioms ∷ Definitions → Definitions
 getATPAxioms = getATPRole ATPAxiom
 
+-- | Return the ATP conjectures from a set of Agda 'Definitions'.
 getATPConjectures ∷ Definitions → Definitions
 getATPConjectures = getATPRole ATPConjecture
 
 -- getATPDefinitions ∷ Definitions → Definitions
 -- getATPDefinitions = getATPRole ATPDefinition
 
+-- | Return the ATP hints from a set of Agda 'Definitions'.
 getATPHints ∷ Definitions → Definitions
 getATPHints = getATPRole ATPHint
 
 -- Invariant: The @Definition@ must correspond to an ATP conjecture.
+-- | Return the ATP local hints associated with an ATP conjecture.
 getLocalHints ∷ Definition → [QName]
 getLocalHints def =
   let defn ∷ Defn
@@ -196,6 +200,7 @@ agdaCommandLineOptions = do
                           , optPragmaOptions = agdaPragmaOptions
                           }
 
+-- | Read an Agda interface file.
 myReadInterface ∷ FilePath → T Interface
 myReadInterface file = do
   optsCommandLine ← agdaCommandLineOptions
@@ -239,6 +244,7 @@ myGetInterface x = do
     Right (i, _) → return (Just i)
     Left  _      → return Nothing
 
+-- | Return 'True' if an Agda 'Definition' is an ATP axiom.
 isATPAxiom ∷ Definition → Bool
 isATPAxiom def =
   let defn ∷ Defn
@@ -257,6 +263,7 @@ isATPAxiom def =
 
        _       → False
 
+-- | Return 'True' if an Agda 'Definition' is an ATP conjecture.
 isATPConjecture ∷ Definition → Bool
 isATPConjecture def =
   let defn ∷ Defn
@@ -270,6 +277,7 @@ isATPConjecture def =
 
        _       → False
 
+-- | Return 'True' if an Agda 'Definition' is an ATP definition.
 isATPDefinition ∷ Definition → Bool
 isATPDefinition def =
   let defn ∷ Defn
@@ -283,6 +291,7 @@ isATPDefinition def =
 
        _          → False
 
+-- | Return 'True' if an Agda 'Definition' is an ATP hint.
 isATPHint ∷ Definition → Bool
 isATPHint def =
   let defn ∷ Defn
@@ -296,21 +305,24 @@ isATPHint def =
 
        _             → False
 
+-- | Return the Agda 'Definition' associated with a 'QName'.
 qNameDefinition ∷ QName → T Definition
 qNameDefinition qName = do
   allDefs ← getTDefs
   return $ fromMaybe (__IMPOSSIBLE__) $ HashMap.lookup qName allDefs
 
+-- | Return the 'Type' of a 'QNname'.
 qNameType ∷ QName → T Type
 qNameType qName = fmap defType $ qNameDefinition qName
 
--- The line where a 'QNname' is defined.
+-- | Return the line where a 'QNname' is defined.
 qNameLine ∷ QName → Int32
 qNameLine qName =
   case rangeToInterval $ nameBindingSite $ qnameName qName of
     Nothing → __IMPOSSIBLE__
     Just i  → posLine $ iStart i
 
+-- | Return the 'Clause's associted with an Agda 'Definition'.
 getClauses ∷ Definition → [Clause]
 getClauses def =
   let defn ∷ Defn
@@ -319,7 +331,7 @@ getClauses def =
        Function{} → funClauses defn
        _          → __IMPOSSIBLE__
 
--- | Returns the 'QName's in an entity.
+-- | Return the 'QName's in an entity.
 class QNamesIn a where
   qNamesIn ∷ a → [QName]
 
@@ -395,7 +407,8 @@ importedInterfaces x = do
       return $ i : is
     else return []
 
--- Return the interfaces recursively imported by the top level interface.
+-- | Return the Agda interface files recursively imported by the top
+-- level interface file.
 getImportedInterfaces ∷ Interface → T [Interface]
 getImportedInterfaces i = do
   iInterfaces ← fmap concat $

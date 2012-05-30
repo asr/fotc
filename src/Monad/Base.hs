@@ -101,17 +101,22 @@ initTState = MkState { tDefs = HashMap.empty
 -- | The translation monad.
 type T = ErrorT String (StateT TState IO)
 
+-- | Running the translation monad.
 runT ∷ T a → IO (Either String a)
 runT ta = evalStateT (runErrorT ta) initTState
 
+-- | Return 'True' if the list of variables in the translation monad
+-- state is empty.
 isTVarsEmpty ∷ T Bool
 isTVarsEmpty = fmap (null . tVars) get
 
+-- | Push a variable in the translation monad state.
 pushTVar ∷ String → T ()
 pushTVar x = do
   state ← get
   put state { tVars = x : tVars state }
 
+-- | Pop a variable from the translation monad state.
 popTVar ∷ T ()
 popTVar = do
   state ← get
@@ -119,20 +124,26 @@ popTVar = do
     []       → __IMPOSSIBLE__
     (_ : xs) → put state { tVars = xs }
 
+-- | Add a new variable to the translation monad state.
 newTVar ∷ T String
 newTVar = fmap (evalState freshName . tVars) get
 
+-- | Get the Agda 'Definitions' from the translation monad state.
 getTDefs ∷ T Definitions
 getTDefs = fmap tDefs get
 
+-- | Get the 'Options' from the translation monad state.
 getTOpts ∷ T Options
 getTOpts = fmap tOpts get
 
+-- | Get the variables from the translation monad state.
 getTVars ∷ T [String]
 getTVars = fmap tVars get
 
+-- | Modify the Agda 'Definitions' in the translation monad state.
 modifyDefs ∷ Definitions → T ()
 modifyDefs defs = modify $ \s → s { tDefs = defs }
 
+-- | Modify the 'Options' in the translation monad state.
 modifyOpts ∷ Options → T ()
 modifyOpts opts = modify $ \s → s { tOpts = opts }

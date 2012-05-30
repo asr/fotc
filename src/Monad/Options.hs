@@ -49,7 +49,7 @@ import Options
   )
 
 -----------------------------------------------------------------------------
-
+-- | Processing the command-line 'Options'.
 processOptions ∷ [String] → T (Options, String)
 processOptions argv =
   case getOpt Permute options argv of

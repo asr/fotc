@@ -66,6 +66,7 @@ instance Eq AF where
 instance Ord AF where
   compare (MkAF qName1 _ _) (MkAF qName2 _ _) = compare qName1 qName2
 
+-- | The 'ATPRole's share by all the conjetures in an Agda module.
 data GeneralRoles = MkGeneralRoles
   { axioms     ∷ [AF]  -- ^ The axioms.
   , defsAxioms ∷ [AF]  -- ^ ATP definitions used by the axioms.
@@ -73,6 +74,7 @@ data GeneralRoles = MkGeneralRoles
   , defsHints  ∷ [AF]  -- ^ ATP definitions used by the general hints.
   }
 
+-- | The 'ATPRole's associated with a conjecture.
 data ConjectureSet = MkConjectureSet
   { theConjecture        ∷ AF    -- ^ The conjecture.
   , defsConjecture       ∷ [AF]  -- ^ ATP definitions used by the conjecture.
@@ -80,7 +82,7 @@ data ConjectureSet = MkConjectureSet
   , defsLocalHints       ∷ [AF]  -- ^ ATP definitions used by the local hints.
   }
 
--- | All the required definitions by a conjecture.
+-- | All required definitions by a conjecture.
 allRequiredDefs ∷ GeneralRoles → ConjectureSet → [AF]
 allRequiredDefs generalRoles conjectureSet =
   defsAxioms generalRoles
