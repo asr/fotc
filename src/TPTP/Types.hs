@@ -35,8 +35,6 @@ import Data.Function ( ($) )
 import Data.List     ( (++), (\\), null, sort )
 import Data.Ord      ( Ord(compare) )
 
-import Text.Show ( Show )
-
 ------------------------------------------------------------------------------
 -- Agda library imports
 
@@ -58,7 +56,6 @@ import Utils.List ( duplicatesElements, nonDuplicate )
 -- The annotated formulae are not in TPTP concrete syntax. We get this
 -- syntax via 'TPTP.TPTP.ConcreteSyntax.ToTPTP'.
 data AF = MkAF QName ATPRole FOLFormula
-          deriving Show
 
 instance Eq AF where
   (MkAF qName1 _ _) == (MkAF qName2 _ _) = qName1 == qName2

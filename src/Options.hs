@@ -72,7 +72,6 @@ import System.Environment ( getProgName )
 import System.IO          ( FilePath, IO, putStrLn )
 
 import Text.Read ( read )
-import Text.Show ( Show )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
@@ -102,7 +101,7 @@ data Options = MkOptions
   , optVampireExec                 ∷ String
   , optVerbose                     ∷ Verbosity
   , optVersion                     ∷ Bool
-  } deriving Show
+  }
 
 -- | Default ATPs called by the program.
 defaultATPs ∷ [String]
