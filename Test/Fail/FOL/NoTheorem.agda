@@ -7,8 +7,12 @@
 
 module Test.Fail.FOL.NoTheorem where
 
--- Error message (using the option --unproved-conjecture-error):
--- Error: The ATP(s) did not prove the conjecture in /tmp/Test.Fail.NoTheorem.43-comm_26.tptp
+-- $ agda2atp Test/Fail/FOL/NoTheorem.agda
+-- Proving the conjecture in /tmp/Test.Fail.FOL.NoTheorem.43-comm_29.tptp ...
+-- E 1.5 Pussimbing *did not* prove the conjecture
+-- Vampire 0.6 (revision 903) *did not* prove the conjecture
+-- Equinox *did not* prove the conjecture
+-- agda2atp: The ATP(s) did not prove the conjecture in /tmp/Test.Fail.FOL.NoTheorem.43-comm_29.tptp
 
 infix  4 _≡_
 infixl 6 _+_

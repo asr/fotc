@@ -5,7 +5,8 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Error: The translation of underscore variables is not implemented
+-- $ agda2atp Test/Fail/FOL/Underscore.agda
+-- agda2atp: The translation of underscore variables is not implemented
 
 module Test.Fail.FOL.Underscore where
 

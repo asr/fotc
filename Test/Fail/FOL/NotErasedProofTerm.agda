@@ -7,8 +7,9 @@
 
 module Test.Fail.FOL.NotErasedProofTerm where
 
--- Error: It is necessary to erase the proof term
--- Pi r(El (Type (Max [])) (Def Test.Fail.NotErasedProofTerm.D [])) (Abs "k" El (Type (Max [])) (Def Test.Fail.NotErasedProofTerm._≤_ [r(Var 0 []),r(Var 0 [])]))
+-- $ agda2atp Test/Fail/FOL/NotErasedProofTerm.agda
+-- agda2atp: It is necessary to erase the proof term
+-- Pi r(El {getSort = Type (Max []), unEl = Def Test.Fail.FOL.NotErasedProofTerm.D []}) (Abs "k" El {getSort = Type (Max []), unEl = Def Test.Fail.FOL.NotErasedProofTerm._≤_ [r(Var 0 []),r(Var 0 [])]})
 -- but we do not know how to do it
 
 postulate
