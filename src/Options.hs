@@ -107,8 +107,9 @@ data Options = MkOptions
 defaultATPs ∷ [String]
 defaultATPs = ["e", "equinox", "vampire"]
 
--- N.B. The default ATPs are defined by @defaultATPs@ and they are handle
--- by @Options.Process.processOptions@.
+-- N.B. The default ATPs are defined by @defaultATPs@ and they are
+-- handle by @Monad.Options.processOptions@.
+
 -- | Default options use by the program.
 defaultOptions ∷ Options
 defaultOptions = MkOptions
@@ -181,7 +182,7 @@ timeOpt []   _    = error "Option --time requires an argument NUM"
 timeOpt secs opts =
   if all isDigit secs
   then opts { optTime = read secs }
-  else error "Option --time requires an non-negative integer argument"
+  else error "Option --time requires a non-negative integer argument"
 
 unprovedNoErrorOpt ∷ Options → Options
 unprovedNoErrorOpt opts = opts { optUnprovedNoError = True }
