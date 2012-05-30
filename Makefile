@@ -120,7 +120,9 @@ test : clean
 
 doc:
 	cabal configure
-	cabal haddock --hyperlink-source --executables
+	cabal haddock --hyperlink-source \
+                      --executables \
+                      --haddock-option=--use-unicode
 
 .PHONY : TAGS
 TAGS : $(haskell_files)
