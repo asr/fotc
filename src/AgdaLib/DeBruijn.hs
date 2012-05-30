@@ -361,14 +361,16 @@ instance TypesOfVars Term where
 
   typesOfVars (Def _ args) = typesOfVars args
 
-  typesOfVars (Con _ _)                    = []
-  typesOfVars (DontCare _)                 = []
-  typesOfVars (Lam _ _)                    = []
-  typesOfVars (Level _)                    = []
-  typesOfVars (Lit _)                      = []
-  typesOfVars (MetaV _ _)                  = []
-  typesOfVars (Sort _)                     = []
-  typesOfVars (Var _ _)                    = []
+  typesOfVars (Con _ _) = []
+  typesOfVars (Lam _ _) = []
+  typesOfVars (Var _ _) = []
+
+  typesOfVars (DontCare _) = __IMPOSSIBLE__
+  typesOfVars (Level _)    = __IMPOSSIBLE__
+  typesOfVars (Lit _)      = __IMPOSSIBLE__
+  typesOfVars (MetaV _ _)  = __IMPOSSIBLE__
+  typesOfVars (Sort _)     = __IMPOSSIBLE__
+
 
 instance TypesOfVars (Arg Term) where
   typesOfVars (Arg _ _ term) = typesOfVars term
@@ -532,7 +534,7 @@ dropProofTerm ty (x, typeVar) = do
     El (Type (Max []))
        (Pi (Dom _ _ (El (Type (Max [])) (Def _ [])))
            (NoAbs _ (El (Type (Max [])) (Pi _ (NoAbs _ _))))
-       ) → return ty
+       ) → __IMPOSSIBLE__ -- return ty
 
     -- We don't erase these proofs terms.
     El (Type (Max [])) someTerm → do
