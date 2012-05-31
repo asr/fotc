@@ -6,12 +6,13 @@
 {-# OPTIONS --without-K #-}
 
 -- Tested with the development version of the standard library on
--- 19 March 2012.
+-- 31 May 2012.
 
 module MirrorMutualSL where
 
 infixr 5 _∷_ _++_
 
+open import Function
 open import Relation.Binary.PropositionalEquality
 open ≡-Reasoning
 
@@ -48,6 +49,7 @@ postulate
                        map f (xs ++ ys) ≡ map f xs ++ map f ys
   reverse-++-commute : {A : Set}(xs ys : Forest A) →
                        reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
+
 ------------------------------------------------------------------------------
 -- The mirror function.
 mirror : {A : Set} → Tree A → Tree A
@@ -63,12 +65,7 @@ mirror² (treeT a []) = refl
 mirror² (treeT a (t ∷ ts)) =
   begin
     treeT a (reverse (map mirror (reverse (map mirror ts) ++ mirror t ∷ [])))
-      ≡⟨ subst (λ x → treeT a (reverse (map mirror (reverse (map mirror ts) ++
-                                                    mirror t ∷ []))) ≡
-                      treeT a x)
-         (helper (t ∷ ts))
-         refl
-      ⟩
+      ≡⟨ cong (treeT a) (helper (t ∷ ts)) ⟩
     treeT a (t ∷ ts)
   ∎
 
@@ -76,35 +73,25 @@ helper [] = refl
 helper (t ∷ ts) =
   begin
     reverse (map mirror (reverse (map mirror ts) ++ mirror t ∷ []))
-      ≡⟨ subst (λ x → (reverse (map mirror (reverse (map mirror ts) ++
-                                            mirror t ∷ []))) ≡
-                      reverse x)
-         (map-++-commute mirror (reverse (map mirror ts)) (mirror t ∷ []))
-         refl
-      ⟩
+     ≡⟨ cong reverse
+             (map-++-commute mirror (reverse (map mirror ts)) (mirror t ∷ []))
+     ⟩
     reverse (map mirror (reverse (map mirror ts)) ++
             (map mirror (mirror t ∷ [])))
       ≡⟨ subst (λ x → (reverse (map mirror (reverse (map mirror ts)) ++
-                                           (map mirror (mirror t ∷ [])))) ≡ x)
+                                    (map mirror (mirror t ∷ [])))) ≡ x)
                (reverse-++-commute (map mirror (reverse (map mirror ts)))
                                    (map mirror (mirror t ∷ [])))
                refl
       ⟩
     reverse (map mirror (mirror t ∷ [])) ++
     reverse (map mirror (reverse (map mirror ts)))
-            ≡⟨ refl ⟩
+      ≡⟨ refl ⟩
     mirror (mirror t) ∷ reverse (map mirror (reverse (map mirror ts)))
-      ≡⟨ subst (λ x → (mirror (mirror t) ∷
-                              reverse (map mirror (reverse (map mirror ts)))) ≡
-                      (x ∷ reverse (map mirror (reverse (map mirror ts)))))
-               (mirror² t)  -- IH.
-               refl
+      ≡⟨ cong (flip _∷_ (reverse (map mirror (reverse (map mirror ts)))))
+              (mirror² t)  -- IH
       ⟩
     t ∷ reverse (map mirror (reverse (map mirror ts)))
-      ≡⟨ subst (λ x → t ∷ reverse (map mirror (reverse (map mirror ts))) ≡
-                      t ∷ x)
-               (helper ts)
-               refl
-      ⟩
+      ≡⟨ cong (_∷_ t) (helper ts) ⟩
     t ∷ ts
   ∎

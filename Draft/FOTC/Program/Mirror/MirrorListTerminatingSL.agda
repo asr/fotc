@@ -1,0 +1,37 @@
+------------------------------------------------------------------------------
+-- Terminating mirror function
+------------------------------------------------------------------------------
+
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
+-- Tested with the development version of the standard library on
+-- 31 May 2012.
+
+module MirrorListTerminatingSL where
+
+open import Data.List as List hiding ( reverse )
+
+------------------------------------------------------------------------------
+-- Auxiliary functions
+
+reverse : {A : Set} → List A → List A
+reverse []       = []
+reverse (x ∷ xs) = reverse xs ++ x ∷ []
+
+------------------------------------------------------------------------------
+-- The rose tree type.
+data Tree (A : Set) : Set where
+  treeT : A → List (Tree A) → Tree A
+
+------------------------------------------------------------------------------
+-- An alternative and terminating definition of mirror. Adapted from
+-- http://stackoverflow.com/questions/9146928/termination-of-structural-induction
+
+-- The mirror function.
+mirror       : {A : Set} → Tree A → Tree A
+mirrorBranch : {A : Set} → List (Tree A) → List (Tree A)
+
+mirror       (treeT a ts) = treeT a (reverse (mirrorBranch ts))
+mirrorBranch []           = []
+mirrorBranch (t ∷ ts)     = mirror t ∷ mirrorBranch ts

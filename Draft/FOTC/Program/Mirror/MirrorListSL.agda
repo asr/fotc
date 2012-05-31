@@ -6,11 +6,12 @@
 {-# OPTIONS --without-K #-}
 
 -- Tested with the development version of the standard library on
--- 19 March 2012.
+-- 31 May 2012.
 
 module MirrorListSL where
 
 open import Algebra
+open import Function
 open import Data.List as List hiding ( reverse )
 open import Data.List.Properties hiding ( reverse-++-commute )
 open import Data.Product hiding ( map )
@@ -54,7 +55,6 @@ data Tree (A : Set) : Set where
 mirror : {A : Set} → Tree A → Tree A
 mirror (treeT a ts) = treeT a (reverse (map mirror ts))
 
-------------------------------------------------------------------------------
 -- The proof of the property.
 mirror² : {A : Set} → (t : Tree A) → mirror (mirror t) ≡ t
 helper  : {A : Set} → (ts : List (Tree A)) →
@@ -64,12 +64,7 @@ mirror² (treeT a []) = refl
 mirror² (treeT a (t ∷ ts)) =
   begin
     treeT a (reverse (map mirror (reverse (map mirror ts) ++ mirror t ∷ [])))
-      ≡⟨ subst (λ x → treeT a (reverse (map mirror (reverse (map mirror ts) ++
-                                                    mirror t ∷ []))) ≡
-                      treeT a x)
-         (helper (t ∷ ts))
-         refl
-      ⟩
+      ≡⟨ cong (treeT a) (helper (t ∷ ts)) ⟩
     treeT a (t ∷ ts)
   ∎
 
@@ -77,34 +72,25 @@ helper [] = refl
 helper (t ∷ ts) =
   begin
     reverse (map mirror (reverse (map mirror ts) ++ mirror t ∷ []))
-      ≡⟨ subst (λ x → (reverse (map mirror (reverse (map mirror ts) ++
-                                            mirror t ∷ []))) ≡
-                      reverse x)
-         (map-++-commute mirror (reverse (map mirror ts)) (mirror t ∷ []))
-         refl
-      ⟩
+     ≡⟨ cong reverse
+             (map-++-commute mirror (reverse (map mirror ts)) (mirror t ∷ []))
+     ⟩
     reverse (map mirror (reverse (map mirror ts)) ++
             (map mirror (mirror t ∷ [])))
       ≡⟨ subst (λ x → (reverse (map mirror (reverse (map mirror ts)) ++
-                                           (map mirror (mirror t ∷ [])))) ≡ x)
+                                    (map mirror (mirror t ∷ [])))) ≡ x)
                (reverse-++-commute (map mirror (reverse (map mirror ts)))
                                    (map mirror (mirror t ∷ [])))
                refl
       ⟩
     reverse (map mirror (mirror t ∷ [])) ++
     reverse (map mirror (reverse (map mirror ts)))
-            ≡⟨ refl ⟩
+      ≡⟨ refl ⟩
     mirror (mirror t) ∷ reverse (map mirror (reverse (map mirror ts)))
-      ≡⟨ subst (λ x → (mirror (mirror t) ∷
-                              reverse (map mirror (reverse (map mirror ts)))) ≡
-                      (x ∷ reverse (map mirror (reverse (map mirror ts)))))
-               (mirror² t)  -- IH.
-               refl
+      ≡⟨ cong (flip _∷_ (reverse (map mirror (reverse (map mirror ts)))))
+              (mirror² t)
       ⟩
     t ∷ reverse (map mirror (reverse (map mirror ts)))
-      ≡⟨ subst (λ x → t ∷ reverse (map mirror (reverse (map mirror ts))) ≡ t ∷ x)
-               (helper ts)
-               refl
-      ⟩
+      ≡⟨ cong (_∷_ t) (helper ts) ⟩
     t ∷ ts
   ∎
