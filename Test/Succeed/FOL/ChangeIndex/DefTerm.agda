@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Testing an instance of the class ChangeIndex: Term (Def _ [])
+-- Testing the class AgdaLib.DeBruijn.ChangeIndex: (Def _ []) term
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Test.Succeed.FOL.ChangeIndexDefTerm where
+module Test.Succeed.FOL.ChangeIndex.DefTerm where
 
 infixl 6 _+_
 infix  4 _≡_

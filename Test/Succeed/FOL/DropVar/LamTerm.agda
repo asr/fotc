@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Testing an instance of the class DropVar: Lam term
+-- Testing the class AgdaLib.DeBruijn.DropVar: Lam term
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Test.Succeed.FOL.DropVarLamTerm where
+module Test.Succeed.FOL.DropVar.LamTerm where
 
 -- We add 3 to the fixities of the standard library.
 infixr 8 _∷_
