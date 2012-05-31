@@ -29,7 +29,6 @@ import Control.Monad.Trans ( liftIO )
 import Data.Bool     ( not )
 import Data.Eq       ( Eq((==)) )
 import Data.Function ( ($) )
-import Data.Functor  ( (<$>) )
 import Data.List     ( (++) )
 
 #if __GLASGOW_HASKELL__ == 612
@@ -47,7 +46,7 @@ import Agda.Utils.FileName ( doesFileExistCaseSensitive )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import Monad.Base      ( getTOpts, T )
+import Monad.Base      ( getTOpt, T )
 import Options         ( Options(optOutputDir, optSnapshotDir) )
 import Monad.Reports   ( reportS )
 import Utils.Directory ( diff )
@@ -57,8 +56,8 @@ import Utils.Directory ( diff )
 -- the directory indicated by the flag @--snapshot-dir@.
 snapshotTest ∷ FilePath → T ()
 snapshotTest file = do
-  outputDir   ← optOutputDir <$> getTOpts
-  snapshotDir ← optSnapshotDir <$> getTOpts
+  outputDir   ← getTOpt optOutputDir
+  snapshotDir ← getTOpt optSnapshotDir
 
   let snapshotFile ∷ FilePath
       snapshotFile = replaceDirectory file snapshotDir

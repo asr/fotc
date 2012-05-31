@@ -19,7 +19,7 @@
 
 module Monad.Base
   ( getTDefs
-  , getTOpts
+  , getTOpt
   , getTVars
   , isTVarsEmpty
   , modifyDefs
@@ -132,9 +132,9 @@ newTVar = fmap (evalState freshName . tVars) get
 getTDefs ∷ T Definitions
 getTDefs = fmap tDefs get
 
--- | Get the 'Options' from the translation monad state.
-getTOpts ∷ T Options
-getTOpts = fmap tOpts get
+-- | Get a concrete 'Options' from the translation monad state.
+getTOpt ∷ (Options → a) → T a
+getTOpt opt = fmap (opt . tOpts) get
 
 -- | Get the variables from the translation monad state.
 getTVars ∷ T [String]

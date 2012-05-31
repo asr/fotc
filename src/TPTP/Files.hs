@@ -37,7 +37,6 @@ import Data.String ( String )
 import Data.Char     ( Char, chr, isAsciiUpper, isAsciiLower, isDigit, ord )
 import Data.Bool     ( (||), Bool(True), otherwise )
 import Data.Function ( ($) )
-import Data.Functor  ( (<$>) )
 import Data.List     ( (++), concatMap, elem )
 
 #if __GLASGOW_HASKELL__ == 612
@@ -66,7 +65,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 -- Local imports
 
 import AgdaLib.Interface   ( qNameLine )
-import Monad.Base          ( getTOpts, T )
+import Monad.Base          ( getTOpt, T )
 import Monad.Reports       ( reportS, reportSLn )
 import Options             ( Options(optOnlyFiles, optOutputDir) )
 import TPTP.ConcreteSyntax ( ToTPTP(toTPTP) )
@@ -169,7 +168,7 @@ createConjectureFile generalRoles conjectureSet = do
   unless (nonDuplicate (localHintsConjecture conjectureSet)) (__IMPOSSIBLE__)
   unless (nonDuplicate (defsLocalHints conjectureSet))       (__IMPOSSIBLE__)
 
-  outputDir ← optOutputDir <$> getTOpts
+  outputDir ← getTOpt optOutputDir
 
   let qName ∷ QName
       qName = case theConjecture conjectureSet of
@@ -215,7 +214,7 @@ createConjectureFile generalRoles conjectureSet = do
     appendFile file conjectureFooter
     return ()
 
-  whenM (optOnlyFiles <$> getTOpts) $
+  whenM (getTOpt optOnlyFiles) $
        reportS "" 1 $ "Created the conjecture file " ++ file
 
   return file

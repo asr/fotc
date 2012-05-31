@@ -39,7 +39,6 @@ import Data.String ( String )
 import Data.Bool     ( otherwise )
 import Data.Int      ( Int )
 import Data.Function ( ($) )
-import Data.Functor  ( fmap )
 import Data.List     ( (++), elem, maximum )
 import Data.Ord      ( Ord((<), (<=)) )
 
@@ -52,7 +51,6 @@ import System.IO ( putStr, putStrLn )
 ------------------------------------------------------------------------------
 -- Agda library imports
 
-import Agda.Interaction.Options ( Verbosity )
 import Agda.Utils.Impossible    ( Impossible (Impossible), throwImpossible )
 
 import qualified Agda.Utils.Trie as Trie ( lookupPath )
@@ -62,7 +60,7 @@ import Agda.Utils.List ( wordsBy )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import Monad.Base ( getTOpts, T )
+import Monad.Base ( getTOpt, T )
 import Options    ( Options(optVerbose) )
 
 #include "../undefined.h"
@@ -73,14 +71,11 @@ import Options    ( Options(optVerbose) )
 
 type VerboseKey = String
 
-getVerbosity ∷ T Verbosity
-getVerbosity = fmap optVerbose getTOpts
-
 -- Precondition: The level must be non-negative.
 verboseS ∷ VerboseKey → Int → T () → T ()
 verboseS k n action | n < 0     =  __IMPOSSIBLE__
                     | otherwise = do
-  t ← getVerbosity
+  t ← getTOpt optVerbose
   let ks ∷ [String]
       ks = wordsBy (`elem` ".:") k
 

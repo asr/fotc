@@ -46,7 +46,7 @@ import Data.Eq       ( Eq((==)) )
 import Data.Int      ( Int )
 import Data.List     ( (++), init, isInfixOf, length, null )
 import Data.Function ( ($) )
-import Data.Functor  ( (<$>), fmap )
+import Data.Functor  ( fmap )
 import Data.Maybe    ( fromMaybe, Maybe(Just, Nothing) )
 import Data.Tuple    ( fst, snd )
 
@@ -79,7 +79,7 @@ import Agda.Utils.Monad      ( ifM )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import Monad.Base    ( getTOpts, T )
+import Monad.Base    ( getTOpt, T )
 import Monad.Reports ( reportS )
 
 import Options ( Options(optATP, optTime, optUnprovedNoError, optVampireExec) )
@@ -102,7 +102,7 @@ atpExec Equinox  = return "equinox"
 atpExec IleanCoP = return "ileancop.sh"
 atpExec Metis    = return "metis"
 atpExec SPASS    = return "SPASS"
-atpExec Vampire  = optVampireExec <$> getTOpts
+atpExec Vampire  = getTOpt optVampireExec
 
 optATP2ATP ∷ String → T ATP
 optATP2ATP "e"        = return E
@@ -198,13 +198,13 @@ runATP atp outputMVar timeLimit file = do
 
 atpsAnswer ∷ MVar (Bool, ATP) → [ProcessHandle] → FilePath → Int → T ()
 atpsAnswer outputMVar atpsPH file n = do
-  atps ∷ [String] ← optATP <$> getTOpts
+  atps ∷ [String] ← getTOpt optATP
 
   if n == length atps
     then do
       let msg ∷ String
           msg = "The ATP(s) did not prove the conjecture in " ++ file
-      ifM (optUnprovedNoError <$> getTOpts)
+      ifM (getTOpt optUnprovedNoError)
           (liftIO $ putStrLn msg)
           (throwError msg)
     else do
@@ -239,11 +239,11 @@ atpsAnswer outputMVar atpsPH file n = do
 -- | The function 'callATPs' calls the selected 'ATP's on a TPTP conjecture.
 callATPs ∷ FilePath → T ()
 callATPs file = do
-  atps ∷ [String] ← optATP <$> getTOpts
+  atps ∷ [String] ← getTOpt optATP
 
   when (null atps) (__IMPOSSIBLE__)
 
-  timeLimit ∷ Int ← optTime <$> getTOpts
+  timeLimit ∷ Int ← getTOpt optTime
 
   outputMVar ← liftIO (newEmptyMVar ∷ IO (MVar (Bool, ATP)))
 

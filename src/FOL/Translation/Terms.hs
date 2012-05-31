@@ -38,7 +38,7 @@ import Data.String ( String )
 import Data.Bool     ( (||), Bool, otherwise )
 import Data.Eq       ( Eq((==)) )
 import Data.Function ( ($) )
-import Data.Functor  ( (<$>), fmap )
+import Data.Functor  ( fmap )
 import Data.List     ( (++), (!!), length, foldl' )
 import Data.Ord      ( Ord((<=)) )
 
@@ -105,7 +105,7 @@ import FOL.Types
 
 import Monad.Base
   ( getTVars
-  , getTOpts
+  , getTOpt
   , newTVar
   , popTVar
   , pushTVar
@@ -378,7 +378,7 @@ termToFormula term@(Pi domTy (Abs _ tyAbs)) = do
     El (Type (Max [ClosedLevel 1])) (Sort _) → do
       reportSLn "t2f" 20 $ "The type domTy is: " ++ show domTy
 
-      unlessM (optNonFOLFormula <$> getTOpts) $
+      unlessM (getTOpt optNonFOLFormula) $
                throwError $ "The translation of FOL universal quantified"
                             ++ " formulae is disable by default."
                             ++ " Use option --non-fol-formula"
@@ -443,7 +443,7 @@ termToFormula term@(Var n args) = do
         -- others variables. See an example in
         -- Test.Succeed.AgdaInternalTerms.Var1.agda.
         _ → do
-          unlessM (optNonFOLPropositionalFunction <$> getTOpts) $
+          unlessM (getTOpt optNonFOLPropositionalFunction) $
                    throwError $ "The translation of FOL universal quantified"
                                 ++ " function terms is disable by default."
                                 ++ " Use option --non-fol-propositional-function"
@@ -544,7 +544,7 @@ termToFOLTerm term@(Var n args) = do
         -- others variables. See an example in
         -- Test.Succeed.AgdaInternalTerms.Var2.agda
         varArgs → do
-          unlessM (optNonFOLFunction <$> getTOpts) $
+          unlessM (getTOpt optNonFOLFunction) $
                   throwError $ "The translation of FOL universal quantified"
                                ++ " function terms is disable by default."
                                ++ " Use option --non-fol-function"
