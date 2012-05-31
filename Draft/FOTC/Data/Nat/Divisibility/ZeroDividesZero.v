@@ -1,4 +1,4 @@
-(* In Coq (version 8.3pl2) zero divides zero *)
+(* In Coq 8.3pl4 zero divides zero *)
 
 (* The relation the divisibility is defined by *)
 

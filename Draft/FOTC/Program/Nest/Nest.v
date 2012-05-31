@@ -1,8 +1,6 @@
 (* Nested recursive function using the Bove-Capretta method *)
 
-(* Tested with Coq 8.3pl2 *)
-
-(* Induction-recursion is not allow in Coq *)
+(* Induction-recursion is not allow in Coq 8.3pl4 *)
 
 Require Import Unicode.Utf8.
 

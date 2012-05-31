@@ -19,7 +19,7 @@ infix 7 _∣_
 -- It seems there is not agreement about if 0∣0, e.g.
 -- • Hardy and Wright. An introduction to the theory of numbers. 1975. 4ed: 0∤0
 -- • Agda standard library, version 0.6: 0|0
--- • Coq, version 8.3pl2: 0∣0
+-- • Coq 8.3pl4: 0∣0
 -- • Isabelle, version Isabelle2011: 0∣0
 --
 -- In our definition 0∤0, which is used to prove properties of the gcd
