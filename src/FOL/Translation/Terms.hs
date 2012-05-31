@@ -354,7 +354,10 @@ termToFormula term@(Pi domTy (Abs _ tyAbs)) = do
        ) → do
       reportSLn "t2f" 20
         "Removing a quantification on a function of a Set to a Set"
-      return $ ForAll freshVar (\_ → f2)
+      -- 31 May 2012. We don't have an example of this case.
+      --
+      -- return $ ForAll freshVar (\_ → f2)
+      __IMPOSSIBLE__
 
     El (Type (Max [])) someTerm → do
       reportSLn "t2f" 20 $ "The term someterm is: " ++ show someTerm

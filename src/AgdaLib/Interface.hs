@@ -147,7 +147,10 @@ import Utils.Monad   ( unlessM )
 getATPRole ∷ ATPRole → Definitions → Definitions
 getATPRole ATPAxiom      = HashMap.filter isATPAxiom
 getATPRole ATPConjecture = HashMap.filter isATPConjecture
-getATPRole ATPDefinition = HashMap.filter isATPDefinition
+-- 31 May 2012. We don't have an example of this case.
+--
+-- getATPRole ATPDefinition = HashMap.filter isATPDefinition
+getATPRole ATPDefinition = __IMPOSSIBLE__
 getATPRole ATPHint       = HashMap.filter isATPHint
 
 -- | Return the ATP axioms from a set of Agda 'Definitions'.
@@ -239,7 +242,10 @@ myGetInterface x = do
 
   case r of
     Right (i, _) → return (Just i)
-    Left  _      → return Nothing
+    -- 31 May 2012. We don't have an example of this case.
+    --
+    -- Left  _      → return Nothing
+    Left _ → __IMPOSSIBLE__
 
 -- | Return 'True' if an Agda 'Definition' is an ATP axiom.
 isATPAxiom ∷ Definition → Bool
@@ -282,9 +288,12 @@ isATPDefinition def =
   in case defn of
        Function{} → case funATP defn of
                       Just ATPDefinition → True
-                      Just ATPHint       → False
-                      Just _             → __IMPOSSIBLE__
-                      Nothing            → False
+                      -- 31 May 2012. We don't have an example of this
+                      -- case.
+                      --
+                      -- Just ATPHint       → False
+                      Just _       → __IMPOSSIBLE__
+                      Nothing      → False
 
        _          → False
 
@@ -364,7 +373,10 @@ instance QNamesIn Type where
 instance QNamesIn ClauseBody where
   qNamesIn (Body term)          = qNamesIn term
   qNamesIn (Bind absClauseBody) = qNamesIn absClauseBody
-  qNamesIn NoBody               = []
+  -- 31 May 2012. We don't have an example of this case.
+  --
+  -- qNamesIn NoBody               = []
+  qNamesIn NoBody = __IMPOSSIBLE__
 
 instance QNamesIn Clause where
   qNamesIn (Clause _ _ _ _ body) = qNamesIn body

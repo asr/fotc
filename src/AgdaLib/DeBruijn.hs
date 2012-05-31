@@ -155,7 +155,10 @@ instance DecIndex a ⇒ DecIndex (Abs a) where
   decIndex (NoAbs _ _)     = __IMPOSSIBLE__
 
 instance DecIndex a ⇒ DecIndex (Tele a) where
-  decIndex EmptyTel          = EmptyTel
+  -- 31 May 2012. We don't have an example of this case.
+  --
+  -- decIndex EmptyTel          = EmptyTel
+  decIndex EmptyTel          = __IMPOSSIBLE__
   decIndex (ExtendTel a tel) = ExtendTel (decIndex a) (decIndex tel)
 
 ------------------------------------------------------------------------------
@@ -174,8 +177,11 @@ instance VarNames Term where
 
   varNames (Lam _ (Abs x term)) = varNames term ++ [x]
 
-  varNames (Var _ [])   = []
-  varNames (Var _ args) = varNames args
+  varNames (Var _ []) = []
+  -- 31 May 2012. We don't have an example of this case.
+  --
+  -- varNames (Var _ args) = varNames args
+  varNames (Var _ _) = __IMPOSSIBLE__
 
   varNames (Con _ _)           = __IMPOSSIBLE__
   varNames (DontCare _)        = __IMPOSSIBLE__
