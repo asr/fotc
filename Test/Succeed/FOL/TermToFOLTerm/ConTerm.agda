@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Testing the function FOL.Translation.Terms.termToFOLTerm : Con term
+-- Testing the function FOL.Translation.Terms.termToFOLTerm: Con term
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
