@@ -31,10 +31,7 @@ import Data.String ( String )
 import Data.Function ( ($), flip, id )
 import Data.List     ( foldl', unlines )
 
-import System.Console.GetOpt
-  ( ArgOrder(Permute)
-  , getOpt
-  )
+import System.Console.GetOpt ( ArgOrder(Permute) , getOpt )
 
 ------------------------------------------------------------------------------
 -- Local imports

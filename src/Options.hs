@@ -65,6 +65,7 @@ import System.Console.GetOpt
 #if __GLASGOW_HASKELL__ == 612
 import GHC.Num ( Num(fromInteger) )
 #endif
+
 import GHC.Err ( error )
 
 import System.Environment ( getProgName )
@@ -102,8 +103,8 @@ data Options = MkOptions
   , optVersion                     ∷ Bool
   }
 
--- N.B. The default ATPs are handled by @ATP.callATPsMonad@.
-
+-- N.B. The default ATPs are handled by @ATP.callATPs@.
+--
 -- | Default options use by the program.
 defaultOptions ∷ Options
 defaultOptions = MkOptions
