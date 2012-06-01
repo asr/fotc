@@ -23,11 +23,11 @@ module AgdaLib.EtaExpansion ( EtaExpandible(etaExpand) ) where
 #if __GLASGOW_HASKELL__ == 612
 import Control.Monad ( Monad((>>), (>>=), fail) )
 #endif
-import Control.Monad ( mapM, Monad(return) )
+import Control.Monad ( mapM, Monad(return), when )
 
 import Control.Monad.Error ( MonadError(throwError) )
 
-import Data.Eq       ( Eq((==)) )
+import Data.Eq       ( Eq((==), (/=)) )
 import Data.Function ( ($), (.) )
 import Data.Functor  ( (<$>) )
 import Data.List     ( (++), length, map )
@@ -72,8 +72,6 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 import AgdaLib.DeBruijn  ( IncIndex(incIndex) )
 import AgdaLib.Interface ( isProjection, qNameType )
 import Monad.Base        ( newTVar, T )
-import Monad.Reports     ( reportSLn )
-import Utils.Show        ( showLn )
 
 #include "../undefined.h"
 
@@ -122,28 +120,22 @@ instance EtaExpandible Term where
 
     if qNameArity == fromIntegral (length args)
       then return $ Def qName argsEtaExpanded
-      else if qNameArity - 1 == fromIntegral (length args)
-             then do
-               -- Because we are going to add a new abstraction, we
-               -- need increase by one the numbers associated with the
-               -- variables in the arguments.
-               let incVarsEtaExpanded ∷ Args
-                   incVarsEtaExpanded = map incIndex argsEtaExpanded
+      else do
+        when (qNameArity - 1 /= fromIntegral (length args)) (__IMPOSSIBLE__)
 
-                   newVar ∷ Arg Term
-                   newVar = Arg NotHidden Relevant (var 0)
+        -- Because we are going to add a new abstraction, we need
+        -- increase by one the numbers associated with the variables
+        -- in the arguments.
+        let incVarsEtaExpanded ∷ Args
+            incVarsEtaExpanded = map incIndex argsEtaExpanded
 
-               freshVar ← newTVar
+            newVar ∷ Arg Term
+            newVar = Arg NotHidden Relevant (var 0)
 
-               return $
-                 Lam NotHidden
+        freshVar ← newTVar
+
+        return $ Lam NotHidden
                      (Abs freshVar (Def qName (incVarsEtaExpanded ++ [newVar])))
-             else do
-               reportSLn "etaExpand" 20 $
-                 "qname: " ++ showLn qName
-                 ++ "qNameArity: " ++ showLn qNameArity
-                 ++ "length args: " ++ show (length args)
-               __IMPOSSIBLE__
 
   -- We don't know an example of eta-contraction with @Con@, therefore
   -- we don't do anything.
