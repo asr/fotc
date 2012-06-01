@@ -30,7 +30,7 @@ import Control.Concurrent.MVar ( MVar, newEmptyMVar, putMVar, takeMVar )
 #if __GLASGOW_HASKELL__ == 612
 import Control.Monad ( Monad(fail) )
 #endif
-import Control.Monad ( mapM, mapM_, Monad((>>), (>>=), return), when )
+import Control.Monad ( mapM, mapM_, Monad((>>), (>>=), return) )
 
 import Control.Monad.Error     ( MonadError(throwError) )
 import Control.Monad.Trans     ( MonadIO(liftIO) )
@@ -112,6 +112,10 @@ optATP2ATP "metis"    = return Metis
 optATP2ATP "spass"    = return SPASS
 optATP2ATP "vampire"  = return Vampire
 optATP2ATP nonATP     = throwError $ "ATP " ++ nonATP ++ " unknown"
+
+-- | Default ATPs.
+defaultATPs ∷ [String]
+defaultATPs = ["e", "equinox", "vampire"]
 
 atpOk ∷ ATP → String
 atpOk E        = "Proof found!"                      -- E 1.5 Pussimbing
@@ -196,10 +200,9 @@ runATP atp outputMVar timeLimit file = do
 
   return atpPH
 
-atpsAnswer ∷ MVar (Bool, ATP) → [ProcessHandle] → FilePath → Int → T ()
-atpsAnswer outputMVar atpsPH file n = do
-  atps ∷ [String] ← getTOpt optATP
-
+atpsAnswer ∷ [String] → MVar (Bool, ATP) → [ProcessHandle] → FilePath → Int →
+             T ()
+atpsAnswer atps outputMVar atpsPH file n =
   if n == length atps
     then do
       let msg ∷ String
@@ -234,18 +237,17 @@ atpsAnswer outputMVar atpsPH file n = do
             mapM_ terminateProcess atpsPH
         else do
           reportS "" 1 $ atpWithVersion ++ " *did not* prove the conjecture"
-          atpsAnswer outputMVar atpsPH file (n + 1)
+          atpsAnswer atps outputMVar atpsPH file (n + 1)
 
 -- | The function 'callATPs' calls the selected 'ATP's on a TPTP conjecture.
 callATPs ∷ FilePath → T ()
 callATPs file = do
-  atps ∷ [String] ← getTOpt optATP
-
-  when (null atps) (__IMPOSSIBLE__)
-
-  timeLimit ∷ Int ← getTOpt optTime
-
+  atpsAux    ← getTOpt optATP
+  timeLimit  ← getTOpt optTime
   outputMVar ← liftIO (newEmptyMVar ∷ IO (MVar (Bool, ATP)))
+
+  let atps ∷ [String]
+      atps = if null atpsAux then defaultATPs else atpsAux
 
   reportS "" 1 $ "Proving the conjecture in " ++ file ++ " ..."
   reportS "" 20 $ "ATPs to be used: " ++ show atps
@@ -253,4 +255,4 @@ callATPs file = do
   atpsPH ∷ [ProcessHandle] ←
     mapM optATP2ATP atps >>= mapM (\atp → runATP atp outputMVar timeLimit file)
 
-  atpsAnswer outputMVar atpsPH file 0
+  atpsAnswer atps outputMVar atpsPH file 0

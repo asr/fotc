@@ -29,7 +29,7 @@ import Data.String ( String )
 #endif
 
 import Data.Function ( ($), flip, id )
-import Data.List     ( foldl', null, unlines )
+import Data.List     ( foldl', unlines )
 
 import System.Console.GetOpt
   ( ArgOrder(Permute)
@@ -40,13 +40,7 @@ import System.Console.GetOpt
 -- Local imports
 
 import Monad.Base ( T )
-
-import Options
-  ( defaultATPs
-  , defaultOptions
-  , options
-  , Options(optATP)
-  )
+import Options    ( defaultOptions, options, Options )
 
 -----------------------------------------------------------------------------
 -- | Processing the command-line 'Options'.
@@ -59,15 +53,9 @@ processOptions argv =
       let opts ∷ Options
           opts = foldl' (flip id) defaultOptions o
 
-          finalOpts ∷ Options
-          finalOpts =
-            if null (optATP opts)  -- No ATPs was chosen.
-            then opts { optATP = defaultATPs }  -- We set up the defaults ATPs.
-            else opts
-
       case files of
-        []       → return (finalOpts, [])
-        (x : []) → return (finalOpts, x)
+        []       → return (opts, [])
+        (x : []) → return (opts, x)
         _        → throwError "Only one input file allowed"
 
     (_, _, errs) → throwError $ unlines errs

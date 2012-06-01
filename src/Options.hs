@@ -15,8 +15,7 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Options
-  ( defaultATPs
-  , defaultOptions
+  ( defaultOptions
   , options
   , Options( optAgdaIncludePath
            , optATP
@@ -103,12 +102,7 @@ data Options = MkOptions
   , optVersion                     ∷ Bool
   }
 
--- | Default ATPs called by the program.
-defaultATPs ∷ [String]
-defaultATPs = ["e", "equinox", "vampire"]
-
--- N.B. The default ATPs are defined by @defaultATPs@ and they are
--- handle by @Monad.Options.processOptions@.
+-- N.B. The default ATPs are handled by @ATP.callATPsMonad@.
 
 -- | Default options use by the program.
 defaultOptions ∷ Options
