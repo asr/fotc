@@ -202,7 +202,7 @@ verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
   parseVerbose ∷ String → ([String], Int)
   parseVerbose s =
     case wordsBy (`elem` ":.") s of
-      []  → error "Option --verbose requieres an argument the form x.y.z:N or N"
+      []  → error "Option --verbose requieres an argument of the form x.y.z:N or N"
       ss  → let m ∷ Int
                 m = read $ last ss
             in  (init ss, m)
