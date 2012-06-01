@@ -25,7 +25,7 @@ module FOL.Translation.Terms
 #if __GLASGOW_HASKELL__ == 612
 import Control.Monad ( Monad((>>), (>>=), fail) )
 #endif
-import Control.Monad ( liftM2, mapM, Monad(return) )
+import Control.Monad ( liftM2, mapM, Monad(return), when )
 
 import Control.Monad.Error ( MonadError(throwError) )
 
@@ -423,35 +423,34 @@ termToFormula term@(Var n args) = do
 
   vars ← getTVars
 
-  if length vars <= fromIntegral n
-    then __IMPOSSIBLE__
-    else
-      case args of
-        -- N.B. In this case we *don't* use the Koen's approach.
-        [] → return $ Predicate (vars !! fromIntegral n) []
+  when (length vars <= fromIntegral n) (__IMPOSSIBLE__)
 
-        -- Non-FOL translation: FOL universal quantified propositional
-        -- functions.
+  case args of
+    -- N.B. In this case we *don't* use the Koen's approach.
+    [] → return $ Predicate (vars !! fromIntegral n) []
 
-        -- If we have a bounded variable quantified on a function of a
-        -- @Set@ to a @Set₁@, for example, the variable/predicate @P@
-        -- in
-        --
-        -- @(P : D → Set) → (x : D) → P x → P x@
-        --
-        -- we are quantifying on this variable/function
-        -- (see @termToFormula (Pi domTy (Abs _ tyAbs))@),
+    -- Non-FOL translation: FOL universal quantified propositional
+    -- functions.
 
-        -- therefore we need to apply this variable/predicate to the
-        -- others variables. See an example in
-        -- Test.Succeed.AgdaInternalTerms.Var1.agda.
-        _ → do
-          unlessM (getTOpt optNonFOLPropositionalFunction) $
-                   throwError $ "The translation of FOL universal quantified"
-                                ++ " function terms is disable by default."
-                                ++ " Use option --non-fol-propositional-function"
+    -- If we have a bounded variable quantified on a function of a
+    -- @Set@ to a @Set₁@, for example, the variable/predicate @P@ in
+    --
+    -- @(P : D → Set) → (x : D) → P x → P x@
+    --
+    -- we are quantifying on this variable/function
+    --
+    -- (see @termToFormula (Pi domTy (Abs _ tyAbs))@),
+    --
+    -- therefore we need to apply this variable/predicate to the
+    -- others variables. See an example in
+    -- Test.Succeed.AgdaInternalTerms.Var1.agda.
+    _ → do
+      unlessM (getTOpt optNonFOLPropositionalFunction) $
+               throwError $ "The translation of FOL universal quantified"
+                            ++ " function terms is disable by default."
+                            ++ " Use option --non-fol-propositional-function"
 
-          predicateLogicalScheme vars n args
+      predicateLogicalScheme vars n args
 
 termToFormula (DontCare _)        = __IMPOSSIBLE__
 termToFormula (Con _ _)           = __IMPOSSIBLE__
@@ -526,34 +525,33 @@ termToFOLTerm term@(Var n args) = do
 
   vars ← getTVars
 
-  if length vars <= fromIntegral n
-    then __IMPOSSIBLE__
-    else
-      case args of
-        [] → return $ FOLVar (vars !! fromIntegral n)
+  when (length vars <= fromIntegral n) (__IMPOSSIBLE__)
 
-        -- Non-FOL translation: FOL universal quantified functions term.
+  case args of
+    [] → return $ FOLVar (vars !! fromIntegral n)
 
-        -- If we have a bounded variable quantified on a function of a
-        -- Set to a Set, for example, the variable/function @f@ in
-        --
-        -- @(f : D → D) → (a : D) → (lam f) ∙ a ≡ f a@
-        --
-        -- we are quantifying on this variable/function
+    -- Non-FOL translation: FOL universal quantified functions term.
 
-        -- (see @termToFormula (Pi domTy (Abs _ tyAbs))@),
+    -- If we have a bounded variable quantified on a function of a Set
+    -- to a Set, for example, the variable/function @f@ in
+    --
+    -- @(f : D → D) → (a : D) → (lam f) ∙ a ≡ f a@
+    --
+    -- we are quantifying on this variable/function
+    --
+    -- (see @termToFormula (Pi domTy (Abs _ tyAbs))@),
+    --
+    -- therefore we need to apply this variable/function to the others
+    -- variables. See an example in
+    -- Test.Succeed.AgdaInternalTerms.Var2.agda
+    varArgs → do
+      unlessM (getTOpt optNonFOLFunction) $
+               throwError $ "The translation of FOL universal quantified"
+                            ++ " function terms is disable by default."
+                            ++ " Use option --non-fol-function"
 
-        -- therefore we need to apply this variable/function to the
-        -- others variables. See an example in
-        -- Test.Succeed.AgdaInternalTerms.Var2.agda
-        varArgs → do
-          unlessM (getTOpt optNonFOLFunction) $
-                  throwError $ "The translation of FOL universal quantified"
-                               ++ " function terms is disable by default."
-                               ++ " Use option --non-fol-function"
-
-          termsFOL ← mapM argTermToFOLTerm varArgs
-          return $ foldl' appFn (FOLVar (vars !! fromIntegral n)) termsFOL
+      termsFOL ← mapM argTermToFOLTerm varArgs
+      return $ foldl' appFn (FOLVar (vars !! fromIntegral n)) termsFOL
 
 termToFOLTerm (DontCare _) = __IMPOSSIBLE__
 termToFOLTerm (Lam _ _)    = __IMPOSSIBLE__
