@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Test.Succeed.FOL.DuplicateAgdaDefinitions where
+module Test.Succeed.FOL.DuplicateAgdaDefinitions1 where
 
 infix 7 _≈_
 
