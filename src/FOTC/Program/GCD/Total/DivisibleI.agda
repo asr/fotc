@@ -26,7 +26,7 @@ open import FOTC.Program.GCD.Total.GCD
 ------------------------------------------------------------------------------
 -- The gcd 0 0 is Divisible.
 gcd-00-Divisible : Divisible zero zero (gcd zero zero)
-gcd-00-Divisible c Ncd (c∣0 , _) = subst ((λ x → c ∣ x)) (sym gcd-00) c∣0
+gcd-00-Divisible c Ncd (c∣0 , _) = subst (λ x → c ∣ x) (sym gcd-00) c∣0
 
 ------------------------------------------------------------------------------
 -- The gcd 0 (succ n) is Divisible.

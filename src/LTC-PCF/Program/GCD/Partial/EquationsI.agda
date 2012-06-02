@@ -153,9 +153,7 @@ private
   proof₂₋₃ m n  = beta (gcd-s₃ m) n
 
   proof₃₋₄ : ∀ m n b → iszero₁ n ≡ b → gcd-s₃ m n ≡ gcd-s₄ m n b
-  proof₃₋₄ m n b h = subst (λ x → gcd-s₄ m n x ≡ gcd-s₄ m n b)
-                           (sym h)
-                           refl
+  proof₃₋₄ m n b = cong (gcd-s₄ m n)
 
   proof₄₋₅ : ∀ m n → gcd-s₄ m n true ≡ gcd-s₅ m
   proof₄₋₅ m _ = if-true (gcd-s₅ m)
@@ -164,14 +162,10 @@ private
   proof₄₋₆ m n = if-false (gcd-s₆ m n)
 
   proof₅₋₇ : ∀ m b → iszero₁ m ≡ b → gcd-s₅ m ≡ gcd-s₇ m b
-  proof₅₋₇ m b h = subst (λ x → gcd-s₇ m x ≡ gcd-s₇ m b)
-                         (sym h)
-                         refl
+  proof₅₋₇ m b = cong (gcd-s₇ m)
 
   proof₆₋₈ : ∀ m n b → iszero₁ m ≡ b → gcd-s₆ m n ≡ gcd-s₈ m n b
-  proof₆₋₈ m n b h = subst (λ x → gcd-s₈ m n x ≡ gcd-s₈ m n b)
-                           (sym h)
-                           refl
+  proof₆₋₈ m n b = cong (gcd-s₈ m n)
 
   proof₇₊ : ∀ m → gcd-s₇ m true ≡ loop
   proof₇₊ _ = if-true loop
@@ -186,9 +180,7 @@ private
   proof₈₋₉ m n = if-false (gcd-s₉ m n)
 
   proof₉₋₁₀ : ∀ m n b → m > n ≡ b → gcd-s₉ m n ≡ gcd-s₁₀ m n b
-  proof₉₋₁₀ m n b h = subst (λ x → gcd-s₁₀ m n x ≡ gcd-s₁₀ m n b)
-                            (sym h)
-                            refl
+  proof₉₋₁₀ m n b = cong (gcd-s₁₀ m n)
 
   proof₁₀₊ : ∀ m n → gcd-s₁₀ m n true ≡ fix gcdh · (m ∸ n) · n
   proof₁₀₊ m n = if-true (fix gcdh · (m ∸ n) · n)

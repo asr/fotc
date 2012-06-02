@@ -124,12 +124,10 @@ private
   -}
 
   proof₀₋₁ : ∀ m n → gcd m n ≡ gcd-s₁ m n
-  proof₀₋₁ m n = gcd-eq m n
+  proof₀₋₁ = gcd-eq
 
   proof₁₋₂ : ∀ m n b → iszero₁ n ≡ b → gcd-s₁ m n ≡ gcd-s₂ m n b
-  proof₁₋₂ m n b h = subst (λ x → gcd-s₂ m n x ≡ gcd-s₂ m n b)
-                           (sym h)
-                           refl
+  proof₁₋₂ m n b = cong (gcd-s₂ m n)
 
   proof₂₋₃ : ∀ m n → gcd-s₂ m n true ≡ gcd-s₃ m
   proof₂₋₃ m _ = if-true (gcd-s₃ m)
@@ -138,9 +136,8 @@ private
   proof₂₋₄ m n = if-false (gcd-s₄ m n)
 
   proof₄₋₈ : ∀ m n b → iszero₁ m ≡ b → gcd-s₄ m n ≡ gcd-s₈ m n b
-  proof₄₋₈ m n b h = subst (λ x → gcd-s₈ m n x ≡ gcd-s₈ m n b)
-                           (sym h)
-                           refl
+  proof₄₋₈ m n b = cong (gcd-s₈ m n)
+
   proof₈₋₉ : ∀ m n → gcd-s₈ m n true ≡ gcd-s₉ n
   proof₈₋₉ _ n = if-true n
 
@@ -148,9 +145,7 @@ private
   proof₈₋₁₀ m n = if-false (gcd-s₁₀ m n)
 
   proof₁₀₋₁₁ : ∀ m n b → m > n ≡ b → gcd-s₁₀ m n ≡ gcd-s₁₁ m n b
-  proof₁₀₋₁₁ m n b h = subst (λ x → gcd-s₁₁ m n x ≡ gcd-s₁₁ m n b)
-                             (sym h)
-                             refl
+  proof₁₀₋₁₁ m n b = cong (gcd-s₁₁ m n)
 
   proof₁₁₋₁₂ : ∀ m n → gcd-s₁₁ m n true ≡ gcd-s₁₂ m n
   proof₁₁₋₁₂ m n = if-true (gcd (m ∸ n) n)

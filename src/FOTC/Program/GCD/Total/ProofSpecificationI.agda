@@ -11,7 +11,6 @@
 module FOTC.Program.GCD.Total.ProofSpecificationI where
 
 open import FOTC.Base
-open import FOTC.Data.Nat.Divisibility.By0.PropertiesI using ( x∣S→x≤S )
 open import FOTC.Data.Nat.Type
 open import FOTC.Program.GCD.Total.CommonDivisorI using ( gcd-CD )
 open import FOTC.Program.GCD.Total.DivisibleI using ( gcd-Divisible )
