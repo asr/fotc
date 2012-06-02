@@ -130,7 +130,7 @@ x+Sy≡S[x+y] (sN {m} Nm) n = prf $ x+Sy≡S[x+y] Nm n
   {-# ATP prove prf x+Sy≡S[x+y] #-}
 
 x+S0≡Sx : ∀ {n} → N n → n + succ₁ zero ≡ succ₁ n
-x+S0≡Sx zN          = +-0x (succ₁ zero)
+x+S0≡Sx zN          = +-leftIdentity (succ₁ zero)
 x+S0≡Sx (sN {n} Nn) = prf (x+S0≡Sx Nn)
   where
   postulate prf : n + succ₁ zero ≡ succ₁ n →  -- IH.

@@ -22,7 +22,7 @@ open import LTC-PCF.Data.Nat.PropertiesI
 ------------------------------------------------------------------------------
 -- Any positive number divides 0.
 S∣0 : ∀ {n} → N n → succ₁ n ∣ zero
-S∣0 {n} Nn = S≢0 , _ , zN , sym (*-0x (succ₁ n))
+S∣0 {n} Nn = S≢0 , _ , zN , sym (*-leftZero (succ₁ n))
 
 -- 0 doesn't divide any number.
 0∤x : ∀ {n} → ¬ (zero ∣ n)

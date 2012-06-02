@@ -45,21 +45,6 @@ open import FOTC.Data.Nat.UnaryNumbers
 
 ------------------------------------------------------------------------------
 
--- We removed the equation pred zero ≡ zero, so we cannot prove the
--- totality of the function pred.
--- pred-N : ∀ {n} → N n → N (pred n)
--- pred-N zN = subst N (sym pred-0) zN
--- pred-N (sN {n} Nn) = subst N (sym $ pred-S n) Nn
-
-+-N : ∀ {m n} → N m → N n → N (m + n)
-+-N {n = n} zN          Nn = subst N (sym $ +-0x n) Nn
-+-N {n = n} (sN {m} Nm) Nn = subst N (sym $ +-Sx m n) (sN (+-N Nm Nn))
-
-∸-N : ∀ {m n} → N m → N n → N (m ∸ n)
-∸-N {m} Nm          zN          = subst N (sym $ ∸-x0 m) Nm
-∸-N     zN          (sN {n} _)  = subst N (sym $ ∸-0S n) zN
-∸-N     (sN {m} Nm) (sN {n} Nn) = subst N (sym $ ∸-SS m n) (∸-N Nm Nn)
-
 +-leftIdentity : ∀ n → zero + n ≡ n
 +-leftIdentity = +-0x
 
@@ -71,6 +56,21 @@ open import FOTC.Data.Nat.UnaryNumbers
                (+-rightIdentity Nn)
                refl
         )
+
+-- We removed the equation pred zero ≡ zero, so we cannot prove the
+-- totality of the function pred.
+-- pred-N : ∀ {n} → N n → N (pred n)
+-- pred-N zN = subst N (sym pred-0) zN
+-- pred-N (sN {n} Nn) = subst N (sym $ pred-S n) Nn
+
++-N : ∀ {m n} → N m → N n → N (m + n)
++-N {n = n} zN          Nn = subst N (sym $ +-leftIdentity n) Nn
++-N {n = n} (sN {m} Nm) Nn = subst N (sym $ +-Sx m n) (sN (+-N Nm Nn))
+
+∸-N : ∀ {m n} → N m → N n → N (m ∸ n)
+∸-N {m} Nm          zN          = subst N (sym $ ∸-x0 m) Nm
+∸-N     zN          (sN {n} _)  = subst N (sym $ ∸-0S n) zN
+∸-N     (sN {m} Nm) (sN {n} Nn) = subst N (sym $ ∸-SS m n) (∸-N Nm Nn)
 
 +-assoc : ∀ {m} → N m → ∀ n o → m + n + o ≡ m + (n + o)
 +-assoc zN n o =
@@ -91,7 +91,7 @@ open import FOTC.Data.Nat.UnaryNumbers
 x+Sy≡S[x+y] : ∀ {m} → N m → ∀ n → m + succ₁ n ≡ succ₁ (m + n)
 x+Sy≡S[x+y] zN n =
   zero + succ₁ n
-    ≡⟨ +-0x (succ₁ n) ⟩
+    ≡⟨ +-leftIdentity (succ₁ n) ⟩
   succ₁ n
     ≡⟨ subst (λ t → succ₁ n ≡ succ₁ t) (sym $ +-leftIdentity n) refl ⟩
   succ₁ (zero + n) ∎
@@ -132,9 +132,15 @@ Sx∸x≡S0 (sN {n} Nn) = trans (∸-SS (succ₁ n) n) (Sx∸x≡S0 Nn)
 [x+y]∸[x+z]≡y∸z : ∀ {m} → N m → ∀ n o → (m + n) ∸ (m + o) ≡ n ∸ o
 [x+y]∸[x+z]≡y∸z zN n o =
   (zero + n) ∸ (zero + o)
-    ≡⟨ subst (λ t → (zero + n) ∸ (zero + o) ≡ t ∸ (zero + o)) (+-0x n) refl ⟩
+    ≡⟨ subst (λ t → (zero + n) ∸ (zero + o) ≡ t ∸ (zero + o))
+             (+-leftIdentity n)
+             refl
+    ⟩
   n ∸ (zero + o)
-    ≡⟨ subst (λ t → n ∸ (zero + o) ≡ n ∸ t) (+-0x o) refl ⟩
+    ≡⟨ subst (λ t → n ∸ (zero + o) ≡ n ∸ t)
+             (+-leftIdentity o)
+             refl
+    ⟩
   n ∸ o ∎
 
 [x+y]∸[x+z]≡y∸z (sN {m} Nm) n o =
@@ -154,10 +160,6 @@ Sx∸x≡S0 (sN {n} Nn) = trans (∸-SS (succ₁ n) n) (Sx∸x≡S0 Nn)
     ≡⟨ [x+y]∸[x+z]≡y∸z Nm n o ⟩
   n ∸ o ∎
 
-*-N : ∀ {m n} → N m → N n → N (m * n)
-*-N {n = n} zN          Nn = subst N (sym $ *-0x n) zN
-*-N {n = n} (sN {m} Nm) Nn = subst N (sym $ *-Sx m n) (+-N Nn (*-N Nm Nn))
-
 *-leftZero : ∀ n → zero * n ≡ zero
 *-leftZero = *-0x
 
@@ -166,6 +168,10 @@ Sx∸x≡S0 (sN {n} Nn) = trans (∸-SS (succ₁ n) n) (Sx∸x≡S0 Nn)
 *-rightZero (sN {n} Nn) =
   trans (*-Sx n zero)
         (trans (+-leftIdentity (n * zero)) (*-rightZero Nn))
+
+*-N : ∀ {m n} → N m → N n → N (m * n)
+*-N {n = n} zN          Nn = subst N (sym $ *-leftZero n) zN
+*-N {n = n} (sN {m} Nm) Nn = subst N (sym $ *-Sx m n) (+-N Nn (*-N Nm Nn))
 
 *-leftIdentity : ∀ {n} → N n → succ₁ zero * n ≡ n
 *-leftIdentity {n} Nn =
@@ -233,32 +239,41 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn =
 
 *∸-leftDistributive : ∀ {m n o} → N m → N n → N o → (m ∸ n) * o ≡ m * o ∸ n * o
 *∸-leftDistributive {m} {o = o} _ zN _ =
-  (m ∸ zero) * o ≡⟨ subst (λ t → (m ∸ zero) * o ≡ t * o) (∸-x0 m) refl ⟩
-  m * o ≡⟨ sym $ ∸-x0 (m * o) ⟩
-  m * o ∸ zero ≡⟨ subst (λ t → m * o ∸ zero ≡ m * o ∸ t) (sym $ *-0x o) refl ⟩
+  (m ∸ zero) * o
+    ≡⟨ subst (λ t → (m ∸ zero) * o ≡ t * o) (∸-x0 m) refl ⟩
+  m * o
+    ≡⟨ sym $ ∸-x0 (m * o) ⟩
+  m * o ∸ zero
+    ≡⟨ subst (λ t → m * o ∸ zero ≡ m * o ∸ t)
+             (sym $ *-leftZero o)
+             refl
+    ⟩
   m * o ∸ zero * o ∎
 
 *∸-leftDistributive {o = o} zN (sN {n} Nn) No =
   (zero ∸ succ₁ n) * o
     ≡⟨ subst (λ t → (zero ∸ succ₁ n) * o ≡ t * o) (∸-0S n) refl ⟩
   zero * o
-    ≡⟨ *-0x o ⟩
+    ≡⟨ *-leftZero o ⟩
   zero
     ≡⟨ sym $ ∸-0x (*-N (sN Nn) No) ⟩
   zero ∸ succ₁ n * o
-    ≡⟨ subst (λ t → zero ∸ succ₁ n * o ≡ t ∸ succ₁ n * o) (sym $ *-0x o) refl ⟩
+    ≡⟨ subst (λ t → zero ∸ succ₁ n * o ≡ t ∸ succ₁ n * o)
+             (sym $ *-leftZero o)
+             refl
+    ⟩
   zero * o ∸ succ₁ n * o ∎
 
 *∸-leftDistributive (sN {m} Nm) (sN {n} Nn) zN =
   (succ₁ m ∸ succ₁ n) * zero
     ≡⟨ *-comm (∸-N (sN Nm) (sN Nn)) zN ⟩
   zero * (succ₁ m ∸ succ₁ n)
-    ≡⟨ *-0x (succ₁ m ∸ succ₁ n) ⟩
+    ≡⟨ *-leftZero (succ₁ m ∸ succ₁ n) ⟩
   zero
     ≡⟨ sym $ ∸-0x (*-N (sN Nn) zN) ⟩
   zero ∸ succ₁ n * zero
     ≡⟨ subst (λ t → zero ∸ succ₁ n * zero ≡ t ∸ succ₁ n * zero)
-             (sym $ *-0x (succ₁ m))
+             (sym $ *-leftZero (succ₁ m))
              refl
     ⟩
   zero * succ₁ m ∸ succ₁ n * zero
@@ -297,16 +312,16 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn =
   (m + n) * zero
     ≡⟨ *-comm (+-N Nm Nn) zN ⟩
   zero * (m + n)
-    ≡⟨ *-0x (m + n) ⟩
+    ≡⟨ *-leftZero (m + n) ⟩
   zero
-    ≡⟨ sym $ *-0x m ⟩
+    ≡⟨ sym $ *-leftZero m ⟩
   zero * m
     ≡⟨ *-comm zN Nm ⟩
   m * zero
     ≡⟨ sym $ +-rightIdentity (*-N Nm zN) ⟩
   m * zero + zero
     ≡⟨ subst (λ t → m * zero + zero ≡ m * zero + t)
-             (trans (sym $ *-0x n) (*-comm zN Nn))
+             (trans (sym $ *-leftZero n) (*-comm zN Nn))
              refl
     ⟩
   m * zero + n * zero ∎
@@ -321,7 +336,7 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn =
     ≡⟨ sym $ +-leftIdentity (n * succ₁ o) ⟩
   zero + n * succ₁ o
     ≡⟨ subst (λ t → zero + n * succ₁ o ≡ t +  n * succ₁ o)
-             (sym $ *-0x (succ₁ o))
+             (sym $ *-leftZero (succ₁ o))
              refl
     ⟩
   zero * succ₁ o + n * succ₁ o ∎

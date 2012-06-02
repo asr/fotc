@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with FOT on 01 June 2012.
+-- Tested with FOT on 02 June 2012.
 
 module AdditionComm where
 
@@ -20,11 +20,14 @@ postulate
   x+Sy≡S[x+y]     : ∀ m n → m + succ n ≡ succ (m + n)
   succCong        : ∀ {m n} → m ≡ n → succ m ≡ succ n
 
++-leftIdentity : ∀ n → zero + n ≡ n
++-leftIdentity = PA₃
+
 A : M → Set
 A m = ∀ n → m + n ≡ n + m
 
 A0 : A zero
-A0 n = zero + n   ≡⟨ PA₃ n ⟩
+A0 n = zero + n   ≡⟨ +-leftIdentity n ⟩
        n          ≡⟨ sym (+-rightIdentity n) ⟩
        n + zero   ∎
 

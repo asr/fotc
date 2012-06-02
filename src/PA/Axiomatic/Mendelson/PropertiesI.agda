@@ -14,6 +14,9 @@ open import PA.Axiomatic.Mendelson.Relation.Binary.PropositionalEqualityI
 
 ------------------------------------------------------------------------------
 
++-leftIdentity : ∀ n → zero + n ≈ n
++-leftIdentity = S₅
+
 +-rightIdentity : ∀ n → n + zero ≈ n
 +-rightIdentity = S₉ A A0 is
   where
@@ -21,7 +24,7 @@ open import PA.Axiomatic.Mendelson.Relation.Binary.PropositionalEqualityI
   A i = i + zero ≈ i
 
   A0 : A zero
-  A0 = S₅ zero
+  A0 = +-leftIdentity zero
 
   is : ∀ i → A i → A (succ i)
   is i ih = succ i + zero   ≈⟨ S₆ i zero ⟩
@@ -35,8 +38,8 @@ x+Sy≈S[x+y] m n = S₉ A A0 is m
   A i = i + succ n ≈ succ (i + n)
 
   A0 : A zero
-  A0 = zero + succ n   ≈⟨ S₅ (succ n) ⟩
-       succ n          ≈⟨ S₂ (≈-sym (S₅ n)) ⟩
+  A0 = zero + succ n   ≈⟨ +-leftIdentity (succ n) ⟩
+       succ n          ≈⟨ S₂ (≈-sym (+-leftIdentity n)) ⟩
        succ (zero + n) ∎
 
   is : ∀ i → A i → A (succ i)
@@ -70,8 +73,8 @@ x+Sy≈S[x+y] m n = S₉ A A0 is m
   A i = i + n + o ≈ i + (n + o)
 
   A0 : A zero
-  A0 = zero + n + o   ≈⟨ +-leftCong (S₅ n) ⟩
-       n + o          ≈⟨ ≈-sym (S₅ (n + o)) ⟩
+  A0 = zero + n + o   ≈⟨ +-leftCong (+-leftIdentity n) ⟩
+       n + o          ≈⟨ ≈-sym (+-leftIdentity (n + o)) ⟩
        zero + (n + o) ∎
 
   is : ∀ i → A i → A (succ i)
@@ -88,7 +91,7 @@ x+Sy≈S[x+y] m n = S₉ A A0 is m
   A i = i + n ≈ n + i
 
   A0 : A zero
-  A0 = zero + n   ≈⟨ S₅ n ⟩
+  A0 = zero + n   ≈⟨ +-leftIdentity n ⟩
        n          ≈⟨ ≈-sym (+-rightIdentity n) ⟩
        n + zero   ∎
 

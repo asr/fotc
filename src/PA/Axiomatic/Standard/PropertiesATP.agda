@@ -23,6 +23,9 @@ postulate +-rightCong : ∀ {m n o} → n ≡ o → m + n ≡ m + o
 
 ------------------------------------------------------------------------------
 
++-leftIdentity : ∀ n → zero + n ≡ n
++-leftIdentity = PA₃
+
 +-rightIdentity : ∀ n → n + zero ≡ n
 +-rightIdentity = PA-ind A A0 is
   where
@@ -31,7 +34,7 @@ postulate +-rightCong : ∀ {m n o} → n ≡ o → m + n ≡ m + o
   {-# ATP definition A #-}
 
   A0 : A zero
-  A0 = PA₃ zero
+  A0 = +-leftIdentity zero
 
   postulate is : ∀ i → A i → A (succ i)
   {-# ATP prove is #-}

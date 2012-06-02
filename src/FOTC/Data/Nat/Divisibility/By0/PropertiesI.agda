@@ -22,11 +22,11 @@ open import FOTC.Data.Nat.PropertiesI
 ------------------------------------------------------------------------------
 -- Any positive number divides 0.
 S∣0 : ∀ n → succ₁ n ∣ zero
-S∣0 n = zero , zN , sym (*-0x (succ₁ n))
+S∣0 n = zero , zN , sym (*-leftZero (succ₁ n))
 
 -- 0 divides 0.
 0∣0 : zero ∣ zero
-0∣0 = zero , zN , sym (*-0x zero)
+0∣0 = zero , zN , sym (*-leftZero zero)
 
 -- The divisibility relation is reflexive.
 ∣-refl : ∀ {n} → N n → n ∣ n

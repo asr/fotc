@@ -11,6 +11,9 @@ open import PA.Axiomatic.Mendelson.Base
 
 ------------------------------------------------------------------------------
 
++-leftIdentity : ∀ n → zero + n ≈ n
++-leftIdentity = S₅
+
 +-rightIdentity : ∀ n → n + zero ≈ n
 +-rightIdentity = S₉ A A0 is
   where
@@ -19,7 +22,7 @@ open import PA.Axiomatic.Mendelson.Base
   {-# ATP definition A #-}
 
   A0 : A zero
-  A0 = S₅ zero
+  A0 = +-leftIdentity zero
 
   postulate is : ∀ i → A i → A (succ i)
   {-# ATP prove is #-}

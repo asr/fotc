@@ -25,6 +25,9 @@ succCong = cong succ
 
 ------------------------------------------------------------------------------
 
++-leftIdentity : ∀ n → zero + n ≡ n
++-leftIdentity = PA₃
+
 +-rightIdentity : ∀ n → n + zero ≡ n
 +-rightIdentity = PA-ind A A0 is
   where
@@ -32,7 +35,7 @@ succCong = cong succ
   A i = i + zero ≡ i
 
   A0 : A zero
-  A0 = PA₃ zero
+  A0 = +-leftIdentity zero
 
   is : ∀ i → A i → A (succ i)
   is i ih = succ i + zero   ≡⟨ PA₄ i zero ⟩
@@ -46,8 +49,8 @@ succCong = cong succ
   A i = i + n + o ≡ i + (n + o)
 
   A0 : A zero
-  A0 = zero + n + o   ≡⟨ +-leftCong (PA₃ n) ⟩
-       n + o          ≡⟨ sym (PA₃ (n + o)) ⟩
+  A0 = zero + n + o   ≡⟨ +-leftCong (+-leftIdentity n) ⟩
+       n + o          ≡⟨ sym (+-leftIdentity (n + o)) ⟩
        zero + (n + o) ∎
 
   is : ∀ i → A i → A (succ i)
@@ -64,8 +67,8 @@ x+Sy≡S[x+y] m n = PA-ind A A0 is m
   A i = i + succ n ≡ succ (i + n)
 
   A0 : A zero
-  A0 = zero + succ n   ≡⟨ PA₃ (succ n) ⟩
-       succ n          ≡⟨ succCong (sym (PA₃ n)) ⟩
+  A0 = zero + succ n   ≡⟨ +-leftIdentity (succ n) ⟩
+       succ n          ≡⟨ succCong (sym (+-leftIdentity n)) ⟩
        succ (zero + n) ∎
 
   is : ∀ i → A i → A (succ i)
@@ -81,7 +84,7 @@ x+Sy≡S[x+y] m n = PA-ind A A0 is m
   A i = i + n ≡ n + i
 
   A0 : A zero
-  A0 = zero + n ≡⟨ PA₃ n ⟩
+  A0 = zero + n ≡⟨ +-leftIdentity n ⟩
        n        ≡⟨ sym (+-rightIdentity n) ⟩
        n + zero ∎
 
