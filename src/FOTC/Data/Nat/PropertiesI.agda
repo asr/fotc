@@ -379,6 +379,6 @@ xy≡0→x≡0∨y≡0 (sN {m} Nm) (sN {n} Nn) SmSn≡0 = ⊥-elim (0≢S prf)
 postulate xy≡1→x≡1∨y≡1 : ∀ {m n} → N m → N n → m * n ≡ one → m ≡ one ∨ n ≡ one
 
 -- Feferman's axiom as presented by (Beeson 1986, p. 74).
-succ-onto : ∀ {n} → N n → n ≢ zero → succ₁ (pred₁ n) ≡ n
-succ-onto zN          h = ⊥-elim (h refl)
-succ-onto (sN {n} Nn) h = cong succ₁ (pred-S n)
+succOnto : ∀ {n} → N n → n ≢ zero → succ₁ (pred₁ n) ≡ n
+succOnto zN          h = ⊥-elim (h refl)
+succOnto (sN {n} Nn) h = cong succ₁ (pred-S n)

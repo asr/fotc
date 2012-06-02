@@ -12,8 +12,8 @@ open import PA.Axiomatic.Standard.Base
 ------------------------------------------------------------------------------
 -- Congruence properties
 
-postulate succ-cong : ∀ {m n} → m ≡ n → succ m ≡ succ n
-{-# ATP prove succ-cong #-}
+postulate succCong : ∀ {m n} → m ≡ n → succ m ≡ succ n
+{-# ATP prove succCong #-}
 
 postulate +-leftCong : ∀ {m n o} → m ≡ n → m + o ≡ n + o
 {-# ATP prove +-leftCong #-}

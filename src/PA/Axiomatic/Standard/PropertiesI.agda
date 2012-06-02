@@ -14,8 +14,8 @@ open import PA.Axiomatic.Standard.Base
 ------------------------------------------------------------------------------
 -- Congruence properties
 
-succ-cong : ∀ {m n} → m ≡ n → succ m ≡ succ n
-succ-cong = cong succ
+succCong : ∀ {m n} → m ≡ n → succ m ≡ succ n
+succCong = cong succ
 
 +-leftCong : ∀ {m n o} → m ≡ n → m + o ≡ n + o
 +-leftCong h = cong₂ _+_ h refl
@@ -36,7 +36,7 @@ succ-cong = cong succ
 
   is : ∀ i → A i → A (succ i)
   is i ih = succ i + zero   ≡⟨ PA₄ i zero ⟩
-            succ (i + zero) ≡⟨ succ-cong ih ⟩
+            succ (i + zero) ≡⟨ succCong ih ⟩
             succ i          ∎
 
 +-asocc : ∀ m n o → m + n + o ≡ m + (n + o)
@@ -53,7 +53,7 @@ succ-cong = cong succ
   is : ∀ i → A i → A (succ i)
   is i ih = succ i + n + o     ≡⟨ +-leftCong (PA₄ i n) ⟩
             succ (i + n) + o   ≡⟨ PA₄ (i + n) o ⟩
-            succ (i + n + o)   ≡⟨ succ-cong ih ⟩
+            succ (i + n + o)   ≡⟨ succCong ih ⟩
             succ (i + (n + o)) ≡⟨ sym (PA₄ i (n + o)) ⟩
             succ i + (n + o)   ∎
 
@@ -65,13 +65,13 @@ x+Sy≡S[x+y] m n = PA-ind A A0 is m
 
   A0 : A zero
   A0 = zero + succ n   ≡⟨ PA₃ (succ n) ⟩
-       succ n          ≡⟨ succ-cong (sym (PA₃ n)) ⟩
+       succ n          ≡⟨ succCong (sym (PA₃ n)) ⟩
        succ (zero + n) ∎
 
   is : ∀ i → A i → A (succ i)
   is i ih = succ i + succ n     ≡⟨ PA₄ i (succ n) ⟩
-            succ (i + succ n)   ≡⟨ succ-cong ih ⟩
-            succ (succ (i + n)) ≡⟨ succ-cong (sym (PA₄ i n)) ⟩
+            succ (i + succ n)   ≡⟨ succCong ih ⟩
+            succ (succ (i + n)) ≡⟨ succCong (sym (PA₄ i n)) ⟩
             succ (succ i + n)   ∎
 
 +-comm : ∀ m n → m + n ≡ n + m
@@ -87,6 +87,6 @@ x+Sy≡S[x+y] m n = PA-ind A A0 is m
 
   is : ∀ i → A i → A (succ i)
   is i ih = succ i + n   ≡⟨ PA₄ i n ⟩
-            succ (i + n) ≡⟨ succ-cong ih ⟩
+            succ (i + n) ≡⟨ succCong ih ⟩
             succ (n + i) ≡⟨ sym (x+Sy≡S[x+y] n i) ⟩
             n + succ i   ∎

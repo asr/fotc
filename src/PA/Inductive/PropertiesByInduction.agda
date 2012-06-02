@@ -12,8 +12,8 @@ open import PA.Inductive.Base
 ------------------------------------------------------------------------------
 -- Congruence properties
 
-succ-cong : ∀ {m n} → m ≡ n → succ m ≡ succ n
-succ-cong refl = refl
+succCong : ∀ {m n} → m ≡ n → succ m ≡ succ n
+succCong refl = refl
 
 ------------------------------------------------------------------------------
 
@@ -30,7 +30,7 @@ succ-cong refl = refl
   A0 = refl
 
   is : ∀ i → A i → A (succ i)
-  is i ih = succ-cong ih
+  is i ih = succCong ih
 
 +-assoc : ∀ m n o → m + n + o ≡ m + (n + o)
 +-assoc m n o = PA-ind A A0 is m
@@ -42,7 +42,7 @@ succ-cong refl = refl
   A0 = refl
 
   is : ∀ i → A i → A (succ i)
-  is i ih = succ-cong ih
+  is i ih = succCong ih
 
 x+Sy≡S[x+y] : ∀ m n → m + succ n ≡ succ (m + n)
 x+Sy≡S[x+y] m n = PA-ind A A0 is m
@@ -54,4 +54,4 @@ x+Sy≡S[x+y] m n = PA-ind A A0 is m
   A0 = refl
 
   is : ∀ i → A i → A (succ i)
-  is i ih = succ-cong ih
+  is i ih = succCong ih

@@ -5,7 +5,8 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of the standard library on 19 May 2012.
+-- Tested with the development version of the standard library on
+-- 01 June 2012.
 
 module ImplicitArgumentInductionSL where
 
@@ -14,8 +15,8 @@ open import Relation.Binary.PropositionalEquality
 
 ------------------------------------------------------------------------------
 
-succ-cong : ∀ {m n} → m ≡ n → succ m ≡ succ n
-succ-cong refl = refl
+succCong : ∀ {m n} → m ≡ n → succ m ≡ succ n
+succCong refl = refl
 
 -- TODO: 19 May 2012. Why we cannot use an implicit argument in the
 -- inductive hypothesis?
@@ -34,4 +35,4 @@ succ-cong refl = refl
   A0 = refl
 
   is : ∀ {i} → A i → A (succ i)
-  is ih = succ-cong ih
+  is ih = succCong ih
