@@ -18,6 +18,12 @@ open import LTC-PCF.Data.Nat.Rec.EquationsI
 ------------------------------------------------------------------------------
 -- Congruence properties
 
+succCong : ∀ {m n} → m ≡ n → succ₁ m ≡ succ₁ n
+succCong refl = refl
+
+predCong : ∀ {m n} → m ≡ n → pred₁ m ≡ pred₁ n
+predCong refl = refl
+
 +-leftCong : ∀ {m n o} → m ≡ n → m + o ≡ n + o
 +-leftCong refl = refl
 
@@ -69,7 +75,7 @@ open import LTC-PCF.Data.Nat.Rec.EquationsI
   lam pred₁ · (zero ∸ zero)
     ≡⟨ beta pred₁ (zero ∸ zero) ⟩
   pred₁ (zero ∸ zero)
-    ≡⟨ cong pred₁ (∸-x0 zero) ⟩
+    ≡⟨ predCong (∸-x0 zero) ⟩
   pred₁ zero
     ≡⟨ pred-0 ⟩
   zero ∎
@@ -84,7 +90,7 @@ open import LTC-PCF.Data.Nat.Rec.EquationsI
   lam pred₁ · (zero ∸ (succ₁ n))
     ≡⟨ beta pred₁ (zero ∸ (succ₁ n)) ⟩
   pred₁ (zero ∸ (succ₁ n))
-    ≡⟨ cong pred₁ (∸-0S Nn) ⟩
+    ≡⟨ predCong (∸-0S Nn) ⟩
   pred₁ zero
     ≡⟨ pred-0 ⟩
   zero ∎
@@ -104,7 +110,7 @@ open import LTC-PCF.Data.Nat.Rec.EquationsI
   lam pred₁ · (succ₁ m ∸ zero)
     ≡⟨ beta pred₁ (succ₁ m ∸ zero) ⟩
   pred₁ (succ₁ m ∸ zero)
-    ≡⟨ cong pred₁ (∸-x0 (succ₁ m)) ⟩
+    ≡⟨ predCong (∸-x0 (succ₁ m)) ⟩
   pred₁ (succ₁ m)
     ≡⟨ pred-S m ⟩
   m
@@ -121,9 +127,9 @@ open import LTC-PCF.Data.Nat.Rec.EquationsI
   lam pred₁ · (succ₁ zero ∸ succ₁ n)
     ≡⟨ beta pred₁ (succ₁ zero ∸ succ₁ n) ⟩
   pred₁ (succ₁ zero ∸ succ₁ n)
-    ≡⟨ cong pred₁ (∸-SS zN Nn) ⟩
+    ≡⟨ predCong (∸-SS zN Nn) ⟩
   pred₁ (zero ∸ n)
-    ≡⟨ cong pred₁ (∸-0x Nn) ⟩
+    ≡⟨ predCong (∸-0x Nn) ⟩
   pred₁ zero
     ≡⟨ pred-0 ⟩
   zero
@@ -140,7 +146,7 @@ open import LTC-PCF.Data.Nat.Rec.EquationsI
   lam pred₁ · (succ₁ (succ₁ m) ∸ succ₁ n)
     ≡⟨ beta pred₁ (succ₁ (succ₁ m) ∸ succ₁ n) ⟩
   pred₁ (succ₁ (succ₁ m) ∸ succ₁ n)
-    ≡⟨ cong pred₁ (∸-SS (sN Nm) Nn) ⟩
+    ≡⟨ predCong (∸-SS (sN Nm) Nn) ⟩
   pred₁ (succ₁ m ∸ n)
     ≡⟨ sym (beta pred₁ (succ₁ m ∸ n)) ⟩
   lam pred₁ · (succ₁ m ∸ n)
@@ -255,7 +261,7 @@ x+Sy≡S[x+y] (sN {m} Nm) n =
 
 +-comm {n = n} (sN {m} Nm) Nn =
   succ₁ m + n   ≡⟨ +-Sx m n ⟩
-  succ₁ (m + n) ≡⟨ cong succ₁ (+-comm Nm Nn) ⟩
+  succ₁ (m + n) ≡⟨ succCong (+-comm Nm Nn) ⟩
   succ₁ (n + m) ≡⟨ sym (x+Sy≡S[x+y] Nn m) ⟩
   n + succ₁ m   ∎
 
