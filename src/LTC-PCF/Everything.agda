@@ -11,6 +11,8 @@ open import LTC-PCF.Data.Bool
 open import LTC-PCF.Data.Bool.Type
 
 open import LTC-PCF.Data.Nat
+open import LTC-PCF.Data.Nat.Divisibility.By0
+open import LTC-PCF.Data.Nat.Divisibility.By0.PropertiesI
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesI
 open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
@@ -43,3 +45,12 @@ open import LTC-PCF.Program.GCD.Partial.GreatestAnyCommonDivisor
 open import LTC-PCF.Program.GCD.Partial.ProofSpecificationI
 open import LTC-PCF.Program.GCD.Partial.Specification
 open import LTC-PCF.Program.GCD.Partial.TotalityI
+
+open import LTC-PCF.Program.GCD.Total.CommonDivisorI
+open import LTC-PCF.Program.GCD.Total.Definitions
+open import LTC-PCF.Program.GCD.Total.DivisibleI
+open import LTC-PCF.Program.GCD.Total.EquationsI
+open import LTC-PCF.Program.GCD.Total.GCD
+open import LTC-PCF.Program.GCD.Total.ProofSpecificationI
+open import LTC-PCF.Program.GCD.Total.Specification
+open import LTC-PCF.Program.GCD.Total.TotalityI

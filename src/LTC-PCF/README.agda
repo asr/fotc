@@ -57,3 +57,4 @@ open import LTC-PCF.Program.Division.ProofSpecificationI
 
 -- The GCD algorithm: A non-structurally recursive algorithm
 open import LTC-PCF.Program.GCD.Partial.ProofSpecificationI
+open import LTC-PCF.Program.GCD.Total.ProofSpecificationI
