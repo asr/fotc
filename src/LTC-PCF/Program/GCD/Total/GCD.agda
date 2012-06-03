@@ -22,9 +22,7 @@ open import LTC-PCF.Loop
 gcdh : D → D
 gcdh g = lam (λ m → lam (λ n →
            if (iszero₁ n)
-              then (if (iszero₁ m)
-                       then zero
-                       else m)
+              then m
               else (if (iszero₁ m)
                        then n
                        else (if (m > n)
