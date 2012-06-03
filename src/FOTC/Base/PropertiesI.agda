@@ -13,12 +13,12 @@ open import FOTC.Base
 
 ------------------------------------------------------------------------------
 
-succInjective : ∀ {d e} → succ₁ d ≡ succ₁ e → d ≡ e
-succInjective {d} {e} h =
-  d                ≡⟨ sym (pred-S d) ⟩
-  pred₁ (succ₁ d)  ≡⟨ cong pred₁ h ⟩
-  pred₁ (succ₁ e)  ≡⟨ pred-S e ⟩
-  e                ∎
+succInjective : ∀ {m n} → succ₁ m ≡ succ₁ n → m ≡ n
+succInjective {m} {n} h =
+  m                ≡⟨ sym (pred-S m) ⟩
+  pred₁ (succ₁ m)  ≡⟨ cong pred₁ h ⟩
+  pred₁ (succ₁ n)  ≡⟨ pred-S n ⟩
+  n                ∎
 
 ∷-injective : ∀ {x y xs ys} → x ∷ xs ≡ y ∷ ys → x ≡ y ∧ xs ≡ ys
 ∷-injective {x} {y} {xs} {ys} h = x≡y , xs≡ys

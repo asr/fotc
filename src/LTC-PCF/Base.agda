@@ -54,13 +54,13 @@ abstract
   if b then d₁ else d₂ = if · b · d₁ · d₂
 
   succ₁ : D → D
-  succ₁ d = succ · d
+  succ₁ n = succ · n
 
   pred₁ : D → D
-  pred₁ d = pred · d
+  pred₁ n = pred · n
 
   iszero₁ : D → D
-  iszero₁ d = iszero · d
+  iszero₁ n = iszero · n
 
 ------------------------------------------------------------------------------
 -- Conversion rules
@@ -97,14 +97,14 @@ postulate
 
  -- N.B. We don't need this equation in FOTC.
   pred-0 : pred₁ zero ≡ zero
-  pred-S : ∀ d → pred₁ (succ₁ d) ≡ d
+  pred-S : ∀ n → pred₁ (succ₁ n) ≡ n
 
 -- Conversion rules for iszero.
 postulate
   -- iszero-0 :       iszero · zero       ≡ true
   -- iszero-S : ∀ d → iszero · (succ · d) ≡ false
   iszero-0 :       iszero₁ zero      ≡ true
-  iszero-S : ∀ d → iszero₁ (succ₁ d) ≡ false
+  iszero-S : ∀ n → iszero₁ (succ₁ n) ≡ false
 
 ------------------------------------------------------------------------------
 -- Discrimination rules
@@ -112,4 +112,4 @@ postulate
 postulate
   true≢false : true ≢ false
 --  0≢S        : ∀ {d} → zero ≢ succ · d
-  0≢S        : ∀ {d} → zero ≢ succ₁ d
+  0≢S        : ∀ {n} → zero ≢ succ₁ n

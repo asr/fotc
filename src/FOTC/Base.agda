@@ -66,15 +66,15 @@ abstract
   -- {-# ATP definition if_then_else_ #-}
 
   succ₁ : D → D
-  succ₁ d = succ · d
+  succ₁ n = succ · n
   -- {-# ATP definition succ₁ #-}
 
   pred₁ : D → D
-  pred₁ d = pred · d
+  pred₁ n = pred · n
   -- {-# ATP definition pred₁ #-}
 
   iszero₁ : D → D
-  iszero₁ d = iszero · d
+  iszero₁ n = iszero · n
   -- {-# ATP definition iszero₁ #-}
 
   [] : D
@@ -123,16 +123,16 @@ postulate
 postulate
   -- N.B. We don't need this equation.
   -- pred-0 :       pred · zero     ≡ zero
-  -- pred-S : ∀ d → pred · (succ · d) ≡ d
-  pred-S : ∀ d → pred₁ (succ₁ d) ≡ d
+  -- pred-S : ∀ n → pred · (succ · n) ≡ n
+  pred-S : ∀ n → pred₁ (succ₁ n) ≡ n
 {-# ATP axiom pred-S #-}
 
 -- Conversion rules for iszero.
 postulate
   -- iszero-0 :       iszero · zero       ≡ true
-  -- iszero-S : ∀ d → iszero · (succ · d) ≡ false
+  -- iszero-S : ∀ n → iszero · (succ · n) ≡ false
   iszero-0 :       iszero₁ zero      ≡ true
-  iszero-S : ∀ d → iszero₁ (succ₁ d) ≡ false
+  iszero-S : ∀ n → iszero₁ (succ₁ n) ≡ false
 {-# ATP axiom iszero-0 iszero-S #-}
 
 -- Conversion rules for null.
@@ -165,6 +165,6 @@ postulate loop-eq : loop ≡ loop
 
 postulate
   true≢false : true ≢ false
---  0≢S        : ∀ {d} → zero ≢ succ · d
-  0≢S        : ∀ {d} → zero ≢ succ₁ d
+--  0≢S        : ∀ {n} → zero ≢ succ · n
+  0≢S        : ∀ {n} → zero ≢ succ₁ n
 {-# ATP axiom true≢false 0≢S #-}

@@ -20,16 +20,16 @@ open import LTC-PCF.Loop
 -- polymorphic fixed-point operator.
 
 gcdh : D → D
-gcdh g = lam (λ d → lam (λ e →
-           if (iszero₁ e)
-              then (if (iszero₁ d)
+gcdh g = lam (λ m → lam (λ n →
+           if (iszero₁ n)
+              then (if (iszero₁ m)
                        then loop
-                       else d)
-              else (if (iszero₁ d)
-                       then e
-                       else (if (d > e)
-                                then g · (d ∸ e) · e
-                                else g · d · (e ∸ d)))))
+                       else m)
+              else (if (iszero₁ m)
+                       then n
+                       else (if (m > n)
+                                then g · (m ∸ n) · n
+                                else g · m · (n ∸ m)))))
 
 gcd : D → D → D
-gcd d e = fix gcdh · d · e
+gcd m n = fix gcdh · m · n

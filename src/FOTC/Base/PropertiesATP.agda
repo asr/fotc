@@ -12,7 +12,7 @@ open import FOTC.Base
 ------------------------------------------------------------------------------
 
 postulate
-  succInjective : ∀ {d e} → succ₁ d ≡ succ₁ e → d ≡ e
+  succInjective : ∀ {m n} → succ₁ m ≡ succ₁ n → m ≡ n
 {-# ATP prove succInjective #-}
 
 postulate

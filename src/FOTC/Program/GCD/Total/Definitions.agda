@@ -15,10 +15,10 @@ open import FOTC.Data.Nat.Type
 ------------------------------------------------------------------------------
 -- Common divisor.
 CD : D → D → D → Set
-CD d₁ d₂ cd = cd ∣ d₁ ∧ cd ∣ d₂
+CD m n cd = cd ∣ m ∧ cd ∣ n
 {-# ATP definition CD #-}
 
 -- Divisible for any common divisor.
 Divisible : D → D → D → Set
-Divisible d₁ d₂ gcd = ∀ cd → N cd → CD d₁ d₂ cd → cd ∣ gcd
+Divisible m n gcd = ∀ cd → N cd → CD m n cd → cd ∣ gcd
 {-# ATP definition Divisible #-}
