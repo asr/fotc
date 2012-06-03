@@ -41,7 +41,7 @@ gcd-00∣0 = subst (λ x → x ∣ zero) (sym gcd-00) 0∣0
 --
 -- gcd-∣₂ : ... → (gcd m n) ∣ n.
 --
--- Therefore, instead of prove
+-- Therefore, instead of proving
 --
 -- gcd-CD : ... → CD m n (gcd m n)
 --

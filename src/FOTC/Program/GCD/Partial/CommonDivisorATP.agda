@@ -36,7 +36,7 @@ open import FOTC.Program.GCD.Partial.TotalityATP
 --
 -- gcd-∣₂ : ... → (gcd m n) ∣ n.
 --
--- Therefore, instead of prove
+-- Therefore, instead of proving
 --
 -- gcd-CD : ... → CD m n (gcd m n)
 --

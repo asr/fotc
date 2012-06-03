@@ -15,7 +15,7 @@ open import LTC-PCF.Loop
 ------------------------------------------------------------------------------
 -- In GHC ≥ 7.2.1 the gcd is a total function, i.e. gcd 0 0 = 0.
 
--- Instead of define gcdh : ((D → D → D) → (D → D → D)) → D → D → D,
+-- Instead of defining gcdh : ((D → D → D) → (D → D → D)) → D → D → D,
 -- we use the LTC-PCF λ-abstraction and application to avoid use a
 -- polymorphic fixed-point operator.
 

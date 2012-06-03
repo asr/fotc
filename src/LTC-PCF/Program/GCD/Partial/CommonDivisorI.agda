@@ -36,7 +36,7 @@ open import LTC-PCF.Program.GCD.Partial.TotalityI
 --
 -- gcd-∣₂ : ... → (gcd m n) ∣ n.
 --
--- Therefore, instead of prove
+-- Therefore, instead of proving
 --
 -- gcd-CD : ... → CD m n (gcd m n)
 --
