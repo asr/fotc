@@ -14,13 +14,9 @@ open import FOTC.Data.Nat
 infix 7 _∣_
 
 ------------------------------------------------------------------------------
--- The relation of divisibility.
--- The symbol is '\mid' not '|'.
--- It seems there is not agreement about if 0∣0, e.g.
--- • Hardy and Wright. An introduction to the theory of numbers. 1975. 4ed: 0∤0
--- • Agda standard library, version 0.6: 0|0
--- • Coq 8.3pl4: 0∣0
--- • Isabelle, version Isabelle2011: 0∣0
+-- The relation of divisibility (the symbol is '\mid' not '|')
+--
+-- (See documentation in FOTC.Data.Nat.Divisibility.By0)
 --
 -- In our definition 0∤0, which is used to prove properties of the gcd
 -- as it is in GHC ≤ 7.0.4, where gcd 0 0 = undefined (see
