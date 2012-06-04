@@ -61,4 +61,4 @@ NGE m n = m ≥ n ≡ false
 ------------------------------------------------------------------------------
 -- The lexicographical order.
 Lexi : D → D → D → D → Set
-Lexi x₁ y₁ x₂ y₂ = LT x₁ x₂ ∨ x₁ ≡ x₂ ∧ LT y₁ y₂
+Lexi m₁ n₁ m₂ n₂ = LT m₁ m₂ ∨ m₁ ≡ m₂ ∧ LT n₁ n₂
