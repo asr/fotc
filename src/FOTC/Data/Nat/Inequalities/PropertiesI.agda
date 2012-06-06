@@ -171,9 +171,12 @@ Sx≯y→x≯y : ∀ {m n} → N m → N n → NGT (succ₁ m) n → NGT m n
 Sx≯y→x≯y Nm Nn Sm≤n = x≤y→x≯y Nm Nn (Sx≤y→x≤y Nm Nn (x≯y→x≤y (sN Nm) Nn Sm≤n))
 
 x>y∨x≯y : ∀ {m n} → N m → N n → GT m n ∨ NGT m n
-x>y∨x≯y Nm Nn = [ (λ m>n → inj₁ m>n) ,
-                  (λ m≤n → inj₂ (x≤y→x≯y Nm Nn m≤n))
-                ] (x>y∨x≤y Nm Nn)
+x>y∨x≯y zN Nn                   = inj₂ (0≯x Nn)
+x>y∨x≯y (sN {m} Nm) zN          = inj₁ (<-0S m)
+x>y∨x≯y (sN {m} Nm) (sN {n} Nn) =
+  [ (λ h → inj₁ (trans (<-SS n m) h))
+  , (λ h → inj₂ (trans (<-SS n m) h))
+  ] (x>y∨x≯y Nm Nn)
 
 <-trans : ∀ {m n o} → N m → N n → N o → LT m n → LT n o → LT m o
 <-trans zN          zN           _          0<0   _    = ⊥-elim $ 0<0→⊥ 0<0

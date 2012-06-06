@@ -98,9 +98,12 @@ x≯y→x≤y (sN {m} Nm) (sN {n} Nn) Sm≯Sn =
   trans (<-SS m (succ₁ n)) (x≯y→x≤y Nm Nn (trans (sym (<-SS n m)) Sm≯Sn))
 
 x>y∨x≯y : ∀ {m n} → N m → N n → GT m n ∨ NGT m n
-x>y∨x≯y Nm Nn = [ (λ m>n → inj₁ m>n) ,
-                  (λ m≤n → inj₂ (x≤y→x≯y Nm Nn m≤n))
-                ] (x>y∨x≤y Nm Nn)
+x>y∨x≯y zN Nn                   = inj₂ (0≯x Nn)
+x>y∨x≯y (sN {m} Nm) zN          = inj₁ (<-0S m)
+x>y∨x≯y (sN {m} Nm) (sN {n} Nn) =
+  [ (λ h → inj₁ (trans (<-SS n m) h))
+  , (λ h → inj₂ (trans (<-SS n m) h))
+  ] (x>y∨x≯y Nm Nn)
 
 x<y∨x≥y : ∀ {m n} → N m → N n → LT m n ∨ GE m n
 x<y∨x≥y Nm Nn = x>y∨x≤y Nn Nm
