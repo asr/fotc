@@ -26,6 +26,13 @@ Divisible m n gcd = ∀ cd → N cd → CD m n cd → cd ∣ gcd
 -- Greatest that any common divisor.
 GACD : D → D → D → Set
 GACD m n gcd = ∀ cd → N cd → CD m n cd → LE cd gcd
+{-# ATP definition GACD #-}
+
+-- Greatest common divisor.
+GCD : D → D → D → Set
+GCD m n gcd = CD m n gcd ∧ GACD m n gcd
+{-# ATP definition GCD #-}
 
 x≢0≢y : D → D → Set
 x≢0≢y m n = ¬ (m ≡ zero ∧ n ≡ zero)
+{-# ATP definition x≢0≢y #-}

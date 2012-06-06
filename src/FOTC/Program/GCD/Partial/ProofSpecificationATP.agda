@@ -17,7 +17,7 @@ open import FOTC.Base
 open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP using ( 0∤x ; x∣S→x≤S )
 open import FOTC.Data.Nat.Type
 open import FOTC.Program.GCD.Partial.CommonDivisorATP using ( gcd-CD )
-open import FOTC.Program.GCD.Partial.Definitions using ( x≢0≢y )
+open import FOTC.Program.GCD.Partial.Definitions using ( x≢0≢y ; GCD )
 open import FOTC.Program.GCD.Partial.DivisibleATP using ( gcd-Divisible )
 open import FOTC.Program.GCD.Partial.GCD using ( gcd )
 
@@ -28,12 +28,12 @@ open module GreatestAnyCommonDivisorATP =
 
 open import FOTC.Program.GCD.Partial.TotalityATP using ( gcd-N )
 
-import FOTC.Program.GCD.Partial.Specification
-open module SpecificationATP =
-  FOTC.Program.GCD.Partial.Specification gcd-N gcd-CD gcd-Divisible gcd-GACD
-  renaming ( gcd-GCD to gcd-GCD-ATP )
-
 ------------------------------------------------------------------------------
 -- The gcd is the GCD.
-gcd-GCD : ∀ {m n} → N m → N n → x≢0≢y m n → GCD m n (gcd m n)
-gcd-GCD = gcd-GCD-ATP
+postulate gcd-GCD : ∀ {m n} → N m → N n → x≢0≢y m n → GCD m n (gcd m n)
+{-# ATP prove gcd-GCD gcd-CD gcd-GACD gcd-N gcd-Divisible #-}
+
+-- gcd-GCD Nm Nn m≢0≢n = gcd-CD Nm Nn m≢0≢n
+--                     , gcd-GACD (gcd-N Nm Nn m≢0≢n)
+--                                (gcd-CD Nm Nn m≢0≢n)
+--                                (gcd-Divisible Nm Nn m≢0≢n)

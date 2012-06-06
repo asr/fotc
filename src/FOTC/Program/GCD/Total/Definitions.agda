@@ -22,3 +22,12 @@ CD m n cd = cd ∣ m ∧ cd ∣ n
 Divisible : D → D → D → Set
 Divisible m n gcd = ∀ cd → N cd → CD m n cd → cd ∣ gcd
 {-# ATP definition Divisible #-}
+
+-- Greatest common divisor.
+
+-- The gcd is a common divisor and the gcd is divided by any common
+-- divisor, thefore the gcd is the greatest common divisor
+-- according to the partial order _∣_.
+GCD : D → D → D → Set
+GCD m n gcd = CD m n gcd ∧ Divisible m n gcd
+{-# ATP definition GCD #-}

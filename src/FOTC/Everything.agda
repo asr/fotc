@@ -129,7 +129,6 @@ open import FOTC.Program.GCD.Partial.GCD.ConsistencyTest
 open import FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor
 open import FOTC.Program.GCD.Partial.ProofSpecificationATP
 open import FOTC.Program.GCD.Partial.ProofSpecificationI
-open import FOTC.Program.GCD.Partial.Specification
 open import FOTC.Program.GCD.Partial.TotalityATP
 open import FOTC.Program.GCD.Partial.TotalityI
 
@@ -144,7 +143,6 @@ open import FOTC.Program.GCD.Total.GCD
 open import FOTC.Program.GCD.Total.GCD.ConsistencyTest
 open import FOTC.Program.GCD.Total.ProofSpecificationATP
 open import FOTC.Program.GCD.Total.ProofSpecificationI
-open import FOTC.Program.GCD.Total.Specification
 open import FOTC.Program.GCD.Total.TotalityATP
 open import FOTC.Program.GCD.Total.TotalityI
 

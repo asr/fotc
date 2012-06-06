@@ -16,7 +16,7 @@ open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesI
 open import LTC-PCF.Data.Nat.Type
 
 open import LTC-PCF.Program.GCD.Partial.CommonDivisorI using ( gcd-CD )
-open import LTC-PCF.Program.GCD.Partial.Definitions using ( x≢0≢y )
+open import LTC-PCF.Program.GCD.Partial.Definitions using ( x≢0≢y ; GCD )
 open import LTC-PCF.Program.GCD.Partial.DivisibleI using ( gcd-Divisible )
 open import LTC-PCF.Program.GCD.Partial.GCD using ( gcd )
 
@@ -27,12 +27,10 @@ open module GreatestAnyCommonDivisorI =
 
 open import LTC-PCF.Program.GCD.Partial.TotalityI using ( gcd-N )
 
-import LTC-PCF.Program.GCD.Partial.Specification
-open module SpecificationI =
-  LTC-PCF.Program.GCD.Partial.Specification gcd-N gcd-CD gcd-Divisible gcd-GACD
-  renaming ( gcd-GCD to gcd-GCD-I )
-
 ------------------------------------------------------------------------------
 -- The gcd is the GCD.
 gcd-GCD : ∀ {m n} → N m → N n → x≢0≢y m n → GCD m n (gcd m n)
-gcd-GCD = gcd-GCD-I
+gcd-GCD Nm Nn m≢0≢n = gcd-CD Nm Nn m≢0≢n
+                    , gcd-GACD (gcd-N Nm Nn m≢0≢n)
+                               (gcd-CD Nm Nn m≢0≢n)
+                               (gcd-Divisible Nm Nn m≢0≢n)

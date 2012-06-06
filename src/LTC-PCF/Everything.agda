@@ -43,7 +43,6 @@ open import LTC-PCF.Program.GCD.Partial.GCD
 open import LTC-PCF.Program.GCD.Partial.GreatestAnyCommonDivisor
 open import LTC-PCF.Program.GCD.Partial.GreatestAnyCommonDivisor
 open import LTC-PCF.Program.GCD.Partial.ProofSpecificationI
-open import LTC-PCF.Program.GCD.Partial.Specification
 open import LTC-PCF.Program.GCD.Partial.TotalityI
 
 open import LTC-PCF.Program.GCD.Total.CommonDivisorI
@@ -52,5 +51,4 @@ open import LTC-PCF.Program.GCD.Total.DivisibleI
 open import LTC-PCF.Program.GCD.Total.EquationsI
 open import LTC-PCF.Program.GCD.Total.GCD
 open import LTC-PCF.Program.GCD.Total.ProofSpecificationI
-open import LTC-PCF.Program.GCD.Total.Specification
 open import LTC-PCF.Program.GCD.Total.TotalityI
