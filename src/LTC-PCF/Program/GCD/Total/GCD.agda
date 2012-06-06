@@ -31,4 +31,3 @@ gcdh g = lam (λ m → lam (λ n →
 
 gcd : D → D → D
 gcd m n = fix gcdh · m · n
-
