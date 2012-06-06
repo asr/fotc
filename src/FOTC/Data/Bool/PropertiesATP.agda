@@ -7,8 +7,6 @@
 
 module FOTC.Data.Bool.PropertiesATP where
 
-open import Common.Function
-
 open import FOTC.Base
 open import FOTC.Data.Bool
 open import FOTC.Data.Nat.Inequalities
@@ -83,13 +81,13 @@ true&&x≡x fB = &&-tf
 
 &&-proj₁ : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₁ ≡ true
 &&-proj₁ tB B₂ h = refl
-&&-proj₁ fB tB h = ⊥-elim $ true≢false $ trans (sym h) &&-ft
-&&-proj₁ fB fB h = ⊥-elim $ true≢false $ trans (sym h) &&-ff
+&&-proj₁ fB tB h = ⊥-elim (true≢false (trans (sym h) &&-ft))
+&&-proj₁ fB fB h = ⊥-elim (true≢false (trans (sym h) &&-ff))
 
 &&-proj₂ : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₂ ≡ true
 &&-proj₂ B₁ tB h   = refl
-&&-proj₂ tB fB h = ⊥-elim $ true≢false $ trans (sym h) &&-tf
-&&-proj₂ fB fB h = ⊥-elim $ true≢false $ trans (sym h) &&-ff
+&&-proj₂ tB fB h = ⊥-elim (true≢false (trans (sym h) &&-tf))
+&&-proj₂ fB fB h = ⊥-elim (true≢false (trans (sym h) &&-ff))
 
 &&₃-proj₁ : ∀ {b₁ b₂ b₃ b₄} →
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
@@ -141,6 +139,20 @@ not² fB = trans (cong not not-f) not-t
 ------------------------------------------------------------------------------
 -- Properties with inequalities
 
+<-Bool : ∀ {m n} → N m → N n → Bool (m < n)
+<-Bool zN zN = prf
+  where postulate prf : Bool (zero < zero)
+        {-# ATP prove prf #-}
+<-Bool zN (sN {n} Nn) = prf
+  where postulate prf : Bool (zero < succ₁ n)
+        {-# ATP prove prf #-}
+<-Bool (sN {m} Nm) zN = prf
+  where postulate prf : Bool (succ₁ m < zero)
+        {-# ATP prove prf #-}
+<-Bool (sN {m} Nm) (sN {n} Nn) = prf (<-Bool Nm Nn)
+  where postulate prf : Bool (m < n) → Bool (succ₁ m < succ₁ n)
+        {-# ATP prove prf #-}
+
 ≤-Bool : ∀ {m n} → N m → N n → Bool (m ≤ n)
 ≤-Bool {n = n} zN Nn = prf
   where postulate prf : Bool (zero ≤ n)
@@ -148,6 +160,6 @@ not² fB = trans (cong not not-f) not-t
 ≤-Bool (sN {m} Nm) zN = prf
   where postulate prf : Bool (succ₁ m ≤ zero)
         {-# ATP prove prf Sx≰0 #-}
-≤-Bool (sN {m} Nm) (sN {n} Nn) = prf $ ≤-Bool Nm Nn
+≤-Bool (sN {m} Nm) (sN {n} Nn) = prf (≤-Bool Nm Nn)
   where postulate prf : Bool (m ≤ n) → Bool (succ₁ m ≤ succ₁ n)
         {-# ATP prove prf #-}

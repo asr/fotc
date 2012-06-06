@@ -8,14 +8,12 @@
 module FOTC.Data.Bool.PropertiesI where
 
 open import Common.FOL.Relation.Binary.EqReasoning
-open import Common.Function
 
 open import FOTC.Base
 open import FOTC.Data.Bool
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.Type
-
 
 ------------------------------------------------------------------------------
 -- Basic properties
@@ -71,13 +69,13 @@ postulate
 
 &&-proj₁ : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₁ ≡ true
 &&-proj₁ tB _ _    = refl
-&&-proj₁ fB tB h = ⊥-elim $ true≢false $ trans (sym h) &&-ft
-&&-proj₁ fB fB h = ⊥-elim $ true≢false $ trans (sym h) &&-ff
+&&-proj₁ fB tB h = ⊥-elim (true≢false (trans (sym h) &&-ft))
+&&-proj₁ fB fB h = ⊥-elim (true≢false (trans (sym h) &&-ff))
 
 &&-proj₂ : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₂ ≡ true
 &&-proj₂ _  tB _   = refl
-&&-proj₂ tB fB h = ⊥-elim $ true≢false $ trans (sym h) &&-tf
-&&-proj₂ fB fB h = ⊥-elim $ true≢false $ trans (sym h) &&-ff
+&&-proj₂ tB fB h = ⊥-elim (true≢false (trans (sym h) &&-tf))
+&&-proj₂ fB fB h = ⊥-elim (true≢false (trans (sym h) &&-ff))
 
 &&₃-proj₁ : ∀ {b₁ b₂ b₃ b₄} →
             Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
@@ -85,7 +83,7 @@ postulate
             b₁ ≡ true
 &&₃-proj₁ tB _ _ _ _ = refl
 &&₃-proj₁ {b₂ = b₂} {b₃} {b₄} fB Bb₂ Bb₃ Bb₄ h =
-  ⊥-elim $ true≢false $ trans (sym h) prf
+  ⊥-elim (true≢false (trans (sym h) prf))
   where
   prf : false && b₂ && b₃ && b₄ ≡ false
   prf = false&&x≡false (&&-Bool Bb₂ (&&-Bool Bb₃ Bb₄))
@@ -96,7 +94,7 @@ postulate
             b₂ ≡ true
 &&₃-proj₂ _ tB _ _ _ = refl
 &&₃-proj₂ {b₁} {b₃ = b₃} {b₄} Bb₁ fB Bb₃ Bb₄ h =
-  ⊥-elim $ true≢false $ trans (sym h) prf
+  ⊥-elim (true≢false (trans (sym h) prf))
   where
   prf : b₁ && false && b₃ && b₄ ≡ false
   prf =
@@ -115,7 +113,7 @@ postulate
             b₃ ≡ true
 &&₃-proj₃ _ _ tB _ _ = refl
 &&₃-proj₃ {b₁} {b₂} {b₄ = b₄} Bb₁ Bb₂ fB Bb₄ h =
-  ⊥-elim $ true≢false $ trans (sym h) prf
+  ⊥-elim (true≢false (trans (sym h) prf))
   where
   prf : b₁ && b₂ && false && b₄ ≡ false
   prf =
@@ -136,7 +134,7 @@ postulate
             b₄ ≡ true
 &&₃-proj₄ _ _ _ tB _ = refl
 &&₃-proj₄ {b₁} {b₂} {b₃} Bb₁ Bb₂ Bb₃ fB h =
-  ⊥-elim $ true≢false $ trans (sym h) prf
+  ⊥-elim (true≢false (trans (sym h) prf))
   where
   prf : b₁ && b₂ && b₃ && false ≡ false
   prf =
@@ -165,9 +163,14 @@ not² fB = trans (cong not not-f) not-t
 ------------------------------------------------------------------------------
 -- Properties with inequalities
 
+<-Bool : ∀ {m n} → N m → N n → Bool (m < n)
+<-Bool zN          zN          = subst Bool (sym <-00) fB
+<-Bool zN          (sN {n} Nn) = subst Bool (sym (<-0S n)) tB
+<-Bool (sN {m} Nm) zN          = subst Bool (sym (<-S0 m)) fB
+<-Bool (sN {m} Nm) (sN {n} Nn) = subst Bool (sym (<-SS m n)) (<-Bool Nm Nn)
+
 ≤-Bool : ∀ {m n} → N m → N n → Bool (m ≤ n)
-≤-Bool {n = n} zN Nn           = subst Bool (sym $ <-0S n) tB
-≤-Bool (sN Nm) zN              = subst Bool (sym $ Sx≰0 Nm) fB
-≤-Bool (sN {m} Nm) (sN {n} Nn) = subst Bool
-                                       (sym $ <-SS m (succ₁ n))
-                                       (≤-Bool Nm Nn)
+≤-Bool {n = n} zN          Nn          = subst Bool (sym (<-0S n)) tB
+≤-Bool         (sN Nm)     zN          = subst Bool (sym (Sx≰0 Nm)) fB
+≤-Bool         (sN {m} Nm) (sN {n} Nn) =
+  subst Bool (sym (<-SS m (succ₁ n))) (≤-Bool Nm Nn)

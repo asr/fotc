@@ -17,7 +17,10 @@ open import LTC-PCF.Base
 -- Booleans
 
 -- The inductive predicate
-open import FOTC.Data.Bool.Type
+open import LTC-PCF.Data.Bool.Type
+
+-- Properties
+open import LTC-PCF.Data.Bool.PropertiesI
 
 ------------------------------------------------------------------------------
 -- Natural numberes
