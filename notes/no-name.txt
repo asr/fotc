@@ -36,6 +36,7 @@ $ vampire_lin64 -t xxx --input_file file_name
 -- Adapted from the Agda standard library v0.6 (see
    ModuleName.FunctionName).
 
+-- Tested with GHC 7.4.1 on .
 -- Tested with FOT on .
 -- Tested with FOT and agda2atp on .
 -- Tested with the development version of Agda on .
