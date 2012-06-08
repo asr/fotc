@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Well-founded induction on the lexicographic order the natural numbers
+-- Well-founded induction on the lexicographic order on natural numbers
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
