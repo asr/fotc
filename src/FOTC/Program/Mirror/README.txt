@@ -10,7 +10,7 @@ and the higher-order recursive function
 
 mirror (tree a ts) = tree a (reverse (map mirror ts))
 
-we prove that
+we prove that mirror is an involution, i.e.
 
 mirror (mirror t) = t
 

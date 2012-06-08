@@ -20,11 +20,11 @@ open import FOTC.Program.Mirror.Tree.Totality
 
 ------------------------------------------------------------------------------
 
-mirror² : ∀ {t} → Tree t → mirror · (mirror · t) ≡ t
-helper  : ∀ {ts} → Forest ts →
-          reverse (map mirror (reverse (map mirror ts))) ≡ ts
+mirror-involutive : ∀ {t} → Tree t → mirror · (mirror · t) ≡ t
+helper            : ∀ {ts} → Forest ts →
+                    reverse (map mirror (reverse (map mirror ts))) ≡ ts
 
-mirror² (treeT d nilF) =
+mirror-involutive (treeT d nilF) =
   mirror · (mirror · (node d []))
     ≡⟨ subst (λ x → mirror · (mirror · (node d [])) ≡ mirror · x )
              (mirror-eq d [])
@@ -53,7 +53,7 @@ mirror² (treeT d nilF) =
     ≡⟨ subst (λ x → node d (reverse []) ≡ node d x) (rev-[] []) refl ⟩
   node d [] ∎
 
-mirror² (treeT d (consF {t} {ts} Tt Fts)) =
+mirror-involutive (treeT d (consF {t} {ts} Tt Fts)) =
   mirror · (mirror · node d (t ∷ ts))
     ≡⟨ subst (λ x → mirror · (mirror · node d (t ∷ ts)) ≡ mirror · x)
              (mirror-eq d (t ∷ ts))
@@ -158,7 +158,7 @@ helper (consF {t} {ts} Tt Fts) =
     ≡⟨ subst (λ x → (mirror · (mirror · t) ∷
                             reverse (map mirror (reverse (map mirror ts)))) ≡
                     (x ∷ reverse (map mirror (reverse (map mirror ts)))))
-             (mirror² Tt)  -- IH.
+             (mirror-involutive Tt)  -- IH.
              refl
     ⟩
   t ∷ reverse (map mirror (reverse (map mirror ts)))

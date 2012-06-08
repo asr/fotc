@@ -140,11 +140,11 @@ x≢not-x fB = prf
 not-x≢x : ∀ {b} → Bool b → not b ≢ b
 not-x≢x Bb h = x≢not-x Bb (sym h)
 
-not² : ∀ {b} → Bool b → not (not b) ≡ b
-not² tB = prf
+not-involutive : ∀ {b} → Bool b → not (not b) ≡ b
+not-involutive tB = prf
   where postulate prf : not (not true) ≡ true
         {-# ATP prove prf #-}
-not² fB = prf
+not-involutive fB = prf
   where postulate prf : not (not false) ≡ false
         {-# ATP prove prf #-}
 

@@ -6,7 +6,7 @@
 {-# OPTIONS --without-K #-}
 
 -- Tested with the development version of the standard library on
--- 31 May 2012.
+-- 08 June 2012.
 
 module MirrorListSL where
 
@@ -56,12 +56,12 @@ mirror : {A : Set} → Tree A → Tree A
 mirror (treeT a ts) = treeT a (reverse (map mirror ts))
 
 -- The proof of the property.
-mirror² : {A : Set} → (t : Tree A) → mirror (mirror t) ≡ t
-helper  : {A : Set} → (ts : List (Tree A)) →
-          reverse (map mirror (reverse (map mirror ts))) ≡ ts
+mirror-involutive : {A : Set} → (t : Tree A) → mirror (mirror t) ≡ t
+helper            : {A : Set} → (ts : List (Tree A)) →
+                    reverse (map mirror (reverse (map mirror ts))) ≡ ts
 
-mirror² (treeT a []) = refl
-mirror² (treeT a (t ∷ ts)) =
+mirror-involutive (treeT a []) = refl
+mirror-involutive (treeT a (t ∷ ts)) =
   begin
     treeT a (reverse (map mirror (reverse (map mirror ts) ++ mirror t ∷ [])))
       ≡⟨ cong (treeT a) (helper (t ∷ ts)) ⟩
@@ -88,7 +88,7 @@ helper (t ∷ ts) =
       ≡⟨ refl ⟩
     mirror (mirror t) ∷ reverse (map mirror (reverse (map mirror ts)))
       ≡⟨ cong (flip _∷_ (reverse (map mirror (reverse (map mirror ts)))))
-              (mirror² t)
+              (mirror-involutive t)
       ⟩
     t ∷ reverse (map mirror (reverse (map mirror ts)))
       ≡⟨ cong (_∷_ t) (helper ts) ⟩

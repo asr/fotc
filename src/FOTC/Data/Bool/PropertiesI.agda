@@ -162,9 +162,9 @@ x≢not-x fB h = true≢false (sym (trans h not-f))
 not-x≢x : ∀ {b} → Bool b → not b ≢ b
 not-x≢x Bb h = x≢not-x Bb (sym h)
 
-not² : ∀ {b} → Bool b → not (not b) ≡ b
-not² tB = trans (cong not not-t) not-f
-not² fB = trans (cong not not-f) not-t
+not-involutive : ∀ {b} → Bool b → not (not b) ≡ b
+not-involutive tB = trans (cong not not-t) not-f
+not-involutive fB = trans (cong not not-f) not-t
 
 ------------------------------------------------------------------------------
 -- Properties with inequalities

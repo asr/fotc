@@ -163,13 +163,13 @@ reverse-∷ x (consL y {ys} Lys) = prf
   postulate prf : reverse (x ∷ y ∷ ys) ≡ reverse (y ∷ ys) ++ x ∷ []
   {-# ATP prove prf reverse-[x]≡[x] reverse-++-commute #-}
 
-reverse² : ∀ {xs} → List xs → reverse (reverse xs) ≡ xs
-reverse² nilL = prf
+reverse-involutive : ∀ {xs} → List xs → reverse (reverse xs) ≡ xs
+reverse-involutive nilL = prf
   where
   postulate prf : reverse (reverse []) ≡ []
   {-# ATP prove prf #-}
 
-reverse² (consL x {xs} Lxs) = prf $ reverse² Lxs
+reverse-involutive (consL x {xs} Lxs) = prf $ reverse-involutive Lxs
   where
   postulate prf : reverse (reverse xs) ≡ xs →  -- IH.
                   reverse (reverse (x ∷ xs)) ≡ x ∷ xs

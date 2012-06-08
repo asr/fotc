@@ -18,16 +18,16 @@ open import FOTC.Program.Mirror.Type
 
 ------------------------------------------------------------------------------
 
-mirror² : ∀ {t} → Tree t → mirror · (mirror · t) ≡ t
-helper  : ∀ {ts} → Forest ts →
-          reverse (map mirror (reverse (map mirror ts))) ≡ ts
+mirror-involutive : ∀ {t} → Tree t → mirror · (mirror · t) ≡ t
+helper            : ∀ {ts} → Forest ts →
+                    reverse (map mirror (reverse (map mirror ts))) ≡ ts
 
-mirror² (treeT d nilF) = prf
+mirror-involutive (treeT d nilF) = prf
   where
   postulate prf : mirror · (mirror · node d []) ≡ node d []
   {-# ATP prove prf #-}
 
-mirror² (treeT d (consF {t} {ts} Tt Fts)) = prf
+mirror-involutive (treeT d (consF {t} {ts} Tt Fts)) = prf
   where
   postulate prf : mirror · (mirror · node d (t ∷ ts)) ≡ node d (t ∷ ts)
   {-# ATP prove prf helper #-}
@@ -42,7 +42,7 @@ helper (consF {t} {ts} Tt Fts) =
                       mirror-Tree
                       (reverse-Forest (map-Forest mirror mirror-Tree Fts))
                       (mirror · t ∷ []))
-      (mirror² Tt)
+      (mirror-involutive Tt)
       (helper Fts)
   where
   postulate

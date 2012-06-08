@@ -204,7 +204,7 @@ module Helper where
       not (not b) ∷ ack · not b · bs⁵
         ≡⟨ subst (λ t → not (not b) ∷ ack · not b · bs⁵ ≡
                         t           ∷ ack · not b · bs⁵)
-                 (not² Bb)
+                 (not-involutive Bb)
                  refl
         ⟩
       b ∷ ack · not b · bs⁵
@@ -225,7 +225,7 @@ module Helper where
       not (not b) ∷ ack · not b · bs⁵
         ≡⟨ subst (λ t → not (not b) ∷ ack · not b · bs⁵ ≡
                         t           ∷ ack · not b · bs⁵)
-                 (not² Bb)
+                 (not-involutive Bb)
                  refl
         ⟩
       b ∷ ack · not b · bs⁵

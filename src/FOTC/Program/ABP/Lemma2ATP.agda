@@ -109,12 +109,12 @@ module Helper where
     postulate
       cs'-eq-helper₁ : bs' ≡ ok < i' , b > ∷ bs⁵ b i' is' cs' (fs₀⁵ fs₀') (fs₁⁵ ft₁ fs₁'') →
                        cs' ≡ b ∷ cs⁵ b i' is' cs' (fs₀⁵ fs₀') (fs₁⁵ ft₁ fs₁'')
-    {-# ATP prove cs'-eq-helper₁ not-x≢x not² #-}
+    {-# ATP prove cs'-eq-helper₁ not-x≢x not-involutive #-}
 
     postulate
       cs'-eq-helper₂ : bs' ≡ error ∷ bs⁵ b i' is' cs' (fs₀⁵ fs₀') (fs₁⁵ ft₁ fs₁'') →
                        cs' ≡ b ∷ cs⁵ b i' is' cs' (fs₀⁵ fs₀') (fs₁⁵ ft₁ fs₁'')
-    {-# ATP prove cs'-eq-helper₂ not² #-}
+    {-# ATP prove cs'-eq-helper₂ not-involutive #-}
 
     cs'-eq : cs' ≡ b ∷ cs⁵ b i' is' cs' (fs₀⁵ fs₀') (fs₁⁵ ft₁ fs₁'')
     cs'-eq = [ cs'-eq-helper₁ , cs'-eq-helper₂ ] bs'-eq
