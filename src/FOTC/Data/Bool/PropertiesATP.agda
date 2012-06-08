@@ -31,8 +31,12 @@ open import FOTC.Data.Nat.Type
         {-# ATP prove prf #-}
 
 not-Bool : ∀ {b} → Bool b → Bool (not b)
-not-Bool tB = subst Bool (sym not-t) fB
-not-Bool fB = subst Bool (sym not-f) tB
+not-Bool tB = prf
+  where postulate prf : Bool (not true)
+        {-# ATP prove prf #-}
+not-Bool fB = prf
+  where postulate prf : Bool (not false)
+        {-# ATP prove prf #-}
 
 &&-comm : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ b₂ && b₁
 &&-comm tB tB = refl
@@ -126,15 +130,23 @@ true&&x≡x fB = &&-tf
         {-# ATP prove prf x&&false≡false #-}
 
 x≢not-x : ∀ {b} → Bool b → b ≢ not b
-x≢not-x tB h = true≢false (trans h not-t)
-x≢not-x fB h = true≢false (sym (trans h not-f))
+x≢not-x tB = prf
+  where postulate prf : true ≡ not true → ⊥
+        {-# ATP prove prf #-}
+x≢not-x fB = prf
+  where postulate prf : false ≡ not false → ⊥
+        {-# ATP prove prf #-}
 
 not-x≢x : ∀ {b} → Bool b → not b ≢ b
 not-x≢x Bb h = x≢not-x Bb (sym h)
 
 not² : ∀ {b} → Bool b → not (not b) ≡ b
-not² tB = trans (cong not not-t) not-f
-not² fB = trans (cong not not-f) not-t
+not² tB = prf
+  where postulate prf : not (not true) ≡ true
+        {-# ATP prove prf #-}
+not² fB = prf
+  where postulate prf : not (not false) ≡ false
+        {-# ATP prove prf #-}
 
 ------------------------------------------------------------------------------
 -- Properties with inequalities

@@ -14,6 +14,30 @@ open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
 open import LTC-PCF.Data.Nat.Type
 
 ------------------------------------------------------------------------------
+-- Basic properties
+
+not-t : not true ≡ false
+not-t = if-true false
+
+not-f : not false ≡ true
+not-f = if-false true
+
+not-Bool : ∀ {b} → Bool b → Bool (not b)
+not-Bool tB = subst Bool (sym not-t) fB
+not-Bool fB = subst Bool (sym not-f) tB
+
+x≢not-x : ∀ {b} → Bool b → b ≢ not b
+x≢not-x tB h = true≢false (trans h not-t)
+x≢not-x fB h = true≢false (sym (trans h not-f))
+
+not-x≢x : ∀ {b} → Bool b → not b ≢ b
+not-x≢x Bb h = x≢not-x Bb (sym h)
+
+not² : ∀ {b} → Bool b → not (not b) ≡ b
+not² tB = trans (cong not not-t) not-f
+not² fB = trans (cong not not-f) not-t
+
+------------------------------------------------------------------------------
 -- Properties with inequalities
 
 <-Bool : ∀ {m n} → N m → N n → Bool (m < n)

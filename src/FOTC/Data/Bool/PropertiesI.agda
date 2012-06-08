@@ -18,6 +18,12 @@ open import FOTC.Data.Nat.Type
 ------------------------------------------------------------------------------
 -- Basic properties
 
+not-t : not true ≡ false
+not-t = if-true false
+
+not-f : not false ≡ true
+not-f = if-false true
+
 &&-Bool : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → Bool (b₁ && b₂)
 &&-Bool tB tB = subst Bool (sym &&-tt) tB
 &&-Bool tB fB = subst Bool (sym &&-tf) fB
