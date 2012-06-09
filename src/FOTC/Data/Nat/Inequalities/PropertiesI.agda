@@ -347,7 +347,6 @@ x<y→y≤z→x<z Nm Nn No m<n n≤o =
 ------------------------------------------------------------------------------
 -- Properties about the lexicographical order
 
--- TODO: 2012-04-17. Is it possible to eliminate the FOTC types?
 xy<00→⊥ : ∀ {m n} → N m → N n → ¬ (Lexi m n zero zero)
 xy<00→⊥ Nm Nn mn<00 =
   [ (λ m<0     → ⊥-elim $ x<0→⊥ Nm m<0)
@@ -369,7 +368,6 @@ Sxy₁<0y₂→⊥ Smn₁<0n₂ =
   ]
   Smn₁<0n₂
 
--- TODO: 2012-04-17. Is it possible to eliminate the FOTC types?
 x₁y<x₂0→x₁<x₂ : ∀ {m₁ n} → N n → ∀ {m₂} → Lexi m₁ n m₂ zero → LT m₁ m₂
 x₁y<x₂0→x₁<x₂ Nn m₁n<m₂0 =
   [ (λ m₁<n₁     → m₁<n₁)
@@ -377,7 +375,6 @@ x₁y<x₂0→x₁<x₂ Nn m₁n<m₂0 =
   ]
   m₁n<m₂0
 
--- TODO: 2012-04-17. Is it possible to eliminate the FOTC types?
 xy₁<0y₂→x≡0∧y₁<y₂ : ∀ {m} → N m → ∀ {n₁ n₂} → Lexi m n₁ zero n₂ →
                     m ≡ zero ∧ LT n₁ n₂
 xy₁<0y₂→x≡0∧y₁<y₂ Nm mn₁<0n₂ =

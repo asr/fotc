@@ -485,7 +485,6 @@ x∸y<x∸z→Sx∸y<Sx∸z (sN {m} Nm) (sN {n} Nn) (sN {o} No) Sm∸Sn<Sm∸So 
 ------------------------------------------------------------------------------
 -- Properties about the lexicographical order
 
--- TODO: 2012-04-17. Is it possible to eliminate the FOTC types?
 postulate xy<00→⊥ : ∀ {m n} → N m → N n → ¬ (Lexi m n zero zero)
 {-# ATP prove xy<00→⊥ x<0→⊥ #-}
 
@@ -495,11 +494,9 @@ postulate 0Sx<00→⊥ : ∀ {m} → ¬ (Lexi zero (succ₁ m) zero zero)
 postulate Sxy₁<0y₂→⊥ : ∀ {m n₁ n₂} → ¬ (Lexi (succ₁ m) n₁ zero n₂)
 {-# ATP prove Sxy₁<0y₂→⊥ #-}
 
--- TODO: 2012-04-17. Is it possible to eliminate the FOTC types?
 postulate x₁y<x₂0→x₁<x₂ : ∀ {m₁ n} → N n → ∀ {m₂} → Lexi m₁ n m₂ zero → LT m₁ m₂
 {-# ATP prove x₁y<x₂0→x₁<x₂ x<0→⊥ #-}
 
--- TODO: 2012-04-17. Is it possible to eliminate the FOTC types?
 postulate
   xy₁<0y₂→x≡0∧y₁<y₂ : ∀ {m} → N m → ∀ {n₁ n₂} → Lexi m n₁ zero n₂ →
                       m ≡ zero ∧ LT n₁ n₂
