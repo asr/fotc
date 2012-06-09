@@ -16,18 +16,18 @@ open import FOTC.Data.Nat.Type
 ------------------------------------------------------------------------------
 -- Basic properties
 
-&&-Bool : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → Bool (b₁ && b₂)
-&&-Bool tB tB = prf
-  where postulate prf : Bool (true && true)
+postulate true&&x≡x : ∀ b → true && b ≡ b
+{-# ATP prove true&&x≡x #-}
+
+postulate false&&x≡false : ∀ b → false && b ≡ false
+{-# ATP prove false&&x≡false #-}
+
+&&-Bool : ∀ {a b} → Bool a → Bool b → Bool (a && b)
+&&-Bool {b = b} tB Bb = prf
+  where postulate prf : Bool (true && b)
         {-# ATP prove prf #-}
-&&-Bool tB fB = prf
-  where postulate prf : Bool (true && false)
-        {-# ATP prove prf #-}
-&&-Bool fB tB = prf
-  where postulate prf : Bool (false && true)
-        {-# ATP prove prf #-}
-&&-Bool fB fB = prf
-  where postulate prf : Bool (false && false)
+&&-Bool {b = b} fB Bb = prf
+  where postulate prf : Bool (false && b)
         {-# ATP prove prf #-}
 
 not-Bool : ∀ {b} → Bool b → Bool (not b)
@@ -38,96 +38,82 @@ not-Bool fB = prf
   where postulate prf : Bool (not false)
         {-# ATP prove prf #-}
 
-&&-comm : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ b₂ && b₁
-&&-comm tB tB = refl
-&&-comm tB fB = trans &&-tf (sym &&-ft)
-&&-comm fB tB = trans &&-ft (sym &&-tf)
-&&-comm fB fB = refl
+&&-list₂-true : ∀ {a b} → Bool a → Bool b → a && b ≡ true →
+                a ≡ true ∧ b ≡ true
+&&-list₂-true tB tB h = refl , refl
+&&-list₂-true tB fB h =
+  ⊥-elim (true≢false (trans (sym h) (true&&x≡x false)))
+&&-list₂-true fB tB h =
+  ⊥-elim (true≢false (trans (sym h) (false&&x≡false true)))
+&&-list₂-true fB fB h =
+  ⊥-elim (true≢false (trans (sym h) (false&&x≡false false)))
 
-x&&false≡false : ∀ {b} → Bool b → b && false ≡ false
-x&&false≡false tB = &&-tf
-x&&false≡false fB = &&-ff
+&&-list₂-true₁ : ∀ {a b} → Bool a → Bool b → a && b ≡ true → a ≡ true
+&&-list₂-true₁ Ba Bb h = ∧-proj₁ (&&-list₂-true Ba Bb h)
 
-false&&x≡false : ∀ {b} → Bool b → false && b ≡ false
-false&&x≡false tB = &&-ft
-false&&x≡false fB = &&-ff
+&&-list₂-true₂ : ∀ {a b} → Bool a → Bool b → a && b ≡ true → b ≡ true
+&&-list₂-true₂ Ba Bb h = ∧-proj₂ (&&-list₂-true Ba Bb h)
 
-true&&x≡x : ∀ {b} → Bool b → true && b ≡ b
-true&&x≡x tB = &&-tt
-true&&x≡x fB = &&-tf
+&&-list₄-some-false : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
+                     (a ≡ false ∨ b ≡ false ∨ c ≡ false ∨ d ≡ false) →
+                     a && b && c && d ≡ false
+&&-list₄-some-false tB Bb Bc Bd (inj₁ h) = ⊥-elim (true≢false h)
+&&-list₄-some-false tB tB Bc Bd (inj₂ (inj₁ h)) = ⊥-elim (true≢false h)
+&&-list₄-some-false tB tB tB Bd (inj₂ (inj₂ (inj₁ h))) = ⊥-elim (true≢false h)
+&&-list₄-some-false tB tB tB tB (inj₂ (inj₂ (inj₂ h))) = ⊥-elim (true≢false h)
+&&-list₄-some-false tB tB tB fB (inj₂ (inj₂ (inj₂ h))) =
+  trans (true&&x≡x (true && true && false))
+        (trans (true&&x≡x (true && false)) (true&&x≡x false))
+&&-list₄-some-false tB tB fB tB (inj₂ (inj₂ (inj₁ h))) =
+  trans (true&&x≡x (true && false && true))
+        (trans (true&&x≡x (false && true)) (false&&x≡false true))
+&&-list₄-some-false tB tB fB tB (inj₂ (inj₂ (inj₂ h))) = ⊥-elim (true≢false h)
+&&-list₄-some-false tB tB fB fB (inj₂ (inj₂ h)) =
+  trans (true&&x≡x (true && false && false))
+        (trans (true&&x≡x (false && false)) (false&&x≡false false))
+&&-list₄-some-false {c = c} {d} tB fB Bc Bd (inj₂ h) =
+  trans (true&&x≡x (false && c && d))
+        (false&&x≡false (c && d))
+&&-list₄-some-false {b = b} {c} {d} fB Bb Bc Bd _ =
+  false&&x≡false (b && c && d)
 
-&&-assoc : ∀ {b₁ b₂ b₃} → Bool b₁ → Bool b₂ → Bool b₃ →
-           (b₁ && b₂) && b₃ ≡ b₁ && b₂ && b₃
-&&-assoc tB tB tB = prf
-  where postulate prf : (true && true) && true ≡ true && true && true
-        {-# ATP prove prf #-}
-&&-assoc tB tB fB = prf
-  where postulate prf : (true && true) && false ≡ true && true && false
-        {-# ATP prove prf #-}
-&&-assoc tB fB tB = prf
-  where postulate prf : (true && false) && true ≡ true && false && true
-        {-# ATP prove prf #-}
-&&-assoc tB fB fB = prf
-  where postulate prf : (true && false) && false ≡ true && false && false
-        {-# ATP prove prf #-}
-&&-assoc fB tB tB = prf
-  where postulate prf : (false && true) && true ≡ false && true && true
-        {-# ATP prove prf #-}
-&&-assoc fB tB fB = prf
-  where postulate prf : (false && true) && false ≡ false && true && false
-        {-# ATP prove prf #-}
-&&-assoc fB fB tB = prf
-  where postulate prf : (false && false) && true ≡ false && false && true
-        {-# ATP prove prf #-}
-&&-assoc fB fB fB = prf
-  where postulate prf : (false && false) && false ≡ false && false && false
-        {-# ATP prove prf #-}
+&&-list₄-true : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
+                a && b && c && d ≡ true →
+                a ≡ true ∧ b ≡ true ∧ c ≡ true ∧ d ≡ true
+&&-list₄-true tB tB tB tB h = refl , refl , refl , refl
+&&-list₄-true tB tB tB fB h =
+  ⊥-elim (true≢false
+           (trans (sym h)
+                  (&&-list₄-some-false tB tB tB fB (inj₂ (inj₂ (inj₂ refl))))))
+&&-list₄-true tB tB fB Bd h =
+  ⊥-elim (true≢false
+           (trans (sym h)
+                  (&&-list₄-some-false tB tB fB Bd (inj₂ (inj₂ (inj₁ refl))))))
+&&-list₄-true tB fB Bc Bd h =
+  ⊥-elim (true≢false
+          (trans (sym h)
+                 (&&-list₄-some-false tB fB Bc Bd (inj₂ (inj₁ refl)))))
+&&-list₄-true fB Bb Bc Bd h =
+  ⊥-elim (true≢false (trans (sym h)
+                            (&&-list₄-some-false fB Bb Bc Bd (inj₁ refl))))
 
-&&-proj₁ : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₁ ≡ true
-&&-proj₁ tB B₂ h = refl
-&&-proj₁ fB tB h = ⊥-elim (true≢false (trans (sym h) &&-ft))
-&&-proj₁ fB fB h = ⊥-elim (true≢false (trans (sym h) &&-ff))
+&&-list₄-true₁ : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
+                 a && b && c && d ≡ true → a ≡ true
+&&-list₄-true₁ Ba Bb Bc Bd h = ∧-proj₁ (&&-list₄-true Ba Bb Bc Bd h)
 
-&&-proj₂ : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₂ ≡ true
-&&-proj₂ B₁ tB h   = refl
-&&-proj₂ tB fB h = ⊥-elim (true≢false (trans (sym h) &&-tf))
-&&-proj₂ fB fB h = ⊥-elim (true≢false (trans (sym h) &&-ff))
+&&-list₄-true₂ : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
+                 a && b && c && d ≡ true → b ≡ true
+&&-list₄-true₂ Ba Bb Bc Bd h = ∧-proj₁ (∧-proj₂ (&&-list₄-true Ba Bb Bc Bd h))
 
-&&₃-proj₁ : ∀ {b₁ b₂ b₃ b₄} →
-            Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
-            b₁ && b₂ && b₃ && b₄ ≡ true →
-            b₁ ≡ true
-&&₃-proj₁ tB B₂ B₃ B₄ h = refl
-&&₃-proj₁ fB B₂ B₃ B₄ h = ⊥-elim prf
-  where postulate prf : ⊥
-        {-# ATP prove prf &&-Bool false&&x≡false #-}
+&&-list₄-true₃ : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
+                 a && b && c && d ≡ true → c ≡ true
+&&-list₄-true₃ Ba Bb Bc Bd h =
+  ∧-proj₁ (∧-proj₂ (∧-proj₂ (&&-list₄-true Ba Bb Bc Bd h)))
 
-&&₃-proj₂ : ∀ {b₁ b₂ b₃ b₄} →
-            Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
-            b₁ && b₂ && b₃ && b₄ ≡ true →
-            b₂ ≡ true
-&&₃-proj₂ B₁ tB B₃ B₄ h = refl
-&&₃-proj₂ B₁ fB B₃ B₄ h = ⊥-elim prf
-  where postulate prf : ⊥
-        {-# ATP prove prf &&-Bool false&&x≡false x&&false≡false #-}
-
-&&₃-proj₃ : ∀ {b₁ b₂ b₃ b₄} →
-            Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
-            b₁ && b₂ && b₃ && b₄ ≡ true →
-            b₃ ≡ true
-&&₃-proj₃ B₁ B₂ tB B₃ h = refl
-&&₃-proj₃ B₁ B₂ fB B₃ h = ⊥-elim prf
-  where postulate prf : ⊥
-        {-# ATP prove prf x&&false≡false false&&x≡false #-}
-
-&&₃-proj₄ : ∀ {b₁ b₂ b₃ b₄} →
-            Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
-            b₁ && b₂ && b₃ && b₄ ≡ true →
-            b₄ ≡ true
-&&₃-proj₄ B₁ B₂ B₃ tB h = refl
-&&₃-proj₄ B₁ B₂ B₃ fB h = ⊥-elim prf
-  where postulate prf : ⊥
-        {-# ATP prove prf x&&false≡false #-}
+&&-list₄-true₄ : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
+                 a && b && c && d ≡ true → d ≡ true
+&&-list₄-true₄ Ba Bb Bc Bd h =
+  ∧-proj₂ (∧-proj₂ (∧-proj₂ (&&-list₄-true Ba Bb Bc Bd h)))
 
 x≢not-x : ∀ {b} → Bool b → b ≢ not b
 x≢not-x tB = prf

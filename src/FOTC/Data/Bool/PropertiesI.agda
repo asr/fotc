@@ -18,142 +18,102 @@ open import FOTC.Data.Nat.Type
 ------------------------------------------------------------------------------
 -- Basic properties
 
+true&&x≡x : ∀ b → true && b ≡ b
+true&&x≡x b = if-true b
+
+false&&x≡false : ∀ b → false && b ≡ false
+false&&x≡false b = if-false false
+
 not-t : not true ≡ false
 not-t = if-true false
 
 not-f : not false ≡ true
 not-f = if-false true
 
-&&-Bool : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → Bool (b₁ && b₂)
-&&-Bool tB tB = subst Bool (sym &&-tt) tB
-&&-Bool tB fB = subst Bool (sym &&-tf) fB
-&&-Bool fB tB = subst Bool (sym &&-ft) fB
-&&-Bool fB fB = subst Bool (sym &&-ff) fB
+&&-Bool : ∀ {a b} → Bool a → Bool b → Bool (a && b)
+&&-Bool {b = b} tB Bb = subst Bool (sym (true&&x≡x b )) Bb
+&&-Bool {b = b} fB Bb = subst Bool (sym (false&&x≡false b)) fB
 
 not-Bool : ∀ {b} → Bool b → Bool (not b)
 not-Bool tB = subst Bool (sym not-t) fB
 not-Bool fB = subst Bool (sym not-f) tB
 
-&&-comm : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ b₂ && b₁
-&&-comm tB tB = refl
-&&-comm tB fB = trans &&-tf (sym &&-ft)
-&&-comm fB tB = trans &&-ft (sym &&-tf)
-&&-comm fB fB = refl
+&&-list₂-true : ∀ {a b} → Bool a → Bool b → a && b ≡ true →
+                a ≡ true ∧ b ≡ true
+&&-list₂-true tB tB h = refl , refl
+&&-list₂-true tB fB h =
+  ⊥-elim (true≢false (trans (sym h) (true&&x≡x false)))
+&&-list₂-true fB tB h =
+  ⊥-elim (true≢false (trans (sym h) (false&&x≡false true)))
+&&-list₂-true fB fB h =
+  ⊥-elim (true≢false (trans (sym h) (false&&x≡false false)))
 
-x&&false≡false : ∀ {b} → Bool b → b && false ≡ false
-x&&false≡false tB = &&-tf
-x&&false≡false fB = &&-ff
+&&-list₂-true₁ : ∀ {a b} → Bool a → Bool b → a && b ≡ true → a ≡ true
+&&-list₂-true₁ Ba Bb h = ∧-proj₁ (&&-list₂-true Ba Bb h)
 
-false&&x≡false : ∀ {b} → Bool b → false && b ≡ false
-false&&x≡false tB = &&-ft
-false&&x≡false fB = &&-ff
+&&-list₂-true₂ : ∀ {a b} → Bool a → Bool b → a && b ≡ true → b ≡ true
+&&-list₂-true₂ Ba Bb h = ∧-proj₂ (&&-list₂-true Ba Bb h)
 
-true&&x≡x : ∀ {b} → Bool b → true && b ≡ b
-true&&x≡x tB = &&-tt
-true&&x≡x fB = &&-tf
+&&-list₄-some-false : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
+                     (a ≡ false ∨ b ≡ false ∨ c ≡ false ∨ d ≡ false) →
+                     a && b && c && d ≡ false
+&&-list₄-some-false tB Bb Bc Bd (inj₁ h) = ⊥-elim (true≢false h)
+&&-list₄-some-false tB tB Bc Bd (inj₂ (inj₁ h)) = ⊥-elim (true≢false h)
+&&-list₄-some-false tB tB tB Bd (inj₂ (inj₂ (inj₁ h))) = ⊥-elim (true≢false h)
+&&-list₄-some-false tB tB tB tB (inj₂ (inj₂ (inj₂ h))) = ⊥-elim (true≢false h)
+&&-list₄-some-false tB tB tB fB (inj₂ (inj₂ (inj₂ h))) =
+  trans (true&&x≡x (true && true && false))
+        (trans (true&&x≡x (true && false)) (true&&x≡x false))
+&&-list₄-some-false tB tB fB tB (inj₂ (inj₂ (inj₁ h))) =
+  trans (true&&x≡x (true && false && true))
+        (trans (true&&x≡x (false && true)) (false&&x≡false true))
+&&-list₄-some-false tB tB fB tB (inj₂ (inj₂ (inj₂ h))) = ⊥-elim (true≢false h)
+&&-list₄-some-false tB tB fB fB (inj₂ (inj₂ h)) =
+  trans (true&&x≡x (true && false && false))
+        (trans (true&&x≡x (false && false)) (false&&x≡false false))
+&&-list₄-some-false {c = c} {d} tB fB Bc Bd (inj₂ h) =
+  trans (true&&x≡x (false && c && d))
+        (false&&x≡false (c && d))
+&&-list₄-some-false {b = b} {c} {d} fB Bb Bc Bd _ =
+  false&&x≡false (b && c && d)
 
--- See the ATP version.
-postulate
-  &&-assoc : ∀ {b₁ b₂ b₃} → Bool b₁ → Bool b₂ → Bool b₃ →
-             (b₁ && b₂) && b₃ ≡ b₁ && b₂ && b₃
+&&-list₄-true : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
+                a && b && c && d ≡ true →
+                a ≡ true ∧ b ≡ true ∧ c ≡ true ∧ d ≡ true
+&&-list₄-true tB tB tB tB h = refl , refl , refl , refl
+&&-list₄-true tB tB tB fB h =
+  ⊥-elim (true≢false
+           (trans (sym h)
+                  (&&-list₄-some-false tB tB tB fB (inj₂ (inj₂ (inj₂ refl))))))
+&&-list₄-true tB tB fB Bd h =
+  ⊥-elim (true≢false
+           (trans (sym h)
+                  (&&-list₄-some-false tB tB fB Bd (inj₂ (inj₂ (inj₁ refl))))))
+&&-list₄-true tB fB Bc Bd h =
+  ⊥-elim (true≢false
+          (trans (sym h)
+                 (&&-list₄-some-false tB fB Bc Bd (inj₂ (inj₁ refl)))))
+&&-list₄-true fB Bb Bc Bd h =
+  ⊥-elim (true≢false (trans (sym h)
+                            (&&-list₄-some-false fB Bb Bc Bd (inj₁ refl))))
 
-&&-true₃ : true && true && true ≡ true
-&&-true₃ =
-  true && true && true
-    ≡⟨ subst (λ t → true && true && true ≡ true && t) &&-tt refl ⟩
-  true && true
-    ≡⟨ &&-tt ⟩
-  true ∎
+&&-list₄-true₁ : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
+                 a && b && c && d ≡ true → a ≡ true
+&&-list₄-true₁ Ba Bb Bc Bd h = ∧-proj₁ (&&-list₄-true Ba Bb Bc Bd h)
 
-&&-true₄ : true && true && true && true ≡ true
-&&-true₄ =
-  true && true && true && true
-    ≡⟨ subst (λ t → true && true && true && true ≡ true && t) &&-true₃ refl ⟩
-  true && true
-    ≡⟨ &&-tt ⟩
-  true ∎
+&&-list₄-true₂ : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
+                 a && b && c && d ≡ true → b ≡ true
+&&-list₄-true₂ Ba Bb Bc Bd h = ∧-proj₁ (∧-proj₂ (&&-list₄-true Ba Bb Bc Bd h))
 
-&&-proj₁ : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₁ ≡ true
-&&-proj₁ tB _ _    = refl
-&&-proj₁ fB tB h = ⊥-elim (true≢false (trans (sym h) &&-ft))
-&&-proj₁ fB fB h = ⊥-elim (true≢false (trans (sym h) &&-ff))
+&&-list₄-true₃ : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
+                 a && b && c && d ≡ true → c ≡ true
+&&-list₄-true₃ Ba Bb Bc Bd h =
+  ∧-proj₁ (∧-proj₂ (∧-proj₂ (&&-list₄-true Ba Bb Bc Bd h)))
 
-&&-proj₂ : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → b₁ && b₂ ≡ true → b₂ ≡ true
-&&-proj₂ _  tB _   = refl
-&&-proj₂ tB fB h = ⊥-elim (true≢false (trans (sym h) &&-tf))
-&&-proj₂ fB fB h = ⊥-elim (true≢false (trans (sym h) &&-ff))
-
-&&₃-proj₁ : ∀ {b₁ b₂ b₃ b₄} →
-            Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
-            b₁ && b₂ && b₃ && b₄ ≡ true →
-            b₁ ≡ true
-&&₃-proj₁ tB _ _ _ _ = refl
-&&₃-proj₁ {b₂ = b₂} {b₃} {b₄} fB Bb₂ Bb₃ Bb₄ h =
-  ⊥-elim (true≢false (trans (sym h) prf))
-  where
-  prf : false && b₂ && b₃ && b₄ ≡ false
-  prf = false&&x≡false (&&-Bool Bb₂ (&&-Bool Bb₃ Bb₄))
-
-&&₃-proj₂ : ∀ {b₁ b₂ b₃ b₄} →
-            Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
-            b₁ && b₂ && b₃ && b₄ ≡ true →
-            b₂ ≡ true
-&&₃-proj₂ _ tB _ _ _ = refl
-&&₃-proj₂ {b₁} {b₃ = b₃} {b₄} Bb₁ fB Bb₃ Bb₄ h =
-  ⊥-elim (true≢false (trans (sym h) prf))
-  where
-  prf : b₁ && false && b₃ && b₄ ≡ false
-  prf =
-    b₁ && false && b₃ && b₄
-       ≡⟨ subst (λ t → b₁ && false && b₃ && b₄ ≡ b₁ && t)
-                (false&&x≡false (&&-Bool Bb₃ Bb₄))
-                refl
-       ⟩
-    b₁ && false
-       ≡⟨ x&&false≡false Bb₁ ⟩
-    false ∎
-
-&&₃-proj₃ : ∀ {b₁ b₂ b₃ b₄} →
-            Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
-            b₁ && b₂ && b₃ && b₄ ≡ true →
-            b₃ ≡ true
-&&₃-proj₃ _ _ tB _ _ = refl
-&&₃-proj₃ {b₁} {b₂} {b₄ = b₄} Bb₁ Bb₂ fB Bb₄ h =
-  ⊥-elim (true≢false (trans (sym h) prf))
-  where
-  prf : b₁ && b₂ && false && b₄ ≡ false
-  prf =
-    b₁ && b₂ && false && b₄
-       ≡⟨ subst (λ t → b₁ && b₂ && false && b₄ ≡ b₁ && b₂ && t)
-                (false&&x≡false Bb₄)
-                refl
-       ⟩
-    b₁ && b₂ && false
-       ≡⟨ subst (λ t → b₁ && b₂ && false ≡ b₁ && t) (x&&false≡false Bb₂) refl ⟩
-    b₁ && false
-       ≡⟨ x&&false≡false Bb₁ ⟩
-    false ∎
-
-&&₃-proj₄ : ∀ {b₁ b₂ b₃ b₄} →
-            Bool b₁ → Bool b₂ → Bool b₃ → Bool b₄ →
-            b₁ && b₂ && b₃ && b₄ ≡ true →
-            b₄ ≡ true
-&&₃-proj₄ _ _ _ tB _ = refl
-&&₃-proj₄ {b₁} {b₂} {b₃} Bb₁ Bb₂ Bb₃ fB h =
-  ⊥-elim (true≢false (trans (sym h) prf))
-  where
-  prf : b₁ && b₂ && b₃ && false ≡ false
-  prf =
-    b₁ && b₂ && b₃ && false
-       ≡⟨ subst (λ t → b₁ && b₂ && b₃ && false ≡ b₁ && b₂ && t)
-                (x&&false≡false Bb₃)
-                refl
-       ⟩
-    b₁ && b₂ && false
-       ≡⟨ subst (λ t → b₁ && b₂ && false ≡ b₁ && t) (x&&false≡false Bb₂) refl ⟩
-    b₁ && false
-       ≡⟨ x&&false≡false Bb₁ ⟩
-    false ∎
+&&-list₄-true₄ : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
+                 a && b && c && d ≡ true → d ≡ true
+&&-list₄-true₄ Ba Bb Bc Bd h =
+  ∧-proj₂ (∧-proj₂ (∧-proj₂ (&&-list₄-true Ba Bb Bc Bd h)))
 
 x≢not-x : ∀ {b} → Bool b → b ≢ not b
 x≢not-x tB h = true≢false (trans h not-t)

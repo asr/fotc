@@ -20,15 +20,11 @@ open import FOTC.Data.Bool.Type public
 -- Basic functions
 
 -- The conjunction.
-postulate
-  _&&_  : D → D → D
-  &&-tt : true  && true  ≡ true
-  &&-tf : true  && false ≡ false
-  &&-ft : false && true  ≡ false
-  &&-ff : false && false ≡ false
-{-# ATP axiom &&-tt &&-tf &&-ft &&-ff #-}
+_&&_  : D → D → D
+a && b = if a then b else false
+{-# ATP definition _&&_ #-}
 
 -- The negation.
 not : D → D
-not x = if x then false else true
+not b = if b then false else true
 {-# ATP definition not #-}

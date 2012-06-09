@@ -143,16 +143,16 @@ toTree-OrdTree {item} Nitem (tipT {i} Ni) _ =
       ⟩
     true && true && true && true
       ≡⟨ subst (λ t → true && true && true && true ≡ true && true && t)
-               &&-tt
+               (true&&x≡x true)
                refl
       ⟩
     true && true && true
       ≡⟨ subst (λ t → true && true && true ≡ true && t)
-               &&-tt
+               (true&&x≡x true)
                refl
       ⟩
     true && true
-      ≡⟨ &&-tt ⟩
+      ≡⟨ true&&x≡x true ⟩
     true ∎
 
   prf₂ : LE i item → OrdTree (toTree · item · tip i)
@@ -239,13 +239,13 @@ toTree-OrdTree {item} Nitem (tipT {i} Ni) _ =
       ⟩
     true && true && true && true
       ≡⟨ subst (λ t → true && true && true && true ≡ true && true && t)
-               &&-tt
+               (true&&x≡x true)
                refl
       ⟩
     true && true && true
-      ≡⟨ subst (λ t → true && true && true ≡ true && t) &&-tt refl ⟩
+      ≡⟨ subst (λ t → true && true && true ≡ true && t) (true&&x≡x true) refl ⟩
     true && true
-      ≡⟨ &&-tt ⟩
+      ≡⟨ true&&x≡x true ⟩
     true ∎
 
 toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
@@ -319,7 +319,7 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
                       ≤-ItemTree i t₂                   ≡
                       true && true && t && ≤-ItemTree i t₂)
                (toTree-OrdTree-helper₁ Ni Nitem i>item Tt₁
-                 ((&&₃-proj₃
+                 ((&&-list₄-true₃
                    (ordTree-Bool Tt₁)
                      (ordTree-Bool Tt₂)
                      (≤-TreeItem-Bool Tt₁ Ni)
@@ -330,7 +330,7 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
     true && true && true && ≤-ItemTree i t₂
       ≡⟨ subst (λ t → true && true && true && ≤-ItemTree i t₂ ≡
                       true && true && true && t)
-               (&&₃-proj₄
+               (&&-list₄-true₄
                  (ordTree-Bool Tt₁)
                  (ordTree-Bool Tt₂)
                  (≤-TreeItem-Bool Tt₁ Ni)
@@ -340,13 +340,13 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
       ⟩
     true && true && true && true
       ≡⟨ subst (λ t → true && true && true && true ≡ true && true && t)
-               &&-tt
+               (true&&x≡x true)
                refl
       ⟩
     true && true && true
-      ≡⟨ subst (λ t → true && true && true ≡ true && t) &&-tt refl ⟩
+      ≡⟨ subst (λ t → true && true && true ≡ true && t) (true&&x≡x true) refl ⟩
     true && true
-      ≡⟨ &&-tt ⟩
+      ≡⟨ true&&x≡x true ⟩
     true ∎
 
   prf₂ : LE i item → OrdTree (toTree · item · node t₁ i t₂)
@@ -419,7 +419,7 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
                       true                              &&
                       t                                 &&
                       ≤-ItemTree i (toTree · item · t₂))
-               (&&₃-proj₃
+               (&&-list₄-true₃
                  (ordTree-Bool Tt₁)
                  (ordTree-Bool Tt₂)
                  (≤-TreeItem-Bool Tt₁ Ni)
@@ -434,7 +434,7 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
                       ≤-ItemTree i (toTree · item · t₂) ≡
                       true && true && true && t)
                (toTree-OrdTree-helper₂ Ni Nitem i≤item Tt₂
-                 ((&&₃-proj₄
+                 ((&&-list₄-true₄
                    (ordTree-Bool Tt₁)
                      (ordTree-Bool Tt₂)
                      (≤-TreeItem-Bool Tt₁ Ni)
@@ -444,13 +444,13 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
       ⟩
     true && true && true && true
       ≡⟨ subst (λ t → true && true && true && true ≡ true && true && t)
-               &&-tt
+               (true&&x≡x true)
                refl
       ⟩
     true && true && true
-      ≡⟨ subst (λ t → true && true && true ≡ true && t) &&-tt refl ⟩
+      ≡⟨ subst (λ t → true && true && true ≡ true && t) (true&&x≡x true) refl ⟩
     true && true
-      ≡⟨ &&-tt ⟩
+      ≡⟨ true&&x≡x true ⟩
     true ∎
 
 ------------------------------------------------------------------------------
@@ -502,15 +502,15 @@ makeTree-OrdTree (consLN {i} {is} Ni Lis) =
       ≡⟨ subst (λ t → ≤-ItemList i (is ++ js) && ordList (is ++ js) ≡
                       t && ordList (is ++ js))
                (++-OrdList-helper Ni LNis LNjs
-                 (&&-proj₁ (≤-ItemList-Bool Ni LNis)
-                           (ordList-Bool LNis)
-                           (trans (sym (ordList-∷ i is)) LOi∷is))
-                 (&&-proj₁ (≤-ItemList-Bool Ni LNjs)
-                           (≤-Lists-Bool LNis LNjs)
-                           (trans (sym (≤-Lists-∷ i is js)) i∷is≤js))
-                 (&&-proj₂ (≤-ItemList-Bool Ni LNjs)
-                           (≤-Lists-Bool LNis LNjs)
-                                         (trans (sym (≤-Lists-∷ i is js)) i∷is≤js))
+                 (&&-list₂-true₁ (≤-ItemList-Bool Ni LNis)
+                                 (ordList-Bool LNis)
+                                 (trans (sym (ordList-∷ i is)) LOi∷is))
+                 (&&-list₂-true₁ (≤-ItemList-Bool Ni LNjs)
+                                 (≤-Lists-Bool LNis LNjs)
+                                 (trans (sym (≤-Lists-∷ i is js)) i∷is≤js))
+                 (&&-list₂-true₂ (≤-ItemList-Bool Ni LNjs)
+                                 (≤-Lists-Bool LNis LNjs)
+                                 (trans (sym (≤-Lists-∷ i is js)) i∷is≤js))
                )
                refl
       ⟩
@@ -518,14 +518,14 @@ makeTree-OrdTree (consLN {i} {is} Ni Lis) =
       ≡⟨ subst (λ t → true && ordList (is ++ js) ≡ true && t)
                -- IH.
                (++-OrdList LNis LNjs (subList-OrdList Ni LNis LOi∷is) LOjs
-                           (&&-proj₂
+                           (&&-list₂-true₂
                              (≤-ItemList-Bool Ni LNjs)
                              (≤-Lists-Bool LNis LNjs)
                              (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js)))
                refl
       ⟩
     true && true
-      ≡⟨ &&-tt ⟩
+      ≡⟨ true&&x≡x true ⟩
     true ∎
 
 ------------------------------------------------------------------------------
@@ -549,7 +549,7 @@ flatten-OrdList (tipT {i} Ni) OTt =
               refl
     ⟩
   true && true
-    ≡⟨ &&-tt ⟩
+    ≡⟨ true&&x≡x true ⟩
   true ∎
 
 flatten-OrdList (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTt =

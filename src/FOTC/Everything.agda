@@ -11,7 +11,6 @@ open import FOTC.Base.PropertiesATP
 open import FOTC.Base.PropertiesI
 
 open import FOTC.Data.Bool
-open import FOTC.Data.Bool.ConsistencyTest
 open import FOTC.Data.Bool.PropertiesATP
 open import FOTC.Data.Bool.PropertiesI
 open import FOTC.Data.Bool.Type

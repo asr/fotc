@@ -16,11 +16,21 @@ open import LTC-PCF.Data.Nat.Type
 ------------------------------------------------------------------------------
 -- Basic properties
 
+true&&x≡x : ∀ b → true && b ≡ b
+true&&x≡x b = if-true b
+
+false&&x≡false : ∀ b → false && b ≡ false
+false&&x≡false b = if-false false
+
 not-t : not true ≡ false
 not-t = if-true false
 
 not-f : not false ≡ true
 not-f = if-false true
+
+&&-Bool : ∀ {a b} → Bool a → Bool b → Bool (a && b)
+&&-Bool {b = b} tB Bb = subst Bool (sym (true&&x≡x b )) Bb
+&&-Bool {b = b} fB Bb = subst Bool (sym (false&&x≡false b)) fB
 
 not-Bool : ∀ {b} → Bool b → Bool (not b)
 not-Bool tB = subst Bool (sym not-t) fB

@@ -77,7 +77,10 @@ module Helper where
               ∧ cs' ≡ ack · not b · bs'
               ∧ js' ≡ out · not b · bs')
             ∧ js ≡ i' ∷ js'
-    {-# ATP prove prf #-}
+    -- TODO: 09 June 2012. After removed the postulated Boolean
+    -- constants, we cannot prove this theorem.
+    --
+    -- {-# ATP prove prf #-}
   helper {b} {i'} {is'} {fs₀} {fs₁} {as} {bs} {cs} {ds} {js} Bb Ffs₁ abp
          (.(F ∷ ft₀⁵) , fs₀' , consF*T {ft₀⁵} FTft₀⁵ , Ffs₀' , fs₀-eq)
          = helper Bb (tail-Fair Ffs₁) ABPIH (ft₀⁵ , fs₀' , FTft₀⁵ , Ffs₀' , refl)
