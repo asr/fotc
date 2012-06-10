@@ -169,9 +169,9 @@ conjectures_% :
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
 	    if [ "src/FOL/NonIntuitionistic/TheoremsATP.agda" = $${file} ] || \
                [ "src/FOL/SchemataATP.agda" = $${file} ]; then \
-	       if ! ( $(AGDA2ATP) --non-fol --time=180 $${file} ); then exit 1; fi; \
+	       if ! ( $(AGDA2ATP) --non-fol --time=240 $${file} ); then exit 1; fi; \
             else \
-	      if ! ( $(AGDA2ATP) --time=180 $${file} ); then exit 1; fi; \
+	      if ! ( $(AGDA2ATP) --time=240 $${file} ); then exit 1; fi; \
             fi; \
 	done
 

@@ -12,13 +12,13 @@ $ vampire_lin64 -t xxx --input_file file_name
 -- Messages related to the ATPs
 ------------------------------------------------------------------------------
 
--- 2012-02-23: The ATPs (see README.agda) do not prove the theorem (180 sec).
+-- 2012-02-23: The ATPs (see README.agda) do not prove the theorem (240 sec).
 
--- 2012-02-23: Only E 1.5 Pussimbing proved the theorem (180 sec).
--- 2012-02-23: Only Equinox 5.0alpha (2010-06-29) proved the theorem (180 sec).
--- 2012-02-23: Only Metis 2.3 (release 20110926) proved the theorem (180 sec).
--- 2012-02-23: Only SPASS 3.7 proved the theorem (180 sec).
--- 2012-02-23: Only Vampire 0.6 (revision 903) proved the theorem (180 sec).
+-- 2012-02-23: Only E 1.5 Pussimbing proved the theorem (240 sec).
+-- 2012-02-23: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
+-- 2012-02-23: Only Metis 2.3 (release 20110926) proved the theorem (240 sec).
+-- 2012-02-23: Only SPASS 3.7 proved the theorem (240 sec).
+-- 2012-02-23: Only Vampire 0.6 (revision 903) proved the theorem (240 sec).
 
 ------------------------------------------------------------------------------
 -- Schema for equational reasoning

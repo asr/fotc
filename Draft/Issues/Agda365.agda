@@ -36,7 +36,6 @@ x≤y→y∸x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn = prf (x≤y→y∸x+x≡y N
 
   postulate prf : (n ∸ m) + m ≡ n →  -- IH.
                   (succ n ∸ succ m) + succ m ≡ succ n
-  -- Metis 2.3 (release 20101019): SZS status Unknown (using timeout 180 sec).
   {-# ATP prove prf +-comm ∸-N +-Sx ∸-SS <-SS #-}
 
 -- This is an incomplete case which does not matter.

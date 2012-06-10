@@ -64,8 +64,8 @@ x+Sy≈S[x+y] m n = S₉ A A0 is m
   {-# ATP prove A0 +-leftCong #-}
 
   -- 22 May 2012: After the addition of the inequality _≉_, no ATP
-  -- proves the theorem. Before it, only Equinox 5.0alpha (2010-06-29)
-  -- had proved the theorem (180 sec).
+  -- proves the theorem (240 sec). Before it, only Equinox 5.0alpha
+  -- (2010-06-29) had proved the theorem.
   postulate is : ∀ i → A i → A (succ i)
   -- {-# ATP prove is +-leftCong #-}
 

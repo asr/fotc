@@ -20,7 +20,7 @@ postulate commutatorInverse : ∀ a b → ⟦ a , b ⟧ · ⟦ b , a ⟧ ≡ ε
 -- If the commutator is associative, then commutator of any two
 -- elements lies in the center of the group, i.e. a ⟦b,c⟧ = ⟦b,c⟧ a.
 -- From: TPTP v5.3.0 problem GRP/GRP024-5.p.
--- 2012-02-23: Only Vampire 0.6 (revision 903) proved the theorem (180 sec).
+-- 10 June 2012: Only Vampire 0.6 (revision 903) proved the theorem (240 sec).
 postulate
   ⟦⟧-assoc→⟦⟧-center : (∀ a b c → ⟦⟧-assoc a b c) →
                        (∀ a b c → a · ⟦ b , c ⟧ ≡ ⟦ b , c ⟧ · a)

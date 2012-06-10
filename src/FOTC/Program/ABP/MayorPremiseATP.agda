@@ -19,7 +19,7 @@ open import FOTC.Program.ABP.Terms
 -- Although the interactive proof is easy, as expected the ATPs could not
 -- prove the theorem.
 
--- 07 May 2012: The ATPs could not prove the theorem (180 sec).
+-- 10 June 2012: The ATPs could not prove the theorem (240 sec).
 -- postulate
 --   mayorPremise' : ∀ {b fs₀ fs₁ is} → Bit b → Fair fs₀ → Fair fs₁ → Stream is →
 --                   is B transfer b fs₀ fs₁ is
@@ -39,7 +39,7 @@ mayorPremise {b} {fs₀} {fs₁} {is} Bb Ffs₀ Ffs₁ Sis =
   , prf
 
   where
-  -- We get the type of prf via auto.
+  -- We got the type of prf via auto.
   postulate prf : Stream is ∧
                   Bool b ∧
                   Fair fs₀ ∧

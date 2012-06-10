@@ -124,7 +124,6 @@ rev-++-commute nilL ys = prf
 rev-++-commute (consL x {xs} Lxs) ys =
   prf (rev-++-commute Lxs (x ∷ ys)) (rev-++-commute Lxs (x ∷ []))
   where
-  -- 2012-02-23: Only Equinox 5.0alpha (2010-06-29) proved the theorem (180 sec).
   postulate prf : rev xs (x ∷ ys) ≡ rev xs [] ++ x ∷ ys →  -- IH.
                   rev xs (x ∷ []) ≡ rev xs [] ++ x ∷ [] →  -- IH.
                   rev (x ∷ xs) ys ≡ rev (x ∷ xs) [] ++ ys
