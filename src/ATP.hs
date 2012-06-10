@@ -42,10 +42,10 @@ import Data.String ( String )
 #endif
 
 import Data.Bool     ( Bool )
-import Data.Eq       ( Eq((==)) )
+import Data.Eq       ( Eq((==), (/=)) )
 import Data.Int      ( Int )
-import Data.List     ( (++), init, isInfixOf, length, null )
-import Data.Function ( ($) )
+import Data.List     ( (++), init, isInfixOf, length, null, takeWhile )
+import Data.Function ( ($), (.) )
 import Data.Functor  ( fmap )
 import Data.Maybe    ( fromMaybe, Maybe(Just, Nothing) )
 import Data.Tuple    ( fst, snd )
@@ -126,8 +126,12 @@ atpOk SPASS    = "Proof found"                       -- SPASS 3.7
 atpOk Vampire  = "Termination reason: Refutation\n"  -- Vampire 0.6 (revision 903)
 
 atpVersion ∷ ATP → T String
-atpVersion Equinox = return $ show Equinox -- Don't version option in Equinox.
-atpVersion SPASS   = return $ show SPASS   -- Don't version option in SPASS.
+ -- Don't version option in Equinox.
+atpVersion Equinox = do
+  exec ← atpExec Equinox
+  liftIO $ fmap (init . takeWhile (/= '\n')) (readProcess exec ["--help"] "")
+-- Don't version option in SPASS.
+atpVersion SPASS = return $ show SPASS
 -- Didn't tested with IleanCop.
 atpVersion atp = do
   exec ← atpExec atp
