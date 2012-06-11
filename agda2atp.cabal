@@ -8,7 +8,7 @@ license-file:       LICENSE
 maintainer:         Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 category:           Dependent types
 synopsis:           Program for prove first-order formulae written in Agda using ATPs
-tested-with:        GHC == 7.4.1
+tested-with:        GHC == 7.4.2
 description:
   This package provides a program for proving first order
   formulae written in the dependently typed language Agda
@@ -119,7 +119,7 @@ executable agda2atp
                   -fwarn-tabs
                   -Werror
 
-  if impl(ghc == 7.4.1)
+  if impl(ghc == 7.4.1) || impl(ghc == 7.4.2)
      -- Only warnings.
      ghc-options: -Wall
                   -fwarn-auto-orphans
@@ -127,7 +127,7 @@ executable agda2atp
                   -fwarn-incomplete-record-updates
                   -fwarn-incomplete-uni-patterns
                   -- The Cabal-generated module Paths_agda2atp
-                  -- triggers a warning under GHC 7.4.1 (cabal-install
+                  -- triggers a warning under GHC 7.4.* (cabal-install
                   -- version 0.14.0 using version 1.14.0 of the Cabal
                   -- library), therefore we disable this warning.
                   -- -fwarn-missing-import-lists
