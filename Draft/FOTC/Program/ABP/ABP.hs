@@ -1,4 +1,4 @@
--- Tested with GHC 7.4.1.
+-- Tested with GHC 7.4.2.
 
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
@@ -7,9 +7,9 @@
 
 -- References:
 --
--- Peter Dybjer and Herbert Sander. A functional programming approach
--- to the specification and verification of concurrent systems. Formal
--- Aspects of Computing, 1:303-319, 1989.
+-- • Peter Dybjer and Herbert Sander. A functional programming
+--   approach to the specification and verification of concurrent
+--   systems. Formal Aspects of Computing, 1:303-319, 1989.
 
 ------------------------------------------------------------------------------
 
