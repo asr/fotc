@@ -2,8 +2,11 @@
 -- Well-founded relation on lists
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- Tested with the development version of the standard library on
--- 05 March 2011.
+-- 11 June 2012.
 
 module WellFoundedRelationsSL {A : Set} where
 
@@ -23,7 +26,7 @@ length : List A → ℕ
 length []       = 0
 length (x ∷ xs) = 1 + length xs
 
-open module II = Induction.WellFounded.Inverse-image length
+open module II = Induction.WellFounded.Inverse-image {_<_ = _<′_} length
 
 -- Well-founded relation on lists based on their length.
 LTL : List A → List A → Set
@@ -44,7 +47,7 @@ LTC→LTL (x , ys≡x∷xs) = helper ys≡x∷xs
     helper : ∀ {x xs ys} → ys ≡ x ∷ xs → length xs <′ length ys
     helper refl = ≤′-refl
 
-open module S = Induction.WellFounded.Subrelation LTC→LTL
+open module S = Induction.WellFounded.Subrelation {_<₁_ = LTC} LTC→LTL
 
 -- The relation LTC is well-founded (using the subrelation combinator).
 wfLTC : Well-founded LTC
