@@ -2,6 +2,9 @@
 -- Reasoning partially about functions
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- We cannot reasoning partially about partial functions intended to
 -- operate in total values.
 

@@ -2,10 +2,10 @@
 -- Totality of natural numbers addition
 ------------------------------------------------------------------------------
 
--- Tested with FOT and agda2atp on 11 June 2012.
-
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
+
+-- Tested with FOT and agda2atp on 11 June 2012.
 
 module FOT.FOTC.Data.Nat.AddTotality where
 

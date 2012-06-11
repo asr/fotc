@@ -3,6 +3,8 @@
 ----------------------------------------------------------------------------
 
 {-# OPTIONS --no-termination-check #-}
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
 
 -- Tested with FOT on 11 June 2012.
 

@@ -1,7 +1,14 @@
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
+-- Tested with FOT on 11 June 2012.
+
 module FOT.FOTC.Program.Mirror.StructurallySmaller.StructurallySmaller where
 
 open import FOTC.Base
 open import FOTC.Program.Mirror.Type
+
+------------------------------------------------------------------------------
 
 foo : ∀ {ts} → Tree ts → D
 foo (treeT d nilF)            = d

@@ -1,4 +1,7 @@
--- Tested with FOT on 24 April 2012.
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
+-- Tested with FOT on 11 June 2012.
 
 module FOT.PA.Inductive.CanonicalTerm where
 

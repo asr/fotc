@@ -2,6 +2,9 @@
 -- Well-founded induction on natural numbers
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- Tested with FOT on 11 June 2012.
 
 -- Adapted from

@@ -2,6 +2,9 @@
 -- Testing some inductive predicates for inequalities
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- Tested with FOT on 11 June 2012.
 
 module FOT.FOTC.Data.Nat.Inequalities.InductivePredicates where

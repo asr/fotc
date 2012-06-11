@@ -2,6 +2,9 @@
 -- Testing Agsy *without* use the Agda standard library
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module AgsyNoStd where
 
 -- The equational reasoning from the standard library.

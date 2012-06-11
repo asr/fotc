@@ -1,5 +1,8 @@
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- Tested with the development version of the standard library on
--- 07 October 2011.
+-- 11 June 2012.
 
 module StructurallySmallerSL where
 

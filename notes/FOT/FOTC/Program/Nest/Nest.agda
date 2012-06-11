@@ -3,6 +3,9 @@
 -- Bove-Capretta method
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- Tested with FOTC on 11 June 2012.
 
 -- From: Ana Bove and Venanzio Capretta. Nested general recursion and

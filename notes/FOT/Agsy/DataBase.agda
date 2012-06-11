@@ -1,3 +1,6 @@
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- Nils' idea about databases in the Agda mailing list.
 -- http://thread.gmane.org/gmane.comp.lang.agda/2911/focus=2917
 

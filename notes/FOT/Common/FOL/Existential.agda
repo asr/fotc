@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of Agda on 03 March 2012.
+-- Tested with the development version of Agda 11 June 2012.
 
 module Existential where
 

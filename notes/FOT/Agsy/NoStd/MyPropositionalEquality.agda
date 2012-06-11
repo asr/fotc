@@ -2,6 +2,9 @@
 -- Propositional equality
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- Tested with the development version of Agda on 07 February 2012.
 
 module MyPropositionalEquality where

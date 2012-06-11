@@ -2,7 +2,10 @@
 -- Induction principle for N.
 ------------------------------------------------------------------------------
 
--- Tested with FOT on .
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
+-- Tested with FOT on 11 June 2012.
 
 module FOT.FOTC.Data.Nat.CoqType where
 

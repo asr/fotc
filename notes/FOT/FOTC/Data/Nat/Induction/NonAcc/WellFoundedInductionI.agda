@@ -2,6 +2,9 @@
 -- Well-founded induction on the natural numbers
 ----------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- Tested with FOT on 11 June 2012.
 
 module FOT.FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionI where
