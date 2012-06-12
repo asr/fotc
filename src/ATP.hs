@@ -140,18 +140,17 @@ atpVersion atp = do
 checkOutput ∷ ATP → String → Bool
 checkOutput atp output = atpOk atp `isInfixOf` output
 
--- Equinox bug? The option @--no-progress@ don't make any difference.
 atpArgs ∷ ATP → Int → FilePath → [String]
 atpArgs E timeLimit file = [ "--cpu-limit=" ++ show timeLimit
-                           , "-m" ++ "Auto"
-                           , "-l" ++ "0"
-                           , "-x" ++ "Auto"
-                           , "-t" ++ "Auto"
+                           , "--expert-heuristic=Auto"
+                           , "--memory-limit=Auto"
+                           , "--output-level=0"
+                           , "--term-ordering=Auto"
                            , "--tstp-format"
                            , file
                            ]
 
--- Equinox bug? The option @--no-progress@ don't make any difference.
+-- Equinox bug? The option @--no-progress@ doesn't make any difference.
 atpArgs Equinox timeLimit file = [ "--no-progress"
                                  , "--time", show timeLimit
                                  , file
