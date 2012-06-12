@@ -26,9 +26,9 @@ subList-OrdList : ∀ {i is} → N i → ListN is → OrdList (i ∷ is) → Ord
 subList-OrdList {i} Ni nilLN LOi∷is = ordList-[]
 
 subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js =
-  &&-list₂-true₂ (≤-ItemList-Bool Ni (consLN Nj Ljs))
-           (ordList-Bool (consLN Nj Ljs))
-           (trans (sym $ ordList-∷ i (j ∷ js)) LOi∷j∷js)
+  &&-list₂-t₂ (≤-ItemList-Bool Ni (consLN Nj Ljs))
+              (ordList-Bool (consLN Nj Ljs))
+              (trans (sym $ ordList-∷ i (j ∷ js)) LOi∷j∷js)
 
 ++-OrdList-helper : ∀ {item is js} → N item → ListN is → ListN js →
                     LE-ItemList item is →
@@ -50,9 +50,9 @@ subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js =
   (item ≤ i) && ≤-ItemList item (is ++ js)
     ≡⟨ subst (λ t → (item ≤ i) && ≤-ItemList item (is ++ js) ≡
                     t && ≤-ItemList item (is ++ js))
-             (&&-list₂-true₁ (≤-Bool Nitem Ni)
-                             (≤-ItemList-Bool Nitem LNis)
-                             (trans (sym $ ≤-ItemList-∷ item i is) item≤i∷is))
+             (&&-list₂-t₁ (≤-Bool Nitem Ni)
+                          (≤-ItemList-Bool Nitem LNis)
+                          (trans (sym $ ≤-ItemList-∷ item i is) item≤i∷is))
              refl
     ⟩
   true && ≤-ItemList item (is ++ js)
@@ -62,15 +62,15 @@ subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js =
              refl
     ⟩
   true && true
-    ≡⟨ true&&x≡x true ⟩
+    ≡⟨ t&&x≡x true ⟩
   true ∎
     where
     lemma₁ : ≤-ItemList item is ≡ true
-    lemma₁ =  &&-list₂-true₂ (≤-Bool Nitem Ni)
-                             (≤-ItemList-Bool Nitem LNis)
-                             (trans (sym $ ≤-ItemList-∷ item i is) item≤i∷is)
+    lemma₁ =  &&-list₂-t₂ (≤-Bool Nitem Ni)
+                          (≤-ItemList-Bool Nitem LNis)
+                          (trans (sym $ ≤-ItemList-∷ item i is) item≤i∷is)
 
     lemma₂ : ≤-Lists is js ≡ true
-    lemma₂ = &&-list₂-true₂ (≤-ItemList-Bool Ni LNjs)
-                            (≤-Lists-Bool LNis LNjs)
-                            (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js)
+    lemma₂ = &&-list₂-t₂ (≤-ItemList-Bool Ni LNjs)
+                         (≤-Lists-Bool LNis LNjs)
+                         (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js)

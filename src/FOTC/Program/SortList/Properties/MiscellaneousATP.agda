@@ -45,7 +45,7 @@ x≤ys→x≤zs→x≤ys++zs : ∀ {i js ks} → N i → ListN js → ListN ks �
 x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni nilLN LNks _ i≤k =
   subst (λ t → LE-ItemList i t) (sym (++-[] ks)) i≤k
 x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni (consLN {j} {js} Nj LNjs) LNks i≤j∷js i≤k =
-  prf (x≤ys→x≤zs→x≤ys++zs Ni LNjs LNks (&&-list₂-true₂ helper₁ helper₂ helper₃) i≤k)
+  prf (x≤ys→x≤zs→x≤ys++zs Ni LNjs LNks (&&-list₂-t₂ helper₁ helper₂ helper₃) i≤k)
   where
   helper₁ : Bool (i ≤ j)
   helper₁ = ≤-Bool Ni Nj
@@ -58,7 +58,7 @@ x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni (consLN {j} {js} Nj LNjs) LNks i�
 
   postulate prf : LE-ItemList i (js ++ ks) →  -- IH.
                   LE-ItemList i ((j ∷ js) ++ ks)
-  {-# ATP prove prf &&-list₂-true helper₁ helper₂ helper₃ #-}
+  {-# ATP prove prf &&-list₂-t helper₁ helper₂ helper₃ #-}
 
 xs≤ys→xs≤zs→xs≤ys++zs : ∀ {is js ks} → ListN is → ListN js → ListN ks →
                         LE-Lists is js →
@@ -68,8 +68,8 @@ xs≤ys→xs≤zs→xs≤ys++zs nilLN LNjs LNks _ _ = ≤-Lists-[] _
 xs≤ys→xs≤zs→xs≤ys++zs {js = js} {ks} (consLN {i} {is} Ni LNis)
                       LNjs LNks i∷is≤js i∷is≤ks =
   prf ((xs≤ys→xs≤zs→xs≤ys++zs LNis LNjs LNks
-                              (&&-list₂-true₂ helper₁ helper₂ helper₃)
-                              (&&-list₂-true₂ helper₄ helper₅ helper₆)))
+                              (&&-list₂-t₂ helper₁ helper₂ helper₃)
+                              (&&-list₂-t₂ helper₄ helper₅ helper₆)))
   where
   helper₁ = ≤-ItemList-Bool Ni LNjs
   helper₂ = ≤-Lists-Bool LNis LNjs
@@ -81,7 +81,7 @@ xs≤ys→xs≤zs→xs≤ys++zs {js = js} {ks} (consLN {i} {is} Ni LNis)
 
   postulate prf : LE-Lists is (js ++ ks) →  -- IH.
                   LE-Lists (i ∷ is) (js ++ ks)
-  {-# ATP prove prf x≤ys→x≤zs→x≤ys++zs &&-list₂-true
+  {-# ATP prove prf x≤ys→x≤zs→x≤ys++zs &&-list₂-t
                     helper₁ helper₂ helper₃ helper₄ helper₅ helper₆
   #-}
 
@@ -96,7 +96,7 @@ xs≤zs→ys≤zs→xs++ys≤zs {js = js} {ks} nilLN LNjs LNks is≤ks js≤ks =
 xs≤zs→ys≤zs→xs++ys≤zs {js = js} {ks}
                       (consLN {i} {is} Ni LNis) LNjs LNks i∷is≤ks js≤ks =
   prf (xs≤zs→ys≤zs→xs++ys≤zs LNis LNjs LNks
-                             (&&-list₂-true₂ helper₁ helper₂ helper₃)
+                             (&&-list₂-t₂ helper₁ helper₂ helper₃)
                              js≤ks)
   where
   helper₁ = ≤-ItemList-Bool Ni LNks
@@ -105,4 +105,4 @@ xs≤zs→ys≤zs→xs++ys≤zs {js = js} {ks}
 
   postulate prf : LE-Lists (is ++ js) ks →  -- IH.
                   LE-Lists ((i ∷ is) ++ js) ks
-  {-# ATP prove prf &&-list₂-true helper₁ helper₂ helper₃ #-}
+  {-# ATP prove prf &&-list₂-t helper₁ helper₂ helper₃ #-}

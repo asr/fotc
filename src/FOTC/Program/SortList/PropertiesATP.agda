@@ -54,7 +54,7 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
                    GT i item →
                    OrdTree (toTree · item · node t₁ i t₂)
   {-# ATP prove prf₁ ≤-ItemTree-Bool ≤-TreeItem-Bool ordTree-Bool
-                     x>y→x≰y &&-list₄-true
+                     x>y→x≰y &&-list₄-t
                      toTree-OrdTree-helper₁
   #-}
 
@@ -63,8 +63,7 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
                    LE i item →
                    OrdTree (toTree · item · node t₁ i t₂)
   {-# ATP prove prf₂ ≤-ItemTree-Bool ≤-TreeItem-Bool ordTree-Bool
-                     &&-list₄-true
-                     toTree-OrdTree-helper₂
+                     &&-list₄-t toTree-OrdTree-helper₂
   #-}
 
 ------------------------------------------------------------------------------
@@ -102,14 +101,14 @@ makeTree-OrdTree (consLN {i} {is} Ni Lis) = prf $ makeTree-OrdTree Lis
         (lemma (++-OrdList LNis LNjs
                            (subList-OrdList Ni LNis OLi∷is)
                            OLjs
-                           (&&-list₂-true₂ (≤-ItemList-Bool Ni LNjs)
-                                           (≤-Lists-Bool LNis LNjs)
-                                           (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js))))
+                           (&&-list₂-t₂ (≤-ItemList-Bool Ni LNjs)
+                                        (≤-Lists-Bool LNis LNjs)
+                                        (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js))))
   where
   postulate lemma : OrdList (is ++ js) →  -- IH
                     OrdList (i ∷ is ++ js)
   {-# ATP prove lemma ≤-ItemList-Bool ≤-Lists-Bool ordList-Bool
-                      &&-list₂-true ++-OrdList-helper
+                      &&-list₂-t ++-OrdList-helper
   #-}
 
 ------------------------------------------------------------------------------

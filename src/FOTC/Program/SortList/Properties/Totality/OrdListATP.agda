@@ -25,7 +25,7 @@ subList-OrdList {i} Ni nilLN LOi∷is = ordList-[]
 subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js = prf
   where
   postulate prf : OrdList (j ∷ js)
-  {-# ATP prove prf &&-list₂-true ≤-ItemList-Bool ordList-Bool #-}
+  {-# ATP prove prf &&-list₂-t ≤-ItemList-Bool ordList-Bool #-}
 
 ++-OrdList-helper : ∀ {item is js} → N item → ListN is → ListN js →
                     LE-ItemList item is →
@@ -41,15 +41,15 @@ subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js = prf
   prf (++-OrdList-helper Nitem LNis LNjs lemma₁ item≤js lemma₂)
   where
   lemma₁ : ≤-ItemList item is ≡ true
-  lemma₁ =  &&-list₂-true₂ (≤-Bool Nitem Ni)
-                           (≤-ItemList-Bool Nitem LNis)
-                           (trans (sym $ ≤-ItemList-∷ item i is) item≤i∷is)
+  lemma₁ =  &&-list₂-t₂ (≤-Bool Nitem Ni)
+                        (≤-ItemList-Bool Nitem LNis)
+                        (trans (sym $ ≤-ItemList-∷ item i is) item≤i∷is)
 
   lemma₂ : ≤-Lists is js ≡ true
-  lemma₂ = &&-list₂-true₂ (≤-ItemList-Bool Ni LNjs)
-                          (≤-Lists-Bool LNis LNjs)
-                          (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js)
+  lemma₂ = &&-list₂-t₂ (≤-ItemList-Bool Ni LNjs)
+                       (≤-Lists-Bool LNis LNjs)
+                       (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js)
 
   postulate prf : LE-ItemList item (is ++ js) →  -- IH.
                   LE-ItemList item ((i ∷ is) ++ js)
-  {-# ATP prove prf ≤-Bool ≤-ItemList-Bool &&-list₂-true #-}
+  {-# ATP prove prf ≤-Bool ≤-ItemList-Bool &&-list₂-t #-}

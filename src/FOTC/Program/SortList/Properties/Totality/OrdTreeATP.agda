@@ -28,7 +28,7 @@ postulate
   leftSubTree-OrdTree : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ →
                         OrdTree (node t₁ i t₂) → OrdTree t₁
 {-# ATP prove leftSubTree-OrdTree ≤-ItemTree-Bool ≤-TreeItem-Bool &&-Bool
-                                  ordTree-Bool &&-list₂-true
+                                  ordTree-Bool &&-list₂-t
 #-}
 
 -- If (node t₁ i t₂) is ordered then t₂ is ordered.
@@ -37,7 +37,7 @@ postulate
   rightSubTree-OrdTree : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ →
                          OrdTree (node t₁ i t₂) → OrdTree t₂
 {-# ATP prove rightSubTree-OrdTree ≤-ItemTree-Bool ≤-TreeItem-Bool &&-Bool
-                                   ordTree-Bool &&-list₂-true
+                                   ordTree-Bool &&-list₂-t
 #-}
 
 ------------------------------------------------------------------------------
@@ -64,25 +64,25 @@ toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i
 toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
                        (nodeT {t₁} {j} {t₂} Tt₁ Nj Tt₂) t≤i₁ =
   [ prf₁ (toTree-OrdTree-helper₁ Ni₁ Ni₂ i₁>i₂ Tt₁
-           (&&-list₂-true₁ (≤-TreeItem-Bool Tt₁ Ni₁)
-                           (≤-TreeItem-Bool Tt₂ Ni₁)
-                           (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁)))
+           (&&-list₂-t₁ (≤-TreeItem-Bool Tt₁ Ni₁)
+                        (≤-TreeItem-Bool Tt₂ Ni₁)
+                        (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁)))
 
   , prf₂ (toTree-OrdTree-helper₁ Ni₁ Ni₂ i₁>i₂ Tt₂
-           (&&-list₂-true₂  (≤-TreeItem-Bool Tt₁ Ni₁)
-                            (≤-TreeItem-Bool Tt₂ Ni₁)
-                            (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁)))
+           (&&-list₂-t₂  (≤-TreeItem-Bool Tt₁ Ni₁)
+                         (≤-TreeItem-Bool Tt₂ Ni₁)
+                           (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁)))
   ] (x>y∨x≤y Nj Ni₂)
   where
   postulate prf₁ : LE-TreeItem (toTree · i₂ · t₁) i₁ →  -- IH.
                    GT j i₂ →
                    LE-TreeItem (toTree · i₂ · node t₁ j t₂) i₁
-  {-# ATP prove prf₁ x>y→x≰y &&-list₂-true ≤-TreeItem-Bool #-}
+  {-# ATP prove prf₁ x>y→x≰y &&-list₂-t ≤-TreeItem-Bool #-}
 
   postulate prf₂ : LE-TreeItem (toTree · i₂ · t₂) i₁ →  --IH.
                    LE j i₂ →
                    LE-TreeItem (toTree · i₂ · node t₁ j t₂) i₁
-  {-# ATP prove prf₂ &&-list₂-true ≤-TreeItem-Bool #-}
+  {-# ATP prove prf₂ &&-list₂-t ≤-TreeItem-Bool #-}
 
 toTree-OrdTree-helper₂ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → LE i₁ i₂ →
                          Tree t →
@@ -105,22 +105,22 @@ toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i�
 toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
                        (nodeT {t₁} {j} {t₂} Tt₁ Nj Tt₂) i₁≤t =
   [ prf₁ (toTree-OrdTree-helper₂ Ni₁ Ni₂ i₁≤i₂ Tt₁
-           (&&-list₂-true₁ (≤-ItemTree-Bool Ni₁ Tt₁)
-                           (≤-ItemTree-Bool Ni₁ Tt₂)
-                           (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t)))
+           (&&-list₂-t₁ (≤-ItemTree-Bool Ni₁ Tt₁)
+                        (≤-ItemTree-Bool Ni₁ Tt₂)
+                          (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t)))
 
   , prf₂ (toTree-OrdTree-helper₂ Ni₁ Ni₂ i₁≤i₂ Tt₂
-           (&&-list₂-true₂ (≤-ItemTree-Bool Ni₁ Tt₁)
-                           (≤-ItemTree-Bool Ni₁ Tt₂)
-                           (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t)))
+           (&&-list₂-t₂ (≤-ItemTree-Bool Ni₁ Tt₁)
+                        (≤-ItemTree-Bool Ni₁ Tt₂)
+                        (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t)))
   ] (x>y∨x≤y Nj Ni₂)
   where
   postulate prf₁ : LE-ItemTree i₁ (toTree · i₂ · t₁) →  -- IH.
                    GT j i₂ →
                    LE-ItemTree i₁ (toTree · i₂ · node t₁ j t₂)
-  {-# ATP prove prf₁ ≤-ItemTree-Bool x>y→x≰y &&-list₂-true #-}
+  {-# ATP prove prf₁ ≤-ItemTree-Bool x>y→x≰y &&-list₂-t #-}
 
   postulate prf₂ : LE-ItemTree i₁ (toTree · i₂ · t₂) →  --IH.
                    LE j i₂ →
                    LE-ItemTree i₁ (toTree · i₂ · node t₁ j t₂)
-  {-# ATP prove prf₂ ≤-ItemTree-Bool &&-list₂-true #-}
+  {-# ATP prove prf₂ ≤-ItemTree-Bool &&-list₂-t #-}
