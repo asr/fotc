@@ -38,6 +38,12 @@ not-Bool : ∀ {b} → Bool b → Bool (not b)
 not-Bool tB = subst Bool (sym not-t) fB
 not-Bool fB = subst Bool (sym not-f) tB
 
+&&-comm : ∀ {a b} → Bool a → Bool b → a && b ≡ b && a
+&&-comm tB tB = refl
+&&-comm tB fB = trans (t&&x≡x false) (sym (f&&x≡f true))
+&&-comm fB tB = trans (f&&x≡f true) (sym (t&&x≡x false))
+&&-comm fB fB = refl
+
 &&-list₂-t : ∀ {a b} → Bool a → Bool b → a && b ≡ true → a ≡ true ∧ b ≡ true
 &&-list₂-t tB tB h = refl , refl
 &&-list₂-t tB fB h = ⊥-elim ( true≢false (trans (sym h) (t&&x≡x false)))

@@ -36,6 +36,12 @@ not-Bool : ∀ {b} → Bool b → Bool (not b)
 not-Bool tB = subst Bool (sym not-t) fB
 not-Bool fB = subst Bool (sym not-f) tB
 
+&&-comm : ∀ {a b} → Bool a → Bool b → a && b ≡ b && a
+&&-comm tB tB = refl
+&&-comm tB fB = trans (t&&x≡x false) (sym (f&&x≡f true))
+&&-comm fB tB = trans (f&&x≡f true) (sym (t&&x≡x false))
+&&-comm fB fB = refl
+
 x≢not-x : ∀ {b} → Bool b → b ≢ not b
 x≢not-x tB h = true≢false (trans h not-t)
 x≢not-x fB h = true≢false (sym (trans h not-f))
