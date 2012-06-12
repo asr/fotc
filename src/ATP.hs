@@ -53,7 +53,9 @@ import Data.Tuple    ( fst, snd )
 #if __GLASGOW_HASKELL__ == 612
 import GHC.Num ( Num(fromInteger) )
 #endif
-import GHC.Num ( Num((+)) )
+import GHC.Num   ( Num((+), (*)) )
+import GHC.Real  ( fromIntegral, round )
+import GHC.Types ( Float )
 
 import System.Directory ( findExecutable )
 import System.IO        ( FilePath, hGetContents, IO, putStrLn )
@@ -245,15 +247,33 @@ atpsAnswer atps outputMVar atpsPH file n =
 -- | The function 'callATPs' calls the selected 'ATP's on a TPTP conjecture.
 callATPs ∷ FilePath → T ()
 callATPs file = do
-  atpsAux    ← getTOpt optATP
-  timeLimit  ← getTOpt optTime
-  outputMVar ← liftIO (newEmptyMVar ∷ IO (MVar (Bool, ATP)))
+  atpsAux       ← getTOpt optATP
+  timeLimitAux  ← getTOpt optTime
+  outputMVar    ← liftIO (newEmptyMVar ∷ IO (MVar (Bool, ATP)))
 
   let atps ∷ [String]
       atps = if null atpsAux then defaultATPs else atpsAux
 
   reportS "" 1 $ "Proving the conjecture in " ++ file ++ " ..."
   reportS "" 20 $ "ATPs to be used: " ++ show atps
+
+  -- 12 June 2012: Hack. Running for example
+  --
+  -- $ equinox --time 216 some-conjecture.tptp
+  --
+  -- or
+  --
+  -- $ agda2atp --time=216 --atp=equinox some-conjecture.agda
+  --
+  -- it is possible prove the theorem. But running for example
+  --
+  -- $ agda2atp --time=216 --atp=equinox --atp=vampire --atp=e some-conjecture.agda
+  --
+  -- doesn't prove the theorem. I guess there is some overhead for
+  -- calling various ATPs from the program agda2atp. Therefore we
+  -- increase internally 10% the ATPs timeout.
+  let timeLimit ∷ Int
+      timeLimit = round (fromIntegral timeLimitAux * (1.1 ∷ Float))
 
   atpsPH ∷ [ProcessHandle] ←
     mapM optATP2ATP atps >>= mapM (\atp → runATP atp outputMVar timeLimit file)
