@@ -107,9 +107,9 @@ module Helper where
 
     ds-eq : ds ≡ ok (not b) ∷ ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁)
             ∨ ds ≡ error ∷ ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁)
-    ds-eq = [ (λ h → inj₁ (ds-eq-helper₁ h))
-            , (λ h → inj₂ (ds-eq-helper₂ h))
-            ] (head-tail-Fair Ffs₁)
+    ds-eq = case (λ h → inj₁ (ds-eq-helper₁ h))
+                 (λ h → inj₂ (ds-eq-helper₂ h))
+                 (head-tail-Fair Ffs₁)
 
     postulate
       as⁵-eq-helper₁ : ds ≡ ok (not b) ∷ ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁) →
@@ -125,7 +125,7 @@ module Helper where
 
     as⁵-eq : as⁵ b i' is' ds ≡
              send · b · (i' ∷ is') · ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁)
-    as⁵-eq = [ as⁵-eq-helper₁ , as⁵-eq-helper₂ ] ds-eq
+    as⁵-eq = case as⁵-eq-helper₁ as⁵-eq-helper₂ ds-eq
 
     postulate js-eq : js ≡ out · b · bs⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵)
     {-# ATP prove js-eq bs-eq #-}

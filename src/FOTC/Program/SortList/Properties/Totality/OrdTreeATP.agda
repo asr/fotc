@@ -53,7 +53,7 @@ toTree-OrdTree-helper₁ {i₁} {i₂} .{nilTree} Ni₁ Ni₂ i₁>i₂ nilT t�
   {-# ATP prove prf x<y→x≤y #-}
 
 toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁ =
-  [ prf₁ , prf₂ ] (x>y∨x≤y Nj Ni₂)
+  case prf₁ prf₂ (x>y∨x≤y Nj Ni₂)
   where
   postulate prf₁ : GT j i₂ → LE-TreeItem (toTree · i₂ · tip j) i₁
   {-# ATP prove prf₁ x>y→x≰y x<y→x≤y #-}
@@ -63,16 +63,16 @@ toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i
 
 toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
                        (nodeT {t₁} {j} {t₂} Tt₁ Nj Tt₂) t≤i₁ =
-  [ prf₁ (toTree-OrdTree-helper₁ Ni₁ Ni₂ i₁>i₂ Tt₁
-           (&&-list₂-t₁ (≤-TreeItem-Bool Tt₁ Ni₁)
-                        (≤-TreeItem-Bool Tt₂ Ni₁)
-                        (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁)))
+  case (prf₁ (toTree-OrdTree-helper₁ Ni₁ Ni₂ i₁>i₂ Tt₁
+               (&&-list₂-t₁ (≤-TreeItem-Bool Tt₁ Ni₁)
+                            (≤-TreeItem-Bool Tt₂ Ni₁)
+                            (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁))))
 
-  , prf₂ (toTree-OrdTree-helper₁ Ni₁ Ni₂ i₁>i₂ Tt₂
-           (&&-list₂-t₂  (≤-TreeItem-Bool Tt₁ Ni₁)
-                         (≤-TreeItem-Bool Tt₂ Ni₁)
-                           (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁)))
-  ] (x>y∨x≤y Nj Ni₂)
+       (prf₂ (toTree-OrdTree-helper₁ Ni₁ Ni₂ i₁>i₂ Tt₂
+               (&&-list₂-t₂ (≤-TreeItem-Bool Tt₁ Ni₁)
+                            (≤-TreeItem-Bool Tt₂ Ni₁)
+                            (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁))))
+       (x>y∨x≤y Nj Ni₂)
   where
   postulate prf₁ : LE-TreeItem (toTree · i₂ · t₁) i₁ →  -- IH.
                    GT j i₂ →
@@ -94,7 +94,7 @@ toTree-OrdTree-helper₂ {i₁} {i₂} .{nilTree} Ni₁ Ni₂ i₁≤i₂ nilT i
   {-# ATP prove prf #-}
 
 toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i₁≤t =
-  [ prf₁ , prf₂ ] (x>y∨x≤y Nj Ni₂)
+  case prf₁ prf₂ (x>y∨x≤y Nj Ni₂)
   where
   postulate prf₁ : GT j i₂ → LE-ItemTree i₁ (toTree · i₂ · tip j)
   {-# ATP prove prf₁ x>y→x≰y #-}
@@ -104,16 +104,16 @@ toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i�
 
 toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
                        (nodeT {t₁} {j} {t₂} Tt₁ Nj Tt₂) i₁≤t =
-  [ prf₁ (toTree-OrdTree-helper₂ Ni₁ Ni₂ i₁≤i₂ Tt₁
-           (&&-list₂-t₁ (≤-ItemTree-Bool Ni₁ Tt₁)
-                        (≤-ItemTree-Bool Ni₁ Tt₂)
-                          (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t)))
+  case (prf₁ (toTree-OrdTree-helper₂ Ni₁ Ni₂ i₁≤i₂ Tt₁
+               (&&-list₂-t₁ (≤-ItemTree-Bool Ni₁ Tt₁)
+                            (≤-ItemTree-Bool Ni₁ Tt₂)
+                            (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t))))
 
-  , prf₂ (toTree-OrdTree-helper₂ Ni₁ Ni₂ i₁≤i₂ Tt₂
-           (&&-list₂-t₂ (≤-ItemTree-Bool Ni₁ Tt₁)
-                        (≤-ItemTree-Bool Ni₁ Tt₂)
-                        (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t)))
-  ] (x>y∨x≤y Nj Ni₂)
+       (prf₂ (toTree-OrdTree-helper₂ Ni₁ Ni₂ i₁≤i₂ Tt₂
+               (&&-list₂-t₂ (≤-ItemTree-Bool Ni₁ Tt₁)
+                            (≤-ItemTree-Bool Ni₁ Tt₂)
+                            (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t))))
+       (x>y∨x≤y Nj Ni₂)
   where
   postulate prf₁ : LE-ItemTree i₁ (toTree · i₂ · t₁) →  -- IH.
                    GT j i₂ →

@@ -81,9 +81,9 @@ x>y∨x≤y : ∀ {m n} → N m → N n → GT m n ∨ LE m n
 x>y∨x≤y zN          Nn          = inj₂ $ x≥0 Nn
 x>y∨x≤y (sN {m} Nm) zN          = inj₁ $ <-0S m
 x>y∨x≤y (sN {m} Nm) (sN {n} Nn) =
-  [ (λ m>n → inj₁ (trans (<-SS n m) m>n))
-  , (λ m≤n → inj₂ (trans (<-SS m (succ₁ n)) m≤n))
-  ] (x>y∨x≤y Nm Nn)
+  case (λ m>n → inj₁ (trans (<-SS n m) m>n))
+       (λ m≤n → inj₂ (trans (<-SS m (succ₁ n)) m≤n))
+       (x>y∨x≤y Nm Nn)
 
 x≤y→x≯y : ∀ {m n} → N m → N n → LE m n → NGT m n
 x≤y→x≯y zN          Nn          _    = 0≯x Nn
@@ -100,18 +100,17 @@ x≯y→x≤y (sN {m} Nm) (sN {n} Nn) Sm≯Sn =
 x>y∨x≯y : ∀ {m n} → N m → N n → GT m n ∨ NGT m n
 x>y∨x≯y zN Nn                   = inj₂ (0≯x Nn)
 x>y∨x≯y (sN {m} Nm) zN          = inj₁ (<-0S m)
-x>y∨x≯y (sN {m} Nm) (sN {n} Nn) =
-  [ (λ h → inj₁ (trans (<-SS n m) h))
-  , (λ h → inj₂ (trans (<-SS n m) h))
-  ] (x>y∨x≯y Nm Nn)
+x>y∨x≯y (sN {m} Nm) (sN {n} Nn) = case (λ h → inj₁ (trans (<-SS n m) h))
+                                       (λ h → inj₂ (trans (<-SS n m) h))
+                                       (x>y∨x≯y Nm Nn)
 
 x<y∨x≥y : ∀ {m n} → N m → N n → LT m n ∨ GE m n
 x<y∨x≥y Nm Nn = x>y∨x≤y Nn Nm
 
 x<y∨x≮y : ∀ {m n} → N m → N n → LT m n ∨ NLT m n
-x<y∨x≮y Nm Nn = [ (λ m<n → inj₁ m<n)
-                , (λ m≥n → inj₂ (x≥y→x≮y Nm Nn m≥n))
-                ] (x<y∨x≥y Nm Nn)
+x<y∨x≮y Nm Nn = case (λ m<n → inj₁ m<n)
+                     (λ m≥n → inj₂ (x≥y→x≮y Nm Nn m≥n))
+                     (x<y∨x≥y Nm Nn)
 
 x≡y→x≤y : ∀ {m n} → N m → N n → m ≡ n → LE m n
 x≡y→x≤y {n = n} Nm Nn m≡n = subst (λ m' → LE m' n) (sym m≡n) (x≤x Nn)
@@ -273,10 +272,9 @@ x<Sy→x<y∨x≡y zN (sN {n} Nn) 0<SSn = inj₁ (<-0S n)
 x<Sy→x<y∨x≡y (sN {m} Nm) zN Sm<S0 =
   ⊥-elim $ x<0→⊥ Nm (trans (sym $ <-SS m zero) Sm<S0)
 x<Sy→x<y∨x≡y (sN {m} Nm) (sN {n} Nn) Sm<SSn =
-  [ (λ m<n → inj₁ (trans (<-SS m n) m<n))
-  , (λ m≡n → inj₂ (cong succ₁ m≡n))
-  ]
-  m<n∨m≡n
+  case (λ m<n → inj₁ (trans (<-SS m n) m<n))
+       (λ m≡n → inj₂ (cong succ₁ m≡n))
+       m<n∨m≡n
 
   where
   m<n∨m≡n : LT m n ∨ m ≡ n
@@ -308,40 +306,32 @@ x≥y→y>0→x∸y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 =
 -- Properties about LT₂
 
 xy<00→⊥ : ∀ {m n} → N m → N n → ¬ (Lexi m n zero zero)
-xy<00→⊥ Nm Nn mn<00 =
-  [ (λ m<0     → ⊥-elim $ x<0→⊥ Nm m<0)
-  , (λ m≡0∧n<0 → ⊥-elim $ x<0→⊥ Nn (∧-proj₂ m≡0∧n<0))
-  ]
-  mn<00
+xy<00→⊥ Nm Nn mn<00 = case (λ m<0 → ⊥-elim $ x<0→⊥ Nm m<0)
+                           (λ m≡0∧n<0 → ⊥-elim $ x<0→⊥ Nn (∧-proj₂ m≡0∧n<0))
+                           mn<00
 
 0Sx<00→⊥ : ∀ {m} → ¬ (Lexi zero (succ₁ m) zero zero)
-0Sx<00→⊥ 0Sm<00 =
-  [ 0<0→⊥
-  , (λ 0≡0∧Sm<0 → S<0→⊥ (∧-proj₂ 0≡0∧Sm<0))
-  ]
-  0Sm<00
+0Sx<00→⊥ 0Sm<00 = case 0<0→⊥
+                       (λ 0≡0∧Sm<0 → S<0→⊥ (∧-proj₂ 0≡0∧Sm<0))
+                       0Sm<00
 
 Sxy₁<0y₂→⊥ : ∀ {m n₁ n₂} → ¬ (Lexi (succ₁ m) n₁ zero n₂)
 Sxy₁<0y₂→⊥ Smn₁<0n₂ =
-  [ S<0→⊥
-  , (λ Sm≡0∧n₁<n₂ → ⊥-elim $ 0≢S $ sym $ ∧-proj₁ Sm≡0∧n₁<n₂)
-  ]
-  Smn₁<0n₂
+  case S<0→⊥
+       (λ Sm≡0∧n₁<n₂ → ⊥-elim $ 0≢S $ sym $ ∧-proj₁ Sm≡0∧n₁<n₂)
+       Smn₁<0n₂
 
 x₁y<x₂0→x₁<x₂ : ∀ {m₁ n} → N n → ∀ {m₂} → Lexi m₁ n m₂ zero → LT m₁ m₂
 x₁y<x₂0→x₁<x₂ Nn m₁n<m₂0 =
-  [ (λ m₁<n₁     → m₁<n₁)
-  , (λ m₁≡n₁∧n<0 → ⊥-elim $ x<0→⊥ Nn (∧-proj₂ m₁≡n₁∧n<0))
-  ]
-  m₁n<m₂0
+  case (λ m₁<n₁ → m₁<n₁)
+       (λ m₁≡n₁∧n<0 → ⊥-elim $ x<0→⊥ Nn (∧-proj₂ m₁≡n₁∧n<0))
+       m₁n<m₂0
 
 xy₁<0y₂→x≡0∧y₁<y₂ : ∀ {m} → N m → ∀ {n₁ n₂} → Lexi m n₁ zero n₂ →
                     m ≡ zero ∧ LT n₁ n₂
-xy₁<0y₂→x≡0∧y₁<y₂ Nm mn₁<0n₂ =
-  [ (λ m<0       → ⊥-elim $ x<0→⊥ Nm m<0)
-  , (λ m≡0∧n₁<n₂ → m≡0∧n₁<n₂)
-  ]
-  mn₁<0n₂
+xy₁<0y₂→x≡0∧y₁<y₂ Nm mn₁<0n₂ = case (λ m<0 → ⊥-elim $ x<0→⊥ Nm m<0)
+                                    (λ m≡0∧n₁<n₂ → m≡0∧n₁<n₂)
+                                    mn₁<0n₂
 
 [Sx∸Sy,Sy]<[Sx,Sy] : ∀ {m n} → N m → N n →
                      Lexi (succ₁ m ∸ succ₁ n) (succ₁ n) (succ₁ m) (succ₁ n)

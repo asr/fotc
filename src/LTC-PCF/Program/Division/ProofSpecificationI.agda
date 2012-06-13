@@ -68,4 +68,4 @@ div-DIV {j = j} Ni Nj j>0 = LT-wfind A ih Ni
   -- and n.
   ih : ∀ {n} → N n → (accH : ∀ {m} → N m → LT m n → A m) → A n
   ih {n} Nn accH =
-     [ div-x<y-DIV Nn Nj , div-x≮y-DIV Nn Nj accH j>0 ] (x<y∨x≮y Nn Nj)
+     case (div-x<y-DIV Nn Nj) (div-x≮y-DIV Nn Nj accH j>0) (x<y∨x≮y Nn Nj)

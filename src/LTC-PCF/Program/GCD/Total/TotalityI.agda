@@ -102,7 +102,6 @@ gcd-N = Lexi-wfind A istep
 
   istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → Lexi k l i j → A k l) →
           A i j
-  istep Ni Nj accH =
-    [ gcd-x>y-N Ni Nj accH
-    , gcd-x≯y-N Ni Nj accH
-    ] (x>y∨x≯y Ni Nj)
+  istep Ni Nj accH = case (gcd-x>y-N Ni Nj accH)
+                          (gcd-x≯y-N Ni Nj accH)
+                          (x>y∨x≯y Ni Nj)

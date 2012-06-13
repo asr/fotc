@@ -102,9 +102,9 @@ module Helper where
 
     bs'-eq : bs' ≡ ok < i' , b > ∷ bs⁵ b i' is' cs' (fs₀⁵ fs₀') (fs₁⁵ ft₁ fs₁'')
              ∨ bs' ≡ error ∷ bs⁵ b i' is' cs' (fs₀⁵ fs₀') (fs₁⁵ ft₁ fs₁'')
-    bs'-eq = [ (λ h → inj₁ (bs'-eq-helper₁ h))
-             , (λ h → inj₂ (bs'-eq-helper₂ h))
-             ] (head-tail-Fair Ffs₀')
+    bs'-eq = case (λ h → inj₁ (bs'-eq-helper₁ h))
+                  (λ h → inj₂ (bs'-eq-helper₂ h))
+                  (head-tail-Fair Ffs₀')
 
     postulate
       cs'-eq-helper₁ : bs' ≡ ok < i' , b > ∷ bs⁵ b i' is' cs' (fs₀⁵ fs₀') (fs₁⁵ ft₁ fs₁'') →
@@ -117,7 +117,7 @@ module Helper where
     {-# ATP prove cs'-eq-helper₂ not-involutive #-}
 
     cs'-eq : cs' ≡ b ∷ cs⁵ b i' is' cs' (fs₀⁵ fs₀') (fs₁⁵ ft₁ fs₁'')
-    cs'-eq = [ cs'-eq-helper₁ , cs'-eq-helper₂ ] bs'-eq
+    cs'-eq = case cs'-eq-helper₁ cs'-eq-helper₂ bs'-eq
 
     postulate
       js'-eq-helper₁ : bs' ≡ ok < i' , b > ∷ bs⁵ b i' is' cs' (fs₀⁵ fs₀') (fs₁⁵ ft₁ fs₁'') →
@@ -132,7 +132,7 @@ module Helper where
     {-# ATP prove js'-eq-helper₂ #-}
 
     js'-eq : js' ≡ out · not b · bs⁵ b i' is' cs' (fs₀⁵ fs₀') (fs₁⁵ ft₁ fs₁'')
-    js'-eq = [ js'-eq-helper₁ , js'-eq-helper₂ ] bs'-eq
+    js'-eq = case js'-eq-helper₁ js'-eq-helper₂ bs'-eq
 
     postulate
       ds⁵-eq : ds⁵ cs' (fs₁⁵ ft₁ fs₁'') ≡

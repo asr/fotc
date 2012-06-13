@@ -70,9 +70,9 @@ module WFInd₁ where
              m<n = Sx<Sy→x<y Sm<Sn
 
              m'<n : LT m' n
-             m'<n = [ (λ m'<m → <-trans Nm' Nm Nn m'<m m<n)
-                    , (λ m'≡m → x≡y→y<z→x<z m'≡m m<n)
-                    ] (x<Sy→x<y∨x≡y Nm' Nm m'<Sm)
+             m'<n = case (λ m'<m → <-trans Nm' Nm Nn m'<m m<n)
+                         (λ m'≡m → x≡y→y<z→x<z m'≡m m<n)
+                         (x<Sy→x<y∨x≡y Nm' Nm m'<Sm)
 
          in  helper Nn Nm' m'<n
       )

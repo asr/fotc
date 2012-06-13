@@ -34,7 +34,7 @@ toTree-OrdTree {item} Nitem nilT OTt = prf
   {-# ATP prove prf #-}
 
 toTree-OrdTree {item} Nitem (tipT {i} Ni) OTt =
-  [ prf₁ , prf₂ ] (x>y∨x≤y Ni Nitem)
+  case prf₁ prf₂ (x>y∨x≤y Ni Nitem)
   where
   postulate prf₁ : GT i item → OrdTree (toTree · item · tip i)
   {-# ATP prove prf₁ x≤x x<y→x≤y x>y→x≰y #-}
@@ -43,11 +43,11 @@ toTree-OrdTree {item} Nitem (tipT {i} Ni) OTt =
   {-# ATP prove prf₂ x≤x #-}
 
 toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
-  [ prf₁ (toTree-OrdTree Nitem Tt₁ (leftSubTree-OrdTree Tt₁ Ni Tt₂ OTnodeT))
-         (rightSubTree-OrdTree Tt₁ Ni Tt₂ OTnodeT)
-  , prf₂ (toTree-OrdTree Nitem Tt₂ (rightSubTree-OrdTree Tt₁ Ni Tt₂ OTnodeT))
-         (leftSubTree-OrdTree Tt₁ Ni Tt₂ OTnodeT)
-  ] (x>y∨x≤y Ni Nitem)
+  case (prf₁ (toTree-OrdTree Nitem Tt₁ (leftSubTree-OrdTree Tt₁ Ni Tt₂ OTnodeT))
+             (rightSubTree-OrdTree Tt₁ Ni Tt₂ OTnodeT))
+       (prf₂ (toTree-OrdTree Nitem Tt₂ (rightSubTree-OrdTree Tt₁ Ni Tt₂ OTnodeT))
+             (leftSubTree-OrdTree Tt₁ Ni Tt₂ OTnodeT))
+       (x>y∨x≤y Ni Nitem)
   where
   postulate prf₁ : ordTree (toTree · item · t₁) ≡ true →  -- IH.
                    OrdTree t₂ →

@@ -117,26 +117,24 @@ postulate
 x>y∨x≤y : ∀ {m n} → N m → N n → GT m n ∨ LE m n
 x>y∨x≤y zN          Nn          = inj₂ $ x≥0 Nn
 x>y∨x≤y (sN {m} Nm) zN          = inj₁ $ <-0S m
-x>y∨x≤y (sN {m} Nm) (sN {n} Nn) =
-  [ (λ m>n → inj₁ (trans (<-SS n m) m>n))
-  , (λ m≤n → inj₂ (x≤y→Sx≤Sy m≤n))
-  ] (x>y∨x≤y Nm Nn)
+x>y∨x≤y (sN {m} Nm) (sN {n} Nn) = case (λ m>n → inj₁ (trans (<-SS n m) m>n))
+                                       (λ m≤n → inj₂ (x≤y→Sx≤Sy m≤n))
+                                       (x>y∨x≤y Nm Nn)
 
 x<y∨x≥y : ∀ {m n} → N m → N n → LT m n ∨ GE m n
 x<y∨x≥y Nm Nn = x>y∨x≤y Nn Nm
 
 x<y∨x≮y : ∀ {m n} → N m → N n → LT m n ∨ NLT m n
-x<y∨x≮y Nm Nn = [ (λ m<n → inj₁ m<n)
-                , (λ m≥n → inj₂ (x≥y→x≮y Nm Nn m≥n))
-                ] (x<y∨x≥y Nm Nn)
+x<y∨x≮y Nm Nn = case (λ m<n → inj₁ m<n)
+                     (λ m≥n → inj₂ (x≥y→x≮y Nm Nn m≥n))
+                     (x<y∨x≥y Nm Nn)
 
 x≤y∨x≰y : ∀ {m n} → N m → N n → LE m n ∨ NLE m n
 x≤y∨x≰y zN Nn = inj₁ (0≤x Nn)
 x≤y∨x≰y (sN Nm) zN = inj₂ (Sx≰0 Nm)
-x≤y∨x≰y (sN {m} Nm) (sN {n} Nn) =
-  [ (λ m≤n → inj₁ (x≤y→Sx≤Sy m≤n))
-  , (λ m≰n → inj₂ (x≰y→Sx≰Sy m n m≰n))
-  ] (x≤y∨x≰y Nm Nn)
+x≤y∨x≰y (sN {m} Nm) (sN {n} Nn) = case (λ m≤n → inj₁ (x≤y→Sx≤Sy m≤n))
+                                       (λ m≰n → inj₂ (x≰y→Sx≰Sy m n m≰n))
+                                       (x≤y∨x≰y Nm Nn)
 
 x≡y→x≤y : ∀ {m n} → N m → N n → m ≡ n → LE m n
 x≡y→x≤y {n = n} Nm Nn m≡n = subst (λ m' → LE m' n) (sym m≡n) (x≤x Nn)
@@ -195,10 +193,9 @@ Sx≯y→x≯y Nm Nn Sm≤n = x≤y→x≯y Nm Nn (Sx≤y→x≤y Nm Nn (x≯y�
 x>y∨x≯y : ∀ {m n} → N m → N n → GT m n ∨ NGT m n
 x>y∨x≯y zN Nn                   = inj₂ (0≯x Nn)
 x>y∨x≯y (sN {m} Nm) zN          = inj₁ (<-0S m)
-x>y∨x≯y (sN {m} Nm) (sN {n} Nn) =
-  [ (λ h → inj₁ (trans (<-SS n m) h))
-  , (λ h → inj₂ (trans (<-SS n m) h))
-  ] (x>y∨x≯y Nm Nn)
+x>y∨x≯y (sN {m} Nm) (sN {n} Nn) = case (λ h → inj₁ (trans (<-SS n m) h))
+                                       (λ h → inj₂ (trans (<-SS n m) h))
+                                       (x>y∨x≯y Nm Nn)
 
 <-trans : ∀ {m n o} → N m → N n → N o → LT m n → LT n o → LT m o
 <-trans zN          zN          _           0<0   _     = ⊥-elim $ 0<0→⊥ 0<0
@@ -403,10 +400,9 @@ x<Sy→x<y∨x≡y zN (sN {n} Nn) 0<SSn = inj₁ (<-0S n)
 x<Sy→x<y∨x≡y (sN {m} Nm) zN Sm<S0 =
   ⊥-elim $ x<0→⊥ Nm (trans (sym $ <-SS m zero) Sm<S0)
 x<Sy→x<y∨x≡y (sN {m} Nm) (sN {n} Nn) Sm<SSn =
-  [ (λ m<n → inj₁ (trans (<-SS m n) m<n))
-  , (λ m≡n → inj₂ (cong succ₁ m≡n))
-  ]
-  m<n∨m≡n
+  case (λ m<n → inj₁ (trans (<-SS m n) m<n))
+       (λ m≡n → inj₂ (cong succ₁ m≡n))
+       m<n∨m≡n
 
   where
   m<n∨m≡n : LT m n ∨ m ≡ n
@@ -423,10 +419,9 @@ postulate x≡y→y<z→x<z : ∀ {m n o} → m ≡ n → LT n o → LT m o
 
 x≯Sy→x≯y∨x≡Sy : ∀ {m n} → N m → N n → NGT m (succ₁ n) → NGT m n ∨ m ≡ succ₁ n
 x≯Sy→x≯y∨x≡Sy {m} {n} Nm Nn m≯Sn =
-  [ (λ m<Sn → inj₁ (x≤y→x≯y Nm Nn (x<Sy→x≤y Nm Nn m<Sn)))
-  , (λ m≡Sn → inj₂ m≡Sn)
-  ]
-  (x<Sy→x<y∨x≡y Nm (sN Nn) (x≤y→x<Sy Nm (sN Nn) (x≯y→x≤y Nm (sN Nn) m≯Sn)))
+  case (λ m<Sn → inj₁ (x≤y→x≯y Nm Nn (x<Sy→x≤y Nm Nn m<Sn)))
+       (λ m≡Sn → inj₂ m≡Sn)
+       (x<Sy→x<y∨x≡y Nm (sN Nn) (x≤y→x<Sy Nm (sN Nn) (x≯y→x≤y Nm (sN Nn) m≯Sn)))
 
 x≥y→y>0→x∸y<x : ∀ {m n} → N m → N n → GE m n → GT n zero → LT (m ∸ n) m
 x≥y→y>0→x∸y<x Nm          zN          _     0>0  = ⊥-elim $ x>x→⊥ zN 0>0
@@ -437,10 +432,9 @@ x≥y→y>0→x∸y<x (sN {m} Nm) (sN {n} Nn) Sm≥Sn Sn>0 = prf
   {-# ATP prove prf x∸y<Sx #-}
 
 x<y→y≤z→x<z : ∀ {m n o} → N m → N n → N o → LT m n → LE n o → LT m o
-x<y→y≤z→x<z Nm Nn No m<n n≤o =
-  [ (λ n<o → <-trans Nm Nn No m<n n<o)
-  , (λ n≡o → x<y→y≡z→x<z m<n n≡o)
-  ] (x<Sy→x<y∨x≡y Nn No n≤o)
+x<y→y≤z→x<z Nm Nn No m<n n≤o = case (λ n<o → <-trans Nm Nn No m<n n<o)
+                                    (λ n≡o → x<y→y≡z→x<z m<n n≡o)
+                                    (x<Sy→x<y∨x≡y Nn No n≤o)
 
 x≤y+x∸y : ∀ {m n} → N m → N n → LE m (n + (m ∸ n))
 x≤y+x∸y {n = n} zN Nn = prf0

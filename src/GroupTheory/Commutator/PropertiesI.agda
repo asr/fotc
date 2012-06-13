@@ -17,7 +17,7 @@ open import GroupTheory.PropertiesI
 
 -- From: A. G. Kurosh. The Theory of Groups, vol. 1. Chelsea Publising
 -- Company, 2nd edition, 1960. p. 99.
-commutatorInverse : ∀ a b → ⟦ a , b ⟧ · ⟦ b , a ⟧ ≡ ε
+commutatorInverse : ∀ a b → [ a , b ] · [ b , a ] ≡ ε
 commutatorInverse a b =
   a ⁻¹ · b ⁻¹ · a · b · (b ⁻¹ · a ⁻¹ · b · a)
     ≡⟨ assoc (a ⁻¹ · b ⁻¹ · a) b (b ⁻¹ · a ⁻¹ · b · a) ⟩

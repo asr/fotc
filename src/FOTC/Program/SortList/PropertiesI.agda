@@ -55,7 +55,7 @@ toTree-OrdTree {item} Nitem nilT _ =
   true ∎
 
 toTree-OrdTree {item} Nitem (tipT {i} Ni) _ =
-  [ prf₁ , prf₂ ] (x>y∨x≤y Ni Nitem)
+  case prf₁ prf₂ (x>y∨x≤y Ni Nitem)
   where
   prf₁ : GT i item → OrdTree (toTree · item · tip i)
   prf₁ i>item =
@@ -249,7 +249,7 @@ toTree-OrdTree {item} Nitem (tipT {i} Ni) _ =
     true ∎
 
 toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
-  [ prf₁ , prf₂ ] (x>y∨x≤y Ni Nitem)
+  case prf₁ prf₂ (x>y∨x≤y Ni Nitem)
   where
   prf₁ : GT i item → OrdTree (toTree · item · node t₁ i t₂)
   prf₁ i>item =

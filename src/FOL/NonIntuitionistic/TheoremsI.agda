@@ -12,7 +12,7 @@ open import FOL.Base
 ------------------------------------------------------------------------------
 -- The principle of indirect proof (proof by contradiction).
 ¬-elim : ∀ {A} → (¬ A → ⊥) → A
-¬-elim h = [ (λ a → a) , (λ ¬a → ⊥-elim (h ¬a)) ] pem
+¬-elim h = case (λ a → a) (λ ¬a → ⊥-elim (h ¬a)) pem
 
 -- Double negation elimination.
 ¬¬-elim : ∀ {A} → ¬ ¬ A → A
@@ -21,7 +21,7 @@ open import FOL.Base
 -- The reductio ab absurdum rule. (Some authors uses this name for the
 -- principle of indirect proof).
 raa : ∀ {A} → (¬ A → A) → A
-raa h = [ (λ a → a) , h ] pem
+raa h = case (λ a → a) h pem
 
 -- ∃ in terms of ∀ and ¬.
 ¬∃¬→∀ : {A : D → Set} → ¬ (∃[ x ] ¬ A x) → ∀ {x} → A x

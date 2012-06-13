@@ -77,10 +77,9 @@ Sx≡2^0→x≡0(sN {n} Nn) SSn≡2^0 =
 2^x≢0 : ∀ {n} → N n → two ^ n ≢ zero
 2^x≢0 zN          h = ⊥-elim (0≢S (trans (sym h) (^-0 two)))
 2^x≢0 (sN {n} Nn) h =
-  [ (λ 2≡0 → ⊥-elim (0≢S (sym 2≡0)))
-  , (λ 2^n≡0 → ⊥-elim (2^x≢0 Nn 2^n≡0))
-  ]
-  (xy≡0→x≡0∨y≡0 2-N (^-N 2-N Nn) (trans (sym (^-S two n)) h))
+  case (λ 2≡0 → ⊥-elim (0≢S (sym 2≡0)))
+       (λ 2^n≡0 → ⊥-elim (2^x≢0 Nn 2^n≡0))
+       (xy≡0→x≡0∨y≡0 2-N (^-N 2-N Nn) (trans (sym (^-S two n)) h))
 
 postulate
   -- See the combined proof.

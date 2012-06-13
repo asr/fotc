@@ -1,4 +1,4 @@
--- Tested with FOT on 08 May 2012.
+-- Tested with FOT on 13 June 2012.
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
@@ -10,10 +10,10 @@ module LF where
     D : Set
 
     -- Disjunction.
-    _∨_   : Set → Set → Set
-    inj₁  : {A B : Set} → A → A ∨ B
-    inj₂  : {A B : Set} → B → A ∨ B
-    [_,_] : {A B C : Set} → (A → C) → (B → C) → A ∨ B → C
+    _∨_  : Set → Set → Set
+    inj₁ : {A B : Set} → A → A ∨ B
+    inj₂ : {A B : Set} → B → A ∨ B
+    case : {A B C : Set} → (A → C) → (B → C) → A ∨ B → C
 
     -- The existential quantifier type on D.
     ∃       : (A : D → Set) → Set
@@ -30,18 +30,18 @@ module LF where
     ∃∀₁ h y = ∃-proj₁ h , (∃-proj₂ h) y
 
     ∃∨₁ : {A B : D → Set} → ∃[ x ](A x ∨ B x) → (∃[ x ] A x) ∨ (∃[ x ] B x)
-    ∃∨₁ h = [ (λ Ax → inj₁ (∃-proj₁ h , Ax))
-            , (λ Bx → inj₂ (∃-proj₁ h , Bx))
-            ] (∃-proj₂ h)
+    ∃∨₁ h = case (λ Ax → inj₁ (∃-proj₁ h , Ax))
+                 (λ Bx → inj₂ (∃-proj₁ h , Bx))
+                 (∃-proj₂ h)
 
     -- Using the elimination
     ∃∀₂ : {A : D → D → Set} → ∃[ x ](∀ y → A x y) → ∀ y → ∃[ x ] A x y
     ∃∀₂ h y = ∃-elim h (λ {x} ah → x , ah y)
 
     ∃∨₂ : {A B : D → Set} → ∃[ x ](A x ∨ B x) → (∃[ x ] A x) ∨ (∃[ x ] B x)
-    ∃∨₂ h = ∃-elim h (λ {x} ah → [ (λ Ax → inj₁ (x , Ax))
-                                 , (λ Bx → inj₂ (x , Bx))
-                                 ] ah)
+    ∃∨₂ h = ∃-elim h (λ {x} ah → case (λ Ax → inj₁ (x , Ax))
+                                      (λ Bx → inj₂ (x , Bx))
+                                      ah)
 
   module NonFOL-Examples where
 
@@ -74,18 +74,18 @@ module Inductive where
     ∃∀₁ h y = ∃-proj₁ h , (∃-proj₂ h) y
 
     ∃∨₁ : {A B : D → Set} → ∃[ x ](A x ∨ B x) → (∃[ x ] A x) ∨ (∃[ x ] B x)
-    ∃∨₁ h = [ (λ Ax → inj₁ (∃-proj₁ h , Ax))
-            , (λ Bx → inj₂ (∃-proj₁ h , Bx))
-            ] (∃-proj₂ h)
+    ∃∨₁ h = case (λ Ax → inj₁ (∃-proj₁ h , Ax))
+                 (λ Bx → inj₂ (∃-proj₁ h , Bx))
+                 (∃-proj₂ h)
 
     -- Using the elimination.
     ∃∀₂ : {A : D → D → Set} → ∃[ x ](∀ y → A x y) → ∀ y → ∃[ x ] A x y
     ∃∀₂ h y = ∃-elim h (λ {x} ah → x , ah y)
 
     ∃∨₂ : {A B : D → Set} → ∃[ x ](A x ∨ B x) → (∃[ x ] A x) ∨ (∃[ x ] B x)
-    ∃∨₂ h = ∃-elim h (λ {x} ah → [ (λ Ax → inj₁ (x , Ax))
-                                 , (λ Bx → inj₂ (x , Bx))
-                                 ] ah)
+    ∃∨₂ h = ∃-elim h (λ {x} ah → case (λ Ax → inj₁ (x , Ax))
+                                      (λ Bx → inj₂ (x , Bx))
+                                      ah)
 
     -- Using pattern matching.
     ∃∀₃ : {A : D → D → Set} → ∃[ x ](∀ y → A x y) → ∀ y → ∃[ x ] A x y

@@ -235,9 +235,9 @@ module Helper where
       error ∷ ds⁵ ∎
 
     ds-eq : ds ≡ ok (not b) ∷ ds⁵ ∨ ds ≡ error ∷ ds⁵
-    ds-eq = [ (λ h → inj₁ (ds-eq-helper₁ h))
-            , (λ h → inj₂ (ds-eq-helper₂ h))
-            ] (head-tail-Fair Ffs₁)
+    ds-eq = case (λ h → inj₁ (ds-eq-helper₁ h))
+                 (λ h → inj₂ (ds-eq-helper₂ h))
+                 (head-tail-Fair Ffs₁)
 
     as⁵-eq-helper₁ : ds ≡ ok (not b) ∷ ds⁵ → as⁵ ≡ send · b · (i' ∷ is') · ds⁵
     as⁵-eq-helper₁ h =
@@ -260,7 +260,7 @@ module Helper where
       send · b · (i' ∷ is') · ds⁵ ∎
 
     as⁵-eq : as⁵ ≡ send · b · (i' ∷ is') · ds⁵
-    as⁵-eq = [ as⁵-eq-helper₁ , as⁵-eq-helper₂ ] ds-eq
+    as⁵-eq = case as⁵-eq-helper₁ as⁵-eq-helper₂ ds-eq
 
     js-eq : js ≡ out · b · bs⁵
     js-eq =

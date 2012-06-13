@@ -53,9 +53,9 @@ wf-LTL₁ Lxs = acc (helper Lxs)
                ys<xs = x∷xs<y∷ys→xs<ys Lys Lxs y∷ys<x∷xs
 
                zs<xs : LTL zs xs
-               zs<xs = [ (λ zs<ys → <-trans Lzs Lys Lxs zs<ys ys<xs)
-                       , (λ h → lg-xs≡lg-ys→ys<zx→xs<zs h ys<xs)
-                       ] (xs<y∷ys→xs<ys∨lg-xs≡lg-ys Lzs Lys zs<y∷ys)
+               zs<xs = case (λ zs<ys → <-trans Lzs Lys Lxs zs<ys ys<xs)
+                            (λ h → lg-xs≡lg-ys→ys<zx→xs<zs h ys<xs)
+                            (xs<y∷ys→xs<ys∨lg-xs≡lg-ys Lzs Lys zs<y∷ys)
 
            in  helper Lxs Lzs zs<xs
         )

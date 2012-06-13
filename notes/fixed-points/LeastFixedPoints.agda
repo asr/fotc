@@ -1,7 +1,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with FOT on 12 March 2012.
+-- Tested with FOT on 13 June 2012.
 
 module LeastFixedPoints where
 
@@ -90,14 +90,14 @@ N-lfp₃ Nn = N-lfp₂ A prf Nn
   A x = x ≡ zero ∨ ∃ λ m → x ≡ succ₁ m ∧ N m
 
   prf : ∀ {n'} → n' ≡ zero ∨ ∃ (λ m → n' ≡ succ₁ m ∧ A m) → A n'
-  prf {n'} h = [ inj₁ , (λ h₁ → inj₂ (prf₁ h₁)) ] h
+  prf {n'} h = case inj₁ (λ h₁ → inj₂ (prf₁ h₁)) h
     where
     prf₁ : ∃ (λ m → n' ≡ succ₁ m ∧ (m ≡ zero ∨ ∃ (λ m' → m ≡ succ₁ m' ∧ N m'))) →
            ∃ λ m → n' ≡ succ₁ m ∧ N m
     prf₁ (m , n'=Sm , h₂) = m , n'=Sm , prf₂ h₂
       where
       prf₂ : m ≡ zero ∨ ∃ (λ m' → m ≡ succ₁ m' ∧ N m') → N m
-      prf₂ h₂ = [ (λ h₃ → subst N (sym h₃) zN) , prf₃ ] h₂
+      prf₂ h₂ = case (λ h₃ → subst N (sym h₃) zN) prf₃ h₂
         where
         prf₃ : ∃ (λ m' → m ≡ succ₁ m' ∧ N m') → N m
         prf₃ (_ , m≡Sm' , Nm') = subst N (sym m≡Sm') (sN Nm')
@@ -109,7 +109,7 @@ indN₁ : (A : D → Set) →
        A zero →
        (∀ {n} → A n → A (succ₁ n)) →
        ∀ {n} → N n → A n
-indN₁ A A0 is Nn = N-lfp₂ A [ prf₁ , prf₂ ] Nn
+indN₁ A A0 is Nn = N-lfp₂ A (case prf₁ prf₂) Nn
   where
   prf₁ : ∀ {n'} → n' ≡ zero → A n'
   prf₁ n'≡0 = subst A (sym n'≡0) A0
@@ -162,7 +162,7 @@ postulate
   A i = N (i + n)
 
   prf : ∀ {m'} → m' ≡ zero ∨ ∃ (λ m'' → m' ≡ succ₁ m'' ∧ A m'') → A m'
-  prf h = [ prf₁ , prf₂ ] h
+  prf h = case prf₁ prf₂ h
     where
     A0 : A zero
     A0 = subst N (sym (+-leftIdentity n)) Nn

@@ -183,9 +183,9 @@ module Helper where
       error ∷ bs⁵ ∎
 
     bs'-eq : bs' ≡ ok < i' , b > ∷ bs⁵ ∨ bs' ≡ error ∷ bs⁵
-    bs'-eq = [ (λ h → inj₁ (bs'-eq-helper₁ h))
-             , (λ h → inj₂ (bs'-eq-helper₂ h))
-             ] (head-tail-Fair Ffs₀')
+    bs'-eq = case (λ h → inj₁ (bs'-eq-helper₁ h))
+                  (λ h → inj₂ (bs'-eq-helper₂ h))
+                  (head-tail-Fair Ffs₀')
 
     cs⁵ : D
     cs⁵ = ack · not b · bs⁵
@@ -233,7 +233,7 @@ module Helper where
       b ∷ cs⁵ ∎
 
     cs'-eq : cs' ≡ b ∷ cs⁵
-    cs'-eq = [ cs'-eq-helper₁ , cs'-eq-helper₂ ] bs'-eq
+    cs'-eq = case cs'-eq-helper₁ cs'-eq-helper₂ bs'-eq
 
     js'-eq-helper₁ : bs' ≡ ok < i' , b > ∷ bs⁵ → js' ≡ out · not b · bs⁵
     js'-eq-helper₁ h  =
@@ -262,7 +262,7 @@ module Helper where
       out · not b · bs⁵ ∎
 
     js'-eq : js' ≡ out · not b · bs⁵
-    js'-eq = [ js'-eq-helper₁ , js'-eq-helper₂ ] bs'-eq
+    js'-eq = case js'-eq-helper₁ js'-eq-helper₂ bs'-eq
 
     ds⁵-eq : ds⁵ ≡ corrupt · fs₁⁵ · (b ∷ cs⁵)
     ds⁵-eq = trans refl (subst (λ t → corrupt · fs₁⁵ · cs' ≡ corrupt · fs₁⁵ · t )

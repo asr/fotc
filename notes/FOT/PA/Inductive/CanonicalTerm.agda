@@ -1,7 +1,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with FOT on 11 June 2012.
+-- Tested with FOT on 13 June 2012.
 
 module FOT.PA.Inductive.CanonicalTerm where
 
@@ -27,7 +27,7 @@ postulate pem : ∀ {A} → A ∨ ¬ A
 
 -- The principle of indirect proof (proof by contradiction).
 ¬-elim : ∀ {A} → (¬ A → ⊥) → A
-¬-elim h = [ (λ a → a) , (λ ¬a → ⊥-elim (h ¬a)) ] pem
+¬-elim h = case (λ a → a) (λ ¬a → ⊥-elim (h ¬a)) pem
 
 -- ∃ in terms of ∀ and ¬.
 ¬∃¬→∀ : {A : M → Set} → ¬ (∃[ x ] ¬ A x) → ∀ {x} → A x
