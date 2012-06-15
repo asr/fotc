@@ -16,9 +16,8 @@ open import Relation.Binary.PropositionalEquality
 succCong : ∀ {m n} → m ≡ n → succ m ≡ succ n
 succCong refl = refl
 
--- TODO: 19 May 2012. Why we cannot use an implicit argument in the
--- inductive hypothesis?
-
+-- N.B. It is not possible to use an implicit argument in the
+-- inductive hypothesis.
 ℕ-ind : (A : ℕ → Set) → A zero → (∀ {n} → A n → A (succ n)) → ∀ n → A n
 ℕ-ind A A0 h zero     = A0
 ℕ-ind A A0 h (succ n) = h (ℕ-ind A A0 h n)
