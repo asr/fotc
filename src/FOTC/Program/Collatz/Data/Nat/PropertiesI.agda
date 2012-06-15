@@ -81,9 +81,9 @@ Sx≡2^0→x≡0(sN {n} Nn) SSn≡2^0 =
        (λ 2^n≡0 → ⊥-elim (2^x≢0 Nn 2^n≡0))
        (xy≡0→x≡0∨y≡0 2-N (^-N 2-N Nn) (trans (sym (^-S two n)) h))
 
-postulate
-  -- See the combined proof.
-  2^[x+1]≢1 : ∀ {n} → N n → two ^ (succ₁ n) ≢ one
+2^[x+1]≢1 : ∀ {n} → N n → two ^ (succ₁ n) ≢ one
+2^[x+1]≢1 {n} Nn h =
+  Sx≡x→⊥ (sN zN) (xy≡1→x≡1 2-N (^-N 2-N Nn) (trans (sym (^-S two n)) h))
 
 Sx-Even→x-Odd : ∀ {n} → N n → Even (succ₁ n) → Odd n
 Sx-Even→x-Odd zN          h = ⊥-elim (true≢false

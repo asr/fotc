@@ -11,6 +11,7 @@ module FOT.FOTC.Program.Collatz.CollatzSL where
 open import Data.Bool
 open import Data.Empty
 open import Data.Nat renaming ( suc to succ )
+open import Data.Nat.Properties
 open import Data.Product
 open import Data.Sum
 open import Relation.Binary.PropositionalEquality hiding ( [_] )
@@ -41,9 +42,9 @@ xy≡0→x≡0∨y≡0 (succ m) zero h = inj₂ refl
 xy≡0→x≡0∨y≡0 (succ m) (succ n) ()
 
 +∸2 : ∀ {n} → n ≢ zero → n ≢ 1 → n ≡ succ (succ (n ∸ 2))
-+∸2 {zero} 0≢0 _ = ⊥-elim (0≢0 refl)
-+∸2 {succ zero} _ 1≢1 = ⊥-elim (1≢1 refl)
-+∸2 {succ (succ n)} _ _ = refl
++∸2 {zero}          0≢0 _   = ⊥-elim (0≢0 refl)
++∸2 {succ zero}     _   1≢1 = ⊥-elim (1≢1 refl)
++∸2 {succ (succ n)} _   _   = refl
 
 2^x≢0 : (n : ℕ) → 2 ^ n ≢ zero
 2^x≢0 zero ()
@@ -60,3 +61,13 @@ collatz-2^x : ∀ n → Σ ℕ (λ k → n ≡ 2 ^ k) → collatz n ≡ 1
 collatz-2^x zero h = refl
 collatz-2^x (succ n) (zero , proj₂)   = subst (λ t → collatz t ≡ 1) (sym proj₂) refl
 collatz-2^x (succ n) (succ k , proj₂) = subst (λ t → collatz t ≡ 1) (sym proj₂) {!!}
+
+succInjective : ∀ {m n} → succ m ≡ succ n → m ≡ n
+succInjective refl = refl
+
+Sx≡x→⊥ : ∀ n → succ n ≢ n
+Sx≡x→⊥ zero ()
+Sx≡x→⊥ (succ n) h = ⊥-elim (Sx≡x→⊥ n (succInjective h))
+
+2^[x+1]≢1 : ∀ n → 2 ^ (succ n) ≢ 1
+2^[x+1]≢1 n h = Sx≡x→⊥ 1 (i*j≡1⇒i≡1 2 (2 ^ n) h)

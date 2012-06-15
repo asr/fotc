@@ -45,6 +45,9 @@ open import FOTC.Data.Nat.UnaryNumbers
 
 ------------------------------------------------------------------------------
 
+-- TODO
+postulate Sx≡x→⊥ : ∀ {n} → N n → succ₁ n ≢ n
+
 +-leftIdentity : ∀ n → zero + n ≡ n
 +-leftIdentity = +-0x
 
@@ -390,8 +393,11 @@ xy≡0→x≡0∨y≡0 (sN {m} Nm) (sN {n} Nn) SmSn≡0 = ⊥-elim (0≢S prf)
         succ₁ n + m * succ₁ n   ≡⟨ +-Sx n (m * succ₁ n) ⟩
         succ₁ (n + m * succ₁ n) ∎
 
--- See the combined proof.
-postulate xy≡1→x≡1∨y≡1 : ∀ {m n} → N m → N n → m * n ≡ one → m ≡ one ∨ n ≡ one
+-- TODO
+postulate xy≡1→x≡1 : ∀ {m n} → N m → N n → m * n ≡ one → m ≡ one
+
+xy≡1→y≡1 : ∀ {m n} → N m → N n → m * n ≡ one → n ≡ one
+xy≡1→y≡1 Nm Nn h = xy≡1→x≡1 Nn Nm (trans (*-comm Nn Nm) h)
 
 -- Feferman's axiom as presented by (Beeson 1986, p. 74).
 succOnto : ∀ {n} → N n → n ≢ zero → succ₁ (pred₁ n) ≡ n
