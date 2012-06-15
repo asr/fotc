@@ -315,7 +315,7 @@ dependency_graph : src/FOTC/Program/GCD/Total/ProofSpecificationATP.agda
 	dot -Tps /tmp/dependency-graph-gcd.gv > /tmp/dependency-graph-gcd.ps
 
 TODO :
-	find src/ -name '*.agda' | xargs grep TODO
+	find -name '*.*' | xargs grep -I TODO | sort
 
 clean_interfaces :
 	find -name '*.agdai' | xargs rm -f
