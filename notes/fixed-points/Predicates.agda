@@ -1,3 +1,7 @@
+------------------------------------------------------------------------------
+-- The FOTC types without use data, i.e. using Agda as a logical framework
+------------------------------------------------------------------------------
+
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
@@ -15,7 +19,8 @@ open import FOTC.Base.PropertiesI
 ∃-proj₂ : ∀ {A} → (h : ∃ A) → A (∃-proj₁ h)
 ∃-proj₂ (_ , Ax) = Ax
 
--- The FOTC types without use data, i.e. using Agda as a logical framework.
+------------------------------------------------------------------------------
+-- The inductive FOTC types using postulates.
 
 module Pure where
 
@@ -38,7 +43,7 @@ module Pure where
     nilL  : List []
     consL : ∀ x {xs} → List xs → List (x ∷ xs)
 
-  -- Example
+  -- Example.
   l : List (zero ∷ true ∷ [])
   l = consL zero (consL true nilL)
 
@@ -53,7 +58,6 @@ module Pure where
   ln = consLN zN (consLN oneN nilLN)
 
 ------------------------------------------------------------------------------
-
 -- The inductive FOTC types using data.
 
 module Inductive where
@@ -75,7 +79,7 @@ module Inductive where
     nilL  :                      List []
     consL : ∀ x {xs} → List xs → List (x ∷ xs)
 
-  -- Example
+  -- Example.
   l : List (zero ∷ true ∷ [])
   l = consL zero (consL true nilL)
 
@@ -89,7 +93,6 @@ module Inductive where
   ln = consLN zN (consLN oneN nilLN)
 
 ------------------------------------------------------------------------------
-
 -- The least fixed-point operator.
 
 module LFP where
@@ -116,7 +119,6 @@ module LFP where
     LFP₂ : (f : (D → Set) → D → Set)(d : D) → f (LFP f) d → LFP f d
 
 ------------------------------------------------------------------------------
-
 -- The greatest fixed-point operator.
 
 -- N.B. At the moment, the definitions of LFP and GFP are the same.
@@ -132,7 +134,6 @@ module GFP where
     GFP₂ : (f : (D → Set) → D → Set)(d : D) → f (GFP f) d → GFP f d
 
 ------------------------------------------------------------------------------
-
 -- The FOTC natural numbers type as the least fixed-point of a
 -- functor.
 
@@ -170,7 +171,6 @@ module NLFP where
   oneN = sN zN
 
 ------------------------------------------------------------------------------
-
 -- The FOTC list type as the least fixed-point of a functor.
 
 module ListLFT where
@@ -197,7 +197,6 @@ module ListLFT where
   l = consL zero (consL true nilL)
 
 ------------------------------------------------------------------------------
-
 -- The FOTC list of natural numbers type as the least fixed-point of a
 -- functor.
 
@@ -227,7 +226,6 @@ module ListNLFT where
   ln = consLN zN (consLN oneN nilLN)
 
 ------------------------------------------------------------------------------
-
 -- The FOTC Colist type as the greatest fixed-point of a functor.
 
 module CoList where
@@ -259,7 +257,6 @@ module CoList where
   -- zerosCL = consCL zero {!!} zerosCL
 
 ------------------------------------------------------------------------------
-
 -- The FOTC Stream type as the greatest fixed-point of a functor.
 
 module Stream₁ where
@@ -280,7 +277,6 @@ module Stream₁ where
   -- consS x xs Sxs = GFP₂ StreamF (x ∷ xs) {!!}
 
 ------------------------------------------------------------------------------
-
 -- The FOTC Stream type as the greatest fixed-point of a functor.
 
 module Stream₂ where
@@ -316,7 +312,6 @@ module Stream₂ where
   bad {xs} {ys} S = GFP₂ StreamF ys (ys , xs , S)
 
 ------------------------------------------------------------------------------
-
 -- The FOTC Stream type as the greatest fixed-point of a functor.
 
 module Stream₃ where
