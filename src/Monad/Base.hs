@@ -1,10 +1,3 @@
-{-# LANGUAGE CPP #-}
-{-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE UnicodeSyntax #-}
-
--- TODO: 29 May 2012. Haddock 2.10.0 requires the LANGUAGE pragmas
--- before the module description.
-
 ------------------------------------------------------------------------------
 -- |
 -- Module      : Monad.Base
@@ -16,6 +9,10 @@
 --
 -- The translation monad.
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module Monad.Base
   ( getTDefs

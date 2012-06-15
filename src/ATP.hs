@@ -259,15 +259,15 @@ callATPs file = do
 
   -- 12 June 2012: Hack. Running for example
   --
-  -- $ equinox --time 216 some-conjecture.tptp
+  -- @$ equinox --time 216 some-conjecture.tptp@
   --
   -- or
   --
-  -- $ agda2atp --time=216 --atp=equinox some-conjecture.agda
+  -- @$ agda2atp --time=216 --atp=equinox some-conjecture.agda@
   --
   -- it is possible prove the theorem. But running for example
   --
-  -- $ agda2atp --time=216 --atp=equinox --atp=vampire --atp=e some-conjecture.agda
+  -- @$ agda2atp --time=216 --atp=equinox --atp=vampire --atp=e some-conjecture.agda@
   --
   -- doesn't prove the theorem. I guess there is some overhead for
   -- calling various ATPs from the program agda2atp. Therefore we
