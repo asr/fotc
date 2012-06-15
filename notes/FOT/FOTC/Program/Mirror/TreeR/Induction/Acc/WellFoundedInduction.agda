@@ -5,10 +5,8 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with FOT on 11 June 2012.
-
 module FOT.FOTC.Program.Mirror.TreeR.Induction.Acc.WellFoundedInduction
-       where
+  where
 
 open import FOTC.Base
 

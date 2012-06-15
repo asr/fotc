@@ -5,8 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with FOT on 11 June 2012.
-
 -- See (Barendregt 2004, corollary 6.1.3).
 --
 -- N.B. This is the fixed-point combinator used by (Dybjer 1985).

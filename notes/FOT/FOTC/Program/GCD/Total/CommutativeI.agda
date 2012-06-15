@@ -5,8 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with FOT on 11 June 2012.
-
 module FOT.FOTC.Program.GCD.Total.CommutativeI where
 
 open import Common.FOL.Relation.Binary.EqReasoning
@@ -145,7 +143,6 @@ gcd-comm = Lexi-wfind P istep
 
   istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → Lexi k l i j → P k l) →
           P i j
-  istep Ni Nj accH =
-    [ gcd-x>y-comm Ni Nj accH
-    , gcd-x≯y-comm Ni Nj accH
-    ] (x>y∨x≯y Ni Nj)
+  istep Ni Nj accH = case (gcd-x>y-comm Ni Nj accH)
+                          (gcd-x≯y-comm Ni Nj accH)
+                          (x>y∨x≯y Ni Nj)

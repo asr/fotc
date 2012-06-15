@@ -1,4 +1,5 @@
--- Tested with the development version of Agda on 29 February 2012.
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
 
 -- Thm: (∃x)A(x), (∀x)(A(x) ⇒ B(x)) ⊢ (∃x)B(x)
 
@@ -16,10 +17,7 @@
 -- 5. B(b)              4,3 MP
 -- 6. (∃x)B(x)          5, rule E4
 
-{-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
-
-module Existential where
+module FOT.Common.FOL.Existential.Witness where
 
 postulate
   D   : Set

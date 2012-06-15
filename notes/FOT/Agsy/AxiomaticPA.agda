@@ -2,12 +2,11 @@
 -- Axiomatic Peano arithmetic using Agsy
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --allow-unsolved-metas #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with FOT on 02 March 2012.
-
-module AxiomaticPA where
+module FOT.Agsy.AxiomaticPA where
 
 open import Common.FOL.FOL public renaming ( D to ℕ )
 

@@ -6,9 +6,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of the standard library on
--- 11 June 2012.
-
 module FOT.FOTC.Data.Colist.PredicateColistSL where
 
 open import FOTC.Base

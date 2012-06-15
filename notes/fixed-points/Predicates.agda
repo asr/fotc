@@ -1,4 +1,5 @@
--- Tested with Agda 2.2.11 on 03 October 2011.
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
 
 module Predicates where
 
@@ -7,6 +8,12 @@ open import FOTC.Base
 open import FOTC.Base.PropertiesI
 
 ------------------------------------------------------------------------------
+-- The existential proyections.
+∃-proj₁ : ∀ {A} → ∃ A → D
+∃-proj₁ (x , _) = x
+
+∃-proj₂ : ∀ {A} → (h : ∃ A) → A (∃-proj₁ h)
+∃-proj₂ (_ , Ax) = Ax
 
 -- The FOTC types without use data, i.e. using Agda as a logical framework.
 
@@ -16,11 +23,11 @@ module Pure where
   postulate
     N  : D → Set
     zN : N zero
-    sN : ∀ {n} → N n → N (succ n)
+    sN : ∀ {n} → N n → N (succ₁ n)
 
   -- Example.
   one : D
-  one = succ zero
+  one = succ₁ zero
 
   oneN : N one
   oneN = sN zN
@@ -54,11 +61,11 @@ module Inductive where
   -- The FOTC natural numbers type.
   data N : D → Set where
     zN : N zero
-    sN : ∀ {n} → N n → N (succ n)
+    sN : ∀ {n} → N n → N (succ₁ n)
 
   -- Example.
   one : D
-  one = succ zero
+  one = succ₁ zero
 
   oneN : N one
   oneN = sN zN
@@ -138,11 +145,11 @@ module NLFP where
   -- From Peter: NatF if D was an inductive type
   -- NatF : (D → Set) → D → Set
   -- NatF X zero     = ⊤
-  -- NatF X (succ n) = X n
+  -- NatF X (succ₁ n) = X n
 
   -- From Peter: NatF in pure predicate logic.
   NatF : (D → Set) → D → Set
-  NatF X n = n ≡ zero ∨ (∃ λ m → n ≡ succ m ∧ X m)
+  NatF X n = n ≡ zero ∨ (∃ λ m → n ≡ succ₁ m ∧ X m)
 
   -- The FOTC natural numbers type using LFP.
   N : D → Set
@@ -152,12 +159,12 @@ module NLFP where
   zN : N zero
   zN = LFP₂ NatF zero (inj₁ refl)
 
-  sN : {n : D} → N n → N (succ n)
-  sN {n} Nn = LFP₂ NatF (succ n) (inj₂ (n , (refl , Nn)))
+  sN : {n : D} → N n → N (succ₁ n)
+  sN {n} Nn = LFP₂ NatF (succ₁ n) (inj₂ (n , (refl , Nn)))
 
   -- Example.
   one : D
-  one = succ zero
+  one = succ₁ zero
 
   oneN : N one
   oneN = sN zN

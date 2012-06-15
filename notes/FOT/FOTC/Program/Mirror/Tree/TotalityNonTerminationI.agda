@@ -8,8 +8,6 @@
 -- {-# OPTIONS --no-termination-check #-}
 {-# OPTIONS --injective-type-constructors #-}
 
--- Tested with FOT on 11 June 2012.
-
 module FOT.FOTC.Program.Mirror.Tree.TotalityNonTerminationI where
 
 open import Common.FOL.Relation.Binary.EqReasoning
@@ -44,6 +42,7 @@ postulate
 -- postulates (i.e. D, _∷_, etc). In particular, x is not structurally
 -- smaller than x ∷ xs.
 
+{-# NO_TERMINATION_CHECK #-}
 mirror-Tree : ∀ {t} → Tree t → Tree (mirror · t)
 mirror-Tree (treeT d nilF) =
   subst Tree (sym (mirror-eq d [])) (treeT d helper₂)

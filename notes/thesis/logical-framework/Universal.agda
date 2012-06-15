@@ -1,5 +1,3 @@
--- Tested with FOT on 08 May 2012.
-
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 

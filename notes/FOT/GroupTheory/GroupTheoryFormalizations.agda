@@ -5,9 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of the standard library on
--- 11 June 2012.
-
 -- We prove that group theory axioms based on the signature (G, ·, ε,)
 -- (see for example [p. 39, 1]), i.e.
 
@@ -36,7 +33,7 @@
 -- [3] Coq implementation
 --     (http://coq.inria.fr/pylons/contribs/files/GroupTheory/v8.3/GroupTheory.g1.html)
 
-module GroupTheoryFormalizations where
+module FOT.GroupTheory.GroupTheoryFormalizations where
 
 open import Data.Product
 open import Relation.Binary.PropositionalEquality

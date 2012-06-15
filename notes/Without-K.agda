@@ -2,8 +2,6 @@
 -- Testing the --without-K flag
 ------------------------------------------------------------------------------
 
--- Tested with Agda 2.3.1 on 15 December 2011.
-
 -- {-# OPTIONS --without-K #-}
 
 module Without-K where

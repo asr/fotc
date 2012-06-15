@@ -2,13 +2,11 @@
 -- Testing an implicit argument for natural numbers induction
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --allow-unsolved-metas #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of the standard library on
--- 11 June 2012.
-
-module ImplicitArgumentInductionSL where
+module FOT.PA.Inductive.ImplicitArgumentInductionSL where
 
 open import Data.Nat renaming ( suc to succ )
 open import Relation.Binary.PropositionalEquality

@@ -5,13 +5,10 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of the standard library on
--- 11 June 2012.
-
 -- From: Nils Anders Danielsson and Thorsten Altenkirch. Mixing
 -- Induction and Coinduction. Draft 2009.
 
-module MapIterateSL where
+module FOT.FOTC.Program.MapIterate.MapIterateSL where
 
 open import Coinduction
 

@@ -5,9 +5,9 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of Agda on 07 February 2012.
+-- Tested with the development version of Agda on 15 June 2012.
 
-module MyPropositionalEquality where
+module FOT.Agsy.NoStd.MyPropositionalEquality where
 
 -- We add 3 to the fixities of the standard library.
 infix 7 _≡_

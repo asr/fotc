@@ -5,10 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of the standard library on
--- 11 June 2012.
-
-module MirrorListSL where
+module FOT.FOTC.Program.Mirror.MirrorListSL where
 
 open import Algebra
 open import Function
@@ -52,6 +49,8 @@ data Tree (A : Set) : Set where
 
 ------------------------------------------------------------------------------
 -- The mirror function.
+
+{-# NO_TERMINATION_CHECK #-}
 mirror : {A : Set} → Tree A → Tree A
 mirror (treeT a ts) = treeT a (reverse (map mirror ts))
 

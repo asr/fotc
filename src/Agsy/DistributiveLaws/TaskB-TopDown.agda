@@ -2,6 +2,7 @@
 -- Example using distributive laws on a binary operation via Agsy
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --allow-unsolved-metas #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 

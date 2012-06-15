@@ -1,5 +1,3 @@
--- Tested with FOT on 02 March 2012.
-
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
@@ -20,11 +18,8 @@ module LF where
 
 module Inductive where
 
-  import Common.FOL.Relation.Binary.PropositionalEquality
-  open module Eq =
-    Common.FOL.Relation.Binary.PropositionalEquality.Inductive public
-
-  open import Common.FOL.FOL using ( D )
+  open import Common.FOL.FOL-Eq
+  open import Common.FOL.Relation.Binary.EqReasoning
 
   sym-er : ∀ {x y} → x ≡ y → y ≡ x
   sym-er {x} h = subst (λ t → t ≡ x) h refl

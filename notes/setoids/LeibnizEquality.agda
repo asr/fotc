@@ -1,8 +1,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of Agda on 14 May 2012.
-
 module LeibnizEquality where
 
 -- References:

@@ -5,10 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of the standard library on
--- 11 June 2012.
-
-module WellFoundedRelationsSL {A : Set} where
+module FOT.FOTC.Data.List.WellFoundedRelationsSL {A : Set} where
 
 open import Data.Product
 open import Data.List hiding ( length )

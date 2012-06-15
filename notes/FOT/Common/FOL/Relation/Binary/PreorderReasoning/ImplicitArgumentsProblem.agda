@@ -3,12 +3,12 @@
 -- reasoning
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --allow-unsolved-metas #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of Agda on 17 May 2012.
-
-module ImplicitArgumentsProblem where
+module FOT.Common.FOL.Relation.Binary.PreorderReasoning.ImplicitArgumentsProblem
+  where
 
 -- Nils suggested a possible problem with the relation
 

@@ -5,8 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with FOT on 02 June 2012.
-
 module AdditionComm where
 
 open import Common.FOL.Relation.Binary.EqReasoning

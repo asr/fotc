@@ -2,6 +2,9 @@
 -- Theory T from the paper
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module T where
 
 infixl 9 _·_  -- The symbol is '\cdot'.

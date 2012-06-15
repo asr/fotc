@@ -2,17 +2,20 @@
 -- Testing Agsy *without* use the Agda standard library
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --allow-unsolved-metas #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module AgsyNoStd where
+-- Tested with the development version of Agda on 15 June 2012.
+
+module FOT.Agsy.NoStd.AgsyNoStd where
 
 -- The equational reasoning from the standard library.
 -- open import Relation.Binary.PropositionalEquality
 -- open ≡-Reasoning
 
 -- My equational reasoning.
-open import MyPropositionalEquality
+open import FOT.Agsy.NoStd.MyPropositionalEquality
 open ≡-Reasoning
 
 -- We add 3 to the fixities of the standard library.

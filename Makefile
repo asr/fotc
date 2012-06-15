@@ -12,14 +12,25 @@ snapshot_dir = snapshot
 # Output directory
 output_dir = /tmp/FOT
 
+# Agda standard library path
+std_lib_path = /home/asr/Agda/std-lib
+
 ##############################################################################
 # Programs
 
 # The current directory (\ie. '.') in the Agda path is required only
 # for work with the Draft directory.
-AGDA_FOT  = agda -v 0 -i. -isrc
-AGDA_Agsy = agda -v 0 --allow-unsolved-metas \
-                 -isrc -i/home/asr/Agda/std-lib/src/
+AGDA_FOT   = agda -v 0 -i. -isrc
+AGDA_Agsy  = agda -v 0 -isrc -i$(std_lib_path)/src/
+AGDA_notes = agda -v 0 \
+	      	  -inotes \
+		  -inotes/fixed-points \
+		  -inotes/papers/FoSSaCS-2012 \
+		  -inotes/papers/paper-2011/ \
+		  -inotes/setoids/ \
+		  -inotes/thesis/logical-framework/ \
+	          -i$(std_lib_path)/src/ \
+                  -isrc \
 
 # N.B. The timeout for the conjectures test should be modify in the
 # conjectures_% target.
@@ -71,11 +82,14 @@ everything_GroupTheory      = $(GroupTheory_path)/Everything
 everything_LTC-PCF          = $(LTC-PCF_path)/Everything
 everything_PA               = $(PA_path)/Everything
 
-# Agsy examples
+# Agsy and notes examples
 #
-# Because we have unsolved-metas in the Agsy examples, we cannot use a
-# Everything module.
+# Because we have unsolved-metas in the Agsy and notes examples, we
+# cannot use an Everything module.
 Agsy_files = $(shell find src/Agsy -name '*.agda' | sort)
+
+# Notes files
+notes_files = $(shell find notes/ -name '*.agda' | sort)
 
 # Only used to publish the drafts, i.e. non type checking.
 everything_Draft = Draft/RenderToHTML
@@ -97,8 +111,15 @@ endef
 # Type checking the Agda modules
 
 type_checking_Agsy : $(Agsy_files)
+	cd $(std_lib_path) && darcs pull
 	for file in $(Agsy_files); do \
-	  $(AGDA_Agsy) $${file}; \
+	    if ! ( $(AGDA_Agsy) $${file} ); then exit 1; fi; \
+	done
+
+type_checking_notes : $(notes_files)
+	cd $(std_lib_path) && darcs pull
+	for file in $(notes_files); do \
+	    if ! ( $(AGDA_notes) $${file} ); then exit 1; fi; \
 	done
 
 type_checking_% :
@@ -111,8 +132,9 @@ all_type_checking : type_checking_Common \
 		    type_checking_GroupTheory \
 		    type_checking_LTC-PCF \
 		    type_checking_PA \
+		    type_checking_README \
 		    type_checking_Agsy \
-		    type_checking_README
+	            type_checking_notes
 	@echo "The $@ test succeeded!"
 
 ##############################################################################

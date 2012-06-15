@@ -2,13 +2,12 @@
 -- Totality properties respect to OrdList (flatten-OrdList-helper)
 ------------------------------------------------------------------------------
 
--- Tested with FOT on 15 June 2012.
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
 
 -- The termination checker can not determine that the function
 -- flatten-OrdList-helper is defined by structural recursion because
 -- we are using postulates.
-
-{-# OPTIONS --no-termination-check #-}
 
 module FOT.FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI where
 
@@ -31,6 +30,7 @@ open import FOTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------
 
+{-# NO_TERMINATION_CHECK #-}
 flatten-OrdList-helper : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ →
                          OrdTree (node t₁ i t₂) →
                          LE-Lists (flatten t₁) (flatten t₂)

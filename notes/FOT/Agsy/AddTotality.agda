@@ -1,10 +1,8 @@
+{-# OPTIONS --allow-unsolved-metas #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module AddTotality where
-
--- Tested with the development version of the standard library on
--- 11 June 2012.
+module FOT.Agsy.AddTotality where
 
 open import Relation.Binary.PropositionalEquality
 

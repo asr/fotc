@@ -1,9 +1,8 @@
+{-# OPTIONS --allow-unsolved-metas #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of Agda on 11 June 2012.
-
-module PostulatesVersusDataTypes where
+module FOT.FOTC.Data.List.PostulatesVersusDataTypes where
 
 -- See Agda mailing list.
 -- Subject: Agda's unification: postulates versus data types

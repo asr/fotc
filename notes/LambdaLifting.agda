@@ -2,7 +2,8 @@
 -- Example of lambda-lifting
 ------------------------------------------------------------------------------
 
--- Tested with the development version of Agda on 08 May 2012.
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
 
 module LambdaLifting where
 

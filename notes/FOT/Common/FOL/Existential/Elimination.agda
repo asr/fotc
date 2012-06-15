@@ -5,9 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of Agda 11 June 2012.
-
-module Existential where
+module FOT.Common.FOL.Existential.Elimination where
 
 -----------------------------------------------------------------------------
 

@@ -1,8 +1,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with FOT on 13 June 2012.
-
 module LeastFixedPoints where
 
 open import FOTC.Base

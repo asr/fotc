@@ -2,10 +2,11 @@
 -- Data and postulates
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- Are the FOTC natural numbers defined by data and postulates the
 -- same?
-
--- Tested with the development version of Agda on 03 October 2011.
 
 module DataPostulate where
 

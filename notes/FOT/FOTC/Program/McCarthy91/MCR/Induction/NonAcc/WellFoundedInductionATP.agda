@@ -2,11 +2,8 @@
 -- Well-founded induction on the relation MCR
 ----------------------------------------------------------------------------
 
-{-# OPTIONS --no-termination-check #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
-
--- Tested with FOT on 11 June 2012.
 
 -- N.B This module does not contain combined proofs, but it imports
 -- modules which contain combined proofs.
@@ -24,6 +21,8 @@ open import FOTC.Program.McCarthy91.MCR.PropertiesATP
 
 ----------------------------------------------------------------------------
 -- Adapted from FOTC.Data.Nat.Induction.WellFoundedI.wfInd-LT₁.
+
+{-# NO_TERMINATION_CHECK #-}
 wfInd-MCR : (P : D → Set) →
             (∀ {n} → N n → (∀ {m} → N m → MCR m n → P m) → P n) →
             ∀ {n} → N n → P n

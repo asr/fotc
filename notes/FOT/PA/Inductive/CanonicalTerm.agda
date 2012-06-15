@@ -1,8 +1,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with FOT on 13 June 2012.
-
 module FOT.PA.Inductive.CanonicalTerm where
 
 -- We cannot extract a canonical term from a non-intuitionistic proof.

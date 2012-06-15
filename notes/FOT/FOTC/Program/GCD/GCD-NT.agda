@@ -1,14 +1,18 @@
+------------------------------------------------------------------------------
+-- Non-terminating GCD
+------------------------------------------------------------------------------
+
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of the standard library on
--- 11 June 2012.
-
-module GCD-NT where
+module FOT.FOTC.Program.GCD.GCD-NT where
 
 open import Data.Nat
 open import Relation.Nullary
 
+------------------------------------------------------------------------------
+
+{-# NO_TERMINATION_CHECK #-}
 gcd : ℕ → ℕ → ℕ
 gcd 0       0       = 0
 gcd (suc m) 0       = suc m

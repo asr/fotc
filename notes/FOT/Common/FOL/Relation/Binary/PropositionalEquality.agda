@@ -5,8 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of Agda on 11 June 2012.
-
 module FOT.Common.FOL.Relation.Binary.PropositionalEquality where
 
 -- We add 3 to the fixities of the standard library.

@@ -1,4 +1,5 @@
--- Tested with Agda 2.2.11 on 18 November 2011.
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
 
 module PolynomialFunctors where
 

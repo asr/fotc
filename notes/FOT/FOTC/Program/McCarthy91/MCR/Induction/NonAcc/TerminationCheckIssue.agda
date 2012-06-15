@@ -1,7 +1,9 @@
+{-# OPTIONS --no-termination-check #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module TerminationCheckIssue where
+module FOT.FOTC.Program.McCarthy91.MCR.Induction.NonAcc.TerminationCheckIssue
+  where
 
 open import Data.Nat
 

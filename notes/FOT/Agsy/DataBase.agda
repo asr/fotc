@@ -7,7 +7,7 @@
 -- Tested with the development version of the standard library on
 -- 27 May 2011.
 
-module DataBase where
+module FOT.Agsy.DataBase where
 
 open import Data.Nat
 open import Data.Product

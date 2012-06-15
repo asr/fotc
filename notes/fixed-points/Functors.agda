@@ -1,12 +1,13 @@
--- Tested with Agda 2.2.11 on 03 October 2011.
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
 
 module Functors where
 
 -- The carrier of the initial algebra is (up to isomorphism) a
--- fixed-point of the functor [1, p. 18].
+-- fixed-point of the functor (Vene 2000, p).
 
--- [1] Varmo Vene. Categorical programming with inductive and
--- coinductive types. PhD thesis, University of Taru, Estonia, 2000.
+-- • Varmo Vene. Categorical programming with inductive and
+--   coinductive types. PhD thesis, University of Taru, Estonia, 2000.
 
 ------------------------------------------------------------------------------
 

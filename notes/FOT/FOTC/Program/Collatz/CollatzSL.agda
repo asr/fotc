@@ -2,13 +2,11 @@
 -- Reasoning about a function without a termination proof
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --allow-unsolved-metas #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of the standard library on
--- 11 June 2012.
-
-module CollatzSL where
+module FOT.FOTC.Program.Collatz.CollatzSL where
 
 open import Data.Bool
 open import Data.Empty

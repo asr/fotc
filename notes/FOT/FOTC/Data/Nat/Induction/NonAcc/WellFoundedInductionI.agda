@@ -2,10 +2,9 @@
 -- Well-founded induction on the natural numbers
 ----------------------------------------------------------------------------
 
+{-# OPTIONS --allow-unsolved-metas #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
-
--- Tested with FOT on 11 June 2012.
 
 module FOT.FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionI where
 
@@ -30,10 +29,9 @@ wfInd-LT P accH (sN Nn) = accH (sN Nn)
                                                    (x<Sy→x≤y Nm Nn m<Sn))
   where
     helper : ∀ {n m} → N n → N m → P m → LE n m → P n
-    helper {n} {m} Nn Nm Pm n≤m =
-      [ (λ n<m → {!!} )
-      , (λ n≡m → helper₁ n≡m Pm)
-      ] (x≤y→x<y∨x≡y Nn Nm n≤m)
+    helper {n} {m} Nn Nm Pm n≤m = case (λ n<m → {!!} )
+                                  (λ n≡m → helper₁ n≡m Pm)
+                                  (x≤y→x<y∨x≡y Nn Nm n≤m)
       where
         helper₁ : ∀ {a b} → a ≡ b → P b → P a
         helper₁ refl Pb = Pb

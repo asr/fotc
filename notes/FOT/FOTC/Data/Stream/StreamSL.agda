@@ -5,10 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of the standard library on
--- 11 June 2012.
-
-module StreamSL where
+module FOT.FOTC.Data.Stream.StreamSL where
 
 open import Data.Product renaming ( _×_ to _∧_ )
 open import Coinduction
@@ -26,6 +23,7 @@ Stream-gfp₁ : ∀ {xs} → Stream xs →
               ∃ λ x' → ∃ λ xs' → Stream xs' ∧ xs ≡ x' ∷ xs'
 Stream-gfp₁ (consS x' {xs'} Sxs') = x' , xs' , ♭ Sxs' , refl
 
+{-# NO_TERMINATION_CHECK #-}
 Stream-gfp₂ : (P : D → Set) →
               -- P is post-fixed point of StreamF.
               (∀ {xs} → P xs → ∃ λ x' → ∃ λ xs' → P xs' ∧ xs ≡ x' ∷ xs') →

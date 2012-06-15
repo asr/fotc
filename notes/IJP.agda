@@ -3,7 +3,8 @@
 -- natural numbers
 ------------------------------------------------------------------------------
 
--- Tested with Agda 2.2.11 on 03 October 2011.
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
 
 module IJP where
 

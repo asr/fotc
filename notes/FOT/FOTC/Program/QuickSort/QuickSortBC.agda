@@ -5,10 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of the standard library on
--- 11 June 2012.
-
-module QuickSortBC where
+module FOT.FOTC.Program.QuickSort.QuickSortBC where
 
 open import Data.Bool
 open import Data.List
@@ -35,6 +32,8 @@ m ≤′? n with m ≤? n
 ... | no ¬p = no (λ m≤′n → ¬p (≤′⇒≤ m≤′n))
 
 -- Non-terminating quicksort.
+
+{-# NO_TERMINATION_CHECK #-}
 qsNT : List ℕ → List ℕ
 qsNT []       = []
 qsNT (x ∷ xs) = qsNT (filter (λ y → ⌊ y ≤′? x ⌋) xs) ++

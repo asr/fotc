@@ -6,13 +6,10 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of the standard library on
--- 11 June 2012.
-
 -- From: Ana Bove and Venanzio Capretta. Nested general recursion and
 -- partiality in type theory. vol 2152 LNCS. 2001
 
-module NestBC where
+module FOT.FOTC.Program.Nest.NestBC where
 
 open import Data.Nat
 open import Data.Nat.Properties
@@ -26,7 +23,9 @@ module NDTO = DecTotalOrder decTotalOrder
 
 ------------------------------------------------------------------------------
 
--- The original function.
+-- The original non-terminating function.
+
+{-# NO_TERMINATION_CHECK #-}
 nestI : ℕ → ℕ
 nestI 0       = 0
 nestI (suc n) = nestI (nestI n)

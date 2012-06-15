@@ -1,10 +1,8 @@
--- We can use a propositional equality parametrized on Set instead of
--- using two "different" equalities on D and M.
-
--- Tested with the development version of Agda on 24 February 2012.
-
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
+
+-- We can use a propositional equality parametrized on Set instead of
+-- using two "different" equalities on D and M.
 
 module SetEquality where
 

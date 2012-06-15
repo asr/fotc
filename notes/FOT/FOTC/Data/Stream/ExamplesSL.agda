@@ -2,10 +2,10 @@
 -- Stream examples using the standard library
 ------------------------------------------------------------------------------
 
--- Tested with the development version of the standard library on
--- 11 June 2012.
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
 
-module ExamplesSL where
+module FOT.FOTC.Data.Stream.ExamplesSL where
 
 open import Data.Nat
 open import Data.Stream
