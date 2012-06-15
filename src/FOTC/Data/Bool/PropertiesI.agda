@@ -16,6 +16,18 @@ open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.Type
 
 ------------------------------------------------------------------------------
+-- Congruence properties
+
+&&-leftCong : ∀ {a b c} → a ≡ b → a && c ≡ b && c
+&&-leftCong refl = refl
+
+&&-rightCong : ∀ {a b c} → b ≡ c → a && b ≡ a && c
+&&-rightCong refl = refl
+
+&&-cong : ∀ {a b c d } → a ≡ c → b ≡ d → a && b ≡ c && d
+&&-cong refl refl = refl
+
+------------------------------------------------------------------------------
 -- Basic properties
 
 t&&x≡x : ∀ b → true && b ≡ b
@@ -44,6 +56,30 @@ not-Bool fB = subst Bool (sym not-f) tB
 &&-comm fB tB = trans (f&&x≡f true) (sym (t&&x≡x false))
 &&-comm fB fB = refl
 
+&&-assoc : ∀ {a b c} → Bool a → Bool b → Bool c → (a && b) && c ≡ a && b && c
+&&-assoc tB tB tB = &&-cong (t&&x≡x true) (sym (t&&x≡x true))
+&&-assoc tB tB fB = &&-cong (t&&x≡x true) (sym (t&&x≡x false))
+&&-assoc tB fB tB =
+  (true && false) && true ≡⟨ &&-comm (&&-Bool tB fB) tB ⟩
+  true && (true && false) ≡⟨ t&&x≡x (true && false) ⟩
+  true && false           ≡⟨ &&-rightCong (sym (f&&x≡f true)) ⟩
+  true && false && true   ∎
+&&-assoc tB fB fB =
+  (true && false) && false ≡⟨ &&-comm (&&-Bool tB fB) fB ⟩
+  false && (true && false) ≡⟨ f&&x≡f (true && false) ⟩
+  false                    ≡⟨ sym (f&&x≡f false) ⟩
+  false && false           ≡⟨ sym (t&&x≡x (false && false)) ⟩
+  true && false && false   ∎
+&&-assoc fB tB tB = &&-cong (f&&x≡f true) (sym (t&&x≡x true))
+&&-assoc fB tB fB = &&-cong (f&&x≡f true) (sym (t&&x≡x false))
+&&-assoc fB fB tB =
+  (false && false) && true ≡⟨ &&-comm (&&-Bool fB fB) tB ⟩
+  true && (false && false) ≡⟨ t&&x≡x (false && false) ⟩
+  false && false           ≡⟨ f&&x≡f false ⟩
+  false                    ≡⟨ sym (f&&x≡f (false && true)) ⟩
+  false && false && true   ∎
+&&-assoc fB fB fB = &&-cong (f&&x≡f false) (sym (f&&x≡f false))
+
 &&-list₂-t : ∀ {a b} → Bool a → Bool b → a && b ≡ true → a ≡ true ∧ b ≡ true
 &&-list₂-t tB tB h = refl , refl
 &&-list₂-t tB fB h = ⊥-elim ( true≢false (trans (sym h) (t&&x≡x false)))
@@ -55,6 +91,16 @@ not-Bool fB = subst Bool (sym not-f) tB
 
 &&-list₂-t₂ : ∀ {a b} → Bool a → Bool b → a && b ≡ true → b ≡ true
 &&-list₂-t₂ Ba Bb h = ∧-proj₂ (&&-list₂-t Ba Bb h)
+
+-- TODO.
+postulate
+  &&-list₃-all-t : ∀ {a b c} → Bool a → Bool b → Bool c →
+                   (a ≡ true ∧ b ≡ true ∧ c ≡ true) →
+                   a && b && c ≡ true
+
+  &&-list₄-all-t : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
+                   (a ≡ true ∧ b ≡ true ∧ c ≡ true ∧ d ≡ true) →
+                   a && b && c && d ≡ true
 
 &&-list₄-some-f : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
                   (a ≡ false ∨ b ≡ false ∨ c ≡ false ∨ d ≡ false) →
