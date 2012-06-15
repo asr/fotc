@@ -82,7 +82,7 @@ not-Bool fB = subst Bool (sym not-f) tB
 
 &&-list₂-t : ∀ {a b} → Bool a → Bool b → a && b ≡ true → a ≡ true ∧ b ≡ true
 &&-list₂-t tB tB h = refl , refl
-&&-list₂-t tB fB h = ⊥-elim ( true≢false (trans (sym h) (t&&x≡x false)))
+&&-list₂-t tB fB h = ⊥-elim (true≢false (trans (sym h) (t&&x≡x false)))
 &&-list₂-t fB tB h = ⊥-elim (true≢false (trans (sym h) (f&&x≡f true)))
 &&-list₂-t fB fB h = ⊥-elim (true≢false (trans (sym h) (f&&x≡f false)))
 
@@ -92,18 +92,33 @@ not-Bool fB = subst Bool (sym not-f) tB
 &&-list₂-t₂ : ∀ {a b} → Bool a → Bool b → a && b ≡ true → b ≡ true
 &&-list₂-t₂ Ba Bb h = ∧-proj₂ (&&-list₂-t Ba Bb h)
 
--- TODO.
-postulate
-  &&-list₃-all-t : ∀ {a b c} → Bool a → Bool b → Bool c →
-                   (a ≡ true ∧ b ≡ true ∧ c ≡ true) →
-                   a && b && c ≡ true
+&&-list₂-all-t : ∀ {a b} → Bool a → Bool b →
+                 (a ≡ true ∧ b ≡ true) →
+                 a && b ≡ true
+&&-list₂-all-t tB tB h = t&&x≡x true
+&&-list₂-all-t tB fB (h₁ , h₂) = ⊥-elim (true≢false (sym h₂))
+&&-list₂-all-t fB Bb (h₁ , h₂) = ⊥-elim (true≢false (sym h₁))
 
-  &&-list₄-all-t : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
-                   (a ≡ true ∧ b ≡ true ∧ c ≡ true ∧ d ≡ true) →
-                   a && b && c && d ≡ true
+&&-list₃-all-t : ∀ {a b c} → Bool a → Bool b → Bool c →
+                 a ≡ true ∧ b ≡ true ∧ c ≡ true →
+                 a && b && c ≡ true
+&&-list₃-all-t tB tB tB h = trans (t&&x≡x (true && true)) (t&&x≡x true)
+&&-list₃-all-t tB tB fB (h₁ , h₂ , h₃) = ⊥-elim (true≢false (sym h₃))
+&&-list₃-all-t tB fB Bc (h₁ , h₂ , h₃) = ⊥-elim (true≢false (sym h₂))
+&&-list₃-all-t fB Bb Bc (h₁ , h₂ , h₃) = ⊥-elim (true≢false (sym h₁))
+
+&&-list₄-all-t : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
+                 a ≡ true ∧ b ≡ true ∧ c ≡ true ∧ d ≡ true →
+                 a && b && c && d ≡ true
+&&-list₄-all-t tB tB tB tB h =
+  trans₂ (t&&x≡x (true && true && true)) (t&&x≡x (true && true)) (t&&x≡x true)
+&&-list₄-all-t tB tB tB fB (h₁ , h₂ , h₃ , h₄) = ⊥-elim (true≢false (sym h₄))
+&&-list₄-all-t tB tB fB Bd (h₁ , h₂ , h₃ , h₄) = ⊥-elim (true≢false (sym h₃))
+&&-list₄-all-t tB fB Bc Bd (h₁ , h₂ , h₃ , h₄) = ⊥-elim (true≢false (sym h₂))
+&&-list₄-all-t fB Bb Bc Bd (h₁ , h₂ , h₃ , h₄) = ⊥-elim (true≢false (sym h₁))
 
 &&-list₄-some-f : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
-                  (a ≡ false ∨ b ≡ false ∨ c ≡ false ∨ d ≡ false) →
+                  a ≡ false ∨ b ≡ false ∨ c ≡ false ∨ d ≡ false →
                   a && b && c && d ≡ false
 &&-list₄-some-f tB Bb Bc Bd (inj₁ h) = ⊥-elim (true≢false h)
 &&-list₄-some-f tB tB Bc Bd (inj₂ (inj₁ h)) = ⊥-elim (true≢false h)
@@ -155,7 +170,7 @@ postulate
   ∧-proj₁ (∧-proj₂ (∧-proj₂ (&&-list₄-t Ba Bb Bc Bd h)))
 
 &&-list₄-t₄ : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
-             a && b && c && d ≡ true → d ≡ true
+              a && b && c && d ≡ true → d ≡ true
 &&-list₄-t₄ Ba Bb Bc Bd h =
   ∧-proj₂ (∧-proj₂ (∧-proj₂ (&&-list₄-t Ba Bb Bc Bd h)))
 

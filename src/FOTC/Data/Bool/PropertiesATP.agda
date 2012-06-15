@@ -51,7 +51,7 @@ not-Bool fB = prf
 &&-list₂-t₂ Ba Bb h = ∧-proj₂ (&&-list₂-t Ba Bb h)
 
 &&-list₄-some-f : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
-                  (a ≡ false ∨ b ≡ false ∨ c ≡ false ∨ d ≡ false) →
+                  a ≡ false ∨ b ≡ false ∨ c ≡ false ∨ d ≡ false →
                   a && b && c && d ≡ false
 &&-list₄-some-f tB Bb Bc Bd (inj₁ h) = ⊥-elim (true≢false h)
 &&-list₄-some-f tB tB Bc Bd (inj₂ (inj₁ h)) = ⊥-elim (true≢false h)
@@ -103,7 +103,7 @@ not-Bool fB = prf
   ∧-proj₁ (∧-proj₂ (∧-proj₂ (&&-list₄-t Ba Bb Bc Bd h)))
 
 &&-list₄-t₄ : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
-             a && b && c && d ≡ true → d ≡ true
+              a && b && c && d ≡ true → d ≡ true
 &&-list₄-t₄ Ba Bb Bc Bd h =
   ∧-proj₂ (∧-proj₂ (∧-proj₂ (&&-list₄-t Ba Bb Bc Bd h)))
 
