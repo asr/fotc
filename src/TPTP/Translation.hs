@@ -1,11 +1,3 @@
-{-# LANGUAGE CPP #-}
-{-# LANGUAGE NoImplicitPrelude #-}
-{-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE UnicodeSyntax #-}
-
--- TODO: 29 May 2012. Haddock 2.10.0 requires the LANGUAGE pragmas
--- before the module description.
-
 ------------------------------------------------------------------------------
 -- |
 -- Module      : TPTP.Translation
@@ -17,6 +9,11 @@
 --
 -- Translation of ATP pragmas to TPTP formulae.
 ------------------------------------------------------------------------------
+
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module TPTP.Translation
   ( conjecturesToAFs
