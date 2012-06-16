@@ -53,7 +53,7 @@ import Data.Int      ( Int, Int32 )
 import qualified Data.HashMap.Strict as HashMap ( filter, lookup )
 
 import Data.List  ( (++), concat, concatMap, map, notElem )
-import Data.Maybe ( fromMaybe, Maybe(Just, Nothing) )
+import Data.Maybe ( fromMaybe, isJust, Maybe(Just, Nothing) )
 
 #if __GLASGOW_HASKELL__ == 612
 import GHC.Num ( Num(fromInteger) )
@@ -385,13 +385,16 @@ instance QNamesIn Definition where
   qNamesIn def = qNamesIn $ defType def
 
 -- Adapted from Agda.TypeChecking.Monad.Signature.isProjection.
--- | Is it the 'Qname' a projection?
-isProjection ∷ QName → T (Maybe (QName, Int))
-isProjection qname = do
+projection ∷ QName → T (Maybe (QName, Int))
+projection qname = do
   defn ← theDef <$> qNameDefinition qname
   case defn of
     Function { funProjection = result } → return result
     _                                   → return Nothing
+
+-- | Is it the 'Qname' a projection?
+isProjection ∷ QName → T Bool
+isProjection qname = isJust <$> projection qname
 
 ------------------------------------------------------------------------------
 -- Imported interfaces

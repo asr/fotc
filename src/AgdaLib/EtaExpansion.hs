@@ -31,7 +31,6 @@ import Data.Eq       ( Eq((==), (/=)) )
 import Data.Function ( ($), (.) )
 import Data.Functor  ( (<$>) )
 import Data.List     ( (++), length, map )
-import Data.Maybe    ( Maybe(Just, Nothing) )
 
 #if __GLASGOW_HASKELL__ == 612
 import GHC.Num ( Num(fromInteger) )
@@ -72,6 +71,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 import AgdaLib.DeBruijn  ( IncIndex(incIndex) )
 import AgdaLib.Interface ( isProjection, qNameType )
 import Monad.Base        ( newTVar, T )
+import Utils.Monad       ( whenM )
 
 #include "../undefined.h"
 
@@ -95,13 +95,11 @@ instance EtaExpandible Type where
 
 instance EtaExpandible Term where
   etaExpand (Def qName args) = do
-    p ← isProjection qName
-    case p of
-      Nothing → return ()
-      Just _  → throwError $
-             "The translation of projection-like functions as "
-             ++ show qName
-             ++ " is not implemented"
+    whenM (isProjection qName) $
+          throwError $
+            "The translation of projection-like functions as "
+            ++ show qName
+            ++ " is not implemented"
 
     qNameArity ∷ Nat ← arity <$> qNameType qName
 
