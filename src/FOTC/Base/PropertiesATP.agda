@@ -11,10 +11,8 @@ open import FOTC.Base
 
 ------------------------------------------------------------------------------
 
-postulate
-  succInjective : ∀ {m n} → succ₁ m ≡ succ₁ n → m ≡ n
+postulate succInjective : ∀ {m n} → succ₁ m ≡ succ₁ n → m ≡ n
 {-# ATP prove succInjective #-}
 
-postulate
-  ∷-injective : ∀ {x y xs ys} → x ∷ xs ≡ y ∷ ys → x ≡ y ∧ xs ≡ ys
+postulate ∷-injective : ∀ {x y xs ys} → x ∷ xs ≡ y ∷ ys → x ≡ y ∧ xs ≡ ys
 {-# ATP prove ∷-injective #-}
