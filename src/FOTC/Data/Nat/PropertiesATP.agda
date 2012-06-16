@@ -86,6 +86,16 @@ postulate *-rightCong : ∀ {m n o} → n ≡ o → m * n ≡ m * o
 ------------------------------------------------------------------------------
 -- Some proofs are based on the proofs in the standard library.
 
+Sx≢x : ∀ {n} → N n → succ₁ n ≢ n
+Sx≢x zN h = prf
+  where
+  postulate prf : ⊥
+  {-# ATP prove prf #-}
+Sx≢x (sN {n} Nn) h = prf (Sx≢x Nn)
+  where
+  postulate prf : succ₁ n ≢ n → ⊥
+  {-# ATP prove prf #-}
+
 +-leftIdentity : ∀ n → zero + n ≡ n
 +-leftIdentity n = +-0x n
 

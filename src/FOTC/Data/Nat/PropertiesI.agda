@@ -19,6 +19,7 @@ open import Common.FOL.Relation.Binary.EqReasoning
 open import Common.Function
 
 open import FOTC.Base
+open import FOTC.Base.PropertiesI
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.UnaryNumbers
 
@@ -44,9 +45,11 @@ open import FOTC.Data.Nat.UnaryNumbers
 *-rightCong refl = refl
 
 ------------------------------------------------------------------------------
+-- Some proofs are based on the proofs in the standard library.
 
--- TODO
-postulate Sx≡x→⊥ : ∀ {n} → N n → succ₁ n ≢ n
+Sx≢x : ∀ {n} → N n → succ₁ n ≢ n
+Sx≢x zN h      = ⊥-elim (0≢S (sym h))
+Sx≢x (sN Nn) h = ⊥-elim (Sx≢x Nn (succInjective h))
 
 +-leftIdentity : ∀ n → zero + n ≡ n
 +-leftIdentity = +-0x
