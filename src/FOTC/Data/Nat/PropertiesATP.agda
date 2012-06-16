@@ -289,3 +289,18 @@ xy≡0→x≡0∨y≡0 (sN {m} Nm) (sN {n} Nn) SmSn≡0 = ⊥-elim (0≢S prf)
   where
   postulate prf : zero ≡ succ₁ (n + m * succ₁ n)
   {-# ATP prove prf #-}
+
+xy≡1→x≡1 : ∀ {m n} → N m → N n → m * n ≡ one → m ≡ one
+xy≡1→x≡1 {n = n} zN Nn h = ⊥-elim prf
+  where
+  postulate prf : ⊥
+  {-# ATP prove prf #-}
+xy≡1→x≡1 (sN zN) Nn h = refl
+xy≡1→x≡1 (sN (sN {m} Nm)) zN h = ⊥-elim prf
+  where
+  postulate prf : ⊥
+  {-# ATP prove prf *-rightZero #-}
+xy≡1→x≡1 (sN (sN {m} Nm)) (sN {n} Nn) h = ⊥-elim (0≢S prf)
+  where
+  postulate prf : zero ≡ succ₁ (m + n * succ₁ (succ₁ m))
+  {-# ATP prove prf *-comm #-}

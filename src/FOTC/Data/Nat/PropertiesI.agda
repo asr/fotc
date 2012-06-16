@@ -396,8 +396,28 @@ xy≡0→x≡0∨y≡0 (sN {m} Nm) (sN {n} Nn) SmSn≡0 = ⊥-elim (0≢S prf)
         succ₁ n + m * succ₁ n   ≡⟨ +-Sx n (m * succ₁ n) ⟩
         succ₁ (n + m * succ₁ n) ∎
 
--- TODO
-postulate xy≡1→x≡1 : ∀ {m n} → N m → N n → m * n ≡ one → m ≡ one
+xy≡1→x≡1 : ∀ {m n} → N m → N n → m * n ≡ one → m ≡ one
+xy≡1→x≡1 {n = n} zN Nn h = ⊥-elim (0≢S (trans (sym (*-leftZero n)) h))
+xy≡1→x≡1 (sN zN) Nn h = refl
+xy≡1→x≡1 (sN (sN {m} Nm)) zN h =
+  ⊥-elim (0≢S (trans (sym (*-rightZero (sN (sN Nm)))) h))
+xy≡1→x≡1 (sN (sN {m} Nm)) (sN {n} Nn) h = ⊥-elim (0≢S prf₂)
+  where
+  prf₁ : succ₁ zero ≡ succ₁ (succ₁ (m + n * succ₁ (succ₁ m)))
+  prf₁ = succ₁ zero
+           ≡⟨ sym h ⟩
+         succ₁ (succ₁ m) * succ₁ n
+           ≡⟨ *-comm (sN (sN Nm)) (sN Nn) ⟩
+         succ₁ n * succ₁ (succ₁ m)
+           ≡⟨ *-Sx n (succ₁ (succ₁ m)) ⟩
+         succ₁ (succ₁ m) + n * succ₁ (succ₁ m)
+           ≡⟨ +-Sx (succ₁ m) (n * succ₁ (succ₁ m)) ⟩
+         succ₁ (succ₁ m + n * succ₁ (succ₁ m))
+           ≡⟨ cong succ₁ (+-Sx m (n * succ₁ (succ₁ m))) ⟩
+         succ₁ (succ₁ (m + n * succ₁ (succ₁ m))) ∎
+
+  prf₂ : zero ≡ succ₁ (m + n * succ₁ (succ₁ m))
+  prf₂ = succInjective prf₁
 
 xy≡1→y≡1 : ∀ {m n} → N m → N n → m * n ≡ one → n ≡ one
 xy≡1→y≡1 Nm Nn h = xy≡1→x≡1 Nn Nm (trans (*-comm Nn Nm) h)
