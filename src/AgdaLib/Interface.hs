@@ -129,6 +129,7 @@ import Agda.Utils.FileName
   )
 
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
+import Agda.Utils.Monad      ( unlessM )
 
 import qualified Agda.Utils.Trie as Trie ( singleton )
 
@@ -138,7 +139,6 @@ import qualified Agda.Utils.Trie as Trie ( singleton )
 import Monad.Base    ( getTDefs, getTOpt, T )
 import Monad.Reports ( reportSLn )
 import Options       ( Options(optAgdaIncludePath) )
-import Utils.Monad   ( unlessM )
 
 #include "../undefined.h"
 

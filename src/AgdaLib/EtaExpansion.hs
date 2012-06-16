@@ -64,6 +64,7 @@ import Agda.Syntax.Internal
   )
 
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
+import Agda.Utils.Monad      ( whenM )
 
 ------------------------------------------------------------------------------
 -- Local imports
@@ -71,7 +72,6 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 import AgdaLib.DeBruijn  ( IncIndex(incIndex) )
 import AgdaLib.Interface ( isProjection, qNameType )
 import Monad.Base        ( newTVar, T )
-import Utils.Monad       ( whenM )
 
 #include "../undefined.h"
 

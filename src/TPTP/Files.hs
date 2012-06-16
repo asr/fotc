@@ -60,6 +60,7 @@ import Agda.Syntax.Abstract.Name
 
 import Agda.Syntax.Common    ( ATPRole )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
+import Agda.Utils.Monad      ( whenM )
 
 ------------------------------------------------------------------------------
 -- Local imports
@@ -84,7 +85,6 @@ import TPTP.Types
   )
 
 import Utils.List    ( nonDuplicate )
-import Utils.Monad   ( whenM )
 import Utils.Show    ( showLn )
 import Utils.Version ( progNameVersion )
 

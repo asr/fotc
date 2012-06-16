@@ -63,7 +63,6 @@ executable agda2atp
                  TPTP.Types
                  Utils.Directory
                  Utils.List
-                 Utils.Monad
                  Utils.Names
                  Utils.Show
                  Utils.Version

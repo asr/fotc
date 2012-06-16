@@ -79,6 +79,7 @@ import Agda.Syntax.Internal
 
 import Agda.Syntax.Position  ( noRange )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
+import Agda.Utils.Monad      ( unlessM )
 
 ------------------------------------------------------------------------------
 -- Local imports
@@ -120,8 +121,6 @@ import Options
           , optNonFOLPropositionalFunction
           )
  )
-
-import Utils.Monad   ( unlessM )
 
 #include "../../undefined.h"
 
