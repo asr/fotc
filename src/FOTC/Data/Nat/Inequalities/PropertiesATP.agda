@@ -378,7 +378,7 @@ x<Sy→x<y∨x≡y (sN {m} Nm) zN Sm<S0 =
   ⊥-elim $ x<0→⊥ Nm (trans (sym $ <-SS m zero) Sm<S0)
 x<Sy→x<y∨x≡y (sN {m} Nm) (sN {n} Nn) Sm<SSn =
   case (λ m<n → inj₁ (trans (<-SS m n) m<n))
-       (λ m≡n → inj₂ (cong succ₁ m≡n))
+       (λ m≡n → inj₂ (succCong m≡n))
        m<n∨m≡n
 
   where

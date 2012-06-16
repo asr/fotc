@@ -25,7 +25,7 @@ collatz-2^x : ∀ {n} → N n → (∃[ k ] N k ∧ n ≡ two ^ k) → collatz n
 collatz-2^x zN _ = collatz-0
 collatz-2^x (sN {n} Nn) (.zero , zN , Sn≡2^0) =
   subst (λ t → collatz t ≡ one)
-        (cong succ₁ (sym (Sx≡2^0→x≡0 Nn Sn≡2^0)))
+        (succCong (sym (Sx≡2^0→x≡0 Nn Sn≡2^0)))
         collatz-1
 collatz-2^x (sN {n} Nn) (.(succ₁ k) , sN {k} Nk , Sn≡2^k+1) =
   collatz (succ₁ n)

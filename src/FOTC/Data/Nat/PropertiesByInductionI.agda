@@ -19,6 +19,9 @@ open import FOTC.Data.Nat
 
 ------------------------------------------------------------------------------
 
+succCong : ∀ {m n} → m ≡ n → succ₁ m ≡ succ₁ n
+succCong refl = refl
+
 +-leftIdentity : ∀ n → zero + n ≡ n
 +-leftIdentity n = +-0x n
 
@@ -115,7 +118,7 @@ x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
      succ₁ i + n
        ≡⟨ +-Sx i n ⟩
      succ₁ (i + n)
-        ≡⟨ cong succ₁ ih ⟩
+        ≡⟨ succCong ih ⟩
      succ₁ (n + i)
        ≡⟨ sym $ x+Sy≡S[x+y] Nn i ⟩
      n + succ₁ i ∎

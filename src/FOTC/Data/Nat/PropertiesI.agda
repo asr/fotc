@@ -26,6 +26,9 @@ open import FOTC.Data.Nat.UnaryNumbers
 ------------------------------------------------------------------------------
 -- Congruence properties
 
+succCong : ∀ {m n} → m ≡ n → succ₁ m ≡ succ₁ n
+succCong refl = refl
+
 +-leftCong : ∀ {m n o} → m ≡ n → m + o ≡ n + o
 +-leftCong refl = refl
 
@@ -119,7 +122,7 @@ x+Sy≡S[x+y] (sN {m} Nm) n =
 
 +-comm {n = n} (sN {m} Nm) Nn =
   succ₁ m + n   ≡⟨ +-Sx m n ⟩
-  succ₁ (m + n) ≡⟨ cong succ₁ (+-comm Nm Nn) ⟩
+  succ₁ (m + n) ≡⟨ succCong (+-comm Nm Nn) ⟩
   succ₁ (n + m) ≡⟨ sym $ x+Sy≡S[x+y] Nn m ⟩
   n + succ₁ m   ∎
 
@@ -413,7 +416,7 @@ xy≡1→x≡1 (sN (sN {m} Nm)) (sN {n} Nn) h = ⊥-elim (0≢S prf₂)
          succ₁ (succ₁ m) + n * succ₁ (succ₁ m)
            ≡⟨ +-Sx (succ₁ m) (n * succ₁ (succ₁ m)) ⟩
          succ₁ (succ₁ m + n * succ₁ (succ₁ m))
-           ≡⟨ cong succ₁ (+-Sx m (n * succ₁ (succ₁ m))) ⟩
+           ≡⟨ succCong (+-Sx m (n * succ₁ (succ₁ m))) ⟩
          succ₁ (succ₁ (m + n * succ₁ (succ₁ m))) ∎
 
   prf₂ : zero ≡ succ₁ (m + n * succ₁ (succ₁ m))
@@ -425,4 +428,4 @@ xy≡1→y≡1 Nm Nn h = xy≡1→x≡1 Nn Nm (trans (*-comm Nn Nm) h)
 -- Feferman's axiom as presented by (Beeson 1986, p. 74).
 succOnto : ∀ {n} → N n → n ≢ zero → succ₁ (pred₁ n) ≡ n
 succOnto zN          h = ⊥-elim (h refl)
-succOnto (sN {n} Nn) h = cong succ₁ (pred-S n)
+succOnto (sN {n} Nn) h = succCong (pred-S n)

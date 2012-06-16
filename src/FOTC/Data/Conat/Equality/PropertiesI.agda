@@ -17,6 +17,7 @@ module FOTC.Data.Conat.Equality.PropertiesI where
 open import FOTC.Base
 open import FOTC.Data.Conat
 open import FOTC.Data.Conat.Equality
+open import FOTC.Data.Nat.PropertiesI
 open import FOTC.Data.List
 open import FOTC.Data.Stream
 
@@ -60,7 +61,7 @@ stream-length {xs} Sxs = ≈N-gfp₂ _R_ helper₁ helper₂
     prf₁ = trans₂ h₁ (cong length ys≡y'∷ys') (length-∷ y' ys')
 
     prf₂ : n ≡ succ₁ n
-    prf₂ = trans₂ h₂ ω-eq (cong succ₁ (sym h₂))
+    prf₂ = trans₂ h₂ ω-eq (succCong (sym h₂))
 
   helper₂ : length xs R ω
   helper₂ = inj₂ (xs , Sxs , refl , refl)

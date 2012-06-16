@@ -37,9 +37,9 @@ open import FOTC.Program.Collatz.Data.Nat
   two / two
     ≡⟨ /-x≥y (x≥x 2-N) ⟩
   succ₁ ((two ∸ two) / two)
-    ≡⟨ cong succ₁ (cong₂ _/_ (x∸x≡0 2-N) refl) ⟩
+    ≡⟨ succCong (cong₂ _/_ (x∸x≡0 2-N) refl) ⟩
   succ₁ (zero / two)
-    ≡⟨ cong succ₁ (/-x<y (<-0S (succ₁ zero))) ⟩
+    ≡⟨ succCong (/-x<y (<-0S (succ₁ zero))) ⟩
   succ₁ zero ∎
 
 2x/2≡x (sN (sN {n} Nn)) = prf
@@ -67,11 +67,11 @@ Sx≡2^0→x≡0(sN {n} Nn) SSn≡2^0 =
   where
   prf : succ₁ (succ₁ (succ₁ (succ₁ n) ∸ two)) ≡ succ₁ (succ₁ n)
   prf = succ₁ (succ₁ (succ₁ (succ₁ n) ∸ two))
-          ≡⟨ cong succ₁ (cong succ₁ (∸-SS (succ₁ n) (succ₁ zero))) ⟩
+          ≡⟨ succCong (succCong (∸-SS (succ₁ n) (succ₁ zero))) ⟩
         succ₁ (succ₁ ((succ₁ n ) ∸ (succ₁ zero)))
-          ≡⟨ cong succ₁ (cong succ₁ (∸-SS n zero)) ⟩
+          ≡⟨ succCong (succCong (∸-SS n zero)) ⟩
         succ₁ (succ₁ (n ∸ zero))
-          ≡⟨ cong succ₁ (cong succ₁ (∸-x0 n)) ⟩
+          ≡⟨ succCong (succCong (∸-x0 n)) ⟩
         succ₁ (succ₁ n) ∎
 
 2^x≢0 : ∀ {n} → N n → two ^ n ≢ zero
@@ -137,9 +137,9 @@ x+x-Even (sN {n} Nn) = subst Even (sym prf)
   prf = succ₁ n + succ₁ n
           ≡⟨ +-Sx n (succ₁ n) ⟩
         succ₁ (n + succ₁ n)
-          ≡⟨ cong succ₁ (+-comm Nn (sN Nn)) ⟩
+          ≡⟨ succCong (+-comm Nn (sN Nn)) ⟩
         succ₁ (succ₁ n + n)
-          ≡⟨ cong succ₁ (+-Sx n n) ⟩
+          ≡⟨ succCong (+-Sx n n) ⟩
         succ₁ (succ₁ (n + n)) ∎
 
 2x-Even : ∀ {n} → N n → Even (two * n)
@@ -154,15 +154,15 @@ x+x-Even (sN {n} Nn) = subst Even (sym prf)
     succ₁ n + succ₁ zero * succ₁ n
       ≡⟨ +-Sx n (succ₁ zero * succ₁ n) ⟩
     succ₁ (n + succ₁ zero * succ₁ n)
-      ≡⟨ cong succ₁ (cong (_+_ n) (*-Sx zero (succ₁ n))) ⟩
+      ≡⟨ succCong (cong (_+_ n) (*-Sx zero (succ₁ n))) ⟩
     succ₁ (n + (succ₁ n + zero * succ₁ n))
-      ≡⟨ cong succ₁ (cong (_+_ n) (cong (_+_ (succ₁ n)) (*-leftZero (succ₁ n)))) ⟩
+      ≡⟨ succCong (cong (_+_ n) (cong (_+_ (succ₁ n)) (*-leftZero (succ₁ n)))) ⟩
     succ₁ (n + (succ₁ n + zero))
-      ≡⟨ cong succ₁ (cong (_+_ n) (+-rightIdentity (sN Nn))) ⟩
+      ≡⟨ succCong (cong (_+_ n) (+-rightIdentity (sN Nn))) ⟩
     succ₁ (n + succ₁ n)
-      ≡⟨ cong succ₁ (+-comm Nn (sN Nn)) ⟩
+      ≡⟨ succCong (+-comm Nn (sN Nn)) ⟩
     succ₁ (succ₁ n + n)
-      ≡⟨ cong succ₁ (+-Sx n n) ⟩
+      ≡⟨ succCong (+-Sx n n) ⟩
     succ₁ (succ₁ (n + n)) ∎
 
 2^[x+1]-Even : ∀ {n} → N n → Even (two ^ (succ₁ n))

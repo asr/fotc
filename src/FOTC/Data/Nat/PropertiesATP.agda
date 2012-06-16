@@ -16,6 +16,9 @@ open import FOTC.Data.Nat.UnaryNumbers
 ------------------------------------------------------------------------------
 -- Congruence properties
 
+succCong : ∀ {m n} → m ≡ n → succ₁ m ≡ succ₁ n
+succCong refl = refl
+
 postulate +-leftCong : ∀ {m n o} → m ≡ n → m + o ≡ n + o
 {-# ATP prove +-leftCong #-}
 
