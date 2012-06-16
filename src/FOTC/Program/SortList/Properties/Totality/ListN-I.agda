@@ -25,5 +25,5 @@ flatten-ListN (tipT {i} Ni) =
 flatten-ListN (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂)
   = subst (λ t → ListN t)
           (sym $ flatten-node t₁ i t₂)
-          (++-ListN (flatten-ListN Tt₁)  -- IH.
-                    (flatten-ListN Tt₂))  -- IH.
+          (++-ListN (flatten-ListN Tt₁)
+                    (flatten-ListN Tt₂))

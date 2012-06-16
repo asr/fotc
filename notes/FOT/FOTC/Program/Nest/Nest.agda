@@ -52,7 +52,7 @@ nest-x≡0 : ∀ {n} → N n → nest n ≡ zero
 nest-x≡0 zN      = nest-0
 nest-x≡0 (sN {n} Nn) =
   nest (succ₁ n) ≡⟨ nest-S n ⟩
-  nest (nest n)  ≡⟨ cong nest (nest-x≡0 Nn) ⟩  -- IH.
+  nest (nest n)  ≡⟨ cong nest (nest-x≡0 Nn) ⟩
   nest zero      ≡⟨ nest-0 ⟩
   zero           ∎
 

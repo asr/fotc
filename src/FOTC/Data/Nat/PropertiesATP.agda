@@ -183,7 +183,7 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
                                        (+-assoc Nm n (m * n))
   where
   -- N.B. We had to feed the ATP with the instances of the associate law
-  postulate prf :  m * succ₁ n ≡ m + m * n →  -- IH
+  postulate prf :  m * succ₁ n ≡ m + m * n →
                    (n + m) + (m * n) ≡ n + (m + (m * n)) →  -- Associative law
                    (m + n) + (m * n) ≡ m + (n + (m * n)) →  -- Associateve law
                    succ₁ m * succ₁ n ≡ succ₁ m + succ₁ m * n
@@ -218,7 +218,7 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
 *∸-leftDistributive (sN {m} Nm) (sN {n} Nn) (sN {o} No) =
   prf $ *∸-leftDistributive Nm Nn (sN No)
   where
-  postulate prf : (m ∸ n) * succ₁ o ≡ m * succ₁ o ∸ n * succ₁ o →  -- IH
+  postulate prf : (m ∸ n) * succ₁ o ≡ m * succ₁ o ∸ n * succ₁ o →
                   (succ₁ m ∸ succ₁ n) * succ₁ o ≡
                   succ₁ m * succ₁ o ∸ succ₁ n * succ₁ o
   {-# ATP prove prf [x+y]∸[x+z]≡y∸z #-}
@@ -241,7 +241,7 @@ x*Sy≡x+xy {n = n} (sN {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
   prf $ *+-leftDistributive Nm (sN Nn) (sN No)
   where
   postulate
-    prf : (m + succ₁ n) * succ₁ o ≡ m * succ₁ o + succ₁ n * succ₁ o →  -- IH.
+    prf : (m + succ₁ n) * succ₁ o ≡ m * succ₁ o + succ₁ n * succ₁ o →
           (succ₁ m + succ₁ n) * succ₁ o ≡ succ₁ m * succ₁ o + succ₁ n * succ₁ o
   {-# ATP prove prf +-assoc *-N #-}
 

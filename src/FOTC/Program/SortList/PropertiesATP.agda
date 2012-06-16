@@ -29,9 +29,8 @@ open import FOTC.Program.SortList.SortList
 toTree-OrdTree : ∀ {item t} → N item → Tree t → OrdTree t →
                  OrdTree (toTree · item · t)
 toTree-OrdTree {item} Nitem nilT OTt = prf
-  where
-  postulate prf : OrdTree (toTree · item · nilTree)
-  {-# ATP prove prf #-}
+  where postulate prf : OrdTree (toTree · item · nilTree)
+        {-# ATP prove prf #-}
 
 toTree-OrdTree {item} Nitem (tipT {i} Ni) OTt =
   case prf₁ prf₂ (x>y∨x≤y Ni Nitem)
@@ -49,7 +48,7 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
              (leftSubTree-OrdTree Tt₁ Ni Tt₂ OTnodeT))
        (x>y∨x≤y Ni Nitem)
   where
-  postulate prf₁ : ordTree (toTree · item · t₁) ≡ true →  -- IH.
+  postulate prf₁ : ordTree (toTree · item · t₁) ≡ true →
                    OrdTree t₂ →
                    GT i item →
                    OrdTree (toTree · item · node t₁ i t₂)
@@ -58,7 +57,7 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
                      toTree-OrdTree-helper₁
   #-}
 
-  postulate prf₂ : ordTree (toTree · item · t₂) ≡ true → -- IH.
+  postulate prf₂ : ordTree (toTree · item · t₂) ≡ true →
                    OrdTree t₁ →
                    LE i item →
                    OrdTree (toTree · item · node t₁ i t₂)
@@ -76,15 +75,12 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
 
 makeTree-OrdTree : ∀ {is} → ListN is → OrdTree (makeTree is)
 makeTree-OrdTree nilLN = prf
-  where
-  postulate prf : OrdTree (makeTree [])
-  {-# ATP prove prf #-}
+  where postulate prf : OrdTree (makeTree [])
+        {-# ATP prove prf #-}
 
 makeTree-OrdTree (consLN {i} {is} Ni Lis) = prf $ makeTree-OrdTree Lis
-  where
-  postulate prf : OrdTree (makeTree is) →  -- IH.
-                  OrdTree (makeTree (i ∷ is))
-  {-# ATP prove prf makeTree-Tree toTree-OrdTree #-}
+  where postulate prf : OrdTree (makeTree is) → OrdTree (makeTree (i ∷ is))
+        {-# ATP prove prf makeTree-Tree toTree-OrdTree #-}
 
 ------------------------------------------------------------------------------
 -- Burstall's lemma: If ord(is1) and ord(is2) and is1 ≤ is2 then
@@ -104,12 +100,10 @@ makeTree-OrdTree (consLN {i} {is} Ni Lis) = prf $ makeTree-OrdTree Lis
                            (&&-list₂-t₂ (≤-ItemList-Bool Ni LNjs)
                                         (≤-Lists-Bool LNis LNjs)
                                         (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js))))
-  where
-  postulate lemma : OrdList (is ++ js) →  -- IH
-                    OrdList (i ∷ is ++ js)
-  {-# ATP prove lemma ≤-ItemList-Bool ≤-Lists-Bool ordList-Bool
-                      &&-list₂-t ++-OrdList-helper
-  #-}
+  where postulate lemma : OrdList (is ++ js) → OrdList (i ∷ is ++ js)
+        {-# ATP prove lemma ≤-ItemList-Bool ≤-Lists-Bool ordList-Bool
+                            &&-list₂-t ++-OrdList-helper
+        #-}
 
 ------------------------------------------------------------------------------
 -- Burstall's lemma: If t is ordered then (flatten t) is ordered.
@@ -118,17 +112,15 @@ flatten-OrdList nilT OTt =
   subst (λ t → OrdList t) (sym flatten-nilTree) ordList-[]
 
 flatten-OrdList (tipT {i} Ni) OTt = prf
-  where
-  postulate prf : OrdList (flatten (tip i))
-  -- {-# ATP prove prf #-}
+  where postulate prf : OrdList (flatten (tip i))
+        -- {-# ATP prove prf #-}
 
 flatten-OrdList (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTt
   = prf (++-OrdList (flatten-ListN Tt₁)
                     (flatten-ListN Tt₂)
-                    (flatten-OrdList Tt₁ (leftSubTree-OrdTree Tt₁ Ni Tt₂ OTt)) -- IH.
-                    (flatten-OrdList Tt₂ (rightSubTree-OrdTree Tt₁ Ni Tt₂ OTt))-- IH.
+                    (flatten-OrdList Tt₁ (leftSubTree-OrdTree Tt₁ Ni Tt₂ OTt))
+                    (flatten-OrdList Tt₂ (rightSubTree-OrdTree Tt₁ Ni Tt₂ OTt))
                     (flatten-OrdList-helper Tt₁ Ni Tt₂ OTt))
-  where
-  postulate prf : OrdList (flatten t₁ ++ flatten t₂) → -- Indirect IH.
-                  OrdList (flatten (node t₁ i t₂))
-  {-# ATP prove prf #-}
+  where postulate prf : OrdList (flatten t₁ ++ flatten t₂) → -- Indirect IH.
+                        OrdList (flatten (node t₁ i t₂))
+        {-# ATP prove prf #-}

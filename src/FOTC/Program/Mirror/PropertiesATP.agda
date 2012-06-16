@@ -23,19 +23,16 @@ helper            : ∀ {ts} → Forest ts →
                     reverse (map mirror (reverse (map mirror ts))) ≡ ts
 
 mirror-involutive (treeT d nilF) = prf
-  where
-  postulate prf : mirror · (mirror · node d []) ≡ node d []
-  {-# ATP prove prf #-}
+  where postulate prf : mirror · (mirror · node d []) ≡ node d []
+        {-# ATP prove prf #-}
 
 mirror-involutive (treeT d (consF {t} {ts} Tt Fts)) = prf
-  where
-  postulate prf : mirror · (mirror · node d (t ∷ ts)) ≡ node d (t ∷ ts)
-  {-# ATP prove prf helper #-}
+  where postulate prf : mirror · (mirror · node d (t ∷ ts)) ≡ node d (t ∷ ts)
+        {-# ATP prove prf helper #-}
 
 helper nilF = prf
-  where
-  postulate prf : reverse (map mirror (reverse (map mirror []))) ≡ []
-  {-# ATP prove prf #-}
+  where postulate prf : reverse (map mirror (reverse (map mirror []))) ≡ []
+        {-# ATP prove prf #-}
 
 helper (consF {t} {ts} Tt Fts) =
   prf (map-++-commute mirror
@@ -50,8 +47,8 @@ helper (consF {t} {ts} Tt Fts) =
     prf : (map mirror (reverse (map mirror ts) ++ (mirror · t ∷ [])) ≡
           map mirror
               (reverse (map mirror ts)) ++ (map mirror (mirror · t ∷ []))) →
-          mirror · (mirror · t) ≡ t →  -- IH.
-          reverse (map mirror (reverse (map mirror ts))) ≡ ts →  -- IH.
+          mirror · (mirror · t) ≡ t →
+          reverse (map mirror (reverse (map mirror ts))) ≡ ts →
           reverse (map mirror (reverse (map mirror (t ∷ ts)))) ≡ t ∷ ts
   {-# ATP prove prf reverse-∷ mirror-Tree map-Forest reverse-++-commute
                     reverse-Forest reverse-[x]≡[x]

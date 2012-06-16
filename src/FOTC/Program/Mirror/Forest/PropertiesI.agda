@@ -25,7 +25,7 @@ open import FOTC.Program.Mirror.Type
      ≡⟨ ++-∷ x xs [] ⟩
   x ∷ (xs ++ [])
     ≡⟨ subst (λ t → x ∷ (xs ++ []) ≡ x ∷ t)
-             (++-rightIdentity Fxs) -- IH.
+             (++-rightIdentity Fxs)
              refl
     ⟩
   x ∷ xs ∎
@@ -51,7 +51,7 @@ open import FOTC.Program.Mirror.Type
      ≡⟨ ++-∷ x (xs ++ ys) zs ⟩
   x ∷ ((xs ++ ys) ++ zs)
     ≡⟨ subst (λ t → x ∷ ((xs ++ ys) ++ zs) ≡ x ∷ t)
-             (++-assoc Fxs ys zs) -- IH.
+             (++-assoc Fxs ys zs)
              refl
     ⟩
   x ∷ (xs ++ ys ++ zs)
@@ -77,7 +77,7 @@ map-++-commute f h (consF {x} {xs} Tx Fxs) ys =
     ≡⟨ map-∷ f x (xs ++ ys) ⟩
   f · x ∷ map f (xs ++ ys)
     ≡⟨ subst (λ t → f · x ∷ map f (xs ++ ys) ≡ f · x ∷ t)
-             (map-++-commute f h Fxs ys) -- IH.
+             (map-++-commute f h Fxs ys)
              refl
     ⟩
   f · x ∷ (map f xs ++ map f ys)
@@ -100,7 +100,7 @@ rev-++-commute (consF {x} {xs} Tx Fxs) ys =
   rev (x ∷ xs) ys
     ≡⟨ rev-∷ x xs ys ⟩
   rev xs (x ∷ ys)
-    ≡⟨ rev-++-commute Fxs (x ∷ ys) ⟩  -- IH.
+    ≡⟨ rev-++-commute Fxs (x ∷ ys) ⟩
   rev xs [] ++ x ∷ ys
     ≡⟨ subst (λ t → rev xs [] ++ x ∷ ys ≡ rev xs [] ++ t)
              (sym
@@ -120,7 +120,7 @@ rev-++-commute (consF {x} {xs} Tx Fxs) ys =
     ≡⟨ sym $ ++-assoc (rev-Forest Fxs nilF) (x ∷ []) ys ⟩
   (rev xs [] ++ (x ∷ [])) ++ ys
     ≡⟨ subst (λ t → (rev xs [] ++ (x ∷ [])) ++ ys ≡ t ++ ys)
-             (sym $ rev-++-commute Fxs (x ∷ []))  -- IH.
+             (sym $ rev-++-commute Fxs (x ∷ []))
              refl
     ⟩
   rev xs (x ∷ []) ++ ys
@@ -175,7 +175,7 @@ reverse-++-commute (consF {x} {xs} Tx Fxs) (consF {y} {ys} Ty Fys) =
     ⟩
   reverse (xs ++ y ∷ ys) ++ (x ∷ [])
     ≡⟨ subst (λ t → reverse (xs ++ y ∷ ys) ++ (x ∷ []) ≡ t ++ (x ∷ []))
-             (reverse-++-commute Fxs (consF Ty Fys))  -- IH.
+             (reverse-++-commute Fxs (consF Ty Fys))
              refl
     ⟩
   (reverse (y ∷ ys) ++ reverse xs) ++ x ∷ []

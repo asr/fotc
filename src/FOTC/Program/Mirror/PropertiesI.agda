@@ -158,7 +158,7 @@ helper (consF {t} {ts} Tt Fts) =
     ≡⟨ subst (λ x → (mirror · (mirror · t) ∷
                             reverse (map mirror (reverse (map mirror ts)))) ≡
                     (x ∷ reverse (map mirror (reverse (map mirror ts)))))
-             (mirror-involutive Tt)  -- IH.
+             (mirror-involutive Tt)
              refl
     ⟩
   t ∷ reverse (map mirror (reverse (map mirror ts)))

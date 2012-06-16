@@ -22,8 +22,7 @@ open import FOTC.Data.Nat.Type
         {-# ATP prove prf #-}
 
 ++-List {ys = ys} (consL x {xs} Lxs) Lys = prf $ ++-List Lxs Lys
-  where postulate prf : List (xs ++ ys) →  -- IH.
-                        List ((x ∷ xs) ++ ys)
+  where postulate prf : List (xs ++ ys) → List ((x ∷ xs) ++ ys)
         {-# ATP prove prf #-}
 
 map-List : ∀ f {xs} → List xs → List (map f xs)
@@ -31,8 +30,7 @@ map-List f nilL = prf
   where postulate prf : List (map f [])
         {-# ATP prove prf #-}
 map-List f (consL x {xs} Lxs) = prf $ map-List f Lxs
-  where postulate prf : List (map f xs) →  -- IH.
-                        List (map f (x ∷ xs))
+  where postulate prf : List (map f xs) → List (map f (x ∷ xs))
         {-# ATP prove prf #-}
 
 rev-List : ∀ {xs ys} → List xs → List ys → List (rev xs ys)
@@ -40,8 +38,7 @@ rev-List {ys = ys} nilL Lys = prf
   where postulate prf : List (rev [] ys)
         {-# ATP prove prf #-}
 rev-List {ys = ys} (consL x {xs} Lxs) Lys = prf $ rev-List Lxs (consL x Lys)
-  where postulate prf : List (rev xs (x ∷ ys)) →  -- IH.
-                        List (rev (x ∷ xs) ys)
+  where postulate prf : List (rev xs (x ∷ ys)) → List (rev (x ∷ xs) ys)
         {-# ATP prove prf #-}
 
 reverse-List : ∀ {xs} → List xs → List (reverse xs)
@@ -54,7 +51,7 @@ length-replicate x zN = prf
   where postulate prf : length (replicate zero x) ≡ zero
         {-# ATP prove prf #-}
 length-replicate x (sN {n} Nn) = prf $ length-replicate x Nn
-  where postulate prf : length (replicate n x) ≡ n →  -- IH.
+  where postulate prf : length (replicate n x) ≡ n →
                         length (replicate (succ₁ n) x) ≡ succ₁ n
         {-# ATP prove prf #-}
 
@@ -69,8 +66,7 @@ length-replicate x (sN {n} Nn) = prf $ length-replicate x Nn
         {-# ATP prove prf #-}
 
 ++-rightIdentity (consL x {xs} Lxs) = prf $ ++-rightIdentity Lxs
-  where postulate prf : xs ++ [] ≡ xs →  -- IH.
-                        (x ∷ xs) ++ [] ≡ x ∷ xs
+  where postulate prf : xs ++ [] ≡ xs → (x ∷ xs) ++ [] ≡ x ∷ xs
         {-# ATP prove prf #-}
 
 ++-assoc : ∀ {xs} → List xs → ∀ ys zs → (xs ++ ys) ++ zs ≡ xs ++ (ys ++ zs)
@@ -79,7 +75,7 @@ length-replicate x (sN {n} Nn) = prf $ length-replicate x Nn
         {-# ATP prove prf #-}
 
 ++-assoc .{x ∷ xs} (consL x {xs} Lxs) ys zs = prf $ ++-assoc Lxs ys zs
-  where postulate prf : (xs ++ ys) ++ zs ≡ xs ++ ys ++ zs →  -- IH.
+  where postulate prf : (xs ++ ys) ++ zs ≡ xs ++ ys ++ zs →
                         ((x ∷ xs) ++ ys) ++ zs ≡ (x ∷ xs) ++ ys ++ zs
         {-# ATP prove prf #-}
 
@@ -93,7 +89,7 @@ map-++-commute f nilL ys = prf
 
 map-++-commute f (consL x {xs} Lxs) ys =
   prf $ map-++-commute f Lxs ys
-  where postulate prf : map f (xs ++ ys) ≡ map f xs ++ map f ys →  -- IH.
+  where postulate prf : map f (xs ++ ys) ≡ map f xs ++ map f ys →
                         map f ((x ∷ xs) ++ ys) ≡ map f (x ∷ xs) ++ map f ys
         {-# ATP prove prf #-}
 
@@ -108,8 +104,8 @@ rev-++-commute nilL ys = prf
         {-# ATP prove prf #-}
 rev-++-commute (consL x {xs} Lxs) ys =
   prf (rev-++-commute Lxs (x ∷ ys)) (rev-++-commute Lxs (x ∷ []))
-  where postulate prf : rev xs (x ∷ ys) ≡ rev xs [] ++ x ∷ ys →  -- IH.
-                        rev xs (x ∷ []) ≡ rev xs [] ++ x ∷ [] →  -- IH.
+  where postulate prf : rev xs (x ∷ ys) ≡ rev xs [] ++ x ∷ ys →
+                        rev xs (x ∷ []) ≡ rev xs [] ++ x ∷ [] →
                         rev (x ∷ xs) ys ≡ rev (x ∷ xs) [] ++ ys
         {-# ATP prove prf ++-assoc rev-List #-}
 
@@ -128,7 +124,7 @@ reverse-++-commute (consL x {xs} Lxs) (consL y {ys} Lys) =
   prf $ reverse-++-commute Lxs (consL y Lys)
   where
   postulate prf : reverse (xs ++ y ∷ ys) ≡ reverse (y ∷ ys) ++
-                                           reverse xs →  -- IH.
+                                           reverse xs →
                   reverse ((x ∷ xs) ++ y ∷ ys) ≡ reverse (y ∷ ys) ++
                                                  reverse (x ∷ xs)
   {-# ATP prove prf reverse-List ++-List rev-++-commute ++-assoc #-}
@@ -150,6 +146,6 @@ reverse-involutive nilL = prf
 
 reverse-involutive (consL x {xs} Lxs) = prf $ reverse-involutive Lxs
   where
-  postulate prf : reverse (reverse xs) ≡ xs →  -- IH.
+  postulate prf : reverse (reverse xs) ≡ xs →
                   reverse (reverse (x ∷ xs)) ≡ x ∷ xs
   {-# ATP prove prf rev-List reverse-++-commute ++-List ++-rightIdentity #-}

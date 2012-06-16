@@ -163,7 +163,7 @@ flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni
     LE-TreeItem-tip-i₁-i = &&-list₄-t₃ helper₁ helper₂ helper₃ helper₄ helper₅
 
     lemma₁ : LE-Lists (flatten (tip i₁)) (flatten t₂₁)
-    lemma₁ = flatten-OrdList-helper (tipT Ni₁) Ni Tt₂₁ OT  -- IH.
+    lemma₁ = flatten-OrdList-helper (tipT Ni₁) Ni Tt₂₁ OT
       where
         OrdTree-t₂₁ : OrdTree t₂₁
         OrdTree-t₂₁ =
@@ -196,7 +196,7 @@ flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni
              true ∎
 
     lemma₂ : LE-Lists (flatten (tip i₁)) (flatten t₂₂)
-    lemma₂ = flatten-OrdList-helper (tipT Ni₁) Ni Tt₂₂ OT  -- IH.
+    lemma₂ = flatten-OrdList-helper (tipT Ni₁) Ni Tt₂₂ OT
       where
         OrdTree-t₂₂ : OrdTree t₂₂
         OrdTree-t₂₂ =
@@ -262,7 +262,7 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
     LE-ItemTree-i-niltree = &&-list₄-t₄ helper₁ helper₂ helper₃ helper₄ helper₅
 
     lemma₁ : LE-Lists (flatten t₁₁) (flatten nilTree)
-    lemma₁ = flatten-OrdList-helper Tt₁₁ Ni nilT OT  -- IH.
+    lemma₁ = flatten-OrdList-helper Tt₁₁ Ni nilT OT
       where
         OrdTree-t₁₁ : OrdTree t₁₁
         OrdTree-t₁₁ =
@@ -295,7 +295,7 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
              true ∎
 
     lemma₂ : LE-Lists (flatten t₁₂) (flatten nilTree)
-    lemma₂ = flatten-OrdList-helper Tt₁₂ Ni nilT OT  -- IH.
+    lemma₂ = flatten-OrdList-helper Tt₁₂ Ni nilT OT
       where
         OrdTree-t₁₂ : OrdTree t₁₂
         OrdTree-t₁₂ =
@@ -365,7 +365,7 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
     LE-ItemTree-i-tip-i₂ = &&-list₄-t₄ helper₁ helper₂ helper₃ helper₄ helper₅
 
     lemma₁ : LE-Lists (flatten t₁₁) (flatten (tip i₂))
-    lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (tipT Ni₂) OT  -- IH.
+    lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (tipT Ni₂) OT
       where
         OrdTree-t₁₁ : OrdTree t₁₁
         OrdTree-t₁₁ =
@@ -398,7 +398,7 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
              true ∎
 
     lemma₂ : LE-Lists (flatten t₁₂) (flatten (tip i₂))
-    lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (tipT Ni₂) OT  -- IH.
+    lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (tipT Ni₂) OT
       where
         OrdTree-t₁₂ : OrdTree t₁₂
         OrdTree-t₁₂ =
@@ -470,7 +470,7 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
                                                 helper₅
 
     lemma₁ : LE-Lists (flatten t₁₁) (flatten (node t₂₁ i₂ t₂₂))
-    lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (nodeT Tt₂₁ Ni₂ Tt₂₂) OT  -- IH.
+    lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (nodeT Tt₂₁ Ni₂ Tt₂₂) OT
       where
         OrdTree-t₁₁ : OrdTree t₁₁
         OrdTree-t₁₁ =
@@ -503,7 +503,7 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
              true ∎
 
     lemma₂ : LE-Lists (flatten t₁₂) (flatten (node t₂₁ i₂ t₂₂))
-    lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (nodeT Tt₂₁ Ni₂ Tt₂₂) OT  -- IH.
+    lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (nodeT Tt₂₁ Ni₂ Tt₂₂) OT
       where
         OrdTree-t₁₂ : OrdTree t₁₂
         OrdTree-t₁₂ =

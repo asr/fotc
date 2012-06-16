@@ -35,8 +35,7 @@ x≤y→y∸x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn = prf (x≤y→y∸x+x≡y N
   postulate m≤n : LE m n
   {-# ATP prove m≤n <-SS #-}
 
-  postulate prf : (n ∸ m) + m ≡ n →  -- IH.
-                  (succ₁ n ∸ succ₁ m) + succ₁ m ≡ succ₁ n
+  postulate prf : (n ∸ m) + m ≡ n → (succ₁ n ∸ succ₁ m) + succ₁ m ≡ succ₁ n
   {-# ATP prove prf +-comm ∸-N +-Sx ∸-SS <-SS #-}
 -- This is an incomplete case which does not matter.
 x≤y→y∸x+x≡y {m} {n} Nm Nn m≤n = whatever

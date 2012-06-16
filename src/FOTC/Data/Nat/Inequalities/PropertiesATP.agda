@@ -88,8 +88,7 @@ x≥y→x≮y zN          (sN Nn)     0≥Sn  = ⊥-elim $ 0≥S→⊥ Nn 0≥Sn
 x≥y→x≮y (sN {m} Nm) zN          _     = <-S0 m
 x≥y→x≮y (sN {m} Nm) (sN {n} Nn) Sm≥Sn =
   prf (x≥y→x≮y Nm Nn (trans (sym $ <-SS n (succ₁ m)) Sm≥Sn))
-  where postulate prf : NLT m n →  -- IH.
-                        NLT (succ₁ m) (succ₁ n)
+  where postulate prf : NLT m n → NLT (succ₁ m) (succ₁ n)
         {-# ATP prove prf #-}
 
 x≮y→x≥y : ∀ {m n} → N m → N n → NLT m n → GE m n
@@ -98,8 +97,7 @@ x≮y→x≥y zN (sN {n} Nn) 0≮Sn = ⊥-elim (true≢false (trans (sym (<-0S n
 x≮y→x≥y (sN Nm) zN Sm≮n = x≥0 (sN Nm)
 x≮y→x≥y (sN {m} Nm) (sN {n} Nn) Sm≮Sn =
   prf (x≮y→x≥y Nm Nn (trans (sym (<-SS m n)) Sm≮Sn))
-  where postulate prf : GE m n →  -- IH.
-                        GE (succ₁ m) (succ₁ n)
+  where postulate prf : GE m n → GE (succ₁ m) (succ₁ n)
         {-# ATP prove prf #-}
 
 x>y→x≰y : ∀ {m n} → N m → N n → GT m n → NLE m n
@@ -170,8 +168,7 @@ x≤y→x≯y zN          Nn          0≤n   = 0≯x Nn
 x≤y→x≯y (sN Nm)     zN          Sm≤0  = ⊥-elim (S≤0→⊥ Nm Sm≤0)
 x≤y→x≯y (sN {m} Nm) (sN {n} Nn) Sm≤Sn =
   prf (x≤y→x≯y Nm Nn (trans (sym (<-SS m (succ₁ n))) Sm≤Sn))
-  where postulate prf : NGT m n →  -- IH.
-                        NGT (succ₁ m) (succ₁ n)
+  where postulate prf : NGT m n → NGT (succ₁ m) (succ₁ n)
         {-# ATP prove prf #-}
 
 x≯y→x≤y : ∀ {m n} → N m → N n → NGT m n → LE m n
@@ -179,8 +176,7 @@ x≯y→x≤y zN Nn _ = 0≤x Nn
 x≯y→x≤y (sN {m} Nm) zN Sm≯0  = ⊥-elim (true≢false (trans (sym (<-0S m)) Sm≯0))
 x≯y→x≤y (sN {m} Nm) (sN {n} Nn) Sm≯Sn =
   prf (x≯y→x≤y Nm Nn (trans (sym (<-SS n m)) Sm≯Sn))
-  where postulate prf : LE m n →  -- IH.
-                        LE (succ₁ m) (succ₁ n)
+  where postulate prf : LE m n → LE (succ₁ m) (succ₁ n)
         {-# ATP prove prf #-}
 
 Sx≯y→x≯y : ∀ {m n} → N m → N n → NGT (succ₁ m) n → NGT m n
@@ -212,8 +208,7 @@ x>y∨x≯y (sN {m} Nm) (sN {n} Nn) = case (λ h → inj₁ (trans (<-SS n m) h)
 x≤x+y : ∀ {m n} → N m → N n → LE m (m + n)
 x≤x+y         zN          Nn = x≥0 (+-N zN Nn)
 x≤x+y {n = n} (sN {m} Nm) Nn = prf $ x≤x+y Nm Nn
-  where postulate prf : LE m (m + n) →  -- IH.
-                        LE (succ₁ m) (succ₁ m + n)
+  where postulate prf : LE m (m + n) → LE (succ₁ m) (succ₁ m + n)
         {-# ATP prove prf #-}
 
 x<x+Sy : ∀ {m n} → N m → N n → LT m (m + succ₁ n)
@@ -308,7 +303,7 @@ x∸y<Sx zN (sN {n} Nn) = prf
         {-# ATP prove prf #-}
 
 x∸y<Sx (sN {m} Nm) (sN {n} Nn) = prf $ x∸y<Sx Nm Nn
-  where postulate prf : LT (m ∸ n) (succ₁ m) →  -- IH.
+  where postulate prf : LT (m ∸ n) (succ₁ m) →
                         LT (succ₁ m ∸ succ₁ n) (succ₁ (succ₁ m))
         {-# ATP prove prf <-trans ∸-N x<Sx #-}
 
@@ -336,7 +331,7 @@ x∸Sy≤x∸y (sN {m} Nm) zN = prf
         {-# ATP prove prf x≤Sx #-}
 
 x∸Sy≤x∸y (sN {m} Nm) (sN {n} Nn) = prf (x∸Sy≤x∸y Nm Nn)
-  where postulate prf : LE (m ∸ succ₁ n) (m ∸ n) →  -- IH.
+  where postulate prf : LE (m ∸ succ₁ n) (m ∸ n) →
                         LE (succ₁ m ∸ succ₁ (succ₁ n)) (succ₁ m ∸ (succ₁ n))
         {-# ATP prove prf #-}
 
@@ -351,8 +346,7 @@ x>y→x∸y+y≡x (sN {m} Nm) (sN {n} Nn) Sm>Sn = prf $ x>y→x∸y+y≡x Nm Nn 
   postulate m>n : GT m n
   {-# ATP prove m>n #-}
 
-  postulate prf : (m ∸ n) + n ≡ m →  -- IH.
-                  (succ₁ m ∸ succ₁ n) + succ₁ n ≡ succ₁ m
+  postulate prf : (m ∸ n) + n ≡ m → (succ₁ m ∸ succ₁ n) + succ₁ n ≡ succ₁ m
   {-# ATP prove prf +-comm ∸-N #-}
 
 x≤y→y∸x+x≡y : ∀ {m n} → N m → N n → LE m n → (n ∸ m) + m ≡ n
@@ -367,8 +361,7 @@ x≤y→y∸x+x≡y (sN {m} Nm) (sN {n} Nn) Sm≤Sn = prf $ x≤y→y∸x+x≡y 
   postulate m≤n : LE m n
   {-# ATP prove m≤n #-}
 
-  postulate prf : (n ∸ m) + m ≡ n →  -- IH.
-                  (succ₁ n ∸ succ₁ m) + succ₁ m ≡ succ₁ n
+  postulate prf : (n ∸ m) + m ≡ n → (succ₁ n ∸ succ₁ m) + succ₁ m ≡ succ₁ n
   {-# ATP prove prf +-comm ∸-N #-}
 
 x<Sy→x<y∨x≡y : ∀ {m n} → N m → N n → LT m (succ₁ n) → LT m n ∨ m ≡ n
@@ -420,7 +413,7 @@ x≤y+x∸y (sN {m} Nm) zN = prfx0
   where postulate prfx0 : LE (succ₁ m) (zero + (succ₁ m ∸ zero))
         {-# ATP prove prfx0 x<Sx #-}
 x≤y+x∸y (sN {m} Nm) (sN {n} Nn) = prfSS (x≤y+x∸y Nm Nn)
-  where postulate prfSS : LE m (n + (m ∸ n)) →  -- IH.
+  where postulate prfSS : LE m (n + (m ∸ n)) →
                           LE (succ₁ m) (succ₁ n + (succ₁ m ∸ succ₁ n))
         {-# ATP prove prfSS x≤y→Sx≤Sy ≤-trans +-N ∸-N #-}
 
@@ -442,7 +435,7 @@ x∸y<x∸z→Sx∸y<Sx∸z (sN {m} Nm) (sN {n} Nn) (sN {o} No) Sm∸Sn<Sm∸So 
   prf (x∸y<x∸z→Sx∸y<Sx∸z Nm Nn No)
   where
   postulate
-    prf : (LT (m ∸ n) (m ∸ o) → LT (succ₁ m ∸ n) (succ₁ m ∸ o)) →  -- IH.
+    prf : (LT (m ∸ n) (m ∸ o) → LT (succ₁ m ∸ n) (succ₁ m ∸ o)) →
           LT (succ₁ (succ₁ m) ∸ succ₁ n) (succ₁ (succ₁ m) ∸ succ₁ o)
   {-# ATP prove prf #-}
 

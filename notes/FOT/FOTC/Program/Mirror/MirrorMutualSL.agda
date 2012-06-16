@@ -88,7 +88,7 @@ helper (t ∷ ts) =
       ≡⟨ refl ⟩
     mirror (mirror t) ∷ reverse (map mirror (reverse (map mirror ts)))
       ≡⟨ cong (flip _∷_ (reverse (map mirror (reverse (map mirror ts)))))
-              (mirror-involutive t)  -- IH
+              (mirror-involutive t)
       ⟩
     t ∷ reverse (map mirror (reverse (map mirror ts)))
       ≡⟨ cong (_∷_ t) (helper ts) ⟩

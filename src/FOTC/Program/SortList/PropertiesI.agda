@@ -294,7 +294,6 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
                       ordTree t₂                        &&
                       ≤-TreeItem (toTree · item · t₁) i &&
                       ≤-ItemTree i t₂)
-               -- IH.
                (toTree-OrdTree Nitem Tt₁
                                (leftSubTree-OrdTree Tt₁ Ni Tt₂ OTnodeT))
                refl
@@ -405,7 +404,6 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
                       t                                 &&
                       ≤-TreeItem t₁ i                   &&
                       ≤-ItemTree i (toTree · item · t₂))
-               -- IH.
                (toTree-OrdTree Nitem Tt₂
                  (rightSubTree-OrdTree Tt₁ Ni Tt₂ OTnodeT))
                refl
@@ -516,7 +514,6 @@ makeTree-OrdTree (consLN {i} {is} Ni Lis) =
       ⟩
     true && ordList (is ++ js)
       ≡⟨ subst (λ t → true && ordList (is ++ js) ≡ true && t)
-               -- IH.
                (++-OrdList LNis LNjs (subList-OrdList Ni LNis LOi∷is) LOjs
                            (&&-list₂-t₂
                              (≤-ItemList-Bool Ni LNjs)
@@ -561,9 +558,7 @@ flatten-OrdList (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTt =
   ordList (flatten t₁ ++ flatten t₂)
     ≡⟨ ++-OrdList (flatten-ListN Tt₁)
                   (flatten-ListN Tt₂)
-                  -- IH.
                   (flatten-OrdList Tt₁ (leftSubTree-OrdTree Tt₁ Ni Tt₂ OTt))
-                  -- IH.
                   (flatten-OrdList Tt₂ (rightSubTree-OrdTree Tt₁ Ni Tt₂ OTt))
                   (flatten-OrdList-helper Tt₁ Ni Tt₂ OTt)
     ⟩

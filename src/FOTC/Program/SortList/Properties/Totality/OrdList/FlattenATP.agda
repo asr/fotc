@@ -30,9 +30,8 @@ flatten-OrdList-helper {t₂ = t₂} nilT Ni Tt₂ OTt =
         (≤-Lists-[] (flatten t₂))
 
 flatten-OrdList-helper (tipT {i₁} Ni₁) Tt₁ nilT OTt = prf
-  where
-  postulate prf : LE-Lists (flatten (tip i₁)) (flatten nilTree)
-  {-# ATP prove prf #-}
+  where postulate prf : LE-Lists (flatten (tip i₁)) (flatten nilTree)
+        {-# ATP prove prf #-}
 
 flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni (tipT {i₂} Ni₂) OTt = prf
   where
@@ -69,7 +68,7 @@ flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni
   LE-TreeItem-tip-i₁-i = &&-list₄-t₃ helper₁ helper₂ helper₃ helper₄ helper₅
 
   lemma₁ : LE-Lists (flatten (tip i₁)) (flatten t₂₁)
-  lemma₁ = flatten-OrdList-helper (tipT Ni₁) Ni Tt₂₁ OT  -- IH.
+  lemma₁ = flatten-OrdList-helper (tipT Ni₁) Ni Tt₂₁ OT
     where
     -- The ATPs could not figure these terms.
     OrdTree-t₂₁ : OrdTree t₂₁
@@ -88,7 +87,7 @@ flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni
     #-}
 
   lemma₂ : LE-Lists (flatten (tip i₁)) (flatten t₂₂)
-  lemma₂ = flatten-OrdList-helper (tipT Ni₁) Ni Tt₂₂ OT  -- IH.
+  lemma₂ = flatten-OrdList-helper (tipT Ni₁) Ni Tt₂₂ OT
     where
     -- The ATPs could not figure these terms.
     OrdTree-t₂₂ : OrdTree t₂₂
@@ -126,7 +125,7 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
                   (&&-list₄-t₃ helper₁ helper₂ helper₃ helper₄ helper₅)
 
   lemma₁ : LE-Lists (flatten t₁₁) (flatten nilTree)
-  lemma₁ = flatten-OrdList-helper Tt₁₁ Ni nilT OT  -- IH.
+  lemma₁ = flatten-OrdList-helper Tt₁₁ Ni nilT OT
     where
     postulate OT : OrdTree (node t₁₁ i nilTree)
     {-# ATP prove OT leftSubTree-OrdTree
@@ -165,7 +164,7 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
                   (&&-list₄-t₃ helper₁ helper₂ helper₃ helper₄ helper₅)
 
   lemma₁ : LE-Lists (flatten t₁₁) (flatten (tip i₂))
-  lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (tipT Ni₂) OT  -- IH.
+  lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (tipT Ni₂) OT
     where
     postulate OT : OrdTree (node t₁₁ i (tip i₂))
     {-# ATP prove OT leftSubTree-OrdTree
@@ -175,7 +174,7 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
     #-}
 
   lemma₂ : LE-Lists (flatten t₁₂) (flatten (tip i₂))
-  lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (tipT Ni₂) OT  -- IH.
+  lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (tipT Ni₂) OT
     where
     postulate OT : OrdTree (node t₁₂ i (tip i₂))
     {-# ATP prove OT rightSubTree-OrdTree
@@ -205,7 +204,7 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
                   (&&-list₄-t₃ helper₁ helper₂ helper₃ helper₄ helper₅)
 
   lemma₁ : LE-Lists (flatten t₁₁) (flatten (node t₂₁ i₂ t₂₂))
-  lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (nodeT Tt₂₁ Ni₂ Tt₂₂) OT  -- IH.
+  lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (nodeT Tt₂₁ Ni₂ Tt₂₂) OT
     where
     postulate OT : OrdTree (node t₁₁ i (node t₂₁ i₂ t₂₂))
     {-# ATP prove OT leftSubTree-OrdTree
@@ -215,7 +214,7 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
     #-}
 
   lemma₂ : LE-Lists (flatten t₁₂) (flatten (node t₂₁ i₂ t₂₂))
-  lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (nodeT Tt₂₁ Ni₂ Tt₂₂) OT  -- IH.
+  lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (nodeT Tt₂₁ Ni₂ Tt₂₂) OT
     where
     postulate OT : OrdTree (node t₁₂ i (node t₂₁ i₂ t₂₂))
     {-# ATP prove OT rightSubTree-OrdTree

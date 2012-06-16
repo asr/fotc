@@ -21,6 +21,5 @@ open import FOTC.Data.List
         {-# ATP prove prf #-}
 
 ++-ListN {ns = ns} (consLN {m} {ms} Nd LNms) LNns = prf $ ++-ListN LNms LNns
-  where postulate prf : ListN (ms ++ ns) →  -- IH.
-                        ListN ((m ∷ ms) ++ ns)
+  where postulate prf : ListN (ms ++ ns) → ListN ((m ∷ ms) ++ ns)
         {-# ATP prove prf #-}

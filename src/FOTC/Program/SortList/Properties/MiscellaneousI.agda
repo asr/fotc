@@ -43,7 +43,7 @@ open import FOTC.Program.SortList.SortList
 --       ⟩
 --     true && ≤-Lists is []
 --       ≡⟨ subst (λ t → true && ≤-Lists is [] ≡ true && t)
---                (xs≤[] LNis (subList-OrdList Ni LNis LOconsL))  -- IH.
+--                (xs≤[] LNis (subList-OrdList Ni LNis LOconsL))
 --                refl
 --       ⟩
 --     true && true
@@ -133,7 +133,6 @@ x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni (consLN {j} {js} Nj LNjs) LNks i�
   (i ≤ j) && ≤-ItemList i (js ++ ks)
     ≡⟨ subst₂ (λ t₁ t₂ → (i ≤ j) && ≤-ItemList i (js ++ ks) ≡ t₁ && t₂)
               (&&-list₂-t₁ helper₁ helper₂ helper₃)
-              -- IH.
               (x≤ys→x≤zs→x≤ys++zs Ni LNjs LNks
                                   (&&-list₂-t₂ helper₁ helper₂ helper₃)
                                   i≤k)
@@ -171,7 +170,6 @@ xs≤ys→xs≤zs→xs≤ys++zs {js = js} {ks} (consLN {i} {is} Ni LNis)
     ⟩
   true && ≤-Lists is (js ++ ks)
     ≡⟨ subst (λ t → true && ≤-Lists is (js ++ ks) ≡ true && t)
-             -- IH.
              (xs≤ys→xs≤zs→xs≤ys++zs LNis LNjs LNks
                                     (&&-list₂-t₂ helper₁ helper₂ helper₃)
                                     (&&-list₂-t₂ helper₄ helper₅ helper₆))
@@ -223,7 +221,6 @@ xs≤zs→ys≤zs→xs++ys≤zs {js = js} {ks}
   LE-ItemList-i-ks : LE-ItemList i ks
   LE-ItemList-i-ks = &&-list₂-t₁ helper₁ helper₂ helper₃
 
-  -- IH.
   LE-Lists-is++js-ks : LE-Lists (is ++ js) ks
   LE-Lists-is++js-ks =
     xs≤zs→ys≤zs→xs++ys≤zs LNis LNjs LNks

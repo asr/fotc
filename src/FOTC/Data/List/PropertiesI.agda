@@ -127,7 +127,7 @@ lg-xs<lg-[]→⊥ (consL x {xs} Lxs) lg-x∷xs<lg-[] = ⊥-elim (S<0→⊥ helpe
      ≡⟨ ++-∷ x (xs ++ ys) zs ⟩
   x ∷ ((xs ++ ys) ++ zs)
     ≡⟨ subst (λ t → x ∷ ((xs ++ ys) ++ zs) ≡ x ∷ t)
-             (++-assoc Lxs ys zs) -- IH.
+             (++-assoc Lxs ys zs)
              refl
     ⟩
   x ∷ (xs ++ ys ++ zs)
@@ -155,7 +155,7 @@ map-++-commute f (consL x {xs} Lxs) ys =
     ≡⟨ map-∷ f x (xs ++ ys) ⟩
   f · x ∷ map f (xs ++ ys)
     ≡⟨ subst (λ t → f · x ∷ map f (xs ++ ys) ≡ f · x ∷ t)
-             (map-++-commute f Lxs ys)  -- IH.
+             (map-++-commute f Lxs ys)
              refl
     ⟩
   f · x ∷ (map f xs ++ map f ys)
@@ -186,7 +186,7 @@ rev-++-commute (consL x {xs} Lxs) ys =
   rev (x ∷ xs) ys
     ≡⟨ rev-∷ x xs ys ⟩
   rev xs (x ∷ ys)
-    ≡⟨ rev-++-commute Lxs (x ∷ ys) ⟩  -- IH.
+    ≡⟨ rev-++-commute Lxs (x ∷ ys) ⟩
   rev xs [] ++ x ∷ ys
     ≡⟨ subst (λ t → rev xs [] ++ x ∷ ys ≡ rev xs [] ++ t)
              (sym
@@ -206,7 +206,7 @@ rev-++-commute (consL x {xs} Lxs) ys =
     ≡⟨ sym $ ++-assoc (rev-List Lxs nilL) (x ∷ []) ys ⟩
   (rev xs [] ++ (x ∷ [])) ++ ys
     ≡⟨ subst (λ t → (rev xs [] ++ (x ∷ [])) ++ ys ≡ t ++ ys)
-             (sym $ rev-++-commute Lxs (x ∷ []))  -- IH.
+             (sym $ rev-++-commute Lxs (x ∷ []))
              refl
     ⟩
   rev xs (x ∷ []) ++ ys
@@ -261,7 +261,7 @@ reverse-++-commute (consL x {xs} Lxs) (consL y {ys} Lys) =
     ⟩
   reverse (xs ++ y ∷ ys) ++ (x ∷ [])
     ≡⟨ subst (λ t → reverse (xs ++ y ∷ ys) ++ (x ∷ []) ≡ t ++ (x ∷ []))
-             (reverse-++-commute Lxs (consL y Lys))  -- IH.
+             (reverse-++-commute Lxs (consL y Lys))
              refl
     ⟩
   (reverse (y ∷ ys) ++ reverse xs) ++ x ∷ []

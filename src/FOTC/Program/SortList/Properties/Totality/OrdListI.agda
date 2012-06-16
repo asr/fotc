@@ -57,7 +57,6 @@ subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js =
     ⟩
   true && ≤-ItemList item (is ++ js)
     ≡⟨ subst (λ t → true && ≤-ItemList item (is ++ js) ≡ true && t)
-             -- IH.
              (++-OrdList-helper Nitem LNis LNjs lemma₁ item≤js lemma₂)
              refl
     ⟩

@@ -70,7 +70,7 @@ open import FOTC.Data.Nat
 
   postulate
     is : ∀ {i} →
-         i + n + o ≡ i + (n + o) →  -- IH.
+         i + n + o ≡ i + (n + o) →
          succ₁ i + n + o ≡ succ₁ i + (n + o)
   {-# ATP prove is #-}
 

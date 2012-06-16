@@ -48,9 +48,8 @@ toTree-OrdTree-helper₁ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → GT i₁ i
                          LE-TreeItem t i₁ →
                          LE-TreeItem (toTree · i₂ · t) i₁
 toTree-OrdTree-helper₁ {i₁} {i₂} .{nilTree} Ni₁ Ni₂ i₁>i₂ nilT t≤i₁ = prf
-  where
-  postulate prf : LE-TreeItem (toTree · i₂ · nilTree) i₁
-  {-# ATP prove prf x<y→x≤y #-}
+  where postulate prf : LE-TreeItem (toTree · i₂ · nilTree) i₁
+        {-# ATP prove prf x<y→x≤y #-}
 
 toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁ =
   case prf₁ prf₂ (x>y∨x≤y Nj Ni₂)
@@ -74,12 +73,12 @@ toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
                             (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁))))
        (x>y∨x≤y Nj Ni₂)
   where
-  postulate prf₁ : LE-TreeItem (toTree · i₂ · t₁) i₁ →  -- IH.
+  postulate prf₁ : LE-TreeItem (toTree · i₂ · t₁) i₁ →
                    GT j i₂ →
                    LE-TreeItem (toTree · i₂ · node t₁ j t₂) i₁
   {-# ATP prove prf₁ x>y→x≰y &&-list₂-t ≤-TreeItem-Bool #-}
 
-  postulate prf₂ : LE-TreeItem (toTree · i₂ · t₂) i₁ →  --IH.
+  postulate prf₂ : LE-TreeItem (toTree · i₂ · t₂) i₁ →
                    LE j i₂ →
                    LE-TreeItem (toTree · i₂ · node t₁ j t₂) i₁
   {-# ATP prove prf₂ &&-list₂-t ≤-TreeItem-Bool #-}
@@ -89,9 +88,8 @@ toTree-OrdTree-helper₂ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → LE i₁ i
                          LE-ItemTree i₁ t →
                          LE-ItemTree i₁ (toTree · i₂ · t)
 toTree-OrdTree-helper₂ {i₁} {i₂} .{nilTree} Ni₁ Ni₂ i₁≤i₂ nilT i₁≤t = prf
-  where
-  postulate prf : LE-ItemTree i₁ (toTree · i₂ · nilTree)
-  {-# ATP prove prf #-}
+  where postulate prf : LE-ItemTree i₁ (toTree · i₂ · nilTree)
+        {-# ATP prove prf #-}
 
 toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i₁≤t =
   case prf₁ prf₂ (x>y∨x≤y Nj Ni₂)
@@ -115,12 +113,12 @@ toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
                             (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t))))
        (x>y∨x≤y Nj Ni₂)
   where
-  postulate prf₁ : LE-ItemTree i₁ (toTree · i₂ · t₁) →  -- IH.
+  postulate prf₁ : LE-ItemTree i₁ (toTree · i₂ · t₁) →
                    GT j i₂ →
                    LE-ItemTree i₁ (toTree · i₂ · node t₁ j t₂)
   {-# ATP prove prf₁ ≤-ItemTree-Bool x>y→x≰y &&-list₂-t #-}
 
-  postulate prf₂ : LE-ItemTree i₁ (toTree · i₂ · t₂) →  --IH.
+  postulate prf₂ : LE-ItemTree i₁ (toTree · i₂ · t₂) →
                    LE j i₂ →
                    LE-ItemTree i₁ (toTree · i₂ · node t₁ j t₂)
   {-# ATP prove prf₂ ≤-ItemTree-Bool &&-list₂-t #-}
