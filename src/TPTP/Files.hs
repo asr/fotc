@@ -141,6 +141,7 @@ addRole af@(MkAF qName afRole _) file = do
   appendFile file $ toTPTP af
 
 addRoles ∷ [AF] → FilePath → String → IO ()
+addRoles []  _    _   = return ()
 addRoles afs file str = do
   let header, footer ∷ String
       header = commentLine ++ "% The " ++ str ++ ".\n\n"
