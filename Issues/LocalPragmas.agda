@@ -1,6 +1,6 @@
--- See descripion in Bugs.LocalPragmas.OtherModule
+-- See descripion in Issues.LocalPragmas.OtherModule
 
-module Bugs.LocalPragmas where
+module Issues.LocalPragmas where
 
 postulate
   D    : Set

@@ -15,3 +15,7 @@ foo = λ d → d  -- Doesn't work!
 
 postulate bar : ∀ d → d ≡ foo d
 {-# ATP prove bar #-}
+
+-- $ agda2atp Issues/Agda365.agda
+-- An internal error has occurred. Please report this as a bug.
+-- Location of the error: src/FOL/Translation/Terms.hs:556

@@ -20,5 +20,6 @@ foo {a} Pa {b} Pb = a
   postulate bar : c ≡ a
   {-# ATP prove bar #-}
 
+-- $ agda2atp Issues/Definition.agda
 -- An internal error has occurred. Please report this as a bug.
--- Location of the error: src/AgdaLib/Syntax/DeBruijn.hs:98
+-- Location of the error: src/AgdaLib/DeBruijn.hs:127

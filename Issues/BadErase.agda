@@ -4,7 +4,7 @@
 
 -- Found on 14 March 2012.
 
-module Bugs.BadErase where
+module Issues.BadErase where
 
 postulate
   D : Set
