@@ -49,10 +49,10 @@ snapshot_files_to_test = $(patsubst %.agda,%.snapshottest, \
 	$(AGDA) $<
 
 %.succeed_FOL : %.agdai
-	$(AGDA2ATP) --time=60 $*.agda
+	$(AGDA2ATP) --time=10 $*.agda
 
 %.succeed_NonFOL : %.agdai
-	$(AGDA2ATP) --time=60 --non-fol $*.agda
+	$(AGDA2ATP) --time=10 --non-fol $*.agda
 
 %.fail_FOL : %.agdai
 	if ( $(AGDA2ATP) --time=5 $*.agda ); then exit 1; fi
