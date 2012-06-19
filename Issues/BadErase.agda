@@ -7,8 +7,15 @@
 module Issues.BadErase where
 
 postulate
-  D : Set
-  A : Set
+  _↔_ : Set → Set → Set
+  D   : Set
+  A   : Set
 
-postulate bad : ((x : D) → A) → A
-{-# ATP prove bad #-}
+postulate bad₁ : ((x : D) → A) → A
+{-# ATP prove bad₁ #-}
+
+postulate bad₂ : A → ((x : D) → A)
+{-# ATP prove bad₂ #-}
+
+postulate bad₃ : ((x : D) → A) ↔ A
+{-# ATP prove bad₃ #-}
