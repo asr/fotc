@@ -2,6 +2,9 @@
 -- Issue in the translation inspired by the Agda issue 365
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Issues.Agda365 where
 
 postulate
@@ -18,4 +21,4 @@ postulate bar : ∀ d → d ≡ foo d
 
 -- $ agda2atp Issues/Agda365.agda
 -- An internal error has occurred. Please report this as a bug.
--- Location of the error: src/FOL/Translation/Terms.hs:556
+-- Location of the error: src/FOL/Translation/Terms.hs:560

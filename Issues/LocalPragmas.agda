@@ -1,3 +1,6 @@
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- See descripion in Issues.LocalPragmas.OtherModule
 
 module Issues.LocalPragmas where

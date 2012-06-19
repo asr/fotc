@@ -2,6 +2,9 @@
 -- The translation is badly erasing the universal quantification
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- Found on 14 March 2012.
 
 module Issues.BadErase where
