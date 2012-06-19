@@ -122,8 +122,8 @@ toAF role qName def = do
   reportSLn "toAF" 20 $ "The eta-expanded type is:\n" ++ show tyEtaExpanded
 
   if ty == tyEtaExpanded
-    then reportSLn "toAF" 20 "The type and the eta-expanded type are equals"
-    else reportSLn "toAF" 20 "The type and the eta-expanded type are different"
+    then reportSLn "toAF" 20 "The type and the eta-expanded type: equals"
+    else reportSLn "toAF" 20 "The type and the eta-expanded type: different"
 
   -- We drop the variables which are proof terms from the types.
   reportSLn "toAF" 20 $

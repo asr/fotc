@@ -403,13 +403,13 @@ instance DropVar Term where
   dropVar (Lam h (Abs y absTerm)) x = do
     pushTVar y
 
-    reportSLn "dropVar" 20 $ "Pushed variable: " ++ y
+    reportSLn "dropVar" 20 $ "Pushed variable " ++ show y
 
     auxTerm ← dropVar absTerm x
 
     popTVar
 
-    reportSLn "dropPT" 20 $ "Pop variable: " ++ y
+    reportSLn "dropPT" 20 $ "Pop variable " ++ show y
 
     return $ Lam h (Abs y auxTerm)
 
@@ -424,7 +424,7 @@ instance DropVar Term where
   dropVar (Pi domTy (Abs y absTy)) x = do
 
     pushTVar y
-    reportSLn "dropVar" 20 $ "Pushed variable: " ++ y
+    reportSLn "dropVar" 20 $ "Pushed variable " ++ show y
 
     -- If the Pi term is on a proof term, we replace it by a Pi term
     -- which is not a proof term.
@@ -438,7 +438,7 @@ instance DropVar Term where
                   return $ Pi domTy (NoAbs "_" newType)
 
     popTVar
-    reportSLn "dropPT" 20 $ "Pop variable: " ++ y
+    reportSLn "dropPT" 20 $ "Pop variable " ++ show y
     return newTerm
 
   dropVar (Con _ _)           _ = __IMPOSSIBLE__
@@ -491,7 +491,8 @@ instance DropVar Args where
 
 dropProofTerm ∷ Type → (String, Type) → T Type
 dropProofTerm ty (x, typeVar) = do
-  reportSLn "dropPT" 20 $ "Dropping variable: " ++ x
+  reportSLn "dropPT" 20 $
+    "It is necessary to drop the variable " ++ show x ++ "?"
 
   case typeVar of
     -- The variable's type is a @Set@,

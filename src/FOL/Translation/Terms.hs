@@ -273,18 +273,24 @@ termToFormula term@(Lam _ (Abs _ termLam)) = do
 
   return f
 
-termToFormula term@(Pi domArg (NoAbs _ tyAbs)) = do
-  reportSLn "t2f" 10 $ "termToFormula Pi _ (NoAbs _ _):\n" ++ show term
-  liftM2 Implies (domTypeToFormula domArg) (typeToFormula tyAbs)
+termToFormula (Pi domTy (NoAbs var tyAbs)) = do
+  reportSLn "t2f" 10 $
+    "termToFormula Pi _ (NoAbs _ _):\n"
+    ++ "domTy: " ++ show domTy ++ "\n"
+    ++ "absTy: " ++ show (NoAbs var tyAbs)
+  liftM2 Implies (domTypeToFormula domTy) (typeToFormula tyAbs)
 
-termToFormula term@(Pi domTy (Abs _ tyAbs)) = do
-  reportSLn "t2f" 10 $ "termToFormula Pi _ (Abs _ _):\n" ++ show term
+termToFormula (Pi domTy (Abs var tyAbs)) = do
+  reportSLn "t2f" 10 $
+    "termToFormula Pi _ (Abs _ _):\n"
+    ++ "domTy: " ++ show domTy ++ "\n"
+    ++ "absTy: " ++ show (Abs var tyAbs)
 
   freshVar ← newTVar
 
   reportSLn "t2f" 20 $
     "Starting processing in local environment with fresh variable "
-    ++ freshVar ++ " and type:\n" ++ show tyAbs
+    ++ show freshVar ++ " and type:\n" ++ show tyAbs
 
   pushTVar freshVar
   f2 ← typeToFormula tyAbs
@@ -292,7 +298,7 @@ termToFormula term@(Pi domTy (Abs _ tyAbs)) = do
 
   reportSLn "t2f" 20 $
     "Finalized processing in local environment with fresh variable "
-    ++ freshVar ++ " and type:\n" ++ show tyAbs
+    ++ show freshVar ++ " and type:\n" ++ show tyAbs
 
   reportSLn "t2f" 20 $
     "The formula f2 is: " ++ show f2
@@ -308,7 +314,7 @@ termToFormula term@(Pi domTy (Abs _ tyAbs)) = do
     -- N.B. the pattern matching on @(Def _ [])@.
     El (Type (Max [])) (Def _ []) → do
       reportSLn "t2f" 20 $
-        "Adding universal quantification on variable: " ++ freshVar
+        "Adding universal quantification on variable " ++ show freshVar
       return $ ForAll freshVar (\_ → f2)
 
     -- The bounded variable is quantified on a proof. Due to we have

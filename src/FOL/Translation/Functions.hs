@@ -152,7 +152,7 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
     --
     -- N.B. the pattern matching on @(Def _ [])@.
     ExtendTel (Dom _ _ (El (Type (Max [])) (Def _ []))) (Abs x tels) → do
-      reportSLn "def2f" 20 $ "Processing variable: " ++ x
+      reportSLn "def2f" 20 $ "Processing variable " ++ show x
 
       freshVar ← newTVar
       pushTVar freshVar
@@ -173,7 +173,7 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
 
     -- N.B. the pattern matching on @(Def _ _)@.
     ExtendTel (Dom _ _ tye@(El (Type (Max [])) (Def _ _))) (Abs x tels) → do
-      reportSLn "def2f" 20 $ "Processing proof term: " ++ x
+      reportSLn "def2f" 20 $ "Processing proof term " ++ show x
 
       reportSLn "def2f" 20 $ "tye: " ++ show tye
 
