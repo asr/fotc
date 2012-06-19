@@ -526,8 +526,7 @@ dropProofTerm ty (x, typeVar) = do
     -- Because the variable is not a proof term we don't do anything.
     El (Type (Max []))
        (Pi (Dom _ _ (El (Type (Max [])) (Def _ [])))
-           (NoAbs _ (El (Type (Max [])) (Def _ [])))
-       ) → return ty
+           (NoAbs _ (El (Type (Max [])) (Def _ [])))) → return ty
 
     -- The next case is just a generalization to various arguments of
     -- the previous case.
@@ -539,8 +538,8 @@ dropProofTerm ty (x, typeVar) = do
     -- Because the variable is not a proof term we don't do anything.
     El (Type (Max []))
        (Pi (Dom _ _ (El (Type (Max [])) (Def _ [])))
-           (NoAbs _ (El (Type (Max [])) (Pi _ (NoAbs _ _))))
-       ) → __IMPOSSIBLE__ -- return ty
+           (NoAbs _ (El (Type (Max [])) (Pi _ (NoAbs _ _))))) →
+       __IMPOSSIBLE__ -- return ty
 
     -- We don't erase these proofs terms.
     El (Type (Max [])) someTerm → do

@@ -328,8 +328,7 @@ termToFormula term@(Pi domTy (Abs _ tyAbs)) = do
     -- first due to lazyness. We quantified on this variable.
     El (Type (Max []))
        (Pi (Dom _ _ (El (Type (Max [])) (Def _ [])))
-           (NoAbs _ (El (Type (Max [])) (Def _ [])))
-       ) → do
+           (NoAbs _ (El (Type (Max [])) (Def _ [])))) → do
       reportSLn "t2f" 20
         "Removing a quantification on a function of a Set to a Set"
       return $ ForAll freshVar (\_ → f2)
@@ -349,8 +348,7 @@ termToFormula term@(Pi domTy (Abs _ tyAbs)) = do
     -- first due to lazyness. We quantified on this variable.
     El (Type (Max []))
        (Pi (Dom _ _ (El (Type (Max [])) (Def _ [])))
-           (NoAbs _ (El (Type (Max [])) (Pi _ (NoAbs _ _))))
-       ) → do
+           (NoAbs _ (El (Type (Max [])) (Pi _ (NoAbs _ _))))) → do
       reportSLn "t2f" 20
         "Removing a quantification on a function of a Set to a Set"
       -- 31 May 2012. We don't have an example of this case.
