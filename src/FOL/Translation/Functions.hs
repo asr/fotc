@@ -85,7 +85,7 @@ import FOL.Primitives         ( equal )
 import FOL.Translation.Internal
   ( cBodyToFormula
   , cBodyToFOLTerm
-  , dropBindingOnCBody
+  , dropProofTermOnCBody
   )
 
 import FOL.Translation.Terms ( termToFormula, termToFOLTerm )
@@ -183,7 +183,7 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
 
       reportSLn "def2f" 20 $ "Current body: " ++ show cBody
 
-      newBody ∷ ClauseBody ← dropBindingOnCBody cBody x
+      newBody ∷ ClauseBody ← dropProofTermOnCBody cBody x
 
       -- Just to force the evaluation of @newBody@.
       when (null $ show newBody) (__IMPOSSIBLE__)

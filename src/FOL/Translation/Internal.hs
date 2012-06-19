@@ -17,7 +17,7 @@
 module FOL.Translation.Internal
   ( cBodyToFormula
   , cBodyToFOLTerm
-  , dropBindingOnCBody
+  , dropProofTermOnCBody
   ) where
 
 ------------------------------------------------------------------------------
@@ -93,13 +93,13 @@ cBodyToFOLTerm (Body term)          = termToFOLTerm term
 cBodyToFOLTerm (Bind (Abs _ cBody)) = cBodyToFOLTerm cBody
 cBodyToFOLTerm _                    = __IMPOSSIBLE__
 
-dropBindingOnCBodyIndex ∷ ClauseBody → String → Nat → ClauseBody
-dropBindingOnCBodyIndex (Bind (Abs x1 cBody)) x2 index =
+dropProofTermOnCBodyIndex ∷ ClauseBody → String → Nat → ClauseBody
+dropProofTermOnCBodyIndex (Bind (Abs x1 cBody)) x2 index =
   if x1 == x2
   then changeIndex cBody index  -- We drop the bind and rename the
                                 -- variables inside the body.
-  else Bind (Abs x1 $ dropBindingOnCBodyIndex cBody x2 index)
-dropBindingOnCBodyIndex _ _ _ = __IMPOSSIBLE__
+  else Bind (Abs x1 $ dropProofTermOnCBodyIndex cBody x2 index)
+dropProofTermOnCBodyIndex _ _ _ = __IMPOSSIBLE__
 
 -- To drop the binding on a proof term in a @ClauseBody@,
 --
@@ -108,11 +108,13 @@ dropBindingOnCBodyIndex _ _ _ = __IMPOSSIBLE__
 --
 -- We know that the bounded variable is a proof term from the
 -- invocation to this function.
-dropBindingOnCBody ∷ ClauseBody → String → T ClauseBody
-dropBindingOnCBody cBody x = do
+
+-- | Drop a proof term from an Agda internal 'ClauseBody'.
+dropProofTermOnCBody ∷ ClauseBody → String → T ClauseBody
+dropProofTermOnCBody cBody x = do
   let index ∷ Nat
       index = varToIndex cBody x
 
   reportSLn "drop" 20 $ "The index is: " ++ show index
 
-  return $ dropBindingOnCBodyIndex cBody x index
+  return $ dropProofTermOnCBodyIndex cBody x index
