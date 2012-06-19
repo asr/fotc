@@ -39,7 +39,7 @@ import Data.Bool     ( (||), Bool, otherwise )
 import Data.Eq       ( Eq((==)) )
 import Data.Function ( ($) )
 import Data.Functor  ( fmap )
-import Data.List     ( (++), (!!), length, foldl' )
+import Data.List     ( (++), (!!), foldl', length )
 import Data.Ord      ( Ord((<=)) )
 
 #if __GLASGOW_HASKELL__ == 612
