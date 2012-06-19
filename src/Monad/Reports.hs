@@ -7,7 +7,7 @@
 -- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 -- Stability   : experimental
 --
--- Reports via the verbose option.
+-- Reports via the @--verbose@ option.
 -----------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
@@ -69,6 +69,7 @@ import Options    ( Options(optVerbose) )
 -- Nice way to report things via the @--verbose@ option. Adapted from
 -- @Agda.TypeChecking.Monad.Options@.
 
+-- | Key for the @--verbose@ option.
 type VerboseKey = String
 
 -- Precondition: The level must be non-negative.
@@ -83,8 +84,10 @@ verboseS k n action | n < 0     =  __IMPOSSIBLE__
       m = maximum $ 0 : Trie.lookupPath ks t
   when (n <= m) action
 
+-- | Print debug information via the @--verbose@ option.
 reportS ∷ VerboseKey → Int → String → T ()
 reportS k n s = verboseS k n $ liftIO $ putStr (s ++ "\n")
 
+-- | Print debug information via the @--verbose@ option.
 reportSLn ∷ VerboseKey → Int → String → T ()
 reportSLn k n s = verboseS k n $ liftIO $ putStrLn (s ++ "\n")
