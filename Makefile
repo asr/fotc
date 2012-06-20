@@ -260,6 +260,7 @@ all_create_snapshot : create_snapshot_DistributiveLaws \
 
 snapshot_% :
 	for file in $(conjectures); do \
+	    echo "Processing file $$file"; \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
 	    if ! ( $(AGDA2ATP_SNAPSHOT_TEST) --non-fol $${file} ); then \
 	       exit 1; \
