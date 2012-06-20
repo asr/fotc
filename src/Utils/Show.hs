@@ -33,11 +33,11 @@ import Data.List     ( (++) )
 import Text.Show ( Show(show) )
 
 ------------------------------------------------------------------------------
-
+-- | Version of 'show' adding a newline character.
 showLn ∷ Show a ⇒ a → String
 showLn = (++ "\n") . show
 
--- | Show version on lists where the elements are separated by newline
--- characters.
+-- | Version of 'show' on lists where the elements are separated by
+-- newline characters.
 showListLn ∷ Show a ⇒ [a] → String
 showListLn xs = xs >>= showLn  -- From Autoproc.Procmail.
