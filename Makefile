@@ -74,6 +74,7 @@ snapshot_files_to_test = $(patsubst %.agda,%.snapshottest, \
 
 # Snapshot of the succeed TPTP files.
 create_snapshot : $(snapshot_files_to_create)
+	@echo "The creation of the snapshot succeeded!"
 
 # Haskell program coverage.
 .PHONY : hpc
