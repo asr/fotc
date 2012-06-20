@@ -4,7 +4,9 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Issues.NoAbs.VariableNamesClash where
+module Issues.NoAbs.NoAbs2 where
+
+-- Test name: VariableNamesClash
 
 infix  4 _≡_
 
