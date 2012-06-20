@@ -52,7 +52,7 @@ import Data.String ( String )
 import Data.Eq       ( Eq((==), (/=)) )
 import Data.Function ( ($) )
 import Data.Functor  ( fmap )
-import Data.List     ( (++), elemIndex, map )
+import Data.List     ( (++), concatMap, elemIndex, map )
 import Data.Maybe    ( Maybe(Just, Nothing) )
 import Data.Ord      ( Ord((<), (>)) )
 
@@ -112,9 +112,8 @@ instance IncIndex Term where
   incIndex (Pi _ _)     = __IMPOSSIBLE__
   incIndex (Sort _)     = __IMPOSSIBLE__
 
--- Requires FlexibleInstances.
-instance IncIndex (Arg Term) where
-  incIndex (Arg h r term) = Arg h r $ incIndex term
+instance IncIndex a ⇒ IncIndex (Arg a) where
+  incIndex (Arg h r e) = Arg h r $ incIndex e
 
 ------------------------------------------------------------------------------
 -- | To decrease by one the de Bruijn index of the variable.
@@ -145,10 +144,10 @@ instance DecIndex Type where
   decIndex _                         = __IMPOSSIBLE__
 
 instance DecIndex a ⇒ DecIndex (Arg a) where
-  decIndex (Arg h r a) = Arg h r $ decIndex a
+  decIndex (Arg h r e) = Arg h r $ decIndex e
 
 instance DecIndex a ⇒ DecIndex (Dom a) where
-  decIndex (Dom h r a) = Dom h r $ decIndex a
+  decIndex (Dom h r e) = Dom h r $ decIndex e
 
 instance DecIndex a ⇒ DecIndex (Abs a) where
   decIndex (Abs name body) = Abs name $ decIndex body
@@ -192,12 +191,11 @@ instance VarNames Term where
   varNames (Pi _ _)            = __IMPOSSIBLE__
   varNames (Sort _)            = __IMPOSSIBLE__
 
-instance VarNames (Arg Term) where
-  varNames (Arg _ _ term) = varNames term
+instance VarNames a ⇒ VarNames (Arg a) where
+  varNames (Arg _ _ e) = varNames e
 
-instance VarNames Args where
-  varNames []           = []
-  varNames (arg : args) = varNames arg ++ varNames args
+instance VarNames a ⇒ VarNames [a] where
+  varNames = concatMap varNames
 
 instance VarNames ClauseBody where
   varNames (Bind (Abs x cBody)) = varNames cBody ++ [x]
@@ -263,6 +261,7 @@ instance ChangeIndex Term where
 -- however, we cannot create the instance of Args based on a simple
 -- map, because in some cases we need to erase the term.
 
+-- Requires @TypeSynonymInstances@ and @FlexibleInstances@.
 instance ChangeIndex Args where
   changeIndex [] _ = []
 
@@ -378,15 +377,11 @@ instance TypesOfVars Term where
   typesOfVars (Sort _)     = __IMPOSSIBLE__
 
 
-instance TypesOfVars (Arg Term) where
-  typesOfVars (Arg _ _ term) = typesOfVars term
+instance TypesOfVars a ⇒ TypesOfVars (Arg a) where
+  typesOfVars (Arg _ _ e) = typesOfVars e
 
-instance TypesOfVars Args where
-  typesOfVars []       = []
-  typesOfVars (x : xs) = typesOfVars x ++ typesOfVars xs
-
--- instance TypesOfVars (Abs Type) where
---   typesOfVars (Abs _ ty) = typesOfVars ty
+instance TypesOfVars a ⇒ TypesOfVars [a] where
+  typesOfVars = concatMap typesOfVars
 
 -- | Remove the reference to a variable (i.e. Var n args) from an Agda
 -- internal entity.
@@ -453,8 +448,8 @@ instance DropVar Term where
 -- instance DropVar (Arg Type) where
 --   dropVar (Arg h r ty) x = fmap (Arg h r) (dropVar ty x)
 
-instance DropVar (Dom Type) where
-  dropVar (Dom h r ty) x = fmap (Dom h r) (dropVar ty x)
+instance DropVar a ⇒ DropVar (Dom a) where
+  dropVar (Dom h r e) x = fmap (Dom h r) (dropVar e x)
 
 -- In the Agda source code (Agda.Syntax.Internal) we have
 --
@@ -463,7 +458,7 @@ instance DropVar (Dom Type) where
 -- however, we cannot create the instance of Args based on a map,
 -- because in some cases we need to erase the term.
 
--- Requires TypeSynonymInstances.
+-- Requires @TypeSynonymInstances@ and @FlexibleInstances@.
 instance DropVar Args where
   dropVar [] _ = return []
 

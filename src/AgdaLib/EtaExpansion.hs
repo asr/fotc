@@ -159,7 +159,7 @@ instance EtaExpandible Term where
   etaExpand (Sort _)            = __IMPOSSIBLE__
 
 instance EtaExpandible a ⇒ EtaExpandible (Arg a) where
-  etaExpand (Arg h r t) = Arg h r <$> etaExpand t
+  etaExpand (Arg h r e) = Arg h r <$> etaExpand e
 
 instance EtaExpandible a ⇒ EtaExpandible (Dom a) where
-  etaExpand (Dom h r t) = Dom h r <$> etaExpand t
+  etaExpand (Dom h r e) = Dom h r <$> etaExpand e

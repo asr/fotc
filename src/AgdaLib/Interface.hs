@@ -345,14 +345,14 @@ instance QNamesIn a ⇒ QNamesIn [a] where
   qNamesIn = concatMap qNamesIn
 
 instance QNamesIn a ⇒ QNamesIn (Arg a) where
-  qNamesIn (Arg _ _ t) = qNamesIn t
+  qNamesIn (Arg _ _ e) = qNamesIn e
 
 instance QNamesIn a ⇒ QNamesIn (Dom a) where
-  qNamesIn (Dom _ _ t) = qNamesIn t
+  qNamesIn (Dom _ _ e) = qNamesIn e
 
 instance QNamesIn a ⇒ QNamesIn (Abs a) where
-  qNamesIn (Abs _ b)   = qNamesIn b
-  qNamesIn (NoAbs _ b) = qNamesIn b
+  qNamesIn (Abs _ e)   = qNamesIn e
+  qNamesIn (NoAbs _ e) = qNamesIn e
 
 instance QNamesIn Term where
   qNamesIn (Con qName args) = qName : qNamesIn args
