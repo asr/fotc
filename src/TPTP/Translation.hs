@@ -75,10 +75,14 @@ import Agda.Utils.Monad      ( ifM )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import AgdaLib.DeBruijn     ( dropProofTerm , TypesOfVars(typesOfVars) )
-import AgdaLib.EtaExpansion ( EtaExpandible(etaExpand) )
+import AgdaInternal.RemoveProofTerms
+  ( removeProofTerm
+  , TypesOfVars(typesOfVars)
+  )
 
-import AgdaLib.Interface
+import AgdaInternal.EtaExpansion ( EtaExpandible(etaExpand) )
+
+import AgdaInternal.Interface
   ( getATPAxioms
   , getATPConjectures
   , getATPHints
@@ -130,8 +134,8 @@ toAF role qName def = do
     ++ "i.e. (Abs x _), but not (NoAbs x _) are:\n"
     ++ showListLn (typesOfVars tyEtaExpanded)
 
-  -- We drop the variables which are proof terms from the types.
-  tyReady ← foldM dropProofTerm
+  -- We remvoe the variables which are proof terms from the types.
+  tyReady ← foldM removeProofTerm
                   tyEtaExpanded
                   (reverse $ typesOfVars tyEtaExpanded)
 

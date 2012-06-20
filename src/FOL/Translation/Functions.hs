@@ -79,8 +79,8 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import AgdaLib.DeBruijn       ( DecIndex(decIndex) )
-import FOL.Primitives         ( equal )
+import AgdaInternal.DeBruijn ( DecIndex(decIndex) )
+import FOL.Primitives        ( equal )
 
 import FOL.Translation.Internal
   ( cBodyToFormula

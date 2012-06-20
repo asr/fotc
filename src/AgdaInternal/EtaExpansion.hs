@@ -15,7 +15,7 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module AgdaLib.EtaExpansion ( EtaExpandible(etaExpand) ) where
+module AgdaInternal.EtaExpansion ( EtaExpandible(etaExpand) ) where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
@@ -69,9 +69,9 @@ import Agda.Utils.Monad      ( whenM )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import AgdaLib.DeBruijn  ( IncIndex(incIndex) )
-import AgdaLib.Interface ( isProjection, qNameType )
-import Monad.Base        ( newTVar, T )
+import AgdaInternal.DeBruijn  ( IncIndex(incIndex) )
+import AgdaInternal.Interface ( isProjection, qNameType )
+import Monad.Base             ( newTVar, T )
 
 #include "../undefined.h"
 

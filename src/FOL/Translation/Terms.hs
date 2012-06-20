@@ -84,7 +84,7 @@ import Agda.Utils.Monad      ( unlessM )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import AgdaLib.Interface ( isATPDefinition, qNameDefinition )
+import AgdaInternal.Interface ( isATPDefinition, qNameDefinition )
 
 import FOL.Constants
   ( folTrue, folFalse, folNot, folAnd, folOr

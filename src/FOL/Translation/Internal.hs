@@ -59,12 +59,12 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import AgdaLib.DeBruijn      ( ChangeIndex(changeIndex), varToIndex )
-import AgdaLib.EtaExpansion  ( EtaExpandible(etaExpand) )
-import FOL.Translation.Terms ( termToFormula, termToFOLTerm )
-import FOL.Types             ( FOLFormula, FOLTerm )
-import Monad.Base            ( T )
-import Monad.Reports         ( reportSLn )
+import AgdaInternal.DeBruijn      ( ChangeIndex(changeIndex), varToIndex )
+import AgdaInternal.EtaExpansion  ( EtaExpandible(etaExpand) )
+import FOL.Translation.Terms      ( termToFormula, termToFOLTerm )
+import FOL.Types                  ( FOLFormula, FOLTerm )
+import Monad.Base                 ( T )
+import Monad.Reports              ( reportSLn )
 
 #include "../../undefined.h"
 

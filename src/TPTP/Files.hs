@@ -75,11 +75,11 @@ import Agda.Utils.Monad      ( whenM )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import AgdaLib.Interface   ( qNameLine )
-import Monad.Base          ( getTOpt, T )
-import Monad.Reports       ( reportS, reportSLn )
-import Options             ( Options(optOnlyFiles, optOutputDir) )
-import TPTP.ConcreteSyntax ( ToTPTP(toTPTP) )
+import AgdaInternal.Interface ( qNameLine )
+import Monad.Base             ( getTOpt, T )
+import Monad.Reports          ( reportS, reportSLn )
+import Options                ( Options(optOnlyFiles, optOutputDir) )
+import TPTP.ConcreteSyntax    ( ToTPTP(toTPTP) )
 
 import TPTP.Types
   ( AF(MkAF)

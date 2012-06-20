@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------------
 -- |
--- Module      : AgdaLib.Interface
+-- Module      : AgdaInternal.Interface
 -- Copyright   : (c) Andrés Sicard-Ramírez 2009-2012
 -- License     : See the file LICENSE.
 --
@@ -15,7 +15,7 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module AgdaLib.Interface
+module AgdaInternal.Interface
   ( getATPAxioms
   , getATPConjectures
   , getATPHints

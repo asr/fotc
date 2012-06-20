@@ -70,8 +70,8 @@ import Agda.Utils.Impossible ( catchImpossible )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import AgdaLib.Interface ( getImportedInterfaces, myReadInterface )
-import ATP               ( callATPs )
+import AgdaInternal.Interface ( getImportedInterfaces, myReadInterface )
+import ATP                    ( callATPs )
 
 import Monad.Base
   ( modifyDefs

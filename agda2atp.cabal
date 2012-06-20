@@ -41,9 +41,10 @@ executable agda2atp
                  , process              >= 1.0     && < 1.2
                  , unordered-containers == 0.2.*
 
-  other-modules: AgdaLib.DeBruijn
-                 AgdaLib.EtaExpansion
-                 AgdaLib.Interface
+  other-modules: AgdaInternal.DeBruijn
+                 AgdaInternal.EtaExpansion
+                 AgdaInternal.Interface
+                 AgdaInternal.RemoveProofTerms
                  ATP
                  FOL.Constants
                  FOL.Primitives
