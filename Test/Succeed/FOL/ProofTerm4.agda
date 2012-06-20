@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Test.Succeed.FOL.ProofTerm5 where
+module Test.Succeed.FOL.ProofTerm4 where
 
 postulate
   D              : Set
