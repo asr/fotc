@@ -169,10 +169,9 @@ parsing_% :
 	    echo "Processing file $$file"; \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
 	    if ! ( $(AGDA2ATP) --non-fol --only-files $${file} ); then exit 1; fi; \
-	    for tptp_file in $(output_dir)/*.tptp; do \
+	    find $(output_dir) | while read tptp_file; do \
               if ! ( tptp4X $${tptp_file} ); then exit 1; fi; \
 	    done; \
-	    rm $(output_dir)/*.tptp; \
 	done
 
 all_parsing : parsing_DistributiveLaws \
