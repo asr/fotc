@@ -53,14 +53,10 @@ import Text.Show ( Show(show) )
 ------------------------------------------------------------------------------
 -- Agda library imports
 
-import Agda.Syntax.Abstract.Name
-  ( Name(nameBindingSite)
-  , QName(qnameName)
-  )
-
-import Agda.Syntax.Common    ( ATPRole )
-import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
-import Agda.Utils.Monad      ( whenM )
+import Agda.Syntax.Abstract.Name ( QName )
+import Agda.Syntax.Common        ( ATPRole )
+import Agda.Utils.Impossible     ( Impossible(Impossible), throwImpossible )
+import Agda.Utils.Monad          ( whenM )
 
 ------------------------------------------------------------------------------
 -- Local imports
@@ -131,9 +127,9 @@ conjectureFooter = "% End ATP pragma conjecture file.\n"
 agdaOriginalTerm ∷ QName → ATPRole → String
 agdaOriginalTerm qName role =
   "% The original Agda term was:\n"
-  ++ "% Name:\t\t" ++ showLn qName
-  ++ "% Role:\t\t" ++ showLn role
-  ++ "% Position:\t" ++ showLn (nameBindingSite $ qnameName qName)
+  ++ "% Name:\t" ++ showLn qName
+  ++ "% Role:\t" ++ showLn role
+  ++ "% Line:\t" ++ showLn (qNameLine qName)
 
 addRole ∷ AF → FilePath → IO ()
 addRole af@(MkAF qName afRole _) file = do
