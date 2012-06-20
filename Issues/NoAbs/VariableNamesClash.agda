@@ -1,7 +1,10 @@
+-- 20 June 2012. Agda is using (Pi _ (NoAbs _ _)) for the non-dependent
+-- functions, so we have some bugs in the translation.
+
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Test.Succeed.FOL.VariableNamesClash where
+module Issues.NoAbs.VariableNamesClash where
 
 infix  4 _≡_
 

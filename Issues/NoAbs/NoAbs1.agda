@@ -1,11 +1,10 @@
-------------------------------------------------------------------------------
--- The translation is badly erasing the universal quantification
-------------------------------------------------------------------------------
+-- 20 June 2012. Agda is using (Pi _ (NoAbs _ _)) for the non-dependent
+-- functions, so we have some bugs in the translation.
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Issues.BadErase where
+module Issues.NoAbs.NoAbs1 where
 
 postulate
   _↔_ : Set → Set → Set
