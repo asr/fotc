@@ -94,7 +94,8 @@ import Utils.Show    ( showLn )
 #include "../undefined.h"
 
 ------------------------------------------------------------------------------
--- | To increase by one the de Bruijn index of the variable.
+-- | To increase by one the de Bruijn index of the variable in an Agda
+-- entity.
 class IncIndex a where
   incIndex ∷ a → a
 
@@ -116,7 +117,8 @@ instance IncIndex a ⇒ IncIndex (Arg a) where
   incIndex (Arg h r e) = Arg h r $ incIndex e
 
 ------------------------------------------------------------------------------
--- | To decrease by one the de Bruijn index of the variable.
+-- | To decrease by one the de Bruijn index of the variable in an Agda
+-- entity.
 class DecIndex a where
   decIndex ∷ a → a
 
@@ -202,7 +204,7 @@ instance VarNames ClauseBody where
   varNames (Body term)          = varNames term
   varNames _                    = __IMPOSSIBLE__
 
--- Return the de Bruijn index of a variable in a ClauseBody.
+-- | Return the de Bruijn index of a variable in a 'ClauseBody'.
 varToIndex ∷ ClauseBody → String → Nat
 varToIndex cBody x =
   case elemIndex x (varNames cBody) of
@@ -210,7 +212,9 @@ varToIndex cBody x =
     Nothing → __IMPOSSIBLE__
 
 ------------------------------------------------------------------------------
--- To change a de Bruijn index with respect to other index.
+-- | To change a de Bruijn index with respect to other index in an
+-- Agda entity.
+
 -- Let's suppose we have something like
 
 -- @λ m : D → (λ n : D → (λ Nn : N n → (λ h : D → ... Var 2 ...)))@
@@ -346,6 +350,7 @@ instance ChangeIndex ClauseBody where
 --
 -- so we need create the list in the same order.
 
+-- | Types of the bounded variables in an Agda entity.
 class TypesOfVars a where
   typesOfVars ∷ a → [(String, Type)]
 
@@ -383,8 +388,8 @@ instance TypesOfVars a ⇒ TypesOfVars (Arg a) where
 instance TypesOfVars a ⇒ TypesOfVars [a] where
   typesOfVars = concatMap typesOfVars
 
--- | Remove the reference to a variable (i.e. Var n args) from an Agda
--- internal entity.
+-- | Remove the reference to a variable (i.e. Var n args) in an Agda
+-- entity.
 class DropVar a where
   dropVar ∷ a → String → T a
 
@@ -484,6 +489,7 @@ instance DropVar Args where
   dropVar (Arg h r term : args) x =
     liftM2 (\t ts → Arg h r t : ts) (dropVar term x) (dropVar args x)
 
+-- | Drop a proof term from an Agda 'Type'.
 dropProofTerm ∷ Type → (String, Type) → T Type
 dropProofTerm ty (x, typeVar) = do
   reportSLn "dropPT" 20 $

@@ -125,10 +125,12 @@ toAF role qName def = do
     then reportSLn "toAF" 20 "The type and the eta-expanded type: equals"
     else reportSLn "toAF" 20 "The type and the eta-expanded type: different"
 
-  -- We drop the variables which are proof terms from the types.
   reportSLn "toAF" 20 $
-            "The typesOfVars are:\n" ++ showListLn (typesOfVars tyEtaExpanded)
+    "The types of the bounded variables,"
+    ++ "i.e. (Abs x _), but not (NoAbs x _) are:\n"
+    ++ showListLn (typesOfVars tyEtaExpanded)
 
+  -- We drop the variables which are proof terms from the types.
   tyReady ← foldM dropProofTerm
                   tyEtaExpanded
                   (reverse $ typesOfVars tyEtaExpanded)

@@ -273,18 +273,18 @@ termToFormula term@(Lam _ (Abs _ termLam)) = do
 
   return f
 
-termToFormula (Pi domTy (NoAbs var tyAbs)) = do
+termToFormula (Pi domTy (NoAbs x tyAbs)) = do
   reportSLn "t2f" 10 $
     "termToFormula Pi _ (NoAbs _ _):\n"
     ++ "domTy: " ++ show domTy ++ "\n"
-    ++ "absTy: " ++ show (NoAbs var tyAbs)
+    ++ "absTy: " ++ show (NoAbs x tyAbs)
   liftM2 Implies (domTypeToFormula domTy) (typeToFormula tyAbs)
 
-termToFormula (Pi domTy (Abs var tyAbs)) = do
+termToFormula (Pi domTy (Abs x tyAbs)) = do
   reportSLn "t2f" 10 $
     "termToFormula Pi _ (Abs _ _):\n"
     ++ "domTy: " ++ show domTy ++ "\n"
-    ++ "absTy: " ++ show (Abs var tyAbs)
+    ++ "absTy: " ++ show (Abs x tyAbs)
 
   freshVar ← newTVar
 
