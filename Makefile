@@ -76,9 +76,11 @@ snapshot_files_to_test = $(patsubst %.agda,%.snapshottest, \
 create_snapshot : $(snapshot_files_to_create)
 	@echo "The creation of the snapshot succeeded!"
 
+##############################################################################
 # Haskell program coverage.
 .PHONY : hpc
-hpc : hpc_clean $(succeed_files_FOL) $(succeed_files_NonFOL) $(fail_files_FOL)
+hpc : hpc_clean hpc_install \
+      $(succeed_files_FOL) $(succeed_files_NonFOL) $(fail_files_FOL)
 	hpc markup --exclude=Snapshot \
                    --exclude=Paths_agda2atp \
                    --destdir=$(hpc_html_dir) \
@@ -87,7 +89,14 @@ hpc : hpc_clean $(succeed_files_FOL) $(succeed_files_NonFOL) $(fail_files_FOL)
                    --exclude=Paths_agda2atp \
                    --decl-list \
                    agda2atp
+hpc_install :
+	cabal install --enable-library-coverage
 
+hpc_clean :
+	rm -f *.tix
+	rm -f -r $(hpc_html_dir)
+
+##############################################################################
 # The tests.
 succeed  : $(succeed_files_FOL) $(succeed_files_NonFOL)
 	@echo "The $@ test succeeded!"
@@ -145,7 +154,3 @@ clean :
 
 snapshot_clean :
 	rm -r -f $(snapshot_dir)
-
-hpc_clean :
-	rm -f *.tix
-	rm -f -r $(hpc_html_dir)
