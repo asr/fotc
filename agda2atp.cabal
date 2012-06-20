@@ -36,6 +36,7 @@ executable agda2atp
                  , directory            >= 1.0     && < 1.2
                  , filepath             >= 1.1     && < 1.4
                  , ghc-prim             >= 0.2     && < 0.3
+                 , MissingH             >= 1.0     && < 1.2
                  , mtl                  >= 2.0     && < 2.2
                  , process              >= 1.0     && < 1.2
                  , unordered-containers == 0.2.*

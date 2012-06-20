@@ -18,9 +18,7 @@ succeed_path_NonFOL = $(succeed_path)/NonFOL
 # 2012-04-29: We don't have fail tests in NonFOL
 fail_path_FOL = Test/Fail
 
-hpc_html_dir = hpc
 output_dir   = /tmp/agda2atp
-snapshot_dir = snapshot
 
 succeed_files = $(patsubst %.agda,%.succeed, \
 	$(shell find $(succeed_path) -name "*.agda" | sort))
@@ -48,23 +46,46 @@ snapshot_files_to_test = $(patsubst %.agda,%.snapshottest, \
 %.agdai : %.agda
 	$(AGDA) $<
 
+##############################################################################
+# Succeed test.
+
 %.succeed_FOL : %.agdai
 	$(AGDA2ATP) --time=10 $*.agda
 
 %.succeed_NonFOL : %.agdai
 	$(AGDA2ATP) --time=10 --non-fol $*.agda
 
+succeed  : $(succeed_files_FOL) $(succeed_files_NonFOL)
+	@echo "The $@ test succeeded!"
+
+##############################################################################
+# Fail test.
+
 %.fail_FOL : %.agdai
 	if ( $(AGDA2ATP) --time=5 $*.agda ); then exit 1; fi
 
+fail : $(fail_files_FOL)
+	@echo "The $@ test succeeded!"
+
+##############################################################################
+# Parsing test.
+
 # We use tptp4X from the TPTP library to parse the TPTP files.
 %.parsing : %.agdai
-	$(AGDA2ATP) --non-fol  --only-files $*.agda
+	$(AGDA2ATP) --non-fol --only-files $*.agda
 
-	for file in $(output_dir)/*.tptp; do \
+	find $(output_dir) | while read file; do \
 	  tptp4X $${file}; \
 	done
-	rm $(output_dir)/*.tptp
+
+	rm -r $(output_dir)
+parsing  : $(parsing_files)
+	@echo "The $@ test succeeded!"
+
+##############################################################################
+# Snapshot of the succeed TPTP files.
+
+snapshot_dir = snapshot
 
 %.snapshotcreate : %.agdai
 	agda2atp --only-files --non-fol --output-dir=$(snapshot_dir) $*.agda
@@ -72,12 +93,20 @@ snapshot_files_to_test = $(patsubst %.agda,%.snapshottest, \
 %.snapshottest : %.agdai
 	agda2atp --non-fol --snapshot-test --snapshot-dir=$(snapshot_dir) $*.agda
 
-# Snapshot of the succeed TPTP files.
 create_snapshot : $(snapshot_files_to_create)
 	@echo "The creation of the snapshot succeeded!"
 
+snapshot : $(snapshot_files_to_test)
+	@echo "The $@ test succeeded!"
+
+snapshot_clean :
+	rm -r -f $(snapshot_dir)
+
 ##############################################################################
 # Haskell program coverage.
+
+hpc_html_dir = hpc
+
 .PHONY : hpc
 hpc : hpc_clean hpc_install \
       $(succeed_files_FOL) $(succeed_files_NonFOL) $(fail_files_FOL)
@@ -97,16 +126,7 @@ hpc_clean :
 	rm -f -r $(hpc_html_dir)
 
 ##############################################################################
-# The tests.
-succeed  : $(succeed_files_FOL) $(succeed_files_NonFOL)
-	@echo "The $@ test succeeded!"
-fail     : $(fail_files_FOL)
-	@echo "The $@ test succeeded!"
-parsing  : $(parsing_files)
-	@echo "The $@ test succeeded!"
-snapshot : $(snapshot_files_to_test)
-	@echo "The $@ test succeeded!"
-
+# Running the tests.
 test : clean
 	@echo "======================================================================"
 	@echo "== Suite of parsing tests ============================================"
@@ -151,6 +171,3 @@ clean :
 	find -name '*.agdai' | xargs rm -f
 	rm -f -r $(output_dir)
 	rm -f TAGS
-
-snapshot_clean :
-	rm -r -f $(snapshot_dir)

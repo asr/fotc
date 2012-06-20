@@ -29,13 +29,13 @@ import Control.Monad.Trans ( liftIO )
 import Data.Bool     ( not )
 import Data.Eq       ( Eq((==)) )
 import Data.Function ( ($) )
-import Data.List     ( (++) )
+import Data.List     ( (++), drop, length )
 
 #if __GLASGOW_HASKELL__ == 612
 import GHC.Num ( Num(fromInteger) )
 #endif
 
-import System.FilePath ( replaceDirectory )
+import System.FilePath ( combine, joinPath, splitPath )
 import System.IO       ( FilePath )
 
 ------------------------------------------------------------------------------
@@ -59,8 +59,12 @@ snapshotTest file = do
   outputDir   ← getTOpt optOutputDir
   snapshotDir ← getTOpt optSnapshotDir
 
-  let snapshotFile ∷ FilePath
-      snapshotFile = replaceDirectory file snapshotDir
+  -- The original file without the output directory.
+  let auxFile ∷ FilePath
+      auxFile = joinPath $ drop (length $ splitPath outputDir) $ splitPath file
+
+      snapshotFile ∷ FilePath
+      snapshotFile = combine snapshotDir auxFile
 
   if outputDir == snapshotDir
     then throwError "The --output-dir cannot be the same than the --snapshot-dir"
@@ -72,8 +76,6 @@ snapshotTest file = do
           diffOutput ← liftIO $ diff file snapshotFile
           if diffOutput
             then throwError $
-                 "The files " ++ file ++ " and " ++ snapshotFile
-                 ++ " are different"
+                 "The files are different:\n" ++ file ++ "\n" ++ snapshotFile
             else reportS "" 1 $
-                 "The files " ++ file ++ " and " ++ snapshotFile
-                 ++ " are the same"
+                 "The files are the same:\n" ++ file ++ "\n" ++ snapshotFile

@@ -34,10 +34,12 @@ import Data.Char ( String )
 import Data.String ( String )
 #endif
 
-import Data.Char     ( Char, chr, isAsciiUpper, isAsciiLower, isDigit, ord )
-import Data.Bool     ( (||), Bool(True), otherwise )
-import Data.Function ( ($) )
-import Data.List     ( (++), concatMap, elem )
+import Data.Char       ( Char, chr, isAsciiUpper, isAsciiLower, isDigit, ord )
+import Data.Bool       ( (||), Bool(True), otherwise )
+import Data.Eq         ( Eq((==)) )
+import Data.Function   ( ($), (.) )
+import Data.List       ( (++), concat, concatMap, elem )
+import Data.List.Utils ( replace )
 
 #if __GLASGOW_HASKELL__ == 612
 import GHC.Num ( Num(fromInteger) )
@@ -53,10 +55,22 @@ import Text.Show ( Show(show) )
 ------------------------------------------------------------------------------
 -- Agda library imports
 
-import Agda.Syntax.Abstract.Name ( QName )
-import Agda.Syntax.Common        ( ATPRole )
-import Agda.Utils.Impossible     ( Impossible(Impossible), throwImpossible )
-import Agda.Utils.Monad          ( whenM )
+import Agda.Syntax.Abstract.Name
+  ( mnameToConcrete
+  , Name(nameConcrete)
+  , QName(qnameModule, qnameName)
+  )
+
+import Agda.Syntax.Common ( ATPRole )
+
+import Agda.Syntax.Concrete.Name
+  ( moduleNameToFileName
+  , nameStringParts
+  , toTopLevelModuleName
+  )
+
+import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
+import Agda.Utils.Monad      ( whenM )
 
 ------------------------------------------------------------------------------
 -- Local imports
@@ -93,7 +107,8 @@ class AsciiName a where
 
 instance AsciiName Char where
   asciiName c
-    | c `elem` "._-" = [c]
+    | c == '-' = [c]
+    | c `elem` "._" = __IMPOSSIBLE__
     -- The character is a subscript number (i.e. ₀, ₁, ₂, ...).
     | ord c `elem` [8320 .. 8329] = [chr (ord c - 8272)]
     | isDigit c || isAsciiUpper c || isAsciiLower c = [c]
@@ -171,11 +186,26 @@ createConjectureFile generalRoles conjectureSet = do
       qName = case theConjecture conjectureSet of
                 MkAF _qName _ _ → _qName
 
-  liftIO $ createDirectoryIfMissing True outputDir
+      moduleDir ∷ FilePath
+      moduleDir = ((`moduleNameToFileName` [])
+                   . toTopLevelModuleName
+                   . mnameToConcrete
+                   . qnameModule) qName
+
+      -- We removed the "/_"s in the module name produced by Agda when
+      -- the qName is inside a where clause.
+      finalDir ∷ FilePath
+      finalDir = outputDir </> replace "/_" "" moduleDir
+
+  liftIO $ createDirectoryIfMissing True finalDir
+
+  reportSLn "createConjectureFile" 20 $ "Final dir: " ++ finalDir
 
   let f ∷ FilePath
-      f = outputDir </>
-          asciiName (show qName) ++ "_" ++ show (qNameLine qName)
+      f = finalDir </>
+          asciiName ((concat . nameStringParts . nameConcrete . qnameName) qName)
+          ++ "_"
+          ++ show (qNameLine qName)
 
       file ∷ FilePath
       file = addExtension f tptpExt
