@@ -137,7 +137,7 @@ conjectureHeader = do
     ++ commentLineLn
 
 conjectureFooter ∷ String
-conjectureFooter = "% End ATP pragma conjecture file.\n"
+conjectureFooter = commentLine ++ "% End ATP pragma conjecture file.\n"
 
 agdaOriginalTerm ∷ QName → ATPRole → String
 agdaOriginalTerm qName role =
@@ -225,18 +225,18 @@ createConjectureFile generalRoles conjectureSet = do
   liftIO $ do
     conjectureH ← conjectureHeader
     writeFile file conjectureH
-    addRoles commonDefs file "common required definitions"
-    addRoles (axioms newGeneralRoles) file "general axioms"
+    addRoles commonDefs file "common required definition(s)"
+    addRoles (axioms newGeneralRoles) file "general axiom(s)"
     addRoles (defsAxioms newGeneralRoles) file
-             "required ATP definitions by the general axioms"
-    addRoles (hints newGeneralRoles) file "general hints"
+             "required ATP definition(s) by the general axiom(s)"
+    addRoles (hints newGeneralRoles) file "general hint(s)"
     addRoles (defsHints newGeneralRoles) file
-             "required ATP definitions by the general hints"
-    addRoles (localHintsConjecture  newConjectureSet) file "local hints"
+             "required ATP definition(s) by the general hint(s)"
+    addRoles (localHintsConjecture  newConjectureSet) file "local hint(s)"
     addRoles (defsLocalHints newConjectureSet) file
-             "required ATP definitions by the local hints"
+             "required ATP definition(s) by the local hint(s)"
     addRoles (defsConjecture newConjectureSet) file
-             "required ATP definitions by the conjecture"
+             "required ATP definition(s) by the conjecture"
     addRoles [theConjecture newConjectureSet] file "conjecture"
     appendFile file conjectureFooter
     return ()
