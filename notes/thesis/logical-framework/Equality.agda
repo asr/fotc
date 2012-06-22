@@ -14,7 +14,7 @@ module LF where
   sym {x} h = subst (λ t → t ≡ x) h refl
 
   trans : ∀ {x y z} → x ≡ y → y ≡ z → x ≡ z
-  trans {z = z} h₁ h₂ = subst (λ t → t ≡ z) (sym h₁) h₂
+  trans {x} h₁ h₂ = subst (_≡_ x) h₂ h₁
 
 module Inductive where
 
@@ -25,7 +25,7 @@ module Inductive where
   sym-er {x} h = subst (λ t → t ≡ x) h refl
 
   trans-er : ∀ {x y z} → x ≡ y → y ≡ z → x ≡ z
-  trans-er {z = z} h₁ h₂ = subst (λ t → t ≡ z) (sym h₁) h₂
+  trans-er {x} h₁ h₂ = subst (_≡_ x) h₂ h₁
 
   -- NB. The proofs of sym and trans by pattern matching are in the
   -- module Common.FOL.Relation.Binary.PropositionalEquality.

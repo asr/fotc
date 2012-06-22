@@ -25,7 +25,7 @@ sym : ∀ {x y} → x ≡ y → y ≡ x
 sym {x} h = J (λ y' → y' ≡ x) h refl
 
 trans : ∀ {x y z} → x ≡ y → y ≡ z → x ≡ z
-trans {x} h₁ h₂ = J (λ y' → x ≡ y') h₂ h₁
+trans {x} h₁ h₂ = J (_≡_ x) h₂ h₁
 
 trans₂ : ∀ {w x y z} → w ≡ x → x ≡ y → y ≡ z → w ≡ z
 trans₂ h₁ h₂ h₃ = trans (trans h₁ h₂) h₃
@@ -38,7 +38,7 @@ subst₂ : (A : D → D → Set) → ∀ {x₁ x₂ y₁ y₂} →
          A x₁ x₂ →
          A y₁ y₂
 subst₂ A {x₁} {x₂} {y₁} {y₂} h₁ h₂ h₃ =
-  subst (λ y₁' → A y₁' y₂) h₁ (subst (λ y₂' → A x₁ y₂') h₂ h₃)
+  subst (λ y₁' → A y₁' y₂) h₁ (subst (A x₁) h₂ h₃)
 
 cong : (f : D → D) → ∀ {x y} → x ≡ y → f x ≡ f y
 cong f {x} h = subst (λ x' → f x ≡ f x') h refl
