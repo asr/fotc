@@ -119,7 +119,7 @@ hpc : hpc_clean hpc_install \
                    --decl-list \
                    agda2atp
 hpc_install :
-	cabal install --enable-library-coverage
+	cabal clean && cabal install --ghc-option=-fhpc
 
 hpc_clean :
 	rm -f *.tix
