@@ -2,14 +2,15 @@
 
 haskell_files = $(shell find src/ -name '*.hs')
 
-AGDA     = agda -v 0
+AGDA = agda -v 0
+
 # The defaults ATPs are e, equinox, and vampire.
-AGDA2ATP = agda2atp --output-dir=$(output_dir)
-# AGDA2ATP = agda2atp --atp=e --output-dir=$(output_dir)
-# AGDA2ATP = agda2atp --atp=equinox --output-dir=$(output_dir)
-# AGDA2ATP = agda2atp --atp=metis --output-dir=$(output_dir)
-# AGDA2ATP = agda2atp --atp=spass --output-dir=$(output_dir)
-# AGDA2ATP = agda2atp --atp=vampire --output-dir=$(output_dir)
+AGDA2ATP = dist/build/agda2atp/agda2atp --output-dir=$(output_dir)
+# AGDA2ATP = dist/build/agda2atp/agda2atp --atp=e --output-dir=$(output_dir)
+# AGDA2ATP = dist/build/agda2atp/agda2atp --atp=equinox --output-dir=$(output_dir)
+# AGDA2ATP = dist/build/agda2atp/agda2atp --atp=metis --output-dir=$(output_dir)
+# AGDA2ATP = dist/build/agda2atp/agda2atp --atp=spass --output-dir=$(output_dir)
+# AGDA2ATP = dist/build/agda2atp/agda2atp --atp=vampire --output-dir=$(output_dir)
 
 succeed_path        = Test/Succeed
 succeed_path_FOL    = $(succeed_path)/FOL
