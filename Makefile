@@ -58,11 +58,13 @@ snapshot_test_files = $(call path_subst,snapshot_test,$(succeed_path))
 
 %.succeed_FOL : %.agdai
 	$(AGDA2ATP) --time=10 $*.agda
+	diff -r $(output_dir)/$* $*
 
 %.succeed_NonFOL : %.agdai
 	$(AGDA2ATP) --time=10 --non-fol $*.agda
+	diff -r $(output_dir)/$* $*
 
-succeed : clean $(succeed_FOL_files) $(succeed_NonFOL_files)
+succeed : $(succeed_FOL_files) $(succeed_NonFOL_files)
 	@echo "The $@ test succeeded!"
 
 ##############################################################################
@@ -71,7 +73,7 @@ succeed : clean $(succeed_FOL_files) $(succeed_NonFOL_files)
 %.fail_FOL : %.agdai
 	if ( $(AGDA2ATP) --time=5 $*.agda ); then exit 1; fi
 
-fail : clean $(fail_FOL_files)
+fail : $(fail_FOL_files)
 	@echo "The $@ test succeeded!"
 
 ##############################################################################
@@ -86,7 +88,7 @@ fail : clean $(fail_FOL_files)
 	done
 
 	rm -r $(output_dir)
-parsing : clean $(parsing_files)
+parsing : $(parsing_files)
 	@echo "The $@ test succeeded!"
 
 ##############################################################################
