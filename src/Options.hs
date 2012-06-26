@@ -11,7 +11,6 @@
 -----------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Options
@@ -40,21 +39,7 @@ module Options
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-#if __GLASGOW_HASKELL__ == 612
-import Control.Monad ( Monad((>>=), fail) )
-#endif
-
-#if __GLASGOW_HASKELL__ < 702
-import Data.Char ( String )
-#else
-import Data.String ( String )
-#endif
-
-import Data.Bool     ( Bool(True, False) )
 import Data.Char     ( isDigit )
-import Data.Function ( ($) )
-import Data.Int      ( Int )
-import Data.List     ( (++), all, elem, init, last )
 
 import System.Console.GetOpt
   ( ArgDescr(NoArg, ReqArg)
@@ -62,16 +47,7 @@ import System.Console.GetOpt
   , usageInfo
   )
 
-#if __GLASGOW_HASKELL__ == 612
-import GHC.Num ( Num(fromInteger) )
-#endif
-
-import GHC.Err ( error )
-
 import System.Environment ( getProgName )
-import System.IO          ( FilePath, IO, putStrLn )
-
-import Text.Read ( read )
 
 ------------------------------------------------------------------------------
 -- Agda library imports

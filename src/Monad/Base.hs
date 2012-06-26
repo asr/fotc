@@ -11,7 +11,6 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Monad.Base
@@ -32,10 +31,6 @@ module Monad.Base
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-#if __GLASGOW_HASKELL__ == 612
-import Control.Monad ( Monad((>>=), fail) )
-#endif
-
 import Control.Monad.Error ( ErrorT(runErrorT) )
 
 import Control.Monad.State
@@ -46,26 +41,7 @@ import Control.Monad.State
   , StateT
   )
 
-#if __GLASGOW_HASKELL__ < 702
-import Data.Char ( String )
-#else
-import Data.String ( String )
-#endif
-
-import Data.Bool     ( Bool )
-import Data.Either   ( Either )
-import Data.Function ( ($), (.) )
-import Data.Functor  ( fmap )
-
 import qualified Data.HashMap.Strict as HashMap ( empty )
-
-import Data.List     ( null )
-
-#if __GLASGOW_HASKELL__ == 612
-import GHC.Num ( Num(fromInteger) )
-#endif
-
-import System.IO ( IO )
 
 ------------------------------------------------------------------------------
 -- Agda library imports

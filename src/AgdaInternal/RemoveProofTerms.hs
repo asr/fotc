@@ -14,7 +14,6 @@
 
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
@@ -69,33 +68,10 @@ module AgdaInternal.RemoveProofTerms
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-#if __GLASGOW_HASKELL__ == 612
-import Control.Monad ( Monad((>>), (>>=), fail) )
-#endif
-import Control.Monad ( liftM2, Monad(return), when )
-
+import Control.Monad       ( liftM2, when )
 import Control.Monad.Error ( MonadError(throwError) )
 
-#if __GLASGOW_HASKELL__ < 702
-import Data.Char ( String )
-#else
-import Data.String ( String )
-#endif
-
-import Data.Eq       ( Eq((==), (/=)) )
-import Data.Function ( ($) )
-import Data.Functor  ( fmap )
-import Data.List     ( (++), concatMap, elemIndex )
-import Data.Maybe    ( Maybe(Just, Nothing) )
-import Data.Ord      ( Ord((<)) )
-
-#if __GLASGOW_HASKELL__ == 612
-import GHC.Num ( Num(fromInteger) )
-#endif
-import GHC.Num  ( Num((-)))
-import GHC.Real ( fromIntegral )
-
-import Text.Show ( Show(show) )
+import Data.List ( elemIndex )
 
 ------------------------------------------------------------------------------
 -- Agda libray imports

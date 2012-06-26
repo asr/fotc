@@ -11,7 +11,6 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Snapshot ( snapshotTest ) where
@@ -19,24 +18,10 @@ module Snapshot ( snapshotTest ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-#if __GLASGOW_HASKELL__ == 612
-import Control.Monad ( Monad((>>=), fail) )
-#endif
-
 import Control.Monad.Error ( MonadError(throwError) )
 import Control.Monad.Trans ( liftIO )
 
-import Data.Bool     ( not )
-import Data.Eq       ( Eq((==)) )
-import Data.Function ( ($) )
-import Data.List     ( (++), drop, length )
-
-#if __GLASGOW_HASKELL__ == 612
-import GHC.Num ( Num(fromInteger) )
-#endif
-
 import System.FilePath ( combine, joinPath, splitPath )
-import System.IO       ( FilePath )
 
 ------------------------------------------------------------------------------
 -- Agda library imports

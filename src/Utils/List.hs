@@ -11,7 +11,6 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Utils.List ( duplicatesElements, nonDuplicate ) where
@@ -19,14 +18,7 @@ module Utils.List ( duplicatesElements, nonDuplicate ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Data.Bool ( (&&), Bool(True) )
-import Data.Eq   ( Eq((==)) )
 import Data.List ( nub )
-import Data.Ord  ( Ord((<=)) )
-
-#if __GLASGOW_HASKELL__ == 612
-import GHC.Num ( Num(fromInteger) )
-#endif
 
 ------------------------------------------------------------------------------
 -- Agda library imports

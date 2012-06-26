@@ -11,21 +11,9 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module FOL.Translation.Name ( concatName ) where
-
-------------------------------------------------------------------------------
--- Haskell imports
-
-#if __GLASGOW_HASKELL__ < 702
-import Data.Char ( String )
-#else
-import Data.String ( String )
-#endif
-
-import Data.List ( concatMap )
 
 ------------------------------------------------------------------------------
 -- Agda library imports

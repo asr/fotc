@@ -11,7 +11,6 @@
 -----------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 -- Adapted from AgdaLight (Plugins.FOL.Constants).
@@ -28,15 +27,6 @@ module FOL.Constants
   , folForAll
   , folEquals
   ) where
-
-------------------------------------------------------------------------------
--- Haskell imports
-
-#if __GLASGOW_HASKELL__ < 702
-import Data.Char ( String )
-#else
-import Data.String ( String )
-#endif
 
 ------------------------------------------------------------------------------
 -- | Identifiers recognized by the FOL translator.

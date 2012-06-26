@@ -12,7 +12,6 @@
 
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TypeSynonymInstances #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
@@ -33,29 +32,6 @@ import Data.Char
   , toLower
   , toUpper
   )
-
-#if __GLASGOW_HASKELL__ == 612
-import Control.Monad ( Monad((>>)) )
-#endif
-
-#if __GLASGOW_HASKELL__ < 702
-import Data.Char ( String )
-#else
-import Data.String ( String )
-#endif
-
-import Data.Char     ( Char )
-import Data.Bool     ( (||), otherwise )
-import Data.Eq       ( Eq((==)) )
-import Data.Function ( ($), (.) )
-import Data.List     ( (++), elem, concatMap )
-
-#if __GLASGOW_HASKELL__ == 612
-import GHC.Num ( Num(fromInteger) )
-#endif
-import GHC.Num ( Num((-)) )
-
-import Text.Show ( Show(show) )
 
 ------------------------------------------------------------------------------
 -- Agda library imports

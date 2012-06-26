@@ -2,7 +2,6 @@
 -- hs-boot file for FOL.Translation.Syntax.Internal.Types.
 ------------------------------------------------------------------------------
 
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module FOL.Translation.Types

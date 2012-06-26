@@ -11,7 +11,6 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Utils.Names ( freshName ) where
@@ -19,25 +18,7 @@ module Utils.Names ( freshName ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-#if __GLASGOW_HASKELL__ == 612
-import Control.Monad ( Monad((>>=), (>>), fail) )
-#endif
-import Control.Monad ( Monad(return) )
-
 import Control.Monad.State ( MonadState(get, put), State )
-
-#if __GLASGOW_HASKELL__ < 702
-import Data.Char ( String )
-#else
-import Data.String ( String )
-#endif
-
-import Data.Function ( ($) )
-import Data.List     ( (++), elem, map )
-
-#if __GLASGOW_HASKELL__ == 612
-import GHC.Num ( Num(fromInteger) )
-#endif
 
 ------------------------------------------------------------------------------
 -- Agda library imports

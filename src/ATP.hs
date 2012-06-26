@@ -11,7 +11,6 @@
 -----------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
@@ -26,39 +25,14 @@ module ATP
 import Control.Exception       ( evaluate )
 import Control.Concurrent      ( forkIO, threadDelay )
 import Control.Concurrent.MVar ( MVar, newEmptyMVar, putMVar, takeMVar )
-
-#if __GLASGOW_HASKELL__ == 612
-import Control.Monad ( Monad(fail) )
-#endif
-import Control.Monad ( mapM, mapM_, Monad((>>), (>>=), return) )
-
 import Control.Monad.Error     ( MonadError(throwError) )
 import Control.Monad.Trans     ( MonadIO(liftIO) )
 
-#if __GLASGOW_HASKELL__ < 702
-import Data.Char ( String )
-#else
-import Data.String ( String )
-#endif
-
-import Data.Bool     ( Bool )
-import Data.Eq       ( Eq((==), (/=)) )
-import Data.Int      ( Int )
-import Data.List     ( (++), init, isInfixOf, length, null, takeWhile )
-import Data.Function ( ($), (.) )
-import Data.Functor  ( fmap )
-import Data.Maybe    ( fromMaybe, Maybe(Just, Nothing) )
-import Data.Tuple    ( fst, snd )
-
-#if __GLASGOW_HASKELL__ == 612
-import GHC.Num ( Num(fromInteger) )
-#endif
-import GHC.Num   ( Num((+), (*)) )
-import GHC.Real  ( fromIntegral, round )
-import GHC.Types ( Float )
+import Data.List  ( isInfixOf )
+import Data.Maybe ( fromMaybe )
 
 import System.Directory ( findExecutable )
-import System.IO        ( FilePath, hGetContents, IO, putStrLn )
+import System.IO        ( hGetContents )
 
 import System.Process
   ( createProcess
@@ -69,8 +43,6 @@ import System.Process
   , StdStream(CreatePipe)
   , terminateProcess
   )
-
-import Text.Show ( Show(show) )
 
 ------------------------------------------------------------------------------
 -- Agda library imports

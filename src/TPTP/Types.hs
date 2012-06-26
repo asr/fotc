@@ -10,7 +10,6 @@
 -- TPTP types and common functions on them.
 ------------------------------------------------------------------------------
 
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module TPTP.Types
@@ -30,10 +29,7 @@ module TPTP.Types
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Data.Eq       ( Eq((==)) )
-import Data.Function ( ($) )
-import Data.List     ( (++), (\\), null, sort )
-import Data.Ord      ( Ord(compare) )
+import Data.List ( (\\), sort )
 
 ------------------------------------------------------------------------------
 -- Agda library imports

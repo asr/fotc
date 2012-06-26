@@ -11,7 +11,6 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Utils.Directory ( diff ) where
@@ -19,18 +18,7 @@ module Utils.Directory ( diff ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-#if __GLASGOW_HASKELL__ == 612
-import Control.Monad ( Monad((>>=), fail) )
-#endif
-import Control.Monad ( Monad(return) )
-
 import Data.Algorithm.Diff ( DI(F, S), getDiff )
-import Data.Bool           ( (||), Bool(True, False) )
-import Data.Function       ( ($) )
-import Data.List           ( elem, unzip )
-import Data.Tuple          ( fst )
-
-import System.IO ( FilePath, IO, readFile )
 
 ------------------------------------------------------------------------------
 -- | Return 'True' if the files are different, otherwise the function

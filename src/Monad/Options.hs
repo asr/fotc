@@ -11,7 +11,6 @@
 -----------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Monad.Options ( processOptions ) where
@@ -19,17 +18,9 @@ module Monad.Options ( processOptions ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad       ( Monad(return) )
 import Control.Monad.Error ( MonadError(throwError) )
 
-#if __GLASGOW_HASKELL__ < 702
-import Data.Char ( String )
-#else
-import Data.String ( String )
-#endif
-
-import Data.Function ( ($), flip, id )
-import Data.List     ( foldl', unlines )
+import Data.List ( foldl' )
 
 import System.Console.GetOpt ( ArgOrder(Permute) , getOpt )
 

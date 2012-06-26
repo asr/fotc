@@ -11,7 +11,6 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
-{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
@@ -20,25 +19,10 @@ module AgdaInternal.EtaExpansion ( EtaExpandible(etaExpand) ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-#if __GLASGOW_HASKELL__ == 612
-import Control.Monad ( Monad((>>), (>>=), fail) )
-#endif
-import Control.Monad ( mapM, Monad(return), when )
-
+import Control.Monad       ( when )
 import Control.Monad.Error ( MonadError(throwError) )
 
-import Data.Eq       ( Eq((==), (/=)) )
-import Data.Function ( ($), (.) )
-import Data.Functor  ( (<$>) )
-import Data.List     ( (++), length, map )
-
-#if __GLASGOW_HASKELL__ == 612
-import GHC.Num ( Num(fromInteger) )
-#endif
-import GHC.Num  ( Num((-)) )
-import GHC.Real ( fromIntegral )
-
-import Text.Show ( Show(show) )
+import Data.Functor ( (<$>) )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
