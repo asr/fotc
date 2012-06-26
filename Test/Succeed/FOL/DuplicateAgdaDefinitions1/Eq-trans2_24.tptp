@@ -1,0 +1,39 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The common required definition(s).
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.DuplicateAgdaDefinitions1.Eq
+% Role:	definition
+% Line:	18
+fof(n6_221365510, definition, ( ! [A] : ( ! [B] : ( ( kAppP2(eq_6_221365510,A,B) ) <=> ( kAppP2(n_8776_,A,B) ) ) ) )).
+
+% End common required definition(s).
+
+%-----------------------------------------------------------------------------
+% The local hint(s).
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.DuplicateAgdaDefinitions1.Eq-trans
+% Role:	hint
+% Line:	22
+fof(n12_221365510, hypothesis, ( ! [A] : ( ! [B] : ( ! [C] : ( ( kAppP2(eq_6_221365510,A,B) ) => ( ( kAppP2(eq_6_221365510,B,C) ) => ( kAppP2(eq_6_221365510,A,C) ) ) ) ) ) )).
+
+% End local hint(s).
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.DuplicateAgdaDefinitions1.Eq-trans₂
+% Role:	prove
+% Line:	24
+fof(n17_221365510, conjecture, ( ! [A] : ( ! [B] : ( ! [C] : ( ! [D] : ( ( kAppP2(eq_6_221365510,A,B) ) => ( ( kAppP2(eq_6_221365510,B,C) ) => ( ( kAppP2(eq_6_221365510,C,D) ) => ( kAppP2(eq_6_221365510,A,D) ) ) ) ) ) ) ) )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.

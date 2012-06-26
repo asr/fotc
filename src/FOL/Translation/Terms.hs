@@ -108,7 +108,8 @@ qName2String qName@(QName _ name) = do
   def ← qNameDefinition qName
 
   -- Because the ATP pragma definitions are global, we need an unique
-  -- name. In this case, we append to the @qName@ the @qName@ id.
+  -- name. In this case, we append to the @qName@ the @qName@'s id (it
+  -- generates long TPTP name for the definitions).
   if isATPDefinition def
     then do
       let qNameId ∷ NameId

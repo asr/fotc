@@ -21,6 +21,5 @@ Eq x y = x ≈ y
 
 postulate Eq-trans : ∀ {x y z} → Eq x y → Eq y z → Eq x z
 
-postulate
-  Eq-trans₂ : ∀ {w x y z} → Eq w x → Eq x y → Eq y z → Eq w z
+postulate Eq-trans₂ : ∀ {w x y z} → Eq w x → Eq x y → Eq y z → Eq w z
 {-# ATP prove Eq-trans₂ Eq-trans #-}

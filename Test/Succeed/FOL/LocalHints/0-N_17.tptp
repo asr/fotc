@@ -1,0 +1,28 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The local hint(s).
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.LocalHints.N.zN
+% Role:	hint
+% Line:	15
+fof(n7_66824280, hypothesis, ( kAppP1(n,zero) )).
+
+% End local hint(s).
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.LocalHints.0-N
+% Role:	prove
+% Line:	17
+fof(n8_66824280, conjecture, ( kAppP1(n,zero) )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.

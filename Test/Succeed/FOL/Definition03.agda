@@ -16,5 +16,5 @@ foo : D → D → D
 foo d e = d
 {-# ATP definition foo #-}
 
-postulate bar : ∀ d → d ≡ foo d d
+postulate bar : ∀ d e → d ≡ foo d e
 {-# ATP prove bar #-}

@@ -1,0 +1,34 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The general axiom(s).
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.Where.+-x0
+% Role:	axiom
+% Line:	34
+fof(n25_158458705, axiom, ( ! [A] : ( kAppFn(kAppFn(n43,A),zero) = A ) )).
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.Where.+-xS
+% Role:	axiom
+% Line:	35
+fof(n28_158458705, axiom, ( ! [A] : ( ! [B] : ( kAppFn(kAppFn(n43,A),kAppFn(succ,B)) = kAppFn(succ,kAppFn(kAppFn(n43,A),B)) ) ) )).
+
+% End general axiom(s).
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.Where._.A0
+% Role:	prove
+% Line:	46
+fof(n35_158458705, conjecture, ( ! [A] : ( kAppFn(kAppFn(n43,zero),zero) = zero ) )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.

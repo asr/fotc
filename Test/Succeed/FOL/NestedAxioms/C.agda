@@ -1,28 +1,31 @@
+------------------------------------------------------------------------------
+-- Testing nested axioms
+------------------------------------------------------------------------------
+
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Test.Succeed.FOL.NestedAxioms.C where
-
 {-
-Process this file should be generate a tptp file with the
-following axioms
 
-fof(..., axiom, ( ! [A] : ( A = A ) )
-fof(..., axiom, ( a₁ = a₂ )).
-fof(..., axiom, ( b₁ = b₂ )).
-fof(..., axiom, ( c₁ = c₂ )).
+Processing this file should be generate a TPTP file with the following
+axioms
+
+fof(..., axiom, ( a = b )).
+fof(..., axiom, ( b = c )).
+fof(..., axiom, ( c = d )).
 -}
 
-open import Test.Succeed.FOL.NestedAxioms.Base using ( _≡_ ; D )
+module Test.Succeed.FOL.NestedAxioms.C where
 
--- Only imported for to translate the axioms.
-open import Test.Succeed.FOL.NestedAxioms.B using ()
+open import Test.Succeed.FOL.NestedAxioms.A
+open import Test.Succeed.FOL.NestedAxioms.B
+
+------------------------------------------------------------------------------
 
 postulate
-  c₁ c₂ : D
-  c₁≡c₂ : c₁ ≡ c₂
-{-# ATP axiom c₁≡c₂ #-}
+  d : D
+  c≡d : c ≡ d
+{-# ATP axiom c≡d #-}
 
--- We need to have at least one conjecture to generate a TPTP file.
-postulate refl : ∀ d → d ≡ d
-{-# ATP prove refl #-}
+postulate foo : d ≡ a
+{-# ATP prove foo #-}

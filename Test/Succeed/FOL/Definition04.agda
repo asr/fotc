@@ -20,31 +20,30 @@ data N : D → Set where
   zN : N zero
   sN : ∀ {n} → N n → N (succ n)
 
-indN : (P : D → Set) →
-       P zero →
-       (∀ {n} → N n → P n → P (succ n)) →
-       ∀ {n} → N n → P n
-indN P P0 h zN      = P0
-indN P P0 h (sN Nn) = h Nn (indN P P0 h Nn)
+N-ind : (A : D → Set) →
+       A zero →
+       (∀ {n} → A n → A (succ n)) →
+       ∀ {n} → N n → A n
+N-ind A A0 h zN      = A0
+N-ind A A0 h (sN Nn) = h (N-ind A A0 h Nn)
 
 postulate
   _+_  : D → D → D
-  +-0x : ∀ d → zero + d     ≡ d
-  +-Sx : ∀ d e → succ d + e ≡ succ (d + e)
-{-# ATP axiom +-0x #-}
-{-# ATP axiom +-Sx #-}
+  +-0x : ∀ n →   zero   + n ≡ n
+  +-Sx : ∀ m n → succ m + n ≡ succ (m + n)
+{-# ATP axiom +-0x +-Sx #-}
 
--- We test the translation of the definition of a predicate.
+-- We test the translation of the definition of a 1-ary predicate.
 
-P : D → Set
-P i = zero + i ≡ i
-{-# ATP definition P #-}
+A : D → Set
+A i = zero + i ≡ i
+{-# ATP definition A #-}
 
-postulate P0 : P zero
-{-# ATP prove P0 #-}
+postulate A0 : A zero
+{-# ATP prove A0 #-}
 
-postulate iStep : ∀ {i} → N i → P i → P (succ i)
-{-# ATP prove iStep #-}
+postulate is : ∀ {i} → A i → A (succ i)
+{-# ATP prove is #-}
 
 +-leftIdentity : ∀ {n} → N n → zero + n ≡ n
-+-leftIdentity = indN P P0 iStep
++-leftIdentity = N-ind A A0 is

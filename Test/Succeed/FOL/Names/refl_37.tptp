@@ -1,0 +1,34 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The general axiom(s).
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.Names.funnyP
+% Role:	axiom
+% Line:	33
+fof(n11_259084606, axiom, ( ! [A] : ( kAppP1(pRED33,A) ) )).
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.Names.funnyFV
+% Role:	axiom
+% Line:	29
+fof(n9_259084606, axiom, ( ! [A] : ( kAppFn(fUN33,A) = A ) )).
+
+% End general axiom(s).
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.Names.refl
+% Role:	prove
+% Line:	37
+fof(n13_259084606, conjecture, ( ! [A] : ( A = A ) )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.

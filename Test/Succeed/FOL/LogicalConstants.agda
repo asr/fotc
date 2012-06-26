@@ -55,7 +55,7 @@ postulate
 {-# ATP prove ⊥E #-}
 {-# ATP prove ¬E #-}
 
--- Testing other logical constanst.
+-- Testing other logical constants.
 postulate
   thm₁ : A ∧ ⊤ → A
   thm₂ : A ∨ ⊥ → A
@@ -87,20 +87,23 @@ postulate
 
 -- We postulate some formulae and propositional functions.
 postulate
-  A⁰    : Set
   A¹ B¹ : D → Set
   A²    : D → D → Set
 
 -- The introduction and elimination rules for the quantifiers are theorems.
+
 postulate
-  ∀I : ((x : D) → A¹ x) → ⋀ A¹
-  ∀E : ⋀ A¹ → (t : D) → A¹ t
-  -- This elimination rule cannot prove in Coq because in Coq we can
-  -- have empty domains. We do not have this problem because the ATPs
-  -- assume a non-empty domain.
-  ∃I : ((t : D) → A¹ t) → ∃ A¹
-  -- TODO: ∃E : (x : D) → ∃ A¹ → (A¹ x → B¹ x) → B¹ x
-{-# ATP prove ∀I #-}
-{-# ATP prove ∀E #-}
+  ∀I₁ : ((x : D) → A¹ x) → ⋀ A¹
+  ∀I₂ : ((x : D) → A¹ x) → ∀ x → A¹ x
+  ∀E₁ : (t : D) → ⋀ A¹ → A¹ t
+  ∀E₂ : (t : D) → (∀ x → A¹ x) → A¹ t
+{-# ATP prove ∀I₁ #-}
+{-# ATP prove ∀I₂ #-}
+{-# ATP prove ∀E₁ #-}
+{-# ATP prove ∀E₂ #-}
+
+postulate ∃I : (t : D) → A¹ t → ∃ A¹
 {-# ATP prove ∃I #-}
--- {-# ATP prove ∃E #-}
+
+postulate ∃E : ∃ A¹ → ((x : D) → A¹ x → A) → A
+{-# ATP prove ∃E #-}

@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Testing the erasure of proof terms
+-- Testing the erasing of proof terms
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}

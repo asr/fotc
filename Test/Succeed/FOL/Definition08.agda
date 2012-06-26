@@ -17,7 +17,7 @@ postulate
 -- definitions of c and d via the where clause. Therefore in the
 -- translation of c and d, we need to erase this proof term.
 foo : D → ∀ {b} → P b → D
-foo  a Pb = a
+foo a Pb = a
   where
   c : D
   c = a

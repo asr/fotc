@@ -1,0 +1,34 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The required ATP definition(s) by the conjecture.
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.Definition08._.d
+% Role:	definition
+% Line:	26
+fof(n15_157700966, definition, ( ! [A] : ( ! [B] : ( ( kAppP1(p,B) ) => ( kAppFn(kAppFn(d,A),B) = kAppFn(op,kAppFn(kAppFn(c,A),B)) ) ) ) )).
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.Definition08._.c
+% Role:	definition
+% Line:	22
+fof(n14_157700966, definition, ( ! [A] : ( ! [B] : ( ( kAppP1(p,B) ) => ( kAppFn(kAppFn(c,A),B) = A ) ) ) )).
+
+% End required ATP definition(s) by the conjecture.
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.Definition08._.bar
+% Role:	prove
+% Line:	30
+fof(n16_157700966, conjecture, ( ! [A] : ( ! [B] : ( ( kAppP1(p,B) ) => ( kAppFn(kAppFn(d,A),B) = kAppFn(op,A) ) ) ) )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.

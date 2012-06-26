@@ -8,23 +8,23 @@
 module Test.Succeed.FOL.Eta2 where
 
 postulate
-  D       : Set
-  binaryP : D → D → Set
+  D  : Set
+  P² : D → D → Set
 
-data ∃ (P : D → Set) : Set where
-  _,_ : (witness : D) → P witness → ∃ P
+data ∃ (A : D → Set) : Set where
+  _,_ : (t : D) → A t → ∃ A
 
 -- Because Agda eta-reduces the equations, the internal representation
--- of P corresponds to the function
+-- of P corresponds to the predicate
 --
--- P xs = ∃ (binary xs)
+-- P xs = ∃ (P² xs)
 --
 -- We eta-expand the definition of P before the translation to FOL.
 
 P : D → Set
-P xs = ∃ λ ys → binaryP xs ys
+P xs = ∃ λ ys → P² xs ys
 {-# ATP definition P #-}
 
 postulate
-  bar : ∀ {xs} → P xs → (∃ λ ys → binaryP xs ys)
+  bar : ∀ {xs} → P xs → (∃ λ ys → P² xs ys)
 {-# ATP prove bar #-}

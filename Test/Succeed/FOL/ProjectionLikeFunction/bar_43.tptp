@@ -1,0 +1,28 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The required ATP definition(s) by the conjecture.
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.ProjectionLikeFunction._.P
+% Role:	definition
+% Line:	39
+fof(n13_62454141, definition, ( ! [A] : ( ( kAppP1(n,A) ) => ( ! [B] : ( ( kAppP2(p_13_62454141,A,B) ) <=> ( B = B ) ) ) ) )).
+
+% End required ATP definition(s) by the conjecture.
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.ProjectionLikeFunction._.bar
+% Role:	prove
+% Line:	43
+fof(n15_62454141, conjecture, ( ! [A] : ( ( kAppP1(n,A) ) => ( kAppP2(p_13_62454141,A,A) ) ) )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.

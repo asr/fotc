@@ -1,3 +1,5 @@
+-- TODO: To add check for it to Agda.
+
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 

@@ -13,17 +13,17 @@ infix  7 _≡_
 
 ------------------------------------------------------------------------------
 
-data M : Set where
-  zero :     M
-  succ : M → M
+data ℕ : Set where
+  zero :     ℕ
+  succ : ℕ → ℕ
 
-data _≡_ (m : M) : M → Set where
+data _≡_ (m : ℕ) : ℕ → Set where
   refl : m ≡ m
 
 sym : ∀ {x y} → x ≡ y → y ≡ x
 sym refl = refl
 
-_+_ : M → M → M
+_+_ : ℕ → ℕ → ℕ
 zero   + n = n
 succ m + n = succ (m + n)
 
@@ -39,6 +39,6 @@ postulate
 +-comm zero     n = sym (+-rightIdentity n)
 +-comm (succ m) n = prf (+-comm m n)
   where
-  postulate prf : m + n ≡ n + m →  -- IH.
+  postulate prf : m + n ≡ n + m →
                   succ m + n ≡ n + succ m
   {-# ATP prove prf x+Sy≡S[x+y] #-}

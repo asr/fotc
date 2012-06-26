@@ -15,11 +15,10 @@ postulate
 data N : D → Set where
   zN : N zero
   sN : ∀ {n} → N n → N (succ n)
-{-# ATP axiom zN #-}
-{-# ATP axiom sN #-}
+{-# ATP axiom zN sN #-}
 
-postulate
-  0-N : N zero
-  1-N : N (succ zero)
+postulate 0-N : N zero
 {-# ATP prove 0-N #-}
+
+postulate 1-N : N (succ zero)
 {-# ATP prove 1-N #-}

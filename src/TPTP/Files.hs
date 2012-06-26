@@ -114,7 +114,7 @@ conjectureHeader = do
     ++ commentLineLn
 
 conjectureFooter ∷ String
-conjectureFooter = commentLine ++ "% End ATP pragma conjecture file.\n"
+conjectureFooter = commentLine ++ "% End TPTP file.\n"
 
 agdaOriginalTerm ∷ QName → ATPRole → String
 agdaOriginalTerm qName role =

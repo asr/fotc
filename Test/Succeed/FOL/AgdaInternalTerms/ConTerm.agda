@@ -15,14 +15,14 @@ infix  7 _≡_
 
 ------------------------------------------------------------------------------
 
-data M : Set where
-  zero :     M
-  succ : M → M
+data ℕ : Set where
+  zero :     ℕ
+  succ : ℕ → ℕ
 
-data _≡_ (m : M) : M → Set where
-  refl : m ≡ m
+data _≡_ (n : ℕ) : ℕ → Set where
+  refl : n ≡ n
 
-_+_ : M → M → M
+_+_ : ℕ → ℕ → ℕ
 zero   + n = n
 succ m + n = succ (m + n)
 
@@ -30,6 +30,5 @@ succ m + n = succ (m + n)
 +-0x n = refl
 {-# ATP hint +-0x #-}
 
--- We need to have at least one conjecture to generate a TPTP file.
-postulate foo : ∀ n → n ≡ n
+postulate foo : ∀ n → zero + n ≡ n
 {-# ATP prove foo #-}

@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Testing the class AgdaLib.DeBruijn.DropVar: Lam term
+-- Testing the class AgdaInternal.RemoveProofTerms.RemoveVar: Lam term
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Test.Succeed.FOL.DropVar.LamTerm where
+module Test.Succeed.FOL.RemoveVar.LamTerm where
 
 -- We add 3 to the fixities of the standard library.
 infixr 8 _∷_

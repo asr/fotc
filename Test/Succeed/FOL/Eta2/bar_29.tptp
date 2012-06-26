@@ -1,0 +1,28 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The required ATP definition(s) by the conjecture.
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.Eta2.P
+% Role:	definition
+% Line:	24
+fof(n11_112184513, definition, ( ! [A] : ( ( kAppP1(p_11_112184513,A) ) <=> ( ? [B] : ( kAppP2(p178,A,B) ) ) ) )).
+
+% End required ATP definition(s) by the conjecture.
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.Eta2.bar
+% Role:	prove
+% Line:	29
+fof(n16_112184513, conjecture, ( ! [A] : ( ( kAppP1(p_11_112184513,A) ) => ( ? [B] : ( kAppP2(p178,A,B) ) ) ) )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.

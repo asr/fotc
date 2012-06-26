@@ -1,0 +1,17 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.LogicalConstants.∀E₁
+% Role:	prove
+% Line:	98
+fof(n44_60238118, conjecture, ( ! [A] : ( ( ! [B] : ( kAppP1(a185,B) ) ) => ( kAppP1(a185,A) ) ) )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.

@@ -1,0 +1,28 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The required ATP definition(s) by the conjecture.
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.Definition02.foo
+% Role:	definition
+% Line:	15
+fof(n6_153414260, definition, ( ! [A] : ( kAppFn(foo,A) = A ) )).
+
+% End required ATP definition(s) by the conjecture.
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.Definition02.bar
+% Role:	prove
+% Line:	19
+fof(n9_153414260, conjecture, ( ! [A] : ( A = kAppFn(foo,A) ) )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.

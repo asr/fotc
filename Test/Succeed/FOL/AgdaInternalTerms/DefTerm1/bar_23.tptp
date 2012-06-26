@@ -1,0 +1,28 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The general axiom(s).
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.AgdaInternalTerms.DefTerm1.foo
+% Role:	axiom
+% Line:	19
+fof(n9_244839984, axiom, ( kAppP1(p,a) )).
+
+% End general axiom(s).
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.AgdaInternalTerms.DefTerm1.bar
+% Role:	prove
+% Line:	23
+fof(n11_244839984, conjecture, ( ! [A] : ( A = A ) )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.

@@ -1,0 +1,34 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The general axiom(s).
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.DataConstructorsAxioms.N.zN
+% Role:	axiom
+% Line:	16
+fof(n8_249917921, axiom, ( kAppP1(n,zero) )).
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.DataConstructorsAxioms.N.sN
+% Role:	axiom
+% Line:	17
+fof(n10_249917921, axiom, ( ! [A] : ( ( kAppP1(n,A) ) => ( kAppP1(n,kAppFn(succ,A)) ) ) )).
+
+% End general axiom(s).
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.DataConstructorsAxioms.0-N
+% Role:	prove
+% Line:	20
+fof(n11_249917921, conjecture, ( kAppP1(n,zero) )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.

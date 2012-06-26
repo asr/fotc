@@ -21,49 +21,48 @@ data N : D → Set where
   zN : N zero
   sN : ∀ {n} → N n → N (succ n)
 
--- Induction principle for N (elimination rule).
-indN : (P : D → Set) →
-       P zero →
-       (∀ {n} → N n → P n → P (succ n)) →
-       ∀ {n} → N n → P n
-indN P P0 h zN      = P0
-indN P P0 h (sN Nn) = h Nn (indN P P0 h Nn)
+-- Induction principle.
+N-ind : (A : D → Set) →
+       A zero →
+       (∀ {n} → A n → A (succ n)) →
+       ∀ {n} → N n → A n
+N-ind A A0 h zN      = A0
+N-ind A A0 h (sN Nn) = h (N-ind A A0 h Nn)
 
 postulate
   _+_  : D → D → D
-  +-x0 : ∀ d →   d + zero   ≡ d
-  +-xS : ∀ d e → d + succ e ≡ succ (d + e)
-{-# ATP axiom +-x0 #-}
-{-# ATP axiom +-xS #-}
+  +-x0 : ∀ n →   n + zero   ≡ n
+  +-xS : ∀ m n → m + succ n ≡ succ (m + n)
+{-# ATP axiom +-x0 +-xS #-}
 
 -- Left identify for addition using the induction principle for N and
 -- calling the ATP for the base case and the induction step.
 +-leftIdentity : ∀ {n} → N n → zero + n ≡ n
-+-leftIdentity = indN P P0 iStep
++-leftIdentity = N-ind A A0 is
   where
-  P : D → Set
-  P i = zero + i ≡ i
+  A : D → Set
+  A i = zero + i ≡ i
 
-  postulate P0 : zero + zero ≡ zero
-  {-# ATP prove P0 #-}
+  postulate A0 : zero + zero ≡ zero
+  {-# ATP prove A0 #-}
 
-  postulate iStep : ∀ {i} → N i → zero + i ≡ i → zero + succ i ≡ succ i
-  {-# ATP prove iStep #-}
+  postulate is : ∀ {i} → zero + i ≡ i → zero + succ i ≡ succ i
+  {-# ATP prove is #-}
 
 ------------------------------------------------------------------------------
 -- Associativity of addition using the induction principle for N and
 -- calling the ATP for the base case and the induction step.
 +-assoc : ∀ {m n o} → N m → N n → N o → (m + n) + o ≡ m + (n + o)
-+-assoc {m} {n} Nm Nn No = indN P P0 iStep No
++-assoc {m} {n} Nm Nn No = N-ind A A0 is No
   where
-  P : D → Set
-  P i = m + n + i ≡ m + (n + i)
+  A : D → Set
+  A i = m + n + i ≡ m + (n + i)
 
-  postulate P0 : m + n + zero ≡ m + (n + zero)
-  {-# ATP prove P0 #-}
+  postulate A0 : m + n + zero ≡ m + (n + zero)
+  {-# ATP prove A0 #-}
 
   postulate
-    iStep : ∀ {i} → N i →
-            m + n + i ≡ m + (n + i) → -- IH.
-            m + n + succ i ≡ m + (n + succ i)
-  {-# ATP prove iStep #-}
+    is : ∀ {i} →
+         m + n + i ≡ m + (n + i) →
+         m + n + succ i ≡ m + (n + succ i)
+  {-# ATP prove is #-}

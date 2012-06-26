@@ -1,0 +1,40 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The general axiom(s).
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.VariousArguments.c≡d
+% Role:	axiom
+% Line:	16
+fof(n12_25044413, axiom, ( c = d )).
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.VariousArguments.b≡c
+% Role:	axiom
+% Line:	15
+fof(n11_25044413, axiom, ( b = c )).
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.VariousArguments.a≡b
+% Role:	axiom
+% Line:	14
+fof(n10_25044413, axiom, ( a = b )).
+
+% End general axiom(s).
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.VariousArguments.a≡d
+% Role:	prove
+% Line:	19
+fof(n13_25044413, conjecture, ( a = d )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.

@@ -9,8 +9,8 @@ module Test.Succeed.FOL.Eta1 where
 
 postulate
   D   : Set
-  P   : D → Set
-  ∃   : (P : D → Set) → Set
+  A   : D → Set
+  ∃   : (A : D → Set) → Set
   _≡_ : D → D → Set
 
 -- Due to eta-contraction the Agda internal representation of test₁
@@ -18,11 +18,11 @@ postulate
 -- internal types before the translation to FOL.
 
 postulate
-  test₁ : (d : D) → P d → ∃ (λ e → P e)
-  test₂ : (d : D) → P d → ∃ P
+  test₁ : ∀ d → A d → ∃ (λ e → A e)
+  test₂ : ∀ d → A d → ∃ A
 
-  test₃ : (d : D) → ∃ (λ e → d ≡ e)
-  test₄ : (d : D) → ∃ (_≡_ d)
+  test₃ : ∀ d → ∃ (λ e → d ≡ e)
+  test₄ : ∀ d → ∃ (_≡_ d)
 
 {-# ATP prove test₁ #-}
 {-# ATP prove test₂ #-}
