@@ -21,7 +21,7 @@ infixl 9 _·_  -- The symbol is '\cdot'.
 infix  8 if_then_else_
 
 ------------------------------------------------------------------------------
--- FOL with equality.
+-- First-order logic with equality.
 open import Common.FOL.FOL-Eq public
 
 ------------------------------------------------------------------------------
@@ -71,8 +71,7 @@ abstract
 --
 -- x conv y <=> FOTC ⊢ x ≡ y,
 --
--- therefore, we introduce the conversion rules as FOL non-logical
--- axioms.
+-- therefore, we introduce the conversion rules as non-logical axioms.
 
 -- N.B. We write the conversion rules on the defined function symbols
 -- instead of on the PCF constants.

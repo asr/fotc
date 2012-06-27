@@ -5,7 +5,8 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- We don't want populate the FOTC library with more FOL axioms.
+-- We don't want populate the FOTC library with more first-order logic
+-- axioms.
 
 module FOTC.Program.Collatz.Data.Nat where
 

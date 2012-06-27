@@ -15,7 +15,7 @@ infixl 9  _+_
 -- PA universe
 open import PA.Inductive.Base.Core public
 
--- FOL (without equality)
+-- First-order logic (without equality)
 --
 open import Common.FOL.FOL public hiding ( _,_ ; ∃ )
 -- 2012-04-24. Agda bug? Why it is necessary to use the modifier

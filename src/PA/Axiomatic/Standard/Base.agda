@@ -12,7 +12,7 @@ infixl 10 _*_
 infixl 9  _+_
 
 ------------------------------------------------------------------------------
--- FOL with equality.
+-- First-order logic with equality.
 --
 -- We chose the symbol M because there are non-standard models of
 -- Peano Arithmetic, where the domain is not the set of natural

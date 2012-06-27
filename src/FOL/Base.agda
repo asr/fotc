@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- FOL base
+-- First-order logic base
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -10,7 +10,7 @@ module FOL.Base where
 infixr 3 _⇒_
 
 ------------------------------------------------------------------------------
--- FOL (without equality).
+-- First-order logic (without equality).
 open import Common.FOL.FOL public
 
 ------------------------------------------------------------------------------
@@ -29,7 +29,8 @@ A ⇒ B = A → B
 -- ⋀ A = (d : D) → A d
 
 ------------------------------------------------------------------------------
--- In FOL it is assumed that the universe of discourse is nonempty.
+-- In first-order logic it is assumed that the universe of discourse
+-- is nonempty.
 postulate D≢∅ : D
 
 ------------------------------------------------------------------------------

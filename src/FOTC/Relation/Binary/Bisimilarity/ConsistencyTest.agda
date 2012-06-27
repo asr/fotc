@@ -6,8 +6,8 @@
 {-# OPTIONS --without-K #-}
 
 -- In the module FOTC.Relation.Binary.Bisimilarity we declare Agda
--- postulates as FOL axioms. We test if it is possible to prove an
--- unprovable theorem from these axioms.
+-- postulates as first-order logic axioms. We test if it is possible
+-- to prove an unprovable theorem from these axioms.
 
 module FOTC.Relation.Binary.Bisimilarity.ConsistencyTest where
 

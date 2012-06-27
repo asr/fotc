@@ -41,7 +41,7 @@ module ∃₁ where
 -----------------------------------------------------------------------------
 
 module ∃₂ where
-  -- FOL version
+  -- First-order logic version
 
   -- We add 3 to the fixities of the standard library.
   infixr 7 _,_
@@ -53,7 +53,7 @@ module ∃₂ where
   -- Sugar syntax for the existential quantifier.
   syntax ∃ (λ x → e) = ∃[ x ] e
 
-  -- FOL existential elimination
+  -- Existential elimination
   --     ∃x.A(x)   A(x) → B
   --  ------------------------
   --             B
@@ -77,7 +77,9 @@ module ∃₂ where
 -----------------------------------------------------------------------------
 
 module ∃₃ where
-  -- A different version from the FOL existential introduction
+  -- First-order logic version
+
+  -- A different version from the existential introduction
   --      A(x)
   --  ------------
   --     ∃x.A(x)
@@ -91,7 +93,7 @@ module ∃₃ where
 
   postulate d : D
 
-  -- FOL existential elimination.
+  -- Existential elimination.
   -- NB. It is neccesary that D ≢ ∅.
   ∃-elim : {A : D → Set}{B : Set} → ∃ A → ((x : D) → A x → B) → B
   ∃-elim (∃-intro h₁) h₂ = h₂ d (h₁ d)

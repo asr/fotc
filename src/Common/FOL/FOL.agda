@@ -1,12 +1,12 @@
 ------------------------------------------------------------------------------
--- FOL (without equality)
+-- First-order logic (without equality)
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
 -- This module is re-exported by the "base" modules whose theories are
--- defined on FOL (without equality).
+-- defined on first-order logic (without equality).
 
 -- The logical connectives are hard-coded in our translation,
 -- i.e. the symbols ⊥, ⊤, ¬, ∧, ∨, →, and ↔ must be used.

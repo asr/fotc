@@ -31,7 +31,7 @@ infixr 8 _∷_
 infix  8 if_then_else_
 
 ------------------------------------------------------------------------------
--- FOL with equality.
+-- First-order logic with equality.
 open import Common.FOL.FOL-Eq public
 
 ------------------------------------------------------------------------------
@@ -104,8 +104,7 @@ abstract
 --
 -- x conv y <=> FOTC ⊢ x ≡ y,
 --
--- therefore, we introduce the conversion rules as FOL non-logical
--- axioms.
+-- therefore, we introduce the conversion rules as non-logical axioms.
 
 -- N.B. Looking for an optimization for the ATPs, we write the
 -- conversion rules on the defined function symbols instead of on the
@@ -155,9 +154,10 @@ postulate
 {-# ATP axiom tail-∷ #-}
 
 -- Conversion rule for loop.
+--
 -- The equation loop-eq adds anything to the logic (because
 -- reflexivity is already an axiom of equality), therefore we won't
--- add this equation as a FOL axiom.
+-- add this equation as a first-order logic axiom.
 postulate loop-eq : loop ≡ loop
 
 ------------------------------------------------------------------------------

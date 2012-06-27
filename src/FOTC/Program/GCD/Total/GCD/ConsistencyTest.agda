@@ -6,8 +6,8 @@
 {-# OPTIONS --without-K #-}
 
 -- In the module FOTC.Program.GCD.Total.GCD we declare Agda postulates
--- as FOL axioms. We test if it is possible to prove an unprovable
--- theorem from these axioms.
+-- as first-order logic axioms. We test if it is possible to prove an
+-- unprovable theorem from these axioms.
 
 module FOTC.Program.GCD.Total.GCD.ConsistencyTest where
 

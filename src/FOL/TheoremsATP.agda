@@ -1,12 +1,12 @@
 ------------------------------------------------------------------------------
--- FOL theorems
+-- First-order logic theorems
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
 -- This module contains some examples showing the use of the ATPs for
--- proving FOL theorems.
+-- proving first-order logic theorems.
 
 module FOL.TheoremsATP where
 

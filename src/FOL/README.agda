@@ -1,10 +1,10 @@
 ------------------------------------------------------------------------------
--- First-order logic (FOL)
+-- First-order logic
 ------------------------------------------------------------------------------
 
 module FOL.README where
 
--- Formalization of FOL using Agda's inductive notions.
+-- Formalization of first-order logic using Agda's inductive notions.
 
 ------------------------------------------------------------------------------
 -- Definition of the connectives and quantifiers
@@ -14,7 +14,7 @@ open import FOL.Base
 open import FOL.Propositional.TheoremsATP
 open import FOL.Propositional.TheoremsI
 
--- FOL theorems
+-- First-order logic theorems
 open import FOL.TheoremsATP
 open import FOL.TheoremsI
 

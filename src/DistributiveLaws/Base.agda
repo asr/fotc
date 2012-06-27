@@ -11,7 +11,8 @@ module DistributiveLaws.Base where
 infixl 10 _·_  -- The symbol is '\cdot'.
 
 ------------------------------------------------------------------------------
--- FOL with equality.
+-- First-order logic with equality.
+--
 -- NB. This is an equational theory, so we do not import the logical
 -- constants.
 open import Common.FOL.FOL-Eq public using ( _≡_ ; D ; refl ; subst ; sym )

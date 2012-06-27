@@ -12,7 +12,7 @@ infix  11 _⁻¹
 infixl 10 _·_  -- The symbol is '\cdot'.
 
 ------------------------------------------------------------------------------
--- FOL with equality.
+-- First-order logic with equality.
 open import Common.FOL.FOL-Eq public renaming ( D to G )
 
 -- Group theory axioms
