@@ -44,6 +44,8 @@ fail_FOL_files = $(call path_subst,fail_FOL,$(fail_FOL_path))
 
 parsing_files = $(call path_subst,parsing,$(succeed_path))
 
+only_conjectures_files = $(call path_subst,only_conjectures,$(succeed_path))
+
 snapshot_create_files = $(call path_subst,snapshot_create,$(succeed_path))
 
 snapshot_test_files = $(call path_subst,snapshot_test,$(succeed_path))
@@ -74,6 +76,16 @@ succeed : $(succeed_FOL_files) $(succeed_NonFOL_files)
 	if ( $(AGDA2ATP) --time=5 $*.agda ); then exit 1; fi
 
 fail : $(fail_FOL_files)
+	@echo "The $@ test succeeded!"
+
+##############################################################################
+# Only conjectures test
+
+%.only_conjectures : %.agdai
+	$(AGDA2ATP) --non-fol --only-files $*.agda
+	diff -r $(output_dir)/$* $*
+
+only_conjectures : $(only_conjectures_files)
 	@echo "The $@ test succeeded!"
 
 ##############################################################################
