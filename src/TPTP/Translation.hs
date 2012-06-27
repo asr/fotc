@@ -57,7 +57,7 @@ import Agda.Utils.Monad      ( ifM )
 
 import AgdaInternal.RemoveProofTerms
   ( removeProofTerm
-  , TypesOfVars(typesOfVars)
+  , BoundedVarsType(boundedVarsType)
   )
 
 import AgdaInternal.EtaExpansion ( EtaExpandible(etaExpand) )
@@ -109,15 +109,18 @@ toAF role qName def = do
     then reportSLn "toAF" 20 "The type and the eta-expanded type: equals"
     else reportSLn "toAF" 20 "The type and the eta-expanded type: different"
 
+  let boundedVarsTy ∷ [(String, Type)]
+      boundedVarsTy = boundedVarsType tyEtaExpanded
+
   reportSLn "toAF" 20 $
     "The types of the bounded variables,"
     ++ "i.e. (Abs x _), but not (NoAbs x _) are:\n"
-    ++ showListLn (typesOfVars tyEtaExpanded)
+    ++ showListLn boundedVarsTy
 
-  -- We remvoe the variables which are proof terms from the types.
+  -- We remove the variables which are proof terms from the types.
   tyReady ← foldM removeProofTerm
                   tyEtaExpanded
-                  (reverse $ typesOfVars tyEtaExpanded)
+                  (reverse boundedVarsTy)
 
   reportSLn "toAF" 20 $ "tyReady:\n" ++ show tyReady
 

@@ -407,5 +407,6 @@ getImportedInterfaces ∷ Interface → T [Interface]
 getImportedInterfaces i = do
   iInterfaces ← fmap concat $
                 evalStateT (mapM importedInterfaces $ iImportedModules i) []
-  reportSLn "ii" 20 $ "Module names: " ++ show (map iModuleName iInterfaces)
+  reportSLn "ii" 20 $
+    "Imported module names: " ++ show (map iModuleName iInterfaces)
   return iInterfaces

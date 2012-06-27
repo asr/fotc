@@ -62,7 +62,7 @@
 ------------------------------------------------------------------------------
 module AgdaInternal.RemoveProofTerms
   ( removeProofTerm
-  , TypesOfVars(typesOfVars)
+  , BoundedVarsType(boundedVarsType)
   ) where
 
 ------------------------------------------------------------------------------
@@ -102,50 +102,50 @@ import Utils.Show    ( showLn )
 
 ------------------------------------------------------------------------------
 -- We only need to remove the variables which are proof terms, so we
--- collect the types of the variables using the type class
--- TypesOfVars. The de Bruijn indexes are assigned from right to left,
+-- collect the types of the bounded variables using the type class
+-- BoundedVarsType. The de Bruijn indexes are assigned from right to
+-- left,
 --
 -- e.g.  in @(A B C : Set) → ...@, @A@ is 2, @B@ is 1, and @C@ is 0,
 --
 -- so we need create the list in the same order.
 
 -- | Types of the bounded variables in an Agda entity.
-class TypesOfVars a where
-  typesOfVars ∷ a → [(String, Type)]
+class BoundedVarsType a where
+  boundedVarsType ∷ a → [(String, Type)]
 
-instance TypesOfVars Type where
-  typesOfVars (El (Type _) term) = typesOfVars term
-  typesOfVars _                  = __IMPOSSIBLE__
+instance BoundedVarsType Type where
+  boundedVarsType (El (Type _) term) = boundedVarsType term
+  boundedVarsType _                  = __IMPOSSIBLE__
 
-instance TypesOfVars Term where
+instance BoundedVarsType Term where
   -- TODO: In Lam terms we bound variables, but they seem doesn't have
   -- associated types. Therefore, we associate a "DontCare" type.
   --
-  -- typesOfVars (Lam _ (Abs x absTerm)) =
-  --   typesOfVars absTerm ++ [(x, El (Type (Max [])) DontCare)]
+  -- boundedVarsType (Lam _ (Abs x absTerm)) =
+  --   boundedVarsType absTerm ++ [(x, El (Type (Max [])) DontCare)]
 
   -- We only have real bounded variables in Pi _ (Abs _ _) terms.
-  typesOfVars (Pi _            (NoAbs _ absTy)) = typesOfVars absTy
-  typesOfVars (Pi (Dom _ _ ty) (Abs x absTy))   = (x, ty) : typesOfVars absTy
+  boundedVarsType (Pi _ (NoAbs _ absTy)) = boundedVarsType absTy
+  boundedVarsType (Pi (Dom _ _ ty) (Abs x absTy)) = (x, ty) : boundedVarsType absTy
 
-  typesOfVars (Def _ args) = typesOfVars args
+  boundedVarsType (Def _ args) = boundedVarsType args
 
-  typesOfVars (Con _ _) = []
-  typesOfVars (Lam _ _) = []
-  typesOfVars (Var _ _) = []
+  boundedVarsType (Con _ _) = []
+  boundedVarsType (Lam _ _) = []
+  boundedVarsType (Var _ _) = []
 
-  typesOfVars (DontCare _) = __IMPOSSIBLE__
-  typesOfVars (Level _)    = __IMPOSSIBLE__
-  typesOfVars (Lit _)      = __IMPOSSIBLE__
-  typesOfVars (MetaV _ _)  = __IMPOSSIBLE__
-  typesOfVars (Sort _)     = __IMPOSSIBLE__
+  boundedVarsType (DontCare _) = __IMPOSSIBLE__
+  boundedVarsType (Level _)    = __IMPOSSIBLE__
+  boundedVarsType (Lit _)      = __IMPOSSIBLE__
+  boundedVarsType (MetaV _ _)  = __IMPOSSIBLE__
+  boundedVarsType (Sort _)     = __IMPOSSIBLE__
 
+instance BoundedVarsType a ⇒ BoundedVarsType (Arg a) where
+  boundedVarsType (Arg _ _ e) = boundedVarsType e
 
-instance TypesOfVars a ⇒ TypesOfVars (Arg a) where
-  typesOfVars (Arg _ _ e) = typesOfVars e
-
-instance TypesOfVars a ⇒ TypesOfVars [a] where
-  typesOfVars = concatMap typesOfVars
+instance BoundedVarsType a ⇒ BoundedVarsType [a] where
+  boundedVarsType = concatMap boundedVarsType
 
 -- | Remove the reference to a variable (i.e. Var n args) in an Agda
 -- entity.

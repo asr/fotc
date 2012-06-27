@@ -23,4 +23,5 @@ showLn = (++ "\n") . show
 -- | Version of 'show' on lists where the elements are separated by
 -- newline characters.
 showListLn ∷ Show a ⇒ [a] → String
-showListLn xs = xs >>= showLn  -- From Autoproc.Procmail.
+showListLn [] = "[]"
+showListLn xs = concatMap showLn xs
