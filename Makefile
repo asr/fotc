@@ -6,13 +6,13 @@ ifeq ($(publish),Yes)
 include publish.mk
 endif
 
-# Snapshot directory
+# Snapshot directory.
 snapshot_dir = snapshot
 
-# Output directory
+# Directory for the TPTP files.
 output_dir = /tmp/FOT
 
-# Agda standard library path
+# Agda standard library path.
 std_lib_path = /home/asr/Agda/std-lib
 
 ##############################################################################
@@ -40,7 +40,7 @@ AGDA2ATP = agda2atp -i. -isrc --output-dir=$(output_dir)
 # AGDA2ATP = agda2atp -i. -isrc --atp=metis --output-dir=$(output_dir)
 # AGDA2ATP = agda2atp -i. -isrc --atp=spass --output-dir=$(output_dir)
 # AGDA2ATP = agda2atp -i. -isrc --atp=vampire --output-dir=$(output_dir)
-AGDA2ATP_CREATE_SNAPSHOT = agda2atp -i. -isrc --only-files \
+AGDA2ATP_SNAPSHOT_CREATE = agda2atp -i. -isrc --only-files \
                                     --output-dir=$(snapshot_dir)
 AGDA2ATP_SNAPSHOT_TEST = agda2atp -i. -isrc --snapshot-test \
                                   --snapshot-dir=$(snapshot_dir)
@@ -246,24 +246,29 @@ all_consistency : $(consistency_test_files)
 ##############################################################################
 # Create snapshot files
 
-create_snapshot_% :
+snapshot_create_% :
 	for file in $(conjectures); do \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
-	    if ! ( $(AGDA2ATP_CREATE_SNAPSHOT) --non-fol $${file} ); then \
+	    if ! ( $(AGDA2ATP_SNAPSHOT_CREATE) --non-fol $${file} ); then \
 	       exit 1; \
             fi; \
 	done
 
-all_create_snapshot : create_snapshot_DistributiveLaws \
-		      create_snapshot_FOL \
-		      create_snapshot_FOTC \
-		      create_snapshot_GroupTheory \
-		      create_snapshot_PA
+all_snapshot_create : snapshot_clean \
+		      snapshot_create_DistributiveLaws \
+		      snapshot_create_FOL \
+		      snapshot_create_FOTC \
+		      snapshot_create_GroupTheory \
+		      snapshot_create_PA
+	@echo "$@ succeeded!"
+
+snapshot_clean :
+	rm -r -f $(snapshot_dir)
 
 ##############################################################################
 # Test the snapshot files
 
-snapshot_% :
+snapshot_test_% :
 	for file in $(conjectures); do \
 	    echo "Processing $${file}"; \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
@@ -272,18 +277,21 @@ snapshot_% :
         fi; \
 	done
 
-all_snapshot : snapshot_DistributiveLaws \
-	       snapshot_FOL \
-	       snapshot_FOTC \
-	       snapshot_GroupTheory \
-	       snapshot_PA
+all_snapshot_test : snapshot_test_DistributiveLaws \
+	            snapshot_test_FOL \
+	            snapshot_test_FOTC \
+	            snapshot_test_GroupTheory \
+	            snapshot_test_PA
 	@echo "The $@ test succeeded!"
 
 ##############################################################################
 # Test used when there is a modification to Agda
 
-agda_changed : clean_interfaces all_type_checking all_only_conjectures
+agda_changed : agda_changed_clean all_type_checking all_only_conjectures
 	@echo "The $@ test succeeded!"
+
+agda_changed_clean :
+	find -name '*.agdai' | xargs rm -f
 
 ##############################################################################
 # Publish the .html files
@@ -323,11 +331,9 @@ dependency_graph : src/FOTC/Program/GCD/Total/ProofSpecificationATP.agda
 TODO :
 	find -name '*.*' | xargs grep -I TODO | sort
 
-clean_interfaces :
+clean :
 	find -name '*.agdai' | xargs rm -f
-
-clean : clean_interfaces
-	rm -f /tmp/*.tptp
+	rm -f -r $(output_dir)
 
 ##############################################################################
 # Main
