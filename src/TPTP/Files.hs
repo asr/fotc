@@ -188,7 +188,7 @@ createConjectureFile generalRoles conjectureSet = do
       file = addExtension f tptpExt
 
   reportSLn "createConjectureFile" 20 $
-            "Creating the conjecture file " ++ show file ++ " ..."
+            "Creating " ++ show file ++ " ..."
 
   let commonDefs ∷ [AF]
       commonDefs = commonRequiredDefs generalRoles conjectureSet
@@ -219,6 +219,6 @@ createConjectureFile generalRoles conjectureSet = do
     return ()
 
   whenM (getTOpt optOnlyFiles) $
-       reportS "" 1 $ "Created the conjecture file " ++ file
+       reportS "" 1 $ "Created " ++ file
 
   return file
