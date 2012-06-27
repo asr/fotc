@@ -7,7 +7,8 @@
 -- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 -- Stability   : experimental
 --
--- Translation of Agda internal syntax entities to FOL formulae.
+-- Translation of Agda internal syntax entities to first-order-logic
+-- formulae.
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
@@ -54,16 +55,19 @@ import Monad.Reports              ( reportSLn )
 -- telescopeToFormula EmptyTel             = __IMPOSSIBLE__
 -- telescopeToFormula (ExtendTel tyArg _) = typeToFormula $ unArg tyArg
 
--- | Translate an Agda internal 'ClauseBody' to a FOL formula.
+-- | Translate an Agda internal 'ClauseBody' to a first-order logic
+-- formula 'FOLFormula'.
 cBodyToFormula ∷ ClauseBody → T FOLFormula
 cBodyToFormula (Body term)          = etaExpand term >>= termToFormula
 cBodyToFormula (Bind (Abs _ cBody)) = cBodyToFormula cBody
 cBodyToFormula _                    = __IMPOSSIBLE__
 
--- | Translate an Agda internal 'ClauseBody' to a FOL term.
+-- | Translate an Agda internal 'ClauseBody' to a first-order logic
+-- term 'FOLTerm'.
 cBodyToFOLTerm ∷ ClauseBody → T FOLTerm
 -- We don't eta-expand the term before the translation, because we
--- cannot translate the generated lambda abstractions to FOL terms.
+-- cannot translate the generated lambda abstractions to first-order
+-- logic terms.
 cBodyToFOLTerm (Body term)          = termToFOLTerm term
 cBodyToFOLTerm (Bind (Abs _ cBody)) = cBodyToFOLTerm cBody
 cBodyToFOLTerm _                    = __IMPOSSIBLE__

@@ -7,7 +7,8 @@
 -- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 -- Stability   : experimental
 --
--- Translation of Agda internal functions to FOL formulae.
+-- Translation of Agda internal functions to fisrt-order logic
+-- formulae.
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
@@ -95,7 +96,8 @@ varsToArgs n = Arg NotHidden Relevant (var (n - 1)) : varsToArgs (n - 1)
 -- pattern matching. In our case it is only necessary to translate
 -- definitions with only one clause.
 
--- | Translate an ATP definition to an FOL formula.
+-- | Translate an ATP definition to a first-order logic formula
+-- 'FOLFormula'.
 fnToFormula ∷ QName → Type → [Clause] → T FOLFormula
 fnToFormula _      _  []        = __IMPOSSIBLE__
 fnToFormula qName  ty (cl : []) = clauseToFormula qName ty cl
@@ -204,7 +206,7 @@ clauseToFormula qName ty (Clause _ _ _ [] cBody) = do
     -- The defined symbol is a function.
     El (Type (Max [])) _ →
        -- Because the LHS and the RHS (the body of the clause) are
-       -- terms, they are related via the FOL equaliy
+       -- terms, they are related via the first-order logic equaliy.
        liftM2 equal (termToFOLTerm lhs) (cBodyToFOLTerm cBody)
 
     _ → __IMPOSSIBLE__

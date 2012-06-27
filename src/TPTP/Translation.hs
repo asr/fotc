@@ -228,7 +228,7 @@ conjecturesToAFs topLevelDefs = do
            (HashMap.keys conjecturesDefs)
            (HashMap.elems conjecturesDefs)
 
--- We translate the ATP axioms to FOL formulae.
+-- We translate the ATP axioms to first-order logic formulae.
 axiomsToAFs ∷ T [AF]
 axiomsToAFs = do
   axDefs ∷ Definitions ← getATPAxioms <$> getTDefs
@@ -249,7 +249,7 @@ requiredATPDefsByAxioms = do
 
   fmap (nub . concat) (mapM requiredATPDefsByDefinition (HashMap.elems axDefs))
 
--- We translate the ATP general hints to FOL formulae.
+-- We translate the ATP general hints to first-order logic formulae.
 generalHintsToAFs ∷ T [AF]
 generalHintsToAFs = do
   ghDefs ∷ Definitions ← getATPHints <$> getTDefs

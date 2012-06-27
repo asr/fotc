@@ -7,7 +7,7 @@
 -- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 -- Stability   : experimental
 --
--- Translation from Agda internal terms to FOL formulae.
+-- Translation from Agda internal terms to first-order logic formulae.
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
@@ -164,7 +164,8 @@ predicateLogicalScheme vars n args = do
     0 → __IMPOSSIBLE__
     _ → fmap (appP (FOLVar var)) (mapM argTermToFOLTerm args)
 
--- | Translate an Agda internal 'Term' to a FOL formula.
+-- | Translate an Agda internal 'Term' to a first-order logic formula
+-- 'FOLFormula'.
 termToFormula ∷ Term → T FOLFormula
 termToFormula term@(Def qName@(QName _ name) args) = do
   reportSLn "t2f" 10 $ "termToFormula Def:\n" ++ show term
@@ -300,7 +301,8 @@ termToFormula (Pi domTy (Abs x tyAbs)) = do
     -- impossible.
     El (Type (Max [])) (Def _ _) → __IMPOSSIBLE__
 
-    -- Non-FOL translation: FOL universal quantified functions term.
+    -- Non-FOL translation: First-order logic universal quantified
+    -- functions term.
     --
     -- The bounded variable is quantified on a function of a @Set@ to
     -- a @Set@,
@@ -320,7 +322,8 @@ termToFormula (Pi domTy (Abs x tyAbs)) = do
     -- N.B. The next case is just a generalization to various
     -- arguments of the previous case.
 
-    -- Non-FOL translation: FOL universal quantified functions term.
+    -- Non-FOL translation: First-order logic universal quantified
+    -- functions term.
     --
     -- The bounded variable is quantified on a function of a @Set@ to
     -- a @Set@,
@@ -344,7 +347,8 @@ termToFormula (Pi domTy (Abs x tyAbs)) = do
       reportSLn "t2f" 20 $ "The term someterm is: " ++ show someTerm
       __IMPOSSIBLE__
 
-    -- Non-FOL translation: FOL universal quantified formulae.
+    -- Non-FOL translation: First-order logic universal quantified
+    -- formulae.
     --
     -- The bounded variable is quantified on a @Set₁@,
     --
@@ -363,13 +367,13 @@ termToFormula (Pi domTy (Abs x tyAbs)) = do
       reportSLn "t2f" 20 $ "The type domTy is: " ++ show domTy
 
       unlessM (getTOpt optNonFOLFormula) $
-               throwError $ "The translation of FOL universal quantified"
-                            ++ " formulae is disable by default."
-                            ++ " Use option --non-fol-formula"
+        throwError $ "The translation of first-order logic universal"
+                     ++ " quantified formulae is disable by default."
+                     ++ " Use option --non-fol-formula"
       return f2
 
-    -- Non-FOL translation: FOL universal quantified propositional
-    -- functions.
+    -- Non-FOL translation: First-order logic universal quantified
+    -- propositional functions.
     --
     -- The bounded variable is quantified on a @Set₁@,
     --
@@ -410,8 +414,8 @@ termToFormula term@(Var n args) = do
     -- N.B. In this case we *don't* use the Koen's approach.
     [] → return $ Predicate (vars !! fromIntegral n) []
 
-    -- Non-FOL translation: FOL universal quantified propositional
-    -- functions.
+    -- Non-FOL translation: First-order logic universal quantified
+    -- propositional functions.
 
     -- If we have a bounded variable quantified on a function of a
     -- @Set@ to a @Set₁@, for example, the variable/predicate @P@ in
@@ -427,9 +431,9 @@ termToFormula term@(Var n args) = do
     -- Test.Succeed.AgdaInternalTerms.Var1.agda.
     _ → do
       unlessM (getTOpt optNonFOLPropositionalFunction) $
-               throwError $ "The translation of FOL universal quantified"
-                            ++ " function terms is disable by default."
-                            ++ " Use option --non-fol-propositional-function"
+        throwError $ "The translation of first-order logic universal"
+                     ++ " quantified function terms is disable by default."
+                     ++ " Use option --non-fol-propositional-function"
 
       predicateLogicalScheme vars n args
 
@@ -449,7 +453,8 @@ appArgsFn fn args = do
   termsFOL ← mapM argTermToFOLTerm args
   return $ foldl' appFn (FOLFun fn []) termsFOL
 
--- | Translate an Agda internal 'Term' to an FOL term.
+-- | Translate an Agda internal 'Term' to a first-order logic term
+-- 'FOLTerm'.
 termToFOLTerm ∷ Term → T FOLTerm
 
 termToFOLTerm term@(Con (QName _ name) args) = do
@@ -464,13 +469,14 @@ termToFOLTerm term@(Con (QName _ name) args) = do
     C.Name _ [] → __IMPOSSIBLE__
 
     -- The term @Con@ doesn't have holes. It should be translated as a
-    -- FOL function.
+    -- first-order logic function.
     C.Name _ [C.Id str] →
      case args of
        [] → return $ FOLFun str []
        _  → appArgsFn str args
 
-    -- The term @Con@ has holes. It is translated as a FOL function.
+    -- The term @Con@ has holes. It is translated as a first-order
+    -- logic function.
     C.Name _ _ → __IMPOSSIBLE__
     -- 2012-04-22: We do not have an example of it.
     -- C.Name _ parts →
@@ -489,13 +495,15 @@ termToFOLTerm term@(Def (QName _ name) args) = do
 
     C.Name _ [] → __IMPOSSIBLE__
 
-    -- The term @Def@ doesn't have holes. It is translated as a FOL function.
+    -- The term @Def@ doesn't have holes. It is translated as a
+    -- first-order logic function.
     C.Name _ [C.Id str] →
      case args of
        [] → return $ FOLFun str []
        _  → appArgsFn str args
 
-    -- The term @Def@ has holes. It is translated as a FOL function.
+    -- The term @Def@ has holes. It is translated as a first-order
+    -- logic function.
     C.Name _ parts →
       case args of
         [] → __IMPOSSIBLE__
@@ -511,7 +519,8 @@ termToFOLTerm term@(Var n args) = do
   case args of
     [] → return $ FOLVar (vars !! fromIntegral n)
 
-    -- Non-FOL translation: FOL universal quantified functions term.
+    -- Non-FOL translation: First-order logic universal quantified
+    -- functions term.
 
     -- If we have a bounded variable quantified on a function of a Set
     -- to a Set, for example, the variable/function @f@ in
@@ -527,9 +536,9 @@ termToFOLTerm term@(Var n args) = do
     -- Test.Succeed.AgdaInternalTerms.Var2.agda
     varArgs → do
       unlessM (getTOpt optNonFOLFunction) $
-               throwError $ "The translation of FOL universal quantified"
-                            ++ " function terms is disable by default."
-                            ++ " Use option --non-fol-function"
+        throwError $ "The translation of first-order logic universal"
+                     ++ " quantified function terms is disable by default."
+                     ++ " Use option --non-fol-function"
 
       termsFOL ← mapM argTermToFOLTerm varArgs
       return $ foldl' appFn (FOLVar (vars !! fromIntegral n)) termsFOL

@@ -7,7 +7,7 @@
 -- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 -- Stability   : experimental
 --
--- FOL types.
+-- First-order logic types.
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
@@ -32,12 +32,12 @@ module FOL.Types
 ------------------------------------------------------------------------------
 -- Adapted from AgdaLight (Plugins.FOL.Types).
 
--- | FOL terms.
+-- | First-order logic terms.
 data FOLTerm = FOLFun String [FOLTerm]
              | FOLVar String
                deriving Show
 
--- | FOL formulae.
+-- | First-order logic formulae.
 data FOLFormula = TRUE
                 | FALSE
                 | Predicate String     [FOLTerm]

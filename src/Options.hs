@@ -194,12 +194,12 @@ options =
   , Option []  ["non-fol"] (NoArg nonFOLOpt)
                "enable the non-FOL translations"
   , Option []  ["non-fol-formula"] (NoArg nonFOLFormulaOpt)
-               "translate FOL universal quantified formulae"
+               "translate universal quantified formulae"
   , Option []  ["non-fol-function"] (NoArg nonFOLFunctionOpt)
-               "translate FOL universal quantified functions"
+               "translate universal quantified functions"
   , Option []  ["non-fol-propositional-function"]
                (NoArg nonFOLPropositionalFunctionOpt)
-               "translate FOL universal quantified propositional functions"
+               "translate universal quantified propositional functions"
   , Option []  ["only-files"] (NoArg onlyFilesOpt)
                "do not call the ATPs, only to create the TPTP files"
   , Option []  ["output-dir"] (ReqArg outputDirOpt "DIR")

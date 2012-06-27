@@ -7,7 +7,8 @@
 -- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 -- Stability   : experimental
 --
--- FOL names hard-coded in the translation from Agda types to FOL formulae.
+-- Names hard-coded in the translation of Agda internal types to
+-- first-order logic formulae.
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
@@ -34,16 +35,17 @@ import FOL.Types ( FOLTerm(FOLFun), FOLFormula(Predicate) )
 kAppFn ∷ String
 kAppFn = "kAppFn"
 
--- | Translation to FOL functions. For example, the function @foo x1
--- ... xn@ will be translate to @kAppFn (... kAppFn (kAppFn(foo, x1),
--- x2), ..., xn)@, where @kAppFn@ is a hard-coded binary function
--- symbol.
+-- | Translation to first-order logic functions. For example, the
+-- function @foo x1 ... xn@ will be translate to @kAppFn (... kAppFn
+-- (kAppFn(foo, x1), x2), ..., xn)@, where @kAppFn@ is a hard-coded
+-- binary function symbol.
 appFn ∷ FOLTerm → FOLTerm → FOLTerm
 appFn t1 t2 = FOLFun kAppFn [t1, t2]
 
--- | Translation to FOL predicates. For example, the predicate @P x1
--- x2 x3@ will be translate to @kAppP3 (P, x1, x2, x3)@, where
--- @kAppP3@ is a hard-coded constant 4-ary predicate symbol.
+-- | Translation to first-order logic predicates. For example, the
+-- predicate @P x1 x2 x3@ will be translate to @kAppP3 (P, x1, x2,
+-- x3)@, where @kAppP3@ is a hard-coded constant 4-ary predicate
+-- symbol.
 appP ∷ FOLTerm → [FOLTerm] → FOLFormula
 appP _ [] = __IMPOSSIBLE__
 appP p ts = Predicate name (p : ts)
@@ -57,6 +59,6 @@ appP p ts = Predicate name (p : ts)
 kEqual ∷ String
 kEqual = "kEqual"
 
--- | Translation to FOL equality.
+-- | Translation to first-order logic equality.
 equal ∷ FOLTerm → FOLTerm → FOLFormula
 equal t1 t2 = Predicate kEqual [t1, t2]

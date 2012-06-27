@@ -7,7 +7,7 @@
 -- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 -- Stability   : experimental
 --
--- The FOL constants.
+-- The first-order logic constants.
 -----------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
@@ -29,7 +29,7 @@ module FOL.Constants
   ) where
 
 ------------------------------------------------------------------------------
--- | Identifiers recognized by the FOL translator.
+-- | Identifiers recognized by the first-order logic translator.
 folTrue, folFalse, folNot, folAnd, folOr, folImplies, folEquiv ∷ String
 folTrue    = "⊤"
 folFalse   = "⊥"
@@ -39,7 +39,7 @@ folOr      = "∨"
 folImplies = "⇒"  -- The non-dependent function space @→@ can be used instead.
 folEquiv   = "↔"
 
--- | Identifiers recognized by the FOL translator.
+-- | Identifiers recognized by the first-order logic translator.
 folExists, folForAll, folEquals ∷ String
 folExists = "∃"
 folForAll = "⋀"  -- The dependent function space @∀ x → A@ can be used instead.

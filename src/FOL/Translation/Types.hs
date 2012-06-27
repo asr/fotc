@@ -7,7 +7,7 @@
 -- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 -- Stability   : experimental
 --
--- Translation from Agda internal types to FOL formulae.
+-- Translation of Agda internal types to first-order logic formulae.
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
@@ -46,13 +46,15 @@ import Monad.Reports         ( reportSLn )
 #include "../../undefined.h"
 
 ------------------------------------------------------------------------------
--- | Translate an Agda internal 'Dom' 'Type' to a FOL formula.
+-- | Translate an Agda internal 'Dom' 'Type' to a first-order logic
+-- formula 'FOLFormula'.
 domTypeToFormula ∷ Dom Type → T FOLFormula
 domTypeToFormula Dom {domHiding = Instance}              = __IMPOSSIBLE__
 domTypeToFormula Dom {domHiding = Hidden}                = __IMPOSSIBLE__
 domTypeToFormula Dom {domHiding = NotHidden, unDom = ty} = typeToFormula ty
 
--- | Translate an Agda internal 'Type' to a FOL formula.
+-- | Translate an Agda internal 'Type' to a first-order logic formula
+-- 'FOLFormula'.
 typeToFormula ∷ Type → T FOLFormula
 typeToFormula ty@(El (Type (Max [])) term) = do
   reportSLn "typeToFormula" 10 $ "Processing type ty:\n" ++ show ty
