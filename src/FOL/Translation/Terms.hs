@@ -257,7 +257,40 @@ termToFormula (Pi domTy (NoAbs x tyAbs)) = do
     "termToFormula Pi _ (NoAbs _ _):\n"
     ++ "domTy: " ++ show domTy ++ "\n"
     ++ "absTy: " ++ show (NoAbs x tyAbs)
-  liftM2 Implies (domTypeToFormula domTy) (typeToFormula tyAbs)
+  f2 ← typeToFormula tyAbs
+
+  -- 27 June 2012. After the patch
+  --
+  -- Wed Sep 21 04:50:43 COT 2011  ulfn@chalmers.se
+  --   * got rid of the Fun constructor in internal syntax (using Pi _ (NoAbs _ _) instead)
+  --
+  -- Agda is using (Pi _ (NoAbs _ _)) for the non-dependent
+  -- functions. In a later patch, Agda changed somes (Pi _ (Abs _ _))
+  -- to (Pi _ (NoAbs _ _)). The solution below works for *all* our cases.
+
+  if x /= "_"
+    then do
+      case unDom domTy of
+        -- The variable @x@ is an universal quantified variable not
+        -- used, thefefore we generate a quantified first-order logic
+        -- formula.
+        El (Type (Max [])) (Def _ []) → do
+          freshVar ← newTVar
+          return $ ForAll freshVar (\_ → f2)
+
+        -- The variable @x@ is a proof term, therefore we erase the
+        -- quantication on it.
+        El (Type (Max [])) (Def _ _) → do
+          f1 ← domTypeToFormula domTy
+          return $ Implies f1 f2
+
+        _ → __IMPOSSIBLE__
+
+    -- The variable @x@ is a proof term, therefore we erase the
+    -- quantication on it.
+    else do
+      f1 ← domTypeToFormula domTy
+      return $ Implies f1 f2
 
 termToFormula (Pi domTy (Abs x tyAbs)) = do
   reportSLn "t2f" 10 $
@@ -272,15 +305,14 @@ termToFormula (Pi domTy (Abs x tyAbs)) = do
     ++ show freshVar ++ " and type:\n" ++ show tyAbs
 
   pushTVar freshVar
-  f2 ← typeToFormula tyAbs
+  f ← typeToFormula tyAbs
   popTVar
 
   reportSLn "t2f" 20 $
     "Finalized processing in local environment with fresh variable "
     ++ show freshVar ++ " and type:\n" ++ show tyAbs
 
-  reportSLn "t2f" 20 $
-    "The formula f2 is: " ++ show f2
+  reportSLn "t2f" 20 $ "The formula f is: " ++ show f
 
   case unDom domTy of
     -- The bounded variable is quantified on a @Set@,
@@ -294,7 +326,7 @@ termToFormula (Pi domTy (Abs x tyAbs)) = do
     El (Type (Max [])) (Def _ []) → do
       reportSLn "t2f" 20 $
         "Adding universal quantification on variable " ++ show freshVar
-      return $ ForAll freshVar (\_ → f2)
+      return $ ForAll freshVar (\_ → f)
 
     -- The bounded variable is quantified on a proof. Due to we have
     -- drop the quantification on proofs terms, this case is
@@ -317,7 +349,7 @@ termToFormula (Pi domTy (Abs x tyAbs)) = do
            (NoAbs _ (El (Type (Max [])) (Def _ [])))) → do
       reportSLn "t2f" 20
         "Removing a quantification on a function of a Set to a Set"
-      return $ ForAll freshVar (\_ → f2)
+      return $ ForAll freshVar (\_ → f)
 
     -- N.B. The next case is just a generalization to various
     -- arguments of the previous case.
@@ -340,7 +372,7 @@ termToFormula (Pi domTy (Abs x tyAbs)) = do
         "Removing a quantification on a function of a Set to a Set"
       -- 31 May 2012. We don't have an example of this case.
       --
-      -- return $ ForAll freshVar (\_ → f2)
+      -- return $ ForAll freshVar (\_ → f)
       __IMPOSSIBLE__
 
     El (Type (Max [])) someTerm → do
@@ -370,7 +402,7 @@ termToFormula (Pi domTy (Abs x tyAbs)) = do
         throwError $ "The translation of first-order logic universal"
                      ++ " quantified formulae is disable by default."
                      ++ " Use option --non-fol-formula"
-      return f2
+      return f
 
     -- Non-FOL translation: First-order logic universal quantified
     -- propositional functions.
@@ -386,7 +418,7 @@ termToFormula (Pi domTy (Abs x tyAbs)) = do
     --             P₂ x y ∨ Q₂ x y → Q₂ x y ∨ P₂ x y
 
     El (Type (Max [ClosedLevel 1])) (Pi _ (NoAbs _ _)) →
-      return $ ForAll freshVar (\_ → f2)
+      return $ ForAll freshVar (\_ → f)
 
     -- Other cases
     El (Type (Max [ClosedLevel 1])) (Def _ _)        → __IMPOSSIBLE__

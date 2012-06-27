@@ -1,14 +1,11 @@
--- 20 June 2012. Agda is using (Pi _ (NoAbs _ _)) for the non-dependent
--- functions, so we have some bugs in the translation.
+------------------------------------------------------------------------------
+-- Testing variable names clash
+------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Issues.NoAbs.NoAbs2 where
-
--- Test name: VariableNamesClash
-
-infix  4 _≡_
+module Test.Succeed.FOL.VariableNamesClash where
 
 postulate
   D   : Set

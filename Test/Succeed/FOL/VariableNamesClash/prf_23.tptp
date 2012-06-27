@@ -1,0 +1,28 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The general axiom(s).
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.VariableNamesClash.a≡b
+% Role:	axiom
+% Line:	15
+fof(n8_2893591, axiom, ( a = b )).
+
+% End general axiom(s).
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	Test.Succeed.FOL.VariableNamesClash._.prf
+% Role:	prove
+% Line:	23
+fof(n15_2893591, conjecture, ( ! [A] : ( ! [B] : ( a = b ) ) )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.
