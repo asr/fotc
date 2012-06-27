@@ -19,7 +19,12 @@ open import FOTC.Program.McCarthy91.ArithmeticATP
 open import FOTC.Program.McCarthy91.McCarthy91
 
 ------------------------------------------------------------------------------
+-- Auxiliary equation
 
+postulate mc91-eq-aux : ∀ n → GT n one-hundred → mc91 n ≡ n ∸ ten
+{-# ATP prove mc91-eq-aux #-}
+
+------------------------------------------------------------------------------
 --- Auxiliary properties
 
 ---- Case n > 100

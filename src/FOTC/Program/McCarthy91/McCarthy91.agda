@@ -13,7 +13,6 @@ open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.UnaryNumbers
 
 ------------------------------------------------------------------------------
-
 -- The McCarthy 91 function.
 postulate
   mc91    : D → D
@@ -21,7 +20,3 @@ postulate
                              then n ∸ ten
                              else mc91 (mc91 (n + eleven))
 {-# ATP axiom mc91-eq #-}
-
--- Auxiliary equation.
-postulate mc91-eq-aux : ∀ n → GT n one-hundred → mc91 n ≡ n ∸ ten
-{-# ATP prove mc91-eq-aux #-}
