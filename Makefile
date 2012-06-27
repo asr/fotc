@@ -142,7 +142,7 @@ all_type_checking : type_checking_Common \
 
 only_conjectures_% :
 	for file in $(conjectures); do \
-	    echo "Processing $$file"; \
+	    echo "Processing $${file}"; \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
 	    if [ "src/FOL/NonIntuitionistic/TheoremsATP.agda" = $${file} ] || \
                [ "src/FOL/SchemataATP.agda" = $${file} ]; then \
@@ -150,6 +150,12 @@ only_conjectures_% :
             else \
 	      if ! ( $(AGDA2ATP) --only-files $${file} ); then exit 1; fi; \
             fi; \
+	    # Comparison of the generated conjectures against the \
+	    # current ones. However we prefer to use the snapshot \
+	    # test to avoid keep the conjectures in the repository. \
+	    # tmp1=$${file%.agda}; \
+	    # tmp2=$${tmp1#src/}; \
+	    # if ! ( diff -r $(output_dir)/$${tmp2} src/$${tmp2} ); then exit 1; fi; \
 	done
 
 all_only_conjectures : only_conjectures_DistributiveLaws \
@@ -166,7 +172,7 @@ all_only_conjectures : only_conjectures_DistributiveLaws \
 # notes/tptp/parsing_error.tptp
 parsing_% :
 	for file in $(conjectures); do \
-	    echo "Processing $$file"; \
+	    echo "Processing $${file}"; \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
 	    if ! ( $(AGDA2ATP) --non-fol --only-files $${file} ); then exit 1; fi; \
 	    find $(output_dir) | while read tptp_file; do \
@@ -186,7 +192,7 @@ all_parsing : parsing_DistributiveLaws \
 
 conjectures_% :
 	for file in $(conjectures); do \
-	    echo "Processing $$file"; \
+	    echo "Processing $${file}"; \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
 	    if [ "src/FOL/NonIntuitionistic/TheoremsATP.agda" = $${file} ] || \
                [ "src/FOL/SchemataATP.agda" = $${file} ]; then \
@@ -259,7 +265,7 @@ all_create_snapshot : create_snapshot_DistributiveLaws \
 
 snapshot_% :
 	for file in $(conjectures); do \
-	    echo "Processing $$file"; \
+	    echo "Processing $${file}"; \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
 	    if ! ( $(AGDA2ATP_SNAPSHOT_TEST) --non-fol $${file} ); then \
 	       exit 1; \
