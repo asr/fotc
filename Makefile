@@ -142,7 +142,7 @@ all_type_checking : type_checking_Common \
 
 only_conjectures_% :
 	for file in $(conjectures); do \
-	    echo "Processing file $$file"; \
+	    echo "Processing $$file"; \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
 	    if [ "src/FOL/NonIntuitionistic/TheoremsATP.agda" = $${file} ] || \
                [ "src/FOL/SchemataATP.agda" = $${file} ]; then \
@@ -166,7 +166,7 @@ all_only_conjectures : only_conjectures_DistributiveLaws \
 # notes/tptp/parsing_error.tptp
 parsing_% :
 	for file in $(conjectures); do \
-	    echo "Processing file $$file"; \
+	    echo "Processing $$file"; \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
 	    if ! ( $(AGDA2ATP) --non-fol --only-files $${file} ); then exit 1; fi; \
 	    find $(output_dir) | while read tptp_file; do \
@@ -186,7 +186,7 @@ all_parsing : parsing_DistributiveLaws \
 
 conjectures_% :
 	for file in $(conjectures); do \
-	    echo "Processing file $$file"; \
+	    echo "Processing $$file"; \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
 	    if [ "src/FOL/NonIntuitionistic/TheoremsATP.agda" = $${file} ] || \
                [ "src/FOL/SchemataATP.agda" = $${file} ]; then \
@@ -259,7 +259,7 @@ all_create_snapshot : create_snapshot_DistributiveLaws \
 
 snapshot_% :
 	for file in $(conjectures); do \
-	    echo "Processing file $$file"; \
+	    echo "Processing $$file"; \
             if ! ( $(AGDA_FOT) $${file} ); then exit 1; fi; \
 	    if ! ( $(AGDA2ATP_SNAPSHOT_TEST) --non-fol $${file} ); then \
 	       exit 1; \
