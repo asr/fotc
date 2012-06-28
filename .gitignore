@@ -1,0 +1,4 @@
+dist
+*.agdai
+*.o
+*.hi
