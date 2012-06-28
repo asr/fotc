@@ -180,9 +180,9 @@ createConjectureFile generalRoles conjectureSet = do
 
   let f ∷ FilePath
       f = finalDir </>
-          asciiName ((concat . nameStringParts . nameConcrete . qnameName) qName)
+           show (qNameLine qName)
           ++ "_"
-          ++ show (qNameLine qName)
+          ++ asciiName ((concat . nameStringParts . nameConcrete . qnameName) qName)
 
       file ∷ FilePath
       file = addExtension f tptpExt
