@@ -36,15 +36,18 @@ path_subst = $(patsubst %.agda,%.$(1), \
 ##############################################################################
 # Files
 
-succeed_FOL_files = $(call path_subst,succeed_FOL,$(succeed_FOL_path))
+proved_conjectures_FOL_files = \
+  $(call path_subst,proved_conjectures_FOL,$(succeed_FOL_path))
 
-succeed_NonFOL_files = $(call path_subst,succeed_NonFOL,$(succeed_NonFOL_path))
+proved_conjectures_NonFOL_files = \
+  $(call path_subst,proved_conjectures_NonFOL,$(succeed_NonFOL_path))
 
 fail_FOL_files = $(call path_subst,fail_FOL,$(fail_FOL_path))
 
 parsing_files = $(call path_subst,parsing,$(succeed_path))
 
-only_conjectures_files = $(call path_subst,only_conjectures,$(succeed_path))
+generated_conjectures_files = \
+  $(call path_subst,generated_conjectures,$(succeed_path))
 
 snapshot_create_files = $(call path_subst,snapshot_create,$(succeed_path))
 
@@ -56,17 +59,16 @@ snapshot_test_files = $(call path_subst,snapshot_test,$(succeed_path))
 	$(AGDA) $<
 
 ##############################################################################
-# Succeed test
+# Proved conjectures test
 
-%.succeed_FOL : %.agdai
+%.proved_conjectures_FOL : %.agdai
 	$(AGDA2ATP) --time=10 $*.agda
-	diff -r $* $(output_dir)/$*
 
-%.succeed_NonFOL : %.agdai
+%.proved_conjectures_NonFOL : %.agdai
 	$(AGDA2ATP) --time=10 --non-fol $*.agda
-	diff -r $* $(output_dir)/$*
 
-succeed : $(succeed_FOL_files) $(succeed_NonFOL_files)
+proved_conjectures : $(proved_conjectures_FOL_files) \
+                     $(proved_conjectures_NonFOL_files)
 	@echo "The $@ test succeeded!"
 
 ##############################################################################
@@ -79,13 +81,13 @@ fail : $(fail_FOL_files)
 	@echo "The $@ test succeeded!"
 
 ##############################################################################
-# Only conjectures test
+# Generated conjectures test
 
-%.only_conjectures : %.agdai
+%.generated_conjectures : %.agdai
 	$(AGDA2ATP) --non-fol --only-files $*.agda
 	diff -r $* $(output_dir)/$*
 
-only_conjectures : $(only_conjectures_files)
+generated_conjectures : $(generated_conjectures_files)
 	@echo "The $@ test succeeded!"
 
 ##############################################################################
@@ -130,7 +132,9 @@ hpc_html_dir = hpc
 
 .PHONY : hpc
 hpc : hpc_clean hpc_install \
-      $(succeed_FOL_files) $(succeed_NonFOL_files) $(fail_FOL_files)
+      $(proved_conjectures_FOL_files) \
+      $(proved_conjectures_NonFOL_files) \
+      $(fail_FOL_files)
 	hpc markup --exclude=Snapshot \
                    --exclude=Paths_agda2atp \
                    --destdir=$(hpc_html_dir) \
@@ -147,6 +151,16 @@ hpc_clean :
 	rm -f -r $(hpc_html_dir)
 
 ##############################################################################
+# Haddock test
+
+doc :
+	cabal configure
+	cabal haddock --hyperlink-source \
+                      --executables \
+                      --haddock-option=--use-unicode
+	@echo "The Haddock test succeeded!"
+
+##############################################################################
 # Running the tests
 
 tests : clean
@@ -156,25 +170,29 @@ tests : clean
 	make parsing
 
 	@echo "======================================================================"
-	@echo "== Suite of successfull tests ========================================"
+	@echo "== Suite of generated conjectures tests =============================="
 	@echo "======================================================================"
-	make succeed
+	make generated_conjectures
+
+	@echo "======================================================================"
+	@echo "== Suite of proved conjectures tests =================================="
+	@echo "======================================================================"
+	make proved_conjectures
 
 	@echo "======================================================================"
 	@echo "== Suite of failing tests ============================================"
 	@echo "======================================================================"
 	make fail
 
+	@echo "======================================================================"
+	@echo "== Testing the Haddock documentation =================================="
+	@echo "======================================================================"
+	make doc
+
 	@echo "All tests succeeded!"
 
 ##############################################################################
 # Others
-
-doc :
-	cabal configure
-	cabal haddock --hyperlink-source \
-                      --executables \
-                      --haddock-option=--use-unicode
 
 .PHONY : TAGS
 TAGS : $(haskell_files)
