@@ -1,4 +1,5 @@
-dist
 *.agdai
 *.o
 *.hi
+dist
+model
