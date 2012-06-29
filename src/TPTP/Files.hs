@@ -181,7 +181,7 @@ createConjectureFile generalRoles conjectureSet = do
   let f ∷ FilePath
       f = finalDir </>
            show (qNameLine qName)
-          ++ "_"
+          ++ "-"
           ++ asciiName ((concat . nameStringParts . nameConcrete . qnameName) qName)
 
       file ∷ FilePath
