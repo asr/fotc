@@ -247,7 +247,7 @@ inverseDistribution a b = leftInverseUnique' b⁻¹a⁻¹[ab]≡ε
     ε ∎
 
 -- If the square of every element is the identity, the system is commutative.
--- From: TPTP v5.3.0 problem GRP/GRP001-2.p.
+-- From: TPTP v5.4.0 problem GRP/GRP001-2.p.
 x²≡ε→comm : (∀ a → a · a ≡ ε) → ∀ {b c d} → b · c ≡ d → c · b ≡ d
 -- Paper proof:
 -- 1. d(bc)  = dd  (hypothesis bc = d)

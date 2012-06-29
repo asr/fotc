@@ -168,7 +168,7 @@ all_only_conjectures : only_conjectures_DistributiveLaws \
 ##############################################################################
 # Only parsing the conjecture files
 
-# We use tptp4X from the TPTP library to parse the TPTP files. See
+# We use tptp4X from the TPTP v5.4.0 to parse the TPTP files. See
 # notes/tptp/parsing_error.tptp
 parsing_% :
 	for file in $(conjectures); do \

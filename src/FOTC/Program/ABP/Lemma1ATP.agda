@@ -27,8 +27,8 @@ open import FOTC.Program.ABP.Terms
 -- Helper function for the ABP lemma 1
 
 module Helper where
-  -- We have these TPTP definitions outside the where clause to keep
-  -- them simple for the ATPs.
+  -- We have these definitions outside the where clause to keep them
+  -- simple for the ATPs.
 
   as⁵ : ∀ b i' is' ds → D
   as⁵ b i' is' ds = await b i' is' ds

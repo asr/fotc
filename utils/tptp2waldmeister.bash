@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# Tested with TPTP-v5.3.0 on 05 April 2012.
+# Tested with TPTP v5.4.0.
 
 # We make two transformations in the FOF problems:
 # 1. To transform FOF problems to CNF problems using Otter algorithm.

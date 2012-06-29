@@ -26,8 +26,8 @@ open import FOTC.Program.ABP.Terms
 -- Helper function for the ABP lemma 2
 
 module Helper where
-  -- We have these TPTP definitions outside the where clause to keep
-  -- them simple for the ATPs.
+  -- We have these definitions outside the where clause to keep them
+  -- simple for the ATPs.
 
   ds⁵ : D → D → D
   ds⁵ cs' fs₁⁵ = corrupt · fs₁⁵ · cs'

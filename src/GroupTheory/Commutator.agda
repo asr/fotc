@@ -23,7 +23,7 @@ open import GroupTheory.Base
 -- Company, 2nd edition, 1960. p. 99).
 --
 -- We use Kurosh's definition, because this is the definition used
--- by the TPTP v5.3.0 problem GRP/GRP024-5.p.
+-- by the TPTP v5.4.0 problem GRP/GRP024-5.p.
 
 [_,_] : G → G → G
 [ a , b ] = a ⁻¹ · b ⁻¹ · a · b
