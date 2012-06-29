@@ -269,7 +269,7 @@ termToFormula (Pi domTy (NoAbs x tyAbs)) = do
   -- to (Pi _ (NoAbs _ _)). The solution below works for *all* our cases.
 
   if x /= "_"
-    then do
+    then
       case unDom domTy of
         -- The variable @x@ is an universal quantified variable not
         -- used, thefefore we generate a quantified first-order logic
