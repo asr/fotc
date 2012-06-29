@@ -93,7 +93,7 @@ generated_conjectures : $(generated_conjectures_files)
 ##############################################################################
 # Parsing test
 
-# We use tptp4X from the TPTP library to parse the TPTP files.
+# We use tptp4X from the TPTP v5.4.0 to parse the TPTP files.
 %.parsing : %.agdai
 	$(AGDA2ATP) --non-fol --only-files $*.agda
 
