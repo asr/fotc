@@ -13,7 +13,7 @@ snapshot_dir = snapshot
 output_dir = /tmp/FOT
 
 # Agda standard library path.
-std_lib_path = /home/asr/Agda/std-lib
+std_lib_path = /home/asr/agda-upstream/std-lib
 
 ##############################################################################
 # Programs
