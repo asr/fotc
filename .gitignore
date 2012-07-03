@@ -1,3 +1,4 @@
 .fol.*
 *.agdai
 publish.mk
+snapshot/
