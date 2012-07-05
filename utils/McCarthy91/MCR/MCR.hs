@@ -1,6 +1,6 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
--- Tested with GHC 7.4.2 and QuickCheck 2.4.2.
+-- Tested with GHC 7.4.2 and QuickCheck 2.5.
 
 -- We test some properties of the relation MCR with QuickCheck.
 
@@ -75,13 +75,15 @@ prop2 ∷ Nat → Nat → Property
 prop2 m n = mcr m n ==> mcr (Succ m) (Succ n)
 
 prop3 ∷ Nat → Nat → Property
-prop3 m n = m > 95 && n > 95 && mcr m n ==>
-            mcr (Succ m) (Succ n)
+prop3 m n = m > 95 && n > 95 && mcr m n ==> mcr (Succ m) (Succ n)
 
 prop4 ∷ Nat → Nat → Bool
 prop4 m n = mcr m n == (n < m && n < 101)
 
 main ∷ IO ()
 main = do
-  quickCheck prop4
-  -- quickCheckWith (stdArgs { maxDiscard = 75000 }) prop3
+  quickCheck prop1   -- Passed
+  quickCheck prop2   -- Passed
+  quickCheck prop3   -- Gave up
+  quickCheckWith (stdArgs { maxDiscardRatio = 100 }) prop3  -- Failed
+  quickCheck prop4  -- Passed

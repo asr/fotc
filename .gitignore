@@ -1,4 +1,6 @@
 .fol.*
 *.agdai
+*.hi
+*.o
 publish.mk
 snapshot/
