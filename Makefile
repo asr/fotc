@@ -94,9 +94,6 @@ notes_files = $(shell find notes/ -name '*.agda' | sort)
 # Only used to publish the drafts, i.e. non type checking.
 everything_Draft = Draft/RenderToHTML
 
-# The README everything
-everything_README = README
-
 ##############################################################################
 # Conjectures
 
@@ -307,19 +304,10 @@ publish_Agsy : $(Agsy_files)
 	done
 	$(RSYNC) /tmp/Agsy/html/ $(root_host_dir)/Agsy/
 
-publish_% :
-	rm -r -f /tmp/$*/html/
-	$(AGDA_FOT) --html --html-dir=/tmp/$*/html/ $(everything_$*).agda
-	$(RSYNC) /tmp/$*/html/ $(root_host_dir)/$*/
-
-all_publish : publish_Common \
-	      publish_DistributiveLaws \
-	      publish_FOL \
-	      publish_FOTC \
-	      publish_GroupTheory \
-	      publish_LTC-PCF \
-	      publish_PA \
-              publish_Agsy
+publish_README :
+	rm -r -f /tmp/html/
+	$(AGDA_FOT) --html --html-dir=/tmp/html/ README.agda
+	$(RSYNC) /tmp/html/ $(root_host_dir)/
 
 ##############################################################################
 # Other stuff
