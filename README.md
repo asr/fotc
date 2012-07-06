@@ -13,7 +13,7 @@ The program `agda2atp` is part of the code accompanying the paper
   Theories of Functional
   Programs](http://www1.eafit.edu.co/asicard/publications-talks/proceedings_abstracts.html#Bove-Dybjer-SicardRamirez-2012)
   by [Ana Bove](http://www.cse.chalmers.se/~bove/), [Peter
-  Dybjer](http://www.cse.chalmers.se/~peterd), and [Andrés
+  Dybjer](http://www.cse.chalmers.se/~peterd/), and [Andrés
   Sicard-Ramírez] (http://www1.eafit.edu.co/asicard/)</a> (FoSSaCS
   2012).
 
