@@ -3,4 +3,4 @@ source = MCR
 build : $(source).hs
 	ghc --make $< -o /tmp/mcr
 clean :
-	rm -f $(source).hi $(source).o mcr
+	rm -f $(source).hi $(source).o
