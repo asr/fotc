@@ -91,6 +91,9 @@ Agsy_files = $(shell find src/Agsy -name '*.agda' | sort)
 # Notes files
 notes_files = $(shell find notes/ -name '*.agda' | sort)
 
+# The README everything
+everything_README = README
+
 # Only used to publish the drafts, i.e. non type checking.
 everything_Draft = Draft/RenderToHTML
 
