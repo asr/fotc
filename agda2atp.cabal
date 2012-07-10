@@ -7,6 +7,8 @@ license:            MIT
 license-file:       LICENSE
 maintainer:         Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 category:           Dependent types
+homepage:           https://github.com/asr/agda2atp.git
+bug-reports:        https://github.com/asr/agda2atp/issues/
 synopsis:           Program for prove first-order formulae written in Agda using ATPs
 tested-with:        GHC == 7.4.2
 description:
@@ -22,8 +24,8 @@ extra-source-files:
         src/undefined.h
 
 source-repository head
-  type:     darcs
-  location: http://patch-tag.com/r/asr/agda2atp
+  type:     git
+  location: git://github.com/asr/agda2atp.git
 
 executable agda2atp
   main-is:        Main.hs

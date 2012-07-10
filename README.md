@@ -53,8 +53,3 @@ was used to generate the Agda interface files.
 
 The ATP pragmas should be declared in the same module that the Agda
 entity (type, definition, data constructor) which it refers.
-
-Bug report
-----------
-
-Please send your bug reports to andres.sicard.ramirez@gmail.com.
