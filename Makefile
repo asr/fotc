@@ -192,11 +192,10 @@ TAGS : $(haskell_files)
 hlint :
 	hlint src/
 
-.PHONY : TODO
 TODO :
-	find \( -name '*.hs' -o -name '*.hs-boot' -o -name '*.agda' \) \
-	| xargs grep TODO \
-        | sort
+	find -wholename './dist' -prune -o -print \
+	| xargs grep -I 'TODO:' \
+	| sort
 
 clean :
 	rm -f -r $(output_dir)

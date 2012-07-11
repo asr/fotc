@@ -313,9 +313,6 @@ dependency_graph : FOTC/Program/GCD/Total/ProofSpecificationATP.agda
 	$(AGDA_FOT) --dependency-graph=/tmp/dependency-graph-gcd.gv $<
 	dot -Tps /tmp/dependency-graph-gcd.gv > /tmp/dependency-graph-gcd.ps
 
-TODO :
-	find -name '*' | xargs grep -I 'TODO:' | sort
-
 clean :
 	find -name '*.agdai' | xargs rm -f
 	rm -f -r $(output_dir)
