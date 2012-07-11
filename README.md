@@ -153,7 +153,7 @@ related to the verification of functional programs. You can browse all
 the examples from the file
 [README.html](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/README.html).
 
-Known bugs and/or limitations
+Known limitations
 -----------------------------
 
 * Logical symbols
