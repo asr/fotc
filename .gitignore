@@ -2,5 +2,6 @@
 *.agdai
 *.hi
 *.o
+model
 publish.mk
 snapshot/
