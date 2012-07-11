@@ -1,0 +1,35 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Testing the use of schemata
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Tested with Equinox, version 5.0alpha, 2010-06-29.
+
+% $ equinox BoolElimination.tptp
+% +++ PROBLEM: BoolElimination.tptp
+% Reading 'BoolElimination.tptp' ... OK
+% +++ SOLVING: BoolElimination.tptp
+% #elt|m|#instances
+%    6|P|1
+% +++ RESULT: Theorem
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% The Agda version of the Bool elimination
+% schema : Bool-elim : ∀ (P : D → Set){x y z} → Bool x → P y → P z →
+%          P (if x then y else z)
+
+% Koen's translation
+fof(bool_elimination, hypothesis,
+   ( ! [P, X, Y, Z] :
+       ( app(bool,X) =>
+         app(P,Y) =>
+         app(P,Z) =>
+         app(P,if(X,Y,Z))))).
+
+% Scheme instance
+fof(instance, conjecture,
+   ( ! [X, Y, Z] :
+       ( app(bool,X) =>
+         app(bool,Y) =>
+         app(bool,Z) =>
+         app(bool,if(X,Y,Z))))).

@@ -1,5 +1,7 @@
+.fol.*
 *.agdai
 *.o
 *.hi
 dist
 model
+snapshot/

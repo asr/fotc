@@ -1,0 +1,15 @@
+% The order of axioms/conjectures/etc does not matter for the ATPs.
+
+% All the ATPs proved the conjecture. Tested with
+
+% E 1.6 Tiger Hill
+% Equinox 5.0alpha (2010-06-29)
+% Metis 2.3 (release 20101019)
+% Vampire 0.6 (revision 903)
+
+% The conjecture first.
+fof(t, conjecture, q).
+
+% The axioms later.
+fof(ax, axiom, p).
+fof(ax, axiom, p => q).

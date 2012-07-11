@@ -106,26 +106,6 @@ parsing : $(parsing_files)
 	@echo "The $@ test succeeded!"
 
 ##############################################################################
-# Snapshot of the succeed TPTP files
-
-snapshot_dir = snapshot
-
-%.snapshot_create : %.agdai
-	agda2atp --only-files --non-fol --output-dir=$(snapshot_dir) $*.agda
-
-%.snapshot_test : %.agdai
-	agda2atp --non-fol --snapshot-test --snapshot-dir=$(snapshot_dir) $*.agda
-
-snapshot_create : $(snapshot_create_files)
-	@echo "The creation of the snapshot succeeded!"
-
-snapshot_test : $(snapshot_test_files)
-	@echo "The $@ test succeeded!"
-
-snapshot_clean :
-	rm -r -f $(snapshot_dir)
-
-##############################################################################
 # Haskell program coverage
 
 hpc_html_dir = hpc

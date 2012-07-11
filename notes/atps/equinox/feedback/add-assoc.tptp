@@ -1,0 +1,22 @@
+% Testing Equinox feedback (via the model file)
+% Tested with Equinox, version 5.0alpha, 2010-06-29.
+
+% Addition's axioms
+% 0      + y = y
+% succ x + y = succ (x + y)
+
+fof(addZ, axiom, ! [Y] : add(zero,Y) = Y).
+fof(addS, axiom, ! [X,Y] : add(succ(X),Y) = succ(add(X,Y))).
+
+% Associativity for the addition.
+
+% Base case
+%
+% Proved by Equinox
+% fof(t, conjecture, ![X,Y] : add(add(zero,x),y) = add(zero,add(x,y))).
+
+% Induction step
+% Missing inductive hypothesis
+% fof(ih, axiom, ! [X,Y,Z] : add(add(x,y),z) = add(x,add(y,z))).
+
+fof(t, conjecture, ! [X,Y,Z] : add(add(succ(x),y),z) = add(succ(x),add(y,z))).

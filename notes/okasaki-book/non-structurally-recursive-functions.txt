@@ -1,0 +1,74 @@
+Non-structurally recursive functions (in Haskell) from the book: Chris
+Okasaki. Purely functional data structures. Cambridge University
+Press, 1998.
+
+(see the functions in
+http://www.eecs.usma.edu/webs/people/okasaki/pubs.html#cup98)
+
+1. Module AltBinaryRandomAccessList
+
+ fupdate :: (a -> a) -> Int -> BinaryList a -> BinaryList a
+
+ fupdate ... i ... = ... (fupdate ... (i-1) ...) ...
+
+ fupdate f ... = ... (fupdate f' ...) ...
+      where f' = ...
+
+
+ cons  :: a -> BinaryList a -> BinaryList a
+ cons x ... = ... (cons (x,y) ...) ...
+
+
+ lookup :: Int -> BinaryList a -> a
+
+ lookup i (One x ps) = lookup (i-1) ...
+ lookup i (Zero ps) = ... (lookup (i `div` 2) ...) ...
+
+2. Module BinaryRandomAccessList
+
+  consTree :: Tree a -> [Digit a] -> [Digit a]
+  consTree t1 (One t2 : ts) =
+    ... consTree (Node (size t1 + size t2) t1 t2) ...) ...
+
+3. Module BinaryRandomAccessList
+
+  look :: Int -> [Digit a] -> a
+  look i (One t : ts) = ... (look (i - size t) ...) ...
+
+  lookTree :: Int -> Tree a -> a
+  lookTree i (Node w t1 t2) = ... (lookTree (i - w `div` 2) ...) ...
+
+  upd :: Int -> [Digit a] -> [Digit a]
+  upd i (One t : ts) = ... (upd (i - size t) ...) ...
+
+  updTree :: Int -> Tree a -> Tree a
+  updTree i (Node w t1 t2) = ... (updTree (i - w `div` 2) ...) ...
+
+4. Module BinomialHeap
+
+  insTree :: Ord t => Tree t -> [Tree t] -> [Tree t]
+
+5. Module BottomUpMergeSort
+
+ addSeg :: Ord a => [a] → [[a]] -> Int -> [[a]]
+
+6. Module ImplicitCatenableDeque
+
+  dappendL :: (Deque q1, Deque q2) => q2 a -> q1 a -> q1 a
+  dappendL d1 d2 = ... (dappendL (init d1) (cons (last d1) d2)) ...
+
+  dappendR :: (Deque q1, Deque q2) => q1 a -> q2 a -> q1 a
+  dappendR d1 d2 = ... (dappendR (snoc d1 (head d2)) (tail d2)) ...
+
+7. Module ImplicitQueue
+
+ snoc :: ImplicitQueue a -> a -> ImplicitQueue a
+ snoc (Deep f m (One x)) y = ... (snoc m (x,y)) ...
+
+8. Module SkewBinaryRandomAccessList
+
+  The same functions as the module BinaryRandomAccessList
+
+9. Module SkewBinomialHeap
+
+  The same functions as the module BinomialHeap

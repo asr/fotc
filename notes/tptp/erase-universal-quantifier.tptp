@@ -1,0 +1,13 @@
+% The ATPs erase the universal quantifier.
+
+% Tested on 14 March 2012.
+
+fof(test, conjecture, ((! [A] : p) => p)).
+
+% $ equinox erase-universal-quantifier.tptp
+% Equinox, version 5.0alpha, 2010-06-29.
+% +++ PROBLEM: erase-universal-quantifier.tptp
+% Reading 'erase-universal-quantifier.tptp' ... OK
+% +++ SOLVING: erase-universal-quantifier.tptp
+% #elt|m|#instances
+% +++ RESULT: Theorem

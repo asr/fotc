@@ -1,0 +1,12 @@
+% The discrimination rule is missing from Aczel's "The strength of
+% Martin-Löf's intuitionistic type theory with one universe".
+
+fof(k, axiom, ! [X,Y]   : app(app(k,X),Y)        = X).
+fof(s, axiom, ! [X,Y,Z] : app(app(app(s,X),Y),Z) = app(app(X,Z),app(Y,Z))).
+
+fof(discrimination_rule, conjecture, ~(k = s)).
+
+% $ equinox cl-axioms.tptp
+% Equinox, version 5.0alpha, 2010-06-29.
+% ...
+% +++ RESULT: CounterSatisfiable

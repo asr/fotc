@@ -1,0 +1,11 @@
+% Testing Equinox feedback (via the model file)
+% Tested with Equinox, version 5.0alpha, 2010-06-29.
+
+% An incomplete modus-ponen. In this case the model file is empty.
+
+fof(ax, axiom, p => q).
+
+% Missing axiom.
+% fof(ax, axiom, p).
+
+fof(t, conjecture, q).

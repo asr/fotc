@@ -1,0 +1,40 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Substitution of Mendelson's equality
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% The conjecture *could not be* proved by the following ATPs:
+
+% E 1.6
+% $ eprover --auto --cpu-limit=180 --memory-limit=Auto --tstp-format file_name
+
+% Equinox 5.0alpha (2010-06-29)
+% $ equinox file_name
+
+% Metis 2.3 (release 20110926)
+% $ metis --time-limit 180 file_name
+
+% Vampire 0.6 (revision 903)
+% $ vampire_lin64 -t 180 --input_file file_name
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Mendelson's axioms (p. 155).
+% Elliott Mendelson. Introduction to mathematical logic. Chapman &
+% Hall, 4th edition, 1997.
+
+fof(s1, axiom, (! [M,N,O] : (eq(M,N) => (eq(M,O) => eq(N,O))))).
+fof(s2, axiom, (! [M,N] : (eq(M,N) => eq(succ(M),succ(N))))).
+fof(s4, axiom, (! [M,N] : (eq(succ(M),succ(N)) => eq(M,N)))).
+fof(s5, axiom, (! [N] : eq(add(zero,N),N))).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%   a = b,   P a
+% ----------------- substitution
+%        P b
+fof(a1, axiom, eq(a,b)).
+fof(a2, axiom, p(a)).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+fof(subst, conjecture, p(b)).

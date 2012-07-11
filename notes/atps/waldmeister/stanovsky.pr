@@ -1,0 +1,24 @@
+% Tested with WALDMEISTER Version: July 99
+% See DistributiveLaws.TaskB-ATP
+
+NAME            stanovsky
+MODE            PROOF
+SORTS           G
+SIGNATURE       app: G G -> G
+                no_used: -> G % We need this function to avoid a syntax error in
+                              % the ORDERING section.
+ORDERING        LPO
+                app > no_used
+VARIABLES       u,x,y,z : G
+EQUATIONS       % _·_ : G → G → G (binary operation, left-associative)
+
+                % leftDistributive: x · (y · z) ≡ (x · y) · (x · z)
+                app(x,app(y,z)) = app(app(x,y),app(x,z))
+
+                % rightDistributive : ∀ x y z → (x · y) · z ≡ (x · z) · (y · z)
+                app(app(x,y),z) = app(app(x,z),app(y,z))
+
+CONCLUSION      % prop₂ : ∀ u x y z → (x · y · (z · u)) ·
+                %                     ((x · y · (z · u)) · (x · z · (y · u))) ≡
+                %                     x · z · (y · u)
+                app(app(app(x,y),app(z,u)),app(app(app(x,y),app(z,u)),app(app(x,z),app(y,u)))) = app(app(x,z),app(y,u))
