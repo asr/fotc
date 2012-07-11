@@ -92,12 +92,18 @@ defaultATPs ∷ [String]
 defaultATPs = ["e", "equinox", "vampire"]
 
 atpOk ∷ ATP → String
-atpOk E        = "Proof found!"                      -- E 1.5 Pussimbing
-atpOk Equinox  = "+++ RESULT: Theorem"               -- Equinox 5.0alpha (2010-06-29)
-atpOk IleanCoP = "Intuitionistic Theorem"            -- ileanCoP 1.3 beta1
-atpOk Metis    = "SZS status Theorem"                -- Metis 2.3 (release 20110926)
-atpOk SPASS    = "Proof found"                       -- SPASS 3.7
-atpOk Vampire  = "Termination reason: Refutation\n"  -- Vampire 0.6 (revision 903)
+-- E 1.2, E 1.3, E 1.4, E 1.5, and E 1.6.
+atpOk E = "Proof found!"
+-- Equinox 5.0alpha (2010-06-29).
+atpOk Equinox = "+++ RESULT: Theorem"
+-- ileanCoP 1.3 beta1.
+atpOk IleanCoP = "Intuitionistic Theorem"
+-- Metis 2.3 (release 20110926).
+atpOk Metis = "SZS status Theorem"
+-- SPASS 3.7.
+atpOk SPASS = "Proof found"
+-- Vampire 0.6 (revision 903).
+atpOk Vampire = "Termination reason: Refutation\n"
 
 atpVersion ∷ ATP → T String
  -- Don't version option in Equinox.
@@ -114,46 +120,61 @@ atpVersion atp = do
 checkOutput ∷ ATP → String → Bool
 checkOutput atp output = atpOk atp `isInfixOf` output
 
-atpArgs ∷ ATP → Int → FilePath → [String]
-atpArgs E timeLimit file = [ "--cpu-limit=" ++ show timeLimit
-                           , "--expert-heuristic=Auto"
-                           , "--memory-limit=Auto"
-                           , "--output-level=0"
-                           , "--term-ordering=Auto"
-                           , "--tstp-format"
-                           , file
-                           ]
+atpArgs ∷ ATP → Int → FilePath → T [String]
+atpArgs E timeLimit file = do
+  eVersion ← atpVersion E
+  if eVersion `elem` [ "E 1.2 Badamtam"
+                     , "E 1.3 Ringtong"
+                     , "E 1.4 Namring"
+                     , "E 1.5 Pussimbing"
+                     ]
+    then return [ "--cpu-limit=" ++ show timeLimit
+                , "--expert-heuristic=Auto"
+                , "--memory-limit=Auto"
+                , "--output-level=0"
+                , "--term-ordering=Auto"
+                , "--tstp-format"
+                , file
+                ]
+    else
+      if eVersion == "E 1.6 Tiger Hill"
+        then return [ "--cpu-limit=" ++ show timeLimit
+                    , "--memory-limit=Auto"
+                    , "--output-level=0"
+                    , "--satauto"
+                    , "--tstp-format"
+                    , file
+                    ]
+        else throwError $ "The ATP " ++ eVersion ++ " is not supported"
 
 -- Equinox bug? The option @--no-progress@ doesn't make any difference.
-atpArgs Equinox timeLimit file = [ "--no-progress"
-                                 , "--time", show timeLimit
-                                 , file
-                                 ]
+atpArgs Equinox timeLimit file = return [ "--no-progress"
+                                        , "--time", show timeLimit
+                                        , file
+                                        ]
 
 -- N.B. The order of the IleanCop arguments is fixed.
-atpArgs IleanCoP timeLimit file = [ file
-                                  , show timeLimit
-                                  ]
+atpArgs IleanCoP timeLimit file = return [ file
+                                         , show timeLimit
+                                         ]
 
-atpArgs Metis timeLimit file = [ "--time-limit", show timeLimit
-                               , file
-                               ]
+atpArgs Metis timeLimit file = return [ "--time-limit", show timeLimit
+                                      , file
+                                      ]
 
-atpArgs SPASS timeLimit file = [ "-TPTP"
-                               , "-TimeLimit=" ++ show timeLimit
-                               , file
-                               ]
+atpArgs SPASS timeLimit file = return [ "-TPTP"
+                                      , "-TimeLimit=" ++ show timeLimit
+                                      , file
+                                      ]
 
-atpArgs Vampire timeLimit file = [ "--input_file", file
-                                 , "-t", show timeLimit
-                                 ]
+atpArgs Vampire timeLimit file = return [ "--input_file", file
+                                        , "-t", show timeLimit
+                                        ]
 
 runATP ∷ ATP → MVar (Bool, ATP) → Int → FilePath → T ProcessHandle
 runATP atp outputMVar timeLimit file = do
-  let args ∷ [String]
-      args = atpArgs atp timeLimit file
-
-  exec ∷ String ← atpExec atp
+  args ∷ [String] ← atpArgs atp timeLimit file
+  exec ∷ String   ← atpExec atp
 
   e ← liftIO $ findExecutable exec
   case e of
