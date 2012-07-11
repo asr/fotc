@@ -20,7 +20,7 @@ module README where
 ------------------------------------------------------------------------------
 -- Paper, prerequisites, tested versions of the ATPS, and use
 
--- See http://www1.eafit.edu.co/asicard/code/fossacs-2012/.
+-- See https://github.com/asr/agda2atp/.
 
 ------------------------------------------------------------------------------
 -- Conventions
