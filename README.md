@@ -113,7 +113,7 @@ Installation
    Equinox, version 5.0alpha, 2010-06-29 proved the conjecture in /tmp/Test/9-8744-comm.tptp
    ````
 
-Examples in FoSSaCS-2012 paper
+Examples in our FoSSaCS-2012 paper
 ------------------------------
 
 Please note that the code presented here does not match the paper
@@ -123,11 +123,14 @@ You can follow these links to see the examples shown in our
 [FoSSaCS-2012
 paper](http://www1.eafit.edu.co/asicard/publications-talks/proceedings_abstracts.html#Bove-Dybjer-SicardRamirez-2012):
 
- * [The McCarthy's 91-function example](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/FOTC.Program.McCarthy91.PropertiesATP.html")
+ * [The McCarthy's 91-function
+   example](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/FOTC.Program.McCarthy91.PropertiesATP.html")
 
- * [The mirror function example](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/FOTC.Program.Mirror.PropertiesATP.html)
+ * [The mirror function
+   example](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/FOTC.Program.Mirror.PropertiesATP.html)
 
-* [The alternating bit protocol example](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/FOT/FOTC.Program.ABP.ProofSpecificationATP.html)
+ * [The alternating bit protocol
+   example](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/FOT/FOTC.Program.ABP.ProofSpecificationATP.html)
 
 You can test for example the proofs regarding the mirror function with
 the following commands
