@@ -48,29 +48,70 @@ Installation
    commands
 
    `$ cd magda`
+
    `$ make install-bin`
 
    To test the installation of the modified version of Agda, type-check
    a module which uses the new built-in ATP pragma, for example
 
-   `$ cat Test.agda`
+   ````Agda
+   $ cat Test.agda
 
-    ````Agda
-    module Test where
-      data _∨_ (A B : Set) : Set where
-        inj₁ : A → A ∨ B
-        inj₂ : B → A ∨ B
+   module Test where
 
-      postulate
-        A B : Set
-        ∨-comm : A ∨ B → B ∨ A
-      {-# ATP prove ∨-comm #-}
-     ````
+   data _∨_ (A B : Set) : Set where
+     inj₁ : A → A ∨ B
+     inj₂ : B → A ∨ B
 
-      Observe that in order to avoid conflicts with other installed
-      versions of Agda, we have added extra information to the version number
-      of Agda, i.e. if the development version number is `A.B.C`, our
-      modified version number is `A.B.C.D`.
+   postulate
+     A B    : Set
+     ∨-comm : A ∨ B → B ∨ A
+   {-# ATP prove ∨-comm #-}
+   ````
+
+   Observe that in order to avoid conflicts with other installed
+   versions of Agda, we have added extra information to the version
+   number of Agda, i.e. if the development version number is A.B.C,
+   our modified version number is A.B.C.D.
+
+2. The program `agda2atp`
+
+   You can download the program `agda2atp` using
+   [git](http://git-scm.com/). The program requires the above modified
+   version of Agda and it can be downloaded and installed with the
+   following commands
+
+   ````bash
+   $ git clone git://github.com/asr/agda2atp.git
+   $ cd agda2atp
+   $ cabal install
+   ````
+
+   In order to test the installation of the program, once (some of)
+   the ATPs have been installed, we can try to automatically prove
+   all the conjectures in the file above by running the following
+   command
+
+   ````bash
+   $ agda2atp Test.agda
+   Proving the conjecture in /tmp/Test/9-8744-comm.tptp ...
+   E 1.6 Tiger Hill proved the conjecture in /tmp/Test/9-8744-comm.tptp
+   ````
+
+   The program will call the installed ATPs and tell which of the ATPs
+   was able to first prove a certain conjecture. If none ATP could
+   prove a conjecture after 300 seconds, the process of proving that
+   particular conjecture is aborted and the ATPs try to prove the next
+   conjecture.
+
+   If we want to just use a certain ATP, say Equinox, we can instead
+   run the following command
+
+   ````bash
+   $ agda2atp --atp=equinox Test.agda
+   Proving the conjecture in /tmp/Test/9-8744-comm.tptp ...
+   Equinox, version 5.0alpha, 2010-06-29 proved the conjecture in /tmp/Test/9-8744-comm.tptp
+   ````
 
 Known bugs and/or limitations
 -----------------------------
