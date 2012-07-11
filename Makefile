@@ -141,6 +141,16 @@ doc :
 	@echo "The Haddock test succeeded!"
 
 ##############################################################################
+# Publish the .html files
+
+include ~/code/utils/make/agda2atp/publish.mk
+
+publish_README :
+	rm -r -f /tmp/html/
+	agda -iexamples --html --html-dir=/tmp/html/ examples/README.agda
+	$(RSYNC) /tmp/html/ $(root_host_dir)/
+
+##############################################################################
 # Running the tests
 
 tests : clean

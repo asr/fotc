@@ -306,11 +306,6 @@ publish_Agsy : $(Agsy_files)
 	done
 	$(RSYNC) /tmp/Agsy/html/ $(root_host_dir)/Agsy/
 
-publish_README :
-	rm -r -f /tmp/html/
-	$(AGDA_FOT) --html --html-dir=/tmp/html/ README.agda
-	$(RSYNC) /tmp/html/ $(root_host_dir)/
-
 ##############################################################################
 # Other stuff
 
