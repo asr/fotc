@@ -1,7 +1,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with agda2atp on 08 December 2011.
+-- Tested with agda2atp on 11 July 2012.
 
 module Bottom where
 
@@ -17,5 +17,5 @@ postulate false : zero ≡ succ zero
 {-# ATP prove false bot #-}
 
 -- $ agda2atp -isrc -inotes/papers/FoSSaCS-2012/  notes/papers/FoSSaCS-2012/Bottom.agda
--- Proving the conjecture in /tmp/Bottom.false_13.tptp ...
--- E 1.5 Pussimbing proved the conjecture in /tmp/Bottom.false_13.tptp
+-- Proving the conjecture in /tmp/Bottom/16-false.tptp ...
+-- Vampire 0.6 (revision 903) proved the conjecture in /tmp/Bottom/16-false.tptp

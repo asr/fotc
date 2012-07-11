@@ -22,8 +22,7 @@ std_lib_path = /home/asr/agda-upstream/std-lib
 # for work with the Draft directory.
 AGDA_FOT   = agda -v 0 -i. -isrc
 AGDA_Agsy  = agda -v 0 -isrc -i$(std_lib_path)/src/
-AGDA_notes = agda -v 0 \
-	      	  -inotes \
+AGDA_notes = agda -inotes \
 		  -inotes/fixed-points \
 		  -inotes/papers/FoSSaCS-2012 \
 		  -inotes/papers/paper-2011/ \
@@ -204,6 +203,7 @@ conjectures_% :
 
 # TODO: We add the conjectures related to the programs, but it
 # duplicates the test.
+
 # all_conjectures : conjectures_DistributiveLaws \
 # 		  conjectures_FOL \
 # 		  conjectures_FOTC \
@@ -320,7 +320,7 @@ dependency_graph : src/FOTC/Program/GCD/Total/ProofSpecificationATP.agda
 	dot -Tps /tmp/dependency-graph-gcd.gv > /tmp/dependency-graph-gcd.ps
 
 TODO :
-	find -name '*.*' | xargs grep -I TODO | sort
+	find -name '*' | xargs grep -I 'TODO:' | sort
 
 clean :
 	find -name '*.agdai' | xargs rm -f

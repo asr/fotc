@@ -19,7 +19,7 @@ open import FOTC.Program.ABP.Terms
 -- Although the interactive proof is easy, as expected the ATPs could not
 -- prove the theorem.
 
--- 10 June 2012: The ATPs could not prove the theorem (240 sec).
+-- 11 July 2012: The ATPs could not prove the theorem (240 sec).
 -- postulate
 --   mayorPremise' : ∀ {b fs₀ fs₁ is} → Bit b → Fair fs₀ → Fair fs₁ → Stream is →
 --                   is B transfer b fs₀ fs₁ is

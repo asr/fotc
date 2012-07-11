@@ -5,6 +5,8 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
+-- Tested with agda2atp on 11 July 2012.
+
 module LambdaLifting where
 
 infixl 9 _·_
@@ -103,9 +105,9 @@ postulate
 -- Ouput:
 --
 -- $ agda2atp -inotes --non-fol-function notes/LambdaLifting.agda
--- Proving the conjecture in /tmp/LambdaLifting.fac1_94.tptp ...
--- E 1.5 Pussimbing proved the conjecture in /tmp/LambdaLifting.fac1_94.tptp
--- Proving the conjecture in /tmp/LambdaLifting.fac2_98.tptp ...
--- E 1.5 Pussimbing proved the conjecture in /tmp/LambdaLifting.fac2_98.tptp
--- Proving the conjecture in /tmp/LambdaLifting.fac0_90.tptp ...
--- Vampire 0.6 (revision 903) proved the conjecture in /tmp/LambdaLifting.fac0_90.tptp
+-- Proving the conjecture in /tmp/LambdaLifting/95-fac1.tptp ...
+-- E 1.6 Tiger Hill proved the conjecture in /tmp/LambdaLifting/95-fac1.tptp
+-- Proving the conjecture in /tmp/LambdaLifting/99-fac2.tptp ...
+-- E 1.6 Tiger Hill proved the conjecture in /tmp/LambdaLifting/99-fac2.tptp
+-- Proving the conjecture in /tmp/LambdaLifting/91-fac0.tptp ...
+-- Vampire 0.6 (revision 903) proved the conjecture in /tmp/LambdaLifting/91-fac0.tptp

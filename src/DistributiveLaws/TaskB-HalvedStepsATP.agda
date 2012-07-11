@@ -118,7 +118,7 @@ prop₂ u x y z =
              xy·zu · (x·zu · xz·yu · (y·zu · xz·yu))
   {-# ATP prove j₁₋₃ #-}
 
-  -- 10 June 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
+  -- 11 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
   postulate
     j₃₋₅   : xy·zu · (x·zu · xz·yu · (y·zu · xz·yu)) ≡
              xy·zu · (xz · xu·yu · (y·zu · xz·yu))
@@ -144,7 +144,7 @@ prop₂ u x y z =
              xz·yz · xyu · (xz · xyu · (y·xu · z·yu))
   {-# ATP prove j₁₁₋₁₃ #-}
 
-  -- 10 June 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
+  -- 11 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
   postulate
     j₁₃₋₁₅ : xz·yz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
              xz · xyu · (yz · xyu · (y·xu · z·yu))
@@ -161,7 +161,7 @@ prop₂ u x y z =
              (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
   {-# ATP prove j₁₇₋₁₉ #-}
 
-  -- 10 June 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
+  -- 11 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
   postulate
     j₁₉₋₂₁ : xz · xyu ·
              (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
@@ -173,7 +173,7 @@ prop₂ u x y z =
              xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))
   {-# ATP prove j₂₁₋₂₃ #-}
 
-  -- 10 June 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
+  -- 11 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
   postulate
     j₂₃₋₂₅ : xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu))) ≡
              (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))
@@ -184,7 +184,7 @@ prop₂ u x y z =
              xz · xyu · (y · xu·zu · (zy·xu · zy·zu))
   {-# ATP prove j₂₅₋₂₇ #-}
 
-  -- 10 June 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
+  -- 11 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
   postulate
     j₂₇₋₂₉ : xz · xyu · (y · xu·zu · (zy·xu · zy·zu)) ≡
              xz · xyu · (y·zy · xu·zu)
