@@ -17,7 +17,8 @@ std_lib_path = /home/asr/agda-upstream/std-lib
 # for work with the Draft directory.
 AGDA_FOT   = agda -v 0 -i. -isrc
 AGDA_Agsy  = agda -v 0 -isrc -i$(std_lib_path)/src/
-AGDA_notes = agda -inotes \
+AGDA_notes = agda -v 0 \
+	          -inotes \
 		  -inotes/fixed-points \
 		  -inotes/papers/FoSSaCS-2012 \
 		  -inotes/papers/paper-2011/ \
@@ -113,6 +114,7 @@ type_checking_Agsy : $(Agsy_files)
 type_checking_notes : $(notes_files)
 	cd $(std_lib_path) && darcs pull
 	for file in $(notes_files); do \
+	    echo "Type-cheking $${file}"; \
 	    if ! ( $(AGDA_notes) $${file} ); then exit 1; fi; \
 	done
 
