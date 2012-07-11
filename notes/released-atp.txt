@@ -4,17 +4,21 @@ procedure:
 * In agda2atp, to update the documentation of src/ATP.hs with the new
   version.
 
-* In agda2atp, to run the suite of successfull tests on agda2atp with
-  the new ATP.
+* In agda2atp, to run the suite of proved conjectures with the new
+  ATP.
 
 * In FOTC, to test all the conjectures.
 
 * In FOTC, to test the ATPs failures in FOTC/README.agda with the new
   ATP.
 
+* In FOTC, to test the "Only ATP x proved the theorem" using something like
+
+  find src/ -name '*.agda' | xargs grep '11 July 2012 : Only'
+
 * In agda2atp and FOTC, to search for comments using the old version,
   i.e. something like
 
-  $ find -name '*.*' | xargs grep 'old version'
+  $ find -name '*' | xargs grep -I 'old version' | sort
 
 * To update the website.
