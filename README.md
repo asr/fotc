@@ -113,31 +113,42 @@ Installation
    Equinox, version 5.0alpha, 2010-06-29 proved the conjecture in /tmp/Test/9-8744-comm.tptp
    ````
 
-Examples
----------
+Examples in FoSSaCS-2012 paper
+------------------------------
 
-The examples shown in the paper (and many other examples) are in
-directory `agda2atp/examples`. Please note that the code presented
-here does not match the paper exactly. You can follow these links to
-see [the McCarthy's 91-function
-example](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/FOTC.Program.McCarthy91.PropertiesATP.html"),
-[the mirror function
-example](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/FOTC.Program.Mirror.PropertiesATP.html),
-[the alternating bit protocol
-example](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/FOT/FOTC.Program.ABP.ProofSpecificationATP.html),
-or [all the
-examples](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/README.html). You
-can test for example the proofs regarding the mirror function with the
-following commands
+Please note that the code presented here does not match the paper
+exactly.
+
+You can follow these links to see the examples shown in our
+[FoSSaCS-2012
+paper](http://www1.eafit.edu.co/asicard/publications-talks/proceedings_abstracts.html#Bove-Dybjer-SicardRamirez-2012):
+
+ * [The McCarthy's 91-function example](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/FOTC.Program.McCarthy91.PropertiesATP.html")
+
+ * [The mirror function example](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/FOTC.Program.Mirror.PropertiesATP.html)
+
+* [The alternating bit protocol example](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/FOT/FOTC.Program.ABP.ProofSpecificationATP.html)
+
+You can test for example the proofs regarding the mirror function with
+the following commands
 
 ````bash
 $ cd agda2atp
 $ agda -iexamples examples/FOTC/Program/Mirror/PropertiesATP.agda
-$ agda2atp -iexammples  examples/FOTC/Program/Mirror/PropertiesATP.agda
+$ agda2atp -iexamples  examples/FOTC/Program/Mirror/PropertiesATP.agda
 ````
 
 The `-iexample` option tells `agda` and `agda2atp` to look in the
 directory `examples` for the imported modules
+
+More examples
+-------------
+
+We also have more examples related with first-order theories like
+group theory or Peano arithmetic. In addition there are more examples
+related to the verification of functional programs. You can browse all
+the examples from the file
+[README.html](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/README.html).
 
 Known bugs and/or limitations
 -----------------------------
