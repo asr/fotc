@@ -1,11 +1,6 @@
 ##############################################################################
 # Global variables
 
-publish = $(shell if [ -e publish.mk ]; then echo Yes; else echo No; fi)
-ifeq ($(publish),Yes)
-include publish.mk
-endif
-
 # Snapshot directory.
 snapshot_dir = snapshot
 
@@ -295,6 +290,8 @@ agda_changed_clean :
 
 ##############################################################################
 # Publish the .html files
+
+include ~/code/utils/make/FOT/publish.mk
 
 publish_note :
 	$(RSYNC) html/ $(root_host_dir)/notes/
