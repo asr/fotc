@@ -1,5 +1,3 @@
 * Test the Agda issue 260 http://code.google.com/p/agda/issues/detail?id=260
 * Fix the clash names (e.g 'gT and GT' will clash)
-* Fix problem with the Makefile
-We need exit if cat fail
 
