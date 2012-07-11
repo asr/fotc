@@ -124,13 +124,13 @@ You can follow these links to see the examples shown in our
 paper](http://www1.eafit.edu.co/asicard/publications-talks/proceedings_abstracts.html#Bove-Dybjer-SicardRamirez-2012):
 
  * [The McCarthy's 91-function
-   example](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/FOTC.Program.McCarthy91.PropertiesATP.html")
+   example](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/FOTC.Program.McCarthy91.PropertiesATP.html)
 
  * [The mirror function
    example](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/FOTC.Program.Mirror.PropertiesATP.html)
 
  * [The alternating bit protocol
-   example](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/FOT/FOTC.Program.ABP.ProofSpecificationATP.html)
+   example](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/FOTC.Program.ABP.ProofSpecificationATP.html)
 
 You can test for example the proofs regarding the mirror function with
 the following commands
