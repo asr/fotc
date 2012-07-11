@@ -138,10 +138,10 @@ atpArgs E timeLimit file = do
                 ]
     else
       if eVersion == "E 1.6 Tiger Hill"
-        then return [ "--cpu-limit=" ++ show timeLimit
+        then return [ "--auto"
+                    , "--cpu-limit=" ++ show timeLimit
                     , "--memory-limit=Auto"
                     , "--output-level=0"
-                    , "--satauto"
                     , "--tstp-format"
                     , file
                     ]
