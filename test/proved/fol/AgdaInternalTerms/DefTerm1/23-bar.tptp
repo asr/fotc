@@ -9,7 +9,7 @@
 % Name:	AgdaInternalTerms.DefTerm1.foo
 % Role:	axiom
 % Line:	19
-fof(n6_100727391, axiom, ( kAppP1(p,a) )).
+fof(n6_100727391, axiom, ( kAppP1(fP,a) )).
 
 % End general axiom(s).
 

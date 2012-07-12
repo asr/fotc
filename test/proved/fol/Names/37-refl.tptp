@@ -9,13 +9,13 @@
 % Name:	Names.funnyP
 % Role:	axiom
 % Line:	33
-fof(n8_45017211, axiom, ( ! [A] : ( kAppP1(pRED33,A) ) )).
+fof(n8_45017211, axiom, ( ! [A] : ( kAppP1(fPRED33,A) ) )).
 
 % The original Agda term was:
 % Name:	Names.funnyFV
 % Role:	axiom
 % Line:	29
-fof(n6_45017211, axiom, ( ! [A] : ( kAppFn(fUN33,A) = A ) )).
+fof(n6_45017211, axiom, ( ! [A] : ( kAppFn(fFUN33,A) = A ) )).
 
 % End general axiom(s).
 

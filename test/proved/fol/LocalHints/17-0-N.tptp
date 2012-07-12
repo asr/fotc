@@ -9,7 +9,7 @@
 % Name:	LocalHints.N.zN
 % Role:	hint
 % Line:	15
-fof(n4_274736842, hypothesis, ( kAppP1(n,zero) )).
+fof(n4_274736842, hypothesis, ( kAppP1(fN,zero) )).
 
 % End local hint(s).
 
@@ -20,7 +20,7 @@ fof(n4_274736842, hypothesis, ( kAppP1(n,zero) )).
 % Name:	LocalHints.0-N
 % Role:	prove
 % Line:	17
-fof(n5_274736842, conjecture, ( kAppP1(n,zero) )).
+fof(n5_274736842, conjecture, ( kAppP1(fN,zero) )).
 
 % End conjecture.
 

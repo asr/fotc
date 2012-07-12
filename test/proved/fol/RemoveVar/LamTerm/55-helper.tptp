@@ -20,7 +20,7 @@ fof(n32_227209975, axiom, ( ! [A] : ( ! [B] : ( ( kAppP2(n_8776_,A,B) ) => ( ? [
 % Name:	RemoveVar.LamTerm._.P
 % Role:	definition
 % Line:	50
-fof(n41_227209975, definition, ( ! [A] : ( ! [B] : ( ( kAppP2(n_8776_,A,B) ) => ( ! [C] : ( ( kAppP3(p_41_227209975,A,B,C) ) <=> ( ? [D] : ( kAppP2(n_8776_,C,D) ) ) ) ) ) ) )).
+fof(n41_227209975, definition, ( ! [A] : ( ! [B] : ( ( kAppP2(n_8776_,A,B) ) => ( ! [C] : ( ( kAppP3(fP_41_227209975,A,B,C) ) <=> ( ? [D] : ( kAppP2(n_8776_,C,D) ) ) ) ) ) ) )).
 
 % End required ATP definition(s) by the conjecture.
 
@@ -31,7 +31,7 @@ fof(n41_227209975, definition, ( ! [A] : ( ! [B] : ( ( kAppP2(n_8776_,A,B) ) => 
 % Name:	RemoveVar.LamTerm._.helper
 % Role:	prove
 % Line:	55
-fof(n47_227209975, conjecture, ( ! [A] : ( ! [B] : ( ( kAppP2(n_8776_,A,B) ) => ( ! [C] : ( ( kAppP3(p_41_227209975,A,B,C) ) => ( ? [D] : ( ? [E] : ( ( kAppP3(p_41_227209975,A,B,E) ) & ( C = kAppFn(kAppFn(n8759,D),E) ) ) ) ) ) ) ) ) )).
+fof(n47_227209975, conjecture, ( ! [A] : ( ! [B] : ( ( kAppP2(n_8776_,A,B) ) => ( ! [C] : ( ( kAppP3(fP_41_227209975,A,B,C) ) => ( ? [D] : ( ? [E] : ( ( kAppP3(fP_41_227209975,A,B,E) ) & ( C = kAppFn(kAppFn(n8759,D),E) ) ) ) ) ) ) ) ) )).
 
 % End conjecture.
 

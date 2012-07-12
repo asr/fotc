@@ -28,8 +28,8 @@ import Data.Char
   , isAsciiLower
   , isAsciiUpper
   , isDigit
+  , isUpper
   , ord
-  , toLower
   , toUpper
   )
 
@@ -76,6 +76,9 @@ type TPTP = String
 class ToTPTP a where
   toTPTP ∷ a → TPTP
 
+------------------------------------------------------------------------------
+-- Auxiliary functions
+
 -- We prefixed the names with @n@ because TPTP does not accept names
 -- starting with digits or @_@.
 prefixLetter ∷ TPTP → TPTP
@@ -84,15 +87,44 @@ prefixLetter name@(x : _)
   | isDigit x || x == '_'  = 'n' : name
   | otherwise              = name
 
-toCaseFirstSymbol ∷ TPTP → (Char → Char) → TPTP
-toCaseFirstSymbol []       _ = __IMPOSSIBLE__
-toCaseFirstSymbol (x : xs) f = f x : xs
-
 toUpperFirstSymbol ∷ TPTP → TPTP
-toUpperFirstSymbol name = toCaseFirstSymbol (toTPTP name) toUpper
+toUpperFirstSymbol []       = __IMPOSSIBLE__
+toUpperFirstSymbol (x : xs) =  toUpper x : xs
 
-toLowerFirstSymbol ∷ TPTP → TPTP
-toLowerFirstSymbol name = toCaseFirstSymbol (toTPTP name) toLower
+-- From the technical manual of TPTP
+-- (http://www.cs.miami.edu/~tptp/TPTP/TR/TPTPTR.shtml)
+
+-- ... variables start with upper case letters, ... predicates and
+-- functors either start with lower case and contain alphanumerics and
+-- underscore ...
+
+-- If a function name start by an uppper case letter, we add a @'f'@.
+functionName2TPTP ∷ String → TPTP
+functionName2TPTP name =
+  if isUpper (head nameTPTP) then 'f' : nameTPTP else nameTPTP
+  where
+  nameTPTP ∷ String
+  nameTPTP = toTPTP name
+
+-- If a predicate name start by an uppper case letter, we add a @'p'@.
+predicateName2TPTP ∷ String → TPTP
+predicateName2TPTP name =
+  if isUpper (head nameTPTP) then 'p' : nameTPTP else nameTPTP
+  where
+  nameTPTP ∷ String
+  nameTPTP = toTPTP name
+
+-- If a variable name start by an lower case letter, we add a @'V'@.
+--
+-- We are not using this function because we don't have a test case
+-- where the variables names clash.
+
+-- varName2TPTP ∷ String → TPTP
+-- varName2TPTP name =
+--   if isLower (head nameTPTP) then 'V' : nameTPTP else nameTPTP
+--   where
+--   nameTPTP ∷ String
+--   nameTPTP = toTPTP name
 
 ------------------------------------------------------------------------------
 -- Translation of Agda/Haskell types to TPTP concrete syntax.
@@ -141,8 +173,8 @@ instance ToTPTP String where
   toTPTP = prefixLetter . concatMap toTPTP
 
 instance ToTPTP FOLTerm where
-  toTPTP (FOLFun name [])    = toLowerFirstSymbol name
-  toTPTP (FOLFun name terms) = toLowerFirstSymbol name
+  toTPTP (FOLFun name [])    = functionName2TPTP name
+  toTPTP (FOLFun name terms) = functionName2TPTP name
                                ++ "(" ++ toTPTP terms ++ ")"
   toTPTP (FOLVar name)       = toUpperFirstSymbol name
 
@@ -163,10 +195,10 @@ instance ToTPTP FOLFormula where
   -- If the predicate represents a propositional logic variable,
   -- following the TPTP syntax, we do not print the internal
   -- parenthesis.
-  toTPTP (Predicate name []) = "( " ++ toLowerFirstSymbol name ++ " )"
+  toTPTP (Predicate name []) = "( " ++ predicateName2TPTP name ++ " )"
 
   toTPTP (Predicate name terms) =
-    "( " ++ toLowerFirstSymbol name ++ "(" ++ toTPTP terms ++ ")" ++ " )"
+    "( " ++ predicateName2TPTP name ++ "(" ++ toTPTP terms ++ ")" ++ " )"
 
   toTPTP (And f1 f2)     = "( " ++ toTPTP f1 ++ " & " ++ toTPTP f2 ++ " )"
   toTPTP (Or f1 f2)      = "( " ++ toTPTP f1 ++ " | " ++ toTPTP f2 ++ " )"

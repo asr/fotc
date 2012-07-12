@@ -1,9 +1,13 @@
+------------------------------------------------------------------------------
+-- Issue in the translation inspired by the Agda issue 365
+------------------------------------------------------------------------------
+
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with agda2atp on 15 June 2012.
+-- Tested with agda2atp on 12 July 2012,
 
-module Issues.Agda365 where
+module Agda365-2 where
 
 open import LTC-PCF.Base
 
@@ -21,9 +25,9 @@ open import LTC-PCF.Data.Nat.PropertiesI
 
 -- we get the error
 
--- $ agda2atp -inotes -isrc notes/Issues/Agda365.agda
+-- $ agda2atp -i. -iexamples Issues/Agda365-2.agda
 -- An internal error has occurred. Please report this as a bug.
--- Location of the error: src/FOL/Translation/Terms.hs:557
+-- Location of the error: src/FOL/Translation/Terms.hs:579
 
 -- because we don't translate the Agda internal λ-terms. I am keeping
 -- this example as an possible test case for the translation of the

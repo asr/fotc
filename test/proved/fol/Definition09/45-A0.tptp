@@ -26,7 +26,7 @@ fof(n25_29955458, axiom, ( ! [A] : ( ! [B] : ( kAppFn(kAppFn(n43,kAppFn(succ,A))
 % Name:	Definition09._.A
 % Role:	definition
 % Line:	41
-fof(n31_29955458, definition, ( ! [A] : ( ( kAppP1(n,A) ) => ( ! [B] : ( ( kAppP2(a_31_29955458,A,B) ) <=> ( kAppFn(kAppFn(n43,B),zero) = B ) ) ) ) )).
+fof(n31_29955458, definition, ( ! [A] : ( ( kAppP1(fN,A) ) => ( ! [B] : ( ( kAppP2(fA_31_29955458,A,B) ) <=> ( kAppFn(kAppFn(n43,B),zero) = B ) ) ) ) )).
 
 % End required ATP definition(s) by the conjecture.
 
@@ -37,7 +37,7 @@ fof(n31_29955458, definition, ( ! [A] : ( ( kAppP1(n,A) ) => ( ! [B] : ( ( kAppP
 % Name:	Definition09._.A0
 % Role:	prove
 % Line:	45
-fof(n33_29955458, conjecture, ( ! [A] : ( ( kAppP1(n,A) ) => ( kAppP2(a_31_29955458,A,zero) ) ) )).
+fof(n33_29955458, conjecture, ( ! [A] : ( ( kAppP1(fN,A) ) => ( kAppP2(fA_31_29955458,A,zero) ) ) )).
 
 % End conjecture.
 

@@ -23,6 +23,9 @@ proved_test_path         = test/proved
 proved_test_fol_path     = $(proved_test_path)/fol
 proved_test_non_fol_path = $(proved_test_path)/non-fol
 
+non_proved_test_path     = test/non-proved
+non_proved_test_fol_path = $(non_proved_test_path)/fol
+
 # 2012-04-29: We don't have fail tests in non-fol.
 fail_test_fol_path = test/fail/fol
 
@@ -52,17 +55,23 @@ path_subst = $(patsubst %.agda,%.$(1), \
 
 # Tests
 
-generated_conjectures_test_fol_files = \
-  $(call path_subst,generated_conjectures_test_fol,$(proved_test_fol_path))
+generated_proved_conjectures_test_fol_files = \
+  $(call path_subst,generated_proved_conjectures_test_fol,$(proved_test_fol_path))
 
-generated_conjectures_test_non_fol_files = \
-  $(call path_subst,generated_conjectures_test_non_fol,$(proved_test_non_fol_path))
+generated_proved_conjectures_test_non_fol_files = \
+  $(call path_subst,generated_proved_conjectures_test_non_fol,$(proved_test_non_fol_path))
+
+generated_non_proved_conjectures_test_fol_files = \
+  $(call path_subst,generated_non_proved_conjectures_test_fol,$(non_proved_test_fol_path))
 
 proved_conjectures_test_fol_files = \
   $(call path_subst,proved_conjectures_test_fol,$(proved_test_fol_path))
 
 proved_conjectures_test_non_fol_files = \
   $(call path_subst,proved_conjectures_test_non_fol,$(proved_test_non_fol_path))
+
+non_proved_conjectures_test_fol_files = \
+  $(call path_subst,non_proved_conjectures_test_fol,$(non_proved_test_fol_path))
 
 fail_test_fol_files = $(call path_subst,fail_test_fol,$(fail_test_fol_path))
 
@@ -100,22 +109,30 @@ type_checking_notes_files = \
 ##############################################################################
 # Test suite: Generated conjectures
 
-%.generated_conjectures_test_fol :
-	@$(AGDA) -i$(proved_test_fol_path) $*.agda
-	@$(AGDA2ATP) -i$(proved_test_fol_path) --only-files \
+%.generated_proved_conjectures_test_fol :
+	$(AGDA) -i$(proved_test_fol_path) $*.agda
+	$(AGDA2ATP) -i$(proved_test_fol_path) --only-files \
 	              --output-dir=$(output_dir)/$(proved_test_fol_path) \
 	              $*.agda
 	diff -r $* $(output_dir)/$*
 
-%.generated_conjectures_test_non_fol :
-	@$(AGDA) -i$(proved_test_non_fol_path) $*.agda
-	@$(AGDA2ATP) -i$(proved_test_non_fol_path) --non-fol --only-files \
+%.generated_proved_conjectures_test_non_fol :
+	$(AGDA) -i$(proved_test_non_fol_path) $*.agda
+	$(AGDA2ATP) -i$(proved_test_non_fol_path) --non-fol --only-files \
 	              --output-dir=$(output_dir)/$(proved_test_non_fol_path) \
 	              $*.agda
 	diff -r $* $(output_dir)/$*
 
-generated_conjectures_test_aux : $(generated_conjectures_test_fol_files) \
-	                         $(generated_conjectures_test_non_fol_files)
+%.generated_non_proved_conjectures_test_fol :
+	$(AGDA) -i$(non_proved_test_fol_path) $*.agda
+	$(AGDA2ATP) -i$(non_proved_test_fol_path) --only-files \
+	             --output-dir=$(output_dir)/$(non_proved_test_fol_path) \
+	             $*.agda
+	diff -r $* $(output_dir)/$*
+
+generated_conjectures_test_aux : $(generated_proved_conjectures_test_fol_files) \
+	                         $(generated_proved_conjectures_test_non_fol_files) \
+	                         $(generated_non_proved_conjectures_test_fol_files) \
 
 generated_conjectures_test :
 	rm -r -f $(output_dir)
@@ -140,12 +157,24 @@ proved_conjectures_test : $(proved_conjectures_test_fol_files) \
 	@echo "$@ succeeded!"
 
 ##############################################################################
+# Test suite: Non-proved conjectures
+
+%.non_proved_conjectures_test_fol :
+	$(AGDA) -i$(non_proved_test_fol_path) $*.agda
+	if ( $(AGDA2ATP) -i$(non_proved_test_fol_path) \
+	                 --output-dir=$(output_dir) --time=5 $*.agda ); then \
+	    exit 1; \
+	fi
+
+non_proved_conjectures_test : $(non_proved_conjectures_test_fol_files)
+	@echo "$@ succeeded!"
+
+##############################################################################
 # Test suite: Fail test
 
 %.fail_test_fol :
 	$(AGDA) -i$(fail_test_fol_path) $*.agda
-	if ( $(AGDA2ATP) -i$(fail_test_fol_path) \
-	                 --output-dir=$(output_dir) --time=5 $*.agda ); then \
+	if ( $(AGDA2ATP) -i$(fail_test_fol_path) --only-files $*.agda ); then \
 	    exit 1; \
 	fi
 
@@ -278,9 +307,10 @@ type_checking_notes :
 # Running the tests
 
 tests :
-	make generated_conjectures_test
-	make proved_conjectures_test
-	make fail_test
+	@make generated_conjectures_test
+	@make proved_conjectures_test
+	@make non_proved_conjectures_test
+	@make fail_test
 	@echo "All tests succeeded!"
 
 ##############################################################################
@@ -314,11 +344,11 @@ hlint :
 # Git : pre-commit test
 
 git-pre-commit :
-	fix-whitespace --check
-	cabal configure && cabal build
-	make tests
-	make haddock_test
-	make hlint
+	@fix-whitespace --check
+	@cabal configure && cabal build
+	@make tests
+	@make haddock_test
+	@make hlint
 	@echo "$@ succeeded!"
 
 ##############################################################################

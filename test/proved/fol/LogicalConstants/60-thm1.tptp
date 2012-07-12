@@ -9,7 +9,7 @@
 % Name:	LogicalConstants.thm₁
 % Role:	prove
 % Line:	60
-fof(n21_143722291, conjecture, ( ( ( a ) & ( $true ) ) => ( a ) )).
+fof(n21_143722291, conjecture, ( ( ( pA ) & ( $true ) ) => ( pA ) )).
 
 % End conjecture.
 

@@ -26,7 +26,7 @@ fof(n22_16837688, axiom, ( ! [A] : ( kAppFn(kAppFn(n43,zero),A) = A ) )).
 % Name:	Definition10._.A
 % Role:	definition
 % Line:	42
-fof(n37_16837688, definition, ( ! [A] : ( ! [B] : ( ! [C] : ( ( kAppP1(n,A) ) => ( ( kAppP1(n,B) ) => ( ( kAppP1(n,C) ) => ( ! [D] : ( ( kAppP4(a_37_16837688,A,B,C,D) ) <=> ( kAppFn(kAppFn(n43,kAppFn(kAppFn(n43,D),B)),C) = kAppFn(kAppFn(n43,D),kAppFn(kAppFn(n43,B),C)) ) ) ) ) ) ) ) ) )).
+fof(n37_16837688, definition, ( ! [A] : ( ! [B] : ( ! [C] : ( ( kAppP1(fN,A) ) => ( ( kAppP1(fN,B) ) => ( ( kAppP1(fN,C) ) => ( ! [D] : ( ( kAppP4(fA_37_16837688,A,B,C,D) ) <=> ( kAppFn(kAppFn(n43,kAppFn(kAppFn(n43,D),B)),C) = kAppFn(kAppFn(n43,D),kAppFn(kAppFn(n43,B),C)) ) ) ) ) ) ) ) ) )).
 
 % End required ATP definition(s) by the conjecture.
 
@@ -37,7 +37,7 @@ fof(n37_16837688, definition, ( ! [A] : ( ! [B] : ( ! [C] : ( ( kAppP1(n,A) ) =>
 % Name:	Definition10._.is
 % Role:	prove
 % Line:	49
-fof(n41_16837688, conjecture, ( ! [A] : ( ! [B] : ( ! [C] : ( ( kAppP1(n,A) ) => ( ( kAppP1(n,B) ) => ( ( kAppP1(n,C) ) => ( ! [D] : ( ( kAppP4(a_37_16837688,A,B,C,D) ) => ( kAppP4(a_37_16837688,A,B,C,kAppFn(succ,D)) ) ) ) ) ) ) ) ) )).
+fof(n41_16837688, conjecture, ( ! [A] : ( ! [B] : ( ! [C] : ( ( kAppP1(fN,A) ) => ( ( kAppP1(fN,B) ) => ( ( kAppP1(fN,C) ) => ( ! [D] : ( ( kAppP4(fA_37_16837688,A,B,C,D) ) => ( kAppP4(fA_37_16837688,A,B,C,kAppFn(succ,D)) ) ) ) ) ) ) ) ) )).
 
 % End conjecture.
 

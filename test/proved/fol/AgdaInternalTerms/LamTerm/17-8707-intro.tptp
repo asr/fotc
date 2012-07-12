@@ -9,7 +9,7 @@
 % Name:	AgdaInternalTerms.LamTerm.∃-intro
 % Role:	prove
 % Line:	17
-fof(n6_194085439, conjecture, ( ! [A] : ( ( kAppP1(a,A) ) => ( ? [B] : ( kAppP1(a,B) ) ) ) )).
+fof(n6_194085439, conjecture, ( ! [A] : ( ( kAppP1(fA,A) ) => ( ? [B] : ( kAppP1(fA,B) ) ) ) )).
 
 % End conjecture.
 

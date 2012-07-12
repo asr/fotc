@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Issues.Definition where
+module Definition where
 
 postulate
   D   : Set

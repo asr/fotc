@@ -9,7 +9,7 @@
 % Name:	AgdaInternalTerms.PiNoAbsTerm.foo
 % Role:	axiom
 % Line:	17
-fof(n8_188711488, axiom, ( ! [A] : ( a ) )).
+fof(n8_188711488, axiom, ( ! [A] : ( pA ) )).
 
 % End general axiom(s).
 
@@ -20,7 +20,7 @@ fof(n8_188711488, axiom, ( ! [A] : ( a ) )).
 % Name:	AgdaInternalTerms.PiNoAbsTerm.bar
 % Role:	prove
 % Line:	21
-fof(n9_188711488, conjecture, ( ( a ) => ( a ) )).
+fof(n9_188711488, conjecture, ( ( pA ) => ( pA ) )).
 
 % End conjecture.
 

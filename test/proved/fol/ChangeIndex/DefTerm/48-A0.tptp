@@ -26,7 +26,7 @@ fof(n29_176481003, axiom, ( ! [A] : ( ! [B] : ( kAppFn(kAppFn(n43,kAppFn(succ,A)
 % Name:	ChangeIndex.DefTerm._.A
 % Role:	definition
 % Line:	44
-fof(n35_176481003, definition, ( ! [A] : ( ( kAppP1(n,A) ) => ( ! [B] : ( ( kAppP2(a_35_176481003,A,B) ) <=> ( kAppFn(kAppFn(n43,B),zero) = B ) ) ) ) )).
+fof(n35_176481003, definition, ( ! [A] : ( ( kAppP1(fN,A) ) => ( ! [B] : ( ( kAppP2(fA_35_176481003,A,B) ) <=> ( kAppFn(kAppFn(n43,B),zero) = B ) ) ) ) )).
 
 % End required ATP definition(s) by the conjecture.
 
@@ -37,7 +37,7 @@ fof(n35_176481003, definition, ( ! [A] : ( ( kAppP1(n,A) ) => ( ! [B] : ( ( kApp
 % Name:	ChangeIndex.DefTerm._.A0
 % Role:	prove
 % Line:	48
-fof(n37_176481003, conjecture, ( ! [A] : ( ( kAppP1(n,A) ) => ( kAppP2(a_35_176481003,A,zero) ) ) )).
+fof(n37_176481003, conjecture, ( ! [A] : ( ( kAppP1(fN,A) ) => ( kAppP2(fA_35_176481003,A,zero) ) ) )).
 
 % End conjecture.
 

@@ -9,7 +9,7 @@
 % Name:	Eta2.P
 % Role:	definition
 % Line:	24
-fof(n8_86855083, definition, ( ! [A] : ( ( kAppP1(p_8_86855083,A) ) <=> ( ? [B] : ( kAppP2(p178,A,B) ) ) ) )).
+fof(n8_86855083, definition, ( ! [A] : ( ( kAppP1(fP_8_86855083,A) ) <=> ( ? [B] : ( kAppP2(fP178,A,B) ) ) ) )).
 
 % End required ATP definition(s) by the conjecture.
 
@@ -20,7 +20,7 @@ fof(n8_86855083, definition, ( ! [A] : ( ( kAppP1(p_8_86855083,A) ) <=> ( ? [B] 
 % Name:	Eta2.bar
 % Role:	prove
 % Line:	29
-fof(n13_86855083, conjecture, ( ! [A] : ( ( kAppP1(p_8_86855083,A) ) => ( ? [B] : ( kAppP2(p178,A,B) ) ) ) )).
+fof(n13_86855083, conjecture, ( ! [A] : ( ( kAppP1(fP_8_86855083,A) ) => ( ? [B] : ( kAppP2(fP178,A,B) ) ) ) )).
 
 % End conjecture.
 

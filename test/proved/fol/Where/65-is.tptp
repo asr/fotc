@@ -26,7 +26,7 @@ fof(n22_236866687, axiom, ( ! [A] : ( kAppFn(kAppFn(n43,A),zero) = A ) )).
 % Name:	Where._.is
 % Role:	prove
 % Line:	65
-fof(n50_236866687, conjecture, ( ! [A] : ( ! [B] : ( ! [C] : ( ( kAppP1(n,A) ) => ( ( kAppP1(n,B) ) => ( ( kAppP1(n,C) ) => ( ! [D] : ( ( kAppFn(kAppFn(n43,kAppFn(kAppFn(n43,A),B)),D) = kAppFn(kAppFn(n43,A),kAppFn(kAppFn(n43,B),D)) ) => ( kAppFn(kAppFn(n43,kAppFn(kAppFn(n43,A),B)),kAppFn(succ,D)) = kAppFn(kAppFn(n43,A),kAppFn(kAppFn(n43,B),kAppFn(succ,D))) ) ) ) ) ) ) ) ) )).
+fof(n50_236866687, conjecture, ( ! [A] : ( ! [B] : ( ! [C] : ( ( kAppP1(fN,A) ) => ( ( kAppP1(fN,B) ) => ( ( kAppP1(fN,C) ) => ( ! [D] : ( ( kAppFn(kAppFn(n43,kAppFn(kAppFn(n43,A),B)),D) = kAppFn(kAppFn(n43,A),kAppFn(kAppFn(n43,B),D)) ) => ( kAppFn(kAppFn(n43,kAppFn(kAppFn(n43,A),B)),kAppFn(succ,D)) = kAppFn(kAppFn(n43,A),kAppFn(kAppFn(n43,B),kAppFn(succ,D))) ) ) ) ) ) ) ) ) )).
 
 % End conjecture.
 

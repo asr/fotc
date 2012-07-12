@@ -9,7 +9,7 @@
 % Name:	LogicalConstants.thm₂
 % Role:	prove
 % Line:	61
-fof(n22_143722291, conjecture, ( ( ( a ) | ( $false ) ) => ( a ) )).
+fof(n22_143722291, conjecture, ( ( ( pA ) | ( $false ) ) => ( pA ) )).
 
 % End conjecture.
 

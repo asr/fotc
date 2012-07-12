@@ -9,19 +9,19 @@
 % Name:	Record.p₁
 % Role:	axiom
 % Line:	23
-fof(n15_96484415, axiom, ( ! [A] : ( kAppP1(p1,A) ) )).
+fof(n15_96484415, axiom, ( ! [A] : ( kAppP1(fP1,A) ) )).
 
 % The original Agda term was:
 % Name:	Record.P.is
 % Role:	axiom
 % Line:	16
-fof(n13_96484415, axiom, ( ! [A] : ( ! [B] : ( ( kAppP1(p1,A) ) => ( ( kAppP2(p2,A,B) ) => ( kAppP2(p,A,B) ) ) ) ) )).
+fof(n13_96484415, axiom, ( ! [A] : ( ! [B] : ( ( kAppP1(fP1,A) ) => ( ( kAppP2(fP2,A,B) ) => ( kAppP2(fP,A,B) ) ) ) ) )).
 
 % The original Agda term was:
 % Name:	Record.p₂
 % Role:	axiom
 % Line:	24
-fof(n18_96484415, axiom, ( ! [A] : ( ! [B] : ( kAppP2(p2,A,B) ) ) )).
+fof(n18_96484415, axiom, ( ! [A] : ( ! [B] : ( kAppP2(fP2,A,B) ) ) )).
 
 % End general axiom(s).
 
@@ -32,7 +32,7 @@ fof(n18_96484415, axiom, ( ! [A] : ( ! [B] : ( kAppP2(p2,A,B) ) ) )).
 % Name:	Record.thm₂
 % Role:	prove
 % Line:	31
-fof(n26_96484415, conjecture, ( ! [A] : ( ! [B] : ( kAppP2(p,A,B) ) ) )).
+fof(n26_96484415, conjecture, ( ! [A] : ( ! [B] : ( kAppP2(fP,A,B) ) ) )).
 
 % End conjecture.
 

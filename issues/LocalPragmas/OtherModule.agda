@@ -1,9 +1,9 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Issues.LocalPragmas.OtherModule where
+module LocalPragmas.OtherModule where
 
-open import Issues.LocalPragmas
+open import LocalPragmas
 
 -- The program agda2atp does not translate the ATP pragmas because
 -- they are not defined in the module Issues.LocalPragmas.

@@ -9,7 +9,7 @@
 % Name:	ProofTerm1.foo
 % Role:	prove
 % Line:	15
-fof(n6_72203517, conjecture, ( ! [A] : ( ( kAppP1(n,A) ) => ( A = A ) ) )).
+fof(n6_72203517, conjecture, ( ! [A] : ( ( kAppP1(fN,A) ) => ( A = A ) ) )).
 
 % End conjecture.
 

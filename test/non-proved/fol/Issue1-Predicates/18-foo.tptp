@@ -6,10 +6,10 @@
 % The conjecture.
 
 % The original Agda term was:
-% Name:	PiNoAbs.foo₁
+% Name:	Issue1-Predicates.foo
 % Role:	prove
-% Line:	24
-fof(n5_270104862, conjecture, ( ( ! [A] : ( pA ) ) => ( pA ) )).
+% Line:	18
+fof(n4_125115760, conjecture, ( ( a ) => ( pA ) )).
 
 % End conjecture.
 

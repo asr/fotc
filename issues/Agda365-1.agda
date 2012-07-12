@@ -5,7 +5,9 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Issues.Agda365 where
+-- Tested with agda2atp on 12 July 2012.
+
+module Agda365-1 where
 
 postulate
   D   : Set
@@ -21,4 +23,4 @@ postulate bar : ∀ d → d ≡ foo d
 
 -- $ agda2atp Issues/Agda365.agda
 -- An internal error has occurred. Please report this as a bug.
--- Location of the error: src/FOL/Translation/Terms.hs:560
+-- Location of the error: src/FOL/Translation/Terms.hs:579

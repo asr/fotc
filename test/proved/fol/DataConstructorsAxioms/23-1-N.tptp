@@ -9,13 +9,13 @@
 % Name:	DataConstructorsAxioms.N.sN
 % Role:	axiom
 % Line:	17
-fof(n7_16080198, axiom, ( ! [A] : ( ( kAppP1(n,A) ) => ( kAppP1(n,kAppFn(succ,A)) ) ) )).
+fof(n7_16080198, axiom, ( ! [A] : ( ( kAppP1(fN,A) ) => ( kAppP1(fN,kAppFn(succ,A)) ) ) )).
 
 % The original Agda term was:
 % Name:	DataConstructorsAxioms.N.zN
 % Role:	axiom
 % Line:	16
-fof(n5_16080198, axiom, ( kAppP1(n,zero) )).
+fof(n5_16080198, axiom, ( kAppP1(fN,zero) )).
 
 % End general axiom(s).
 
@@ -26,7 +26,7 @@ fof(n5_16080198, axiom, ( kAppP1(n,zero) )).
 % Name:	DataConstructorsAxioms.1-N
 % Role:	prove
 % Line:	23
-fof(n9_16080198, conjecture, ( kAppP1(n,kAppFn(succ,zero)) )).
+fof(n9_16080198, conjecture, ( kAppP1(fN,kAppFn(succ,zero)) )).
 
 % End conjecture.
 

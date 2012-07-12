@@ -1,9 +1,9 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- See descripion in Issues.LocalPragmas.OtherModule
+-- See descripion in LocalPragmas.OtherModule
 
-module Issues.LocalPragmas where
+module LocalPragmas where
 
 postulate
   D    : Set

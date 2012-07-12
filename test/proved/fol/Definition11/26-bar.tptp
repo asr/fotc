@@ -9,7 +9,7 @@
 % Name:	Definition11._.P
 % Role:	definition
 % Line:	22
-fof(n15_90119102, definition, ( ! [A] : ( ( kAppP1(n,A) ) => ( ! [B] : ( ( kAppP2(p_15_90119102,A,B) ) <=> ( ? [C] : ( B = C ) ) ) ) ) )).
+fof(n15_90119102, definition, ( ! [A] : ( ( kAppP1(fN,A) ) => ( ! [B] : ( ( kAppP2(fP_15_90119102,A,B) ) <=> ( ? [C] : ( B = C ) ) ) ) ) )).
 
 % End required ATP definition(s) by the conjecture.
 
@@ -20,7 +20,7 @@ fof(n15_90119102, definition, ( ! [A] : ( ( kAppP1(n,A) ) => ( ! [B] : ( ( kAppP
 % Name:	Definition11._.bar
 % Role:	prove
 % Line:	26
-fof(n20_90119102, conjecture, ( ! [A] : ( ( kAppP1(n,A) ) => ( ! [B] : ( ( kAppP2(p_15_90119102,A,B) ) => ( ? [C] : ( C = B ) ) ) ) ) )).
+fof(n20_90119102, conjecture, ( ! [A] : ( ( kAppP1(fN,A) ) => ( ! [B] : ( ( kAppP2(fP_15_90119102,A,B) ) => ( ? [C] : ( C = B ) ) ) ) ) )).
 
 % End conjecture.
 

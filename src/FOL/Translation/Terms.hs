@@ -146,8 +146,9 @@ binConst op arg1 arg2 =
 --
 -- @P : D → D → D → Set@
 --
--- is translated to @kAppP3(p,x,y,z)@, where @kAppP3@ is a hard-coded 4-ary
--- predicate symbol.
+-- is translated to @kAppP3(p,x,y,z)@, where @kAppP3@ is a hard-coded
+-- 4-ary predicate symbol and @p@ is 0-ary function obtained from the
+-- name @P@.
 predicate ∷ QName → Args → T FOLFormula
 predicate qName args = do
   folName ← qName2String qName

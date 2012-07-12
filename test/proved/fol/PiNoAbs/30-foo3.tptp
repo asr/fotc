@@ -9,7 +9,7 @@
 % Name:	PiNoAbs.foo₃
 % Role:	prove
 % Line:	30
-fof(n9_270104862, conjecture, ( ( ! [A] : ( a ) ) <=> ( a ) )).
+fof(n9_270104862, conjecture, ( ( ! [A] : ( pA ) ) <=> ( pA ) )).
 
 % End conjecture.
 

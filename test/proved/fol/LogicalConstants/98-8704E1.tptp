@@ -9,7 +9,7 @@
 % Name:	LogicalConstants.∀E₁
 % Role:	prove
 % Line:	98
-fof(n41_143722291, conjecture, ( ! [A] : ( ( ! [B] : ( kAppP1(a185,B) ) ) => ( kAppP1(a185,A) ) ) )).
+fof(n41_143722291, conjecture, ( ! [A] : ( ( ! [B] : ( kAppP1(fA185,B) ) ) => ( kAppP1(fA185,A) ) ) )).
 
 % End conjecture.
 

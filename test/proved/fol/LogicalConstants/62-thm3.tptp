@@ -9,7 +9,7 @@
 % Name:	LogicalConstants.thm₃
 % Role:	prove
 % Line:	62
-fof(n23_143722291, conjecture, ( ( a ) <=> ( a ) )).
+fof(n23_143722291, conjecture, ( ( pA ) <=> ( pA ) )).
 
 % End conjecture.
 

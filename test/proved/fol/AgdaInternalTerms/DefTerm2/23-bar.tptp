@@ -9,7 +9,7 @@
 % Name:	AgdaInternalTerms.DefTerm2.foo
 % Role:	axiom
 % Line:	19
-fof(n8_152941666, axiom, ( kAppP3(p179,a,b,c) )).
+fof(n8_152941666, axiom, ( kAppP3(fP179,a,b,c) )).
 
 % End general axiom(s).
 
