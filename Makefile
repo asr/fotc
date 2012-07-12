@@ -329,6 +329,12 @@ publish_README :
 ##############################################################################
 # Others
 
+dependency_graph :
+	agda -v 0 -iexamples \
+	     --dependency-graph=/tmp/dependency-graph.gv \
+	     examples/FOTC/Program/ABP/ProofSpecificationATP.agda
+	dot -Tpdf /tmp/dependency-graph.gv > /tmp/dependency-graph.pdf
+
 .PHONY : TAGS
 TAGS : $(haskell_files)
 	hasktags -e $(haskell_files)
@@ -357,9 +363,3 @@ clean :
 # 	  $(AGDA_Agsy) --html --html-dir=/tmp/Agsy/html/ $${file}; \
 # 	done
 # 	$(RSYNC) /tmp/Agsy/html/ $(root_host_dir)/Agsy/
-
-# Other stuff
-
-# dependency_graph : FOTC/Program/GCD/Total/ProofSpecificationATP.agda
-# 	$(AGDA_FOT) --dependency-graph=/tmp/dependency-graph-gcd.gv $<
-# 	dot -Tps /tmp/dependency-graph-gcd.gv > /tmp/dependency-graph-gcd.ps
