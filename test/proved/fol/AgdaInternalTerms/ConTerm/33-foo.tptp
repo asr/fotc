@@ -1,0 +1,28 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The general hint(s).
+
+% The original Agda term was:
+% Name:	AgdaInternalTerms.ConTerm.+-0x
+% Role:	hint
+% Line:	29
+fof(n14_142221408, hypothesis, ( ! [A] : ( kAppFn(kAppFn(n43,zero),A) = A ) )).
+
+% End general hint(s).
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	AgdaInternalTerms.ConTerm.foo
+% Role:	prove
+% Line:	33
+fof(n17_142221408, conjecture, ( ! [A] : ( kAppFn(kAppFn(n43,zero),A) = A ) )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.

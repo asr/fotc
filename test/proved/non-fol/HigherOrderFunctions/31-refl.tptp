@@ -1,0 +1,34 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The general axiom(s).
+
+% The original Agda term was:
+% Name:	HigherOrderFunctions.fix-f
+% Role:	axiom
+% Line:	27
+fof(n10_170901402, axiom, ( ! [A] : ( kAppFn(fix,A) = kAppFn(A,kAppFn(fix,A)) ) )).
+
+% The original Agda term was:
+% Name:	HigherOrderFunctions.beta
+% Role:	axiom
+% Line:	24
+fof(n8_170901402, axiom, ( ! [A] : ( ! [B] : ( kAppFn(kAppFn(n8729,kAppFn(lam,A)),B) = kAppFn(A,B) ) ) )).
+
+% End general axiom(s).
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	HigherOrderFunctions.refl
+% Role:	prove
+% Line:	31
+fof(n12_170901402, conjecture, ( ! [A] : ( A = A ) )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.

@@ -1,0 +1,39 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The general hint(s).
+
+% The original Agda term was:
+% Name:	TermToFOLTerm.ConTerm.+-Sx
+% Role:	hint
+% Line:	30
+fof(n18_168101849, hypothesis, ( ! [A] : ( ! [B] : ( kAppFn(kAppFn(n43,kAppFn(succ,A)),B) = kAppFn(succ,kAppFn(kAppFn(n43,A),B)) ) ) )).
+
+% End general hint(s).
+
+%-----------------------------------------------------------------------------
+% The local hint(s).
+
+% The original Agda term was:
+% Name:	TermToFOLTerm.ConTerm.x+Sy≡S[x+y]
+% Role:	hint
+% Line:	36
+fof(n25_168101849, hypothesis, ( ! [A] : ( ! [B] : ( kAppFn(kAppFn(n43,A),kAppFn(succ,B)) = kAppFn(succ,kAppFn(kAppFn(n43,A),B)) ) ) )).
+
+% End local hint(s).
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	TermToFOLTerm.ConTerm._.prf
+% Role:	prove
+% Line:	42
+fof(n34_168101849, conjecture, ( ! [A] : ( ! [B] : ( ( kAppFn(kAppFn(n43,A),B) = kAppFn(kAppFn(n43,B),A) ) => ( kAppFn(kAppFn(n43,kAppFn(succ,A)),B) = kAppFn(kAppFn(n43,B),kAppFn(succ,A)) ) ) ) )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.

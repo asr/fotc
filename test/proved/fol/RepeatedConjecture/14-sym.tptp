@@ -1,0 +1,28 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The local hint(s).
+
+% The original Agda term was:
+% Name:	RepeatedConjecture.refl
+% Role:	hint
+% Line:	11
+fof(n4_41063195, hypothesis, ( ! [A] : ( A = A ) )).
+
+% End local hint(s).
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	RepeatedConjecture.sym
+% Role:	prove
+% Line:	14
+fof(n7_41063195, conjecture, ( ! [A] : ( ! [B] : ( ( A = B ) => ( B = A ) ) ) )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.

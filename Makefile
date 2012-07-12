@@ -5,12 +5,12 @@ haskell_files = $(shell find src/ -name '*.hs')
 AGDA = agda -v 0
 
 # The defaults ATPs are e, equinox, and vampire.
-AGDA2ATP = dist/build/agda2atp/agda2atp --output-dir=$(output_dir)
-# AGDA2ATP = dist/build/agda2atp/agda2atp --atp=e --output-dir=$(output_dir)
-# AGDA2ATP = dist/build/agda2atp/agda2atp --atp=equinox --output-dir=$(output_dir)
-# AGDA2ATP = dist/build/agda2atp/agda2atp --atp=metis --output-dir=$(output_dir)
-# AGDA2ATP = dist/build/agda2atp/agda2atp --atp=spass --output-dir=$(output_dir)
-# AGDA2ATP = dist/build/agda2atp/agda2atp --atp=vampire --output-dir=$(output_dir)
+AGDA2ATP = dist/build/agda2atp/agda2atp
+# AGDA2ATP = dist/build/agda2atp/agda2atp --atp=e
+# AGDA2ATP = dist/build/agda2atp/agda2atp --atp=equinox
+# AGDA2ATP = dist/build/agda2atp/agda2atp --atp=metis
+# AGDA2ATP = dist/build/agda2atp/agda2atp --atp=spass
+# AGDA2ATP = dist/build/agda2atp/agda2atp --atp=vampire
 
 ##############################################################################
 # Some paths
@@ -19,12 +19,12 @@ AGDA2ATP = dist/build/agda2atp/agda2atp --output-dir=$(output_dir)
 std_lib_path = /home/asr/agda-upstream/std-lib
 
 # Tests paths
-succeed_test_path        = Test/Succeed
-succeed_test_FOL_path    = $(succeed_test_path)/FOL
-succeed_test_NonFOL_path = $(succeed_test_path)/NonFOL
+proved_test_path         = test/proved
+proved_test_fol_path     = $(proved_test_path)/fol
+proved_test_non_fol_path = $(proved_test_path)/non-fol
 
-# 2012-04-29: We don't have fail tests in NonFOL.
-fail_test_FOL_path = Test/Fail
+# 2012-04-29: We don't have fail tests in non-fol.
+fail_test_fol_path = test/fail/fol
 
 # Directory for the TPTP files.
 output_dir = /tmp/agda2atp
@@ -52,18 +52,21 @@ path_subst = $(patsubst %.agda,%.$(1), \
 
 # Tests
 
-generated_conjectures_test_files = \
-  $(call path_subst,generated_conjectures_test,$(succeed_test_path))
+generated_conjectures_test_fol_files = \
+  $(call path_subst,generated_conjectures_test_fol,$(proved_test_fol_path))
 
-proved_conjectures_test_FOL_files = \
-  $(call path_subst,proved_conjectures_test_FOL,$(succeed_test_FOL_path))
+generated_conjectures_test_non_fol_files = \
+  $(call path_subst,generated_conjectures_test_non_fol,$(proved_test_non_fol_path))
 
-proved_conjectures_test_NonFOL_files = \
-  $(call path_subst,proved_conjectures_test_NonFOL,$(succeed_test_NonFOL_path))
+proved_conjectures_test_fol_files = \
+  $(call path_subst,proved_conjectures_test_fol,$(proved_test_fol_path))
 
-fail_test_FOL_files = $(call path_subst,fail_test_FOL,$(fail_test_FOL_path))
+proved_conjectures_test_non_fol_files = \
+  $(call path_subst,proved_conjectures_test_non_fol,$(proved_test_non_fol_path))
 
-parsing_test_files = $(call path_subst,parsing,$(succeed_test_path))
+fail_test_fol_files = $(call path_subst,fail_test_fol,$(fail_test_fol_path))
+
+parsing_test_files = $(call path_subst,parsing_test,$(proved_test_path))
 
 # Examples
 
@@ -97,37 +100,56 @@ type_checking_notes_files = \
 ##############################################################################
 # Test suite: Generated conjectures
 
-%.generated_conjectures_test :
-	$(AGDA) $*.agda
-	$(AGDA2ATP) --non-fol --only-files $*.agda
+%.generated_conjectures_test_fol :
+	@$(AGDA) -i$(proved_test_fol_path) $*.agda
+	@$(AGDA2ATP) -i$(proved_test_fol_path) --only-files \
+	              --output-dir=$(output_dir)/$(proved_test_fol_path) \
+	              $*.agda
 	diff -r $* $(output_dir)/$*
 
-generated_conjectures_test : $(generated_conjectures_test_files)
+%.generated_conjectures_test_non_fol :
+	@$(AGDA) -i$(proved_test_non_fol_path) $*.agda
+	@$(AGDA2ATP) -i$(proved_test_non_fol_path) --non-fol --only-files \
+	              --output-dir=$(output_dir)/$(proved_test_non_fol_path) \
+	              $*.agda
+	diff -r $* $(output_dir)/$*
+
+generated_conjectures_test_aux : $(generated_conjectures_test_fol_files) \
+	                         $(generated_conjectures_test_non_fol_files)
+
+generated_conjectures_test :
+	rm -r -f $(output_dir)
+	make generated_conjectures_test_aux
 	@echo "$@ succeeded!"
 
 ##############################################################################
 # Test suite: Proved conjectures
 
-%.proved_conjectures_test_FOL :
-	$(AGDA) $*.agda
-	$(AGDA2ATP) --time=10 $*.agda
+%.proved_conjectures_test_fol :
+	$(AGDA) -i$(proved_test_fol_path) $*.agda
+	$(AGDA2ATP) -i$(proved_test_fol_path) --output-dir=$(output_dir) \
+	            --time=10 $*.agda
 
-%.proved_conjectures_test_NonFOL :
-	$(AGDA) $*.agda
-	$(AGDA2ATP) --time=10 --non-fol $*.agda
+%.proved_conjectures_test_non_fol :
+	$(AGDA) -i$(proved_test_non_fol_path) $*.agda
+	$(AGDA2ATP) -i$(proved_test_non_fol_path) --non-fol \
+	            --output-dir=$(output_dir) --time=10  $*.agda
 
-proved_conjectures_test : $(proved_conjectures_test_FOL_files) \
-                          $(proved_conjectures_test_NonFOL_files)
+proved_conjectures_test : $(proved_conjectures_test_fol_files) \
+                          $(proved_conjectures_test_non_fol_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
 # Test suite: Fail test
 
-%.fail_test_FOL :
-	$(AGDA) $*.agda
-	if ( $(AGDA2ATP) --time=5 $*.agda ); then exit 1; fi
+%.fail_test_fol :
+	$(AGDA) -i$(fail_test_fol_path) $*.agda
+	if ( $(AGDA2ATP) -i$(fail_test_fol_path) \
+	                 --output-dir=$(output_dir) --time=5 $*.agda ); then \
+	    exit 1; \
+	fi
 
-fail_test : $(fail_test_FOL_files)
+fail_test : $(fail_test_fol_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -135,15 +157,19 @@ fail_test : $(fail_test_FOL_files)
 
 # We use tptp4X from TPTP v5.4.0 to parse the TPTP files.
 %.parsing_test :
-	$(AGDA) $*.agda
-	$(AGDA2ATP) --non-fol --only-files $*.agda
+	$(AGDA) -i$(proved_test_fol_path) -i$(proved_test_non_fol_path) $*.agda
+	$(AGDA2ATP) -i$(proved_test_fol_path) -i$(proved_test_non_fol_path) \
+                    --non-fol --only-files --output-dir=$(output_dir) $*.agda
 
 	find $(output_dir) | while read file; do \
 	  tptp4X $${file}; \
 	done
 
-	rm -r $(output_dir)
+parsing_test_aux : $(parsing_test_files)
+
 parsing_test : $(parsing_test_files)
+	rm -r -f $(output_dir)
+	make parsing_test_aux
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -185,14 +211,14 @@ type_checking_examples :
 # We cannot use $(AGDA2ATP) due to the output directory.
 %.snapshot_create_examples :
 	$(AGDA) -iexamples $*.agda
-	dist/build/agda2atp/agda2atp -iexamples --only-files --non-fol \
-	                             --output-dir=$(snapshot_dir) $*.agda
+	$(AGDA2ATP) -iexamples --only-files --non-fol \
+	            --output-dir=$(snapshot_dir) $*.agda
 
 # We cannot use $(AGDA2ATP) due to the output directory.
 %.snapshot_compare_examples :
 	$(AGDA) -iexamples $*.agda
-	dist/build/agda2atp/agda2atp -iexamples --non-fol --snapshot-test \
-	                             --snapshot-dir=$(snapshot_dir) $*.agda
+	$(AGDA2ATP) -iexamples --non-fol --snapshot-test \
+	            --snapshot-dir=$(snapshot_dir) $*.agda
 
 snapshot_create_examples : $(snapshot_create_examples_files)
 	@echo "$@ succeeded!"
@@ -205,7 +231,8 @@ snapshot_compare_examples : $(snapshot_compare_examples_files)
 
 %.proved_conjectures_examples :
 	$(AGDA) -iexamples $*.agda
-	$(AGDA2ATP) -iexamples --non-fol --time=240 $*.agda
+	$(AGDA2ATP) -iexamples --non-fol --output-dir=$(output_dir) \
+	            --time=240 $*.agda
 
 proved_conjectures_examples : $(proved_conjectures_examples_files)
 	@echo "$@ succeeded!"
@@ -217,7 +244,10 @@ proved_conjectures_examples : $(proved_conjectures_examples_files)
 # revert the agda2atp output.
 %.consistency_examples :
 	$(AGDA) -iexamples $*.agda
-	if ( $(AGDA2ATP) -iexamples --time=10 $*.agda ); then exit 1; fi
+	if ( $(AGDA2ATP) -iexamples --output-dir=$(output_dir) \
+	                 --time=10 $*.agda ); then \
+           exit 1;\
+        fi
 
 consistency_examples : $(consistency_examples_files)
 	@echo "$@ succeeded!"
@@ -298,9 +328,9 @@ hpc_html_dir = hpc
 
 .PHONY : hpc
 hpc : hpc_clean hpc_install \
-      $(proved_conjectures_test_FOL_files) \
-      $(proved_conjectures_test_NonFOL_files) \
-      $(fail_test_FOL_files)
+      $(proved_conjectures_test_fol_files) \
+      $(proved_conjectures_test_non-fol_files) \
+      $(fail_test_fol_files)
 	hpc markup --exclude=Snapshot \
                    --exclude=Paths_agda2atp \
                    --destdir=$(hpc_html_dir) \

@@ -1,0 +1,39 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The general axiom(s).
+
+% The original Agda term was:
+% Name:	RemoveVar.LamTerm.≈-gfp₁
+% Role:	axiom
+% Line:	43
+fof(n32_227209975, axiom, ( ! [A] : ( ! [B] : ( ( kAppP2(n_8776_,A,B) ) => ( ? [C] : ( ? [D] : ( ? [E] : ( ( kAppP2(n_8776_,D,E) ) & ( ( A = kAppFn(kAppFn(n8759,C),D) ) & ( B = kAppFn(kAppFn(n8759,C),E) ) ) ) ) ) ) ) ) )).
+
+% End general axiom(s).
+
+%-----------------------------------------------------------------------------
+% The required ATP definition(s) by the conjecture.
+
+% The original Agda term was:
+% Name:	RemoveVar.LamTerm._.P
+% Role:	definition
+% Line:	50
+fof(n41_227209975, definition, ( ! [A] : ( ! [B] : ( ( kAppP2(n_8776_,A,B) ) => ( ! [C] : ( ( kAppP3(p_41_227209975,A,B,C) ) <=> ( ? [D] : ( kAppP2(n_8776_,C,D) ) ) ) ) ) ) )).
+
+% End required ATP definition(s) by the conjecture.
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	RemoveVar.LamTerm._.helper
+% Role:	prove
+% Line:	55
+fof(n47_227209975, conjecture, ( ! [A] : ( ! [B] : ( ( kAppP2(n_8776_,A,B) ) => ( ! [C] : ( ( kAppP3(p_41_227209975,A,B,C) ) => ( ? [D] : ( ? [E] : ( ( kAppP3(p_41_227209975,A,B,E) ) & ( C = kAppFn(kAppFn(n8759,D),E) ) ) ) ) ) ) ) ) )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.

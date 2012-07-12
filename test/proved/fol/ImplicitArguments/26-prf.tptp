@@ -1,0 +1,28 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The general axiom(s).
+
+% The original Agda term was:
+% Name:	ImplicitArguments.a≡b
+% Role:	axiom
+% Line:	20
+fof(n8_60938615, axiom, ( a = b )).
+
+% End general axiom(s).
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	ImplicitArguments._.prf
+% Role:	prove
+% Line:	26
+fof(n13_60938615, conjecture, ( ! [A] : ( b = a ) )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.

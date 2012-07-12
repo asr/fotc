@@ -1,0 +1,39 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The local hint(s).
+
+% The original Agda term was:
+% Name:	Definition06.foo
+% Role:	hint
+% Line:	20
+fof(n6_85715757, hypothesis, ( c = b )).
+
+% End local hint(s).
+
+%-----------------------------------------------------------------------------
+% The required ATP definition(s) by the local hint(s).
+
+% The original Agda term was:
+% Name:	Definition06.b
+% Role:	definition
+% Line:	15
+fof(n5_85715757, definition, ( b = a )).
+
+% End required ATP definition(s) by the local hint(s).
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	Definition06.bar
+% Role:	prove
+% Line:	23
+fof(n7_85715757, conjecture, ( c = a )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.

@@ -1,0 +1,39 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The general axiom(s).
+
+% The original Agda term was:
+% Name:	Definition12.if-true
+% Role:	axiom
+% Line:	19
+fof(n8_163400516, axiom, ( ! [A] : ( ! [B] : ( kAppFn(kAppFn(n183,kAppFn(kAppFn(n183,kAppFn(kAppFn(n183,if),true)),A)),B) = A ) ) )).
+
+% End general axiom(s).
+
+%-----------------------------------------------------------------------------
+% The required ATP definition(s) by the conjecture.
+
+% The original Agda term was:
+% Name:	Definition12.if_then_else_
+% Role:	definition
+% Line:	22
+fof(n9_163400516, definition, ( ! [A] : ( ! [B] : ( ! [C] : ( kAppFn(kAppFn(kAppFn(ifthenelse,A),B),C) = kAppFn(kAppFn(n183,kAppFn(kAppFn(n183,kAppFn(kAppFn(n183,if),A)),B)),C) ) ) ) )).
+
+% End required ATP definition(s) by the conjecture.
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	Definition12.foo
+% Role:	prove
+% Line:	27
+fof(n15_163400516, conjecture, ( ! [A] : ( ! [B] : ( kAppFn(kAppFn(kAppFn(ifthenelse,true),A),B) = A ) ) )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.

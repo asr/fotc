@@ -1,0 +1,39 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The common required definition(s).
+
+% The original Agda term was:
+% Name:	DuplicateAgdaDefinitions1.Eq
+% Role:	definition
+% Line:	18
+fof(n3_273427573, definition, ( ! [A] : ( ! [B] : ( ( kAppP2(eq_3_273427573,A,B) ) <=> ( kAppP2(n_8776_,A,B) ) ) ) )).
+
+% End common required definition(s).
+
+%-----------------------------------------------------------------------------
+% The local hint(s).
+
+% The original Agda term was:
+% Name:	DuplicateAgdaDefinitions1.Eq-trans
+% Role:	hint
+% Line:	22
+fof(n9_273427573, hypothesis, ( ! [A] : ( ! [B] : ( ! [C] : ( ( kAppP2(eq_3_273427573,A,B) ) => ( ( kAppP2(eq_3_273427573,B,C) ) => ( kAppP2(eq_3_273427573,A,C) ) ) ) ) ) )).
+
+% End local hint(s).
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	DuplicateAgdaDefinitions1.Eq-trans₂
+% Role:	prove
+% Line:	24
+fof(n14_273427573, conjecture, ( ! [A] : ( ! [B] : ( ! [C] : ( ! [D] : ( ( kAppP2(eq_3_273427573,A,B) ) => ( ( kAppP2(eq_3_273427573,B,C) ) => ( ( kAppP2(eq_3_273427573,C,D) ) => ( kAppP2(eq_3_273427573,A,D) ) ) ) ) ) ) ) )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.

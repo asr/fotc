@@ -1,0 +1,28 @@
+%-----------------------------------------------------------------------------
+% This file was generated automatically by agda2atp version 0.9.1.
+%-----------------------------------------------------------------------------
+
+%-----------------------------------------------------------------------------
+% The required ATP definition(s) by the conjecture.
+
+% The original Agda term was:
+% Name:	Definition01.e
+% Role:	definition
+% Line:	16
+fof(n4_270517769, definition, ( e = d )).
+
+% End required ATP definition(s) by the conjecture.
+
+%-----------------------------------------------------------------------------
+% The conjecture.
+
+% The original Agda term was:
+% Name:	Definition01.foo
+% Role:	prove
+% Line:	20
+fof(n5_270517769, conjecture, ( e = d )).
+
+% End conjecture.
+
+%-----------------------------------------------------------------------------
+% End TPTP file.
