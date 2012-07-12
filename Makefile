@@ -2,6 +2,8 @@
 
 haskell_files = $(shell find src/ -name '*.hs')
 
+AGDA = agda -v 0
+
 # The defaults ATPs are e, equinox, and vampire.
 AGDA2ATP = dist/build/agda2atp/agda2atp --output-dir=$(output_dir)
 # AGDA2ATP = dist/build/agda2atp/agda2atp --atp=e --output-dir=$(output_dir)
@@ -96,7 +98,7 @@ type_checking_notes_files = \
 # Test suite: Generated conjectures
 
 %.generated_conjectures_test :
-	agda -v 0 $*.agda
+	$(AGDA) $*.agda
 	$(AGDA2ATP) --non-fol --only-files $*.agda
 	diff -r $* $(output_dir)/$*
 
@@ -107,11 +109,11 @@ generated_conjectures_test : $(generated_conjectures_test_files)
 # Test suite: Proved conjectures
 
 %.proved_conjectures_test_FOL :
-	agda -v 0 $*.agda
+	$(AGDA) $*.agda
 	$(AGDA2ATP) --time=10 $*.agda
 
 %.proved_conjectures_test_NonFOL :
-	agda -v 0 $*.agda
+	$(AGDA) $*.agda
 	$(AGDA2ATP) --time=10 --non-fol $*.agda
 
 proved_conjectures_test : $(proved_conjectures_test_FOL_files) \
@@ -122,7 +124,7 @@ proved_conjectures_test : $(proved_conjectures_test_FOL_files) \
 # Test suite: Fail test
 
 %.fail_test_FOL :
-	agda -v 0 $*.agda
+	$(AGDA) $*.agda
 	if ( $(AGDA2ATP) --time=5 $*.agda ); then exit 1; fi
 
 fail_test : $(fail_test_FOL_files)
@@ -133,7 +135,7 @@ fail_test : $(fail_test_FOL_files)
 
 # We use tptp4X from TPTP v5.4.0 to parse the TPTP files.
 %.parsing_test :
-	agda -v 0 $*.agda
+	$(AGDA) $*.agda
 	$(AGDA2ATP) --non-fol --only-files $*.agda
 
 	find $(output_dir) | while read file; do \
@@ -158,10 +160,10 @@ haddock_test :
 # Examples: Type-checking
 
 %.type_checking_examples :
-	agda -v 0 -iexamples $*.agda
+	$(AGDA) -iexamples $*.agda
 
 %.type_checking_agsy_examples :
-	agda -v 0 -iexamples -i$(std_lib_path)/src/ $*.agda
+	$(AGDA) -iexamples -i$(std_lib_path)/src/ $*.agda
 
 type_checking_examples_aux : $(type_checking_examples_files) \
                              $(type_checking_agsy_examples_files)
@@ -169,7 +171,7 @@ type_checking_examples_aux : $(type_checking_examples_files) \
 type_checking_examples :
 	cd $(std_lib_path) && darcs pull
 	make type_checking_examples_aux
-	agda -v 0 -iexamples examples/README.agda
+	$(AGDA) -iexamples examples/README.agda
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -182,13 +184,13 @@ type_checking_examples :
 
 # We cannot use $(AGDA2ATP) due to the output directory.
 %.snapshot_create_examples :
-	agda -v 0 -iexamples $*.agda
+	$(AGDA) -iexamples $*.agda
 	dist/build/agda2atp/agda2atp -iexamples --only-files --non-fol \
 	                             --output-dir=$(snapshot_dir) $*.agda
 
 # We cannot use $(AGDA2ATP) due to the output directory.
 %.snapshot_compare_examples :
-	agda -v 0 -iexamples $*.agda
+	$(AGDA) -iexamples $*.agda
 	dist/build/agda2atp/agda2atp -iexamples --non-fol --snapshot-test \
 	                             --snapshot-dir=$(snapshot_dir) $*.agda
 
@@ -202,7 +204,7 @@ snapshot_compare_examples : $(snapshot_compare_examples_files)
 # Examples: Proved conjectures
 
 %.proved_conjectures_examples :
-	agda -v 0 -iexamples $*.agda
+	$(AGDA) -iexamples $*.agda
 	$(AGDA2ATP) -iexamples --non-fol --time=240 $*.agda
 
 proved_conjectures_examples : $(proved_conjectures_examples_files)
@@ -214,7 +216,7 @@ proved_conjectures_examples : $(proved_conjectures_examples_files)
 # Because we are using the option --unproved-conjecture-error we
 # revert the agda2atp output.
 %.consistency_examples :
-	agda -v 0 -iexamples $*.agda
+	$(AGDA) -iexamples $*.agda
 	if ( $(AGDA2ATP) -iexamples --time=10 $*.agda ); then exit 1; fi
 
 consistency_examples : $(consistency_examples_files)
@@ -224,18 +226,17 @@ consistency_examples : $(consistency_examples_files)
 # Notes: Type-checking
 
 %.type_checking_notes :
-	agda -v 0 \
-	     -iexamples \
-	     -inotes \
-	     -inotes/fixed-points \
-             -inotes/papers/fossacs-2012 \
-             -inotes/papers/paper-2011/ \
-	     -inotes/README/ \
-             -inotes/setoids/ \
-             -inotes/thesis/logical-framework/ \
-	     -inotes/TODO/ \
-             -i$(std_lib_path)/src/ \
-	     $*.agda
+	$(AGDA) -iexamples \
+	        -inotes \
+	        -inotes/fixed-points \
+                -inotes/papers/fossacs-2012 \
+                -inotes/papers/paper-2011/ \
+	        -inotes/README/ \
+                -inotes/setoids/ \
+                -inotes/thesis/logical-framework/ \
+	        -inotes/TODO/ \
+                -i$(std_lib_path)/src/ \
+	        $*.agda
 
 type_checking_notes_aux : $(type_checking_notes_files)
 
@@ -323,16 +324,16 @@ include ~/code/utils/make/agda2atp/publish.mk
 
 publish_README :
 	rm -r -f /tmp/html/
-	agda -v 0 -iexamples --html --html-dir=/tmp/html/ examples/README.agda
+	$(AGDA) -iexamples --html --html-dir=/tmp/html/ examples/README.agda
 	$(RSYNC) /tmp/html/ $(root_host_dir)/
 
 ##############################################################################
 # Others
 
 dependency_graph :
-	agda -v 0 -iexamples \
-	     --dependency-graph=/tmp/dependency-graph.gv \
-	     examples/FOTC/Program/ABP/ProofSpecificationATP.agda
+	$(AGDA) -iexamples \
+	        --dependency-graph=/tmp/dependency-graph.gv \
+	        examples/FOTC/Program/ABP/ProofSpecificationATP.agda
 	dot -Tpdf /tmp/dependency-graph.gv > /tmp/dependency-graph.pdf
 
 .PHONY : TAGS
