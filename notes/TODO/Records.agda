@@ -6,4 +6,4 @@ record _×_ (A B : Set) : Set where
     proj₁ : A
     proj₂ : B
 
-{-# ATP hint _×_.proj₁ #-}
+-- {-# ATP hint _×_.proj₁ #-}
