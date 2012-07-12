@@ -1,7 +1,10 @@
 .fol.*
+.hpc/
 *.agdai
 *.o
 *.hi
+agda2atp.tix
 dist
+hpc/
 model
 snapshot/

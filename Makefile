@@ -270,7 +270,7 @@ hpc_html_dir = hpc
 
 .PHONY : hpc
 hpc : hpc_clean hpc_install \
-      $(proved_conjectures__test_FOL_files) \
+      $(proved_conjectures_test_FOL_files) \
       $(proved_conjectures_test_NonFOL_files) \
       $(fail_test_FOL_files)
 	hpc markup --exclude=Snapshot \
