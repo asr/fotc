@@ -234,7 +234,6 @@ consistency_examples : $(consistency_examples_files)
 	        -inotes/README/ \
                 -inotes/setoids/ \
                 -inotes/thesis/logical-framework/ \
-	        -inotes/TODO/ \
                 -i$(std_lib_path)/src/ \
 	        $*.agda
 
