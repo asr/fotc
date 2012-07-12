@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # An example hook script to verify what is about to be committed.
 # Called by "git commit" with no arguments.  The hook should
@@ -16,7 +16,7 @@
 # fi
 
 # If you want to allow non-ascii filenames set this variable to true.
-allownonascii=$(git config hooks.allownonascii)
+# allownonascii=$(git config hooks.allownonascii)
 
 # Cross platform projects tend to avoid non-ascii filenames; prevent
 # them from being added to the repository. We exploit the fact that the
@@ -46,23 +46,7 @@ allownonascii=$(git config hooks.allownonascii)
 # exec git diff-index --check --cached $against --
 
 echo "Starting pre-commit"
-fix-whitespace --check
-if [ $? -ne 0 ]; then
-  exit 1
-fi
-cabal configure
-if [ $? -ne 0 ]; then
-  exit 1
-fi
-cabal build
-if [ $? -ne 0 ]; then
-  exit 1
-fi
-make tests
-if [ $? -ne 0 ]; then
-  exit 1
-fi
-make hlint
+make git-pre-commit
 if [ $? -ne 0 ]; then
   exit 1
 fi

@@ -33,8 +33,8 @@ examples_path = examples
 # Notes path
 notes_path = notes
 
-# Snapshot directory.
-snapshot_dir = snapshot
+# Snapshot examples directory.
+snapshot_dir = snapshot-examples
 
 ##############################################################################
 # Auxiliary functions
@@ -247,21 +247,49 @@ type_checking_notes :
 ##############################################################################
 # Running the tests
 
-tests : clean
+tests :
 	make generated_conjectures_test
 	make proved_conjectures_test
 	make fail_test
-	make haddock_test
 	@echo "All tests succeeded!"
 
 ##############################################################################
 # Running the examples and the notes
 
-examples_and_notes : clean
+examples_and_notes :
 	make type_checking_examples
 	make snapshot_create_examples
 	type_checking_notes
 	@echo "Examples and notes succeeded!"
+
+##############################################################################
+# Test used when there is a modification to Agda
+
+agda_changed :
+	if [ ! -d $(snapshot_dir) ]; then exit 1; fi
+	cabal clean && cabal configure && cabal build
+	make tests
+	make type_checking_examples
+	make snapshot_compare_examples
+	make type_checking_notes
+	@echo "$@ succeeded!"
+
+##############################################################################
+# Hlint test
+
+hlint :
+	hlint src/
+
+##############################################################################
+# Git : pre-commit test
+
+git-pre-commit :
+	fix-whitespace --check
+	cabal configure && cabal build
+	make tests
+	make haddock_test
+	make hlint
+	@echo "$@ succeeded!"
 
 ##############################################################################
 # Haskell program coverage
@@ -305,10 +333,6 @@ publish_README :
 TAGS : $(haskell_files)
 	hasktags -e $(haskell_files)
 
-# Requires HLint >= 1.8.4.
-hlint :
-	hlint src/
-
 TODO :
 	find -wholename './dist' -prune -o -print \
 	| xargs grep -I 'TODO:' \
@@ -320,14 +344,6 @@ clean :
 
 ##############################################################################
 # TODO: From the Makefile in the old repository FOT
-
-# Test used when there is a modification to Agda
-
-# agda_changed : agda_changed_clean all_type_checking all_only_conjectures
-# 	@echo "The $@ test succeeded!"
-
-# agda_changed_clean :
-# 	find -name '*.agdai' | xargs rm -f
 
 # Publish the .html files
 
