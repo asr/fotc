@@ -26,13 +26,12 @@ data N : D → Set where
 thm : ∀ n → N n → (∀ k → k ≤ k) → n ≡ n
 thm n Nn h = prf
   where
+  -- The internal type of prf is
 
-    -- The internal type of prf is
+  --  ∀ (n : D) (Nn : N n) (h : ∀ k → k ≤ k) → ...
 
-    --  ∀ (n : D) (Nn : N n) (h : ∀ k → k ≤ k) → ...
+  -- The program agda2atp can erase the proof term Nn, but it cannot
+  -- erase the proof term h.
 
-    -- The agda2atp tool can erase the proof term Nn, but it cannot erase the
-    -- proof term h.
-
-    postulate prf : n ≡ n
-    {-# ATP prove prf #-}
+  postulate prf : n ≡ n
+  {-# ATP prove prf #-}
