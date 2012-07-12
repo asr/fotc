@@ -136,13 +136,10 @@ You can test for example the proofs regarding the mirror function with
 the following commands
 
 ````bash
-$ cd agda2atp
-$ agda -iexamples examples/FOTC/Program/Mirror/PropertiesATP.agda
-$ agda2atp -iexamples  examples/FOTC/Program/Mirror/PropertiesATP.agda
+$ cd agda2atp/examples
+$ agda FOTC/Program/Mirror/PropertiesATP.agda
+$ agda2atp FOTC/Program/Mirror/PropertiesATP.agda
 ````
-
-The `-iexample` option tells `agda` and `agda2atp` to look in the
-directory `examples` for the imported modules
 
 More examples
 -------------
