@@ -17,7 +17,7 @@ module Monad.Base
   ( getTDefs
   , getTOpt
   , getTVars
-  , getTPragmaOptions
+  , isTPragmaOption
   , isTVarsEmpty
   , modifyDefs
   , modifyOpts
@@ -62,11 +62,15 @@ import Utils.Names ( freshName )
 
 ------------------------------------------------------------------------------
 -- | The translation monad state.
+
+-- Note. Agda uses the type @[OptionsPragma]@ instead of the
+-- @OptionPragma@ for the pragma options, but it doesn't seem
+-- necessary in our case.
 data TState =
-  MkState { tDefs          ∷ Definitions      -- ^ Agda definitions.
-          , tOpts          ∷ Options          -- ^ Command-line options.
-          , tVars          ∷ [String]         -- ^ Variables names.
-          , tPragmaOptions ∷ [OptionsPragma]  -- ^ Pragma options.
+  MkState { tDefs          ∷ Definitions    -- ^ Agda definitions.
+          , tOpts          ∷ Options        -- ^ Command-line options.
+          , tVars          ∷ [String]       -- ^ Variables names.
+          , tPragmaOptions ∷ OptionsPragma  -- ^ Pragma options.
           }
 
 -- The initial state.
@@ -88,6 +92,13 @@ runT ta = evalStateT (runErrorT ta) initTState
 -- state is empty.
 isTVarsEmpty ∷ T Bool
 isTVarsEmpty = fmap (null . tVars) get
+
+-- | @isTPragmaOption p@ returns 'True' if the pragma option @p@ is
+-- set.
+isTPragmaOption ∷ String → T Bool
+isTPragmaOption p = do
+  state ← get
+  return (p `elem` tPragmaOptions state)
 
 -- | Push a variable in the translation monad state.
 pushTVar ∷ String → T ()
@@ -119,10 +130,6 @@ getTOpt opt = fmap (opt . tOpts) get
 getTVars ∷ T [String]
 getTVars = fmap tVars get
 
--- | Get the pragma options from the translation monad state.
-getTPragmaOptions ∷ T [OptionsPragma]
-getTPragmaOptions = fmap tPragmaOptions get
-
 -- | Modify the Agda 'Definitions' in the translation monad state.
 modifyDefs ∷ Definitions → T ()
 modifyDefs defs = modify $ \s → s { tDefs = defs }
@@ -132,5 +139,5 @@ modifyOpts ∷ Options → T ()
 modifyOpts opts = modify $ \s → s { tOpts = opts }
 
 -- | Modify the 'OptionsPragma' in the translation monad state.
-modifyPragmaOptions ∷ [OptionsPragma] → T ()
-modifyPragmaOptions opts = modify $ \s → s { tPragmaOptions = opts }
+modifyPragmaOptions ∷ OptionsPragma → T ()
+modifyPragmaOptions ps = modify $ \s → s { tPragmaOptions = ps }

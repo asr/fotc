@@ -186,7 +186,7 @@ parsing_conjectures :
 ##############################################################################
 # Test suite: Haddock test
 
-haddock_test :
+doc :
 	cabal configure
 	cabal haddock --hyperlink-source \
                       --executables \
@@ -329,7 +329,7 @@ git-pre-commit :
 	@fix-whitespace --check
 	@cabal configure && cabal build
 	@make tests
-	@make haddock_test
+	@make doc
 	@make hlint
 	@echo "$@ succeeded!"
 

@@ -95,7 +95,7 @@ translation agdaFile = do
 
   -- We add @allDefs@ and the interface pragma options to the state.
   modifyDefs allDefs
-  modifyPragmaOptions (iPragmaOptions i)
+  modifyPragmaOptions $ concat $ iPragmaOptions i
 
   liftM2 (,) generalRolesToAFs (conjecturesToAFs topLevelDefs)
 
