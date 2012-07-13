@@ -3,9 +3,8 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --universal-quantified-formula #-}
 {-# OPTIONS --without-K #-}
-
--- Requires option @--non-fol-formula@.
 
 module NonFOL.LogicalSchemas1 where
 

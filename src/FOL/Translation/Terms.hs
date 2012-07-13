@@ -56,7 +56,6 @@ import Agda.Syntax.Internal
 
 import Agda.Syntax.Position  ( noRange )
 import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
-import Agda.Utils.Monad      ( unlessM )
 
 ------------------------------------------------------------------------------
 -- Local imports
@@ -83,7 +82,7 @@ import FOL.Types
 
 import Monad.Base
   ( getTVars
-  , getTOpt
+  , getTPragmaOptions
   , newTVar
   , popTVar
   , pushTVar
@@ -91,13 +90,6 @@ import Monad.Base
   )
 
 import Monad.Reports ( reportSLn )
-
-import Options
- ( Options( optNonFOLFormula
-          , optNonFOLFunction
-          , optNonFOLPropositionalFunction
-          )
- )
 
 #include "../../undefined.h"
 
@@ -399,11 +391,15 @@ termToFormula (Pi domTy (Abs x tyAbs)) = do
     El (Type (Max [ClosedLevel 1])) (Sort _) → do
       reportSLn "t2f" 20 $ "The type domTy is: " ++ show domTy
 
-      unlessM (getTOpt optNonFOLFormula) $
-        throwError $ "The translation of first-order logic universal"
-                     ++ " quantified formulae is disable by default."
-                     ++ " Use option --non-fol-formula"
-      return f
+      pragmaOptions ← getTPragmaOptions
+      let pragma ∷ String
+          pragma = "--universal-quantified-formula"
+      if [pragma] `notElem` pragmaOptions
+        then throwError $
+               "The translation of first-order logic universal quantified "
+               ++ "formulae is disable by default. Use the option "
+               ++ pragma ++ " in the Agda file"
+        else return f
 
     -- Non-FOL translation: First-order logic universal quantified
     -- propositional functions.
@@ -463,12 +459,16 @@ termToFormula term@(Var n args) = do
     -- others variables. See an example in
     -- Test.Succeed.AgdaInternalTerms.Var1.agda.
     _ → do
-      unlessM (getTOpt optNonFOLPropositionalFunction) $
-        throwError $ "The translation of first-order logic universal"
-                     ++ " quantified function terms is disable by default."
-                     ++ " Use option --non-fol-propositional-function"
+      pragmaOptions ← getTPragmaOptions
+      let pragma ∷ String
+          pragma = "--universal-quantified-propositional-function"
+      if [pragma] `notElem` pragmaOptions
+        then throwError $
+               "The translation of first-order logic universal quantified "
+               ++ "propositional functions is disable by default. Use the "
+               ++ "option " ++ pragma ++ " in the Agda file"
 
-      predicateLogicalScheme vars n args
+        else predicateLogicalScheme vars n args
 
 termToFormula (DontCare _)        = __IMPOSSIBLE__
 termToFormula (Con _ _)           = __IMPOSSIBLE__
@@ -568,13 +568,17 @@ termToFOLTerm term@(Var n args) = do
     -- variables. See an example in
     -- Test.Succeed.AgdaInternalTerms.Var2.agda
     varArgs → do
-      unlessM (getTOpt optNonFOLFunction) $
-        throwError $ "The translation of first-order logic universal"
-                     ++ " quantified function terms is disable by default."
-                     ++ " Use option --non-fol-function"
-
-      termsFOL ← mapM argTermToFOLTerm varArgs
-      return $ foldl' appFn (FOLVar (vars !! fromIntegral n)) termsFOL
+      pragmaOptions ← getTPragmaOptions
+      let pragma ∷ String
+          pragma = "--universal-quantified-function"
+      if [pragma] `notElem` pragmaOptions
+        then throwError $
+               "The translation of first-order logic universal quantified "
+               ++ "functions is disable by default. Use the option "
+               ++ pragma ++ " in the Agda file"
+        else do
+          termsFOL ← mapM argTermToFOLTerm varArgs
+          return $ foldl' appFn (FOLVar (vars !! fromIntegral n)) termsFOL
 
 termToFOLTerm (DontCare _) = __IMPOSSIBLE__
 termToFOLTerm (Lam _ _)    = __IMPOSSIBLE__

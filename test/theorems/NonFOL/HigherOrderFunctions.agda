@@ -3,11 +3,13 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --universal-quantified-function #-}
 {-# OPTIONS --without-K #-}
 
--- We can use the option @--non-fol-function@ to translate
--- higher-order functions. The canonical examples are the conversion
--- rules for the λ-abstraction and the fixed-point operator.
+-- We can use the Agda option @--universal-quantified-function@ to
+-- translate higher-order functions. The canonical examples are the
+-- conversion rules for the λ-abstraction and the fixed-point
+-- operator.
 
 module NonFOL.HigherOrderFunctions where
 

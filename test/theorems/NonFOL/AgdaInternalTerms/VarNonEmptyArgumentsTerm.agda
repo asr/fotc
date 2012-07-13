@@ -3,9 +3,8 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --universal-quantified-function #-}
 {-# OPTIONS --without-K #-}
-
--- Requires option @--non-fol-function@.
 
 module NonFOL.AgdaInternalTerms.VarNonEmptyArgumentsTerm where
 

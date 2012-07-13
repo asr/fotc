@@ -19,10 +19,6 @@ module Options
   , Options( optAgdaIncludePath
            , optATP
            , optHelp
-           , optNonFOL
-           , optNonFOLFormula
-           , optNonFOLFunction
-           , optNonFOLPropositionalFunction
            , optOnlyFiles
            , optOutputDir
            , optSnapshotDir
@@ -64,10 +60,6 @@ data Options = MkOptions
   { optAgdaIncludePath             ∷ [FilePath]
   , optATP                         ∷ [String]
   , optHelp                        ∷ Bool
-  , optNonFOL                      ∷ Bool
-  , optNonFOLFormula               ∷ Bool
-  , optNonFOLFunction              ∷ Bool
-  , optNonFOLPropositionalFunction ∷ Bool
   , optOnlyFiles                   ∷ Bool
   , optOutputDir                   ∷ FilePath
   , optSnapshotDir                 ∷ FilePath
@@ -87,10 +79,6 @@ defaultOptions = MkOptions
   { optAgdaIncludePath             = []
   , optATP                         = []
   , optHelp                        = False
-  , optNonFOL                      = False
-  , optNonFOLFormula               = False
-  , optNonFOLFunction              = False
-  , optNonFOLPropositionalFunction = False
   , optOnlyFiles                   = False
   , optOutputDir                   = "/tmp"
   , optSnapshotDir                 = "snapshot"
@@ -114,23 +102,6 @@ atpOpt name opts = opts { optATP = optATP opts ++ [name] }
 
 helpOpt ∷ Options → Options
 helpOpt opts = opts { optHelp = True }
-
-nonFOLOpt ∷ Options → Options
-nonFOLOpt opts = opts { optNonFOL                      = True
-                      , optNonFOLFormula               = True
-                      , optNonFOLFunction              = True
-                      , optNonFOLPropositionalFunction = True
-                      }
-
-nonFOLFormulaOpt ∷ Options → Options
-nonFOLFormulaOpt opts = opts { optNonFOLFormula = True }
-
-nonFOLFunctionOpt ∷ Options → Options
-nonFOLFunctionOpt opts = opts { optNonFOLFunction = True }
-
-nonFOLPropositionalFunctionOpt ∷ Options → Options
-nonFOLPropositionalFunctionOpt opts =
-  opts { optNonFOLPropositionalFunction = True }
 
 onlyFilesOpt ∷ Options → Options
 onlyFilesOpt opts = opts { optOnlyFiles = True }
@@ -191,15 +162,6 @@ options =
                ++ "(default: e, equinox, and vampire)"
   , Option "?" ["help"] (NoArg helpOpt)
                "show this help"
-  , Option []  ["non-fol"] (NoArg nonFOLOpt)
-               "enable the non-FOL translations"
-  , Option []  ["non-fol-formula"] (NoArg nonFOLFormulaOpt)
-               "translate universal quantified formulae"
-  , Option []  ["non-fol-function"] (NoArg nonFOLFunctionOpt)
-               "translate universal quantified functions"
-  , Option []  ["non-fol-propositional-function"]
-               (NoArg nonFOLPropositionalFunctionOpt)
-               "translate universal quantified propositional functions"
   , Option []  ["only-files"] (NoArg onlyFilesOpt)
                "do not call the ATPs, only to create the TPTP files"
   , Option []  ["output-dir"] (ReqArg outputDirOpt "DIR")

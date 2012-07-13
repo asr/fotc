@@ -3,9 +3,8 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --universal-quantified-propositional-function #-}
 {-# OPTIONS --without-K #-}
-
--- Requires option --non-fol-propositional-function@.
 
 module NonFOL.SchemasP11 where
 

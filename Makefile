@@ -104,19 +104,15 @@ flags_gt = -i$(theorems_path) --only-files \
 	   --output-dir=$(output_dir)/$(theorems_path) \
 
 %.generated_theorems :
+	@echo "Processing $*.agda"
 	$(AGDA) -i$(theorems_path) $*.agda
-	if [[ "$*.agda" =~ "".*NonFOL*"" ]]; \
-	then \
-	  $(AGDA2ATP) $(flags_gt) --non-fol $*.agda; \
-	else \
-	  $(AGDA2ATP) $(flags_gt) $*.agda; \
-	fi
-	diff -r $* $(output_dir)/$*
+	$(AGDA2ATP) $(flags_gt) $*.agda; \
 
 flags_ngt = -i$(non_theorems_path) --only-files \
 	   --output-dir=$(output_dir)/$(non_theorems_path) \
 
 %.generated_non_theorems :
+	@echo "Processing $*.agda"
 	$(AGDA) -i$(non_theorems_path) $*.agda
 	$(AGDA2ATP) $(flags_ngt) $*.agda; \
 	diff -r $* $(output_dir)/$*
@@ -134,7 +130,7 @@ generated_conjectures :
 
 %.prove_theorems :
 	$(AGDA) -i$(theorems_path) $*.agda
-	$(AGDA2ATP) -i$(theorems_path) --non-fol --output-dir=$(output_dir) \
+	$(AGDA2ATP) -i$(theorems_path) --output-dir=$(output_dir) \
 	            --time=10 $*.agda
 
 prove_theorems : $(prove_theorems_files)
@@ -173,8 +169,8 @@ flags_parsing = -i$(theorems_path) -i$(non_theorems_path)
 # We use tptp4X from TPTP v5.4.0 to parse the TPTP files.
 %.parsing_conjectures :
 	$(AGDA) $(flags_parsing) $*.agda
-	$(AGDA2ATP) $(flags_parsing) --non-fol --only-files \
-	            --output-dir=$(output_dir) $*.agda
+	$(AGDA2ATP) $(flags_parsing) --only-files --output-dir=$(output_dir) \
+	            $*.agda
 
 	find $(output_dir) | while read file; do \
 	  tptp4X $${file}; \
@@ -226,13 +222,13 @@ type_checking_examples :
 # We cannot use $(AGDA2ATP) due to the output directory.
 %.snapshot_create_examples :
 	$(AGDA) -iexamples $*.agda
-	$(AGDA2ATP) -iexamples --only-files --non-fol \
-	            --output-dir=$(snapshot_dir) $*.agda
+	$(AGDA2ATP) -iexamples --only-files --output-dir=$(snapshot_dir) \
+	            $*.agda
 
 # We cannot use $(AGDA2ATP) due to the output directory.
 %.snapshot_compare_examples :
 	$(AGDA) -iexamples $*.agda
-	$(AGDA2ATP) -iexamples --non-fol --snapshot-test \
+	$(AGDA2ATP) -iexamples --snapshot-test \
 	            --snapshot-dir=$(snapshot_dir) $*.agda
 
 snapshot_create_examples : $(snapshot_create_examples_files)
@@ -246,8 +242,7 @@ snapshot_compare_examples : $(snapshot_compare_examples_files)
 
 %.proved_conjectures_examples :
 	$(AGDA) -iexamples $*.agda
-	$(AGDA2ATP) -iexamples --non-fol --output-dir=$(output_dir) \
-	            --time=240 $*.agda
+	$(AGDA2ATP) -iexamples --output-dir=$(output_dir) --time=240 $*.agda
 
 proved_conjectures_examples : $(proved_conjectures_examples_files)
 	@echo "$@ succeeded!"

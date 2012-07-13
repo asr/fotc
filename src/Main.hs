@@ -37,7 +37,7 @@ import System.IO          ( hPrint, hPutStrLn, stderr )
 
 import Agda.TypeChecking.Monad.Base
   ( Definitions
-  , Interface(iSignature)
+  , Interface(iPragmaOptions, iSignature)
   , Signature(sigDefinitions)
   )
 
@@ -52,6 +52,7 @@ import ATP                    ( callATPs )
 import Monad.Base
   ( modifyDefs
   , modifyOpts
+  , modifyPragmaOptions
   , runT
   , T
   )
@@ -92,8 +93,9 @@ translation agdaFile = do
 
   reportSLn "translation" 20 $ show allDefs
 
-  -- We add @allDefs@ to the state.
+  -- We add @allDefs@ and the interface pragma options to the state.
   modifyDefs allDefs
+  modifyPragmaOptions (iPragmaOptions i)
 
   liftM2 (,) generalRolesToAFs (conjecturesToAFs topLevelDefs)
 

@@ -3,10 +3,9 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --universal-quantified-formula #-}
+{-# OPTIONS --universal-quantified-propositional-function #-}
 {-# OPTIONS --without-K #-}
-
--- Requires agda2atp options --non-fol-formula and
--- --non-fol-propositional-function.
 
 module FOL.NonIntuitionistic.TheoremsATP where
 
