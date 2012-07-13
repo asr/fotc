@@ -1,2 +1,0 @@
-* Test the Agda issue 260 http://code.google.com/p/agda/issues/detail?id=260
-
