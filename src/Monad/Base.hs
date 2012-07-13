@@ -63,17 +63,17 @@ import Utils.Names ( freshName )
 ------------------------------------------------------------------------------
 -- | The translation monad state.
 data TState =
-  MkState { tDefs          ∷ Definitions -- ^ Agda definitions.
-          , tOpts          ∷ Options     -- ^ Command-line options.
-          , tVars          ∷ [String]    -- ^ Variables names.
-          , tPragmaOptions ∷ [OptionsPragma] -- ^ Pragma options.
+  MkState { tDefs          ∷ Definitions      -- ^ Agda definitions.
+          , tOpts          ∷ Options          -- ^ Command-line options.
+          , tVars          ∷ [String]         -- ^ Variables names.
+          , tPragmaOptions ∷ [OptionsPragma]  -- ^ Pragma options.
           }
 
 -- The initial state.
 initTState ∷ TState
-initTState = MkState { tDefs = HashMap.empty
-                     , tOpts = defaultOptions
-                     , tVars = []
+initTState = MkState { tDefs          = HashMap.empty
+                     , tOpts          = defaultOptions
+                     , tVars          = []
                      , tPragmaOptions = []
                      }
 
