@@ -273,6 +273,7 @@ consistency_examples : $(consistency_examples_files)
 %.type_checking_notes :
 	$(AGDA) -iexamples \
 	        -inotes \
+	        -inotes/agda-interface \
 	        -inotes/fixed-points \
                 -inotes/papers/fossacs-2012 \
                 -inotes/papers/paper-2011/ \
