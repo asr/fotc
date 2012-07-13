@@ -5,11 +5,11 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Requires option --non-fol-propositional-function@.
+-- Requires option @--non-fol-formula@.
 
-module LogicalSchemas2 where
+module NonFOL.LogicalSchemas1 where
 
 postulate D : Set
 
-postulate id : {P : D → Set}{x : D} → P x → P x
+postulate id : {P : Set} → P → P
 {-# ATP prove id #-}

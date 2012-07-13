@@ -6,10 +6,10 @@
 % The conjecture.
 
 % The original Agda term was:
-% Name:	AgdaInternalTerms.VarNonEmptyArgumentsTerm.f-refl
+% Name:	NonFOL.LogicalSchemas1.id
 % Role:	prove
-% Line:	17
-fof(n6_73026679, conjecture, ( ! [A] : ( ! [B] : ( kAppFn(A,B) = kAppFn(A,B) ) ) )).
+% Line:	14
+fof(n4_195681620, conjecture, ( ( a ) => ( a ) )).
 
 % End conjecture.
 

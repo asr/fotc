@@ -1,18 +1,16 @@
 ------------------------------------------------------------------------------
--- Testing Agda internal term: @Var Nat Args@ when @Args ≠ []@
+-- Testing Agda internal terms: @Var Nat Args@ when @Args = []@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Requires option @--non-fol-function@.
+-- Requires option --non-fol-propositional-function@.
 
-module AgdaInternalTerms.VarNonEmptyArgumentsTerm where
+module NonFOL.AgdaInternalTerms.VarEmptyArgumentsTerm where
 
-postulate
-  D   : Set
-  _≡_ : D → D → Set
+postulate D : Set
 
 -- TODO: 2012-04-29. Are we using Koen's approach in the translation?
-postulate f-refl : (f : D → D) → ∀ x → f x ≡ f x
-{-# ATP prove f-refl #-}
+postulate id : (P : D → Set)(x : D) → P x → P x
+{-# ATP prove id #-}

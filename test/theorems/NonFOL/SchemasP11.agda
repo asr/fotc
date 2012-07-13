@@ -7,7 +7,7 @@
 
 -- Requires option --non-fol-propositional-function@.
 
-module SchemasP11 where
+module NonFOL.SchemasP11 where
 
 postulate
   D      : Set

@@ -6,10 +6,10 @@
 % The conjecture.
 
 % The original Agda term was:
-% Name:	SchemasP11.P-refl
+% Name:	NonFOL.LogicalSchemas2.id
 % Role:	prove
 % Line:	14
-fof(n14_232216379, conjecture, ( ! [A] : ( ! [B] : ( ! [C] : ( ! [D] : ( ! [E] : ( ! [F] : ( ! [G] : ( ! [H] : ( ! [I] : ( ! [J] : ( ! [K] : ( ! [L] : ( ( kAppP11(A,B,C,D,E,F,G,H,I,J,K,L) ) => ( kAppP11(A,B,C,D,E,F,G,H,I,J,K,L) ) ) ) ) ) ) ) ) ) ) ) ) ) )).
+fof(n5_188313223, conjecture, ( ! [A] : ( ! [B] : ( ( kAppP1(A,B) ) => ( kAppP1(A,B) ) ) ) )).
 
 % End conjecture.
 

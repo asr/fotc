@@ -1,5 +1,7 @@
 # Tested with GNU Make 3.81
 
+SHELL := /bin/bash
+
 haskell_files = $(shell find src/ -name '*.hs')
 
 AGDA = agda -v 0
@@ -19,15 +21,9 @@ AGDA2ATP = dist/build/agda2atp/agda2atp
 std_lib_path = /home/asr/agda-upstream/std-lib
 
 # Tests paths
-proved_test_path         = test/proved
-proved_test_fol_path     = $(proved_test_path)/fol
-proved_test_non_fol_path = $(proved_test_path)/non-fol
-
-non_proved_test_path     = test/non-proved
-non_proved_test_fol_path = $(non_proved_test_path)/fol
-
-# 2012-04-29: We don't have fail tests in non-fol.
-fail_test_fol_path = test/fail/fol
+theorems_path      = test/theorems
+non_theorems_path  = test/non-theorems
+error_path         = test/error
 
 # Directory for the TPTP files.
 output_dir = /tmp/agda2atp
@@ -55,27 +51,22 @@ path_subst = $(patsubst %.agda,%.$(1), \
 
 # Tests
 
-generated_proved_conjectures_test_fol_files = \
-  $(call path_subst,generated_proved_conjectures_test_fol,$(proved_test_fol_path))
+generated_theorems_files = \
+  $(call path_subst,generated_theorems,$(theorems_path))
 
-generated_proved_conjectures_test_non_fol_files = \
-  $(call path_subst,generated_proved_conjectures_test_non_fol,$(proved_test_non_fol_path))
+generated_non_theorems_files = \
+  $(call path_subst,generated_non_theorems,$(non_theorems_path))
 
-generated_non_proved_conjectures_test_fol_files = \
-  $(call path_subst,generated_non_proved_conjectures_test_fol,$(non_proved_test_fol_path))
+prove_theorems_files = $(call path_subst,prove_theorems,$(theorems_path))
 
-proved_conjectures_test_fol_files = \
-  $(call path_subst,proved_conjectures_test_fol,$(proved_test_fol_path))
+refute_theorems_files = $(call path_subst,refute_theorems,$(non_theorems_path))
 
-proved_conjectures_test_non_fol_files = \
-  $(call path_subst,proved_conjectures_test_non_fol,$(proved_test_non_fol_path))
+error_conjectures_files = $(call path_subst,error_conjectures,$(error_path))
 
-non_proved_conjectures_test_fol_files = \
-  $(call path_subst,non_proved_conjectures_test_fol,$(non_proved_test_fol_path))
-
-fail_test_fol_files = $(call path_subst,fail_test_fol,$(fail_test_fol_path))
-
-parsing_test_files = $(call path_subst,parsing_test,$(proved_test_path))
+parsing_conjectures_files = \
+  $(call path_subst,parsing_conjectures,$(theorems_path))
+parsing_conjectures_files += \
+  $(call path_subst,parsing_conjectures,$(non_theorems_path))
 
 # Examples
 
@@ -109,96 +100,91 @@ type_checking_notes_files = \
 ##############################################################################
 # Test suite: Generated conjectures
 
-%.generated_proved_conjectures_test_fol :
-	$(AGDA) -i$(proved_test_fol_path) $*.agda
-	$(AGDA2ATP) -i$(proved_test_fol_path) --only-files \
-	              --output-dir=$(output_dir)/$(proved_test_fol_path) \
-	              $*.agda
+flags_gt = -i$(theorems_path) --only-files \
+	   --output-dir=$(output_dir)/$(theorems_path) \
+
+%.generated_theorems :
+	$(AGDA) -i$(theorems_path) $*.agda
+	if [[ "$*.agda" =~ "".*NonFOL*"" ]]; \
+	then \
+	  $(AGDA2ATP) $(flags_gt) --non-fol $*.agda; \
+	else \
+	  $(AGDA2ATP) $(flags_gt) $*.agda; \
+	fi
 	diff -r $* $(output_dir)/$*
 
-%.generated_proved_conjectures_test_non_fol :
-	$(AGDA) -i$(proved_test_non_fol_path) $*.agda
-	$(AGDA2ATP) -i$(proved_test_non_fol_path) --non-fol --only-files \
-	              --output-dir=$(output_dir)/$(proved_test_non_fol_path) \
-	              $*.agda
+flags_ngt = -i$(non_theorems_path) --only-files \
+	   --output-dir=$(output_dir)/$(non_theorems_path) \
+
+%.generated_non_theorems :
+	$(AGDA) -i$(non_theorems_path) $*.agda
+	$(AGDA2ATP) $(flags_ngt) $*.agda; \
 	diff -r $* $(output_dir)/$*
 
-%.generated_non_proved_conjectures_test_fol :
-	$(AGDA) -i$(non_proved_test_fol_path) $*.agda
-	$(AGDA2ATP) -i$(non_proved_test_fol_path) --only-files \
-	             --output-dir=$(output_dir)/$(non_proved_test_fol_path) \
-	             $*.agda
-	diff -r $* $(output_dir)/$*
+generated_conjectures_aux : $(generated_theorems_files) \
+	                    $(generated_non_theorems_files)
 
-generated_conjectures_test_aux : $(generated_proved_conjectures_test_fol_files) \
-	                         $(generated_proved_conjectures_test_non_fol_files) \
-	                         $(generated_non_proved_conjectures_test_fol_files) \
-
-generated_conjectures_test :
+generated_conjectures :
 	rm -r -f $(output_dir)
-	make generated_conjectures_test_aux
+	make generated_conjectures_aux
 	@echo "$@ succeeded!"
 
 ##############################################################################
-# Test suite: Proved conjectures
+# Test suite: Prove theorems
 
-%.proved_conjectures_test_fol :
-	$(AGDA) -i$(proved_test_fol_path) $*.agda
-	$(AGDA2ATP) -i$(proved_test_fol_path) --output-dir=$(output_dir) \
+%.prove_theorems :
+	$(AGDA) -i$(theorems_path) $*.agda
+	$(AGDA2ATP) -i$(theorems_path) --non-fol --output-dir=$(output_dir) \
 	            --time=10 $*.agda
 
-%.proved_conjectures_test_non_fol :
-	$(AGDA) -i$(proved_test_non_fol_path) $*.agda
-	$(AGDA2ATP) -i$(proved_test_non_fol_path) --non-fol \
-	            --output-dir=$(output_dir) --time=10  $*.agda
-
-proved_conjectures_test : $(proved_conjectures_test_fol_files) \
-                          $(proved_conjectures_test_non_fol_files)
+prove_theorems : $(prove_theorems_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
-# Test suite: Non-proved conjectures
+# Test suite: Refute_theorems
 
-%.non_proved_conjectures_test_fol :
-	$(AGDA) -i$(non_proved_test_fol_path) $*.agda
-	if ( $(AGDA2ATP) -i$(non_proved_test_fol_path) \
+%.refute_theorems :
+	$(AGDA) -i$(non_theorems_path) $*.agda
+	if ( $(AGDA2ATP) -i$(non_theorems_path) \
 	                 --output-dir=$(output_dir) --time=5 $*.agda ); then \
 	    exit 1; \
 	fi
 
-non_proved_conjectures_test : $(non_proved_conjectures_test_fol_files)
+refute_theorems : $(refute_theorems_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
-# Test suite: Fail test
+# Test suite: Error conjectures
 
-%.fail_test_fol :
-	$(AGDA) -i$(fail_test_fol_path) $*.agda
-	if ( $(AGDA2ATP) -i$(fail_test_fol_path) --only-files $*.agda ); then \
+%.error_conjectures :
+	$(AGDA) -i$(error_path) $*.agda
+	if ( $(AGDA2ATP) -i$(error_path) --only-files $*.agda ); then \
 	    exit 1; \
 	fi
 
-fail_test : $(fail_test_fol_files)
+error_conjectures : $(error_conjectures_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
 # Test suit: Parsing
 
+flags_parsing = -i$(theorems_path) -i$(non_theorems_path)
+
 # We use tptp4X from TPTP v5.4.0 to parse the TPTP files.
-%.parsing_test :
-	$(AGDA) -i$(proved_test_fol_path) -i$(proved_test_non_fol_path) $*.agda
-	$(AGDA2ATP) -i$(proved_test_fol_path) -i$(proved_test_non_fol_path) \
-                    --non-fol --only-files --output-dir=$(output_dir) $*.agda
+%.parsing_conjectures :
+	$(AGDA) $(flags_parsing) $*.agda
+	$(AGDA2ATP) $(flags_parsing) --non-fol --only-files \
+	            --output-dir=$(output_dir) $*.agda
 
 	find $(output_dir) | while read file; do \
 	  tptp4X $${file}; \
 	done
 
-parsing_test_aux : $(parsing_test_files)
+parsing_conjectures_aux : $(parsing_conjectures_files)
 
-parsing_test : $(parsing_test_files)
+parsing_conjectures :
 	rm -r -f $(output_dir)
-	make parsing_test_aux
+	make parsing_conjectures_aux
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -307,10 +293,10 @@ type_checking_notes :
 # Running the tests
 
 tests :
-	@make generated_conjectures_test
-	@make proved_conjectures_test
-	@make non_proved_conjectures_test
-	@make fail_test
+	@make generated_conjectures
+	@make prove_theorems
+	@make refute_theorems
+	@make error_conjectures
 	@echo "All tests succeeded!"
 
 ##############################################################################

@@ -9,7 +9,7 @@
 -- higher-order functions. The canonical examples are the conversion
 -- rules for the λ-abstraction and the fixed-point operator.
 
-module HigherOrderFunctions where
+module NonFOL.HigherOrderFunctions where
 
 infixl 6 _∙_
 infix  4 _≡_
