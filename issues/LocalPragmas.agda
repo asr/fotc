@@ -1,6 +1,8 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
+-- Tested with agda2atp on 12 July 2012.
+
 -- See descripion in LocalPragmas.OtherModule
 
 module LocalPragmas where

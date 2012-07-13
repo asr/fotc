@@ -5,6 +5,8 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
+-- Test with agda2atp on 12 July 2012.
+
 module Definition where
 
 postulate
