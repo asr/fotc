@@ -3,10 +3,10 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --universal-quantified-function #-}
+{-# OPTIONS --universal-quantified-functions #-}
 {-# OPTIONS --without-K #-}
 
--- We can use the Agda option @--universal-quantified-function@ to
+-- We can use the Agda pragma @--universal-quantified-functions@ to
 -- translate higher-order functions. The canonical examples are the
 -- conversion rules for the λ-abstraction and the fixed-point
 -- operator.

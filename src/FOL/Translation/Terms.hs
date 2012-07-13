@@ -393,7 +393,7 @@ termToFormula (Pi domTy (Abs x tyAbs)) = do
 
       pragmaOptions ← getTPragmaOptions
       let pragma ∷ String
-          pragma = "--universal-quantified-formula"
+          pragma = "--universal-quantified-formulas"
       if [pragma] `notElem` pragmaOptions
         then throwError $
                "The translation of first-order logic universal quantified "
@@ -461,7 +461,7 @@ termToFormula term@(Var n args) = do
     _ → do
       pragmaOptions ← getTPragmaOptions
       let pragma ∷ String
-          pragma = "--universal-quantified-propositional-function"
+          pragma = "--universal-quantified-propositional-functions"
       if [pragma] `notElem` pragmaOptions
         then throwError $
                "The translation of first-order logic universal quantified "
@@ -570,7 +570,7 @@ termToFOLTerm term@(Var n args) = do
     varArgs → do
       pragmaOptions ← getTPragmaOptions
       let pragma ∷ String
-          pragma = "--universal-quantified-function"
+          pragma = "--universal-quantified-functions"
       if [pragma] `notElem` pragmaOptions
         then throwError $
                "The translation of first-order logic universal quantified "
