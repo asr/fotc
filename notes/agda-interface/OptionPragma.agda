@@ -5,8 +5,9 @@
 -- Testing how the pragmas are saved in the agda interface files (using
 -- the program read-agda interface).
 
--- 13 July 2012. The pragma is saved as:
+-- 13 July 2012. Because for example the --no-termination-check is a
+-- PragmaOption it is saved as:
 --
 -- iPragmaOptions = [["--no-termination-check"]]
 
-module Pragma1 where
+module OptionPragma where
