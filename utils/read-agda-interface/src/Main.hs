@@ -24,8 +24,6 @@ main = do
     \e → do putStr $ show e
             exitFailure
 
-  putStrLn "Types ***********************************************************"
-
   catchImpossible (printTypes i) $
     \e → do putStr $ show e
             exitFailure

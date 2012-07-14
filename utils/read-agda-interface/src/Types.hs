@@ -39,6 +39,8 @@ printQNameType (qName, def) = do
 printTypes ∷ Interface → IO ()
 printTypes i = do
 
+  putStrLn "\nTypes ***********************************************************"
+
   let defs ∷ Definitions
       defs = sigDefinitions $ iSignature i
 
