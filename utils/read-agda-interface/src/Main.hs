@@ -10,7 +10,8 @@ import System.Exit        ( exitFailure)
 import Agda.Utils.Impossible ( catchImpossible )
 
 -- Local imports
-import ReadAgdaInterface ( myReadInterface )
+import ReadInterface ( myReadInterface )
+import Types         ( printTypes )
 
 ------------------------------------------------------------------------------
 
@@ -20,5 +21,11 @@ main = do
   i    ← myReadInterface file
 
   catchImpossible (print i) $
+    \e → do putStr $ show e
+            exitFailure
+
+  putStrLn "Types ***********************************************************"
+
+  catchImpossible (printTypes i) $
     \e → do putStr $ show e
             exitFailure

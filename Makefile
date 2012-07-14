@@ -314,6 +314,8 @@ agda_changed :
 	make type_checking_examples
 	make snapshot_compare_examples
 	make type_checking_notes
+	cd utils/read-agda-interface \
+	&& cabal clean && cabal configure && cabal build
 	@echo "$@ succeeded!"
 
 ##############################################################################

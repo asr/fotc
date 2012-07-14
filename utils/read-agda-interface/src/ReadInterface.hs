@@ -1,6 +1,6 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
-module ReadAgdaInterface where
+module ReadInterface where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
