@@ -22,6 +22,7 @@ module Options
            , optOnlyFiles
            , optOutputDir
            , optSnapshotDir
+           , optSnapshotNoError
            , optSnapshotTest
            , optTime
            , optUnprovedNoError
@@ -57,18 +58,19 @@ import qualified Agda.Utils.Trie as Trie ( insert, singleton )
 
 -- | Program command-line options.
 data Options = MkOptions
-  { optAgdaIncludePath             ∷ [FilePath]
-  , optATP                         ∷ [String]
-  , optHelp                        ∷ Bool
-  , optOnlyFiles                   ∷ Bool
-  , optOutputDir                   ∷ FilePath
-  , optSnapshotDir                 ∷ FilePath
-  , optSnapshotTest                ∷ Bool
-  , optTime                        ∷ Int
-  , optUnprovedNoError             ∷ Bool
-  , optVampireExec                 ∷ String
-  , optVerbose                     ∷ Verbosity
-  , optVersion                     ∷ Bool
+  { optAgdaIncludePath ∷ [FilePath]
+  , optATP             ∷ [String]
+  , optHelp            ∷ Bool
+  , optOnlyFiles       ∷ Bool
+  , optOutputDir       ∷ FilePath
+  , optSnapshotDir     ∷ FilePath
+  , optSnapshotNoError ∷ Bool
+  , optSnapshotTest    ∷ Bool
+  , optTime            ∷ Int
+  , optUnprovedNoError ∷ Bool
+  , optVampireExec     ∷ String
+  , optVerbose         ∷ Verbosity
+  , optVersion         ∷ Bool
   }
 
 -- N.B. The default ATPs are handled by @ATP.callATPs@.
@@ -76,18 +78,19 @@ data Options = MkOptions
 -- | Default options use by the program.
 defaultOptions ∷ Options
 defaultOptions = MkOptions
-  { optAgdaIncludePath             = []
-  , optATP                         = []
-  , optHelp                        = False
-  , optOnlyFiles                   = False
-  , optOutputDir                   = "/tmp"
-  , optSnapshotDir                 = "snapshot"
-  , optSnapshotTest                = False
-  , optTime                        = 300
-  , optUnprovedNoError             = False
-  , optVampireExec                 = "vampire_lin64"
-  , optVerbose                     = Trie.singleton [] 1
-  , optVersion                     = False
+  { optAgdaIncludePath = []
+  , optATP             = []
+  , optHelp            = False
+  , optOnlyFiles       = False
+  , optOutputDir       = "/tmp"
+  , optSnapshotDir     = "snapshot"
+  , optSnapshotNoError = False
+  , optSnapshotTest    = False
+  , optTime            = 300
+  , optUnprovedNoError = False
+  , optVampireExec     = "vampire_lin64"
+  , optVerbose         = Trie.singleton [] 1
+  , optVersion         = False
   }
 
 agdaIncludePathOpt ∷ FilePath → Options → Options
@@ -113,6 +116,9 @@ outputDirOpt dir opts = opts { optOutputDir = dir }
 snapshotDirOpt ∷ FilePath → Options → Options
 snapshotDirOpt []  _    = error "Option --snapshot-dir requires an argument DIR"
 snapshotDirOpt dir opts = opts { optSnapshotDir = dir }
+
+snapshotNoErrorOpt ∷ Options → Options
+snapshotNoErrorOpt opts = opts { optSnapshotNoError = True }
 
 snapshotTestOpt ∷ Options → Options
 snapshotTestOpt opts = opts { optSnapshotTest = True
@@ -169,13 +175,15 @@ options =
   , Option []  ["snapshot-dir"] (ReqArg snapshotDirOpt "DIR") $
                "directory where is the snapshot of the TPTP files\n"
                ++ "(default: snapshot)"
+  , Option []  ["snapshot-no-error"] (NoArg snapshotNoErrorOpt)
+               "a difference in the snapshot-test does not generate an error"
   , Option []  ["snapshot-test"] (NoArg snapshotTestOpt) $
                "compare the generated TPTP files against a snapshot of them\n"
                ++ "(implies --only-files)"
   , Option []  ["time"] (ReqArg timeOpt "NUM")
                "set timeout for the ATPs in seconds (default: 300)"
   , Option []  ["unproved-conjecture-no-error"] (NoArg unprovedNoErrorOpt)
-               "an unproved TPTP conjecture does not generate an error"
+               "an unproved TPTP conjecture does not generate an error\n"
   , Option []  ["vampire-exec"] (ReqArg vampireExecOpt "COMMAND")
                "set the vampire executable (default: vampire_lin64)"
   , Option "v" ["verbose"] (ReqArg verboseOpt "N")

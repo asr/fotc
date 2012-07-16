@@ -2,6 +2,8 @@ Change log for agda2atp
 
 0.9.1 XXX
 
+      * Added command-line option --snapshot-no-error.
+
       * The translation of FOL universal quantified functions,
         formulae, and propositional functions is disable by
         default. We added to Agda the pragmas

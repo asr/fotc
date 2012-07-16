@@ -191,7 +191,7 @@ doc :
 	cabal haddock --hyperlink-source \
                       --executables \
                       --haddock-option=--use-unicode
-	@echo "The Haddock test succeeded!"
+	@echo "$@ succeeded!"
 
 ##############################################################################
 # Examples: Type-checking
@@ -227,8 +227,9 @@ type_checking_examples :
 
 # We cannot use $(AGDA2ATP) due to the output directory.
 %.snapshot_compare_examples :
-	$(AGDA) -iexamples $*.agda
-	$(AGDA2ATP) -iexamples --snapshot-test \
+	@echo "Processing $*.agda"
+	@$(AGDA) -iexamples $*.agda
+	@$(AGDA2ATP) -v 0 -iexamples --snapshot-test \
 	            --snapshot-dir=$(snapshot_dir) $*.agda
 
 snapshot_create_examples : $(snapshot_create_examples_files)
@@ -286,14 +287,22 @@ type_checking_notes :
 	@echo "$@ succeeded!"
 
 ##############################################################################
-# Running the tests
+# Test used when there is a modification to agda2atp
 
-tests :
+agda2atp_changed :
+	@make generated_conjectures
+	@make error_conjectures
+	@echo "$@ succeeded!"
+
+##############################################################################
+# Test used when there is a new ATP or a new version of an ATP
+
+atp_changed :
 	@make generated_conjectures
 	@make prove_theorems
 	@make refute_theorems
 	@make error_conjectures
-	@echo "All tests succeeded!"
+	@echo "$@ succeeded!"
 
 ##############################################################################
 # Running the examples and the notes
@@ -302,7 +311,7 @@ examples_and_notes :
 	make type_checking_examples
 	make snapshot_create_examples
 	type_checking_notes
-	@echo "Examples and notes succeeded!"
+	@echo "$@ succeeded!"
 
 ##############################################################################
 # Test used when there is a modification to Agda
@@ -310,7 +319,7 @@ examples_and_notes :
 agda_changed :
 	if [ ! -d $(snapshot_dir) ]; then exit 1; fi
 	cabal clean && cabal configure && cabal build
-	make tests
+	make agda2atp_changed
 	make type_checking_examples
 	make snapshot_compare_examples
 	make type_checking_notes
@@ -323,6 +332,7 @@ agda_changed :
 
 hlint :
 	hlint src/
+	@echo "$@ succeeded!"
 
 ##############################################################################
 # Git : pre-commit test
@@ -330,7 +340,7 @@ hlint :
 git-pre-commit :
 	@fix-whitespace --check
 	@cabal configure && cabal build
-	@make tests
+	@make agda2atp_changed
 	@make doc
 	@make hlint
 	@echo "$@ succeeded!"

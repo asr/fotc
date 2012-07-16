@@ -27,13 +27,17 @@ import System.FilePath ( combine, joinPath, splitPath )
 -- Agda library imports
 
 import Agda.Utils.FileName ( doesFileExistCaseSensitive )
+import Agda.Utils.Monad    ( ifM, whenM )
 
 ------------------------------------------------------------------------------
 -- Local imports
 
-import Monad.Base      ( getTOpt, T )
-import Options         ( Options(optOutputDir, optSnapshotDir) )
-import Monad.Reports   ( reportS )
+import Monad.Base ( getTOpt, T )
+
+import Options
+  ( Options(optOutputDir, optSnapshotDir, optSnapshotNoError)
+  )
+
 import Utils.Directory ( diff )
 
 ------------------------------------------------------------------------------
@@ -57,10 +61,11 @@ snapshotTest file = do
       b ← liftIO $ doesFileExistCaseSensitive snapshotFile
       if not b
         then throwError $ "The file " ++ snapshotFile ++ " does not exist"
-        else do
-          diffOutput ← liftIO $ diff file snapshotFile
-          if diffOutput
-            then throwError $
-                 "The files are different:\n" ++ file ++ "\n" ++ snapshotFile
-            else reportS "" 1 $
-                 "The files are the same:\n" ++ file ++ "\n" ++ snapshotFile
+        else
+          whenM (liftIO $ diff file snapshotFile) $ do
+            let msg ∷ String
+                msg = "The files are different:\n" ++ file ++ "\n" ++ snapshotFile
+
+            ifM (getTOpt optSnapshotNoError)
+                (liftIO $ putStrLn msg)
+                (throwError msg)
