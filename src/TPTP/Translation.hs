@@ -55,10 +55,8 @@ import Agda.Utils.Monad      ( ifM )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import AgdaInternal.RemoveProofTerms
-  ( removeProofTerm
-  , BoundedVarsType(boundedVarsType)
-  )
+import AgdaInternal.RemoveProofTerms ( removeProofTerm )
+import AgdaInternal.Vars             ( BoundedVarsType(boundedVarsType) )
 
 import AgdaInternal.EtaExpansion ( EtaExpandible(etaExpand) )
 

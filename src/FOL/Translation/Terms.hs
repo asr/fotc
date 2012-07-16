@@ -540,6 +540,16 @@ termToFOLTerm term@(Def (QName _ name) args) = do
         [] → __IMPOSSIBLE__
         _  → appArgsFn (concatName parts) args
 
+termToFOLTerm term@(Lam NotHidden (Abs _ termLam)) = do
+  reportSLn "t2f" 10 $ "termToFOLTerm Lam:\n" ++ show term
+
+  freshVar ← newTVar
+  pushTVar freshVar
+  f ← termToFOLTerm termLam
+  popTVar
+
+  return f
+
 termToFOLTerm term@(Var n args) = do
   reportSLn "t2t" 10 $ "termToFOLTerm Var:\n" ++ show term
 

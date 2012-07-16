@@ -47,6 +47,7 @@ executable agda2atp
                  AgdaInternal.EtaExpansion
                  AgdaInternal.Interface
                  AgdaInternal.RemoveProofTerms
+                 AgdaInternal.Vars
                  ATP
                  FOL.Constants
                  FOL.Primitives

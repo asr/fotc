@@ -60,10 +60,7 @@
 -- End general description.
 
 ------------------------------------------------------------------------------
-module AgdaInternal.RemoveProofTerms
-  ( removeProofTerm
-  , BoundedVarsType(boundedVarsType)
-  ) where
+module AgdaInternal.RemoveProofTerms ( removeProofTerm ) where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
@@ -101,62 +98,16 @@ import Utils.Show    ( showLn )
 #include "../undefined.h"
 
 ------------------------------------------------------------------------------
--- We only need to remove the variables which are proof terms, so we
--- collect the types of the bounded variables using the type class
--- BoundedVarsType. The de Bruijn indexes are assigned from right to
--- left,
---
--- e.g.  in @(A B C : Set) → ...@, @A@ is 2, @B@ is 1, and @C@ is 0,
---
--- so we need create the list in the same order.
-
--- | Types of the bounded variables in an Agda entity.
-class BoundedVarsType a where
-  boundedVarsType ∷ a → [(String, Type)]
-
-instance BoundedVarsType Type where
-  boundedVarsType (El (Type _) term) = boundedVarsType term
-  boundedVarsType _                  = __IMPOSSIBLE__
-
-instance BoundedVarsType Term where
-  -- TODO: In Lam terms we bound variables, but they seem doesn't have
-  -- associated types. Therefore, we associate a "DontCare" type.
-  --
-  -- boundedVarsType (Lam _ (Abs x absTerm)) =
-  --   boundedVarsType absTerm ++ [(x, El (Type (Max [])) DontCare)]
-
-  -- We only have real bounded variables in Pi _ (Abs _ _) terms.
-  boundedVarsType (Pi _ (NoAbs _ absTy)) = boundedVarsType absTy
-  boundedVarsType (Pi (Dom _ _ ty) (Abs x absTy)) = (x, ty) : boundedVarsType absTy
-
-  boundedVarsType (Def _ args) = boundedVarsType args
-
-  boundedVarsType (Con _ _) = []
-  boundedVarsType (Lam _ _) = []
-  boundedVarsType (Var _ _) = []
-
-  boundedVarsType (DontCare _) = __IMPOSSIBLE__
-  boundedVarsType (Level _)    = __IMPOSSIBLE__
-  boundedVarsType (Lit _)      = __IMPOSSIBLE__
-  boundedVarsType (MetaV _ _)  = __IMPOSSIBLE__
-  boundedVarsType (Sort _)     = __IMPOSSIBLE__
-
-instance BoundedVarsType a ⇒ BoundedVarsType (Arg a) where
-  boundedVarsType (Arg _ _ e) = boundedVarsType e
-
-instance BoundedVarsType a ⇒ BoundedVarsType [a] where
-  boundedVarsType = concatMap boundedVarsType
-
 -- | Remove the reference to a variable (i.e. Var n args) in an Agda
 -- entity.
-class DropVar a where
+class RemoveVar a where
   removeVar ∷ a → String → T a
 
-instance DropVar Type where
+instance RemoveVar Type where
   removeVar (El ty@(Type _) term) x = fmap (El ty) (removeVar term x)
   removeVar _                     _ = __IMPOSSIBLE__
 
-instance DropVar Term where
+instance RemoveVar Term where
   removeVar (Def qname args) x = fmap (Def qname) (removeVar args x)
 
   removeVar (Lam h (Abs y absTerm)) x = do
@@ -209,7 +160,7 @@ instance DropVar Term where
   removeVar (Sort _)            _ = __IMPOSSIBLE__
   removeVar (Var _ _)           _ = __IMPOSSIBLE__
 
-instance DropVar a ⇒ DropVar (Dom a) where
+instance RemoveVar a ⇒ RemoveVar (Dom a) where
   removeVar (Dom h r e) x = fmap (Dom h r) (removeVar e x)
 
 -- In the Agda source code (Agda.Syntax.Internal) we have
@@ -220,7 +171,7 @@ instance DropVar a ⇒ DropVar (Dom a) where
 -- because in some cases we need to erase the term.
 
 -- Requires @TypeSynonymInstances@ and @FlexibleInstances@.
-instance DropVar Args where
+instance RemoveVar Args where
   removeVar [] _ = return []
 
   removeVar (Arg h r term@(Var n []) : args) x = do

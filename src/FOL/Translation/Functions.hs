@@ -23,7 +23,7 @@ module FOL.Translation.Functions ( fnToFormula ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad       ( liftM2, when )
+import Control.Monad       ( liftM2, replicateM, replicateM_, when )
 import Control.Monad.Error ( MonadError(throwError) )
 
 ------------------------------------------------------------------------------
@@ -59,6 +59,7 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 -- Local imports
 
 import AgdaInternal.DeBruijn ( DecIndex(decIndex) )
+import AgdaInternal.Vars     (BoundedVars(boundedVars))
 import FOL.Primitives        ( equal )
 
 import FOL.Translation.Internal
@@ -191,22 +192,70 @@ clauseToFormula qName ty (Clause _ _ _ [] cBody) = do
   vars ← getTVars
   reportSLn "def2f" 20 $ "vars: " ++ show vars
 
-  -- We create the Agda term corresponds to the LHS of the symbol's
-  -- definition.
-  let lhs ∷ Term
-      lhs = Def qName $ varsToArgs $ fromIntegral $ length vars
-
   case ty of
     -- The defined symbol is a predicate.
-    El (Type (Max [ClosedLevel 1])) _ →
-       -- Because the LHS and the RHS (the body of the clause) are
-       -- formulae, they are related via an equivalence logic.
-       liftM2 Equiv (termToFormula lhs) (cBodyToFormula cBody)
+    El (Type (Max [ClosedLevel 1])) _ → do
+
+      -- We create the Agda term corresponds to the LHS of the symbol's
+      -- definition.
+      let lhs ∷ Term
+          lhs = Def qName $ varsToArgs $ fromIntegral $ length vars
+
+      -- Because the LHS and the RHS (the body of the clause) are
+      -- formulae, they are related via an equivalence logic.
+      liftM2 Equiv (termToFormula lhs) (cBodyToFormula cBody)
 
     -- The defined symbol is a function.
-    El (Type (Max [])) _ →
-       -- Because the LHS and the RHS (the body of the clause) are
-       -- terms, they are related via the first-order logic equaliy.
-       liftM2 equal (termToFOLTerm lhs) (cBodyToFOLTerm cBody)
+    El (Type (Max [])) _ → do
+      let totalBoundedVars ∷ Int
+          totalBoundedVars = boundedVars cBody
+
+      -- We create the Agda term corresponds to the LHS of the symbol's
+      -- definition.
+
+      -- We use @totalBoundedVars@ because we need to handle definitions like
+      --
+      -- @foo ∷ D → D@
+      -- @foo = λ d → ...
+
+      let lhs ∷ Term
+          lhs = Def qName $ varsToArgs $ fromIntegral totalBoundedVars
+
+      if length vars == totalBoundedVars
+        then liftM2 equal (termToFOLTerm lhs) (cBodyToFOLTerm cBody)
+        -- The definition is of the form
+        --
+        -- @foo ∷ D → D@
+        -- @foo = λ d → ...
+        --
+        -- so we need to add some fresh variables to the state before
+        -- call the translation for @lhs@ and @cBody@.
+
+        else if length vars < totalBoundedVars
+          then do
+            let diff ∷ Int
+                diff = totalBoundedVars - length vars
+
+                helper1 ∷ T String
+                helper1 = do
+                  freshVar ← newTVar
+                  pushTVar freshVar
+                  return freshVar
+
+            freshVars ← replicateM diff helper1
+            reportSLn "def2f" 20 $ "Freshvars: " ++ show freshVars
+            tLHS ← termToFOLTerm lhs
+            replicateM_ (totalBoundedVars - length vars) popTVar
+            tRHS ← cBodyToFOLTerm cBody
+
+            -- Because the LHS and the RHS (the body of the clause) are
+            -- terms, they are related via the first-order logic equaliy.
+            let helper2 ∷ [String] → FOLFormula
+                helper2 []       = __IMPOSSIBLE__
+                helper2 (x : []) = ForAll x $ \_ → equal tLHS tRHS
+                helper2 (x : xs) = ForAll x $ \_ → helper2 xs
+
+            return $ helper2 freshVars
+          else __IMPOSSIBLE__
 
     _ → __IMPOSSIBLE__
