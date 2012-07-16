@@ -138,7 +138,7 @@ executable agda2atp
                   -fwarn-missing-local-sigs
                   -fwarn-monomorphism-restriction
                   -fwarn-tabs
---                  -Werror
+                  -Werror
 
   -- From Agda.cabal: If someone installs Agda with the setuid bit
   -- set, then the presence of +RTS may be a security problem (see GHC

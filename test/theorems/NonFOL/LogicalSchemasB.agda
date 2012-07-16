@@ -3,12 +3,12 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --universal-quantified-formulas #-}
+{-# OPTIONS --universal-quantified-propositional-functions #-}
 {-# OPTIONS --without-K #-}
 
-module NonFOL.LogicalSchemas1 where
+module NonFOL.LogicalSchemasB where
 
 postulate D : Set
 
-postulate id : {P : Set} → P → P
+postulate id : {P : D → Set}{x : D} → P x → P x
 {-# ATP prove id #-}

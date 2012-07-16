@@ -6,10 +6,10 @@
 % The required ATP definition(s) by the conjecture.
 
 % The original Agda term was:
-% Name:	Eta2.P
+% Name:	EtaB.P
 % Role:	definition
 % Line:	24
-fof(n8_86855083, definition, ( ! [A] : ( ( kAppP1(fP_8_86855083,A) ) <=> ( ? [B] : ( kAppP2(fP178,A,B) ) ) ) )).
+fof(n8_93412023, definition, ( ! [A] : ( ( kAppP1(fP_8_93412023,A) ) <=> ( ? [B] : ( kAppP2(fP178,A,B) ) ) ) )).
 
 % End required ATP definition(s) by the conjecture.
 
@@ -17,10 +17,10 @@ fof(n8_86855083, definition, ( ! [A] : ( ( kAppP1(fP_8_86855083,A) ) <=> ( ? [B]
 % The conjecture.
 
 % The original Agda term was:
-% Name:	Eta2.bar
+% Name:	EtaB.bar
 % Role:	prove
 % Line:	29
-fof(n13_86855083, conjecture, ( ! [A] : ( ( kAppP1(fP_8_86855083,A) ) => ( ? [B] : ( kAppP2(fP178,A,B) ) ) ) )).
+fof(n13_93412023, conjecture, ( ! [A] : ( ( kAppP1(fP_8_93412023,A) ) => ( ? [B] : ( kAppP2(fP178,A,B) ) ) ) )).
 
 % End conjecture.
 

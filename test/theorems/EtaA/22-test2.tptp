@@ -6,10 +6,10 @@
 % The conjecture.
 
 % The original Agda term was:
-% Name:	Eta1.test₂
+% Name:	EtaA.test₂
 % Role:	prove
 % Line:	22
-fof(n10_17544139, conjecture, ( ! [A] : ( ( kAppP1(fA,A) ) => ( ? [B] : ( kAppP1(fA,B) ) ) ) )).
+fof(n10_24101079, conjecture, ( ! [A] : ( ( kAppP1(fA,A) ) => ( ? [B] : ( kAppP1(fA,B) ) ) ) )).
 
 % End conjecture.
 

@@ -105,16 +105,17 @@ flags_gt = -i$(theorems_path) --only-files \
 
 %.generated_theorems :
 	@echo "Processing $*.agda"
-	$(AGDA) -i$(theorems_path) $*.agda
-	$(AGDA2ATP) $(flags_gt) $*.agda; \
+	@$(AGDA) -i$(theorems_path) $*.agda
+	@$(AGDA2ATP) -v 0 $(flags_gt) $*.agda; \
+	diff -r $* $(output_dir)/$*
 
 flags_ngt = -i$(non_theorems_path) --only-files \
 	   --output-dir=$(output_dir)/$(non_theorems_path) \
 
 %.generated_non_theorems :
 	@echo "Processing $*.agda"
-	$(AGDA) -i$(non_theorems_path) $*.agda
-	$(AGDA2ATP) $(flags_ngt) $*.agda; \
+	@$(AGDA) -i$(non_theorems_path) $*.agda
+	@$(AGDA2ATP) -v 0 $(flags_ngt) $*.agda; \
 	diff -r $* $(output_dir)/$*
 
 generated_conjectures_aux : $(generated_theorems_files) \
@@ -140,8 +141,9 @@ prove_theorems : $(prove_theorems_files)
 # Test suite: Refute_theorems
 
 %.refute_theorems :
-	$(AGDA) -i$(non_theorems_path) $*.agda
-	if ( $(AGDA2ATP) -i$(non_theorems_path) \
+	@echo "Processing $*.agda"
+	@$(AGDA) -i$(non_theorems_path) $*.agda
+	@if ( $(AGDA2ATP) -i$(non_theorems_path) \
 	                 --output-dir=$(output_dir) --time=5 $*.agda ); then \
 	    exit 1; \
 	fi
@@ -153,8 +155,9 @@ refute_theorems : $(refute_theorems_files)
 # Test suite: Error conjectures
 
 %.error_conjectures :
-	$(AGDA) -i$(error_path) $*.agda
-	if ( $(AGDA2ATP) -i$(error_path) --only-files $*.agda ); then \
+	@echo "Processing $*.agda"
+	@$(AGDA) -i$(error_path) $*.agda
+	@if ( $(AGDA2ATP) -i$(error_path) --only-files $*.agda ); then \
 	    exit 1; \
 	fi
 
