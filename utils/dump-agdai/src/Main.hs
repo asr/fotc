@@ -5,6 +5,7 @@ module Main ( main ) where
 -- Haskell imports
 import System.Environment ( getArgs )
 import System.Exit        ( exitFailure)
+import System.IO          ( hPrint, stderr )
 
 -- Agda library imports
 import Agda.Utils.Impossible ( catchImpossible )
@@ -20,10 +21,10 @@ main = do
   file ← fmap head getArgs
   i    ← myReadInterface file
 
-  catchImpossible (print i) $
-    \e → do putStr $ show e
-            exitFailure
+  print i `catchImpossible` \e →
+    do hPrint stderr e
+       exitFailure
 
-  catchImpossible (printTypes i) $
-    \e → do putStr $ show e
-            exitFailure
+  printTypes i `catchImpossible` \e →
+    do hPrint stderr e
+       exitFailure
