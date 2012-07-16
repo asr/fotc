@@ -1,20 +1,20 @@
 ------------------------------------------------------------------------------
 -- |
--- Module      : FOL.Translation.Internal
+-- Module      : FOL.Translation.ClauseBody
 -- Copyright   : (c) Andrés Sicard-Ramírez 2009-2012
 -- License     : See the file LICENSE.
 --
 -- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 -- Stability   : experimental
 --
--- Translation of Agda internal syntax entities to first-order-logic
--- formulae.
+-- Translation of Agda internal @ClauseBody@ to first-order-logic
+-- formulae and term.
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module FOL.Translation.Internal
+module FOL.Translation.ClauseBody
   ( cBodyToFormula
   , cBodyToFOLTerm
   , dropProofTermOnCBody

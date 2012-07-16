@@ -62,7 +62,7 @@ import AgdaInternal.DeBruijn ( DecIndex(decIndex) )
 import AgdaInternal.Vars     (BoundedVars(boundedVars))
 import FOL.Primitives        ( equal )
 
-import FOL.Translation.Internal
+import FOL.Translation.ClauseBody
   ( cBodyToFormula
   , cBodyToFOLTerm
   , dropProofTermOnCBody

@@ -51,9 +51,9 @@ executable agda2atp
                  ATP
                  FOL.Constants
                  FOL.Primitives
+                 FOL.Translation.ClauseBody
                  FOL.Translation.Functions
                  FOL.Translation.Name
-                 FOL.Translation.Internal
                  FOL.Translation.Terms
                  FOL.Translation.Types
                  FOL.Types
