@@ -24,6 +24,7 @@ module Monad.Base
   , modifyPragmaOptions
   , newTVar
   , popTVar
+  , pushTNewVar
   , pushTVar
   , runT
   , T
@@ -100,11 +101,9 @@ isTPragmaOption p = do
   state ← get
   return (p `elem` tPragmaOptions state)
 
--- | Push a variable in the translation monad state.
-pushTVar ∷ String → T ()
-pushTVar x = do
-  state ← get
-  put state { tVars = x : tVars state }
+-- | Fresh variable.
+newTVar ∷ T String
+newTVar = fmap (evalState freshName . tVars) get
 
 -- | Pop a variable from the translation monad state.
 popTVar ∷ T ()
@@ -114,9 +113,15 @@ popTVar = do
     []       → __IMPOSSIBLE__
     (_ : xs) → put state { tVars = xs }
 
--- | Add a new variable to the translation monad state.
-newTVar ∷ T String
-newTVar = fmap (evalState freshName . tVars) get
+-- | Push a variable in the translation monad state.
+pushTVar ∷ String → T ()
+pushTVar x = do
+  state ← get
+  put state { tVars = x : tVars state }
+
+-- | Create a fresh variable and push it in the translation monad state.
+pushTNewVar ∷ T String
+pushTNewVar = newTVar >>= \freshVar → pushTVar freshVar >> return freshVar
 
 -- | Get the Agda 'Definitions' from the translation monad state.
 getTDefs ∷ T Definitions

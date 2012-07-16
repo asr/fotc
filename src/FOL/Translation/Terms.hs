@@ -86,7 +86,7 @@ import Monad.Base
   , isTPragmaOption
   , newTVar
   , popTVar
-  , pushTVar
+  , pushTNewVar
   , T
   )
 
@@ -239,8 +239,7 @@ termToFormula term@(Def qName@(QName _ name) args) = do
 termToFormula term@(Lam _ (Abs _ termLam)) = do
   reportSLn "t2f" 10 $ "termToFormula Lam:\n" ++ show term
 
-  freshVar ← newTVar
-  pushTVar freshVar
+  _ ← pushTNewVar
   f ← termToFormula termLam
   popTVar
 
@@ -292,13 +291,12 @@ termToFormula (Pi domTy (Abs x tyAbs)) = do
     ++ "domTy: " ++ show domTy ++ "\n"
     ++ "absTy: " ++ show (Abs x tyAbs)
 
-  freshVar ← newTVar
+  freshVar ← pushTNewVar
 
   reportSLn "t2f" 20 $
     "Starting processing in local environment with fresh variable "
     ++ show freshVar ++ " and type:\n" ++ show tyAbs
 
-  pushTVar freshVar
   f ← typeToFormula tyAbs
   popTVar
 
@@ -543,8 +541,7 @@ termToFOLTerm term@(Def (QName _ name) args) = do
 termToFOLTerm term@(Lam NotHidden (Abs _ termLam)) = do
   reportSLn "t2f" 10 $ "termToFOLTerm Lam:\n" ++ show term
 
-  freshVar ← newTVar
-  pushTVar freshVar
+  _ ← pushTNewVar
   f ← termToFOLTerm termLam
   popTVar
 

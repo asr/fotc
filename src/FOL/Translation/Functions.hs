@@ -74,9 +74,8 @@ import FOL.Types             ( FOLFormula(Implies, Equiv, ForAll) )
 
 import Monad.Base
   ( getTVars
-  , newTVar
   , popTVar
-  , pushTVar
+  , pushTNewVar
   , T
   )
 
@@ -135,8 +134,7 @@ clauseToFormula qName ty (Clause r tel perm (_ : pats) cBody) =
     ExtendTel (Dom _ _ (El (Type (Max [])) (Def _ []))) (Abs x tels) → do
       reportSLn "def2f" 20 $ "Processing variable " ++ show x
 
-      freshVar ← newTVar
-      pushTVar freshVar
+      freshVar ← pushTNewVar
       -- We process forward in the telescope and the pattern.
       f ← clauseToFormula qName ty (Clause r tels perm pats cBody)
       popTVar
@@ -241,13 +239,7 @@ clauseToFormula qName ty (Clause _ _ _ [] cBody) = do
             let diff ∷ Int
                 diff = totalBoundedVars - length vars
 
-                helper1 ∷ T String
-                helper1 = do
-                  freshVar ← newTVar
-                  pushTVar freshVar
-                  return freshVar
-
-            freshVars ← replicateM diff helper1
+            freshVars ← replicateM diff pushTNewVar
             reportSLn "def2f" 20 $ "Freshvars: " ++ show freshVars
             tLHS ← termToFOLTerm lhs
             replicateM_ diff popTVar
@@ -255,12 +247,12 @@ clauseToFormula qName ty (Clause _ _ _ [] cBody) = do
 
             -- Because the LHS and the RHS (the body of the clause) are
             -- terms, they are related via the first-order logic equaliy.
-            let helper2 ∷ [String] → FOLFormula
-                helper2 []       = __IMPOSSIBLE__
-                helper2 (x : []) = ForAll x $ \_ → equal tLHS tRHS
-                helper2 (x : xs) = ForAll x $ \_ → helper2 xs
+            let helper ∷ [String] → FOLFormula
+                helper []       = __IMPOSSIBLE__
+                helper (x : []) = ForAll x $ \_ → equal tLHS tRHS
+                helper (x : xs) = ForAll x $ \_ → helper xs
 
-            return $ helper2 freshVars
+            return $ helper freshVars
           else __IMPOSSIBLE__
 
     _ → __IMPOSSIBLE__
