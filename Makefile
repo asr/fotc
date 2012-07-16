@@ -70,12 +70,12 @@ parsing_conjectures_files += \
 
 # Examples
 
-type_checking_examples_files = \
-  $(patsubst %.agda,%.type_checking_examples, \
+type_check_examples_files = \
+  $(patsubst %.agda,%.type_check_examples, \
     $(shell find $(examples_path) -name 'Everything.agda' | sort))
 
-type_checking_agsy_examples_files = \
-  $(patsubst %.agda,%.type_checking_agsy_examples, \
+type_check_agsy_examples_files = \
+  $(patsubst %.agda,%.type_check_agsy_examples, \
     $(shell find $(examples_path)/Agsy -name '*.agda' | sort))
 
 snapshot_create_examples_files = \
@@ -84,8 +84,8 @@ snapshot_create_examples_files = \
 snapshot_compare_examples_files = \
   $(call path_subst,snapshot_compare_examples,$(examples_path))
 
-proved_conjectures_examples_files = \
-  $(call path_subst,proved_conjectures_examples,$(examples_path))
+prove_examples_files = \
+  $(call path_subst,prove_examples,$(examples_path))
 
 consistency_examples_files = \
   $(patsubst %.agda,%.consistency_examples, \
@@ -93,8 +93,8 @@ consistency_examples_files = \
 
 # Notes
 
-type_checking_notes_files = \
-  $(patsubst %.agda,%.type_checking_notes, \
+type_check_notes_files = \
+  $(patsubst %.agda,%.type_check_notes, \
     $(shell find $(notes_path) -name '*.agda' | sort))
 
 ##############################################################################
@@ -138,7 +138,7 @@ prove_theorems : $(prove_theorems_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
-# Test suite: Refute_theorems
+# Test suite: Refute theorems
 
 %.refute_theorems :
 	@echo "Processing $*.agda"
@@ -199,18 +199,18 @@ doc :
 ##############################################################################
 # Examples: Type-checking
 
-%.type_checking_examples :
+%.type_check_examples :
 	$(AGDA) -iexamples $*.agda
 
-%.type_checking_agsy_examples :
+%.type_check_agsy_examples :
 	$(AGDA) -iexamples -i$(std_lib_path)/src/ $*.agda
 
-type_checking_examples_aux : $(type_checking_examples_files) \
-                             $(type_checking_agsy_examples_files)
+type_check_examples_aux : $(type_check_examples_files) \
+                             $(type_check_agsy_examples_files)
 
-type_checking_examples :
+type_check_examples :
 	cd $(std_lib_path) && darcs pull
-	make type_checking_examples_aux
+	make type_check_examples_aux
 	$(AGDA) -iexamples examples/README.agda
 	@echo "$@ succeeded!"
 
@@ -242,20 +242,18 @@ snapshot_compare_examples : $(snapshot_compare_examples_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
-# Examples: Proved conjectures
+# Examples: Prove theorems in the examples
 
-%.proved_conjectures_examples :
+%.prove_examples :
 	$(AGDA) -iexamples $*.agda
 	$(AGDA2ATP) -iexamples --output-dir=$(output_dir) --time=240 $*.agda
 
-proved_conjectures_examples : $(proved_conjectures_examples_files)
+prove_examples : $(prove_examples_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
 # Examples: Consistency
 
-# Because we are using the option --unproved-conjecture-error we
-# revert the agda2atp output.
 %.consistency_examples :
 	$(AGDA) -iexamples $*.agda
 	if ( $(AGDA2ATP) -iexamples --output-dir=$(output_dir) \
@@ -269,7 +267,7 @@ consistency_examples : $(consistency_examples_files)
 ##############################################################################
 # Notes: Type-checking
 
-%.type_checking_notes :
+%.type_check_notes :
 	$(AGDA) -iexamples \
 	        -inotes \
 	        -inotes/agda-interface \
@@ -282,11 +280,11 @@ consistency_examples : $(consistency_examples_files)
                 -i$(std_lib_path)/src/ \
 	        $*.agda
 
-type_checking_notes_aux : $(type_checking_notes_files)
+type_check_notes_aux : $(type_check_notes_files)
 
-type_checking_notes :
+type_check_notes :
 	cd $(std_lib_path) && darcs pull
-	make type_checking_notes_aux
+	make type_check_notes_aux
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -311,9 +309,9 @@ atp_changed :
 # Running the examples and the notes
 
 examples_and_notes :
-	make type_checking_examples
+	make type_check_examples
 	make snapshot_create_examples
-	type_checking_notes
+	type_check_notes
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -323,9 +321,9 @@ agda_changed :
 	if [ ! -d $(snapshot_dir) ]; then exit 1; fi
 	cabal clean && cabal configure && cabal build
 	make agda2atp_changed
-	make type_checking_examples
+	make type_check_examples
 	make snapshot_compare_examples
-	make type_checking_notes
+	make type_check_notes
 	cd utils/read-agda-interface \
 	&& cabal clean && cabal configure && cabal build
 	@echo "$@ succeeded!"
