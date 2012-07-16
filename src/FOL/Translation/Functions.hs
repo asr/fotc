@@ -222,6 +222,12 @@ clauseToFormula qName ty (Clause _ _ _ [] cBody) = do
           lhs = Def qName $ varsToArgs $ fromIntegral totalBoundedVars
 
       if length vars == totalBoundedVars
+        -- The definition is of the form
+        --
+        -- @foo ∷ D → D@
+        -- @foo d = ...
+        --
+        -- so we don't need to add new fresh variables.
         then liftM2 equal (termToFOLTerm lhs) (cBodyToFOLTerm cBody)
         -- The definition is of the form
         --
@@ -230,7 +236,6 @@ clauseToFormula qName ty (Clause _ _ _ [] cBody) = do
         --
         -- so we need to add some fresh variables to the state before
         -- call the translation for @lhs@ and @cBody@.
-
         else if length vars < totalBoundedVars
           then do
             let diff ∷ Int
@@ -245,7 +250,7 @@ clauseToFormula qName ty (Clause _ _ _ [] cBody) = do
             freshVars ← replicateM diff helper1
             reportSLn "def2f" 20 $ "Freshvars: " ++ show freshVars
             tLHS ← termToFOLTerm lhs
-            replicateM_ (totalBoundedVars - length vars) popTVar
+            replicateM_ diff popTVar
             tRHS ← cBodyToFOLTerm cBody
 
             -- Because the LHS and the RHS (the body of the clause) are
