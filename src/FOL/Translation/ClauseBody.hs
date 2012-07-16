@@ -8,7 +8,7 @@
 -- Stability   : experimental
 --
 -- Translation of Agda internal @ClauseBody@ to first-order-logic
--- formulae and term.
+-- formulae and terms.
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE CPP #-}
