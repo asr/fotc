@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Eta1 where
+module EtaA where
 
 postulate
   D   : Set

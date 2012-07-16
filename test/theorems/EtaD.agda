@@ -5,26 +5,19 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Eta2 where
+module EtaD where
 
 postulate
-  D  : Set
-  P² : D → D → Set
+  D   : Set
+  _≈_ : D → D → Set
 
 data ∃ (A : D → Set) : Set where
   _,_ : (t : D) → A t → ∃ A
 
--- Because Agda eta-reduces the equations, the internal representation
--- of P corresponds to the predicate
---
--- P xs = ∃ (P² xs)
---
--- We eta-expand the definition of P before the translation to FOL.
-
 P : D → Set
-P xs = ∃ λ ys → P² xs ys
+P ws = ∃ (λ zs → ws ≈ zs)
 {-# ATP definition P #-}
 
 postulate
-  bar : ∀ {xs} → P xs → (∃ λ ys → P² xs ys)
-{-# ATP prove bar #-}
+  foo : ∀ ws → P ws → ∃ (λ zs → ws ≈ zs)
+{-# ATP prove foo #-}

@@ -5,10 +5,10 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Eta3 where
+module EtaC where
 
-infixl 10 _*_
 infix 7 _≡_
+infixl 10 _*_
 
 postulate
   D         : Set
