@@ -352,10 +352,11 @@ git-pre-commit :
 hpc_html_dir = hpc
 
 .PHONY : hpc
-hpc : hpc_clean hpc_install \
-      $(proved_conjectures_test_fol_files) \
-      $(proved_conjectures_test_non-fol_files) \
-      $(fail_test_fol_files)
+hpc : hpc_clean
+	cabal clean && cabal install --ghc-option=-fhpc
+	make prove_theorems
+	make refute_theorems
+	make error_conjectures
 	hpc markup --exclude=Snapshot \
                    --exclude=Paths_agda2atp \
                    --destdir=$(hpc_html_dir) \
@@ -364,9 +365,6 @@ hpc : hpc_clean hpc_install \
                    --exclude=Paths_agda2atp \
                    --decl-list \
                    agda2atp
-hpc_install :
-	cabal clean && cabal install --ghc-option=-fhpc
-
 hpc_clean :
 	rm -f *.tix
 	rm -f -r $(hpc_html_dir)
