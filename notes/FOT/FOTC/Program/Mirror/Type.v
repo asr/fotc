@@ -1,6 +1,6 @@
 (* The types used by the mirror function *)
 
-(* Tested with Coq 8.3pl4 *)
+(* Tested with Coq 8.4beta2 *)
 
 Require Import Unicode.Utf8.
 

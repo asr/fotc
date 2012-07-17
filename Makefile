@@ -399,6 +399,10 @@ TODO :
 
 clean :
 	find -name '*.agdai' | xargs rm -f
+	find -name '*.glob' | xargs rm -f
+	find -name '*.hi' | xargs rm -f
+	find -name '*.o' | xargs rm -f
+	find -name '*.vo' | xargs rm -f
 	find -name 'model' | xargs rm -f
 	rm -f -r $(output_dir) $(snapshot_dir)
 

@@ -1,15 +1,15 @@
 (* Nested recursive function using the Bove-Capretta method *)
 
-(* Induction-recursion is not allow in Coq 8.3pl4 *)
+(* Induction-recursion is not allow in Coq 8.4beta2 *)
 
-Require Import Unicode.Utf8.
+(* Require Import Unicode.Utf8. *)
 
-Inductive Dom : nat → Prop :=
-  | d0 : Dom 0
-  | dS : ∀ x, Dom x → Dom (nest x) → Dom (S x)
-with
-Fixpoint nest (n : nat)(d : Dom n){struct d} : nat :=
-  match d with
-    | d0           => 0
-    | dS x Dx Dnx  => 0
-  end.
+(* Inductive Dom : nat → Prop := *)
+(*   | d0 : Dom 0 *)
+(*   | dS : ∀ x, Dom x → Dom (nest x) → Dom (S x) *)
+(* with *)
+(* Fixpoint nest (n : nat)(d : Dom n){struct d} : nat := *)
+(*   match d with *)
+(*     | d0           => 0 *)
+(*     | dS x Dx Dnx  => 0 *)
+(*   end. *)

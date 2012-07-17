@@ -1,8 +1,10 @@
 .fol.*
 .hpc/
 *.agdai
-*.o
+*.glob
 *.hi
+*.o
+*.vo
 agda2atp.tix
 dist
 hpc/

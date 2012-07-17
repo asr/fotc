@@ -1,4 +1,4 @@
-(* Tested with Coq 8.3pl4 *)
+(* Tested with Coq 8.4beta2 *)
 
 (* Induction principle for N. *)
 
@@ -18,6 +18,6 @@ Inductive NS : D → Set :=
   | zNS : NS zero
   | sNS : ∀ n, NS n → NS (succ₁ n).
 
-Check NS_rec.
 Check NS_ind.
+Check NS_rec.
 Check NS_rect.
