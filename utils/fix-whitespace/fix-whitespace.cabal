@@ -1,0 +1,27 @@
+name:            fix-whitespace
+version:         0.1
+cabal-version:   >= 1.8
+build-type:      Simple
+description:     Fixes whitespace issues.
+tested-with:     GHC == 7.4.2
+
+executable fix-whitespace
+  hs-source-dirs:   .
+  main-is:          FixWhitespace.hs
+
+  build-depends:    base        >= 4.5 &&  < 4.6
+                    , filemanip >= 0.3 &&  < 0.4
+                    , text      >= 0.11 && < 0.12
+
+  if impl(ghc == 7.4.1) || impl(ghc == 7.4.2)
+     -- Only warnings.
+     ghc-options: -Wall
+                  -fwarn-auto-orphans
+                  -fwarn-identities
+                  -fwarn-incomplete-record-updates
+                  -fwarn-incomplete-uni-patterns
+                  -fwarn-missing-import-lists
+                  -fwarn-missing-local-sigs
+                  -fwarn-monomorphism-restriction
+                  -fwarn-tabs
+                  -Werror
