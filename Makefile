@@ -277,6 +277,7 @@ consistency_examples : $(consistency_examples_files)
 	        -inotes \
 	        -inotes/agda-interface \
 	        -inotes/fixed-points \
+	        -inotes/issues \
                 -inotes/papers/fossacs-2012 \
                 -inotes/papers/paper-2011/ \
 	        -inotes/README/ \
@@ -417,6 +418,7 @@ clean :
 	find -name '*.hi' | xargs rm -f
 	find -name '*.o' | xargs rm -f
 	find -name '*.vo' | xargs rm -f
+	find -name 'agda2atp.tix' | xargs rm -f
 	find -name 'model' | xargs rm -f
 	rm -f -r $(output_dir) $(snapshot_dir)
 
