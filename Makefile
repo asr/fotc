@@ -97,6 +97,11 @@ type_check_notes_files = \
   $(patsubst %.agda,%.type_check_notes, \
     $(shell find $(notes_path) -name '*.agda' | sort))
 
+# Others
+
+coq_type_check_files = $(patsubst %.v,%.coq_type_check, \
+	               $(shell find -name '*.v' | sort))
+
 ##############################################################################
 # Test suite: Generated conjectures
 
@@ -288,6 +293,20 @@ type_check_notes :
 	@echo "$@ succeeded!"
 
 ##############################################################################
+# Test used when there is a modification to Agda
+
+agda_changed :
+	if [ ! -d $(snapshot_dir) ]; then exit 1; fi
+	cabal clean && cabal configure && cabal build
+	make agda2atp_changed
+	make type_check_examples
+	make snapshot_compare_examples
+	make type_check_notes
+	cd utils/read-agda-interface \
+	&& cabal clean && cabal configure && cabal build
+	@echo "$@ succeeded!"
+
+##############################################################################
 # Test used when there is a modification to agda2atp
 
 agda2atp_changed :
@@ -306,26 +325,21 @@ atp_changed :
 	@echo "$@ succeeded!"
 
 ##############################################################################
+# Test used when there is a modification to Coq.
+
+%.coq_type_check :
+	coqc $*.v
+
+coq_changed : $(coq_type_check_files)
+	@echo "$@ succeeded!"
+
+##############################################################################
 # Running the examples and the notes
 
 examples_and_notes :
 	make type_check_examples
 	make snapshot_create_examples
 	type_check_notes
-	@echo "$@ succeeded!"
-
-##############################################################################
-# Test used when there is a modification to Agda
-
-agda_changed :
-	if [ ! -d $(snapshot_dir) ]; then exit 1; fi
-	cabal clean && cabal configure && cabal build
-	make agda2atp_changed
-	make type_check_examples
-	make snapshot_compare_examples
-	make type_check_notes
-	cd utils/read-agda-interface \
-	&& cabal clean && cabal configure && cabal build
 	@echo "$@ succeeded!"
 
 ##############################################################################

@@ -20,8 +20,8 @@ Definition Leq {A : Type} (x y : A) : Type :=
 (****************************************************************************)
 (* Leibniz's equality and the identity type *)
 
-(* "In the presence of a type of propositions "Prop" one can also *)
-(* define propositional equality by Leibniz's principle." [2, p. 4] *)
+(* In the presence of a type of propositions @Prop@ one can also *)
+(* define propositional equality by Leibniz's principle. [2, p. 4] *)
 
 (* [2] Martin Hofmman. Extensional concepts in intensional type *)
 (*     theory. PhD thesis, University of Edinburgh, 1995 *)
