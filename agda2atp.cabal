@@ -9,7 +9,7 @@ maintainer:    Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 category:      Dependent types
 homepage:      https://github.com/asr/agda2atp.git
 bug-reports:   https://github.com/asr/agda2atp/issues/
-synopsis:      Program for prove first-order formulae written in Agda using ATPs
+synopsis:      Program for proving first-order formulae written in Agda using ATPs
 tested-with:   GHC == 7.4.2
 description:
   This package provides a program for proving first order
