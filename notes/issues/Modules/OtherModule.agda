@@ -3,15 +3,14 @@
 
 -- Tested with agda2atp on 12 July 2012.
 
-module LocalPragmas.OtherModule where
+module Modules.OtherModule where
 
-open import LocalPragmas
+open import Modules
 
 -- The program agda2atp does not translate the ATP pragmas because
--- they are not defined in the module LocalPragmas.
+-- they are not defined in the imported module.
 
-{-# ATP axiom zN #-}
+{-# ATP axiom p #-}
 
-postulate
-  N0 : N zero
-{-# ATP prove N0 #-}
+postulate foo : a ≡ b
+{-# ATP prove foo #-}
