@@ -20,7 +20,7 @@ description:
   for the ATPs <http://www.cs.miami.edu/~tptp/>.
 extra-source-files:
         CHANGES.txt
-        README.txt
+        README.md
         src/undefined.h
 
 source-repository head

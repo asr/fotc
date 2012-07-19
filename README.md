@@ -39,7 +39,9 @@ Installation
    the new built-in ATP pragma. You can download it using
    [darcs](http://darcs.net/) with the command
 
-   `$ darcs get http://patch-tag.com/r/asr/magda`
+   ````bash
+   $ darcs get http://patch-tag.com/r/asr/magda
+   ````
 
    This will create a directory called `magda`. Installing our
    modified version is similar to the installation of Agda (see the
@@ -47,16 +49,15 @@ Installation
    more information); in our setup you need to run the following
    commands
 
-   `$ cd magda`
-
-   `$ make install-bin`
+   ````bash
+   $ cd magda
+   $ make install-bin
+   ````
 
    To test the installation of the modified version of Agda, type-check
    a module which uses the new built-in ATP pragma, for example
 
    ````Agda
-   $ cat Test.agda
-
    module Test where
 
    data _∨_ (A B : Set) : Set where
