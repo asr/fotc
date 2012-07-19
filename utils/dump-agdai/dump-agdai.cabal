@@ -1,4 +1,4 @@
-name:          read-agda-interface
+name:          dump-agdai
 version:       0.1
 build-type:    Simple
 cabal-version: >= 1.8
