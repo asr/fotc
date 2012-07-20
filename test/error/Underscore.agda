@@ -5,9 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- $ agda2atp Test/Fail/FOL/Underscore.agda
--- agda2atp: The translation of underscore variables is not implemented
-
 module Underscore where
 
 infix 4 _≡_

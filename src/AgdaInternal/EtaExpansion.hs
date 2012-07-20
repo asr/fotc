@@ -19,10 +19,8 @@ module AgdaInternal.EtaExpansion ( EtaExpandible(etaExpand) ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad       ( when )
-import Control.Monad.Error ( MonadError(throwError) )
-
-import Data.Functor ( (<$>) )
+import Control.Monad ( when )
+import Data.Functor  ( (<$>) )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
@@ -79,11 +77,7 @@ instance EtaExpandible Type where
 
 instance EtaExpandible Term where
   etaExpand (Def qName args) = do
-    whenM (isProjection qName) $
-          throwError $
-            "The translation of projection-like functions as "
-            ++ show qName
-            ++ " is not implemented"
+    whenM (isProjection qName) (__IMPOSSIBLE__)
 
     qNameArity ∷ Nat ← arity <$> qNameType qName
 

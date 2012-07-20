@@ -61,7 +61,7 @@ prove_theorems_files = $(call path_subst,prove_theorems,$(theorems_path))
 
 refute_theorems_files = $(call path_subst,refute_theorems,$(non_theorems_path))
 
-error_conjectures_files = $(call path_subst,error_conjectures,$(error_path))
+error_files = $(call path_subst,error,$(error_path))
 
 parsing_conjectures_files = \
   $(call path_subst,parsing_conjectures,$(theorems_path))
@@ -157,16 +157,13 @@ refute_theorems : $(refute_theorems_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
-# Test suite: Error conjectures
+# Test suite: Error messages
 
-%.error_conjectures :
-	@echo "Processing $*.agda"
+%.error :
 	@$(AGDA) -i$(error_path) $*.agda
-	@if ( $(AGDA2ATP) -i$(error_path) --only-files $*.agda ); then \
-	    exit 1; \
-	fi
 
-error_conjectures : $(error_conjectures_files)
+error : $(error_files)
+	cd $(error_path) && shelltest error.test
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -312,7 +309,7 @@ agda_changed :
 
 agda2atp_changed :
 	@make generated_conjectures
-	@make error_conjectures
+	@make error
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -322,7 +319,7 @@ atp_changed :
 	@make generated_conjectures
 	@make prove_theorems
 	@make refute_theorems
-	@make error_conjectures
+	@make error
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -371,13 +368,11 @@ hpc : hpc_clean
 	cabal clean && cabal install --ghc-option=-fhpc
 	make prove_theorems
 	make refute_theorems
-	make error_conjectures
-	hpc markup --exclude=Snapshot \
-                   --exclude=Paths_agda2atp \
+	make error
+	hpc markup --exclude=Paths_agda2atp \
                    --destdir=$(hpc_html_dir) \
                    agda2atp
-	hpc report --exclude=Snapshot \
-                   --exclude=Paths_agda2atp \
+	hpc report --exclude=Paths_agda2atp \
                    --decl-list \
                    agda2atp
 hpc_clean :

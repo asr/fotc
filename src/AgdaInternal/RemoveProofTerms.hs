@@ -93,7 +93,6 @@ import Agda.Utils.Impossible ( Impossible(Impossible), throwImpossible )
 
 import Monad.Base    ( getTVars, popTVar, pushTVar, T )
 import Monad.Reports ( reportSLn )
-import Utils.Show    ( showLn )
 
 #include "../undefined.h"
 
@@ -247,9 +246,8 @@ removeProofTerm ty (x, typeVar) = do
     El (Type (Max [])) someTerm → do
       reportSLn "removePT" 20 $
                 "The term someTerm is: " ++ show someTerm
-      throwError $ "It is necessary to erase the proof term\n"
-                   ++ showLn someTerm
-                   ++ "but we do not know how to do it"
+      throwError $ "The translation failed because we do not know how erase "
+                   ++ "the term\n" ++ show someTerm
 
     -- The variable's type is @Set₁@,
     --

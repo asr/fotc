@@ -203,6 +203,7 @@ myReadInterface file = do
     do setCommandLineOptions optsCommandLine
        readInterface iFile
 
+  -- These messages are not included in the error test.
   case r of
     Right (Just i) → return i
     Right Nothing  → throwError $

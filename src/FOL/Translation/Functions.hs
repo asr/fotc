@@ -101,8 +101,9 @@ varsToArgs n = Arg NotHidden Relevant (var (n - 1)) : varsToArgs (n - 1)
 fnToFormula ∷ QName → Type → [Clause] → T FOLFormula
 fnToFormula _      _  []        = __IMPOSSIBLE__
 fnToFormula qName  ty (cl : []) = clauseToFormula qName ty cl
-fnToFormula _      _  _         =
-  throwError "The definitions to be translate only can have a clause"
+fnToFormula qName  _  _         =
+  throwError $ "The translation of " ++ show qName
+               ++ " failed because its definition only can have a clause"
 
 -- A Clause is defined by (Agda.Syntax.Internal)
 -- data Clause = Clause

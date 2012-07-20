@@ -34,6 +34,7 @@ extensions =
   , ".hs-boot"
   , ".thy"
   , ".txt"
+  , ".test"
   , ".tptp"
   , ".v"
   , ".x"

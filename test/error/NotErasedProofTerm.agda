@@ -1,16 +1,11 @@
 ------------------------------------------------------------------------------
--- We do not erase of the proofs terms in the translation
+-- We do not know how erase a proof term in the translation
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
 module NotErasedProofTerm where
-
--- $ agda2atp Test/Fail/FOL/NotErasedProofTerm.agda
--- agda2atp: It is necessary to erase the proof term
--- Pi r(El {getSort = Type (Max []), unEl = Def Test.Fail.FOL.NotErasedProofTerm.D []}) (Abs "k" El {getSort = Type (Max []), unEl = Def Test.Fail.FOL.NotErasedProofTerm._≤_ [r(Var 0 []),r(Var 0 [])]})
--- but we do not know how to do it
 
 postulate
   D    : Set

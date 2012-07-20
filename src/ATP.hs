@@ -145,6 +145,7 @@ atpArgs E timeLimit file = do
                     , "--tstp-format"
                     , file
                     ]
+        -- This message is not included in the error test.
         else throwError $ "The ATP " ++ eVersion ++ " is not supported"
 
 -- Equinox bug? The option @--no-progress@ doesn't make any difference.
@@ -179,10 +180,10 @@ runATP atp outputMVar timeLimit file = do
   e ← liftIO $ findExecutable exec
   case e of
     Nothing → throwError $
-              "We could not find the command " ++ exec
-              ++ " associated to the ATP " ++ show atp
-              ++ ". Maybe you should use the flag --atp=NAME "
-              ++ "to avoid calling the defaults ATPs"
+              "The command " ++ exec
+              ++ " associated with " ++ show atp ++ " does not exist.\n"
+              ++ "You can use the command-line option --atp=NAME to avoid "
+              ++ "call the defaults ATPs"
     Just _  → return ()
 
   -- To create the ATPs process we follow the ideas used by
