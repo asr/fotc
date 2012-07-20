@@ -23,7 +23,7 @@ module FOL.Translation.Types
 
 import Agda.Syntax.Common
   ( Dom(Dom, domHiding, unDom)
-  , Hiding(Hidden, Instance, NotHidden)
+  , Hiding(NotHidden)
   )
 
 import Agda.Syntax.Internal
@@ -49,9 +49,8 @@ import Monad.Reports         ( reportSLn )
 -- | Translate an Agda internal 'Dom' 'Type' to a first-order logic
 -- formula 'FOLFormula'.
 domTypeToFormula ∷ Dom Type → T FOLFormula
-domTypeToFormula Dom {domHiding = Instance}              = __IMPOSSIBLE__
-domTypeToFormula Dom {domHiding = Hidden}                = __IMPOSSIBLE__
 domTypeToFormula Dom {domHiding = NotHidden, unDom = ty} = typeToFormula ty
+domTypeToFormula _                                       = __IMPOSSIBLE__
 
 -- | Translate an Agda internal 'Type' to a first-order logic formula
 -- 'FOLFormula'.

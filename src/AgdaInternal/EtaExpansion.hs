@@ -41,7 +41,7 @@ import Agda.Syntax.Internal
   , arity
   , Level(Max)
   , PlusLevel(ClosedLevel)
-  , Term(Con, Def, DontCare, Lam, Level, Lit, MetaV, Pi, Sort, Var)
+  , Term(Con, Def, Lam, Pi, Var)
   , Sort(Type)
   , Type(El)
   , var
@@ -135,12 +135,7 @@ instance EtaExpandible Term where
 
   etaExpand (Var n args) = Var n <$> mapM etaExpand args
 
-  etaExpand (DontCare _)        = __IMPOSSIBLE__
-  etaExpand (Level _)           = __IMPOSSIBLE__
-  etaExpand (Lam _ (NoAbs _ _)) = __IMPOSSIBLE__
-  etaExpand (Lit _)             = __IMPOSSIBLE__
-  etaExpand (MetaV _ _)         = __IMPOSSIBLE__
-  etaExpand (Sort _)            = __IMPOSSIBLE__
+  etaExpand _ = __IMPOSSIBLE__
 
 instance EtaExpandible a ⇒ EtaExpandible (Arg a) where
   etaExpand (Arg h r e) = Arg h r <$> etaExpand e

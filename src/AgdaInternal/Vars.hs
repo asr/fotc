@@ -31,7 +31,7 @@ import Agda.Syntax.Common
 import Agda.Syntax.Internal
   ( Abs(Abs, NoAbs)
   , ClauseBody(Bind, Body, NoBody)
-  , Term(Con, Def, DontCare, Lam, Level, Lit, MetaV, Pi, Sort, Var)
+  , Term(Con, Def, Lam, Pi, Var)
   , Sort(Type)
   , Type(El)
   )
@@ -53,15 +53,7 @@ instance BoundedVars Term where
   boundedVars (Lam NotHidden (Abs _ absTerm)) = 1 + boundedVars absTerm
   boundedVars (Def _ args)                    = boundedVars args
   boundedVars (Var _ _)                       = 0
-
-  boundedVars (Con _ _)    = __IMPOSSIBLE__
-  boundedVars (Lam _ _)    = __IMPOSSIBLE__
-  boundedVars (DontCare _) = __IMPOSSIBLE__
-  boundedVars (Level _)    = __IMPOSSIBLE__
-  boundedVars (Lit _)      = __IMPOSSIBLE__
-  boundedVars (MetaV _ _)  = __IMPOSSIBLE__
-  boundedVars (Pi _ _)     = __IMPOSSIBLE__
-  boundedVars (Sort _)     = __IMPOSSIBLE__
+  boundedVars _                               = __IMPOSSIBLE__
 
 instance BoundedVars a ⇒ BoundedVars (Arg a) where
   boundedVars (Arg _ _ e) = boundedVars e
@@ -103,11 +95,7 @@ instance BoundedVarsType Term where
   boundedVarsType (Lam _ _) = []
   boundedVarsType (Var _ _) = []
 
-  boundedVarsType (DontCare _) = __IMPOSSIBLE__
-  boundedVarsType (Level _)    = __IMPOSSIBLE__
-  boundedVarsType (Lit _)      = __IMPOSSIBLE__
-  boundedVarsType (MetaV _ _)  = __IMPOSSIBLE__
-  boundedVarsType (Sort _)     = __IMPOSSIBLE__
+  boundedVarsType _ = __IMPOSSIBLE__
 
 instance BoundedVarsType a ⇒ BoundedVarsType (Arg a) where
   boundedVarsType (Arg _ _ e) = boundedVarsType e

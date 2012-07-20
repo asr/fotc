@@ -75,7 +75,7 @@ import Agda.Syntax.Internal
   ( Abs(Abs, NoAbs)
   , Clause(Clause)
   , ClauseBody(Bind, Body, NoBody)
-  , Term(Con, Def, DontCare, Lam, Level, Lit, MetaV, Pi, Sort, Var)
+  , Term(Con, Def, Lam, Pi, Sort, Var)
   , Type(El)
   )
 
@@ -159,8 +159,7 @@ getLocalHints def =
   in case defn of
        Axiom{} → case axATP defn of
                    Just (ATPConjecture, hints) → hints
-                   Just _                      → __IMPOSSIBLE__
-                   Nothing                     → __IMPOSSIBLE__
+                   _                           → __IMPOSSIBLE__
 
        _       → __IMPOSSIBLE__
 
@@ -343,11 +342,7 @@ instance QNamesIn Term where
   qNamesIn (Pi domTy absTy) = qNamesIn domTy ++ qNamesIn absTy
   qNamesIn (Sort _)         = []
   qNamesIn (Var _ args)     = qNamesIn args
-
-  qNamesIn (DontCare _) = __IMPOSSIBLE__
-  qNamesIn (Level _)    = __IMPOSSIBLE__
-  qNamesIn (Lit _)      = __IMPOSSIBLE__
-  qNamesIn (MetaV _ _)  = __IMPOSSIBLE__
+  qNamesIn  _               = __IMPOSSIBLE__
 
 instance QNamesIn Type where
   qNamesIn (El _ term) = qNamesIn term

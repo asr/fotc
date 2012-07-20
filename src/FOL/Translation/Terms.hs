@@ -34,7 +34,7 @@ import Agda.Syntax.Abstract.Name ( Name(nameConcrete, nameId) , QName(QName) )
 import Agda.Syntax.Common
   ( Arg(Arg, argHiding, unArg)
   , Dom(Dom, unDom)
-  , Hiding(Hidden, Instance, NotHidden)
+  , Hiding(Hidden, NotHidden)
   , NameId(NameId)
   , Nat
   )
@@ -50,7 +50,7 @@ import Agda.Syntax.Internal
   , Level(Max)
   , PlusLevel(ClosedLevel)
   , Sort(Type)
-  , Term(Con, Def, DontCare, Lam, Level, Lit, MetaV, Pi, Sort, Var)
+  , Term(Con, Def, Lam, Pi, Sort, Var)
   , Type(El)
   )
 
@@ -116,17 +116,14 @@ qName2String qName@(QName _ name) = do
                               ++ show i
     else return $ show $ nameConcrete name
 
--- We keep the three equations for debugging.
 argTermToFormula ∷ Arg Term → T FOLFormula
-argTermToFormula Arg {argHiding = Instance}             = __IMPOSSIBLE__
-argTermToFormula Arg {argHiding = Hidden}               = __IMPOSSIBLE__
 argTermToFormula Arg {argHiding = NotHidden, unArg = t} = termToFormula t
+argTermToFormula _                                      = __IMPOSSIBLE__
 
--- We keep the three equations for debugging.
 argTermToFOLTerm ∷ Arg Term → T FOLTerm
-argTermToFOLTerm Arg {argHiding = Instance}             = __IMPOSSIBLE__
 argTermToFOLTerm Arg {argHiding = Hidden, unArg = t}    = termToFOLTerm t
 argTermToFOLTerm Arg {argHiding = NotHidden, unArg = t} = termToFOLTerm t
+argTermToFOLTerm _                                      = __IMPOSSIBLE__
 
 binConst ∷ (FOLFormula → FOLFormula → FOLFormula) →
            Arg Term →
@@ -415,17 +412,6 @@ termToFormula (Pi domTy (Abs x tyAbs)) = do
     El (Type (Max [ClosedLevel 1])) (Pi _ (NoAbs _ _)) →
       return $ ForAll freshVar (\_ → f)
 
-    -- Other cases
-    El (Type (Max [ClosedLevel 1])) (Def _ _)        → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) (DontCare _)     → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) (Con _ _)        → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) (Lam _ _)        → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) (Level _)        → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) (Lit _)          → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) (MetaV _ _)      → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) (Pi _ (Abs _ _)) → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) (Var _ _)        → __IMPOSSIBLE__
-
     someType → do
       reportSLn "t2f" 20 $ "The type domTy is: " ++ show someType
       __IMPOSSIBLE__
@@ -466,13 +452,7 @@ termToFormula term@(Var n args) = do
                "Use Agda option " ++ p ++ " for the translation of "
                ++ "first-order logic universal quantified propositional functions")
 
-termToFormula (DontCare _)        = __IMPOSSIBLE__
-termToFormula (Con _ _)           = __IMPOSSIBLE__
-termToFormula (Lam _ (NoAbs _ _)) = __IMPOSSIBLE__
-termToFormula (Level _)           = __IMPOSSIBLE__
-termToFormula (Lit _)             = __IMPOSSIBLE__
-termToFormula (MetaV _ _)         = __IMPOSSIBLE__
-termToFormula (Sort _)            = __IMPOSSIBLE__
+termToFormula _ = __IMPOSSIBLE__
 
 -- Translate the function @foo x1 ... xn@ to
 --
@@ -583,10 +563,4 @@ termToFOLTerm term@(Var n args) = do
                "Use Agda option " ++ p ++ " for the translation of "
                ++ "first-order logic universal quantified functions")
 
-termToFOLTerm (DontCare _) = __IMPOSSIBLE__
-termToFOLTerm (Lam _ _)    = __IMPOSSIBLE__
-termToFOLTerm (Level _)    = __IMPOSSIBLE__
-termToFOLTerm (Lit _)      = __IMPOSSIBLE__
-termToFOLTerm (MetaV _ _)  = __IMPOSSIBLE__
-termToFOLTerm (Pi _ _)     = __IMPOSSIBLE__
-termToFOLTerm (Sort _)     = __IMPOSSIBLE__
+termToFOLTerm _ = __IMPOSSIBLE__

@@ -80,7 +80,7 @@ import Agda.Syntax.Internal
   , Args
   , Level(Max)
   , PlusLevel(ClosedLevel)
-  , Term(Con, Def, DontCare, Lam, Level, Lit, MetaV, Pi, Sort, Var)
+  , Term(Def, Lam, Pi, Sort, Var)
   , Sort(Type)
   , Type(El)
   , var
@@ -151,14 +151,7 @@ instance RemoveVar Term where
     reportSLn "removePT" 20 $ "Pop variable " ++ show y
     return newTerm
 
-  removeVar (Con _ _)           _ = __IMPOSSIBLE__
-  removeVar (DontCare _)        _ = __IMPOSSIBLE__
-  removeVar (Lam _ (NoAbs _ _)) _ = __IMPOSSIBLE__
-  removeVar (Level _)           _ = __IMPOSSIBLE__
-  removeVar (Lit _)             _ = __IMPOSSIBLE__
-  removeVar (MetaV _ _)         _ = __IMPOSSIBLE__
-  removeVar (Sort _)            _ = __IMPOSSIBLE__
-  removeVar (Var _ _)           _ = __IMPOSSIBLE__
+  removeVar _ _ = __IMPOSSIBLE__
 
 instance RemoveVar a ⇒ RemoveVar (Dom a) where
   removeVar (Dom h r e) x = fmap (Dom h r) (removeVar e x)
@@ -274,15 +267,6 @@ removeProofTerm ty (x, typeVar) = do
     --
     -- Because the variable is not a proof term we don't do anything.
     El (Type (Max [ClosedLevel 1])) (Pi _ (NoAbs _ _)) → return ty
-
-    -- Other cases
-    El (Type (Max [ClosedLevel 1])) (Def _ _)        → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) (DontCare _)     → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) (Con _ _)        → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) (Lam _ _)        → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) (MetaV _ _)      → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) (Pi _ (Abs _ _)) → __IMPOSSIBLE__
-    El (Type (Max [ClosedLevel 1])) (Var _ _)        → __IMPOSSIBLE__
 
     someType → do
       reportSLn "removePT" 20 $

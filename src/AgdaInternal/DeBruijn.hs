@@ -44,7 +44,7 @@ import Agda.Syntax.Internal
   , ClauseBody(Bind,Body)
   , Level(Max)
   , Tele(EmptyTel, ExtendTel)
-  , Term(Con, Def, DontCare, Lam, Level, Lit, MetaV, Pi, Sort, Var)
+  , Term(Def, Lam, Var)
   , Sort(Type)
   , Type(El)
   , var
@@ -66,16 +66,7 @@ class IncIndex a where
 instance IncIndex Term where
   incIndex (Var n [])  = var (n + 1)
   incIndex (Var _ _)   = __IMPOSSIBLE__
-
-  incIndex (Con _ _)    = __IMPOSSIBLE__
-  incIndex (Def _ _)    = __IMPOSSIBLE__
-  incIndex (DontCare _) = __IMPOSSIBLE__
-  incIndex (Lam _ _)    = __IMPOSSIBLE__
-  incIndex (Level _)    = __IMPOSSIBLE__
-  incIndex (Lit _)      = __IMPOSSIBLE__
-  incIndex (MetaV _ _)  = __IMPOSSIBLE__
-  incIndex (Pi _ _)     = __IMPOSSIBLE__
-  incIndex (Sort _)     = __IMPOSSIBLE__
+  incIndex _           = __IMPOSSIBLE__
 
 instance IncIndex a ⇒ IncIndex (Arg a) where
   incIndex (Arg h r e) = Arg h r $ incIndex e
@@ -88,19 +79,10 @@ class DecIndex a where
 
 instance DecIndex Term where
   decIndex (Def qname args) = Def qname $ decIndex args
-
-  decIndex (Var 0 [])  = __IMPOSSIBLE__
-  decIndex (Var n [])  = var (n - 1)
-  decIndex (Var _ _)   = __IMPOSSIBLE__
-
-  decIndex (Con _ _)    = __IMPOSSIBLE__
-  decIndex (DontCare _) = __IMPOSSIBLE__
-  decIndex (Lam _ _)    = __IMPOSSIBLE__
-  decIndex (Level _)    = __IMPOSSIBLE__
-  decIndex (Lit _)      = __IMPOSSIBLE__
-  decIndex (MetaV _ _)  = __IMPOSSIBLE__
-  decIndex (Pi _ _)     = __IMPOSSIBLE__
-  decIndex (Sort _)     = __IMPOSSIBLE__
+  decIndex (Var 0 [])       = __IMPOSSIBLE__
+  decIndex (Var n [])       = var (n - 1)
+  decIndex (Var _ _)        = __IMPOSSIBLE__
+  decIndex _                = __IMPOSSIBLE__
 
 instance DecIndex a ⇒ DecIndex [a] where
   decIndex = map decIndex
@@ -147,15 +129,7 @@ instance VarNames Term where
   --
   -- varNames (Var _ args) = varNames args
   varNames (Var _ _) = __IMPOSSIBLE__
-
-  varNames (Con _ _)           = __IMPOSSIBLE__
-  varNames (DontCare _)        = __IMPOSSIBLE__
-  varNames (Lam _ (NoAbs _ _)) = __IMPOSSIBLE__
-  varNames (Level _)           = __IMPOSSIBLE__
-  varNames (Lit _)             = __IMPOSSIBLE__
-  varNames (MetaV _ _)         = __IMPOSSIBLE__
-  varNames (Pi _ _)            = __IMPOSSIBLE__
-  varNames (Sort _)            = __IMPOSSIBLE__
+  varNames _         = __IMPOSSIBLE__
 
 instance VarNames a ⇒ VarNames (Arg a) where
   varNames (Arg _ _ e) = varNames e
@@ -212,15 +186,7 @@ instance ChangeIndex Term where
     -- should return the term.
     | otherwise = __IMPOSSIBLE__
 
-  changeIndex (Con _ _)           _ = __IMPOSSIBLE__
-  changeIndex (DontCare _)        _ = __IMPOSSIBLE__
-  changeIndex (Lam _ (NoAbs _ _)) _ = __IMPOSSIBLE__
-  changeIndex (Level _)           _ = __IMPOSSIBLE__
-  changeIndex (Lit _)             _ = __IMPOSSIBLE__
-  changeIndex (MetaV _ _)         _ = __IMPOSSIBLE__
-  changeIndex (Pi _ _)            _ = __IMPOSSIBLE__
-  changeIndex (Sort _)            _ = __IMPOSSIBLE__
-  changeIndex (Var _ _)           _ = __IMPOSSIBLE__
+  changeIndex _ _ = __IMPOSSIBLE__
 
 -- In the Agda source code (Agda.Syntax.Internal) we have
 --
