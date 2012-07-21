@@ -31,15 +31,19 @@ module Options
            , optVersion
            )
   , printUsage
+  , processOptions
   ) where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Data.Char     ( isDigit )
+import Data.Char ( isDigit )
+import Data.List ( foldl' )
 
 import System.Console.GetOpt
   ( ArgDescr(NoArg, ReqArg)
+  , ArgOrder(Permute)
+  , getOpt
   , OptDescr(Option)
   , usageInfo
   )
@@ -205,3 +209,20 @@ printUsage ∷ IO ()
 printUsage = do
   progName ← getProgName
   putStrLn $ usageInfo (usageHeader progName) options
+
+-- | Processing the command-line 'Options'.
+processOptions ∷ [String] → Either String (Options, FilePath)
+processOptions argv =
+  case getOpt Permute options argv of
+    ([], [], []) → Right (defaultOptions, [])
+
+    (o, files, []) → do
+      let opts ∷ Options
+          opts = foldl' (flip id) defaultOptions o
+
+      case files of
+        []       → Right (opts, [])
+        (x : []) → Right (opts, x)
+        _        → Left "Only one input file allowed"
+
+    (_, _, errs) → Left $ init $ init $ unlines errs

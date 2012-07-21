@@ -57,12 +57,12 @@ import Monad.Base
   , T
   )
 
-import Monad.Options ( processOptions )
 import Monad.Reports ( reportSLn )
 
 import Options
   ( Options(optHelp, optOnlyFiles, optSnapshotTest, optVersion)
   , printUsage
+  , processOptions
   )
 
 import Snapshot         ( snapshotTest )
@@ -102,9 +102,10 @@ translation agdaFile = do
 -- | The main function.
 runAgda2ATP ∷ T ()
 runAgda2ATP = do
-  clo ← liftIO getArgs >>= processOptions
-  case clo of
-    (opts, agdaFile)
+  args ← liftIO getArgs
+
+  case processOptions args of
+    Right (opts, agdaFile)
       | optHelp opts    → liftIO printUsage
       | optVersion opts → liftIO $ progNameVersion >>= putStrLn
       | null agdaFile   → throwError "Missing input file (try --help)"
@@ -122,6 +123,8 @@ runAgda2ATP = do
 
           -- The ATPs systems are called on the TPTP files.
           unless (optOnlyFiles opts) $ mapM_ callATPs tptpFiles
+
+    Left msg → throwError msg
 
 -- | Main.
 main ∷ IO ()

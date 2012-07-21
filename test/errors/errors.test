@@ -47,7 +47,7 @@ agda2atp -itest/errors test/errors/Underscore.agda
 agda2atp: The translation of underscore variables is not implemented
 >>>= 1
 
-#7. Monad/Options.hs: Only process one input file
+#7. Options.hs: Only process one input file
 agda2atp File1.agda File2.agda
 <<<
 >>>
