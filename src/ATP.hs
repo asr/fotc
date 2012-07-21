@@ -25,11 +25,12 @@ module ATP
 import Control.Exception       ( evaluate )
 import Control.Concurrent      ( forkIO, threadDelay )
 import Control.Concurrent.MVar ( MVar, newEmptyMVar, putMVar, takeMVar )
+import Control.Monad           ( when )
 import Control.Monad.Error     ( MonadError(throwError) )
 import Control.Monad.Trans     ( MonadIO(liftIO) )
 
 import Data.List  ( isInfixOf )
-import Data.Maybe ( fromMaybe )
+import Data.Maybe ( fromMaybe, isNothing )
 
 import System.Directory ( findExecutable )
 import System.IO        ( hGetContents )
@@ -178,13 +179,10 @@ runATP atp outputMVar timeLimit file = do
   exec ∷ String   ← atpExec atp
 
   e ← liftIO $ findExecutable exec
-  case e of
-    Nothing → throwError $
-              "The command " ++ exec
-              ++ " associated with " ++ show atp ++ " does not exist.\n"
-              ++ "You can use the command-line option --atp=NAME to avoid "
-              ++ "call the defaults ATPs"
-    Just _  → return ()
+  when (isNothing e) $ throwError $
+    "The command " ++ exec ++ " associated with " ++ show atp
+    ++ " does not exist.\nYou can use the command-line option --atp=NAME "
+    ++ "to avoid call the defaults ATPs"
 
   -- To create the ATPs process we follow the ideas used by
   -- System.Process.readProcess.
