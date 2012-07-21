@@ -96,8 +96,8 @@ import Monad.Reports ( reportSLn )
 
 ------------------------------------------------------------------------------
 
-msgUniversalQuantificationError ∷ String → String
-msgUniversalQuantificationError p =
+universalQuantificationMsg ∷ String → String
+universalQuantificationMsg p =
   "Use Agda option " ++ "`" ++ p ++ "'" ++ " for the translation of "
   ++ "first-order logic universal quantified "
   ++ entities
@@ -406,7 +406,7 @@ termToFormula (Pi domTy (Abs x tyAbs)) = do
 
       ifM (isTPragmaOption p)
           (return f)
-          (throwError $ msgUniversalQuantificationError p)
+          (throwError $ universalQuantificationMsg p)
 
     -- Non-FOL translation: First-order logic universal quantified
     -- propositional functions.
@@ -460,7 +460,7 @@ termToFormula term@(Var n args) = do
 
       ifM (isTPragmaOption p)
           (predicateLogicalScheme vars n args)
-          (throwError $ msgUniversalQuantificationError p)
+          (throwError $ universalQuantificationMsg p)
 
 termToFormula _ = __IMPOSSIBLE__
 
@@ -569,6 +569,6 @@ termToFOLTerm term@(Var n args) = do
       ifM (isTPragmaOption p)
           (do termsFOL ← mapM argTermToFOLTerm varArgs
               return $ foldl' appFn (FOLVar (vars !! fromIntegral n)) termsFOL)
-          (throwError $ msgUniversalQuantificationError p)
+          (throwError $ universalQuantificationMsg p)
 
 termToFOLTerm _ = __IMPOSSIBLE__
