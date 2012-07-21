@@ -66,7 +66,6 @@ snapshotTest file = do
             let msg ∷ String
                 msg = "The files are different:\n" ++ file ++ "\n" ++ snapshotFile
 
-            -- This message is not included in the error test.
             ifM (getTOpt optSnapshotNoError)
                 (liftIO $ putStrLn msg)
                 (throwError msg)

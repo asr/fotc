@@ -21,9 +21,10 @@ AGDA2ATP = dist/build/agda2atp/agda2atp
 std_lib_path = /home/asr/agda-upstream/std-lib
 
 # Tests paths
-theorems_path      = test/theorems
+errors_path        = test/errors
 non_theorems_path  = test/non-theorems
-error_path         = test/error
+options_path       = test/options
+theorems_path      = test/theorems
 
 # Directory for the TPTP files.
 output_dir = /tmp/agda2atp
@@ -61,7 +62,9 @@ prove_theorems_files = $(call path_subst,prove_theorems,$(theorems_path))
 
 refute_theorems_files = $(call path_subst,refute_theorems,$(non_theorems_path))
 
-error_files = $(call path_subst,error,$(error_path))
+errors_files = $(call path_subst,errors,$(errors_path))
+
+options_files = $(call path_subst,options,$(options_path))
 
 parsing_conjectures_files = \
   $(call path_subst,parsing_conjectures,$(theorems_path))
@@ -157,13 +160,23 @@ refute_theorems : $(refute_theorems_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
+# Test suite: Options
+
+%.options :
+	@$(AGDA) -i$(options_path) $*.agda
+
+options : $(options_files)
+	shelltest $(options_path)/options.test
+	@echo "$@ succeeded!"
+
+##############################################################################
 # Test suite: Error messages
 
-%.error :
-	@$(AGDA) -i$(error_path) $*.agda
+%.errors :
+	@$(AGDA) -i$(errors_path) $*.agda
 
-error : $(error_files)
-	cd $(error_path) && shelltest error.test
+errors : $(errors_files)
+	shelltest $(errors_path)/errors.test
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -309,7 +322,8 @@ agda_changed :
 
 agda2atp_changed :
 	@make generated_conjectures
-	@make error
+	@make errors
+	@make options
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -319,7 +333,8 @@ atp_changed :
 	@make generated_conjectures
 	@make prove_theorems
 	@make refute_theorems
-	@make error
+	@make errors
+	@make options
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -368,7 +383,8 @@ hpc : hpc_clean
 	cabal clean && cabal install --ghc-option=-fhpc
 	make prove_theorems
 	make refute_theorems
-	make error
+	make errors
+	make options
 	hpc markup --exclude=Paths_agda2atp \
                    --destdir=$(hpc_html_dir) \
                    agda2atp

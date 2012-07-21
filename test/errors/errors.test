@@ -7,7 +7,7 @@ agda2atp: The file /tmp/NoFile.agda does not exist
 >>>= 1
 
 #2. We do not know how erase a proof term in the translation
-agda2atp NotErasedProofTerm.agda
+agda2atp -itest/errors test/errors/NotErasedProofTerm.agda
 <<<
 >>>
 >>>2
@@ -16,7 +16,7 @@ Pi r(El {getSort = Type (Max []), unEl = Def NotErasedProofTerm.D []}) (Abs "k" 
 >>>= 1
 
 #3. Required pragma --universal-quantified-formulas
-agda2atp PragmaRequired1.agda
+agda2atp -itest/errors test/errors/PragmaRequired1.agda
 <<<
 >>>
 >>>2
@@ -24,7 +24,7 @@ agda2atp: Use Agda option --universal-quantified-formulas for the translation of
 >>>= 1
 
 #4. Required pragma --universal-quantified-propositional-functions
-agda2atp PragmaRequired2.agda
+agda2atp -itest/errors test/errors/PragmaRequired2.agda
 <<<
 >>>
 >>>2
@@ -32,7 +32,7 @@ agda2atp: Use Agda option --universal-quantified-propositional-functions for the
 >>>= 1
 
 #5. Required pragma --universal-quantified-functions
-agda2atp PragmaRequired3.agda
+agda2atp -itest/errors test/errors/PragmaRequired3.agda
 <<<
 >>>
 >>>2
@@ -40,7 +40,7 @@ agda2atp: Use Agda option --universal-quantified-functions for the translation o
 >>>= 1
 
 #6. We do not translate underscore variables
-agda2atp Underscore.agda
+agda2atp -itest/errors test/errors/Underscore.agda
 <<<
 >>>
 >>>2
@@ -72,7 +72,7 @@ agda2atp: Missing input file (try --help)
 >>>= 1
 
 #10. The --output-dir cannot be the same than the --snapshot-dir
-agda2atp --snapshot-test --snapshot-dir=/tmp TrivialTheorem.agda
+agda2atp -itest/errors --snapshot-test --snapshot-dir=/tmp test/errors/TrivialTheorem.agda
 <<<
 >>>
 Created /tmp/TrivialTheorem/18-foo.tptp
@@ -81,7 +81,7 @@ agda2atp: The --output-dir cannot be the same than the --snapshot-dir
 >>>= 1
 
 #11. Missing snapshot file
-agda2atp --snapshot-test --snapshot-dir=no-dir TrivialTheorem.agda
+agda2atp -itest/errors --snapshot-test --snapshot-dir=no-dir test/errors/TrivialTheorem.agda
 <<<
 >>>
 Created /tmp/TrivialTheorem/18-foo.tptp
@@ -90,7 +90,7 @@ agda2atp: The file no-dir/TrivialTheorem/18-foo.tptp does not exist
 >>>= 1
 
 #12. ATP unknown
-agda2atp --atp=xxx TrivialTheorem.agda
+agda2atp -itest/errors --atp=xxx test/errors/TrivialTheorem.agda
 <<<
 >>>
 Proving the conjecture in /tmp/TrivialTheorem/18-foo.tptp ...
@@ -99,7 +99,7 @@ agda2atp: ATP xxx unknown
 >>>= 1
 
 #13. Bad ATP executable name
-agda2atp --vampire-exec=xxx TrivialTheorem.agda
+agda2atp -itest/errors --vampire-exec=xxx test/errors/TrivialTheorem.agda
 <<<
 >>>
 Proving the conjecture in /tmp/TrivialTheorem/18-foo.tptp ...
@@ -109,7 +109,7 @@ You can use the command-line option --atp=NAME to avoid call the defaults ATPs
 >>>= 1
 
 #14. No theorem and default ATPs
-agda2atp NoTheorem.agda
+agda2atp -itest/errors test/errors/NoTheorem.agda
 <<<
 >>>
 Proving the conjecture in /tmp/NoTheorem/15-foo.tptp ...
@@ -121,7 +121,7 @@ agda2atp: The ATP(s) did not prove the conjecture in /tmp/NoTheorem/15-foo.tptp
 >>>= 1
 
 #15. The definitions to be translated only can have one clause
-agda2atp OnlyOneClause.agda
+agda2atp -itest/errors test/errors/OnlyOneClause.agda
 <<<
 >>>
 >>>2
@@ -134,4 +134,16 @@ echo -e "module A where" > /tmp/A.agda && agda2atp /tmp/A.agda
 >>>
 >>>2
 agda2atp: The interface file /tmp/A.agdai does not exist. Use Agda to generate it
+>>>= 1
+
+#17. The snapshot and the generated conjecture are differents.
+agda2atp -itest/errors --only-files --output-dir=/tmp/snapshot test/errors/TrivialTheorem.agda && sed -i '$ d' /tmp/snapshot/TrivialTheorem/18-foo.tptp && agda2atp -itest/errors --snapshot-test --snapshot-dir=/tmp/snapshot test/errors/TrivialTheorem.agda
+<<<
+>>>
+Created /tmp/snapshot/TrivialTheorem/18-foo.tptp
+Created /tmp/TrivialTheorem/18-foo.tptp
+>>>2
+agda2atp: The files are different:
+/tmp/TrivialTheorem/18-foo.tptp
+/tmp/snapshot/TrivialTheorem/18-foo.tptp
 >>>= 1

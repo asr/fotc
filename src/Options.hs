@@ -118,11 +118,14 @@ snapshotDirOpt []  _    = error "Option --snapshot-dir requires an argument DIR"
 snapshotDirOpt dir opts = opts { optSnapshotDir = dir }
 
 snapshotNoErrorOpt ∷ Options → Options
-snapshotNoErrorOpt opts = opts { optSnapshotNoError = True }
+snapshotNoErrorOpt opts = opts { optOnlyFiles = True
+                               , optSnapshotNoError = True
+                               , optSnapshotTest = True
+                               }
 
 snapshotTestOpt ∷ Options → Options
-snapshotTestOpt opts = opts { optSnapshotTest = True
-                            , optOnlyFiles = True
+snapshotTestOpt opts = opts { optOnlyFiles = True
+                            , optSnapshotTest = True
                             }
 
 timeOpt ∷ String → Options → Options
@@ -175,8 +178,9 @@ options =
   , Option []  ["snapshot-dir"] (ReqArg snapshotDirOpt "DIR") $
                "directory where is the snapshot of the TPTP files\n"
                ++ "(default: snapshot)"
-  , Option []  ["snapshot-no-error"] (NoArg snapshotNoErrorOpt)
-               "a difference in the snapshot-test does not generate an error"
+  , Option []  ["snapshot-no-error"] (NoArg snapshotNoErrorOpt) $
+               "a difference in the snapshot-test does not generate an error\n"
+               ++ "(implies --only-files and --snapshot-test)"
   , Option []  ["snapshot-test"] (NoArg snapshotTestOpt) $
                "compare the generated TPTP files against a snapshot of them\n"
                ++ "(implies --only-files)"

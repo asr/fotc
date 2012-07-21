@@ -203,16 +203,16 @@ myReadInterface file = do
     do setCommandLineOptions optsCommandLine
        readInterface iFile
 
-  -- These messages are not included in the error test.
   case r of
     Right (Just i) → return i
+    -- This message is not included in the errors test.
     Right Nothing  → throwError $
                        "The reading of the interface file "
                        ++ iFile ++ " failed. "
                        ++ "It is possible that you used a different version "
                        ++ "of Agda to build the program agda2atp and to"
                        ++ "type-check your module"
-    Left _         → throwError "From runTCM in myReadInterface"
+    Left _         → __IMPOSSIBLE__
 
 myGetInterface ∷ ModuleName → T (Maybe Interface)
 myGetInterface x = do
