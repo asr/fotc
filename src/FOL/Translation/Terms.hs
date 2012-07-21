@@ -96,6 +96,20 @@ import Monad.Reports ( reportSLn )
 
 ------------------------------------------------------------------------------
 
+msgUniversalQuantificationError ∷ String → String
+msgUniversalQuantificationError p =
+  "Use Agda option " ++ "`" ++ p ++ "'" ++ " for the translation of "
+  ++ "first-order logic universal quantified "
+  ++ entities
+  where
+    entities ∷ String
+    entities =
+      case p of
+        "--universal-quantified-formulas"                → "formulas"
+        "--universal-quantified-functions"               → "functions"
+        "--universal-quantified-propositional-functions" → "propositional functions"
+        _                                                → __IMPOSSIBLE__
+
 qName2String ∷ QName → T String
 qName2String qName@(QName _ name) = do
   def ← qNameDefinition qName
@@ -392,9 +406,7 @@ termToFormula (Pi domTy (Abs x tyAbs)) = do
 
       ifM (isTPragmaOption p)
           (return f)
-          (throwError $
-               "Use Agda option " ++ p ++ " for the translation of "
-               ++ "first-order logic universal quantified formulas")
+          (throwError $ msgUniversalQuantificationError p)
 
     -- Non-FOL translation: First-order logic universal quantified
     -- propositional functions.
@@ -448,9 +460,7 @@ termToFormula term@(Var n args) = do
 
       ifM (isTPragmaOption p)
           (predicateLogicalScheme vars n args)
-          (throwError $
-               "Use Agda option " ++ p ++ " for the translation of "
-               ++ "first-order logic universal quantified propositional functions")
+          (throwError $ msgUniversalQuantificationError p)
 
 termToFormula _ = __IMPOSSIBLE__
 
@@ -559,8 +569,6 @@ termToFOLTerm term@(Var n args) = do
       ifM (isTPragmaOption p)
           (do termsFOL ← mapM argTermToFOLTerm varArgs
               return $ foldl' appFn (FOLVar (vars !! fromIntegral n)) termsFOL)
-          (throwError $
-               "Use Agda option " ++ p ++ " for the translation of "
-               ++ "first-order logic universal quantified functions")
+          (throwError $ msgUniversalQuantificationError p)
 
 termToFOLTerm _ = __IMPOSSIBLE__

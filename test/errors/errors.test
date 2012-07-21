@@ -1,4 +1,4 @@
-#1. No file
+#1. Interface.hs: No file
 agda2atp /tmp/NoFile.agda
 <<<
 >>>
@@ -6,7 +6,7 @@ agda2atp /tmp/NoFile.agda
 agda2atp: The file /tmp/NoFile.agda does not exist
 >>>= 1
 
-#2. We do not know how erase a proof term in the translation
+#2. RemoveProofTerms.hs : Don't erase a proof term
 agda2atp -itest/errors test/errors/NotErasedProofTerm.agda
 <<<
 >>>
@@ -15,31 +15,31 @@ agda2atp: The translation failed because we do not know how erase the term
 Pi r(El {getSort = Type (Max []), unEl = Def NotErasedProofTerm.D []}) (Abs "k" El {getSort = Type (Max []), unEl = Def NotErasedProofTerm._≤_ [r(Var 0 []),r(Var 0 [])]})
 >>>= 1
 
-#3. Required pragma --universal-quantified-formulas
+#3. Terms.hs: Required pragma --universal-quantified-formulas
 agda2atp -itest/errors test/errors/PragmaRequired1.agda
 <<<
 >>>
 >>>2
-agda2atp: Use Agda option --universal-quantified-formulas for the translation of first-order logic universal quantified formulas
+agda2atp: Use Agda option `--universal-quantified-formulas' for the translation of first-order logic universal quantified formulas
 >>>= 1
 
-#4. Required pragma --universal-quantified-propositional-functions
+#4. Terms.hs: Required pragma --universal-quantified-propositional-functions
 agda2atp -itest/errors test/errors/PragmaRequired2.agda
 <<<
 >>>
 >>>2
-agda2atp: Use Agda option --universal-quantified-propositional-functions for the translation of first-order logic universal quantified propositional functions
+agda2atp: Use Agda option `--universal-quantified-propositional-functions' for the translation of first-order logic universal quantified propositional functions
 >>>= 1
 
-#5. Required pragma --universal-quantified-functions
+#5. Terms.hs: Required pragma --universal-quantified-functions
 agda2atp -itest/errors test/errors/PragmaRequired3.agda
 <<<
 >>>
 >>>2
-agda2atp: Use Agda option --universal-quantified-functions for the translation of first-order logic universal quantified functions
+agda2atp: Use Agda option `--universal-quantified-functions' for the translation of first-order logic universal quantified functions
 >>>= 1
 
-#6. We do not translate underscore variables
+#6. RemoveProofTerms.hs: Underscore variables
 agda2atp -itest/errors test/errors/Underscore.agda
 <<<
 >>>
@@ -47,7 +47,7 @@ agda2atp -itest/errors test/errors/Underscore.agda
 agda2atp: The translation of underscore variables is not implemented
 >>>= 1
 
-#7. Only process one input file
+#7. Monad/Options.hs: Only process one input file
 agda2atp File1.agda File2.agda
 <<<
 >>>
@@ -63,7 +63,7 @@ agda2atp --xxx
 agda2atp: unrecognized option `--xxx'
 >>>= 1
 
-#9. Missing input file
+#9. Main.hs: Missing input file
 agda2atp
 <<<
 >>>
@@ -71,16 +71,16 @@ agda2atp
 agda2atp: Missing input file (try --help)
 >>>= 1
 
-#10. The --output-dir cannot be the same than the --snapshot-dir
+#10. Snapshot.hs: The --output-dir cannot be the same than the --snapshot-dir
 agda2atp -itest/errors --snapshot-test --snapshot-dir=/tmp test/errors/TrivialTheorem.agda
 <<<
 >>>
 Created /tmp/TrivialTheorem/18-foo.tptp
 >>>2
-agda2atp: The --output-dir cannot be the same than the --snapshot-dir
+agda2atp: The options `--output-dir' and `--snapshot-dir' cannot be the same
 >>>= 1
 
-#11. Missing snapshot file
+#11. Snapshot.hs: Missing snapshot file
 agda2atp -itest/errors --snapshot-test --snapshot-dir=no-dir test/errors/TrivialTheorem.agda
 <<<
 >>>
@@ -89,7 +89,7 @@ Created /tmp/TrivialTheorem/18-foo.tptp
 agda2atp: The file no-dir/TrivialTheorem/18-foo.tptp does not exist
 >>>= 1
 
-#12. ATP unknown
+#12. ATP.hs: ATP unknown
 agda2atp -itest/errors --atp=xxx test/errors/TrivialTheorem.agda
 <<<
 >>>
@@ -98,7 +98,7 @@ Proving the conjecture in /tmp/TrivialTheorem/18-foo.tptp ...
 agda2atp: ATP xxx unknown
 >>>= 1
 
-#13. Bad ATP executable name
+#13. ATP.hs: Bad ATP executable name
 agda2atp -itest/errors --vampire-exec=xxx test/errors/TrivialTheorem.agda
 <<<
 >>>
@@ -108,19 +108,17 @@ agda2atp: The command xxx associated with Vampire does not exist.
 You can use the command-line option --atp=NAME to avoid call the defaults ATPs
 >>>= 1
 
-#14. No theorem and default ATPs
-agda2atp -itest/errors test/errors/NoTheorem.agda
+#14. ATP.hs: No theorem
+agda2atp -itest/errors --atp=e test/errors/NoTheorem.agda
 <<<
 >>>
 Proving the conjecture in /tmp/NoTheorem/15-foo.tptp ...
-Vampire 0.6 (revision 903) *did not* prove the conjecture
 E 1.6 Tiger Hill *did not* prove the conjecture
-Equinox, version 5.0alpha, 2010-06-29 *did not* prove the conjecture
 >>>2
 agda2atp: The ATP(s) did not prove the conjecture in /tmp/NoTheorem/15-foo.tptp
 >>>= 1
 
-#15. The definitions to be translated only can have one clause
+#15. Functions.hs : The definitions to be translated only can have one clause
 agda2atp -itest/errors test/errors/OnlyOneClause.agda
 <<<
 >>>
@@ -128,7 +126,7 @@ agda2atp -itest/errors test/errors/OnlyOneClause.agda
 agda2atp: The translation of OnlyOneClause._+_ failed because its definition only can have a clause
 >>>= 1
 
-#16. Missing interface file
+#16. Interface.hs: Missing interface file
 echo -e "module A where" > /tmp/A.agda && agda2atp /tmp/A.agda
 <<<
 >>>
@@ -136,7 +134,7 @@ echo -e "module A where" > /tmp/A.agda && agda2atp /tmp/A.agda
 agda2atp: The interface file /tmp/A.agdai does not exist. Use Agda to generate it
 >>>= 1
 
-#17. The snapshot and the generated conjecture are differents.
+#17. Snapshot.hs: The snapshot and the generated conjecture are differents.
 agda2atp -itest/errors --only-files --output-dir=/tmp/snapshot test/errors/TrivialTheorem.agda && sed -i '$ d' /tmp/snapshot/TrivialTheorem/18-foo.tptp && agda2atp -itest/errors --snapshot-test --snapshot-dir=/tmp/snapshot test/errors/TrivialTheorem.agda
 <<<
 >>>

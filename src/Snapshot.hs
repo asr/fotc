@@ -56,7 +56,7 @@ snapshotTest file = do
       snapshotFile = combine snapshotDir auxFile
 
   if outputDir == snapshotDir
-    then throwError "The --output-dir cannot be the same than the --snapshot-dir"
+    then throwError "The options `--output-dir' and `--snapshot-dir' cannot be the same"
     else do
       b ← liftIO $ doesFileExistCaseSensitive snapshotFile
       if not b

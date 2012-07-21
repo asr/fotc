@@ -391,6 +391,8 @@ hpc : hpc_clean
 	hpc report --exclude=Paths_agda2atp \
                    --decl-list \
                    agda2atp
+	rm -f *.tix
+
 hpc_clean :
 	rm -f *.tix
 	rm -f -r $(hpc_html_dir)
