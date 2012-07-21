@@ -135,10 +135,9 @@ addRoles afs file str = do
       header = commentLine ++ "% The " ++ str ++ ".\n\n"
       footer = "% End " ++ str ++ ".\n\n"
 
-  _  ← appendFile file header
-  _  ← mapM_ (`addRole` file) afs
-  _  ← appendFile file footer
-  return ()
+  appendFile file header
+  mapM_ (`addRole` file) afs
+  appendFile file footer
 
 -- | The function 'createConjectureFile' creates a TPTP file with a
 -- conjecture.
@@ -216,7 +215,6 @@ createConjectureFile generalRoles conjectureSet = do
              "required ATP definition(s) by the conjecture"
     addRoles [theConjecture newConjectureSet] file "conjecture"
     appendFile file conjectureFooter
-    return ()
 
   whenM (getTOpt optOnlyFiles) $
        reportS "" 1 $ "Created " ++ file
