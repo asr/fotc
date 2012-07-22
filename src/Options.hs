@@ -99,12 +99,12 @@ defaultOptions = MkOptions
 
 agdaIncludePathOpt ∷ FilePath → Options → Options
 agdaIncludePathOpt [] _ =
-  error "Option --agda-include-path (or -i) requires an argument DIR"
+  error "Option `--agda-include-path' (or `-i') requires an argument DIR"
 agdaIncludePathOpt dir opts =
   opts { optAgdaIncludePath = optAgdaIncludePath opts ++ [dir] }
 
 atpOpt ∷ String → Options → Options
-atpOpt []   _    = error "Option --atp requires an argument NAME"
+atpOpt []   _    = error "Option `--atp' requires an argument NAME"
 atpOpt name opts = opts { optATP = optATP opts ++ [name] }
 
 helpOpt ∷ Options → Options
@@ -114,11 +114,11 @@ onlyFilesOpt ∷ Options → Options
 onlyFilesOpt opts = opts { optOnlyFiles = True }
 
 outputDirOpt ∷ FilePath → Options → Options
-outputDirOpt []  _    = error "Option --output-dir requires an argument DIR"
+outputDirOpt []  _    = error "Option `--output-dir' requires an argument DIR"
 outputDirOpt dir opts = opts { optOutputDir = dir }
 
 snapshotDirOpt ∷ FilePath → Options → Options
-snapshotDirOpt []  _    = error "Option --snapshot-dir requires an argument DIR"
+snapshotDirOpt []  _    = error "Option `--snapshot-dir' requires an argument DIR"
 snapshotDirOpt dir opts = opts { optSnapshotDir = dir }
 
 snapshotNoErrorOpt ∷ Options → Options
@@ -133,17 +133,17 @@ snapshotTestOpt opts = opts { optOnlyFiles = True
                             }
 
 timeOpt ∷ String → Options → Options
-timeOpt []   _    = error "Option --time requires an argument NUM"
+timeOpt []   _    = error "Option `--time' requires an argument NUM"
 timeOpt secs opts =
   if all isDigit secs
   then opts { optTime = read secs }
-  else error "Option --time requires a non-negative integer argument"
+  else error "Option `--time requires' a non-negative integer argument"
 
 unprovedNoErrorOpt ∷ Options → Options
 unprovedNoErrorOpt opts = opts { optUnprovedNoError = True }
 
 vampireExecOpt ∷ String → Options → Options
-vampireExecOpt []   _    = error "Option --vampire-exec requires an argument COMMAND"
+vampireExecOpt []   _    = error "Option `--vampire-exec' requires an argument COMMAND"
 vampireExecOpt name opts = opts { optVampireExec = name }
 
 -- Adapted from @Agda.Interaction.Options.verboseFlag@.
@@ -157,7 +157,7 @@ verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
   parseVerbose ∷ String → ([String], Int)
   parseVerbose s =
     case wordsBy (`elem` ":.") s of
-      []  → error "Option --verbose requieres an argument of the form x.y.z:N or N"
+      []  → error "Option `--verbose' requieres an argument of the form x.y.z:N or N"
       ss  → let m ∷ Int
                 m = read $ last ss
             in  (init ss, m)
@@ -214,7 +214,7 @@ printUsage = do
 processOptions ∷ [String] → Either String (Options, FilePath)
 processOptions argv =
   case getOpt Permute options argv of
-    ([], [], []) → Right (defaultOptions, [])
+    ([], [], []) → Left "Missing input file (try --help)"
 
     (o, files, []) → do
       let opts ∷ Options

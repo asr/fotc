@@ -108,7 +108,6 @@ runAgda2ATP = do
     Right (opts, agdaFile)
       | optHelp opts    → liftIO printUsage
       | optVersion opts → liftIO $ progNameVersion >>= putStrLn
-      | null agdaFile   → throwError "Missing input file (try --help)"
       | otherwise       → do
           modifyOpts opts
 

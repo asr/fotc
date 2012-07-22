@@ -63,7 +63,7 @@ agda2atp --xxx
 agda2atp: unrecognized option `--xxx'
 >>>= 1
 
-#9. Main.hs: Missing input file
+#9. Options.hs: Missing input file
 agda2atp
 <<<
 >>>
