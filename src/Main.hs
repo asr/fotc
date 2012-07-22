@@ -60,7 +60,7 @@ import Monad.Base
 import Monad.Reports ( reportSLn )
 
 import Options
-  ( Options(optHelp, optOnlyFiles, optSnapshotTest, optVersion)
+  ( Options(optHelp, optInputFile, optOnlyFiles, optSnapshotTest, optVersion)
   , printUsage
   , processOptions
   )
@@ -105,10 +105,15 @@ runAgda2ATP = do
   args ← liftIO getArgs
 
   case processOptions args of
-    Right (opts, agdaFile)
+    Right opts
       | optHelp opts    → liftIO printUsage
       | optVersion opts → liftIO $ progNameVersion >>= putStrLn
       | otherwise       → do
+
+          agdaFile ← case optInputFile opts of
+                          Nothing → throwError "Missing input file (try --help)"
+                          Just f  → return f
+
           modifyOpts opts
 
           -- The ATP pragmas are translated to TPTP annotated formulae.

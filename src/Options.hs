@@ -16,7 +16,9 @@
 module Options
   ( defaultOptions
   , options
-  , Options( optAgdaIncludePath
+  , MOptions  -- Required to avoid an Haddock warning.
+  , Options( optInputFile
+           , optAgdaIncludePath
            , optATP
            , optHelp
            , optOnlyFiles
@@ -42,7 +44,7 @@ import Data.List ( foldl' )
 
 import System.Console.GetOpt
   ( ArgDescr(NoArg, ReqArg)
-  , ArgOrder(Permute)
+  , ArgOrder(ReturnInOrder)
   , getOpt
   , OptDescr(Option)
   , usageInfo
@@ -62,7 +64,8 @@ import qualified Agda.Utils.Trie as Trie ( insert, singleton )
 
 -- | Program command-line options.
 data Options = MkOptions
-  { optAgdaIncludePath ∷ [FilePath]
+  { optInputFile       ∷ Maybe FilePath
+  , optAgdaIncludePath ∷ [FilePath]
   , optATP             ∷ [String]
   , optHelp            ∷ Bool
   , optOnlyFiles       ∷ Bool
@@ -82,7 +85,8 @@ data Options = MkOptions
 -- | Default options use by the program.
 defaultOptions ∷ Options
 defaultOptions = MkOptions
-  { optAgdaIncludePath = []
+  { optInputFile       = Nothing
+  , optAgdaIncludePath = []
   , optATP             = []
   , optHelp            = False
   , optOnlyFiles       = False
@@ -97,58 +101,68 @@ defaultOptions = MkOptions
   , optVersion         = False
   }
 
-agdaIncludePathOpt ∷ FilePath → Options → Options
+-- | 'Options' monad.
+type MOptions = Options → Either String Options
+
+inputFileOpt ∷ FilePath → MOptions
+inputFileOpt file opts =
+  case optInputFile opts of
+    Nothing → Right opts { optInputFile = Just file }
+    Just _  → Left "Only one input file allowed"
+
+agdaIncludePathOpt ∷ FilePath → MOptions
 agdaIncludePathOpt [] _ =
   error "Option `--agda-include-path' (or `-i') requires an argument DIR"
 agdaIncludePathOpt dir opts =
-  opts { optAgdaIncludePath = optAgdaIncludePath opts ++ [dir] }
+  Right opts { optAgdaIncludePath = optAgdaIncludePath opts ++ [dir] }
 
-atpOpt ∷ String → Options → Options
-atpOpt []   _    = error "Option `--atp' requires an argument NAME"
-atpOpt name opts = opts { optATP = optATP opts ++ [name] }
+atpOpt ∷ String → MOptions
+atpOpt []   _    = Left "Option `--atp' requires an argument NAME"
+atpOpt name opts = Right opts { optATP = optATP opts ++ [name] }
 
-helpOpt ∷ Options → Options
-helpOpt opts = opts { optHelp = True }
+helpOpt ∷ MOptions
+helpOpt opts = Right opts { optHelp = True }
 
-onlyFilesOpt ∷ Options → Options
-onlyFilesOpt opts = opts { optOnlyFiles = True }
+onlyFilesOpt ∷ MOptions
+onlyFilesOpt opts = Right opts { optOnlyFiles = True }
 
-outputDirOpt ∷ FilePath → Options → Options
-outputDirOpt []  _    = error "Option `--output-dir' requires an argument DIR"
-outputDirOpt dir opts = opts { optOutputDir = dir }
+outputDirOpt ∷ FilePath → MOptions
+outputDirOpt []  _    = Left "Option `--output-dir' requires an argument DIR"
+outputDirOpt dir opts = Right opts { optOutputDir = dir }
 
-snapshotDirOpt ∷ FilePath → Options → Options
-snapshotDirOpt []  _    = error "Option `--snapshot-dir' requires an argument DIR"
-snapshotDirOpt dir opts = opts { optSnapshotDir = dir }
+snapshotDirOpt ∷ FilePath → MOptions
+snapshotDirOpt []  _    = Left "Option `--snapshot-dir' requires an argument DIR"
+snapshotDirOpt dir opts = Right opts { optSnapshotDir = dir }
 
-snapshotNoErrorOpt ∷ Options → Options
-snapshotNoErrorOpt opts = opts { optOnlyFiles = True
-                               , optSnapshotNoError = True
-                               , optSnapshotTest = True
-                               }
+snapshotNoErrorOpt ∷ MOptions
+snapshotNoErrorOpt opts = Right opts { optOnlyFiles = True
+                                     , optSnapshotNoError = True
+                                     , optSnapshotTest = True
+                                     }
 
-snapshotTestOpt ∷ Options → Options
-snapshotTestOpt opts = opts { optOnlyFiles = True
-                            , optSnapshotTest = True
-                            }
+snapshotTestOpt ∷ MOptions
+snapshotTestOpt opts = Right opts { optOnlyFiles = True
+                                  , optSnapshotTest = True
+                                  }
 
-timeOpt ∷ String → Options → Options
-timeOpt []   _    = error "Option `--time' requires an argument NUM"
+timeOpt ∷ String → MOptions
+timeOpt []   _    = Left "Option `--time' requires an argument NUM"
 timeOpt secs opts =
   if all isDigit secs
-  then opts { optTime = read secs }
-  else error "Option `--time requires' a non-negative integer argument"
+  then Right opts { optTime = read secs }
+  else Left "Option `--time requires' a non-negative integer argument"
 
-unprovedNoErrorOpt ∷ Options → Options
-unprovedNoErrorOpt opts = opts { optUnprovedNoError = True }
+unprovedNoErrorOpt ∷ MOptions
+unprovedNoErrorOpt opts = Right opts { optUnprovedNoError = True }
 
-vampireExecOpt ∷ String → Options → Options
-vampireExecOpt []   _    = error "Option `--vampire-exec' requires an argument COMMAND"
-vampireExecOpt name opts = opts { optVampireExec = name }
+vampireExecOpt ∷ String → MOptions
+vampireExecOpt []   _    = Left "Option `--vampire-exec' requires an argument COMMAND"
+vampireExecOpt name opts = Right opts { optVampireExec = name }
 
 -- Adapted from @Agda.Interaction.Options.verboseFlag@.
-verboseOpt ∷ String → Options → Options
-verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
+verboseOpt ∷ String → MOptions
+verboseOpt str opts =
+  Right opts { optVerbose = Trie.insert k n $ optVerbose opts }
   where
   k ∷ [String]
   n ∷ Int
@@ -162,11 +176,11 @@ verboseOpt str opts = opts { optVerbose = Trie.insert k n $ optVerbose opts }
                 m = read $ last ss
             in  (init ss, m)
 
-versionOpt ∷ Options → Options
-versionOpt opts = opts { optVersion = True }
+versionOpt ∷ MOptions
+versionOpt opts = Right opts { optVersion = True }
 
 -- | Description of the command-line 'Options'.
-options ∷ [OptDescr (Options → Options)]
+options ∷ [OptDescr MOptions]
 options =
   [ Option "i" ["agda-include-path"] (ReqArg agdaIncludePathOpt "DIR")
                "look for imports in DIR"
@@ -210,19 +224,12 @@ printUsage = do
   progName ← getProgName
   putStrLn $ usageInfo (usageHeader progName) options
 
--- | Processing the command-line 'Options'.
-processOptions ∷ [String] → Either String (Options, FilePath)
-processOptions argv =
-  case getOpt Permute options argv of
-    ([], [], []) → Left "Missing input file (try --help)"
-
-    (o, files, []) → do
-      let opts ∷ Options
-          opts = foldl' (flip id) defaultOptions o
-
-      case files of
-        []       → Right (opts, [])
-        (x : []) → Right (opts, x)
-        _        → Left "Only one input file allowed"
-
+processOptionsHelper ∷ [String] → (FilePath → MOptions) → MOptions
+processOptionsHelper argv f defaults =
+  case getOpt (ReturnInOrder f) options argv of
+    (o, _, [])   → foldl' (>>=) (return defaults) o
     (_, _, errs) → Left $ init $ init $ unlines errs
+
+-- | Processing the command-line 'Options'.
+processOptions ∷ [String] → Either String Options
+processOptions argv = processOptionsHelper argv inputFileOpt defaultOptions
