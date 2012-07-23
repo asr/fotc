@@ -1,4 +1,6 @@
-# Tested with GNU Make 3.81
+# Tested with:
+# GNU Make 3.81 and
+# GNU bash, version 4.2.8(1)-release (x86_64-pc-linux-gnu)
 
 SHELL := /bin/bash
 
@@ -204,11 +206,15 @@ parsing_conjectures :
 ##############################################################################
 # Test suite: Haddock test
 
+haddock_file = /tmp/haddock.tmp
+
 doc :
 	cabal configure
 	cabal haddock --hyperlink-source \
                       --executables \
-                      --haddock-option=--use-unicode
+                      --haddock-option=--use-unicode > $(haddock_file)
+	cat $(haddock_file)
+	diff <(find src/ -name '*.hs' | wc -l) <(grep 100% $(haddock_file) | wc -l)
 	@echo "$@ succeeded!"
 
 ##############################################################################
