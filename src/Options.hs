@@ -56,9 +56,15 @@ import System.Environment ( getProgName )
 -- Agda library imports
 
 import Agda.Interaction.Options ( Verbosity )
+import Agda.Utils.Impossible    ( Impossible(Impossible), throwImpossible )
 import Agda.Utils.List          ( wordsBy )
 
 import qualified Agda.Utils.Trie as Trie ( insert, singleton )
+
+------------------------------------------------------------------------------
+-- Local imports
+
+#include "undefined.h"
 
 -----------------------------------------------------------------------------
 
@@ -112,7 +118,7 @@ inputFileOpt file opts =
 
 agdaIncludePathOpt ∷ FilePath → MOptions
 agdaIncludePathOpt [] _ =
-  error "Option `--agda-include-path' (or `-i') requires an argument DIR"
+  error "Option `--agda-include-path' requires an argument DIR"
 agdaIncludePathOpt dir opts =
   Right opts { optAgdaIncludePath = optAgdaIncludePath opts ++ [dir] }
 
@@ -150,7 +156,7 @@ timeOpt []   _    = Left "Option `--time' requires an argument NUM"
 timeOpt secs opts =
   if all isDigit secs
   then Right opts { optTime = read secs }
-  else Left "Option `--time requires' a non-negative integer argument"
+  else Left "Option `--time' requires a non-negative integer argument"
 
 unprovedNoErrorOpt ∷ MOptions
 unprovedNoErrorOpt opts = Right opts { optUnprovedNoError = True }
@@ -161,6 +167,7 @@ vampireExecOpt name opts = Right opts { optVampireExec = name }
 
 -- Adapted from @Agda.Interaction.Options.verboseFlag@.
 verboseOpt ∷ String → MOptions
+verboseOpt [] _ = Left "Option `--verbose' requires an argument of the form x.y.z:N or N"
 verboseOpt str opts =
   Right opts { optVerbose = Trie.insert k n $ optVerbose opts }
   where
@@ -171,7 +178,7 @@ verboseOpt str opts =
   parseVerbose ∷ String → ([String], Int)
   parseVerbose s =
     case wordsBy (`elem` ":.") s of
-      []  → error "Option `--verbose' requieres an argument of the form x.y.z:N or N"
+      []  → __IMPOSSIBLE__
       ss  → let m ∷ Int
                 m = read $ last ss
             in  (init ss, m)
@@ -187,7 +194,7 @@ options =
   , Option []  ["atp"] (ReqArg atpOpt "NAME") $
                "set the ATP (e, equinox, metis, spass, vampire)\n"
                ++ "(default: e, equinox, and vampire)"
-  , Option "?" ["help"] (NoArg helpOpt)
+  , Option []  ["help"] (NoArg helpOpt)
                "show this help"
   , Option []  ["only-files"] (NoArg onlyFilesOpt)
                "do not call the ATPs, only to create the TPTP files"
@@ -210,7 +217,7 @@ options =
                "set the vampire executable (default: vampire_lin64)"
   , Option "v" ["verbose"] (ReqArg verboseOpt "N")
                "set verbosity level to N"
-  , Option "V" ["version"] (NoArg versionOpt)
+  , Option []  ["version"] (NoArg versionOpt)
                "show version number"
   ]
 

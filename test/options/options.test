@@ -7,7 +7,7 @@ Usage: agda2atp [OPTIONS] FILE
   -i DIR  --agda-include-path=DIR         look for imports in DIR
           --atp=NAME                      set the ATP (e, equinox, metis, spass, vampire)
                                           (default: e, equinox, and vampire)
-  -?      --help                          show this help
+          --help                          show this help
           --only-files                    do not call the ATPs, only to create the TPTP files
           --output-dir=DIR                directory in which TPTP files are placed (default: /tmp)
           --snapshot-dir=DIR              directory where is the snapshot of the TPTP files
@@ -20,7 +20,7 @@ Usage: agda2atp [OPTIONS] FILE
           --unproved-conjecture-no-error  an unproved TPTP conjecture does not generate an error
           --vampire-exec=COMMAND          set the vampire executable (default: vampire_lin64)
   -v N    --verbose=N                     set verbosity level to N
-  -V      --version                       show version number
+          --version                       show version number
 
 >>>2
 >>>= 0

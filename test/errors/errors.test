@@ -63,7 +63,7 @@ agda2atp --xxx
 agda2atp: unrecognized option `--xxx'
 >>>= 1
 
-#9. Options.hs: Missing input file
+#9. Main.hs: Missing input file
 agda2atp
 <<<
 >>>
@@ -144,4 +144,140 @@ Created /tmp/TrivialTheorem/18-foo.tptp
 agda2atp: The files are different:
 /tmp/TrivialTheorem/18-foo.tptp
 /tmp/snapshot/TrivialTheorem/18-foo.tptp
+>>>= 1
+
+#18. Options.hs (System.Console.GetOpt): -i
+agda2atp -i
+<<<
+>>>
+>>>2
+agda2atp: option `-i' requires an argument DIR
+>>>= 1
+
+#19. Options.hs (System.Console.GetOpt): --agda-include-path
+agda2atp --agda-include-path
+<<<
+>>>
+>>>2
+agda2atp: option `--agda-include-path' requires an argument DIR
+>>>= 1
+
+#20. Options.hs: --agda-include-path=
+agda2atp --agda-include-path=
+<<<
+>>>
+>>>2
+agda2atp: Option `--agda-include-path' requires an argument DIR
+>>>= 1
+
+#21. Options.hs (System.Console.GetOpt): --atp
+agda2atp --atp
+<<<
+>>>
+>>>2
+agda2atp: option `--atp' requires an argument NAME
+>>>= 1
+
+#22. Options.hs: --atp=
+agda2atp --atp=
+<<<
+>>>
+>>>2
+agda2atp: Option `--atp' requires an argument NAME
+>>>= 1
+
+#23. Options.hs (System.Console.GetOpt): --output-dir
+agda2atp --output-dir
+<<<
+>>>
+>>>2
+agda2atp: option `--output-dir' requires an argument DIR
+>>>= 1
+
+#24. Options.hs: --output-dir=
+agda2atp --output-dir=
+<<<
+>>>
+>>>2
+agda2atp: Option `--output-dir' requires an argument DIR
+>>>= 1
+
+#25. Options.hs (System.Console.GetOpt): --snapshot-dir
+agda2atp --snapshot-dir
+<<<
+>>>
+>>>2
+agda2atp: option `--snapshot-dir' requires an argument DIR
+>>>= 1
+
+#26. Options.hs: --snapshot-dir=
+agda2atp --snapshot-dir=
+<<<
+>>>
+>>>2
+agda2atp: Option `--snapshot-dir' requires an argument DIR
+>>>= 1
+
+#27. Options.hs (System.Console.GetOpt): --time
+agda2atp --time
+<<<
+>>>
+>>>2
+agda2atp: option `--time' requires an argument NUM
+>>>= 1
+
+#28. Options.hs: --time=
+agda2atp --time=
+<<<
+>>>
+>>>2
+agda2atp: Option `--time' requires an argument NUM
+>>>= 1
+
+#29. Options.hs: --time=negative_value
+agda2atp --time=-10
+<<<
+>>>
+>>>2
+agda2atp: Option `--time' requires a non-negative integer argument
+>>>= 1
+
+#30. Options.hs (System.Console.GetOpt): --vampire-exec
+agda2atp --vampire-exec
+<<<
+>>>
+>>>2
+agda2atp: option `--vampire-exec' requires an argument COMMAND
+>>>= 1
+
+#31. Options.hs: --vampire-exec=
+agda2atp --vampire-exec=
+<<<
+>>>
+>>>2
+agda2atp: Option `--vampire-exec' requires an argument COMMAND
+>>>= 1
+
+#32. Options.hs (System.Console.GetOpt): -v
+agda2atp -v
+<<<
+>>>
+>>>2
+agda2atp: option `-v' requires an argument N
+>>>= 1
+
+#33. Options.hs (System.Console.GetOpt): --verbose
+agda2atp --verbose
+<<<
+>>>
+>>>2
+agda2atp: option `--verbose' requires an argument N
+>>>= 1
+
+#34. Options.hs: --verbose=
+agda2atp --verbose=
+<<<
+>>>
+>>>2
+agda2atp: Option `--verbose' requires an argument of the form x.y.z:N or N
 >>>= 1
