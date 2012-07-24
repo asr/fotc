@@ -5,11 +5,12 @@ module Types ( printTypes ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
+import Data.Function ( on )
+
 import qualified Data.HashMap.Strict as HashMap ( toList )
 
-import Data.Int      ( Int32 )
-import Data.Function ( on )
-import Data.List     ( sortBy )
+import Data.Int  ( Int32 )
+import Data.List ( sortBy )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
@@ -54,12 +55,12 @@ myQNameDefinitionSort = myQNameSort `on` fst
 ------------------------------------------------------------------------------
 
 printQNameType ∷ (QName, Definition) → IO ()
-printQNameType (qname, def) = do
+printQNameType (qName, def) = do
 
   let ty ∷ Type
       ty = defType def
 
-  putStrLn $ "Qname: " ++ show qname
+  putStrLn $ "Qname: " ++ show qName
   putStrLn $ "Type: "  ++ show ty ++ "\n"
 
 printTypes ∷ Interface → IO ()
