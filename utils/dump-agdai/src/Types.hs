@@ -1,4 +1,3 @@
-{-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Types ( printTypes ) where
@@ -6,17 +5,22 @@ module Types ( printTypes ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
--- #if MIN_VERSION_Agda(2,2,11)
--- import qualified Data.Map as Map ( toList )
--- #else
 import qualified Data.HashMap.Strict as HashMap ( toList )
--- #endif
+
+import Data.Int      ( Int32 )
+import Data.Function ( on )
+import Data.List     ( sortBy )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
 
-import Agda.Syntax.Abstract.Name ( QName )
+import Agda.Syntax.Abstract.Name
+  ( Name(nameBindingSite)
+  , QName(qnameName)
+  )
+
 import Agda.Syntax.Internal ( Type )
+
 import Agda.TypeChecking.Monad.Base
   ( Definition
   , Definitions
@@ -25,15 +29,37 @@ import Agda.TypeChecking.Monad.Base
   , Signature(sigDefinitions)
   )
 
+import Agda.Syntax.Position
+  ( Interval(iStart)
+  , Position(posLine)
+  , rangeToInterval
+  )
+
+------------------------------------------------------------------------------
+-- Auxiliary functions
+
+qNameLine ∷ QName → Int32
+qNameLine qName =
+  case rangeToInterval $ nameBindingSite $ qnameName qName of
+    Nothing → error "qNameLine"
+    Just i  → posLine $ iStart i
+
+-- We sort the @QName@'s by its position in the Agda module.
+myQNameSort ∷ QName → QName → Ordering
+myQNameSort = compare `on` qNameLine
+
+myQNameDefinitionSort ∷ (QName, Definition) → (QName, Definition) → Ordering
+myQNameDefinitionSort = myQNameSort `on` fst
+
 ------------------------------------------------------------------------------
 
 printQNameType ∷ (QName, Definition) → IO ()
-printQNameType (qName, def) = do
+printQNameType (qname, def) = do
 
   let ty ∷ Type
       ty = defType def
 
-  putStrLn $ "Qname: " ++ show qName
+  putStrLn $ "Qname: " ++ show qname
   putStrLn $ "Type: "  ++ show ty ++ "\n"
 
 printTypes ∷ Interface → IO ()
@@ -44,8 +70,4 @@ printTypes i = do
   let defs ∷ Definitions
       defs = sigDefinitions $ iSignature i
 
--- #if MIN_VERSION_Agda(2,2,11)
---  mapM_ printQNameType (Map.toList defs)
--- #else
-  mapM_ printQNameType (HashMap.toList defs)
--- #endif
+  mapM_ printQNameType $ sortBy myQNameDefinitionSort $ HashMap.toList defs
