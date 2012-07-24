@@ -164,10 +164,10 @@ getLocalHints def =
        _       → __IMPOSSIBLE__
 
 -- We do not want any verbosity from the Agda API.
-agdaPragmaOptions ∷ PragmaOptions
-agdaPragmaOptions = let agdaOptVerbose ∷ Verbosity
-                        agdaOptVerbose = Trie.singleton [] 0
-                    in defaultPragmaOptions { optVerbose = agdaOptVerbose }
+noVerbosity ∷ PragmaOptions
+noVerbosity = let agdaOptVerbose ∷ Verbosity
+                  agdaOptVerbose = Trie.singleton [] 0
+              in defaultPragmaOptions { optVerbose = agdaOptVerbose }
 
 -- An empty list of relative include directories @(Left [])@ is
 -- interpreted as @["."]@ (from
@@ -178,7 +178,7 @@ agdaCommandLineOptions = do
   agdaIncludePaths ← getTOpt optAgdaIncludePath
 
   return $ defaultOptions { optIncludeDirs   = Left agdaIncludePaths
-                          , optPragmaOptions = agdaPragmaOptions
+                          , optPragmaOptions = noVerbosity
                           }
 
 -- | Read an Agda interface file.
