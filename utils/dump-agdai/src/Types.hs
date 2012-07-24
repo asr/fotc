@@ -1,18 +1,15 @@
-{-# LANGUAGE CPP #-}
-{-# LANGUAGE OverlappingInstances #-}
 {-# LANGUAGE UnicodeSyntax #-}
-{-# OPTIONS_GHC -fno-warn-auto-orphans #-}
-{-# OPTIONS_GHC -fno-warn-orphans #-}
 
-module Types ( printQNames, printTypes ) where
+module Types ( printTypes ) where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import qualified Data.HashMap.Strict as HashMap ( keys, toList )
+import qualified Data.HashMap.Strict as HashMap ( toList )
 
-import Data.Int  ( Int32 )
-import Data.List ( sort )
+import Data.Int      ( Int32 )
+import Data.Function ( on )
+import Data.List     ( sortBy )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
@@ -25,7 +22,7 @@ import Agda.Syntax.Abstract.Name
 import Agda.Syntax.Internal ( Type )
 
 import Agda.TypeChecking.Monad.Base
-  ( Definition(defName)
+  ( Definition
   , Definitions
   , defType
   , Interface(iSignature)
@@ -39,6 +36,7 @@ import Agda.Syntax.Position
   )
 
 ------------------------------------------------------------------------------
+-- Auxiliary functions
 
 qNameLine ∷ QName → Int32
 qNameLine qName =
@@ -46,16 +44,14 @@ qNameLine qName =
     Nothing → error "qNameLine"
     Just i  → posLine $ iStart i
 
--- Orphan instance.
-instance Eq Definition where
-  def1 == def2 = defName def1 == defName def2
+-- We sort the @QName@'s by its position in the Agda module.
+myQNameSort ∷ QName → QName → Ordering
+myQNameSort = compare `on` qNameLine
 
--- Orphan instance.
-instance Ord Definition where
-  def1 `compare` def2 = defName def1 `compare` defName def2
+myQNameDefinitionSort ∷ (QName, Definition) → (QName, Definition) → Ordering
+myQNameDefinitionSort = myQNameSort `on` fst
 
-instance Ord QName where
-  qName1 `compare` qName2 = qNameLine qName1 `compare` qNameLine qName1
+------------------------------------------------------------------------------
 
 printQNameType ∷ (QName, Definition) → IO ()
 printQNameType (qname, def) = do
@@ -74,12 +70,4 @@ printTypes i = do
   let defs ∷ Definitions
       defs = sigDefinitions $ iSignature i
 
-  mapM_ printQNameType $ sort $ HashMap.toList defs
-
-printQNames ∷ Interface → IO ()
-printQNames i = do
-  let defs ∷ Definitions
-      defs = sigDefinitions $ iSignature i
-
-  putStrLn "\nQNames ***********************************************************"
-  print $ sort $ HashMap.keys defs
+  mapM_ printQNameType $ sortBy myQNameDefinitionSort $ HashMap.toList defs

@@ -1,3 +1,7 @@
+------------------------------------------------------------------------------
+-- Testing the sorted output of the @QName@s.
+------------------------------------------------------------------------------
+
 module SortedOutput where
 
 postulate A : Set
@@ -5,7 +9,8 @@ postulate A : Set
 postulate b : A
 
 data Bool : Set where
-  false true : Bool
+  true  : Bool
+  false : Bool
 
 foo : Bool → Bool
 foo b = b

@@ -23,8 +23,8 @@ import Agda.Utils.FileName             ( absolute, filePath, mkAbsolute )
 
 ------------------------------------------------------------------------------
 
-std_lib_path ∷ String
-std_lib_path = "/home/asr/src/agdas/agda-upstream/std-lib/src/"
+stdlibPath ∷ String
+stdlibPath = "/home/asr/src/agdas/agda-upstream/std-lib/src/"
 
 myReadInterface :: FilePath → IO Interface
 myReadInterface file = do
@@ -38,7 +38,7 @@ myReadInterface file = do
       opts = defaultOptions
              { optIncludeDirs =
                  Right [ mkAbsolute currentDir
-                       , mkAbsolute std_lib_path
+                       , mkAbsolute stdlibPath
                        ]
              }
 

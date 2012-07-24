@@ -12,7 +12,7 @@ import Agda.Utils.Impossible ( catchImpossible )
 
 -- Local imports
 import ReadInterface ( myReadInterface )
-import Types         ( printQNames, printTypes )
+import Types         ( printTypes )
 
 ------------------------------------------------------------------------------
 
@@ -26,9 +26,5 @@ main = do
        exitFailure
 
   printTypes i `catchImpossible` \e →
-    do hPrint stderr e
-       exitFailure
-
-  printQNames i `catchImpossible` \e →
     do hPrint stderr e
        exitFailure
