@@ -319,7 +319,7 @@ agda_changed :
 	make type_check_examples
 	make snapshot_compare_examples
 	make type_check_notes
-	cd utils/read-agda-interface \
+	cd utils/dump-agdai \
 	&& cabal clean && cabal configure && cabal build
 	@echo "$@ succeeded!"
 
