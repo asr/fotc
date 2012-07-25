@@ -16,7 +16,8 @@
 
 -- Adapted from AgdaLight (Plugins.FOL.Primitive).
 
-module FOL.Primitives ( appFn, appP, equal ) where
+module FOL.Primitives ( appFn, appP, equal )
+where
 
 ------------------------------------------------------------------------------
 -- Agda library imports

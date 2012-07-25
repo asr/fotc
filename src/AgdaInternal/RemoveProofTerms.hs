@@ -60,7 +60,8 @@
 -- End general description.
 
 ------------------------------------------------------------------------------
-module AgdaInternal.RemoveProofTerms ( removeProofTerm ) where
+module AgdaInternal.RemoveProofTerms ( removeProofTerm )
+where
 
 ------------------------------------------------------------------------------
 -- Haskell imports

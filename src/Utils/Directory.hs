@@ -13,7 +13,8 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module Utils.Directory ( diff ) where
+module Utils.Directory ( diff )
+where
 
 ------------------------------------------------------------------------------
 -- Haskell imports

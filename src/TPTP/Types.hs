@@ -24,7 +24,8 @@ module TPTP.Types
                  )
   , dropCommonRequiredDefs
   , GeneralRoles(axioms, defsAxioms, defsHints, hints, MkGeneralRoles)
-  ) where
+  )
+  where
 
 ------------------------------------------------------------------------------
 -- Haskell imports

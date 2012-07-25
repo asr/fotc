@@ -13,7 +13,8 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module Snapshot ( snapshotTest ) where
+module Snapshot ( snapshotTest )
+where
 
 ------------------------------------------------------------------------------
 -- Haskell imports

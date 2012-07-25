@@ -17,7 +17,8 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module Main ( main ) where
+module Main ( main )
+where
 
 ------------------------------------------------------------------------------
 -- Haskell imports

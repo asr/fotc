@@ -14,7 +14,8 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module AgdaInternal.EtaExpansion ( EtaExpandible(etaExpand) ) where
+module AgdaInternal.EtaExpansion ( EtaExpandible(etaExpand) )
+where
 
 ------------------------------------------------------------------------------
 -- Haskell imports

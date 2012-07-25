@@ -29,7 +29,8 @@ module Monad.Base
   , runT
   , T
   , TState(..)  -- Required to avoid an Haddock warning.
-  ) where
+  )
+  where
 
 ------------------------------------------------------------------------------
 -- Haskell imports

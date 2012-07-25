@@ -7,7 +7,8 @@
 module FOL.Translation.Types
   ( domTypeToFormula
   , typeToFormula
-  ) where
+  )
+  where
 
 ------------------------------------------------------------------------------
 -- Agda library imports

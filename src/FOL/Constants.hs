@@ -26,7 +26,8 @@ module FOL.Constants
   , folExists
   , folForAll
   , folEquals
-  ) where
+  )
+  where
 
 ------------------------------------------------------------------------------
 -- | Identifiers recognized by the first-order logic translator.

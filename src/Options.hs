@@ -34,7 +34,8 @@ module Options
            )
   , printUsage
   , processOptions
-  ) where
+  )
+  where
 
 ------------------------------------------------------------------------------
 -- Haskell imports

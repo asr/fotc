@@ -17,7 +17,8 @@
 module TPTP.Translation
   ( conjecturesToAFs
   , generalRolesToAFs
-  ) where
+  )
+  where
 
 ------------------------------------------------------------------------------
 -- Haskell imports

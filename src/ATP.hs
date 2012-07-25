@@ -17,7 +17,8 @@
 module ATP
   ( ATP(..)  -- Required to avoid an Haddock warning.
   , callATPs
-  ) where
+  )
+  where
 
 ------------------------------------------------------------------------------
 -- Haskell imports

@@ -16,7 +16,8 @@
 module FOL.Translation.Terms
   ( termToFormula
   , termToFOLTerm
-  ) where
+  )
+  where
 
 ------------------------------------------------------------------------------
 -- Haskell imports

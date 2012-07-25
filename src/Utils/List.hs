@@ -13,7 +13,11 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module Utils.List ( duplicatesElements, nonDuplicate ) where
+module Utils.List
+  ( duplicatesElements
+  , nonDuplicate
+  )
+  where
 
 ------------------------------------------------------------------------------
 -- Haskell imports

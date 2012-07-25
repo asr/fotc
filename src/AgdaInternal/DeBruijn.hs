@@ -26,7 +26,8 @@ module AgdaInternal.DeBruijn
   , DecIndex(decIndex)
   , IncIndex(incIndex)
   , varToIndex
-  ) where
+  )
+  where
 
 ------------------------------------------------------------------------------
 -- Haskell imports

@@ -13,7 +13,11 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module Utils.Show ( showListLn, showLn ) where
+module Utils.Show
+  ( showListLn
+  , showLn
+  )
+  where
 
 ------------------------------------------------------------------------------
 -- | Version of 'show' adding a newline character.

@@ -13,7 +13,8 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module Utils.Version ( progNameVersion ) where
+module Utils.Version ( progNameVersion )
+where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
