@@ -1,0 +1,23 @@
+dist/build/agda2atp/agda2atp -v 0 -iexamples examples/FOTC/Base/PropertiesATP.agda +RTS -s/tmp/benchmark/examples.FOTC.Base.PropertiesATP (null) 
+      72,758,528 bytes allocated in the heap
+      21,848,120 bytes copied during GC
+       3,225,160 bytes maximum residency (6 sample(s))
+         206,032 bytes maximum slop
+               9 MB total memory in use (0 MB lost due to fragmentation)
+
+                                    Tot time (elapsed)  Avg pause  Max pause
+  Gen  0       123 colls,     0 par    0.03s    0.03s     0.0002s    0.0004s
+  Gen  1         6 colls,     0 par    0.03s    0.03s     0.0049s    0.0071s
+
+  INIT    time    0.00s  (  0.00s elapsed)
+  MUT     time    0.04s  (  1.06s elapsed)
+  GC      time    0.06s  (  0.06s elapsed)
+  EXIT    time    0.00s  (  0.00s elapsed)
+  Total   time    0.11s  (  1.11s elapsed)
+
+  %GC     time      53.6%  (5.2% elapsed)
+
+  Alloc rate    1,459,236,927 bytes per MUT second
+
+  Productivity  46.1% of total user, 4.5% of total elapsed
+

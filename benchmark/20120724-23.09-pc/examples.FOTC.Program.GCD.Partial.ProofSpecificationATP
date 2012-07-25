@@ -1,0 +1,23 @@
+dist/build/agda2atp/agda2atp -v 0 -iexamples examples/FOTC/Program/GCD/Partial/ProofSpecificationATP.agda +RTS -s/tmp/benchmark/examples.FOTC.Program.GCD.Partial.ProofSpecificationATP (null) 
+   2,526,474,472 bytes allocated in the heap
+     893,603,336 bytes copied during GC
+      70,861,672 bytes maximum residency (22 sample(s))
+       2,478,784 bytes maximum slop
+             184 MB total memory in use (0 MB lost due to fragmentation)
+
+                                    Tot time (elapsed)  Avg pause  Max pause
+  Gen  0      4539 colls,     0 par    1.80s    1.81s     0.0004s    0.0024s
+  Gen  1        22 colls,     0 par    0.78s    0.78s     0.0355s    0.1216s
+
+  INIT    time    0.00s  (  0.00s elapsed)
+  MUT     time    1.43s  (  1.95s elapsed)
+  GC      time    2.58s  (  2.59s elapsed)
+  EXIT    time    0.00s  (  0.00s elapsed)
+  Total   time    4.02s  (  4.54s elapsed)
+
+  %GC     time      64.3%  (57.0% elapsed)
+
+  Alloc rate    1,758,558,399 bytes per MUT second
+
+  Productivity  35.7% of total user, 31.7% of total elapsed
+

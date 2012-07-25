@@ -107,6 +107,10 @@ type_check_notes_files = \
 coq_type_check_files = $(patsubst %.v,%.coq_type_check, \
 	               $(shell find -name '*.v' | sort))
 
+benchmark_files = examples/FOTC/Base/PropertiesATP.benchmark \
+                  examples/FOTC/Program/GCD/Partial/ProofSpecificationATP.benchmark \
+                  examples/FOTC/Program/SortList/ProofSpecificationATP.benchmark
+
 ##############################################################################
 # Test suite: Generated conjectures
 
@@ -404,6 +408,26 @@ hpc_clean :
 	rm -f -r $(hpc_html_dir)
 
 ##############################################################################
+# Benchmark
+
+benchmark_tag = $(shell echo `date +"%Y%m%d-%H.%M"`-`hostname -s`)
+
+%.benchmark :
+	$(AGDA) -iexamples $*.agda
+	$(AGDA2ATP) -v 0 -iexamples $*.agda \
+                   +RTS -s/tmp/benchmark/$(subst /,.,$*)
+
+benchmark_aux : $(benchmark_files)
+
+.PHONY : benchmark
+benchmark :
+	mkdir --parents /tmp/benchmark
+	make benchmark_aux
+	mkdir --parents benchmark/$(benchmark_tag)
+	mv /tmp/benchmark/* benchmark/$(benchmark_tag)/
+	@echo "$@ succeeded!"
+
+##############################################################################
 # Examples: Publishing the .html files
 
 include ~/code/utils/make/agda2atp/publish.mk
@@ -439,7 +463,7 @@ clean :
 	find -name '*.vo' | xargs rm -f
 	find -name 'agda2atp.tix' | xargs rm -f
 	find -name 'model' | xargs rm -f
-	rm -f -r $(output_dir) $(snapshot_dir)
+	rm -f -r $(output_dir)
 
 ##############################################################################
 # TODO: From the Makefile in the old repository FOT
