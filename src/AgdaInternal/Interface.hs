@@ -210,7 +210,7 @@ myReadInterface file = do
                        "The reading of the interface file "
                        ++ iFile ++ " failed. "
                        ++ "It is possible that you used a different version "
-                       ++ "of Agda to build the program agda2atp and to"
+                       ++ "of Agda to build the program agda2atp and to "
                        ++ "type-check your module"
     Left _         → __IMPOSSIBLE__
 
