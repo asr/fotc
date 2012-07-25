@@ -175,6 +175,7 @@ atpArgs SPASS timeLimit file = return [ "-PProblem=0"
 -- 25 July 2012. We don't know if vampire has an option to reduce the
 -- output.
 atpArgs Vampire timeLimit file = return [ "--input_file", file
+                                        , "--mode", "casc"
                                         , "-t", show timeLimit
                                         ]
 

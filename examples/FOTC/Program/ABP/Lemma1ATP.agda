@@ -67,7 +67,7 @@ module Helper where
   helper {b} {i'} {is'} {js = js} Bb Ffs₁ abp
          (.(T ∷ []) , fs₀' , nilF*T , Ffs₀' , fs₀-eq) = prf
     where
-    -- 11 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
+    -- 25 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
     postulate
       prf : ∃[ fs₀' ] ∃[ fs₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
             Fair fs₀'

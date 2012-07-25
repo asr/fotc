@@ -83,7 +83,7 @@ prop₂ u x y z =
 
   -- Steps justifications
 
-  -- 11 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
+  -- 25 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
   postulate
     j₁₋₅   : xy·zu · (xy·zu · xz·yu) ≡
              xy·zu · (xz · xu·yu · (y·zu · xz·yu))
@@ -94,13 +94,11 @@ prop₂ u x y z =
              xy·zu · (xz · xyu · (yxz · yu))
   {-# ATP prove j₅₋₉ #-}
 
-  -- 11 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
   postulate
     j₉₋₁₄  : xy·zu · (xz · xyu · (yxz · yu)) ≡
              xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu))
   {-# ATP prove j₉₋₁₄ #-}
 
-  -- 11 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
   postulate
     j₁₄₋₂₀ : xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu)) ≡
              xz · xyu · (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
@@ -111,7 +109,7 @@ prop₂ u x y z =
              xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))
   {-# ATP prove j₂₀₋₂₃ #-}
 
-  -- 11 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
+  -- 25 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
   postulate
     j₂₃₋₂₅ : xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu))) ≡
              (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))

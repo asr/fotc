@@ -345,6 +345,7 @@ atp_changed :
 	@make refute_theorems
 	@make errors
 	@make options
+	@make prove_examples
 	@echo "$@ succeeded!"
 
 ##############################################################################

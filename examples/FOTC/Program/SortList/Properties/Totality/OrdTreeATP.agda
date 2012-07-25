@@ -23,7 +23,6 @@ open import FOTC.Program.SortList.Properties.Totality.TreeATP
 -- Subtrees
 
 -- If (node t₁ i t₂) is ordered then t₁ is ordered.
--- 11 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
 postulate
   leftSubTree-OrdTree : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ →
                         OrdTree (node t₁ i t₂) → OrdTree t₁
@@ -32,7 +31,6 @@ postulate
 #-}
 
 -- If (node t₁ i t₂) is ordered then t₂ is ordered.
--- 11 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
 postulate
   rightSubTree-OrdTree : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ →
                          OrdTree (node t₁ i t₂) → OrdTree t₂
