@@ -150,9 +150,9 @@ atpArgs E timeLimit file = do
         -- This message is not included in the error test.
         else throwError $ "The ATP " ++ eVersion ++ " is not supported"
 
--- Equinox bug? The option @--no-progress@ doesn't make any difference.
-atpArgs Equinox timeLimit file = return [ "--no-progress"
-                                        , "--time", show timeLimit
+-- Equinox bug. Neither the option @--no-progress@ nor the option
+-- @--verbose 0@ reduce the output.
+atpArgs Equinox timeLimit file = return [ "--time", show timeLimit
                                         , file
                                         ]
 
@@ -165,11 +165,15 @@ atpArgs Metis timeLimit file = return [ "--time-limit", show timeLimit
                                       , file
                                       ]
 
-atpArgs SPASS timeLimit file = return [ "-TPTP"
+atpArgs SPASS timeLimit file = return [ "-PProblem=0"
+                                      , "-PStatistic=0"
                                       , "-TimeLimit=" ++ show timeLimit
+                                      , "-TPTP"
                                       , file
                                       ]
 
+-- 25 July 2012. We don't know if vampire has an option to reduce the
+-- output.
 atpArgs Vampire timeLimit file = return [ "--input_file", file
                                         , "-t", show timeLimit
                                         ]
