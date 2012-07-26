@@ -81,4 +81,4 @@ open import FOTC.Program.ABP.MayorPremiseATP
 ------------------------------------------------------------------------------
 
 -- We cannot import the Agsy examples because some modules contain
--- unsolved metas, therefore see src/Agsy/README.txt
+-- unsolved metas, therefore see examples/Agsy/README.txt
