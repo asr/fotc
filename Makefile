@@ -324,7 +324,7 @@ agda_changed :
 	make snapshot_compare_examples
 	make type_check_notes
 	cd utils/dump-agdai \
-	&& cabal clean && cabal configure && cabal build
+	&& cabal clean && cabal install
 	@echo "$@ succeeded!"
 
 ##############################################################################
