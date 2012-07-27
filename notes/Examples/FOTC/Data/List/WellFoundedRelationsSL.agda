@@ -3,7 +3,6 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
 
 module Examples.FOTC.Data.List.WellFoundedRelationsSL {A : Set} where
 
@@ -39,10 +38,7 @@ LTC : List A → List A → Set
 LTC xs ys = Σ A (λ a → ys ≡ a ∷ xs)
 
 LTC→LTL : ∀ {xs ys} → LTC xs ys → LTL xs ys
-LTC→LTL (x , ys≡x∷xs) = helper ys≡x∷xs
-  where
-    helper : ∀ {x xs ys} → ys ≡ x ∷ xs → length xs <′ length ys
-    helper refl = ≤′-refl
+LTC→LTL (x , refl) = ≤′-refl
 
 open module S = Induction.WellFounded.Subrelation {_<₁_ = LTC} LTC→LTL
 
