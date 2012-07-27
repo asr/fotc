@@ -118,7 +118,7 @@ import qualified Agda.Utils.Trie as Trie ( singleton )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import Monad.Base    ( getTDefs, getTOpt, T )
+import Monad.Base    ( askTOpt, getTDefs, T )
 import Monad.Reports ( reportSLn )
 import Options       ( Options(optAgdaIncludePath) )
 
@@ -175,7 +175,7 @@ noVerbosity = let agdaOptVerbose ∷ Verbosity
 -- Options.optAgdaIncludePath is @[]@.
 agdaCommandLineOptions ∷ T CommandLineOptions
 agdaCommandLineOptions = do
-  agdaIncludePaths ← getTOpt optAgdaIncludePath
+  agdaIncludePaths ← askTOpt optAgdaIncludePath
 
   return $ defaultOptions { optIncludeDirs   = Left agdaIncludePaths
                           , optPragmaOptions = noVerbosity

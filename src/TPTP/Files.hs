@@ -54,7 +54,7 @@ import Agda.Utils.Monad      ( whenM )
 -- Local imports
 
 import AgdaInternal.Interface ( qNameLine )
-import Monad.Base             ( getTOpt, T )
+import Monad.Base             ( askTOpt, T )
 import Monad.Reports          ( reportS, reportSLn )
 import Options                ( Options(optOnlyFiles, optOutputDir) )
 import TPTP.ConcreteSyntax    ( ToTPTP(toTPTP) )
@@ -157,7 +157,7 @@ createConjectureFile generalRoles conjectureSet = do
   unless (nonDuplicate (localHintsConjecture conjectureSet)) (__IMPOSSIBLE__)
   unless (nonDuplicate (defsLocalHints conjectureSet))       (__IMPOSSIBLE__)
 
-  outputDir ← getTOpt optOutputDir
+  outputDir ← askTOpt optOutputDir
 
   let qName ∷ QName
       qName = case theConjecture conjectureSet of
@@ -217,7 +217,7 @@ createConjectureFile generalRoles conjectureSet = do
     addRoles [theConjecture newConjectureSet] file "conjecture"
     appendFile file conjectureFooter
 
-  whenM (getTOpt optOnlyFiles) $
+  whenM (askTOpt optOnlyFiles) $
        reportS "" 1 $ "Created " ++ file
 
   return file

@@ -38,7 +38,7 @@ import Agda.Utils.List ( wordsBy )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import Monad.Base ( getTOpt, T )
+import Monad.Base ( askTOpt, T )
 import Options    ( Options(optVerbose) )
 
 #include "../undefined.h"
@@ -54,7 +54,7 @@ type VerboseKey = String
 verboseS ∷ VerboseKey → Int → T () → T ()
 verboseS k n action | n < 0     =  __IMPOSSIBLE__
                     | otherwise = do
-  t ← getTOpt optVerbose
+  t ← askTOpt optVerbose
   let ks ∷ [String]
       ks = wordsBy (`elem` ".:") k
 

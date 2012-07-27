@@ -23,15 +23,15 @@ where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad       ( liftM2, unless, when )
-import Control.Monad.Error ( MonadError(catchError, throwError) )
-import Control.Monad.Trans ( MonadIO(liftIO) )
+import Control.Monad        ( liftM2, unless, when )
+import Control.Monad.Error  ( MonadError(catchError, throwError) )
+import Control.Monad.Reader ( MonadReader(ask) )
+import Control.Monad.Trans  ( MonadIO(liftIO) )
 
 import qualified Data.HashMap.Strict as HashMap ( unions )
 
-import System.Environment ( getArgs, getProgName )
-import System.Exit        ( exitFailure, exitSuccess )
-import System.IO          ( hPrint, hPutStrLn, stderr )
+import System.Exit ( exitFailure, exitSuccess )
+import System.IO   ( hPrint, stderr )
 
 ------------------------------------------------------------------------------
 -- Agda library imports
@@ -52,7 +52,6 @@ import ATP                    ( callATPs )
 
 import Monad.Base
   ( modifyDefs
-  , modifyOpts
   , modifyPragmaOptions
   , runT
   , T
@@ -63,13 +62,13 @@ import Monad.Reports ( reportSLn )
 import Options
   ( Options(optHelp, optInputFile, optOnlyFiles, optSnapshotTest, optVersion)
   , printUsage
-  , processOptions
   )
 
 import Snapshot         ( snapshotTest )
 import TPTP.Files       ( createConjectureFile )
 import TPTP.Translation ( conjecturesToAFs, generalRolesToAFs )
 import TPTP.Types       ( ConjectureSet, GeneralRoles )
+import Utils.IO         ( failureMsg )
 import Utils.Version    ( progNameVersion )
 
 #include "undefined.h"
@@ -103,42 +102,33 @@ translation agdaFile = do
 -- | The main function.
 runAgda2ATP ∷ T ()
 runAgda2ATP = do
-  args ← liftIO getArgs
+  opts ← ask
+  case (optHelp opts, optVersion opts) of
+    (True, _)      → liftIO printUsage
+    (_,    True)   → liftIO $ progNameVersion >>= putStrLn
+    (False, False) → do
+      agdaFile ← case optInputFile opts of
+                   Nothing → throwError "Missing input file (try --help)"
+                   Just f  → return f
 
-  case processOptions args of
-    Right opts
-      | optHelp opts    → liftIO printUsage
-      | optVersion opts → liftIO $ progNameVersion >>= putStrLn
-      | otherwise       → do
+      -- The ATP pragmas are translated to TPTP annotated formulae.
+      allAFs ← translation agdaFile
 
-          agdaFile ← case optInputFile opts of
-                          Nothing → throwError "Missing input file (try --help)"
-                          Just f  → return f
+      -- Creation of the TPTP files.
+      tptpFiles ← mapM (createConjectureFile (fst allAFs)) (snd allAFs)
 
-          modifyOpts opts
+      -- Run the snapshot test.
+      when (optSnapshotTest opts) $ mapM_ snapshotTest tptpFiles
 
-          -- The ATP pragmas are translated to TPTP annotated formulae.
-          allAFs ← translation agdaFile
-
-          -- Creation of the TPTP files.
-          tptpFiles ← mapM (createConjectureFile (fst allAFs)) (snd allAFs)
-
-          -- Run the snapshot test.
-          when (optSnapshotTest opts) $ mapM_ snapshotTest tptpFiles
-
-          -- The ATPs systems are called on the TPTP files.
-          unless (optOnlyFiles opts) $ mapM_ callATPs tptpFiles
-
-    Left msg → throwError msg
+      -- The ATPs systems are called on the TPTP files.
+      unless (optOnlyFiles opts) $ mapM_ callATPs tptpFiles
 
 -- | Main.
 main ∷ IO ()
 main = do
-  progName ← getProgName
-
   -- Adapted from @Agda.Main.main@.
   r ∷ Either String () ← runT $ runAgda2ATP `catchError` \err →
-    do liftIO $ hPutStrLn stderr $ progName ++ ": " ++ err
+    do liftIO $ failureMsg err
        throwError err
 
   case r of

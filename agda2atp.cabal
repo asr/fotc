@@ -66,6 +66,7 @@ executable agda2atp
                  TPTP.Translation
                  TPTP.Types
                  Utils.Directory
+                 Utils.IO
                  Utils.List
                  Utils.Names
                  Utils.Show

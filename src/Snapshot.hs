@@ -33,7 +33,7 @@ import Agda.Utils.Monad    ( ifM, whenM )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import Monad.Base ( getTOpt, T )
+import Monad.Base ( askTOpt, T )
 
 import Options
   ( Options(optOutputDir, optSnapshotDir, optSnapshotNoError)
@@ -46,8 +46,8 @@ import Utils.Directory ( diff )
 -- the directory indicated by the flag @--snapshot-dir@.
 snapshotTest ∷ FilePath → T ()
 snapshotTest file = do
-  outputDir   ← getTOpt optOutputDir
-  snapshotDir ← getTOpt optSnapshotDir
+  outputDir   ← askTOpt optOutputDir
+  snapshotDir ← askTOpt optSnapshotDir
 
   -- The original file without the output directory.
   let auxFile ∷ FilePath
@@ -67,6 +67,6 @@ snapshotTest file = do
             let msg ∷ String
                 msg = "The files are different:\n" ++ file ++ "\n" ++ snapshotFile
 
-            ifM (getTOpt optSnapshotNoError)
+            ifM (askTOpt optSnapshotNoError)
                 (liftIO $ putStrLn msg)
                 (throwError msg)

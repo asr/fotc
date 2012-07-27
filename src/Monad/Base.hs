@@ -14,13 +14,12 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 module Monad.Base
-  ( getTDefs
-  , getTOpt
+  ( askTOpt
+  , getTDefs
   , getTVars
   , isTPragmaOption
   , isTVarsEmpty
   , modifyDefs
-  , modifyOpts
   , modifyPragmaOptions
   , newTVar
   , popTVar
@@ -35,7 +34,8 @@ module Monad.Base
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad.Error ( ErrorT(runErrorT) )
+import Control.Monad.Error  ( ErrorT(runErrorT) )
+import Control.Monad.Reader ( MonadReader(ask), ReaderT(runReaderT) )
 
 import Control.Monad.State
   ( evalState
@@ -47,6 +47,9 @@ import Control.Monad.State
 
 import qualified Data.HashMap.Strict as HashMap ( empty )
 
+import System.Environment ( getArgs )
+import System.Exit        ( exitFailure )
+
 ------------------------------------------------------------------------------
 -- Agda library imports
 
@@ -57,7 +60,8 @@ import Agda.Utils.Impossible        ( Impossible(Impossible), throwImpossible )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import Options     ( defaultOptions, Options )
+import Options     ( Options, processOptions )
+import Utils.IO    ( failureMsg )
 import Utils.Names ( freshName )
 
 #include "../undefined.h"
@@ -70,7 +74,6 @@ import Utils.Names ( freshName )
 -- necessary in our case.
 data TState =
   MkState { tDefs          ∷ Definitions    -- ^ Agda definitions.
-          , tOpts          ∷ Options        -- ^ Command-line options.
           , tVars          ∷ [String]       -- ^ Variables names.
           , tPragmaOptions ∷ OptionsPragma  -- ^ Pragma options.
           }
@@ -78,17 +81,27 @@ data TState =
 -- The initial state.
 initTState ∷ TState
 initTState = MkState { tDefs          = HashMap.empty
-                     , tOpts          = defaultOptions
                      , tVars          = []
                      , tPragmaOptions = []
                      }
 
+-- | The environment.
+env ∷ IO Options
+env = do
+  args ← getArgs
+  case processOptions args of
+    Left err → do failureMsg err
+                  exitFailure
+    Right o  → return o
+
 -- | The translation monad.
-type T = ErrorT String (StateT TState IO)
+type T = ErrorT String (StateT TState (ReaderT Options IO))
 
 -- | Running the translation monad.
 runT ∷ T a → IO (Either String a)
-runT ta = evalStateT (runErrorT ta) initTState
+runT ta = do
+  opts ← env
+  runReaderT (evalStateT (runErrorT ta) initTState) opts
 
 -- | Return 'True' if the list of variables in the translation monad
 -- state is empty.
@@ -128,9 +141,10 @@ pushTNewVar = newTVar >>= \freshVar → pushTVar freshVar >> return freshVar
 getTDefs ∷ T Definitions
 getTDefs = fmap tDefs get
 
--- | Get a concrete 'Options' from the translation monad state.
-getTOpt ∷ (Options → a) → T a
-getTOpt opt = fmap (opt . tOpts) get
+-- | Ask for a concrete 'Options' from the translation monad
+-- environment.
+askTOpt ∷ (Options → a) → T a
+askTOpt opt = fmap opt ask
 
 -- | Get the variables from the translation monad state.
 getTVars ∷ T [String]
@@ -139,10 +153,6 @@ getTVars = fmap tVars get
 -- | Modify the Agda 'Definitions' in the translation monad state.
 modifyDefs ∷ Definitions → T ()
 modifyDefs defs = modify $ \s → s { tDefs = defs }
-
--- | Modify the 'Options' in the translation monad state.
-modifyOpts ∷ Options → T ()
-modifyOpts opts = modify $ \s → s { tOpts = opts }
 
 -- | Modify the 'OptionsPragma' in the translation monad state.
 modifyPragmaOptions ∷ OptionsPragma → T ()
