@@ -192,7 +192,6 @@ runATP atp outputMVar timeLimit file = do
 
   -- To create the ATPs process we follow the ideas used by
   -- System.Process.readProcess.
-
   (_, outputH, _, atpPH) ← liftIO $
     createProcess (proc exec args) { std_out = CreatePipe }
 
@@ -220,22 +219,9 @@ atpsAnswer atps outputMVar atpsPH file n =
         then do
           reportS "" 1 $ atpWithVersion ++ " proved the conjecture in " ++ file
           liftIO $ do
-            -- It seems that @terminateProcess@ is a nop if the process
-            -- is finished, therefore we don't care on terminate all
-            -- the ATPs processes.
+            -- See note [All terminate].
             mapM_ terminateProcess atpsPH
-
-            -- TODO: Ugly hack. Using the thread delay and repeating
-            -- the @terminateProcess@ instruction was the way to kill
-            -- the Vampire process.
-            --
-            -- 2012-01-13: Using the new field @create_group ∷ Bool@ for
-            -- the datatype @CreateProcess@ in System.Process-1.1.0.0,
-            -- it is possible to use the function
-            -- @interruptProcessGroupOf@ to kill the process, however
-            -- some ATPs continued running after using this
-            -- function. See
-            -- http://thread.gmane.org/gmane.comp.lang.haskell.cafe/95473/.
+            -- See note [Vampire termination].
             threadDelay 500000
             mapM_ terminateProcess atpsPH
         else do
@@ -255,21 +241,7 @@ callATPs file = do
   reportS "" 1 $ "Proving the conjecture in " ++ file ++ " ..."
   reportS "" 20 $ "ATPs to be used: " ++ show atps
 
-  -- 12 June 2012: Hack. Running for example
-  --
-  -- @$ equinox --time 216 some-conjecture.tptp@
-  --
-  -- or
-  --
-  -- @$ agda2atp --time=216 --atp=equinox some-conjecture.agda@
-  --
-  -- it is possible prove the theorem. But running for example
-  --
-  -- @$ agda2atp --time=216 --atp=equinox --atp=vampire --atp=e some-conjecture.agda@
-  --
-  -- doesn't prove the theorem. I guess there is some overhead for
-  -- calling various ATPs from the program agda2atp. Therefore we
-  -- increase internally 10% the ATPs timeout.
+  -- See note [Timeout increse].
   let timeLimit ∷ Int
       timeLimit = round (fromIntegral timeLimitAux * (1.1 ∷ Float))
 
@@ -277,3 +249,42 @@ callATPs file = do
     mapM optATP2ATP atps >>= mapM (\atp → runATP atp outputMVar timeLimit file)
 
   atpsAnswer atps outputMVar atpsPH file 0
+
+------------------------------------------------------------------------------
+-- Note [All terminate]
+
+-- It seems that @terminateProcess@ is a nop if the process is
+-- finished, therefore we don't care on terminate all the ATPs
+-- processes.
+
+------------------------------------------------------------------------------
+-- Note [Timeout increse]
+
+-- 12 June 2012: Hack. Running for example
+--
+-- @$ equinox --time 216 conjecture.tptp@
+--
+-- or
+--
+-- @$ agda2atp --time=216 --atp=equinox conjecture.agda@
+--
+-- it is possible prove the theorem. But running for example
+--
+-- @$ agda2atp --time=216 --atp=equinox --atp=vampire --atp=e conjecture.agda@
+--
+-- doesn't prove the theorem. I guess there is some overhead for
+-- calling various ATPs from the program agda2atp. Therefore we
+-- increase internally 10% the ATPs timeout.
+
+------------------------------------------------------------------------------
+-- Note [Vampire termination]
+
+-- TODO: Ugly hack. Using the thread delay and repeating the
+-- @terminateProcess@ instruction was the way to kill the Vampire
+-- process.
+--
+-- 2012-01-13: Using the new field @create_group ∷ Bool@ for the
+-- datatype @CreateProcess@ in System.Process-1.1.0.0, it is possible
+-- to use the function @interruptProcessGroupOf@ to kill the process,
+-- however some ATPs continued running after using this function. See
+-- http://thread.gmane.org/gmane.comp.lang.haskell.cafe/95473/.

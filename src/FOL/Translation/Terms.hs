@@ -115,9 +115,7 @@ qName2String ∷ QName → T String
 qName2String qName@(QName _ name) = do
   def ← qNameDefinition qName
 
-  -- Because the ATP pragma definitions are global, we need an unique
-  -- name. In this case, we append to the @qName@ the @qName@'s id (it
-  -- generates long TPTP name for the definitions).
+  -- See note [Unique name].
   if isATPDefinition def
     then do
       let qNameId ∷ NameId
@@ -263,15 +261,6 @@ termToFormula (Pi domTy (NoAbs x tyAbs)) = do
     ++ "domTy: " ++ show domTy ++ "\n"
     ++ "absTy: " ++ show (NoAbs x tyAbs)
   f2 ← typeToFormula tyAbs
-
-  -- 27 June 2012. After the patch
-  --
-  -- Wed Sep 21 04:50:43 COT 2011  ulfn@chalmers.se
-  --   * got rid of the Fun constructor in internal syntax (using Pi _ (NoAbs _ _) instead)
-  --
-  -- Agda is using (Pi _ (NoAbs _ _)) for the non-dependent
-  -- functions. In a later patch, Agda changed somes (Pi _ (Abs _ _))
-  -- to (Pi _ (NoAbs _ _)). The solution below works for *all* our cases.
 
   if x /= "_"
     then
@@ -573,3 +562,22 @@ termToFOLTerm term@(Var n args) = do
           (throwError $ universalQuantificationMsg p)
 
 termToFOLTerm _ = __IMPOSSIBLE__
+
+------------------------------------------------------------------------------
+-- Note [Non-dependent functions]
+
+-- 27 June 2012. After the patch
+--
+-- Wed Sep 21 04:50:43 COT 2011  ulfn@chalmers.se
+--   * got rid of the Fun constructor in internal syntax (using Pi _ (NoAbs _ _) instead)
+--
+-- Agda is using (Pi _ (NoAbs _ _)) for the non-dependent
+-- functions. In a later patch, Agda changed somes (Pi _ (Abs _ _))
+-- to (Pi _ (NoAbs _ _)). The solution below works for *all* our cases.
+
+------------------------------------------------------------------------------
+-- Note [Unique name]
+
+-- Because the ATP pragma definitions are global, we need an unique
+-- name. In this case, we append to the @qName@ the @qName@'s id (it
+-- generates long TPTP name for the definitions).

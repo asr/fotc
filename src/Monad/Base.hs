@@ -99,9 +99,7 @@ type T = ErrorT String (StateT TState (ReaderT Options IO))
 
 -- | Running the translation monad.
 runT ∷ T a → IO (Either String a)
-runT ta = do
-  opts ← env
-  runReaderT (evalStateT (runErrorT ta) initTState) opts
+runT ta = env >>= runReaderT (evalStateT (runErrorT ta) initTState)
 
 -- | Return 'True' if the list of variables in the translation monad
 -- state is empty.
