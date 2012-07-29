@@ -5,7 +5,7 @@
 
 module Modules.OtherModule where
 
-open import Modules
+open import Modules.Module
 
 -- The program agda2atp does not translate the ATP pragmas because
 -- they are not defined in the imported module.

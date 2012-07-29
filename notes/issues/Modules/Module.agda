@@ -5,7 +5,7 @@
 
 -- See descripion in Modules.OtherModule
 
-module Modules where
+module Modules.Module where
 
 postulate
   D    : Set

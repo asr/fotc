@@ -20,7 +20,7 @@ AGDA2ATP = dist/build/agda2atp/agda2atp
 # Some paths
 
 # Agda standard library path.
-std_lib_path = /home/asr/agda-upstream/std-lib
+std_lib_path = ~/agda-upstream/std-lib
 
 # Tests paths
 errors_path        = test/errors
@@ -228,7 +228,7 @@ doc :
 	$(AGDA) -iexamples $*.agda
 
 %.type_check_agsy_examples :
-	$(AGDA) -iexamples -i$(std_lib_path)/src/ $*.agda
+	$(AGDA) -iexamples -i $(std_lib_path)/src/ $*.agda
 
 type_check_examples_aux : $(type_check_examples_files) \
                              $(type_check_agsy_examples_files)
@@ -303,7 +303,7 @@ consistency_examples : $(consistency_examples_files)
 	        -inotes/README/ \
                 -inotes/setoids/ \
                 -inotes/thesis/logical-framework/ \
-                -i$(std_lib_path)/src/ \
+                -i $(std_lib_path)/src/ \
 	        $*.agda
 
 type_check_notes_aux : $(type_check_notes_files)
