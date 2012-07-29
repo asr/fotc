@@ -167,8 +167,3 @@ propositional equality).
 
 The program `agda2atp` must be compiled using the same version of Agda that
 was used to generate the Agda interface files.
-
-* Place of the ATP pragmas
-
-The ATP pragmas should be declared in the same module that the Agda
-entity (type, definition, data constructor) which it refers.

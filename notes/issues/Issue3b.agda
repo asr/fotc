@@ -3,7 +3,7 @@
 
 -- Tested with agda2atp on 19 July 2012.
 
-module Modules1 where
+module Issue3b where
 
 module A where
   postulate
@@ -13,9 +13,13 @@ module A where
 
   postulate p : a ≡ b
 
-open A
-{-# ATP axiom p #-}
+module B where
+  open A
+  {-# ATP axiom p #-}
 
--- It works!
+open A
+
+-- It doesn't works! The conjecture shouldn't be proved because the
+-- ATP pragma isn't in scope.
 postulate foo : a ≡ b
 {-# ATP prove foo #-}

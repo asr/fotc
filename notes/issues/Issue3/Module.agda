@@ -3,9 +3,9 @@
 
 -- Tested with agda2atp on 19 July 2012.
 
--- See descripion in Modules.OtherModule
+-- See descripion in Issue3.OtherModule
 
-module Modules.Module where
+module Issue3.Module where
 
 postulate
   D    : Set
