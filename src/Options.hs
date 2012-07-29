@@ -70,7 +70,7 @@ import qualified Agda.Utils.Trie as Trie ( insert, singleton )
 -----------------------------------------------------------------------------
 
 -- | Program command-line options.
-data Options = MkOptions
+data Options = Options
   { optInputFile       ∷ Maybe FilePath
   , optAgdaIncludePath ∷ [FilePath]
   , optATP             ∷ [String]
@@ -91,7 +91,7 @@ data Options = MkOptions
 --
 -- | Default options use by the program.
 defaultOptions ∷ Options
-defaultOptions = MkOptions
+defaultOptions = Options
   { optInputFile       = Nothing
   , optAgdaIncludePath = []
   , optATP             = []

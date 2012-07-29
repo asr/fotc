@@ -169,10 +169,8 @@ noVerbosity = let agdaOptVerbose ∷ Verbosity
                   agdaOptVerbose = Trie.singleton [] 0
               in defaultPragmaOptions { optVerbose = agdaOptVerbose }
 
--- An empty list of relative include directories @(Left [])@ is
--- interpreted as @["."]@ (from
--- Agda.TypeChecking.Monad.Options). Therefore the default of
--- Options.optAgdaIncludePath is @[]@.
+
+-- See note [Default @optAgdaIncludePath@].
 agdaCommandLineOptions ∷ T CommandLineOptions
 agdaCommandLineOptions = do
   agdaIncludePaths ← askTOpt optAgdaIncludePath
@@ -406,3 +404,11 @@ getImportedInterfaces i = do
   reportSLn "ii" 20 $
     "Imported module names: " ++ show (map iModuleName iInterfaces)
   return iInterfaces
+
+------------------------------------------------------------------------------
+-- Note [Default @optAgdaIncludePath@].
+
+-- An empty list of relative include directories @(Left [])@ is
+-- interpreted as @["."]@ (from
+-- Agda.TypeChecking.Monad.Options). Therefore the default of
+-- Options.optAgdaIncludePath is @[]@.

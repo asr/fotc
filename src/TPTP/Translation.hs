@@ -78,9 +78,9 @@ import Monad.Base                ( getTDefs, isTVarsEmpty, T)
 import Monad.Reports             ( reportSLn )
 
 import TPTP.Types
-  ( AF(MkAF)
-  , ConjectureSet(MkConjectureSet)
-  , GeneralRoles(MkGeneralRoles)
+  ( AF(AF)
+  , ConjectureSet(ConjectureSet)
+  , GeneralRoles(GeneralRoles)
   )
 
 import Utils.Show ( showListLn, showLn )
@@ -129,7 +129,7 @@ toAF role qName def = do
   reportSLn "toAF" 20 $
     "The FOL formula for " ++ show qName ++ " is:\n" ++ show for
 
-  ifM isTVarsEmpty (return $ MkAF qName role for) (__IMPOSSIBLE__)
+  ifM isTVarsEmpty (return $ AF qName role for) (__IMPOSSIBLE__)
 
 -- Translation of an Agda internal function to an AF definition.
 fnToAF ∷ QName → Definition → T AF
@@ -151,7 +151,7 @@ fnToAF qName def = do
   reportSLn "symbolToAF" 20 $
     "The FOL formula for " ++ show qName ++ " is:\n" ++ show for
 
-  return $ MkAF qName ATPDefinition for
+  return $ AF qName ATPDefinition for
 
 -- We translate a local hint to an AF.
 localHintToAF ∷ QName → T AF
@@ -207,7 +207,7 @@ requiredATPDefsByLocalHints def = do
   fmap (nub . concat) (mapM requiredATPDefsByDefinition hintsDefs)
 
 conjectureToAF ∷ QName → Definition → T ConjectureSet
-conjectureToAF qName def = liftM4 MkConjectureSet
+conjectureToAF qName def = liftM4 ConjectureSet
                                   (toAF ATPConjecture qName def)
                                   (requiredATPDefsByDefinition def)
                                   (localHintsToAFs def)
@@ -265,7 +265,7 @@ requiredATPDefsByHints = do
 -- definitions in the top level module and its imported modules to
 -- TPTP formulae.
 generalRolesToAFs ∷ T GeneralRoles
-generalRolesToAFs = liftM4 MkGeneralRoles
+generalRolesToAFs = liftM4 GeneralRoles
                            axiomsToAFs
                            requiredATPDefsByAxioms
                            generalHintsToAFs

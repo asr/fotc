@@ -57,6 +57,7 @@ executable agda2atp
                  FOL.Translation.Types
                  FOL.Types
                  Monad.Base
+                 Monad.Environment
                  Monad.Reports
                  Options
                  Paths_agda2atp

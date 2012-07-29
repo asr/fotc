@@ -64,7 +64,7 @@ import FOL.Types
   , FOLTerm(FOLFun, FOLVar)
   )
 
-import TPTP.Types ( AF(MkAF) )
+import TPTP.Types ( AF(AF) )
 
 #include "../undefined.h"
 
@@ -230,7 +230,7 @@ instance ToTPTP ATPRole where
   toTPTP ATPHint       = "hypothesis"
 
 instance ToTPTP AF where
-  toTPTP (MkAF qName atpRole formula) =
+  toTPTP (AF qName atpRole formula) =
     "fof("
     ++ toTPTP qName ++ ", "
     ++ toTPTP atpRole ++ ", "

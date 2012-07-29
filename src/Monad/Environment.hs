@@ -1,37 +1,37 @@
 ------------------------------------------------------------------------------
 -- |
--- Module      : Utils.IO
+-- Module      : Monad.Environment
 -- Copyright   : (c) Andrés Sicard-Ramírez 2009-2012
 -- License     : See the file LICENSE.
 --
 -- Maintainer  : Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 -- Stability   : experimental
 --
--- IO utilities
+-- Functions for initializing the translation monad environment.
 ------------------------------------------------------------------------------
 
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
-module Utils.IO
-  ( die
-  , failureMsg
-  )
+module Monad.Environment ( env )
 where
 
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import System.Environment ( getProgName )
-import System.Exit        ( exitFailure )
-import System.IO          ( hPutStrLn, stderr )
+import System.Environment ( getArgs )
 
 ------------------------------------------------------------------------------
--- | Failure message.
-failureMsg ∷ String → IO ()
-failureMsg err = do
-  progName ← getProgName
-  hPutStrLn stderr $ progName ++ ": " ++ err
+-- Local imports
 
--- | Exit with an error message.
-die ∷ String → IO a
-die err = failureMsg err >> exitFailure
+import Options  ( Options, processOptions )
+import Utils.IO ( die )
+
+------------------------------------------------------------------------------
+-- | The environment.
+env ∷ IO Options
+env = do
+  args ← getArgs
+  case processOptions args of
+    Left err → die err
+    Right o  → return o

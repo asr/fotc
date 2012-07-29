@@ -251,14 +251,14 @@ callATPs file = do
   atpsAnswer atps outputMVar atpsPH file 0
 
 ------------------------------------------------------------------------------
--- Note [All terminate]
+-- Note [All terminate].
 
 -- It seems that @terminateProcess@ is a nop if the process is
 -- finished, therefore we don't care on terminate all the ATPs
 -- processes.
 
 ------------------------------------------------------------------------------
--- Note [Timeout increse]
+-- Note [Timeout increse].
 
 -- 12 June 2012: Hack. Running for example
 --
@@ -277,7 +277,7 @@ callATPs file = do
 -- increase internally 10% the ATPs timeout.
 
 ------------------------------------------------------------------------------
--- Note [Vampire termination]
+-- Note [Vampire termination].
 
 -- TODO: Ugly hack. Using the thread delay and repeating the
 -- @terminateProcess@ instruction was the way to kill the Vampire

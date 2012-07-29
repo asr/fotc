@@ -13,17 +13,17 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 module TPTP.Types
-  ( AF(MkAF)
+  ( AF(AF)
   , allRequiredDefs
   , commonRequiredDefs
   , ConjectureSet(defsConjecture
                  , defsLocalHints
                  , localHintsConjecture
-                 , MkConjectureSet
+                 , ConjectureSet
                  , theConjecture
                  )
   , dropCommonRequiredDefs
-  , GeneralRoles(axioms, defsAxioms, defsHints, hints, MkGeneralRoles)
+  , GeneralRoles(axioms, defsAxioms, defsHints, hints, GeneralRoles)
   )
   where
 
@@ -52,16 +52,16 @@ import Utils.List ( duplicatesElements, nonDuplicate )
 -- | The TPTP annotated formulae.
 -- The annotated formulae are not in TPTP concrete syntax. We get this
 -- syntax via 'TPTP.TPTP.ConcreteSyntax.ToTPTP'.
-data AF = MkAF QName ATPRole FOLFormula
+data AF = AF QName ATPRole FOLFormula
 
 instance Eq AF where
-  (MkAF qName1 _ _) == (MkAF qName2 _ _) = qName1 == qName2
+  (AF qName1 _ _) == (AF qName2 _ _) = qName1 == qName2
 
 instance Ord AF where
-  compare (MkAF qName1 _ _) (MkAF qName2 _ _) = compare qName1 qName2
+  compare (AF qName1 _ _) (AF qName2 _ _) = compare qName1 qName2
 
 -- | The 'ATPRole's share by all the conjetures in an Agda module.
-data GeneralRoles = MkGeneralRoles
+data GeneralRoles = GeneralRoles
   { axioms     ∷ [AF]  -- ^ The axioms.
   , defsAxioms ∷ [AF]  -- ^ ATP definitions used by the axioms.
   , hints      ∷ [AF]  -- ^ The general hints.
@@ -69,7 +69,7 @@ data GeneralRoles = MkGeneralRoles
   }
 
 -- | The 'ATPRole's associated with a conjecture.
-data ConjectureSet = MkConjectureSet
+data ConjectureSet = ConjectureSet
   { theConjecture        ∷ AF    -- ^ The conjecture.
   , defsConjecture       ∷ [AF]  -- ^ ATP definitions used by the conjecture.
   , localHintsConjecture ∷ [AF]  -- ^ The conjecture local hints.

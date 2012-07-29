@@ -47,9 +47,6 @@ import Control.Monad.State
 
 import qualified Data.HashMap.Strict as HashMap ( empty )
 
-import System.Environment ( getArgs )
-import System.Exit        ( exitFailure )
-
 ------------------------------------------------------------------------------
 -- Agda library imports
 
@@ -60,39 +57,27 @@ import Agda.Utils.Impossible        ( Impossible(Impossible), throwImpossible )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import Options     ( Options, processOptions )
-import Utils.IO    ( failureMsg )
-import Utils.Names ( freshName )
+import Monad.Environment ( env )
+import Options           ( Options )
+import Utils.Names       ( freshName )
 
 #include "../undefined.h"
 
 ------------------------------------------------------------------------------
 -- | The translation monad state.
 
--- Note. Agda uses the type @[OptionsPragma]@ instead of the
--- @OptionPragma@ for the pragma options, but it doesn't seem
--- necessary in our case.
-data TState =
-  MkState { tDefs          ∷ Definitions    -- ^ Agda definitions.
-          , tVars          ∷ [String]       -- ^ Variables names.
-          , tPragmaOptions ∷ OptionsPragma  -- ^ Pragma options.
-          }
+-- See note [@OptionsPragma@].
+data TState = TState { tDefs          ∷ Definitions    -- ^ Agda definitions.
+                     , tVars          ∷ [String]       -- ^ Variables names.
+                     , tPragmaOptions ∷ OptionsPragma  -- ^ Pragma options.
+                     }
 
 -- The initial state.
 initTState ∷ TState
-initTState = MkState { tDefs          = HashMap.empty
-                     , tVars          = []
-                     , tPragmaOptions = []
-                     }
-
--- | The environment.
-env ∷ IO Options
-env = do
-  args ← getArgs
-  case processOptions args of
-    Left err → do failureMsg err
-                  exitFailure
-    Right o  → return o
+initTState = TState { tDefs          = HashMap.empty
+                    , tVars          = []
+                    , tPragmaOptions = []
+                    }
 
 -- | The translation monad.
 type T = ErrorT String (StateT TState (ReaderT Options IO))
@@ -155,3 +140,10 @@ modifyDefs defs = modify $ \s → s { tDefs = defs }
 -- | Modify the 'OptionsPragma' in the translation monad state.
 modifyPragmaOptions ∷ OptionsPragma → T ()
 modifyPragmaOptions ps = modify $ \s → s { tPragmaOptions = ps }
+
+------------------------------------------------------------------------------
+-- Note [@OptionsPragma@].
+--
+-- Agda uses the type @[OptionsPragma]@ instead of the type
+-- @OptionPragma@ for the pragma options, but it doesn't seem
+-- necessary in our case.

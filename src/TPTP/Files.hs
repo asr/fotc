@@ -60,7 +60,7 @@ import Options                ( Options(optOnlyFiles, optOutputDir) )
 import TPTP.ConcreteSyntax    ( ToTPTP(toTPTP) )
 
 import TPTP.Types
-  ( AF(MkAF)
+  ( AF(AF)
   , allRequiredDefs
   , ConjectureSet(defsConjecture
                  , defsLocalHints
@@ -125,7 +125,7 @@ agdaOriginalTerm qName role =
   ++ "% Line:\t" ++ showLn (qNameLine qName)
 
 addRole ∷ AF → FilePath → IO ()
-addRole af@(MkAF qName afRole _) file = do
+addRole af@(AF qName afRole _) file = do
   appendFile file $ agdaOriginalTerm qName afRole
   appendFile file $ toTPTP af
 
@@ -161,7 +161,7 @@ createConjectureFile generalRoles conjectureSet = do
 
   let qName ∷ QName
       qName = case theConjecture conjectureSet of
-                MkAF _qName _ _ → _qName
+                AF _qName _ _ → _qName
 
       moduleDir ∷ FilePath
       moduleDir = ((`moduleNameToFileName` [])
