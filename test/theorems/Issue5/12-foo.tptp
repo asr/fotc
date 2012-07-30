@@ -6,10 +6,10 @@
 % The local hint(s).
 
 % The original Agda term was:
-% Name:	RepeatedConjecture.refl
+% Name:	Issue5.p
 % Role:	hint
-% Line:	11
-fof(n4_41063195, hypothesis, ( ! [A] : ( A = A ) )).
+% Line:	9
+fof(n5_17605337, hypothesis, ( ! [A] : ( ! [B] : ( A = B ) ) )).
 
 % End local hint(s).
 
@@ -17,10 +17,10 @@ fof(n4_41063195, hypothesis, ( ! [A] : ( A = A ) )).
 % The conjecture.
 
 % The original Agda term was:
-% Name:	RepeatedConjecture.sym
+% Name:	Issue5.foo
 % Role:	prove
-% Line:	14
-fof(n7_41063195, conjecture, ( ! [A] : ( ! [B] : ( ( A = B ) => ( B = A ) ) ) )).
+% Line:	12
+fof(n8_17605337, conjecture, ( ! [A] : ( ! [B] : ( A = B ) ) )).
 
 % End conjecture.
 
