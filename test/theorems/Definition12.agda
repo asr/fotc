@@ -16,7 +16,7 @@ postulate
   true if : D
   _·_     : D → D → D
 
-postulate if-true  : ∀ d₁ {d₂} → if · true · d₁ · d₂ ≡ d₁
+postulate if-true : ∀ d₁ {d₂} → if · true · d₁ · d₂ ≡ d₁
 {-# ATP axiom if-true #-}
 
 if_then_else_ : D → D → D → D
