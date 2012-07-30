@@ -1,8 +1,8 @@
 -- The BUILTIN pragma works with imported modules.
 
-module Nat.OtherModule where
+module Issue3Nat.B where
 
-open import Nat.Nat
+open import Issue3Nat.A
 
 {-# BUILTIN NATURAL ℕ     #-}
 {-# BUILTIN ZERO    zero  #-}

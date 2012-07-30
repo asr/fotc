@@ -316,7 +316,7 @@ type_check_notes :
 ##############################################################################
 # Test used when there is a modification to Agda
 
-agda_changed :
+agda_changed : clean
 	if [ ! -d $(snapshot_dir) ]; then exit 1; fi
 	cabal clean && cabal configure && cabal build
 	make agda2atp_changed

@@ -5,9 +5,9 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Test with agda2atp on 12 July 2012.
+-- Test with agda2atp on 30 July 2012.
 
-module Definition where
+module Issue4 where
 
 postulate
   D   : Set
@@ -25,6 +25,6 @@ foo {a} Pa {b} Pb = a
   postulate bar : c ≡ a
   {-# ATP prove bar #-}
 
--- $ agda2atp Definition.agda
+-- $ agda2atp Issue4.agda
 -- An internal error has occurred. Please report this as a bug.
 -- Location of the error: src/AgdaInternal/DeBruijn.hs:92

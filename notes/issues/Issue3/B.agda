@@ -3,9 +3,9 @@
 
 -- Tested with agda2atp on 12 July 2012.
 
-module Issue3.OtherModule where
+module Issue3.B where
 
-open import Issue3.Module
+open import Issue3.A
 
 -- The program agda2atp does not translate the ATP pragmas because
 -- they are not defined in the imported module.
