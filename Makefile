@@ -214,9 +214,9 @@ haddock_file = /tmp/haddock.tmp
 
 doc :
 	cabal configure
-	cabal haddock --hyperlink-source \
-                      --executables \
-                      --haddock-option=--use-unicode > $(haddock_file)
+	cabal haddock --executables \
+	              --haddock-option=--use-unicode \
+                      --hyperlink-source  > $(haddock_file)
 	cat $(haddock_file)
 	diff <(find src/ -name '*.hs' | wc -l) <(grep 100% $(haddock_file) | wc -l)
 	@echo "$@ succeeded!"

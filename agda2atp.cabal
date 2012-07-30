@@ -73,10 +73,9 @@ executable agda2atp
                  Utils.Show
                  Utils.Version
 
- -- Required by cabal haddock. Cabal bug?
- --
- -- cabal-install version 0.14.0 using version 1.14.0 of the Cabal
- -- library.
+ -- Required by cabal haddock (cabal-install version 0.14.0 using
+ -- version 1.14.0 of the Cabal library). See
+ -- https://github.com/haskell/cabal/issues/223.
   extensions: CPP
 
   -- Only warnings.
