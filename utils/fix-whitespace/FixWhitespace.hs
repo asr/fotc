@@ -15,10 +15,8 @@ import System.FilePath.Find           ( (||?), (==?), always, extension, find )
 
 import System.IO
   ( hPutStr
-  , hSetEncoding
   , IOMode(ReadMode, WriteMode)
   , stderr
-  , utf8
   , withFile
   )
 
@@ -103,7 +101,6 @@ usage = unlines
 fix ∷ Mode → FilePath → IO Bool
 fix mode f = do
   new ← withFile f ReadMode $ \h → do
-    hSetEncoding h utf8
     s ← Text.hGetContents h
     let s' = transform s
     return $ if s' == s then Nothing else Just s'
@@ -114,9 +111,7 @@ fix mode f = do
                  ++ (if mode == Fix then "fixed" else "detected")
                  ++ " in " ++ f
       when (mode == Fix) $
-        withFile f WriteMode $ \h → do
-          hSetEncoding h utf8
-          Text.hPutStr h s
+        withFile f WriteMode $ \h → Text.hPutStr h s
       return True
 
 -- | Transforms the contents of a file.

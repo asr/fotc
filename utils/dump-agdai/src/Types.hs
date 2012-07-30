@@ -5,8 +5,6 @@ module Types ( printTypes ) where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Data.Function ( on )
-
 import qualified Data.HashMap.Strict as HashMap ( toList )
 
 import Data.Int  ( Int32 )
@@ -38,6 +36,10 @@ import Agda.Syntax.Position
 
 ------------------------------------------------------------------------------
 -- Auxiliary functions
+
+-- From Data.Function. This function is not in Haskell2010.
+on ∷ (b → b → c) → (a → b) → a → a → c
+(.*.) `on` f = \x y → f x .*. f y
 
 qNameLine ∷ QName → Int32
 qNameLine qName =
