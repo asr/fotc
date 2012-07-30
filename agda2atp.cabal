@@ -79,54 +79,8 @@ executable agda2atp
  -- library.
   extensions: CPP
 
-  if impl(ghc == 6.12.3)
-     -- Only warnings.
-     ghc-options: -Wall
-                  -fwarn-incomplete-record-updates
-                  -fwarn-monomorphism-restriction
-                  -fwarn-simple-patterns
-                  -fwarn-tabs
-                  -Werror
-
-  if impl(ghc == 7.0.1) || impl(ghc == 7.0.2) || impl(ghc == 7.0.3) || impl(ghc == 7.0.4)
-     -- Only warnings.
-     ghc-options: -Wall
-                  -- The Cabal-generated module Paths_Agda triggers a
-                  -- warning under GHC 7.0.* (cabal-install version
-                  -- 0.10.2 using version 1.10.2.0 of the Cabal
-                  -- library), therefore we disable that warning.
-                  -fno-warn-warnings-deprecations
-                  -fwarn-incomplete-record-updates
-                  -- The Cabal-generated module Paths_agda2atp
-                  -- triggers a warning under GHC 7.0.* (cabal-install
-                  -- version 0.10.2 using version 1.10.2.0 of the
-                  -- Cabal library), therefore we disable this
-                  -- warning.
-                  -- -fwarn-missing-import-lists
-                  -fwarn-missing-local-sigs
-                  -fwarn-monomorphism-restriction
-                  -fwarn-tabs
-                  -Werror
-
-  if impl(ghc == 7.2.1) || impl(ghc == 7.2.2)
-     -- Only warnings.
-     ghc-options: -Wall
-                  -fwarn-auto-orphans
-                  -fwarn-identities
-                  -fwarn-incomplete-record-updates
-                  -fwarn-incomplete-uni-patterns
-                  -- The Cabal-generated module Paths_agda2atp
-                  -- triggers a warning under GHC 7.2.* (cabal-install
-                  -- version 0.10.4 using version 1.12.0 of the Cabal
-                  -- library), therefore we disable this warning.
-                  -- -fwarn-missing-import-lists
-                  -fwarn-missing-local-sigs
-                  -fwarn-monomorphism-restriction
-                  -fwarn-tabs
-                  -Werror
-
+  -- Only warnings.
   if impl(ghc == 7.4.1) || impl(ghc == 7.4.2)
-     -- Only warnings.
      ghc-options: -Wall
                   -fwarn-auto-orphans
                   -fwarn-identities
