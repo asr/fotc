@@ -69,6 +69,7 @@ executable agda2atp
                  Utils.Directory
                  Utils.IO
                  Utils.List
+                 Utils.Monad
                  Utils.Names
                  Utils.Show
                  Utils.Version

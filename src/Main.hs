@@ -23,7 +23,7 @@ where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad        ( liftM2, unless, when )
+import Control.Monad        ( unless, when )
 import Control.Monad.Error  ( MonadError(catchError, throwError) )
 import Control.Monad.Reader ( MonadReader(ask) )
 import Control.Monad.Trans  ( MonadIO(liftIO) )
@@ -69,6 +69,7 @@ import TPTP.Files       ( createConjectureFile )
 import TPTP.Translation ( conjecturesToAFs, generalRolesToAFs )
 import TPTP.Types       ( ConjectureSet, GeneralRoles )
 import Utils.IO         ( failureMsg )
+import Utils.Monad      ( pair )
 import Utils.Version    ( progNameVersion )
 
 #include "undefined.h"
@@ -97,7 +98,7 @@ translation agdaFile = do
   modifyDefs allDefs
   modifyPragmaOptions $ concat $ iPragmaOptions i
 
-  liftM2 (,) generalRolesToAFs (conjecturesToAFs topLevelDefs)
+  pair generalRolesToAFs $ conjecturesToAFs topLevelDefs
 
 -- | The main function.
 runAgda2ATP ∷ T ()
