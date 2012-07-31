@@ -68,8 +68,7 @@ import Snapshot         ( snapshotTest )
 import TPTP.Files       ( createConjectureFile )
 import TPTP.Translation ( conjecturesToAFs, generalRolesToAFs )
 import TPTP.Types       ( ConjectureSet, GeneralRoles )
-import Utils.IO         ( failureMsg )
-import Utils.Monad      ( pair )
+import Utils.Monad      ( failureMsg, pair )
 import Utils.Version    ( progNameVersion )
 
 #include "undefined.h"

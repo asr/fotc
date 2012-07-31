@@ -12,9 +12,31 @@
 
 {-# LANGUAGE UnicodeSyntax #-}
 
-module Utils.Monad ( pair ) where
+module Utils.Monad
+  ( die
+  , failureMsg
+  , pair
+  )
+  where
+
+------------------------------------------------------------------------------
+-- Haskell imports
+
+import System.Environment ( getProgName )
+import System.Exit        ( exitFailure )
+import System.IO          ( hPutStrLn, stderr )
 
 ------------------------------------------------------------------------------
 -- | Sequences a pair of monadic computations.
 pair ∷ Monad m ⇒ m a → m b → m (a,b)
 pair mx my = mx >>= \x → my >>= \y → return (x,y)
+
+-- | Failure message.
+failureMsg ∷ String → IO ()
+failureMsg err = do
+  progName ← getProgName
+  hPutStrLn stderr $ progName ++ ": " ++ err
+
+-- | Exit with an error message.
+die ∷ String → IO a
+die err = failureMsg err >> exitFailure

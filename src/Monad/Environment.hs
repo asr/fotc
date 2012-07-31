@@ -24,8 +24,8 @@ import System.Environment ( getArgs )
 ------------------------------------------------------------------------------
 -- Local imports
 
-import Options  ( Options, processOptions )
-import Utils.IO ( die )
+import Options     ( Options, processOptions )
+import Utils.Monad ( die )
 
 ------------------------------------------------------------------------------
 -- | The environment.
