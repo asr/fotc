@@ -5,28 +5,23 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module LTC-PCF.Program.GCD.Total.DivisibleI where
+module LTC-PCF.Program.GCD.Partial.Divisible where
 
 open import Common.Function
 
 open import LTC-PCF.Base
 open import LTC-PCF.Base.Properties
 open import LTC-PCF.Data.Nat
-open import LTC-PCF.Data.Nat.Divisibility.By0
-open import LTC-PCF.Data.Nat.Divisibility.By0.PropertiesI
-open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
+open import LTC-PCF.Data.Nat.Divisibility.NotBy0
+open import LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties
+open import LTC-PCF.Data.Nat.Induction.NonAcc.Lexicographic
 open import LTC-PCF.Data.Nat.Inequalities
-open import LTC-PCF.Data.Nat.Inequalities.EliminationPropertiesI
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
-open import LTC-PCF.Data.Nat.PropertiesI
-open import LTC-PCF.Program.GCD.Total.Definitions
-open import LTC-PCF.Program.GCD.Total.GCD
-open import LTC-PCF.Program.GCD.Total.EquationsI
-
-------------------------------------------------------------------------------
--- The gcd 0 0 is Divisible.
-gcd-00-Divisible : Divisible zero zero (gcd zero zero)
-gcd-00-Divisible c Ncd (c∣0 , _) = subst (λ x → c ∣ x) (sym gcd-00) c∣0
+open import LTC-PCF.Data.Nat.Inequalities.EliminationProperties
+open import LTC-PCF.Data.Nat.Inequalities.Properties
+open import LTC-PCF.Data.Nat.Properties
+open import LTC-PCF.Program.GCD.Partial.Definitions
+open import LTC-PCF.Program.GCD.Partial.GCD
+open import LTC-PCF.Program.GCD.Partial.Equations
 
 ------------------------------------------------------------------------------
 -- The gcd 0 (succ n) is Divisible.
@@ -97,12 +92,14 @@ Proof
 -- The gcd m n when m > n is Divisible.
 gcd-x>y-Divisible :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → Lexi o p m n → Divisible o p (gcd o p)) →
+  (∀ {o p} → N o → N p → Lexi o p m n → x≢0≢y o p →
+             Divisible o p (gcd o p)) →
   GT m n →
+  x≢0≢y m n →
   Divisible m n (gcd m n)
-gcd-x>y-Divisible zN Nn _ 0>n _ _ = ⊥-elim $ 0>x→⊥ Nn 0>n
-gcd-x>y-Divisible (sN Nm) zN _ _ c Nc = gcd-S0-Divisible Nm c Nc
-gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn c Nc =
+gcd-x>y-Divisible zN Nn _ 0>n _ _ _ = ⊥-elim $ 0>x→⊥ Nn 0>n
+gcd-x>y-Divisible (sN Nm) zN _ _ _ c Nc = gcd-S0-Divisible Nm c Nc
+gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ c Nc =
   gcd-S>S-Divisible Nm Nn ih Sm>Sn c Nc
   where
   -- Inductive hypothesis.
@@ -112,18 +109,21 @@ gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn c Nc =
             (∸-N (sN Nm) (sN Nn))
             (sN Nn)
             ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
+            (λ p → ⊥-elim $ S≢0 $ ∧-proj₂ p)
 
 ------------------------------------------------------------------------------
 -- The gcd m n when m ≯ n is Divisible.
 gcd-x≯y-Divisible :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → Lexi o p m n → Divisible o p (gcd o p)) →
+  (∀ {o p} → N o → N p → Lexi o p m n → x≢0≢y o p →
+             Divisible o p (gcd o p)) →
   NGT m n →
+  x≢0≢y m n →
   Divisible m n (gcd m n)
-gcd-x≯y-Divisible zN zN _ _ c Nc = gcd-00-Divisible c Nc
-gcd-x≯y-Divisible zN (sN Nn) _ _ c Nc = gcd-0S-Divisible Nn c Nc
-gcd-x≯y-Divisible (sN _) zN _ Sm≯0 _ _ = ⊥-elim $ S≯0→⊥ Sm≯0
-gcd-x≯y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn c Nc =
+gcd-x≯y-Divisible zN zN _ _ h _ _ = ⊥-elim $ h (refl , refl)
+gcd-x≯y-Divisible zN (sN Nn) _ _ _ c Nc = gcd-0S-Divisible Nn c Nc
+gcd-x≯y-Divisible (sN _) zN _ Sm≯0 _ _ _ = ⊥-elim $ S≯0→⊥ Sm≯0
+gcd-x≯y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ c Nc =
   gcd-S≯S-Divisible Nm Nn ih Sm≯Sn c Nc
   where
   -- Inductive hypothesis.
@@ -133,14 +133,15 @@ gcd-x≯y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn c Nc =
             (sN Nm)
             (∸-N (sN Nn) (sN Nm))
             ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
+            (λ p → ⊥-elim $ S≢0 $ ∧-proj₁ p)
 
 ------------------------------------------------------------------------------
 -- The gcd is Divisible.
-gcd-Divisible : ∀ {m n} → N m → N n → Divisible m n (gcd m n)
+gcd-Divisible : ∀ {m n} → N m → N n → x≢0≢y m n → Divisible m n (gcd m n)
 gcd-Divisible = Lexi-wfind A istep
   where
   A : D → D → Set
-  A i j = Divisible i j (gcd i j)
+  A i j = x≢0≢y i j → Divisible i j (gcd i j)
 
   istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → Lexi k l i j → A k l) →
           A i j

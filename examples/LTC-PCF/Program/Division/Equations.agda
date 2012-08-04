@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module LTC-PCF.Program.Division.EquationsI where
+module LTC-PCF.Program.Division.Equations where
 
 open import Common.FOL.Relation.Binary.EqReasoning
 open import Common.Function

@@ -159,7 +159,7 @@ the following commands:
 
 ````bash
 $ cd agda2atp/examples
-$ agda LTC-PCF/Program/GCD/Partial/ProofSpecificationI.agda
+$ agda LTC-PCF/Program/GCD/Partial/ProofSpecification.agda
 ````
 
 More examples

@@ -5,12 +5,12 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module LTC-PCF.Data.Bool.PropertiesI where
+module LTC-PCF.Data.Bool.Properties where
 
 open import LTC-PCF.Base
 open import LTC-PCF.Data.Bool
 open import LTC-PCF.Data.Nat.Inequalities
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
+open import LTC-PCF.Data.Nat.Inequalities.Properties
 open import LTC-PCF.Data.Nat.Type
 
 ------------------------------------------------------------------------------

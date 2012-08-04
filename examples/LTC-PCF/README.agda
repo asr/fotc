@@ -26,7 +26,7 @@ open import LTC-PCF.Base
 open import LTC-PCF.Data.Bool.Type
 
 -- Properties
-open import LTC-PCF.Data.Bool.PropertiesI
+open import LTC-PCF.Data.Bool.Properties
 
 ------------------------------------------------------------------------------
 -- Natural numberes
@@ -38,21 +38,21 @@ open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Type
 
 -- Properties
-open import LTC-PCF.Data.Nat.PropertiesI
+open import LTC-PCF.Data.Nat.Properties
 
 -- Divisibility relation
-open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesI
+open import LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties
 
 -- Induction
-open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
-open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInductionI
+open import LTC-PCF.Data.Nat.Induction.NonAcc.Lexicographic
+open import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInduction
 
 -- Inequalites
-open import LTC-PCF.Data.Nat.Inequalities.EliminationPropertiesI
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
+open import LTC-PCF.Data.Nat.Inequalities.EliminationProperties
+open import LTC-PCF.Data.Nat.Inequalities.Properties
 
 -- The recursive operator
-open import LTC-PCF.Data.Nat.Rec.EquationsI
+open import LTC-PCF.Data.Nat.Rec.Equations
 
 ------------------------------------------------------------------------------
 -- A looping combinator
@@ -62,8 +62,8 @@ open import LTC-PCF.Loop
 -- Verification of programs
 
 -- The division algorithm: A non-structurally recursive algorithm
-open import LTC-PCF.Program.Division.ProofSpecificationI
+open import LTC-PCF.Program.Division.ProofSpecification
 
 -- The GCD algorithm: A non-structurally recursive algorithm
-open import LTC-PCF.Program.GCD.Partial.ProofSpecificationI
-open import LTC-PCF.Program.GCD.Total.ProofSpecificationI
+open import LTC-PCF.Program.GCD.Partial.ProofSpecification
+open import LTC-PCF.Program.GCD.Total.ProofSpecification

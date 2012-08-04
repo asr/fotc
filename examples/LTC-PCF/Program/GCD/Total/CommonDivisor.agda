@@ -5,24 +5,29 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module LTC-PCF.Program.GCD.Partial.CommonDivisorI where
+module LTC-PCF.Program.GCD.Total.CommonDivisor where
 
 open import Common.Function
 
 open import LTC-PCF.Base
 open import LTC-PCF.Base.Properties
 open import LTC-PCF.Data.Nat
-open import LTC-PCF.Data.Nat.Divisibility.NotBy0
-open import LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesI
-open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
+open import LTC-PCF.Data.Nat.Divisibility.By0
+open import LTC-PCF.Data.Nat.Divisibility.By0.Properties
+open import LTC-PCF.Data.Nat.Induction.NonAcc.Lexicographic
 open import LTC-PCF.Data.Nat.Inequalities
-open import LTC-PCF.Data.Nat.Inequalities.EliminationPropertiesI
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
-open import LTC-PCF.Data.Nat.PropertiesI
-open import LTC-PCF.Program.GCD.Partial.Definitions
-open import LTC-PCF.Program.GCD.Partial.GCD
-open import LTC-PCF.Program.GCD.Partial.EquationsI
-open import LTC-PCF.Program.GCD.Partial.TotalityI
+open import LTC-PCF.Data.Nat.Inequalities.EliminationProperties
+open import LTC-PCF.Data.Nat.Inequalities.Properties
+open import LTC-PCF.Data.Nat.Properties
+open import LTC-PCF.Program.GCD.Total.Definitions
+open import LTC-PCF.Program.GCD.Total.GCD
+open import LTC-PCF.Program.GCD.Total.Equations
+open import LTC-PCF.Program.GCD.Total.Totality
+
+------------------------------------------------------------------------------
+-- gcd 0 0 | 0.
+gcd-00∣0 : gcd zero zero ∣ zero
+gcd-00∣0 = subst (λ x → x ∣ zero) (sym gcd-00) 0∣0
 
 ------------------------------------------------------------------------------
 -- Some cases of the gcd-∣₁.
@@ -53,7 +58,8 @@ gcd-0S-∣₁ {n} Nn = subst (λ x → x ∣ zero)
 gcd-S0-∣₁ : ∀ {m} → N m → gcd (succ₁ m) zero ∣ succ₁ m
 gcd-S0-∣₁ {m} Nm = subst (λ x → x ∣ succ₁ m)
                          (sym $ gcd-S0 m)
-                         (∣-refl-S Nm)
+                         (∣-refl (sN Nm))
+
 
 -- gcd (succ₁ m) (succ₁ n) ∣ succ₁ m, when succ₁ m ≯ succ₁ n.
 gcd-S≯S-∣₁ :
@@ -99,7 +105,7 @@ gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
                  {gcd (succ₁ m ∸ succ₁ n) (succ₁ n)}
                  {succ₁ m ∸ succ₁ n}
                  {succ₁ n}
-                 (gcd-N Sm-Sn-N (sN Nn) (λ p → ⊥-elim $ S≢0 $ ∧-proj₂ p))
+                 (gcd-N Sm-Sn-N (sN Nn))
                  Sm-Sn-N
                  (sN Nn)
                  ih
@@ -119,7 +125,7 @@ gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
 gcd-0S-∣₂ : ∀ {n} → N n → gcd zero (succ₁ n) ∣ succ₁ n
 gcd-0S-∣₂ {n} Nn = subst (λ x → x ∣ succ₁ n)
                          (sym $ gcd-0S n)
-                         (∣-refl-S Nn)
+                         (∣-refl (sN Nn))
 
 -- gcd (succ₁ m) 0 ∣ 0.
 gcd-S0-∣₂ : ∀ {m} → N m → gcd (succ₁ m) zero ∣ zero
@@ -171,7 +177,7 @@ gcd-S≯S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≯Sn =
                  {gcd (succ₁ m) (succ₁ n ∸ succ₁ m)}
                  {succ₁ n ∸ succ₁ m}
                  {succ₁ m}
-                 (gcd-N (sN Nm) Sn-Sm-N (λ p → ⊥-elim $ S≢0 $ ∧-proj₁ p))
+                 (gcd-N (sN Nm) Sn-Sm-N)
                  Sn-Sm-N
                  (sN Nm)
                  ih
@@ -186,6 +192,10 @@ gcd-S≯S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≯Sn =
 ------------------------------------------------------------------------------
 -- The gcd is CD.
 -- We will prove that gcd-CD : ... → CD m n (gcd m n).
+
+-- The gcd 0 0 is CD.
+gcd-00-CD : CD zero zero (gcd zero zero)
+gcd-00-CD = gcd-00∣0 , gcd-00∣0
 
 -- The gcd 0 (succ₁ n) is CD.
 gcd-0S-CD : ∀ {n} → N n → CD zero (succ₁ n) (gcd zero (succ₁ n))
@@ -228,13 +238,12 @@ gcd-S≯S-CD {m} {n} Nm Nn acc Sm≯Sn =
 -- The gcd m n when m > n is CD.
 gcd-x>y-CD :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → Lexi o p m n → x≢0≢y o p → CD o p (gcd o p)) →
+  (∀ {o p} → N o → N p → Lexi o p m n → CD o p (gcd o p)) →
   GT m n →
-  x≢0≢y m n →
   CD m n (gcd m n)
-gcd-x>y-CD zN Nn _ 0>n _ = ⊥-elim $ 0>x→⊥ Nn 0>n
-gcd-x>y-CD (sN Nm) zN _ _ _ = gcd-S0-CD Nm
-gcd-x>y-CD (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
+gcd-x>y-CD zN          Nn          _    0>n   = ⊥-elim $ 0>x→⊥ Nn 0>n
+gcd-x>y-CD (sN Nm)     zN          _    _     = gcd-S0-CD Nm
+gcd-x>y-CD (sN {m} Nm) (sN {n} Nn) accH Sm>Sn =
   gcd-S>S-CD Nm Nn ih Sm>Sn
   where
   -- Inductive hypothesis.
@@ -244,19 +253,17 @@ gcd-x>y-CD (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
              (∸-N (sN Nm) (sN Nn))
              (sN Nn)
              ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
-             (λ p → ⊥-elim $ S≢0 $ ∧-proj₂ p)
 
 -- The gcd m n when m ≯ n is CD.
 gcd-x≯y-CD :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → Lexi o p m n → x≢0≢y o p → CD o p (gcd o p)) →
+  (∀ {o p} → N o → N p → Lexi o p m n → CD o p (gcd o p)) →
   NGT m n →
-  x≢0≢y m n →
   CD m n (gcd m n)
-gcd-x≯y-CD zN          zN          _    _     h = ⊥-elim $ h (refl , refl)
-gcd-x≯y-CD zN          (sN Nn)     _    _     _ = gcd-0S-CD Nn
-gcd-x≯y-CD (sN _)      zN          _    Sm≯0  _ = ⊥-elim $ S≯0→⊥ Sm≯0
-gcd-x≯y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ = gcd-S≯S-CD Nm Nn ih Sm≯Sn
+gcd-x≯y-CD zN          zN          _    _     = gcd-00-CD
+gcd-x≯y-CD zN          (sN Nn)     _    _     = gcd-0S-CD Nn
+gcd-x≯y-CD (sN _)      zN          _    Sm≯0  = ⊥-elim $ S≯0→⊥ Sm≯0
+gcd-x≯y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn = gcd-S≯S-CD Nm Nn ih Sm≯Sn
   where
   -- Inductive hypothesis.
   ih : CD (succ₁ m) (succ₁ n ∸ succ₁ m)  (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))
@@ -265,14 +272,13 @@ gcd-x≯y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ = gcd-S≯S-CD Nm Nn ih Sm�
             (sN Nm)
             (∸-N (sN Nn) (sN Nm))
             ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
-            (λ p → ⊥-elim $ S≢0 $ ∧-proj₁ p)
 
 -- The gcd is CD.
-gcd-CD : ∀ {m n} → N m → N n → x≢0≢y m n → CD m n (gcd m n)
+gcd-CD : ∀ {m n} → N m → N n → CD m n (gcd m n)
 gcd-CD = Lexi-wfind A istep
   where
   A : D → D → Set
-  A i j = x≢0≢y i j → CD i j (gcd i j)
+  A i j = CD i j (gcd i j)
 
   istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → Lexi k l i j → A k l) →
           A i j

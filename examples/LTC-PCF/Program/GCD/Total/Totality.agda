@@ -5,21 +5,26 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module LTC-PCF.Program.GCD.Partial.TotalityI where
+module LTC-PCF.Program.GCD.Total.Totality where
 
 open import Common.Function
 
 open import LTC-PCF.Base
 open import LTC-PCF.Base.Properties
 open import LTC-PCF.Data.Nat
-open import LTC-PCF.Data.Nat.Induction.NonAcc.LexicographicI
+open import LTC-PCF.Data.Nat.Induction.NonAcc.Lexicographic
 open import LTC-PCF.Data.Nat.Inequalities
-open import LTC-PCF.Data.Nat.Inequalities.EliminationPropertiesI
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
-open import LTC-PCF.Data.Nat.PropertiesI
-open import LTC-PCF.Program.GCD.Partial.Definitions
-open import LTC-PCF.Program.GCD.Partial.GCD
-open import LTC-PCF.Program.GCD.Partial.EquationsI
+open import LTC-PCF.Data.Nat.Inequalities.EliminationProperties
+open import LTC-PCF.Data.Nat.Inequalities.Properties
+open import LTC-PCF.Data.Nat.Properties
+open import LTC-PCF.Program.GCD.Total.Definitions
+open import LTC-PCF.Program.GCD.Total.GCD
+open import LTC-PCF.Program.GCD.Total.Equations
+
+------------------------------------------------------------------------------
+-- gcd 0 0 is total.
+gcd-00-N : N (gcd zero zero)
+gcd-00-N = subst N (sym $ gcd-00) zN
 
 ------------------------------------------------------------------------------
 -- gcd 0 (succ n) is total.
@@ -51,13 +56,12 @@ gcd-S≯S-N {m} {n} Nm Nn ih Sm≯Sn = subst N (sym $ gcd-S≯S m n Sm≯Sn) ih
 -- gcd m n when m > n is total.
 gcd-x>y-N :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → Lexi o p m n → x≢0≢y o p → N (gcd o p)) →
+  (∀ {o p} → N o → N p → Lexi o p m n → N (gcd o p)) →
   GT m n →
-  x≢0≢y m n →
   N (gcd m n)
-gcd-x>y-N zN Nn _ 0>n _ = ⊥-elim $ 0>x→⊥ Nn 0>n
-gcd-x>y-N (sN Nm) zN _ _ _ = gcd-S0-N Nm
-gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
+gcd-x>y-N zN Nn _ 0>n = ⊥-elim $ 0>x→⊥ Nn 0>n
+gcd-x>y-N (sN Nm) zN _ _ = gcd-S0-N Nm
+gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn =
   gcd-S>S-N Nm Nn ih Sm>Sn
   where
   -- Inductive hypothesis.
@@ -67,20 +71,18 @@ gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ =
             (∸-N (sN Nm) (sN Nn))
             (sN Nn)
             ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
-            (λ p → ⊥-elim $ S≢0 $ ∧-proj₂ p)
 
 ------------------------------------------------------------------------------
 -- gcd m n when m ≯ n is total.
 gcd-x≯y-N :
   ∀ {m n} → N m → N n →
-  (∀ {o p} → N o → N p → Lexi o p m n → x≢0≢y o p → N (gcd o p)) →
+  (∀ {o p} → N o → N p → Lexi o p m n → N (gcd o p)) →
   NGT m n →
-  x≢0≢y m n →
   N (gcd m n)
-gcd-x≯y-N zN          zN          _    _     h = ⊥-elim $ h (refl , refl)
-gcd-x≯y-N zN          (sN Nn)     _    _     _ = gcd-0S-N Nn
-gcd-x≯y-N (sN _)      zN          _    Sm≯0  _ = ⊥-elim $ S≯0→⊥ Sm≯0
-gcd-x≯y-N (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ = gcd-S≯S-N Nm Nn ih Sm≯Sn
+gcd-x≯y-N zN          zN          _    _     = gcd-00-N
+gcd-x≯y-N zN          (sN Nn)     _    _     = gcd-0S-N Nn
+gcd-x≯y-N (sN _)      zN          _    Sm≯0  = ⊥-elim $ S≯0→⊥ Sm≯0
+gcd-x≯y-N (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn = gcd-S≯S-N Nm Nn ih Sm≯Sn
   where
   -- Inductive hypothesis.
   ih : N (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))
@@ -89,15 +91,14 @@ gcd-x≯y-N (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ = gcd-S≯S-N Nm Nn ih Sm≯S
             (sN Nm)
             (∸-N (sN Nn) (sN Nm))
             ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
-            (λ p → ⊥-elim $ S≢0 $ ∧-proj₁ p)
 
 ------------------------------------------------------------------------------
--- gcd m n when m ≢ 0 and n ≢ 0 is total.
-gcd-N : ∀ {m n} → N m → N n → x≢0≢y m n → N (gcd m n)
+-- gcd m n is total.
+gcd-N : ∀ {m n} → N m → N n → N (gcd m n)
 gcd-N = Lexi-wfind A istep
   where
   A : D → D → Set
-  A i j = x≢0≢y i j → N (gcd i j)
+  A i j = N (gcd i j)
 
   istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → Lexi k l i j → A k l) →
           A i j

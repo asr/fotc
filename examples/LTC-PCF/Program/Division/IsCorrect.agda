@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module LTC-PCF.Program.Division.IsCorrectI where
+module LTC-PCF.Program.Division.IsCorrect where
 
 open import Common.FOL.Relation.Binary.EqReasoning
 open import Common.Function
@@ -13,9 +13,9 @@ open import Common.Function
 open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Inequalities
-open import LTC-PCF.Data.Nat.PropertiesI
+open import LTC-PCF.Data.Nat.Properties
 open import LTC-PCF.Program.Division.Division
-open import LTC-PCF.Program.Division.EquationsI
+open import LTC-PCF.Program.Division.Equations
 open import LTC-PCF.Program.Division.Specification
 
 ------------------------------------------------------------------------------

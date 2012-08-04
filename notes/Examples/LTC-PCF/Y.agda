@@ -30,6 +30,6 @@ open import LTC-PCF.Base hiding ( fix ; fix-eq )
 Y : D
 Y = lam (λ f → lam (λ x → f · (x · x)) · lam (λ x → f · (x · x)))
 
--- We define a higher-order Y for convenience in writing.
+-- We define an higher-order Y for convenience in writing.
 Y₁ : (D → D) → D
 Y₁ f = Y · lam f

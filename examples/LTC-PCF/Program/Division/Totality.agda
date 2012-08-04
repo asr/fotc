@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module LTC-PCF.Program.Division.TotalityI where
+module LTC-PCF.Program.Division.Totality where
 
 open import Common.Function
 
@@ -13,7 +13,7 @@ open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Program.Division.Division
-open import LTC-PCF.Program.Division.EquationsI
+open import LTC-PCF.Program.Division.Equations
 open import LTC-PCF.Program.Division.Specification
 
 ------------------------------------------------------------------------------

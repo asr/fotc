@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module LTC-PCF.Data.Nat.PropertiesI where
+module LTC-PCF.Data.Nat.Properties where
 
 open import Common.FOL.Relation.Binary.EqReasoning
 
@@ -13,7 +13,7 @@ open import LTC-PCF.Base
 open import LTC-PCF.Base.Properties
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Rec
-open import LTC-PCF.Data.Nat.Rec.EquationsI
+open import LTC-PCF.Data.Nat.Rec.Equations
 
 ------------------------------------------------------------------------------
 -- Congruence properties

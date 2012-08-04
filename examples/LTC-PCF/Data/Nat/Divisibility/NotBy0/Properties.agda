@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module LTC-PCF.Data.Nat.Divisibility.NotBy0.PropertiesI where
+module LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties where
 
 open import Common.FOL.Relation.Binary.EqReasoning
 open import Common.Function
@@ -13,11 +13,11 @@ open import Common.Function
 open import LTC-PCF.Base
 open import LTC-PCF.Base.Properties
 open import LTC-PCF.Data.Nat
-open import LTC-PCF.Data.Nat.PropertiesI
+open import LTC-PCF.Data.Nat.Properties
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0
 open import LTC-PCF.Data.Nat.Inequalities
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
-open import LTC-PCF.Data.Nat.PropertiesI
+open import LTC-PCF.Data.Nat.Inequalities.Properties
+open import LTC-PCF.Data.Nat.Properties
 
 ------------------------------------------------------------------------------
 -- Any positive number divides 0.

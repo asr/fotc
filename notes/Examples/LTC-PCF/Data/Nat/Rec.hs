@@ -34,8 +34,8 @@ fix₂ f = f (fix₂ f)
 
 rech ∷ T → T
 rech r = \n a f → if n == Zero
-                 then a
-                 else f n (r n a f)
+                  then a
+                  else f n (r n a f)
 
 rec₂ ∷ T
 rec₂ n a f = (fix₁ rech) n a f

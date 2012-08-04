@@ -5,14 +5,14 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module LTC-PCF.Program.GCD.Partial.EquationsI where
+module LTC-PCF.Program.GCD.Partial.Equations where
 
 open import Common.FOL.Relation.Binary.EqReasoning
 
 open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Inequalities
-open import LTC-PCF.Data.Nat.Inequalities.PropertiesI
+open import LTC-PCF.Data.Nat.Inequalities.Properties
 open import LTC-PCF.Loop
 open import LTC-PCF.Program.GCD.Partial.GCD
 
