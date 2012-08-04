@@ -115,7 +115,7 @@ Installation
    ````
 
 Examples in our FoSSaCS-2012 paper
-------------------------------
+----------------------------------
 
 Please note that the code presented here does not match the paper
 exactly.
@@ -140,6 +140,26 @@ the following commands
 $ cd agda2atp/examples
 $ agda FOTC/Program/Mirror/PropertiesATP.agda
 $ agda2atp FOTC/Program/Mirror/PropertiesATP.agda
+````
+
+Examples in our PLPV-2009 paper
+-------------------------------
+
+Please note that the code presented here does not match the paper
+exactly. Also note the the code below does not require neither
+the version modified of Agda nor the program agda2atp.
+
+You can follow [this
+link](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/LTC-PCF.README.html)
+to see the examples shown in our [PLPV-2009
+paper](http://www1.eafit.edu.co/asicard/publications-talks/2009_abstracts.html#Bove-Dybjer-SicardRamirez-2009).
+
+You can test for example the verification of the GCD algorithm with
+the following commands
+
+````bash
+$ cd agda2atp/examples
+$ agda LTC-PCF/Program/GCD/Partial/ProofSpecificationI.agda
 ````
 
 More examples

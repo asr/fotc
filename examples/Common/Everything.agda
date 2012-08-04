@@ -4,6 +4,9 @@
 
 module Common.Everything where
 
+open import Common.DefinitionsATP
+open import Common.DefinitionsI
+
 open import Common.FOL.FOL
 open import Common.FOL.FOL-Eq
 open import Common.FOL.Relation.Binary.EqReasoning

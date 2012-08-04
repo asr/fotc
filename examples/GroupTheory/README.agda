@@ -4,6 +4,8 @@
 
 module GroupTheory.README where
 
+-- Theory of groups using Agda postulates for the group axioms.
+
 ------------------------------------------------------------------------------
 -- The axioms
 open import GroupTheory.Base

@@ -4,10 +4,16 @@
 
 module LTC-PCF.README where
 
+-- Code accompanying the paper "Embedding a Logical Theory of
+-- Constructions in Agda" by Ana Bove, Peter Dybjer, and Andrés
+-- Sicard-Ramírez (PLPV'09).
+
+-- The code presented here does not match the paper exactly.
+
 -- Formalization of (a version of) Azcel's Logical Theory of
 -- Constructions for PCF.
---
--- (This was the theory shown in our PLPV'09 paper)
+
+-- The code has been tested with Agda 2.3.0.1.
 
 ------------------------------------------------------------------------------
 -- The axioms

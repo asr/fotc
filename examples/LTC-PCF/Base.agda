@@ -24,6 +24,9 @@ infix  8 if_then_else_
 -- First-order logic with equality.
 open import Common.FOL.FOL-Eq public
 
+-- Common definitions.
+open import Common.DefinitionsI public
+
 ------------------------------------------------------------------------------
 -- The term language of LTC-PCF correspond to the PCF terms.
 

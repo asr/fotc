@@ -19,6 +19,9 @@ infixl 9  _+_
 -- numbers.
 open import Common.FOL.FOL-Eq public renaming ( D to M )
 
+-- Common definitions.
+open import Common.DefinitionsATP
+
 -- Non-logical constants
 postulate
   zero    : M
