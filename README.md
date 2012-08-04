@@ -47,7 +47,7 @@ Installation
    modified version is similar to the installation of Agda (see the
    [Agda wiki](http://wiki.portal.chalmers.se/agda/pmwiki.php) for
    more information); in our setup you need to run the following
-   commands
+   commands:
 
    ````bash
    $ cd magda
@@ -80,7 +80,7 @@ Installation
    You can download the program `agda2atp` using
    [git](http://git-scm.com/). The program requires the above modified
    version of Agda and it can be downloaded and installed with the
-   following commands
+   following commands:
 
    ````bash
    $ git clone git://github.com/asr/agda2atp.git
@@ -91,7 +91,7 @@ Installation
    In order to test the installation of the program, once (some of)
    the ATPs have been installed, we can try to automatically prove
    all the conjectures in the file above by running the following
-   command
+   command:
 
    ````bash
    $ agda2atp Test.agda
@@ -106,7 +106,7 @@ Installation
    conjecture.
 
    If we want to just use a certain ATP, say Equinox, we can instead
-   run the following command
+   run the following command:
 
    ````bash
    $ agda2atp --atp=equinox Test.agda
@@ -134,7 +134,7 @@ paper](http://www1.eafit.edu.co/asicard/publications-talks/proceedings_abstracts
    example](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/FOTC.Program.ABP.ProofSpecificationATP.html)
 
 You can test for example the proofs regarding the mirror function with
-the following commands
+the following commands:
 
 ````bash
 $ cd agda2atp/examples
@@ -146,8 +146,8 @@ Examples in our PLPV-2009 paper
 -------------------------------
 
 Please note that the code presented here does not match the paper
-exactly. Also note the the code below does not require neither
-the version modified of Agda nor the program agda2atp.
+exactly. Also note that the code below does not require neither the
+version modified of Agda nor the program agda2atp.
 
 You can follow [this
 link](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/LTC-PCF.README.html)
@@ -155,7 +155,7 @@ to see the examples shown in our [PLPV-2009
 paper](http://www1.eafit.edu.co/asicard/publications-talks/2009_abstracts.html#Bove-Dybjer-SicardRamirez-2009).
 
 You can test for example the verification of the GCD algorithm with
-the following commands
+the following commands:
 
 ````bash
 $ cd agda2atp/examples
