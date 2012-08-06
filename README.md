@@ -1,43 +1,59 @@
-Description
------------
+# Description
 
-`agda2atp` is a Haskell program for proving first-order formulae
-written in [Agda](http://wiki.portal.chalmers.se/agda/pmwiki.php)
-using first-order automatic theorem provers (ATPs). Before calling the
-ATPs, the Agda formulae are translated into
-[TPTP](http://www.cs.miami.edu/~tptp/) format, which is a standard
-format for input and output in ATPs.
+[Agda](http://wiki.portal.chalmers.se/agda/pmwiki.php) formalization
+of the FOTC (First-Order Theory of Combinators) which is a programming
+logic for functional programs that can deal with **general
+recursion**, **higher-order functions**, **termination proofs**, and
+**inductive** and **co-inductive** predicates. Our implementation
+includes a translation of Agda representations of formulae in the FOTC
+into the [TPTP](http://www.cs.miami.edu/~tptp/) language, which is a
+standard format for input and output in automatic theorem provers
+(ATPs), so that we can call off-the-shelf ATPs when proving properties
+of our programs. See:
 
-The program `agda2atp` and the examples below are the code
-  accompanying the paper [Combining Interactive and Automatic
-  Reasoning in First Order Theories of Functional
+* [Combining Interactive and Automatic Reasoning in First Order
+  Theories of Functional
   Programs](http://www1.eafit.edu.co/asicard/publications-talks/proceedings_abstracts.html#Bove-Dybjer-SicardRamirez-2012)
   by [Ana Bove](http://www.cse.chalmers.se/~bove/), [Peter
   Dybjer](http://www.cse.chalmers.se/~peterd/), and [Andrés
-  Sicard-Ramírez] (http://www1.eafit.edu.co/asicard/)</a> (FoSSaCS
-  2012).
+  Sicard-Ramírez](http://www1.eafit.edu.co/asicard/) (FoSSaCS 2012).
 
-Prerequisites
--------------
+* [Embedding a Logical Theory of Constructions in
+  Agda](http://www1.eafit.edu.co/asicard/publications-talks/2009_abstracts.html#Bove-Dybjer-SicardRamirez-2009)
+  by [Ana Bove](http://www.cse.chalmers.se/~bove/), [Peter
+  Dybjer](http://www.cse.chalmers.se/~peterd/), and [Andrés
+  Sicard-Ramírez](http://www1.eafit.edu.co/asicard/) (PLPV'09).
 
-The program `agda2atp` requires a version modified of Agda (see the
-installation below) and at least one of the following ATPs:
-[E](http://www4.informatik.tu-muenchen.de/~schulz/WORK/eprover.html),
-[Equinox](http://www.cse.chalmers.se/~koen/code/),
-[Metis](http://www.gilith.com/software/metis/),
-[SPASS](http://www.spass-prover.org/), or
-[Vampire](http://www.vprover.org/). The tested versions of the ATPs
-are E 1.6 Tiger Hill, Equinox version 5.0alpha (2010-06-29), Metis 2.3
-(release 20110926), SPASS v3.7, and Vampire 0.6 (revision 903).
+# Prerequisites
 
-Installation
-------------
-
-1. Modified version of [Agda](http://wiki.portal.chalmers.se/agda/pmwiki.php)
+* Modified version of Agda
 
    We have modified the development version of Agda in order to handle
-   the new built-in ATP pragma. You can download it using
-   [darcs](http://darcs.net/) with the command
+   the new built-in ATP pragma.
+
+* The program `agda2atp`
+
+  `agda2atp` is a Haskell program for proving first-order formulae
+  written in [Agda](http://wiki.portal.chalmers.se/agda/pmwiki.php)
+  using ATPs. Before calling the ATPs, the Agda formulae are
+  translated into [TPTP](http://www.cs.miami.edu/~tptp/) language.
+
+  The program `agda2atp` requires the above version modified of Agda
+  and at least one of the following ATPs:
+  [E](http://www4.informatik.tu-muenchen.de/~schulz/WORK/eprover.html),
+  [Equinox](http://www.cse.chalmers.se/~koen/code/),
+  [Metis](http://www.gilith.com/software/metis/),
+  [SPASS](http://www.spass-prover.org/), or
+  [Vampire](http://www.vprover.org/). The tested versions of the ATPs
+  are E 1.6 Tiger Hill, Equinox version 5.0alpha (2010-06-29), Metis
+  2.3 (release 20110926), SPASS v3.7, and Vampire 0.6 (revision 903).
+
+# Installation
+
+1. Modified version of Agda
+
+   You can download our modified version of Agda using
+   [darcs](http://darcs.net/) with the following command:
 
    ````bash
    $ darcs get http://patch-tag.com/r/asr/magda
@@ -83,8 +99,8 @@ Installation
    following commands:
 
    ````bash
-   $ git clone git://github.com/asr/agda2atp.git
-   $ cd agda2atp
+   $ git clone git://github.com/asr/fotc.git
+   $ cd fotc/agda2atp
    $ cabal install
    ````
 
@@ -114,8 +130,7 @@ Installation
    Equinox, version 5.0alpha, 2010-06-29 proved the conjecture in /tmp/Test/9-8744-comm.tptp
    ````
 
-Examples in our FoSSaCS-2012 paper
-----------------------------------
+# Examples in our FoSSaCS-2012 paper
 
 Please note that the code presented here does not match the paper
 exactly.
@@ -124,14 +139,14 @@ You can follow these links to see the examples shown in our
 [FoSSaCS-2012
 paper](http://www1.eafit.edu.co/asicard/publications-talks/proceedings_abstracts.html#Bove-Dybjer-SicardRamirez-2012):
 
- * [The McCarthy's 91-function
-   example](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/FOTC.Program.McCarthy91.PropertiesATP.html)
+* [The McCarthy's 91-function
+  example](http://www1.eafit.edu.co/asicard/code/thesis/fotc/fot/FOTC.Program.McCarthy91.PropertiesATP.html)
 
- * [The mirror function
-   example](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/FOTC.Program.Mirror.PropertiesATP.html)
+* [The mirror function
+   example](http://www1.eafit.edu.co/asicard/code/thesis/fotc/fot/FOTC.Program.Mirror.PropertiesATP.html)
 
- * [The alternating bit protocol
-   example](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/FOTC.Program.ABP.ProofSpecificationATP.html)
+* [The alternating bit protocol
+   example](http://www1.eafit.edu.co/asicard/code/thesis/fotc/fot/FOTC.Program.ABP.ProofSpecificationATP.html)
 
 You can test for example the proofs regarding the mirror function with
 the following commands:
@@ -142,15 +157,14 @@ $ agda FOTC/Program/Mirror/PropertiesATP.agda
 $ agda2atp FOTC/Program/Mirror/PropertiesATP.agda
 ````
 
-Examples in our PLPV-2009 paper
--------------------------------
+# Examples in our PLPV-2009 paper
 
 Please note that the code presented here does not match the paper
 exactly. Also note that the code below does not require neither the
-version modified of Agda nor the program agda2atp.
+version modified of Agda nor the program `agda2atp`.
 
 You can follow [this
-link](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/LTC-PCF.README.html)
+link](http://www1.eafit.edu.co/asicard/code/thesis/fotc/fot/LTC-PCF.README.html)
 to see the examples shown in our [PLPV-2009
 paper](http://www1.eafit.edu.co/asicard/publications-talks/2009_abstracts.html#Bove-Dybjer-SicardRamirez-2009).
 
@@ -162,17 +176,15 @@ $ cd agda2atp/examples
 $ agda LTC-PCF/Program/GCD/Partial/ProofSpecification.agda
 ````
 
-More examples
--------------
+# More examples
 
 We also have more examples related with first-order theories like
 group theory or Peano arithmetic. In addition there are more examples
 related to the verification of functional programs. You can browse all
 the examples from the file
-[README.html](http://www1.eafit.edu.co/asicard/code/thesis/agda2atp/examples/README.html).
+[README.html](http://www1.eafit.edu.co/asicard/code/thesis/fotc/fot/README.html).
 
-Known limitations
------------------------------
+# Known limitations
 
 * Logical symbols
 
