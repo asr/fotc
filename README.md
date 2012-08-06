@@ -152,7 +152,7 @@ You can test for example the proofs regarding the mirror function with
 the following commands:
 
 ````bash
-$ cd agda2atp/examples
+$ cd fotc/fot
 $ agda FOTC/Program/Mirror/PropertiesATP.agda
 $ agda2atp FOTC/Program/Mirror/PropertiesATP.agda
 ````
@@ -172,7 +172,7 @@ You can test for example the verification of the GCD algorithm with
 the following commands:
 
 ````bash
-$ cd agda2atp/examples
+$ cd fotc/fot
 $ agda LTC-PCF/Program/GCD/Partial/ProofSpecification.agda
 ````
 
