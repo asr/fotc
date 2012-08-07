@@ -94,9 +94,8 @@ of our programs. See:
 2. The program `agda2atp`
 
    You can download the program `agda2atp` using
-   [git](http://git-scm.com/). The program requires the above modified
-   version of Agda and it can be downloaded and installed with the
-   following commands:
+   [git](http://git-scm.com/). The program can be downloaded and
+   installed with the following commands:
 
    ````bash
    $ git clone git://github.com/asr/fotc.git
