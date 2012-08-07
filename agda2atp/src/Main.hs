@@ -23,7 +23,6 @@ where
 ------------------------------------------------------------------------------
 -- Haskell imports
 
-import Control.Monad        ( unless, when )
 import Control.Monad.Error  ( MonadError(catchError, throwError) )
 import Control.Monad.Reader ( MonadReader(ask) )
 import Control.Monad.Trans  ( MonadIO(liftIO) )
@@ -103,25 +102,29 @@ translation agdaFile = do
 runAgda2ATP ∷ T ()
 runAgda2ATP = do
   opts ← ask
-  case (optHelp opts, optVersion opts) of
-    (True, _)      → liftIO printUsage
-    (_,    True)   → liftIO $ progNameVersion >>= putStrLn
-    (False, False) → do
-      agdaFile ← case optInputFile opts of
-                   Nothing → throwError "Missing input file (try --help)"
-                   Just f  → return f
+  case () of
+    _ | optHelp opts    → liftIO printUsage
+      | optVersion opts → liftIO $ progNameVersion >>= putStrLn
+      | otherwise       → do
 
-      -- The ATP pragmas are translated to TPTP annotated formulae.
-      allAFs ← translation agdaFile
+        agdaFile ← case optInputFile opts of
+                     Nothing → throwError "Missing input file (try --help)"
+                     Just f  → return f
 
-      -- Creation of the TPTP files.
-      tptpFiles ← mapM (createConjectureFile (fst allAFs)) (snd allAFs)
+        -- The ATP pragmas are translated to TPTP annotated formulae.
+        allAFs ← translation agdaFile
 
-      -- Run the snapshot test.
-      when (optSnapshotTest opts) $ mapM_ snapshotTest tptpFiles
+        -- Creation of the TPTP files.
+        tptpFiles ← mapM (createConjectureFile (fst allAFs)) (snd allAFs)
 
-      -- The ATPs systems are called on the TPTP files.
-      unless (optOnlyFiles opts) $ mapM_ callATPs tptpFiles
+        case () of
+          _ | -- Run the snapshot test.
+              optSnapshotTest opts → mapM_ snapshotTest tptpFiles
+
+            | -- The ATPs systems are called on the TPTP files.
+              not (optOnlyFiles opts) → mapM_ callATPs tptpFiles
+
+            | otherwise → return ()
 
 -- | Main.
 main ∷ IO ()

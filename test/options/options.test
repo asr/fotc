@@ -13,9 +13,8 @@ Usage: agda2atp [OPTIONS] FILE
           --snapshot-dir=DIR              directory where is the snapshot of the TPTP files
                                           (default: snapshot)
           --snapshot-no-error             a difference in the snapshot-test does not generate an error
-                                          (implies --only-files and --snapshot-test)
+                                          (implies --snapshot-test)
           --snapshot-test                 compare the generated TPTP files against a snapshot of them
-                                          (implies --only-files)
           --time=NUM                      set timeout for the ATPs in seconds (default: 300)
           --unproved-conjecture-no-error  an unproved TPTP conjecture does not generate an error
           --vampire-exec=COMMAND          set the vampire executable (default: vampire_lin64)
@@ -64,7 +63,6 @@ agda2atp -itest/options --only-files --output-dir=/tmp/snapshot test/options/Tri
 <<<
 >>>
 Created /tmp/snapshot/TrivialTheorem/18-foo.tptp
-Created /tmp/TrivialTheorem/18-foo.tptp
 The files are different:
 /tmp/TrivialTheorem/18-foo.tptp
 /tmp/snapshot/TrivialTheorem/18-foo.tptp

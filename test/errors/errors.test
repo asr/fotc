@@ -72,10 +72,9 @@ agda2atp: Missing input file (try --help)
 >>>= 1
 
 #10. Snapshot.hs: The --output-dir cannot be the same than the --snapshot-dir
-agda2atp -itest/errors --snapshot-test --snapshot-dir=/tmp test/errors/TrivialTheorem.agda
+agda2atp -itest/errors --output-dir=/tmp --snapshot-test --snapshot-dir=/tmp test/errors/TrivialTheorem.agda
 <<<
 >>>
-Created /tmp/TrivialTheorem/18-foo.tptp
 >>>2
 agda2atp: The options `--output-dir' and `--snapshot-dir' cannot be the same
 >>>= 1
@@ -84,7 +83,6 @@ agda2atp: The options `--output-dir' and `--snapshot-dir' cannot be the same
 agda2atp -itest/errors --snapshot-test --snapshot-dir=no-dir test/errors/TrivialTheorem.agda
 <<<
 >>>
-Created /tmp/TrivialTheorem/18-foo.tptp
 >>>2
 agda2atp: The file no-dir/TrivialTheorem/18-foo.tptp does not exist
 >>>= 1
@@ -139,7 +137,6 @@ agda2atp -itest/errors --only-files --output-dir=/tmp/snapshot test/errors/Trivi
 <<<
 >>>
 Created /tmp/snapshot/TrivialTheorem/18-foo.tptp
-Created /tmp/TrivialTheorem/18-foo.tptp
 >>>2
 agda2atp: The files are different:
 /tmp/TrivialTheorem/18-foo.tptp

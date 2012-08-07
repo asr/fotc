@@ -142,15 +142,12 @@ snapshotDirOpt []  _    = Left "Option `--snapshot-dir' requires an argument DIR
 snapshotDirOpt dir opts = Right opts { optSnapshotDir = dir }
 
 snapshotNoErrorOpt ∷ MOptions
-snapshotNoErrorOpt opts = Right opts { optOnlyFiles = True
-                                     , optSnapshotNoError = True
+snapshotNoErrorOpt opts = Right opts { optSnapshotNoError = True
                                      , optSnapshotTest = True
                                      }
 
 snapshotTestOpt ∷ MOptions
-snapshotTestOpt opts = Right opts { optOnlyFiles = True
-                                  , optSnapshotTest = True
-                                  }
+snapshotTestOpt opts = Right opts { optSnapshotTest = True }
 
 timeOpt ∷ String → MOptions
 timeOpt []   _    = Left "Option `--time' requires an argument NUM"
@@ -206,10 +203,9 @@ options =
                ++ "(default: snapshot)"
   , Option []  ["snapshot-no-error"] (NoArg snapshotNoErrorOpt) $
                "a difference in the snapshot-test does not generate an error\n"
-               ++ "(implies --only-files and --snapshot-test)"
-  , Option []  ["snapshot-test"] (NoArg snapshotTestOpt) $
-               "compare the generated TPTP files against a snapshot of them\n"
-               ++ "(implies --only-files)"
+               ++ "(implies --snapshot-test)"
+  , Option []  ["snapshot-test"] (NoArg snapshotTestOpt)
+               "compare the generated TPTP files against a snapshot of them"
   , Option []  ["time"] (ReqArg timeOpt "NUM")
                "set timeout for the ATPs in seconds (default: 300)"
   , Option []  ["unproved-conjecture-no-error"] (NoArg unprovedNoErrorOpt)
