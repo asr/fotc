@@ -385,10 +385,8 @@ git-pre-commit :
 ##############################################################################
 # Haskell program coverage
 
-hpc_html_dir = hpc
+hpc_html_dir = agda2atp/hpc
 
-# TODO: Doesn't work.
-.PHONY : hpc
 hpc : hpc_clean
 	cd agda2atp && cabal clean && cabal install --ghc-option=-fhpc
 	make prove_theorems
@@ -396,11 +394,13 @@ hpc : hpc_clean
 	make errors
 	make options
 	hpc markup --exclude=Paths_agda2atp \
-                   --destdir=$(hpc_html_dir) \
-                   agda2atp
+	           --destdir=$(hpc_html_dir) \
+	           --srcdir=agda2atp \
+                   agda2atp.tix
 	hpc report --exclude=Paths_agda2atp \
                    --decl-list \
-                   agda2atp
+	           --srcdir=agda2atp \
+                   agda2atp.tix
 	rm -f *.tix
 
 hpc_clean :
