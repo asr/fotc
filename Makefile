@@ -428,16 +428,6 @@ benchmark :
 	@echo "$@ succeeded!"
 
 ##############################################################################
-# FOT: Publishing the .html files
-
-include ~/code/utils/make/fotc/publish.mk
-
-publish_README :
-	rm -r -f /tmp/html/
-	$(AGDA) -ifot --html --html-dir=/tmp/html/ fot/README.agda
-	$(RSYNC) /tmp/html/ $(root_host_dir)/
-
-##############################################################################
 # Others
 
 dependency_graph :
@@ -464,19 +454,3 @@ clean :
 	find -name 'agda2atp.tix' | xargs rm -f
 	find -name 'model' | xargs rm -f
 	rm -f -r $(output_dir)
-
-##############################################################################
-# TODO: From the Makefile in the old repository FOT
-
-# Publish the .html files
-
-# publish_note :
-# 	$(RSYNC) html/ $(root_host_dir)/notes/
-# 	rm -r html
-
-# publish_Agsy : $(Agsy_files)
-# 	rm -r -f /tmp/Agsy/html/
-# 	for file in $(Agsy_files); do \
-# 	  $(AGDA_Agsy) --html --html-dir=/tmp/Agsy/html/ $${file}; \
-# 	done
-# 	$(RSYNC) /tmp/Agsy/html/ $(root_host_dir)/Agsy/
