@@ -16,7 +16,7 @@
 module Options
   ( defaultOptions
   , options
-  , MOptions  -- Required to avoid an Haddock warning.
+  , MOptions  -- Required to avoid a Haddock warning.
   , Options( optInputFile
            , optAgdaIncludePath
            , optATP

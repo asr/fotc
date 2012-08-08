@@ -17,7 +17,7 @@
 
 module TPTP.ConcreteSyntax
   ( ToTPTP(toTPTP)
-  , TPTP  -- Required to avoid an Haddock warning.
+  , TPTP  -- Required to avoid a Haddock warning.
   )
   where
 

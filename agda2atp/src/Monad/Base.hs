@@ -27,7 +27,7 @@ module Monad.Base
   , pushTVar
   , runT
   , T
-  , TState(..)  -- Required to avoid an Haddock warning.
+  , TState(..)  -- Required to avoid a Haddock warning.
   )
   where
 
