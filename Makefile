@@ -314,7 +314,7 @@ type_check_notes :
 
 agda_changed : clean
 	if [ ! -d $(snapshot_dir) ]; then \
-	   echo "Error: The directory $(snapshot_dir) does not exist; \
+	   echo "Error: The directory $(snapshot_dir) does not exist"; \
 	   exit 1; \
 	fi
 	cd agda2atp && cabal clean && cabal configure && cabal build
