@@ -313,7 +313,10 @@ type_check_notes :
 # Test used when there is a modification to Agda
 
 agda_changed : clean
-	if [ ! -d $(snapshot_dir) ]; then exit 1; fi
+	if [ ! -d $(snapshot_dir) ]; then \
+	   echo "Error: The directory $(snapshot_dir) does not exit"; \
+	   exit 1; \
+	fi
 	cd agda2atp && cabal clean && cabal configure && cabal build
 	make agda2atp_changed
 	make type_check_fot
