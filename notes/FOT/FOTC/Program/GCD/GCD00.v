@@ -1,4 +1,4 @@
-(* In Coq 8.4beta2, gcd 0 0 = 0 *)
+(* In Coq 8.4, gcd 0 0 = 0 *)
 
 Require Import NArith.BinNatDef.
 Import N.

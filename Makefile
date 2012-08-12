@@ -353,8 +353,11 @@ atp_changed :
 %.coq_type_check :
 	coqc $*.v
 
-coq_changed : $(coq_type_check_files)
+coq_changed : coq_clean $(coq_type_check_files)
 	@echo "$@ succeeded!"
+
+coq_clean :
+	rm -f *.glob *.vo
 
 ##############################################################################
 # Running the FOT and the notes
