@@ -1,6 +1,6 @@
 (* Domain predicate for quicksort using the Bove-Capretta method *)
 
-(* Tested with Coq 8.4 *)
+(* Tested with Coq 8.4. *)
 
 Require Import Arith.Compare_dec.
 Require Import Lists.List.

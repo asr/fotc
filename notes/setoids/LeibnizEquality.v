@@ -1,4 +1,4 @@
-(* Tested with Coq 8.4 *)
+(* Tested with Coq 8.4. *)
 
 Require Import Unicode.Utf8.
 

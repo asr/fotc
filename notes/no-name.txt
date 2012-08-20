@@ -42,6 +42,7 @@ $ vampire_lin64 -t xxx --input_file file_name
    ModuleName.FunctionName).
 
 -- Tested with agda2atp on .
+(* Tested with Coq 8.4. *)
 -- Tested with FOT on .
 -- Tested with GHC 7.4.2.
 -- Tested with the development version of Agda on .

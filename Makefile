@@ -298,6 +298,7 @@ consistency_fot : $(consistency_fot_files)
                 -inotes/papers/paper-2011/ \
 	        -inotes/README/ \
                 -inotes/setoids/ \
+	        -inotes/strictly-positive-inductive-types \
                 -inotes/thesis/logical-framework/ \
                 -i $(std_lib_path)/src/ \
 	        $*.agda
