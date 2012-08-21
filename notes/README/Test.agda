@@ -1,3 +1,6 @@
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Test where
 
 data _∨_ (A B : Set) : Set where

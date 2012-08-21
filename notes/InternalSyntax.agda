@@ -2,6 +2,9 @@
 -- Agda internal syntax
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module InternalSyntax where
 
 -- Internal types from Agda.Syntax.Internal.

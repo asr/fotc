@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
--- {-# OPTIONS --without-K #-}  -- Doesn't work!
+-- {-# OPTIONS --without-K #-}  -- No accepted!
 
 -- {-# OPTIONS --no-termination-check #-}
 {-# OPTIONS --injective-type-constructors #-}

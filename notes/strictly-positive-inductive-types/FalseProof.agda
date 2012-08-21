@@ -1,4 +1,6 @@
 {-# OPTIONS --no-positivity-check #-}
+{-# OPTIONS --no-universe-polymorphism #-}
+-- {-# OPTIONS --without-K #-}  -- No accepted!
 
 -- Using a non-strictly positive type is possible to get a
 -- contradiction. From Coq' Art, section 14.1.2.1.

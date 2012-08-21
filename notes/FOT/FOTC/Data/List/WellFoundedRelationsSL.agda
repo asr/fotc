@@ -3,6 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
+-- {-# OPTIONS --without-K #-}  -- No accepted!
 
 module FOT.FOTC.Data.List.WellFoundedRelationsSL {A : Set} where
 

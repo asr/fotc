@@ -1,3 +1,6 @@
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 -- The BUILTIN pragma works with imported modules.
 
 module Issue3Nat.B where

@@ -1,3 +1,6 @@
+{-# OPTIONS --no-universe-polymorphism #-}
+-- {-# OPTIONS --without-K #-}  -- No accepted!
+
 module K where
 
 module FOTC where

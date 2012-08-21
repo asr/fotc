@@ -1,3 +1,6 @@
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 ------------------------------------------------------------------------------
 -- The translation from pattern matching equations to equational
 -- axioms requires some care because the pattern matching equations
