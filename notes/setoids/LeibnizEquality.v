@@ -6,16 +6,14 @@ Require Import Unicode.Utf8.
 definitions *)
 
 (* The identity type *)
-Inductive Id {A : Type} (x : A) : A → Type :=
-  refl : Id x x.
+Inductive Id {A : Type} (x : A) : A → Type := refl : Id x x.
 
 (* Leibniz equality (see [1, sec. 5.1.3]) *)
 
 (* [1] Zhaohui Luo. Computation and Reasoning. A Type Theory for *)
 (*     Computer Science. Oxford University Press, 1994 *)
 
-Definition Leq {A : Type} (x y : A) : Type :=
-  forall (P : A → Type), P x → P y.
+Definition Leq {A : Type} (x y : A) : Type := ∀ (P : A → Type), P x → P y.
 
 (****************************************************************************)
 (* Leibniz's equality and the identity type *)
@@ -26,16 +24,14 @@ Definition Leq {A : Type} (x y : A) : Type :=
 (* [2] Martin Hofmman. Extensional concepts in intensional type *)
 (*     theory. PhD thesis, University of Edinburgh, 1995 *)
 
-Theorem id2leq :
-  forall {A : Type} (x y : A), Id x y → Leq x y.
+Theorem id2leq : ∀ {A : Type} (x y : A), Id x y → Leq x y.
 compute.
 intros A x y H.
 destruct H.
 auto.
 Qed.
 
-Theorem leq2id :
-  forall {A : Type} (x y : A), Leq x y → Id x y.
+Theorem leq2id : ∀ {A : Type} (x y : A), Leq x y → Id x y.
 compute.
 intros A x y H.
 apply H.

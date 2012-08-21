@@ -7,8 +7,7 @@ Types in Coq. May 1998 -- August 17, 2007. *)
 
 Require Import Unicode.Utf8.
 
-CoInductive Stream (A : Type) : Type :=
-| Cons : A → Stream A → Stream A.
+CoInductive Stream (A : Type) : Type := Cons : A → Stream A → Stream A.
 
 Definition head {A : Type}(s : Stream A) :=
   match s with Cons a s' => a end.
@@ -45,9 +44,7 @@ Theorem map_iterate {A : Type}(f : A → A)(x : A) :
                     EqSt (iterate f (f x)) (map f (iterate f x)).
 Proof.
 apply park_ppl with
-  (R := fun s1 s2 =>
-        ∃ x : A, s1 = iterate f (f x) ∧
-                 s2 = map f (iterate f x)).
+  (R := λ s1 s2, ∃ x : A, s1 = iterate f (f x) ∧ s2 = map f (iterate f x)).
 intros s1 s2 (x0, (eqs1, eqs2));
   rewrite eqs1; rewrite eqs2; reflexivity.
 intros s1 s2 (x0, (eqs1, eqs2)).
