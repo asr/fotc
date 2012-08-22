@@ -1,3 +1,6 @@
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module Equality where
 
 -- Nils (Agda mailing list): According to Voevodsky this type is
