@@ -4,41 +4,47 @@
 
 SHELL := /bin/bash
 
-agda2atp_haskell_files = $(shell find agda2atp/src/ -name '*.hs')
-
-AGDA = agda -v 0
-
-# The defaults ATPs are e, equinox, and vampire.
-AGDA2ATP = agda2atp/dist/build/agda2atp/agda2atp
-# AGDA2ATP = agda2atp/dist/build/agda2atp/agda2atp --atp=e
-# AGDA2ATP = agda2atp/dist/build/agda2atp/agda2atp --atp=equinox
-# AGDA2ATP = agda2atp/dist/build/agda2atp/agda2atp --atp=metis
-# AGDA2ATP = agda2atp/dist/build/agda2atp/agda2atp --atp=spass
-# AGDA2ATP = agda2atp/dist/build/agda2atp/agda2atp --atp=vampire
-
 ##############################################################################
-# Some paths
+# Paths
+
+agda2atp_path       = src/agda2atp
+dump-agdai_path     = src/dump-agdai
+fix-whitespace_path = src/fix-whitespace
+fot_path            = src/fot
 
 # Agda standard library path.
 std_lib_path = ~/agda-upstream/std-lib
 
 # Tests paths
-errors_path        = test/errors
-non_theorems_path  = test/non-theorems
-options_path       = test/options
-theorems_path      = test/theorems
+errors_path        = $(agda2atp_path)/test/errors
+non_theorems_path  = $(agda2atp_path)/test/non-theorems
+options_path       = $(agda2atp_path)/test/options
+theorems_path      = $(agda2atp_path)/test/theorems
 
 # Directory for the TPTP files.
 output_dir = /tmp/agda2atp
 
-# FOT path
-fot_path = fot
-
-# Notes path
+# Notes path.
 notes_path = notes
 
 # Snapshot fot directory.
 snapshot_dir = snapshot-fot
+
+##############################################################################
+# Variables
+
+agda2atp_haskell_files = $(shell find $(agda2atp_path)/src/ -name '*.hs')
+
+AGDA = agda -v 0
+
+# The defaults ATPs are e, equinox, and vampire.
+AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp
+# AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --atp=e
+# AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --atp=equinox
+# AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --atp=metis
+# AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --atp=spass
+# AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --atp=vampire
+
 
 ##############################################################################
 # Auxiliary functions
@@ -77,21 +83,22 @@ parsing_conjectures_files += \
 
 type_check_fot_files = \
   $(patsubst %.agda,%.type_check_fot, \
-    $(shell find fot/ -name 'Everything.agda' | sort))
+    $(shell find $(fot_path) -name 'Everything.agda' | sort))
 
 type_check_agsy_fot_files = \
   $(patsubst %.agda,%.type_check_agsy_fot, \
-    $(shell find fot/Agsy/ -name '*.agda' | sort))
+    $(shell find $(fot_path)/Agsy/ -name '*.agda' | sort))
 
-snapshot_create_fot_files = $(call path_subst,snapshot_create_fot,fot)
+snapshot_create_fot_files = $(call path_subst,snapshot_create_fot,$(fot_path))
 
-snapshot_compare_fot_files = $(call path_subst,snapshot_compare_fot,fot)
+snapshot_compare_fot_files = \
+  $(call path_subst,snapshot_compare_fot,$(fot_path))
 
-prove_fot_files = $(call path_subst,prove_fot,fot)
+prove_fot_files = $(call path_subst,prove_fot,$(fot_path))
 
 consistency_fot_files = \
   $(patsubst %.agda,%.consistency_fot, \
-    $(shell find fot/ -name '*ConsistencyTest.agda' | sort))
+    $(shell find $(fot_path) -name '*ConsistencyTest.agda' | sort))
 
 # Notes
 
@@ -104,9 +111,10 @@ type_check_notes_files = \
 coq_type_check_files = $(patsubst %.v,%.coq_type_check, \
 	               $(shell find -name '*.v' | sort))
 
-benchmark_files = fot/FOTC/Base/PropertiesATP.benchmark \
-                  fot/FOTC/Program/GCD/Partial/ProofSpecificationATP.benchmark \
-                  fot/FOTC/Program/SortList/ProofSpecificationATP.benchmark
+benchmark_files = \
+  $(fot_path)/FOTC/Base/PropertiesATP.benchmark \
+  $(fot_path)/FOTC/Program/GCD/Partial/ProofSpecificationATP.benchmark \
+  $(fot_path)/FOTC/Program/SortList/ProofSpecificationATP.benchmark
 
 ##############################################################################
 # Test suite: Generated conjectures
@@ -210,22 +218,23 @@ parsing_conjectures :
 haddock_file = /tmp/haddock.tmp
 
 doc :
-	cd agda2atp && cabal configure
-	cd agda2atp && cabal haddock --executables \
+	cd $(agda2atp_path) && cabal configure
+	cd $(agda2atp_path) && cabal haddock --executables \
 	                             --haddock-option=--use-unicode \
 	                             --hyperlink-source  > $(haddock_file)
 	cat $(haddock_file)
-	diff <(find agda2atp/src/ -name '*.hs' | wc -l) <(grep 100% $(haddock_file) | wc -l)
+	diff <(find $(agda2atp_path)/src/ -name '*.hs' | wc -l) \
+	     <(grep 100% $(haddock_file) | wc -l)
 	@echo "$@ succeeded!"
 
 ##############################################################################
 # FOT: Type-checking
 
 %.type_check_fot :
-	$(AGDA) -ifot $*.agda
+	$(AGDA) -i$(fot_path) $*.agda
 
 %.type_check_agsy_fot :
-	$(AGDA) -ifot -i $(std_lib_path)/src/ $*.agda
+	$(AGDA) -i$(fot_path) -i $(std_lib_path)/src/ $*.agda
 
 type_check_fot_aux : $(type_check_fot_files) \
                      $(type_check_agsy_fot_files)
@@ -233,7 +242,7 @@ type_check_fot_aux : $(type_check_fot_files) \
 type_check_fot :
 	cd $(std_lib_path) && darcs pull
 	make type_check_fot_aux
-	$(AGDA) -ifot fot/README.agda
+	$(AGDA) -i$(fot_path) $(fot_path)/README.agda
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -246,14 +255,14 @@ type_check_fot :
 
 # We cannot use $(AGDA2ATP) due to the output directory.
 %.snapshot_create_fot :
-	$(AGDA) -ifot $*.agda
-	$(AGDA2ATP) -ifot --only-files --output-dir=$(snapshot_dir) $*.agda
+	$(AGDA) -i$(fot_path) $*.agda
+	$(AGDA2ATP) -i$(fot_path) --only-files --output-dir=$(snapshot_dir) $*.agda
 
 # We cannot use $(AGDA2ATP) due to the output directory.
 %.snapshot_compare_fot :
 	@echo "Processing $*.agda"
-	@$(AGDA) -ifot $*.agda
-	@$(AGDA2ATP) -v 0 -ifot --snapshot-test \
+	@$(AGDA) -i$(fot_path) $*.agda
+	@$(AGDA2ATP) -v 0 -i$(fot_path) --snapshot-test \
 	            --snapshot-dir=$(snapshot_dir) $*.agda
 
 snapshot_create_fot : $(snapshot_create_fot_files)
@@ -266,8 +275,8 @@ snapshot_compare_fot : $(snapshot_compare_fot_files)
 # FOT: Prove theorems in the FOT
 
 %.prove_fot :
-	$(AGDA) -ifot $*.agda
-	$(AGDA2ATP) -ifot --output-dir=$(output_dir) --time=240 $*.agda
+	$(AGDA) -i$(fot_path) $*.agda
+	$(AGDA2ATP) -i$(fot_path) --output-dir=$(output_dir) --time=240 $*.agda
 
 prove_fot : $(prove_fot_files)
 	@echo "$@ succeeded!"
@@ -276,8 +285,8 @@ prove_fot : $(prove_fot_files)
 # FOT: Consistency
 
 %.consistency_fot :
-	$(AGDA) -ifot $*.agda
-	if ( $(AGDA2ATP) -ifot --output-dir=$(output_dir) \
+	$(AGDA) -i$(fot_path) $*.agda
+	if ( $(AGDA2ATP) -i$(fot_path) --output-dir=$(output_dir) \
 	                 --time=10 $*.agda ); then \
            exit 1;\
         fi
@@ -289,7 +298,8 @@ consistency_fot : $(consistency_fot_files)
 # Notes: Type-checking
 
 %.type_check_notes :
-	$(AGDA) -ifot \
+	$(AGDA) -i$(fot_path) \
+                -i $(std_lib_path)/src/ \
 	        -inotes \
 	        -inotes/agda-interface \
 	        -inotes/fixed-points \
@@ -300,7 +310,6 @@ consistency_fot : $(consistency_fot_files)
                 -inotes/setoids/ \
 	        -inotes/strictly-positive-inductive-types \
                 -inotes/thesis/logical-framework/ \
-                -i $(std_lib_path)/src/ \
 	        $*.agda
 
 type_check_notes_aux : $(type_check_notes_files)
@@ -318,13 +327,12 @@ agda_changed : clean
 	   echo "Error: The directory $(snapshot_dir) does not exist"; \
 	   exit 1; \
 	fi
-	cd agda2atp && cabal clean && cabal configure && cabal build
+	cd $(agda2atp_path) && cabal clean && cabal configure && cabal build
 	make agda2atp_changed
 	make type_check_fot
 	make snapshot_compare_fot
 	make type_check_notes
-	cd utils/dump-agdai \
-	&& cabal clean && cabal install
+	cd $(dump-agdai_path) && cabal clean && cabal install
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -373,9 +381,9 @@ fot_and_notes :
 # Hlint test
 
 hlint :
-	hlint agda2atp/src/
-	hlint utils/dump-agdai/src -i "Use on"
-	hlint utils/fix-whitespace/
+	hlint $(agda2atp_path)/src/
+	hlint $(dump-agdai_path)/src -i "Use on"
+	hlint $(fix-whitespace_path)
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -383,7 +391,7 @@ hlint :
 
 git-pre-commit :
 	@fix-whitespace --check
-	@cd agda2atp && cabal configure && cabal build
+	@cd $(agda2atp_path) && cabal configure && cabal build
 	@make agda2atp_changed
 	@make doc
 	@make hlint
@@ -392,21 +400,21 @@ git-pre-commit :
 ##############################################################################
 # Haskell program coverage
 
-hpc_html_dir = agda2atp/hpc
+hpc_html_dir = $(agda2atp_path)/hpc
 
 hpc : hpc_clean
-	cd agda2atp && cabal clean && cabal install --ghc-option=-fhpc
+	cd $(agda2atp_path) && cabal clean && cabal install --ghc-option=-fhpc
 	make prove_theorems
 	make refute_theorems
 	make errors
 	make options
 	hpc markup --exclude=Paths_agda2atp \
 	           --destdir=$(hpc_html_dir) \
-	           --srcdir=agda2atp \
+	           --srcdir=$(agda2atp_path) \
                    agda2atp.tix
 	hpc report --exclude=Paths_agda2atp \
                    --decl-list \
-	           --srcdir=agda2atp \
+	           --srcdir=$(agda2atp_path) \
                    agda2atp.tix
 	rm -f *.tix
 
@@ -420,8 +428,8 @@ hpc_clean :
 benchmark_tag = $(shell echo `date +"%Y%m%d-%H.%M"`-`hostname -s`)
 
 %.benchmark :
-	$(AGDA) -ifot $*.agda
-	$(AGDA2ATP) -v 0 -ifot $*.agda \
+	$(AGDA) -i$(fot_path) $*.agda
+	$(AGDA2ATP) -v 0 -i$(fot_path) $*.agda \
                    +RTS -s/tmp/benchmark/$(subst /,.,$*)
 
 benchmark_aux : $(benchmark_files)
@@ -430,21 +438,21 @@ benchmark_aux : $(benchmark_files)
 benchmark :
 	mkdir --parents /tmp/benchmark
 	make benchmark_aux
-	mkdir --parents benchmark/$(benchmark_tag)
-	mv /tmp/benchmark/* benchmark/$(benchmark_tag)/
+	mkdir --parents $(agda2atp_path)/benchmark/$(benchmark_tag)
+	mv /tmp/benchmark/* $(agda2atp_path)/benchmark/$(benchmark_tag)/
 	@echo "$@ succeeded!"
 
 ##############################################################################
 # Others
 
 dependency_graph :
-	$(AGDA) -ifot \
+	$(AGDA) -i$(fot_path) \
 	        --dependency-graph=/tmp/dependency-graph.gv \
-	        fot/FOTC/Program/ABP/ProofSpecificationATP.agda
+	        $(fot_path)/FOTC/Program/ABP/ProofSpecificationATP.agda
 	dot -Tpdf /tmp/dependency-graph.gv > /tmp/dependency-graph.pdf
 
 .PHONY : TAGS
-TAGS : $(agda2atp_haskell_files)
+TAGS :
 	hasktags -e $(agda2atp_haskell_files)
 
 TODO :

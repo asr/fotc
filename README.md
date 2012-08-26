@@ -1,11 +1,11 @@
 # Description
 
 [Agda](http://wiki.portal.chalmers.se/agda/pmwiki.php) formalization
-of the FOTC (First-Order Theory of Combinators) which is a programming
+of FOTC (First-Order Theory of Combinators) which is a programming
 logic for functional programs that can deal with **general
 recursion**, **higher-order functions**, **termination proofs**, and
 **inductive** and **co-inductive** predicates. Our implementation
-includes a translation of Agda representations of formulae in the FOTC
+includes a translation of Agda representations of formulae in FOTC
 into the [TPTP](http://www.cs.miami.edu/~tptp/) language, which is a
 standard format for input and output in automatic theorem provers
 (ATPs), so that we can call off-the-shelf ATPs when proving properties
@@ -99,7 +99,7 @@ of our programs. See:
 
    ````bash
    $ git clone git://github.com/asr/fotc.git
-   $ cd fotc/agda2atp
+   $ cd fotc/src/agda2atp
    $ cabal install
    ````
 
@@ -151,7 +151,7 @@ You can test for example the proofs regarding the mirror function with
 the following commands:
 
 ````bash
-$ cd fotc/fot
+$ cd fotc/src/fot
 $ agda FOTC/Program/Mirror/PropertiesATP.agda
 $ agda2atp FOTC/Program/Mirror/PropertiesATP.agda
 ````
@@ -171,7 +171,7 @@ You can test for example the verification of the GCD algorithm with
 the following commands:
 
 ````bash
-$ cd fotc/fot
+$ cd fotc/src/fot
 $ agda LTC-PCF/Program/GCD/Partial/ProofSpecification.agda
 ````
 
