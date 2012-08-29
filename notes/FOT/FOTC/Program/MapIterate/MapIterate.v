@@ -1,7 +1,5 @@
 (* The map-iterate property *)
 
-(* Tested with Coq 8.4. *)
-
 (* From: Eduardo Giménez Pierre Castéran. A Tutorial on [Co-]Inductive
 Types in Coq. May 1998 -- August 17, 2007. *)
 

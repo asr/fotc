@@ -1,7 +1,5 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
--- Tested with GHC 7.4.2.
-
 -- The definition of rec in LTC-PCF requires a fixed-point operator of
 -- type
 --

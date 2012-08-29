@@ -1,7 +1,5 @@
 (* The types used by the mirror function *)
 
-(* Tested with Coq 8.4. *)
-
 Require Import Unicode.Utf8.
 
 Axiom D    : Set.

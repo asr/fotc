@@ -1,5 +1,3 @@
-(* Tested with Coq 8.4 *)
-
 (* Induction principle for N *)
 
 Require Import Unicode.Utf8.

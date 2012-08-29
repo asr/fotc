@@ -1,5 +1,3 @@
--- Tested with GHC 7.4.2.
-
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 

@@ -1,11 +1,11 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Nils' idea about databases in the Agda mailing list.
--- http://thread.gmane.org/gmane.comp.lang.agda/2911/focus=2917
-
 -- Tested with the development version of the standard library on
 -- 27 May 2011.
+
+-- Nils' idea about databases in the Agda mailing list.
+-- http://thread.gmane.org/gmane.comp.lang.agda/2911/focus=2917
 
 module FOT.Agsy.DataBase where
 

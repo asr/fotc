@@ -1,5 +1,3 @@
-(* Tested with Coq 8.4. *)
-
 Require Import Unicode.Utf8.
 
 (* There is no difference if we use Prop, Set or Type in the

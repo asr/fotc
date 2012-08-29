@@ -1,5 +1,3 @@
--- Tested by GHC 7.4.2.
-
 {-# LANGUAGE UnicodeSyntax #-}
 
 -- From: Herbert P. Sander. A logic of functional programs with an

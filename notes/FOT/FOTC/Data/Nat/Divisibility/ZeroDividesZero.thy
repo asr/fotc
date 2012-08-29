@@ -1,4 +1,4 @@
-(* In Isabelle 2012 zero divides zero *)
+(* In Isabelle zero divides zero *)
 
 theory ZeroDividesZero
 imports Nat Rings

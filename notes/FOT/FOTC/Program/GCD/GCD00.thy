@@ -1,4 +1,4 @@
-(* In Isabelle 2012 gcd 0 0 = 0 *)
+(* In Isabelle gcd 0 0 = 0 *)
 
 theory GCD00
 imports GCD Nat
