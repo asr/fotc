@@ -127,7 +127,7 @@ flags_gt = -i$(theorems_path) --only-files \
 	@echo "Processing $*.agda"
 	@$(AGDA) -i$(theorems_path) $*.agda
 	@$(AGDA2ATP) -v 0 $(flags_gt) $*.agda
-	diff -r $* $(output_dir)/$*
+	@diff -r $* $(output_dir)/$*
 
 flags_ngt = -i$(non_theorems_path) --only-files \
 	   --output-dir=$(output_dir)/$(non_theorems_path) \
@@ -136,7 +136,7 @@ flags_ngt = -i$(non_theorems_path) --only-files \
 	@echo "Processing $*.agda"
 	@$(AGDA) -i$(non_theorems_path) $*.agda
 	@$(AGDA2ATP) -v 0 $(flags_ngt) $*.agda
-	diff -r $* $(output_dir)/$*
+	@diff -r $* $(output_dir)/$*
 
 generated_conjectures_aux : $(generated_theorems_files) \
 	                    $(generated_non_theorems_files)
