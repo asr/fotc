@@ -46,7 +46,7 @@
 # exec git diff-index --check --cached $against --
 
 echo "Starting pre-commit"
-make git-pre-commit
+make git_pre_commit
 if [ $? -ne 0 ]; then
   exit 1
 fi

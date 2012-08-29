@@ -126,7 +126,7 @@ flags_gt = -i$(theorems_path) --only-files \
 %.generated_theorems :
 	@echo "Processing $*.agda"
 	@$(AGDA) -i$(theorems_path) $*.agda
-	@$(AGDA2ATP) -v 0 $(flags_gt) $*.agda; \
+	@$(AGDA2ATP) -v 0 $(flags_gt) $*.agda
 	diff -r $* $(output_dir)/$*
 
 flags_ngt = -i$(non_theorems_path) --only-files \
@@ -135,7 +135,7 @@ flags_ngt = -i$(non_theorems_path) --only-files \
 %.generated_non_theorems :
 	@echo "Processing $*.agda"
 	@$(AGDA) -i$(non_theorems_path) $*.agda
-	@$(AGDA2ATP) -v 0 $(flags_ngt) $*.agda; \
+	@$(AGDA2ATP) -v 0 $(flags_ngt) $*.agda
 	diff -r $* $(output_dir)/$*
 
 generated_conjectures_aux : $(generated_theorems_files) \
@@ -407,7 +407,7 @@ hlint :
 ##############################################################################
 # Git : pre-commit test
 
-git-pre-commit :
+git_pre_commit :
 	@fix-whitespace --check
 	@cd $(agda2atp_path) && cabal configure && cabal build
 	@make agda2atp_changed
