@@ -3,9 +3,8 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --universal-quantified-functions #-}
 {-# OPTIONS --without-K #-}
-
--- Tested with agda2atp on 11 July 2012.
 
 module LambdaLifting where
 

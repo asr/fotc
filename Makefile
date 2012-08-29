@@ -45,7 +45,6 @@ AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp
 # AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --atp=spass
 # AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --atp=vampire
 
-
 ##############################################################################
 # Auxiliary functions
 
@@ -105,6 +104,8 @@ consistency_fot_files = \
 type_check_notes_files = \
   $(patsubst %.agda,%.type_check_notes, \
     $(shell find $(notes_path) -name '*.agda' | sort))
+
+prove_notes_files = $(call path_subst,prove_notes,$(notes_path))
 
 # Others
 
@@ -272,7 +273,7 @@ snapshot_compare_fot : $(snapshot_compare_fot_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
-# FOT: Prove theorems in the FOT
+# FOT: Prove theorems
 
 %.prove_fot :
 	$(AGDA) -i$(fot_path) $*.agda
@@ -303,13 +304,13 @@ consistency_fot : $(consistency_fot_files)
 	        -inotes \
 	        -inotes/agda-interface \
 	        -inotes/fixed-points \
-	        -inotes/issues \
                 -inotes/papers/fossacs-2012 \
                 -inotes/papers/paper-2011/ \
-	        -inotes/README/ \
-                -inotes/setoids/ \
+	        -inotes/README \
+                -inotes/setoids \
 	        -inotes/strictly-positive-inductive-types \
-                -inotes/thesis/logical-framework/ \
+                -inotes/thesis/agda-introduction \
+                -inotes/thesis/logical-framework \
 	        $*.agda
 
 type_check_notes_aux : $(type_check_notes_files)
@@ -317,6 +318,21 @@ type_check_notes_aux : $(type_check_notes_files)
 type_check_notes :
 	cd $(std_lib_path) && darcs pull
 	make type_check_notes_aux
+	@echo "$@ succeeded!"
+
+##############################################################################
+# Notes: Prove theorems
+
+prove_notes_path = -i$(fot_path) \
+                   -inotes \
+                   -inotes/papers/fossacs-2012 \
+                   -inotes/README
+
+%.prove_notes :
+	$(AGDA) $(prove_notes_path) $*.agda
+	$(AGDA2ATP) $(prove_notes_path) --output-dir=$(output_dir) --time=240 $*.agda
+
+prove_notes : $(prove_notes_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -332,6 +348,7 @@ agda_changed : clean
 	make type_check_fot
 	make snapshot_compare_fot
 	make type_check_notes
+	make prove_notes
 	cd $(dump-agdai_path) && cabal clean && cabal install
 	@echo "$@ succeeded!"
 
@@ -353,6 +370,7 @@ atp_changed :
 	@make refute_theorems
 	@make errors
 	@make options
+	@make prove_notes
 	@make prove_fot
 	@echo "$@ succeeded!"
 

@@ -28,7 +28,7 @@ postulate
 thm : ∀ f x → (∃[ n ] N n ∧ powerF f n x ≡ zero) → List (iter₀ f x)
 thm f x (.zero , zN , x₃) = prf
   where postulate prf : List (iter₀ f x)
-        {-# ATP prove prf #-}
+--        {-# ATP prove prf #-}
 thm f x (.(succ₁ n) , sN {n} x₂ , x₃) = prf
   where postulate prf : List (iter₀ f x)
-        {-# ATP prove prf #-}
+--        {-# ATP prove prf #-}

@@ -5,8 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with agda2atp on 29 August 2012.
-
 module FOT.FOTC.Data.Nat.MutualRecursiveFunctions where
 
 open import FOTC.Base

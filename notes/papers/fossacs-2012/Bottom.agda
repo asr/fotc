@@ -1,8 +1,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with agda2atp on 11 July 2012.
-
 module Bottom where
 
 open import Common.FOL.FOL-Eq

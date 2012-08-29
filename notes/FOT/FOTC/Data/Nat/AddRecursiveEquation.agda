@@ -5,8 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with agda2atp on 17 August 2012.
-
 module FOT.FOTC.Data.Nat.AddRecursiveEquation where
 
 open import FOTC.Base

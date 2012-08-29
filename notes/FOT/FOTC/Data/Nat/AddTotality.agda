@@ -5,8 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with agda2atp on 11 June 2012.
-
 module FOT.FOTC.Data.Nat.AddTotality where
 
 open import FOTC.Base

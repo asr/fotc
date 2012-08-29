@@ -5,8 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with agda2atp on 11 June 2012.
-
 module FOT.FOTC.Program.Collatz.EquationsATP where
 
 open import FOTC.Base
@@ -24,4 +22,4 @@ postulate
   collatz-even    : ∀ {n} → GT n one → Even n →
                     collatz n ≡ collatz (n / two)
 -- The ATPs cannot prove this equation.
-{-# ATP prove collatz-even #-}
+-- {-# ATP prove collatz-even #-}

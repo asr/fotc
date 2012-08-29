@@ -3,9 +3,8 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --universal-quantified-propositional-functions #-}
 {-# OPTIONS --without-K #-}
-
--- Tested with agda2atp on 11 June 2012.
 
 module FOT.FOTC.Data.Bool.AndTotality where
 
