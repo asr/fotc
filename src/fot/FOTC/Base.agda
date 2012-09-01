@@ -47,11 +47,11 @@ open import Common.DefinitionsATP public
 --      | loop
 
 postulate
-  _·_                     : D → D → D  -- FOTC application.
-  true false if           : D          -- FOTC partial Booleans.
-  zero succ pred iszero   : D          -- FOTC partial natural numbers.
-  nil cons head tail null : D          -- FOTC lists.
-  loop                    : D          -- FOTC looping programs.
+  _·_                    : D → D → D  -- FOTC application.
+  true false if          : D          -- FOTC partial Booleans.
+  zero succ pred iszero  : D          -- FOTC partial natural numbers.
+  [] cons head tail null : D          -- FOTC lists.
+  loop                   : D          -- FOTC looping programs.
 
 ------------------------------------------------------------------------------
 -- Definitions
@@ -79,10 +79,6 @@ abstract
   iszero₁ : D → D
   iszero₁ n = iszero · n
   -- {-# ATP definition iszero₁ #-}
-
-  [] : D
-  [] = nil
-  -- {-# ATP definition [] #-}
 
   _∷_  : D → D → D
   x ∷ xs = cons · x · xs
