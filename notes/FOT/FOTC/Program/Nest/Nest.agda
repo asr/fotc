@@ -45,12 +45,12 @@ indDom P P0 ih (domS d h₁ h₂) = ih h₁ (indDom P P0 ih h₁) h₂ (indDom P
 
 -- The domain predicate is total.
 dom-N : ∀ d → Dom d → N d
-dom-N .zero      dom0           = zN
-dom-N .(succ₁ d) (domS d h₁ h₂) = sN (dom-N d h₁)
+dom-N .zero      dom0           = nzero
+dom-N .(succ₁ d) (domS d h₁ h₂) = nsucc (dom-N d h₁)
 
 nest-x≡0 : ∀ {n} → N n → nest n ≡ zero
-nest-x≡0 zN      = nest-0
-nest-x≡0 (sN {n} Nn) =
+nest-x≡0 nzero      = nest-0
+nest-x≡0 (nsucc {n} Nn) =
   nest (succ₁ n) ≡⟨ nest-S n ⟩
   nest (nest n)  ≡⟨ cong nest (nest-x≡0 Nn) ⟩
   nest zero      ≡⟨ nest-0 ⟩
@@ -59,20 +59,20 @@ nest-x≡0 (sN {n} Nn) =
 -- The nest function is total in its domain (via structural recursion
 -- in the domain predicate).
 nest-DN : ∀ {d} → Dom d → N (nest d)
-nest-DN dom0           = subst N (sym nest-0) zN
+nest-DN dom0           = subst N (sym nest-0) nzero
 nest-DN (domS d h₁ h₂) = subst N (sym (nest-S d)) (nest-DN h₂)
 
 -- The nest function is total.
 nest-N : ∀ {n} → N n → N (nest n)
-nest-N Nn = subst N (sym (nest-x≡0 Nn)) zN
+nest-N Nn = subst N (sym (nest-x≡0 Nn)) nzero
 
 nest-≤ : ∀ {n} → Dom n → LE (nest n) n
 nest-≤ dom0 = nest zero ≤ zero ≡⟨ cong₂ _≤_ nest-0 refl ⟩
-              zero ≤ zero      ≡⟨ x≤x zN ⟩
+              zero ≤ zero      ≡⟨ x≤x nzero ⟩
               true             ∎
 
 nest-≤ (domS n h₁ h₂) =
-  ≤-trans (nest-N (sN (dom-N n h₁))) (nest-N (dom-N n h₁)) (sN Nn) prf₁ prf₂
+  ≤-trans (nest-N (nsucc (dom-N n h₁))) (nest-N (dom-N n h₁)) (nsucc Nn) prf₁ prf₂
     where
     Nn : N n
     Nn = dom-N n h₁
@@ -83,7 +83,7 @@ nest-≤ (domS n h₁ h₂) =
            true                    ∎
 
     prf₂ : LE (nest n) (succ₁ n)
-    prf₂ = ≤-trans (nest-N (dom-N n h₁)) Nn (sN Nn) (nest-≤ h₁) (x≤Sx Nn)
+    prf₂ = ≤-trans (nest-N (dom-N n h₁)) Nn (nsucc Nn) (nest-≤ h₁) (x≤Sx Nn)
 
 N→Dom : ∀ {n} → N n → Dom n
 N→Dom = LT-wfind P ih
@@ -92,8 +92,8 @@ N→Dom = LT-wfind P ih
   P = Dom
 
   ih : ∀ {x} → N x → (∀ {y} → N y → LT y x → P y) → P x
-  ih zN          h = dom0
-  ih (sN {x} Nx) h =
+  ih nzero          h = dom0
+  ih (nsucc {x} Nx) h =
     domS x dn-x (h (nest-N Nx ) (x≤y→x<Sy (nest-N Nx) Nx (nest-≤ dn-x)))
       where
       dn-x : Dom x

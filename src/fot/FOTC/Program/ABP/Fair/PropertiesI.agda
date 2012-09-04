@@ -36,7 +36,7 @@ head-tail-Fair-helper {fs} (.(true ∷ []) , fs' , nilF*T , h₁ , h₂) = inj�
          T ∷ [] ++ fs'  ≡⟨ cong (_∷_ T) (sym prf₂) ⟩
          T ∷ tail₁ fs   ∎
 
-head-tail-Fair-helper {fs} (.(false ∷ ft) , fs' , consF*T {ft} y , h₁ , h₂) =
+head-tail-Fair-helper {fs} (.(false ∷ ft) , fs' , fcons*T {ft} y , h₁ , h₂) =
   inj₂ prf₃
   where
   prf₁ : fs ≡ F ∷ ft ++ fs'
@@ -74,7 +74,7 @@ tail-Fair-helper {fs} (.(true ∷ []) , fs' , nilF*T , Ffs' , h) =
          tail₁ (T ∷ fs') ≡⟨ tail-∷ T fs' ⟩
          fs'             ∎
 
-tail-Fair-helper {fs} (.(false ∷ ft) , fs' , consF*T {ft} FTft , Ffs' , h) =
+tail-Fair-helper {fs} (.(false ∷ ft) , fs' , fcons*T {ft} FTft , Ffs' , h) =
   subst Fair (sym prf₂) (Fair-gfp₃ (ft , fs' , FTft , Ffs' , refl))
   where
   prf₁ : fs ≡ F ∷ ft ++ fs'

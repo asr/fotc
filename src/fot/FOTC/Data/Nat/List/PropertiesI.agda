@@ -17,6 +17,6 @@ open import FOTC.Data.List
 postulate ++-ListN : ∀ {ms ns} → ListN ms → ListN ns → ListN (ms ++ ns)
 
 map-ListN : ∀ f {ns} → (∀ {n} → N n → N (f · n)) → ListN ns → ListN (map f ns)
-map-ListN f h nilLN                    = subst ListN (sym (map-[] f)) nilLN
-map-ListN f h (consLN {n} {ns} Nn Lns) =
-  subst ListN (sym (map-∷ f n ns)) (consLN (h Nn) (map-ListN f h Lns))
+map-ListN f h lnnil                    = subst ListN (sym (map-[] f)) lnnil
+map-ListN f h (lncons {n} {ns} Nn Lns) =
+  subst ListN (sym (map-∷ f n ns)) (lncons (h Nn) (map-ListN f h Lns))

@@ -17,12 +17,12 @@ open import FOTC.Program.SortList.SortList
 ------------------------------------------------------------------------------
 -- The function flatten generates a ListN.
 flatten-ListN : ∀ {t} → Tree t → ListN (flatten t)
-flatten-ListN nilT =
-  subst (λ t → ListN t) (sym flatten-nilTree) nilLN
-flatten-ListN (tipT {i} Ni) =
-  subst (λ t → ListN t) (sym $ flatten-tip i) (consLN Ni nilLN)
+flatten-ListN tnil =
+  subst (λ t → ListN t) (sym flatten-nilTree) lnnil
+flatten-ListN (ttip {i} Ni) =
+  subst (λ t → ListN t) (sym $ flatten-tip i) (lncons Ni lnnil)
 
-flatten-ListN (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂)
+flatten-ListN (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂)
   = subst (λ t → ListN t)
           (sym $ flatten-node t₁ i t₂)
           (++-ListN (flatten-ListN Tt₁)

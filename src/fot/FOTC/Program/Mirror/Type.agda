@@ -21,13 +21,13 @@ data Forest : D → Set  -- The list of rose trees (called forest).
 data Tree   : D → Set  -- The rose tree type.
 
 data Forest where
-  nilF  :                                 Forest []
-  consF : ∀ {t ts} → Tree t → Forest ts → Forest (t ∷ ts)
-{-# ATP axiom nilF consF #-}
+  fnil  :                                 Forest []
+  fcons : ∀ {t ts} → Tree t → Forest ts → Forest (t ∷ ts)
+{-# ATP axiom fnil fcons #-}
 
 data Tree where
-  treeT : ∀ d {ts} → Forest ts → Tree (node d ts)
-{-# ATP axiom treeT #-}
+  tree : ∀ d {ts} → Forest ts → Tree (node d ts)
+{-# ATP axiom tree #-}
 
 ------------------------------------------------------------------------------
 -- Mutual induction for Tree and Forest
@@ -54,11 +54,11 @@ Forest-ind :
   (∀ {t ts} → Tree t → P t → Forest ts → B ts → B (t ∷ ts)) →
   ∀ {ts} → Forest ts → B ts
 
-Tree-ind ihA B[] _   (treeT d nilF)           = ihA d nilF B[]
-Tree-ind ihA B[] ihB (treeT d (consF Tt Fts)) =
-  ihA d (consF Tt Fts) (ihB Tt (Tree-ind ihA B[] ihB Tt)
+Tree-ind ihA B[] _   (tree d fnil)           = ihA d fnil B[]
+Tree-ind ihA B[] ihB (tree d (fcons Tt Fts)) =
+  ihA d (fcons Tt Fts) (ihB Tt (Tree-ind ihA B[] ihB Tt)
                               Fts (Forest-ind ihA B[] ihB Fts))
 
-Forest-ind _   B[] _   nilF           = B[]
-Forest-ind ihP B[] ihB (consF Tt Fts) =
+Forest-ind _   B[] _   fnil           = B[]
+Forest-ind ihP B[] ihB (fcons Tt Fts) =
   ihB Tt (Tree-ind ihP B[] ihB Tt) Fts (Forest-ind ihP B[] ihB Fts)

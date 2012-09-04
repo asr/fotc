@@ -31,7 +31,7 @@ open import FOTC.Program.SortList.SortList
 -- p. 46).
 -- xs≤[] : ∀ {is} → ListN is → OrdList is → LE-Lists is []
 -- xs≤[] nilLN                     _       = ≤-Lists-[] []
--- xs≤[] (consLN {i} {is} Ni LNis) LOconsL =
+-- xs≤[] (lncons {i} {is} Ni LNis) LOconsL =
 --   prf $ xs≤[] LNis (subList-OrdList Ni LNis LOconsL)
 --   where
 --     postulate prf : LE-Lists is [] →  --IH.
@@ -42,9 +42,9 @@ x≤ys→x≤zs→x≤ys++zs : ∀ {i js ks} → N i → ListN js → ListN ks �
                      LE-ItemList i js →
                      LE-ItemList i ks →
                      LE-ItemList i (js ++ ks)
-x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni nilLN LNks _ i≤k =
+x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni lnnil LNks _ i≤k =
   subst (λ t → LE-ItemList i t) (sym (++-[] ks)) i≤k
-x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni (consLN {j} {js} Nj LNjs) LNks i≤j∷js i≤k =
+x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni (lncons {j} {js} Nj LNjs) LNks i≤j∷js i≤k =
   prf (x≤ys→x≤zs→x≤ys++zs Ni LNjs LNks (&&-list₂-t₂ helper₁ helper₂ helper₃) i≤k)
   where
   helper₁ : Bool (i ≤ j)
@@ -63,8 +63,8 @@ xs≤ys→xs≤zs→xs≤ys++zs : ∀ {is js ks} → ListN is → ListN js → L
                         LE-Lists is js →
                         LE-Lists is ks →
                         LE-Lists is (js ++ ks)
-xs≤ys→xs≤zs→xs≤ys++zs nilLN LNjs LNks _ _ = ≤-Lists-[] _
-xs≤ys→xs≤zs→xs≤ys++zs {js = js} {ks} (consLN {i} {is} Ni LNis)
+xs≤ys→xs≤zs→xs≤ys++zs lnnil LNjs LNks _ _ = ≤-Lists-[] _
+xs≤ys→xs≤zs→xs≤ys++zs {js = js} {ks} (lncons {i} {is} Ni LNis)
                       LNjs LNks i∷is≤js i∷is≤ks =
   prf ((xs≤ys→xs≤zs→xs≤ys++zs LNis LNjs LNks
                               (&&-list₂-t₂ helper₁ helper₂ helper₃)
@@ -87,12 +87,12 @@ xs≤zs→ys≤zs→xs++ys≤zs : ∀ {is js ks} → ListN is → ListN js → L
                         LE-Lists is ks →
                         LE-Lists js ks →
                         LE-Lists (is ++ js) ks
-xs≤zs→ys≤zs→xs++ys≤zs {js = js} {ks} nilLN LNjs LNks is≤ks js≤ks =
+xs≤zs→ys≤zs→xs++ys≤zs {js = js} {ks} lnnil LNjs LNks is≤ks js≤ks =
   subst (λ t → LE-Lists t ks)
         (sym (++-[] js))
         js≤ks
 xs≤zs→ys≤zs→xs++ys≤zs {js = js} {ks}
-                      (consLN {i} {is} Ni LNis) LNjs LNks i∷is≤ks js≤ks =
+                      (lncons {i} {is} Ni LNis) LNjs LNks i∷is≤ks js≤ks =
   prf (xs≤zs→ys≤zs→xs++ys≤zs LNis LNjs LNks
                              (&&-list₂-t₂ helper₁ helper₂ helper₃)
                              js≤ks)

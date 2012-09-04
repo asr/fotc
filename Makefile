@@ -237,12 +237,8 @@ doc :
 %.type_check_agsy_fot :
 	$(AGDA) -i$(fot_path) -i $(std_lib_path)/src/ $*.agda
 
-type_check_fot_aux : $(type_check_fot_files) \
-                     $(type_check_agsy_fot_files)
-
-type_check_fot :
-	cd $(std_lib_path) && darcs pull
-	make type_check_fot_aux
+type_check_fot : $(type_check_fot_files) \
+                 $(type_check_agsy_fot_files)
 	$(AGDA) -i$(fot_path) $(fot_path)/README.agda
 	@echo "$@ succeeded!"
 
@@ -313,11 +309,7 @@ consistency_fot : $(consistency_fot_files)
                 -inotes/thesis/logical-framework \
 	        $*.agda
 
-type_check_notes_aux : $(type_check_notes_files)
-
-type_check_notes :
-	cd $(std_lib_path) && darcs pull
-	make type_check_notes_aux
+type_check_notes : $(type_check_notes_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -345,6 +337,7 @@ agda_changed : clean
 	fi
 	cd $(agda2atp_path) && cabal clean && cabal configure && cabal build
 	make agda2atp_changed
+	cd $(std_lib_path) && darcs pull
 	make type_check_fot
 	make snapshot_compare_fot
 	make type_check_notes
@@ -413,6 +406,8 @@ git_pre_commit :
 	@make agda2atp_changed
 	@make doc
 	@make hlint
+	@make type_check_fot
+	@make type_check_notes
 	@echo "$@ succeeded!"
 
 ##############################################################################

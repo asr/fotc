@@ -45,5 +45,5 @@ N→Conat : ∀ {n} → N n → Conat n
 N→Conat Nn = Conat-gfp₂ N helper Nn
   where
   helper : ∀ {m} → N m → m ≡ zero ∨ ∃ (λ m' → N m' ∧ m ≡ succ₁ m')
-  helper zN          = inj₁ refl
-  helper (sN {m} Nm) = inj₂ (m , Nm , refl)
+  helper nzero          = inj₁ refl
+  helper (nsucc {m} Nm) = inj₂ (m , Nm , refl)

@@ -31,8 +31,8 @@ open import FOTC.Program.SortList.SortList
 -- lists is only an ordering if nil is excluded" (Burstall 1969,
 -- p. 46).
 -- xs≤[] : ∀ {is} → ListN is → OrdList is → LE-Lists is []
--- xs≤[] nilLN                     _       = ≤-Lists-[] []
--- xs≤[] (consLN {i} {is} Ni LNis) LOconsL =
+-- xs≤[] lnnil                     _       = ≤-Lists-[] []
+-- xs≤[] (lncons {i} {is} Ni LNis) LOconsL =
 --   begin
 --     ≤-Lists (i ∷ is) []
 --       ≡⟨ ≤-Lists-∷ i is [] ⟩
@@ -53,9 +53,9 @@ open import FOTC.Program.SortList.SortList
 
 x≤ys++zs→x≤zs : ∀ {i js ks} → N i → ListN js → ListN ks →
                 LE-ItemList i (js ++ ks) → LE-ItemList i ks
-x≤ys++zs→x≤zs {i} {ks = ks} Ni nilLN LNks  i≤[]++ks =
+x≤ys++zs→x≤zs {i} {ks = ks} Ni lnnil LNks  i≤[]++ks =
   subst (λ t → LE-ItemList i t) (++-[] ks) i≤[]++ks
-x≤ys++zs→x≤zs {i} {ks = ks} Ni (consLN {j} {js} Nj LNjs) LNks i≤j∷js++ks =
+x≤ys++zs→x≤zs {i} {ks = ks} Ni (lncons {j} {js} Nj LNjs) LNks i≤j∷js++ks =
   x≤ys++zs→x≤zs Ni LNjs LNks lemma₂
   where
   lemma₁ : (i ≤ j) && ≤-ItemList i (js ++ ks) ≡ true
@@ -77,8 +77,8 @@ x≤ys++zs→x≤zs {i} {ks = ks} Ni (consLN {j} {js} Nj LNjs) LNks i≤j∷js++
 
 xs++ys-OrdList→xs≤ys : ∀ {is js} → ListN is → ListN js →
                        OrdList (is ++ js) → LE-Lists is js
-xs++ys-OrdList→xs≤ys {js = js} nilLN LNjs OLis++js =  ≤-Lists-[] js
-xs++ys-OrdList→xs≤ys {js = js} (consLN {i} {is} Ni LNis) LNjs OLis++js =
+xs++ys-OrdList→xs≤ys {js = js} lnnil LNjs OLis++js =  ≤-Lists-[] js
+xs++ys-OrdList→xs≤ys {js = js} (lncons {i} {is} Ni LNis) LNjs OLis++js =
   ≤-Lists (i ∷ is) js
     ≡⟨ ≤-Lists-∷ i is js ⟩
   ≤-ItemList i js && ≤-Lists is js
@@ -119,9 +119,9 @@ x≤ys→x≤zs→x≤ys++zs : ∀ {i js ks} → N i → ListN js → ListN ks �
                      LE-ItemList i js →
                      LE-ItemList i ks →
                      LE-ItemList i (js ++ ks)
-x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni nilLN LNks _ i≤k =
+x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni lnnil LNks _ i≤k =
   subst (λ t → LE-ItemList i t) (sym (++-[] ks)) i≤k
-x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni (consLN {j} {js} Nj LNjs) LNks i≤j∷js i≤k =
+x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni (lncons {j} {js} Nj LNjs) LNks i≤j∷js i≤k =
   ≤-ItemList i ((j ∷ js) ++ ks)
     ≡⟨ subst (λ t → ≤-ItemList i ((j ∷ js) ++ ks) ≡
                     ≤-ItemList i t)
@@ -155,8 +155,8 @@ xs≤ys→xs≤zs→xs≤ys++zs : ∀ {is js ks} → ListN is → ListN js → L
                         LE-Lists is js →
                         LE-Lists is ks →
                         LE-Lists is (js ++ ks)
-xs≤ys→xs≤zs→xs≤ys++zs nilLN LNjs LNks _ _ = ≤-Lists-[] _
-xs≤ys→xs≤zs→xs≤ys++zs {js = js} {ks} (consLN {i} {is} Ni LNis)
+xs≤ys→xs≤zs→xs≤ys++zs lnnil LNjs LNks _ _ = ≤-Lists-[] _
+xs≤ys→xs≤zs→xs≤ys++zs {js = js} {ks} (lncons {i} {is} Ni LNis)
                       LNjs LNks i∷is≤js i∷is≤ks =
   ≤-Lists (i ∷ is) (js ++ ks)
     ≡⟨ ≤-Lists-∷ i is (js ++ ks)  ⟩
@@ -191,12 +191,12 @@ xs≤zs→ys≤zs→xs++ys≤zs : ∀ {is js ks} → ListN is → ListN js → L
                         LE-Lists is ks →
                         LE-Lists js ks →
                         LE-Lists (is ++ js) ks
-xs≤zs→ys≤zs→xs++ys≤zs {js = js} {ks} nilLN LNjs LNks is≤ks js≤ks =
+xs≤zs→ys≤zs→xs++ys≤zs {js = js} {ks} lnnil LNjs LNks is≤ks js≤ks =
   subst (λ t → LE-Lists t ks)
         (sym (++-[] js))
         js≤ks
 xs≤zs→ys≤zs→xs++ys≤zs {js = js} {ks}
-                      (consLN {i} {is} Ni LNis) LNjs LNks i∷is≤ks js≤ks =
+                      (lncons {i} {is} Ni LNis) LNjs LNks i∷is≤ks js≤ks =
   ≤-Lists ((i ∷ is) ++ js) ks
     ≡⟨ subst (λ t → ≤-Lists ((i ∷ is) ++ js) ks ≡ ≤-Lists t ks)
              (++-∷ i is js)

@@ -15,7 +15,7 @@ open import FOTC.Data.List.Type
 ------------------------------------------------------------------------------
 
 l₁ : List (true ∷ false ∷ [])
-l₁ = consL true (consL false nilL)
+l₁ = lcons true (lcons false lnil)
 
 l₂ : List (zero ∷ one ∷ two ∷ [])
-l₂ = consL zero (consL one (consL two nilL))
+l₂ = lcons zero (lcons one (lcons two lnil))

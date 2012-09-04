@@ -22,7 +22,7 @@ open import FOTC.Data.Nat
     A0 = subst N (sym (+-0x n)) Nn
 
     ih : ∀ {i} → A i → A (succ₁ i)
-    ih {i} ih = subst N (sym (+-Sx i n)) (sN ih)
+    ih {i} ih = subst N (sym (+-Sx i n)) (nsucc ih)
 
 -- Combined proof using an instance of the induction principle.
 N-ind-instance : ∀ n →

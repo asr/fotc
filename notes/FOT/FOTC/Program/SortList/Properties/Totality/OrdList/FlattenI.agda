@@ -35,12 +35,12 @@ flatten-OrdList-helper : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ �
                          OrdTree (node t₁ i t₂) →
                          LE-Lists (flatten t₁) (flatten t₂)
 
-flatten-OrdList-helper {t₂ = t₂} nilT Ni Tt₂ OTt =
+flatten-OrdList-helper {t₂ = t₂} tnil Ni Tt₂ OTt =
   subst (λ t → LE-Lists t (flatten t₂))
         (sym (flatten-nilTree))
         (≤-Lists-[] (flatten t₂))
 
-flatten-OrdList-helper (tipT {i₁} Ni₁) _ nilT OTt =
+flatten-OrdList-helper (ttip {i₁} Ni₁) _ tnil OTt =
   ≤-Lists (flatten (tip i₁)) (flatten nilTree)
     ≡⟨ subst₂ (λ x₁ x₂ → ≤-Lists (flatten (tip i₁)) (flatten nilTree) ≡
                          ≤-Lists x₁ x₂)
@@ -60,7 +60,7 @@ flatten-OrdList-helper (tipT {i₁} Ni₁) _ nilT OTt =
     ≡⟨ t&&x≡x true ⟩
   true ∎
 
-flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni (tipT {i₂} Ni₂) OTt =
+flatten-OrdList-helper {i = i} (ttip {i₁} Ni₁) Ni (ttip {i₂} Ni₂) OTt =
   ≤-Lists (flatten (tip i₁)) (flatten (tip i₂))
     ≡⟨ subst₂ (λ x₁ x₂ → ≤-Lists (flatten (tip i₁)) (flatten (tip i₂)) ≡
                          ≤-Lists x₁ x₂)
@@ -90,23 +90,23 @@ flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni (tipT {i₂} Ni₂) OTt =
               refl
     ⟩
   (true && true) && true
-    ≡⟨ &&-assoc tB tB tB ⟩
+    ≡⟨ &&-assoc btrue btrue btrue ⟩
   true && true && true
-    ≡⟨ &&-list₃-all-t tB tB tB (refl , refl , refl) ⟩
+    ≡⟨ &&-list₃-all-t btrue btrue btrue (refl , refl , refl) ⟩
   true
   ∎
   where
     helper₁ : Bool (ordTree (tip i₁))
-    helper₁ = ordTree-Bool (tipT Ni₁)
+    helper₁ = ordTree-Bool (ttip Ni₁)
 
     helper₂ : Bool (ordTree (tip i₂))
-    helper₂ = ordTree-Bool (tipT Ni₂)
+    helper₂ = ordTree-Bool (ttip Ni₂)
 
     helper₃ : Bool (≤-TreeItem (tip i₁) i)
-    helper₃ = ≤-TreeItem-Bool (tipT Ni₁) Ni
+    helper₃ = ≤-TreeItem-Bool (ttip Ni₁) Ni
 
     helper₄ : Bool (≤-ItemTree i (tip i₂))
-    helper₄ = ≤-ItemTree-Bool Ni (tipT Ni₂)
+    helper₄ = ≤-ItemTree-Bool Ni (ttip Ni₂)
 
     helper₅ : ordTree (tip i₁) &&
            ordTree (tip i₂) &&
@@ -125,8 +125,8 @@ flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni (tipT {i₂} Ni₂) OTt =
        i≤i₂ = trans (sym (≤-ItemTree-tip i i₂))
                     (&&-list₄-t₄ helper₁ helper₂ helper₃ helper₄ helper₅)
 
-flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni
-                       (nodeT {t₂₁} {i₂} {t₂₂} Tt₂₁ Ni₂ Tt₂₂) OTt =
+flatten-OrdList-helper {i = i} (ttip {i₁} Ni₁) Ni
+                       (tnode {t₂₁} {i₂} {t₂₂} Tt₂₁ Ni₂ Tt₂₂) OTt =
   ≤-Lists (flatten (tip i₁)) (flatten (node t₂₁ i₂ t₂₂))
     ≡⟨ subst (λ x → ≤-Lists (flatten (tip i₁)) (flatten (node t₂₁ i₂ t₂₂)) ≡
                     ≤-Lists (flatten (tip i₁)) x)
@@ -134,7 +134,7 @@ flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni
              refl
     ⟩
   ≤-Lists (flatten (tip i₁)) (flatten t₂₁ ++ flatten t₂₂)
-    ≡⟨ xs≤ys→xs≤zs→xs≤ys++zs (flatten-ListN (tipT Ni₁))
+    ≡⟨ xs≤ys→xs≤zs→xs≤ys++zs (flatten-ListN (ttip Ni₁))
                              (flatten-ListN Tt₂₁)
                              (flatten-ListN Tt₂₂)
                              lemma₁
@@ -143,10 +143,10 @@ flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni
   true ∎
   where
     -- Helper terms to get the conjuncts from OTt.
-    helper₁ = ordTree-Bool (tipT Ni₁)
-    helper₂ = ordTree-Bool (nodeT Tt₂₁ Ni₂ Tt₂₂)
-    helper₃ = ≤-TreeItem-Bool (tipT Ni₁) Ni
-    helper₄ = ≤-ItemTree-Bool Ni (nodeT Tt₂₁ Ni₂ Tt₂₂)
+    helper₁ = ordTree-Bool (ttip Ni₁)
+    helper₂ = ordTree-Bool (tnode Tt₂₁ Ni₂ Tt₂₂)
+    helper₃ = ≤-TreeItem-Bool (ttip Ni₁) Ni
+    helper₄ = ≤-ItemTree-Bool Ni (tnode Tt₂₁ Ni₂ Tt₂₂)
     helper₅ = trans (sym (ordTree-node (tip i₁) i (node t₂₁ i₂ t₂₂))) OTt
 
     -- Helper terms to get the conjuncts from the fourth conjunct of OTt.
@@ -163,7 +163,7 @@ flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni
     LE-TreeItem-tip-i₁-i = &&-list₄-t₃ helper₁ helper₂ helper₃ helper₄ helper₅
 
     lemma₁ : LE-Lists (flatten (tip i₁)) (flatten t₂₁)
-    lemma₁ = flatten-OrdList-helper (tipT Ni₁) Ni Tt₂₁ OT
+    lemma₁ = flatten-OrdList-helper (ttip Ni₁) Ni Tt₂₁ OT
       where
         OrdTree-t₂₁ : OrdTree t₂₁
         OrdTree-t₂₁ =
@@ -192,11 +192,11 @@ flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni
                          refl
              ⟩
              true && true && true && true
-               ≡⟨ &&-list₄-all-t tB tB tB tB (refl , refl , refl , refl) ⟩
+               ≡⟨ &&-list₄-all-t btrue btrue btrue btrue (refl , refl , refl , refl) ⟩
              true ∎
 
     lemma₂ : LE-Lists (flatten (tip i₁)) (flatten t₂₂)
-    lemma₂ = flatten-OrdList-helper (tipT Ni₁) Ni Tt₂₂ OT
+    lemma₂ = flatten-OrdList-helper (ttip Ni₁) Ni Tt₂₂ OT
       where
         OrdTree-t₂₂ : OrdTree t₂₂
         OrdTree-t₂₂ =
@@ -225,10 +225,10 @@ flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni
                          refl
              ⟩
              true && true && true && true
-               ≡⟨ &&-list₄-all-t tB tB tB tB (refl , refl , refl , refl) ⟩
+               ≡⟨ &&-list₄-all-t btrue btrue btrue btrue (refl , refl , refl , refl) ⟩
              true ∎
 
-flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂) Ni nilT OTt =
+flatten-OrdList-helper {i = i} (tnode {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂) Ni tnil OTt =
   ≤-Lists (flatten (node t₁₁ i₁ t₁₂)) (flatten nilTree)
     ≡⟨ subst (λ x → ≤-Lists (flatten (node t₁₁ i₁ t₁₂)) (flatten nilTree) ≡
                     ≤-Lists x                           (flatten nilTree))
@@ -238,17 +238,17 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
   ≤-Lists (flatten t₁₁ ++  flatten t₁₂) (flatten nilTree)
     ≡⟨ xs≤zs→ys≤zs→xs++ys≤zs (flatten-ListN Tt₁₁)
                              (flatten-ListN Tt₁₂)
-                             (flatten-ListN nilT)
+                             (flatten-ListN tnil)
                              lemma₁
                              lemma₂
     ⟩
   true ∎
   where
     -- Helper terms to get the conjuncts from OTt.
-    helper₁ = ordTree-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂)
-    helper₂ = ordTree-Bool nilT
-    helper₃ = ≤-TreeItem-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂) Ni
-    helper₄ = ≤-ItemTree-Bool Ni nilT
+    helper₁ = ordTree-Bool (tnode Tt₁₁ Ni₁ Tt₁₂)
+    helper₂ = ordTree-Bool tnil
+    helper₃ = ≤-TreeItem-Bool (tnode Tt₁₁ Ni₁ Tt₁₂) Ni
+    helper₄ = ≤-ItemTree-Bool Ni tnil
     helper₅ = trans (sym (ordTree-node (node t₁₁ i₁ t₁₂) i nilTree )) OTt
 
     -- Helper terms to get the conjuncts from the third conjunct of OTt.
@@ -262,7 +262,7 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
     LE-ItemTree-i-niltree = &&-list₄-t₄ helper₁ helper₂ helper₃ helper₄ helper₅
 
     lemma₁ : LE-Lists (flatten t₁₁) (flatten nilTree)
-    lemma₁ = flatten-OrdList-helper Tt₁₁ Ni nilT OT
+    lemma₁ = flatten-OrdList-helper Tt₁₁ Ni tnil OT
       where
         OrdTree-t₁₁ : OrdTree t₁₁
         OrdTree-t₁₁ =
@@ -291,11 +291,11 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
                          refl
              ⟩
              true && true && true && true
-               ≡⟨ &&-list₄-all-t tB tB tB tB (refl , refl , refl , refl) ⟩
+               ≡⟨ &&-list₄-all-t btrue btrue btrue btrue (refl , refl , refl , refl) ⟩
              true ∎
 
     lemma₂ : LE-Lists (flatten t₁₂) (flatten nilTree)
-    lemma₂ = flatten-OrdList-helper Tt₁₂ Ni nilT OT
+    lemma₂ = flatten-OrdList-helper Tt₁₂ Ni tnil OT
       where
         OrdTree-t₁₂ : OrdTree t₁₂
         OrdTree-t₁₂ =
@@ -324,11 +324,11 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
                          refl
              ⟩
              true && true && true && true
-               ≡⟨ &&-list₄-all-t tB tB tB tB (refl , refl , refl , refl) ⟩
+               ≡⟨ &&-list₄-all-t btrue btrue btrue btrue (refl , refl , refl , refl) ⟩
              true ∎
 
-flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂) Ni
-                       (tipT {i₂} Ni₂) OTt =
+flatten-OrdList-helper {i = i} (tnode {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂) Ni
+                       (ttip {i₂} Ni₂) OTt =
   ≤-Lists (flatten (node t₁₁ i₁ t₁₂)) (flatten (tip i₂))
     ≡⟨ subst (λ x → ≤-Lists (flatten (node t₁₁ i₁ t₁₂)) (flatten (tip i₂)) ≡
                     ≤-Lists x                           (flatten (tip i₂)))
@@ -338,17 +338,17 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
   ≤-Lists (flatten t₁₁ ++  flatten t₁₂) (flatten (tip i₂))
     ≡⟨ xs≤zs→ys≤zs→xs++ys≤zs (flatten-ListN Tt₁₁)
                              (flatten-ListN Tt₁₂)
-                             (flatten-ListN (tipT Ni₂))
+                             (flatten-ListN (ttip Ni₂))
                              lemma₁
                              lemma₂
     ⟩
   true ∎
   where
     -- Helper terms to get the conjuncts from OTt.
-    helper₁ = ordTree-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂)
-    helper₂ = ordTree-Bool (tipT Ni₂)
-    helper₃ = ≤-TreeItem-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂) Ni
-    helper₄ = ≤-ItemTree-Bool Ni (tipT Ni₂)
+    helper₁ = ordTree-Bool (tnode Tt₁₁ Ni₁ Tt₁₂)
+    helper₂ = ordTree-Bool (ttip Ni₂)
+    helper₃ = ≤-TreeItem-Bool (tnode Tt₁₁ Ni₁ Tt₁₂) Ni
+    helper₄ = ≤-ItemTree-Bool Ni (ttip Ni₂)
     helper₅ = trans (sym (ordTree-node (node t₁₁ i₁ t₁₂) i (tip i₂))) OTt
 
     -- Helper terms to get the conjuncts from the third conjunct of OTt.
@@ -365,7 +365,7 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
     LE-ItemTree-i-tip-i₂ = &&-list₄-t₄ helper₁ helper₂ helper₃ helper₄ helper₅
 
     lemma₁ : LE-Lists (flatten t₁₁) (flatten (tip i₂))
-    lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (tipT Ni₂) OT
+    lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (ttip Ni₂) OT
       where
         OrdTree-t₁₁ : OrdTree t₁₁
         OrdTree-t₁₁ =
@@ -394,11 +394,11 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
                          refl
              ⟩
              true && true && true && true
-               ≡⟨ &&-list₄-all-t tB tB tB tB (refl , refl , refl , refl) ⟩
+               ≡⟨ &&-list₄-all-t btrue btrue btrue btrue (refl , refl , refl , refl) ⟩
              true ∎
 
     lemma₂ : LE-Lists (flatten t₁₂) (flatten (tip i₂))
-    lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (tipT Ni₂) OT
+    lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (ttip Ni₂) OT
       where
         OrdTree-t₁₂ : OrdTree t₁₂
         OrdTree-t₁₂ =
@@ -427,11 +427,11 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
                          refl
              ⟩
              true && true && true && true
-               ≡⟨ &&-list₄-all-t tB tB tB tB (refl , refl , refl , refl) ⟩
+               ≡⟨ &&-list₄-all-t btrue btrue btrue btrue (refl , refl , refl , refl) ⟩
              true ∎
 
-flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂) Ni
-                       (nodeT {t₂₁} {i₂} {t₂₂} Tt₂₁ Ni₂ Tt₂₂) OTt =
+flatten-OrdList-helper {i = i} (tnode {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂) Ni
+                       (tnode {t₂₁} {i₂} {t₂₂} Tt₂₁ Ni₂ Tt₂₂) OTt =
   ≤-Lists (flatten (node t₁₁ i₁ t₁₂)) (flatten (node t₂₁ i₂ t₂₂))
     ≡⟨ subst (λ x → ≤-Lists (flatten (node t₁₁ i₁ t₁₂))
                             (flatten (node t₂₁ i₂ t₂₂)) ≡
@@ -442,17 +442,17 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
   ≤-Lists (flatten t₁₁ ++  flatten t₁₂) (flatten (node t₂₁ i₂ t₂₂))
     ≡⟨ xs≤zs→ys≤zs→xs++ys≤zs (flatten-ListN Tt₁₁)
                              (flatten-ListN Tt₁₂)
-                             (flatten-ListN (nodeT Tt₂₁ Ni₂ Tt₂₂))
+                             (flatten-ListN (tnode Tt₂₁ Ni₂ Tt₂₂))
                              lemma₁
                              lemma₂
     ⟩
   true ∎
   where
     -- Helper terms to get the conjuncts from OTt.
-    helper₁ = ordTree-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂)
-    helper₂ = ordTree-Bool (nodeT Tt₂₁ Ni₂ Tt₂₂)
-    helper₃ = ≤-TreeItem-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂) Ni
-    helper₄ = ≤-ItemTree-Bool Ni (nodeT Tt₂₁ Ni₂ Tt₂₂)
+    helper₁ = ordTree-Bool (tnode Tt₁₁ Ni₁ Tt₁₂)
+    helper₂ = ordTree-Bool (tnode Tt₂₁ Ni₂ Tt₂₂)
+    helper₃ = ≤-TreeItem-Bool (tnode Tt₁₁ Ni₁ Tt₁₂) Ni
+    helper₄ = ≤-ItemTree-Bool Ni (tnode Tt₂₁ Ni₂ Tt₂₂)
     helper₅ = trans (sym (ordTree-node (node t₁₁ i₁ t₁₂) i (node t₂₁ i₂ t₂₂))) OTt
 
     -- Helper terms to get the conjuncts from the third conjunct of OTt.
@@ -470,7 +470,7 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
                                                 helper₅
 
     lemma₁ : LE-Lists (flatten t₁₁) (flatten (node t₂₁ i₂ t₂₂))
-    lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (nodeT Tt₂₁ Ni₂ Tt₂₂) OT
+    lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (tnode Tt₂₁ Ni₂ Tt₂₂) OT
       where
         OrdTree-t₁₁ : OrdTree t₁₁
         OrdTree-t₁₁ =
@@ -499,11 +499,11 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
                          refl
              ⟩
              true && true && true && true
-               ≡⟨ &&-list₄-all-t tB tB tB tB (refl , refl , refl , refl) ⟩
+               ≡⟨ &&-list₄-all-t btrue btrue btrue btrue (refl , refl , refl , refl) ⟩
              true ∎
 
     lemma₂ : LE-Lists (flatten t₁₂) (flatten (node t₂₁ i₂ t₂₂))
-    lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (nodeT Tt₂₁ Ni₂ Tt₂₂) OT
+    lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (tnode Tt₂₁ Ni₂ Tt₂₂) OT
       where
         OrdTree-t₁₂ : OrdTree t₁₂
         OrdTree-t₁₂ =
@@ -532,6 +532,6 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
                          refl
              ⟩
              true && true && true && true
-               ≡⟨ &&-list₄-all-t tB tB tB tB (refl , refl , refl , refl) ⟩
+               ≡⟨ &&-list₄-all-t btrue btrue btrue btrue (refl , refl , refl , refl) ⟩
              true
            ∎

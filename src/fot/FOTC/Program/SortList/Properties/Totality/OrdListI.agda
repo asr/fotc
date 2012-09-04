@@ -23,11 +23,11 @@ open import FOTC.Program.SortList.SortList
 ------------------------------------------------------------------------------
 -- If (i ∷ is) is ordered then 'is' is ordered.
 subList-OrdList : ∀ {i is} → N i → ListN is → OrdList (i ∷ is) → OrdList is
-subList-OrdList {i} Ni nilLN LOi∷is = ordList-[]
+subList-OrdList {i} Ni lnnil LOi∷is = ordList-[]
 
-subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js =
-  &&-list₂-t₂ (≤-ItemList-Bool Ni (consLN Nj Ljs))
-              (ordList-Bool (consLN Nj Ljs))
+subList-OrdList {i} Ni (lncons {j} {js} Nj Ljs) LOi∷j∷js =
+  &&-list₂-t₂ (≤-ItemList-Bool Ni (lncons Nj Ljs))
+              (ordList-Bool (lncons Nj Ljs))
               (trans (sym $ ordList-∷ i (j ∷ js)) LOi∷j∷js)
 
 ++-OrdList-helper : ∀ {item is js} → N item → ListN is → ListN js →
@@ -35,11 +35,11 @@ subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js =
                     LE-ItemList item js →
                     LE-Lists is js →
                     LE-ItemList item (is ++ js)
-++-OrdList-helper {item} {js = js} _ nilLN _ _ item≤js _ =
+++-OrdList-helper {item} {js = js} _ lnnil _ _ item≤js _ =
   subst (λ t → LE-ItemList item t) (sym (++-[] js)) item≤js
 
 ++-OrdList-helper {item} {js = js} Nitem
-                  (consLN {i} {is} Ni LNis) LNjs item≤i∷is item≤js i∷is≤js =
+                  (lncons {i} {is} Ni LNis) LNjs item≤i∷is item≤js i∷is≤js =
   ≤-ItemList item ((i ∷ is) ++ js)
     ≡⟨ subst (λ t → ≤-ItemList item ((i ∷ is) ++ js) ≡ ≤-ItemList item t)
              (++-∷ i is js)

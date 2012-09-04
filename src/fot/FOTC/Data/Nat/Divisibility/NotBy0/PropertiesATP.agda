@@ -35,7 +35,7 @@ postulate ∣-refl-S-ah : ∀ {n} → N n → N (succ₁ zero) → succ₁ n ∣
 {-# ATP prove ∣-refl-S-ah *-leftIdentity #-}
 
 ∣-refl-S : ∀ {n} → N n → succ₁ n ∣ succ₁ n
-∣-refl-S Nn = ∣-refl-S-ah Nn (sN zN)
+∣-refl-S Nn = ∣-refl-S-ah Nn (nsucc nzero)
 
 -- If x divides y and z then x divides y ∸ z.
 postulate
@@ -46,8 +46,8 @@ postulate
 {-# ATP prove x∣y→x∣z→x∣y∸z-helper *∸-leftDistributive #-}
 
 x∣y→x∣z→x∣y∸z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n ∸ o
-x∣y→x∣z→x∣y∸z zN _ _ (0≢0 , _) m∣o = ⊥-elim $ 0≢0 refl
-x∣y→x∣z→x∣y∸z (sN Nm) Nn No
+x∣y→x∣z→x∣y∸z nzero _ _ (0≢0 , _) m∣o = ⊥-elim $ 0≢0 refl
+x∣y→x∣z→x∣y∸z (nsucc Nm) Nn No
               (_ , k₁ , Nk₁ , h₁)
               (_ , k₂ , Nk₂ , h₂) =
   (λ S≡0 → ⊥-elim $ S≢0 S≡0)
@@ -62,8 +62,8 @@ postulate
 {-# ATP prove x∣y→x∣z→x∣y+z-helper *+-leftDistributive #-}
 
 x∣y→x∣z→x∣y+z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n + o
-x∣y→x∣z→x∣y+z zN      _  _ (0≢0 , _) m∣o = ⊥-elim $ 0≢0 refl
-x∣y→x∣z→x∣y+z (sN Nm) Nn No
+x∣y→x∣z→x∣y+z nzero      _  _ (0≢0 , _) m∣o = ⊥-elim $ 0≢0 refl
+x∣y→x∣z→x∣y+z (nsucc Nm) Nn No
               (_ , k₁ , Nk₁ , h₁)
               (_ , k₂ , Nk₂ , h₂) =
   (λ S≡0 → ⊥-elim $ S≢0 S≡0)
@@ -81,7 +81,7 @@ postulate
 {-# ATP prove x∣S→x≤S-ah₂ x≤x+y *-N #-}
 
 x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → LE m (succ₁ n)
-x∣S→x≤S  zN Nn (0≢0 , _) = ⊥-elim $ 0≢0 refl
-x∣S→x≤S (sN Nm) Nn (_ , .zero , zN , Sn≡0*Sm) = ⊥-elim $ x∣S→x≤S-ah₁ Sn≡0*Sm
-x∣S→x≤S (sN {m} Nm) Nn (_ , .(succ₁ k) , sN {k} Nk , Sn≡Sk*Sm) =
+x∣S→x≤S  nzero Nn (0≢0 , _) = ⊥-elim $ 0≢0 refl
+x∣S→x≤S (nsucc Nm) Nn (_ , .zero , nzero , Sn≡0*Sm) = ⊥-elim $ x∣S→x≤S-ah₁ Sn≡0*Sm
+x∣S→x≤S (nsucc {m} Nm) Nn (_ , .(succ₁ k) , nsucc {k} Nk , Sn≡Sk*Sm) =
   x∣S→x≤S-ah₂ Nm Nn Nk Sn≡Sk*Sm

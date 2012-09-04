@@ -24,7 +24,7 @@ open import FOTC.Program.ABP.Terms
 -- more 0's followed by a final 1.
 data F*T : D → Set where
   nilF*T  :                   F*T (T ∷ [])
-  consF*T : ∀ {ft} → F*T ft → F*T (F ∷ ft)
+  fcons*T : ∀ {ft} → F*T ft → F*T (F ∷ ft)
 
 -- Functor for the Fair type.
 -- FairF : (D → Set) → D → Set

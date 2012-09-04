@@ -22,19 +22,19 @@ mirror-involutive : ∀ {t} → Tree t → mirror · (mirror · t) ≡ t
 helper            : ∀ {ts} → Forest ts →
                     reverse (map mirror (reverse (map mirror ts))) ≡ ts
 
-mirror-involutive (treeT d nilF) = prf
+mirror-involutive (tree d fnil) = prf
   where postulate prf : mirror · (mirror · node d []) ≡ node d []
         {-# ATP prove prf #-}
 
-mirror-involutive (treeT d (consF {t} {ts} Tt Fts)) = prf
+mirror-involutive (tree d (fcons {t} {ts} Tt Fts)) = prf
   where postulate prf : mirror · (mirror · node d (t ∷ ts)) ≡ node d (t ∷ ts)
         {-# ATP prove prf helper #-}
 
-helper nilF = prf
+helper fnil = prf
   where postulate prf : reverse (map mirror (reverse (map mirror []))) ≡ []
         {-# ATP prove prf #-}
 
-helper (consF {t} {ts} Tt Fts) =
+helper (fcons {t} {ts} Tt Fts) =
   prf (map-++-commute mirror
                       mirror-Tree
                       (reverse-Forest (map-Forest mirror mirror-Tree Fts))

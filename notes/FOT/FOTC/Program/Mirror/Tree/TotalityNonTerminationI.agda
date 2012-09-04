@@ -25,7 +25,7 @@ open import FOTC.Program.Mirror.Forest.PropertiesI
 -- Peter: To use injectivity of type constructors means asking for
 -- trouble. The logic behind this is very unclear.
 node-Forest : ∀ {d ts} → Tree (node d ts) → Forest ts
-node-Forest {d} (treeT .d Fts) = Fts
+node-Forest {d} (tree .d Fts) = Fts
 
 postulate
   reverse-∷' : ∀ x ys → reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])
@@ -33,8 +33,8 @@ postulate
 -- The termination checker can not determine that the function mirror-Tree
 -- defined by
 --
--- mirror-Tree (treeT d (consF {t} {ts} Tt Fts)) =
---   ... mirror-Tree (treeT d Fts) ... mirror-Tree Tt ...
+-- mirror-Tree (tree d (fcons {t} {ts} Tt Fts)) =
+--   ... mirror-Tree (tree d Fts) ... mirror-Tree Tt ...
 --
 -- is structurally recursive.
 
@@ -44,8 +44,8 @@ postulate
 
 {-# NO_TERMINATION_CHECK #-}
 mirror-Tree : ∀ {t} → Tree t → Tree (mirror · t)
-mirror-Tree (treeT d nilF) =
-  subst Tree (sym (mirror-eq d [])) (treeT d helper₂)
+mirror-Tree (tree d fnil) =
+  subst Tree (sym (mirror-eq d [])) (tree d helper₂)
     where
       helper₁ : rev (map mirror []) [] ≡ []
       helper₁ =
@@ -59,20 +59,20 @@ mirror-Tree (treeT d nilF) =
           [] ∎
 
       helper₂ : Forest (rev (map mirror []) [])
-      helper₂ = subst Forest (sym helper₁) nilF
+      helper₂ = subst Forest (sym helper₁) fnil
 
-mirror-Tree (treeT d (consF {t} {ts} Tt Fts)) =
-  subst Tree (sym (mirror-eq d (t ∷ ts))) (treeT d helper)
+mirror-Tree (tree d (fcons {t} {ts} Tt Fts)) =
+  subst Tree (sym (mirror-eq d (t ∷ ts))) (tree d helper)
 
   where
      h₁ : Tree (node d (reverse (map mirror ts)))
-     h₁ = subst Tree (mirror-eq d ts) (mirror-Tree (treeT d Fts))
+     h₁ = subst Tree (mirror-eq d ts) (mirror-Tree (tree d Fts))
 
      h₂ : Forest (reverse (map mirror ts))
      h₂ = node-Forest h₁
 
      h₃ : Forest ((reverse (map mirror ts)) ++ (mirror · t ∷ []))
-     h₃ = ++-Forest h₂ (consF (mirror-Tree Tt) nilF)
+     h₃ = ++-Forest h₂ (fcons (mirror-Tree Tt) fnil)
 
      h₄ : Forest (reverse (mirror · t ∷ map mirror ts))
      h₄ = subst Forest ( sym (reverse-∷' (mirror · t) (map mirror ts))) h₃

@@ -60,17 +60,17 @@ gcd-x>y-N :
   (∀ {o p} → N o → N p → Lexi o p m n → N (gcd o p)) →
   GT m n →
   N (gcd m n)
-gcd-x>y-N zN          Nn          _    0>n   = ⊥-elim $ 0>x→⊥ Nn 0>n
-gcd-x>y-N (sN Nm)     zN          _    _     = gcd-S0-N Nm
-gcd-x>y-N (sN {m} Nm) (sN {n} Nn) accH Sm>Sn =
+gcd-x>y-N nzero          Nn            _    0>n    = ⊥-elim $ 0>x→⊥ Nn 0>n
+gcd-x>y-N (nsucc Nm)     nzero          _    _     = gcd-S0-N Nm
+gcd-x>y-N (nsucc {m} Nm) (nsucc {n} Nn) accH Sm>Sn =
   gcd-S>S-N Nm Nn ih Sm>Sn
   where
   -- Inductive hypothesis.
   ih : N (gcd (succ₁ m ∸ succ₁ n) (succ₁ n))
   ih = accH {succ₁ m ∸ succ₁ n}
             {succ₁ n}
-            (∸-N (sN Nm) (sN Nn))
-            (sN Nn)
+            (∸-N (nsucc Nm) (nsucc Nn))
+            (nsucc Nn)
             ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
 
 ------------------------------------------------------------------------------
@@ -80,17 +80,17 @@ gcd-x≯y-N :
   (∀ {o p} → N o → N p → Lexi o p m n → N (gcd o p)) →
   NGT m n →
   N (gcd m n)
-gcd-x≯y-N zN          zN          _    _     = gcd-00-N
-gcd-x≯y-N zN          (sN Nn)     _    _     = gcd-0S-N Nn
-gcd-x≯y-N (sN _)      zN          _    Sm≯0  = ⊥-elim $ S≯0→⊥ Sm≯0
-gcd-x≯y-N (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn = gcd-S≯S-N Nm Nn ih Sm≯Sn
+gcd-x≯y-N nzero          nzero          _    _     = gcd-00-N
+gcd-x≯y-N nzero          (nsucc Nn)     _    _     = gcd-0S-N Nn
+gcd-x≯y-N (nsucc _)      nzero          _    Sm≯0  = ⊥-elim $ S≯0→⊥ Sm≯0
+gcd-x≯y-N (nsucc {m} Nm) (nsucc {n} Nn) accH Sm≯Sn = gcd-S≯S-N Nm Nn ih Sm≯Sn
   where
   -- Inductive hypothesis.
   ih : N (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))
   ih = accH {succ₁ m}
             {succ₁ n ∸ succ₁ m}
-            (sN Nm)
-            (∸-N (sN Nn) (sN Nm))
+            (nsucc Nm)
+            (∸-N (nsucc Nn) (nsucc Nm))
             ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
 
 ------------------------------------------------------------------------------

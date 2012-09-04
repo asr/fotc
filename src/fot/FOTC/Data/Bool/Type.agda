@@ -14,11 +14,11 @@ open import FOTC.Base
 ------------------------------------------------------------------------------
 -- The FOTC Booleans type (inductive predicate for total Booleans).
 data Bool : D → Set where
-  tB : Bool true
-  fB : Bool false
-{-# ATP axiom tB fB #-}
+  btrue  : Bool true
+  bfalse : Bool false
+{-# ATP axiom btrue bfalse #-}
 
 -- The rule of proof by case analysis.
 Bool-ind : (A : D → Set) → A true → A false → ∀ {b} → Bool b → A b
-Bool-ind A At Af tB = At
-Bool-ind A At Af fB = Af
+Bool-ind A At Af btrue  = At
+Bool-ind A At Af bfalse = Af

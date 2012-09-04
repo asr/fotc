@@ -31,10 +31,10 @@ postulate
 
 -- The tree type.
 data Tree : D → Set where
-  nilT  :                                         Tree nilTree
-  tipT  : ∀ {i} → N i →                           Tree (tip i)
-  nodeT : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ → Tree (node t₁ i t₂)
-{-# ATP axiom nilT tipT nodeT #-}
+  tnil  :                                         Tree nilTree
+  ttip  : ∀ {i} → N i →                           Tree (tip i)
+  tnode : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ → Tree (node t₁ i t₂)
+{-# ATP axiom tnil ttip tnode #-}
 
 ------------------------------------------------------------------------------
 -- Inequalites on lists and trees

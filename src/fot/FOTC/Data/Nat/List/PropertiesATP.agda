@@ -16,10 +16,10 @@ open import FOTC.Data.List
 ------------------------------------------------------------------------------
 
 ++-ListN : ∀ {ms ns} → ListN ms → ListN ns → ListN (ms ++ ns)
-++-ListN {ns = ns} nilLN nsL = prf
+++-ListN {ns = ns} lnnil nsL = prf
   where postulate prf : ListN ([] ++ ns)
         {-# ATP prove prf #-}
 
-++-ListN {ns = ns} (consLN {m} {ms} Nd LNms) LNns = prf $ ++-ListN LNms LNns
+++-ListN {ns = ns} (lncons {m} {ms} Nd LNms) LNns = prf $ ++-ListN LNms LNns
   where postulate prf : ListN (ms ++ ns) → ListN ((m ∷ ms) ++ ns)
         {-# ATP prove prf #-}

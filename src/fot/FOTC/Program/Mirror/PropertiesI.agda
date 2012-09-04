@@ -24,7 +24,7 @@ mirror-involutive : ∀ {t} → Tree t → mirror · (mirror · t) ≡ t
 helper            : ∀ {ts} → Forest ts →
                     reverse (map mirror (reverse (map mirror ts))) ≡ ts
 
-mirror-involutive (treeT d nilF) =
+mirror-involutive (tree d fnil) =
   mirror · (mirror · (node d []))
     ≡⟨ subst (λ x → mirror · (mirror · (node d [])) ≡ mirror · x )
              (mirror-eq d [])
@@ -53,7 +53,7 @@ mirror-involutive (treeT d nilF) =
     ≡⟨ subst (λ x → node d (reverse []) ≡ node d x) (rev-[] []) refl ⟩
   node d [] ∎
 
-mirror-involutive (treeT d (consF {t} {ts} Tt Fts)) =
+mirror-involutive (tree d (fcons {t} {ts} Tt Fts)) =
   mirror · (mirror · node d (t ∷ ts))
     ≡⟨ subst (λ x → mirror · (mirror · node d (t ∷ ts)) ≡ mirror · x)
              (mirror-eq d (t ∷ ts))
@@ -67,12 +67,12 @@ mirror-involutive (treeT d (consF {t} {ts} Tt Fts)) =
   node d (reverse (map mirror (reverse (map mirror (t ∷ ts)))))
     ≡⟨ subst (λ x → node d (reverse (map mirror (reverse (map mirror (t ∷ ts))))) ≡
                     node d x)
-             (helper (consF Tt Fts))
+             (helper (fcons Tt Fts))
              refl
     ⟩
   node d (t ∷ ts) ∎
 
-helper nilF =
+helper fnil =
   reverse (map mirror (reverse (map mirror [])))
     ≡⟨ subst (λ x → reverse (map mirror (reverse (map mirror []))) ≡
                     reverse (map mirror (reverse x)))
@@ -94,7 +94,7 @@ helper nilF =
     ≡⟨ rev-[] [] ⟩
   [] ∎
 
-helper (consF {t} {ts} Tt Fts) =
+helper (fcons {t} {ts} Tt Fts) =
   reverse (map mirror (reverse (map mirror (t ∷ ts))))
     ≡⟨ subst (λ x → reverse (map mirror (reverse (map mirror (t ∷ ts)))) ≡
                     reverse (map mirror (reverse x)))
@@ -125,7 +125,7 @@ helper (consF {t} {ts} Tt Fts) =
                            (reverse-Forest
                            (map-Forest mirror mirror-Tree Fts)))
                (map-Forest mirror mirror-Tree
-                           (consF (mirror-Tree Tt) nilF)))
+                           (fcons (mirror-Tree Tt) fnil)))
              refl
     ⟩
   reverse (map mirror (mirror · t ∷ [])) ++
@@ -175,4 +175,4 @@ helper (consF {t} {ts} Tt Fts) =
   Fn₁ = rev-Forest
           (map-Forest mirror mirror-Tree
                       (reverse-Forest (map-Forest mirror mirror-Tree Fts)))
-          nilF
+          fnil

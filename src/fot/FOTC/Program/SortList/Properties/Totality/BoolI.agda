@@ -19,8 +19,8 @@ open import FOTC.Program.SortList.SortList
 ------------------------------------------------------------------------------
 
 ≤-ItemList-Bool : ∀ {item is} → N item → ListN is → Bool (≤-ItemList item is)
-≤-ItemList-Bool {item} Nitem nilLN = subst Bool (sym $ ≤-ItemList-[] item) tB
-≤-ItemList-Bool {item} Nitem (consLN {i} {is} Ni Lis) =
+≤-ItemList-Bool {item} Nitem lnnil = subst Bool (sym $ ≤-ItemList-[] item) btrue
+≤-ItemList-Bool {item} Nitem (lncons {i} {is} Ni Lis) =
   subst Bool
         (sym $ ≤-ItemList-∷ item i is)
         (&&-Bool (≤-Bool Nitem Ni) (≤-ItemList-Bool Nitem Lis))
@@ -33,28 +33,28 @@ postulate ordList-Bool : ∀ {is} → ListN is → Bool (ordList is)
 
 ≤-ItemTree-Bool : ∀ {item t} → N item → Tree t →
                   Bool (≤-ItemTree item t)
-≤-ItemTree-Bool {item} _ nilT = subst Bool (sym $ ≤-ItemTree-nilTree item) tB
-≤-ItemTree-Bool {item} Nitem (tipT {i} Ni) =
+≤-ItemTree-Bool {item} _ tnil = subst Bool (sym $ ≤-ItemTree-nilTree item) btrue
+≤-ItemTree-Bool {item} Nitem (ttip {i} Ni) =
   subst Bool (sym $ ≤-ItemTree-tip item i) (≤-Bool Nitem Ni)
-≤-ItemTree-Bool {item} Nitem  (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
+≤-ItemTree-Bool {item} Nitem  (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
     subst Bool
           (sym $ ≤-ItemTree-node item t₁ i t₂)
           (&&-Bool (≤-ItemTree-Bool Nitem Tt₁) (≤-ItemTree-Bool Nitem Tt₂))
 
 ≤-TreeItem-Bool : ∀ {t item} → Tree t → N item → Bool (≤-TreeItem t item)
-≤-TreeItem-Bool {item = item} nilT _ =
-  subst Bool (sym $ ≤-TreeItem-nilTree item) tB
-≤-TreeItem-Bool {item = item} (tipT {i} Ni) Nitem =
+≤-TreeItem-Bool {item = item} tnil _ =
+  subst Bool (sym $ ≤-TreeItem-nilTree item) btrue
+≤-TreeItem-Bool {item = item} (ttip {i} Ni) Nitem =
   subst Bool (sym $ ≤-TreeItem-tip i item) (≤-Bool Ni Nitem)
-≤-TreeItem-Bool {item = item} (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) Nitem =
+≤-TreeItem-Bool {item = item} (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂) Nitem =
   subst Bool
         (sym $ ≤-TreeItem-node t₁ i t₂ item)
         (&&-Bool (≤-TreeItem-Bool Tt₁ Nitem) (≤-TreeItem-Bool Tt₂ Nitem))
 
 ordTree-Bool : ∀ {t} → Tree t → Bool (ordTree t)
-ordTree-Bool nilT          = subst Bool (sym ordTree-nilTree) tB
-ordTree-Bool (tipT {i} Ni) = subst Bool (sym $ ordTree-tip i) tB
-ordTree-Bool (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
+ordTree-Bool tnil          = subst Bool (sym ordTree-nilTree) btrue
+ordTree-Bool (ttip {i} Ni) = subst Bool (sym $ ordTree-tip i) btrue
+ordTree-Bool (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
   subst Bool
         (sym $ ordTree-node t₁ i t₂)
         (&&-Bool (ordTree-Bool Tt₁)

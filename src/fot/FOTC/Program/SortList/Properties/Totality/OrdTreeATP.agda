@@ -45,11 +45,11 @@ toTree-OrdTree-helper₁ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → GT i₁ i
                          Tree t →
                          LE-TreeItem t i₁ →
                          LE-TreeItem (toTree · i₂ · t) i₁
-toTree-OrdTree-helper₁ {i₁} {i₂} .{nilTree} Ni₁ Ni₂ i₁>i₂ nilT t≤i₁ = prf
+toTree-OrdTree-helper₁ {i₁} {i₂} .{nilTree} Ni₁ Ni₂ i₁>i₂ tnil t≤i₁ = prf
   where postulate prf : LE-TreeItem (toTree · i₂ · nilTree) i₁
         {-# ATP prove prf x<y→x≤y #-}
 
-toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁ =
+toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (ttip {j} Nj) t≤i₁ =
   case prf₁ prf₂ (x>y∨x≤y Nj Ni₂)
   where
   postulate prf₁ : GT j i₂ → LE-TreeItem (toTree · i₂ · tip j) i₁
@@ -59,7 +59,7 @@ toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i
   {-# ATP prove prf₂ x<y→x≤y #-}
 
 toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
-                       (nodeT {t₁} {j} {t₂} Tt₁ Nj Tt₂) t≤i₁ =
+                       (tnode {t₁} {j} {t₂} Tt₁ Nj Tt₂) t≤i₁ =
   case (prf₁ (toTree-OrdTree-helper₁ Ni₁ Ni₂ i₁>i₂ Tt₁
                (&&-list₂-t₁ (≤-TreeItem-Bool Tt₁ Ni₁)
                             (≤-TreeItem-Bool Tt₂ Ni₁)
@@ -85,11 +85,11 @@ toTree-OrdTree-helper₂ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → LE i₁ i
                          Tree t →
                          LE-ItemTree i₁ t →
                          LE-ItemTree i₁ (toTree · i₂ · t)
-toTree-OrdTree-helper₂ {i₁} {i₂} .{nilTree} Ni₁ Ni₂ i₁≤i₂ nilT i₁≤t = prf
+toTree-OrdTree-helper₂ {i₁} {i₂} .{nilTree} Ni₁ Ni₂ i₁≤i₂ tnil i₁≤t = prf
   where postulate prf : LE-ItemTree i₁ (toTree · i₂ · nilTree)
         {-# ATP prove prf #-}
 
-toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i₁≤t =
+toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (ttip {j} Nj) i₁≤t =
   case prf₁ prf₂ (x>y∨x≤y Nj Ni₂)
   where
   postulate prf₁ : GT j i₂ → LE-ItemTree i₁ (toTree · i₂ · tip j)
@@ -99,7 +99,7 @@ toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i�
   {-# ATP prove prf₂ #-}
 
 toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
-                       (nodeT {t₁} {j} {t₂} Tt₁ Nj Tt₂) i₁≤t =
+                       (tnode {t₁} {j} {t₂} Tt₁ Nj Tt₂) i₁≤t =
   case (prf₁ (toTree-OrdTree-helper₂ Ni₁ Ni₂ i₁≤i₂ Tt₁
                (&&-list₂-t₁ (≤-ItemTree-Bool Ni₁ Tt₁)
                             (≤-ItemTree-Bool Ni₁ Tt₂)

@@ -6,14 +6,14 @@ module FOT.FOTC.Program.Mirror.StructurallySmaller.StructurallySmallerSL where
 open import Data.List
 
 data Tree (D : Set) : Set where
-  treeT : D → List (Tree D) → Tree D
+  tree : D → List (Tree D) → Tree D
 
 foo : {D : Set} → Tree D → D
-foo (treeT a [])       = a
-foo (treeT a (t ∷ ts)) = foo (treeT a ts)
+foo (tree a [])       = a
+foo (tree a (t ∷ ts)) = foo (tree a ts)
 
 bar : {D : Set} → Tree D → D
-bar     (treeT a [])       = a
-bar {D} (treeT a (t ∷ ts)) = helper (bar t) (bar (treeT a ts))
+bar     (tree a [])       = a
+bar {D} (tree a (t ∷ ts)) = helper (bar t) (bar (tree a ts))
   where
   postulate helper : D → D → D

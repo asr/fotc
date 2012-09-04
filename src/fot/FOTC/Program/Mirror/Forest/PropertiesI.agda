@@ -19,8 +19,8 @@ open import FOTC.Program.Mirror.Type
 ------------------------------------------------------------------------------
 
 ++-rightIdentity : ∀ {xs} → Forest xs → xs ++ [] ≡ xs
-++-rightIdentity nilF                    = ++-[] []
-++-rightIdentity (consF {x} {xs} Tx Fxs) =
+++-rightIdentity fnil                    = ++-[] []
+++-rightIdentity (fcons {x} {xs} Tx Fxs) =
   (x ∷ xs) ++ []
      ≡⟨ ++-∷ x xs [] ⟩
   x ∷ (xs ++ [])
@@ -31,7 +31,7 @@ open import FOTC.Program.Mirror.Type
   x ∷ xs ∎
 
 ++-assoc : ∀ {xs} → Forest xs → ∀ ys zs → (xs ++ ys) ++ zs ≡ xs ++ (ys ++ zs)
-++-assoc nilF ys zs =
+++-assoc fnil ys zs =
   ([] ++ ys) ++ zs
     ≡⟨ subst (λ t → ([] ++ ys) ++ zs ≡ t ++ zs)
              (++-[] ys)
@@ -41,7 +41,7 @@ open import FOTC.Program.Mirror.Type
      ≡⟨ sym (++-leftIdentity (ys ++ zs)) ⟩
   [] ++ ys ++ zs ∎
 
-++-assoc (consF {x} {xs} Tx Fxs) ys zs =
+++-assoc (fcons {x} {xs} Tx Fxs) ys zs =
   ((x ∷ xs) ++ ys) ++ zs
     ≡⟨ subst (λ t → ((x ∷ xs) ++ ys) ++ zs ≡ t ++ zs)
              (++-∷ x xs ys)
@@ -61,7 +61,7 @@ open import FOTC.Program.Mirror.Type
 map-++-commute : ∀ f {xs} → (∀ {x} → Tree x → Tree (f · x)) →
                  Forest xs → ∀ ys →
                  map f (xs ++ ys) ≡ map f xs ++ map f ys
-map-++-commute f h nilF ys =
+map-++-commute f h fnil ys =
   map f ([] ++ ys)
     ≡⟨ subst (λ t → map f ([] ++ ys) ≡ map f t) (++-[] ys) refl ⟩
   map f ys
@@ -70,7 +70,7 @@ map-++-commute f h nilF ys =
      ≡⟨ subst (λ t → [] ++ map f ys ≡ t ++ map f ys) (sym (map-[] f)) refl ⟩
   map f [] ++ map f ys ∎
 
-map-++-commute f h (consF {x} {xs} Tx Fxs) ys =
+map-++-commute f h (fcons {x} {xs} Tx Fxs) ys =
   map f ((x ∷ xs) ++ ys)
     ≡⟨ subst (λ t → map f ((x ∷ xs) ++ ys) ≡ map f t) (++-∷ x xs ys) refl ⟩
   map f (x ∷ xs ++ ys)
@@ -90,13 +90,13 @@ map-++-commute f h (consF {x} {xs} Tx Fxs) ys =
   map f (x ∷ xs) ++ map f ys ∎
 
 rev-++-commute : ∀ {xs} → Forest xs → ∀ ys → rev xs ys ≡ rev xs [] ++ ys
-rev-++-commute nilF ys =
+rev-++-commute fnil ys =
   rev [] ys       ≡⟨ rev-[] ys ⟩
   ys              ≡⟨ sym $ ++-leftIdentity ys ⟩
   [] ++ ys        ≡⟨ subst (λ t → [] ++ ys ≡ t ++ ys) (sym $ rev-[] []) refl ⟩
   rev [] [] ++ ys ∎
 
-rev-++-commute (consF {x} {xs} Tx Fxs) ys =
+rev-++-commute (fcons {x} {xs} Tx Fxs) ys =
   rev (x ∷ xs) ys
     ≡⟨ rev-∷ x xs ys ⟩
   rev xs (x ∷ ys)
@@ -117,7 +117,7 @@ rev-++-commute (consF {x} {xs} Tx Fxs) ys =
              refl
     ⟩
   rev xs [] ++ (x ∷ []) ++ ys
-    ≡⟨ sym $ ++-assoc (rev-Forest Fxs nilF) (x ∷ []) ys ⟩
+    ≡⟨ sym $ ++-assoc (rev-Forest Fxs fnil) (x ∷ []) ys ⟩
   (rev xs [] ++ (x ∷ [])) ++ ys
     ≡⟨ subst (λ t → (rev xs [] ++ (x ∷ [])) ++ ys ≡ t ++ ys)
              (sym $ rev-++-commute Fxs (x ∷ []))
@@ -132,7 +132,7 @@ rev-++-commute (consF {x} {xs} Tx Fxs) ys =
 
 reverse-++-commute : ∀ {xs ys} → Forest xs → Forest ys →
                      reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
-reverse-++-commute {ys = ys} nilF Fys =
+reverse-++-commute {ys = ys} fnil Fys =
   reverse ([] ++ ys)
     ≡⟨ subst (λ t → reverse ([] ++ ys) ≡ reverse t) (++-[] ys) refl ⟩
   reverse ys
@@ -141,10 +141,10 @@ reverse-++-commute {ys = ys} nilF Fys =
     ≡⟨ subst (λ t → reverse ys ++ [] ≡ reverse ys ++ t) (sym (rev-[] [])) refl ⟩
   reverse ys ++ reverse [] ∎
 
-reverse-++-commute (consF {x} {xs} Tx Fxs) nilF =
+reverse-++-commute (fcons {x} {xs} Tx Fxs) fnil =
   reverse ((x ∷ xs) ++ [])
     ≡⟨ subst (λ t → reverse ((x ∷ xs) ++ []) ≡ reverse t)
-             (++-rightIdentity (consF Tx Fxs))
+             (++-rightIdentity (fcons Tx Fxs))
              refl
     ⟩
   reverse (x ∷ xs)
@@ -156,7 +156,7 @@ reverse-++-commute (consF {x} {xs} Tx Fxs) nilF =
      ⟩
   reverse [] ++ reverse (x ∷ xs) ∎
 
-reverse-++-commute (consF {x} {xs} Tx Fxs) (consF {y} {ys} Ty Fys) =
+reverse-++-commute (fcons {x} {xs} Tx Fxs) (fcons {y} {ys} Ty Fys) =
   reverse ((x ∷ xs) ++ y ∷ ys)
     ≡⟨ refl ⟩
   rev ((x ∷ xs) ++ y ∷ ys) []
@@ -167,7 +167,7 @@ reverse-++-commute (consF {x} {xs} Tx Fxs) (consF {y} {ys} Ty Fys) =
   rev (x ∷ (xs ++ y ∷ ys)) []
     ≡⟨ rev-∷ x (xs ++ y ∷ ys) [] ⟩
   rev (xs ++ y ∷ ys) (x ∷ [])
-    ≡⟨ rev-++-commute (++-Forest Fxs (consF Ty Fys)) (x ∷ []) ⟩
+    ≡⟨ rev-++-commute (++-Forest Fxs (fcons Ty Fys)) (x ∷ []) ⟩
   rev (xs ++ y ∷ ys) [] ++ (x ∷ [])
     ≡⟨ subst (λ t → rev (xs ++ y ∷ ys) [] ++ (x ∷ []) ≡ t ++ (x ∷ []))
              refl
@@ -175,11 +175,11 @@ reverse-++-commute (consF {x} {xs} Tx Fxs) (consF {y} {ys} Ty Fys) =
     ⟩
   reverse (xs ++ y ∷ ys) ++ (x ∷ [])
     ≡⟨ subst (λ t → reverse (xs ++ y ∷ ys) ++ (x ∷ []) ≡ t ++ (x ∷ []))
-             (reverse-++-commute Fxs (consF Ty Fys))
+             (reverse-++-commute Fxs (fcons Ty Fys))
              refl
     ⟩
   (reverse (y ∷ ys) ++ reverse xs) ++ x ∷ []
-    ≡⟨ ++-assoc (reverse-Forest (consF Ty Fys))
+    ≡⟨ ++-assoc (reverse-Forest (fcons Ty Fys))
                 (reverse xs)
                 (x ∷ [])
     ⟩
@@ -211,7 +211,7 @@ reverse-++-commute (consF {x} {xs} Tx Fxs) (consF {y} {ys} Ty Fys) =
 
 reverse-∷ : ∀ {x ys} → Tree x → Forest ys →
             reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])
-reverse-∷ {x} Tx nilF =
+reverse-∷ {x} Tx fnil =
   rev (x ∷ []) []
     ≡⟨ rev-∷ x [] [] ⟩
   rev [] (x ∷ [])
@@ -222,14 +222,14 @@ reverse-∷ {x} Tx nilF =
      ≡⟨ subst (λ p → [] ++ x ∷ [] ≡ p ++ x ∷ []) (sym (rev-[] [])) refl ⟩
   rev [] [] ++ x ∷ [] ∎
 
-reverse-∷ {x} Tx (consF {y} {ys} Ty Fys) = sym
+reverse-∷ {x} Tx (fcons {y} {ys} Ty Fys) = sym
   ( reverse (y ∷ ys) ++ x ∷ []
       ≡⟨ subst (λ p → reverse (y ∷ ys) ++ x ∷ [] ≡ reverse (y ∷ ys) ++ p)
                (sym (reverse-[x]≡[x] x))
                refl
       ⟩
     (reverse (y ∷ ys) ++ reverse (x ∷ []))
-      ≡⟨ sym (reverse-++-commute (consF Tx nilF) (consF Ty Fys)) ⟩
+      ≡⟨ sym (reverse-++-commute (fcons Tx fnil) (fcons Ty Fys)) ⟩
     reverse ((x ∷ []) ++ (y ∷ ys))
       ≡⟨ subst (λ p → reverse ((x ∷ []) ++ (y ∷ ys)) ≡ reverse p)
                (++-∷ x [] (y ∷ ys))

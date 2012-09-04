@@ -24,16 +24,16 @@ flatten-OrdList-helper : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ �
                          OrdTree (node t₁ i t₂) →
                          LE-Lists (flatten t₁) (flatten t₂)
 
-flatten-OrdList-helper {t₂ = t₂} nilT Ni Tt₂ OTt =
+flatten-OrdList-helper {t₂ = t₂} tnil Ni Tt₂ OTt =
   subst (λ t → LE-Lists t (flatten t₂))
         (sym (flatten-nilTree))
         (≤-Lists-[] (flatten t₂))
 
-flatten-OrdList-helper (tipT {i₁} Ni₁) Tt₁ nilT OTt = prf
+flatten-OrdList-helper (ttip {i₁} Ni₁) Tt₁ tnil OTt = prf
   where postulate prf : LE-Lists (flatten (tip i₁)) (flatten nilTree)
         {-# ATP prove prf #-}
 
-flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni (tipT {i₂} Ni₂) OTt = prf
+flatten-OrdList-helper {i = i} (ttip {i₁} Ni₁) Ni (ttip {i₂} Ni₂) OTt = prf
   where
   postulate lemma : LE i₁ i₂
   {-# ATP prove lemma ≤-ItemTree-Bool ≤-TreeItem-Bool ordTree-Bool
@@ -43,14 +43,14 @@ flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni (tipT {i₂} Ni₂) OTt = 
   postulate prf : LE-Lists (flatten (tip i₁)) (flatten (tip i₂))
   {-# ATP prove prf lemma #-}
 
-flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni
-                       (nodeT {t₂₁} {i₂} {t₂₂} Tt₂₁ Ni₂ Tt₂₂) OTt = prf
+flatten-OrdList-helper {i = i} (ttip {i₁} Ni₁) Ni
+                       (tnode {t₂₁} {i₂} {t₂₂} Tt₂₁ Ni₂ Tt₂₂) OTt = prf
   where
   -- Helper terms to get the conjuncts from OTt.
-  helper₁ = ordTree-Bool (tipT Ni₁)
-  helper₂ = ordTree-Bool (nodeT Tt₂₁ Ni₂ Tt₂₂)
-  helper₃ = ≤-TreeItem-Bool (tipT Ni₁) Ni
-  helper₄ = ≤-ItemTree-Bool Ni (nodeT Tt₂₁ Ni₂ Tt₂₂)
+  helper₁ = ordTree-Bool (ttip Ni₁)
+  helper₂ = ordTree-Bool (tnode Tt₂₁ Ni₂ Tt₂₂)
+  helper₃ = ≤-TreeItem-Bool (ttip Ni₁) Ni
+  helper₄ = ≤-ItemTree-Bool Ni (tnode Tt₂₁ Ni₂ Tt₂₂)
   helper₅ = trans (sym (ordTree-node (tip i₁) i (node t₂₁ i₂ t₂₂))) OTt
 
   -- Helper terms to get the conjuncts from the fourth conjunct of OTt
@@ -68,7 +68,7 @@ flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni
   LE-TreeItem-tip-i₁-i = &&-list₄-t₃ helper₁ helper₂ helper₃ helper₄ helper₅
 
   lemma₁ : LE-Lists (flatten (tip i₁)) (flatten t₂₁)
-  lemma₁ = flatten-OrdList-helper (tipT Ni₁) Ni Tt₂₁ OT
+  lemma₁ = flatten-OrdList-helper (ttip Ni₁) Ni Tt₂₁ OT
     where
     -- The ATPs could not figure these terms.
     OrdTree-t₂₁ : OrdTree t₂₁
@@ -87,7 +87,7 @@ flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni
     #-}
 
   lemma₂ : LE-Lists (flatten (tip i₁)) (flatten t₂₂)
-  lemma₂ = flatten-OrdList-helper (tipT Ni₁) Ni Tt₂₂ OT
+  lemma₂ = flatten-OrdList-helper (ttip Ni₁) Ni Tt₂₂ OT
     where
     -- The ATPs could not figure these terms.
     OrdTree-t₂₂ : OrdTree t₂₂
@@ -108,14 +108,14 @@ flatten-OrdList-helper {i = i} (tipT {i₁} Ni₁) Ni
   postulate prf : LE-Lists (flatten (tip i₁)) (flatten (node t₂₁ i₂ t₂₂))
   {-# ATP prove prf xs≤ys→xs≤zs→xs≤ys++zs flatten-ListN lemma₁ lemma₂ #-}
 
-flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂)
-                       Ni nilT OTt = prf
+flatten-OrdList-helper {i = i} (tnode {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂)
+                       Ni tnil OTt = prf
   where
   -- Helper terms to get the conjuncts from OTt.
-  helper₁ = ordTree-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂)
-  helper₂ = ordTree-Bool nilT
-  helper₃ = ≤-TreeItem-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂) Ni
-  helper₄ = ≤-ItemTree-Bool Ni nilT
+  helper₁ = ordTree-Bool (tnode Tt₁₁ Ni₁ Tt₁₂)
+  helper₂ = ordTree-Bool tnil
+  helper₃ = ≤-TreeItem-Bool (tnode Tt₁₁ Ni₁ Tt₁₂) Ni
+  helper₄ = ≤-ItemTree-Bool Ni tnil
   helper₅ = trans (sym (ordTree-node (node t₁₁ i₁ t₁₂) i nilTree )) OTt
 
   -- Helper terms to get the conjuncts from the third conjunct of OTt.
@@ -125,7 +125,7 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
                   (&&-list₄-t₃ helper₁ helper₂ helper₃ helper₄ helper₅)
 
   lemma₁ : LE-Lists (flatten t₁₁) (flatten nilTree)
-  lemma₁ = flatten-OrdList-helper Tt₁₁ Ni nilT OT
+  lemma₁ = flatten-OrdList-helper Tt₁₁ Ni tnil OT
     where
     postulate OT : OrdTree (node t₁₁ i nilTree)
     {-# ATP prove OT leftSubTree-OrdTree
@@ -135,7 +135,7 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
     #-}
 
   lemma₂ : LE-Lists (flatten t₁₂) (flatten nilTree)
-  lemma₂ = flatten-OrdList-helper Tt₁₂ Ni nilT OT
+  lemma₂ = flatten-OrdList-helper Tt₁₂ Ni tnil OT
     where
     postulate OT : OrdTree (node t₁₂ i nilTree)
     {-# ATP prove OT rightSubTree-OrdTree
@@ -147,14 +147,14 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
   postulate prf : LE-Lists (flatten (node t₁₁ i₁ t₁₂)) (flatten nilTree)
   {-# ATP prove prf xs≤zs→ys≤zs→xs++ys≤zs flatten-ListN lemma₁ lemma₂ #-}
 
-flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂) Ni
-                       (tipT {i₂} Ni₂) OTt = prf
+flatten-OrdList-helper {i = i} (tnode {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂) Ni
+                       (ttip {i₂} Ni₂) OTt = prf
   where
   -- Helper terms to get the conjuncts from OTt.
-  helper₁ = ordTree-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂)
-  helper₂ = ordTree-Bool (tipT Ni₂)
-  helper₃ = ≤-TreeItem-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂) Ni
-  helper₄ = ≤-ItemTree-Bool Ni (tipT Ni₂)
+  helper₁ = ordTree-Bool (tnode Tt₁₁ Ni₁ Tt₁₂)
+  helper₂ = ordTree-Bool (ttip Ni₂)
+  helper₃ = ≤-TreeItem-Bool (tnode Tt₁₁ Ni₁ Tt₁₂) Ni
+  helper₄ = ≤-ItemTree-Bool Ni (ttip Ni₂)
   helper₅ = trans (sym (ordTree-node (node t₁₁ i₁ t₁₂) i (tip i₂))) OTt
 
   -- Helper terms to get the conjuncts from the third conjunct of OTt.
@@ -164,7 +164,7 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
                   (&&-list₄-t₃ helper₁ helper₂ helper₃ helper₄ helper₅)
 
   lemma₁ : LE-Lists (flatten t₁₁) (flatten (tip i₂))
-  lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (tipT Ni₂) OT
+  lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (ttip Ni₂) OT
     where
     postulate OT : OrdTree (node t₁₁ i (tip i₂))
     {-# ATP prove OT leftSubTree-OrdTree
@@ -174,7 +174,7 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
     #-}
 
   lemma₂ : LE-Lists (flatten t₁₂) (flatten (tip i₂))
-  lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (tipT Ni₂) OT
+  lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (ttip Ni₂) OT
     where
     postulate OT : OrdTree (node t₁₂ i (tip i₂))
     {-# ATP prove OT rightSubTree-OrdTree
@@ -186,14 +186,14 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
   postulate prf : LE-Lists (flatten (node t₁₁ i₁ t₁₂)) (flatten (tip i₂))
   {-# ATP prove prf xs≤zs→ys≤zs→xs++ys≤zs flatten-ListN lemma₁ lemma₂ #-}
 
-flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂) Ni
-                       (nodeT {t₂₁} {i₂} {t₂₂} Tt₂₁ Ni₂ Tt₂₂) OTt = prf
+flatten-OrdList-helper {i = i} (tnode {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂) Ni
+                       (tnode {t₂₁} {i₂} {t₂₂} Tt₂₁ Ni₂ Tt₂₂) OTt = prf
   where
   -- Helper terms to get the conjuncts from OTt.
-  helper₁ = ordTree-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂)
-  helper₂ = ordTree-Bool (nodeT Tt₂₁ Ni₂ Tt₂₂)
-  helper₃ = ≤-TreeItem-Bool (nodeT Tt₁₁ Ni₁ Tt₁₂) Ni
-  helper₄ = ≤-ItemTree-Bool Ni (nodeT Tt₂₁ Ni₂ Tt₂₂)
+  helper₁ = ordTree-Bool (tnode Tt₁₁ Ni₁ Tt₁₂)
+  helper₂ = ordTree-Bool (tnode Tt₂₁ Ni₂ Tt₂₂)
+  helper₃ = ≤-TreeItem-Bool (tnode Tt₁₁ Ni₁ Tt₁₂) Ni
+  helper₄ = ≤-ItemTree-Bool Ni (tnode Tt₂₁ Ni₂ Tt₂₂)
   helper₅ = trans (sym (ordTree-node (node t₁₁ i₁ t₁₂) i (node t₂₁ i₂ t₂₂)))
                     OTt
 
@@ -204,7 +204,7 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
                   (&&-list₄-t₃ helper₁ helper₂ helper₃ helper₄ helper₅)
 
   lemma₁ : LE-Lists (flatten t₁₁) (flatten (node t₂₁ i₂ t₂₂))
-  lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (nodeT Tt₂₁ Ni₂ Tt₂₂) OT
+  lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (tnode Tt₂₁ Ni₂ Tt₂₂) OT
     where
     postulate OT : OrdTree (node t₁₁ i (node t₂₁ i₂ t₂₂))
     {-# ATP prove OT leftSubTree-OrdTree
@@ -214,7 +214,7 @@ flatten-OrdList-helper {i = i} (nodeT {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
     #-}
 
   lemma₂ : LE-Lists (flatten t₁₂) (flatten (node t₂₁ i₂ t₂₂))
-  lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (nodeT Tt₂₁ Ni₂ Tt₂₂) OT
+  lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (tnode Tt₂₁ Ni₂ Tt₂₂) OT
     where
     postulate OT : OrdTree (node t₁₂ i (node t₂₁ i₂ t₂₂))
     {-# ATP prove OT rightSubTree-OrdTree

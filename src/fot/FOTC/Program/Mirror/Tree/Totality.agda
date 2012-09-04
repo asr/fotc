@@ -27,11 +27,11 @@ mirror-Tree Tt = Tree-ind {A} {B} ihA B[] ihB Tt
   ihA : ∀ d {ts} → Forest ts → B ts → A (node d ts)
   ihA d {ts} Fts Bts = subst Tree
                              (sym (mirror-eq d ts))
-                             (treeT d (reverse-Forest Bts))
+                             (tree d (reverse-Forest Bts))
 
   B[] : Forest (map mirror [])
-  B[] = subst Forest (sym (map-[] mirror)) nilF
+  B[] = subst Forest (sym (map-[] mirror)) fnil
 
   ihB : ∀ {t ts} → Tree t → A t → Forest ts → B ts → B (t ∷ ts)
   ihB {t} {ts} Tt At Fts Bts =
-    subst Forest (sym (map-∷ mirror t ts)) (consF At Bts)
+    subst Forest (sym (map-∷ mirror t ts)) (fcons At Bts)

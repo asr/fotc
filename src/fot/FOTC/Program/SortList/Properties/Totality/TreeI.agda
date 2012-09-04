@@ -20,9 +20,9 @@ postulate
   toTree-Tree : ∀ {item t} → N item → Tree t → Tree (toTree · item · t)
 
 makeTree-Tree : ∀ {is} → ListN is → Tree (makeTree is)
-makeTree-Tree nilLN =
-  subst (λ t → Tree t) (sym $ lit-[] toTree nilTree) nilT
-makeTree-Tree (consLN {i} {is} Ni LNis) =
+makeTree-Tree lnnil =
+  subst (λ t → Tree t) (sym $ lit-[] toTree nilTree) tnil
+makeTree-Tree (lncons {i} {is} Ni LNis) =
   subst (λ t → Tree t)
         (sym $ lit-∷ toTree i is nilTree)
         (toTree-Tree Ni (makeTree-Tree LNis))

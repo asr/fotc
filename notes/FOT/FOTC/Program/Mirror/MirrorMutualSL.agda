@@ -20,7 +20,7 @@ data Tree   (A : Set) : Set
 data Forest (A : Set) : Set
 
 data Tree A where
-  treeT : A → Forest A → Tree A
+  tree : A → Forest A → Tree A
 
 data Forest A where
   []  : Forest A
@@ -52,7 +52,7 @@ postulate
 
 {-# NO_TERMINATION_CHECK #-}
 mirror : {A : Set} → Tree A → Tree A
-mirror (treeT a ts) = treeT a (reverse (map mirror ts))
+mirror (tree a ts) = tree a (reverse (map mirror ts))
 
 ------------------------------------------------------------------------------
 -- The proof of the property.
@@ -60,12 +60,12 @@ mirror-involutive : {A : Set} → (t : Tree A) → mirror (mirror t) ≡ t
 helper            : {A : Set} → (ts : Forest A) →
                   reverse (map mirror (reverse (map mirror ts))) ≡ ts
 
-mirror-involutive (treeT a []) = refl
-mirror-involutive (treeT a (t ∷ ts)) =
+mirror-involutive (tree a []) = refl
+mirror-involutive (tree a (t ∷ ts)) =
   begin
-    treeT a (reverse (map mirror (reverse (map mirror ts) ++ mirror t ∷ [])))
-      ≡⟨ cong (treeT a) (helper (t ∷ ts)) ⟩
-    treeT a (t ∷ ts)
+    tree a (reverse (map mirror (reverse (map mirror ts) ++ mirror t ∷ [])))
+      ≡⟨ cong (tree a) (helper (t ∷ ts)) ⟩
+    tree a (t ∷ ts)
   ∎
 
 helper [] = refl

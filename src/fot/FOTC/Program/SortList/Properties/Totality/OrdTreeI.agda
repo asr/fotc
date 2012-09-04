@@ -61,7 +61,7 @@ toTree-OrdTree-helper₁ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → GT i₁ i
                          Tree t →
                          LE-TreeItem t i₁ →
                          LE-TreeItem (toTree · i₂ · t) i₁
-toTree-OrdTree-helper₁ {i₁} {i₂} .{nilTree} Ni₁ Ni₂ i₁>i₂ nilT _ =
+toTree-OrdTree-helper₁ {i₁} {i₂} .{nilTree} Ni₁ Ni₂ i₁>i₂ tnil _ =
   ≤-TreeItem (toTree · i₂ · nilTree) i₁
     ≡⟨ subst (λ t → ≤-TreeItem (toTree · i₂ · nilTree) i₁ ≡ ≤-TreeItem t i₁)
              (toTree-nilTree i₂)
@@ -73,7 +73,7 @@ toTree-OrdTree-helper₁ {i₁} {i₂} .{nilTree} Ni₁ Ni₂ i₁>i₂ nilT _ =
     ≡⟨ x<y→x≤y Ni₂ Ni₁ i₁>i₂ ⟩
   true ∎
 
-toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i₁ =
+toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (ttip {j} Nj) t≤i₁ =
   case prf₁ prf₂ (x>y∨x≤y Nj Ni₂)
   where
   prf₁ : GT j i₂ → LE-TreeItem (toTree · i₂ · tip j) i₁
@@ -197,7 +197,7 @@ toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (tipT {j} Nj) t≤i
     true ∎
 
 toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
-                       (nodeT {t₁} {j} {t₂} Tt₁ Nj Tt₂) t≤i₁ =
+                       (tnode {t₁} {j} {t₂} Tt₁ Nj Tt₂) t≤i₁ =
   case prf₁ prf₂ (x>y∨x≤y Nj Ni₂)
   where
   prf₁ : GT j i₂ → LE-TreeItem (toTree · i₂ · node t₁ j t₂) i₁
@@ -321,7 +321,7 @@ toTree-OrdTree-helper₂ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → LE i₁ i
                          Tree t →
                          LE-ItemTree i₁ t →
                          LE-ItemTree i₁ (toTree · i₂ · t)
-toTree-OrdTree-helper₂ {i₁} {i₂} .{nilTree} _ _ i₁≤i₂ nilT _ =
+toTree-OrdTree-helper₂ {i₁} {i₂} .{nilTree} _ _ i₁≤i₂ tnil _ =
   ≤-ItemTree i₁ (toTree · i₂ · nilTree)
     ≡⟨ subst (λ t → ≤-ItemTree i₁ (toTree · i₂ · nilTree) ≡ ≤-ItemTree i₁ t)
              (toTree-nilTree i₂)
@@ -333,7 +333,7 @@ toTree-OrdTree-helper₂ {i₁} {i₂} .{nilTree} _ _ i₁≤i₂ nilT _ =
     ≡⟨ i₁≤i₂ ⟩
   true ∎
 
-toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i₁≤t =
+toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (ttip {j} Nj) i₁≤t =
   case prf₁ prf₂ (x>y∨x≤y Nj Ni₂)
   where
   prf₁ : GT j i₂ → LE-ItemTree i₁ (toTree · i₂ · tip j)
@@ -455,7 +455,7 @@ toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (tipT {j} Nj) i�
     true ∎
 
 toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
-                       (nodeT {t₁} {j} {t₂} Tt₁ Nj Tt₂) i₁≤t =
+                       (tnode {t₁} {j} {t₂} Tt₁ Nj Tt₂) i₁≤t =
   case prf₁ prf₂ (x>y∨x≤y Nj Ni₂)
   where
   prf₁ : GT j i₂ → LE-ItemTree i₁ (toTree · i₂ · node t₁ j t₂)

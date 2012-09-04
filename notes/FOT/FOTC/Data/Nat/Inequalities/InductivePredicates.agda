@@ -45,16 +45,16 @@ module m₂ where
   m > n = n < m
 
   x≤y→x≤Sy : ∀ {m n} → m ≤ n → m ≤ succ₁ n
-  x≤y→x≤Sy (z≤n Nn)        = z≤n (sN Nn)
-  x≤y→x≤Sy (s≤s Nm Nn m≤n) = s≤s Nm (sN Nn) (x≤y→x≤Sy m≤n)
+  x≤y→x≤Sy (z≤n Nn)        = z≤n (nsucc Nn)
+  x≤y→x≤Sy (s≤s Nm Nn m≤n) = s≤s Nm (nsucc Nn) (x≤y→x≤Sy m≤n)
 
 module m₃ where
   data _≤_ : ∀ {m n} → N m → N n → Set where
-    z≤n : ∀ {n} → (Nn : N n)                          → zN ≤ Nn
-    s≤s : ∀ {m n} → (Nm : N m) → (Nn : N n) → Nm ≤ Nn → sN Nm ≤ sN Nn
+    z≤n : ∀ {n} → (Nn : N n)                          → nzero ≤ Nn
+    s≤s : ∀ {m n} → (Nm : N m) → (Nn : N n) → Nm ≤ Nn → nsucc Nm ≤ nsucc Nn
 
   _<_ : ∀ {m n} → N m → N n → Set
-  Nm < Nn = sN Nm ≤ Nn
+  Nm < Nn = nsucc Nm ≤ Nn
 
   _≥_ : ∀ {m n} → N m → N n → Set
   Nm ≥ Nn = Nn ≤ Nm
@@ -62,6 +62,7 @@ module m₃ where
   _>_ : ∀ {m n} → N m → N n → Set
   Nm > Nn = Nn < Nm
 
-  x≤y→x≤Sy : ∀ {m n} → (Nm : N m) → (Nn : N n) → Nm ≤ Nn → Nm ≤ sN Nn
-  x≤y→x≤Sy .zN       Nn      (z≤n .Nn)         = z≤n (sN Nn)
-  x≤y→x≤Sy .(sN Nm) .(sN Nn) (s≤s Nm Nn Nm≤Nn) = s≤s Nm (sN Nn) (x≤y→x≤Sy Nm Nn Nm≤Nn)
+  x≤y→x≤Sy : ∀ {m n} → (Nm : N m) → (Nn : N n) → Nm ≤ Nn → Nm ≤ nsucc Nn
+  x≤y→x≤Sy .nzero       Nn         (z≤n .Nn)         = z≤n (nsucc Nn)
+  x≤y→x≤Sy .(nsucc Nm) .(nsucc Nn) (s≤s Nm Nn Nm≤Nn) =
+    s≤s Nm (nsucc Nn) (x≤y→x≤Sy Nm Nn Nm≤Nn)

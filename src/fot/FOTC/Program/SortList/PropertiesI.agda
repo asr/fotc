@@ -33,8 +33,8 @@ ind-lit : (A : D → Set) (f : D) → ∀ y₀ {xs} → ListN xs →
           A y₀ →
           (∀ {x} → N x → ∀ y → A y → A (f · x · y)) →
           A (lit f xs y₀)
-ind-lit A f y₀ nilLN Ay₀ ih = subst (λ t → A t) (sym (lit-[] f y₀)) Ay₀
-ind-lit A f y₀ (consLN {i} {is} Ni LNis) Ay₀ ih =
+ind-lit A f y₀ lnnil Ay₀ ih = subst (λ t → A t) (sym (lit-[] f y₀)) Ay₀
+ind-lit A f y₀ (lncons {i} {is} Ni LNis) Ay₀ ih =
   subst (λ t → A t)
         (sym (lit-∷ f i is y₀))
         (ih Ni (lit f is y₀) (ind-lit A f y₀ LNis Ay₀ ih))
@@ -43,7 +43,7 @@ ind-lit A f y₀ (consLN {i} {is} Ni LNis) Ay₀ ih =
 -- Burstall's lemma: If t is ordered then totree(i, t) is ordered.
 toTree-OrdTree : ∀ {item t} → N item → Tree t → OrdTree t →
                  OrdTree (toTree · item · t)
-toTree-OrdTree {item} Nitem nilT _ =
+toTree-OrdTree {item} Nitem tnil _ =
   ordTree (toTree · item · nilTree)
     ≡⟨ subst (λ x → ordTree (toTree · item · nilTree) ≡
                     ordTree x)
@@ -54,7 +54,7 @@ toTree-OrdTree {item} Nitem nilT _ =
     ≡⟨ ordTree-tip item ⟩
   true ∎
 
-toTree-OrdTree {item} Nitem (tipT {i} Ni) _ =
+toTree-OrdTree {item} Nitem (ttip {i} Ni) _ =
   case prf₁ prf₂ (x>y∨x≤y Ni Nitem)
   where
   prf₁ : GT i item → OrdTree (toTree · item · tip i)
@@ -248,7 +248,7 @@ toTree-OrdTree {item} Nitem (tipT {i} Ni) _ =
       ≡⟨ t&&x≡x true ⟩
     true ∎
 
-toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
+toTree-OrdTree {item} Nitem (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTtnode =
   case prf₁ prf₂ (x>y∨x≤y Ni Nitem)
   where
   prf₁ : GT i item → OrdTree (toTree · item · node t₁ i t₂)
@@ -295,7 +295,7 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
                       ≤-TreeItem (toTree · item · t₁) i &&
                       ≤-ItemTree i t₂)
                (toTree-OrdTree Nitem Tt₁
-                               (leftSubTree-OrdTree Tt₁ Ni Tt₂ OTnodeT))
+                               (leftSubTree-OrdTree Tt₁ Ni Tt₂ OTtnode))
                refl
       ⟩
     true && ordTree t₂ && ≤-TreeItem (toTree · item · t₁) i &&
@@ -308,7 +308,7 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
                       t                                 &&
                       ≤-TreeItem (toTree · item · t₁) i &&
                       ≤-ItemTree i t₂)
-               (rightSubTree-OrdTree Tt₁ Ni Tt₂ OTnodeT)
+               (rightSubTree-OrdTree Tt₁ Ni Tt₂ OTtnode)
                refl
       ⟩
     true && true && ≤-TreeItem (toTree · item · t₁) i && ≤-ItemTree i t₂
@@ -323,7 +323,7 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
                    (ordTree-Bool Tt₂)
                    (≤-TreeItem-Bool Tt₁ Ni)
                    (≤-ItemTree-Bool Ni Tt₂)
-                   (trans (sym $ ordTree-node t₁ i t₂) OTnodeT))))
+                   (trans (sym $ ordTree-node t₁ i t₂) OTtnode))))
                refl
       ⟩
     true && true && true && ≤-ItemTree i t₂
@@ -334,7 +334,7 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
                  (ordTree-Bool Tt₂)
                  (≤-TreeItem-Bool Tt₁ Ni)
                  (≤-ItemTree-Bool Ni Tt₂)
-                 (trans (sym $ ordTree-node t₁ i t₂) OTnodeT))
+                 (trans (sym $ ordTree-node t₁ i t₂) OTtnode))
                refl
       ⟩
     true && true && true && true
@@ -391,7 +391,7 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
                       ordTree (toTree · item · t₂)      &&
                       ≤-TreeItem t₁ i                   &&
                       ≤-ItemTree i (toTree · item · t₂))
-               (leftSubTree-OrdTree Tt₁ Ni Tt₂ OTnodeT)
+               (leftSubTree-OrdTree Tt₁ Ni Tt₂ OTtnode)
                refl
       ⟩
     true && ordTree (toTree · item · t₂) && ≤-TreeItem t₁ i &&
@@ -405,7 +405,7 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
                       ≤-TreeItem t₁ i                   &&
                       ≤-ItemTree i (toTree · item · t₂))
                (toTree-OrdTree Nitem Tt₂
-                 (rightSubTree-OrdTree Tt₁ Ni Tt₂ OTnodeT))
+                 (rightSubTree-OrdTree Tt₁ Ni Tt₂ OTtnode))
                refl
       ⟩
     true && true && ≤-TreeItem t₁ i && ≤-ItemTree i (toTree · item · t₂)
@@ -422,7 +422,7 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
                  (ordTree-Bool Tt₂)
                  (≤-TreeItem-Bool Tt₁ Ni)
                  (≤-ItemTree-Bool Ni Tt₂)
-                 (trans (sym $ ordTree-node t₁ i t₂) OTnodeT))
+                 (trans (sym $ ordTree-node t₁ i t₂) OTtnode))
                refl
       ⟩
     true && true && true && ≤-ItemTree i (toTree · item · t₂)
@@ -437,7 +437,7 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
                      (ordTree-Bool Tt₂)
                      (≤-TreeItem-Bool Tt₁ Ni)
                      (≤-ItemTree-Bool Ni Tt₂)
-                     (trans (sym $ ordTree-node t₁ i t₂) OTnodeT))))
+                     (trans (sym $ ordTree-node t₁ i t₂) OTtnode))))
                  refl
       ⟩
     true && true && true && true
@@ -460,7 +460,7 @@ toTree-OrdTree {item} Nitem (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTnodeT =
 --           (λ Nx y TOy → toTree-OrdTree Nx {!!} TOy)
 
 makeTree-OrdTree : ∀ {is} → ListN is → OrdTree (makeTree is)
-makeTree-OrdTree nilLN =
+makeTree-OrdTree lnnil =
   ordTree (lit toTree [] nilTree)
     ≡⟨ subst (λ t → ordTree (lit toTree [] nilTree) ≡ ordTree t)
              (lit-[] toTree nilTree)
@@ -470,7 +470,7 @@ makeTree-OrdTree nilLN =
     ≡⟨ ordTree-nilTree ⟩
   true ∎
 
-makeTree-OrdTree (consLN {i} {is} Ni Lis) =
+makeTree-OrdTree (lncons {i} {is} Ni Lis) =
   ordTree (lit toTree (i ∷ is) nilTree)
     ≡⟨ subst (λ t → ordTree (lit toTree (i ∷ is) nilTree) ≡ ordTree t)
              (lit-∷ toTree i is nilTree)
@@ -486,10 +486,10 @@ makeTree-OrdTree (consLN {i} {is} Ni Lis) =
 ++-OrdList : ∀ {is js} → ListN is → ListN js → OrdList is → OrdList js →
              LE-Lists is js → OrdList (is ++ js)
 
-++-OrdList {js = js} nilLN LNjs LOis LOjs is≤js =
+++-OrdList {js = js} lnnil LNjs LOis LOjs is≤js =
   subst (λ t → OrdList t) (sym $ ++-[] js) LOjs
 
-++-OrdList {js = js} (consLN {i} {is} Ni LNis) LNjs LOi∷is LOjs i∷is≤js =
+++-OrdList {js = js} (lncons {i} {is} Ni LNis) LNjs LOi∷is LOjs i∷is≤js =
   subst (λ t → OrdList t) (sym $ ++-∷ i is js) lemma
   where
   lemma : OrdList (i ∷ is ++ js)
@@ -528,10 +528,10 @@ makeTree-OrdTree (consLN {i} {is} Ni Lis) =
 ------------------------------------------------------------------------------
 -- Burstall's lemma: If t is ordered then (flatten t) is ordered.
 flatten-OrdList : ∀ {t} → Tree t → OrdTree t → OrdList (flatten t)
-flatten-OrdList nilT OTt =
+flatten-OrdList tnil OTt =
   subst (λ t → OrdList t) (sym flatten-nilTree) ordList-[]
 
-flatten-OrdList (tipT {i} Ni) OTt =
+flatten-OrdList (ttip {i} Ni) OTt =
   ordList (flatten (tip i))
     ≡⟨ subst (λ t → ordList (flatten (tip i)) ≡ ordList t)
              (flatten-tip i)
@@ -549,7 +549,7 @@ flatten-OrdList (tipT {i} Ni) OTt =
     ≡⟨ t&&x≡x true ⟩
   true ∎
 
-flatten-OrdList (nodeT {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTt =
+flatten-OrdList (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTt =
   ordList (flatten (node t₁ i t₂))
     ≡⟨ subst (λ t → ordList (flatten (node t₁ i t₂)) ≡ ordList t)
              (flatten-node t₁ i t₂)

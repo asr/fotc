@@ -26,36 +26,36 @@ module Pure where
 
   -- The FOTC natural numbers type.
   postulate
-    N  : D → Set
-    zN : N zero
-    sN : ∀ {n} → N n → N (succ₁ n)
+    N     : D → Set
+    nzero : N zero
+    nsucc : ∀ {n} → N n → N (succ₁ n)
 
   -- Example.
   one : D
   one = succ₁ zero
 
   oneN : N one
-  oneN = sN zN
+  oneN = nsucc nzero
 
   -- The FOTC lists type.
   postulate
     List  : D → Set
-    nilL  : List []
-    consL : ∀ x {xs} → List xs → List (x ∷ xs)
+    lnil  : List []
+    lcons : ∀ x {xs} → List xs → List (x ∷ xs)
 
   -- Example.
   l : List (zero ∷ true ∷ [])
-  l = consL zero (consL true nilL)
+  l = lcons zero (lcons true lnil)
 
   -- The FOTC list of natural numbers type.
   postulate
     ListN  : D → Set
-    nilLN  : ListN []
-    consLN : ∀ {n ns} → N n → ListN ns → ListN (n ∷ ns)
+    lnnil  : ListN []
+    lncons : ∀ {n ns} → N n → ListN ns → ListN (n ∷ ns)
 
   -- Example.
   ln : ListN (zero ∷ one ∷ [])
-  ln = consLN zN (consLN oneN nilLN)
+  ln = lncons nzero (lncons oneN lnnil)
 
 ------------------------------------------------------------------------------
 -- The inductive FOTC types using data.
@@ -64,33 +64,33 @@ module Inductive where
 
   -- The FOTC natural numbers type.
   data N : D → Set where
-    zN : N zero
-    sN : ∀ {n} → N n → N (succ₁ n)
+    nzero : N zero
+    nsucc : ∀ {n} → N n → N (succ₁ n)
 
   -- Example.
   one : D
   one = succ₁ zero
 
   oneN : N one
-  oneN = sN zN
+  oneN = nsucc nzero
 
   -- The FOTC lists type.
   data List : D → Set where
-    nilL  :                      List []
-    consL : ∀ x {xs} → List xs → List (x ∷ xs)
+    lnil  :                      List []
+    lcons : ∀ x {xs} → List xs → List (x ∷ xs)
 
   -- Example.
   l : List (zero ∷ true ∷ [])
-  l = consL zero (consL true nilL)
+  l = lcons zero (lcons true lnil)
 
   -- The FOTC list of natural numbers type.
   data ListN : D → Set where
-    nilLN  :                             ListN []
-    consLN : ∀ {n ns} → N n → ListN ns → ListN (n ∷ ns)
+    lnnil  :                             ListN []
+    lncons : ∀ {n ns} → N n → ListN ns → ListN (n ∷ ns)
 
   -- Example.
   ln : ListN (zero ∷ one ∷ [])
-  ln = consLN zN (consLN oneN nilLN)
+  ln = lncons nzero (lncons oneN lnnil)
 
 ------------------------------------------------------------------------------
 -- The least fixed-point operator.
@@ -157,18 +157,18 @@ module NLFP where
   N = LFP NatF
 
   -- The data constructors of N.
-  zN : N zero
-  zN = LFP₂ NatF zero (inj₁ refl)
+  nzero : N zero
+  nzero = LFP₂ NatF zero (inj₁ refl)
 
-  sN : {n : D} → N n → N (succ₁ n)
-  sN {n} Nn = LFP₂ NatF (succ₁ n) (inj₂ (n , (refl , Nn)))
+  nsucc : {n : D} → N n → N (succ₁ n)
+  nsucc {n} Nn = LFP₂ NatF (succ₁ n) (inj₂ (n , (refl , Nn)))
 
   -- Example.
   one : D
   one = succ₁ zero
 
   oneN : N one
-  oneN = sN zN
+  oneN = nsucc nzero
 
 ------------------------------------------------------------------------------
 -- The FOTC list type as the least fixed-point of a functor.
@@ -186,15 +186,15 @@ module ListLFT where
   List = LFP ListF
 
   -- The data constructors of List.
-  nilL : List []
-  nilL = LFP₂ ListF [] (inj₁ refl)
+  lnil : List []
+  lnil = LFP₂ ListF [] (inj₁ refl)
 
-  consL : ∀ x {xs} → List xs → List (x ∷ xs)
-  consL x {xs} Lxs = LFP₂ ListF (x ∷ xs) (inj₂ (x , xs , refl , Lxs))
+  lcons : ∀ x {xs} → List xs → List (x ∷ xs)
+  lcons x {xs} Lxs = LFP₂ ListF (x ∷ xs) (inj₂ (x , xs , refl , Lxs))
 
   -- Example.
   l : List (zero ∷ true ∷ [])
-  l = consL zero (consL true nilL)
+  l = lcons zero (lcons true lnil)
 
 ------------------------------------------------------------------------------
 -- The FOTC list of natural numbers type as the least fixed-point of a
@@ -214,16 +214,16 @@ module ListNLFT where
   ListN = LFP ListNF
 
   -- The data constructors of ListN.
-  nilLN : ListN []
-  nilLN = LFP₂ ListNF [] (inj₁ refl)
+  lnnil : ListN []
+  lnnil = LFP₂ ListNF [] (inj₁ refl)
 
-  consLN : ∀ {n ns} → N n → ListN ns → ListN (n ∷ ns)
-  consLN {n} {ns} Nn LNns =
+  lncons : ∀ {n ns} → N n → ListN ns → ListN (n ∷ ns)
+  lncons {n} {ns} Nn LNns =
     LFP₂ ListNF (n ∷ ns) (inj₂ (n , ns , refl , Nn , LNns))
 
   -- Example.
   ln : ListN (zero ∷ one ∷ [])
-  ln = consLN zN (consLN oneN nilLN)
+  ln = lncons nzero (lncons oneN lnnil)
 
 ------------------------------------------------------------------------------
 -- The FOTC Colist type as the greatest fixed-point of a functor.

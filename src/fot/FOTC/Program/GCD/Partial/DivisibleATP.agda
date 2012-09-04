@@ -53,7 +53,7 @@ gcd-S>S-Divisible :
   Divisible (succ₁ m) (succ₁ n) (gcd (succ₁ m) (succ₁ n))
 gcd-S>S-Divisible {m} {n} Nm Nn acc Sm>Sn c Nc (c∣Sm , c∣Sn) =
     gcd-S>S-Divisible-ah Nm Nn acc Sm>Sn c Nc (c∣Sm , c∣Sn)
-                         (x∣y→x∣z→x∣y∸z Nc (sN Nm) (sN Nn) c∣Sm c∣Sn)
+                         (x∣y→x∣z→x∣y∸z Nc (nsucc Nm) (nsucc Nn) c∣Sm c∣Sn)
 
 ------------------------------------------------------------------------------
 -- The gcd (succ₁ m) (succ₁ n) when succ₁ m ≯ succ₁ n is Divisible.
@@ -76,7 +76,7 @@ gcd-S≯S-Divisible :
   Divisible (succ₁ m) (succ₁ n) (gcd (succ₁ m) (succ₁ n))
 gcd-S≯S-Divisible {m} {n} Nm Nn acc Sm≯Sn c Nc (c∣Sm , c∣Sn) =
     gcd-S≯S-Divisible-ah Nm Nn acc Sm≯Sn c Nc (c∣Sm , c∣Sn)
-                         (x∣y→x∣z→x∣y∸z Nc (sN Nn) (sN Nm) c∣Sn c∣Sm)
+                         (x∣y→x∣z→x∣y∸z Nc (nsucc Nn) (nsucc Nm) c∣Sn c∣Sm)
 
 ------------------------------------------------------------------------------
 -- The gcd m n when m > n is Divisible.
@@ -87,17 +87,17 @@ gcd-x>y-Divisible :
   GT m n →
   x≢0≢y m n →
   Divisible m n (gcd m n)
-gcd-x>y-Divisible zN Nn _ 0>n _ _ _ = ⊥-elim $ 0>x→⊥ Nn 0>n
-gcd-x>y-Divisible (sN Nm) zN _ _ _  c Nc = gcd-S0-Divisible Nm c Nc
-gcd-x>y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm>Sn _ c Nc =
+gcd-x>y-Divisible nzero Nn _ 0>n _ _ _ = ⊥-elim $ 0>x→⊥ Nn 0>n
+gcd-x>y-Divisible (nsucc Nm) nzero _ _ _  c Nc = gcd-S0-Divisible Nm c Nc
+gcd-x>y-Divisible (nsucc {m} Nm) (nsucc {n} Nn) accH Sm>Sn _ c Nc =
   gcd-S>S-Divisible Nm Nn ih Sm>Sn c Nc
   where
   -- Inductive hypothesis.
   ih : Divisible (succ₁ m ∸ succ₁ n) (succ₁ n) (gcd (succ₁ m ∸ succ₁ n) (succ₁ n))
   ih = accH {succ₁ m ∸ succ₁ n}
             {succ₁ n}
-            (∸-N (sN Nm) (sN Nn))
-            (sN Nn)
+            (∸-N (nsucc Nm) (nsucc Nn))
+            (nsucc Nn)
             ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
             (λ p → ⊥-elim $ S≢0 $ ∧-proj₂ p)
 
@@ -110,18 +110,18 @@ gcd-x≯y-Divisible :
   NGT m n →
   x≢0≢y m n →
   Divisible m n (gcd m n)
-gcd-x≯y-Divisible zN zN _ _ h _ _  = ⊥-elim $ h (refl , refl)
-gcd-x≯y-Divisible zN (sN Nn) _ _  _  c Nc = gcd-0S-Divisible Nn c Nc
-gcd-x≯y-Divisible (sN _) zN _ Sm≯0 _ _ _ = ⊥-elim $ S≯0→⊥ Sm≯0
-gcd-x≯y-Divisible (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn _ c Nc =
+gcd-x≯y-Divisible nzero nzero _ _ h _ _  = ⊥-elim $ h (refl , refl)
+gcd-x≯y-Divisible nzero (nsucc Nn) _ _  _  c Nc = gcd-0S-Divisible Nn c Nc
+gcd-x≯y-Divisible (nsucc _) nzero _ Sm≯0 _ _ _ = ⊥-elim $ S≯0→⊥ Sm≯0
+gcd-x≯y-Divisible (nsucc {m} Nm) (nsucc {n} Nn) accH Sm≯Sn _ c Nc =
   gcd-S≯S-Divisible Nm Nn ih Sm≯Sn c Nc
   where
   -- Inductive hypothesis.
   ih : Divisible (succ₁ m) (succ₁ n ∸ succ₁ m) (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))
   ih = accH {succ₁ m}
             {succ₁ n ∸ succ₁ m}
-            (sN Nm)
-            (∸-N (sN Nn) (sN Nm))
+            (nsucc Nm)
+            (∸-N (nsucc Nn) (nsucc Nm))
             ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
             (λ p → ⊥-elim $ S≢0 $ ∧-proj₁ p)
 

@@ -19,7 +19,7 @@ reverse (x ∷ xs) = reverse xs ++ x ∷ []
 ------------------------------------------------------------------------------
 -- The rose tree type.
 data Tree (A : Set) : Set where
-  treeT : A → List (Tree A) → Tree A
+  tree : A → List (Tree A) → Tree A
 
 ------------------------------------------------------------------------------
 -- An alternative and terminating definition of mirror. Adapted from
@@ -29,6 +29,6 @@ data Tree (A : Set) : Set where
 mirror       : {A : Set} → Tree A → Tree A
 mirrorBranch : {A : Set} → List (Tree A) → List (Tree A)
 
-mirror       (treeT a ts) = treeT a (reverse (mirrorBranch ts))
+mirror       (tree a ts) = tree a (reverse (mirrorBranch ts))
 mirrorBranch []           = []
 mirrorBranch (t ∷ ts)     = mirror t ∷ mirrorBranch ts

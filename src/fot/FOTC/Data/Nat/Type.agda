@@ -15,14 +15,14 @@ open import FOTC.Base
 -- The FOTC natural numbers type (inductive predicate for the total
 -- natural numbers).
 data N : D → Set where
-  zN :               N zero
-  sN : ∀ {n} → N n → N (succ₁ n)
-{-# ATP axiom zN sN #-}
+  nzero :               N zero
+  nsucc : ∀ {n} → N n → N (succ₁ n)
+{-# ATP axiom nzero nsucc #-}
 
 -- Induction principle.
 N-ind : (A : D → Set) →
        A zero →
        (∀ {n} → A n → A (succ₁ n)) →
        ∀ {n} → N n → A n
-N-ind A A0 h zN      = A0
-N-ind A A0 h (sN Nn) = h (N-ind A A0 h Nn)
+N-ind A A0 h nzero      = A0
+N-ind A A0 h (nsucc Nn) = h (N-ind A A0 h Nn)

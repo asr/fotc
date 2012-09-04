@@ -1,7 +1,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-From: Hancock (2008). (Ordinal-theoretic) proof theory.
+-- From: Hancock (2008). (Ordinal-theoretic) proof theory.
 
 module Ordinals where
 

@@ -20,9 +20,9 @@ open import FOTC.Program.SortList.SortList
 ------------------------------------------------------------------------------
 -- If (i ∷ is) is ordered then 'is' is ordered.
 subList-OrdList : ∀ {i is} → N i → ListN is → OrdList (i ∷ is) → OrdList is
-subList-OrdList {i} Ni nilLN LOi∷is = ordList-[]
+subList-OrdList {i} Ni lnnil LOi∷is = ordList-[]
 
-subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js = prf
+subList-OrdList {i} Ni (lncons {j} {js} Nj Ljs) LOi∷j∷js = prf
   where postulate prf : OrdList (j ∷ js)
         {-# ATP prove prf &&-list₂-t ≤-ItemList-Bool ordList-Bool #-}
 
@@ -32,11 +32,11 @@ subList-OrdList {i} Ni (consLN {j} {js} Nj Ljs) LOi∷j∷js = prf
                     LE-Lists is js →
                     LE-ItemList item (is ++ js)
 
-++-OrdList-helper {item} {js = js} _ nilLN _ _ item≤js _ =
+++-OrdList-helper {item} {js = js} _ lnnil _ _ item≤js _ =
   subst (λ t → LE-ItemList item t) (sym (++-[] js)) item≤js
 
 ++-OrdList-helper {item} {js = js} Nitem
-                  (consLN {i} {is} Ni LNis) LNjs item≤i∷is item≤js i∷is≤js =
+                  (lncons {i} {is} Ni LNis) LNjs item≤i∷is item≤js i∷is≤js =
   prf (++-OrdList-helper Nitem LNis LNjs lemma₁ item≤js lemma₂)
   where
   lemma₁ : ≤-ItemList item is ≡ true

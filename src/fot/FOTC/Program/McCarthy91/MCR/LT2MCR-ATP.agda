@@ -24,9 +24,9 @@ open import FOTC.Program.McCarthy91.MCR
 LT2MCR-helper : ∀ {n m k} → N n → N m → N k →
                 LT m n → LT (succ₁ n) k → LT (succ₁ m) k →
                 LT (k ∸ n) (k ∸ m) → LT (k ∸ succ₁ n) (k ∸ succ₁ m)
-LT2MCR-helper zN Nm Nk p qn qm h = ⊥-elim (x<0→⊥ Nm p)
-LT2MCR-helper (sN Nn) Nm zN p qn qm h = ⊥-elim (x<0→⊥ (sN Nm) qm)
-LT2MCR-helper (sN {n} Nn) zN (sN {k} Nk) p qn qm h = prfS0S
+LT2MCR-helper nzero Nm Nk p qn qm h = ⊥-elim (x<0→⊥ Nm p)
+LT2MCR-helper (nsucc Nn) Nm nzero p qn qm h = ⊥-elim (x<0→⊥ (nsucc Nm) qm)
+LT2MCR-helper (nsucc {n} Nn) nzero (nsucc {k} Nk) p qn qm h = prfS0S
   where
   postulate
     k≥Sn   : GE k (succ₁ n)
@@ -36,7 +36,7 @@ LT2MCR-helper (sN {n} Nn) zN (sN {k} Nk) p qn qm h = prfS0S
   {-# ATP prove k∸Sn<k k≥Sn x≥y→y>0→x∸y<x #-}
   {-# ATP prove prfS0S k∸Sn<k #-}
 
-LT2MCR-helper (sN {n} Nn) (sN {m} Nm) (sN {k} Nk) p qn qm h =
+LT2MCR-helper (nsucc {n} Nn) (nsucc {m} Nm) (nsucc {k} Nk) p qn qm h =
   k∸Sn<k∸Sm→Sk∸SSn<Sk∸SSm (LT2MCR-helper Nn Nm Nk m<n Sn<k Sm<k k∸n<k∸m)
   where
   postulate
@@ -56,13 +56,13 @@ LT2MCR-helper (sN {n} Nn) (sN {m} Nm) (sN {k} Nk) p qn qm h =
   {-# ATP prove k∸n<k∸m #-}
 
 LT2MCR : ∀ {n m} → N n → N m → NGT m one-hundred → LT m n → MCR n m
-LT2MCR zN          Nm p h = ⊥-elim (x<0→⊥ Nm h)
-LT2MCR (sN {n} Nn) zN p h = prfS0
+LT2MCR nzero          Nm    p h = ⊥-elim (x<0→⊥ Nm h)
+LT2MCR (nsucc {n} Nn) nzero p h = prfS0
   where
   postulate prfS0 : MCR (succ₁ n) zero
   {-# ATP prove prfS0 x∸y<Sx #-}
 
-LT2MCR (sN {n} Nn) (sN {m} Nm) p h with x<y∨x≥y Nn 100-N
+LT2MCR (nsucc {n} Nn) (nsucc {m} Nm) p h with x<y∨x≥y Nn 100-N
 ... | inj₁ n<100 = LT2MCR-helper Nn Nm 101-N m<n Sn≤101 Sm≤101
                                  (LT2MCR Nn Nm m≯100 m<n)
   where

@@ -19,7 +19,7 @@ open import LTC-PCF.Program.Division.Specification
 ------------------------------------------------------------------------------
 -- The division is total when the dividend is less than the divisor.
 div-x<y-N : ∀ {i j} → LT i j → N (div i j)
-div-x<y-N i<j = subst N (sym $ div-x<y i<j) zN
+div-x<y-N i<j = subst N (sym $ div-x<y i<j) nzero
 
 -- The division is total when the dividend is greater or equal than
 -- the divisor.
@@ -32,4 +32,4 @@ div-x≮y-N : ∀ {i j} →
             (DIV (i ∸ j) j (div (i ∸ j) j)) →
             NLT i j →
             N (div i j)
-div-x≮y-N ih i≮j = subst N (sym $ div-x≮y i≮j) (sN (∧-proj₁ ih))
+div-x≮y-N ih i≮j = subst N (sym $ div-x≮y i≮j) (nsucc (∧-proj₁ ih))

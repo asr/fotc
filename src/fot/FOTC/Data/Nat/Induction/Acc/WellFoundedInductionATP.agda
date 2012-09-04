@@ -28,10 +28,9 @@ module WF-LT where
     -- N.B. The helper function is the same that the function used by
     -- FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionATP.
     helper : ∀ {n m} → N n → N m → LT m n → Acc N LT m
-    helper zN     Nm m<0  = ⊥-elim $ x<0→⊥ Nm m<0
-    helper (sN _) zN 0<Sn = acc (λ Nm' m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
-
-    helper (sN {n} Nn) (sN {m} Nm) Sm<Sn =
+    helper nzero Nm  m<0  = ⊥-elim $ x<0→⊥ Nm m<0
+    helper (nsucc _) nzero 0<Sn = acc (λ Nm' m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
+    helper (nsucc {n} Nn) (nsucc {m} Nm) Sm<Sn =
       acc (λ {m'} Nm' m'<Sm →
              let m<n : LT m n
                  m<n = Sx<Sy→x<y Sm<Sn
@@ -55,8 +54,8 @@ module WF-LT where
 module WF₁-LT where
 
   wf-LT : WellFounded {N} LT
-  wf-LT zN      = acc (λ Nm m<0 → ⊥-elim (x<0→⊥ Nm m<0))
-  wf-LT (sN Nn) = acc (λ Nm m<Sn → helper Nm Nn (wf-LT Nn)
+  wf-LT nzero      = acc (λ Nm m<0 → ⊥-elim (x<0→⊥ Nm m<0))
+  wf-LT (nsucc Nn) = acc (λ Nm m<Sn → helper Nm Nn (wf-LT Nn)
                                           (x<Sy→x≤y Nm Nn m<Sn))
     where
     helper : ∀ {n m} → N n → N m → Acc N LT m → LE n m → Acc N LT n

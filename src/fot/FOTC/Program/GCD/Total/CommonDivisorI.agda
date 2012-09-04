@@ -58,7 +58,7 @@ gcd-0S-∣₁ {n} Nn = subst (λ x → x ∣ zero)
 gcd-S0-∣₁ : ∀ {m} → N m → gcd (succ₁ m) zero ∣ succ₁ m
 gcd-S0-∣₁ {m} Nm = subst (λ x → x ∣ succ₁ m)
                          (sym $ gcd-S0 m)
-                         (∣-refl (sN Nm))
+                         (∣-refl (nsucc Nm))
 
 -- gcd (succ₁ m) (succ₁ n) ∣ succ₁ m, when succ₁ m ≯ succ₁ n.
 gcd-S≯S-∣₁ :
@@ -99,21 +99,21 @@ gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
         (sym $ gcd-S>S m n Sm>Sn)
         -- The second substitution is based on m = (m ∸ n) + n.
         (subst (λ y → gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∣ y)
-               (x>y→x∸y+y≡x (sN Nm) (sN Nn) Sm>Sn)
+               (x>y→x∸y+y≡x (nsucc Nm) (nsucc Nn) Sm>Sn)
                (x∣y→x∣z→x∣y+z
                  {gcd (succ₁ m ∸ succ₁ n) (succ₁ n)}
                  {succ₁ m ∸ succ₁ n}
                  {succ₁ n}
-                 (gcd-N Sm-Sn-N (sN Nn))
+                 (gcd-N Sm-Sn-N (nsucc Nn))
                  Sm-Sn-N
-                 (sN Nn)
+                 (nsucc Nn)
                  ih
                  gcd-∣₂
                )
        )
   where
   Sm-Sn-N : N (succ₁ m ∸ succ₁ n)
-  Sm-Sn-N = ∸-N (sN Nm) (sN Nn)
+  Sm-Sn-N = ∸-N (nsucc Nm) (nsucc Nn)
 
 ------------------------------------------------------------------------------
 -- Some case of the gcd-∣₂
@@ -124,7 +124,7 @@ gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
 gcd-0S-∣₂ : ∀ {n} → N n → gcd zero (succ₁ n) ∣ succ₁ n
 gcd-0S-∣₂ {n} Nn = subst (λ x → x ∣ succ₁ n)
                          (sym $ gcd-0S n)
-                         (∣-refl (sN Nn))
+                         (∣-refl (nsucc Nn))
 
 -- gcd (succ₁ m) 0 ∣ 0.
 gcd-S0-∣₂ : ∀ {m} → N m → gcd (succ₁ m) zero ∣ zero
@@ -170,14 +170,14 @@ gcd-S≯S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≯Sn =
         (sym $ gcd-S≯S m n Sm≯Sn)
          -- The second substitution is based on n = (n ∸ m) + m
         (subst (λ y → gcd (succ₁ m) (succ₁ n ∸ succ₁ m) ∣ y)
-               (x≤y→y∸x+x≡y (sN Nm) (sN Nn) (x≯y→x≤y (sN Nm) (sN Nn) Sm≯Sn))
+               (x≤y→y∸x+x≡y (nsucc Nm) (nsucc Nn) (x≯y→x≤y (nsucc Nm) (nsucc Nn) Sm≯Sn))
                (x∣y→x∣z→x∣y+z
                  {gcd (succ₁ m) (succ₁ n ∸ succ₁ m)}
                  {succ₁ n ∸ succ₁ m}
                  {succ₁ m}
-                 (gcd-N (sN Nm) Sn-Sm-N)
+                 (gcd-N (nsucc Nm) Sn-Sm-N)
                  Sn-Sm-N
-                 (sN Nm)
+                 (nsucc Nm)
                  ih
                  gcd-∣₁
                )
@@ -185,7 +185,7 @@ gcd-S≯S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≯Sn =
 
   where
   Sn-Sm-N : N (succ₁ n ∸ succ₁ m)
-  Sn-Sm-N = ∸-N (sN Nn) (sN Nm)
+  Sn-Sm-N = ∸-N (nsucc Nn) (nsucc Nm)
 
 ------------------------------------------------------------------------------
 -- The gcd is CD.
@@ -239,16 +239,16 @@ gcd-x>y-CD :
   (∀ {o p} → N o → N p → Lexi o p m n → CD o p (gcd o p)) →
   GT m n →
   CD m n (gcd m n)
-gcd-x>y-CD zN          Nn          _    0>n   = ⊥-elim $ 0>x→⊥ Nn 0>n
-gcd-x>y-CD (sN Nm)     zN          _    _     = gcd-S0-CD Nm
-gcd-x>y-CD (sN {m} Nm) (sN {n} Nn) accH Sm>Sn = gcd-S>S-CD Nm Nn ih Sm>Sn
+gcd-x>y-CD nzero          Nn            _     0>n   = ⊥-elim $ 0>x→⊥ Nn 0>n
+gcd-x>y-CD (nsucc Nm)     nzero          _    _     = gcd-S0-CD Nm
+gcd-x>y-CD (nsucc {m} Nm) (nsucc {n} Nn) accH Sm>Sn = gcd-S>S-CD Nm Nn ih Sm>Sn
   where
   -- Inductive hypothesis.
   ih : CD (succ₁ m ∸ succ₁ n) (succ₁ n) (gcd (succ₁ m ∸ succ₁ n) (succ₁ n))
   ih  = accH {succ₁ m ∸ succ₁ n}
              {succ₁ n}
-             (∸-N (sN Nm) (sN Nn))
-             (sN Nn)
+             (∸-N (nsucc Nm) (nsucc Nn))
+             (nsucc Nn)
              ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
 
 -- The gcd m n when m ≯ n is CD.
@@ -257,17 +257,17 @@ gcd-x≯y-CD :
   (∀ {o p} → N o → N p → Lexi o p m n → CD o p (gcd o p)) →
   NGT m n →
   CD m n (gcd m n)
-gcd-x≯y-CD zN          zN          _    _     = gcd-00-CD
-gcd-x≯y-CD zN          (sN Nn)     _    _     = gcd-0S-CD Nn
-gcd-x≯y-CD (sN _)      zN          _    Sm≯0  = ⊥-elim $ S≯0→⊥ Sm≯0
-gcd-x≯y-CD (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn = gcd-S≯S-CD Nm Nn ih Sm≯Sn
+gcd-x≯y-CD nzero          nzero          _    _     = gcd-00-CD
+gcd-x≯y-CD nzero          (nsucc Nn)     _    _     = gcd-0S-CD Nn
+gcd-x≯y-CD (nsucc _)      nzero          _    Sm≯0  = ⊥-elim $ S≯0→⊥ Sm≯0
+gcd-x≯y-CD (nsucc {m} Nm) (nsucc {n} Nn) accH Sm≯Sn = gcd-S≯S-CD Nm Nn ih Sm≯Sn
   where
   -- Inductive hypothesis.
   ih : CD (succ₁ m) (succ₁ n ∸ succ₁ m)  (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))
   ih = accH {succ₁ m}
             {succ₁ n ∸ succ₁ m}
-            (sN Nm)
-            (∸-N (sN Nn) (sN Nm))
+            (nsucc Nm)
+            (∸-N (nsucc Nn) (nsucc Nm))
             ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
 
 -- The gcd is CD.

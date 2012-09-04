@@ -9,20 +9,20 @@ open import FOTC.Program.Mirror.Type
 ------------------------------------------------------------------------------
 
 foo : ∀ {ts} → Tree ts → D
-foo (treeT d nilF)            = d
-foo (treeT d (consF Tt Fts)) = foo (treeT d Fts)
+foo (tree d fnil)            = d
+foo (tree d (fcons Tt Fts)) = foo (tree d Fts)
 
 {-# NO_TERMINATION_CHECK #-}
 bar : ∀ {ts} → Tree ts → D
-bar (treeT d nilF) = d
-bar (treeT d (consF Tt Fts)) = helper (bar Tt) (bar (treeT d Fts))
+bar (tree d fnil) = d
+bar (tree d (fcons Tt Fts)) = helper (bar Tt) (bar (tree d Fts))
   where
   postulate helper : D → D → D
 
 {-# NO_TERMINATION_CHECK #-}
 bar₁ : ∀ ts → Tree ts → D
-bar₁ .(node d [])       (treeT d nilF) = d
-bar₁ .(node d (t ∷ ts)) (treeT d (consF {t} {ts} Tt Fts))
-  = helper (bar₁ t Tt) (bar₁ (node d ts) (treeT d Fts))
+bar₁ .(node d [])       (tree d fnil) = d
+bar₁ .(node d (t ∷ ts)) (tree d (fcons {t} {ts} Tt Fts))
+  = helper (bar₁ t Tt) (bar₁ (node d ts) (tree d Fts))
   where
   postulate helper : D → D → D

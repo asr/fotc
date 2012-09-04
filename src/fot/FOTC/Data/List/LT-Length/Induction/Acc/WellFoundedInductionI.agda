@@ -44,10 +44,10 @@ wf-LTL₁ : WellFounded LTL
 wf-LTL₁ Lxs = acc (helper Lxs)
   where
   helper : ∀ {xs ys} → List xs → List ys → LTL ys xs → Acc List LTL ys
-  helper nilL Lys ys<[] = ⊥-elim (xs<[]→⊥ Lys ys<[])
-  helper (consL x {xs} Lxs) nilL []<x∷xs =
+  helper lnil Lys ys<[] = ⊥-elim (xs<[]→⊥ Lys ys<[])
+  helper (lcons x {xs} Lxs) lnil []<x∷xs =
     acc (λ Lys ys<[] → ⊥-elim (xs<[]→⊥ Lys ys<[]))
-  helper (consL x {xs} Lxs) (consL y {ys} Lys) y∷ys<x∷xs =
+  helper (lcons x {xs} Lxs) (lcons y {ys} Lys) y∷ys<x∷xs =
     acc (λ {zs} Lzs zs<y∷ys →
            let ys<xs : LTL ys xs
                ys<xs = x∷xs<y∷ys→xs<ys Lys Lxs y∷ys<x∷xs

@@ -12,5 +12,5 @@ open import FOTC.Data.Nat
 {-# NO_TERMINATION_CHECK #-}
 Conat→N : ∀ {n} → Conat n → N n
 Conat→N Cn with Conat-gfp₁ Cn
-... | inj₁ prf              = subst N (sym prf) zN
-... | inj₂ (n' , Cn' , prf) = subst N (sym prf) (sN (Conat→N Cn'))
+... | inj₁ prf              = subst N (sym prf) nzero
+... | inj₂ (n' , Cn' , prf) = subst N (sym prf) (nsucc (Conat→N Cn'))

@@ -22,15 +22,15 @@ open import LTC-PCF.Data.Nat.Properties
 ------------------------------------------------------------------------------
 -- Any positive number divides 0.
 S∣0 : ∀ {n} → N n → succ₁ n ∣ zero
-S∣0 {n} Nn = zero , zN , sym (*-leftZero (succ₁ n))
+S∣0 {n} Nn = zero , nzero , sym (*-leftZero (succ₁ n))
 
 -- 0 divides 0.
 0∣0 : zero ∣ zero
-0∣0 = zero , zN , sym (*-leftZero zero)
+0∣0 = zero , nzero , sym (*-leftZero zero)
 
 -- The divisibility relation is reflexive.
 ∣-refl : ∀ {n} → N n → n ∣ n
-∣-refl {n} Nn = succ₁ zero , (sN zN) , (sym (*-leftIdentity Nn))
+∣-refl {n} Nn = succ₁ zero , (nsucc nzero) , (sym (*-leftIdentity Nn))
 
 -- If x divides y and z then x divides y ∸ z.
 x∣y→x∣z→x∣y∸z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →
@@ -64,9 +64,9 @@ x∣y→x∣z→x∣y+z Nm Nn No (k₁ , Nk₁ , h₁) (k₂ , Nk₂ , h₂) =
 
 -- If x divides y, and y is positive, then x ≤ y.
 x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → LE m (succ₁ n)
-x∣S→x≤S {m} Nm Nn (.zero , zN , Sn≡0*m) =
+x∣S→x≤S {m} Nm Nn (.zero , nzero , Sn≡0*m) =
   ⊥-elim $ 0≢S $ trans (sym $ *-leftZero m) (sym Sn≡0*m)
-x∣S→x≤S {m} Nm Nn (.(succ₁ k) , sN {k} Nk , Sn≡Sk*m) =
+x∣S→x≤S {m} Nm Nn (.(succ₁ k) , nsucc {k} Nk , Sn≡Sk*m) =
   subst (λ t₁ → LE m t₁)
         (sym Sn≡Sk*m)
         (subst (λ t₂ → LE m t₂)
@@ -74,7 +74,7 @@ x∣S→x≤S {m} Nm Nn (.(succ₁ k) , sN {k} Nk , Sn≡Sk*m) =
                (x≤x+y Nm (*-N Nk Nm)))
 
 0∣x→x≡0 : ∀ {m} → N m → zero ∣ m → m ≡ zero
-0∣x→x≡0 zN          _                 = refl
-0∣x→x≡0 (sN {m} Nm) (k , Nk , Sm≡k*0) =
+0∣x→x≡0 nzero          _                 = refl
+0∣x→x≡0 (nsucc {m} Nm) (k , Nk , Sm≡k*0) =
   ⊥-elim (0≢S (trans (sym (*-leftZero k))
-                     (trans (*-comm zN Nk) (sym Sm≡k*0))))
+                     (trans (*-comm nzero Nk) (sym Sm≡k*0))))

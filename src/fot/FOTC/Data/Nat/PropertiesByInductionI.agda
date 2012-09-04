@@ -52,7 +52,7 @@ succCong refl = refl
   A0 = subst N (sym $ +-leftIdentity n) Nn
 
   is : ∀ {i} → A i → A (succ₁ i)
-  is {i} ih = subst N (sym $ +-Sx i n) (sN ih)
+  is {i} ih = subst N (sym $ +-Sx i n) (nsucc ih)
 
 +-assoc : ∀ {m} → N m → ∀ n o → m + n + o ≡ m + (n + o)
 +-assoc Nm n o = N-ind A A0 is Nm

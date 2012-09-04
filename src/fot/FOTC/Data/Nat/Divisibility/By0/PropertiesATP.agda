@@ -66,6 +66,6 @@ postulate
 {-# ATP prove x∣S→x≤S-helper₂ x≤x+y *-N #-}
 
 x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → LE m (succ₁ n)
-x∣S→x≤S Nm Nn (.zero , zN , Sn≡0*m) = ⊥-elim $ x∣S→x≤S-helper₁ Sn≡0*m
-x∣S→x≤S Nm Nn (.(succ₁ k) , sN {k} Nk , Sn≡Sk*m) =
+x∣S→x≤S Nm Nn (.zero , nzero , Sn≡0*m) = ⊥-elim $ x∣S→x≤S-helper₁ Sn≡0*m
+x∣S→x≤S Nm Nn (.(succ₁ k) , nsucc {k} Nk , Sn≡Sk*m) =
   x∣S→x≤S-helper₂ Nm Nn Nk Sn≡Sk*m

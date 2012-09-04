@@ -42,21 +42,21 @@ postulate
 
 -- Domain predicate for quicksort.
 data Dqs : {xs : D} → List xs → Set where
-  dnil  : Dqs nilL
+  dnil  : Dqs lnil
   dcons : ∀ {x xs} → (Lxs : List xs) →
                      Dqs (filter-List (gt · x) Lxs) →
                      Dqs (filter-List (le · x) Lxs) →
-                     Dqs (consL x Lxs)
+                     Dqs (lcons x Lxs)
 
 -- Induction principle associated to the domain predicate of quicksort.
 indDqs : (P : {xs : D} → List xs → Set) →
-         P nilL →
+         P lnil →
          (∀ {x xs} → (Lxs : List xs) →
                      Dqs (filter-List (gt · x) Lxs) →
                      P (filter-List (gt · x) Lxs) →
                      Dqs (filter-List (le · x) Lxs) →
                      P (filter-List (le · x) Lxs) →
-                     P (consL x Lxs)) →
+                     P (lcons x Lxs)) →
          (∀ {xs} → {Lxs : List xs} → Dqs Lxs → P Lxs)
 indDqs P P[] ih dnil              = P[]
 indDqs P P[] ih (dcons Lxs h₁ h₂) =

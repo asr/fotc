@@ -44,15 +44,15 @@ Comm d₁ d₂ = gcd d₁ d₂ ≡ gcd d₂ d₁
 {-# ATP definition Comm #-}
 
 x>y→y≯x : ∀ {m n} → N m → N n → GT m n → NGT n m
-x>y→y≯x zN          Nn          0>n   = ⊥-elim (0>x→⊥ Nn 0>n)
-x>y→y≯x Nm          zN          _     = 0≯x Nm
-x>y→y≯x (sN {m} Nm) (sN {n} Nn) Sm>Sn =
+x>y→y≯x nzero          Nn             0>n   = ⊥-elim (0>x→⊥ Nn 0>n)
+x>y→y≯x Nm             nzero          _     = 0≯x Nm
+x>y→y≯x (nsucc {m} Nm) (nsucc {n} Nn) Sm>Sn =
   trans (<-SS m n) (x>y→y≯x Nm Nn (trans (sym (<-SS n m)) Sm>Sn))
 
 postulate
   x≯Sy→Sy>x : ∀ {m n} → N m → N n → NGT m (succ₁ n) → GT (succ₁ n) m
--- x≯Sy→Sy>x {n = n} zN      Nn _ = <-0S n
--- x≯Sy→Sy>x {n = n} (sN {m} Nm) Nn h = {!!}
+-- x≯Sy→Sy>x {n = n} nzero      Nn _ = <-0S n
+-- x≯Sy→Sy>x {n = n} (nsucc {m} Nm) Nn h = {!!}
 
 ------------------------------------------------------------------------------
 -- gcd 0 0 is commutative.
@@ -76,7 +76,7 @@ gcd-S>S-comm {m} {n} Nm Nn ih Sm>Sn =
   gcd (succ₁ m ∸ succ₁ n) (succ₁ n)
     ≡⟨ ih ⟩
   gcd (succ₁ n) (succ₁ m ∸ succ₁ n)
-    ≡⟨ sym (gcd-S≯S n m (x>y→y≯x (sN Nm) (sN Nn) Sm>Sn)) ⟩
+    ≡⟨ sym (gcd-S≯S n m (x>y→y≯x (nsucc Nm) (nsucc Nn) Sm>Sn)) ⟩
   gcd (succ₁ n) (succ₁ m) ∎
 
 ------------------------------------------------------------------------------
@@ -91,7 +91,7 @@ gcd-S≯S-comm {m} {n} Nm Nn ih Sm≯Sn =
   gcd (succ₁ m) (succ₁ n ∸ succ₁ m)
     ≡⟨ ih ⟩
   gcd (succ₁ n ∸ succ₁ m) (succ₁ m)
-    ≡⟨ sym (gcd-S>S n m (x≯Sy→Sy>x (sN Nm) Nn Sm≯Sn)) ⟩
+    ≡⟨ sym (gcd-S>S n m (x≯Sy→Sy>x (nsucc Nm) Nn Sm≯Sn)) ⟩
   gcd (succ₁ n) (succ₁ m) ∎
 
 ------------------------------------------------------------------------------
@@ -101,16 +101,16 @@ gcd-x>y-comm :
   (∀ {o p} → N o → N p → Lexi o p m n → Comm o p) →
   GT m n →
   Comm m n
-gcd-x>y-comm zN          Nn          _    0>n   = ⊥-elim (0>x→⊥ Nn 0>n)
-gcd-x>y-comm (sN {n} _)  zN          _    _     = gcd-S0-comm n
-gcd-x>y-comm (sN {m} Nm) (sN {n} Nn) accH Sm>Sn = gcd-S>S-comm Nm Nn ih Sm>Sn
+gcd-x>y-comm nzero          Nn             _    0>n   = ⊥-elim (0>x→⊥ Nn 0>n)
+gcd-x>y-comm (nsucc {n} _)  nzero          _    _     = gcd-S0-comm n
+gcd-x>y-comm (nsucc {m} Nm) (nsucc {n} Nn) accH Sm>Sn = gcd-S>S-comm Nm Nn ih Sm>Sn
   where
   -- Inductive hypothesis.
   ih : Comm (succ₁ m ∸ succ₁ n) (succ₁ n)
   ih = accH {succ₁ m ∸ succ₁ n}
             {succ₁ n}
-            (∸-N (sN Nm) (sN Nn))
-            (sN Nn)
+            (∸-N (nsucc Nm) (nsucc Nn))
+            (nsucc Nn)
             ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
 
 ------------------------------------------------------------------------------
@@ -120,17 +120,17 @@ gcd-x≯y-comm :
   (∀ {o p} → N o → N p → Lexi o p m n → Comm o p) →
   NGT m n →
   Comm m n
-gcd-x≯y-comm zN          zN          _    _     = gcd-00-comm
-gcd-x≯y-comm zN          (sN {n} _)  _    _     = sym (gcd-S0-comm n)
-gcd-x≯y-comm (sN _)      zN          _    Sm≯0  = ⊥-elim (S≯0→⊥ Sm≯0)
-gcd-x≯y-comm (sN {m} Nm) (sN {n} Nn) accH Sm≯Sn = gcd-S≯S-comm Nm Nn ih Sm≯Sn
+gcd-x≯y-comm nzero          nzero          _    _     = gcd-00-comm
+gcd-x≯y-comm nzero          (nsucc {n} _)  _    _     = sym (gcd-S0-comm n)
+gcd-x≯y-comm (nsucc _)      nzero          _    Sm≯0  = ⊥-elim (S≯0→⊥ Sm≯0)
+gcd-x≯y-comm (nsucc {m} Nm) (nsucc {n} Nn) accH Sm≯Sn = gcd-S≯S-comm Nm Nn ih Sm≯Sn
   where
   -- Inductive hypothesis.
   ih : Comm (succ₁ m) (succ₁ n ∸ succ₁ m)
   ih = accH {succ₁ m}
             {succ₁ n ∸ succ₁ m}
-            (sN Nm)
-            (∸-N (sN Nn) (sN Nm))
+            (nsucc Nm)
+            (∸-N (nsucc Nn) (nsucc Nm))
             ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
 
 ------------------------------------------------------------------------------

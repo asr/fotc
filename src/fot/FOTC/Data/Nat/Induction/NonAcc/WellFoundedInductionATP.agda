@@ -29,19 +29,18 @@ module WFInd where
   LT-wfind A accH Nn = accH Nn (helper Nn)
     where
     helper : ∀ {n m} → N n → N m → LT m n → A m
-    helper zN     Nm m<0  = ⊥-elim $ x<0→⊥ Nm m<0
-    helper (sN _) zN 0<Sn = accH zN (λ Nm' m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
-
-    helper (sN {n} Nn) (sN {m} Nm) Sm<Sn = accH (sN Nm)
+    helper nzero Nm m<0 = ⊥-elim $ x<0→⊥ Nm m<0
+    helper (nsucc _) nzero 0<Sn = accH nzero (λ Nm' m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
+    helper (nsucc {n} Nn) (nsucc {m} Nm) Sm<Sn = accH (nsucc Nm)
       (λ {m'} Nm' m'<Sm →
         let Sm'≤Sm : LE (succ₁ m') (succ₁ m)
-            Sm'≤Sm = x<y→Sx≤y Nm' (sN Nm) m'<Sm
+            Sm'≤Sm = x<y→Sx≤y Nm' (nsucc Nm) m'<Sm
 
             Sm≤n : LE (succ₁ m) n
-            Sm≤n = Sx≤Sy→x≤y (x<y→Sx≤y (sN Nm) (sN Nn) Sm<Sn)
+            Sm≤n = Sx≤Sy→x≤y (x<y→Sx≤y (nsucc Nm) (nsucc Nn) Sm<Sn)
 
             Sm'≤n : LE (succ₁ m') n
-            Sm'≤n = ≤-trans (sN Nm') (sN Nm) Nn Sm'≤Sm Sm≤n
+            Sm'≤n = ≤-trans (nsucc Nm') (nsucc Nm) Nn Sm'≤Sm Sm≤n
 
             m'<n : LT m' n
             m'<n = Sx≤y→x<y Nm' Nn Sm'≤n
@@ -61,10 +60,9 @@ module WFInd₁ where
   LT-wfind A accH Nn = accH Nn (helper Nn)
     where
     helper : ∀ {n m} → N n → N m → LT m n → A m
-    helper zN     Nm m<0  = ⊥-elim $ x<0→⊥ Nm m<0
-    helper (sN _) zN 0<Sn = accH zN (λ Nm' m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
-
-    helper (sN {n} Nn) (sN {m} Nm) Sm<Sn = accH (sN Nm)
+    helper nzero Nm m<0 = ⊥-elim $ x<0→⊥ Nm m<0
+    helper (nsucc _) nzero 0<Sn = accH nzero (λ Nm' m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
+    helper (nsucc {n} Nn) (nsucc {m} Nm) Sm<Sn = accH (nsucc Nm)
       (λ {m'} Nm' m'<Sm →
          let m<n : LT m n
              m<n = Sx<Sy→x<y Sm<Sn
