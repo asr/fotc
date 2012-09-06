@@ -19,9 +19,10 @@ data ℕ : Set where
 ------------------------------------------------------------------------------
 -- Head type constraint (Coq Art, section 14.1.2.1).
 
--- NB. This type is not accepted by Coq.
-data T : Set → Set where
-  c : T (T ℕ)
+-- Error: T is not strictly positive, because it occurs in an index of
+-- the target type of the constructor c in the definition of T.
+-- data T : Set → Set where
+--   c : T (T ℕ)
 
 ------------------------------------------------------------------------------
 -- Strictly positive constraints (Coq Art, section 14.1.2.2).
