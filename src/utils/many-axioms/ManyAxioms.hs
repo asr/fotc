@@ -1,12 +1,15 @@
+-- Tested with GHC 7.4.2.
+
 {-# LANGUAGE UnicodeSyntax #-}
 
 header ∷ IO ()
 header = do
-  putStrLn "-- This file was automatically generated.\n"
-  putStrLn "module ManyAxioms where\n"
-  putStrLn "postulate"
-  putStrLn "  D : Set"
-  putStrLn "  _≡_ : D → D → Set\n"
+  putStrLn $
+    "-- This file was automatically generated.\n\n"
+    ++ "module ManyAxioms where\n\n"
+    ++ "postulate\n"
+    ++ "  D : Set\n"
+    ++ "  _≡_ : D → D → Set\n"
 
 variable ∷ Int → IO ()
 variable n = do
@@ -40,7 +43,7 @@ footer n = do
   putStrLn $ "{-# ATP prove foo #-}"
 
 totalVar ∷ Int
-totalVar = 2000
+totalVar = 1000
 
 main ∷ IO ()
 main = do

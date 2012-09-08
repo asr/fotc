@@ -1,10 +1,10 @@
-{-# LANGUAGE UnicodeSyntax #-}
-
 -- Tested with GHC 7.4.2 and QuickCheck 2.5.
+
+{-# LANGUAGE UnicodeSyntax #-}
 
 -- We test some properties of the relation MCR with QuickCheck.
 
-module Main where
+module Main ( main ) where
 
 import Test.QuickCheck
 
@@ -57,10 +57,6 @@ instance Arbitrary Nat where
         unNN (NonNegative x) = x
 
 ------------------------------------------------------------------------------
-
--- We want to copy-paste from the Agda code.
-(≡) :: Eq a ⇒ a → a → Bool
-(≡) = (==)
 
 -- The MCR relation.
 mcr ∷ Nat → Nat → Bool

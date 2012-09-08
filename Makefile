@@ -352,6 +352,7 @@ agda2atp_changed :
 	@make generated_conjectures
 	@make errors
 	@make options
+	@make prove_notes
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -402,12 +403,8 @@ hlint :
 
 git_pre_commit :
 	@fix-whitespace --check
-	@cd $(agda2atp_path) && cabal configure && cabal build
-	@make agda2atp_changed
 	@make doc
 	@make hlint
-	@make type_check_fot
-	@make type_check_notes
 	@echo "$@ succeeded!"
 
 ##############################################################################

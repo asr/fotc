@@ -1,5 +1,10 @@
+FLAGS = -Wall -Werror
+
 source = ManyAxioms
 
 $(source).agda : $(source).hs
-	ghc --make $< -o /tmp/many-axioms
+	ghc $(FLAGS) --make $< -o /tmp/many-axioms
 	/tmp/many-axioms > /tmp/$(source).agda
+
+clean :
+	rm -f $(source).hi $(source).o
