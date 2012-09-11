@@ -435,7 +435,8 @@ hpc_clean :
 ##############################################################################
 # Benchmark
 
-benchmark_tag = $(shell echo `date +"%Y%m%d-%H.%M"`-`hostname -s`)
+benchmark_tag = \
+  $(shell echo `date +"%Y%m%d-%H.%M"`-ghc-`ghc --numeric-version`-`hostname -s`)
 
 %.benchmark :
 	$(AGDA) -i$(fot_path) $*.agda
