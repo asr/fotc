@@ -14,8 +14,8 @@ open import FOTC.Base
 ------------------------------------------------------------------------------
 -- The FOTC lists type (inductive predicate for total lists).
 data List : D → Set where
-  lnil  :                              List []
-  lcons : ∀ x {xs} → (Lxs : List xs) → List (x ∷ xs)
+  lnil  :                      List []
+  lcons : ∀ x {xs} → List xs → List (x ∷ xs)
 {-# ATP axiom lnil lcons #-}
 
 -- Induction principle.
