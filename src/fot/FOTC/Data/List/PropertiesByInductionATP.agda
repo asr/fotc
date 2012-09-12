@@ -13,14 +13,14 @@ open import FOTC.Data.List
 ------------------------------------------------------------------------------
 
 ++-assoc : ∀ {xs} → List xs → ∀ ys zs → (xs ++ ys) ++ zs ≡ xs ++ ys ++ zs
-++-assoc Lxs ys zs = List-ind A A[] is Lxs
+++-assoc Lxs ys zs = List-ind A Anil is Lxs
   where
   A : D → Set
   A ds = (ds ++ ys) ++ zs ≡ ds ++ ys ++ zs
   {-# ATP definition A #-}
 
-  postulate A[] : A []
-  {-# ATP prove A[] #-}
+  postulate Anil : A []
+  {-# ATP prove Anil #-}
 
   postulate is : ∀ d {ds} → A ds → A (d ∷ ds)
   {-# ATP prove is #-}

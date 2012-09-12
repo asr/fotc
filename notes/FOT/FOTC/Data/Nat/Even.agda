@@ -12,12 +12,12 @@ open import FOTC.Base
 ------------------------------------------------------------------------------
 
 data Even : D → Set where
-  zE :                  Even zero
-  nE : ∀ {d} → Even d → Even (succ₁ (succ₁ d))
+  ezero :                  Even zero
+  enext : ∀ {n} → Even n → Even (succ₁ (succ₁ n))
 
 Even-ind : (A : D → Set) →
            A zero →
-           (∀ {d} → A d → A (succ₁ (succ₁ d))) →
-           ∀ {d} → Even d → A d
-Even-ind A A0 h zE      = A0
-Even-ind A A0 h (nE Ed) = h (Even-ind A A0 h Ed)
+           (∀ {n} → A n → A (succ₁ (succ₁ n))) →
+           ∀ {n} → Even n → A n
+Even-ind A A0 h ezero      = A0
+Even-ind A A0 h (enext En) = h (Even-ind A A0 h En)

@@ -23,5 +23,5 @@ List-ind : (A : D → Set) →
           A [] →
           (∀ x {xs} → A xs → A (x ∷ xs)) →
           ∀ {xs} → List xs → A xs
-List-ind A A[] is lnil          = A[]
-List-ind A A[] is (lcons x Lxs) = is x (List-ind A A[] is Lxs)
+List-ind A Anil h lnil          = Anil
+List-ind A Anil h (lcons x Lxs) = h x (List-ind A Anil h Lxs)

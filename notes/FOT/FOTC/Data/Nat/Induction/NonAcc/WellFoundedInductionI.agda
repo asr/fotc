@@ -23,10 +23,10 @@ open import FOTC.Data.Nat.Type
 wfInd-LT : (P : D → Set) →
            (∀ {n} → N n → (∀ {m} → N m → LT m n → P m) → P n) →
            ∀ {n} → N n → P n
-wfInd-LT P accH nzero      = accH nzero (λ Nm m<0 → ⊥-elim (x<0→⊥ Nm m<0))
-wfInd-LT P accH (nsucc Nn) = accH (nsucc Nn)
-                               (λ Nm m<Sn → helper Nm Nn (wfInd-LT P accH Nn)
-                                                   (x<Sy→x≤y Nm Nn m<Sn))
+wfInd-LT P h nzero      = h nzero (λ Nm m<0 → ⊥-elim (x<0→⊥ Nm m<0))
+wfInd-LT P h (nsucc Nn) = h (nsucc Nn)
+                            (λ Nm m<Sn → helper Nm Nn (wfInd-LT P h Nn)
+                                                (x<Sy→x≤y Nm Nn m<Sn))
   where
     helper : ∀ {n m} → N n → N m → P m → LE n m → P n
     helper {n} {m} Nn Nm Pm n≤m = case (λ n<m → {!!} )

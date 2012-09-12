@@ -217,19 +217,19 @@ gcd-x>y-CD :
   GT m n →
   x≢0≢y m n →
   CD m n (gcd m n)
-gcd-x>y-CD nzero          Nn             _    0>n   _ = ⊥-elim $ 0>x→⊥ Nn 0>n
-gcd-x>y-CD (nsucc Nm)     nzero          _    _     _ = gcd-S0-CD Nm
-gcd-x>y-CD (nsucc {m} Nm) (nsucc {n} Nn) accH Sm>Sn _ =
+gcd-x>y-CD nzero          Nn             _  0>n   _ = ⊥-elim $ 0>x→⊥ Nn 0>n
+gcd-x>y-CD (nsucc Nm)     nzero          _  _     _ = gcd-S0-CD Nm
+gcd-x>y-CD (nsucc {m} Nm) (nsucc {n} Nn) ah Sm>Sn _ =
   gcd-S>S-CD Nm Nn ih Sm>Sn
   where
   -- Inductive hypothesis.
   ih : CD (succ₁ m ∸ succ₁ n) (succ₁ n) (gcd (succ₁ m ∸ succ₁ n) (succ₁ n))
-  ih  = accH {succ₁ m ∸ succ₁ n}
-             {succ₁ n}
-             (∸-N (nsucc Nm) (nsucc Nn))
-             (nsucc Nn)
-             ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
-             (λ p → ⊥-elim $ S≢0 $ ∧-proj₂ p)
+  ih  = ah {succ₁ m ∸ succ₁ n}
+           {succ₁ n}
+           (∸-N (nsucc Nm) (nsucc Nn))
+           (nsucc Nn)
+           ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
+           (λ p → ⊥-elim $ S≢0 $ ∧-proj₂ p)
 
 -- The gcd m n when m ≯ n is CD.
 gcd-x≯y-CD :
@@ -238,29 +238,27 @@ gcd-x≯y-CD :
   NGT m n →
   x≢0≢y m n →
   CD m n (gcd m n)
-gcd-x≯y-CD nzero          nzero         _     _     h = ⊥-elim $ h (refl , refl)
-gcd-x≯y-CD nzero          (nsucc Nn)     _    _     _ = gcd-0S-CD Nn
-gcd-x≯y-CD (nsucc _)      nzero          _    Sm≯0  _ = ⊥-elim $ S≯0→⊥ Sm≯0
-gcd-x≯y-CD (nsucc {m} Nm) (nsucc {n} Nn) accH Sm≯Sn _ = gcd-S≯S-CD Nm Nn ih Sm≯Sn
+gcd-x≯y-CD nzero          nzero         _   _     h = ⊥-elim $ h (refl , refl)
+gcd-x≯y-CD nzero          (nsucc Nn)     _  _     _ = gcd-0S-CD Nn
+gcd-x≯y-CD (nsucc _)      nzero          _  Sm≯0  _ = ⊥-elim $ S≯0→⊥ Sm≯0
+gcd-x≯y-CD (nsucc {m} Nm) (nsucc {n} Nn) ah Sm≯Sn _ = gcd-S≯S-CD Nm Nn ih Sm≯Sn
   where
   -- Inductive hypothesis.
   ih : CD (succ₁ m) (succ₁ n ∸ succ₁ m)  (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))
-  ih = accH {succ₁ m}
-            {succ₁ n ∸ succ₁ m}
-            (nsucc Nm)
-            (∸-N (nsucc Nn) (nsucc Nm))
-            ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
-            (λ p → ⊥-elim $ S≢0 $ ∧-proj₁ p)
+  ih = ah {succ₁ m}
+          {succ₁ n ∸ succ₁ m}
+          (nsucc Nm)
+          (∸-N (nsucc Nn) (nsucc Nm))
+          ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
+          (λ p → ⊥-elim $ S≢0 $ ∧-proj₁ p)
 
 -- The gcd is CD.
 gcd-CD : ∀ {m n} → N m → N n → x≢0≢y m n → CD m n (gcd m n)
-gcd-CD = Lexi-wfind A istep
+gcd-CD = Lexi-wfind A h
   where
   A : D → D → Set
   A i j = x≢0≢y i j → CD i j (gcd i j)
 
-  istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → Lexi k l i j → A k l) →
-          A i j
-  istep Ni Nj accH = case (gcd-x>y-CD Ni Nj accH)
-                          (gcd-x≯y-CD Ni Nj accH)
-                          (x>y∨x≯y Ni Nj)
+  h : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → Lexi k l i j → A k l) →
+      A i j
+  h Ni Nj ah = case (gcd-x>y-CD Ni Nj ah) (gcd-x≯y-CD Ni Nj ah) (x>y∨x≯y Ni Nj)

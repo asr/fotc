@@ -24,13 +24,13 @@ module WFInd where
   LT-wfind : (A : D → Set) →
              (∀ {n} → N n → (∀ {m} → N m → LT m n → A m) → A n) →
              ∀ {n} → N n → A n
-  LT-wfind A accH Nn = accH Nn (helper Nn)
+  LT-wfind A h Nn = h Nn (helper Nn)
     where
     helper : ∀ {n m} → N n → N m → LT m n → A m
     helper nzero     Nm    m<0  = ⊥-elim $ x<0→⊥ Nm m<0
-    helper (nsucc _) nzero 0<Sn = accH nzero (λ Nm' m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
+    helper (nsucc _) nzero 0<Sn = h nzero (λ Nm' m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
 
-    helper (nsucc {n} Nn) (nsucc {m} Nm) Sm<Sn = accH (nsucc Nm)
+    helper (nsucc {n} Nn) (nsucc {m} Nm) Sm<Sn = h (nsucc Nm)
       (λ {m'} Nm' m'<Sm →
         let Sm'≤Sm : LE (succ₁ m') (succ₁ m)
             Sm'≤Sm = x<y→Sx≤y Nm' (nsucc Nm) m'<Sm
@@ -56,13 +56,13 @@ module WFInd₁ where
   LT-wfind₁ : (A : D → Set) →
               (∀ {n} → N n → (∀ {m} → N m → LT m n → A m) → A n) →
               ∀ {n} → N n → A n
-  LT-wfind₁ A accH Nn = accH Nn (helper Nn)
+  LT-wfind₁ A h Nn = h Nn (helper Nn)
     where
     helper : ∀ {n m} → N n → N m → LT m n → A m
     helper nzero     Nm    m<0  = ⊥-elim $ x<0→⊥ Nm m<0
-    helper (nsucc _) nzero 0<Sn = accH nzero (λ Nm' m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
+    helper (nsucc _) nzero 0<Sn = h nzero (λ Nm' m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
 
-    helper (nsucc {n} Nn) (nsucc {m} Nm) Sm<Sn = accH (nsucc Nm)
+    helper (nsucc {n} Nn) (nsucc {m} Nm) Sm<Sn = h (nsucc Nm)
       (λ {m'} Nm' m'<Sm →
         let m<n : LT m n
             m<n = Sx<Sy→x<y Sm<Sn

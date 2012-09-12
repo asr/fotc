@@ -101,17 +101,17 @@ gcd-x>y-comm :
   (∀ {o p} → N o → N p → Lexi o p m n → Comm o p) →
   GT m n →
   Comm m n
-gcd-x>y-comm nzero          Nn             _    0>n   = ⊥-elim (0>x→⊥ Nn 0>n)
-gcd-x>y-comm (nsucc {n} _)  nzero          _    _     = gcd-S0-comm n
-gcd-x>y-comm (nsucc {m} Nm) (nsucc {n} Nn) accH Sm>Sn = gcd-S>S-comm Nm Nn ih Sm>Sn
+gcd-x>y-comm nzero          Nn             _  0>n   = ⊥-elim (0>x→⊥ Nn 0>n)
+gcd-x>y-comm (nsucc {n} _)  nzero          _  _     = gcd-S0-comm n
+gcd-x>y-comm (nsucc {m} Nm) (nsucc {n} Nn) ah Sm>Sn = gcd-S>S-comm Nm Nn ih Sm>Sn
   where
   -- Inductive hypothesis.
   ih : Comm (succ₁ m ∸ succ₁ n) (succ₁ n)
-  ih = accH {succ₁ m ∸ succ₁ n}
-            {succ₁ n}
-            (∸-N (nsucc Nm) (nsucc Nn))
-            (nsucc Nn)
-            ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
+  ih = ah {succ₁ m ∸ succ₁ n}
+          {succ₁ n}
+          (∸-N (nsucc Nm) (nsucc Nn))
+          (nsucc Nn)
+          ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
 
 ------------------------------------------------------------------------------
 -- gcd m n when m ≯ n is commutative.
@@ -120,29 +120,29 @@ gcd-x≯y-comm :
   (∀ {o p} → N o → N p → Lexi o p m n → Comm o p) →
   NGT m n →
   Comm m n
-gcd-x≯y-comm nzero          nzero          _    _     = gcd-00-comm
-gcd-x≯y-comm nzero          (nsucc {n} _)  _    _     = sym (gcd-S0-comm n)
-gcd-x≯y-comm (nsucc _)      nzero          _    Sm≯0  = ⊥-elim (S≯0→⊥ Sm≯0)
-gcd-x≯y-comm (nsucc {m} Nm) (nsucc {n} Nn) accH Sm≯Sn = gcd-S≯S-comm Nm Nn ih Sm≯Sn
+gcd-x≯y-comm nzero          nzero          _  _     = gcd-00-comm
+gcd-x≯y-comm nzero          (nsucc {n} _)  _  _     = sym (gcd-S0-comm n)
+gcd-x≯y-comm (nsucc _)      nzero          _  Sm≯0  = ⊥-elim (S≯0→⊥ Sm≯0)
+gcd-x≯y-comm (nsucc {m} Nm) (nsucc {n} Nn) ah Sm≯Sn = gcd-S≯S-comm Nm Nn ih Sm≯Sn
   where
   -- Inductive hypothesis.
   ih : Comm (succ₁ m) (succ₁ n ∸ succ₁ m)
-  ih = accH {succ₁ m}
-            {succ₁ n ∸ succ₁ m}
-            (nsucc Nm)
-            (∸-N (nsucc Nn) (nsucc Nm))
-            ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
+  ih = ah {succ₁ m}
+          {succ₁ n ∸ succ₁ m}
+          (nsucc Nm)
+          (∸-N (nsucc Nn) (nsucc Nm))
+          ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
 
 ------------------------------------------------------------------------------
 -- gcd is commutative.
 gcd-comm : ∀ {m n} → N m → N n → Comm m n
-gcd-comm = Lexi-wfind P istep
+gcd-comm = Lexi-wfind A h
   where
-  P : D → D → Set
-  P i j = Comm i j
+  A : D → D → Set
+  A i j = Comm i j
 
-  istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → Lexi k l i j → P k l) →
-          P i j
-  istep Ni Nj accH = case (gcd-x>y-comm Ni Nj accH)
-                          (gcd-x≯y-comm Ni Nj accH)
-                          (x>y∨x≯y Ni Nj)
+  h : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → Lexi k l i j → A k l) →
+      A i j
+  h Ni Nj ah = case (gcd-x>y-comm Ni Nj ah)
+                    (gcd-x≯y-comm Ni Nj ah)
+                    (x>y∨x≯y Ni Nj)

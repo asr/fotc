@@ -45,15 +45,15 @@ div-x≮y-DIV : ∀ {i j} → N i → N j →
               GT j zero →
               NLT i j →
               DIV i j (div i j)
-div-x≮y-DIV {i} {j} Ni Nj accH j>0 i≮j =
+div-x≮y-DIV {i} {j} Ni Nj ah j>0 i≮j =
   div-x≮y-N ih i≮j , div-x≮y-correct Ni Nj ih i≮j
 
   where
   -- The inductive hypothesis on i ∸ j.
   ih : DIV (i ∸ j) j (div (i ∸ j) j)
-  ih = accH {i ∸ j}
-            (∸-N Ni Nj)
-            (x≥y→y>0→x∸y<x Ni Nj (x≮y→x≥y Ni Nj i≮j) j>0)
+  ih = ah {i ∸ j}
+          (∸-N Ni Nj)
+          (x≥y→y>0→x∸y<x Ni Nj (x≮y→x≥y Ni Nj i≮j) j>0)
 
 ------------------------------------------------------------------------------
 -- The division satisfies the specification.
@@ -68,6 +68,6 @@ div-DIV {j = j} Ni Nj j>0 = LT-wfind A ih Ni
   -- The inductive step doesn't use the variable i (nor Ni). To make
   -- this clear we write down the inductive step using the variables m
   -- and n.
-  ih : ∀ {n} → N n → (accH : ∀ {m} → N m → LT m n → A m) → A n
-  ih {n} Nn accH =
-    case (div-x<y-DIV Nn Nj) (div-x≮y-DIV Nn Nj accH j>0) (x<y∨x≮y Nn Nj)
+  ih : ∀ {n} → N n → (∀ {m} → N m → LT m n → A m) → A n
+  ih {n} Nn ah =
+    case (div-x<y-DIV Nn Nj) (div-x≮y-DIV Nn Nj ah j>0) (x<y∨x≮y Nn Nj)

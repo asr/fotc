@@ -102,16 +102,16 @@ gcd-x>y-Divisible :
   Divisible m n (gcd m n)
 gcd-x>y-Divisible nzero Nn _ 0>n _ _ = ⊥-elim $ 0>x→⊥ Nn 0>n
 gcd-x>y-Divisible (nsucc Nm) nzero _ _ c Nc = gcd-S0-Divisible Nm c Nc
-gcd-x>y-Divisible (nsucc {m} Nm) (nsucc {n} Nn) accH Sm>Sn c Nc =
+gcd-x>y-Divisible (nsucc {m} Nm) (nsucc {n} Nn) ah Sm>Sn c Nc =
   gcd-S>S-Divisible Nm Nn ih Sm>Sn c Nc
   where
   -- Inductive hypothesis.
   ih : Divisible (succ₁ m ∸ succ₁ n) (succ₁ n) (gcd (succ₁ m ∸ succ₁ n) (succ₁ n))
-  ih = accH {succ₁ m ∸ succ₁ n}
-            {succ₁ n}
-            (∸-N (nsucc Nm) (nsucc Nn))
-            (nsucc Nn)
-            ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
+  ih = ah {succ₁ m ∸ succ₁ n}
+          {succ₁ n}
+          (∸-N (nsucc Nm) (nsucc Nn))
+          (nsucc Nn)
+          ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
 
 ------------------------------------------------------------------------------
 -- The gcd m n when m ≯ n is Divisible.
@@ -123,27 +123,27 @@ gcd-x≯y-Divisible :
 gcd-x≯y-Divisible nzero nzero _ _ c Nc = gcd-00-Divisible c Nc
 gcd-x≯y-Divisible nzero (nsucc Nn) _ _ c Nc = gcd-0S-Divisible Nn c Nc
 gcd-x≯y-Divisible (nsucc _) nzero _ Sm≯0 _ _ = ⊥-elim $ S≯0→⊥ Sm≯0
-gcd-x≯y-Divisible (nsucc {m} Nm) (nsucc {n} Nn) accH Sm≯Sn c Nc =
+gcd-x≯y-Divisible (nsucc {m} Nm) (nsucc {n} Nn) ah Sm≯Sn c Nc =
   gcd-S≯S-Divisible Nm Nn ih Sm≯Sn c Nc
   where
   -- Inductive hypothesis.
   ih : Divisible (succ₁ m) (succ₁ n ∸ succ₁ m) (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))
-  ih = accH {succ₁ m}
-            {succ₁ n ∸ succ₁ m}
-            (nsucc Nm)
-            (∸-N (nsucc Nn) (nsucc Nm))
-            ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
+  ih = ah {succ₁ m}
+          {succ₁ n ∸ succ₁ m}
+          (nsucc Nm)
+          (∸-N (nsucc Nn) (nsucc Nm))
+          ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
 
 ------------------------------------------------------------------------------
 -- The gcd is Divisible.
 gcd-Divisible : ∀ {m n} → N m → N n → Divisible m n (gcd m n)
-gcd-Divisible = Lexi-wfind A istep
+gcd-Divisible = Lexi-wfind A h
   where
   A : D → D → Set
   A i j = Divisible i j (gcd i j)
 
-  istep : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → Lexi k l i j → A k l) →
-          A i j
-  istep Ni Nj accH = case (gcd-x>y-Divisible Ni Nj accH)
-                          (gcd-x≯y-Divisible Ni Nj accH)
-                          (x>y∨x≯y Ni Nj)
+  h : ∀ {i j} → N i → N j → (∀ {k l} → N k → N l → Lexi k l i j → A k l) →
+      A i j
+  h Ni Nj ah = case (gcd-x>y-Divisible Ni Nj ah)
+                    (gcd-x≯y-Divisible Ni Nj ah)
+                    (x>y∨x≯y Ni Nj)

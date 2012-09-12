@@ -26,13 +26,13 @@ open import FOTC.Program.McCarthy91.MCR.PropertiesATP
 wfInd-MCR : (P : D → Set) →
             (∀ {n} → N n → (∀ {m} → N m → MCR m n → P m) → P n) →
             ∀ {n} → N n → P n
-wfInd-MCR P accH Nn = accH Nn (helper Nn)
+wfInd-MCR P h Nn = h Nn (helper Nn)
   where
     helper : ∀ {n m} → N n → N m → MCR m n → P m
     helper Nn nzero 0«n = ⊥-elim (0«x→⊥ Nn 0«n)
 
     -- This equation does not pass the termination check.
-    helper nzero (nsucc Nm) Sm«0 = accH (nsucc Nm)
+    helper nzero (nsucc Nm) Sm«0 = h (nsucc Nm)
       (λ {m'} Nm' m'«Sm →
         let m'«0 : MCR m' zero
             m'«0 = «-trans Nm' (nsucc Nm) nzero m'«Sm Sm«0
@@ -42,7 +42,7 @@ wfInd-MCR P accH Nn = accH Nn (helper Nn)
 
     -- Other version of the previous equation (this version neither
     -- pass the termination check).
-    -- helper nzero (nsucc {m} Nm) Sm«0 = accH (nsucc Nm)
+    -- helper nzero (nsucc {m} Nm) Sm«0 = h (nsucc Nm)
     --   (λ {m'} Nm' m'«Sm →
     --     let m'«m : MCR m' m
     --         m'«m = x«Sy→x«y Nm' Nm m'«Sm
@@ -52,7 +52,7 @@ wfInd-MCR P accH Nn = accH Nn (helper Nn)
 
     -- Other version of the previous equation (this version neither
     -- pass the termination check).
-    -- helper nzero Nm m«0 = accH Nm
+    -- helper nzero Nm m«0 = h Nm
     --   (λ {m'} Nm' m'«m →
     --     let m'«0 : MCR m' zero
     --         m'«0 = «-trans Nm' Nm nzero m'«m m«0
@@ -63,7 +63,7 @@ wfInd-MCR P accH Nn = accH Nn (helper Nn)
     -- Other version of the previous equation (this version neither
     -- pass the termination check).
     -- helper {m = m} nzero Nm m«0 =
-    --   accH Nm (λ {m'} Nm' m'«m → helper Nm Nm' m'«m)
+    --   h Nm (λ {m'} Nm' m'«m → helper Nm Nm' m'«m)
 
     helper (nsucc {n} Nn) (nsucc {m} Nm) Sm«Sn = helper Nn (nsucc Nm) Sm«n
       where

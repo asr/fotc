@@ -25,7 +25,7 @@ Lexi-wfind :
   (∀ {m₁ n₁} → N m₁ → N n₁ →
      (∀ {m₂ n₂} → N m₂ → N n₂ → Lexi m₂ n₂ m₁ n₁ → A m₂ n₂) → A m₁ n₁) →
   ∀ {m n} → N m → N n → A m n
-Lexi-wfind A accH Nm Nn = accH Nm Nn (helper₂ Nm Nn)
+Lexi-wfind A h Nm Nn = h Nm Nn (helper₂ Nm Nn)
   where
   helper₁ : ∀ {m n o} → N m → N n → N o → LT m o → LT o (succ₁ n) → LT m n
   helper₁ {m} {n} {o} Nm Nn No m<o o<Sn =
@@ -37,12 +37,12 @@ Lexi-wfind A accH Nm Nn = accH Nm Nn (helper₂ Nm Nn)
             Lexi m₂ n₂ m₁ n₁ → A m₂ n₂
 
   helper₂ Nm₁ Nn₂ nzero nzero 00<00 =
-    accH nzero nzero (λ Nm' Nn' m'n'<00 → ⊥-elim $ xy<00→⊥ Nm' Nn' m'n'<00)
+    h nzero nzero (λ Nm' Nn' m'n'<00 → ⊥-elim $ xy<00→⊥ Nm' Nn' m'n'<00)
 
   helper₂ nzero nzero (nsucc Nm₂) nzero Sm₂0<00 = ⊥-elim $ Sxy₁<0y₂→⊥ Sm₂0<00
 
   helper₂ (nsucc Nm₁) nzero (nsucc Nm₂) nzero Sm₂0<Sm₁0 =
-    accH (nsucc Nm₂) nzero (λ Nm' Nn' m'n'<Sm₂0 →
+    h (nsucc Nm₂) nzero (λ Nm' Nn' m'n'<Sm₂0 →
       helper₂ Nm₁ nzero Nm' Nn'
               (inj₁ (helper₁ Nm' Nm₁ (nsucc Nm₂)
                              (x₁y<x₂0→x₁<x₂ Nn' m'n'<Sm₂0)
@@ -52,7 +52,7 @@ Lexi-wfind A accH Nm Nn = accH Nm Nn (helper₂ Nm Nn)
     ⊥-elim $ Sxy₁<0y₂→⊥ Sm₂0<0Sn₁
 
   helper₂ (nsucc Nm₁) (nsucc Nn₁) (nsucc Nm₂) nzero Sm₂0<Sm₁Sn₁ =
-    accH (nsucc Nm₂) nzero (λ Nm' Nn' m'n'<Sm₂0 →
+    h (nsucc Nm₂) nzero (λ Nm' Nn' m'n'<Sm₂0 →
       helper₂ (nsucc Nm₁) Nn₁ Nm' Nn'
         (inj₁ (case (λ Sm₂<Sm₁ → x<y→x<Sy Nm' Nm₁
                                           (helper₁ Nm' Nm₁ (nsucc Nm₂)
@@ -65,7 +65,7 @@ Lexi-wfind A accH Nm Nn = accH Nm Nn (helper₂ Nm Nn)
   helper₂ nzero nzero nzero (nsucc Nn₂) 0Sn₂<00 = ⊥-elim $ 0Sx<00→⊥ 0Sn₂<00
 
   helper₂ (nsucc {m₁} Nm₁) nzero nzero (nsucc Nn₂) 0Sn₂<Sm₁0 =
-    accH nzero (nsucc Nn₂) (λ Nm' Nn' m'n'<0Nn₂ →
+    h nzero (nsucc Nn₂) (λ Nm' Nn' m'n'<0Nn₂ →
       helper₂ Nm₁ (nsucc Nn₂) Nm' Nn'
               (case (λ m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
                     (λ m'≡0∧n'<Sn₂ →
@@ -82,7 +82,7 @@ Lexi-wfind A accH Nm Nn = accH Nm Nn (helper₂ Nm Nn)
   helper₂ nzero (nsucc Nn₁) nzero (nsucc Nn₂) 0Sn₂<0Sn₁ =
     case (λ 0<0 → ⊥-elim $ 0<0→⊥ 0<0)
          (λ 0≡0∧Sn₂<Sn₁ →
-           accH nzero (nsucc Nn₂) (λ Nm' Nn' m'n'<0Sn₂ →
+           h nzero (nsucc Nn₂) (λ Nm' Nn' m'n'<0Sn₂ →
              case (λ m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
                   (λ m'≡0∧n'<Sn₂ →
                     helper₂ nzero Nn₁ Nm' Nn'
@@ -94,7 +94,7 @@ Lexi-wfind A accH Nm Nn = accH Nm Nn (helper₂ Nm Nn)
          0Sn₂<0Sn₁
 
   helper₂ (nsucc Nm₁) (nsucc Nn₁) nzero (nsucc Nn₂) 0Sn₂<Sm₁Sn₁ =
-    accH nzero (nsucc Nn₂) (λ Nm' Nn' m'n'<0Sn₂ →
+    h nzero (nsucc Nn₂) (λ Nm' Nn' m'n'<0Sn₂ →
       helper₂ (nsucc Nm₁) Nn₁ Nm' Nn'
         (case (λ m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
               (λ m'≡0∧n'<Sn₂ →
@@ -107,7 +107,7 @@ Lexi-wfind A accH Nm Nn = accH Nm Nn (helper₂ Nm Nn)
     ⊥-elim $ xy<00→⊥ (nsucc Nm₂) (nsucc Nn₂) Sm₂Sn₂<00
 
   helper₂ (nsucc {m₁} Nm₁) nzero (nsucc {m₂} Nm₂) (nsucc Nn₂) Sm₂Sn₂<Sm₁0 =
-    accH (nsucc Nm₂) (nsucc Nn₂) (λ Nm' Nn' m'n'<Sm₂Sn₂ →
+    h (nsucc Nm₂) (nsucc Nn₂) (λ Nm' Nn' m'n'<Sm₂Sn₂ →
       helper₂ Nm₁ (nsucc Nn₂) Nm' Nn'
         (case (λ m'<Sm₂ → inj₁ (helper₁ Nm' Nm₁ (nsucc Nm₂) m'<Sm₂ Sm₂<Sm₁))
               (λ m'≡Sm₂∧n'<Sn₂ →
@@ -125,7 +125,7 @@ Lexi-wfind A accH Nm Nn = accH Nm Nn (helper₂ Nm Nn)
     = ⊥-elim $ Sxy₁<0y₂→⊥ Sm₂Sn₂<0Sn₁
 
   helper₂ (nsucc Nm₁) (nsucc Nn₁) (nsucc Nm₂) (nsucc Nn₂) Sm₂Sn₂<Sm₁Sn₁ =
-    accH (nsucc Nm₂) (nsucc Nn₂) (λ Nm' Nn' m'n'<Sm₂Sn₂ →
+    h (nsucc Nm₂) (nsucc Nn₂) (λ Nm' Nn' m'n'<Sm₂Sn₂ →
       helper₂ (nsucc Nm₁) Nn₁ Nm' Nn'
         (case (λ Sm₂<Sm₁ →
                  case (λ m'<Sm₂ → inj₁ (x<y→x<Sy Nm' Nm₁ (helper₁ Nm' Nm₁ (nsucc Nm₂) m'<Sm₂ Sm₂<Sm₁)))
