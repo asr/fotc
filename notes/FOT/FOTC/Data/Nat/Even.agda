@@ -8,6 +8,7 @@
 module FOT.FOTC.Data.Nat.Even where
 
 open import FOTC.Base
+open import FOTC.Data.Nat.Type
 
 ------------------------------------------------------------------------------
 
@@ -21,3 +22,7 @@ Even-ind : (A : D → Set) →
            ∀ {n} → Even n → A n
 Even-ind A A0 h ezero      = A0
 Even-ind A A0 h (enext En) = h (Even-ind A A0 h En)
+
+Even→N : ∀ {n} → Even n → N n
+Even→N ezero      = nzero
+Even→N (enext En) = nsucc (nsucc (Even→N En))
