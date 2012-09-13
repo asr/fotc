@@ -145,7 +145,7 @@ module NLFP where
 
   -- From Peter: NatF if D was an inductive type
   -- NatF : (D → Set) → D → Set
-  -- NatF X zero     = ⊤
+  -- NatF X zero      = ⊤
   -- NatF X (succ₁ n) = X n
 
   -- From Peter: NatF in pure predicate logic.
