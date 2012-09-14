@@ -167,6 +167,10 @@ map-++-commute f (lcons x {xs} Lxs) ys =
      ⟩
   map f (x ∷ xs) ++ map f ys ∎
 
+map≡[] : ∀ {f xs} → List xs → map f xs ≡ [] → xs ≡ []
+map≡[] lnil                   h = refl
+map≡[] {f} (lcons x {xs} Lxs) h = ⊥-elim ([]≢cons (trans (sym h) (map-∷ f x xs)))
+
 -- Reverse properties
 
 reverse-[x]≡[x] : ∀ x → reverse (x ∷ []) ≡ x ∷ []

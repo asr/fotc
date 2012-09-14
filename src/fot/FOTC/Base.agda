@@ -166,4 +166,5 @@ postulate
   true≢false : true ≢ false
 --  0≢S        : ∀ {n} → zero ≢ succ · n
   0≢S        : ∀ {n} → zero ≢ succ₁ n
+  []≢cons    : ∀ {x xs} → [] ≢ x ∷ xs
 {-# ATP axiom true≢false 0≢S #-}
