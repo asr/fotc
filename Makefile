@@ -299,6 +299,7 @@ consistency_fot : $(consistency_fot_files)
                 -i $(std_lib_path)/src/ \
 	        -inotes \
 	        -inotes/agda-interface \
+	        -inotes/discrimination-rules \
 	        -inotes/fixed-points \
                 -inotes/papers/fossacs-2012 \
                 -inotes/papers/paper-2011/ \
