@@ -49,7 +49,7 @@ ordList-Bool (lncons {i} {is} Ni LNis) = prf $ ordList-Bool LNis
 
 ≤-ItemTree-Bool : ∀ {item t} → N item → Tree t → Bool (≤-ItemTree item t)
 ≤-ItemTree-Bool {item} Nt tnil = prf
-  where postulate prf : Bool (≤-ItemTree item nilTree)
+  where postulate prf : Bool (≤-ItemTree item nil)
         {-# ATP prove prf #-}
 ≤-ItemTree-Bool {item} Nitem (ttip {i} Ni) = prf
   where postulate prf : Bool (≤-ItemTree item (tip i))
@@ -63,7 +63,7 @@ ordList-Bool (lncons {i} {is} Ni LNis) = prf $ ordList-Bool LNis
 
 ≤-TreeItem-Bool : ∀ {t item} → Tree t → N item → Bool (≤-TreeItem t item)
 ≤-TreeItem-Bool {item = item } tnil Nt = prf
-  where postulate prf : Bool (≤-TreeItem nilTree item)
+  where postulate prf : Bool (≤-TreeItem nil item)
         {-# ATP prove prf #-}
 ≤-TreeItem-Bool {item = item} (ttip {i} Ni) Nitem = prf
   where postulate prf : Bool (≤-TreeItem (tip i) item)
@@ -77,7 +77,7 @@ ordList-Bool (lncons {i} {is} Ni LNis) = prf $ ordList-Bool LNis
 
 ordTree-Bool : ∀ {t} → Tree t → Bool (ordTree t)
 ordTree-Bool tnil = prf
-  where postulate prf : Bool (ordTree nilTree)
+  where postulate prf : Bool (ordTree nil)
         {-# ATP prove prf #-}
 
 ordTree-Bool (ttip {i} Ni) = prf

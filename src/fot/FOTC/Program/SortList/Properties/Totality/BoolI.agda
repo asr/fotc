@@ -33,7 +33,7 @@ postulate ordList-Bool : ∀ {is} → ListN is → Bool (ordList is)
 
 ≤-ItemTree-Bool : ∀ {item t} → N item → Tree t →
                   Bool (≤-ItemTree item t)
-≤-ItemTree-Bool {item} _ tnil = subst Bool (sym $ ≤-ItemTree-nilTree item) btrue
+≤-ItemTree-Bool {item} _ tnil = subst Bool (sym $ ≤-ItemTree-nil item) btrue
 ≤-ItemTree-Bool {item} Nitem (ttip {i} Ni) =
   subst Bool (sym $ ≤-ItemTree-tip item i) (≤-Bool Nitem Ni)
 ≤-ItemTree-Bool {item} Nitem  (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
@@ -43,7 +43,7 @@ postulate ordList-Bool : ∀ {is} → ListN is → Bool (ordList is)
 
 ≤-TreeItem-Bool : ∀ {t item} → Tree t → N item → Bool (≤-TreeItem t item)
 ≤-TreeItem-Bool {item = item} tnil _ =
-  subst Bool (sym $ ≤-TreeItem-nilTree item) btrue
+  subst Bool (sym $ ≤-TreeItem-nil item) btrue
 ≤-TreeItem-Bool {item = item} (ttip {i} Ni) Nitem =
   subst Bool (sym $ ≤-TreeItem-tip i item) (≤-Bool Ni Nitem)
 ≤-TreeItem-Bool {item = item} (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂) Nitem =
@@ -52,7 +52,7 @@ postulate ordList-Bool : ∀ {is} → ListN is → Bool (ordList is)
         (&&-Bool (≤-TreeItem-Bool Tt₁ Nitem) (≤-TreeItem-Bool Tt₂ Nitem))
 
 ordTree-Bool : ∀ {t} → Tree t → Bool (ordTree t)
-ordTree-Bool tnil          = subst Bool (sym ordTree-nilTree) btrue
+ordTree-Bool tnil          = subst Bool (sym ordTree-nil) btrue
 ordTree-Bool (ttip {i} Ni) = subst Bool (sym $ ordTree-tip i) btrue
 ordTree-Bool (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
   subst Bool

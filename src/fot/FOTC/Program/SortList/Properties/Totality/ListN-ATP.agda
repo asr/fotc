@@ -16,7 +16,7 @@ open import FOTC.Program.SortList.SortList
 -- The function flatten generates a ListN.
 flatten-ListN : ∀ {t} → Tree t → ListN (flatten t)
 flatten-ListN tnil = prf
-  where postulate prf : ListN (flatten nilTree)
+  where postulate prf : ListN (flatten nil)
         {-# ATP prove prf #-}
 flatten-ListN (ttip {i} Ni) = prf
   where postulate prf : ListN (flatten (tip i))

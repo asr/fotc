@@ -29,7 +29,7 @@ open import FOTC.Program.SortList.SortList
 toTree-OrdTree : ∀ {item t} → N item → Tree t → OrdTree t →
                  OrdTree (toTree · item · t)
 toTree-OrdTree {item} Nitem tnil OTt = prf
-  where postulate prf : OrdTree (toTree · item · nilTree)
+  where postulate prf : OrdTree (toTree · item · nil)
         {-# ATP prove prf #-}
 
 toTree-OrdTree {item} Nitem (ttip {i} Ni) OTt =
@@ -70,7 +70,7 @@ toTree-OrdTree {item} Nitem (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTtnode =
 
 -- makeTree-TreeOrd : ∀ {is} → ListN is → OrdTree (makeTree is)
 -- makeTree-TreeOrd LNis =
---   ind-lit OrdTree toTree nilTree LNis ordTree-nilTree
+--   ind-lit OrdTree toTree nil LNis ordTree-nil
 --           (λ Nx y TOy → toTree-OrdTree Nx {!!} TOy)
 
 makeTree-OrdTree : ∀ {is} → ListN is → OrdTree (makeTree is)
@@ -109,7 +109,7 @@ makeTree-OrdTree (lncons {i} {is} Ni Lis) = prf $ makeTree-OrdTree Lis
 -- Burstall's lemma: If t is ordered then (flatten t) is ordered.
 flatten-OrdList : ∀ {t} → Tree t → OrdTree t → OrdList (flatten t)
 flatten-OrdList tnil OTt =
-  subst (λ t → OrdList t) (sym flatten-nilTree) ordList-[]
+  subst (λ t → OrdList t) (sym flatten-nil) ordList-[]
 
 flatten-OrdList (ttip {i} Ni) OTt = prf
   where postulate prf : OrdList (flatten (tip i))

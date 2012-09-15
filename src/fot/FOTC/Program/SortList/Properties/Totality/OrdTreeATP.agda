@@ -45,8 +45,8 @@ toTree-OrdTree-helper₁ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → GT i₁ i
                          Tree t →
                          LE-TreeItem t i₁ →
                          LE-TreeItem (toTree · i₂ · t) i₁
-toTree-OrdTree-helper₁ {i₁} {i₂} .{nilTree} Ni₁ Ni₂ i₁>i₂ tnil t≤i₁ = prf
-  where postulate prf : LE-TreeItem (toTree · i₂ · nilTree) i₁
+toTree-OrdTree-helper₁ {i₁} {i₂} .{nil} Ni₁ Ni₂ i₁>i₂ tnil t≤i₁ = prf
+  where postulate prf : LE-TreeItem (toTree · i₂ · nil) i₁
         {-# ATP prove prf x<y→x≤y #-}
 
 toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (ttip {j} Nj) t≤i₁ =
@@ -85,8 +85,8 @@ toTree-OrdTree-helper₂ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → LE i₁ i
                          Tree t →
                          LE-ItemTree i₁ t →
                          LE-ItemTree i₁ (toTree · i₂ · t)
-toTree-OrdTree-helper₂ {i₁} {i₂} .{nilTree} Ni₁ Ni₂ i₁≤i₂ tnil i₁≤t = prf
-  where postulate prf : LE-ItemTree i₁ (toTree · i₂ · nilTree)
+toTree-OrdTree-helper₂ {i₁} {i₂} .{nil} Ni₁ Ni₂ i₁≤i₂ tnil i₁≤t = prf
+  where postulate prf : LE-ItemTree i₁ (toTree · i₂ · nil)
         {-# ATP prove prf #-}
 
 toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (ttip {j} Nj) i₁≤t =

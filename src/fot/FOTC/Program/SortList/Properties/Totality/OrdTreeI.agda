@@ -61,10 +61,10 @@ toTree-OrdTree-helper₁ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → GT i₁ i
                          Tree t →
                          LE-TreeItem t i₁ →
                          LE-TreeItem (toTree · i₂ · t) i₁
-toTree-OrdTree-helper₁ {i₁} {i₂} .{nilTree} Ni₁ Ni₂ i₁>i₂ tnil _ =
-  ≤-TreeItem (toTree · i₂ · nilTree) i₁
-    ≡⟨ subst (λ t → ≤-TreeItem (toTree · i₂ · nilTree) i₁ ≡ ≤-TreeItem t i₁)
-             (toTree-nilTree i₂)
+toTree-OrdTree-helper₁ {i₁} {i₂} .{nil} Ni₁ Ni₂ i₁>i₂ tnil _ =
+  ≤-TreeItem (toTree · i₂ · nil) i₁
+    ≡⟨ subst (λ t → ≤-TreeItem (toTree · i₂ · nil) i₁ ≡ ≤-TreeItem t i₁)
+             (toTree-nil i₂)
              refl
     ⟩
   ≤-TreeItem (tip i₂) i₁
@@ -321,10 +321,10 @@ toTree-OrdTree-helper₂ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → LE i₁ i
                          Tree t →
                          LE-ItemTree i₁ t →
                          LE-ItemTree i₁ (toTree · i₂ · t)
-toTree-OrdTree-helper₂ {i₁} {i₂} .{nilTree} _ _ i₁≤i₂ tnil _ =
-  ≤-ItemTree i₁ (toTree · i₂ · nilTree)
-    ≡⟨ subst (λ t → ≤-ItemTree i₁ (toTree · i₂ · nilTree) ≡ ≤-ItemTree i₁ t)
-             (toTree-nilTree i₂)
+toTree-OrdTree-helper₂ {i₁} {i₂} .{nil} _ _ i₁≤i₂ tnil _ =
+  ≤-ItemTree i₁ (toTree · i₂ · nil)
+    ≡⟨ subst (λ t → ≤-ItemTree i₁ (toTree · i₂ · nil) ≡ ≤-ItemTree i₁ t)
+             (toTree-nil i₂)
              refl
     ⟩
   ≤-ItemTree i₁ (tip i₂)

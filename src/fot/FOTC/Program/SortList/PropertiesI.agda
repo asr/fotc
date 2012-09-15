@@ -44,10 +44,10 @@ ind-lit A f y₀ (lncons {i} {is} Ni LNis) Ay₀ ih =
 toTree-OrdTree : ∀ {item t} → N item → Tree t → OrdTree t →
                  OrdTree (toTree · item · t)
 toTree-OrdTree {item} Nitem tnil _ =
-  ordTree (toTree · item · nilTree)
-    ≡⟨ subst (λ x → ordTree (toTree · item · nilTree) ≡
+  ordTree (toTree · item · nil)
+    ≡⟨ subst (λ x → ordTree (toTree · item · nil) ≡
                     ordTree x)
-             (toTree-nilTree item)
+             (toTree-nil item)
              refl
     ⟩
   ordTree (tip item)
@@ -456,27 +456,27 @@ toTree-OrdTree {item} Nitem (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTtnode =
 
 -- makeTree-TreeOrd : ∀ {is} → ListN is → OrdTree (makeTree is)
 -- makeTree-TreeOrd LNis =
---   ind-lit OrdTree toTree nilTree LNis ordTree-nilTree
+--   ind-lit OrdTree toTree nil LNis ordTree-nil
 --           (λ Nx y TOy → toTree-OrdTree Nx {!!} TOy)
 
 makeTree-OrdTree : ∀ {is} → ListN is → OrdTree (makeTree is)
 makeTree-OrdTree lnnil =
-  ordTree (lit toTree [] nilTree)
-    ≡⟨ subst (λ t → ordTree (lit toTree [] nilTree) ≡ ordTree t)
-             (lit-[] toTree nilTree)
+  ordTree (lit toTree [] nil)
+    ≡⟨ subst (λ t → ordTree (lit toTree [] nil) ≡ ordTree t)
+             (lit-[] toTree nil)
              refl
     ⟩
-  ordTree nilTree
-    ≡⟨ ordTree-nilTree ⟩
+  ordTree nil
+    ≡⟨ ordTree-nil ⟩
   true ∎
 
 makeTree-OrdTree (lncons {i} {is} Ni Lis) =
-  ordTree (lit toTree (i ∷ is) nilTree)
-    ≡⟨ subst (λ t → ordTree (lit toTree (i ∷ is) nilTree) ≡ ordTree t)
-             (lit-∷ toTree i is nilTree)
+  ordTree (lit toTree (i ∷ is) nil)
+    ≡⟨ subst (λ t → ordTree (lit toTree (i ∷ is) nil) ≡ ordTree t)
+             (lit-∷ toTree i is nil)
              refl
     ⟩
-  ordTree (toTree · i · (lit toTree is nilTree))
+  ordTree (toTree · i · (lit toTree is nil))
     ≡⟨ toTree-OrdTree Ni (makeTree-Tree Lis) (makeTree-OrdTree Lis) ⟩
   true ∎
 
@@ -529,7 +529,7 @@ makeTree-OrdTree (lncons {i} {is} Ni Lis) =
 -- Burstall's lemma: If t is ordered then (flatten t) is ordered.
 flatten-OrdList : ∀ {t} → Tree t → OrdTree t → OrdList (flatten t)
 flatten-OrdList tnil OTt =
-  subst (λ t → OrdList t) (sym flatten-nilTree) ordList-[]
+  subst (λ t → OrdList t) (sym flatten-nil) ordList-[]
 
 flatten-OrdList (ttip {i} Ni) OTt =
   ordList (flatten (tip i))

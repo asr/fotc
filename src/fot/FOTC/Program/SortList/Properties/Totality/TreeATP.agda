@@ -20,7 +20,7 @@ open import FOTC.Data.Nat.Inequalities
 
 toTree-Tree : ∀ {item t} → N item → Tree t → Tree (toTree · item · t)
 toTree-Tree {item} Nitem tnil = prf
-  where postulate prf : Tree (toTree · item · nilTree)
+  where postulate prf : Tree (toTree · item · nil)
         {-# ATP prove prf #-}
 
 toTree-Tree {item} Nitem (ttip {i} Ni) = prf $ x>y∨x≤y Ni Nitem

@@ -26,11 +26,11 @@ flatten-OrdList-helper : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ �
 
 flatten-OrdList-helper {t₂ = t₂} tnil Ni Tt₂ OTt =
   subst (λ t → LE-Lists t (flatten t₂))
-        (sym (flatten-nilTree))
+        (sym (flatten-nil))
         (≤-Lists-[] (flatten t₂))
 
 flatten-OrdList-helper (ttip {i₁} Ni₁) Tt₁ tnil OTt = prf
-  where postulate prf : LE-Lists (flatten (tip i₁)) (flatten nilTree)
+  where postulate prf : LE-Lists (flatten (tip i₁)) (flatten nil)
         {-# ATP prove prf #-}
 
 flatten-OrdList-helper {i = i} (ttip {i₁} Ni₁) Ni (ttip {i₂} Ni₂) OTt = prf
@@ -116,7 +116,7 @@ flatten-OrdList-helper {i = i} (tnode {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
   helper₂ = ordTree-Bool tnil
   helper₃ = ≤-TreeItem-Bool (tnode Tt₁₁ Ni₁ Tt₁₂) Ni
   helper₄ = ≤-ItemTree-Bool Ni tnil
-  helper₅ = trans (sym (ordTree-node (node t₁₁ i₁ t₁₂) i nilTree )) OTt
+  helper₅ = trans (sym (ordTree-node (node t₁₁ i₁ t₁₂) i nil )) OTt
 
   -- Helper terms to get the conjuncts from the third conjunct of OTt.
   helper₆ = ≤-TreeItem-Bool Tt₁₁ Ni
@@ -124,27 +124,27 @@ flatten-OrdList-helper {i = i} (tnode {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
   helper₈ = trans (sym (≤-TreeItem-node t₁₁ i₁ t₁₂ i))
                   (&&-list₄-t₃ helper₁ helper₂ helper₃ helper₄ helper₅)
 
-  lemma₁ : LE-Lists (flatten t₁₁) (flatten nilTree)
+  lemma₁ : LE-Lists (flatten t₁₁) (flatten nil)
   lemma₁ = flatten-OrdList-helper Tt₁₁ Ni tnil OT
     where
-    postulate OT : OrdTree (node t₁₁ i nilTree)
+    postulate OT : OrdTree (node t₁₁ i nil)
     {-# ATP prove OT leftSubTree-OrdTree
                      &&-list₂-t &&-list₄-t
                      helper₁ helper₂ helper₃ helper₄ helper₅ helper₆
                      helper₇ helper₈
     #-}
 
-  lemma₂ : LE-Lists (flatten t₁₂) (flatten nilTree)
+  lemma₂ : LE-Lists (flatten t₁₂) (flatten nil)
   lemma₂ = flatten-OrdList-helper Tt₁₂ Ni tnil OT
     where
-    postulate OT : OrdTree (node t₁₂ i nilTree)
+    postulate OT : OrdTree (node t₁₂ i nil)
     {-# ATP prove OT rightSubTree-OrdTree
                      &&-list₄-t
                      helper₁ helper₂ helper₃ helper₄ helper₅ helper₆
                      helper₇ helper₈
     #-}
 
-  postulate prf : LE-Lists (flatten (node t₁₁ i₁ t₁₂)) (flatten nilTree)
+  postulate prf : LE-Lists (flatten (node t₁₁ i₁ t₁₂)) (flatten nil)
   {-# ATP prove prf xs≤zs→ys≤zs→xs++ys≤zs flatten-ListN lemma₁ lemma₂ #-}
 
 flatten-OrdList-helper {i = i} (tnode {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ Tt₁₂) Ni
