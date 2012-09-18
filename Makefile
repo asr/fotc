@@ -245,24 +245,26 @@ type_check_fot : $(type_check_fot_files) \
 ##############################################################################
 # FOT: Generated conjectures
 
-# In the FOT we use the snapshot_create_fot rule.
+# In FOT we use the snapshot_create_fot rule.
 
 ##############################################################################
 # FOT: Snapshot
 
-# We cannot use $(AGDA2ATP) due to the output directory.
 %.snapshot_create_fot :
 	$(AGDA) -i$(fot_path) $*.agda
 	$(AGDA2ATP) -i$(fot_path) --only-files --output-dir=$(snapshot_dir) $*.agda
 
-# We cannot use $(AGDA2ATP) due to the output directory.
 %.snapshot_compare_fot :
 	@echo "Processing $*.agda"
 	@$(AGDA) -i$(fot_path) $*.agda
 	@$(AGDA2ATP) -v 0 -i$(fot_path) --snapshot-test \
 	            --snapshot-dir=$(snapshot_dir) $*.agda
 
-snapshot_create_fot : $(snapshot_create_fot_files)
+snapshot_create_fot_aux : $(snapshot_create_fot_files)
+
+snapshot_create_fot :
+	rm -r -f $(snapshot_dir)
+	make snapshot_create_fot_aux
 	@echo "$@ succeeded!"
 
 snapshot_compare_fot : $(snapshot_compare_fot_files)
@@ -342,7 +344,6 @@ agda_changed : clean
 	make type_check_fot
 	make snapshot_compare_fot
 	make type_check_notes
-	make prove_notes
 	cd $(dump-agdai_path) && cabal clean && cabal configure && cabal build
 	@echo "$@ succeeded!"
 

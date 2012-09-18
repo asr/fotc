@@ -24,4 +24,5 @@ postulate commutatorInverse : ∀ a b → [ a , b ] · [ b , a ] ≡ ε
 postulate
   commutatorAssocCenter : (∀ a b c → commutatorAssoc a b c) →
                           (∀ a b c → a · [ b , c ] ≡ [ b , c ] · a)
-{-# ATP prove commutatorAssocCenter #-}
+-- See issue #6.
+-- {-# ATP prove commutatorAssocCenter #-}
