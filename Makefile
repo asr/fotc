@@ -178,7 +178,7 @@ refute_theorems : $(refute_theorems_files)
 	@$(AGDA) -i$(options_path) $*.agda
 
 options : $(options_files)
-	shelltest $(options_path)/options.test
+	shelltest --color $(options_path)/options.test
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -188,7 +188,7 @@ options : $(options_files)
 	@$(AGDA) -i$(errors_path) $*.agda
 
 errors : $(errors_files)
-	shelltest $(errors_path)/errors.test
+	shelltest --color $(errors_path)/errors.test
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -343,7 +343,7 @@ agda_changed : clean
 	make snapshot_compare_fot
 	make type_check_notes
 	make prove_notes
-	cd $(dump-agdai_path) && cabal clean && cabal install
+	cd $(dump-agdai_path) && cabal clean && cabal configure && cabal build
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -407,6 +407,13 @@ git_pre_commit :
 	@make doc
 	@make hlint
 	@echo "$@ succeeded!"
+
+##############################################################################
+# Install
+
+install :
+	cd $(agda2atp_path) && cabal install
+	cd $(dump-agdai_path) && cabal install
 
 ##############################################################################
 # Haskell program coverage
