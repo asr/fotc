@@ -8,9 +8,7 @@
 module FOT.FOTC.Program.Mirror.TreeR where
 
 open import FOTC.Base
-
 open import FOTC.Data.List.LT-Cons
-
 open import FOTC.Program.Mirror.Type
 
 ------------------------------------------------------------------------------

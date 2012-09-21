@@ -10,6 +10,7 @@ module FOTC.Program.SortList.PropertiesATP where
 open import Common.Function
 
 open import FOTC.Base
+open FOTC.Base.BList
 open import FOTC.Data.Bool.PropertiesATP
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesATP

@@ -14,7 +14,7 @@ open import FOTC.Data.List.LT-Length.PropertiesI
 open import FOTC.Data.List.PropertiesI
 
 import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI
-open module WF-LT = FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI.WF-LT
+open FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI.WF-LT
 
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Type

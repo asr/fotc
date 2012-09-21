@@ -18,7 +18,7 @@ open import FOTC.Base
 open import FOTC.Data.Nat
 
 import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI
-open module WF = FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI.WF-LT
+open FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI.WF-LT
 
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI

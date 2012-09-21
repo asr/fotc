@@ -8,7 +8,7 @@
 module Predicates where
 
 open import FOTC.Base
-
+open FOTC.Base.BList
 open import FOTC.Base.PropertiesI
 
 ------------------------------------------------------------------------------

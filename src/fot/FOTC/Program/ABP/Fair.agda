@@ -14,6 +14,7 @@
 module FOTC.Program.ABP.Fair where
 
 open import FOTC.Base
+open FOTC.Base.BList
 open import FOTC.Data.List
 open import FOTC.Program.ABP.Terms
 

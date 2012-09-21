@@ -7,15 +7,11 @@
 
 module FOTC.Data.Nat where
 
-open import FOTC.Base
-
 -- We add 3 to the fixities of the standard library.
 infixl 10 _*_
 infixl 9  _+_ _∸_
 
-------------------------------------------------------------------------------
--- The FOTC natural numbers type (inductive predicate for the total
--- natural numbers).
+open import FOTC.Base
 open import FOTC.Data.Nat.Type public
 
 ------------------------------------------------------------------------------

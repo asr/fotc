@@ -8,6 +8,7 @@
 module FOTC.Relation.Binary.Bisimilarity where
 
 open import FOTC.Base
+open FOTC.Base.BList
 
 -- We add 3 to the fixities of the standard library.
 infix 7 _≈_

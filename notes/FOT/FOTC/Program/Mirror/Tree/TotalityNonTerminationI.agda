@@ -13,6 +13,7 @@ module FOT.FOTC.Program.Mirror.Tree.TotalityNonTerminationI where
 open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
+open FOTC.Base.BList
 open import FOTC.Data.List
 open import FOTC.Program.Mirror.Mirror
 open import FOTC.Program.Mirror.Type

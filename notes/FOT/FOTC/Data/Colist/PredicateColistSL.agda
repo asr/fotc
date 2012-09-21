@@ -9,6 +9,7 @@
 module FOT.FOTC.Data.Colist.PredicateColistSL where
 
 open import FOTC.Base
+open FOTC.Base.BList
 
 open import Coinduction
 

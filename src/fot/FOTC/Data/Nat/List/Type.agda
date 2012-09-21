@@ -8,6 +8,7 @@
 module FOTC.Data.Nat.List.Type where
 
 open import FOTC.Base
+open FOTC.Base.BList
 open import FOTC.Data.Nat.Type
 
 ------------------------------------------------------------------------------

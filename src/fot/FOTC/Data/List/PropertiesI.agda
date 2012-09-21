@@ -11,6 +11,7 @@ open import Common.FOL.Relation.Binary.EqReasoning
 open import Common.Function
 
 open import FOTC.Base
+open FOTC.Base.BList
 open import FOTC.Data.List
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.EliminationProperties

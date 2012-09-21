@@ -21,6 +21,7 @@ module FOTC.Program.MapIterate.MapIterateI where
 open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
+open FOTC.Base.BList
 open import FOTC.Data.List
 open import FOTC.Relation.Binary.Bisimilarity
 

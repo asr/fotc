@@ -10,6 +10,7 @@ module FOTC.Program.SortList.Properties.Totality.BoolATP where
 open import Common.Function
 
 open import FOTC.Base
+open FOTC.Base.BList
 open import FOTC.Data.Bool.PropertiesATP
 open import FOTC.Data.Bool.Type
 open import FOTC.Data.Nat.List.Type

@@ -27,7 +27,6 @@ module FOTC.Base where
 
 -- We add 3 to the fixities of the standard library.
 infixl 9 _·_  -- The symbol is '\cdot'.
-infixr 8 _∷_
 infix  8 if_then_else_
 
 ------------------------------------------------------------------------------
@@ -43,14 +42,12 @@ open import Common.DefinitionsATP public
 --   t ::= x   | t · t |
 --      | true | false | if
 --      | 0    | succ  | pred | iszero
---      | nil  | cons  | null | head   | tail
 --      | loop
 
 postulate
   _·_                    : D → D → D  -- FOTC application.
   true false if          : D          -- FOTC partial Booleans.
   zero succ pred iszero  : D          -- FOTC partial natural numbers.
-  [] cons head tail null : D          -- FOTC lists.
   loop                   : D          -- FOTC looping programs.
 
 ------------------------------------------------------------------------------
@@ -79,22 +76,6 @@ abstract
   iszero₁ : D → D
   iszero₁ n = iszero · n
   -- {-# ATP definition iszero₁ #-}
-
-  _∷_  : D → D → D
-  x ∷ xs = cons · x · xs
-  -- {-# ATP definition _∷_ #-}
-
-  head₁ : D → D
-  head₁ xs = head · xs
-  -- {-# ATP definition head₁ #-}
-
-  tail₁ : D → D
-  tail₁ xs = tail · xs
-  -- {-# ATP definition tail₁ #-}
-
-  null₁ : D → D
-  null₁ xs = null · xs
-  -- {-# ATP definition null₁ #-}
 
 ------------------------------------------------------------------------------
 -- Conversion rules
@@ -133,25 +114,6 @@ postulate
   iszero-S : ∀ n → iszero₁ (succ₁ n) ≡ false
 {-# ATP axiom iszero-0 iszero-S #-}
 
--- Conversion rules for null.
-postulate
-  -- null-[] :          null · nil             ≡ true
-  -- null-∷  : ∀ x xs → null · (cons · x · xs) ≡ false
-  null-[] :          null₁ []       ≡ true
-  null-∷  : ∀ x xs → null₁ (x ∷ xs) ≡ false
-
--- Conversion rule for head.
-postulate
---  head-∷ : ∀ x xs → head · (cons · x · xs) ≡ x
-  head-∷ : ∀ x xs → head₁ (x ∷ xs) ≡ x
-{-# ATP axiom head-∷ #-}
-
--- Conversion rule for tail.
-postulate
---  tail-∷ : ∀ x xs → tail · (cons · x · xs) ≡ xs
-  tail-∷ : ∀ x xs → tail₁ (x ∷ xs) ≡ xs
-{-# ATP axiom tail-∷ #-}
-
 -- Conversion rule for loop.
 --
 -- The equation loop-eq adds anything to the logic (because
@@ -166,5 +128,50 @@ postulate
   true≢false : true ≢ false
 --  0≢S        : ∀ {n} → zero ≢ succ · n
   0≢S        : ∀ {n} → zero ≢ succ₁ n
-  []≢cons    : ∀ {x xs} → [] ≢ x ∷ xs
 {-# ATP axiom true≢false 0≢S #-}
+
+------------------------------------------------------------------------------
+-- FOTC combinators for lists, colists, streams, etc.
+
+module BList where
+
+  -- We add 3 to the fixities of the standard library.
+  infixr 8 _∷_
+
+  -- List constants.
+  postulate
+    [] cons head tail null : D  -- FOTC lists.
+
+  -- Definitions
+  abstract
+    _∷_  : D → D → D
+    x ∷ xs = cons · x · xs
+    -- {-# ATP definition _∷_ #-}
+
+    head₁ : D → D
+    head₁ xs = head · xs
+    -- {-# ATP definition head₁ #-}
+
+    tail₁ : D → D
+    tail₁ xs = tail · xs
+    -- {-# ATP definition tail₁ #-}
+
+    null₁ : D → D
+    null₁ xs = null · xs
+    -- {-# ATP definition null₁ #-}
+
+  -- Conversion rules for null.
+  postulate
+    null-[] :          null₁ []       ≡ true
+    null-∷  : ∀ x xs → null₁ (x ∷ xs) ≡ false
+
+  -- Conversion rule for head.
+  postulate head-∷ : ∀ x xs → head₁ (x ∷ xs) ≡ x
+  {-# ATP axiom head-∷ #-}
+
+  -- Conversion rule for tail.
+  postulate tail-∷ : ∀ x xs → tail₁ (x ∷ xs) ≡ xs
+  {-# ATP axiom tail-∷ #-}
+
+  -- Discrimination rules
+  postulate []≢cons    : ∀ {x xs} → [] ≢ x ∷ xs

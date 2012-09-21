@@ -11,9 +11,10 @@
 
 module FOT.FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI where
 
-open import FOTC.Base
-
 open import Common.FOL.Relation.Binary.EqReasoning
+
+open import FOTC.Base
+open FOTC.Base.BList
 
 open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesI

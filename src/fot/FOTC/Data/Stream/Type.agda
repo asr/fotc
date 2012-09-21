@@ -10,6 +10,7 @@
 module FOTC.Data.Stream.Type where
 
 open import FOTC.Base
+open FOTC.Base.BList
 
 ------------------------------------------------------------------------------
 -- The FOTC streams type (co-inductive predicate for total streams).

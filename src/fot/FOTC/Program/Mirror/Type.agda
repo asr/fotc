@@ -8,6 +8,7 @@
 module FOTC.Program.Mirror.Type where
 
 open import FOTC.Base
+open FOTC.Base.BList
 open import FOTC.Data.List
 
 ------------------------------------------------------------------------------

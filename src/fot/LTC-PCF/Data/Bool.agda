@@ -7,13 +7,10 @@
 
 module LTC-PCF.Data.Bool where
 
-open import LTC-PCF.Base
-
 -- We add 3 to the fixities of the standard library.
 infixr 9 _&&_
 
-------------------------------------------------------------------------------
--- The LTC-PCF Booleans type (inductive predicate for total Booleans).
+open import LTC-PCF.Base
 open import LTC-PCF.Data.Bool.Type public
 
 ------------------------------------------------------------------------------

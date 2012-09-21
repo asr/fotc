@@ -7,13 +7,11 @@
 
 module FOTC.Data.List where
 
-open import FOTC.Base
-
 -- We add 3 to the fixities of the standard library.
 infixr 8 _++_
 
-------------------------------------------------------------------------------
--- The FOTC lists type (inductive predicate for total lists).
+open import FOTC.Base
+open FOTC.Base.BList
 open import FOTC.Data.List.Type public
 
 ------------------------------------------------------------------------------

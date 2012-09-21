@@ -8,6 +8,7 @@
 module FOTC.Program.Mirror.Tree.Totality where
 
 open import FOTC.Base
+open FOTC.Base.BList
 open import FOTC.Data.List
 open import FOTC.Program.Mirror.Forest.Totality
 open import FOTC.Program.Mirror.Mirror

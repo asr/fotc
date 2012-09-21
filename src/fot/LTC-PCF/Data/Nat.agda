@@ -7,16 +7,12 @@
 
 module LTC-PCF.Data.Nat where
 
-open import LTC-PCF.Base
-open import LTC-PCF.Data.Nat.Rec
-
 -- We add 3 to the fixities of the standard library.
 infixl 10 _*_
 infixl 9  _+_ _∸_
 
-------------------------------------------------------------------------------
--- The LTC-PCF natural numbers type (inductive predicate for total
--- natural numbers).
+open import LTC-PCF.Base
+open import LTC-PCF.Data.Nat.Rec
 open import LTC-PCF.Data.Nat.Type public
 
 ------------------------------------------------------------------------------

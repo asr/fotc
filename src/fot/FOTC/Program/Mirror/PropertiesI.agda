@@ -10,6 +10,7 @@ module FOTC.Program.Mirror.PropertiesI where
 open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
+open FOTC.Base.BList
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI using ( ++-leftIdentity ; reverse-[x]≡[x] )
 open import FOTC.Program.Mirror.Type

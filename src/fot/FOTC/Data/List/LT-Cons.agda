@@ -8,6 +8,7 @@
 module FOTC.Data.List.LT-Cons where
 
 open import FOTC.Base
+open FOTC.Base.BList
 
 ------------------------------------------------------------------------------
 -- Well-founded relation on lists based on their structure.

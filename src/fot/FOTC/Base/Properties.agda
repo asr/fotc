@@ -8,7 +8,9 @@
 module FOTC.Base.Properties where
 
 open import Common.Function
+
 open import FOTC.Base
+open FOTC.Base.BList
 
 ------------------------------------------------------------------------------
 

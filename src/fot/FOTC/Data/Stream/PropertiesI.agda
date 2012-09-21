@@ -8,6 +8,7 @@
 module FOTC.Data.Stream.PropertiesI where
 
 open import FOTC.Base
+open FOTC.Base.BList
 open import FOTC.Base.PropertiesI
 open import FOTC.Data.Stream
 open import FOTC.Relation.Binary.Bisimilarity

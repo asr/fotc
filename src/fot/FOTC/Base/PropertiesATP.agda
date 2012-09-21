@@ -8,6 +8,7 @@
 module FOTC.Base.PropertiesATP where
 
 open import FOTC.Base
+open FOTC.Base.BList
 
 ------------------------------------------------------------------------------
 
