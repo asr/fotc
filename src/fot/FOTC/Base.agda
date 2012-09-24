@@ -91,25 +91,25 @@ abstract
 -- term constants.
 
 -- Conversion rules for Booleans.
+-- if-true  : ∀ d₁ {d₂} → if · true  · d₁ · d₂ ≡ d₁
+-- if-false : ∀ {d₁} d₂ → if · false · d₁ · d₂ ≡ d₂
 postulate
-  -- if-true  : ∀ d₁ {d₂} → if · true  · d₁ · d₂ ≡ d₁
-  -- if-false : ∀ {d₁} d₂ → if · false · d₁ · d₂ ≡ d₂
   if-true  : ∀ d₁ {d₂} → if true  then d₁ else d₂ ≡ d₁
   if-false : ∀ {d₁} d₂ → if false then d₁ else d₂ ≡ d₂
 {-# ATP axiom if-true if-false #-}
 
 -- Conversion rules for pred.
+-- N.B. We don't need this equation.
+-- pred-0 :       pred · zero     ≡ zero
+-- pred-S : ∀ n → pred · (succ · n) ≡ n
 postulate
-  -- N.B. We don't need this equation.
-  -- pred-0 :       pred · zero     ≡ zero
-  -- pred-S : ∀ n → pred · (succ · n) ≡ n
   pred-S : ∀ n → pred₁ (succ₁ n) ≡ n
 {-# ATP axiom pred-S #-}
 
 -- Conversion rules for iszero.
+-- iszero-0 :       iszero · zero       ≡ true
+-- iszero-S : ∀ n → iszero · (succ · n) ≡ false
 postulate
-  -- iszero-0 :       iszero · zero       ≡ true
-  -- iszero-S : ∀ n → iszero · (succ · n) ≡ false
   iszero-0 :       iszero₁ zero      ≡ true
   iszero-S : ∀ n → iszero₁ (succ₁ n) ≡ false
 {-# ATP axiom iszero-0 iszero-S #-}
@@ -124,9 +124,9 @@ postulate loop-eq : loop ≡ loop
 ------------------------------------------------------------------------------
 -- Discrimination rules
 
+--  0≢S : ∀ {n} → zero ≢ succ · n
 postulate
   true≢false : true ≢ false
---  0≢S        : ∀ {n} → zero ≢ succ · n
   0≢S        : ∀ {n} → zero ≢ succ₁ n
 {-# ATP axiom true≢false 0≢S #-}
 
@@ -161,17 +161,22 @@ module BList where
     -- {-# ATP definition null₁ #-}
 
   -- Conversion rules for null.
+  -- null-[] :          null · nil             ≡ true
+  -- null-∷  : ∀ x xs → null · (cons · x · xs) ≡ false
   postulate
     null-[] :          null₁ []       ≡ true
     null-∷  : ∀ x xs → null₁ (x ∷ xs) ≡ false
 
   -- Conversion rule for head.
+  -- head-∷ : ∀ x xs → head · (cons · x · xs) ≡ x
   postulate head-∷ : ∀ x xs → head₁ (x ∷ xs) ≡ x
   {-# ATP axiom head-∷ #-}
 
   -- Conversion rule for tail.
+  -- tail-∷ : ∀ x xs → tail · (cons · x · xs) ≡ xs
   postulate tail-∷ : ∀ x xs → tail₁ (x ∷ xs) ≡ xs
   {-# ATP axiom tail-∷ #-}
 
   -- Discrimination rules
-  postulate []≢cons    : ∀ {x xs} → [] ≢ x ∷ xs
+  -- postulate []≢cons : ∀ {x xs} → [] ≢ cons · x · xs
+  postulate []≢cons : ∀ {x xs} → [] ≢ x ∷ xs
