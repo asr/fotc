@@ -161,7 +161,7 @@ module BList where
     -- {-# ATP definition null₁ #-}
 
   -- Conversion rules for null.
-  -- null-[] :          null · nil             ≡ true
+  -- null-[] :          null · []              ≡ true
   -- null-∷  : ∀ x xs → null · (cons · x · xs) ≡ false
   postulate
     null-[] :          null₁ []       ≡ true
