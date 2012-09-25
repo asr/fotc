@@ -41,11 +41,11 @@ postulate
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
-  Stream-gfp₂ : (P : D → Set) →
-                -- P is post-fixed point of StreamF.
-                (∀ {xs} → P xs → ∃[ x' ] ∃[ xs' ] P xs' ∧ xs ≡ x' ∷ xs') →
-                -- Stream is greater than P.
-                ∀ {xs} → P xs → Stream xs
+  Stream-gfp₂ : (A : D → Set) →
+                -- A is post-fixed point of StreamF.
+                (∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] A xs' ∧ xs ≡ x' ∷ xs') →
+                -- Stream is greater than A.
+                ∀ {xs} → A xs → Stream xs
 
 -- Because a greatest post-fixed point is a fixed-point, then the
 -- Stream predicate is also a pre-fixed point of the functional
@@ -55,10 +55,10 @@ postulate
 Stream-gfp₃ : ∀ {xs} →
               (∃[ x' ] ∃[ xs' ] Stream xs' ∧ xs ≡ x' ∷ xs') →
               Stream xs
-Stream-gfp₃ h = Stream-gfp₂ P helper h
+Stream-gfp₃ h = Stream-gfp₂ A helper h
   where
-  P : D → Set
-  P ws = ∃[ w' ] ∃[ ws' ] Stream ws' ∧ ws ≡ w' ∷ ws'
+  A : D → Set
+  A ws = ∃[ w' ] ∃[ ws' ] Stream ws' ∧ ws ≡ w' ∷ ws'
 
-  helper : ∀ {xs} → P xs → ∃[ x' ] ∃[ xs' ] P xs' ∧ xs ≡ x' ∷ xs'
+  helper : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] A xs' ∧ xs ≡ x' ∷ xs'
   helper (_ , _ , Sxs' , xs≡x'∷xs') = _ , _ , Stream-gfp₁ Sxs' , xs≡x'∷xs'

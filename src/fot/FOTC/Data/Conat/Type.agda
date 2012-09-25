@@ -49,11 +49,11 @@ postulate
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
-  Conat-gfp₂ : (P : D → Set) →
-               -- P is post-fixed point of ConatF.
-               (∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')) →
-               -- Conat is greater than P.
-               ∀ {n} → P n → Conat n
+  Conat-gfp₂ : (A : D → Set) →
+               -- A is post-fixed point of ConatF.
+               (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n')) →
+               -- Conat is greater than A.
+               ∀ {n} → A n → Conat n
 
 -- Because a greatest post-fixed point is a fixed-point, then the
 -- Conat predicate is also a pre-fixed point of the functional ConatF,
@@ -63,11 +63,11 @@ postulate
 Conat-gfp₃ : ∀ {n} →
              (n ≡ zero ∨ (∃[ n' ] Conat n' ∧ n ≡ succ₁ n')) →
              Conat n
-Conat-gfp₃ h = Conat-gfp₂ P helper h
+Conat-gfp₃ h = Conat-gfp₂ A helper h
   where
-  P : D → Set
-  P m = m ≡ zero ∨ (∃[ m' ] Conat m' ∧ m ≡ succ₁ m')
+  A : D → Set
+  A m = m ≡ zero ∨ (∃[ m' ] Conat m' ∧ m ≡ succ₁ m')
 
-  helper : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
+  helper : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n')
   helper (inj₁ n≡0) = inj₁ n≡0
   helper (inj₂ (n' , CNn' , n≡Sn')) = inj₂ (n' , Conat-gfp₁ CNn' , n≡Sn')

@@ -51,12 +51,12 @@ postulate
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
-  Fair-gfp₂ : (P : D → Set) →
-              -- P is post-fixed point of FairF.
-              (∀ {fs} → P fs →
-               ∃[ ft ] ∃[ fs' ] F*T ft ∧ P fs' ∧ fs ≡ ft ++ fs') →
-              -- Fair is greater than P.
-              ∀ {fs} → P fs → Fair fs
+  Fair-gfp₂ : (A : D → Set) →
+              -- A is post-fixed point of FairF.
+              (∀ {fs} → A fs →
+               ∃[ ft ] ∃[ fs' ] F*T ft ∧ A fs' ∧ fs ≡ ft ++ fs') →
+              -- Fair is greater than A.
+              ∀ {fs} → A fs → Fair fs
 
 -- Because a greatest post-fixed point is a fixed-point, then the Fair
 -- predicate is also a pre-fixed point of the functional FairF, i.e.
@@ -65,10 +65,10 @@ postulate
 Fair-gfp₃ : ∀ {fs} →
             (∃[ ft ] ∃[ fs' ] F*T ft ∧ Fair fs' ∧ fs ≡ ft ++ fs') →
             Fair fs
-Fair-gfp₃ h = Fair-gfp₂ P helper h
+Fair-gfp₃ h = Fair-gfp₂ A helper h
   where
-  P : D → Set
-  P ws = ∃[ wl ] ∃[ ws' ] F*T wl ∧ Fair ws' ∧ ws ≡ wl ++ ws'
+  A : D → Set
+  A ws = ∃[ wl ] ∃[ ws' ] F*T wl ∧ Fair ws' ∧ ws ≡ wl ++ ws'
 
-  helper : ∀ {fs} → P fs → ∃[ ft ] ∃[ fs' ] F*T ft ∧ P fs' ∧ fs ≡ ft ++ fs'
+  helper : ∀ {fs} → A fs → ∃[ ft ] ∃[ fs' ] F*T ft ∧ A fs' ∧ fs ≡ ft ++ fs'
   helper (_ , _ , FTft , Ffs' , h) = _ , _ , FTft , Fair-gfp₁ Ffs' , h
