@@ -19,8 +19,8 @@ open FOTC.Base.BList
 -- StreamF : (D → Set) → D → Set
 -- StreamF P xs = ∃[ x' ] ∃[ xs' ] P xs' ∧ xs ≡ x' ∷ xs'
 
--- Stream is the greatest fixed-point of StreamF (by Stream-gfp₁ and
--- Stream-gfp₂).
+-- Stream is the greatest fixed-point of StreamF (by Stream-unf and
+-- Stream-coind).
 
 postulate
   Stream : D → Set
@@ -29,9 +29,9 @@ postulate
 -- Stream is a post-fixed point of StreamF, i.e.
 --
 -- Stream ≤ StreamF Stream.
-  Stream-gfp₁ : ∀ {xs} → Stream xs →
-                ∃[ x' ] ∃[ xs' ] Stream xs' ∧ xs ≡ x' ∷ xs'
-{-# ATP axiom Stream-gfp₁ #-}
+  Stream-unf : ∀ {xs} → Stream xs →
+               ∃[ x' ] ∃[ xs' ] Stream xs' ∧ xs ≡ x' ∷ xs'
+{-# ATP axiom Stream-unf #-}
 
 -- Stream is the greatest post-fixed point of StreamF, i.e
 --
@@ -41,11 +41,11 @@ postulate
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
-  Stream-gfp₂ : (A : D → Set) →
-                -- A is post-fixed point of StreamF.
-                (∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] A xs' ∧ xs ≡ x' ∷ xs') →
-                -- Stream is greater than A.
-                ∀ {xs} → A xs → Stream xs
+  Stream-coind : (A : D → Set) →
+                 -- A is post-fixed point of StreamF.
+                 (∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] A xs' ∧ xs ≡ x' ∷ xs') →
+                 -- Stream is greater than A.
+                 ∀ {xs} → A xs → Stream xs
 
 -- Because a greatest post-fixed point is a fixed-point, then the
 -- Stream predicate is also a pre-fixed point of the functional
@@ -55,10 +55,10 @@ postulate
 Stream-gfp₃ : ∀ {xs} →
               (∃[ x' ] ∃[ xs' ] Stream xs' ∧ xs ≡ x' ∷ xs') →
               Stream xs
-Stream-gfp₃ h = Stream-gfp₂ A helper h
+Stream-gfp₃ h = Stream-coind A helper h
   where
   A : D → Set
   A ws = ∃[ w' ] ∃[ ws' ] Stream ws' ∧ ws ≡ w' ∷ ws'
 
   helper : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] A xs' ∧ xs ≡ x' ∷ xs'
-  helper (_ , _ , Sxs' , xs≡x'∷xs') = _ , _ , Stream-gfp₁ Sxs' , xs≡x'∷xs'
+  helper (_ , _ , Sxs' , xs≡x'∷xs') = _ , _ , Stream-unf Sxs' , xs≡x'∷xs'

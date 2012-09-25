@@ -19,29 +19,29 @@ data D : Set where
 data Stream : D → Set where
   consS : ∀ x {xs} → ∞ (Stream xs) → Stream (x ∷ xs)
 
-Stream-gfp₁ : ∀ {xs} → Stream xs →
-              ∃ λ x' → ∃ λ xs' → Stream xs' ∧ xs ≡ x' ∷ xs'
-Stream-gfp₁ (consS x' {xs'} Sxs') = x' , xs' , ♭ Sxs' , refl
+Stream-unf : ∀ {xs} → Stream xs →
+             ∃ λ x' → ∃ λ xs' → Stream xs' ∧ xs ≡ x' ∷ xs'
+Stream-unf (consS x' {xs'} Sxs') = x' , xs' , ♭ Sxs' , refl
 
 {-# NO_TERMINATION_CHECK #-}
-Stream-gfp₂ : (P : D → Set) →
-              -- P is post-fixed point of StreamF.
-              (∀ {xs} → P xs → ∃ λ x' → ∃ λ xs' → P xs' ∧ xs ≡ x' ∷ xs') →
-              -- Stream is greater than P.
-              ∀ {xs} → P xs → Stream xs
-Stream-gfp₂ P h {xs} Pxs = subst Stream (sym xs≡x'∷xs') prf
+Stream-coind : (A : D → Set) →
+             -- A is post-fixed point of StreamF.
+             (∀ {xs} → A xs → ∃ λ x' → ∃ λ xs' → A xs' ∧ xs ≡ x' ∷ xs') →
+             -- Stream is greater than A.
+             ∀ {xs} → A xs → Stream xs
+Stream-coind A h {xs} Axs = subst Stream (sym xs≡x'∷xs') prf
   where
     x' : D
-    x' = proj₁ (h Pxs)
+    x' = proj₁ (h Axs)
 
     xs' : D
-    xs' = proj₁ (proj₂ (h Pxs))
+    xs' = proj₁ (proj₂ (h Axs))
 
-    Pxs' : P xs'
-    Pxs' = proj₁ (proj₂ (proj₂ (h Pxs)))
+    Axs' : A xs'
+    Axs' = proj₁ (proj₂ (proj₂ (h Axs)))
 
     xs≡x'∷xs' : xs ≡ x' ∷ xs'
-    xs≡x'∷xs' = proj₂ (proj₂ (proj₂ (h Pxs)))
+    xs≡x'∷xs' = proj₂ (proj₂ (proj₂ (h Axs)))
 
     prf : Stream (x' ∷ xs')
-    prf = consS x' (♯ (Stream-gfp₂ P h Pxs'))
+    prf = consS x' (♯ (Stream-coind A h Axs'))

@@ -167,4 +167,4 @@ lemma₂ : ∀ {b i' is' fs₀' fs₁' as' bs' cs' ds' js'} →
          Fair fs₀''
          ∧ Fair fs₁''
          ∧ ABP (not b) is' fs₀'' fs₁'' as'' bs'' cs'' ds'' js'
-lemma₂ Bb Ffs₀' Ffs₁' abp' = helper Bb Ffs₀' abp' (Fair-gfp₁ Ffs₁')
+lemma₂ Bb Ffs₀' Ffs₁' abp' = helper Bb Ffs₀' abp' (Fair-unf Ffs₁')

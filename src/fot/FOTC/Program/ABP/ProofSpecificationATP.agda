@@ -31,4 +31,4 @@ open import FOTC.Relation.Binary.Bisimilarity
 -- Main theorem.
 spec : ∀ {b is fs₀ fs₁} → Bit b → Stream is → Fair fs₀ → Fair fs₁ →
        is ≈ transfer b fs₀ fs₁ is
-spec Bb Sis Ffs₀ Ffs₁ = ≈-gfp₂ _B_ minorPremise (mayorPremise Bb Ffs₀ Ffs₁ Sis)
+spec Bb Sis Ffs₀ Ffs₁ = ≈-coind _B_ minorPremise (mayorPremise Bb Ffs₀ Ffs₁ Sis)

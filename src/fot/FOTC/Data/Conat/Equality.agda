@@ -28,7 +28,7 @@ infix 7 _≈N_
 -- (m ≡ zero ∧ n ≡ zero) ∨ (∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ m' ∧ n ≡ succ n')
 
 -- The relation _≈N_ is the greatest post-fixed point of the
--- functional ≈NF (by ≈N-gfp₁ and ≈N-gfp₂).
+-- functional ≈NF (by ≈N-unf and ≈N-coind).
 
 -- The equality on Conat.
 postulate
@@ -38,10 +38,10 @@ postulate
 --
 -- _≈N_ ≤ ≈NF _≈N_.
 postulate
-  ≈N-gfp₁ : ∀ {m n} → m ≈N n →
-            m ≡ zero ∧ n ≡ zero
-            ∨ (∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
-{-# ATP axiom ≈N-gfp₁ #-}
+  ≈N-unf : ∀ {m n} → m ≈N n →
+           m ≡ zero ∧ n ≡ zero
+           ∨ (∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
+{-# ATP axiom ≈N-unf #-}
 
 -- The relation _N≈_ is the greatest post-fixed point of _N≈_, i.e
 --
@@ -51,13 +51,13 @@ postulate
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
-  ≈N-gfp₂ : (_R_ : D → D → Set) →
-            -- R is a post-fixed point of the functional ≈NF.
-           (∀ {m n} → m R n →
-            m ≡ zero ∧ n ≡ zero
-            ∨ (∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')) →
-           -- _≈N_ is greater than R.
-           ∀ {m n} → m R n → m ≈N n
+  ≈N-coind : (_R_ : D → D → Set) →
+             -- R is a post-fixed point of the functional ≈NF.
+             (∀ {m n} → m R n →
+               m ≡ zero ∧ n ≡ zero
+               ∨ (∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')) →
+             -- _≈N_ is greater than R.
+             ∀ {m n} → m R n → m ≈N n
 
 -- Because a greatest post-fixed point is a fixed-point, then the
 -- relation _≈N_ is also a pre-fixed point of the functional ≈NF, i.e.
@@ -67,7 +67,7 @@ postulate
           (m ≡ zero ∧ n ≡ zero
            ∨ (∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')) →
           m ≈N n
-≈N-gfp₃ h = ≈N-gfp₂ _R_ helper h
+≈N-gfp₃ h = ≈N-coind _R_ helper h
   where
   _R_ : D → D → Set
   _R_ m n = m ≡ zero ∧ n ≡ zero
@@ -77,4 +77,4 @@ postulate
            m ≡ zero ∧ n ≡ zero
            ∨ (∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
   helper (inj₁ prf) = inj₁ prf
-  helper (inj₂ (m' , n' , m'≈Nn' , prf)) = inj₂ (m' , n' , ≈N-gfp₁ m'≈Nn' , prf)
+  helper (inj₂ (m' , n' , m'≈Nn' , prf)) = inj₂ (m' , n' , ≈N-unf m'≈Nn' , prf)

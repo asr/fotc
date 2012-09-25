@@ -23,7 +23,7 @@ open import FOTC.Data.Stream
 ------------------------------------------------------------------------------
 
 ≈N-refl : ∀ {n} → Conat n → n ≈N n
-≈N-refl {n} Cn = ≈N-gfp₂ R helper₁ helper₂
+≈N-refl {n} Cn = ≈N-coind R helper₁ helper₂
   where
   R : D → D → Set
   R a b = Conat a ∧ Conat b ∧ a ≡ b
@@ -43,7 +43,7 @@ open import FOTC.Data.Stream
 
 -- Adapted from (Sander 1992, p. 58).
 stream-length : ∀ {xs} → Stream xs → length xs ≈N ω
-stream-length {xs} Sxs = ≈N-gfp₂ _R_ helper₁ helper₂
+stream-length {xs} Sxs = ≈N-coind _R_ helper₁ helper₂
   where
   _R_ : D → D → Set
   m R n = m ≡ zero ∧ n ≡ zero ∨ (∃[ ys ] Stream ys ∧ m ≡ length ys ∧ n ≡ ω)

@@ -56,7 +56,7 @@ head-tail-Fair-helper {fs} (.(false ∷ ft) , fs' , fcons*T {ft} y , h₁ , h₂
          F ∷ tail₁ fs   ∎
 
 head-tail-Fair : ∀ {fs} → Fair fs → fs ≡ T ∷ tail₁ fs ∨ fs ≡ F ∷ tail₁ fs
-head-tail-Fair {fs} Ffs = head-tail-Fair-helper (Fair-gfp₁ Ffs)
+head-tail-Fair {fs} Ffs = head-tail-Fair-helper (Fair-unf Ffs)
 
 tail-Fair-helper : ∀ {fs} →
                    ∃[ ft ] ∃[ fs' ] F*T ft ∧ Fair fs' ∧ fs ≡ ft ++ fs' →
@@ -89,4 +89,4 @@ tail-Fair-helper {fs} (.(false ∷ ft) , fs' , fcons*T {ft} FTft , Ffs' , h) =
          ft ++ fs'             ∎
 
 tail-Fair : ∀ {fs} → Fair fs → Fair (tail₁ fs)
-tail-Fair {fs} Ffs = tail-Fair-helper (Fair-gfp₁ Ffs)
+tail-Fair {fs} Ffs = tail-Fair-helper (Fair-unf Ffs)

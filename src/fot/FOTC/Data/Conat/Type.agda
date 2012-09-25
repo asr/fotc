@@ -28,8 +28,8 @@ open import FOTC.Base
 -- ConatF : (D → Set) → D → Set
 -- ConatF P n = n = zero ∨ (∃[ n' ] P n' ∧ n = succ n')
 
--- Conat is the greatest fixed-point of ConatF (by Conat-gfp₁ and
--- Conat-gfp₂).
+-- Conat is the greatest fixed-point of ConatF (by Conat-unf and
+-- Conat-coind).
 
 postulate
   Conat : D → Set
@@ -38,8 +38,8 @@ postulate
 --
 -- Conat ≤ ConatF Stream.
 postulate
-  Conat-gfp₁ : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] Conat n' ∧ n ≡ succ₁ n')
-{-# ATP axiom Conat-gfp₁ #-}
+  Conat-unf : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] Conat n' ∧ n ≡ succ₁ n')
+{-# ATP axiom Conat-unf #-}
 
 -- Conat is the greatest post-fixed point of ConatF, i.e
 --
@@ -49,11 +49,11 @@ postulate
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
-  Conat-gfp₂ : (A : D → Set) →
-               -- A is post-fixed point of ConatF.
-               (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n')) →
-               -- Conat is greater than A.
-               ∀ {n} → A n → Conat n
+  Conat-coind : (A : D → Set) →
+                -- A is post-fixed point of ConatF.
+                (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n')) →
+                -- Conat is greater than A.
+                ∀ {n} → A n → Conat n
 
 -- Because a greatest post-fixed point is a fixed-point, then the
 -- Conat predicate is also a pre-fixed point of the functional ConatF,
@@ -63,11 +63,11 @@ postulate
 Conat-gfp₃ : ∀ {n} →
              (n ≡ zero ∨ (∃[ n' ] Conat n' ∧ n ≡ succ₁ n')) →
              Conat n
-Conat-gfp₃ h = Conat-gfp₂ A helper h
+Conat-gfp₃ h = Conat-coind A helper h
   where
   A : D → Set
   A m = m ≡ zero ∨ (∃[ m' ] Conat m' ∧ m ≡ succ₁ m')
 
   helper : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n')
   helper (inj₁ n≡0) = inj₁ n≡0
-  helper (inj₂ (n' , CNn' , n≡Sn')) = inj₂ (n' , Conat-gfp₁ CNn' , n≡Sn')
+  helper (inj₂ (n' , CNn' , n≡Sn')) = inj₂ (n' , Conat-unf CNn' , n≡Sn')

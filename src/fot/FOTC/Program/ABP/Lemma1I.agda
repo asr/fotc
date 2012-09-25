@@ -297,4 +297,4 @@ lemma₁ : ∀ {b i' is' fs₀ fs₁ as bs cs ds js} →
          ∧ Fair fs₁'
          ∧ ABP' b i' is' fs₀' fs₁' as' bs' cs' ds' js'
          ∧ js ≡ i' ∷ js'
-lemma₁ Bb Ffs₀ Ffs₁ abp = helper Bb Ffs₁ abp (Fair-gfp₁ Ffs₀)
+lemma₁ Bb Ffs₀ Ffs₁ abp = helper Bb Ffs₁ abp (Fair-unf Ffs₀)

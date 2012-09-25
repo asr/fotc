@@ -387,8 +387,7 @@ coq_clean :
 
 fot_and_notes :
 	make type_check_fot
-	make snapshot_create_fot
-	type_check_notes
+	make type_check_notes
 	@echo "$@ succeeded!"
 
 ##############################################################################

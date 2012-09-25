@@ -31,7 +31,7 @@ data F*T : D → Set where
 -- FairF : (D → Set) → D → Set
 -- FairF X fs = ∃[ ft ] ∃[ fs' ] F*T ft ∧ X fs' ∧ fs ≡ ft ++ fs'
 
--- Fair is the greatest fixed of FairF (by Fair-gfp₁ and Fair-gfp₂).
+-- Fair is the greatest fixed of FairF (by Fair-unf and Fair-coind).
 
 postulate Fair : D → Set
 
@@ -39,9 +39,9 @@ postulate Fair : D → Set
 --
 -- Fair ≤ FairF Fair.
 postulate
-  Fair-gfp₁ : ∀ {fs} → Fair fs →
-              ∃[ ft ] ∃[ fs' ] F*T ft ∧ Fair fs' ∧ fs ≡ ft ++ fs'
-{-# ATP axiom Fair-gfp₁ #-}
+  Fair-unf : ∀ {fs} → Fair fs →
+             ∃[ ft ] ∃[ fs' ] F*T ft ∧ Fair fs' ∧ fs ≡ ft ++ fs'
+{-# ATP axiom Fair-unf #-}
 
 -- Fair is the greatest post-fixed point of FairF, i.e
 --
@@ -51,12 +51,12 @@ postulate
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
-  Fair-gfp₂ : (A : D → Set) →
-              -- A is post-fixed point of FairF.
-              (∀ {fs} → A fs →
-               ∃[ ft ] ∃[ fs' ] F*T ft ∧ A fs' ∧ fs ≡ ft ++ fs') →
-              -- Fair is greater than A.
-              ∀ {fs} → A fs → Fair fs
+  Fair-coind : (A : D → Set) →
+               -- A is post-fixed point of FairF.
+               (∀ {fs} → A fs →
+                 ∃[ ft ] ∃[ fs' ] F*T ft ∧ A fs' ∧ fs ≡ ft ++ fs') →
+               -- Fair is greater than A.
+               ∀ {fs} → A fs → Fair fs
 
 -- Because a greatest post-fixed point is a fixed-point, then the Fair
 -- predicate is also a pre-fixed point of the functional FairF, i.e.
@@ -65,10 +65,10 @@ postulate
 Fair-gfp₃ : ∀ {fs} →
             (∃[ ft ] ∃[ fs' ] F*T ft ∧ Fair fs' ∧ fs ≡ ft ++ fs') →
             Fair fs
-Fair-gfp₃ h = Fair-gfp₂ A helper h
+Fair-gfp₃ h = Fair-coind A helper h
   where
   A : D → Set
   A ws = ∃[ wl ] ∃[ ws' ] F*T wl ∧ Fair ws' ∧ ws ≡ wl ++ ws'
 
   helper : ∀ {fs} → A fs → ∃[ ft ] ∃[ fs' ] F*T ft ∧ A fs' ∧ fs ≡ ft ++ fs'
-  helper (_ , _ , FTft , Ffs' , h) = _ , _ , FTft , Fair-gfp₁ Ffs' , h
+  helper (_ , _ , FTft , Ffs' , h) = _ , _ , FTft , Fair-unf Ffs' , h

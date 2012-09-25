@@ -22,4 +22,4 @@ P : D → Set
 P xs = xs ≡ zeros
 
 zerosS : Stream zeros
-zerosS = Stream-gfp₂ P (λ {xs} Pxs → zero , zeros , refl , trans Pxs refl) refl
+zerosS = Stream-coind P (λ {xs} Axs → zero , zeros , refl , trans Axs refl) refl

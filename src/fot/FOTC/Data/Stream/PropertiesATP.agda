@@ -19,8 +19,8 @@ postulate tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 {-# ATP prove tailS #-}
 
 ≈→Stream : ∀ {xs ys} → xs ≈ ys → Stream xs ∧ Stream ys
-≈→Stream {xs} {ys} xs≈ys = Stream-gfp₂ P₁ helper₁ (ys , xs≈ys)
-                           , Stream-gfp₂ P₂ helper₂ (xs , xs≈ys)
+≈→Stream {xs} {ys} xs≈ys = Stream-coind P₁ helper₁ (ys , xs≈ys)
+                           , Stream-coind P₂ helper₂ (xs , xs≈ys)
   where
   P₁ : D → Set
   P₁ ws = ∃[ zs ] ws ≈ zs

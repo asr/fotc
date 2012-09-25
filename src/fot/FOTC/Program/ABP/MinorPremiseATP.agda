@@ -45,7 +45,7 @@ minorPremise : ∀ {is js} → is B js →
 minorPremise
   {is} {js}
   (b , fs₀ , fs₁ , as , bs , cs , ds , Sis , Bb , Ffs₀ , Ffs₁ , h)
-  with (Stream-gfp₁ Sis)
+  with (Stream-unf Sis)
 ... | (i' , is' , Sis' , is≡i'∷is) = i' , is' , js' , is'Bjs' , is≡i'∷is , js≡i'∷js'
 
   where

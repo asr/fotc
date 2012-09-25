@@ -21,7 +21,7 @@ open import FOTC.Data.Nat
 ------------------------------------------------------------------------------
 
 0-Conat : Conat zero
-0-Conat = Conat-gfp₂ P helper refl
+0-Conat = Conat-coind P helper refl
   where
   P : D → Set
   P n = n ≡ zero
@@ -32,7 +32,7 @@ open import FOTC.Data.Nat
 
 -- Adapted from (Sander 1992, p. 57).
 ω-Conat : Conat ω
-ω-Conat = Conat-gfp₂ P helper refl
+ω-Conat = Conat-coind P helper refl
   where
   P : D → Set
   P n = n ≡ ω
@@ -42,7 +42,7 @@ open import FOTC.Data.Nat
   {-# ATP prove helper #-}
 
 N→Conat : ∀ {n} → N n → Conat n
-N→Conat Nn = Conat-gfp₂ N helper Nn
+N→Conat Nn = Conat-coind N helper Nn
   where
   helper : ∀ {m} → N m → m ≡ zero ∨ ∃ (λ m' → N m' ∧ m ≡ succ₁ m')
   helper nzero          = inj₁ refl

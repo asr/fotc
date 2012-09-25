@@ -27,7 +27,7 @@ open import FOTC.Relation.Binary.Bisimilarity
 -- The map-iterate property.
 
 ≈-map-iterate : ∀ f x → map f (iterate f x) ≈ iterate f (f · x)
-≈-map-iterate f x = ≈-gfp₂ R helper (x , refl , refl)
+≈-map-iterate f x = ≈-coind R helper (x , refl , refl)
   where
   -- The relation R was based on the relation used by (Giménez and
   -- Castéran, 2007).

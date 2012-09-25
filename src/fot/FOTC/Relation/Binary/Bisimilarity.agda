@@ -15,7 +15,7 @@ infix 7 _≈_
 
 ------------------------------------------------------------------------------
 -- The bisimilarity relation _≈_ on unbounded lists is the greatest
--- fixed-point (by ≈-gfp₁ and ≈-gfp₂) of the bisimulation functional
+-- fixed-point (by ≈-unf and ≈-coind) of the bisimulation functional
 -- (see below).
 
 -- The bisimilarity relation on unbounded lists.
@@ -25,9 +25,9 @@ postulate
 -- The bisimilarity relation _≈_ on unbounded lists is a post-fixed
 -- point of the bisimulation functional (see below).
 postulate
-  ≈-gfp₁ : ∀ {xs ys} → xs ≈ ys →
-           ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
-{-# ATP axiom ≈-gfp₁ #-}
+  ≈-unf : ∀ {xs ys} → xs ≈ ys →
+          ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+{-# ATP axiom ≈-unf #-}
 
 -- The bisimilarity relation _≈_ on unbounded lists is the greatest
 -- post-fixed point of the bisimulation functional (see below).
@@ -36,13 +36,13 @@ postulate
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
-  ≈-gfp₂ : (_R_ : D → D → Set) →
-           -- R is a post-fixed point of the bisimulation functional.
-           (∀ {xs ys} → xs R ys →
-            ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
-            xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
-           -- _≈_ is greater than R.
-           ∀ {xs ys} → xs R ys → xs ≈ ys
+  ≈-coind : (_R_ : D → D → Set) →
+            -- R is a post-fixed point of the bisimulation functional.
+            (∀ {xs ys} → xs R ys →
+              ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
+              xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
+            -- _≈_ is greater than R.
+            ∀ {xs ys} → xs R ys → xs ≈ ys
 
 -- Because a greatest post-fixed point is a fixed-point, the
 -- bisimilarity relation _≈_ on unbounded lists is also a pre-fixed
@@ -51,14 +51,14 @@ postulate
          (∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
           xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
          xs ≈ ys
-≈-gfp₃ h = ≈-gfp₂ _R_ helper h
+≈-gfp₃ h = ≈-coind _R_ helper h
   where
   _R_ : D → D → Set
   _R_ xs ys = ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 
   helper : ∀ {xs ys} → xs R ys →
            ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
-  helper (_ , _ , _ , xs'≈ys' , prf) = _ , _ , _ , ≈-gfp₁ xs'≈ys' , prf
+  helper (_ , _ , _ , xs'≈ys' , prf) = _ , _ , _ , ≈-unf xs'≈ys' , prf
 
 private
   module Bisimulation where
@@ -90,7 +90,7 @@ private
   --
   -- _≈_ ≤ Bisimulation _≈_.
   post-fp : ∀ {xs ys} → xs ≈ ys → BisimulationF _≈_ xs ys
-  post-fp = ≈-gfp₁
+  post-fp = ≈-unf
 
   -- The bisimilarity relation _≈_ on unbounded lists is the greatest
   -- post-fixed point of Bisimulation, i.e
@@ -101,7 +101,7 @@ private
          (∀ {xs ys} → xs R ys → BisimulationF _R_ xs ys) →
          -- _≈_ is greater than R.
          ∀ {xs ys} → xs R ys → xs ≈ ys
-  gpfp = ≈-gfp₂
+  gpfp = ≈-coind
 
   -- Because a greatest post-fixed point is a fixed-point, the
   -- bisimilarity relation _≈_ on unbounded lists is also a pre-fixed

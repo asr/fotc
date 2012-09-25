@@ -53,35 +53,35 @@ postulate
   -- N is a pre-fixed point of NatF.
   --
   -- Peter: It corresponds to the introduction rules.
-  N-lfp₁ : ∀ {n} → n ≡ zero ∨ (∃[ n' ] N n' ∧ n ≡ succ₁ n') → N n
-  -- N-lfp₁ : ∀ n → NatF N n → N n  -- Higher-order version
+  N-in : ∀ {n} → n ≡ zero ∨ (∃[ n' ] N n' ∧ n ≡ succ₁ n') → N n
+  -- N-in : ∀ n → NatF N n → N n  -- Higher-order version
 
   -- N is a the least pre-fixed point of NatF.
   --
   -- Peter: It corresponds to the elimination rule of an inductively
   -- defined predicate.
-  N-lfp₂ : (A : D → Set) →
-           (∀ {n} → n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n') → A n) →
-           ∀ {n} → N n → A n
-  -- N-lfp₂ : (A : D → Set) →  -- Higher-order version
+  N-ind : (A : D → Set) →
+          (∀ {n} → n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n') → A n) →
+          ∀ {n} → N n → A n
+  -- N-ind : (A : D → Set) →  -- Higher-order version
   --          (∀ {n} → NatF A n → A n) →
   --          ∀ {n} → N n → A n
 
 ------------------------------------------------------------------------------
 -- The data constructors of N.
 nzero : N zero
-nzero = N-lfp₁ (inj₁ refl)
+nzero = N-in (inj₁ refl)
 
 nsucc : ∀ {n} → N n → N (succ₁ n)
-nsucc Nn = N-lfp₁ (inj₂ (_ , (Nn , refl)))
+nsucc Nn = N-in (inj₂ (_ , (Nn , refl)))
 
 ------------------------------------------------------------------------------
--- Because N is the least pre-fixed point of NatF (i.e. N-lfp₁ and
--- N-lfp₂), we can proof that N is also a post-fixed point of NatF.
+-- Because N is the least pre-fixed point of NatF (i.e. N-in and
+-- N-ind), we can proof that N is also a post-fixed point of NatF.
 
 -- N is a post-fixed point of NatF.
 N-lfp₃ : ∀ {n} → N n → n ≡ zero ∨ (∃ λ m → N m ∧ n ≡ succ₁ m)
-N-lfp₃ Nn = N-lfp₂ A prf Nn
+N-lfp₃ Nn = N-ind A prf Nn
   where
   A : D → Set
   A x = x ≡ zero ∨ (∃ λ n' → N n' ∧ x ≡ succ₁ n')
@@ -101,11 +101,11 @@ N-lfp₃ Nn = N-lfp₂ A prf Nn
 ------------------------------------------------------------------------------
 -- The induction principle for N *without* the hypothesis N n in the
 -- induction step.
-N-ind : (A : D → Set) →
+indN : (A : D → Set) →
         A zero →
         (∀ {n} → A n → A (succ₁ n)) →
         ∀ {n} → N n → A n
-N-ind A A0 h Nn = N-lfp₂ A (case prf₁ prf₂) Nn
+indN A A0 h Nn = N-ind A (case prf₁ prf₂) Nn
   where
   prf₁ : ∀ {n'} → n' ≡ zero → A n'
   prf₁ n'≡0 = subst A (sym n'≡0) A0
@@ -116,14 +116,14 @@ N-ind A A0 h Nn = N-lfp₂ A (case prf₁ prf₂) Nn
 -- The induction principle for N *with* the hypothesis N n in the
 -- induction step.
 --
--- 2012-03-06. We cannot proof this principle because N-lfp₂ does not
+-- 2012-03-06. We cannot proof this principle because N-ind does not
 -- have the hypothesis N n.
 --
 -- indN₂ : (A : D → Set) →
 --        A zero →
 --        (∀ {n} → N n → A n → A (succ₁ n)) →
 --        ∀ {n} → N n → A n
--- indN₂ A A0 is Nn = N-lfp₂ A [ prf₁ , prf₂ ] Nn
+-- indN₂ A A0 is Nn = N-ind A [ prf₁ , prf₂ ] Nn
 --   where
 --   prf₁ : ∀ {n'} → n' ≡ zero → A n'
 --   prf₁ n'≡0 = subst A (sym n'≡0) A0
@@ -142,7 +142,7 @@ N-ind A A0 h Nn = N-lfp₂ A (case prf₁ prf₂) Nn
 --         subst N (succInjective (trans (sym n'≡Sm') n'≡Sm)) Nm'
 
 ------------------------------------------------------------------------------
--- Example: We will use N-lfp₂ as the induction principle on N.
+-- Example: We will use N-ind as the induction principle on N.
 postulate
   _+_  : D → D → D
   +-0x : ∀ d →   zero    + d ≡ d
@@ -152,7 +152,7 @@ postulate
 +-leftIdentity n = +-0x n
 
 +-N : ∀ {m n} → N m → N n → N (m + n)
-+-N {n = n} Nm Nn = N-lfp₂ A prf Nm
++-N {n = n} Nm Nn = N-ind A prf Nm
   where
   A : D → Set
   A i = N (i + n)
@@ -188,4 +188,4 @@ thm₁ nzero' = nzero
 thm₁ (nsucc' Nn) = nsucc (thm₁ Nn)
 
 thm₂ : ∀ {n} → N n → N' n
-thm₂ Nn = N-ind N' nzero' nsucc' Nn
+thm₂ Nn = indN N' nzero' nsucc' Nn

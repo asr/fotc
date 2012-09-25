@@ -15,7 +15,7 @@ open import FOTC.Relation.Binary.Bisimilarity
 ------------------------------------------------------------------------------
 
 x∷xs≈x∷ys→xs≈ys : ∀ {x xs ys} → x ∷ xs ≈ x ∷ ys → xs ≈ ys
-x∷xs≈x∷ys→xs≈ys {x} {xs} {ys} h with (≈-gfp₁ h)
+x∷xs≈x∷ys→xs≈ys {x} {xs} {ys} h with (≈-unf h)
 ... | x' , xs' , ys' , prf₁ , prf₂ , prf₃ = xs≈ys
   where
   xs≡xs' : xs ≡ xs'
