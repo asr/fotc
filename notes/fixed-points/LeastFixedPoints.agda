@@ -4,9 +4,8 @@
 module LeastFixedPoints where
 
 open import FOTC.Base
-open import FOTC.Base.PropertiesI
 
--- infixl 9 _+_
+infixl 9 _+_
 
 ------------------------------------------------------------------------------
 -- Basic definitions
@@ -54,27 +53,27 @@ postulate
   -- N is a pre-fixed point of NatF.
   --
   -- Peter: It corresponds to the introduction rules.
-  N-lfp₁    : ∀ {n} → n ≡ zero ∨ (∃[ m ] N m ∧ n ≡ succ₁ m) → N n
+  N-lfp₁ : ∀ {n} → n ≡ zero ∨ (∃[ n' ] N n' ∧ n ≡ succ₁ n') → N n
   -- N-lfp₁ : ∀ n → NatF N n → N n  -- Higher-order version
 
   -- N is a the least pre-fixed point of NatF.
   --
   -- Peter: It corresponds to the elimination rule of an inductively
   -- defined predicate.
-  N-lfp₂    : (A : D → Set) →
-              (∀ {n} → n ≡ zero ∨ (∃[ m ] A m ∧ n ≡ succ₁ m) → A n) →
-              ∀ {n} → N n → A n
+  N-lfp₂ : (A : D → Set) →
+           (∀ {n} → n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n') → A n) →
+           ∀ {n} → N n → A n
   -- N-lfp₂ : (A : D → Set) →  -- Higher-order version
   --          (∀ {n} → NatF A n → A n) →
   --          ∀ {n} → N n → A n
 
 ------------------------------------------------------------------------------
 -- The data constructors of N.
-zN : N zero
-zN = N-lfp₁ (inj₁ refl)
+nzero : N zero
+nzero = N-lfp₁ (inj₁ refl)
 
-sN : ∀ {n} → N n → N (succ₁ n)
-sN Nn = N-lfp₁ (inj₂ (_ , (Nn , refl)))
+nsucc : ∀ {n} → N n → N (succ₁ n)
+nsucc Nn = N-lfp₁ (inj₂ (_ , (Nn , refl)))
 
 ------------------------------------------------------------------------------
 -- Because N is the least pre-fixed point of NatF (i.e. N-lfp₁ and
@@ -85,34 +84,34 @@ N-lfp₃ : ∀ {n} → N n → n ≡ zero ∨ (∃ λ m → N m ∧ n ≡ succ�
 N-lfp₃ Nn = N-lfp₂ A prf Nn
   where
   A : D → Set
-  A x = x ≡ zero ∨ (∃ λ m → N m ∧ x ≡ succ₁ m)
+  A x = x ≡ zero ∨ (∃ λ n' → N n' ∧ x ≡ succ₁ n')
 
-  prf : ∀ {n'} → n' ≡ zero ∨ (∃[ m ] A m ∧ n' ≡ succ₁ m) → A n'
-  prf {n'} h = case inj₁ ((λ h₁ → inj₂ (prf₁ h₁))) h -- case inj₁ prf₁ h
+  prf : ∀ {n''} → n'' ≡ zero ∨ (∃[ n' ] A n' ∧ n'' ≡ succ₁ n') → A n''
+  prf {n''} h = case inj₁ ((λ h₁ → inj₂ (prf₁ h₁))) h -- case inj₁ prf₁ h
     where
-    prf₁ : ∃ (λ m → A m ∧ n' ≡ succ₁ m) → ∃ (λ m → N m ∧ n' ≡ succ₁ m)
-    prf₁ (m , Am , n'=Sm) = m , prf₂ Am , n'=Sm
+    prf₁ : ∃ (λ n' → A n' ∧ n'' ≡ succ₁ n') → ∃ (λ n' → N n' ∧ n'' ≡ succ₁ n')
+    prf₁ (n' , An' , n''=Sn') = n' , prf₂ An' , n''=Sn'
       where
-      prf₂ : A m → N m
-      prf₂ Am = case (λ ah → subst N (sym ah) zN) prf₃ Am
+      prf₂ : A n' → N n'
+      prf₂ An' = case (λ ah → subst N (sym ah) nzero) prf₃ An'
         where
-        prf₃ : ∃ (λ m' → N m' ∧ m ≡ succ₁ m') → N m
-        prf₃ (_ , Nm' , m≡Sm' ) = subst N (sym m≡Sm') (sN Nm')
+        prf₃ : ∃ (λ m' → N m' ∧ n' ≡ succ₁ m') → N n'
+        prf₃ (_ , Nm' , m≡Sm' ) = subst N (sym m≡Sm') (nsucc Nm')
 
 ------------------------------------------------------------------------------
 -- The induction principle for N *without* the hypothesis N n in the
 -- induction step.
-indN₁ : (A : D → Set) →
-       A zero →
-       (∀ {n} → A n → A (succ₁ n)) →
-       ∀ {n} → N n → A n
-indN₁ A A0 is Nn = N-lfp₂ A (case prf₁ prf₂) Nn
+N-ind : (A : D → Set) →
+        A zero →
+        (∀ {n} → A n → A (succ₁ n)) →
+        ∀ {n} → N n → A n
+N-ind A A0 h Nn = N-lfp₂ A (case prf₁ prf₂) Nn
   where
   prf₁ : ∀ {n'} → n' ≡ zero → A n'
   prf₁ n'≡0 = subst A (sym n'≡0) A0
 
   prf₂ : ∀ {n'} → ∃ (λ m → A m ∧ n' ≡ succ₁ m) → A n'
-  prf₂ (_ , Am , n'≡Sm) = subst A (sym n'≡Sm) (is Am)
+  prf₂ (_ , Am , n'≡Sm) = subst A (sym n'≡Sm) (h Am)
 
 -- The induction principle for N *with* the hypothesis N n in the
 -- induction step.
@@ -168,8 +167,25 @@ postulate
     prf₁ h₁ = subst N (cong (flip _+_ n) (sym h₁)) A0
 
     is : ∀ {i} → A i → A (succ₁ i)
-    is {i} ih = subst N (sym (+-Sx i n)) (sN ih)
+    is {i} ih = subst N (sym (+-Sx i n)) (nsucc ih)
 
     prf₂ : ∀ {m} → ∃ (λ m'' → A m'' ∧ m ≡ succ₁ m'') → A m
     prf₂ (_ ,  Am'' , m≡Sm'') =
       subst N (cong (flip _+_ n) (sym m≡Sm'')) (is Am'')
+
+------------------------------------------------------------------------------
+-- From/to N as a least fixed-point to/from N as data type.
+
+open import FOTC.Data.Nat.Type renaming
+  ( N to N'
+  ; N-ind to N-ind'
+  ; nsucc to nsucc'
+  ; nzero to nzero'
+  )
+
+thm₁ : ∀ {n} → N' n → N n
+thm₁ nzero' = nzero
+thm₁ (nsucc' Nn) = nsucc (thm₁ Nn)
+
+thm₂ : ∀ {n} → N n → N' n
+thm₂ Nn = N-ind N' nzero' nsucc' Nn
