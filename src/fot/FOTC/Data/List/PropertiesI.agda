@@ -12,10 +12,12 @@ open import Common.Function
 
 open import FOTC.Base
 open FOTC.Base.BList
+open import FOTC.Data.Conat
 open import FOTC.Data.List
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.EliminationProperties
 open import FOTC.Data.Nat.Inequalities.PropertiesI
+open import FOTC.Data.Nat.PropertiesI
 open import FOTC.Data.Nat.Type
 
 ------------------------------------------------------------------------------
@@ -98,6 +100,13 @@ lg-xs<lg-[]→⊥ (lcons x {xs} Lxs) lg-x∷xs<lg-[] = ⊥-elim (S<0→⊥ helpe
     length (x ∷ xs) < length []
       ≡⟨ lg-x∷xs<lg-[] ⟩
     true ∎
+
+lg-xs≡∞→lg-x∷xs≡∞ : ∀ x xs → length xs ≡ ∞ → length (x ∷ xs) ≡ ∞
+lg-xs≡∞→lg-x∷xs≡∞ x xs h =
+  length (x ∷ xs) ≡⟨ length-∷ x xs ⟩
+  succ₁ (length xs) ≡⟨ succCong h ⟩
+  succ₁ ∞ ≡⟨ sym ∞-eq ⟩
+  ∞ ∎
 
 -- Append properties
 

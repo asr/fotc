@@ -11,6 +11,7 @@ open import Common.Function
 
 open import FOTC.Base
 open FOTC.Base.BList
+open import FOTC.Data.Conat
 open import FOTC.Data.List
 open import FOTC.Data.Nat.Type
 
@@ -55,6 +56,9 @@ length-replicate x (nsucc {n} Nn) = prf $ length-replicate x Nn
   where postulate prf : length (replicate n x) ≡ n →
                         length (replicate (succ₁ n) x) ≡ succ₁ n
         {-# ATP prove prf #-}
+
+postulate lg-xs≡∞→lg-x∷xs≡∞ : ∀ x xs → length xs ≡ ∞ → length (x ∷ xs) ≡ ∞
+{-# ATP prove lg-xs≡∞→lg-x∷xs≡∞ #-}
 
 -- Append properties
 
