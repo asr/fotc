@@ -23,37 +23,37 @@ open import FOTC.Data.Stream
 ------------------------------------------------------------------------------
 
 ≈N-refl : ∀ {n} → Conat n → n ≈N n
-≈N-refl {n} Cn = ≈N-coind R helper₁ helper₂
+≈N-refl {n} Cn = ≈N-coind R h₁ h₂
   where
   R : D → D → Set
   R a b = Conat a ∧ Conat b ∧ a ≡ b
   {-# ATP definition R #-}
 
   postulate
-    helper₁ : ∀ {a b} → R a b →
-              a ≡ zero ∧ b ≡ zero
-              ∨ (∃ (λ a' → ∃ (λ b' → R a' b' ∧ a ≡ succ₁ a' ∧ b ≡ succ₁ b')))
-  {-# ATP prove helper₁ #-}
+    h₁ : ∀ {a b} → R a b →
+         a ≡ zero ∧ b ≡ zero
+         ∨ (∃ (λ a' → ∃ (λ b' → R a' b' ∧ a ≡ succ₁ a' ∧ b ≡ succ₁ b')))
+  {-# ATP prove h₁ #-}
 
-  postulate helper₂ : Conat n ∧ Conat n ∧ n ≡ n
-  {-# ATP prove helper₂ #-}
+  postulate h₂ : Conat n ∧ Conat n ∧ n ≡ n
+  {-# ATP prove h₂ #-}
 
 ≡→≈N : ∀ {m n} → Conat m → Conat n → m ≡ n → m ≈N n
 ≡→≈N h _ refl = ≈N-refl h
 
 -- Adapted from (Sander 1992, p. 58).
-stream-length : ∀ {xs} → Stream xs → length xs ≈N ω
-stream-length {xs} Sxs = ≈N-coind _R_ helper₁ helper₂
+stream-length : ∀ {xs} → Stream xs → length xs ≈N ∞
+stream-length {xs} Sxs = ≈N-coind _R_ h₁ h₂
   where
   _R_ : D → D → Set
-  m R n = m ≡ zero ∧ n ≡ zero ∨ (∃[ ys ] Stream ys ∧ m ≡ length ys ∧ n ≡ ω)
+  m R n = m ≡ zero ∧ n ≡ zero ∨ (∃[ ys ] Stream ys ∧ m ≡ length ys ∧ n ≡ ∞)
   {-# ATP definition _R_ #-}
 
   postulate
-    helper₁ : ∀ {m n} → m R n →
-              m ≡ zero ∧ n ≡ zero
-              ∨ (∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
-  {-# ATP prove helper₁ #-}
+    h₁ : ∀ {m n} → m R n →
+         m ≡ zero ∧ n ≡ zero
+         ∨ (∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
+  {-# ATP prove h₁ #-}
 
-  postulate helper₂ : length xs R ω
-  {-# ATP prove helper₂ #-}
+  postulate h₂ : length xs R ∞
+  {-# ATP prove h₂ #-}

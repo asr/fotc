@@ -21,30 +21,30 @@ open import FOTC.Data.Nat
 ------------------------------------------------------------------------------
 
 0-Conat : Conat zero
-0-Conat = Conat-coind P helper refl
+0-Conat = Conat-coind P h refl
   where
   P : D → Set
   P n = n ≡ zero
 
-  helper : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
-  helper Pn = inj₁ Pn
+  h : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
+  h Pn = inj₁ Pn
 
 -- Adapted from (Sander 1992, p. 57).
-ω-Conat : Conat ω
-ω-Conat = Conat-coind P helper refl
+∞-Conat : Conat ∞
+∞-Conat = Conat-coind P h refl
   where
   P : D → Set
-  P n = n ≡ ω
+  P n = n ≡ ∞
 
-  helper : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
-  helper Pn = inj₂ (ω , refl , trans Pn ω-eq)
+  h : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
+  h Pn = inj₂ (∞ , refl , trans Pn ∞-eq)
 
 N→Conat : ∀ {n} → N n → Conat n
-N→Conat Nn = Conat-coind N helper Nn
+N→Conat Nn = Conat-coind N h Nn
   where
-  helper : ∀ {m} → N m → m ≡ zero ∨ ∃ (λ m' → N m' ∧ m ≡ succ₁ m')
-  helper nzero          = inj₁ refl
-  helper (nsucc {m} Nm) = inj₂ (m , Nm , refl)
+  h : ∀ {m} → N m → m ≡ zero ∨ ∃ (λ m' → N m' ∧ m ≡ succ₁ m')
+  h nzero          = inj₁ refl
+  h (nsucc {m} Nm) = inj₂ (m , Nm , refl)
 
 -- A different proof.
 N→Conat₁ : ∀ {n} → N n → Conat n
