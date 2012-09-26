@@ -126,7 +126,8 @@ module LFP where
 module GFP where
 
   postulate
-    -- Greatest fixed-points correspond to coinductively defined types.
+    -- Greatest fixed-points correspond to co-inductively defined
+    -- types.
 
     GFP : ((D → Set) → D → Set) → D → Set
 

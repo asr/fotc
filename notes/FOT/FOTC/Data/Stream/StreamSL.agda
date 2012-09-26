@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Definition of FOTC streams using the Agda coinductive combinators
+-- Definition of FOTC streams using the Agda co-inductive combinators
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}

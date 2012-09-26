@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------------
 -- We could not define the FOTC colists using the Agda machinery for
--- coinductive types.
+-- co-inductive types.
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
