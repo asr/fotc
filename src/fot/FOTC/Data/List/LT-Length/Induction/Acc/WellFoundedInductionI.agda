@@ -22,7 +22,7 @@ open import FOTC.Induction.WellFounded
 
 -- Parametrized modules
 open module InvImg =
-  FOTC.Induction.WellFounded.InverseImage {List} {N} {LT} length-N
+  FOTC.Induction.WellFounded.InverseImage {List} {N} {LT} lengthList-N
 
 ------------------------------------------------------------------------------
 -- The relation LTL is well-founded (using the inverse image combinator).

@@ -42,7 +42,7 @@ x∷xs<y∷ys→xs<ys {x} {xs} {y} {ys} Lxs Lys x∷xs<y∷ys = Nat.Sx<Sy→x<y 
           LTL xs ys → LTL ys zs → LTL xs zs
 
 <-trans Lxs Lys Lzs xs<ys ys<zs =
-  Nat.<-trans (length-N Lxs) (length-N Lys) (length-N Lzs) xs<ys ys<zs
+  Nat.<-trans (lengthList-N Lxs) (lengthList-N Lys) (lengthList-N Lzs) xs<ys ys<zs
 
 lg-xs≡lg-ys→ys<zx→xs<zs : ∀ {xs ys zs} → length xs ≡ length ys →
                           LTL ys zs → LTL xs zs
@@ -57,7 +57,7 @@ xs<y∷ys→xs<ys∨lg-xs≡lg-ys : ∀ {xs y ys} → List xs → List ys →
                             LTL xs (y ∷ ys) →
                             LTL xs ys ∨ length xs ≡ length ys
 xs<y∷ys→xs<ys∨lg-xs≡lg-ys {xs} {y} {ys} Lxs Lys xs<y∷ys =
-  Nat.x<Sy→x<y∨x≡y (length-N Lxs) (length-N Lys) helper
+  Nat.x<Sy→x<y∨x≡y (lengthList-N Lxs) (lengthList-N Lys) helper
   where
   helper : LT (length xs) (succ₁ (length ys))
   helper =
