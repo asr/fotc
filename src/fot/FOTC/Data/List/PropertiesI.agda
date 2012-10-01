@@ -23,9 +23,10 @@ open import FOTC.Data.Nat.Type
 ------------------------------------------------------------------------------
 -- Totality properties
 
-length-N : ∀ {xs} → List xs → N (length xs)
-length-N lnil               = subst N (sym length-[]) nzero
-length-N (lcons x {xs} Lxs) = subst N (sym (length-∷ x xs)) (nsucc (length-N Lxs))
+lengthList-N : ∀ {xs} → List xs → N (length xs)
+lengthList-N lnil               = subst N (sym length-[]) nzero
+lengthList-N (lcons x {xs} Lxs) =
+  subst N (sym (length-∷ x xs)) (nsucc (lengthList-N Lxs))
 
 ++-List : ∀ {xs ys} → List xs → List ys → List (xs ++ ys)
 ++-List {ys = ys} lnil               Lys = subst List (sym (++-[] ys)) Lys
