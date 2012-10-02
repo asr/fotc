@@ -50,11 +50,14 @@ lengthStream {xs} Sxs = ≈N-coind _R_ h₁ h₂
        m ≡ zero ∧ n ≡ zero ∨
        (∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
   h₁ (_ , Sxs' , _ ) with Stream-unf Sxs'
-  h₁ (.(x'' ∷ xs'') , Sxs' , m≡length-x''∷xs'' , n≡∞)
-     | x'' , xs'' , Sxs'' , refl =
-    inj₂ (length xs'' , ∞ , (xs'' , Sxs'' , refl , refl)
-         , trans m≡length-x''∷xs'' (length-∷ x'' xs'') , trans n≡∞ ∞-eq
-         )
+  h₁ {m} {n} (.(x'' ∷ xs'') , Sxs' , aux , n≡∞) | x'' , xs'' , Sxs'' , refl =
+    inj₂ (length xs'' , ∞ , (xs'' , Sxs'' , refl , refl) , helper₁ , helper₂)
+    where
+    helper₁ : m ≡ succ₁ (length xs'')
+    helper₁ = trans aux (length-∷ x'' xs'')
+
+    helper₂ : n ≡ succ₁ ∞
+    helper₂ = trans n≡∞ ∞-eq
 
   h₂ : length xs R ∞
   h₂ = xs , Sxs , refl , refl
