@@ -188,11 +188,11 @@ the examples from the file
 * Logical symbols
 
 The following symbols are hard-coded, i.e. they should be used: `⊥`
-(false), `⊤` (true), `¬_` (negation), `_∧_` (conjunction), `_∨_`
+(falsehood), `⊤` (truth), `¬_` (negation), `_∧_` (conjunction), `_∨_`
 (disjunction), the Agda non-dependent function type `→` (implication),
 `_↔_` (equivalence), the Agda dependent function type `(x : A) → B`
 (universal quantifier), `∃` (existential quantifier), and `_≡_`
-propositional equality).
+(propositional equality).
 
 * Agda version
 
