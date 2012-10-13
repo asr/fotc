@@ -19,7 +19,7 @@ open import FOTC.Relation.Binary.Bisimilarity
 -----------------------------------------------------------------------------
 
 tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
-tailS {x} {xs} h with (Stream-unf h)
+tailS h with (Stream-unf h)
 ... | x' , xs' , Sxs' , h₁ = subst Stream (sym (∧-proj₂ (∷-injective h₁))) Sxs'
 
 ≈→Stream : ∀ {xs ys} → xs ≈ ys → Stream xs ∧ Stream ys
