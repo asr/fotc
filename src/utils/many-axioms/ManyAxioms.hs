@@ -1,4 +1,4 @@
--- Tested with GHC 7.4.2.
+-- Tested with GHC 7.6.1.
 
 {-# LANGUAGE UnicodeSyntax #-}
 
