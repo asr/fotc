@@ -309,6 +309,7 @@ consistency_fot : $(consistency_fot_files)
                 -inotes/setoids \
 	        -inotes/strictly-positive-inductive-types \
                 -inotes/thesis/agda-introduction \
+                -inotes/thesis/automatization \
                 -inotes/thesis/logical-framework \
 	        $*.agda
 
@@ -321,6 +322,7 @@ type_check_notes : $(type_check_notes_files)
 prove_notes_path = -i$(fot_path) \
                    -inotes \
                    -inotes/papers/fossacs-2012 \
+                   -inotes/thesis/automatization \
                    -inotes/README
 
 %.prove_notes :
