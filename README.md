@@ -62,12 +62,20 @@ of our programs. See:
    This will create a directory called `magda`. Installing our
    modified version is similar to the installation of Agda (see the
    [Agda wiki](http://wiki.portal.chalmers.se/agda/pmwiki.php) for
-   more information); in our setup you need to run the following
+   more information). In our setup we run the first time the following
    commands:
 
    ````bash
    $ cd magda
-   $ make install-bin
+   $ autoconf
+   $ ./configure
+   $ make install
+   ````
+   After pulling new patches, we run the following commands:
+
+   ````bash
+   $ cd magda
+   $ make compile-emacs-mode
    ````
 
    To test the installation of the modified version of Agda, type-check
