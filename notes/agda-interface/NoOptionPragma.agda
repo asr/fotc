@@ -1,7 +1,7 @@
--- Tested with the development version of Agda on 13 July 2012.
+-- Tested with the development version of Agda on 17 October 2012.
 
 -- Testing how the pragmas are saved in the agda interface files (using
--- the program read-agda interface).
+-- the program dump-agdai interface).
 
 -- 13 July 2012. Because for example the pragma BUILTIN is not a
 -- PragmaOption it is not saved in iPragmaOptions, i.e.
