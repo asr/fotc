@@ -1,7 +1,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Disjunction where
+module LogicalFramework.Disjunction where
 
 module LF where
   postulate

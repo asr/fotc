@@ -1,7 +1,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module NonIntuitionistic where
+module LogicalFramework.NonIntuitionistic where
 
 postulate
   ⊥      : Set

@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module CommAddition where
+module LogicalFramework.CommAddition where
 
 open import Common.FOL.Relation.Binary.EqReasoning
 

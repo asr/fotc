@@ -1,7 +1,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Equality where
+module LogicalFramework.Equality where
 
 module LF where
   postulate

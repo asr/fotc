@@ -1,7 +1,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Existential where
+module LogicalFramework.Existential where
 
 module LF where
   postulate

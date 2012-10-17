@@ -1,7 +1,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module Universal where
+module LogicalFramework.Universal where
 
 postulate D : Set
 

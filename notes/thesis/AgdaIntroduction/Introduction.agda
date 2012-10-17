@@ -1,4 +1,4 @@
-module Introduction where
+module AgdaIntroduction.Introduction where
 
 data ℕ : Set where
   zero : ℕ

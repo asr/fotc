@@ -4,7 +4,7 @@
 -- We can use a propositional equality parametrized on Set instead of
 -- using two "different" equalities on D and M.
 
-module SetEquality where
+module LogicalFramework.SetEquality where
 
 -- We add 3 to the fixities of the standard library.
 infix 7 _≡D_ _≡M_

@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module GroupCongruence where
+module LogicalFramework.GroupCongruence where
 
 open import GroupTheory.Base
 
