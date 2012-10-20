@@ -46,16 +46,14 @@ postulate y≡x⁻¹[xy] : ∀ a b → b ≡ a ⁻¹ · (a · b)
 postulate x≡[xy]y⁻¹ : ∀ a b → a ≡ (a · b) · b ⁻¹
 {-# ATP prove x≡[xy]y⁻¹ #-}
 
-postulate
-  rightIdentityUnique : ∀ r → (∀ a → a · r ≡ a) → r ≡ ε
+postulate rightIdentityUnique : ∀ r → (∀ a → a · r ≡ a) → r ≡ ε
 {-# ATP prove rightIdentityUnique #-}
 
 -- A more appropiate version to be used in the proofs.
 postulate rightIdentityUnique' : ∀ a r → a · r ≡ a → r ≡ ε
 {-# ATP prove rightIdentityUnique' #-}
 
-postulate
-  leftIdentityUnique : ∀ l → (∀ a → l · a ≡ a) → l ≡ ε
+postulate leftIdentityUnique : ∀ l → (∀ a → l · a ≡ a) → l ≡ ε
 {-# ATP prove leftIdentityUnique #-}
 
 -- A more appropiate version to be used in the proofs.
@@ -63,8 +61,7 @@ postulate leftIdentityUnique' : ∀ a l → l · a ≡ a → l ≡ ε
 {-# ATP prove leftIdentityUnique' #-}
 
 postulate
-  rightInverseUnique : ∀ {a} → ∃[ r ] (a · r ≡ ε) ∧
-                                      (∀ r' → a · r' ≡ ε → r ≡ r')
+  rightInverseUnique : ∀ {a} → ∃[ r ] (a · r ≡ ε) ∧ (∀ r' → a · r' ≡ ε → r ≡ r')
 {-# ATP prove rightInverseUnique #-}
 
 -- A more appropiate version to be used in the proofs.
@@ -72,8 +69,7 @@ postulate rightInverseUnique' : ∀ {a r} → a · r ≡ ε → a ⁻¹ ≡ r
 {-# ATP prove rightInverseUnique' #-}
 
 postulate
-  leftInverseUnique : ∀ {a} → ∃[ l ] (l · a ≡ ε) ∧
-                                     (∀ l' → l' · a ≡ ε → l ≡ l')
+  leftInverseUnique : ∀ {a} → ∃[ l ] (l · a ≡ ε) ∧ (∀ l' → l' · a ≡ ε → l ≡ l')
 {-# ATP prove leftInverseUnique #-}
 
 -- A more appropiate version to be used in the proofs.
@@ -91,14 +87,12 @@ postulate inverseDistributive : ∀ a b → (a · b) ⁻¹ ≡ b ⁻¹ · a ⁻�
 
 -- The equation xa = b has an unique solution.
 postulate
-  xa≡b-uniqueSolution : ∀ a b → ∃[ x ] (x · a ≡ b) ∧
-                                       (∀ x' → x' · a ≡ b → x ≡ x')
+  xa≡b-uniqueSolution : ∀ a b → ∃[ x ] (x · a ≡ b) ∧ (∀ x' → x' · a ≡ b → x ≡ x')
 {-# ATP prove xa≡b-uniqueSolution #-}
 
 -- The equation ax = b has an unique solution.
 postulate
-  ax≡b-uniqueSolution : ∀ a b → ∃[ x ] (a · x ≡ b) ∧
-                                       (∀ x' → a · x' ≡ b → x ≡ x')
+  ax≡b-uniqueSolution : ∀ a b → ∃[ x ] (a · x ≡ b) ∧ (∀ x' → a · x' ≡ b → x ≡ x')
 {-# ATP prove ax≡b-uniqueSolution #-}
 
 -- If the square of every element is the identity, the system is commutative.
