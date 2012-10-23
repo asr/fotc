@@ -8,6 +8,7 @@
 module DistributiveLaws.TaskB-I where
 
 open import DistributiveLaws.Base
+open import DistributiveLaws.PropertiesI
 
 open import Common.FOL.Relation.Binary.EqReasoning
 
@@ -109,92 +110,55 @@ prop₂ u x y z =
 
   j₁ : xy·zu · (xy·zu · xz·yu) ≡
        xy·zu · (x·zu · y·zu · xz·yu)
-  j₁ = subst (λ t → xy·zu · (xy·zu · xz·yu) ≡ xy·zu · (t · xz·yu))
-             (rightDistributive x y (z · u))
-             refl
+  j₁ = ·-rightCong (·-leftCong (rightDistributive x y (z · u)))
 
   j₂ : xy·zu · (x·zu · y·zu · xz·yu) ≡
        xy·zu · (x·zu · xz·yu · (y·zu · xz·yu))
-  j₂ = subst (λ t → xy·zu · (x·zu · y·zu · xz·yu) ≡ xy·zu · t)
-             (rightDistributive x·zu y·zu xz·yu)
-             refl
+  j₂ = ·-rightCong (rightDistributive x·zu y·zu xz·yu)
 
   j₃ : xy·zu · (x·zu · xz·yu · (y·zu · xz·yu)) ≡
        xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu))
-  j₃ = subst (λ t → xy·zu · (x·zu · xz·yu · (y·zu · xz·yu)) ≡
-                    xy·zu · (t · xz·yu · (y·zu · xz·yu)))
-             (leftDistributive x z u)
-             refl
+  j₃ = ·-rightCong (·-leftCong (·-leftCong (leftDistributive x z u)))
 
   j₄ : xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu)) ≡
        xy·zu · (xz · xu·yu · (y·zu · xz·yu))
-  j₄ = subst (λ t → xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu)) ≡
-                    xy·zu · (t · (y·zu · xz·yu)))
-             (sym (leftDistributive (x · z) (x · u) (y · u)))
-             refl
+  j₄ = ·-rightCong (·-leftCong (sym (leftDistributive (x · z) (x · u) (y · u))))
 
   j₅ : xy·zu · (xz · xu·yu · (y·zu · xz·yu)) ≡
        xy·zu · (xz · xyu · (y·zu · xz·yu))
-  j₅ = subst (λ t → xy·zu · (xz · xu·yu · (y·zu · xz·yu)) ≡
-                    xy·zu · (xz · t · (y·zu · xz·yu)))
-             (sym (rightDistributive x y u))
-             refl
+  j₅ = ·-rightCong (·-leftCong (·-rightCong (sym (rightDistributive x y u))))
 
   j₆ : xy·zu · (xz · xyu · (y·zu · xz·yu)) ≡
        xy·zu · (xz · xyu · (yz·yu · xz·yu))
-  j₆ = subst (λ t → xy·zu · (xz · xyu · (y·zu · xz·yu)) ≡
-                    xy·zu · (xz · xyu · (t · xz·yu)))
-             (leftDistributive y z u)
-             refl
+  j₆ = ·-rightCong (·-rightCong (·-leftCong (leftDistributive y z u)))
 
   j₇ : xy·zu · (xz · xyu · (yz·yu · xz·yu)) ≡
        xy·zu · (xz · xyu · (yz·xz · yu))
-  j₇ = subst (λ t → xy·zu · (xz · xyu · (yz·yu · xz·yu)) ≡
-                    xy·zu · (xz · xyu · t))
-             (sym (rightDistributive (y · z) (x · z) (y · u)))
-             refl
+  j₇ = ·-rightCong (·-rightCong (sym (rightDistributive (y · z) (x · z) (y · u))))
 
   j₈ : xy·zu · (xz · xyu · (yz·xz · yu)) ≡
        xy·zu · (xz · xyu · (yxz · yu))
-  j₈ = subst (λ t → xy·zu · (xz · xyu · (yz·xz · yu)) ≡
-                    xy·zu · (xz · xyu · (t · yu)))
-             (sym (rightDistributive y x z))
-             refl
+  j₈ = ·-rightCong (·-rightCong (·-leftCong (sym (rightDistributive y x z))))
 
   j₉ : xy·zu · (xz · xyu · (yxz · yu)) ≡
        xy·zu · (xz · xyu · (yx·yu · z·yu))
-  j₉ = subst (λ t → xy·zu · (xz · xyu · (yxz · yu)) ≡
-                    xy·zu · (xz · xyu · t))
-             (rightDistributive (y · x) z yu)
-             refl
+  j₉ = ·-rightCong (·-rightCong (rightDistributive (y · x) z yu))
 
   j₁₀ : xy·zu · (xz · xyu · (yx·yu · z·yu)) ≡
         xy·zu · (xz · xyu · (y·xu · z·yu))
-  j₁₀ = subst (λ t → xy·zu · (xz · xyu · (yx·yu · z·yu)) ≡
-                     xy·zu · (xz · xyu · (t · z·yu)))
-              (sym (leftDistributive y x u))
-              refl
+  j₁₀ = ·-rightCong (·-rightCong (·-leftCong (sym (leftDistributive y x u))))
 
   j₁₁ : xy·zu · (xz · xyu · (y·xu · z·yu)) ≡
         xyz · xyu · (xz · xyu · (y·xu · z·yu))
-  j₁₁ = subst (λ t → xy·zu · (xz · xyu · (y·xu · z·yu)) ≡
-                     t · (xz · xyu · (y·xu · z·yu)))
-              (leftDistributive (x · y) z u)
-              refl
+  j₁₁ = ·-leftCong (leftDistributive (x · y) z u)
 
   j₁₂ : xyz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
         xz·yz · xyu · (xz · xyu · (y·xu · z·yu))
-  j₁₂ = subst (λ t → xyz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
-                     t · xyu · (xz · xyu · (y·xu · z·yu)))
-              (rightDistributive x y z)
-              refl
+  j₁₂ = ·-leftCong (·-leftCong (rightDistributive x y z))
 
   j₁₃ : xz·yz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
         xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu))
-  j₁₃ = subst (λ t → xz·yz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
-                     t · (xz · xyu · (y·xu · z·yu)))
-              (rightDistributive (x · z) (y · z) xyu)
-              refl
+  j₁₃ = ·-leftCong (rightDistributive (x · z) (y · z) xyu)
 
   j₁₄ : xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu)) ≡
         xz · xyu · (yz · xyu · (y·xu · z·yu))
@@ -202,17 +166,11 @@ prop₂ u x y z =
 
   j₁₅ : xz · xyu · (yz · xyu · (y·xu · z·yu)) ≡
         xz · xyu · (yz · xu·yu · (y·xu · z·yu))
-  j₁₅ = subst (λ t → xz · xyu · (yz · xyu · (y·xu · z·yu)) ≡
-                     xz · xyu · (yz · t · (y·xu · z·yu)))
-              (rightDistributive x y u)
-              refl
+  j₁₅ = ·-rightCong (·-leftCong (·-rightCong (rightDistributive x y u)))
 
   j₁₆ : xz · xyu · (yz · xu·yu · (y·xu · z·yu)) ≡
         xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu))
-  j₁₆ = subst (λ t → xz · xyu · (yz · xu·yu · (y·xu · z·yu)) ≡
-                     xz · xyu · (t · (y·xu · z·yu)))
-              (rightDistributive y z xu·yu)
-              refl
+  j₁₆ = ·-rightCong (·-leftCong (rightDistributive y z xu·yu))
 
   j₁₇ : xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu)) ≡
         xz · xyu ·
@@ -226,13 +184,7 @@ prop₂ u x y z =
         (y · xu·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
         xz · xyu ·
         (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
-  j₁₈ = subst (λ t → xz · xyu ·
-                     (y · xu·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
-                     ≡
-                     xz · xyu ·
-                     (t · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu))))
-              (leftDistributive y (x · u) (y · u))
-              refl
+  j₁₈ = ·-rightCong (·-leftCong (·-leftCong (leftDistributive y (x · u) (y · u))))
 
   j₁₉ : xz · xyu ·
         (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
@@ -246,92 +198,52 @@ prop₂ u x y z =
 
   j₂₀ : xz · xyu · (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
         xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu)))
-  j₂₀ = subst (λ t → xz · xyu ·
-                     (y·xu · (y·yu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
-                     ≡
-                     xz · xyu ·
-                     (y·xu · t · (z · xu·yu · (y·xu · z·yu))))
-              (sym (rightDistributive y z (y · u)))
-              refl
+  j₂₀ = ·-rightCong (·-leftCong (·-rightCong (sym (rightDistributive y z (y · u)))))
 
   j₂₁ : xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu))) ≡
         xz · xyu · (y·xu · y·zu · (z · xu·yu · (y·xu · z·yu)))
-  j₂₁ = subst (λ t → xz · xyu ·
-                     (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu)))
-                     ≡
-                     xz · xyu ·
-                     (y·xu · t · (z · xu·yu · (y·xu · z·yu))))
-              (sym (leftDistributive y z u))
-              refl
+  j₂₁ = ·-rightCong (·-leftCong (·-rightCong (sym (leftDistributive y z u))))
 
   j₂₂ : xz · xyu · (y·xu · y·zu · (z · xu·yu · (y·xu · z·yu))) ≡
         xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))
-  j₂₂ = subst (λ t → xz · xyu ·
-                     (y·xu · y·zu · (z · xu·yu · (y·xu · z·yu)))
-                     ≡
-                     xz · xyu ·
-                     (t · (z · xu·yu · (y·xu · z·yu))))
-              (sym (leftDistributive y (x · u) (z · u)))
-              refl
+  j₂₂ = ·-rightCong (·-leftCong (sym (leftDistributive y (x · u) (z · u))))
 
   j₂₃ : xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu))) ≡
         xz · xyu · (y · xu·zu · (z·xu · z·yu · (y·xu · z·yu)))
-  j₂₃ = subst (λ t → xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu))) ≡
-                     xz · xyu · (y · xu·zu · (t · (y·xu · z·yu))))
-              (leftDistributive z (x · u) (y · u))
-              refl
+  j₂₃ = ·-rightCong (·-rightCong (·-leftCong (leftDistributive z (x · u) (y · u))))
 
   j₂₄ : xz · xyu · (y · xu·zu · (z·xu · z·yu · (y·xu · z·yu))) ≡
         (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))
-  j₂₄ = subst (λ t → xz · xyu · (y · xu·zu · (z·xu · z·yu · (y·xu · z·yu))) ≡
-                     xz · xyu · (y · xu·zu · t))
-              (sym (rightDistributive z·xu y·xu z·yu))
-              refl
+  j₂₄ = ·-rightCong (·-rightCong (sym (rightDistributive z·xu y·xu z·yu)))
 
   j₂₅ : (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu)) ≡
         xz · xyu · (y · xu·zu · (zy·xu · z·yu))
-  j₂₅ = subst (λ t → xz · xyu · (y · xu·zu · (z·xu · y·xu · z·yu)) ≡
-                     xz · xyu · (y · xu·zu · (t · z·yu)))
-              (sym (rightDistributive z y (x · u)))
-              refl
+  j₂₅ = ·-rightCong (·-rightCong (·-leftCong (sym (rightDistributive z y (x · u)))))
 
   j₂₆ : xz · xyu · (y · xu·zu · (zy·xu · z·yu)) ≡
         xz · xyu · (y · xu·zu · (zy·xu · zy·zu))
-  j₂₆ = subst (λ t → xz · xyu · (y · xu·zu · (zy·xu · z·yu)) ≡
-                     xz · xyu · (y · xu·zu · (zy·xu · t)))
-              (leftDistributive z y u)
-              refl
+  j₂₆ = ·-rightCong (·-rightCong (·-rightCong (leftDistributive z y u)))
 
   j₂₇ : xz · xyu · (y · xu·zu · (zy·xu · zy·zu)) ≡
         xz · xyu · (y · xu·zu · (zy · xu·zu))
-  j₂₇ = subst (λ t → xz · xyu · (y · xu·zu · (zy·xu · zy·zu)) ≡
-                     xz · xyu · (y · xu·zu · t))
-              (sym (leftDistributive (z · y) (x · u) (z · u)))
-              refl
+  j₂₇ = ·-rightCong (·-rightCong (sym (leftDistributive (z · y) (x · u) (z · u))))
 
   j₂₈ : xz · xyu · (y · xu·zu · (zy · xu·zu)) ≡
         xz · xyu · (y·zy · xu·zu)
-  j₂₈ = subst (λ t → xz · xyu · (y · xu·zu · (zy · xu·zu)) ≡ xz · xyu · t)
-              (sym (rightDistributive y zy xu·zu))
-              refl
+  j₂₈ = ·-rightCong (sym (rightDistributive y zy xu·zu))
 
   j₂₉ : xz · xyu · (y·zy · xu·zu) ≡
         xz · xyu · (y·zy · xzu)
-  j₂₉ = subst (λ t → xz · xyu · (y·zy · xu·zu) ≡ xz · xyu · (y·zy · t))
-              (sym (rightDistributive x z u))
-              refl
+  j₂₉ = ·-rightCong (·-rightCong (sym (rightDistributive x z u)))
+
 
   j₃₀ : xz · xyu · (y·zy · xzu) ≡
         xz·xy · xzu · (y·zy · xzu)
-  j₃₀ = subst (λ t → xz · xyu · (y·zy · xzu) ≡ t · (y·zy · xzu))
-              (leftDistributive xz (x · y) u)
-              refl
+  j₃₀ = ·-leftCong (leftDistributive xz (x · y) u)
 
   j₃₁ : xz·xy · xzu · (y·zy · xzu) ≡
         x·zy · xzu · (y·zy · xzu)
-  j₃₁ = subst (λ t → xz·xy · xzu · (y·zy · xzu) ≡ (t · xzu · (y·zy · xzu)))
-              (sym (leftDistributive x z y))
-              refl
+  j₃₁ = ·-leftCong (·-leftCong (sym (leftDistributive x z y)))
 
   j₃₂ : x·zy · xzu · (y·zy · xzu) ≡
         x·zy · y·zy · xzu
@@ -339,15 +251,11 @@ prop₂ u x y z =
 
   j₃₃ : x·zy · y·zy · xzu ≡
         xy·zy · xzu
-  j₃₃ = subst (λ t → x·zy · y·zy · xzu ≡ t · xzu)
-              (sym (rightDistributive x y zy))
-              refl
+  j₃₃ = ·-leftCong (sym (rightDistributive x y zy))
 
   j₃₄ : xy·zy · xzu ≡
         xzy · xzu
-  j₃₄ = subst (λ t → xy·zy · xzu ≡ t · xzu)
-              (sym (rightDistributive x z y))
-              refl
+  j₃₄ = ·-leftCong (sym (rightDistributive x z y))
 
   j₃₅ : xzy · xzu ≡
         xz·yu

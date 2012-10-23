@@ -20,10 +20,10 @@ open import Common.FOL.Relation.Binary.EqReasoning
 -- ·-cong = cong₂ _·_
 
 ·-leftCong : ∀ {a b c} → a ≡ b → a · c ≡ b · c
-·-leftCong h = cong₂ _·_ h refl
+·-leftCong refl = refl
 
 ·-rightCong : ∀ {a b c} → b ≡ c → a · b ≡ a · c
-·-rightCong = cong₂ _·_ refl
+·-rightCong refl = refl
 
 -- The propositional equality is compatible with the inverse function.
 ⁻¹-cong : ∀ {a b} → a ≡ b → a ⁻¹ ≡ b ⁻¹
