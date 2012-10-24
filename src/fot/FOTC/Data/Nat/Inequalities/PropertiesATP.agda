@@ -412,7 +412,7 @@ x<y→y≤z→x<z Nm Nn No m<n n≤o = case (λ n<o → <-trans Nm Nn No m<n n<o
 x≤y+x∸y : ∀ {m n} → N m → N n → LE m (n + (m ∸ n))
 x≤y+x∸y {n = n} nzero Nn = prf0
   where postulate prf0 : LE zero (n + (zero ∸ n))
-        {-# ATP prove prf0 0≤x +-N  #-}
+        {-# ATP prove prf0 0≤x +-N #-}
 x≤y+x∸y (nsucc {m} Nm) nzero = prfx0
   where postulate prfx0 : LE (succ₁ m) (zero + (succ₁ m ∸ zero))
         {-# ATP prove prfx0 x<Sx #-}

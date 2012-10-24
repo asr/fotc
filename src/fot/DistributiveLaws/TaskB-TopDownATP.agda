@@ -53,17 +53,17 @@ prop₂ u x y z =
   y·yu = y · (y · u)
   y·zu = y · (z · u)
   y·zy = y · (z · y)
-  {-# ATP definition y·xu y·yu y·zu y·zy  #-}
+  {-# ATP definition y·xu y·yu y·zu y·zy #-}
 
   z·xu = z · (x · u)
   z·yu = z · (y · u)
-  {-# ATP definition z·xu z·yu  #-}
+  {-# ATP definition z·xu z·yu #-}
 
   -- Four variables abbreviations
 
   xu·yu = x · u · (y · u)
   xu·zu = x · u · (z · u)
-  {-# ATP definition xu·yu xu·zu  #-}
+  {-# ATP definition xu·yu xu·zu #-}
 
   xy·zu = x · y · (z · u)
   {-# ATP definition xy·zu #-}
