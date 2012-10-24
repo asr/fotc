@@ -13,7 +13,7 @@ open import FOTC.Data.Nat
 ------------------------------------------------------------------------------
 -- Interactive proof using the induction principle for natural numbers.
 +-N : ∀ {m n} → N m → N n → N (m + n)
-+-N {m} {n} Nm Nn = N-ind A A0 ih Nm
++-N {m} {n} Nm Nn = N-ind A A0 is Nm
   where
     A : D → Set
     A i = N (i + n)
@@ -21,14 +21,14 @@ open import FOTC.Data.Nat
     A0 : A zero
     A0 = subst N (sym (+-0x n)) Nn
 
-    ih : ∀ {i} → A i → A (succ₁ i)
-    ih {i} ih = subst N (sym (+-Sx i n)) (nsucc ih)
+    is : ∀ {i} → A i → A (succ₁ i)
+    is {i} ih = subst N (sym (+-Sx i n)) (nsucc ih)
 
 -- Combined proof using an instance of the induction principle.
 N-ind-instance : ∀ n →
-                N (zero + n) →
-                (∀ {m} → N (m + n) → N (succ₁ m + n)) →
-                ∀ {m} → N m → N (m + n)
+                 N (zero + n) →
+                 (∀ {m} → N (m + n) → N (succ₁ m + n)) →
+                 ∀ {m} → N m → N (m + n)
 N-ind-instance n = N-ind (λ i → N (i + n))
 
 postulate
