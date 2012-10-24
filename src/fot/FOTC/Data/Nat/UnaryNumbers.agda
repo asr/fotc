@@ -22,16 +22,7 @@ eight  = succ₁ seven
 nine   = succ₁ eight
 ten    = succ₁ nine
 
-{-# ATP definition one #-}
-{-# ATP definition two #-}
-{-# ATP definition three #-}
-{-# ATP definition four #-}
-{-# ATP definition five #-}
-{-# ATP definition six #-}
-{-# ATP definition seven #-}
-{-# ATP definition eight #-}
-{-# ATP definition nine #-}
-{-# ATP definition ten #-}
+{-# ATP definition one two three four five six seven eight nine ten #-}
 
 eleven    = succ₁ ten
 twelve    = succ₁ eleven
@@ -44,16 +35,9 @@ eighteen  = succ₁ seventeen
 nineteen  = succ₁ eighteen
 twenty    = succ₁ nineteen
 
-{-# ATP definition eleven #-}
-{-# ATP definition twelve #-}
-{-# ATP definition thirteen #-}
-{-# ATP definition fourteen #-}
-{-# ATP definition fifteen #-}
-{-# ATP definition sixteen #-}
-{-# ATP definition seventeen #-}
-{-# ATP definition eighteen #-}
-{-# ATP definition nineteen #-}
-{-# ATP definition twenty #-}
+{-# ATP definition eleven twelve thirteen fourteen fifteen
+                   sixteen seventeen eighteen nineteen twenty
+#-}
 
 twenty-one   = succ₁ twenty
 twenty-two   = succ₁ twenty-one
@@ -66,16 +50,9 @@ twenty-eight = succ₁ twenty-seven
 twenty-nine  = succ₁ twenty-eight
 thirty       = succ₁ twenty-nine
 
-{-# ATP definition twenty-one #-}
-{-# ATP definition twenty-two #-}
-{-# ATP definition twenty-three #-}
-{-# ATP definition twenty-four #-}
-{-# ATP definition twenty-five #-}
-{-# ATP definition twenty-six #-}
-{-# ATP definition twenty-seven #-}
-{-# ATP definition twenty-eight #-}
-{-# ATP definition twenty-nine #-}
-{-# ATP definition thirty #-}
+{-# ATP definition twenty-one twenty-two twenty-three twenty-four twenty-five
+                   twenty-six twenty-seven twenty-eight twenty-nine thirty
+#-}
 
 thirty-one   = succ₁ thirty
 thirty-two   = succ₁ thirty-one
@@ -88,16 +65,9 @@ thirty-eight = succ₁ thirty-seven
 thirty-nine  = succ₁ thirty-eight
 forty        = succ₁ thirty-nine
 
-{-# ATP definition thirty-one #-}
-{-# ATP definition thirty-two #-}
-{-# ATP definition thirty-three #-}
-{-# ATP definition thirty-four #-}
-{-# ATP definition thirty-five #-}
-{-# ATP definition thirty-six #-}
-{-# ATP definition thirty-seven #-}
-{-# ATP definition thirty-eight #-}
-{-# ATP definition thirty-nine #-}
-{-# ATP definition forty #-}
+{-# ATP definition thirty-one thirty-two thirty-three thirty-four thirty-five
+                   thirty-six thirty-seven thirty-eight thirty-nine forty
+#-}
 
 forty-one   = succ₁ forty
 forty-two   = succ₁ forty-one
@@ -110,16 +80,9 @@ forty-eight = succ₁ forty-seven
 forty-nine  = succ₁ forty-eight
 fifty       = succ₁ forty-nine
 
-{-# ATP definition forty-one #-}
-{-# ATP definition forty-two #-}
-{-# ATP definition forty-three #-}
-{-# ATP definition forty-four #-}
-{-# ATP definition forty-five #-}
-{-# ATP definition forty-six #-}
-{-# ATP definition forty-seven #-}
-{-# ATP definition forty-eight #-}
-{-# ATP definition forty-nine #-}
-{-# ATP definition fifty #-}
+{-# ATP definition forty-one forty-two forty-three forty-four forty-five
+                   forty-six forty-seven forty-eight forty-nine fifty
+#-}
 
 fifty-one   = succ₁ fifty
 fifty-two   = succ₁ fifty-one
@@ -132,16 +95,9 @@ fifty-eight = succ₁ fifty-seven
 fifty-nine  = succ₁ fifty-eight
 sixty       = succ₁ fifty-nine
 
-{-# ATP definition fifty-one #-}
-{-# ATP definition fifty-two #-}
-{-# ATP definition fifty-three #-}
-{-# ATP definition fifty-four #-}
-{-# ATP definition fifty-five #-}
-{-# ATP definition fifty-six #-}
-{-# ATP definition fifty-seven #-}
-{-# ATP definition fifty-eight #-}
-{-# ATP definition fifty-nine #-}
-{-# ATP definition sixty #-}
+{-# ATP definition fifty-one fifty-two fifty-three fifty-four fifty-five
+                   fifty-six fifty-seven fifty-eight fifty-nine sixty
+#-}
 
 sixty-one   = succ₁ sixty
 sixty-two   = succ₁ sixty-one
@@ -154,16 +110,9 @@ sixty-eight = succ₁ sixty-seven
 sixty-nine  = succ₁ sixty-eight
 seventy     = succ₁ sixty-nine
 
-{-# ATP definition sixty-one #-}
-{-# ATP definition sixty-two #-}
-{-# ATP definition sixty-three #-}
-{-# ATP definition sixty-four #-}
-{-# ATP definition sixty-five #-}
-{-# ATP definition sixty-six #-}
-{-# ATP definition sixty-seven #-}
-{-# ATP definition sixty-eight #-}
-{-# ATP definition sixty-nine #-}
-{-# ATP definition seventy #-}
+{-# ATP definition sixty-one sixty-two sixty-three sixty-four sixty-five
+                   sixty-six sixty-seven sixty-eight sixty-nine seventy
+#-}
 
 seventy-one   = succ₁ seventy
 seventy-two   = succ₁ seventy-one
@@ -176,16 +125,9 @@ seventy-eight = succ₁ seventy-seven
 seventy-nine  = succ₁ seventy-eight
 eighty        = succ₁ seventy-nine
 
-{-# ATP definition seventy-one #-}
-{-# ATP definition seventy-two #-}
-{-# ATP definition seventy-three #-}
-{-# ATP definition seventy-four #-}
-{-# ATP definition seventy-five #-}
-{-# ATP definition seventy-six #-}
-{-# ATP definition seventy-seven #-}
-{-# ATP definition seventy-eight #-}
-{-# ATP definition seventy-nine #-}
-{-# ATP definition eighty #-}
+{-# ATP definition seventy-one seventy-two seventy-three seventy-four seventy-five
+                   seventy-six seventy-seven seventy-eight seventy-nine eighty
+ #-}
 
 eighty-one   = succ₁ eighty
 eighty-two   = succ₁ eighty-one
@@ -198,16 +140,9 @@ eighty-eight = succ₁ eighty-seven
 eighty-nine  = succ₁ eighty-eight
 ninety       = succ₁ eighty-nine
 
-{-# ATP definition eighty-one #-}
-{-# ATP definition eighty-two #-}
-{-# ATP definition eighty-three #-}
-{-# ATP definition eighty-four #-}
-{-# ATP definition eighty-five #-}
-{-# ATP definition eighty-six #-}
-{-# ATP definition eighty-seven #-}
-{-# ATP definition eighty-eight #-}
-{-# ATP definition eighty-nine #-}
-{-# ATP definition ninety #-}
+{-# ATP definition eighty-one eighty-two eighty-three eighty-four eighty-five
+                   eighty-six eighty-seven eighty-eight eighty-nine ninety
+#-}
 
 ninety-one   = succ₁ ninety
 ninety-two   = succ₁ ninety-one
@@ -220,16 +155,9 @@ ninety-eight = succ₁ ninety-seven
 ninety-nine  = succ₁ ninety-eight
 one-hundred  = succ₁ ninety-nine
 
-{-# ATP definition ninety-one #-}
-{-# ATP definition ninety-two #-}
-{-# ATP definition ninety-three #-}
-{-# ATP definition ninety-four #-}
-{-# ATP definition ninety-five #-}
-{-# ATP definition ninety-six #-}
-{-# ATP definition ninety-seven #-}
-{-# ATP definition ninety-eight #-}
-{-# ATP definition ninety-nine #-}
-{-# ATP definition one-hundred #-}
+{-# ATP definition ninety-one ninety-two ninety-three ninety-four ninety-five
+                   ninety-six ninety-seven ninety-eight ninety-nine one-hundred
+ #-}
 
 hundred-one   = succ₁ one-hundred
 hundred-two   = succ₁ hundred-one
@@ -242,16 +170,9 @@ hundred-eight = succ₁ hundred-seven
 hundred-nine  = succ₁ hundred-eight
 hundred-ten   = succ₁ hundred-nine
 
-{-# ATP definition hundred-one #-}
-{-# ATP definition hundred-two #-}
-{-# ATP definition hundred-three #-}
-{-# ATP definition hundred-four #-}
-{-# ATP definition hundred-five #-}
-{-# ATP definition hundred-six #-}
-{-# ATP definition hundred-seven #-}
-{-# ATP definition hundred-eight #-}
-{-# ATP definition hundred-nine #-}
-{-# ATP definition hundred-ten #-}
+{-# ATP definition hundred-one hundred-two hundred-three hundred-four hundred-five
+                   hundred-six hundred-seven hundred-eight hundred-nine hundred-ten
+ #-}
 
 hundred-eleven = succ₁ hundred-ten
 {-# ATP definition hundred-eleven #-}
