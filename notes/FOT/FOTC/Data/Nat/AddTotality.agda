@@ -25,15 +25,15 @@ open import FOTC.Data.Nat
     is {i} ih = subst N (sym (+-Sx i n)) (nsucc ih)
 
 -- Combined proof using an instance of the induction principle.
-N-ind-instance : ∀ n →
-                 N (zero + n) →
-                 (∀ {m} → N (m + n) → N (succ₁ m + n)) →
-                 ∀ {m} → N m → N (m + n)
-N-ind-instance n = N-ind (λ i → N (i + n))
++-N-ind : ∀ n →
+          N (zero + n) →
+          (∀ {m} → N (m + n) → N (succ₁ m + n)) →
+          ∀ {m} → N m → N (m + n)
++-N-ind n = N-ind (λ i → N (i + n))
 
 postulate
   +-N₁ : ∀ {m n} → N m → N n → N (m + n)
-{-# ATP prove +-N₁ N-ind-instance #-}
+{-# ATP prove +-N₁ +-N-ind #-}
 
 -- Combined proof using the induction principle.
 
