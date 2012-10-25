@@ -12,7 +12,6 @@
 module FOTC.Data.Nat.PropertiesByInductionI where
 
 open import Common.FOL.Relation.Binary.EqReasoning
-open import Common.Function
 
 open import FOTC.Base
 open import FOTC.Data.Nat
@@ -21,6 +20,12 @@ open import FOTC.Data.Nat
 
 succCong : ∀ {m n} → m ≡ n → succ₁ m ≡ succ₁ n
 succCong refl = refl
+
++-leftCong : ∀ {a b c} → a ≡ b → a + c ≡ b + c
++-leftCong refl = refl
+
++-rightCong : ∀ {a b c} → b ≡ c → a + b ≡ a + c
++-rightCong refl = refl
 
 +-leftIdentity : ∀ n → zero + n ≡ n
 +-leftIdentity n = +-0x n
@@ -35,12 +40,7 @@ succCong refl = refl
   A0 = +-leftIdentity zero
 
   is : ∀ {i} → A i → A (succ₁ i)
-  is {i} ih = trans (+-Sx i zero)
-                    (subst (λ t → succ₁ (i + zero) ≡ succ₁ t)
-                           ih
-                           refl
-                    )
-
+  is {i} ih = trans (+-Sx i zero) (succCong ih)
 
 +-N : ∀ {m n} → N m → N n → N (m + n)
 +-N {n = n} Nm Nn = N-ind A A0 is Nm
@@ -49,10 +49,10 @@ succCong refl = refl
   A i = N (i + n)
 
   A0 : A zero
-  A0 = subst N (sym $ +-leftIdentity n) Nn
+  A0 = subst N (sym (+-leftIdentity n)) Nn
 
   is : ∀ {i} → A i → A (succ₁ i)
-  is {i} ih = subst N (sym $ +-Sx i n) (nsucc ih)
+  is {i} ih = subst N (sym (+-Sx i n)) (nsucc ih)
 
 +-assoc : ∀ {m} → N m → ∀ n o → m + n + o ≡ m + (n + o)
 +-assoc Nm n o = N-ind A A0 is Nm
@@ -61,23 +61,16 @@ succCong refl = refl
   A i = i + n + o ≡ i + (n + o)
 
   A0 : A zero
-  A0 = zero + n + o
-         ≡⟨ subst (λ t → zero + n + o ≡ t + o) (+-leftIdentity n) refl ⟩
-       n + o
-         ≡⟨ sym $ +-leftIdentity (n + o) ⟩
+  A0 = zero + n + o   ≡⟨ +-leftCong (+-leftIdentity n) ⟩
+       n + o          ≡⟨ sym (+-leftIdentity (n + o)) ⟩
        zero + (n + o) ∎
 
   is : ∀ {i} → A i → A (succ₁ i)
-  is {i} ih =
-    succ₁ i + n + o
-      ≡⟨ subst (λ t → succ₁ i + n + o ≡ t + o) (+-Sx i n) refl ⟩
-    succ₁ (i + n) + o
-      ≡⟨ +-Sx (i + n) o ⟩
-    succ₁ (i + n + o)
-      ≡⟨ subst (λ t → succ₁ (i + n + o) ≡ succ₁ t) ih refl ⟩
-    succ₁ (i + (n + o))
-      ≡⟨ sym $ +-Sx i (n + o) ⟩
-    succ₁ i + (n + o) ∎
+  is {i} ih = succ₁ i + n + o     ≡⟨ +-leftCong (+-Sx i n) ⟩
+              succ₁ (i + n) + o   ≡⟨ +-Sx (i + n) o ⟩
+              succ₁ (i + n + o)   ≡⟨ succCong ih ⟩
+              succ₁ (i + (n + o)) ≡⟨ sym (+-Sx i (n + o)) ⟩
+              succ₁ i + (n + o)   ∎
 
 x+Sy≡S[x+y] : ∀ {m} → N m → ∀ n → m + succ₁ n ≡ succ₁ (m + n)
 x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
@@ -86,21 +79,15 @@ x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
   A i = i + succ₁ n ≡ succ₁ (i + n)
 
   A0 : A zero
-  A0 = zero + succ₁ n
-        ≡⟨ +-leftIdentity (succ₁ n) ⟩
-       succ₁ n
-         ≡⟨ subst (λ t → succ₁ n ≡ succ₁ t) (sym $ +-leftIdentity n) refl ⟩
+  A0 = zero + succ₁ n   ≡⟨ +-leftIdentity (succ₁ n) ⟩
+       succ₁ n          ≡⟨ succCong (sym (+-leftIdentity n)) ⟩
        succ₁ (zero + n) ∎
 
   is : ∀ {i} → A i → A (succ₁ i)
-  is {i} ih =
-    succ₁ i + succ₁ n
-      ≡⟨ +-Sx i (succ₁ n) ⟩
-    succ₁ (i + succ₁ n)
-      ≡⟨ subst (λ t → succ₁ (i + succ₁ n) ≡ succ₁ t) ih refl ⟩
-    succ₁ (succ₁ (i + n))
-      ≡⟨ subst (λ t → succ₁ (succ₁ (i + n)) ≡ succ₁ t) (sym $ +-Sx i n) refl ⟩
-    succ₁ (succ₁ i + n) ∎
+  is {i} ih = succ₁ i + succ₁ n     ≡⟨ +-Sx i (succ₁ n) ⟩
+              succ₁ (i + succ₁ n)   ≡⟨ succCong ih ⟩
+              succ₁ (succ₁ (i + n)) ≡⟨ succCong (sym (+-Sx i n)) ⟩
+              succ₁ (succ₁ i + n)   ∎
 
 +-comm : ∀ {m n} → N m → N n → m + n ≡ n + m
 +-comm {n = n} Nm Nn = N-ind A A0 is Nm
@@ -110,15 +97,11 @@ x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
 
   A0 : A zero
   A0 = zero + n ≡⟨ +-leftIdentity n ⟩
-       n        ≡⟨ sym $ +-rightIdentity Nn ⟩
+       n        ≡⟨ sym (+-rightIdentity Nn) ⟩
        n + zero ∎
 
   is : ∀ {i} → A i → A (succ₁ i)
-  is {i} ih =
-     succ₁ i + n
-       ≡⟨ +-Sx i n ⟩
-     succ₁ (i + n)
-        ≡⟨ succCong ih ⟩
-     succ₁ (n + i)
-       ≡⟨ sym $ x+Sy≡S[x+y] Nn i ⟩
-     n + succ₁ i ∎
+  is {i} ih = succ₁ i + n   ≡⟨ +-Sx i n ⟩
+              succ₁ (i + n) ≡⟨ succCong ih ⟩
+              succ₁ (n + i) ≡⟨ sym (x+Sy≡S[x+y] Nn i) ⟩
+              n + succ₁ i   ∎
