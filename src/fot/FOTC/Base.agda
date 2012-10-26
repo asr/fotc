@@ -42,13 +42,11 @@ open import Common.DefinitionsATP public
 --   t ::= x   | t · t |
 --      | true | false | if
 --      | 0    | succ  | pred | iszero
---      | loop
 
 postulate
   _·_                    : D → D → D  -- FOTC application.
   true false if          : D          -- FOTC partial Booleans.
   zero succ pred iszero  : D          -- FOTC partial natural numbers.
-  loop                   : D          -- FOTC looping programs.
 
 ------------------------------------------------------------------------------
 -- Definitions
@@ -114,13 +112,6 @@ postulate
   iszero-S : ∀ n → iszero₁ (succ₁ n) ≡ false
 {-# ATP axiom iszero-0 iszero-S #-}
 
--- Conversion rule for loop.
---
--- The equation loop-eq adds anything to the logic (because
--- reflexivity is already an axiom of equality), therefore we won't
--- add this equation as a first-order logic axiom.
-postulate loop-eq : loop ≡ loop
-
 ------------------------------------------------------------------------------
 -- Discrimination rules
 
@@ -180,3 +171,17 @@ module BList where
   -- Discrimination rules
   -- postulate []≢cons : ∀ {x xs} → [] ≢ cons · x · xs
   postulate []≢cons : ∀ {x xs} → [] ≢ x ∷ xs
+
+------------------------------------------------------------------------------
+-- FOTC looping combinator.
+
+module Loop where
+
+  postulate loop : D
+
+  -- Conversion rule
+  --
+  -- The equation loop-eq adds anything to the logic (because
+  -- reflexivity is already an axiom of equality), therefore we won't
+  -- add this equation as a first-order logic axiom.
+  -- postulate loop-eq : loop ≡ loop

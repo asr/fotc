@@ -8,6 +8,7 @@
 module FOTC.Program.ABP.Terms where
 
 open import FOTC.Base
+open FOTC.Base.Loop
 open import FOTC.Data.Bool
 
 ------------------------------------------------------------------------------

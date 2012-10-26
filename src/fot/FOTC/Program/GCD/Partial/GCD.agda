@@ -8,6 +8,7 @@
 module FOTC.Program.GCD.Partial.GCD where
 
 open import FOTC.Base
+open FOTC.Base.Loop
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
 
