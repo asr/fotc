@@ -7,8 +7,6 @@
 
 module FOTC.Data.Nat.PropertiesATP where
 
-open import Common.Function
-
 open import FOTC.Base
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.UnaryNumbers
@@ -49,7 +47,7 @@ postulate *-rightCong : ∀ {m n o} → n ≡ o → m * n ≡ m * o
 +-N {n = n} nzero Nn = prf
   where postulate prf : N (zero + n)
         {-# ATP prove prf #-}
-+-N {n = n} (nsucc {m} Nm) Nn = prf $ +-N Nm Nn
++-N {n = n} (nsucc {m} Nm) Nn = prf (+-N Nm Nn)
   where postulate prf : N (m + n) →  N (succ₁ m + n)
         {-# ATP prove prf #-}
 
@@ -60,7 +58,7 @@ postulate *-rightCong : ∀ {m n o} → n ≡ o → m * n ≡ m * o
 ∸-N nzero (nsucc {n} Nn) = prf
   where postulate prf : N (zero ∸ succ₁ n)
         {-# ATP prove prf #-}
-∸-N (nsucc {m} Nm) (nsucc {n} Nn) = prf $ ∸-N Nm Nn
+∸-N (nsucc {m} Nm) (nsucc {n} Nn) = prf (∸-N Nm Nn)
   where postulate prf : N (m ∸ n) → N (succ₁ m ∸ succ₁ n)
         {-# ATP prove prf #-}
 
@@ -68,7 +66,7 @@ postulate *-rightCong : ∀ {m n o} → n ≡ o → m * n ≡ m * o
 *-N {n = n} nzero Nn = prf
   where postulate prf : N (zero * n)
         {-# ATP prove prf #-}
-*-N {n = n} (nsucc {m} Nm) Nn = prf $ *-N Nm Nn
+*-N {n = n} (nsucc {m} Nm) Nn = prf (*-N Nm Nn)
   where postulate prf : N (m * n) → N (succ₁ m * n)
         {-# ATP prove prf +-N #-}
 
@@ -88,7 +86,7 @@ Sx≢x (nsucc {n} Nn) h = prf (Sx≢x Nn)
 
 +-rightIdentity : ∀ {n} → N n → n + zero ≡ n
 +-rightIdentity nzero          = +-leftIdentity zero
-+-rightIdentity (nsucc {n} Nn) = prf $ +-rightIdentity Nn
++-rightIdentity (nsucc {n} Nn) = prf (+-rightIdentity Nn)
    where postulate prf : n + zero ≡ n → succ₁ n + zero ≡ succ₁ n
          {-# ATP prove prf #-}
 
@@ -96,7 +94,7 @@ Sx≢x (nsucc {n} Nn) h = prf (Sx≢x Nn)
 +-assoc nzero n o = prf
   where postulate prf : zero + n + o ≡ zero + (n + o)
         {-# ATP prove prf #-}
-+-assoc (nsucc {m} Nm) n o = prf $ +-assoc Nm n o
++-assoc (nsucc {m} Nm) n o = prf (+-assoc Nm n o)
   where postulate prf : m + n + o ≡ m + (n + o) →
                         succ₁ m + n + o ≡ succ₁ m + (n + o)
         {-# ATP prove prf #-}
@@ -105,7 +103,7 @@ x+Sy≡S[x+y] : ∀ {m} → N m → ∀ n → m + succ₁ n ≡ succ₁ (m + n)
 x+Sy≡S[x+y] nzero n = prf
   where postulate prf : zero + succ₁ n ≡ succ₁ (zero + n)
         {-# ATP prove prf #-}
-x+Sy≡S[x+y] (nsucc {m} Nm) n = prf $ x+Sy≡S[x+y] Nm n
+x+Sy≡S[x+y] (nsucc {m} Nm) n = prf (x+Sy≡S[x+y] Nm n)
   where postulate prf : m + succ₁ n ≡ succ₁ (m + n) →
                         succ₁ m + succ₁ n ≡ succ₁ (succ₁ m + n)
         {-# ATP prove prf #-}
@@ -114,7 +112,7 @@ x+Sy≡S[x+y] (nsucc {m} Nm) n = prf $ x+Sy≡S[x+y] Nm n
 +-comm {n = n} nzero Nn = prf
   where postulate prf : zero + n ≡ n + zero
         {-# ATP prove prf +-rightIdentity #-}
-+-comm {n = n} (nsucc {m} Nm) Nn = prf $ +-comm Nm Nn
++-comm {n = n} (nsucc {m} Nm) Nn = prf (+-comm Nm Nn)
   where postulate prf : m + n ≡ n + m → succ₁ m + n ≡ n + succ₁ m
         {-# ATP prove prf x+Sy≡S[x+y] #-}
 
@@ -157,7 +155,7 @@ Sx∸x≡S0 (nsucc {n} Nn) = trans (∸-SS (succ₁ n) n) (Sx∸x≡S0 Nn)
 
 -- Nice proof by the ATP.
 [x+y]∸[x+z]≡y∸z (nsucc {m} Nm) n o =
-  prf $ [x+y]∸[x+z]≡y∸z Nm n o
+  prf ([x+y]∸[x+z]≡y∸z Nm n o)
   where postulate prf : (m + n) ∸ (m + o) ≡ n ∸ o →
                         (succ₁ m + n) ∸ (succ₁ m + o) ≡ n ∸ o
         {-# ATP prove prf #-}
@@ -167,7 +165,7 @@ Sx∸x≡S0 (nsucc {n} Nn) = trans (∸-SS (succ₁ n) n) (Sx∸x≡S0 Nn)
 
 *-rightZero : ∀ {n} → N n → n * zero ≡ zero
 *-rightZero nzero          = *-leftZero zero
-*-rightZero (nsucc {n} Nn) = prf $ *-rightZero Nn
+*-rightZero (nsucc {n} Nn) = prf (*-rightZero Nn)
   where postulate prf : n * zero ≡ zero → succ₁ n * zero ≡ zero
         {-# ATP prove prf #-}
 
@@ -193,7 +191,7 @@ x*Sy≡x+xy {n = n} (nsucc {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
 *-comm {n = n} nzero Nn = prf
   where postulate prf : zero * n ≡ n * zero
         {-# ATP prove prf *-rightZero #-}
-*-comm {n = n} (nsucc {m} Nm) Nn = prf $ *-comm Nm Nn
+*-comm {n = n} (nsucc {m} Nm) Nn = prf (*-comm Nm Nn)
   where postulate prf : m * n ≡ n * m → succ₁ m * n ≡ n * succ₁ m
         {-# ATP prove prf x*Sy≡x+xy #-}
 
@@ -205,7 +203,7 @@ x*Sy≡x+xy {n = n} (nsucc {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
   where postulate prf : (m ∸ zero) * o ≡ m * o ∸ zero * o
         {-# ATP prove prf #-}
 
-*∸-leftDistributive {o = o} nzero (nsucc {n} Nn) No = prf $ ∸-0x (*-N (nsucc Nn) No)
+*∸-leftDistributive {o = o} nzero (nsucc {n} Nn) No = prf (∸-0x (*-N (nsucc Nn) No))
   where postulate prf : zero ∸ succ₁ n * o ≡ zero →
                         (zero ∸ succ₁ n) * o ≡ zero * o ∸ succ₁ n * o
         {-# ATP prove prf #-}
@@ -216,7 +214,7 @@ x*Sy≡x+xy {n = n} (nsucc {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
   {-# ATP prove prf ∸-N *-comm #-}
 
 *∸-leftDistributive (nsucc {m} Nm) (nsucc {n} Nn) (nsucc {o} No) =
-  prf $ *∸-leftDistributive Nm Nn (nsucc No)
+  prf (*∸-leftDistributive Nm Nn (nsucc No))
   where
   postulate prf : (m ∸ n) * succ₁ o ≡ m * succ₁ o ∸ n * succ₁ o →
                   (succ₁ m ∸ succ₁ n) * succ₁ o ≡
@@ -238,7 +236,7 @@ x*Sy≡x+xy {n = n} (nsucc {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
   {-# ATP prove prf +-rightIdentity *-N #-}
 
 *+-leftDistributive (nsucc {m} Nm) (nsucc {n} Nn) (nsucc {o} No) =
-  prf $ *+-leftDistributive Nm (nsucc Nn) (nsucc No)
+  prf (*+-leftDistributive Nm (nsucc Nn) (nsucc No))
   where
   postulate
     prf : (m + succ₁ n) * succ₁ o ≡ m * succ₁ o + succ₁ n * succ₁ o →

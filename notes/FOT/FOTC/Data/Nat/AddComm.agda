@@ -51,10 +51,25 @@ x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
               succ₁ (succ₁ i + n)   ∎
 
 ------------------------------------------------------------------------------
--- Interactive proof using the induction principle for natural numbers.
+-- Approach 1: Interactive proof using pattern matching
 
 +-comm₁ : ∀ {m n} → N m → N n → m + n ≡ n + m
-+-comm₁ {n = n} Nm Nn = N-ind A A0 is Nm
++-comm₁ {n = n} nzero Nn =
+  zero + n ≡⟨ +-leftIdentity n ⟩
+  n        ≡⟨ sym (+-rightIdentity Nn) ⟩
+  n + zero ∎
+
++-comm₁ {n = n} (nsucc {m} Nm) Nn =
+  succ₁ m + n   ≡⟨ +-Sx m n ⟩
+  succ₁ (m + n) ≡⟨ succCong (+-comm₁ Nm Nn) ⟩
+  succ₁ (n + m) ≡⟨ sym (x+Sy≡S[x+y] Nn m) ⟩
+  n + succ₁ m   ∎
+
+------------------------------------------------------------------------------
+-- Approach 2: Interactive proof using the induction principle
+
++-comm₂ : ∀ {m n} → N m → N n → m + n ≡ n + m
++-comm₂ {n = n} Nm Nn = N-ind A A0 is Nm
   where
   A : D → Set
   A i = i + n ≡ n + i
@@ -74,10 +89,21 @@ x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
               n + succ₁ i ∎
 
 ------------------------------------------------------------------------------
--- Combined proof
+-- Approach 3: Combined proof using pattern matching
 
-+-comm₂ : ∀ {m n} → N m → N n → m + n ≡ n + m
-+-comm₂ {n = n} Nm Nn = N-ind A A0 is Nm
++-comm₃ : ∀ {m n} → N m → N n → m + n ≡ n + m
++-comm₃ {n = n} nzero Nn = prf
+  where postulate prf : zero + n ≡ n + zero
+        {-# ATP prove prf +-rightIdentity #-}
++-comm₃ {n = n} (nsucc {m} Nm) Nn = prf (+-comm₃ Nm Nn)
+  where postulate prf : m + n ≡ n + m → succ₁ m + n ≡ n + succ₁ m
+        {-# ATP prove prf x+Sy≡S[x+y] #-}
+
+------------------------------------------------------------------------------
+-- Approach 4: Combined proof using the induction principle
+
++-comm₄ : ∀ {m n} → N m → N n → m + n ≡ n + m
++-comm₄ {n = n} Nm Nn = N-ind A A0 is Nm
   where
   A : D → Set
   A i = i + n ≡ n + i
@@ -90,15 +116,16 @@ x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
   {-# ATP prove is x+Sy≡S[x+y] #-}
 
 ------------------------------------------------------------------------------
--- Combined proof instantiating the induction principle
+-- Approach 5: Combined proof using instance of the induction
+-- principle
 
 +-comm-ind : ∀ n →
-             (zero + n ≡ n + zero) →
-             (∀ {m} → m + n ≡ n + m  → succ₁ m + n ≡ n + succ₁ m) →
-             ∀ {m} → N m → m + n ≡ n + m
+            (zero + n ≡ n + zero) →
+            (∀ {m} → m + n ≡ n + m  → succ₁ m + n ≡ n + succ₁ m) →
+            ∀ {m} → N m → m + n ≡ n + m
 +-comm-ind n = N-ind (λ i → i + n ≡ n + i)
 
 -- TODO. 25 October 2012. Why is it not necessary the hypothesis
 -- +-rightIdentity ?
-postulate +-comm₃ : ∀ {m n} → N m → N n → m + n ≡ n + m
-{-# ATP prove +-comm₃ +-comm-ind x+Sy≡S[x+y] #-}
+postulate +-comm₅ : ∀ {m n} → N m → N n → m + n ≡ n + m
+{-# ATP prove +-comm₅ +-comm-ind +-rightIdentity x+Sy≡S[x+y] #-}
