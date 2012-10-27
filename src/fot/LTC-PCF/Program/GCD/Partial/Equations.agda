@@ -150,7 +150,7 @@ private
                        refl
 
   proof₂₋₃ : ∀ m n → gcd-s₂ m · n ≡ gcd-s₃ m n
-  proof₂₋₃ m n  = beta (gcd-s₃ m) n
+  proof₂₋₃ m n = beta (gcd-s₃ m) n
 
   proof₃₋₄ : ∀ m n b → iszero₁ n ≡ b → gcd-s₃ m n ≡ gcd-s₄ m n b
   proof₃₋₄ m n b = cong (gcd-s₄ m n)

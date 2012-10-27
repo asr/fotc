@@ -134,7 +134,7 @@ private
   zero                      ∎
 
 ∸-SS : ∀ m n → succ₁ m ∸ succ₁ n ≡ m ∸ n
-∸-SS m n  =
+∸-SS m n =
   succ₁ m ∸ succ₁ n
     ≡⟨ proof₀₋₁ (succ₁ m) (succ₁ n) ⟩
   ∸-s₁ (succ₁ m) (succ₁ n)

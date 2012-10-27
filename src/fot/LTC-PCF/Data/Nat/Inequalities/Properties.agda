@@ -71,7 +71,7 @@ x≥y→x≮y (nsucc {m} Nm) (nsucc {n} Nn) Sm≥Sn =
   trans (<-SS m n) (x≥y→x≮y Nm Nn (trans (sym $ <-SS n (succ₁ m)) Sm≥Sn))
 
 x≮y→x≥y : ∀ {m n} → N m → N n → NLT m n → GE m n
-x≮y→x≥y nzero nzero 0≮0  = x≥x nzero
+x≮y→x≥y nzero nzero 0≮0 = x≥x nzero
 x≮y→x≥y nzero (nsucc {n} Nn) 0≮Sn = ⊥-elim (true≢false (trans (sym (<-0S n)) 0≮Sn))
 x≮y→x≥y (nsucc Nm) nzero Sm≮n = x≥0 (nsucc Nm)
 x≮y→x≥y (nsucc {m} Nm) (nsucc {n} Nn) Sm≮Sn =
@@ -212,7 +212,7 @@ Sx∸Sy<Sx {m} {n} Nm Nn =
   true ∎
 
 x>y→x∸y+y≡x : ∀ {m n} → N m → N n → GT m n → (m ∸ n) + n ≡ m
-x>y→x∸y+y≡x nzero Nn 0>n  = ⊥-elim $ 0>x→⊥ Nn 0>n
+x>y→x∸y+y≡x nzero Nn 0>n = ⊥-elim $ 0>x→⊥ Nn 0>n
 x>y→x∸y+y≡x (nsucc {m} Nm) nzero Sm>0 =
   trans (+-rightIdentity (∸-N (nsucc Nm) nzero)) (∸-x0 (succ₁ m))
 x>y→x∸y+y≡x (nsucc {m} Nm) (nsucc {n} Nn) Sm>Sn =

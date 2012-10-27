@@ -59,7 +59,7 @@ private
 
   -- First if_then_else_ when iszero₁ n = true.
   gcd-s₃ : D → D
-  gcd-s₃ m  = if (iszero₁ m) then loop else m
+  gcd-s₃ m = if (iszero₁ m) then loop else m
 
   -- First if_then_else_ when iszero₁ n = false.
   gcd-s₄ : D → D → D

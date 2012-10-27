@@ -43,7 +43,7 @@ x>x→⊥ : ∀ {n} → N n → ¬ (GT n n)
 x>x→⊥ Nn = x<x→⊥ Nn
 
 S≤0→⊥ : ∀ {n} → N n → ¬ (LE (succ₁ n) zero)
-S≤0→⊥ nzero S0≤0  = true≢false (trans (sym S0≤0) (trans (<-SS zero zero) <-00))
+S≤0→⊥ nzero S0≤0 = true≢false (trans (sym S0≤0) (trans (<-SS zero zero) <-00))
 S≤0→⊥ (nsucc {n} _) SSn≤0 =
   true≢false (trans (sym SSn≤0) (trans (<-SS (succ₁ n) zero) (<-S0 n)))
 

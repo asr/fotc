@@ -176,7 +176,7 @@ x≤y→x≯y (nsucc {m} Nm) (nsucc {n} Nn) Sm≤Sn =
 
 x≯y→x≤y : ∀ {m n} → N m → N n → NGT m n → LE m n
 x≯y→x≤y nzero Nn _ = 0≤x Nn
-x≯y→x≤y (nsucc {m} Nm) nzero Sm≯0  = ⊥-elim (true≢false (trans (sym (<-0S m)) Sm≯0))
+x≯y→x≤y (nsucc {m} Nm) nzero Sm≯0 = ⊥-elim (true≢false (trans (sym (<-0S m)) Sm≯0))
 x≯y→x≤y (nsucc {m} Nm) (nsucc {n} Nn) Sm≯Sn =
   prf (x≯y→x≤y Nm Nn (trans (sym (<-SS n m)) Sm≯Sn))
   where postulate prf : LE m n → LE (succ₁ m) (succ₁ n)
@@ -340,7 +340,7 @@ x∸Sy≤x∸y (nsucc {m} Nm) (nsucc {n} Nn) = prf (x∸Sy≤x∸y Nm Nn)
         {-# ATP prove prf #-}
 
 x>y→x∸y+y≡x : ∀ {m n} → N m → N n → GT m n → (m ∸ n) + n ≡ m
-x>y→x∸y+y≡x nzero          Nn 0>n  = ⊥-elim $ 0>x→⊥ Nn 0>n
+x>y→x∸y+y≡x nzero          Nn 0>n = ⊥-elim $ 0>x→⊥ Nn 0>n
 x>y→x∸y+y≡x (nsucc {m} Nm) nzero Sm>0 = prf
   where postulate prf : (succ₁ m ∸ zero) + zero ≡ succ₁ m
         {-# ATP prove prf +-rightIdentity ∸-N #-}
@@ -354,7 +354,7 @@ x>y→x∸y+y≡x (nsucc {m} Nm) (nsucc {n} Nn) Sm>Sn = prf $ x>y→x∸y+y≡x 
   {-# ATP prove prf +-comm ∸-N #-}
 
 x≤y→y∸x+x≡y : ∀ {m n} → N m → N n → LE m n → (n ∸ m) + m ≡ n
-x≤y→y∸x+x≡y {n = n} nzero Nn 0≤n  = prf
+x≤y→y∸x+x≡y {n = n} nzero Nn 0≤n = prf
   where postulate prf : (n ∸ zero) + zero ≡ n
         {-# ATP prove prf +-rightIdentity ∸-N #-}
 

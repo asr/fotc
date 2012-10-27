@@ -46,10 +46,10 @@ leftCancellation {a} {b} {c} h =
 leftCancellation' : ∀ {a b c} → a · b ≡ a · c → b ≡ c
 -- Paper proof (Saunders Mac Lane and Garret Birkhoff. Algebra. AMS
 -- Chelsea Publishing, 3rd edition, 1999. p. 48)
--- 1. a⁻¹(ab)  = a⁻¹(ac)  (hypothesis ab = ac)
--- 2. a⁻¹a(b)  = a⁻¹a(c)  (associative axiom)
--- 3. εb       = εc       (left-inverse axiom for a⁻¹)
--- 4. b        = c        (left-identity axiom)
+-- 1. a⁻¹(ab) = a⁻¹(ac)  (hypothesis ab = ac)
+-- 2. a⁻¹a(b) = a⁻¹a(c)  (associative axiom)
+-- 3. εb      = εc       (left-inverse axiom for a⁻¹)
+-- 4. b       = c        (left-identity axiom)
 leftCancellation' {a} {b} {c} h =
   b              ≡⟨ sym (leftIdentity b) ⟩
   ε · b          ≡⟨ subst (λ t → ε · b ≡ t · b) (sym (leftInverse a)) refl ⟩
@@ -87,10 +87,10 @@ rightInverse a = leftCancellation prf
 rightCancellation : ∀ {a b c} → b · a ≡ c · a → b ≡ c
 rightCancellation {a} {b} {c} h =
 -- Paper proof:
--- 1. (ba)a⁻¹  = (ca)a⁻¹  (hypothesis ab = ac)
--- 2. (b)aa⁻¹  = (c)aa⁻¹  (associative axiom)
--- 3. bε       = cε       (right-inverse axiom for a⁻¹)
--- 4. b        = c        (right-identity axiom)
+-- 1. (ba)a⁻¹ = (ca)a⁻¹  (hypothesis ab = ac)
+-- 2. (b)aa⁻¹ = (c)aa⁻¹  (associative axiom)
+-- 3. bε      = cε       (right-inverse axiom for a⁻¹)
+-- 4. b       = c        (right-identity axiom)
   b              ≡⟨ sym (rightIdentity b) ⟩
   b · ε          ≡⟨ ·-rightCong (sym (rightInverse a)) ⟩
   b · (a · a ⁻¹) ≡⟨ sym (assoc b a (a ⁻¹)) ⟩
