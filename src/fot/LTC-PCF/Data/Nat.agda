@@ -18,10 +18,10 @@ open import LTC-PCF.Data.Nat.Type public
 ------------------------------------------------------------------------------
 -- Addition with recursion on the first argument.
 _+_ : D → D → D
-m + n = rec m n (lam (λ x → lam (λ y → succ₁ y)))
+m + n = rec m n (lam (λ _ → lam (λ x → succ₁ x)))
 
 _∸_ : D → D → D
-m ∸ n = rec n m (lam (λ x → lam (λ y → pred₁ y)))
+m ∸ n = rec n m (lam (λ _ → lam (λ x → pred₁ x)))
 
 -- Multiplication with recursion on the first argument.
 _*_ : D → D → D

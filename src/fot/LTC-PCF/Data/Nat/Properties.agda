@@ -54,8 +54,6 @@ predCong refl = refl
     ≡⟨ rec-S m n (lam (λ x → lam (λ y → succ₁ y))) ⟩
   (lam (λ x → lam (λ y → succ₁ y))) · m · (m + n)
     ≡⟨ ·-leftCong (beta (λ x → lam (λ y → succ₁ y)) m) ⟩
-  (λ x → lam (λ y → succ₁ y)) m · (m + n)
-    ≡⟨ refl ⟩
   lam succ₁ · (m + n)
     ≡⟨ beta succ₁ (m + n) ⟩
   succ₁ (m + n) ∎
@@ -70,8 +68,6 @@ predCong refl = refl
     ≡⟨ rec-S zero zero (lam (λ x → lam (λ y → pred₁ y))) ⟩
   lam (λ x → lam (λ y → pred₁ y)) · zero · (zero ∸ zero)
     ≡⟨ ·-leftCong (beta (λ x → lam (λ y → pred₁ y)) zero) ⟩
-  (λ x → lam (λ y → pred₁ y)) zero · (zero ∸ zero)
-    ≡⟨ refl ⟩
   lam pred₁ · (zero ∸ zero)
     ≡⟨ beta pred₁ (zero ∸ zero) ⟩
   pred₁ (zero ∸ zero)
@@ -85,8 +81,6 @@ predCong refl = refl
     ≡⟨ rec-S (succ₁ n) zero (lam (λ x → lam (λ y → pred₁ y))) ⟩
   lam (λ x → lam (λ y → pred₁ y)) · (succ₁ n) · (zero ∸ (succ₁ n))
     ≡⟨ ·-leftCong (beta (λ x → lam (λ y → pred₁ y)) (succ₁ n)) ⟩
-  (λ x → lam (λ y → pred₁ y))  (succ₁ n) · (zero ∸ (succ₁ n))
-    ≡⟨ refl ⟩
   lam pred₁ · (zero ∸ (succ₁ n))
     ≡⟨ beta pred₁ (zero ∸ (succ₁ n)) ⟩
   pred₁ (zero ∸ (succ₁ n))
@@ -105,8 +99,6 @@ predCong refl = refl
     ≡⟨ rec-S zero (succ₁ m) (lam (λ x → lam (λ y → pred₁ y))) ⟩
   lam (λ x → lam (λ y → pred₁ y))  · zero · (succ₁ m ∸ zero)
     ≡⟨ ·-leftCong (beta (λ x → lam (λ y → pred₁ y)) zero) ⟩
-  (λ x → lam (λ y → pred₁ y)) zero · (succ₁ m ∸ zero)
-    ≡⟨ refl ⟩
   lam pred₁ · (succ₁ m ∸ zero)
     ≡⟨ beta pred₁ (succ₁ m ∸ zero) ⟩
   pred₁ (succ₁ m ∸ zero)
@@ -122,8 +114,6 @@ predCong refl = refl
     ≡⟨ rec-S (succ₁ n) (succ₁ zero) (lam (λ x → lam (λ y → pred₁ y)))  ⟩
   lam (λ x → lam (λ y → pred₁ y)) · (succ₁ n) · (succ₁ zero ∸ succ₁ n)
     ≡⟨ ·-leftCong (beta (λ x → lam (λ y → pred₁ y)) (succ₁ n)) ⟩
-  (λ x → lam (λ y → pred₁ y)) (succ₁ n) · (succ₁ zero ∸ succ₁ n)
-    ≡⟨ refl ⟩
   lam pred₁ · (succ₁ zero ∸ succ₁ n)
     ≡⟨ beta pred₁ (succ₁ zero ∸ succ₁ n) ⟩
   pred₁ (succ₁ zero ∸ succ₁ n)
@@ -141,8 +131,6 @@ predCong refl = refl
     ≡⟨ rec-S (succ₁ n) (succ₁ (succ₁ m)) (lam (λ x → lam (λ y → pred₁ y))) ⟩
   lam (λ x → lam (λ y → pred₁ y)) · (succ₁ n) · (succ₁ (succ₁ m) ∸ succ₁ n)
     ≡⟨ ·-leftCong (beta (λ x → lam (λ y → pred₁ y)) (succ₁ n)) ⟩
-  (λ x → lam (λ y → pred₁ y)) (succ₁ n) · (succ₁ (succ₁ m) ∸ succ₁ n)
-    ≡⟨ refl ⟩
   lam pred₁ · (succ₁ (succ₁ m) ∸ succ₁ n)
     ≡⟨ beta pred₁ (succ₁ (succ₁ m) ∸ succ₁ n) ⟩
   pred₁ (succ₁ (succ₁ m) ∸ succ₁ n)
@@ -150,8 +138,6 @@ predCong refl = refl
   pred₁ (succ₁ m ∸ n)
     ≡⟨ sym (beta pred₁ (succ₁ m ∸ n)) ⟩
   lam pred₁ · (succ₁ m ∸ n)
-    ≡⟨ refl ⟩
-  (λ x → lam (λ y → pred₁ y)) n · (succ₁ m ∸ n)
     ≡⟨ ·-leftCong (sym (beta (λ x → lam (λ y → pred₁ y)) n)) ⟩
   (lam (λ x → lam (λ y → pred₁ y))) · n · (succ₁ m ∸ n)
     ≡⟨ sym (rec-S n (succ₁ m) (lam (λ x → lam (λ y → pred₁ y)))) ⟩
@@ -169,12 +155,8 @@ predCong refl = refl
     ≡⟨ rec-S m zero (lam (λ _ → lam (λ y → n + y))) ⟩
   (lam (λ _ → lam (λ y → n + y))) · m · (m * n)
     ≡⟨ ·-leftCong (beta (λ _ → lam (λ y → n + y)) m) ⟩
-  (λ _ → lam (λ y → n + y)) m · (m * n)
-    ≡⟨ refl ⟩
   lam (λ y → n + y) · (m * n)
     ≡⟨ beta (λ y → n + y) (m * n) ⟩
-  (λ y → n + y) (m * n)
-    ≡⟨ refl ⟩
   n + (m * n) ∎
 
 +-leftIdentity : ∀ n → zero + n ≡ n

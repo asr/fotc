@@ -25,7 +25,7 @@ private
 
   -- Initially, the conversion rule fix-eq is applied.
   rec-s₁ : D → D → D → D
-  rec-s₁ n a f =  rech (fix rech) · n · a · f
+  rec-s₁ n a f = rech (fix rech) · n · a · f
 
   -- First argument application.
   rec-s₂ : D → D
