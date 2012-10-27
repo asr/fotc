@@ -71,7 +71,7 @@ private
 
   -- First if_then_else_ when if true ...
   gcd-s₅ : D → D
-  gcd-s₅ m  = m
+  gcd-s₅ m = m
 
   -- First if_then_else_ when if false ...
   gcd-s₆ : D → D → D
@@ -81,7 +81,7 @@ private
                            then fix gcdh · (m ∸ n) · n
                            else fix gcdh · m · (n ∸ m))
 
-  -- Third if_then_else_ iszero₁ m = b.
+  -- Second if_then_else_ iszero₁ m = b.
   gcd-s₇ : D → D → D → D
   gcd-s₇ m n b = if b
                     then n
@@ -89,13 +89,13 @@ private
                              then fix gcdh · (m ∸ n) · n
                              else fix gcdh · m · (n ∸ m))
 
-  -- Third if_then_else_ when if false ...
+  -- Second if_then_else_ when if false ...
   gcd-s₈ : D → D → D
   gcd-s₈ m n = if (m > n)
                    then fix gcdh · (m ∸ n) · n
                    else fix gcdh · m · (n ∸ m)
 
-  -- Fourth if_then_else_ gt m n = b.
+  -- Third if_then_else_ gt m n = b.
   gcd-s₉ : D → D → D → D
   gcd-s₉ m n b = if b
                     then fix gcdh · (m ∸ n) · n

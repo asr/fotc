@@ -181,7 +181,7 @@ x∸y<Sx {m} Nm nzero =
 x∸y<Sx nzero (nsucc {n} Nn) =
   zero ∸ succ₁ n < succ₁ zero
     ≡⟨ subst (λ t → zero ∸ succ₁ n < succ₁ zero ≡ t < succ₁ zero)
-             (∸-0S Nn)
+             (∸-0S n)
              refl
     ⟩
   zero < succ₁ zero
@@ -192,7 +192,7 @@ x∸y<Sx (nsucc {m} Nm) (nsucc {n} Nn) =
   succ₁ m ∸ succ₁ n < succ₁ (succ₁ m)
     ≡⟨ subst (λ t → succ₁ m ∸ succ₁ n < succ₁ (succ₁ m) ≡
                     t < succ₁ (succ₁ m))
-             (∸-SS Nm Nn)
+             (∸-SS m n)
              refl
     ⟩
   m ∸ n < succ₁ (succ₁ m)
@@ -204,7 +204,7 @@ Sx∸Sy<Sx : ∀ {m n} → N m → N n → LT (succ₁ m ∸ succ₁ n) (succ₁
 Sx∸Sy<Sx {m} {n} Nm Nn =
   succ₁ m ∸ succ₁ n < succ₁ m
     ≡⟨ subst (λ t → succ₁ m ∸ succ₁ n < succ₁ m ≡ t < succ₁ m)
-             (∸-SS Nm Nn)
+             (∸-SS m n)
              refl
     ⟩
   m ∸ n < succ₁ m
@@ -218,7 +218,7 @@ x>y→x∸y+y≡x (nsucc {m} Nm) nzero Sm>0 =
 x>y→x∸y+y≡x (nsucc {m} Nm) (nsucc {n} Nn) Sm>Sn =
   (succ₁ m ∸ succ₁ n) + succ₁ n
     ≡⟨ subst (λ t → (succ₁ m ∸ succ₁ n) + succ₁ n ≡ t + succ₁ n)
-             (∸-SS Nm Nn)
+             (∸-SS m n)
              refl
     ⟩
   (m ∸ n) + succ₁ n
@@ -244,7 +244,7 @@ x≤y→y∸x+x≡y (nsucc Nm) nzero Sm≤0 = ⊥-elim $ S≤0→⊥ Nm Sm≤0
 x≤y→y∸x+x≡y (nsucc {m} Nm) (nsucc {n} Nn) Sm≤Sn =
   (succ₁ n ∸ succ₁ m) + succ₁ m
     ≡⟨ subst (λ t → (succ₁ n ∸ succ₁ m) + succ₁ m ≡ t + succ₁ m)
-             (∸-SS Nn Nm)
+             (∸-SS n m)
              refl
     ⟩
   (n ∸ m) + succ₁ m
@@ -297,7 +297,7 @@ x≥y→y>0→x∸y<x nzero          (nsucc Nn)     0≥Sn  _    = ⊥-elim $ S�
 x≥y→y>0→x∸y<x (nsucc {m} Nm) (nsucc {n} Nn) Sm≥Sn Sn>0 =
   (succ₁ m ∸ succ₁ n) < (succ₁ m)
     ≡⟨ subst (λ t → (succ₁ m ∸ succ₁ n) < (succ₁ m) ≡ t < (succ₁ m))
-             (∸-SS Nm Nn)
+             (∸-SS m n)
              refl
     ⟩
   (m ∸ n) < (succ₁ m)
