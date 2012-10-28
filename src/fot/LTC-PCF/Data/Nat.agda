@@ -20,8 +20,6 @@ open import LTC-PCF.Data.Nat.Type public
 _+_ : D → D → D
 m + n = rec m n (lam (λ _ → lam (λ x → succ₁ x)))
 
-
-
 ∸-helper : D → D
 ∸-helper f = lam (λ m → lam (λ n →
                if (iszero₁ n)
@@ -36,7 +34,7 @@ _∸_ m n = fix ∸-helper · m · n
 
 -- Multiplication with recursion on the first argument.
 _*_ : D → D → D
-m * n = rec m zero (lam (λ _ → lam (λ y → n + y)))
+m * n = rec m zero (lam (λ _ → lam (λ x → n + x)))
 
 ------------------------------------------------------------------------------
 -- Note [Subtraction with the rec combinator (27 October 2012)].
