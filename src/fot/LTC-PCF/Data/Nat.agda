@@ -18,7 +18,7 @@ open import LTC-PCF.Data.Nat.Type public
 ------------------------------------------------------------------------------
 -- Addition with recursion on the first argument.
 _+_ : D → D → D
-m + n = rec m n (lam (λ _ → lam (λ x → succ₁ x)))
+m + n = rec m n (lam (λ _ → lam succ₁))
 
 ∸-helper : D → D
 ∸-helper f = lam (λ m → lam (λ n →
@@ -41,7 +41,7 @@ m * n = rec m zero (lam (λ _ → lam (λ x → n + x)))
 -- Using the rec combinator for defining subtraction
 --
 -- _∸_ : D → D → D
--- m ∸ n = rec n m (lam (λ _ → lam (λ x → pred₁ x)))
+-- m ∸ n = rec n m (lam (λ _ → lam pred₁))
 --
 -- we could not prove the conversion rules without using total natural
 -- numbers hypotheses (see

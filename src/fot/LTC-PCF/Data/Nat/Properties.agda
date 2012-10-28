@@ -51,26 +51,26 @@ predCong refl = refl
 
 +-Sx : ∀ m n → succ₁ m + n ≡ succ₁ (m + n)
 +-Sx m n =
-  rec (succ₁ m) n (lam (λ x → lam (λ y → succ₁ y)))
-    ≡⟨ rec-S m n (lam (λ x → lam (λ y → succ₁ y))) ⟩
-  (lam (λ x → lam (λ y → succ₁ y))) · m · (m + n)
-    ≡⟨ ·-leftCong (beta (λ x → lam (λ y → succ₁ y)) m) ⟩
+  rec (succ₁ m) n (lam (λ _ → lam succ₁))
+    ≡⟨ rec-S m n (lam (λ _ → lam succ₁)) ⟩
+  (lam (λ _ → lam succ₁)) · m · (m + n)
+    ≡⟨ ·-leftCong (beta (λ _ → lam succ₁) m) ⟩
   lam succ₁ · (m + n)
     ≡⟨ beta succ₁ (m + n) ⟩
   succ₁ (m + n) ∎
 
 *-0x : ∀ n → zero * n ≡ zero
-*-0x n = rec zero zero (lam (λ _ → lam (λ y → n + y))) ≡⟨ rec-0 zero ⟩
+*-0x n = rec zero zero (lam (λ _ → lam (λ x → n + x))) ≡⟨ rec-0 zero ⟩
          zero                                          ∎
 
 *-Sx : ∀ m n → succ₁ m * n ≡ n + m * n
 *-Sx m n =
-  rec (succ₁ m) zero (lam (λ _ → lam (λ y → n + y)))
-    ≡⟨ rec-S m zero (lam (λ _ → lam (λ y → n + y))) ⟩
-  (lam (λ _ → lam (λ y → n + y))) · m · (m * n)
-    ≡⟨ ·-leftCong (beta (λ _ → lam (λ y → n + y)) m) ⟩
-  lam (λ y → n + y) · (m * n)
-    ≡⟨ beta (λ y → n + y) (m * n) ⟩
+  rec (succ₁ m) zero (lam (λ _ → lam (λ x → n + x)))
+    ≡⟨ rec-S m zero (lam (λ _ → lam (λ x → n + x))) ⟩
+  (lam (λ _ → lam (λ x → n + x))) · m · (m * n)
+    ≡⟨ ·-leftCong (beta (λ _ → lam (λ x → n + x)) m) ⟩
+  lam (λ x → n + x) · (m * n)
+    ≡⟨ beta (λ x → n + x) (m * n) ⟩
   n + (m * n) ∎
 
 +-leftIdentity : ∀ n → zero + n ≡ n
