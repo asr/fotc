@@ -21,6 +21,17 @@ open import LTC-PCF.Data.Nat.Properties
 -- N.B. The elimination properties are in the module
 -- LTC.Data.Nat.Inequalities.EliminationProperties.
 
+------------------------------------------------------------------------------
+-- Congruence properties
+
+<-leftCong : ∀ {m n o} → m ≡ n → m < o ≡ n < o
+<-leftCong refl = refl
+
+<-rightCong : ∀ {m n o} → n ≡ o → m < n ≡ m < o
+<-rightCong refl = refl
+
+------------------------------------------------------------------------------
+
 x≥0 : ∀ {n} → N n → GE n zero
 x≥0 nzero          = <-0S zero
 x≥0 (nsucc {n} Nn) = <-0S $ succ₁ n
@@ -158,58 +169,39 @@ Sx≤y→x<y (nsucc {m} Nm) (nsucc {n} Nn) SSm≤Sn =
   x≤y→Sx≤Sy (≤-trans Nm Nn No (Sx≤Sy→x≤y Sm≤Sn) (Sx≤Sy→x≤y Sn≤So))
 
 x≤x+y : ∀ {m n} → N m → N n → LE m (m + n)
-x≤x+y         nzero          Nn = x≥0 (+-N nzero Nn)
+x≤x+y nzero Nn = x≥0 (+-N nzero Nn)
 x≤x+y {n = n} (nsucc {m} Nm) Nn =
-  succ₁ m < succ₁ (succ₁ m + n)
-    ≡⟨ <-SS m (succ₁ m + n) ⟩
-  m < (succ₁ m + n)
-    ≡⟨ subst (λ t → m < succ₁ m + n ≡ m < t) (+-Sx m n) refl ⟩
-  m < succ₁ (m + n)
-    ≡⟨ refl ⟩
-  m ≤ m + n
-    ≡⟨ x≤x+y Nm Nn ⟩
-  true ∎
+  succ₁ m < succ₁ (succ₁ m + n) ≡⟨ <-SS m (succ₁ m + n) ⟩
+  m < succ₁ m + n               ≡⟨ <-rightCong (+-Sx m n) ⟩
+  m < succ₁ (m + n)             ≡⟨ refl ⟩
+  m ≤ m + n                     ≡⟨ x≤x+y Nm Nn ⟩
+  true                          ∎
 
 x∸y<Sx : ∀ {m n} → N m → N n → LT (m ∸ n) (succ₁ m)
 x∸y<Sx {m} Nm nzero =
-  m ∸ zero < succ₁ m
-     ≡⟨ subst (λ t → m ∸ zero < succ₁ m ≡ t  < succ₁ m) (∸-x0 m) refl ⟩
-  m < succ₁ m
-    ≡⟨ x<Sx Nm ⟩
-  true ∎
+  m ∸ zero < succ₁ m ≡⟨ <-leftCong (∸-x0 m) ⟩
+  m < succ₁ m        ≡⟨ x<Sx Nm ⟩
+  true               ∎
 
 x∸y<Sx nzero (nsucc {n} Nn) =
-  zero ∸ succ₁ n < succ₁ zero
-    ≡⟨ subst (λ t → zero ∸ succ₁ n < succ₁ zero ≡ t < succ₁ zero)
-             (∸-0S n)
-             refl
-    ⟩
-  zero < succ₁ zero
-    ≡⟨ <-0S zero ⟩
-  true ∎
+  zero ∸ succ₁ n < succ₁ zero ≡⟨ <-leftCong (∸-0S n) ⟩
+  zero < succ₁ zero           ≡⟨ <-0S zero ⟩
+  true                        ∎
 
 x∸y<Sx (nsucc {m} Nm) (nsucc {n} Nn) =
   succ₁ m ∸ succ₁ n < succ₁ (succ₁ m)
-    ≡⟨ subst (λ t → succ₁ m ∸ succ₁ n < succ₁ (succ₁ m) ≡
-                    t < succ₁ (succ₁ m))
-             (∸-SS m n)
-             refl
-    ⟩
+    ≡⟨ <-leftCong (∸-SS m n) ⟩
   m ∸ n < succ₁ (succ₁ m)
      ≡⟨ <-trans (∸-N Nm Nn) (nsucc Nm) (nsucc (nsucc Nm))
-                (x∸y<Sx Nm Nn) (x<Sx (nsucc Nm)) ⟩
+                (x∸y<Sx Nm Nn) (x<Sx (nsucc Nm))
+     ⟩
   true ∎
 
 Sx∸Sy<Sx : ∀ {m n} → N m → N n → LT (succ₁ m ∸ succ₁ n) (succ₁ m)
 Sx∸Sy<Sx {m} {n} Nm Nn =
-  succ₁ m ∸ succ₁ n < succ₁ m
-    ≡⟨ subst (λ t → succ₁ m ∸ succ₁ n < succ₁ m ≡ t < succ₁ m)
-             (∸-SS m n)
-             refl
-    ⟩
-  m ∸ n < succ₁ m
-     ≡⟨ x∸y<Sx Nm Nn ⟩
-  true ∎
+  succ₁ m ∸ succ₁ n < succ₁ m ≡⟨ <-leftCong (∸-SS m n) ⟩
+  m ∸ n < succ₁ m             ≡⟨ x∸y<Sx Nm Nn ⟩
+  true                        ∎
 
 x>y→x∸y+y≡x : ∀ {m n} → N m → N n → GT m n → (m ∸ n) + n ≡ m
 x>y→x∸y+y≡x nzero Nn 0>n = ⊥-elim $ 0>x→⊥ Nn 0>n
@@ -217,24 +209,15 @@ x>y→x∸y+y≡x (nsucc {m} Nm) nzero Sm>0 =
   trans (+-rightIdentity (∸-N (nsucc Nm) nzero)) (∸-x0 (succ₁ m))
 x>y→x∸y+y≡x (nsucc {m} Nm) (nsucc {n} Nn) Sm>Sn =
   (succ₁ m ∸ succ₁ n) + succ₁ n
-    ≡⟨ subst (λ t → (succ₁ m ∸ succ₁ n) + succ₁ n ≡ t + succ₁ n)
-             (∸-SS m n)
-             refl
-    ⟩
+    ≡⟨ +-leftCong (∸-SS m n)  ⟩
   (m ∸ n) + succ₁ n
-    ≡⟨ +-comm (∸-N Nm Nn) (nsucc Nn) ⟩
+     ≡⟨ +-comm (∸-N Nm Nn) (nsucc Nn) ⟩
   succ₁ n + (m ∸ n)
     ≡⟨ +-Sx n (m ∸ n) ⟩
   succ₁ (n + (m ∸ n))
-    ≡⟨ subst (λ t → succ₁ (n + (m ∸ n)) ≡ succ₁ t)
-             (+-comm Nn (∸-N Nm Nn))
-             refl
-    ⟩
+    ≡⟨ succCong (+-comm Nn (∸-N Nm Nn)) ⟩
   succ₁ ((m ∸ n) + n)
-    ≡⟨ subst (λ t → succ₁ ((m ∸ n) + n) ≡ succ₁ t)
-             (x>y→x∸y+y≡x Nm Nn (trans (sym $ <-SS n m) Sm>Sn))
-             refl
-    ⟩
+    ≡⟨ succCong (x>y→x∸y+y≡x Nm Nn (trans (sym $ <-SS n m) Sm>Sn)) ⟩
   succ₁ m ∎
 
 x≤y→y∸x+x≡y : ∀ {m n} → N m → N n → LE m n → (n ∸ m) + m ≡ n
@@ -243,24 +226,15 @@ x≤y→y∸x+x≡y {n = n} nzero Nn 0≤n =
 x≤y→y∸x+x≡y (nsucc Nm) nzero Sm≤0 = ⊥-elim $ S≤0→⊥ Nm Sm≤0
 x≤y→y∸x+x≡y (nsucc {m} Nm) (nsucc {n} Nn) Sm≤Sn =
   (succ₁ n ∸ succ₁ m) + succ₁ m
-    ≡⟨ subst (λ t → (succ₁ n ∸ succ₁ m) + succ₁ m ≡ t + succ₁ m)
-             (∸-SS n m)
-             refl
-    ⟩
+    ≡⟨ +-leftCong (∸-SS n m) ⟩
   (n ∸ m) + succ₁ m
-    ≡⟨ +-comm (∸-N Nn Nm) (nsucc Nm) ⟩
+     ≡⟨ +-comm (∸-N Nn Nm) (nsucc Nm) ⟩
   succ₁ m + (n ∸ m)
     ≡⟨ +-Sx m (n ∸ m) ⟩
   succ₁ (m + (n ∸ m))
-    ≡⟨ subst (λ t → succ₁ (m + (n ∸ m)) ≡ succ₁ t)
-             (+-comm Nm (∸-N Nn Nm))
-             refl
-    ⟩
+    ≡⟨ succCong (+-comm Nm (∸-N Nn Nm)) ⟩
   succ₁ ((n ∸ m) + m)
-    ≡⟨ subst (λ t → succ₁ ((n ∸ m) + m) ≡ succ₁ t)
-             (x≤y→y∸x+x≡y Nm Nn (trans (sym $ <-SS m (succ₁ n)) Sm≤Sn))
-             refl
-    ⟩
+    ≡⟨ succCong  (x≤y→y∸x+x≡y Nm Nn (trans (sym $ <-SS m (succ₁ n)) Sm≤Sn)) ⟩
   succ₁ n ∎
 
 x<y→x<Sy : ∀ {m n} → N m → N n → LT m n → LT m (succ₁ n)
@@ -296,10 +270,7 @@ x≥y→y>0→x∸y<x Nm             nzero          _     0>0  = ⊥-elim $ x>x�
 x≥y→y>0→x∸y<x nzero          (nsucc Nn)     0≥Sn  _    = ⊥-elim $ S≤0→⊥ Nn 0≥Sn
 x≥y→y>0→x∸y<x (nsucc {m} Nm) (nsucc {n} Nn) Sm≥Sn Sn>0 =
   (succ₁ m ∸ succ₁ n) < (succ₁ m)
-    ≡⟨ subst (λ t → (succ₁ m ∸ succ₁ n) < (succ₁ m) ≡ t < (succ₁ m))
-             (∸-SS m n)
-             refl
-    ⟩
+    ≡⟨ <-leftCong (∸-SS m n) ⟩
   (m ∸ n) < (succ₁ m)
      ≡⟨ x∸y<Sx Nm Nn ⟩
   true ∎
