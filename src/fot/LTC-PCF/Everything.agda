@@ -25,7 +25,6 @@ open import LTC-PCF.Data.Nat.Inequalities.Properties
 open import LTC-PCF.Data.Nat.Properties
 open import LTC-PCF.Data.Nat.Rec
 open import LTC-PCF.Data.Nat.Rec.Equations
-open import LTC-PCF.Data.Nat.SubtractionEquations
 open import LTC-PCF.Data.Nat.Type
 
 open import LTC-PCF.Loop

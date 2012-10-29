@@ -1,19 +1,36 @@
 ------------------------------------------------------------------------------
--- Equation for subtraction
+-- Subtraction using the fixed-point operator
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module LTC-PCF.Data.Nat.SubtractionEquations where
+module FOT.LTC-PCF.Data.Nat.SubtractionFixedPointOperator where
 
 open import Common.FOL.Relation.Binary.EqReasoning
 
 open import LTC-PCF.Base
 open import LTC-PCF.Base.Properties
-open import LTC-PCF.Data.Nat
+
+-- We add 3 to the fixities of the standard library.
+infixl 9 _∸_
 
 ------------------------------------------------------------------------------
+-- Subtraction's definition
+
+∸-helper : D → D
+∸-helper f = lam (λ m → lam (λ n →
+               if (iszero₁ n)
+                  then m
+                  else if (iszero₁ m)
+                          then zero
+                          else f · pred₁ m · pred₁ n))
+
+_∸_ : D → D → D
+_∸_ m n = fix ∸-helper · m · n
+
+------------------------------------------------------------------------------
+-- Conversion rules from the Agda standard library without use induction.
 
 private
   ----------------------------------------------------------------------------
