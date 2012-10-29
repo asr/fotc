@@ -182,3 +182,59 @@ m ∸ n = rec n m (lam (λ _ → lam pred₁))
 --   {!!}
 --     ≡⟨ {!!} ⟩
 --   m ∸ n ∎
+
+------------------------------------------------------------------------------
+-- Isabelle conversion rules (from Nat.thy)
+
+-- primrec minus_nat where
+--   diff_0 [code]: "m - 0 = (m :: nat)"
+-- | diff_Suc: "m - Suc n = (case m - n of 0 => 0 | Suc k => k)"
+
+∸-x0-isabelle : ∀ n → n ∸ zero ≡ n
+∸-x0-isabelle n = rec zero n _ ≡⟨ rec-0 n ⟩
+                  n            ∎
+
+-- We could not prove this property.
+-- ∸-xS-isabelle : ∀ m n → m ∸ succ₁ n ≡
+--                         if (iszero₁ (m ∸ n)) then zero else pred₁ (m ∸ n)
+-- ∸-xS-isabelle m n =
+--   rec (succ₁ n) m (lam (λ _ → lam pred₁))
+--     ≡⟨ rec-S n m (lam (λ _ → lam pred₁)) ⟩
+--   lam (λ x → lam pred₁) · n · (m ∸ n)
+--     ≡⟨ ·-leftCong (beta (λ _ → lam pred₁) n) ⟩
+--   lam pred₁ · (m ∸ n)
+--     ≡⟨ beta pred₁ (m ∸ n) ⟩
+--   pred₁ (m ∸ n)
+--   ≡⟨ {!!} ⟩
+--   if (iszero₁ (m ∸ n)) then zero else pred₁ (m ∸ n) ∎
+
+------------------------------------------------------------------------------
+-- Peter conversion rules
+
+-- The analogous situation for subtraction is that  given
+
+-- rec-0 : ∀ a {f} → rec zero a f ≡ a
+-- rec-S : ∀ n a f → rec (succ₁ n) a f ≡ f · n · (rec n a f)
+
+-- and
+
+-- _∸_ : D → D → D
+-- m ∸ n = rec n m (lam (λ _ → lam pred₁))
+
+-- you get the equations obtained by the special case (instantiate a and
+-- f according to the def of subtraction)! This has nothing to do a
+-- priori with Agda's standard library.
+
+∸-x0-peter : ∀ n → n ∸ zero ≡ n
+∸-x0-peter n = rec zero n _ ≡⟨ rec-0 n ⟩
+               n            ∎
+
+∸-xS-peter : ∀ m n → m ∸ succ₁ n ≡ pred₁ (m ∸ n)
+∸-xS-peter m n =
+  rec (succ₁ n) m (lam (λ _ → lam pred₁))
+    ≡⟨ rec-S n m (lam (λ _ → lam pred₁)) ⟩
+  lam (λ x → lam pred₁) · n · (m ∸ n)
+    ≡⟨ ·-leftCong (beta (λ _ → lam pred₁) n) ⟩
+  lam pred₁ · (m ∸ n)
+    ≡⟨ beta pred₁ (m ∸ n) ⟩
+  pred₁ (m ∸ n) ∎
