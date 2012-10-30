@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Equations for the Collatz function
+-- Conversion rules for the Collatz function
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOT.FOTC.Program.Collatz.EquationsATP where
+module FOT.FOTC.Program.Collatz.ConversionRulesATP where
 
 open import FOTC.Base
 

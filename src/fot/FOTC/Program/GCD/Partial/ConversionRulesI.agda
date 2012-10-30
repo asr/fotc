@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Equations for the greatest common divisor
+-- Conversion rules for the greatest common divisor
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Program.GCD.Partial.EquationsI where
+module FOTC.Program.GCD.Partial.ConversionRulesI where
 
 open import Common.FOL.Relation.Binary.EqReasoning
 

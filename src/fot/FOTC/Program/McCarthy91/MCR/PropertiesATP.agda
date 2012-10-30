@@ -32,7 +32,7 @@ fnMCR-N Nn = ∸-N 101-N Nn
 0«x→⊥ (nsucc Nn) 0«Sn = prf
   where
   postulate prf : ⊥
-  {-# ATP prove prf ∸-N x∸y<Sx x<y→y<x→⊥ #-}
+  {-# ATP prove prf ∸-N x∸y<Sx x<y→y<x→⊥ S∸S #-}
 
 «-trans : ∀ {m n o} → N m → N n → N o → MCR m n → MCR n o → MCR m o
 «-trans Nm Nn No m«n n«o =
@@ -47,17 +47,17 @@ Sx«Sy→x«y nzero nzero S0«S0 = prf
 Sx«Sy→x«y nzero (nsucc {n} Nn) S0«SSn = prf
   where
   postulate prf : MCR zero (succ₁ n)
-  {-# ATP prove prf x<x∸y→⊥ #-}
+  {-# ATP prove prf x<x∸y→⊥ S∸S #-}
 
 Sx«Sy→x«y (nsucc {m} Nm) nzero SSm«S0 = prf
   where
   postulate prf : MCR (succ₁ m) zero
-  {-# ATP prove prf ∸-N x∸y<Sx #-}
+  {-# ATP prove prf ∸-N x∸y<Sx S∸S #-}
 
 Sx«Sy→x«y (nsucc {m} Nm) (nsucc {n} Nn) SSm«SSn = prf
   where
   postulate prf : MCR (succ₁ m) (succ₁ n)
-  {-# ATP prove prf x∸y<x∸z→Sx∸y<Sx∸z #-}
+  {-# ATP prove prf x∸y<x∸z→Sx∸y<Sx∸z S∸S #-}
 
 x«Sy→x«y : ∀ {m n} → N m → N n → MCR m (succ₁ n) → MCR m n
 x«Sy→x«y {n = n} nzero Nn 0«Sn = ⊥-elim (0«x→⊥ (nsucc Nn) 0«Sn)
@@ -65,7 +65,7 @@ x«Sy→x«y {n = n} nzero Nn 0«Sn = ⊥-elim (0«x→⊥ (nsucc Nn) 0«Sn)
 x«Sy→x«y (nsucc {m} Nm) nzero Sm«S0 = prf
    where
    postulate prf : MCR (succ₁ m) zero
-   {-# ATP prove prf x∸y<Sx #-}
+   {-# ATP prove prf x∸y<Sx S∸S #-}
 
 x«Sy→x«y (nsucc {m} Nm) (nsucc {n} Nn) Sm«SSn =
   x<y→y≤z→x<z (∸-N 101-N (nsucc Nm))

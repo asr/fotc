@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Equations for the Collatz function
+-- Conversion rules for the Collatz function
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Program.Collatz.EquationsATP where
+module FOTC.Program.Collatz.ConversionRulesATP where
 
 open import FOTC.Base
 open import FOTC.Data.Nat
@@ -14,7 +14,7 @@ open import FOTC.Program.Collatz.Collatz
 open import FOTC.Program.Collatz.Data.Nat
 
 ------------------------------------------------------------------------------
--- Equations for the Collatz function.
+-- Conversion rules for the Collatz function.
 postulate
   collatz-0       : collatz zero ≡ one
   collatz-1       : collatz one  ≡ one

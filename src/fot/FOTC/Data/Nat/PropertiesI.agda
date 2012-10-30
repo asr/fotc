@@ -28,6 +28,9 @@ open import FOTC.Data.Nat.UnaryNumbers
 succCong : ∀ {m n} → m ≡ n → succ₁ m ≡ succ₁ n
 succCong refl = refl
 
+predCong : ∀ {m n} → m ≡ n → pred₁ m ≡ pred₁ n
+predCong refl = refl
+
 +-leftCong : ∀ {m n o} → m ≡ n → m + o ≡ n + o
 +-leftCong refl = refl
 
@@ -61,20 +64,17 @@ Sx≢x (nsucc Nn) h = ⊥-elim (Sx≢x Nn (succInjective h))
 +-rightIdentity (nsucc {n} Nn) =
   trans (+-Sx n zero) (succCong (+-rightIdentity Nn))
 
--- We removed the equation pred zero ≡ zero, so we cannot prove the
--- totality of the function pred.
--- pred-N : ∀ {n} → N n → N (pred n)
--- pred-N nzero = subst N (sym pred-0) nzero
--- pred-N (nsucc {n} Nn) = subst N (sym $ pred-S n) Nn
+pred-N : ∀ {n} → N n → N (pred₁ n)
+pred-N nzero =         subst N (sym pred-0) nzero
+pred-N (nsucc {n} Nn) = subst N (sym (pred-S n)) Nn
 
 +-N : ∀ {m n} → N m → N n → N (m + n)
 +-N {n = n} nzero          Nn = subst N (sym (+-leftIdentity n)) Nn
 +-N {n = n} (nsucc {m} Nm) Nn = subst N (sym (+-Sx m n)) (nsucc (+-N Nm Nn))
 
 ∸-N : ∀ {m n} → N m → N n → N (m ∸ n)
-∸-N {m} Nm             nzero          = subst N (sym (∸-x0 m)) Nm
-∸-N     nzero          (nsucc {n} _)  = subst N (sym (∸-0S n)) nzero
-∸-N     (nsucc {m} Nm) (nsucc {n} Nn) = subst N (sym (∸-SS m n)) (∸-N Nm Nn)
+∸-N {m} Nm nzero          = subst N (sym (∸-x0 m)) Nm
+∸-N {m} Nm (nsucc {n} Nn) = subst N (sym (∸-xS m n)) (pred-N (∸-N Nm Nn))
 
 +-assoc : ∀ {m} → N m → ∀ n o → m + n + o ≡ m + (n + o)
 +-assoc nzero n o =
@@ -113,29 +113,104 @@ x+Sy≡S[x+y] (nsucc {m} Nm) n =
   succ₁ (n + m) ≡⟨ sym (x+Sy≡S[x+y] Nn m) ⟩
   n + succ₁ m   ∎
 
-∸-0x : ∀ {n} → N n → zero ∸ n ≡ zero
-∸-0x nzero         = ∸-x0 zero
-∸-0x (nsucc {n} _) = ∸-0S n
+private
+  0∸S : ∀ {n} → N n → zero ∸ succ₁ n ≡ zero
+  0∸S nzero =
+    zero ∸ succ₁ zero   ≡⟨ ∸-xS zero zero ⟩
+    pred₁ (zero ∸ zero) ≡⟨ predCong (∸-x0 zero) ⟩
+    pred₁ zero          ≡⟨ pred-0 ⟩
+    zero                ∎
+
+  0∸S (nsucc {n} Nn) =
+    zero ∸ succ₁ (succ₁ n)   ≡⟨ ∸-xS zero (succ₁ n) ⟩
+    pred₁ (zero ∸ (succ₁ n)) ≡⟨ predCong (0∸S Nn) ⟩
+    pred₁ zero               ≡⟨ pred-0 ⟩
+    zero                     ∎
+
+0∸x : ∀ {n} → N n → zero ∸ n ≡ zero
+0∸x nzero      = ∸-x0 zero
+0∸x (nsucc Nn) = 0∸S Nn
+
+S∸S : ∀ {m n} → N m → N n → succ₁ m ∸ succ₁ n ≡ m ∸ n
+S∸S {m} _ nzero =
+  succ₁ m ∸ succ₁ zero
+    ≡⟨ ∸-xS (succ₁ m) zero ⟩
+  pred₁ (succ₁ m ∸ zero)
+    ≡⟨ predCong (∸-x0 (succ₁ m)) ⟩
+  pred₁ (succ₁ m)
+    ≡⟨ pred-S m ⟩
+  m
+    ≡⟨ sym (∸-x0 m) ⟩
+  m ∸ zero ∎
+
+S∸S nzero (nsucc {n} Nn) =
+  succ₁ zero ∸ succ₁ (succ₁ n)
+    ≡⟨ ∸-xS (succ₁ zero) (succ₁ n) ⟩
+  pred₁ (succ₁ zero ∸ succ₁ n)
+    ≡⟨ predCong (S∸S nzero Nn) ⟩
+  pred₁ (zero ∸ n)
+    ≡⟨ predCong (0∸x Nn) ⟩
+  pred₁ zero
+    ≡⟨ pred-0 ⟩
+  zero
+    ≡⟨ sym (0∸S Nn) ⟩
+  zero ∸ succ₁ n ∎
+
+S∸S (nsucc {m} Nm) (nsucc {n} Nn) =
+  succ₁ (succ₁ m) ∸ succ₁ (succ₁ n)
+    ≡⟨ ∸-xS (succ₁ (succ₁ m)) (succ₁ n) ⟩
+  pred₁ (succ₁ (succ₁ m) ∸ succ₁ n)
+    ≡⟨ predCong (S∸S (nsucc Nm) Nn) ⟩
+  pred₁ (succ₁ m ∸ n)
+    ≡⟨ sym (∸-xS (succ₁ m) n) ⟩
+  succ₁ m ∸ succ₁ n ∎
 
 x∸x≡0 : ∀ {n} → N n → n ∸ n ≡ zero
-x∸x≡0 nzero          = ∸-x0 zero
-x∸x≡0 (nsucc {n} Nn) = trans (∸-SS n n) (x∸x≡0 Nn)
+x∸x≡0 nzero      = ∸-x0 zero
+x∸x≡0 (nsucc Nn) = trans (S∸S Nn Nn) (x∸x≡0 Nn)
 
 Sx∸x≡S0 : ∀ {n} → N n → succ₁ n ∸ n ≡ succ₁ zero
-Sx∸x≡S0 nzero          = ∸-x0 (succ₁ zero)
-Sx∸x≡S0 (nsucc {n} Nn) = trans (∸-SS (succ₁ n) n) (Sx∸x≡S0 Nn)
+Sx∸x≡S0 nzero      = ∸-x0 (succ₁ zero)
+Sx∸x≡S0 (nsucc Nn) = trans (S∸S (nsucc Nn) Nn) (Sx∸x≡S0 Nn)
 
-[x+y]∸[x+z]≡y∸z : ∀ {m} → N m → ∀ n o → (m + n) ∸ (m + o) ≡ n ∸ o
-[x+y]∸[x+z]≡y∸z nzero n o =
+[x+Sy]∸y≡Sx : ∀ {m n} → N m → N n → m + succ₁ n ∸ n ≡ succ₁ m
+[x+Sy]∸y≡Sx {n = n} nzero Nn =
+  zero + succ₁ n ∸ n ≡⟨ ∸-leftCong (+-0x (succ₁ n)) ⟩
+  succ₁ n ∸ n        ≡⟨ Sx∸x≡S0 Nn ⟩
+  succ₁ zero ∎
+
+[x+Sy]∸y≡Sx (nsucc {m} Nm) nzero =
+  succ₁ m + succ₁ zero ∸ zero   ≡⟨ ∸-leftCong (+-Sx m (succ₁ zero)) ⟩
+  succ₁ (m + succ₁ zero) ∸ zero ≡⟨ ∸-x0 (succ₁ (m + succ₁ zero)) ⟩
+  succ₁ (m + succ₁ zero)        ≡⟨ succCong (+-comm Nm (nsucc nzero)) ⟩
+  succ₁ (succ₁ zero + m)        ≡⟨ succCong (+-Sx zero m) ⟩
+  succ₁ (succ₁ (zero + m))      ≡⟨ succCong (succCong (+-0x m)) ⟩
+  succ₁ (succ₁ m) ∎
+
+[x+Sy]∸y≡Sx (nsucc {m} Nm) (nsucc {n} Nn) =
+  succ₁ m + succ₁ (succ₁ n) ∸ succ₁ n
+    ≡⟨ ∸-leftCong (+-Sx m (succ₁ (succ₁ n))) ⟩
+  succ₁ (m + succ₁ (succ₁ n)) ∸ succ₁ n
+    ≡⟨ S∸S (+-N Nm (nsucc (nsucc Nn))) Nn ⟩
+  m + succ₁ (succ₁ n) ∸ n
+    ≡⟨ ∸-leftCong (x+Sy≡S[x+y] Nm (succ₁ n)) ⟩
+  succ₁ (m + succ₁ n) ∸ n
+    ≡⟨ ∸-leftCong (sym (+-Sx m (succ₁ n))) ⟩
+  succ₁ m + succ₁ n ∸ n
+    ≡⟨ [x+Sy]∸y≡Sx (nsucc Nm) Nn ⟩
+  succ₁ (succ₁ m) ∎
+
+[x+y]∸[x+z]≡y∸z : ∀ {m n o} → N m → N n → N o → (m + n) ∸ (m + o) ≡ n ∸ o
+[x+y]∸[x+z]≡y∸z {n = n} {o} nzero _ _ =
   (zero + n) ∸ (zero + o) ≡⟨ ∸-leftCong (+-leftIdentity n) ⟩
-  n ∸ (zero + o)          ≡⟨ ∸-rightCong (+-leftIdentity o) ⟩
-  n ∸ o                   ∎
+    n ∸ (zero + o)        ≡⟨ ∸-rightCong (+-leftIdentity o) ⟩
+    n ∸ o                 ∎
 
-[x+y]∸[x+z]≡y∸z (nsucc {m} Nm) n o =
+[x+y]∸[x+z]≡y∸z {n = n} {o} (nsucc {m} Nm) Nn No =
   (succ₁ m + n) ∸ (succ₁ m + o) ≡⟨ ∸-leftCong (+-Sx m n) ⟩
   succ₁ (m + n) ∸ (succ₁ m + o) ≡⟨ ∸-rightCong (+-Sx m o) ⟩
-  succ₁ (m + n) ∸ succ₁ (m + o) ≡⟨ ∸-SS (m + n) (m + o) ⟩
-  (m + n) ∸ (m + o)             ≡⟨ [x+y]∸[x+z]≡y∸z Nm n o ⟩
+  succ₁ (m + n) ∸ succ₁ (m + o) ≡⟨ S∸S (+-N Nm Nn) (+-N Nm No) ⟩
+  (m + n) ∸ (m + o)             ≡⟨ [x+y]∸[x+z]≡y∸z Nm Nn No ⟩
   n ∸ o                         ∎
 
 *-leftZero : ∀ n → zero * n ≡ zero
@@ -208,9 +283,9 @@ x*Sy≡x+xy {n = n} (nsucc {m} Nm) Nn =
   m * o ∸ zero * o ∎
 
 *∸-leftDistributive {o = o} nzero (nsucc {n} Nn) No =
-  (zero ∸ succ₁ n) * o   ≡⟨ *-leftCong (∸-0S n) ⟩
+  (zero ∸ succ₁ n) * o   ≡⟨ *-leftCong (0∸S Nn) ⟩
   zero * o               ≡⟨ *-leftZero o ⟩
-  zero                   ≡⟨ sym (∸-0x (*-N (nsucc Nn) No)) ⟩
+  zero                   ≡⟨ sym (0∸x (*-N (nsucc Nn) No)) ⟩
   zero ∸ succ₁ n * o     ≡⟨ ∸-leftCong (sym (*-leftZero o)) ⟩
   zero * o ∸ succ₁ n * o ∎
 
@@ -220,7 +295,7 @@ x*Sy≡x+xy {n = n} (nsucc {m} Nm) Nn =
   zero * (succ₁ m ∸ succ₁ n)
     ≡⟨ *-leftZero (succ₁ m ∸ succ₁ n) ⟩
   zero
-    ≡⟨ sym (∸-0x (*-N (nsucc Nn) nzero)) ⟩
+    ≡⟨ sym (0∸x (*-N (nsucc Nn) nzero)) ⟩
   zero ∸ succ₁ n * zero
     ≡⟨ ∸-leftCong (sym (*-leftZero (succ₁ m))) ⟩
   zero * succ₁ m ∸ succ₁ n * zero
@@ -229,11 +304,11 @@ x*Sy≡x+xy {n = n} (nsucc {m} Nm) Nn =
 
 *∸-leftDistributive (nsucc {m} Nm) (nsucc {n} Nn) (nsucc {o} No) =
   (succ₁ m ∸ succ₁ n) * succ₁ o
-    ≡⟨ *-leftCong (∸-SS m n) ⟩
+    ≡⟨ *-leftCong (S∸S Nm Nn) ⟩
   (m ∸ n) * succ₁ o
      ≡⟨ *∸-leftDistributive Nm Nn (nsucc No) ⟩
   m * succ₁ o ∸ n * succ₁ o
-    ≡⟨ sym ([x+y]∸[x+z]≡y∸z (nsucc No) (m * succ₁ o) (n * succ₁ o)) ⟩
+    ≡⟨ sym ([x+y]∸[x+z]≡y∸z (nsucc No) (*-N Nm (nsucc No)) (*-N Nn (nsucc No))) ⟩
   (succ₁ o + m * succ₁ o) ∸ (succ₁ o + n * succ₁ o)
     ≡⟨ ∸-leftCong (sym (*-Sx m (succ₁ o))) ⟩
   (succ₁ m * succ₁ o) ∸ (succ₁ o + n * succ₁ o)

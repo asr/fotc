@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Equations for the division
+-- Conversion rules for the division
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module LTC-PCF.Program.Division.Equations where
+module LTC-PCF.Program.Division.ConversionRules where
 
 open import Common.FOL.Relation.Binary.EqReasoning
 open import Common.Function

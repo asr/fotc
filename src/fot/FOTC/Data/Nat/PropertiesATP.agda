@@ -32,16 +32,14 @@ postulate *-rightCong : ∀ {m n o} → n ≡ o → m * n ≡ m * o
 ------------------------------------------------------------------------------
 -- Totality properties
 
--- We removed the equation pred zero ≡ zero, so we cannot prove the
--- totality of the function pred.
--- pred-N : ∀ {n} → N n → N (pred n)
--- pred-N zN  = prf
---   where postulate prf : N (pred zero)
---         {-# ATP prove prf #-}
+pred-N : ∀ {n} → N n → N (pred₁ n)
+pred-N nzero = prf
+  where postulate prf : N (pred₁ zero)
+        {-# ATP prove prf #-}
 
--- pred-N (sN {n} Nn) = prf
---   where postulate prf : N (pred (succ n))
---         {-# ATP prove prf #-}
+pred-N (nsucc {n} Nn) = prf
+  where postulate prf : N (pred₁ (succ₁ n))
+        {-# ATP prove prf #-}
 
 +-N : ∀ {m n} → N m → N n → N (m + n)
 +-N {n = n} nzero Nn = prf
@@ -55,12 +53,9 @@ postulate *-rightCong : ∀ {m n o} → n ≡ o → m * n ≡ m * o
 ∸-N {m} Nm nzero = prf
   where postulate prf : N (m ∸ zero)
         {-# ATP prove prf #-}
-∸-N nzero (nsucc {n} Nn) = prf
-  where postulate prf : N (zero ∸ succ₁ n)
-        {-# ATP prove prf #-}
-∸-N (nsucc {m} Nm) (nsucc {n} Nn) = prf (∸-N Nm Nn)
-  where postulate prf : N (m ∸ n) → N (succ₁ m ∸ succ₁ n)
-        {-# ATP prove prf #-}
+∸-N {m} Nm (nsucc {n} Nn) = prf (∸-N Nm Nn)
+  where postulate prf : N (m ∸ n) → N (m ∸ succ₁ n)
+        {-# ATP prove prf pred-N #-}
 
 *-N : ∀ {m n} → N m → N n → N (m * n)
 *-N {n = n} nzero Nn = prf
@@ -123,17 +118,43 @@ x+S0≡Sx (nsucc {n} Nn) = prf (x+S0≡Sx Nn)
                         succ₁ n + succ₁ zero ≡ succ₁ (succ₁ n)
         {-# ATP prove prf #-}
 
-∸-0x : ∀ {n} → N n → zero ∸ n ≡ zero
-∸-0x nzero         = ∸-x0 zero
-∸-0x (nsucc {n} _) = ∸-0S n
+private
+  0∸S : ∀ {n} → N n → zero ∸ succ₁ n ≡ zero
+  0∸S nzero = prf
+    where postulate prf : zero ∸ succ₁ zero ≡ zero
+          {-# ATP prove prf #-}
+
+  0∸S (nsucc {n} Nn) = prf (0∸S Nn)
+    where postulate prf : zero ∸ succ₁ n ≡ zero →
+                          zero ∸ succ₁ (succ₁ n) ≡ zero
+          {-# ATP prove prf #-}
+
+0∸x : ∀ {n} → N n → zero ∸ n ≡ zero
+0∸x nzero      = ∸-x0 zero
+0∸x (nsucc Nn) = 0∸S Nn
+
+S∸S : ∀ {m n} → N m → N n → succ₁ m ∸ succ₁ n ≡ m ∸ n
+S∸S {m} Nm nzero = prf
+  where postulate prf : succ₁ m ∸ succ₁ zero ≡ m ∸ zero
+        {-# ATP prove prf #-}
+
+S∸S nzero (nsucc {n} Nn) = prf (S∸S nzero Nn)
+  where postulate prf : succ₁ zero ∸ succ₁ n ≡ zero ∸ n →
+                        succ₁ zero ∸ succ₁ (succ₁ n) ≡ zero ∸ succ₁ n
+        {-# ATP prove prf #-}
+
+S∸S (nsucc {m} Nm) (nsucc {n} Nn) = prf (S∸S (nsucc Nm) Nn)
+  where postulate prf : succ₁ (succ₁ m) ∸ succ₁ n ≡ succ₁ m ∸ n →
+                        succ₁ (succ₁ m) ∸ succ₁ (succ₁ n) ≡ succ₁ m ∸ succ₁ n
+        {-# ATP prove prf #-}
 
 x∸x≡0 : ∀ {n} → N n → n ∸ n ≡ zero
 x∸x≡0 nzero          = ∸-x0 zero
-x∸x≡0 (nsucc {n} Nn) = trans (∸-SS n n) (x∸x≡0 Nn)
+x∸x≡0 (nsucc {n} Nn) = trans (S∸S Nn Nn) (x∸x≡0 Nn)
 
 Sx∸x≡S0 : ∀ {n} → N n → succ₁ n ∸ n ≡ succ₁ zero
 Sx∸x≡S0 nzero          = ∸-x0 (succ₁ zero)
-Sx∸x≡S0 (nsucc {n} Nn) = trans (∸-SS (succ₁ n) n) (Sx∸x≡S0 Nn)
+Sx∸x≡S0 (nsucc {n} Nn) = trans (S∸S (nsucc Nn) Nn) (Sx∸x≡S0 Nn)
 
 [x+Sy]∸y≡Sx : ∀ {m n} → N m → N n → (m + succ₁ n) ∸ n ≡ succ₁ m
 [x+Sy]∸y≡Sx {n = n} nzero Nn = prf
@@ -146,19 +167,17 @@ Sx∸x≡S0 (nsucc {n} Nn) = trans (∸-SS (succ₁ n) n) (Sx∸x≡S0 Nn)
 [x+Sy]∸y≡Sx (nsucc {m} Nm) (nsucc {n} Nn) = prf ([x+Sy]∸y≡Sx (nsucc Nm) Nn)
   where postulate prf : succ₁ m + succ₁ n ∸ n ≡ succ₁ (succ₁ m) →
                         succ₁ m + succ₁ (succ₁ n) ∸ succ₁ n ≡ succ₁ (succ₁ m)
-        {-# ATP prove prf +-comm #-}
+        {-# ATP prove prf S∸S +-N x+Sy≡S[x+y] #-}
 
-[x+y]∸[x+z]≡y∸z : ∀ {m} → N m → ∀ n o → (m + n) ∸ (m + o) ≡ n ∸ o
-[x+y]∸[x+z]≡y∸z nzero n o = prf
+[x+y]∸[x+z]≡y∸z : ∀ {m n o} → N m → N n → N o → (m + n) ∸ (m + o) ≡ n ∸ o
+[x+y]∸[x+z]≡y∸z {n = n} {o} nzero Nn No = prf
   where postulate prf : (zero + n) ∸ (zero + o) ≡ n ∸ o
         {-# ATP prove prf #-}
 
--- Nice proof by the ATP.
-[x+y]∸[x+z]≡y∸z (nsucc {m} Nm) n o =
-  prf ([x+y]∸[x+z]≡y∸z Nm n o)
+[x+y]∸[x+z]≡y∸z {n = n} {o} (nsucc {m} Nm) Nn No = prf ([x+y]∸[x+z]≡y∸z Nm Nn No)
   where postulate prf : (m + n) ∸ (m + o) ≡ n ∸ o →
                         (succ₁ m + n) ∸ (succ₁ m + o) ≡ n ∸ o
-        {-# ATP prove prf #-}
+        {-# ATP prove prf +-N S∸S +-Sx #-}
 
 *-leftZero : ∀ n → zero * n ≡ zero
 *-leftZero = *-0x
@@ -203,10 +222,9 @@ x*Sy≡x+xy {n = n} (nsucc {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
   where postulate prf : (m ∸ zero) * o ≡ m * o ∸ zero * o
         {-# ATP prove prf #-}
 
-*∸-leftDistributive {o = o} nzero (nsucc {n} Nn) No = prf (∸-0x (*-N (nsucc Nn) No))
-  where postulate prf : zero ∸ succ₁ n * o ≡ zero →
-                        (zero ∸ succ₁ n) * o ≡ zero * o ∸ succ₁ n * o
-        {-# ATP prove prf #-}
+*∸-leftDistributive {o = o} nzero (nsucc {n} Nn) No = prf
+  where postulate prf : (zero ∸ succ₁ n) * o ≡ zero * o ∸ succ₁ n * o
+        {-# ATP prove prf 0∸S 0∸x *-N #-}
 
 *∸-leftDistributive (nsucc {m} Nm) (nsucc {n} Nn) nzero = prf
   where
@@ -219,7 +237,7 @@ x*Sy≡x+xy {n = n} (nsucc {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
   postulate prf : (m ∸ n) * succ₁ o ≡ m * succ₁ o ∸ n * succ₁ o →
                   (succ₁ m ∸ succ₁ n) * succ₁ o ≡
                   succ₁ m * succ₁ o ∸ succ₁ n * succ₁ o
-  {-# ATP prove prf [x+y]∸[x+z]≡y∸z #-}
+  {-# ATP prove prf [x+y]∸[x+z]≡y∸z S∸S *-N #-}
 
 *+-leftDistributive : ∀ {m n o} → N m → N n → N o → (m + n) * o ≡ m * o + n * o
 *+-leftDistributive {m} {n} Nm Nn nzero = prf

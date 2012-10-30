@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Equations for the division
+-- Conversion rules for the division
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Program.Division.EquationsATP where
+module FOTC.Program.Division.ConversionRulesATP where
 
 open import FOTC.Base
 open import FOTC.Data.Nat

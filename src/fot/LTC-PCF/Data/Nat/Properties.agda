@@ -13,7 +13,7 @@ open import LTC-PCF.Base
 open import LTC-PCF.Base.Properties
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Rec
-open import LTC-PCF.Data.Nat.Rec.Equations
+open import LTC-PCF.Data.Nat.Rec.ConversionRules
 
 ------------------------------------------------------------------------------
 -- Congruence properties
@@ -134,39 +134,26 @@ x+Sy≡S[x+y] (nsucc {m} Nm) n =
   succ₁ (succ₁ (m + n)) ≡⟨ succCong (sym (+-Sx m n)) ⟩
   succ₁ (succ₁ m + n)   ∎
 
-∸-0S : ∀ {n} → N n → zero ∸ succ₁ n ≡ zero
-∸-0S nzero =
-  rec (succ₁ zero) zero (lam (λ _ → lam pred₁))
-    ≡⟨ rec-S zero zero (lam (λ _ → lam pred₁)) ⟩
-  lam (λ _ → lam pred₁) · zero · (zero ∸ zero)
-    ≡⟨ ·-leftCong (beta (λ _ → lam pred₁) zero) ⟩
-  lam pred₁ · (zero ∸ zero)
-    ≡⟨ beta pred₁ (zero ∸ zero) ⟩
-  pred₁ (zero ∸ zero)
-    ≡⟨ predCong (∸-x0 zero) ⟩
-  pred₁ zero
-    ≡⟨ pred-0 ⟩
-  zero ∎
+private
+  0∸S : ∀ {n} → N n → zero ∸ succ₁ n ≡ zero
+  0∸S nzero =
+    zero ∸ succ₁ zero   ≡⟨ ∸-xS zero zero ⟩
+    pred₁ (zero ∸ zero) ≡⟨ predCong (∸-x0 zero) ⟩
+    pred₁ zero          ≡⟨ pred-0 ⟩
+    zero                ∎
 
-∸-0S (nsucc {n} Nn) =
-  rec (succ₁ (succ₁ n)) zero (lam (λ _ → lam pred₁))
-    ≡⟨ rec-S (succ₁ n) zero (lam (λ _ → lam pred₁)) ⟩
-  lam (λ _ → lam pred₁) · (succ₁ n) · (zero ∸ (succ₁ n))
-    ≡⟨ ·-leftCong (beta (λ _ → lam pred₁) (succ₁ n)) ⟩
-  lam pred₁ · (zero ∸ (succ₁ n))
-    ≡⟨ beta pred₁ (zero ∸ (succ₁ n)) ⟩
-  pred₁ (zero ∸ (succ₁ n))
-    ≡⟨ predCong (∸-0S Nn) ⟩
-  pred₁ zero
-    ≡⟨ pred-0 ⟩
-  zero ∎
+  0∸S (nsucc {n} Nn) =
+    zero ∸ succ₁ (succ₁ n)   ≡⟨ ∸-xS zero (succ₁ n) ⟩
+    pred₁ (zero ∸ (succ₁ n)) ≡⟨ predCong (0∸S Nn) ⟩
+    pred₁ zero               ≡⟨ pred-0 ⟩
+    zero                     ∎
 
-∸-0x : ∀ {n} → N n → zero ∸ n ≡ zero
-∸-0x nzero      = ∸-x0 zero
-∸-0x (nsucc Nn) = ∸-0S Nn
+0∸x : ∀ {n} → N n → zero ∸ n ≡ zero
+0∸x nzero      = ∸-x0 zero
+0∸x (nsucc Nn) = 0∸S Nn
 
-∸-SS : ∀ {m n} → N m → N n → succ₁ m ∸ succ₁ n ≡ m ∸ n
-∸-SS {m} _ nzero =
+S∸S : ∀ {m n} → N m → N n → succ₁ m ∸ succ₁ n ≡ m ∸ n
+S∸S {m} _ nzero =
   succ₁ m ∸ succ₁ zero
     ≡⟨ ∸-xS (succ₁ m) zero ⟩
   pred₁ (succ₁ m ∸ zero)
@@ -177,32 +164,26 @@ x+Sy≡S[x+y] (nsucc {m} Nm) n =
     ≡⟨ sym (∸-x0 m) ⟩
   m ∸ zero ∎
 
-∸-SS nzero (nsucc {n} Nn) =
+S∸S nzero (nsucc {n} Nn) =
   succ₁ zero ∸ succ₁ (succ₁ n)
     ≡⟨ ∸-xS (succ₁ zero) (succ₁ n) ⟩
   pred₁ (succ₁ zero ∸ succ₁ n)
-    ≡⟨ predCong (∸-SS nzero Nn) ⟩
+    ≡⟨ predCong (S∸S nzero Nn) ⟩
   pred₁ (zero ∸ n)
-    ≡⟨ predCong (∸-0x Nn) ⟩
+    ≡⟨ predCong (0∸x Nn) ⟩
   pred₁ zero
     ≡⟨ pred-0 ⟩
   zero
-    ≡⟨ sym (∸-0S Nn) ⟩
+    ≡⟨ sym (0∸S Nn) ⟩
   zero ∸ succ₁ n ∎
 
-∸-SS (nsucc {m} Nm) (nsucc {n} Nn) =
+S∸S (nsucc {m} Nm) (nsucc {n} Nn) =
   succ₁ (succ₁ m) ∸ succ₁ (succ₁ n)
     ≡⟨ ∸-xS (succ₁ (succ₁ m)) (succ₁ n) ⟩
   pred₁ (succ₁ (succ₁ m) ∸ succ₁ n)
-    ≡⟨ predCong (∸-SS (nsucc Nm) Nn) ⟩
+    ≡⟨ predCong (S∸S (nsucc Nm) Nn) ⟩
   pred₁ (succ₁ m ∸ n)
-    ≡⟨ sym (beta pred₁ (succ₁ m ∸ n)) ⟩
-  lam pred₁ · (succ₁ m ∸ n)
-    ≡⟨ ·-leftCong (sym (beta (λ _ → lam pred₁) n)) ⟩
-  (lam (λ _ → lam pred₁)) · n · (succ₁ m ∸ n)
-    ≡⟨ sym (rec-S n (succ₁ m) (lam (λ _ → lam pred₁))) ⟩
-  rec (succ₁ n) (succ₁ m) (lam (λ _ → lam pred₁))
-    ≡⟨ refl ⟩
+    ≡⟨ sym (∸-xS (succ₁ m) n) ⟩
   succ₁ m ∸ succ₁ n ∎
 
 [x+y]∸[x+z]≡y∸z : ∀ {m n o} → N m → N n → N o → (m + n) ∸ (m + o) ≡ n ∸ o
@@ -214,7 +195,7 @@ x+Sy≡S[x+y] (nsucc {m} Nm) n =
 [x+y]∸[x+z]≡y∸z {n = n} {o} (nsucc {m} Nm) Nn No =
   (succ₁ m + n) ∸ (succ₁ m + o) ≡⟨ ∸-leftCong (+-Sx m n) ⟩
   succ₁ (m + n) ∸ (succ₁ m + o) ≡⟨ ∸-rightCong (+-Sx m o) ⟩
-  succ₁ (m + n) ∸ succ₁ (m + o) ≡⟨ ∸-SS (+-N Nm Nn) (+-N Nm No) ⟩
+  succ₁ (m + n) ∸ succ₁ (m + o) ≡⟨ S∸S (+-N Nm Nn) (+-N Nm No) ⟩
   (m + n) ∸ (m + o)             ≡⟨ [x+y]∸[x+z]≡y∸z Nm Nn No ⟩
   n ∸ o                         ∎
 
@@ -297,9 +278,9 @@ x*Sy≡x+xy {n = n} (nsucc {m} Nm) Nn =
   m * o ∸ zero * o ∎
 
 *∸-leftDistributive {o = o} nzero (nsucc {n} Nn) No =
-  (zero ∸ succ₁ n) * o   ≡⟨ *-leftCong (∸-0S Nn) ⟩
+  (zero ∸ succ₁ n) * o   ≡⟨ *-leftCong (0∸S Nn) ⟩
   zero * o               ≡⟨ *-leftZero o ⟩
-  zero                   ≡⟨ sym (∸-0x (*-N (nsucc Nn) No)) ⟩
+  zero                   ≡⟨ sym (0∸x (*-N (nsucc Nn) No)) ⟩
   zero ∸ succ₁ n * o     ≡⟨ ∸-leftCong (sym (*-leftZero o)) ⟩
   zero * o ∸ succ₁ n * o ∎
 
@@ -309,7 +290,7 @@ x*Sy≡x+xy {n = n} (nsucc {m} Nm) Nn =
   zero * (succ₁ m ∸ succ₁ n)
     ≡⟨ *-leftZero (succ₁ m ∸ succ₁ n) ⟩
   zero
-    ≡⟨ sym (∸-0x (*-N (nsucc Nn) nzero)) ⟩
+    ≡⟨ sym (0∸x (*-N (nsucc Nn) nzero)) ⟩
   zero ∸ succ₁ n * zero
     ≡⟨ ∸-leftCong (sym (*-leftZero (succ₁ m))) ⟩
   zero * succ₁ m ∸ succ₁ n * zero
@@ -318,7 +299,7 @@ x*Sy≡x+xy {n = n} (nsucc {m} Nm) Nn =
 
 *∸-leftDistributive (nsucc {m} Nm) (nsucc {n} Nn) (nsucc {o} No) =
   (succ₁ m ∸ succ₁ n) * succ₁ o
-    ≡⟨ *-leftCong (∸-SS Nm Nn) ⟩
+    ≡⟨ *-leftCong (S∸S Nm Nn) ⟩
   (m ∸ n) * succ₁ o
      ≡⟨ *∸-leftDistributive Nm Nn (nsucc No) ⟩
   m * succ₁ o ∸ n * succ₁ o

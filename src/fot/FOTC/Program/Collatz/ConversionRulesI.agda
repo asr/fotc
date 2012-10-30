@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Equations for the Collatz function
+-- Conversion rules for the Collatz function
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Program.Collatz.EquationsI where
+module FOTC.Program.Collatz.ConversionRulesI where
 
 open import Common.FOL.Relation.Binary.EqReasoning
 
@@ -125,7 +125,7 @@ private
   proof₈₋₁₀ n = if-false (collatz-s₁₀ n)
 
 ------------------------------------------------------------------------------
--- Equations for the Collatz function
+-- Conversion rules for the Collatz function
 
 collatz-0 : collatz zero ≡ one
 collatz-0 =

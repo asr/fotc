@@ -17,9 +17,9 @@ open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Inequalities.EliminationProperties
 open import LTC-PCF.Data.Nat.Inequalities.Properties
 open import LTC-PCF.Data.Nat.Properties
+open import LTC-PCF.Program.GCD.Partial.ConversionRules
 open import LTC-PCF.Program.GCD.Partial.Definitions
 open import LTC-PCF.Program.GCD.Partial.GCD
-open import LTC-PCF.Program.GCD.Partial.Equations
 
 ------------------------------------------------------------------------------
 -- gcd 0 (succ n) is total.

@@ -14,8 +14,8 @@ open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Properties
+open import LTC-PCF.Program.Division.ConversionRules
 open import LTC-PCF.Program.Division.Division
-open import LTC-PCF.Program.Division.Equations
 open import LTC-PCF.Program.Division.Specification
 
 ------------------------------------------------------------------------------

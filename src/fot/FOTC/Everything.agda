@@ -96,18 +96,18 @@ open import FOTC.Program.ABP.Terms
 
 open import FOTC.Program.Collatz.Collatz
 open import FOTC.Program.Collatz.Collatz.ConsistencyTest
+open import FOTC.Program.Collatz.ConversionRulesATP
+open import FOTC.Program.Collatz.ConversionRulesI
 open import FOTC.Program.Collatz.Data.Nat
 open import FOTC.Program.Collatz.Data.Nat.ConsistencyTest
 open import FOTC.Program.Collatz.Data.Nat.PropertiesATP
 open import FOTC.Program.Collatz.Data.Nat.PropertiesI
-open import FOTC.Program.Collatz.EquationsATP
-open import FOTC.Program.Collatz.EquationsI
 open import FOTC.Program.Collatz.PropertiesI
 open import FOTC.Program.Collatz.PropertiesATP
 
+open import FOTC.Program.Division.ConversionRulesATP
+open import FOTC.Program.Division.ConversionRulesI
 open import FOTC.Program.Division.Division
-open import FOTC.Program.Division.EquationsATP
-open import FOTC.Program.Division.EquationsI
 open import FOTC.Program.Division.IsCorrectATP
 open import FOTC.Program.Division.IsCorrectI
 open import FOTC.Program.Division.ProofSpecificationATP
@@ -118,11 +118,11 @@ open import FOTC.Program.Division.TotalityI
 
 open import FOTC.Program.GCD.Partial.CommonDivisorATP
 open import FOTC.Program.GCD.Partial.CommonDivisorI
+open import FOTC.Program.GCD.Partial.ConversionRulesATP
+open import FOTC.Program.GCD.Partial.ConversionRulesI
 open import FOTC.Program.GCD.Partial.Definitions
 open import FOTC.Program.GCD.Partial.DivisibleATP
 open import FOTC.Program.GCD.Partial.DivisibleI
-open import FOTC.Program.GCD.Partial.EquationsATP
-open import FOTC.Program.GCD.Partial.EquationsI
 open import FOTC.Program.GCD.Partial.GCD
 open import FOTC.Program.GCD.Partial.GCD.ConsistencyTest
 open import FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor
@@ -133,11 +133,11 @@ open import FOTC.Program.GCD.Partial.TotalityI
 
 open import FOTC.Program.GCD.Total.CommonDivisorATP
 open import FOTC.Program.GCD.Total.CommonDivisorI
+open import FOTC.Program.GCD.Total.ConversionRulesATP
+open import FOTC.Program.GCD.Total.ConversionRulesI
 open import FOTC.Program.GCD.Total.Definitions
 open import FOTC.Program.GCD.Total.DivisibleATP
 open import FOTC.Program.GCD.Total.DivisibleI
-open import FOTC.Program.GCD.Total.EquationsATP
-open import FOTC.Program.GCD.Total.EquationsI
 open import FOTC.Program.GCD.Total.GCD
 open import FOTC.Program.GCD.Total.GCD.ConsistencyTest
 open import FOTC.Program.GCD.Total.ProofSpecificationATP

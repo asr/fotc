@@ -12,9 +12,9 @@ open import FOTC.Data.Nat.Type
 open import FOTC.Data.Nat.UnaryNumbers
 open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
 open import FOTC.Program.Collatz.Collatz
+open import FOTC.Program.Collatz.ConversionRulesATP
 open import FOTC.Program.Collatz.Data.Nat
 open import FOTC.Program.Collatz.Data.Nat.PropertiesATP
-open import FOTC.Program.Collatz.EquationsATP
 
 ------------------------------------------------------------------------------
 

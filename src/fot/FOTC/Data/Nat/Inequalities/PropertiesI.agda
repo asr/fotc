@@ -205,6 +205,18 @@ x>y∨x≯y (nsucc {m} Nm) (nsucc {n} Nn) =
 ≤-trans (nsucc {m} Nm) (nsucc {n} Nn) (nsucc {o} No) Sm≤Sn Sn≤So =
   x≤y→Sx≤Sy (≤-trans Nm Nn No (Sx≤Sy→x≤y Sm≤Sn) (Sx≤Sy→x≤y Sn≤So))
 
+pred-≤ : ∀ {n} → N n → LE (pred₁ n) n
+pred-≤ nzero =
+  pred₁ zero < succ₁ zero ≡⟨ <-leftCong pred-0 ⟩
+  zero < succ₁ zero       ≡⟨ <-0S zero ⟩
+  true ∎
+pred-≤ (nsucc {n} Nn) =
+  pred₁ (succ₁ n) < succ₁ (succ₁ n)
+    ≡⟨ <-leftCong (pred-S n) ⟩
+  n < succ₁ (succ₁ n)
+    ≡⟨ <-trans Nn (nsucc Nn) (nsucc (nsucc Nn)) (x<Sx Nn) (x<Sx (nsucc Nn)) ⟩
+  true ∎
+
 x≤x+y : ∀ {m n} → N m → N n → LE m (m + n)
 x≤x+y nzero Nn = x≥0 (+-N nzero Nn)
 x≤x+y {n = n} (nsucc {m} Nm) Nn =
@@ -221,13 +233,13 @@ x∸y<Sx {m} Nm nzero =
   true               ∎
 
 x∸y<Sx nzero (nsucc {n} Nn) =
-  zero ∸ succ₁ n < succ₁ zero ≡⟨ <-leftCong (∸-0S n) ⟩
+  zero ∸ succ₁ n < succ₁ zero ≡⟨ <-leftCong (0∸x (nsucc Nn)) ⟩
   zero < succ₁ zero           ≡⟨ <-0S zero ⟩
   true                        ∎
 
 x∸y<Sx (nsucc {m} Nm) (nsucc {n} Nn) =
   succ₁ m ∸ succ₁ n < succ₁ (succ₁ m)
-    ≡⟨ <-leftCong (∸-SS m n) ⟩
+    ≡⟨ <-leftCong (S∸S Nm Nn) ⟩
   m ∸ n < succ₁ (succ₁ m)
      ≡⟨ <-trans (∸-N Nm Nn) (nsucc Nm) (nsucc (nsucc Nm))
                 (x∸y<Sx Nm Nn) (x<Sx (nsucc Nm))
@@ -236,9 +248,15 @@ x∸y<Sx (nsucc {m} Nm) (nsucc {n} Nn) =
 
 Sx∸Sy<Sx : ∀ {m n} → N m → N n → LT (succ₁ m ∸ succ₁ n) (succ₁ m)
 Sx∸Sy<Sx {m} {n} Nm Nn =
-  succ₁ m ∸ succ₁ n < succ₁ m ≡⟨ <-leftCong (∸-SS m n) ⟩
+  succ₁ m ∸ succ₁ n < succ₁ m ≡⟨ <-leftCong (S∸S Nm Nn) ⟩
   m ∸ n < succ₁ m             ≡⟨ x∸y<Sx Nm Nn ⟩
   true                        ∎
+
+x∸Sy≤x∸y : ∀ {m n} → N m → N n → LE (m ∸ succ₁ n) (m ∸ n)
+x∸Sy≤x∸y {m} {n} Nm Nn =
+  m ∸ succ₁ n ≤ m ∸ n   ≡⟨ <-leftCong (∸-xS m n) ⟩
+  pred₁ (m ∸ n) ≤ m ∸ n ≡⟨ pred-≤ (∸-N Nm Nn) ⟩
+  true ∎
 
 x>y→x∸y+y≡x : ∀ {m n} → N m → N n → GT m n → (m ∸ n) + n ≡ m
 x>y→x∸y+y≡x nzero          Nn    0>n  = ⊥-elim $ 0>x→⊥ Nn 0>n
@@ -246,7 +264,7 @@ x>y→x∸y+y≡x (nsucc {m} Nm) nzero Sm>0 =
   trans (+-rightIdentity (∸-N (nsucc Nm) nzero)) (∸-x0 (succ₁ m))
 x>y→x∸y+y≡x (nsucc {m} Nm) (nsucc {n} Nn) Sm>Sn =
   (succ₁ m ∸ succ₁ n) + succ₁ n
-    ≡⟨ +-leftCong (∸-SS m n)  ⟩
+    ≡⟨ +-leftCong (S∸S Nm Nn)  ⟩
   (m ∸ n) + succ₁ n
      ≡⟨ +-comm (∸-N Nm Nn) (nsucc Nn) ⟩
   succ₁ n + (m ∸ n)
@@ -263,7 +281,7 @@ x≤y→y∸x+x≡y {n = n} nzero Nn 0≤n =
 x≤y→y∸x+x≡y (nsucc Nm) nzero Sm≤0 = ⊥-elim $ S≤0→⊥ Nm Sm≤0
 x≤y→y∸x+x≡y (nsucc {m} Nm) (nsucc {n} Nn) Sm≤Sn =
   (succ₁ n ∸ succ₁ m) + succ₁ m
-    ≡⟨ +-leftCong (∸-SS n m) ⟩
+    ≡⟨ +-leftCong (S∸S Nn Nm) ⟩
   (n ∸ m) + succ₁ m
      ≡⟨ +-comm (∸-N Nn Nm) (nsucc Nm) ⟩
   succ₁ m + (n ∸ m)
@@ -302,7 +320,7 @@ x≥y→y>0→x∸y<x Nm             nzero          _     0>0  = ⊥-elim $ x>x�
 x≥y→y>0→x∸y<x nzero          (nsucc Nn)     0≥Sn  _    = ⊥-elim $ S≤0→⊥ Nn 0≥Sn
 x≥y→y>0→x∸y<x (nsucc {m} Nm) (nsucc {n} Nn) Sm≥Sn Sn>0 =
   (succ₁ m ∸ succ₁ n) < (succ₁ m)
-    ≡⟨ <-leftCong (∸-SS m n) ⟩
+    ≡⟨ <-leftCong (S∸S Nm Nn) ⟩
   (m ∸ n) < (succ₁ m)
      ≡⟨ x∸y<Sx Nm Nn ⟩
   true ∎

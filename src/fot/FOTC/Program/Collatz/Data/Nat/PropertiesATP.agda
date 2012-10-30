@@ -78,17 +78,17 @@ Sx-Odd→x-Even (nsucc {n} Nn) h = trans (sym (odd-S (succ₁ n))) h
 mutual
   ∸-Even : ∀ {m n} → N m → N n → Even m → Even n → Even (m ∸ n)
   ∸-Even {m} Nm nzero                      h₁ _  = subst Even (sym (∸-x0 m)) h₁
-  ∸-Even     nzero          (nsucc {n} Nn) h₁ _  = subst Even (sym (∸-0S n)) h₁
+  ∸-Even     nzero          (nsucc {n} Nn) h₁ _  = subst Even (sym (0∸x (nsucc Nn))) h₁
   ∸-Even     (nsucc {m} Nm) (nsucc {n} Nn) h₁ h₂ = prf
     where postulate prf : Even (succ₁ m ∸ succ₁ n)
-          {-# ATP prove prf ∸-Odd Sx-Even→x-Odd #-}
+          {-# ATP prove prf ∸-Odd Sx-Even→x-Odd S∸S #-}
 
   ∸-Odd : ∀ {m n} → N m → N n → Odd m → Odd n → Even (m ∸ n)
   ∸-Odd nzero          Nn             h₁ _  = ⊥-elim (true≢false (trans (sym h₁) odd-0))
   ∸-Odd (nsucc Nm)     nzero          _  h₂ = ⊥-elim (true≢false (trans (sym h₂) odd-0))
   ∸-Odd (nsucc {m} Nm) (nsucc {n} Nn) h₁ h₂ = prf
     where postulate prf : Even (succ₁ m ∸ succ₁ n)
-          {-# ATP prove prf ∸-Even Sx-Odd→x-Even #-}
+          {-# ATP prove prf ∸-Even Sx-Odd→x-Even S∸S #-}
 
 x-Even→SSx-Even : ∀ {n} → N n → Even n → Even (succ₁ (succ₁ n))
 x-Even→SSx-Even nzero h = prf

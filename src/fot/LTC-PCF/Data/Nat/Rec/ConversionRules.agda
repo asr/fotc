@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module LTC-PCF.Data.Nat.Rec.Equations where
+module LTC-PCF.Data.Nat.Rec.ConversionRules where
 
 open import Common.FOL.Relation.Binary.EqReasoning
 open import Common.Function

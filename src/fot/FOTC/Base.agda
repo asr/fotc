@@ -97,12 +97,12 @@ postulate
 {-# ATP axiom if-true if-false #-}
 
 -- Conversion rules for pred.
--- N.B. We don't need this equation.
 -- pred-0 :       pred · zero     ≡ zero
 -- pred-S : ∀ n → pred · (succ · n) ≡ n
 postulate
+  pred-0 : pred₁ zero            ≡ zero
   pred-S : ∀ n → pred₁ (succ₁ n) ≡ n
-{-# ATP axiom pred-S #-}
+{-# ATP axiom pred-0 pred-S #-}
 
 -- Conversion rules for iszero.
 -- iszero-0 :       iszero · zero       ≡ true

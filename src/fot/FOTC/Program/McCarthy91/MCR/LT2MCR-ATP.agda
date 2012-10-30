@@ -12,6 +12,7 @@ module FOTC.Program.McCarthy91.MCR.LT2MCR-ATP where
 
 open import FOTC.Base
 open import FOTC.Data.Nat
+open import FOTC.Data.Nat.PropertiesATP
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.EliminationProperties
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
@@ -34,7 +35,7 @@ LT2MCR-helper (nsucc {n} Nn) nzero (nsucc {k} Nk) p qn qm h = prfS0S
     prfS0S : LT (succ₁ k ∸ succ₁ (succ₁ n)) (succ₁ k ∸ succ₁ zero)
   {-# ATP prove k≥Sn x<y→x≤y #-}
   {-# ATP prove k∸Sn<k k≥Sn x≥y→y>0→x∸y<x #-}
-  {-# ATP prove prfS0S k∸Sn<k #-}
+  {-# ATP prove prfS0S k∸Sn<k S∸S #-}
 
 LT2MCR-helper (nsucc {n} Nn) (nsucc {m} Nm) (nsucc {k} Nk) p qn qm h =
   k∸Sn<k∸Sm→Sk∸SSn<Sk∸SSm (LT2MCR-helper Nn Nm Nk m<n Sn<k Sm<k k∸n<k∸m)
@@ -43,7 +44,7 @@ LT2MCR-helper (nsucc {n} Nn) (nsucc {m} Nm) (nsucc {k} Nk) p qn qm h =
     k∸Sn<k∸Sm→Sk∸SSn<Sk∸SSm : LT (k ∸ succ₁ n) (k ∸ succ₁ m) →
                               LT (succ₁ k ∸ succ₁ (succ₁ n))
                                  (succ₁ k ∸ succ₁ (succ₁ m))
-  {-# ATP prove  k∸Sn<k∸Sm→Sk∸SSn<Sk∸SSm #-}
+  {-# ATP prove k∸Sn<k∸Sm→Sk∸SSn<Sk∸SSm S∸S #-}
 
   postulate
     m<n     : LT m n
@@ -53,14 +54,14 @@ LT2MCR-helper (nsucc {n} Nn) (nsucc {m} Nm) (nsucc {k} Nk) p qn qm h =
   {-# ATP prove m<n #-}
   {-# ATP prove Sn<k #-}
   {-# ATP prove Sm<k #-}
-  {-# ATP prove k∸n<k∸m #-}
+  {-# ATP prove k∸n<k∸m S∸S #-}
 
 LT2MCR : ∀ {n m} → N n → N m → NGT m one-hundred → LT m n → MCR n m
 LT2MCR nzero          Nm    p h = ⊥-elim (x<0→⊥ Nm h)
 LT2MCR (nsucc {n} Nn) nzero p h = prfS0
   where
   postulate prfS0 : MCR (succ₁ n) zero
-  {-# ATP prove prfS0 x∸y<Sx #-}
+  {-# ATP prove prfS0 x∸y<Sx S∸S #-}
 
 LT2MCR (nsucc {n} Nn) (nsucc {m} Nm) p h with x<y∨x≥y Nn 100-N
 ... | inj₁ n<100 = LT2MCR-helper Nn Nm 101-N m<n Sn≤101 Sm≤101
@@ -80,7 +81,7 @@ LT2MCR (nsucc {n} Nn) (nsucc {m} Nm) p h with x<y∨x≥y Nn 100-N
   postulate
     0≡101∸Sn  : zero ≡ hundred-one ∸ succ₁ n
     0<101∸Sm  : LT zero (hundred-one ∸ succ₁ m)
-  {-# ATP prove 0≡101∸Sn x≤y→x-y≡0 #-}
+  {-# ATP prove 0≡101∸Sn x≤y→x∸y≡0 #-}
   {-# ATP prove 0<101∸Sm x≯y→x≤y x<y→0<y∸x #-}
 
   prf-n≥100 : MCR (succ₁ n) (succ₁ m)

@@ -16,7 +16,7 @@ open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.EliminationProperties
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.PropertiesI
-open import FOTC.Program.GCD.Total.EquationsI
+open import FOTC.Program.GCD.Total.ConversionRulesI
 open import FOTC.Program.GCD.Total.GCD
 
 ------------------------------------------------------------------------------

@@ -67,9 +67,9 @@ Sx≡2^0→x≡0(nsucc {n} Nn) SSn≡2^0 =
   where
   prf : succ₁ (succ₁ (succ₁ (succ₁ n) ∸ two)) ≡ succ₁ (succ₁ n)
   prf = succ₁ (succ₁ (succ₁ (succ₁ n) ∸ two))
-          ≡⟨ succCong (succCong (∸-SS (succ₁ n) (succ₁ zero))) ⟩
+          ≡⟨ succCong (succCong (S∸S (nsucc Nn) (nsucc nzero))) ⟩
         succ₁ (succ₁ ((succ₁ n ) ∸ (succ₁ zero)))
-          ≡⟨ succCong (succCong (∸-SS n zero)) ⟩
+          ≡⟨ succCong (succCong (S∸S Nn nzero)) ⟩
         succ₁ (succ₁ (n ∸ zero))
           ≡⟨ succCong (succCong (∸-x0 n)) ⟩
         succ₁ (succ₁ n) ∎
@@ -97,16 +97,16 @@ Sx-Odd→x-Even (nsucc {n} Nn) h = trans (sym (odd-S (succ₁ n))) h
 mutual
   ∸-Even : ∀ {m n} → N m → N n → Even m → Even n → Even (m ∸ n)
   ∸-Even {m} Nm nzero                      h₁ _ = subst Even (sym (∸-x0 m)) h₁
-  ∸-Even     nzero          (nsucc {n} Nn) h₁ _ = subst Even (sym (∸-0S n)) h₁
+  ∸-Even     nzero          (nsucc {n} Nn) h₁ _ = subst Even (sym (0∸x (nsucc Nn))) h₁
   ∸-Even     (nsucc {m} Nm) (nsucc {n} Nn) h₁ h₂ =
-    subst Even (sym (∸-SS m n))
+    subst Even (sym (S∸S Nm Nn))
           (∸-Odd Nm Nn (Sx-Even→x-Odd Nm h₁) (Sx-Even→x-Odd Nn h₂))
 
   ∸-Odd : ∀ {m n} → N m → N n → Odd m → Odd n → Even (m ∸ n)
   ∸-Odd nzero          Nn             h₁ _  = ⊥-elim (true≢false (trans (sym h₁) odd-0))
   ∸-Odd (nsucc Nm)     nzero          _  h₂ = ⊥-elim (true≢false (trans (sym h₂) odd-0))
   ∸-Odd (nsucc {m} Nm) (nsucc {n} Nn) h₁ h₂ =
-    subst Even (sym (∸-SS m n))
+    subst Even (sym (S∸S Nm Nn))
           (∸-Even Nm Nn (Sx-Odd→x-Even Nm h₁) (Sx-Odd→x-Even Nn h₂))
 
 x-Even→SSx-Even : ∀ {n} → N n → Even n → Even (succ₁ (succ₁ n))

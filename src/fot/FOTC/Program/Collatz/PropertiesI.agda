@@ -15,9 +15,9 @@ open import FOTC.Data.Nat.PropertiesI
 open import FOTC.Data.Nat.UnaryNumbers
 open import FOTC.Data.Nat.UnaryNumbers.TotalityI
 open import FOTC.Program.Collatz.Collatz
+open import FOTC.Program.Collatz.ConversionRulesI
 open import FOTC.Program.Collatz.Data.Nat
 open import FOTC.Program.Collatz.Data.Nat.PropertiesI
-open import FOTC.Program.Collatz.EquationsI
 
 ------------------------------------------------------------------------------
 

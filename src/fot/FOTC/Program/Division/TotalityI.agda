@@ -12,8 +12,8 @@ open import Common.Function
 open import FOTC.Base
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
+open import FOTC.Program.Division.ConversionRulesI
 open import FOTC.Program.Division.Division
-open import FOTC.Program.Division.EquationsI
 open import FOTC.Program.Division.Specification
 
 ------------------------------------------------------------------------------

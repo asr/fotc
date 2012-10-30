@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Equations for the inequalities
+-- Conversion rules for inequalities
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module LTC-PCF.Data.Nat.Inequalities.Equations where
+module LTC-PCF.Data.Nat.Inequalities.ConversionRules where
 
 open import Common.FOL.Relation.Binary.EqReasoning
 

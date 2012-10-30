@@ -52,7 +52,7 @@ open import LTC-PCF.Data.Nat.Inequalities.EliminationProperties
 open import LTC-PCF.Data.Nat.Inequalities.Properties
 
 -- The recursive operator
-open import LTC-PCF.Data.Nat.Rec.Equations
+open import LTC-PCF.Data.Nat.Rec.ConversionRules
 
 ------------------------------------------------------------------------------
 -- A looping combinator

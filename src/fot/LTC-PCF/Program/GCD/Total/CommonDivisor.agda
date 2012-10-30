@@ -19,9 +19,9 @@ open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Inequalities.EliminationProperties
 open import LTC-PCF.Data.Nat.Inequalities.Properties
 open import LTC-PCF.Data.Nat.Properties
+open import LTC-PCF.Program.GCD.Total.ConversionRules
 open import LTC-PCF.Program.GCD.Total.Definitions
 open import LTC-PCF.Program.GCD.Total.GCD
-open import LTC-PCF.Program.GCD.Total.Equations
 open import LTC-PCF.Program.GCD.Total.Totality
 
 ------------------------------------------------------------------------------

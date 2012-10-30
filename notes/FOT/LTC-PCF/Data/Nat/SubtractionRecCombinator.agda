@@ -11,9 +11,9 @@ open import Common.FOL.Relation.Binary.EqReasoning
 
 open import LTC-PCF.Base
 open import LTC-PCF.Base.Properties
-open import LTC-PCF.Data.Nat.Properties hiding ( ∸-x0 ; ∸-0x ; ∸-0S ; ∸-SS )
+open import LTC-PCF.Data.Nat.Properties hiding ( ∸-x0 )
 open import LTC-PCF.Data.Nat.Rec
-open import LTC-PCF.Data.Nat.Rec.Equations
+open import LTC-PCF.Data.Nat.Rec.ConversionRules
 open import LTC-PCF.Data.Nat.Type
 
 -- We add 3 to the fixities of the standard library.
