@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.AddRecursiveEquation where
+module CombinedProofs.AddRecursiveEquation where
 
 open import FOTC.Base
 
