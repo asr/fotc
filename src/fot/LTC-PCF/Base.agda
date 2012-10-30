@@ -89,7 +89,7 @@ postulate fix-eq : ∀ f → fix f ≡ f (fix f)
 postulate
   -- if-true  : ∀ d₁ {d₂} → if · true  · d₁ · d₂ ≡ d₁
   -- if-false : ∀ {d₁} d₂ → if · false · d₁ · d₂ ≡ d₂
-  if-true  : ∀ d₁ {d₂} → if true  then d₁ else d₂ ≡ d₁
+  if-true  : ∀ d₁ {d₂} → if true then d₁ else d₂  ≡ d₁
   if-false : ∀ {d₁} d₂ → if false then d₁ else d₂ ≡ d₂
 
 -- Conversion rules for pred.
@@ -98,14 +98,14 @@ postulate
   -- pred-S : ∀ d → pred · (succ · d) ≡ d
 
  -- N.B. We don't need this equation in FOTC.
-  pred-0 : pred₁ zero ≡ zero
+  pred-0 : pred₁ zero            ≡ zero
   pred-S : ∀ n → pred₁ (succ₁ n) ≡ n
 
 -- Conversion rules for iszero.
 postulate
   -- iszero-0 :       iszero · zero       ≡ true
   -- iszero-S : ∀ d → iszero · (succ · d) ≡ false
-  iszero-0 :       iszero₁ zero      ≡ true
+  iszero-0 : iszero₁ zero            ≡ true
   iszero-S : ∀ n → iszero₁ (succ₁ n) ≡ false
 
 ------------------------------------------------------------------------------

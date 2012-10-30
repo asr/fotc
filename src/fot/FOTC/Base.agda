@@ -92,7 +92,7 @@ abstract
 -- if-true  : ∀ d₁ {d₂} → if · true  · d₁ · d₂ ≡ d₁
 -- if-false : ∀ {d₁} d₂ → if · false · d₁ · d₂ ≡ d₂
 postulate
-  if-true  : ∀ d₁ {d₂} → if true  then d₁ else d₂ ≡ d₁
+  if-true  : ∀ d₁ {d₂} → if true then d₁ else d₂  ≡ d₁
   if-false : ∀ {d₁} d₂ → if false then d₁ else d₂ ≡ d₂
 {-# ATP axiom if-true if-false #-}
 
@@ -108,7 +108,7 @@ postulate
 -- iszero-0 :       iszero · zero       ≡ true
 -- iszero-S : ∀ n → iszero · (succ · n) ≡ false
 postulate
-  iszero-0 :       iszero₁ zero      ≡ true
+  iszero-0 : iszero₁ zero            ≡ true
   iszero-S : ∀ n → iszero₁ (succ₁ n) ≡ false
 {-# ATP axiom iszero-0 iszero-S #-}
 
@@ -155,7 +155,7 @@ module BList where
   -- null-[] :          null · []              ≡ true
   -- null-∷  : ∀ x xs → null · (cons · x · xs) ≡ false
   postulate
-    null-[] :          null₁ []       ≡ true
+    null-[] : null₁ []                ≡ true
     null-∷  : ∀ x xs → null₁ (x ∷ xs) ≡ false
 
   -- Conversion rule for head.
