@@ -2,7 +2,7 @@
 {-# OPTIONS --without-K #-}
 {-# OPTIONS --universal-quantified-formulas #-}
 
-module Automatization.CommDisjunctionSchema where
+module CombinedProofs.CommDisjunctionSchema where
 
 open import Common.FOL.FOL
 
