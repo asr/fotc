@@ -1,7 +1,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module CombinedProofs.CommAddGlobalHints where
+module CombiningProofs.CommAddGlobalHints where
 
 open import PA.Axiomatic.Standard.Base
 

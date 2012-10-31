@@ -1,7 +1,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module CombinedProofs.CommDisjunction where
+module CombiningProofs.CommDisjunction where
 
 open import Common.FOL.FOL
 
