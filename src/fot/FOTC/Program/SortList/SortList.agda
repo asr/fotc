@@ -99,7 +99,7 @@ LE-TreeItem t item = ≤-TreeItem t item ≡ true
 postulate
   -- The foldr function with the last two args flipped.
   lit    : D → D → D → D
-  lit-[] : ∀ f n →      lit f []       n ≡ n
+  lit-[] : ∀ f n → lit f [] n            ≡ n
   lit-∷  : ∀ f d ds n → lit f (d ∷ ds) n ≡ f · d · (lit f ds n)
 {-# ATP axiom lit-[] lit-∷ #-}
 
@@ -108,7 +108,7 @@ postulate
 
 postulate
   ordList    : D → D
-  ordList-[] :          ordList []       ≡ true
+  ordList-[] : ordList []                ≡ true
   ordList-∷  : ∀ i is → ordList (i ∷ is) ≡ ≤-ItemList i is && ordList is
 {-# ATP axiom ordList-[] ordList-∷ #-}
 
@@ -162,7 +162,7 @@ postulate
   flatten      : D → D
   flatten-nil  : flatten nil ≡ []
   flatten-tip  : ∀ i → flatten (tip i) ≡ i ∷ []
-  flatten-node : ∀ t₁ i t₂ → flatten (node t₁ i t₂)  ≡ flatten t₁ ++ flatten t₂
+  flatten-node : ∀ t₁ i t₂ → flatten (node t₁ i t₂) ≡ flatten t₁ ++ flatten t₂
 {-# ATP axiom flatten-nil flatten-tip flatten-node #-}
 
 -- The function which sorts the list

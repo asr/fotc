@@ -30,6 +30,6 @@ postulate
 {-# ATP axiom ∸-x0 ∸-xS #-}
 postulate
   _*_  : D → D → D
-  *-0x : ∀ n → zero * n       ≡ zero
+  *-0x : ∀ n → zero * n      ≡ zero
   *-Sx : ∀ m n → succ₁ m * n ≡ n + m * n
 {-# ATP axiom *-0x *-Sx #-}

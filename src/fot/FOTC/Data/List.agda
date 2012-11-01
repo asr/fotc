@@ -19,13 +19,13 @@ open import FOTC.Data.List.Type public
 
 postulate
   length    : D → D
-  length-[] :          length []       ≡ zero
+  length-[] : length []                ≡ zero
   length-∷  : ∀ x xs → length (x ∷ xs) ≡ succ₁ (length xs)
 {-# ATP axiom length-[] length-∷ #-}
 
 postulate
   _++_  : D → D → D
-  ++-[] : ∀ ys →      []       ++ ys ≡ ys
+  ++-[] : ∀ ys → [] ++ ys            ≡ ys
   ++-∷  : ∀ x xs ys → (x ∷ xs) ++ ys ≡ x ∷ (xs ++ ys)
 {-# ATP axiom ++-[] ++-∷ #-}
 
@@ -33,13 +33,13 @@ postulate
 
 postulate
   map    : D → D → D
-  map-[] : ∀ f →      map f []       ≡ []
+  map-[] : ∀ f → map f []            ≡ []
   map-∷  : ∀ f x xs → map f (x ∷ xs) ≡ f · x ∷ map f xs
 {-# ATP axiom map-[] map-∷ #-}
 
 postulate
   rev    : D → D → D
-  rev-[] : ∀ ys →      rev []       ys ≡ ys
+  rev-[] : ∀ ys → rev [] ys            ≡ ys
   rev-∷  : ∀ x xs ys → rev (x ∷ xs) ys ≡ rev xs (x ∷ ys)
 {-# ATP axiom rev-[] rev-∷ #-}
 
@@ -49,7 +49,7 @@ reverse xs = rev xs []
 
 postulate
   replicate   : D → D → D
-  replicate-0 : ∀ x →   replicate zero      x ≡ []
+  replicate-0 : ∀ x → replicate zero x        ≡ []
   replicate-S : ∀ n x → replicate (succ₁ n) x ≡ x ∷ replicate n x
 {-# ATP axiom replicate-0 replicate-S #-}
 
@@ -57,7 +57,7 @@ postulate
 
 postulate
   foldr    : D → D → D → D
-  foldr-[] : ∀ f n  →     foldr f n []       ≡ n
+  foldr-[] : ∀ f n → foldr f n []            ≡ n
   foldr-∷  : ∀ f n x xs → foldr f n (x ∷ xs) ≡ f · x · (foldr f n xs)
 {-# ATP axiom foldr-[] foldr-∷ #-}
 

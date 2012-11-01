@@ -28,7 +28,7 @@ postulate
 
 postulate
   _^_ : D → D → D
-  ^-0 : ∀ n →   n ^ zero    ≡ one
+  ^-0 : ∀ n → n ^ zero      ≡ one
   ^-S : ∀ m n → m ^ succ₁ n ≡ m * m ^ n
 {-# ATP axiom ^-0  ^-S #-}
 
@@ -36,10 +36,10 @@ postulate
   even : D → D
   odd  : D → D
 
-  even-0 :       even zero      ≡ true
+  even-0 : even zero            ≡ true
   even-S : ∀ d → even (succ₁ d) ≡ odd d
 
-  odd-0 :       odd zero      ≡ false
+  odd-0 : odd zero            ≡ false
   odd-S : ∀ d → odd (succ₁ d) ≡ even d
 {-# ATP axiom even-0 even-S odd-0 odd-S #-}
 
