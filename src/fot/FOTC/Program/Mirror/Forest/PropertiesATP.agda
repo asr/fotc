@@ -8,7 +8,6 @@
 module FOTC.Program.Mirror.Forest.PropertiesATP where
 
 open import Common.FOL.Relation.Binary.EqReasoning
-open import Common.Function
 
 open import FOTC.Base
 open FOTC.Base.BList
@@ -93,7 +92,7 @@ reverse-++-commute (fcons {x} {xs} Tx Fxs) fnil = prf
   {-# ATP prove prf ++-rightIdentity #-}
 
 reverse-++-commute (fcons {x} {xs} Tx Fxs) (fcons {y} {ys} Ty Fys) =
-  prf $ reverse-++-commute Fxs (fcons Ty Fys)
+  prf (reverse-++-commute Fxs (fcons Ty Fys))
   where
   postulate prf : reverse (xs ++ y ∷ ys) ≡ reverse (y ∷ ys) ++
                                            reverse xs →

@@ -8,7 +8,6 @@
 module FOTC.Program.Mirror.Forest.PropertiesI where
 
 open import Common.FOL.Relation.Binary.EqReasoning
-open import Common.Function
 
 open import FOTC.Base
 open FOTC.Base.BList
@@ -93,8 +92,8 @@ map-++-commute f h (fcons {x} {xs} Tx Fxs) ys =
 rev-++-commute : ∀ {xs} → Forest xs → ∀ ys → rev xs ys ≡ rev xs [] ++ ys
 rev-++-commute fnil ys =
   rev [] ys       ≡⟨ rev-[] ys ⟩
-  ys              ≡⟨ sym $ ++-leftIdentity ys ⟩
-  [] ++ ys        ≡⟨ subst (λ t → [] ++ ys ≡ t ++ ys) (sym $ rev-[] []) refl ⟩
+  ys              ≡⟨ sym (++-leftIdentity ys) ⟩
+  [] ++ ys        ≡⟨ subst (λ t → [] ++ ys ≡ t ++ ys) (sym (rev-[] [])) refl ⟩
   rev [] [] ++ ys ∎
 
 rev-++-commute (fcons {x} {xs} Tx Fxs) ys =
@@ -118,15 +117,15 @@ rev-++-commute (fcons {x} {xs} Tx Fxs) ys =
              refl
     ⟩
   rev xs [] ++ (x ∷ []) ++ ys
-    ≡⟨ sym $ ++-assoc (rev-Forest Fxs fnil) (x ∷ []) ys ⟩
+    ≡⟨ sym (++-assoc (rev-Forest Fxs fnil) (x ∷ []) ys) ⟩
   (rev xs [] ++ (x ∷ [])) ++ ys
     ≡⟨ subst (λ t → (rev xs [] ++ (x ∷ [])) ++ ys ≡ t ++ ys)
-             (sym $ rev-++-commute Fxs (x ∷ []))
+             (sym (rev-++-commute Fxs (x ∷ [])))
              refl
     ⟩
   rev xs (x ∷ []) ++ ys
     ≡⟨ subst (λ t → rev xs (x ∷ []) ++ ys ≡ t ++ ys)
-             (sym $ rev-∷ x xs [])
+             (sym (rev-∷ x xs []))
              refl
     ⟩
   rev (x ∷ xs) [] ++ ys ∎
@@ -193,13 +192,13 @@ reverse-++-commute (fcons {x} {xs} Tx Fxs) (fcons {y} {ys} Ty Fys) =
   reverse (y ∷ ys) ++ rev xs [] ++ x ∷ []
     ≡⟨ subst (λ t → reverse (y ∷ ys) ++ rev xs [] ++ x ∷ [] ≡
                     reverse (y ∷ ys) ++ t)
-             (sym $ rev-++-commute Fxs (x ∷ []))
+             (sym (rev-++-commute Fxs (x ∷ [])))
              refl
     ⟩
   reverse (y ∷ ys) ++ rev xs (x ∷ [])
     ≡⟨ subst (λ t → reverse (y ∷ ys) ++ rev xs (x ∷ []) ≡
                     reverse (y ∷ ys) ++ t)
-             (sym $ rev-∷ x xs [])
+             (sym (rev-∷ x xs []))
              refl
     ⟩
   reverse (y ∷ ys) ++ rev (x ∷ xs) []

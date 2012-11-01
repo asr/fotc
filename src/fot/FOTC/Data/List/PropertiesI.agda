@@ -8,7 +8,6 @@
 module FOTC.Data.List.PropertiesI where
 
 open import Common.FOL.Relation.Binary.EqReasoning
-open import Common.Function
 
 open import FOTC.Base
 open FOTC.Base.BList
@@ -206,8 +205,8 @@ reverse-[x]≡[x] x =
 rev-++-commute : ∀ {xs} → List xs → ∀ ys → rev xs ys ≡ rev xs [] ++ ys
 rev-++-commute lnil ys =
   rev [] ys       ≡⟨ rev-[] ys ⟩
-  ys              ≡⟨ sym $ ++-leftIdentity ys ⟩
-  [] ++ ys        ≡⟨ ++-leftCong (sym $ rev-[] []) ⟩
+  ys              ≡⟨ sym (++-leftIdentity ys) ⟩
+  [] ++ ys        ≡⟨ ++-leftCong (sym (rev-[] [])) ⟩
   rev [] [] ++ ys ∎
 
 rev-++-commute (lcons x {xs} Lxs) ys =
@@ -228,11 +227,11 @@ rev-++-commute (lcons x {xs} Lxs) ys =
              refl
     ⟩
   rev xs [] ++ (x ∷ []) ++ ys
-    ≡⟨ sym $ ++-assoc (rev-List Lxs lnil) (x ∷ []) ys ⟩
+    ≡⟨ sym (++-assoc (rev-List Lxs lnil) (x ∷ []) ys) ⟩
   (rev xs [] ++ (x ∷ [])) ++ ys
-    ≡⟨ ++-leftCong (sym $ rev-++-commute Lxs (x ∷ [])) ⟩
+    ≡⟨ ++-leftCong (sym (rev-++-commute Lxs (x ∷ []))) ⟩
   rev xs (x ∷ []) ++ ys
-    ≡⟨ ++-leftCong (sym $ rev-∷ x xs []) ⟩
+    ≡⟨ ++-leftCong (sym (rev-∷ x xs [])) ⟩
   rev (x ∷ xs) [] ++ ys ∎
 
 reverse-++-commute : ∀ {xs ys} → List xs → List ys →
@@ -270,9 +269,9 @@ reverse-++-commute (lcons x {xs} Lxs) (lcons y {ys} Lys) =
   reverse (y ∷ ys) ++ reverse xs ++ x ∷ []
     ≡⟨ refl ⟩
   reverse (y ∷ ys) ++ rev xs [] ++ x ∷ []
-    ≡⟨ ++-rightCong (sym $ rev-++-commute Lxs (x ∷ [])) ⟩
+    ≡⟨ ++-rightCong (sym (rev-++-commute Lxs (x ∷ []))) ⟩
   reverse (y ∷ ys) ++ rev xs (x ∷ [])
-    ≡⟨ ++-rightCong (sym $ rev-∷ x xs []) ⟩
+    ≡⟨ ++-rightCong (sym (rev-∷ x xs [])) ⟩
   reverse (y ∷ ys) ++ rev (x ∷ xs) []
     ≡⟨ refl ⟩
   reverse (y ∷ ys) ++ reverse (x ∷ xs) ∎

@@ -7,8 +7,6 @@
 
 module FOTC.Base.Properties where
 
-open import Common.Function
-
 open import FOTC.Base
 open FOTC.Base.BList
 
@@ -22,7 +20,7 @@ open FOTC.Base.BList
 ≡-stream = ≡-list
 
 S≢0 : ∀ {n} → succ₁ n ≢ zero
-S≢0 S≡0 = 0≢S $ sym S≡0
+S≢0 S≡0 = 0≢S (sym S≡0)
 
 -- We added Common.Relation.Binary.PropositionalEquality.cong, so this
 -- theorem is not necessary.

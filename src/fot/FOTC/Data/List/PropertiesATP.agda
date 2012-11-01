@@ -7,8 +7,6 @@
 
 module FOTC.Data.List.PropertiesATP where
 
-open import Common.Function
-
 open import FOTC.Base
 open FOTC.Base.BList
 open import FOTC.Data.Conat
@@ -23,7 +21,7 @@ open import FOTC.Data.Nat.Type
   where postulate prf : List ([] ++ ys)
         {-# ATP prove prf #-}
 
-++-List {ys = ys} (lcons x {xs} Lxs) Lys = prf $ ++-List Lxs Lys
+++-List {ys = ys} (lcons x {xs} Lxs) Lys = prf (++-List Lxs Lys)
   where postulate prf : List (xs ++ ys) → List ((x ∷ xs) ++ ys)
         {-# ATP prove prf #-}
 
@@ -31,7 +29,7 @@ map-List : ∀ f {xs} → List xs → List (map f xs)
 map-List f lnil = prf
   where postulate prf : List (map f [])
         {-# ATP prove prf #-}
-map-List f (lcons x {xs} Lxs) = prf $ map-List f Lxs
+map-List f (lcons x {xs} Lxs) = prf (map-List f Lxs)
   where postulate prf : List (map f xs) → List (map f (x ∷ xs))
         {-# ATP prove prf #-}
 
@@ -39,7 +37,7 @@ rev-List : ∀ {xs ys} → List xs → List ys → List (rev xs ys)
 rev-List {ys = ys} lnil Lys = prf
   where postulate prf : List (rev [] ys)
         {-# ATP prove prf #-}
-rev-List {ys = ys} (lcons x {xs} Lxs) Lys = prf $ rev-List Lxs (lcons x Lys)
+rev-List {ys = ys} (lcons x {xs} Lxs) Lys = prf (rev-List Lxs (lcons x Lys))
   where postulate prf : List (rev xs (x ∷ ys)) → List (rev (x ∷ xs) ys)
         {-# ATP prove prf #-}
 
@@ -52,7 +50,7 @@ length-replicate : ∀ x {n} → N n → length (replicate n x) ≡ n
 length-replicate x nzero = prf
   where postulate prf : length (replicate zero x) ≡ zero
         {-# ATP prove prf #-}
-length-replicate x (nsucc {n} Nn) = prf $ length-replicate x Nn
+length-replicate x (nsucc {n} Nn) = prf (length-replicate x Nn)
   where postulate prf : length (replicate n x) ≡ n →
                         length (replicate (succ₁ n) x) ≡ succ₁ n
         {-# ATP prove prf #-}
@@ -70,7 +68,7 @@ postulate lg-xs≡∞→lg-x∷xs≡∞ : ∀ x xs → length xs ≡ ∞ → len
   where postulate prf : [] ++ [] ≡ []
         {-# ATP prove prf #-}
 
-++-rightIdentity (lcons x {xs} Lxs) = prf $ ++-rightIdentity Lxs
+++-rightIdentity (lcons x {xs} Lxs) = prf (++-rightIdentity Lxs)
   where postulate prf : xs ++ [] ≡ xs → (x ∷ xs) ++ [] ≡ x ∷ xs
         {-# ATP prove prf #-}
 
@@ -79,7 +77,7 @@ postulate lg-xs≡∞→lg-x∷xs≡∞ : ∀ x xs → length xs ≡ ∞ → len
   where postulate prf : ([] ++ ys) ++ zs ≡ [] ++ ys ++ zs
         {-# ATP prove prf #-}
 
-++-assoc .{x ∷ xs} (lcons x {xs} Lxs) ys zs = prf $ ++-assoc Lxs ys zs
+++-assoc .{x ∷ xs} (lcons x {xs} Lxs) ys zs = prf (++-assoc Lxs ys zs)
   where postulate prf : (xs ++ ys) ++ zs ≡ xs ++ ys ++ zs →
                         ((x ∷ xs) ++ ys) ++ zs ≡ (x ∷ xs) ++ ys ++ zs
         {-# ATP prove prf #-}
@@ -93,7 +91,7 @@ map-++-commute f lnil ys = prf
         {-# ATP prove prf #-}
 
 map-++-commute f (lcons x {xs} Lxs) ys =
-  prf $ map-++-commute f Lxs ys
+  prf (map-++-commute f Lxs ys)
   where postulate prf : map f (xs ++ ys) ≡ map f xs ++ map f ys →
                         map f ((x ∷ xs) ++ ys) ≡ map f (x ∷ xs) ++ map f ys
         {-# ATP prove prf #-}
@@ -126,7 +124,7 @@ reverse-++-commute (lcons x {xs} Lxs) lnil = prf
   {-# ATP prove prf ++-rightIdentity #-}
 
 reverse-++-commute (lcons x {xs} Lxs) (lcons y {ys} Lys) =
-  prf $ reverse-++-commute Lxs (lcons y Lys)
+  prf (reverse-++-commute Lxs (lcons y Lys))
   where
   postulate prf : reverse (xs ++ y ∷ ys) ≡ reverse (y ∷ ys) ++
                                            reverse xs →
@@ -149,7 +147,7 @@ reverse-involutive lnil = prf
   where postulate prf : reverse (reverse []) ≡ []
         {-# ATP prove prf #-}
 
-reverse-involutive (lcons x {xs} Lxs) = prf $ reverse-involutive Lxs
+reverse-involutive (lcons x {xs} Lxs) = prf (reverse-involutive Lxs)
   where
   postulate prf : reverse (reverse xs) ≡ xs →
                   reverse (reverse (x ∷ xs)) ≡ x ∷ xs

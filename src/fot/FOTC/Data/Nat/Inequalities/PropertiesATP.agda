@@ -7,8 +7,6 @@
 
 module FOTC.Data.Nat.Inequalities.PropertiesATP where
 
-open import Common.Function
-
 open import FOTC.Base
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
@@ -21,7 +19,7 @@ open import FOTC.Data.Nat.PropertiesATP
 
 x≥0 : ∀ {n} → N n → GE n zero
 x≥0 nzero          = <-0S zero
-x≥0 (nsucc {n} Nn) = <-0S $ succ₁ n
+x≥0 (nsucc {n} Nn) = <-0S (succ₁ n)
 
 0≤x : ∀ {n} → N n → LE zero n
 0≤x Nn = x≥0 Nn
@@ -51,8 +49,8 @@ postulate
 {-# ATP prove Sx<Sy→x<y #-}
 
 x<y→x<Sy : ∀ {m n} → N m → N n → LT m n → LT m (succ₁ n)
-x<y→x<Sy Nm             nzero          m<0   = ⊥-elim $ x<0→⊥ Nm m<0
-x<y→x<Sy nzero          (nsucc {n} Nn) 0<Sn  = <-0S $ succ₁ n
+x<y→x<Sy Nm             nzero          m<0   = ⊥-elim (x<0→⊥ Nm m<0)
+x<y→x<Sy nzero          (nsucc {n} Nn) 0<Sn  = <-0S (succ₁ n)
 x<y→x<Sy (nsucc {m} Nm) (nsucc {n} Nn) Sm<Sn =
   x<y→Sx<Sy (x<y→x<Sy Nm Nn (Sx<Sy→x<y Sm<Sn))
 
@@ -77,17 +75,17 @@ x≰y→Sx≰Sy : ∀ m n → NLE m n → NLE (succ₁ m) (succ₁ n)
 x≰y→Sx≰Sy m n m≰n = trans (<-SS m (succ₁ n)) m≰n
 
 x>y→y<x : ∀ {m n} → N m → N n → GT m n → LT n m
-x>y→y<x nzero          Nn             0>n   = ⊥-elim $ 0>x→⊥ Nn 0>n
+x>y→y<x nzero          Nn             0>n   = ⊥-elim (0>x→⊥ Nn 0>n)
 x>y→y<x (nsucc {m} Nm) nzero          _     = <-0S m
 x>y→y<x (nsucc {m} Nm) (nsucc {n} Nn) Sm>Sn =
-  trans (<-SS n m) (x>y→y<x Nm Nn (trans (sym $ <-SS n m) Sm>Sn))
+  trans (<-SS n m) (x>y→y<x Nm Nn (trans (sym (<-SS n m)) Sm>Sn))
 
 x≥y→x≮y : ∀ {m n} → N m → N n → GE m n → NLT m n
 x≥y→x≮y nzero          nzero          _     = x≮x nzero
-x≥y→x≮y nzero          (nsucc Nn)     0≥Sn  = ⊥-elim $ 0≥S→⊥ Nn 0≥Sn
+x≥y→x≮y nzero          (nsucc Nn)     0≥Sn  = ⊥-elim (0≥S→⊥ Nn 0≥Sn)
 x≥y→x≮y (nsucc {m} Nm) nzero          _     = <-S0 m
 x≥y→x≮y (nsucc {m} Nm) (nsucc {n} Nn) Sm≥Sn =
-  prf (x≥y→x≮y Nm Nn (trans (sym $ <-SS n (succ₁ m)) Sm≥Sn))
+  prf (x≥y→x≮y Nm Nn (trans (sym (<-SS n (succ₁ m))) Sm≥Sn))
   where postulate prf : NLT m n → NLT (succ₁ m) (succ₁ n)
         {-# ATP prove prf #-}
 
@@ -102,18 +100,18 @@ x≮y→x≥y (nsucc {m} Nm) (nsucc {n} Nn) Sm≮Sn =
         {-# ATP prove prf #-}
 
 x>y→x≰y : ∀ {m n} → N m → N n → GT m n → NLE m n
-x>y→x≰y nzero          Nn             0>m   = ⊥-elim $ 0>x→⊥ Nn 0>m
+x>y→x≰y nzero          Nn             0>m   = ⊥-elim (0>x→⊥ Nn 0>m)
 x>y→x≰y (nsucc Nm)     nzero          _     = Sx≰0 Nm
 x>y→x≰y (nsucc {m} Nm) (nsucc {n} Nn) Sm>Sn =
-  x≰y→Sx≰Sy m n (x>y→x≰y Nm Nn (trans (sym $ <-SS n m) Sm>Sn))
+  x≰y→Sx≰Sy m n (x>y→x≰y Nm Nn (trans (sym (<-SS n m)) Sm>Sn))
 
 postulate
   x>y→x≤y→⊥ : ∀ {m n} → N m → N n → GT m n → LE m n → ⊥
 {-# ATP prove x>y→x≤y→⊥ x>y→x≰y #-}
 
 x>y∨x≤y : ∀ {m n} → N m → N n → GT m n ∨ LE m n
-x>y∨x≤y nzero          Nn             = inj₂ $ x≥0 Nn
-x>y∨x≤y (nsucc {m} Nm) nzero          = inj₁ $ <-0S m
+x>y∨x≤y nzero          Nn             = inj₂ (x≥0 Nn)
+x>y∨x≤y (nsucc {m} Nm) nzero          = inj₁ (<-0S m)
 x>y∨x≤y (nsucc {m} Nm) (nsucc {n} Nn) =
   case (λ m>n → inj₁ (trans (<-SS n m) m>n))
        (λ m≤n → inj₂ (x≤y→Sx≤Sy m≤n))
@@ -139,8 +137,8 @@ x≡y→x≤y : ∀ {m n} → N m → N n → m ≡ n → LE m n
 x≡y→x≤y {n = n} Nm Nn m≡n = subst (λ m' → LE m' n) (sym m≡n) (x≤x Nn)
 
 x<y→x≤y : ∀ {m n} → N m → N n → LT m n → LE m n
-x<y→x≤y Nm             nzero          m<0   = ⊥-elim $ x<0→⊥ Nm m<0
-x<y→x≤y nzero          (nsucc {n} Nn) _     = <-0S $ succ₁ n
+x<y→x≤y Nm             nzero          m<0   = ⊥-elim (x<0→⊥ Nm m<0)
+x<y→x≤y nzero          (nsucc {n} Nn) _     = <-0S (succ₁ n)
 x<y→x≤y (nsucc {m} Nm) (nsucc {n} Nn) Sm<Sn =
   x≤y→Sx≤Sy (x<y→x≤y Nm Nn (Sx<Sy→x<y Sm<Sn))
 
@@ -156,12 +154,12 @@ x≤Sx : ∀ {m} → N m → LE m (succ₁ m)
 x≤Sx Nm = x<y→x≤y Nm (nsucc Nm) (x<Sx Nm)
 
 x<y→Sx≤y : ∀ {m n} → N m → N n → LT m n → LE (succ₁ m) n
-x<y→Sx≤y Nm             nzero          m<0   = ⊥-elim $ x<0→⊥ Nm m<0
+x<y→Sx≤y Nm             nzero          m<0   = ⊥-elim (x<0→⊥ Nm m<0)
 x<y→Sx≤y nzero          (nsucc Nn)     0<Sn  = x≤y→Sx≤Sy (0≤x Nn)
 x<y→Sx≤y (nsucc {m} Nm) (nsucc {n} Nn) Sm<Sn = trans (<-SS (succ₁ m) (succ₁ n)) Sm<Sn
 
 Sx≤y→x<y : ∀ {m n} → N m → N n → LE (succ₁ m) n → LT m n
-Sx≤y→x<y Nm             nzero          Sm≤0   = ⊥-elim $ S≤0→⊥ Nm Sm≤0
+Sx≤y→x<y Nm             nzero          Sm≤0   = ⊥-elim (S≤0→⊥ Nm Sm≤0)
 Sx≤y→x<y nzero          (nsucc {n} Nn) _      = <-0S n
 Sx≤y→x<y (nsucc {m} Nm) (nsucc {n} Nn) SSm≤Sn =
   x<y→Sx<Sy (Sx≤y→x<y Nm Nn (Sx≤Sy→x≤y SSm≤Sn))
@@ -194,18 +192,18 @@ x>y∨x≯y (nsucc {m} Nm) (nsucc {n} Nn) =
        (x>y∨x≯y Nm Nn)
 
 <-trans : ∀ {m n o} → N m → N n → N o → LT m n → LT n o → LT m o
-<-trans nzero          nzero          _              0<0   _     = ⊥-elim $ 0<0→⊥ 0<0
-<-trans nzero          (nsucc Nn)     nzero          _     Sn<0  = ⊥-elim $ S<0→⊥ Sn<0
+<-trans nzero          nzero          _              0<0   _     = ⊥-elim (0<0→⊥ 0<0)
+<-trans nzero          (nsucc Nn)     nzero          _     Sn<0  = ⊥-elim (S<0→⊥ Sn<0)
 <-trans nzero          (nsucc Nn)     (nsucc {o} No) _     _     = <-0S o
-<-trans (nsucc Nm)     Nn             nzero          _     n<0   = ⊥-elim $ x<0→⊥ Nn n<0
-<-trans (nsucc Nm)     nzero          (nsucc No)     Sm<0  _     = ⊥-elim $ S<0→⊥ Sm<0
+<-trans (nsucc Nm)     Nn             nzero          _     n<0   = ⊥-elim (x<0→⊥ Nn n<0)
+<-trans (nsucc Nm)     nzero          (nsucc No)     Sm<0  _     = ⊥-elim (S<0→⊥ Sm<0)
 <-trans (nsucc {m} Nm) (nsucc {n} Nn) (nsucc {o} No) Sm<Sn Sn<So =
-  x<y→Sx<Sy $ <-trans Nm Nn No (Sx<Sy→x<y Sm<Sn) (Sx<Sy→x<y Sn<So)
+  x<y→Sx<Sy (<-trans Nm Nn No (Sx<Sy→x<y Sm<Sn) (Sx<Sy→x<y Sn<So))
 
 ≤-trans : ∀ {m n o} → N m → N n → N o → LE m n → LE n o → LE m o
 ≤-trans nzero          Nn             No             _     _     = 0≤x No
-≤-trans (nsucc Nm)     nzero          No             Sm≤0  _     = ⊥-elim $ S≤0→⊥ Nm Sm≤0
-≤-trans (nsucc Nm)     (nsucc Nn)     nzero          _     Sn≤0  = ⊥-elim $ S≤0→⊥ Nn Sn≤0
+≤-trans (nsucc Nm)     nzero          No             Sm≤0  _     = ⊥-elim (S≤0→⊥ Nm Sm≤0)
+≤-trans (nsucc Nm)     (nsucc Nn)     nzero          _     Sn≤0  = ⊥-elim (S≤0→⊥ Nn Sn≤0)
 ≤-trans (nsucc {m} Nm) (nsucc {n} Nn) (nsucc {o} No) Sm≤Sn Sn≤So =
   x≤y→Sx≤Sy (≤-trans Nm Nn No (Sx≤Sy→x≤y Sm≤Sn) (Sx≤Sy→x≤y Sn≤So))
 
@@ -220,7 +218,7 @@ pred-≤ (nsucc {n} Nn) = prf
 
 x≤x+y : ∀ {m n} → N m → N n → LE m (m + n)
 x≤x+y         nzero          Nn = x≥0 (+-N nzero Nn)
-x≤x+y {n = n} (nsucc {m} Nm) Nn = prf $ x≤x+y Nm Nn
+x≤x+y {n = n} (nsucc {m} Nm) Nn = prf (x≤x+y Nm Nn)
   where postulate prf : LE m (m + n) → LE (succ₁ m) (succ₁ m + n)
         {-# ATP prove prf #-}
 
@@ -315,7 +313,7 @@ x∸y<Sx nzero (nsucc {n} Nn) = prf
   where postulate prf : LT (zero ∸ succ₁ n) (succ₁ zero)
         {-# ATP prove prf 0∸x #-}
 
-x∸y<Sx (nsucc {m} Nm) (nsucc {n} Nn) = prf $ x∸y<Sx Nm Nn
+x∸y<Sx (nsucc {m} Nm) (nsucc {n} Nn) = prf (x∸y<Sx Nm Nn)
   where postulate prf : LT (m ∸ n) (succ₁ m) →
                         LT (succ₁ m ∸ succ₁ n) (succ₁ (succ₁ m))
         {-# ATP prove prf <-trans ∸-N x<Sx S∸S #-}
@@ -338,12 +336,12 @@ postulate x∸Sy≤x∸y : ∀ {m n} → N m → N n → LE (m ∸ succ₁ n) (m
 {-# ATP prove x∸Sy≤x∸y pred-≤ ∸-N #-}
 
 x>y→x∸y+y≡x : ∀ {m n} → N m → N n → GT m n → (m ∸ n) + n ≡ m
-x>y→x∸y+y≡x nzero          Nn 0>n = ⊥-elim $ 0>x→⊥ Nn 0>n
+x>y→x∸y+y≡x nzero          Nn 0>n = ⊥-elim (0>x→⊥ Nn 0>n)
 x>y→x∸y+y≡x (nsucc {m} Nm) nzero Sm>0 = prf
   where postulate prf : (succ₁ m ∸ zero) + zero ≡ succ₁ m
         {-# ATP prove prf +-rightIdentity ∸-N #-}
 
-x>y→x∸y+y≡x (nsucc {m} Nm) (nsucc {n} Nn) Sm>Sn = prf $ x>y→x∸y+y≡x Nm Nn m>n
+x>y→x∸y+y≡x (nsucc {m} Nm) (nsucc {n} Nn) Sm>Sn = prf (x>y→x∸y+y≡x Nm Nn m>n)
   where
   postulate m>n : GT m n
   {-# ATP prove m>n #-}
@@ -356,9 +354,9 @@ x≤y→y∸x+x≡y {n = n} nzero Nn 0≤n = prf
   where postulate prf : (n ∸ zero) + zero ≡ n
         {-# ATP prove prf +-rightIdentity ∸-N #-}
 
-x≤y→y∸x+x≡y (nsucc Nm) nzero Sm≤0 = ⊥-elim $ S≤0→⊥ Nm Sm≤0
+x≤y→y∸x+x≡y (nsucc Nm) nzero Sm≤0 = ⊥-elim (S≤0→⊥ Nm Sm≤0)
 
-x≤y→y∸x+x≡y (nsucc {m} Nm) (nsucc {n} Nn) Sm≤Sn = prf $ x≤y→y∸x+x≡y Nm Nn m≤n
+x≤y→y∸x+x≡y (nsucc {m} Nm) (nsucc {n} Nn) Sm≤Sn = prf (x≤y→y∸x+x≡y Nm Nn m≤n)
   where
   postulate m≤n : LE m n
   {-# ATP prove m≤n #-}
@@ -370,7 +368,7 @@ x<Sy→x<y∨x≡y : ∀ {m n} → N m → N n → LT m (succ₁ n) → LT m n �
 x<Sy→x<y∨x≡y nzero nzero 0<S0 = inj₂ refl
 x<Sy→x<y∨x≡y nzero (nsucc {n} Nn) 0<SSn = inj₁ (<-0S n)
 x<Sy→x<y∨x≡y (nsucc {m} Nm) nzero Sm<S0 =
-  ⊥-elim $ x<0→⊥ Nm (trans (sym $ <-SS m zero) Sm<S0)
+  ⊥-elim (x<0→⊥ Nm (trans (sym (<-SS m zero)) Sm<S0))
 x<Sy→x<y∨x≡y (nsucc {m} Nm) (nsucc {n} Nn) Sm<SSn =
   case (λ m<n → inj₁ (trans (<-SS m n) m<n))
        (λ m≡n → inj₂ (succCong m≡n))
@@ -378,7 +376,7 @@ x<Sy→x<y∨x≡y (nsucc {m} Nm) (nsucc {n} Nn) Sm<SSn =
 
   where
   m<n∨m≡n : LT m n ∨ m ≡ n
-  m<n∨m≡n = x<Sy→x<y∨x≡y Nm Nn (trans (sym $ <-SS m (succ₁ n)) Sm<SSn)
+  m<n∨m≡n = x<Sy→x<y∨x≡y Nm Nn (trans (sym (<-SS m (succ₁ n))) Sm<SSn)
 
 x≤y→x<y∨x≡y : ∀ {m n} → N m → N n → LE m n → LT m n ∨ m ≡ n
 x≤y→x<y∨x≡y = x<Sy→x<y∨x≡y
@@ -396,8 +394,8 @@ x≯Sy→x≯y∨x≡Sy {m} {n} Nm Nn m≯Sn =
        (x<Sy→x<y∨x≡y Nm (nsucc Nn) (x≤y→x<Sy Nm (nsucc Nn) (x≯y→x≤y Nm (nsucc Nn) m≯Sn)))
 
 x≥y→y>0→x∸y<x : ∀ {m n} → N m → N n → GE m n → GT n zero → LT (m ∸ n) m
-x≥y→y>0→x∸y<x Nm             nzero          _     0>0  = ⊥-elim $ x>x→⊥ nzero 0>0
-x≥y→y>0→x∸y<x nzero          (nsucc Nn)     0≥Sn  _    = ⊥-elim $ S≤0→⊥ Nn 0≥Sn
+x≥y→y>0→x∸y<x Nm             nzero          _     0>0  = ⊥-elim (x>x→⊥ nzero 0>0)
+x≥y→y>0→x∸y<x nzero          (nsucc Nn)     0≥Sn  _    = ⊥-elim (S≤0→⊥ Nn 0≥Sn)
 x≥y→y>0→x∸y<x (nsucc {m} Nm) (nsucc {n} Nn) Sm≥Sn Sn>0 = prf
   where postulate prf : LT (succ₁ m ∸ succ₁ n) (succ₁ m)
         {-# ATP prove prf x∸y<Sx 0∸x S∸S #-}

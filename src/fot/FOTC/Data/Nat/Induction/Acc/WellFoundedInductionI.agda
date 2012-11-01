@@ -7,8 +7,6 @@
 
 module FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI where
 
-open import Common.Function
-
 open import FOTC.Base
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.EliminationProperties
@@ -25,8 +23,8 @@ module WF-LT where
     -- N.B. The helper function is the same that the function used by
     -- FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionATP.
     helper : ∀ {n m} → N n → N m → LT m n → Acc N LT m
-    helper nzero Nm m<0  = ⊥-elim $ x<0→⊥ Nm m<0
-    helper (nsucc _) nzero 0<Sn = acc (λ Nm' m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
+    helper nzero Nm m<0  = ⊥-elim (x<0→⊥ Nm m<0)
+    helper (nsucc _) nzero 0<Sn = acc (λ Nm' m'<0 → ⊥-elim (x<0→⊥ Nm' m'<0))
     helper (nsucc {n} Nn) (nsucc {m} Nm) Sm<Sn =
       acc (λ {m'} Nm' m'<Sm →
              let m<n : LT m n

@@ -7,8 +7,6 @@
 
 module FOTC.Data.Nat.Divisibility.By0.PropertiesATP where
 
-open import Common.Function
-
 open import FOTC.Base
 open import FOTC.Base.Properties
 open import FOTC.Data.Nat
@@ -66,6 +64,6 @@ postulate
 {-# ATP prove x∣S→x≤S-helper₂ x≤x+y *-N #-}
 
 x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → LE m (succ₁ n)
-x∣S→x≤S Nm Nn (.zero , nzero , Sn≡0*m) = ⊥-elim $ x∣S→x≤S-helper₁ Sn≡0*m
+x∣S→x≤S Nm Nn (.zero , nzero , Sn≡0*m) = ⊥-elim (x∣S→x≤S-helper₁ Sn≡0*m)
 x∣S→x≤S Nm Nn (.(succ₁ k) , nsucc {k} Nk , Sn≡Sk*m) =
   x∣S→x≤S-helper₂ Nm Nn Nk Sn≡Sk*m
