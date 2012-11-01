@@ -90,8 +90,7 @@ map-++-commute f lnil ys = prf
   where postulate prf : map f ([] ++ ys) ≡ map f [] ++ map f ys
         {-# ATP prove prf #-}
 
-map-++-commute f (lcons x {xs} Lxs) ys =
-  prf (map-++-commute f Lxs ys)
+map-++-commute f (lcons x {xs} Lxs) ys = prf (map-++-commute f Lxs ys)
   where postulate prf : map f (xs ++ ys) ≡ map f xs ++ map f ys →
                         map f ((x ∷ xs) ++ ys) ≡ map f (x ∷ xs) ++ map f ys
         {-# ATP prove prf #-}
