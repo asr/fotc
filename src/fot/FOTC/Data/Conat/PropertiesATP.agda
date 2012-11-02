@@ -45,5 +45,9 @@ N→Conat : ∀ {n} → N n → Conat n
 N→Conat Nn = Conat-coind N h Nn
   where
   h : ∀ {m} → N m → m ≡ zero ∨ ∃ (λ m' → N m' ∧ m ≡ succ₁ m')
-  h nzero          = inj₁ refl
-  h (nsucc {m} Nm) = inj₂ (m , Nm , refl)
+  h nzero = prf
+    where postulate prf : zero ≡ zero ∨ ∃ (λ m' → N m' ∧ zero ≡ succ₁ m')
+          {-# ATP prove prf #-}
+  h (nsucc {m} Nm) = prf
+    where postulate prf : succ₁ m ≡ zero ∨ ∃ (λ m' → N m' ∧ succ₁ m ≡ succ₁ m')
+          {-# ATP prove prf #-}
