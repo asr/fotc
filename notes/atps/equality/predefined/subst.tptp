@@ -13,6 +13,9 @@
 % Metis 2.3 (release 20110926)
 % $ metis file_name
 
+% SPASS V3.7
+% $ SPASS -TPTP file_name
+
 % Vampire 0.6 (revision 903)
 % $ vampire_lin64 --input_file file_name
 
@@ -21,7 +24,7 @@
 %   a = b,   P a
 % ----------------- substitution
 %        P b
-fof(_, axiom, a = b).
-fof(_, axiom, p(a)).
+fof(a1, axiom, a = b).
+fof(a2, axiom, p(a)).
 
 fof(subst, conjecture, p(b)).
