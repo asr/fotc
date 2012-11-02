@@ -36,13 +36,13 @@ postulate
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
-  ≈-coind : (_R_ : D → D → Set) →
+  ≈-coind : (R : D → D → Set) →
             -- R is a post-fixed point of the bisimulation functional.
-            (∀ {xs ys} → xs R ys →
+            (∀ {xs ys} → R xs ys →
               ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
-              xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
+              R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
             -- _≈_ is greater than R.
-            ∀ {xs ys} → xs R ys → xs ≈ ys
+            ∀ {xs ys} → R xs ys → xs ≈ ys
 
 -- Because a greatest post-fixed point is a fixed-point, the
 -- bisimilarity relation _≈_ on unbounded lists is also a pre-fixed
@@ -51,13 +51,13 @@ postulate
          (∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
           xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
          xs ≈ ys
-≈-gfp₃ h = ≈-coind _R_ helper h
+≈-gfp₃ h = ≈-coind R helper h
   where
-  _R_ : D → D → Set
-  _R_ xs ys = ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+  R : D → D → Set
+  R xs ys = ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 
-  helper : ∀ {xs ys} → xs R ys →
-           ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+  helper : ∀ {xs ys} → R xs ys →
+           ∃[ x' ] ∃[ xs' ] ∃[ ys' ] R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
   helper (_ , _ , _ , xs'≈ys' , prf) = _ , _ , _ , ≈-unf xs'≈ys' , prf
 
 private
@@ -82,8 +82,8 @@ private
   -- Dybjer and Sander 1989, p. 310, and Jacobs and Rutten 1997,
   -- p. 30).
   BisimulationF : (D → D → Set) → D → D → Set
-  BisimulationF _R_ xs ys =
-    ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' R ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+  BisimulationF R xs ys =
+    ∃[ x' ] ∃[ xs' ] ∃[ ys' ] R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
 
   -- The bisimilarity relation _≈_ on unbounded lists is a post-fixed
   -- point of Bisimulation, i.e,
@@ -96,11 +96,11 @@ private
   -- post-fixed point of Bisimulation, i.e
   --
   -- ∀ R. R ≤ Bisimulation R ⇒ R ≤ _≈_.
-  gpfp : (_R_ : D → D → Set) →
+  gpfp : (R : D → D → Set) →
          -- R is a post-fixed point of Bisimulation.
-         (∀ {xs ys} → xs R ys → BisimulationF _R_ xs ys) →
+         (∀ {xs ys} → R xs ys → BisimulationF R xs ys) →
          -- _≈_ is greater than R.
-         ∀ {xs ys} → xs R ys → xs ≈ ys
+         ∀ {xs ys} → R xs ys → xs ≈ ys
   gpfp = ≈-coind
 
   -- Because a greatest post-fixed point is a fixed-point, the

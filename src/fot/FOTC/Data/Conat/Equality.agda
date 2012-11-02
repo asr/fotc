@@ -24,8 +24,8 @@ infix 7 _≈N_
 -- p. 58)).
 --
 -- ≈NF : (D → D → Set) → D → D → Set
--- ≈NF _R_ m n =
--- (m ≡ zero ∧ n ≡ zero) ∨ (∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ m' ∧ n ≡ succ n')
+-- ≈NF R m n =
+-- (m ≡ zero ∧ n ≡ zero) ∨ (∃[ m' ] ∃[ n' ] R m' n' ∧ m ≡ succ m' ∧ n ≡ succ n')
 
 -- The relation _≈N_ is the greatest post-fixed point of the
 -- functional ≈NF (by ≈N-unf and ≈N-coind).
@@ -51,13 +51,13 @@ postulate
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
-  ≈N-coind : (_R_ : D → D → Set) →
+  ≈N-coind : (R : D → D → Set) →
              -- R is a post-fixed point of the functional ≈NF.
-             (∀ {m n} → m R n →
+             (∀ {m n} → R m n →
                m ≡ zero ∧ n ≡ zero
-               ∨ (∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')) →
+               ∨ (∃[ m' ] ∃[ n' ] R m' n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')) →
              -- _≈N_ is greater than R.
-             ∀ {m n} → m R n → m ≈N n
+             ∀ {m n} → R m n → m ≈N n
 
 -- Because a greatest post-fixed point is a fixed-point, then the
 -- relation _≈N_ is also a pre-fixed point of the functional ≈NF, i.e.
@@ -67,14 +67,14 @@ postulate
           (m ≡ zero ∧ n ≡ zero
            ∨ (∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')) →
           m ≈N n
-≈N-gfp₃ h = ≈N-coind _R_ helper h
+≈N-gfp₃ h = ≈N-coind R helper h
   where
-  _R_ : D → D → Set
-  _R_ m n = m ≡ zero ∧ n ≡ zero
-            ∨ (∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
+  R : D → D → Set
+  R m n = m ≡ zero ∧ n ≡ zero
+          ∨ (∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
 
-  helper : ∀ {m n} → m R n →
+  helper : ∀ {m n} → R m n →
            m ≡ zero ∧ n ≡ zero
-           ∨ (∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
+           ∨ (∃[ m' ] ∃[ n' ] R m' n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
   helper (inj₁ prf) = inj₁ prf
   helper (inj₂ (m' , n' , m'≈Nn' , prf)) = inj₂ (m' , n' , ≈N-unf m'≈Nn' , prf)

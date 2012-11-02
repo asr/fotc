@@ -41,14 +41,14 @@ tailS h with (Stream-unf h)
 
 -- Requires K.
 lengthStream : ∀ {xs} → Stream xs → length xs ≈N ∞
-lengthStream {xs} Sxs = ≈N-coind _R_ h₁ h₂
+lengthStream {xs} Sxs = ≈N-coind R h₁ h₂
   where
-  _R_ : D → D → Set
-  m R n = ∃[ xs ] Stream xs ∧ m ≡ length xs ∧ n ≡ ∞
+  R : D → D → Set
+  R m n = ∃[ xs ] Stream xs ∧ m ≡ length xs ∧ n ≡ ∞
 
-  h₁ : ∀ {m n} → m R n →
+  h₁ : ∀ {m n} → R m n →
        m ≡ zero ∧ n ≡ zero ∨
-       (∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
+       (∃[ m' ] ∃[ n' ] R m' n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
   h₁ (_ , Sxs' , _ ) with Stream-unf Sxs'
   h₁ {m} {n} (.(x'' ∷ xs'') , Sxs' , aux , n≡∞) | x'' , xs'' , Sxs'' , refl =
     inj₂ (length xs'' , ∞ , (xs'' , Sxs'' , refl , refl) , helper₁ , helper₂)
@@ -59,5 +59,5 @@ lengthStream {xs} Sxs = ≈N-coind _R_ h₁ h₂
     helper₂ : n ≡ succ₁ ∞
     helper₂ = trans n≡∞ ∞-eq
 
-  h₂ : length xs R ∞
+  h₂ : R (length xs) ∞
   h₂ = xs , Sxs , refl , refl

@@ -44,14 +44,14 @@ open import FOTC.Data.Stream
 
 -- Adapted from (Sander 1992, p. 58).
 stream-length : ∀ {xs} → Stream xs → length xs ≈N ∞
-stream-length {xs} Sxs = ≈N-coind _R_ h₁ h₂
+stream-length {xs} Sxs = ≈N-coind R h₁ h₂
   where
-  _R_ : D → D → Set
-  m R n = m ≡ zero ∧ n ≡ zero ∨ (∃[ ys ] Stream ys ∧ m ≡ length ys ∧ n ≡ ∞)
+  R : D → D → Set
+  R m n = m ≡ zero ∧ n ≡ zero ∨ (∃[ ys ] Stream ys ∧ m ≡ length ys ∧ n ≡ ∞)
 
-  h₁ : ∀ {m n} → m R n →
+  h₁ : ∀ {m n} → R m n →
        m ≡ zero ∧ n ≡ zero
-       ∨ (∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
+       ∨ (∃[ m' ] ∃[ n' ] R m' n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
   h₁ (inj₁ prf) = inj₁ prf
   h₁ {m} {n} (inj₂ (ys , Sys , h₁ , h₂)) with Stream-unf Sys
   ... | y' , ys' , Sys' , ys≡y'∷ys' =
@@ -63,5 +63,5 @@ stream-length {xs} Sxs = ≈N-coind _R_ h₁ h₂
     prf₂ : n ≡ succ₁ n
     prf₂ = trans₂ h₂ ∞-eq (succCong (sym h₂))
 
-  h₂ : length xs R ∞
+  h₂ : R (length xs) ∞
   h₂ = inj₂ (xs , Sxs , refl , refl)

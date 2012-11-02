@@ -39,17 +39,17 @@ postulate tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
   {-# ATP prove h₂ #-}
 
 lengthStream : ∀ {xs} → Stream xs → length xs ≈N ∞
-lengthStream {xs} Sxs = ≈N-coind _R_ h₁ h₂
+lengthStream {xs} Sxs = ≈N-coind R h₁ h₂
   where
-  _R_ : D → D → Set
-  m R n = ∃[ xs ] Stream xs ∧ m ≡ length xs ∧ n ≡ ∞
-  {-# ATP definition _R_ #-}
+  R : D → D → Set
+  R m n = ∃[ xs ] Stream xs ∧ m ≡ length xs ∧ n ≡ ∞
+  {-# ATP definition R #-}
 
   postulate
-    h₁ : ∀ {m n} → m R n →
+    h₁ : ∀ {m n} → R m n →
          m ≡ zero ∧ n ≡ zero ∨
-         (∃[ m' ] ∃[ n' ] m' R n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
+         (∃[ m' ] ∃[ n' ] R m' n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
   {-# ATP prove h₁ #-}
 
-  postulate h₂ : length xs R ∞
+  postulate h₂ : R (length xs) ∞
   {-# ATP prove h₂ #-}
