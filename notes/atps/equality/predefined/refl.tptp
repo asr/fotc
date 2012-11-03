@@ -14,7 +14,7 @@
 % $ metis file_name
 
 % SPASS V3.7
-% $ SPASS -TPTP file_name
+% $ SPASS -TPTP=1 file_name
 
 % Vampire 0.6 (revision 903)
 % $ vampire_lin64 --input_file file_name

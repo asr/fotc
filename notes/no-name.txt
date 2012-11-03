@@ -10,7 +10,7 @@ $ eprover --auto --cpu-limit=xxx --memory-limit=Auto --tstp-format file_name
 
 $ equinox --time xxx file_name
 $ metis --time-limit xxx file_name
-$ SPASS -TPTP -TimeLimit=xxx file_name
+$ SPASS -TPTP=1 -TimeLimit=xxx file_name
 $ vampire_lin64 -t xxx --input_file file_name
 
 ------------------------------------------------------------------------------
