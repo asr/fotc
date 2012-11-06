@@ -16,9 +16,9 @@ infix 8 _<_ _≤_  _≥_ _>_
 
 postulate
   _<_  : D → D → D
-  <-00 :         zero    < zero    ≡ false
-  <-0S : ∀ n →   zero    < succ₁ n ≡ true
-  <-S0 : ∀ n →   succ₁ n < zero    ≡ false
+  <-00 : zero < zero               ≡ false
+  <-0S : ∀ n → zero < succ₁ n      ≡ true
+  <-S0 : ∀ n → succ₁ n < zero      ≡ false
   <-SS : ∀ m n → succ₁ m < succ₁ n ≡ m < n
 {-# ATP axiom <-00 <-0S <-S0 <-SS #-}
 
