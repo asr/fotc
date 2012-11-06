@@ -7,8 +7,6 @@
 
 module FOTC.Program.GCD.Partial.TotalityATP where
 
-open import Common.Function
-
 open import FOTC.Base
 open import FOTC.Base.Properties
 open import FOTC.Data.Nat
@@ -56,7 +54,7 @@ gcd-x>y-N :
   GT m n →
   x≢0≢y m n →
   N (gcd m n)
-gcd-x>y-N nzero          Nn          _  0>n _       = ⊥-elim $ 0>x→⊥ Nn 0>n
+gcd-x>y-N nzero          Nn          _  0>n _       = ⊥-elim (0>x→⊥ Nn 0>n)
 gcd-x>y-N (nsucc Nm)     nzero       _  _   _       = gcd-S0-N Nm
 gcd-x>y-N (nsucc {m} Nm) (nsucc {n} Nn) ah  Sm>Sn _ =
   gcd-S>S-N Nm Nn ih Sm>Sn
@@ -68,7 +66,7 @@ gcd-x>y-N (nsucc {m} Nm) (nsucc {n} Nn) ah  Sm>Sn _ =
           (∸-N (nsucc Nm) (nsucc Nn))
           (nsucc Nn)
           ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
-          (λ p → ⊥-elim $ S≢0 $ ∧-proj₂ p)
+          (λ p → ⊥-elim (S≢0 (∧-proj₂ p)))
 
 ------------------------------------------------------------------------------
 -- gcd m n when m ≯ n is total.
@@ -78,9 +76,9 @@ gcd-x≯y-N :
   NGT m n →
   x≢0≢y m n →
   N (gcd m n)
-gcd-x≯y-N nzero          nzero          _  _     h = ⊥-elim $ h (refl , refl)
+gcd-x≯y-N nzero          nzero          _  _     h = ⊥-elim (h (refl , refl))
 gcd-x≯y-N nzero          (nsucc Nn)     _  _     _ = gcd-0S-N Nn
-gcd-x≯y-N (nsucc _)      nzero          _  Sm≯0  _ = ⊥-elim $ S≯0→⊥ Sm≯0
+gcd-x≯y-N (nsucc _)      nzero          _  Sm≯0  _ = ⊥-elim (S≯0→⊥ Sm≯0)
 gcd-x≯y-N (nsucc {m} Nm) (nsucc {n} Nn) ah Sm≯Sn _ = gcd-S≯S-N Nm Nn ih Sm≯Sn
   where
   -- Inductive hypothesis.
@@ -90,7 +88,7 @@ gcd-x≯y-N (nsucc {m} Nm) (nsucc {n} Nn) ah Sm≯Sn _ = gcd-S≯S-N Nm Nn ih Sm
           (nsucc Nm)
           (∸-N (nsucc Nn) (nsucc Nm))
           ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
-          (λ p → ⊥-elim $ S≢0 $ ∧-proj₁ p)
+          (λ p → ⊥-elim (S≢0 (∧-proj₁ p)))
 
 ------------------------------------------------------------------------------
 -- gcd m n when m ≢ 0 and n ≢ 0 is total.

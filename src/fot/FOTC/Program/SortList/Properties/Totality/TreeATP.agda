@@ -7,8 +7,6 @@
 
 module FOTC.Program.SortList.Properties.Totality.TreeATP where
 
-open import Common.Function
-
 open import FOTC.Base
 open FOTC.Base.BList
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
@@ -24,7 +22,7 @@ toTree-Tree {item} Nitem tnil = prf
   where postulate prf : Tree (toTree · item · nil)
         {-# ATP prove prf #-}
 
-toTree-Tree {item} Nitem (ttip {i} Ni) = prf $ x>y∨x≤y Ni Nitem
+toTree-Tree {item} Nitem (ttip {i} Ni) = prf (x>y∨x≤y Ni Nitem)
   where postulate prf : GT i item ∨ LE i item → Tree (toTree · item · tip i)
         {-# ATP prove prf x>y→x≰y #-}
 toTree-Tree {item} Nitem (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂) =
@@ -41,6 +39,6 @@ makeTree-Tree lnnil = prf
   where postulate prf : Tree (makeTree [])
         {-# ATP prove prf #-}
 
-makeTree-Tree (lncons {i} {is} Nn Lis) = prf $ makeTree-Tree Lis
+makeTree-Tree (lncons {i} {is} Nn Lis) = prf (makeTree-Tree Lis)
   where postulate prf : Tree (makeTree is) → Tree (makeTree (i ∷ is))
         {-# ATP prove prf toTree-Tree #-}

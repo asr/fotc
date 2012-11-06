@@ -7,8 +7,6 @@
 
 module FOTC.Program.GCD.Total.CommonDivisorATP where
 
-open import Common.Function
-
 open import FOTC.Base
 open import FOTC.Base.Properties
 open import FOTC.Data.Nat
@@ -227,7 +225,7 @@ gcd-x>y-CD :
   (∀ {o p} → N o → N p → Lexi o p m n → CD o p (gcd o p)) →
   GT m n →
   CD m n (gcd m n)
-gcd-x>y-CD nzero          Nn             _  0>n   = ⊥-elim $ 0>x→⊥ Nn 0>n
+gcd-x>y-CD nzero          Nn             _  0>n   = ⊥-elim (0>x→⊥ Nn 0>n)
 gcd-x>y-CD (nsucc Nm)     nzero          _  _     = gcd-S0-CD Nm
 gcd-x>y-CD (nsucc {m} Nm) (nsucc {n} Nn) ah Sm>Sn = gcd-S>S-CD Nm Nn ih Sm>Sn
   where
@@ -247,7 +245,7 @@ gcd-x≯y-CD :
   CD m n (gcd m n)
 gcd-x≯y-CD nzero          nzero          _  _     = gcd-00-CD
 gcd-x≯y-CD nzero          (nsucc Nn)     _  _     = gcd-0S-CD Nn
-gcd-x≯y-CD (nsucc _)      nzero          _  Sm≯0  = ⊥-elim $ S≯0→⊥ Sm≯0
+gcd-x≯y-CD (nsucc _)      nzero          _  Sm≯0  = ⊥-elim (S≯0→⊥ Sm≯0)
 gcd-x≯y-CD (nsucc {m} Nm) (nsucc {n} Nn) ah Sm≯Sn =
   gcd-S≯S-CD Nm Nn ih Sm≯Sn
   where

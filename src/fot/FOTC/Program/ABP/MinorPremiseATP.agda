@@ -10,8 +10,6 @@
 
 module FOTC.Program.ABP.MinorPremiseATP where
 
-open import Common.Function
-
 open import FOTC.Base
 open FOTC.Base.BList
 open import FOTC.Data.Bool

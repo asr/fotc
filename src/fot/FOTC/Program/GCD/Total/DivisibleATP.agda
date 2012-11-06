@@ -7,8 +7,6 @@
 
 module FOTC.Program.GCD.Total.DivisibleATP where
 
-open import Common.Function
-
 open import FOTC.Base
 open import FOTC.Base.Properties
 open import FOTC.Data.Nat
@@ -90,7 +88,7 @@ gcd-x>y-Divisible :
   (∀ {o p} → N o → N p → Lexi o p m n → Divisible o p (gcd o p)) →
   GT m n →
   Divisible m n (gcd m n)
-gcd-x>y-Divisible nzero Nn _ 0>n _ _ = ⊥-elim $ 0>x→⊥ Nn 0>n
+gcd-x>y-Divisible nzero Nn _ 0>n _ _ = ⊥-elim (0>x→⊥ Nn 0>n)
 gcd-x>y-Divisible (nsucc Nm) nzero _ _ c Nc = gcd-S0-Divisible Nm c Nc
 gcd-x>y-Divisible (nsucc {m} Nm) (nsucc {n} Nn) ah Sm>Sn c Nc =
   gcd-S>S-Divisible Nm Nn ih Sm>Sn c Nc
@@ -112,7 +110,7 @@ gcd-x≯y-Divisible :
   Divisible m n (gcd m n)
 gcd-x≯y-Divisible nzero nzero _ _ c Nc = gcd-00-Divisible c Nc
 gcd-x≯y-Divisible nzero (nsucc Nn) _ _ c Nc = gcd-0S-Divisible Nn c Nc
-gcd-x≯y-Divisible (nsucc _) nzero _ Sm≯0 _ _ = ⊥-elim $ S≯0→⊥ Sm≯0
+gcd-x≯y-Divisible (nsucc _) nzero _ Sm≯0 _ _ = ⊥-elim (S≯0→⊥ Sm≯0)
 gcd-x≯y-Divisible (nsucc {m} Nm) (nsucc {n} Nn) ah Sm≯Sn c Nc =
   gcd-S≯S-Divisible Nm Nn ih Sm≯Sn c Nc
   where

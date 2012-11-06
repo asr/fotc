@@ -8,7 +8,6 @@
 module FOTC.Program.Division.ConversionRulesI where
 
 open import Common.FOL.Relation.Binary.EqReasoning
-open import Common.Function
 
 open import FOTC.Base
 open import FOTC.Data.Nat

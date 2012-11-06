@@ -7,8 +7,6 @@
 
 module FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionI where
 
-open import Common.Function
-
 open import FOTC.Base
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.EliminationProperties
@@ -26,8 +24,8 @@ module WFInd where
   LT-wfind A h Nn = h Nn (helper Nn)
     where
     helper : ∀ {n m} → N n → N m → LT m n → A m
-    helper nzero     Nm m<0  = ⊥-elim $ x<0→⊥ Nm m<0
-    helper (nsucc _) nzero 0<Sn = h nzero (λ Nm' m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
+    helper nzero     Nm    m<0  = ⊥-elim (x<0→⊥ Nm m<0)
+    helper (nsucc _) nzero 0<Sn = h nzero (λ Nm' m'<0 → ⊥-elim (x<0→⊥ Nm' m'<0))
 
     helper (nsucc {n} Nn) (nsucc {m} Nm) Sm<Sn = h (nsucc Nm)
       (λ {m'} Nm' m'<Sm →
@@ -58,8 +56,8 @@ module WFInd₁ where
   LT-wfind A h Nn = h Nn (helper Nn)
     where
     helper : ∀ {n m} → N n → N m → LT m n → A m
-    helper nzero Nm m<0 = ⊥-elim $ x<0→⊥ Nm m<0
-    helper (nsucc _) nzero 0<Sn = h nzero (λ Nm' m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
+    helper nzero Nm m<0 = ⊥-elim (x<0→⊥ Nm m<0)
+    helper (nsucc _) nzero 0<Sn = h nzero (λ Nm' m'<0 → ⊥-elim (x<0→⊥ Nm' m'<0))
     helper (nsucc {n} Nn) (nsucc {m} Nm) Sm<Sn = h (nsucc Nm)
       (λ {m'} Nm' m'<Sm →
          let m<n : LT m n

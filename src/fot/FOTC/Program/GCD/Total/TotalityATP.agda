@@ -7,8 +7,6 @@
 
 module FOTC.Program.GCD.Total.TotalityATP where
 
-open import Common.Function
-
 open import FOTC.Base
 open import FOTC.Base.Properties
 open import FOTC.Data.Nat
@@ -60,7 +58,7 @@ gcd-x>y-N :
   (∀ {o p} → N o → N p → Lexi o p m n → N (gcd o p)) →
   GT m n →
   N (gcd m n)
-gcd-x>y-N nzero          Nn            _   0>n    = ⊥-elim $ 0>x→⊥ Nn 0>n
+gcd-x>y-N nzero          Nn            _   0>n    = ⊥-elim (0>x→⊥ Nn 0>n)
 gcd-x>y-N (nsucc Nm)     nzero          _  _     = gcd-S0-N Nm
 gcd-x>y-N (nsucc {m} Nm) (nsucc {n} Nn) ah Sm>Sn =
   gcd-S>S-N Nm Nn ih Sm>Sn
@@ -82,7 +80,7 @@ gcd-x≯y-N :
   N (gcd m n)
 gcd-x≯y-N nzero          nzero          _  _     = gcd-00-N
 gcd-x≯y-N nzero          (nsucc Nn)     _  _     = gcd-0S-N Nn
-gcd-x≯y-N (nsucc _)      nzero          _  Sm≯0  = ⊥-elim $ S≯0→⊥ Sm≯0
+gcd-x≯y-N (nsucc _)      nzero          _  Sm≯0  = ⊥-elim (S≯0→⊥ Sm≯0)
 gcd-x≯y-N (nsucc {m} Nm) (nsucc {n} Nn) ah Sm≯Sn = gcd-S≯S-N Nm Nn ih Sm≯Sn
   where
   -- Inductive hypothesis.

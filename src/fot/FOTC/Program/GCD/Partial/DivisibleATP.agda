@@ -7,8 +7,6 @@
 
 module FOTC.Program.GCD.Partial.DivisibleATP where
 
-open import Common.Function
-
 open import FOTC.Base
 open import FOTC.Base.Properties
 open import FOTC.Data.Nat
@@ -87,7 +85,7 @@ gcd-x>y-Divisible :
   GT m n →
   x≢0≢y m n →
   Divisible m n (gcd m n)
-gcd-x>y-Divisible nzero Nn _ 0>n _ _ _ = ⊥-elim $ 0>x→⊥ Nn 0>n
+gcd-x>y-Divisible nzero Nn _ 0>n _ _ _ = ⊥-elim (0>x→⊥ Nn 0>n)
 gcd-x>y-Divisible (nsucc Nm) nzero _ _ _  c Nc = gcd-S0-Divisible Nm c Nc
 gcd-x>y-Divisible (nsucc {m} Nm) (nsucc {n} Nn) ah Sm>Sn _ c Nc =
   gcd-S>S-Divisible Nm Nn ih Sm>Sn c Nc
@@ -99,7 +97,7 @@ gcd-x>y-Divisible (nsucc {m} Nm) (nsucc {n} Nn) ah Sm>Sn _ c Nc =
           (∸-N (nsucc Nm) (nsucc Nn))
           (nsucc Nn)
           ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
-          (λ p → ⊥-elim $ S≢0 $ ∧-proj₂ p)
+          (λ p → ⊥-elim (S≢0 (∧-proj₂ p)))
 
 ------------------------------------------------------------------------------
 -- The gcd m n when m ≯ n is Divisible.
@@ -110,9 +108,9 @@ gcd-x≯y-Divisible :
   NGT m n →
   x≢0≢y m n →
   Divisible m n (gcd m n)
-gcd-x≯y-Divisible nzero nzero _ _ h _ _  = ⊥-elim $ h (refl , refl)
+gcd-x≯y-Divisible nzero nzero _ _ h _ _  = ⊥-elim (h (refl , refl))
 gcd-x≯y-Divisible nzero (nsucc Nn) _ _  _  c Nc = gcd-0S-Divisible Nn c Nc
-gcd-x≯y-Divisible (nsucc _) nzero _ Sm≯0 _ _ _ = ⊥-elim $ S≯0→⊥ Sm≯0
+gcd-x≯y-Divisible (nsucc _) nzero _ Sm≯0 _ _ _ = ⊥-elim (S≯0→⊥ Sm≯0)
 gcd-x≯y-Divisible (nsucc {m} Nm) (nsucc {n} Nn) ah Sm≯Sn _ c Nc =
   gcd-S≯S-Divisible Nm Nn ih Sm≯Sn c Nc
   where
@@ -123,7 +121,7 @@ gcd-x≯y-Divisible (nsucc {m} Nm) (nsucc {n} Nn) ah Sm≯Sn _ c Nc =
           (nsucc Nm)
           (∸-N (nsucc Nn) (nsucc Nm))
           ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
-          (λ p → ⊥-elim $ S≢0 $ ∧-proj₁ p)
+          (λ p → ⊥-elim (S≢0 (∧-proj₁ p)))
 
 ------------------------------------------------------------------------------
 -- The gcd is Divisible.

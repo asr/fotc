@@ -7,8 +7,6 @@
 
 module FOTC.Program.SortList.Properties.Totality.BoolATP where
 
-open import Common.Function
-
 open import FOTC.Base
 open FOTC.Base.BList
 open import FOTC.Data.Bool.PropertiesATP
@@ -25,7 +23,7 @@ open import FOTC.Program.SortList.SortList
         {-# ATP prove prf #-}
 
 ≤-ItemList-Bool {item} Nitem (lncons {i} {is} Ni Lis) =
-  prf $ ≤-ItemList-Bool Nitem Lis
+  prf (≤-ItemList-Bool Nitem Lis)
   where postulate prf : Bool (≤-ItemList item is) →
                         Bool (≤-ItemList item (i ∷ is))
         {-# ATP prove prf &&-Bool ≤-Bool #-}
@@ -35,7 +33,7 @@ open import FOTC.Program.SortList.SortList
   where postulate prf : Bool (≤-Lists [] js)
         {-# ATP prove prf #-}
 ≤-Lists-Bool {js = js} (lncons {i} {is} Ni LNis) LNjs =
-  prf $ ≤-Lists-Bool LNis LNjs
+  prf (≤-Lists-Bool LNis LNjs)
   where postulate prf : Bool (≤-Lists is js) → Bool (≤-Lists (i ∷ is) js)
         {-# ATP prove prf &&-Bool ≤-ItemList-Bool #-}
 
@@ -44,7 +42,7 @@ ordList-Bool lnnil = prf
   where postulate prf : Bool (ordList [])
         {-# ATP prove prf #-}
 
-ordList-Bool (lncons {i} {is} Ni LNis) = prf $ ordList-Bool LNis
+ordList-Bool (lncons {i} {is} Ni LNis) = prf (ordList-Bool LNis)
   where postulate prf : Bool (ordList is) → Bool (ordList (i ∷ is))
         {-# ATP prove prf &&-Bool ≤-ItemList-Bool #-}
 

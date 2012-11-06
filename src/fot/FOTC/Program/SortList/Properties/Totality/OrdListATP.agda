@@ -7,8 +7,6 @@
 
 module FOTC.Program.SortList.Properties.Totality.OrdListATP where
 
-open import Common.Function
-
 open import FOTC.Base
 open FOTC.Base.BList
 open import FOTC.Data.Bool.PropertiesATP
@@ -43,12 +41,12 @@ subList-OrdList {i} Ni (lncons {j} {js} Nj Ljs) LOi∷j∷js = prf
   lemma₁ : ≤-ItemList item is ≡ true
   lemma₁ =  &&-list₂-t₂ (≤-Bool Nitem Ni)
                         (≤-ItemList-Bool Nitem LNis)
-                        (trans (sym $ ≤-ItemList-∷ item i is) item≤i∷is)
+                        (trans (sym (≤-ItemList-∷ item i is)) item≤i∷is)
 
   lemma₂ : ≤-Lists is js ≡ true
   lemma₂ = &&-list₂-t₂ (≤-ItemList-Bool Ni LNjs)
                        (≤-Lists-Bool LNis LNjs)
-                       (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js)
+                       (trans (sym (≤-Lists-∷ i is js)) i∷is≤js)
 
   postulate prf : LE-ItemList item (is ++ js) →
                   LE-ItemList item ((i ∷ is) ++ js)

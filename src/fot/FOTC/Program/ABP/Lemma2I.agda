@@ -14,7 +14,6 @@
 module FOTC.Program.ABP.Lemma2I where
 
 open import Common.FOL.Relation.Binary.EqReasoning
-open import Common.Function
 
 open import FOTC.Base
 open FOTC.Base.BList

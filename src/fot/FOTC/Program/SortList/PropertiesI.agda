@@ -8,7 +8,6 @@
 module FOTC.Program.SortList.PropertiesI where
 
 open import Common.FOL.Relation.Binary.EqReasoning
-open import Common.Function
 
 open import FOTC.Base
 open FOTC.Base.BList
@@ -323,7 +322,7 @@ toTree-OrdTree {item} Nitem (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTtnode =
                    (ordTree-Bool Tt₂)
                    (≤-TreeItem-Bool Tt₁ Ni)
                    (≤-ItemTree-Bool Ni Tt₂)
-                   (trans (sym $ ordTree-node t₁ i t₂) OTtnode))))
+                   (trans (sym (ordTree-node t₁ i t₂)) OTtnode))))
                refl
       ⟩
     true && true && true && ≤-ItemTree i t₂
@@ -334,7 +333,7 @@ toTree-OrdTree {item} Nitem (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTtnode =
                  (ordTree-Bool Tt₂)
                  (≤-TreeItem-Bool Tt₁ Ni)
                  (≤-ItemTree-Bool Ni Tt₂)
-                 (trans (sym $ ordTree-node t₁ i t₂) OTtnode))
+                 (trans (sym (ordTree-node t₁ i t₂)) OTtnode))
                refl
       ⟩
     true && true && true && true
@@ -422,7 +421,7 @@ toTree-OrdTree {item} Nitem (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTtnode =
                  (ordTree-Bool Tt₂)
                  (≤-TreeItem-Bool Tt₁ Ni)
                  (≤-ItemTree-Bool Ni Tt₂)
-                 (trans (sym $ ordTree-node t₁ i t₂) OTtnode))
+                 (trans (sym (ordTree-node t₁ i t₂)) OTtnode))
                refl
       ⟩
     true && true && true && ≤-ItemTree i (toTree · item · t₂)
@@ -437,7 +436,7 @@ toTree-OrdTree {item} Nitem (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTtnode =
                      (ordTree-Bool Tt₂)
                      (≤-TreeItem-Bool Tt₁ Ni)
                      (≤-ItemTree-Bool Ni Tt₂)
-                     (trans (sym $ ordTree-node t₁ i t₂) OTtnode))))
+                     (trans (sym (ordTree-node t₁ i t₂)) OTtnode))))
                  refl
       ⟩
     true && true && true && true
@@ -487,10 +486,10 @@ makeTree-OrdTree (lncons {i} {is} Ni Lis) =
              LE-Lists is js → OrdList (is ++ js)
 
 ++-OrdList {js = js} lnnil LNjs LOis LOjs is≤js =
-  subst (λ t → OrdList t) (sym $ ++-[] js) LOjs
+  subst (λ t → OrdList t) (sym (++-[] js)) LOjs
 
 ++-OrdList {js = js} (lncons {i} {is} Ni LNis) LNjs LOi∷is LOjs i∷is≤js =
-  subst (λ t → OrdList t) (sym $ ++-∷ i is js) lemma
+  subst (λ t → OrdList t) (sym (++-∷ i is js)) lemma
   where
   lemma : OrdList (i ∷ is ++ js)
   lemma =
@@ -518,7 +517,7 @@ makeTree-OrdTree (lncons {i} {is} Ni Lis) =
                            (&&-list₂-t₂
                              (≤-ItemList-Bool Ni LNjs)
                              (≤-Lists-Bool LNis LNjs)
-                             (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js)))
+                             (trans (sym (≤-Lists-∷ i is js)) i∷is≤js)))
                refl
       ⟩
     true && true

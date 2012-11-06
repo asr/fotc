@@ -8,7 +8,6 @@
 module FOTC.Program.SortList.Properties.Totality.OrdListI where
 
 open import Common.FOL.Relation.Binary.EqReasoning
-open import Common.Function
 
 open import FOTC.Base
 open FOTC.Base.BList
@@ -29,7 +28,7 @@ subList-OrdList {i} Ni lnnil LOi∷is = ordList-[]
 subList-OrdList {i} Ni (lncons {j} {js} Nj Ljs) LOi∷j∷js =
   &&-list₂-t₂ (≤-ItemList-Bool Ni (lncons Nj Ljs))
               (ordList-Bool (lncons Nj Ljs))
-              (trans (sym $ ordList-∷ i (j ∷ js)) LOi∷j∷js)
+              (trans (sym (ordList-∷ i (j ∷ js))) LOi∷j∷js)
 
 ++-OrdList-helper : ∀ {item is js} → N item → ListN is → ListN js →
                     LE-ItemList item is →
@@ -53,7 +52,7 @@ subList-OrdList {i} Ni (lncons {j} {js} Nj Ljs) LOi∷j∷js =
                     t && ≤-ItemList item (is ++ js))
              (&&-list₂-t₁ (≤-Bool Nitem Ni)
                           (≤-ItemList-Bool Nitem LNis)
-                          (trans (sym $ ≤-ItemList-∷ item i is) item≤i∷is))
+                          (trans (sym (≤-ItemList-∷ item i is)) item≤i∷is))
              refl
     ⟩
   true && ≤-ItemList item (is ++ js)
@@ -68,9 +67,9 @@ subList-OrdList {i} Ni (lncons {j} {js} Nj Ljs) LOi∷j∷js =
     lemma₁ : ≤-ItemList item is ≡ true
     lemma₁ =  &&-list₂-t₂ (≤-Bool Nitem Ni)
                           (≤-ItemList-Bool Nitem LNis)
-                          (trans (sym $ ≤-ItemList-∷ item i is) item≤i∷is)
+                          (trans (sym (≤-ItemList-∷ item i is)) item≤i∷is)
 
     lemma₂ : ≤-Lists is js ≡ true
     lemma₂ = &&-list₂-t₂ (≤-ItemList-Bool Ni LNjs)
                          (≤-Lists-Bool LNis LNjs)
-                         (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js)
+                         (trans (sym (≤-Lists-∷ i is js)) i∷is≤js)

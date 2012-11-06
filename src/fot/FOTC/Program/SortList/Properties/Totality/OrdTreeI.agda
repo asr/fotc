@@ -8,7 +8,6 @@
 module FOTC.Program.SortList.Properties.Totality.OrdTreeI where
 
 open import Common.FOL.Relation.Binary.EqReasoning
-open import Common.Function
 
 open import FOTC.Base
 open import FOTC.Data.Bool
@@ -33,7 +32,7 @@ leftSubTree-OrdTree {t₁} {i} {t₂} Tt₁ Ni Tt₂ TOnode =
                    (&&-Bool (ordTree-Bool Tt₂)
                             (&&-Bool (≤-TreeItem-Bool Tt₁ Ni)
                                      (≤-ItemTree-Bool Ni Tt₂)))
-                   (trans (sym $ ordTree-node t₁ i t₂) TOnode)
+                   (trans (sym (ordTree-node t₁ i t₂)) TOnode)
     ⟩
   true ∎
 
@@ -50,7 +49,7 @@ rightSubTree-OrdTree {t₁} {i} {t₂} Tt₁ Ni Tt₂ TOnode =
                       (&&-Bool (ordTree-Bool Tt₂)
                                (&&-Bool (≤-TreeItem-Bool Tt₁ Ni)
                                         (≤-ItemTree-Bool Ni Tt₂)))
-                      (trans (sym $ ordTree-node t₁ i t₂) TOnode))
+                      (trans (sym (ordTree-node t₁ i t₂)) TOnode))
     ⟩
   true ∎
 
@@ -129,7 +128,7 @@ toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (ttip {j} Nj) t≤i
     true && (j ≤ i₁)
       ≡⟨ subst (λ t → true && (j ≤ i₁) ≡ true && t)
                -- j ≤ i₁ because by hypothesis we have (tip j) ≤ i₁.
-               (trans (sym $ ≤-TreeItem-tip j i₁) t≤i₁)
+               (trans (sym (≤-TreeItem-tip j i₁)) t≤i₁)
                refl
       ⟩
     true && true
@@ -179,7 +178,7 @@ toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (ttip {j} Nj) t≤i
       ≡⟨ subst (λ t → (j ≤ i₁) && ≤-TreeItem (tip i₂) i₁ ≡
                       t && ≤-TreeItem (tip i₂) i₁)
                -- j ≤ i₁ because by hypothesis we have (tip j) ≤ i₁.
-               (trans (sym $ ≤-TreeItem-tip j i₁) t≤i₁)
+               (trans (sym (≤-TreeItem-tip j i₁)) t≤i₁)
                refl
       ⟩
     true && ≤-TreeItem (tip i₂) i₁
@@ -243,7 +242,7 @@ toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
                (toTree-OrdTree-helper₁ Ni₁ Ni₂ i₁>i₂ Tt₁
                  (&&-list₂-t₁ (≤-TreeItem-Bool Tt₁ Ni₁)
                               (≤-TreeItem-Bool Tt₂ Ni₁)
-                              (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁)))
+                              (trans (sym (≤-TreeItem-node t₁ j t₂ i₁)) t≤i₁)))
                refl
       ⟩
     true && ≤-TreeItem t₂ i₁
@@ -251,7 +250,7 @@ toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
                -- t₂ ≤ i₁ because by hypothesis we have (node t₁ j t₂) ≤ i₁.
                (&&-list₂-t₂ (≤-TreeItem-Bool Tt₁ Ni₁)
                             (≤-TreeItem-Bool Tt₂ Ni₁)
-                            (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁))
+                            (trans (sym (≤-TreeItem-node t₁ j t₂ i₁)) t≤i₁))
                refl
       ⟩
     true && true
@@ -298,7 +297,7 @@ toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
                -- t₁ ≤ i₁ because by hypothesis we have (node t₁ j t₂) ≤ i₁.
                (&&-list₂-t₁ (≤-TreeItem-Bool Tt₁ Ni₁)
                             (≤-TreeItem-Bool Tt₂ Ni₁)
-                            (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁))
+                            (trans (sym (≤-TreeItem-node t₁ j t₂ i₁)) t≤i₁))
                refl
       ⟩
     true && ≤-TreeItem (toTree · i₂ · t₂) i₁
@@ -308,7 +307,7 @@ toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
                (toTree-OrdTree-helper₁ Ni₁ Ni₂ i₁>i₂ Tt₂
                  (&&-list₂-t₂ (≤-TreeItem-Bool Tt₁ Ni₁)
                               (≤-TreeItem-Bool Tt₂ Ni₁)
-                              (trans (sym $ ≤-TreeItem-node t₁ j t₂ i₁) t≤i₁)))
+                              (trans (sym (≤-TreeItem-node t₁ j t₂ i₁)) t≤i₁)))
                refl
       ⟩
     true && true
@@ -388,7 +387,7 @@ toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (ttip {j} Nj) i�
     true && (i₁ ≤ j)
       ≡⟨ subst (λ t → true && (i₁ ≤ j) ≡ true && t)
                -- i₁ ≤ j because by hypothesis we have i₁ ≤ (tip j).
-               (trans (sym $ ≤-ItemTree-tip i₁ j) i₁≤t)
+               (trans (sym (≤-ItemTree-tip i₁ j)) i₁≤t)
                refl
       ⟩
     true && true
@@ -437,7 +436,7 @@ toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (ttip {j} Nj) i�
        ≡⟨ subst (λ t → (i₁ ≤ j) && ≤-ItemTree i₁ (tip i₂) ≡
                        t && ≤-ItemTree i₁ (tip i₂))
           -- i₁ ≤ j because by hypothesis we have i₁ ≤ (tip j).
-                (trans (sym $ ≤-ItemTree-tip i₁ j) i₁≤t)
+                (trans (sym (≤-ItemTree-tip i₁ j)) i₁≤t)
                 refl
        ⟩
     true && ≤-ItemTree i₁ (tip i₂)
@@ -497,7 +496,7 @@ toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
                (toTree-OrdTree-helper₂ Ni₁ Ni₂ i₁≤i₂ Tt₁
                  (&&-list₂-t₁ (≤-ItemTree-Bool Ni₁ Tt₁)
                               (≤-ItemTree-Bool Ni₁ Tt₂)
-                              (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t)))
+                              (trans (sym (≤-ItemTree-node i₁ t₁ j t₂)) i₁≤t)))
                refl
       ⟩
     true && ≤-ItemTree i₁ t₂
@@ -505,7 +504,7 @@ toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
                -- i₁ ≤ t₂ because by hypothesis we have i₁ ≤ (node t₁ j t₂).
                (&&-list₂-t₂ (≤-ItemTree-Bool Ni₁ Tt₁)
                             (≤-ItemTree-Bool Ni₁ Tt₂)
-                            (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t))
+                            (trans (sym (≤-ItemTree-node i₁ t₁ j t₂)) i₁≤t))
                refl
       ⟩
     true && true
@@ -550,7 +549,7 @@ toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
                -- i₁ ≤ t₁ because by hypothesis we have i₁ ≤ (node t₁ j t₂).
                (&&-list₂-t₁ (≤-ItemTree-Bool Ni₁ Tt₁)
                             (≤-ItemTree-Bool Ni₁ Tt₂)
-                            (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t))
+                            (trans (sym (≤-ItemTree-node i₁ t₁ j t₂)) i₁≤t))
                refl
       ⟩
     true && ≤-ItemTree i₁ (toTree · i₂ · t₂)
@@ -559,7 +558,7 @@ toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
                (toTree-OrdTree-helper₂ Ni₁ Ni₂ i₁≤i₂ Tt₂
                  (&&-list₂-t₂ (≤-ItemTree-Bool Ni₁ Tt₁)
                               (≤-ItemTree-Bool Ni₁ Tt₂)
-                              (trans (sym $ ≤-ItemTree-node i₁ t₁ j t₂) i₁≤t)))
+                              (trans (sym (≤-ItemTree-node i₁ t₁ j t₂)) i₁≤t)))
                refl
       ⟩
     true && true

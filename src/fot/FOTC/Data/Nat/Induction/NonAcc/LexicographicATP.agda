@@ -10,8 +10,6 @@
 
 module FOTC.Data.Nat.Induction.NonAcc.LexicographicATP where
 
-open import Common.Function
-
 open import FOTC.Base
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.EliminationProperties
@@ -37,9 +35,9 @@ Lexi-wfind A h Nm Nn = h Nm Nn (helper₂ Nm Nn)
             Lexi m₂ n₂ m₁ n₁ → A m₂ n₂
 
   helper₂ Nm₁ Nn₂ nzero nzero 00<00 =
-    h nzero nzero (λ Nm' Nn' m'n'<00 → ⊥-elim $ xy<00→⊥ Nm' Nn' m'n'<00)
+    h nzero nzero (λ Nm' Nn' m'n'<00 → ⊥-elim (xy<00→⊥ Nm' Nn' m'n'<00))
 
-  helper₂ nzero nzero (nsucc Nm₂) nzero Sm₂0<00 = ⊥-elim $ Sxy₁<0y₂→⊥ Sm₂0<00
+  helper₂ nzero nzero (nsucc Nm₂) nzero Sm₂0<00 = ⊥-elim (Sxy₁<0y₂→⊥ Sm₂0<00)
 
   helper₂ (nsucc Nm₁) nzero (nsucc Nm₂) nzero Sm₂0<Sm₁0 =
     h (nsucc Nm₂) nzero (λ Nm' Nn' m'n'<Sm₂0 →
@@ -49,7 +47,7 @@ Lexi-wfind A h Nm Nn = h Nm Nn (helper₂ Nm Nn)
                              (x₁y<x₂0→x₁<x₂ nzero Sm₂0<Sm₁0))))
 
   helper₂ nzero (nsucc Nn₁) (nsucc Nm₂) nzero Sm₂0<0Sn₁ =
-    ⊥-elim $ Sxy₁<0y₂→⊥ Sm₂0<0Sn₁
+    ⊥-elim (Sxy₁<0y₂→⊥ Sm₂0<0Sn₁)
 
   helper₂ (nsucc Nm₁) (nsucc Nn₁) (nsucc Nm₂) nzero Sm₂0<Sm₁Sn₁ =
     h (nsucc Nm₂) nzero (λ Nm' Nn' m'n'<Sm₂0 →
@@ -62,12 +60,12 @@ Lexi-wfind A h Nm Nn = h Nm Nn (helper₂ Nm Nn)
                                                    (∧-proj₁ Sm₂≡Sm₁∧0<Sn₁))
                     Sm₂0<Sm₁Sn₁)))
 
-  helper₂ nzero nzero nzero (nsucc Nn₂) 0Sn₂<00 = ⊥-elim $ 0Sx<00→⊥ 0Sn₂<00
+  helper₂ nzero nzero nzero (nsucc Nn₂) 0Sn₂<00 = ⊥-elim (0Sx<00→⊥ 0Sn₂<00)
 
   helper₂ (nsucc {m₁} Nm₁) nzero nzero (nsucc Nn₂) 0Sn₂<Sm₁0 =
     h nzero (nsucc Nn₂) (λ Nm' Nn' m'n'<0Nn₂ →
       helper₂ Nm₁ (nsucc Nn₂) Nm' Nn'
-              (case (λ m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
+              (case (λ m'<0 → ⊥-elim (x<0→⊥ Nm' m'<0))
                     (λ m'≡0∧n'<Sn₂ →
                       case (λ 0<m₁ → inj₁ (x≡y→y<z→x<z (∧-proj₁ m'≡0∧n'<Sn₂) 0<m₁))
                            (λ 0≡m₁ → inj₂ ((trans (∧-proj₁ m'≡0∧n'<Sn₂) 0≡m₁)
@@ -80,10 +78,10 @@ Lexi-wfind A h Nm Nn = h Nm Nn (helper₂ Nm Nn)
     0<Sm₁ = x₁y<x₂0→x₁<x₂ (nsucc Nn₂) 0Sn₂<Sm₁0
 
   helper₂ nzero (nsucc Nn₁) nzero (nsucc Nn₂) 0Sn₂<0Sn₁ =
-    case (λ 0<0 → ⊥-elim $ 0<0→⊥ 0<0)
+    case (λ 0<0 → ⊥-elim (0<0→⊥ 0<0))
          (λ 0≡0∧Sn₂<Sn₁ →
            h nzero (nsucc Nn₂) (λ Nm' Nn' m'n'<0Sn₂ →
-             case (λ m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
+             case (λ m'<0 → ⊥-elim (x<0→⊥ Nm' m'<0))
                   (λ m'≡0∧n'<Sn₂ →
                     helper₂ nzero Nn₁ Nm' Nn'
                       (inj₂ (∧-proj₁ m'≡0∧n'<Sn₂
@@ -96,15 +94,15 @@ Lexi-wfind A h Nm Nn = h Nm Nn (helper₂ Nm Nn)
   helper₂ (nsucc Nm₁) (nsucc Nn₁) nzero (nsucc Nn₂) 0Sn₂<Sm₁Sn₁ =
     h nzero (nsucc Nn₂) (λ Nm' Nn' m'n'<0Sn₂ →
       helper₂ (nsucc Nm₁) Nn₁ Nm' Nn'
-        (case (λ m'<0 → ⊥-elim $ x<0→⊥ Nm' m'<0)
+        (case (λ m'<0 → ⊥-elim (x<0→⊥ Nm' m'<0))
               (λ m'≡0∧n'<Sn₂ →
                 case (λ 0<Sm₁ → inj₁ (x≡y→y<z→x<z (∧-proj₁ m'≡0∧n'<Sn₂) 0<Sm₁))
-                     (λ 0≡Sn₂∧Sn₂<Sn₁ → ⊥-elim $ 0≢S $ ∧-proj₁ 0≡Sn₂∧Sn₂<Sn₁)
+                     (λ 0≡Sn₂∧Sn₂<Sn₁ → ⊥-elim (0≢S (∧-proj₁ 0≡Sn₂∧Sn₂<Sn₁)))
                      0Sn₂<Sm₁Sn₁)
               m'n'<0Sn₂))
 
   helper₂ nzero nzero (nsucc Nm₂) (nsucc Nn₂) Sm₂Sn₂<00 =
-    ⊥-elim $ xy<00→⊥ (nsucc Nm₂) (nsucc Nn₂) Sm₂Sn₂<00
+    ⊥-elim (xy<00→⊥ (nsucc Nm₂) (nsucc Nn₂) Sm₂Sn₂<00)
 
   helper₂ (nsucc {m₁} Nm₁) nzero (nsucc {m₂} Nm₂) (nsucc Nn₂) Sm₂Sn₂<Sm₁0 =
     h (nsucc Nm₂) (nsucc Nn₂) (λ Nm' Nn' m'n'<Sm₂Sn₂ →
@@ -122,7 +120,7 @@ Lexi-wfind A h Nm Nn = h Nm Nn (helper₂ Nm Nn)
     Sm₂<Sm₁ = x₁y<x₂0→x₁<x₂ (nsucc Nn₂) Sm₂Sn₂<Sm₁0
 
   helper₂ nzero (nsucc Nn₁) (nsucc Nm₂) (nsucc Nn₂) Sm₂Sn₂<0Sn₁
-    = ⊥-elim $ Sxy₁<0y₂→⊥ Sm₂Sn₂<0Sn₁
+    = ⊥-elim (Sxy₁<0y₂→⊥ Sm₂Sn₂<0Sn₁)
 
   helper₂ (nsucc Nm₁) (nsucc Nn₁) (nsucc Nm₂) (nsucc Nn₂) Sm₂Sn₂<Sm₁Sn₁ =
     h (nsucc Nm₂) (nsucc Nn₂) (λ Nm' Nn' m'n'<Sm₂Sn₂ →

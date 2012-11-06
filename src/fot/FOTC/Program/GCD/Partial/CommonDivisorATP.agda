@@ -9,9 +9,6 @@ module FOTC.Program.GCD.Partial.CommonDivisorATP where
 
 open import FOTC.Base
 open import FOTC.Base.Properties
-
-open import Common.Function
-
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Divisibility.NotBy0
 open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP
@@ -101,7 +98,7 @@ gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
   Sm-Sn-N = ∸-N (nsucc Nm) (nsucc Nn)
 
   gcd-Sm-Sn,Sn-N : N (gcd (succ₁ m ∸ succ₁ n) (succ₁ n))
-  gcd-Sm-Sn,Sn-N = gcd-N Sm-Sn-N (nsucc Nn) (λ p → ⊥-elim $ S≢0 $ ∧-proj₂ p)
+  gcd-Sm-Sn,Sn-N = gcd-N Sm-Sn-N (nsucc Nn) (λ p → ⊥-elim (S≢0 (∧-proj₂ p)))
 
 ------------------------------------------------------------------------------
 -- Some case of the gcd-∣₂.
@@ -157,7 +154,7 @@ gcd-S≯S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≯Sn =
   Sn-Sm-N = ∸-N (nsucc Nn) (nsucc Nm)
 
   gcd-Sm,Sn-Sm-N : N (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))
-  gcd-Sm,Sn-Sm-N = gcd-N (nsucc Nm) (Sn-Sm-N) (λ p → ⊥-elim $ S≢0 $ ∧-proj₁ p)
+  gcd-Sm,Sn-Sm-N = gcd-N (nsucc Nm) (Sn-Sm-N) (λ p → ⊥-elim (S≢0 (∧-proj₁ p)))
 
 -- gcd (succ₁ m) (succ₁ n) ∣ succ₁ n when succ₁ m > succ₁ n.
 postulate
@@ -217,7 +214,7 @@ gcd-x>y-CD :
   GT m n →
   x≢0≢y m n →
   CD m n (gcd m n)
-gcd-x>y-CD nzero          Nn             _  0>n   _ = ⊥-elim $ 0>x→⊥ Nn 0>n
+gcd-x>y-CD nzero          Nn             _  0>n   _ = ⊥-elim (0>x→⊥ Nn 0>n)
 gcd-x>y-CD (nsucc Nm)     nzero          _  _     _ = gcd-S0-CD Nm
 gcd-x>y-CD (nsucc {m} Nm) (nsucc {n} Nn) ah Sm>Sn _ =
   gcd-S>S-CD Nm Nn ih Sm>Sn
@@ -229,7 +226,7 @@ gcd-x>y-CD (nsucc {m} Nm) (nsucc {n} Nn) ah Sm>Sn _ =
            (∸-N (nsucc Nm) (nsucc Nn))
            (nsucc Nn)
            ([Sx∸Sy,Sy]<[Sx,Sy] Nm Nn)
-           (λ p → ⊥-elim $ S≢0 $ ∧-proj₂ p)
+           (λ p → ⊥-elim (S≢0 (∧-proj₂ p)))
 
 -- The gcd m n when m ≯ n is CD.
 gcd-x≯y-CD :
@@ -238,9 +235,9 @@ gcd-x≯y-CD :
   NGT m n →
   x≢0≢y m n →
   CD m n (gcd m n)
-gcd-x≯y-CD nzero          nzero         _   _     h = ⊥-elim $ h (refl , refl)
+gcd-x≯y-CD nzero          nzero         _   _     h = ⊥-elim (h (refl , refl))
 gcd-x≯y-CD nzero          (nsucc Nn)     _  _     _ = gcd-0S-CD Nn
-gcd-x≯y-CD (nsucc _)      nzero          _  Sm≯0  _ = ⊥-elim $ S≯0→⊥ Sm≯0
+gcd-x≯y-CD (nsucc _)      nzero          _  Sm≯0  _ = ⊥-elim (S≯0→⊥ Sm≯0)
 gcd-x≯y-CD (nsucc {m} Nm) (nsucc {n} Nn) ah Sm≯Sn _ = gcd-S≯S-CD Nm Nn ih Sm≯Sn
   where
   -- Inductive hypothesis.
@@ -250,7 +247,7 @@ gcd-x≯y-CD (nsucc {m} Nm) (nsucc {n} Nn) ah Sm≯Sn _ = gcd-S≯S-CD Nm Nn ih 
           (nsucc Nm)
           (∸-N (nsucc Nn) (nsucc Nm))
           ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
-          (λ p → ⊥-elim $ S≢0 $ ∧-proj₁ p)
+          (λ p → ⊥-elim (S≢0 (∧-proj₁ p)))
 
 -- The gcd is CD.
 gcd-CD : ∀ {m n} → N m → N n → x≢0≢y m n → CD m n (gcd m n)

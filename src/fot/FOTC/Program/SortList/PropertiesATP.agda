@@ -7,8 +7,6 @@
 
 module FOTC.Program.SortList.PropertiesATP where
 
-open import Common.Function
-
 open import FOTC.Base
 open FOTC.Base.BList
 open import FOTC.Data.Bool.PropertiesATP
@@ -79,7 +77,7 @@ makeTree-OrdTree lnnil = prf
   where postulate prf : OrdTree (makeTree [])
         {-# ATP prove prf #-}
 
-makeTree-OrdTree (lncons {i} {is} Ni Lis) = prf $ makeTree-OrdTree Lis
+makeTree-OrdTree (lncons {i} {is} Ni Lis) = prf (makeTree-OrdTree Lis)
   where postulate prf : OrdTree (makeTree is) → OrdTree (makeTree (i ∷ is))
         {-# ATP prove prf makeTree-Tree toTree-OrdTree #-}
 
@@ -90,17 +88,17 @@ makeTree-OrdTree (lncons {i} {is} Ni Lis) = prf $ makeTree-OrdTree Lis
              LE-Lists is js → OrdList (is ++ js)
 
 ++-OrdList {js = js} lnnil LNjs LOis LOjs is≤js =
-  subst (λ t → OrdList t) (sym $ ++-[] js) LOjs
+  subst (λ t → OrdList t) (sym (++-[] js)) LOjs
 
 ++-OrdList {js = js} (lncons {i} {is} Ni LNis) LNjs OLi∷is OLjs i∷is≤js =
   subst (λ t → OrdList t)
-        (sym $ ++-∷ i is js)
+        (sym (++-∷ i is js))
         (lemma (++-OrdList LNis LNjs
                            (subList-OrdList Ni LNis OLi∷is)
                            OLjs
                            (&&-list₂-t₂ (≤-ItemList-Bool Ni LNjs)
                                         (≤-Lists-Bool LNis LNjs)
-                                        (trans (sym $ ≤-Lists-∷ i is js) i∷is≤js))))
+                                        (trans (sym (≤-Lists-∷ i is js)) i∷is≤js))))
   where postulate lemma : OrdList (is ++ js) → OrdList (i ∷ is ++ js)
         {-# ATP prove lemma ≤-ItemList-Bool ≤-Lists-Bool ordList-Bool
                             &&-list₂-t ++-OrdList-helper
