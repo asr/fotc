@@ -51,13 +51,13 @@ gcd-00∣0 = subst (λ x → x ∣ zero) (sym gcd-00) 0∣0
 -- gcd 0 (succ n) ∣ 0.
 gcd-0S-∣₁ : ∀ {n} → N n → gcd zero (succ₁ n) ∣ zero
 gcd-0S-∣₁ {n} Nn = subst (λ x → x ∣ zero)
-                         (sym $ gcd-0S n)
+                         (sym (gcd-0S n))
                          (S∣0 Nn)
 
 -- gcd (succ₁ m) 0 ∣ succ₁ m.
 gcd-S0-∣₁ : ∀ {m} → N m → gcd (succ₁ m) zero ∣ succ₁ m
 gcd-S0-∣₁ {m} Nm = subst (λ x → x ∣ succ₁ m)
-                         (sym $ gcd-S0 m)
+                         (sym (gcd-S0 m))
                          (∣-refl (nsucc Nm))
 
 
@@ -69,7 +69,7 @@ gcd-S≯S-∣₁ :
   gcd (succ₁ m) (succ₁ n) ∣ succ₁ m
 gcd-S≯S-∣₁ {m} {n} Nm Nn ih Sm≯Sn =
   subst (λ x → x ∣ succ₁ m)
-        (sym $ gcd-S≯S m n Sm≯Sn)
+        (sym (gcd-S≯S m n Sm≯Sn))
         ih
 
 -- gcd (succ₁ m) (succ₁ n) ∣ succ₁ m when succ₁ m > succ₁ n.
@@ -96,7 +96,7 @@ gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
   -- The first substitution is based on
   -- gcd (succ₁ m) (succ₁ n) = gcd (succ₁ m ∸ succ₁ n) (succ₁ n).
   subst (λ x → x ∣ succ₁ m)
-        (sym $ gcd-S>S m n Sm>Sn)
+        (sym (gcd-S>S m n Sm>Sn))
         -- The second substitution is based on
         -- m = (m ∸ n) + n.
         (subst (λ y → gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∣ y)
@@ -124,13 +124,13 @@ gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
 -- gcd 0 (succ₁ n) ∣₂ succ₁ n.
 gcd-0S-∣₂ : ∀ {n} → N n → gcd zero (succ₁ n) ∣ succ₁ n
 gcd-0S-∣₂ {n} Nn = subst (λ x → x ∣ succ₁ n)
-                         (sym $ gcd-0S n)
+                         (sym (gcd-0S n))
                          (∣-refl (nsucc Nn))
 
 -- gcd (succ₁ m) 0 ∣ 0.
 gcd-S0-∣₂ : ∀ {m} → N m → gcd (succ₁ m) zero ∣ zero
 gcd-S0-∣₂  {m} Nm = subst (λ x → x ∣ zero)
-                          (sym $ gcd-S0 m)
+                          (sym (gcd-S0 m))
                           (S∣0 Nm)
 
 -- gcd (succ₁ m) (succ₁ n) ∣ succ₁ n when succ₁ m > succ₁ n.
@@ -142,7 +142,7 @@ gcd-S>S-∣₂ :
 
 gcd-S>S-∣₂ {m} {n} Nm Nn ih Sm>Sn =
   subst (λ x → x ∣ succ₁ n)
-        (sym $ gcd-S>S m n Sm>Sn)
+        (sym (gcd-S>S m n Sm>Sn))
         ih
 
 -- gcd (succ₁ m) (succ₁ n) ∣ succ₁ n when succ₁ m ≯ succ₁ n.
@@ -168,7 +168,7 @@ gcd-S≯S-∣₂ :
 gcd-S≯S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≯Sn =
   -- The first substitution is based on gcd m n = gcd m (n ∸ m).
   subst (λ x → x ∣ succ₁ n)
-        (sym $ gcd-S≯S m n Sm≯Sn)
+        (sym (gcd-S≯S m n Sm≯Sn))
          -- The second substitution is based on
          -- n = (n ∸ m) + m.
         (subst (λ y → gcd (succ₁ m) (succ₁ n ∸ succ₁ m) ∣ y)
@@ -241,7 +241,7 @@ gcd-x>y-CD :
   (∀ {o p} → N o → N p → Lexi o p m n → CD o p (gcd o p)) →
   GT m n →
   CD m n (gcd m n)
-gcd-x>y-CD nzero          Nn             _  0>n   = ⊥-elim $ 0>x→⊥ Nn 0>n
+gcd-x>y-CD nzero          Nn             _  0>n   = ⊥-elim (0>x→⊥ Nn 0>n)
 gcd-x>y-CD (nsucc Nm)     nzero          _  _     = gcd-S0-CD Nm
 gcd-x>y-CD (nsucc {m} Nm) (nsucc {n} Nn) ah Sm>Sn =
   gcd-S>S-CD Nm Nn ih Sm>Sn
@@ -262,7 +262,7 @@ gcd-x≯y-CD :
   CD m n (gcd m n)
 gcd-x≯y-CD nzero          nzero          _  _     = gcd-00-CD
 gcd-x≯y-CD nzero          (nsucc Nn)     _  _     = gcd-0S-CD Nn
-gcd-x≯y-CD (nsucc _)      nzero          _  Sm≯0  = ⊥-elim $ S≯0→⊥ Sm≯0
+gcd-x≯y-CD (nsucc _)      nzero          _  Sm≯0  = ⊥-elim (S≯0→⊥ Sm≯0)
 gcd-x≯y-CD (nsucc {m} Nm) (nsucc {n} Nn) ah Sm≯Sn = gcd-S≯S-CD Nm Nn ih Sm≯Sn
   where
   -- Inductive hypothesis.

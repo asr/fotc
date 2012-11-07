@@ -8,7 +8,6 @@
 module LTC-PCF.Program.Division.ConversionRules where
 
 open import Common.FOL.Relation.Binary.EqReasoning
-open import Common.Function
 
 open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat
@@ -95,14 +94,14 @@ private
     -- From div · i · j to div-s₁ using the conversion rule fix-eq.
     proof₀₋₁ : ∀ i j → fix divh · i · j ≡ div-s₁ i j
     proof₀₋₁ i j = subst (λ t → t · i · j ≡ divh (fix divh) · i · j)
-                         (sym $ fix-eq divh)
+                         (sym (fix-eq divh))
                          refl
 
     -- From div-s₁ to div-s₂ using the conversion rule beta.
     proof₁₋₂ : ∀ i j → div-s₁ i j ≡ div-s₂ i j
     proof₁₋₂ i j =
       subst (λ t → t · j ≡ fun i · j)
-            (sym $ beta fun i)
+            (sym (beta fun i))
             refl
          where
          -- The function fun is the same that the fun part of div-s₂,

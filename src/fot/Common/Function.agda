@@ -8,17 +8,17 @@
 module Common.Function where
 
 -- The same fixity used in the standard library.
-infixr 0 _$_
+-- infixr 0 _$_
 
 ------------------------------------------------------------------------------
 -- The right associative application operator.
 --
 -- N.B. The operator is not first-order, so it cannot be used with
 -- types/terms which will be translated to FOL.
-_$_ : {A : Set}{B : A → Set} → ((x : A) → B x) → (x : A) → B x
-f $ x = f x
+-- _$_ : {A : Set}{B : A → Set} → ((x : A) → B x) → (x : A) → B x
+-- f $ x = f x
 
--- N.B. The functions is not first-order, so it cannot be used with
+-- N.B. The function is not first-order, so it cannot be used with
 -- types/terms which will be translated to FOL.
 flip : {A : Set} → (A → A → A) → A → A → A
 flip f y x = f x y

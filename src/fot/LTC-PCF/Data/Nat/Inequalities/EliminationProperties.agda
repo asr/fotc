@@ -7,8 +7,6 @@
 
 module LTC-PCF.Data.Nat.Inequalities.EliminationProperties where
 
-open import Common.Function
-
 open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Inequalities
@@ -17,10 +15,10 @@ open import LTC-PCF.Data.Nat.Inequalities.ConversionRules
 ------------------------------------------------------------------------------
 
 0<0→⊥ : ¬ LT zero zero
-0<0→⊥ 0<0 = true≢false $ trans (sym 0<0) <-00
+0<0→⊥ 0<0 = true≢false (trans (sym 0<0) <-00)
 
 S<0→⊥ : ∀ {n}  → ¬ LT (succ₁ n) zero
-S<0→⊥ {n} h = true≢false $ trans (sym h) (<-S0 n)
+S<0→⊥ {n} h = true≢false (trans (sym h) (<-S0 n))
 
 x<0→⊥ : ∀ {n} → N n → ¬ (LT n zero)
 x<0→⊥ nzero     0<0  = 0<0→⊥ 0<0
@@ -28,10 +26,10 @@ x<0→⊥ (nsucc _) Sn<0 = S<0→⊥ Sn<0
 
 x<x→⊥ : ∀ {n} → N n → ¬ (LT n n)
 x<x→⊥ nzero          0<0   = 0<0→⊥ 0<0
-x<x→⊥ (nsucc {n} Nn) Sn<Sn = ⊥-elim $ x<x→⊥ Nn (trans (sym $ <-SS n n) Sn<Sn)
+x<x→⊥ (nsucc {n} Nn) Sn<Sn = ⊥-elim (x<x→⊥ Nn (trans (sym (<-SS n n)) Sn<Sn))
 
 0>0→⊥ : ¬ GT zero zero
-0>0→⊥ 0>0 = true≢false $ trans (sym 0>0) <-00
+0>0→⊥ 0>0 = true≢false (trans (sym 0>0) <-00)
 
 0>S→⊥ : ∀ {n} → ¬ GT zero (succ₁ n)
 0>S→⊥ {n} h = true≢false (trans (sym h) (<-S0 n))

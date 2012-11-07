@@ -40,7 +40,7 @@ x∣y→x∣z→x∣y∸z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → 
 x∣y→x∣z→x∣y∸z-helper {m} {n} {o} {k₁} {k₂} Nm Nk₁ Nk₂ h₁ h₂ =
   n ∸ o               ≡⟨ ∸-leftCong h₁ ⟩
   k₁ * m ∸ o          ≡⟨ ∸-rightCong h₂ ⟩
-  (k₁ * m) ∸ (k₂ * m) ≡⟨ sym $ *∸-leftDistributive Nk₁ Nk₂ Nm ⟩
+  (k₁ * m) ∸ (k₂ * m) ≡⟨ sym (*∸-leftDistributive Nk₁ Nk₂ Nm) ⟩
   (k₁ ∸ k₂) * m       ∎
 
 x∣y→x∣z→x∣y∸z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n ∸ o
@@ -55,7 +55,7 @@ x∣y→x∣z→x∣y+z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N 
 x∣y→x∣z→x∣y+z-helper {m} {n} {o} {k₁} {k₂} Nm Nk₁ Nk₂ h₁ h₂ =
   n + o               ≡⟨ +-leftCong h₁ ⟩
   k₁ * m + o          ≡⟨ +-rightCong h₂ ⟩
-  (k₁ * m) + (k₂ * m) ≡⟨ sym $ *+-leftDistributive Nk₁ Nk₂ Nm ⟩
+  (k₁ * m) + (k₂ * m) ≡⟨ sym (*+-leftDistributive Nk₁ Nk₂ Nm) ⟩
   (k₁ + k₂) * m       ∎
 
 x∣y→x∣z→x∣y+z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n + o
@@ -65,12 +65,12 @@ x∣y→x∣z→x∣y+z Nm Nn No (k₁ , Nk₁ , h₁) (k₂ , Nk₂ , h₂) =
 -- If x divides y, and y is positive, then x ≤ y.
 x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → LE m (succ₁ n)
 x∣S→x≤S {m} Nm Nn (.zero , nzero , Sn≡0*m) =
-  ⊥-elim $ 0≢S $ trans (sym $ *-leftZero m) (sym Sn≡0*m)
+  ⊥-elim (0≢S (trans (sym (*-leftZero m)) (sym Sn≡0*m)))
 x∣S→x≤S {m} Nm Nn (.(succ₁ k) , nsucc {k} Nk , Sn≡Sk*m) =
   subst (λ t₁ → LE m t₁)
         (sym Sn≡Sk*m)
         (subst (λ t₂ → LE m t₂)
-               (sym $ *-Sx k m)
+               (sym (*-Sx k m))
                (x≤x+y Nm (*-N Nk Nm)))
 
 0∣x→x≡0 : ∀ {m} → N m → zero ∣ m → m ≡ zero
