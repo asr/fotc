@@ -7,7 +7,7 @@
 {-# OPTIONS --without-K #-}
 
 -- From: Ana Bove and Venanzio Capretta. Nested general recursion and
--- partiality in type theory. vol 2152 LNCS. 2001
+-- partiality in type theory. vol 2152 LNCS. 2001.
 
 module FOT.FOTC.Program.Nest.NestBC where
 

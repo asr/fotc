@@ -142,6 +142,9 @@ open import FOTC.Program.GCD.Partial.ProofSpecificationI
 open import FOTC.Program.GCD.Total.ProofSpecificationATP
 open import FOTC.Program.GCD.Total.ProofSpecificationI
 
+-- The nest function: A very simple function with nested recursion
+open import FOTC.Program.Nest.PropertiesATP
+
 -- The McCarthy 91 function: A function with nested recursion
 open import FOTC.Program.McCarthy91.PropertiesATP
 

@@ -116,6 +116,11 @@ open import FOTC.Program.Division.Specification
 open import FOTC.Program.Division.TotalityATP
 open import FOTC.Program.Division.TotalityI
 
+open import FOTC.Program.Nest.Nest
+open import FOTC.Program.Nest.Nest.ConsistencyTest
+open import FOTC.Program.Nest.ConversionRulesATP
+open import FOTC.Program.Nest.PropertiesATP
+
 open import FOTC.Program.GCD.Partial.CommonDivisorATP
 open import FOTC.Program.GCD.Partial.CommonDivisorI
 open import FOTC.Program.GCD.Partial.ConversionRulesATP
