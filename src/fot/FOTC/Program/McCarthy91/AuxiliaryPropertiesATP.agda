@@ -28,8 +28,8 @@ postulate mc91-eq-aux : ∀ n → GT n one-hundred → mc91 n ≡ n ∸ ten
 --- Auxiliary properties
 
 ---- Case n > 100
-postulate Nmc91>100 : ∀ {n} → N n → GT n one-hundred → N (mc91 n)
-{-# ATP prove Nmc91>100 10-N ∸-N #-}
+postulate mc91>100-N : ∀ {n} → N n → GT n one-hundred → N (mc91 n)
+{-# ATP prove mc91>100-N 10-N ∸-N #-}
 
 postulate
   x<mc91x+11>100 : ∀ {n} → N n → GT n one-hundred → LT n (mc91 n + eleven)
@@ -43,16 +43,13 @@ postulate mc91-res-100 : mc91 one-hundred ≡ ninety-one
                            101≡100+11∸10 91≡100+11∸10∸10
 #-}
 
-postulate mc91-res-100' : ∀ {n} → n ≡ one-hundred → mc91 n ≡ ninety-one
-{-# ATP prove mc91-res-100' mc91-res-100 #-}
-
 ---- Case n ≤ 100
 postulate
-  Nmc91≯100 : ∀ n →
-              NGT n one-hundred →
-              N (mc91 (mc91 (n + eleven))) →
-              N (mc91 n)
-{-# ATP prove Nmc91≯100 #-}
+  mc91≯100-N : ∀ n →
+               NGT n one-hundred →
+               N (mc91 (mc91 (n + eleven))) →
+               N (mc91 n)
+{-# ATP prove mc91≯100-N #-}
 
 postulate
   mc91x+11<mc91x+11 : ∀ n →
@@ -113,32 +110,5 @@ postulate
 {-# ATP prove mc91-res-91 mc91x-res≯100 mc91-res-102 mc91-res-92 #-}
 {-# ATP prove mc91-res-90 mc91x-res≯100 mc91-res-101 mc91-res-91 #-}
 
-mc91-res-99' : ∀ {n} → n ≡ ninety-nine → mc91 n ≡ ninety-one
-mc91-res-99' h = subst (λ n' → mc91 n' ≡ ninety-one) (sym h) mc91-res-99
-
-mc91-res-98' : ∀ {n} → n ≡ ninety-eight → mc91 n ≡ ninety-one
-mc91-res-98' h = subst (λ n' → mc91 n' ≡ ninety-one) (sym h) mc91-res-98
-
-mc91-res-97' : ∀ {n} → n ≡ ninety-seven → mc91 n ≡ ninety-one
-mc91-res-97' h = subst (λ n' → mc91 n' ≡ ninety-one) (sym h) mc91-res-97
-
-mc91-res-96' : ∀ {n} → n ≡ ninety-six → mc91 n ≡ ninety-one
-mc91-res-96' h = subst (λ n' → mc91 n' ≡ ninety-one) (sym h) mc91-res-96
-
-mc91-res-95' : ∀ {n} → n ≡ ninety-five → mc91 n ≡ ninety-one
-mc91-res-95' h = subst (λ n' → mc91 n' ≡ ninety-one) (sym h) mc91-res-95
-
-mc91-res-94' : ∀ {n} → n ≡ ninety-four → mc91 n ≡ ninety-one
-mc91-res-94' h = subst (λ n' → mc91 n' ≡ ninety-one) (sym h) mc91-res-94
-
-mc91-res-93' : ∀ {n} → n ≡ ninety-three → mc91 n ≡ ninety-one
-mc91-res-93' h = subst (λ n' → mc91 n' ≡ ninety-one) (sym h) mc91-res-93
-
-mc91-res-92' : ∀ {n} → n ≡ ninety-two → mc91 n ≡ ninety-one
-mc91-res-92' h = subst (λ n' → mc91 n' ≡ ninety-one) (sym h) mc91-res-92
-
-mc91-res-91' : ∀ {n} → n ≡ ninety-one → mc91 n ≡ ninety-one
-mc91-res-91' h = subst (λ n' → mc91 n' ≡ ninety-one) (sym h) mc91-res-91
-
-mc91-res-90' : ∀ {n} → n ≡ ninety → mc91 n ≡ ninety-one
-mc91-res-90' h = subst (λ n' → mc91 n' ≡ ninety-one) (sym h) mc91-res-90
+mc91-res-aux : ∀ {m n o} → mc91 m ≡ n → o ≡ m → mc91 o ≡ n
+mc91-res-aux h refl = h

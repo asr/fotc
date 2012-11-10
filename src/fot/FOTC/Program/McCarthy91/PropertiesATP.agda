@@ -35,74 +35,71 @@ open import FOTC.Program.McCarthy91.AuxiliaryPropertiesATP
 ------------------------------------------------------------------------------
 
 mc91-N-ineq : ∀ {n} → N n → N (mc91 n) ∧ LT n (mc91 n + eleven)
-mc91-N-ineq = wfInd-MCR A mc91-N-ineq-aux
+mc91-N-ineq = wfInd-MCR A h
   where
   A : D → Set
   A d = N (mc91 d) ∧ LT d (mc91 d + eleven)
 
-  mc91-N-ineq-aux : ∀ {m} → N m → (∀ {k} → N k → MCR k m → A k) → A m
-  mc91-N-ineq-aux {m} Nm f with x>y∨x≯y Nm 100-N
-  ... | inj₁ m>100 = ( Nmc91>100 Nm m>100 , x<mc91x+11>100 Nm m>100 )
+  h : ∀ {m} → N m → (∀ {k} → N k → MCR k m → A k) → A m
+  h {m} Nm f with x>y∨x≯y Nm 100-N
+  ... | inj₁ m>100 = ( mc91>100-N Nm m>100 , x<mc91x+11>100 Nm m>100 )
   ... | inj₂ m≯100 =
-    let Nm+11 : N (m + eleven)
-        Nm+11 = x+11-N Nm
+    let h₁ : A (m + eleven)
+        h₁ = f (x+11-N Nm) (LT2MCR (x+11-N Nm) Nm m≯100 (x<x+11 Nm))
 
-        ih₁ : A (m + eleven)
-        ih₁ = f Nm+11 (LT2MCR (x+11-N Nm) Nm m≯100 (x<x+11 Nm))
+        h₁-N : N (mc91 (m + eleven))
+        h₁-N = ∧-proj₁ h₁
 
-        Nih₁ : N (mc91 (m + eleven))
-        Nih₁ = ∧-proj₁ ih₁
-
-        LTih₁ : LT (m + eleven) (mc91 (m + eleven) + eleven)
-        LTih₁ = ∧-proj₂ ih₁
+        h₁-LT : LT (m + eleven) (mc91 (m + eleven) + eleven)
+        h₁-LT = ∧-proj₂ h₁
 
         m<mc91m+11 : LT m (mc91 (m + eleven))
-        m<mc91m+11 = x+k<y+k→x<y Nm Nih₁ 11-N LTih₁
+        m<mc91m+11 = x+k<y+k→x<y Nm h₁-N 11-N h₁-LT
 
-        ih₁ : A (mc91 (m + eleven))
-        ih₁ = f Nih₁ (LT2MCR Nih₁ Nm m≯100 m<mc91m+11)
+        h₂ : A (mc91 (m + eleven))
+        h₂ = f h₁-N (LT2MCR h₁-N Nm m≯100 m<mc91m+11)
 
-        Nmc91≤100 : N (mc91 m)
-        Nmc91≤100 = Nmc91≯100 m m≯100 (∧-proj₁ ih₁)
+        mc91≤100-N : N (mc91 m)
+        mc91≤100-N = mc91≯100-N m m≯100 (∧-proj₁ h₂)
 
-    in ( Nmc91≤100 ,
-         <-trans Nm Nih₁ (x+11-N Nmc91≤100)
+    in ( mc91≤100-N ,
+         <-trans Nm h₁-N (x+11-N mc91≤100-N)
                  m<mc91m+11
-                 (mc91x+11<mc91x+11 m m≯100 (∧-proj₂ ih₁)))
+                 (mc91x+11<mc91x+11 m m≯100 (∧-proj₂ h₂)))
 
 mc91-res : ∀ {n} → N n → (GT n one-hundred ∧ mc91 n ≡ n ∸ ten) ∨
                          (NGT n one-hundred ∧ mc91 n ≡ ninety-one)
-mc91-res = wfInd-MCR A mc91-res-aux
+mc91-res = wfInd-MCR A h
   where
   A : D → Set
   A d = (GT d one-hundred ∧ mc91 d ≡ d ∸ ten) ∨
         (NGT d one-hundred ∧ mc91 d ≡ ninety-one)
 
-  mc91-res-aux : ∀ {m} → N m → (∀ {k} → N k → MCR k m → A k) → A m
-  mc91-res-aux {m} Nm f with x>y∨x≯y Nm 100-N
+  h : ∀ {m} → N m → (∀ {k} → N k → MCR k m → A k) → A m
+  h {m} Nm f with x>y∨x≯y Nm 100-N
   ... | inj₁ m>100 = inj₁ ( m>100 , mc91-eq-aux m m>100 )
   ... | inj₂ m≯100 with x≯Sy→x≯y∨x≡Sy Nm 99-N m≯100
-  ... | inj₂ m≡100 = inj₂ ( m≯100 , mc91-res-100' m≡100 )
+  ... | inj₂ m≡100 = inj₂ ( m≯100 , mc91-res-aux mc91-res-100 m≡100 )
   ... | inj₁ m≯99 with x≯Sy→x≯y∨x≡Sy Nm 98-N m≯99
-  ... | inj₂ m≡99 = inj₂ ( m≯100 , mc91-res-99' m≡99 )
+  ... | inj₂ m≡99 = inj₂ ( m≯100 , mc91-res-aux mc91-res-99 m≡99 )
   ... | inj₁ m≯98 with x≯Sy→x≯y∨x≡Sy Nm 97-N m≯98
-  ... | inj₂ m≡98 = inj₂ ( m≯100 , mc91-res-98' m≡98 )
+  ... | inj₂ m≡98 = inj₂ ( m≯100 , mc91-res-aux mc91-res-98 m≡98 )
   ... | inj₁ m≯97 with x≯Sy→x≯y∨x≡Sy Nm 96-N m≯97
-  ... | inj₂ m≡97 = inj₂ ( m≯100 , mc91-res-97' m≡97 )
+  ... | inj₂ m≡97 = inj₂ ( m≯100 , mc91-res-aux mc91-res-97 m≡97 )
   ... | inj₁ m≯96 with x≯Sy→x≯y∨x≡Sy Nm 95-N m≯96
-  ... | inj₂ m≡96 = inj₂ ( m≯100 , mc91-res-96' m≡96 )
+  ... | inj₂ m≡96 = inj₂ ( m≯100 , mc91-res-aux mc91-res-96 m≡96 )
   ... | inj₁ m≯95 with x≯Sy→x≯y∨x≡Sy Nm 94-N m≯95
-  ... | inj₂ m≡95 = inj₂ ( m≯100 , mc91-res-95' m≡95 )
+  ... | inj₂ m≡95 = inj₂ ( m≯100 , mc91-res-aux mc91-res-95 m≡95 )
   ... | inj₁ m≯94 with x≯Sy→x≯y∨x≡Sy Nm 93-N m≯94
-  ... | inj₂ m≡94 = inj₂ ( m≯100 , mc91-res-94' m≡94 )
+  ... | inj₂ m≡94 = inj₂ ( m≯100 , mc91-res-aux mc91-res-94 m≡94 )
   ... | inj₁ m≯93 with x≯Sy→x≯y∨x≡Sy Nm 92-N m≯93
-  ... | inj₂ m≡93 = inj₂ ( m≯100 , mc91-res-93' m≡93 )
+  ... | inj₂ m≡93 = inj₂ ( m≯100 , mc91-res-aux mc91-res-93 m≡93 )
   ... | inj₁ m≯92 with x≯Sy→x≯y∨x≡Sy Nm 91-N m≯92
-  ... | inj₂ m≡92 = inj₂ ( m≯100 , mc91-res-92' m≡92 )
+  ... | inj₂ m≡92 = inj₂ ( m≯100 , mc91-res-aux mc91-res-92 m≡92 )
   ... | inj₁ m≯91 with x≯Sy→x≯y∨x≡Sy Nm 90-N m≯91
-  ... | inj₂ m≡91 = inj₂ ( m≯100 , mc91-res-91' m≡91 )
+  ... | inj₂ m≡91 = inj₂ ( m≯100 , mc91-res-aux mc91-res-91 m≡91 )
   ... | inj₁ m≯90 with x≯Sy→x≯y∨x≡Sy Nm 89-N m≯90
-  ... | inj₂ m≡90 = inj₂ ( m≯100 , mc91-res-90' m≡90 )
+  ... | inj₂ m≡90 = inj₂ ( m≯100 , mc91-res-aux mc91-res-90 m≡90 )
   ... | inj₁ m≯89 = inj₂ ( m≯100 , mc91-res-m≯89 )
     where
     m≤89 : LE m eighty-nine
