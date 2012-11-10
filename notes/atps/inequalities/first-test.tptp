@@ -1,0 +1,5 @@
+% Only MetiTarski can deal with inequalities.
+
+% Tested with MetiTarski 2.0 (built 17 May 2012)
+% $ metit file_name
+fof(thm1, conjecture, 10 > 2).
