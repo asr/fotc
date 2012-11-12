@@ -24,7 +24,7 @@ postulate
                                else m)
                       else (if (iszero₁ m)
                                then n
-                               else (if (m > n)
+                               else (if (gt m n)
                                         then gcd (m ∸ n) n
                                         else gcd m (n ∸ m)))
 {-# ATP axiom gcd-eq #-}

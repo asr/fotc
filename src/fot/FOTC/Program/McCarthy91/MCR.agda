@@ -22,5 +22,5 @@ fnMCR n = hundred-one ∸ n
 -- To avoid use the name 'MCR' in the name of the properties related
 -- with this relation, we use the infix symbol _«_.
 MCR : D → D → Set
-MCR m n = LT (fnMCR m) (fnMCR n)
+MCR m n = fnMCR m < fnMCR n
 {-# ATP definition MCR #-}

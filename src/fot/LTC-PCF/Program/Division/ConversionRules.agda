@@ -36,13 +36,13 @@ private
     div-s₂ i j = fun · j
       where
       fun : D
-      fun = lam (λ j → if (i < j)
+      fun = lam (λ j → if (lt i j)
                           then zero
                           else succ₁ (fix divh · (i ∸ j) · j))
 
     -- Second argument application.
     div-s₃ : D → D → D
-    div-s₃ i j = if (i < j)
+    div-s₃ i j = if (lt i j)
                     then zero
                     else succ₁ (fix divh · (i ∸ j) · j)
 
@@ -109,7 +109,7 @@ private
          -- clashing of the variable i in the application of the beta
          -- rule.
          fun : D → D
-         fun y = lam (λ j → if (y < j)
+         fun y = lam (λ j → if (lt y j)
                                then zero
                                else succ₁ (fix divh · (y ∸ j) · j))
 
@@ -121,12 +121,12 @@ private
       -- need a fresh variable y to avoid the clashing of the
       -- variable j in the application of the beta rule.
       fun : D → D
-      fun y = if (i < y)
+      fun y = if (lt i y)
                  then zero
                  else succ₁ ((fix divh) · (i ∸ y) · y)
 
     -- From div-s₃ to div-s₄ using the proof i<j.
-    proof₃_₄ : ∀ i j → LT i j → div-s₃ i j ≡ div-s₄ i j
+    proof₃_₄ : ∀ i j → i < j → div-s₃ i j ≡ div-s₄ i j
     proof₃_₄ i j i<j =
       subst (λ t → if t
                       then zero
@@ -140,7 +140,7 @@ private
             refl
 
     -- From div-s₃ to div-s₅ using the proof i≮j.
-    proof₃₋₅ : ∀ i j → NLT i j → div-s₃ i j ≡ div-s₅ i j
+    proof₃₋₅ : ∀ i j → i ≮ j → div-s₃ i j ≡ div-s₅ i j
     proof₃₋₅ i j i≮j =
       subst (λ t → if t
                       then zero
@@ -164,7 +164,7 @@ private
 ----------------------------------------------------------------------
 -- The division result when the dividend is minor than the
 -- the divisor.
-div-x<y : ∀ {i j} → LT i j → div i j ≡ zero
+div-x<y : ∀ {i j} → i < j → div i j ≡ zero
 div-x<y {i} {j} i<j =
   div i j    ≡⟨ proof₀₋₁ i j ⟩
   div-s₁ i j ≡⟨ proof₁₋₂ i j ⟩
@@ -176,7 +176,7 @@ div-x<y {i} {j} i<j =
 ----------------------------------------------------------------------
 -- The division result when the dividend is greater or equal than the
 -- the divisor.
-div-x≮y : ∀ {i j} → NLT i j → div i j ≡ succ₁ (div (i ∸ j) j)
+div-x≮y : ∀ {i j} → i ≮ j → div i j ≡ succ₁ (div (i ∸ j) j)
 div-x≮y {i} {j} i≮j =
   div i j    ≡⟨ proof₀₋₁ i j ⟩
   div-s₁ i j ≡⟨ proof₁₋₂ i j ⟩

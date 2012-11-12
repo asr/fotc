@@ -60,10 +60,10 @@ postulate x∣S→x≤S-helper₁ : ∀ {m n} → succ₁ n ≡ zero * m → ⊥
 postulate
   x∣S→x≤S-helper₂ : ∀ {m n o} → N m → N n → N o →
                     succ₁ n ≡ succ₁ o * m →
-                    LE m (succ₁ n)
+                    m ≤ succ₁ n
 {-# ATP prove x∣S→x≤S-helper₂ x≤x+y *-N #-}
 
-x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → LE m (succ₁ n)
+x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → m ≤ succ₁ n
 x∣S→x≤S Nm Nn (.zero , nzero , Sn≡0*m) = ⊥-elim (x∣S→x≤S-helper₁ Sn≡0*m)
 x∣S→x≤S Nm Nn (.(succ₁ k) , nsucc {k} Nk , Sn≡Sk*m) =
   x∣S→x≤S-helper₂ Nm Nn Nk Sn≡Sk*m

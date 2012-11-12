@@ -75,10 +75,10 @@ postulate x∣S→x≤S-ah₁ : ∀ {m n} → succ₁ n ≡ zero * succ₁ m →
 postulate
   x∣S→x≤S-ah₂ : ∀ {m n o} → N m → N n → N o →
                 succ₁ n ≡ succ₁ o * succ₁ m →
-                LE (succ₁ m) (succ₁ n)
+                succ₁ m ≤ succ₁ n
 {-# ATP prove x∣S→x≤S-ah₂ x≤x+y *-N #-}
 
-x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → LE m (succ₁ n)
+x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → m ≤ succ₁ n
 x∣S→x≤S  nzero Nn (0≢0 , _) = ⊥-elim (0≢0 refl)
 x∣S→x≤S (nsucc Nm) Nn (_ , .zero , nzero , Sn≡0*Sm) = ⊥-elim (x∣S→x≤S-ah₁ Sn≡0*Sm)
 x∣S→x≤S (nsucc {m} Nm) Nn (_ , .(succ₁ k) , nsucc {k} Nk , Sn≡Sk*Sm) =

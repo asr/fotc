@@ -22,15 +22,15 @@ infixl 10 _/_
 
 postulate
   _/_   : D → D → D
-  /-x<y : ∀ {m n} → LT m n → m / n ≡ zero
-  /-x≥y : ∀ {m n} → GE m n → m / n ≡ succ₁ ((m ∸ n) / n)
+  /-x<y : ∀ {m n} → m < n → m / n ≡ zero
+  /-x≥y : ∀ {m n} → m ≥ n → m / n ≡ succ₁ ((m ∸ n) / n)
 {-# ATP axiom /-x<y /-x≥y #-}
 
 postulate
   _^_ : D → D → D
   ^-0 : ∀ n → n ^ zero      ≡ one
   ^-S : ∀ m n → m ^ succ₁ n ≡ m * m ^ n
-{-# ATP axiom ^-0  ^-S #-}
+{-# ATP axiom ^-0 ^-S #-}
 
 postulate
   even : D → D

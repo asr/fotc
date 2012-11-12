@@ -29,7 +29,7 @@ private
 
     -- Initially, the conversion rule div-eq is applied.
     div-s₁ : D → D → D
-    div-s₁ i j = if (i < j) then zero else succ₁ (div (i ∸ j) j)
+    div-s₁ i j = if (lt i j) then zero else succ₁ (div (i ∸ j) j)
 
     -- lt i j ≡ true.
     div-s₂ : D → D → D
@@ -82,7 +82,7 @@ private
     proof₀₋₁ i j = div-eq i j
 
     -- From div-s₁ to div-s₂ using the proof i<j.
-    proof₁₋₂ : ∀ i j → LT i j → div-s₁ i j ≡ div-s₂ i j
+    proof₁₋₂ : ∀ i j → i < j → div-s₁ i j ≡ div-s₂ i j
     proof₁₋₂ i j i<j =
       subst (λ t → if t
                       then zero
@@ -96,7 +96,7 @@ private
             refl
 
     -- From div-s₁ to div-s₃ using the proof i≮j.
-    proof₁₋₃ : ∀ i j → NLT i j → div-s₁ i j ≡ div-s₃ i j
+    proof₁₋₃ : ∀ i j → i ≮ j → div-s₁ i j ≡ div-s₃ i j
     proof₁₋₃ i j i≮j =
       subst (λ t → if t
                       then zero
@@ -120,7 +120,7 @@ private
 ----------------------------------------------------------------------
 -- The division result when the dividend is minor than the
 -- the divisor.
-div-x<y : ∀ {i j} → LT i j → div i j ≡ zero
+div-x<y : ∀ {i j} → i < j → div i j ≡ zero
 div-x<y {i} {j} i<j =
   div i j    ≡⟨ proof₀₋₁ i j ⟩
   div-s₁ i j ≡⟨ proof₁₋₂ i j i<j ⟩
@@ -130,7 +130,7 @@ div-x<y {i} {j} i<j =
 ----------------------------------------------------------------------
 -- The division result when the dividend is greater or equal than the
 -- the divisor.
-div-x≮y : ∀ {i j} → NLT i j → div i j ≡ succ₁ (div (i ∸ j) j)
+div-x≮y : ∀ {i j} → i ≮ j → div i j ≡ succ₁ (div (i ∸ j) j)
 div-x≮y {i} {j} i≮j =
   div i j    ≡⟨ proof₀₋₁ i j ⟩
   div-s₁ i j ≡⟨ proof₁₋₃ i j i≮j ⟩

@@ -32,4 +32,4 @@ Lexi-wfind :
   (∀ {m₁ n₁} → N m₁ → N n₁ →
      (∀ {m₂ n₂} → N m₂ → N n₂ → Lexi m₂ n₂ m₁ n₁ → A m₂ n₂) → A m₁ n₁) →
   ∀ {m n} → N m → N n → A m n
-Lexi-wfind A h {m} Nm Nn = LT-wfind {!!} {!!} {!!}
+Lexi-wfind A h {m} Nm Nn = <-wfind {!!} {!!} {!!}

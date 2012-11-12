@@ -23,7 +23,7 @@ open import FOTC.Program.Collatz.Data.Nat
 ^-N {m} Nm nzero          = subst N (sym (^-0 m)) (nsucc nzero)
 ^-N {m} Nm (nsucc {n} Nn) = subst N (sym (^-S m n)) (*-N Nm (^-N Nm Nn))
 
-postulate 2*SSx≥2 : ∀ {n} → N n → GE (two * succ₁ (succ₁ n)) two
+postulate 2*SSx≥2 : ∀ {n} → N n → two * succ₁ (succ₁ n) ≥ two
 {-# ATP prove 2*SSx≥2 #-}
 
 2x/2≡x : ∀ {n} → N n → two * n / two ≡ n

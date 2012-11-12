@@ -39,7 +39,7 @@ open import FOTC.Program.Collatz.Data.Nat
   succ₁ ((two ∸ two) / two)
     ≡⟨ succCong (cong₂ _/_ (x∸x≡0 2-N) refl) ⟩
   succ₁ (zero / two)
-    ≡⟨ succCong (/-x<y (<-0S (succ₁ zero))) ⟩
+    ≡⟨ succCong (/-x<y (lt-0S (succ₁ zero))) ⟩
   succ₁ zero ∎
 
 2x/2≡x (nsucc (nsucc {n} Nn)) = prf

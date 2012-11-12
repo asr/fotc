@@ -22,7 +22,7 @@ Lexi-wfind :
   ∀ {m n} → N m → N n → A m n
 Lexi-wfind A h Nm Nn = h Nm Nn (helper₂ Nm Nn)
   where
-  helper₁ : ∀ {m n o} → N m → N n → N o → LT m o → LT o (succ₁ n) → LT m n
+  helper₁ : ∀ {m n o} → N m → N n → N o → m < o → o < succ₁ n  → m < n
   helper₁ {m} {n} {o} Nm Nn No m<o o<Sn =
     Sx≤y→x<y Nm Nn (≤-trans (nsucc Nm) No Nn
                             (x<y→Sx≤y Nm No m<o)
@@ -71,7 +71,7 @@ Lexi-wfind A h Nm Nn = h Nm Nn (helper₂ Nm Nn)
                     m'n'<0Nn₂))
 
     where
-    0<Sm₁ : LT zero (succ₁ m₁)
+    0<Sm₁ : zero < succ₁ m₁
     0<Sm₁ = x₁y<x₂0→x₁<x₂ (nsucc Nn₂) 0Sn₂<Sm₁0
 
   helper₂ nzero (nsucc Nn₁) nzero (nsucc Nn₂) 0Sn₂<0Sn₁ =
@@ -113,7 +113,7 @@ Lexi-wfind A h Nm Nn = h Nm Nn (helper₂ Nm Nn)
               m'n'<Sm₂Sn₂))
 
     where
-    Sm₂<Sm₁ : LT (succ₁ m₂) (succ₁ m₁)
+    Sm₂<Sm₁ : succ₁ m₂ < succ₁ m₁
     Sm₂<Sm₁ = x₁y<x₂0→x₁<x₂ (nsucc Nn₂) Sm₂Sn₂<Sm₁0
 
   helper₂ nzero (nsucc Nn₁) (nsucc Nm₂) (nsucc Nn₂) Sm₂Sn₂<0Sn₁

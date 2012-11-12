@@ -53,7 +53,7 @@ postulate
   gcd-S≯S-∣₁ :
     ∀ {m n} → N m → N n →
     (gcd (succ₁ m) (succ₁ n ∸ succ₁ m) ∣ succ₁ m) →
-    NGT (succ₁ m) (succ₁ n) →
+    succ₁ m ≯ succ₁ n →
     gcd (succ₁ m) (succ₁ n) ∣ succ₁ m
 {-# ATP prove gcd-S≯S-∣₁ #-}
 
@@ -76,7 +76,7 @@ postulate
     ∀ {m n} → N m → N n →
     (gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∣ (succ₁ m ∸ succ₁ n)) →
     (gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∣ succ₁ n) →
-    GT (succ₁ m) (succ₁ n) →
+    succ₁ m > succ₁ n →
     gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∣ (succ₁ m ∸ succ₁ n) + succ₁ n →
     ((succ₁ m ∸ succ₁ n) + succ₁ n ≡ succ₁ m) →
     gcd (succ₁ m) (succ₁ n) ∣ succ₁ m
@@ -86,7 +86,7 @@ gcd-S>S-∣₁ :
   ∀ {m n} → N m → N n →
   (gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∣ (succ₁ m ∸ succ₁ n)) →
   (gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∣ succ₁ n) →
-  GT (succ₁ m) (succ₁ n) →
+  succ₁ m > succ₁ n →
   gcd (succ₁ m) (succ₁ n) ∣ succ₁ m
 gcd-S>S-∣₁ {m} {n} Nm Nn ih gcd-∣₂ Sm>Sn =
   gcd-S>S-∣₁-ah Nm Nn ih gcd-∣₂ Sm>Sn
@@ -132,7 +132,7 @@ postulate
     ∀ {m n} → N m → N n →
     (gcd (succ₁ m) (succ₁ n ∸ succ₁ m) ∣ (succ₁ n ∸ succ₁ m)) →
     (gcd (succ₁ m) (succ₁ n ∸ succ₁ m) ∣ succ₁ m) →
-    NGT (succ₁ m) (succ₁ n) →
+    succ₁ m ≯ succ₁ n →
     (gcd (succ₁ m) (succ₁ n ∸ succ₁ m) ∣ (succ₁ n ∸ succ₁ m) + succ₁ m) →
     ((succ₁ n ∸ succ₁ m) + succ₁ m ≡ succ₁ n) →
     gcd (succ₁ m) (succ₁ n) ∣ succ₁ n
@@ -142,7 +142,7 @@ gcd-S≯S-∣₂ :
   ∀ {m n} → N m → N n →
   (gcd (succ₁ m) (succ₁ n ∸ succ₁ m) ∣ (succ₁ n ∸ succ₁ m)) →
   (gcd (succ₁ m) (succ₁ n ∸ succ₁ m) ∣ succ₁ m) →
-  NGT (succ₁ m) (succ₁ n) →
+  succ₁ m ≯ succ₁ n →
   gcd (succ₁ m) (succ₁ n) ∣ succ₁ n
 gcd-S≯S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≯Sn =
   gcd-S≯S-∣₂-ah Nm Nn ih gcd-∣₁ Sm≯Sn
@@ -161,7 +161,7 @@ postulate
   gcd-S>S-∣₂ :
     ∀ {m n} → N m → N n →
     (gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∣ succ₁ n) →
-    GT (succ₁ m) (succ₁ n) →
+    succ₁ m > succ₁ n →
     gcd (succ₁ m) (succ₁ n) ∣ succ₁ n
 {-# ATP prove gcd-S>S-∣₂ #-}
 
@@ -181,7 +181,7 @@ gcd-S0-CD Nm = (gcd-S0-∣₁ Nm , gcd-S0-∣₂ Nm)
 gcd-S>S-CD :
   ∀ {m n} → N m → N n →
   (CD (succ₁ m ∸ succ₁ n) (succ₁ n) (gcd (succ₁ m ∸ succ₁ n) (succ₁ n))) →
-  GT (succ₁ m) (succ₁ n) →
+  succ₁ m > succ₁ n →
   CD (succ₁ m) (succ₁ n) (gcd (succ₁ m) (succ₁ n))
 gcd-S>S-CD {m} {n} Nm Nn acc Sm>Sn =
    (gcd-S>S-∣₁ Nm Nn acc-∣₁ acc-∣₂ Sm>Sn , gcd-S>S-∣₂ Nm Nn acc-∣₂ Sm>Sn)
@@ -196,7 +196,7 @@ gcd-S>S-CD {m} {n} Nm Nn acc Sm>Sn =
 gcd-S≯S-CD :
   ∀ {m n} → N m → N n →
   (CD (succ₁ m) (succ₁ n ∸ succ₁ m) (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))) →
-  NGT (succ₁ m) (succ₁ n) →
+  succ₁ m ≯ succ₁ n →
   CD (succ₁ m) (succ₁ n) (gcd (succ₁ m) (succ₁ n))
 gcd-S≯S-CD {m} {n} Nm Nn acc Sm≯Sn =
   (gcd-S≯S-∣₁ Nm Nn acc-∣₁ Sm≯Sn , gcd-S≯S-∣₂ Nm Nn acc-∣₂ acc-∣₁ Sm≯Sn)
@@ -211,7 +211,7 @@ gcd-S≯S-CD {m} {n} Nm Nn acc Sm≯Sn =
 gcd-x>y-CD :
   ∀ {m n} → N m → N n →
   (∀ {o p} → N o → N p → Lexi o p m n → x≢0≢y o p → CD o p (gcd o p)) →
-  GT m n →
+  m > n →
   x≢0≢y m n →
   CD m n (gcd m n)
 gcd-x>y-CD nzero          Nn             _  0>n   _ = ⊥-elim (0>x→⊥ Nn 0>n)
@@ -232,7 +232,7 @@ gcd-x>y-CD (nsucc {m} Nm) (nsucc {n} Nn) ah Sm>Sn _ =
 gcd-x≯y-CD :
   ∀ {m n} → N m → N n →
   (∀ {o p} → N o → N p → Lexi o p m n → x≢0≢y o p → CD o p (gcd o p)) →
-  NGT m n →
+  m ≯ n →
   x≢0≢y m n →
   CD m n (gcd m n)
 gcd-x≯y-CD nzero          nzero         _   _     h = ⊥-elim (h (refl , refl))

@@ -12,9 +12,8 @@ open import FOTC.Data.Nat.Type
 open import FOTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------
-
 -- See the combined proof.
 postulate
   flatten-OrdList-helper : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ →
                            OrdTree (node t₁ i t₂) →
-                           LE-Lists (flatten t₁) (flatten t₂)
+                           ≤-Lists (flatten t₁) (flatten t₂)

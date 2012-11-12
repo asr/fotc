@@ -21,18 +21,18 @@ open import FOTC.Program.McCarthy91.McCarthy91
 ------------------------------------------------------------------------------
 -- Auxiliary equation
 
-postulate mc91-eq-aux : ∀ n → GT n one-hundred → mc91 n ≡ n ∸ ten
+postulate mc91-eq-aux : ∀ n → n > one-hundred → mc91 n ≡ n ∸ ten
 {-# ATP prove mc91-eq-aux #-}
 
 ------------------------------------------------------------------------------
 --- Auxiliary properties
 
 ---- Case n > 100
-postulate mc91>100-N : ∀ {n} → N n → GT n one-hundred → N (mc91 n)
+postulate mc91>100-N : ∀ {n} → N n → n > one-hundred → N (mc91 n)
 {-# ATP prove mc91>100-N 10-N ∸-N #-}
 
 postulate
-  x<mc91x+11>100 : ∀ {n} → N n → GT n one-hundred → LT n (mc91 n + eleven)
+  x<mc91x+11>100 : ∀ {n} → N n → n > one-hundred → n < mc91 n + eleven
 {-# ATP prove x<mc91x+11>100 +-N ∸-N x<y→y≤z→x<z x<x+1 x+1≤x∸10+11 #-}
 
 
@@ -46,22 +46,21 @@ postulate mc91-res-100 : mc91 one-hundred ≡ ninety-one
 ---- Case n ≤ 100
 postulate
   mc91≯100-N : ∀ n →
-               NGT n one-hundred →
+               n ≯ one-hundred →
                N (mc91 (mc91 (n + eleven))) →
                N (mc91 n)
 {-# ATP prove mc91≯100-N #-}
 
 postulate
   mc91x+11<mc91x+11 : ∀ n →
-                      NGT n one-hundred →
-                      LT (mc91 (n + eleven))
-                         (mc91 (mc91 (n + eleven)) + eleven) →
-                      LT (mc91 (n + eleven)) (mc91 n + eleven)
+                      n ≯ one-hundred →
+                      mc91 (n + eleven) < mc91 (mc91 (n + eleven)) + eleven →
+                      mc91 (n + eleven) < mc91 n + eleven
 {-# ATP prove mc91x+11<mc91x+11 #-}
 
 postulate
   mc91x-res≯100 : ∀ m n →
-                  NGT m one-hundred →
+                  m ≯ one-hundred →
                   mc91 (m + eleven) ≡ n → mc91 n ≡ ninety-one →
                   mc91 m ≡ ninety-one
 {-# ATP prove mc91x-res≯100 #-}

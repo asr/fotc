@@ -19,10 +19,10 @@ open import FOTC.Program.Division.Division
 private
   -- The division result when the dividend is minor than the
   -- the divisor.
-  postulate div-x<y : ∀ {i j} → LT i j → div i j ≡ zero
+  postulate div-x<y : ∀ {i j} → i < j → div i j ≡ zero
   {-# ATP prove div-x<y #-}
 
   -- The division result when the dividend is greater or equal than the
   -- the divisor.
-  postulate div-x≮y : ∀ {i j} → NLT i j → div i j ≡ succ₁ (div (i ∸ j) j)
+  postulate div-x≮y : ∀ {i j} → i ≮ j → div i j ≡ succ₁ (div (i ∸ j) j)
   {-# ATP prove div-x≮y #-}

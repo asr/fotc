@@ -38,7 +38,7 @@ postulate
   gcd-S>S-Divisible-ah :
     ∀ {m n} → N m → N n →
     (Divisible (succ₁ m ∸ succ₁ n) (succ₁ n) (gcd (succ₁ m ∸ succ₁ n) (succ₁ n))) →
-    GT (succ₁ m) (succ₁ n) →
+    succ₁ m > succ₁ n →
     ∀ c → N c → CD (succ₁ m) (succ₁ n) c →
     (c ∣ succ₁ m ∸ succ₁ n) →
     c ∣ gcd (succ₁ m) (succ₁ n)
@@ -47,7 +47,7 @@ postulate
 gcd-S>S-Divisible :
   ∀ {m n} → N m → N n →
   (Divisible (succ₁ m ∸ succ₁ n) (succ₁ n) (gcd (succ₁ m ∸ succ₁ n) (succ₁ n))) →
-  GT (succ₁ m) (succ₁ n) →
+  succ₁ m > succ₁ n →
   Divisible (succ₁ m) (succ₁ n) (gcd (succ₁ m) (succ₁ n))
 gcd-S>S-Divisible {m} {n} Nm Nn acc Sm>Sn c Nc (c∣Sm , c∣Sn) =
     gcd-S>S-Divisible-ah Nm Nn acc Sm>Sn c Nc (c∣Sm , c∣Sn)
@@ -61,7 +61,7 @@ postulate
   gcd-S≯S-Divisible-ah :
     ∀ {m n} → N m → N n →
     (Divisible (succ₁ m) (succ₁ n ∸ succ₁ m) (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))) →
-    NGT (succ₁ m) (succ₁ n) →
+    succ₁ m ≯ succ₁ n →
     ∀ c → N c → CD (succ₁ m) (succ₁ n) c →
     (c ∣ succ₁ n ∸ succ₁ m) →
     c ∣ gcd (succ₁ m) (succ₁ n)
@@ -70,7 +70,7 @@ postulate
 gcd-S≯S-Divisible :
   ∀ {m n} → N m → N n →
   (Divisible (succ₁ m) (succ₁ n ∸ succ₁ m) (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))) →
-  NGT (succ₁ m) (succ₁ n) →
+  succ₁ m ≯ succ₁ n →
   Divisible (succ₁ m) (succ₁ n) (gcd (succ₁ m) (succ₁ n))
 gcd-S≯S-Divisible {m} {n} Nm Nn acc Sm≯Sn c Nc (c∣Sm , c∣Sn) =
     gcd-S≯S-Divisible-ah Nm Nn acc Sm≯Sn c Nc (c∣Sm , c∣Sn)
@@ -82,7 +82,7 @@ gcd-x>y-Divisible :
   ∀ {m n} → N m → N n →
   (∀ {o p} → N o → N p → Lexi o p m n → x≢0≢y o p →
                Divisible o p (gcd o p)) →
-  GT m n →
+  m > n →
   x≢0≢y m n →
   Divisible m n (gcd m n)
 gcd-x>y-Divisible nzero Nn _ 0>n _ _ _ = ⊥-elim (0>x→⊥ Nn 0>n)
@@ -105,7 +105,7 @@ gcd-x≯y-Divisible :
   ∀ {m n} → N m → N n →
   (∀ {o p} → N o → N p → Lexi o p m n → x≢0≢y o p →
                Divisible o p (gcd o p)) →
-  NGT m n →
+  m ≯ n →
   x≢0≢y m n →
   Divisible m n (gcd m n)
 gcd-x≯y-Divisible nzero nzero _ _ h _ _  = ⊥-elim (h (refl , refl))

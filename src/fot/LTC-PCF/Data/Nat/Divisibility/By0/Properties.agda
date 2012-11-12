@@ -63,13 +63,13 @@ x∣y→x∣z→x∣y+z Nm Nn No (k₁ , Nk₁ , h₁) (k₂ , Nk₂ , h₂) =
   k₁ + k₂ , +-N Nk₁ Nk₂ , x∣y→x∣z→x∣y+z-helper Nm Nk₁ Nk₂ h₁ h₂
 
 -- If x divides y, and y is positive, then x ≤ y.
-x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → LE m (succ₁ n)
+x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → m ≤ succ₁ n
 x∣S→x≤S {m} Nm Nn (.zero , nzero , Sn≡0*m) =
   ⊥-elim (0≢S (trans (sym (*-leftZero m)) (sym Sn≡0*m)))
 x∣S→x≤S {m} Nm Nn (.(succ₁ k) , nsucc {k} Nk , Sn≡Sk*m) =
-  subst (λ t₁ → LE m t₁)
+  subst (λ t₁ → m ≤ t₁)
         (sym Sn≡Sk*m)
-        (subst (λ t₂ → LE m t₂)
+        (subst (λ t₂ → m ≤ t₂)
                (sym (*-Sx k m))
                (x≤x+y Nm (*-N Nk Nm)))
 

@@ -18,7 +18,7 @@ open import FOTC.Base
 open import FOTC.Data.Nat
 
 import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI
-open FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI.WF-LT
+open FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI.WF-<
 
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI
@@ -66,9 +66,9 @@ nest-DN (domS d h₁ h₂) = subst N (sym (nest-S d)) (nest-DN h₂)
 nest-N : ∀ {n} → N n → N (nest n)
 nest-N Nn = subst N (sym (nest-x≡0 Nn)) nzero
 
-nest-≤ : ∀ {n} → Dom n → LE (nest n) n
-nest-≤ dom0 = nest zero ≤ zero ≡⟨ cong₂ _≤_ nest-0 refl ⟩
-              zero ≤ zero      ≡⟨ x≤x nzero ⟩
+nest-≤ : ∀ {n} → Dom n → nest n ≤ n
+nest-≤ dom0 = le (nest zero) zero ≡⟨ cong₂ le nest-0 refl ⟩
+              le zero zero        ≡⟨ x≤x nzero ⟩
               true             ∎
 
 nest-≤ (domS n h₁ h₂) =
@@ -77,21 +77,21 @@ nest-≤ (domS n h₁ h₂) =
     Nn : N n
     Nn = dom-N n h₁
 
-    prf₁ : LE (nest (succ₁ n)) (nest n)
-    prf₁ = nest (succ₁ n) ≤ nest n ≡⟨ cong₂ _≤_ (nest-S n) refl ⟩
-           nest (nest n) ≤ nest n  ≡⟨ nest-≤ h₂ ⟩
+    prf₁ : nest (succ₁ n) ≤ nest n
+    prf₁ = le (nest (succ₁ n)) (nest n) ≡⟨ cong₂ le (nest-S n) refl ⟩
+           le (nest (nest n)) (nest n)  ≡⟨ nest-≤ h₂ ⟩
            true                    ∎
 
-    prf₂ : LE (nest n) (succ₁ n)
+    prf₂ : nest n ≤ succ₁ n
     prf₂ = ≤-trans (nest-N (dom-N n h₁)) Nn (nsucc Nn) (nest-≤ h₁) (x≤Sx Nn)
 
 N→Dom : ∀ {n} → N n → Dom n
-N→Dom = LT-wfind P ih
+N→Dom = <-wfind P ih
   where
   P : D → Set
   P = Dom
 
-  ih : ∀ {x} → N x → (∀ {y} → N y → LT y x → P y) → P x
+  ih : ∀ {x} → N x → (∀ {y} → N y → y < x → P y) → P x
   ih nzero          h = dom0
   ih (nsucc {x} Nx) h =
     domS x dn-x (h (nest-N Nx ) (x≤y→x<Sy (nest-N Nx) Nx (nest-≤ dn-x)))

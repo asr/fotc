@@ -38,15 +38,15 @@ open import FOTC.Program.Division.TotalityATP
 ------------------------------------------------------------------------------
 -- The division result satifies the specification DIV
 -- when the dividend is less than the divisor.
-div-x<y-DIV : ∀ {i j} → N i → N j → LT i j → DIV i j (div i j)
+div-x<y-DIV : ∀ {i j} → N i → N j → i < j → DIV i j (div i j)
 div-x<y-DIV Ni Nj i<j = div-x<y-N i<j , div-x<y-correct Ni Nj i<j
 
 -- The division result satisfies the specification DIV when the
 -- dividend is greater or equal than the divisor.
 div-x≮y-DIV : ∀ {i j} → N i → N j →
-              (∀ {i'} → N i' → LT i' i → DIV i' j (div i' j)) →
-              GT j zero →
-              NLT i j →
+              (∀ {i'} → N i' → i' < i → DIV i' j (div i' j)) →
+              j > zero →
+              i ≮ j →
               DIV i j (div i j)
 div-x≮y-DIV {i} {j} Ni Nj ah j>0 i≮j =
   div-x≮y-N ih i≮j , div-x≮y-correct Ni Nj ih i≮j
@@ -62,8 +62,8 @@ div-x≮y-DIV {i} {j} Ni Nj ah j>0 i≮j =
 -- The division satisfies the specification.
 
 -- We do the well-founded induction on i and we keep j fixed.
-div-DIV : ∀ {i j} → N i → N j → GT j zero → DIV i j (div i j)
-div-DIV {j = j} Ni Nj j>0 = LT-wfind A ih Ni
+div-DIV : ∀ {i j} → N i → N j → j > zero → DIV i j (div i j)
+div-DIV {j = j} Ni Nj j>0 = <-wfind A ih Ni
   where
   A : D → Set
   A d = DIV d j (div d j)
@@ -71,6 +71,6 @@ div-DIV {j = j} Ni Nj j>0 = LT-wfind A ih Ni
   -- The inductive step doesn't use the variable i (nor Ni). To make
   -- this clear we write down the inductive step using the variables m
   -- and n.
-  ih : ∀ {n} → N n → (∀ {m} → N m → LT m n → A m) → A n
+  ih : ∀ {n} → N n → (∀ {m} → N m → m < n → A m) → A n
   ih {n} Nn ah =
     case (div-x<y-DIV Nn Nj) (div-x≮y-DIV Nn Nj ah j>0) (x<y∨x≮y Nn Nj)

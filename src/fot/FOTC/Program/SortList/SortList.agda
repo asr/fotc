@@ -45,53 +45,53 @@ data Tree : D → Set where
 -- will not cause trouble."
 
 postulate
-  ≤-ItemList    : D → D → D
-  ≤-ItemList-[] : ∀ item → ≤-ItemList item [] ≡ true
-  ≤-ItemList-∷  : ∀ item i is →
-                  ≤-ItemList item (i ∷ is) ≡ (item ≤ i) && ≤-ItemList item is
-{-# ATP axiom ≤-ItemList-[] ≤-ItemList-∷ #-}
+  le-ItemList    : D → D → D
+  le-ItemList-[] : ∀ item → le-ItemList item [] ≡ true
+  le-ItemList-∷  : ∀ item i is →
+                  le-ItemList item (i ∷ is) ≡ le item i && le-ItemList item is
+{-# ATP axiom le-ItemList-[] le-ItemList-∷ #-}
 
-LE-ItemList : D → D → Set
-LE-ItemList item is = ≤-ItemList item is ≡ true
-{-# ATP definition LE-ItemList #-}
-
-postulate
-  ≤-Lists    : D → D → D
-  ≤-Lists-[] : ∀ is → ≤-Lists [] is ≡ true
-  ≤-Lists-∷  : ∀ i is js →
-               ≤-Lists (i ∷ is) js ≡ ≤-ItemList i js && ≤-Lists is js
-{-# ATP axiom ≤-Lists-[] ≤-Lists-∷ #-}
-
-LE-Lists : D → D → Set
-LE-Lists is js = ≤-Lists is js ≡ true
-{-# ATP definition LE-Lists #-}
+≤-ItemList : D → D → Set
+≤-ItemList item is = le-ItemList item is ≡ true
+{-# ATP definition ≤-ItemList #-}
 
 postulate
-  ≤-ItemTree      : D → D → D
-  ≤-ItemTree-nil  : ∀ item → ≤-ItemTree item nil ≡ true
-  ≤-ItemTree-tip  : ∀ item i → ≤-ItemTree item (tip i) ≡ item ≤ i
-  ≤-ItemTree-node : ∀ item t₁ i t₂ →
-                    ≤-ItemTree item (node t₁ i t₂) ≡
-                    ≤-ItemTree item t₁ && ≤-ItemTree item t₂
-{-# ATP axiom ≤-ItemTree-nil ≤-ItemTree-tip ≤-ItemTree-node #-}
+  le-Lists    : D → D → D
+  le-Lists-[] : ∀ is → le-Lists [] is ≡ true
+  le-Lists-∷  : ∀ i is js →
+               le-Lists (i ∷ is) js ≡ le-ItemList i js && le-Lists is js
+{-# ATP axiom le-Lists-[] le-Lists-∷ #-}
 
-LE-ItemTree : D → D → Set
-LE-ItemTree item t = ≤-ItemTree item t ≡ true
-{-# ATP definition LE-ItemTree #-}
+≤-Lists : D → D → Set
+≤-Lists is js = le-Lists is js ≡ true
+{-# ATP definition ≤-Lists #-}
+
+postulate
+  le-ItemTree      : D → D → D
+  le-ItemTree-nil  : ∀ item → le-ItemTree item nil ≡ true
+  le-ItemTree-tip  : ∀ item i → le-ItemTree item (tip i) ≡ le item i
+  le-ItemTree-node : ∀ item t₁ i t₂ →
+                    le-ItemTree item (node t₁ i t₂) ≡
+                    le-ItemTree item t₁ && le-ItemTree item t₂
+{-# ATP axiom le-ItemTree-nil le-ItemTree-tip le-ItemTree-node #-}
+
+≤-ItemTree : D → D → Set
+≤-ItemTree item t = le-ItemTree item t ≡ true
+{-# ATP definition ≤-ItemTree #-}
 
 -- This function is not defined in the paper.
 postulate
-  ≤-TreeItem      : D → D → D
-  ≤-TreeItem-nil  : ∀ item → ≤-TreeItem nil item ≡ true
-  ≤-TreeItem-tip  : ∀ i item → ≤-TreeItem (tip i) item ≡ i ≤ item
-  ≤-TreeItem-node : ∀ t₁ i t₂ item →
-                    ≤-TreeItem (node t₁ i t₂) item ≡
-                    ≤-TreeItem t₁ item && ≤-TreeItem t₂ item
-{-# ATP axiom ≤-TreeItem-nil ≤-TreeItem-tip ≤-TreeItem-node #-}
+  le-TreeItem      : D → D → D
+  le-TreeItem-nil  : ∀ item → le-TreeItem nil item ≡ true
+  le-TreeItem-tip  : ∀ i item → le-TreeItem (tip i) item ≡ le i item
+  le-TreeItem-node : ∀ t₁ i t₂ item →
+                    le-TreeItem (node t₁ i t₂) item ≡
+                    le-TreeItem t₁ item && le-TreeItem t₂ item
+{-# ATP axiom le-TreeItem-nil le-TreeItem-tip le-TreeItem-node #-}
 
-LE-TreeItem : D → D → Set
-LE-TreeItem t item = ≤-TreeItem t item ≡ true
-{-# ATP definition LE-TreeItem #-}
+≤-TreeItem : D → D → Set
+≤-TreeItem t item = le-TreeItem t item ≡ true
+{-# ATP definition ≤-TreeItem #-}
 
 ------------------------------------------------------------------------------
 -- Auxiliary functions
@@ -109,7 +109,7 @@ postulate
 postulate
   ordList    : D → D
   ordList-[] : ordList []                ≡ true
-  ordList-∷  : ∀ i is → ordList (i ∷ is) ≡ ≤-ItemList i is && ordList is
+  ordList-∷  : ∀ i is → ordList (i ∷ is) ≡ le-ItemList i is && ordList is
 {-# ATP axiom ordList-[] ordList-∷ #-}
 
 OrdList : D → Set
@@ -122,7 +122,7 @@ postulate
   ordTree-tip  : ∀ i → ordTree (tip i) ≡ true
   ordTree-node : ∀ t₁ i t₂ →
                  ordTree (node t₁ i t₂) ≡
-                 ordTree t₁ && ordTree t₂ && ≤-TreeItem t₁ i && ≤-ItemTree i t₂
+                 ordTree t₁ && ordTree t₂ && le-TreeItem t₁ i && le-ItemTree i t₂
 {-# ATP axiom ordTree-nil ordTree-tip ordTree-node #-}
 
 OrdTree : D → Set
@@ -142,14 +142,14 @@ postulate
   toTree      : D
   toTree-nil  : ∀ item → toTree · item · nil ≡ tip item
   toTree-tip  : ∀ item i → toTree · item · (tip i) ≡
-                if (i ≤ item)
-                  then (node (tip i) item (tip item))
-                  else (node (tip item) i (tip i))
+                if (le i item)
+                   then (node (tip i) item (tip item))
+                   else (node (tip item) i (tip i))
   toTree-node : ∀ item t₁ i t₂ →
                 toTree · item · (node t₁ i t₂) ≡
-                if (i ≤ item)
-                  then (node t₁ i (toTree · item · t₂))
-                  else (node (toTree · item · t₁) i t₂)
+                if (le i item)
+                   then (node t₁ i (toTree · item · t₂))
+                   else (node (toTree · item · t₁) i t₂)
 {-# ATP axiom toTree-nil toTree-tip toTree-node #-}
 
 -- The function makeTree converts a list to a tree.

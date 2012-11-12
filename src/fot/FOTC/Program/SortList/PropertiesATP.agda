@@ -34,10 +34,10 @@ toTree-OrdTree {item} Nitem tnil OTt = prf
 toTree-OrdTree {item} Nitem (ttip {i} Ni) OTt =
   case prf₁ prf₂ (x>y∨x≤y Ni Nitem)
   where
-  postulate prf₁ : GT i item → OrdTree (toTree · item · tip i)
+  postulate prf₁ : i > item → OrdTree (toTree · item · tip i)
   {-# ATP prove prf₁ x≤x x<y→x≤y x>y→x≰y #-}
 
-  postulate prf₂ : LE i item → OrdTree (toTree · item · tip i)
+  postulate prf₂ : i ≤ item → OrdTree (toTree · item · tip i)
   {-# ATP prove prf₂ x≤x #-}
 
 toTree-OrdTree {item} Nitem (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTtnode =
@@ -49,19 +49,19 @@ toTree-OrdTree {item} Nitem (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTtnode =
   where
   postulate prf₁ : ordTree (toTree · item · t₁) ≡ true →
                    OrdTree t₂ →
-                   GT i item →
+                   i > item →
                    OrdTree (toTree · item · node t₁ i t₂)
-  {-# ATP prove prf₁ ≤-ItemTree-Bool ≤-TreeItem-Bool ordTree-Bool
-                     x>y→x≰y &&-list₄-t
+  {-# ATP prove prf₁ &&-list₄-t x>y→x≰y
+                     le-ItemTree-Bool le-TreeItem-Bool ordTree-Bool
                      toTree-OrdTree-helper₁
   #-}
 
   postulate prf₂ : ordTree (toTree · item · t₂) ≡ true →
                    OrdTree t₁ →
-                   LE i item →
+                   i ≤ item →
                    OrdTree (toTree · item · node t₁ i t₂)
-  {-# ATP prove prf₂ ≤-ItemTree-Bool ≤-TreeItem-Bool ordTree-Bool
-                     &&-list₄-t toTree-OrdTree-helper₂
+  {-# ATP prove prf₂ &&-list₄-t  le-ItemTree-Bool le-TreeItem-Bool
+                     ordTree-Bool toTree-OrdTree-helper₂
   #-}
 
 ------------------------------------------------------------------------------
@@ -85,7 +85,7 @@ makeTree-OrdTree (lncons {i} {is} Ni Lis) = prf (makeTree-OrdTree Lis)
 -- Burstall's lemma: If ord(is1) and ord(is2) and is1 ≤ is2 then
 -- ord(concat(is1, is2)).
 ++-OrdList : ∀ {is js} → ListN is → ListN js → OrdList is → OrdList js →
-             LE-Lists is js → OrdList (is ++ js)
+             ≤-Lists is js → OrdList (is ++ js)
 
 ++-OrdList {js = js} lnnil LNjs LOis LOjs is≤js =
   subst (λ t → OrdList t) (sym (++-[] js)) LOjs
@@ -96,12 +96,12 @@ makeTree-OrdTree (lncons {i} {is} Ni Lis) = prf (makeTree-OrdTree Lis)
         (lemma (++-OrdList LNis LNjs
                            (subList-OrdList Ni LNis OLi∷is)
                            OLjs
-                           (&&-list₂-t₂ (≤-ItemList-Bool Ni LNjs)
-                                        (≤-Lists-Bool LNis LNjs)
-                                        (trans (sym (≤-Lists-∷ i is js)) i∷is≤js))))
+                           (&&-list₂-t₂ (le-ItemList-Bool Ni LNjs)
+                                        (le-Lists-Bool LNis LNjs)
+                                        (trans (sym (le-Lists-∷ i is js)) i∷is≤js))))
   where postulate lemma : OrdList (is ++ js) → OrdList (i ∷ is ++ js)
-        {-# ATP prove lemma ≤-ItemList-Bool ≤-Lists-Bool ordList-Bool
-                            &&-list₂-t ++-OrdList-helper
+        {-# ATP prove lemma &&-list₂-t ++-OrdList-helper
+                            le-ItemList-Bool le-Lists-Bool ordList-Bool
         #-}
 
 ------------------------------------------------------------------------------

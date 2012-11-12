@@ -24,7 +24,7 @@ open import LTC-PCF.Data.Nat.Inequalities
 
 divh : D → D
 divh g = lam (λ i → lam (λ j →
-             if (i < j)
+             if (lt i j)
                 then zero
                 else (succ₁ (g · (i ∸ j) · j))))
 

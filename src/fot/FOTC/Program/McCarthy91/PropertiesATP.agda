@@ -34,11 +34,11 @@ open import FOTC.Program.McCarthy91.AuxiliaryPropertiesATP
 
 ------------------------------------------------------------------------------
 
-mc91-N-ineq : ∀ {n} → N n → N (mc91 n) ∧ LT n (mc91 n + eleven)
+mc91-N-ineq : ∀ {n} → N n → N (mc91 n) ∧ n < mc91 n + eleven
 mc91-N-ineq = wfInd-MCR A h
   where
   A : D → Set
-  A d = N (mc91 d) ∧ LT d (mc91 d + eleven)
+  A d = N (mc91 d) ∧ d < mc91 d + eleven
 
   h : ∀ {m} → N m → (∀ {k} → N k → MCR k m → A k) → A m
   h {m} Nm f with x>y∨x≯y Nm 100-N
@@ -50,10 +50,10 @@ mc91-N-ineq = wfInd-MCR A h
         h₁-N : N (mc91 (m + eleven))
         h₁-N = ∧-proj₁ h₁
 
-        h₁-LT : LT (m + eleven) (mc91 (m + eleven) + eleven)
+        h₁-LT : m + eleven < mc91 (m + eleven) + eleven
         h₁-LT = ∧-proj₂ h₁
 
-        m<mc91m+11 : LT m (mc91 (m + eleven))
+        m<mc91m+11 : m < mc91 (m + eleven)
         m<mc91m+11 = x+k<y+k→x<y Nm h₁-N 11-N h₁-LT
 
         h₂ : A (mc91 (m + eleven))
@@ -67,13 +67,13 @@ mc91-N-ineq = wfInd-MCR A h
                  m<mc91m+11
                  (mc91x+11<mc91x+11 m m≯100 (∧-proj₂ h₂)))
 
-mc91-res : ∀ {n} → N n → (GT n one-hundred ∧ mc91 n ≡ n ∸ ten) ∨
-                         (NGT n one-hundred ∧ mc91 n ≡ ninety-one)
+mc91-res : ∀ {n} → N n → (n > one-hundred ∧ mc91 n ≡ n ∸ ten) ∨
+                         (n ≯ one-hundred ∧ mc91 n ≡ ninety-one)
 mc91-res = wfInd-MCR A h
   where
   A : D → Set
-  A d = (GT d one-hundred ∧ mc91 d ≡ d ∸ ten) ∨
-        (NGT d one-hundred ∧ mc91 d ≡ ninety-one)
+  A d = (d > one-hundred ∧ mc91 d ≡ d ∸ ten) ∨
+        (d ≯ one-hundred ∧ mc91 d ≡ ninety-one)
 
   h : ∀ {m} → N m → (∀ {k} → N k → MCR k m → A k) → A m
   h {m} Nm f with x>y∨x≯y Nm 100-N
@@ -102,7 +102,7 @@ mc91-res = wfInd-MCR A h
   ... | inj₂ m≡90 = inj₂ ( m≯100 , mc91-res-aux mc91-res-90 m≡90 )
   ... | inj₁ m≯89 = inj₂ ( m≯100 , mc91-res-m≯89 )
     where
-    m≤89 : LE m eighty-nine
+    m≤89 : m ≤ eighty-nine
     m≤89 = x≯y→x≤y Nm 89-N m≯89
 
     mc91-res-m+11 : mc91 (m + eleven) ≡ ninety-one
@@ -121,17 +121,17 @@ mc91-N : ∀ {n} → N n → N (mc91 n)
 mc91-N Nn = ∧-proj₁ (mc91-N-ineq Nn)
 
 -- For all n, n < mc91 n + 11.
-mc91-ineq : ∀ {n} → N n → LT n (mc91 n + eleven)
+mc91-ineq : ∀ {n} → N n → n < mc91 n + eleven
 mc91-ineq Nn = ∧-proj₂ (mc91-N-ineq Nn)
 
 -- For all n > 100, then mc91 n = n - 10.
-mc91-res>100 : ∀ {n} → N n → GT n one-hundred → mc91 n ≡ n ∸ ten
+mc91-res>100 : ∀ {n} → N n → n > one-hundred → mc91 n ≡ n ∸ ten
 mc91-res>100 Nn n>100 with mc91-res Nn
 ... | inj₁ ( _     , res ) = res
 ... | inj₂ ( n≯100 , _ )   = ⊥-elim (x>y→x≤y→⊥ Nn 100-N n>100
                                                (x≯y→x≤y Nn 100-N n≯100))
 -- For all n <= 100, then mc91 n = 91.
-mc91-res≯100 : ∀ {n} → N n → NGT n one-hundred → mc91 n ≡ ninety-one
+mc91-res≯100 : ∀ {n} → N n → n ≯ one-hundred → mc91 n ≡ ninety-one
 mc91-res≯100 Nn n≯100 with mc91-res Nn
 ... | inj₁ ( n>100 , _   ) = ⊥-elim (x>y→x≤y→⊥ Nn 100-N n>100
                                                (x≯y→x≤y Nn 100-N n≯100))

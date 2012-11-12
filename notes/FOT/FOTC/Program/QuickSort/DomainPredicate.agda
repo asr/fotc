@@ -10,13 +10,12 @@ module FOT.FOTC.Program.QuickSort.DomainPredicate where
 
 open import FOTC.Base
 open FOTC.Base.BList
-open import FOTC.Data.Nat.Inequalities
+open import FOTC.Data.Nat.Inequalities hiding ( le ; gt )
 open import FOTC.Data.Nat.List.Type
 open import FOTC.Data.Nat.Type
 open import FOTC.Data.List
 
 ------------------------------------------------------------------------------
-
 -- We need to define monadic inequalities.
 postulate
   le gt : D
@@ -24,7 +23,7 @@ postulate
   le-00 :         le · zero    · zero    ≡ false
   le-0S : ∀ d →   le · zero    · succ₁ d ≡ true
   le-S0 : ∀ d →   le · succ₁ d · zero    ≡ false
-  le-SS : ∀ d e → le · succ₁ d · succ₁ e ≡ d < e
+  le-SS : ∀ d e → le · succ₁ d · succ₁ e ≡ lt d e
 
 postulate
   filter    : D → D → D

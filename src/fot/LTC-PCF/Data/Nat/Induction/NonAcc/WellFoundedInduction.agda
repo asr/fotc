@@ -20,26 +20,26 @@ open import LTC-PCF.Data.Nat.Type
 module WFInd where
 
   LT-wfind : (A : D → Set) →
-             (∀ {n} → N n → (∀ {m} → N m → LT m n → A m) → A n) →
+             (∀ {n} → N n → (∀ {m} → N m → m < n → A m) → A n) →
              ∀ {n} → N n → A n
   LT-wfind A h Nn = h Nn (helper Nn)
     where
-    helper : ∀ {n m} → N n → N m → LT m n → A m
+    helper : ∀ {n m} → N n → N m → m < n → A m
     helper nzero     Nm    m<0  = ⊥-elim (x<0→⊥ Nm m<0)
     helper (nsucc _) nzero 0<Sn = h nzero (λ Nm' m'<0 → ⊥-elim (x<0→⊥ Nm' m'<0))
 
     helper (nsucc {n} Nn) (nsucc {m} Nm) Sm<Sn = h (nsucc Nm)
       (λ {m'} Nm' m'<Sm →
-        let Sm'≤Sm : LE (succ₁ m') (succ₁ m)
+        let Sm'≤Sm : succ₁ m' ≤ succ₁ m
             Sm'≤Sm = x<y→Sx≤y Nm' (nsucc Nm) m'<Sm
 
-            Sm≤n : LE (succ₁ m) n
+            Sm≤n : succ₁ m ≤ n
             Sm≤n = Sx≤Sy→x≤y (x<y→Sx≤y (nsucc Nm) (nsucc Nn) Sm<Sn)
 
-            Sm'≤n : LE (succ₁ m') n
+            Sm'≤n : succ₁ m' ≤ n
             Sm'≤n = ≤-trans (nsucc Nm') (nsucc Nm) Nn Sm'≤Sm Sm≤n
 
-            m'<n : LT m' n
+            m'<n : m' < n
             m'<n = Sx≤y→x<y Nm' Nn Sm'≤n
 
         in  helper Nn Nm' m'<n
@@ -52,20 +52,20 @@ module WFInd where
 module WFInd₁ where
 
   LT-wfind₁ : (A : D → Set) →
-              (∀ {n} → N n → (∀ {m} → N m → LT m n → A m) → A n) →
+              (∀ {n} → N n → (∀ {m} → N m → m < n → A m) → A n) →
               ∀ {n} → N n → A n
   LT-wfind₁ A h Nn = h Nn (helper Nn)
     where
-    helper : ∀ {n m} → N n → N m → LT m n → A m
+    helper : ∀ {n m} → N n → N m → m < n → A m
     helper nzero     Nm    m<0  = ⊥-elim (x<0→⊥ Nm m<0)
     helper (nsucc _) nzero 0<Sn = h nzero (λ Nm' m'<0 → ⊥-elim (x<0→⊥ Nm' m'<0))
 
     helper (nsucc {n} Nn) (nsucc {m} Nm) Sm<Sn = h (nsucc Nm)
       (λ {m'} Nm' m'<Sm →
-        let m<n : LT m n
+        let m<n : m < n
             m<n = Sx<Sy→x<y Sm<Sn
 
-            m'<n : LT m' n
+            m'<n : m' < n
             m'<n = case (λ m'<m → <-trans Nm' Nm Nn m'<m m<n)
                         (λ m'≡m → x≡y→y<z→x<z m'≡m m<n)
                         (x<Sy→x<y∨x≡y Nm' Nm m'<Sm)

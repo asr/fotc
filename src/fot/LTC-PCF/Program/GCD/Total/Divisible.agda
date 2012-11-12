@@ -43,7 +43,7 @@ gcd-S0-Divisible {n} _ c _ (c∣Sn , c∣0) =
 gcd-S>S-Divisible :
   ∀ {m n} → N m → N n →
   (Divisible (succ₁ m ∸ succ₁ n) (succ₁ n) (gcd (succ₁ m ∸ succ₁ n) (succ₁ n))) →
-  GT (succ₁ m) (succ₁ n) →
+  succ₁ m > succ₁ n →
   Divisible (succ₁ m) (succ₁ n) (gcd (succ₁ m) (succ₁ n))
 gcd-S>S-Divisible {m} {n} Nm Nn acc Sm>Sn c Nc (c∣Sm , c∣Sn) =
 {-
@@ -69,7 +69,7 @@ Proof:
 gcd-S≯S-Divisible :
   ∀ {m n} → N m → N n →
   (Divisible (succ₁ m) (succ₁ n ∸ succ₁ m) (gcd (succ₁ m) (succ₁ n ∸ succ₁ m))) →
-  NGT (succ₁ m) (succ₁ n) →
+  succ₁ m ≯ succ₁ n →
   Divisible (succ₁ m) (succ₁ n) (gcd (succ₁ m) (succ₁ n))
 gcd-S≯S-Divisible {m} {n} Nm Nn acc Sm≯Sn c Nc (c∣Sm , c∣Sn) =
 {-
@@ -96,7 +96,7 @@ Proof
 gcd-x>y-Divisible :
   ∀ {m n} → N m → N n →
   (∀ {o p} → N o → N p → Lexi o p m n → Divisible o p (gcd o p)) →
-  GT m n →
+  m > n →
   Divisible m n (gcd m n)
 gcd-x>y-Divisible nzero Nn _ 0>n _ _ = ⊥-elim (0>x→⊥ Nn 0>n)
 gcd-x>y-Divisible (nsucc Nm) nzero _ _ c Nc = gcd-S0-Divisible Nm c Nc
@@ -116,7 +116,7 @@ gcd-x>y-Divisible (nsucc {m} Nm) (nsucc {n} Nn) ah Sm>Sn c Nc =
 gcd-x≯y-Divisible :
   ∀ {m n} → N m → N n →
   (∀ {o p} → N o → N p → Lexi o p m n → Divisible o p (gcd o p)) →
-  NGT m n →
+  m ≯ n →
   Divisible m n (gcd m n)
 gcd-x≯y-Divisible nzero nzero _ _ c Nc = gcd-00-Divisible c Nc
 gcd-x≯y-Divisible nzero (nsucc Nn) _ _ c Nc = gcd-0S-Divisible Nn c Nc

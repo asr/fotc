@@ -14,7 +14,7 @@ open import FOTC.Data.List.LT-Length.PropertiesI
 open import FOTC.Data.List.PropertiesI
 
 import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI
-open FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI.WF-LT
+open FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI.WF-<
 
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Type
@@ -22,12 +22,12 @@ open import FOTC.Induction.WellFounded
 
 -- Parametrized modules
 open module InvImg =
-  FOTC.Induction.WellFounded.InverseImage {List} {N} {LT} lengthList-N
+  FOTC.Induction.WellFounded.InverseImage {List} {N} {_<_} lengthList-N
 
 ------------------------------------------------------------------------------
 -- The relation LTL is well-founded (using the inverse image combinator).
 wf-LTL : WellFounded LTL
-wf-LTL Lxs = wellFounded wf-LT Lxs
+wf-LTL Lxs = wellFounded wf-< Lxs
 
 -- Well-founded induction on the relation LTL.
 LTL-wfind : (A : D → Set) →

@@ -11,7 +11,7 @@ open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Type
 
 module LTC-PCF.Program.GCD.Partial.GreatestAnyCommonDivisor
-  (x∣Sy→x≤Sy : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → LE m (succ₁ n))
+  (x∣Sy→x≤Sy : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → m ≤ succ₁ n)
   (0∤x       : ∀ {n} → ¬ (zero ∣ n))
   where
 

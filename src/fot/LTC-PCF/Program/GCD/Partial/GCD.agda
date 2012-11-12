@@ -27,7 +27,7 @@ gcdh g = lam (λ m → lam (λ n →
                        else m)
               else (if (iszero₁ m)
                        then n
-                       else (if (m > n)
+                       else (if (gt m n)
                                 then g · (m ∸ n) · n
                                 else g · m · (n ∸ m)))))
 

@@ -33,7 +33,7 @@ gcd-S0-N {n} Nn = subst N (sym (gcd-S0 n)) (nsucc Nn)
 -- gcd (succ₁ m) (succ₁ n) when succ₁ m > succ₁ n is total.
 gcd-S>S-N : ∀ {m n} → N m → N n →
             N (gcd (succ₁ m ∸ succ₁ n) (succ₁ n)) →
-            GT (succ₁ m) (succ₁ n) →
+            succ₁ m > succ₁ n →
             N (gcd (succ₁ m) (succ₁ n))
 gcd-S>S-N {m} {n} Nm Nn ih Sm>Sn = subst N (sym (gcd-S>S m n Sm>Sn)) ih
 
@@ -41,7 +41,7 @@ gcd-S>S-N {m} {n} Nm Nn ih Sm>Sn = subst N (sym (gcd-S>S m n Sm>Sn)) ih
 -- gcd (succ₁ m) (succ₁ n) when succ₁ m ≯ succ₁ n is total.
 gcd-S≯S-N : ∀ {m n} → N m → N n →
             N (gcd (succ₁ m) (succ₁ n ∸ succ₁ m)) →
-            NGT (succ₁ m) (succ₁ n) →
+            succ₁ m ≯ succ₁ n →
             N (gcd (succ₁ m) (succ₁ n))
 gcd-S≯S-N {m} {n} Nm Nn ih Sm≯Sn = subst N (sym (gcd-S≯S m n Sm≯Sn)) ih
 
@@ -50,7 +50,7 @@ gcd-S≯S-N {m} {n} Nm Nn ih Sm≯Sn = subst N (sym (gcd-S≯S m n Sm≯Sn)) ih
 gcd-x>y-N :
   ∀ {m n} → N m → N n →
   (∀ {o p} → N o → N p → Lexi o p m n → x≢0≢y o p → N (gcd o p)) →
-  GT m n →
+  m > n →
   x≢0≢y m n →
   N (gcd m n)
 gcd-x>y-N nzero          Nn             _  0>n   _ = ⊥-elim (0>x→⊥ Nn 0>n)
@@ -72,7 +72,7 @@ gcd-x>y-N (nsucc {m} Nm) (nsucc {n} Nn) ah Sm>Sn _ =
 gcd-x≯y-N :
   ∀ {m n} → N m → N n →
   (∀ {o p} → N o → N p → Lexi o p m n → x≢0≢y o p → N (gcd o p)) →
-  NGT m n →
+  m ≯ n →
   x≢0≢y m n →
   N (gcd m n)
 gcd-x≯y-N nzero          nzero          _  _     h = ⊥-elim (h (refl , refl))

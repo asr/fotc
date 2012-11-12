@@ -19,7 +19,6 @@ open import FOTC.Program.Collatz.Data.Nat
 ------------------------------------------------------------------------------
 
 postulate
-  collatz-even    : ∀ {n} → GT n one → Even n →
-                    collatz n ≡ collatz (n / two)
+  collatz-even : ∀ {n} → n > one → Even n → collatz n ≡ collatz (n / two)
 -- The ATPs cannot prove this equation.
 -- {-# ATP prove collatz-even #-}

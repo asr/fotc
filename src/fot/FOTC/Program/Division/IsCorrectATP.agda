@@ -18,11 +18,11 @@ open import FOTC.Program.Division.Specification
 -- The division result is correct when the dividend is less than
 -- the divisor.
 
-postulate div-x<y-helper : ∀ {i j} → N i → N j → LT i j → i ≡ j * div i j + i
+postulate div-x<y-helper : ∀ {i j} → N i → N j → i < j → i ≡ j * div i j + i
 {-# ATP prove div-x<y-helper *-rightZero #-}
 
-div-x<y-correct : ∀ {i j} → N i → N j → LT i j →
-                  ∃[ r ] N r ∧ LT r j ∧ i ≡ j * div i j + r
+div-x<y-correct : ∀ {i j} → N i → N j → i < j →
+                  ∃[ r ] N r ∧ r < j ∧ i ≡ j * div i j + r
 div-x<y-correct Ni Nj i<j = _ , Ni , i<j , div-x<y-helper Ni Nj i<j
 
 -- The division result is correct when the dividend is greater or equal
@@ -45,7 +45,7 @@ postulate
 
 postulate
   div-x≮y-helper : ∀ {i j r} → N i → N j → N r →
-                   NLT i j →
+                   i ≮ j →
                    i ∸ j ≡ j * div (i ∸ j) j + r →
                    i ≡ j * div i j + r
 {-# ATP prove div-x≮y-helper helper #-}
@@ -53,6 +53,6 @@ postulate
 postulate
   div-x≮y-correct : ∀ {i j} → N i → N j →
                     (ih : DIV (i ∸ j) j (div (i ∸ j) j)) →
-                    NLT i j →
-                    ∃[ r ] N r ∧ LT r j ∧ i ≡ j * div i j + r
+                    i ≮ j →
+                    ∃[ r ] N r ∧ r < j ∧ i ≡ j * div i j + r
 {-# ATP prove div-x≮y-correct div-x≮y-helper #-}

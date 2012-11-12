@@ -74,57 +74,57 @@ reverse-List Lxs = rev-List Lxs lnil
 
 -- Length properties
 
-lg-x<lg-x∷xs : ∀ x {xs} → List xs → LT (length xs) (length (x ∷ xs))
+lg-x<lg-x∷xs : ∀ x {xs} → List xs → length xs < length (x ∷ xs)
 lg-x<lg-x∷xs x lnil =
-  length [] < length (x ∷ [])
-    ≡⟨ subst₂ (λ t₁ t₂ → length [] < length (x ∷ []) ≡ t₁ < t₂)
+  lt (length []) (length (x ∷ []))
+    ≡⟨ subst₂ (λ t₁ t₂ → lt (length []) (length (x ∷ [])) ≡ lt t₁ t₂)
               length-[]
               (length-∷ x [])
               refl
     ⟩
-  zero < succ₁ (length [])
-    ≡⟨ <-0S (length []) ⟩
+  lt zero (succ₁ (length []))
+    ≡⟨ lt-0S (length []) ⟩
   true ∎
 
 lg-x<lg-x∷xs x (lcons y {xs} Lxs) =
-  length (y ∷ xs) < length (x ∷ y ∷ xs)
-    ≡⟨ subst₂ (λ t₁ t₂ → length (y ∷ xs) < length (x ∷ y ∷ xs) ≡ t₁ < t₂)
+  lt (length (y ∷ xs)) (length (x ∷ y ∷ xs))
+    ≡⟨ subst₂ (λ t₁ t₂ → lt (length (y ∷ xs)) (length (x ∷ y ∷ xs)) ≡ lt t₁ t₂)
               (length-∷ y xs)
               (length-∷ x (y ∷ xs))
               refl
     ⟩
-  succ₁ (length xs) < succ₁ (length (y ∷ xs))
-    ≡⟨ <-SS (length xs) (length (y ∷ xs)) ⟩
-  length xs < length (y ∷ xs)
+  lt (succ₁ (length xs)) (succ₁ (length (y ∷ xs)))
+    ≡⟨ lt-SS (length xs) (length (y ∷ xs)) ⟩
+  lt (length xs) (length (y ∷ xs))
     ≡⟨ lg-x<lg-x∷xs y Lxs ⟩
   true ∎
 
-lg-xs<lg-[]→⊥ : ∀ {xs} → List xs → ¬ (LT (length xs) (length []))
+lg-xs<lg-[]→⊥ : ∀ {xs} → List xs → ¬ (length xs < length [])
 lg-xs<lg-[]→⊥ lnil lg-[]<lg-[] = ⊥-elim (0<0→⊥ helper)
   where
-  helper : zero < zero ≡ true
+  helper : zero < zero
   helper =
-    zero < zero
-      ≡⟨ subst₂ (λ t₁ t₂ → zero < zero ≡ t₁ < t₂)
+    lt zero zero
+      ≡⟨ subst₂ (λ t₁ t₂ → lt zero zero ≡ lt t₁ t₂)
                 (sym length-[])
                 (sym length-[])
                 refl
       ⟩
-    length [] < length []
+    lt (length []) (length [])
       ≡⟨ lg-[]<lg-[] ⟩
     true ∎
 
 lg-xs<lg-[]→⊥ (lcons x {xs} Lxs) lg-x∷xs<lg-[] = ⊥-elim (S<0→⊥ helper)
   where
-  helper : succ₁ (length xs) < zero ≡ true
+  helper : succ₁ (length xs) < zero
   helper =
-    succ₁ (length xs) < zero
-      ≡⟨ subst₂ (λ t₁ t₂ → succ₁ (length xs) < zero ≡ t₁ < t₂)
+    lt (succ₁ (length xs)) zero
+      ≡⟨ subst₂ (λ t₁ t₂ → lt (succ₁ (length xs)) zero ≡ lt t₁ t₂)
                 (sym (length-∷ x xs))
                 (sym length-[])
                 refl
       ⟩
-    length (x ∷ xs) < length []
+    lt (length (x ∷ xs)) (length [])
       ≡⟨ lg-x∷xs<lg-[] ⟩
     true ∎
 

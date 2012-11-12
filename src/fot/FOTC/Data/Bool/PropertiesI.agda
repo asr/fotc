@@ -188,14 +188,14 @@ not-involutive bfalse = trans (cong not not-f) not-t
 ------------------------------------------------------------------------------
 -- Properties with inequalities
 
-<-Bool : ∀ {m n} → N m → N n → Bool (m < n)
-<-Bool nzero          nzero          = subst Bool (sym <-00) bfalse
-<-Bool nzero          (nsucc {n} Nn) = subst Bool (sym (<-0S n)) btrue
-<-Bool (nsucc {m} Nm) nzero          = subst Bool (sym (<-S0 m)) bfalse
-<-Bool (nsucc {m} Nm) (nsucc {n} Nn) = subst Bool (sym (<-SS m n)) (<-Bool Nm Nn)
+lt-Bool : ∀ {m n} → N m → N n → Bool (lt m n)
+lt-Bool nzero          nzero          = subst Bool (sym lt-00) bfalse
+lt-Bool nzero          (nsucc {n} Nn) = subst Bool (sym (lt-0S n)) btrue
+lt-Bool (nsucc {m} Nm) nzero          = subst Bool (sym (lt-S0 m)) bfalse
+lt-Bool (nsucc {m} Nm) (nsucc {n} Nn) = subst Bool (sym (lt-SS m n)) (lt-Bool Nm Nn)
 
-≤-Bool : ∀ {m n} → N m → N n → Bool (m ≤ n)
-≤-Bool {n = n} nzero          Nn             = subst Bool (sym (<-0S n)) btrue
-≤-Bool         (nsucc Nm)     nzero          = subst Bool (sym (Sx≰0 Nm)) bfalse
-≤-Bool         (nsucc {m} Nm) (nsucc {n} Nn) =
-  subst Bool (sym (<-SS m (succ₁ n))) (≤-Bool Nm Nn)
+le-Bool : ∀ {m n} → N m → N n → Bool (le m n)
+le-Bool {n = n} nzero          Nn             = subst Bool (sym (lt-0S n)) btrue
+le-Bool         (nsucc Nm)     nzero          = subst Bool (sym (Sx≰0 Nm)) bfalse
+le-Bool         (nsucc {m} Nm) (nsucc {n} Nn) =
+  subst Bool (sym (lt-SS m (succ₁ n))) (le-Bool Nm Nn)

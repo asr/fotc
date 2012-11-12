@@ -27,11 +27,11 @@ private
   {-# ATP prove gcd-0S #-}
 
   postulate
-    gcd-S>S : ∀ m n → GT (succ₁ m) (succ₁ n) →
+    gcd-S>S : ∀ m n → succ₁ m > succ₁ n →
               gcd (succ₁ m) (succ₁ n) ≡ gcd (succ₁ m ∸ succ₁ n) (succ₁ n)
   {-# ATP prove gcd-S>S #-}
 
   postulate
-    gcd-S≯S : ∀ m n → NGT (succ₁ m) (succ₁ n) →
+    gcd-S≯S : ∀ m n → succ₁ m ≯ succ₁ n →
               gcd (succ₁ m) (succ₁ n) ≡ gcd (succ₁ m) (succ₁ n ∸ succ₁ m)
   {-# ATP prove gcd-S≯S #-}

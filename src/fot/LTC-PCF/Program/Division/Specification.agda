@@ -14,4 +14,4 @@ open import LTC-PCF.Data.Nat.Inequalities
 ------------------------------------------------------------------------------
 -- The division is total and the result is correct.
 DIV : D → D → D → Set
-DIV i j q = N q ∧ (∃[ r ] N r ∧ LT r j ∧ i ≡ j * q + r)
+DIV i j q = N q ∧ (∃[ r ] N r ∧ r < j ∧ i ≡ j * q + r)

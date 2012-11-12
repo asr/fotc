@@ -26,15 +26,15 @@ x∷xs<y∷ys→xs<ys : ∀ {x xs y ys} → List xs → List ys →
                   LTL (x ∷ xs) (y ∷ ys) → LTL xs ys
 x∷xs<y∷ys→xs<ys {x} {xs} {y} {ys} Lxs Lys x∷xs<y∷ys = Nat.Sx<Sy→x<y helper
   where
-  helper : LT (succ₁ (length xs)) (succ₁ (length ys))
+  helper : succ₁ (length xs) < succ₁ (length ys)
   helper =
-    succ₁ (length xs) < succ₁ (length ys)
-      ≡⟨ subst₂ (λ t₁ t₂ → succ₁ (length xs) < succ₁ (length ys) ≡ t₁ < t₂)
+    lt (succ₁ (length xs)) (succ₁ (length ys))
+      ≡⟨ subst₂ (λ t₁ t₂ → lt (succ₁ (length xs)) (succ₁ (length ys)) ≡ lt t₁ t₂)
                 (sym (length-∷ x xs))
                 (sym (length-∷ y ys))
                 refl
       ⟩
-    length (x ∷ xs) < length (y ∷ ys)
+    lt (length (x ∷ xs)) (length (y ∷ ys))
       ≡⟨ x∷xs<y∷ys ⟩
     true ∎
 
@@ -47,9 +47,9 @@ x∷xs<y∷ys→xs<ys {x} {xs} {y} {ys} Lxs Lys x∷xs<y∷ys = Nat.Sx<Sy→x<y 
 lg-xs≡lg-ys→ys<zx→xs<zs : ∀ {xs ys zs} → length xs ≡ length ys →
                           LTL ys zs → LTL xs zs
 lg-xs≡lg-ys→ys<zx→xs<zs {xs} {ys} {zs} lg-xs≡lg-ys ys<zs =
-  length xs < length zs
-    ≡⟨ subst (λ t → length xs < length zs ≡ t < length zs) lg-xs≡lg-ys refl ⟩
-  length ys < length zs
+  lt (length xs) (length zs)
+    ≡⟨ subst (λ t → lt (length xs) (length zs) ≡ lt t (length zs)) lg-xs≡lg-ys refl ⟩
+  lt (length ys) (length zs)
     ≡⟨ ys<zs ⟩
   true ∎
 
@@ -59,13 +59,13 @@ xs<y∷ys→xs<ys∨lg-xs≡lg-ys : ∀ {xs y ys} → List xs → List ys →
 xs<y∷ys→xs<ys∨lg-xs≡lg-ys {xs} {y} {ys} Lxs Lys xs<y∷ys =
   Nat.x<Sy→x<y∨x≡y (lengthList-N Lxs) (lengthList-N Lys) helper
   where
-  helper : LT (length xs) (succ₁ (length ys))
+  helper : length xs < succ₁ (length ys)
   helper =
-    length xs < succ₁ (length ys)
-      ≡⟨ subst (λ t → length xs < succ₁ (length ys) ≡ length xs < t)
+    lt (length xs) (succ₁ (length ys))
+      ≡⟨ subst (λ t → lt (length xs) (succ₁ (length ys)) ≡ lt (length xs) t)
                (sym (length-∷ y ys))
                refl
       ⟩
-    length xs < length (y ∷ ys)
+    lt (length xs) (length (y ∷ ys))
       ≡⟨ xs<y∷ys ⟩
     true ∎

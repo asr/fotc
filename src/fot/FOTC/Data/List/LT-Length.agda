@@ -14,4 +14,4 @@ open import FOTC.Data.Nat.Inequalities
 ------------------------------------------------------------------------------
 -- Well-founded relation on lists based on their length.
 LTL : D → D → Set
-LTL xs ys = LT (length xs) (length ys)
+LTL xs ys = length xs < length ys

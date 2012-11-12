@@ -18,6 +18,6 @@ open import FOTC.Data.List.PropertiesI
 -- LTC ⊆ LTL.
 LTC→LTL : ∀ {xs ys} → List xs → LTC xs ys → LTL xs ys
 LTC→LTL {xs} {ys} Lxs (x , ys≡x∷xs) =
-  subst (λ ys' → LT (length xs) (length ys'))
+  subst (λ ys' → length xs < length ys')
         (sym ys≡x∷xs)
         (lg-x<lg-x∷xs x Lxs)

@@ -23,7 +23,7 @@ Divisible m n gcd = ∀ cd → N cd → CD m n cd → cd ∣ gcd
 
 -- Greatest that any common divisor.
 GACD : D → D → D → Set
-GACD m n gcd = ∀ cd → N cd → CD m n cd → LE cd gcd
+GACD m n gcd = ∀ cd → N cd → CD m n cd → cd ≤ gcd
 
 -- Greatest common divisor.
 GCD : D → D → D → Set

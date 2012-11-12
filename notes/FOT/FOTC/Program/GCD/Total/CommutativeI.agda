@@ -43,14 +43,14 @@ Comm : D → D → Set
 Comm d₁ d₂ = gcd d₁ d₂ ≡ gcd d₂ d₁
 {-# ATP definition Comm #-}
 
-x>y→y≯x : ∀ {m n} → N m → N n → GT m n → NGT n m
+x>y→y≯x : ∀ {m n} → N m → N n → m > n → n ≯ m
 x>y→y≯x nzero          Nn             0>n   = ⊥-elim (0>x→⊥ Nn 0>n)
 x>y→y≯x Nm             nzero          _     = 0≯x Nm
 x>y→y≯x (nsucc {m} Nm) (nsucc {n} Nn) Sm>Sn =
-  trans (<-SS m n) (x>y→y≯x Nm Nn (trans (sym (<-SS n m)) Sm>Sn))
+  trans (lt-SS m n) (x>y→y≯x Nm Nn (trans (sym (lt-SS n m)) Sm>Sn))
 
 postulate
-  x≯Sy→Sy>x : ∀ {m n} → N m → N n → NGT m (succ₁ n) → GT (succ₁ n) m
+  x≯Sy→Sy>x : ∀ {m n} → N m → N n → m ≯ succ₁ n → succ₁ n > m
 -- x≯Sy→Sy>x {n = n} nzero      Nn _ = <-0S n
 -- x≯Sy→Sy>x {n = n} (nsucc {m} Nm) Nn h = {!!}
 
@@ -68,7 +68,7 @@ gcd-S0-comm n = trans (gcd-S0 n) (sym (gcd-0S n))
 -- gcd (succ₁ m) (succ₁ n) when succ₁ m > succ₁ n is commutative.
 gcd-S>S-comm : ∀ {m n} → N m → N n →
                Comm (succ₁ m ∸ succ₁ n) (succ₁ n) →
-               GT (succ₁ m) (succ₁ n) →
+               succ₁ m > succ₁ n →
                Comm (succ₁ m) (succ₁ n)
 gcd-S>S-comm {m} {n} Nm Nn ih Sm>Sn =
   gcd (succ₁ m) (succ₁ n)
@@ -83,7 +83,7 @@ gcd-S>S-comm {m} {n} Nm Nn ih Sm>Sn =
 -- gcd (succ₁ m) (succ₁ n) when succ₁ m ≯ succ₁ n is commutative.
 gcd-S≯S-comm : ∀ {m n} → N m → N n →
                Comm (succ₁ m) (succ₁ n ∸ succ₁ m) →
-               NGT (succ₁ m) (succ₁ n) →
+               succ₁ m ≯ succ₁ n →
                Comm (succ₁ m) (succ₁ n)
 gcd-S≯S-comm {m} {n} Nm Nn ih Sm≯Sn =
   gcd (succ₁ m) (succ₁ n)
@@ -99,7 +99,7 @@ gcd-S≯S-comm {m} {n} Nm Nn ih Sm≯Sn =
 gcd-x>y-comm :
   ∀ {m n} → N m → N n →
   (∀ {o p} → N o → N p → Lexi o p m n → Comm o p) →
-  GT m n →
+  m > n →
   Comm m n
 gcd-x>y-comm nzero          Nn             _  0>n   = ⊥-elim (0>x→⊥ Nn 0>n)
 gcd-x>y-comm (nsucc {n} _)  nzero          _  _     = gcd-S0-comm n
@@ -118,7 +118,7 @@ gcd-x>y-comm (nsucc {m} Nm) (nsucc {n} Nn) ah Sm>Sn = gcd-S>S-comm Nm Nn ih Sm>S
 gcd-x≯y-comm :
   ∀ {m n} → N m → N n →
   (∀ {o p} → N o → N p → Lexi o p m n → Comm o p) →
-  NGT m n →
+  m ≯ n →
   Comm m n
 gcd-x≯y-comm nzero          nzero          _  _     = gcd-00-comm
 gcd-x≯y-comm nzero          (nsucc {n} _)  _  _     = sym (gcd-S0-comm n)

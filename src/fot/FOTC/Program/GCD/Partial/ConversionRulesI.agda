@@ -41,7 +41,7 @@ private
                            else m)
                   else (if (iszero₁ m)
                            then n
-                           else (if (m > n)
+                           else (if (gt m n)
                                     then gcd (m ∸ n) n
                                     else gcd m (n ∸ m)))
 
@@ -53,7 +53,7 @@ private
                              else m)
                     else (if (iszero₁ m)
                              then n
-                             else (if (m > n)
+                             else (if (gt m n)
                                       then gcd (m ∸ n) n
                                       else gcd m (n ∸ m)))
 
@@ -65,7 +65,7 @@ private
   gcd-s₄ : D → D → D
   gcd-s₄ m n = if (iszero₁ m)
                   then n
-                  else (if (m > n)
+                  else (if (gt m  n)
                            then gcd (m ∸ n) n
                            else gcd m (n ∸ m))
 
@@ -85,7 +85,7 @@ private
   gcd-s₈ : D → D → D → D
   gcd-s₈ m n b = if b
                     then n
-                    else (if (m > n)
+                    else (if (gt m n)
                              then gcd (m ∸ n) n
                              else gcd m (n ∸ m))
 
@@ -95,7 +95,7 @@ private
 
   -- Third if_then_else_, when iszero₁ m = false.
   gcd-s₁₀ : D → D → D
-  gcd-s₁₀ m n = if (m > n)
+  gcd-s₁₀ m n = if (gt m n)
                    then gcd (m ∸ n) n
                    else gcd m (n ∸ m)
 
@@ -170,7 +170,7 @@ private
   proof₈₋₁₀ : ∀ m n → gcd-s₈ m n false ≡ gcd-s₁₀ m n
   proof₈₋₁₀ m n = if-false (gcd-s₁₀ m n)
 
-  proof₁₀₋₁₁ : ∀ m n b → m > n ≡ b → gcd-s₁₀ m n ≡ gcd-s₁₁ m n b
+  proof₁₀₋₁₁ : ∀ m n b → gt m n ≡ b → gcd-s₁₀ m n ≡ gcd-s₁₁ m n b
   proof₁₀₋₁₁ m n b = cong (gcd-s₁₁ m n)
 
   proof₁₁₋₁₂ : ∀ m n → gcd-s₁₁ m n true ≡ gcd-s₁₂ m n
@@ -214,7 +214,7 @@ gcd-0S n =
   succ₁ n                     ∎
 
 -- Fourth equation.
-gcd-S>S : ∀ m n → GT (succ₁ m) (succ₁ n) →
+gcd-S>S : ∀ m n → succ₁ m > succ₁ n →
           gcd (succ₁ m) (succ₁ n) ≡ gcd (succ₁ m ∸ succ₁ n) (succ₁ n)
 
 gcd-S>S m n Sm>Sn =
@@ -228,7 +228,7 @@ gcd-S>S m n Sm>Sn =
   gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∎
 
 -- Fifth equation.
-gcd-S≯S : ∀ m n → NGT (succ₁ m) (succ₁ n) →
+gcd-S≯S : ∀ m n → succ₁ m ≯ succ₁ n →
           gcd (succ₁ m) (succ₁ n) ≡ gcd (succ₁ m) (succ₁ n ∸ succ₁ m)
 gcd-S≯S m n Sm≯Sn =
   gcd (succ₁ m) (succ₁ n)           ≡⟨ proof₀₋₁ (succ₁ m) (succ₁ n) ⟩

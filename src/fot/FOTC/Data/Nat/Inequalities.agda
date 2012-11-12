@@ -10,67 +10,67 @@ module FOTC.Data.Nat.Inequalities where
 open import FOTC.Base
 
 -- We add 4 to the fixities of the standard library.
-infix 8 _<_ _≤_  _≥_ _>_
+infix 8 _<_ _≮_ _>_ _≯_ _≤_ _≰_ _≥_ _≱_
 
 ------------------------------------------------------------------------------
 
 postulate
-  _<_  : D → D → D
-  <-00 : zero < zero               ≡ false
-  <-0S : ∀ n → zero < succ₁ n      ≡ true
-  <-S0 : ∀ n → succ₁ n < zero      ≡ false
-  <-SS : ∀ m n → succ₁ m < succ₁ n ≡ m < n
-{-# ATP axiom <-00 <-0S <-S0 <-SS #-}
+  lt  : D → D → D
+  lt-00 : lt zero zero                   ≡ false
+  lt-0S : ∀ n → lt zero (succ₁ n)        ≡ true
+  lt-S0 : ∀ n → lt (succ₁ n) zero        ≡ false
+  lt-SS : ∀ m n → lt (succ₁ m) (succ₁ n) ≡ lt m n
+{-# ATP axiom lt-00 lt-0S lt-S0 lt-SS #-}
 
-_≤_ : D → D → D
-m ≤ n = m < succ₁ n
-{-# ATP definition _≤_ #-}
+le : D → D → D
+le m n = lt m (succ₁ n)
+{-# ATP definition le #-}
 
-_>_ : D → D → D
-m > n = n < m
-{-# ATP definition _>_ #-}
+gt : D → D → D
+gt m n = lt n m
+{-# ATP definition gt #-}
 
-_≥_ : D → D → D
-m ≥ n = n ≤ m
-{-# ATP definition _≥_ #-}
+ge : D → D → D
+ge m n = le n m
+{-# ATP definition ge #-}
 
 ------------------------------------------------------------------------
 -- The data types
 
-GT : D → D → Set
-GT m n = m > n ≡ true
-{-# ATP definition GT #-}
+_<_ : D → D → Set
+m < n = lt m n ≡ true
+{-# ATP definition _<_ #-}
 
-NGT : D → D → Set
-NGT m n = m > n ≡ false
-{-# ATP definition NGT #-}
+_≮_ : D → D → Set
+m ≮ n = lt m n ≡ false
+{-# ATP definition _≮_ #-}
 
-LT : D → D → Set
-LT m n = m < n ≡ true
-{-# ATP definition LT #-}
+_>_ : D → D → Set
+m > n = gt m n ≡ true
+{-# ATP definition _>_ #-}
 
-NLT : D → D → Set
-NLT m n = m < n ≡ false
-{-# ATP definition NLT #-}
+_≯_ : D → D → Set
+m ≯ n = gt m n ≡ false
+{-# ATP definition _≯_ #-}
 
-LE : D → D → Set
-LE m n = m ≤ n ≡ true
-{-# ATP definition LE #-}
+_≤_  : D → D → Set
+m ≤ n = le m n ≡ true
+{-# ATP definition _≤_ #-}
 
-NLE : D → D → Set
-NLE m n = m ≤ n ≡ false
-{-# ATP definition NLE #-}
+_≰_  : D → D → Set
+m ≰ n = le m n ≡ false
+{-# ATP definition _≰_ #-}
 
-GE : D → D → Set
-GE m n = m ≥ n ≡ true
-{-# ATP definition GE #-}
+_≥_ : D → D → Set
+m ≥ n = ge m n ≡ true
+{-# ATP definition _≥_ #-}
 
-NGE : D → D → Set
-NGE m n = m ≥ n ≡ false
-{-# ATP definition NGE #-}
+_≱_ : D → D → Set
+m ≱ n = ge m n ≡ false
+{-# ATP definition _≱_ #-}
 
 ------------------------------------------------------------------------------
 -- The lexicographical order.
 Lexi : D → D → D → D → Set
-Lexi m₁ n₁ m₂ n₂ = LT m₁ m₂ ∨ m₁ ≡ m₂ ∧ LT n₁ n₂
+Lexi m₁ n₁ m₂ n₂ = m₁ < m₂ ∨ m₁ ≡ m₂ ∧ n₁ < n₂
 {-# ATP definition Lexi #-}

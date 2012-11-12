@@ -14,7 +14,7 @@ open import FOTC.Base
 open import FOTC.Data.Nat
 
 import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionATP
-open FOTC.Data.Nat.Induction.Acc.WellFoundedInductionATP.WF-LT
+open FOTC.Data.Nat.Induction.Acc.WellFoundedInductionATP.WF-<
 
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
@@ -25,12 +25,12 @@ open import FOTC.Program.McCarthy91.MCR.PropertiesATP
 
 -- Parametrized modules
 open module InvImg =
-  FOTC.Induction.WellFounded.InverseImage {N} {N} {LT} fnMCR-N
+  FOTC.Induction.WellFounded.InverseImage {N} {N} {_<_} fnMCR-N
 
 ------------------------------------------------------------------------------
 -- The relation MCR is well-founded (using the inverse image combinator).
 wf-MCR : WellFounded MCR
-wf-MCR Nn = wellFounded wf-LT Nn
+wf-MCR Nn = wellFounded wf-< Nn
 
 -- Well-founded induction on the relation MCR.
 wfInd-MCR : (A : D → Set) →

@@ -15,7 +15,7 @@ open import FOTC.Program.Division.Specification
 
 ------------------------------------------------------------------------------
 -- The division is total when the dividend is less than the divisor.
-postulate div-x<y-N : ∀ {i j} → LT i j → N (div i j)
+postulate div-x<y-N : ∀ {i j} → i < j → N (div i j)
 {-# ATP prove div-x<y-N #-}
 
 -- The division is total when the dividend is greater or equal than
@@ -28,6 +28,6 @@ postulate div-x<y-N : ∀ {i j} → LT i j → N (div i j)
 postulate
   div-x≮y-N : ∀ {i j} →
               (DIV (i ∸ j) j (div (i ∸ j) j)) →
-              NLT i j →
+              i ≮ j →
               N (div i j)
 {-# ATP prove div-x≮y-N #-}

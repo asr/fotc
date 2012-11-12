@@ -22,7 +22,7 @@ open import LTC-PCF.Program.Division.Specification
 -- The division result is correct when the dividend is less than
 -- the divisor.
 
-div-x<y-helper : ∀ {i j} → N i → N j → LT i j → i ≡ j * div i j + i
+div-x<y-helper : ∀ {i j} → N i → N j → i < j → i ≡ j * div i j + i
 div-x<y-helper {i} {j} Ni Nj i<j = sym prf
   where
   prf : j * div i j + i ≡ i
@@ -31,8 +31,8 @@ div-x<y-helper {i} {j} Ni Nj i<j = sym prf
         zero + i        ≡⟨ +-leftIdentity i ⟩
         i               ∎
 
-div-x<y-correct : ∀ {i j} → N i → N j → LT i j →
-                  ∃[ r ] N r ∧ LT r j ∧ i ≡ j * div i j + r
+div-x<y-correct : ∀ {i j} → N i → N j → i < j →
+                  ∃[ r ] N r ∧ r < j ∧ i ≡ j * div i j + r
 div-x<y-correct Ni Nj i<j = _ , Ni , i<j , div-x<y-helper Ni Nj i<j
 
 -- The division result is correct when the dividend is greater or equal
@@ -55,7 +55,7 @@ postulate
            i ≡ j * succ₁ (div (i ∸ j) j) + r
 
 div-x≮y-helper : ∀ {i j r} → N i → N j → N r →
-                 NLT i j →
+                 i ≮ j →
                  i ∸ j ≡ j * div (i ∸ j) j + r →
                  i ≡ j * div i j + r
 div-x≮y-helper {i} {j} {r} Ni Nj Nr i≮j helperH =
@@ -70,15 +70,15 @@ div-x≮y-helper {i} {j} {r} Ni Nj Nr i≮j helperH =
 
 div-x≮y-correct : ∀ {i j} → N i → N j →
                   (DIV (i ∸ j) j (div (i ∸ j) j)) →
-                  NLT i j →
-                  ∃[ r ] N r ∧ LT r j ∧ i ≡ j * div i j + r
+                  i ≮ j →
+                  ∃[ r ] N r ∧ r < j ∧ i ≡ j * div i j + r
 div-x≮y-correct {i} {j} Ni Nj (h₁ , r , r-correct) i≮j =
   r , Nr , r<j , div-x≮y-helper Ni Nj Nr i≮j helperH
   where
   Nr : N r
   Nr = ∧-proj₁ r-correct
 
-  r<j : LT r j
+  r<j : r < j
   r<j = ∧-proj₁ (∧-proj₂ r-correct)
 
   helperH : i ∸ j ≡ j * div (i ∸ j) j + r

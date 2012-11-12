@@ -33,7 +33,7 @@ postulate gcd-S0-N : ∀ {n} → N n → N (gcd (succ₁ n) zero)
 postulate
   gcd-S>S-N : ∀ {m n} → N m → N n →
               N (gcd (succ₁ m ∸ succ₁ n) (succ₁ n)) →
-              GT (succ₁ m) (succ₁ n) →
+              succ₁ m > succ₁ n →
               N (gcd (succ₁ m) (succ₁ n))
 {-# ATP prove gcd-S>S-N #-}
 
@@ -42,7 +42,7 @@ postulate
 postulate
   gcd-S≯S-N : ∀ {m n} → N m → N n →
               N (gcd (succ₁ m) (succ₁ n ∸ succ₁ m)) →
-              NGT (succ₁ m) (succ₁ n) →
+              succ₁ m ≯ succ₁ n →
               N (gcd (succ₁ m) (succ₁ n))
 {-# ATP prove gcd-S≯S-N #-}
 
@@ -51,7 +51,7 @@ postulate
 gcd-x>y-N :
   ∀ {m n} → N m → N n →
   (∀ {o p} → N o → N p → Lexi o p m n → x≢0≢y o p → N (gcd o p)) →
-  GT m n →
+  m > n →
   x≢0≢y m n →
   N (gcd m n)
 gcd-x>y-N nzero          Nn          _  0>n _       = ⊥-elim (0>x→⊥ Nn 0>n)
@@ -73,7 +73,7 @@ gcd-x>y-N (nsucc {m} Nm) (nsucc {n} Nn) ah  Sm>Sn _ =
 gcd-x≯y-N :
   ∀ {m n} → N m → N n →
   (∀ {o p} → N o → N p → Lexi o p m n → x≢0≢y o p → N (gcd o p)) →
-  NGT m n →
+  m ≯ n →
   x≢0≢y m n →
   N (gcd m n)
 gcd-x≯y-N nzero          nzero          _  _     h = ⊥-elim (h (refl , refl))

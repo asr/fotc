@@ -30,8 +30,8 @@ leftSubTree-OrdTree {t₁} {i} {t₂} Tt₁ Ni Tt₂ TOnode =
   ordTree t₁
     ≡⟨ &&-list₂-t₁ (ordTree-Bool Tt₁)
                    (&&-Bool (ordTree-Bool Tt₂)
-                            (&&-Bool (≤-TreeItem-Bool Tt₁ Ni)
-                                     (≤-ItemTree-Bool Ni Tt₂)))
+                            (&&-Bool (le-TreeItem-Bool Tt₁ Ni)
+                                     (le-ItemTree-Bool Ni Tt₂)))
                    (trans (sym (ordTree-node t₁ i t₂)) TOnode)
     ⟩
   true ∎
@@ -43,12 +43,12 @@ rightSubTree-OrdTree {t₁} {i} {t₂} Tt₁ Ni Tt₂ TOnode =
   ordTree t₂
     ≡⟨ &&-list₂-t₁
        (ordTree-Bool Tt₂)
-         (&&-Bool (≤-TreeItem-Bool Tt₁ Ni)
-                  (≤-ItemTree-Bool Ni Tt₂))
+         (&&-Bool (le-TreeItem-Bool Tt₁ Ni)
+                  (le-ItemTree-Bool Ni Tt₂))
          (&&-list₂-t₂ (ordTree-Bool Tt₁)
                       (&&-Bool (ordTree-Bool Tt₂)
-                               (&&-Bool (≤-TreeItem-Bool Tt₁ Ni)
-                                        (≤-ItemTree-Bool Ni Tt₂)))
+                               (&&-Bool (le-TreeItem-Bool Tt₁ Ni)
+                                        (le-ItemTree-Bool Ni Tt₂)))
                       (trans (sym (ordTree-node t₁ i t₂)) TOnode))
     ⟩
   true ∎
@@ -56,138 +56,138 @@ rightSubTree-OrdTree {t₁} {i} {t₂} Tt₁ Ni Tt₂ TOnode =
 ------------------------------------------------------------------------------
 -- Helper functions
 
-toTree-OrdTree-helper₁ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → GT i₁ i₂ →
+toTree-OrdTree-helper₁ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → i₁ > i₂ →
                          Tree t →
-                         LE-TreeItem t i₁ →
-                         LE-TreeItem (toTree · i₂ · t) i₁
+                         ≤-TreeItem t i₁ →
+                         ≤-TreeItem (toTree · i₂ · t) i₁
 toTree-OrdTree-helper₁ {i₁} {i₂} .{nil} Ni₁ Ni₂ i₁>i₂ tnil _ =
-  ≤-TreeItem (toTree · i₂ · nil) i₁
-    ≡⟨ subst (λ t → ≤-TreeItem (toTree · i₂ · nil) i₁ ≡ ≤-TreeItem t i₁)
+  le-TreeItem (toTree · i₂ · nil) i₁
+    ≡⟨ subst (λ t → le-TreeItem (toTree · i₂ · nil) i₁ ≡ le-TreeItem t i₁)
              (toTree-nil i₂)
              refl
     ⟩
-  ≤-TreeItem (tip i₂) i₁
-    ≡⟨ ≤-TreeItem-tip i₂ i₁ ⟩
-  i₂ ≤ i₁
+  le-TreeItem (tip i₂) i₁
+    ≡⟨ le-TreeItem-tip i₂ i₁ ⟩
+  le i₂ i₁
     ≡⟨ x<y→x≤y Ni₂ Ni₁ i₁>i₂ ⟩
   true ∎
 
 toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (ttip {j} Nj) t≤i₁ =
   case prf₁ prf₂ (x>y∨x≤y Nj Ni₂)
   where
-  prf₁ : GT j i₂ → LE-TreeItem (toTree · i₂ · tip j) i₁
+  prf₁ : j > i₂ → ≤-TreeItem (toTree · i₂ · tip j) i₁
   prf₁ j>i₂ =
-    ≤-TreeItem (toTree · i₂ · tip j) i₁
-      ≡⟨ subst (λ t → ≤-TreeItem (toTree · i₂ · tip j) i₁ ≡
-                      ≤-TreeItem t i₁)
+    le-TreeItem (toTree · i₂ · tip j) i₁
+      ≡⟨ subst (λ t → le-TreeItem (toTree · i₂ · tip j) i₁ ≡
+                      le-TreeItem t i₁)
                (toTree-tip i₂ j)
                refl
       ⟩
-    ≤-TreeItem (if (j ≤ i₂)
-                   then (node (tip j) i₂ (tip i₂))
-                   else (node (tip i₂) j (tip j))) i₁
-      ≡⟨ subst (λ t → ≤-TreeItem
-                      (if (j ≤ i₂)
+    le-TreeItem (if (le j i₂)
+                     then (node (tip j) i₂ (tip i₂))
+                     else (node (tip i₂) j (tip j))) i₁
+      ≡⟨ subst (λ t → le-TreeItem
+                      (if (le j i₂)
                           then (node (tip j) i₂ (tip i₂))
                           else (node (tip i₂) j (tip j))) i₁ ≡
-                      ≤-TreeItem (if t
-                                     then (node (tip j) i₂ (tip i₂))
-                                     else (node (tip i₂) j (tip j))) i₁)
+                      le-TreeItem (if t
+                                      then (node (tip j) i₂ (tip i₂))
+                                      else (node (tip i₂) j (tip j))) i₁)
                (x>y→x≰y Nj Ni₂ j>i₂)
                refl
       ⟩
-    ≤-TreeItem (if false
-                   then (node (tip j) i₂ (tip i₂))
-                   else (node (tip i₂) j (tip j))) i₁
-      ≡⟨ subst (λ t → ≤-TreeItem (if false
-                                     then (node (tip j) i₂ (tip i₂))
-                                     else (node (tip i₂) j (tip j))) i₁ ≡
-                      ≤-TreeItem t i₁)
+    le-TreeItem (if false
+                    then (node (tip j) i₂ (tip i₂))
+                    else (node (tip i₂) j (tip j))) i₁
+      ≡⟨ subst (λ t → le-TreeItem (if false
+                                      then (node (tip j) i₂ (tip i₂))
+                                      else (node (tip i₂) j (tip j))) i₁ ≡
+                      le-TreeItem t i₁)
                (if-false (node (tip i₂) j (tip j)))
                refl
       ⟩
-    ≤-TreeItem (node (tip i₂) j (tip j)) i₁
-      ≡⟨ ≤-TreeItem-node (tip i₂) j (tip j) i₁ ⟩
-    ≤-TreeItem (tip i₂) i₁ && ≤-TreeItem (tip j) i₁
-      ≡⟨ subst (λ t → ≤-TreeItem (tip i₂) i₁ && ≤-TreeItem (tip j) i₁ ≡
-                      t && ≤-TreeItem (tip j) i₁)
-               (≤-TreeItem-tip i₂ i₁)
+    le-TreeItem (node (tip i₂) j (tip j)) i₁
+      ≡⟨ le-TreeItem-node (tip i₂) j (tip j) i₁ ⟩
+    le-TreeItem (tip i₂) i₁ && le-TreeItem (tip j) i₁
+      ≡⟨ subst (λ t → le-TreeItem (tip i₂) i₁ && le-TreeItem (tip j) i₁ ≡
+                      t && le-TreeItem (tip j) i₁)
+               (le-TreeItem-tip i₂ i₁)
                refl
       ⟩
-    (i₂ ≤ i₁) && ≤-TreeItem (tip j) i₁
-       ≡⟨ subst (λ t → (i₂ ≤ i₁) && ≤-TreeItem (tip j) i₁ ≡
-                       t && ≤-TreeItem (tip j) i₁)
+    le i₂ i₁ && le-TreeItem (tip j) i₁
+       ≡⟨ subst (λ t → le i₂ i₁ && le-TreeItem (tip j) i₁ ≡
+                       t && le-TreeItem (tip j) i₁)
                 (x<y→x≤y Ni₂ Ni₁ i₁>i₂)
                 refl
        ⟩
-    true && ≤-TreeItem (tip j) i₁
-      ≡⟨ subst (λ t → true && ≤-TreeItem (tip j) i₁ ≡ true && t)
-               (≤-TreeItem-tip j i₁)
+    true && le-TreeItem (tip j) i₁
+      ≡⟨ subst (λ t → true && le-TreeItem (tip j) i₁ ≡ true && t)
+               (le-TreeItem-tip j i₁)
                refl
       ⟩
-    true && (j ≤ i₁)
-      ≡⟨ subst (λ t → true && (j ≤ i₁) ≡ true && t)
+    true && le j i₁
+      ≡⟨ subst (λ t → true && le j i₁ ≡ true && t)
                -- j ≤ i₁ because by hypothesis we have (tip j) ≤ i₁.
-               (trans (sym (≤-TreeItem-tip j i₁)) t≤i₁)
+               (trans (sym (le-TreeItem-tip j i₁)) t≤i₁)
                refl
       ⟩
     true && true
       ≡⟨ t&&x≡x true ⟩
     true ∎
 
-  prf₂ : LE j i₂ → LE-TreeItem (toTree · i₂ · tip j) i₁
+  prf₂ : j ≤ i₂ → ≤-TreeItem (toTree · i₂ · tip j) i₁
   prf₂ j≤i₂ =
-    ≤-TreeItem (toTree · i₂ · tip j) i₁
-      ≡⟨ subst (λ t → ≤-TreeItem (toTree · i₂ · tip j) i₁ ≡
-                      ≤-TreeItem t i₁)
+    le-TreeItem (toTree · i₂ · tip j) i₁
+      ≡⟨ subst (λ t → le-TreeItem (toTree · i₂ · tip j) i₁ ≡
+                      le-TreeItem t i₁)
                (toTree-tip i₂ j)
                refl
       ⟩
-    ≤-TreeItem (if (j ≤ i₂)
-                   then (node (tip j) i₂ (tip i₂))
-                   else (node (tip i₂) j (tip j))) i₁
-      ≡⟨ subst (λ t → ≤-TreeItem
-                      (if (j ≤ i₂)
+    le-TreeItem (if (le j i₂)
+                    then (node (tip j) i₂ (tip i₂))
+                    else (node (tip i₂) j (tip j))) i₁
+      ≡⟨ subst (λ t → le-TreeItem
+                      (if (le j i₂)
                           then (node (tip j) i₂ (tip i₂))
                           else (node (tip i₂) j (tip j))) i₁ ≡
-                      ≤-TreeItem (if t
-                                     then (node (tip j) i₂ (tip i₂))
-                                     else (node (tip i₂) j (tip j))) i₁)
+                      le-TreeItem (if t
+                                      then (node (tip j) i₂ (tip i₂))
+                                      else (node (tip i₂) j (tip j))) i₁)
                j≤i₂
                refl
       ⟩
-    ≤-TreeItem (if true
-                   then (node (tip j) i₂ (tip i₂))
-                   else (node (tip i₂) j (tip j))) i₁
-      ≡⟨ subst (λ t → ≤-TreeItem (if true
-                                     then (node (tip j) i₂ (tip i₂))
-                                     else (node (tip i₂) j (tip j))) i₁ ≡
-                      ≤-TreeItem t i₁)
+    le-TreeItem (if true
+                    then (node (tip j) i₂ (tip i₂))
+                    else (node (tip i₂) j (tip j))) i₁
+      ≡⟨ subst (λ t → le-TreeItem (if true
+                                      then (node (tip j) i₂ (tip i₂))
+                                      else (node (tip i₂) j (tip j))) i₁ ≡
+                      le-TreeItem t i₁)
                (if-true (node (tip j) i₂ (tip i₂)))
                refl
          ⟩
-    ≤-TreeItem (node (tip j) i₂ (tip i₂)) i₁
-      ≡⟨ ≤-TreeItem-node (tip j) i₂ (tip i₂) i₁ ⟩
-    ≤-TreeItem (tip j) i₁ && ≤-TreeItem (tip i₂) i₁
-      ≡⟨ subst (λ t → ≤-TreeItem (tip j) i₁ && ≤-TreeItem (tip i₂) i₁ ≡
-                      t && ≤-TreeItem (tip i₂) i₁)
-               (≤-TreeItem-tip j i₁)
+    le-TreeItem (node (tip j) i₂ (tip i₂)) i₁
+      ≡⟨ le-TreeItem-node (tip j) i₂ (tip i₂) i₁ ⟩
+    le-TreeItem (tip j) i₁ && le-TreeItem (tip i₂) i₁
+      ≡⟨ subst (λ t → le-TreeItem (tip j) i₁ && le-TreeItem (tip i₂) i₁ ≡
+                      t && le-TreeItem (tip i₂) i₁)
+               (le-TreeItem-tip j i₁)
                refl
       ⟩
-    (j ≤ i₁) && ≤-TreeItem (tip i₂) i₁
-      ≡⟨ subst (λ t → (j ≤ i₁) && ≤-TreeItem (tip i₂) i₁ ≡
-                      t && ≤-TreeItem (tip i₂) i₁)
+    le j i₁ && le-TreeItem (tip i₂) i₁
+      ≡⟨ subst (λ t → le j i₁ && le-TreeItem (tip i₂) i₁ ≡
+                      t && le-TreeItem (tip i₂) i₁)
                -- j ≤ i₁ because by hypothesis we have (tip j) ≤ i₁.
-               (trans (sym (≤-TreeItem-tip j i₁)) t≤i₁)
+               (trans (sym (le-TreeItem-tip j i₁)) t≤i₁)
                refl
       ⟩
-    true && ≤-TreeItem (tip i₂) i₁
-      ≡⟨ subst (λ t → true && ≤-TreeItem (tip i₂) i₁ ≡ true && t)
-               (≤-TreeItem-tip i₂ i₁)
+    true && le-TreeItem (tip i₂) i₁
+      ≡⟨ subst (λ t → true && le-TreeItem (tip i₂) i₁ ≡ true && t)
+               (le-TreeItem-tip i₂ i₁)
                refl
       ⟩
-    true && (i₂ ≤ i₁)
-      ≡⟨ subst (λ t → true && (i₂ ≤ i₁) ≡ true && t)
+    true && le i₂ i₁
+      ≡⟨ subst (λ t → true && le i₂ i₁ ≡ true && t)
                (x<y→x≤y Ni₂ Ni₁ i₁>i₂)
                refl
       ⟩
@@ -199,115 +199,115 @@ toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
                        (tnode {t₁} {j} {t₂} Tt₁ Nj Tt₂) t≤i₁ =
   case prf₁ prf₂ (x>y∨x≤y Nj Ni₂)
   where
-  prf₁ : GT j i₂ → LE-TreeItem (toTree · i₂ · node t₁ j t₂) i₁
+  prf₁ : j > i₂ → ≤-TreeItem (toTree · i₂ · node t₁ j t₂) i₁
   prf₁ j>i₂ =
-    ≤-TreeItem (toTree · i₂ · node t₁ j t₂) i₁
-      ≡⟨ subst (λ t → ≤-TreeItem (toTree · i₂ · node t₁ j t₂) i₁ ≡
-                      ≤-TreeItem t i₁)
+    le-TreeItem (toTree · i₂ · node t₁ j t₂) i₁
+      ≡⟨ subst (λ t → le-TreeItem (toTree · i₂ · node t₁ j t₂) i₁ ≡
+                      le-TreeItem t i₁)
                (toTree-node i₂ t₁ j t₂)
                refl
       ⟩
-    ≤-TreeItem (if (j ≤ i₂)
-                   then (node t₁ j (toTree · i₂ · t₂))
-                   else (node (toTree · i₂ · t₁) j t₂)) i₁
-      ≡⟨ subst (λ t → ≤-TreeItem
-                        (if (j ≤ i₂)
+    le-TreeItem (if (le j i₂)
+                    then (node t₁ j (toTree · i₂ · t₂))
+                    else (node (toTree · i₂ · t₁) j t₂)) i₁
+      ≡⟨ subst (λ t → le-TreeItem
+                        (if (le j i₂)
                             then (node t₁ j (toTree · i₂ · t₂))
                             else (node (toTree · i₂ · t₁) j t₂)) i₁ ≡
-                      ≤-TreeItem
+                      le-TreeItem
                         (if t
                             then (node t₁ j (toTree · i₂ · t₂))
                             else (node (toTree · i₂ · t₁) j t₂)) i₁)
                (x>y→x≰y Nj Ni₂ j>i₂)
                refl
       ⟩
-    ≤-TreeItem (if false
-                   then (node t₁ j (toTree · i₂ · t₂))
-                   else (node (toTree · i₂ · t₁) j t₂)) i₁
-      ≡⟨ subst (λ t → ≤-TreeItem (if false
-                                     then (node t₁ j (toTree · i₂ · t₂))
-                                     else (node (toTree · i₂ · t₁) j t₂)) i₁ ≡
-                      ≤-TreeItem t i₁)
+    le-TreeItem (if false
+                    then (node t₁ j (toTree · i₂ · t₂))
+                    else (node (toTree · i₂ · t₁) j t₂)) i₁
+      ≡⟨ subst (λ t → le-TreeItem (if false
+                                      then (node t₁ j (toTree · i₂ · t₂))
+                                      else (node (toTree · i₂ · t₁) j t₂)) i₁ ≡
+                      le-TreeItem t i₁)
                (if-false (node (toTree · i₂ · t₁) j t₂))
                refl
       ⟩
-    ≤-TreeItem (node (toTree · i₂ · t₁) j t₂) i₁
-      ≡⟨ ≤-TreeItem-node (toTree · i₂ · t₁) j t₂ i₁ ⟩
-    ≤-TreeItem (toTree · i₂ · t₁) i₁ && ≤-TreeItem t₂ i₁
-      ≡⟨ subst (λ t → ≤-TreeItem (toTree · i₂ · t₁) i₁ &&
-                      ≤-TreeItem t₂ i₁                 ≡
+    le-TreeItem (node (toTree · i₂ · t₁) j t₂) i₁
+      ≡⟨ le-TreeItem-node (toTree · i₂ · t₁) j t₂ i₁ ⟩
+    le-TreeItem (toTree · i₂ · t₁) i₁ && le-TreeItem t₂ i₁
+      ≡⟨ subst (λ t → le-TreeItem (toTree · i₂ · t₁) i₁ &&
+                      le-TreeItem t₂ i₁                 ≡
                       t                                &&
-                      ≤-TreeItem t₂ i₁)
+                      le-TreeItem t₂ i₁)
                -- Inductive hypothesis.
                (toTree-OrdTree-helper₁ Ni₁ Ni₂ i₁>i₂ Tt₁
-                 (&&-list₂-t₁ (≤-TreeItem-Bool Tt₁ Ni₁)
-                              (≤-TreeItem-Bool Tt₂ Ni₁)
-                              (trans (sym (≤-TreeItem-node t₁ j t₂ i₁)) t≤i₁)))
+                 (&&-list₂-t₁ (le-TreeItem-Bool Tt₁ Ni₁)
+                              (le-TreeItem-Bool Tt₂ Ni₁)
+                              (trans (sym (le-TreeItem-node t₁ j t₂ i₁)) t≤i₁)))
                refl
       ⟩
-    true && ≤-TreeItem t₂ i₁
-      ≡⟨ subst (λ t → true && ≤-TreeItem t₂ i₁ ≡ true && t)
+    true && le-TreeItem t₂ i₁
+      ≡⟨ subst (λ t → true && le-TreeItem t₂ i₁ ≡ true && t)
                -- t₂ ≤ i₁ because by hypothesis we have (node t₁ j t₂) ≤ i₁.
-               (&&-list₂-t₂ (≤-TreeItem-Bool Tt₁ Ni₁)
-                            (≤-TreeItem-Bool Tt₂ Ni₁)
-                            (trans (sym (≤-TreeItem-node t₁ j t₂ i₁)) t≤i₁))
+               (&&-list₂-t₂ (le-TreeItem-Bool Tt₁ Ni₁)
+                            (le-TreeItem-Bool Tt₂ Ni₁)
+                            (trans (sym (le-TreeItem-node t₁ j t₂ i₁)) t≤i₁))
                refl
       ⟩
     true && true
       ≡⟨ t&&x≡x true ⟩
     true ∎
 
-  prf₂ : LE j i₂ → LE-TreeItem (toTree · i₂ · node t₁ j t₂) i₁
+  prf₂ : j ≤ i₂ → ≤-TreeItem (toTree · i₂ · node t₁ j t₂) i₁
   prf₂ j≤i₂ =
-    ≤-TreeItem (toTree · i₂ · node t₁ j t₂) i₁
-      ≡⟨ subst (λ t → ≤-TreeItem (toTree · i₂ · node t₁ j t₂) i₁ ≡
-                      ≤-TreeItem t i₁)
+    le-TreeItem (toTree · i₂ · node t₁ j t₂) i₁
+      ≡⟨ subst (λ t → le-TreeItem (toTree · i₂ · node t₁ j t₂) i₁ ≡
+                      le-TreeItem t i₁)
                (toTree-node i₂ t₁ j t₂)
                refl
       ⟩
-    ≤-TreeItem (if (j ≤ i₂)
-                   then (node t₁ j (toTree · i₂ · t₂))
-                   else (node (toTree · i₂ · t₁) j t₂)) i₁
-      ≡⟨ subst (λ t → ≤-TreeItem
-                        (if (j ≤ i₂)
+    le-TreeItem (if (le j i₂)
+                    then (node t₁ j (toTree · i₂ · t₂))
+                    else (node (toTree · i₂ · t₁) j t₂)) i₁
+      ≡⟨ subst (λ t → le-TreeItem
+                        (if (le j i₂)
                             then (node t₁ j (toTree · i₂ · t₂))
                             else (node (toTree · i₂ · t₁) j t₂)) i₁ ≡
-                      ≤-TreeItem
+                      le-TreeItem
                         (if t
                             then (node t₁ j (toTree · i₂ · t₂))
                             else (node (toTree · i₂ · t₁) j t₂)) i₁)
                (j≤i₂)
                refl
       ⟩
-    ≤-TreeItem (if true
-                   then (node t₁ j (toTree · i₂ · t₂))
-                   else (node (toTree · i₂ · t₁) j t₂)) i₁
-      ≡⟨ subst (λ t → ≤-TreeItem (if true
-                                     then (node t₁ j (toTree · i₂ · t₂))
-                                     else (node (toTree · i₂ · t₁) j t₂)) i₁ ≡
-                      ≤-TreeItem t i₁)
+    le-TreeItem (if true
+                    then (node t₁ j (toTree · i₂ · t₂))
+                    else (node (toTree · i₂ · t₁) j t₂)) i₁
+      ≡⟨ subst (λ t → le-TreeItem (if true
+                                      then (node t₁ j (toTree · i₂ · t₂))
+                                      else (node (toTree · i₂ · t₁) j t₂)) i₁ ≡
+                      le-TreeItem t i₁)
                (if-true (node t₁ j (toTree · i₂ · t₂)))
                refl
       ⟩
-    ≤-TreeItem (node t₁ j (toTree · i₂ · t₂)) i₁
-      ≡⟨ ≤-TreeItem-node t₁ j (toTree · i₂ · t₂) i₁ ⟩
-    ≤-TreeItem t₁ i₁ && ≤-TreeItem (toTree · i₂ · t₂) i₁
-      ≡⟨ subst (λ t → ≤-TreeItem t₁ i₁ && ≤-TreeItem (toTree · i₂ · t₂) i₁ ≡
-                      t &&  ≤-TreeItem (toTree · i₂ · t₂) i₁)
+    le-TreeItem (node t₁ j (toTree · i₂ · t₂)) i₁
+      ≡⟨ le-TreeItem-node t₁ j (toTree · i₂ · t₂) i₁ ⟩
+    le-TreeItem t₁ i₁ && le-TreeItem (toTree · i₂ · t₂) i₁
+      ≡⟨ subst (λ t → le-TreeItem t₁ i₁ && le-TreeItem (toTree · i₂ · t₂) i₁ ≡
+                      t &&  le-TreeItem (toTree · i₂ · t₂) i₁)
                -- t₁ ≤ i₁ because by hypothesis we have (node t₁ j t₂) ≤ i₁.
-               (&&-list₂-t₁ (≤-TreeItem-Bool Tt₁ Ni₁)
-                            (≤-TreeItem-Bool Tt₂ Ni₁)
-                            (trans (sym (≤-TreeItem-node t₁ j t₂ i₁)) t≤i₁))
+               (&&-list₂-t₁ (le-TreeItem-Bool Tt₁ Ni₁)
+                            (le-TreeItem-Bool Tt₂ Ni₁)
+                            (trans (sym (le-TreeItem-node t₁ j t₂ i₁)) t≤i₁))
                refl
       ⟩
-    true && ≤-TreeItem (toTree · i₂ · t₂) i₁
-      ≡⟨ subst (λ t → true && ≤-TreeItem (toTree · i₂ · t₂) i₁ ≡
+    true && le-TreeItem (toTree · i₂ · t₂) i₁
+      ≡⟨ subst (λ t → true && le-TreeItem (toTree · i₂ · t₂) i₁ ≡
                       true && t)
                -- Inductive hypothesis.
                (toTree-OrdTree-helper₁ Ni₁ Ni₂ i₁>i₂ Tt₂
-                 (&&-list₂-t₂ (≤-TreeItem-Bool Tt₁ Ni₁)
-                              (≤-TreeItem-Bool Tt₂ Ni₁)
-                              (trans (sym (≤-TreeItem-node t₁ j t₂ i₁)) t≤i₁)))
+                 (&&-list₂-t₂ (le-TreeItem-Bool Tt₁ Ni₁)
+                              (le-TreeItem-Bool Tt₂ Ni₁)
+                              (trans (sym (le-TreeItem-node t₁ j t₂ i₁)) t≤i₁)))
                refl
       ⟩
     true && true
@@ -316,136 +316,136 @@ toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
 
 ------------------------------------------------------------------------------
 
-toTree-OrdTree-helper₂ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → LE i₁ i₂ →
+toTree-OrdTree-helper₂ : ∀ {i₁ i₂ t} → N i₁ → N i₂ → i₁ ≤ i₂ →
                          Tree t →
-                         LE-ItemTree i₁ t →
-                         LE-ItemTree i₁ (toTree · i₂ · t)
+                         ≤-ItemTree i₁ t →
+                         ≤-ItemTree i₁ (toTree · i₂ · t)
 toTree-OrdTree-helper₂ {i₁} {i₂} .{nil} _ _ i₁≤i₂ tnil _ =
-  ≤-ItemTree i₁ (toTree · i₂ · nil)
-    ≡⟨ subst (λ t → ≤-ItemTree i₁ (toTree · i₂ · nil) ≡ ≤-ItemTree i₁ t)
+  le-ItemTree i₁ (toTree · i₂ · nil)
+    ≡⟨ subst (λ t → le-ItemTree i₁ (toTree · i₂ · nil) ≡ le-ItemTree i₁ t)
              (toTree-nil i₂)
              refl
     ⟩
-  ≤-ItemTree i₁ (tip i₂)
-    ≡⟨ ≤-ItemTree-tip i₁ i₂ ⟩
-  i₁ ≤ i₂
+  le-ItemTree i₁ (tip i₂)
+    ≡⟨ le-ItemTree-tip i₁ i₂ ⟩
+  le i₁ i₂
     ≡⟨ i₁≤i₂ ⟩
   true ∎
 
 toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (ttip {j} Nj) i₁≤t =
   case prf₁ prf₂ (x>y∨x≤y Nj Ni₂)
   where
-  prf₁ : GT j i₂ → LE-ItemTree i₁ (toTree · i₂ · tip j)
+  prf₁ : j > i₂ → ≤-ItemTree i₁ (toTree · i₂ · tip j)
   prf₁ j>i₂ =
-    ≤-ItemTree i₁ (toTree · i₂ · tip j)
-      ≡⟨ subst (λ t → ≤-ItemTree i₁ (toTree · i₂ · tip j) ≡
-                      ≤-ItemTree i₁ t)
+    le-ItemTree i₁ (toTree · i₂ · tip j)
+      ≡⟨ subst (λ t → le-ItemTree i₁ (toTree · i₂ · tip j) ≡
+                      le-ItemTree i₁ t)
                (toTree-tip i₂ j)
                refl
       ⟩
-    ≤-ItemTree i₁ (if (j ≤ i₂)
-                      then (node (tip j) i₂ (tip i₂))
-                      else (node (tip i₂) j (tip j)))
-      ≡⟨ subst (λ t → ≤-ItemTree i₁ (if (j ≤ i₂)
-                                        then (node (tip j) i₂ (tip i₂))
-                                        else (node (tip i₂) j (tip j))) ≡
-                      ≤-ItemTree i₁ (if t
-                                        then (node (tip j) i₂ (tip i₂))
-                                        else (node (tip i₂) j (tip j))))
+    le-ItemTree i₁ (if (le j i₂)
+                       then (node (tip j) i₂ (tip i₂))
+                       else (node (tip i₂) j (tip j)))
+      ≡⟨ subst (λ t → le-ItemTree i₁ (if (le j i₂)
+                                         then (node (tip j) i₂ (tip i₂))
+                                         else (node (tip i₂) j (tip j))) ≡
+                      le-ItemTree i₁ (if t
+                                         then (node (tip j) i₂ (tip i₂))
+                                         else (node (tip i₂) j (tip j))))
              (x>y→x≰y Nj Ni₂ j>i₂)
              refl
        ⟩
-    ≤-ItemTree i₁ (if false
-                      then (node (tip j) i₂ (tip i₂))
-                      else (node (tip i₂) j (tip j)))
-    ≡⟨ subst (λ t → ≤-ItemTree i₁ (if false
-                                      then (node (tip j) i₂ (tip i₂))
-                                        else (node (tip i₂) j (tip j))) ≡
-                    ≤-ItemTree i₁ t)
+    le-ItemTree i₁ (if false
+                       then (node (tip j) i₂ (tip i₂))
+                       else (node (tip i₂) j (tip j)))
+    ≡⟨ subst (λ t → le-ItemTree i₁ (if false
+                                       then (node (tip j) i₂ (tip i₂))
+                                       else (node (tip i₂) j (tip j))) ≡
+                    le-ItemTree i₁ t)
                 (if-false (node (tip i₂) j (tip j)))
                 refl
        ⟩
-    ≤-ItemTree i₁ (node (tip i₂) j (tip j))
-      ≡⟨ ≤-ItemTree-node i₁ (tip i₂) j (tip j) ⟩
-    ≤-ItemTree i₁ (tip i₂) && ≤-ItemTree i₁ (tip j)
-      ≡⟨ subst (λ t → ≤-ItemTree i₁ (tip i₂) && ≤-ItemTree i₁ (tip j) ≡
-                      t && ≤-ItemTree i₁ (tip j))
-               (≤-ItemTree-tip i₁ i₂)
+    le-ItemTree i₁ (node (tip i₂) j (tip j))
+      ≡⟨ le-ItemTree-node i₁ (tip i₂) j (tip j) ⟩
+    le-ItemTree i₁ (tip i₂) && le-ItemTree i₁ (tip j)
+      ≡⟨ subst (λ t → le-ItemTree i₁ (tip i₂) && le-ItemTree i₁ (tip j) ≡
+                      t && le-ItemTree i₁ (tip j))
+               (le-ItemTree-tip i₁ i₂)
                refl
       ⟩
-    (i₁ ≤ i₂) && ≤-ItemTree i₁ (tip j)
-       ≡⟨ subst (λ t → (i₁ ≤ i₂) && ≤-ItemTree i₁ (tip j) ≡
-                       t && ≤-ItemTree i₁ (tip j))
+    le i₁ i₂ && le-ItemTree i₁ (tip j)
+       ≡⟨ subst (λ t → le i₁ i₂ && le-ItemTree i₁ (tip j) ≡
+                       t && le-ItemTree i₁ (tip j))
                 i₁≤i₂
                 refl
         ⟩
-    true && ≤-ItemTree i₁ (tip j)
-      ≡⟨ subst (λ t → true && ≤-ItemTree i₁ (tip j) ≡ true && t)
-               (≤-ItemTree-tip i₁ j)
+    true && le-ItemTree i₁ (tip j)
+      ≡⟨ subst (λ t → true && le-ItemTree i₁ (tip j) ≡ true && t)
+               (le-ItemTree-tip i₁ j)
                refl
       ⟩
-    true && (i₁ ≤ j)
-      ≡⟨ subst (λ t → true && (i₁ ≤ j) ≡ true && t)
+    true && le i₁ j
+      ≡⟨ subst (λ t → true && le i₁ j ≡ true && t)
                -- i₁ ≤ j because by hypothesis we have i₁ ≤ (tip j).
-               (trans (sym (≤-ItemTree-tip i₁ j)) i₁≤t)
+               (trans (sym (le-ItemTree-tip i₁ j)) i₁≤t)
                refl
       ⟩
     true && true
       ≡⟨ t&&x≡x true ⟩
     true ∎
 
-  prf₂ : LE j i₂ → LE-ItemTree i₁ (toTree · i₂ · tip j)
+  prf₂ : j ≤ i₂ → ≤-ItemTree i₁ (toTree · i₂ · tip j)
   prf₂ j≤i₂ =
-    ≤-ItemTree i₁ (toTree · i₂ · tip j)
-      ≡⟨ subst (λ t → ≤-ItemTree i₁ (toTree · i₂ · tip j) ≡
-                      ≤-ItemTree i₁ t)
+    le-ItemTree i₁ (toTree · i₂ · tip j)
+      ≡⟨ subst (λ t → le-ItemTree i₁ (toTree · i₂ · tip j) ≡
+                      le-ItemTree i₁ t)
                (toTree-tip i₂ j)
                refl
       ⟩
-    ≤-ItemTree i₁ (if (j ≤ i₂)
-                      then (node (tip j) i₂ (tip i₂))
-                      else (node (tip i₂) j (tip j)))
-      ≡⟨ subst (λ t → ≤-ItemTree i₁ (if (j ≤ i₂)
-                                        then (node (tip j) i₂ (tip i₂))
-                                        else (node (tip i₂) j (tip j))) ≡
-                      ≤-ItemTree i₁ (if t
-                                        then (node (tip j) i₂ (tip i₂))
-                                        else (node (tip i₂) j (tip j))))
+    le-ItemTree i₁ (if (le j i₂)
+                       then (node (tip j) i₂ (tip i₂))
+                       else (node (tip i₂) j (tip j)))
+      ≡⟨ subst (λ t → le-ItemTree i₁ (if (le j i₂)
+                                         then (node (tip j) i₂ (tip i₂))
+                                         else (node (tip i₂) j (tip j))) ≡
+                      le-ItemTree i₁ (if t
+                                         then (node (tip j) i₂ (tip i₂))
+                                         else (node (tip i₂) j (tip j))))
                j≤i₂
                refl
         ⟩
-    ≤-ItemTree i₁ (if true
-                      then (node (tip j) i₂ (tip i₂))
-                      else (node (tip i₂) j (tip j)))
-      ≡⟨ subst (λ t → ≤-ItemTree i₁ (if true
-                                        then (node (tip j) i₂ (tip i₂))
-                                        else (node (tip i₂) j (tip j))) ≡
-                      ≤-ItemTree i₁ t)
+    le-ItemTree i₁ (if true
+                       then (node (tip j) i₂ (tip i₂))
+                       else (node (tip i₂) j (tip j)))
+      ≡⟨ subst (λ t → le-ItemTree i₁ (if true
+                                         then (node (tip j) i₂ (tip i₂))
+                                         else (node (tip i₂) j (tip j))) ≡
+                      le-ItemTree i₁ t)
                (if-true (node (tip j) i₂ (tip i₂)))
                refl
       ⟩
-    ≤-ItemTree i₁ (node (tip j) i₂ (tip i₂))
-      ≡⟨ ≤-ItemTree-node i₁ (tip j) i₂ (tip i₂) ⟩
-    ≤-ItemTree i₁ (tip j) && ≤-ItemTree i₁ (tip i₂)
-      ≡⟨ subst (λ t → ≤-ItemTree i₁ (tip j) && ≤-ItemTree i₁ (tip i₂) ≡
-                      t && ≤-ItemTree i₁ (tip i₂))
-               (≤-ItemTree-tip i₁ j)
+    le-ItemTree i₁ (node (tip j) i₂ (tip i₂))
+      ≡⟨ le-ItemTree-node i₁ (tip j) i₂ (tip i₂) ⟩
+    le-ItemTree i₁ (tip j) && le-ItemTree i₁ (tip i₂)
+      ≡⟨ subst (λ t → le-ItemTree i₁ (tip j) && le-ItemTree i₁ (tip i₂) ≡
+                      t && le-ItemTree i₁ (tip i₂))
+               (le-ItemTree-tip i₁ j)
                refl
       ⟩
-    (i₁ ≤ j) && ≤-ItemTree i₁ (tip i₂)
-       ≡⟨ subst (λ t → (i₁ ≤ j) && ≤-ItemTree i₁ (tip i₂) ≡
-                       t && ≤-ItemTree i₁ (tip i₂))
+    le i₁ j && le-ItemTree i₁ (tip i₂)
+       ≡⟨ subst (λ t → le i₁ j && le-ItemTree i₁ (tip i₂) ≡
+                       t && le-ItemTree i₁ (tip i₂))
           -- i₁ ≤ j because by hypothesis we have i₁ ≤ (tip j).
-                (trans (sym (≤-ItemTree-tip i₁ j)) i₁≤t)
+                (trans (sym (le-ItemTree-tip i₁ j)) i₁≤t)
                 refl
        ⟩
-    true && ≤-ItemTree i₁ (tip i₂)
-      ≡⟨ subst (λ t → true && ≤-ItemTree i₁ (tip i₂) ≡ true && t)
-               (≤-ItemTree-tip i₁ i₂)
+    true && le-ItemTree i₁ (tip i₂)
+      ≡⟨ subst (λ t → true && le-ItemTree i₁ (tip i₂) ≡ true && t)
+               (le-ItemTree-tip i₁ i₂)
                refl
       ⟩
-      true && (i₁ ≤ i₂)
-      ≡⟨ subst (λ t → true && (i₁ ≤ i₂) ≡ true && t)
+      true && le i₁ i₂
+      ≡⟨ subst (λ t → true && le i₁ i₂ ≡ true && t)
                i₁≤i₂
                refl
       ⟩
@@ -457,108 +457,108 @@ toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
                        (tnode {t₁} {j} {t₂} Tt₁ Nj Tt₂) i₁≤t =
   case prf₁ prf₂ (x>y∨x≤y Nj Ni₂)
   where
-  prf₁ : GT j i₂ → LE-ItemTree i₁ (toTree · i₂ · node t₁ j t₂)
+  prf₁ : j > i₂ → ≤-ItemTree i₁ (toTree · i₂ · node t₁ j t₂)
   prf₁ j>i₂ =
-    ≤-ItemTree i₁ (toTree · i₂ · node t₁ j t₂)
-      ≡⟨ subst (λ t → ≤-ItemTree i₁ (toTree · i₂ · node t₁ j t₂) ≡
-                      ≤-ItemTree i₁ t)
+    le-ItemTree i₁ (toTree · i₂ · node t₁ j t₂)
+      ≡⟨ subst (λ t → le-ItemTree i₁ (toTree · i₂ · node t₁ j t₂) ≡
+                      le-ItemTree i₁ t)
                (toTree-node i₂ t₁ j t₂)
                refl
       ⟩
-    ≤-ItemTree i₁ (if (j ≤ i₂)
-                      then (node t₁ j (toTree · i₂ · t₂))
-                      else (node (toTree · i₂ · t₁) j t₂))
-    ≡⟨ subst (λ t → ≤-ItemTree i₁ (if (j ≤ i₂)
-                                      then (node t₁ j (toTree · i₂ · t₂))
-                                      else (node (toTree · i₂ · t₁) j t₂)) ≡
-                    ≤-ItemTree i₁ (if t
-                                      then (node t₁ j (toTree · i₂ · t₂))
-                                      else (node (toTree · i₂ · t₁) j t₂)))
+    le-ItemTree i₁ (if (le j i₂)
+                       then (node t₁ j (toTree · i₂ · t₂))
+                       else (node (toTree · i₂ · t₁) j t₂))
+    ≡⟨ subst (λ t → le-ItemTree i₁ (if (le j i₂)
+                                       then (node t₁ j (toTree · i₂ · t₂))
+                                       else (node (toTree · i₂ · t₁) j t₂)) ≡
+                    le-ItemTree i₁ (if t
+                                       then (node t₁ j (toTree · i₂ · t₂))
+                                       else (node (toTree · i₂ · t₁) j t₂)))
                 (x>y→x≰y Nj Ni₂ j>i₂)
                 refl
        ⟩
-    ≤-ItemTree i₁ (if false
-                      then (node t₁ j (toTree · i₂ · t₂))
-                      else (node (toTree · i₂ · t₁) j t₂))
-      ≡⟨ subst (λ t → ≤-ItemTree i₁ (if false
-                                        then (node t₁ j (toTree · i₂ · t₂))
-                                        else (node (toTree · i₂ · t₁) j t₂)) ≡
-                      ≤-ItemTree i₁ t)
+    le-ItemTree i₁ (if false
+                       then (node t₁ j (toTree · i₂ · t₂))
+                       else (node (toTree · i₂ · t₁) j t₂))
+      ≡⟨ subst (λ t → le-ItemTree i₁ (if false
+                                         then (node t₁ j (toTree · i₂ · t₂))
+                                         else (node (toTree · i₂ · t₁) j t₂)) ≡
+                      le-ItemTree i₁ t)
                (if-false (node (toTree · i₂ · t₁) j t₂))
                refl
       ⟩
-    ≤-ItemTree i₁ (node (toTree · i₂ · t₁) j t₂)
-      ≡⟨ ≤-ItemTree-node i₁ (toTree · i₂ · t₁) j t₂ ⟩
-      ≤-ItemTree i₁ (toTree · i₂ · t₁) && ≤-ItemTree i₁ t₂
-      ≡⟨ subst (λ t → ≤-ItemTree i₁ (toTree · i₂ · t₁) && ≤-ItemTree i₁ t₂ ≡
-                      t && ≤-ItemTree i₁ t₂)
+    le-ItemTree i₁ (node (toTree · i₂ · t₁) j t₂)
+      ≡⟨ le-ItemTree-node i₁ (toTree · i₂ · t₁) j t₂ ⟩
+      le-ItemTree i₁ (toTree · i₂ · t₁) && le-ItemTree i₁ t₂
+      ≡⟨ subst (λ t → le-ItemTree i₁ (toTree · i₂ · t₁) && le-ItemTree i₁ t₂ ≡
+                      t && le-ItemTree i₁ t₂)
                -- Inductive hypothesis.
                (toTree-OrdTree-helper₂ Ni₁ Ni₂ i₁≤i₂ Tt₁
-                 (&&-list₂-t₁ (≤-ItemTree-Bool Ni₁ Tt₁)
-                              (≤-ItemTree-Bool Ni₁ Tt₂)
-                              (trans (sym (≤-ItemTree-node i₁ t₁ j t₂)) i₁≤t)))
+                 (&&-list₂-t₁ (le-ItemTree-Bool Ni₁ Tt₁)
+                              (le-ItemTree-Bool Ni₁ Tt₂)
+                              (trans (sym (le-ItemTree-node i₁ t₁ j t₂)) i₁≤t)))
                refl
       ⟩
-    true && ≤-ItemTree i₁ t₂
-      ≡⟨ subst (λ t → true && ≤-ItemTree i₁ t₂ ≡ true && t)
+    true && le-ItemTree i₁ t₂
+      ≡⟨ subst (λ t → true && le-ItemTree i₁ t₂ ≡ true && t)
                -- i₁ ≤ t₂ because by hypothesis we have i₁ ≤ (node t₁ j t₂).
-               (&&-list₂-t₂ (≤-ItemTree-Bool Ni₁ Tt₁)
-                            (≤-ItemTree-Bool Ni₁ Tt₂)
-                            (trans (sym (≤-ItemTree-node i₁ t₁ j t₂)) i₁≤t))
+               (&&-list₂-t₂ (le-ItemTree-Bool Ni₁ Tt₁)
+                            (le-ItemTree-Bool Ni₁ Tt₂)
+                            (trans (sym (le-ItemTree-node i₁ t₁ j t₂)) i₁≤t))
                refl
       ⟩
     true && true
       ≡⟨ t&&x≡x true ⟩
     true ∎
 
-  prf₂ : LE j i₂ → LE-ItemTree i₁ (toTree · i₂ · node t₁ j t₂)
+  prf₂ : j ≤ i₂ → ≤-ItemTree i₁ (toTree · i₂ · node t₁ j t₂)
   prf₂ j≤i₂ =
-    ≤-ItemTree i₁ (toTree · i₂ · node t₁ j t₂)
-      ≡⟨ subst (λ t → ≤-ItemTree i₁ (toTree · i₂ · node t₁ j t₂) ≡
-                      ≤-ItemTree i₁ t)
+    le-ItemTree i₁ (toTree · i₂ · node t₁ j t₂)
+      ≡⟨ subst (λ t → le-ItemTree i₁ (toTree · i₂ · node t₁ j t₂) ≡
+                      le-ItemTree i₁ t)
                (toTree-node i₂ t₁ j t₂)
                refl
       ⟩
-    ≤-ItemTree i₁ (if (j ≤ i₂)
-                      then (node t₁ j (toTree · i₂ · t₂))
-                      else (node (toTree · i₂ · t₁) j t₂))
-    ≡⟨ subst (λ t → ≤-ItemTree i₁ (if (j ≤ i₂)
-                                      then (node t₁ j (toTree · i₂ · t₂))
-                                      else (node (toTree · i₂ · t₁) j t₂)) ≡
-                    ≤-ItemTree i₁ (if t
-                                      then (node t₁ j (toTree · i₂ · t₂))
-                                        else (node (toTree · i₂ · t₁) j t₂)))
+    le-ItemTree i₁ (if (le j i₂)
+                       then (node t₁ j (toTree · i₂ · t₂))
+                       else (node (toTree · i₂ · t₁) j t₂))
+    ≡⟨ subst (λ t → le-ItemTree i₁ (if (le j i₂)
+                                       then (node t₁ j (toTree · i₂ · t₂))
+                                       else (node (toTree · i₂ · t₁) j t₂)) ≡
+                    le-ItemTree i₁ (if t
+                                       then (node t₁ j (toTree · i₂ · t₂))
+                                       else (node (toTree · i₂ · t₁) j t₂)))
                 j≤i₂
                 refl
        ⟩
-    ≤-ItemTree i₁ (if true
-                      then (node t₁ j (toTree · i₂ · t₂))
-                      else (node (toTree · i₂ · t₁) j t₂))
-      ≡⟨ subst (λ t → ≤-ItemTree i₁ (if true
-                                        then (node t₁ j (toTree · i₂ · t₂))
-                                        else (node (toTree · i₂ · t₁) j t₂)) ≡
-                      ≤-ItemTree i₁ t)
+    le-ItemTree i₁ (if true
+                       then (node t₁ j (toTree · i₂ · t₂))
+                       else (node (toTree · i₂ · t₁) j t₂))
+      ≡⟨ subst (λ t → le-ItemTree i₁ (if true
+                                         then (node t₁ j (toTree · i₂ · t₂))
+                                         else (node (toTree · i₂ · t₁) j t₂)) ≡
+                      le-ItemTree i₁ t)
                (if-true (node t₁ j (toTree · i₂ · t₂)))
                refl
       ⟩
-    ≤-ItemTree i₁ (node t₁ j (toTree · i₂ · t₂))
-      ≡⟨ ≤-ItemTree-node i₁ t₁ j (toTree · i₂ · t₂) ⟩
-    ≤-ItemTree i₁ t₁ && ≤-ItemTree i₁ (toTree · i₂ · t₂)
-      ≡⟨ subst (λ t → ≤-ItemTree i₁ t₁ && ≤-ItemTree i₁ (toTree · i₂ · t₂) ≡
-                      t && ≤-ItemTree i₁ (toTree · i₂ · t₂))
+    le-ItemTree i₁ (node t₁ j (toTree · i₂ · t₂))
+      ≡⟨ le-ItemTree-node i₁ t₁ j (toTree · i₂ · t₂) ⟩
+    le-ItemTree i₁ t₁ && le-ItemTree i₁ (toTree · i₂ · t₂)
+      ≡⟨ subst (λ t → le-ItemTree i₁ t₁ && le-ItemTree i₁ (toTree · i₂ · t₂) ≡
+                      t && le-ItemTree i₁ (toTree · i₂ · t₂))
                -- i₁ ≤ t₁ because by hypothesis we have i₁ ≤ (node t₁ j t₂).
-               (&&-list₂-t₁ (≤-ItemTree-Bool Ni₁ Tt₁)
-                            (≤-ItemTree-Bool Ni₁ Tt₂)
-                            (trans (sym (≤-ItemTree-node i₁ t₁ j t₂)) i₁≤t))
+               (&&-list₂-t₁ (le-ItemTree-Bool Ni₁ Tt₁)
+                            (le-ItemTree-Bool Ni₁ Tt₂)
+                            (trans (sym (le-ItemTree-node i₁ t₁ j t₂)) i₁≤t))
                refl
       ⟩
-    true && ≤-ItemTree i₁ (toTree · i₂ · t₂)
-      ≡⟨ subst (λ t → true && ≤-ItemTree i₁ (toTree · i₂ · t₂) ≡ true && t)
+    true && le-ItemTree i₁ (toTree · i₂ · t₂)
+      ≡⟨ subst (λ t → true && le-ItemTree i₁ (toTree · i₂ · t₂) ≡ true && t)
                -- Inductive hypothesis.
                (toTree-OrdTree-helper₂ Ni₁ Ni₂ i₁≤i₂ Tt₂
-                 (&&-list₂-t₂ (≤-ItemTree-Bool Ni₁ Tt₁)
-                              (≤-ItemTree-Bool Ni₁ Tt₂)
-                              (trans (sym (≤-ItemTree-node i₁ t₁ j t₂)) i₁≤t)))
+                 (&&-list₂-t₂ (le-ItemTree-Bool Ni₁ Tt₁)
+                              (le-ItemTree-Bool Ni₁ Tt₂)
+                              (trans (sym (le-ItemTree-node i₁ t₁ j t₂)) i₁≤t)))
                refl
       ⟩
     true && true

@@ -49,22 +49,22 @@ postulate
 {-# ATP prove 111≡100+11 #-}
 
 postulate
-  100+11∸10>100 : GT (one-hundred + eleven ∸ ten) one-hundred
-  100+11>100    : GT (one-hundred + eleven)       one-hundred
+  100+11∸10>100 : (one-hundred + eleven ∸ ten) > one-hundred
+  100+11>100    : (one-hundred + eleven)       > one-hundred
 {-# ATP prove 100+11∸10>100 101≡100+11∸10 #-}
 {-# ATP prove 100+11>100 111≡100+11 #-}
 
 postulate
-  99+11>100 : GT (ninety-nine + eleven)  one-hundred
-  98+11>100 : GT (ninety-eight + eleven) one-hundred
-  97+11>100 : GT (ninety-seven + eleven) one-hundred
-  96+11>100 : GT (ninety-six + eleven)   one-hundred
-  95+11>100 : GT (ninety-five + eleven)  one-hundred
-  94+11>100 : GT (ninety-four + eleven)  one-hundred
-  93+11>100 : GT (ninety-three + eleven) one-hundred
-  92+11>100 : GT (ninety-two + eleven)   one-hundred
-  91+11>100 : GT (ninety-one + eleven)   one-hundred
-  90+11>100 : GT (ninety + eleven)       one-hundred
+  99+11>100 : (ninety-nine + eleven)  > one-hundred
+  98+11>100 : (ninety-eight + eleven) > one-hundred
+  97+11>100 : (ninety-seven + eleven) > one-hundred
+  96+11>100 : (ninety-six + eleven)   > one-hundred
+  95+11>100 : (ninety-five + eleven)  > one-hundred
+  94+11>100 : (ninety-four + eleven)  > one-hundred
+  93+11>100 : (ninety-three + eleven) > one-hundred
+  92+11>100 : (ninety-two + eleven)   > one-hundred
+  91+11>100 : (ninety-one + eleven)   > one-hundred
+  90+11>100 : (ninety + eleven)       > one-hundred
 {-# ATP prove 99+11>100 110≡99+11 #-}
 {-# ATP prove 98+11>100 109≡99+11 #-}
 {-# ATP prove 97+11>100 108≡97+11 #-}
@@ -76,7 +76,7 @@ postulate
 {-# ATP prove 91+11>100 102≡91+11 #-}
 {-# ATP prove 90+11>100 101≡90+11 #-}
 
-postulate 100<102 : LT one-hundred hundred-two
+postulate 100<102 : one-hundred < hundred-two
 {-# ATP prove 100<102 #-}
 
 x+11-N : ∀ {n} → N n → N (n + eleven)
@@ -85,15 +85,15 @@ x+11-N Nn = +-N Nn 11-N
 x+11∸10≡Sx : ∀ {n} → N n → (n + eleven) ∸ ten ≡ succ₁ n
 x+11∸10≡Sx Nn = [x+Sy]∸y≡Sx Nn 10-N
 
-postulate 91>100→⊥ : GT ninety-one one-hundred → ⊥
+postulate 91>100→⊥ : ninety-one > one-hundred → ⊥
 {-# ATP prove 91>100→⊥ #-}
 
-postulate x+1≤x∸10+11 : ∀ {n} → N n → LE (n + one) ((n ∸ ten) + eleven)
+postulate x+1≤x∸10+11 : ∀ {n} → N n → n + one ≤ (n ∸ ten) + eleven
 {-# ATP prove x+1≤x∸10+11 x≤y+x∸y 10-N 11-N +-N ∸-N +-comm #-}
 
 postulate
-  x≤89→x+11>100→⊥ : ∀ {n} → N n → LE n eighty-nine →
-                    GT (n + eleven) one-hundred → ⊥
+  x≤89→x+11>100→⊥ : ∀ {n} → N n → n ≤ eighty-nine →
+                    (n + eleven) > one-hundred → ⊥
 {-# ATP prove x≤89→x+11>100→⊥ x>y→x≤y→⊥ x≤y→x+k≤y+k x+11-N 89-N 100-N
                               100≡89+11
 #-}

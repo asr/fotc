@@ -129,27 +129,27 @@ not-involutive bfalse = prf
 ------------------------------------------------------------------------------
 -- Properties with inequalities
 
-<-Bool : ∀ {m n} → N m → N n → Bool (m < n)
-<-Bool nzero nzero = prf
-  where postulate prf : Bool (zero < zero)
+lt-Bool : ∀ {m n} → N m → N n → Bool (lt m n)
+lt-Bool nzero nzero = prf
+  where postulate prf : Bool (lt zero zero)
         {-# ATP prove prf #-}
-<-Bool nzero (nsucc {n} Nn) = prf
-  where postulate prf : Bool (zero < succ₁ n)
+lt-Bool nzero (nsucc {n} Nn) = prf
+  where postulate prf : Bool (lt zero (succ₁ n))
         {-# ATP prove prf #-}
-<-Bool (nsucc {m} Nm) nzero = prf
-  where postulate prf : Bool (succ₁ m < zero)
+lt-Bool (nsucc {m} Nm) nzero = prf
+  where postulate prf : Bool (lt (succ₁ m)  zero)
         {-# ATP prove prf #-}
-<-Bool (nsucc {m} Nm) (nsucc {n} Nn) = prf (<-Bool Nm Nn)
-  where postulate prf : Bool (m < n) → Bool (succ₁ m < succ₁ n)
+lt-Bool (nsucc {m} Nm) (nsucc {n} Nn) = prf (lt-Bool Nm Nn)
+  where postulate prf : Bool (lt m n) → Bool (lt (succ₁ m) (succ₁ n))
         {-# ATP prove prf #-}
 
-≤-Bool : ∀ {m n} → N m → N n → Bool (m ≤ n)
-≤-Bool {n = n} nzero Nn = prf
-  where postulate prf : Bool (zero ≤ n)
+le-Bool : ∀ {m n} → N m → N n → Bool (le m n)
+le-Bool {n = n} nzero Nn = prf
+  where postulate prf : Bool (le zero n)
         {-# ATP prove prf #-}
-≤-Bool (nsucc {m} Nm) nzero = prf
-  where postulate prf : Bool (succ₁ m ≤ zero)
+le-Bool (nsucc {m} Nm) nzero = prf
+  where postulate prf : Bool (le (succ₁ m) zero)
         {-# ATP prove prf Sx≰0 #-}
-≤-Bool (nsucc {m} Nm) (nsucc {n} Nn) = prf (≤-Bool Nm Nn)
-  where postulate prf : Bool (m ≤ n) → Bool (succ₁ m ≤ succ₁ n)
+le-Bool (nsucc {m} Nm) (nsucc {n} Nn) = prf (le-Bool Nm Nn)
+  where postulate prf : Bool (le m n) → Bool (le (succ₁ m) (succ₁ n))
         {-# ATP prove prf #-}
