@@ -13,6 +13,7 @@ open import FOTC.Base
 infix 8 _<_ _≮_ _>_ _≯_ _≤_ _≰_ _≥_ _≱_
 
 ------------------------------------------------------------------------------
+-- The function terms.
 
 postulate
   lt  : D → D → D
@@ -35,7 +36,7 @@ ge m n = le n m
 {-# ATP definition ge #-}
 
 ------------------------------------------------------------------------
--- The data types
+-- The relations.
 
 _<_ : D → D → Set
 m < n = lt m n ≡ true

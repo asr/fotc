@@ -14,8 +14,8 @@ open import FOTC.Data.Nat.Inequalities
 open import FOTC.Program.GCD.Partial.GCD
 
 ------------------------------------------------------------------------------
--- NB. These equations are not used by the ATPs. They use the official
--- equation.
+-- NB. These conversion rules are not used by the ATPs. They use the
+-- official equation.
 private
   postulate gcd-00 : gcd zero zero ≡ loop
   {-# ATP prove gcd-00 #-}

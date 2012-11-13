@@ -13,6 +13,7 @@ open import LTC-PCF.Base
 infix 8 _<_ _≮_ _<_ _≮_ _≤_ _≰_ _≥_ _≱_
 
 ------------------------------------------------------------------------------
+-- The function terms.
 
 lth : D → D
 lth lt = lam (λ m → lam (λ n →
@@ -32,7 +33,7 @@ ge : D → D → D
 ge m n = le n m
 
 ------------------------------------------------------------------------
--- The data types
+-- The relations.
 
 _<_ : D → D → Set
 m < n = lt m n ≡ true
