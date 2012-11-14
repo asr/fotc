@@ -268,7 +268,7 @@ xy≡0→x≡0∨y≡0 (nsucc {m} Nm) (nsucc {n} Nn) SmSn≡0 = ⊥-elim (0≢S 
   where postulate prf : zero ≡ succ₁ (n + m * succ₁ n)
         {-# ATP prove prf #-}
 
-xy≡1→x≡1 : ∀ {m n} → N m → N n → m * n ≡ one → m ≡ one
+xy≡1→x≡1 : ∀ {m n} → N m → N n → m * n ≡ [1] → m ≡ [1]
 xy≡1→x≡1 {n = n} nzero Nn h = ⊥-elim prf
   where postulate prf : ⊥
         {-# ATP prove prf #-}

@@ -11,168 +11,149 @@ open import FOTC.Base
 
 ------------------------------------------------------------------------------
 
-one    = succ₁ zero
-two    = succ₁ one
-three  = succ₁ two
-four   = succ₁ three
-five   = succ₁ four
-six    = succ₁ five
-seven  = succ₁ six
-eight  = succ₁ seven
-nine   = succ₁ eight
-ten    = succ₁ nine
+[0]  = zero
+[1]  = succ₁ [0]
+[2]  = succ₁ [1]
+[3]  = succ₁ [2]
+[4]  = succ₁ [3]
+[5]  = succ₁ [4]
+[6]  = succ₁ [5]
+[7]  = succ₁ [6]
+[8]  = succ₁ [7]
+[9]  = succ₁ [8]
 
-{-# ATP definition one two three four five six seven eight nine ten #-}
+{-# ATP definition [0] [1] [2] [3] [4] [5] [6] [7] [8] [9] #-}
 
-eleven    = succ₁ ten
-twelve    = succ₁ eleven
-thirteen  = succ₁ twelve
-fourteen  = succ₁ thirteen
-fifteen   = succ₁ fourteen
-sixteen   = succ₁ fifteen
-seventeen = succ₁ sixteen
-eighteen  = succ₁ seventeen
-nineteen  = succ₁ eighteen
-twenty    = succ₁ nineteen
+[10] = succ₁ [9]
+[11] = succ₁ [10]
+[12] = succ₁ [11]
+[13] = succ₁ [12]
+[14] = succ₁ [13]
+[15] = succ₁ [14]
+[16] = succ₁ [15]
+[17] = succ₁ [16]
+[18] = succ₁ [17]
+[19] = succ₁ [18]
 
-{-# ATP definition eleven twelve thirteen fourteen fifteen
-                   sixteen seventeen eighteen nineteen twenty
-#-}
+{-# ATP definition [10] [11] [12] [13] [14] [15] [16] [17] [18] [19] #-}
 
-twenty-one   = succ₁ twenty
-twenty-two   = succ₁ twenty-one
-twenty-three = succ₁ twenty-two
-twenty-four  = succ₁ twenty-three
-twenty-five  = succ₁ twenty-four
-twenty-six   = succ₁ twenty-five
-twenty-seven = succ₁ twenty-six
-twenty-eight = succ₁ twenty-seven
-twenty-nine  = succ₁ twenty-eight
-thirty       = succ₁ twenty-nine
+[20] = succ₁ [19]
+[21] = succ₁ [20]
+[22] = succ₁ [21]
+[23] = succ₁ [22]
+[24] = succ₁ [23]
+[25] = succ₁ [24]
+[26] = succ₁ [25]
+[27] = succ₁ [26]
+[28] = succ₁ [27]
+[29] = succ₁ [28]
 
-{-# ATP definition twenty-one twenty-two twenty-three twenty-four twenty-five
-                   twenty-six twenty-seven twenty-eight twenty-nine thirty
-#-}
+{-# ATP definition [20] [21] [22] [23] [24] [25] [26] [27] [28] [29] #-}
 
-thirty-one   = succ₁ thirty
-thirty-two   = succ₁ thirty-one
-thirty-three = succ₁ thirty-two
-thirty-four  = succ₁ thirty-three
-thirty-five  = succ₁ thirty-four
-thirty-six   = succ₁ thirty-five
-thirty-seven = succ₁ thirty-six
-thirty-eight = succ₁ thirty-seven
-thirty-nine  = succ₁ thirty-eight
-forty        = succ₁ thirty-nine
+[30] = succ₁ [29]
+[31] = succ₁ [30]
+[32] = succ₁ [31]
+[33] = succ₁ [32]
+[34] = succ₁ [33]
+[35] = succ₁ [34]
+[36] = succ₁ [35]
+[37] = succ₁ [36]
+[38] = succ₁ [37]
+[39] = succ₁ [38]
 
-{-# ATP definition thirty-one thirty-two thirty-three thirty-four thirty-five
-                   thirty-six thirty-seven thirty-eight thirty-nine forty
-#-}
+{-# ATP definition [30] [31] [32] [33] [34] [35] [36] [37] [38] [39] #-}
 
-forty-one   = succ₁ forty
-forty-two   = succ₁ forty-one
-forty-three = succ₁ forty-two
-forty-four  = succ₁ forty-three
-forty-five  = succ₁ forty-four
-forty-six   = succ₁ forty-five
-forty-seven = succ₁ forty-six
-forty-eight = succ₁ forty-seven
-forty-nine  = succ₁ forty-eight
-fifty       = succ₁ forty-nine
+[40] = succ₁ [39]
+[41] = succ₁ [40]
+[42] = succ₁ [41]
+[43] = succ₁ [42]
+[44] = succ₁ [43]
+[45] = succ₁ [44]
+[46] = succ₁ [45]
+[47] = succ₁ [46]
+[48] = succ₁ [47]
+[49] = succ₁ [48]
 
-{-# ATP definition forty-one forty-two forty-three forty-four forty-five
-                   forty-six forty-seven forty-eight forty-nine fifty
-#-}
+{-# ATP definition [40] [41] [42] [43] [44] [45] [46] [47] [48] [49] #-}
 
-fifty-one   = succ₁ fifty
-fifty-two   = succ₁ fifty-one
-fifty-three = succ₁ fifty-two
-fifty-four  = succ₁ fifty-three
-fifty-five  = succ₁ fifty-four
-fifty-six   = succ₁ fifty-five
-fifty-seven = succ₁ fifty-six
-fifty-eight = succ₁ fifty-seven
-fifty-nine  = succ₁ fifty-eight
-sixty       = succ₁ fifty-nine
+[50] = succ₁ [49]
+[51] = succ₁ [50]
+[52] = succ₁ [51]
+[53] = succ₁ [52]
+[54] = succ₁ [53]
+[55] = succ₁ [54]
+[56] = succ₁ [55]
+[57] = succ₁ [56]
+[58] = succ₁ [57]
+[59] = succ₁ [58]
 
-{-# ATP definition fifty-one fifty-two fifty-three fifty-four fifty-five
-                   fifty-six fifty-seven fifty-eight fifty-nine sixty
-#-}
+{-# ATP definition [50] [51] [52] [53] [54] [55] [56] [57] [58] [59] #-}
 
-sixty-one   = succ₁ sixty
-sixty-two   = succ₁ sixty-one
-sixty-three = succ₁ sixty-two
-sixty-four  = succ₁ sixty-three
-sixty-five  = succ₁ sixty-four
-sixty-six   = succ₁ sixty-five
-sixty-seven = succ₁ sixty-six
-sixty-eight = succ₁ sixty-seven
-sixty-nine  = succ₁ sixty-eight
-seventy     = succ₁ sixty-nine
+[60] = succ₁ [59]
+[61] = succ₁ [60]
+[62] = succ₁ [61]
+[63] = succ₁ [62]
+[64] = succ₁ [63]
+[65] = succ₁ [64]
+[66] = succ₁ [65]
+[67] = succ₁ [66]
+[68] = succ₁ [67]
+[69] = succ₁ [68]
 
-{-# ATP definition sixty-one sixty-two sixty-three sixty-four sixty-five
-                   sixty-six sixty-seven sixty-eight sixty-nine seventy
-#-}
+{-# ATP definition [60] [61] [62] [63] [64] [65] [66] [67] [68] [69] #-}
 
-seventy-one   = succ₁ seventy
-seventy-two   = succ₁ seventy-one
-seventy-three = succ₁ seventy-two
-seventy-four  = succ₁ seventy-three
-seventy-five  = succ₁ seventy-four
-seventy-six   = succ₁ seventy-five
-seventy-seven = succ₁ seventy-six
-seventy-eight = succ₁ seventy-seven
-seventy-nine  = succ₁ seventy-eight
-eighty        = succ₁ seventy-nine
+[70] = succ₁ [69]
+[71] = succ₁ [70]
+[72] = succ₁ [71]
+[73] = succ₁ [72]
+[74] = succ₁ [73]
+[75] = succ₁ [74]
+[76] = succ₁ [75]
+[77] = succ₁ [76]
+[78] = succ₁ [77]
+[79] = succ₁ [78]
 
-{-# ATP definition seventy-one seventy-two seventy-three seventy-four seventy-five
-                   seventy-six seventy-seven seventy-eight seventy-nine eighty
- #-}
+{-# ATP definition [70] [71] [72] [73] [74] [75] [76] [77] [78] [79] #-}
 
-eighty-one   = succ₁ eighty
-eighty-two   = succ₁ eighty-one
-eighty-three = succ₁ eighty-two
-eighty-four  = succ₁ eighty-three
-eighty-five  = succ₁ eighty-four
-eighty-six   = succ₁ eighty-five
-eighty-seven = succ₁ eighty-six
-eighty-eight = succ₁ eighty-seven
-eighty-nine  = succ₁ eighty-eight
-ninety       = succ₁ eighty-nine
+[80] = succ₁ [79]
+[81] = succ₁ [80]
+[82] = succ₁ [81]
+[83] = succ₁ [82]
+[84] = succ₁ [83]
+[85] = succ₁ [84]
+[86] = succ₁ [85]
+[87] = succ₁ [86]
+[88] = succ₁ [87]
+[89] = succ₁ [88]
 
-{-# ATP definition eighty-one eighty-two eighty-three eighty-four eighty-five
-                   eighty-six eighty-seven eighty-eight eighty-nine ninety
-#-}
+{-# ATP definition [80] [81] [82] [83] [84] [85] [86] [87] [88] [89] #-}
 
-ninety-one   = succ₁ ninety
-ninety-two   = succ₁ ninety-one
-ninety-three = succ₁ ninety-two
-ninety-four  = succ₁ ninety-three
-ninety-five  = succ₁ ninety-four
-ninety-six   = succ₁ ninety-five
-ninety-seven = succ₁ ninety-six
-ninety-eight = succ₁ ninety-seven
-ninety-nine  = succ₁ ninety-eight
-one-hundred  = succ₁ ninety-nine
+[90] = succ₁ [89]
+[91] = succ₁ [90]
+[92] = succ₁ [91]
+[93] = succ₁ [92]
+[94] = succ₁ [93]
+[95] = succ₁ [94]
+[96] = succ₁ [95]
+[97] = succ₁ [96]
+[98] = succ₁ [97]
+[99] = succ₁ [98]
 
-{-# ATP definition ninety-one ninety-two ninety-three ninety-four ninety-five
-                   ninety-six ninety-seven ninety-eight ninety-nine one-hundred
- #-}
+{-# ATP definition [90] [91] [92] [93] [94] [95] [96] [97] [98] [99] #-}
 
-hundred-one   = succ₁ one-hundred
-hundred-two   = succ₁ hundred-one
-hundred-three = succ₁ hundred-two
-hundred-four  = succ₁ hundred-three
-hundred-five  = succ₁ hundred-four
-hundred-six   = succ₁ hundred-five
-hundred-seven = succ₁ hundred-six
-hundred-eight = succ₁ hundred-seven
-hundred-nine  = succ₁ hundred-eight
-hundred-ten   = succ₁ hundred-nine
+[100] = succ₁ [99]
+[101] = succ₁ [100]
+[102] = succ₁ [101]
+[103] = succ₁ [102]
+[104] = succ₁ [103]
+[105] = succ₁ [104]
+[106] = succ₁ [105]
+[107] = succ₁ [106]
+[108] = succ₁ [107]
+[109] = succ₁ [108]
 
-{-# ATP definition hundred-one hundred-two hundred-three hundred-four hundred-five
-                   hundred-six hundred-seven hundred-eight hundred-nine hundred-ten
- #-}
+{-# ATP definition [100] [101] [102] [103] [104] [105] [106] [107] [108] [109] #-}
 
-hundred-eleven = succ₁ hundred-ten
-{-# ATP definition hundred-eleven #-}
+[110] = succ₁ [109]
+[111] = succ₁ [110]
+{-# ATP definition [110] [111] #-}

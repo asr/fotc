@@ -16,7 +16,7 @@ open import FOTC.Data.Nat.UnaryNumbers
 -- The McCarthy 91 function.
 postulate
   mc91    : D → D
-  mc91-eq : ∀ n → mc91 n ≡ if (gt n one-hundred)
-                              then n ∸ ten
-                              else mc91 (mc91 (n + eleven))
+  mc91-eq : ∀ n → mc91 n ≡ if (gt n [100])
+                              then n ∸ [10]
+                              else mc91 (mc91 (n + [11]))
 {-# ATP axiom mc91-eq #-}

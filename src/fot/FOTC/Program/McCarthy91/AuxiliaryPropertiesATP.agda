@@ -21,24 +21,24 @@ open import FOTC.Program.McCarthy91.McCarthy91
 ------------------------------------------------------------------------------
 -- Auxiliary equation
 
-postulate mc91-eq-aux : ∀ n → n > one-hundred → mc91 n ≡ n ∸ ten
+postulate mc91-eq-aux : ∀ n → n > [100] → mc91 n ≡ n ∸ [10]
 {-# ATP prove mc91-eq-aux #-}
 
 ------------------------------------------------------------------------------
 --- Auxiliary properties
 
 ---- Case n > 100
-postulate mc91>100-N : ∀ {n} → N n → n > one-hundred → N (mc91 n)
+postulate mc91>100-N : ∀ {n} → N n → n > [100] → N (mc91 n)
 {-# ATP prove mc91>100-N 10-N ∸-N #-}
 
 postulate
-  x<mc91x+11>100 : ∀ {n} → N n → n > one-hundred → n < mc91 n + eleven
+  x<mc91x+11>100 : ∀ {n} → N n → n > [100] → n < mc91 n + [11]
 {-# ATP prove x<mc91x+11>100 +-N ∸-N x<y→y≤z→x<z x<x+1 x+1≤x∸10+11 #-}
 
 
 -- Most of them not needed
 -- Case n ≡ 100 can be proved automatically
-postulate mc91-res-100 : mc91 one-hundred ≡ ninety-one
+postulate mc91-res-100 : mc91 [100] ≡ [91]
 {-# ATP prove mc91-res-100 100+11>100 100+11∸10>100
                            101≡100+11∸10 91≡100+11∸10∸10
 #-}
@@ -46,36 +46,36 @@ postulate mc91-res-100 : mc91 one-hundred ≡ ninety-one
 ---- Case n ≤ 100
 postulate
   mc91≯100-N : ∀ n →
-               n ≯ one-hundred →
-               N (mc91 (mc91 (n + eleven))) →
+               n ≯ [100] →
+               N (mc91 (mc91 (n + [11]))) →
                N (mc91 n)
 {-# ATP prove mc91≯100-N #-}
 
 postulate
   mc91x+11<mc91x+11 : ∀ n →
-                      n ≯ one-hundred →
-                      mc91 (n + eleven) < mc91 (mc91 (n + eleven)) + eleven →
-                      mc91 (n + eleven) < mc91 n + eleven
+                      n ≯ [100] →
+                      mc91 (n + [11]) < mc91 (mc91 (n + [11])) + [11] →
+                      mc91 (n + [11]) < mc91 n + [11]
 {-# ATP prove mc91x+11<mc91x+11 #-}
 
 postulate
   mc91x-res≯100 : ∀ m n →
-                  m ≯ one-hundred →
-                  mc91 (m + eleven) ≡ n → mc91 n ≡ ninety-one →
-                  mc91 m ≡ ninety-one
+                  m ≯ [100] →
+                  mc91 (m + [11]) ≡ n → mc91 n ≡ [91] →
+                  mc91 m ≡ [91]
 {-# ATP prove mc91x-res≯100 #-}
 
 postulate
-  mc91-res-110 : mc91 (ninety-nine + eleven)  ≡ one-hundred
-  mc91-res-109 : mc91 (ninety-eight + eleven) ≡ ninety-nine
-  mc91-res-108 : mc91 (ninety-seven + eleven) ≡ ninety-eight
-  mc91-res-107 : mc91 (ninety-six + eleven)   ≡ ninety-seven
-  mc91-res-106 : mc91 (ninety-five + eleven)  ≡ ninety-six
-  mc91-res-105 : mc91 (ninety-four + eleven)  ≡ ninety-five
-  mc91-res-104 : mc91 (ninety-three + eleven) ≡ ninety-four
-  mc91-res-103 : mc91 (ninety-two + eleven)   ≡ ninety-three
-  mc91-res-102 : mc91 (ninety-one + eleven)   ≡ ninety-two
-  mc91-res-101 : mc91 (ninety + eleven)       ≡ ninety-one
+  mc91-res-110 : mc91 ([99] + [11]) ≡ [100]
+  mc91-res-109 : mc91 ([98] + [11]) ≡ [99]
+  mc91-res-108 : mc91 ([97] + [11]) ≡ [98]
+  mc91-res-107 : mc91 ([96] + [11]) ≡ [97]
+  mc91-res-106 : mc91 ([95] + [11]) ≡ [96]
+  mc91-res-105 : mc91 ([94] + [11]) ≡ [95]
+  mc91-res-104 : mc91 ([93] + [11]) ≡ [94]
+  mc91-res-103 : mc91 ([92] + [11]) ≡ [93]
+  mc91-res-102 : mc91 ([91] + [11]) ≡ [92]
+  mc91-res-101 : mc91 ([90] + [11]) ≡ [91]
 {-# ATP prove mc91-res-110 99+11>100 x+11∸10≡Sx #-}
 {-# ATP prove mc91-res-109 98+11>100 x+11∸10≡Sx #-}
 {-# ATP prove mc91-res-108 97+11>100 x+11∸10≡Sx #-}
@@ -88,16 +88,16 @@ postulate
 {-# ATP prove mc91-res-101 90+11>100 x+11∸10≡Sx #-}
 
 postulate
-  mc91-res-99 : mc91 ninety-nine  ≡ ninety-one
-  mc91-res-98 : mc91 ninety-eight ≡ ninety-one
-  mc91-res-97 : mc91 ninety-seven ≡ ninety-one
-  mc91-res-96 : mc91 ninety-six   ≡ ninety-one
-  mc91-res-95 : mc91 ninety-five  ≡ ninety-one
-  mc91-res-94 : mc91 ninety-four  ≡ ninety-one
-  mc91-res-93 : mc91 ninety-three ≡ ninety-one
-  mc91-res-92 : mc91 ninety-two   ≡ ninety-one
-  mc91-res-91 : mc91 ninety-one   ≡ ninety-one
-  mc91-res-90 : mc91 ninety       ≡ ninety-one
+  mc91-res-99 : mc91 [99] ≡ [91]
+  mc91-res-98 : mc91 [98] ≡ [91]
+  mc91-res-97 : mc91 [97] ≡ [91]
+  mc91-res-96 : mc91 [96] ≡ [91]
+  mc91-res-95 : mc91 [95] ≡ [91]
+  mc91-res-94 : mc91 [94] ≡ [91]
+  mc91-res-93 : mc91 [93] ≡ [91]
+  mc91-res-92 : mc91 [92] ≡ [91]
+  mc91-res-91 : mc91 [91] ≡ [91]
+  mc91-res-90 : mc91 [90] ≡ [91]
 {-# ATP prove mc91-res-99 mc91x-res≯100 mc91-res-110 mc91-res-100 #-}
 {-# ATP prove mc91-res-98 mc91x-res≯100 mc91-res-109 mc91-res-99 #-}
 {-# ATP prove mc91-res-97 mc91x-res≯100 mc91-res-108 mc91-res-98 #-}

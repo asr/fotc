@@ -25,48 +25,48 @@ open import FOTC.Program.Collatz.Data.Nat
 ^-N {m} Nm nzero          = subst N (sym (^-0 m)) (nsucc nzero)
 ^-N {m} Nm (nsucc {n} Nn) = subst N (sym (^-S m n)) (*-N Nm (^-N Nm Nn))
 
-2x/2≡x : ∀ {n} → N n → two * n / two ≡ n
+2x/2≡x : ∀ {n} → N n → [2] * n / [2] ≡ n
 2x/2≡x nzero = prf
   where
   -- See the combined proof.
-  postulate prf : two * zero / two ≡ zero
+  postulate prf : [2] * zero / [2] ≡ zero
 
 2x/2≡x (nsucc nzero) =
-  (two * succ₁ zero) / two
+  ([2] * succ₁ zero) / [2]
     ≡⟨ cong₂ _/_ (*-rightIdentity 2-N) refl ⟩
-  two / two
+  [2] / [2]
     ≡⟨ /-x≥y (x≥x 2-N) ⟩
-  succ₁ ((two ∸ two) / two)
+  succ₁ (([2] ∸ [2]) / [2])
     ≡⟨ succCong (cong₂ _/_ (x∸x≡0 2-N) refl) ⟩
-  succ₁ (zero / two)
+  succ₁ (zero / [2])
     ≡⟨ succCong (/-x<y (lt-0S (succ₁ zero))) ⟩
   succ₁ zero ∎
 
 2x/2≡x (nsucc (nsucc {n} Nn)) = prf
   where
   -- See the combined proof.
-  postulate prf : two * succ₁ (succ₁ n) / two ≡ succ₁ (succ₁ n)
+  postulate prf : [2] * succ₁ (succ₁ n) / [2] ≡ succ₁ (succ₁ n)
 
-2^[x+1]/2≡2^x : ∀ {n} → N n → (two ^ (succ₁ n)) / two ≡ two ^ n
+2^[x+1]/2≡2^x : ∀ {n} → N n → ([2] ^ (succ₁ n)) / [2] ≡ [2] ^ n
 2^[x+1]/2≡2^x {n} Nn =
-  two ^ (succ₁ n) / two
-    ≡⟨ subst (λ t → two ^ (succ₁ n) / two ≡ t / two) (^-S two n) refl ⟩
-  (two * two ^ n) / two
+  [2] ^ (succ₁ n) / [2]
+    ≡⟨ subst (λ t → [2] ^ (succ₁ n) / [2] ≡ t / [2]) (^-S [2] n) refl ⟩
+  ([2] * [2] ^ n) / [2]
     ≡⟨ 2x/2≡x (^-N 2-N Nn) ⟩
-  two ^ n ∎
+  [2] ^ n ∎
 
-Sx≡2^0→x≡0 : ∀ {n} → N n → succ₁ n ≡ two ^ zero → n ≡ zero
+Sx≡2^0→x≡0 : ∀ {n} → N n → succ₁ n ≡ [2] ^ zero → n ≡ zero
 Sx≡2^0→x≡0 nzero         _       = refl
 Sx≡2^0→x≡0(nsucc {n} Nn) SSn≡2^0 =
-  ⊥-elim (0≢S (sym (succInjective (trans SSn≡2^0 (^-0 two)))))
+  ⊥-elim (0≢S (sym (succInjective (trans SSn≡2^0 (^-0 [2])))))
 
-+∸2 : ∀ {n} → N n → n ≢ zero → n ≢ one → n ≡ succ₁ (succ₁ (n ∸ two))
++∸2 : ∀ {n} → N n → n ≢ zero → n ≢ [1] → n ≡ succ₁ (succ₁ (n ∸ [2]))
 +∸2 nzero                  n≢0 n≢1 = ⊥-elim (n≢0 refl)
 +∸2 (nsucc nzero)          n≢0 n≢1 = ⊥-elim (n≢1 refl)
 +∸2 (nsucc (nsucc {n} Nn)) n≢0 n≢1 = sym prf
   where
-  prf : succ₁ (succ₁ (succ₁ (succ₁ n) ∸ two)) ≡ succ₁ (succ₁ n)
-  prf = succ₁ (succ₁ (succ₁ (succ₁ n) ∸ two))
+  prf : succ₁ (succ₁ (succ₁ (succ₁ n) ∸ [2])) ≡ succ₁ (succ₁ n)
+  prf = succ₁ (succ₁ (succ₁ (succ₁ n) ∸ [2]))
           ≡⟨ succCong (succCong (S∸S (nsucc Nn) (nsucc nzero))) ⟩
         succ₁ (succ₁ ((succ₁ n ) ∸ (succ₁ zero)))
           ≡⟨ succCong (succCong (S∸S Nn nzero)) ⟩
@@ -74,16 +74,16 @@ Sx≡2^0→x≡0(nsucc {n} Nn) SSn≡2^0 =
           ≡⟨ succCong (succCong (∸-x0 n)) ⟩
         succ₁ (succ₁ n) ∎
 
-2^x≢0 : ∀ {n} → N n → two ^ n ≢ zero
-2^x≢0 nzero          h = ⊥-elim (0≢S (trans (sym h) (^-0 two)))
+2^x≢0 : ∀ {n} → N n → [2] ^ n ≢ zero
+2^x≢0 nzero          h = ⊥-elim (0≢S (trans (sym h) (^-0 [2])))
 2^x≢0 (nsucc {n} Nn) h =
   case (λ 2≡0 → ⊥-elim (0≢S (sym 2≡0)))
        (λ 2^n≡0 → ⊥-elim (2^x≢0 Nn 2^n≡0))
-       (xy≡0→x≡0∨y≡0 2-N (^-N 2-N Nn) (trans (sym (^-S two n)) h))
+       (xy≡0→x≡0∨y≡0 2-N (^-N 2-N Nn) (trans (sym (^-S [2] n)) h))
 
-2^[x+1]≢1 : ∀ {n} → N n → two ^ (succ₁ n) ≢ one
+2^[x+1]≢1 : ∀ {n} → N n → [2] ^ (succ₁ n) ≢ [1]
 2^[x+1]≢1 {n} Nn h =
-  Sx≢x (nsucc nzero) (xy≡1→x≡1 2-N (^-N 2-N Nn) (trans (sym (^-S two n)) h))
+  Sx≢x (nsucc nzero) (xy≡1→x≡1 2-N (^-N 2-N Nn) (trans (sym (^-S [2] n)) h))
 
 Sx-Even→x-Odd : ∀ {n} → N n → Even (succ₁ n) → Odd n
 Sx-Even→x-Odd nzero          h = ⊥-elim (true≢false
@@ -142,7 +142,7 @@ x+x-Even (nsucc {n} Nn) = subst Even (sym prf)
           ≡⟨ succCong (+-Sx n n) ⟩
         succ₁ (succ₁ (n + n)) ∎
 
-2x-Even : ∀ {n} → N n → Even (two * n)
+2x-Even : ∀ {n} → N n → Even ([2] * n)
 2x-Even nzero          = subst Even (sym (*-rightZero 2-N)) even-0
 2x-Even (nsucc {n} Nn) = subst Even (sym prf)
                             (x-Even→SSx-Even (+-N Nn Nn) (x+x-Even Nn))
@@ -165,5 +165,5 @@ x+x-Even (nsucc {n} Nn) = subst Even (sym prf)
       ≡⟨ succCong (+-Sx n n) ⟩
     succ₁ (succ₁ (n + n)) ∎
 
-2^[x+1]-Even : ∀ {n} → N n → Even (two ^ (succ₁ n))
-2^[x+1]-Even {n} Nn = subst Even (sym (^-S two n)) (2x-Even (^-N 2-N Nn))
+2^[x+1]-Even : ∀ {n} → N n → Even ([2] ^ (succ₁ n))
+2^[x+1]-Even {n} Nn = subst Even (sym (^-S [2] n)) (2x-Even (^-N 2-N Nn))

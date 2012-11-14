@@ -17,83 +17,84 @@ open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
 
 ------------------------------------------------------------------------------
 
-postulate 91≡100+11∸10∸10 : ninety-one ≡ one-hundred + eleven ∸ ten ∸ ten
+postulate 91≡100+11∸10∸10 : [91] ≡ [100] + [11] ∸ [10] ∸ [10]
 {-# ATP prove 91≡100+11∸10∸10 #-}
 
 postulate
-  100≡89+11     : one-hundred    ≡ eighty-nine + eleven
-  101≡90+11     : hundred-one    ≡ ninety + eleven
-  101≡100+11∸10 : hundred-one    ≡ one-hundred + eleven ∸ ten
-  102≡91+11     : hundred-two    ≡ ninety-one + eleven
-  103≡92+1      : hundred-three  ≡ ninety-two + eleven
-  104≡93+11     : hundred-four   ≡ ninety-three + eleven
-  105≡94+11     : hundred-five   ≡ ninety-four + eleven
-  106≡95+11     : hundred-six    ≡ ninety-five + eleven
-  107≡96+11     : hundred-seven  ≡ ninety-six + eleven
-  108≡97+11     : hundred-eight  ≡ ninety-seven + eleven
-  109≡99+11     : hundred-nine   ≡ ninety-eight + eleven
-  110≡99+11     : hundred-ten    ≡ ninety-nine + eleven
-  111≡100+11    : hundred-eleven ≡ one-hundred + eleven
+  100≡89+11  : [100] ≡ [89] + [11]
+  101≡90+11  : [101] ≡ [90] + [11]
+  102≡91+11  : [102] ≡ [91] + [11]
+  103≡92+11  : [103] ≡ [92] + [11]
+  104≡93+11  : [104] ≡ [93] + [11]
+  105≡94+11  : [105] ≡ [94] + [11]
+  106≡95+11  : [106] ≡ [95] + [11]
+  107≡96+11  : [107] ≡ [96] + [11]
+  108≡97+11  : [108] ≡ [97] + [11]
+  109≡98+11  : [109] ≡ [98] + [11]
+  110≡99+11  : [110] ≡ [99] + [11]
+  111≡100+11 : [111] ≡ [100] + [11]
 {-# ATP prove 100≡89+11 #-}
 {-# ATP prove 101≡90+11 #-}
-{-# ATP prove 101≡100+11∸10 #-}
 {-# ATP prove 102≡91+11 #-}
-{-# ATP prove 103≡92+1 #-}
+{-# ATP prove 103≡92+11 #-}
 {-# ATP prove 104≡93+11 #-}
 {-# ATP prove 105≡94+11 #-}
 {-# ATP prove 106≡95+11 #-}
 {-# ATP prove 107≡96+11 #-}
 {-# ATP prove 108≡97+11 #-}
-{-# ATP prove 109≡99+11 #-}
+{-# ATP prove 109≡98+11 #-}
 {-# ATP prove 110≡99+11 #-}
 {-# ATP prove 111≡100+11 #-}
 
+postulate 101≡100+11∸10 : [101] ≡ [100] + [11] ∸ [10]
+{-# ATP prove 101≡100+11∸10 #-}
+
 postulate
-  100+11∸10>100 : (one-hundred + eleven ∸ ten) > one-hundred
-  100+11>100    : (one-hundred + eleven)       > one-hundred
+  100+11∸10>100 : [100] + [11] ∸ [10] > [100]
+  100+11>100    : [100] + [11]        > [100]
 {-# ATP prove 100+11∸10>100 101≡100+11∸10 #-}
 {-# ATP prove 100+11>100 111≡100+11 #-}
 
 postulate
-  99+11>100 : (ninety-nine + eleven)  > one-hundred
-  98+11>100 : (ninety-eight + eleven) > one-hundred
-  97+11>100 : (ninety-seven + eleven) > one-hundred
-  96+11>100 : (ninety-six + eleven)   > one-hundred
-  95+11>100 : (ninety-five + eleven)  > one-hundred
-  94+11>100 : (ninety-four + eleven)  > one-hundred
-  93+11>100 : (ninety-three + eleven) > one-hundred
-  92+11>100 : (ninety-two + eleven)   > one-hundred
-  91+11>100 : (ninety-one + eleven)   > one-hundred
-  90+11>100 : (ninety + eleven)       > one-hundred
+  99+11>100 : [99] + [11] > [100]
+  98+11>100 : [98] + [11] > [100]
+  97+11>100 : [97] + [11] > [100]
+  96+11>100 : [96] + [11] > [100]
+  95+11>100 : [95] + [11] > [100]
+  94+11>100 : [94] + [11] > [100]
+  93+11>100 : [93] + [11] > [100]
+  92+11>100 : [92] + [11] > [100]
+  91+11>100 : [91] + [11] > [100]
+  90+11>100 : [90] + [11] > [100]
 {-# ATP prove 99+11>100 110≡99+11 #-}
-{-# ATP prove 98+11>100 109≡99+11 #-}
+{-# ATP prove 98+11>100 109≡98+11 #-}
 {-# ATP prove 97+11>100 108≡97+11 #-}
 {-# ATP prove 96+11>100 107≡96+11 #-}
 {-# ATP prove 95+11>100 106≡95+11 #-}
 {-# ATP prove 94+11>100 105≡94+11 #-}
 {-# ATP prove 93+11>100 104≡93+11 #-}
-{-# ATP prove 92+11>100 103≡92+1 #-}
+{-# ATP prove 92+11>100 103≡92+11 #-}
 {-# ATP prove 91+11>100 102≡91+11 #-}
 {-# ATP prove 90+11>100 101≡90+11 #-}
 
-postulate 100<102 : one-hundred < hundred-two
+postulate 100<102 : [100] < [102]
 {-# ATP prove 100<102 #-}
 
-x+11-N : ∀ {n} → N n → N (n + eleven)
+x+11-N : ∀ {n} → N n → N (n + [11])
 x+11-N Nn = +-N Nn 11-N
 
-x+11∸10≡Sx : ∀ {n} → N n → (n + eleven) ∸ ten ≡ succ₁ n
+x+11∸10≡Sx : ∀ {n} → N n → (n + [11]) ∸ [10] ≡ succ₁ n
 x+11∸10≡Sx Nn = [x+Sy]∸y≡Sx Nn 10-N
 
-postulate 91>100→⊥ : ninety-one > one-hundred → ⊥
+postulate 91>100→⊥ : [91] > [100] → ⊥
 {-# ATP prove 91>100→⊥ #-}
 
-postulate x+1≤x∸10+11 : ∀ {n} → N n → n + one ≤ (n ∸ ten) + eleven
+postulate x+1≤x∸10+11 : ∀ {n} → N n → n + [1] ≤ (n ∸ [10]) + [11]
 {-# ATP prove x+1≤x∸10+11 x≤y+x∸y 10-N 11-N +-N ∸-N +-comm #-}
 
 postulate
-  x≤89→x+11>100→⊥ : ∀ {n} → N n → n ≤ eighty-nine →
-                    (n + eleven) > one-hundred → ⊥
+  x≤89→x+11>100→⊥ : ∀ {n} → N n → n ≤ [89] →
+                    (n + [11]) > [100] → ⊥
 {-# ATP prove x≤89→x+11>100→⊥ x>y→x≤y→⊥ x≤y→x+k≤y+k x+11-N 89-N 100-N
                               100≡89+11
 #-}

@@ -370,7 +370,7 @@ xy≡0→x≡0∨y≡0 (nsucc {m} Nm) (nsucc {n} Nn) SmSn≡0 = ⊥-elim (0≢S 
         succ₁ n + m * succ₁ n   ≡⟨ +-Sx n (m * succ₁ n) ⟩
         succ₁ (n + m * succ₁ n) ∎
 
-xy≡1→x≡1 : ∀ {m n} → N m → N n → m * n ≡ one → m ≡ one
+xy≡1→x≡1 : ∀ {m n} → N m → N n → m * n ≡ [1] → m ≡ [1]
 xy≡1→x≡1 {n = n} nzero Nn h = ⊥-elim (0≢S (trans (sym (*-leftZero n)) h))
 xy≡1→x≡1 (nsucc nzero) Nn h = refl
 xy≡1→x≡1 (nsucc (nsucc {m} Nm)) nzero h =
@@ -393,7 +393,7 @@ xy≡1→x≡1 (nsucc (nsucc {m} Nm)) (nsucc {n} Nn) h = ⊥-elim (0≢S prf₂)
   prf₂ : zero ≡ succ₁ (m + n * succ₁ (succ₁ m))
   prf₂ = succInjective prf₁
 
-xy≡1→y≡1 : ∀ {m n} → N m → N n → m * n ≡ one → n ≡ one
+xy≡1→y≡1 : ∀ {m n} → N m → N n → m * n ≡ [1] → n ≡ [1]
 xy≡1→y≡1 Nm Nn h = xy≡1→x≡1 Nn Nm (trans (*-comm Nn Nm) h)
 
 -- Feferman's axiom as presented by (Beeson 1986, p. 74).

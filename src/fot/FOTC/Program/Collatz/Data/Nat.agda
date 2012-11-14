@@ -28,7 +28,7 @@ postulate
 
 postulate
   _^_ : D → D → D
-  ^-0 : ∀ n → n ^ zero      ≡ one
+  ^-0 : ∀ n → n ^ zero      ≡ [1]
   ^-S : ∀ m n → m ^ succ₁ n ≡ m * m ^ n
 {-# ATP axiom ^-0 ^-S #-}
 

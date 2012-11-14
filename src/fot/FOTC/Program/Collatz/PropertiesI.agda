@@ -21,33 +21,33 @@ open import FOTC.Program.Collatz.Data.Nat.PropertiesI
 
 ------------------------------------------------------------------------------
 
-collatz-2^x : ∀ {n} → N n → (∃[ k ] N k ∧ n ≡ two ^ k) → collatz n ≡ one
+collatz-2^x : ∀ {n} → N n → (∃[ k ] N k ∧ n ≡ [2] ^ k) → collatz n ≡ [1]
 collatz-2^x nzero _ = collatz-0
 collatz-2^x (nsucc {n} Nn) (.zero , nzero , Sn≡2^0) =
-  subst (λ t → collatz t ≡ one)
+  subst (λ t → collatz t ≡ [1])
         (succCong (sym (Sx≡2^0→x≡0 Nn Sn≡2^0)))
         collatz-1
 collatz-2^x (nsucc {n} Nn) (.(succ₁ k) , nsucc {k} Nk , Sn≡2^k+1) =
   collatz (succ₁ n)
     ≡⟨ cong collatz Sn≡2^k+1 ⟩
-  collatz (two ^ (succ₁ k))
+  collatz ([2] ^ (succ₁ k))
     ≡⟨ cong collatz prf ⟩
-  collatz (succ₁ (succ₁ ((two ^ (succ₁ k)) ∸ two)))
+  collatz (succ₁ (succ₁ (([2] ^ (succ₁ k)) ∸ [2])))
     ≡⟨ collatz-even (x-Even→SSx-Even (∸-N (^-N 2-N (nsucc Nk)) 2-N)
                     (∸-Even (^-N 2-N (nsucc Nk)) 2-N (2^[x+1]-Even Nk)
                             (x-Even→SSx-Even nzero even-0)))
     ⟩
-  collatz ((succ₁ (succ₁ ((two ^ (succ₁ k)) ∸ two))) / two)
+  collatz ((succ₁ (succ₁ (([2] ^ (succ₁ k)) ∸ [2]))) / [2])
     ≡⟨ cong collatz
-            (subst (λ t → succ₁ (succ₁ (two ^ succ₁ k ∸ two)) / two ≡ t / two)
+            (subst (λ t → succ₁ (succ₁ ([2] ^ succ₁ k ∸ [2])) / [2] ≡ t / [2])
                    (sym prf)
                    refl)
             ⟩
-  collatz ((two ^ (succ₁ k)) / two)
+  collatz (([2] ^ (succ₁ k)) / [2])
     ≡⟨ cong collatz (2^[x+1]/2≡2^x Nk) ⟩
-  collatz (two ^ k)
+  collatz ([2] ^ k)
     ≡⟨ collatz-2^x (^-N 2-N Nk) (k , Nk , refl) ⟩
-  one ∎
+  [1] ∎
   where
-  prf : two ^ succ₁ k ≡ succ₁ (succ₁ (two ^ succ₁ k ∸ two))
+  prf : [2] ^ succ₁ k ≡ succ₁ (succ₁ ([2] ^ succ₁ k ∸ [2]))
   prf = +∸2 (^-N 2-N (nsucc Nk)) (2^x≢0 (nsucc Nk)) (2^[x+1]≢1 Nk)

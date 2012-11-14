@@ -18,15 +18,15 @@ open import FOTC.Program.Collatz.Data.Nat.PropertiesATP
 
 ------------------------------------------------------------------------------
 
-collatz-2^x : ∀ {n} → N n → (∃[ k ] N k ∧ n ≡ two ^ k) → collatz n ≡ one
+collatz-2^x : ∀ {n} → N n → (∃[ k ] N k ∧ n ≡ [2] ^ k) → collatz n ≡ [1]
 collatz-2^x nzero _ = collatz-0
 
 collatz-2^x (nsucc {n} Nn) (.zero , nzero , Sn≡2^0) = prf
   where
-  postulate prf : collatz (succ₁ n) ≡ one
+  postulate prf : collatz (succ₁ n) ≡ [1]
   {-# ATP prove prf Sx≡2^0→x≡0 #-}
 
 collatz-2^x (nsucc {n} Nn) (.(succ₁ k) , nsucc {k} Nk , Sn≡2^k+1) = prf
   where
   -- See the interactive proof.
-  postulate prf : collatz (succ₁ n) ≡ one
+  postulate prf : collatz (succ₁ n) ≡ [1]

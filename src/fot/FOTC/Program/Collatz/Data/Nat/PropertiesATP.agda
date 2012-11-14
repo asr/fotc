@@ -23,47 +23,47 @@ open import FOTC.Program.Collatz.Data.Nat
 ^-N {m} Nm nzero          = subst N (sym (^-0 m)) (nsucc nzero)
 ^-N {m} Nm (nsucc {n} Nn) = subst N (sym (^-S m n)) (*-N Nm (^-N Nm Nn))
 
-postulate 2*SSx≥2 : ∀ {n} → N n → two * succ₁ (succ₁ n) ≥ two
+postulate 2*SSx≥2 : ∀ {n} → N n → [2] * succ₁ (succ₁ n) ≥ [2]
 {-# ATP prove 2*SSx≥2 #-}
 
-2x/2≡x : ∀ {n} → N n → two * n / two ≡ n
+2x/2≡x : ∀ {n} → N n → [2] * n / [2] ≡ n
 2x/2≡x nzero = prf
-  where postulate prf : two * zero / two ≡ zero
+  where postulate prf : [2] * zero / [2] ≡ zero
         {-# ATP prove prf *-rightZero #-}
 2x/2≡x (nsucc nzero) = prf
-  where postulate prf : two * succ₁ zero / two ≡ succ₁ zero
+  where postulate prf : [2] * succ₁ zero / [2] ≡ succ₁ zero
         {-# ATP prove prf *-rightIdentity x≥x x∸x≡0 #-}
 2x/2≡x (nsucc (nsucc {n} Nn)) = prf (2x/2≡x (nsucc Nn))
-  where postulate prf : two * succ₁ n / two ≡ succ₁ n →
-                        two * succ₁ (succ₁ n) / two ≡ succ₁ (succ₁ n)
+  where postulate prf : [2] * succ₁ n / [2] ≡ succ₁ n →
+                        [2] * succ₁ (succ₁ n) / [2] ≡ succ₁ (succ₁ n)
         {-# ATP prove prf 2*SSx≥2 +-rightIdentity +-comm +-N #-}
 
-postulate 2^[x+1]/2≡2^x : ∀ {n} → N n → (two ^ (succ₁ n)) / two ≡ two ^ n
+postulate 2^[x+1]/2≡2^x : ∀ {n} → N n → ([2] ^ (succ₁ n)) / [2] ≡ [2] ^ n
 {-# ATP prove 2^[x+1]/2≡2^x 2x/2≡x ^-N #-}
 
-Sx≡2^0→x≡0 : ∀ {n} → N n → succ₁ n ≡ two ^ zero → n ≡ zero
+Sx≡2^0→x≡0 : ∀ {n} → N n → succ₁ n ≡ [2] ^ zero → n ≡ zero
 Sx≡2^0→x≡0 nzero         _       = refl
 Sx≡2^0→x≡0(nsucc {n} Nn) SSn≡2^0 = ⊥-elim prf
   where postulate prf : ⊥
         {-# ATP prove prf #-}
 
-+∸2 : ∀ {n} → N n → n ≢ zero → n ≢ one → n ≡ succ₁ (succ₁ (n ∸ two))
++∸2 : ∀ {n} → N n → n ≢ zero → n ≢ [1] → n ≡ succ₁ (succ₁ (n ∸ [2]))
 +∸2 nzero                  n≢0 n≢1 = ⊥-elim (n≢0 refl)
 +∸2 (nsucc nzero)          n≢0 n≢1 = ⊥-elim (n≢1 refl)
 +∸2 (nsucc (nsucc {n} Nn)) n≢0 n≢1 = prf
   where
   -- See the interactive proof.
-  postulate prf : succ₁ (succ₁ n) ≡ succ₁ (succ₁ (succ₁ (succ₁ n) ∸ two))
+  postulate prf : succ₁ (succ₁ n) ≡ succ₁ (succ₁ (succ₁ (succ₁ n) ∸ [2]))
 
-2^x≢0 : ∀ {n} → N n → two ^ n ≢ zero
-2^x≢0 nzero          h = ⊥-elim (0≢S (trans (sym h) (^-0 two)))
+2^x≢0 : ∀ {n} → N n → [2] ^ n ≢ zero
+2^x≢0 nzero          h = ⊥-elim (0≢S (trans (sym h) (^-0 [2])))
 2^x≢0 (nsucc {n} Nn) h = prf (2^x≢0 Nn)
-  where postulate prf : two ^ n ≢ zero →  ⊥
+  where postulate prf : [2] ^ n ≢ zero →  ⊥
         {-# ATP prove prf xy≡0→x≡0∨y≡0 ^-N #-}
 
-2^[x+1]≢1 : ∀ {n} → N n → two ^ (succ₁ n) ≢ one
+2^[x+1]≢1 : ∀ {n} → N n → [2] ^ (succ₁ n) ≢ [1]
 2^[x+1]≢1 {n} Nn h =
-  Sx≢x (nsucc nzero) (xy≡1→x≡1 2-N (^-N 2-N Nn) (trans (sym (^-S two n)) h))
+  Sx≢x (nsucc nzero) (xy≡1→x≡1 2-N (^-N 2-N Nn) (trans (sym (^-S [2] n)) h))
 
 Sx-Even→x-Odd : ∀ {n} → N n → Even (succ₁ n) → Odd n
 Sx-Even→x-Odd nzero  h = ⊥-elim prf
@@ -105,9 +105,9 @@ x+x-Even (nsucc {n} Nn) = prf (x+x-Even Nn)
   where postulate prf : Even (n + n) → Even (succ₁ n + succ₁ n)
         {-# ATP prove prf x-Even→SSx-Even +-N +-comm #-}
 
-2x-Even : ∀ {n} → N n → Even (two * n)
+2x-Even : ∀ {n} → N n → Even ([2] * n)
 2x-Even nzero          = subst Even (sym (*-rightZero 2-N)) even-0
 2x-Even (nsucc {n} Nn) = prf
   where
-  postulate prf : Even (two * succ₁ n)
+  postulate prf : Even ([2] * succ₁ n)
   {-# ATP prove prf x-Even→SSx-Even x+x-Even +-N +-comm +-rightIdentity #-}

@@ -24,66 +24,66 @@ private
 
   collatz-s₁ : D → D
   collatz-s₁ n = if (iszero₁ n)
-                    then one
+                    then [1]
                     else (if (iszero₁ (pred₁ n))
-                             then one
+                             then [1]
                              else (if (even n)
-                                      then collatz (n / two)
-                                      else collatz (three * n + one)))
+                                      then collatz (n / [2])
+                                      else collatz ([3] * n + [1])))
 
   -- First if_then_else_ iszero₁ n = b.
   collatz-s₂ : D → D → D
   collatz-s₂ n b = if b
-                      then one
+                      then [1]
                       else (if (iszero₁ (pred₁ n))
-                               then one
+                               then [1]
                                else (if (even n)
-                                        then collatz (n / two)
-                                        else collatz (three * n + one)))
+                                        then collatz (n / [2])
+                                        else collatz ([3] * n + [1])))
 
   -- First if_then_else_ when if true ....
   collatz-s₃ : D → D
-  collatz-s₃ n = one
+  collatz-s₃ n = [1]
 
   -- First if_then_else_ when if false ....
   collatz-s₄ : D → D
   collatz-s₄ n = if (iszero₁ (pred₁ n))
-                    then one
+                    then [1]
                     else (if (even n)
-                             then collatz (n / two)
-                             else collatz (three * n + one))
+                             then collatz (n / [2])
+                             else collatz ([3] * n + [1]))
 
   -- Second if_then_else_ iszero₁ (pred₁ n) = b.
   collatz-s₅ : D → D → D
   collatz-s₅ n b = if b
-                      then one
+                      then [1]
                       else (if (even n)
-                               then collatz (n / two)
-                               else collatz (three * n + one))
+                               then collatz (n / [2])
+                               else collatz ([3] * n + [1]))
 
   -- Second if_then_else_ when if true ....
   collatz-s₆ : D → D
-  collatz-s₆ n = one
+  collatz-s₆ n = [1]
 
   -- Second if_then_else_ when if false ....
   collatz-s₇ : D → D
   collatz-s₇ n = if (even n)
-                    then collatz (n / two)
-                    else collatz (three * n + one)
+                    then collatz (n / [2])
+                    else collatz ([3] * n + [1])
 
   -- Third if_then_else_ even n b.
   collatz-s₈ : D → D → D
   collatz-s₈ n b = if b
-                      then collatz (n / two)
-                      else collatz (three * n + one)
+                      then collatz (n / [2])
+                      else collatz ([3] * n + [1])
 
   -- Third if_then_else_ when if true ....
   collatz-s₉ : D → D
-  collatz-s₉ n = collatz (n / two)
+  collatz-s₉ n = collatz (n / [2])
 
   -- Third if_then_else_ when if false ....
   collatz-s₁₀ : D → D
-  collatz-s₁₀ n = collatz (three * n + one)
+  collatz-s₁₀ n = collatz ([3] * n + [1])
 
   ----------------------------------------------------------------------------
   -- The execution steps
@@ -127,29 +127,29 @@ private
 ------------------------------------------------------------------------------
 -- Conversion rules for the Collatz function
 
-collatz-0 : collatz zero ≡ one
+collatz-0 : collatz zero ≡ [1]
 collatz-0 =
   collatz    zero      ≡⟨ proof₀₋₁ zero ⟩
   collatz-s₁ zero      ≡⟨ proof₁₋₂ iszero-0 ⟩
   collatz-s₂ zero true ≡⟨ proof₂₋₃ zero ⟩
-  one                  ∎
+  [1]                  ∎
 
-collatz-1 : collatz one  ≡ one
+collatz-1 : collatz [1] ≡ [1]
 collatz-1 =
-  collatz one
-    ≡⟨ proof₀₋₁ one ⟩
-  collatz-s₁ one
+  collatz [1]
+    ≡⟨ proof₀₋₁ [1] ⟩
+  collatz-s₁ [1]
     ≡⟨ proof₁₋₂ (iszero-S zero) ⟩
-  collatz-s₂ one false
-    ≡⟨ proof₂₋₄ one  ⟩
-  collatz-s₄ one
+  collatz-s₂ [1] false
+    ≡⟨ proof₂₋₄ [1]  ⟩
+  collatz-s₄ [1]
     ≡⟨ proof₄₋₅ (subst (λ x → iszero₁ x ≡ true) (sym (pred-S zero)) iszero-0) ⟩
-  collatz-s₅ one true
-    ≡⟨ proof₅₋₆ one ⟩
-  one ∎
+  collatz-s₅ [1] true
+    ≡⟨ proof₅₋₆ [1] ⟩
+  [1] ∎
 
 collatz-even : ∀ {n} → Even (succ₁ (succ₁ n)) →
-               collatz (succ₁ (succ₁ n)) ≡ collatz ((succ₁ (succ₁ n)) / two)
+               collatz (succ₁ (succ₁ n)) ≡ collatz ((succ₁ (succ₁ n)) / [2])
 collatz-even {n} h =
   collatz (succ₁ (succ₁ n))
     ≡⟨ proof₀₋₁ (succ₁ (succ₁ n)) ⟩
@@ -168,11 +168,11 @@ collatz-even {n} h =
     ≡⟨ proof₇₋₈ h ⟩
   collatz-s₈ (succ₁ (succ₁ n)) true
     ≡⟨ proof₈₋₉ (succ₁ (succ₁ n)) ⟩
-  collatz ((succ₁ (succ₁ n)) / two) ∎
+  collatz ((succ₁ (succ₁ n)) / [2]) ∎
 
 collatz-noteven : ∀ {n} → NotEven (succ₁ (succ₁ n)) →
                   collatz (succ₁ (succ₁ n)) ≡
-                  collatz (three * (succ₁ (succ₁ n)) + one)
+                  collatz ([3] * (succ₁ (succ₁ n)) + [1])
 collatz-noteven {n} h =
   collatz (succ₁ (succ₁ n))
     ≡⟨ proof₀₋₁ (succ₁ (succ₁ n)) ⟩
@@ -191,4 +191,4 @@ collatz-noteven {n} h =
     ≡⟨ proof₇₋₈ h ⟩
   collatz-s₈ (succ₁ (succ₁ n)) false
     ≡⟨ proof₈₋₁₀ (succ₁ (succ₁ n)) ⟩
-  collatz (three * (succ₁ (succ₁ n)) + one) ∎
+  collatz ([3] * (succ₁ (succ₁ n)) + [1]) ∎
