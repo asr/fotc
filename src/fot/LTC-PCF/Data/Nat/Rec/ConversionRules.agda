@@ -32,26 +32,26 @@ private
   rec-s₂ n = lam (λ a → lam (λ f →
                     (if (iszero₁ n)
                         then a
-                        else f · (pred₁ n) · ((fix rech) · (pred₁ n) · a · f))))
+                        else f · pred₁ n · (fix rech · pred₁ n · a · f))))
 
   -- Second argument application.
   rec-s₃ : D → D → D
   rec-s₃ n a = lam (λ f →
                    (if (iszero₁ n)
                        then a
-                       else f · (pred₁ n) · ((fix rech) · (pred₁ n) · a · f)))
+                       else f · pred₁ n · (fix rech · pred₁ n · a · f)))
 
   -- Third argument application.
   rec-s₄ : D → D → D → D
   rec-s₄ n a f = if (iszero₁ n)
                      then a
-                     else f · (pred₁ n) · ((fix rech) · (pred₁ n) · a · f)
+                     else f · pred₁ n · (fix rech · pred₁ n · a · f)
 
   -- Reduction iszero₁ n ≡ b.
   rec-s₅ : D → D → D → D → D
   rec-s₅ n a f b = if b
                       then a
-                      else f · (pred₁ n) · ((fix rech) · (pred₁ n) · a · f)
+                      else f · pred₁ n · (fix rech · pred₁ n · a · f)
 
   -- Reduction of iszero₁ n ≡ true
   --
@@ -63,11 +63,11 @@ private
 
   -- Reduction iszero₁ n ≡ false.
   rec-s₆ : D → D → D → D
-  rec-s₆ n a f = f · (pred₁ n) · ((fix rech) · (pred₁ n) · a · f)
+  rec-s₆ n a f = f · pred₁ n · (fix rech · pred₁ n · a · f)
 
   -- Reduction pred₁ (succ n) ≡ n.
   rec-s₇ : D → D → D → D
-  rec-s₇ n a f = f · n · ((fix rech) · n · a · f)
+  rec-s₇ n a f = f · n · (fix rech · n · a · f)
 
   ----------------------------------------------------------------------------
   -- The execution steps

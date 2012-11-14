@@ -39,22 +39,28 @@ private
   -- First argument application.
   lt-s₂ : D → D
   lt-s₂ m = lam (λ n →
-               if (iszero₁ n) then false
-                  else (if (iszero₁ m) then true
-                           else ((fix lth) · (pred₁ m) · (pred₁ n))))
+               if (iszero₁ n)
+                  then false
+                  else (if (iszero₁ m)
+                           then true
+                           else (fix lth · pred₁ m · pred₁ n)))
 
 
   -- Second argument application.
   lt-s₃ : D → D → D
-  lt-s₃ m n = if (iszero₁ n) then false
-                 else (if (iszero₁ m) then true
-                          else ((fix lth) · (pred₁ m) · (pred₁ n)))
+  lt-s₃ m n = if (iszero₁ n)
+                 then false
+                 else (if (iszero₁ m)
+                          then true
+                          else (fix lth · pred₁ m · pred₁ n))
 
   -- Reduction iszero₁ n ≡ b.
   lt-s₄ : D → D → D → D
-  lt-s₄ m n b = if b then false
-                  else (if (iszero₁ m) then true
-                           else ((fix lth) · (pred₁ m) · (pred₁ n)))
+  lt-s₄ m n b = if b
+                   then false
+                   else (if (iszero₁ m)
+                            then true
+                            else (fix lth · pred₁ m · pred₁ n))
 
   -- Reduction iszero₁ n ≡ true.
   -- It should be
@@ -64,14 +70,16 @@ private
 
   -- Reduction iszero₁ n ≡ false.
   lt-s₅ : D → D → D
-  lt-s₅ m n = if (iszero₁ m) then true
-                 else ((fix lth) · (pred₁ m) · (pred₁ n))
+  lt-s₅ m n = if (iszero₁ m)
+                 then true
+                 else (fix lth · pred₁ m · pred₁ n)
 
 
   -- Reduction iszero₁ m ≡ b.
   lt-s₆ : D → D → D → D
-  lt-s₆ m n b = if b then true
-                   else ((fix lth) · (pred₁ m) · (pred₁ n))
+  lt-s₆ m n b = if b
+                   then true
+                   else (fix lth · pred₁ m · pred₁ n)
 
   -- Reduction iszero₁ m ≡ true.
   -- It should be
@@ -81,15 +89,15 @@ private
 
    -- Reduction iszero₁ m ≡ false.
   lt-s₇ : D → D → D
-  lt-s₇ m n = (fix lth) · (pred₁ m) · (pred₁ n)
+  lt-s₇ m n = fix lth · pred₁ m · pred₁ n
 
   -- Reduction pred₁ (succ m) ≡ m.
   lt-s₈ : D → D → D
-  lt-s₈ m n = (fix lth) · m · (pred₁ n)
+  lt-s₈ m n = fix lth · m · pred₁ n
 
   -- Reduction pred₁ (succ n) ≡ n.
   lt-s₉ : D → D → D
-  lt-s₉ m n = (fix lth) · m · n
+  lt-s₉ m n = fix lth · m · n
 
   ----------------------------------------------------------------------
   -- The execution steps
@@ -120,64 +128,62 @@ private
   -}
 
   -- Application of the conversion rule fix-eq.
-  proof₀₋₁ : (m n : D) → fix lth · m · n  ≡ lt-s₁ m n
+  proof₀₋₁ : ∀ m n → fix lth · m · n  ≡ lt-s₁ m n
   proof₀₋₁ m n = subst (λ x → x · m · n  ≡
                               lth (fix lth) · m · n )
                        (sym (fix-eq lth ))
                        refl
 
   -- Application of the first argument.
-  proof₁₋₂ : (m n : D) → lt-s₁ m n ≡ lt-s₂ m · n
+  proof₁₋₂ : ∀ m n → lt-s₁ m n ≡ lt-s₂ m · n
   proof₁₋₂ m n = subst (λ x → x · n ≡ lt-s₂ m · n)
                        (sym (beta lt-s₂ m))
                        refl
 
   -- Application of the second argument.
-  proof₂₋₃ : (m n : D) → lt-s₂ m · n ≡ lt-s₃ m n
+  proof₂₋₃ : ∀ m n → lt-s₂ m · n ≡ lt-s₃ m n
   proof₂₋₃ m n = beta (lt-s₃ m) n
 
 
   -- Reduction isZero n ≡ b using that proof.
-  proof₃₋₄ : (m n b : D) → iszero₁ n ≡ b →
-             lt-s₃ m n ≡ lt-s₄ m n b
+  proof₃₋₄ : ∀ m n b → iszero₁ n ≡ b → lt-s₃ m n ≡ lt-s₄ m n b
   proof₃₋₄ m n b prf = subst (λ x → lt-s₄ m n x ≡ lt-s₄ m n b )
                              (sym prf )
                              refl
 
   -- Reduction of iszero₁ n ≡ true using the conversion rule if-true.
-  proof₄₊ : (m n : D) → lt-s₄ m n true ≡ false
+  proof₄₊ : ∀ m n → lt-s₄ m n true ≡ false
   proof₄₊ m n = if-true false
 
   -- Reduction of iszero₁ n ≡ false ... using the conversion rule
   -- if-false.
-  proof₄₋₅ : (m n : D) → lt-s₄ m n false ≡ lt-s₅ m n
+  proof₄₋₅ : ∀ m n → lt-s₄ m n false ≡ lt-s₅ m n
   proof₄₋₅ m n = if-false (lt-s₅ m n)
 
 
   -- Reduction iszero₁ m ≡ b using that proof.
-  proof₅₋₆ : (m n b : D) → iszero₁ m ≡ b →
-             lt-s₅ m n ≡ lt-s₆ m n b
+  proof₅₋₆ : ∀ m n b → iszero₁ m ≡ b → lt-s₅ m n ≡ lt-s₆ m n b
   proof₅₋₆ m n b prf = subst (λ x → lt-s₆ m n x ≡ lt-s₆ m n b )
                              (sym prf )
                              refl
 
   -- Reduction of iszero₁ m ≡ true using the conversion rule if-true.
-  proof₆₊ : (m n : D) → lt-s₆ m n true ≡ true
+  proof₆₊ : ∀ m n → lt-s₆ m n true ≡ true
   proof₆₊ m n = if-true true
 
   -- Reduction of iszero₁ m ≡ false ... using the conversion rule
   -- if-false.
-  proof₆₋₇ : (m n : D) → lt-s₆ m n false ≡ lt-s₇ m n
+  proof₆₋₇ : ∀ m n → lt-s₆ m n false ≡ lt-s₇ m n
   proof₆₋₇ m n = if-false (lt-s₇ m n)
 
   -- Reduction pred (succ m) ≡ m using the conversion rule pred-S.
-  proof₇₋₈ : (m n : D) → lt-s₇ (succ₁ m) n  ≡ lt-s₈ m n
+  proof₇₋₈ : ∀ m n → lt-s₇ (succ₁ m) n  ≡ lt-s₈ m n
   proof₇₋₈ m n = subst (λ x → lt-s₈ x n ≡ lt-s₈ m n)
                        (sym (pred-S m ))
                        refl
 
   -- Reduction pred (succ n) ≡ n using the conversion rule pred-S.
-  proof₈₋₉ : (m n : D) → lt-s₈ m (succ₁ n)  ≡ lt-s₉ m n
+  proof₈₋₉ : ∀ m n → lt-s₈ m (succ₁ n)  ≡ lt-s₉ m n
   proof₈₋₉ m n = subst (λ x → lt-s₉ m x ≡ lt-s₉ m n)
                        (sym (pred-S n ))
                        refl
@@ -185,7 +191,6 @@ private
 ------------------------------------------------------------------------------
 
 private
-  -- NB. This property is true for *any* n.
   X≮0 : ∀ n → n ≮ zero
   X≮0 n = fix lth · n · zero  ≡⟨ proof₀₋₁ n zero ⟩
           lt-s₁ n zero        ≡⟨ proof₁₋₂ n zero ⟩

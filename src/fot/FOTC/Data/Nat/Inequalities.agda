@@ -16,7 +16,7 @@ infix 7 _<_ _≮_ _>_ _≯_ _≤_ _≰_ _≥_ _≱_
 -- The function terms.
 
 postulate
-  lt  : D → D → D
+  lt    : D → D → D
   lt-00 : lt zero zero                   ≡ false
   lt-0S : ∀ n → lt zero (succ₁ n)        ≡ true
   lt-S0 : ∀ n → lt (succ₁ n) zero        ≡ false

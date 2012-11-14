@@ -17,11 +17,11 @@ open import FOTC.Data.Nat.Inequalities
 postulate
   gcd    : D → D → D
   gcd-eq : ∀ m n → gcd m n ≡
-                   if (iszero₁ n)
-                      then m
-                      else (if (iszero₁ m)
-                               then n
-                               else (if (gt m n)
-                                        then gcd (m ∸ n) n
-                                        else gcd m (n ∸ m)))
+           if (iszero₁ n)
+               then m
+               else (if (iszero₁ m)
+                         then n
+                         else (if (gt m n)
+                                   then gcd (m ∸ n) n
+                                   else gcd m (n ∸ m)))
 {-# ATP axiom gcd-eq #-}
