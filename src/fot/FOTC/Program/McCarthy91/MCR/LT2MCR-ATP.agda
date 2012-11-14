@@ -80,8 +80,8 @@ LT2MCR (nsucc {n} Nn) (nsucc {m} Nm) p h with x<y∨x≥y Nn 100-N
 ... | inj₂ n≥100 = prf-n≥100
   where
   postulate
-    0≡101∸Sn  : zero ≡ [101] ∸ succ₁ n
-    0<101∸Sm  : zero < [101] ∸ succ₁ m
+    0≡101∸Sn : zero ≡ [101] ∸ succ₁ n
+    0<101∸Sm : zero < [101] ∸ succ₁ m
   {-# ATP prove 0≡101∸Sn x≤y→x∸y≡0 #-}
   {-# ATP prove 0<101∸Sm x≯y→x≤y x<y→0<y∸x #-}
 
