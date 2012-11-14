@@ -5,7 +5,8 @@
 module FOTC.Everything where
 
 open import FOTC.Base
-open import FOTC.Base.ConsistencyTest
+open import FOTC.Base.Consistency.Axioms
+open import FOTC.Base.Consistency.IfInjective
 open import FOTC.Base.Properties
 open import FOTC.Base.PropertiesATP
 open import FOTC.Base.PropertiesI
@@ -17,13 +18,13 @@ open import FOTC.Data.Bool.Type
 
 open import FOTC.Data.Conat
 open import FOTC.Data.Conat.Equality
-open import FOTC.Data.Conat.Equality.ConsistencyTest
+open import FOTC.Data.Conat.Equality.Consistency.Axioms
 open import FOTC.Data.Conat.PropertiesI
 open import FOTC.Data.Conat.Type
-open import FOTC.Data.Conat.Type.ConsistencyTest
+open import FOTC.Data.Conat.Type.Consistency.Axioms
 
 open import FOTC.Data.List
-open import FOTC.Data.List.ConsistencyTest
+open import FOTC.Data.List.Consistency.Axioms
 open import FOTC.Data.List.LT-Cons
 open import FOTC.Data.List.LT-Cons.Induction.Acc.WellFoundedInductionI
 open import FOTC.Data.List.LT-Cons.PropertiesI
@@ -36,7 +37,7 @@ open import FOTC.Data.List.PropertiesI
 open import FOTC.Data.List.Type
 
 open import FOTC.Data.Nat
-open import FOTC.Data.Nat.ConsistencyTest
+open import FOTC.Data.Nat.Consistency.Axioms
 open import FOTC.Data.Nat.Divisibility.By0
 open import FOTC.Data.Nat.Divisibility.By0.PropertiesATP
 open import FOTC.Data.Nat.Divisibility.By0.PropertiesI
@@ -50,7 +51,7 @@ open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI
 open import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionATP
 open import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionI
 open import FOTC.Data.Nat.Inequalities
-open import FOTC.Data.Nat.Inequalities.ConsistencyTest
+open import FOTC.Data.Nat.Inequalities.Consistency.Axioms
 open import FOTC.Data.Nat.Inequalities.EliminationProperties
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.Inequalities.PropertiesI
@@ -72,14 +73,14 @@ open import FOTC.Data.Stream
 open import FOTC.Data.Stream.PropertiesATP
 open import FOTC.Data.Stream.PropertiesI
 open import FOTC.Data.Stream.Type
-open import FOTC.Data.Stream.Type.ConsistencyTest
+open import FOTC.Data.Stream.Type.Consistency.Axioms
 
 open import FOTC.Induction.WellFounded
 
 open import FOTC.Program.ABP.ABP
-open import FOTC.Program.ABP.ABP.ConsistencyTest
+open import FOTC.Program.ABP.ABP.Consistency.Axioms
 open import FOTC.Program.ABP.Fair
-open import FOTC.Program.ABP.Fair.ConsistencyTest
+open import FOTC.Program.ABP.Fair.Consistency.Axioms
 open import FOTC.Program.ABP.Fair.PropertiesATP
 open import FOTC.Program.ABP.Fair.PropertiesI
 open import FOTC.Program.ABP.Lemma1ATP
@@ -95,11 +96,11 @@ open import FOTC.Program.ABP.ProofSpecificationI
 open import FOTC.Program.ABP.Terms
 
 open import FOTC.Program.Collatz.Collatz
-open import FOTC.Program.Collatz.Collatz.ConsistencyTest
+open import FOTC.Program.Collatz.Collatz.Consistency.Axioms
 open import FOTC.Program.Collatz.ConversionRulesATP
 open import FOTC.Program.Collatz.ConversionRulesI
 open import FOTC.Program.Collatz.Data.Nat
-open import FOTC.Program.Collatz.Data.Nat.ConsistencyTest
+open import FOTC.Program.Collatz.Data.Nat.Consistency.Axioms
 open import FOTC.Program.Collatz.Data.Nat.PropertiesATP
 open import FOTC.Program.Collatz.Data.Nat.PropertiesI
 open import FOTC.Program.Collatz.PropertiesI
@@ -117,7 +118,7 @@ open import FOTC.Program.Division.TotalityATP
 open import FOTC.Program.Division.TotalityI
 
 open import FOTC.Program.Nest.Nest
-open import FOTC.Program.Nest.Nest.ConsistencyTest
+open import FOTC.Program.Nest.Nest.Consistency.Axioms
 open import FOTC.Program.Nest.ConversionRulesATP
 open import FOTC.Program.Nest.PropertiesATP
 
@@ -129,7 +130,7 @@ open import FOTC.Program.GCD.Partial.Definitions
 open import FOTC.Program.GCD.Partial.DivisibleATP
 open import FOTC.Program.GCD.Partial.DivisibleI
 open import FOTC.Program.GCD.Partial.GCD
-open import FOTC.Program.GCD.Partial.GCD.ConsistencyTest
+open import FOTC.Program.GCD.Partial.GCD.Consistency.Axioms
 open import FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor
 open import FOTC.Program.GCD.Partial.ProofSpecificationATP
 open import FOTC.Program.GCD.Partial.ProofSpecificationI
@@ -144,7 +145,7 @@ open import FOTC.Program.GCD.Total.Definitions
 open import FOTC.Program.GCD.Total.DivisibleATP
 open import FOTC.Program.GCD.Total.DivisibleI
 open import FOTC.Program.GCD.Total.GCD
-open import FOTC.Program.GCD.Total.GCD.ConsistencyTest
+open import FOTC.Program.GCD.Total.GCD.Consistency.Axioms
 open import FOTC.Program.GCD.Total.ProofSpecificationATP
 open import FOTC.Program.GCD.Total.ProofSpecificationI
 open import FOTC.Program.GCD.Total.TotalityATP
@@ -155,7 +156,7 @@ open import FOTC.Program.MapIterate.MapIterateI
 
 open import FOTC.Program.McCarthy91.ArithmeticATP
 open import FOTC.Program.McCarthy91.AuxiliaryPropertiesATP
-open import FOTC.Program.McCarthy91.McCarthy91.ConsistencyTest
+open import FOTC.Program.McCarthy91.McCarthy91.Consistency.Axioms
 open import FOTC.Program.McCarthy91.McCarthy91
 open import FOTC.Program.McCarthy91.MCR
 open import FOTC.Program.McCarthy91.MCR.LT2MCR-ATP
@@ -166,7 +167,7 @@ open import FOTC.Program.McCarthy91.PropertiesATP
 open import FOTC.Program.Mirror.Forest.PropertiesATP
 open import FOTC.Program.Mirror.Forest.PropertiesI
 open import FOTC.Program.Mirror.Forest.Totality
-open import FOTC.Program.Mirror.Mirror.ConsistencyTest
+open import FOTC.Program.Mirror.Mirror.Consistency.Axioms
 open import FOTC.Program.Mirror.Mirror
 open import FOTC.Program.Mirror.PropertiesATP
 open import FOTC.Program.Mirror.PropertiesI
@@ -192,9 +193,9 @@ open import FOTC.Program.SortList.Properties.Totality.TreeI
 open import FOTC.Program.SortList.PropertiesI
 open import FOTC.Program.SortList.PropertiesATP
 open import FOTC.Program.SortList.SortList
-open import FOTC.Program.SortList.SortList.ConsistencyTest
+open import FOTC.Program.SortList.SortList.Consistency.Axioms
 
 open import FOTC.Relation.Binary.Bisimilarity
-open import FOTC.Relation.Binary.Bisimilarity.ConsistencyTest
+open import FOTC.Relation.Binary.Bisimilarity.Consistency.Axioms
 open import FOTC.Relation.Binary.Bisimilarity.PropertiesATP
 open import FOTC.Relation.Binary.Bisimilarity.PropertiesI

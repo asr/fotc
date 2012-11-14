@@ -5,7 +5,7 @@
 module DistributiveLaws.Everything where
 
 open import DistributiveLaws.Base
-open import DistributiveLaws.Base.ConsistencyTest
+open import DistributiveLaws.Base.Consistency.Axioms
 open import DistributiveLaws.PropertiesI
 
 open import DistributiveLaws.TaskB-ATP

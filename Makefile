@@ -49,9 +49,8 @@ AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp
 # Auxiliary functions
 
 path_subst = $(patsubst %.agda,%.$(1), \
-	     	$(shell find $(2) -name '*.agda' \
+	     	$(shell find $(2) \( ! -path '*/Consistency/*' \) -name '*.agda' \
 			| xargs grep -l 'ATP prove' \
-                        | xargs grep -L 'ConsistencyTest' \
 		  	| sort))
 
 ##############################################################################
@@ -97,7 +96,7 @@ prove_fot_files = $(call path_subst,prove_fot,$(fot_path))
 
 consistency_fot_files = \
   $(patsubst %.agda,%.consistency_fot, \
-    $(shell find $(fot_path) -name '*ConsistencyTest.agda' | sort))
+    $(shell find $(fot_path) -path '*/Consistency/*' -name '*.agda' | sort))
 
 # Notes
 
