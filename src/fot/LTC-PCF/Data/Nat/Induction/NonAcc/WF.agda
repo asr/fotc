@@ -19,10 +19,10 @@ open import LTC-PCF.Data.Nat.Type
 
 module WFInd where
 
-  LT-wfind : (A : D → Set) →
-             (∀ {n} → N n → (∀ {m} → N m → m < n → A m) → A n) →
-             ∀ {n} → N n → A n
-  LT-wfind A h Nn = h Nn (helper Nn)
+  <-wfind : (A : D → Set) →
+            (∀ {n} → N n → (∀ {m} → N m → m < n → A m) → A n) →
+            ∀ {n} → N n → A n
+  <-wfind A h Nn = h Nn (helper Nn)
     where
     helper : ∀ {n m} → N n → N m → m < n → A m
     helper nzero     Nm    m<0  = ⊥-elim (x<0→⊥ Nm m<0)
@@ -49,12 +49,12 @@ module WFInd where
 -- Well-founded induction on the natural numbers (using different
 -- properties of inequalities).
 
-module WFInd₁ where
+module WFInd' where
 
-  LT-wfind₁ : (A : D → Set) →
-              (∀ {n} → N n → (∀ {m} → N m → m < n → A m) → A n) →
-              ∀ {n} → N n → A n
-  LT-wfind₁ A h Nn = h Nn (helper Nn)
+  <-wfind₁ : (A : D → Set) →
+             (∀ {n} → N n → (∀ {m} → N m → m < n → A m) → A n) →
+             ∀ {n} → N n → A n
+  <-wfind₁ A h Nn = h Nn (helper Nn)
     where
     helper : ∀ {n m} → N n → N m → m < n → A m
     helper nzero     Nm    m<0  = ⊥-elim (x<0→⊥ Nm m<0)

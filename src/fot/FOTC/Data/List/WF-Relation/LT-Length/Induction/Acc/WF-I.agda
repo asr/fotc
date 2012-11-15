@@ -5,16 +5,16 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Data.List.LT-Length.Induction.Acc.WF-I where
+module FOTC.Data.List.WF-Relation.LT-Length.Induction.Acc.WF-I where
 
 open import FOTC.Base
 open import FOTC.Data.List
-open import FOTC.Data.List.LT-Length
-open import FOTC.Data.List.LT-Length.PropertiesI
 open import FOTC.Data.List.PropertiesI
+open import FOTC.Data.List.WF-Relation.LT-Length
+open import FOTC.Data.List.WF-Relation.LT-Length.PropertiesI
 
 import FOTC.Data.Nat.Induction.Acc.WF-I
-open FOTC.Data.Nat.Induction.Acc.WF-I.WF-<
+open FOTC.Data.Nat.Induction.Acc.WF-I.<-WF
 
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Type
@@ -26,22 +26,22 @@ open module InvImg =
 
 ------------------------------------------------------------------------------
 -- The relation LTL is well-founded (using the inverse image combinator).
-wf-LTL : WellFounded LTL
-wf-LTL Lxs = wellFounded wf-< Lxs
+LTL-wf : WellFounded LTL
+LTL-wf Lxs = wellFounded <-wf Lxs
 
 -- Well-founded induction on the relation LTL.
 LTL-wfind : (A : D → Set) →
             (∀ {xs} → List xs → (∀ {ys} → List ys → LTL ys xs → A ys) → A xs) →
             ∀ {xs} → List xs → A xs
-LTL-wfind A = WellFoundedInduction wf-LTL
+LTL-wfind A = WellFoundedInduction LTL-wf
 
 ------------------------------------------------------------------------------
 -- The relation LTL is well-founded (a different proof).
 -- Adapted from FOTC.Data.Nat.Induction.Acc.WellFoundedInduction.WF₁-LT.
 module WF₁-LTL where
 
-wf-LTL₁ : WellFounded LTL
-wf-LTL₁ Lxs = acc (helper Lxs)
+LTL-wf' : WellFounded LTL
+LTL-wf' Lxs = acc (helper Lxs)
   where
   helper : ∀ {xs ys} → List xs → List ys → LTL ys xs → Acc List LTL ys
   helper lnil Lys ys<[] = ⊥-elim (xs<[]→⊥ Lys ys<[])

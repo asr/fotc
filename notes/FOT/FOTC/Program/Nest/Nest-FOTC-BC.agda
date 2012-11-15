@@ -18,13 +18,12 @@ open import FOTC.Base
 open import FOTC.Data.Nat
 
 import FOTC.Data.Nat.Induction.Acc.WF-I
-open FOTC.Data.Nat.Induction.Acc.WF-I.WF-<
+open FOTC.Data.Nat.Induction.Acc.WF-I.<-WF
 
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 
 ------------------------------------------------------------------------------
-
 -- The nest function.
 postulate
   nest   : D → D

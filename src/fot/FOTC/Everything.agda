@@ -25,16 +25,16 @@ open import FOTC.Data.Conat.Type.Consistency.Axioms
 
 open import FOTC.Data.List
 open import FOTC.Data.List.Consistency.Axioms
-open import FOTC.Data.List.LT-Cons
-open import FOTC.Data.List.LT-Cons.Induction.Acc.WF-I
-open import FOTC.Data.List.LT-Cons.PropertiesI
-open import FOTC.Data.List.LT-Length
-open import FOTC.Data.List.LT-Length.Induction.Acc.WF-I
-open import FOTC.Data.List.LT-Length.PropertiesI
 open import FOTC.Data.List.PropertiesATP
 open import FOTC.Data.List.PropertiesByInductionATP
 open import FOTC.Data.List.PropertiesI
 open import FOTC.Data.List.Type
+open import FOTC.Data.List.WF-Relation.LT-Cons
+open import FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I
+open import FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI
+open import FOTC.Data.List.WF-Relation.LT-Length
+open import FOTC.Data.List.WF-Relation.LT-Length.Induction.Acc.WF-I
+open import FOTC.Data.List.WF-Relation.LT-Length.PropertiesI
 
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Consistency.Axioms

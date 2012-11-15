@@ -19,9 +19,9 @@ open import FOTC.Induction.WF
 
 ------------------------------------------------------------------------------
 -- The relation _<_ is well-founded.
-module WF-< where
-  wf-< : WellFounded _<_
-  wf-< Nn = acc (helper Nn)
+module <-WF where
+  <-wf : WellFounded _<_
+  <-wf Nn = acc (helper Nn)
     where
     -- N.B. The helper function is the same that the function used by
     -- FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionATP.
@@ -43,17 +43,17 @@ module WF-< where
 
   -- Well-founded induction on the natural numbers.
   <-wfind : (A : D → Set) →
-             (∀ {n} → N n → (∀ {m} → N m → m < n → A m) → A n) →
-             ∀ {n} → N n → A n
-  <-wfind A = WellFoundedInduction wf-<
+            (∀ {n} → N n → (∀ {m} → N m → m < n → A m) → A n) →
+            ∀ {n} → N n → A n
+  <-wfind A = WellFoundedInduction <-wf
 
 ------------------------------------------------------------------------------
 -- The relation _<_ is well-founded (a different proof).
-module WF₁-< where
+module <-WF' where
 
-  wf-< : WellFounded {N} _<_
-  wf-< nzero      = acc (λ Nm m<0 → ⊥-elim (x<0→⊥ Nm m<0))
-  wf-< (nsucc Nn) = acc (λ Nm m<Sn → helper Nm Nn (wf-< Nn)
+  <-wf : WellFounded {N} _<_
+  <-wf nzero      = acc (λ Nm m<0 → ⊥-elim (x<0→⊥ Nm m<0))
+  <-wf (nsucc Nn) = acc (λ Nm m<Sn → helper Nm Nn (<-wf Nn)
                                           (x<Sy→x≤y Nm Nn m<Sn))
     where
     helper : ∀ {n m} → N n → N m → Acc N _<_ m → n ≤ m → Acc N _<_ n

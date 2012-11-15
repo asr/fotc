@@ -35,7 +35,7 @@ open import FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP
 ------------------------------------------------------------------------------
 
 mc91-N-ineq : ∀ {n} → N n → N (mc91 n) ∧ n < mc91 n + [11]
-mc91-N-ineq = wfInd-≪ A h
+mc91-N-ineq = ≪-wfind A h
   where
   A : D → Set
   A d = N (mc91 d) ∧ d < mc91 d + [11]
@@ -69,7 +69,7 @@ mc91-N-ineq = wfInd-≪ A h
 
 mc91-res : ∀ {n} → N n → (n > [100] ∧ mc91 n ≡ n ∸ [10]) ∨
                          (n ≯ [100] ∧ mc91 n ≡ [91])
-mc91-res = wfInd-≪ A h
+mc91-res = ≪-wfind A h
   where
   A : D → Set
   A d = (d > [100] ∧ mc91 d ≡ d ∸ [10]) ∨

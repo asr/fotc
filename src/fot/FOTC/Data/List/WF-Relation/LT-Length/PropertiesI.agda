@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Data.List.LT-Length.PropertiesI where
+module FOTC.Data.List.WF-Relation.LT-Length.PropertiesI where
 
 open import Common.FOL.Relation.Binary.EqReasoning
 
@@ -14,8 +14,8 @@ open FOTC.Base.BList
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI as Nat using ()
 open import FOTC.Data.List
-open import FOTC.Data.List.LT-Length
 open import FOTC.Data.List.PropertiesI
+open import FOTC.Data.List.WF-Relation.LT-Length
 
 ------------------------------------------------------------------------------
 

@@ -48,7 +48,7 @@ module WFInd where
 -- Well-founded induction on the natural numbers (using different
 -- properties of inequalities).
 
-module WFInd₁ where
+module WFInd' where
 
   <-wfind : (A : D → Set) →
             (∀ {n} → N n → (∀ {m} → N m → m < n → A m) → A n) →

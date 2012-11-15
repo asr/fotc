@@ -14,7 +14,7 @@ open import FOTC.Base
 open import FOTC.Data.Nat
 
 import FOTC.Data.Nat.Induction.Acc.WF-ATP
-open FOTC.Data.Nat.Induction.Acc.WF-ATP.WF-<
+open FOTC.Data.Nat.Induction.Acc.WF-ATP.<-WF
 
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
@@ -29,11 +29,11 @@ open module InvImg =
 
 ------------------------------------------------------------------------------
 -- The relation _≪_ is well-founded (using the inverse image combinator).
-wf-≪ : WellFounded _≪_
-wf-≪ Nn = wellFounded wf-< Nn
+≪-wf : WellFounded _≪_
+≪-wf Nn = wellFounded <-wf Nn
 
 -- Well-founded induction on the relation _≪_.
-wfInd-≪ : (A : D → Set) →
+≪-wfind : (A : D → Set) →
           (∀ {n} → N n → (∀ {m} → N m → m ≪ n → A m) → A n) →
           ∀ {n} → N n → A n
-wfInd-≪ A = WellFoundedInduction wf-≪
+≪-wfind A = WellFoundedInduction ≪-wf

@@ -73,10 +73,10 @@ open import FOTC.Data.List.PropertiesATP
 open import FOTC.Data.List.PropertiesI
 
 -- Well-founded induction
-open import FOTC.Data.List.LT-Cons.Induction.Acc.WF-I
-open import FOTC.Data.List.LT-Cons.PropertiesI
-open import FOTC.Data.List.LT-Length.Induction.Acc.WF-I
-open import FOTC.Data.List.LT-Length.PropertiesI
+open import FOTC.Data.List.WF-Relation.LT-Cons.Induction.Acc.WF-I
+open import FOTC.Data.List.WF-Relation.LT-Cons.PropertiesI
+open import FOTC.Data.List.WF-Relation.LT-Length.Induction.Acc.WF-I
+open import FOTC.Data.List.WF-Relation.LT-Length.PropertiesI
 
 ------------------------------------------------------------------------------
 -- Lists of natural numbers
