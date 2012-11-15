@@ -1,14 +1,14 @@
 ------------------------------------------------------------------------------
--- LT2MCR property
+-- Property <→≪
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- The LT2MCR property proves that the recursive calls of the McCarthy
--- 91 function are on smaller arguments.
+-- The <→≪ property proves that the recursive calls of the McCarthy 91
+-- function are on smaller arguments.
 
-module FOTC.Program.McCarthy91.MCR.LT2MCR-ATP where
+module FOTC.Program.McCarthy91.WF-Relation.LT2WF-RelationATP where
 
 open import FOTC.Base
 open import FOTC.Data.Nat
@@ -18,18 +18,18 @@ open import FOTC.Data.Nat.Inequalities.EliminationProperties
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.UnaryNumbers
 open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
-open import FOTC.Program.McCarthy91.MCR
+open import FOTC.Program.McCarthy91.WF-Relation
 
 ------------------------------------------------------------------------------
 
-LT2MCR-helper : ∀ {n m k} → N n → N m → N k →
-                m < n → succ₁ n < k →
-                succ₁ m < k →
-                k ∸ n < k ∸ m →
-                k ∸ succ₁ n < k ∸ succ₁ m
-LT2MCR-helper nzero Nm Nk p qn qm h = ⊥-elim (x<0→⊥ Nm p)
-LT2MCR-helper (nsucc Nn) Nm nzero p qn qm h = ⊥-elim (x<0→⊥ (nsucc Nm) qm)
-LT2MCR-helper (nsucc {n} Nn) nzero (nsucc {k} Nk) p qn qm h = prfS0S
+<→≪-helper : ∀ {n m k} → N n → N m → N k →
+             m < n → succ₁ n < k →
+             succ₁ m < k →
+             k ∸ n < k ∸ m →
+             k ∸ succ₁ n < k ∸ succ₁ m
+<→≪-helper nzero Nm Nk p qn qm h = ⊥-elim (x<0→⊥ Nm p)
+<→≪-helper (nsucc Nn) Nm nzero p qn qm h = ⊥-elim (x<0→⊥ (nsucc Nm) qm)
+<→≪-helper (nsucc {n} Nn) nzero (nsucc {k} Nk) p qn qm h = prfS0S
   where
   postulate
     k≥Sn   : k ≥ succ₁ n
@@ -39,8 +39,8 @@ LT2MCR-helper (nsucc {n} Nn) nzero (nsucc {k} Nk) p qn qm h = prfS0S
   {-# ATP prove k∸Sn<k k≥Sn x≥y→y>0→x∸y<x #-}
   {-# ATP prove prfS0S k∸Sn<k S∸S #-}
 
-LT2MCR-helper (nsucc {n} Nn) (nsucc {m} Nm) (nsucc {k} Nk) p qn qm h =
-  k∸Sn<k∸Sm→Sk∸SSn<Sk∸SSm (LT2MCR-helper Nn Nm Nk m<n Sn<k Sm<k k∸n<k∸m)
+<→≪-helper (nsucc {n} Nn) (nsucc {m} Nm) (nsucc {k} Nk) p qn qm h =
+  k∸Sn<k∸Sm→Sk∸SSn<Sk∸SSm (<→≪-helper Nn Nm Nk m<n Sn<k Sm<k k∸n<k∸m)
   where
   postulate
     k∸Sn<k∸Sm→Sk∸SSn<Sk∸SSm : k ∸ succ₁ n < k ∸ succ₁ m →
@@ -57,16 +57,16 @@ LT2MCR-helper (nsucc {n} Nn) (nsucc {m} Nm) (nsucc {k} Nk) p qn qm h =
   {-# ATP prove Sm<k #-}
   {-# ATP prove k∸n<k∸m S∸S #-}
 
-LT2MCR : ∀ {n m} → N n → N m → m ≯ [100] → m < n → MCR n m
-LT2MCR nzero          Nm    p h = ⊥-elim (x<0→⊥ Nm h)
-LT2MCR (nsucc {n} Nn) nzero p h = prfS0
+<→≪ : ∀ {n m} → N n → N m → m ≯ [100] → m < n → n ≪ m
+<→≪ nzero          Nm    p h = ⊥-elim (x<0→⊥ Nm h)
+<→≪ (nsucc {n} Nn) nzero p h = prfS0
   where
-  postulate prfS0 : MCR (succ₁ n) zero
+  postulate prfS0 : succ₁ n ≪ zero
   {-# ATP prove prfS0 x∸y<Sx S∸S #-}
 
-LT2MCR (nsucc {n} Nn) (nsucc {m} Nm) p h with x<y∨x≥y Nn 100-N
-... | inj₁ n<100 = LT2MCR-helper Nn Nm 101-N m<n Sn≤101 Sm≤101
-                                 (LT2MCR Nn Nm m≯100 m<n)
+<→≪ (nsucc {n} Nn) (nsucc {m} Nm) p h with x<y∨x≥y Nn 100-N
+... | inj₁ n<100 = <→≪-helper Nn Nm 101-N m<n Sn≤101 Sm≤101
+                              (<→≪ Nn Nm m≯100 m<n)
   where
   postulate
     m≯100  : m ≯ [100]
@@ -85,5 +85,5 @@ LT2MCR (nsucc {n} Nn) (nsucc {m} Nm) p h with x<y∨x≥y Nn 100-N
   {-# ATP prove 0≡101∸Sn x≤y→x∸y≡0 #-}
   {-# ATP prove 0<101∸Sm x≯y→x≤y x<y→0<y∸x #-}
 
-  prf-n≥100 : MCR (succ₁ n) (succ₁ m)
+  prf-n≥100 : succ₁ n ≪ succ₁ m
   prf-n≥100 = subst (λ t → t < [101] ∸ succ₁ m) 0≡101∸Sn 0<101∸Sm

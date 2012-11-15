@@ -26,26 +26,26 @@ open import FOTC.Data.Nat.UnaryNumbers
 open import FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
 open import FOTC.Program.McCarthy91.ArithmeticATP
-open import FOTC.Program.McCarthy91.McCarthy91
-open import FOTC.Program.McCarthy91.MCR
-open import FOTC.Program.McCarthy91.MCR.LT2MCR-ATP
-open import FOTC.Program.McCarthy91.MCR.Induction.Acc.WellFoundedInductionATP
 open import FOTC.Program.McCarthy91.AuxiliaryPropertiesATP
+open import FOTC.Program.McCarthy91.McCarthy91
+open import FOTC.Program.McCarthy91.WF-Relation
+open import FOTC.Program.McCarthy91.WF-Relation.LT2WF-RelationATP
+open import FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-InductionATP
 
 ------------------------------------------------------------------------------
 
 mc91-N-ineq : ∀ {n} → N n → N (mc91 n) ∧ n < mc91 n + [11]
-mc91-N-ineq = wfInd-MCR A h
+mc91-N-ineq = wfInd-≪ A h
   where
   A : D → Set
   A d = N (mc91 d) ∧ d < mc91 d + [11]
 
-  h : ∀ {m} → N m → (∀ {k} → N k → MCR k m → A k) → A m
+  h : ∀ {m} → N m → (∀ {k} → N k → k ≪ m → A k) → A m
   h {m} Nm f with x>y∨x≯y Nm 100-N
   ... | inj₁ m>100 = ( mc91>100-N Nm m>100 , x<mc91x+11>100 Nm m>100 )
   ... | inj₂ m≯100 =
     let h₁ : A (m + [11])
-        h₁ = f (x+11-N Nm) (LT2MCR (x+11-N Nm) Nm m≯100 (x<x+11 Nm))
+        h₁ = f (x+11-N Nm) (<→≪ (x+11-N Nm) Nm m≯100 (x<x+11 Nm))
 
         h₁-N : N (mc91 (m + [11]))
         h₁-N = ∧-proj₁ h₁
@@ -57,7 +57,7 @@ mc91-N-ineq = wfInd-MCR A h
         m<mc91m+11 = x+k<y+k→x<y Nm h₁-N 11-N h₁-LT
 
         h₂ : A (mc91 (m + [11]))
-        h₂ = f h₁-N (LT2MCR h₁-N Nm m≯100 m<mc91m+11)
+        h₂ = f h₁-N (<→≪ h₁-N Nm m≯100 m<mc91m+11)
 
         mc91≤100-N : N (mc91 m)
         mc91≤100-N = mc91≯100-N m m≯100 (∧-proj₁ h₂)
@@ -69,13 +69,13 @@ mc91-N-ineq = wfInd-MCR A h
 
 mc91-res : ∀ {n} → N n → (n > [100] ∧ mc91 n ≡ n ∸ [10]) ∨
                          (n ≯ [100] ∧ mc91 n ≡ [91])
-mc91-res = wfInd-MCR A h
+mc91-res = wfInd-≪ A h
   where
   A : D → Set
   A d = (d > [100] ∧ mc91 d ≡ d ∸ [10]) ∨
         (d ≯ [100] ∧ mc91 d ≡ [91])
 
-  h : ∀ {m} → N m → (∀ {k} → N k → MCR k m → A k) → A m
+  h : ∀ {m} → N m → (∀ {k} → N k → k ≪ m → A k) → A m
   h {m} Nm f with x>y∨x≯y Nm 100-N
   ... | inj₁ m>100 = inj₁ ( m>100 , mc91-eq-aux m m>100 )
   ... | inj₂ m≯100 with x≯Sy→x≯y∨x≡Sy Nm 99-N m≯100
@@ -106,7 +106,7 @@ mc91-res = wfInd-MCR A h
     m≤89 = x≯y→x≤y Nm 89-N m≯89
 
     mc91-res-m+11 : mc91 (m + [11]) ≡ [91]
-    mc91-res-m+11 with f (x+11-N Nm) (LT2MCR (x+11-N Nm) Nm m≯100 (x<x+11 Nm))
+    mc91-res-m+11 with f (x+11-N Nm) (<→≪ (x+11-N Nm) Nm m≯100 (x<x+11 Nm))
     ... | inj₁ ( m+11>100 , _ ) = ⊥-elim (x≤89→x+11>100→⊥ Nm m≤89 m+11>100)
     ... | inj₂ ( _ , res ) = res
 
