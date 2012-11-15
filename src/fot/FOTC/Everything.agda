@@ -26,10 +26,10 @@ open import FOTC.Data.Conat.Type.Consistency.Axioms
 open import FOTC.Data.List
 open import FOTC.Data.List.Consistency.Axioms
 open import FOTC.Data.List.LT-Cons
-open import FOTC.Data.List.LT-Cons.Induction.Acc.WellFoundedInductionI
+open import FOTC.Data.List.LT-Cons.Induction.Acc.WF-I
 open import FOTC.Data.List.LT-Cons.PropertiesI
 open import FOTC.Data.List.LT-Length
-open import FOTC.Data.List.LT-Length.Induction.Acc.WellFoundedInductionI
+open import FOTC.Data.List.LT-Length.Induction.Acc.WF-I
 open import FOTC.Data.List.LT-Length.PropertiesI
 open import FOTC.Data.List.PropertiesATP
 open import FOTC.Data.List.PropertiesByInductionATP
@@ -44,12 +44,12 @@ open import FOTC.Data.Nat.Divisibility.By0.PropertiesI
 open import FOTC.Data.Nat.Divisibility.NotBy0
 open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP
 open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesI
-open import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionATP
-open import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI
+open import FOTC.Data.Nat.Induction.Acc.WF-ATP
+open import FOTC.Data.Nat.Induction.Acc.WF-I
 open import FOTC.Data.Nat.Induction.NonAcc.LexicographicATP
 open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI
-open import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionATP
-open import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionI
+open import FOTC.Data.Nat.Induction.NonAcc.WF-ATP
+open import FOTC.Data.Nat.Induction.NonAcc.WF-I
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.Consistency.Axioms
 open import FOTC.Data.Nat.Inequalities.EliminationProperties
@@ -75,7 +75,7 @@ open import FOTC.Data.Stream.PropertiesI
 open import FOTC.Data.Stream.Type
 open import FOTC.Data.Stream.Type.Consistency.Axioms
 
-open import FOTC.Induction.WellFounded
+open import FOTC.Induction.WF
 
 open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.ABP.Consistency.Axioms
@@ -162,7 +162,7 @@ open import FOTC.Program.McCarthy91.PropertiesATP
 open import FOTC.Program.McCarthy91.WF-Relation
 open import FOTC.Program.McCarthy91.WF-Relation.LT2WF-RelationATP
 open import FOTC.Program.McCarthy91.WF-Relation.PropertiesATP
-open import FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-InductionATP
+open import FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP
 
 open import FOTC.Program.Mirror.Forest.PropertiesATP
 open import FOTC.Program.Mirror.Forest.PropertiesI

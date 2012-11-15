@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Data.List.LT-Length.Induction.Acc.WellFoundedInductionI where
+module FOTC.Data.List.LT-Length.Induction.Acc.WF-I where
 
 open import FOTC.Base
 open import FOTC.Data.List
@@ -13,16 +13,16 @@ open import FOTC.Data.List.LT-Length
 open import FOTC.Data.List.LT-Length.PropertiesI
 open import FOTC.Data.List.PropertiesI
 
-import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI
-open FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI.WF-<
+import FOTC.Data.Nat.Induction.Acc.WF-I
+open FOTC.Data.Nat.Induction.Acc.WF-I.WF-<
 
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Type
-open import FOTC.Induction.WellFounded
+open import FOTC.Induction.WF
 
 -- Parametrized modules
 open module InvImg =
-  FOTC.Induction.WellFounded.InverseImage {List} {N} {_<_} lengthList-N
+  FOTC.Induction.WF.InverseImage {List} {N} {_<_} lengthList-N
 
 ------------------------------------------------------------------------------
 -- The relation LTL is well-founded (using the inverse image combinator).

@@ -20,8 +20,8 @@ open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.EliminationProperties
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 
-open import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionI
-open module WFI = FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionI.WFInd
+open import FOTC.Data.Nat.Induction.NonAcc.WF-I
+open module WFI = FOTC.Data.Nat.Induction.NonAcc.WF-I.WFInd
 
 open import FOTC.Data.Nat.Type
 

@@ -6,7 +6,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOT.FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionI where
+module FOT.FOTC.Data.Nat.Induction.NonAcc.WF-I where
 
 open import FOTC.Base
 

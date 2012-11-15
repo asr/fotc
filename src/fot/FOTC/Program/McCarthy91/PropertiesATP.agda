@@ -30,7 +30,7 @@ open import FOTC.Program.McCarthy91.AuxiliaryPropertiesATP
 open import FOTC.Program.McCarthy91.McCarthy91
 open import FOTC.Program.McCarthy91.WF-Relation
 open import FOTC.Program.McCarthy91.WF-Relation.LT2WF-RelationATP
-open import FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-InductionATP
+open import FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP
 
 ------------------------------------------------------------------------------
 

@@ -27,8 +27,8 @@ open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.PropertiesATP
 
-import FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionATP
-open module WFInd = FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionATP.WFInd
+import FOTC.Data.Nat.Induction.NonAcc.WF-ATP
+open module WFInd = FOTC.Data.Nat.Induction.NonAcc.WF-ATP.WFInd
 
 open import FOTC.Program.Division.Division
 open import FOTC.Program.Division.IsCorrectATP

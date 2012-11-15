@@ -5,12 +5,15 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Data.Nat.Induction.NonAcc.WellFoundedInductionI where
+-- N.B This module does not contain combined proofs, but it imports
+-- modules which contain combined proofs.
+
+module FOTC.Data.Nat.Induction.NonAcc.WF-ATP where
 
 open import FOTC.Base
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.EliminationProperties
-open import FOTC.Data.Nat.Inequalities.PropertiesI
+open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.Type
 
 ------------------------------------------------------------------------------
@@ -19,14 +22,13 @@ open import FOTC.Data.Nat.Type
 
 module WFInd where
   <-wfind : (A : D → Set) →
-            (∀ {n} → N n → (∀ {m} → N m → m < n → A m) → A n) →
-            ∀ {n} → N n → A n
+             (∀ {n} → N n → (∀ {m} → N m → m < n → A m) → A n) →
+             ∀ {n} → N n → A n
   <-wfind A h Nn = h Nn (helper Nn)
     where
     helper : ∀ {n m} → N n → N m → m < n → A m
     helper nzero     Nm    m<0  = ⊥-elim (x<0→⊥ Nm m<0)
     helper (nsucc _) nzero 0<Sn = h nzero (λ Nm' m'<0 → ⊥-elim (x<0→⊥ Nm' m'<0))
-
     helper (nsucc {n} Nn) (nsucc {m} Nm) Sm<Sn = h (nsucc Nm)
       (λ {m'} Nm' m'<Sm →
         let Sm'≤Sm : succ₁ m' ≤ succ₁ m

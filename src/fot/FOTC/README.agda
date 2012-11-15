@@ -47,7 +47,7 @@ open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP
 open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesI
 
 -- Induction
-open import FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI
+open import FOTC.Data.Nat.Induction.Acc.WF-I
 open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI
 
 -- Inequalites
@@ -73,9 +73,9 @@ open import FOTC.Data.List.PropertiesATP
 open import FOTC.Data.List.PropertiesI
 
 -- Well-founded induction
-open import FOTC.Data.List.LT-Cons.Induction.Acc.WellFoundedInductionI
+open import FOTC.Data.List.LT-Cons.Induction.Acc.WF-I
 open import FOTC.Data.List.LT-Cons.PropertiesI
-open import FOTC.Data.List.LT-Length.Induction.Acc.WellFoundedInductionI
+open import FOTC.Data.List.LT-Length.Induction.Acc.WF-I
 open import FOTC.Data.List.LT-Length.PropertiesI
 
 ------------------------------------------------------------------------------

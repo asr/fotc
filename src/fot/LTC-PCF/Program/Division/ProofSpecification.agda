@@ -22,8 +22,8 @@ open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Inequalities.Properties
 open import LTC-PCF.Data.Nat.Properties
 
-import LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInduction
-open module WFInd = LTC-PCF.Data.Nat.Induction.NonAcc.WellFoundedInduction.WFInd
+import LTC-PCF.Data.Nat.Induction.NonAcc.WF
+open module WFInd = LTC-PCF.Data.Nat.Induction.NonAcc.WF.WFInd
 
 open import LTC-PCF.Program.Division.Division
 open import LTC-PCF.Program.Division.IsCorrect

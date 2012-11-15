@@ -9,7 +9,7 @@
 -- http://www.iis.sinica.edu.tw/~scm/2008/well-founded-recursion-and-accessibility/
 -- and the Agda standard library.
 
-module FOT.FOTC.Data.Nat.Induction.Acc.WellFoundedInductionI where
+module FOT.FOTC.Data.Nat.Induction.Acc.WF-I where
 
 open import FOTC.Base
 
