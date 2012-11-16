@@ -90,8 +90,8 @@ mc91-N {n} Nn with x>y∨x≯y Nn 100-N
 ... | inj₂ n≮100 = subst N (sym (mc91-res≯100 Nn n≮100)) 91-N
 
 -- For all n, n < mc91 n + 11.
-mc91-N-ineq : ∀ {n} → N n → n < mc91 n + [11]
-mc91-N-ineq = ≪-wfind A h
+mc91-ineq : ∀ {n} → N n → n < mc91 n + [11]
+mc91-ineq = ≪-wfind A h
   where
   A : D → Set
   A d = d < mc91 d + [11]
