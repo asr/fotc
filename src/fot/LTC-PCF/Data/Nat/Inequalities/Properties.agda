@@ -15,6 +15,7 @@ open import LTC-PCF.Data.Nat.Inequalities
 open import LTC-PCF.Data.Nat.Inequalities.EliminationProperties
 open import LTC-PCF.Data.Nat.Inequalities.ConversionRules public
 open import LTC-PCF.Data.Nat.Properties
+open import LTC-PCF.Data.Nat.UnaryNumbers
 
 ------------------------------------------------------------------------------
 -- N.B. The elimination properties are in the module
@@ -183,9 +184,9 @@ x∸y<Sx {m} Nm nzero =
   true                    ∎
 
 x∸y<Sx nzero (nsucc {n} Nn) =
-  lt( zero ∸ succ₁ n) (succ₁ zero) ≡⟨ ltLeftCong (0∸x (nsucc Nn)) ⟩
-  lt zero (succ₁ zero)             ≡⟨ lt-0S zero ⟩
-  true                             ∎
+  lt( zero ∸ succ₁ n) [1] ≡⟨ ltLeftCong (0∸x (nsucc Nn)) ⟩
+  lt zero [1]             ≡⟨ lt-0S zero ⟩
+  true                    ∎
 
 x∸y<Sx (nsucc {m} Nm) (nsucc {n} Nn) =
   lt (succ₁ m ∸ succ₁ n) (succ₁ (succ₁ m))

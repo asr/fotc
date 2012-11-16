@@ -17,6 +17,8 @@ open import FOTC.Data.Nat.Divisibility.By0
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.PropertiesI
+open import FOTC.Data.Nat.UnaryNumbers
+open import FOTC.Data.Nat.UnaryNumbers.TotalityI
 
 ------------------------------------------------------------------------------
 -- Any positive number divides 0.
@@ -29,7 +31,7 @@ S∣0 n = zero , nzero , sym (*-leftZero (succ₁ n))
 
 -- The divisibility relation is reflexive.
 ∣-refl : ∀ {n} → N n → n ∣ n
-∣-refl {n} Nn = succ₁ zero , (nsucc nzero) , (sym (*-leftIdentity Nn))
+∣-refl {n} Nn = [1] , 1-N , sym (*-leftIdentity Nn)
 
 -- If x divides y and z then x divides y ∸ z.
 x∣y→x∣z→x∣y∸z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →

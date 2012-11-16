@@ -9,6 +9,7 @@ module FOT.FOTC.Data.Nat.Inequalities.InductivePredicates where
 
 open import FOTC.Base
 open import FOTC.Data.Nat.Type
+open import FOTC.Data.Nat.UnaryNumbers
 
 ------------------------------------------------------------------------------
 
@@ -60,9 +61,9 @@ module m₂ where
 
   ≤→le : ∀ {m n} → m ≤ n → le m n ≡ true
   ≤→le {n = n} (z≤n Nn) = lt-0S n
-  ≤→le (s≤s nzero nzero h) = trans (lt-SS zero (succ₁ zero)) (≤→le h)
+  ≤→le (s≤s nzero nzero h) = trans (lt-SS zero [1]) (≤→le h)
   ≤→le (s≤s nzero (nsucc {n} Nn) h) = trans (lt-SS zero (succ₁ (succ₁ n))) (≤→le h)
-  ≤→le (s≤s (nsucc {m} Nm) nzero h) = trans (lt-SS (succ₁ m) (succ₁ zero)) (≤→le h)
+  ≤→le (s≤s (nsucc {m} Nm) nzero h) = trans (lt-SS (succ₁ m) [1]) (≤→le h)
   ≤→le (s≤s (nsucc {m} Nm) (nsucc {n} Nn) h) =
     trans (lt-SS (succ₁ m) (succ₁ (succ₁ n))) (≤→le h)
 

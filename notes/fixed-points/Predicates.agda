@@ -31,11 +31,11 @@ module Pure where
     nsucc : ∀ {n} → N n → N (succ₁ n)
 
   -- Example.
-  one : D
-  one = succ₁ zero
+  [1] : D
+  [1] = succ₁ zero
 
-  oneN : N one
-  oneN = nsucc nzero
+  1-N : N [1]
+  1-N = nsucc nzero
 
   -- The FOTC lists type.
   postulate
@@ -54,8 +54,8 @@ module Pure where
     lncons : ∀ {n ns} → N n → ListN ns → ListN (n ∷ ns)
 
   -- Example.
-  ln : ListN (zero ∷ one ∷ [])
-  ln = lncons nzero (lncons oneN lnnil)
+  ln : ListN (zero ∷ [1] ∷ [])
+  ln = lncons nzero (lncons 1-N lnnil)
 
 ------------------------------------------------------------------------------
 -- The inductive FOTC types using data.
@@ -68,11 +68,11 @@ module Inductive where
     nsucc : ∀ {n} → N n → N (succ₁ n)
 
   -- Example.
-  one : D
-  one = succ₁ zero
+  [1] : D
+  [1] = succ₁ zero
 
-  oneN : N one
-  oneN = nsucc nzero
+  1-N : N [1]
+  1-N = nsucc nzero
 
   -- The FOTC lists type.
   data List : D → Set where
@@ -89,8 +89,8 @@ module Inductive where
     lncons : ∀ {n ns} → N n → ListN ns → ListN (n ∷ ns)
 
   -- Example.
-  ln : ListN (zero ∷ one ∷ [])
-  ln = lncons nzero (lncons oneN lnnil)
+  ln : ListN (zero ∷ [1] ∷ [])
+  ln = lncons nzero (lncons 1-N lnnil)
 
 ------------------------------------------------------------------------------
 -- The least fixed-point operator.
@@ -165,11 +165,11 @@ module NLFP where
   nsucc {n} Nn = LFP₂ NatF (succ₁ n) (inj₂ (n , (refl , Nn)))
 
   -- Example.
-  one : D
-  one = succ₁ zero
+  [1] : D
+  [1] = succ₁ zero
 
-  oneN : N one
-  oneN = nsucc nzero
+  1-N : N [1]
+  1-N = nsucc nzero
 
 ------------------------------------------------------------------------------
 -- The FOTC list type as the least fixed-point of a functor.
@@ -223,8 +223,8 @@ module ListNLFT where
     LFP₂ ListNF (n ∷ ns) (inj₂ (n , ns , refl , Nn , LNns))
 
   -- Example.
-  ln : ListN (zero ∷ one ∷ [])
-  ln = lncons nzero (lncons oneN lnnil)
+  ln : ListN (zero ∷ [1] ∷ [])
+  ln = lncons nzero (lncons 1-N lnnil)
 
 ------------------------------------------------------------------------------
 -- The FOTC Colist type as the greatest fixed-point of a functor.

@@ -15,6 +15,7 @@ open import LTC-PCF.Data.Nat.Properties hiding ( ∸-x0 )
 open import LTC-PCF.Data.Nat.Rec
 open import LTC-PCF.Data.Nat.Rec.ConversionRules
 open import LTC-PCF.Data.Nat.Type
+open import LTC-PCF.Data.Nat.UnaryNumbers
 
 -- We add 3 to the fixities of the standard library.
 infixl 9 _∸_
@@ -33,7 +34,7 @@ m ∸ n = rec n m (lam (λ _ → lam pred₁))
 
 ∸-0S : ∀ {n} → N n → zero ∸ succ₁ n ≡ zero
 ∸-0S nzero =
-  rec (succ₁ zero) zero (lam (λ _ → lam pred₁))
+  rec [1] zero (lam (λ _ → lam pred₁))
     ≡⟨ rec-S zero zero (lam (λ _ → lam pred₁)) ⟩
   lam (λ _ → lam pred₁) · zero · (zero ∸ zero)
     ≡⟨ ·-leftCong (beta (λ _ → lam pred₁) zero) ⟩
@@ -64,7 +65,7 @@ m ∸ n = rec n m (lam (λ _ → lam pred₁))
 
 ∸-SS : ∀ {m n} → N m → N n → succ₁ m ∸ succ₁ n ≡ m ∸ n
 ∸-SS {m} _ nzero =
-  rec (succ₁ zero) (succ₁ m) (lam (λ _ → lam pred₁))
+  rec [1] (succ₁ m) (lam (λ _ → lam pred₁))
     ≡⟨ rec-S zero (succ₁ m) (lam (λ _ → lam pred₁)) ⟩
   lam (λ _ → lam pred₁) · zero · (succ₁ m ∸ zero)
     ≡⟨ ·-leftCong (beta (λ _ → lam pred₁) zero) ⟩
@@ -79,13 +80,13 @@ m ∸ n = rec n m (lam (λ _ → lam pred₁))
   m ∸ zero ∎
 
 ∸-SS nzero (nsucc {n} Nn) =
-  rec (succ₁ (succ₁ n)) (succ₁ zero) (lam (λ _ → lam pred₁))
-    ≡⟨ rec-S (succ₁ n) (succ₁ zero) (lam (λ _ → lam pred₁))  ⟩
-  lam (λ _ → lam pred₁) · (succ₁ n) · (succ₁ zero ∸ succ₁ n)
+  rec (succ₁ (succ₁ n)) [1] (lam (λ _ → lam pred₁))
+    ≡⟨ rec-S (succ₁ n) [1] (lam (λ _ → lam pred₁))  ⟩
+  lam (λ _ → lam pred₁) · (succ₁ n) · ([1] ∸ succ₁ n)
     ≡⟨ ·-leftCong (beta (λ _ → lam pred₁) (succ₁ n)) ⟩
-  lam pred₁ · (succ₁ zero ∸ succ₁ n)
-    ≡⟨ beta pred₁ (succ₁ zero ∸ succ₁ n) ⟩
-  pred₁ (succ₁ zero ∸ succ₁ n)
+  lam pred₁ · ([1] ∸ succ₁ n)
+    ≡⟨ beta pred₁ ([1] ∸ succ₁ n) ⟩
+  pred₁ ([1] ∸ succ₁ n)
     ≡⟨ predCong (∸-SS nzero Nn) ⟩
   pred₁ (zero ∸ n)
     ≡⟨ predCong (∸-0x Nn) ⟩

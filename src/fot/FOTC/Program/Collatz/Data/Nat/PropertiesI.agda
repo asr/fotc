@@ -32,15 +32,15 @@ open import FOTC.Program.Collatz.Data.Nat
   postulate prf : [2] * zero / [2] ≡ zero
 
 2x/2≡x (nsucc nzero) =
-  ([2] * succ₁ zero) / [2]
+  ([2] * [1]) / [2]
     ≡⟨ cong₂ _/_ (*-rightIdentity 2-N) refl ⟩
   [2] / [2]
     ≡⟨ /-x≥y (x≥x 2-N) ⟩
   succ₁ (([2] ∸ [2]) / [2])
     ≡⟨ succCong (cong₂ _/_ (x∸x≡0 2-N) refl) ⟩
   succ₁ (zero / [2])
-    ≡⟨ succCong (/-x<y (lt-0S (succ₁ zero))) ⟩
-  succ₁ zero ∎
+    ≡⟨ succCong (/-x<y (lt-0S [1])) ⟩
+  [1] ∎
 
 2x/2≡x (nsucc (nsucc {n} Nn)) = prf
   where
@@ -68,7 +68,7 @@ Sx≡2^0→x≡0(nsucc {n} Nn) SSn≡2^0 =
   prf : succ₁ (succ₁ (succ₁ (succ₁ n) ∸ [2])) ≡ succ₁ (succ₁ n)
   prf = succ₁ (succ₁ (succ₁ (succ₁ n) ∸ [2]))
           ≡⟨ succCong (succCong (S∸S (nsucc Nn) (nsucc nzero))) ⟩
-        succ₁ (succ₁ ((succ₁ n ) ∸ (succ₁ zero)))
+        succ₁ (succ₁ ((succ₁ n ) ∸ [1]))
           ≡⟨ succCong (succCong (S∸S Nn nzero)) ⟩
         succ₁ (succ₁ (n ∸ zero))
           ≡⟨ succCong (succCong (∸-x0 n)) ⟩
@@ -111,13 +111,10 @@ mutual
 
 x-Even→SSx-Even : ∀ {n} → N n → Even n → Even (succ₁ (succ₁ n))
 x-Even→SSx-Even nzero h =
-  even (succ₁ (succ₁ zero))
-    ≡⟨ even-S (succ₁ zero) ⟩
-  odd (succ₁ zero)
-    ≡⟨ odd-S zero ⟩
-  even zero
-    ≡⟨ even-0 ⟩
-  true ∎
+  even [2]  ≡⟨ even-S [1] ⟩
+  odd [1]   ≡⟨ odd-S zero ⟩
+  even zero ≡⟨ even-0 ⟩
+  true      ∎
 
 x-Even→SSx-Even (nsucc {n} Nn) h =
   even (succ₁ (succ₁ (succ₁ n)))
@@ -147,13 +144,13 @@ x+x-Even (nsucc {n} Nn) = subst Even (sym prf)
 2x-Even (nsucc {n} Nn) = subst Even (sym prf)
                             (x-Even→SSx-Even (+-N Nn Nn) (x+x-Even Nn))
   where
-  prf : succ₁ (succ₁ zero) * succ₁ n ≡ succ₁ (succ₁ (n + n))
+  prf : [2] * succ₁ n ≡ succ₁ (succ₁ (n + n))
   prf =
-    succ₁ (succ₁ zero) * succ₁ n
-      ≡⟨ *-Sx (succ₁ zero) (succ₁ n) ⟩
-    succ₁ n + succ₁ zero * succ₁ n
-      ≡⟨ +-Sx n (succ₁ zero * succ₁ n) ⟩
-    succ₁ (n + succ₁ zero * succ₁ n)
+    [2] * succ₁ n
+      ≡⟨ *-Sx [1] (succ₁ n) ⟩
+    succ₁ n + [1] * succ₁ n
+      ≡⟨ +-Sx n ([1] * succ₁ n) ⟩
+    succ₁ (n + [1] * succ₁ n)
       ≡⟨ succCong (cong (_+_ n) (*-Sx zero (succ₁ n))) ⟩
     succ₁ (n + (succ₁ n + zero * succ₁ n))
       ≡⟨ succCong (cong (_+_ n) (cong (_+_ (succ₁ n)) (*-leftZero (succ₁ n)))) ⟩

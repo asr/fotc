@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- The unary numbers are FOTC natural numbers
+-- The unary numbers are FOTC total natural numbers
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}

@@ -14,6 +14,7 @@ open import LTC-PCF.Base.Properties
 open import LTC-PCF.Data.Nat
 open import LTC-PCF.Data.Nat.Rec
 open import LTC-PCF.Data.Nat.Rec.ConversionRules
+open import LTC-PCF.Data.Nat.UnaryNumbers
 
 ------------------------------------------------------------------------------
 -- Congruence properties
@@ -137,7 +138,7 @@ x+Sy≡S[x+y] (nsucc {m} Nm) n =
 private
   0∸S : ∀ {n} → N n → zero ∸ succ₁ n ≡ zero
   0∸S nzero =
-    zero ∸ succ₁ zero   ≡⟨ ∸-xS zero zero ⟩
+    zero ∸ [1]          ≡⟨ ∸-xS zero zero ⟩
     pred₁ (zero ∸ zero) ≡⟨ predCong (∸-x0 zero) ⟩
     pred₁ zero          ≡⟨ pred-0 ⟩
     zero                ∎
@@ -154,7 +155,7 @@ private
 
 S∸S : ∀ {m n} → N m → N n → succ₁ m ∸ succ₁ n ≡ m ∸ n
 S∸S {m} _ nzero =
-  succ₁ m ∸ succ₁ zero
+  succ₁ m ∸ [1]
     ≡⟨ ∸-xS (succ₁ m) zero ⟩
   pred₁ (succ₁ m ∸ zero)
     ≡⟨ predCong (∸-x0 (succ₁ m)) ⟩
@@ -165,9 +166,9 @@ S∸S {m} _ nzero =
   m ∸ zero ∎
 
 S∸S nzero (nsucc {n} Nn) =
-  succ₁ zero ∸ succ₁ (succ₁ n)
-    ≡⟨ ∸-xS (succ₁ zero) (succ₁ n) ⟩
-  pred₁ (succ₁ zero ∸ succ₁ n)
+  [1] ∸ succ₁ (succ₁ n)
+    ≡⟨ ∸-xS [1] (succ₁ n) ⟩
+  pred₁ ([1] ∸ succ₁ n)
     ≡⟨ predCong (S∸S nzero Nn) ⟩
   pred₁ (zero ∸ n)
     ≡⟨ predCong (0∸x Nn) ⟩
@@ -224,12 +225,12 @@ S∸S (nsucc {m} Nm) (nsucc {n} Nn) =
 *-N {n = n} nzero          _  = subst N (sym (*-leftZero n)) nzero
 *-N {n = n} (nsucc {m} Nm) Nn = subst N (sym (*-Sx m n)) (+-N Nn (*-N Nm Nn))
 
-*-leftIdentity : ∀ {n} → N n → succ₁ zero * n ≡ n
+*-leftIdentity : ∀ {n} → N n → [1] * n ≡ n
 *-leftIdentity {n} Nn =
-  succ₁ zero * n ≡⟨ *-Sx zero n ⟩
-  n + zero * n   ≡⟨ +-rightCong (*-leftZero n) ⟩
-  n + zero       ≡⟨ +-rightIdentity Nn ⟩
-  n              ∎
+  [1] * n      ≡⟨ *-Sx zero n ⟩
+  n + zero * n ≡⟨ +-rightCong (*-leftZero n) ⟩
+  n + zero     ≡⟨ +-rightIdentity Nn ⟩
+  n            ∎
 
 x*Sy≡x+xy : ∀ {m n} → N m → N n → m * succ₁ n ≡ m + m * n
 x*Sy≡x+xy {n = n} nzero Nn = sym

@@ -1,15 +1,15 @@
 ------------------------------------------------------------------------------
--- The unary numbers are FOTC total natural numbers
+-- The unary numbers are LTC-PCF total natural numbers
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Data.Nat.UnaryNumbers.TotalityI where
+module LTC-PCF.Data.Nat.UnaryNumbers.Totality where
 
-open import FOTC.Base
-open import FOTC.Data.Nat.Type
-open import FOTC.Data.Nat.UnaryNumbers
+open import LTC-PCF.Base
+open import LTC-PCF.Data.Nat.Type
+open import LTC-PCF.Data.Nat.UnaryNumbers
 
 ------------------------------------------------------------------------------
 

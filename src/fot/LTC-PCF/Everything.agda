@@ -26,6 +26,8 @@ open import LTC-PCF.Data.Nat.Properties
 open import LTC-PCF.Data.Nat.Rec
 open import LTC-PCF.Data.Nat.Rec.ConversionRules
 open import LTC-PCF.Data.Nat.Type
+open import LTC-PCF.Data.Nat.UnaryNumbers
+open import LTC-PCF.Data.Nat.UnaryNumbers.Totality
 
 open import LTC-PCF.Loop
 

@@ -21,6 +21,7 @@ open import FOTC.Base
 open import FOTC.Base.PropertiesI
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.UnaryNumbers
+open import FOTC.Data.Nat.UnaryNumbers.TotalityI
 
 ------------------------------------------------------------------------------
 -- Congruence properties
@@ -116,7 +117,7 @@ x+Sy≡S[x+y] (nsucc {m} Nm) n =
 private
   0∸S : ∀ {n} → N n → zero ∸ succ₁ n ≡ zero
   0∸S nzero =
-    zero ∸ succ₁ zero   ≡⟨ ∸-xS zero zero ⟩
+    zero ∸ [1]          ≡⟨ ∸-xS zero zero ⟩
     pred₁ (zero ∸ zero) ≡⟨ predCong (∸-x0 zero) ⟩
     pred₁ zero          ≡⟨ pred-0 ⟩
     zero                ∎
@@ -133,7 +134,7 @@ private
 
 S∸S : ∀ {m n} → N m → N n → succ₁ m ∸ succ₁ n ≡ m ∸ n
 S∸S {m} _ nzero =
-  succ₁ m ∸ succ₁ zero
+  succ₁ m ∸ [1]
     ≡⟨ ∸-xS (succ₁ m) zero ⟩
   pred₁ (succ₁ m ∸ zero)
     ≡⟨ predCong (∸-x0 (succ₁ m)) ⟩
@@ -144,9 +145,9 @@ S∸S {m} _ nzero =
   m ∸ zero ∎
 
 S∸S nzero (nsucc {n} Nn) =
-  succ₁ zero ∸ succ₁ (succ₁ n)
-    ≡⟨ ∸-xS (succ₁ zero) (succ₁ n) ⟩
-  pred₁ (succ₁ zero ∸ succ₁ n)
+  [1] ∸ succ₁ (succ₁ n)
+    ≡⟨ ∸-xS [1] (succ₁ n) ⟩
+  pred₁ ([1] ∸ succ₁ n)
     ≡⟨ predCong (S∸S nzero Nn) ⟩
   pred₁ (zero ∸ n)
     ≡⟨ predCong (0∸x Nn) ⟩
@@ -169,23 +170,23 @@ x∸x≡0 : ∀ {n} → N n → n ∸ n ≡ zero
 x∸x≡0 nzero      = ∸-x0 zero
 x∸x≡0 (nsucc Nn) = trans (S∸S Nn Nn) (x∸x≡0 Nn)
 
-Sx∸x≡S0 : ∀ {n} → N n → succ₁ n ∸ n ≡ succ₁ zero
-Sx∸x≡S0 nzero      = ∸-x0 (succ₁ zero)
-Sx∸x≡S0 (nsucc Nn) = trans (S∸S (nsucc Nn) Nn) (Sx∸x≡S0 Nn)
+Sx∸x≡1 : ∀ {n} → N n → succ₁ n ∸ n ≡ [1]
+Sx∸x≡1 nzero      = ∸-x0 [1]
+Sx∸x≡1 (nsucc Nn) = trans (S∸S (nsucc Nn) Nn) (Sx∸x≡1 Nn)
 
 [x+Sy]∸y≡Sx : ∀ {m n} → N m → N n → m + succ₁ n ∸ n ≡ succ₁ m
 [x+Sy]∸y≡Sx {n = n} nzero Nn =
   zero + succ₁ n ∸ n ≡⟨ ∸-leftCong (+-0x (succ₁ n)) ⟩
-  succ₁ n ∸ n        ≡⟨ Sx∸x≡S0 Nn ⟩
-  succ₁ zero ∎
+  succ₁ n ∸ n        ≡⟨ Sx∸x≡1 Nn ⟩
+  [1]                ∎
 
 [x+Sy]∸y≡Sx (nsucc {m} Nm) nzero =
-  succ₁ m + succ₁ zero ∸ zero   ≡⟨ ∸-leftCong (+-Sx m (succ₁ zero)) ⟩
-  succ₁ (m + succ₁ zero) ∸ zero ≡⟨ ∸-x0 (succ₁ (m + succ₁ zero)) ⟩
-  succ₁ (m + succ₁ zero)        ≡⟨ succCong (+-comm Nm (nsucc nzero)) ⟩
-  succ₁ (succ₁ zero + m)        ≡⟨ succCong (+-Sx zero m) ⟩
-  succ₁ (succ₁ (zero + m))      ≡⟨ succCong (succCong (+-0x m)) ⟩
-  succ₁ (succ₁ m) ∎
+  succ₁ m + [1] ∸ zero     ≡⟨ ∸-leftCong (+-Sx m [1]) ⟩
+  succ₁ (m + [1]) ∸ zero   ≡⟨ ∸-x0 (succ₁ (m + [1])) ⟩
+  succ₁ (m + [1])          ≡⟨ succCong (+-comm Nm 1-N) ⟩
+  succ₁ ([1] + m)          ≡⟨ succCong (+-Sx zero m) ⟩
+  succ₁ (succ₁ (zero + m)) ≡⟨ succCong (succCong (+-0x m)) ⟩
+  succ₁ (succ₁ m)          ∎
 
 [x+Sy]∸y≡Sx (nsucc {m} Nm) (nsucc {n} Nn) =
   succ₁ m + succ₁ (succ₁ n) ∸ succ₁ n
@@ -226,12 +227,12 @@ Sx∸x≡S0 (nsucc Nn) = trans (S∸S (nsucc Nn) Nn) (Sx∸x≡S0 Nn)
 *-N {n = n} nzero          Nn = subst N (sym (*-leftZero n)) nzero
 *-N {n = n} (nsucc {m} Nm) Nn = subst N (sym (*-Sx m n)) (+-N Nn (*-N Nm Nn))
 
-*-leftIdentity : ∀ {n} → N n → succ₁ zero * n ≡ n
+*-leftIdentity : ∀ {n} → N n → [1] * n ≡ n
 *-leftIdentity {n} Nn =
-  succ₁ zero * n ≡⟨ *-Sx zero n ⟩
-  n + zero * n   ≡⟨ +-rightCong (*-leftZero n) ⟩
-  n + zero       ≡⟨ +-rightIdentity Nn ⟩
-  n              ∎
+  [1] * n      ≡⟨ *-Sx zero n ⟩
+  n + zero * n ≡⟨ +-rightCong (*-leftZero n) ⟩
+  n + zero     ≡⟨ +-rightIdentity Nn ⟩
+  n            ∎
 
 x*Sy≡x+xy : ∀ {m n} → N m → N n → m * succ₁ n ≡ m + m * n
 x*Sy≡x+xy {n = n} nzero Nn = sym
@@ -272,7 +273,7 @@ x*Sy≡x+xy {n = n} (nsucc {m} Nm) Nn =
   n + n * m   ≡⟨ sym (x*Sy≡x+xy Nn Nm) ⟩
   n * succ₁ m ∎
 
-*-rightIdentity : ∀ {n} → N n → n * succ₁ zero ≡ n
+*-rightIdentity : ∀ {n} → N n → n * [1] ≡ n
 *-rightIdentity {n} Nn = trans (*-comm Nn (nsucc nzero)) (*-leftIdentity Nn)
 
 *∸-leftDistributive : ∀ {m n o} → N m → N n → N o → (m ∸ n) * o ≡ m * o ∸ n * o
@@ -377,8 +378,8 @@ xy≡1→x≡1 (nsucc (nsucc {m} Nm)) nzero h =
   ⊥-elim (0≢S (trans (sym (*-rightZero (nsucc (nsucc Nm)))) h))
 xy≡1→x≡1 (nsucc (nsucc {m} Nm)) (nsucc {n} Nn) h = ⊥-elim (0≢S prf₂)
   where
-  prf₁ : succ₁ zero ≡ succ₁ (succ₁ (m + n * succ₁ (succ₁ m)))
-  prf₁ = succ₁ zero
+  prf₁ : [1] ≡ succ₁ (succ₁ (m + n * succ₁ (succ₁ m)))
+  prf₁ = [1]
            ≡⟨ sym h ⟩
          succ₁ (succ₁ m) * succ₁ n
            ≡⟨ *-comm (nsucc (nsucc Nm)) (nsucc Nn) ⟩

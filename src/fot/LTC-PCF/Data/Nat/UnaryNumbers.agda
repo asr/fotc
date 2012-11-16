@@ -1,23 +1,23 @@
 ------------------------------------------------------------------------------
--- The unary numbers are FOTC total natural numbers
+-- Unary naturales numbers
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Data.Nat.UnaryNumbers.TotalityI where
+module LTC-PCF.Data.Nat.UnaryNumbers where
 
-open import FOTC.Base
-open import FOTC.Data.Nat.Type
-open import FOTC.Data.Nat.UnaryNumbers
+open import LTC-PCF.Base
 
 ------------------------------------------------------------------------------
 
-0-N : N [0]
-0-N = nzero
-
-1-N : N [1]
-1-N = nsucc 0-N
-
-2-N : N [2]
-2-N = nsucc 1-N
+[0]  = zero
+[1]  = succ₁ [0]
+[2]  = succ₁ [1]
+[3]  = succ₁ [2]
+[4]  = succ₁ [3]
+[5]  = succ₁ [4]
+[6]  = succ₁ [5]
+[7]  = succ₁ [6]
+[8]  = succ₁ [7]
+[9]  = succ₁ [8]
