@@ -18,10 +18,13 @@
 
 module FOTC.Program.McCarthy91.PropertiesATP where
 
+open import Common.FOL.Relation.Binary.EqReasoning
+
 open import FOTC.Base
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
+open import FOTC.Data.Nat.PropertiesATP
 open import FOTC.Data.Nat.UnaryNumbers
 open import FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
@@ -33,39 +36,6 @@ open import FOTC.Program.McCarthy91.WF-Relation.LT2WF-RelationATP
 open import FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP
 
 ------------------------------------------------------------------------------
-
-mc91-N-ineq : ∀ {n} → N n → N (mc91 n) ∧ n < mc91 n + [11]
-mc91-N-ineq = ≪-wfind A h
-  where
-  A : D → Set
-  A d = N (mc91 d) ∧ d < mc91 d + [11]
-
-  h : ∀ {m} → N m → (∀ {k} → N k → k ≪ m → A k) → A m
-  h {m} Nm f with x>y∨x≯y Nm 100-N
-  ... | inj₁ m>100 = ( mc91>100-N Nm m>100 , x<mc91x+11>100 Nm m>100 )
-  ... | inj₂ m≯100 =
-    let h₁ : A (m + [11])
-        h₁ = f (x+11-N Nm) (<→≪ (x+11-N Nm) Nm m≯100 (x<x+11 Nm))
-
-        h₁-N : N (mc91 (m + [11]))
-        h₁-N = ∧-proj₁ h₁
-
-        h₁-LT : m + [11] < mc91 (m + [11]) + [11]
-        h₁-LT = ∧-proj₂ h₁
-
-        m<mc91m+11 : m < mc91 (m + [11])
-        m<mc91m+11 = x+k<y+k→x<y Nm h₁-N 11-N h₁-LT
-
-        h₂ : A (mc91 (m + [11]))
-        h₂ = f h₁-N (<→≪ h₁-N Nm m≯100 m<mc91m+11)
-
-        mc91≤100-N : N (mc91 m)
-        mc91≤100-N = mc91≯100-N m m≯100 (∧-proj₁ h₂)
-
-    in ( mc91≤100-N ,
-         <-trans Nm h₁-N (x+11-N mc91≤100-N)
-                 m<mc91m+11
-                 (mc91x+11<mc91x+11 m m≯100 (∧-proj₂ h₂)))
 
 mc91-res : ∀ {n} → N n → (n > [100] ∧ mc91 n ≡ n ∸ [10]) ∨
                          (n ≯ [100] ∧ mc91 n ≡ [91])
@@ -116,14 +86,6 @@ mc91-res = ≪-wfind A h
 ------------------------------------------------------------------------------
 -- Main properties
 
--- The function always terminates.
-mc91-N : ∀ {n} → N n → N (mc91 n)
-mc91-N Nn = ∧-proj₁ (mc91-N-ineq Nn)
-
--- For all n, n < mc91 n + 11.
-mc91-ineq : ∀ {n} → N n → n < mc91 n + [11]
-mc91-ineq Nn = ∧-proj₂ (mc91-N-ineq Nn)
-
 -- For all n > 100, then mc91 n = n - 10.
 mc91-res>100 : ∀ {n} → N n → n > [100] → mc91 n ≡ n ∸ [10]
 mc91-res>100 Nn n>100 with mc91-res Nn
@@ -136,3 +98,36 @@ mc91-res≯100 Nn n≯100 with mc91-res Nn
 ... | inj₁ ( n>100 , _   ) = ⊥-elim (x>y→x≤y→⊥ Nn 100-N n>100
                                                (x≯y→x≤y Nn 100-N n≯100))
 ... | inj₂ ( _     , res ) = res
+
+-- The function always terminates.
+mc91-N : ∀ {n} → N n → N (mc91 n)
+mc91-N Nn with x>y∨x≯y Nn 100-N
+... | inj₁ n>100 = subst N (sym (mc91-res>100 Nn n>100)) (∸-N Nn 10-N)
+... | inj₂ n≮100 = subst N (sym (mc91-res≯100 Nn n≮100)) 91-N
+
+-- For all n, n < mc91 n + 11.
+mc91-N-ineq : ∀ {n} → N n → n < mc91 n + [11]
+mc91-N-ineq = ≪-wfind A h
+  where
+  A : D → Set
+  A d = d < mc91 d + [11]
+
+  h : ∀ {m} → N m → (∀ {k} → N k → k ≪ m → A k) → A m
+  h {m} Nm f with x>y∨x≯y Nm 100-N
+  ... | inj₁ m>100 = x<mc91x+11>100 Nm m>100
+  ... | inj₂ m≯100 =
+    let mc91-m-11-N : N (mc91 (m + [11]))
+        mc91-m-11-N = mc91-N (+-N Nm 11-N)
+
+        h₁ : A (m + [11])
+        h₁ = f (x+11-N Nm) (<→≪ (x+11-N Nm) Nm m≯100 (x<x+11 Nm))
+
+        m<mc91m+11 : m < mc91 (m + [11])
+        m<mc91m+11 = x+k<y+k→x<y Nm mc91-m-11-N 11-N h₁
+
+        h₂ : A (mc91 (m + [11]))
+        h₂ = f mc91-m-11-N (<→≪ mc91-m-11-N Nm m≯100 m<mc91m+11)
+
+    in ( <-trans Nm mc91-m-11-N (x+11-N (mc91-N Nm))
+                 m<mc91m+11
+                 (mc91x+11<mc91x+11 m m≯100 h₂))

@@ -27,10 +27,6 @@ postulate mc91-eq-aux : ∀ n → n > [100] → mc91 n ≡ n ∸ [10]
 ------------------------------------------------------------------------------
 --- Auxiliary properties
 
----- Case n > 100
-postulate mc91>100-N : ∀ {n} → N n → n > [100] → N (mc91 n)
-{-# ATP prove mc91>100-N 10-N ∸-N #-}
-
 postulate
   x<mc91x+11>100 : ∀ {n} → N n → n > [100] → n < mc91 n + [11]
 {-# ATP prove x<mc91x+11>100 +-N ∸-N x<y→y≤z→x<z x<x+1 x+1≤x∸10+11 #-}
@@ -42,14 +38,6 @@ postulate mc91-res-100 : mc91 [100] ≡ [91]
 {-# ATP prove mc91-res-100 100+11>100 100+11∸10>100
                            101≡100+11∸10 91≡100+11∸10∸10
 #-}
-
----- Case n ≤ 100
-postulate
-  mc91≯100-N : ∀ n →
-               n ≯ [100] →
-               N (mc91 (mc91 (n + [11]))) →
-               N (mc91 n)
-{-# ATP prove mc91≯100-N #-}
 
 postulate
   mc91x+11<mc91x+11 : ∀ n →
