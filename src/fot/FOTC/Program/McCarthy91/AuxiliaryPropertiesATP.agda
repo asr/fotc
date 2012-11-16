@@ -19,20 +19,12 @@ open import FOTC.Program.McCarthy91.ArithmeticATP
 open import FOTC.Program.McCarthy91.McCarthy91
 
 ------------------------------------------------------------------------------
--- Auxiliary equation
-
-postulate mc91-eq-aux : ∀ n → n > [100] → mc91 n ≡ n ∸ [10]
-{-# ATP prove mc91-eq-aux #-}
-
-------------------------------------------------------------------------------
 --- Auxiliary properties
 
 postulate
   x<mc91x+11>100 : ∀ {n} → N n → n > [100] → n < mc91 n + [11]
 {-# ATP prove x<mc91x+11>100 +-N ∸-N x<y→y≤z→x<z x<x+1 x+1≤x∸10+11 #-}
 
-
--- Most of them not needed
 -- Case n ≡ 100 can be proved automatically
 postulate mc91-res-100 : mc91 [100] ≡ [91]
 {-# ATP prove mc91-res-100 100+11>100 100+11∸10>100
