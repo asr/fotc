@@ -49,12 +49,10 @@ x<Sx : ∀ {n} → N n → n < succ₁ n
 x<Sx nzero          = lt-0S zero
 x<Sx (nsucc {n} Nn) = trans (lt-SS n (succ₁ n)) (x<Sx Nn)
 
-postulate
-  x<y→Sx<Sy : ∀ {m n} → m < n → succ₁ m < succ₁ n
+postulate x<y→Sx<Sy : ∀ {m n} → m < n → succ₁ m < succ₁ n
 {-# ATP prove x<y→Sx<Sy #-}
 
-postulate
-  Sx<Sy→x<y : ∀ {m n} → succ₁ m < succ₁ n → m < n
+postulate Sx<Sy→x<y : ∀ {m n} → succ₁ m < succ₁ n → m < n
 {-# ATP prove Sx<Sy→x<y #-}
 
 x<y→x<Sy : ∀ {m n} → N m → N n → m < n → m < succ₁ n
@@ -73,8 +71,7 @@ x≥x Nn = x≤x Nn
 x≤y→Sx≤Sy : ∀ {m n} → m ≤ n → succ₁ m ≤ succ₁ n
 x≤y→Sx≤Sy {m} {n} m≤n = trans (lt-SS m (succ₁ n)) m≤n
 
-postulate
-  Sx≤Sy→x≤y : ∀ {m n} → succ₁ m ≤ succ₁ n → m ≤ n
+postulate Sx≤Sy→x≤y : ∀ {m n} → succ₁ m ≤ succ₁ n → m ≤ n
 {-# ATP prove Sx≤Sy→x≤y #-}
 
 Sx≤y→x≤y : ∀ {m n} → N m → N n → succ₁ m ≤ n → m ≤ n
@@ -114,8 +111,7 @@ x>y→x≰y (nsucc Nm)     nzero          _     = Sx≰0 Nm
 x>y→x≰y (nsucc {m} Nm) (nsucc {n} Nn) Sm>Sn =
   x≰y→Sx≰Sy m n (x>y→x≰y Nm Nn (trans (sym (lt-SS n m)) Sm>Sn))
 
-postulate
-  x>y→x≤y→⊥ : ∀ {m n} → N m → N n → m > n → m ≤ n → ⊥
+postulate x>y→x≤y→⊥ : ∀ {m n} → N m → N n → m > n → m ≤ n → ⊥
 {-# ATP prove x>y→x≤y→⊥ x>y→x≰y #-}
 
 x>y∨x≤y : ∀ {m n} → N m → N n → m > n ∨ m ≤ n
