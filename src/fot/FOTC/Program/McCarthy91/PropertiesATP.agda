@@ -18,8 +18,6 @@
 
 module FOTC.Program.McCarthy91.PropertiesATP where
 
-open import Common.FOL.Relation.Binary.EqReasoning
-
 open import FOTC.Base
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
@@ -116,18 +114,18 @@ mc91-N-ineq = ≪-wfind A h
   h {m} Nm f with x>y∨x≯y Nm 100-N
   ... | inj₁ m>100 = x<mc91x+11>100 Nm m>100
   ... | inj₂ m≯100 =
-    let mc91-m-11-N : N (mc91 (m + [11]))
-        mc91-m-11-N = mc91-N (+-N Nm 11-N)
+    let mc91-m+11-N : N (mc91 (m + [11]))
+        mc91-m+11-N = mc91-N (+-N Nm 11-N)
 
         h₁ : A (m + [11])
         h₁ = f (x+11-N Nm) (<→≪ (x+11-N Nm) Nm m≯100 (x<x+11 Nm))
 
         m<mc91m+11 : m < mc91 (m + [11])
-        m<mc91m+11 = x+k<y+k→x<y Nm mc91-m-11-N 11-N h₁
+        m<mc91m+11 = x+k<y+k→x<y Nm mc91-m+11-N 11-N h₁
 
         h₂ : A (mc91 (m + [11]))
-        h₂ = f mc91-m-11-N (<→≪ mc91-m-11-N Nm m≯100 m<mc91m+11)
+        h₂ = f mc91-m+11-N (<→≪ mc91-m+11-N Nm m≯100 m<mc91m+11)
 
-    in ( <-trans Nm mc91-m-11-N (x+11-N (mc91-N Nm))
+    in ( <-trans Nm mc91-m+11-N (x+11-N (mc91-N Nm))
                  m<mc91m+11
                  (mc91x+11<mc91x+11 m m≯100 h₂))
