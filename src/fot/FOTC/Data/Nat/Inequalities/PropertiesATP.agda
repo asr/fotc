@@ -14,6 +14,15 @@ open import FOTC.Data.Nat.Inequalities.EliminationProperties
 open import FOTC.Data.Nat.PropertiesATP
 
 ------------------------------------------------------------------------------
+-- Congruence properties
+
+ltLeftCong : ∀ {m n o} → m ≡ n → lt m o ≡ lt n o
+ltLeftCong refl = refl
+
+ltRightCong : ∀ {m n o} → n ≡ o → lt m n ≡ lt m o
+ltRightCong refl = refl
+
+------------------------------------------------------------------------------
 -- N.B. The elimination properties are in the module
 -- FOTC.Data.Nat.Inequalities.EliminationProperties.
 
