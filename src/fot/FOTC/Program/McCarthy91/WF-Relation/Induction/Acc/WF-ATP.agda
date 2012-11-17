@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Well-founded induction on the relation _≪_
+-- Well-founded induction on the relation _◁_
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -25,15 +25,15 @@ open import FOTC.Program.McCarthy91.WF-Relation.PropertiesATP
 
 -- Parametrized modules
 open module InvImg =
-  FOTC.Induction.WF.InverseImage {N} {N} {_<_} ≪-fn-N
+  FOTC.Induction.WF.InverseImage {N} {N} {_<_} ◁-fn-N
 
 ------------------------------------------------------------------------------
--- The relation _≪_ is well-founded (using the inverse image combinator).
-≪-wf : WellFounded _≪_
-≪-wf Nn = wellFounded <-wf Nn
+-- The relation _◁_ is well-founded (using the inverse image combinator).
+◁-wf : WellFounded _◁_
+◁-wf Nn = wellFounded <-wf Nn
 
--- Well-founded induction on the relation _≪_.
-≪-wfind : (A : D → Set) →
-          (∀ {n} → N n → (∀ {m} → N m → m ≪ n → A m) → A n) →
+-- Well-founded induction on the relation _◁_.
+◁-wfind : (A : D → Set) →
+          (∀ {n} → N n → (∀ {m} → N m → m ◁ n → A m) → A n) →
           ∀ {n} → N n → A n
-≪-wfind A = WellFoundedInduction ≪-wf
+◁-wfind A = WellFoundedInduction ◁-wf

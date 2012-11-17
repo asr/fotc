@@ -22,72 +22,72 @@ open import FOTC.Program.McCarthy91.McCarthy91
 --- Auxiliary properties
 
 postulate
-  x<mc91x+11>100 : ∀ {n} → N n → n > [100] → n < mc91 n + [11]
-{-# ATP prove x<mc91x+11>100 +-N ∸-N x<y→y≤z→x<z x<x+1 x+1≤x∸10+11 #-}
+  x>100→x<f₉₁-x+11 : ∀ {n} → N n → n > [100] → n < f₉₁ n + [11]
+{-# ATP prove x>100→x<f₉₁-x+11 +-N ∸-N x<y→y≤z→x<z x<x+1 x+1≤x∸10+11 #-}
 
 -- Case n ≡ 100 can be proved automatically
-postulate mc91-res-100 : mc91 [100] ≡ [91]
-{-# ATP prove mc91-res-100 100+11>100 100+11∸10>100
-                           101≡100+11∸10 91≡100+11∸10∸10
+postulate f₉₁-100 : f₉₁ [100] ≡ [91]
+{-# ATP prove f₉₁-100 100+11>100 100+11∸10>100 101≡100+11∸10 91≡100+11∸10∸10
 #-}
 
 postulate
-  mc91x+11<mc91x+11 : ∀ n →
-                      n ≯ [100] →
-                      mc91 (n + [11]) < mc91 (mc91 (n + [11])) + [11] →
-                      mc91 (n + [11]) < mc91 n + [11]
-{-# ATP prove mc91x+11<mc91x+11 #-}
+  f₉₁x+11<f₉₁x+11 : ∀ n →
+                    n ≯ [100] →
+                    f₉₁ (n + [11]) < f₉₁ (f₉₁ (n + [11])) + [11] →
+                    f₉₁ (n + [11]) < f₉₁ n + [11]
+{-# ATP prove f₉₁x+11<f₉₁x+11 #-}
 
 postulate
-  mc91x-res≯100 : ∀ m n →
-                  m ≯ [100] →
-                  mc91 (m + [11]) ≡ n → mc91 n ≡ [91] →
-                  mc91 m ≡ [91]
-{-# ATP prove mc91x-res≯100 #-}
+  f₉₁-x≯100-helper : ∀ m n →
+                     m ≯ [100] →
+                     f₉₁ (m + [11]) ≡ n →
+                     f₉₁ n ≡ [91] →
+                     f₉₁ m ≡ [91]
+{-# ATP prove f₉₁-x≯100-helper #-}
 
 postulate
-  mc91-res-110 : mc91 ([99] + [11]) ≡ [100]
-  mc91-res-109 : mc91 ([98] + [11]) ≡ [99]
-  mc91-res-108 : mc91 ([97] + [11]) ≡ [98]
-  mc91-res-107 : mc91 ([96] + [11]) ≡ [97]
-  mc91-res-106 : mc91 ([95] + [11]) ≡ [96]
-  mc91-res-105 : mc91 ([94] + [11]) ≡ [95]
-  mc91-res-104 : mc91 ([93] + [11]) ≡ [94]
-  mc91-res-103 : mc91 ([92] + [11]) ≡ [93]
-  mc91-res-102 : mc91 ([91] + [11]) ≡ [92]
-  mc91-res-101 : mc91 ([90] + [11]) ≡ [91]
-{-# ATP prove mc91-res-110 99+11>100 x+11∸10≡Sx #-}
-{-# ATP prove mc91-res-109 98+11>100 x+11∸10≡Sx #-}
-{-# ATP prove mc91-res-108 97+11>100 x+11∸10≡Sx #-}
-{-# ATP prove mc91-res-107 96+11>100 x+11∸10≡Sx #-}
-{-# ATP prove mc91-res-106 95+11>100 x+11∸10≡Sx #-}
-{-# ATP prove mc91-res-105 94+11>100 x+11∸10≡Sx #-}
-{-# ATP prove mc91-res-104 93+11>100 x+11∸10≡Sx #-}
-{-# ATP prove mc91-res-103 92+11>100 x+11∸10≡Sx #-}
-{-# ATP prove mc91-res-102 91+11>100 x+11∸10≡Sx #-}
-{-# ATP prove mc91-res-101 90+11>100 x+11∸10≡Sx #-}
+  f₉₁-110 : f₉₁ ([99] + [11]) ≡ [100]
+  f₉₁-109 : f₉₁ ([98] + [11]) ≡ [99]
+  f₉₁-108 : f₉₁ ([97] + [11]) ≡ [98]
+  f₉₁-107 : f₉₁ ([96] + [11]) ≡ [97]
+  f₉₁-106 : f₉₁ ([95] + [11]) ≡ [96]
+  f₉₁-105 : f₉₁ ([94] + [11]) ≡ [95]
+  f₉₁-104 : f₉₁ ([93] + [11]) ≡ [94]
+  f₉₁-103 : f₉₁ ([92] + [11]) ≡ [93]
+  f₉₁-102 : f₉₁ ([91] + [11]) ≡ [92]
+  f₉₁-101 : f₉₁ ([90] + [11]) ≡ [91]
+{-# ATP prove f₉₁-110 99+11>100 x+11∸10≡Sx #-}
+{-# ATP prove f₉₁-109 98+11>100 x+11∸10≡Sx #-}
+{-# ATP prove f₉₁-108 97+11>100 x+11∸10≡Sx #-}
+{-# ATP prove f₉₁-107 96+11>100 x+11∸10≡Sx #-}
+{-# ATP prove f₉₁-106 95+11>100 x+11∸10≡Sx #-}
+{-# ATP prove f₉₁-105 94+11>100 x+11∸10≡Sx #-}
+{-# ATP prove f₉₁-104 93+11>100 x+11∸10≡Sx #-}
+{-# ATP prove f₉₁-103 92+11>100 x+11∸10≡Sx #-}
+{-# ATP prove f₉₁-102 91+11>100 x+11∸10≡Sx #-}
+{-# ATP prove f₉₁-101 90+11>100 x+11∸10≡Sx #-}
 
 postulate
-  mc91-res-99 : mc91 [99] ≡ [91]
-  mc91-res-98 : mc91 [98] ≡ [91]
-  mc91-res-97 : mc91 [97] ≡ [91]
-  mc91-res-96 : mc91 [96] ≡ [91]
-  mc91-res-95 : mc91 [95] ≡ [91]
-  mc91-res-94 : mc91 [94] ≡ [91]
-  mc91-res-93 : mc91 [93] ≡ [91]
-  mc91-res-92 : mc91 [92] ≡ [91]
-  mc91-res-91 : mc91 [91] ≡ [91]
-  mc91-res-90 : mc91 [90] ≡ [91]
-{-# ATP prove mc91-res-99 mc91x-res≯100 mc91-res-110 mc91-res-100 #-}
-{-# ATP prove mc91-res-98 mc91x-res≯100 mc91-res-109 mc91-res-99 #-}
-{-# ATP prove mc91-res-97 mc91x-res≯100 mc91-res-108 mc91-res-98 #-}
-{-# ATP prove mc91-res-96 mc91x-res≯100 mc91-res-107 mc91-res-97 #-}
-{-# ATP prove mc91-res-95 mc91x-res≯100 mc91-res-106 mc91-res-96 #-}
-{-# ATP prove mc91-res-94 mc91x-res≯100 mc91-res-105 mc91-res-95 #-}
-{-# ATP prove mc91-res-93 mc91x-res≯100 mc91-res-104 mc91-res-94 #-}
-{-# ATP prove mc91-res-92 mc91x-res≯100 mc91-res-103 mc91-res-93 #-}
-{-# ATP prove mc91-res-91 mc91x-res≯100 mc91-res-102 mc91-res-92 #-}
-{-# ATP prove mc91-res-90 mc91x-res≯100 mc91-res-101 mc91-res-91 #-}
+  f₉₁-99 : f₉₁ [99] ≡ [91]
+  f₉₁-98 : f₉₁ [98] ≡ [91]
+  f₉₁-97 : f₉₁ [97] ≡ [91]
+  f₉₁-96 : f₉₁ [96] ≡ [91]
+  f₉₁-95 : f₉₁ [95] ≡ [91]
+  f₉₁-94 : f₉₁ [94] ≡ [91]
+  f₉₁-93 : f₉₁ [93] ≡ [91]
+  f₉₁-92 : f₉₁ [92] ≡ [91]
+  f₉₁-91 : f₉₁ [91] ≡ [91]
+  f₉₁-90 : f₉₁ [90] ≡ [91]
+{-# ATP prove f₉₁-99 f₉₁-x≯100-helper f₉₁-110 f₉₁-100 #-}
+{-# ATP prove f₉₁-98 f₉₁-x≯100-helper f₉₁-109 f₉₁-99 #-}
+{-# ATP prove f₉₁-97 f₉₁-x≯100-helper f₉₁-108 f₉₁-98 #-}
+{-# ATP prove f₉₁-96 f₉₁-x≯100-helper f₉₁-107 f₉₁-97 #-}
+{-# ATP prove f₉₁-95 f₉₁-x≯100-helper f₉₁-106 f₉₁-96 #-}
+{-# ATP prove f₉₁-94 f₉₁-x≯100-helper f₉₁-105 f₉₁-95 #-}
+{-# ATP prove f₉₁-93 f₉₁-x≯100-helper f₉₁-104 f₉₁-94 #-}
+{-# ATP prove f₉₁-92 f₉₁-x≯100-helper f₉₁-103 f₉₁-93 #-}
+{-# ATP prove f₉₁-91 f₉₁-x≯100-helper f₉₁-102 f₉₁-92 #-}
+{-# ATP prove f₉₁-90 f₉₁-x≯100-helper f₉₁-101 f₉₁-91 #-}
 
-mc91-res-aux : ∀ {m n o} → mc91 m ≡ n → o ≡ m → mc91 o ≡ n
-mc91-res-aux h refl = h
+f₉₁-x≡y : ∀ {m n o} → f₉₁ m ≡ n → o ≡ m → f₉₁ o ≡ n
+f₉₁-x≡y h refl = h

@@ -80,7 +80,7 @@ postulate
 x+11-N : ∀ {n} → N n → N (n + [11])
 x+11-N Nn = +-N Nn 11-N
 
-x+11∸10≡Sx : ∀ {n} → N n → (n + [11]) ∸ [10] ≡ succ₁ n
+x+11∸10≡Sx : ∀ {n} → N n → n + [11] ∸ [10] ≡ succ₁ n
 x+11∸10≡Sx Nn = [x+Sy]∸y≡Sx Nn 10-N
 
 postulate x+1≤x∸10+11 : ∀ {n} → N n → n + [1] ≤ (n ∸ [10]) + [11]
