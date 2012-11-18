@@ -15,5 +15,5 @@ open import FOTC.Program.Mirror.Type
 -- The mirror function.
 postulate
   mirror    : D
-  mirror-eq : ∀ d ts → mirror · (node d ts) ≡ node d (reverse (map mirror ts))
+  mirror-eq : ∀ d ts → mirror · node d ts ≡ node d (reverse (map mirror ts))
 {-# ATP axiom mirror-eq #-}
