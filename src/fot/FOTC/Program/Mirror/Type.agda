@@ -13,8 +13,7 @@ open import FOTC.Data.List
 
 ------------------------------------------------------------------------------
 -- Tree terms.
-postulate
-  node : D → D → D
+postulate node : D → D → D
 
 -- The mutually totality predicates
 
