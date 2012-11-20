@@ -1,16 +1,16 @@
 ------------------------------------------------------------------------------
--- Totality properties respect to Tree
+-- Totality properties for Tree
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Program.Mirror.Tree.Totality where
+module FOTC.Program.Mirror.Tree.TotalityI where
 
 open import FOTC.Base
 open FOTC.Base.BList
 open import FOTC.Data.List
-open import FOTC.Program.Mirror.Forest.Totality
+open import FOTC.Program.Mirror.Forest.TotalityI
 open import FOTC.Program.Mirror.Mirror
 open import FOTC.Program.Mirror.Type
 

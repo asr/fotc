@@ -15,9 +15,9 @@ open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI using ( ++-leftIdentity ; reverse-[x]≡[x] )
 open import FOTC.Program.Mirror.Type
 open import FOTC.Program.Mirror.Forest.PropertiesI
-open import FOTC.Program.Mirror.Forest.Totality
+open import FOTC.Program.Mirror.Forest.TotalityI
 open import FOTC.Program.Mirror.Mirror
-open import FOTC.Program.Mirror.Tree.Totality
+open import FOTC.Program.Mirror.Tree.TotalityI
 
 ------------------------------------------------------------------------------
 

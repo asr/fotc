@@ -48,10 +48,10 @@ Tree-ind :
   ∀ {t} → Tree t → A t
 
 Forest-ind :
-  {P B : D → Set} →
-  (∀ d {ts} → Forest ts → B ts → P (node d ts)) →
+  {A B : D → Set} →
+  (∀ d {ts} → Forest ts → B ts → A (node d ts)) →
   B [] →
-  (∀ {t ts} → Tree t → P t → Forest ts → B ts → B (t ∷ ts)) →
+  (∀ {t ts} → Tree t → A t → Forest ts → B ts → B (t ∷ ts)) →
   ∀ {ts} → Forest ts → B ts
 
 Tree-ind ihA B[] _   (tree d fnil)           = ihA d fnil B[]
@@ -60,5 +60,5 @@ Tree-ind ihA B[] ihB (tree d (fcons Tt Fts)) =
                               Fts (Forest-ind ihA B[] ihB Fts))
 
 Forest-ind _   B[] _   fnil           = B[]
-Forest-ind ihP B[] ihB (fcons Tt Fts) =
-  ihB Tt (Tree-ind ihP B[] ihB Tt) Fts (Forest-ind ihP B[] ihB Fts)
+Forest-ind ihA B[] ihB (fcons Tt Fts) =
+  ihB Tt (Tree-ind ihA B[] ihB Tt) Fts (Forest-ind ihA B[] ihB Fts)

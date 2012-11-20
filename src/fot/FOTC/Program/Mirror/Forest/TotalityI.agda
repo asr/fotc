@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Totality properties respect to Forest
+-- Totality properties for Forest
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Program.Mirror.Forest.Totality where
+module FOTC.Program.Mirror.Forest.TotalityI where
 
 open import FOTC.Base
 open import FOTC.Data.List

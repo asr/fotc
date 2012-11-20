@@ -11,7 +11,7 @@ module FOTC.Data.List where
 infixr 8 _++_
 
 open import FOTC.Base
-open FOTC.Base.BList
+open FOTC.Base.BList public
 open import FOTC.Data.List.Type public
 
 ------------------------------------------------------------------------------

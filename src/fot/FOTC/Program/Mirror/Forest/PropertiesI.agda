@@ -13,7 +13,7 @@ open import FOTC.Base
 open FOTC.Base.BList
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI using (++-leftIdentity ; reverse-[x]≡[x])
-open import FOTC.Program.Mirror.Forest.Totality
+open import FOTC.Program.Mirror.Forest.TotalityI
 open import FOTC.Program.Mirror.Type
 
 ------------------------------------------------------------------------------

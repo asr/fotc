@@ -13,7 +13,7 @@ open import FOTC.Base
 open FOTC.Base.BList
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI using (++-leftIdentity ; reverse-[x]≡[x])
-open import FOTC.Program.Mirror.Forest.Totality
+open import FOTC.Program.Mirror.Forest.TotalityATP
 open import FOTC.Program.Mirror.Type
 
 ------------------------------------------------------------------------------
@@ -34,8 +34,8 @@ open import FOTC.Program.Mirror.Type
                         ((x ∷ xs) ++ ys) ++ zs ≡ (x ∷ xs) ++ ys ++ zs
         {-# ATP prove prf #-}
 
--- We don't use an automatic proof, because it is necessary to erase
--- a proof term which we don't know how to erase.
+-- We don't use an automatic proof, because it is necessary to erase a
+-- proof term which we don't know how to erase.
 map-++-commute : ∀ f {xs} → (∀ {x} → Tree x → Tree (f · x)) →
                  Forest xs → ∀ ys →
                  map f (xs ++ ys) ≡ map f xs ++ map f ys

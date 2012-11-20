@@ -166,12 +166,14 @@ open import FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP
 
 open import FOTC.Program.Mirror.Forest.PropertiesATP
 open import FOTC.Program.Mirror.Forest.PropertiesI
-open import FOTC.Program.Mirror.Forest.Totality
+open import FOTC.Program.Mirror.Forest.TotalityATP
+open import FOTC.Program.Mirror.Forest.TotalityI
 open import FOTC.Program.Mirror.Mirror.Consistency.Axioms
 open import FOTC.Program.Mirror.Mirror
 open import FOTC.Program.Mirror.PropertiesATP
 open import FOTC.Program.Mirror.PropertiesI
-open import FOTC.Program.Mirror.Tree.Totality
+open import FOTC.Program.Mirror.Tree.TotalityATP
+open import FOTC.Program.Mirror.Tree.TotalityI
 open import FOTC.Program.Mirror.Type
 
 open import FOTC.Program.SortList.ProofSpecificationATP
