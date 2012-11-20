@@ -12,7 +12,11 @@ open import Common.FOL.Relation.Binary.EqReasoning
 open import FOTC.Base
 open FOTC.Base.BList
 open import FOTC.Data.List
-open import FOTC.Data.List.PropertiesI using ( ++-leftIdentity ; reverse-[x]≡[x] )
+open import FOTC.Data.List.PropertiesI hiding
+ ( map-++-commute
+ ; reverse-++-commute
+ ; reverse-∷
+ )
 open import FOTC.Program.Mirror.Type
 open import FOTC.Program.Mirror.Forest.PropertiesI
 open import FOTC.Program.Mirror.Forest.TotalityI
@@ -75,48 +79,31 @@ mirror-involutive (tree d (fcons {t} {ts} Tt Fts)) =
 
 helper fnil =
   reverse (map mirror (reverse (map mirror [])))
-    ≡⟨ subst (λ x → reverse (map mirror (reverse (map mirror []))) ≡
-                    reverse (map mirror (reverse x)))
-             (map-[] mirror)
-             refl
-    ⟩
+    ≡⟨ reverseCong (mapRightCong (reverseCong (map-[] mirror))) ⟩
   reverse (map mirror (reverse []))
-    ≡⟨ subst (λ x → reverse (map mirror (reverse [])) ≡
-                    reverse (map mirror x))
-             (rev-[] [])
-             refl
-    ⟩
+    ≡⟨ reverseCong (mapRightCong (rev-[] [])) ⟩
   reverse (map mirror [])
-    ≡⟨ subst (λ x → reverse (map mirror []) ≡ reverse x)
-             (map-[] mirror)
-             refl
-    ⟩
+    ≡⟨ reverseCong (map-[] mirror) ⟩
   reverse []
     ≡⟨ rev-[] [] ⟩
   [] ∎
 
 helper (fcons {t} {ts} Tt Fts) =
   reverse (map mirror (reverse (map mirror (t ∷ ts))))
-    ≡⟨ subst (λ x → reverse (map mirror (reverse (map mirror (t ∷ ts)))) ≡
-                    reverse (map mirror (reverse x)))
-             (map-∷ mirror t ts)
-             refl
-    ⟩
+    ≡⟨ reverseCong (mapRightCong (reverseCong (map-∷ mirror t ts) )) ⟩
   reverse (map mirror (reverse (mirror · t ∷ map mirror ts)))
-    ≡⟨ subst (λ x → reverse (map mirror (reverse (mirror · t ∷ map mirror ts))) ≡
-                    reverse (map mirror x))
-             (reverse-∷ (mirror-Tree Tt) (map-Forest mirror mirror-Tree Fts))
-             refl
+    ≡⟨ reverseCong (mapRightCong
+                     (reverse-∷ (mirror-Tree Tt)
+                                (map-Forest mirror mirror-Tree Fts)))
     ⟩
   reverse (map mirror (reverse (map mirror ts) ++ (mirror · t ∷ [])))
-    ≡⟨ subst (λ x → (reverse (map mirror (reverse (map mirror ts) ++
-                                         mirror · t ∷ []))) ≡ reverse x)
-             (map-++-commute mirror
-               mirror-Tree
-               (reverse-Forest (map-Forest mirror mirror-Tree Fts))
-               (mirror · t ∷ []))
-       refl
-    ⟩
+    ≡⟨ reverseCong (map-++-commute
+                     mirror
+                     mirror-Tree
+                       (reverse-Forest (map-Forest mirror mirror-Tree Fts))
+                       (mirror · t ∷ [])) ⟩
+
+
   reverse (map mirror (reverse (map mirror ts)) ++
           (map mirror (mirror · t ∷ [])))
     ≡⟨ subst (λ x → (reverse (map mirror (reverse (map mirror ts)) ++
@@ -143,10 +130,7 @@ helper (fcons {t} {ts} Tt Fts) =
              refl
     ⟩
   reverse (mirror · (mirror · t) ∷ []) ++ n₁
-    ≡⟨ subst (λ x → reverse (mirror · (mirror · t) ∷ []) ++ n₁ ≡ x ++ n₁)
-             (reverse-[x]≡[x] (mirror · (mirror · t)))
-             refl
-    ⟩
+    ≡⟨ ++-leftCong (reverse-[x]≡[x] (mirror · (mirror · t))) ⟩
   (mirror · (mirror · t) ∷ []) ++ n₁
     ≡⟨ ++-∷ (mirror · (mirror · t)) [] n₁ ⟩
   mirror · (mirror · t) ∷ [] ++ n₁
@@ -156,17 +140,9 @@ helper (fcons {t} {ts} Tt Fts) =
              refl
     ⟩
   mirror · (mirror · t) ∷ reverse (map mirror (reverse (map mirror ts)))
-    ≡⟨ subst (λ x → (mirror · (mirror · t) ∷
-                            reverse (map mirror (reverse (map mirror ts)))) ≡
-                    (x ∷ reverse (map mirror (reverse (map mirror ts)))))
-             (mirror-involutive Tt)
-             refl
-    ⟩
+    ≡⟨ ∷-leftCong (mirror-involutive Tt) ⟩
   t ∷ reverse (map mirror (reverse (map mirror ts)))
-    ≡⟨ subst (λ x → t ∷ reverse (map mirror (reverse (map mirror ts))) ≡ t ∷ x)
-             (helper Fts)
-             refl
-    ⟩
+    ≡⟨ ∷-rightCong (helper Fts) ⟩
   t ∷ ts ∎
   where
   n₁ : D

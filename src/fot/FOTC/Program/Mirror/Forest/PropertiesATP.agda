@@ -12,7 +12,14 @@ open import Common.FOL.Relation.Binary.EqReasoning
 open import FOTC.Base
 open FOTC.Base.BList
 open import FOTC.Data.List
-open import FOTC.Data.List.PropertiesI using (++-leftIdentity ; reverse-[x]≡[x])
+open import FOTC.Data.List.PropertiesI hiding
+ ( ++-assoc
+ ; ++-rightIdentity
+ ; map-++-commute
+ ; rev-++-commute
+ ; reverse-++-commute
+ ; reverse-∷
+ )
 open import FOTC.Program.Mirror.Forest.TotalityATP
 open import FOTC.Program.Mirror.Type
 
@@ -41,30 +48,24 @@ map-++-commute : ∀ f {xs} → (∀ {x} → Tree x → Tree (f · x)) →
                  map f (xs ++ ys) ≡ map f xs ++ map f ys
 map-++-commute f h fnil ys =
   map f ([] ++ ys)
-    ≡⟨ subst (λ t → map f ([] ++ ys) ≡ map f t) (++-[] ys) refl ⟩
+    ≡⟨ mapRightCong (++-[] ys) ⟩
   map f ys
     ≡⟨ sym (++-leftIdentity (map f ys)) ⟩
   [] ++ map f ys
-     ≡⟨ subst (λ t → [] ++ map f ys ≡ t ++ map f ys) (sym (map-[] f)) refl ⟩
+     ≡⟨ ++-leftCong (sym (map-[] f)) ⟩
   map f [] ++ map f ys ∎
 
 map-++-commute f h (fcons {x} {xs} Tx Fxs) ys =
   map f ((x ∷ xs) ++ ys)
-    ≡⟨ subst (λ t → map f ((x ∷ xs) ++ ys) ≡ map f t) (++-∷ x xs ys) refl ⟩
+    ≡⟨ mapRightCong (++-∷ x xs ys) ⟩
   map f (x ∷ xs ++ ys)
     ≡⟨ map-∷ f x (xs ++ ys) ⟩
   f · x ∷ map f (xs ++ ys)
-    ≡⟨ subst (λ t → f · x ∷ map f (xs ++ ys) ≡ f · x ∷ t)
-             (map-++-commute f h Fxs ys)
-             refl
-    ⟩
+    ≡⟨ ∷-rightCong (map-++-commute f h Fxs ys) ⟩
   f · x ∷ (map f xs ++ map f ys)
     ≡⟨ sym (++-∷ (f · x) (map f xs) (map f ys)) ⟩
   (f · x ∷ map f xs) ++ map f ys
-     ≡⟨ subst (λ t → (f · x ∷ map f xs) ++ map f ys ≡ t ++ map f ys)
-              (sym (map-∷ f x xs))
-              refl
-     ⟩
+     ≡⟨ ++-leftCong (sym (map-∷ f x xs)) ⟩
   map f (x ∷ xs) ++ map f ys ∎
 
 rev-++-commute : ∀ {xs} → Forest xs → ∀ ys → rev xs ys ≡ rev xs [] ++ ys
