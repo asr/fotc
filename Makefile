@@ -41,6 +41,7 @@ AGDA = agda -v 0
 AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp
 # AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --atp=e
 # AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --atp=equinox
+# AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --atp=ileancop
 # AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --atp=metis
 # AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --atp=spass
 # AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --atp=vampire
