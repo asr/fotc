@@ -5,9 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Using the ATPs we don't have to use the postulate about a non-empty
--- domain because the ATPs assume it.
-
 -- References:
 --
 -- • Elliott Mendelson. Introduction to mathematical logic. Chapman &

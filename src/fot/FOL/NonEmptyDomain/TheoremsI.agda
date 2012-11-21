@@ -7,7 +7,8 @@
 
 module FOL.NonEmptyDomain.TheoremsI where
 
-open import FOL.Base
+-- The theorems below are valid on intuitionistic logic.
+open import FOL.Base hiding ( pem )
 
 -- References:
 --

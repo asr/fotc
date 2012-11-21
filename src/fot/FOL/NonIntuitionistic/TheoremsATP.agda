@@ -9,9 +9,6 @@
 
 module FOL.NonIntuitionistic.TheoremsATP where
 
--- The ATPs work in classical logic, therefore we also can prove some
--- non-intuitionistic logic theorems.
-
 open import FOL.Base hiding ( pem )
 
 ------------------------------------------------------------------------------

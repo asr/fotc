@@ -7,7 +7,9 @@
 
 module FOL.Propositional.TheoremsI where
 
-open import FOL.Base
+-- The theorems below are valid on intuitionistic logic and with an
+-- empty domain.
+open import FOL.Base hiding ( D≢∅ ; pem )
 
 ------------------------------------------------------------------------------
 -- Boolean laws.

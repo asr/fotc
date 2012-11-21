@@ -35,7 +35,8 @@ postulate D≢∅ : D
 
 ------------------------------------------------------------------------------
 -- The ATPs work in classical logic, therefore we add the principle of
--- the exclude middle for prove some non-intuitionistic theorems.
+-- the exclude middle for prove some non-intuitionistic theorems. Note
+-- that we do not need to add the postulate as an ATP axiom.
 
 -- The principle of the excluded middle.
 postulate pem : ∀ {A} → A ∨ ¬ A

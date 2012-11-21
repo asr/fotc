@@ -7,7 +7,8 @@
 
 module FOL.NonIntuitionistic.TheoremsI where
 
-open import FOL.Base
+-- The theorems below are valid with an empty domain.
+open import FOL.Base hiding ( D≢∅ )
 
 ------------------------------------------------------------------------------
 -- The principle of indirect proof (proof by contradiction).
