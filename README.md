@@ -42,11 +42,13 @@ of our programs. See:
   and at least one of the following ATPs:
   [E](http://www4.informatik.tu-muenchen.de/~schulz/WORK/eprover.html),
   [Equinox](http://www.cse.chalmers.se/~koen/code/),
+  [ileanCop](http://www.leancop.de/ileancop/index.html),
   [Metis](http://www.gilith.com/software/metis/),
   [SPASS](http://www.spass-prover.org/), or
   [Vampire](http://www.vprover.org/). The tested versions of the ATPs
-  are E 1.6 Tiger Hill, Equinox version 5.0alpha (2010-06-29), Metis
-  2.3 (release 20110926), SPASS v3.7, and Vampire 0.6 (revision 903).
+  are E 1.6 Tiger Hill, Equinox version 5.0alpha (2010-06-29),
+  ileanCoP v1.3beta1, Metis 2.3 (release 20110926), SPASS v3.7, and
+  Vampire 0.6 (revision 903).
 
 # Installation
 
