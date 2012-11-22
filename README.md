@@ -31,14 +31,14 @@ of our programs. See:
    We have modified the development version of Agda in order to handle
    the new built-in ATP pragma.
 
-* The program `agda2atp`
+* The `agda2atp` program
 
   `agda2atp` is a Haskell program for proving first-order formulae
   written in [Agda](http://wiki.portal.chalmers.se/agda/pmwiki.php)
   using ATPs. Before calling the ATPs, the Agda formulae are
   translated into [TPTP](http://www.cs.miami.edu/~tptp/) language.
 
-  The program `agda2atp` requires the above version modified of Agda
+  The `agda2atp` program requires the above version modified of Agda
   and at least one of the following ATPs:
   [E](http://www4.informatik.tu-muenchen.de/~schulz/WORK/eprover.html),
   [Equinox](http://www.cse.chalmers.se/~koen/code/),
@@ -101,9 +101,9 @@ of our programs. See:
    number of Agda, i.e. if the development version number is A.B.C,
    our modified version number is A.B.C.D.
 
-2. The program `agda2atp`
+2. The `agda2atp` program
 
-   You can download the program `agda2atp` using
+   You can download the `agda2atp` program using
    [git](http://git-scm.com/). The program can be downloaded and
    installed with the following commands:
 
@@ -170,7 +170,7 @@ $ agda2atp FOTC/Program/Mirror/PropertiesATP.agda
 
 Please note that the code presented here does not match the paper
 exactly. Also note that the code below does not require neither the
-version modified of Agda nor the program `agda2atp`.
+version modified of Agda nor the `agda2atp` program.
 
 You can follow [this
 link](http://www1.eafit.edu.co/asicard/code/thesis/fotc/fot/LTC-PCF.README.html)
@@ -206,5 +206,5 @@ The following symbols are hard-coded, i.e. they should be used: `⊥`
 
 * Agda version
 
-The program `agda2atp` must be compiled using the same version of Agda that
+The `agda2atp` program must be compiled using the same version of Agda that
 was used to generate the Agda interface files.

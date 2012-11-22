@@ -35,8 +35,9 @@ postulate
   _+_ _*_ : M → M → M
 
 -- The PA equality.
+--
 -- N.B. The symbol _≡_ should not be used because it is hard-coded by
--- the program agda2atp as the ATPs equality.
+-- agda2atp as the ATPs equality.
 postulate _≈_ : M → M → Set
 
 -- Inequality.
