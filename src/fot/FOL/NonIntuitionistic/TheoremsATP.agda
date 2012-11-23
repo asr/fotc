@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --universal-quantified-formulas #-}
+{-# OPTIONS --universal-quantified-formulae #-}
 {-# OPTIONS --universal-quantified-propositional-functions #-}
 {-# OPTIONS --without-K #-}
 

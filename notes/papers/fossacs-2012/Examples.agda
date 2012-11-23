@@ -1,5 +1,5 @@
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --universal-quantified-formulas #-}
+{-# OPTIONS --universal-quantified-formulae #-}
 {-# OPTIONS --without-K #-}
 
 module Examples where
