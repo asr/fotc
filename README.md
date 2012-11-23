@@ -42,7 +42,7 @@ of our programs. See:
   and at least one of the following ATPs:
   [E](http://www4.informatik.tu-muenchen.de/~schulz/WORK/eprover.html),
   [Equinox](http://www.cse.chalmers.se/~koen/code/),
-  [ileanCop](http://www.leancop.de/ileancop/index.html),
+  [ileanCoP](http://www.leancop.de/ileancop/index.html),
   [Metis](http://www.gilith.com/software/metis/),
   [SPASS](http://www.spass-prover.org/), or
   [Vampire](http://www.vprover.org/). The tested versions of the ATPs
