@@ -7,16 +7,6 @@ LTC.Examples.GCD.Extra.S≤0-elim : {A : Set}{d : D} → succ d ≤ zero → A
 *** The difference between predicates' definitions and functions' definitions
 From Agda internal representation of clauses, both definitions are
 equal, the only difference is in the type of the symbol.
-*** The problem with eta and the existential
-postulate
-  D   : Set
-  _≡_ : D → D → Set
-  P   : (D → Set) → Set
-  foo : (x : D) → P (λ y → y ≡ x)
-  bar : (x : D) → P (λ y → x ≡ y)
-
-foo and bar have different internal type because in bar Agda uses eta,
-i.e. (_≡_ x) is the same as (λ y → x ≡ y).
 *** Martin-Löf cite
 From Peter:
 Just a note. In one of Per Martin-Löf's first papers on
