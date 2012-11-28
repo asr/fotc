@@ -17,6 +17,7 @@ open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.List.Type
 open import FOTC.Data.Nat.Type
 open import FOTC.Data.List
+open import FOTC.Data.List.PropertiesI
 open import FOTC.Program.SortList.Properties.Totality.BoolI
 open import FOTC.Program.SortList.SortList
 
@@ -36,7 +37,7 @@ subList-OrdList {i} Ni (lncons {j} {js} Nj Ljs) LOi∷j∷js =
                     ≤-Lists is js →
                     ≤-ItemList item (is ++ js)
 ++-OrdList-helper {item} {js = js} _ lnnil _ _ item≤js _ =
-  subst (λ t → ≤-ItemList item t) (sym (++-[] js)) item≤js
+  subst (λ t → ≤-ItemList item t) (sym (++-leftIdentity js)) item≤js
 
 ++-OrdList-helper {item} {js = js} Nitem
                   (lncons {i} {is} Ni LNis) LNjs item≤i∷is item≤js i∷is≤js =

@@ -26,7 +26,7 @@ open import FOTC.Program.Mirror.Type
 ------------------------------------------------------------------------------
 
 ++-rightIdentity : ∀ {xs} → Forest xs → xs ++ [] ≡ xs
-++-rightIdentity fnil                    = ++-[] []
+++-rightIdentity fnil                    = ++-leftIdentity []
 ++-rightIdentity (fcons {x} {xs} Tx Fxs) = prf (++-rightIdentity Fxs)
   where postulate prf : xs ++ [] ≡ xs → (x ∷ xs) ++ [] ≡ x ∷ xs
         {-# ATP prove prf #-}
@@ -48,7 +48,7 @@ map-++-commute : ∀ f {xs} → (∀ {x} → Tree x → Tree (f · x)) →
                  map f (xs ++ ys) ≡ map f xs ++ map f ys
 map-++-commute f h fnil ys =
   map f ([] ++ ys)
-    ≡⟨ mapRightCong (++-[] ys) ⟩
+    ≡⟨ mapRightCong (++-leftIdentity ys) ⟩
   map f ys
     ≡⟨ sym (++-leftIdentity (map f ys)) ⟩
   [] ++ map f ys

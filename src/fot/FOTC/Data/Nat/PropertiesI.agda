@@ -176,7 +176,7 @@ Sx∸x≡1 (nsucc Nn) = trans (S∸S (nsucc Nn) Nn) (Sx∸x≡1 Nn)
 
 [x+Sy]∸y≡Sx : ∀ {m n} → N m → N n → m + succ₁ n ∸ n ≡ succ₁ m
 [x+Sy]∸y≡Sx {n = n} nzero Nn =
-  zero + succ₁ n ∸ n ≡⟨ ∸-leftCong (+-0x (succ₁ n)) ⟩
+  zero + succ₁ n ∸ n ≡⟨ ∸-leftCong (+-leftIdentity (succ₁ n)) ⟩
   succ₁ n ∸ n        ≡⟨ Sx∸x≡1 Nn ⟩
   [1]                ∎
 
@@ -185,7 +185,7 @@ Sx∸x≡1 (nsucc Nn) = trans (S∸S (nsucc Nn) Nn) (Sx∸x≡1 Nn)
   succ₁ (m + [1]) ∸ zero   ≡⟨ ∸-x0 (succ₁ (m + [1])) ⟩
   succ₁ (m + [1])          ≡⟨ succCong (+-comm Nm 1-N) ⟩
   succ₁ ([1] + m)          ≡⟨ succCong (+-Sx zero m) ⟩
-  succ₁ (succ₁ (zero + m)) ≡⟨ succCong (succCong (+-0x m)) ⟩
+  succ₁ (succ₁ (zero + m)) ≡⟨ succCong (succCong (+-leftIdentity m)) ⟩
   succ₁ (succ₁ m)          ∎
 
 [x+Sy]∸y≡Sx (nsucc {m} Nm) (nsucc {n} Nn) =

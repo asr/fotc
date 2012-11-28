@@ -13,6 +13,7 @@ open import FOTC.Data.Bool.PropertiesATP
 open import FOTC.Data.Nat.List.Type
 open import FOTC.Data.Nat.Type
 open import FOTC.Data.List
+open import FOTC.Data.List.PropertiesATP
 open import FOTC.Program.SortList.Properties.Totality.BoolATP
 open import FOTC.Program.SortList.SortList
 
@@ -32,7 +33,7 @@ subList-OrdList {i} Ni (lncons {j} {js} Nj Ljs) LOi∷j∷js = prf
                     ≤-ItemList item (is ++ js)
 
 ++-OrdList-helper {item} {js = js} _ lnnil _ _ item≤js _ =
-  subst (λ t → ≤-ItemList item t) (sym (++-[] js)) item≤js
+  subst (λ t → ≤-ItemList item t) (sym (++-leftIdentity js)) item≤js
 
 ++-OrdList-helper {item} {js = js} Nitem
                   (lncons {i} {is} Ni LNis) LNjs item≤i∷is item≤js i∷is≤js =

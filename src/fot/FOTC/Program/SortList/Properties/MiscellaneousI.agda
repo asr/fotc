@@ -23,6 +23,7 @@ open import FOTC.Data.Nat.List.PropertiesI
 open import FOTC.Data.Nat.List.Type
 open import FOTC.Data.Nat.Type
 open import FOTC.Data.List
+open import FOTC.Data.List.PropertiesI
 open import FOTC.Program.SortList.Properties.Totality.BoolI
 open import FOTC.Program.SortList.SortList
 
@@ -54,7 +55,7 @@ open import FOTC.Program.SortList.SortList
 x≤ys++zs→x≤zs : ∀ {i js ks} → N i → ListN js → ListN ks →
                 ≤-ItemList i (js ++ ks) → ≤-ItemList i ks
 x≤ys++zs→x≤zs {i} {ks = ks} Ni lnnil LNks  i≤[]++ks =
-  subst (λ t → ≤-ItemList i t) (++-[] ks) i≤[]++ks
+  subst (λ t → ≤-ItemList i t) (++-leftIdentity ks) i≤[]++ks
 x≤ys++zs→x≤zs {i} {ks = ks} Ni (lncons {j} {js} Nj LNjs) LNks i≤j∷js++ks =
   x≤ys++zs→x≤zs Ni LNjs LNks lemma₂
   where
@@ -120,7 +121,7 @@ x≤ys→x≤zs→x≤ys++zs : ∀ {i js ks} → N i → ListN js → ListN ks �
                      ≤-ItemList i ks →
                      ≤-ItemList i (js ++ ks)
 x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni lnnil LNks _ i≤k =
-  subst (λ t → ≤-ItemList i t) (sym (++-[] ks)) i≤k
+  subst (λ t → ≤-ItemList i t) (sym (++-leftIdentity ks)) i≤k
 x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni (lncons {j} {js} Nj LNjs) LNks i≤j∷js i≤k =
   le-ItemList i ((j ∷ js) ++ ks)
     ≡⟨ subst (λ t → le-ItemList i ((j ∷ js) ++ ks) ≡
@@ -193,7 +194,7 @@ xs≤zs→ys≤zs→xs++ys≤zs : ∀ {is js ks} → ListN is → ListN js → L
                         ≤-Lists (is ++ js) ks
 xs≤zs→ys≤zs→xs++ys≤zs {js = js} {ks} lnnil LNjs LNks is≤ks js≤ks =
   subst (λ t → ≤-Lists t ks)
-        (sym (++-[] js))
+        (sym (++-leftIdentity js))
         js≤ks
 xs≤zs→ys≤zs→xs++ys≤zs {js = js} {ks}
                       (lncons {i} {is} Ni LNis) LNjs LNks i∷is≤ks js≤ks =

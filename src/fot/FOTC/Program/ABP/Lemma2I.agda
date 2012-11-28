@@ -20,6 +20,7 @@ open FOTC.Base.BList
 open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesI
 open import FOTC.Data.List
+open import FOTC.Data.List.PropertiesI
 open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.Fair.PropertiesI
@@ -48,10 +49,11 @@ module Helper where
 
     where
     fs'₁-eq-helper : fs₁' ≡ T ∷ fs₁''
-    fs'₁-eq-helper = fs₁'                 ≡⟨ fs₁'-eq ⟩
-                     (true ∷ []) ++ fs₁'' ≡⟨ ++-∷ true [] fs₁'' ⟩
-                     true ∷ [] ++ fs₁''   ≡⟨ cong (_∷_ true) (++-[] fs₁'') ⟩
-                     true ∷ fs₁''         ∎
+    fs'₁-eq-helper =
+      fs₁'                 ≡⟨ fs₁'-eq ⟩
+      (true ∷ []) ++ fs₁'' ≡⟨ ++-∷ true [] fs₁'' ⟩
+      true ∷ [] ++ fs₁''   ≡⟨ ∷-rightCong (++-leftIdentity fs₁'') ⟩
+      true ∷ fs₁''         ∎
 
     ds'' : D
     ds'' = corrupt · fs₁'' · cs'

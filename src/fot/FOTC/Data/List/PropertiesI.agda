@@ -141,7 +141,7 @@ lg-xs≡∞→lg-x∷xs≡∞ x xs h =
 ++-leftIdentity = ++-[]
 
 ++-rightIdentity : ∀ {xs} → List xs → xs ++ [] ≡ xs
-++-rightIdentity lnil               = ++-[] []
+++-rightIdentity lnil               = ++-leftIdentity []
 ++-rightIdentity (lcons x {xs} Lxs) =
   (x ∷ xs) ++ [] ≡⟨ ++-∷ x xs [] ⟩
   x ∷ (xs ++ []) ≡⟨ ∷-rightCong (++-rightIdentity Lxs) ⟩
@@ -149,7 +149,7 @@ lg-xs≡∞→lg-x∷xs≡∞ x xs h =
 
 ++-assoc : ∀ {xs} → List xs → ∀ ys zs → (xs ++ ys) ++ zs ≡ xs ++ (ys ++ zs)
 ++-assoc lnil ys zs =
-  ([] ++ ys) ++ zs ≡⟨ ++-leftCong (++-[] ys) ⟩
+  ([] ++ ys) ++ zs ≡⟨ ++-leftCong (++-leftIdentity ys) ⟩
   ys ++ zs         ≡⟨ sym (++-leftIdentity (ys ++ zs)) ⟩
   [] ++ ys ++ zs   ∎
 
@@ -165,7 +165,7 @@ lg-xs≡∞→lg-x∷xs≡∞ x xs h =
 map-++-commute : ∀ f {xs} → List xs → ∀ ys →
                  map f (xs ++ ys) ≡ map f xs ++ map f ys
 map-++-commute f lnil ys =
-  map f ([] ++ ys)     ≡⟨ mapRightCong (++-[] ys) ⟩
+  map f ([] ++ ys)     ≡⟨ mapRightCong (++-leftIdentity ys) ⟩
   map f ys             ≡⟨ sym (++-leftIdentity (map f ys)) ⟩
   [] ++ map f ys       ≡⟨ ++-leftCong (sym (map-[] f)) ⟩
   map f [] ++ map f ys ∎
@@ -225,7 +225,7 @@ rev-++-commute (lcons x {xs} Lxs) ys =
 reverse-++-commute : ∀ {xs ys} → List xs → List ys →
                      reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
 reverse-++-commute {ys = ys} lnil Lys =
-  reverse ([] ++ ys)       ≡⟨ reverseCong (++-[] ys) ⟩
+  reverse ([] ++ ys)       ≡⟨ reverseCong (++-leftIdentity ys) ⟩
   reverse ys               ≡⟨ sym (++-rightIdentity (reverse-List Lys)) ⟩
   reverse ys ++ []         ≡⟨ ++-rightCong (sym (rev-[] [])) ⟩
   reverse ys ++ reverse [] ∎
@@ -234,7 +234,7 @@ reverse-++-commute (lcons x {xs} Lxs) lnil =
   reverse ((x ∷ xs) ++ [])
     ≡⟨ reverseCong (++-rightIdentity (lcons x Lxs)) ⟩
   reverse (x ∷ xs)
-    ≡⟨ sym (++-[] (reverse (x ∷ xs))) ⟩
+    ≡⟨ sym (++-leftIdentity (reverse (x ∷ xs))) ⟩
   [] ++ reverse (x ∷ xs)
      ≡⟨ ++-leftCong (sym (rev-[] [])) ⟩
   reverse [] ++ reverse (x ∷ xs) ∎

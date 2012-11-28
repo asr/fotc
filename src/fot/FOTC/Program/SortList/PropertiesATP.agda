@@ -15,6 +15,7 @@ open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.List.Type
 open import FOTC.Data.Nat.Type
 open import FOTC.Data.List
+open import FOTC.Data.List.PropertiesATP
 open import FOTC.Program.SortList.Properties.Totality.BoolATP
 open import FOTC.Program.SortList.Properties.Totality.ListN-ATP
 open import FOTC.Program.SortList.Properties.Totality.OrdList.FlattenATP
@@ -88,10 +89,10 @@ makeTree-OrdTree (lncons {i} {is} Ni Lis) = prf (makeTree-OrdTree Lis)
              ≤-Lists is js → OrdList (is ++ js)
 
 ++-OrdList {js = js} lnnil LNjs LOis LOjs is≤js =
-  subst (λ t → OrdList t) (sym (++-[] js)) LOjs
+  subst OrdList (sym (++-leftIdentity js)) LOjs
 
 ++-OrdList {js = js} (lncons {i} {is} Ni LNis) LNjs OLi∷is OLjs i∷is≤js =
-  subst (λ t → OrdList t)
+  subst OrdList
         (sym (++-∷ i is js))
         (lemma (++-OrdList LNis LNjs
                            (subList-OrdList Ni LNis OLi∷is)
@@ -108,7 +109,7 @@ makeTree-OrdTree (lncons {i} {is} Ni Lis) = prf (makeTree-OrdTree Lis)
 -- Burstall's lemma: If t is ordered then (flatten t) is ordered.
 flatten-OrdList : ∀ {t} → Tree t → OrdTree t → OrdList (flatten t)
 flatten-OrdList tnil OTt =
-  subst (λ t → OrdList t) (sym flatten-nil) ordList-[]
+  subst OrdList (sym flatten-nil) ordList-[]
 
 flatten-OrdList (ttip {i} Ni) OTt = prf
   where postulate prf : OrdList (flatten (tip i))

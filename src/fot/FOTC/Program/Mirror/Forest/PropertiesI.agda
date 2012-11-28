@@ -26,7 +26,7 @@ open import FOTC.Program.Mirror.Type
 ------------------------------------------------------------------------------
 
 ++-rightIdentity : ∀ {xs} → Forest xs → xs ++ [] ≡ xs
-++-rightIdentity fnil                    = ++-[] []
+++-rightIdentity fnil                    = ++-leftIdentity []
 ++-rightIdentity (fcons {x} {xs} Tx Fxs) =
   (x ∷ xs) ++ []
      ≡⟨ ++-∷ x xs [] ⟩
@@ -37,7 +37,7 @@ open import FOTC.Program.Mirror.Type
 ++-assoc : ∀ {xs} → Forest xs → ∀ ys zs → (xs ++ ys) ++ zs ≡ xs ++ (ys ++ zs)
 ++-assoc fnil ys zs =
   ([] ++ ys) ++ zs
-    ≡⟨ ++-leftCong (++-[] ys) ⟩
+    ≡⟨ ++-leftCong (++-leftIdentity ys) ⟩
   ys ++ zs
      ≡⟨ sym (++-leftIdentity (ys ++ zs)) ⟩
   [] ++ ys ++ zs ∎
@@ -58,7 +58,7 @@ map-++-commute : ∀ f {xs} → (∀ {x} → Tree x → Tree (f · x)) →
                  map f (xs ++ ys) ≡ map f xs ++ map f ys
 map-++-commute f h fnil ys =
   map f ([] ++ ys)
-    ≡⟨ mapRightCong (++-[] ys) ⟩
+    ≡⟨ mapRightCong (++-leftIdentity ys) ⟩
   map f ys
     ≡⟨ sym (++-leftIdentity (map f ys)) ⟩
   [] ++ map f ys
@@ -108,7 +108,7 @@ reverse-++-commute : ∀ {xs ys} → Forest xs → Forest ys →
                      reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
 reverse-++-commute {ys = ys} fnil Fys =
   reverse ([] ++ ys)
-    ≡⟨ reverseCong (++-[] ys) ⟩
+    ≡⟨ reverseCong (++-leftIdentity ys) ⟩
   reverse ys
     ≡⟨ sym (++-rightIdentity (reverse-Forest Fys)) ⟩
   reverse ys ++ []
@@ -119,7 +119,7 @@ reverse-++-commute (fcons {x} {xs} Tx Fxs) fnil =
   reverse ((x ∷ xs) ++ [])
     ≡⟨ reverseCong (++-rightIdentity (fcons Tx Fxs)) ⟩
   reverse (x ∷ xs)
-    ≡⟨ sym (++-[] (reverse (x ∷ xs))) ⟩
+    ≡⟨ sym (++-leftIdentity (reverse (x ∷ xs))) ⟩
   [] ++ reverse (x ∷ xs)
      ≡⟨ ++-leftCong (sym (rev-[] [])) ⟩
   reverse [] ++ reverse (x ∷ xs) ∎
