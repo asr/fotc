@@ -12,11 +12,7 @@ open import Common.FOL.Relation.Binary.EqReasoning
 open import FOTC.Base
 open FOTC.Base.BList
 open import FOTC.Data.List
-open import FOTC.Data.List.PropertiesI hiding
- ( map-++-commute
- ; reverse-++-commute
- ; reverse-∷
- )
+open import FOTC.Data.List.PropertiesI
 open import FOTC.Program.Mirror.Type
 open import FOTC.Program.Mirror.Forest.PropertiesI
 open import FOTC.Program.Mirror.Forest.TotalityI
@@ -93,11 +89,11 @@ helper (fcons {t} {ts} Tt Fts) =
     ≡⟨ reverseCong (mapRightCong (reverseCong (map-∷ mirror t ts) )) ⟩
   reverse (map mirror (reverse (mirror · t ∷ map mirror ts)))
     ≡⟨ reverseCong (mapRightCong
-                     (reverse-∷ (mirror-Tree Tt)
-                                (map-Forest mirror mirror-Tree Fts)))
+                     (reverse-∷-forest (mirror-Tree Tt)
+                                       (map-Forest mirror mirror-Tree Fts)))
     ⟩
   reverse (map mirror (reverse (map mirror ts) ++ (mirror · t ∷ [])))
-    ≡⟨ reverseCong (map-++-commute
+    ≡⟨ reverseCong (map-++-commute-forest
                      mirror
                      mirror-Tree
                        (reverse-Forest (map-Forest mirror mirror-Tree Fts))
@@ -108,7 +104,7 @@ helper (fcons {t} {ts} Tt Fts) =
           (map mirror (mirror · t ∷ [])))
     ≡⟨ subst (λ x → (reverse (map mirror (reverse (map mirror ts)) ++
                                          (map mirror (mirror · t ∷ [])))) ≡ x)
-             (reverse-++-commute
+             (reverse-++-commute-forest
                (map-Forest mirror mirror-Tree
                            (reverse-Forest
                            (map-Forest mirror mirror-Tree Fts)))

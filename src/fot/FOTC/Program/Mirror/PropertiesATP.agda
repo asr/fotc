@@ -10,7 +10,7 @@ module FOTC.Program.Mirror.PropertiesATP where
 open import FOTC.Base
 open FOTC.Base.BList
 open import FOTC.Data.List
-open import FOTC.Data.List.PropertiesATP using ( reverse-[x]≡[x] )
+open import FOTC.Data.List.PropertiesATP
 open import FOTC.Program.Mirror.Forest.PropertiesATP
 open import FOTC.Program.Mirror.Forest.TotalityATP
 open import FOTC.Program.Mirror.Mirror
@@ -36,7 +36,7 @@ helper fnil = prf
         {-# ATP prove prf #-}
 
 helper (fcons {t} {ts} Tt Fts) =
-  prf (map-++-commute mirror
+  prf (map-++-commute-forest mirror
                       mirror-Tree
                       (reverse-Forest (map-Forest mirror mirror-Tree Fts))
                       (mirror · t ∷ []))
@@ -51,6 +51,6 @@ helper (fcons {t} {ts} Tt Fts) =
           mirror · (mirror · t) ≡ t →
           reverse (map mirror (reverse (map mirror ts))) ≡ ts →
           reverse (map mirror (reverse (map mirror (t ∷ ts)))) ≡ t ∷ ts
-  {-# ATP prove prf reverse-∷ mirror-Tree map-Forest reverse-++-commute
-                    reverse-Forest reverse-[x]≡[x]
+  {-# ATP prove prf reverse-∷-forest mirror-Tree map-Forest
+                    reverse-++-commute-forest reverse-Forest reverse-[x]≡[x]
   #-}
