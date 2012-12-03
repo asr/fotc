@@ -28,6 +28,37 @@ data Even where
 data Odd where
   osucc : ∀ {n} → Even n → Odd (succ₁ n)
 
+-- Non-mutual induction principles
+
+Even-ind : (A : D → Set) →
+           A zero →
+           (∀ {n} → Odd n → A (succ₁ n)) →
+           ∀ {n} → Even n → A n
+Even-ind A A0 h ezero      = A0
+Even-ind A A0 h (esucc On) = h On
+
+Odd-ind : (A : D → Set) →
+          (∀ {n} → Even n → A (succ₁ n)) →
+          ∀ {n} → Odd n → A n
+Odd-ind A h (osucc En) = h En
+
+-- Mutual induction principles (from Coq)
+Even-mutual-ind : (A B : D → Set) →
+                  A zero →
+                  (∀ {n} → Odd n → B n → A (succ₁ n)) →
+                  (∀ {n} → Even n → A n → B (succ₁ n)) →
+                  ∀ {n} → Even n → A n
+Odd-mutual-ind : (A B : D → Set) →
+                 A zero →
+                 (∀ {n} → Odd n → B n → A (succ₁ n)) →
+                 (∀ {n} → Even n → A n → B (succ₁ n)) →
+                 ∀ {n} → Odd n → B n
+
+Even-mutual-ind A B A0 h₁ h₂ ezero      = A0
+Even-mutual-ind A B A0 h₁ h₂ (esucc On) = h₁ On (Odd-mutual-ind A B A0 h₁ h₂ On)
+
+Odd-mutual-ind A B A0 h₁ h₂ (osucc En) = h₂ En (Even-mutual-ind A B A0 h₁ h₂ En)
+
 module DisjointSum where
   -- Using a single inductive predicate on D × D (see Blanchette).
 
@@ -36,8 +67,21 @@ module DisjointSum where
 
   data EvenOdd : D + D → Set where
     eozero :                            EvenOdd (inj₁ zero)
-    eoodd  : ∀ {n} → EvenOdd (inj₁ n) → EvenOdd (inj₂ (succ₁ n))
-    eoeven : ∀ {n} → EvenOdd (inj₂ n) → EvenOdd (inj₁ (succ₁ n))
+    eoodd  : {n : D} → EvenOdd (inj₁ n) → EvenOdd (inj₂ (succ₁ n))
+    eoeven : {n : D} → EvenOdd (inj₂ n) → EvenOdd (inj₁ (succ₁ n))
+
+  -- Induction principle
+  EvenOdd-ind : (A : D + D → Set) →
+                A (inj₁ zero) →
+                ({n : D} → A (inj₁ n) → A (inj₂ (succ₁ n))) →
+                ({n : D} → A (inj₂ n) → A (inj₁ (succ₁ n))) →
+                {n : D + D} → EvenOdd n → A n
+  EvenOdd-ind A A0 h₁ h₂ eozero       = A0
+  EvenOdd-ind A A0 h₁ h₂ (eoodd EOn)  = h₁ (EvenOdd-ind A A0 h₁ h₂ EOn)
+  EvenOdd-ind A A0 h₁ h₂ (eoeven EOn) = h₂ (EvenOdd-ind A A0 h₁ h₂ EOn)
+
+  -------------------------------------------------------------------------
+  -- From the single inductive predicate to the mutual inductive predicates
 
   -- Even and Odd from EvenOdd.
   Even' : D → Set
@@ -64,6 +108,9 @@ module DisjointSum where
   Even'→Even (eoeven h) = esucc (Odd'→Odd h)
 
   Odd'→Odd (eoodd h) = osucc (Even'→Even h)
+
+  -- TODO 03 December 2012. From EvenOdd-ind to Even-mutual-ind and
+  -- Odd-mutual-ind.
 
 module FunctionSpace where
 -- Using a single inductive predicate on D → D
