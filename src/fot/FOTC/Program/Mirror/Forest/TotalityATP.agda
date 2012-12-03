@@ -22,7 +22,7 @@ open import FOTC.Program.Mirror.Type
                         Forest ((x ∷ xs) ++ ys)
         {-# ATP prove prf #-}
 
--- We don't use an automatic proof, because it is necessary to erase a
+-- We don't use a combined proof, because it is necessary to erase a
 -- proof term which we don't know how to erase.
 map-Forest : ∀ {xs} f → (∀ {x} → Tree x → Tree (f · x)) →
              Forest xs → Forest (map f xs)

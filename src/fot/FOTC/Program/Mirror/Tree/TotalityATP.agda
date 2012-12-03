@@ -17,7 +17,7 @@ open import FOTC.Program.Mirror.Type
 ------------------------------------------------------------------------------
 
 mirror-Tree : ∀ {t} → Tree t → Tree (mirror · t)
-mirror-Tree Tt = Tree-ind {A} {B} ihA B[] ihB Tt
+mirror-Tree = Tree-mutual-ind {A} {B} ihA B[] ihB
   where
   A : D → Set
   A t = Tree (mirror · t)
@@ -27,15 +27,11 @@ mirror-Tree Tt = Tree-ind {A} {B} ihA B[] ihB Tt
   B ts = Forest (map mirror ts)
   {-# ATP definition B #-}
 
-  ihA : ∀ d {ts} → Forest ts → B ts → A (node d ts)
-  ihA d {ts} Fts Bts = prf
-    where postulate prf : Tree (mirror · node d ts)
-          {-# ATP prove prf reverse-Forest #-}
+  postulate ihA : ∀ d {ts} → Forest ts → B ts → A (node d ts)
+  {-# ATP prove ihA reverse-Forest #-}
 
-  postulate B[] : Forest (map mirror [])
+  postulate B[] : B []
   {-# ATP prove B[] #-}
 
-  ihB : ∀ {t ts} → Tree t → A t → Forest ts → B ts → B (t ∷ ts)
-  ihB {t} {ts} Tt At Fts Bts = prf
-    where postulate prf : Forest (map mirror (t ∷ ts))
-          {-# ATP prove prf #-}
+  postulate ihB : ∀ {t ts} → Tree t → A t → Forest ts → B ts → B (t ∷ ts)
+  {-# ATP prove ihB #-}

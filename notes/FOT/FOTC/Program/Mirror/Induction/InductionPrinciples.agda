@@ -15,7 +15,7 @@ module FOT.FOTC.Program.Mirror.Induction.InductionPrinciples where
 
 open import FOTC.Base
 open FOTC.Base.BList
-open import FOTC.Program.Mirror.Type hiding ( Forest-ind ; Tree-ind )
+open import FOTC.Program.Mirror.Type
 
 ------------------------------------------------------------------------------
 -- These induction principles *not cover* the mutual structure of the

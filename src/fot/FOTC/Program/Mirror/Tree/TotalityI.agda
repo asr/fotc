@@ -17,7 +17,7 @@ open import FOTC.Program.Mirror.Type
 ------------------------------------------------------------------------------
 
 mirror-Tree : ∀ {t} → Tree t → Tree (mirror · t)
-mirror-Tree Tt = Tree-ind {A} {B} ihA B[] ihB Tt
+mirror-Tree = Tree-mutual-ind {A} {B} ihA B[] ihB
   where
   A : D → Set
   A t = Tree (mirror · t)
@@ -30,7 +30,7 @@ mirror-Tree Tt = Tree-ind {A} {B} ihA B[] ihB Tt
                              (sym (mirror-eq d ts))
                              (tree d (reverse-Forest Bts))
 
-  B[] : Forest (map mirror [])
+  B[] : B []
   B[] = subst Forest (sym (map-[] mirror)) fnil
 
   ihB : ∀ {t ts} → Tree t → A t → Forest ts → B ts → B (t ∷ ts)
