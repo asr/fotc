@@ -20,6 +20,16 @@ open import FOTC.Data.Nat.UnaryNumbers.TotalityI
 open import FOTC.Program.Collatz.Data.Nat
 
 ------------------------------------------------------------------------------
+-- Congruence properties
+
+/-leftCong : ∀ {m n o} → m ≡ n → m / o ≡ n / o
+/-leftCong refl = refl
+
+/-rightCong : ∀ {m n o} → n ≡ o → m / n ≡ m / o
+/-rightCong refl = refl
+
+/-cong : ∀ {m n o p} → m ≡ o → n ≡ p → m / n ≡ o / p
+/-cong refl refl = refl
 
 ^-N : ∀ {m n} → N m → N n → N (m ^ n)
 ^-N {m} Nm nzero          = subst N (sym (^-0 m)) (nsucc nzero)
@@ -33,11 +43,11 @@ open import FOTC.Program.Collatz.Data.Nat
 
 2x/2≡x (nsucc nzero) =
   ([2] * [1]) / [2]
-    ≡⟨ cong₂ _/_ (*-rightIdentity 2-N) refl ⟩
+    ≡⟨ /-cong (*-rightIdentity 2-N) refl ⟩
   [2] / [2]
     ≡⟨ /-x≥y (x≥x 2-N) ⟩
   succ₁ (([2] ∸ [2]) / [2])
-    ≡⟨ succCong (cong₂ _/_ (x∸x≡0 2-N) refl) ⟩
+    ≡⟨ succCong (/-cong (x∸x≡0 2-N) refl) ⟩
   succ₁ (zero / [2])
     ≡⟨ succCong (/-x<y (lt-0S [1])) ⟩
   [1] ∎
@@ -50,7 +60,7 @@ open import FOTC.Program.Collatz.Data.Nat
 2^[x+1]/2≡2^x : ∀ {n} → N n → ([2] ^ (succ₁ n)) / [2] ≡ [2] ^ n
 2^[x+1]/2≡2^x {n} Nn =
   [2] ^ (succ₁ n) / [2]
-    ≡⟨ subst (λ t → [2] ^ (succ₁ n) / [2] ≡ t / [2]) (^-S [2] n) refl ⟩
+    ≡⟨ /-leftCong (^-S [2] n) ⟩
   ([2] * [2] ^ n) / [2]
     ≡⟨ 2x/2≡x (^-N 2-N Nn) ⟩
   [2] ^ n ∎
@@ -151,11 +161,11 @@ x+x-Even (nsucc {n} Nn) = subst Even (sym prf)
     succ₁ n + [1] * succ₁ n
       ≡⟨ +-Sx n ([1] * succ₁ n) ⟩
     succ₁ (n + [1] * succ₁ n)
-      ≡⟨ succCong (cong (_+_ n) (*-Sx zero (succ₁ n))) ⟩
+      ≡⟨ succCong (+-rightCong (*-Sx zero (succ₁ n))) ⟩
     succ₁ (n + (succ₁ n + zero * succ₁ n))
-      ≡⟨ succCong (cong (_+_ n) (cong (_+_ (succ₁ n)) (*-leftZero (succ₁ n)))) ⟩
+      ≡⟨ succCong (+-rightCong (+-rightCong (*-leftZero (succ₁ n)))) ⟩
     succ₁ (n + (succ₁ n + zero))
-      ≡⟨ succCong (cong (_+_ n) (+-rightIdentity (nsucc Nn))) ⟩
+      ≡⟨ succCong (+-rightCong (+-rightIdentity (nsucc Nn))) ⟩
     succ₁ (n + succ₁ n)
       ≡⟨ succCong (+-comm Nn (nsucc Nn)) ⟩
     succ₁ (succ₁ n + n)
