@@ -26,12 +26,6 @@ open import FOTC.Data.Nat.UnaryNumbers.TotalityI
 ------------------------------------------------------------------------------
 -- Congruence properties
 
-succCong : ∀ {m n} → m ≡ n → succ₁ m ≡ succ₁ n
-succCong refl = refl
-
-predCong : ∀ {m n} → m ≡ n → pred₁ m ≡ pred₁ n
-predCong refl = refl
-
 +-leftCong : ∀ {m n o} → m ≡ n → m + o ≡ n + o
 +-leftCong refl = refl
 

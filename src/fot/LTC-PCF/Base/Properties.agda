@@ -13,10 +13,16 @@ open import LTC-PCF.Base
 -- Congruence properties
 
 ·-leftCong : ∀ {m n o} → m ≡ n → m · o ≡ n · o
-·-leftCong h = cong₂ _·_ h refl
+·-leftCong refl = refl
 
 ·-rightCong : ∀ {m n o} → n ≡ o → m · n ≡ m · o
-·-rightCong h = cong₂ _·_ refl h
+·-rightCong refl = refl
+
+succCong : ∀ {m n} → m ≡ n → succ₁ m ≡ succ₁ n
+succCong refl = refl
+
+predCong : ∀ {m n} → m ≡ n → pred₁ m ≡ pred₁ n
+predCong refl = refl
 
 ------------------------------------------------------------------------------
 

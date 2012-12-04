@@ -11,6 +11,10 @@ module FOTC.README where
 -- The axioms
 open import FOTC.Base
 
+-- Properties
+open import FOTC.Base.PropertiesATP
+open import FOTC.Base.PropertiesI
+
 ------------------------------------------------------------------------------
 -- Booleans
 

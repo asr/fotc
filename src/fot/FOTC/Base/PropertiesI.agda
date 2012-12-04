@@ -13,6 +13,25 @@ open import FOTC.Base
 open FOTC.Base.BList
 
 ------------------------------------------------------------------------------
+-- Congruence properties
+
+succCong : ∀ {m n} → m ≡ n → succ₁ m ≡ succ₁ n
+succCong refl = refl
+
+predCong : ∀ {m n} → m ≡ n → pred₁ m ≡ pred₁ n
+predCong refl = refl
+
+ifCong₁ : ∀ {b₁ b₂ d e} → b₁ ≡ b₂ → if b₁ then d else e ≡ if b₂ then d else e
+ifCong₁ refl = refl
+
+ifCong₂ : ∀ {b d₁ d₂ e} → d₁ ≡ d₂ → if b then d₁ else e ≡ if b then d₂ else e
+ifCong₂ refl = refl
+
+ifCong₃ : ∀ {b d e₁ e₂} → e₁ ≡ e₂ → if b then d else e₁ ≡ if b then d else e₂
+ifCong₃ refl = refl
+
+------------------------------------------------------------------------------
+-- Injective properties
 
 succInjective : ∀ {m n} → succ₁ m ≡ succ₁ n → m ≡ n
 succInjective {m} {n} h =

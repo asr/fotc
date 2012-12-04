@@ -10,6 +10,7 @@ module FOTC.Data.Nat.Inequalities.PropertiesI where
 open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
+open import FOTC.Base.PropertiesI
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.EliminationProperties

@@ -19,6 +19,9 @@ module LTC-PCF.README where
 -- The axioms
 open import LTC-PCF.Base
 
+-- Properties
+open import LTC-PCF.Base.Properties
+
 ------------------------------------------------------------------------------
 -- Booleans
 

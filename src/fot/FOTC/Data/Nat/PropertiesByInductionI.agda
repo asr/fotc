@@ -14,12 +14,10 @@ module FOTC.Data.Nat.PropertiesByInductionI where
 open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
+open import FOTC.Base.PropertiesI
 open import FOTC.Data.Nat
 
 ------------------------------------------------------------------------------
-
-succCong : ∀ {m n} → m ≡ n → succ₁ m ≡ succ₁ n
-succCong refl = refl
 
 +-leftCong : ∀ {a b c} → a ≡ b → a + c ≡ b + c
 +-leftCong refl = refl

@@ -10,6 +10,7 @@ module FOTC.Data.List.PropertiesI where
 open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
+open import FOTC.Base.PropertiesI
 open FOTC.Base.BList
 open import FOTC.Data.Conat
 open import FOTC.Data.List

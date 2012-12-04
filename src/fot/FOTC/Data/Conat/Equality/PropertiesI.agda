@@ -15,6 +15,7 @@
 module FOTC.Data.Conat.Equality.PropertiesI where
 
 open import FOTC.Base
+open import FOTC.Base.PropertiesI
 open import FOTC.Data.Conat
 open import FOTC.Data.Conat.Equality
 open import FOTC.Data.Nat.PropertiesI
