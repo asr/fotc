@@ -28,11 +28,8 @@ head-tail-Fair-helper {fs} (.(false ∷ ft) , fs' , fcons*T {ft} y , h₁ , h₂
   postulate prf : fs ≡ T ∷ tail₁ fs ∨ fs ≡ F ∷ tail₁ fs
   {-# ATP prove prf #-}
 
-head-tail-Fair : ∀ {fs} → Fair fs → fs ≡ T ∷ tail₁ fs ∨ fs ≡ F ∷ tail₁ fs
-head-tail-Fair {fs} Ffs = prf
-  where
-  postulate prf : fs ≡ T ∷ tail₁ fs ∨ fs ≡ F ∷ tail₁ fs
-  {-# ATP prove prf head-tail-Fair-helper #-}
+postulate head-tail-Fair : ∀ {fs} → Fair fs → fs ≡ T ∷ tail₁ fs ∨ fs ≡ F ∷ tail₁ fs
+{-# ATP prove head-tail-Fair head-tail-Fair-helper #-}
 
 tail-Fair-helper : ∀ {fs} →
                    ∃[ ft ] ∃[ fs' ] F*T ft ∧ Fair fs' ∧ fs ≡ ft ++ fs' →
@@ -47,8 +44,5 @@ tail-Fair-helper {fs} (.(false ∷ ft) , fs' , fcons*T {ft} FTft , Ffs' , h) = p
   postulate prf : Fair (tail₁ fs)
   {-# ATP prove prf Fair-gfp₃ #-}
 
-tail-Fair : ∀ {fs} → Fair fs → Fair (tail₁ fs)
-tail-Fair {fs} Ffs = prf
-  where
-  postulate prf : Fair (tail₁ fs)
-  {-# ATP prove prf tail-Fair-helper #-}
+postulate tail-Fair : ∀ {fs} → Fair fs → Fair (tail₁ fs)
+{-# ATP prove tail-Fair tail-Fair-helper #-}

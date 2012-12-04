@@ -257,8 +257,7 @@ x≤y→k+x≤k+y {m} {n} Nm Nn (nsucc {k} Nk) h = prfS (x≤y→k+x≤k+y Nm Nn
   postulate prfS : k + m ≤ k + n → succ₁ k + m ≤ succ₁ k + n
   {-# ATP prove prfS #-}
 
-postulate
-  x≤y→x+k≤y+k : ∀ {m n k} → N m → N n → N k → m ≤ n → m + k ≤ n + k
+postulate x≤y→x+k≤y+k : ∀ {m n k} → N m → N n → N k → m ≤ n → m + k ≤ n + k
 {-# ATP prove x≤y→x+k≤y+k x≤y→k+x≤k+y +-comm #-}
 
 x<y→Sx∸y≡0 : ∀ {m n} → N m → N n → m < n → succ₁ m ∸ n ≡ zero
