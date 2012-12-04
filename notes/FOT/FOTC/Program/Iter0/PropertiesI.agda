@@ -10,8 +10,8 @@ module FOT.FOTC.Program.Iter0.PropertiesI where
 open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
+open import FOTC.Base.List
 open import FOTC.Base.PropertiesI
-open FOTC.Base.BList
 open import FOTC.Data.List.PropertiesI
 open import FOTC.Data.Nat.Type
 open import FOTC.Data.Nat.List.Type

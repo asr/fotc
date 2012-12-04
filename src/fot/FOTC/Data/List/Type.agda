@@ -10,7 +10,7 @@
 module FOTC.Data.List.Type where
 
 open import FOTC.Base
-open FOTC.Base.BList
+open import FOTC.Base.List
 
 ------------------------------------------------------------------------------
 -- The FOTC lists type (inductive predicate for total lists).

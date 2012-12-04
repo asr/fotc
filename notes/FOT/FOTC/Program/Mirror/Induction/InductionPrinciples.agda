@@ -14,7 +14,7 @@
 module FOT.FOTC.Program.Mirror.Induction.InductionPrinciples where
 
 open import FOTC.Base
-open FOTC.Base.BList
+open import FOTC.Base.List
 open import FOTC.Program.Mirror.Type
 
 ------------------------------------------------------------------------------

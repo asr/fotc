@@ -8,7 +8,7 @@
 module FOTC.Data.Stream.PropertiesATP where
 
 open import FOTC.Base
-open FOTC.Base.BList
+open import FOTC.Base.List
 open import FOTC.Base.PropertiesATP
 open import FOTC.Data.Conat
 open import FOTC.Data.Conat.Equality

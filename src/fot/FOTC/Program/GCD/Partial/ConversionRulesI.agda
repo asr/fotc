@@ -10,7 +10,7 @@ module FOTC.Program.GCD.Partial.ConversionRulesI where
 open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
-open FOTC.Base.Loop
+open import FOTC.Base.Loop
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Program.GCD.Partial.GCD

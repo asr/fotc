@@ -8,7 +8,6 @@
 module FOTC.Program.GCD.Total.CommonDivisorI where
 
 open import FOTC.Base
-open import FOTC.Base.Properties
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Divisibility.By0
 open import FOTC.Data.Nat.Divisibility.By0.PropertiesI

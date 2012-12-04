@@ -8,7 +8,8 @@
 module FOTC.Relation.Binary.Bisimilarity.PropertiesI where
 
 open import FOTC.Base
-open FOTC.Base.BList
+open import FOTC.Base.List
+open import FOTC.Base.List.PropertiesI
 open import FOTC.Base.PropertiesI
 open import FOTC.Relation.Binary.Bisimilarity
 

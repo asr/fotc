@@ -14,7 +14,7 @@
 module FOTC.Program.ABP.Lemma1ATP where
 
 open import FOTC.Base
-open FOTC.Base.BList
+open import FOTC.Base.List
 open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesATP
 open import FOTC.Data.List

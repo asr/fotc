@@ -8,7 +8,6 @@
 module FOTC.Program.GCD.Total.TotalityI where
 
 open import FOTC.Base
-open import FOTC.Base.Properties
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI
 open import FOTC.Data.Nat.Inequalities

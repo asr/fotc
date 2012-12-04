@@ -8,7 +8,6 @@
 module FOTC.Base.PropertiesATP where
 
 open import FOTC.Base
-open FOTC.Base.BList
 
 ------------------------------------------------------------------------------
 -- Congruence properties
@@ -25,5 +24,7 @@ postulate predCong : ∀ {m n} → m ≡ n → pred₁ m ≡ pred₁ n
 postulate succInjective : ∀ {m n} → succ₁ m ≡ succ₁ n → m ≡ n
 {-# ATP prove succInjective #-}
 
-postulate ∷-injective : ∀ {x y xs ys} → x ∷ xs ≡ y ∷ ys → x ≡ y ∧ xs ≡ ys
-{-# ATP prove ∷-injective #-}
+------------------------------------------------------------------------------
+
+postulate S≢0 : ∀ {n} → succ₁ n ≢ zero
+{-# ATP prove S≢0 #-}

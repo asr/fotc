@@ -8,7 +8,7 @@
 module FOT.FOTC.Data.List.Examples where
 
 open import FOTC.Base
-open FOTC.Base.BList
+open import FOTC.Base.List
 open import FOTC.Data.Nat.UnaryNumbers
 open import FOTC.Data.List.Type
 

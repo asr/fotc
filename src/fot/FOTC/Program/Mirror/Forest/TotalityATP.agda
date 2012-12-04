@@ -8,6 +8,7 @@
 module FOTC.Program.Mirror.Forest.TotalityATP where
 
 open import FOTC.Base
+open import FOTC.Base.List
 open import FOTC.Data.List
 open import FOTC.Program.Mirror.Type
 

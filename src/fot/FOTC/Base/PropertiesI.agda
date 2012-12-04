@@ -10,7 +10,6 @@ module FOTC.Base.PropertiesI where
 open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
-open FOTC.Base.BList
 
 ------------------------------------------------------------------------------
 -- Congruence properties
@@ -40,17 +39,7 @@ succInjective {m} {n} h =
   pred₁ (succ₁ n)  ≡⟨ pred-S n ⟩
   n                ∎
 
-∷-injective : ∀ {x y xs ys} → x ∷ xs ≡ y ∷ ys → x ≡ y ∧ xs ≡ ys
-∷-injective {x} {y} {xs} {ys} h = x≡y , xs≡ys
-  where
-  x≡y : x ≡ y
-  x≡y = x              ≡⟨ sym (head-∷ x xs) ⟩
-        head₁ (x ∷ xs) ≡⟨ cong head₁ h ⟩
-        head₁ (y ∷ ys) ≡⟨ head-∷ y ys ⟩
-        y              ∎
+------------------------------------------------------------------------------
 
-  xs≡ys : xs ≡ ys
-  xs≡ys = xs             ≡⟨ sym (tail-∷ x xs) ⟩
-          tail₁ (x ∷ xs) ≡⟨ cong tail₁ h ⟩
-          tail₁ (y ∷ ys) ≡⟨ tail-∷ y ys ⟩
-          ys             ∎
+S≢0 : ∀ {n} → succ₁ n ≢ zero
+S≢0 S≡0 = 0≢S (sym S≡0)

@@ -8,7 +8,7 @@
 module FOTC.Program.ABP.Fair.PropertiesATP where
 
 open import FOTC.Base
-open FOTC.Base.BList
+open import FOTC.Base.List
 open import FOTC.Data.List
 open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.Terms

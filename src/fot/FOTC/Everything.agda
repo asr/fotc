@@ -7,7 +7,11 @@ module FOTC.Everything where
 open import FOTC.Base
 open import FOTC.Base.Consistency.Axioms
 open import FOTC.Base.Consistency.IfInjective
-open import FOTC.Base.Properties
+open import FOTC.Base.List
+open import FOTC.Base.List.Consistency.Axioms
+open import FOTC.Base.List.PropertiesATP
+open import FOTC.Base.List.PropertiesI
+open import FOTC.Base.Loop
 open import FOTC.Base.PropertiesATP
 open import FOTC.Base.PropertiesI
 

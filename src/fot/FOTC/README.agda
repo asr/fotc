@@ -8,12 +8,21 @@ module FOTC.README where
 -- Combinators.
 
 ------------------------------------------------------------------------------
--- The axioms
+-- Base axioms
 open import FOTC.Base
 
--- Properties
+-- Properties for the base axioms
+
 open import FOTC.Base.PropertiesATP
 open import FOTC.Base.PropertiesI
+
+-- Axioms for lists, colists, streams, etc.
+open import FOTC.Base.List
+
+-- Properties for axioms for lists, colists, streams, etc
+
+open import FOTC.Base.List.PropertiesATP
+open import FOTC.Base.List.PropertiesI
 
 ------------------------------------------------------------------------------
 -- Booleans

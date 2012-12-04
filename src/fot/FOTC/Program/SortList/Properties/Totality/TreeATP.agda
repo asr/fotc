@@ -8,7 +8,7 @@
 module FOTC.Program.SortList.Properties.Totality.TreeATP where
 
 open import FOTC.Base
-open FOTC.Base.BList
+open import FOTC.Base.List
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.List.Type
 open import FOTC.Data.Nat.Type

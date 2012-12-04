@@ -14,15 +14,13 @@ module FOT.FOTC.Program.SortList.Properties.Totality.OrdList.FlattenI where
 open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
-open FOTC.Base.BList
-
+open import FOTC.Base.List
 open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesI
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.Type
 open import FOTC.Data.List
-
 open import FOTC.Program.SortList.Properties.Totality.BoolI
 open import FOTC.Program.SortList.Properties.Totality.ListN-I
 open import FOTC.Program.SortList.Properties.Totality.OrdTreeI

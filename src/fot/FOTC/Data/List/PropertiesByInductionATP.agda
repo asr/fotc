@@ -8,7 +8,7 @@
 module FOTC.Data.List.PropertiesByInductionATP where
 
 open import FOTC.Base
-open FOTC.Base.BList
+open import FOTC.Base.List
 open import FOTC.Data.List
 
 ------------------------------------------------------------------------------

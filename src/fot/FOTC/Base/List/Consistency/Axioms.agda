@@ -1,16 +1,20 @@
 ------------------------------------------------------------------------------
--- Well-founded relation on lists based on their structure
+-- Test the consistency of FOTC.Base.List
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Data.List.WF-Relation.LT-Cons where
+-- In the module FOTC.Base.List we declare Agda postulates as
+-- first-order logic axioms. We test if it is possible to prove an
+-- unprovable theorem from these axioms.
+
+module FOTC.Base.List.Consistency.Axioms where
 
 open import FOTC.Base
 open import FOTC.Base.List
 
 ------------------------------------------------------------------------------
--- Well-founded relation on lists based on their structure.
-LTC : D → D → Set
-LTC xs ys = ∃[ x ] ys ≡ x ∷ xs
+
+postulate impossible : ∀ d e → d ≡ e
+{-# ATP prove impossible #-}

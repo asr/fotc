@@ -10,7 +10,7 @@ module FOTC.Program.Iter0.PropertiesATP where
 open import FOTC.Program.Iter0.Iter0
 
 open import FOTC.Base
-open FOTC.Base.BList
+open import FOTC.Base.List
 
 ------------------------------------------------------------------------------
 

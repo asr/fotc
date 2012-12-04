@@ -15,7 +15,7 @@ module FOTC.Program.SortList.Properties.MiscellaneousI where
 open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
-open FOTC.Base.BList
+open import FOTC.Base.List
 open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesI
 open import FOTC.Data.Nat.Inequalities

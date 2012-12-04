@@ -8,7 +8,7 @@
 module FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP where
 
 open import FOTC.Base
-open import FOTC.Base.Properties
+open import FOTC.Base.PropertiesATP
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Divisibility.NotBy0
 open import FOTC.Data.Nat.Inequalities

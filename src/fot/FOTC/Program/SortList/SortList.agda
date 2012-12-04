@@ -17,7 +17,7 @@
 module FOTC.Program.SortList.SortList where
 
 open import FOTC.Base
-open FOTC.Base.BList
+open import FOTC.Base.List
 open import FOTC.Data.Bool
 open import FOTC.Data.List
 open import FOTC.Data.Nat.Inequalities

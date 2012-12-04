@@ -8,7 +8,7 @@
 module FOTC.Program.GCD.Partial.TotalityATP where
 
 open import FOTC.Base
-open import FOTC.Base.Properties
+open import FOTC.Base.PropertiesATP
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Induction.NonAcc.LexicographicATP
 open import FOTC.Data.Nat.Inequalities

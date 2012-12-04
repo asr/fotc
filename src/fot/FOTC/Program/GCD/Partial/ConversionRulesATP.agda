@@ -8,7 +8,7 @@
 module FOTC.Program.GCD.Partial.ConversionRulesATP where
 
 open import FOTC.Base
-open FOTC.Base.Loop
+open import FOTC.Base.Loop
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Program.GCD.Partial.GCD

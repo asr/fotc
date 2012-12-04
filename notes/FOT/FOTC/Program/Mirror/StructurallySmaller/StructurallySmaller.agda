@@ -4,7 +4,7 @@
 module FOT.FOTC.Program.Mirror.StructurallySmaller.StructurallySmaller where
 
 open import FOTC.Base
-open FOTC.Base.BList
+open import FOTC.Base.List
 open import FOTC.Program.Mirror.Type
 
 ------------------------------------------------------------------------------
