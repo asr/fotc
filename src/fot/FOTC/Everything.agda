@@ -153,6 +153,10 @@ open import FOTC.Program.GCD.Total.ProofSpecificationI
 open import FOTC.Program.GCD.Total.TotalityATP
 open import FOTC.Program.GCD.Total.TotalityI
 
+open import FOTC.Program.Iter0.Iter0
+open import FOTC.Program.Iter0.PropertiesATP
+open import FOTC.Program.Iter0.PropertiesI
+
 open import FOTC.Program.MapIterate.MapIterateATP
 open import FOTC.Program.MapIterate.MapIterateI
 

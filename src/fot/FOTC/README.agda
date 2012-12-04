@@ -164,6 +164,10 @@ open import FOTC.Program.MapIterate.MapIterateI
 open import FOTC.Program.ABP.ProofSpecificationATP
 open import FOTC.Program.ABP.ProofSpecificationI
 
+-- The iter₀ function: A partial function
+open import FOTC.Program.Iter0.PropertiesATP
+open import FOTC.Program.Iter0.PropertiesI
+
 -- The Collatz function: A function without a termination proof
 open import FOTC.Program.Collatz.PropertiesATP
 open import FOTC.Program.Collatz.PropertiesI
