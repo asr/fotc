@@ -26,24 +26,15 @@ iter₀-ListN f nzero h = subst ListN (sym (iter₀-0 f)) lnnil
 iter₀-ListN f (nsucc {n} Nn) h =
   subst ListN
         (sym prf)
-        (lncons Nn (iter₀-ListN f (h Nn) h))
+        (lncons (nsucc Nn) (iter₀-ListN f (h (nsucc Nn)) h))
   where
-  prf : iter₀ f (succ₁ n) ≡ n ∷ iter₀ f (f · n)
+  prf : iter₀ f (succ₁ n) ≡ succ₁ n ∷ iter₀ f (f · (succ₁ n))
   prf = iter₀ f (succ₁ n)
           ≡⟨ iter₀-eq f (succ₁ n) ⟩
-        if (iszero₁ (succ₁ n))
-           then []
-           else (pred₁ (succ₁ n) ∷ iter₀ f (f · pred₁ (succ₁ n)))
+        if (iszero₁ (succ₁ n)) then [] else (succ₁ n ∷ iter₀ f (f · (succ₁ n)))
           ≡⟨ ifCong₁ (iszero-S n) ⟩
         if false
            then []
-           else (pred₁ (succ₁ n) ∷ iter₀ f (f · pred₁ (succ₁ n)))
-          ≡⟨ if-false (pred₁ (succ₁ n) ∷ iter₀ f (f · pred₁ (succ₁ n))) ⟩
-        pred₁ (succ₁ n) ∷ iter₀ f (f · pred₁ (succ₁ n))
-          ≡⟨ ∷-leftCong (pred-S n) ⟩
-        n ∷ iter₀ f (f · pred₁ (succ₁ n))
-          ≡⟨ subst (λ t → n ∷ iter₀ f (f · pred₁ (succ₁ n)) ≡ n ∷ iter₀ f (f · t))
-                   (pred-S n)
-                   refl
-          ⟩
-        n ∷ iter₀ f (f · n) ∎
+           else (succ₁ n ∷ iter₀ f (f · (succ₁ n)))
+          ≡⟨ if-false (succ₁ n ∷ iter₀ f (f · (succ₁ n))) ⟩
+        succ₁ n ∷ iter₀ f (f · (succ₁ n)) ∎
