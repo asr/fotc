@@ -41,10 +41,10 @@ collatz-2^x (nsucc {n} Nn) (.(succ₁ k) , nsucc {k} Nk , Sn≡2^k+1) =
                     (∸-Even (^-N 2-N (nsucc Nk)) 2-N (2^[x+1]-Even Nk)
                             (x-Even→SSx-Even nzero even-0)))
     ⟩
-  collatz ((succ₁ (succ₁ (([2] ^ (succ₁ k)) ∸ [2]))) / [2])
-    ≡⟨ collatzCong (/-leftCong (sym prf)) ⟩
-  collatz (([2] ^ (succ₁ k)) / [2])
-    ≡⟨ collatzCong (2^[x+1]/2≡2^x Nk) ⟩
+  collatz (div (succ₁ (succ₁ (([2] ^ (succ₁ k)) ∸ [2]))) [2])
+    ≡⟨ collatzCong (divLeftCong (sym prf)) ⟩
+  collatz (div ([2] ^ (succ₁ k)) [2])
+    ≡⟨ collatzCong (div-2^[x+1]-2≡2^x Nk) ⟩
   collatz ([2] ^ k)
     ≡⟨ collatz-2^x (^-N 2-N Nk) (k , Nk , refl) ⟩
   [1] ∎

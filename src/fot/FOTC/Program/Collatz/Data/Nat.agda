@@ -16,15 +16,14 @@ open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.UnaryNumbers
 
 infixr 12 _^_
-infixl 10 _/_
 
 ------------------------------------------------------------------------------
 
 postulate
-  _/_   : D → D → D
-  /-x<y : ∀ {m n} → m < n → m / n ≡ zero
-  /-x≥y : ∀ {m n} → m ≥ n → m / n ≡ succ₁ ((m ∸ n) / n)
-{-# ATP axiom /-x<y /-x≥y #-}
+  div     : D → D → D
+  div-x<y : ∀ {m n} → m < n → div m n ≡ zero
+  div-x≥y : ∀ {m n} → m ≥ n → div m n ≡ succ₁ (div (m ∸ n) n)
+{-# ATP axiom div-x<y div-x≥y #-}
 
 postulate
   _^_ : D → D → D

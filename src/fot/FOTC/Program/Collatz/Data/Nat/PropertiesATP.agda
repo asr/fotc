@@ -26,20 +26,20 @@ open import FOTC.Program.Collatz.Data.Nat
 postulate 2*SSx≥2 : ∀ {n} → N n → [2] * succ₁ (succ₁ n) ≥ [2]
 {-# ATP prove 2*SSx≥2 #-}
 
-2x/2≡x : ∀ {n} → N n → [2] * n / [2] ≡ n
-2x/2≡x nzero = prf
-  where postulate prf : [2] * zero / [2] ≡ zero
+div-2x-2≡x : ∀ {n} → N n → div ([2] * n) [2] ≡ n
+div-2x-2≡x nzero = prf
+  where postulate prf : div ([2] * zero) [2] ≡ zero
         {-# ATP prove prf *-rightZero #-}
-2x/2≡x (nsucc nzero) = prf
-  where postulate prf : [2] * succ₁ zero / [2] ≡ succ₁ zero
+div-2x-2≡x (nsucc nzero) = prf
+  where postulate prf : div ([2] * (succ₁ zero)) [2] ≡ succ₁ zero
         {-# ATP prove prf *-rightIdentity x≥x x∸x≡0 #-}
-2x/2≡x (nsucc (nsucc {n} Nn)) = prf (2x/2≡x (nsucc Nn))
-  where postulate prf : [2] * succ₁ n / [2] ≡ succ₁ n →
-                        [2] * succ₁ (succ₁ n) / [2] ≡ succ₁ (succ₁ n)
+div-2x-2≡x (nsucc (nsucc {n} Nn)) = prf (div-2x-2≡x (nsucc Nn))
+  where postulate prf : div ([2] * succ₁ n) [2] ≡ succ₁ n →
+                        div ([2] * (succ₁ (succ₁ n))) [2] ≡ succ₁ (succ₁ n)
         {-# ATP prove prf 2*SSx≥2 +-rightIdentity +-comm +-N #-}
 
-postulate 2^[x+1]/2≡2^x : ∀ {n} → N n → ([2] ^ (succ₁ n)) / [2] ≡ [2] ^ n
-{-# ATP prove 2^[x+1]/2≡2^x 2x/2≡x ^-N #-}
+postulate 2^[x+1]/2≡2^x : ∀ {n} → N n → (div ([2] ^ (succ₁ n))) [2] ≡ [2] ^ n
+{-# ATP prove 2^[x+1]/2≡2^x div-2x-2≡x ^-N #-}
 
 Sx≡2^0→x≡0 : ∀ {n} → N n → succ₁ n ≡ [2] ^ zero → n ≡ zero
 Sx≡2^0→x≡0 nzero         _       = refl

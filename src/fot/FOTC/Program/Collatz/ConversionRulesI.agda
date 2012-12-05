@@ -28,7 +28,7 @@ private
                     else (if (iszero₁ (pred₁ n))
                              then [1]
                              else (if (even n)
-                                      then collatz (n / [2])
+                                      then collatz (div n [2])
                                       else collatz ([3] * n + [1])))
 
   -- First if_then_else_ iszero₁ n = b.
@@ -38,7 +38,7 @@ private
                       else (if (iszero₁ (pred₁ n))
                                then [1]
                                else (if (even n)
-                                        then collatz (n / [2])
+                                        then collatz (div n [2])
                                         else collatz ([3] * n + [1])))
 
   -- First if_then_else_ when if true ....
@@ -50,7 +50,7 @@ private
   collatz-s₄ n = if (iszero₁ (pred₁ n))
                     then [1]
                     else (if (even n)
-                             then collatz (n / [2])
+                             then collatz (div n [2])
                              else collatz ([3] * n + [1]))
 
   -- Second if_then_else_ iszero₁ (pred₁ n) = b.
@@ -58,7 +58,7 @@ private
   collatz-s₅ n b = if b
                       then [1]
                       else (if (even n)
-                               then collatz (n / [2])
+                               then collatz (div n [2])
                                else collatz ([3] * n + [1]))
 
   -- Second if_then_else_ when if true ....
@@ -68,18 +68,18 @@ private
   -- Second if_then_else_ when if false ....
   collatz-s₇ : D → D
   collatz-s₇ n = if (even n)
-                    then collatz (n / [2])
+                    then collatz (div n [2])
                     else collatz ([3] * n + [1])
 
   -- Third if_then_else_ even n b.
   collatz-s₈ : D → D → D
   collatz-s₈ n b = if b
-                      then collatz (n / [2])
+                      then collatz (div n [2])
                       else collatz ([3] * n + [1])
 
   -- Third if_then_else_ when if true ....
   collatz-s₉ : D → D
-  collatz-s₉ n = collatz (n / [2])
+  collatz-s₉ n = collatz (div n [2])
 
   -- Third if_then_else_ when if false ....
   collatz-s₁₀ : D → D
@@ -149,7 +149,7 @@ collatz-1 =
   [1] ∎
 
 collatz-even : ∀ {n} → Even (succ₁ (succ₁ n)) →
-               collatz (succ₁ (succ₁ n)) ≡ collatz ((succ₁ (succ₁ n)) / [2])
+               collatz (succ₁ (succ₁ n)) ≡ collatz (div (succ₁ (succ₁ n)) [2])
 collatz-even {n} h =
   collatz (succ₁ (succ₁ n))
     ≡⟨ proof₀₋₁ (succ₁ (succ₁ n)) ⟩
@@ -168,7 +168,7 @@ collatz-even {n} h =
     ≡⟨ proof₇₋₈ h ⟩
   collatz-s₈ (succ₁ (succ₁ n)) true
     ≡⟨ proof₈₋₉ (succ₁ (succ₁ n)) ⟩
-  collatz ((succ₁ (succ₁ n)) / [2]) ∎
+  collatz (div (succ₁ (succ₁ n)) [2]) ∎
 
 collatz-noteven : ∀ {n} → NotEven (succ₁ (succ₁ n)) →
                   collatz (succ₁ (succ₁ n)) ≡

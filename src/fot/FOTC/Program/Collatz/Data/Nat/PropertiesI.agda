@@ -22,47 +22,47 @@ open import FOTC.Program.Collatz.Data.Nat
 ------------------------------------------------------------------------------
 -- Congruence properties
 
-/-leftCong : ∀ {m n o} → m ≡ n → m / o ≡ n / o
-/-leftCong refl = refl
+divLeftCong : ∀ {m n o} → m ≡ n → div m o ≡ div n o
+divLeftCong refl = refl
 
-/-rightCong : ∀ {m n o} → n ≡ o → m / n ≡ m / o
-/-rightCong refl = refl
+divRightCong : ∀ {m n o} → n ≡ o → div m n ≡ div m o
+divRightCong refl = refl
 
-/-cong : ∀ {m n o p} → m ≡ o → n ≡ p → m / n ≡ o / p
-/-cong refl refl = refl
+divCong : ∀ {m n o p} → m ≡ o → n ≡ p → div m n ≡ div o p
+divCong refl refl = refl
 
 ^-N : ∀ {m n} → N m → N n → N (m ^ n)
 ^-N {m} Nm nzero          = subst N (sym (^-0 m)) (nsucc nzero)
 ^-N {m} Nm (nsucc {n} Nn) = subst N (sym (^-S m n)) (*-N Nm (^-N Nm Nn))
 
-2x/2≡x : ∀ {n} → N n → [2] * n / [2] ≡ n
-2x/2≡x nzero = prf
+div-2x-2≡x : ∀ {n} → N n → div ([2] * n) [2] ≡ n
+div-2x-2≡x nzero = prf
   where
   -- See the combined proof.
-  postulate prf : [2] * zero / [2] ≡ zero
+  postulate prf : div ([2] * zero) [2] ≡ zero
 
-2x/2≡x (nsucc nzero) =
-  ([2] * [1]) / [2]
-    ≡⟨ /-cong (*-rightIdentity 2-N) refl ⟩
-  [2] / [2]
-    ≡⟨ /-x≥y (x≥x 2-N) ⟩
-  succ₁ (([2] ∸ [2]) / [2])
-    ≡⟨ succCong (/-cong (x∸x≡0 2-N) refl) ⟩
-  succ₁ (zero / [2])
-    ≡⟨ succCong (/-x<y (lt-0S [1])) ⟩
+div-2x-2≡x (nsucc nzero) =
+  div ([2] * [1]) [2]
+    ≡⟨ divCong (*-rightIdentity 2-N) refl ⟩
+  div [2] [2]
+    ≡⟨ div-x≥y (x≥x 2-N) ⟩
+  succ₁ (div ([2] ∸ [2]) [2])
+    ≡⟨ succCong (divCong (x∸x≡0 2-N) refl) ⟩
+  succ₁ (div zero [2])
+    ≡⟨ succCong (div-x<y (lt-0S [1])) ⟩
   [1] ∎
 
-2x/2≡x (nsucc (nsucc {n} Nn)) = prf
+div-2x-2≡x (nsucc (nsucc {n} Nn)) = prf
   where
   -- See the combined proof.
-  postulate prf : [2] * succ₁ (succ₁ n) / [2] ≡ succ₁ (succ₁ n)
+  postulate prf : div ([2] * (succ₁ (succ₁ n))) [2] ≡ succ₁ (succ₁ n)
 
-2^[x+1]/2≡2^x : ∀ {n} → N n → ([2] ^ (succ₁ n)) / [2] ≡ [2] ^ n
-2^[x+1]/2≡2^x {n} Nn =
-  [2] ^ (succ₁ n) / [2]
-    ≡⟨ /-leftCong (^-S [2] n) ⟩
-  ([2] * [2] ^ n) / [2]
-    ≡⟨ 2x/2≡x (^-N 2-N Nn) ⟩
+div-2^[x+1]-2≡2^x : ∀ {n} → N n → div ([2] ^ (succ₁ n)) [2] ≡ [2] ^ n
+div-2^[x+1]-2≡2^x {n} Nn =
+  div ([2] ^ (succ₁ n)) [2]
+    ≡⟨ divLeftCong (^-S [2] n) ⟩
+  div ([2] * [2] ^ n) [2]
+    ≡⟨ div-2x-2≡x (^-N 2-N Nn) ⟩
   [2] ^ n ∎
 
 Sx≡2^0→x≡0 : ∀ {n} → N n → succ₁ n ≡ [2] ^ zero → n ≡ zero

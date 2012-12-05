@@ -22,6 +22,6 @@ postulate
                         else (if (iszero₁ (pred₁ n))
                                  then [1]
                                  else (if (even n)
-                                          then collatz (n / [2])
+                                          then collatz (div n [2])
                                           else collatz ([3] * n + [1])))
 {-# ATP axiom collatz-eq #-}
