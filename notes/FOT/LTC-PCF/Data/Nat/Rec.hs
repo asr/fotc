@@ -9,8 +9,7 @@
 --
 -- fix : (D → D) → D.
 
-data Nat = Zero | Succ Nat
-         deriving Eq
+import Data.Peano
 
 type T = Nat → Nat → (Nat → Nat → Nat) → Nat
 

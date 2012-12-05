@@ -1,0 +1,33 @@
+name:          peano
+version:       0.1
+build-type:    Simple
+cabal-version: >= 1.8
+author:        Andrés Sicard-Ramírez
+license:       MIT
+license-file:  LICENSE
+maintainer:    Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+category:      Data
+synopsis:      Peano numbers
+tested-with:   GHC == 7.6.1
+description:   Peano numbers and some instances.
+
+library
+  exposed-modules: Data.Peano
+  hs-source-dirs: src
+
+  build-depends: base         >= 4.2     && < 4.7
+                 , QuickCheck >= 2.5.1.1 && < 2.6
+
+  -- Only warnings (tested with cabal-install version 1.16.0.2 using
+  -- version 1.16.0.3 of the Cabal library).
+  if impl(ghc == 7.6.1)
+     ghc-options: -Wall
+                  -fwarn-auto-orphans
+                  -fwarn-identities
+                  -fwarn-incomplete-record-updates
+                  -fwarn-incomplete-uni-patterns
+                  -fwarn-missing-import-lists
+                  -fwarn-missing-local-sigs
+                  -fwarn-monomorphism-restriction
+                  -fwarn-tabs
+                  -Werror

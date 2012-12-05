@@ -11,6 +11,7 @@ agda2atp_path       = src/agda2atp
 dump-agdai_path     = src/dump-agdai
 fix-whitespace_path = src/fix-whitespace
 fot_path            = src/fot
+peano_path          = src/peano
 
 # Agda standard library path.
 std_lib_path = ~/agda-upstream/std-lib
@@ -397,6 +398,7 @@ hlint :
 	hlint $(agda2atp_path)/src/
 	hlint $(dump-agdai_path)/src -i "Use on"
 	hlint $(fix-whitespace_path)
+	hlint $(peano_path)/src
 	@echo "$@ succeeded!"
 
 ##############################################################################

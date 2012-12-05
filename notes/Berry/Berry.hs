@@ -5,8 +5,7 @@
 -- Technology and University of Gothenburg, Department of Computer
 -- Sciences, 1992. pp. 12-13.
 
-data Nat = Zero | Succ Nat
-           deriving Show
+import Data.Peano
 
 loop ∷ a
 loop = loop
