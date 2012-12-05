@@ -20,6 +20,10 @@ open import FOTC.Data.Bool.PropertiesATP
 open import FOTC.Data.Bool.PropertiesI
 open import FOTC.Data.Bool.Type
 
+open import FOTC.Data.Colist
+open import FOTC.Data.Colist.Type
+open import FOTC.Data.Colist.Type.Consistency.Axioms
+
 open import FOTC.Data.Conat
 open import FOTC.Data.Conat.Equality
 open import FOTC.Data.Conat.Equality.Consistency.Axioms
