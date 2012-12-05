@@ -112,6 +112,6 @@ postulate
 -- Discrimination rules
 
 postulate
-  true≢false : true ≢ false
---  0≢S        : ∀ {d} → zero ≢ succ · d
-  0≢S        : ∀ {n} → zero ≢ succ₁ n
+  t≢f : true ≢ false
+  -- 0≢S : ∀ {d} → zero ≢ succ · d
+  0≢S : ∀ {n} → zero ≢ succ₁ n

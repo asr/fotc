@@ -101,7 +101,7 @@ x≥y→x≮y (nsucc {m} Nm) (nsucc {n} Nn) Sm≥Sn =
 
 x≮y→x≥y : ∀ {m n} → N m → N n → m ≮ n → m ≥ n
 x≮y→x≥y nzero nzero 0≮0 = x≥x nzero
-x≮y→x≥y nzero (nsucc {n} Nn) 0≮Sn = ⊥-elim (true≢false (trans (sym (lt-0S n)) 0≮Sn))
+x≮y→x≥y nzero (nsucc {n} Nn) 0≮Sn = ⊥-elim (t≢f (trans (sym (lt-0S n)) 0≮Sn))
 x≮y→x≥y (nsucc Nm) nzero Sm≮n = x≥0 (nsucc Nm)
 x≮y→x≥y (nsucc {m} Nm) (nsucc {n} Nn) Sm≮Sn =
   trans (lt-SS n (succ₁ m)) (x≮y→x≥y Nm Nn (trans (sym (lt-SS m n)) Sm≮Sn))
@@ -175,7 +175,7 @@ x≤y→x≯y (nsucc {m} Nm) (nsucc {n} Nn) Sm≤Sn =
 
 x≯y→x≤y : ∀ {m n} → N m → N n → m ≯ n → m ≤ n
 x≯y→x≤y nzero Nn _ = 0≤x Nn
-x≯y→x≤y (nsucc {m} Nm) nzero Sm≯0 = ⊥-elim (true≢false (trans (sym (lt-0S m)) Sm≯0))
+x≯y→x≤y (nsucc {m} Nm) nzero Sm≯0 = ⊥-elim (t≢f (trans (sym (lt-0S m)) Sm≯0))
 x≯y→x≤y (nsucc {m} Nm) (nsucc {n} Nn) Sm≯Sn =
   trans (lt-SS m (succ₁ n)) (x≯y→x≤y Nm Nn (trans (sym (lt-SS n m)) Sm≯Sn))
 

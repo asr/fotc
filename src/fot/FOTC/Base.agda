@@ -117,6 +117,6 @@ postulate
 
 --  0≢S : ∀ {n} → zero ≢ succ · n
 postulate
-  true≢false : true ≢ false
-  0≢S        : ∀ {n} → zero ≢ succ₁ n
-{-# ATP axiom true≢false 0≢S #-}
+  t≢f : true ≢ false
+  0≢S : ∀ {n} → zero ≢ succ₁ n
+{-# ATP axiom t≢f 0≢S #-}

@@ -28,9 +28,6 @@ divLeftCong refl = refl
 divRightCong : ∀ {m n o} → n ≡ o → div m n ≡ div m o
 divRightCong refl = refl
 
-divCong : ∀ {m n o p} → m ≡ o → n ≡ p → div m n ≡ div o p
-divCong refl refl = refl
-
 ^-N : ∀ {m n} → N m → N n → N (m ^ n)
 ^-N {m} Nm nzero          = subst N (sym (^-0 m)) (nsucc nzero)
 ^-N {m} Nm (nsucc {n} Nn) = subst N (sym (^-S m n)) (*-N Nm (^-N Nm Nn))
@@ -43,11 +40,11 @@ div-2x-2≡x nzero = prf
 
 div-2x-2≡x (nsucc nzero) =
   div ([2] * [1]) [2]
-    ≡⟨ divCong (*-rightIdentity 2-N) refl ⟩
+    ≡⟨ divLeftCong (*-rightIdentity 2-N) ⟩
   div [2] [2]
     ≡⟨ div-x≥y (x≥x 2-N) ⟩
   succ₁ (div ([2] ∸ [2]) [2])
-    ≡⟨ succCong (divCong (x∸x≡0 2-N) refl) ⟩
+    ≡⟨ succCong (divLeftCong (x∸x≡0 2-N)) ⟩
   succ₁ (div zero [2])
     ≡⟨ succCong (div-x<y (lt-0S [1])) ⟩
   [1] ∎
@@ -57,9 +54,9 @@ div-2x-2≡x (nsucc (nsucc {n} Nn)) = prf
   -- See the combined proof.
   postulate prf : div ([2] * (succ₁ (succ₁ n))) [2] ≡ succ₁ (succ₁ n)
 
-div-2^[x+1]-2≡2^x : ∀ {n} → N n → div ([2] ^ (succ₁ n)) [2] ≡ [2] ^ n
+div-2^[x+1]-2≡2^x : ∀ {n} → N n → div ([2] ^ succ₁ n) [2] ≡ [2] ^ n
 div-2^[x+1]-2≡2^x {n} Nn =
-  div ([2] ^ (succ₁ n)) [2]
+  div ([2] ^ succ₁ n) [2]
     ≡⟨ divLeftCong (^-S [2] n) ⟩
   div ([2] * [2] ^ n) [2]
     ≡⟨ div-2x-2≡x (^-N 2-N Nn) ⟩
@@ -71,9 +68,9 @@ Sx≡2^0→x≡0(nsucc {n} Nn) SSn≡2^0 =
   ⊥-elim (0≢S (sym (succInjective (trans SSn≡2^0 (^-0 [2])))))
 
 +∸2 : ∀ {n} → N n → n ≢ zero → n ≢ [1] → n ≡ succ₁ (succ₁ (n ∸ [2]))
-+∸2 nzero                  n≢0 n≢1 = ⊥-elim (n≢0 refl)
-+∸2 (nsucc nzero)          n≢0 n≢1 = ⊥-elim (n≢1 refl)
-+∸2 (nsucc (nsucc {n} Nn)) n≢0 n≢1 = sym prf
++∸2 nzero                  n≢0 _   = ⊥-elim (n≢0 refl)
++∸2 (nsucc nzero)          _   n≢1 = ⊥-elim (n≢1 refl)
++∸2 (nsucc (nsucc {n} Nn)) _   _   = sym prf
   where
   prf : succ₁ (succ₁ (succ₁ (succ₁ n) ∸ [2])) ≡ succ₁ (succ₁ n)
   prf = succ₁ (succ₁ (succ₁ (succ₁ n) ∸ [2]))
@@ -91,13 +88,12 @@ Sx≡2^0→x≡0(nsucc {n} Nn) SSn≡2^0 =
        (λ 2^n≡0 → ⊥-elim (2^x≢0 Nn 2^n≡0))
        (xy≡0→x≡0∨y≡0 2-N (^-N 2-N Nn) (trans (sym (^-S [2] n)) h))
 
-2^[x+1]≢1 : ∀ {n} → N n → [2] ^ (succ₁ n) ≢ [1]
+2^[x+1]≢1 : ∀ {n} → N n → [2] ^ succ₁ n ≢ [1]
 2^[x+1]≢1 {n} Nn h =
   Sx≢x (nsucc nzero) (xy≡1→x≡1 2-N (^-N 2-N Nn) (trans (sym (^-S [2] n)) h))
 
 Sx-Even→x-Odd : ∀ {n} → N n → Even (succ₁ n) → Odd n
-Sx-Even→x-Odd nzero          h = ⊥-elim (true≢false
-                                       (trans₂ (sym h) (even-S zero) odd-0))
+Sx-Even→x-Odd nzero h = ⊥-elim (t≢f (trans₂ (sym h) (even-S zero) odd-0))
 Sx-Even→x-Odd (nsucc {n} Nn) h = trans (sym (even-S (succ₁ n))) h
 
 Sx-Odd→x-Even : ∀ {n} → N n → Odd (succ₁ n) → Even n
@@ -113,8 +109,8 @@ mutual
           (∸-Odd Nm Nn (Sx-Even→x-Odd Nm h₁) (Sx-Even→x-Odd Nn h₂))
 
   ∸-Odd : ∀ {m n} → N m → N n → Odd m → Odd n → Even (m ∸ n)
-  ∸-Odd nzero          Nn             h₁ _  = ⊥-elim (true≢false (trans (sym h₁) odd-0))
-  ∸-Odd (nsucc Nm)     nzero          _  h₂ = ⊥-elim (true≢false (trans (sym h₂) odd-0))
+  ∸-Odd nzero          Nn             h₁ _  = ⊥-elim (t≢f (trans (sym h₁) odd-0))
+  ∸-Odd (nsucc Nm)     nzero          _  h₂ = ⊥-elim (t≢f (trans (sym h₂) odd-0))
   ∸-Odd (nsucc {m} Nm) (nsucc {n} Nn) h₁ h₂ =
     subst Even (sym (S∸S Nm Nn))
           (∸-Even Nm Nn (Sx-Odd→x-Even Nm h₁) (Sx-Odd→x-Even Nn h₂))
@@ -172,5 +168,5 @@ x+x-Even (nsucc {n} Nn) = subst Even (sym prf)
       ≡⟨ succCong (+-Sx n n) ⟩
     succ₁ (succ₁ (n + n)) ∎
 
-2^[x+1]-Even : ∀ {n} → N n → Even ([2] ^ (succ₁ n))
+2^[x+1]-Even : ∀ {n} → N n → Even ([2] ^ succ₁ n)
 2^[x+1]-Even {n} Nn = subst Even (sym (^-S [2] n)) (2x-Even (^-N 2-N Nn))

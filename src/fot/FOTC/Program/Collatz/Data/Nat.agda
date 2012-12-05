@@ -36,10 +36,10 @@ postulate
   odd  : D → D
 
   even-0 : even zero            ≡ true
-  even-S : ∀ d → even (succ₁ d) ≡ odd d
+  even-S : ∀ n → even (succ₁ n) ≡ odd n
 
   odd-0 : odd zero            ≡ false
-  odd-S : ∀ d → odd (succ₁ d) ≡ even d
+  odd-S : ∀ n → odd (succ₁ n) ≡ even n
 {-# ATP axiom even-0 even-S odd-0 odd-S #-}
 
 Even : D → Set

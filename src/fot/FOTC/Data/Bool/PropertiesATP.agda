@@ -40,9 +40,9 @@ not-Bool bfalse = prf
 
 &&-list₂-t : ∀ {a b} → Bool a → Bool b → a && b ≡ true → a ≡ true ∧ b ≡ true
 &&-list₂-t btrue btrue   h = refl , refl
-&&-list₂-t btrue bfalse  h = ⊥-elim (true≢false (trans (sym h) (t&&x≡x false)))
-&&-list₂-t bfalse btrue  h = ⊥-elim (true≢false (trans (sym h) (f&&x≡f true)))
-&&-list₂-t bfalse bfalse h = ⊥-elim (true≢false (trans (sym h) (f&&x≡f false)))
+&&-list₂-t btrue bfalse  h = ⊥-elim (t≢f (trans (sym h) (t&&x≡x false)))
+&&-list₂-t bfalse btrue  h = ⊥-elim (t≢f (trans (sym h) (f&&x≡f true)))
+&&-list₂-t bfalse bfalse h = ⊥-elim (t≢f (trans (sym h) (f&&x≡f false)))
 
 &&-list₂-t₁ : ∀ {a b} → Bool a → Bool b → a && b ≡ true → a ≡ true
 &&-list₂-t₁ Ba Bb h = ∧-proj₁ (&&-list₂-t Ba Bb h)
@@ -53,17 +53,17 @@ not-Bool bfalse = prf
 &&-list₄-some-f : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
                   a ≡ false ∨ b ≡ false ∨ c ≡ false ∨ d ≡ false →
                   a && b && c && d ≡ false
-&&-list₄-some-f btrue Bb Bc Bd (inj₁ h) = ⊥-elim (true≢false h)
-&&-list₄-some-f btrue btrue Bc Bd (inj₂ (inj₁ h)) = ⊥-elim (true≢false h)
-&&-list₄-some-f btrue btrue btrue Bd (inj₂ (inj₂ (inj₁ h))) = ⊥-elim (true≢false h)
-&&-list₄-some-f btrue btrue btrue btrue (inj₂ (inj₂ (inj₂ h))) = ⊥-elim (true≢false h)
+&&-list₄-some-f btrue Bb Bc Bd (inj₁ h) = ⊥-elim (t≢f h)
+&&-list₄-some-f btrue btrue Bc Bd (inj₂ (inj₁ h)) = ⊥-elim (t≢f h)
+&&-list₄-some-f btrue btrue btrue Bd (inj₂ (inj₂ (inj₁ h))) = ⊥-elim (t≢f h)
+&&-list₄-some-f btrue btrue btrue btrue (inj₂ (inj₂ (inj₂ h))) = ⊥-elim (t≢f h)
 &&-list₄-some-f btrue btrue btrue bfalse (inj₂ (inj₂ (inj₂ h))) =
   trans (t&&x≡x (true && true && false))
         (trans (t&&x≡x (true && false)) (t&&x≡x false))
 &&-list₄-some-f btrue btrue bfalse btrue (inj₂ (inj₂ (inj₁ h))) =
   trans (t&&x≡x (true && false && true))
         (trans (t&&x≡x (false && true)) (f&&x≡f true))
-&&-list₄-some-f btrue btrue bfalse btrue (inj₂ (inj₂ (inj₂ h))) = ⊥-elim (true≢false h)
+&&-list₄-some-f btrue btrue bfalse btrue (inj₂ (inj₂ (inj₂ h))) = ⊥-elim (t≢f h)
 &&-list₄-some-f btrue btrue bfalse bfalse (inj₂ (inj₂ h)) =
   trans (t&&x≡x (true && false && false))
         (trans (t&&x≡x (false && false)) (f&&x≡f false))
@@ -76,18 +76,18 @@ not-Bool bfalse = prf
              a ≡ true ∧ b ≡ true ∧ c ≡ true ∧ d ≡ true
 &&-list₄-t btrue btrue btrue btrue h = refl , refl , refl , refl
 &&-list₄-t btrue btrue btrue bfalse h =
-  ⊥-elim (true≢false
+  ⊥-elim (t≢f
            (trans (sym h)
                   (&&-list₄-some-f btrue btrue btrue bfalse (inj₂ (inj₂ (inj₂ refl))))))
 &&-list₄-t btrue btrue bfalse Bd h =
-  ⊥-elim (true≢false
+  ⊥-elim (t≢f
            (trans (sym h)
                   (&&-list₄-some-f btrue btrue bfalse Bd (inj₂ (inj₂ (inj₁ refl))))))
 &&-list₄-t btrue bfalse Bc Bd h =
-  ⊥-elim (true≢false
+  ⊥-elim (t≢f
            (trans (sym h) (&&-list₄-some-f btrue bfalse Bc Bd (inj₂ (inj₁ refl)))))
 &&-list₄-t bfalse Bb Bc Bd h =
-  ⊥-elim (true≢false (trans (sym h) (&&-list₄-some-f bfalse Bb Bc Bd (inj₁ refl))))
+  ⊥-elim (t≢f (trans (sym h) (&&-list₄-some-f bfalse Bb Bc Bd (inj₁ refl))))
 
 &&-list₄-t₁ : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
               a && b && c && d ≡ true → a ≡ true

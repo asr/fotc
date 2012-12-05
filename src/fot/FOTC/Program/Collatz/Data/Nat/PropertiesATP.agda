@@ -38,7 +38,7 @@ div-2x-2≡x (nsucc (nsucc {n} Nn)) = prf (div-2x-2≡x (nsucc Nn))
                         div ([2] * (succ₁ (succ₁ n))) [2] ≡ succ₁ (succ₁ n)
         {-# ATP prove prf 2*SSx≥2 +-rightIdentity +-comm +-N #-}
 
-postulate 2^[x+1]/2≡2^x : ∀ {n} → N n → (div ([2] ^ (succ₁ n))) [2] ≡ [2] ^ n
+postulate 2^[x+1]/2≡2^x : ∀ {n} → N n → (div ([2] ^ succ₁ n)) [2] ≡ [2] ^ n
 {-# ATP prove 2^[x+1]/2≡2^x div-2x-2≡x ^-N #-}
 
 Sx≡2^0→x≡0 : ∀ {n} → N n → succ₁ n ≡ [2] ^ zero → n ≡ zero
@@ -61,7 +61,7 @@ Sx≡2^0→x≡0(nsucc {n} Nn) SSn≡2^0 = ⊥-elim prf
   where postulate prf : [2] ^ n ≢ zero →  ⊥
         {-# ATP prove prf xy≡0→x≡0∨y≡0 ^-N #-}
 
-2^[x+1]≢1 : ∀ {n} → N n → [2] ^ (succ₁ n) ≢ [1]
+2^[x+1]≢1 : ∀ {n} → N n → [2] ^ succ₁ n ≢ [1]
 2^[x+1]≢1 {n} Nn h =
   Sx≢x (nsucc nzero) (xy≡1→x≡1 2-N (^-N 2-N Nn) (trans (sym (^-S [2] n)) h))
 
@@ -84,8 +84,8 @@ mutual
           {-# ATP prove prf ∸-Odd Sx-Even→x-Odd S∸S #-}
 
   ∸-Odd : ∀ {m n} → N m → N n → Odd m → Odd n → Even (m ∸ n)
-  ∸-Odd nzero          Nn             h₁ _  = ⊥-elim (true≢false (trans (sym h₁) odd-0))
-  ∸-Odd (nsucc Nm)     nzero          _  h₂ = ⊥-elim (true≢false (trans (sym h₂) odd-0))
+  ∸-Odd nzero          Nn             h₁ _  = ⊥-elim (t≢f (trans (sym h₁) odd-0))
+  ∸-Odd (nsucc Nm)     nzero          _  h₂ = ⊥-elim (t≢f (trans (sym h₂) odd-0))
   ∸-Odd (nsucc {m} Nm) (nsucc {n} Nn) h₁ h₂ = prf
     where postulate prf : Even (succ₁ m ∸ succ₁ n)
           {-# ATP prove prf ∸-Even Sx-Odd→x-Even S∸S #-}

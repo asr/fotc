@@ -43,8 +43,8 @@ not-Bool bfalse = subst Bool (sym not-f) btrue
 &&-comm bfalse bfalse = refl
 
 x≢not-x : ∀ {b} → Bool b → b ≢ not b
-x≢not-x btrue  h = true≢false (trans h not-t)
-x≢not-x bfalse h = true≢false (sym (trans h not-f))
+x≢not-x btrue  h = t≢f (trans h not-t)
+x≢not-x bfalse h = t≢f (sym (trans h not-f))
 
 not-x≢x : ∀ {b} → Bool b → not b ≢ b
 not-x≢x Bb h = x≢not-x Bb (sym h)

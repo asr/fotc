@@ -19,6 +19,6 @@ open import FOTC.Program.Collatz.Data.Nat
 ------------------------------------------------------------------------------
 
 postulate
-  collatz-even : ∀ {n} → n > [1] → Even n → collatz n ≡ collatz (n / [2])
+  collatz-even : ∀ {n} → n > [1] → Even n → collatz n ≡ collatz (div n [2])
 -- The ATPs cannot prove this equation.
 -- {-# ATP prove collatz-even #-}

@@ -70,9 +70,9 @@ module m₂ where
   le→≤ : ∀ {m n} → N m → N n → le m n ≡ true → m ≤ n
   le→≤ nzero Nn h = z≤n Nn
   le→≤ (nsucc nzero) nzero h =
-    ⊥-elim (true≢false (trans (sym h) (trans (lt-SS zero zero) lt-00)))
+    ⊥-elim (t≢f (trans (sym h) (trans (lt-SS zero zero) lt-00)))
   le→≤ (nsucc (nsucc {m} Nm)) nzero h =
-    ⊥-elim (true≢false (trans (sym h) (trans (lt-SS (succ₁ m) zero) (lt-S0 m))))
+    ⊥-elim (t≢f (trans (sym h) (trans (lt-SS (succ₁ m) zero) (lt-S0 m))))
   le→≤ (nsucc {m} Nm) (nsucc {n} Nn) h =
     s≤s Nm Nn (le→≤ Nm Nn (trans (sym (lt-SS m (succ₁ n))) h))
 
