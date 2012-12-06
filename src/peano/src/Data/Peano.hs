@@ -28,6 +28,8 @@ import Test.QuickCheck
 -- Note that the auto-derived Ord instance have exactly the right
 -- behavior due to the fact that we happened to list the Zero
 -- constructor first.
+
+-- | Peano natural numbers.
 data Nat = Zero | Succ Nat
          deriving (Eq, Ord)
 
@@ -60,6 +62,7 @@ instance Num Nat where
                   then error "fromInteger: negative value"
                   else Succ (fromInteger (n - 1))
 
+-- | Truncated subtraction.
 (∸) ∷ Nat → Nat → Nat
 (∸) = (-)
 
