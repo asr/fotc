@@ -416,6 +416,8 @@ git_pre_commit :
 install :
 	cd $(agda2atp_path) && cabal install
 	cd $(dump-agdai_path) && cabal install
+	cd $(fix-whitespace_path) && cabal install
+	cd $(peano_path) && cabal install
 
 ##############################################################################
 # Haskell program coverage
