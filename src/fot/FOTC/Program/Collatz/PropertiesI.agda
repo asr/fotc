@@ -25,29 +25,42 @@ open import FOTC.Program.Collatz.Data.Nat.PropertiesI
 collatzCong : ∀ {m n} → m ≡ n → collatz m ≡ collatz n
 collatzCong refl = refl
 
-collatz-2^x : ∀ {n} → N n → (∃[ k ] N k ∧ n ≡ [2] ^ k) → collatz n ≡ [1]
-collatz-2^x nzero _ = collatz-0
-collatz-2^x (nsucc {n} Nn) (.zero , nzero , Sn≡2^0) =
-  subst (λ t → collatz t ≡ [1])
-        (succCong (sym (Sx≡2^0→x≡0 Nn Sn≡2^0)))
-        collatz-1
-collatz-2^x (nsucc {n} Nn) (.(succ₁ k) , nsucc {k} Nk , Sn≡2^k+1) =
-  collatz (succ₁ n)
-    ≡⟨ collatzCong Sn≡2^k+1 ⟩
-  collatz ([2] ^ (succ₁ k))
+helper : ∀ {n} → N n → collatz ([2] ^ succ₁ n) ≡ collatz ([2] ^ n)
+helper nzero =
+  collatz ([2] ^ [1])   ≡⟨ collatzCong (x^1≡x 2-N) ⟩
+  collatz [2]           ≡⟨ collatz-even 2-Even ⟩
+  collatz (div [2] [2]) ≡⟨ collatzCong (div-x-x≡1 2-N S≢0) ⟩
+  collatz ([1])         ≡⟨ collatzCong (sym (^-0 [2])) ⟩
+  collatz ([2] ^ [0])   ∎
+
+helper (nsucc {n} Nn) =
+  collatz ([2] ^ succ₁ (succ₁ n))
     ≡⟨ collatzCong prf ⟩
-  collatz (succ₁ (succ₁ (([2] ^ (succ₁ k)) ∸ [2])))
-    ≡⟨ collatz-even (x-Even→SSx-Even (∸-N (^-N 2-N (nsucc Nk)) 2-N)
-                    (∸-Even (^-N 2-N (nsucc Nk)) 2-N (2^[x+1]-Even Nk)
-                            (x-Even→SSx-Even nzero even-0)))
-    ⟩
-  collatz (div (succ₁ (succ₁ (([2] ^ (succ₁ k)) ∸ [2]))) [2])
+  collatz (succ₁ (succ₁ ([2] ^ succ₁ (succ₁ n) ∸ [2])))
+    ≡⟨ collatz-even (x-Even→SSx-Even
+                       (∸-N (^-N 2-N (nsucc (nsucc Nn))) 2-N)
+                       (∸-Even (^-N 2-N (nsucc (nsucc Nn))) 2-N
+                               (2^[x+1]-Even (nsucc Nn)) 2-Even)) ⟩
+  collatz (div (succ₁ (succ₁ (([2] ^ succ₁ (succ₁ n)) ∸ [2]))) [2])
     ≡⟨ collatzCong (divLeftCong (sym prf)) ⟩
-  collatz (div ([2] ^ (succ₁ k)) [2])
-    ≡⟨ collatzCong (div-2^[x+1]-2≡2^x Nk) ⟩
-  collatz ([2] ^ k)
-    ≡⟨ collatz-2^x (^-N 2-N Nk) (k , Nk , refl) ⟩
-  [1] ∎
+  collatz (div ([2] ^ succ₁ (succ₁ n)) [2])
+    ≡⟨ collatzCong (div-2^[x+1]-2≡2^x (nsucc Nn)) ⟩
+  collatz ([2] ^ succ₁ n) ∎
   where
-  prf : [2] ^ succ₁ k ≡ succ₁ (succ₁ ([2] ^ succ₁ k ∸ [2]))
-  prf = +∸2 (^-N 2-N (nsucc Nk)) (2^x≢0 (nsucc Nk)) (2^[x+1]≢1 Nk)
+  prf : [2] ^ succ₁ (succ₁ n) ≡ succ₁ (succ₁ ([2] ^ succ₁ (succ₁ n) ∸ [2]))
+  prf = (+∸2 (^-N 2-N (nsucc (nsucc Nn)))
+             (2^x≢0 (nsucc (nsucc Nn)))
+             (2^[x+1]≢1 (nsucc Nn)))
+
+collatz-2^x : ∀ {n} → N n → (∃[ k ] N k ∧ n ≡ [2] ^ k) → collatz n ≡ [1]
+collatz-2^x {n} Nn (.zero , nzero , h) =
+  collatz n           ≡⟨ collatzCong h ⟩
+  collatz ([2] ^ [0]) ≡⟨ collatzCong (^-0 [2]) ⟩
+  collatz [1]         ≡⟨ collatz-1 ⟩
+  [1]                 ∎
+
+collatz-2^x {n} Nn (.(succ₁ k) , nsucc {k} Nk , h) =
+  collatz n               ≡⟨ collatzCong h ⟩
+  collatz ([2] ^ succ₁ k) ≡⟨ helper Nk ⟩
+  collatz ([2] ^ k)       ≡⟨ collatz-2^x (^-N 2-N Nk) (k , (Nk , refl)) ⟩
+  [1]                     ∎

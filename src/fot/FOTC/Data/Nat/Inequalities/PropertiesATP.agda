@@ -68,6 +68,10 @@ x≤x (nsucc {n} Nn) = trans (lt-SS n (succ₁ n)) (x≤x Nn)
 x≥x : ∀ {n} → N n → n ≥ n
 x≥x Nn = x≤x Nn
 
+postulate 2*SSx≥2 : ∀ {n} → N n →
+                    succ₁ (succ₁ zero) * succ₁ (succ₁ n) ≥ succ₁ (succ₁ zero)
+{-# ATP prove 2*SSx≥2 #-}
+
 x≤y→Sx≤Sy : ∀ {m n} → m ≤ n → succ₁ m ≤ succ₁ n
 x≤y→Sx≤Sy {m} {n} m≤n = trans (lt-SS m (succ₁ n)) m≤n
 

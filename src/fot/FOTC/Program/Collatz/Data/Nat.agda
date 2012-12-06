@@ -21,8 +21,8 @@ infixr 12 _^_
 
 postulate
   div     : D → D → D
-  div-x<y : ∀ {m n} → m < n → div m n ≡ zero
-  div-x≥y : ∀ {m n} → m ≥ n → div m n ≡ succ₁ (div (m ∸ n) n)
+  div-x<y : ∀ {m n} → n ≢ [0] → m < n → div m n ≡ zero
+  div-x≥y : ∀ {m n} → n ≢ [0] → m ≥ n → div m n ≡ succ₁ (div (m ∸ n) n)
 {-# ATP axiom div-x<y div-x≥y #-}
 
 postulate
