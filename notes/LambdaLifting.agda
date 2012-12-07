@@ -20,7 +20,7 @@ infixl 9  _+_
 postulate
   D                : Set
   zero true false  : D
-  succ isZero pred : D → D
+  succ iszero pred : D → D
   _·_              : D → D → D
   if_then_else_    : D → D → D → D
   lam fix          : (D → D) → D
@@ -43,11 +43,11 @@ postulate
   pred-S : ∀ d → pred (succ d) ≡ d
 {-# ATP axiom pred-S #-}
 
--- Conversion rules for isZero.
+-- Conversion rules for iszero.
 postulate
-  isZero-0 :       isZero zero     ≡ true
-  isZero-S : ∀ d → isZero (succ d) ≡ false
-{-# ATP axiom isZero-0 isZero-S #-}
+  iszero-0 :       iszero zero     ≡ true
+  iszero-S : ∀ d → iszero (succ d) ≡ false
+{-# ATP axiom iszero-0 iszero-S #-}
 
 -- Conversion rule for the λ-abstraction and the application.
 postulate beta : ∀ f a → lam f · a ≡ f a
@@ -59,25 +59,25 @@ postulate fix-eq : ∀ f → fix f ≡ f (fix  f)
 
 postulate
   _+_  : D → D → D
-  +-0x : ∀ d →   zero   + d ≡ d
+  +-0x : ∀ d → zero + d     ≡ d
   +-Sx : ∀ d e → succ d + e ≡ succ (d + e)
 {-# ATP axiom +-0x +-Sx #-}
 
 postulate
   _*_  : D → D → D
-  *-0x : ∀ d →   zero   * d ≡ zero
+  *-0x : ∀ d → zero * d ≡ zero
   *-Sx : ∀ d e → succ d * e ≡ e + d * e
 {-# ATP axiom *-0x *-Sx #-}
 
 ------------------------------------------------------------------------------
 -- The original fach
 -- fach : D → D
--- fach f = lam (λ n → if (isZero n) then (succ zero) else n * (f · (pred n)))
+-- fach f = lam (λ n → if (iszero n) then (succ zero) else n * (f · (pred n)))
 
 -- Lambda-lifting via super-combinators (Hughes. Super-combinators. 1982).
 
 α : D → D → D
-α f n = if (isZero n) then (succ zero) else n * (f · (pred n))
+α f n = if (iszero n) then (succ zero) else n * (f · (pred n))
 {-# ATP definition α #-}
 
 fach : D → D
@@ -88,16 +88,13 @@ fac : D → D
 fac n = fix fach · n
 {-# ATP definition fac #-}
 
-postulate
-  fac0 : fac zero ≡ succ zero
+postulate fac0 : fac zero ≡ succ zero
 {-# ATP prove fac0 #-}
 
-postulate
-  fac1 : fac (succ zero) ≡ succ zero
+postulate fac1 : fac (succ zero) ≡ succ zero
 {-# ATP prove fac1 #-}
 
-postulate
-  fac2 : fac (succ (succ zero)) ≡ succ (succ zero)
+postulate fac2 : fac (succ (succ zero)) ≡ succ (succ zero)
 {-# ATP prove fac2 #-}
 
 ------------------------------------------------------------------------------

@@ -49,8 +49,7 @@ x>y→y≯x Nm             nzero          _     = 0≯x Nm
 x>y→y≯x (nsucc {m} Nm) (nsucc {n} Nn) Sm>Sn =
   trans (lt-SS m n) (x>y→y≯x Nm Nn (trans (sym (lt-SS n m)) Sm>Sn))
 
-postulate
-  x≯Sy→Sy>x : ∀ {m n} → N m → N n → m ≯ succ₁ n → succ₁ n > m
+postulate x≯Sy→Sy>x : ∀ {m n} → N m → N n → m ≯ succ₁ n → succ₁ n > m
 -- x≯Sy→Sy>x {n = n} nzero      Nn _ = <-0S n
 -- x≯Sy→Sy>x {n = n} (nsucc {m} Nm) Nn h = {!!}
 

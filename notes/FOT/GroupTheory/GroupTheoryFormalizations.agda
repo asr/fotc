@@ -56,8 +56,7 @@ leftInverse₁ = ∀ a → Σ G (λ a' → a' · a ≡ ε )
 -- Left-inverse property based on the signature (G, ·, _⁻¹, ε,).
 infix  11 _⁻¹
 
-postulate
- _⁻¹ : G → G -- The inverse function.
+postulate  _⁻¹ : G → G -- The inverse function.
 
 leftInverse₂ : Set
 leftInverse₂ = ∀ a → a ⁻¹ · a ≡ ε

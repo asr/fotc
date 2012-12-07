@@ -13,8 +13,7 @@ open import FOTC.Data.Bool.Type
 
 ------------------------------------------------------------------------------
 
-postulate
-  thm : (A : D → Set) → ∀ {b} → (Bool b ∧ A true ∧ A false) → A b
+postulate thm : (A : D → Set) → ∀ {b} → (Bool b ∧ A true ∧ A false) → A b
 -- The ATPs couldn't prove this postulate.
 -- {-# ATP prove thm #-}
 
@@ -33,8 +32,7 @@ _&&_ : D → D → D
 x && y = if x then y else false
 {-# ATP definition _&&_ #-}
 
-postulate
-  &&-Bool : ∀ {x y} → Bool x → Bool y → Bool (x && y)
+postulate &&-Bool : ∀ {x y} → Bool x → Bool y → Bool (x && y)
 {-# ATP prove &&-Bool if-T #-}
 
 &&-Bool₁ : ∀ {x y} → Bool x → Bool y → Bool (x && y)

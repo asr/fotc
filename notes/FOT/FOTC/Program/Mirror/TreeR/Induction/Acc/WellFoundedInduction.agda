@@ -16,8 +16,7 @@ open import FOTC.Program.Mirror.Type
 
 ------------------------------------------------------------------------------
 -- The relation TreeR is well-founded.
-postulate
-  wf-TreeR : WellFounded TreeR
+postulate wf-TreeR : WellFounded TreeR
 
 -- Well-founded induction on the relation TreeT.
 wfInd-TreeR :

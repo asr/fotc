@@ -28,8 +28,7 @@ open import FOTC.Program.Mirror.Forest.PropertiesI
 node-Forest : ∀ {d ts} → Tree (node d ts) → Forest ts
 node-Forest {d} (tree .d Fts) = Fts
 
-postulate
-  reverse-∷' : ∀ x ys → reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])
+postulate reverse-∷' : ∀ x ys → reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])
 
 -- The termination checker can not determine that the function mirror-Tree
 -- defined by

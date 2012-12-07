@@ -48,7 +48,7 @@ postulate
   le-ItemList    : D → D → D
   le-ItemList-[] : ∀ item → le-ItemList item [] ≡ true
   le-ItemList-∷  : ∀ item i is →
-                  le-ItemList item (i ∷ is) ≡ le item i && le-ItemList item is
+                   le-ItemList item (i ∷ is) ≡ le item i && le-ItemList item is
 {-# ATP axiom le-ItemList-[] le-ItemList-∷ #-}
 
 ≤-ItemList : D → D → Set
@@ -59,7 +59,7 @@ postulate
   le-Lists    : D → D → D
   le-Lists-[] : ∀ is → le-Lists [] is ≡ true
   le-Lists-∷  : ∀ i is js →
-               le-Lists (i ∷ is) js ≡ le-ItemList i js && le-Lists is js
+                le-Lists (i ∷ is) js ≡ le-ItemList i js && le-Lists is js
 {-# ATP axiom le-Lists-[] le-Lists-∷ #-}
 
 ≤-Lists : D → D → Set
@@ -71,8 +71,8 @@ postulate
   le-ItemTree-nil  : ∀ item → le-ItemTree item nil ≡ true
   le-ItemTree-tip  : ∀ item i → le-ItemTree item (tip i) ≡ le item i
   le-ItemTree-node : ∀ item t₁ i t₂ →
-                    le-ItemTree item (node t₁ i t₂) ≡
-                    le-ItemTree item t₁ && le-ItemTree item t₂
+                     le-ItemTree item (node t₁ i t₂) ≡
+                     le-ItemTree item t₁ && le-ItemTree item t₂
 {-# ATP axiom le-ItemTree-nil le-ItemTree-tip le-ItemTree-node #-}
 
 ≤-ItemTree : D → D → Set
@@ -85,8 +85,8 @@ postulate
   le-TreeItem-nil  : ∀ item → le-TreeItem nil item ≡ true
   le-TreeItem-tip  : ∀ i item → le-TreeItem (tip i) item ≡ le i item
   le-TreeItem-node : ∀ t₁ i t₂ item →
-                    le-TreeItem (node t₁ i t₂) item ≡
-                    le-TreeItem t₁ item && le-TreeItem t₂ item
+                     le-TreeItem (node t₁ i t₂) item ≡
+                     le-TreeItem t₁ item && le-TreeItem t₂ item
 {-# ATP axiom le-TreeItem-nil le-TreeItem-tip le-TreeItem-node #-}
 
 ≤-TreeItem : D → D → Set

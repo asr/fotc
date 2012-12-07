@@ -31,8 +31,7 @@ open import FOTC.Data.Nat
           ∀ {m} → N m → N (m + n)
 +-N-ind n = N-ind (λ i → N (i + n))
 
-postulate
-  +-N₁ : ∀ {m n} → N m → N n → N (m + n)
+postulate +-N₁ : ∀ {m n} → N m → N n → N (m + n)
 {-# ATP prove +-N₁ +-N-ind #-}
 
 -- Combined proof using the induction principle.

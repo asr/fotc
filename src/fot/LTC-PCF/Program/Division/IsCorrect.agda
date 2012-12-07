@@ -49,10 +49,9 @@ div-x<y-correct Ni Nj i<j = _ , Ni , i<j , div-x<y-helper Ni Nj i<j
 -- div i j = succ (div (i ∸ j) j) therefore we get
 --
 -- i = j * div i j + r.
-postulate
-  helper : ∀ {i j r} → N i → N j → N r →
-           i ∸ j ≡ j * div (i ∸ j) j + r →
-           i ≡ j * succ₁ (div (i ∸ j) j) + r
+postulate helper : ∀ {i j r} → N i → N j → N r →
+                   i ∸ j ≡ j * div (i ∸ j) j + r →
+                   i ≡ j * succ₁ (div (i ∸ j) j) + r
 
 div-x≮y-helper : ∀ {i j r} → N i → N j → N r →
                  i ≮ j →

@@ -9,8 +9,7 @@ module FOT.Common.FOL.Existential.Elimination where
 
 -----------------------------------------------------------------------------
 
-postulate
-  D : Set
+postulate D : Set
 
 module ∃₁ where
   -- Type theoretical version

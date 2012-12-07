@@ -17,7 +17,7 @@ postulate
 {-# ATP axiom +-eq #-}
 
 postulate
-  +-0x : ∀ n →   zero    + n ≡ n
+  +-0x : ∀ n → zero + n      ≡ n
   +-Sx : ∀ m n → succ₁ m + n ≡ succ₁ (m + n)
 {-# ATP prove +-0x #-}
 {-# ATP prove +-Sx #-}

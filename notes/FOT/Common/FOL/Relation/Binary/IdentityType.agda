@@ -21,10 +21,9 @@ module TypeTheory where
 
   -- Using the type-theoretic eliminator for equality.
 
-  postulate
-    J : (C : ∀ x y → x ≡ y → Set) →
-        (∀ x → (C x x refl)) →
-        ∀ x y → (c : x ≡ y) → C x y c
+  postulate J : (C : ∀ x y → x ≡ y → Set) →
+                (∀ x → (C x x refl)) →
+                ∀ x y → (c : x ≡ y) → C x y c
 
   -- From Thorsten's slides: A short history of equality.
   sym : ∀ {x y} → x ≡ y → y ≡ x
@@ -41,8 +40,7 @@ module FOL where
 
   -- Using the usual elimination schema for predicate logic.
 
-  postulate
-    J : (A : D → Set) → ∀ {x y} → x ≡ y → A x → A y
+  postulate J : (A : D → Set) → ∀ {x y} → x ≡ y → A x → A y
 
   sym : ∀ {x y} → x ≡ y → y ≡ x
   sym {x} {y} x≡y = J (λ y' → y' ≡ x) x≡y refl
@@ -57,10 +55,9 @@ module ML where
 
   -- Using Martin-Löf elimination ("Hauptsatz ...", 1971).
 
-  postulate
-    J  : (C : D → D → Set) →
-         (∀ x → (C x x)) →
-         ∀ x y → x ≡ y → C x y
+  postulate J : (C : D → D → Set) →
+                (∀ x → (C x x)) →
+                ∀ x y → x ≡ y → C x y
 
   sym : ∀ {x y} → x ≡ y → y ≡ x
   sym {x} {y} = J (λ x' y' → y' ≡ x') (λ x' → refl) x y

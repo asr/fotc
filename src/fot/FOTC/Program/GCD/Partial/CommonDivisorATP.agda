@@ -49,12 +49,10 @@ postulate gcd-S0-∣₁ : ∀ {n} → N n → gcd (succ₁ n) zero ∣ succ₁ n
 {-# ATP prove gcd-S0-∣₁ ∣-refl-S #-}
 
 -- gcd (succ₁ m) (succ₁ n) ∣ succ₁ m, when succ₁ m ≯ succ₁ n.
-postulate
-  gcd-S≯S-∣₁ :
-    ∀ {m n} → N m → N n →
-    (gcd (succ₁ m) (succ₁ n ∸ succ₁ m) ∣ succ₁ m) →
-    succ₁ m ≯ succ₁ n →
-    gcd (succ₁ m) (succ₁ n) ∣ succ₁ m
+postulate gcd-S≯S-∣₁ : ∀ {m n} → N m → N n →
+                       (gcd (succ₁ m) (succ₁ n ∸ succ₁ m) ∣ succ₁ m) →
+                       succ₁ m ≯ succ₁ n →
+                       gcd (succ₁ m) (succ₁ n) ∣ succ₁ m
 {-# ATP prove gcd-S≯S-∣₁ #-}
 
 -- gcd (succ₁ m) (succ₁ n) ∣ succ₁ m when succ₁ m > succ₁ n.
@@ -157,12 +155,10 @@ gcd-S≯S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≯Sn =
   gcd-Sm,Sn-Sm-N = gcd-N (nsucc Nm) (Sn-Sm-N) (λ p → ⊥-elim (S≢0 (∧-proj₁ p)))
 
 -- gcd (succ₁ m) (succ₁ n) ∣ succ₁ n when succ₁ m > succ₁ n.
-postulate
-  gcd-S>S-∣₂ :
-    ∀ {m n} → N m → N n →
-    (gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∣ succ₁ n) →
-    succ₁ m > succ₁ n →
-    gcd (succ₁ m) (succ₁ n) ∣ succ₁ n
+postulate gcd-S>S-∣₂ : ∀ {m n} → N m → N n →
+                       (gcd (succ₁ m ∸ succ₁ n) (succ₁ n) ∣ succ₁ n) →
+                       succ₁ m > succ₁ n →
+                       gcd (succ₁ m) (succ₁ n) ∣ succ₁ n
 {-# ATP prove gcd-S>S-∣₂ #-}
 
 ------------------------------------------------------------------------------

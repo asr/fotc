@@ -31,8 +31,7 @@ open import FOTC.Base
 -- Conat is the greatest fixed-point of ConatF (by Conat-unf and
 -- Conat-coind).
 
-postulate
-  Conat : D → Set
+postulate Conat : D → Set
 
 -- Conat is a post-fixed point of ConatF, i.e.
 --

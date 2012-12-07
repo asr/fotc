@@ -21,8 +21,7 @@ open import FOTC.Program.GCD.Total.GCD
 
 ------------------------------------------------------------------------------
 -- The gcd 0 0 is Divisible.
-postulate
-  gcd-00-Divisible : Divisible zero zero (gcd zero zero)
+postulate gcd-00-Divisible : Divisible zero zero (gcd zero zero)
 {-# ATP prove gcd-00-Divisible #-}
 
 -- The gcd 0 (succ n) is Divisible.

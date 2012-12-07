@@ -34,20 +34,18 @@ postulate gcd-S0-N : ∀ {n} → N n → N (gcd (succ₁ n) zero)
 
 ------------------------------------------------------------------------------
 -- gcd (succ₁ m) (succ₁ n) when succ₁ m > succ₁ n is total.
-postulate
-  gcd-S>S-N : ∀ {m n} → N m → N n →
-              N (gcd (succ₁ m ∸ succ₁ n) (succ₁ n)) →
-              succ₁ m > succ₁ n →
-              N (gcd (succ₁ m) (succ₁ n))
+postulate gcd-S>S-N : ∀ {m n} → N m → N n →
+                      N (gcd (succ₁ m ∸ succ₁ n) (succ₁ n)) →
+                      succ₁ m > succ₁ n →
+                      N (gcd (succ₁ m) (succ₁ n))
 {-# ATP prove gcd-S>S-N #-}
 
 ------------------------------------------------------------------------------
 -- gcd (succ₁ m) (succ₁ n) when succ₁ m ≯ succ₁ n is total.
-postulate
-  gcd-S≯S-N : ∀ {m n} → N m → N n →
-              N (gcd (succ₁ m) (succ₁ n ∸ succ₁ m)) →
-              succ₁ m ≯ succ₁ n →
-              N (gcd (succ₁ m) (succ₁ n))
+postulate gcd-S≯S-N : ∀ {m n} → N m → N n →
+                      N (gcd (succ₁ m) (succ₁ n ∸ succ₁ m)) →
+                      succ₁ m ≯ succ₁ n →
+                      N (gcd (succ₁ m) (succ₁ n))
 {-# ATP prove gcd-S≯S-N #-}
 
 ------------------------------------------------------------------------------

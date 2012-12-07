@@ -135,10 +135,9 @@ module Helper where
     js'-eq : js' ≡ out · not b · bs⁵ b i' is' cs' (fs₀⁵ fs₀') (fs₁⁵ ft₁ fs₁'')
     js'-eq = case js'-eq-helper₁ js'-eq-helper₂ bs'-eq
 
-    postulate
-      ds⁵-eq : ds⁵ cs' (fs₁⁵ ft₁ fs₁'') ≡
-               corrupt · (fs₁⁵ ft₁ fs₁'')
-                       · (b ∷ cs⁵ b i' is' cs' (fs₀⁵ fs₀') (fs₁⁵ ft₁ fs₁''))
+    postulate ds⁵-eq : ds⁵ cs' (fs₁⁵ ft₁ fs₁'') ≡
+                       corrupt · (fs₁⁵ ft₁ fs₁'')
+                               · (b ∷ cs⁵ b i' is' cs' (fs₀⁵ fs₀') (fs₁⁵ ft₁ fs₁''))
 
     ABP'IH : ABP' b i' is'
                   (fs₀⁵ fs₀')

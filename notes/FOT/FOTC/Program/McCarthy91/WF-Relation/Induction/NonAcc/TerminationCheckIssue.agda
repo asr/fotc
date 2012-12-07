@@ -7,8 +7,7 @@ module FOT.FOTC.Program.McCarthy91.WF-Relation.Induction.NonAcc.TerminationCheck
 
 open import Data.Nat
 
-postulate
-  someℕ : ℕ
+postulate someℕ : ℕ
 
 foo : ℕ → ℕ → ℕ
 foo n       zero    = 10

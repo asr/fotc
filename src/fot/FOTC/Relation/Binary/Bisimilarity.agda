@@ -19,8 +19,7 @@ infix 7 _≈_
 -- (see below).
 
 -- The bisimilarity relation on unbounded lists.
-postulate
-  _≈_ : D → D → Set
+postulate _≈_ : D → D → Set
 
 -- The bisimilarity relation _≈_ on unbounded lists is a post-fixed
 -- point of the bisimulation functional (see below).
@@ -35,14 +34,13 @@ postulate
 -- N.B. This is an axiom schema. Because in the automatic proofs we
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
-postulate
-  ≈-coind : (R : D → D → Set) →
-            -- R is a post-fixed point of the bisimulation functional.
-            (∀ {xs ys} → R xs ys →
-              ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
-              R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
-            -- _≈_ is greater than R.
-            ∀ {xs ys} → R xs ys → xs ≈ ys
+postulate ≈-coind : (R : D → D → Set) →
+                    -- R is a post-fixed point of the bisimulation functional.
+                    (∀ {xs ys} → R xs ys →
+                      ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
+                      R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
+                    -- _≈_ is greater than R.
+                    ∀ {xs ys} → R xs ys → xs ≈ ys
 
 -- Because a greatest post-fixed point is a fixed-point, the
 -- bisimilarity relation _≈_ on unbounded lists is also a pre-fixed

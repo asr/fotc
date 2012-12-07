@@ -121,85 +121,69 @@ prop₂ u x y z =
 
   -- Steps justifications
 
-  postulate
-    j₁ : xy·zu · (xy·zu · xz·yu) ≡
-         xy·zu · (x·zu · y·zu · xz·yu)
+  postulate j₁ : xy·zu · (xy·zu · xz·yu) ≡
+                 xy·zu · (x·zu · y·zu · xz·yu)
   {-# ATP prove j₁ #-}
 
-  postulate
-    j₂ : xy·zu · (x·zu · y·zu · xz·yu) ≡
-         xy·zu · (x·zu · xz·yu · (y·zu · xz·yu))
+  postulate j₂ : xy·zu · (x·zu · y·zu · xz·yu) ≡
+                 xy·zu · (x·zu · xz·yu · (y·zu · xz·yu))
   {-# ATP prove j₂ #-}
 
-  postulate
-    j₃ : xy·zu · (x·zu · xz·yu · (y·zu · xz·yu)) ≡
-         xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu))
+  postulate j₃ : xy·zu · (x·zu · xz·yu · (y·zu · xz·yu)) ≡
+                 xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu))
   {-# ATP prove j₃ #-}
 
   -- 25 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
-  postulate
-    j₄ : xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu)) ≡
-         xy·zu · (xz · xu·yu · (y·zu · xz·yu))
+  postulate j₄ : xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu)) ≡
+                 xy·zu · (xz · xu·yu · (y·zu · xz·yu))
   {-# ATP prove j₄ #-}
 
-  postulate
-    j₅ : xy·zu · (xz · xu·yu · (y·zu · xz·yu)) ≡
-         xy·zu · (xz · xyu · (y·zu · xz·yu))
+  postulate j₅ : xy·zu · (xz · xu·yu · (y·zu · xz·yu)) ≡
+                 xy·zu · (xz · xyu · (y·zu · xz·yu))
   {-# ATP prove j₅ #-}
 
-  postulate
-    j₆ : xy·zu · (xz · xyu · (y·zu · xz·yu)) ≡
-         xy·zu · (xz · xyu · (yz·yu · xz·yu))
+  postulate j₆ : xy·zu · (xz · xyu · (y·zu · xz·yu)) ≡
+                 xy·zu · (xz · xyu · (yz·yu · xz·yu))
   {-# ATP prove j₆ #-}
 
-  postulate
-    j₇ : xy·zu · (xz · xyu · (yz·yu · xz·yu)) ≡
-         xy·zu · (xz · xyu · (yz·xz · yu))
+  postulate j₇ : xy·zu · (xz · xyu · (yz·yu · xz·yu)) ≡
+                 xy·zu · (xz · xyu · (yz·xz · yu))
   {-# ATP prove j₇ #-}
 
-  postulate
-    j₈ : xy·zu · (xz · xyu · (yz·xz · yu)) ≡
-         xy·zu · (xz · xyu · (yxz · yu))
+  postulate j₈ : xy·zu · (xz · xyu · (yz·xz · yu)) ≡
+                 xy·zu · (xz · xyu · (yxz · yu))
   {-# ATP prove j₈ #-}
 
-  postulate
-    j₉ : xy·zu · (xz · xyu · (yxz · yu)) ≡
-         xy·zu · (xz · xyu · (yx·yu · z·yu))
+  postulate j₉ : xy·zu · (xz · xyu · (yxz · yu)) ≡
+                 xy·zu · (xz · xyu · (yx·yu · z·yu))
   {-# ATP prove j₉ #-}
 
-  postulate
-    j₁₀ : xy·zu · (xz · xyu · (yx·yu · z·yu)) ≡
-          xy·zu · (xz · xyu · (y·xu · z·yu))
+  postulate j₁₀ : xy·zu · (xz · xyu · (yx·yu · z·yu)) ≡
+                  xy·zu · (xz · xyu · (y·xu · z·yu))
   {-# ATP prove j₁₀ #-}
 
-  postulate
-    j₁₁ : xy·zu · (xz · xyu · (y·xu · z·yu)) ≡
-          xyz · xyu · (xz · xyu · (y·xu · z·yu))
+  postulate j₁₁ : xy·zu · (xz · xyu · (y·xu · z·yu)) ≡
+                  xyz · xyu · (xz · xyu · (y·xu · z·yu))
   {-# ATP prove j₁₁ #-}
 
-  postulate
-    j₁₂ : xyz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
-          xz·yz · xyu · (xz · xyu · (y·xu · z·yu))
+  postulate j₁₂ : xyz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
+                  xz·yz · xyu · (xz · xyu · (y·xu · z·yu))
   {-# ATP prove j₁₂ #-}
 
-  postulate
-    j₁₃ : xz·yz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
-          xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu))
+  postulate j₁₃ : xz·yz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
+                  xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu))
   {-# ATP prove j₁₃ #-}
 
-  postulate
-    j₁₄ : xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu)) ≡
-          xz · xyu · (yz · xyu · (y·xu · z·yu))
+  postulate j₁₄ : xz · xyu · (yz · xyu) · (xz · xyu · (y·xu · z·yu)) ≡
+                  xz · xyu · (yz · xyu · (y·xu · z·yu))
   {-# ATP prove j₁₄ #-}
 
-  postulate
-    j₁₅ : xz · xyu · (yz · xyu · (y·xu · z·yu)) ≡
-          xz · xyu · (yz · xu·yu · (y·xu · z·yu))
+  postulate j₁₅ : xz · xyu · (yz · xyu · (y·xu · z·yu)) ≡
+                  xz · xyu · (yz · xu·yu · (y·xu · z·yu))
   {-# ATP prove j₁₅ #-}
 
-  postulate
-    j₁₆ : xz · xyu · (yz · xu·yu · (y·xu · z·yu)) ≡
-          xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu))
+  postulate j₁₆ : xz · xyu · (yz · xu·yu · (y·xu · z·yu)) ≡
+                  xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu))
   {-# ATP prove j₁₆ #-}
 
   postulate
@@ -227,77 +211,55 @@ prop₂ u x y z =
           xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu)))
   {-# ATP prove j₂₀ #-}
 
-  postulate
-    j₂₁ : xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu))) ≡
-          xz · xyu · (y·xu · y·zu · (z · xu·yu · (y·xu · z·yu)))
+  postulate j₂₁ : xz · xyu · (y·xu · yz·yu · (z · xu·yu · (y·xu · z·yu))) ≡
+                  xz · xyu · (y·xu · y·zu · (z · xu·yu · (y·xu · z·yu)))
   {-# ATP prove j₂₁ #-}
 
-  postulate
-    j₂₂ : xz · xyu · (y·xu · y·zu · (z · xu·yu · (y·xu · z·yu))) ≡
-          xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))
+  postulate j₂₂ : xz · xyu · (y·xu · y·zu · (z · xu·yu · (y·xu · z·yu))) ≡
+                  xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu)))
   {-# ATP prove j₂₂ #-}
 
-  postulate
-    j₂₃ : xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu))) ≡
-          xz · xyu · (y · xu·zu · (z·xu · z·yu · (y·xu · z·yu)))
+  postulate j₂₃ : xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu))) ≡
+                  xz · xyu · (y · xu·zu · (z·xu · z·yu · (y·xu · z·yu)))
   {-# ATP prove j₂₃ #-}
 
-  postulate
-    j₂₄ : xz · xyu · (y · xu·zu · (z·xu · z·yu · (y·xu · z·yu))) ≡
-          (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))
+  postulate j₂₄ : xz · xyu · (y · xu·zu · (z·xu · z·yu · (y·xu · z·yu))) ≡
+                  (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))
   {-# ATP prove j₂₄ #-}
 
-  postulate
-    j₂₅ : (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu)) ≡
-          xz · xyu · (y · xu·zu · (zy·xu · z·yu))
+  postulate j₂₅ : (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu)) ≡
+                  xz · xyu · (y · xu·zu · (zy·xu · z·yu))
   {-# ATP prove j₂₅ #-}
 
-  postulate
-    j₂₆ : xz · xyu · (y · xu·zu · (zy·xu · z·yu)) ≡
-          xz · xyu · (y · xu·zu · (zy·xu · zy·zu))
+  postulate j₂₆ : xz · xyu · (y · xu·zu · (zy·xu · z·yu)) ≡
+                  xz · xyu · (y · xu·zu · (zy·xu · zy·zu))
   {-# ATP prove j₂₆ #-}
 
-  postulate
-    j₂₇ : xz · xyu · (y · xu·zu · (zy·xu · zy·zu)) ≡
-          xz · xyu · (y · xu·zu · (zy · xu·zu))
+  postulate j₂₇ : xz · xyu · (y · xu·zu · (zy·xu · zy·zu)) ≡
+                  xz · xyu · (y · xu·zu · (zy · xu·zu))
   {-# ATP prove j₂₇ #-}
 
-  postulate
-    j₂₈ : xz · xyu · (y · xu·zu · (zy · xu·zu)) ≡
-          xz · xyu · (y·zy · xu·zu)
+  postulate j₂₈ : xz · xyu · (y · xu·zu · (zy · xu·zu)) ≡
+                  xz · xyu · (y·zy · xu·zu)
   {-# ATP prove j₂₈ #-}
 
-  postulate
-    j₂₉ : xz · xyu · (y·zy · xu·zu) ≡
-          xz · xyu · (y·zy · xzu)
+  postulate j₂₉ : xz · xyu · (y·zy · xu·zu) ≡ xz · xyu · (y·zy · xzu)
   {-# ATP prove j₂₉ #-}
 
-  postulate
-    j₃₀ : xz · xyu · (y·zy · xzu) ≡
-          xz·xy · xzu · (y·zy · xzu)
+  postulate j₃₀ : xz · xyu · (y·zy · xzu) ≡ xz·xy · xzu · (y·zy · xzu)
   {-# ATP prove j₃₀ #-}
 
-  postulate
-    j₃₁ : xz·xy · xzu · (y·zy · xzu) ≡
-          x·zy · xzu · (y·zy · xzu)
+  postulate j₃₁ : xz·xy · xzu · (y·zy · xzu) ≡ x·zy · xzu · (y·zy · xzu)
   {-# ATP prove j₃₁ #-}
 
-  postulate
-    j₃₂ : x·zy · xzu · (y·zy · xzu) ≡
-          x·zy · y·zy · xzu
+  postulate j₃₂ : x·zy · xzu · (y·zy · xzu) ≡ x·zy · y·zy · xzu
   {-# ATP prove j₃₂ #-}
 
-  postulate
-    j₃₃ : x·zy · y·zy · xzu ≡
-          xy·zy · xzu
+  postulate j₃₃ : x·zy · y·zy · xzu ≡ xy·zy · xzu
   {-# ATP prove j₃₃ #-}
 
-  postulate
-    j₃₄ : xy·zy · xzu ≡
-          xzy · xzu
+  postulate j₃₄ : xy·zy · xzu ≡ xzy · xzu
   {-# ATP prove j₃₄ #-}
 
-  postulate
-    j₃₅ : xzy · xzu ≡
-          xz·yu
+  postulate j₃₅ : xzy · xzu ≡ xz·yu
   {-# ATP prove j₃₅ #-}

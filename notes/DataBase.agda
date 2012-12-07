@@ -21,12 +21,10 @@ postulate
   h₂      : Q → R
   h₃      : R → S
 
-postulate
-  thm₁ : P → S
+postulate thm₁ : P → S
 {-# ATP prove thm₁ h₁ h₂ h₃ #-}
 
 db = h₁ ,′ h₂ ,′ h₃
 
-postulate
-  thm₂ : P → S
+postulate thm₂ : P → S
 {-# ATP prove thm₂ db #-}

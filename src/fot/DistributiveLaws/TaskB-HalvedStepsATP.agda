@@ -98,51 +98,42 @@ prop₂ u x y z =
 
   -- Steps justifications
 
-  postulate
-    j₁₋₃   : xy·zu · (xy·zu · xz·yu) ≡
-             xy·zu · (x·zu · xz·yu · (y·zu · xz·yu))
+  postulate j₁₋₃ : xy·zu · (xy·zu · xz·yu) ≡
+                   xy·zu · (x·zu · xz·yu · (y·zu · xz·yu))
   {-# ATP prove j₁₋₃ #-}
 
   -- 25 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
-  postulate
-    j₃₋₅   : xy·zu · (x·zu · xz·yu · (y·zu · xz·yu)) ≡
-             xy·zu · (xz · xu·yu · (y·zu · xz·yu))
+  postulate j₃₋₅ : xy·zu · (x·zu · xz·yu · (y·zu · xz·yu)) ≡
+                   xy·zu · (xz · xu·yu · (y·zu · xz·yu))
   {-# ATP prove j₃₋₅ #-}
 
-  postulate
-    j₅₋₇   : xy·zu · (xz · xu·yu · (y·zu · xz·yu)) ≡
-             xy·zu · (xz · xyu · (yz·yu · xz·yu))
+  postulate j₅₋₇ : xy·zu · (xz · xu·yu · (y·zu · xz·yu)) ≡
+                   xy·zu · (xz · xyu · (yz·yu · xz·yu))
   {-# ATP prove j₅₋₇ #-}
 
-  postulate
-    j₇₋₉   : xy·zu · (xz · xyu · (yz·yu · xz·yu)) ≡
-             xy·zu · (xz · xyu · (yxz · yu))
+  postulate j₇₋₉ : xy·zu · (xz · xyu · (yz·yu · xz·yu)) ≡
+                   xy·zu · (xz · xyu · (yxz · yu))
   {-# ATP prove j₇₋₉ #-}
 
-  postulate
-    j₉₋₁₁  : xy·zu · (xz · xyu · (yxz · yu)) ≡
-             xy·zu · (xz · xyu · (y·xu · z·yu))
+  postulate j₉₋₁₁ : xy·zu · (xz · xyu · (yxz · yu)) ≡
+                    xy·zu · (xz · xyu · (y·xu · z·yu))
   {-# ATP prove j₉₋₁₁ #-}
 
-  postulate
-    j₁₁₋₁₃ : xy·zu · (xz · xyu · (y·xu · z·yu)) ≡
-             xz·yz · xyu · (xz · xyu · (y·xu · z·yu))
+  postulate j₁₁₋₁₃ : xy·zu · (xz · xyu · (y·xu · z·yu)) ≡
+                     xz·yz · xyu · (xz · xyu · (y·xu · z·yu))
   {-# ATP prove j₁₁₋₁₃ #-}
 
-  postulate
-    j₁₃₋₁₅ : xz·yz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
-             xz · xyu · (yz · xyu · (y·xu · z·yu))
+  postulate j₁₃₋₁₅ : xz·yz · xyu · (xz · xyu · (y·xu · z·yu)) ≡
+                     xz · xyu · (yz · xyu · (y·xu · z·yu))
   {-# ATP prove j₁₃₋₁₅ #-}
 
-  postulate
-    j₁₅₋₁₇ : xz · xyu · (yz · xyu · (y·xu · z·yu)) ≡
-             xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu))
+  postulate j₁₅₋₁₇ : xz · xyu · (yz · xyu · (y·xu · z·yu)) ≡
+                     xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu))
   {-# ATP prove j₁₅₋₁₇ #-}
 
-  postulate
-    j₁₇₋₁₉ : xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu)) ≡
-             xz · xyu ·
-             (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
+  postulate j₁₇₋₁₉ : xz · xyu · (y · xu·yu · (z · xu·yu) · (y·xu · z·yu)) ≡
+                     xz · xyu ·
+                    (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
   {-# ATP prove j₁₇₋₁₉ #-}
 
   postulate
@@ -157,38 +148,29 @@ prop₂ u x y z =
   {-# ATP prove j₂₁₋₂₃ #-}
 
   -- 25 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
-  postulate
-    j₂₃₋₂₅ : xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu))) ≡
-             (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))
+  postulate j₂₃₋₂₅ : xz · xyu · (y · xu·zu · (z · xu·yu · (y·xu · z·yu))) ≡
+                     (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu))
   {-# ATP prove j₂₃₋₂₅ #-}
 
-  postulate
-    j₂₅₋₂₇ : (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu)) ≡
-             xz · xyu · (y · xu·zu · (zy·xu · zy·zu))
+  postulate j₂₅₋₂₇ : (xz · xyu) · (y · xu·zu · (z·xu · y·xu · z·yu)) ≡
+                     xz · xyu · (y · xu·zu · (zy·xu · zy·zu))
   {-# ATP prove j₂₅₋₂₇ #-}
 
   -- 25 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
-  postulate
-    j₂₇₋₂₉ : xz · xyu · (y · xu·zu · (zy·xu · zy·zu)) ≡
-             xz · xyu · (y·zy · xu·zu)
+  postulate j₂₇₋₂₉ : xz · xyu · (y · xu·zu · (zy·xu · zy·zu)) ≡
+                     xz · xyu · (y·zy · xu·zu)
   {-# ATP prove j₂₇₋₂₉ #-}
 
-  postulate
-    j₂₉₋₃₁ : xz · xyu · (y·zy · xu·zu) ≡
-             xz·xy · xzu · (y·zy · xzu)
+  postulate j₂₉₋₃₁ : xz · xyu · (y·zy · xu·zu) ≡
+                     xz·xy · xzu · (y·zy · xzu)
   {-# ATP prove j₂₉₋₃₁ #-}
 
-  postulate
-    j₃₁₋₃₃ : xz·xy · xzu · (y·zy · xzu) ≡
-             x·zy · y·zy · xzu
+  postulate j₃₁₋₃₃ : xz·xy · xzu · (y·zy · xzu) ≡
+                     x·zy · y·zy · xzu
   {-# ATP prove j₃₁₋₃₃ #-}
 
-  postulate
-    j₃₃₋₃₅ : x·zy · y·zy · xzu ≡
-             xzy · xzu
+  postulate j₃₃₋₃₅ : x·zy · y·zy · xzu ≡ xzy · xzu
   {-# ATP prove j₃₃₋₃₅ #-}
 
-  postulate
-    j₃₅    : xzy · xzu ≡
-             xz·yu
+  postulate j₃₅ : xzy · xzu ≡ xz·yu
   {-# ATP prove j₃₅ #-}

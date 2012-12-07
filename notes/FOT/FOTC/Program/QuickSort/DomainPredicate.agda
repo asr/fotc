@@ -19,20 +19,18 @@ open import FOTC.Data.List
 -- We need to define monadic inequalities.
 postulate
   le gt : D
-
-  le-00 :         le · zero    · zero    ≡ false
-  le-0S : ∀ d →   le · zero    · succ₁ d ≡ true
-  le-S0 : ∀ d →   le · succ₁ d · zero    ≡ false
+  le-00 : le · zero · zero               ≡ false
+  le-0S : ∀ d → le · zero · succ₁ d      ≡ true
+  le-S0 : ∀ d → le · succ₁ d · zero      ≡ false
   le-SS : ∀ d e → le · succ₁ d · succ₁ e ≡ lt d e
 
 postulate
   filter    : D → D → D
-  filter-[] : ∀ f →      filter f []       ≡ []
+  filter-[] : ∀ f → filter f [] ≡ []
   filter-∷  : ∀ f d ds → filter f (d ∷ ds) ≡
-                if f · d then d ∷ filter f (d ∷ ds) else filter f (d ∷ ds)
+              if f · d then d ∷ filter f (d ∷ ds) else filter f (d ∷ ds)
 
-postulate
-  filter-List : ∀ f {xs} → List xs → List (filter f xs)
+postulate filter-List : ∀ f {xs} → List xs → List (filter f xs)
 
 postulate
   qs    : D → D

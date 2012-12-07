@@ -21,18 +21,16 @@ open import FOTC.Program.SortList.Properties.Totality.TreeATP
 -- Subtrees
 
 -- If (node t₁ i t₂) is ordered then t₁ is ordered.
-postulate
-  leftSubTree-OrdTree : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ →
-                        OrdTree (node t₁ i t₂) → OrdTree t₁
+postulate leftSubTree-OrdTree : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ →
+                                OrdTree (node t₁ i t₂) → OrdTree t₁
 {-# ATP prove leftSubTree-OrdTree &&-Bool &&-list₂-t
                                   le-ItemTree-Bool le-TreeItem-Bool
                                   ordTree-Bool
 #-}
 
 -- If (node t₁ i t₂) is ordered then t₂ is ordered.
-postulate
-  rightSubTree-OrdTree : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ →
-                         OrdTree (node t₁ i t₂) → OrdTree t₂
+postulate rightSubTree-OrdTree : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ →
+                                 OrdTree (node t₁ i t₂) → OrdTree t₂
 {-# ATP prove rightSubTree-OrdTree &&-Bool &&-list₂-t
                                    le-ItemTree-Bool le-TreeItem-Bool
                                    ordTree-Bool

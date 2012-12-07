@@ -31,16 +31,14 @@ infix 7 _≈N_
 -- functional ≈NF (by ≈N-unf and ≈N-coind).
 
 -- The equality on Conat.
-postulate
-  _≈N_ : D → D → Set
+postulate _≈N_ : D → D → Set
 
 -- The relation _≈N_ is a post-fixed point of the functional ≈NF, i.e.
 --
 -- _≈N_ ≤ ≈NF _≈N_.
-postulate
-  ≈N-unf : ∀ {m n} → m ≈N n →
-           m ≡ zero ∧ n ≡ zero
-           ∨ (∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
+postulate ≈N-unf : ∀ {m n} → m ≈N n →
+                   m ≡ zero ∧ n ≡ zero
+                   ∨ (∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
 {-# ATP axiom ≈N-unf #-}
 
 -- The relation _N≈_ is the greatest post-fixed point of _N≈_, i.e

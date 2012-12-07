@@ -441,9 +441,8 @@ x∸y<x∸z→Sx∸y<Sx∸z (nsucc {m} Nm) (nsucc {n} Nn) nzero Sm∸Sn<Sm∸0 =
 x∸y<x∸z→Sx∸y<Sx∸z (nsucc {m} Nm) (nsucc {n} Nn) (nsucc {o} No) Sm∸Sn<Sm∸So =
   prf (x∸y<x∸z→Sx∸y<Sx∸z Nm Nn No)
   where
-  postulate
-    prf : (m ∸ n < m ∸ o → succ₁ m ∸ n < succ₁ m ∸ o) →
-          succ₁ (succ₁ m) ∸ succ₁ n < succ₁ (succ₁ m) ∸ succ₁ o
+  postulate prf : (m ∸ n < m ∸ o → succ₁ m ∸ n < succ₁ m ∸ o) →
+                  succ₁ (succ₁ m) ∸ succ₁ n < succ₁ (succ₁ m) ∸ succ₁ o
   {-# ATP prove prf S∸S #-}
 
 ------------------------------------------------------------------------------
@@ -461,9 +460,8 @@ postulate Sxy₁<0y₂→⊥ : ∀ {m n₁ n₂} → ¬ (Lexi (succ₁ m) n₁ z
 postulate x₁y<x₂0→x₁<x₂ : ∀ {m₁ n} → N n → ∀ {m₂} → Lexi m₁ n m₂ zero → m₁ < m₂
 {-# ATP prove x₁y<x₂0→x₁<x₂ x<0→⊥ #-}
 
-postulate
-  xy₁<0y₂→x≡0∧y₁<y₂ : ∀ {m} → N m → ∀ {n₁ n₂} → Lexi m n₁ zero n₂ →
-                      m ≡ zero ∧ n₁ < n₂
+postulate xy₁<0y₂→x≡0∧y₁<y₂ : ∀ {m} → N m → ∀ {n₁ n₂} → Lexi m n₁ zero n₂ →
+                              m ≡ zero ∧ n₁ < n₂
 {-# ATP prove xy₁<0y₂→x≡0∧y₁<y₂ x<0→⊥ #-}
 
 [Sx∸Sy,Sy]<[Sx,Sy] : ∀ {m n} → N m → N n →

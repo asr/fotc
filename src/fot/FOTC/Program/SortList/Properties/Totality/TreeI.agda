@@ -14,8 +14,7 @@ open import FOTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------
 -- See the ATP version.
-postulate
-  toTree-Tree : ∀ {item t} → N item → Tree t → Tree (toTree · item · t)
+postulate toTree-Tree : ∀ {item t} → N item → Tree t → Tree (toTree · item · t)
 
 makeTree-Tree : ∀ {is} → ListN is → Tree (makeTree is)
 makeTree-Tree lnnil = subst Tree (sym (lit-[] toTree nil)) tnil

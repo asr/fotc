@@ -22,15 +22,13 @@ open import FOTC.Base.List
 -- Stream is the greatest fixed-point of StreamF (by Stream-unf and
 -- Stream-coind).
 
-postulate
-  Stream : D → Set
+postulate Stream : D → Set
 
 postulate
 -- Stream is a post-fixed point of StreamF, i.e.
 --
 -- Stream ≤ StreamF Stream.
-  Stream-unf : ∀ {xs} → Stream xs →
-               ∃[ x' ] ∃[ xs' ] Stream xs' ∧ xs ≡ x' ∷ xs'
+  Stream-unf : ∀ {xs} → Stream xs → ∃[ x' ] ∃[ xs' ] Stream xs' ∧ xs ≡ x' ∷ xs'
 {-# ATP axiom Stream-unf #-}
 
 -- Stream is the greatest post-fixed point of StreamF, i.e

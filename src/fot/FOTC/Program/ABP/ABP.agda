@@ -28,22 +28,21 @@ postulate
   await           : D → D → D → D → D
   ack out corrupt : D
 
-postulate
-  send-eq   : ∀ b i is ds →
-              send · b · (i ∷ is) · ds ≡ < i , b > ∷ await b i is ds
+postulate send-eq : ∀ b i is ds →
+                    send · b · (i ∷ is) · ds ≡ < i , b > ∷ await b i is ds
 {-# ATP axiom send-eq #-}
 
 postulate
-  await-ok≡    : ∀ b b₀ i is ds →
-                 b ≡ b₀ →
-                 await b i is (ok b₀ ∷ ds) ≡ send · not b · is · ds
+  await-ok≡   : ∀ b b₀ i is ds →
+                b ≡ b₀ →
+                await b i is (ok b₀ ∷ ds) ≡ send · not b · is · ds
 
-  await-ok≢    : ∀ b b₀ i is ds →
-                 b ≢ b₀ →
-                 await b i is (ok b₀ ∷ ds) ≡ < i , b > ∷ await b i is ds
+  await-ok≢   : ∀ b b₀ i is ds →
+                b ≢ b₀ →
+                await b i is (ok b₀ ∷ ds) ≡ < i , b > ∷ await b i is ds
 
-  await-error  : ∀ b i is ds →
-                 await b i is (error ∷ ds) ≡ < i , b > ∷ await b i is ds
+  await-error : ∀ b i is ds →
+                await b i is (error ∷ ds) ≡ < i , b > ∷ await b i is ds
 {-# ATP axiom await-ok≡ await-ok≢ await-error #-}
 
 postulate
@@ -71,33 +70,29 @@ postulate
 {-# ATP axiom out-ok≡ out-ok≢ out-error #-}
 
 postulate
-  corrupt-T    : ∀ fs x xs →
-                 corrupt · (T ∷ fs) · (x ∷ xs) ≡ ok x ∷ corrupt · fs · xs
-  corrupt-F    : ∀ fs x xs →
-                 corrupt · (F ∷ fs) · (x ∷ xs) ≡ error ∷ corrupt · fs · xs
+  corrupt-T : ∀ fs x xs →
+              corrupt · (T ∷ fs) · (x ∷ xs) ≡ ok x ∷ corrupt · fs · xs
+  corrupt-F : ∀ fs x xs →
+              corrupt · (F ∷ fs) · (x ∷ xs) ≡ error ∷ corrupt · fs · xs
 {-# ATP axiom corrupt-T corrupt-F #-}
 
-postulate
-  has hbs hcs hds : D → D → D → D → D → D → D
+postulate has hbs hcs hds : D → D → D → D → D → D → D
 
 postulate
   has-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
            has f₁ f₂ f₃ g₁ g₂ is ≡ f₁ · is · (hds f₁ f₂ f₃ g₁ g₂ is)
 {-# ATP axiom has-eq #-}
 
-postulate
-  hbs-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
-           hbs f₁ f₂ f₃ g₁ g₂ is ≡ g₁ · (has f₁ f₂ f₃ g₁ g₂ is)
+postulate hbs-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
+                   hbs f₁ f₂ f₃ g₁ g₂ is ≡ g₁ · (has f₁ f₂ f₃ g₁ g₂ is)
 {-# ATP axiom hbs-eq #-}
 
-postulate
-  hcs-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
-           hcs f₁ f₂ f₃ g₁ g₂ is ≡ f₂ · (hbs f₁ f₂ f₃ g₁ g₂ is)
+postulate hcs-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
+                   hcs f₁ f₂ f₃ g₁ g₂ is ≡ f₂ · (hbs f₁ f₂ f₃ g₁ g₂ is)
 {-# ATP axiom hcs-eq #-}
 
-postulate
-  hds-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
-           hds f₁ f₂ f₃ g₁ g₂ is ≡ g₂ · (hcs f₁ f₂ f₃ g₁ g₂ is)
+postulate hds-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
+                   hds f₁ f₂ f₃ g₁ g₂ is ≡ g₂ · (hcs f₁ f₂ f₃ g₁ g₂ is)
 {-# ATP axiom hds-eq #-}
 
 postulate
@@ -108,9 +103,9 @@ postulate
 
 postulate
   transfer    : D → D → D → D → D
-  transfer-eq :
-    ∀ b fs₀ fs₁ is → transfer b fs₀ fs₁ is ≡
-    genTransfer (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
+  transfer-eq : ∀ b fs₀ fs₁ is → transfer b fs₀ fs₁ is ≡
+                genTransfer (send · b) (ack · b) (out · b)
+                            (corrupt · fs₀) (corrupt · fs₁) is
 {-# ATP axiom transfer-eq #-}
 
 ------------------------------------------------------------------------------

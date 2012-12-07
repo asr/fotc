@@ -12,8 +12,7 @@ module InternalSyntax where
 ------------------------------------------------------------------------------
 -- Sets
 
-postulate
-  A B C : Set
+postulate A B C : Set
 
 -- El (Type (Max [ClosedLevel 1])) (Sort (Type (Max [])))
 

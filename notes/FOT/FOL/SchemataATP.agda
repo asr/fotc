@@ -12,8 +12,7 @@ open import FOL.Base
 
 ------------------------------------------------------------------------------
 
-postulate
-  id₁ : {A₁ : D → Set} → ∀ {x} → A₁ x → A₁ x
+postulate id₁ : {A₁ : D → Set} → ∀ {x} → A₁ x → A₁ x
 {-# ATP prove id₁ #-}
 
 id₂ : {A₁ : D → Set} → ∀ {x} → A₁ x → A₁ x

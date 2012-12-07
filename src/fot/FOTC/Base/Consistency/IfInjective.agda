@@ -11,9 +11,8 @@ open import FOTC.Base
 
 ------------------------------------------------------------------------------
 
-postulate
-  ifInjective : ∀ {b₁ b₂ d₁ d₂ } →
-                if b₁ then d₁ else d₂ ≡ if b₂ then d₁ else d₂ → b₁ ≡ b₂
+postulate ifInjective : ∀ {b₁ b₂ d₁ d₂ } →
+                        if b₁ then d₁ else d₂ ≡ if b₂ then d₁ else d₂ → b₁ ≡ b₂
 {-# ATP prove ifInjective #-}
 
 true≡false : true ≡ false

@@ -38,9 +38,8 @@ postulate Fair : D → Set
 -- Fair a is post-fixed point of FairF, i.e.
 --
 -- Fair ≤ FairF Fair.
-postulate
-  Fair-unf : ∀ {fs} → Fair fs →
-             ∃[ ft ] ∃[ fs' ] F*T ft ∧ Fair fs' ∧ fs ≡ ft ++ fs'
+postulate Fair-unf : ∀ {fs} → Fair fs →
+                     ∃[ ft ] ∃[ fs' ] F*T ft ∧ Fair fs' ∧ fs ≡ ft ++ fs'
 {-# ATP axiom Fair-unf #-}
 
 -- Fair is the greatest post-fixed point of FairF, i.e
@@ -50,13 +49,12 @@ postulate
 -- N.B. This is an axiom schema. Because in the automatic proofs we
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
-postulate
-  Fair-coind : (A : D → Set) →
-               -- A is post-fixed point of FairF.
-               (∀ {fs} → A fs →
-                 ∃[ ft ] ∃[ fs' ] F*T ft ∧ A fs' ∧ fs ≡ ft ++ fs') →
-               -- Fair is greater than A.
-               ∀ {fs} → A fs → Fair fs
+postulate  Fair-coind : (A : D → Set) →
+                        -- A is post-fixed point of FairF.
+                        (∀ {fs} → A fs →
+                        ∃[ ft ] ∃[ fs' ] F*T ft ∧ A fs' ∧ fs ≡ ft ++ fs') →
+                        -- Fair is greater than A.
+                        ∀ {fs} → A fs → Fair fs
 
 -- Because a greatest post-fixed point is a fixed-point, then the Fair
 -- predicate is also a pre-fixed point of the functional FairF, i.e.

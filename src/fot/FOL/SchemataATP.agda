@@ -61,18 +61,16 @@ module Schemas where
   postulate ∨-comm : {A B : Set} → A ∨ B → A ∨ B
   {-# ATP prove ∨-comm #-}
 
-  postulate
-    ∨-comm² : {A² B² : D → D → Set} → ∀ {x y} →
-              A² x y ∨ B² x y → B² x y ∨ A² x y
+  postulate ∨-comm² : {A² B² : D → D → Set} → ∀ {x y} →
+                      A² x y ∨ B² x y → B² x y ∨ A² x y
   {-# ATP prove ∨-comm² #-}
 
   postulate ∧∨-dist : {A B C : Set} → A ∧ (B ∨ C) ↔ A ∧ B ∨ A ∧ C
   {-# ATP prove ∧∨-dist #-}
 
-  postulate
-    ∧∨-dist³ : {A³ B³ C³ : D → D → D → Set} → ∀ {x y z} →
-               (A³ x y z ∧ (B³ x y z ∨ C³ x y z)) ↔
-               (A³ x y z ∧ B³ x y z ∨ A³ x y z ∧ C³ x y z)
+  postulate ∧∨-dist³ : {A³ B³ C³ : D → D → D → Set} → ∀ {x y z} →
+                       (A³ x y z ∧ (B³ x y z ∨ C³ x y z)) ↔
+                       (A³ x y z ∧ B³ x y z ∨ A³ x y z ∧ C³ x y z)
   {-# ATP prove ∧∨-dist³ #-}
 
 module SchemaInstances where

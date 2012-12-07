@@ -69,10 +69,9 @@ wf-⟪′ : Well-founded _⟪′_
 wf-⟪′ = InvImg.well-founded <-well-founded
 
 -- The well-founded induction principle on _⟪′_.
--- postulate
---   wfi-⟪′ : (P : List ℕ → Set) →
---            (∀ xs → (∀ ys → ys ⟪′ xs → P ys) → P xs) →
---            ∀ xs → P xs
+-- postulate wfi-⟪′ : (P : List ℕ → Set) →
+--                    (∀ xs → (∀ ys → ys ⟪′ xs → P ys) → P xs) →
+--                    ∀ xs → P xs
 
 -- The quicksort algorithm is total.
 

@@ -145,7 +145,7 @@ private
   proof₂₋₃ m n = beta (lt-s₃ m) n
 
 
-  -- Reduction isZero n ≡ b using that proof.
+  -- Reduction iszero n ≡ b using that proof.
   proof₃₋₄ : ∀ m n b → iszero₁ n ≡ b → lt-s₃ m n ≡ lt-s₄ m n b
   proof₃₋₄ m n b prf = subst (λ x → lt-s₄ m n x ≡ lt-s₄ m n b )
                              (sym prf )

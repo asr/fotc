@@ -21,8 +21,7 @@ open import FOTC.Program.McCarthy91.McCarthy91
 ------------------------------------------------------------------------------
 --- Auxiliary properties
 
-postulate
-  x>100→x<f₉₁-x+11 : ∀ {n} → N n → n > [100] → n < f₉₁ n + [11]
+postulate x>100→x<f₉₁-x+11 : ∀ {n} → N n → n > [100] → n < f₉₁ n + [11]
 {-# ATP prove x>100→x<f₉₁-x+11 +-N ∸-N x<y→y≤z→x<z x<x+1 x+1≤x∸10+11 #-}
 
 -- Case n ≡ 100 can be proved automatically
@@ -30,19 +29,17 @@ postulate f₉₁-100 : f₉₁ [100] ≡ [91]
 {-# ATP prove f₉₁-100 100+11>100 100+11∸10>100 101≡100+11∸10 91≡100+11∸10∸10
 #-}
 
-postulate
-  f₉₁x+11<f₉₁x+11 : ∀ n →
-                    n ≯ [100] →
-                    f₉₁ (n + [11]) < f₉₁ (f₉₁ (n + [11])) + [11] →
-                    f₉₁ (n + [11]) < f₉₁ n + [11]
+postulate  f₉₁x+11<f₉₁x+11 : ∀ n →
+                             n ≯ [100] →
+                             f₉₁ (n + [11]) < f₉₁ (f₉₁ (n + [11])) + [11] →
+                             f₉₁ (n + [11]) < f₉₁ n + [11]
 {-# ATP prove f₉₁x+11<f₉₁x+11 #-}
 
-postulate
-  f₉₁-x≯100-helper : ∀ m n →
-                     m ≯ [100] →
-                     f₉₁ (m + [11]) ≡ n →
-                     f₉₁ n ≡ [91] →
-                     f₉₁ m ≡ [91]
+postulate f₉₁-x≯100-helper : ∀ m n →
+                             m ≯ [100] →
+                             f₉₁ (m + [11]) ≡ n →
+                             f₉₁ n ≡ [91] →
+                             f₉₁ m ≡ [91]
 {-# ATP prove f₉₁-x≯100-helper #-}
 
 postulate

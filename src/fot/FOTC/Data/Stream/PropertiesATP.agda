@@ -45,10 +45,9 @@ lengthStream {xs} Sxs = ≈N-coind R h₁ h₂
   R m n = ∃[ xs ] Stream xs ∧ m ≡ length xs ∧ n ≡ ∞
   {-# ATP definition R #-}
 
-  postulate
-    h₁ : ∀ {m n} → R m n →
-         m ≡ zero ∧ n ≡ zero ∨
-         (∃[ m' ] ∃[ n' ] R m' n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
+  postulate h₁ : ∀ {m n} → R m n →
+                 m ≡ zero ∧ n ≡ zero ∨
+                 (∃[ m' ] ∃[ n' ] R m' n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
   {-# ATP prove h₁ #-}
 
   postulate h₂ : R (length xs) ∞

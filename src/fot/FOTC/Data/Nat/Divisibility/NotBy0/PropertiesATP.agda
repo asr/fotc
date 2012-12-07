@@ -72,10 +72,9 @@ postulate x∣S→x≤S-ah₁ : ∀ {m n} → succ₁ n ≡ zero * succ₁ m →
 {-# ATP prove x∣S→x≤S-ah₁ #-}
 
 -- Nice proof by the ATP.
-postulate
-  x∣S→x≤S-ah₂ : ∀ {m n o} → N m → N n → N o →
-                succ₁ n ≡ succ₁ o * succ₁ m →
-                succ₁ m ≤ succ₁ n
+postulate x∣S→x≤S-ah₂ : ∀ {m n o} → N m → N n → N o →
+                        succ₁ n ≡ succ₁ o * succ₁ m →
+                        succ₁ m ≤ succ₁ n
 {-# ATP prove x∣S→x≤S-ah₂ x≤x+y *-N #-}
 
 x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → m ≤ succ₁ n

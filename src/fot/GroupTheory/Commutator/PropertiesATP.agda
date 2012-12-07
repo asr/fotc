@@ -21,8 +21,7 @@ postulate commutatorInverse : ∀ a b → [ a , b ] · [ b , a ] ≡ ε
 -- elements lies in the center of the group, i.e. a ⟦b,c⟧ = ⟦b,c⟧ a.
 -- From: TPTP v5.4.0 problem GRP/GRP024-5.p.
 -- 25 July 2012: Only Vampire 0.6 (revision 903) proved the theorem (240 sec).
-postulate
-  commutatorAssocCenter : (∀ a b c → commutatorAssoc a b c) →
-                          (∀ a b c → a · [ b , c ] ≡ [ b , c ] · a)
+postulate commutatorAssocCenter : (∀ a b c → commutatorAssoc a b c) →
+                                  (∀ a b c → a · [ b , c ] ≡ [ b , c ] · a)
 -- See issue #6.
 -- {-# ATP prove commutatorAssocCenter #-}

@@ -68,10 +68,9 @@ open import FOTC.Data.Nat
   postulate A0 : zero + n + o ≡ zero + (n + o)
   {-# ATP prove A0 #-}
 
-  postulate
-    is : ∀ {i} →
-         i + n + o ≡ i + (n + o) →
-         succ₁ i + n + o ≡ succ₁ i + (n + o)
+  postulate is : ∀ {i} →
+                 i + n + o ≡ i + (n + o) →
+                 succ₁ i + n + o ≡ succ₁ i + (n + o)
   {-# ATP prove is #-}
 
 x+Sy≡S[x+y] : ∀ {m} → N m → ∀ n → m + succ₁ n ≡ succ₁ (m + n)
