@@ -52,15 +52,13 @@ helper (nsucc {n} Nn) =
              (2^x≢0 (nsucc (nsucc Nn)))
              (2^[x+1]≢1 (nsucc Nn)))
 
-collatz-2^x : ∀ {n} → N n → (∃[ k ] N k ∧ n ≡ [2] ^ k) → collatz n ≡ [1]
-collatz-2^x {n} Nn (.zero , nzero , h) =
-  collatz n           ≡⟨ collatzCong h ⟩
-  collatz ([2] ^ [0]) ≡⟨ collatzCong (^-0 [2]) ⟩
-  collatz [1]         ≡⟨ collatz-1 ⟩
-  [1]                 ∎
+collatz-2^x : ∀ {n} → N n → collatz ([2] ^ n) ≡ [1]
+collatz-2^x nzero =
+  collatz ([2] ^ [0])  ≡⟨ collatzCong (^-0 [2]) ⟩
+  collatz [1]          ≡⟨ collatz-1 ⟩
+  [1]                  ∎
 
-collatz-2^x {n} Nn (.(succ₁ k) , nsucc {k} Nk , h) =
-  collatz n               ≡⟨ collatzCong h ⟩
-  collatz ([2] ^ succ₁ k) ≡⟨ helper Nk ⟩
-  collatz ([2] ^ k)       ≡⟨ collatz-2^x (^-N 2-N Nk) (k , (Nk , refl)) ⟩
+collatz-2^x (nsucc {n} Nn) =
+  collatz ([2] ^ succ₁ n) ≡⟨ helper Nn ⟩
+  collatz ([2] ^ n)       ≡⟨ collatz-2^x Nn ⟩
   [1]                     ∎

@@ -38,12 +38,11 @@ helper-helper (nsucc {n} Nn) = prf
 postulate helper : ∀ {n} → N n → collatz ([2] ^ succ₁ n) ≡ collatz ([2] ^ n)
 {-# ATP prove helper helper-helper div-2^[x+1]-2≡2^x #-}
 
-collatz-2^x : ∀ {n} → N n → (∃[ k ] N k ∧ n ≡ [2] ^ k) → collatz n ≡ [1]
-collatz-2^x {n} Nn (.zero , nzero , h) = prf
-  where postulate prf : collatz n ≡ [1]
+collatz-2^x : ∀ {n} → N n → collatz ([2] ^ n) ≡ [1]
+collatz-2^x nzero = prf
+  where postulate prf : collatz ([2] ^ [0]) ≡ [1]
         {-# ATP prove prf #-}
 
-collatz-2^x {n} Nn (.(succ₁ k) , nsucc {k} Nk , h) =
-  prf (collatz-2^x (^-N 2-N Nk) (k , (Nk , refl)))
-  where postulate prf : collatz ([2] ^ k) ≡ [1] → collatz n ≡ [1]
+collatz-2^x (nsucc {n} Nn) = prf (collatz-2^x Nn)
+  where postulate prf : collatz ([2] ^ n) ≡ [1] → collatz ([2] ^ succ₁ n) ≡ [1]
         {-# ATP prove prf helper #-}
