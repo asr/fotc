@@ -128,6 +128,10 @@ open import FOTC.Data.Stream
 open import FOTC.Data.Stream.PropertiesATP
 open import FOTC.Data.Stream.PropertiesI
 
+-- Equality properties
+open import FOTC.Data.Stream.Equality.PropertiesATP
+open import FOTC.Data.Stream.Equality.PropertiesI
+
 ------------------------------------------------------------------------------
 -- Bisimilary relation
 

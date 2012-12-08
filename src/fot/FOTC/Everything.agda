@@ -80,6 +80,8 @@ open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
 open import FOTC.Data.Nat.UnaryNumbers.TotalityI
 
 open import FOTC.Data.Stream
+open import FOTC.Data.Stream.Equality.PropertiesATP
+open import FOTC.Data.Stream.Equality.PropertiesI
 open import FOTC.Data.Stream.PropertiesATP
 open import FOTC.Data.Stream.PropertiesI
 open import FOTC.Data.Stream.Type

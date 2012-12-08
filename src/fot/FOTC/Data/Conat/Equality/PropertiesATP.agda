@@ -17,8 +17,6 @@ module FOTC.Data.Conat.Equality.PropertiesATP where
 open import FOTC.Base
 open import FOTC.Data.Conat
 open import FOTC.Data.Conat.Equality
-open import FOTC.Data.List
-open import FOTC.Data.Stream
 
 ------------------------------------------------------------------------------
 
@@ -40,20 +38,3 @@ open import FOTC.Data.Stream
 
 ≡→≈N : ∀ {m n} → Conat m → Conat n → m ≡ n → m ≈N n
 ≡→≈N h _ refl = ≈N-refl h
-
--- Adapted from (Sander 1992, p. 58).
-stream-length : ∀ {xs} → Stream xs → length xs ≈N ∞
-stream-length {xs} Sxs = ≈N-coind R h₁ h₂
-  where
-  R : D → D → Set
-  R m n = m ≡ zero ∧ n ≡ zero ∨ (∃[ ys ] Stream ys ∧ m ≡ length ys ∧ n ≡ ∞)
-  {-# ATP definition R #-}
-
-  postulate
-    h₁ : ∀ {m n} → R m n →
-         m ≡ zero ∧ n ≡ zero
-         ∨ (∃[ m' ] ∃[ n' ] R m' n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
-  {-# ATP prove h₁ #-}
-
-  postulate h₂ : R (length xs) ∞
-  {-# ATP prove h₂ #-}

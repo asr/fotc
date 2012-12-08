@@ -12,6 +12,8 @@ open import Common.FOL.Relation.Binary.EqReasoning
 open import FOTC.Base
 open import FOTC.Base.List
 open import FOTC.Base.List.PropertiesI
+open import FOTC.Data.Stream
+open import FOTC.Data.Stream.PropertiesI
 open import FOTC.Relation.Binary.Bisimilarity
 
 ------------------------------------------------------------------------------
