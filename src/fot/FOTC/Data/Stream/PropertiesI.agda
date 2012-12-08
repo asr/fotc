@@ -34,18 +34,18 @@ streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞
 streamLength {xs} Sxs = ≈N-coind R h₁ h₂
   where
   R : D → D → Set
-  R m n = m ≡ zero ∧ n ≡ zero ∨ (∃[ ys ] Stream ys ∧ m ≡ length ys ∧ n ≡ ∞)
+  R m n = m ≡ zero ∧ n ≡ zero ∨ (∃[ xs' ] Stream xs' ∧ m ≡ length xs' ∧ n ≡ ∞)
 
   h₁ : ∀ {m n} → R m n →
        m ≡ zero ∧ n ≡ zero
        ∨ (∃[ m' ] ∃[ n' ] R m' n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
   h₁ (inj₁ prf) = inj₁ prf
-  h₁ {m} {n} (inj₂ (ys , Sys , h₁ , h₂)) with Stream-unf Sys
-  ... | y' , ys' , Sys' , ys≡y'∷ys' =
-    inj₂ ((length ys') , (n , ((inj₂ (ys' , Sys' , refl , h₂)) , (prf₁ , prf₂))))
+  h₁ {m} {n} (inj₂ (x' , Sxs' , h₁ , h₂)) with Stream-unf Sxs'
+  ... | x'' , xs'' , Sxs'' , xs'≡x''∷xs'' =
+    inj₂ ((length xs'') , (n , ((inj₂ (xs'' , Sxs'' , refl , h₂)) , (prf₁ , prf₂))))
     where
-    prf₁ : m ≡ succ₁ (length ys')
-    prf₁ = trans₂ h₁ (cong length ys≡y'∷ys') (length-∷ y' ys')
+    prf₁ : m ≡ succ₁ (length xs'')
+    prf₁ = trans₂ h₁ (cong length xs'≡x''∷xs'') (length-∷ x'' xs'')
 
     prf₂ : n ≡ succ₁ n
     prf₂ = trans₂ h₂ ∞-eq (succCong (sym h₂))
