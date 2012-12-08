@@ -27,7 +27,7 @@ open import FOTC.Relation.Binary.Bisimilarity
 -- The map-iterate property.
 
 ≈-map-iterate : ∀ f x → map f (iterate f x) ≈ iterate f (f · x)
-≈-map-iterate f x = ≈-coind R helper (x , refl , refl)
+≈-map-iterate f x = ≈-coind R h (x , refl , refl)
   where
   -- The relation R was based on the relation used by (Giménez and
   -- Castéran, 2007).
@@ -36,6 +36,6 @@ open import FOTC.Relation.Binary.Bisimilarity
   {-# ATP definition R #-}
 
   postulate
-    helper : ∀ {xs ys} → R xs ys →
-             ∃[ x' ] ∃[ xs' ] ∃[ ys' ] R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
-  {-# ATP prove helper #-}
+    h : ∀ {xs ys} → R xs ys →
+        ∃[ x' ] ∃[ xs' ] ∃[ ys' ] R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+  {-# ATP prove h #-}

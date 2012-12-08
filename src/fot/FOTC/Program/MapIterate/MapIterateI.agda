@@ -29,16 +29,16 @@ open import FOTC.Relation.Binary.Bisimilarity
 -- The map-iterate property.
 
 ≈-map-iterate : ∀ f x → map f (iterate f x) ≈ iterate f (f · x)
-≈-map-iterate f x = ≈-coind R helper (x , refl , refl)
+≈-map-iterate f x = ≈-coind R h (x , refl , refl)
   where
   -- The relation R was based on the relation used by (Giménez and
   -- Castéran, 2007).
   R : D → D → Set
   R xs ys = ∃[ y ] xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y)
 
-  helper : ∀ {xs ys} → R xs ys →
-           ∃[ x' ] ∃[ xs' ] ∃[ ys' ] R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
-  helper {xs} {ys} (y , h) =
+  h : ∀ {xs ys} → R xs ys →
+      ∃[ x' ] ∃[ xs' ] ∃[ ys' ] R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+  h {xs} {ys} (y , h) =
     f · y
     , map f (iterate f (f · y))
     , iterate f (f · (f · y))
