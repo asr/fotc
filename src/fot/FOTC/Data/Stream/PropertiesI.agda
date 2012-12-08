@@ -30,8 +30,8 @@ tailS h with (Stream-unf h)
 ... | x' , xs' , Sxs' , h₁ = subst Stream (sym (∧-proj₂ (∷-injective h₁))) Sxs'
 
 -- Adapted from (Sander 1992, p. 58).
-stream-length : ∀ {xs} → Stream xs → length xs ≈N ∞
-stream-length {xs} Sxs = ≈N-coind R h₁ h₂
+streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞
+streamLength {xs} Sxs = ≈N-coind R h₁ h₂
   where
   R : D → D → Set
   R m n = m ≡ zero ∧ n ≡ zero ∨ (∃[ ys ] Stream ys ∧ m ≡ length ys ∧ n ≡ ∞)
