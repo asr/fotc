@@ -17,7 +17,7 @@ open import FOTC.Program.ABP.Terms
 
 mayorPremise : ∀ {b fs₀ fs₁ is} →
                Bit b → Fair fs₀ → Fair fs₁ → Stream is →
-               is B transfer b fs₀ fs₁ is
+               B is (transfer b fs₀ fs₁ is)
 mayorPremise {b} {fs₀} {fs₁} {is} Bb Ffs₀ Ffs₁ Sis =
   b
   , fs₀
@@ -36,4 +36,4 @@ mayorPremise {b} {fs₀} {fs₁} {is} Bb Ffs₀ Ffs₁ Sis =
   , hds-eq (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
   , trans (transfer-eq b fs₀ fs₁ is)
           (genTransfer-eq (send · b) (ack · b) (out · b) (corrupt · fs₀)
-                       (corrupt · fs₁) is)
+                          (corrupt · fs₁) is)

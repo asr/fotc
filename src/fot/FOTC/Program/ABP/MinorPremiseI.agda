@@ -34,14 +34,14 @@ open import FOTC.Relation.Binary.Bisimilarity
 -- to the old start state except that the bit has alternated and the
 -- first item in the input stream has been removed.
 
-minorPremise : ∀ {is js} → is B js →
+minorPremise : ∀ {is js} → B is js →
                ∃[ i' ] ∃[ is' ] ∃[ js' ]
-               is' B js' ∧ is ≡ i' ∷ is' ∧ js ≡ i' ∷ js'
+               B is' js' ∧ is ≡ i' ∷ is' ∧ js ≡ i' ∷ js'
 minorPremise
   {is} {js}
   (b , fs₀ , fs₁ , as , bs , cs , ds , Sis , Bb , Ffs₀ , Ffs₁ , h)
   with (Stream-unf Sis)
-... | (i' , is' , Sis' , is≡i'∷is) = i' , is' , js' , is'Bjs' , is≡i'∷is , js≡i'∷js'
+... | (i' , is' , Sis' , is≡i'∷is) = i' , is' , js' , Bis'js' , is≡i'∷is , js≡i'∷js'
 
   where
   ABP-helper : is ≡ i' ∷ is' →
@@ -79,8 +79,8 @@ minorPremise
   ABP-lemma₂ | _ , _ , _ , _ , _ , _ , _ , Ffs₀' , Ffs₁' , abp' , _ =
     lemma₂ Bb Ffs₀' Ffs₁' abp'
 
-  is'Bjs' : is' B js'
-  is'Bjs' with ABP-lemma₂
+  Bis'js' : B is' js'
+  Bis'js' with ABP-lemma₂
   ... | fs₀'' , fs₁'' , as'' , bs'' , cs'' , ds'' , Ffs₀'' , Ffs₁'' , abp =
     not b , fs₀'' , fs₁'' , as'' , bs'' , cs'' , ds''
     , Sis' , not-Bool Bb , Ffs₀'' , Ffs₁'' , abp

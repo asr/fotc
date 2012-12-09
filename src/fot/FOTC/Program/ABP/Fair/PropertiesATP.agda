@@ -28,7 +28,8 @@ head-tail-Fair-helper {fs} (.(false ∷ ft) , fs' , fcons*T {ft} y , h₁ , h₂
   postulate prf : fs ≡ T ∷ tail₁ fs ∨ fs ≡ F ∷ tail₁ fs
   {-# ATP prove prf #-}
 
-postulate head-tail-Fair : ∀ {fs} → Fair fs → fs ≡ T ∷ tail₁ fs ∨ fs ≡ F ∷ tail₁ fs
+postulate
+  head-tail-Fair : ∀ {fs} → Fair fs → fs ≡ T ∷ tail₁ fs ∨ fs ≡ F ∷ tail₁ fs
 {-# ATP prove head-tail-Fair head-tail-Fair-helper #-}
 
 tail-Fair-helper : ∀ {fs} →

@@ -14,6 +14,15 @@ open import FOTC.Base
 ------------------------------------------------------------------------------
 -- Congruence properties
 
+·-leftCong : ∀ {a b c} → a ≡ b → a · c ≡ b · c
+·-leftCong refl = refl
+
+·-rightCong : ∀ {a b c} → b ≡ c → a · b ≡ a · c
+·-rightCong refl = refl
+
+·-cong : ∀ {a b c d} → a ≡ b → c ≡ d → a · c ≡ b · d
+·-cong refl refl = refl
+
 succCong : ∀ {m n} → m ≡ n → succ₁ m ≡ succ₁ n
 succCong refl = refl
 

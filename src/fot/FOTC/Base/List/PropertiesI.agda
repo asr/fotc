@@ -24,6 +24,9 @@ open import FOTC.Base.List
 ∷-Cong : ∀ {x y xs ys} → x ≡ y → xs ≡ ys → x ∷ xs ≡ y ∷ ys
 ∷-Cong refl refl = refl
 
+tailCong : ∀ {xs ys} → xs ≡ ys → tail₁ xs ≡ tail₁ ys
+tailCong refl = refl
+
 ------------------------------------------------------------------------------
 -- Injective properties
 

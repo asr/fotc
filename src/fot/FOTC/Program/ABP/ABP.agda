@@ -24,47 +24,46 @@ open import FOTC.Program.ABP.Terms
 -- ABP equations
 
 postulate
-  send            : D
-  await           : D → D → D → D → D
-  ack out corrupt : D
+  send ack out corrupt : D
+  await                : D → D → D → D → D
 
 postulate send-eq : ∀ b i is ds →
                     send · b · (i ∷ is) · ds ≡ < i , b > ∷ await b i is ds
 {-# ATP axiom send-eq #-}
 
 postulate
-  await-ok≡   : ∀ b b₀ i is ds →
-                b ≡ b₀ →
-                await b i is (ok b₀ ∷ ds) ≡ send · not b · is · ds
+  await-ok≡ : ∀ b b₀ i is ds →
+              b ≡ b₀ →
+              await b i is (ok b₀ ∷ ds) ≡ send · not b · is · ds
 
-  await-ok≢   : ∀ b b₀ i is ds →
-                b ≢ b₀ →
-                await b i is (ok b₀ ∷ ds) ≡ < i , b > ∷ await b i is ds
+  await-ok≢ : ∀ b b₀ i is ds →
+              b ≢ b₀ →
+              await b i is (ok b₀ ∷ ds) ≡ < i , b > ∷ await b i is ds
 
   await-error : ∀ b i is ds →
                 await b i is (error ∷ ds) ≡ < i , b > ∷ await b i is ds
 {-# ATP axiom await-ok≡ await-ok≢ await-error #-}
 
 postulate
-  ack-ok≡   : ∀ b b₀ i bs →
-              b ≡ b₀ →
-              ack · b · (ok < i , b₀ > ∷ bs) ≡ b ∷ ack · not b · bs
+  ack-ok≡ : ∀ b b₀ i bs →
+            b ≡ b₀ →
+            ack · b · (ok < i , b₀ > ∷ bs) ≡ b ∷ ack · not b · bs
 
-  ack-ok≢   : ∀ b b₀ i bs →
-              b ≢ b₀ →
-              ack · b · (ok < i , b₀ > ∷ bs) ≡ not b ∷ ack · b · bs
+  ack-ok≢ : ∀ b b₀ i bs →
+            b ≢ b₀ →
+            ack · b · (ok < i , b₀ > ∷ bs) ≡ not b ∷ ack · b · bs
 
   ack-error : ∀ b bs → ack · b · (error ∷ bs) ≡ not b ∷ ack · b · bs
 {-# ATP axiom ack-ok≡ ack-ok≢ ack-error #-}
 
 postulate
-  out-ok≡   : ∀ b b₀ i bs →
-              b ≡ b₀ →
-              out · b · (ok < i , b₀ > ∷ bs) ≡ i ∷ out · not b · bs
+  out-ok≡ : ∀ b b₀ i bs →
+            b ≡ b₀ →
+            out · b · (ok < i , b₀ > ∷ bs) ≡ i ∷ out · not b · bs
 
-  out-ok≢   : ∀ b b₀ i bs →
-              b ≢ b₀ →
-              out · b · (ok < i , b₀ > ∷ bs) ≡ out · b · bs
+  out-ok≢ : ∀ b b₀ i bs →
+            b ≢ b₀ →
+            out · b · (ok < i , b₀ > ∷ bs) ≡ out · b · bs
 
   out-error : ∀ b bs → out · b · (error ∷ bs) ≡ out · b · bs
 {-# ATP axiom out-ok≡ out-ok≢ out-error #-}
@@ -132,11 +131,11 @@ ABP' b i' is' fs₀' fs₁' as' bs' cs' ds' js' =
 {-# ATP definition ABP' #-}
 
 -- Auxiliary bisimulation.
-_B_ : D → D → Set
-is B js = ∃[ b ] ∃[ fs₀ ] ∃[ fs₁ ] ∃[ as ] ∃[ bs ] ∃[ cs ] ∃[ ds ]
+B : D → D → Set
+B is js = ∃[ b ] ∃[ fs₀ ] ∃[ fs₁ ] ∃[ as ] ∃[ bs ] ∃[ cs ] ∃[ ds ]
           Stream is
           ∧ Bit b
           ∧ Fair fs₀
           ∧ Fair fs₁
           ∧ ABP b is fs₀ fs₁ as bs cs ds js
-{-# ATP definition _B_ #-}
+{-# ATP definition B #-}

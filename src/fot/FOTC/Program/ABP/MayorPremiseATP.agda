@@ -27,7 +27,7 @@ open import FOTC.Program.ABP.Terms
 
 mayorPremise : ∀ {b fs₀ fs₁ is} →
                Bit b → Fair fs₀ → Fair fs₁ → Stream is →
-               is B transfer b fs₀ fs₁ is
+               B is (transfer b fs₀ fs₁ is)
 mayorPremise {b} {fs₀} {fs₁} {is} Bb Ffs₀ Ffs₁ Sis =
   b
   , fs₀

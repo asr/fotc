@@ -11,6 +11,7 @@ open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
 open import FOTC.Base.List
+open import FOTC.Base.List.PropertiesI
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI
 open import FOTC.Program.Mirror.Forest.TotalityI

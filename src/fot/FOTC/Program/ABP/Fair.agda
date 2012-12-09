@@ -52,7 +52,7 @@ postulate Fair-unf : ∀ {fs} → Fair fs →
 postulate  Fair-coind : (A : D → Set) →
                         -- A is post-fixed point of FairF.
                         (∀ {fs} → A fs →
-                        ∃[ ft ] ∃[ fs' ] F*T ft ∧ A fs' ∧ fs ≡ ft ++ fs') →
+                          ∃[ ft ] ∃[ fs' ] F*T ft ∧ A fs' ∧ fs ≡ ft ++ fs') →
                         -- Fair is greater than A.
                         ∀ {fs} → A fs → Fair fs
 

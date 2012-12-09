@@ -12,6 +12,15 @@ open import FOTC.Base
 ------------------------------------------------------------------------------
 -- Congruence properties
 
+postulate ·-leftCong : ∀ {a b c} → a ≡ b → a · c ≡ b · c
+{-# ATP prove ·-leftCong #-}
+
+postulate ·-rightCong : ∀ {a b c} → b ≡ c → a · b ≡ a · c
+{-# ATP prove ·-rightCong #-}
+
+postulate ·-cong : ∀ {a b c d} → a ≡ b → c ≡ d → a · c ≡ b · d
+{-# ATP prove ·-cong #-}
+
 postulate succCong : ∀ {m n} → m ≡ n → succ₁ m ≡ succ₁ n
 {-# ATP prove succCong #-}
 

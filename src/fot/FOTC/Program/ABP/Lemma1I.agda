@@ -16,7 +16,9 @@ module FOTC.Program.ABP.Lemma1I where
 open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
+open import FOTC.Base.PropertiesI
 open import FOTC.Base.List
+open import FOTC.Base.List.PropertiesI
 open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesI
 open import FOTC.Data.List
@@ -69,15 +71,13 @@ module Helper where
 
     bs-eq : bs ≡ ok < i' , b > ∷ bs'
     bs-eq =
-      bs
+     bs
         ≡⟨ bsABP ⟩
       corrupt · fs₀ · as
-        ≡⟨ subst₂ (λ t₁ t₂ → corrupt · fs₀ · as ≡ corrupt · t₁ · t₂ )
-                  fs₀-eq-helper
-                  as-eq
-                  refl
-        ⟩
-      corrupt · (T ∷ fs₀') · (< i' , b > ∷ as')
+        ≡⟨ ·-rightCong as-eq ⟩
+      corrupt · fs₀ · (< i' , b > ∷ as')
+        ≡⟨ ·-leftCong (·-rightCong fs₀-eq-helper) ⟩
+          corrupt · (T ∷ fs₀') · (< i' , b > ∷ as')
         ≡⟨ corrupt-T fs₀' < i' , b > as' ⟩
       ok < i' , b > ∷ corrupt · fs₀' · as'
         ≡⟨ refl ⟩
@@ -87,36 +87,21 @@ module Helper where
     cs' = ack · not b · bs'
 
     cs-eq : cs ≡ b ∷ cs'
-    cs-eq =
-      cs ≡⟨ csABP ⟩
-      ack · b · bs
-        ≡⟨ subst (λ t → ack · b · bs ≡ ack · b · t )
-                 bs-eq
-                 refl
-        ⟩
-      ack · b · (ok < i' , b > ∷ bs')
-        ≡⟨ ack-ok≡ b b i' bs' refl ⟩
-      b ∷ ack · not b · bs'
-        ≡⟨ refl ⟩
-      b ∷ cs' ∎
+    cs-eq = cs                              ≡⟨ csABP ⟩
+            ack · b · bs                    ≡⟨ ·-rightCong bs-eq ⟩
+            ack · b · (ok < i' , b > ∷ bs') ≡⟨ ack-ok≡ b b i' bs' refl ⟩
+            b ∷ ack · not b · bs'           ≡⟨ refl ⟩
+            b ∷ cs'                         ∎
 
     js' : D
     js' = out · not b · bs'
 
     js-eq : js ≡ i' ∷ js'
-    js-eq =
-      js
-        ≡⟨ jsABP ⟩
-      out · b · bs
-        ≡⟨ subst (λ t → out · b · bs ≡ out · b · t)
-                 bs-eq
-                 refl
-        ⟩
-      out · b · (ok < i' , b > ∷ bs')
-        ≡⟨ out-ok≡ b b i' bs' refl ⟩
-      i' ∷ out · not b · bs'
-        ≡⟨ refl ⟩
-      i' ∷ js' ∎
+    js-eq = js                              ≡⟨ jsABP ⟩
+            out · b · bs                    ≡⟨ ·-rightCong bs-eq ⟩
+            out · b · (ok < i' , b > ∷ bs') ≡⟨ out-ok≡ b b i' bs' refl ⟩
+            i' ∷ out · not b · bs'          ≡⟨ refl ⟩
+            i' ∷ js'                        ∎
 
     ds' : D
     ds' = ds
@@ -130,10 +115,7 @@ module Helper where
       ds'
         ≡⟨ dsAbs ⟩
       corrupt · fs₁ · cs
-        ≡⟨ subst (λ t → corrupt · fs₁ · cs ≡ corrupt · fs₁ · t)
-                 cs-eq
-                 refl
-        ⟩
+        ≡⟨ ·-rightCong cs-eq ⟩
       corrupt · fs₁ · (b ∷ cs')
         ≡⟨ refl ⟩
       corrupt · fs₁ · (b ∷ ack · not b ·
@@ -171,11 +153,9 @@ module Helper where
       bs
         ≡⟨ bsABP ⟩
       corrupt · fs₀ · as
-        ≡⟨ subst₂ (λ t₁ t₂ → corrupt · fs₀ · as ≡ corrupt · t₁ · t₂)
-                  fs₀-eq-helper
-                  as-eq
-                  refl
-        ⟩
+        ≡⟨ ·-rightCong as-eq ⟩
+      corrupt · fs₀ · (< i' , b > ∷ as⁵)
+        ≡⟨ ·-leftCong (·-rightCong fs₀-eq-helper) ⟩
       corrupt · (F ∷ fs₀⁵) · (< i' , b > ∷ as⁵)
         ≡⟨ corrupt-F fs₀⁵ < i' , b > as⁵ ⟩
       error ∷ corrupt · fs₀⁵ · as⁵
@@ -186,54 +166,32 @@ module Helper where
     cs⁵ = ack · b · bs⁵
 
     cs-eq : cs ≡ not b ∷ cs⁵
-    cs-eq =
-      cs
-        ≡⟨ csABP ⟩
-      ack · b · bs
-        ≡⟨ subst (λ t → ack · b · bs ≡ ack · b · t)
-                 bs-eq
-                 refl
-        ⟩
-      ack · b · (error ∷ bs⁵)
-        ≡⟨ ack-error b bs⁵ ⟩
-      not b ∷ ack · b · bs⁵
-        ≡⟨ refl ⟩
-      not b ∷ cs⁵ ∎
+    cs-eq = cs                      ≡⟨ csABP ⟩
+            ack · b · bs            ≡⟨ ·-rightCong bs-eq ⟩
+            ack · b · (error ∷ bs⁵) ≡⟨ ack-error b bs⁵ ⟩
+            not b ∷ ack · b · bs⁵   ≡⟨ refl ⟩
+            not b ∷ cs⁵             ∎
 
     ds⁵ : D
     ds⁵ = corrupt · fs₁⁵ · cs⁵
 
     ds-eq-helper₁ : fs₁ ≡ T ∷ tail₁ fs₁ → ds ≡ ok (not b) ∷ ds⁵
     ds-eq-helper₁ h =
-      ds
-        ≡⟨ dsAbs ⟩
-      corrupt · fs₁ · cs
-        ≡⟨ subst₂ (λ t₁ t₂ → corrupt · fs₁ · cs ≡ corrupt · t₁ · t₂)
-                  h
-                  cs-eq
-                  refl
-        ⟩
-      corrupt · (T ∷ fs₁⁵) · ((not b) ∷ cs⁵)
-        ≡⟨ corrupt-T fs₁⁵ (not b) cs⁵ ⟩
-      ok (not b) ∷ corrupt · fs₁⁵ · cs⁵
-        ≡⟨ refl ⟩
-      ok (not b) ∷ ds⁵ ∎
+      ds                                   ≡⟨ dsAbs ⟩
+      corrupt · fs₁ · cs                   ≡⟨ ·-rightCong cs-eq ⟩
+      corrupt · fs₁ · (not b ∷ cs⁵)        ≡⟨ ·-leftCong (·-rightCong h) ⟩
+      corrupt · (T ∷ fs₁⁵) · (not b ∷ cs⁵) ≡⟨ corrupt-T fs₁⁵ (not b) cs⁵ ⟩
+      ok (not b) ∷ corrupt · fs₁⁵ · cs⁵    ≡⟨ refl ⟩
+      ok (not b) ∷ ds⁵                     ∎
 
     ds-eq-helper₂ : fs₁ ≡ F ∷ tail₁ fs₁ → ds ≡ error ∷ ds⁵
     ds-eq-helper₂ h =
-      ds
-        ≡⟨ dsAbs ⟩
-      corrupt · fs₁ · cs
-        ≡⟨ subst₂ (λ t₁ t₂ → corrupt · fs₁ · cs ≡ corrupt · t₁ · t₂)
-                  h
-                  cs-eq
-                  refl
-        ⟩
-      corrupt · (F ∷ fs₁⁵) · ((not b) ∷ cs⁵)
-        ≡⟨ corrupt-F fs₁⁵ (not b) cs⁵ ⟩
-      error ∷ corrupt · fs₁⁵ · cs⁵
-        ≡⟨ refl ⟩
-      error ∷ ds⁵ ∎
+      ds                                   ≡⟨ dsAbs ⟩
+      corrupt · fs₁ · cs                   ≡⟨ ·-rightCong cs-eq ⟩
+      corrupt · fs₁ · (not b ∷ cs⁵)        ≡⟨ ·-leftCong (·-rightCong h) ⟩
+      corrupt · (F ∷ fs₁⁵) · (not b ∷ cs⁵) ≡⟨ corrupt-F fs₁⁵ (not b) cs⁵ ⟩
+      error ∷ corrupt · fs₁⁵ · cs⁵         ≡⟨ refl ⟩
+      error ∷ ds⁵                          ∎
 
     ds-eq : ds ≡ ok (not b) ∷ ds⁵ ∨ ds ≡ error ∷ ds⁵
     ds-eq = case (λ h → inj₁ (ds-eq-helper₁ h))
@@ -252,29 +210,19 @@ module Helper where
 
     as⁵-eq-helper₂ : ds ≡ error ∷ ds⁵ → as⁵ ≡ send · b · (i' ∷ is') · ds⁵
     as⁵-eq-helper₂ h =
-      await b i' is' ds
-        ≡⟨ cong (await b i' is') h ⟩
-      await b i' is' (error ∷ ds⁵)
-        ≡⟨ await-error b i' is' ds⁵ ⟩
-      < i' , b > ∷ await b i' is' ds⁵
-        ≡⟨ sym (send-eq b i' is' ds⁵) ⟩
-      send · b · (i' ∷ is') · ds⁵ ∎
+      await b i' is' ds               ≡⟨ cong (await b i' is') h ⟩
+      await b i' is' (error ∷ ds⁵)    ≡⟨ await-error b i' is' ds⁵ ⟩
+      < i' , b > ∷ await b i' is' ds⁵ ≡⟨ sym (send-eq b i' is' ds⁵) ⟩
+      send · b · (i' ∷ is') · ds⁵     ∎
 
     as⁵-eq : as⁵ ≡ send · b · (i' ∷ is') · ds⁵
     as⁵-eq = case as⁵-eq-helper₁ as⁵-eq-helper₂ ds-eq
 
     js-eq : js ≡ out · b · bs⁵
-    js-eq =
-      js
-        ≡⟨ jsABP ⟩
-      out · b · bs
-        ≡⟨ subst (λ t → out · b · bs ≡ out · b · t)
-                 bs-eq
-                 refl
-        ⟩
-      out · b · (error ∷ bs⁵)
-        ≡⟨ out-error b bs⁵ ⟩
-      out · b · bs⁵ ∎
+    js-eq = js                      ≡⟨ jsABP ⟩
+            out · b · bs            ≡⟨ ·-rightCong bs-eq ⟩
+            out · b · (error ∷ bs⁵) ≡⟨ out-error b bs⁵ ⟩
+            out · b · bs⁵ ∎
 
     ABPIH : ABP b (i' ∷ is') fs₀⁵ fs₁⁵ as⁵ bs⁵ cs⁵ ds⁵ js
     ABPIH = as⁵-eq , refl , refl , refl , js-eq

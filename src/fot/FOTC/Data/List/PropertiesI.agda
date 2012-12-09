@@ -11,6 +11,7 @@ open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
 open import FOTC.Base.List
+open import FOTC.Base.List.PropertiesI
 open import FOTC.Base.PropertiesI
 open import FOTC.Data.Conat
 open import FOTC.Data.List
@@ -22,12 +23,6 @@ open import FOTC.Data.Nat.Type
 
 ------------------------------------------------------------------------------
 -- Congruence properties
-
-∷-leftCong : ∀ {x y xs} → x ≡ y → x ∷ xs ≡ y ∷ xs
-∷-leftCong refl = refl
-
-∷-rightCong : ∀ {x xs ys} → xs ≡ ys → x ∷ xs ≡ x ∷ ys
-∷-rightCong refl = refl
 
 ++-leftCong : ∀ {xs ys zs} → xs ≡ ys → xs ++ zs ≡ ys ++ zs
 ++-leftCong refl = refl

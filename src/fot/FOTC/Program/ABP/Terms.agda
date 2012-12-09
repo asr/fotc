@@ -12,10 +12,9 @@ open import FOTC.Base.Loop
 open import FOTC.Data.Bool
 
 ------------------------------------------------------------------------------
--- We use 'Stream' instead of 'Inf'.
 
 Bit : D → Set
-Bit b = Bool b
+Bit = Bool
 {-# ATP definition Bit #-}
 
 F : D

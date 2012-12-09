@@ -11,6 +11,7 @@ open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
 open import FOTC.Base.List
+open import FOTC.Base.List.PropertiesI
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI
 open import FOTC.Program.ABP.Fair
@@ -29,7 +30,7 @@ head-tail-Fair-helper {fs} (.(true ∷ []) , fs' , nilF*T , h₁ , h₂) = inj�
          T ∷ [] ++ fs'   ∎
 
   prf₂ : tail₁ fs ≡ [] ++ fs'
-  prf₂ = tail₁ fs              ≡⟨ cong tail₁ prf₁ ⟩
+  prf₂ = tail₁ fs              ≡⟨ tailCong prf₁ ⟩
          tail₁ (T ∷ [] ++ fs') ≡⟨ tail-∷ T ([] ++ fs') ⟩
          [] ++ fs'             ∎
 
@@ -47,7 +48,7 @@ head-tail-Fair-helper {fs} (.(false ∷ ft) , fs' , fcons*T {ft} y , h₁ , h₂
          F ∷ ft ++ fs'   ∎
 
   prf₂ : tail₁ fs ≡ ft ++ fs'
-  prf₂ = tail₁ fs              ≡⟨ cong tail₁ prf₁ ⟩
+  prf₂ = tail₁ fs              ≡⟨ tailCong prf₁ ⟩
          tail₁ (F ∷ ft ++ fs') ≡⟨ tail-∷ F (ft ++ fs') ⟩
          ft ++ fs'             ∎
 
@@ -72,7 +73,7 @@ tail-Fair-helper {fs} (.(true ∷ []) , fs' , nilF*T , Ffs' , h) =
          T ∷ fs'         ∎
 
   prf₂ : tail₁ fs ≡ fs'
-  prf₂ = tail₁ fs        ≡⟨ cong tail₁ prf₁ ⟩
+  prf₂ = tail₁ fs        ≡⟨ tailCong prf₁ ⟩
          tail₁ (T ∷ fs') ≡⟨ tail-∷ T fs' ⟩
          fs'             ∎
 
@@ -85,7 +86,7 @@ tail-Fair-helper {fs} (.(false ∷ ft) , fs' , fcons*T {ft} FTft , Ffs' , h) =
          F ∷ ft ++ fs'   ∎
 
   prf₂ : tail₁ fs ≡ ft ++ fs'
-  prf₂ = tail₁ fs              ≡⟨ cong tail₁ prf₁ ⟩
+  prf₂ = tail₁ fs              ≡⟨ tailCong prf₁ ⟩
          tail₁ (F ∷ ft ++ fs') ≡⟨ tail-∷ F (ft ++ fs') ⟩
          ft ++ fs'             ∎
 
