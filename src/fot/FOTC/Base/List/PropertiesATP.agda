@@ -22,6 +22,9 @@ postulate ∷-rightCong : ∀ {x xs ys} → xs ≡ ys → x ∷ xs ≡ x ∷ ys
 postulate ∷-Cong : ∀ {x y xs ys} → x ≡ y → xs ≡ ys → x ∷ xs ≡ y ∷ ys
 {-# ATP prove ∷-Cong #-}
 
+postulate headCong : ∀ {xs ys} → xs ≡ ys → head₁ xs ≡ head₁ ys
+{-# ATP prove headCong #-}
+
 postulate tailCong : ∀ {xs ys} → xs ≡ ys → tail₁ xs ≡ tail₁ ys
 {-# ATP prove tailCong #-}
 

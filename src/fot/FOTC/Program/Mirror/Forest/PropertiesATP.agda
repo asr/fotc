@@ -44,7 +44,7 @@ map-++-commute-forest : ∀ f {xs} → (∀ {x} → Tree x → Tree (f · x)) �
                         map f (xs ++ ys) ≡ map f xs ++ map f ys
 map-++-commute-forest f h fnil ys =
   map f ([] ++ ys)
-    ≡⟨ mapRightCong (++-leftIdentity ys) ⟩
+    ≡⟨ mapCong₂ (++-leftIdentity ys) ⟩
   map f ys
     ≡⟨ sym (++-leftIdentity (map f ys)) ⟩
   [] ++ map f ys
@@ -53,7 +53,7 @@ map-++-commute-forest f h fnil ys =
 
 map-++-commute-forest f h (fcons {x} {xs} Tx Fxs) ys =
   map f ((x ∷ xs) ++ ys)
-    ≡⟨ mapRightCong (++-∷ x xs ys) ⟩
+    ≡⟨ mapCong₂ (++-∷ x xs ys) ⟩
   map f (x ∷ xs ++ ys)
     ≡⟨ map-∷ f x (xs ++ ys) ⟩
   f · x ∷ map f (xs ++ ys)

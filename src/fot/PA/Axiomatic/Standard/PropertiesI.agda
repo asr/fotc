@@ -15,13 +15,13 @@ open import PA.Axiomatic.Standard.Base
 -- Congruence properties
 
 succCong : ∀ {m n} → m ≡ n → succ m ≡ succ n
-succCong = cong succ
+succCong refl = refl
 
 +-leftCong : ∀ {m n o} → m ≡ n → m + o ≡ n + o
-+-leftCong h = cong₂ _+_ h refl
++-leftCong refl = refl
 
 +-rightCong : ∀ {m n o} → n ≡ o → m + n ≡ m + o
-+-rightCong = cong₂ _+_ refl
++-rightCong refl = refl
 
 ------------------------------------------------------------------------------
 

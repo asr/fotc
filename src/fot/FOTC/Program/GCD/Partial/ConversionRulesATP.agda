@@ -17,7 +17,7 @@ open import FOTC.Program.GCD.Partial.GCD
 -- NB. These conversion rules are not used by the ATPs. They use the
 -- official equation.
 private
-  postulate gcd-00 : gcd zero zero ≡ loop
+  postulate gcd-00 : gcd zero zero ≡ error
   {-# ATP prove gcd-00 #-}
 
   postulate gcd-S0 : ∀ n → gcd (succ₁ n) zero ≡ succ₁ n

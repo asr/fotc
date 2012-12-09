@@ -23,6 +23,7 @@ open import Common.FOL.Relation.Binary.EqReasoning
 open import FOTC.Base
 open import FOTC.Base.List
 open import FOTC.Data.List
+open import FOTC.Data.List.PropertiesI
 open import FOTC.Relation.Binary.Bisimilarity
 
 ------------------------------------------------------------------------------
@@ -50,7 +51,7 @@ open import FOTC.Relation.Binary.Bisimilarity
     unfoldMap : ∀ y →
                 map f (iterate f y) ≡ f · y ∷ map f (iterate f (f · y))
     unfoldMap y = map f (iterate f y)
-                    ≡⟨ cong (map f) (iterate-eq f y) ⟩
+                    ≡⟨ mapCong₂ (iterate-eq f y) ⟩
                   map f (y ∷ iterate f (f · y))
                     ≡⟨ map-∷ f y (iterate f (f · y)) ⟩
                   f · y ∷ map f (iterate f (f · y)) ∎

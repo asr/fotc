@@ -30,14 +30,14 @@ open import FOTC.Data.Nat.Type
 ++-rightCong : ∀ {xs ys zs} → ys ≡ zs → xs ++ ys ≡ xs ++ zs
 ++-rightCong refl = refl
 
-mapRightCong : ∀ {f xs ys} → xs ≡ ys → map f xs ≡ map f ys
-mapRightCong refl = refl
+mapCong₂ : ∀ {f xs ys} → xs ≡ ys → map f xs ≡ map f ys
+mapCong₂ refl = refl
 
-revLeftCong : ∀ {xs ys zs} → xs ≡ ys → rev xs zs ≡ rev ys zs
-revLeftCong refl = refl
+revCong₁ : ∀ {xs ys zs} → xs ≡ ys → rev xs zs ≡ rev ys zs
+revCong₁ refl = refl
 
-revRightCong : ∀ {xs ys zs} → ys ≡ zs → rev xs ys ≡ rev xs zs
-revRightCong refl = refl
+revCong₂ : ∀ {xs ys zs} → ys ≡ zs → rev xs ys ≡ rev xs zs
+revCong₂ refl = refl
 
 reverseCong : ∀ {xs ys} → xs ≡ ys → reverse xs ≡ reverse ys
 reverseCong refl = refl
@@ -161,13 +161,13 @@ lg-xs≡∞→lg-x∷xs≡∞ x xs h =
 map-++-commute : ∀ f {xs} → List xs → ∀ ys →
                  map f (xs ++ ys) ≡ map f xs ++ map f ys
 map-++-commute f lnil ys =
-  map f ([] ++ ys)     ≡⟨ mapRightCong (++-leftIdentity ys) ⟩
+  map f ([] ++ ys)     ≡⟨ mapCong₂ (++-leftIdentity ys) ⟩
   map f ys             ≡⟨ sym (++-leftIdentity (map f ys)) ⟩
   [] ++ map f ys       ≡⟨ ++-leftCong (sym (map-[] f)) ⟩
   map f [] ++ map f ys ∎
 
 map-++-commute f (lcons x {xs} Lxs) ys =
-  map f ((x ∷ xs) ++ ys)         ≡⟨ mapRightCong (++-∷ x xs ys) ⟩
+  map f ((x ∷ xs) ++ ys)         ≡⟨ mapCong₂ (++-∷ x xs ys) ⟩
   map f (x ∷ xs ++ ys)           ≡⟨ map-∷ f x (xs ++ ys) ⟩
   f · x ∷ map f (xs ++ ys)       ≡⟨ ∷-rightCong (map-++-commute f Lxs ys) ⟩
   f · x ∷ (map f xs ++ map f ys) ≡⟨ sym (++-∷ (f · x) (map f xs) (map f ys)) ⟩
@@ -239,7 +239,7 @@ reverse-++-commute (lcons x {xs} Lxs) (lcons y {ys} Lys) =
   reverse ((x ∷ xs) ++ y ∷ ys)
     ≡⟨ refl ⟩
   rev ((x ∷ xs) ++ y ∷ ys) []
-    ≡⟨ revLeftCong (++-∷ x xs (y ∷ ys)) ⟩
+    ≡⟨ revCong₁ (++-∷ x xs (y ∷ ys)) ⟩
   rev (x ∷ (xs ++ y ∷ ys)) []
     ≡⟨ rev-∷ x (xs ++ y ∷ ys) [] ⟩
   rev (xs ++ y ∷ ys) (x ∷ [])

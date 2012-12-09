@@ -24,6 +24,9 @@ open import FOTC.Base.List
 ∷-Cong : ∀ {x y xs ys} → x ≡ y → xs ≡ ys → x ∷ xs ≡ y ∷ ys
 ∷-Cong refl refl = refl
 
+headCong : ∀ {xs ys} → xs ≡ ys → head₁ xs ≡ head₁ ys
+headCong refl = refl
+
 tailCong : ∀ {xs ys} → xs ≡ ys → tail₁ xs ≡ tail₁ ys
 tailCong refl = refl
 
@@ -35,12 +38,12 @@ tailCong refl = refl
   where
   x≡y : x ≡ y
   x≡y = x              ≡⟨ sym (head-∷ x xs) ⟩
-        head₁ (x ∷ xs) ≡⟨ cong head₁ h ⟩
+        head₁ (x ∷ xs) ≡⟨ headCong h ⟩
         head₁ (y ∷ ys) ≡⟨ head-∷ y ys ⟩
         y              ∎
 
   xs≡ys : xs ≡ ys
   xs≡ys = xs             ≡⟨ sym (tail-∷ x xs) ⟩
-          tail₁ (x ∷ xs) ≡⟨ cong tail₁ h ⟩
+          tail₁ (x ∷ xs) ≡⟨ tailCong h ⟩
           tail₁ (y ∷ ys) ≡⟨ tail-∷ y ys ⟩
           ys             ∎

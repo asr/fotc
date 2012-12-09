@@ -142,7 +142,7 @@ private
   proof₂₋₃ m n = beta (gcd-s₃ m) n
 
   proof₃₋₄ : ∀ m n b → iszero₁ n ≡ b → gcd-s₃ m n ≡ gcd-s₄ m n b
-  proof₃₋₄ m n b = cong (gcd-s₄ m n)
+  proof₃₋₄ m n .(iszero₁ n) refl = refl
 
   proof₄₊ : ∀ m n → gcd-s₄ m n true ≡ gcd-s₅ m
   proof₄₊ m _ = if-true (gcd-s₅ m)
@@ -151,7 +151,7 @@ private
   proof₄₋₆ m n = if-false (gcd-s₆ m n)
 
   proof₆₋₇ : ∀ m n b → iszero₁ m ≡ b → gcd-s₆ m n ≡ gcd-s₇ m n b
-  proof₆₋₇ m n b = cong (gcd-s₇ m n)
+  proof₆₋₇ m n .(iszero₁ m) refl = refl
 
   proof₇₊ : ∀ m n → gcd-s₇ m n true ≡ n
   proof₇₊ _ n = if-true n

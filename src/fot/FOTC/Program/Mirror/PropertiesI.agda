@@ -76,9 +76,9 @@ mirror-involutive (tree d (fcons {t} {ts} Tt Fts)) =
 
 helper fnil =
   reverse (map mirror (reverse (map mirror [])))
-    ≡⟨ reverseCong (mapRightCong (reverseCong (map-[] mirror))) ⟩
+    ≡⟨ reverseCong (mapCong₂ (reverseCong (map-[] mirror))) ⟩
   reverse (map mirror (reverse []))
-    ≡⟨ reverseCong (mapRightCong (rev-[] [])) ⟩
+    ≡⟨ reverseCong (mapCong₂ (rev-[] [])) ⟩
   reverse (map mirror [])
     ≡⟨ reverseCong (map-[] mirror) ⟩
   reverse []
@@ -87,9 +87,9 @@ helper fnil =
 
 helper (fcons {t} {ts} Tt Fts) =
   reverse (map mirror (reverse (map mirror (t ∷ ts))))
-    ≡⟨ reverseCong (mapRightCong (reverseCong (map-∷ mirror t ts) )) ⟩
+    ≡⟨ reverseCong (mapCong₂ (reverseCong (map-∷ mirror t ts) )) ⟩
   reverse (map mirror (reverse (mirror · t ∷ map mirror ts)))
-    ≡⟨ reverseCong (mapRightCong
+    ≡⟨ reverseCong (mapCong₂
                      (reverse-∷-forest (mirror-Tree Tt)
                                        (map-Forest mirror mirror-Tree Fts)))
     ⟩

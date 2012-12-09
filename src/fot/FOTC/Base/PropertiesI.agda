@@ -44,7 +44,7 @@ ifCong₃ refl = refl
 succInjective : ∀ {m n} → succ₁ m ≡ succ₁ n → m ≡ n
 succInjective {m} {n} h =
   m                ≡⟨ sym (pred-S m) ⟩
-  pred₁ (succ₁ m)  ≡⟨ cong pred₁ h ⟩
+  pred₁ (succ₁ m)  ≡⟨ predCong h ⟩
   pred₁ (succ₁ n)  ≡⟨ pred-S n ⟩
   n                ∎
 
