@@ -25,9 +25,6 @@ T : D
 T = true
 {-# ATP definition T #-}
 
-error : D
-error = loop
-
 postulate
   <_,_> : D → D → D
   ok    : D → D

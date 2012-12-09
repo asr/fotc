@@ -20,7 +20,7 @@ postulate
   gcd-eq : ∀ m n → gcd m n ≡
            if (iszero₁ n)
               then (if (iszero₁ m)
-                       then loop
+                       then error
                        else m)
               else (if (iszero₁ m)
                        then n

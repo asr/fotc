@@ -23,7 +23,7 @@ gcdh : D → D
 gcdh g = lam (λ m → lam (λ n →
            if (iszero₁ n)
               then (if (iszero₁ m)
-                       then loop
+                       then error
                        else m)
               else (if (iszero₁ m)
                        then n

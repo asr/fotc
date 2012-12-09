@@ -44,7 +44,7 @@ private
   gcd-s₂ m = lam (λ n →
                     if (iszero₁ n)
                        then (if (iszero₁ m)
-                                then loop
+                                then error
                                 else m)
                        else (if (iszero₁ m)
                                 then n
@@ -56,7 +56,7 @@ private
   gcd-s₃ : D → D → D
   gcd-s₃ m n = if (iszero₁ n)
                   then (if (iszero₁ m)
-                           then loop
+                           then error
                            else m)
                   else (if (iszero₁ m)
                            then n
@@ -68,7 +68,7 @@ private
   gcd-s₄ : D → D → D → D
   gcd-s₄ m n b = if b
                     then (if (iszero₁ m)
-                             then loop
+                             then error
                              else m)
                     else (if (iszero₁ m)
                              then n
@@ -78,7 +78,7 @@ private
 
   -- First if_then_else_ when if true ...
   gcd-s₅ : D → D
-  gcd-s₅ m = if (iszero₁ m) then loop else m
+  gcd-s₅ m = if (iszero₁ m) then error else m
 
   -- First if_then_else_ when if false ...
   gcd-s₆ : D → D → D
@@ -90,7 +90,7 @@ private
 
   -- Second if_then_else_ iszero₁ m = b.
   gcd-s₇ : D → D → D
-  gcd-s₇ m b = if b then loop else m
+  gcd-s₇ m b = if b then error else m
 
   -- Third if_then_else_ iszero₁ m = b.
   gcd-s₈ : D → D → D → D
@@ -167,8 +167,8 @@ private
   proof₆₋₈ : ∀ m n b → iszero₁ m ≡ b → gcd-s₆ m n ≡ gcd-s₈ m n b
   proof₆₋₈ m n b = cong (gcd-s₈ m n)
 
-  proof₇₊ : ∀ m → gcd-s₇ m true ≡ loop
-  proof₇₊ _ = if-true loop
+  proof₇₊ : ∀ m → gcd-s₇ m true ≡ error
+  proof₇₊ _ = if-true error
 
   proof₇₋ : ∀ m → gcd-s₇ m false ≡ m
   proof₇₋ m = if-false m
@@ -194,7 +194,7 @@ private
 -- First equation.
 --
 -- We do not use this equation for reasoning about gcd.
-gcd-00 : gcd zero zero ≡ loop
+gcd-00 : gcd zero zero ≡ error
 gcd-00 =
   gcd zero zero         ≡⟨ proof₀₋₁ zero zero ⟩
   gcd-s₁ zero zero      ≡⟨ proof₁₋₂ zero zero ⟩
@@ -203,7 +203,7 @@ gcd-00 =
   gcd-s₄ zero zero true ≡⟨ proof₄₋₅ zero zero ⟩
   gcd-s₅ zero           ≡⟨ proof₅₋₇ zero true iszero-0 ⟩
   gcd-s₇ zero true      ≡⟨ proof₇₊  zero ⟩
-  loop                  ∎
+  error                 ∎
 
 -- Second equation.
 gcd-S0 : ∀ n → gcd (succ₁ n) zero ≡ succ₁ n

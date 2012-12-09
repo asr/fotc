@@ -18,6 +18,7 @@ open import Common.FOL.Relation.Binary.EqReasoning
 open import FOTC.Base
 open import FOTC.Base.List
 open import FOTC.Base.List.PropertiesI
+open import FOTC.Base.Loop
 open import FOTC.Base.PropertiesI
 open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesI

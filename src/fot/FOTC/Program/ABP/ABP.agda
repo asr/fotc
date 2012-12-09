@@ -14,6 +14,7 @@
 module FOTC.Program.ABP.ABP where
 
 open import FOTC.Base
+open import FOTC.Base.Loop
 open import FOTC.Base.List
 open import FOTC.Data.Bool
 open import FOTC.Data.Stream

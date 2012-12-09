@@ -37,7 +37,7 @@ private
   gcd-s₁ : D → D → D
   gcd-s₁ m n = if (iszero₁ n)
                   then (if (iszero₁ m)
-                           then loop
+                           then error
                            else m)
                   else (if (iszero₁ m)
                            then n
@@ -49,7 +49,7 @@ private
   gcd-s₂ : D → D → D → D
   gcd-s₂ m n b = if b
                     then (if (iszero₁ m)
-                             then loop
+                             then error
                              else m)
                     else (if (iszero₁ m)
                              then n
@@ -59,7 +59,7 @@ private
 
   -- First if_then_else_ when iszero₁ n = true.
   gcd-s₃ : D → D
-  gcd-s₃ m = if (iszero₁ m) then loop else m
+  gcd-s₃ m = if (iszero₁ m) then error else m
 
   -- First if_then_else_ when iszero₁ n = false.
   gcd-s₄ : D → D → D
@@ -71,11 +71,11 @@ private
 
   -- Second if_then_else_ (iszero₁ m).
   gcd-s₅ : D → D → D
-  gcd-s₅ m b = if b then loop else m
+  gcd-s₅ m b = if b then error else m
 
   -- Second if_then_else_ when iszero₁ m = true.
   gcd-s₆ : D
-  gcd-s₆ = loop
+  gcd-s₆ = error
 
   -- Second if_then_else_ when iszero₁ m = false.
   gcd-s₇ : D → D
@@ -156,7 +156,7 @@ private
   proof₃₋₅ m b = cong (gcd-s₅ m)
 
   proof₅₋₆ : ∀ m → gcd-s₅ m true ≡ gcd-s₆
-  proof₅₋₆ _ = if-true loop
+  proof₅₋₆ _ = if-true error
 
   proof₅₋₇ : ∀ m → gcd-s₅ m false ≡ gcd-s₇ m
   proof₅₋₇ m = if-false m
@@ -184,14 +184,14 @@ private
 
 -- First equation.
 -- We do not use this equation for reasoning about gcd.
-gcd-00 : gcd zero zero ≡ loop
+gcd-00 : gcd zero zero ≡ error
 gcd-00 =
   gcd zero zero         ≡⟨ proof₀₋₁ zero zero ⟩
   gcd-s₁ zero zero      ≡⟨ proof₁₋₂ zero zero true iszero-0 ⟩
   gcd-s₂ zero zero true ≡⟨ proof₂₋₃ zero zero ⟩
   gcd-s₃ zero           ≡⟨ proof₃₋₅ zero true iszero-0 ⟩
   gcd-s₅ zero true      ≡⟨ proof₅₋₆ zero ⟩
-  loop                  ∎
+  error                 ∎
 
 -- Second equation.
 gcd-S0 : ∀ n → gcd (succ₁ n) zero ≡ succ₁ n
