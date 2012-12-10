@@ -14,8 +14,8 @@ open import FOTC.Relation.Binary.Bisimilarity
 
 ------------------------------------------------------------------------------
 
-≈-Stream-refl : ∀ {xs} → Stream xs → xs ≈ xs
-≈-Stream-refl {xs} Sxs = ≈-coind R h₁ h₂
+stream-≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
+stream-≈-refl {xs} Sxs = ≈-coind R h₁ h₂
   where
   R : D → D → Set
   R xs ys = Stream xs ∧ Stream xs ∧ xs ≡ ys
@@ -28,8 +28,8 @@ open import FOTC.Relation.Binary.Bisimilarity
   h₂ : R xs xs
   h₂ = Sxs , Sxs , refl
 
-≡→≈-Stream : ∀ {xs ys} → Stream xs → Stream ys → xs ≡ ys → xs ≈ ys
-≡→≈-Stream Sxs _ refl = ≈-Stream-refl Sxs
+stream-≡→≈ : ∀ {xs ys} → Stream xs → Stream ys → xs ≡ ys → xs ≈ ys
+stream-≡→≈ Sxs _ refl = stream-≈-refl Sxs
 
 ≈→Stream : ∀ {xs ys} → xs ≈ ys → Stream xs ∧ Stream ys
 ≈→Stream {xs} {ys} h = Stream-coind P₁ h₁ (ys , h) , Stream-coind P₂ h₂ (xs , h)
