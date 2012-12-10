@@ -18,15 +18,15 @@ stream-≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
 stream-≈-refl {xs} Sxs = ≈-coind R h₁ h₂
   where
   R : D → D → Set
-  R xs ys = Stream xs ∧ Stream xs ∧ xs ≡ ys
+  R xs ys = Stream xs ∧ xs ≡ ys
 
   h₁ : ∀ {xs ys} → R xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
        R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
-  h₁ (Sxs , Sys , refl) with (Stream-unf Sxs)
-  ... | x' , xs' , Sxs' , prf = x' , xs' , xs' , (Sxs' , Sxs' , refl) , prf , prf
+  h₁ (Sxs , refl) with (Stream-unf Sxs)
+  ... | x' , xs' , Sxs' , prf = x' , xs' , xs' , (Sxs' , refl) , prf , prf
 
   h₂ : R xs xs
-  h₂ = Sxs , Sxs , refl
+  h₂ = Sxs , refl
 
 stream-≡→≈ : ∀ {xs ys} → Stream xs → Stream ys → xs ≡ ys → xs ≈ ys
 stream-≡→≈ Sxs _ refl = stream-≈-refl Sxs
