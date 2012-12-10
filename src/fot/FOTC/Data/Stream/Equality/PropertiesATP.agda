@@ -11,25 +11,12 @@ open import FOTC.Base
 open import FOTC.Base.List
 open import FOTC.Data.Stream
 open import FOTC.Relation.Binary.Bisimilarity
+open import FOTC.Relation.Binary.Bisimilarity.PropertiesATP
 
 ------------------------------------------------------------------------------
 
-stream-≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
-stream-≈-refl {xs} Sxs = ≈-coind R h₁ h₂
-  where
-  R : D → D → Set
-  R xs ys = Stream xs ∧ xs ≡ ys
-  {-# ATP definition R #-}
-
-  postulate h₁ : ∀ {xs ys} → R xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
-                 R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
-  {-# ATP prove h₁ #-}
-
-  postulate h₂ : R xs xs
-  {-# ATP prove h₂ #-}
-
 postulate stream-≡→≈ : ∀ {xs ys} → Stream xs → Stream ys → xs ≡ ys → xs ≈ ys
-{-# ATP prove stream-≡→≈ stream-≈-refl #-}
+{-# ATP prove stream-≡→≈ ≈-refl #-}
 
 ≈→Stream : ∀ {xs ys} → xs ≈ ys → Stream xs ∧ Stream ys
 ≈→Stream {xs} {ys} h = Stream-coind A₁ h₁ (ys , h) , Stream-coind A₂ h₂ (xs , h)
