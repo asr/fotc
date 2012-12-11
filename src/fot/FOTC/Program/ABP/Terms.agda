@@ -14,7 +14,7 @@ open import FOTC.Data.Bool
 ------------------------------------------------------------------------------
 
 Bit : D → Set
-Bit = Bool
+Bit b = Bool b
 {-# ATP definition Bit #-}
 
 F : D

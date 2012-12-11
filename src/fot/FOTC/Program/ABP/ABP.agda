@@ -78,9 +78,8 @@ postulate
 
 postulate has hbs hcs hds : D → D → D → D → D → D → D
 
-postulate
-  has-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
-           has f₁ f₂ f₃ g₁ g₂ is ≡ f₁ · is · (hds f₁ f₂ f₃ g₁ g₂ is)
+postulate has-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
+                   has f₁ f₂ f₃ g₁ g₂ is ≡ f₁ · is · (hds f₁ f₂ f₃ g₁ g₂ is)
 {-# ATP axiom has-eq #-}
 
 postulate hbs-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
