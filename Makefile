@@ -39,13 +39,13 @@ agda2atp_haskell_files = $(shell find $(agda2atp_path)/src/ -name '*.hs')
 AGDA = agda -v 0
 
 # The defaults ATPs are e, equinox, and vampire.
-AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp
-# AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --atp=e
-# AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --atp=equinox
-# AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --atp=ileancop
-# AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --atp=metis
-# AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --atp=spass
-# AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --atp=vampire
+AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --check
+# AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --check --atp=e
+# AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --check --atp=equinox
+# AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --check --atp=ileancop
+# AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --check --atp=metis
+# AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --check --atp=spass
+# AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --check --atp=vampire
 
 ##############################################################################
 # Auxiliary functions
@@ -73,11 +73,6 @@ refute_theorems_files = $(call path_subst,refute_theorems,$(non_theorems_path))
 errors_files = $(call path_subst,errors,$(errors_path))
 
 options_files = $(call path_subst,options,$(options_path))
-
-parsing_conjectures_files = \
-  $(call path_subst,parsing_conjectures,$(theorems_path))
-parsing_conjectures_files += \
-  $(call path_subst,parsing_conjectures,$(non_theorems_path))
 
 # FOT
 
@@ -190,28 +185,6 @@ options : $(options_files)
 
 errors : $(errors_files)
 	shelltest --color $(errors_path)/errors.test
-	@echo "$@ succeeded!"
-
-##############################################################################
-# Test suit: Parsing
-
-flags_parsing = -i$(theorems_path) -i$(non_theorems_path)
-
-# We use tptp4X from TPTP v5.4.0 to parse the TPTP files.
-%.parsing_conjectures :
-	$(AGDA) $(flags_parsing) $*.agda
-	$(AGDA2ATP) $(flags_parsing) --only-files --output-dir=$(output_dir) \
-	            $*.agda
-
-	find $(output_dir) | while read file; do \
-	  tptp4X $${file}; \
-	done
-
-parsing_conjectures_aux : $(parsing_conjectures_files)
-
-parsing_conjectures :
-	rm -r -f $(output_dir)
-	make parsing_conjectures_aux
 	@echo "$@ succeeded!"
 
 ##############################################################################
