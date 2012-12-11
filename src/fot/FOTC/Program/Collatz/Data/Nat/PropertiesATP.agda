@@ -40,7 +40,7 @@ div-2x-2≡x (nsucc (nsucc {n} Nn)) = prf (div-2x-2≡x (nsucc Nn))
         {-# ATP prove prf 2*SSx≥2 +-rightIdentity +-comm +-N #-}
 
 postulate div-2^[x+1]-2≡2^x : ∀ {n} → N n → div ([2] ^ succ₁ n) [2] ≡ [2] ^ n
-{-# ATP prove div-2^[x+1]-2≡2^x ^-S ^-N div-2x-2≡x #-}
+{-# ATP prove div-2^[x+1]-2≡2^x ^-N div-2x-2≡x #-}
 
 +∸2 : ∀ {n} → N n → n ≢ zero → n ≢ [1] → n ≡ succ₁ (succ₁ (n ∸ [2]))
 +∸2 nzero                  n≢0 n≢1 = ⊥-elim (n≢0 refl)
@@ -61,7 +61,7 @@ postulate div-2^[x+1]-2≡2^x : ∀ {n} → N n → div ([2] ^ succ₁ n) [2] �
         {-# ATP prove prf xy≡0→x≡0∨y≡0 ^-N #-}
 
 postulate 2^[x+1]≢1 : ∀ {n} → N n → [2] ^ succ₁ n ≢ [1]
-{-# ATP prove 2^[x+1]≢1 Sx≢x xy≡1→x≡1 ^-N ^-S #-}
+{-# ATP prove 2^[x+1]≢1 Sx≢x xy≡1→x≡1 ^-N #-}
 
 Sx-Even→x-Odd : ∀ {n} → N n → Even (succ₁ n) → Odd n
 Sx-Even→x-Odd nzero  h = ⊥-elim prf
@@ -120,4 +120,4 @@ x+x-Even (nsucc {n} Nn) = prf (x+x-Even Nn)
   {-# ATP prove prf x-Even→SSx-Even x+x-Even +-N +-comm +-rightIdentity #-}
 
 postulate 2^[x+1]-Even : ∀ {n} → N n → Even ([2] ^ succ₁ n)
-{-# ATP prove 2^[x+1]-Even ^-S ^-N 2x-Even #-}
+{-# ATP prove 2^[x+1]-Even ^-N 2x-Even #-}

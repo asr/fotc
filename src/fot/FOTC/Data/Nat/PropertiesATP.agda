@@ -177,7 +177,7 @@ Sx∸x≡S0 (nsucc {n} Nn) = trans (S∸S (nsucc Nn) Nn) (Sx∸x≡S0 Nn)
 [x+y]∸[x+z]≡y∸z {n = n} {o} (nsucc {m} Nm) Nn No = prf ([x+y]∸[x+z]≡y∸z Nm Nn No)
   where postulate prf : (m + n) ∸ (m + o) ≡ n ∸ o →
                         (succ₁ m + n) ∸ (succ₁ m + o) ≡ n ∸ o
-        {-# ATP prove prf +-N S∸S +-Sx #-}
+        {-# ATP prove prf +-N S∸S #-}
 
 *-leftZero : ∀ n → zero * n ≡ zero
 *-leftZero = *-0x
