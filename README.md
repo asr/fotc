@@ -50,6 +50,9 @@ of our programs. See:
   ileanCoP v1.3beta1, Metis 2.3 (release 20110926), SPASS v3.7, and
   Vampire 0.6 (revision 903).
 
+* The `agda2atp` command-line option `--check` requires the `tptp4X`
+  program from the [TPTP World](http://www.cs.miami.edu/~tptp/).
+
 # Installation
 
 1. Modified version of Agda
