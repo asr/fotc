@@ -12,7 +12,7 @@ open import FOTC.Base.Loop
 open import FOTC.Data.Bool
 
 ------------------------------------------------------------------------------
-
+-- N.B. We did not define @Bit = Bool@ due to the issue #11.
 Bit : D → Set
 Bit b = Bool b
 {-# ATP definition Bit #-}
