@@ -51,7 +51,7 @@ of our programs. See:
   Vampire 0.6 (revision 903).
 
 * The `agda2atp` command-line option `--check` requires the `tptp4X`
-  program from the [TPTP World](http://www.cs.miami.edu/~tptp/).
+  program from the [TPTP library](http://www.cs.miami.edu/~tptp/).
 
 # Installation
 
