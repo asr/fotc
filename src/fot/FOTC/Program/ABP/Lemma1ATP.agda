@@ -66,7 +66,7 @@ module Helper where
            ∧ ABP' b i' is' fs₀' fs₁' as' bs' cs' ds' js'
            ∧ js ≡ i' ∷ js'
   helper {b} {i'} {is'} {js = js} Bb Ffs₁ abp
-         (.(T ∷ []) , fs₀' , nilF*T , Ffs₀' , fs₀-eq) = prf
+         (.(T ∷ []) , fs₀' , f*tnil , Ffs₀' , fs₀-eq) = prf
     where
     -- 25 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
     postulate
@@ -82,7 +82,7 @@ module Helper where
     -- See issue #6.
     -- {-# ATP prove prf #-}
   helper {b} {i'} {is'} {fs₀} {fs₁} {as} {bs} {cs} {ds} {js} Bb Ffs₁ abp
-         (.(F ∷ ft₀⁵) , fs₀' , fcons*T {ft₀⁵} FTft₀⁵ , Ffs₀' , fs₀-eq)
+         (.(F ∷ ft₀⁵) , fs₀' , f*tcons {ft₀⁵} FTft₀⁵ , Ffs₀' , fs₀-eq)
          = helper Bb (tail-Fair Ffs₁) ABPIH (ft₀⁵ , fs₀' , FTft₀⁵ , Ffs₀' , refl)
     where
     postulate fs₀-eq-helper : fs₀ ≡ F ∷ fs₀⁵ fs₀' ft₀⁵

@@ -45,7 +45,7 @@ module Helper where
            ∧ ABP (not b) is' fs₀'' fs₁'' as'' bs'' cs'' ds'' js'
   helper {b} {i'} {is'} {fs₀'} {fs₁'} {as'} {bs'} {cs'} {ds'} {js'}
          Bb Ffs₀' (ds'ABP' , as'ABP , bs'ABP' , cs'ABP' , js'ABP')
-         (.(T ∷ []) , fs₁'' , nilF*T , Ffs₁'' , fs₁'-eq) =
+         (.(T ∷ []) , fs₁'' , f*tnil , Ffs₁'' , fs₁'-eq) =
          fs₀' , fs₁'' , as'' , bs'' , cs'' , ds''
          , Ffs₀' , Ffs₁''
          , as''-eq , bs''-eq ,  cs''-eq , refl , js'-eq
@@ -100,7 +100,7 @@ module Helper where
 
   helper {b} {i'} {is'} {fs₀'} {fs₁'} {as'} {bs'} {cs'} {ds'} {js'}
          Bb Ffs₀' (ds'ABP' , as'ABP , bs'ABP' , cs'ABP' , js'ABP')
-         (.(F ∷ ft₁) , fs₁'' , fcons*T {ft₁} FTft₁ , Ffs₁'' , fs₁'-eq)
+         (.(F ∷ ft₁) , fs₁'' , f*tcons {ft₁} FTft₁ , Ffs₁'' , fs₁'-eq)
          = helper Bb (tail-Fair Ffs₀') ABP'IH (ft₁ , fs₁'' , FTft₁ , Ffs₁'' , refl)
 
     where

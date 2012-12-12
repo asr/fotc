@@ -65,7 +65,7 @@ module Helper where
            ∧ Fair fs₁''
            ∧ ABP (not b) is' fs₀'' fs₁'' as'' bs'' cs'' ds'' js'
   helper {b} {i'} {is'} {js' = js'} Bb Ffs₀' abp'
-         (.(T ∷ []) , fs₁'' , nilF*T , Ffs₁'' , fs₁'-eq) = prf
+         (.(T ∷ []) , fs₁'' , f*tnil , Ffs₁'' , fs₁'-eq) = prf
     where
     postulate
       prf : ∃[ fs₀'' ] ∃[ fs₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
@@ -80,7 +80,7 @@ module Helper where
 
   helper {b} {i'} {is'} {fs₀'} {fs₁'} {as'} {bs'} {cs'} {ds'} {js'}
          Bb Ffs₀' abp'
-         (.(F ∷ ft₁) , fs₁'' , fcons*T {ft₁} FTft₁ , Ffs₁'' , fs₁'-eq)
+         (.(F ∷ ft₁) , fs₁'' , f*tcons {ft₁} FTft₁ , Ffs₁'' , fs₁'-eq)
          = helper Bb (tail-Fair Ffs₀') ABP'IH (ft₁ , fs₁'' , FTft₁ , Ffs₁'' , refl)
     where
     postulate fs₁'-eq-helper : fs₁' ≡ F ∷ fs₁⁵ ft₁ fs₁''

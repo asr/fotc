@@ -48,7 +48,7 @@ module Helper where
   -- the auxiliary proofs inside the where clause.
   helper {b} {i'} {is'} {fs₀} {fs₁} {as} {bs} {cs} {ds} {js} Bb Ffs₁
          (asABP , bsABP , csABP , dsAbs , jsABP)
-         (.(T ∷ []) , fs₀' , nilF*T , Ffs₀' , fs₀-eq) =
+         (.(T ∷ []) , fs₀' , f*tnil , Ffs₀' , fs₀-eq) =
          fs₀' , fs₁' , as' , bs' , cs' , ds' , js'
          , Ffs₀' , Ffs₁
          , (ds'-eq , refl , refl , refl , refl)
@@ -124,7 +124,7 @@ module Helper where
 
   helper {b} {i'} {is'} {fs₀} {fs₁} {as} {bs} {cs} {ds} {js}
          Bb Ffs₁ (asABP , bsABP , csABP , dsAbs , jsABP)
-         (.(F ∷ ft₀⁵) , fs₀' , fcons*T {ft₀⁵} FTft₀⁵ , Ffs₀' , fs₀-eq)
+         (.(F ∷ ft₀⁵) , fs₀' , f*tcons {ft₀⁵} FTft₀⁵ , Ffs₀' , fs₀-eq)
          = helper Bb (tail-Fair Ffs₁) ABPIH (ft₀⁵ , fs₀' , FTft₀⁵ , Ffs₀' , refl)
 
     where

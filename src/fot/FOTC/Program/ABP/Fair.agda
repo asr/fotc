@@ -24,8 +24,8 @@ open import FOTC.Program.ABP.Terms
 -- From (Dybjer and Sander 1989): al : F*T if al is a list of zero or
 -- more 0's followed by a final 1.
 data F*T : D → Set where
-  nilF*T  :                   F*T (T ∷ [])
-  fcons*T : ∀ {ft} → F*T ft → F*T (F ∷ ft)
+  f*tnil  :                   F*T (T ∷ [])
+  f*tcons : ∀ {ft} → F*T ft → F*T (F ∷ ft)
 
 -- Functor for the Fair type.
 -- FairF : (D → Set) → D → Set
@@ -49,12 +49,12 @@ postulate Fair-unf : ∀ {fs} → Fair fs →
 -- N.B. This is an axiom schema. Because in the automatic proofs we
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
-postulate  Fair-coind : (A : D → Set) →
-                        -- A is post-fixed point of FairF.
-                        (∀ {fs} → A fs →
-                          ∃[ ft ] ∃[ fs' ] F*T ft ∧ A fs' ∧ fs ≡ ft ++ fs') →
-                        -- Fair is greater than A.
-                        ∀ {fs} → A fs → Fair fs
+postulate Fair-coind : (A : D → Set) →
+                       -- A is post-fixed point of FairF.
+                       (∀ {fs} → A fs →
+                         ∃[ ft ] ∃[ fs' ] F*T ft ∧ A fs' ∧ fs ≡ ft ++ fs') →
+                       -- Fair is greater than A.
+                       ∀ {fs} → A fs → Fair fs
 
 -- Because a greatest post-fixed point is a fixed-point, then the Fair
 -- predicate is also a pre-fixed point of the functional FairF, i.e.
