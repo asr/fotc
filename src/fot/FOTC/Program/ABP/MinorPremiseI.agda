@@ -39,22 +39,22 @@ minorPremise : ∀ {is js} → B is js →
                B is' js' ∧ is ≡ i' ∷ is' ∧ js ≡ i' ∷ js'
 minorPremise
   {is} {js}
-  (b , fs₀ , fs₁ , as , bs , cs , ds , Sis , Bb , Ffs₀ , Ffs₁ , h)
+  (b , os₀ , os₁ , as , bs , cs , ds , Sis , Bb , Fos₀ , Fos₁ , h)
   with (Stream-unf Sis)
 ... | (i' , is' , Sis' , is≡i'∷is) = i' , is' , js' , Bis'js' , is≡i'∷is , js≡i'∷js'
 
   where
   ABP-helper : is ≡ i' ∷ is' →
-               ABP b is fs₀ fs₁ as bs cs ds js →
-               ABP b (i' ∷ is') fs₀ fs₁ as bs cs ds js
-  ABP-helper h₁ h₂ = subst (λ t → ABP b t fs₀ fs₁ as bs cs ds js) h₁ h₂
+               ABP b is os₀ os₁ as bs cs ds js →
+               ABP b (i' ∷ is') os₀ os₁ as bs cs ds js
+  ABP-helper h₁ h₂ = subst (λ t → ABP b t os₀ os₁ as bs cs ds js) h₁ h₂
 
-  ABP'-lemma₁ : ∃[ fs₀' ] ∃[ fs₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-                Fair fs₀'
-                ∧ Fair fs₁'
-                ∧ ABP' b i' is' fs₀' fs₁' as' bs' cs' ds' js'
+  ABP'-lemma₁ : ∃[ os₀' ] ∃[ os₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
+                Fair os₀'
+                ∧ Fair os₁'
+                ∧ ABP' b i' is' os₀' os₁' as' bs' cs' ds' js'
                 ∧ js ≡ i' ∷ js'
-  ABP'-lemma₁ = lemma₁ Bb Ffs₀ Ffs₁ (ABP-helper is≡i'∷is h)
+  ABP'-lemma₁ = lemma₁ Bb Fos₀ Fos₁ (ABP-helper is≡i'∷is h)
 
   -- Following Martin Escardo advice (see Agda mailing list, heap
   -- mistery) we use pattern matching instead of ∃ eliminators to
@@ -71,16 +71,16 @@ minorPremise
   js≡i'∷js' with ABP'-lemma₁
   ... | _ , _ , _ , _ , _ , _ , _ , _ , _ , _ , h = h
 
-  ABP-lemma₂ : ∃[ fs₀'' ] ∃[ fs₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
-               Fair fs₀''
-               ∧ Fair fs₁''
-               ∧ ABP (not b) is' fs₀'' fs₁'' as'' bs'' cs'' ds'' js'
+  ABP-lemma₂ : ∃[ os₀'' ] ∃[ os₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
+               Fair os₀''
+               ∧ Fair os₁''
+               ∧ ABP (not b) is' os₀'' os₁'' as'' bs'' cs'' ds'' js'
   ABP-lemma₂ with ABP'-lemma₁
-  ABP-lemma₂ | _ , _ , _ , _ , _ , _ , _ , Ffs₀' , Ffs₁' , abp' , _ =
-    lemma₂ Bb Ffs₀' Ffs₁' abp'
+  ABP-lemma₂ | _ , _ , _ , _ , _ , _ , _ , Fos₀' , Fos₁' , abp' , _ =
+    lemma₂ Bb Fos₀' Fos₁' abp'
 
   Bis'js' : B is' js'
   Bis'js' with ABP-lemma₂
-  ... | fs₀'' , fs₁'' , as'' , bs'' , cs'' , ds'' , Ffs₀'' , Ffs₁'' , abp =
-    not b , fs₀'' , fs₁'' , as'' , bs'' , cs'' , ds''
-    , Sis' , not-Bool Bb , Ffs₀'' , Ffs₁'' , abp
+  ... | os₀'' , os₁'' , as'' , bs'' , cs'' , ds'' , Fos₀'' , Fos₁'' , abp =
+    not b , os₀'' , os₁'' , as'' , bs'' , cs'' , ds''
+    , Sis' , not-Bool Bb , Fos₀'' , Fos₁'' , abp

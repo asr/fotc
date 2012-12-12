@@ -28,6 +28,6 @@ open import FOTC.Relation.Binary.Bisimilarity
 
 ------------------------------------------------------------------------------
 -- Main theorem.
-spec : ∀ {b is fs₀ fs₁} → Bit b → Stream is → Fair fs₀ → Fair fs₁ →
-       is ≈ transfer b fs₀ fs₁ is
-spec Bb Sis Ffs₀ Ffs₁ = ≈-coind B minorPremise (mayorPremise Bb Ffs₀ Ffs₁ Sis)
+spec : ∀ {b is os₀ os₁} → Bit b → Stream is → Fair os₀ → Fair os₁ →
+       is ≈ transfer b os₀ os₁ is
+spec Bb Sis Fos₀ Fos₁ = ≈-coind B minorPremise (mayorPremise Bb Fos₀ Fos₁ Sis)

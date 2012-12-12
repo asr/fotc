@@ -29,7 +29,7 @@ data F*T : D → Set where
 
 -- Functor for the Fair type.
 -- FairF : (D → Set) → D → Set
--- FairF X fs = ∃[ ft ] ∃[ fs' ] F*T ft ∧ X fs' ∧ fs ≡ ft ++ fs'
+-- FairF X os = ∃[ ft ] ∃[ os' ] F*T ft ∧ X os' ∧ os ≡ ft ++ os'
 
 -- Fair is the greatest fixed of FairF (by Fair-unf and Fair-coind).
 
@@ -38,8 +38,8 @@ postulate Fair : D → Set
 -- Fair a is post-fixed point of FairF, i.e.
 --
 -- Fair ≤ FairF Fair.
-postulate Fair-unf : ∀ {fs} → Fair fs →
-                     ∃[ ft ] ∃[ fs' ] F*T ft ∧ Fair fs' ∧ fs ≡ ft ++ fs'
+postulate Fair-unf : ∀ {os} → Fair os →
+                     ∃[ ft ] ∃[ os' ] F*T ft ∧ Fair os' ∧ os ≡ ft ++ os'
 {-# ATP axiom Fair-unf #-}
 
 -- Fair is the greatest post-fixed point of FairF, i.e
@@ -51,22 +51,22 @@ postulate Fair-unf : ∀ {fs} → Fair fs →
 -- axiom.
 postulate Fair-coind : (A : D → Set) →
                        -- A is post-fixed point of FairF.
-                       (∀ {fs} → A fs →
-                         ∃[ ft ] ∃[ fs' ] F*T ft ∧ A fs' ∧ fs ≡ ft ++ fs') →
+                       (∀ {os} → A os →
+                         ∃[ ft ] ∃[ os' ] F*T ft ∧ A os' ∧ os ≡ ft ++ os') →
                        -- Fair is greater than A.
-                       ∀ {fs} → A fs → Fair fs
+                       ∀ {os} → A os → Fair os
 
 -- Because a greatest post-fixed point is a fixed-point, then the Fair
 -- predicate is also a pre-fixed point of the functional FairF, i.e.
 --
 -- FairF Fair ≤ Fair.
-Fair-gfp₃ : ∀ {fs} →
-            (∃[ ft ] ∃[ fs' ] F*T ft ∧ Fair fs' ∧ fs ≡ ft ++ fs') →
-            Fair fs
+Fair-gfp₃ : ∀ {os} →
+            (∃[ ft ] ∃[ os' ] F*T ft ∧ Fair os' ∧ os ≡ ft ++ os') →
+            Fair os
 Fair-gfp₃ h = Fair-coind A helper h
   where
   A : D → Set
   A ws = ∃[ wl ] ∃[ ws' ] F*T wl ∧ Fair ws' ∧ ws ≡ wl ++ ws'
 
-  helper : ∀ {fs} → A fs → ∃[ ft ] ∃[ fs' ] F*T ft ∧ A fs' ∧ fs ≡ ft ++ fs'
-  helper (_ , _ , FTft , Ffs' , h) = _ , _ , FTft , Fair-unf Ffs' , h
+  helper : ∀ {os} → A os → ∃[ ft ] ∃[ os' ] F*T ft ∧ A os' ∧ os ≡ ft ++ os'
+  helper (_ , _ , FTft , Fos' , h) = _ , _ , FTft , Fair-unf Fos' , h

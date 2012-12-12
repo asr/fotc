@@ -36,129 +36,129 @@ module Helper where
   {-# ATP definition as⁵ #-}
 
   bs⁵ : D → D → D → D → D → D
-  bs⁵ b i' is' ds fs₀⁵ = corrupt · fs₀⁵ · (as⁵ b i' is' ds)
+  bs⁵ b i' is' ds os₀⁵ = corrupt · os₀⁵ · (as⁵ b i' is' ds)
   {-# ATP definition bs⁵ #-}
 
   cs⁵ : D → D → D → D → D → D
-  cs⁵ b i' is' ds fs₀⁵ = ack · b · (bs⁵ b i' is' ds fs₀⁵)
+  cs⁵ b i' is' ds os₀⁵ = ack · b · (bs⁵ b i' is' ds os₀⁵)
   {-# ATP definition cs⁵ #-}
 
   ds⁵ : D → D → D → D → D → D → D
-  ds⁵ b i' is' ds fs₀⁵ fs₁⁵ = corrupt · fs₁⁵ · cs⁵ b i' is' ds fs₀⁵
+  ds⁵ b i' is' ds os₀⁵ os₁⁵ = corrupt · os₁⁵ · cs⁵ b i' is' ds os₀⁵
   {-# ATP definition ds⁵ #-}
 
-  fs₀⁵ : D → D → D
-  fs₀⁵ fs₀' ft₀⁵ = ft₀⁵ ++ fs₀'
-  {-# ATP definition fs₀⁵ #-}
+  os₀⁵ : D → D → D
+  os₀⁵ os₀' ft₀⁵ = ft₀⁵ ++ os₀'
+  {-# ATP definition os₀⁵ #-}
 
-  fs₁⁵ : D → D
-  fs₁⁵ fs₁ = tail₁ fs₁
-  {-# ATP definition fs₁⁵ #-}
+  os₁⁵ : D → D
+  os₁⁵ os₁ = tail₁ os₁
+  {-# ATP definition os₁⁵ #-}
 
-  helper : ∀ {b i' is' fs₀ fs₁ as bs cs ds js} →
+  helper : ∀ {b i' is' os₀ os₁ as bs cs ds js} →
            Bit b →
-           Fair fs₁ →
-           ABP b (i' ∷ is') fs₀ fs₁ as bs cs ds js →
-           ∃[ ft₀ ] ∃[ fs₀' ] F*T ft₀ ∧ Fair fs₀' ∧ fs₀ ≡ ft₀ ++ fs₀' →
-           ∃[ fs₀' ] ∃[ fs₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-           Fair fs₀'
-           ∧ Fair fs₁'
-           ∧ ABP' b i' is' fs₀' fs₁' as' bs' cs' ds' js'
+           Fair os₁ →
+           ABP b (i' ∷ is') os₀ os₁ as bs cs ds js →
+           ∃[ ft₀ ] ∃[ os₀' ] F*T ft₀ ∧ Fair os₀' ∧ os₀ ≡ ft₀ ++ os₀' →
+           ∃[ os₀' ] ∃[ os₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
+           Fair os₀'
+           ∧ Fair os₁'
+           ∧ ABP' b i' is' os₀' os₁' as' bs' cs' ds' js'
            ∧ js ≡ i' ∷ js'
-  helper {b} {i'} {is'} {js = js} Bb Ffs₁ abp
-         (.(T ∷ []) , fs₀' , f*tnil , Ffs₀' , fs₀-eq) = prf
+  helper {b} {i'} {is'} {js = js} Bb Fos₁ abp
+         (.(T ∷ []) , os₀' , f*tnil , Fos₀' , os₀-eq) = prf
     where
     -- 25 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
     postulate
-      prf : ∃[ fs₀' ] ∃[ fs₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-            Fair fs₀'
-            ∧ Fair fs₁'
-            ∧ (ds' ≡ corrupt · fs₁' · (b ∷ cs')
+      prf : ∃[ os₀' ] ∃[ os₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
+            Fair os₀'
+            ∧ Fair os₁'
+            ∧ (ds' ≡ corrupt · os₁' · (b ∷ cs')
               ∧ as' ≡ await b i' is' ds'
-              ∧ bs' ≡ corrupt · fs₀' · as'
+              ∧ bs' ≡ corrupt · os₀' · as'
               ∧ cs' ≡ ack · not b · bs'
               ∧ js' ≡ out · not b · bs')
             ∧ js ≡ i' ∷ js'
     -- See issue #6.
     -- {-# ATP prove prf #-}
-  helper {b} {i'} {is'} {fs₀} {fs₁} {as} {bs} {cs} {ds} {js} Bb Ffs₁ abp
-         (.(F ∷ ft₀⁵) , fs₀' , f*tcons {ft₀⁵} FTft₀⁵ , Ffs₀' , fs₀-eq)
-         = helper Bb (tail-Fair Ffs₁) ABPIH (ft₀⁵ , fs₀' , FTft₀⁵ , Ffs₀' , refl)
+  helper {b} {i'} {is'} {os₀} {os₁} {as} {bs} {cs} {ds} {js} Bb Fos₁ abp
+         (.(F ∷ ft₀⁵) , os₀' , f*tcons {ft₀⁵} FTft₀⁵ , Fos₀' , os₀-eq)
+         = helper Bb (tail-Fair Fos₁) ABPIH (ft₀⁵ , os₀' , FTft₀⁵ , Fos₀' , refl)
     where
-    postulate fs₀-eq-helper : fs₀ ≡ F ∷ fs₀⁵ fs₀' ft₀⁵
-    {-# ATP prove fs₀-eq-helper #-}
+    postulate os₀-eq-helper : os₀ ≡ F ∷ os₀⁵ os₀' ft₀⁵
+    {-# ATP prove os₀-eq-helper #-}
 
     postulate as-eq : as ≡ < i' , b > ∷ (as⁵ b i' is' ds)
     {-# ATP prove as-eq #-}
 
-    postulate bs-eq : bs ≡ error ∷ (bs⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵))
-    {-# ATP prove bs-eq fs₀-eq-helper as-eq #-}
+    postulate bs-eq : bs ≡ error ∷ (bs⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵))
+    {-# ATP prove bs-eq os₀-eq-helper as-eq #-}
 
-    postulate cs-eq : cs ≡ not b ∷ cs⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵)
+    postulate cs-eq : cs ≡ not b ∷ cs⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵)
     {-# ATP prove cs-eq bs-eq #-}
 
     postulate
-      ds-eq-helper₁ : fs₁ ≡ T ∷ tail₁ fs₁ →
-                      ds ≡ ok (not b) ∷ ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁)
+      ds-eq-helper₁ : os₁ ≡ T ∷ tail₁ os₁ →
+                      ds ≡ ok (not b) ∷ ds⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵) (os₁⁵ os₁)
     {-# ATP prove ds-eq-helper₁ cs-eq #-}
 
     postulate
-      ds-eq-helper₂ : fs₁ ≡ F ∷ tail₁ fs₁ →
-                      ds ≡ error ∷ ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁)
+      ds-eq-helper₂ : os₁ ≡ F ∷ tail₁ os₁ →
+                      ds ≡ error ∷ ds⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵) (os₁⁵ os₁)
     {-# ATP prove ds-eq-helper₂ cs-eq #-}
 
-    ds-eq : ds ≡ ok (not b) ∷ ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁)
-            ∨ ds ≡ error ∷ ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁)
+    ds-eq : ds ≡ ok (not b) ∷ ds⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵) (os₁⁵ os₁)
+            ∨ ds ≡ error ∷ ds⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵) (os₁⁵ os₁)
     ds-eq = case (λ h → inj₁ (ds-eq-helper₁ h))
                  (λ h → inj₂ (ds-eq-helper₂ h))
-                 (head-tail-Fair Ffs₁)
+                 (head-tail-Fair Fos₁)
 
     postulate
-      as⁵-eq-helper₁ : ds ≡ ok (not b) ∷ ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁) →
+      as⁵-eq-helper₁ : ds ≡ ok (not b) ∷ ds⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵) (os₁⁵ os₁) →
                        as⁵ b i' is' ds ≡
-                       send · b · (i' ∷ is') · ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁)
+                       send · b · (i' ∷ is') · ds⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵) (os₁⁵ os₁)
     {-# ATP prove as⁵-eq-helper₁ x≢not-x #-}
 
     postulate
-      as⁵-eq-helper₂ : ds ≡ error ∷ ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁) →
+      as⁵-eq-helper₂ : ds ≡ error ∷ ds⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵) (os₁⁵ os₁) →
                        as⁵ b i' is' ds ≡
-                       send · b · (i' ∷ is') · ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁)
+                       send · b · (i' ∷ is') · ds⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵) (os₁⁵ os₁)
     {-# ATP prove as⁵-eq-helper₂ #-}
 
     as⁵-eq : as⁵ b i' is' ds ≡
-             send · b · (i' ∷ is') · ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁)
+             send · b · (i' ∷ is') · ds⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵) (os₁⁵ os₁)
     as⁵-eq = case as⁵-eq-helper₁ as⁵-eq-helper₂ ds-eq
 
-    postulate js-eq : js ≡ out · b · bs⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵)
+    postulate js-eq : js ≡ out · b · bs⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵)
     {-# ATP prove js-eq bs-eq #-}
 
     ABPIH : ABP b
                 (i' ∷ is')
-                (fs₀⁵ fs₀' ft₀⁵)
-                (fs₁⁵ fs₁)
+                (os₀⁵ os₀' ft₀⁵)
+                (os₁⁵ os₁)
                 (as⁵ b i' is' ds)
-                (bs⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵))
-                (cs⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵))
-                (ds⁵ b i' is' ds (fs₀⁵ fs₀' ft₀⁵) (fs₁⁵ fs₁))
+                (bs⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵))
+                (cs⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵))
+                (ds⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵) (os₁⁵ os₁))
                 js
     ABPIH = as⁵-eq , refl , refl , refl , js-eq
 
 ------------------------------------------------------------------------------
--- From Dybjer and Sander's paper: From the assumption that fs₀ ∈
+-- From Dybjer and Sander's paper: From the assumption that os₀ ∈
 -- Fair, and hence by unfolding Fair we conclude that there are ft₀ :
--- F*T and fs₀' : Fair, such that fs₀ = ft₀ ++ fs₀'.
+-- F*T and os₀' : Fair, such that os₀ = ft₀ ++ os₀'.
 --
 -- We proceed by induction on ft₀ : F*T using helper.
 
 open Helper
-lemma₁ : ∀ {b i' is' fs₀ fs₁ as bs cs ds js} →
+lemma₁ : ∀ {b i' is' os₀ os₁ as bs cs ds js} →
          Bit b →
-         Fair fs₀ →
-         Fair fs₁ →
-         ABP b (i' ∷ is') fs₀ fs₁ as bs cs ds js →
-         ∃[ fs₀' ] ∃[ fs₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-         Fair fs₀'
-         ∧ Fair fs₁'
-         ∧ ABP' b i' is' fs₀' fs₁' as' bs' cs' ds' js'
+         Fair os₀ →
+         Fair os₁ →
+         ABP b (i' ∷ is') os₀ os₁ as bs cs ds js →
+         ∃[ os₀' ] ∃[ os₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
+         Fair os₀'
+         ∧ Fair os₁'
+         ∧ ABP' b i' is' os₀' os₁' as' bs' cs' ds' js'
          ∧ js ≡ i' ∷ js'
-lemma₁ Bb Ffs₀ Ffs₁ abp = helper Bb Ffs₁ abp (Fair-unf Ffs₀)
+lemma₁ Bb Fos₀ Fos₁ abp = helper Bb Fos₁ abp (Fair-unf Fos₀)

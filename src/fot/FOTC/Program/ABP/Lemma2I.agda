@@ -34,42 +34,42 @@ open import FOTC.Program.ABP.Terms
 
 module Helper where
 
-  helper : ∀ {b i' is' fs₀' fs₁' as' bs' cs' ds' js'} →
+  helper : ∀ {b i' is' os₀' os₁' as' bs' cs' ds' js'} →
            Bit b →
-           Fair fs₀' →
-           ABP' b i' is' fs₀' fs₁' as' bs' cs' ds' js' →
-           ∃[ ft₁ ] ∃[ fs₁'' ] F*T ft₁ ∧ Fair fs₁'' ∧ fs₁' ≡ ft₁ ++ fs₁'' →
-           ∃[ fs₀'' ] ∃[ fs₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
-           Fair fs₀''
-           ∧ Fair fs₁''
-           ∧ ABP (not b) is' fs₀'' fs₁'' as'' bs'' cs'' ds'' js'
-  helper {b} {i'} {is'} {fs₀'} {fs₁'} {as'} {bs'} {cs'} {ds'} {js'}
-         Bb Ffs₀' (ds'ABP' , as'ABP , bs'ABP' , cs'ABP' , js'ABP')
-         (.(T ∷ []) , fs₁'' , f*tnil , Ffs₁'' , fs₁'-eq) =
-         fs₀' , fs₁'' , as'' , bs'' , cs'' , ds''
-         , Ffs₀' , Ffs₁''
+           Fair os₀' →
+           ABP' b i' is' os₀' os₁' as' bs' cs' ds' js' →
+           ∃[ ft₁ ] ∃[ os₁'' ] F*T ft₁ ∧ Fair os₁'' ∧ os₁' ≡ ft₁ ++ os₁'' →
+           ∃[ os₀'' ] ∃[ os₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
+           Fair os₀''
+           ∧ Fair os₁''
+           ∧ ABP (not b) is' os₀'' os₁'' as'' bs'' cs'' ds'' js'
+  helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
+         Bb Fos₀' (ds'ABP' , as'ABP , bs'ABP' , cs'ABP' , js'ABP')
+         (.(T ∷ []) , os₁'' , f*tnil , Fos₁'' , os₁'-eq) =
+         os₀' , os₁'' , as'' , bs'' , cs'' , ds''
+         , Fos₀' , Fos₁''
          , as''-eq , bs''-eq ,  cs''-eq , refl , js'-eq
 
     where
-    fs'₁-eq-helper : fs₁' ≡ T ∷ fs₁''
-    fs'₁-eq-helper =
-      fs₁'                 ≡⟨ fs₁'-eq ⟩
-      (true ∷ []) ++ fs₁'' ≡⟨ ++-∷ true [] fs₁'' ⟩
-      true ∷ [] ++ fs₁''   ≡⟨ ∷-rightCong (++-leftIdentity fs₁'') ⟩
-      true ∷ fs₁''         ∎
+    os'₁-eq-helper : os₁' ≡ T ∷ os₁''
+    os'₁-eq-helper =
+      os₁'                 ≡⟨ os₁'-eq ⟩
+      (true ∷ []) ++ os₁'' ≡⟨ ++-∷ true [] os₁'' ⟩
+      true ∷ [] ++ os₁''   ≡⟨ ∷-rightCong (++-leftIdentity os₁'') ⟩
+      true ∷ os₁''         ∎
 
     ds'' : D
-    ds'' = corrupt · fs₁'' · cs'
+    ds'' = corrupt · os₁'' · cs'
 
     ds'-eq : ds' ≡ ok b ∷ ds''
     ds'-eq =
       ds'
         ≡⟨ ds'ABP' ⟩
-      corrupt · fs₁' · (b ∷ cs')
-        ≡⟨ ·-leftCong (·-rightCong fs'₁-eq-helper) ⟩
-      corrupt · (T ∷ fs₁'') · (b ∷ cs')
-        ≡⟨ corrupt-T fs₁'' b cs' ⟩
-      ok b ∷ corrupt · fs₁'' · cs'
+      corrupt · os₁' · (b ∷ cs')
+        ≡⟨ ·-leftCong (·-rightCong os'₁-eq-helper) ⟩
+      corrupt · (T ∷ os₁'') · (b ∷ cs')
+        ≡⟨ corrupt-T os₁'' b cs' ⟩
+      ok b ∷ corrupt · os₁'' · cs'
         ≡⟨ refl ⟩
       ok b ∷ ds'' ∎
 
@@ -86,7 +86,7 @@ module Helper where
     bs'' : D
     bs'' = bs'
 
-    bs''-eq : bs'' ≡ corrupt · fs₀' · as'
+    bs''-eq : bs'' ≡ corrupt · os₀' · as'
     bs''-eq = bs'ABP'
 
     cs'' : D
@@ -98,36 +98,36 @@ module Helper where
     js'-eq : js' ≡ out · not b · bs''
     js'-eq = js'ABP'
 
-  helper {b} {i'} {is'} {fs₀'} {fs₁'} {as'} {bs'} {cs'} {ds'} {js'}
-         Bb Ffs₀' (ds'ABP' , as'ABP , bs'ABP' , cs'ABP' , js'ABP')
-         (.(F ∷ ft₁) , fs₁'' , f*tcons {ft₁} FTft₁ , Ffs₁'' , fs₁'-eq)
-         = helper Bb (tail-Fair Ffs₀') ABP'IH (ft₁ , fs₁'' , FTft₁ , Ffs₁'' , refl)
+  helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
+         Bb Fos₀' (ds'ABP' , as'ABP , bs'ABP' , cs'ABP' , js'ABP')
+         (.(F ∷ ft₁) , os₁'' , f*tcons {ft₁} FTft₁ , Fos₁'' , os₁'-eq)
+         = helper Bb (tail-Fair Fos₀') ABP'IH (ft₁ , os₁'' , FTft₁ , Fos₁'' , refl)
 
     where
-    fs₀⁵ : D
-    fs₀⁵ = tail₁ fs₀'
+    os₀⁵ : D
+    os₀⁵ = tail₁ os₀'
 
-    fs₁⁵ : D
-    fs₁⁵ = ft₁ ++ fs₁''
+    os₁⁵ : D
+    os₁⁵ = ft₁ ++ os₁''
 
-    fs₁'-eq-helper : fs₁' ≡ F ∷ fs₁⁵
-    fs₁'-eq-helper = fs₁'               ≡⟨ fs₁'-eq ⟩
-                     (F ∷ ft₁) ++ fs₁'' ≡⟨ ++-∷ _ _ _ ⟩
-                     F ∷ ft₁ ++ fs₁''   ≡⟨ refl ⟩
-                     F ∷ fs₁⁵           ∎
+    os₁'-eq-helper : os₁' ≡ F ∷ os₁⁵
+    os₁'-eq-helper = os₁'               ≡⟨ os₁'-eq ⟩
+                     (F ∷ ft₁) ++ os₁'' ≡⟨ ++-∷ _ _ _ ⟩
+                     F ∷ ft₁ ++ os₁''   ≡⟨ refl ⟩
+                     F ∷ os₁⁵           ∎
 
     ds⁵ : D
-    ds⁵ = corrupt · fs₁⁵ · cs'
+    ds⁵ = corrupt · os₁⁵ · cs'
 
     ds'-eq : ds' ≡ error ∷ ds⁵
     ds'-eq =
       ds'
         ≡⟨ ds'ABP' ⟩
-      corrupt · fs₁' · (b ∷ cs')
-        ≡⟨ ·-leftCong (·-rightCong fs₁'-eq-helper) ⟩
-      corrupt · (F ∷ fs₁⁵) · (b ∷ cs')
+      corrupt · os₁' · (b ∷ cs')
+        ≡⟨ ·-leftCong (·-rightCong os₁'-eq-helper) ⟩
+      corrupt · (F ∷ os₁⁵) · (b ∷ cs')
         ≡⟨ corrupt-F _ _ _ ⟩
-      error ∷ corrupt · fs₁⁵ · cs'
+      error ∷ corrupt · os₁⁵ · cs'
         ≡⟨ refl ⟩
       error ∷ ds⁵ ∎
 
@@ -142,44 +142,44 @@ module Helper where
              < i' , b > ∷ as⁵                ∎
 
     bs⁵ : D
-    bs⁵ = corrupt · fs₀⁵ · as⁵
+    bs⁵ = corrupt · os₀⁵ · as⁵
 
-    bs'-eq-helper₁ : fs₀' ≡ T ∷ tail₁ fs₀' → bs' ≡ ok < i' , b > ∷ bs⁵
+    bs'-eq-helper₁ : os₀' ≡ T ∷ tail₁ os₀' → bs' ≡ ok < i' , b > ∷ bs⁵
     bs'-eq-helper₁ h =
       bs'
         ≡⟨ bs'ABP' ⟩
-      corrupt · fs₀' · as'
-        ≡⟨ subst₂ (λ t₁ t₂ → corrupt · fs₀' · as' ≡ corrupt · t₁ · t₂)
+      corrupt · os₀' · as'
+        ≡⟨ subst₂ (λ t₁ t₂ → corrupt · os₀' · as' ≡ corrupt · t₁ · t₂)
                   h
                   as'-eq
                   refl
         ⟩
-      corrupt · (T ∷ tail₁ fs₀') · (< i' , b > ∷ as⁵)
+      corrupt · (T ∷ tail₁ os₀') · (< i' , b > ∷ as⁵)
         ≡⟨ corrupt-T _ _ _ ⟩
-      ok < i' , b > ∷ corrupt · (tail₁ fs₀') · as⁵
+      ok < i' , b > ∷ corrupt · (tail₁ os₀') · as⁵
         ≡⟨ refl ⟩
       ok < i' , b > ∷ bs⁵ ∎
 
-    bs'-eq-helper₂ : fs₀' ≡ F ∷ tail₁ fs₀' → bs' ≡ error ∷ bs⁵
+    bs'-eq-helper₂ : os₀' ≡ F ∷ tail₁ os₀' → bs' ≡ error ∷ bs⁵
     bs'-eq-helper₂ h =
       bs'
         ≡⟨ bs'ABP' ⟩
-      corrupt · fs₀' · as'
-        ≡⟨ subst₂ (λ t₁ t₂ → corrupt · fs₀' · as' ≡ corrupt · t₁ · t₂)
+      corrupt · os₀' · as'
+        ≡⟨ subst₂ (λ t₁ t₂ → corrupt · os₀' · as' ≡ corrupt · t₁ · t₂)
                   h
                   as'-eq
                   refl
         ⟩
-      corrupt · (F ∷ tail₁ fs₀') · (< i' , b > ∷ as⁵)
+      corrupt · (F ∷ tail₁ os₀') · (< i' , b > ∷ as⁵)
         ≡⟨ corrupt-F _ _ _ ⟩
-      error ∷ corrupt · (tail₁ fs₀') · as⁵
+      error ∷ corrupt · (tail₁ os₀') · as⁵
         ≡⟨ refl ⟩
       error ∷ bs⁵ ∎
 
     bs'-eq : bs' ≡ ok < i' , b > ∷ bs⁵ ∨ bs' ≡ error ∷ bs⁵
     bs'-eq = case (λ h → inj₁ (bs'-eq-helper₁ h))
                   (λ h → inj₂ (bs'-eq-helper₂ h))
-                  (head-tail-Fair Ffs₀')
+                  (head-tail-Fair Fos₀')
 
     cs⁵ : D
     cs⁵ = ack · not b · bs⁵
@@ -230,27 +230,27 @@ module Helper where
     js'-eq : js' ≡ out · not b · bs⁵
     js'-eq = case js'-eq-helper₁ js'-eq-helper₂ bs'-eq
 
-    ds⁵-eq : ds⁵ ≡ corrupt · fs₁⁵ · (b ∷ cs⁵)
+    ds⁵-eq : ds⁵ ≡ corrupt · os₁⁵ · (b ∷ cs⁵)
     ds⁵-eq = ·-rightCong cs'-eq
 
-    ABP'IH : ABP' b i' is' fs₀⁵ fs₁⁵ as⁵ bs⁵ cs⁵ ds⁵ js'
+    ABP'IH : ABP' b i' is' os₀⁵ os₁⁵ as⁵ bs⁵ cs⁵ ds⁵ js'
     ABP'IH = ds⁵-eq , refl , refl , refl , js'-eq
 
 ------------------------------------------------------------------------------
--- From Dybjer and Sander's paper: From the assumption that fs₁ ∈
+-- From Dybjer and Sander's paper: From the assumption that os₁ ∈
 -- Fair, and hence by unfolding Fair we conclude that there are ft₁ :
--- F*T and fs₁'' : Fair, such that fs₁' = ft₁ ++ fs₁''.
+-- F*T and os₁'' : Fair, such that os₁' = ft₁ ++ os₁''.
 --
 -- We proceed by induction on ft₁ : F*T using helper.
 
 open Helper
-lemma₂ : ∀ {b i' is' fs₀' fs₁' as' bs' cs' ds' js'} →
+lemma₂ : ∀ {b i' is' os₀' os₁' as' bs' cs' ds' js'} →
          Bit b →
-         Fair fs₀' →
-         Fair fs₁' →
-         ABP' b i' is' fs₀' fs₁' as' bs' cs' ds' js' →
-         ∃[ fs₀'' ] ∃[ fs₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
-         Fair fs₀''
-         ∧ Fair fs₁''
-         ∧ ABP (not b) is' fs₀'' fs₁'' as'' bs'' cs'' ds'' js'
-lemma₂ Bb Ffs₀' Ffs₁' abp' = helper Bb Ffs₀' abp' (Fair-unf Ffs₁')
+         Fair os₀' →
+         Fair os₁' →
+         ABP' b i' is' os₀' os₁' as' bs' cs' ds' js' →
+         ∃[ os₀'' ] ∃[ os₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
+         Fair os₀''
+         ∧ Fair os₁''
+         ∧ ABP (not b) is' os₀'' os₁'' as'' bs'' cs'' ds'' js'
+lemma₂ Bb Fos₀' Fos₁' abp' = helper Bb Fos₀' abp' (Fair-unf Fos₁')

@@ -15,25 +15,25 @@ open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 
-mayorPremise : ∀ {b fs₀ fs₁ is} →
-               Bit b → Fair fs₀ → Fair fs₁ → Stream is →
-               B is (transfer b fs₀ fs₁ is)
-mayorPremise {b} {fs₀} {fs₁} {is} Bb Ffs₀ Ffs₁ Sis =
+mayorPremise : ∀ {b os₀ os₁ is} →
+               Bit b → Fair os₀ → Fair os₁ → Stream is →
+               B is (transfer b os₀ os₁ is)
+mayorPremise {b} {os₀} {os₁} {is} Bb Fos₀ Fos₁ Sis =
   b
-  , fs₀
-  , fs₁
-  , has (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
-  , hbs (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
-  , hcs (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
-  , hds (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
+  , os₀
+  , os₁
+  , has (send · b) (ack · b) (out · b) (corrupt · os₀) (corrupt · os₁) is
+  , hbs (send · b) (ack · b) (out · b) (corrupt · os₀) (corrupt · os₁) is
+  , hcs (send · b) (ack · b) (out · b) (corrupt · os₀) (corrupt · os₁) is
+  , hds (send · b) (ack · b) (out · b) (corrupt · os₀) (corrupt · os₁) is
   , Sis
   , Bb
-  , Ffs₀
-  , Ffs₁
-  , has-eq (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
-  , hbs-eq (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
-  , hcs-eq (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
-  , hds-eq (send · b) (ack · b) (out · b) (corrupt · fs₀) (corrupt · fs₁) is
-  , trans (transfer-eq b fs₀ fs₁ is)
-          (genTransfer-eq (send · b) (ack · b) (out · b) (corrupt · fs₀)
-                          (corrupt · fs₁) is)
+  , Fos₀
+  , Fos₁
+  , has-eq (send · b) (ack · b) (out · b) (corrupt · os₀) (corrupt · os₁) is
+  , hbs-eq (send · b) (ack · b) (out · b) (corrupt · os₀) (corrupt · os₁) is
+  , hcs-eq (send · b) (ack · b) (out · b) (corrupt · os₀) (corrupt · os₁) is
+  , hds-eq (send · b) (ack · b) (out · b) (corrupt · os₀) (corrupt · os₁) is
+  , trans (transfer-eq b os₀ os₁ is)
+          (genTransfer-eq (send · b) (ack · b) (out · b) (corrupt · os₀)
+                          (corrupt · os₁) is)

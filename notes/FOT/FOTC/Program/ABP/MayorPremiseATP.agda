@@ -17,6 +17,6 @@ open import FOTC.Program.ABP.Terms
 ------------------------------------------------------------------------------
 
 postulate
-  mayorPremise : ∀ {b fs₀ fs₁ is} → Bit b → Fair fs₀ → Fair fs₁ → Stream is →
-                 B is (transfer b fs₀ fs₁ is)
+  mayorPremise : ∀ {b os₀ os₁ is} → Bit b → Fair os₀ → Fair os₁ → Stream is →
+                 B is (transfer b os₀ os₁ is)
 -- {-# ATP prove mayorPremise #-}

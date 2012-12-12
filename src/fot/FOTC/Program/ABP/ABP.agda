@@ -70,10 +70,10 @@ postulate
 {-# ATP axiom out-ok≡ out-ok≢ out-error #-}
 
 postulate
-  corrupt-T : ∀ fs x xs →
-              corrupt · (T ∷ fs) · (x ∷ xs) ≡ ok x ∷ corrupt · fs · xs
-  corrupt-F : ∀ fs x xs →
-              corrupt · (F ∷ fs) · (x ∷ xs) ≡ error ∷ corrupt · fs · xs
+  corrupt-T : ∀ ft x xs →
+              corrupt · (T ∷ ft) · (x ∷ xs) ≡ ok x ∷ corrupt · ft · xs
+  corrupt-F : ∀ ft x xs →
+              corrupt · (F ∷ ft) · (x ∷ xs) ≡ error ∷ corrupt · ft · xs
 {-# ATP axiom corrupt-T corrupt-F #-}
 
 postulate has hbs hcs hds : D → D → D → D → D → D → D
@@ -102,9 +102,9 @@ postulate
 
 postulate
   transfer    : D → D → D → D → D
-  transfer-eq : ∀ b fs₀ fs₁ is → transfer b fs₀ fs₁ is ≡
+  transfer-eq : ∀ b os₀ os₁ is → transfer b os₀ os₁ is ≡
                 genTransfer (send · b) (ack · b) (out · b)
-                            (corrupt · fs₀) (corrupt · fs₁) is
+                            (corrupt · os₀) (corrupt · os₁) is
 {-# ATP axiom transfer-eq #-}
 
 ------------------------------------------------------------------------------
@@ -113,29 +113,29 @@ postulate
 -- Abbreviation for the recursive equations of the alternating bit
 -- protocol.
 ABP : D → D → D → D → D → D → D → D → D → Set
-ABP b is fs₀ fs₁ as bs cs ds js =
+ABP b is os₀ os₁ as bs cs ds js =
   as ≡ send · b · is · ds
-  ∧ bs ≡ corrupt · fs₀ · as
+  ∧ bs ≡ corrupt · os₀ · as
   ∧ cs ≡ ack · b · bs
-  ∧ ds ≡ corrupt · fs₁ · cs
+  ∧ ds ≡ corrupt · os₁ · cs
   ∧ js ≡ out · b · bs
 {-# ATP definition ABP #-}
 
 ABP' : D → D → D → D → D → D → D → D → D → D → Set
-ABP' b i' is' fs₀' fs₁' as' bs' cs' ds' js' =
-  ds' ≡ corrupt · fs₁' · (b ∷ cs')
+ABP' b i' is' os₀' os₁' as' bs' cs' ds' js' =
+  ds' ≡ corrupt · os₁' · (b ∷ cs')
   ∧ as' ≡ await b i' is' ds'  -- Typo in ds'.
-  ∧ bs' ≡ corrupt · fs₀' · as'
+  ∧ bs' ≡ corrupt · os₀' · as'
   ∧ cs' ≡ ack · not b · bs'
   ∧ js' ≡ out · not b · bs'
 {-# ATP definition ABP' #-}
 
 -- Auxiliary bisimulation.
 B : D → D → Set
-B is js = ∃[ b ] ∃[ fs₀ ] ∃[ fs₁ ] ∃[ as ] ∃[ bs ] ∃[ cs ] ∃[ ds ]
+B is js = ∃[ b ] ∃[ os₀ ] ∃[ os₁ ] ∃[ as ] ∃[ bs ] ∃[ cs ] ∃[ ds ]
           Stream is
           ∧ Bit b
-          ∧ Fair fs₀
-          ∧ Fair fs₁
-          ∧ ABP b is fs₀ fs₁ as bs cs ds js
+          ∧ Fair os₀
+          ∧ Fair os₁
+          ∧ ABP b is os₀ os₁ as bs cs ds js
 {-# ATP definition B #-}
