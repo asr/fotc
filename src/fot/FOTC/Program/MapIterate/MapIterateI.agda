@@ -32,8 +32,7 @@ open import FOTC.Relation.Binary.Bisimilarity
 ≈-map-iterate : ∀ f x → map f (iterate f x) ≈ iterate f (f · x)
 ≈-map-iterate f x = ≈-coind R h (x , refl , refl)
   where
-  -- The relation R was based on the relation used by (Giménez and
-  -- Castéran, 2007).
+  -- Based on the relation used by (Giménez and Castéran, 2007).
   R : D → D → Set
   R xs ys = ∃[ y ] xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y)
 
