@@ -3,5 +3,4 @@
 import Data.Peano
 
 f₉₁ ∷ Nat → Nat
-f₉₁ n | n > 100   = n - 10
-      | otherwise = f₉₁ (f₉₁ (n + 11))
+f₉₁ n = if n > 100 then n - 10 else f₉₁ (f₉₁ (n + 11))

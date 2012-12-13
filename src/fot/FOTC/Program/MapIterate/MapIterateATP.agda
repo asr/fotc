@@ -27,17 +27,17 @@ open import FOTC.Relation.Binary.Bisimilarity
 -- The map-iterate property.
 
 ≈-map-iterate : ∀ f x → map f (iterate f x) ≈ iterate f (f · x)
-≈-map-iterate f x = ≈-coind R h₁ h₂
+≈-map-iterate f x = ≈-coind B h₁ h₂
   where
   -- Based on the relation used by (Giménez and Castéran, 2007).
-  R : D → D → Set
-  R xs ys = ∃[ y ] xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y)
-  {-# ATP definition R #-}
+  B : D → D → Set
+  B xs ys = ∃[ y ] xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y)
+  {-# ATP definition B #-}
 
   postulate
-    h₁ : ∀ {xs ys} → R xs ys →
-        ∃[ x' ] ∃[ xs' ] ∃[ ys' ] R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+    h₁ : ∀ {xs ys} → B xs ys →
+        ∃[ x' ] ∃[ xs' ] ∃[ ys' ] B xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
   {-# ATP prove h₁ #-}
 
-  postulate h₂ : R (map f (iterate f x)) (iterate f (f · x))
+  postulate h₂ : B (map f (iterate f x)) (iterate f (f · x))
   {-# ATP prove h₂ #-}
