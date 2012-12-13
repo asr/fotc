@@ -99,10 +99,6 @@ open import FOTC.Program.ABP.Lemma1ATP
 open import FOTC.Program.ABP.Lemma1I
 open import FOTC.Program.ABP.Lemma2ATP
 open import FOTC.Program.ABP.Lemma2I
-open import FOTC.Program.ABP.MayorPremiseATP
-open import FOTC.Program.ABP.MayorPremiseI
-open import FOTC.Program.ABP.MinorPremiseATP
-open import FOTC.Program.ABP.MinorPremiseI
 open import FOTC.Program.ABP.ProofSpecificationATP
 open import FOTC.Program.ABP.ProofSpecificationI
 open import FOTC.Program.ABP.Terms
