@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Conversion functions i, j, and p.
+-- Conversion functions i, j, and k.
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOT.FOTC.IJP where
+module FOT.FOTC.IJK where
 
 open import FOTC.Base
 open import FOTC.Data.Nat.Type
@@ -26,9 +26,9 @@ j : (n : ℕ) → N (i n)
 j z     = nzero
 j (s n) = nsucc (j n)
 
-p : {n : D} → N n → ℕ
-p nzero      = z
-p (nsucc Nn) = s (p Nn)
+k : {n : D} → N n → ℕ
+k nzero      = z
+k (nsucc Nn) = s (k Nn)
 
 -- Addition for ℕ
 _+_ : ℕ → ℕ → ℕ
