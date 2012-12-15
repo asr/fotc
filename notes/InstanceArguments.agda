@@ -9,7 +9,7 @@ module InstanceArguments where
 open import Data.Bool
 open import Data.Nat hiding ( equal )
 
--- Note: Agda doesn't have a primitive function primBoolEquality
+-- Note: Agda doesn't have a primitive function primBoolEquality.
 primBoolEquality : Bool → Bool → Bool
 primBoolEquality true  true  = true
 primBoolEquality false false = true
