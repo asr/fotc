@@ -4,11 +4,12 @@
 -- From: On the Bright Side of Type Classes: Instances Arguments in
 -- Agda (ICFP'11).
 
-module FOT.FOTC.TypeClasses.InstanceArguments where
+module InstanceArguments where
 
 open import Data.Bool
 open import Data.Nat hiding ( equal )
 
+-- Note: Agda doesn't have a primitive function primBoolEquality
 primBoolEquality : Bool → Bool → Bool
 primBoolEquality true  true  = true
 primBoolEquality false false = true
