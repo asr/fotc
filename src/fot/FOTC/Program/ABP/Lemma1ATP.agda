@@ -79,8 +79,7 @@ module Helper where
               ∧ cs' ≡ ack · not b · bs'
               ∧ js' ≡ out · not b · bs')
             ∧ js ≡ i' ∷ js'
-    -- See issue #6.
-    -- {-# ATP prove prf #-}
+    {-# ATP prove prf #-}
   helper {b} {i'} {is'} {os₀} {os₁} {as} {bs} {cs} {ds} {js} Bb Fos₁ abp
          (.(F ∷ ft₀⁵) , os₀' , f*tcons {ft₀⁵} FTft₀⁵ , Fos₀' , os₀-eq)
          = helper Bb (tail-Fair Fos₁) ABPIH (ft₀⁵ , os₀' , FTft₀⁵ , Fos₀' , refl)
