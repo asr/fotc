@@ -99,6 +99,7 @@ open import FOTC.Program.ABP.Lemma1ATP
 open import FOTC.Program.ABP.Lemma1I
 open import FOTC.Program.ABP.Lemma2ATP
 open import FOTC.Program.ABP.Lemma2I
+open import FOTC.Program.ABP.ProofSpecification.Unproved
 open import FOTC.Program.ABP.ProofSpecificationATP
 open import FOTC.Program.ABP.ProofSpecificationI
 open import FOTC.Program.ABP.Terms

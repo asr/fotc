@@ -67,14 +67,12 @@ open import FOTC.README
 open import LTC-PCF.README
 
 ------------------------------------------------------------------------------
--- ATPs failures
+-- Unproven theorems by the ATPs
 ------------------------------------------------------------------------------
 
--- The ATPs (E, Equinox, Metis, SPASS and Vampire) could not prove some
--- theorems.
-
-open import DistributiveLaws.TaskB-ATP
-open import FOTC.Program.ABP.MayorPremiseATP
+-- The ATPs could not prove some theorems.
+open import DistributiveLaws.TaskB-ATP.Unproved
+open import FOTC.Program.ABP.ProofSpecification.Unproved
 
 ------------------------------------------------------------------------------
 -- Agsy examples

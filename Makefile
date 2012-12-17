@@ -52,6 +52,7 @@ AGDA2ATP = $(agda2atp_path)/dist/build/agda2atp/agda2atp --check
 
 path_subst = $(patsubst %.agda,%.$(1), \
 	     	$(shell find $(2) \( ! -path '*/Consistency/*' \) -name '*.agda' \
+			| xargs grep -L 'The ATPs could not prove the theorem' \
 			| xargs grep -l 'ATP prove' \
 		  	| sort))
 
@@ -357,9 +358,9 @@ coq_clean :
 	rm -f *.glob *.vo
 
 ##############################################################################
-# Running the FOT and the notes
+# Test used when there is a modification to FOT.
 
-fot_and_notes :
+fot_change :
 	make type_check_fot
 	make type_check_notes
 	@echo "$@ succeeded!"

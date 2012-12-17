@@ -32,5 +32,5 @@ open import DistributiveLaws.TaskB-HalvedStepsATP
 open import DistributiveLaws.TaskB-I
 open import DistributiveLaws.TaskB-TopDownATP
 
--- The ATPs could not prove the theorem
-open import DistributiveLaws.TaskB-ATP
+-- The ATPs could not prove a theorem.
+open import DistributiveLaws.TaskB-ATP.Unproved
