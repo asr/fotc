@@ -99,19 +99,18 @@ open import FOTC.Program.ABP.Lemma1ATP
 open import FOTC.Program.ABP.Lemma1I
 open import FOTC.Program.ABP.Lemma2ATP
 open import FOTC.Program.ABP.Lemma2I
-open import FOTC.Program.ABP.ProofSpecification.Unproved
+open import FOTC.Program.ABP.ProofSpecification.UnprovedATP
 open import FOTC.Program.ABP.ProofSpecificationATP
 open import FOTC.Program.ABP.ProofSpecificationI
 open import FOTC.Program.ABP.Terms
 
 open import FOTC.Program.Collatz.Collatz
 open import FOTC.Program.Collatz.Collatz.Consistency.Axioms
-open import FOTC.Program.Collatz.ConversionRulesATP
-open import FOTC.Program.Collatz.ConversionRulesI
 open import FOTC.Program.Collatz.Data.Nat
 open import FOTC.Program.Collatz.Data.Nat.Consistency.Axioms
 open import FOTC.Program.Collatz.Data.Nat.PropertiesATP
 open import FOTC.Program.Collatz.Data.Nat.PropertiesI
+open import FOTC.Program.Collatz.Properties.UnprovedATP
 open import FOTC.Program.Collatz.PropertiesI
 open import FOTC.Program.Collatz.PropertiesATP
 

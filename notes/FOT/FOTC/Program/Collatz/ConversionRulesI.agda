@@ -5,14 +5,15 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Program.Collatz.ConversionRulesI where
+module FOT.FOTC.Program.Collatz.ConversionRulesI where
 
 open import Common.FOL.Relation.Binary.EqReasoning
+
+open import FOT.FOTC.Program.Collatz.CollatzConditionals
 
 open import FOTC.Base
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.UnaryNumbers
-open import FOTC.Program.Collatz.Collatz
 open import FOTC.Program.Collatz.Data.Nat
 
 ------------------------------------------------------------------------------

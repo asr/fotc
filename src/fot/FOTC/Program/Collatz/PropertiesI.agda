@@ -16,7 +16,6 @@ open import FOTC.Data.Nat.PropertiesI
 open import FOTC.Data.Nat.UnaryNumbers
 open import FOTC.Data.Nat.UnaryNumbers.TotalityI
 open import FOTC.Program.Collatz.Collatz
-open import FOTC.Program.Collatz.ConversionRulesI
 open import FOTC.Program.Collatz.Data.Nat
 open import FOTC.Program.Collatz.Data.Nat.PropertiesI
 
@@ -54,9 +53,9 @@ helper (nsucc {n} Nn) =
 
 collatz-2^x : ∀ {n} → N n → collatz ([2] ^ n) ≡ [1]
 collatz-2^x nzero =
-  collatz ([2] ^ [0])  ≡⟨ collatzCong (^-0 [2]) ⟩
-  collatz [1]          ≡⟨ collatz-1 ⟩
-  [1]                  ∎
+  collatz ([2] ^ [0]) ≡⟨ collatzCong (^-0 [2]) ⟩
+  collatz [1]         ≡⟨ collatz-1 ⟩
+  [1]                 ∎
 
 collatz-2^x (nsucc {n} Nn) =
   collatz ([2] ^ succ₁ n) ≡⟨ helper Nn ⟩

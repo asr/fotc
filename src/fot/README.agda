@@ -70,9 +70,9 @@ open import LTC-PCF.README
 -- Unproven theorems by the ATPs
 ------------------------------------------------------------------------------
 
--- The ATPs could not prove some theorems.
-open import DistributiveLaws.TaskB-ATP.Unproved
-open import FOTC.Program.ABP.ProofSpecification.Unproved
+open import DistributiveLaws.TaskB.UnprovedATP
+open import FOTC.Program.ABP.ProofSpecification.UnprovedATP
+open import FOTC.Program.Collatz.Properties.UnprovedATP
 
 ------------------------------------------------------------------------------
 -- Agsy examples

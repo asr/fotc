@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module DistributiveLaws.TaskB-ATP.Unproved where
+module DistributiveLaws.TaskB.UnprovedATP where
 
 open import DistributiveLaws.Base
 

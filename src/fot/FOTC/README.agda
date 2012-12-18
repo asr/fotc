@@ -184,3 +184,9 @@ open import FOTC.Program.Iter0.PropertiesI
 -- The Collatz function: A function without a termination proof
 open import FOTC.Program.Collatz.PropertiesATP
 open import FOTC.Program.Collatz.PropertiesI
+
+------------------------------------------------------------------------------
+-- Unproven theorems by the ATPs
+
+open import FOTC.Program.ABP.ProofSpecification.UnprovedATP
+open import FOTC.Program.Collatz.Properties.UnprovedATP
