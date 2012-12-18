@@ -126,11 +126,6 @@ open import FOTC.Program.Division.Specification
 open import FOTC.Program.Division.TotalityATP
 open import FOTC.Program.Division.TotalityI
 
-open import FOTC.Program.Nest.Nest
-open import FOTC.Program.Nest.Nest.Consistency.Axioms
-open import FOTC.Program.Nest.ConversionRulesATP
-open import FOTC.Program.Nest.PropertiesATP
-
 open import FOTC.Program.GCD.Partial.CommonDivisorATP
 open import FOTC.Program.GCD.Partial.CommonDivisorI
 open import FOTC.Program.GCD.Partial.ConversionRulesATP
@@ -188,6 +183,10 @@ open import FOTC.Program.Mirror.PropertiesI
 open import FOTC.Program.Mirror.Tree.TotalityATP
 open import FOTC.Program.Mirror.Tree.TotalityI
 open import FOTC.Program.Mirror.Type
+
+open import FOTC.Program.Nest.Nest
+open import FOTC.Program.Nest.Nest.Consistency.Axioms
+open import FOTC.Program.Nest.PropertiesATP
 
 open import FOTC.Program.SortList.ProofSpecificationATP
 open import FOTC.Program.SortList.ProofSpecificationI

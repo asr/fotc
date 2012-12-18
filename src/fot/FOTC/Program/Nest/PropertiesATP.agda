@@ -22,4 +22,4 @@ nest-x≡0 (nsucc {n} Nn) = prf (nest-x≡0 Nn)
         {-# ATP prove prf #-}
 
 postulate nest-N : ∀ {n} → N n → N (nest n)
-{-# ATP prove nest-N  nest-x≡0 #-}
+{-# ATP prove nest-N nest-x≡0 #-}
