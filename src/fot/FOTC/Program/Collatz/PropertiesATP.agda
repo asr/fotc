@@ -29,8 +29,7 @@ helper-helper (nsucc {n} Nn) = prf
   where postulate prf : collatz ([2] ^ succ₁ (succ₁ n)) ≡
                         collatz (div ([2] ^ succ₁ (succ₁ n)) [2])
         {-# ATP prove prf +∸2 ^-N 2-N 2^x≢0 2^[x+1]≢1
-                      collatz-even x-Even→SSx-Even ∸-N ∸-Even 2^[x+1]-Even
-                      2-Even
+                      x-Even→SSx-Even ∸-N ∸-Even 2^[x+1]-Even 2-Even
         #-}
 
 -- We help the ATPs proving the helper-helper property first.
