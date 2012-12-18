@@ -284,6 +284,7 @@ consistency_fot : $(consistency_fot_files)
                 -inotes/setoids \
 	        -inotes/strictly-positive-inductive-types \
                 -inotes/thesis \
+                -inotes/type-classes \
 	        $*.agda
 
 type_check_notes : $(type_check_notes_files)

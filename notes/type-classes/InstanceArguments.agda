@@ -7,25 +7,27 @@
 module InstanceArguments where
 
 open import Data.Bool
-open import Data.Nat hiding ( equal )
+open import Data.Nat hiding ( equal ) renaming ( suc to succ )
 
 -- Note: Agda doesn't have a primitive function primBoolEquality.
-primBoolEquality : Bool → Bool → Bool
-primBoolEquality true  true  = true
-primBoolEquality false false = true
-primBoolEquality _     _     = false
+boolEq : Bool → Bool → Bool
+boolEq true  true  = true
+boolEq false false = true
+boolEq _     _     = false
 
-primitive
-  primNatEquality : ℕ → ℕ → Bool
+natEq : ℕ → ℕ → Bool
+natEq zero  zero         = true
+natEq (succ m) (succ n)  = natEq m n
+natEq _     _            = false
 
 record Eq (t : Set) : Set where
   field equal : t → t → Bool
 
-eqBool : Eq Bool
-eqBool = record { equal = primBoolEquality }
+eqInstanceBool : Eq Bool
+eqInstanceBool = record { equal = boolEq }
 
-eqℕ : Eq ℕ
-eqℕ = record { equal = primNatEquality }
+eqInstanceℕ : Eq ℕ
+eqInstanceℕ = record { equal = natEq }
 
 equal : {t : Set} → {{eqT : Eq t}} → t → t → Bool
 equal {{eqT}} = Eq.equal eqT
