@@ -113,7 +113,7 @@ flatten-OrdList tnil OTt =
 
 flatten-OrdList (ttip {i} Ni) OTt = prf
   where postulate prf : OrdList (flatten (tip i))
-        -- {-# ATP prove prf #-}
+        {-# ATP prove prf #-}
 
 flatten-OrdList (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTt
   = prf (++-OrdList (flatten-ListN Tt₁)
