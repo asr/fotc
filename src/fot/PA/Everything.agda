@@ -6,6 +6,7 @@ module PA.Everything where
 
 open import PA.Axiomatic.Mendelson.Base
 open import PA.Axiomatic.Mendelson.Base.Consistency.Axioms
+open import PA.Axiomatic.Mendelson.Properties.UnprovedATP
 open import PA.Axiomatic.Mendelson.PropertiesATP
 open import PA.Axiomatic.Mendelson.PropertiesI
 open import PA.Axiomatic.Mendelson.Relation.Binary.EqReasoning

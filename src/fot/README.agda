@@ -67,14 +67,6 @@ open import FOTC.README
 open import LTC-PCF.README
 
 ------------------------------------------------------------------------------
--- Unproven theorems by the ATPs
-------------------------------------------------------------------------------
-
-open import DistributiveLaws.TaskB.UnprovedATP
-open import FOTC.Program.ABP.ProofSpecification.UnprovedATP
-open import FOTC.Program.Collatz.Properties.UnprovedATP
-
-------------------------------------------------------------------------------
 -- Agsy examples
 ------------------------------------------------------------------------------
 
