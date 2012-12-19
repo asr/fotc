@@ -1,14 +1,23 @@
 ------------------------------------------------------------------------------
--- From List using postulates to List using data
+-- From List as the least fixed-point to List using data
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
+-- We want to represent the total lists data type
+--
+-- data List : D → Set where
+--   lnil  : List []
+--   lcons : ∀ x {xs} → List xs → List (x ∷ xs)
+--
+-- using the representation of List as the least fixed-point.
+
 module LeastFixedPoints.List where
 
 open import FOTC.Base
 open import FOTC.Base.List
+open import FOTC.Data.Nat.UnaryNumbers
 
 ------------------------------------------------------------------------------
 -- List is a least fixed-point of a functor
@@ -55,3 +64,12 @@ indList A A[] is = List-ind A h
   h : ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A xs' ∧ xs ≡ x' ∷ xs') → A xs
   h (inj₁ xs≡[])                  = subst A (sym xs≡[]) A[]
   h (inj₂ (x' , xs' , Axs' , h₁)) = subst A (sym h₁) (is x' Axs')
+
+------------------------------------------------------------------------------
+-- Example
+
+xs : D
+xs = [0] ∷ true ∷ [1] ∷ false ∷ []
+
+xs-List : List xs
+xs-List = lcons [0] (lcons true (lcons [1] (lcons false lnil)))

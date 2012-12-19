@@ -44,23 +44,23 @@ zs-ListB = lbcons btrue (lbcons bfalse (lbcons btrue lbnil))
 
 -- Polymorphic lists.
 -- NB. The data type list is in *Set₁*.
-data ListP (A : D → Set) : D → Set₁ where
+data ListP (A : D → Set) : D → Set where
   lnil  :                               ListP A []
   lcons : ∀ {x xs} → A x → ListP A xs → ListP A (x ∷ xs)
 
-List₁ : D → Set₁
+List₁ : D → Set
 List₁ = ListP (λ d → d ≡ d)
 
 xs-List₁ : List₁ xs
 xs-List₁ = lcons refl (lcons refl (lcons refl (lcons refl lnil)))
 
-ListN₁ : D → Set₁
+ListN₁ : D → Set
 ListN₁ = ListP N
 
 ys-ListN₁ : ListN₁ ys
 ys-ListN₁ = lcons nzero (lcons (nsucc nzero) (lcons (nsucc (nsucc nzero)) lnil))
 
-ListB₁ : D → Set₁
+ListB₁ : D → Set
 ListB₁ = ListP Bool
 
 zs-ListB₁ : ListB₁ zs

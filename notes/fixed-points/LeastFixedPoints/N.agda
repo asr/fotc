@@ -1,15 +1,24 @@
 ------------------------------------------------------------------------------
--- From N using postulates to N using data
+-- From N as the least fixed-point to N using data
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
+
+-- We want to represent the total natural numbers data type
+--
+-- data N : D → Set where
+--   nzero : N zero
+--   nsucc : ∀ {n} → N n → N (succ₁ n)
+--
+-- using the representation of N as the least fixed-point.
 
 module LeastFixedPoints.N where
 
 open import FOTC.Base
 
 infixl 9 _+_
+
 
 ------------------------------------------------------------------------------
 -- Basic definitions
