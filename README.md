@@ -29,7 +29,8 @@ of our programs. See:
 * Modified version of Agda
 
    We have modified the development version of Agda in order to handle
-   the new built-in ATP pragma.
+   the new built-in ATP pragma. This version modified of Agda is
+   required by the `agda2atp` program.
 
 * The `agda2atp` program
 
@@ -38,8 +39,9 @@ of our programs. See:
   using ATPs. Before calling the ATPs, the Agda formulae are
   translated into [TPTP](http://www.cs.miami.edu/~tptp/) language.
 
-  The `agda2atp` program requires the above version modified of Agda
-  and at least one of the following ATPs:
+* ATPs
+
+  The `agda2atp` program requires at least one of the following ATPs:
   [E](http://www4.informatik.tu-muenchen.de/~schulz/WORK/eprover.html),
   [Equinox](http://www.cse.chalmers.se/~koen/code/),
   [ileanCoP](http://www.leancop.de/ileancop/index.html),
@@ -50,8 +52,11 @@ of our programs. See:
   ileanCoP v1.3beta1, Metis 2.3 (release 20110926), SPASS v3.7, and
   Vampire 0.6 (revision 903).
 
-* The `agda2atp` command-line option `--check` requires the `tptp4X`
-  program from the [TPTP library](http://www.cs.miami.edu/~tptp/).
+* The `tptp4X` program
+
+  `agda2atp` uses the `tptp4X` program from the [TPTP
+  library](http://www.cs.miami.edu/~tptp/) by default. Using `tptp4X`
+  can be avoided using the `--no-check` command-line option.
 
 # Installation
 
