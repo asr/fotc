@@ -50,10 +50,8 @@ indList : (A : D → Set) →
           A [] →
           (∀ x {xs} → A xs → A (x ∷ xs)) →
           ∀ {xs} → List xs → A xs
-indList A A[] h Lxs = List-ind A (case prf₁ prf₂) Lxs
+indList A A[] is = List-ind A h
   where
-  prf₁ : ∀ {xs} → xs ≡ [] → A xs
-  prf₁ h = subst A (sym h) A[]
-
-  prf₂ : ∀ {xs} → (∃[ x' ] ∃[ xs' ] A xs' ∧ xs ≡ x' ∷ xs') → A xs
-  prf₂ (x' , xs' , Axs' , h₁) = subst A (sym h₁) (h x' Axs')
+  h : ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A xs' ∧ xs ≡ x' ∷ xs') → A xs
+  h (inj₁ xs≡[])                  = subst A (sym xs≡[]) A[]
+  h (inj₂ (x' , xs' , Axs' , h₁)) = subst A (sym h₁) (is x' Axs')

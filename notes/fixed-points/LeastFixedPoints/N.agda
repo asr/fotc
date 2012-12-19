@@ -106,13 +106,11 @@ indN : (A : D → Set) →
         A zero →
         (∀ {n} → A n → A (succ₁ n)) →
         ∀ {n} → N n → A n
-indN A A0 h Nn = N-ind A (case prf₁ prf₂) Nn
+indN A A0 is = N-ind A h
   where
-  prf₁ : ∀ {n'} → n' ≡ zero → A n'
-  prf₁ n'≡0 = subst A (sym n'≡0) A0
-
-  prf₂ : ∀ {n'} → (∃[ n'' ] A n'' ∧ n' ≡ succ₁ n'') → A n'
-  prf₂ (_ , An'' , n'≡Sn'') = subst A (sym n'≡Sn'') (h An'')
+  h : ∀ {n} → n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n') → A n
+  h (inj₁ n≡0)             = subst A (sym n≡0) A0
+  h (inj₂ (n' , An' , h₁)) = subst A (sym h₁) (is An')
 
 -- The induction principle for N *with* the hypothesis N n in the
 -- induction step.
