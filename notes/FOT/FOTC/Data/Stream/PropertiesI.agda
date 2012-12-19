@@ -1,12 +1,11 @@
 ------------------------------------------------------------------------------
--- Stream examples
+-- Stream properties
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --allow-unsolved-metas #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOT.FOTC.Data.Stream.Examples where
+module FOT.FOTC.Data.Stream.PropertiesI where
 
 open import FOTC.Base
 open import FOTC.Base.List
@@ -14,12 +13,15 @@ open import FOTC.Data.Stream
 
 ------------------------------------------------------------------------------
 
--- We cannot use the expected definition of zeros because Agda hangs.
-zeros : D
-zeros = zero ∷ {!!} -- zeros
+postulate
+  zeros    : D
+  zeros-eq : zeros ≡ zero ∷ zeros
 
-P : D → Set
-P xs = xs ≡ zeros
+zeros-Stream : Stream zeros
+zeros-Stream = Stream-coind A h refl
+  where
+  A : D → Set
+  A xs = xs ≡ zeros
 
-zerosS : Stream zeros
-zerosS = Stream-coind P (λ {xs} Axs → zero , zeros , refl , trans Axs refl) refl
+  h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] A xs' ∧ xs ≡ x' ∷ xs'
+  h Axs = zero , zeros , refl , trans Axs zeros-eq
