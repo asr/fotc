@@ -57,7 +57,7 @@ lcons : (A : D → Set) → ∀ {x xs} → A x → ListP A xs → ListP A (x ∷
 lcons A {n} {ns} An LPns = ListP-in A (inj₂ (n , ns , An , LPns , refl))
 
 ------------------------------------------------------------------------------
--- The induction principle for List.
+-- The induction principle for ListP.
 indListP : (A B : D → Set) →
            B [] →
            (∀ x {xs} → A x → B xs → B (x ∷ xs)) →
@@ -71,8 +71,9 @@ indListP A B B[] is = ListP-ind A B h
   h (inj₂ (x' , xs' , Ax' , Bxs' , h₁)) = subst B (sym h₁) (is x' Ax' Bxs')
 
 ------------------------------------------------------------------------------
--- Example
+-- Examples
 
+-- "Heterogeneous" total lists
 xs : D
 xs = [0] ∷ true ∷ [1] ∷ false ∷ []
 
@@ -86,6 +87,7 @@ xs-ListP =
   A : D → Set
   A d = d ≡ d
 
+-- Total lists of total natural numbers
 ys : D
 ys = [0] ∷ [1] ∷ [2] ∷ []
 
