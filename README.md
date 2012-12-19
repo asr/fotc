@@ -3,13 +3,14 @@
 [Agda](http://wiki.portal.chalmers.se/agda/pmwiki.php) formalization
 of FOTC (First-Order Theory of Combinators) which is a programming
 logic for functional programs that can deal with **general
-recursion**, **higher-order functions**, **termination proofs**, and
-**inductive** and **co-inductive** predicates. Our implementation
-includes a translation of Agda representations of formulae in FOTC
-into the [TPTP](http://www.cs.miami.edu/~tptp/) language, which is a
-standard format for input and output in automatic theorem provers
-(ATPs), so that we can call off-the-shelf ATPs when proving properties
-of our programs. See:
+recursion**, **higher-order functions**, **termination proofs**,
+**partial functions**, and **inductive** and **co-inductive**
+predicates. Our implementation includes a translation of Agda
+representations of formulae in FOTC into the
+[TPTP](http://www.cs.miami.edu/~tptp/) language, which is a standard
+format for input and output in automatic theorem provers (ATPs), so
+that we can call off-the-shelf ATPs when proving properties of our
+programs. See:
 
 * [Combining Interactive and Automatic Reasoning in First Order
   Theories of Functional
@@ -48,15 +49,15 @@ of our programs. See:
   [Metis](http://www.gilith.com/software/metis/),
   [SPASS](http://www.spass-prover.org/), or
   [Vampire](http://www.vprover.org/). The tested versions of the ATPs
-  are E 1.6 Tiger Hill, Equinox version 5.0alpha (2010-06-29),
+  are: E 1.6 Tiger Hill, Equinox version 5.0alpha (2010-06-29),
   ileanCoP v1.3beta1, Metis 2.3 (release 20110926), SPASS v3.7, and
   Vampire 0.6 (revision 903).
 
 * The `tptp4X` program
 
   `agda2atp` uses the `tptp4X` program from the [TPTP
-  library](http://www.cs.miami.edu/~tptp/) by default. Using `tptp4X`
-  can be avoided using the `--no-check` command-line option.
+  library](http://www.cs.miami.edu/~tptp/) by default. This program
+  can be avoided using the command-line option `--no-check`.
 
 # Installation
 
