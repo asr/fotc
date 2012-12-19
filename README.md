@@ -30,7 +30,7 @@ programs. See:
 * Modified version of Agda
 
    We have modified the development version of Agda in order to handle
-   the new built-in ATP pragma. This version modified of Agda is
+   the new built-in ATP pragma. This modified version of Agda is
    required by the `agda2atp` program.
 
 * The `agda2atp` program
