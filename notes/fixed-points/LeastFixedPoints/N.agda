@@ -1,7 +1,11 @@
+------------------------------------------------------------------------------
+-- From N using postulates to N using data
+------------------------------------------------------------------------------
+
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module LeastFixedPoints where
+module LeastFixedPoints.N where
 
 open import FOTC.Base
 
@@ -39,12 +43,12 @@ flip f b a = f a b
 ------------------------------------------------------------------------------
 -- N is a least fixed-point of a functor
 
--- Instead defining the least fixed-point via a (higher-order)
+-- Instead of defining the least fixed-point via a (higher-order)
 -- operator, we will define it using an instance of that operator.
 
--- The functor
-NatF : (D → Set) → D → Set
-NatF P n = n ≡ zero ∨ (∃[ m ] P m ∧ n ≡ succ₁ m)
+-- The functor.
+-- NatF : (D → Set) → D → Set
+-- NatF P n = n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
 
 -- The natural numbers are the least fixed-point of NatF.
 postulate
@@ -56,16 +60,13 @@ postulate
   N-in : ∀ {n} → n ≡ zero ∨ (∃[ n' ] N n' ∧ n ≡ succ₁ n') → N n
   -- N-in : ∀ n → NatF N n → N n  -- Higher-order version
 
-  -- N is a the least pre-fixed point of NatF.
+  -- N is the least pre-fixed point of NatF.
   --
   -- Peter: It corresponds to the elimination rule of an inductively
   -- defined predicate.
   N-ind : (A : D → Set) →
           (∀ {n} → n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n') → A n) →
           ∀ {n} → N n → A n
-  -- N-ind : (A : D → Set) →  -- Higher-order version
-  --          (∀ {n} → NatF A n → A n) →
-  --          ∀ {n} → N n → A n
 
 ------------------------------------------------------------------------------
 -- The data constructors of N.
@@ -80,22 +81,22 @@ nsucc Nn = N-in (inj₂ (_ , (Nn , refl)))
 -- N-ind), we can proof that N is also a post-fixed point of NatF.
 
 -- N is a post-fixed point of NatF.
-N-lfp₃ : ∀ {n} → N n → n ≡ zero ∨ (∃ λ m → N m ∧ n ≡ succ₁ m)
+N-lfp₃ : ∀ {n} → N n → n ≡ zero ∨ (∃[ n' ] N n' ∧ n ≡ succ₁ n')
 N-lfp₃ Nn = N-ind A prf Nn
   where
   A : D → Set
-  A x = x ≡ zero ∨ (∃ λ n' → N n' ∧ x ≡ succ₁ n')
+  A x = x ≡ zero ∨ (∃[ n' ] N n' ∧ x ≡ succ₁ n')
 
   prf : ∀ {n''} → n'' ≡ zero ∨ (∃[ n' ] A n' ∧ n'' ≡ succ₁ n') → A n''
   prf {n''} h = case inj₁ ((λ h₁ → inj₂ (prf₁ h₁))) h -- case inj₁ prf₁ h
     where
-    prf₁ : ∃ (λ n' → A n' ∧ n'' ≡ succ₁ n') → ∃ (λ n' → N n' ∧ n'' ≡ succ₁ n')
+    prf₁ : (∃[ n' ] A n' ∧ n'' ≡ succ₁ n') → ∃[ n' ] N n' ∧ n'' ≡ succ₁ n'
     prf₁ (n' , An' , n''=Sn') = n' , prf₂ An' , n''=Sn'
       where
       prf₂ : A n' → N n'
       prf₂ An' = case (λ ah → subst N (sym ah) nzero) prf₃ An'
         where
-        prf₃ : ∃ (λ m' → N m' ∧ n' ≡ succ₁ m') → N n'
+        prf₃ : (∃[ m' ] N m' ∧ n' ≡ succ₁ m') → N n'
         prf₃ (_ , Nm' , m≡Sm' ) = subst N (sym m≡Sm') (nsucc Nm')
 
 ------------------------------------------------------------------------------
@@ -110,8 +111,8 @@ indN A A0 h Nn = N-ind A (case prf₁ prf₂) Nn
   prf₁ : ∀ {n'} → n' ≡ zero → A n'
   prf₁ n'≡0 = subst A (sym n'≡0) A0
 
-  prf₂ : ∀ {n'} → ∃ (λ m → A m ∧ n' ≡ succ₁ m) → A n'
-  prf₂ (_ , Am , n'≡Sm) = subst A (sym n'≡Sm) (h Am)
+  prf₂ : ∀ {n'} → (∃[ n'' ] A n'' ∧ n' ≡ succ₁ n'') → A n'
+  prf₂ (_ , An'' , n'≡Sn'') = subst A (sym n'≡Sn'') (h An'')
 
 -- The induction principle for N *with* the hypothesis N n in the
 -- induction step.
@@ -157,7 +158,7 @@ postulate
   A : D → Set
   A i = N (i + n)
 
-  prf : ∀ {m'} → m' ≡ zero ∨ ∃ (λ m'' → A m'' ∧ m' ≡ succ₁ m'') → A m'
+  prf : ∀ {m'} → m' ≡ zero ∨ (∃[ m'' ] A m'' ∧ m' ≡ succ₁ m'') → A m'
   prf h = case prf₁ prf₂ h
     where
     A0 : A zero
@@ -169,7 +170,7 @@ postulate
     is : ∀ {i} → A i → A (succ₁ i)
     is {i} ih = subst N (sym (+-Sx i n)) (nsucc ih)
 
-    prf₂ : ∀ {m} → ∃ (λ m'' → A m'' ∧ m ≡ succ₁ m'') → A m
+    prf₂ : ∀ {m} → (∃[ m'' ] A m'' ∧ m ≡ succ₁ m'') → A m
     prf₂ (_ ,  Am'' , m≡Sm'') =
       subst N (cong (flip _+_ n) (sym m≡Sm'')) (is Am'')
 
