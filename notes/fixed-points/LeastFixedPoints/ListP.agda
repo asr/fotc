@@ -7,7 +7,7 @@
 
 -- We want to represent the polymorphic total lists data type
 --
--- data ListP (A : D → Set) : D → Set₁ where
+-- data ListP (A : D → Set) : D → Set where
 --   lnil  : ListP A []
 --   lcons : ∀ {x xs} → A x → ListP A xs → ListP A (x ∷ xs)
 --
