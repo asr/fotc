@@ -20,18 +20,21 @@ open import FOTC.Data.Nat.Type
 ∃-proj₁ : ∀ {A} → ∃ A → D
 ∃-proj₁ (x , _) = x
 
-record Eq (A : D → Set) : Set where
-  field equal : ∀ {t₁ t₂} → A t₁ → A t₂ → ∃ Bool
+record Eq (A : D → Set) : Set₁ where
+  field equal : ∀ {t₁ t₂} → A t₁ → A t₂ → Set
 
-boolEq : ∀ {b₁} {b₂} → Bool b₁ → Bool b₂ → ∃ Bool
-boolEq btrue  btrue  = true , btrue
-boolEq bfalse bfalse = true , btrue
-boolEq _      _      = false , bfalse
+equal : {A : D → Set}{t₁ t₂ : D} → {{eqT : Eq A}} → A t₁ → A t₂ → Set
+equal {{eqT}} = Eq.equal eqT
 
-nEq : ∀ {m} {n} → N m → N n → ∃ Bool
-nEq nzero      nzero      = true , btrue
-nEq (nsucc Nm) (nsucc Nn) = nEq Nm Nn
-nEq _          _          = false , bfalse
+boolEq : ∀ {b₁} {b₂} → Bool b₁ → Bool b₂ → Set
+boolEq btrue  btrue  = Bool true
+boolEq bfalse bfalse = Bool true
+boolEq _      _      = Bool false
+
+nEq : ∀ {m} {n} → N m → N n → Set
+nEq nzero      nzero      = Bool true
+nEq (nsucc Nm) (nsucc Nn) = Bool true
+nEq _          _          = Bool false
 
 eqInstanceBool : Eq Bool
 eqInstanceBool = record { equal = boolEq }
@@ -39,8 +42,17 @@ eqInstanceBool = record { equal = boolEq }
 eqInstanceN : Eq N
 eqInstanceN = record { equal = nEq }
 
-equal : {A : D → Set}{t₁ t₂ : D} → {{eqT : Eq A}} → A t₁ → A t₂ → ∃ Bool
-equal {{eqT}} = Eq.equal eqT
+test₁ : Set
+test₁ = equal nzero (nsucc nzero)
 
-test : D
-test = ∃-proj₁ (equal nzero (nsucc nzero)) && ∃-proj₁ (equal bfalse bfalse)
+test₂ : Set
+test₂ = equal bfalse bfalse
+
+eqN-sym : ∀ {m n} → (Nm : N m) → (Nn : N n) → equal Nm Nn → equal Nn Nm
+eqN-sym nzero      nzero      h = h
+eqN-sym nzero      (nsucc Nn) h = h
+eqN-sym (nsucc Nm) nzero      h = h
+eqN-sym (nsucc Nm) (nsucc Nn) h = h
+
+postulate eqN-sym' : ∀ {m n} → (Nm : N m) → (Nn : N n) → equal Nm Nn → equal Nn Nm
+-- {-# ATP prove eqN-sym' #-}
