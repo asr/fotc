@@ -25,14 +25,23 @@ open import FOTC.Data.Nat
     is {i} ih = subst N (sym (+-Sx i n)) (nsucc ih)
 
 -- Combined proof using an instance of the induction principle.
-+-N-ind : ∀ n →
++-N-ind : ∀ {n} →
           N (zero + n) →
           (∀ {m} → N (m + n) → N (succ₁ m + n)) →
           ∀ {m} → N m → N (m + n)
-+-N-ind n = N-ind (λ i → N (i + n))
++-N-ind {n} = N-ind (λ i → N (i + n))
 
-postulate +-N₁ : ∀ {m n} → N m → N n → N (m + n)
-{-# ATP prove +-N₁ +-N-ind #-}
++-N₁ : ∀ {m n} → N m → N n → N (m + n)
++-N₁ {n = n} Nm Nn = +-N-ind prf₁ prf₂ Nm
+  where
+  prf₁ : N (zero + n)
+  prf₁ = subst N (sym (+-0x n)) Nn
+
+  prf₂ : ∀ {m} → N (m + n) → N (succ₁ m + n)
+  prf₂ {m} ih = subst N (sym (+-Sx m n)) (nsucc ih)
+
+postulate +-N₂ : ∀ {m n} → N m → N n → N (m + n)
+{-# ATP prove +-N₂ +-N-ind #-}
 
 -- Combined proof using the induction principle.
 
@@ -43,6 +52,6 @@ postulate +-N₁ : ∀ {m n} → N m → N n → N (m + n)
 ----------------------------------------------------------------
 -- ∀ x y. app₁(n,x) → app₁(n,y) → app₁(n,appFn(appFn(+,x),y))    -- +-N₂
 
-postulate +-N₂ : ∀ {m n} → N m → N n → N (m + n)
+postulate +-N₃ : ∀ {m n} → N m → N n → N (m + n)
 -- The ATPs could not prove this postulate.
--- {-# ATP prove +-N₂ N-ind #-}
+-- {-# ATP prove +-N₃ N-ind #-}
