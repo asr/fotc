@@ -1,4 +1,4 @@
-(* In Coq 8.4, zero divides zero. *)
+(* In Coq, zero divides zero. *)
 
 Require Import NArith.BinNat.
 Import N.
