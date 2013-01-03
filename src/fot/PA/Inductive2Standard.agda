@@ -1,6 +1,5 @@
 ------------------------------------------------------------------------------
--- From inductive PA to axiomatic PA (using the standard
--- propositional equality)
+-- From inductive PA to standard axiomatic PA
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}

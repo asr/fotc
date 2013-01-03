@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- From inductive PA to Mendelson's axioms for PA
+-- From inductive PA to Mendelson's axioms
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}

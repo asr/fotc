@@ -2,6 +2,9 @@
 -- FOTC combinators for lists, colists, streams, etc.
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module FOTC.Base.List where
 
 open import FOTC.Base

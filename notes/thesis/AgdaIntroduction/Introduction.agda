@@ -1,3 +1,6 @@
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
 module AgdaIntroduction.Introduction where
 
 data ℕ : Set where
