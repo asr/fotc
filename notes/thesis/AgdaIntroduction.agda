@@ -1,23 +1,28 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
+{-# OPTIONS --no-coverage-check #-}
 
 module AgdaIntroduction where
 
+-- Dependent function types
 id : (A : Set) → A → A
 id A x = x
 
+-- λ-notation
 id₂ : (A : Set) → A → A
 id₂ = λ A → λ x → x
 
 id₃ : (A : Set) → A → A
 id₃ = λ A x → x
 
+-- Implicit arguments
 id₄ : {A : Set} → A → A
 id₄ x = x
 
 id₅ : {A : Set} → A → A
 id₅ = λ x → x
 
+-- Inductively defined sets and families
 data Bool : Set where
   false true : Bool
 
@@ -37,6 +42,7 @@ data Fin : ℕ → Set where
   fzero : {n : ℕ} → Fin (succ n)
   fsucc : {n : ℕ} → Fin n → Fin (succ n)
 
+-- Structurally recursive functions and pattern matching
 _+_ : ℕ → ℕ → ℕ
 zero   + n = n
 succ m + n = succ (m + n)
@@ -45,12 +51,11 @@ map : {A B : Set} → (A → B) → List A → List B
 map f []       = []
 map f (x ∷ xs) = f x ∷ map f xs
 
+-- The absurd pattern
 magic : {A : Set} → Fin zero → A
 magic ()
 
-head : {A : Set}{n : ℕ} → Vec A (succ n) → A
-head (x ∷ xs) = x
-
+-- The with constructor
 filter : {A : Set} → (A → Bool) → List A → List A
 filter p [] = []
 filter p (x ∷ xs) with p x
@@ -63,6 +68,7 @@ filter' p (x ∷ xs) with p x
 filter' p (x ∷ xs) | true  = x ∷ filter' p xs
 filter' p (x ∷ xs) | false = filter' p xs
 
+-- Mutual definitions
 even : ℕ → Bool
 odd  : ℕ → Bool
 
@@ -81,3 +87,21 @@ data EvenList where
 
 data OddList where
   _∷_ : ℕ → EvenList → OddList
+
+-- Coverage and termination checkers
+head : {A : Set} → List A → A
+head (x ∷ xs) = x
+
+ack : ℕ → ℕ → ℕ
+ack zero     n        = succ n
+ack (succ m) zero     = ack m (succ zero)
+ack (succ m) (succ n) = ack m (ack (succ m) n)
+
+{-# NO_TERMINATION_CHECK #-}
+f : ℕ → ℕ
+f n = f n
+
+{-# NO_TERMINATION_CHECK #-}
+nest : ℕ → ℕ
+nest zero     = zero
+nest (succ n) = nest (nest n)
