@@ -24,7 +24,7 @@ open import FOTC.Relation.Binary.Bisimilarity
 
   h₁ : ∀ {xs ys} → R xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
        R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
-  h₁ (Sxs , refl) with (Stream-unf Sxs)
+  h₁ (Sxs , refl) with Stream-unf Sxs
   ... | x' , xs' , Sxs' , prf = x' , xs' , xs' , (Sxs' , refl) , prf , prf
 
   h₂ : R xs xs
@@ -40,7 +40,7 @@ open import FOTC.Relation.Binary.Bisimilarity
   h₁ : ∀ {xs ys} → R xs ys →
        ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
        R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
-  h₁ Rxsys with (≈-unf Rxsys)
+  h₁ Rxsys with ≈-unf Rxsys
   ... | y' , ys' , xs' , ys'≈xs' , prf₁ , prf₂ =
     y' , xs' , ys' , ys'≈xs' , prf₂ , prf₁
 
@@ -56,8 +56,8 @@ open import FOTC.Relation.Binary.Bisimilarity
   h₁ : ∀ {xs zs} → R xs zs →
        ∃[ x' ] ∃[ xs' ] ∃[ zs' ]
        R xs' zs' ∧ xs ≡ x' ∷ xs' ∧ zs ≡ x' ∷ zs'
-  h₁ {zs = zs} (ys , xs≈ys , ys≈zs) with (≈-unf xs≈ys)
-  ... | x' , xs' , ys' , xs'≈ys' , prf₁ , prf₂ with (≈-unf ys≈zs)
+  h₁ {zs = zs} (ys , xs≈ys , ys≈zs) with ≈-unf xs≈ys
+  ... | x' , xs' , ys' , xs'≈ys' , prf₁ , prf₂ with ≈-unf ys≈zs
   ... | y' , ys'' , zs' , ys''≈zs' , prf₃ , prf₄ =
     x'
     , xs'
@@ -77,7 +77,7 @@ open import FOTC.Relation.Binary.Bisimilarity
   h₂ = ys , (xs≈ys , ys≈zs)
 
 ∷-injective≈ : ∀ {x xs ys} → x ∷ xs ≈ x ∷ ys → xs ≈ ys
-∷-injective≈ {x} {xs} {ys} h with (≈-unf h)
+∷-injective≈ {x} {xs} {ys} h with ≈-unf h
 ... | x' , xs' , ys' , prf₁ , prf₂ , prf₃ = xs≈ys
   where
   xs≡xs' : xs ≡ xs'

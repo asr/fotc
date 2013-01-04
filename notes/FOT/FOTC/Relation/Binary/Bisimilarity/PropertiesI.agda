@@ -20,7 +20,7 @@ open import FOTC.Relation.Binary.Bisimilarity
 
 {-# NO_TERMINATION_CHECK #-}
 ≈→≡₁ : ∀ {xs ys} → xs ≈ ys → xs ≡ ys
-≈→≡₁ {xs} {ys} xs≈ys with (≈-unf xs≈ys)
+≈→≡₁ {xs} {ys} xs≈ys with ≈-unf xs≈ys
 ... | x' , xs' , ys' , h₁ , h₂ , h₃ =
   xs       ≡⟨ h₂ ⟩
   x' ∷ xs' ≡⟨ ∷-rightCong (≈→≡₁ h₁) ⟩
@@ -30,5 +30,5 @@ open import FOTC.Relation.Binary.Bisimilarity
 -- Requires K.
 {-# NO_TERMINATION_CHECK #-}
 ≈→≡₂ : ∀ {xs ys} → xs ≈ ys → xs ≡ ys
-≈→≡₂ xs≈ys with (≈-unf xs≈ys)
+≈→≡₂ xs≈ys with ≈-unf xs≈ys
 ... | x' , xs' , ys' , h , refl , refl = ∷-rightCong (≈→≡₂ h)

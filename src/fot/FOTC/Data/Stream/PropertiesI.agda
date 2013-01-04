@@ -26,7 +26,7 @@ open import FOTC.Data.Stream
 -----------------------------------------------------------------------------
 
 tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
-tailS h with (Stream-unf h)
+tailS h with Stream-unf h
 ... | x' , xs' , Sxs' , h₁ = subst Stream (sym (∧-proj₂ (∷-injective h₁))) Sxs'
 
 -- Adapted from (Sander 1992, p. 58).
