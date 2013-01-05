@@ -105,3 +105,51 @@ f n = f n
 nest : ℕ → ℕ
 nest zero     = zero
 nest (succ n) = nest (nest n)
+
+-- Combinators for equational reasoning
+
+infix 4 _≡_
+
+postulate
+  _≡_   : {A : Set} → A → A → Set
+  refl  : {A : Set}{a : A} → a ≡ a
+  sym   : {A : Set}{a b : A} → a ≡ b → b ≡ a
+  trans : {A : Set}{a b c : A} → a ≡ b → b ≡ c → a ≡ c
+  subst : {A : Set}(P : A → Set){a b : A} → a ≡ b → P a → P b
+
+one : ℕ
+one = succ zero
+
+postulate
+  _*_             : ℕ → ℕ → ℕ
+  *-comm          : ∀ m n → m * n ≡ n * m
+  *-rightIdentity : ∀ n → n * one ≡ n
+
+*-leftIdentity : ∀ n → one * n ≡ n
+*-leftIdentity n =
+  trans {ℕ} {one * n} {n * one} {n} (*-comm one n) (*-rightIdentity n)
+
+module ER
+  {A     : Set}
+  (_∼_   : A → A → Set)
+  (refl  : ∀ {x} → x ∼ x)
+  (trans : ∀ {x y z} → x ∼ y → y ∼ z → x ∼ z)
+  where
+
+  infixr 5 _∼⟨_⟩_
+  infix  5 _∎
+
+  _∼⟨_⟩_ : ∀ x {y z} → x ∼ y → y ∼ z → x ∼ z
+  _ ∼⟨ x∼y ⟩ y∼z = trans x∼y y∼z
+
+  _∎ : ∀ x → x ∼ x
+  _∎ _ = refl
+
+open module ≡-Reasoning = ER _≡_ (refl {ℕ}) (trans {ℕ})
+  renaming ( _∼⟨_⟩_ to _≡⟨_⟩_ )
+
+*-leftIdentity' : ∀ n → one * n ≡ n
+*-leftIdentity' n =
+  one * n ≡⟨ *-comm one n ⟩
+  n * one ≡⟨ *-rightIdentity n ⟩
+  n        ∎
