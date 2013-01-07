@@ -58,6 +58,10 @@ map : {A B : Set} → (A → B) → List A → List B
 map f []       = []
 map f (x ∷ xs) = f x ∷ map f xs
 
+f : ℕ → ℕ
+f 0 = 0
+f _ = 1
+
 -- The absurd pattern
 magic : {A : Set} → Fin 0 → A
 magic ()
@@ -124,15 +128,6 @@ ack 0        n        = succ n
 ack (succ m) 0        = ack m 1
 ack (succ m) (succ n) = ack m (ack (succ m) n)
 
-{-# NO_TERMINATION_CHECK #-}
-f : ℕ → ℕ
-f n = f n
-
-{-# NO_TERMINATION_CHECK #-}
-nest : ℕ → ℕ
-nest 0        = 0
-nest (succ n) = nest (nest n)
-
 -- Combinators for equational reasoning
 
 postulate
@@ -152,18 +147,18 @@ postulate
 module ER
   {A     : Set}
   (_∼_   : A → A → Set)
-  (refl  : ∀ {x} → x ∼ x)
-  (trans : ∀ {x y z} → x ∼ y → y ∼ z → x ∼ z)
+  (∼-refl  : ∀ {x} → x ∼ x)
+  (∼-trans : ∀ {x y z} → x ∼ y → y ∼ z → x ∼ z)
   where
 
   infixr 5 _∼⟨_⟩_
   infix  5 _∎
 
   _∼⟨_⟩_ : ∀ x {y z} → x ∼ y → y ∼ z → x ∼ z
-  _ ∼⟨ x∼y ⟩ y∼z = trans x∼y y∼z
+  _ ∼⟨ x∼y ⟩ y∼z = ∼-trans x∼y y∼z
 
   _∎ : ∀ x → x ∼ x
-  _∎ _ = refl
+  _∎ _ = ∼-refl
 
 open module ≡-Reasoning = ER _≡_ (refl {ℕ}) (trans {ℕ})
   renaming ( _∼⟨_⟩_ to _≡⟨_⟩_ )
