@@ -115,9 +115,10 @@ _++_ : {A : Set} → List A → List A → List A
 succCong : {m n : ℕ} → m ≡ n → succ m ≡ succ n
 succCong refl = refl
 
-thm : {A : Set}(xs ys : List A) → length (xs ++ ys) ≡ length xs + length ys
-thm [] ys       = refl
-thm (x ∷ xs) ys = succCong (thm xs ys)
+length-++ : {A : Set}(xs ys : List A) →
+            length (xs ++ ys) ≡ length xs + length ys
+length-++ [] ys       = refl
+length-++ (x ∷ xs) ys = succCong (length-++ xs ys)
 
 -- Coverage and termination checkers
 head : {A : Set} → List A → A
