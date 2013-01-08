@@ -316,7 +316,6 @@ agda_changed : clean
 	   echo "Error: The directory $(snapshot_dir) does not exist"; \
 	   exit 1; \
 	fi
-	cd $(agda2atp_path) && cabal clean && cabal configure && cabal build
 	make agda2atp_changed
 	cd $(std_lib_path) && darcs pull
 	make type_check_fot
@@ -329,6 +328,7 @@ agda_changed : clean
 # Test used when there is a modification to agda2atp
 
 agda2atp_changed :
+	cd $(agda2atp_path) && cabal clean && cabal configure && cabal build
 	@make generated_conjectures
 	@make errors
 	@make options
