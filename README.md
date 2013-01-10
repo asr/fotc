@@ -28,20 +28,17 @@ programs. See:
 # Prerequisites
 
 * Modified version of Agda
-
-   We have modified the development version of Agda in order to handle
-   the new built-in ATP pragma. This modified version of Agda is
-   required by the `agda2atp` program.
+  We have modified the development version of Agda in order to handle
+  the new built-in ATP pragma. This modified version of Agda is
+  required by the `agda2atp` program.
 
 * The `agda2atp` program
-
   `agda2atp` is a Haskell program for proving first-order formulae
   written in [Agda](http://wiki.portal.chalmers.se/agda/pmwiki.php)
   using ATPs. Before calling the ATPs, the Agda formulae are
   translated into [TPTP](http://www.cs.miami.edu/~tptp/) language.
 
 * ATPs
-
   The `agda2atp` program requires at least one of the following ATPs:
   [E](http://www4.informatik.tu-muenchen.de/~schulz/WORK/eprover.html),
   [Equinox](http://www.cse.chalmers.se/~koen/code/),
@@ -54,7 +51,6 @@ programs. See:
   Vampire 0.6 (revision 903).
 
 * The `tptp4X` program
-
   `agda2atp` uses the `tptp4X` program from the [TPTP
   library](http://www.cs.miami.edu/~tptp/) by default. This program
   can be avoided using the command-line option `--no-check`.
@@ -205,15 +201,13 @@ the examples from the file
 # Known limitations
 
 * Logical symbols
-
-The following symbols are hard-coded, i.e. they should be used: `⊥`
-(falsehood), `⊤` (truth), `¬_` (negation), `_∧_` (conjunction), `_∨_`
-(disjunction), the Agda non-dependent function type `→` (implication),
-`_↔_` (equivalence), the Agda dependent function type `(x : A) → B`
-(universal quantifier), `∃` (existential quantifier), and `_≡_`
-(propositional equality).
+  The following symbols are hard-coded, i.e. they should be used: `⊥`
+  (falsehood), `⊤` (truth), `¬_` (negation), `_∧_` (conjunction),
+  `_∨_` (disjunction), the Agda non-dependent function type `→`
+  (implication), `_↔_` (equivalence), the Agda dependent function type
+  `(x : A) → B` (universal quantifier), `∃` (existential quantifier),
+  and `_≡_` (propositional equality).
 
 * Agda version
-
-The `agda2atp` program must be compiled using the same version of Agda that
-was used to generate the Agda interface files.
+  The `agda2atp` program must be compiled using the same version of
+  Agda that was used to generate the Agda interface files.
