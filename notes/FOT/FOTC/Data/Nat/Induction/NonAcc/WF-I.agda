@@ -10,28 +10,27 @@ module FOT.FOTC.Data.Nat.Induction.NonAcc.WF-I where
 
 open import FOTC.Base
 
-open import Common.Function
-
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.EliminationProperties
-open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.Type
 
 ------------------------------------------------------------------------------
--- Well-founded induction on the natural numbers.
+-- Well-founded induction
+postulate
+  <-wfind₁ : (A : D → Set) →
+             (∀ {n} → N n → (∀ {m} → N m → m < n → A m) → A n) →
+             ∀ {n} → N n → A n
 
-wfInd-LT : (P : D → Set) →
-           (∀ {n} → N n → (∀ {m} → N m → m < n → P m) → P n) →
-           ∀ {n} → N n → P n
-wfInd-LT P h nzero      = h nzero (λ Nm m<0 → ⊥-elim (x<0→⊥ Nm m<0))
-wfInd-LT P h (nsucc Nn) = h (nsucc Nn)
-                            (λ Nm m<Sn → helper Nm Nn (wfInd-LT P h Nn)
-                                                (x<Sy→x≤y Nm Nn m<Sn))
-  where
-    helper : ∀ {n m} → N n → N m → P m → n ≤ m → P n
-    helper {n} {m} Nn Nm Pm n≤m = case (λ n<m → {!!} )
-                                  (λ n≡m → helper₁ n≡m Pm)
-                                  (x≤y→x<y∨x≡y Nn Nm n≤m)
-      where
-        helper₁ : ∀ {a b} → a ≡ b → P b → P a
-        helper₁ refl Pb = Pb
+postulate PN : ∀ {n m} → N n → m < n → N m
+
+-- Well-founded induction removing N m from the second line.
+<-wfind₂ : (A : D → Set) →
+           (∀ {n} → N n → (∀ {m} → m < n → A m) → A n) →
+           ∀ {n} → N n → A n
+<-wfind₂ A h = <-wfind₁ A (λ Nn' h' → h Nn' (λ p → h' (PN Nn' p) p))
+
+-- Well-founded induction removing N n from the second line.
+<-wfind₃ : (A : D → Set) →
+           (∀ {n} → (∀ {m} → N m → m < n → A m) → A n) →
+           ∀ {n} → N n → A n
+<-wfind₃ A h = <-wfind₁ A (λ Nn' h' → h h')
