@@ -60,7 +60,7 @@ Sx≢x (nsucc Nn) h = ⊥-elim (Sx≢x Nn (succInjective h))
   trans (+-Sx n zero) (succCong (+-rightIdentity Nn))
 
 pred-N : ∀ {n} → N n → N (pred₁ n)
-pred-N nzero =         subst N (sym pred-0) nzero
+pred-N nzero          = subst N (sym pred-0) nzero
 pred-N (nsucc {n} Nn) = subst N (sym (pred-S n)) Nn
 
 +-N : ∀ {m n} → N m → N n → N (m + n)
