@@ -21,12 +21,12 @@ record Eq (A : D → Set) : Set₁ where
 
 open Eq {{...}} public
 
-boolEq : ∀ {b₁} {b₂} → Bool b₁ → Bool b₂ → Set
+boolEq : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → Set
 boolEq btrue  btrue  = Bool true
 boolEq bfalse bfalse = Bool true
 boolEq _      _      = Bool false
 
-nEq : ∀ {m} {n} → N m → N n → Set
+nEq : ∀ {m n} → N m → N n → Set
 nEq nzero      nzero      = Bool true
 nEq (nsucc Nm) (nsucc Nn) = Bool true
 nEq _          _          = Bool false
