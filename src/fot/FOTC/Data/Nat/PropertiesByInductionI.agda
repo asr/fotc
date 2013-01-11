@@ -19,17 +19,33 @@ open import FOTC.Data.Nat
 
 ------------------------------------------------------------------------------
 
+-- Congruence properties
+
 +-leftCong : ∀ {a b c} → a ≡ b → a + c ≡ b + c
 +-leftCong refl = refl
 
 +-rightCong : ∀ {a b c} → b ≡ c → a + b ≡ a + c
 +-rightCong refl = refl
 
+------------------------------------------------------------------------------
+
+Sx≢x : ∀ {n} → N n → succ₁ n ≢ n
+Sx≢x = N-ind A A0 is
+  where
+  A : D → Set
+  A i = succ₁ i ≢ i
+
+  A0 : A zero
+  A0 = S≢0
+
+  is : ∀ {i} → A i → A (succ₁ i)
+  is {i} ih = →-trans succInjective ih
+
 +-leftIdentity : ∀ n → zero + n ≡ n
 +-leftIdentity n = +-0x n
 
 +-rightIdentity : ∀ {n} → N n → n + zero ≡ n
-+-rightIdentity Nn = N-ind A A0 is Nn
++-rightIdentity = N-ind A A0 is
   where
   A : D → Set
   A i = i + zero ≡ i
