@@ -16,6 +16,7 @@ open import Common.FOL.Relation.Binary.EqReasoning
 open import FOTC.Base
 open import FOTC.Base.PropertiesI
 open import FOTC.Data.Nat
+open import FOTC.Data.Nat.UnaryNumbers
 
 ------------------------------------------------------------------------------
 
@@ -119,3 +120,18 @@ x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
               succ₁ (i + n) ≡⟨ succCong ih ⟩
               succ₁ (n + i) ≡⟨ sym (x+Sy≡S[x+y] Nn i) ⟩
               n + succ₁ i   ∎
+
+0∸x : ∀ {n} → N n → zero ∸ n ≡ zero
+0∸x = N-ind A A0 is
+  where
+  A : D → Set
+  A i = zero ∸ i ≡ zero
+
+  A0 : A zero
+  A0 = ∸-x0 zero
+
+  is : ∀ {i} → A i → A (succ₁ i)
+  is {i} ih = zero ∸ succ₁ i   ≡⟨ ∸-xS zero i ⟩
+              pred₁ (zero ∸ i) ≡⟨ predCong ih ⟩
+              pred₁ zero       ≡⟨ pred-0 ⟩
+              zero ∎

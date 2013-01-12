@@ -118,20 +118,11 @@ x+S0≡Sx (nsucc {n} Nn) = prf (x+S0≡Sx Nn)
                         succ₁ n + succ₁ zero ≡ succ₁ (succ₁ n)
         {-# ATP prove prf #-}
 
-private
-  0∸S : ∀ {n} → N n → zero ∸ succ₁ n ≡ zero
-  0∸S nzero = prf
-    where postulate prf : zero ∸ succ₁ zero ≡ zero
-          {-# ATP prove prf #-}
-
-  0∸S (nsucc {n} Nn) = prf (0∸S Nn)
-    where postulate prf : zero ∸ succ₁ n ≡ zero →
-                          zero ∸ succ₁ (succ₁ n) ≡ zero
-          {-# ATP prove prf #-}
-
 0∸x : ∀ {n} → N n → zero ∸ n ≡ zero
-0∸x nzero      = ∸-x0 zero
-0∸x (nsucc Nn) = 0∸S Nn
+0∸x nzero          = ∸-x0 zero
+0∸x (nsucc {n} Nn) = prf (0∸x Nn)
+  where postulate prf : zero ∸ n ≡ zero → zero ∸ succ₁ n ≡ zero
+        {-# ATP prove prf #-}
 
 S∸S : ∀ {m n} → N m → N n → succ₁ m ∸ succ₁ n ≡ m ∸ n
 S∸S {m} Nm nzero = prf
@@ -224,7 +215,7 @@ x*Sy≡x+xy {n = n} (nsucc {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
 
 *∸-leftDistributive {o = o} nzero (nsucc {n} Nn) No = prf
   where postulate prf : (zero ∸ succ₁ n) * o ≡ zero * o ∸ succ₁ n * o
-        {-# ATP prove prf 0∸S 0∸x *-N #-}
+        {-# ATP prove prf 0∸x *-N #-}
 
 *∸-leftDistributive (nsucc {m} Nm) (nsucc {n} Nn) nzero = prf
   where
