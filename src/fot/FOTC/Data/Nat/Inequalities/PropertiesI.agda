@@ -30,6 +30,9 @@ ltLeftCong refl = refl
 ltRightCong : ∀ {m n o} → n ≡ o → lt m n ≡ lt m o
 ltRightCong refl = refl
 
+ltCong : ∀ {m₁ n₁ m₂ n₂} → m₁ ≡ m₂ → n₁ ≡ n₂ → lt m₁ n₁ ≡ lt m₂ n₂
+ltCong refl refl = refl
+
 ------------------------------------------------------------------------------
 
 x≥0 : ∀ {n} → N n → n ≥ zero

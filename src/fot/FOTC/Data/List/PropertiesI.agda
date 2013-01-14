@@ -42,6 +42,9 @@ revCong₂ refl = refl
 reverseCong : ∀ {xs ys} → xs ≡ ys → reverse xs ≡ reverse ys
 reverseCong refl = refl
 
+lengthCong : ∀ {xs ys} → xs ≡ ys → length xs ≡ length ys
+lengthCong refl = refl
+
 ------------------------------------------------------------------------------
 -- Totality properties
 
