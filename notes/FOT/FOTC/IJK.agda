@@ -12,12 +12,11 @@ open import FOTC.Data.Nat.Type
 
 ------------------------------------------------------------------------------
 
--- The inductive natural numbers.
 data ℕ : Set where
   z : ℕ
   s : ℕ → ℕ
 
--- Conversion functions
+-- Conversion functions from/to ℕ and N.
 i : ℕ → D
 i z     = zero
 i (s n) = succ₁ (i n)
@@ -30,7 +29,6 @@ k : {n : D} → N n → ℕ
 k nzero      = z
 k (nsucc Nn) = s (k Nn)
 
--- Addition for ℕ
 _+_ : ℕ → ℕ → ℕ
 z   + n = n
 s m + n = s (m + n)
