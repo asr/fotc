@@ -33,16 +33,12 @@ data ℕ : Set where
   zero : ℕ
   succ : ℕ → ℕ
 
-{-# BUILTIN NATURAL ℕ     #-}
-{-# BUILTIN ZERO    zero  #-}
-{-# BUILTIN SUC     succ  #-}
-
 data List (A : Set) : Set where
   []  : List A
   _∷_ : A → List A → List A
 
 data Vec (A : Set) : ℕ → Set where
-  []  : Vec A 0
+  []  : Vec A zero
   _∷_ : {n : ℕ} → A → Vec A n → Vec A (succ n)
 
 data Fin : ℕ → Set where
@@ -51,7 +47,7 @@ data Fin : ℕ → Set where
 
 -- Structurally recursive functions and pattern matching
 _+_ : ℕ → ℕ → ℕ
-0      + n = n
+zero   + n = n
 succ m + n = succ (m + n)
 
 map : {A B : Set} → (A → B) → List A → List B
@@ -59,11 +55,11 @@ map f []       = []
 map f (x ∷ xs) = f x ∷ map f xs
 
 f : ℕ → ℕ
-f 0 = 0
-f _ = 1
+f zero = zero
+f _ = succ zero
 
 -- The absurd pattern
-magic : {A : Set} → Fin 0 → A
+magic : {A : Set} → Fin zero → A
 magic ()
 
 -- The with constructor
@@ -83,10 +79,10 @@ filter' p (x ∷ xs) | false = filter' p xs
 even : ℕ → Bool
 odd  : ℕ → Bool
 
-even 0        = true
+even zero     = true
 even (succ n) = odd n
 
-odd 0        = false
+odd zero   = false
 odd (succ n) = even n
 
 data EvenList : Set
@@ -101,12 +97,12 @@ data OddList where
 
 -- Normalisation
 
-data _≡_ {A : Set}: A → A → Set where
+data _≡_ {A : Set} : A → A → Set where
   refl : {a : A} → a ≡ a
 
 length : {A : Set} → List A → ℕ
-length []       = 0
-length (x ∷ xs) = 1 + length xs
+length []       = zero
+length (x ∷ xs) = succ zero + length xs
 
 _++_ : {A : Set} → List A → List A → List A
 []       ++ ys = ys
@@ -125,8 +121,8 @@ head : {A : Set} → List A → A
 head (x ∷ xs) = x
 
 ack : ℕ → ℕ → ℕ
-ack 0        n        = succ n
-ack (succ m) 0        = ack m 1
+ack zero     n        = succ n
+ack (succ m) zero     = ack m (succ zero)
 ack (succ m) (succ n) = ack m (ack (succ m) n)
 
 -- Combinators for equational reasoning
@@ -139,11 +135,11 @@ postulate
 postulate
   _*_             : ℕ → ℕ → ℕ
   *-comm          : ∀ m n → m * n ≡ n * m
-  *-rightIdentity : ∀ n → n * 1 ≡ n
+  *-rightIdentity : ∀ n → n * succ zero ≡ n
 
-*-leftIdentity : ∀ n → 1 * n ≡ n
+*-leftIdentity : ∀ n → succ zero * n ≡ n
 *-leftIdentity n =
-  trans {ℕ} {1 * n} {n * 1} {n} (*-comm 1 n) (*-rightIdentity n)
+  trans {ℕ} {succ zero * n} {n * succ zero} {n} (*-comm (succ zero) n) (*-rightIdentity n)
 
 module ER
   {A     : Set}
@@ -164,8 +160,8 @@ module ER
 open module ≡-Reasoning = ER _≡_ (refl {ℕ}) (trans {ℕ})
   renaming ( _∼⟨_⟩_ to _≡⟨_⟩_ )
 
-*-leftIdentity' : ∀ n → 1 * n ≡ n
+*-leftIdentity' : ∀ n → succ zero * n ≡ n
 *-leftIdentity' n =
-  1 * n ≡⟨ *-comm 1 n ⟩
-  n * 1 ≡⟨ *-rightIdentity n ⟩
-  n     ∎
+  succ zero * n ≡⟨ *-comm (succ zero) n ⟩
+  n * succ zero ≡⟨ *-rightIdentity n ⟩
+  n             ∎
