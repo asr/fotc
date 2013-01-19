@@ -20,10 +20,10 @@ open import FOTC.Data.Nat.Type
 ∃-proj₁ : ∀ {A} → ∃ A → D
 ∃-proj₁ (x , _) = x
 
-record Eq (A : D → Set) : Set₁ where
-  field equal : ∀ {t₁ t₂} → A t₁ → A t₂ → Set
+record Eq (P : D → Set) : Set₁ where
+  field equal : ∀ {t₁ t₂} → P t₁ → P t₂ → Set
 
-equal : {A : D → Set}{t₁ t₂ : D} → {{eqT : Eq A}} → A t₁ → A t₂ → Set
+equal : {P : D → Set}{t₁ t₂ : D} → {{eqT : Eq P}} → P t₁ → P t₂ → Set
 equal {{eqT}} = Eq.equal eqT
 
 boolEq : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → Set

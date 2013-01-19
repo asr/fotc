@@ -44,27 +44,27 @@ zs-ListB = lbcons btrue (lbcons bfalse (lbcons btrue lbnil))
 
 ------------------------------------------------------------------------------
 -- Polymorphic lists.
-data ListP (A : D → Set) : D → Set where
-  lnil  :                               ListP A []
-  lcons : ∀ {x xs} → A x → ListP A xs → ListP A (x ∷ xs)
+data Plist (P : D → Set) : D → Set where
+  lnil  :                               Plist P []
+  lcons : ∀ {x xs} → P x → Plist P xs → Plist P (x ∷ xs)
 
 -- "Heterogeneous" total lists
 List₁ : D → Set
-List₁ = ListP (λ d → d ≡ d)
+List₁ = Plist (λ d → d ≡ d)
 
 xs-List₁ : List₁ xs
 xs-List₁ = lcons refl (lcons refl (lcons refl (lcons refl lnil)))
 
 -- Total lists of total natural numbers
 ListN₁ : D → Set
-ListN₁ = ListP N
+ListN₁ = Plist N
 
 ys-ListN₁ : ListN₁ ys
 ys-ListN₁ = lcons nzero (lcons (nsucc nzero) (lcons (nsucc (nsucc nzero)) lnil))
 
 -- Total lists of total Booleans
 ListB₁ : D → Set
-ListB₁ = ListP Bool
+ListB₁ = Plist Bool
 
 zs-ListB₁ : ListB₁ zs
 zs-ListB₁ = lcons btrue (lcons bfalse (lcons btrue lnil))
