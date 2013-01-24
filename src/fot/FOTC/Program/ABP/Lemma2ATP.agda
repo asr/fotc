@@ -100,7 +100,7 @@ module Helper where
     postulate
       bs'-eq-helper₂ : os₀' ≡ F ∷ tail₁ os₀' →
                        bs' ≡ error ∷ bs⁵ b i' is' cs' (os₀⁵ os₀') (os₁⁵ ft₁ os₁'')
-    {-# ATP prove bs'-eq-helper₁ as'-eq #-}
+    {-# ATP prove bs'-eq-helper₂ as'-eq #-}
 
     bs'-eq : bs' ≡ ok < i' , b > ∷ bs⁵ b i' is' cs' (os₀⁵ os₀') (os₁⁵ ft₁ os₁'')
              ∨ bs' ≡ error ∷ bs⁵ b i' is' cs' (os₀⁵ os₀') (os₁⁵ ft₁ os₁'')
