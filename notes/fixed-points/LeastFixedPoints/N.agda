@@ -16,9 +16,9 @@
 module LeastFixedPoints.N where
 
 open import FOTC.Base
+open import FOTC.Base.PropertiesI
 
-infixl 9 _+_
-
+-- infixl 9 _+_
 
 ------------------------------------------------------------------------------
 -- Basic definitions
@@ -52,12 +52,9 @@ flip f b a = f a b
 ------------------------------------------------------------------------------
 -- N is a least fixed-point of a functor
 
--- Instead of defining the least fixed-point via a (higher-order)
--- operator, we will define it using an instance of that operator.
-
 -- The functor.
--- NatF : (D → Set) → D → Set
--- NatF P n = n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
+NatF : (D → Set) → D → Set
+NatF P n = n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
 
 -- The natural numbers are the least fixed-point of NatF.
 postulate
@@ -67,15 +64,47 @@ postulate
   --
   -- Peter: It corresponds to the introduction rules.
   N-in : ∀ {n} → n ≡ zero ∨ (∃[ n' ] N n' ∧ n ≡ succ₁ n') → N n
-  -- N-in : ∀ n → NatF N n → N n  -- Higher-order version
+
+  -- The higher-order version.
+  N-in-ho : ∀ {n} → NatF N n → N n
 
   -- N is the least pre-fixed point of NatF.
   --
   -- Peter: It corresponds to the elimination rule of an inductively
   -- defined predicate.
-  N-ind : (A : D → Set) →
-          (∀ {n} → n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n') → A n) →
-          ∀ {n} → N n → A n
+  N-least-pre-fixed :
+    ∀ (A : D → Set) {n} →
+    (n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n') → A n) →
+    N n → A n
+
+  -- Higher-order version (incomplete?)
+  N-least-pre-fixed-ho :
+    ∀ (A : D → Set) {n} →
+    (NatF A n → A n) →
+    N n → A n
+
+------------------------------------------------------------------------------
+-- From/to N-in/N-in-ho.
+
+N-in₁ : ∀ {n} → n ≡ zero ∨ (∃[ n' ] N n' ∧ n ≡ succ₁ n') → N n
+N-in₁ = N-in-ho
+
+N-in-ho₁ : ∀ {n} → NatF N n → N n
+N-in-ho₁ = N-in₁
+
+------------------------------------------------------------------------------
+-- From/to N-least-pre-fixed/N-least-pre-fixed-ho
+N-least-pre-fixed' :
+  ∀ (A : D → Set) {n} →
+  (n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n') → A n) →
+  N n → A n
+N-least-pre-fixed' = N-least-pre-fixed-ho
+
+N-least-pre-fixed-ho' :
+  ∀ (A : D → Set) {n} →
+  (NatF A n → A n) →
+  N n → A n
+N-least-pre-fixed-ho' = N-least-pre-fixed
 
 ------------------------------------------------------------------------------
 -- The data constructors of N.
@@ -83,74 +112,61 @@ nzero : N zero
 nzero = N-in (inj₁ refl)
 
 nsucc : ∀ {n} → N n → N (succ₁ n)
-nsucc Nn = N-in (inj₂ (_ , (Nn , refl)))
+nsucc Nn = N-in (inj₂ (_ , Nn , refl))
 
 ------------------------------------------------------------------------------
 -- Because N is the least pre-fixed point of NatF (i.e. N-in and
 -- N-ind), we can proof that N is also a post-fixed point of NatF.
 
 -- N is a post-fixed point of NatF.
-N-lfp₃ : ∀ {n} → N n → n ≡ zero ∨ (∃[ n' ] N n' ∧ n ≡ succ₁ n')
-N-lfp₃ Nn = N-ind A prf Nn
+N-post-fixed : ∀ {n} → N n → n ≡ zero ∨ (∃[ n' ] N n' ∧ n ≡ succ₁ n')
+N-post-fixed = N-least-pre-fixed A prf
   where
   A : D → Set
-  A x = x ≡ zero ∨ (∃[ n' ] N n' ∧ x ≡ succ₁ n')
+  A m = m ≡ zero ∨ (∃[ m' ] N m' ∧ m ≡ succ₁ m')
 
-  prf : ∀ {n''} → n'' ≡ zero ∨ (∃[ n' ] A n' ∧ n'' ≡ succ₁ n') → A n''
-  prf {n''} h = case inj₁ ((λ h₁ → inj₂ (prf₁ h₁))) h -- case inj₁ prf₁ h
+  prf : ∀ {m} → m ≡ zero ∨ (∃[ m' ] A m' ∧ m ≡ succ₁ m') → A m
+  prf (inj₁ h) = inj₁ h
+  prf (inj₂ (m' , Am' , h)) = inj₂ (m' , prf₂ Am' , h)
     where
-    prf₁ : (∃[ n' ] A n' ∧ n'' ≡ succ₁ n') → ∃[ n' ] N n' ∧ n'' ≡ succ₁ n'
-    prf₁ (n' , An' , n''=Sn') = n' , prf₂ An' , n''=Sn'
-      where
-      prf₂ : A n' → N n'
-      prf₂ An' = case (λ ah → subst N (sym ah) nzero) prf₃ An'
-        where
-        prf₃ : (∃[ m' ] N m' ∧ n' ≡ succ₁ m') → N n'
-        prf₃ (_ , Nm' , m≡Sm' ) = subst N (sym m≡Sm') (nsucc Nm')
+    prf₂ : A m' → N m'
+    prf₂ (inj₁ h₁)                = subst N (sym h₁) nzero
+    prf₂ (inj₂ (m'' , Am'' , h₁)) = subst N (sym h₁) (nsucc Am'')
+
+------------------------------------------------------------------------------
+-- The induction principle for N *with* the hypothesis N n in the
+-- induction step.
+N-ind₁ : (A : D → Set) →
+         A zero →
+         (∀ {n} → N n → A n → A (succ₁ n)) →
+         ∀ {n} → N n → A n
+N-ind₁ A A0 is {n} Nn = N-least-pre-fixed A prf Nn
+  where
+  prf : n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n') → A n
+  prf (inj₁ h)              = subst A (sym h) A0
+  prf (inj₂ (n' , An' , h)) = subst A (sym h) (is helper An')
+    where
+    helper : N n'
+    helper with N-post-fixed Nn
+    ... | inj₁ n≡0 = ⊥-elim (0≢S (trans (sym n≡0) h))
+    ... | inj₂ (m' , Nm' , h₁) = subst N (succInjective (trans (sym h₁) h)) Nm'
 
 ------------------------------------------------------------------------------
 -- The induction principle for N *without* the hypothesis N n in the
 -- induction step.
-indN : (A : D → Set) →
-        A zero →
-        (∀ {n} → A n → A (succ₁ n)) →
-        ∀ {n} → N n → A n
-indN A A0 is = N-ind A h
+N-ind₂ : (A : D → Set) →
+         A zero →
+         (∀ {n} → A n → A (succ₁ n)) →
+         ∀ {n} → N n → A n
+N-ind₂ A A0 is {n} = N-least-pre-fixed A prf
   where
-  h : ∀ {n} → n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n') → A n
-  h (inj₁ n≡0)             = subst A (sym n≡0) A0
-  h (inj₂ (n' , An' , h₁)) = subst A (sym h₁) (is An')
-
--- The induction principle for N *with* the hypothesis N n in the
--- induction step.
---
--- 2012-03-06. We cannot proof this principle because N-ind does not
--- have the hypothesis N n.
---
--- indN₂ : (A : D → Set) →
---        A zero →
---        (∀ {n} → N n → A n → A (succ₁ n)) →
---        ∀ {n} → N n → A n
--- indN₂ A A0 is Nn = N-ind A [ prf₁ , prf₂ ] Nn
---   where
---   prf₁ : ∀ {n'} → n' ≡ zero → A n'
---   prf₁ n'≡0 = subst A (sym n'≡0) A0
-
---   prf₂ : ∀ {n'} → ∃ (λ m → n' ≡ succ₁ m ∧ A m) → A n'
---   prf₂ {n'} (m , n'≡Sm , Am) = subst A (sym n'≡Sm) (is helper Am)
---     where
---     helper : N m
---     helper = [ prf₃ , prf₄ ] (N-lfp₃ {!!})
---       where
---       prf₃ : n' ≡ zero → N m
---       prf₃ n'≡0 = ⊥-elim (0≢S (trans (sym n'≡0) n'≡Sm))
-
---       prf₄ : ∃ (λ m' → n' ≡ succ₁ m' ∧ N m') → N m
---       prf₄ (_ , n'≡Sm' , Nm') =
---         subst N (succInjective (trans (sym n'≡Sm') n'≡Sm)) Nm'
+  prf : n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n') → A n
+  prf (inj₁ h)              = subst A (sym h) A0
+  prf (inj₂ (n' , An' , h)) = subst A (sym h) (is An')
 
 ------------------------------------------------------------------------------
--- Example: We will use N-ind as the induction principle on N.
+-- Example: We will use N-least-pre-fixed as the induction principle on N.
+
 postulate
   _+_  : D → D → D
   +-0x : ∀ d →   zero    + d ≡ d
@@ -160,40 +176,39 @@ postulate
 +-leftIdentity n = +-0x n
 
 +-N : ∀ {m n} → N m → N n → N (m + n)
-+-N {n = n} Nm Nn = N-ind A prf Nm
++-N {m} {n} Nm Nn = N-least-pre-fixed A prf Nm
   where
   A : D → Set
   A i = N (i + n)
 
-  prf : ∀ {m'} → m' ≡ zero ∨ (∃[ m'' ] A m'' ∧ m' ≡ succ₁ m'') → A m'
-  prf h = case prf₁ prf₂ h
+  prf : m ≡ zero ∨ (∃[ m' ] A m' ∧ m ≡ succ₁ m') → A m
+  prf (inj₁ h) = subst N (cong (flip _+_ n) (sym h)) A0
     where
     A0 : A zero
     A0 = subst N (sym (+-leftIdentity n)) Nn
-
-    prf₁ : ∀ {m} → m ≡ zero → A m
-    prf₁ h₁ = subst N (cong (flip _+_ n) (sym h₁)) A0
-
+  prf (inj₂ (m' , Am' , m≡Sm')) =
+    subst N (cong (flip _+_ n) (sym m≡Sm')) (is Am')
+    where
     is : ∀ {i} → A i → A (succ₁ i)
     is {i} ih = subst N (sym (+-Sx i n)) (nsucc ih)
-
-    prf₂ : ∀ {m} → (∃[ m'' ] A m'' ∧ m ≡ succ₁ m'') → A m
-    prf₂ (_ ,  Am'' , m≡Sm'') =
-      subst N (cong (flip _+_ n) (sym m≡Sm'')) (is Am'')
 
 ------------------------------------------------------------------------------
 -- From/to N as a least fixed-point to/from N as data type.
 
 open import FOTC.Data.Nat.Type renaming
   ( N to N'
-  ; N-ind to N-ind'
   ; nsucc to nsucc'
   ; nzero to nzero'
   )
 
-thm₁ : ∀ {n} → N' n → N n
-thm₁ nzero' = nzero
-thm₁ (nsucc' Nn) = nsucc (thm₁ Nn)
+N'→N : ∀ {n} → N' n → N n
+N'→N nzero'      = nzero
+N'→N (nsucc' Nn) = nsucc (N'→N Nn)
 
-thm₂ : ∀ {n} → N n → N' n
-thm₂ Nn = indN N' nzero' nsucc' Nn
+-- Using N-ind₁.
+N-→N' : ∀ {n} → N n → N' n
+N-→N' = N-ind₁ N' nzero' (λ _ → nsucc')
+
+-- Using N-ind₂.
+N-→N'₁ : ∀ {n} → N n → N' n
+N-→N'₁ = N-ind₂ N' nzero' nsucc'

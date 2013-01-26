@@ -39,9 +39,9 @@ N-ind₂' : (A : D → Set) →
           A zero →
           (∀ {n} → A n → A (succ₁ n)) →
           ∀ {n} → N n → A n
-N-ind₂' A A0 h = N-ind₁ A A0 (λ {n'} _ → h)
+N-ind₂' A A0 h = N-ind₁ A A0 (λ _ → h)
 
--- We cannot prove N-ind₁ from N-ind₂
+-- We cannot prove N-ind₁ from N-ind₂.
 N-ind₁' : (A : D → Set) →
           A zero →
           (∀ {n} → N n → A n → A (succ₁ n)) →
