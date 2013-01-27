@@ -41,27 +41,26 @@ postulate
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
-  Colist-coind : (A : D → Set) →
+  Colist-coind : ∀ (A : D → Set) {xs} →
                  -- A is post-fixed point of ColistF.
-                 (∀ {xs} → A xs →
-                    xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A xs' ∧ xs ≡ x' ∷ xs')) →
+                 (A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A xs' ∧ xs ≡ x' ∷ xs')) →
                  -- Colist is greater than A.
-                 ∀ {xs} → A xs → Colist xs
+                 A xs → Colist xs
 
 -- Because a greatest post-fixed point is a fixed-point, then the
 -- Colist predicate is also a pre-fixed point of the functional
 -- ColistF, i.e.
 --
 -- ColistF Colist ≤ Colist.
-Colist-gfp₃ : ∀ {xs} →
-              (xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] Colist xs' ∧ xs ≡ x' ∷ xs')) →
-              Colist xs
-Colist-gfp₃ h = Colist-coind A helper h
+Colist-pre-fixed : ∀ {xs} →
+                   (xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] Colist xs' ∧ xs ≡ x' ∷ xs')) →
+                   Colist xs
+Colist-pre-fixed {xs} h = Colist-coind A prf h
   where
   A : D → Set
   A ws = ws ≡ [] ∨ (∃[ w' ] ∃[ ws' ] Colist ws' ∧ ws ≡ w' ∷ ws')
 
-  helper : ∀ {xs} → A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A xs' ∧ xs ≡ x' ∷ xs')
-  helper (inj₁ h₁) = inj₁ h₁
-  helper (inj₂ (_ , _ , Sxs' , xs≡x'∷xs')) =
+  prf : A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A xs' ∧ xs ≡ x' ∷ xs')
+  prf (inj₁ h₁) = inj₁ h₁
+  prf (inj₂ (_ , _ , Sxs' , xs≡x'∷xs')) =
     inj₂ (_ , _ , Colist-unf Sxs' , xs≡x'∷xs')

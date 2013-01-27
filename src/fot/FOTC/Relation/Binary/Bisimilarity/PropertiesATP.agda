@@ -61,4 +61,4 @@ postulate ∷-injective≈ : ∀ {x xs ys} → x ∷ xs ≈ x ∷ ys → xs ≈ 
 {-# ATP prove ∷-injective≈ #-}
 
 postulate ∷-rightCong≈ : ∀ {x xs ys} → xs ≈ ys → x ∷ xs ≈ x ∷ ys
-{-# ATP prove ∷-rightCong≈ ≈-gfp₃ #-}
+{-# ATP prove ∷-rightCong≈ ≈-pre-fixed #-}

@@ -39,24 +39,24 @@ postulate
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
-  Stream-coind : (A : D → Set) →
+  Stream-coind : ∀ (A : D → Set) {xs} →
                  -- A is post-fixed point of StreamF.
-                 (∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] A xs' ∧ xs ≡ x' ∷ xs') →
+                 (A xs → ∃[ x' ] ∃[ xs' ] A xs' ∧ xs ≡ x' ∷ xs') →
                  -- Stream is greater than A.
-                 ∀ {xs} → A xs → Stream xs
+                 A xs → Stream xs
 
 -- Because a greatest post-fixed point is a fixed-point, then the
 -- Stream predicate is also a pre-fixed point of the functional
 -- StreamF, i.e.
 --
 -- StreamF Stream ≤ Stream.
-Stream-gfp₃ : ∀ {xs} →
-              (∃[ x' ] ∃[ xs' ] Stream xs' ∧ xs ≡ x' ∷ xs') →
-              Stream xs
-Stream-gfp₃ h = Stream-coind A helper h
+Stream-pre-fixed : ∀ {xs} →
+                   (∃[ x' ] ∃[ xs' ] Stream xs' ∧ xs ≡ x' ∷ xs') →
+                   Stream xs
+Stream-pre-fixed {xs} h = Stream-coind A prf h
   where
   A : D → Set
   A ws = ∃[ w' ] ∃[ ws' ] Stream ws' ∧ ws ≡ w' ∷ ws'
 
-  helper : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] A xs' ∧ xs ≡ x' ∷ xs'
-  helper (_ , _ , Sxs' , xs≡x'∷xs') = _ , _ , Stream-unf Sxs' , xs≡x'∷xs'
+  prf : A xs → ∃[ x' ] ∃[ xs' ] A xs' ∧ xs ≡ x' ∷ xs'
+  prf (_ , _ , Sxs' , xs≡x'∷xs') = _ , _ , Stream-unf Sxs' , xs≡x'∷xs'

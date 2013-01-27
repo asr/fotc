@@ -49,24 +49,23 @@ postulate Fair-unf : ∀ {os} → Fair os →
 -- N.B. This is an axiom schema. Because in the automatic proofs we
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
-postulate Fair-coind : (A : D → Set) →
+postulate Fair-coind : ∀ (A : D → Set) {os} →
                        -- A is post-fixed point of FairF.
-                       (∀ {os} → A os →
-                         ∃[ ft ] ∃[ os' ] F*T ft ∧ A os' ∧ os ≡ ft ++ os') →
+                       (A os → ∃[ ft ] ∃[ os' ] F*T ft ∧ A os' ∧ os ≡ ft ++ os') →
                        -- Fair is greater than A.
-                       ∀ {os} → A os → Fair os
+                       A os → Fair os
 
 -- Because a greatest post-fixed point is a fixed-point, then the Fair
 -- predicate is also a pre-fixed point of the functional FairF, i.e.
 --
 -- FairF Fair ≤ Fair.
-Fair-gfp₃ : ∀ {os} →
-            (∃[ ft ] ∃[ os' ] F*T ft ∧ Fair os' ∧ os ≡ ft ++ os') →
-            Fair os
-Fair-gfp₃ h = Fair-coind A helper h
+Fair-pre-fixed : ∀ {os} →
+                 (∃[ ft ] ∃[ os' ] F*T ft ∧ Fair os' ∧ os ≡ ft ++ os') →
+                 Fair os
+Fair-pre-fixed {os} h = Fair-coind A prf h
   where
   A : D → Set
   A ws = ∃[ wl ] ∃[ ws' ] F*T wl ∧ Fair ws' ∧ ws ≡ wl ++ ws'
 
-  helper : ∀ {os} → A os → ∃[ ft ] ∃[ os' ] F*T ft ∧ A os' ∧ os ≡ ft ++ os'
-  helper (_ , _ , FTft , Fos' , h) = _ , _ , FTft , Fair-unf Fos' , h
+  prf : A os → ∃[ ft ] ∃[ os' ] F*T ft ∧ A os' ∧ os ≡ ft ++ os'
+  prf (_ , _ , FTft , Fos' , h) = _ , _ , FTft , Fair-unf Fos' , h

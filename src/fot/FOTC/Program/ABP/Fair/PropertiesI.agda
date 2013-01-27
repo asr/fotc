@@ -78,7 +78,7 @@ tail-Fair-helper {os} (.(true ∷ []) , os' , f*tnil , Fos' , h) =
          os'             ∎
 
 tail-Fair-helper {os} (.(false ∷ ft) , os' , f*tcons {ft} FTft , Fos' , h) =
-  subst Fair (sym prf₂) (Fair-gfp₃ (ft , os' , FTft , Fos' , refl))
+  subst Fair (sym prf₂) (Fair-pre-fixed (ft , os' , FTft , Fos' , refl))
   where
   prf₁ : os ≡ F ∷ ft ++ os'
   prf₁ = os              ≡⟨ h ⟩

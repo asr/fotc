@@ -42,24 +42,24 @@ postulate
 -- axiom.
 postulate
   StreamN-coind :
-    (A : D → Set) →
+    ∀ (A : D → Set) {ns} →
     -- A is post-fixed point of StreamNF.
-    (∀ {ns} → A ns → ∃[ n' ] ∃[ ns' ] N n' ∧ A ns' ∧ ns ≡ n' ∷ ns') →
+    (A ns → ∃[ n' ] ∃[ ns' ] N n' ∧ A ns' ∧ ns ≡ n' ∷ ns') →
     -- StreamN is greater than A.
-    ∀ {ns} → A ns → StreamN ns
+    A ns → StreamN ns
 
 -- Because a greatest post-fixed point is a fixed-point, then the
 -- StreamN predicate is also a pre-fixed point of the functional
 -- StreamNF, i.e.
 --
 -- StreamNF StreamN ≤ StreamN.
-StreamN-gfp₃ : ∀ {ns} →
-               (∃[ n' ] ∃[ ns' ] N n' ∧ StreamN ns' ∧ ns ≡ n' ∷ ns') →
-               StreamN ns
-StreamN-gfp₃ h = StreamN-coind A helper h
+StreamN-pre-fixed : ∀ {ns} →
+                    (∃[ n' ] ∃[ ns' ] N n' ∧ StreamN ns' ∧ ns ≡ n' ∷ ns') →
+                    StreamN ns
+StreamN-pre-fixed {ns} h = StreamN-coind A prf h
   where
   A : D → Set
   A ns = ∃[ n' ] ∃[ ns' ] N n' ∧ StreamN ns' ∧ ns ≡ n' ∷ ns'
 
-  helper : ∀ {ns} → A ns → ∃[ n' ] ∃[ ns' ] N n' ∧ A ns' ∧ ns ≡ n' ∷ ns'
-  helper (_ , _ , Nn' , SNns' , h₁) = _ , _ , Nn' , (StreamN-unf SNns') , h₁
+  prf : A ns → ∃[ n' ] ∃[ ns' ] N n' ∧ A ns' ∧ ns ≡ n' ∷ ns'
+  prf (_ , _ , Nn' , SNns' , h₁) = _ , _ , Nn' , (StreamN-unf SNns') , h₁

@@ -2,6 +2,7 @@
 -- Definition of FOTC streams using the Agda co-inductive combinators
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --allow-unsolved-metas #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
@@ -24,12 +25,12 @@ Stream-unf : ∀ {xs} → Stream xs →
 Stream-unf (consS x' {xs'} Sxs') = x' , xs' , ♭ Sxs' , refl
 
 {-# NO_TERMINATION_CHECK #-}
-Stream-coind : (A : D → Set) →
+Stream-coind : ∀ (A : D → Set) {xs} →
              -- A is post-fixed point of StreamF.
-             (∀ {xs} → A xs → ∃ λ x' → ∃ λ xs' → A xs' ∧ xs ≡ x' ∷ xs') →
+             (A xs → ∃ λ x' → ∃ λ xs' → A xs' ∧ xs ≡ x' ∷ xs') →
              -- Stream is greater than A.
-             ∀ {xs} → A xs → Stream xs
-Stream-coind A h {xs} Axs = subst Stream (sym xs≡x'∷xs') prf
+             A xs → Stream xs
+Stream-coind A {xs} h Axs = subst Stream (sym xs≡x'∷xs') prf
   where
     x' : D
     x' = proj₁ (h Axs)
@@ -44,4 +45,4 @@ Stream-coind A h {xs} Axs = subst Stream (sym xs≡x'∷xs') prf
     xs≡x'∷xs' = proj₂ (proj₂ (proj₂ (h Axs)))
 
     prf : Stream (x' ∷ xs')
-    prf = consS x' (♯ (Stream-coind A h Axs'))
+    prf = consS x' (♯ (Stream-coind A {!!} Axs'))

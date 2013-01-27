@@ -21,20 +21,20 @@ open import FOTC.Data.Conat.Equality
 ------------------------------------------------------------------------------
 
 ≈N-refl : ∀ {n} → Conat n → n ≈N n
-≈N-refl {n} Cn = ≈N-coind R h₁ h₂
+≈N-refl {n} Cn = ≈N-coind R prf₁ prf₂
   where
   R : D → D → Set
   R a b = Conat a ∧ Conat b ∧ a ≡ b
 
-  h₁ : ∀ {a b} → R a b →
-       a ≡ zero ∧ b ≡ zero
-       ∨ (∃ (λ a' → ∃ (λ b' → R a' b' ∧ a ≡ succ₁ a' ∧ b ≡ succ₁ b')))
-  h₁ (Ca , Cb , refl) with Conat-unf Ca
+  prf₁ : ∀ {a b} → R a b →
+         a ≡ zero ∧ b ≡ zero
+         ∨ (∃ (λ a' → ∃ (λ b' → R a' b' ∧ a ≡ succ₁ a' ∧ b ≡ succ₁ b')))
+  prf₁ (Ca , Cb , refl) with Conat-unf Ca
   ... | inj₁ prf              = inj₁ (prf , prf)
   ... | inj₂ (a' , Ca' , prf) = inj₂ (a' , a' , (Ca' , Ca' , refl) , (prf , prf))
 
-  h₂ : Conat n ∧ Conat n ∧ n ≡ n
-  h₂ = Cn , Cn , refl
+  prf₂ : Conat n ∧ Conat n ∧ n ≡ n
+  prf₂ = Cn , Cn , refl
 
 ≡→≈N : ∀ {m n} → Conat m → Conat n → m ≡ n → m ≈N n
 ≡→≈N h _ refl = ≈N-refl h

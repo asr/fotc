@@ -21,33 +21,33 @@ open import FOTC.Data.Nat
 ------------------------------------------------------------------------------
 
 0-Conat : Conat zero
-0-Conat = Conat-coind P h refl
+0-Conat = Conat-coind P prf refl
   where
   P : D → Set
   P n = n ≡ zero
   {-# ATP definition P #-}
 
-  postulate h : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
-  {-# ATP prove h #-}
+  postulate prf : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
+  {-# ATP prove prf #-}
 
 -- Adapted from (Sander 1992, p. 57).
 ∞-Conat : Conat ∞
-∞-Conat = Conat-coind P h refl
+∞-Conat = Conat-coind P prf refl
   where
   P : D → Set
   P n = n ≡ ∞
   {-# ATP definition P #-}
 
-  postulate h : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
-  {-# ATP prove h #-}
+  postulate prf : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
+  {-# ATP prove prf #-}
 
 N→Conat : ∀ {n} → N n → Conat n
-N→Conat Nn = Conat-coind N h Nn
+N→Conat Nn = Conat-coind N prf Nn
   where
-  h : ∀ {m} → N m → m ≡ zero ∨ ∃ (λ m' → N m' ∧ m ≡ succ₁ m')
-  h nzero = prf
-    where postulate prf : zero ≡ zero ∨ ∃ (λ m' → N m' ∧ zero ≡ succ₁ m')
-          {-# ATP prove prf #-}
-  h (nsucc {m} Nm) = prf
-    where postulate prf : succ₁ m ≡ zero ∨ ∃ (λ m' → N m' ∧ succ₁ m ≡ succ₁ m')
-          {-# ATP prove prf #-}
+  prf : ∀ {m} → N m → m ≡ zero ∨ ∃ (λ m' → N m' ∧ m ≡ succ₁ m')
+  prf nzero = prf₁
+    where postulate prf₁ : zero ≡ zero ∨ ∃ (λ m' → N m' ∧ zero ≡ succ₁ m')
+          {-# ATP prove prf₁ #-}
+  prf (nsucc {m} Nm) = prf₂
+    where postulate prf₂ : succ₁ m ≡ zero ∨ ∃ (λ m' → N m' ∧ succ₁ m ≡ succ₁ m')
+          {-# ATP prove prf₂ #-}

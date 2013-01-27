@@ -49,30 +49,29 @@ postulate ≈N-unf : ∀ {m n} → m ≈N n →
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
-  ≈N-coind : (R : D → D → Set) →
+  ≈N-coind : ∀ (R : D → D → Set) {m n} →
              -- R is a post-fixed point of the functional ≈NF.
-             (∀ {m n} → R m n →
-               m ≡ zero ∧ n ≡ zero
-               ∨ (∃[ m' ] ∃[ n' ] R m' n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')) →
+             (R m n → m ≡ zero ∧ n ≡ zero
+              ∨ (∃[ m' ] ∃[ n' ] R m' n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')) →
              -- _≈N_ is greater than R.
-             ∀ {m n} → R m n → m ≈N n
+             R m n → m ≈N n
 
 -- Because a greatest post-fixed point is a fixed-point, then the
 -- relation _≈N_ is also a pre-fixed point of the functional ≈NF, i.e.
 --
 -- ≈NF _≈N_ ≤ _≈N_.
-≈N-gfp₃ : ∀ {m n} →
-          (m ≡ zero ∧ n ≡ zero
-           ∨ (∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')) →
-          m ≈N n
-≈N-gfp₃ h = ≈N-coind R helper h
+≈N-pre-fixed : ∀ {m n} →
+               (m ≡ zero ∧ n ≡ zero
+               ∨ (∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')) →
+               m ≈N n
+≈N-pre-fixed {m} {n} h = ≈N-coind R prf h
   where
   R : D → D → Set
   R m n = m ≡ zero ∧ n ≡ zero
           ∨ (∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
 
-  helper : ∀ {m n} → R m n →
-           m ≡ zero ∧ n ≡ zero
-           ∨ (∃[ m' ] ∃[ n' ] R m' n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
-  helper (inj₁ prf) = inj₁ prf
-  helper (inj₂ (m' , n' , m'≈Nn' , prf)) = inj₂ (m' , n' , ≈N-unf m'≈Nn' , prf)
+  prf : R m n →
+        m ≡ zero ∧ n ≡ zero
+        ∨ (∃[ m' ] ∃[ n' ] R m' n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
+  prf (inj₁ prf) = inj₁ prf
+  prf (inj₂ (m' , n' , m'≈Nn' , prf)) = inj₂ (m' , n' , ≈N-unf m'≈Nn' , prf)

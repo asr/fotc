@@ -43,7 +43,7 @@ tail-Fair-helper {os} (.(true ∷ []) , os' , f*tnil , Fos' , h) = prf
 tail-Fair-helper {os} (.(false ∷ ft) , os' , f*tcons {ft} FTft , Fos' , h) = prf
   where
   postulate prf : Fair (tail₁ os)
-  {-# ATP prove prf Fair-gfp₃ #-}
+  {-# ATP prove prf Fair-pre-fixed #-}
 
 postulate tail-Fair : ∀ {os} → Fair os → Fair (tail₁ os)
 {-# ATP prove tail-Fair tail-Fair-helper #-}

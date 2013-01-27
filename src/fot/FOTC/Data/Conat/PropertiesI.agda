@@ -21,32 +21,32 @@ open import FOTC.Data.Nat
 ------------------------------------------------------------------------------
 
 0-Conat : Conat zero
-0-Conat = Conat-coind P h refl
+0-Conat = Conat-coind P prf refl
   where
   P : D → Set
   P n = n ≡ zero
 
-  h : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
-  h Pn = inj₁ Pn
+  prf : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
+  prf Pn = inj₁ Pn
 
 -- Adapted from (Sander 1992, p. 57).
 ∞-Conat : Conat ∞
-∞-Conat = Conat-coind P h refl
+∞-Conat = Conat-coind P prf refl
   where
   P : D → Set
   P n = n ≡ ∞
 
-  h : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
-  h Pn = inj₂ (∞ , refl , trans Pn ∞-eq)
+  prf : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
+  prf Pn = inj₂ (∞ , refl , trans Pn ∞-eq)
 
 N→Conat : ∀ {n} → N n → Conat n
-N→Conat Nn = Conat-coind N h Nn
+N→Conat Nn = Conat-coind N prf Nn
   where
-  h : ∀ {m} → N m → m ≡ zero ∨ ∃ (λ m' → N m' ∧ m ≡ succ₁ m')
-  h nzero          = inj₁ refl
-  h (nsucc {m} Nm) = inj₂ (m , Nm , refl)
+  prf : ∀ {m} → N m → m ≡ zero ∨ ∃ (λ m' → N m' ∧ m ≡ succ₁ m')
+  prf nzero          = inj₁ refl
+  prf (nsucc {m} Nm) = inj₂ (m , Nm , refl)
 
 -- A different proof.
 N→Conat₁ : ∀ {n} → N n → Conat n
-N→Conat₁ nzero          = Conat-gfp₃ (inj₁ refl)
-N→Conat₁ (nsucc {n} Nn) = Conat-gfp₃ (inj₂ (n , (N→Conat Nn , refl)))
+N→Conat₁ nzero          = Conat-pre-fixed (inj₁ refl)
+N→Conat₁ (nsucc {n} Nn) = Conat-pre-fixed (inj₂ (n , (N→Conat Nn , refl)))

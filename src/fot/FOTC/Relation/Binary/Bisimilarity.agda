@@ -45,11 +45,11 @@ postulate ≈-coind : (R : D → D → Set) →
 -- Because a greatest post-fixed point is a fixed-point, the
 -- bisimilarity relation _≈_ on unbounded lists is also a pre-fixed
 -- point of the bisimulation functional (see below).
-≈-gfp₃ : ∀ {xs ys} →
-         (∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
-          xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
-         xs ≈ ys
-≈-gfp₃ h = ≈-coind R helper h
+≈-pre-fixed : ∀ {xs ys} →
+              (∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
+              xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
+              xs ≈ ys
+≈-pre-fixed h = ≈-coind R helper h
   where
   R : D → D → Set
   R xs ys = ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
@@ -107,4 +107,4 @@ private
   --
   -- Bisimulation _≈_ ≤ _≈_.
   pre-fp : ∀ {xs ys} → BisimulationF _≈_ xs ys → xs ≈ ys
-  pre-fp = ≈-gfp₃
+  pre-fp = ≈-pre-fixed
