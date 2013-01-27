@@ -61,9 +61,9 @@ programs. See:
 
 # Installation
 
-1. Modified version of Agda
+1. Modified version of `Agda`
 
-   You can download our modified version of Agda using
+   You can download our modified version of `Agda` using
    [darcs](http://darcs.net/) with the following command:
 
    ````bash
@@ -147,6 +147,11 @@ programs. See:
    Proving the conjecture in /tmp/Test/9-8744-comm.tptp ...
    Equinox, version 5.0alpha, 2010-06-29 proved the conjecture in /tmp/Test/9-8744-comm.tptp
    ````
+
+3. Setting up the `Emacs` mode for use with our library of first-order
+   theories
+
+   It is necessary to add the path `fotc/src/fotc`.
 
 # Examples in our FoSSaCS-2012 paper
 
