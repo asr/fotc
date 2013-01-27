@@ -24,41 +24,41 @@ open import FOTC.Base
 -- The FOTC co-inductive natural numbers type (co-inductive predicate
 -- for total co-inductive natural)
 
--- Functional for the ConatF predicate.
--- ConatF : (D → Set) → D → Set
--- ConatF P n = n = zero ∨ (∃[ n' ] P n' ∧ n = succ n')
+-- Functional for the NatF predicate.
+-- NatF : (D → Set) → D → Set
+-- NatF P n = n = zero ∨ (∃[ n' ] P n' ∧ n = succ n')
 
--- Conat is the greatest fixed-point of ConatF (by Conat-unf and
+-- Conat is the greatest fixed-point of NatF (by Conat-unf and
 -- Conat-coind).
 
 postulate Conat : D → Set
 
--- Conat is a post-fixed point of ConatF, i.e.
+-- Conat is a post-fixed point of NatF, i.e.
 --
--- Conat ≤ ConatF Stream.
+-- Conat ≤ NatF Conat.
 postulate
   Conat-unf : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] Conat n' ∧ n ≡ succ₁ n')
 {-# ATP axiom Conat-unf #-}
 
--- Conat is the greatest post-fixed point of ConatF, i.e
+-- Conat is the greatest post-fixed point of NatF, i.e
 --
--- ∀ P. P ≤ ConatF P ⇒ P ≤ Conat.
+-- ∀ P. P ≤ NatF P ⇒ P ≤ Conat.
 --
 -- N.B. This is an axiom schema. Because in the automatic proofs we
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
   Conat-coind : ∀ (A : D → Set) {n} →
-                -- A is post-fixed point of ConatF.
+                -- A is post-fixed point of NatF.
                 (A n → n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n')) →
                 -- Conat is greater than A.
                 A n → Conat n
 
 -- Because a greatest post-fixed point is a fixed-point, then the
--- Conat predicate is also a pre-fixed point of the functional ConatF,
+-- Conat predicate is also a pre-fixed point of the functional NatF,
 -- i.e,
 --
--- ConatF Conat ≤ Conat.
+-- NatF Conat ≤ Conat.
 Conat-pre-fixed : ∀ {n} →
                   (n ≡ zero ∨ (∃[ n' ] Conat n' ∧ n ≡ succ₁ n')) →
                   Conat n
