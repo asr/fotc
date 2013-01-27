@@ -363,7 +363,7 @@ coq_clean :
 ##############################################################################
 # Test used when there is a modification to FOT.
 
-fot_change :
+fot_changed :
 	make type_check_fot
 	make type_check_notes
 	@echo "$@ succeeded!"
