@@ -151,7 +151,7 @@ programs. See:
 3. Setting up the `Emacs` mode for use with our library of first-order
    theories
 
-   It is necessary to add the path `fotc/src/fotc`.
+   It is necessary to add the path `fotc/src/fot`.
 
 # Examples in our FoSSaCS-2012 paper
 
