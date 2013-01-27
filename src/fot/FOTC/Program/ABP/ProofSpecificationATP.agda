@@ -33,15 +33,15 @@ open import FOTC.Relation.Binary.Bisimilarity
 -- Main theorem.
 spec : ∀ {b is os₀ os₁} → Bit b → Stream is → Fair os₀ → Fair os₁ →
        is ≈ transfer b os₀ os₁ is
-spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ = ≈-coind B h₁ h₂
+spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ = ≈-coind B prf₁ prf₂
   where
-  postulate h₁ : ∀ {is js} → B is js →
-                 ∃[ i' ] ∃[ is' ] ∃[ js' ]
-                 B is' js' ∧ is ≡ i' ∷ is' ∧ js ≡ i' ∷ js'
-  {-# ATP prove h₁ lemma₁ lemma₂ not-Bool #-}
+  postulate prf₁ : ∀ {is js} → B is js →
+                   ∃[ i' ] ∃[ is' ] ∃[ js' ]
+                   B is' js' ∧ is ≡ i' ∷ is' ∧ js ≡ i' ∷ js'
+  {-# ATP prove prf₁ lemma₁ lemma₂ not-Bool #-}
 
-  h₂ : B is (transfer b os₀ os₁ is)
-  h₂ = b , os₀ , os₁ , as , bs , cs , ds , prf
+  prf₂ : B is (transfer b os₀ os₁ is)
+  prf₂ = b , os₀ , os₁ , as , bs , cs , ds , helper
     where
     as bs cs ds : D
     as = has (send · b) (ack · b) (out · b) (corrupt · os₀) (corrupt · os₁) is
@@ -51,6 +51,6 @@ spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ = ≈-coind B h₁ h₂
 
     {-# ATP definition as bs cs ds #-}
 
-    postulate prf : Stream is ∧ Bit b ∧ Fair os₀ ∧ Fair os₁
-                    ∧ ABP b is os₀ os₁ as bs cs ds (transfer b os₀ os₁ is)
-    {-# ATP prove prf #-}
+    postulate helper : Stream is ∧ Bit b ∧ Fair os₀ ∧ Fair os₁
+                       ∧ ABP b is os₀ os₁ as bs cs ds (transfer b os₀ os₁ is)
+    {-# ATP prove helper #-}

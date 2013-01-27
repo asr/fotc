@@ -17,46 +17,46 @@ open import FOTC.Relation.Binary.Bisimilarity
 ------------------------------------------------------------------------------
 
 ≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
-≈-refl {xs} Sxs = ≈-coind R h₁ h₂
+≈-refl {xs} Sxs = ≈-coind R prf₁ prf₂
   where
   R : D → D → Set
   R xs ys = Stream xs ∧ xs ≡ ys
 
-  h₁ : ∀ {xs ys} → R xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
-       R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
-  h₁ (Sxs , refl) with Stream-unf Sxs
+  prf₁ : ∀ {xs ys} → R xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
+         R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+  prf₁ (Sxs , refl) with Stream-unf Sxs
   ... | x' , xs' , Sxs' , prf = x' , xs' , xs' , (Sxs' , refl) , prf , prf
 
-  h₂ : R xs xs
-  h₂ = Sxs , refl
+  prf₂ : R xs xs
+  prf₂ = Sxs , refl
 
 
 ≈-sym : ∀ {xs ys} → xs ≈ ys → ys ≈ xs
-≈-sym {xs} {ys} xs≈ys = ≈-coind R h₁ h₂
+≈-sym {xs} {ys} xs≈ys = ≈-coind R prf₁ prf₂
   where
   R : D → D → Set
   R xs ys = ys ≈ xs
 
-  h₁ : ∀ {xs ys} → R xs ys →
-       ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
-       R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
-  h₁ Rxsys with ≈-unf Rxsys
-  ... | y' , ys' , xs' , ys'≈xs' , prf₁ , prf₂ =
-    y' , xs' , ys' , ys'≈xs' , prf₂ , prf₁
+  prf₁ : R ys xs →
+         ∃[ y' ] ∃[ ys' ] ∃[ xs' ]
+         R ys' xs' ∧ ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs'
+  prf₁ Rxsys with ≈-unf Rxsys
+  ... | y' , ys' , xs' , ys'≈xs' , h₁ , h₂ =
+    y' , xs' , ys' , ys'≈xs' , h₂ , h₁
 
-  h₂ : R ys xs
-  h₂ = xs≈ys
+  prf₂ : R ys xs
+  prf₂ = xs≈ys
 
 ≈-trans : ∀ {xs ys zs} → xs ≈ ys → ys ≈ zs → xs ≈ zs
-≈-trans {xs} {ys} {zs} xs≈ys ys≈zs = ≈-coind R h₁ h₂
+≈-trans {xs} {ys} {zs} xs≈ys ys≈zs = ≈-coind R prf₁ prf₂
   where
   R : D → D → Set
   R xs zs = ∃[ ys ] xs ≈ ys ∧ ys ≈ zs
 
-  h₁ : ∀ {xs zs} → R xs zs →
-       ∃[ x' ] ∃[ xs' ] ∃[ zs' ]
-       R xs' zs' ∧ xs ≡ x' ∷ xs' ∧ zs ≡ x' ∷ zs'
-  h₁ {zs = zs} (ys , xs≈ys , ys≈zs) with ≈-unf xs≈ys
+  prf₁ : R xs zs →
+         ∃[ x' ] ∃[ xs' ] ∃[ zs' ]
+         R xs' zs' ∧ xs ≡ x' ∷ xs' ∧ zs ≡ x' ∷ zs'
+  prf₁ (ys , xs≈ys , ys≈zs) with ≈-unf xs≈ys
   ... | x' , xs' , ys' , xs'≈ys' , prf₁ , prf₂ with ≈-unf ys≈zs
   ... | y' , ys'' , zs' , ys''≈zs' , prf₃ , prf₄ =
     x'
@@ -73,8 +73,8 @@ open import FOTC.Relation.Binary.Bisimilarity
     ys''≡ys' : ys'' ≡ ys'
     ys''≡ys' = ∧-proj₂ (∷-injective (trans (sym prf₃) prf₂))
 
-  h₂ : R xs zs
-  h₂ = ys , (xs≈ys , ys≈zs)
+  prf₂ : R xs zs
+  prf₂ = ys , (xs≈ys , ys≈zs)
 
 ∷-injective≈ : ∀ {x xs ys} → x ∷ xs ≈ x ∷ ys → xs ≈ ys
 ∷-injective≈ {x} {xs} {ys} h with ≈-unf h

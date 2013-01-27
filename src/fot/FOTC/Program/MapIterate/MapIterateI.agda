@@ -30,15 +30,15 @@ open import FOTC.Relation.Binary.Bisimilarity
 -- The map-iterate property.
 
 ≈-map-iterate : ∀ f x → map f (iterate f x) ≈ iterate f (f · x)
-≈-map-iterate f x = ≈-coind B h (x , refl , refl)
+≈-map-iterate f x = ≈-coind B prf (x , refl , refl)
   where
   -- Based on the relation used by (Giménez and Castéran, 2007).
   B : D → D → Set
   B xs ys = ∃[ y ] xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y)
 
-  h : ∀ {xs ys} → B xs ys →
-      ∃[ x' ] ∃[ xs' ] ∃[ ys' ] B xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
-  h {xs} {ys} (y , h) =
+  prf : ∀ {xs ys} → B xs ys →
+        ∃[ x' ] ∃[ xs' ] ∃[ ys' ] B xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+  prf {xs} {ys} (y , h) =
     f · y
     , map f (iterate f (f · y))
     , iterate f (f · (f · y))
@@ -47,10 +47,8 @@ open import FOTC.Relation.Binary.Bisimilarity
     , trans (∧-proj₂ h) (iterate-eq f (f · y))
 
     where
-    unfoldMap : ∀ y →
-                map f (iterate f y) ≡ f · y ∷ map f (iterate f (f · y))
-    unfoldMap y = map f (iterate f y)
-                    ≡⟨ mapCong₂ (iterate-eq f y) ⟩
-                  map f (y ∷ iterate f (f · y))
-                    ≡⟨ map-∷ f y (iterate f (f · y)) ⟩
-                  f · y ∷ map f (iterate f (f · y)) ∎
+    unfoldMap : ∀ y → map f (iterate f y) ≡ f · y ∷ map f (iterate f (f · y))
+    unfoldMap y =
+      map f (iterate f y)               ≡⟨ mapCong₂ (iterate-eq f y) ⟩
+      map f (y ∷ iterate f (f · y))     ≡⟨ map-∷ f y (iterate f (f · y)) ⟩
+      f · y ∷ map f (iterate f (f · y)) ∎

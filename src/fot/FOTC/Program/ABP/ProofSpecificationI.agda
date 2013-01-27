@@ -30,11 +30,11 @@ open import FOTC.Relation.Binary.Bisimilarity
 -- Main theorem.
 spec : ∀ {b is os₀ os₁} → Bit b → Stream is → Fair os₀ → Fair os₁ →
        is ≈ transfer b os₀ os₁ is
-spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ = ≈-coind B h₁ h₂
+spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ = ≈-coind B prf₁ prf₂
   where
-  h₁ : ∀ {is js} → B is js →
+  prf₁ : ∀ {is js} → B is js →
        ∃[ i' ] ∃[ is' ] ∃[ js' ] B is' js' ∧ is ≡ i' ∷ is' ∧ js ≡ i' ∷ js'
-  h₁ {is} {js} (b , os₀ , os₁ , as , bs , cs , ds , Sis , Bb , Fos₀ , Fos₁ , h)
+  prf₁ {is} {js} (b , os₀ , os₁ , as , bs , cs , ds , Sis , Bb , Fos₀ , Fos₁ , h)
      with Stream-unf Sis
   ... | (i' , is' , Sis' , is≡i'∷is) =
     i' , is' , js' , Bis'js' , is≡i'∷is , js≡i'∷js'
@@ -80,8 +80,8 @@ spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ = ≈-coind B h₁ h₂
       not b , os₀'' , os₁'' , as'' , bs'' , cs'' , ds''
       , Sis' , not-Bool Bb , Fos₀'' , Fos₁'' , abp
 
-  h₂ : B is (transfer b os₀ os₁ is)
-  h₂ = b
+  prf₂ : B is (transfer b os₀ os₁ is)
+  prf₂ = b
        , os₀
        , os₁
        , has (send · b) (ack · b) (out · b) (corrupt · os₀) (corrupt · os₁) is
