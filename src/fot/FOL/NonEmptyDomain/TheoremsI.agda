@@ -26,13 +26,13 @@ postulate
 
 -- Let A be a formula. If x is not free in A then ⊢ (∃x)A ↔ A
 -- (Mendelson 1997, proposition 2.18 (b), p. 70).
-∃-erase-add₁ : ∃ (λ _ → A) ↔ A
+∃-erase-add₁ : (∃[ _ ] A) ↔ A
 ∃-erase-add₁ = l→r , r→l
   where
-  l→r : ∃ (λ _ → A) → A
+  l→r : (∃[ _ ] A) → A
   l→r (_ , a) = a
 
-  r→l : A → ∃ (λ _ → A)
+  r→l : A → (∃[ _ ] A)
   r→l A = D≢∅ , A
 
 -- Quantification over a variable that does not occur can be erased or

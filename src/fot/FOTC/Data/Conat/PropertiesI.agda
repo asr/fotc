@@ -42,7 +42,7 @@ open import FOTC.Data.Nat
 N→Conat : ∀ {n} → N n → Conat n
 N→Conat Nn = Conat-coind N prf Nn
   where
-  prf : ∀ {m} → N m → m ≡ zero ∨ ∃ (λ m' → N m' ∧ m ≡ succ₁ m')
+  prf : ∀ {m} → N m → m ≡ zero ∨ (∃[ m' ] N m' ∧ m ≡ succ₁ m')
   prf nzero          = inj₁ refl
   prf (nsucc {m} Nm) = inj₂ (m , Nm , refl)
 

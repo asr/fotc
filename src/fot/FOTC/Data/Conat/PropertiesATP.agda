@@ -44,10 +44,10 @@ open import FOTC.Data.Nat
 N→Conat : ∀ {n} → N n → Conat n
 N→Conat Nn = Conat-coind N prf Nn
   where
-  prf : ∀ {m} → N m → m ≡ zero ∨ ∃ (λ m' → N m' ∧ m ≡ succ₁ m')
+  prf : ∀ {m} → N m → m ≡ zero ∨ (∃[ m' ] N m' ∧ m ≡ succ₁ m')
   prf nzero = prf₁
-    where postulate prf₁ : zero ≡ zero ∨ ∃ (λ m' → N m' ∧ zero ≡ succ₁ m')
+    where postulate prf₁ : zero ≡ zero ∨ (∃[ m' ] N m' ∧ zero ≡ succ₁ m')
           {-# ATP prove prf₁ #-}
   prf (nsucc {m} Nm) = prf₂
-    where postulate prf₂ : succ₁ m ≡ zero ∨ ∃ (λ m' → N m' ∧ succ₁ m ≡ succ₁ m')
+    where postulate prf₂ : succ₁ m ≡ zero ∨ (∃[ m' ] N m' ∧ succ₁ m ≡ succ₁ m')
           {-# ATP prove prf₂ #-}

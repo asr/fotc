@@ -28,7 +28,7 @@ open import FOTC.Data.Conat.Equality
 
   prf₁ : ∀ {a b} → R a b →
          a ≡ zero ∧ b ≡ zero
-         ∨ (∃ (λ a' → ∃ (λ b' → R a' b' ∧ a ≡ succ₁ a' ∧ b ≡ succ₁ b')))
+         ∨ (∃[ a' ] ∃[ b' ] R a' b' ∧ a ≡ succ₁ a' ∧ b ≡ succ₁ b')
   prf₁ (Ca , Cb , refl) with Conat-unf Ca
   ... | inj₁ prf              = inj₁ (prf , prf)
   ... | inj₂ (a' , Ca' , prf) = inj₂ (a' , a' , (Ca' , Ca' , refl) , (prf , prf))
