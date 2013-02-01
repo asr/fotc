@@ -1,6 +1,9 @@
--- Tested with GHC 7.6.2 and QuickCheck 2.5.1.1
+-- Tested with GHC 7.6.1 and QuickCheck 2.5.1.1
+
+{-# LANGUAGE UnicodeSyntax #-}
 
 -- We test some properties of the relation MCR with QuickCheck.
+
 module Main ( main ) where
 
 import Data.Peano

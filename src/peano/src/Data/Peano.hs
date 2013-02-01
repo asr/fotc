@@ -10,6 +10,8 @@
 -- Peano numbers.
 -----------------------------------------------------------------------------
 
+{-# LANGUAGE UnicodeSyntax #-}
+
 module Data.Peano
   ( (∸)
   , Nat(Zero, Succ)
