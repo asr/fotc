@@ -1,6 +1,4 @@
--- Tested with GHC 7.6.1.
-
-{-# LANGUAGE UnicodeSyntax #-}
+-- Tested with GHC 7.6.2.
 
 header ∷ IO ()
 header = do
