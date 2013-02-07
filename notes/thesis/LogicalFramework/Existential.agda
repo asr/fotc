@@ -32,7 +32,7 @@ module LF where
                  (λ Bx → inj₂ (∃-proj₁ h , Bx))
                  (∃-proj₂ h)
 
-    -- Using the elimination
+    -- Using the elimination.
     ∃∀₂ : {A : D → D → Set} → ∃[ x ](∀ y → A x y) → ∀ y → ∃[ x ] A x y
     ∃∀₂ h y = ∃-elim h (λ {x} ah → x , ah y)
 
