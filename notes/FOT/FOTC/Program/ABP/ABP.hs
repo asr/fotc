@@ -9,6 +9,7 @@
 --   approach to the specification and verification of concurrent
 --   systems. Formal Aspects of Computing, 1:303-319, 1989.
 
+-- Tested with the stream library v. 3.1.
 ------------------------------------------------------------------------------
 
 module ABP where
@@ -21,9 +22,9 @@ import System.Random ( newStdGen, randoms )
 
 type Bit = Bool
 
--- Data type used to model the fair unreliable tranmission channel.
-data Err a  = Error | Ok a
-              deriving Show
+-- Data type used to model the fair unreliable transmission channel.
+data Err a = Error | Ok a
+             deriving Show
 
 -- The mutual sender functions.
 send ∷ Bit → Stream a → Stream (Err Bit) → Stream (a, Bit)
@@ -36,16 +37,15 @@ await b input@(i :> _) (Error :> ds) = (i, b) :> await b input ds
 
 -- The receiver functions.
 ack ∷ Bit → Stream (Err (a, Bit)) → Stream Bit
-ack b (Ok (_, b₀) :> bs) = if b == b₀
-                            then b :> ack (not b) bs
-                            else not b :> ack b bs
-ack b (Error :> bs)      = not b :> ack b bs
+ack b (Ok (_, b₀) :> bs) =
+ if b == b₀ then b :> ack (not b) bs else not b :> ack b bs
+ack b (Error :> bs) = not b :> ack b bs
 
 out ∷ Bit → Stream (Err (a, Bit)) → Stream a
 out b (Ok (i, b₀) :> bs) = if b == b₀ then i :> out (not b) bs else out b bs
 out b (Error :> bs)      = out b bs
 
--- Model the fair unreliable transmission channel.
+-- The fair unreliable transmission channel.
 corrupt ∷ Stream Bit → Stream a → Stream (Err a)
 corrupt (False :> os) (_ :> xs) = Error :> corrupt os xs
 corrupt (True :> os)  (x :> xs) = Ok x  :> corrupt os xs
