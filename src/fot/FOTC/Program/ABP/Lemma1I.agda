@@ -38,7 +38,7 @@ module Helper where
            Bit b →
            Fair os₁ →
            ABP b (i' ∷ is') os₀ os₁ as bs cs ds js →
-           ∃[ ft₀ ] ∃[ os₀' ] F*T ft₀ ∧ Fair os₀' ∧ os₀ ≡ ft₀ ++ os₀' →
+           ∀ ft₀ os₀' → F*T ft₀ → Fair os₀' → os₀ ≡ ft₀ ++ os₀' →
            ∃[ os₀' ] ∃[ os₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
            Fair os₀'
            ∧ Fair os₁'
@@ -48,7 +48,7 @@ module Helper where
   -- the auxiliary prooos inside the where clause.
   helper {b} {i'} {is'} {os₀} {os₁} {as} {bs} {cs} {ds} {js} Bb Fos₁
          (asABP , bsABP , csABP , dsAbs , jsABP)
-         (.(T ∷ []) , os₀' , f*tnil , Fos₀' , os₀-eq) =
+         .(T ∷ []) os₀' f*tnil Fos₀' os₀-eq =
          os₀' , os₁' , as' , bs' , cs' , ds' , js'
          , Fos₀' , Fos₁
          , (ds'-eq , refl , refl , refl , refl)
@@ -124,8 +124,8 @@ module Helper where
 
   helper {b} {i'} {is'} {os₀} {os₁} {as} {bs} {cs} {ds} {js}
          Bb Fos₁ (asABP , bsABP , csABP , dsAbs , jsABP)
-         (.(F ∷ ft₀⁵) , os₀' , f*tcons {ft₀⁵} FTft₀⁵ , Fos₀' , os₀-eq)
-         = helper Bb (tail-Fair Fos₁) ABPIH (ft₀⁵ , os₀' , FTft₀⁵ , Fos₀' , refl)
+         .(F ∷ ft₀⁵) os₀' (f*tcons {ft₀⁵} FTft₀⁵) Fos₀' os₀-eq
+         = helper Bb (tail-Fair Fos₁) ABPIH ft₀⁵  os₀' FTft₀⁵ Fos₀' refl
 
     where
     os₀⁵ : D
@@ -246,4 +246,5 @@ lemma₁ : ∀ {b i' is' os₀ os₁ as bs cs ds js} →
          ∧ Fair os₁'
          ∧ ABP' b i' is' os₀' os₁' as' bs' cs' ds' js'
          ∧ js ≡ i' ∷ js'
-lemma₁ Bb Fos₀ Fos₁ abp = helper Bb Fos₁ abp (Fair-unf Fos₀)
+lemma₁ Bb Fos₀ Fos₁ abp with Fair-unf Fos₀
+... | ft , os₀' , FTft , Fos₀' , h = helper Bb Fos₁ abp ft os₀' FTft Fos₀' h

@@ -38,14 +38,14 @@ module Helper where
            Bit b →
            Fair os₀' →
            ABP' b i' is' os₀' os₁' as' bs' cs' ds' js' →
-           ∃[ ft₁ ] ∃[ os₁'' ] F*T ft₁ ∧ Fair os₁'' ∧ os₁' ≡ ft₁ ++ os₁'' →
+           ∀ ft₁ os₁'' → F*T ft₁ → Fair os₁'' → os₁' ≡ ft₁ ++ os₁'' →
            ∃[ os₀'' ] ∃[ os₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
            Fair os₀''
            ∧ Fair os₁''
            ∧ ABP (not b) is' os₀'' os₁'' as'' bs'' cs'' ds'' js'
   helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
          Bb Fos₀' (ds'ABP' , as'ABP , bs'ABP' , cs'ABP' , js'ABP')
-         (.(T ∷ []) , os₁'' , f*tnil , Fos₁'' , os₁'-eq) =
+         .(T ∷ []) os₁'' f*tnil Fos₁'' os₁'-eq =
          os₀' , os₁'' , as'' , bs'' , cs'' , ds''
          , Fos₀' , Fos₁''
          , as''-eq , bs''-eq ,  cs''-eq , refl , js'-eq
@@ -100,8 +100,8 @@ module Helper where
 
   helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
          Bb Fos₀' (ds'ABP' , as'ABP , bs'ABP' , cs'ABP' , js'ABP')
-         (.(F ∷ ft₁) , os₁'' , f*tcons {ft₁} FTft₁ , Fos₁'' , os₁'-eq)
-         = helper Bb (tail-Fair Fos₀') ABP'IH (ft₁ , os₁'' , FTft₁ , Fos₁'' , refl)
+         .(F ∷ ft₁) os₁'' (f*tcons {ft₁} FTft₁) Fos₁'' os₁'-eq
+         = helper Bb (tail-Fair Fos₀') ABP'IH ft₁ os₁'' FTft₁ Fos₁'' refl
 
     where
     os₀⁵ : D
@@ -253,4 +253,7 @@ lemma₂ : ∀ {b i' is' os₀' os₁' as' bs' cs' ds' js'} →
          Fair os₀''
          ∧ Fair os₁''
          ∧ ABP (not b) is' os₀'' os₁'' as'' bs'' cs'' ds'' js'
-lemma₂ Bb Fos₀' Fos₁' abp' = helper Bb Fos₀' abp' (Fair-unf Fos₁')
+lemma₂ Bb Fos₀' Fos₁' abp' with Fair-unf Fos₁'
+... | ft , os₀'' , FTft , Fos₀'' , h =
+  helper Bb Fos₀' abp' ft os₀'' FTft Fos₀'' h
+

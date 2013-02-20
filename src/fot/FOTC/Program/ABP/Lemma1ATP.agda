@@ -59,14 +59,13 @@ module Helper where
            Bit b →
            Fair os₁ →
            ABP b (i' ∷ is') os₀ os₁ as bs cs ds js →
-           ∃[ ft₀ ] ∃[ os₀' ] F*T ft₀ ∧ Fair os₀' ∧ os₀ ≡ ft₀ ++ os₀' →
+           ∀ ft₀ os₀' → F*T ft₀ → Fair os₀' → os₀ ≡ ft₀ ++ os₀' →
            ∃[ os₀' ] ∃[ os₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
            Fair os₀'
            ∧ Fair os₁'
            ∧ ABP' b i' is' os₀' os₁' as' bs' cs' ds' js'
            ∧ js ≡ i' ∷ js'
-  helper {b} {i'} {is'} {js = js} Bb Fos₁ abp
-         (.(T ∷ []) , os₀' , f*tnil , Fos₀' , os₀-eq) = prf
+  helper {b} {i'} {is'} {js = js} Bb Fos₁ abp .(T ∷ []) os₀' f*tnil Fos₀' os₀-eq = prf
     where
     -- 25 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
     postulate
@@ -81,8 +80,8 @@ module Helper where
             ∧ js ≡ i' ∷ js'
     {-# ATP prove prf #-}
   helper {b} {i'} {is'} {os₀} {os₁} {as} {bs} {cs} {ds} {js} Bb Fos₁ abp
-         (.(F ∷ ft₀⁵) , os₀' , f*tcons {ft₀⁵} FTft₀⁵ , Fos₀' , os₀-eq)
-         = helper Bb (tail-Fair Fos₁) ABPIH (ft₀⁵ , os₀' , FTft₀⁵ , Fos₀' , refl)
+         .(F ∷ ft₀⁵) os₀' (f*tcons {ft₀⁵} FTft₀⁵) Fos₀' os₀-eq
+         = helper Bb (tail-Fair Fos₁) ABPIH ft₀⁵ os₀' FTft₀⁵ Fos₀' refl
     where
     postulate os₀-eq-helper : os₀ ≡ F ∷ os₀⁵ os₀' ft₀⁵
     {-# ATP prove os₀-eq-helper #-}
@@ -160,4 +159,5 @@ lemma₁ : ∀ {b i' is' os₀ os₁ as bs cs ds js} →
          ∧ Fair os₁'
          ∧ ABP' b i' is' os₀' os₁' as' bs' cs' ds' js'
          ∧ js ≡ i' ∷ js'
-lemma₁ Bb Fos₀ Fos₁ abp = helper Bb Fos₁ abp (Fair-unf Fos₀)
+lemma₁ Bb Fos₀ Fos₁ abp with Fair-unf Fos₀
+... | ft , os₀' , FTft , Fos₀' , h = helper Bb Fos₁ abp ft os₀' FTft Fos₀' h

@@ -59,13 +59,13 @@ module Helper where
            Bit b →
            Fair os₀' →
            ABP' b i' is' os₀' os₁' as' bs' cs' ds' js' →
-           ∃[ ft₁ ] ∃[ os₁'' ] F*T ft₁ ∧ Fair os₁'' ∧ os₁' ≡ ft₁ ++ os₁'' →
+           ∀ ft₁ os₁'' → F*T ft₁ → Fair os₁'' → os₁' ≡ ft₁ ++ os₁'' →
            ∃[ os₀'' ] ∃[ os₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
            Fair os₀''
            ∧ Fair os₁''
            ∧ ABP (not b) is' os₀'' os₁'' as'' bs'' cs'' ds'' js'
   helper {b} {i'} {is'} {js' = js'} Bb Fos₀' abp'
-         (.(T ∷ []) , os₁'' , f*tnil , Fos₁'' , os₁'-eq) = prf
+         .(T ∷ []) os₁'' f*tnil Fos₁'' os₁'-eq = prf
     where
     postulate
       prf : ∃[ os₀'' ] ∃[ os₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
@@ -80,8 +80,8 @@ module Helper where
 
   helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
          Bb Fos₀' abp'
-         (.(F ∷ ft₁) , os₁'' , f*tcons {ft₁} FTft₁ , Fos₁'' , os₁'-eq)
-         = helper Bb (tail-Fair Fos₀') ABP'IH (ft₁ , os₁'' , FTft₁ , Fos₁'' , refl)
+         .(F ∷ ft₁) os₁'' (f*tcons {ft₁} FTft₁) Fos₁'' os₁'-eq
+         = helper Bb (tail-Fair Fos₀') ABP'IH ft₁ os₁'' FTft₁ Fos₁'' refl
     where
     postulate os₁'-eq-helper : os₁' ≡ F ∷ os₁⁵ ft₁ os₁''
     {-# ATP prove os₁'-eq-helper #-}
@@ -167,4 +167,6 @@ lemma₂ : ∀ {b i' is' os₀' os₁' as' bs' cs' ds' js'} →
          Fair os₀''
          ∧ Fair os₁''
          ∧ ABP (not b) is' os₀'' os₁'' as'' bs'' cs'' ds'' js'
-lemma₂ Bb Fos₀' Fos₁' abp' = helper Bb Fos₀' abp' (Fair-unf Fos₁')
+lemma₂ Bb Fos₀' Fos₁' abp' with Fair-unf Fos₁'
+... | ft , os₀'' , FTft , Fos₀'' , h =
+  helper Bb Fos₀' abp' ft os₀'' FTft Fos₀'' h
