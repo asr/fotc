@@ -18,7 +18,7 @@ data Conat : D → Set where
   cosucc : ∀ {n} → (∞ (Conat n)) → Conat (succ₁ n)
 
 Conat-unf : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] Conat n' ∧ n ≡ succ₁ n')
-Conat-unf cozero = inj₁ refl
+Conat-unf cozero          = inj₁ refl
 Conat-unf (cosucc {n} Cn) = inj₂ (n , ♭ Cn , refl)
 
 Conat-pre-fixed : ∀ {n} →
@@ -31,3 +31,12 @@ Conat-coind : ∀ (A : D → Set) {n} →
               (A n → n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n')) →
               A n → Conat n
 Conat-coind A h An = {!!}
+
+postulate
+  inf    : D
+  inf-eq : inf ≡ succ₁ inf
+{-# ATP axiom inf-eq #-}
+
+{-# NO_TERMINATION_CHECK #-}
+inf-Conat : Conat inf
+inf-Conat = subst Conat (sym inf-eq) (cosucc (♯ inf-Conat))
