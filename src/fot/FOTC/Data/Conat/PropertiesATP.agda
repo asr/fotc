@@ -31,11 +31,11 @@ open import FOTC.Data.Nat
   {-# ATP prove prf #-}
 
 -- Adapted from (Sander 1992, p. 57).
-∞N-Conat : Conat ∞N
-∞N-Conat = Conat-coind P prf refl
+∞-Conat : Conat ∞
+∞-Conat = Conat-coind P prf refl
   where
   P : D → Set
-  P n = n ≡ ∞N
+  P n = n ≡ ∞
   {-# ATP definition P #-}
 
   postulate prf : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')

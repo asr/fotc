@@ -30,14 +30,14 @@ open import FOTC.Data.Nat
   prf Pn = inj₁ Pn
 
 -- Adapted from (Sander 1992, p. 57).
-∞N-Conat : Conat ∞N
-∞N-Conat = Conat-coind P prf refl
+∞-Conat : Conat ∞
+∞-Conat = Conat-coind P prf refl
   where
   P : D → Set
-  P n = n ≡ ∞N
+  P n = n ≡ ∞
 
   prf : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
-  prf Pn = inj₂ (∞N , refl , trans Pn ∞N-eq)
+  prf Pn = inj₂ (∞ , refl , trans Pn ∞-eq)
 
 N→Conat : ∀ {n} → N n → Conat n
 N→Conat Nn = Conat-coind N prf Nn

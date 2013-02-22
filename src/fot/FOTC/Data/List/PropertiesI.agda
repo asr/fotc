@@ -127,12 +127,12 @@ lg-xs<lg-[]→⊥ (lcons x {xs} Lxs) lg-x∷xs<lg-[] = ⊥-elim (S<0→⊥ helpe
       ≡⟨ lg-x∷xs<lg-[] ⟩
     true ∎
 
-lg-xs≡∞→lg-x∷xs≡∞N : ∀ x xs → length xs ≡ ∞N → length (x ∷ xs) ≡ ∞N
-lg-xs≡∞→lg-x∷xs≡∞N x xs h =
-  length (x ∷ xs)    ≡⟨ length-∷ x xs ⟩
-  succ₁ (length xs)  ≡⟨ succCong h ⟩
-  succ₁ ∞N           ≡⟨ sym ∞N-eq ⟩
-  ∞N                 ∎
+lg-xs≡∞→lg-x∷xs≡∞ : ∀ x xs → length xs ≡ ∞ → length (x ∷ xs) ≡ ∞
+lg-xs≡∞→lg-x∷xs≡∞ x xs h =
+  length (x ∷ xs)   ≡⟨ length-∷ x xs ⟩
+  succ₁ (length xs) ≡⟨ succCong h ⟩
+  succ₁ ∞           ≡⟨ sym ∞-eq ⟩
+  ∞                 ∎
 
 -- Append properties
 
