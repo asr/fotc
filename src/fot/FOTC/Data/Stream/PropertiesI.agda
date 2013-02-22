@@ -30,11 +30,11 @@ tailS h with Stream-unf h
 ... | x' , xs' , Sxs' , h₁ = subst Stream (sym (∧-proj₂ (∷-injective h₁))) Sxs'
 
 -- Adapted from (Sander 1992, p. 58).
-streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞
+streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞N
 streamLength {xs} Sxs = ≈N-coind R prf₁ prf₂
   where
   R : D → D → Set
-  R m n = m ≡ zero ∧ n ≡ zero ∨ (∃[ xs' ] Stream xs' ∧ m ≡ length xs' ∧ n ≡ ∞)
+  R m n = m ≡ zero ∧ n ≡ zero ∨ (∃[ xs' ] Stream xs' ∧ m ≡ length xs' ∧ n ≡ ∞N)
 
   prf₁ : ∀ {m n} → R m n →
          m ≡ zero ∧ n ≡ zero
@@ -50,7 +50,7 @@ streamLength {xs} Sxs = ≈N-coind R prf₁ prf₂
     helper₁ = trans₂ h₁ (cong length xs'≡x''∷xs'') (length-∷ x'' xs'')
 
     helper₂ : n ≡ succ₁ n
-    helper₂ = trans₂ h₂ ∞-eq (succCong (sym h₂))
+    helper₂ = trans₂ h₂ ∞N-eq (succCong (sym h₂))
 
-  prf₂ : R (length xs) ∞
+  prf₂ : R (length xs) ∞N
   prf₂ = inj₂ (xs , Sxs , refl , refl)

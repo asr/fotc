@@ -13,6 +13,6 @@ open import FOTC.Data.Conat.Type public
 ------------------------------------------------------------------------------
 
 postulate
-  ∞    : D
-  ∞-eq : ∞ ≡ succ₁ ∞
-{-# ATP axiom ∞-eq #-}
+  ∞N    : D
+  ∞N-eq : ∞N ≡ succ₁ ∞N
+{-# ATP axiom ∞N-eq #-}
