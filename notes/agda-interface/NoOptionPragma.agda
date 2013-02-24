@@ -1,6 +1,4 @@
--- Tested with the development version of Agda on 17 October 2012.
-
--- Testing how the pragmas are saved in the agda interface files (using
+-- Testing how the pragmas are saved in the Agda interface files (using
 -- the program dump-agdai interface).
 
 -- 13 July 2012. Because for example the pragma BUILTIN is not a

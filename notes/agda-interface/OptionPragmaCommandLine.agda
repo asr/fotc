@@ -1,5 +1,3 @@
--- Tested with the development version of Agda on 17 October 2012.
-
 -- Testing how the pragmas are saved in the agda interface files (using
 -- the program dump-agdai) when they are used from the command-line:
 
