@@ -205,6 +205,18 @@ agda_changed : clean
 	@echo "$@ succeeded!"
 
 ##############################################################################
+# Test used when there is a modification to Agda
+
+agda2atp_changed :
+	if [ ! -d $(snapshot_dir) ]; then \
+	   echo "Error: The directory $(snapshot_dir) does not exist"; \
+	   exit 1; \
+	fi
+	make prove_notes
+	make snapshot_compare_fot
+	@echo "$@ succeeded!"
+
+##############################################################################
 # Test used when there is a new ATP or a new version of an ATP
 
 atp_changed :
