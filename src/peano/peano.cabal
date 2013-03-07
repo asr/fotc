@@ -16,7 +16,7 @@ library
   hs-source-dirs: src
 
   build-depends: base         >= 4.2     && < 4.7
-                 , QuickCheck >= 2.5.1.1 && < 2.6
+                 , QuickCheck >= 2.5.1.1 && < 2.7
 
   -- Only warnings (tested with cabal-install version 1.16.0.2 using
   -- version 1.16.0.3 of the Cabal library).
