@@ -37,14 +37,14 @@ open import FOTC.Relation.Binary.Bisimilarity
   B xs ys = ∃[ y ] xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y)
 
   prf : ∀ {xs ys} → B xs ys →
-        ∃[ x' ] ∃[ xs' ] ∃[ ys' ] B xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+        ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
   prf {xs} {ys} (y , h) =
     f · y
     , map f (iterate f (f · y))
     , iterate f (f · (f · y))
-    , ((f · y) , refl , refl)
     , trans (∧-proj₁ h) (unfoldMap y)
     , trans (∧-proj₂ h) (iterate-eq f (f · y))
+    , ((f · y) , refl , refl)
 
     where
     unfoldMap : ∀ y → map f (iterate f y) ≡ f · y ∷ map f (iterate f (f · y))

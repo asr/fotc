@@ -26,7 +26,7 @@ open import FOTC.Data.Nat
   P : D → Set
   P n = n ≡ zero
 
-  prf : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
+  prf : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ P n')
   prf Pn = inj₁ Pn
 
 -- Adapted from (Sander 1992, p. 57).
@@ -36,17 +36,17 @@ open import FOTC.Data.Nat
   P : D → Set
   P n = n ≡ ∞
 
-  prf : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
-  prf Pn = inj₂ (∞ , refl , trans Pn ∞-eq)
+  prf : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ P n')
+  prf Pn = inj₂ (∞ , trans Pn ∞-eq , refl)
 
 N→Conat : ∀ {n} → N n → Conat n
 N→Conat Nn = Conat-coind N prf Nn
   where
-  prf : ∀ {m} → N m → m ≡ zero ∨ (∃[ m' ] N m' ∧ m ≡ succ₁ m')
+  prf : ∀ {m} → N m → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ N m')
   prf nzero          = inj₁ refl
-  prf (nsucc {m} Nm) = inj₂ (m , Nm , refl)
+  prf (nsucc {m} Nm) = inj₂ (m , refl , Nm)
 
 -- A different proof.
 N→Conat₁ : ∀ {n} → N n → Conat n
 N→Conat₁ nzero          = Conat-pre-fixed (inj₁ refl)
-N→Conat₁ (nsucc {n} Nn) = Conat-pre-fixed (inj₂ (n , (N→Conat Nn , refl)))
+N→Conat₁ (nsucc {n} Nn) = Conat-pre-fixed (inj₂ (n , refl , (N→Conat₁ Nn)))

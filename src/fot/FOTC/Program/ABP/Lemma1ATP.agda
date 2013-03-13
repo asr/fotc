@@ -160,4 +160,4 @@ lemma₁ : ∀ {b i' is' os₀ os₁ as bs cs ds js} →
          ∧ ABP' b i' is' os₀' os₁' as' bs' cs' ds' js'
          ∧ js ≡ i' ∷ js'
 lemma₁ Bb Fos₀ Fos₁ abp with Fair-unf Fos₀
-... | ft , os₀' , FTft , Fos₀' , h = helper Bb Fos₁ abp ft os₀' FTft Fos₀' h
+... | ft , os₀' , FTft , h , Fos₀' = helper Bb Fos₁ abp ft os₀' FTft Fos₀' h

@@ -26,12 +26,12 @@ postulate stream-≡→≈ : ∀ {xs ys} → Stream xs → Stream ys → xs ≡ 
   A₁ ws = ∃[ zs ] ws ≈ zs
   {-# ATP definition A₁ #-}
 
-  postulate prf₁ : A₁ xs → ∃[ x' ] ∃[ xs' ] A₁ xs' ∧ xs ≡ x' ∷ xs'
+  postulate prf₁ : A₁ xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A₁ xs'
   {-# ATP prove prf₁ #-}
 
   A₂ : D → Set
   A₂ zs = ∃[ ws ] ws ≈ zs
   {-# ATP definition A₂ #-}
 
-  postulate prf₂ : A₂ ys → ∃[ y' ] ∃[ ys' ] A₂ ys' ∧ ys ≡ y' ∷ ys'
+  postulate prf₂ : A₂ ys → ∃[ y' ] ∃[ ys' ] ys ≡ y' ∷ ys' ∧ A₂ ys'
   {-# ATP prove prf₂ #-}

@@ -54,7 +54,7 @@ flip f b a = f a b
 
 -- The functor.
 NatF : (D → Set) → D → Set
-NatF P n = n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
+NatF P n = n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ P n')
 
 -- The natural numbers are the least fixed-point of NatF.
 postulate
@@ -63,7 +63,7 @@ postulate
   -- N is a pre-fixed point of NatF.
   --
   -- Peter: It corresponds to the introduction rules.
-  N-in : ∀ {n} → n ≡ zero ∨ (∃[ n' ] N n' ∧ n ≡ succ₁ n') → N n
+  N-in : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n') → N n
 
   -- The higher-order version.
   N-in-ho : ∀ {n} → NatF N n → N n
@@ -74,7 +74,7 @@ postulate
   -- defined predicate.
   N-least-pre-fixed :
     ∀ (A : D → Set) {n} →
-    (n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n') → A n) →
+    (n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n) →
     N n → A n
 
   -- Higher-order version (incomplete?)
@@ -86,7 +86,7 @@ postulate
 ------------------------------------------------------------------------------
 -- From/to N-in/N-in-ho.
 
-N-in₁ : ∀ {n} → n ≡ zero ∨ (∃[ n' ] N n' ∧ n ≡ succ₁ n') → N n
+N-in₁ : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n') → N n
 N-in₁ = N-in-ho
 
 N-in-ho₁ : ∀ {n} → NatF N n → N n
@@ -96,7 +96,7 @@ N-in-ho₁ = N-in₁
 -- From/to N-least-pre-fixed/N-least-pre-fixed-ho
 N-least-pre-fixed' :
   ∀ (A : D → Set) {n} →
-  (n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n') → A n) →
+  (n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n) →
   N n → A n
 N-least-pre-fixed' = N-least-pre-fixed-ho
 
@@ -112,26 +112,26 @@ nzero : N zero
 nzero = N-in (inj₁ refl)
 
 nsucc : ∀ {n} → N n → N (succ₁ n)
-nsucc Nn = N-in (inj₂ (_ , Nn , refl))
+nsucc Nn = N-in (inj₂ (_ , refl , Nn))
 
 ------------------------------------------------------------------------------
 -- Because N is the least pre-fixed point of NatF (i.e. N-in and
 -- N-ind), we can proof that N is also a post-fixed point of NatF.
 
 -- N is a post-fixed point of NatF.
-N-post-fixed : ∀ {n} → N n → n ≡ zero ∨ (∃[ n' ] N n' ∧ n ≡ succ₁ n')
+N-post-fixed : ∀ {n} → N n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n')
 N-post-fixed = N-least-pre-fixed A prf
   where
   A : D → Set
-  A m = m ≡ zero ∨ (∃[ m' ] N m' ∧ m ≡ succ₁ m')
+  A m = m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ N m')
 
-  prf : ∀ {m} → m ≡ zero ∨ (∃[ m' ] A m' ∧ m ≡ succ₁ m') → A m
-  prf (inj₁ h) = inj₁ h
-  prf (inj₂ (m' , Am' , h)) = inj₂ (m' , prf₂ Am' , h)
+  prf : ∀ {m} → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ A m') → A m
+  prf (inj₁ h)              = inj₁ h
+  prf (inj₂ (m' , h , Am')) = inj₂ (m' , h , prf₂ Am')
     where
     prf₂ : A m' → N m'
     prf₂ (inj₁ h₁)                = subst N (sym h₁) nzero
-    prf₂ (inj₂ (m'' , Am'' , h₁)) = subst N (sym h₁) (nsucc Am'')
+    prf₂ (inj₂ (m'' , h₁ , Am'')) = subst N (sym h₁) (nsucc Am'')
 
 ------------------------------------------------------------------------------
 -- The induction principle for N *with* the hypothesis N n in the
@@ -142,14 +142,14 @@ N-ind₁ : (A : D → Set) →
          ∀ {n} → N n → A n
 N-ind₁ A A0 is {n} Nn = N-least-pre-fixed A prf Nn
   where
-  prf : n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n') → A n
+  prf : n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n
   prf (inj₁ h)              = subst A (sym h) A0
-  prf (inj₂ (n' , An' , h)) = subst A (sym h) (is helper An')
+  prf (inj₂ (n' , h , An')) = subst A (sym h) (is helper An')
     where
     helper : N n'
     helper with N-post-fixed Nn
     ... | inj₁ n≡0 = ⊥-elim (0≢S (trans (sym n≡0) h))
-    ... | inj₂ (m' , Nm' , h₁) = subst N (succInjective (trans (sym h₁) h)) Nm'
+    ... | inj₂ (m' , h₁ , Nm') = subst N (succInjective (trans (sym h₁) h)) Nm'
 
 ------------------------------------------------------------------------------
 -- The induction principle for N *without* the hypothesis N n in the
@@ -160,9 +160,9 @@ N-ind₂ : (A : D → Set) →
          ∀ {n} → N n → A n
 N-ind₂ A A0 is {n} = N-least-pre-fixed A prf
   where
-  prf : n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n') → A n
+  prf : n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n
   prf (inj₁ h)              = subst A (sym h) A0
-  prf (inj₂ (n' , An' , h)) = subst A (sym h) (is An')
+  prf (inj₂ (n' , h , An')) = subst A (sym h) (is An')
 
 ------------------------------------------------------------------------------
 -- Example: We will use N-least-pre-fixed as the induction principle on N.
@@ -181,12 +181,12 @@ postulate
   A : D → Set
   A i = N (i + n)
 
-  prf : m ≡ zero ∨ (∃[ m' ] A m' ∧ m ≡ succ₁ m') → A m
+  prf : m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ A m') → A m
   prf (inj₁ h) = subst N (cong (flip _+_ n) (sym h)) A0
     where
     A0 : A zero
     A0 = subst N (sym (+-leftIdentity n)) Nn
-  prf (inj₂ (m' , Am' , m≡Sm')) =
+  prf (inj₂ (m' , m≡Sm' , Am')) =
     subst N (cong (flip _+_ n) (sym m≡Sm')) (is Am')
     where
     is : ∀ {i} → A i → A (succ₁ i)

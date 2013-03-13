@@ -23,5 +23,5 @@ zeros-Stream = Stream-coind A prf refl
   A : D → Set
   A xs = xs ≡ zeros
 
-  prf : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] A xs' ∧ xs ≡ x' ∷ xs'
-  prf Axs = zero , zeros , refl , trans Axs zeros-eq
+  prf : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  prf Axs = zero , zeros , trans Axs zeros-eq , refl

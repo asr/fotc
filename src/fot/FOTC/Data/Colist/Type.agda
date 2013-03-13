@@ -17,7 +17,7 @@ open import FOTC.Base.List
 
 -- Functional for the Colist predicate.
 -- ColistF : (D → Set) → D → Set
--- ColistF P xs = xs ≡ [] ∨ ∃[ x' ] ∃[ xs' ] P xs' ∧ xs ≡ x' ∷ xs'
+-- ColistF A xs = xs ≡ [] ∨ ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
 
 -- Colist is the greatest fixed-point of ColistF (by Colist-unf and
 -- Colist-coind).
@@ -30,7 +30,7 @@ postulate
 --
 -- Colist ≤ ColistF Colist.
   Colist-unf : ∀ {xs} → Colist xs →
-               xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] Colist xs' ∧ xs ≡ x' ∷ xs')
+               xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs')
 {-# ATP axiom Colist-unf #-}
 
 -- Colist is the greatest post-fixed point of ColistF, i.e
@@ -43,7 +43,7 @@ postulate
 postulate
   Colist-coind : ∀ (A : D → Set) {xs} →
                  -- A is post-fixed point of ColistF.
-                 (A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A xs' ∧ xs ≡ x' ∷ xs')) →
+                 (A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')) →
                  -- Colist is greater than A.
                  A xs → Colist xs
 
@@ -53,14 +53,14 @@ postulate
 --
 -- ColistF Colist ≤ Colist.
 Colist-pre-fixed : ∀ {xs} →
-                   (xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] Colist xs' ∧ xs ≡ x' ∷ xs')) →
+                   (xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs')) →
                    Colist xs
 Colist-pre-fixed {xs} h = Colist-coind A prf h
   where
   A : D → Set
-  A ws = ws ≡ [] ∨ (∃[ w' ] ∃[ ws' ] Colist ws' ∧ ws ≡ w' ∷ ws')
+  A ws = ws ≡ [] ∨ (∃[ w' ] ∃[ ws' ] ws ≡ w' ∷ ws' ∧ Colist ws')
 
-  prf : A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A xs' ∧ xs ≡ x' ∷ xs')
+  prf : A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
   prf (inj₁ h₁) = inj₁ h₁
-  prf (inj₂ (_ , _ , Sxs' , xs≡x'∷xs')) =
-    inj₂ (_ , _ , Colist-unf Sxs' , xs≡x'∷xs')
+  prf (inj₂ (_ , _ , xs≡x'∷xs' , Axs' )) =
+    inj₂ (_ , _ , xs≡x'∷xs' , Colist-unf Axs')

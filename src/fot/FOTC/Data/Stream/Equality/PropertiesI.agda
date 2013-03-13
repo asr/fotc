@@ -25,13 +25,13 @@ stream-≡→≈ Sxs _ refl = ≈-refl Sxs
   A₁ : D → Set
   A₁ ws = ∃[ zs ] ws ≈ zs
 
-  prf₁ : A₁ xs → ∃[ x' ] ∃[ xs' ] A₁ xs' ∧ xs ≡ x' ∷ xs'
+  prf₁ : A₁ xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A₁ xs'
   prf₁ (_ , h) with ≈-unf h
-  ... | x' , xs' , zs' , h₁ , h₂ , _ = x' , xs' , (zs' , h₁) , h₂
+  ... | x' , xs' , zs' , h₁ , h₂ , h₃ = x' , xs' , h₁ , (zs' , h₃)
 
   A₂ : D → Set
   A₂ zs = ∃[ ws ] ws ≈ zs
 
-  h₂ : A₂ ys → ∃[ y' ] ∃[ ys' ] A₂ ys' ∧ ys ≡ y' ∷ ys'
+  h₂ : A₂ ys → ∃[ y' ] ∃[ ys' ] ys ≡ y' ∷ ys' ∧ A₂ ys'
   h₂  (_ , h) with ≈-unf h
-  ... | y' , ys' , zs' , h₁ , _ , h₂ = y' , zs' , (ys' , h₁) , h₂
+  ... | y' , ys' , zs' , h₁ , h₂ , h₃ = y' , zs' , h₂ , (ys' , h₃)

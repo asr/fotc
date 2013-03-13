@@ -20,12 +20,12 @@ open import FOTC.Program.ABP.Terms
 ------------------------------------------------------------------------------
 
 head-tail-Fair-helper : ∀ {os} →
-                        ∃[ ft ] ∃[ os' ] F*T ft ∧ Fair os' ∧ os ≡ ft ++ os' →
+                        ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os' →
                         os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
 head-tail-Fair-helper {os} (.(true ∷ []) , os' , f*tnil , h₁ , h₂) = inj₁ prf₃
   where
   prf₁ : os ≡ T ∷ [] ++ os'
-  prf₁ = os              ≡⟨ h₂ ⟩
+  prf₁ = os              ≡⟨ h₁ ⟩
          (T ∷ []) ++ os' ≡⟨ ++-∷ T [] os' ⟩
          T ∷ [] ++ os'   ∎
 
@@ -43,7 +43,7 @@ head-tail-Fair-helper {os} (.(false ∷ ft) , os' , f*tcons {ft} y , h₁ , h₂
   inj₂ prf₃
   where
   prf₁ : os ≡ F ∷ ft ++ os'
-  prf₁ = os              ≡⟨ h₂ ⟩
+  prf₁ = os              ≡⟨ h₁ ⟩
          (F ∷ ft) ++ os' ≡⟨ ++-∷ F ft os' ⟩
          F ∷ ft ++ os'   ∎
 
@@ -61,9 +61,9 @@ head-tail-Fair : ∀ {os} → Fair os → os ≡ T ∷ tail₁ os ∨ os ≡ F �
 head-tail-Fair {os} Fos = head-tail-Fair-helper (Fair-unf Fos)
 
 tail-Fair-helper : ∀ {os} →
-                   ∃[ ft ] ∃[ os' ] F*T ft ∧ Fair os' ∧ os ≡ ft ++ os' →
+                   ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os' →
                    Fair (tail₁ os)
-tail-Fair-helper {os} (.(true ∷ []) , os' , f*tnil , Fos' , h) =
+tail-Fair-helper {os} (.(true ∷ []) , os' , f*tnil , h , Fos') =
   subst Fair (sym prf₂) Fos'
   where
   prf₁ : os ≡ T ∷ os'
@@ -77,8 +77,8 @@ tail-Fair-helper {os} (.(true ∷ []) , os' , f*tnil , Fos' , h) =
          tail₁ (T ∷ os') ≡⟨ tail-∷ T os' ⟩
          os'             ∎
 
-tail-Fair-helper {os} (.(false ∷ ft) , os' , f*tcons {ft} FTft , Fos' , h) =
-  subst Fair (sym prf₂) (Fair-pre-fixed (ft , os' , FTft , Fos' , refl))
+tail-Fair-helper {os} (.(false ∷ ft) , os' , f*tcons {ft} FTft , h , Fos') =
+  subst Fair (sym prf₂) (Fair-pre-fixed (ft , os' , FTft , refl , Fos'))
   where
   prf₁ : os ≡ F ∷ ft ++ os'
   prf₁ = os              ≡⟨ h ⟩

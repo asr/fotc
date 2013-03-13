@@ -29,7 +29,7 @@ data F*T : D → Set where
 
 -- Functor for the Fair type.
 -- FairF : (D → Set) → D → Set
--- FairF X os = ∃[ ft ] ∃[ os' ] F*T ft ∧ X os' ∧ os ≡ ft ++ os'
+-- FairF X os = ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ X os'
 
 -- Fair is the greatest fixed of FairF (by Fair-unf and Fair-coind).
 
@@ -39,7 +39,7 @@ postulate Fair : D → Set
 --
 -- Fair ≤ FairF Fair.
 postulate Fair-unf : ∀ {os} → Fair os →
-                     ∃[ ft ] ∃[ os' ] F*T ft ∧ Fair os' ∧ os ≡ ft ++ os'
+                     ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os'
 {-# ATP axiom Fair-unf #-}
 
 -- Fair is the greatest post-fixed point of FairF, i.e
@@ -51,7 +51,8 @@ postulate Fair-unf : ∀ {os} → Fair os →
 -- axiom.
 postulate Fair-coind : ∀ (A : D → Set) {os} →
                        -- A is post-fixed point of FairF.
-                       (A os → ∃[ ft ] ∃[ os' ] F*T ft ∧ A os' ∧ os ≡ ft ++ os') →
+                       (A os → ∃[ ft ] ∃[ os' ]
+                         F*T ft ∧ os ≡ ft ++ os' ∧ A os') →
                        -- Fair is greater than A.
                        A os → Fair os
 
@@ -60,12 +61,12 @@ postulate Fair-coind : ∀ (A : D → Set) {os} →
 --
 -- FairF Fair ≤ Fair.
 Fair-pre-fixed : ∀ {os} →
-                 (∃[ ft ] ∃[ os' ] F*T ft ∧ Fair os' ∧ os ≡ ft ++ os') →
+                 (∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os') →
                  Fair os
 Fair-pre-fixed {os} h = Fair-coind A prf h
   where
   A : D → Set
-  A ws = ∃[ wl ] ∃[ ws' ] F*T wl ∧ Fair ws' ∧ ws ≡ wl ++ ws'
+  A ws = ∃[ wl ] ∃[ ws' ] F*T wl ∧ ws ≡ wl ++ ws' ∧ Fair ws'
 
-  prf : A os → ∃[ ft ] ∃[ os' ] F*T ft ∧ A os' ∧ os ≡ ft ++ os'
-  prf (_ , _ , FTft , Fos' , h) = _ , _ , FTft , Fair-unf Fos' , h
+  prf : A os → ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ A os'
+  prf (_ , _ , FTft , h , Fos') = _ , _ , FTft , h , Fair-unf Fos'

@@ -28,10 +28,10 @@ open import FOTC.Data.Conat.Equality
 
   prf₁ : ∀ {a b} → R a b →
          a ≡ zero ∧ b ≡ zero
-         ∨ (∃[ a' ] ∃[ b' ] R a' b' ∧ a ≡ succ₁ a' ∧ b ≡ succ₁ b')
+         ∨ (∃[ a' ] ∃[ b' ] a ≡ succ₁ a' ∧ b ≡ succ₁ b' ∧ R a' b')
   prf₁ (Ca , Cb , refl) with Conat-unf Ca
   ... | inj₁ prf              = inj₁ (prf , prf)
-  ... | inj₂ (a' , Ca' , prf) = inj₂ (a' , a' , (Ca' , Ca' , refl) , (prf , prf))
+  ... | inj₂ (a' , prf , Ca') = inj₂ (a' , a' , prf , prf , (Ca' , Ca' , refl))
 
   prf₂ : Conat n ∧ Conat n ∧ n ≡ n
   prf₂ = Cn , Cn , refl

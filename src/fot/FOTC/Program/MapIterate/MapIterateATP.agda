@@ -36,7 +36,7 @@ open import FOTC.Relation.Binary.Bisimilarity
 
   postulate
     prf₁ : ∀ {xs ys} → B xs ys →
-           ∃[ x' ] ∃[ xs' ] ∃[ ys' ] B xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+           ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
   {-# ATP prove prf₁ #-}
 
   postulate prf₂ : B (map f (iterate f x)) (iterate f (f · x))

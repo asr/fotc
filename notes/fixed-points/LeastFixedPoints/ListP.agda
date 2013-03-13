@@ -25,7 +25,7 @@ open import FOTC.Data.Nat.UnaryNumbers
 
 -- The functor.
 -- ListPF : (D → Set) → (D → Set) → D → Set
--- ListPF A B xs = xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A x' ∧ B xs' ∧ xs ≡ x' ∷ xs')
+-- ListPF A B xs = xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A x' ∧ xs ≡ x' ∷ xs' ∧ B xs' )
 
 -- ListP is the least fixed-point of ListPF.
 postulate
@@ -36,7 +36,7 @@ postulate
   -- Peter: It corresponds to the introduction rules.
   ListP-in :
     (A : D → Set) →
-    ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A x' ∧ ListP A xs' ∧ xs ≡ x' ∷ xs') →
+    ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A x' ∧ xs ≡ x' ∷ xs' ∧ ListP A xs') →
     ListP A xs
 
   -- ListP is the least pre-fixed point of ListPF.
@@ -45,7 +45,7 @@ postulate
   -- defined predicate.
   ListP-ind :
     (A B : D → Set) →
-    (∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A x' ∧ B xs' ∧ xs ≡ x' ∷ xs') → B xs) →
+    (∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A x' ∧ xs ≡ x' ∷ xs' ∧ B xs') → B xs) →
     ∀ {xs} → ListP A xs → B xs
 
 ------------------------------------------------------------------------------
@@ -54,7 +54,7 @@ lnil  : (A : D → Set) → ListP A []
 lnil A = ListP-in A (inj₁ refl)
 
 lcons : (A : D → Set) → ∀ {x xs} → A x → ListP A xs → ListP A (x ∷ xs)
-lcons A {n} {ns} An LPns = ListP-in A (inj₂ (n , ns , An , LPns , refl))
+lcons A {n} {ns} An LPns = ListP-in A (inj₂ (n , ns , An , refl , LPns))
 
 ------------------------------------------------------------------------------
 -- The induction principle for ListP.
@@ -62,13 +62,13 @@ indListP : (A B : D → Set) →
            B [] →
            (∀ x {xs} → A x → B xs → B (x ∷ xs)) →
            ∀ {xs} → ListP A xs → B xs
-indListP A B B[] is = ListP-ind A B h
+indListP A B B[] is = ListP-ind A B prf
   where
-  h : ∀ {xs} →
-      xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A x' ∧ B xs' ∧ xs ≡ x' ∷ xs') →
-      B xs
-  h (inj₁ xs≡[])                        = subst B (sym xs≡[]) B[]
-  h (inj₂ (x' , xs' , Ax' , Bxs' , h₁)) = subst B (sym h₁) (is x' Ax' Bxs')
+  prf : ∀ {xs} →
+        xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A x' ∧ xs ≡ x' ∷ xs' ∧ B xs') →
+        B xs
+  prf (inj₁ xs≡[])                        = subst B (sym xs≡[]) B[]
+  prf (inj₂ (x' , xs' , Ax' , h₁ , Bxs')) = subst B (sym h₁) (is x' Ax' Bxs')
 
 ------------------------------------------------------------------------------
 -- Examples

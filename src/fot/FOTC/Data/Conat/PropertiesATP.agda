@@ -27,7 +27,7 @@ open import FOTC.Data.Nat
   P n = n ≡ zero
   {-# ATP definition P #-}
 
-  postulate prf : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
+  postulate prf : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ P n')
   {-# ATP prove prf #-}
 
 -- Adapted from (Sander 1992, p. 57).
@@ -38,16 +38,16 @@ open import FOTC.Data.Nat
   P n = n ≡ ∞
   {-# ATP definition P #-}
 
-  postulate prf : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] P n' ∧ n ≡ succ₁ n')
+  postulate prf : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ P n')
   {-# ATP prove prf #-}
 
 N→Conat : ∀ {n} → N n → Conat n
 N→Conat Nn = Conat-coind N prf Nn
   where
-  prf : ∀ {m} → N m → m ≡ zero ∨ (∃[ m' ] N m' ∧ m ≡ succ₁ m')
+  prf : ∀ {m} → N m → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ N m')
   prf nzero = prf₁
-    where postulate prf₁ : zero ≡ zero ∨ (∃[ m' ] N m' ∧ zero ≡ succ₁ m')
+    where postulate prf₁ : zero ≡ zero ∨ (∃[ m' ] zero ≡ succ₁ m' ∧ N m')
           {-# ATP prove prf₁ #-}
   prf (nsucc {m} Nm) = prf₂
-    where postulate prf₂ : succ₁ m ≡ zero ∨ (∃[ m' ] N m' ∧ succ₁ m ≡ succ₁ m')
+    where postulate prf₂ : succ₁ m ≡ zero ∨ (∃[ m' ] succ₁ m ≡ succ₁ m' ∧ N m')
           {-# ATP prove prf₂ #-}

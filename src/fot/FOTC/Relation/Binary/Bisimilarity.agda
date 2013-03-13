@@ -25,7 +25,7 @@ postulate _≈_ : D → D → Set
 -- point of the bisimulation functional (see below).
 postulate
   ≈-unf : ∀ {xs ys} → xs ≈ ys →
-          ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+          ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys'
 {-# ATP axiom ≈-unf #-}
 
 -- The bisimilarity relation _≈_ on unbounded lists is the greatest
@@ -38,7 +38,7 @@ postulate
   ≈-coind : ∀ (R : D → D → Set) {xs ys} →
             -- R is a post-fixed point of the bisimulation functional.
             (R xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
-              R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
+              xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ R xs' ys') →
              -- _≈_ is greater than R.
             R xs ys → xs ≈ ys
 
@@ -47,16 +47,17 @@ postulate
 -- point of the bisimulation functional (see below).
 ≈-pre-fixed : ∀ {xs ys} →
               (∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
-              xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys') →
+                xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys') →
               xs ≈ ys
 ≈-pre-fixed {xs} {ys} h = ≈-coind R prf h
   where
   R : D → D → Set
-  R xs ys = ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs' ≈ ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+  R xs ys = ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
+            xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys'
 
   prf :  R xs ys →
-         ∃[ x' ] ∃[ xs' ] ∃[ ys' ] R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
-  prf (_ , _ , _ , xs'≈ys' , prf) = _ , _ , _ , ≈-unf xs'≈ys' , prf
+         ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ R xs' ys'
+  prf (_ , _ , _ , h₁ , h₂ , xs'≈ys') = _ , _ , _ , h₁ , h₂ , ≈-unf xs'≈ys'
 
 private
   module Bisimulation where
@@ -81,7 +82,7 @@ private
   -- p. 30).
   BisimulationF : (D → D → Set) → D → D → Set
   BisimulationF R xs ys =
-    ∃[ x' ] ∃[ xs' ] ∃[ ys' ] R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+    ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ R xs' ys'
 
   -- The bisimilarity relation _≈_ on unbounded lists is a post-fixed
   -- point of Bisimulation, i.e,

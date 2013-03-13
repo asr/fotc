@@ -25,7 +25,7 @@ infix 7 _≈N_
 --
 -- ≈NF : (D → D → Set) → D → D → Set
 -- ≈NF R m n =
--- (m ≡ zero ∧ n ≡ zero) ∨ (∃[ m' ] ∃[ n' ] R m' n' ∧ m ≡ succ m' ∧ n ≡ succ n')
+-- (m ≡ zero ∧ n ≡ zero) ∨ (∃[ m' ] ∃[ n' ] m ≡ succ m' ∧ n ≡ succ n' ∧ R m' n')
 
 -- The relation _≈N_ is the greatest post-fixed point of the
 -- functional ≈NF (by ≈N-unf and ≈N-coind).
@@ -38,7 +38,7 @@ postulate _≈N_ : D → D → Set
 -- _≈N_ ≤ ≈NF _≈N_.
 postulate ≈N-unf : ∀ {m n} → m ≈N n →
                    m ≡ zero ∧ n ≡ zero
-                   ∨ (∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
+                   ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n')
 {-# ATP axiom ≈N-unf #-}
 
 -- The relation _N≈_ is the greatest post-fixed point of _N≈_, i.e
@@ -52,7 +52,7 @@ postulate
   ≈N-coind : ∀ (R : D → D → Set) {m n} →
              -- R is a post-fixed point of the functional ≈NF.
              (R m n → m ≡ zero ∧ n ≡ zero
-              ∨ (∃[ m' ] ∃[ n' ] R m' n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')) →
+              ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')) →
              -- _≈N_ is greater than R.
              R m n → m ≈N n
 
@@ -62,16 +62,17 @@ postulate
 -- ≈NF _≈N_ ≤ _≈N_.
 ≈N-pre-fixed : ∀ {m n} →
                (m ≡ zero ∧ n ≡ zero
-               ∨ (∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')) →
+               ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n')) →
                m ≈N n
 ≈N-pre-fixed {m} {n} h = ≈N-coind R prf h
   where
   R : D → D → Set
   R m n = m ≡ zero ∧ n ≡ zero
-          ∨ (∃[ m' ] ∃[ n' ] m' ≈N n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
+          ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n')
 
   prf : R m n →
         m ≡ zero ∧ n ≡ zero
-        ∨ (∃[ m' ] ∃[ n' ] R m' n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
+        ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
   prf (inj₁ prf) = inj₁ prf
-  prf (inj₂ (m' , n' , m'≈Nn' , prf)) = inj₂ (m' , n' , ≈N-unf m'≈Nn' , prf)
+  prf (inj₂ (m' , n' , h₁ , h₂ , m'≈Nn')) =
+    inj₂ (m' , n' , h₁ , h₂ , ≈N-unf m'≈Nn')

@@ -18,11 +18,11 @@ open import FOTC.Relation.Binary.Bisimilarity
 ≈-refl {xs} Sxs = ≈-coind R prf₁ prf₂
   where
   R : D → D → Set
-  R xs ys = Stream xs ∧ xs ≡ ys
+  R xs ys = xs ≡ ys ∧ Stream xs
   {-# ATP definition R #-}
 
   postulate prf₁ : ∀ {xs ys} → R xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
-                   R xs' ys' ∧ xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys'
+                   xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ R xs' ys'
   {-# ATP prove prf₁ #-}
 
   postulate prf₂ : R xs xs
@@ -37,7 +37,7 @@ open import FOTC.Relation.Binary.Bisimilarity
 
   postulate prf₁ : R ys xs →
                    ∃[ y' ] ∃[ ys' ] ∃[ xs' ]
-                   R ys' xs' ∧ ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs'
+                   ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs' ∧ R ys' xs'
   {-# ATP prove prf₁ #-}
 
   postulate prf₂ : R ys xs
@@ -52,7 +52,7 @@ open import FOTC.Relation.Binary.Bisimilarity
 
   postulate prf₁ : ∀ {xs zs} → R xs zs →
                    ∃[ x' ] ∃[ xs' ] ∃[ zs' ]
-                   R xs' zs' ∧ xs ≡ x' ∷ xs' ∧ zs ≡ x' ∷ zs'
+                   xs ≡ x' ∷ xs' ∧ zs ≡ x' ∷ zs' ∧ R xs' zs'
 
   postulate prf₂ : R xs zs
   {-# ATP prove prf₂ #-}

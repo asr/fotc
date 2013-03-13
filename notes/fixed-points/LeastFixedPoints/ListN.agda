@@ -26,7 +26,7 @@ open import FOTC.Data.Nat.UnaryNumbers
 
 -- The functor.
 -- ListNF : (D → Set) → D → Set
--- ListNF P ns = ns ≡ [] ∨ (∃[ n' ] ∃[ ns' ] N n' ∧ P ns' ∧ ns ≡ n' ∷ ns')
+-- ListNF P ns = ns ≡ [] ∨ (∃[ n' ] ∃[ ns' ] N n' ∧ ns ≡ n' ∷ ns' ∧ P ns')
 
 -- List is the least fixed-point of ListF.
 postulate
@@ -36,7 +36,7 @@ postulate
   --
   -- Peter: It corresponds to the introduction rules.
   ListN-in : ∀ {ns} →
-             ns ≡ [] ∨ (∃[ n' ] ∃[ ns' ] N n' ∧ ListN ns' ∧ ns ≡ n' ∷ ns') →
+             ns ≡ [] ∨ (∃[ n' ] ∃[ ns' ] N n' ∧ ns ≡ n' ∷ ns' ∧ ListN ns') →
              ListN ns
 
   -- ListN is the least pre-fixed point of ListFN.
@@ -45,7 +45,7 @@ postulate
   -- defined predicate.
   ListN-ind :
     (A : D → Set) →
-    (∀ {ns} → ns ≡ [] ∨ (∃[ n' ] ∃[ ns' ] N n' ∧ A ns' ∧ ns ≡ n' ∷ ns') → A ns) →
+    (∀ {ns} → ns ≡ [] ∨ (∃[ n' ] ∃[ ns' ] N n' ∧ ns ≡ n' ∷ ns' ∧ A ns') → A ns) →
     ∀ {ns} → ListN ns → A ns
 
 ------------------------------------------------------------------------------
@@ -54,7 +54,7 @@ lnnil : ListN []
 lnnil = ListN-in (inj₁ refl)
 
 lncons : ∀ {n ns} → N n → ListN ns → ListN (n ∷ ns)
-lncons {n} {ns} Nn LNns = ListN-in (inj₂ (n , ns , Nn , LNns , refl))
+lncons {n} {ns} Nn LNns = ListN-in (inj₂ (n , ns , Nn , refl , LNns))
 
 ------------------------------------------------------------------------------
 -- The induction principle for List.
@@ -62,11 +62,12 @@ indList : (A : D → Set) →
           A [] →
           (∀ n {ns} → N n → A ns → A (n ∷ ns)) →
           ∀ {ns} → ListN ns → A ns
-indList A A[] is = ListN-ind A h
+indList A A[] is = ListN-ind A prf
   where
-  h : ∀ {ns} → ns ≡ [] ∨ (∃[ n' ] ∃[ ns' ] N n' ∧ A ns' ∧ ns ≡ n' ∷ ns') → A ns
-  h (inj₁ ns≡[])                  = subst A (sym ns≡[]) A[]
-  h (inj₂ (n' , ns' , Nn' , Ans' , h₁)) = subst A (sym h₁) (is n' Nn' Ans')
+  prf : ∀ {ns} → ns ≡ [] ∨ (∃[ n' ] ∃[ ns' ] N n' ∧ ns ≡ n' ∷ ns'  ∧ A ns') →
+        A ns
+  prf (inj₁ ns≡[])                        = subst A (sym ns≡[]) A[]
+  prf (inj₂ (n' , ns' , Nn' , h₁ , Ans')) = subst A (sym h₁) (is n' Nn' Ans')
 
 ------------------------------------------------------------------------------
 -- Example

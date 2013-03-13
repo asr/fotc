@@ -30,7 +30,7 @@ open import FOTC.Data.Conat.Equality
   postulate
     prf₁ : ∀ {a b} → R a b →
            a ≡ zero ∧ b ≡ zero
-           ∨ (∃[ a' ] ∃[ b' ] R a' b' ∧ a ≡ succ₁ a' ∧ b ≡ succ₁ b')
+           ∨ (∃[ a' ] ∃[ b' ] a ≡ succ₁ a' ∧ b ≡ succ₁ b' ∧ R a' b')
   {-# ATP prove prf₁ #-}
 
   postulate prf₂ : Conat n ∧ Conat n ∧ n ≡ n

@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
--- {-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K #-}
 
 module FOT.FOTC.Relation.Binary.Bisimilarity.PropertiesI where
 
@@ -22,13 +22,7 @@ open import FOTC.Relation.Binary.Bisimilarity
 ≈→≡₁ : ∀ {xs ys} → xs ≈ ys → xs ≡ ys
 ≈→≡₁ {xs} {ys} xs≈ys with ≈-unf xs≈ys
 ... | x' , xs' , ys' , h₁ , h₂ , h₃ =
-  xs       ≡⟨ h₂ ⟩
-  x' ∷ xs' ≡⟨ ∷-rightCong (≈→≡₁ h₁) ⟩
-  x' ∷ ys' ≡⟨ sym h₃ ⟩
+  xs       ≡⟨ h₁ ⟩
+  x' ∷ xs' ≡⟨ ∷-rightCong (≈→≡₁ h₃) ⟩
+  x' ∷ ys' ≡⟨ sym h₂ ⟩
   ys       ∎
-
--- Requires K.
-{-# NO_TERMINATION_CHECK #-}
-≈→≡₂ : ∀ {xs ys} → xs ≈ ys → xs ≡ ys
-≈→≡₂ xs≈ys with ≈-unf xs≈ys
-... | x' , xs' , ys' , h , refl , refl = ∷-rightCong (≈→≡₂ h)

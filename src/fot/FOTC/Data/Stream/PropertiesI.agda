@@ -27,24 +27,23 @@ open import FOTC.Data.Stream
 
 tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 tailS h with Stream-unf h
-... | x' , xs' , Sxs' , h₁ = subst Stream (sym (∧-proj₂ (∷-injective h₁))) Sxs'
+... | x' , xs' , h₁ , Sxs' = subst Stream (sym (∧-proj₂ (∷-injective h₁))) Sxs'
 
 -- Adapted from (Sander 1992, p. 58).
 streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞
 streamLength {xs} Sxs = ≈N-coind R prf₁ prf₂
   where
   R : D → D → Set
-  R m n = m ≡ zero ∧ n ≡ zero ∨ (∃[ xs' ] Stream xs' ∧ m ≡ length xs' ∧ n ≡ ∞)
+  R m n = m ≡ zero ∧ n ≡ zero ∨ (∃[ xs' ] m ≡ length xs' ∧ n ≡ ∞ ∧ Stream xs')
 
   prf₁ : ∀ {m n} → R m n →
          m ≡ zero ∧ n ≡ zero
-         ∨ (∃[ m' ] ∃[ n' ] R m' n' ∧ m ≡ succ₁ m' ∧ n ≡ succ₁ n')
+         ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
   prf₁ (inj₁ prf) = inj₁ prf
-  prf₁ {m} {n} (inj₂ (x' , Sxs' , h₁ , h₂)) with Stream-unf Sxs'
-  ... | x'' , xs'' , Sxs'' , xs'≡x''∷xs'' =
-    inj₂ ( length xs''
-         , (n , (inj₂ (xs'' , Sxs'' , refl , h₂) , (helper₁ , helper₂)))
-         )
+  prf₁ {m} {n} (inj₂ (xs' , h₁ , h₂ , Sxs')) with Stream-unf Sxs'
+  ... | x'' , xs'' , xs'≡x''∷xs'' , Sxs'' =
+    inj₂ (length xs'' , n , helper₁ , helper₂ , inj₂ (xs'' , refl , h₂ , Sxs''))
+
     where
     helper₁ : m ≡ succ₁ (length xs'')
     helper₁ = trans₂ h₁ (cong length xs'≡x''∷xs'') (length-∷ x'' xs'')
@@ -53,4 +52,4 @@ streamLength {xs} Sxs = ≈N-coind R prf₁ prf₂
     helper₂ = trans₂ h₂ ∞-eq (succCong (sym h₂))
 
   prf₂ : R (length xs) ∞
-  prf₂ = inj₂ (xs , Sxs , refl , refl)
+  prf₂ = inj₂ (xs , refl , refl , Sxs)

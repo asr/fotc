@@ -37,7 +37,7 @@ spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ = ≈-coind B prf₁ prf₂
   where
   postulate prf₁ : ∀ {is js} → B is js →
                    ∃[ i' ] ∃[ is' ] ∃[ js' ]
-                   B is' js' ∧ is ≡ i' ∷ is' ∧ js ≡ i' ∷ js'
+                   is ≡ i' ∷ is' ∧ js ≡ i' ∷ js' ∧ B is' js'
   {-# ATP prove prf₁ lemma₁ lemma₂ not-Bool #-}
 
   prf₂ : B is (transfer b os₀ os₁ is)
