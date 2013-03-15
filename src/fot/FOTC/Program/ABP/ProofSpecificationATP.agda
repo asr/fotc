@@ -48,7 +48,6 @@ spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ = ≈-coind B prf₁ prf₂
     bs = hbs (send · b) (ack · b) (out · b) (corrupt · os₀) (corrupt · os₁) is
     cs = hcs (send · b) (ack · b) (out · b) (corrupt · os₀) (corrupt · os₁) is
     ds = hds (send · b) (ack · b) (out · b) (corrupt · os₀) (corrupt · os₁) is
-
     {-# ATP definition as bs cs ds #-}
 
     postulate helper : Stream is ∧ Bit b ∧ Fair os₀ ∧ Fair os₁
