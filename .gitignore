@@ -4,6 +4,7 @@
 *.glob
 *.hi
 *.o
+*.thy~
 *.vo
 agda2atp.tix
 dist
