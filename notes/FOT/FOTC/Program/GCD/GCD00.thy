@@ -6,4 +6,3 @@ begin
 
 theorem gcd00 : "gcd (0 :: nat) 0 = 0"
 by auto
-

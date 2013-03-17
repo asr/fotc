@@ -17,4 +17,3 @@ unfolding dvd_def
 apply (rule exI)
 apply simp
 done
-
