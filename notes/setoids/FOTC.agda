@@ -47,12 +47,12 @@ module Aczel-CA where
 
   -- The setoid equality.
   data _≐_ : D → D → Set where
-    refl  : ∀ {x} → x ≐ x
-    sym   : ∀ {x y} → x ≐ y → y ≐ x
-    trans : ∀ {x y z} → x ≐ y → y ≐ z → x ≐ z
-    cong  : ∀ {x₁ x₂ y₁ y₂} → x₁ ≐ x₂ → y₁ ≐ y₂ → x₁ · y₁ ≐ x₂ · y₂
-    K-eq  : ∀ x y → K · x · y ≐ x
-    S-eq  : ∀ x y z → S · x · y · z ≐ x · z · (y · z)
+    ≐-refl  : ∀ {x} → x ≐ x
+    ≐-sym   : ∀ {x y} → x ≐ y → y ≐ x
+    ≐-trans : ∀ {x y z} → x ≐ y → y ≐ z → x ≐ z
+    ≐-cong  : ∀ {x₁ x₂ y₁ y₂} → x₁ ≐ y₁ → x₂ ≐ y₂ → x₁ · x₂ ≐ y₁ · y₂
+    K-eq    : ∀ x y → K · x · y ≐ x
+    S-eq    : ∀ x y z → S · x · y · z ≐ x · z · (y · z)
 
   -- The identity type.
   data _≡_ (x : D) : D → Set where
@@ -73,12 +73,12 @@ module Aczel-CA where
   -- Adapted from Peter's email:
 
   -- Given
-  postulate subst : (A : D → Set) → ∀ {x y} → x ≐ y → A x → A y
+  postulate ≐-subst : (A : D → Set) → ∀ {x y} → x ≐ y → A x → A y
 
   -- we can proof
 
   ≐→≡ : ∀ {x y} → x ≐ y → x ≡ y
-  ≐→≡ {x} h = subst (λ z → x ≡ z) h refl
+  ≐→≡ {x} h = ≐-subst (λ z → x ≡ z) h refl
 
   -- but this doesn't hold because "x ≡ y" (propositional equality)
   -- means identical expressions. We do NOT have K · x · y ≡ x.
@@ -101,9 +101,10 @@ module FOTC where
 
   -- The setoid equality.
   data _≐_ : D → D → Set where
-    refl     : ∀ {x} → x ≐ x
-    sym      : ∀ {x y} → x ≐ y → y ≐ x
-    trans    : ∀ {x y z} → x ≐ y → y ≐ z → x ≐ z
+    ≐-refl   : ∀ {x} → x ≐ x
+    ≐-sym    : ∀ {x y} → x ≐ y → y ≐ x
+    ≐-trans  : ∀ {x y z} → x ≐ y → y ≐ z → x ≐ z
+    ≐-cong   : ∀ {x₁ x₂ y₁ y₂} → x₁ ≐ y₁ → x₂ ≐ y₂ → x₁ · x₂ ≐ y₁ · y₂
     if-true  : ∀ d₁ d₂ → if · true · d₁ · d₂ ≐ d₁
     if-false : ∀ d₁ d₂ → if · false · d₁ · d₂ ≐ d₂
     pred-0   : pred · zero ≐ zero
