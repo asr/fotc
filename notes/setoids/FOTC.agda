@@ -1,7 +1,8 @@
 ------------------------------------------------------------------------------
--- Using setoids for formalizing the FOTC
+-- Using setoids for formalizing FOTC
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-positivity-check #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
@@ -24,18 +25,15 @@ equality.
 
 -}
 
-module FOTC where
-
 -- References:
 --
 -- • Gilles Barthe, Venanzio Capretta, and Olivier Pons. Setoids in
 --   type theory. Journal of Functional Programming, 13(2):261–293,
 --   2003.
 
-------------------------------------------------------------------------------
+module FOTC where
 
-module Setoid where
-
+module Aczel-CA where
   -- From Peter's slides
   -- http://www.cse.chalmers.se/~peterd/slides/Amagasaki.pdf
 
@@ -49,12 +47,12 @@ module Setoid where
 
   -- The setoid equality.
   data _≐_ : D → D → Set where
-    refl  : ∀ x →                                       x ≐ x
-    sym   : ∀ {x y} → x ≐ y →                           y ≐ x
-    trans : ∀ {x y z} → x ≐ y → y ≐ z →                 x ≐ z
+    refl  : ∀ {x} → x ≐ x
+    sym   : ∀ {x y} → x ≐ y → y ≐ x
+    trans : ∀ {x y z} → x ≐ y → y ≐ z → x ≐ z
     cong  : ∀ {x₁ x₂ y₁ y₂} → x₁ ≐ x₂ → y₁ ≐ y₂ → x₁ · y₁ ≐ x₂ · y₂
-    Kax   : ∀ x y →                            K · x · y  ≐ x
-    Sax   : ∀ x y z →                      S · x · y · z  ≐ x · z · (y · z)
+    K-eq  : ∀ x y → K · x · y ≐ x
+    S-eq  : ∀ x y z → S · x · y · z ≐ x · z · (y · z)
 
   -- The identity type.
   data _≡_ (x : D) : D → Set where
@@ -75,19 +73,12 @@ module Setoid where
   -- Adapted from Peter's email:
 
   -- Given
-  postulate subst : (A : D → Set) → ∀ x y → x ≐ y → A x → A y
+  postulate subst : (A : D → Set) → ∀ {x y} → x ≐ y → A x → A y
 
-  -- you can get the instance
+  -- we can proof
 
-  subst-aux : ∀ x y → x ≐ y → x ≡ x → x ≡ y
-  subst-aux x y h₁ h₂ = subst A x y h₁ refl
-    where A : D → Set
-          A z = x ≡ z
-
-  -- hence you can prove
-
-  thm : ∀ {x y} → x ≐ y → x ≡ y
-  thm {x} {y} h = subst-aux x y h refl
+  ≐→≡ : ∀ {x y} → x ≐ y → x ≡ y
+  ≐→≡ {x} h = subst (λ z → x ≡ z) h refl
 
   -- but this doesn't hold because "x ≡ y" (propositional equality)
   -- means identical expressions. We do NOT have K · x · y ≡ x.
@@ -98,13 +89,40 @@ module Setoid where
 
 ------------------------------------------------------------------------------
 
+module FOTC where
+
+  infixl 9 _·_  -- The symbol is '\cdot'.
+  infix 7  _≐_
+
+  data D : Set where
+    _·_ : D → D → D
+    lam fix : (D → D) → D
+    true false if zero succ pred iszero : D
+
+  -- The setoid equality.
+  data _≐_ : D → D → Set where
+    refl     : ∀ {x} → x ≐ x
+    sym      : ∀ {x y} → x ≐ y → y ≐ x
+    trans    : ∀ {x y z} → x ≐ y → y ≐ z → x ≐ z
+    if-true  : ∀ d₁ d₂ → if · true · d₁ · d₂ ≐ d₁
+    if-false : ∀ d₁ d₂ → if · false · d₁ · d₂ ≐ d₂
+    pred-0   : pred · zero ≐ zero
+    pred-S   : ∀ n → pred · (succ · n) ≐ n
+    iszero-0 : iszero · zero ≐ true
+    iszero-S : ∀ n → iszero · (succ · n) ≐ false
+    beta     : ∀ f a → lam f · a ≐ f a
+    fix-eq   : ∀ f → fix f ≐ f (fix f)
+
+------------------------------------------------------------------------------
+
 module LeibnizEquality where
 
   infix 7 _≡_
 
   data D : Set where
-    K S : D
     _·_ : D → D → D
+    lam fix : (D → D) → D
+    true false if zero succ pred iszero : D
 
   -- (Barthe et al. 2003, p. 262) use the Leibniz equality when
   -- they talk about setoids.
