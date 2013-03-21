@@ -202,6 +202,7 @@ agda_changed : clean
 	make type_check_fot
 	make snapshot_compare_fot
 	make type_check_notes
+	make prove_notes
 	@echo "$@ succeeded!"
 
 ##############################################################################
