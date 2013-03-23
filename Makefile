@@ -7,14 +7,14 @@ SHELL := /bin/bash
 ##############################################################################
 # Paths
 
-fot_path            = src/fot
-peano_path          = src/peano
+fot_path   = src/fot
+peano_path = src/peano
 
 # Agda standard library path.
 std_lib_path = ~/agda-upstream/std-lib
 
 # Directory for the TPTP files.
-output_dir = /tmp/agda2atp
+output_dir = /tmp/fotc
 
 # Notes path.
 notes_path = notes
@@ -39,11 +39,11 @@ AGDA2ATP = agda2atp
 ##############################################################################
 # Auxiliary functions
 
-path_subst = $(patsubst %.agda,%.$(1), \
-	     	$(shell find $(2) \( ! -path '*/Consistency/*' \) -name '*.agda' \
-			| xargs grep -L 'The ATPs could not prove the theorem' \
-			| xargs grep -l 'ATP prove' \
-		  	| sort))
+my_pathsubst = $(patsubst %.agda,%.$(1), \
+	     	 $(shell find $(2) \( ! -path '*/Consistency/*' \) -name '*.agda' \
+		 	 | xargs grep -L 'The ATPs could not prove the theorem' \
+			 | xargs grep -l 'ATP prove' \
+		  	 | sort))
 
 ##############################################################################
 # Files
@@ -58,12 +58,12 @@ type_check_agsy_fot_files = \
   $(patsubst %.agda,%.type_check_agsy_fot, \
     $(shell find $(fot_path)/Agsy/ -name '*.agda' | sort))
 
-snapshot_create_fot_files = $(call path_subst,snapshot_create_fot,$(fot_path))
+snapshot_create_fot_files = $(call my_pathsubst,snapshot_create_fot,$(fot_path))
 
 snapshot_compare_fot_files = \
-  $(call path_subst,snapshot_compare_fot,$(fot_path))
+  $(call my_pathsubst,snapshot_compare_fot,$(fot_path))
 
-prove_fot_files = $(call path_subst,prove_fot,$(fot_path))
+prove_fot_files = $(call my_pathsubst,prove_fot,$(fot_path))
 
 consistency_fot_files = \
   $(patsubst %.agda,%.consistency_fot, \
@@ -75,7 +75,7 @@ type_check_notes_files = \
   $(patsubst %.agda,%.type_check_notes, \
     $(shell find $(notes_path) -name '*.agda' | sort))
 
-prove_notes_files = $(call path_subst,prove_notes,$(notes_path))
+prove_notes_files = $(call my_pathsubst,prove_notes,$(notes_path))
 
 # Others
 
@@ -155,21 +155,22 @@ consistency_fot : $(consistency_fot_files)
 ##############################################################################
 # Notes: Type-checking
 
+type_check_notes_path = \
+  -i$(fot_path) \
+  -i $(std_lib_path)/src/ \
+  -i$(notes_path) \
+  -i$(notes_path)/discrimination-rules \
+  -i$(notes_path)/fixed-points \
+  -i$(notes_path)/papers/fossacs-2012 \
+  -i$(notes_path)/papers/paper-2011/ \
+  -i$(notes_path)/README \
+  -i$(notes_path)/setoids \
+  -i$(notes_path)/strictly-positive-inductive-types \
+  -i$(notes_path)/thesis \
+  -i$(notes_path)/type-classes
+
 %.type_check_notes :
-	$(AGDA) -i$(fot_path) \
-                -i $(std_lib_path)/src/ \
-	        -inotes \
-	        -inotes/agda-interface \
-	        -inotes/discrimination-rules \
-	        -inotes/fixed-points \
-                -inotes/papers/fossacs-2012 \
-                -inotes/papers/paper-2011/ \
-	        -inotes/README \
-                -inotes/setoids \
-	        -inotes/strictly-positive-inductive-types \
-                -inotes/thesis \
-                -inotes/type-classes \
-	        $*.agda
+	$(AGDA) $(type_check_notes_path) $*.agda
 
 type_check_notes : $(type_check_notes_files)
 	@echo "$@ succeeded!"
@@ -178,10 +179,10 @@ type_check_notes : $(type_check_notes_files)
 # Notes: Prove theorems
 
 prove_notes_path = -i$(fot_path) \
-                   -inotes \
-                   -inotes/papers/fossacs-2012 \
-                   -inotes/thesis/ \
-                   -inotes/README
+                   -i$(notes_path) \
+                   -i$(notes_path)/papers/fossacs-2012 \
+                   -i$(notes_path)/thesis/ \
+                   -i$(notes_path)/README
 
 %.prove_notes :
 	$(AGDA) $(prove_notes_path) $*.agda
