@@ -111,7 +111,6 @@ open import FOTC.Program.Collatz.Data.Nat
 open import FOTC.Program.Collatz.Data.Nat.Consistency.Axioms
 open import FOTC.Program.Collatz.Data.Nat.PropertiesATP
 open import FOTC.Program.Collatz.Data.Nat.PropertiesI
-open import FOTC.Program.Collatz.Properties.UnprovedATP
 open import FOTC.Program.Collatz.PropertiesI
 open import FOTC.Program.Collatz.PropertiesATP
 

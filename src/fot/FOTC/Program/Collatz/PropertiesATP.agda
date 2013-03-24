@@ -18,23 +18,16 @@ open import FOTC.Program.Collatz.Data.Nat.PropertiesATP
 
 ------------------------------------------------------------------------------
 
-helper-helper : ∀ {n} → N n → collatz ([2] ^ succ₁ n) ≡
-                        collatz (div ([2] ^ succ₁ n) [2])
-helper-helper nzero = prf
-  where postulate prf : collatz ([2] ^ succ₁ zero) ≡
-                        collatz (div ([2] ^ succ₁ zero) [2])
+helper : ∀ {n} → N n → collatz ([2] ^ succ₁ n) ≡ collatz ([2] ^ n)
+helper nzero = prf
+  where postulate prf : collatz ([2] ^ succ₁ zero) ≡ collatz ([2] ^ zero)
         {-# ATP prove prf #-}
-
-helper-helper (nsucc {n} Nn) = prf
-  where postulate prf : collatz ([2] ^ succ₁ (succ₁ n)) ≡
-                        collatz (div ([2] ^ succ₁ (succ₁ n)) [2])
-        {-# ATP prove prf +∸2 ^-N 2-N 2^x≢0 2^[x+1]≢1
+helper (nsucc {n} Nn) = prf
+  -- 18 December 2012: The ATPs could not prove the theorem (240 sec).
+  where postulate prf : collatz ([2] ^ succ₁ (succ₁ n)) ≡ collatz ([2] ^ succ₁ n)
+        {-# ATP prove prf +∸2 ^-N 2-N 2^x≢0 2^[x+1]≢1 div-2^[x+1]-2≡2^x
                       x-Even→SSx-Even ∸-N ∸-Even 2^[x+1]-Even 2-Even
-        #-}
-
--- We help the ATPs proving the helper-helper property first.
-postulate helper : ∀ {n} → N n → collatz ([2] ^ succ₁ n) ≡ collatz ([2] ^ n)
-{-# ATP prove helper helper-helper div-2^[x+1]-2≡2^x #-}
+         #-}
 
 collatz-2^x : ∀ {n} → N n → collatz ([2] ^ n) ≡ [1]
 collatz-2^x nzero = prf

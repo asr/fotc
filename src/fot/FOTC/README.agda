@@ -189,4 +189,3 @@ open import FOTC.Program.Collatz.PropertiesI
 -- Unproven theorems by the ATPs
 
 open import FOTC.Program.ABP.ProofSpecification.UnprovedATP
-open import FOTC.Program.Collatz.Properties.UnprovedATP
