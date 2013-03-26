@@ -133,7 +133,6 @@ prop₂ u x y z =
                  xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu))
   {-# ATP prove j₃ #-}
 
-  -- 25 March 2013: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
   postulate j₄ : xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu)) ≡
                  xy·zu · (xz · xu·yu · (y·zu · xz·yu))
   {-# ATP prove j₄ #-}
@@ -199,7 +198,6 @@ prop₂ u x y z =
           (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu)))
   {-# ATP prove j₁₈ #-}
 
-  -- 25 March 2013: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
   postulate
     j₁₉ : xz · xyu ·
           (y·xu · y·yu · (y·xu · z·yu) · (z · xu·yu · (y·xu · z·yu))) ≡
