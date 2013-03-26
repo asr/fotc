@@ -2,10 +2,10 @@
 -- Running the ATPs
 ------------------------------------------------------------------------------
 
-For E 1.2, E 1.3, E 1.4 or E 1.5:
+For E 1.2, E 1.3, E 1.4 and E 1.5:
 $ eprover --cpu-limit=xxx --expert-heuristic=Auto --memory-limit=Auto --term-ordering=Auto --tstp-format file_name
 
-For E 1.6:
+For E 1.6 and E 1.7:
 $ eprover --auto --cpu-limit=xxx --memory-limit=Auto --tstp-format file_name
 
 $ equinox --time xxx file_name
@@ -18,13 +18,13 @@ $ vampire_lin64 -t xxx --input_file file_name
 -- Messages related to the ATPs
 ------------------------------------------------------------------------------
 
--- 2012-02-23: The ATPs (see README.agda) do not prove the theorem (240 sec).
+-- 25 March 2013: The ATPs did not prove the theorem (240 sec).
 
--- 2012-02-23: Only E 1.6 Tiger Hill proved the theorem (240 sec).
--- 2012-02-23: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
--- 2012-02-23: Only Metis 2.3 (release 20110926) proved the theorem (240 sec).
--- 2012-02-23: Only SPASS 3.7 proved the theorem (240 sec).
--- 2012-02-23: Only Vampire 0.6 (revision 903) proved the theorem (240 sec).
+-- 25 March 2013: Only E 1.7 E 1.7 Jun Chiabari proved the theorem (240 sec).
+-- 25 March 2013: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
+-- 25 March 2013: Only Metis 2.3 (release 20110926) proved the theorem (240 sec).
+-- 25 March 2013: Only SPASS 3.7 proved the theorem (240 sec).
+-- 25 March 2013: Only Vampire 0.6 (revision 903) proved the theorem (240 sec).
 
 ------------------------------------------------------------------------------
 -- Schema for equational reasoning

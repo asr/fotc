@@ -40,6 +40,6 @@ spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ = ≈-coind B prf₁ prf₂
                    is ≡ i' ∷ is' ∧ js ≡ i' ∷ js' ∧ B is' js'
   {-# ATP prove prf₁ lemma₁ lemma₂ not-Bool #-}
 
-  -- 24 March 2013: The ATPs could not prove the theorem (240 sec).
+  -- 25 March 2013: The ATPs could not prove the theorem (240 sec).
   postulate prf₂ : B is (transfer b os₀ os₁ is)
   {-# ATP prove prf₂ #-}

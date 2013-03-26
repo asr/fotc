@@ -67,7 +67,6 @@ module Helper where
            ∧ js ≡ i' ∷ js'
   helper {b} {i'} {is'} {js = js} Bb Fos₁ abp .(T ∷ []) os₀' f*tnil Fos₀' os₀-eq = prf
     where
-    -- 25 July 2012: Only Equinox 5.0alpha (2010-06-29) proved the theorem (240 sec).
     postulate
       prf : ∃[ os₀' ] ∃[ os₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
             Fair os₀'
