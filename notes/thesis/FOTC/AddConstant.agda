@@ -7,25 +7,43 @@
 
 module FOTC.AddConstant where
 
-open import FOTC.Base
-
 ------------------------------------------------------------------------------
+-- We add 3 to the fixities of the standard library.
+infixl 9 _·_
+infix  7 _≡_
+
+postulate
+  D                      : Set
+  _·_                    : D → D → D
+  true false if          : D
+  zero succ pred iszero  : D
+  _≡_                    : D → D → Set
+
+postulate
+  if-true  : ∀ d₁ {d₂} → if · true  · d₁ · d₂ ≡ d₁
+  if-false : ∀ {d₁} d₂ → if · false · d₁ · d₂ ≡ d₂
+  pred-0   : pred · zero ≡ zero
+  pred-S   : ∀ n → pred · (succ · n) ≡ n
+  iszero-0 : iszero · zero ≡ true
+  iszero-S : ∀ n → iszero · (succ · n) ≡ false
+{-# ATP axiom if-true if-false pred-0 pred-S iszero-0 iszero-S #-}
 
 postulate
   +    : D
-  +-eq : ∀ m n → + · m · n ≡ if (iszero₁ m) then n else succ₁ (+ · (pred₁ m) · n)
+  +-eq : ∀ m n → + · m · n ≡
+         if · (iszero · m) · n · (succ · (+ · (pred · m) · n))
 {-# ATP axiom +-eq #-}
 
 postulate
   +-0x : ∀ n → + · zero · n ≡ n
-  +-Sx : ∀ m n → + · (succ₁ m) · n ≡ succ₁ (+ · m · n)
+  +-Sx : ∀ m n → + · (succ · m) · n ≡ succ · (+ · m · n)
 {-# ATP prove +-0x #-}
 {-# ATP prove +-Sx #-}
 
 -- $ cd fotc/notes/thesis
 -- $ agda -i. -i ~/fot FOTC/AddConstant.agda
 -- $ agda2atp -i. -i ~/fot FOTC/AddConstant.agda
--- Proving the conjecture in /tmp/FOTC/AddConstant/21-43-Sx.tptp ...
+-- Proving the conjecture in /tmp/FOTC/AddConstant/37-43-0x.tptp ...
 -- Vampire 0.6 (revision 903) proved the conjecture
--- Proving the conjecture in /tmp/FOTC/AddConstant/20-43-0x.tptp ...
--- E 1.7 Jun Chiabari proved the conjecture
+-- Proving the conjecture in /tmp/FOTC/AddConstant/38-43-Sx.tptp ...
+-- Vampire 0.6 (revision 903) proved the conjecture
