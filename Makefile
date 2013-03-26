@@ -250,7 +250,7 @@ fot_changed :
 # Git : pre-commit test
 
 git_pre_commit :
-	@fix-whitespace --check
+	fix-whitespace --check
 	@echo "$@ succeeded!"
 
 install :
