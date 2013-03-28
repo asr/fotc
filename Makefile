@@ -32,6 +32,7 @@ AGDA2ATP = agda2atp
 # AGDA2ATP = agda2atp --atp=e
 # AGDA2ATP = agda2atp --atp=equinox
 # AGDA2ATP = agda2atp --atp=ileancop
+# See notes/atps/README-summary-proofs.txt for using only metis
 # AGDA2ATP = agda2atp --atp=metis
 # AGDA2ATP = agda2atp --atp=spass
 # AGDA2ATP = agda2atp --atp=vampire
