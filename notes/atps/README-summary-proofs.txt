@@ -1,5 +1,6 @@
-* Metis might continue to run past the time limit, so for testing with
-  Metis we should use the following commands:
+* Metis 2.3 (release 20120927) might continue to run past the time
+  limit, so for testing with Metis we should use the following
+  commands:
 
 $ ulimit -S -t xxx
 $ run test
