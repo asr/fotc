@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --universal-quantified-propositional-functions #-}
+{-# OPTIONS --schematic-propositional-functions #-}
 {-# OPTIONS --without-K #-}
 
 module FOT.FOL.SchemataATP where

@@ -1,6 +1,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --schematic-propositional-symbols #-}
 {-# OPTIONS --without-K #-}
-{-# OPTIONS --universal-quantified-formulae #-}
 
 module CombiningProofs.CommDisjunctionSchema where
 

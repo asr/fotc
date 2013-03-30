@@ -1,5 +1,5 @@
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --universal-quantified-formulae #-}
+{-# OPTIONS --schematic-propositional-symbols #-}
 {-# OPTIONS --without-K #-}
 
 module Examples where

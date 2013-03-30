@@ -3,8 +3,8 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --universal-quantified-formulae #-}
-{-# OPTIONS --universal-quantified-propositional-functions #-}
+{-# OPTIONS --schematic-propositional-functions #-}
+{-# OPTIONS --schematic-propositional-symbols #-}
 {-# OPTIONS --without-K #-}
 
 module FOL.SchemataATP where
