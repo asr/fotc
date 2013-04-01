@@ -51,9 +51,9 @@ subst₄ : (A : D → D → D → D → Set) → ∀ {x₁ x₂ x₃ x₄ y₁ y
          A y₁ y₂ y₃ y₄
 subst₄ A refl refl refl refl Axs = Axs
 
-cong : (f : D → D) → ∀ {x y} → x ≡ y → f x ≡ f y
-cong f refl = refl
+-- cong : (f : D → D) → ∀ {x y} → x ≡ y → f x ≡ f y
+-- cong f refl = refl
 
-cong₂ : (f : D → D → D) → ∀ {x₁ x₂ y₁ y₂} → x₁ ≡ y₁ → x₂ ≡ y₂ →
-        f x₁ x₂ ≡ f y₁ y₂
-cong₂ f refl refl = refl
+-- cong₂ : (f : D → D → D) → ∀ {x₁ x₂ y₁ y₂} → x₁ ≡ y₁ → x₂ ≡ y₂ →
+--         f x₁ x₂ ≡ f y₁ y₂
+-- cong₂ f refl refl = refl

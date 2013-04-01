@@ -27,6 +27,7 @@ open import FOTC.Data.List.PropertiesI
 open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.Fair.PropertiesI
+open import FOTC.Program.ABP.PropertiesI
 open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
@@ -202,7 +203,7 @@ module Helper where
     as⁵-eq-helper₁ : ds ≡ ok (not b) ∷ ds⁵ → as⁵ ≡ send · b · (i' ∷ is') · ds⁵
     as⁵-eq-helper₁ h =
       await b i' is' ds
-        ≡⟨ cong (await b i' is') h ⟩
+        ≡⟨ awaitCong₄ h ⟩
       await b i' is' (ok (not b) ∷ ds⁵)
         ≡⟨ await-ok≢ b (not b) i' is' ds⁵ (x≢not-x Bb) ⟩
       < i' , b > ∷ await b i' is' ds⁵
@@ -211,7 +212,7 @@ module Helper where
 
     as⁵-eq-helper₂ : ds ≡ error ∷ ds⁵ → as⁵ ≡ send · b · (i' ∷ is') · ds⁵
     as⁵-eq-helper₂ h =
-      await b i' is' ds               ≡⟨ cong (await b i' is') h ⟩
+      await b i' is' ds               ≡⟨ awaitCong₄ h ⟩
       await b i' is' (error ∷ ds⁵)    ≡⟨ await-error b i' is' ds⁵ ⟩
       < i' , b > ∷ await b i' is' ds⁵ ≡⟨ sym (send-eq b i' is' ds⁵) ⟩
       send · b · (i' ∷ is') · ds⁵     ∎

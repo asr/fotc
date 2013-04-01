@@ -92,6 +92,15 @@ private
   ∸-s₉ m n = fix ∸-helper · pred₁ m · pred₁ n
 
   ----------------------------------------------------------------------------
+  -- Congruence properties
+
+  ∸-s₄Cong₃ : ∀ {m n b₁ b₂} → b₁ ≡ b₂ → ∸-s₄ m n b₁ ≡ ∸-s₄ m n b₂
+  ∸-s₄Cong₃ refl = refl
+
+  ∸-s₇Cong₃ : ∀ {m n b₁ b₂} → b₁ ≡ b₂ → ∸-s₇ m n b₁ ≡ ∸-s₇ m n b₂
+  ∸-s₇Cong₃ refl = refl
+
+  ----------------------------------------------------------------------------
   -- The execution steps
 
   -- See doc in LTC-PCF.Program.GCD.Total.Equations.
@@ -110,7 +119,7 @@ private
   proof₂₋₃ m n = beta (∸-s₃ m) n
 
   proof₃₋₄ : ∀ m n b → iszero₁ n ≡ b → ∸-s₃ m n ≡ ∸-s₄ m n b
-  proof₃₋₄ m n b = cong (∸-s₄ m n)
+  proof₃₋₄ m n b = ∸-s₄Cong₃
 
   proof₄₊ : ∀ m n → ∸-s₄ m n true ≡ ∸-s₅ m
   proof₄₊ m _ = if-true (∸-s₅ m)
@@ -119,7 +128,7 @@ private
   proof₄₋₆ m n = if-false (∸-s₆ m n)
 
   proof₆₋₇ : ∀ m n b → iszero₁ m ≡ b → ∸-s₆ m n ≡ ∸-s₇ m n b
-  proof₆₋₇ m n b = cong (∸-s₇ m n)
+  proof₆₋₇ m n b = ∸-s₇Cong₃
 
   proof₇₊ : ∀ m n → ∸-s₇ m n true ≡ ∸-s₈
   proof₇₊ m n = if-true ∸-s₈

@@ -27,7 +27,7 @@ open import Common.FOL.Relation.Binary.EqReasoning
 
 -- The propositional equality is compatible with the inverse function.
 ⁻¹-cong : ∀ {a b} → a ≡ b → a ⁻¹ ≡ b ⁻¹
-⁻¹-cong = cong _⁻¹
+⁻¹-cong refl = refl
 
 ------------------------------------------------------------------------------
 

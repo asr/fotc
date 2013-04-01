@@ -44,10 +44,13 @@ open import FOTC.Base.PropertiesI
 -- fixed-point of f (Ésik, 2009, p. 31).
 
 ------------------------------------------------------------------------------
--- Auxiliary definitions
+-- Auxiliary definitions and properties
 
 flip : {A B C : Set} → (A → B → C) → B → A → C
 flip f b a = f a b
+
+cong : (f : D → D) → ∀ {x y} → x ≡ y → f x ≡ f y
+cong f refl = refl
 
 ------------------------------------------------------------------------------
 -- N is a least fixed-point of a functor

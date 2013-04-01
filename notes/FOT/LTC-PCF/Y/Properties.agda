@@ -17,6 +17,7 @@ open import Common.FOL.Relation.Binary.EqReasoning
 open import FOT.LTC-PCF.Y
 
 open import LTC-PCF.Base hiding ( fix ; fix-eq )
+open import LTC-PCF.Base.Properties
 
 ------------------------------------------------------------------------------
 
@@ -25,7 +26,7 @@ Y-eq : ∀ f → Y · f ≡ f · (Y · f)
 Y-eq f = Y · f             ≡⟨ beta helper f ⟩
          lamW · lamW       ≡⟨ beta W lamW ⟩
          W lamW            ≡⟨ refl ⟩
-         f · (lamW · lamW) ≡⟨ cong (_·_ f) (sym (beta helper f)) ⟩
+         f · (lamW · lamW) ≡⟨ ·-rightCong (sym (beta helper f)) ⟩
          f · (Y · f)       ∎
   where
   helper : D → D
@@ -41,6 +42,6 @@ Y-eq f = Y · f             ≡⟨ beta helper f ⟩
 Y₁-eq : (f : D → D) → Y₁ f ≡ f (Y₁ f)
 Y₁-eq f = Y₁ f                ≡⟨ refl ⟩
           Y · lam f           ≡⟨ Y-eq (lam f) ⟩
-          lam f · (Y · lam f) ≡⟨ cong (_·_ (lam f)) refl ⟩
+          lam f · (Y · lam f) ≡⟨ ·-rightCong refl ⟩
           lam f · Y₁ f        ≡⟨ beta f (Y₁ f) ⟩
           f (Y₁ f)            ∎

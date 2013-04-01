@@ -24,6 +24,9 @@ open import FOTC.Data.Nat.UnaryNumbers
 ------------------------------------------------------------------------------
 -- Congruence properties
 
+leLeftCong : ∀ {m n o} → m ≡ n → le m o ≡ le n o
+leLeftCong refl = refl
+
 ltLeftCong : ∀ {m n o} → m ≡ n → lt m o ≡ lt n o
 ltLeftCong refl = refl
 

@@ -14,20 +14,17 @@ open import FOTC.Data.Nat.UnaryNumbers
 ------------------------------------------------------------------------------
 -- Congruence properties
 
-succCong : ∀ {m n} → m ≡ n → succ₁ m ≡ succ₁ n
-succCong refl = refl
+-- postulate +-leftCong : ∀ {m n o} → m ≡ n → m + o ≡ n + o
+-- {-# ATP prove +-leftCong #-}
 
-postulate +-leftCong : ∀ {m n o} → m ≡ n → m + o ≡ n + o
-{-# ATP prove +-leftCong #-}
+-- postulate +-rightCong : ∀ {m n o} → n ≡ o → m + n ≡ m + o
+-- {-# ATP prove +-rightCong #-}
 
-postulate +-rightCong : ∀ {m n o} → n ≡ o → m + n ≡ m + o
-{-# ATP prove +-rightCong #-}
+-- postulate *-leftCong : ∀ {m n o} → m ≡ n → m * o ≡ n * o
+-- {-# ATP prove *-leftCong #-}
 
-postulate *-leftCong : ∀ {m n o} → m ≡ n → m * o ≡ n * o
-{-# ATP prove *-leftCong #-}
-
-postulate *-rightCong : ∀ {m n o} → n ≡ o → m * n ≡ m * o
-{-# ATP prove *-rightCong #-}
+-- postulate *-rightCong : ∀ {m n o} → n ≡ o → m * n ≡ m * o
+-- {-# ATP prove *-rightCong #-}
 
 ------------------------------------------------------------------------------
 -- Totality properties

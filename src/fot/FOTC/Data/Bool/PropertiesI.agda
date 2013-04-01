@@ -27,6 +27,9 @@ open import FOTC.Data.Nat.Type
 &&-cong : ∀ {a b c d } → a ≡ c → b ≡ d → a && b ≡ c && d
 &&-cong refl refl = refl
 
+notCong : ∀ {a b} → a ≡ b → not a ≡ not b
+notCong refl = refl
+
 ------------------------------------------------------------------------------
 -- Basic properties
 
@@ -182,8 +185,8 @@ not-x≢x : ∀ {b} → Bool b → not b ≢ b
 not-x≢x Bb h = x≢not-x Bb (sym h)
 
 not-involutive : ∀ {b} → Bool b → not (not b) ≡ b
-not-involutive btrue  = trans (cong not not-t) not-f
-not-involutive bfalse = trans (cong not not-f) not-t
+not-involutive btrue  = trans (notCong not-t) not-f
+not-involutive bfalse = trans (notCong not-f) not-t
 
 ------------------------------------------------------------------------------
 -- Properties with inequalities

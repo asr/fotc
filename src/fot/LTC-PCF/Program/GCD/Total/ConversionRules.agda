@@ -102,6 +102,12 @@ private
                     else fix gcdh · m · (n ∸ m)
 
   ----------------------------------------------------------------------------
+  -- Congruence properties
+
+  gcd-s₉Cong₃ : ∀ {m n b₁ b₂} → b₁ ≡ b₂ → gcd-s₉ m n b₁ ≡ gcd-s₉ m n b₂
+  gcd-s₉Cong₃ refl = refl
+
+  ----------------------------------------------------------------------------
   -- The execution steps
 
   {-
@@ -160,7 +166,7 @@ private
   proof₇₋₈ m n = if-false (gcd-s₈ m n)
 
   proof₈₋₉ : ∀ m n b → gt m n ≡ b → gcd-s₈ m n ≡ gcd-s₉ m n b
-  proof₈₋₉ m n b = cong (gcd-s₉ m n)
+  proof₈₋₉ m n b = gcd-s₉Cong₃
 
   proof₉₊ : ∀ m n → gcd-s₉ m n true ≡ fix gcdh · (m ∸ n) · n
   proof₉₊ m n = if-true (fix gcdh · (m ∸ n) · n)

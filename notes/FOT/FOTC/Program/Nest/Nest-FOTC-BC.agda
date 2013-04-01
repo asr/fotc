@@ -47,11 +47,14 @@ dom-N : ∀ d → Dom d → N d
 dom-N .zero      dom0           = nzero
 dom-N .(succ₁ d) (domS d h₁ h₂) = nsucc (dom-N d h₁)
 
+nestCong : ∀ {n₁ n₂} → n₁ ≡ n₂ → nest n₁ ≡ nest n₂
+nestCong refl = refl
+
 nest-x≡0 : ∀ {n} → N n → nest n ≡ zero
 nest-x≡0 nzero = nest-0
 nest-x≡0 (nsucc {n} Nn) =
   nest (succ₁ n) ≡⟨ nest-S n ⟩
-  nest (nest n)  ≡⟨ cong nest (nest-x≡0 Nn) ⟩
+  nest (nest n)  ≡⟨ nestCong (nest-x≡0 Nn) ⟩
   nest zero      ≡⟨ nest-0 ⟩
   zero           ∎
 
@@ -66,9 +69,9 @@ nest-N : ∀ {n} → N n → N (nest n)
 nest-N Nn = subst N (sym (nest-x≡0 Nn)) nzero
 
 nest-≤ : ∀ {n} → Dom n → nest n ≤ n
-nest-≤ dom0 = le (nest zero) zero ≡⟨ cong₂ le nest-0 refl ⟩
+nest-≤ dom0 = le (nest zero) zero ≡⟨ leLeftCong nest-0 ⟩
               le zero zero        ≡⟨ x≤x nzero ⟩
-              true             ∎
+              true                ∎
 
 nest-≤ (domS n h₁ h₂) =
   ≤-trans (nest-N (nsucc (dom-N n h₁))) (nest-N (dom-N n h₁)) (nsucc Nn) prf₁ prf₂
@@ -77,9 +80,9 @@ nest-≤ (domS n h₁ h₂) =
     Nn = dom-N n h₁
 
     prf₁ : nest (succ₁ n) ≤ nest n
-    prf₁ = le (nest (succ₁ n)) (nest n) ≡⟨ cong₂ le (nest-S n) refl ⟩
+    prf₁ = le (nest (succ₁ n)) (nest n) ≡⟨ leLeftCong (nest-S n) ⟩
            le (nest (nest n)) (nest n)  ≡⟨ nest-≤ h₂ ⟩
-           true                    ∎
+           true                         ∎
 
     prf₂ : nest n ≤ succ₁ n
     prf₂ = ≤-trans (nest-N (dom-N n h₁)) Nn (nsucc Nn) (nest-≤ h₁) (x≤Sx Nn)

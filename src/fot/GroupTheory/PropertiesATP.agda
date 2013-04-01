@@ -12,19 +12,19 @@ open import GroupTheory.Base
 ------------------------------------------------------------------------------
 -- Congruence properties
 
--- The propositional equality is compatible with the binary operation.
-postulate ·-cong : ∀ {a b c d} → a ≡ b → c ≡ d → a · c ≡ b · d
-{-# ATP prove ·-cong #-}
+-- -- The propositional equality is compatible with the binary operation.
+-- postulate ·-cong : ∀ {a b c d} → a ≡ b → c ≡ d → a · c ≡ b · d
+-- {-# ATP prove ·-cong #-}
 
-postulate ·-leftCong : ∀ {a b c} → a ≡ b → a · c ≡ b · c
-{-# ATP prove ·-leftCong #-}
+-- postulate ·-leftCong : ∀ {a b c} → a ≡ b → a · c ≡ b · c
+-- {-# ATP prove ·-leftCong #-}
 
-postulate ·-rightCong : ∀ {a b c} → b ≡ c → a · b ≡ a · c
-{-# ATP prove ·-rightCong #-}
+-- postulate ·-rightCong : ∀ {a b c} → b ≡ c → a · b ≡ a · c
+-- {-# ATP prove ·-rightCong #-}
 
--- The propositional equality is compatible with the inverse function.
-postulate ⁻¹-cong : ∀ {a b} → a ≡ b → a ⁻¹ ≡ b ⁻¹
-{-# ATP prove ⁻¹-cong #-}
+-- -- The propositional equality is compatible with the inverse function.
+-- postulate ⁻¹-cong : ∀ {a b} → a ≡ b → a ⁻¹ ≡ b ⁻¹
+-- {-# ATP prove ⁻¹-cong #-}
 
 ------------------------------------------------------------------------------
 

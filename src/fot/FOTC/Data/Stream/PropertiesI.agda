@@ -21,6 +21,7 @@ open import FOTC.Base.List.PropertiesI
 open import FOTC.Data.Conat
 open import FOTC.Data.Conat.Equality
 open import FOTC.Data.List
+open import FOTC.Data.List.PropertiesI
 open import FOTC.Data.Stream
 
 -----------------------------------------------------------------------------
@@ -46,7 +47,7 @@ streamLength {xs} Sxs = ≈N-coind R prf₁ prf₂
 
     where
     helper₁ : m ≡ succ₁ (length xs'')
-    helper₁ = trans₂ h₁ (cong length xs'≡x''∷xs'') (length-∷ x'' xs'')
+    helper₁ = trans₂ h₁ (lengthCong xs'≡x''∷xs'') (length-∷ x'' xs'')
 
     helper₂ : n ≡ succ₁ n
     helper₂ = trans₂ h₂ ∞-eq (succCong (sym h₂))
