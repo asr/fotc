@@ -13,7 +13,7 @@ open import FOTC.Data.Nat.Divisibility.By0
 open import FOTC.Data.Nat.Divisibility.By0.PropertiesATP
 open import FOTC.Data.Nat.Induction.NonAcc.LexicographicATP
 open import FOTC.Data.Nat.Inequalities
-open import FOTC.Data.Nat.Inequalities.EliminationProperties
+open import FOTC.Data.Nat.Inequalities.EliminationPropertiesATP
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.PropertiesATP
 open import FOTC.Program.GCD.Total.Definitions

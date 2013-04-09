@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Elimation properties of the inequalities
+-- Elimination properties for the inequalities
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Data.Nat.Inequalities.EliminationProperties where
+module FOTC.Data.Nat.Inequalities.EliminationPropertiesI where
 
 open import FOTC.Base
 open import FOTC.Data.Nat

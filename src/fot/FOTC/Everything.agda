@@ -63,7 +63,8 @@ open import FOTC.Data.Nat.Induction.NonAcc.WF-ATP
 open import FOTC.Data.Nat.Induction.NonAcc.WF-I
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.Consistency.Axioms
-open import FOTC.Data.Nat.Inequalities.EliminationProperties
+open import FOTC.Data.Nat.Inequalities.EliminationPropertiesATP
+open import FOTC.Data.Nat.Inequalities.EliminationPropertiesI
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.List

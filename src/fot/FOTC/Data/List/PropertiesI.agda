@@ -16,7 +16,7 @@ open import FOTC.Base.PropertiesI
 open import FOTC.Data.Conat
 open import FOTC.Data.List
 open import FOTC.Data.Nat.Inequalities
-open import FOTC.Data.Nat.Inequalities.EliminationProperties
+open import FOTC.Data.Nat.Inequalities.EliminationPropertiesI
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 open import FOTC.Data.Nat.PropertiesI
 open import FOTC.Data.Nat.Type

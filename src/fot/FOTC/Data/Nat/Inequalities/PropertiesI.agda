@@ -13,7 +13,7 @@ open import FOTC.Base
 open import FOTC.Base.PropertiesI
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
-open import FOTC.Data.Nat.Inequalities.EliminationProperties
+open import FOTC.Data.Nat.Inequalities.EliminationPropertiesI
 open import FOTC.Data.Nat.PropertiesI
 open import FOTC.Data.Nat.UnaryNumbers
 

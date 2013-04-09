@@ -64,7 +64,8 @@ open import FOTC.Data.Nat.Induction.Acc.WF-I
 open import FOTC.Data.Nat.Induction.NonAcc.LexicographicI
 
 -- Inequalites
-open import FOTC.Data.Nat.Inequalities.EliminationProperties
+open import FOTC.Data.Nat.Inequalities.EliminationPropertiesATP
+open import FOTC.Data.Nat.Inequalities.EliminationPropertiesI
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.Inequalities.PropertiesI
 

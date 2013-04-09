@@ -12,7 +12,7 @@ module FOTC.Data.Nat.Induction.Acc.WF-ATP where
 
 open import FOTC.Base
 open import FOTC.Data.Nat.Inequalities
-open import FOTC.Data.Nat.Inequalities.EliminationProperties
+open import FOTC.Data.Nat.Inequalities.EliminationPropertiesATP
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.Type
 open import FOTC.Induction.WF
