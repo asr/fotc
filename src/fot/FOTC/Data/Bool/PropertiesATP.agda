@@ -91,21 +91,27 @@ not-Bool bfalse = prf
 
 &&-list₄-t₁ : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
               a && b && c && d ≡ true → a ≡ true
-&&-list₄-t₁ Ba Bb Bc Bd h = ∧-proj₁ (&&-list₄-t Ba Bb Bc Bd h)
+&&-list₄-t₁ {a} Ba Bb Bc Bd h = prf
+  where postulate prf : a ≡ true
+        {-# ATP prove prf &&-list₄-t #-}
 
 &&-list₄-t₂ : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
               a && b && c && d ≡ true → b ≡ true
-&&-list₄-t₂ Ba Bb Bc Bd h = ∧-proj₁ (∧-proj₂ (&&-list₄-t Ba Bb Bc Bd h))
+&&-list₄-t₂ {b = b} Ba Bb Bc Bd h = prf
+  where postulate prf : b ≡ true
+        {-# ATP prove prf &&-list₄-t #-}
 
 &&-list₄-t₃ : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
               a && b && c && d ≡ true → c ≡ true
-&&-list₄-t₃ Ba Bb Bc Bd h =
-  ∧-proj₁ (∧-proj₂ (∧-proj₂ (&&-list₄-t Ba Bb Bc Bd h)))
+&&-list₄-t₃ {c = c} Ba Bb Bc Bd h = prf
+  where postulate prf : c ≡ true
+        {-# ATP prove prf &&-list₄-t #-}
 
 &&-list₄-t₄ : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
               a && b && c && d ≡ true → d ≡ true
-&&-list₄-t₄ Ba Bb Bc Bd h =
-  ∧-proj₂ (∧-proj₂ (∧-proj₂ (&&-list₄-t Ba Bb Bc Bd h)))
+&&-list₄-t₄ {d = d} Ba Bb Bc Bd h = prf
+  where postulate prf : d ≡ true
+        {-# ATP prove prf &&-list₄-t #-}
 
 x≢not-x : ∀ {b} → Bool b → b ≢ not b
 x≢not-x btrue = prf
