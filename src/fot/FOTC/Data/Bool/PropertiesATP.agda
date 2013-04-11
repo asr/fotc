@@ -16,12 +16,6 @@ open import FOTC.Data.Nat.Type
 ------------------------------------------------------------------------------
 -- Basic properties
 
-postulate t&&x≡x : ∀ b → true && b ≡ b
-{-# ATP prove t&&x≡x #-}
-
-postulate f&&x≡f : ∀ b → false && b ≡ false
-{-# ATP prove f&&x≡f #-}
-
 &&-Bool : ∀ {a b} → Bool a → Bool b → Bool (a && b)
 &&-Bool {b = b} btrue Bb = prf
   where postulate prf : Bool (true && b)
@@ -39,55 +33,47 @@ not-Bool bfalse = prf
         {-# ATP prove prf #-}
 
 &&-list₂-t : ∀ {a b} → Bool a → Bool b → a && b ≡ true → a ≡ true ∧ b ≡ true
-&&-list₂-t btrue btrue   h = refl , refl
-&&-list₂-t btrue bfalse  h = ⊥-elim (t≢f (trans (sym h) (t&&x≡x false)))
-&&-list₂-t bfalse btrue  h = ⊥-elim (t≢f (trans (sym h) (f&&x≡f true)))
-&&-list₂-t bfalse bfalse h = ⊥-elim (t≢f (trans (sym h) (f&&x≡f false)))
+&&-list₂-t btrue btrue h = prf
+  where postulate prf : true ≡ true ∧ true ≡ true
+        {-# ATP prove prf #-}
+&&-list₂-t btrue bfalse h = prf
+  where postulate prf : true ≡ true ∧ false ≡ true
+        {-# ATP prove prf #-}
+&&-list₂-t bfalse btrue h = prf
+  where postulate prf : false ≡ true ∧ true ≡ true
+        {-# ATP prove prf #-}
+&&-list₂-t bfalse bfalse h = prf
+  where postulate prf : false ≡ true ∧ false ≡ true
+        {-# ATP prove prf #-}
 
 &&-list₂-t₁ : ∀ {a b} → Bool a → Bool b → a && b ≡ true → a ≡ true
-&&-list₂-t₁ Ba Bb h = ∧-proj₁ (&&-list₂-t Ba Bb h)
+&&-list₂-t₁ {a} Ba Bb h = prf
+  where postulate prf : a ≡ true
+        {-# ATP prove prf &&-list₂-t #-}
 
 &&-list₂-t₂ : ∀ {a b} → Bool a → Bool b → a && b ≡ true → b ≡ true
-&&-list₂-t₂ Ba Bb h = ∧-proj₂ (&&-list₂-t Ba Bb h)
-
-&&-list₄-some-f : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
-                  a ≡ false ∨ b ≡ false ∨ c ≡ false ∨ d ≡ false →
-                  a && b && c && d ≡ false
-&&-list₄-some-f btrue Bb Bc Bd (inj₁ h) = ⊥-elim (t≢f h)
-&&-list₄-some-f btrue btrue Bc Bd (inj₂ (inj₁ h)) = ⊥-elim (t≢f h)
-&&-list₄-some-f btrue btrue btrue Bd (inj₂ (inj₂ (inj₁ h))) = ⊥-elim (t≢f h)
-&&-list₄-some-f btrue btrue btrue btrue (inj₂ (inj₂ (inj₂ h))) = ⊥-elim (t≢f h)
-&&-list₄-some-f btrue btrue btrue bfalse (inj₂ (inj₂ (inj₂ h))) =
-  trans (t&&x≡x (true && true && false))
-        (trans (t&&x≡x (true && false)) (t&&x≡x false))
-&&-list₄-some-f btrue btrue bfalse btrue (inj₂ (inj₂ (inj₁ h))) =
-  trans (t&&x≡x (true && false && true))
-        (trans (t&&x≡x (false && true)) (f&&x≡f true))
-&&-list₄-some-f btrue btrue bfalse btrue (inj₂ (inj₂ (inj₂ h))) = ⊥-elim (t≢f h)
-&&-list₄-some-f btrue btrue bfalse bfalse (inj₂ (inj₂ h)) =
-  trans (t&&x≡x (true && false && false))
-        (trans (t&&x≡x (false && false)) (f&&x≡f false))
-&&-list₄-some-f {c = c} {d} btrue bfalse Bc Bd (inj₂ h) =
-  trans (t&&x≡x (false && c && d)) (f&&x≡f (c && d))
-&&-list₄-some-f {b = b} {c} {d} bfalse Bb Bc Bd _ = f&&x≡f (b && c && d)
+&&-list₂-t₂ {b = b} Ba Bb h = prf
+  where postulate prf : b ≡ true
+        {-# ATP prove prf &&-list₂-t #-}
 
 &&-list₄-t : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
              a && b && c && d ≡ true →
              a ≡ true ∧ b ≡ true ∧ c ≡ true ∧ d ≡ true
-&&-list₄-t btrue btrue btrue btrue h = refl , refl , refl , refl
-&&-list₄-t btrue btrue btrue bfalse h =
-  ⊥-elim (t≢f
-           (trans (sym h)
-                  (&&-list₄-some-f btrue btrue btrue bfalse (inj₂ (inj₂ (inj₂ refl))))))
-&&-list₄-t btrue btrue bfalse Bd h =
-  ⊥-elim (t≢f
-           (trans (sym h)
-                  (&&-list₄-some-f btrue btrue bfalse Bd (inj₂ (inj₂ (inj₁ refl))))))
-&&-list₄-t btrue bfalse Bc Bd h =
-  ⊥-elim (t≢f
-           (trans (sym h) (&&-list₄-some-f btrue bfalse Bc Bd (inj₂ (inj₁ refl)))))
-&&-list₄-t bfalse Bb Bc Bd h =
-  ⊥-elim (t≢f (trans (sym h) (&&-list₄-some-f bfalse Bb Bc Bd (inj₁ refl))))
+&&-list₄-t btrue btrue btrue btrue h = prf
+  where postulate prf : true ≡ true ∧ true ≡ true ∧ true ≡ true ∧ true ≡ true
+        {-# ATP prove prf #-}
+&&-list₄-t btrue btrue btrue bfalse h = prf
+  where postulate prf : true ≡ true ∧ true ≡ true ∧ true ≡ true ∧ false ≡ true
+        {-# ATP prove prf #-}
+&&-list₄-t {d = d} btrue btrue bfalse Bd h = prf
+  where postulate prf : true ≡ true ∧ true ≡ true ∧ false ≡ true ∧ d ≡ true
+        {-# ATP prove prf #-}
+&&-list₄-t {c = c} {d} btrue bfalse Bc Bd h = prf
+  where postulate prf : true ≡ true ∧ false ≡ true ∧ c ≡ true ∧ d ≡ true
+        {-# ATP prove prf #-}
+&&-list₄-t {b = b} {c} {d} bfalse Bb Bc Bd h = prf
+  where postulate prf : false ≡ true ∧ b ≡ true ∧ c ≡ true ∧ d ≡ true
+        {-# ATP prove prf #-}
 
 &&-list₄-t₁ : ∀ {a b c d} → Bool a → Bool b → Bool c → Bool d →
               a && b && c && d ≡ true → a ≡ true
@@ -114,15 +100,17 @@ not-Bool bfalse = prf
         {-# ATP prove prf &&-list₄-t #-}
 
 x≢not-x : ∀ {b} → Bool b → b ≢ not b
-x≢not-x btrue = prf
-  where postulate prf : true ≡ not true → ⊥
+x≢not-x btrue h = prf
+  where postulate prf : ⊥
         {-# ATP prove prf #-}
-x≢not-x bfalse = prf
-  where postulate prf : false ≡ not false → ⊥
+x≢not-x bfalse h = prf
+  where postulate prf : ⊥
         {-# ATP prove prf #-}
 
 not-x≢x : ∀ {b} → Bool b → not b ≢ b
-not-x≢x Bb h = x≢not-x Bb (sym h)
+not-x≢x Bb h = prf -- x≢not-x Bb (sym h)
+  where postulate prf : ⊥
+        {-# ATP prove prf x≢not-x #-}
 
 not-involutive : ∀ {b} → Bool b → not (not b) ≡ b
 not-involutive btrue = prf

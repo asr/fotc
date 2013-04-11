@@ -28,19 +28,31 @@ open import FOTC.Data.Nat.PropertiesATP
 -- FOTC.Data.Nat.Inequalities.EliminationProperties.
 
 x≥0 : ∀ {n} → N n → n ≥ zero
-x≥0 nzero          = lt-0S zero
-x≥0 (nsucc {n} Nn) = lt-0S (succ₁ n)
+x≥0 nzero = prf
+  where postulate prf : zero ≥ zero
+        {-# ATP prove prf #-}
+x≥0 (nsucc {n} Nn) = prf
+  where postulate prf : succ₁ n ≥ zero
+        {-# ATP prove prf #-}
 
 0≤x : ∀ {n} → N n → zero ≤ n
 0≤x Nn = x≥0 Nn
 
 0≯x : ∀ {n} → N n → zero ≯ n
-0≯x nzero          = lt-00
-0≯x (nsucc {n} Nn) = lt-S0 n
+0≯x nzero = prf
+  where postulate prf : zero ≯ zero
+        {-# ATP prove prf #-}
+0≯x (nsucc {n} Nn) = prf
+  where postulate prf : zero ≯ succ₁ n
+        {-# ATP prove prf #-}
 
 x≮x : ∀ {n} → N n → n ≮ n
-x≮x nzero          = lt-00
-x≮x (nsucc {n} Nn) = trans (lt-SS n n) (x≮x Nn)
+x≮x nzero = prf
+  where postulate prf : zero ≮ zero
+        {-# ATP prove prf #-}
+x≮x (nsucc {n} Nn) = prf (x≮x Nn)
+  where postulate prf : n ≮ n → succ₁ n ≮ succ₁ n
+        {-# ATP prove prf #-}
 
 Sx≰0 : ∀ {n} → N n → succ₁ n ≰ zero
 Sx≰0 nzero          = x≮x (nsucc nzero)

@@ -41,8 +41,8 @@ rev-List {ys = ys} (lcons x {xs} Lxs) Lys = prf (rev-List Lxs (lcons x Lys))
   where postulate prf : List (rev xs (x ∷ ys)) → List (rev (x ∷ xs) ys)
         {-# ATP prove prf #-}
 
-reverse-List : ∀ {xs} → List xs → List (reverse xs)
-reverse-List Lxs = rev-List Lxs lnil
+postulate reverse-List : ∀ {xs} → List xs → List (reverse xs)
+{-# ATP prove reverse-List rev-List #-}
 
 -- Length properties
 
