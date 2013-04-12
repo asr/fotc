@@ -33,12 +33,11 @@ ltRightCong refl = refl
 
 ------------------------------------------------------------------------------
 
-x≥0 : ∀ {n} → N n → n ≥ zero
-x≥0 nzero          = lt-0S zero
-x≥0 (nsucc {n} Nn) = lt-0S (succ₁ n)
+x≥0 : ∀ n → n ≥ zero
+x≥0 n = lt-0S n
 
-0≤x : ∀ {n} → N n → zero ≤ n
-0≤x Nn = x≥0 Nn
+0≤x : ∀ n → zero ≤ n
+0≤x n = lt-0S n
 
 0≯x : ∀ {n} → N n → zero ≯ n
 0≯x nzero          = lt-00
@@ -85,13 +84,13 @@ x≥y→x≮y (nsucc {m} Nm) (nsucc {n} Nn) Sm≥Sn =
 x≮y→x≥y : ∀ {m n} → N m → N n → m ≮ n → m ≥ n
 x≮y→x≥y nzero nzero 0≮0 = x≥x nzero
 x≮y→x≥y nzero (nsucc {n} Nn) 0≮Sn = ⊥-elim (t≢f (trans (sym (lt-0S n)) 0≮Sn))
-x≮y→x≥y (nsucc Nm) nzero Sm≮n = x≥0 (nsucc Nm)
+x≮y→x≥y (nsucc {m} Nm) nzero Sm≮n = x≥0 (succ₁ m)
 x≮y→x≥y (nsucc {m} Nm) (nsucc {n} Nn) Sm≮Sn =
   trans (lt-SS n (succ₁ m)) (x≮y→x≥y Nm Nn (trans (sym (lt-SS m n)) Sm≮Sn))
 
 x>y∨x≤y : ∀ {m n} → N m → N n → m > n ∨ m ≤ n
-x>y∨x≤y nzero          Nn             = inj₂ (x≥0 Nn)
-x>y∨x≤y (nsucc {m} Nm) nzero          = inj₁ (lt-0S m)
+x>y∨x≤y {n = n} nzero Nn = inj₂ (x≥0 n)
+x>y∨x≤y (nsucc {m} Nm) nzero = inj₁ (lt-0S m)
 x>y∨x≤y (nsucc {m} Nm) (nsucc {n} Nn) =
   case (λ m>n → inj₁ (trans (lt-SS n m) m>n))
        (λ m≤n → inj₂ (trans (lt-SS m (succ₁ n)) m≤n))
@@ -104,7 +103,7 @@ x≤y→x≯y (nsucc {m} Nm) (nsucc {n} Nn) Sm≤Sn =
   trans (lt-SS n m) (x≤y→x≯y Nm Nn (trans (sym (lt-SS m (succ₁ n))) Sm≤Sn))
 
 x≯y→x≤y : ∀ {m n} → N m → N n → m ≯ n → m ≤ n
-x≯y→x≤y nzero Nn _ = 0≤x Nn
+x≯y→x≤y {n = n} nzero Nn _ = 0≤x n
 x≯y→x≤y (nsucc {m} Nm) nzero Sm≯0 = ⊥-elim (t≢f (trans (sym (lt-0S m)) Sm≯0))
 x≯y→x≤y (nsucc {m} Nm) (nsucc {n} Nn) Sm≯Sn =
   trans (lt-SS m (succ₁ n)) (x≯y→x≤y Nm Nn (trans (sym (lt-SS n m)) Sm≯Sn))
@@ -135,15 +134,15 @@ x<y→x≤y (nsucc {m} Nm) (nsucc {n} Nn) Sm<Sn =
   x≤y→Sx≤Sy (x<y→x≤y Nm Nn (Sx<Sy→x<y Sm<Sn))
 
 x<Sy→x≤y : ∀ {m n} → N m → N n → m < succ₁ n → m ≤ n
-x<Sy→x≤y nzero      Nn 0<Sn  = 0≤x Nn
-x<Sy→x≤y (nsucc Nm) Nn Sm<Sn = Sm<Sn
+x<Sy→x≤y {n = n} nzero      Nn 0<Sn  = 0≤x n
+x<Sy→x≤y         (nsucc Nm) Nn Sm<Sn = Sm<Sn
 
 x≤Sx : ∀ {m} → N m → m ≤ succ₁ m
 x≤Sx Nm = x<y→x≤y Nm (nsucc Nm) (x<Sx Nm)
 
 x<y→Sx≤y : ∀ {m n} → N m → N n → m < n → succ₁ m ≤ n
 x<y→Sx≤y Nm             nzero          m<0   = ⊥-elim (x<0→⊥ Nm m<0)
-x<y→Sx≤y nzero          (nsucc {n} Nn) _     = x≤y→Sx≤Sy (0≤x Nn)
+x<y→Sx≤y nzero          (nsucc {n} Nn) _     = x≤y→Sx≤Sy (0≤x n)
 x<y→Sx≤y (nsucc {m} Nm) (nsucc {n} Nn) Sm<Sn =
   trans (lt-SS (succ₁ m) (succ₁ n)) Sm<Sn
 
@@ -163,14 +162,14 @@ Sx≤y→x<y (nsucc {m} Nm) (nsucc {n} Nn) SSm≤Sn =
   x<y→Sx<Sy (<-trans Nm Nn No (Sx<Sy→x<y Sm<Sn) (Sx<Sy→x<y Sn<So))
 
 ≤-trans : ∀ {m n o} → N m → N n → N o → m ≤ n → n ≤ o → m ≤ o
-≤-trans nzero      Nn                 No             _     _     = 0≤x No
-≤-trans (nsucc Nm) nzero              No             Sm≤0  _     = ⊥-elim (S≤0→⊥ Nm Sm≤0)
-≤-trans (nsucc Nm) (nsucc Nn)         nzero          _     Sn≤0  = ⊥-elim (S≤0→⊥ Nn Sn≤0)
+≤-trans {o = o} nzero Nn No _ _ = 0≤x o
+≤-trans (nsucc Nm) nzero No Sm≤0 _ = ⊥-elim (S≤0→⊥ Nm Sm≤0)
+≤-trans (nsucc Nm) (nsucc Nn) nzero _ Sn≤0 = ⊥-elim (S≤0→⊥ Nn Sn≤0)
 ≤-trans (nsucc {m} Nm) (nsucc {n} Nn) (nsucc {o} No) Sm≤Sn Sn≤So =
   x≤y→Sx≤Sy (≤-trans Nm Nn No (Sx≤Sy→x≤y Sm≤Sn) (Sx≤Sy→x≤y Sn≤So))
 
 x≤x+y : ∀ {m n} → N m → N n → m ≤ m + n
-x≤x+y nzero Nn = x≥0 (+-N nzero Nn)
+x≤x+y {n = n} nzero Nn = x≥0 (zero + n)
 x≤x+y {n = n} (nsucc {m} Nm) Nn =
   lt (succ₁ m) (succ₁ (succ₁ m + n)) ≡⟨ lt-SS m (succ₁ m + n) ⟩
   lt m (succ₁ m + n)                 ≡⟨ ltRightCong (+-Sx m n) ⟩

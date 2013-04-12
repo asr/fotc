@@ -27,7 +27,7 @@ x<0→⊥ (nsucc Nn) Sn<0 = prf
         {-# ATP prove prf #-}
 
 x<x→⊥ : ∀ {n} → N n → ¬ (n < n)
-x<x→⊥ nzero 0<0 = prf -- 0<0→⊥ 0<0
+x<x→⊥ nzero 0<0 = prf
   where postulate prf : ⊥
         {-# ATP prove prf #-}
 x<x→⊥ (nsucc {n} Nn) Sn<Sn = prf (x<x→⊥ Nn)
