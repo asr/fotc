@@ -40,7 +40,7 @@ div-0-x≡0 (nsucc {n} Nn) h = div-x<y h (lt-0S n)
 
 div-x-x≡1 : ∀ {n} → N n → n ≢ [0] → div n n ≡ [1]
 div-x-x≡1 {n} Nn h =
-  div n n               ≡⟨ div-x≥y h (x≥x Nn) ⟩
+  div n n               ≡⟨ div-x≥y h (x≤x Nn) ⟩
   succ₁ (div (n ∸ n) n) ≡⟨ succCong (divLeftCong (x∸x≡0 Nn)) ⟩
   succ₁ (div [0] n)     ≡⟨ succCong (div-0-x≡0 Nn h) ⟩
   [1]                   ∎
@@ -55,7 +55,7 @@ div-2x-2≡x (nsucc nzero) =
   div ([2] * [1]) [2]
     ≡⟨ divLeftCong (*-rightIdentity 2-N) ⟩
   div [2] [2]
-    ≡⟨ div-x≥y S≢0 (x≥x 2-N) ⟩
+    ≡⟨ div-x≥y S≢0 (x≤x 2-N) ⟩
   succ₁ (div ([2] ∸ [2]) [2])
     ≡⟨ succCong (divLeftCong (x∸x≡0 2-N)) ⟩
   succ₁ (div zero [2])

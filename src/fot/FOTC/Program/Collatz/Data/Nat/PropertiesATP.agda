@@ -33,7 +33,7 @@ div-2x-2≡x nzero = prf
         {-# ATP prove prf *-rightZero #-}
 div-2x-2≡x (nsucc nzero) = prf
   where postulate prf : div ([2] * (succ₁ zero)) [2] ≡ succ₁ zero
-        {-# ATP prove prf *-rightIdentity x≥x x∸x≡0 #-}
+        {-# ATP prove prf *-rightIdentity x≤x x∸x≡0 #-}
 div-2x-2≡x (nsucc (nsucc {n} Nn)) = prf (div-2x-2≡x (nsucc Nn))
   where postulate prf : div ([2] * succ₁ n) [2] ≡ succ₁ n →
                         div ([2] * (succ₁ (succ₁ n))) [2] ≡ succ₁ (succ₁ n)

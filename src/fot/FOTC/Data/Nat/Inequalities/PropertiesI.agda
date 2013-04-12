@@ -70,9 +70,6 @@ x≤x : ∀ {n} → N n → n ≤ n
 x≤x nzero          = lt-0S zero
 x≤x (nsucc {n} Nn) = trans (lt-SS n (succ₁ n)) (x≤x Nn)
 
-x≥x : ∀ {n} → N n → n ≥ n
-x≥x Nn = x≤x Nn
-
 x≤y→Sx≤Sy : ∀ {m n} → m ≤ n → succ₁ m ≤ succ₁ n
 x≤y→Sx≤Sy {m} {n} m≤n = trans (lt-SS m (succ₁ n)) m≤n
 
@@ -99,7 +96,7 @@ x≥y→x≮y (nsucc {m} Nm) (nsucc {n} Nn) Sm≥Sn =
   trans (lt-SS m n) (x≥y→x≮y Nm Nn (trans (sym (lt-SS n (succ₁ m))) Sm≥Sn))
 
 x≮y→x≥y : ∀ {m n} → N m → N n → m ≮ n → m ≥ n
-x≮y→x≥y nzero nzero 0≮0 = x≥x nzero
+x≮y→x≥y nzero nzero 0≮0 = x≤x nzero
 x≮y→x≥y nzero (nsucc {n} Nn) 0≮Sn = ⊥-elim (t≢f (trans (sym (lt-0S n)) 0≮Sn))
 x≮y→x≥y (nsucc {m} Nm) nzero Sm≮n = lt-0S (succ₁ m)
 x≮y→x≥y (nsucc {m} Nm) (nsucc {n} Nn) Sm≮Sn =
