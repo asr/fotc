@@ -125,7 +125,7 @@ inftyC = succC inftyC
 data ConatPlusOne = One | MkConat Conat
                     deriving Show
 
--- TODO: The conat destructor.
+-- ToDo: The conat destructor.
 pred ∷ Conat → ConatPlusOne
 pred cn
   | cn == inftyC = MkConat inftyC

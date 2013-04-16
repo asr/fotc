@@ -288,9 +288,9 @@ dependency_graph :
 	        $(fot_path)/FOTC/Program/ABP/ProofSpecificationATP.agda
 	dot -Tpdf /tmp/dependency-graph.gv > /tmp/dependency-graph.pdf
 
-TODO :
+ToDo :
 	find -wholename './dist' -prune -o -print \
-	| xargs grep -I 'TODO:' \
+	| xargs grep -I 'ToDo:' \
 	| sort
 
 clean :
