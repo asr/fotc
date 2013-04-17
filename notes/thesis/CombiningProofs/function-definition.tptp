@@ -1,0 +1,3 @@
+fof(def, definition, ( ! [X1,X2,X3,X4,X5] : foo(X1,X2,X3,X4,X5) = X1 )).
+
+fof(thm, conjecture, ( ! [X1,X2,X3,X4,X5] :  X1 = foo(X1,X2,X3,X4,X5) )).
