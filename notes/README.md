@@ -5,6 +5,6 @@ and/or agda2atp corresponding to the date of the last commit.
 
 Coq files: Coq 8.4pl2.
 
-Haskell files: GHC 7.6.2.
+Haskell files: GHC 7.6.3.
 
 Isabelle files: Isabelle 2013.

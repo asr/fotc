@@ -1,4 +1,4 @@
--- Tested with GHC 7.6.2 and QuickCheck 2.6.
+-- Tested with GHC 7.6.3 and QuickCheck 2.6.
 
 {-# LANGUAGE UnicodeSyntax #-}
 

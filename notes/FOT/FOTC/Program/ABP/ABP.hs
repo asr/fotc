@@ -9,7 +9,7 @@
 --   approach to the specification and verification of concurrent
 --   systems. Formal Aspects of Computing, 1:303-319, 1989.
 
--- Tested with the stream library v. 3.1.
+-- Tested with the streams library v. 3.1.
 ------------------------------------------------------------------------------
 
 module ABP where
