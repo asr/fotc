@@ -1,4 +1,7 @@
-module Erasing where
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K #-}
+
+module CombiningProofs.Erasing where
 
 postulate
   D     : Set
