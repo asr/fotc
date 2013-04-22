@@ -21,11 +21,38 @@ module FOTC.Program.McCarthy91.PropertiesATP where
 open import FOTC.Base
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
+open import FOTC.Data.Nat.Inequalities.EliminationPropertiesATP
+  using ( x>y→x≤y→⊥ )
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
+  using ( x>y∨x≯y
+        ; x≯y→x≤y
+        ; x≯Sy→x≯y∨x≡Sy
+        ; x+k<y+k→x<y
+        ; <-trans
+        )
 open import FOTC.Data.Nat.PropertiesATP
+  using ( ∸-N
+        ; +-N
+        )
 open import FOTC.Data.Nat.UnaryNumbers
 open import FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
+  using ( x<x+11 )
 open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
+  using ( 10-N
+        ; 11-N
+        ; 89-N
+        ; 90-N
+        ; 91-N
+        ; 92-N
+        ; 93-N
+        ; 94-N
+        ; 95-N
+        ; 96-N
+        ; 97-N
+        ; 98-N
+        ; 99-N
+        ; 100-N
+        )
 open import FOTC.Program.McCarthy91.ArithmeticATP
 open import FOTC.Program.McCarthy91.AuxiliaryPropertiesATP
 open import FOTC.Program.McCarthy91.McCarthy91

@@ -11,10 +11,21 @@ open import FOTC.Base
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.EliminationPropertiesATP
+  using ( x<y→y<x→⊥ )
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
+  using ( x∸y<Sx
+        ; <-trans
+        ; x<x∸y→⊥
+        ; x∸y<x∸z→Sx∸y<Sx∸z
+        ; x<y→y≤z→x<z
+        ; x∸Sy≤x∸y
+        )
 open import FOTC.Data.Nat.PropertiesATP
+  using ( ∸-N
+        ; S∸S
+        )
 open import FOTC.Data.Nat.UnaryNumbers
-open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
+open import FOTC.Data.Nat.UnaryNumbers.TotalityATP using ( 101-N )
 open import FOTC.Program.McCarthy91.ArithmeticATP
 open import FOTC.Program.McCarthy91.WF-Relation
 

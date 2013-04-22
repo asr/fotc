@@ -11,9 +11,14 @@ open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
 open import FOTC.Base.List
-open import FOTC.Base.List.PropertiesI
+open import FOTC.Base.List.PropertiesATP using ( ∷-rightCong )
 open import FOTC.Data.List
-open import FOTC.Data.List.PropertiesI
+open import FOTC.Data.List.PropertiesATP
+  using ( ++-leftIdentity
+        ; mapCong₂
+        ; ++-leftCong
+        ; reverse-[x]≡[x]
+        )
 open import FOTC.Program.Mirror.Forest.TotalityATP
 open import FOTC.Program.Mirror.Type
 

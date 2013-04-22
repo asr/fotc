@@ -10,11 +10,14 @@ module FOTC.Program.McCarthy91.AuxiliaryPropertiesATP where
 open import FOTC.Base
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
-open import FOTC.Data.Nat.Inequalities.PropertiesATP
+open import FOTC.Data.Nat.Inequalities.PropertiesATP using ( x<y→y≤z→x<z )
 open import FOTC.Data.Nat.PropertiesATP
+  using ( +-N
+        ; ∸-N
+        )
 open import FOTC.Data.Nat.UnaryNumbers
 open import FOTC.Data.Nat.UnaryNumbers.Inequalities.PropertiesATP
-open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
+  using ( x<x+1 )
 open import FOTC.Program.McCarthy91.ArithmeticATP
 open import FOTC.Program.McCarthy91.McCarthy91
 

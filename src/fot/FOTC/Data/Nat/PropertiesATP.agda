@@ -138,11 +138,18 @@ S∸S (nsucc {m} Nm) (nsucc {n} Nn) = prf (S∸S (nsucc Nm) Nn)
 
 x∸x≡0 : ∀ {n} → N n → n ∸ n ≡ zero
 x∸x≡0 nzero          = ∸-x0 zero
-x∸x≡0 (nsucc {n} Nn) = trans (S∸S Nn Nn) (x∸x≡0 Nn)
+x∸x≡0 (nsucc {n} Nn) = prf (x∸x≡0 Nn)
+  where postulate prf : n ∸ n ≡ zero → succ₁ n ∸ succ₁ n ≡ zero
+        {-# ATP prove prf S∸S #-}
 
 Sx∸x≡S0 : ∀ {n} → N n → succ₁ n ∸ n ≡ succ₁ zero
-Sx∸x≡S0 nzero          = ∸-x0 (succ₁ zero)
-Sx∸x≡S0 (nsucc {n} Nn) = trans (S∸S (nsucc Nn) Nn) (Sx∸x≡S0 Nn)
+Sx∸x≡S0 nzero =  prf
+  where postulate prf : succ₁ zero ∸ zero ≡ succ₁ zero
+        {-# ATP prove prf #-}
+Sx∸x≡S0 (nsucc {n} Nn) = prf (Sx∸x≡S0 Nn)
+  where postulate prf : succ₁ n ∸ n ≡ succ₁ zero →
+                        succ₁ (succ₁ n) ∸ succ₁ n ≡ succ₁ zero
+        {-# ATP prove prf S∸S #-}
 
 [x+Sy]∸y≡Sx : ∀ {m n} → N m → N n → (m + succ₁ n) ∸ n ≡ succ₁ m
 [x+Sy]∸y≡Sx {n = n} nzero Nn = prf
@@ -203,7 +210,13 @@ x*Sy≡x+xy {n = n} (nsucc {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
         {-# ATP prove prf x*Sy≡x+xy #-}
 
 *-rightIdentity : ∀ {n} → N n → n * succ₁ zero ≡ n
-*-rightIdentity {n} Nn = trans (*-comm Nn (nsucc nzero)) (*-leftIdentity Nn)
+*-rightIdentity nzero = prf
+  where postulate prf : zero * succ₁ zero ≡ zero
+        {-# ATP prove prf #-}
+*-rightIdentity (nsucc {n} Nn) = prf (*-rightIdentity Nn)
+  where postulate prf : n * succ₁ zero ≡ n →
+                        succ₁ n * succ₁ zero ≡ succ₁ n
+        {-# ATP prove prf #-}
 
 *∸-leftDistributive : ∀ {m n o} → N m → N n → N o → (m ∸ n) * o ≡ m * o ∸ n * o
 *∸-leftDistributive {m} {o = o} Nm nzero No = prf
@@ -250,8 +263,12 @@ x*Sy≡x+xy {n = n} (nsucc {m} Nm) Nn = prf (x*Sy≡x+xy Nm Nn)
   {-# ATP prove prf +-assoc *-N #-}
 
 xy≡0→x≡0∨y≡0 : ∀ {m n} → N m → N n → m * n ≡ zero → m ≡ zero ∨ n ≡ zero
-xy≡0→x≡0∨y≡0 nzero      _  _                   = inj₁ refl
-xy≡0→x≡0∨y≡0 (nsucc Nm) nzero _                   = inj₂ refl
+xy≡0→x≡0∨y≡0 {n = n} nzero Nn h = prf
+  where postulate prf : zero ≡ zero ∨ n ≡ zero
+        {-# ATP prove prf #-}
+xy≡0→x≡0∨y≡0 (nsucc {m} Nm) nzero h = prf
+  where postulate prf : succ₁ m ≡ zero ∨ zero ≡ zero
+        {-# ATP prove prf #-}
 xy≡0→x≡0∨y≡0 (nsucc {m} Nm) (nsucc {n} Nn) SmSn≡0 = ⊥-elim (0≢S prf)
   where postulate prf : zero ≡ succ₁ (n + m * succ₁ n)
         {-# ATP prove prf #-}

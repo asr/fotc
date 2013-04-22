@@ -18,6 +18,9 @@ open import FOTC.Base.List
 open import FOTC.Base.Loop
 open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesATP
+  using ( not-x≢x
+        ; not-involutive
+        )
 open import FOTC.Data.List
 open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.Fair

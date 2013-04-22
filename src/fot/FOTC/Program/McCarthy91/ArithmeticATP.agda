@@ -11,9 +11,23 @@ open import FOTC.Base
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
+  using ( x≤y+x∸y
+        ; x≤y→x≯y
+        ; x≤y→x+k≤y+k
+        )
 open import FOTC.Data.Nat.PropertiesATP
+  using ( +-N
+        ; ∸-N
+        ; +-comm
+        ; [x+Sy]∸y≡Sx
+        )
 open import FOTC.Data.Nat.UnaryNumbers
 open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
+  using ( 10-N
+        ; 11-N
+        ; 89-N
+        ; 100-N
+        )
 
 ------------------------------------------------------------------------------
 

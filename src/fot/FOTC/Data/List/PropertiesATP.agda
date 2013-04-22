@@ -14,6 +14,15 @@ open import FOTC.Data.List
 open import FOTC.Data.Nat.Type
 
 ------------------------------------------------------------------------------
+-- Congruence properties
+
+postulate ++-leftCong : ∀ {xs ys zs} → xs ≡ ys → xs ++ zs ≡ ys ++ zs
+{-# ATP prove ++-leftCong #-}
+
+postulate mapCong₂ : ∀ {f xs ys} → xs ≡ ys → map f xs ≡ map f ys
+{-# ATP prove mapCong₂ #-}
+
+------------------------------------------------------------------------------
 -- Totality properties
 
 ++-List : ∀ {xs ys} → List xs → List ys → List (xs ++ ys)

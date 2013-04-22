@@ -20,7 +20,7 @@ module FOTC.Program.ABP.ProofSpecificationATP where
 open import FOTC.Base
 open import FOTC.Base.List
 open import FOTC.Data.Bool
-open import FOTC.Data.Bool.PropertiesATP
+open import FOTC.Data.Bool.PropertiesATP using ( not-Bool )
 open import FOTC.Data.Stream
 open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.Fair

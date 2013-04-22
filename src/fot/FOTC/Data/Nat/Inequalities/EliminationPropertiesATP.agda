@@ -55,6 +55,9 @@ S≤0→⊥ (nsucc {n} Nn) h = prf
   where postulate prf : ⊥
         {-# ATP prove prf S≤0→⊥ #-}
 
+postulate S≯0→⊥ : ∀ {n} → ¬ (succ₁ n ≯ zero)
+{-# ATP prove S≯0→⊥ #-}
+
 x<y→y<x→⊥ : ∀ {m n} → N m → N n → m < n → ¬ (n < m)
 x<y→y<x→⊥ nzero Nn h₁ h₂ = prf
   where postulate prf : ⊥
@@ -62,13 +65,25 @@ x<y→y<x→⊥ nzero Nn h₁ h₂ = prf
 x<y→y<x→⊥ (nsucc Nm) nzero h₁ h₂ = prf
   where postulate prf : ⊥
         {-# ATP prove prf 0>x→⊥ #-}
-x<y→y<x→⊥ (nsucc {m} Nm) (nsucc {n} Nn) h₁ h₂ =
-  prf₁ (x<y→y<x→⊥ Nm Nn prf₂)
-  where postulate prf₁ : ¬ (n < m) → ⊥
-        {-# ATP prove prf₁ #-}
+x<y→y<x→⊥ (nsucc {m} Nm) (nsucc {n} Nn) h₁ h₂ = prf (x<y→y<x→⊥ Nm Nn m<n)
+  where
+  postulate m<n : m < n
+  {-# ATP prove m<n #-}
 
-        postulate prf₂ : lt m n ≡ true
-        {-# ATP prove prf₂ #-}
+  postulate prf : ¬ (n < m) → ⊥
+  {-# ATP prove prf #-}
 
-postulate S≯0→⊥ : ∀ {n} → ¬ (succ₁ n ≯ zero)
-{-# ATP prove S≯0→⊥ #-}
+x>y→x≤y→⊥ : ∀ {m n} → N m → N n → m > n → ¬ (m ≤ n)
+x>y→x≤y→⊥ nzero Nn h₁ h₂ = prf
+  where postulate prf : ⊥
+        {-# ATP prove prf x<0→⊥ #-}
+x>y→x≤y→⊥ (nsucc Nm) nzero h₁ h₂ = prf
+  where postulate prf : ⊥
+        {-# ATP prove prf x<0→⊥ #-}
+x>y→x≤y→⊥ (nsucc {m} Nm) (nsucc {n} Nn) h₁ h₂ = prf (x>y→x≤y→⊥ Nm Nn m>n)
+  where
+  postulate m>n : m > n
+  {-# ATP prove m>n #-}
+
+  postulate prf : ¬ (m ≤ n) → ⊥
+  {-# ATP prove prf #-}

@@ -14,10 +14,9 @@ open import FOTC.Base
 open import FOTC.Data.Nat
 
 import FOTC.Data.Nat.Induction.Acc.WF-ATP
-open FOTC.Data.Nat.Induction.Acc.WF-ATP.<-WF
+open FOTC.Data.Nat.Induction.Acc.WF-ATP.<-WF using ( <-wf )
 
 open import FOTC.Data.Nat.Inequalities
-open import FOTC.Data.Nat.Inequalities.PropertiesATP
 open import FOTC.Data.Nat.UnaryNumbers
 open import FOTC.Induction.WF
 open import FOTC.Program.McCarthy91.WF-Relation

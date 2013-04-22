@@ -155,9 +155,6 @@ x>y→x≰y (nsucc {m} Nm) (nsucc {n} Nn) h = prf (x>y→x≰y Nm Nn m>n)
   postulate prf : m ≰ n → succ₁ m ≰ succ₁ n
   {-# ATP prove prf #-}
 
-postulate x>y→x≤y→⊥ : ∀ {m n} → N m → N n → m > n → m ≤ n → ⊥
-{-# ATP prove x>y→x≤y→⊥ x>y→x≰y #-}
-
 x>y∨x≤y : ∀ {m n} → N m → N n → m > n ∨ m ≤ n
 x>y∨x≤y {n = n} nzero Nn = prf
   where postulate prf : zero > n ∨ zero ≤ n

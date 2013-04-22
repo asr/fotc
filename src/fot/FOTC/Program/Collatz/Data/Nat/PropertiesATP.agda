@@ -8,13 +8,27 @@
 module FOTC.Program.Collatz.Data.Nat.PropertiesATP where
 
 open import FOTC.Base
-open import FOTC.Base.PropertiesATP
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
+  using ( x≤x
+        ; 2*SSx≥2
+        )
 open import FOTC.Data.Nat.PropertiesATP
+  using ( *-N
+        ; *-rightZero
+        ; *-rightIdentity
+        ; x∸x≡0
+        ; +-rightIdentity
+        ; +-comm
+        ; +-N
+        ; xy≡0→x≡0∨y≡0
+        ; Sx≢x
+        ; xy≡1→x≡1
+        ; 0∸x
+        ; S∸S
+        )
 open import FOTC.Data.Nat.UnaryNumbers
-open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
 open import FOTC.Program.Collatz.Data.Nat
 
 ------------------------------------------------------------------------------

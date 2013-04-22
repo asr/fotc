@@ -108,7 +108,7 @@ x≢not-x bfalse h = prf
         {-# ATP prove prf #-}
 
 not-x≢x : ∀ {b} → Bool b → not b ≢ b
-not-x≢x Bb h = prf -- x≢not-x Bb (sym h)
+not-x≢x Bb h = prf
   where postulate prf : ⊥
         {-# ATP prove prf x≢not-x #-}
 

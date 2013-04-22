@@ -12,12 +12,24 @@ module FOTC.Program.McCarthy91.WF-Relation.LT2WF-RelationATP where
 
 open import FOTC.Base
 open import FOTC.Data.Nat
-open import FOTC.Data.Nat.PropertiesATP
+open import FOTC.Data.Nat.PropertiesATP using ( S∸S )
 open import FOTC.Data.Nat.Inequalities
-open import FOTC.Data.Nat.Inequalities.EliminationPropertiesATP
+open import FOTC.Data.Nat.Inequalities.EliminationPropertiesATP using ( x<0→⊥ )
 open import FOTC.Data.Nat.Inequalities.PropertiesATP
+  using ( x<y→x≤y
+        ; x≥y→y>0→x∸y<x
+        ; x∸y<Sx
+        ; x<y∨x≥y
+        ; Sx≯y→x≯y
+        ; x≯y→x≤y
+        ; x≤y→x∸y≡0
+        ; x<y→0<y∸x
+        )
 open import FOTC.Data.Nat.UnaryNumbers
 open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
+  using ( 100-N
+        ; 101-N
+        )
 open import FOTC.Program.McCarthy91.WF-Relation
 
 ------------------------------------------------------------------------------
