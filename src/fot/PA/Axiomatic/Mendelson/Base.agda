@@ -37,7 +37,7 @@ postulate
 -- The PA equality.
 --
 -- N.B. The symbol _≡_ should not be used because it is hard-coded by
--- agda2atp as the ATPs equality.
+-- apia as the ATPs equality.
 postulate _≈_ : M → M → Set
 
 -- Inequality.

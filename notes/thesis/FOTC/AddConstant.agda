@@ -42,7 +42,7 @@ postulate
 
 -- $ cd fotc/notes/thesis
 -- $ agda -i. -i ~/fot FOTC/AddConstant.agda
--- $ agda2atp -i. -i ~/fot FOTC/AddConstant.agda
+-- $ apia -i. -i ~/fot FOTC/AddConstant.agda
 -- Proving the conjecture in /tmp/FOTC/AddConstant/37-43-0x.tptp ...
 -- Vampire 0.6 (revision 903) proved the conjecture
 -- Proving the conjecture in /tmp/FOTC/AddConstant/38-43-Sx.tptp ...

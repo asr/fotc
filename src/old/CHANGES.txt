@@ -3,7 +3,7 @@ extra-source-files:
         CHANGES.txt
 
 
-Change log for agda2atp
+Change log for apia
 
 0.9.1 XXX
 
@@ -17,13 +17,13 @@ Change log for agda2atp
         --universal-quantified-formulae and
         --universal-quantified-propositional-functions
 
-        for this purpose. The agda2atp program is handling these
+        for this purpose. The apia program is handling these
         pragmas.
 
       * Added command-line option --unproven-conjecture-no-error.
 
       * Removed command-line option --unproven-conjecture-error. Now
-        it is the default behavior.
+        it is the default behaviour.
 
 0.9 April 2012
     Start of changelog

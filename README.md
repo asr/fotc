@@ -11,7 +11,7 @@ representations of formulae in FOTC into the
 format for input and output in automatic theorem provers (ATPs), so
 that we can call off-the-shelf ATPs when proving properties of our
 programs. For this purpose we wrote the
-[agda2atp](https://github.com/asr/agda2atp) program.
+[apia](https://github.com/asr/apia) program.
 
 # Related papers
 
@@ -30,10 +30,10 @@ programs. For this purpose we wrote the
 
 # Prerequisites and use
 
-* The `agda2atp` program
+* The `apia` program
 
   See
-  [README.md](https://github.com/asr/agda2atp/blob/master/README.md).
+  [README.md](https://github.com/asr/apia/blob/master/README.md).
 
 * Setting up the `Emacs` mode for use with our library of first-order
    theories
@@ -64,14 +64,14 @@ the following commands:
 ````bash
 $ cd fotc/src/fot
 $ agda FOTC/Program/Mirror/PropertiesATP.agda
-$ agda2atp FOTC/Program/Mirror/PropertiesATP.agda
+$ apia FOTC/Program/Mirror/PropertiesATP.agda
 ````
 
 # Examples in our PLPV-2009 paper
 
 Please note that the code presented here does not match the paper
 exactly. Also note that the code below does not require neither the
-version modified of Agda nor the `agda2atp` program.
+version modified of Agda nor the `apia` program.
 
 You can follow [this
 link](http://www1.eafit.edu.co/asicard/code/thesis/fotc/fot/LTC-PCF.README.html)

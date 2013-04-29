@@ -24,7 +24,7 @@ A ⇒ B = A → B
 -- Universal quantification.
 --
 -- 2012-02-03: Not used by the current formalization, but it is
--- accepted by the agda2atp program.
+-- accepted by the apia program.
 -- ⋀ : (A : D → Set) → Set
 -- ⋀ A = (d : D) → A d
 

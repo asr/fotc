@@ -24,7 +24,7 @@ postulate
 
 -- $ cd fotc/notes/thesis
 -- $ agda -i. -i ~/fot FOTC/AddRecursiveEquation.agda
--- $ agda2atp -i. -i ~/fot FOTC/AddRecursiveEquation.agda
+-- $ apia -i. -i ~/fot FOTC/AddRecursiveEquation.agda
 -- Proving the conjecture in /tmp/FOTC/AddRecursiveEquation/21-43-Sx.tptp ...
 -- E 1.7 Jun Chiabari proved the conjecture
 -- Proving the conjecture in /tmp/FOTC/AddRecursiveEquation/20-43-0x.tptp ...

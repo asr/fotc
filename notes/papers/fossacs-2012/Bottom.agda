@@ -14,6 +14,6 @@ postulate
 postulate false : zero ≡ succ zero
 {-# ATP prove false bot #-}
 
--- $ agda2atp -isrc -inotes/papers/FoSSaCS-2012/  notes/papers/FoSSaCS-2012/Bottom.agda
+-- $ apia -isrc -inotes/papers/FoSSaCS-2012/  notes/papers/FoSSaCS-2012/Bottom.agda
 -- Proving the conjecture in /tmp/Bottom/16-false.tptp ...
 -- Vampire 0.6 (revision 903) proved the conjecture in /tmp/Bottom/16-false.tptp

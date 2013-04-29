@@ -2,7 +2,7 @@
 % The TaskB from Distributive Laws directory is not an UEQ problem.
 %
 % $ agda -isrc src/DistributiveLaws/TaskB-ATP.agda
-% $ agda2atp --only-files -isrc src/DistributiveLaws/TaskB-ATP.agda
+% $ apia --only-files -isrc src/DistributiveLaws/TaskB-ATP.agda
 % $ tptp2X -fwaldmeister DistributiveLaws.TaskB-ATP.prop2_16.tptp
 %------------------------------------------------------------------------------
 ERROR - More than 1 -ve clause or not UEQ or -ve clause is non-ground

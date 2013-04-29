@@ -28,14 +28,14 @@ snapshot_dir = snapshot-fot
 AGDA = agda -v 0
 
 # The defaults ATPs are e, equinox, and vampire.
-AGDA2ATP = agda2atp
-# AGDA2ATP = agda2atp --atp=e
-# AGDA2ATP = agda2atp --atp=equinox
-# AGDA2ATP = agda2atp --atp=ileancop
+APIA = apia
+# APIA = apia --atp=e
+# APIA = apia --atp=equinox
+# APIA = apia --atp=ileancop
 # See notes/atps/README-summary-proofs.txt for using only metis
-# AGDA2ATP = agda2atp --atp=metis
-# AGDA2ATP = agda2atp --atp=spass
-# AGDA2ATP = agda2atp --atp=vampire
+# APIA = apia --atp=metis
+# APIA = apia --atp=spass
+# APIA = apia --atp=vampire
 
 ##############################################################################
 # Auxiliary functions
@@ -112,12 +112,12 @@ type_check_fot : $(type_check_fot_files) \
 
 %.snapshot_create_fot :
 	$(AGDA) -i$(fot_path) $*.agda
-	$(AGDA2ATP) -i$(fot_path) --only-files --output-dir=$(snapshot_dir) $*.agda
+	$(APIA) -i$(fot_path) --only-files --output-dir=$(snapshot_dir) $*.agda
 
 %.snapshot_compare_fot :
 	@echo "Processing $*.agda"
 	@$(AGDA) -i$(fot_path) $*.agda
-	@$(AGDA2ATP) -v 0 -i$(fot_path) --snapshot-test \
+	@$(APIA) -v 0 -i$(fot_path) --snapshot-test \
 	            --snapshot-dir=$(snapshot_dir) $*.agda
 
 snapshot_create_fot_aux : $(snapshot_create_fot_files)
@@ -135,7 +135,7 @@ snapshot_compare_fot : $(snapshot_compare_fot_files)
 
 %.prove_fot :
 	$(AGDA) -i$(fot_path) $*.agda
-	$(AGDA2ATP) -i$(fot_path) --output-dir=$(output_dir) --time=240 $*.agda
+	$(APIA) -i$(fot_path) --output-dir=$(output_dir) --time=240 $*.agda
 
 prove_fot : $(prove_fot_files)
 	@echo "$@ succeeded!"
@@ -145,7 +145,7 @@ prove_fot : $(prove_fot_files)
 
 %.consistency_fot :
 	$(AGDA) -i$(fot_path) $*.agda
-	if ( $(AGDA2ATP) -i$(fot_path) --output-dir=$(output_dir) \
+	if ( $(APIA) -i$(fot_path) --output-dir=$(output_dir) \
 	                 --time=10 $*.agda ); then \
            exit 1;\
         fi
@@ -188,7 +188,7 @@ prove_notes_path = -i$(fot_path) \
 
 %.prove_notes :
 	$(AGDA) $(prove_notes_path) $*.agda
-	$(AGDA2ATP) $(prove_notes_path) --output-dir=$(output_dir) --time=240 $*.agda
+	$(APIA) $(prove_notes_path) --output-dir=$(output_dir) --time=240 $*.agda
 
 prove_notes : $(prove_notes_files)
 	@echo "$@ succeeded!"
@@ -211,7 +211,7 @@ agda_changed : clean
 ##############################################################################
 # Test used when there is a modification to Agda
 
-agda2atp_changed :
+apia_changed :
 	if [ ! -d $(snapshot_dir) ]; then \
 	   echo "Error: The directory $(snapshot_dir) does not exist"; \
 	   exit 1; \
@@ -266,7 +266,7 @@ benchmark_tag = \
 
 %.benchmark :
 	$(AGDA) -i$(fot_path) $*.agda
-	$(AGDA2ATP) -v 0 -i$(fot_path) $*.agda \
+	$(APIA) -v 0 -i$(fot_path) $*.agda \
                    +RTS -s/tmp/benchmark/$(subst /,.,$*)
 
 benchmark_aux : $(benchmark_files)
@@ -275,8 +275,8 @@ benchmark_aux : $(benchmark_files)
 benchmark :
 	mkdir --parents /tmp/benchmark
 	make benchmark_aux
-	mkdir --parents $(agda2atp_path)/benchmark/$(benchmark_tag)
-	mv /tmp/benchmark/* $(agda2atp_path)/benchmark/$(benchmark_tag)/
+	mkdir --parents $(apia_path)/benchmark/$(benchmark_tag)
+	mv /tmp/benchmark/* $(apia_path)/benchmark/$(benchmark_tag)/
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -299,6 +299,6 @@ clean :
 	find -name '*.hi' | xargs rm -f
 	find -name '*.o' | xargs rm -f
 	find -name '*.vo' | xargs rm -f
-	find -name 'agda2atp.tix' | xargs rm -f
+	find -name 'apia.tix' | xargs rm -f
 	find -name 'model' | xargs rm -f
 	rm -f -r $(output_dir)

@@ -8,7 +8,7 @@
 % $ eprover --auto --cpu-limit=180 --memory-limit=Auto --tstp-format file_name
 
 %-----------------------------------------------------------------------------
-% This file was generated automatically by agda2atp version 0.9.
+% This file was generated automatically by apia.
 %-----------------------------------------------------------------------------
 
 %-----------------------------------------------------------------------------

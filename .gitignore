@@ -6,7 +6,7 @@
 *.o
 *.thy~
 *.vo
-agda2atp.tix
+apia.tix
 dist
 hpc/
 model
