@@ -30,12 +30,12 @@ programs. For this purpose we wrote the
 
 # Prerequisites and use
 
-* The `apia` program
+* The Apia program
 
   See
   [README.md](https://github.com/asr/apia/blob/master/README.md).
 
-* Setting up the `Emacs` mode for use with our library of first-order
+* Setting up the Emacs mode for use with our library of first-order
    theories
 
    It is necessary to add the path `fotc/src/fot`.
@@ -71,7 +71,7 @@ $ apia FOTC/Program/Mirror/PropertiesATP.agda
 
 Please note that the code presented here does not match the paper
 exactly. Also note that the code below does not require neither the
-version modified of Agda nor the `apia` program.
+version modified of Agda nor the Apia program.
 
 You can follow [this
 link](http://www1.eafit.edu.co/asicard/code/thesis/fotc/fot/LTC-PCF.README.html)
