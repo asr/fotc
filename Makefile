@@ -209,7 +209,7 @@ agda_changed : clean
 	@echo "$@ succeeded!"
 
 ##############################################################################
-# Test used when there is a modification to Agda
+# Test used when there is a modification to Apia
 
 apia_changed :
 	if [ ! -d $(snapshot_dir) ]; then \
