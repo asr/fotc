@@ -6,7 +6,7 @@ module FOT.PA.Inductive.CanonicalTerm where
 -- We cannot extract a canonical term from a non-intuitionistic proof.
 
 open import PA.Inductive.Base
-open import PA.Inductive.Properties
+open import PA.Inductive.PropertiesI
 
 ------------------------------------------------------------------------------
 -- The existential projections

@@ -12,7 +12,6 @@ module PA.Inductive.README where
 open import PA.Inductive.Base
 
 -- Some properties
-open import PA.Inductive.Properties
 open import PA.Inductive.PropertiesATP
 open import PA.Inductive.PropertiesI
 
