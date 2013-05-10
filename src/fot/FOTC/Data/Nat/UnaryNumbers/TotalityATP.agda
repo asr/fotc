@@ -17,9 +17,15 @@ postulate
   0-N : N [0]
   1-N : N [1]
   2-N : N [2]
+  3-N : N [3]
+  4-N : N [4]
+  5-N : N [5]
 {-# ATP prove 0-N #-}
 {-# ATP prove 1-N #-}
 {-# ATP prove 2-N #-}
+{-# ATP prove 3-N #-}
+{-# ATP prove 4-N #-}
+{-# ATP prove 5-N #-}
 
 postulate
   10-N : N [10]
