@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- A proof that doesn't work the --without-K option
+-- A proof that is rejected using the --without-K option
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -17,11 +17,11 @@ open import FOTC.Data.List.WF-Relation.LT-Length
 ------------------------------------------------------------------------------
 -- LTC → LTL.
 
--- This proof doesn't work with the --without-K option.
+-- This proof is rejected using the --without-K option.
 LTC→LTL : ∀ {xs ys} → List xs → LTC xs ys → LTL xs ys
 LTC→LTL Lxs (x , refl) = lg-x<lg-x∷xs x Lxs
 
--- This proof works with the --without-K option.
+-- This proof is accepted using the --without-K option.
 LTC→LTL' : ∀ {xs ys} → List xs → LTC xs ys → LTL xs ys
 LTC→LTL' {xs} {ys} Lxs (x , h) =
   subst (λ ys' → length xs < length ys')
