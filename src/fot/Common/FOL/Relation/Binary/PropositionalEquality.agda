@@ -19,6 +19,10 @@ infix 7 _≡_
 data _≡_ (x : D) : D → Set where
   refl : x ≡ x
 
+-- Elimination rule.
+subst : (A : D → Set) → ∀ {x y} → x ≡ y → A x → A y
+subst A refl Ax = Ax
+
 -- Identity properties
 
 sym : ∀ {x y} → x ≡ y → y ≡ x
@@ -29,9 +33,6 @@ trans refl h = h
 
 trans₂ : ∀ {w x y z} → w ≡ x → x ≡ y → y ≡ z → w ≡ z
 trans₂ refl refl h = h
-
-subst : (A : D → Set) → ∀ {x y} → x ≡ y → A x → A y
-subst A refl Ax = Ax
 
 subst₂ : (A : D → D → Set) → ∀ {x₁ x₂ y₁ y₂} →
          x₁ ≡ y₁ → x₂ ≡ y₂ →

@@ -37,4 +37,4 @@ open import FOTC.Data.Conat.Equality
   prf₂ = Cn , Cn , refl
 
 ≡→≈N : ∀ {m n} → Conat m → Conat n → m ≡ n → m ≈N n
-≡→≈N h _ refl = ≈N-refl h
+≡→≈N Cm _ refl = ≈N-refl Cm

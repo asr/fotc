@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- The identity type
+-- Type theory: The identity type
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -8,7 +8,7 @@
 -- We can prove the properties of equality used in the formalization
 -- of FOTC, from refl and J.
 
-module FOT.Common.FOL.Relation.Binary.IdentityType where
+module FOT.Common.FOL.Relation.Binary.PropositionalEquality.TypeTheory where
 
 infix 7 _≡_
 
