@@ -5,7 +5,9 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOT.Common.FOL.Relation.Binary.PropositionalEquality.NoRefl where
+module
+  FOT.Common.FOL.Relation.Binary.PropositionalEquality.NoPatternMatchingOnRefl
+where
 
 open import Common.FOL.FOL using ( D )
 
