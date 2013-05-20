@@ -255,9 +255,6 @@ git_pre_commit :
 	fix-whitespace --check
 	@echo "$@ succeeded!"
 
-install :
-	cd $(peano_path) && cabal install
-
 ##############################################################################
 # Benchmark
 
@@ -287,6 +284,9 @@ dependency_graph :
 	        --dependency-graph=/tmp/dependency-graph.gv \
 	        $(fot_path)/FOTC/Program/ABP/ProofSpecificationATP.agda
 	dot -Tpdf /tmp/dependency-graph.gv > /tmp/dependency-graph.pdf
+
+peano_install :
+	cd $(peano_path) && cabal install
 
 TODO :
 	find -wholename './dist' -prune -o -print \
