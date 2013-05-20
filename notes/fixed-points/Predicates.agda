@@ -254,7 +254,7 @@ module CoList where
   l : Colist (zero ∷ true ∷ [])
   l = consCL zero (true ∷ []) (consCL true [] nilCL)
 
-  -- ToDo: Example (infinite colist).
+  -- TODO: Example (infinite colist).
   -- zerosCL : Colist {!!}
   -- zerosCL = consCL zero {!!} zerosCL
 
@@ -294,11 +294,11 @@ module Stream₂ where
   Stream = GFP StreamF
 
   -- The data constructor of Stream.
-  -- ToDo: To use implicit arguments.
+  -- TODO: To use implicit arguments.
   consS : ∀ x xs → Stream xs → Stream (x ∷ xs)
   consS x xs Sxs = GFP₂ StreamF (x ∷ xs) (x , xs , Sxs)
 
-  -- ToDo: Example
+  -- TODO: Example
   -- zerosS : Stream {!!}
   -- zerosS = consS zero {!!} zerosS
 
@@ -329,11 +329,11 @@ module Stream₃ where
   Stream = GFP StreamF
 
   -- The data constructor of Stream.
-  -- ToDo: To use implicit arguments.
+  -- TODO: To use implicit arguments.
   consS : ∀ x xs → Stream xs → Stream (x ∷ xs)
   consS x xs Sxs = GFP₂ StreamF (x ∷ xs) (x , xs , refl , Sxs)
 
-  -- ToDo: Example
+  -- TODO: Example
   -- zerosS : Stream {!!}
   -- zerosS = consS zero {!!} zerosS
 

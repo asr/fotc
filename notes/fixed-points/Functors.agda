@@ -124,7 +124,7 @@ succC cn = Wrap (inr cn)
 -- ∞C : Conat
 -- ∞C = succC {!∞C!}
 
--- ToDo: The conat destructor.
+-- TODO: The conat destructor.
 pred : Conat → One ⊎ Conat
 pred cn with out cn
 ... | inl _ = inl one
