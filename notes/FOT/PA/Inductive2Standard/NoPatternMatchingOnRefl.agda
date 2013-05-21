@@ -12,5 +12,5 @@ open import PA.Inductive.Base
 ------------------------------------------------------------------------------
 -- From PA.Inductive2Standard
 
--- TODO: 20 May 2013.
+-- 20 May 2013. Requires the predecessor function.
 -- PA₂ : ∀ {m n} → succ m ≡ succ n → m ≡ n

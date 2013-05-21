@@ -24,6 +24,5 @@ succCong {m} h = subst (λ t → succ m ≡ succ t) h refl
 +-rightCong {m} {n} h = subst (λ t → m + n ≡ m + t) h refl
 
 ------------------------------------------------------------------------------
-
--- TODO: 20 May 2013.
+-- 20 May 2013. Requires the predecessor function.
 -- P₃ : ∀ m n → succ m ≡ succ n → m ≡ n
