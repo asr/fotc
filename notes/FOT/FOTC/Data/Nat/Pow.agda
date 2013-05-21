@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Some proofs related to exponentiation
+-- Some proofs related to the power function
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOT.FOTC.Data.Nat.Exponentiation where
+module FOT.FOTC.Data.Nat.Pow where
 
 open import FOTC.Base
 open import FOTC.Data.Nat
