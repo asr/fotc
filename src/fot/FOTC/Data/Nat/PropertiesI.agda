@@ -227,10 +227,7 @@ x*Sy≡x+xy {n = n} (nsucc {m} Nm) Nn =
   succ₁ (n + m + m * n)
     ≡⟨ succCong (+-leftCong (+-comm Nn Nm)) ⟩
   succ₁ (m + n + m * n)
-    ≡⟨ subst (λ t → succ₁ (m + n + m * n) ≡ succ₁ t)
-             (+-assoc Nm n (m * n))
-               refl
-    ⟩
+    ≡⟨ succCong (+-assoc Nm n (m * n)) ⟩
   succ₁ (m + (n + m * n))
     ≡⟨ sym (+-Sx m (n + m * n)) ⟩
   succ₁ m + (n + m * n)
@@ -241,7 +238,7 @@ x*Sy≡x+xy {n = n} (nsucc {m} Nm) Nn =
 *-comm {n = n} nzero Nn          = trans (*-leftZero n) (sym (*-rightZero Nn))
 *-comm {n = n} (nsucc {m} Nm) Nn =
   succ₁ m * n ≡⟨ *-Sx m n ⟩
-  n + m * n   ≡⟨ subst (λ t → n + m * n ≡ n + t) (*-comm Nm Nn) refl ⟩
+  n + m * n   ≡⟨ +-rightCong (*-comm Nm Nn) ⟩
   n + n * m   ≡⟨ sym (x*Sy≡x+xy Nn Nm) ⟩
   n * succ₁ m ∎
 
