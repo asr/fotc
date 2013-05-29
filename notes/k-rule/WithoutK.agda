@@ -4,7 +4,7 @@
 
 -- {-# OPTIONS --without-K #-}
 
-module Without-K where
+module WithoutK where
 
 -- The following code fails with the --without-K flag.
 
