@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+-- TODO: 30 May 2013. {-# OPTIONS --without-K #-}
 
 module LTC-PCF.Program.GCD.Total.ConversionRules where
 
