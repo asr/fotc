@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
--- TODO: 30 May 2013. {-# OPTIONS --without-K #-}
+-- {-# OPTIONS --without-K #-}
 
 module LTC-PCF.Program.GCD.Total.ConversionRules where
 
@@ -147,6 +147,8 @@ private
   proof₂₋₃ : ∀ m n → gcd-s₂ m · n ≡ gcd-s₃ m n
   proof₂₋₃ m n = beta (gcd-s₃ m) n
 
+  -- TODO: 31 May 2013. Rejected when using the --without-K
+  -- option. See Agda issue 865.
   proof₃₋₄ : ∀ m n b → iszero₁ n ≡ b → gcd-s₃ m n ≡ gcd-s₄ m n b
   proof₃₋₄ m n .(iszero₁ n) refl = refl
 
@@ -156,6 +158,8 @@ private
   proof₄₋₆ : ∀ m n → gcd-s₄ m n false ≡ gcd-s₆ m n
   proof₄₋₆ m n = if-false (gcd-s₆ m n)
 
+  -- TODO: 31 May 2013. Rejected when using the --without-K
+  -- option. See Agda issue 865.
   proof₆₋₇ : ∀ m n b → iszero₁ m ≡ b → gcd-s₆ m n ≡ gcd-s₇ m n b
   proof₆₋₇ m n .(iszero₁ m) refl = refl
 
