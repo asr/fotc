@@ -14,9 +14,6 @@ open import DistributiveLaws.Base
 
 -- The propositional equality is compatible with the binary operation.
 
--- ·-cong : ∀ {a b c d} → a ≡ b → c ≡ d → a · c ≡ b · d
--- ·-cong = cong₂ _·_
-
 ·-leftCong : ∀ {a b c} → a ≡ b → a · c ≡ b · c
 ·-leftCong refl = refl
 
