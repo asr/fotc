@@ -96,7 +96,7 @@ N→Dom = <-wfind P ih
   ih : ∀ {x} → N x → (∀ {y} → N y → y < x → P y) → P x
   ih nzero          h = dom0
   ih (nsucc {x} Nx) h =
-    domS x dn-x (h (nest-N Nx ) (x≤y→x<Sy (nest-N Nx) Nx (nest-≤ dn-x)))
+    domS x dn-x (h (nest-N Nx) (x≤y→x<Sy (nest-N Nx) Nx (nest-≤ dn-x)))
       where
       dn-x : Dom x
       dn-x = h Nx (x<Sx Nx)

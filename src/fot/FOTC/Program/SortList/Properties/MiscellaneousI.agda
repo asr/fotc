@@ -64,7 +64,7 @@ x≤ys++zs→x≤zs {i} {ks = ks} Ni (lncons {j} {js} Nj LNjs) LNks i≤j∷js++
     le i j && le-ItemList i (js ++ ks)
       ≡⟨ sym (le-ItemList-∷ i j (js ++ ks)) ⟩
     le-ItemList i (j ∷ (js ++ ks))
-      ≡⟨ subst (λ t → le-ItemList i (j ∷ (js ++ ks)) ≡ le-ItemList i t )
+      ≡⟨ subst (λ t → le-ItemList i (j ∷ (js ++ ks)) ≡ le-ItemList i t)
                (sym (++-∷ j js ks))
                refl
       ⟩

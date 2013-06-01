@@ -25,7 +25,7 @@ open import FOTC.Data.Nat.UnaryNumbers
 
 -- The functor.
 -- ListPF : (D → Set) → (D → Set) → D → Set
--- ListPF A B xs = xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A x' ∧ xs ≡ x' ∷ xs' ∧ B xs' )
+-- ListPF A B xs = xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A x' ∧ xs ≡ x' ∷ xs' ∧ B xs')
 
 -- ListP is the least fixed-point of ListPF.
 postulate

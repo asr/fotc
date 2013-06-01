@@ -43,7 +43,7 @@ module NonSchemas where
 
   postulate
     ∧∨-dist³ : ∀ {x y z} →
-               (A³ x y z ∧ (B³ x y z ∨ C³ x y z )) ↔
+               (A³ x y z ∧ (B³ x y z ∨ C³ x y z)) ↔
                (A³ x y z ∧ B³ x y z ∨ A³ x y z ∧ C³ x y z)
   {-# ATP prove ∧∨-dist³ #-}
 

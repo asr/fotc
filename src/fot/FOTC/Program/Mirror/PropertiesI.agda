@@ -28,7 +28,7 @@ helper            : ∀ {ts} → Forest ts →
 
 mirror-involutive (tree d fnil) =
   mirror · (mirror · (node d []))
-    ≡⟨ subst (λ x → mirror · (mirror · (node d [])) ≡ mirror · x )
+    ≡⟨ subst (λ x → mirror · (mirror · (node d [])) ≡ mirror · x)
              (mirror-eq d [])
              refl
     ⟩
@@ -87,7 +87,7 @@ helper fnil =
 
 helper (fcons {t} {ts} Tt Fts) =
   reverse (map mirror (reverse (map mirror (t ∷ ts))))
-    ≡⟨ reverseCong (mapCong₂ (reverseCong (map-∷ mirror t ts) )) ⟩
+    ≡⟨ reverseCong (mapCong₂ (reverseCong (map-∷ mirror t ts))) ⟩
   reverse (map mirror (reverse (mirror · t ∷ map mirror ts)))
     ≡⟨ reverseCong (mapCong₂
                      (reverse-∷-forest (mirror-Tree Tt)

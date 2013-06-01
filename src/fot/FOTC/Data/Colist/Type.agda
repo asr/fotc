@@ -62,5 +62,5 @@ Colist-pre-fixed {xs} h = Colist-coind A prf h
 
   prf : A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
   prf (inj₁ h₁) = inj₁ h₁
-  prf (inj₂ (_ , _ , xs≡x'∷xs' , Axs' )) =
+  prf (inj₂ (_ , _ , xs≡x'∷xs' , Axs')) =
     inj₂ (_ , _ , xs≡x'∷xs' , Colist-unf Axs')

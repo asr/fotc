@@ -83,7 +83,7 @@ div-2^[x+1]-2≡2^x {n} Nn =
   prf : succ₁ (succ₁ (succ₁ (succ₁ n) ∸ [2])) ≡ succ₁ (succ₁ n)
   prf = succ₁ (succ₁ (succ₁ (succ₁ n) ∸ [2]))
           ≡⟨ succCong (succCong (S∸S (nsucc Nn) (nsucc nzero))) ⟩
-        succ₁ (succ₁ ((succ₁ n ) ∸ [1]))
+        succ₁ (succ₁ ((succ₁ n) ∸ [1]))
           ≡⟨ succCong (succCong (S∸S Nn nzero)) ⟩
         succ₁ (succ₁ (n ∸ zero))
           ≡⟨ succCong (succCong (∸-x0 n)) ⟩

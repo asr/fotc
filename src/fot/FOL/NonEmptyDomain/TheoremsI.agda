@@ -51,7 +51,7 @@ postulate
   where
   l→r : ∃[ x ] (A ∨ A¹ x) → A ∨ (∃[ x ] A¹ x)
   l→r (x , inj₁ a)   = inj₁ a
-  l→r (x , inj₂ A¹x) = inj₂ (x , A¹x )
+  l→r (x , inj₂ A¹x) = inj₂ (x , A¹x)
 
   r→l : A ∨ (∃[ x ] A¹ x) → ∃[ x ] A ∨ A¹ x
   r→l (inj₁ a)         = D≢∅ , inj₁ a

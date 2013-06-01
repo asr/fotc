@@ -51,7 +51,7 @@ postulate
 
 -- Left-inverse property based on the signature (G, ·, ε,).
 leftInverse₁ : Set
-leftInverse₁ = ∀ a → Σ G (λ a' → a' · a ≡ ε )
+leftInverse₁ = ∀ a → Σ G (λ a' → a' · a ≡ ε)
 
 -- Left-inverse property based on the signature (G, ·, _⁻¹, ε,).
 infix  11 _⁻¹

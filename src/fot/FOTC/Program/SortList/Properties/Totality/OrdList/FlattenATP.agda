@@ -116,7 +116,7 @@ flatten-OrdList-helper {i = i} (tnode {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
   helper₂ = ordTree-Bool tnil
   helper₃ = le-TreeItem-Bool (tnode Tt₁₁ Ni₁ Tt₁₂) Ni
   helper₄ = le-ItemTree-Bool Ni tnil
-  helper₅ = trans (sym (ordTree-node (node t₁₁ i₁ t₁₂) i nil )) OTt
+  helper₅ = trans (sym (ordTree-node (node t₁₁ i₁ t₁₂) i nil)) OTt
 
   -- Helper terms to get the conjuncts from the third conjunct of OTt.
   helper₆ = le-TreeItem-Bool Tt₁₁ Ni

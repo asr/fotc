@@ -17,7 +17,7 @@ open import GroupTheory.Base
 -- The propositional equality is compatible with the binary operation.
 
 ·-leftCong : ∀ {a b c} → a ≡ b → a · c ≡ b · c
-·-leftCong {a} {c = c} h = subst (λ t → a · c ≡ t · c ) h refl
+·-leftCong {a} {c = c} h = subst (λ t → a · c ≡ t · c) h refl
 
 ·-rightCong : ∀ {a b c} → b ≡ c → a · b ≡ a · c
 ·-rightCong {a} {b} h = subst (λ t → a · b ≡ a · t) h refl

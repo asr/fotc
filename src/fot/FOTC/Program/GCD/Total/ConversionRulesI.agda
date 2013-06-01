@@ -140,7 +140,7 @@ private
   -- 01 June 2013. This proof could use pattern matching on _≡_. See
   -- Agda issue 865.
   proof₄₋₈ : ∀ m n b → iszero₁ m ≡ b → gcd-s₄ m n ≡ gcd-s₈ m n b
-  proof₄₋₈ m n b h = subst (λ t → gcd-s₄ m n ≡ gcd-s₈ m n t ) h refl
+  proof₄₋₈ m n b h = subst (λ t → gcd-s₄ m n ≡ gcd-s₈ m n t) h refl
 
   proof₈₋₉ : ∀ m n → gcd-s₈ m n true ≡ gcd-s₉ n
   proof₈₋₉ _ n = if-true n

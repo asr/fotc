@@ -35,7 +35,7 @@ not-f : not false ≡ true
 not-f = if-false true
 
 &&-Bool : ∀ {a b} → Bool a → Bool b → Bool (a && b)
-&&-Bool {b = b} btrue  Bb = subst Bool (sym (t&&x≡x b )) Bb
+&&-Bool {b = b} btrue  Bb = subst Bool (sym (t&&x≡x b)) Bb
 &&-Bool {b = b} bfalse Bb = subst Bool (sym (f&&x≡f b)) bfalse
 
 not-Bool : ∀ {b} → Bool b → Bool (not b)
