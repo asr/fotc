@@ -129,8 +129,7 @@ private
 
   -- Application of the conversion rule fix-eq.
   proof₀₋₁ : ∀ m n → fix lth · m · n  ≡ lt-s₁ m n
-  proof₀₋₁ m n = subst (λ x → x · m · n  ≡
-                              lth (fix lth) · m · n )
+  proof₀₋₁ m n = subst (λ x → x · m · n  ≡ lth (fix lth) · m · n )
                        (sym (fix-eq lth ))
                        refl
 
@@ -147,9 +146,9 @@ private
 
   -- Reduction iszero n ≡ b using that proof.
   proof₃₋₄ : ∀ m n b → iszero₁ n ≡ b → lt-s₃ m n ≡ lt-s₄ m n b
-  proof₃₋₄ m n b prf = subst (λ x → lt-s₄ m n x ≡ lt-s₄ m n b )
-                             (sym prf )
-                             refl
+  proof₃₋₄ m n b h = subst (λ x → lt-s₄ m n x ≡ lt-s₄ m n b )
+                           (sym h)
+                           refl
 
   -- Reduction of iszero₁ n ≡ true using the conversion rule if-true.
   proof₄₊ : ∀ m n → lt-s₄ m n true ≡ false
@@ -163,9 +162,9 @@ private
 
   -- Reduction iszero₁ m ≡ b using that proof.
   proof₅₋₆ : ∀ m n b → iszero₁ m ≡ b → lt-s₅ m n ≡ lt-s₆ m n b
-  proof₅₋₆ m n b prf = subst (λ x → lt-s₆ m n x ≡ lt-s₆ m n b )
-                             (sym prf )
-                             refl
+  proof₅₋₆ m n b h = subst (λ x → lt-s₆ m n x ≡ lt-s₆ m n b )
+                           (sym h)
+                           refl
 
   -- Reduction of iszero₁ m ≡ true using the conversion rule if-true.
   proof₆₊ : ∀ m n → lt-s₆ m n true ≡ true
