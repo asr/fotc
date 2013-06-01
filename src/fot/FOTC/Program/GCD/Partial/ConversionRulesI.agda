@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
--- {-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K #-}
 
 module FOTC.Program.GCD.Partial.ConversionRulesI where
 
@@ -143,10 +143,10 @@ private
   proof₀₋₁ : ∀ m n → gcd m n ≡ gcd-s₁ m n
   proof₀₋₁ = gcd-eq
 
-  -- TODO: 31 May 2013. Rejected when using the --without-K
-  -- option. See Agda issue 865.
+  -- 01 June 2013. This proof could use pattern matching on _≡_. See
+  -- Agda issue 865.
   proof₁₋₂ : ∀ m n b → iszero₁ n ≡ b → gcd-s₁ m n ≡ gcd-s₂ m n b
-  proof₁₋₂ m n .(iszero₁ n) refl = refl
+  proof₁₋₂ m n b h = subst (λ t → gcd-s₁ m n ≡ gcd-s₂ m n t) h refl
 
   proof₂₋₃ : ∀ m n → gcd-s₂ m n true ≡ gcd-s₃ m
   proof₂₋₃ m _ = if-true (gcd-s₃ m)
@@ -154,10 +154,10 @@ private
   proof₂₋₄ : ∀ m n → gcd-s₂ m n false ≡ gcd-s₄ m n
   proof₂₋₄ m n = if-false (gcd-s₄ m n)
 
-  -- TODO: 31 May 2013. Rejected when using the --without-K
-  -- option. See Agda issue 865.
+  -- 01 June 2013. This proof could use pattern matching on _≡_. See
+  -- Agda issue 865.
   proof₃₋₅ : ∀ m b → iszero₁ m ≡ b → gcd-s₃ m ≡ gcd-s₅ m b
-  proof₃₋₅ m .(iszero₁ m) refl = refl
+  proof₃₋₅ m b h = subst (λ t → gcd-s₃ m ≡ gcd-s₅ m t) h refl
 
   proof₅₋₆ : ∀ m → gcd-s₅ m true ≡ gcd-s₆
   proof₅₋₆ _ = if-true error
@@ -165,10 +165,10 @@ private
   proof₅₋₇ : ∀ m → gcd-s₅ m false ≡ gcd-s₇ m
   proof₅₋₇ m = if-false m
 
-  -- TODO: 31 May 2013. Rejected when using the --without-K
-  -- option. See Agda issue 865.
+  -- 01 June 2013. This proof could use pattern matching on _≡_. See
+  -- Agda issue 865.
   proof₄₋₈ : ∀ m n b → iszero₁ m ≡ b → gcd-s₄ m n ≡ gcd-s₈ m n b
-  proof₄₋₈ m n .(iszero₁ m) refl = refl
+  proof₄₋₈ m n b h = subst (λ t → gcd-s₄ m n ≡ gcd-s₈ m n t) h refl
 
   proof₈₋₉ : ∀ m n → gcd-s₈ m n true ≡ gcd-s₉ n
   proof₈₋₉ _ n = if-true n
@@ -176,10 +176,10 @@ private
   proof₈₋₁₀ : ∀ m n → gcd-s₈ m n false ≡ gcd-s₁₀ m n
   proof₈₋₁₀ m n = if-false (gcd-s₁₀ m n)
 
-  -- TODO: 31 May 2013. Rejected when using the --without-K
-  -- option. See Agda issue 865.
+  -- 01 June 2013. This proof could use pattern matching on _≡_. See
+  -- Agda issue 865.
   proof₁₀₋₁₁ : ∀ m n b → gt m n ≡ b → gcd-s₁₀ m n ≡ gcd-s₁₁ m n b
-  proof₁₀₋₁₁ m n .(lt n m) refl = refl
+  proof₁₀₋₁₁ m n b h = subst (λ t → gcd-s₁₀ m n ≡ gcd-s₁₁ m n t) h refl
 
   proof₁₁₋₁₂ : ∀ m n → gcd-s₁₁ m n true ≡ gcd-s₁₂ m n
   proof₁₁₋₁₂ m n = if-true (gcd (m ∸ n) n)

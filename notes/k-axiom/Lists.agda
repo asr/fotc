@@ -17,7 +17,7 @@ open import FOTC.Data.List.WF-Relation.LT-Length
 ------------------------------------------------------------------------------
 -- LTC → LTL.
 
--- TODO: 31 May 2013. Rejected when using the --without-K option. See
+-- 31 May 2013. Rejected when using the --without-K option. See
 -- Agda issue 865.
 LTC→LTL : ∀ {xs ys} → List xs → LTC xs ys → LTL xs ys
 LTC→LTL Lxs (x , refl) = lg-x<lg-x∷xs x Lxs

@@ -15,6 +15,9 @@ open import FOTC.Data.List.WF-Relation.LT-Cons
 open import FOTC.Data.List.WF-Relation.LT-Length
 
 ------------------------------------------------------------------------------
+-- 01 June 2013. This proof could use pattern matching on _≡_. See
+-- Agda issue 865.
+--
 -- LTC ⊆ LTL.
 LTC→LTL : ∀ {xs ys} → List xs → LTC xs ys → LTL xs ys
 LTC→LTL {xs} {ys} Lxs (x , ys≡x∷xs) =
