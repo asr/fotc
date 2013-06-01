@@ -21,8 +21,8 @@ open import FOTC.Base.List
 ∷-rightCong : ∀ {x xs ys} → xs ≡ ys → x ∷ xs ≡ x ∷ ys
 ∷-rightCong refl = refl
 
-∷-Cong : ∀ {x y xs ys} → x ≡ y → xs ≡ ys → x ∷ xs ≡ y ∷ ys
-∷-Cong refl refl = refl
+∷-cong : ∀ {x y xs ys} → x ≡ y → xs ≡ ys → x ∷ xs ≡ y ∷ ys
+∷-cong refl refl = refl
 
 headCong : ∀ {xs ys} → xs ≡ ys → head₁ xs ≡ head₁ ys
 headCong refl = refl
