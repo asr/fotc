@@ -78,7 +78,8 @@ private
 
   -- Application of the conversion rule fix-eq.
   proof₀₋₁ : ∀ n a f → fix rech · n · a · f ≡ rec-s₁ n a f
-  proof₀₋₁ n a f = subst (λ x → x · n · a · f ≡ rech (fix rech) · n · a · f )
+  proof₀₋₁ n a f = subst (λ x → x · n · a · f ≡
+                                rech (fix rech) · n · a · f )
                          (sym (fix-eq rech))
                          refl
 
@@ -98,6 +99,9 @@ private
   proof₃₋₄ : ∀ n a f → rec-s₃ n a · f ≡ rec-s₄ n a f
   proof₃₋₄ n a f = beta (rec-s₄ n a) f
 
+  -- 01 June 2013. This proof could use pattern matching on _≡_. See
+  -- Agda issue 865.
+  --
   -- Cases iszero₁ n ≡ b using that proof.
   proof₄₋₅ : ∀ n a f b → iszero₁ n ≡ b → rec-s₄ n a f ≡ rec-s₅ n a f b
   proof₄₋₅ n a f b h = subst (λ x → rec-s₅ n a f x ≡ rec-s₅ n a f b)
