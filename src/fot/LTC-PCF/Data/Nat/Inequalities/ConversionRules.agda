@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+-- {-# OPTIONS --without-K #-}
 
 module LTC-PCF.Data.Nat.Inequalities.ConversionRules where
 
@@ -143,7 +143,9 @@ private
   proof₂₋₃ : ∀ m n → lt-s₂ m · n ≡ lt-s₃ m n
   proof₂₋₃ m n = beta (lt-s₃ m) n
 
-
+  -- 01 June 2013. This proof could use pattern matching on _≡_. See
+  -- Agda issue 865.
+  --
   -- Reduction iszero n ≡ b using that proof.
   proof₃₋₄ : ∀ m n b → iszero₁ n ≡ b → lt-s₃ m n ≡ lt-s₄ m n b
   proof₃₋₄ m n b h = subst (λ x → lt-s₄ m n x ≡ lt-s₄ m n b )
@@ -159,7 +161,9 @@ private
   proof₄₋₅ : ∀ m n → lt-s₄ m n false ≡ lt-s₅ m n
   proof₄₋₅ m n = if-false (lt-s₅ m n)
 
-
+  -- 01 June 2013. This proof could use pattern matching on _≡_. See
+  -- Agda issue 865.
+  --
   -- Reduction iszero₁ m ≡ b using that proof.
   proof₅₋₆ : ∀ m n b → iszero₁ m ≡ b → lt-s₅ m n ≡ lt-s₆ m n b
   proof₅₋₆ m n b h = subst (λ x → lt-s₆ m n x ≡ lt-s₆ m n b )
