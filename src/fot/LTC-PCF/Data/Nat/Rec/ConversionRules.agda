@@ -78,8 +78,7 @@ private
 
   -- Application of the conversion rule fix-eq.
   proof₀₋₁ : ∀ n a f → fix rech · n · a · f ≡ rec-s₁ n a f
-  proof₀₋₁ n a f = subst (λ x → x · n · a · f ≡
-                                rech (fix rech) · n · a · f )
+  proof₀₋₁ n a f = subst (λ x → x · n · a · f ≡ rech (fix rech) · n · a · f )
                          (sym (fix-eq rech))
                          refl
 

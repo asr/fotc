@@ -66,9 +66,9 @@ subList-OrdList {i} Ni (lncons {j} {js} Nj Ljs) LOi∷j∷js =
   true ∎
     where
     lemma₁ : le-ItemList item is ≡ true
-    lemma₁ =  &&-list₂-t₂ (le-Bool Nitem Ni)
-                          (le-ItemList-Bool Nitem LNis)
-                          (trans (sym (le-ItemList-∷ item i is)) item≤i∷is)
+    lemma₁ = &&-list₂-t₂ (le-Bool Nitem Ni)
+                         (le-ItemList-Bool Nitem LNis)
+                         (trans (sym (le-ItemList-∷ item i is)) item≤i∷is)
 
     lemma₂ : le-Lists is js ≡ true
     lemma₂ = &&-list₂-t₂ (le-ItemList-Bool Ni LNjs)
