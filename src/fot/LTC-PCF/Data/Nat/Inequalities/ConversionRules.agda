@@ -129,8 +129,8 @@ private
 
   -- Application of the conversion rule fix-eq.
   proof₀₋₁ : ∀ m n → fix lth · m · n  ≡ lt-s₁ m n
-  proof₀₋₁ m n = subst (λ x → x · m · n  ≡ lth (fix lth) · m · n )
-                       (sym (fix-eq lth ))
+  proof₀₋₁ m n = subst (λ x → x · m · n  ≡ lth (fix lth) · m · n)
+                       (sym (fix-eq lth))
                        refl
 
   -- Application of the first argument.
@@ -148,7 +148,7 @@ private
   --
   -- Reduction iszero n ≡ b using that proof.
   proof₃₋₄ : ∀ m n b → iszero₁ n ≡ b → lt-s₃ m n ≡ lt-s₄ m n b
-  proof₃₋₄ m n b h = subst (λ x → lt-s₄ m n x ≡ lt-s₄ m n b )
+  proof₃₋₄ m n b h = subst (λ x → lt-s₄ m n x ≡ lt-s₄ m n b)
                            (sym h)
                            refl
 
@@ -163,10 +163,10 @@ private
 
   -- 01 June 2013. This proof could use pattern matching on _≡_. See
   -- Agda issue 865.
-  --
+
   -- Reduction iszero₁ m ≡ b using that proof.
   proof₅₋₆ : ∀ m n b → iszero₁ m ≡ b → lt-s₅ m n ≡ lt-s₆ m n b
-  proof₅₋₆ m n b h = subst (λ x → lt-s₆ m n x ≡ lt-s₆ m n b )
+  proof₅₋₆ m n b h = subst (λ x → lt-s₆ m n x ≡ lt-s₆ m n b)
                            (sym h)
                            refl
 
@@ -180,15 +180,15 @@ private
   proof₆₋₇ m n = if-false (lt-s₇ m n)
 
   -- Reduction pred (succ m) ≡ m using the conversion rule pred-S.
-  proof₇₋₈ : ∀ m n → lt-s₇ (succ₁ m) n  ≡ lt-s₈ m n
+  proof₇₋₈ : ∀ m n → lt-s₇ (succ₁ m) n ≡ lt-s₈ m n
   proof₇₋₈ m n = subst (λ x → lt-s₈ x n ≡ lt-s₈ m n)
-                       (sym (pred-S m ))
+                       (sym (pred-S m))
                        refl
 
   -- Reduction pred (succ n) ≡ n using the conversion rule pred-S.
-  proof₈₋₉ : ∀ m n → lt-s₈ m (succ₁ n)  ≡ lt-s₉ m n
+  proof₈₋₉ : ∀ m n → lt-s₈ m (succ₁ n) ≡ lt-s₉ m n
   proof₈₋₉ m n = subst (λ x → lt-s₉ m x ≡ lt-s₉ m n)
-                       (sym (pred-S n ))
+                       (sym (pred-S n))
                        refl
 
 ------------------------------------------------------------------------------
