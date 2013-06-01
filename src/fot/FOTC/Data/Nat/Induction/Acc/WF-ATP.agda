@@ -62,4 +62,4 @@ module <-WF' where
                                             (x≤y→x<y∨x≡y Nn Nm n≤m)
       where
       helper₁ : ∀ {a b} → a ≡ b → Acc N _<_ a → Acc N _<_ b
-      helper₁ a≡b acc-a = subst (Acc N _<_) a≡b acc-a
+      helper₁ refl h = h

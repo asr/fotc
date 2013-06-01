@@ -307,10 +307,10 @@ x≤y→x<y∨x≡y : ∀ {m n} → N m → N n → m ≤ n → m < n ∨ m ≡ 
 x≤y→x<y∨x≡y = x<Sy→x<y∨x≡y
 
 x<y→y≡z→x<z : ∀ {m n o} → m < n → n ≡ o → m < o
-x<y→y≡z→x<z {m} m<n n≡o = subst (λ n' → m < n') n≡o m<n
+x<y→y≡z→x<z m<n refl = m<n
 
 x≡y→y<z→x<z : ∀ {m n o} → m ≡ n → n < o → m < o
-x≡y→y<z→x<z {o = o} m≡n n<o = subst (λ m' → m' < o) (sym m≡n) n<o
+x≡y→y<z→x<z refl n<o = n<o
 
 x≥y→y>0→x∸y<x : ∀ {m n} → N m → N n → m ≥ n → n > zero → m ∸ n < m
 x≥y→y>0→x∸y<x Nm             nzero          _     0>0  = ⊥-elim (x>x→⊥ nzero 0>0)
