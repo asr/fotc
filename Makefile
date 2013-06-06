@@ -277,6 +277,13 @@ benchmark :
 	@echo "$@ succeeded!"
 
 ##############################################################################
+# Hlint test
+
+hlint :
+	find -name '*.hs' | xargs hlint
+	@echo "$@ succeeded!"
+
+##############################################################################
 # Others
 
 dependency_graph :

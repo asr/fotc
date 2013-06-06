@@ -24,7 +24,7 @@ unIn (In x) = x
 -- The greatest fixed-point of the (unary) type constructor f.
 data Nu f = Functor f ⇒ Wrap (f (Nu f))
 
-out ∷ Functor f ⇒ Nu f → (f (Nu f))
+out ∷ Functor f ⇒ Nu f → f (Nu f)
 out (Wrap x) = x
 
 ------------------------------------------------------------------------------

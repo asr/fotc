@@ -3,7 +3,7 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 header ∷ IO ()
-header = do
+header =
   putStrLn $
     "-- This file was automatically generated.\n\n"
     ++ "module ManyAxioms where\n\n"
@@ -14,16 +14,16 @@ header = do
 variable ∷ Int → IO ()
 variable n = do
   let ai ∷ String
-      ai = "a" ++ show n
+      ai = 'a' : show n
   putStrLn $ "postulate " ++ ai ++ " : D"
 
 axiom ∷ Int → IO ()
 axiom n = do
   let ai ∷ String
-      ai = "a" ++ show n
+      ai = 'a' : show n
 
       aj ∷ String
-      aj = "a" ++ show (n + 1)
+      aj = 'a' : show (n + 1)
 
       ax ∷ String
       ax = "ax" ++ show n
@@ -34,13 +34,13 @@ axiom n = do
 footer ∷ Int → IO ()
 footer n = do
   let ai ∷ String
-      ai = "a" ++ show (n - 1)
+      ai = 'a' : show (n - 1)
 
       aj ∷ String
-      aj = "a" ++ show n
+      aj = 'a' : show n
 
   putStrLn $ "postulate foo : " ++ ai ++ " ≡ " ++ aj
-  putStrLn $ "{-# ATP prove foo #-}"
+  putStrLn "{-# ATP prove foo #-}"
 
 totalVar ∷ Int
 totalVar = 1000
