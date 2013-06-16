@@ -78,7 +78,7 @@ postulate
   ax≡b-uniqueSolution : ∀ a b → ∃[ x ] (a · x ≡ b) ∧ (∀ x' → a · x' ≡ b → x ≡ x')
 {-# ATP prove ax≡b-uniqueSolution #-}
 
--- If the square of every element is the identity, the system is commutative.
--- From: TPTP v5.4.0 problem GRP/GRP001-2.p.
+-- If the square of every element is the identity, the system is
+-- commutative. From: TPTP 5.5.0 problem GRP/GRP001-2.p.
 postulate x²≡ε→comm : (∀ a → a · a ≡ ε) → ∀ {b c d} → b · c ≡ d → c · b ≡ d
 {-# ATP prove x²≡ε→comm #-}
