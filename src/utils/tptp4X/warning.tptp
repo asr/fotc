@@ -1,3 +1,0 @@
-% The following example yields a warning with tptp4X.
-
-fof(foo, axiom, (p(a) & p(a,b))).
