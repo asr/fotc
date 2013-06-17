@@ -36,5 +36,5 @@ open import FOTC.Data.Conat.Equality
   postulate prf₂ : Conat n ∧ Conat n ∧ n ≡ n
   {-# ATP prove prf₂ #-}
 
-≡→≈N : ∀ {m n} → Conat m → Conat n → m ≡ n → m ≈N n
-≡→≈N h _ refl = ≈N-refl h
+postulate ≡→≈N : ∀ {m n} → Conat m → Conat n → m ≡ n → m ≈N n
+{-# ATP prove ≡→≈N ≈N-refl #-}
