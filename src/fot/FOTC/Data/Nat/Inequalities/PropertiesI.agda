@@ -133,7 +133,7 @@ x≤y∨x≰y (nsucc {m} Nm) (nsucc {n} Nn) =
        (x≤y∨x≰y Nm Nn)
 
 x≡y→x≤y : ∀ {m n} → N m → N n → m ≡ n → m ≤ n
-x≡y→x≤y {n = n} Nm Nn m≡n = subst (λ m' → m' ≤ n) (sym m≡n) (x≤x Nn)
+x≡y→x≤y Nm _ refl = x≤x Nm
 
 x<y→x≤y : ∀ {m n} → N m → N n → m < n → m ≤ n
 x<y→x≤y Nm             nzero          m<0   = ⊥-elim (x<0→⊥ Nm m<0)

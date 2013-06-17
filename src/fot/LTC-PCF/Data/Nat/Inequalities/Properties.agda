@@ -116,7 +116,7 @@ x<y∨x≮y Nm Nn = case (λ m<n → inj₁ m<n)
                      (x<y∨x≥y Nm Nn)
 
 x≡y→x≤y : ∀ {m n} → N m → N n → m ≡ n → m ≤ n
-x≡y→x≤y Nm Nn refl = x≤x Nn
+x≡y→x≤y Nm _ refl = x≤x Nm
 
 x<y→x≤y : ∀ {m n} → N m → N n → m < n → m ≤ n
 x<y→x≤y Nm             nzero          m<0   = ⊥-elim (x<0→⊥ Nm m<0)
