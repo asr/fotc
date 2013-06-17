@@ -46,9 +46,9 @@ x∷xs<y∷ys→xs<ys {x} {xs} {y} {ys} Lxs Lys x∷xs<y∷ys = Nat.Sx<Sy→x<y 
 
 lg-xs≡lg-ys→ys<zx→xs<zs : ∀ {xs ys zs} → length xs ≡ length ys →
                           LTL ys zs → LTL xs zs
-lg-xs≡lg-ys→ys<zx→xs<zs {xs} {ys} {zs} lg-xs≡lg-ys ys<zs =
+lg-xs≡lg-ys→ys<zx→xs<zs {xs} {ys} {zs} h ys<zs =
   lt (length xs) (length zs)
-    ≡⟨ subst (λ t → lt (length xs) (length zs) ≡ lt t (length zs)) lg-xs≡lg-ys refl ⟩
+    ≡⟨ subst (λ t → lt (length xs) (length zs) ≡ lt t (length zs)) h refl ⟩
   lt (length ys) (length zs)
     ≡⟨ ys<zs ⟩
   true ∎
