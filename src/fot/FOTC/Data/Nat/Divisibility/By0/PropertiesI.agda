@@ -33,6 +33,9 @@ S∣0 n = zero , nzero , sym (*-leftZero (succ₁ n))
 ∣-refl {n} Nn = [1] , 1-N , sym (*-leftIdentity Nn)
 
 -- If x divides y and z then x divides y ∸ z.
+--
+-- 17 June 2013. This proof could use pattern matching on _≡_. See
+-- Agda issue 865.
 x∣y→x∣z→x∣y∸z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →
                        n ≡ k₁ * m →
                        o ≡ k₂ * m →
@@ -48,6 +51,9 @@ x∣y→x∣z→x∣y∸z Nm Nn No (k₁ , Nk₁ , h₁) (k₂ , Nk₂ , h₂) =
   k₁ ∸ k₂ , ∸-N Nk₁ Nk₂ , x∣y→x∣z→x∣y∸z-helper Nm Nk₁ Nk₂ h₁ h₂
 
 -- If x divides y and z then x divides y + z.
+--
+-- 17 June 2013. This proof could use pattern matching on _≡_. See
+-- Agda issue 865.
 x∣y→x∣z→x∣y+z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →
                        n ≡ k₁ * m →
                        o ≡ k₂ * m →
