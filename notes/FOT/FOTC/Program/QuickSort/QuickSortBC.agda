@@ -86,7 +86,7 @@ module AllWF = Induction.WellFounded.All wf-⟪′
 
 allQSDom : ∀ xs → QSDom xs
 -- If we use wfi-⟪′ then allQSDom =  wfi-⟪′ P ih
-allQSDom = build AllWF.wfRec-builder P ih
+allQSDom = build (AllWF.wfRec-builder _) P ih
   where
   P : List ℕ → Set
   P = QSDom
