@@ -54,7 +54,7 @@ corrupt (True :> os)  (x :> xs) = Ok x  :> corrupt os xs
 --
 -- Requires the flag ScopedTypeVariables to write the type signatures
 -- of the terms defined in the where clauses.
-trans ∷ forall a. Bit → Stream Bit → Stream Bit → Stream a → Stream a
+trans ∷ ∀ a. Bit → Stream Bit → Stream Bit → Stream a → Stream a
 trans b os0 os1 is = out b bs
   where
   as ∷ Stream (a, Bit)
