@@ -5,7 +5,7 @@
 For E 1.2, E 1.3, E 1.4 and E 1.5:
 $ eprover --cpu-limit=xxx --expert-heuristic=Auto --memory-limit=Auto --term-ordering=Auto --tstp-format file_name
 
-For E 1.6 and E 1.7:
+For E 1.6, E 1.7 and E 1.8:
 $ eprover --auto --cpu-limit=xxx --memory-limit=Auto --tstp-format file_name
 
 $ equinox --time xxx file_name

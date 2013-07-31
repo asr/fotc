@@ -26,6 +26,6 @@ postulate
 -- $ agda -i. -i ~/fot FOTC/AddRecursiveEquation.agda
 -- $ apia -i. -i ~/fot FOTC/AddRecursiveEquation.agda
 -- Proving the conjecture in /tmp/FOTC/AddRecursiveEquation/21-43-Sx.tptp ...
--- E 1.7 Jun Chiabari proved the conjecture
+-- Vampire 0.6 (revision 903) proved the conjecture
 -- Proving the conjecture in /tmp/FOTC/AddRecursiveEquation/20-43-0x.tptp ...
 -- Vampire 0.6 (revision 903) proved the conjecture

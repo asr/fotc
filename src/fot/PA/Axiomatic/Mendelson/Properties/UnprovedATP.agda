@@ -22,7 +22,7 @@ open import PA.Axiomatic.Mendelson.PropertiesATP
   postulate A0 : A zero
   {-# ATP prove A0 +-leftCong #-}
 
-  -- 28 March 2013: The ATPs could not prove the theorem (240 sec).
+  -- 31 July 2013: The ATPs could not prove the theorem (240 sec).
   --
   -- After the addition of the inequality _≉_, no ATP proves the
   -- theorem. Before it, only Equinox 5.0alpha (2010-06-29) had proved

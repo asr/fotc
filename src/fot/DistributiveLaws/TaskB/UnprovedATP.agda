@@ -10,7 +10,7 @@ module DistributiveLaws.TaskB.UnprovedATP where
 open import DistributiveLaws.Base
 
 ------------------------------------------------------------------------------
--- 28 March 2013: The ATPs could not prove the theorem (240 sec).
+-- 31 July 2013: The ATPs could not prove the theorem (240 sec).
 postulate
   prop₂ : ∀ u x y z → (x · y · (z · u)) ·
                       (( x · y · ( z · u)) · (x · z · (y · u))) ≡
