@@ -69,7 +69,7 @@ open import FOTC.Program.McCarthy91.WF-Relation
   {-# ATP prove Sm<k #-}
   {-# ATP prove k∸n<k∸m S∸S #-}
 
-<→◁ : ∀ {n m} → N n → N m → m ≯ [100] → m < n → n ◁ m
+<→◁ : ∀ {n m} → N n → N m → m ≯ 100' → m < n → n ◁ m
 <→◁ nzero          Nm    p h = ⊥-elim (x<0→⊥ Nm h)
 <→◁ (nsucc {n} Nn) nzero p h = prfS0
   where
@@ -81,10 +81,10 @@ open import FOTC.Program.McCarthy91.WF-Relation
                               (<→◁ Nn Nm m≯100 m<n)
   where
   postulate
-    m≯100  : m ≯ [100]
+    m≯100  : m ≯ 100'
     m<n    : m < n
-    Sn≤101 : succ₁ n < [101]
-    Sm≤101 : succ₁ m < [101]
+    Sn≤101 : succ₁ n < 101'
+    Sm≤101 : succ₁ m < 101'
   {-# ATP prove m≯100 Sx≯y→x≯y #-}
   {-# ATP prove m<n #-}
   {-# ATP prove Sn≤101 #-}
@@ -92,10 +92,10 @@ open import FOTC.Program.McCarthy91.WF-Relation
 ... | inj₂ n≥100 = prf-n≥100
   where
   postulate
-    0≡101∸Sn : zero ≡ [101] ∸ succ₁ n
-    0<101∸Sm : zero < [101] ∸ succ₁ m
+    0≡101∸Sn : zero ≡ 101' ∸ succ₁ n
+    0<101∸Sm : zero < 101' ∸ succ₁ m
   {-# ATP prove 0≡101∸Sn x≤y→x∸y≡0 #-}
   {-# ATP prove 0<101∸Sm x≯y→x≤y x<y→0<y∸x #-}
 
   prf-n≥100 : succ₁ n ◁ succ₁ m
-  prf-n≥100 = subst (λ t → t < [101] ∸ succ₁ m) 0≡101∸Sn 0<101∸Sm
+  prf-n≥100 = subst (λ t → t < 101' ∸ succ₁ m) 0≡101∸Sn 0<101∸Sm

@@ -16,7 +16,7 @@ open import FOTC.Data.Nat.UnaryNumbers
 -- The relation _◁_.
 
 ◁-fn : D → D
-◁-fn n = [101] ∸ n
+◁-fn n = 101' ∸ n
 {-# ATP definition ◁-fn #-}
 
 _◁_ : D → D → Set

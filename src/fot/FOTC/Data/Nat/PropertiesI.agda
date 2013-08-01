@@ -118,19 +118,19 @@ x+Sy≡S[x+y] (nsucc {m} Nm) n =
 
 S∸S : ∀ {m n} → N m → N n → succ₁ m ∸ succ₁ n ≡ m ∸ n
 S∸S {m} _ nzero =
-  succ₁ m ∸ [1]          ≡⟨ ∸-xS (succ₁ m) zero ⟩
+  succ₁ m ∸ 1'           ≡⟨ ∸-xS (succ₁ m) zero ⟩
   pred₁ (succ₁ m ∸ zero) ≡⟨ predCong (∸-x0 (succ₁ m)) ⟩
   pred₁ (succ₁ m)        ≡⟨ pred-S m ⟩
   m                      ≡⟨ sym (∸-x0 m) ⟩
   m ∸ zero               ∎
 
 S∸S nzero (nsucc {n} Nn) =
-  [1] ∸ succ₁ (succ₁ n) ≡⟨ ∸-xS [1] (succ₁ n) ⟩
-  pred₁ ([1] ∸ succ₁ n) ≡⟨ predCong (S∸S nzero Nn) ⟩
-  pred₁ (zero ∸ n)      ≡⟨ predCong (0∸x Nn) ⟩
-  pred₁ zero            ≡⟨ pred-0 ⟩
-  zero                  ≡⟨ sym (0∸x (nsucc Nn)) ⟩
-  zero ∸ succ₁ n        ∎
+  1' ∸ succ₁ (succ₁ n) ≡⟨ ∸-xS 1' (succ₁ n) ⟩
+  pred₁ (1' ∸ succ₁ n) ≡⟨ predCong (S∸S nzero Nn) ⟩
+  pred₁ (zero ∸ n)     ≡⟨ predCong (0∸x Nn) ⟩
+  pred₁ zero           ≡⟨ pred-0 ⟩
+  zero                 ≡⟨ sym (0∸x (nsucc Nn)) ⟩
+  zero ∸ succ₁ n       ∎
 
 S∸S (nsucc {m} Nm) (nsucc {n} Nn) =
   succ₁ (succ₁ m) ∸ succ₁ (succ₁ n) ≡⟨ ∸-xS (succ₁ (succ₁ m)) (succ₁ n) ⟩
@@ -142,21 +142,21 @@ x∸x≡0 : ∀ {n} → N n → n ∸ n ≡ zero
 x∸x≡0 nzero      = ∸-x0 zero
 x∸x≡0 (nsucc Nn) = trans (S∸S Nn Nn) (x∸x≡0 Nn)
 
-Sx∸x≡1 : ∀ {n} → N n → succ₁ n ∸ n ≡ [1]
-Sx∸x≡1 nzero      = ∸-x0 [1]
+Sx∸x≡1 : ∀ {n} → N n → succ₁ n ∸ n ≡ 1'
+Sx∸x≡1 nzero      = ∸-x0 1'
 Sx∸x≡1 (nsucc Nn) = trans (S∸S (nsucc Nn) Nn) (Sx∸x≡1 Nn)
 
 [x+Sy]∸y≡Sx : ∀ {m n} → N m → N n → m + succ₁ n ∸ n ≡ succ₁ m
 [x+Sy]∸y≡Sx {n = n} nzero Nn =
   zero + succ₁ n ∸ n ≡⟨ ∸-leftCong (+-leftIdentity (succ₁ n)) ⟩
   succ₁ n ∸ n        ≡⟨ Sx∸x≡1 Nn ⟩
-  [1]                ∎
+  1'                 ∎
 
 [x+Sy]∸y≡Sx (nsucc {m} Nm) nzero =
-  succ₁ m + [1] ∸ zero     ≡⟨ ∸-leftCong (+-Sx m [1]) ⟩
-  succ₁ (m + [1]) ∸ zero   ≡⟨ ∸-x0 (succ₁ (m + [1])) ⟩
-  succ₁ (m + [1])          ≡⟨ succCong (+-comm Nm 1-N) ⟩
-  succ₁ ([1] + m)          ≡⟨ succCong (+-Sx zero m) ⟩
+  succ₁ m + 1' ∸ zero      ≡⟨ ∸-leftCong (+-Sx m 1') ⟩
+  succ₁ (m + 1') ∸ zero    ≡⟨ ∸-x0 (succ₁ (m + 1')) ⟩
+  succ₁ (m + 1')           ≡⟨ succCong (+-comm Nm 1-N) ⟩
+  succ₁ (1' + m)           ≡⟨ succCong (+-Sx zero m) ⟩
   succ₁ (succ₁ (zero + m)) ≡⟨ succCong (succCong (+-leftIdentity m)) ⟩
   succ₁ (succ₁ m)          ∎
 
@@ -199,9 +199,9 @@ Sx∸x≡1 (nsucc Nn) = trans (S∸S (nsucc Nn) Nn) (Sx∸x≡1 Nn)
 *-N {n = n} nzero          Nn = subst N (sym (*-leftZero n)) nzero
 *-N {n = n} (nsucc {m} Nm) Nn = subst N (sym (*-Sx m n)) (+-N Nn (*-N Nm Nn))
 
-*-leftIdentity : ∀ {n} → N n → [1] * n ≡ n
+*-leftIdentity : ∀ {n} → N n → 1' * n ≡ n
 *-leftIdentity {n} Nn =
-  [1] * n      ≡⟨ *-Sx zero n ⟩
+  1' * n       ≡⟨ *-Sx zero n ⟩
   n + zero * n ≡⟨ +-rightCong (*-leftZero n) ⟩
   n + zero     ≡⟨ +-rightIdentity Nn ⟩
   n            ∎
@@ -242,7 +242,7 @@ x*Sy≡x+xy {n = n} (nsucc {m} Nm) Nn =
   n + n * m   ≡⟨ sym (x*Sy≡x+xy Nn Nm) ⟩
   n * succ₁ m ∎
 
-*-rightIdentity : ∀ {n} → N n → n * [1] ≡ n
+*-rightIdentity : ∀ {n} → N n → n * 1' ≡ n
 *-rightIdentity {n} Nn = trans (*-comm Nn (nsucc nzero)) (*-leftIdentity Nn)
 
 *∸-leftDistributive : ∀ {m n o} → N m → N n → N o → (m ∸ n) * o ≡ m * o ∸ n * o
@@ -340,15 +340,15 @@ xy≡0→x≡0∨y≡0 (nsucc {m} Nm) (nsucc {n} Nn) SmSn≡0 = ⊥-elim (0≢S 
         succ₁ n + m * succ₁ n   ≡⟨ +-Sx n (m * succ₁ n) ⟩
         succ₁ (n + m * succ₁ n) ∎
 
-xy≡1→x≡1 : ∀ {m n} → N m → N n → m * n ≡ [1] → m ≡ [1]
+xy≡1→x≡1 : ∀ {m n} → N m → N n → m * n ≡ 1' → m ≡ 1'
 xy≡1→x≡1 {n = n} nzero Nn h = ⊥-elim (0≢S (trans (sym (*-leftZero n)) h))
 xy≡1→x≡1 (nsucc nzero) Nn h = refl
 xy≡1→x≡1 (nsucc (nsucc {m} Nm)) nzero h =
   ⊥-elim (0≢S (trans (sym (*-rightZero (nsucc (nsucc Nm)))) h))
 xy≡1→x≡1 (nsucc (nsucc {m} Nm)) (nsucc {n} Nn) h = ⊥-elim (0≢S prf₂)
   where
-  prf₁ : [1] ≡ succ₁ (succ₁ (m + n * succ₁ (succ₁ m)))
-  prf₁ = [1]
+  prf₁ : 1' ≡ succ₁ (succ₁ (m + n * succ₁ (succ₁ m)))
+  prf₁ = 1'
            ≡⟨ sym h ⟩
          succ₁ (succ₁ m) * succ₁ n
            ≡⟨ *-comm (nsucc (nsucc Nm)) (nsucc Nn) ⟩
@@ -363,7 +363,7 @@ xy≡1→x≡1 (nsucc (nsucc {m} Nm)) (nsucc {n} Nn) h = ⊥-elim (0≢S prf₂)
   prf₂ : zero ≡ succ₁ (m + n * succ₁ (succ₁ m))
   prf₂ = succInjective prf₁
 
-xy≡1→y≡1 : ∀ {m n} → N m → N n → m * n ≡ [1] → n ≡ [1]
+xy≡1→y≡1 : ∀ {m n} → N m → N n → m * n ≡ 1' → n ≡ 1'
 xy≡1→y≡1 Nm Nn h = xy≡1→x≡1 Nn Nm (trans (*-comm Nn Nm) h)
 
 -- Feferman's axiom as presented by (Beeson 1986, p. 74).

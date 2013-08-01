@@ -69,7 +69,7 @@ indList A A[] is = List-ind A prf
 -- Example
 
 xs : D
-xs = [0] ∷ true ∷ [1] ∷ false ∷ []
+xs = 0' ∷ true ∷ 1' ∷ false ∷ []
 
 xs-List : List xs
-xs-List = lcons [0] (lcons true (lcons [1] (lcons false lnil)))
+xs-List = lcons 0' (lcons true (lcons 1' (lcons false lnil)))

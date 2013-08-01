@@ -16,8 +16,8 @@ open import FOTC.Data.Nat.UnaryNumbers
 
 ------------------------------------------------------------------------------
 
-postulate x<x+1 : ∀ {n} → N n → n < n + [1]
+postulate x<x+1 : ∀ {n} → N n → n < n + 1'
 {-# ATP prove x<x+1 x<Sx +-comm #-}
 
-postulate x<x+11 : ∀ {n} → N n → n < n + [11]
+postulate x<x+11 : ∀ {n} → N n → n < n + 11'
 {-# ATP prove x<x+11 x<x+Sy #-}

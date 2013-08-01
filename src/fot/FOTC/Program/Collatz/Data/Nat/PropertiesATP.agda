@@ -41,22 +41,22 @@ open import FOTC.Program.Collatz.Data.Nat
   where postulate prf : N (m ^ n) → N (m ^ succ₁ n)
         {-# ATP prove prf *-N #-}
 
-div-2x-2≡x : ∀ {n} → N n → div ([2] * n) [2] ≡ n
+div-2x-2≡x : ∀ {n} → N n → div (2' * n) 2' ≡ n
 div-2x-2≡x nzero = prf
-  where postulate prf : div ([2] * zero) [2] ≡ zero
+  where postulate prf : div (2' * zero) 2' ≡ zero
         {-# ATP prove prf *-rightZero #-}
 div-2x-2≡x (nsucc nzero) = prf
-  where postulate prf : div ([2] * (succ₁ zero)) [2] ≡ succ₁ zero
+  where postulate prf : div (2' * (succ₁ zero)) 2' ≡ succ₁ zero
         {-# ATP prove prf *-rightIdentity x≤x x∸x≡0 #-}
 div-2x-2≡x (nsucc (nsucc {n} Nn)) = prf (div-2x-2≡x (nsucc Nn))
-  where postulate prf : div ([2] * succ₁ n) [2] ≡ succ₁ n →
-                        div ([2] * (succ₁ (succ₁ n))) [2] ≡ succ₁ (succ₁ n)
+  where postulate prf : div (2' * succ₁ n) 2' ≡ succ₁ n →
+                        div (2' * (succ₁ (succ₁ n))) 2' ≡ succ₁ (succ₁ n)
         {-# ATP prove prf 2*SSx≥2 +-rightIdentity +-comm +-N #-}
 
-postulate div-2^[x+1]-2≡2^x : ∀ {n} → N n → div ([2] ^ succ₁ n) [2] ≡ [2] ^ n
+postulate div-2^[x+1]-2≡2^x : ∀ {n} → N n → div (2' ^ succ₁ n) 2' ≡ 2' ^ n
 {-# ATP prove div-2^[x+1]-2≡2^x ^-N div-2x-2≡x #-}
 
-+∸2 : ∀ {n} → N n → n ≢ zero → n ≢ [1] → n ≡ succ₁ (succ₁ (n ∸ [2]))
++∸2 : ∀ {n} → N n → n ≢ zero → n ≢ 1' → n ≡ succ₁ (succ₁ (n ∸ 2'))
 +∸2 nzero                  n≢0 n≢1 = ⊥-elim (n≢0 refl)
 +∸2 (nsucc nzero)          n≢0 n≢1 = ⊥-elim (n≢1 refl)
 +∸2 (nsucc (nsucc {n} Nn)) n≢0 n≢1 = prf
@@ -65,16 +65,16 @@ postulate div-2^[x+1]-2≡2^x : ∀ {n} → N n → div ([2] ^ succ₁ n) [2] �
   -- how to erase a term.
   --
   -- See the interactive proof.
-  postulate prf : succ₁ (succ₁ n) ≡ succ₁ (succ₁ (succ₁ (succ₁ n) ∸ [2]))
+  postulate prf : succ₁ (succ₁ n) ≡ succ₁ (succ₁ (succ₁ (succ₁ n) ∸ 2'))
   -- {-# ATP prove prf S∸S #-}
 
-2^x≢0 : ∀ {n} → N n → [2] ^ n ≢ zero
-2^x≢0 nzero          h = ⊥-elim (0≢S (trans (sym h) (^-0 [2])))
+2^x≢0 : ∀ {n} → N n → 2' ^ n ≢ zero
+2^x≢0 nzero          h = ⊥-elim (0≢S (trans (sym h) (^-0 2')))
 2^x≢0 (nsucc {n} Nn) h = prf (2^x≢0 Nn)
-  where postulate prf : [2] ^ n ≢ zero →  ⊥
+  where postulate prf : 2' ^ n ≢ zero →  ⊥
         {-# ATP prove prf xy≡0→x≡0∨y≡0 ^-N #-}
 
-postulate 2^[x+1]≢1 : ∀ {n} → N n → [2] ^ succ₁ n ≢ [1]
+postulate 2^[x+1]≢1 : ∀ {n} → N n → 2' ^ succ₁ n ≢ 1'
 {-# ATP prove 2^[x+1]≢1 Sx≢x xy≡1→x≡1 ^-N #-}
 
 Sx-Even→x-Odd : ∀ {n} → N n → Even (succ₁ n) → Odd n
@@ -89,7 +89,7 @@ Sx-Odd→x-Even : ∀ {n} → N n → Odd (succ₁ n) → Even n
 Sx-Odd→x-Even nzero          _ = even-0
 Sx-Odd→x-Even (nsucc {n} Nn) h = trans (sym (odd-S (succ₁ n))) h
 
-postulate 2-Even : Even [2]
+postulate 2-Even : Even 2'
 {-# ATP prove 2-Even #-}
 
 ∸-Even : ∀ {m n} → N m → N n → Even m → Even n → Even (m ∸ n)
@@ -124,14 +124,14 @@ x+x-Even (nsucc {n} Nn) = prf (x+x-Even Nn)
   where postulate prf : Even (n + n) → Even (succ₁ n + succ₁ n)
         {-# ATP prove prf x-Even→SSx-Even +-N +-comm #-}
 
-2x-Even : ∀ {n} → N n → Even ([2] * n)
+2x-Even : ∀ {n} → N n → Even (2' * n)
 2x-Even nzero = prf
-  where postulate prf : Even ([2] * zero)
+  where postulate prf : Even (2' * zero)
         {-# ATP prove prf #-}
 2x-Even (nsucc {n} Nn) = prf
   where
-  postulate prf : Even ([2] * succ₁ n)
+  postulate prf : Even (2' * succ₁ n)
   {-# ATP prove prf x-Even→SSx-Even x+x-Even +-N +-comm +-rightIdentity #-}
 
-postulate 2^[x+1]-Even : ∀ {n} → N n → Even ([2] ^ succ₁ n)
+postulate 2^[x+1]-Even : ∀ {n} → N n → Even (2' ^ succ₁ n)
 {-# ATP prove 2^[x+1]-Even ^-N 2x-Even #-}

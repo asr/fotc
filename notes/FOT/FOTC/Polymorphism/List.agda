@@ -18,14 +18,14 @@ open import FOTC.Data.Nat.UnaryNumbers
 ------------------------------------------------------------------------------
 -- "Heterogeneous" total lists
 xs : D
-xs = [0] ∷ true ∷ [1] ∷ false ∷ []
+xs = 0' ∷ true ∷ 1' ∷ false ∷ []
 
 xs-List : List xs
-xs-List = lcons [0] (lcons true (lcons [1] (lcons false lnil)))
+xs-List = lcons 0' (lcons true (lcons 1' (lcons false lnil)))
 
 -- Total lists of total natural numbers
 ys : D
-ys = [0] ∷ [1] ∷ [2] ∷ []
+ys = 0' ∷ 1' ∷ 2' ∷ []
 
 ys-ListN : ListN ys
 ys-ListN =

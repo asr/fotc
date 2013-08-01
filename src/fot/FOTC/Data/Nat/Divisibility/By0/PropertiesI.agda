@@ -30,7 +30,7 @@ S∣0 n = zero , nzero , sym (*-leftZero (succ₁ n))
 
 -- The divisibility relation is reflexive.
 ∣-refl : ∀ {n} → N n → n ∣ n
-∣-refl {n} Nn = [1] , 1-N , sym (*-leftIdentity Nn)
+∣-refl {n} Nn = 1' , 1-N , sym (*-leftIdentity Nn)
 
 -- If x divides y and z then x divides y ∸ z.
 --

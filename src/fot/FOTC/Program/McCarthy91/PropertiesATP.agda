@@ -62,15 +62,15 @@ open import FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP
 
 ------------------------------------------------------------------------------
 -- For all n > 100, then f₉₁ n = n - 10.
-postulate f₉₁-x>100 : ∀ n → n > [100] → f₉₁ n ≡ n ∸ [10]
+postulate f₉₁-x>100 : ∀ n → n > 100' → f₉₁ n ≡ n ∸ 10'
 {-# ATP prove f₉₁-x>100 #-}
 
 -- For all n <= 100, then f₉₁ n = 91.
-f₉₁-x≯100 : ∀ {n} → N n → n ≯ [100] → f₉₁ n ≡ [91]
+f₉₁-x≯100 : ∀ {n} → N n → n ≯ 100' → f₉₁ n ≡ 91'
 f₉₁-x≯100 = ◁-wfind A h
   where
   A : D → Set
-  A d = d ≯ [100] → f₉₁ d ≡ [91]
+  A d = d ≯ 100' → f₉₁ d ≡ 91'
 
   h : ∀ {m} → N m → (∀ {k} → N k → k ◁ m → A k) → A m
   h {m} Nm f with x>y∨x≯y Nm 100-N
@@ -100,14 +100,14 @@ f₉₁-x≯100 = ◁-wfind A h
   ... | inj₂ m≡90 = λ _ → f₉₁-x≡y f₉₁-90 m≡90
   ... | inj₁ m≯89 = λ _ → f₉₁-m≯89
     where
-    m≤89 : m ≤ [89]
+    m≤89 : m ≤ 89'
     m≤89 = x≯y→x≤y Nm 89-N m≯89
 
-    f₉₁-m+11 : m + [11] ≯ [100] → f₉₁ (m + [11]) ≡ [91]
+    f₉₁-m+11 : m + 11' ≯ 100' → f₉₁ (m + 11') ≡ 91'
     f₉₁-m+11 = f (x+11-N Nm) (<→◁ (x+11-N Nm) Nm m≯100 (x<x+11 Nm))
 
-    f₉₁-m≯89 : f₉₁ m ≡ [91]
-    f₉₁-m≯89 = f₉₁-x≯100-helper m [91] m≯100
+    f₉₁-m≯89 : f₉₁ m ≡ 91'
+    f₉₁-m≯89 = f₉₁-x≯100-helper m 91' m≯100
                                 (f₉₁-m+11 (x≤89→x+11≯100 Nm m≤89))
                                 f₉₁-91
 -- The function always terminates.
@@ -117,26 +117,26 @@ f₉₁-N {n} Nn with x>y∨x≯y Nn 100-N
 ... | inj₂ n≯100 = subst N (sym (f₉₁-x≯100 Nn n≯100)) 91-N
 
 -- For all n, n < f₉₁ n + 11.
-f₉₁-ineq : ∀ {n} → N n → n < f₉₁ n + [11]
+f₉₁-ineq : ∀ {n} → N n → n < f₉₁ n + 11'
 f₉₁-ineq = ◁-wfind A h
   where
   A : D → Set
-  A d = d < f₉₁ d + [11]
+  A d = d < f₉₁ d + 11'
 
   h : ∀ {m} → N m → (∀ {k} → N k → k ◁ m → A k) → A m
   h {m} Nm f with x>y∨x≯y Nm 100-N
   ... | inj₁ m>100 = x>100→x<f₉₁-x+11 Nm m>100
   ... | inj₂ m≯100 =
-    let f₉₁-m+11-N : N (f₉₁ (m + [11]))
+    let f₉₁-m+11-N : N (f₉₁ (m + 11'))
         f₉₁-m+11-N = f₉₁-N (+-N Nm 11-N)
 
-        h₁ : A (m + [11])
+        h₁ : A (m + 11')
         h₁ = f (x+11-N Nm) (<→◁ (x+11-N Nm) Nm m≯100 (x<x+11 Nm))
 
-        m<f₉₁m+11 : m < f₉₁ (m + [11])
+        m<f₉₁m+11 : m < f₉₁ (m + 11')
         m<f₉₁m+11 = x+k<y+k→x<y Nm f₉₁-m+11-N 11-N h₁
 
-        h₂ : A (f₉₁ (m + [11]))
+        h₂ : A (f₉₁ (m + 11'))
         h₂ = f f₉₁-m+11-N (<→◁ f₉₁-m+11-N Nm m≯100 m<f₉₁m+11)
 
     in (<-trans Nm f₉₁-m+11-N (x+11-N (f₉₁-N Nm))

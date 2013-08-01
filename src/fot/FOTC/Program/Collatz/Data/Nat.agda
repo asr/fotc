@@ -21,13 +21,13 @@ infixr 12 _^_
 
 postulate
   div     : D → D → D
-  div-x<y : ∀ {m n} → n ≢ [0] → m < n → div m n ≡ zero
-  div-x≥y : ∀ {m n} → n ≢ [0] → m ≥ n → div m n ≡ succ₁ (div (m ∸ n) n)
+  div-x<y : ∀ {m n} → n ≢ 0' → m < n → div m n ≡ zero
+  div-x≥y : ∀ {m n} → n ≢ 0' → m ≥ n → div m n ≡ succ₁ (div (m ∸ n) n)
 {-# ATP axiom div-x<y div-x≥y #-}
 
 postulate
   _^_ : D → D → D
-  ^-0 : ∀ n → n ^ zero      ≡ [1]
+  ^-0 : ∀ n → n ^ zero      ≡ 1'
   ^-S : ∀ m n → m ^ succ₁ n ≡ m * m ^ n
 {-# ATP axiom ^-0 ^-S #-}
 

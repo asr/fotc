@@ -32,7 +32,7 @@ S∣0 n = S≢0 , zero , nzero , sym (*-leftZero (succ₁ n))
 -- The divisibility relation is reflexive for positive numbers.
 ∣-refl-S : ∀ {n} → N n → succ₁ n ∣ succ₁ n
 ∣-refl-S {n} Nn =
-  S≢0 , [1] , 1-N , sym (*-leftIdentity (nsucc Nn))
+  S≢0 , 1' , 1-N , sym (*-leftIdentity (nsucc Nn))
 
 -- If x divides y and z then x divides y ∸ z.
 --

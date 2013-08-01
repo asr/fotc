@@ -73,7 +73,7 @@ indList A A[] is = ListN-ind A prf
 -- Example
 
 ys : D
-ys = [0] ∷ [1] ∷ [2] ∷ []
+ys = 0' ∷ 1' ∷ 2' ∷ []
 
 ys-ListN : ListN ys
 ys-ListN =

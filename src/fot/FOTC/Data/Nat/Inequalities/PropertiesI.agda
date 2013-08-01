@@ -204,8 +204,8 @@ x>y∨x≯y (nsucc {m} Nm) (nsucc {n} Nn) =
 
 pred-≤ : ∀ {n} → N n → pred₁ n ≤ n
 pred-≤ nzero =
-  lt (pred₁ zero) [1] ≡⟨ ltLeftCong pred-0 ⟩
-  lt zero [1]         ≡⟨ lt-0S zero ⟩
+  lt (pred₁ zero) 1' ≡⟨ ltLeftCong pred-0 ⟩
+  lt zero 1'         ≡⟨ lt-0S zero ⟩
   true ∎
 pred-≤ (nsucc {n} Nn) =
   lt (pred₁ (succ₁ n)) (succ₁ (succ₁ n))
@@ -230,9 +230,9 @@ x∸y<Sx {m} Nm nzero =
   true                    ∎
 
 x∸y<Sx nzero (nsucc {n} Nn) =
-  lt (zero ∸ succ₁ n) [1] ≡⟨ ltLeftCong (0∸x (nsucc Nn)) ⟩
-  lt zero [1]             ≡⟨ lt-0S zero ⟩
-  true                    ∎
+  lt (zero ∸ succ₁ n) 1' ≡⟨ ltLeftCong (0∸x (nsucc Nn)) ⟩
+  lt zero 1'             ≡⟨ lt-0S zero ⟩
+  true                   ∎
 
 x∸y<Sx (nsucc {m} Nm) (nsucc {n} Nn) =
   lt (succ₁ m ∸ succ₁ n) (succ₁ (succ₁ m))

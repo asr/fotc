@@ -75,7 +75,7 @@ indListP A B B[] is = ListP-ind A B prf
 
 -- "Heterogeneous" total lists
 xs : D
-xs = [0] ∷ true ∷ [1] ∷ false ∷ []
+xs = 0' ∷ true ∷ 1' ∷ false ∷ []
 
 List : D → Set
 List = ListP (λ d → d ≡ d)
@@ -89,7 +89,7 @@ xs-ListP =
 
 -- Total lists of total natural numbers
 ys : D
-ys = [0] ∷ [1] ∷ [2] ∷ []
+ys = 0' ∷ 1' ∷ 2' ∷ []
 
 ListN : D → Set
 ListN = ListP N
