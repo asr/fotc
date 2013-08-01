@@ -14,12 +14,13 @@ open import FOTC.Data.Bool.Type
 ------------------------------------------------------------------------------
 
 postulate thm : (A : D → Set) → ∀ {b} → (Bool b ∧ A true ∧ A false) → A b
--- The ATPs couldn't prove this postulate.
+-- Because the ATPs don't handle induction, them cannot prove the
+-- induction principle for Bool.
 -- {-# ATP prove thm #-}
 
 postulate
   thm₁ : {A : D → Set} → ∀ {x y z} → Bool x → A y → A z → A (if x then y else z)
--- The ATPs couldn't prove this postulate.
+-- Because the ATPs don't handle induction, them cannot prove this postulate.
 -- {-# ATP prove thm₁ #-}
 
 -- Typing of the if-then-else.

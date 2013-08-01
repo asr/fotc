@@ -3,6 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --schematic-propositional-functions #-}
 {-# OPTIONS --without-K #-}
 
 module FOT.FOTC.Data.Nat.AddTotality where
@@ -53,5 +54,6 @@ postulate +-N₂ : ∀ {m n} → N m → N n → N (m + n)
 -- ∀ x y. app₁(n,x) → app₁(n,y) → app₁(n,appFn(appFn(+,x),y))    -- +-N₂
 
 postulate +-N₃ : ∀ {m n} → N m → N n → N (m + n)
--- The ATPs could not prove this postulate.
+-- Because the ATPs don't handle induction, them cannot prove this
+-- postulate.
 -- {-# ATP prove +-N₃ N-ind #-}
