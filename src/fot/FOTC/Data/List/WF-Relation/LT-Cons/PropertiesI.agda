@@ -15,7 +15,7 @@ open import FOTC.Data.List.WF-Relation.LT-Cons
 open import FOTC.Data.List.WF-Relation.LT-Length
 
 ------------------------------------------------------------------------------
--- 01 June 2013. This proof could use pattern matching on _≡_. See
+-- 29 August 2013. Could this proof use pattern matching on _≡_? See
 -- Agda issue 865.
 --
 -- LTC ⊆ LTL.

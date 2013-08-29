@@ -36,7 +36,7 @@ S∣0 {n} Nn = zero , nzero , sym (*-leftZero (succ₁ n))
 
 -- If x divides y and z then x divides y ∸ z.
 --
--- 17 June 2013. This proof could use pattern matching on _≡_. See
+-- 29 August 2013. Could this proof use pattern matching on _≡_? See
 -- Agda issue 865.
 x∣y→x∣z→x∣y∸z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →
                        n ≡ k₁ * m →
@@ -54,7 +54,7 @@ x∣y→x∣z→x∣y∸z Nm Nn No (k₁ , Nk₁ , h₁) (k₂ , Nk₂ , h₂) =
 
 -- If x divides y and z then x divides y + z.
 --
--- 17 June 2013. This proof could use pattern matching on _≡_. See
+-- 29 August 2013. Could this proof use pattern matching on _≡_? See
 -- Agda issue 865.
 x∣y→x∣z→x∣y+z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →
                        n ≡ k₁ * m →

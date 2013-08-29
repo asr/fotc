@@ -158,10 +158,8 @@ private
   proof₂₋₃ : ∀ m n → gcd-s₂ m · n ≡ gcd-s₃ m n
   proof₂₋₃ m n = beta (gcd-s₃ m) n
 
-  -- 01 June 2013. This proof could use pattern matching on _≡_. See
-  -- Agda issue 865.
   proof₃₋₄ : ∀ m n b → iszero₁ n ≡ b → gcd-s₃ m n ≡ gcd-s₄ m n b
-  proof₃₋₄ m n b h = subst (λ t → gcd-s₃ m n ≡ gcd-s₄ m n t) h refl
+  proof₃₋₄ m n .(iszero₁ n) refl = refl
 
   proof₄₋₅ : ∀ m n → gcd-s₄ m n true ≡ gcd-s₅ m
   proof₄₋₅ m _ = if-true (gcd-s₅ m)
@@ -169,15 +167,11 @@ private
   proof₄₋₆ : ∀ m n → gcd-s₄ m n false ≡ gcd-s₆ m n
   proof₄₋₆ m n = if-false (gcd-s₆ m n)
 
-  -- 01 June 2013. This proof could use pattern matching on _≡_. See
-  -- Agda issue 865.
   proof₅₋₇ : ∀ m b → iszero₁ m ≡ b → gcd-s₅ m ≡ gcd-s₇ m b
-  proof₅₋₇ m b h = subst (λ t → gcd-s₅ m ≡ gcd-s₇ m t) h refl
+  proof₅₋₇ m .(iszero₁ m) refl = refl
 
-  -- 01 June 2013. This proof could use pattern matching on _≡_. See
-  -- Agda issue 865.
   proof₆₋₈ : ∀ m n b → iszero₁ m ≡ b → gcd-s₆ m n ≡ gcd-s₈ m n b
-  proof₆₋₈ m n b h = subst (λ t → gcd-s₆ m n ≡ gcd-s₈ m n t) h refl
+  proof₆₋₈ m n .(iszero₁ m) refl = refl
 
   proof₇₊ : ∀ m → gcd-s₇ m true ≡ error
   proof₇₊ _ = if-true error
