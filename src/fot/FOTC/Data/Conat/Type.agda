@@ -26,7 +26,7 @@ open import FOTC.Base
 
 -- Functional for the NatF predicate.
 -- NatF : (D → Set) → D → Set
--- NatF A n = n = zero ∨ (∃[ n' ] n = succ n' ∧ P n')
+-- NatF P n = n = zero ∨ (∃[ n' ] n = succ n' ∧ P n')
 
 -- Conat is the greatest fixed-point of NatF (by Conat-unf and
 -- Conat-coind).
@@ -48,11 +48,11 @@ postulate
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
-  Conat-coind : ∀ (A : D → Set) {n} →
-                -- A is post-fixed point of NatF.
-                (A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
-                -- Conat is greater than A.
-                A n → Conat n
+  Conat-coind : ∀ (P : D → Set) {n} →
+                -- P is post-fixed point of NatF.
+                (P n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ P n')) →
+                -- Conat is greater than P.
+                P n → Conat n
 
 -- Because a greatest post-fixed point is a fixed-point, then the
 -- Conat predicate is also a pre-fixed point of the functional NatF,
@@ -62,11 +62,11 @@ postulate
 Conat-pre-fixed : ∀ {n} →
                   (n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')) →
                   Conat n
-Conat-pre-fixed {n} h = Conat-coind A prf h
+Conat-pre-fixed {n} h = Conat-coind P prf h
   where
-  A : D → Set
-  A m = m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ Conat m')
+  P : D → Set
+  P m = m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ Conat m')
 
-  prf : A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
+  prf : P n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ P n')
   prf (inj₁ n≡0) = inj₁ n≡0
-  prf (inj₂ (n' , n≡Sn' , An')) = inj₂ (n' , n≡Sn' , Conat-unf An')
+  prf (inj₂ (n' , n≡Sn' , Pn')) = inj₂ (n' , n≡Sn' , Conat-unf Pn')
