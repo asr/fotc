@@ -40,11 +40,15 @@ postulate
 
 postulate
   ∀-intro : ((x : D) → A¹ x) → ∀ x → A¹ x
+  ∀-intro' : ((x : D) → A¹ x) → ⋀ A¹
   ∀-elim  : (t : D) → (∀ x → A¹ x) → A¹ t
+  ∀-elim' : (t : D) → ⋀ A¹ → A¹ t
   ∃-intro : (t : D) → A¹ t → ∃ A¹
   ∃-elim  : ∃ A¹ → ((x : D) → A¹ x → A) → A
 {-# ATP prove ∀-intro #-}
+{-# ATP prove ∀-intro' #-}
 {-# ATP prove ∀-elim #-}
+{-# ATP prove ∀-elim' #-}
 {-# ATP prove ∃-intro #-}
 {-# ATP prove ∃-elim #-}
 

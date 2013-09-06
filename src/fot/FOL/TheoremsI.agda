@@ -40,8 +40,14 @@ postulate
 ∀-intro : ((x : D) → A¹ x) → ∀ x → A¹ x
 ∀-intro h = h
 
+∀-intro' : ((x : D) → A¹ x) → ⋀ A¹
+∀-intro' = dfun
+
 ∀-elim : (t : D) → (∀ x → A¹ x) → A¹ t
 ∀-elim t h = h t
+
+∀-elim' : (t : D) → ⋀ A¹ → A¹ t
+∀-elim' = dapp
 
 ∃-intro : (t : D) → A¹ t → ∃ A¹
 ∃-intro t A¹x = t , A¹x
@@ -58,6 +64,15 @@ gDM₂ = l→r , r→l
 
   r→l : (∀ {x} → ¬ (A¹ x)) → ¬ (∃ A¹)
   r→l h (x , A¹x) = h A¹x
+
+gDM₂' : ¬ (∃ A¹) ⇔ (⋀[ x ] ¬ (A¹ x))
+gDM₂' = fun l→r , fun r→l
+  where
+  l→r : ¬ (∃ A¹) → ⋀[ x ] ¬ A¹ x
+  l→r h = dfun (λ d A¹d → h (d , A¹d))
+
+  r→l : ⋀[ x ] ¬ A¹ x → ¬ ∃ A¹
+  r→l (dfun f) (x , A¹x) = f x A¹x
 
 -- Quantification over a variable that does not occur can be erased or
 -- added.

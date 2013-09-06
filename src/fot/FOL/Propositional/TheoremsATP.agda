@@ -19,25 +19,50 @@ postulate P Q R : Set
 
 -- The introduction and elimination rules for the intuitionist
 -- propositional connectives are theorems.
+
 postulate
-  →I  : (P → Q) → P ⇒ Q
-  →E  : (P ⇒ Q) → P → Q
-  ∧I  : P → Q → P ∧ Q
-  ∧E₁ : P ∧ Q → P
-  ∧E₂ : P ∧ Q → Q
-  ∨I₁ : P → P ∨ Q
-  ∨I₂ : Q → P ∨ Q
-  ∨E  : (P ⇒ R) → (Q ⇒ R) → P ∨ Q → R
-  ⊥E  : ⊥ → P
+  →I  : (P → Q) → P → Q
+  →E  : (P → Q) → P → Q
+  →I' : (P → Q) → P → Q
+  →E' : (P ⇒ Q) ⇒ P ⇒ Q
 {-# ATP prove →I #-}
 {-# ATP prove →E #-}
+{-# ATP prove →I' #-}
+{-# ATP prove →E' #-}
+
+postulate
+  ∧I   : P → Q → P ∧ Q
+  ∧E₁  : P ∧ Q → P
+  ∧E₂  : P ∧ Q → Q
+  ∧I'  : P ⇒ Q ⇒ P ∧ Q
+  ∧E₂' : P ∧ Q ⇒ Q
+  ∧E₁' : P ∧ Q ⇒ P
 {-# ATP prove ∧I #-}
 {-# ATP prove ∧E₁ #-}
 {-# ATP prove ∧E₂ #-}
+{-# ATP prove ∧I' #-}
+{-# ATP prove ∧E₁' #-}
+{-# ATP prove ∧E₂' #-}
+
+postulate
+  ∨I₁  : P → P ∨ Q
+  ∨I₂  : Q → P ∨ Q
+  ∨E   : (P → R) → (Q → R) → P ∨ Q → R
+  ∨I₁' : P ⇒ P ∨ Q
+  ∨I₂' : Q ⇒ P ∨ Q
+  ∨E'  : (P ⇒ R) ⇒ (Q ⇒ R) ⇒ P ∨ Q ⇒ R
 {-# ATP prove ∨I₁ #-}
 {-# ATP prove ∨I₂ #-}
 {-# ATP prove ∨E #-}
+{-# ATP prove ∨I₁' #-}
+{-# ATP prove ∨I₂' #-}
+{-# ATP prove ∨E' #-}
+
+postulate
+  ⊥E  : ⊥ → P
+  ⊥E' : ⊥ ⇒ P
 {-# ATP prove ⊥E #-}
+{-# ATP prove ⊥E' #-}
 
 -- Boolean laws.
 postulate
@@ -48,8 +73,8 @@ postulate
   ∧-idemp : P ∧ P       ↔ P
   ∨-idemp : P ∨ P       ↔ P
   dn      : ¬ ¬ P       ↔ P
-  ∧-comm  : P ∧ Q       ⇒ Q ∧ P
-  ∨-comm  : P ∨ Q       ⇒ Q ∨ P
+  ∧-comm  : P ∧ Q       → Q ∧ P
+  ∨-comm  : P ∨ Q       → Q ∨ P
   ∧-assoc : (P ∧ Q) ∧ R ↔ P ∧ Q ∧ R
   ∨-assoc : (P ∨ Q) ∨ R ↔ P ∨ Q ∨ R
   ∧∨-dist : P ∧ (Q ∨ R) ↔ P ∧ Q ∨ P ∧ R
@@ -83,12 +108,12 @@ postulate
 -- Theorems related with the definition of logical connectives in terms
 -- of others.
 postulate
-  def-↔  : (P ↔ Q) ↔ (P ⇒ Q) ∧ (Q ⇒ P)
-  def-→  : P ⇒ Q   ↔ ¬ P ∨ Q
-  def-∨₁ : P ∨ Q   ↔ ¬ P ⇒ Q
+  def-↔  : (P ↔ Q) ↔ (P → Q) ∧ (Q → P)
+  def-→  : P → Q   ↔ ¬ P ∨ Q
+  def-∨₁ : P ∨ Q   ↔ ¬ P → Q
   def-∨₂ : P ∨ Q   ↔ ¬ (¬ P ∧ ¬ Q)
   def-∧  : P ∧ Q   ↔ ¬ (¬ P ∨ ¬ Q)
-  def-¬  : ¬ P     ↔ P ⇒ ⊥
+  def-¬  : ¬ P     ↔ P → ⊥
   def-⊥  : ⊥       ↔ P ∧ ¬ P
   def-⊤  : ⊤       ↔ ¬ ⊥
 {-# ATP prove def-↔ #-}
@@ -102,14 +127,14 @@ postulate
 
 -- Some intuitionistic theorems.
 postulate
-  i₁ : P ⇒ Q ⇒ P
-  i₂ : (P ⇒ Q ⇒ R) ⇒ (P ⇒ Q) ⇒ P ⇒ R
-  i₃ : P ⇒ ¬ ¬ P
-  i₄ : ¬ ¬ ¬ P ⇒ ¬ P
-  i₅ : (P ⇒ Q) ⇒ (¬ Q ⇒ ¬ P)
-  i₆ : ((P ∧ Q) ⇒ R) ↔ (P ⇒ (Q ⇒ R))
+  i₁ : P → Q → P
+  i₂ : (P → Q → R) → (P → Q) → P → R
+  i₃ : P → ¬ ¬ P
+  i₄ : ¬ ¬ ¬ P → ¬ P
+  i₅ : (P → Q) → (¬ Q → ¬ P)
+  i₆ : ((P ∧ Q) → R) ↔ (P → (Q → R))
   i₇ : ¬ ¬ (P ∨ ¬ P)
-  i₈ : (P ∨ ¬ P) ⇒ ¬ ¬ P ⇒ P
+  i₈ : (P ∨ ¬ P) → ¬ ¬ P → P
 {-# ATP prove i₁ #-}
 {-# ATP prove i₂ #-}
 {-# ATP prove i₃ #-}
@@ -121,13 +146,13 @@ postulate
 
 -- Some non-intuitionistic theorems.
 postulate
-  ni₁ : ((P ⇒ Q) ⇒ P) ⇒ P
+  ni₁ : ((P → Q) → P) → P
   ni₂ : P ∨ ¬ P
-  ni₃ : ¬ ¬ P ⇒ P
-  ni₄ : (¬ Q ⇒ ¬ P) ⇒ (P ⇒ Q)
-  ni₅ : (P ⇒ Q) ⇒ (¬ P ⇒ Q) ⇒ Q
-  ni₆ : (P ∨ Q ⇒ P) ∨ (P ∨ Q ⇒ Q)
-  ni₇ : (¬ ¬ P ⇒ P) ⇒ P ∨ ¬ P
+  ni₃ : ¬ ¬ P → P
+  ni₄ : (¬ Q → ¬ P) → (P → Q)
+  ni₅ : (P → Q) → (¬ P → Q) → Q
+  ni₆ : (P ∨ Q → P) ∨ (P ∨ Q → Q)
+  ni₇ : (¬ ¬ P → P) → P ∨ ¬ P
 {-# ATP prove ni₁ #-}
 {-# ATP prove ni₂ #-}
 {-# ATP prove ni₃ #-}

@@ -82,7 +82,7 @@ data ⊤ : Set where
 ¬ A = A → ⊥
 
 ------------------------------------------------------------------------------
--- The biconditional.
+-- Biconditional.
 _↔_ : Set → Set → Set
 A ↔ B = (A → B) ∧ (B → A)
 
