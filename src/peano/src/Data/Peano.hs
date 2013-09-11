@@ -81,7 +81,7 @@ instance Integral Nat where
   quotRem m n = (f , s)
     where
     r ∷ (Int, Int)
-    r  = quotRem (nat2Int m) (nat2Int n)
+    r = quotRem (nat2Int m) (nat2Int n)
 
     f ∷ Nat
     f = toEnum (fst r)
@@ -97,6 +97,6 @@ instance Show Nat where
 -- QuickCheck instance.
 instance Arbitrary Nat where
   arbitrary = (fromInteger . unNN) `fmap` arbitrary
-      where
-        unNN ∷ NonNegative Integer → Integer
-        unNN (NonNegative x) = x
+    where
+    unNN ∷ NonNegative Integer → Integer
+    unNN (NonNegative x) = x

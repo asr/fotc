@@ -7,27 +7,27 @@ license:       MIT
 license-file:  LICENSE
 maintainer:    Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
 category:      Data
-synopsis:      Peano numbers
+synopsis:      Peano natural numbers
 tested-with:   GHC == 7.6.3
-description:   Peano numbers and some instances.
+description:   Peano natural numbers and some instances.
 
 library
   exposed-modules: Data.Peano
   hs-source-dirs: src
 
-  build-depends: base         >= 4.2     && < 4.7
-                 , QuickCheck >= 2.5.1.1 && < 2.7
+  build-depends:
+    base         >= 4.2     && < 4.7
+    , QuickCheck >= 2.5.1.1 && < 2.7
 
-  -- Only warnings (tested with cabal-install version 1.16.0.2 using
-  -- version 1.16.0.3 of the Cabal library).
   if impl(ghc == 7.6.2) || impl(ghc == 7.6.3)
-     ghc-options: -Wall
-                  -fwarn-auto-orphans
-                  -fwarn-identities
-                  -fwarn-incomplete-record-updates
-                  -fwarn-incomplete-uni-patterns
-                  -fwarn-missing-import-lists
-                  -fwarn-missing-local-sigs
-                  -fwarn-monomorphism-restriction
-                  -fwarn-tabs
-                  -Werror
+     ghc-options:
+       -Wall
+       -fwarn-auto-orphans
+       -fwarn-identities
+       -fwarn-incomplete-record-updates
+       -fwarn-incomplete-uni-patterns
+       -fwarn-missing-import-lists
+       -fwarn-missing-local-sigs
+       -fwarn-monomorphism-restriction
+       -fwarn-tabs
+       -Werror
