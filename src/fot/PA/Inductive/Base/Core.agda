@@ -11,6 +11,7 @@
 module PA.Inductive.Base.Core where
 
 -- PA universe.
+--
 -- We chose the symbol M because there are non-standard models of
 -- Peano Arithmetic, where the domain is not the set of natural
 -- numbers.

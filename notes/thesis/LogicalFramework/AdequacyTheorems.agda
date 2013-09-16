@@ -3,10 +3,11 @@
 
 module LogicalFramework.AdequacyTheorems where
 
--- First-order logic with equality.
-open import Common.FOL.FOL-Eq public
-
 module Example10 where
+
+  -- First-order logic with equality.
+  open import Common.FOL.FOL-Eq public
+
   postulate
     A B C : Set
     f₁ : A → C
@@ -21,6 +22,9 @@ module Example10 where
 
 module Example20 where
 
+  -- First-order logic with equality.
+  open import Common.FOL.FOL-Eq public
+
   f : {A : D → Set}{t t' : D} → t ≡ t' → A t → A t'
   f {A} {t} {.t} refl At = d At
     where
@@ -30,6 +34,10 @@ module Example20 where
   f' {A} h At = subst A h At
 
 module Example30 where
+
+  -- First-order logic with equality.
+  open import Common.FOL.FOL-Eq public
+
   postulate
     A B C E : Set
     f₁ : A → E
@@ -43,3 +51,56 @@ module Example30 where
 
   f' : (A ∨ B) ∨ C → E
   f' = case (case f₁ f₂) f₃
+
+module Example40 where
+
+  infixl 9  _+_ _+'_
+  infix  7  _≡_
+
+  data M : Set where
+    zero :     M
+    succ : M → M
+
+  PA-ind : (A : M → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
+  PA-ind A A0 h zero     = A0
+  PA-ind A A0 h (succ n) = h n (PA-ind A A0 h n)
+
+  data _≡_ (x : M) : M → Set where
+    refl : x ≡ x
+
+  subst : (A : M → Set) → ∀ {x y} → x ≡ y → A x → A y
+  subst A refl Ax = Ax
+
+  _+_ : M → M → M
+  zero   + n = n
+  succ m + n = succ (m + n)
+
+  _+'_ : M → M → M
+  m +' n = PA-ind (λ _ → M) n (λ x y → succ y) m
+
+  -- Properties using pattern matching.
+  succCong : ∀ {m n} → m ≡ n → succ m ≡ succ n
+  succCong refl = refl
+
+  +-rightIdentity : ∀ n → n + zero ≡ n
+  +-rightIdentity zero     = refl
+  +-rightIdentity (succ n) = succCong (+-rightIdentity n)
+
+  -- Properties using the basic inductive constants.
+  succCong' : ∀ {m n} → m ≡ n → succ m ≡ succ n
+  succCong' {m} h = subst (λ x → succ m ≡ succ x) h refl
+
+  +'-leftIdentity : ∀ n → zero +' n ≡ n
+  +'-leftIdentity n = refl
+
+  +'-rightIdentity : ∀ n → n +' zero ≡ n
+  +'-rightIdentity = PA-ind A A0 is
+    where
+    A : M → Set
+    A n = n +' zero ≡ n
+
+    A0 : A zero
+    A0 = refl
+
+    is : ∀ n → A n → A (succ n)
+    is n ih = succCong' ih

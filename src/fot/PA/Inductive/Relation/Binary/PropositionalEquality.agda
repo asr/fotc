@@ -17,9 +17,9 @@ open import PA.Inductive.Base.Core
 infix 7 _≡_ _≢_
 
 ------------------------------------------------------------------------------
--- The identity type on PA
-data _≡_ (m : M) : M → Set where
-  refl : m ≡ m
+-- The identity type on PA.
+data _≡_ (x : M) : M → Set where
+  refl : x ≡ x
 
 -- Inequality.
 _≢_ : M → M → Set
