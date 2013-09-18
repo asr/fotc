@@ -37,26 +37,20 @@ private
       where
       fun : D
       fun = lam (λ j → if (lt i j)
-                          then zero
-                          else succ₁ (fix divh · (i ∸ j) · j))
+                         then zero
+                         else succ₁ (fix divh · (i ∸ j) · j))
 
     -- Second argument application.
     div-s₃ : D → D → D
-    div-s₃ i j = if (lt i j)
-                    then zero
-                    else succ₁ (fix divh · (i ∸ j) · j)
+    div-s₃ i j = if (lt i j) then zero else succ₁ (fix divh · (i ∸ j) · j)
 
     -- lt i j ≡ true.
     div-s₄ : D → D → D
-    div-s₄ i j = if true
-                    then zero
-                    else succ₁ (fix divh · (i ∸ j) · j)
+    div-s₄ i j = if true then zero else succ₁ (fix divh · (i ∸ j) · j)
 
     -- lt i j ≡ false.
     div-s₅ : D → D → D
-    div-s₅ i j = if false
-                    then zero
-                    else succ₁ (fix divh · (i ∸ j) · j)
+    div-s₅ i j = if false then zero else succ₁ (fix divh · (i ∸ j) · j)
 
     -- The conditional is true.
     div-s₆ : D
@@ -110,8 +104,8 @@ private
          -- rule.
          fun : D → D
          fun y = lam (λ j → if (lt y j)
-                               then zero
-                               else succ₁ (fix divh · (y ∸ j) · j))
+                              then zero
+                              else succ₁ (fix divh · (y ∸ j) · j))
 
     -- From div-s₂ to div-s₃ using the conversion rule beta.
     proof₂₋₃ : ∀ i j → div-s₂ i j ≡ div-s₃ i j
@@ -121,35 +115,21 @@ private
       -- need a fresh variable y to avoid the clashing of the
       -- variable j in the application of the beta rule.
       fun : D → D
-      fun y = if (lt i y)
-                 then zero
-                 else succ₁ ((fix divh) · (i ∸ y) · y)
+      fun y = if (lt i y) then zero else succ₁ ((fix divh) · (i ∸ y) · y)
 
     -- From div-s₃ to div-s₄ using the proof i<j.
     proof₃_₄ : ∀ i j → i < j → div-s₃ i j ≡ div-s₄ i j
     proof₃_₄ i j i<j =
-      subst (λ t → if t
-                      then zero
-                      else succ₁ ((fix divh) · (i ∸ j) · j)
-                      ≡
-                   if true
-                      then zero
-                      else succ₁ ((fix divh) · (i ∸ j) · j)
-            )
+      subst (λ t → if t then zero else succ₁ ((fix divh) · (i ∸ j) · j) ≡
+                   if true then zero else succ₁ ((fix divh) · (i ∸ j) · j))
             (sym i<j)
             refl
 
     -- From div-s₃ to div-s₅ using the proof i≮j.
     proof₃₋₅ : ∀ i j → i ≮ j → div-s₃ i j ≡ div-s₅ i j
     proof₃₋₅ i j i≮j =
-      subst (λ t → if t
-                      then zero
-                      else succ₁ ((fix divh) · (i ∸ j) · j)
-                      ≡
-                   if false
-                      then zero
-                      else succ₁ ((fix divh) · (i ∸ j) · j)
-            )
+      subst (λ t → if t then zero else succ₁ ((fix divh) · (i ∸ j) · j) ≡
+                   if false then zero else succ₁ ((fix divh) · (i ∸ j) · j))
             (sym i≮j)
             refl
 

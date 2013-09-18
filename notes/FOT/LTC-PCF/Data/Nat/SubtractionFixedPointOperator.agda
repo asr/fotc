@@ -21,10 +21,10 @@ infixl 9 _∸_
 ∸-helper : D → D
 ∸-helper f = lam (λ m → lam (λ n →
                if (iszero₁ n)
-                  then m
-                  else if (iszero₁ m)
-                          then zero
-                          else f · pred₁ m · pred₁ n))
+                 then m
+                 else if (iszero₁ m)
+                        then zero
+                        else f · pred₁ m · pred₁ n))
 
 _∸_ : D → D → D
 _∸_ m n = fix ∸-helper · m · n
@@ -46,26 +46,26 @@ private
   ∸-s₂ : D → D
   ∸-s₂ m = lam (λ n →
                if (iszero₁ n)
-                  then m
-                  else if (iszero₁ m)
-                          then zero
-                          else fix ∸-helper · pred₁ m · pred₁ n)
+                 then m
+                 else if (iszero₁ m)
+                        then zero
+                        else fix ∸-helper · pred₁ m · pred₁ n)
 
   -- Second argument application.
   ∸-s₃ : D → D → D
   ∸-s₃ m n = if (iszero₁ n)
-                  then m
-                  else if (iszero₁ m)
-                          then zero
-                          else fix ∸-helper · pred₁ m · pred₁ n
+               then m
+               else if (iszero₁ m)
+                      then zero
+                      else fix ∸-helper · pred₁ m · pred₁ n
 
   -- First if_then_else_ iszero₁ n = b.
   ∸-s₄ : D → D → D → D
   ∸-s₄ m n b = if b
-                  then m
-                  else if (iszero₁ m)
-                          then zero
-                          else fix ∸-helper · pred₁ m · pred₁ n
+                 then m
+                 else if (iszero₁ m)
+                        then zero
+                        else fix ∸-helper · pred₁ m · pred₁ n
 
   -- First if_then_else_ when if true ...
   ∸-s₅ : D → D
@@ -74,14 +74,12 @@ private
   -- First if_then_else_ when if false ...
   ∸-s₆ : D → D → D
   ∸-s₆ m n = if (iszero₁ m)
-                then zero
-                else fix ∸-helper · pred₁ m · pred₁ n
+               then zero
+               else fix ∸-helper · pred₁ m · pred₁ n
 
   -- Second if_then_else_ iszero₁ m = b.
   ∸-s₇ : D → D → D → D
-  ∸-s₇ m n b = if b
-                  then zero
-                  else fix ∸-helper · pred₁ m · pred₁ n
+  ∸-s₇ m n b = if b then zero else fix ∸-helper · pred₁ m · pred₁ n
 
   -- Second if_then_else_ when if true ...
   ∸-s₈ : D

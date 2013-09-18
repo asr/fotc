@@ -18,10 +18,10 @@ postulate
   collatz    : D → D
   collatz-eq : ∀ n → collatz n ≡
                      if (iszero₁ n)
-                        then 1'
-                        else (if (iszero₁ (pred₁ n))
-                                 then 1'
-                                 else (if (even n)
-                                          then collatz (div n 2')
-                                          else collatz (3' * n + 1')))
+                       then 1'
+                       else (if (iszero₁ (pred₁ n))
+                               then 1'
+                               else (if (even n)
+                                       then collatz (div n 2')
+                                       else collatz (3' * n + 1')))
 {-# ATP axiom collatz-eq #-}

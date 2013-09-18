@@ -25,22 +25,22 @@ private
 
   collatz-s₁ : D → D
   collatz-s₁ n = if (iszero₁ n)
-                    then 1'
-                    else (if (iszero₁ (pred₁ n))
-                             then 1'
-                             else (if (even n)
-                                      then collatz (div n 2')
-                                      else collatz (3' * n + 1')))
+                   then 1'
+                   else (if (iszero₁ (pred₁ n))
+                           then 1'
+                           else (if (even n)
+                                   then collatz (div n 2')
+                                   else collatz (3' * n + 1')))
 
   -- First if_then_else_ iszero₁ n = b.
   collatz-s₂ : D → D → D
   collatz-s₂ n b = if b
-                      then 1'
-                      else (if (iszero₁ (pred₁ n))
-                               then 1'
-                               else (if (even n)
-                                        then collatz (div n 2')
-                                        else collatz (3' * n + 1')))
+                     then 1'
+                     else (if (iszero₁ (pred₁ n))
+                             then 1'
+                             else (if (even n)
+                                     then collatz (div n 2')
+                                     else collatz (3' * n + 1')))
 
   -- First if_then_else_ when if true ....
   collatz-s₃ : D → D
@@ -49,18 +49,18 @@ private
   -- First if_then_else_ when if false ....
   collatz-s₄ : D → D
   collatz-s₄ n = if (iszero₁ (pred₁ n))
-                    then 1'
-                    else (if (even n)
-                             then collatz (div n 2')
-                             else collatz (3' * n + 1'))
+                   then 1'
+                   else (if (even n)
+                           then collatz (div n 2')
+                           else collatz (3' * n + 1'))
 
   -- Second if_then_else_ iszero₁ (pred₁ n) = b.
   collatz-s₅ : D → D → D
   collatz-s₅ n b = if b
-                      then 1'
-                      else (if (even n)
-                               then collatz (div n 2')
-                               else collatz (3' * n + 1'))
+                     then 1'
+                     else (if (even n)
+                             then collatz (div n 2')
+                             else collatz (3' * n + 1'))
 
   -- Second if_then_else_ when if true ....
   collatz-s₆ : D → D
@@ -68,15 +68,11 @@ private
 
   -- Second if_then_else_ when if false ....
   collatz-s₇ : D → D
-  collatz-s₇ n = if (even n)
-                    then collatz (div n 2')
-                    else collatz (3' * n + 1')
+  collatz-s₇ n = if (even n) then collatz (div n 2') else collatz (3' * n + 1')
 
   -- Third if_then_else_ even n b.
   collatz-s₈ : D → D → D
-  collatz-s₈ n b = if b
-                      then collatz (div n 2')
-                      else collatz (3' * n + 1')
+  collatz-s₈ n b = if b then collatz (div n 2') else collatz (3' * n + 1')
 
   -- Third if_then_else_ when if true ....
   collatz-s₉ : D → D

@@ -34,14 +34,14 @@ private
     -- lt i j ≡ true.
     div-s₂ : D → D → D
     div-s₂ i j = if true
-                    then zero
-                    else succ₁ (div (i ∸ j) j)
+                   then zero
+                   else succ₁ (div (i ∸ j) j)
 
     -- lt i j ≡ false.
     div-s₃ : D → D → D
     div-s₃ i j = if false
-                    then zero
-                    else succ₁ (div (i ∸ j) j)
+                   then zero
+                   else succ₁ (div (i ∸ j) j)
 
     -- The conditional is true.
     div-s₄ : D
@@ -85,12 +85,12 @@ private
     proof₁₋₂ : ∀ i j → i < j → div-s₁ i j ≡ div-s₂ i j
     proof₁₋₂ i j i<j =
       subst (λ t → if t
-                      then zero
-                      else succ₁ (div (i ∸ j) j)
-                      ≡
+                     then zero
+                     else succ₁ (div (i ∸ j) j)
+                   ≡
                    if true
-                      then zero
-                      else succ₁ (div (i ∸ j) j)
+                     then zero
+                     else succ₁ (div (i ∸ j) j)
             )
             (sym i<j)
             refl
@@ -99,12 +99,12 @@ private
     proof₁₋₃ : ∀ i j → i ≮ j → div-s₁ i j ≡ div-s₃ i j
     proof₁₋₃ i j i≮j =
       subst (λ t → if t
-                      then zero
-                      else succ₁ (div (i ∸ j) j)
-                      ≡
+                     then zero
+                     else succ₁ (div (i ∸ j) j)
+                   ≡
                    if false
-                      then zero
-                      else succ₁ (div (i ∸ j) j)
+                     then zero
+                     else succ₁ (div (i ∸ j) j)
             )
             (sym i≮j)
             refl

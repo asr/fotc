@@ -35,22 +35,22 @@ private
   -- Initially, the equation gcd-eq is used.
   gcd-s₁ : D → D → D
   gcd-s₁ m n = if (iszero₁ n)
-                  then m
-                  else (if (iszero₁ m)
-                           then n
-                           else (if (gt m n)
-                                    then gcd (m ∸ n) n
-                                    else gcd m (n ∸ m)))
+                 then m
+                 else (if (iszero₁ m)
+                         then n
+                         else (if (gt m n)
+                                 then gcd (m ∸ n) n
+                                 else gcd m (n ∸ m)))
 
   -- First if_then_else_ (iszero₁ n).
   gcd-s₂ : D → D → D → D
   gcd-s₂ m n b = if b
-                    then m
-                    else (if (iszero₁ m)
-                             then n
-                             else (if (gt m n)
-                                      then gcd (m ∸ n) n
-                                      else gcd m (n ∸ m)))
+                   then m
+                   else (if (iszero₁ m)
+                           then n
+                           else (if (gt m n)
+                                   then gcd (m ∸ n) n
+                                   else gcd m (n ∸ m)))
 
   -- First if_then_else_ when iszero₁ n = true.
   gcd-s₃ : D → D
@@ -59,18 +59,14 @@ private
   -- First if_then_else_ when iszero₁ n = false.
   gcd-s₄ : D → D → D
   gcd-s₄ m n = if (iszero₁ m)
-                  then n
-                  else (if (gt m n)
-                           then gcd (m ∸ n) n
-                           else gcd m (n ∸ m))
+                 then n
+                 else (if (gt m n) then gcd (m ∸ n) n else gcd m (n ∸ m))
 
    -- Second if_then_else_ (iszero₁ m).
   gcd-s₈ : D → D → D → D
   gcd-s₈ m n b = if b
-                    then n
-                    else (if (gt m n)
-                             then gcd (m ∸ n) n
-                             else gcd m (n ∸ m))
+                   then n
+                   else (if (gt m n) then gcd (m ∸ n) n else gcd m (n ∸ m))
 
   -- Second if_then_else_, when iszero₁ m = true.
   gcd-s₉ : D → D
@@ -78,15 +74,11 @@ private
 
   -- Second if_then_else_, when iszero₁ m = false.
   gcd-s₁₀ : D → D → D
-  gcd-s₁₀ m n = if (gt m n)
-                   then gcd (m ∸ n) n
-                   else gcd m (n ∸ m)
+  gcd-s₁₀ m n = if (gt m n) then gcd (m ∸ n) n else gcd m (n ∸ m)
 
   -- Third if_then_else_ (gt m n).
   gcd-s₁₁ : D → D → D → D
-  gcd-s₁₁ m n b = if b
-                     then gcd (m ∸ n) n
-                     else gcd m (n ∸ m)
+  gcd-s₁₁ m n b = if b then gcd (m ∸ n) n else gcd m (n ∸ m)
 
   -- Third if_then_else_ when gt m n = true.
   gcd-s₁₂ : D → D → D

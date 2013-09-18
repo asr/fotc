@@ -43,38 +43,32 @@ private
   gcd-s₂ : D → D
   gcd-s₂ m = lam (λ n →
                     if (iszero₁ n)
-                       then (if (iszero₁ m)
-                                then error
-                                else m)
-                       else (if (iszero₁ m)
-                                then n
-                                else (if (gt m n)
-                                         then fix gcdh · (m ∸ n) · n
-                                         else fix gcdh · m · (n ∸ m))))
+                      then (if (iszero₁ m) then error else m)
+                      else (if (iszero₁ m)
+                              then n
+                              else (if (gt m n)
+                                      then fix gcdh · (m ∸ n) · n
+                                      else fix gcdh · m · (n ∸ m))))
 
   -- Second argument application.
   gcd-s₃ : D → D → D
   gcd-s₃ m n = if (iszero₁ n)
-                  then (if (iszero₁ m)
-                           then error
-                           else m)
-                  else (if (iszero₁ m)
-                           then n
-                           else (if (gt m n)
-                                    then fix gcdh · (m ∸ n) · n
-                                    else fix gcdh · m · (n ∸ m)))
+                 then (if (iszero₁ m) then error else m)
+                 else (if (iszero₁ m)
+                         then n
+                         else (if (gt m n)
+                                 then fix gcdh · (m ∸ n) · n
+                                 else fix gcdh · m · (n ∸ m)))
 
   -- First if_then_else_ iszero₁ n = b.
   gcd-s₄ : D → D → D → D
   gcd-s₄ m n b = if b
-                    then (if (iszero₁ m)
-                             then error
-                             else m)
-                    else (if (iszero₁ m)
-                             then n
-                             else (if (gt m n)
-                                      then fix gcdh · (m ∸ n) · n
-                                      else fix gcdh · m · (n ∸ m)))
+                   then (if (iszero₁ m) then error else m)
+                   else (if (iszero₁ m)
+                           then n
+                           else (if (gt m n)
+                                  then fix gcdh · (m ∸ n) · n
+                                  else fix gcdh · m · (n ∸ m)))
 
   -- First if_then_else_ when if true ...
   gcd-s₅ : D → D
@@ -83,10 +77,10 @@ private
   -- First if_then_else_ when if false ...
   gcd-s₆ : D → D → D
   gcd-s₆ m n = if (iszero₁ m)
-                  then n
-                  else (if (gt m n)
-                           then fix gcdh · (m ∸ n) · n
-                           else fix gcdh · m · (n ∸ m))
+                 then n
+                 else (if (gt m n)
+                         then fix gcdh · (m ∸ n) · n
+                         else fix gcdh · m · (n ∸ m))
 
   -- Second if_then_else_ iszero₁ m = b.
   gcd-s₇ : D → D → D
@@ -95,22 +89,20 @@ private
   -- Third if_then_else_ iszero₁ m = b.
   gcd-s₈ : D → D → D → D
   gcd-s₈ m n b = if b
-                    then n
-                    else (if (gt m n)
-                             then fix gcdh · (m ∸ n) · n
-                             else fix gcdh · m · (n ∸ m))
+                   then n
+                   else (if (gt m n)
+                           then fix gcdh · (m ∸ n) · n
+                           else fix gcdh · m · (n ∸ m))
 
   -- Third if_then_else_ when if false ...
   gcd-s₉ : D → D → D
   gcd-s₉ m n = if (gt m n)
-                   then fix gcdh · (m ∸ n) · n
-                   else fix gcdh · m · (n ∸ m)
+                 then fix gcdh · (m ∸ n) · n
+                 else fix gcdh · m · (n ∸ m)
 
   -- Fourth if_then_else_ gt m n = b.
   gcd-s₁₀ : D → D → D → D
-  gcd-s₁₀ m n b = if b
-                     then fix gcdh · (m ∸ n) · n
-                     else fix gcdh · m · (n ∸ m)
+  gcd-s₁₀ m n b = if b then fix gcdh · (m ∸ n) · n else fix gcdh · m · (n ∸ m)
 
   ----------------------------------------------------------------------------
   -- Congruence properties

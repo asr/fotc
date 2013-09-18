@@ -18,10 +18,8 @@ infix 7 _<_ _≮_ _<_ _≮_ _≤_ _≰_ _≥_ _≱_
 lth : D → D
 lth lt = lam (λ m → lam (λ n →
               if (iszero₁ n)
-                 then false
-                 else (if (iszero₁ m)
-                          then true
-                          else (lt · pred₁ m · pred₁ n))))
+                then false
+                else (if (iszero₁ m) then true else (lt · pred₁ m · pred₁ n))))
 lt : D → D → D
 lt m n = fix lth · m · n
 

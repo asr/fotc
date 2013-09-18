@@ -31,27 +31,27 @@ private
   rec-s₂ : D → D
   rec-s₂ n = lam (λ a → lam (λ f →
                     (if (iszero₁ n)
-                        then a
-                        else f · pred₁ n · (fix rech · pred₁ n · a · f))))
+                       then a
+                       else f · pred₁ n · (fix rech · pred₁ n · a · f))))
 
   -- Second argument application.
   rec-s₃ : D → D → D
   rec-s₃ n a = lam (λ f →
                    (if (iszero₁ n)
-                       then a
-                       else f · pred₁ n · (fix rech · pred₁ n · a · f)))
+                      then a
+                      else f · pred₁ n · (fix rech · pred₁ n · a · f)))
 
   -- Third argument application.
   rec-s₄ : D → D → D → D
   rec-s₄ n a f = if (iszero₁ n)
-                     then a
-                     else f · pred₁ n · (fix rech · pred₁ n · a · f)
+                    then a
+                    else f · pred₁ n · (fix rech · pred₁ n · a · f)
 
   -- Reduction iszero₁ n ≡ b.
   rec-s₅ : D → D → D → D → D
   rec-s₅ n a f b = if b
-                      then a
-                      else f · pred₁ n · (fix rech · pred₁ n · a · f)
+                     then a
+                     else f · pred₁ n · (fix rech · pred₁ n · a · f)
 
   -- Reduction of iszero₁ n ≡ true
   --

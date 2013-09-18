@@ -40,27 +40,27 @@ private
   lt-s₂ : D → D
   lt-s₂ m = lam (λ n →
                if (iszero₁ n)
-                  then false
-                  else (if (iszero₁ m)
-                           then true
-                           else (fix lth · pred₁ m · pred₁ n)))
+                 then false
+                 else (if (iszero₁ m)
+                         then true
+                         else (fix lth · pred₁ m · pred₁ n)))
 
 
   -- Second argument application.
   lt-s₃ : D → D → D
   lt-s₃ m n = if (iszero₁ n)
-                 then false
-                 else (if (iszero₁ m)
-                          then true
-                          else (fix lth · pred₁ m · pred₁ n))
+                then false
+                else (if (iszero₁ m)
+                        then true
+                        else (fix lth · pred₁ m · pred₁ n))
 
   -- Reduction iszero₁ n ≡ b.
   lt-s₄ : D → D → D → D
   lt-s₄ m n b = if b
-                   then false
-                   else (if (iszero₁ m)
-                            then true
-                            else (fix lth · pred₁ m · pred₁ n))
+                  then false
+                  else (if (iszero₁ m)
+                          then true
+                          else (fix lth · pred₁ m · pred₁ n))
 
   -- Reduction iszero₁ n ≡ true.
   -- It should be
@@ -70,16 +70,12 @@ private
 
   -- Reduction iszero₁ n ≡ false.
   lt-s₅ : D → D → D
-  lt-s₅ m n = if (iszero₁ m)
-                 then true
-                 else (fix lth · pred₁ m · pred₁ n)
+  lt-s₅ m n = if (iszero₁ m) then true else (fix lth · pred₁ m · pred₁ n)
 
 
   -- Reduction iszero₁ m ≡ b.
   lt-s₆ : D → D → D → D
-  lt-s₆ m n b = if b
-                   then true
-                   else (fix lth · pred₁ m · pred₁ n)
+  lt-s₆ m n b = if b then true else (fix lth · pred₁ m · pred₁ n)
 
   -- Reduction iszero₁ m ≡ true.
   -- It should be

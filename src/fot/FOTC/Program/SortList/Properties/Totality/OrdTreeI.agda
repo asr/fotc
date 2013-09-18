@@ -84,24 +84,24 @@ toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (ttip {j} Nj) t≤i
                refl
       ⟩
     le-TreeItem (if (le j i₂)
-                     then (node (tip j) i₂ (tip i₂))
-                     else (node (tip i₂) j (tip j))) i₁
+                   then (node (tip j) i₂ (tip i₂))
+                   else (node (tip i₂) j (tip j))) i₁
       ≡⟨ subst (λ t → le-TreeItem
                       (if (le j i₂)
-                          then (node (tip j) i₂ (tip i₂))
-                          else (node (tip i₂) j (tip j))) i₁ ≡
+                         then (node (tip j) i₂ (tip i₂))
+                         else (node (tip i₂) j (tip j))) i₁ ≡
                       le-TreeItem (if t
-                                      then (node (tip j) i₂ (tip i₂))
-                                      else (node (tip i₂) j (tip j))) i₁)
+                                     then (node (tip j) i₂ (tip i₂))
+                                     else (node (tip i₂) j (tip j))) i₁)
                (x>y→x≰y Nj Ni₂ j>i₂)
                refl
       ⟩
     le-TreeItem (if false
-                    then (node (tip j) i₂ (tip i₂))
-                    else (node (tip i₂) j (tip j))) i₁
+                   then (node (tip j) i₂ (tip i₂))
+                   else (node (tip i₂) j (tip j))) i₁
       ≡⟨ subst (λ t → le-TreeItem (if false
-                                      then (node (tip j) i₂ (tip i₂))
-                                      else (node (tip i₂) j (tip j))) i₁ ≡
+                                     then (node (tip j) i₂ (tip i₂))
+                                     else (node (tip i₂) j (tip j))) i₁ ≡
                       le-TreeItem t i₁)
                (if-false (node (tip i₂) j (tip j)))
                refl
@@ -144,24 +144,24 @@ toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂ (ttip {j} Nj) t≤i
                refl
       ⟩
     le-TreeItem (if (le j i₂)
-                    then (node (tip j) i₂ (tip i₂))
-                    else (node (tip i₂) j (tip j))) i₁
+                   then (node (tip j) i₂ (tip i₂))
+                   else (node (tip i₂) j (tip j))) i₁
       ≡⟨ subst (λ t → le-TreeItem
                       (if (le j i₂)
-                          then (node (tip j) i₂ (tip i₂))
-                          else (node (tip i₂) j (tip j))) i₁ ≡
+                         then (node (tip j) i₂ (tip i₂))
+                         else (node (tip i₂) j (tip j))) i₁ ≡
                       le-TreeItem (if t
-                                      then (node (tip j) i₂ (tip i₂))
-                                      else (node (tip i₂) j (tip j))) i₁)
+                                     then (node (tip j) i₂ (tip i₂))
+                                     else (node (tip i₂) j (tip j))) i₁)
                j≤i₂
                refl
       ⟩
     le-TreeItem (if true
-                    then (node (tip j) i₂ (tip i₂))
-                    else (node (tip i₂) j (tip j))) i₁
+                   then (node (tip j) i₂ (tip i₂))
+                   else (node (tip i₂) j (tip j))) i₁
       ≡⟨ subst (λ t → le-TreeItem (if true
-                                      then (node (tip j) i₂ (tip i₂))
-                                      else (node (tip i₂) j (tip j))) i₁ ≡
+                                     then (node (tip j) i₂ (tip i₂))
+                                     else (node (tip i₂) j (tip j))) i₁ ≡
                       le-TreeItem t i₁)
                (if-true (node (tip j) i₂ (tip i₂)))
                refl
@@ -208,25 +208,25 @@ toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
                refl
       ⟩
     le-TreeItem (if (le j i₂)
-                    then (node t₁ j (toTree · i₂ · t₂))
-                    else (node (toTree · i₂ · t₁) j t₂)) i₁
+                   then (node t₁ j (toTree · i₂ · t₂))
+                   else (node (toTree · i₂ · t₁) j t₂)) i₁
       ≡⟨ subst (λ t → le-TreeItem
                         (if (le j i₂)
-                            then (node t₁ j (toTree · i₂ · t₂))
-                            else (node (toTree · i₂ · t₁) j t₂)) i₁ ≡
+                           then (node t₁ j (toTree · i₂ · t₂))
+                           else (node (toTree · i₂ · t₁) j t₂)) i₁ ≡
                       le-TreeItem
                         (if t
-                            then (node t₁ j (toTree · i₂ · t₂))
-                            else (node (toTree · i₂ · t₁) j t₂)) i₁)
+                           then (node t₁ j (toTree · i₂ · t₂))
+                           else (node (toTree · i₂ · t₁) j t₂)) i₁)
                (x>y→x≰y Nj Ni₂ j>i₂)
                refl
       ⟩
     le-TreeItem (if false
-                    then (node t₁ j (toTree · i₂ · t₂))
-                    else (node (toTree · i₂ · t₁) j t₂)) i₁
+                   then (node t₁ j (toTree · i₂ · t₂))
+                   else (node (toTree · i₂ · t₁) j t₂)) i₁
       ≡⟨ subst (λ t → le-TreeItem (if false
-                                      then (node t₁ j (toTree · i₂ · t₂))
-                                      else (node (toTree · i₂ · t₁) j t₂)) i₁ ≡
+                                     then (node t₁ j (toTree · i₂ · t₂))
+                                     else (node (toTree · i₂ · t₁) j t₂)) i₁ ≡
                       le-TreeItem t i₁)
                (if-false (node (toTree · i₂ · t₁) j t₂))
                refl
@@ -266,25 +266,25 @@ toTree-OrdTree-helper₁ {i₁} {i₂} Ni₁ Ni₂ i₁>i₂
                refl
       ⟩
     le-TreeItem (if (le j i₂)
-                    then (node t₁ j (toTree · i₂ · t₂))
-                    else (node (toTree · i₂ · t₁) j t₂)) i₁
+                   then (node t₁ j (toTree · i₂ · t₂))
+                   else (node (toTree · i₂ · t₁) j t₂)) i₁
       ≡⟨ subst (λ t → le-TreeItem
                         (if (le j i₂)
-                            then (node t₁ j (toTree · i₂ · t₂))
-                            else (node (toTree · i₂ · t₁) j t₂)) i₁ ≡
+                           then (node t₁ j (toTree · i₂ · t₂))
+                           else (node (toTree · i₂ · t₁) j t₂)) i₁ ≡
                       le-TreeItem
                         (if t
-                            then (node t₁ j (toTree · i₂ · t₂))
-                            else (node (toTree · i₂ · t₁) j t₂)) i₁)
+                           then (node t₁ j (toTree · i₂ · t₂))
+                           else (node (toTree · i₂ · t₁) j t₂)) i₁)
                (j≤i₂)
                refl
       ⟩
     le-TreeItem (if true
-                    then (node t₁ j (toTree · i₂ · t₂))
-                    else (node (toTree · i₂ · t₁) j t₂)) i₁
+                   then (node t₁ j (toTree · i₂ · t₂))
+                   else (node (toTree · i₂ · t₁) j t₂)) i₁
       ≡⟨ subst (λ t → le-TreeItem (if true
-                                      then (node t₁ j (toTree · i₂ · t₂))
-                                      else (node (toTree · i₂ · t₁) j t₂)) i₁ ≡
+                                     then (node t₁ j (toTree · i₂ · t₂))
+                                     else (node (toTree · i₂ · t₁) j t₂)) i₁ ≡
                       le-TreeItem t i₁)
                (if-true (node t₁ j (toTree · i₂ · t₂)))
                refl
@@ -344,23 +344,23 @@ toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (ttip {j} Nj) i�
                refl
       ⟩
     le-ItemTree i₁ (if (le j i₂)
-                       then (node (tip j) i₂ (tip i₂))
-                       else (node (tip i₂) j (tip j)))
+                      then (node (tip j) i₂ (tip i₂))
+                      else (node (tip i₂) j (tip j)))
       ≡⟨ subst (λ t → le-ItemTree i₁ (if (le j i₂)
-                                         then (node (tip j) i₂ (tip i₂))
-                                         else (node (tip i₂) j (tip j))) ≡
+                                        then (node (tip j) i₂ (tip i₂))
+                                        else (node (tip i₂) j (tip j))) ≡
                       le-ItemTree i₁ (if t
-                                         then (node (tip j) i₂ (tip i₂))
-                                         else (node (tip i₂) j (tip j))))
+                                        then (node (tip j) i₂ (tip i₂))
+                                        else (node (tip i₂) j (tip j))))
              (x>y→x≰y Nj Ni₂ j>i₂)
              refl
        ⟩
     le-ItemTree i₁ (if false
-                       then (node (tip j) i₂ (tip i₂))
-                       else (node (tip i₂) j (tip j)))
+                      then (node (tip j) i₂ (tip i₂))
+                      else (node (tip i₂) j (tip j)))
     ≡⟨ subst (λ t → le-ItemTree i₁ (if false
-                                       then (node (tip j) i₂ (tip i₂))
-                                       else (node (tip i₂) j (tip j))) ≡
+                                      then (node (tip j) i₂ (tip i₂))
+                                      else (node (tip i₂) j (tip j))) ≡
                     le-ItemTree i₁ t)
                 (if-false (node (tip i₂) j (tip j)))
                 refl
@@ -403,23 +403,23 @@ toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂ (ttip {j} Nj) i�
                refl
       ⟩
     le-ItemTree i₁ (if (le j i₂)
-                       then (node (tip j) i₂ (tip i₂))
-                       else (node (tip i₂) j (tip j)))
+                      then (node (tip j) i₂ (tip i₂))
+                      else (node (tip i₂) j (tip j)))
       ≡⟨ subst (λ t → le-ItemTree i₁ (if (le j i₂)
-                                         then (node (tip j) i₂ (tip i₂))
-                                         else (node (tip i₂) j (tip j))) ≡
+                                        then (node (tip j) i₂ (tip i₂))
+                                        else (node (tip i₂) j (tip j))) ≡
                       le-ItemTree i₁ (if t
-                                         then (node (tip j) i₂ (tip i₂))
-                                         else (node (tip i₂) j (tip j))))
+                                        then (node (tip j) i₂ (tip i₂))
+                                        else (node (tip i₂) j (tip j))))
                j≤i₂
                refl
         ⟩
     le-ItemTree i₁ (if true
-                       then (node (tip j) i₂ (tip i₂))
-                       else (node (tip i₂) j (tip j)))
+                      then (node (tip j) i₂ (tip i₂))
+                      else (node (tip i₂) j (tip j)))
       ≡⟨ subst (λ t → le-ItemTree i₁ (if true
-                                         then (node (tip j) i₂ (tip i₂))
-                                         else (node (tip i₂) j (tip j))) ≡
+                                        then (node (tip j) i₂ (tip i₂))
+                                        else (node (tip i₂) j (tip j))) ≡
                       le-ItemTree i₁ t)
                (if-true (node (tip j) i₂ (tip i₂)))
                refl
@@ -466,23 +466,23 @@ toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
                refl
       ⟩
     le-ItemTree i₁ (if (le j i₂)
-                       then (node t₁ j (toTree · i₂ · t₂))
-                       else (node (toTree · i₂ · t₁) j t₂))
+                      then (node t₁ j (toTree · i₂ · t₂))
+                      else (node (toTree · i₂ · t₁) j t₂))
     ≡⟨ subst (λ t → le-ItemTree i₁ (if (le j i₂)
-                                       then (node t₁ j (toTree · i₂ · t₂))
-                                       else (node (toTree · i₂ · t₁) j t₂)) ≡
+                                      then (node t₁ j (toTree · i₂ · t₂))
+                                      else (node (toTree · i₂ · t₁) j t₂)) ≡
                     le-ItemTree i₁ (if t
-                                       then (node t₁ j (toTree · i₂ · t₂))
-                                       else (node (toTree · i₂ · t₁) j t₂)))
+                                      then (node t₁ j (toTree · i₂ · t₂))
+                                      else (node (toTree · i₂ · t₁) j t₂)))
                 (x>y→x≰y Nj Ni₂ j>i₂)
                 refl
        ⟩
     le-ItemTree i₁ (if false
-                       then (node t₁ j (toTree · i₂ · t₂))
-                       else (node (toTree · i₂ · t₁) j t₂))
+                      then (node t₁ j (toTree · i₂ · t₂))
+                      else (node (toTree · i₂ · t₁) j t₂))
       ≡⟨ subst (λ t → le-ItemTree i₁ (if false
-                                         then (node t₁ j (toTree · i₂ · t₂))
-                                         else (node (toTree · i₂ · t₁) j t₂)) ≡
+                                        then (node t₁ j (toTree · i₂ · t₂))
+                                        else (node (toTree · i₂ · t₁) j t₂)) ≡
                       le-ItemTree i₁ t)
                (if-false (node (toTree · i₂ · t₁) j t₂))
                refl
@@ -520,23 +520,23 @@ toTree-OrdTree-helper₂ {i₁} {i₂} Ni₁ Ni₂ i₁≤i₂
                refl
       ⟩
     le-ItemTree i₁ (if (le j i₂)
-                       then (node t₁ j (toTree · i₂ · t₂))
-                       else (node (toTree · i₂ · t₁) j t₂))
+                      then (node t₁ j (toTree · i₂ · t₂))
+                      else (node (toTree · i₂ · t₁) j t₂))
     ≡⟨ subst (λ t → le-ItemTree i₁ (if (le j i₂)
-                                       then (node t₁ j (toTree · i₂ · t₂))
-                                       else (node (toTree · i₂ · t₁) j t₂)) ≡
+                                      then (node t₁ j (toTree · i₂ · t₂))
+                                      else (node (toTree · i₂ · t₁) j t₂)) ≡
                     le-ItemTree i₁ (if t
-                                       then (node t₁ j (toTree · i₂ · t₂))
-                                       else (node (toTree · i₂ · t₁) j t₂)))
+                                      then (node t₁ j (toTree · i₂ · t₂))
+                                      else (node (toTree · i₂ · t₁) j t₂)))
                 j≤i₂
                 refl
        ⟩
     le-ItemTree i₁ (if true
-                       then (node t₁ j (toTree · i₂ · t₂))
-                       else (node (toTree · i₂ · t₁) j t₂))
+                      then (node t₁ j (toTree · i₂ · t₂))
+                      else (node (toTree · i₂ · t₁) j t₂))
       ≡⟨ subst (λ t → le-ItemTree i₁ (if true
-                                         then (node t₁ j (toTree · i₂ · t₂))
-                                         else (node (toTree · i₂ · t₁) j t₂)) ≡
+                                        then (node t₁ j (toTree · i₂ · t₂))
+                                        else (node (toTree · i₂ · t₁) j t₂)) ≡
                       le-ItemTree i₁ t)
                (if-true (node t₁ j (toTree · i₂ · t₂)))
                refl

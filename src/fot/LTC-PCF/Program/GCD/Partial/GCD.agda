@@ -22,14 +22,12 @@ open import LTC-PCF.Loop
 gcdh : D → D
 gcdh g = lam (λ m → lam (λ n →
            if (iszero₁ n)
-              then (if (iszero₁ m)
-                       then error
-                       else m)
-              else (if (iszero₁ m)
-                       then n
-                       else (if (gt m n)
-                                then g · (m ∸ n) · n
-                                else g · m · (n ∸ m)))))
+             then (if (iszero₁ m) then error else m)
+             else (if (iszero₁ m)
+                     then n
+                     else (if (gt m n)
+                             then g · (m ∸ n) · n
+                             else g · m · (n ∸ m)))))
 
 gcd : D → D → D
 gcd m n = fix gcdh · m · n

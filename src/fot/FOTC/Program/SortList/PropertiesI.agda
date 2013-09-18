@@ -65,24 +65,24 @@ toTree-OrdTree {item} Nitem (ttip {i} Ni) _ =
                refl
       ⟩
     ordTree (if (le i item)
-                then (node (tip i) item (tip item))
-                else (node (tip item) i (tip i)))
+               then (node (tip i) item (tip item))
+               else (node (tip item) i (tip i)))
       ≡⟨ subst (λ t → ordTree (if (le i item)
-                                  then (node (tip i) item (tip item))
-                                  else (node (tip item) i (tip i))) ≡
+                                 then (node (tip i) item (tip item))
+                                 else (node (tip item) i (tip i))) ≡
                       ordTree (if t
-                                  then (node (tip i) item (tip item))
-                                  else (node (tip item) i (tip i))))
+                                 then (node (tip i) item (tip item))
+                                 else (node (tip item) i (tip i))))
                (x>y→x≰y Ni Nitem i>item)
                  refl
       ⟩
     ordTree (if false
-                then (node (tip i) item (tip item))
-                else (node (tip item) i (tip i)))
+               then (node (tip i) item (tip item))
+               else (node (tip item) i (tip i)))
       ≡⟨ subst (λ t → ordTree (if false
-                                  then (node (tip i) item (tip item))
-                                  else (node (tip item) i (tip i))) ≡
-                                  ordTree t)
+                                 then (node (tip i) item (tip item))
+                                 else (node (tip item) i (tip i))) ≡
+                              ordTree t)
                (if-false (node (tip item) i (tip i)))
                refl
       ⟩
@@ -163,23 +163,23 @@ toTree-OrdTree {item} Nitem (ttip {i} Ni) _ =
                refl
       ⟩
     ordTree (if (le i item)
-                then (node (tip i) item (tip item))
-                else (node (tip item) i (tip i)))
+               then (node (tip i) item (tip item))
+               else (node (tip item) i (tip i)))
       ≡⟨ subst (λ t → ordTree (if (le i item)
-                                  then (node (tip i) item (tip item))
-                                  else (node (tip item) i (tip i))) ≡
+                                 then (node (tip i) item (tip item))
+                                 else (node (tip item) i (tip i))) ≡
                       ordTree (if t
-                                  then (node (tip i) item (tip item))
-                                  else (node (tip item) i (tip i))))
+                                 then (node (tip i) item (tip item))
+                                 else (node (tip item) i (tip i))))
                i≤item
                refl
       ⟩
     ordTree (if true
-                then (node (tip i) item (tip item))
-                else (node (tip item) i (tip i)))
+               then (node (tip i) item (tip item))
+               else (node (tip item) i (tip i)))
       ≡⟨ subst (λ t → ordTree (if true
-                                  then (node (tip i) item (tip item))
-                                  else (node (tip item) i (tip i))) ≡
+                                 then (node (tip i) item (tip item))
+                                 else (node (tip item) i (tip i))) ≡
                       ordTree t)
                (if-true (node (tip i) item (tip item)))
                refl
@@ -259,23 +259,23 @@ toTree-OrdTree {item} Nitem (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTtnode =
                refl
       ⟩
     ordTree (if (le i item)
-                then (node t₁ i (toTree · item · t₂))
-                else (node (toTree · item · t₁) i t₂))
+               then (node t₁ i (toTree · item · t₂))
+               else (node (toTree · item · t₁) i t₂))
       ≡⟨ subst (λ t → ordTree (if (le i item)
-                                  then (node t₁ i (toTree · item · t₂))
-                                  else (node (toTree · item · t₁) i t₂)) ≡
+                                 then (node t₁ i (toTree · item · t₂))
+                                 else (node (toTree · item · t₁) i t₂)) ≡
                       ordTree (if t
-                                  then (node t₁ i (toTree · item · t₂))
-                                  else (node (toTree · item · t₁) i t₂)))
+                                 then (node t₁ i (toTree · item · t₂))
+                                 else (node (toTree · item · t₁) i t₂)))
                (x>y→x≰y Ni Nitem i>item)
                refl
       ⟩
     ordTree (if false
-                then (node t₁ i (toTree · item · t₂))
-                else (node (toTree · item · t₁) i t₂))
+               then (node t₁ i (toTree · item · t₂))
+               else (node (toTree · item · t₁) i t₂))
       ≡⟨ subst (λ t → ordTree (if false
-                                  then (node t₁ i (toTree · item · t₂))
-                                  else (node (toTree · item · t₁) i t₂)) ≡
+                                 then (node t₁ i (toTree · item · t₂))
+                                 else (node (toTree · item · t₁) i t₂)) ≡
                       ordTree t)
                (if-false (node (toTree · item · t₁) i t₂))
                refl
@@ -356,23 +356,23 @@ toTree-OrdTree {item} Nitem (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTtnode =
                refl
       ⟩
     ordTree (if (le i item)
-                then (node t₁ i (toTree · item · t₂))
-                else (node (toTree · item · t₁) i t₂))
+               then (node t₁ i (toTree · item · t₂))
+               else (node (toTree · item · t₁) i t₂))
       ≡⟨ subst (λ t → ordTree (if (le i item)
-                                  then (node t₁ i (toTree · item · t₂))
-                                  else (node (toTree · item · t₁) i t₂)) ≡
+                                 then (node t₁ i (toTree · item · t₂))
+                                 else (node (toTree · item · t₁) i t₂)) ≡
                       ordTree (if t
-                                  then (node t₁ i (toTree · item · t₂))
-                                    else (node (toTree · item · t₁) i t₂)))
+                                 then (node t₁ i (toTree · item · t₂))
+                                 else (node (toTree · item · t₁) i t₂)))
                i≤item
                refl
       ⟩
     ordTree (if true
-                then (node t₁ i (toTree · item · t₂))
-                else (node (toTree · item · t₁) i t₂))
+               then (node t₁ i (toTree · item · t₂))
+               else (node (toTree · item · t₁) i t₂))
       ≡⟨ subst (λ t → ordTree (if true
-                                  then (node t₁ i (toTree · item · t₂))
-                                  else (node (toTree · item · t₁) i t₂)) ≡
+                                 then (node t₁ i (toTree · item · t₂))
+                                 else (node (toTree · item · t₁) i t₂)) ≡
                       ordTree t)
                (if-true (node t₁ i (toTree · item · t₂)))
                refl
