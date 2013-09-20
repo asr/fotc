@@ -10,7 +10,7 @@
 --   Concurrent Systems. In: Formal Aspects of Computing 1,
 --   pp. 303–319.
 
--- Tested with the streams library 3.1.
+-- Tested with the streams library 3.1.1.
 ------------------------------------------------------------------------------
 
 module ABP where
