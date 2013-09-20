@@ -10,22 +10,28 @@
 --   Concurrent Systems. In: Formal Aspects of Computing 1,
 --   pp. 303–319.
 
--- Tested with the streams library 3.1.1.
-------------------------------------------------------------------------------
+-- Tested with the streams library 3.1.1 and QuickCheck 2.6.
 
-module ABP where
+------------------------------------------------------------------------------
+module Main where
+
+import Control.Monad ( liftM2 )
 
 import Data.Stream.Infinite as S
-  ( fromList
-  , iterate
-  , Stream((:>))
+  ( -- fromList
+  -- , iterate
+  Stream((:>))
   , take
   )
 
-import System.Random ( newStdGen, randoms )
+-- import System.Random ( newStdGen, randoms )
+
+import Test.QuickCheck
+  ( Arbitrary(arbitrary)
+  , quickCheck
+  )
 
 ------------------------------------------------------------------------------
-
 type Bit = Bool
 
 -- Data type used to model the fair unreliable transmission channel.
@@ -60,7 +66,10 @@ corrupt (True :> os)  (x :> xs) = Ok x  :> corrupt os xs
 --
 -- Requires the ScopedTypeVariables flag to write the type signatures
 -- of the terms defined in the where clauses.
-trans ∷ ∀ a. Bit → Stream Bit → Stream Bit → Stream a → Stream a
+--
+-- N.B. Whe use @forall@ instead of @∀@ because it generates an error
+-- with HLint 1.8.51.
+trans ∷ forall a. Bit → Stream Bit → Stream Bit → Stream a → Stream a
 trans b os0 os1 is = out b bs
   where
   as ∷ Stream (a, Bit)
@@ -75,25 +84,40 @@ trans b os0 os1 is = out b bs
   ds ∷ Stream (Err Bit)
   ds = corrupt os1 cs
 
--- Simulation.
+------------------------------------------------------------------------------
+-- Testing
+
+instance Arbitrary a ⇒ Arbitrary (Stream a) where
+  arbitrary = liftM2 (:>) arbitrary arbitrary
+
+prop ∷ Stream Int → Stream Bit → Stream Bit → Bit → Bool
+prop input channel1 channel2 initialBit =
+  S.take 10 input == S.take 10 (trans initialBit channel1 channel2 input)
+
 main ∷ IO ()
-main = do
-  gen1 ← newStdGen
-  gen2 ← newStdGen
+main = quickCheck prop
 
-  let input ∷ Stream Int
-      input = S.iterate (+ 1) 1
+------------------------------------------------------------------------------
+-- Simulation
 
-      channel1, channel2 ∷ Stream Bool
-      channel1 = S.fromList $ randoms gen1
-      channel2 = S.fromList $ randoms gen2
+-- main ∷ IO ()
+-- main = do
+--   gen1 ← newStdGen
+--   gen2 ← newStdGen
 
-      initialBit ∷ Bool
-      initialBit = False
+--   let input ∷ Stream Int
+--       input = S.iterate (+ 1) 1
 
-      output ∷ Stream Int
-      output = trans initialBit channel1 channel2 input
+--       channel1, channel2 ∷ Stream Bit
+--       channel1 = S.fromList $ randoms gen1
+--       channel2 = S.fromList $ randoms gen2
 
-  print gen1
-  print gen2
-  print (S.take 20 output)
+--       initialBit ∷ Bit
+--       initialBit = False
+
+--       output ∷ Stream Int
+--       output = trans initialBit channel1 channel2 input
+
+--   print gen1
+--   print gen2
+--   print (S.take 10 output)

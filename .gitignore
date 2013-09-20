@@ -6,6 +6,7 @@
 *.o
 *.thy~
 *.vo
+ABP
 apia.tix
 dist
 hpc/
