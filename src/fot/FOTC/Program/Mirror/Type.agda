@@ -54,12 +54,11 @@ Forest-mutual-ind :
   (∀ {t ts} → Tree t → A t → Forest ts → B ts → B (t ∷ ts)) →
   ∀ {ts} → Forest ts → B ts
 
-Tree-mutual-ind ihA B[] _   (tree d fnil)           = ihA d fnil B[]
-Tree-mutual-ind ihA B[] ihB (tree d (fcons Tt Fts)) =
-  ihA d (fcons Tt Fts) (ihB Tt (Tree-mutual-ind ihA B[] ihB Tt)
-                            Fts (Forest-mutual-ind ihA B[] ihB Fts))
+Tree-mutual-ind hA B[] _ (tree d fnil) = hA d fnil B[]
+Tree-mutual-ind hA B[] hB (tree d (fcons Tt Fts)) =
+  hA d (fcons Tt Fts) (hB Tt (Tree-mutual-ind hA B[] hB Tt)
+                          Fts (Forest-mutual-ind hA B[] hB Fts))
 
-Forest-mutual-ind _   B[] _   fnil           = B[]
-Forest-mutual-ind ihA B[] ihB (fcons Tt Fts) =
-  ihB Tt (Tree-mutual-ind ihA B[] ihB Tt) Fts
-      (Forest-mutual-ind ihA B[] ihB Fts)
+Forest-mutual-ind _  B[] _ fnil = B[]
+Forest-mutual-ind hA B[] hB (fcons Tt Fts) =
+  hB Tt (Tree-mutual-ind hA B[] hB Tt) Fts (Forest-mutual-ind hA B[] hB Fts)
