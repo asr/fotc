@@ -1,20 +1,26 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
--- The alternating bit protocol following (Dybjer and Herbert 1989).
+-- The alternating bit protocol following Dybjer and Herbert (1989).
 
 -- References:
 --
--- • Peter Dybjer and Herbert Sander. A functional programming
---   approach to the specification and verification of concurrent
---   systems. Formal Aspects of Computing, 1:303-319, 1989.
+-- • Dybjer, Peter and Herbert P. Sander (1989). A Functional
+--   Programming Approach to the Speciﬁcation and Veriﬁcation of
+--   Concurrent Systems. In: Formal Aspects of Computing 1,
+--   pp. 303–319.
 
--- Tested with the streams library v. 3.1.
+-- Tested with the streams library 3.1.
 ------------------------------------------------------------------------------
 
 module ABP where
 
-import Data.Stream.Infinite as S ( fromList, iterate, Stream((:>)), take )
+import Data.Stream.Infinite as S
+  ( fromList
+  , iterate
+  , Stream((:>))
+  , take
+  )
 
 import System.Random ( newStdGen, randoms )
 
@@ -52,7 +58,7 @@ corrupt (True :> os)  (x :> xs) = Ok x  :> corrupt os xs
 
 -- The ABP transfer function.
 --
--- Requires the flag ScopedTypeVariables to write the type signatures
+-- Requires the ScopedTypeVariables flag to write the type signatures
 -- of the terms defined in the where clauses.
 trans ∷ ∀ a. Bit → Stream Bit → Stream Bit → Stream a → Stream a
 trans b os0 os1 is = out b bs
@@ -78,7 +84,7 @@ main = do
   let input ∷ Stream Int
       input = S.iterate (+ 1) 1
 
-      channel1 , channel2 ∷ Stream Bool
+      channel1, channel2 ∷ Stream Bool
       channel1 = S.fromList $ randoms gen1
       channel2 = S.fromList $ randoms gen2
 
