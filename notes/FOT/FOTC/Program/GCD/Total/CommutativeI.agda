@@ -40,7 +40,7 @@ open import FOTC.Program.GCD.Total.GCD
 ------------------------------------------------------------------------------
 -- Commutativity property.
 Comm : D → D → Set
-Comm d₁ d₂ = gcd d₁ d₂ ≡ gcd d₂ d₁
+Comm t t' = gcd t t' ≡ gcd t' t
 {-# ATP definition Comm #-}
 
 x>y→y≯x : ∀ {m n} → N m → N n → m > n → n ≯ m

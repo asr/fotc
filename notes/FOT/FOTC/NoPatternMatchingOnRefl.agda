@@ -42,17 +42,20 @@ succCong {m} h = subst (λ t → succ₁ m ≡ succ₁ t) h refl
 predCong : ∀ {m n} → m ≡ n → pred₁ m ≡ pred₁ n
 predCong {m} h = subst (λ t → pred₁ m ≡ pred₁ t) h refl
 
-ifCong₁ : ∀ {b₁ b₂ d e} → b₁ ≡ b₂ → if b₁ then d else e ≡ if b₂ then d else e
-ifCong₁ {b₁} {d = d} {e} h =
-  subst (λ t → if b₁ then d else e ≡ if t then d else e) h refl
+ifCong₁ : ∀ {b₁ b₂ t t'} → b₁ ≡ b₂ →
+          if b₁ then t else t' ≡ if b₂ then t else t'
+ifCong₁ {b₁} {t = t} {t'} h =
+  subst (λ x → if b₁ then t else t' ≡ if x then t else t') h refl
 
-ifCong₂ : ∀ {b d₁ d₂ e} → d₁ ≡ d₂ → if b then d₁ else e ≡ if b then d₂ else e
-ifCong₂ {b} {d₁} {e = e} h =
-  subst (λ t → if b then d₁ else e ≡ if b then t else e) h refl
+ifCong₂ : ∀ {b t₁ t₂ t'} → t₁ ≡ t₂ →
+          if b then t₁ else t' ≡ if b then t₂ else t'
+ifCong₂ {b} {t₁} {t' = t'} h =
+  subst (λ x → if b then t₁ else t' ≡ if b then x else t') h refl
 
-ifCong₃ : ∀ {b d e₁ e₂} → e₁ ≡ e₂ → if b then d else e₁ ≡ if b then d else e₂
-ifCong₃ {b} {d} {e₁} h =
-  subst (λ t → if b then d else e₁ ≡ if b then d else t) h refl
+ifCong₃ : ∀ {b t t'₁ t'₂} → t'₁ ≡ t'₂ →
+          if b then t else t'₁ ≡ if b then t else t'₂
+ifCong₃ {b} {t} {t'₁} h =
+  subst (λ x → if b then t else t'₁ ≡ if b then t else x) h refl
 
 ------------------------------------------------------------------------------
 -- From FOTC.Base.List.PropertiesI

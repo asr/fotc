@@ -60,7 +60,7 @@ postulate
 
 abstract
   if_then_else_ : D → D → D → D
-  if b then d₁ else d₂ = if · b · d₁ · d₂
+  if b then t else t' = if · b · t · t'
   -- {-# ATP definition if_then_else_ #-}
 
   succ₁ : D → D
@@ -89,11 +89,11 @@ abstract
 -- term constants.
 
 -- Conversion rules for Booleans.
--- if-true  : ∀ d₁ {d₂} → if · true  · d₁ · d₂ ≡ d₁
--- if-false : ∀ {d₁} d₂ → if · false · d₁ · d₂ ≡ d₂
+-- if-true  : ∀ t {t'} → if · true  · t · t' ≡ t
+-- if-false : ∀ {t} t' → if · false · t · t' ≡ t'
 postulate
-  if-true  : ∀ d₁ {d₂} → if true then d₁ else d₂  ≡ d₁
-  if-false : ∀ {d₁} d₂ → if false then d₁ else d₂ ≡ d₂
+  if-true  : ∀ t {t'} → if true then t else t'  ≡ t
+  if-false : ∀ {t} t' → if false then t else t' ≡ t'
 {-# ATP axiom if-true if-false #-}
 
 -- Conversion rules for pred.

@@ -20,8 +20,8 @@ postulate
   _≡_                    : D → D → Set
 
 postulate
-  if-true  : ∀ d₁ {d₂} → if · true  · d₁ · d₂ ≡ d₁
-  if-false : ∀ {d₁} d₂ → if · false · d₁ · d₂ ≡ d₂
+  if-true  : ∀ t {t'} → if · true  · t · t' ≡ t
+  if-false : ∀ {t} t' → if · false · t · t' ≡ t'
   pred-0   : pred · zero ≡ zero
   pred-S   : ∀ n → pred · (succ · n) ≡ n
   iszero-0 : iszero · zero ≡ true

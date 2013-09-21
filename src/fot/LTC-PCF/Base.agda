@@ -54,7 +54,7 @@ postulate
 -- We define some function symbols for convenience in writing.
 abstract
   if_then_else_ : D → D → D → D
-  if b then d₁ else d₂ = if · b · d₁ · d₂
+  if b then t else t' = if · b · t · t'
 
   succ₁ : D → D
   succ₁ n = succ · n
@@ -87,10 +87,10 @@ postulate fix-eq : ∀ f → fix f ≡ f (fix f)
 
 -- Conversion rules for Booleans.
 postulate
-  -- if-true  : ∀ d₁ {d₂} → if · true  · d₁ · d₂ ≡ d₁
-  -- if-false : ∀ {d₁} d₂ → if · false · d₁ · d₂ ≡ d₂
-  if-true  : ∀ d₁ {d₂} → if true then d₁ else d₂  ≡ d₁
-  if-false : ∀ {d₁} d₂ → if false then d₁ else d₂ ≡ d₂
+  -- if-true  : ∀ t {t'} → if · true  · t · t' ≡ t
+  -- if-false : ∀ {t} t' → if · false · t · t' ≡ t'
+  if-true  : ∀ t {t'} → if true then t else t'  ≡ t
+  if-false : ∀ {t} t' → if false then t else t' ≡ t'
 
 -- Conversion rules for pred.
 postulate
