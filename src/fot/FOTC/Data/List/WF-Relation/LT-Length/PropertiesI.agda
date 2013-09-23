@@ -29,7 +29,7 @@ x∷xs<y∷ys→xs<ys {x} {xs} {y} {ys} Lxs Lys x∷xs<y∷ys = Nat.Sx<Sy→x<y 
   helper : succ₁ (length xs) < succ₁ (length ys)
   helper =
     lt (succ₁ (length xs)) (succ₁ (length ys))
-      ≡⟨ subst₂ (λ t₁ t₂ → lt (succ₁ (length xs)) (succ₁ (length ys)) ≡ lt t₁ t₂)
+      ≡⟨ subst₂ (λ t t' → lt (succ₁ (length xs)) (succ₁ (length ys)) ≡ lt t t')
                 (sym (length-∷ x xs))
                 (sym (length-∷ y ys))
                 refl

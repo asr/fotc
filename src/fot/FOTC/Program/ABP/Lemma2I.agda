@@ -150,7 +150,7 @@ module Helper where
       bs'
         ≡⟨ bs'ABP' ⟩
       corrupt · os₀' · as'
-        ≡⟨ subst₂ (λ t₁ t₂ → corrupt · os₀' · as' ≡ corrupt · t₁ · t₂)
+        ≡⟨ subst₂ (λ t t' → corrupt · os₀' · as' ≡ corrupt · t · t')
                   h
                   as'-eq
                   refl

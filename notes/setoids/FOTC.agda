@@ -50,7 +50,7 @@ module Aczel-CA where
     ≐-refl  : ∀ {x} → x ≐ x
     ≐-sym   : ∀ {x y} → x ≐ y → y ≐ x
     ≐-trans : ∀ {x y z} → x ≐ y → y ≐ z → x ≐ z
-    ≐-cong  : ∀ {x₁ x₂ y₁ y₂} → x₁ ≐ y₁ → x₂ ≐ y₂ → x₁ · x₂ ≐ y₁ · y₂
+    ≐-cong  : ∀ {x x' y y'} → x ≐ y → x' ≐ y' → x · x' ≐ y · y'
     K-eq    : ∀ x y → K · x · y ≐ x
     S-eq    : ∀ x y z → S · x · y · z ≐ x · z · (y · z)
 
@@ -152,6 +152,6 @@ module LeibnizEquality where
 
   -- and the congruency
 
-  cong  : ∀ {x₁ x₂ y₁ y₂} → x₁ ≡ x₂ → y₁ ≡ y₂ → x₁ · y₁ ≡ x₂ · y₂
-  cong {x₁} {x₂} {y₁} {y₂} h₁ h₂ A Ax₁x₂ =
-    h₂ (λ z → A (x₂ · z)) (h₁ (λ z → A (z · y₁)) Ax₁x₂)
+  cong  : ∀ {x x' y y'} → x ≡ x' → y ≡ y' → x · y ≡ x' · y'
+  cong {x} {x'} {y} {y'} h₁ h₂ A Axx' =
+    h₂ (λ z → A (x' · z)) (h₁ (λ z → A (z · y)) Axx')

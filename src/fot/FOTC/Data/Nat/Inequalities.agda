@@ -73,5 +73,5 @@ m ≱ n = ge m n ≡ false
 ------------------------------------------------------------------------------
 -- The lexicographical order.
 Lexi : D → D → D → D → Set
-Lexi m₁ n₁ m₂ n₂ = m₁ < m₂ ∨ m₁ ≡ m₂ ∧ n₁ < n₂
+Lexi m n m' n' = m < m' ∨ m ≡ m' ∧ n < n'
 {-# ATP definition Lexi #-}

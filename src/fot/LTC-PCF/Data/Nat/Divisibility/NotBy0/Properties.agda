@@ -32,42 +32,42 @@ S∣0 {n} Nn = S≢0 , _ , nzero , sym (*-leftZero (succ₁ n))
 ∣-refl-S {n} Nn = S≢0 , _ , nsucc nzero , sym (*-leftIdentity (nsucc Nn))
 
 -- If x divides y and z then x divides y ∸ z.
-x∣y→x∣z→x∣y∸z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →
-                       n ≡ k₁ * succ₁ m →
-                       o ≡ k₂ * succ₁ m →
-                       n ∸ o ≡ (k₁ ∸ k₂) * succ₁ m
-x∣y→x∣z→x∣y∸z-helper {m} {n} {o} {k₁} {k₂} Nm Nk₁ Nk₂ h₁ h₂ =
-  n ∸ o                           ≡⟨ ∸-leftCong h₁ ⟩
-  k₁ * succ₁ m ∸ o                ≡⟨ ∸-rightCong h₂ ⟩
-  (k₁ * succ₁ m) ∸ (k₂ * succ₁ m) ≡⟨ sym (*∸-leftDistributive Nk₁ Nk₂ (nsucc Nm)) ⟩
-  (k₁ ∸ k₂) * succ₁ m             ∎
+x∣y→x∣z→x∣y∸z-helper : ∀ {m n o k k'} → N m → N k → N k' →
+                       n ≡ k * succ₁ m →
+                       o ≡ k' * succ₁ m →
+                       n ∸ o ≡ (k ∸ k') * succ₁ m
+x∣y→x∣z→x∣y∸z-helper {m} {n} {o} {k} {k'} Nm Nk Nk' h₁ h₂ =
+  n ∸ o                          ≡⟨ ∸-leftCong h₁ ⟩
+  k * succ₁ m ∸ o                ≡⟨ ∸-rightCong h₂ ⟩
+  (k * succ₁ m) ∸ (k' * succ₁ m) ≡⟨ sym (*∸-leftDistributive Nk Nk' (nsucc Nm)) ⟩
+  (k ∸ k') * succ₁ m             ∎
 
 x∣y→x∣z→x∣y∸z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n ∸ o
 x∣y→x∣z→x∣y∸z nzero Nn No (0≢0 , _) m∣o = ⊥-elim (0≢0 refl)
 x∣y→x∣z→x∣y∸z {n = n} {o} (nsucc {m} Nm) Nn No
-              (_ , k₁ , Nk₁ , h₁)
-              (_ , k₂ , Nk₂ , h₂) =
+              (_ , k , Nk , h₁)
+              (_ , k' , Nk' , h₂) =
   (λ S≡0 → ⊥-elim (S≢0 S≡0))
-  , k₁ ∸ k₂ , ∸-N Nk₁ Nk₂ , x∣y→x∣z→x∣y∸z-helper Nm Nk₁ Nk₂ h₁ h₂
+  , k ∸ k' , ∸-N Nk Nk' , x∣y→x∣z→x∣y∸z-helper Nm Nk Nk' h₁ h₂
 
 -- If x divides y and z then x divides y + z.
-x∣y→x∣z→x∣y+z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →
-                       n ≡ k₁ * succ₁ m →
-                       o ≡ k₂ * succ₁ m →
-                       n + o ≡ (k₁ + k₂) * succ₁ m
-x∣y→x∣z→x∣y+z-helper {m} {n} {o} {k₁} {k₂} Nm Nk₁ Nk₂ h₁ h₂ =
-  n + o                           ≡⟨ +-leftCong h₁ ⟩
-  k₁ * succ₁ m + o                ≡⟨ +-rightCong h₂ ⟩
-  (k₁ * succ₁ m) + (k₂ * succ₁ m) ≡⟨ sym (*+-leftDistributive Nk₁ Nk₂ (nsucc Nm)) ⟩
-  (k₁ + k₂) * succ₁ m             ∎
+x∣y→x∣z→x∣y+z-helper : ∀ {m n o k k'} → N m → N k → N k' →
+                       n ≡ k * succ₁ m →
+                       o ≡ k' * succ₁ m →
+                       n + o ≡ (k + k') * succ₁ m
+x∣y→x∣z→x∣y+z-helper {m} {n} {o} {k} {k'} Nm Nk Nk' h₁ h₂ =
+  n + o                          ≡⟨ +-leftCong h₁ ⟩
+  k * succ₁ m + o                ≡⟨ +-rightCong h₂ ⟩
+  (k * succ₁ m) + (k' * succ₁ m) ≡⟨ sym (*+-leftDistributive Nk Nk' (nsucc Nm)) ⟩
+  (k + k') * succ₁ m             ∎
 
 x∣y→x∣z→x∣y+z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n + o
 x∣y→x∣z→x∣y+z             nzero          Nn No (0≢0 , _) m∣o = ⊥-elim (0≢0 refl)
 x∣y→x∣z→x∣y+z {n = n} {o} (nsucc {m} Nm) Nn No
-              (_ , k₁ , Nk₁ , h₁)
-              (_ , k₂ , Nk₂ , h₂) =
+              (_ , k , Nk , h₁)
+              (_ , k' , Nk' , h₂) =
   (λ S≡0 → ⊥-elim (S≢0 S≡0))
-  , k₁ + k₂ , +-N Nk₁ Nk₂ , x∣y→x∣z→x∣y+z-helper Nm Nk₁ Nk₂ h₁ h₂
+  , k + k' , +-N Nk Nk' , x∣y→x∣z→x∣y+z-helper Nm Nk Nk' h₁ h₂
 
 -- If x divides y, and y is positive, then x ≤ y.
 x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → m ≤ succ₁ n

@@ -15,5 +15,5 @@ K : (A : Set)(x : A)(P : Id A x x → Set) → P refl → (p : Id A x x ) → P 
 K A x P pr refl = pr
 
 -- From [1, p. 88].
-UIP : (A : Set)(a₁ a₂ : A)(p₁ p₂ : Id A a₁ a₂) → Id (Id A a₁ a₂) p₁ p₂
+UIP : (A : Set)(a a' : A)(p p' : Id A a a') → Id (Id A a a') p p'
 UIP A a .a refl refl = refl

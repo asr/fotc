@@ -34,10 +34,10 @@ trans refl h = h
 trans₂ : ∀ {w x y z} → w ≡ x → x ≡ y → y ≡ z → w ≡ z
 trans₂ refl refl h = h
 
-subst₂ : (A : D → D → Set) → ∀ {x₁ x₂ y₁ y₂} →
-         x₁ ≡ y₁ → x₂ ≡ y₂ →
-         A x₁ x₂ →
-         A y₁ y₂
+subst₂ : (A : D → D → Set) → ∀ {x x' y y'} →
+         x ≡ y → x' ≡ y' →
+         A x x' →
+         A y y'
 subst₂ A refl refl Axs = Axs
 
 subst₃ : (A : D → D → D → Set) → ∀ {x₁ x₂ x₃ y₁ y₂ y₃} →

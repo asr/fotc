@@ -32,33 +32,34 @@ accFold _<_ f Qx (acc h) = f Qx (λ Qy y<x → accFold _<_ f Qy (h Qy y<x))
 WellFounded : {P : D → Set} → (D → D → Set) → Set
 WellFounded {P} _<_ = ∀ {x} → P x → Acc P _<_ x
 
-WellFoundedInduction : {P Q : D → Set}{_<_ : D → D → Set} →
+WellFoundedInduction : {P Q : D → Set}
+                       {_<_ : D → D → Set} →
                        WellFounded _<_ →
                        (∀ {x} → Q x → (∀ {y} → Q y → y < x → P y) → P x) →
                        ∀ {x} → Q x → P x
 WellFoundedInduction {_<_ = _<_} wf f Qx = accFold _<_ f Qx (wf Qx)
 
-module Subrelation {P : D → Set}
-                   {_<₁_ _<₂_ : D → D → Set}
-                   (<₁⇒<₂ : ∀ {x y} → P x → x <₁ y → x <₂ y)
+module Subrelation {P        : D → Set}
+                   {_<_ _<'_ : D → D → Set}
+                   (<⇒<'     : ∀ {x y} → P x → x < y → x <' y)
                    where
 
-  accessible : Acc P _<₂_ ⊆ Acc P _<₁_
-  accessible (acc h) = acc (λ Py y<₁x → accessible (h Py (<₁⇒<₂ Py y<₁x)))
+  accessible : Acc P _<'_ ⊆ Acc P _<_
+  accessible (acc h) = acc (λ Py y<x → accessible (h Py (<⇒<' Py y<x)))
 
-  well-founded : WellFounded _<₂_ → WellFounded _<₁_
+  well-founded : WellFounded _<'_ → WellFounded _<_
   well-founded wf = λ Px → accessible (wf Px)
 
-module InverseImage {P₁ P₂ : D → Set}
+module InverseImage {P Q : D → Set}
                     {_<_ : D → D → Set}
-                    {f : D → D}
-                    (f-P₂ : ∀ {x} → P₁ x → P₂ (f x))
+                    {f   : D → D}
+                    (f-Q : ∀ {x} → P x → Q (f x))
                     where
 
-  accessible : ∀ {x} → P₁ x →
-               Acc P₂ _<_ (f x) → Acc P₁ (λ x₁ y₁ → f x₁ < f y₁) x
-  accessible P₁x (acc h) =
-    acc (λ {y} P₁y fy<fx → accessible P₁y (h (f-P₂ P₁y) fy<fx))
+  accessible : ∀ {x} → P x →
+               Acc Q _<_ (f x) → Acc P (λ x' y' → f x' < f y') x
+  accessible Px (acc h) =
+    acc (λ {y} Py fy<fx → accessible Py (h (f-Q Py) fy<fx))
 
   wellFounded : WellFounded _<_ → WellFounded (λ x y → f x < f y)
-  wellFounded wf = λ Px → accessible Px (wf (f-P₂ Px))
+  wellFounded wf = λ Px → accessible Px (wf (f-Q Px))

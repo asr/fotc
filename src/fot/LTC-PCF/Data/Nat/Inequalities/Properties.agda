@@ -279,23 +279,23 @@ xy<00→⊥ Nm Nn mn<00 = case (λ m<0 → ⊥-elim (x<0→⊥ Nm m<0))
                        (λ 0≡0∧Sm<0 → S<0→⊥ (∧-proj₂ 0≡0∧Sm<0))
                        0Sm<00
 
-Sxy₁<0y₂→⊥ : ∀ {m n₁ n₂} → ¬ (Lexi (succ₁ m) n₁ zero n₂)
-Sxy₁<0y₂→⊥ Smn₁<0n₂ =
+Sxy<0y'→⊥ : ∀ {m n n'} → ¬ (Lexi (succ₁ m) n zero n')
+Sxy<0y'→⊥ Smn<0n' =
   case S<0→⊥
-       (λ Sm≡0∧n₁<n₂ → ⊥-elim (0≢S (sym (∧-proj₁ Sm≡0∧n₁<n₂))))
-       Smn₁<0n₂
+       (λ Sm≡0∧n<n' → ⊥-elim (0≢S (sym (∧-proj₁ Sm≡0∧n<n'))))
+       Smn<0n'
 
-x₁y<x₂0→x₁<x₂ : ∀ {m₁ n} → N n → ∀ {m₂} → Lexi m₁ n m₂ zero → m₁ < m₂
-x₁y<x₂0→x₁<x₂ Nn m₁n<m₂0 =
-  case (λ m₁<n₁ → m₁<n₁)
-       (λ m₁≡n₁∧n<0 → ⊥-elim (x<0→⊥ Nn (∧-proj₂ m₁≡n₁∧n<0)))
-       m₁n<m₂0
+xy<x'0→x<x' : ∀ {m n} → N n → ∀ {m'} → Lexi m n m' zero → m < m'
+xy<x'0→x<x' Nn mn<m'0 =
+  case (λ m<n → m<n)
+       (λ m≡n∧n<0 → ⊥-elim (x<0→⊥ Nn (∧-proj₂ m≡n∧n<0)))
+       mn<m'0
 
-xy₁<0y₂→x≡0∧y₁<y₂ : ∀ {m} → N m → ∀ {n₁ n₂} → Lexi m n₁ zero n₂ →
-                    m ≡ zero ∧ n₁ < n₂
-xy₁<0y₂→x≡0∧y₁<y₂ Nm mn₁<0n₂ = case (λ m<0 → ⊥-elim (x<0→⊥ Nm m<0))
-                                    (λ m≡0∧n₁<n₂ → m≡0∧n₁<n₂)
-                                    mn₁<0n₂
+xy<0y'→x≡0∧y<y' : ∀ {m} → N m → ∀ {n n'} → Lexi m n zero n' →
+                  m ≡ zero ∧ n < n'
+xy<0y'→x≡0∧y<y' Nm mn<0n' = case (λ m<0 → ⊥-elim (x<0→⊥ Nm m<0))
+                                 (λ m≡0∧n<n' → m≡0∧n<n')
+                                 mn<0n'
 
 [Sx∸Sy,Sy]<[Sx,Sy] : ∀ {m n} → N m → N n →
                      Lexi (succ₁ m ∸ succ₁ n) (succ₁ n) (succ₁ m) (succ₁ n)

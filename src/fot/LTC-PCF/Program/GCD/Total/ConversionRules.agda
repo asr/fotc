@@ -102,7 +102,7 @@ private
   ----------------------------------------------------------------------------
   -- Congruence properties
 
-  gcd-s₉Cong₃ : ∀ {m n b₁ b₂} → b₁ ≡ b₂ → gcd-s₉ m n b₁ ≡ gcd-s₉ m n b₂
+  gcd-s₉Cong₃ : ∀ {m n b b'} → b ≡ b' → gcd-s₉ m n b ≡ gcd-s₉ m n b'
   gcd-s₉Cong₃ refl = refl
 
   ----------------------------------------------------------------------------

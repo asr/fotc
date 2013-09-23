@@ -37,35 +37,35 @@ postulate ∣-refl-S-ah : ∀ {n} → N n → N (succ₁ zero) → succ₁ n ∣
 
 -- If x divides y and z then x divides y ∸ z.
 postulate
-  x∣y→x∣z→x∣y∸z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →
-                         n ≡ k₁ * succ₁ m →
-                         o ≡ k₂ * succ₁ m →
-                         n ∸ o ≡ (k₁ ∸ k₂) * succ₁ m
+  x∣y→x∣z→x∣y∸z-helper : ∀ {m n o k k'} → N m → N k → N k' →
+                         n ≡ k * succ₁ m →
+                         o ≡ k' * succ₁ m →
+                         n ∸ o ≡ (k ∸ k') * succ₁ m
 {-# ATP prove x∣y→x∣z→x∣y∸z-helper *∸-leftDistributive #-}
 
 x∣y→x∣z→x∣y∸z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n ∸ o
 x∣y→x∣z→x∣y∸z nzero _ _ (0≢0 , _) m∣o = ⊥-elim (0≢0 refl)
 x∣y→x∣z→x∣y∸z (nsucc Nm) Nn No
-              (_ , k₁ , Nk₁ , h₁)
-              (_ , k₂ , Nk₂ , h₂) =
+              (_ , k , Nk , h₁)
+              (_ , k' , Nk' , h₂) =
   (λ S≡0 → ⊥-elim (S≢0 S≡0))
-  , k₁ ∸ k₂ , ∸-N Nk₁ Nk₂ , x∣y→x∣z→x∣y∸z-helper Nm Nk₁ Nk₂ h₁ h₂
+  , k ∸ k' , ∸-N Nk Nk' , x∣y→x∣z→x∣y∸z-helper Nm Nk Nk' h₁ h₂
 
 -- If x divides y and z then x divides y + z.
 postulate
-  x∣y→x∣z→x∣y+z-helper : ∀ {m n o k₁ k₂} → N m → N k₁ → N k₂ →
-                         n ≡ k₁ * succ₁ m →
-                         o ≡ k₂ * succ₁ m →
-                         n + o ≡ (k₁ + k₂) * succ₁ m
+  x∣y→x∣z→x∣y+z-helper : ∀ {m n o k k'} → N m → N k → N k' →
+                         n ≡ k * succ₁ m →
+                         o ≡ k' * succ₁ m →
+                         n + o ≡ (k + k') * succ₁ m
 {-# ATP prove x∣y→x∣z→x∣y+z-helper *+-leftDistributive #-}
 
 x∣y→x∣z→x∣y+z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n + o
 x∣y→x∣z→x∣y+z nzero      _  _ (0≢0 , _) m∣o = ⊥-elim (0≢0 refl)
 x∣y→x∣z→x∣y+z (nsucc Nm) Nn No
-              (_ , k₁ , Nk₁ , h₁)
-              (_ , k₂ , Nk₂ , h₂) =
+              (_ , k , Nk , h₁)
+              (_ , k' , Nk' , h₂) =
   (λ S≡0 → ⊥-elim (S≢0 S≡0))
-  , k₁ + k₂ , +-N Nk₁ Nk₂ , x∣y→x∣z→x∣y+z-helper Nm Nk₁ Nk₂ h₁ h₂
+  , k + k' , +-N Nk Nk' , x∣y→x∣z→x∣y+z-helper Nm Nk Nk' h₁ h₂
 
 -- If x divides y, and y is positive, then x ≤ y.
 postulate x∣S→x≤S-ah₁ : ∀ {m n} → succ₁ n ≡ zero * succ₁ m → ⊥

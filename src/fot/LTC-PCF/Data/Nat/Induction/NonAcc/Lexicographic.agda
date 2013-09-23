@@ -34,26 +34,26 @@ Lexi-wfind A h Nm Nn = h Nm Nn (helper₂ Nm Nn)
   helper₂ Nm₁ Nn₂ nzero nzero 00<00 =
     h nzero nzero (λ Nm' Nn' m'n'<00 → ⊥-elim (xy<00→⊥ Nm' Nn' m'n'<00))
 
-  helper₂ nzero nzero (nsucc Nm₂) nzero Sm₂0<00 = ⊥-elim (Sxy₁<0y₂→⊥ Sm₂0<00)
+  helper₂ nzero nzero (nsucc Nm₂) nzero Sm₂0<00 = ⊥-elim (Sxy<0y'→⊥ Sm₂0<00)
 
   helper₂ (nsucc Nm₁) nzero (nsucc Nm₂) nzero Sm₂0<Sm₁0 =
     h (nsucc Nm₂) nzero (λ Nm' Nn' m'n'<Sm₂0 →
       helper₂ Nm₁ nzero Nm' Nn'
               (inj₁ (helper₁ Nm' Nm₁ (nsucc Nm₂)
-                             (x₁y<x₂0→x₁<x₂ Nn' m'n'<Sm₂0)
-                             (x₁y<x₂0→x₁<x₂ nzero Sm₂0<Sm₁0))))
+                             (xy<x'0→x<x' Nn' m'n'<Sm₂0)
+                             (xy<x'0→x<x' nzero Sm₂0<Sm₁0))))
 
   helper₂ nzero (nsucc Nn₁) (nsucc Nm₂) nzero Sm₂0<0Sn₁ =
-    ⊥-elim (Sxy₁<0y₂→⊥ Sm₂0<0Sn₁)
+    ⊥-elim (Sxy<0y'→⊥ Sm₂0<0Sn₁)
 
   helper₂ (nsucc Nm₁) (nsucc Nn₁) (nsucc Nm₂) nzero Sm₂0<Sm₁Sn₁ =
     h (nsucc Nm₂) nzero (λ Nm' Nn' m'n'<Sm₂0 →
       helper₂ (nsucc Nm₁) Nn₁ Nm' Nn'
         (inj₁ (case (λ Sm₂<Sm₁ → x<y→x<Sy Nm' Nm₁
                                           (helper₁ Nm' Nm₁ (nsucc Nm₂)
-                                                  (x₁y<x₂0→x₁<x₂ Nn' m'n'<Sm₂0)
+                                                  (xy<x'0→x<x' Nn' m'n'<Sm₂0)
                                                   Sm₂<Sm₁))
-                    (λ Sm₂≡Sm₁∧0<Sn₁ → x<y→y≡z→x<z (x₁y<x₂0→x₁<x₂ Nn' m'n'<Sm₂0)
+                    (λ Sm₂≡Sm₁∧0<Sn₁ → x<y→y≡z→x<z (xy<x'0→x<x' Nn' m'n'<Sm₂0)
                                                    (∧-proj₁ Sm₂≡Sm₁∧0<Sn₁))
                     Sm₂0<Sm₁Sn₁)))
 
@@ -72,7 +72,7 @@ Lexi-wfind A h Nm Nn = h Nm Nn (helper₂ Nm Nn)
 
     where
     0<Sm₁ : zero < succ₁ m₁
-    0<Sm₁ = x₁y<x₂0→x₁<x₂ (nsucc Nn₂) 0Sn₂<Sm₁0
+    0<Sm₁ = xy<x'0→x<x' (nsucc Nn₂) 0Sn₂<Sm₁0
 
   helper₂ nzero (nsucc Nn₁) nzero (nsucc Nn₂) 0Sn₂<0Sn₁ =
     case (λ 0<0 → ⊥-elim (0<0→⊥ 0<0))
@@ -114,10 +114,10 @@ Lexi-wfind A h Nm Nn = h Nm Nn (helper₂ Nm Nn)
 
     where
     Sm₂<Sm₁ : succ₁ m₂ < succ₁ m₁
-    Sm₂<Sm₁ = x₁y<x₂0→x₁<x₂ (nsucc Nn₂) Sm₂Sn₂<Sm₁0
+    Sm₂<Sm₁ = xy<x'0→x<x' (nsucc Nn₂) Sm₂Sn₂<Sm₁0
 
   helper₂ nzero (nsucc Nn₁) (nsucc Nm₂) (nsucc Nn₂) Sm₂Sn₂<0Sn₁
-    = ⊥-elim (Sxy₁<0y₂→⊥ Sm₂Sn₂<0Sn₁)
+    = ⊥-elim (Sxy<0y'→⊥ Sm₂Sn₂<0Sn₁)
 
   helper₂ (nsucc Nm₁) (nsucc Nn₁) (nsucc Nm₂) (nsucc Nn₂) Sm₂Sn₂<Sm₁Sn₁ =
     h (nsucc Nm₂) (nsucc Nn₂) (λ Nm' Nn' m'n'<Sm₂Sn₂ →

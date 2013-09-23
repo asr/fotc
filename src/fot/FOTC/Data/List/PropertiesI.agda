@@ -76,7 +76,7 @@ reverse-List Lxs = rev-List Lxs lnil
 lg-x<lg-x∷xs : ∀ x {xs} → List xs → length xs < length (x ∷ xs)
 lg-x<lg-x∷xs x lnil =
   lt (length []) (length (x ∷ []))
-    ≡⟨ subst₂ (λ t₁ t₂ → lt (length []) (length (x ∷ [])) ≡ lt t₁ t₂)
+    ≡⟨ subst₂ (λ t t' → lt (length []) (length (x ∷ [])) ≡ lt t t')
               length-[]
               (length-∷ x [])
               refl
@@ -87,7 +87,7 @@ lg-x<lg-x∷xs x lnil =
 
 lg-x<lg-x∷xs x (lcons y {xs} Lxs) =
   lt (length (y ∷ xs)) (length (x ∷ y ∷ xs))
-    ≡⟨ subst₂ (λ t₁ t₂ → lt (length (y ∷ xs)) (length (x ∷ y ∷ xs)) ≡ lt t₁ t₂)
+    ≡⟨ subst₂ (λ t t' → lt (length (y ∷ xs)) (length (x ∷ y ∷ xs)) ≡ lt t t')
               (length-∷ y xs)
               (length-∷ x (y ∷ xs))
               refl
@@ -104,7 +104,7 @@ lg-xs<lg-[]→⊥ lnil lg-[]<lg-[] = ⊥-elim (0<0→⊥ helper)
   helper : zero < zero
   helper =
     lt zero zero
-      ≡⟨ subst₂ (λ t₁ t₂ → lt zero zero ≡ lt t₁ t₂)
+      ≡⟨ subst₂ (λ t t' → lt zero zero ≡ lt t t')
                 (sym length-[])
                 (sym length-[])
                 refl
@@ -118,7 +118,7 @@ lg-xs<lg-[]→⊥ (lcons x {xs} Lxs) lg-x∷xs<lg-[] = ⊥-elim (S<0→⊥ helpe
   helper : succ₁ (length xs) < zero
   helper =
     lt (succ₁ (length xs)) zero
-      ≡⟨ subst₂ (λ t₁ t₂ → lt (succ₁ (length xs)) zero ≡ lt t₁ t₂)
+      ≡⟨ subst₂ (λ t t' → lt (succ₁ (length xs)) zero ≡ lt t t')
                 (sym (length-∷ x xs))
                 (sym length-[])
                 refl
