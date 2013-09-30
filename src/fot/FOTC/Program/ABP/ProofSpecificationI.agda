@@ -84,18 +84,23 @@ spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ = ≈-coind B prf₁ prf₂
   prf₂ = b
        , os₀
        , os₁
-       , has (send · b) (ack · b) (out · b) (corrupt · os₀) (corrupt · os₁) is
-       , hbs (send · b) (ack · b) (out · b) (corrupt · os₀) (corrupt · os₁) is
-       , hcs (send · b) (ack · b) (out · b) (corrupt · os₀) (corrupt · os₁) is
-       , hds (send · b) (ack · b) (out · b) (corrupt · os₀) (corrupt · os₁) is
+       , has a₁ a₂ a₃ a₄ a₅ is
+       , hbs a₁ a₂ a₃ a₄ a₅ is
+       , hcs a₁ a₂ a₃ a₄ a₅ is
+       , hds a₁ a₂ a₃ a₄ a₅ is
        , Sis
        , Bb
        , Fos₀
        , Fos₁
-       , has-eq (send · b) (ack · b) (out · b) (corrupt · os₀) (corrupt · os₁) is
-       , hbs-eq (send · b) (ack · b) (out · b) (corrupt · os₀) (corrupt · os₁) is
-       , hcs-eq (send · b) (ack · b) (out · b) (corrupt · os₀) (corrupt · os₁) is
-       , hds-eq (send · b) (ack · b) (out · b) (corrupt · os₀) (corrupt · os₁) is
-       , trans (transfer-eq b os₀ os₁ is)
-               (genTransfer-eq (send · b) (ack · b) (out · b) (corrupt · os₀)
-                               (corrupt · os₁) is)
+       , has-eq a₁ a₂ a₃ a₄ a₅ is
+       , hbs-eq a₁ a₂ a₃ a₄ a₅ is
+       , hcs-eq a₁ a₂ a₃ a₄ a₅ is
+       , hds-eq a₁ a₂ a₃ a₄ a₅ is
+       , trans (transfer-eq b os₀ os₁ is) (genTransfer-eq a₁ a₂ a₃ a₄ a₅ is)
+    where
+    a₁ a₂ a₃ a₄ a₅ : D
+    a₁ = send · b
+    a₂ = ack · b
+    a₃ = out · b
+    a₄ = corrupt · os₀
+    a₅ = corrupt · os₁
