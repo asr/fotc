@@ -102,9 +102,10 @@ postulate
 
 postulate
   transfer    : D → D → D → D → D
-  transfer-eq : ∀ b os₀ os₁ is → transfer b os₀ os₁ is ≡
-                genTransfer (send · b) (ack · b) (out · b)
-                            (corrupt · os₀) (corrupt · os₁) is
+  transfer-eq : ∀ b os₀ os₁ is →
+                transfer b os₀ os₁ is ≡
+                  genTransfer (send · b) (ack · b) (out · b) (corrupt · os₀)
+                    (corrupt · os₁) is
 {-# ATP axiom transfer-eq #-}
 
 ------------------------------------------------------------------------------
@@ -133,9 +134,9 @@ ABP' b i' is' os₀' os₁' as' bs' cs' ds' js' =
 -- Auxiliary bisimulation.
 B : D → D → Set
 B is js = ∃[ b ] ∃[ os₀ ] ∃[ os₁ ] ∃[ as ] ∃[ bs ] ∃[ cs ] ∃[ ds ]
-          Stream is
-          ∧ Bit b
-          ∧ Fair os₀
-          ∧ Fair os₁
-          ∧ ABP b is os₀ os₁ as bs cs ds js
+            Stream is
+            ∧ Bit b
+            ∧ Fair os₀
+            ∧ Fair os₁
+            ∧ ABP b is os₀ os₁ as bs cs ds js
 {-# ATP definition B #-}
