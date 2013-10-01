@@ -54,5 +54,5 @@ S₇ n = refl
 S₈ : ∀ m n → succ m * n ≡ n + m * n
 S₈ m n = refl
 
-S₉ : (A : M → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
+S₉ : (A : ℕ → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
 S₉ = PA-ind

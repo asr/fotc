@@ -13,20 +13,16 @@ infixl 9  _+_
 
 ------------------------------------------------------------------------------
 -- First-order logic with equality.
---
--- We chose the symbol M because there are non-standard models of
--- Peano Arithmetic, where the domain is not the set of natural
--- numbers.
-open import Common.FOL.FOL-Eq public renaming ( D to M )
+open import Common.FOL.FOL-Eq public renaming ( D to ℕ )
 
 -- Common definitions.
 open import Common.DefinitionsATP
 
 -- Non-logical constants
 postulate
-  zero    : M
-  succ    : M → M
-  _+_ _*_ : M → M → M
+  zero    : ℕ
+  succ    : ℕ → ℕ
+  _+_ _*_ : ℕ → ℕ → ℕ
 
 -- Proper axioms
 -- From (Machover 1996, p. 263) and (Hájek and Pudlák 1998, p. 28):
@@ -60,4 +56,4 @@ postulate
 -- The axiom of induction is an axiom schema, therefore we do not
 -- translate it to TPTP.
 postulate
-  PA-ind : (A : M → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
+  PA-ind : (A : ℕ → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n

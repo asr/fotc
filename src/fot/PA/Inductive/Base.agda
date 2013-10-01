@@ -23,7 +23,7 @@ open import Common.FOL.FOL public hiding ( _,_ ; ∃ )
 open import PA.Inductive.Existential public using ( _,_ ; ∃ )
 
 -- The induction principle on the PA universe
-PA-ind : (A : M → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
+PA-ind : (A : ℕ → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
 PA-ind A A0 h zero     = A0
 PA-ind A A0 h (succ n) = h n (PA-ind A A0 h n)
 
@@ -31,11 +31,11 @@ PA-ind A A0 h (succ n) = h n (PA-ind A A0 h n)
 open import PA.Inductive.Relation.Binary.PropositionalEquality public
 
 -- PA primitive recursive functions
-_+_ : M → M → M
+_+_ : ℕ → ℕ → ℕ
 zero   + n = n
 succ m + n = succ (m + n)
 
-_*_ : M → M → M
+_*_ : ℕ → ℕ → ℕ
 zero   * n = zero
 succ m * n = n + m * n
 

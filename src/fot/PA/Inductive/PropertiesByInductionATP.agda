@@ -15,7 +15,7 @@ open import PA.Inductive.PropertiesByInduction
 +-comm : ∀ m n → m + n ≡ n + m
 +-comm m n = PA-ind A A0 is m
   where
-  A : M → Set
+  A : ℕ → Set
   A i = i + n ≡ n + i
   {-# ATP definition A #-}
 

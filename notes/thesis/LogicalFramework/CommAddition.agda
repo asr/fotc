@@ -21,7 +21,7 @@ postulate
 +-leftIdentity : ∀ n → zero + n ≡ n
 +-leftIdentity = PA₃
 
-A : M → Set
+A : ℕ → Set
 A m = ∀ n → m + n ≡ n + m
 
 A0 : A zero

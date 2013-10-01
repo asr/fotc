@@ -9,8 +9,8 @@ module PA.Inductive.Existential where
 open import PA.Inductive.Base.Core
 
 -- The existential quantifier type on M.
-data ∃ (A : M → Set) : Set where
-  _,_ : (x : M) → A x → ∃ A
+data ∃ (A : ℕ → Set) : Set where
+  _,_ : (x : ℕ) → A x → ∃ A
 
 -- Sugar syntax for the existential quantifier.
 syntax ∃ (λ x → e) = ∃[ x ] e
@@ -24,7 +24,7 @@ syntax ∃ (λ x → e) = ∃[ x ] e
 -- NB. We do not use the usual type theory elimination with two
 -- projections because we are working in first-order logic where we do
 -- not need extract a witness from an existence proof.
--- ∃-elim : {A : M → Set}{B : Set} → ∃ A → (∀ {x} → A x → B) → B
+-- ∃-elim : {A : ℕ → Set}{B : Set} → ∃ A → (∀ {x} → A x → B) → B
 -- ∃-elim (_ , Ax) h = h Ax
 
 -- The existential proyections.

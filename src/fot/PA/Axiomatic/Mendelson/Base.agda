@@ -22,26 +22,22 @@ infix  7  _≈_ _≉_
 
 ------------------------------------------------------------------------------
 -- First-order logic (without equality)
---
--- We chose the symbol M because there are non-standard models of
--- Peano Arithmetic, where the domain is not the set of natural
--- numbers.
-open import Common.FOL.FOL public renaming ( D to M )
+open import Common.FOL.FOL public renaming ( D to ℕ )
 
 -- Non-logical constants
 postulate
-  zero    : M
-  succ    : M → M
-  _+_ _*_ : M → M → M
+  zero    : ℕ
+  succ    : ℕ → ℕ
+  _+_ _*_ : ℕ → ℕ → ℕ
 
 -- The PA equality.
 --
 -- N.B. The symbol _≡_ should not be used because it is hard-coded by
 -- Apia as the ATPs equality.
-postulate _≈_ : M → M → Set
+postulate _≈_ : ℕ → ℕ → Set
 
 -- Inequality.
-_≉_ : M → M → Set
+_≉_ : ℕ → ℕ → Set
 x ≉ y = ¬ x ≈ y
 {-# ATP definition _≉_ #-}
 
@@ -69,4 +65,4 @@ postulate
 {-# ATP axiom S₁ S₂ S₃ S₄ S₅ S₆ S₇ S₈ #-}
 
 -- S₉ is an axiom schema, therefore we do not translate it to TPTP.
-postulate S₉ : (A : M → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
+postulate S₉ : (A : ℕ → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n

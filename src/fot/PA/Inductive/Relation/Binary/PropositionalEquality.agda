@@ -18,11 +18,11 @@ infix 7 _≡_ _≢_
 
 ------------------------------------------------------------------------------
 -- The identity type on PA.
-data _≡_ (x : M) : M → Set where
+data _≡_ (x : ℕ) : ℕ → Set where
   refl : x ≡ x
 
 -- Inequality.
-_≢_ : M → M → Set
+_≢_ : ℕ → ℕ → Set
 x ≢ y = ¬ x ≡ y
 {-# ATP definition _≢_ #-}
 
@@ -34,11 +34,11 @@ sym refl = refl
 trans : ∀ {x y z} → x ≡ y → y ≡ z → x ≡ z
 trans refl h = h
 
-subst : (A : M → Set) → ∀ {x y} → x ≡ y → A x → A y
+subst : (A : ℕ → Set) → ∀ {x y} → x ≡ y → A x → A y
 subst A refl Ax = Ax
 
-cong : (f : M → M) → ∀ {x y} → x ≡ y → f x ≡ f y
+cong : (f : ℕ → ℕ) → ∀ {x y} → x ≡ y → f x ≡ f y
 cong f refl = refl
 
-cong₂ : (f : M → M → M) → ∀ {x x' y y'} → x ≡ y → x' ≡ y' → f x x' ≡ f y y'
+cong₂ : (f : ℕ → ℕ → ℕ) → ∀ {x x' y y'} → x ≡ y → x' ≡ y' → f x x' ≡ f y y'
 cong₂ f refl refl = refl

@@ -17,7 +17,7 @@ open import PA.Axiomatic.Mendelson.Base
 +-rightIdentity : ∀ n → n + zero ≈ n
 +-rightIdentity = S₉ A A0 is
   where
-  A : M → Set
+  A : ℕ → Set
   A i = i + zero ≈ i
   {-# ATP definition A #-}
 
@@ -30,7 +30,7 @@ open import PA.Axiomatic.Mendelson.Base
 x+Sy≈S[x+y] : ∀ m n → m + succ n ≈ succ (m + n)
 x+Sy≈S[x+y] m n = S₉ A A0 is m
   where
-  A : M → Set
+  A : ℕ → Set
   A i = i + succ n ≈ succ (i + n)
   {-# ATP definition A #-}
 
@@ -43,7 +43,7 @@ x+Sy≈S[x+y] m n = S₉ A A0 is m
 +-leftCong : ∀ {m n o} → m ≈ n → m + o ≈ n + o
 +-leftCong {m} {n} {o} h = S₉ A A0 is o
   where
-  A : M → Set
+  A : ℕ → Set
   A i = m + i ≈ n + i
   {-# ATP definition A #-}
 
@@ -56,7 +56,7 @@ x+Sy≈S[x+y] m n = S₉ A A0 is m
 +-comm : ∀ m n → m + n ≈ n + m
 +-comm m n = S₉ A A0 is m
   where
-  A : M → Set
+  A : ℕ → Set
   A i = i + n ≈ n + i
   {-# ATP definition A #-}
 

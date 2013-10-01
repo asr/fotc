@@ -20,7 +20,7 @@ open import PA.Axiomatic.Mendelson.Relation.Binary.PropositionalEqualityI
 +-rightIdentity : ∀ n → n + zero ≈ n
 +-rightIdentity = S₉ A A0 is
   where
-  A : M → Set
+  A : ℕ → Set
   A i = i + zero ≈ i
 
   A0 : A zero
@@ -34,7 +34,7 @@ open import PA.Axiomatic.Mendelson.Relation.Binary.PropositionalEqualityI
 x+Sy≈S[x+y] : ∀ m n → m + succ n ≈ succ (m + n)
 x+Sy≈S[x+y] m n = S₉ A A0 is m
   where
-  A : M → Set
+  A : ℕ → Set
   A i = i + succ n ≈ succ (i + n)
 
   A0 : A zero
@@ -51,7 +51,7 @@ x+Sy≈S[x+y] m n = S₉ A A0 is m
 +-leftCong : ∀ {m n o} → m ≈ n → m + o ≈ n + o
 +-leftCong {m} {n} {o} h = S₉ A A0 is o
   where
-  A : M → Set
+  A : ℕ → Set
   A i = m + i ≈ n + i
 
   A0 : A zero
@@ -69,7 +69,7 @@ x+Sy≈S[x+y] m n = S₉ A A0 is m
 +-asocc : ∀ m n o → m + n + o ≈ m + (n + o)
 +-asocc m n o = S₉ A A0 is m
   where
-  A : M → Set
+  A : ℕ → Set
   A i = i + n + o ≈ i + (n + o)
 
   A0 : A zero
@@ -87,7 +87,7 @@ x+Sy≈S[x+y] m n = S₉ A A0 is m
 +-comm : ∀ m n → m + n ≈ n + m
 +-comm m n = S₉ A A0 is m
   where
-  A : M → Set
+  A : ℕ → Set
   A i = i + n ≈ n + i
 
   A0 : A zero

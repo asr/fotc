@@ -15,7 +15,7 @@ open import PA.Axiomatic.Mendelson.PropertiesATP
 +-asocc : ∀ m n o → m + n + o ≈ m + (n + o)
 +-asocc m n o = S₉ A A0 is m
   where
-  A : M → Set
+  A : ℕ → Set
   A i = i + n + o ≈ i + (n + o)
   {-# ATP definition A #-}
 

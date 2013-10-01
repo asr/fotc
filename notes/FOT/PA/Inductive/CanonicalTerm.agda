@@ -11,7 +11,7 @@ open import PA.Inductive.PropertiesI
 ------------------------------------------------------------------------------
 -- The existential projections
 
-∃-proj₁ : ∀ {A} → ∃ A → M
+∃-proj₁ : ∀ {A} → ∃ A → ℕ
 ∃-proj₁ (x , _) = x
 
 ∃-proj₂ : ∀ {A} → (h : ∃ A) → A (∃-proj₁ h)
@@ -28,7 +28,7 @@ postulate pem : ∀ {A} → A ∨ ¬ A
 ¬-elim h = case (λ a → a) (λ ¬a → ⊥-elim (h ¬a)) pem
 
 -- ∃ in terms of ∀ and ¬.
-¬∃¬→∀ : {A : M → Set} → ¬ (∃[ x ] ¬ A x) → ∀ {x} → A x
+¬∃¬→∀ : {A : ℕ → Set} → ¬ (∃[ x ] ¬ A x) → ∀ {x} → A x
 ¬∃¬→∀ h {x} = ¬-elim (λ h₁ → h (x , h₁))
 
 ------------------------------------------------------------------------------
