@@ -3,6 +3,38 @@
 
 module LogicalFramework.AdequacyTheorems where
 
+module Example5 where
+
+  -- First-order logic with equality.
+  open import Common.FOL.FOL-Eq public
+
+  postulate
+    A B C : Set
+    f₁    : A → C
+    f₂    : B → C
+
+  g : (A → C) → (B → C) → A ∨ B → C
+  g f₁ f₂ (inj₁ a) = f₁ a
+  g f₁ f₂ (inj₂ b) = f₂ b
+
+  g' : (A → C) → (B → C) → A ∨ B → C
+  g' f₁ f₂ x = case f₁ f₂ x
+
+module Example7 where
+
+  -- First-order logic with equality.
+  open import Common.FOL.FOL-Eq public
+
+  postulate
+    C  : D → D → Set
+    d  : ∀ {a} → C a a
+
+  g : ∀ {a b} → a ≡ b → C a b
+  g refl = d
+
+  g' : ∀ {a b} → a ≡ b → C a b
+  g' {a} h = subst (λ x → C a x) h d
+
 module Example10 where
 
   -- First-order logic with equality.
@@ -44,13 +76,13 @@ module Example30 where
     f₂ : B → E
     f₃ : C → E
 
-  f : (A ∨ B) ∨ C → E
-  f (inj₁ (inj₁ a)) = f₁ a
-  f (inj₁ (inj₂ b)) = f₂ b
-  f (inj₂ c)        = f₃ c
+  g : (A ∨ B) ∨ C → E
+  g (inj₁ (inj₁ a)) = f₁ a
+  g (inj₁ (inj₂ b)) = f₂ b
+  g (inj₂ c)        = f₃ c
 
-  f' : (A ∨ B) ∨ C → E
-  f' = case (case f₁ f₂) f₃
+  g' : (A ∨ B) ∨ C → E
+  g' = case (case f₁ f₂) f₃
 
 module Example40 where
 
