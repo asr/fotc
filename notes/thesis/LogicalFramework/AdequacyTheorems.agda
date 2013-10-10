@@ -89,26 +89,26 @@ module Example40 where
   infixl 9  _+_ _+'_
   infix  7  _≡_
 
-  data M : Set where
-    zero :     M
-    succ : M → M
+  data ℕ : Set where
+    zero :     ℕ
+    succ : ℕ → ℕ
 
-  PA-ind : (A : M → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
+  PA-ind : (A : ℕ → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
   PA-ind A A0 h zero     = A0
   PA-ind A A0 h (succ n) = h n (PA-ind A A0 h n)
 
-  data _≡_ (x : M) : M → Set where
+  data _≡_ (x : ℕ) : ℕ → Set where
     refl : x ≡ x
 
-  subst : (A : M → Set) → ∀ {x y} → x ≡ y → A x → A y
+  subst : (A : ℕ → Set) → ∀ {x y} → x ≡ y → A x → A y
   subst A refl Ax = Ax
 
-  _+_ : M → M → M
+  _+_ : ℕ → ℕ → ℕ
   zero   + n = n
   succ m + n = succ (m + n)
 
-  _+'_ : M → M → M
-  m +' n = PA-ind (λ _ → M) n (λ x y → succ y) m
+  _+'_ : ℕ → ℕ → ℕ
+  m +' n = PA-ind (λ _ → ℕ) n (λ x y → succ y) m
 
   -- Properties using pattern matching.
   succCong : ∀ {m n} → m ≡ n → succ m ≡ succ n
@@ -128,7 +128,7 @@ module Example40 where
   +'-rightIdentity : ∀ n → n +' zero ≡ n
   +'-rightIdentity = PA-ind A A0 is
     where
-    A : M → Set
+    A : ℕ → Set
     A n = n +' zero ≡ n
 
     A0 : A zero
@@ -136,3 +136,41 @@ module Example40 where
 
     is : ∀ n → A n → A (succ n)
     is n ih = succCong' ih
+
+module Example50 where
+
+  infixl 10 _*_
+  infixl 9  _+_
+  infix  7  _≡_
+
+  data ℕ : Set where
+    zero :     ℕ
+    succ : ℕ → ℕ
+
+  PA-ind : (A : ℕ → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
+  PA-ind A A0 h zero     = A0
+  PA-ind A A0 h (succ n) = h n (PA-ind A A0 h n)
+
+  data _≡_ (x : ℕ) : ℕ → Set where
+    refl : x ≡ x
+
+  recℕ : {A : Set} → A → (ℕ → A → A) → ℕ → A
+  recℕ {A} = PA-ind (λ _ → A)
+
+  _+_ : ℕ → ℕ → ℕ
+  m + n = recℕ n (λ _ x → succ x) m
+
+  +-0x : ∀ n → zero + n ≡ n
+  +-0x n = refl
+
+  +-Sx : ∀ m n → succ m + n ≡ succ (m + n)
+  +-Sx m n = refl
+
+  _*_ : ℕ → ℕ → ℕ
+  m * n = recℕ zero (λ _ x → n + x) m
+
+  *-0x : ∀ n → zero * n ≡ zero
+  *-0x n = refl
+
+  *-Sx : ∀ m n → succ m * n ≡ n + m * n
+  *-Sx m n = refl
