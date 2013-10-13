@@ -6,7 +6,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --schematic-propositional-functions #-}
 
-module ImplicitArgumentSubst where
+module FOT.FOL.ImplicitArgumentSubst where
 
 infix 7 _≡_
 

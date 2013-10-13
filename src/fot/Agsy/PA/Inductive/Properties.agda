@@ -10,7 +10,7 @@
 
 module Agsy.PA.Inductive.Properties where
 
-open import Data.Nat renaming (suc to succ)
+open import Data.Nat renaming ( suc to succ )
 
 open import Relation.Binary.PropositionalEquality
 open ≡-Reasoning
