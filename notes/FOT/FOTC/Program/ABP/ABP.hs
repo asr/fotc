@@ -67,7 +67,7 @@ corrupt (True :> os)  (x :> xs) = Ok x  :> corrupt os xs
 -- Requires the ScopedTypeVariables flag to write the type signatures
 -- of the terms defined in the where clauses.
 --
--- N.B. Whe use @forall@ instead of @∀@ because it generates an error
+-- N.B. We use @forall@ instead of @∀@ because it generates an error
 -- with HLint 1.8.51.
 trans ∷ forall a. Bit → Stream Bit → Stream Bit → Stream a → Stream a
 trans b os0 os1 is = out b bs

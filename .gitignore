@@ -6,11 +6,11 @@
 *.o
 *.thy~
 *.vo
-ABP
 apia.tix
 dist
 hpc/
 model
+notes/FOT/FOTC/Program/ABP/ABP
 snapshot/
 snapshot-fot/
 TAGS
