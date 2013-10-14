@@ -28,15 +28,13 @@ f2 = undefined
 is ∷ Stream a
 is = undefined
 
-ys ∷ Stream a
-ys = f1 out is
-
-out ∷ Stream a
-out = f2 ys
+ys, os ∷ Stream a
+ys = f1 os is
+os = f2 ys
 
 type Ty a = (Stream a → Stream a → Stream a) → (Stream a → Stream a) →
             Stream a → Stream a
 
 trans, hys ∷ Ty a
-hys   f1 f2 is = f2 (hys f1 f2 is)
 trans f1 f2 is = f1 (trans f1 f2 is) is
+hys   f1 f2 is = f2 (hys f1 f2 is)

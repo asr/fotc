@@ -28,9 +28,9 @@ postulate
   is : Stream A
 
 {-# NO_TERMINATION_CHECK #-}
-ys out : Stream A
-out = f₂ ys
-ys  = f₁ out is
+ys os : Stream A
+os = f₂ ys
+ys = f₁ os is
 
 Ty : Set → Set
 Ty A = (Stream A → Stream A → Stream A) → (Stream A → Stream A) →
