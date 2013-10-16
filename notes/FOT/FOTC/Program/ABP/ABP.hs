@@ -18,13 +18,9 @@ module Main where
 import Control.Monad ( liftM2 )
 
 import Data.Stream.Infinite as S
-  ( -- fromList
-  -- , iterate
-  Stream((:>))
+  ( Stream((:>))
   , take
   )
-
--- import System.Random ( newStdGen, randoms )
 
 import Test.QuickCheck
   ( Arbitrary(arbitrary)
@@ -69,8 +65,8 @@ corrupt (True :> os)  (x :> xs) = Ok x  :> corrupt os xs
 --
 -- N.B. We use @forall@ instead of @∀@ because it generates an error
 -- with HLint 1.8.51.
-trans ∷ forall a. Bit → Stream Bit → Stream Bit → Stream a → Stream a
-trans b os0 os1 is = out b bs
+abpTrans ∷ forall a. Bit → Stream Bit → Stream Bit → Stream a → Stream a
+abpTrans b os0 os1 is = out b bs
   where
   as ∷ Stream (a, Bit)
   as = send b is ds
@@ -92,32 +88,7 @@ instance Arbitrary a ⇒ Arbitrary (Stream a) where
 
 prop ∷ Stream Int → Stream Bit → Stream Bit → Bit → Bool
 prop input channel1 channel2 initialBit =
-  S.take 10 input == S.take 10 (trans initialBit channel1 channel2 input)
+  S.take 10 input == S.take 10 (abpTrans initialBit channel1 channel2 input)
 
 main ∷ IO ()
 main = quickCheck prop
-
-------------------------------------------------------------------------------
--- Simulation
-
--- main ∷ IO ()
--- main = do
---   gen1 ← newStdGen
---   gen2 ← newStdGen
-
---   let input ∷ Stream Int
---       input = S.iterate (+ 1) 1
-
---       channel1, channel2 ∷ Stream Bit
---       channel1 = S.fromList $ randoms gen1
---       channel2 = S.fromList $ randoms gen2
-
---       initialBit ∷ Bit
---       initialBit = False
-
---       output ∷ Stream Int
---       output = trans initialBit channel1 channel2 input
-
---   print gen1
---   print gen2
---   print (S.take 10 output)

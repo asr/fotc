@@ -32,7 +32,7 @@ open import FOTC.Relation.Binary.Bisimilarity
 ------------------------------------------------------------------------------
 -- Main theorem.
 spec : ∀ {b is os₀ os₁} → Bit b → Stream is → Fair os₀ → Fair os₁ →
-       is ≈ transfer b os₀ os₁ is
+       is ≈ abpTransfer b os₀ os₁ is
 spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ = ≈-coind B prf₁ prf₂
   where
   postulate prf₁ : ∀ {is js} → B is js →
@@ -40,7 +40,7 @@ spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ = ≈-coind B prf₁ prf₂
                    is ≡ i' ∷ is' ∧ js ≡ i' ∷ js' ∧ B is' js'
   {-# ATP prove prf₁ lemma₁ lemma₂ not-Bool #-}
 
-  prf₂ : B is (transfer b os₀ os₁ is)
+  prf₂ : B is (abpTransfer b os₀ os₁ is)
   prf₂ = b , os₀ , os₁ , as , bs , cs , ds , helper
     where
     a₁ a₂ a₃ a₄ a₅ : D
@@ -59,5 +59,5 @@ spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ = ≈-coind B prf₁ prf₂
     {-# ATP definition as bs cs ds #-}
 
     postulate helper : Stream is ∧ Bit b ∧ Fair os₀ ∧ Fair os₁
-                       ∧ ABP b is os₀ os₁ as bs cs ds (transfer b os₀ os₁ is)
+                       ∧ ABP b is os₀ os₁ as bs cs ds (abpTransfer b os₀ os₁ is)
     {-# ATP prove helper #-}

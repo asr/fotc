@@ -95,18 +95,18 @@ postulate hds-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
 {-# ATP axiom hds-eq #-}
 
 postulate
-  genTransfer    : D → D → D → D → D → D → D
-  genTransfer-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
-                   genTransfer f₁ f₂ f₃ g₁ g₂ is ≡ f₃ · (hbs f₁ f₂ f₃ g₁ g₂ is)
-{-# ATP axiom genTransfer-eq #-}
+  transfer    : D → D → D → D → D → D → D
+  transfer-eq : ∀ f₁ f₂ f₃ g₁ g₂ is →
+                transfer f₁ f₂ f₃ g₁ g₂ is ≡ f₃ · (hbs f₁ f₂ f₃ g₁ g₂ is)
+{-# ATP axiom transfer-eq #-}
 
 postulate
-  transfer    : D → D → D → D → D
-  transfer-eq : ∀ b os₀ os₁ is →
-                transfer b os₀ os₁ is ≡
-                  genTransfer (send · b) (ack · b) (out · b) (corrupt · os₀)
-                    (corrupt · os₁) is
-{-# ATP axiom transfer-eq #-}
+  abpTransfer    : D → D → D → D → D
+  abpTransfer-eq : ∀ b os₀ os₁ is →
+                   abpTransfer b os₀ os₁ is ≡
+                   transfer (send · b) (ack · b) (out · b) (corrupt · os₀)
+                     (corrupt · os₁) is
+{-# ATP axiom abpTransfer-eq #-}
 
 ------------------------------------------------------------------------------
 -- ABP relations

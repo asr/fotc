@@ -2,6 +2,7 @@
 -- A simple network
 ------------------------------------------------------------------------------
 
+{-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 -- From (Sander, 1992, pp. 68-69).
@@ -25,16 +26,16 @@ f1 = undefined
 f2 ∷ Stream a → Stream a
 f2 = undefined
 
-is ∷ Stream a
-is = undefined
-
-ys, os ∷ Stream a
-ys = f1 os is
-os = f2 ys
+trans ∷ forall a. Stream a → Stream a
+trans is = os
+  where
+  ys ∷ Stream a
+  ys = f1 os is
+  os = f2 ys
 
 type Ty a = (Stream a → Stream a → Stream a) → (Stream a → Stream a) →
             Stream a → Stream a
 
-trans, hys ∷ Ty a
-trans f1 f2 is = f1 (trans f1 f2 is) is
-hys   f1 f2 is = f2 (hys f1 f2 is)
+trans', hys ∷ Ty a
+trans' f1 f2 is = f2 (hys f1 f2 is)
+hys    f1 f2 is = f1 (trans' f1 f2 is) is

@@ -29,7 +29,7 @@ open import FOTC.Relation.Binary.Bisimilarity
 ------------------------------------------------------------------------------
 -- Main theorem.
 spec : ∀ {b is os₀ os₁} → Bit b → Stream is → Fair os₀ → Fair os₁ →
-       is ≈ transfer b os₀ os₁ is
+       is ≈ abpTransfer b os₀ os₁ is
 spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ = ≈-coind B prf₁ prf₂
   where
   prf₁ : ∀ {is js} → B is js →
@@ -80,7 +80,7 @@ spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ = ≈-coind B prf₁ prf₂
       not b , os₀'' , os₁'' , as'' , bs'' , cs'' , ds''
       , Sis' , not-Bool Bb , Fos₀'' , Fos₁'' , abp
 
-  prf₂ : B is (transfer b os₀ os₁ is)
+  prf₂ : B is (abpTransfer b os₀ os₁ is)
   prf₂ = b
        , os₀
        , os₁
@@ -96,7 +96,7 @@ spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ = ≈-coind B prf₁ prf₂
        , hbs-eq a₁ a₂ a₃ a₄ a₅ is
        , hcs-eq a₁ a₂ a₃ a₄ a₅ is
        , hds-eq a₁ a₂ a₃ a₄ a₅ is
-       , trans (transfer-eq b os₀ os₁ is) (genTransfer-eq a₁ a₂ a₃ a₄ a₅ is)
+       , trans (abpTransfer-eq b os₀ os₁ is) (transfer-eq a₁ a₂ a₃ a₄ a₅ is)
     where
     a₁ a₂ a₃ a₄ a₅ : D
     a₁ = send · b
