@@ -24,11 +24,38 @@ open import FOTC.Base
 open import FOTC.Base.List
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI
+open import FOTC.Data.Stream
 open import FOTC.Relation.Binary.Bisimilarity
 
 ------------------------------------------------------------------------------
--- The map-iterate property.
 
+unfoldMap : ∀ f x → map f (iterate f x) ≡ f · x ∷ map f (iterate f (f · x))
+unfoldMap f x =
+  map f (iterate f x)               ≡⟨ mapCong₂ (iterate-eq f x) ⟩
+  map f (x ∷ iterate f (f · x))     ≡⟨ map-∷ f x (iterate f (f · x)) ⟩
+  f · x ∷ map f (iterate f (f · x)) ∎
+
+map-iterate-Stream₁ : ∀ f x → Stream (map f (iterate f x))
+map-iterate-Stream₁ f x = Stream-coind P prf refl
+  where
+  P : D → Set
+  P xs = xs ≡ xs
+
+  prf : P (map f (iterate f x)) →
+        ∃[ x' ]  ∃[ xs' ] map f (iterate f x) ≡ x' ∷ xs' ∧ P xs'
+  prf _ = f · x , map f (iterate f (f · x)) , unfoldMap f x , refl
+
+map-iterate-Stream₂ : ∀ f x → Stream (iterate f (f · x))
+map-iterate-Stream₂ f x = Stream-coind P prf refl
+  where
+  P : D → Set
+  P xs = xs ≡ xs
+
+  prf : P (iterate f (f · x)) →
+      ∃[ x' ] ∃[ xs' ] iterate f (f · x) ≡ x' ∷ xs' ∧ P xs'
+  prf _ = f · x , iterate f (f · (f · x)) , iterate-eq f (f · x) , refl
+
+-- The map-iterate property.
 ≈-map-iterate : ∀ f x → map f (iterate f x) ≈ iterate f (f · x)
 ≈-map-iterate f x = ≈-coind B prf (x , refl , refl)
   where
@@ -42,13 +69,6 @@ open import FOTC.Relation.Binary.Bisimilarity
     f · y
     , map f (iterate f (f · y))
     , iterate f (f · (f · y))
-    , trans (∧-proj₁ h) (unfoldMap y)
+    , trans (∧-proj₁ h) (unfoldMap f y)
     , trans (∧-proj₂ h) (iterate-eq f (f · y))
     , ((f · y) , refl , refl)
-
-    where
-    unfoldMap : ∀ y → map f (iterate f y) ≡ f · y ∷ map f (iterate f (f · y))
-    unfoldMap y =
-      map f (iterate f y)               ≡⟨ mapCong₂ (iterate-eq f y) ⟩
-      map f (y ∷ iterate f (f · y))     ≡⟨ map-∷ f y (iterate f (f · y)) ⟩
-      f · y ∷ map f (iterate f (f · y)) ∎

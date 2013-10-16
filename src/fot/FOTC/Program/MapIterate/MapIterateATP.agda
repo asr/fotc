@@ -21,11 +21,36 @@ module FOTC.Program.MapIterate.MapIterateATP where
 open import FOTC.Base
 open import FOTC.Base.List
 open import FOTC.Data.List
+open import FOTC.Data.Stream
 open import FOTC.Relation.Binary.Bisimilarity
 
 ------------------------------------------------------------------------------
--- The map-iterate property.
 
+map-iterate-Stream₁ : ∀ f x → Stream (map f (iterate f x))
+map-iterate-Stream₁ f x = Stream-coind P prf refl
+  where
+  P : D → Set
+  P xs = xs ≡ xs
+  {-# ATP definition P #-}
+
+  postulate
+    prf : P (map f (iterate f x)) →
+          ∃[ x' ]  ∃[ xs' ] map f (iterate f x) ≡ x' ∷ xs' ∧ P xs'
+  {-# ATP prove prf #-}
+
+map-iterate-Stream₂ : ∀ f x → Stream (iterate f (f · x))
+map-iterate-Stream₂ f x = Stream-coind P prf refl
+  where
+  P : D → Set
+  P xs = xs ≡ xs
+  {-# ATP definition P #-}
+
+  postulate
+    prf : P (iterate f (f · x)) →
+          ∃[ x' ] ∃[ xs' ] iterate f (f · x) ≡ x' ∷ xs' ∧ P xs'
+  {-# ATP prove prf #-}
+
+-- The map-iterate property.
 ≈-map-iterate : ∀ f x → map f (iterate f x) ≈ iterate f (f · x)
 ≈-map-iterate f x = ≈-coind B prf₁ prf₂
   where
