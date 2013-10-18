@@ -168,7 +168,7 @@ type_check_notes_path = \
   -i$(notes_path)/README \
   -i$(notes_path)/setoids \
   -i$(notes_path)/strictly-positive-inductive-types \
-  -i$(notes_path)/thesis \
+  -i$(notes_path)/thesis/report \
   -i$(notes_path)/type-classes
 
 %.type_check_notes :
