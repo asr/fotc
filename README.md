@@ -11,7 +11,7 @@ representations of formulae in FOTC into the
 format for input and output in automatic theorem provers (ATPs), so
 that we can call off-the-shelf ATPs when proving properties of our
 programs. For this purpose we wrote the
-[apia](https://github.com/asr/apia) program.
+[Apia](https://github.com/asr/apia) program.
 
 # Related papers
 
