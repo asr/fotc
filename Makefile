@@ -183,7 +183,7 @@ type_check_notes : $(type_check_notes_files)
 prove_notes_path = -i$(fot_path) \
                    -i$(notes_path) \
                    -i$(notes_path)/papers/fossacs-2012 \
-                   -i$(notes_path)/thesis/ \
+                   -i$(notes_path)/thesis/report \
                    -i$(notes_path)/README
 
 %.prove_notes :
