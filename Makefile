@@ -230,7 +230,7 @@ atp_changed : clean
 	@echo "$@ succeeded!"
 
 ##############################################################################
-# Test used when there is a modification to Coq.
+# Test used when there is a new version of Coq.
 
 %.coq_type_check :
 	coqc $*.v
