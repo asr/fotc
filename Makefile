@@ -97,7 +97,8 @@ benchmark_files = \
 %.type_check_agsy_fot :
 	$(AGDA) -i$(fot_path) -i $(std_lib_path)/src/ $*.agda
 
-type_check_fot : $(type_check_fot_files) \
+type_check_fot : clean \
+                 $(type_check_fot_files) \
                  $(type_check_agsy_fot_files)
 	$(AGDA) -i$(fot_path) $(fot_path)/README.agda
 	@echo "$@ succeeded!"
@@ -122,12 +123,12 @@ type_check_fot : $(type_check_fot_files) \
 
 snapshot_create_fot_aux : $(snapshot_create_fot_files)
 
-snapshot_create_fot :
+snapshot_create_fot : clean
 	rm -r -f $(snapshot_dir)
 	make snapshot_create_fot_aux
 	@echo "$@ succeeded!"
 
-snapshot_compare_fot : $(snapshot_compare_fot_files)
+snapshot_compare_fot : clean $(snapshot_compare_fot_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -137,7 +138,7 @@ snapshot_compare_fot : $(snapshot_compare_fot_files)
 	$(AGDA) -i$(fot_path) $*.agda
 	$(APIA) -i$(fot_path) --output-dir=$(output_dir) --time=240 $*.agda
 
-prove_fot : $(prove_fot_files)
+prove_fot : clean $(prove_fot_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -150,7 +151,7 @@ prove_fot : $(prove_fot_files)
            exit 1;\
         fi
 
-consistency_fot : $(consistency_fot_files)
+consistency_fot : clean $(consistency_fot_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -174,7 +175,7 @@ type_check_notes_path = \
 %.type_check_notes :
 	$(AGDA) $(type_check_notes_path) $*.agda
 
-type_check_notes : $(type_check_notes_files)
+type_check_notes : clean $(type_check_notes_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -190,7 +191,7 @@ prove_notes_path = -i$(fot_path) \
 	$(AGDA) $(prove_notes_path) $*.agda
 	$(APIA) $(prove_notes_path) --output-dir=$(output_dir) --time=240 $*.agda
 
-prove_notes : $(prove_notes_files)
+prove_notes : clean $(prove_notes_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -211,7 +212,7 @@ agda_changed : clean
 ##############################################################################
 # Test used when there is a modification to Apia
 
-apia_changed :
+apia_changed : clean
 	if [ ! -d $(snapshot_dir) ]; then \
 	   echo "Error: The directory $(snapshot_dir) does not exist"; \
 	   exit 1; \
@@ -223,7 +224,7 @@ apia_changed :
 ##############################################################################
 # Test used when there is a new ATP or a new version of an ATP
 
-atp_changed :
+atp_changed : clean
 	@make prove_notes
 	@make prove_fot
 	@echo "$@ succeeded!"
