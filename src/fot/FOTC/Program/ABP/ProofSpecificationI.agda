@@ -33,7 +33,7 @@ spec : ∀ {b is os₀ os₁} → Bit b → Stream is → Fair os₀ → Fair os
 spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ = ≈-coind B prf₁ prf₂
   where
   prf₁ : ∀ {is js} → B is js →
-       ∃[ i' ] ∃[ is' ] ∃[ js' ] is ≡ i' ∷ is' ∧ js ≡ i' ∷ js' ∧ B is' js'
+         ∃[ i' ] ∃[ is' ] ∃[ js' ] is ≡ i' ∷ is' ∧ js ≡ i' ∷ js' ∧ B is' js'
   prf₁ {is} {js} (b , os₀ , os₁ , as , bs , cs , ds , Sis , Bb , Fos₀ , Fos₁ , h)
      with Stream-unf Sis
   ... | (i' , is' , is≡i'∷is , Sis') =
