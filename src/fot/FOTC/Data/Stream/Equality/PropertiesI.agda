@@ -20,7 +20,7 @@ stream-≡→≈ Sxs _ refl = ≈-refl Sxs
 
 ≈→Stream : ∀ {xs ys} → xs ≈ ys → Stream xs ∧ Stream ys
 ≈→Stream {xs} {ys} h = Stream-coind A₁ prf₁ (ys , h)
-                       , Stream-coind A₂ h₂ (xs , h)
+                       , Stream-coind A₂ prf₂ (xs , h)
   where
   A₁ : D → Set
   A₁ ws = ∃[ zs ] ws ≈ zs
@@ -32,6 +32,6 @@ stream-≡→≈ Sxs _ refl = ≈-refl Sxs
   A₂ : D → Set
   A₂ zs = ∃[ ws ] ws ≈ zs
 
-  h₂ : A₂ ys → ∃[ y' ] ∃[ ys' ] ys ≡ y' ∷ ys' ∧ A₂ ys'
-  h₂  (_ , h) with ≈-unf h
+  prf₂ : A₂ ys → ∃[ y' ] ∃[ ys' ] ys ≡ y' ∷ ys' ∧ A₂ ys'
+  prf₂  (_ , h) with ≈-unf h
   ... | y' , ys' , zs' , h₁ , h₂ , h₃ = y' , zs' , h₂ , (ys' , h₃)

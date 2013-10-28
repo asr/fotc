@@ -21,24 +21,24 @@ open import FOTC.Data.Nat
 ------------------------------------------------------------------------------
 
 0-Conat : Conat zero
-0-Conat = Conat-coind P prf refl
+0-Conat = Conat-coind A prf refl
   where
-  P : D → Set
-  P n = n ≡ zero
-  {-# ATP definition P #-}
+  A : D → Set
+  A n = n ≡ zero
+  {-# ATP definition A #-}
 
-  postulate prf : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ P n')
+  postulate prf : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
   {-# ATP prove prf #-}
 
 -- Adapted from (Sander 1992, p. 57).
 ∞-Conat : Conat ∞
-∞-Conat = Conat-coind P prf refl
+∞-Conat = Conat-coind A prf refl
   where
-  P : D → Set
-  P n = n ≡ ∞
-  {-# ATP definition P #-}
+  A : D → Set
+  A n = n ≡ ∞
+  {-# ATP definition A #-}
 
-  postulate prf : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ P n')
+  postulate prf : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
   {-# ATP prove prf #-}
 
 N→Conat : ∀ {n} → N n → Conat n

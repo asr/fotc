@@ -17,7 +17,7 @@ open import FOTC.Base.List
 
 -- Functional for the Stream predicate.
 -- StreamF : (D → Set) → D → Set
--- StreamF P xs = ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ P xs'
+-- StreamF A xs = ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
 
 -- Stream is the greatest fixed-point of StreamF (by Stream-unf and
 -- Stream-coind).
@@ -33,17 +33,17 @@ postulate
 
 -- Stream is the greatest post-fixed point of StreamF, i.e
 --
--- ∀ P. P ≤ StreamF P ⇒ P ≤ Stream.
+-- ∀ A. A ≤ StreamF A ⇒ A ≤ Stream.
 --
 -- N.B. This is an axiom schema. Because in the automatic proofs we
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
-  Stream-coind : ∀ (P : D → Set) {xs} →
-                 -- P is post-fixed point of StreamF.
-                 (P xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ P xs') →
-                 -- Stream is greater than P.
-                 P xs → Stream xs
+  Stream-coind : ∀ (A : D → Set) {xs} →
+                 -- A is post-fixed point of StreamF.
+                 (A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs') →
+                 -- Stream is greater than A.
+                 A xs → Stream xs
 
 -- Because a greatest post-fixed point is a fixed-point, then the
 -- Stream predicate is also a pre-fixed point of the functional
@@ -53,10 +53,10 @@ postulate
 Stream-pre-fixed : ∀ {xs} →
                    (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs') →
                    Stream xs
-Stream-pre-fixed {xs} h = Stream-coind P prf h
+Stream-pre-fixed {xs} h = Stream-coind A prf h
   where
-  P : D → Set
-  P ws = ∃[ w' ] ∃[ ws' ] ws ≡ w' ∷ ws' ∧ Stream ws'
+  A : D → Set
+  A ws = ∃[ w' ] ∃[ ws' ] ws ≡ w' ∷ ws' ∧ Stream ws'
 
-  prf : P xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ P xs'
-  prf (_ , _ , xs≡x'∷xs' , Pxs') = _ , _ , xs≡x'∷xs' , Stream-unf Pxs'
+  prf : A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  prf (_ , _ , xs≡x'∷xs' , Axs') = _ , _ , xs≡x'∷xs' , Stream-unf Axs'

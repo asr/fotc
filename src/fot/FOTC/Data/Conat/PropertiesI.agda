@@ -21,23 +21,23 @@ open import FOTC.Data.Nat
 ------------------------------------------------------------------------------
 
 0-Conat : Conat zero
-0-Conat = Conat-coind P prf refl
+0-Conat = Conat-coind A prf refl
   where
-  P : D → Set
-  P n = n ≡ zero
+  A : D → Set
+  A n = n ≡ zero
 
-  prf : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ P n')
-  prf Pn = inj₁ Pn
+  prf : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
+  prf An = inj₁ An
 
 -- Adapted from (Sander 1992, p. 57).
 ∞-Conat : Conat ∞
-∞-Conat = Conat-coind P prf refl
+∞-Conat = Conat-coind A prf refl
   where
-  P : D → Set
-  P n = n ≡ ∞
+  A : D → Set
+  A n = n ≡ ∞
 
-  prf : ∀ {n} → P n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ P n')
-  prf Pn = inj₂ (∞ , trans Pn ∞-eq , refl)
+  prf : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
+  prf An = inj₂ (∞ , trans An ∞-eq , refl)
 
 N→Conat : ∀ {n} → N n → Conat n
 N→Conat Nn = Conat-coind N prf Nn

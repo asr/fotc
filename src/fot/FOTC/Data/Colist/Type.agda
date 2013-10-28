@@ -17,7 +17,7 @@ open import FOTC.Base.List
 
 -- Functional for the Colist predicate.
 -- ColistF : (D → Set) → D → Set
--- ColistF P xs = xs ≡ [] ∨ ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ P xs'
+-- ColistF A xs = xs ≡ [] ∨ ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
 
 -- Colist is the greatest fixed-point of ColistF (by Colist-unf and
 -- Colist-coind).
@@ -35,17 +35,17 @@ postulate
 
 -- Colist is the greatest post-fixed point of ColistF, i.e
 --
--- ∀ P. P ≤ ColistF P ⇒ P ≤ Colist.
+-- ∀ A. A ≤ ColistF A ⇒ A ≤ Colist.
 --
 -- N.B. This is an axiom schema. Because in the automatic proofs we
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
-  Colist-coind : ∀ (P : D → Set) {xs} →
-                 -- P is post-fixed point of ColistF.
-                 (P xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ P xs')) →
-                 -- Colist is greater than P.
-                 P xs → Colist xs
+  Colist-coind : ∀ (A : D → Set) {xs} →
+                 -- A is post-fixed point of ColistF.
+                 (A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')) →
+                 -- Colist is greater than A.
+                 A xs → Colist xs
 
 -- Because a greatest post-fixed point is a fixed-point, then the
 -- Colist predicate is also a pre-fixed point of the functional
@@ -55,12 +55,12 @@ postulate
 Colist-pre-fixed : ∀ {xs} →
                    (xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs')) →
                    Colist xs
-Colist-pre-fixed {xs} h = Colist-coind P prf h
+Colist-pre-fixed {xs} h = Colist-coind A prf h
   where
-  P : D → Set
-  P ws = ws ≡ [] ∨ (∃[ w' ] ∃[ ws' ] ws ≡ w' ∷ ws' ∧ Colist ws')
+  A : D → Set
+  A ws = ws ≡ [] ∨ (∃[ w' ] ∃[ ws' ] ws ≡ w' ∷ ws' ∧ Colist ws')
 
-  prf : P xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ P xs')
+  prf : A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
   prf (inj₁ h₁) = inj₁ h₁
-  prf (inj₂ (_ , _ , xs≡x'∷xs' , Pxs')) =
-    inj₂ (_ , _ , xs≡x'∷xs' , Colist-unf Pxs')
+  prf (inj₂ (_ , _ , xs≡x'∷xs' , Axs')) =
+    inj₂ (_ , _ , xs≡x'∷xs' , Colist-unf Axs')

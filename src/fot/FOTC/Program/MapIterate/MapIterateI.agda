@@ -36,23 +36,23 @@ unfoldMap f x =
   f · x ∷ map f (iterate f (f · x)) ∎
 
 map-iterate-Stream₁ : ∀ f x → Stream (map f (iterate f x))
-map-iterate-Stream₁ f x = Stream-coind P prf refl
+map-iterate-Stream₁ f x = Stream-coind A prf refl
   where
-  P : D → Set
-  P xs = xs ≡ xs
+  A : D → Set
+  A xs = xs ≡ xs
 
-  prf : P (map f (iterate f x)) →
-        ∃[ x' ]  ∃[ xs' ] map f (iterate f x) ≡ x' ∷ xs' ∧ P xs'
+  prf : A (map f (iterate f x)) →
+        ∃[ x' ]  ∃[ xs' ] map f (iterate f x) ≡ x' ∷ xs' ∧ A xs'
   prf _ = f · x , map f (iterate f (f · x)) , unfoldMap f x , refl
 
 map-iterate-Stream₂ : ∀ f x → Stream (iterate f (f · x))
-map-iterate-Stream₂ f x = Stream-coind P prf refl
+map-iterate-Stream₂ f x = Stream-coind A prf refl
   where
-  P : D → Set
-  P xs = xs ≡ xs
+  A : D → Set
+  A xs = xs ≡ xs
 
-  prf : P (iterate f (f · x)) →
-      ∃[ x' ] ∃[ xs' ] iterate f (f · x) ≡ x' ∷ xs' ∧ P xs'
+  prf : A (iterate f (f · x)) →
+        ∃[ x' ] ∃[ xs' ] iterate f (f · x) ≡ x' ∷ xs' ∧ A xs'
   prf _ = f · x , iterate f (f · (f · x)) , iterate-eq f (f · x) , refl
 
 -- The map-iterate property.
