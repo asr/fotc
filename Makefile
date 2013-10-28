@@ -116,10 +116,10 @@ type_check_fot : clean \
 	$(APIA) -i$(fot_path) --only-files --output-dir=$(snapshot_dir) $*.agda
 
 %.snapshot_compare_fot :
-	@echo "Processing $*.agda"
+	@echo "Comparing $*.agda"
 	@$(AGDA) -i$(fot_path) $*.agda
 	@$(APIA) -v 0 -i$(fot_path) --snapshot-test \
-	            --snapshot-dir=$(snapshot_dir) $*.agda
+	         --snapshot-dir=$(snapshot_dir) $*.agda
 
 snapshot_create_fot_aux : $(snapshot_create_fot_files)
 
