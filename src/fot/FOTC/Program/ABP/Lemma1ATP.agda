@@ -31,29 +31,29 @@ module Helper where
   -- We have these definitions outside the where clause to keep them
   -- simple for the ATPs.
 
-  as⁵ : ∀ b i' is' ds → D
-  as⁵ b i' is' ds = await b i' is' ds
-  {-# ATP definition as⁵ #-}
+  as^ : ∀ b i' is' ds → D
+  as^ b i' is' ds = await b i' is' ds
+  {-# ATP definition as^ #-}
 
-  bs⁵ : D → D → D → D → D → D
-  bs⁵ b i' is' ds os₀⁵ = corrupt · os₀⁵ · (as⁵ b i' is' ds)
-  {-# ATP definition bs⁵ #-}
+  bs^ : D → D → D → D → D → D
+  bs^ b i' is' ds os₀^ = corrupt · os₀^ · (as^ b i' is' ds)
+  {-# ATP definition bs^ #-}
 
-  cs⁵ : D → D → D → D → D → D
-  cs⁵ b i' is' ds os₀⁵ = ack · b · (bs⁵ b i' is' ds os₀⁵)
-  {-# ATP definition cs⁵ #-}
+  cs^ : D → D → D → D → D → D
+  cs^ b i' is' ds os₀^ = ack · b · (bs^ b i' is' ds os₀^)
+  {-# ATP definition cs^ #-}
 
-  ds⁵ : D → D → D → D → D → D → D
-  ds⁵ b i' is' ds os₀⁵ os₁⁵ = corrupt · os₁⁵ · cs⁵ b i' is' ds os₀⁵
-  {-# ATP definition ds⁵ #-}
+  ds^ : D → D → D → D → D → D → D
+  ds^ b i' is' ds os₀^ os₁^ = corrupt · os₁^ · cs^ b i' is' ds os₀^
+  {-# ATP definition ds^ #-}
 
-  os₀⁵ : D → D → D
-  os₀⁵ os₀' ft₀⁵ = ft₀⁵ ++ os₀'
-  {-# ATP definition os₀⁵ #-}
+  os₀^ : D → D → D
+  os₀^ os₀' ft₀^ = ft₀^ ++ os₀'
+  {-# ATP definition os₀^ #-}
 
-  os₁⁵ : D → D
-  os₁⁵ os₁ = tail₁ os₁
-  {-# ATP definition os₁⁵ #-}
+  os₁^ : D → D
+  os₁^ os₁ = tail₁ os₁
+  {-# ATP definition os₁^ #-}
 
   helper : ∀ {b i' is' os₀ os₁ as bs cs ds js} →
            Bit b →
@@ -79,66 +79,66 @@ module Helper where
             ∧ js ≡ i' ∷ js'
     {-# ATP prove prf #-}
   helper {b} {i'} {is'} {os₀} {os₁} {as} {bs} {cs} {ds} {js} Bb Fos₁ abp
-         .(F ∷ ft₀⁵) os₀' (f*tcons {ft₀⁵} FTft₀⁵) Fos₀' os₀-eq
-         = helper Bb (tail-Fair Fos₁) ABPIH ft₀⁵ os₀' FTft₀⁵ Fos₀' refl
+         .(F ∷ ft₀^) os₀' (f*tcons {ft₀^} FTft₀^) Fos₀' os₀-eq
+         = helper Bb (tail-Fair Fos₁) ABPIH ft₀^ os₀' FTft₀^ Fos₀' refl
     where
-    postulate os₀-eq-helper : os₀ ≡ F ∷ os₀⁵ os₀' ft₀⁵
+    postulate os₀-eq-helper : os₀ ≡ F ∷ os₀^ os₀' ft₀^
     {-# ATP prove os₀-eq-helper #-}
 
-    postulate as-eq : as ≡ < i' , b > ∷ (as⁵ b i' is' ds)
+    postulate as-eq : as ≡ < i' , b > ∷ (as^ b i' is' ds)
     {-# ATP prove as-eq #-}
 
-    postulate bs-eq : bs ≡ error ∷ (bs⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵))
+    postulate bs-eq : bs ≡ error ∷ (bs^ b i' is' ds (os₀^ os₀' ft₀^))
     {-# ATP prove bs-eq os₀-eq-helper as-eq #-}
 
-    postulate cs-eq : cs ≡ not b ∷ cs⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵)
+    postulate cs-eq : cs ≡ not b ∷ cs^ b i' is' ds (os₀^ os₀' ft₀^)
     {-# ATP prove cs-eq bs-eq #-}
 
     postulate
       ds-eq-helper₁ : os₁ ≡ T ∷ tail₁ os₁ →
-                      ds ≡ ok (not b) ∷ ds⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵) (os₁⁵ os₁)
+                      ds ≡ ok (not b) ∷ ds^ b i' is' ds (os₀^ os₀' ft₀^) (os₁^ os₁)
     {-# ATP prove ds-eq-helper₁ cs-eq #-}
 
     postulate
       ds-eq-helper₂ : os₁ ≡ F ∷ tail₁ os₁ →
-                      ds ≡ error ∷ ds⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵) (os₁⁵ os₁)
+                      ds ≡ error ∷ ds^ b i' is' ds (os₀^ os₀' ft₀^) (os₁^ os₁)
     {-# ATP prove ds-eq-helper₂ cs-eq #-}
 
-    ds-eq : ds ≡ ok (not b) ∷ ds⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵) (os₁⁵ os₁)
-            ∨ ds ≡ error ∷ ds⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵) (os₁⁵ os₁)
+    ds-eq : ds ≡ ok (not b) ∷ ds^ b i' is' ds (os₀^ os₀' ft₀^) (os₁^ os₁)
+            ∨ ds ≡ error ∷ ds^ b i' is' ds (os₀^ os₀' ft₀^) (os₁^ os₁)
     ds-eq = case (λ h → inj₁ (ds-eq-helper₁ h))
                  (λ h → inj₂ (ds-eq-helper₂ h))
                  (head-tail-Fair Fos₁)
 
     postulate
-      as⁵-eq-helper₁ : ds ≡ ok (not b) ∷ ds⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵) (os₁⁵ os₁) →
-                       as⁵ b i' is' ds ≡
-                       send · b · (i' ∷ is') · ds⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵) (os₁⁵ os₁)
-    {-# ATP prove as⁵-eq-helper₁ x≢not-x #-}
+      as^-eq-helper₁ : ds ≡ ok (not b) ∷ ds^ b i' is' ds (os₀^ os₀' ft₀^) (os₁^ os₁) →
+                       as^ b i' is' ds ≡
+                       send · b · (i' ∷ is') · ds^ b i' is' ds (os₀^ os₀' ft₀^) (os₁^ os₁)
+    {-# ATP prove as^-eq-helper₁ x≢not-x #-}
 
     postulate
-      as⁵-eq-helper₂ : ds ≡ error ∷ ds⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵) (os₁⁵ os₁) →
-                       as⁵ b i' is' ds ≡
-                       send · b · (i' ∷ is') · ds⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵) (os₁⁵ os₁)
-    {-# ATP prove as⁵-eq-helper₂ #-}
+      as^-eq-helper₂ : ds ≡ error ∷ ds^ b i' is' ds (os₀^ os₀' ft₀^) (os₁^ os₁) →
+                       as^ b i' is' ds ≡
+                       send · b · (i' ∷ is') · ds^ b i' is' ds (os₀^ os₀' ft₀^) (os₁^ os₁)
+    {-# ATP prove as^-eq-helper₂ #-}
 
-    as⁵-eq : as⁵ b i' is' ds ≡
-             send · b · (i' ∷ is') · ds⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵) (os₁⁵ os₁)
-    as⁵-eq = case as⁵-eq-helper₁ as⁵-eq-helper₂ ds-eq
+    as^-eq : as^ b i' is' ds ≡
+             send · b · (i' ∷ is') · ds^ b i' is' ds (os₀^ os₀' ft₀^) (os₁^ os₁)
+    as^-eq = case as^-eq-helper₁ as^-eq-helper₂ ds-eq
 
-    postulate js-eq : js ≡ out · b · bs⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵)
+    postulate js-eq : js ≡ out · b · bs^ b i' is' ds (os₀^ os₀' ft₀^)
     {-# ATP prove js-eq bs-eq #-}
 
     ABPIH : ABP b
                 (i' ∷ is')
-                (os₀⁵ os₀' ft₀⁵)
-                (os₁⁵ os₁)
-                (as⁵ b i' is' ds)
-                (bs⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵))
-                (cs⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵))
-                (ds⁵ b i' is' ds (os₀⁵ os₀' ft₀⁵) (os₁⁵ os₁))
+                (os₀^ os₀' ft₀^)
+                (os₁^ os₁)
+                (as^ b i' is' ds)
+                (bs^ b i' is' ds (os₀^ os₀' ft₀^))
+                (cs^ b i' is' ds (os₀^ os₀' ft₀^))
+                (ds^ b i' is' ds (os₀^ os₀' ft₀^) (os₁^ os₁))
                 js
-    ABPIH = as⁵-eq , refl , refl , refl , js-eq
+    ABPIH = as^-eq , refl , refl , refl , js-eq
 
 ------------------------------------------------------------------------------
 -- From Dybjer and Sander's paper: From the assumption that os₀ ∈
