@@ -148,7 +148,7 @@ module LeibnizEquality where
   -- and the identity elimination
 
   subst : (A : D → Set) → ∀ {x y} → x ≡ y → A x → A y
-  subst A x≡y = x≡y A
+  subst A h = h A
 
   -- and the congruency
 
