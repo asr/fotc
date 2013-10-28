@@ -70,10 +70,10 @@ postulate
 {-# ATP axiom out-ok≡ out-ok≢ out-error #-}
 
 postulate
-  corrupt-T : ∀ ft x xs →
-              corrupt · (T ∷ ft) · (x ∷ xs) ≡ ok x ∷ corrupt · ft · xs
-  corrupt-F : ∀ ft x xs →
-              corrupt · (F ∷ ft) · (x ∷ xs) ≡ error ∷ corrupt · ft · xs
+  corrupt-T : ∀ os x xs →
+              corrupt · (T ∷ os) · (x ∷ xs) ≡ ok x ∷ corrupt · os · xs
+  corrupt-F : ∀ os x xs →
+              corrupt · (F ∷ os) · (x ∷ xs) ≡ error ∷ corrupt · os · xs
 {-# ATP axiom corrupt-T corrupt-F #-}
 
 postulate has hbs hcs hds : D → D → D → D → D → D → D

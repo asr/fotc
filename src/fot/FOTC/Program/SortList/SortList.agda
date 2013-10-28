@@ -32,8 +32,8 @@ postulate
 
 -- The tree type.
 data Tree : D → Set where
-  tnil  :                                         Tree nil
-  ttip  : ∀ {i} → N i →                           Tree (tip i)
+  tnil  : Tree nil
+  ttip  : ∀ {i} → N i → Tree (tip i)
   tnode : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ → Tree (node t₁ i t₂)
 {-# ATP axiom tnil ttip tnode #-}
 

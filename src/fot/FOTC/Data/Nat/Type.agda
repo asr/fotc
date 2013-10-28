@@ -15,7 +15,7 @@ open import FOTC.Base
 -- The FOTC natural numbers type (inductive predicate for the total
 -- natural numbers).
 data N : D → Set where
-  nzero :               N zero
+  nzero : N zero
   nsucc : ∀ {n} → N n → N (succ₁ n)
 {-# ATP axiom nzero nsucc #-}
 

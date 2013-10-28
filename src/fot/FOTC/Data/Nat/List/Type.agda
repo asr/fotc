@@ -15,7 +15,7 @@ open import FOTC.Data.Nat.Type
 -- The FOTC lists of natural numbers type (inductive predicate for
 -- total lists of natural numbers).
 data ListN : D → Set where
-  lnnil  :                             ListN []
+  lnnil  : ListN []
   lncons : ∀ {n ns} → N n → ListN ns → ListN (n ∷ ns)
 {-# ATP axiom lnnil lncons #-}
 
