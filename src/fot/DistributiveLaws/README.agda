@@ -4,24 +4,24 @@
 
 module DistributiveLaws.README where
 
--- We prove the proposition 2 (task B) of (Stanovský, 2008).  Let _·_
+-- We prove the proposition 2 (task B) of Stanovský (2008).  Let _·_
 -- be a left-associative binary operation, the task B consist in given
 -- the left and right distributive axioms
-
+--
 -- ∀ x y z → x ∙ (y ∙ z) ≡ (x ∙ y) ∙ (x ∙ z)
 -- ∀ x y z → (x ∙ y) ∙ z ≡ (x ∙ z) ∙ (y ∙ z)
 
 -- to prove the theorem
-
+--
 -- ∀ u x y z → (x ∙ y ∙ (z ∙ u)) ∙
 --             (( x ∙ y ∙ ( z ∙ u)) ∙ (x ∙ z ∙ (y ∙ u))) ≡
---             x ∙ z ∙ (y ∙ u)
+--             x ∙ z ∙ (y ∙ u).
 
 -- References:
-
--- David Stanovský. Distributive groupoids are symmetrical-by-medial:
--- An elementary proof. Commentations Mathematicae Universitatis
--- Carolinae, 49(4):541–546, 2008.
+--
+-- • Stanovský, David (2008). Distributive Groupoids are
+--   Symmetrical-by-Medial: An Elementary Proof. In: Commentations
+--   Mathematicae Universitatis Carolinae 49.4, pp. 541–546.
 
 ------------------------------------------------------------------------------
 -- The axioms

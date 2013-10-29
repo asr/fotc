@@ -7,11 +7,11 @@
 
 -- References:
 --
--- M. J. Beeson. Proving programs and programming proofs. In Ruth
--- Barcan Marcus, George J. W. Dorn, and Paul Weingartner,
--- editors. Logic, Methodology and Philosophy of Science VII (1983),
--- volume 114 of Studies in Logic and the Foundations of
--- Mathematics. North-Holland Publishing Company, 1988, pages 51–82.
+-- • Beeson, M. J. (1986). Proving Programs and Programming
+--   Proofs. In: Logic, Methodology and Philosophy of Science VII
+--   (1983). Ed. by Barcan Marcus, Ruth, Dorn, George J. W. and
+--   Weingartner, Paul. Vol. 114. Studies in Logic and the Foundations
+--   of Mathematics. Elsevier, pp. 51–82.
 
 module FOTC.Data.Nat.PropertiesI where
 

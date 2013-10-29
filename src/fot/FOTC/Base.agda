@@ -17,11 +17,11 @@ FOTC                                  The logical framework (Agda)
 
 -- References:
 --
--- • Peter Aczel. The strength of Martin-Löf's intuitionistic type
---   theory with one universe. In Miettinen and Väänanen,
---   editors. Proc. of the Symposium on Mathematical Logic (Oulu,
---   1974), Report No. 2, Department of Philosopy, University of
---   Helsinki, Helsinki, 1977, pages 1–32.
+-- • Aczel, Peter (1977). The Strength of MartinLöf’s Intuitionistic
+--   Type Theory with One Universe. In: Proc. of the Symposium on
+--   Mathematical Logic (Oulu, 1974). Ed. by Miettinen, S. and
+--   Väänanen, J. Report No. 2, Department of Philosophy, University
+--   of Helsinki, Helsinki, pp. 1–32.
 
 module FOTC.Base where
 

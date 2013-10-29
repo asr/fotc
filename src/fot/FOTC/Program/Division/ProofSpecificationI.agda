@@ -10,11 +10,13 @@
 
 -- References:
 --
--- • Peter Dybjer. Program verification in a logical theory of
---   constructions. In Jean-Pierre Jouannaud, editor. Functional
---   Programming Languages and Computer Architecture, volume 201 of
---   LNCS, 1985, pages 334-349. Appears in revised form as Programming
---   Methodology Group Report 26, June 1986.
+-- • Dybjer, Peter (1985). Program Veriﬁcation in a Logical Theory of
+--   Constructions. In: Functional Programming Languages and Computer
+--   Architecture. Ed. by Jouannaud,
+--   Jean-Pierre. Vol. 201. LNCS. Appears in revised form as
+--   Programming Methodology Group Report 26, University of Gothenburg
+--   and Chalmers University of Technology, June 1986. Springer,
+--   pp. 334–349.
 
 module FOTC.Program.Division.ProofSpecificationI where
 

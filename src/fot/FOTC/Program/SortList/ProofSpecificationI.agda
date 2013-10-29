@@ -11,8 +11,8 @@
 
 -- References:
 --
--- • R. M. Burstall. Proving properties of programs by structural
---   induction. The Computer Journal, 12(1):41–48, 1969.
+-- • Burstall, R. M. (1969). Proving properties of programs by
+--   structural induction. In: The Computer Journal 12.1, pp. 41–48.
 
 module FOTC.Program.SortList.ProofSpecificationI where
 

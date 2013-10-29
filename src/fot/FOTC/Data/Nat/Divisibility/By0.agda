@@ -15,12 +15,11 @@ infix 7 _∣_
 
 -- References:
 --
--- • G. H. Hardy and E. M. Wright. An Introduction to the Theory of
--- Numbers. Oxford University Press, 4th edition, 1975.
+-- • Hardy, G. H. and Wright, E. M. (1975). An Introduction to the
+--   Theory of Numbers. 4th ed. Oxford University Press.
 --
--- • Donald E. Knuth. The Art of Computer Programming. Volume
--- 1. Fundamental Algorithms. Addison-Wesley Professional, 3rd
--- edition, 1997.
+-- • Knuth, Donald E. (1997). The Art of Computer Programming. 3rd
+--   ed. Vol. 1. Fundamental Algorithms. Addison-Wesley Professional.
 
 ------------------------------------------------------------------------------
 -- The relation of divisibility (the symbol is '\mid' not '|')

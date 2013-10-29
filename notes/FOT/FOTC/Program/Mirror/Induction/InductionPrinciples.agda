@@ -7,9 +7,9 @@
 
 -- References:
 --
--- • Yves Bertot and Pierre Castéran. Interactive Theorem Proving and
---   Program Development. Coq'Art: The Calculus of Inductive
---   Constructions. Springer, 2004
+-- • Bertot, Yves and Castéran, Pierre (2004). Interactive Theorem
+--   Proving and Program Development. Coq’Art: The Calculus of
+--   Inductive Constructions. Springer.
 
 module FOT.FOTC.Program.Mirror.Induction.InductionPrinciples where
 

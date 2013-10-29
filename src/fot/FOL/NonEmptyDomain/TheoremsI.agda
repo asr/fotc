@@ -12,8 +12,8 @@ open import FOL.Base hiding ( pem )
 
 -- References:
 --
--- • Elliott Mendelson. Introduction to mathematical logic. Chapman &
---   Hall, 4th edition, 1997.
+-- • Mendelson, Elliott (1997). Introduction to Mathematical
+--   Logic. 4th ed. Chapman & Hall.
 
 ------------------------------------------------------------------------------
 -- We postulate some formulae and propositional functions.

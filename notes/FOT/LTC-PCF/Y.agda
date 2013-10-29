@@ -11,15 +11,17 @@
 --
 -- References:
 --
--- • Henk Barendregt. The Lambda Calculus. Its Syntax and
---   Semantics. Elsevier, revised edition, 2004. 6th. impression.
+-- • Barendregt, Henk (2004). The Lambda Calculus. Its Syntax and
+--   Semantics. 2nd ed. Vol. 103. Studies in Logic and the Foundations
+--   of Mathematics. 6th impression. Elsevier.
 --
--- • Peter Dybjer. Program verification in a Logical Theory of
---   Constructions. In Jean-Pierre Jouannaud, editor. Functional
---   Programming Languages and Computer Architecture, volume 201 of
---   LNCS, 1985, pages 334–349. Appears in revised form as Programming
---   Methodology Group Report 26, University of Gothenburg and
---   Chalmers University of Technology, June 1986.
+-- • Dybjer, Peter (1985). Program Veriﬁcation in a Logical Theory of
+--   Constructions. In: Functional Programming Languages and Computer
+--   Architecture. Ed. by Jouannaud,
+--   Jean-Pierre. Vol. 201. LNCS. Appears in revised form as
+--   Programming Methodology Group Report 26, University of Gothenburg
+--   and Chalmers University of Technology, June 1986. Springer,
+--   pp. 334–349 (cit. on p. 26).
 
 module FOT.LTC-PCF.Y where
 

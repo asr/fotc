@@ -9,8 +9,9 @@ module Functor where
 
 -- References:
 --
--- • Varmo Vene. Categorical programming with inductive and
--- coinductive types. PhD thesis, University of Taru, Estonia, 2000.
+-- • Vene, Varmo (2000). Categorical programming with inductive and
+--   coinductive types. PhD thesis. Faculty of Mathematics: University
+--   of Tartu.
 
 import Prelude hiding ( pred )
 

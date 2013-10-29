@@ -5,11 +5,11 @@ module LeibnizEquality where
 
 -- References:
 --
--- • Martin Hofmman. Extensional concepts in intensional type
---   theory. PhD thesis, University of Edinburgh, 1995.
+-- • Hofmann, Martin (1995). Extensional concepts in intensional type
+--   theory. PhD thesis. University of Edinburgh.
 
--- • Zhaohui Luo. Computation and Reasoning. A Type Theory for
---   Computer Science. Oxford University Press, 1994.
+-- • Luo, Zhaohui (1994). Computation and Reasoning. A Type Theory for
+--   Computer Science. Oxford University Press.
 
 ------------------------------------------------------------------------------
 -- The identity type.

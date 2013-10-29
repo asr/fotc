@@ -10,10 +10,10 @@ open import FOTC.Base
 
 -- References:
 
--- · Jasmin Christian Blanchette. Relational analysis of (co)inductive
---   predicates, (co)algebraic datatypes, and (co)recursive
---   functions. To appear in a special issue of the Software Quality
---   Journal.
+-- • Blanchette, Jasmin Christian (2013). Relational analysis of
+--   (co)inductive predicates, (co)algebraic datatypes, and
+--   (co)recursive functions. In: Software Quality Journal 21.1,
+--   pp. 101–126.
 
 ------------------------------------------------------------------------------
 -- Using mutual inductive predicates

@@ -7,9 +7,9 @@ module FOT.Common.FOL.Existential.RequiredWitness where
 -- non-empty domain hypothesis.
 
 -- References:
-
--- Elliott Mendelson. Introduction to mathematical logic. Chapman &
--- Hall, 4th edition, 1997.
+--
+-- • Mendelson, Elliott (1997). Introduction to Mathematical
+--   Logic. 4th ed. Chapman & Hall.
 
 ------------------------------------------------------------------------------
 

@@ -66,12 +66,13 @@ private
 
   -- References:
   --
-  -- • Peter Dybjer and Herbert Sander. A functional programming
-  --   approach to the specification and verification of concurrent
-  --   systems. Formal Aspects of Computing, 1:303–319, 1989.
+  -- • Dybjer, Peter and Sander, Herbert P. (1989). A Functional
+  --   Programming Approach to the Speciﬁcation and Veriﬁcation of
+  --   Concurrent Systems. In: Formal Aspects of Computing 1,
+  --   pp. 303–319.
   --
-  -- • Bart Jacobs and Jan Rutten. (Co)algebras and
-  --   (co)induction. EATCS Bulletin, 62:222–259, 1997.
+  -- • Jacobs, Bart and Rutten, Jan (1997). A Tutorial on (Co)Algebras
+  --   and (Co)Induction. In: EATCS Bulletin 62, pp. 222–259.
 
   ----------------------------------------------------------------------------
   -- The bisimilarity relation _≈_ on unbounded lists is the greatest

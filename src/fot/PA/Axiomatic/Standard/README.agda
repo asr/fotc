@@ -11,11 +11,11 @@ module PA.Axiomatic.Standard.README where
 
 -- References:
 --
--- • Moshé Machover. Set theory, logic and their limitations. Cambridge
---   University Press, 1996.
---
--- • Petr Hájek and Pavel Pudlák. Metamathematics of First-Order
---   Arithmetic. Springer, 1998. 2nd printing.
+-- • Machover, Moshé (1996). Set theory, Logic and their
+--   Limitations. Cambridge University Press.
+
+-- • Hájek, Petr and Pudlák, Pavel (1998). Metamathematics of
+--   First-Order Arithmetic. 2nd printing. Springer.
 
 ------------------------------------------------------------------------------
 -- The axioms

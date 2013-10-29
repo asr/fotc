@@ -7,10 +7,10 @@
 
 -- References:
 --
--- • Herbert P. Sander. A logic of functional programs with an
---   application to concurrency. PhD thesis, Chalmers University of
---   Technology and University of Gothenburg, Department of Computer
---   Sciences, 1992.
+-- • Sander, Herbert P. (1992). A Logic of Functional Programs with an
+--   Application to Concurrency. PhD thesis. Department of Computer
+--   Sciences: Chalmers University of Technology and University of
+--   Gothenburg.
 
 module FOTC.Data.Conat.PropertiesATP where
 

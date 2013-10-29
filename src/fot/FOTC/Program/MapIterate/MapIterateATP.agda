@@ -10,11 +10,11 @@
 
 -- References:
 --
--- • Eduardo Giménez and Pierre Castéran. A Tutorial on [Co-]Inductive
---   Types in Coq. May 1998 -- August 17, 2007.
+-- • Giménez, Eduardo and Casterán, Pierre (2007). A Tutorial on
+--   [Co-]Inductive Types in Coq.
 --
--- • Jeremy Gibbons and Graham Hutton. Proof methods for corecursive
---   programs. Fundamenta Informaticae, XX:1–14, 2005.
+-- • Gibbons, Jeremy and Hutton, Graham (2005). Proof Methods for
+--   Corecursive Programs. In: Fundamenta Informaticae XX, pp. 1–14.
 
 module FOTC.Program.MapIterate.MapIterateATP where
 
