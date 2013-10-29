@@ -13,14 +13,20 @@ peano_path = src/peano
 # Agda standard library path.
 std_lib_path = ~/agda-upstream/std-lib
 
-# Directory for the TPTP files.
-output_dir = /tmp/fotc
-
 # Notes path.
 notes_path = notes
 
-# Snapshot fot directory.
+# Output directory for snapshot.
 snapshot_dir = snapshot-fot
+
+# Output directory for prove_fot.
+prove_fot_dir = /tmp/prove_fot
+
+# Output directory for consistency_fot.
+consistency_fot_dir = /tmp/consistency_fot
+
+# Output directory for prove_notes.
+prove_notes_dir = /tmp/prove_notes
 
 ##############################################################################
 # Variables
@@ -136,7 +142,7 @@ snapshot_compare_fot : clean $(snapshot_compare_fot_files)
 
 %.prove_fot :
 	$(AGDA) -i$(fot_path) $*.agda
-	$(APIA) -i$(fot_path) --output-dir=$(output_dir) --time=240 $*.agda
+	$(APIA) -i$(fot_path) --output-dir=$(prove_fot_dir) --time=240 $*.agda
 
 prove_fot : clean $(prove_fot_files)
 	@echo "$@ succeeded!"
@@ -146,7 +152,7 @@ prove_fot : clean $(prove_fot_files)
 
 %.consistency_fot :
 	$(AGDA) -i$(fot_path) $*.agda
-	if ( $(APIA) -i$(fot_path) --output-dir=$(output_dir) \
+	if ( $(APIA) -i$(fot_path) --output-dir=$(consistency_fot_dir) \
 	                 --time=10 $*.agda ); then \
            exit 1;\
         fi
@@ -189,7 +195,8 @@ prove_notes_path = -i$(fot_path) \
 
 %.prove_notes :
 	$(AGDA) $(prove_notes_path) $*.agda
-	$(APIA) $(prove_notes_path) --output-dir=$(output_dir) --time=240 $*.agda
+	$(APIA) $(prove_notes_path) --output-dir=$(prove_notes:dir) \
+	        --time=240 $*.agda
 
 prove_notes : clean $(prove_notes_files)
 	@echo "$@ succeeded!"
@@ -265,7 +272,7 @@ benchmark_tag = \
 %.benchmark :
 	$(AGDA) -i$(fot_path) $*.agda
 	$(APIA) -v 0 -i$(fot_path) $*.agda \
-                   +RTS -s/tmp/benchmark/$(subst /,.,$*)
+                +RTS -s/tmp/benchmark/$(subst /,.,$*)
 
 benchmark_aux : $(benchmark_files)
 
@@ -309,4 +316,3 @@ clean :
 	find -name '*.vo' | xargs rm -f
 	find -name 'apia.tix' | xargs rm -f
 	find -name 'model' | xargs rm -f
-	rm -f -r $(output_dir)
