@@ -195,7 +195,7 @@ prove_notes_path = -i$(fot_path) \
 
 %.prove_notes :
 	$(AGDA) $(prove_notes_path) $*.agda
-	$(APIA) $(prove_notes_path) --output-dir=$(prove_notes:dir) \
+	$(APIA) $(prove_notes_path) --output-dir=$(prove_notes_dir) \
 	        --time=240 $*.agda
 
 prove_notes : clean $(prove_notes_files)
