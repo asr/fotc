@@ -64,7 +64,7 @@ corrupt (True :> os)  (x :> xs) = Ok x  :> corrupt os xs
 -- of the terms defined in the where clauses.
 --
 -- N.B. We use @forall@ instead of @∀@ because it generates an error
--- with HLint 1.8.51.
+-- with HLint (the issue is from haskell-src-exts).
 abpTrans ∷ forall a. Bit → Stream Bit → Stream Bit → Stream a → Stream a
 abpTrans b os0 os1 is = out b bs
   where
@@ -87,8 +87,8 @@ instance Arbitrary a ⇒ Arbitrary (Stream a) where
   arbitrary = liftM2 (:>) arbitrary arbitrary
 
 prop ∷ Stream Int → Stream Bit → Stream Bit → Bit → Bool
-prop input channel1 channel2 initialBit =
-  S.take 10 input == S.take 10 (abpTrans initialBit channel1 channel2 input)
+prop input os1 os2 initialBit =
+  S.take 10 input == S.take 10 (abpTrans initialBit os1 os2 input)
 
 main ∷ IO ()
 main = quickCheck prop
