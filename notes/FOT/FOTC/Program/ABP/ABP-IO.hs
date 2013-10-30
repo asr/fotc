@@ -4,10 +4,11 @@
 ------------------------------------------------------------------------------
 module Main where
 
-import Control.Monad ( when )
+import Control.Monad ( when, replicateM )
 
 import Data.Stream.Infinite as S
   ( Stream( (:>) )
+  , fromList
   , take
   )
 
@@ -15,6 +16,8 @@ import Data.Stream.Infinite as S
 --   ( Arbitrary(arbitrary)
 --   , quickCheck
 --   )
+
+import System.Random ( newStdGen, random, randoms )
 
 ------------------------------------------------------------------------------
 type Bit = Bool
@@ -46,16 +49,21 @@ out ∷ Integer → Bit → Stream (Err (Int, Bit)) → IO (Stream Int)
 out n b (Ok (i, b0) :> bs) =
   if b == b0
   then do
-    when (n <= 1) $
-      putStrLn $ "out ok, b == b0, b:> "
-                 ++ show b ++ " b0: " ++ show b0 ++ " i: " ++ show i
+    when (n <= 4) $
+      putStrLn $ "out (Ok b == b0): "
+                 ++ "b: " ++ show b ++ " b0: " ++ show b0 ++ " i: " ++ show i
+
     xs ← out (n + 1) (not b) bs
     return $ i :> xs
   else do
+    when (n <= 4) $
+      putStrLn $ "out (Ok b ≠ b0): "
+                 ++ "b: " ++ show b ++ " b0: " ++ show b0 ++ " i: " ++ show i
+
     xs ← out (n + 1) b bs
     return xs
 out n b (Error :> bs) = do
-  when (n <= 1) $ print "out: Error"
+  when (n <= 4) $ putStrLn "out (Error)"
   xs ← out (n + 1) b bs
   return xs
 
@@ -99,16 +107,25 @@ abpTrans b os0 os1 is = out 0 b bs
 ------------------------------------------------------------------------------
 -- Simulation
 
-os0' ∷ Stream Bit
-os0' = True :> False :> os0'
-
-os1' ∷ Stream Bit
-os1' = False :> True :> os1'
-
-is' ∷ Stream Int
-is' = 1 :> 2 :> 3 :> is'
-
 main ∷ IO ()
 main = do
-  xs ← abpTrans True os0' os1' is'
-  print $ S.take 10 xs
+
+  [g1, g2, g3, g4] ← replicateM 4 newStdGen
+
+  let is ∷ Stream Int
+      is = S.fromList $ randoms g1
+
+      os0, os1 ∷ Stream Bit
+      os0 = S.fromList $ randoms g2
+      os1 = S.fromList $ randoms g3
+
+      startBit ∷ Bit
+      startBit = fst $ random g4
+
+      n ∷ Int
+      n = 100
+
+  js ← abpTrans startBit os0 os1 is
+
+  print $ S.take n js
+  print $ S.take n is == S.take n js

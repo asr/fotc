@@ -10,22 +10,23 @@
 --   Concurrent Systems. In: Formal Aspects of Computing 1,
 --   pp. 303–319.
 
--- Tested with the streams library 3.1.1 and QuickCheck 2.6.
+-- Tested with random 1.0.1.1, QuickCheck 2.6 and streams 3.1.1.
 
 ------------------------------------------------------------------------------
 module Main where
 
-import Control.Monad ( liftM2 )
+import Control.Monad ( liftM2, replicateM )
 
 import Data.Stream.Infinite as S
-  ( Stream((:>))
+  ( Stream( (:>) )
+  , fromList
   , take
   )
 
+import System.Random ( newStdGen, random, randoms )
+
 import Test.QuickCheck
-  ( Arbitrary(arbitrary)
-  , quickCheck
-  )
+  ( Arbitrary( arbitrary ), quickCheck )
 
 ------------------------------------------------------------------------------
 type Bit = Bool
@@ -87,8 +88,35 @@ instance Arbitrary a ⇒ Arbitrary (Stream a) where
   arbitrary = liftM2 (:>) arbitrary arbitrary
 
 prop ∷ Stream Int → Stream Bit → Stream Bit → Bit → Bool
-prop input os1 os2 initialBit =
-  S.take 10 input == S.take 10 (abpTrans initialBit os1 os2 input)
+prop is os0 os1 startBit =
+  S.take 10 is == S.take 10 (abpTrans startBit os0 os1 is)
+
+-- main ∷ IO ()
+-- main = quickCheck prop
+
+------------------------------------------------------------------------------
+-- Simulation
 
 main ∷ IO ()
-main = quickCheck prop
+main = do
+
+  [g1, g2, g3, g4] ← replicateM 4 newStdGen
+
+  let is ∷ Stream Int
+      is = S.fromList $ randoms g1
+
+      os0, os1 ∷ Stream Bit
+      os0 = S.fromList $ randoms g2
+      os1 = S.fromList $ randoms g3
+
+      startBit ∷ Bit
+      startBit = fst $ random g4
+
+      js ∷ Stream Int
+      js = abpTrans startBit os0 os1 is
+
+      n ∷ Int
+      n = 100
+
+  print $ S.take n js
+  print $ S.take n is == S.take n js
