@@ -52,8 +52,8 @@ module Helper where
          , as''-eq , bs''-eq ,  cs''-eq , refl , js'-eq
 
     where
-    os'₁-eq-helper : os₁' ≡ T ∷ os₁''
-    os'₁-eq-helper =
+    os₁'-eq-helper : os₁' ≡ T ∷ os₁''
+    os₁'-eq-helper =
       os₁'                 ≡⟨ os₁'-eq ⟩
       (true ∷ []) ++ os₁'' ≡⟨ ++-∷ true [] os₁'' ⟩
       true ∷ [] ++ os₁''   ≡⟨ ∷-rightCong (++-leftIdentity os₁'') ⟩
@@ -66,7 +66,7 @@ module Helper where
     ds'-eq =
       ds' ≡⟨ ds'ABP' ⟩
       corrupt os₁' · (b ∷ cs')
-        ≡⟨ ·-leftCong (corruptCong os'₁-eq-helper) ⟩
+        ≡⟨ ·-leftCong (corruptCong os₁'-eq-helper) ⟩
       corrupt (T ∷ os₁'') · (b ∷ cs')
         ≡⟨ corrupt-T os₁'' b cs' ⟩
       ok b ∷ corrupt os₁'' · cs'
