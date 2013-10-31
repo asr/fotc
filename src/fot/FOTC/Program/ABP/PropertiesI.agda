@@ -16,3 +16,6 @@ open import FOTC.Program.ABP.ABP
 awaitCong₄ : ∀ {b i is ds₁ ds₂} → ds₁ ≡ ds₂ →
              await b i is ds₁ ≡ await b i is ds₂
 awaitCong₄ refl = refl
+
+corruptCong : ∀ {os₁ os₂} → os₁ ≡ os₂ → corrupt os₁ ≡ corrupt os₂
+corruptCong refl = refl

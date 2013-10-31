@@ -36,15 +36,15 @@ module Helper where
   {-# ATP definition as^ #-}
 
   bs^ : D → D → D → D → D → D
-  bs^ b i' is' ds os₀^ = corrupt · os₀^ · (as^ b i' is' ds)
+  bs^ b i' is' ds os₀^ = corrupt os₀^ · (as^ b i' is' ds)
   {-# ATP definition bs^ #-}
 
   cs^ : D → D → D → D → D → D
-  cs^ b i' is' ds os₀^ = ack · b · (bs^ b i' is' ds os₀^)
+  cs^ b i' is' ds os₀^ = ack b · (bs^ b i' is' ds os₀^)
   {-# ATP definition cs^ #-}
 
   ds^ : D → D → D → D → D → D → D
-  ds^ b i' is' ds os₀^ os₁^ = corrupt · os₁^ · cs^ b i' is' ds os₀^
+  ds^ b i' is' ds os₀^ os₁^ = corrupt os₁^ · cs^ b i' is' ds os₀^
   {-# ATP definition ds^ #-}
 
   os₀^ : D → D → D
@@ -71,11 +71,11 @@ module Helper where
       prf : ∃[ os₀' ] ∃[ os₁' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
             Fair os₀'
             ∧ Fair os₁'
-            ∧ (ds' ≡ corrupt · os₁' · (b ∷ cs')
+            ∧ (ds' ≡ corrupt os₁' · (b ∷ cs')
               ∧ as' ≡ await b i' is' ds'
-              ∧ bs' ≡ corrupt · os₀' · as'
-              ∧ cs' ≡ ack · not b · bs'
-              ∧ js' ≡ out · not b · bs')
+              ∧ bs' ≡ corrupt os₀' · as'
+              ∧ cs' ≡ ack (not b) · bs'
+              ∧ js' ≡ out (not b) · bs')
             ∧ js ≡ i' ∷ js'
     {-# ATP prove prf #-}
   helper {b} {i'} {is'} {os₀} {os₁} {as} {bs} {cs} {ds} {js} Bb Fos₁ abp
@@ -113,20 +113,20 @@ module Helper where
     postulate
       as^-eq-helper₁ : ds ≡ ok (not b) ∷ ds^ b i' is' ds (os₀^ os₀' ft₀^) (os₁^ os₁) →
                        as^ b i' is' ds ≡
-                       send · b · (i' ∷ is') · ds^ b i' is' ds (os₀^ os₀' ft₀^) (os₁^ os₁)
+                       send b · (i' ∷ is') · ds^ b i' is' ds (os₀^ os₀' ft₀^) (os₁^ os₁)
     {-# ATP prove as^-eq-helper₁ x≢not-x #-}
 
     postulate
       as^-eq-helper₂ : ds ≡ error ∷ ds^ b i' is' ds (os₀^ os₀' ft₀^) (os₁^ os₁) →
                        as^ b i' is' ds ≡
-                       send · b · (i' ∷ is') · ds^ b i' is' ds (os₀^ os₀' ft₀^) (os₁^ os₁)
+                       send b · (i' ∷ is') · ds^ b i' is' ds (os₀^ os₀' ft₀^) (os₁^ os₁)
     {-# ATP prove as^-eq-helper₂ #-}
 
     as^-eq : as^ b i' is' ds ≡
-             send · b · (i' ∷ is') · ds^ b i' is' ds (os₀^ os₀' ft₀^) (os₁^ os₁)
+             send b · (i' ∷ is') · ds^ b i' is' ds (os₀^ os₀' ft₀^) (os₁^ os₁)
     as^-eq = case as^-eq-helper₁ as^-eq-helper₂ ds-eq
 
-    postulate js-eq : js ≡ out · b · bs^ b i' is' ds (os₀^ os₀' ft₀^)
+    postulate js-eq : js ≡ out b · bs^ b i' is' ds (os₀^ os₀' ft₀^)
     {-# ATP prove js-eq bs-eq #-}
 
     ABPIH : ABP b

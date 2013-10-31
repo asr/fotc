@@ -99,8 +99,8 @@ spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ = ≈-coind B prf₁ prf₂
        , trans (abpTransfer-eq b os₀ os₁ is) (transfer-eq a₁ a₂ a₃ a₄ a₅ is)
     where
     a₁ a₂ a₃ a₄ a₅ : D
-    a₁ = send · b
-    a₂ = ack · b
-    a₃ = out · b
-    a₄ = corrupt · os₀
-    a₅ = corrupt · os₁
+    a₁ = send b
+    a₂ = ack b
+    a₃ = out b
+    a₄ = corrupt os₀
+    a₅ = corrupt os₁

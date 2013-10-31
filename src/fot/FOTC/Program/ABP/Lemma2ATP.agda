@@ -35,7 +35,7 @@ module Helper where
   -- simple for the ATPs.
 
   ds^ : D → D → D
-  ds^ cs' os₁^ = corrupt · os₁^ · cs'
+  ds^ cs' os₁^ = corrupt os₁^ · cs'
   {-# ATP definition ds^ #-}
 
   as^ : D → D → D → D → D → D
@@ -43,11 +43,11 @@ module Helper where
   {-# ATP definition as^ #-}
 
   bs^ : D → D → D → D → D → D → D
-  bs^ b i' is' cs' os₀^ os₁^ = corrupt · os₀^ · as^ b i' is' cs' os₁^
+  bs^ b i' is' cs' os₀^ os₁^ = corrupt os₀^ · as^ b i' is' cs' os₁^
   {-# ATP definition bs^ #-}
 
   cs^ : D → D → D → D → D → D → D
-  cs^ b i' is' cs' os₀^ os₁^ = ack · not b · bs^ b i' is' cs' os₀^ os₁^
+  cs^ b i' is' cs' os₀^ os₁^ = ack (not b) · bs^ b i' is' cs' os₀^ os₁^
   {-# ATP definition cs^ #-}
 
   os₀^ : D → D
@@ -74,11 +74,11 @@ module Helper where
       prf : ∃[ os₀'' ] ∃[ os₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
             Fair os₀''
             ∧ Fair os₁''
-            ∧ as'' ≡ send · not b · is' · ds''
-            ∧ bs'' ≡ corrupt · os₀'' · as''
-            ∧ cs'' ≡ ack · not b · bs''
-            ∧ ds'' ≡ corrupt · os₁'' · cs''
-            ∧ js'  ≡ out · not b · bs''
+            ∧ as'' ≡ send (not b) · is' · ds''
+            ∧ bs'' ≡ corrupt os₀'' · as''
+            ∧ cs'' ≡ ack (not b) · bs''
+            ∧ ds'' ≡ corrupt os₁'' · cs''
+            ∧ js'  ≡ out (not b) · bs''
     {-# ATP prove prf #-}
 
   helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
@@ -112,36 +112,39 @@ module Helper where
                   (head-tail-Fair Fos₀')
 
     postulate
-      cs'-eq-helper₁ : bs' ≡ ok < i' , b > ∷ bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'') →
-                       cs' ≡ b ∷ cs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'')
+      cs'-eq-helper₁ :
+        bs' ≡ ok < i' , b > ∷ bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'') →
+        cs' ≡ b ∷ cs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'')
     {-# ATP prove cs'-eq-helper₁ not-x≢x not-involutive #-}
 
     postulate
-      cs'-eq-helper₂ : bs' ≡ error ∷ bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'') →
-                       cs' ≡ b ∷ cs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'')
+      cs'-eq-helper₂ :
+        bs' ≡ error ∷ bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'') →
+        cs' ≡ b ∷ cs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'')
     {-# ATP prove cs'-eq-helper₂ not-involutive #-}
 
     cs'-eq : cs' ≡ b ∷ cs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'')
     cs'-eq = case cs'-eq-helper₁ cs'-eq-helper₂ bs'-eq
 
     postulate
-      js'-eq-helper₁ : bs' ≡ ok < i' , b > ∷ bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'') →
-                       js' ≡ out · not b
-                                 · bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'')
+      js'-eq-helper₁ :
+        bs' ≡ ok < i' , b > ∷ bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'') →
+        js' ≡ out (not b) · bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'')
     {-# ATP prove js'-eq-helper₁ not-x≢x #-}
 
     postulate
-      js'-eq-helper₂ : bs' ≡ error ∷ bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'') →
-                       js' ≡ out · not b
-                                 · bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'')
+      js'-eq-helper₂ :
+        bs' ≡ error ∷ bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'') →
+        js' ≡ out (not b) · bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'')
     {-# ATP prove js'-eq-helper₂ #-}
 
-    js'-eq : js' ≡ out · not b · bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'')
+    js'-eq : js' ≡ out (not b) · bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'')
     js'-eq = case js'-eq-helper₁ js'-eq-helper₂ bs'-eq
 
-    postulate ds^-eq : ds^ cs' (os₁^ ft₁ os₁'') ≡
-                       corrupt · (os₁^ ft₁ os₁'')
-                               · (b ∷ cs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁''))
+    postulate
+      ds^-eq : ds^ cs' (os₁^ ft₁ os₁'') ≡
+               corrupt (os₁^ ft₁ os₁'') ·
+                 (b ∷ cs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁''))
 
     ABP'IH : ABP' b i' is'
                   (os₀^ os₀')

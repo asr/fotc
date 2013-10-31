@@ -44,11 +44,11 @@ spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ = ≈-coind B prf₁ prf₂
   prf₂ = b , os₀ , os₁ , as , bs , cs , ds , helper
     where
     a₁ a₂ a₃ a₄ a₅ : D
-    a₁ = send · b
-    a₂ = ack · b
-    a₃ = out · b
-    a₄ = corrupt · os₀
-    a₅ = corrupt · os₁
+    a₁ = send b
+    a₂ = ack b
+    a₃ = out b
+    a₄ = corrupt os₀
+    a₅ = corrupt os₁
     {-# ATP definition a₁ a₂ a₃ a₄ a₅ #-}
 
     as bs cs ds : D

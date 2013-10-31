@@ -69,41 +69,40 @@ module Helper where
     as-eq = trans asABP (send-eq b i' is' ds)
 
     bs' : D
-    bs' = corrupt · os₀' · as'
+    bs' = corrupt os₀' · as'
 
     bs-eq : bs ≡ ok < i' , b > ∷ bs'
     bs-eq =
-     bs
-        ≡⟨ bsABP ⟩
-      corrupt · os₀ · as
+     bs ≡⟨ bsABP ⟩
+      corrupt os₀ · as
         ≡⟨ ·-rightCong as-eq ⟩
-      corrupt · os₀ · (< i' , b > ∷ as')
-        ≡⟨ ·-leftCong (·-rightCong os₀-eq-helper) ⟩
-          corrupt · (T ∷ os₀') · (< i' , b > ∷ as')
+      corrupt os₀ · (< i' , b > ∷ as')
+        ≡⟨ ·-leftCong (corruptCong os₀-eq-helper) ⟩
+      corrupt (T ∷ os₀') · (< i' , b > ∷ as')
         ≡⟨ corrupt-T os₀' < i' , b > as' ⟩
-      ok < i' , b > ∷ corrupt · os₀' · as'
+      ok < i' , b > ∷ corrupt os₀' · as'
         ≡⟨ refl ⟩
       ok < i' , b > ∷ bs' ∎
 
     cs' : D
-    cs' = ack · not b · bs'
+    cs' = ack (not b) · bs'
 
     cs-eq : cs ≡ b ∷ cs'
-    cs-eq = cs                              ≡⟨ csABP ⟩
-            ack · b · bs                    ≡⟨ ·-rightCong bs-eq ⟩
-            ack · b · (ok < i' , b > ∷ bs') ≡⟨ ack-ok≡ b b i' bs' refl ⟩
-            b ∷ ack · not b · bs'           ≡⟨ refl ⟩
-            b ∷ cs'                         ∎
+    cs-eq = cs                            ≡⟨ csABP ⟩
+            ack b · bs                    ≡⟨ ·-rightCong bs-eq ⟩
+            ack b · (ok < i' , b > ∷ bs') ≡⟨ ack-ok≡ b b i' bs' refl ⟩
+            b ∷ ack (not b) · bs'         ≡⟨ refl ⟩
+            b ∷ cs'                       ∎
 
     js' : D
-    js' = out · not b · bs'
+    js' = out (not b) · bs'
 
     js-eq : js ≡ i' ∷ js'
-    js-eq = js                              ≡⟨ jsABP ⟩
-            out · b · bs                    ≡⟨ ·-rightCong bs-eq ⟩
-            out · b · (ok < i' , b > ∷ bs') ≡⟨ out-ok≡ b b i' bs' refl ⟩
-            i' ∷ out · not b · bs'          ≡⟨ refl ⟩
-            i' ∷ js'                        ∎
+    js-eq = js                            ≡⟨ jsABP ⟩
+            out b · bs                    ≡⟨ ·-rightCong bs-eq ⟩
+            out b · (ok < i' , b > ∷ bs') ≡⟨ out-ok≡ b b i' bs' refl ⟩
+            i' ∷ out (not b) · bs'        ≡⟨ refl ⟩
+            i' ∷ js'                      ∎
 
     ds' : D
     ds' = ds
@@ -111,17 +110,16 @@ module Helper where
     os₁' : D
     os₁' = os₁
 
-    ds'-eq : ds' ≡ corrupt · os₁ · (b ∷ ack · not b ·
-                   (corrupt · os₀' · (await b i' is' ds)))
+    ds'-eq : ds' ≡ corrupt os₁ · (b ∷ ack (not b) ·
+                     (corrupt os₀' · (await b i' is' ds)))
     ds'-eq =
       ds'
         ≡⟨ dsAbs ⟩
-      corrupt · os₁ · cs
+      corrupt os₁ · cs
         ≡⟨ ·-rightCong cs-eq ⟩
-      corrupt · os₁ · (b ∷ cs')
+      corrupt os₁ · (b ∷ cs')
         ≡⟨ refl ⟩
-      corrupt · os₁ · (b ∷ ack · not b ·
-                (corrupt · os₀' · (await b i' is' ds))) ∎
+      corrupt os₁ · (b ∷ ack (not b) · (corrupt os₀' · (await b i' is' ds))) ∎
 
   helper {b} {i'} {is'} {os₀} {os₁} {as} {bs} {cs} {ds} {js}
          Bb Fos₁ (asABP , bsABP , csABP , dsAbs , jsABP)
@@ -148,59 +146,59 @@ module Helper where
     as-eq = trans asABP (send-eq b i' is' ds)
 
     bs^ : D
-    bs^ = corrupt · os₀^ · as^
+    bs^ = corrupt os₀^ · as^
 
     bs-eq : bs ≡ error ∷ bs^
     bs-eq =
       bs
         ≡⟨ bsABP ⟩
-      corrupt · os₀ · as
+      corrupt os₀ · as
         ≡⟨ ·-rightCong as-eq ⟩
-      corrupt · os₀ · (< i' , b > ∷ as^)
-        ≡⟨ ·-leftCong (·-rightCong os₀-eq-helper) ⟩
-      corrupt · (F ∷ os₀^) · (< i' , b > ∷ as^)
+      corrupt os₀ · (< i' , b > ∷ as^)
+        ≡⟨ ·-leftCong (corruptCong os₀-eq-helper) ⟩
+      corrupt (F ∷ os₀^) · (< i' , b > ∷ as^)
         ≡⟨ corrupt-F os₀^ < i' , b > as^ ⟩
-      error ∷ corrupt · os₀^ · as^
+      error ∷ corrupt os₀^ · as^
         ≡⟨ refl ⟩
       error ∷ bs^ ∎
 
     cs^ : D
-    cs^ = ack · b · bs^
+    cs^ = ack b · bs^
 
     cs-eq : cs ≡ not b ∷ cs^
-    cs-eq = cs                      ≡⟨ csABP ⟩
-            ack · b · bs            ≡⟨ ·-rightCong bs-eq ⟩
-            ack · b · (error ∷ bs^) ≡⟨ ack-error b bs^ ⟩
-            not b ∷ ack · b · bs^   ≡⟨ refl ⟩
-            not b ∷ cs^             ∎
+    cs-eq = cs                    ≡⟨ csABP ⟩
+            ack b · bs            ≡⟨ ·-rightCong bs-eq ⟩
+            ack b · (error ∷ bs^) ≡⟨ ack-error b bs^ ⟩
+            not b ∷ ack b · bs^   ≡⟨ refl ⟩
+            not b ∷ cs^           ∎
 
     ds^ : D
-    ds^ = corrupt · os₁^ · cs^
+    ds^ = corrupt os₁^ · cs^
 
     ds-eq-helper₁ : os₁ ≡ T ∷ tail₁ os₁ → ds ≡ ok (not b) ∷ ds^
     ds-eq-helper₁ h =
-      ds                                   ≡⟨ dsAbs ⟩
-      corrupt · os₁ · cs                   ≡⟨ ·-rightCong cs-eq ⟩
-      corrupt · os₁ · (not b ∷ cs^)        ≡⟨ ·-leftCong (·-rightCong h) ⟩
-      corrupt · (T ∷ os₁^) · (not b ∷ cs^) ≡⟨ corrupt-T os₁^ (not b) cs^ ⟩
-      ok (not b) ∷ corrupt · os₁^ · cs^    ≡⟨ refl ⟩
-      ok (not b) ∷ ds^                     ∎
+      ds                                 ≡⟨ dsAbs ⟩
+      corrupt os₁ · cs                   ≡⟨ ·-rightCong cs-eq ⟩
+      corrupt os₁ · (not b ∷ cs^)        ≡⟨ ·-leftCong (corruptCong h) ⟩
+      corrupt (T ∷ os₁^) · (not b ∷ cs^) ≡⟨ corrupt-T os₁^ (not b) cs^ ⟩
+      ok (not b) ∷ corrupt os₁^ · cs^    ≡⟨ refl ⟩
+      ok (not b) ∷ ds^                   ∎
 
     ds-eq-helper₂ : os₁ ≡ F ∷ tail₁ os₁ → ds ≡ error ∷ ds^
     ds-eq-helper₂ h =
-      ds                                   ≡⟨ dsAbs ⟩
-      corrupt · os₁ · cs                   ≡⟨ ·-rightCong cs-eq ⟩
-      corrupt · os₁ · (not b ∷ cs^)        ≡⟨ ·-leftCong (·-rightCong h) ⟩
-      corrupt · (F ∷ os₁^) · (not b ∷ cs^) ≡⟨ corrupt-F os₁^ (not b) cs^ ⟩
-      error ∷ corrupt · os₁^ · cs^         ≡⟨ refl ⟩
-      error ∷ ds^                          ∎
+      ds                                 ≡⟨ dsAbs ⟩
+      corrupt os₁ · cs                   ≡⟨ ·-rightCong cs-eq ⟩
+      corrupt os₁ · (not b ∷ cs^)        ≡⟨ ·-leftCong (corruptCong h) ⟩
+      corrupt (F ∷ os₁^) · (not b ∷ cs^) ≡⟨ corrupt-F os₁^ (not b) cs^ ⟩
+      error ∷ corrupt os₁^ · cs^         ≡⟨ refl ⟩
+      error ∷ ds^                        ∎
 
     ds-eq : ds ≡ ok (not b) ∷ ds^ ∨ ds ≡ error ∷ ds^
     ds-eq = case (λ h → inj₁ (ds-eq-helper₁ h))
                  (λ h → inj₂ (ds-eq-helper₂ h))
                  (head-tail-Fair Fos₁)
 
-    as^-eq-helper₁ : ds ≡ ok (not b) ∷ ds^ → as^ ≡ send · b · (i' ∷ is') · ds^
+    as^-eq-helper₁ : ds ≡ ok (not b) ∷ ds^ → as^ ≡ send b · (i' ∷ is') · ds^
     as^-eq-helper₁ h =
       await b i' is' ds
         ≡⟨ awaitCong₄ h ⟩
@@ -208,23 +206,23 @@ module Helper where
         ≡⟨ await-ok≢ b (not b) i' is' ds^ (x≢not-x Bb) ⟩
       < i' , b > ∷ await b i' is' ds^
         ≡⟨ sym (send-eq b i' is' ds^) ⟩
-      send · b · (i' ∷ is') · ds^ ∎
+      send b · (i' ∷ is') · ds^ ∎
 
-    as^-eq-helper₂ : ds ≡ error ∷ ds^ → as^ ≡ send · b · (i' ∷ is') · ds^
+    as^-eq-helper₂ : ds ≡ error ∷ ds^ → as^ ≡ send b · (i' ∷ is') · ds^
     as^-eq-helper₂ h =
       await b i' is' ds               ≡⟨ awaitCong₄ h ⟩
       await b i' is' (error ∷ ds^)    ≡⟨ await-error b i' is' ds^ ⟩
       < i' , b > ∷ await b i' is' ds^ ≡⟨ sym (send-eq b i' is' ds^) ⟩
-      send · b · (i' ∷ is') · ds^     ∎
+      send b · (i' ∷ is') · ds^     ∎
 
-    as^-eq : as^ ≡ send · b · (i' ∷ is') · ds^
+    as^-eq : as^ ≡ send b · (i' ∷ is') · ds^
     as^-eq = case as^-eq-helper₁ as^-eq-helper₂ ds-eq
 
-    js-eq : js ≡ out · b · bs^
-    js-eq = js                      ≡⟨ jsABP ⟩
-            out · b · bs            ≡⟨ ·-rightCong bs-eq ⟩
-            out · b · (error ∷ bs^) ≡⟨ out-error b bs^ ⟩
-            out · b · bs^ ∎
+    js-eq : js ≡ out b · bs^
+    js-eq = js                    ≡⟨ jsABP ⟩
+            out b · bs            ≡⟨ ·-rightCong bs-eq ⟩
+            out b · (error ∷ bs^) ≡⟨ out-error b bs^ ⟩
+            out b · bs^ ∎
 
     ABPIH : ABP b (i' ∷ is') os₀^ os₁^ as^ bs^ cs^ ds^ js
     ABPIH = as^-eq , refl , refl , refl , js-eq
