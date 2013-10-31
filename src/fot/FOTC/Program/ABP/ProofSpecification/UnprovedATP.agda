@@ -31,9 +31,9 @@ open import FOTC.Relation.Binary.Bisimilarity
 
 ------------------------------------------------------------------------------
 -- Main theorem.
-spec : ∀ {b is os₀ os₁} → Bit b → Stream is → Fair os₀ → Fair os₁ →
-       is ≈ abpTransfer b os₀ os₁ is
-spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ = ≈-coind B prf₁ prf₂
+spec : ∀ {b is os₁ os₂} → Bit b → Stream is → Fair os₁ → Fair os₂ →
+       is ≈ abpTransfer b os₁ os₂ is
+spec {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B prf₁ prf₂
   where
   postulate prf₁ : ∀ {is js} → B is js →
                    ∃[ i' ] ∃[ is' ] ∃[ js' ]
@@ -41,5 +41,5 @@ spec {b} {is} {os₀} {os₁} Bb Sis Fos₀ Fos₁ = ≈-coind B prf₁ prf₂
   {-# ATP prove prf₁ lemma₁ lemma₂ not-Bool #-}
 
   -- 31 July 2013: The ATPs could not prove the theorem (240 sec).
-  postulate prf₂ : B is (abpTransfer b os₀ os₁ is)
+  postulate prf₂ : B is (abpTransfer b os₁ os₂ is)
   {-# ATP prove prf₂ #-}

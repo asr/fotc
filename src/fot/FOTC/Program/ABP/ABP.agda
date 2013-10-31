@@ -98,10 +98,10 @@ postulate
 
 postulate
   abpTransfer    : D → D → D → D → D
-  abpTransfer-eq : ∀ b os₀ os₁ is →
-                   abpTransfer b os₀ os₁ is ≡
-                     transfer (send b) (ack b) (out b) (corrupt os₀)
-                       (corrupt os₁) is
+  abpTransfer-eq : ∀ b os₁ os₂ is →
+                   abpTransfer b os₁ os₂ is ≡
+                     transfer (send b) (ack b) (out b) (corrupt os₁)
+                       (corrupt os₂) is
 {-# ATP axiom abpTransfer-eq #-}
 
 ------------------------------------------------------------------------------
@@ -110,29 +110,29 @@ postulate
 -- Abbreviation for the recursive equations of the alternating bit
 -- protocol.
 ABP : D → D → D → D → D → D → D → D → D → Set
-ABP b is os₀ os₁ as bs cs ds js =
+ABP b is os₁ os₂ as bs cs ds js =
   as ≡ send b · is · ds
-  ∧ bs ≡ corrupt os₀ · as
+  ∧ bs ≡ corrupt os₁ · as
   ∧ cs ≡ ack b · bs
-  ∧ ds ≡ corrupt os₁ · cs
+  ∧ ds ≡ corrupt os₂ · cs
   ∧ js ≡ out b · bs
 {-# ATP definition ABP #-}
 
 ABP' : D → D → D → D → D → D → D → D → D → D → Set
-ABP' b i' is' os₀' os₁' as' bs' cs' ds' js' =
-  ds' ≡ corrupt os₁' · (b ∷ cs')
+ABP' b i' is' os₁' os₂' as' bs' cs' ds' js' =
+  ds' ≡ corrupt os₂' · (b ∷ cs')
   ∧ as' ≡ await b i' is' ds'  -- Typo in ds'.
-  ∧ bs' ≡ corrupt os₀' · as'
+  ∧ bs' ≡ corrupt os₁' · as'
   ∧ cs' ≡ ack (not b) · bs'
   ∧ js' ≡ out (not b) · bs'
 {-# ATP definition ABP' #-}
 
 -- Auxiliary bisimulation.
 B : D → D → Set
-B is js = ∃[ b ] ∃[ os₀ ] ∃[ os₁ ] ∃[ as ] ∃[ bs ] ∃[ cs ] ∃[ ds ]
+B is js = ∃[ b ] ∃[ os₁ ] ∃[ os₂ ] ∃[ as ] ∃[ bs ] ∃[ cs ] ∃[ ds ]
             Stream is
             ∧ Bit b
-            ∧ Fair os₀
             ∧ Fair os₁
-            ∧ ABP b is os₀ os₁ as bs cs ds js
+            ∧ Fair os₂
+            ∧ ABP b is os₁ os₂ as bs cs ds js
 {-# ATP definition B #-}

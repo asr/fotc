@@ -56,7 +56,7 @@ corrupt (false ∷ os) (x ∷ xs) = ok x ∷ ♯ (corrupt (♭ os) (♭ xs))
 -- The ABP transfer function.
 {-# NO_TERMINATION_CHECK #-}
 abpTrans : {A : Set} → Bit → Stream Bit → Stream Bit → Stream A → Stream A
-abpTrans {A} b os₀ os₁ is = out b bs
+abpTrans {A} b os₁ os₂ is = out b bs
   where
   as : Stream (A × Bit)
   bs : Stream (Err (A × Bit))
@@ -64,6 +64,6 @@ abpTrans {A} b os₀ os₁ is = out b bs
   ds : Stream (Err Bit)
 
   as = send b is ds
-  bs = corrupt os₀ as
+  bs = corrupt os₁ as
   cs = ack b bs
-  ds = corrupt os₁ cs
+  ds = corrupt os₂ cs

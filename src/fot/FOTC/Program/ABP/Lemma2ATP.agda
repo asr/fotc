@@ -35,144 +35,144 @@ module Helper where
   -- simple for the ATPs.
 
   ds^ : D → D → D
-  ds^ cs' os₁^ = corrupt os₁^ · cs'
+  ds^ cs' os₂^ = corrupt os₂^ · cs'
   {-# ATP definition ds^ #-}
 
   as^ : D → D → D → D → D → D
-  as^ b i' is' cs' os₁^ = await b i' is' (ds^ cs' os₁^)
+  as^ b i' is' cs' os₂^ = await b i' is' (ds^ cs' os₂^)
   {-# ATP definition as^ #-}
 
   bs^ : D → D → D → D → D → D → D
-  bs^ b i' is' cs' os₀^ os₁^ = corrupt os₀^ · as^ b i' is' cs' os₁^
+  bs^ b i' is' cs' os₁^ os₂^ = corrupt os₁^ · as^ b i' is' cs' os₂^
   {-# ATP definition bs^ #-}
 
   cs^ : D → D → D → D → D → D → D
-  cs^ b i' is' cs' os₀^ os₁^ = ack (not b) · bs^ b i' is' cs' os₀^ os₁^
+  cs^ b i' is' cs' os₁^ os₂^ = ack (not b) · bs^ b i' is' cs' os₁^ os₂^
   {-# ATP definition cs^ #-}
 
-  os₀^ : D → D
-  os₀^ os₀' = tail₁ os₀'
-  {-# ATP definition os₀^ #-}
-
-  os₁^ : D → D → D
-  os₁^ ft₁ os₁'' = ft₁ ++ os₁''
+  os₁^ : D → D
+  os₁^ os₁' = tail₁ os₁'
   {-# ATP definition os₁^ #-}
 
-  helper : ∀ {b i' is' os₀' os₁' as' bs' cs' ds' js'} →
+  os₂^ : D → D → D
+  os₂^ ft₂ os₂'' = ft₂ ++ os₂''
+  {-# ATP definition os₂^ #-}
+
+  helper : ∀ {b i' is' os₁' os₂' as' bs' cs' ds' js'} →
            Bit b →
-           Fair os₀' →
-           ABP' b i' is' os₀' os₁' as' bs' cs' ds' js' →
-           ∀ ft₁ os₁'' → F*T ft₁ → Fair os₁'' → os₁' ≡ ft₁ ++ os₁'' →
-           ∃[ os₀'' ] ∃[ os₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
-           Fair os₀''
-           ∧ Fair os₁''
-           ∧ ABP (not b) is' os₀'' os₁'' as'' bs'' cs'' ds'' js'
-  helper {b} {i'} {is'} {js' = js'} Bb Fos₀' abp'
-         .(T ∷ []) os₁'' f*tnil Fos₁'' os₁'-eq = prf
+           Fair os₁' →
+           ABP' b i' is' os₁' os₂' as' bs' cs' ds' js' →
+           ∀ ft₂ os₂'' → F*T ft₂ → Fair os₂'' → os₂' ≡ ft₂ ++ os₂'' →
+           ∃[ os₁'' ] ∃[ os₂'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
+           Fair os₁''
+           ∧ Fair os₂''
+           ∧ ABP (not b) is' os₁'' os₂'' as'' bs'' cs'' ds'' js'
+  helper {b} {i'} {is'} {js' = js'} Bb Fos₁' abp'
+         .(T ∷ []) os₂'' f*tnil Fos₂'' os₂'-eq = prf
     where
     postulate
-      prf : ∃[ os₀'' ] ∃[ os₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
-            Fair os₀''
-            ∧ Fair os₁''
+      prf : ∃[ os₁'' ] ∃[ os₂'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
+            Fair os₁''
+            ∧ Fair os₂''
             ∧ as'' ≡ send (not b) · is' · ds''
-            ∧ bs'' ≡ corrupt os₀'' · as''
+            ∧ bs'' ≡ corrupt os₁'' · as''
             ∧ cs'' ≡ ack (not b) · bs''
-            ∧ ds'' ≡ corrupt os₁'' · cs''
+            ∧ ds'' ≡ corrupt os₂'' · cs''
             ∧ js'  ≡ out (not b) · bs''
     {-# ATP prove prf #-}
 
-  helper {b} {i'} {is'} {os₀'} {os₁'} {as'} {bs'} {cs'} {ds'} {js'}
-         Bb Fos₀' abp'
-         .(F ∷ ft₁) os₁'' (f*tcons {ft₁} FTft₁) Fos₁'' os₁'-eq
-         = helper Bb (tail-Fair Fos₀') ABP'IH ft₁ os₁'' FTft₁ Fos₁'' refl
+  helper {b} {i'} {is'} {os₁'} {os₂'} {as'} {bs'} {cs'} {ds'} {js'}
+         Bb Fos₁' abp'
+         .(F ∷ ft₂) os₂'' (f*tcons {ft₂} FTft₂) Fos₂'' os₂'-eq
+         = helper Bb (tail-Fair Fos₁') ABP'IH ft₂ os₂'' FTft₂ Fos₂'' refl
     where
-    postulate os₁'-eq-helper : os₁' ≡ F ∷ os₁^ ft₁ os₁''
-    {-# ATP prove os₁'-eq-helper #-}
+    postulate os₂'-eq-helper : os₂' ≡ F ∷ os₂^ ft₂ os₂''
+    {-# ATP prove os₂'-eq-helper #-}
 
-    postulate ds'-eq : ds' ≡ error ∷ ds^ cs' (os₁^ ft₁ os₁'')
-    {-# ATP prove ds'-eq os₁'-eq-helper #-}
+    postulate ds'-eq : ds' ≡ error ∷ ds^ cs' (os₂^ ft₂ os₂'')
+    {-# ATP prove ds'-eq os₂'-eq-helper #-}
 
-    postulate as'-eq : as' ≡ < i' , b > ∷ as^ b i' is' cs' (os₁^ ft₁ os₁'')
+    postulate as'-eq : as' ≡ < i' , b > ∷ as^ b i' is' cs' (os₂^ ft₂ os₂'')
     {-# ATP prove as'-eq #-}
 
     postulate
-      bs'-eq-helper₁ : os₀' ≡ T ∷ tail₁ os₀' →
-                       bs' ≡ ok < i' , b > ∷ bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'')
+      bs'-eq-helper₁ : os₁' ≡ T ∷ tail₁ os₁' →
+                       bs' ≡ ok < i' , b > ∷ bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'')
     {-# ATP prove bs'-eq-helper₁ as'-eq #-}
 
     postulate
-      bs'-eq-helper₂ : os₀' ≡ F ∷ tail₁ os₀' →
-                       bs' ≡ error ∷ bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'')
+      bs'-eq-helper₂ : os₁' ≡ F ∷ tail₁ os₁' →
+                       bs' ≡ error ∷ bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'')
     {-# ATP prove bs'-eq-helper₂ as'-eq #-}
 
-    bs'-eq : bs' ≡ ok < i' , b > ∷ bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'')
-             ∨ bs' ≡ error ∷ bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'')
+    bs'-eq : bs' ≡ ok < i' , b > ∷ bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'')
+             ∨ bs' ≡ error ∷ bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'')
     bs'-eq = case (λ h → inj₁ (bs'-eq-helper₁ h))
                   (λ h → inj₂ (bs'-eq-helper₂ h))
-                  (head-tail-Fair Fos₀')
+                  (head-tail-Fair Fos₁')
 
     postulate
       cs'-eq-helper₁ :
-        bs' ≡ ok < i' , b > ∷ bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'') →
-        cs' ≡ b ∷ cs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'')
+        bs' ≡ ok < i' , b > ∷ bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'') →
+        cs' ≡ b ∷ cs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'')
     {-# ATP prove cs'-eq-helper₁ not-x≢x not-involutive #-}
 
     postulate
       cs'-eq-helper₂ :
-        bs' ≡ error ∷ bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'') →
-        cs' ≡ b ∷ cs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'')
+        bs' ≡ error ∷ bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'') →
+        cs' ≡ b ∷ cs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'')
     {-# ATP prove cs'-eq-helper₂ not-involutive #-}
 
-    cs'-eq : cs' ≡ b ∷ cs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'')
+    cs'-eq : cs' ≡ b ∷ cs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'')
     cs'-eq = case cs'-eq-helper₁ cs'-eq-helper₂ bs'-eq
 
     postulate
       js'-eq-helper₁ :
-        bs' ≡ ok < i' , b > ∷ bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'') →
-        js' ≡ out (not b) · bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'')
+        bs' ≡ ok < i' , b > ∷ bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'') →
+        js' ≡ out (not b) · bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'')
     {-# ATP prove js'-eq-helper₁ not-x≢x #-}
 
     postulate
       js'-eq-helper₂ :
-        bs' ≡ error ∷ bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'') →
-        js' ≡ out (not b) · bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'')
+        bs' ≡ error ∷ bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'') →
+        js' ≡ out (not b) · bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'')
     {-# ATP prove js'-eq-helper₂ #-}
 
-    js'-eq : js' ≡ out (not b) · bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁'')
+    js'-eq : js' ≡ out (not b) · bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'')
     js'-eq = case js'-eq-helper₁ js'-eq-helper₂ bs'-eq
 
     postulate
-      ds^-eq : ds^ cs' (os₁^ ft₁ os₁'') ≡
-               corrupt (os₁^ ft₁ os₁'') ·
-                 (b ∷ cs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁''))
+      ds^-eq : ds^ cs' (os₂^ ft₂ os₂'') ≡
+               corrupt (os₂^ ft₂ os₂'') ·
+                 (b ∷ cs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂''))
 
     ABP'IH : ABP' b i' is'
-                  (os₀^ os₀')
-                  (os₁^ ft₁ os₁'')
-                  (as^ b i' is' cs' (os₁^ ft₁ os₁''))
-                  (bs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁''))
-                  (cs^ b i' is' cs' (os₀^ os₀') (os₁^ ft₁ os₁''))
-                  (ds^ cs' (os₁^ ft₁ os₁''))
+                  (os₁^ os₁')
+                  (os₂^ ft₂ os₂'')
+                  (as^ b i' is' cs' (os₂^ ft₂ os₂''))
+                  (bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂''))
+                  (cs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂''))
+                  (ds^ cs' (os₂^ ft₂ os₂''))
                   js'
     ABP'IH = ds^-eq , refl , refl , refl , js'-eq
 
 ------------------------------------------------------------------------------
--- From Dybjer and Sander's paper: From the assumption that os₁ ∈
--- Fair, and hence by unfolding Fair we conclude that there are ft₁ :
--- F*T and os₁'' : Fair, such that os₁' = ft₁ ++ os₁''.
+-- From Dybjer and Sander's paper: From the assumption that os₂ ∈
+-- Fair, and hence by unfolding Fair we conclude that there are ft₂ :
+-- F*T and os₂'' : Fair, such that os₂' = ft₂ ++ os₂''.
 --
--- We proceed by induction on ft₁ : F*T using helper.
+-- We proceed by induction on ft₂ : F*T using helper.
 
 open Helper
-lemma₂ : ∀ {b i' is' os₀' os₁' as' bs' cs' ds' js'} →
+lemma₂ : ∀ {b i' is' os₁' os₂' as' bs' cs' ds' js'} →
          Bit b →
-         Fair os₀' →
          Fair os₁' →
-         ABP' b i' is' os₀' os₁' as' bs' cs' ds' js' →
-         ∃[ os₀'' ] ∃[ os₁'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
-         Fair os₀''
-         ∧ Fair os₁''
-         ∧ ABP (not b) is' os₀'' os₁'' as'' bs'' cs'' ds'' js'
-lemma₂ Bb Fos₀' Fos₁' abp' with Fair-unf Fos₁'
-... | ft , os₀'' , FTft , h , Fos₀'' =
-  helper Bb Fos₀' abp' ft os₀'' FTft Fos₀'' h
+         Fair os₂' →
+         ABP' b i' is' os₁' os₂' as' bs' cs' ds' js' →
+         ∃[ os₁'' ] ∃[ os₂'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
+         Fair os₁''
+         ∧ Fair os₂''
+         ∧ ABP (not b) is' os₁'' os₂'' as'' bs'' cs'' ds'' js'
+lemma₂ Bb Fos₁' Fos₂' abp' with Fair-unf Fos₂'
+... | ft , os₁'' , FTft , h , Fos₁'' =
+  helper Bb Fos₁' abp' ft os₁'' FTft Fos₁'' h

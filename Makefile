@@ -70,7 +70,7 @@ snapshot_create_fot_files = $(call my_pathsubst,snapshot_create_fot,$(fot_path))
 snapshot_compare_fot_files = \
   $(call my_pathsubst,snapshot_compare_fot,$(fot_path))
 
-prove_fot_files = $(call my_pathsubst,prove_fot,$(fot_path))
+prove_fot_files = $(call my_pathsubst,prove_fot,$(fot_path)/FOTC/Program/ABP)
 
 consistency_fot_files = \
   $(patsubst %.agda,%.consistency_fot, \

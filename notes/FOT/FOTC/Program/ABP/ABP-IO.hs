@@ -80,19 +80,19 @@ corrupt (True :> os)  (x :> xs) = Ok x  :> corrupt os xs
 -- N.B. We use @forall@ instead of @∀@ because it generates an error
 -- with HLint (the issue is from haskell-src-exts).
 abpTrans ∷ Bit → Stream Bit → Stream Bit → Stream Int → IO (Stream Int)
-abpTrans b os0 os1 is = out 0 b bs
+abpTrans b os1 os2 is = out 0 b bs
   where
   as ∷ Stream (Int, Bit)
   as = send b is ds
 
   bs ∷ Stream (Err (Int, Bit))
-  bs = corrupt os0 as
+  bs = corrupt os1 as
 
   cs ∷ Stream Bit
   cs = ack b bs
 
   ds ∷ Stream (Err Bit)
-  ds = corrupt os1 cs
+  ds = corrupt os2 cs
 
 ------------------------------------------------------------------------------
 -- Testing
@@ -101,8 +101,8 @@ abpTrans b os0 os1 is = out 0 b bs
 --   arbitrary = liftM2 (:>) arbitrary arbitrary
 
 -- prop ∷ Stream Int → Stream Bit → Stream Bit → Bit → Bool
--- prop input os1 os2 initialBit =
---   S.take 10 input == S.take 10 (abpTrans initialBit os1 os2 input)
+-- prop input os2 os2 initialBit =
+--   S.take 10 input == S.take 10 (abpTrans initialBit os2 os2 input)
 
 ------------------------------------------------------------------------------
 -- Simulation
@@ -115,9 +115,9 @@ main = do
   let is ∷ Stream Int
       is = S.fromList $ randoms g1
 
-      os0, os1 ∷ Stream Bit
-      os0 = S.fromList $ randoms g2
-      os1 = S.fromList $ randoms g3
+      os1, os2 ∷ Stream Bit
+      os1 = S.fromList $ randoms g2
+      os2 = S.fromList $ randoms g3
 
       startBit ∷ Bit
       startBit = fst $ random g4
@@ -125,7 +125,7 @@ main = do
       n ∷ Int
       n = 100
 
-  js ← abpTrans startBit os0 os1 is
+  js ← abpTrans startBit os1 os2 is
 
   print $ S.take n js
   print $ S.take n is == S.take n js
