@@ -24,46 +24,46 @@ data Err (A : Set) : Set where
   error : Err A
 
 -- The mutual sender functions.
-send  : {A : Set} → Bit → Stream A → Stream (Err Bit) → Stream (A × Bool)
-await : {A : Set} → Bit → Stream A → Stream (Err Bit) → Stream (A × Bit)
+sendA  : {A : Set} → Bit → Stream A → Stream (Err Bit) → Stream (A × Bool)
+awaitA : {A : Set} → Bit → Stream A → Stream (Err Bit) → Stream (A × Bit)
 
-send b (i ∷ is) ds = (i , b) ∷ ♯ await b (i ∷ is) ds
+sendA b (i ∷ is) ds = (i , b) ∷ ♯ awaitA b (i ∷ is) ds
 
-await b (i ∷ is) (ok b' ∷ ds) with b ≟ b'
-... | yes p = send (not b) (♭ is) (♭ ds)
-... | no ¬p = (i , b) ∷ ♯ (await b (i ∷ is) (♭ ds))
-await b (i ∷ is) (error ∷ ds) = (i , b) ∷ ♯ (await b (i ∷ is) (♭ ds))
+awaitA b (i ∷ is) (ok b' ∷ ds) with b ≟ b'
+... | yes p = sendA (not b) (♭ is) (♭ ds)
+... | no ¬p = (i , b) ∷ ♯ (awaitA b (i ∷ is) (♭ ds))
+awaitA b (i ∷ is) (error ∷ ds) = (i , b) ∷ ♯ (awaitA b (i ∷ is) (♭ ds))
 
 -- The receiver functions.
-ack : {A : Set} → Bit → Stream (Err (A × Bit)) → Stream Bit
-ack b (ok (_ , b') ∷ bs) with b ≟ b'
-... | yes p = b ∷ ♯ (ack (not b) (♭ bs))
-... | no ¬p = not b ∷ ♯ (ack b (♭ bs))
-ack b (error ∷ bs) = not b ∷ ♯ (ack b (♭ bs))
+ackA : {A : Set} → Bit → Stream (Err (A × Bit)) → Stream Bit
+ackA b (ok (_ , b') ∷ bs) with b ≟ b'
+... | yes p = b ∷ ♯ (ackA (not b) (♭ bs))
+... | no ¬p = not b ∷ ♯ (ackA b (♭ bs))
+ackA b (error ∷ bs) = not b ∷ ♯ (ackA b (♭ bs))
 
 {-# NO_TERMINATION_CHECK #-}
-out : {A : Set} → Bit → Stream (Err (A × Bit)) → Stream A
-out b (ok (i , b') ∷ bs) with b ≟ b'
-... | yes p = i ∷ ♯ (out (not b) (♭ bs))
-... | no ¬p = out b (♭ bs)
-out b (error ∷ bs) = out b (♭ bs)
+outA : {A : Set} → Bit → Stream (Err (A × Bit)) → Stream A
+outA b (ok (i , b') ∷ bs) with b ≟ b'
+... | yes p = i ∷ ♯ (outA (not b) (♭ bs))
+... | no ¬p = outA b (♭ bs)
+outA b (error ∷ bs) = outA b (♭ bs)
 
 -- Model the fair unreliable tranmission channel.
-corrupt : {A : Set} → Stream Bit → Stream A → Stream (Err A)
-corrupt (true ∷ os)  (_ ∷ xs) = error ∷ ♯ (corrupt (♭ os) (♭ xs))
-corrupt (false ∷ os) (x ∷ xs) = ok x ∷ ♯ (corrupt (♭ os) (♭ xs))
+corruptA : {A : Set} → Stream Bit → Stream A → Stream (Err A)
+corruptA (true ∷ os)  (_ ∷ xs) = error ∷ ♯ (corruptA (♭ os) (♭ xs))
+corruptA (false ∷ os) (x ∷ xs) = ok x ∷ ♯ (corruptA (♭ os) (♭ xs))
 
 -- The ABP transfer function.
 {-# NO_TERMINATION_CHECK #-}
-abpTrans : {A : Set} → Bit → Stream Bit → Stream Bit → Stream A → Stream A
-abpTrans {A} b os₁ os₂ is = out b bs
+abpTransA : {A : Set} → Bit → Stream Bit → Stream Bit → Stream A → Stream A
+abpTransA {A} b os₁ os₂ is = outA b bs
   where
   as : Stream (A × Bit)
   bs : Stream (Err (A × Bit))
   cs : Stream Bit
   ds : Stream (Err Bit)
 
-  as = send b is ds
-  bs = corrupt os₁ as
-  cs = ack b bs
-  ds = corrupt os₂ cs
+  as = sendA b is ds
+  bs = corruptA os₁ as
+  cs = ackA b bs
+  ds = corruptA os₂ cs

@@ -1,39 +1,16 @@
+-- The thesis version.
+
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
--- The alternating bit protocol following Dybjer and Herbert (1989).
-
--- References:
---
--- • Dybjer, Peter and Herbert P. Sander (1989). A Functional
---   Programming Approach to the Speciﬁcation and Veriﬁcation of
---   Concurrent Systems. In: Formal Aspects of Computing 1,
---   pp. 303–319.
-
--- Tested with random 1.0.1.1, QuickCheck 2.6 and streams 3.1.1.
-
-------------------------------------------------------------------------------
 module Main where
 
-import Control.Monad ( liftM2, replicateM )
+import Data.Stream.Infinite ( Stream( (:>) ) )
 
-import Data.Stream.Infinite as S
-  ( Stream( (:>) )
-  , fromList
-  , take
-  )
-
-import System.Random ( newStdGen, random, randoms )
-
-import Test.QuickCheck
-  ( Arbitrary( arbitrary ), quickCheck )
-
-------------------------------------------------------------------------------
 type Bit = Bool
 
 -- Data type used to model possible corrupted messages.
 data Err a = Error | Ok a
-             deriving Show
 
 -- The mutual sender functions.
 sendH ∷ Bit → Stream a → Stream (Err Bit) → Stream (a, Bit)
@@ -80,43 +57,3 @@ abpTransH b os1 os2 is = outH b bs
 
   ds ∷ Stream (Err Bit)
   ds = corruptH os2 cs
-
-------------------------------------------------------------------------------
--- Testing
-
-instance Arbitrary a ⇒ Arbitrary (Stream a) where
-  arbitrary = liftM2 (:>) arbitrary arbitrary
-
-prop ∷ Stream Int → Stream Bit → Stream Bit → Bit → Bool
-prop is os1 os2 startBit =
-  S.take 10 is == S.take 10 (abpTransH startBit os1 os2 is)
-
--- main ∷ IO ()
--- main = quickCheck prop
-
-------------------------------------------------------------------------------
--- Simulation
-
-main ∷ IO ()
-main = do
-
-  [g1, g2, g3, g4] ← replicateM 4 newStdGen
-
-  let is ∷ Stream Int
-      is = S.fromList $ randoms g1
-
-      os1, os2 ∷ Stream Bit
-      os1 = S.fromList $ randoms g2
-      os2 = S.fromList $ randoms g3
-
-      startBit ∷ Bit
-      startBit = fst $ random g4
-
-      js ∷ Stream Int
-      js = abpTransH startBit os1 os2 is
-
-      n ∷ Int
-      n = 1000
-
-  print $ S.take n js
-  print $ S.take n is == S.take n js

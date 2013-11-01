@@ -22,55 +22,55 @@ import System.Random ( newStdGen, random, randoms )
 ------------------------------------------------------------------------------
 type Bit = Bool
 
--- Data type used to model the fair unreliable transmission channel.
+-- Data type used to model possible corrupted messages.
 data Err a = Error | Ok a
              deriving Show
 
 -- The mutual sender functions.
-send ∷ Bit → Stream a → Stream (Err Bit) → Stream (a, Bit)
-send b input@(i :> _) ds = (i , b) :> await b input ds
+sendH ∷ Bit → Stream a → Stream (Err Bit) → Stream (a, Bit)
+sendH b input@(i :> _) ds = (i , b) :> awaitH b input ds
 
-await ∷ Bit → Stream a → Stream (Err Bit) → Stream (a, Bit)
-await b input@(i :> is) (Ok b' :> ds) =
-  if b == b' then send (not b) is ds else (i, b) :> await b input ds
-await b input@(i :> _) (Error :> ds) = (i, b) :> await b input ds
+awaitH ∷ Bit → Stream a → Stream (Err Bit) → Stream (a, Bit)
+awaitH b input@(i :> is) (Ok b' :> ds) =
+  if b == b' then sendH (not b) is ds else (i, b) :> awaitH b input ds
+awaitH b input@(i :> _) (Error :> ds) = (i, b) :> awaitH b input ds
 
 -- The receiver functions.
-ack ∷ Bit → Stream (Err (a, Bit)) → Stream Bit
-ack b (Ok (_, b') :> bs) =
- if b == b' then b :> ack (not b) bs else not b :> ack b bs
-ack b (Error :> bs) = not b :> ack b bs
+ackH ∷ Bit → Stream (Err (a, Bit)) → Stream Bit
+ackH b (Ok (_, b') :> bs) =
+ if b == b' then b :> ackH (not b) bs else not b :> ackH b bs
+ackH b (Error :> bs) = not b :> ackH b bs
 
--- out ∷ Bit → Stream (Err (a, Bit)) → Stream a
--- out b (Ok (i, b') :> bs) = if b == b' then i :> out (not b) bs else out b bs
--- out b (Error :> bs)      = out b bs
+-- outH ∷ Bit → Stream (Err (a, Bit)) → Stream a
+-- outH b (Ok (i, b') :> bs) = if b == b' then i :> outH (not b) bs else outH b bs
+-- outH b (Error :> bs)      = outH b bs
 
-out ∷ Integer → Bit → Stream (Err (Int, Bit)) → IO (Stream Int)
-out n b (Ok (i, b') :> bs) =
+outH ∷ Integer → Bit → Stream (Err (Int, Bit)) → IO (Stream Int)
+outH n b (Ok (i, b') :> bs) =
   if b == b'
   then do
     when (n <= 4) $
-      putStrLn $ "out (Ok b == b'): "
+      putStrLn $ "outH (Ok b == b'): "
                  ++ "b: " ++ show b ++ " b': " ++ show b' ++ " i: " ++ show i
 
-    xs ← out (n + 1) (not b) bs
+    xs ← outH (n + 1) (not b) bs
     return $ i :> xs
   else do
     when (n <= 4) $
-      putStrLn $ "out (Ok b ≠ b'): "
+      putStrLn $ "outH (Ok b ≠ b'): "
                  ++ "b: " ++ show b ++ " b': " ++ show b' ++ " i: " ++ show i
 
-    xs ← out (n + 1) b bs
+    xs ← outH (n + 1) b bs
     return xs
-out n b (Error :> bs) = do
-  when (n <= 4) $ putStrLn "out (Error)"
-  xs ← out (n + 1) b bs
+outH n b (Error :> bs) = do
+  when (n <= 4) $ putStrLn "outH (Error)"
+  xs ← outH (n + 1) b bs
   return xs
 
 -- The fair unreliable transmission channel.
-corrupt ∷ Stream Bit → Stream a → Stream (Err a)
-corrupt (False :> os) (_ :> xs) = Error :> corrupt os xs
-corrupt (True :> os)  (x :> xs) = Ok x  :> corrupt os xs
+corruptH ∷ Stream Bit → Stream a → Stream (Err a)
+corruptH (False :> os) (_ :> xs) = Error :> corruptH os xs
+corruptH (True :> os)  (x :> xs) = Ok x  :> corruptH os xs
 
 -- The ABP transfer function.
 --
@@ -79,20 +79,20 @@ corrupt (True :> os)  (x :> xs) = Ok x  :> corrupt os xs
 --
 -- N.B. We use @forall@ instead of @∀@ because it generates an error
 -- with HLint (the issue is from haskell-src-exts).
-abpTrans ∷ Bit → Stream Bit → Stream Bit → Stream Int → IO (Stream Int)
-abpTrans b os1 os2 is = out 0 b bs
+abpTransH ∷ Bit → Stream Bit → Stream Bit → Stream Int → IO (Stream Int)
+abpTransH b os1 os2 is = outH 0 b bs
   where
   as ∷ Stream (Int, Bit)
-  as = send b is ds
+  as = sendH b is ds
 
   bs ∷ Stream (Err (Int, Bit))
-  bs = corrupt os1 as
+  bs = corruptH os1 as
 
   cs ∷ Stream Bit
-  cs = ack b bs
+  cs = ackH b bs
 
   ds ∷ Stream (Err Bit)
-  ds = corrupt os2 cs
+  ds = corruptH os2 cs
 
 ------------------------------------------------------------------------------
 -- Testing
@@ -125,7 +125,7 @@ main = do
       n ∷ Int
       n = 100
 
-  js ← abpTrans startBit os1 os2 is
+  js ← abpTransH startBit os1 os2 is
 
   print $ S.take n js
   print $ S.take n is == S.take n js
