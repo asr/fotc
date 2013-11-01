@@ -28,28 +28,28 @@ open import FOTC.Relation.Binary.Bisimilarity
 
 ------------------------------------------------------------------------------
 -- Main theorem.
-spec : ∀ {b is os₀ os₂} → Bit b → Stream is → Fair os₀ → Fair os₂ →
-       is ≈ abpTransfer b os₀ os₂ is
-spec {b} {is} {os₀} {os₂} Bb Sis Fos₀ Fos₂ = ≈-coind B prf₁ prf₂
+spec : ∀ {b is os₁ os₂} → Bit b → Stream is → Fair os₁ → Fair os₂ →
+       is ≈ abpTransfer b os₁ os₂ is
+spec {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B prf₁ prf₂
   where
   prf₁ : ∀ {is js} → B is js →
          ∃[ i' ] ∃[ is' ] ∃[ js' ] is ≡ i' ∷ is' ∧ js ≡ i' ∷ js' ∧ B is' js'
-  prf₁ {is} {js} (b , os₀ , os₂ , as , bs , cs , ds , Sis , Bb , Fos₀ , Fos₂ , h)
+  prf₁ {is} {js} (b , os₁ , os₂ , as , bs , cs , ds , Sis , Bb , Fos₁ , Fos₂ , h)
      with Stream-unf Sis
   ... | (i' , is' , is≡i'∷is , Sis') =
     i' , is' , js' , is≡i'∷is , js≡i'∷js' , Bis'js'
     where
     ABP-helper : is ≡ i' ∷ is' →
-                 ABP b is os₀ os₂ as bs cs ds js →
-                 ABP b (i' ∷ is') os₀ os₂ as bs cs ds js
-    ABP-helper h₁ h₂ = subst (λ t → ABP b t os₀ os₂ as bs cs ds js) h₁ h₂
+                 ABP b is os₁ os₂ as bs cs ds js →
+                 ABP b (i' ∷ is') os₁ os₂ as bs cs ds js
+    ABP-helper h₁ h₂ = subst (λ t → ABP b t os₁ os₂ as bs cs ds js) h₁ h₂
 
-    ABP'-lemma₁ : ∃[ os₀' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-                    Fair os₀'
+    ABP'-lemma₁ : ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
+                    Fair os₁'
                     ∧ Fair os₂'
-                    ∧ ABP' b i' is' os₀' os₂' as' bs' cs' ds' js'
+                    ∧ ABP' b i' is' os₁' os₂' as' bs' cs' ds' js'
                     ∧ js ≡ i' ∷ js'
-    ABP'-lemma₁ = lemma₁ Bb Fos₀ Fos₂ (ABP-helper is≡i'∷is h)
+    ABP'-lemma₁ = lemma₁ Bb Fos₁ Fos₂ (ABP-helper is≡i'∷is h)
 
     -- Following Martin Escardo advice (see Agda mailing list, heap
     -- mistery) we use pattern matching instead of ∃ eliminators to
@@ -66,23 +66,23 @@ spec {b} {is} {os₀} {os₂} Bb Sis Fos₀ Fos₂ = ≈-coind B prf₁ prf₂
     js≡i'∷js' with ABP'-lemma₁
     ... | _ , _ , _ , _ , _ , _ , _ , _ , _ , _ , h = h
 
-    ABP-lemma₂ : ∃[ os₀'' ] ∃[ os₂'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
-                   Fair os₀''
+    ABP-lemma₂ : ∃[ os₁'' ] ∃[ os₂'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
+                   Fair os₁''
                    ∧ Fair os₂''
-                   ∧ ABP (not b) is' os₀'' os₂'' as'' bs'' cs'' ds'' js'
+                   ∧ ABP (not b) is' os₁'' os₂'' as'' bs'' cs'' ds'' js'
     ABP-lemma₂ with ABP'-lemma₁
-    ABP-lemma₂ | _ , _ , _ , _ , _ , _ , _ , Fos₀' , Fos₂' , abp' , _ =
-      lemma₂ Bb Fos₀' Fos₂' abp'
+    ABP-lemma₂ | _ , _ , _ , _ , _ , _ , _ , Fos₁' , Fos₂' , abp' , _ =
+      lemma₂ Bb Fos₁' Fos₂' abp'
 
     Bis'js' : B is' js'
     Bis'js' with ABP-lemma₂
-    ... | os₀'' , os₂'' , as'' , bs'' , cs'' , ds'' , Fos₀'' , Fos₂'' , abp =
-      not b , os₀'' , os₂'' , as'' , bs'' , cs'' , ds''
-      , Sis' , not-Bool Bb , Fos₀'' , Fos₂'' , abp
+    ... | os₁'' , os₂'' , as'' , bs'' , cs'' , ds'' , Fos₁'' , Fos₂'' , abp =
+      not b , os₁'' , os₂'' , as'' , bs'' , cs'' , ds''
+      , Sis' , not-Bool Bb , Fos₁'' , Fos₂'' , abp
 
-  prf₂ : B is (abpTransfer b os₀ os₂ is)
+  prf₂ : B is (abpTransfer b os₁ os₂ is)
   prf₂ = b
-       , os₀
+       , os₁
        , os₂
        , has a₁ a₂ a₃ a₄ a₅ is
        , hbs a₁ a₂ a₃ a₄ a₅ is
@@ -90,17 +90,17 @@ spec {b} {is} {os₀} {os₂} Bb Sis Fos₀ Fos₂ = ≈-coind B prf₁ prf₂
        , hds a₁ a₂ a₃ a₄ a₅ is
        , Sis
        , Bb
-       , Fos₀
+       , Fos₁
        , Fos₂
        , has-eq a₁ a₂ a₃ a₄ a₅ is
        , hbs-eq a₁ a₂ a₃ a₄ a₅ is
        , hcs-eq a₁ a₂ a₃ a₄ a₅ is
        , hds-eq a₁ a₂ a₃ a₄ a₅ is
-       , trans (abpTransfer-eq b os₀ os₂ is) (transfer-eq a₁ a₂ a₃ a₄ a₅ is)
+       , trans (abpTransfer-eq b os₁ os₂ is) (transfer-eq a₁ a₂ a₃ a₄ a₅ is)
     where
     a₁ a₂ a₃ a₄ a₅ : D
     a₁ = send b
     a₂ = ack b
     a₃ = out b
-    a₄ = corrupt os₀
+    a₄ = corrupt os₁
     a₅ = corrupt os₂
