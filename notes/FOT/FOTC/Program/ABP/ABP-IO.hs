@@ -31,34 +31,34 @@ send ∷ Bit → Stream a → Stream (Err Bit) → Stream (a, Bit)
 send b input@(i :> _) ds = (i , b) :> await b input ds
 
 await ∷ Bit → Stream a → Stream (Err Bit) → Stream (a, Bit)
-await b input@(i :> is) (Ok b0 :> ds) =
-  if b == b0 then send (not b) is ds else (i, b) :> await b input ds
+await b input@(i :> is) (Ok b' :> ds) =
+  if b == b' then send (not b) is ds else (i, b) :> await b input ds
 await b input@(i :> _) (Error :> ds) = (i, b) :> await b input ds
 
 -- The receiver functions.
 ack ∷ Bit → Stream (Err (a, Bit)) → Stream Bit
-ack b (Ok (_, b0) :> bs) =
- if b == b0 then b :> ack (not b) bs else not b :> ack b bs
+ack b (Ok (_, b') :> bs) =
+ if b == b' then b :> ack (not b) bs else not b :> ack b bs
 ack b (Error :> bs) = not b :> ack b bs
 
 -- out ∷ Bit → Stream (Err (a, Bit)) → Stream a
--- out b (Ok (i, b0) :> bs) = if b == b0 then i :> out (not b) bs else out b bs
+-- out b (Ok (i, b') :> bs) = if b == b' then i :> out (not b) bs else out b bs
 -- out b (Error :> bs)      = out b bs
 
 out ∷ Integer → Bit → Stream (Err (Int, Bit)) → IO (Stream Int)
-out n b (Ok (i, b0) :> bs) =
-  if b == b0
+out n b (Ok (i, b') :> bs) =
+  if b == b'
   then do
     when (n <= 4) $
-      putStrLn $ "out (Ok b == b0): "
-                 ++ "b: " ++ show b ++ " b0: " ++ show b0 ++ " i: " ++ show i
+      putStrLn $ "out (Ok b == b'): "
+                 ++ "b: " ++ show b ++ " b': " ++ show b' ++ " i: " ++ show i
 
     xs ← out (n + 1) (not b) bs
     return $ i :> xs
   else do
     when (n <= 4) $
-      putStrLn $ "out (Ok b ≠ b0): "
-                 ++ "b: " ++ show b ++ " b0: " ++ show b0 ++ " i: " ++ show i
+      putStrLn $ "out (Ok b ≠ b'): "
+                 ++ "b: " ++ show b ++ " b': " ++ show b' ++ " i: " ++ show i
 
     xs ← out (n + 1) b bs
     return xs

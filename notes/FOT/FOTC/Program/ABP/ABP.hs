@@ -40,18 +40,18 @@ send ∷ Bit → Stream a → Stream (Err Bit) → Stream (a, Bit)
 send b input@(i :> _) ds = (i , b) :> await b input ds
 
 await ∷ Bit → Stream a → Stream (Err Bit) → Stream (a, Bit)
-await b input@(i :> is) (Ok b0 :> ds) =
-  if b == b0 then send (not b) is ds else (i, b) :> await b input ds
-await b input@(i :> _) (Error :> ds) = (i, b) :> await b input ds
+await b input@(i :> is) (Ok b' :> ds) =
+  if b == b' then send (not b) is ds else (i, b) :> await b input ds
+await b input@(i :> _) (Error :> ds) = error "await" -- (i, b) :> await b input ds
 
 -- The receiver functions.
 ack ∷ Bit → Stream (Err (a, Bit)) → Stream Bit
-ack b (Ok (_, b0) :> bs) =
- if b == b0 then b :> ack (not b) bs else not b :> ack b bs
+ack b (Ok (_, b') :> bs) =
+ if b == b' then b :> ack (not b) bs else not b :> ack b bs
 ack b (Error :> bs) = not b :> ack b bs
 
 out ∷ Bit → Stream (Err (a, Bit)) → Stream a
-out b (Ok (i, b0) :> bs) = if b == b0 then i :> out (not b) bs else out b bs
+out b (Ok (i, b') :> bs) = if b == b' then i :> out (not b) bs else out b bs
 out b (Error :> bs)      = out b bs
 
 -- The fair unreliable transmission channel.
@@ -107,7 +107,7 @@ main = do
 
       os1, os2 ∷ Stream Bit
       os1 = S.fromList $ randoms g2
-      os2 = S.fromList $ randoms g3
+      os2 = True :> os2 -- S.fromList $ randoms g3
 
       startBit ∷ Bit
       startBit = fst $ random g4
@@ -116,7 +116,7 @@ main = do
       js = abpTrans startBit os1 os2 is
 
       n ∷ Int
-      n = 100
+      n = 1000
 
   print $ S.take n js
   print $ S.take n is == S.take n js

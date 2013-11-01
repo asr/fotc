@@ -29,21 +29,21 @@ await : {A : Set} → Bit → Stream A → Stream (Err Bit) → Stream (A × Bit
 
 send b (i ∷ is) ds = (i , b) ∷ ♯ await b (i ∷ is) ds
 
-await b (i ∷ is) (ok b₀ ∷ ds) with b ≟ b₀
+await b (i ∷ is) (ok b' ∷ ds) with b ≟ b'
 ... | yes p = send (not b) (♭ is) (♭ ds)
 ... | no ¬p = (i , b) ∷ ♯ (await b (i ∷ is) (♭ ds))
 await b (i ∷ is) (error ∷ ds) = (i , b) ∷ ♯ (await b (i ∷ is) (♭ ds))
 
 -- The receiver functions.
 ack : {A : Set} → Bit → Stream (Err (A × Bit)) → Stream Bit
-ack b (ok (_ , b₀) ∷ bs) with b ≟ b₀
+ack b (ok (_ , b') ∷ bs) with b ≟ b'
 ... | yes p = b ∷ ♯ (ack (not b) (♭ bs))
 ... | no ¬p = not b ∷ ♯ (ack b (♭ bs))
 ack b (error ∷ bs) = not b ∷ ♯ (ack b (♭ bs))
 
 {-# NO_TERMINATION_CHECK #-}
 out : {A : Set} → Bit → Stream (Err (A × Bit)) → Stream A
-out b (ok (i , b₀) ∷ bs) with b ≟ b₀
+out b (ok (i , b') ∷ bs) with b ≟ b'
 ... | yes p = i ∷ ♯ (out (not b) (♭ bs))
 ... | no ¬p = out b (♭ bs)
 out b (error ∷ bs) = out b (♭ bs)
