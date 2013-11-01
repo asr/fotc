@@ -47,20 +47,24 @@ postulate
 
 postulate
   ack-ok≡ : ∀ b b' i bs →
-            b ≡ b' → ack b · (ok < i , b' > ∷ bs) ≡ b ∷ ack (not b) · bs
+            b ≡ b' →
+            ack b · (ok < i , b' > ∷ bs) ≡ b ∷ ack (not b) · bs
 
   ack-ok≢ : ∀ b b' i bs →
-            b ≢ b' → ack b · (ok < i , b' > ∷ bs) ≡ not b ∷ ack b · bs
+            b ≢ b' →
+            ack b · (ok < i , b' > ∷ bs) ≡ not b ∷ ack b · bs
 
   ack-error : ∀ b bs → ack b · (error ∷ bs) ≡ not b ∷ ack b · bs
 {-# ATP axiom ack-ok≡ ack-ok≢ ack-error #-}
 
 postulate
   out-ok≡ : ∀ b b' i bs →
-            b ≡ b' → out b · (ok < i , b' > ∷ bs) ≡ i ∷ out (not b) · bs
+            b ≡ b' →
+            out b · (ok < i , b' > ∷ bs) ≡ i ∷ out (not b) · bs
 
   out-ok≢ : ∀ b b' i bs →
-            b ≢ b' → out b · (ok < i , b' > ∷ bs) ≡ out b · bs
+            b ≢ b' →
+            out b · (ok < i , b' > ∷ bs) ≡ out b · bs
 
   out-error : ∀ b bs → out b · (error ∷ bs) ≡ out b · bs
 {-# ATP axiom out-ok≡ out-ok≢ out-error #-}
@@ -97,11 +101,11 @@ postulate
 {-# ATP axiom transfer-eq #-}
 
 postulate
-  abpTransfer    : D → D → D → D → D
-  abpTransfer-eq : ∀ b os₁ os₂ is →
-                   abpTransfer b os₁ os₂ is ≡
-                     transfer (send b) (ack b) (out b) (corrupt os₁)
-                       (corrupt os₂) is
+  abpTransfer : D → D → D → D → D
+  abpTransfer-eq :
+    ∀ b os₁ os₂ is →
+      abpTransfer b os₁ os₂ is ≡
+      transfer (send b) (ack b) (out b) (corrupt os₁) (corrupt os₂) is
 {-# ATP axiom abpTransfer-eq #-}
 
 ------------------------------------------------------------------------------
