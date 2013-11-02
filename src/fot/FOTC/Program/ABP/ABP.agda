@@ -5,11 +5,15 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- This module define the ABP following the presentation in [1].
-
--- [1] Peter Dybjer and Herbert Sander. A functional programming
---     approach to the specification and verification of concurrent
---     systems. Formal Aspects of Computing, 1:303–319, 1989.
+-- This module define the ABP following the presentation in Dybjer and
+-- Sander (1989).
+--
+-- References:
+--
+-- • Dybjer, Peter and Sander, Herbert P. (1989). A Functional
+--   Programming Approach to the Speciﬁcation and Veriﬁcation of
+--   Concurrent Systems. In: Formal Aspects of Computing 1,
+--   pp. 303–319.
 
 module FOTC.Program.ABP.ABP where
 

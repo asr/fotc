@@ -2,7 +2,7 @@
 The mirror function: A function with higher-order recursion
 ------------------------------------------------------------------------------
 
-Given the constructor (Bove, Krauss, and Sozeua 2010)
+Given the constructor (Bove, Krauss and Sozeua 2012)
 
 tree : A → [ Tree A ] → Tree A
 
@@ -14,6 +14,7 @@ we prove that mirror is an involution, i.e.
 
 mirror (mirror t) = t
 
-• Ana Bove, Alexander Krauss, and Mattieu Sozeua. Partiality and
-  recursion in interactive theorem provers. An overview. Submitted to
-  publication, 2010.
+• Bove, Ana, Krauss, Alexander and Sozeua, Mattieu (2012). Partiality
+  and Recursion in Interactive Theorem Provers. An Overview. Accepted
+  for publication at Mathematical Structures in Computer Science,
+  special issue on DTP 2010.

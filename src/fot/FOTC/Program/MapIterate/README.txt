@@ -7,5 +7,5 @@ Hutton 2005):
 
 map f (iterate f x) = iterate f (f x)
 
-• Jeremy Gibbons and Graham Hutton. Proof methods for corecursive
-  programs. Fundamenta Informaticae, XX:1–14, 2005.
+• Gibbons, Jeremy and Hutton, Graham (2005). Proof Methods for
+  Corecursive Programs. In: Fundamenta Informaticae XX, pp. 1–14.
