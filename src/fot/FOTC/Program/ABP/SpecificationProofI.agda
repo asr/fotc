@@ -42,17 +42,17 @@ spec {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B prf₁ prf₂
   ... | (i' , is' , is≡i'∷is , Sis') =
     i' , is' , js' , is≡i'∷is , js≡i'∷js' , Bis'js'
     where
-    State-helper : is ≡ i' ∷ is' →
-                   State b is os₁ os₂ as bs cs ds js →
-                   State b (i' ∷ is') os₁ os₂ as bs cs ds js
-    State-helper h₁ h₂ = subst (λ t → State b t os₁ os₂ as bs cs ds js) h₁ h₂
+    S-helper : is ≡ i' ∷ is' →
+               S b is os₁ os₂ as bs cs ds js →
+               S b (i' ∷ is') os₁ os₂ as bs cs ds js
+    S-helper h₁ h₂ = subst (λ t → S b t os₁ os₂ as bs cs ds js) h₁ h₂
 
-    State'-lemma₁ : ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-                    Fair os₁'
-                    ∧ Fair os₂'
-                    ∧ State' b i' is' os₁' os₂' as' bs' cs' ds' js'
-                    ∧ js ≡ i' ∷ js'
-    State'-lemma₁ = lemma₁ Bb Fos₁ Fos₂ (State-helper is≡i'∷is h)
+    S'-lemma₁ : ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
+                  Fair os₁'
+                  ∧ Fair os₂'
+                  ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
+                  ∧ js ≡ i' ∷ js'
+    S'-lemma₁ = lemma₁ Bb Fos₁ Fos₂ (S-helper is≡i'∷is h)
 
     -- Following Martin Escardo advice (see Agda mailing list, heap
     -- mistery) we use pattern matching instead of ∃ eliminators to
@@ -62,26 +62,26 @@ spec {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B prf₁ prf₂
     -- the Agda issue 415 was fixed.
 
     js' : D
-    js' with State'-lemma₁
+    js' with S'-lemma₁
     ... | _ , _ , _ , _ , _ , _ , js' , _ = js'
 
     js≡i'∷js' : js ≡ i' ∷ js'
-    js≡i'∷js' with State'-lemma₁
+    js≡i'∷js' with S'-lemma₁
     ... | _ , _ , _ , _ , _ , _ , _ , _ , _ , _ , h = h
 
-    State-lemma₂ : ∃[ os₁'' ] ∃[ os₂'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
-                   Fair os₁''
-                   ∧ Fair os₂''
-                   ∧ State (not b) is' os₁'' os₂'' as'' bs'' cs'' ds'' js'
-    State-lemma₂ with State'-lemma₁
-    ... | _ , _ , _ , _ , _ , _ , _ , Fos₁' , Fos₂' , state' , _ =
-      lemma₂ Bb Fos₁' Fos₂' state'
+    S-lemma₂ : ∃[ os₁'' ] ∃[ os₂'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
+                 Fair os₁''
+                 ∧ Fair os₂''
+                 ∧ S (not b) is' os₁'' os₂'' as'' bs'' cs'' ds'' js'
+    S-lemma₂ with S'-lemma₁
+    ... | _ , _ , _ , _ , _ , _ , _ , Fos₁' , Fos₂' , s' , _ =
+      lemma₂ Bb Fos₁' Fos₂' s'
 
     Bis'js' : B is' js'
-    Bis'js' with State-lemma₂
-    ... | os₁'' , os₂'' , as'' , bs'' , cs'' , ds'' , Fos₁'' , Fos₂'' , state =
+    Bis'js' with S-lemma₂
+    ... | os₁'' , os₂'' , as'' , bs'' , cs'' , ds'' , Fos₁'' , Fos₂'' , s =
       not b , os₁'' , os₂'' , as'' , bs'' , cs'' , ds''
-      , Sis' , not-Bool Bb , Fos₁'' , Fos₂'' , state
+      , Sis' , not-Bool Bb , Fos₁'' , Fos₂'' , s
 
   prf₂ : B is (abpTransfer b os₁ os₂ is)
   prf₂ = b

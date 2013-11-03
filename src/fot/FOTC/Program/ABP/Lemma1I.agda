@@ -38,13 +38,13 @@ module Helper where
   helper : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
            Bit b →
            Fair os₂ →
-           State b (i' ∷ is') os₁ os₂ as bs cs ds js →
+           S b (i' ∷ is') os₁ os₂ as bs cs ds js →
            ∀ ft₁ os₁' → F*T ft₁ → Fair os₁' → os₁ ≡ ft₁ ++ os₁' →
            ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-           Fair os₁'
-           ∧ Fair os₂'
-           ∧ State' b i' is' os₁' os₂' as' bs' cs' ds' js'
-           ∧ js ≡ i' ∷ js'
+             Fair os₁'
+             ∧ Fair os₂'
+             ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
+             ∧ js ≡ i' ∷ js'
   -- 2012-02-29. The existential witnesses could be avoid not using
   -- the auxiliary prooos inside the where clause.
   helper {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js} Bb Fos₂
@@ -123,8 +123,8 @@ module Helper where
 
   helper {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js}
          Bb Fos₂ (asS , bsS , csS , dsS , jsS)
-         .(F ∷ ft₁^) os₁' (f*tcons {ft₁^} FTft₁^) Fos₁' os₁-eq
-         = helper Bb (tail-Fair Fos₂) ihState ft₁^  os₁' FTft₁^ Fos₁' refl
+         .(F ∷ ft₁^) os₁' (f*tcons {ft₁^} FTft₁^) Fos₁' os₁-eq =
+         helper Bb (tail-Fair Fos₂) ihS ft₁^  os₁' FTft₁^ Fos₁' refl
 
     where
     os₁^ : D
@@ -224,8 +224,8 @@ module Helper where
             out b · (error ∷ bs^) ≡⟨ out-error b bs^ ⟩
             out b · bs^ ∎
 
-    ihState : State b (i' ∷ is') os₁^ os₂^ as^ bs^ cs^ ds^ js
-    ihState = as^-eq , refl , refl , refl , js-eq
+    ihS : S b (i' ∷ is') os₁^ os₂^ as^ bs^ cs^ ds^ js
+    ihS = as^-eq , refl , refl , refl , js-eq
 
 ------------------------------------------------------------------------------
 -- From Dybjer and Sander's paper: From the assumption that os₁ ∈
@@ -239,11 +239,11 @@ lemma₁ : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
          Bit b →
          Fair os₁ →
          Fair os₂ →
-         State b (i' ∷ is') os₁ os₂ as bs cs ds js →
+         S b (i' ∷ is') os₁ os₂ as bs cs ds js →
          ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-         Fair os₁'
-         ∧ Fair os₂'
-         ∧ State' b i' is' os₁' os₂' as' bs' cs' ds' js'
-         ∧ js ≡ i' ∷ js'
-lemma₁ Bb Fos₁ Fos₂ state with Fair-unf Fos₁
-... | ft , os₁' , FTft , h ,  Fos₁' = helper Bb Fos₂ state ft os₁' FTft Fos₁' h
+           Fair os₁'
+           ∧ Fair os₂'
+           ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
+           ∧ js ≡ i' ∷ js'
+lemma₁ Bb Fos₁ Fos₂ s with Fair-unf Fos₁
+... | ft , os₁' , FTft , h ,  Fos₁' = helper Bb Fos₂ s ft os₁' FTft Fos₁' h

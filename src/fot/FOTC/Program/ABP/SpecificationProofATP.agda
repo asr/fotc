@@ -40,7 +40,7 @@ spec {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B prf₁ prf₂
   where
   postulate prf₁ : ∀ {is js} → B is js →
                    ∃[ i' ] ∃[ is' ] ∃[ js' ]
-                   is ≡ i' ∷ is' ∧ js ≡ i' ∷ js' ∧ B is' js'
+                     is ≡ i' ∷ is' ∧ js ≡ i' ∷ js' ∧ B is' js'
   {-# ATP prove prf₁ lemma₁ lemma₂ not-Bool #-}
 
   postulate prf₂ : B is (abpTransfer b os₁ os₂ is)
