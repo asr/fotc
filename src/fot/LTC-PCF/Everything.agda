@@ -34,8 +34,8 @@ open import LTC-PCF.Loop
 open import LTC-PCF.Program.Division.ConversionRules
 open import LTC-PCF.Program.Division.Division
 open import LTC-PCF.Program.Division.IsCorrect
-open import LTC-PCF.Program.Division.ProofSpecification
 open import LTC-PCF.Program.Division.Specification
+open import LTC-PCF.Program.Division.SpecificationProof
 open import LTC-PCF.Program.Division.Totality
 
 open import LTC-PCF.Program.GCD.Partial.CommonDivisor
@@ -45,7 +45,7 @@ open import LTC-PCF.Program.GCD.Partial.Divisible
 open import LTC-PCF.Program.GCD.Partial.GCD
 open import LTC-PCF.Program.GCD.Partial.GreatestAnyCommonDivisor
 open import LTC-PCF.Program.GCD.Partial.GreatestAnyCommonDivisor
-open import LTC-PCF.Program.GCD.Partial.ProofSpecification
+open import LTC-PCF.Program.GCD.Partial.SpecificationProof
 open import LTC-PCF.Program.GCD.Partial.Totality
 
 open import LTC-PCF.Program.GCD.Total.CommonDivisor
@@ -53,5 +53,5 @@ open import LTC-PCF.Program.GCD.Total.ConversionRules
 open import LTC-PCF.Program.GCD.Total.Definitions
 open import LTC-PCF.Program.GCD.Total.Divisible
 open import LTC-PCF.Program.GCD.Total.GCD
-open import LTC-PCF.Program.GCD.Total.ProofSpecification
+open import LTC-PCF.Program.GCD.Total.SpecificationProof
 open import LTC-PCF.Program.GCD.Total.Totality

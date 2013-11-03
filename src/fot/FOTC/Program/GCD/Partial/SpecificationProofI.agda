@@ -8,7 +8,7 @@
 -- This module proves the correctness of the gcd program using
 -- the Euclid's algorithm.
 
-module FOTC.Program.GCD.Partial.ProofSpecificationI where
+module FOTC.Program.GCD.Partial.SpecificationProofI where
 
 open import FOTC.Base
 open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesI

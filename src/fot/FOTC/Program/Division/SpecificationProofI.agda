@@ -8,27 +8,31 @@
 -- This module proves the correctness of the division program using
 -- repeated subtraction (Dybjer 1985).
 
--- Peter Dybjer. Program verification in a logical theory of
--- constructions. In Jean-Pierre Jouannaud, editor. Functional
--- Programming Languages and Computer Architecture, volume 201 of
--- LNCS, 1985, pages 334-349. Appears in revised form as Programming
--- Methodology Group Report 26, June 1986.
+-- References:
+--
+-- • Dybjer, Peter (1985). Program Veriﬁcation in a Logical Theory of
+--   Constructions. In: Functional Programming Languages and Computer
+--   Architecture. Ed. by Jouannaud,
+--   Jean-Pierre. Vol. 201. LNCS. Appears in revised form as
+--   Programming Methodology Group Report 26, University of Gothenburg
+--   and Chalmers University of Technology, June 1986. Springer,
+--   pp. 334–349.
 
-module LTC-PCF.Program.Division.ProofSpecification where
+module FOTC.Program.Division.SpecificationProofI where
 
-open import LTC-PCF.Base
-open import LTC-PCF.Data.Nat
-open import LTC-PCF.Data.Nat.Inequalities
-open import LTC-PCF.Data.Nat.Inequalities.Properties
-open import LTC-PCF.Data.Nat.Properties
+open import FOTC.Base
+open import FOTC.Data.Nat
+open import FOTC.Data.Nat.Inequalities
+open import FOTC.Data.Nat.Inequalities.PropertiesI
+open import FOTC.Data.Nat.PropertiesI
 
-import LTC-PCF.Data.Nat.Induction.NonAcc.WF
-open module WFInd = LTC-PCF.Data.Nat.Induction.NonAcc.WF.WFInd
+import FOTC.Data.Nat.Induction.NonAcc.WF-I
+open module WFInd = FOTC.Data.Nat.Induction.NonAcc.WF-I.WFInd
 
-open import LTC-PCF.Program.Division.Division
-open import LTC-PCF.Program.Division.IsCorrect
-open import LTC-PCF.Program.Division.Specification
-open import LTC-PCF.Program.Division.Totality
+open import FOTC.Program.Division.Division
+open import FOTC.Program.Division.IsCorrectI
+open import FOTC.Program.Division.Specification
+open import FOTC.Program.Division.TotalityI
 
 ------------------------------------------------------------------------------
 -- The division result satifies the specification DIV
@@ -68,4 +72,4 @@ div-DIV {j = j} Ni Nj j>0 = <-wfind A ih Ni
   -- and n.
   ih : ∀ {n} → N n → (∀ {m} → N m → m < n → A m) → A n
   ih {n} Nn ah =
-     case (div-x<y-DIV Nn Nj) (div-x≮y-DIV Nn Nj ah j>0) (x<y∨x≮y Nn Nj)
+    case (div-x<y-DIV Nn Nj) (div-x≮y-DIV Nn Nj ah j>0) (x<y∨x≮y Nn Nj)

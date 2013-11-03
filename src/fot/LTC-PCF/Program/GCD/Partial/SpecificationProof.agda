@@ -8,7 +8,7 @@
 -- This module proves the correctness of the gcd program using
 -- the Euclid's algorithm.
 
-module LTC-PCF.Program.GCD.Partial.ProofSpecification where
+module LTC-PCF.Program.GCD.Partial.SpecificationProof where
 
 open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties

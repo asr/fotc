@@ -11,7 +11,7 @@
 -- N.B This module does not contain combined proofs, but it imports
 -- modules which contain combined proofs.
 
-module FOTC.Program.GCD.Partial.ProofSpecificationATP where
+module FOTC.Program.GCD.Partial.SpecificationProofATP where
 
 open import FOTC.Base
 open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP using ( 0∤x ; x∣S→x≤S )

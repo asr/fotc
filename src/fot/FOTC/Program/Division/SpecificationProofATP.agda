@@ -5,6 +5,9 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
+-- N.B This module does not contain combined proofs, but it imports
+-- modules which contain combined proofs.
+
 -- This module proves the correctness of the division program using
 -- repeated subtraction (Dybjer 1985).
 
@@ -18,21 +21,21 @@
 --   and Chalmers University of Technology, June 1986. Springer,
 --   pp. 334–349.
 
-module FOTC.Program.Division.ProofSpecificationI where
+module FOTC.Program.Division.SpecificationProofATP where
 
 open import FOTC.Base
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
-open import FOTC.Data.Nat.Inequalities.PropertiesI
-open import FOTC.Data.Nat.PropertiesI
+open import FOTC.Data.Nat.Inequalities.PropertiesATP
+open import FOTC.Data.Nat.PropertiesATP
 
-import FOTC.Data.Nat.Induction.NonAcc.WF-I
-open module WFInd = FOTC.Data.Nat.Induction.NonAcc.WF-I.WFInd
+import FOTC.Data.Nat.Induction.NonAcc.WF-ATP
+open module WFInd = FOTC.Data.Nat.Induction.NonAcc.WF-ATP.WFInd
 
 open import FOTC.Program.Division.Division
-open import FOTC.Program.Division.IsCorrectI
+open import FOTC.Program.Division.IsCorrectATP
 open import FOTC.Program.Division.Specification
-open import FOTC.Program.Division.TotalityI
+open import FOTC.Program.Division.TotalityATP
 
 ------------------------------------------------------------------------------
 -- The division result satifies the specification DIV

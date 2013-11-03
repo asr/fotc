@@ -18,7 +18,7 @@
 -- N.B This module does not contain combined proofs, but it imports
 -- modules which contain combined proofs.
 
-module FOTC.Program.ABP.ProofSpecificationATP where
+module FOTC.Program.ABP.SpecificationProofATP where
 
 open import FOTC.Base
 open import FOTC.Base.List

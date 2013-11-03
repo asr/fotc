@@ -15,7 +15,7 @@
 --   Concurrent Systems. In: Formal Aspects of Computing 1,
 --   pp. 303–319.
 
-module FOTC.Program.ABP.ProofSpecificationI where
+module FOTC.Program.ABP.SpecificationProofI where
 
 open import FOTC.Base
 open import FOTC.Base.List

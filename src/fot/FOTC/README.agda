@@ -147,18 +147,18 @@ open import FOTC.Relation.Binary.Bisimilarity.PropertiesI
 -- Verification of programs
 
 -- Burstall's sort list algorithm: A structurally recursive algorithm
-open import FOTC.Program.SortList.ProofSpecificationATP
-open import FOTC.Program.SortList.ProofSpecificationI
+open import FOTC.Program.SortList.SpecificationProofATP
+open import FOTC.Program.SortList.SpecificationProofI
 
 -- The division algorithm: A non-structurally recursive algorithm
-open import FOTC.Program.Division.ProofSpecificationATP
-open import FOTC.Program.Division.ProofSpecificationI
+open import FOTC.Program.Division.SpecificationProofATP
+open import FOTC.Program.Division.SpecificationProofI
 
 -- The GCD algorithm: A non-structurally recursive algorithm
-open import FOTC.Program.GCD.Partial.ProofSpecificationATP
-open import FOTC.Program.GCD.Partial.ProofSpecificationI
-open import FOTC.Program.GCD.Total.ProofSpecificationATP
-open import FOTC.Program.GCD.Total.ProofSpecificationI
+open import FOTC.Program.GCD.Partial.SpecificationProofATP
+open import FOTC.Program.GCD.Partial.SpecificationProofI
+open import FOTC.Program.GCD.Total.SpecificationProofATP
+open import FOTC.Program.GCD.Total.SpecificationProofI
 
 -- The nest function: A very simple function with nested recursion
 open import FOTC.Program.Nest.PropertiesATP
@@ -175,8 +175,8 @@ open import FOTC.Program.MapIterate.MapIterateATP
 open import FOTC.Program.MapIterate.MapIterateI
 
 -- The alternating bit protocol: A program using induction and co-induction
-open import FOTC.Program.ABP.ProofSpecificationATP
-open import FOTC.Program.ABP.ProofSpecificationI
+open import FOTC.Program.ABP.SpecificationProofATP
+open import FOTC.Program.ABP.SpecificationProofI
 
 -- The iter₀ function: A partial function
 open import FOTC.Program.Iter0.PropertiesATP
