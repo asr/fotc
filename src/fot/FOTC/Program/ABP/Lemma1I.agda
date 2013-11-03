@@ -52,7 +52,7 @@ module Helper where
          .(T ∷ []) os₁' f*tnil Fos₁' os₁-eq =
          os₁' , os₂' , as' , bs' , cs' , ds' , js'
          , Fos₁' , Fos₂
-         , (ds'-eq , refl , refl , refl , refl)
+         , (refl , refl , refl , ds'-eq , refl)
          , js-eq
 
     where

@@ -128,10 +128,10 @@ ABP b is os₁ os₂ as bs cs ds js =
 
 ABP' : D → D → D → D → D → D → D → D → D → D → Set
 ABP' b i' is' os₁' os₂' as' bs' cs' ds' js' =
-  ds' ≡ corrupt os₂' · (b ∷ cs')
-  ∧ as' ≡ await b i' is' ds'  -- Typo in ds'.
+  as' ≡ await b i' is' ds'  -- Typo in ds'.
   ∧ bs' ≡ corrupt os₁' · as'
   ∧ cs' ≡ ack (not b) · bs'
+  ∧ ds' ≡ corrupt os₂' · (b ∷ cs')
   ∧ js' ≡ out (not b) · bs'
 {-# ATP definition ABP' #-}
 

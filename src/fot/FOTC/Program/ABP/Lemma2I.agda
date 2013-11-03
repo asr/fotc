@@ -45,7 +45,7 @@ module Helper where
            ∧ Fair os₂''
            ∧ ABP (not b) is' os₁'' os₂'' as'' bs'' cs'' ds'' js'
   helper {b} {i'} {is'} {os₁'} {os₂'} {as'} {bs'} {cs'} {ds'} {js'}
-         Bb Fos₁' (ds'ABP' , as'ABP , bs'ABP' , cs'ABP' , js'ABP')
+         Bb Fos₁' (as'ABP , bs'ABP' , cs'ABP' , ds'ABP' , js'ABP')
          .(T ∷ []) os₂'' f*tnil Fos₂'' os₂'-eq =
          os₁' , os₂'' , as'' , bs'' , cs'' , ds''
          , Fos₁' , Fos₂''
@@ -99,7 +99,7 @@ module Helper where
     js'-eq = js'ABP'
 
   helper {b} {i'} {is'} {os₁'} {os₂'} {as'} {bs'} {cs'} {ds'} {js'}
-         Bb Fos₁' (ds'ABP' , as'ABP , bs'ABP' , cs'ABP' , js'ABP')
+         Bb Fos₁' (as'ABP , bs'ABP' , cs'ABP' , ds'ABP' , js'ABP')
          .(F ∷ ft₂) os₂'' (f*tcons {ft₂} FTft₂) Fos₂'' os₂'-eq
          = helper Bb (tail-Fair Fos₁') ABP'IH ft₂ os₂'' FTft₂ Fos₂'' refl
 
@@ -234,7 +234,7 @@ module Helper where
     ds^-eq = ·-rightCong cs'-eq
 
     ABP'IH : ABP' b i' is' os₁^ os₂^ as^ bs^ cs^ ds^ js'
-    ABP'IH = ds^-eq , refl , refl , refl , js'-eq
+    ABP'IH = refl , refl , refl , ds^-eq , js'-eq
 
 ------------------------------------------------------------------------------
 -- From Dybjer and Sander's paper: From the assumption that os₂ ∈

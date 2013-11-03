@@ -154,7 +154,7 @@ module Helper where
                   (cs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂''))
                   (ds^ cs' (os₂^ ft₂ os₂''))
                   js'
-    ABP'IH = ds^-eq , refl , refl , refl , js'-eq
+    ABP'IH = refl , refl , refl , ds^-eq , js'-eq
 
 ------------------------------------------------------------------------------
 -- From Dybjer and Sander's paper: From the assumption that os₂ ∈

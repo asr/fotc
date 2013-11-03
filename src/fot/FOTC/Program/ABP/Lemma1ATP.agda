@@ -71,10 +71,10 @@ module Helper where
       prf : ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
             Fair os₁'
             ∧ Fair os₂'
-            ∧ (ds' ≡ corrupt os₂' · (b ∷ cs')
-              ∧ as' ≡ await b i' is' ds'
+            ∧ (as' ≡ await b i' is' ds'
               ∧ bs' ≡ corrupt os₁' · as'
               ∧ cs' ≡ ack (not b) · bs'
+              ∧ ds' ≡ corrupt os₂' · (b ∷ cs')
               ∧ js' ≡ out (not b) · bs')
             ∧ js ≡ i' ∷ js'
     {-# ATP prove prf #-}
