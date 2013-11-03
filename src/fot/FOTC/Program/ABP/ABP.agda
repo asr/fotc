@@ -115,25 +115,25 @@ postulate
 ------------------------------------------------------------------------------
 -- ABP relations
 
--- Abbreviation for the recursive equations of the alternating bit
--- protocol.
-ABP : D → D → D → D → D → D → D → D → D → Set
-ABP b is os₁ os₂ as bs cs ds js =
+-- Start state for the ABP.
+State : D → D → D → D → D → D → D → D → D → Set
+State b is os₁ os₂ as bs cs ds js =
   as ≡ send b · is · ds
   ∧ bs ≡ corrupt os₁ · as
   ∧ cs ≡ ack b · bs
   ∧ ds ≡ corrupt os₂ · cs
   ∧ js ≡ out b · bs
-{-# ATP definition ABP #-}
+{-# ATP definition State #-}
 
-ABP' : D → D → D → D → D → D → D → D → D → D → Set
-ABP' b i' is' os₁' os₂' as' bs' cs' ds' js' =
+-- State for the ABP.
+State' : D → D → D → D → D → D → D → D → D → D → Set
+State' b i' is' os₁' os₂' as' bs' cs' ds' js' =
   as' ≡ await b i' is' ds'  -- Typo in ds'.
   ∧ bs' ≡ corrupt os₁' · as'
   ∧ cs' ≡ ack (not b) · bs'
   ∧ ds' ≡ corrupt os₂' · (b ∷ cs')
   ∧ js' ≡ out (not b) · bs'
-{-# ATP definition ABP' #-}
+{-# ATP definition State' #-}
 
 -- Auxiliary bisimulation.
 B : D → D → Set
@@ -142,5 +142,5 @@ B is js = ∃[ b ] ∃[ os₁ ] ∃[ os₂ ] ∃[ as ] ∃[ bs ] ∃[ cs ] ∃[ 
             ∧ Bit b
             ∧ Fair os₁
             ∧ Fair os₂
-            ∧ ABP b is os₁ os₂ as bs cs ds js
+            ∧ State b is os₁ os₂ as bs cs ds js
 {-# ATP definition B #-}

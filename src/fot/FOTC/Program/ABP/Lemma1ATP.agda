@@ -58,14 +58,15 @@ module Helper where
   helper : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
            Bit b →
            Fair os₂ →
-           ABP b (i' ∷ is') os₁ os₂ as bs cs ds js →
+           State b (i' ∷ is') os₁ os₂ as bs cs ds js →
            ∀ ft₁ os₁' → F*T ft₁ → Fair os₁' → os₁ ≡ ft₁ ++ os₁' →
            ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
            Fair os₁'
            ∧ Fair os₂'
-           ∧ ABP' b i' is' os₁' os₂' as' bs' cs' ds' js'
+           ∧ State' b i' is' os₁' os₂' as' bs' cs' ds' js'
            ∧ js ≡ i' ∷ js'
-  helper {b} {i'} {is'} {js = js} Bb Fos₂ abp .(T ∷ []) os₁' f*tnil Fos₁' os₁-eq = prf
+  helper {b} {i'} {is'} {js = js}
+         Bb Fos₂ state .(T ∷ []) os₁' f*tnil Fos₁' os₁-eq = prf
     where
     postulate
       prf : ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
@@ -78,9 +79,9 @@ module Helper where
               ∧ js' ≡ out (not b) · bs')
             ∧ js ≡ i' ∷ js'
     {-# ATP prove prf #-}
-  helper {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js} Bb Fos₂ abp
+  helper {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js} Bb Fos₂ state
          .(F ∷ ft₁^) os₁' (f*tcons {ft₁^} FTft₁^) Fos₁' os₁-eq
-         = helper Bb (tail-Fair Fos₂) ABPIH ft₁^ os₁' FTft₁^ Fos₁' refl
+         = helper Bb (tail-Fair Fos₂) ihState ft₁^ os₁' FTft₁^ Fos₁' refl
     where
     postulate os₁-eq-helper : os₁ ≡ F ∷ os₁^ os₁' ft₁^
     {-# ATP prove os₁-eq-helper #-}
@@ -129,16 +130,16 @@ module Helper where
     postulate js-eq : js ≡ out b · bs^ b i' is' ds (os₁^ os₁' ft₁^)
     {-# ATP prove js-eq bs-eq #-}
 
-    ABPIH : ABP b
-                (i' ∷ is')
-                (os₁^ os₁' ft₁^)
-                (os₂^ os₂)
-                (as^ b i' is' ds)
-                (bs^ b i' is' ds (os₁^ os₁' ft₁^))
-                (cs^ b i' is' ds (os₁^ os₁' ft₁^))
-                (ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂))
+    ihState : State b
+              (i' ∷ is')
+              (os₁^ os₁' ft₁^)
+              (os₂^ os₂)
+              (as^ b i' is' ds)
+              (bs^ b i' is' ds (os₁^ os₁' ft₁^))
+              (cs^ b i' is' ds (os₁^ os₁' ft₁^))
+              (ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂))
                 js
-    ABPIH = as^-eq , refl , refl , refl , js-eq
+    ihState = as^-eq , refl , refl , refl , js-eq
 
 ------------------------------------------------------------------------------
 -- From Dybjer and Sander's paper: From the assumption that os₁ ∈
@@ -152,11 +153,11 @@ lemma₁ : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
          Bit b →
          Fair os₁ →
          Fair os₂ →
-         ABP b (i' ∷ is') os₁ os₂ as bs cs ds js →
+         State b (i' ∷ is') os₁ os₂ as bs cs ds js →
          ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
          Fair os₁'
          ∧ Fair os₂'
-         ∧ ABP' b i' is' os₁' os₂' as' bs' cs' ds' js'
+         ∧ State' b i' is' os₁' os₂' as' bs' cs' ds' js'
          ∧ js ≡ i' ∷ js'
-lemma₁ Bb Fos₁ Fos₂ abp with Fair-unf Fos₁
-... | ft , os₁' , FTft , h , Fos₁' = helper Bb Fos₂ abp ft os₁' FTft Fos₁' h
+lemma₁ Bb Fos₁ Fos₂ state with Fair-unf Fos₁
+... | ft , os₁' , FTft , h , Fos₁' = helper Bb Fos₂ state ft os₁' FTft Fos₁' h

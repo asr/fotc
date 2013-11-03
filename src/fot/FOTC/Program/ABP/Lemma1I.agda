@@ -38,17 +38,17 @@ module Helper where
   helper : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
            Bit b →
            Fair os₂ →
-           ABP b (i' ∷ is') os₁ os₂ as bs cs ds js →
+           State b (i' ∷ is') os₁ os₂ as bs cs ds js →
            ∀ ft₁ os₁' → F*T ft₁ → Fair os₁' → os₁ ≡ ft₁ ++ os₁' →
            ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
            Fair os₁'
            ∧ Fair os₂'
-           ∧ ABP' b i' is' os₁' os₂' as' bs' cs' ds' js'
+           ∧ State' b i' is' os₁' os₂' as' bs' cs' ds' js'
            ∧ js ≡ i' ∷ js'
   -- 2012-02-29. The existential witnesses could be avoid not using
   -- the auxiliary prooos inside the where clause.
   helper {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js} Bb Fos₂
-         (asABP , bsABP , csABP , dsAbs , jsABP)
+         (asS , bsS , csS , dsS , jsS)
          .(T ∷ []) os₁' f*tnil Fos₁' os₁-eq =
          os₁' , os₂' , as' , bs' , cs' , ds' , js'
          , Fos₁' , Fos₂
@@ -66,14 +66,14 @@ module Helper where
     as' = await b i' is' ds
 
     as-eq : as ≡ < i' , b > ∷ as'
-    as-eq = trans asABP (send-eq b i' is' ds)
+    as-eq = trans asS (send-eq b i' is' ds)
 
     bs' : D
     bs' = corrupt os₁' · as'
 
     bs-eq : bs ≡ ok < i' , b > ∷ bs'
     bs-eq =
-     bs ≡⟨ bsABP ⟩
+     bs ≡⟨ bsS ⟩
       corrupt os₁ · as
         ≡⟨ ·-rightCong as-eq ⟩
       corrupt os₁ · (< i' , b > ∷ as')
@@ -88,7 +88,7 @@ module Helper where
     cs' = ack (not b) · bs'
 
     cs-eq : cs ≡ b ∷ cs'
-    cs-eq = cs                            ≡⟨ csABP ⟩
+    cs-eq = cs                            ≡⟨ csS ⟩
             ack b · bs                    ≡⟨ ·-rightCong bs-eq ⟩
             ack b · (ok < i' , b > ∷ bs') ≡⟨ ack-ok≡ b b i' bs' refl ⟩
             b ∷ ack (not b) · bs'         ≡⟨ refl ⟩
@@ -98,7 +98,7 @@ module Helper where
     js' = out (not b) · bs'
 
     js-eq : js ≡ i' ∷ js'
-    js-eq = js                            ≡⟨ jsABP ⟩
+    js-eq = js                            ≡⟨ jsS ⟩
             out b · bs                    ≡⟨ ·-rightCong bs-eq ⟩
             out b · (ok < i' , b > ∷ bs') ≡⟨ out-ok≡ b b i' bs' refl ⟩
             i' ∷ out (not b) · bs'        ≡⟨ refl ⟩
@@ -114,7 +114,7 @@ module Helper where
                      (corrupt os₁' · (await b i' is' ds)))
     ds'-eq =
       ds'
-        ≡⟨ dsAbs ⟩
+        ≡⟨ dsS ⟩
       corrupt os₂ · cs
         ≡⟨ ·-rightCong cs-eq ⟩
       corrupt os₂ · (b ∷ cs')
@@ -122,9 +122,9 @@ module Helper where
       corrupt os₂ · (b ∷ ack (not b) · (corrupt os₁' · (await b i' is' ds))) ∎
 
   helper {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js}
-         Bb Fos₂ (asABP , bsABP , csABP , dsAbs , jsABP)
+         Bb Fos₂ (asS , bsS , csS , dsS , jsS)
          .(F ∷ ft₁^) os₁' (f*tcons {ft₁^} FTft₁^) Fos₁' os₁-eq
-         = helper Bb (tail-Fair Fos₂) ABPIH ft₁^  os₁' FTft₁^ Fos₁' refl
+         = helper Bb (tail-Fair Fos₂) ihState ft₁^  os₁' FTft₁^ Fos₁' refl
 
     where
     os₁^ : D
@@ -143,7 +143,7 @@ module Helper where
     as^ = await b i' is' ds
 
     as-eq : as ≡ < i' , b > ∷ as^
-    as-eq = trans asABP (send-eq b i' is' ds)
+    as-eq = trans asS (send-eq b i' is' ds)
 
     bs^ : D
     bs^ = corrupt os₁^ · as^
@@ -151,7 +151,7 @@ module Helper where
     bs-eq : bs ≡ error ∷ bs^
     bs-eq =
       bs
-        ≡⟨ bsABP ⟩
+        ≡⟨ bsS ⟩
       corrupt os₁ · as
         ≡⟨ ·-rightCong as-eq ⟩
       corrupt os₁ · (< i' , b > ∷ as^)
@@ -166,7 +166,7 @@ module Helper where
     cs^ = ack b · bs^
 
     cs-eq : cs ≡ not b ∷ cs^
-    cs-eq = cs                    ≡⟨ csABP ⟩
+    cs-eq = cs                    ≡⟨ csS ⟩
             ack b · bs            ≡⟨ ·-rightCong bs-eq ⟩
             ack b · (error ∷ bs^) ≡⟨ ack-error b bs^ ⟩
             not b ∷ ack b · bs^   ≡⟨ refl ⟩
@@ -177,7 +177,7 @@ module Helper where
 
     ds-eq-helper₁ : os₂ ≡ T ∷ tail₁ os₂ → ds ≡ ok (not b) ∷ ds^
     ds-eq-helper₁ h =
-      ds                                 ≡⟨ dsAbs ⟩
+      ds                                 ≡⟨ dsS ⟩
       corrupt os₂ · cs                   ≡⟨ ·-rightCong cs-eq ⟩
       corrupt os₂ · (not b ∷ cs^)        ≡⟨ ·-leftCong (corruptCong h) ⟩
       corrupt (T ∷ os₂^) · (not b ∷ cs^) ≡⟨ corrupt-T os₂^ (not b) cs^ ⟩
@@ -186,7 +186,7 @@ module Helper where
 
     ds-eq-helper₂ : os₂ ≡ F ∷ tail₁ os₂ → ds ≡ error ∷ ds^
     ds-eq-helper₂ h =
-      ds                                 ≡⟨ dsAbs ⟩
+      ds                                 ≡⟨ dsS ⟩
       corrupt os₂ · cs                   ≡⟨ ·-rightCong cs-eq ⟩
       corrupt os₂ · (not b ∷ cs^)        ≡⟨ ·-leftCong (corruptCong h) ⟩
       corrupt (F ∷ os₂^) · (not b ∷ cs^) ≡⟨ corrupt-F os₂^ (not b) cs^ ⟩
@@ -219,13 +219,13 @@ module Helper where
     as^-eq = case as^-eq-helper₁ as^-eq-helper₂ ds-eq
 
     js-eq : js ≡ out b · bs^
-    js-eq = js                    ≡⟨ jsABP ⟩
+    js-eq = js                    ≡⟨ jsS ⟩
             out b · bs            ≡⟨ ·-rightCong bs-eq ⟩
             out b · (error ∷ bs^) ≡⟨ out-error b bs^ ⟩
             out b · bs^ ∎
 
-    ABPIH : ABP b (i' ∷ is') os₁^ os₂^ as^ bs^ cs^ ds^ js
-    ABPIH = as^-eq , refl , refl , refl , js-eq
+    ihState : State b (i' ∷ is') os₁^ os₂^ as^ bs^ cs^ ds^ js
+    ihState = as^-eq , refl , refl , refl , js-eq
 
 ------------------------------------------------------------------------------
 -- From Dybjer and Sander's paper: From the assumption that os₁ ∈
@@ -239,11 +239,11 @@ lemma₁ : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
          Bit b →
          Fair os₁ →
          Fair os₂ →
-         ABP b (i' ∷ is') os₁ os₂ as bs cs ds js →
+         State b (i' ∷ is') os₁ os₂ as bs cs ds js →
          ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
          Fair os₁'
          ∧ Fair os₂'
-         ∧ ABP' b i' is' os₁' os₂' as' bs' cs' ds' js'
+         ∧ State' b i' is' os₁' os₂' as' bs' cs' ds' js'
          ∧ js ≡ i' ∷ js'
-lemma₁ Bb Fos₁ Fos₂ abp with Fair-unf Fos₁
-... | ft , os₁' , FTft , h ,  Fos₁' = helper Bb Fos₂ abp ft os₁' FTft Fos₁' h
+lemma₁ Bb Fos₁ Fos₂ state with Fair-unf Fos₁
+... | ft , os₁' , FTft , h ,  Fos₁' = helper Bb Fos₂ state ft os₁' FTft Fos₁' h
