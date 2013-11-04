@@ -36,12 +36,12 @@ open import FOTC.Relation.Binary.Bisimilarity
 -- Main theorem.
 abpCorrect : ∀ {b is os₁ os₂} → Bit b → Stream is → Fair os₁ → Fair os₂ →
              is ≈ abpTransfer b os₁ os₂ is
-abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B prf₁ prf₂
+abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B h₁ h₂
   where
-  postulate prf₁ : ∀ {is js} → B is js →
-                   ∃[ i' ] ∃[ is' ] ∃[ js' ]
-                     is ≡ i' ∷ is' ∧ js ≡ i' ∷ js' ∧ B is' js'
-  {-# ATP prove prf₁ lemma₁ lemma₂ not-Bool #-}
+  postulate h₁ : ∀ {is js} → B is js →
+                 ∃[ i' ] ∃[ is' ] ∃[ js' ]
+                   is ≡ i' ∷ is' ∧ js ≡ i' ∷ js' ∧ B is' js'
+  {-# ATP prove h₁ lemma₁ lemma₂ not-Bool #-}
 
-  postulate prf₂ : B is (abpTransfer b os₁ os₂ is)
-  {-# ATP prove prf₂ #-}
+  postulate h₂ : B is (abpTransfer b os₁ os₂ is)
+  {-# ATP prove h₂ #-}

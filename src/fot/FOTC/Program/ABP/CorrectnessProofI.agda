@@ -33,11 +33,11 @@ open import FOTC.Relation.Binary.Bisimilarity
 -- Main theorem.
 abpCorrect : ∀ {b is os₁ os₂} → Bit b → Stream is → Fair os₁ → Fair os₂ →
              is ≈ abpTransfer b os₁ os₂ is
-abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B prf₁ prf₂
+abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B h₁ h₂
   where
-  prf₁ : ∀ {is js} → B is js →
-         ∃[ i' ] ∃[ is' ] ∃[ js' ] is ≡ i' ∷ is' ∧ js ≡ i' ∷ js' ∧ B is' js'
-  prf₁ {is} {js} (b , os₁ , os₂ , as , bs , cs , ds , Sis , Bb , Fos₁ , Fos₂ , h)
+  h₁ : ∀ {is js} → B is js →
+       ∃[ i' ] ∃[ is' ] ∃[ js' ] is ≡ i' ∷ is' ∧ js ≡ i' ∷ js' ∧ B is' js'
+  h₁ {is} {js} (b , os₁ , os₂ , as , bs , cs , ds , Sis , Bb , Fos₁ , Fos₂ , h)
      with Stream-unf Sis
   ... | (i' , is' , is≡i'∷is , Sis') =
     i' , is' , js' , is≡i'∷is , js≡i'∷js' , Bis'js'
@@ -83,8 +83,8 @@ abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B prf₁ pr
       not b , os₁'' , os₂'' , as'' , bs'' , cs'' , ds''
       , Sis' , not-Bool Bb , Fos₁'' , Fos₂'' , s
 
-  prf₂ : B is (abpTransfer b os₁ os₂ is)
-  prf₂ = b
+  h₂ : B is (abpTransfer b os₁ os₂ is)
+  h₂ = b
        , os₁
        , os₂
        , has a₁ a₂ a₃ a₄ a₅ is
