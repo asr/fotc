@@ -6,10 +6,9 @@
 {-# OPTIONS --without-K #-}
 
 -- From Dybjer and Sander's paper: The first lemma states that given a
--- start state Abp (of the alternating bit protocol) we will arrive at
--- a state Abp', where the message has been received by the receiver,
--- but where the acknowledgement has not yet been received by the
--- sender.
+-- start state S of the ABP, we will arrive at a state S', where the
+-- message has been received by the receiver, but where the
+-- acknowledgement has not yet been received by the sender.
 
 module FOTC.Program.ABP.Lemma1ATP where
 
@@ -145,11 +144,11 @@ module Helper where
     ihS = as^-eq , refl , refl , refl , js-eq
 
 ------------------------------------------------------------------------------
--- From Dybjer and Sander's paper: From the assumption that os₁ ∈
--- Fair, and hence by unfolding Fair we conclude that there are ft₁ :
--- F*T and os₁' : Fair, such that os₁ = ft₁ ++ os₁'.
+-- From Dybjer and Sander's paper: From the assumption that
+-- os₁ ∈ Fair, and hence by unfolding Fair we conclude that there are
+-- ft₁ :  F*T and os₁' : Fair, such that os₁ = ft₁ ++ os₁'.
 --
--- We proceed by induction on ft₁ : F*T using helper.
+-- We proceed by induction on ft₁ : F*T using helper.
 
 open Helper
 lemma₁ : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
@@ -163,4 +162,4 @@ lemma₁ : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
            ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
            ∧ js ≡ i' ∷ js'
 lemma₁ Bb Fos₁ Fos₂ s with Fair-unf Fos₁
-... | ft , os₁' , FTft , h , Fos₁' = helper Bb Fos₂ s ft os₁' FTft Fos₁' h
+... | ft₁ , os₁' , FTft₁ , h , Fos₁' = helper Bb Fos₂ s ft₁ os₁' FTft₁ Fos₁' h

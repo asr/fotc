@@ -6,10 +6,9 @@
 {-# OPTIONS --without-K #-}
 
 -- From Dybjer and Sander's paper: The first lemma states that given a
--- start state Abp (of the alternating bit protocol) we will arrive at
--- a state Abp', where the message has been received by the receiver,
--- but where the acknowledgement has not yet been received by the
--- sender.
+-- start state S of the ABP, we will arrive at a state S', where the
+-- message has been received by the receiver, but where the
+-- acknowledgement has not yet been received by the sender.
 
 module FOTC.Program.ABP.Lemma1I where
 
@@ -46,7 +45,7 @@ module Helper where
              ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
              ∧ js ≡ i' ∷ js'
   -- 2012-02-29. The existential witnesses could be avoid not using
-  -- the auxiliary prooos inside the where clause.
+  -- the auxiliary proofs inside the where clause.
   helper {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js} Bb Fos₂
          (asS , bsS , csS , dsS , jsS)
          .(T ∷ []) os₁' f*tnil Fos₁' os₁-eq =
@@ -228,11 +227,11 @@ module Helper where
     ihS = as^-eq , refl , refl , refl , js-eq
 
 ------------------------------------------------------------------------------
--- From Dybjer and Sander's paper: From the assumption that os₁ ∈
--- Fair, and hence by unfolding Fair we conclude that there are ft₁ :
--- F*T and os₁' : Fair, such that os₁ = ft₁ ++ os₁'.
+-- From Dybjer and Sander's paper: From the assumption that
+-- os₁ ∈ Fair, and hence by unfolding Fair we conclude that there are
+-- ft₁ :  F*T and os₁' : Fair, such that os₁ = ft₁ ++ os₁'.
 --
--- We proceed by induction on ft₁ : F*T using helper.
+-- We proceed by induction on ft₁ : F*T using helper.
 
 open Helper
 lemma₁ : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
