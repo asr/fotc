@@ -175,8 +175,8 @@ open import FOTC.Program.MapIterate.MapIterateATP
 open import FOTC.Program.MapIterate.MapIterateI
 
 -- The alternating bit protocol: A program using induction and co-induction
-open import FOTC.Program.ABP.SpecificationProofATP
-open import FOTC.Program.ABP.SpecificationProofI
+open import FOTC.Program.ABP.CorrectnessProofATP
+open import FOTC.Program.ABP.CorrectnessProofI
 
 -- The iter₀ function: A partial function
 open import FOTC.Program.Iter0.PropertiesATP

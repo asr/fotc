@@ -93,6 +93,8 @@ open import FOTC.Induction.WF
 
 open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.ABP.Consistency.Axioms
+open import FOTC.Program.ABP.CorrectnessProofATP
+open import FOTC.Program.ABP.CorrectnessProofI
 open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.Fair.Consistency.Axioms
 open import FOTC.Program.ABP.Fair.PropertiesATP
@@ -102,8 +104,6 @@ open import FOTC.Program.ABP.Lemma1I
 open import FOTC.Program.ABP.Lemma2ATP
 open import FOTC.Program.ABP.Lemma2I
 open import FOTC.Program.ABP.PropertiesI
-open import FOTC.Program.ABP.SpecificationProofATP
-open import FOTC.Program.ABP.SpecificationProofI
 open import FOTC.Program.ABP.Terms
 
 open import FOTC.Program.Collatz.Collatz

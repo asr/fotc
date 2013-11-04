@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- The alternating bit protocol (ABP) satisfies the specification
+-- The alternating bit protocol (ABP) is correct
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -18,7 +18,7 @@
 -- N.B This module does not contain combined proofs, but it imports
 -- modules which contain combined proofs.
 
-module FOTC.Program.ABP.SpecificationProofATP where
+module FOTC.Program.ABP.CorrectnessProofATP where
 
 open import FOTC.Base
 open import FOTC.Base.List
@@ -34,9 +34,9 @@ open import FOTC.Relation.Binary.Bisimilarity
 
 ------------------------------------------------------------------------------
 -- Main theorem.
-spec : ∀ {b is os₁ os₂} → Bit b → Stream is → Fair os₁ → Fair os₂ →
-       is ≈ abpTransfer b os₁ os₂ is
-spec {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B prf₁ prf₂
+abpCorrect : ∀ {b is os₁ os₂} → Bit b → Stream is → Fair os₁ → Fair os₂ →
+             is ≈ abpTransfer b os₁ os₂ is
+abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B prf₁ prf₂
   where
   postulate prf₁ : ∀ {is js} → B is js →
                    ∃[ i' ] ∃[ is' ] ∃[ js' ]
