@@ -109,7 +109,7 @@ postulate
   abpTransfer-eq :
     ∀ b os₁ os₂ is →
       abpTransfer b os₁ os₂ is ≡
-      transfer (send b) (ack b) (out b) (corrupt os₁) (corrupt os₂) is
+        transfer (send b) (ack b) (out b) (corrupt os₁) (corrupt os₂) is
 {-# ATP axiom abpTransfer-eq #-}
 
 ------------------------------------------------------------------------------
