@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- The gcd program satisfies the specification
+-- The gcd program is correct
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -11,16 +11,16 @@
 -- N.B This module does not contain combined proofs, but it imports
 -- modules which contain combined proofs.
 
-module FOTC.Program.GCD.Total.SpecificationProofATP where
+module FOTC.Program.GCD.Total.CorrectnessProofATP where
 
 open import FOTC.Base
 open import FOTC.Data.Nat.Type
 open import FOTC.Program.GCD.Total.CommonDivisorATP using ( gcd-CD )
-open import FOTC.Program.GCD.Total.Definitions using (GCD)
+open import FOTC.Program.GCD.Total.Definitions using ( gcdSpec )
 open import FOTC.Program.GCD.Total.DivisibleATP using ( gcd-Divisible )
 open import FOTC.Program.GCD.Total.GCD using ( gcd )
 
 ------------------------------------------------------------------------------
--- The gcd is the GCD.
-postulate gcd-GCD : ∀ {m n} → N m → N n → GCD m n (gcd m n)
-{-# ATP prove gcd-GCD gcd-CD gcd-Divisible #-}
+-- The gcd is correct.
+postulate gcdCorrect : ∀ {m n} → N m → N n → gcdSpec m n (gcd m n)
+{-# ATP prove gcdCorrect gcd-CD gcd-Divisible #-}

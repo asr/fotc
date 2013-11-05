@@ -1,31 +1,28 @@
 ------------------------------------------------------------------------------
--- The program to sort a list satisfies the specification
+-- The program to sort a list is correct
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- This module prove the correctness of a program which sorts a list
+-- This module proves the correctness of a program which sorts a list
 -- by converting it into an ordered tree and then back to a list
--- (Burstall 1969, p. 45).
+-- (Burstall, 1969, p. 45).
 
 -- References:
 --
 -- • Burstall, R. M. (1969). Proving properties of programs by
 --   structural induction. In: The Computer Journal 12.1, pp. 41–48.
 
-module FOTC.Program.SortList.SpecificationProofI where
+module FOTC.Program.SortList.CorrectnessProofATP where
 
 open import FOTC.Base
 open import FOTC.Data.Nat.List.Type
-open import FOTC.Program.SortList.PropertiesI
-open import FOTC.Program.SortList.Properties.Totality.TreeI
+open import FOTC.Program.SortList.PropertiesATP
+open import FOTC.Program.SortList.Properties.Totality.TreeATP
 open import FOTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------
--- Main theorem: The sort program generates a ordered list.
-sort-OrdList : ∀ {is} → ListN is → OrdList (sort is)
-sort-OrdList {is} Lis =
-  subst OrdList
-        refl
-        (flatten-OrdList (makeTree-Tree Lis) (makeTree-OrdTree Lis))
+-- Main theorem: The sort program generates an ordered list.
+postulate sortCorrect : ∀ {is} → ListN is → OrdList (sort is)
+{-# ATP prove sortCorrect flatten-OrdList makeTree-Tree makeTree-OrdTree #-}

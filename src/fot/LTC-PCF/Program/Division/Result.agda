@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module LTC-PCF.Program.Division.IsCorrect where
+module LTC-PCF.Program.Division.Result where
 
 open import Common.FOL.Relation.Binary.EqReasoning
 open import Common.Function
@@ -31,9 +31,9 @@ div-x<y-helper {i} {j} Ni Nj i<j = sym prf
         zero + i        ≡⟨ +-leftIdentity i ⟩
         i               ∎
 
-div-x<y-correct : ∀ {i j} → N i → N j → i < j →
-                  ∃[ r ] N r ∧ r < j ∧ i ≡ j * div i j + r
-div-x<y-correct Ni Nj i<j = _ , Ni , i<j , div-x<y-helper Ni Nj i<j
+div-x<y-resultCorrect : ∀ {i j} → N i → N j → i < j →
+                        ∃[ r ] N r ∧ r < j ∧ i ≡ j * div i j + r
+div-x<y-resultCorrect Ni Nj i<j = _ , Ni , i<j , div-x<y-helper Ni Nj i<j
 
 -- The division result is correct when the dividend is greater or equal
 -- than the divisor.
@@ -67,11 +67,11 @@ div-x≮y-helper {i} {j} {r} Ni Nj Nr i≮j helperH =
               (div-x≮y i≮j)
               refl
 
-div-x≮y-correct : ∀ {i j} → N i → N j →
-                  (DIV (i ∸ j) j (div (i ∸ j) j)) →
-                  i ≮ j →
-                  ∃[ r ] N r ∧ r < j ∧ i ≡ j * div i j + r
-div-x≮y-correct {i} {j} Ni Nj (h₁ , r , r-correct) i≮j =
+div-x≮y-resultCorrect : ∀ {i j} → N i → N j →
+                        (divSpec (i ∸ j) j (div (i ∸ j) j)) →
+                        i ≮ j →
+                        ∃[ r ] N r ∧ r < j ∧ i ≡ j * div i j + r
+div-x≮y-resultCorrect {i} {j} Ni Nj (h₁ , r , r-correct) i≮j =
   r , Nr , r<j , div-x≮y-helper Ni Nj Nr i≮j helperH
   where
   Nr : N r

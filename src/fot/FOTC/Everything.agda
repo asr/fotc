@@ -117,12 +117,12 @@ open import FOTC.Program.Collatz.PropertiesATP
 
 open import FOTC.Program.Division.ConversionRulesATP
 open import FOTC.Program.Division.ConversionRulesI
+open import FOTC.Program.Division.CorrectnessProofATP
+open import FOTC.Program.Division.CorrectnessProofI
 open import FOTC.Program.Division.Division
-open import FOTC.Program.Division.IsCorrectATP
-open import FOTC.Program.Division.IsCorrectI
+open import FOTC.Program.Division.ResultATP
+open import FOTC.Program.Division.ResultI
 open import FOTC.Program.Division.Specification
-open import FOTC.Program.Division.SpecificationProofATP
-open import FOTC.Program.Division.SpecificationProofI
 open import FOTC.Program.Division.TotalityATP
 open import FOTC.Program.Division.TotalityI
 
@@ -130,14 +130,14 @@ open import FOTC.Program.GCD.Partial.CommonDivisorATP
 open import FOTC.Program.GCD.Partial.CommonDivisorI
 open import FOTC.Program.GCD.Partial.ConversionRulesATP
 open import FOTC.Program.GCD.Partial.ConversionRulesI
+open import FOTC.Program.GCD.Partial.CorrectnessProofATP
+open import FOTC.Program.GCD.Partial.CorrectnessProofI
 open import FOTC.Program.GCD.Partial.Definitions
 open import FOTC.Program.GCD.Partial.DivisibleATP
 open import FOTC.Program.GCD.Partial.DivisibleI
 open import FOTC.Program.GCD.Partial.GCD
 open import FOTC.Program.GCD.Partial.GCD.Consistency.Axioms
 open import FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor
-open import FOTC.Program.GCD.Partial.SpecificationProofATP
-open import FOTC.Program.GCD.Partial.SpecificationProofI
 open import FOTC.Program.GCD.Partial.TotalityATP
 open import FOTC.Program.GCD.Partial.TotalityI
 
@@ -145,13 +145,13 @@ open import FOTC.Program.GCD.Total.CommonDivisorATP
 open import FOTC.Program.GCD.Total.CommonDivisorI
 open import FOTC.Program.GCD.Total.ConversionRulesATP
 open import FOTC.Program.GCD.Total.ConversionRulesI
+open import FOTC.Program.GCD.Total.CorrectnessProofATP
+open import FOTC.Program.GCD.Total.CorrectnessProofI
 open import FOTC.Program.GCD.Total.Definitions
 open import FOTC.Program.GCD.Total.DivisibleATP
 open import FOTC.Program.GCD.Total.DivisibleI
 open import FOTC.Program.GCD.Total.GCD
 open import FOTC.Program.GCD.Total.GCD.Consistency.Axioms
-open import FOTC.Program.GCD.Total.SpecificationProofATP
-open import FOTC.Program.GCD.Total.SpecificationProofI
 open import FOTC.Program.GCD.Total.TotalityATP
 open import FOTC.Program.GCD.Total.TotalityI
 
@@ -188,6 +188,8 @@ open import FOTC.Program.Nest.Nest
 open import FOTC.Program.Nest.Nest.Consistency.Axioms
 open import FOTC.Program.Nest.PropertiesATP
 
+open import FOTC.Program.SortList.CorrectnessProofATP
+open import FOTC.Program.SortList.CorrectnessProofI
 open import FOTC.Program.SortList.Properties.MiscellaneousATP
 open import FOTC.Program.SortList.Properties.MiscellaneousI
 open import FOTC.Program.SortList.Properties.Totality.BoolATP
@@ -204,8 +206,6 @@ open import FOTC.Program.SortList.Properties.Totality.TreeATP
 open import FOTC.Program.SortList.Properties.Totality.TreeI
 open import FOTC.Program.SortList.PropertiesI
 open import FOTC.Program.SortList.PropertiesATP
-open import FOTC.Program.SortList.SpecificationProofATP
-open import FOTC.Program.SortList.SpecificationProofI
 open import FOTC.Program.SortList.SortList
 open import FOTC.Program.SortList.SortList.Consistency.Axioms
 
