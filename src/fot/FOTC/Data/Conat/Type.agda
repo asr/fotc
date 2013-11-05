@@ -62,11 +62,11 @@ postulate
 Conat-pre-fixed : ∀ {n} →
                   (n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')) →
                   Conat n
-Conat-pre-fixed {n} h = Conat-coind A prf h
+Conat-pre-fixed {n} h = Conat-coind A h' h
   where
   A : D → Set
   A m = m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ Conat m')
 
-  prf : A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
-  prf (inj₁ n≡0) = inj₁ n≡0
-  prf (inj₂ (n' , n≡Sn' , An')) = inj₂ (n' , n≡Sn' , Conat-unf An')
+  h' : A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
+  h' (inj₁ n≡0) = inj₁ n≡0
+  h' (inj₂ (n' , n≡Sn' , An')) = inj₂ (n' , n≡Sn' , Conat-unf An')

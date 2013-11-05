@@ -39,7 +39,7 @@ postulate
             -- R is a post-fixed point of the bisimulation functional.
             (R xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
               xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ R xs' ys') →
-             -- _≈_ is greater than R.
+            -- _≈_ is greater than R.
             R xs ys → xs ≈ ys
 
 -- Because a greatest post-fixed point is a fixed-point, the
@@ -49,15 +49,16 @@ postulate
               (∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
                 xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys') →
               xs ≈ ys
-≈-pre-fixed {xs} {ys} h = ≈-coind R prf h
+≈-pre-fixed {xs} {ys} h = ≈-coind R h' h
   where
   R : D → D → Set
   R xs ys = ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
-            xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys'
+              xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys'
 
-  prf :  R xs ys →
-         ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ R xs' ys'
-  prf (_ , _ , _ , h₁ , h₂ , xs'≈ys') = _ , _ , _ , h₁ , h₂ , ≈-unf xs'≈ys'
+  h' : R xs ys →
+       ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ R xs' ys'
+  h' (_ , _ , _ , prf₁ , prf₂ , xs'≈ys') =
+    _ , _ , _ , prf₁ , prf₂ , ≈-unf xs'≈ys'
 
 private
   module Bisimulation where

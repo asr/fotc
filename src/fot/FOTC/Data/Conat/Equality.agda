@@ -52,7 +52,7 @@ postulate
   ≈N-coind : ∀ (R : D → D → Set) {m n} →
              -- R is a post-fixed point of the functional ≈NF.
              (R m n → m ≡ zero ∧ n ≡ zero
-              ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')) →
+               ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')) →
              -- _≈N_ is greater than R.
              R m n → m ≈N n
 
@@ -62,17 +62,17 @@ postulate
 -- ≈NF _≈N_ ≤ _≈N_.
 ≈N-pre-fixed : ∀ {m n} →
                (m ≡ zero ∧ n ≡ zero
-               ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n')) →
+                 ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n')) →
                m ≈N n
-≈N-pre-fixed {m} {n} h = ≈N-coind R prf h
+≈N-pre-fixed {m} {n} h = ≈N-coind R h' h
   where
   R : D → D → Set
   R m n = m ≡ zero ∧ n ≡ zero
-          ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n')
+            ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n')
 
-  prf : R m n →
-        m ≡ zero ∧ n ≡ zero
-        ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
-  prf (inj₁ prf) = inj₁ prf
-  prf (inj₂ (m' , n' , h₁ , h₂ , m'≈Nn')) =
-    inj₂ (m' , n' , h₁ , h₂ , ≈N-unf m'≈Nn')
+  h' : R m n →
+       m ≡ zero ∧ n ≡ zero
+         ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
+  h' (inj₁ prf) = inj₁ prf
+  h' (inj₂ (m' , n' , prf₁ , prf₂ , m'≈Nn')) =
+    inj₂ (m' , n' , prf₁ , prf₂ , ≈N-unf m'≈Nn')

@@ -56,10 +56,10 @@ postulate
 StreamN-pre-fixed : ∀ {ns} →
                     (∃[ n' ] ∃[ ns' ] N n' ∧ StreamN ns' ∧ ns ≡ n' ∷ ns') →
                     StreamN ns
-StreamN-pre-fixed {ns} h = StreamN-coind A prf h
+StreamN-pre-fixed {ns} h = StreamN-coind A h' h
   where
   A : D → Set
   A ns = ∃[ n' ] ∃[ ns' ] N n' ∧ StreamN ns' ∧ ns ≡ n' ∷ ns'
 
-  prf : A ns → ∃[ n' ] ∃[ ns' ] N n' ∧ A ns' ∧ ns ≡ n' ∷ ns'
-  prf (_ , _ , Nn' , SNns' , h₁) = _ , _ , Nn' , (StreamN-unf SNns') , h₁
+  h' : A ns → ∃[ n' ] ∃[ ns' ] N n' ∧ A ns' ∧ ns ≡ n' ∷ ns'
+  h' (_ , _ , Nn' , SNns' , prf) = _ , _ , Nn' , (StreamN-unf SNns') , prf

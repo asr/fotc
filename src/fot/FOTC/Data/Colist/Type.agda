@@ -55,12 +55,12 @@ postulate
 Colist-pre-fixed : ∀ {xs} →
                    (xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs')) →
                    Colist xs
-Colist-pre-fixed {xs} h = Colist-coind A prf h
+Colist-pre-fixed {xs} h = Colist-coind A h' h
   where
   A : D → Set
   A ws = ws ≡ [] ∨ (∃[ w' ] ∃[ ws' ] ws ≡ w' ∷ ws' ∧ Colist ws')
 
-  prf : A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
-  prf (inj₁ h₁) = inj₁ h₁
-  prf (inj₂ (_ , _ , xs≡x'∷xs' , Axs')) =
+  h' : A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
+  h' (inj₁ prf) = inj₁ prf
+  h' (inj₂ (_ , _ , xs≡x'∷xs' , Axs')) =
     inj₂ (_ , _ , xs≡x'∷xs' , Colist-unf Axs')

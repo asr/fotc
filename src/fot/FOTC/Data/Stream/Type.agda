@@ -53,10 +53,10 @@ postulate
 Stream-pre-fixed : ∀ {xs} →
                    (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs') →
                    Stream xs
-Stream-pre-fixed {xs} h = Stream-coind A prf h
+Stream-pre-fixed {xs} h = Stream-coind A h' h
   where
   A : D → Set
   A ws = ∃[ w' ] ∃[ ws' ] ws ≡ w' ∷ ws' ∧ Stream ws'
 
-  prf : A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
-  prf (_ , _ , xs≡x'∷xs' , Axs') = _ , _ , xs≡x'∷xs' , Stream-unf Axs'
+  h' : A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  h' (_ , _ , xs≡x'∷xs' , Axs') = _ , _ , xs≡x'∷xs' , Stream-unf Axs'

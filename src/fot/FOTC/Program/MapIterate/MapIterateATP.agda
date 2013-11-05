@@ -27,32 +27,32 @@ open import FOTC.Relation.Binary.Bisimilarity
 ------------------------------------------------------------------------------
 
 map-iterate-Stream₁ : ∀ f x → Stream (map f (iterate f x))
-map-iterate-Stream₁ f x = Stream-coind A prf refl
+map-iterate-Stream₁ f x = Stream-coind A h refl
   where
   A : D → Set
   A xs = xs ≡ xs
   {-# ATP definition A #-}
 
   postulate
-    prf : A (map f (iterate f x)) →
-          ∃[ x' ]  ∃[ xs' ] map f (iterate f x) ≡ x' ∷ xs' ∧ A xs'
-  {-# ATP prove prf #-}
+    h : A (map f (iterate f x)) →
+        ∃[ x' ]  ∃[ xs' ] map f (iterate f x) ≡ x' ∷ xs' ∧ A xs'
+  {-# ATP prove h #-}
 
 map-iterate-Stream₂ : ∀ f x → Stream (iterate f (f · x))
-map-iterate-Stream₂ f x = Stream-coind A prf refl
+map-iterate-Stream₂ f x = Stream-coind A h refl
   where
   A : D → Set
   A xs = xs ≡ xs
   {-# ATP definition A #-}
 
   postulate
-    prf : A (iterate f (f · x)) →
-          ∃[ x' ] ∃[ xs' ] iterate f (f · x) ≡ x' ∷ xs' ∧ A xs'
-  {-# ATP prove prf #-}
+    h : A (iterate f (f · x)) →
+        ∃[ x' ] ∃[ xs' ] iterate f (f · x) ≡ x' ∷ xs' ∧ A xs'
+  {-# ATP prove h #-}
 
 -- The map-iterate property.
 ≈-map-iterate : ∀ f x → map f (iterate f x) ≈ iterate f (f · x)
-≈-map-iterate f x = ≈-coind B prf₁ prf₂
+≈-map-iterate f x = ≈-coind B h₁ h₂
   where
   -- Based on the relation used by (Giménez and Castéran, 2007).
   B : D → D → Set
@@ -60,9 +60,9 @@ map-iterate-Stream₂ f x = Stream-coind A prf refl
   {-# ATP definition B #-}
 
   postulate
-    prf₁ : ∀ {xs ys} → B xs ys →
-           ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
-  {-# ATP prove prf₁ #-}
+    h₁ : ∀ {xs ys} → B xs ys →
+         ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
+  {-# ATP prove h₁ #-}
 
-  postulate prf₂ : B (map f (iterate f x)) (iterate f (f · x))
-  {-# ATP prove prf₂ #-}
+  postulate h₂ : B (map f (iterate f x)) (iterate f (f · x))
+  {-# ATP prove h₂ #-}

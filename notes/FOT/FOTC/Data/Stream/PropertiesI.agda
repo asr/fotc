@@ -18,10 +18,10 @@ postulate
   zeros-eq : zeros ≡ zero ∷ zeros
 
 zeros-Stream : Stream zeros
-zeros-Stream = Stream-coind A prf refl
+zeros-Stream = Stream-coind A h refl
   where
   A : D → Set
   A xs = xs ≡ zeros
 
-  prf : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
-  prf Axs = zero , zeros , trans Axs zeros-eq , refl
+  h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  h Axs = zero , zeros , trans Axs zeros-eq , refl

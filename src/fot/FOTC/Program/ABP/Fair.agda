@@ -64,10 +64,10 @@ postulate Fair-coind : ∀ (A : D → Set) {os} →
 Fair-pre-fixed : ∀ {os} →
                  (∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os') →
                  Fair os
-Fair-pre-fixed {os} h = Fair-coind A prf h
+Fair-pre-fixed {os} h = Fair-coind A h' h
   where
   A : D → Set
   A ws = ∃[ wl ] ∃[ ws' ] F*T wl ∧ ws ≡ wl ++ ws' ∧ Fair ws'
 
-  prf : A os → ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ A os'
-  prf (_ , _ , FTft , h , Fos') = _ , _ , FTft , h , Fair-unf Fos'
+  h' : A os → ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ A os'
+  h' (_ , _ , FTft , prf , Fos') = _ , _ , FTft , prf , Fair-unf Fos'

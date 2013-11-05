@@ -28,17 +28,17 @@ postulate tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 
 -- Adapted from (Sander 1992, p. 58).
 streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞
-streamLength {xs} Sxs = ≈N-coind R prf₁ prf₂
+streamLength {xs} Sxs = ≈N-coind R h₁ h₂
   where
   R : D → D → Set
   R m n = m ≡ zero ∧ n ≡ zero ∨ (∃[ xs' ] m ≡ length xs' ∧ n ≡ ∞ ∧ Stream xs')
   {-# ATP definition R #-}
 
   postulate
-    prf₁ : ∀ {m n} → R m n →
-           m ≡ zero ∧ n ≡ zero
+    h₁ : ∀ {m n} → R m n →
+         m ≡ zero ∧ n ≡ zero
            ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
-  {-# ATP prove prf₁ #-}
+  {-# ATP prove h₁ #-}
 
-  postulate prf₂ : R (length xs) ∞
-  {-# ATP prove prf₂ #-}
+  postulate h₂ : R (length xs) ∞
+  {-# ATP prove h₂ #-}

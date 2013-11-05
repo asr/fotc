@@ -95,21 +95,21 @@ notCong {a} h = subst (λ t → not a ≡ not t) h refl
 -- FOTC.Data.Conat.Equality.PropertiesI
 
 ≈N-refl : ∀ {n} → Conat n → n ≈N n
-≈N-refl {n} Cn = ≈N-coind R prf₁ prf₂
+≈N-refl {n} Cn = ≈N-coind R h₁ h₂
   where
   R : D → D → Set
   R a b = Conat a ∧ Conat b ∧ a ≡ b
 
-  prf₁ : ∀ {a b} → R a b →
-         a ≡ zero ∧ b ≡ zero
+  h₁ : ∀ {a b} → R a b →
+       a ≡ zero ∧ b ≡ zero
          ∨ (∃[ a' ] ∃[ b' ] a ≡ succ₁ a' ∧ b ≡ succ₁ b' ∧ R a' b')
-  prf₁ (Ca , Cb , h) with Conat-unf Ca
+  h₁ (Ca , Cb , h) with Conat-unf Ca
   ... | inj₁ prf              = inj₁ (prf , trans (sym h) prf)
   ... | inj₂ (a' , prf , Ca') =
     inj₂ (a' , a' , prf , trans (sym h) prf , (Ca' , Ca' , refl))
 
-  prf₂ : Conat n ∧ Conat n ∧ n ≡ n
-  prf₂ = Cn , Cn , refl
+  h₂ : R n n
+  h₂ = Cn , Cn , refl
 
 ≡→≈N : ∀ {m n} → Conat m → Conat n → m ≡ n → m ≈N n
 ≡→≈N {m} Cm _ h = subst (λ t → m ≈N t) h (≈N-refl Cm)
@@ -184,19 +184,19 @@ ltCong {m₁} {n₁} h₁ h₂ = subst₂ (λ t₁ t₂ → lt m₁ n₁ ≡ lt 
 -- From FOTC.Relation.Binary.Bisimilarity.PropertiesI
 
 ≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
-≈-refl {xs} Sxs = ≈-coind R prf₁ prf₂
+≈-refl {xs} Sxs = ≈-coind R h₁ h₂
   where
   R : D → D → Set
   R xs ys = Stream xs ∧ xs ≡ ys
 
-  prf₁ : ∀ {xs ys} → R xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
+  h₁ : ∀ {xs ys} → R xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
          xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ R xs' ys'
-  prf₁ (Sxs , h) with Stream-unf Sxs
-  ... | x' , xs' , h₁ , Sxs' =
-    x' , xs' , xs' , h₁ , subst (λ t → t ≡ x' ∷ xs') h h₁ , (Sxs' , refl)
+  h₁ (Sxs , h) with Stream-unf Sxs
+  ... | x' , xs' , prf , Sxs' =
+    x' , xs' , xs' , prf , subst (λ t → t ≡ x' ∷ xs') h prf , (Sxs' , refl)
 
-  prf₂ : R xs xs
-  prf₂ = Sxs , refl
+  h₂ : R xs xs
+  h₂ = Sxs , refl
 
 ------------------------------------------------------------------------------
 -- From FOT.FOTC.Data.Stream.Equality.PropertiesI where

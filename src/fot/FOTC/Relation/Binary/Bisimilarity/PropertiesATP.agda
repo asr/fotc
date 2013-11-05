@@ -15,47 +15,48 @@ open import FOTC.Relation.Binary.Bisimilarity
 ------------------------------------------------------------------------------
 
 ≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
-≈-refl {xs} Sxs = ≈-coind R prf₁ prf₂
+≈-refl {xs} Sxs = ≈-coind R h₁ h₂
   where
   R : D → D → Set
   R xs ys = xs ≡ ys ∧ Stream xs
   {-# ATP definition R #-}
 
-  postulate prf₁ : ∀ {xs ys} → R xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
+  postulate h₁ : ∀ {xs ys} → R xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
                    xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ R xs' ys'
-  {-# ATP prove prf₁ #-}
+  {-# ATP prove h₁ #-}
 
-  postulate prf₂ : R xs xs
-  {-# ATP prove prf₂ #-}
+  postulate h₂ : R xs xs
+  {-# ATP prove h₂ #-}
 
 ≈-sym : ∀ {xs ys} → xs ≈ ys → ys ≈ xs
-≈-sym {xs} {ys} xs≈ys = ≈-coind R prf₁ prf₂
+≈-sym {xs} {ys} xs≈ys = ≈-coind R h₁ h₂
   where
   R : D → D → Set
   R xs ys = ys ≈ xs
   {-# ATP definition R #-}
 
-  postulate prf₁ : R ys xs →
-                   ∃[ y' ] ∃[ ys' ] ∃[ xs' ]
+  postulate h₁ : R ys xs →
+                 ∃[ y' ] ∃[ ys' ] ∃[ xs' ]
                    ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs' ∧ R ys' xs'
-  {-# ATP prove prf₁ #-}
+  {-# ATP prove h₁ #-}
 
-  postulate prf₂ : R ys xs
-  {-# ATP prove prf₂ #-}
+  postulate h₂ : R ys xs
+  {-# ATP prove h₂ #-}
 
 ≈-trans : ∀ {xs ys zs} → xs ≈ ys → ys ≈ zs → xs ≈ zs
-≈-trans {xs} {ys} {zs} xs≈ys ys≈zs = ≈-coind R prf₁ prf₂
+≈-trans {xs} {ys} {zs} xs≈ys ys≈zs = ≈-coind R h₁ h₂
   where
   R : D → D → Set
   R xs zs = ∃[ ys ] xs ≈ ys ∧ ys ≈ zs
   {-# ATP definition R #-}
 
-  postulate prf₁ : ∀ {xs zs} → R xs zs →
-                   ∃[ x' ] ∃[ xs' ] ∃[ zs' ]
+  postulate h₁ : ∀ {xs zs} → R xs zs →
+                 ∃[ x' ] ∃[ xs' ] ∃[ zs' ]
                    xs ≡ x' ∷ xs' ∧ zs ≡ x' ∷ zs' ∧ R xs' zs'
+  {-# ATP prove h₁ #-}
 
-  postulate prf₂ : R xs zs
-  {-# ATP prove prf₂ #-}
+  postulate h₂ : R xs zs
+  {-# ATP prove h₂ #-}
 
 postulate ∷-injective≈ : ∀ {x xs ys} → x ∷ xs ≈ x ∷ ys → xs ≈ ys
 {-# ATP prove ∷-injective≈ #-}

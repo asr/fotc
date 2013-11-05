@@ -20,10 +20,10 @@ postulate
   zeros-eq : zeros ≡ zero ∷ zeros
 
 zeros-StreamN : StreamN zeros
-zeros-StreamN = StreamN-coind A prf refl
+zeros-StreamN = StreamN-coind A h refl
   where
   A : D → Set
   A xs = xs ≡ zeros
 
-  prf : ∀ {ns} → A ns → ∃[ n' ] ∃[ ns' ] N n' ∧ A ns' ∧ ns ≡ n' ∷ ns'
-  prf Ans = zero , zeros , nzero , refl , (trans Ans zeros-eq)
+  h : ∀ {ns} → A ns → ∃[ n' ] ∃[ ns' ] N n' ∧ A ns' ∧ ns ≡ n' ∷ ns'
+  h Ans = zero , zeros , nzero , refl , (trans Ans zeros-eq)

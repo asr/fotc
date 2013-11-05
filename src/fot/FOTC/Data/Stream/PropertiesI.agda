@@ -32,25 +32,25 @@ tailS h with Stream-unf h
 
 -- Adapted from (Sander 1992, p. 58).
 streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞
-streamLength {xs} Sxs = ≈N-coind R prf₁ prf₂
+streamLength {xs} Sxs = ≈N-coind R h₁ h₂
   where
   R : D → D → Set
   R m n = m ≡ zero ∧ n ≡ zero ∨ (∃[ xs' ] m ≡ length xs' ∧ n ≡ ∞ ∧ Stream xs')
 
-  prf₁ : ∀ {m n} → R m n →
-         m ≡ zero ∧ n ≡ zero
+  h₁ : ∀ {m n} → R m n →
+       m ≡ zero ∧ n ≡ zero
          ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
-  prf₁ (inj₁ prf) = inj₁ prf
-  prf₁ {m} {n} (inj₂ (xs' , h₁ , h₂ , Sxs')) with Stream-unf Sxs'
+  h₁ (inj₁ prf) = inj₁ prf
+  h₁ {m} {n} (inj₂ (xs' , prf₁ , prf₂ , Sxs')) with Stream-unf Sxs'
   ... | x'' , xs'' , xs'≡x''∷xs'' , Sxs'' =
-    inj₂ (length xs'' , n , helper₁ , helper₂ , inj₂ (xs'' , refl , h₂ , Sxs''))
+    inj₂ (length xs'' , n , helper₁ , helper₂ , inj₂ (xs'' , refl , prf₂ , Sxs''))
 
     where
     helper₁ : m ≡ succ₁ (length xs'')
-    helper₁ = trans₂ h₁ (lengthCong xs'≡x''∷xs'') (length-∷ x'' xs'')
+    helper₁ = trans₂ prf₁ (lengthCong xs'≡x''∷xs'') (length-∷ x'' xs'')
 
     helper₂ : n ≡ succ₁ n
-    helper₂ = trans₂ h₂ ∞-eq (succCong (sym h₂))
+    helper₂ = trans₂ prf₂ ∞-eq (succCong (sym prf₂))
 
-  prf₂ : R (length xs) ∞
-  prf₂ = inj₂ (xs , refl , refl , Sxs)
+  h₂ : R (length xs) ∞
+  h₂ = inj₂ (xs , refl , refl , Sxs)
