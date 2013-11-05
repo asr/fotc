@@ -35,24 +35,24 @@ abpCorrect : ∀ {b is os₁ os₂} → Bit b → Stream is → Fair os₁ → F
              is ≈ abpTransfer b os₁ os₂ is
 abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B h₁ h₂
   where
-  h₁ : ∀ {is js} → B is js →
-       ∃[ i' ] ∃[ is' ] ∃[ js' ] is ≡ i' ∷ is' ∧ js ≡ i' ∷ js' ∧ B is' js'
-  h₁ {is} {js} (b , os₁ , os₂ , as , bs , cs , ds , Sis , Bb , Fos₁ , Fos₂ , h)
-     with Stream-unf Sis
-  ... | (i' , is' , is≡i'∷is , Sis') =
-    i' , is' , js' , is≡i'∷is , js≡i'∷js' , Bis'js'
+  h₁ : ∀ {ks ls} → B ks ls →
+       ∃[ k' ] ∃[ ks' ] ∃[ ls' ] ks ≡ k' ∷ ks' ∧ ls ≡ k' ∷ ls' ∧ B ks' ls'
+  h₁ {ks} {ls} (b , os₁ , os₂ , as , bs , cs , ds , Sks , Bb , Fos₁ , Fos₂ , h)
+     with Stream-unf Sks
+  ... | (k' , ks' , ks≡k'∷ks' , Sks') =
+    k' , ks' , ls' , ks≡k'∷ks' , ls≡k'∷ls' , Bks'ls'
     where
-    S-helper : is ≡ i' ∷ is' →
-               S b is os₁ os₂ as bs cs ds js →
-               S b (i' ∷ is') os₁ os₂ as bs cs ds js
-    S-helper h₁ h₂ = subst (λ t → S b t os₁ os₂ as bs cs ds js) h₁ h₂
+    S-helper : ks ≡ k' ∷ ks' →
+               S b ks os₁ os₂ as bs cs ds ls →
+               S b (k' ∷ ks') os₁ os₂ as bs cs ds ls
+    S-helper h₁ h₂ = subst (λ t → S b t os₁ os₂ as bs cs ds ls) h₁ h₂
 
-    S'-lemma₁ : ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
+    S'-lemma₁ : ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ ls' ]
                   Fair os₁'
                   ∧ Fair os₂'
-                  ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
-                  ∧ js ≡ i' ∷ js'
-    S'-lemma₁ = lemma₁ Bb Fos₁ Fos₂ (S-helper is≡i'∷is h)
+                  ∧ S' b k' ks' os₁' os₂' as' bs' cs' ds' ls'
+                  ∧ ls ≡ k' ∷ ls'
+    S'-lemma₁ = lemma₁ Bb Fos₁ Fos₂ (S-helper ks≡k'∷ks' h)
 
     -- Following Martin Escardo advice (see Agda mailing list, heap
     -- mistery) we use pattern matching instead of ∃ eliminators to
@@ -61,27 +61,27 @@ abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B h₁ h₂
     -- 2011-08-25 update: It does not seems strictly necessary because
     -- the Agda issue 415 was fixed.
 
-    js' : D
-    js' with S'-lemma₁
-    ... | _ , _ , _ , _ , _ , _ , js' , _ = js'
+    ls' : D
+    ls' with S'-lemma₁
+    ... | _ , _ , _ , _ , _ , _ , ls' , _ = ls'
 
-    js≡i'∷js' : js ≡ i' ∷ js'
-    js≡i'∷js' with S'-lemma₁
+    ls≡k'∷ls' : ls ≡ k' ∷ ls'
+    ls≡k'∷ls' with S'-lemma₁
     ... | _ , _ , _ , _ , _ , _ , _ , _ , _ , _ , h = h
 
     S-lemma₂ : ∃[ os₁'' ] ∃[ os₂'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
                  Fair os₁''
                  ∧ Fair os₂''
-                 ∧ S (not b) is' os₁'' os₂'' as'' bs'' cs'' ds'' js'
+                 ∧ S (not b) ks' os₁'' os₂'' as'' bs'' cs'' ds'' ls'
     S-lemma₂ with S'-lemma₁
     ... | _ , _ , _ , _ , _ , _ , _ , Fos₁' , Fos₂' , s' , _ =
       lemma₂ Bb Fos₁' Fos₂' s'
 
-    Bis'js' : B is' js'
-    Bis'js' with S-lemma₂
+    Bks'ls' : B ks' ls'
+    Bks'ls' with S-lemma₂
     ... | os₁'' , os₂'' , as'' , bs'' , cs'' , ds'' , Fos₁'' , Fos₂'' , s =
       not b , os₁'' , os₂'' , as'' , bs'' , cs'' , ds''
-      , Sis' , not-Bool Bb , Fos₁'' , Fos₂'' , s
+      , Sks' , not-Bool Bb , Fos₁'' , Fos₂'' , s
 
   h₂ : B is (abpTransfer b os₁ os₂ is)
   h₂ = b

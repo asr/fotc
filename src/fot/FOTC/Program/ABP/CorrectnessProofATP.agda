@@ -38,9 +38,9 @@ abpCorrect : ∀ {b is os₁ os₂} → Bit b → Stream is → Fair os₁ → F
              is ≈ abpTransfer b os₁ os₂ is
 abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B h₁ h₂
   where
-  postulate h₁ : ∀ {is js} → B is js →
-                 ∃[ i' ] ∃[ is' ] ∃[ js' ]
-                   is ≡ i' ∷ is' ∧ js ≡ i' ∷ js' ∧ B is' js'
+  postulate h₁ : ∀ {ks ls} → B ks ls →
+                 ∃[ k' ] ∃[ ks' ] ∃[ ls' ]
+                   ks ≡ k' ∷ ks' ∧ ls ≡ k' ∷ ls' ∧ B ks' ls'
   {-# ATP prove h₁ lemma₁ lemma₂ not-Bool #-}
 
   postulate h₂ : B is (abpTransfer b os₁ os₂ is)
