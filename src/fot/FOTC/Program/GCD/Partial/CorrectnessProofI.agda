@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- The gcd program satisfies the specification
+-- The gcd program is correct
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -8,7 +8,7 @@
 -- This module proves the correctness of the gcd program using
 -- the Euclid's algorithm.
 
-module FOTC.Program.GCD.Partial.SpecificationProofI where
+module FOTC.Program.GCD.Partial.CorrectnessProofI where
 
 open import FOTC.Base
 open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesI
@@ -27,9 +27,9 @@ open module GreatestAnyCommonDivisorI =
 open import FOTC.Program.GCD.Partial.TotalityI using ( gcd-N )
 
 ------------------------------------------------------------------------------
--- The gcd is the GCD.
-gcd-GCD : ∀ {m n} → N m → N n → x≢0≢y m n → GCD m n (gcd m n)
-gcd-GCD Nm Nn m≢0≢n = gcd-CD Nm Nn m≢0≢n
-                    , gcd-GACD (gcd-N Nm Nn m≢0≢n)
-                               (gcd-CD Nm Nn m≢0≢n)
-                               (gcd-Divisible Nm Nn m≢0≢n)
+-- The gcd is correct.
+gcdCorrect : ∀ {m n} → N m → N n → x≢0≢y m n → gcdSpec m n (gcd m n)
+gcdCorrect Nm Nn m≢0≢n = gcd-CD Nm Nn m≢0≢n
+                         , gcd-GACD (gcd-N Nm Nn m≢0≢n)
+                                    (gcd-CD Nm Nn m≢0≢n)
+                                    (gcd-Divisible Nm Nn m≢0≢n)

@@ -147,18 +147,18 @@ open import FOTC.Relation.Binary.Bisimilarity.PropertiesI
 -- Verification of programs
 
 -- Burstall's sort list algorithm: A structurally recursive algorithm
-open import FOTC.Program.SortList.SpecificationProofATP
-open import FOTC.Program.SortList.SpecificationProofI
+open import FOTC.Program.SortList.CorrectnessProofATP
+open import FOTC.Program.SortList.CorrectnessProofI
 
 -- The division algorithm: A non-structurally recursive algorithm
-open import FOTC.Program.Division.SpecificationProofATP
-open import FOTC.Program.Division.SpecificationProofI
+open import FOTC.Program.Division.CorrectnessProofATP
+open import FOTC.Program.Division.CorrectnessProofI
 
 -- The GCD algorithm: A non-structurally recursive algorithm
-open import FOTC.Program.GCD.Partial.SpecificationProofATP
-open import FOTC.Program.GCD.Partial.SpecificationProofI
-open import FOTC.Program.GCD.Total.SpecificationProofATP
-open import FOTC.Program.GCD.Total.SpecificationProofI
+open import FOTC.Program.GCD.Partial.CorrectnessProofATP
+open import FOTC.Program.GCD.Partial.CorrectnessProofI
+open import FOTC.Program.GCD.Total.CorrectnessProofATP
+open import FOTC.Program.GCD.Total.CorrectnessProofI
 
 -- The nest function: A very simple function with nested recursion
 open import FOTC.Program.Nest.PropertiesATP

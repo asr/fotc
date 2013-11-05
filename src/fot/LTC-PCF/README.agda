@@ -65,8 +65,8 @@ open import LTC-PCF.Loop
 -- Verification of programs
 
 -- The division algorithm: A non-structurally recursive algorithm
-open import LTC-PCF.Program.Division.SpecificationProof
+open import LTC-PCF.Program.Division.CorrectnessProof
 
 -- The GCD algorithm: A non-structurally recursive algorithm
-open import LTC-PCF.Program.GCD.Partial.SpecificationProof
-open import LTC-PCF.Program.GCD.Total.SpecificationProof
+open import LTC-PCF.Program.GCD.Partial.CorrectnessProof
+open import LTC-PCF.Program.GCD.Total.CorrectnessProof

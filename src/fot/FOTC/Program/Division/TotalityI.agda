@@ -27,7 +27,7 @@ div-x<y-N i<j = subst N (sym (div-x<y i<j)) nzero
 --                   N (div i j)
 
 div-x≮y-N : ∀ {i j} →
-            (DIV (i ∸ j) j (div (i ∸ j) j)) →
+            (divSpec (i ∸ j) j (div (i ∸ j) j)) →
             i ≮ j →
             N (div i j)
 div-x≮y-N ih i≮j = subst N (sym (div-x≮y i≮j)) (nsucc (∧-proj₁ ih))

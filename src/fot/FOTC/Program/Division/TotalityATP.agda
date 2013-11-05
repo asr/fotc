@@ -26,7 +26,7 @@ postulate div-x<y-N : ∀ {i j} → i < j → N (div i j)
 --                   N (div i j)
 
 postulate div-x≮y-N : ∀ {i j} →
-                      (DIV (i ∸ j) j (div (i ∸ j) j)) →
+                      (divSpec (i ∸ j) j (div (i ∸ j) j)) →
                       i ≮ j →
                       N (div i j)
 {-# ATP prove div-x≮y-N #-}

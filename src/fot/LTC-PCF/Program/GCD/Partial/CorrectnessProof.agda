@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- The gcd program satisfies the specification
+-- The gcd program is correct
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -8,7 +8,7 @@
 -- This module proves the correctness of the gcd program using
 -- the Euclid's algorithm.
 
-module LTC-PCF.Program.GCD.Partial.SpecificationProof where
+module LTC-PCF.Program.GCD.Partial.CorrectnessProof where
 
 open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties
@@ -16,7 +16,7 @@ open import LTC-PCF.Data.Nat.Divisibility.NotBy0.Properties
 open import LTC-PCF.Data.Nat.Type
 
 open import LTC-PCF.Program.GCD.Partial.CommonDivisor using ( gcd-CD )
-open import LTC-PCF.Program.GCD.Partial.Definitions using ( x≢0≢y ; GCD )
+open import LTC-PCF.Program.GCD.Partial.Definitions using ( x≢0≢y ; gcdSpec )
 open import LTC-PCF.Program.GCD.Partial.Divisible using ( gcd-Divisible )
 open import LTC-PCF.Program.GCD.Partial.GCD using ( gcd )
 
@@ -28,9 +28,9 @@ open module GreatestAnyCommonDivisor =
 open import LTC-PCF.Program.GCD.Partial.Totality using ( gcd-N )
 
 ------------------------------------------------------------------------------
--- The gcd is the GCD.
-gcd-GCD : ∀ {m n} → N m → N n → x≢0≢y m n → GCD m n (gcd m n)
-gcd-GCD Nm Nn m≢0≢n = gcd-CD Nm Nn m≢0≢n
-                    , gcd-GACD (gcd-N Nm Nn m≢0≢n)
-                               (gcd-CD Nm Nn m≢0≢n)
-                               (gcd-Divisible Nm Nn m≢0≢n)
+-- The gcd is correct
+gcdCorrect : ∀ {m n} → N m → N n → x≢0≢y m n → gcdSpec m n (gcd m n)
+gcdCorrect Nm Nn m≢0≢n = gcd-CD Nm Nn m≢0≢n
+                         , gcd-GACD (gcd-N Nm Nn m≢0≢n)
+                                    (gcd-CD Nm Nn m≢0≢n)
+                                    (gcd-Divisible Nm Nn m≢0≢n)

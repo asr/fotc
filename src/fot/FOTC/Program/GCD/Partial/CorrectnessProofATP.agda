@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- The gcd program satisfies the specification
+-- The gcd program is correct
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -11,13 +11,13 @@
 -- N.B This module does not contain combined proofs, but it imports
 -- modules which contain combined proofs.
 
-module FOTC.Program.GCD.Partial.SpecificationProofATP where
+module FOTC.Program.GCD.Partial.CorrectnessProofATP where
 
 open import FOTC.Base
 open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP using ( 0∤x ; x∣S→x≤S )
 open import FOTC.Data.Nat.Type
 open import FOTC.Program.GCD.Partial.CommonDivisorATP using ( gcd-CD )
-open import FOTC.Program.GCD.Partial.Definitions using ( x≢0≢y ; GCD )
+open import FOTC.Program.GCD.Partial.Definitions using ( x≢0≢y ; gcdSpec )
 open import FOTC.Program.GCD.Partial.DivisibleATP using ( gcd-Divisible )
 open import FOTC.Program.GCD.Partial.GCD using ( gcd )
 
@@ -29,11 +29,6 @@ open module GreatestAnyCommonDivisorATP =
 open import FOTC.Program.GCD.Partial.TotalityATP using ( gcd-N )
 
 ------------------------------------------------------------------------------
--- The gcd is the GCD.
-postulate gcd-GCD : ∀ {m n} → N m → N n → x≢0≢y m n → GCD m n (gcd m n)
-{-# ATP prove gcd-GCD gcd-CD gcd-GACD gcd-N gcd-Divisible #-}
-
--- gcd-GCD Nm Nn m≢0≢n = gcd-CD Nm Nn m≢0≢n
---                     , gcd-GACD (gcd-N Nm Nn m≢0≢n)
---                                (gcd-CD Nm Nn m≢0≢n)
---                                (gcd-Divisible Nm Nn m≢0≢n)
+-- The gcd is correct.
+postulate gcdCorrect : ∀ {m n} → N m → N n → x≢0≢y m n → gcdSpec m n (gcd m n)
+{-# ATP prove gcdCorrect gcd-CD gcd-GACD gcd-N gcd-Divisible #-}
