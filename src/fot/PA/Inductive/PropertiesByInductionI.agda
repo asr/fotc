@@ -15,7 +15,7 @@ open import PA.Inductive.Relation.Binary.EqReasoning
 ------------------------------------------------------------------------------
 
 +-comm : ∀ m n → m + n ≡ n + m
-+-comm m n = PA-ind A A0 is m
++-comm m n = ℕ-ind A A0 is m
   where
   A : ℕ → Set
   A i = i + n ≡ n + i

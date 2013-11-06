@@ -56,4 +56,4 @@ postulate
 -- The axiom of induction is an axiom schema, therefore we do not
 -- translate it to TPTP.
 postulate
-  PA-ind : (A : ℕ → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
+  ℕ-ind : (A : ℕ → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n

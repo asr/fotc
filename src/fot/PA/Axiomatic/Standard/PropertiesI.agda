@@ -29,7 +29,7 @@ succCong refl = refl
 +-leftIdentity = PA₃
 
 +-rightIdentity : ∀ n → n + zero ≡ n
-+-rightIdentity = PA-ind A A0 is
++-rightIdentity = ℕ-ind A A0 is
   where
   A : ℕ → Set
   A i = i + zero ≡ i
@@ -43,7 +43,7 @@ succCong refl = refl
             succ i          ∎
 
 +-asocc : ∀ m n o → m + n + o ≡ m + (n + o)
-+-asocc m n o = PA-ind A A0 is m
++-asocc m n o = ℕ-ind A A0 is m
   where
   A : ℕ → Set
   A i = i + n + o ≡ i + (n + o)
@@ -61,7 +61,7 @@ succCong refl = refl
             succ i + (n + o)   ∎
 
 x+Sy≡S[x+y] : ∀ m n → m + succ n ≡ succ (m + n)
-x+Sy≡S[x+y] m n = PA-ind A A0 is m
+x+Sy≡S[x+y] m n = ℕ-ind A A0 is m
   where
   A : ℕ → Set
   A i = i + succ n ≡ succ (i + n)
@@ -78,7 +78,7 @@ x+Sy≡S[x+y] m n = PA-ind A A0 is m
             succ (succ i + n)   ∎
 
 +-comm : ∀ m n → m + n ≡ n + m
-+-comm m n = PA-ind A A0 is m
++-comm m n = ℕ-ind A A0 is m
   where
   A : ℕ → Set
   A i = i + n ≡ n + i

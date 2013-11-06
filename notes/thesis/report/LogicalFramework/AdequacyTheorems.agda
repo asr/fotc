@@ -93,9 +93,9 @@ module Example40 where
     zero :     ℕ
     succ : ℕ → ℕ
 
-  PA-ind : (A : ℕ → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
-  PA-ind A A0 h zero     = A0
-  PA-ind A A0 h (succ n) = h n (PA-ind A A0 h n)
+  ℕ-ind : (A : ℕ → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
+  ℕ-ind A A0 h zero     = A0
+  ℕ-ind A A0 h (succ n) = h n (ℕ-ind A A0 h n)
 
   data _≡_ (x : ℕ) : ℕ → Set where
     refl : x ≡ x
@@ -108,7 +108,7 @@ module Example40 where
   succ m + n = succ (m + n)
 
   _+'_ : ℕ → ℕ → ℕ
-  m +' n = PA-ind (λ _ → ℕ) n (λ x y → succ y) m
+  m +' n = ℕ-ind (λ _ → ℕ) n (λ x y → succ y) m
 
   -- Properties using pattern matching.
   succCong : ∀ {m n} → m ≡ n → succ m ≡ succ n
@@ -126,7 +126,7 @@ module Example40 where
   +'-leftIdentity n = refl
 
   +'-rightIdentity : ∀ n → n +' zero ≡ n
-  +'-rightIdentity = PA-ind A A0 is
+  +'-rightIdentity = ℕ-ind A A0 is
     where
     A : ℕ → Set
     A n = n +' zero ≡ n
@@ -147,18 +147,18 @@ module Example50 where
     zero :     ℕ
     succ : ℕ → ℕ
 
-  PA-ind : (A : ℕ → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
-  PA-ind A A0 h zero     = A0
-  PA-ind A A0 h (succ n) = h n (PA-ind A A0 h n)
+  ℕ-ind : (A : ℕ → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
+  ℕ-ind A A0 h zero     = A0
+  ℕ-ind A A0 h (succ n) = h n (ℕ-ind A A0 h n)
 
   data _≡_ (x : ℕ) : ℕ → Set where
     refl : x ≡ x
 
-  recℕ : {A : Set} → A → (ℕ → A → A) → ℕ → A
-  recℕ {A} = PA-ind (λ _ → A)
+  ℕ-rec : {A : Set} → A → (ℕ → A → A) → ℕ → A
+  ℕ-rec {A} = ℕ-ind (λ _ → A)
 
   _+_ : ℕ → ℕ → ℕ
-  m + n = recℕ n (λ _ x → succ x) m
+  m + n = ℕ-rec n (λ _ x → succ x) m
 
   +-0x : ∀ n → zero + n ≡ n
   +-0x n = refl
@@ -167,7 +167,7 @@ module Example50 where
   +-Sx m n = refl
 
   _*_ : ℕ → ℕ → ℕ
-  m * n = recℕ zero (λ _ x → n + x) m
+  m * n = ℕ-rec zero (λ _ x → n + x) m
 
   *-0x : ∀ n → zero * n ≡ zero
   *-0x n = refl

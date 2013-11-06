@@ -36,4 +36,4 @@ is m ih n = succ m + n   ≡⟨ PA₄ m n ⟩
             n + succ m   ∎
 
 +-comm : ∀ m n → m + n ≡ n + m
-+-comm = PA-ind A A0 is
++-comm = ℕ-ind A A0 is

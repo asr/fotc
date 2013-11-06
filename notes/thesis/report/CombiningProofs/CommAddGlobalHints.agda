@@ -9,7 +9,7 @@ open import PA.Axiomatic.Standard.Base
 +-leftIdentity = PA₃
 
 +-rightIdentity : ∀ n → n + zero ≡ n
-+-rightIdentity = PA-ind A A0 is
++-rightIdentity = ℕ-ind A A0 is
   where
   A : ℕ → Set
   A i = i + zero ≡ i
@@ -22,7 +22,7 @@ open import PA.Axiomatic.Standard.Base
   {-# ATP prove is #-}
 
 x+Sy≡S[x+y] : ∀ m n → m + succ n ≡ succ (m + n)
-x+Sy≡S[x+y] m n = PA-ind A A0 is m
+x+Sy≡S[x+y] m n = ℕ-ind A A0 is m
   where
   A : ℕ → Set
   A i = i + succ n ≡ succ (i + n)
@@ -38,7 +38,7 @@ x+Sy≡S[x+y] m n = PA-ind A A0 is m
 {-# ATP hint x+Sy≡S[x+y] +-rightIdentity #-}
 
 +-comm : ∀ m n → m + n ≡ n + m
-+-comm m n = PA-ind A A0 is m
++-comm m n = ℕ-ind A A0 is m
   where
   A : ℕ → Set
   A i = i + n ≡ n + i
