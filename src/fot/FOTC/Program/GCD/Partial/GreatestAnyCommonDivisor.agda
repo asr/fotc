@@ -23,8 +23,8 @@ open import FOTC.Program.GCD.Partial.Definitions
 -- largest common divisor.
 
 -- It requires the totality of gcd, ie. N gcd.
-gcd-GACD : ∀ {m n gcd} → N gcd → CD m n gcd → Divisible m n gcd → GACD m n gcd
-gcd-GACD nzero             (0∣m , _) = ⊥-elim (0∤x 0∣m)
-gcd-GACD (nsucc {gcd} Ngcd) _        =
+gcdGACD : ∀ {m n gcd} → N gcd → CD m n gcd → Divisible m n gcd → GACD m n gcd
+gcdGACD nzero             (0∣m , _) = ⊥-elim (0∤x 0∣m)
+gcdGACD (nsucc {gcd} Ngcd) _        =
   λ Divisible-mnSgcd c Nc CDmnc → x∣Sy→x≤Sy Nc Ngcd
                      (Divisible-mnSgcd c Nc CDmnc)

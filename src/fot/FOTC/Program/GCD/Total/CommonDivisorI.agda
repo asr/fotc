@@ -40,7 +40,7 @@ gcd-00∣0 = subst (λ x → x ∣ zero) (sym gcd-00) 0∣0
 --
 -- Therefore, instead of proving
 --
--- gcd-CD : ... → CD m n (gcd m n)
+-- gcdCD : ... → CD m n (gcd m n)
 --
 -- using these proofs (i.e. the conjunction of them), we proved it
 -- using well-founded induction.
@@ -186,7 +186,7 @@ gcd-S≯S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≯Sn =
 
 ------------------------------------------------------------------------------
 -- The gcd is CD.
--- We will prove that gcd-CD : ... → CD m n (gcd m n).
+-- We will prove that gcdCD : ... → CD m n (gcd m n).
 
 -- The gcd 0 0 is CD.
 gcd-00-CD : CD zero zero (gcd zero zero)
@@ -268,8 +268,8 @@ gcd-x≯y-CD (nsucc {m} Nm) (nsucc {n} Nn) ah Sm≯Sn = gcd-S≯S-CD Nm Nn ih Sm
           ([Sx,Sy∸Sx]<[Sx,Sy] Nm Nn)
 
 -- The gcd is CD.
-gcd-CD : ∀ {m n} → N m → N n → CD m n (gcd m n)
-gcd-CD = Lexi-wfind A h
+gcdCD : ∀ {m n} → N m → N n → CD m n (gcd m n)
+gcdCD = Lexi-wfind A h
   where
   A : D → D → Set
   A i j = CD i j (gcd i j)

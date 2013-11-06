@@ -15,12 +15,12 @@ module FOTC.Program.GCD.Total.CorrectnessProofATP where
 
 open import FOTC.Base
 open import FOTC.Data.Nat.Type
-open import FOTC.Program.GCD.Total.CommonDivisorATP using ( gcd-CD )
+open import FOTC.Program.GCD.Total.CommonDivisorATP using ( gcdCD )
 open import FOTC.Program.GCD.Total.Definitions using ( gcdSpec )
-open import FOTC.Program.GCD.Total.DivisibleATP using ( gcd-Divisible )
+open import FOTC.Program.GCD.Total.DivisibleATP using ( gcdDivisible )
 open import FOTC.Program.GCD.Total.GCD using ( gcd )
 
 ------------------------------------------------------------------------------
 -- The gcd is correct.
 postulate gcdCorrect : ∀ {m n} → N m → N n → gcdSpec m n (gcd m n)
-{-# ATP prove gcdCorrect gcd-CD gcd-Divisible #-}
+{-# ATP prove gcdCorrect gcdCD gcdDivisible #-}

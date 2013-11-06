@@ -36,7 +36,7 @@ open import LTC-PCF.Program.GCD.Partial.Totality
 --
 -- Therefore, instead of proving
 --
--- gcd-CD : ... → CD m n (gcd m n)
+-- gcdCD : ... → CD m n (gcd m n)
 --
 -- using these proofs (i.e. the conjunction of them), we proved it
 -- using well-founded induction.
@@ -183,7 +183,7 @@ gcd-S≯S-∣₂ {m} {n} Nm Nn ih gcd-∣₁ Sm≯Sn =
 
 ------------------------------------------------------------------------------
 -- The gcd is CD.
--- We will prove that gcd-CD : ... → CD m n (gcd m n).
+-- We will prove that gcdCD : ... → CD m n (gcd m n).
 
 -- The gcd 0 (succ₁ n) is CD.
 gcd-0S-CD : ∀ {n} → N n → CD zero (succ₁ n) (gcd zero (succ₁ n))
@@ -266,8 +266,8 @@ gcd-x≯y-CD (nsucc {m} Nm) (nsucc {n} Nn) ah Sm≯Sn _ = gcd-S≯S-CD Nm Nn ih 
           (λ p → ⊥-elim (S≢0 (∧-proj₁ p)))
 
 -- The gcd is CD.
-gcd-CD : ∀ {m n} → N m → N n → x≢0≢y m n → CD m n (gcd m n)
-gcd-CD = Lexi-wfind A h
+gcdCD : ∀ {m n} → N m → N n → x≢0≢y m n → CD m n (gcd m n)
+gcdCD = Lexi-wfind A h
   where
   A : D → D → Set
   A i j = x≢0≢y i j → CD i j (gcd i j)

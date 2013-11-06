@@ -134,8 +134,8 @@ gcd-x≯y-Divisible (nsucc {m} Nm) (nsucc {n} Nn) ah Sm≯Sn c Nc =
 
 ------------------------------------------------------------------------------
 -- The gcd is Divisible.
-gcd-Divisible : ∀ {m n} → N m → N n → Divisible m n (gcd m n)
-gcd-Divisible = Lexi-wfind A h
+gcdDivisible : ∀ {m n} → N m → N n → Divisible m n (gcd m n)
+gcdDivisible = Lexi-wfind A h
   where
   A : D → D → Set
   A i j = Divisible i j (gcd i j)

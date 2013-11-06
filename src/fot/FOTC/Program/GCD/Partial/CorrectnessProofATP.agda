@@ -16,19 +16,19 @@ module FOTC.Program.GCD.Partial.CorrectnessProofATP where
 open import FOTC.Base
 open import FOTC.Data.Nat.Divisibility.NotBy0.PropertiesATP using ( 0∤x ; x∣S→x≤S )
 open import FOTC.Data.Nat.Type
-open import FOTC.Program.GCD.Partial.CommonDivisorATP using ( gcd-CD )
+open import FOTC.Program.GCD.Partial.CommonDivisorATP using ( gcdCD )
 open import FOTC.Program.GCD.Partial.Definitions using ( x≢0≢y ; gcdSpec )
-open import FOTC.Program.GCD.Partial.DivisibleATP using ( gcd-Divisible )
+open import FOTC.Program.GCD.Partial.DivisibleATP using ( gcdDivisible )
 open import FOTC.Program.GCD.Partial.GCD using ( gcd )
 
 import FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor
 open module GreatestAnyCommonDivisorATP =
   FOTC.Program.GCD.Partial.GreatestAnyCommonDivisor x∣S→x≤S 0∤x
-  using ( gcd-GACD )
+  using ( gcdGACD )
 
 open import FOTC.Program.GCD.Partial.TotalityATP using ( gcd-N )
 
 ------------------------------------------------------------------------------
 -- The gcd is correct.
 postulate gcdCorrect : ∀ {m n} → N m → N n → x≢0≢y m n → gcdSpec m n (gcd m n)
-{-# ATP prove gcdCorrect gcd-CD gcd-GACD gcd-N gcd-Divisible #-}
+{-# ATP prove gcdCorrect gcdCD gcdGACD gcd-N gcdDivisible #-}
