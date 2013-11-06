@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Properties of the function iter₀
+-- Properties of the iter₀ function
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
