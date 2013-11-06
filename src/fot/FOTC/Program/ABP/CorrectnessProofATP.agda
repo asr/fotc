@@ -25,6 +25,7 @@ open import FOTC.Base.List
 open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesATP using ( not-Bool )
 open import FOTC.Data.Stream
+open import FOTC.Data.Stream.Equality.PropertiesATP
 open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.Lemma1ATP
@@ -45,3 +46,8 @@ abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B h₁ h₂
 
   postulate h₂ : B is (abpTransfer b os₁ os₂ is)
   {-# ATP prove h₂ #-}
+
+postulate
+  abp-Stream : ∀ {b is os₁ os₂} → Bit b → Stream is → Fair os₁ → Fair os₂ →
+              Stream (abpTransfer b os₁ os₂ is)
+{-# ATP prove abp-Stream ≈→Stream₂ abpCorrect #-}

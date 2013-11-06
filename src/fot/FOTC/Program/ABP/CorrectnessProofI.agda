@@ -22,6 +22,7 @@ open import FOTC.Base.List
 open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesI
 open import FOTC.Data.Stream
+open import FOTC.Data.Stream.Equality.PropertiesI
 open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.Lemma1I
@@ -107,3 +108,7 @@ abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B h₁ h₂
     a₃ = out b
     a₄ = corrupt os₁
     a₅ = corrupt os₂
+
+abp-Stream : ∀ {b is os₁ os₂} → Bit b → Stream is → Fair os₁ → Fair os₂ →
+             Stream (abpTransfer b os₁ os₂ is)
+abp-Stream Bb Sis Fos₁ Fos₂ = ≈→Stream₂ (abpCorrect Bb Sis Fos₁ Fos₂)
