@@ -47,15 +47,15 @@ data Dqs : {xs : D} → List xs → Set where
                      Dqs (lcons x Lxs)
 
 -- Induction principle associated to the domain predicate of quicksort.
-indDqs : (P : {xs : D} → List xs → Set) →
-         P lnil →
-         (∀ {x xs} → (Lxs : List xs) →
-                     Dqs (filter-List (gt · x) Lxs) →
-                     P (filter-List (gt · x) Lxs) →
-                     Dqs (filter-List (le · x) Lxs) →
-                     P (filter-List (le · x) Lxs) →
-                     P (lcons x Lxs)) →
-         (∀ {xs} → {Lxs : List xs} → Dqs Lxs → P Lxs)
-indDqs P P[] ih dnil              = P[]
-indDqs P P[] ih (dcons Lxs h₁ h₂) =
-  ih Lxs h₁ (indDqs P P[] ih h₁) h₂ (indDqs P P[] ih h₂)
+Dqs-ind : (P : {xs : D} → List xs → Set) →
+          P lnil →
+          (∀ {x xs} → (Lxs : List xs) →
+                      Dqs (filter-List (gt · x) Lxs) →
+                      P (filter-List (gt · x) Lxs) →
+                      Dqs (filter-List (le · x) Lxs) →
+                      P (filter-List (le · x) Lxs) →
+                      P (lcons x Lxs)) →
+          (∀ {xs} → {Lxs : List xs} → Dqs Lxs → P Lxs)
+Dqs-ind P P[] ih dnil              = P[]
+Dqs-ind P P[] ih (dcons Lxs h₁ h₂) =
+  ih Lxs h₁ (Dqs-ind P P[] ih h₁) h₂ (Dqs-ind P P[] ih h₂)

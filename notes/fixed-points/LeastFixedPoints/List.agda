@@ -55,11 +55,11 @@ lcons x {xs} Lxs = List-in (inj₂ (x , xs , refl , Lxs))
 
 ------------------------------------------------------------------------------
 -- The induction principle for List.
-indList : (A : D → Set) →
-          A [] →
-          (∀ x {xs} → A xs → A (x ∷ xs)) →
-          ∀ {xs} → List xs → A xs
-indList A A[] is = List-ind A prf
+List-ind' : (A : D → Set) →
+            A [] →
+            (∀ x {xs} → A xs → A (x ∷ xs)) →
+            ∀ {xs} → List xs → A xs
+List-ind' A A[] is = List-ind A prf
   where
   prf : ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs') → A xs
   prf (inj₁ xs≡[])                  = subst A (sym xs≡[]) A[]

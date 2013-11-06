@@ -49,17 +49,17 @@ data QSDom : List ℕ → Set where
 
 -- Induction principle associated to the domain predicate of quicksort.
 -- (It was not necessary).
-indQSDom : (P : List ℕ → Set) →
-           P [] →
-           (∀ {x xs} → QSDom (filter (λ y → ⌊ y ≤′? x ⌋) xs) →
-                       P (filter (λ y → ⌊ y ≤′? x ⌋) xs) →
-                       QSDom (filter (λ y → not ⌊ y ≤′? x ⌋) xs) →
-                       P (filter (λ y → not ⌊ y ≤′? x ⌋) xs) →
-                       P (x ∷ xs)) →
-           (∀ {xs} → QSDom xs → P xs)
-indQSDom P P[] ih qsDom-[]        = P[]
-indQSDom P P[] ih (qsDom-∷ h₁ h₂) =
-  ih h₁ (indQSDom P P[] ih h₁) h₂ (indQSDom P P[] ih h₂)
+QSDom-ind : (P : List ℕ → Set) →
+            P [] →
+            (∀ {x xs} → QSDom (filter (λ y → ⌊ y ≤′? x ⌋) xs) →
+                        P (filter (λ y → ⌊ y ≤′? x ⌋) xs) →
+                        QSDom (filter (λ y → not ⌊ y ≤′? x ⌋) xs) →
+                        P (filter (λ y → not ⌊ y ≤′? x ⌋) xs) →
+                        P (x ∷ xs)) →
+            (∀ {xs} → QSDom xs → P xs)
+QSDom-ind P P[] ih qsDom-[]        = P[]
+QSDom-ind P P[] ih (qsDom-∷ h₁ h₂) =
+  ih h₁ (QSDom-ind P P[] ih h₁) h₂ (QSDom-ind P P[] ih h₂)
 
 -- Well-founded relation on lists.
 _⟪′_ : {A : Set} → List A → List A → Set

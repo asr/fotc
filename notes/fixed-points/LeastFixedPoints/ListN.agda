@@ -58,11 +58,11 @@ lncons {n} {ns} Nn LNns = ListN-in (inj₂ (n , ns , Nn , refl , LNns))
 
 ------------------------------------------------------------------------------
 -- The induction principle for List.
-indList : (A : D → Set) →
-          A [] →
-          (∀ n {ns} → N n → A ns → A (n ∷ ns)) →
-          ∀ {ns} → ListN ns → A ns
-indList A A[] is = ListN-ind A prf
+ListN-ind' : (A : D → Set) →
+             A [] →
+             (∀ n {ns} → N n → A ns → A (n ∷ ns)) →
+             ∀ {ns} → ListN ns → A ns
+ListN-ind' A A[] is = ListN-ind A prf
   where
   prf : ∀ {ns} → ns ≡ [] ∨ (∃[ n' ] ∃[ ns' ] N n' ∧ ns ≡ n' ∷ ns'  ∧ A ns') →
         A ns

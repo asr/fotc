@@ -58,11 +58,11 @@ lcons A {n} {ns} An LPns = ListP-in A (inj₂ (n , ns , An , refl , LPns))
 
 ------------------------------------------------------------------------------
 -- The induction principle for ListP.
-indListP : (A B : D → Set) →
-           B [] →
-           (∀ x {xs} → A x → B xs → B (x ∷ xs)) →
-           ∀ {xs} → ListP A xs → B xs
-indListP A B B[] is = ListP-ind A B prf
+ListP-ind' : (A B : D → Set) →
+             B [] →
+             (∀ x {xs} → A x → B xs → B (x ∷ xs)) →
+             ∀ {xs} → ListP A xs → B xs
+ListP-ind' A B B[] is = ListP-ind A B prf
   where
   prf : ∀ {xs} →
         xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A x' ∧ xs ≡ x' ∷ xs' ∧ B xs') →

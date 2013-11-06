@@ -48,7 +48,7 @@ postulate +-N₂ : ∀ {m n} → N m → N n → N (m + n)
 
 -- The translation is
 -- ∀ p. app₁(p,zero) →
---      (∀ x. app₁(n,x) → app₁(p,x) → app₁(p,appFn(succ,x))) →   -- indN
+--      (∀ x. app₁(n,x) → app₁(p,x) → app₁(p,appFn(succ,x))) →   -- N-ind
 --      (∀ x. app₁(n,x) → app₁(p,x))
 ----------------------------------------------------------------
 -- ∀ x y. app₁(n,x) → app₁(n,y) → app₁(n,appFn(appFn(+,x),y))    -- +-N₂
