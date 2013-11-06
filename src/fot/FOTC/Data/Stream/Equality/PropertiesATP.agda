@@ -18,20 +18,25 @@ open import FOTC.Relation.Binary.Bisimilarity.PropertiesATP
 postulate stream-≡→≈ : ∀ {xs ys} → Stream xs → Stream ys → xs ≡ ys → xs ≈ ys
 {-# ATP prove stream-≡→≈ ≈-refl #-}
 
-≈→Stream : ∀ {xs ys} → xs ≈ ys → Stream xs ∧ Stream ys
-≈→Stream {xs} {ys} h = Stream-coind A₁ h₁ (ys , h)
-                       , Stream-coind A₂ h₂ (xs , h)
+≈→Stream₁ : ∀ {xs ys} → xs ≈ ys → Stream xs
+≈→Stream₁ {xs} {ys} h = Stream-coind A h' (ys , h)
   where
-  A₁ : D → Set
-  A₁ ws = ∃[ zs ] ws ≈ zs
-  {-# ATP definition A₁ #-}
+  A : D → Set
+  A ws = ∃[ zs ] ws ≈ zs
+  {-# ATP definition A #-}
 
-  postulate h₁ : A₁ xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A₁ xs'
-  {-# ATP prove h₁ #-}
+  postulate h' : A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  {-# ATP prove h' #-}
 
-  A₂ : D → Set
-  A₂ zs = ∃[ ws ] ws ≈ zs
-  {-# ATP definition A₂ #-}
+≈→Stream₂ : ∀ {xs ys} → xs ≈ ys → Stream ys
+≈→Stream₂ {xs} {ys} h = Stream-coind A h' (xs , h)
+  where
+  A : D → Set
+  A zs = ∃[ ws ] ws ≈ zs
+  {-# ATP definition A #-}
 
-  postulate h₂ : A₂ ys → ∃[ y' ] ∃[ ys' ] ys ≡ y' ∷ ys' ∧ A₂ ys'
-  {-# ATP prove h₂ #-}
+  postulate h' : A ys → ∃[ y' ] ∃[ ys' ] ys ≡ y' ∷ ys' ∧ A ys'
+  {-# ATP prove h' #-}
+
+≈→Stream : ∀ {xs ys} → xs ≈ ys → Stream xs ∧ Stream ys
+≈→Stream {xs} {ys} h = ≈→Stream₁ h , ≈→Stream₂ h
