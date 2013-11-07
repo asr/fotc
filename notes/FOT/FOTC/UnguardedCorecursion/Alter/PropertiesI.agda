@@ -5,13 +5,14 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOT.FOTC.Program.Alter.PropertiesATP where
+module FOT.FOTC.UnguardedCorecursion.Alter.PropertiesI where
 
-open import FOT.FOTC.Program.Alter.Alter
+open import FOT.FOTC.UnguardedCorecursion.Alter.Alter
 
 open import FOTC.Base
 open import FOTC.Base.List
 open import FOTC.Data.Stream
+open import FOTC.Relation.Binary.Bisimilarity
 
 ------------------------------------------------------------------------------
 
@@ -20,7 +21,6 @@ alter-Stream = Stream-coind A h refl
   where
   A : D → Set
   A xs = xs ≡ xs
-  {-# ATP definition A #-}
 
-  postulate h : A alter → ∃[ x' ] ∃[ xs' ] alter ≡ x' ∷ xs' ∧ A xs'
-  {-# ATP prove h #-}
+  h : A alter → ∃[ x' ] ∃[ xs' ] alter ≡ x' ∷ xs' ∧ A xs'
+  h _ = true , (false ∷ alter) , alter-eq , refl

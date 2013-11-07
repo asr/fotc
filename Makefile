@@ -153,7 +153,7 @@ prove_fot : clean $(prove_fot_files)
 %.consistency_fot :
 	$(AGDA) -i$(fot_path) $*.agda
 	if ( $(APIA) -i$(fot_path) --output-dir=$(consistency_fot_dir) \
-	                 --time=10 $*.agda ); then \
+	             --time=10 $*.agda ); then \
            exit 1;\
         fi
 

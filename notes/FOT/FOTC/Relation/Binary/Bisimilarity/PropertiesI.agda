@@ -12,17 +12,15 @@ open import Common.FOL.Relation.Binary.EqReasoning
 open import FOTC.Base
 open import FOTC.Base.List
 open import FOTC.Base.List.PropertiesI
-open import FOTC.Data.Stream
-open import FOTC.Data.Stream.PropertiesI
 open import FOTC.Relation.Binary.Bisimilarity
 
 ------------------------------------------------------------------------------
 
 {-# NO_TERMINATION_CHECK #-}
-≈→≡₁ : ∀ {xs ys} → xs ≈ ys → xs ≡ ys
-≈→≡₁ {xs} {ys} xs≈ys with ≈-unf xs≈ys
-... | x' , xs' , ys' , h₁ , h₂ , h₃ =
-  xs       ≡⟨ h₁ ⟩
-  x' ∷ xs' ≡⟨ ∷-rightCong (≈→≡₁ h₃) ⟩
-  x' ∷ ys' ≡⟨ sym h₂ ⟩
+≈→≡ : ∀ {xs ys} → xs ≈ ys → xs ≡ ys
+≈→≡ {xs} {ys} h with ≈-unf h
+... | x' , xs' , ys' , prf₁ , prf₂ , prf₃ =
+  xs       ≡⟨ prf₁ ⟩
+  x' ∷ xs' ≡⟨ ∷-rightCong (≈→≡ prf₃) ⟩
+  x' ∷ ys' ≡⟨ sym prf₂ ⟩
   ys       ∎

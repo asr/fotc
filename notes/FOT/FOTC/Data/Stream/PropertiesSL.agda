@@ -9,10 +9,15 @@ module FOT.FOTC.Data.Stream.PropertiesSL where
 
 open import Data.Nat
 open import Data.Stream
-
 open import Coinduction
+open import Relation.Binary.PropositionalEquality
 
 ------------------------------------------------------------------------------
 
 zeros : Stream ℕ
-zeros = zero ∷ ♯ zeros
+zeros = 0 ∷ ♯ zeros
+
+-- TODO (07 November 2013): Why the identity type works with infinite
+-- lists?
+zeros≡zeros : zeros ≡ zeros
+zeros≡zeros = refl
