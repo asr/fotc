@@ -31,7 +31,8 @@ prove_notes_dir = /tmp/prove_notes
 ##############################################################################
 # Variables
 
-AGDA = agda -v 0
+AGDA     = agda -v 0
+AGDA_FOT = ${AGDA} -i$(fot_path)
 
 # The defaults ATPs are e, equinox, and vampire.
 APIA = apia
@@ -42,6 +43,8 @@ APIA = apia
 # APIA = apia --atp=metis
 # APIA = apia --atp=spass
 # APIA = apia --atp=vampire
+
+APIA_FOT = ${APIA} -i$(fot_path)
 
 ##############################################################################
 # Auxiliary functions
@@ -98,15 +101,15 @@ benchmark_files = \
 # FOT: Type-checking
 
 %.type_check_fot :
-	$(AGDA) -i$(fot_path) $*.agda
+	$(AGDA_FOT) $*.agda
 
 %.type_check_agsy_fot :
-	$(AGDA) -i$(fot_path) -i $(std_lib_path)/src/ $*.agda
+	$(AGDA_FOT) -i $(std_lib_path)/src/ $*.agda
 
 type_check_fot : clean \
                  $(type_check_fot_files) \
                  $(type_check_agsy_fot_files)
-	$(AGDA) -i$(fot_path) $(fot_path)/README.agda
+	$(AGDA_FOT) $(fot_path)/README.agda
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -118,14 +121,14 @@ type_check_fot : clean \
 # FOT: Snapshot
 
 %.snapshot_create_fot :
-	$(AGDA) -i$(fot_path) $*.agda
-	$(APIA) -i$(fot_path) --only-files --output-dir=$(snapshot_dir) $*.agda
+	$(AGDA_FOT) $*.agda
+	$(APIA_FOT) --only-files --output-dir=$(snapshot_dir) $*.agda
 
 %.snapshot_compare_fot :
 	@echo "Comparing $*.agda"
-	@$(AGDA) -i$(fot_path) $*.agda
-	@$(APIA) -v 0 -i$(fot_path) --snapshot-test \
-	         --snapshot-dir=$(snapshot_dir) $*.agda
+	@$(AGDA_FOT) $*.agda
+	@$(APIA_FOT) -v 0 --snapshot-test \
+	             --snapshot-dir=$(snapshot_dir) $*.agda
 
 snapshot_create_fot_aux : $(snapshot_create_fot_files)
 
@@ -141,8 +144,8 @@ snapshot_compare_fot : clean $(snapshot_compare_fot_files)
 # FOT: Prove theorems
 
 %.prove_fot :
-	$(AGDA) -i$(fot_path) $*.agda
-	$(APIA) -i$(fot_path) --output-dir=$(prove_fot_dir) --time=240 $*.agda
+	$(AGDA_FOT) $*.agda
+	$(APIA_FOT) --output-dir=$(prove_fot_dir) --time=240 $*.agda
 
 prove_fot : clean $(prove_fot_files)
 	@echo "$@ succeeded!"
@@ -151,9 +154,9 @@ prove_fot : clean $(prove_fot_files)
 # FOT: Consistency
 
 %.consistency_fot :
-	$(AGDA) -i$(fot_path) $*.agda
-	if ( $(APIA) -i$(fot_path) --output-dir=$(consistency_fot_dir) \
-	             --time=10 $*.agda ); then \
+	$(AGDA_FOT) $*.agda
+	if ( $(APIA_FOT) --output-dir=$(consistency_fot_dir) \
+	                 --time=10 $*.agda ); then \
            exit 1;\
         fi
 
@@ -270,8 +273,8 @@ benchmark_tag = \
   $(shell echo `date +"%Y%m%d-%H.%M"`-ghc-`ghc --numeric-version`-`hostname -s`)
 
 %.benchmark :
-	$(AGDA) -i$(fot_path) $*.agda
-	$(APIA) -v 0 -i$(fot_path) $*.agda \
+	$(AGDA_FOT) $*.agda
+	$(APIA_FOT) -v 0 $*.agda \
                 +RTS -s/tmp/benchmark/$(subst /,.,$*)
 
 benchmark_aux : $(benchmark_files)
@@ -295,9 +298,8 @@ hlint :
 # Others
 
 dependency_graph :
-	$(AGDA) -i$(fot_path) \
-	        --dependency-graph=/tmp/dependency-graph.gv \
-	        $(fot_path)/FOTC/Program/ABP/ProofSpecificationATP.agda
+	$(AGDA_FOT) --dependency-graph=/tmp/dependency-graph.gv \
+	            $(fot_path)/FOTC/Program/ABP/ProofSpecificationATP.agda
 	dot -Tpdf /tmp/dependency-graph.gv > /tmp/dependency-graph.pdf
 
 peano_install :
