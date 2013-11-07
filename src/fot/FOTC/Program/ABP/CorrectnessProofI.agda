@@ -68,7 +68,7 @@ abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B h₁ h₂
 
     ls≡k'∷ls' : ls ≡ k' ∷ ls'
     ls≡k'∷ls' with S'-lemma₁
-    ... | _ , _ , _ , _ , _ , _ , _ , _ , _ , _ , h = h
+    ... | _ , _ , _ , _ , _ , _ , _ , _ , _ , _ , prf = prf
 
     S-lemma₂ : ∃[ os₁'' ] ∃[ os₂'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
                  Fair os₁''

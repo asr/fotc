@@ -176,5 +176,5 @@ lemma₂ : ∀ {b i' is' os₁' os₂' as' bs' cs' ds' js'} →
            ∧ Fair os₂''
            ∧ S (not b) is' os₁'' os₂'' as'' bs'' cs'' ds'' js'
 lemma₂ Bb Fos₁' Fos₂' s' with Fair-unf Fos₂'
-... | ft , os₁'' , FTft , h , Fos₁'' =
-  helper Bb Fos₁' s' ft os₁'' FTft Fos₁'' h
+... | ft , os₁'' , FTft , prf , Fos₁'' =
+  helper Bb Fos₁' s' ft os₁'' FTft Fos₁'' prf

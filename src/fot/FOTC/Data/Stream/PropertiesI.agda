@@ -28,7 +28,8 @@ open import FOTC.Data.Stream
 
 tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 tailS h with Stream-unf h
-... | x' , xs' , h₁ , Sxs' = subst Stream (sym (∧-proj₂ (∷-injective h₁))) Sxs'
+... | x' , xs' , prf , Sxs' =
+  subst Stream (sym (∧-proj₂ (∷-injective prf))) Sxs'
 
 -- Adapted from (Sander 1992, p. 58).
 streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞

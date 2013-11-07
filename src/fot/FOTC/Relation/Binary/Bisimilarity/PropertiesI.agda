@@ -79,18 +79,18 @@ open import FOTC.Relation.Binary.Bisimilarity
 
 ∷-injective≈ : ∀ {x xs ys} → x ∷ xs ≈ x ∷ ys → xs ≈ ys
 ∷-injective≈ {x} {xs} {ys} h with ≈-unf h
-... | x' , xs' , ys' , h₁ , h₂ , h₃ = xs≈ys
+... | x' , xs' , ys' , prf₁ , prf₂ , prf₃ = xs≈ys
   where
   xs≡xs' : xs ≡ xs'
-  xs≡xs' = ∧-proj₂ (∷-injective h₁)
+  xs≡xs' = ∧-proj₂ (∷-injective prf₁)
 
   ys≡ys' : ys ≡ ys'
-  ys≡ys' = ∧-proj₂ (∷-injective h₂)
+  ys≡ys' = ∧-proj₂ (∷-injective prf₂)
 
   xs≈ys : xs ≈ ys
   xs≈ys = subst (λ t → t ≈ ys)
                 (sym xs≡xs')
-                (subst (λ t → xs' ≈ t) (sym ys≡ys') h₃)
+                (subst (λ t → xs' ≈ t) (sym ys≡ys') prf₃)
 
 ∷-rightCong≈ : ∀ {x xs ys} → xs ≈ ys → x ∷ xs ≈ x ∷ ys
 ∷-rightCong≈ {x} {xs} {ys} h = ≈-pre-fixed (x , xs , ys , refl , refl , h)

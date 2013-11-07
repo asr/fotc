@@ -254,5 +254,5 @@ lemma₂ : ∀ {b i' is' os₁' os₂' as' bs' cs' ds' js'} →
          ∧ Fair os₂''
          ∧ S (not b) is' os₁'' os₂'' as'' bs'' cs'' ds'' js'
 lemma₂ Bb Fos₁' Fos₂' s' with Fair-unf Fos₂'
-... | ft₂ , os₂'' , FTft₂ , h , Fos₂'' =
-  helper Bb Fos₁' s' ft₂ os₂'' FTft₂ Fos₂'' h
+... | ft₂ , os₂'' , FTft₂ , prf , Fos₂'' =
+  helper Bb Fos₁' s' ft₂ os₂'' FTft₂ Fos₂'' prf
