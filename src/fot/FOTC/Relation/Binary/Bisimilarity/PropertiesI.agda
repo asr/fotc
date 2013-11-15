@@ -89,7 +89,7 @@ open import FOTC.Relation.Binary.Bisimilarity
   xs≈ys : xs ≈ ys
   xs≈ys = subst (λ t → t ≈ ys)
                 (sym xs≡xs')
-                (subst (λ t → xs' ≈ t) (sym ys≡ys') prf₃)
+                (subst (_≈_ xs') (sym ys≡ys') prf₃)
 
 ∷-rightCong≈ : ∀ {x xs ys} → xs ≈ ys → x ∷ xs ≈ x ∷ ys
 ∷-rightCong≈ {x} {xs} {ys} h = ≈-pre-fixed (x , xs , ys , refl , refl , h)

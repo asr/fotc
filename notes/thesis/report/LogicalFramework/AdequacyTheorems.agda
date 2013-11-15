@@ -33,7 +33,7 @@ module Example7 where
   g refl = d
 
   g' : ∀ {a b} → a ≡ b → C a b
-  g' {a} h = subst (λ x → C a x) h d
+  g' {a} h = subst (C a) h d
 
 module Example10 where
 

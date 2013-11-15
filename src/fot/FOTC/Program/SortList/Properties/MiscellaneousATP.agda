@@ -43,7 +43,7 @@ x≤ys→x≤zs→x≤ys++zs : ∀ {i js ks} → N i → ListN js → ListN ks �
                      ≤-ItemList i ks →
                      ≤-ItemList i (js ++ ks)
 x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni lnnil LNks _ i≤k =
-  subst (λ t → ≤-ItemList i t) (sym (++-leftIdentity ks)) i≤k
+  subst (≤-ItemList i) (sym (++-leftIdentity ks)) i≤k
 x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni (lncons {j} {js} Nj LNjs) LNks i≤j∷js i≤k =
   prf (x≤ys→x≤zs→x≤ys++zs Ni LNjs LNks (&&-list₂-t₂ helper₁ helper₂ helper₃) i≤k)
   where

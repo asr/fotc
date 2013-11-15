@@ -23,19 +23,17 @@ open import FOTC.Program.GCD.Total.GCD
 ------------------------------------------------------------------------------
 -- The gcd 0 0 is Divisible.
 gcd-00-Divisible : Divisible zero zero (gcd zero zero)
-gcd-00-Divisible c Ncd (c∣0 , _) = subst (λ x → c ∣ x) (sym gcd-00) c∣0
+gcd-00-Divisible c Ncd (c∣0 , _) = subst (_∣_ c) (sym gcd-00) c∣0
 
 ------------------------------------------------------------------------------
 -- The gcd 0 (succ n) is Divisible.
 gcd-0S-Divisible : ∀ {n} → N n → Divisible zero (succ₁ n) (gcd zero (succ₁ n))
-gcd-0S-Divisible {n} _ c _ (c∣0 , c∣Sn) =
-  subst (λ x → c ∣ x) (sym (gcd-0S n)) c∣Sn
+gcd-0S-Divisible {n} _ c _ (c∣0 , c∣Sn) = subst (_∣_ c) (sym (gcd-0S n)) c∣Sn
 
 ------------------------------------------------------------------------------
 -- The gcd (succ₁ n) 0 is Divisible.
 gcd-S0-Divisible : ∀ {n} → N n → Divisible (succ₁ n) zero (gcd (succ₁ n) zero)
-gcd-S0-Divisible {n} _ c _ (c∣Sn , c∣0) =
-  subst (λ x → c ∣ x) (sym (gcd-S0 n)) c∣Sn
+gcd-S0-Divisible {n} _ c _ (c∣Sn , c∣0) = subst (_∣_ c) (sym (gcd-S0 n)) c∣Sn
 
 ------------------------------------------------------------------------------
 -- The gcd (succ₁ m) (succ₁ n) when succ₁ m > succ₁ n is Divisible.
@@ -56,9 +54,7 @@ Proof:
              --------------------------------------------------- (gcd def.)
                              c | gcd m n
 -}
- subst (λ x → c ∣ x)
-       (sym (gcd-S>S m n Sm>Sn))
-       (acc c Nc (c|Sm-Sn , c∣Sn))
+ subst (_∣_ c) (sym (gcd-S>S m n Sm>Sn)) (acc c Nc (c|Sm-Sn , c∣Sn))
  where
  c|Sm-Sn : c ∣ succ₁ m ∸ succ₁ n
  c|Sm-Sn = x∣y→x∣z→x∣y∸z Nc (nsucc Nm) (nsucc Nn) c∣Sm c∣Sn
@@ -83,9 +79,7 @@ Proof
                              c | gcd m n
 -}
 
-  subst (λ x → c ∣ x)
-        (sym (gcd-S≯S m n Sm≯Sn))
-        (acc c Nc (c∣Sm , c|Sn-Sm))
+  subst (_∣_ c) (sym (gcd-S≯S m n Sm≯Sn)) (acc c Nc (c∣Sm , c|Sn-Sm))
   where
   c|Sn-Sm : c ∣ succ₁ n ∸ succ₁ m
   c|Sn-Sm = x∣y→x∣z→x∣y∸z Nc (nsucc Nn) (nsucc Nm) c∣Sn c∣Sm

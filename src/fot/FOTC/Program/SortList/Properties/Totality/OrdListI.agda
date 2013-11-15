@@ -37,7 +37,7 @@ subList-OrdList {i} Ni (lncons {j} {js} Nj Ljs) LOi∷j∷js =
                     ≤-Lists is js →
                     ≤-ItemList item (is ++ js)
 ++-OrdList-helper {item} {js = js} _ lnnil _ _ item≤js _ =
-  subst (λ t → ≤-ItemList item t) (sym (++-leftIdentity js)) item≤js
+  subst (≤-ItemList item) (sym (++-leftIdentity js)) item≤js
 
 ++-OrdList-helper {item} {js = js} Nitem
                   (lncons {i} {is} Ni LNis) LNjs item≤i∷is item≤js i∷is≤js =

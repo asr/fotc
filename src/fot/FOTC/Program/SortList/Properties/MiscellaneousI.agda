@@ -55,7 +55,7 @@ open import FOTC.Program.SortList.SortList
 x≤ys++zs→x≤zs : ∀ {i js ks} → N i → ListN js → ListN ks →
                 ≤-ItemList i (js ++ ks) → ≤-ItemList i ks
 x≤ys++zs→x≤zs {i} {ks = ks} Ni lnnil LNks  i≤[]++ks =
-  subst (λ t → ≤-ItemList i t) (++-leftIdentity ks) i≤[]++ks
+  subst (≤-ItemList i) (++-leftIdentity ks) i≤[]++ks
 x≤ys++zs→x≤zs {i} {ks = ks} Ni (lncons {j} {js} Nj LNjs) LNks i≤j∷js++ks =
   x≤ys++zs→x≤zs Ni LNjs LNks lemma₂
   where
@@ -121,7 +121,7 @@ x≤ys→x≤zs→x≤ys++zs : ∀ {i js ks} → N i → ListN js → ListN ks �
                      ≤-ItemList i ks →
                      ≤-ItemList i (js ++ ks)
 x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni lnnil LNks _ i≤k =
-  subst (λ t → ≤-ItemList i t) (sym (++-leftIdentity ks)) i≤k
+  subst (≤-ItemList i) (sym (++-leftIdentity ks)) i≤k
 x≤ys→x≤zs→x≤ys++zs {i} {ks = ks} Ni (lncons {j} {js} Nj LNjs) LNks i≤j∷js i≤k =
   le-ItemList i ((j ∷ js) ++ ks)
     ≡⟨ subst (λ t → le-ItemList i ((j ∷ js) ++ ks) ≡

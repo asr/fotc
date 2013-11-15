@@ -112,7 +112,7 @@ notCong {a} h = subst (λ t → not a ≡ not t) h refl
   h₂ = Cn , Cn , refl
 
 ≡→≈N : ∀ {m n} → Conat m → Conat n → m ≡ n → m ≈N n
-≡→≈N {m} Cm _ h = subst (λ t → m ≈N t) h (≈N-refl Cm)
+≡→≈N {m} Cm _ h = subst (_≈N_ m) h (≈N-refl Cm)
 
 ------------------------------------------------------------------------------
 -- FOTC.Data.List.PropertiesI
@@ -202,7 +202,7 @@ ltCong {m₁} {n₁} h₁ h₂ = subst₂ (λ t₁ t₂ → lt m₁ n₁ ≡ lt 
 -- From FOT.FOTC.Data.Stream.Equality.PropertiesI where
 
 stream-≡→≈ : ∀ {xs ys} → Stream xs → Stream ys → xs ≡ ys → xs ≈ ys
-stream-≡→≈ {xs} Sxs _ h = subst (λ t → xs ≈ t) h (≈-refl Sxs)
+stream-≡→≈ {xs} Sxs _ h = subst (_≈_ xs) h (≈-refl Sxs)
 
 ------------------------------------------------------------------------------
 -- From FOTC.Program.McCarthy91.AuxiliaryPropertiesATP

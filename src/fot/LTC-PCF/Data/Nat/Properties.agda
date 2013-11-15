@@ -69,17 +69,17 @@ open import LTC-PCF.Data.Nat.UnaryNumbers
   pred₁ (m ∸ n) ∎
 
 *-0x : ∀ n → zero * n ≡ zero
-*-0x n = rec zero zero (lam (λ _ → lam (λ x → n + x))) ≡⟨ rec-0 zero ⟩
+*-0x n = rec zero zero (lam (λ _ → lam (_+_ n))) ≡⟨ rec-0 zero ⟩
          zero                                          ∎
 
 *-Sx : ∀ m n → succ₁ m * n ≡ n + m * n
 *-Sx m n =
-  rec (succ₁ m) zero (lam (λ _ → lam (λ x → n + x)))
-    ≡⟨ rec-S m zero (lam (λ _ → lam (λ x → n + x))) ⟩
-  (lam (λ _ → lam (λ x → n + x))) · m · (m * n)
-    ≡⟨ ·-leftCong (beta (λ _ → lam (λ x → n + x)) m) ⟩
-  lam (λ x → n + x) · (m * n)
-    ≡⟨ beta (λ x → n + x) (m * n) ⟩
+  rec (succ₁ m) zero (lam (λ _ → lam (_+_ n)))
+    ≡⟨ rec-S m zero (lam (λ _ → lam (_+_ n))) ⟩
+  (lam (λ _ → lam (_+_ n))) · m · (m * n)
+    ≡⟨ ·-leftCong (beta (λ _ → lam (_+_ n)) m) ⟩
+  lam (_+_ n) · (m * n)
+    ≡⟨ beta (_+_ n) (m * n) ⟩
   n + (m * n) ∎
 
 ------------------------------------------------------------------------------
