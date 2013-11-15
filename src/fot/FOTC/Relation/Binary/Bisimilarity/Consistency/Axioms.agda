@@ -19,5 +19,11 @@ open import FOTC.Relation.Binary.Bisimilarity
 postulate impossible : ∀ d e → d ≡ e
 {-# ATP prove impossible #-}
 
+postulate ≡→≈ : ∀ {xs ys} → xs ≡ ys → xs ≈ ys
+{-# ATP prove ≡→≈ #-}
+
 postulate ≈→≡ : ∀ {xs ys} → xs ≈ ys → xs ≡ ys
 {-# ATP prove ≈→≡ #-}
+
+postulate ≉→≢ : ∀ {xs ys} → xs ≉ ys → xs ≢ ys
+{-# ATP prove ≉→≢ #-}

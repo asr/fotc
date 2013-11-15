@@ -42,7 +42,7 @@ postulate
   f-eq₂ : f zero ≡ zero ∷ []
 
 -- A proof using the bisimilarity relation relation.
-thm : ∀ {n} → N n → ¬ (f n ≈ ones)
+thm : ∀ {n} → N n → f n ≉ ones
 thm nzero h with ≈-unf h
 ... | x' , xs' , ys' , prf₁ , prf₂ , prf₃ = 0≢S (trans (sym x'≡0) x'≡1)
   where

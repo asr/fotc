@@ -11,7 +11,7 @@ open import FOTC.Base
 open import FOTC.Base.List
 
 -- We add 3 to the fixities of the standard library.
-infix 7 _≈_
+infix 7 _≈_ _≉_
 
 ------------------------------------------------------------------------------
 -- The bisimilarity relation _≈_ on unbounded lists is the greatest
@@ -59,6 +59,14 @@ postulate
        ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ R xs' ys'
   h' (_ , _ , _ , prf₁ , prf₂ , xs'≈ys') =
     _ , _ , _ , prf₁ , prf₂ , ≈-unf xs'≈ys'
+
+------------------------------------------------------------------------------
+-- Auxiliary definition.
+_≉_ : D → D → Set
+x ≉ y = ¬ x ≈ y
+{-# ATP definition _≉_ #-}
+
+------------------------------------------------------------------------------
 
 private
   module Bisimulation where
