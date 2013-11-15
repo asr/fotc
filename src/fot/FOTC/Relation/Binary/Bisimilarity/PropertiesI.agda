@@ -31,7 +31,6 @@ open import FOTC.Relation.Binary.Bisimilarity
   h₂ : R xs xs
   h₂ = Sxs , refl
 
-
 ≈-sym : ∀ {xs ys} → xs ≈ ys → ys ≈ xs
 ≈-sym {xs} {ys} xs≈ys = ≈-coind R h₁ h₂
   where
