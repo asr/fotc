@@ -24,6 +24,8 @@ $ vampire_lin64 -t xxx --input_file file_name
 -- Schema for equational reasoning
 ------------------------------------------------------------------------------
 
+open import Common.FOL.Relation.Binary.EqReasoning
+
   {!!} ≡⟨ {!!} ⟩
   {!!} ≡⟨ {!!} ⟩
   {!!} ≡⟨ {!!} ⟩
