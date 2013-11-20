@@ -172,6 +172,7 @@ type_check_notes_path = \
   -i$(notes_path) \
   -i$(notes_path)/discrimination-rules \
   -i$(notes_path)/fixed-points \
+  -i$(notes_path)/hip \
   -i$(notes_path)/k-axiom \
   -i$(notes_path)/papers/fossacs-2012 \
   -i$(notes_path)/papers/paper-2011/ \
@@ -192,6 +193,7 @@ type_check_notes : clean $(type_check_notes_files)
 
 prove_notes_path = -i$(fot_path) \
                    -i$(notes_path) \
+                    -i$(notes_path)/hip \
                    -i$(notes_path)/papers/fossacs-2012 \
                    -i$(notes_path)/thesis/report \
                    -i$(notes_path)/README
