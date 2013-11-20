@@ -15,9 +15,9 @@ open import LTC-PCF.Loop
 ------------------------------------------------------------------------------
 -- In GHC ≤ 7.0.4 the gcd is a partial function, i.e. gcd 0 0 = undefined.
 
--- Let T = D → D → D. Instead of defining gcdh : T → T, we use the
--- LTC-PCF λ-abstraction and application to avoid use a polymorphic
--- fixed-point operator.
+-- Let T = D → D → D be a type. Instead of defining gcdh : T → T, we
+-- use the LTC-PCF λ-abstraction and application to avoid use a
+-- polymorphic fixed-point operator.
 
 gcdh : D → D
 gcdh g = lam (λ m → lam (λ n →

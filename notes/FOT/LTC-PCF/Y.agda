@@ -7,8 +7,6 @@
 
 -- See (Barendregt 2004, corollary 6.1.3).
 --
--- N.B. This is the fixed-point combinator used by (Dybjer 1985).
---
 -- References:
 --
 -- • Barendregt, Henk (2004). The Lambda Calculus. Its Syntax and
@@ -28,10 +26,10 @@ module FOT.LTC-PCF.Y where
 open import LTC-PCF.Base hiding ( fix ; fix-eq )
 
 ------------------------------------------------------------------------------
-
+-- This is the fixed-point combinator used by (Dybjer 1985).
 Y : D
 Y = lam (λ f → lam (λ x → f · (x · x)) · lam (λ x → f · (x · x)))
 
--- We define a higher-order Y for convenience in writing.
+-- We define a higher-order Y.
 Y₁ : (D → D) → D
 Y₁ f = Y · lam f

@@ -11,9 +11,9 @@ open import LTC-PCF.Base
 
 ---------------------------------------------------------------------------
 
--- Let T = D → D → (D → D → D) → D. Instead of defining rec : T → T,
--- we use the LTC-PCF λ-abstraction and application to avoid use a
--- polymorphic fixed-point operator.
+-- Let T = D → D → (D → D → D) → D be a type. Instead of defining
+-- rec : T → T, we use the LTC-PCF λ-abstraction and application to
+-- avoid use a polymorphic fixed-point operator.
 
 rech : D → D
 rech r = lam (λ n → lam (λ a → lam (λ f →

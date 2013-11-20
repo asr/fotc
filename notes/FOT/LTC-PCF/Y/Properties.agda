@@ -7,8 +7,9 @@
 
 -- See (Barendregt 2004, corollary 6.1.3).
 --
--- • Henk Barendregt. The Lambda Calculus. Its Syntax and
---   Semantics. Elsevier, revised edition, 2004. 6th. impression.
+-- • Barendregt, Henk (2004). The Lambda Calculus. Its Syntax and
+--   Semantics. 2nd ed. Vol. 103. Studies in Logic and the Foundations
+--   of Mathematics. 6th impression. Elsevier.
 
 module FOT.LTC-PCF.Y.Properties where
 
@@ -20,7 +21,6 @@ open import LTC-PCF.Base hiding ( fix ; fix-eq )
 open import LTC-PCF.Base.Properties
 
 ------------------------------------------------------------------------------
-
 -- The conversion rule for Y.
 Y-eq : ∀ f → Y · f ≡ f · (Y · f)
 Y-eq f = Y · f             ≡⟨ beta helper f ⟩
