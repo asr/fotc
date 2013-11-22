@@ -62,9 +62,7 @@ open import FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP
 
 ------------------------------------------------------------------------------
 -- For all n > 100, then f₉₁ n = n - 10.
---
--- N.B. (21 November 2013). The hypothesis N n is not necessary.
-postulate f₉₁-x>100 : ∀ n → N n → n > 100' → f₉₁ n ≡ n ∸ 10'
+postulate f₉₁-x>100 : ∀ n → n > 100' → f₉₁ n ≡ n ∸ 10'
 {-# ATP prove f₉₁-x>100 #-}
 
 -- For all n <= 100, then f₉₁ n = 91.
@@ -115,7 +113,7 @@ f₉₁-x≯100 = ◁-wfind A h
 -- The function always terminates.
 f₉₁-N : ∀ {n} → N n → N (f₉₁ n)
 f₉₁-N {n} Nn with x>y∨x≯y Nn 100-N
-... | inj₁ n>100 = subst N (sym (f₉₁-x>100 n Nn n>100)) (∸-N Nn 10-N)
+... | inj₁ n>100 = subst N (sym (f₉₁-x>100 n n>100)) (∸-N Nn 10-N)
 ... | inj₂ n≯100 = subst N (sym (f₉₁-x≯100 Nn n≯100)) 91-N
 
 -- For all n, n < f₉₁ n + 11.
