@@ -6,8 +6,10 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- From: Ana Bove and Venanzio Capretta. Nested general recursion and
--- partiality in type theory. vol 2152 LNCS. 2001.
+-- From: Bove, A. and Capretta, V. (2001). Nested General Recursion
+-- and Partiality in Type Theory. In: Theorem Proving in Higher Order
+-- Logics (TPHOLs 2001). Ed. by Boulton, R. J. and Jackson,
+-- P. B. Vol. 2152. LNCS. Springer, pp. 121–135.
 
 module FOT.FOTC.Program.Nest.NestBC-SL where
 
@@ -22,7 +24,6 @@ open import Relation.Binary
 module NDTO = DecTotalOrder decTotalOrder
 
 ------------------------------------------------------------------------------
-
 -- The original non-terminating function.
 
 {-# NO_TERMINATION_CHECK #-}
