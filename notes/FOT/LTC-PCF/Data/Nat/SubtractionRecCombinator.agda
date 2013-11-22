@@ -21,11 +21,11 @@ open import LTC-PCF.Data.Nat.UnaryNumbers
 infixl 9 _∸_
 
 ------------------------------------------------------------------------------
-
 -- Subtraction
 _∸_ : D → D → D
 m ∸ n = rec n m (lam (λ _ → lam pred₁))
 
+------------------------------------------------------------------------------
 -- Conversion rules (from the Agda standard library)
 
 ∸-x0 : ∀ n → n ∸ zero ≡ n
@@ -185,7 +185,7 @@ m ∸ n = rec n m (lam (λ _ → lam pred₁))
 --   m ∸ n ∎
 
 ------------------------------------------------------------------------------
--- Isabelle conversion rules (from Nat.thy)
+-- Isabelle2013-1 conversion rules (from Nat.thy)
 
 -- primrec minus_nat where
 --   diff_0 [code]: "m - 0 = (m :: nat)"
