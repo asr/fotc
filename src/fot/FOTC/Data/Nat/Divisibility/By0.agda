@@ -29,7 +29,7 @@ infix 7 _∣_
 -- • Knuth 1977, p. 40: 0∤0
 -- • Agda standard library 0.6: 0|0
 -- • Coq 8.4: 0∣0
--- • Isabelle 2012: 0∣0
+-- • Isabelle2013-1: 0∣0
 
 -- In our definition 0∣0, which is used to prove properties of the gcd
 -- as it is in GHC ≥ 7.2.1, where gcd 0 0 = 0 (see

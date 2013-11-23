@@ -30,10 +30,7 @@ programs. For this purpose we wrote the
 
 # Prerequisites and use
 
-* The Apia program
-
-  See
-  [README.md](https://github.com/asr/apia/blob/master/README.md).
+* The [Apia](https://github.com/asr/apia/blob/master/README.md) program
 
 * Setting up the Emacs mode for use with our library of first-order
    theories
