@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- The map-iterate property: A property using coinduction
+-- The map-iterate property: Testing a trivial relation
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -16,7 +16,7 @@
 -- • Gibbons, Jeremy and Hutton, Graham (2005). Proof Methods for
 --   Corecursive Programs. In: Fundamenta Informaticae XX, pp. 1–14.
 
-module FOTC.Program.MapIterate.MapIterateI where
+module FOT.FOTC.Program.MapIterate.MapIterateTrivialRelation where
 
 open import Common.FOL.Relation.Binary.EqReasoning
 
@@ -24,7 +24,6 @@ open import FOTC.Base
 open import FOTC.Base.List
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI
-open import FOTC.Data.Stream
 open import FOTC.Relation.Binary.Bisimilarity
 
 ------------------------------------------------------------------------------
@@ -36,42 +35,21 @@ unfoldMapIterate f x =
   map f (x ∷ iterate f (f · x))     ≡⟨ map-∷ f x (iterate f (f · x)) ⟩
   f · x ∷ map f (iterate f (f · x)) ∎
 
-map-iterate-Stream₁ : ∀ f x → Stream (map f (iterate f x))
-map-iterate-Stream₁ f x = Stream-coind A h refl
-  where
-  A : D → Set
-  A xs = xs ≡ xs
-
-  h : A (map f (iterate f x)) →
-      ∃[ x' ]  ∃[ xs' ] map f (iterate f x) ≡ x' ∷ xs' ∧ A xs'
-  h _ = f · x , map f (iterate f (f · x)) , unfoldMapIterate f x , refl
-
-map-iterate-Stream₂ : ∀ f x → Stream (iterate f (f · x))
-map-iterate-Stream₂ f x = Stream-coind A h refl
-  where
-  A : D → Set
-  A xs = xs ≡ xs
-
-  h : A (iterate f (f · x)) →
-      ∃[ x' ] ∃[ xs' ] iterate f (f · x) ≡ x' ∷ xs' ∧ A xs'
-  h _ = f · x , iterate f (f · (f · x)) , iterate-eq f (f · x) , refl
-
 -- The map-iterate property.
 ≈-map-iterate : ∀ f x → map f (iterate f x) ≈ iterate f (f · x)
-≈-map-iterate f x = ≈-coind B h (x , refl , refl)
+≈-map-iterate f x = ≈-coind B h refl
   where
-  -- Based on the relation used by (Giménez and Castéran, 2007).
+  -- Trivial relation
   B : D → D → Set
-  B xs ys = ∃[ y ] xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y)
+  B xs ys = xs ≡ xs
 
   h : B (map f (iterate f x)) (iterate f (f · x)) → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
         map f (iterate f x) ≡ x' ∷ xs'
         ∧ iterate f (f · x) ≡ x' ∷ ys'
         ∧ B xs' ys'
-  h (y , prf) =
-    f · y
-    , map f (iterate f (f · y))
-    , iterate f (f · (f · y))
-    , trans (∧-proj₁ prf) (unfoldMapIterate f y)
-    , trans (∧-proj₂ prf) (iterate-eq f (f · y))
-    , ((f · y) , refl , refl)
+  h _ = f · x
+        , map f (iterate f (f · x))
+        , iterate f (f · (f · x))
+        , unfoldMapIterate f x
+        , iterate-eq f (f · x)
+        , refl

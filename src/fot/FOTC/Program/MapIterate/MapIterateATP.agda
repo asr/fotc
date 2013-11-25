@@ -60,8 +60,10 @@ map-iterate-Stream₂ f x = Stream-coind A h refl
   {-# ATP definition B #-}
 
   postulate
-    h₁ : ∀ {xs ys} → B xs ys →
-         ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
+    h₁ : B (map f (iterate f x)) (iterate f (f · x)) → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
+           map f (iterate f x) ≡ x' ∷ xs'
+           ∧ iterate f (f · x) ≡ x' ∷ ys'
+           ∧ B xs' ys'
   {-# ATP prove h₁ #-}
 
   postulate h₂ : B (map f (iterate f x)) (iterate f (f · x))
