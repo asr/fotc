@@ -4,7 +4,7 @@
 
 module PA.Axiomatic.Standard.README where
 
--- Formalization of first-order Peano aritmetic using Agda postulates
+-- Formalization of first-order Peano arithmetic using Agda postulates
 -- for the non-logical constants and the Peano's axioms, and using
 -- axioms based on the propositional equality (see, for example,
 -- (Machover 1996, p. 263), (Hájek and Pudlák 1998, p. 28).

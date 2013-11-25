@@ -4,7 +4,7 @@
 
 module PA.Inductive.README where
 
--- Formalization of first-order Peano aritmetic using Agda data types
+-- Formalization of first-order Peano arithmetic using Agda data types
 -- and primitive recursive functions for addition and multiplication.
 
 ------------------------------------------------------------------------------
