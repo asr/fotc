@@ -181,24 +181,6 @@ ltCong {m₁} {n₁} h₁ h₂ = subst₂ (λ t₁ t₂ → lt m₁ n₁ ≡ lt 
 *-rightCong {m} {n} h = subst (λ t → m * n ≡ m * t) h refl
 
 ------------------------------------------------------------------------------
--- From FOTC.Relation.Binary.Bisimilarity.PropertiesI
-
-≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
-≈-refl {xs} Sxs = ≈-coind B h₁ h₂
-  where
-  B : D → D → Set
-  B xs ys = Stream xs ∧ xs ≡ ys
-
-  h₁ : ∀ {xs ys} → B xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
-         xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
-  h₁ (Sxs , h) with Stream-unf Sxs
-  ... | x' , xs' , prf , Sxs' =
-    x' , xs' , xs' , prf , subst (λ t → t ≡ x' ∷ xs') h prf , (Sxs' , refl)
-
-  h₂ : B xs xs
-  h₂ = Sxs , refl
-
-------------------------------------------------------------------------------
 -- From FOT.FOTC.Data.Stream.Equality.PropertiesI where
 
 stream-≡→≈ : ∀ {xs ys} → Stream xs → Stream ys → xs ≡ ys → xs ≈ ys
