@@ -27,21 +27,19 @@ alter-Stream = Stream-coind A h refl
   h _ = true , (false ∷ alter) , alter-eq , refl
 
 alter≈alter' : alter ≈ alter'
-alter≈alter' = ≈-coind A h₁ h₂
+alter≈alter' = ≈-coind B h₁ h₂
   where
-  -- TODO (25 November 2013): We are choosing a very trivial property,
-  -- but it works!
-  A : D → D → Set
-  A xs ys = xs ≡ xs
+  B : D → D → Set
+  B xs ys = xs ≡ xs
 
-  h₁ : A alter alter' → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
-         alter ≡ x' ∷ xs' ∧ alter' ≡ x' ∷ ys' ∧ A xs' ys'
-  h₁ Aaa' = true
-            , false ∷ alter
-            , map not₀ alter'
-            , alter-eq
-            , alter'-eq
-            , refl
+  h₁ : B alter alter' → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
+         alter ≡ x' ∷ xs' ∧ alter' ≡ x' ∷ ys' ∧ B xs' ys'
+  h₁ _ = true
+         , false ∷ alter
+         , map not₀ alter'
+         , alter-eq
+         , alter'-eq
+         , refl
 
-  h₂ : A alter alter'
+  h₂ : B alter alter'
   h₂ = refl

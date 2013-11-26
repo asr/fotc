@@ -184,18 +184,18 @@ ltCong {m₁} {n₁} h₁ h₂ = subst₂ (λ t₁ t₂ → lt m₁ n₁ ≡ lt 
 -- From FOTC.Relation.Binary.Bisimilarity.PropertiesI
 
 ≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
-≈-refl {xs} Sxs = ≈-coind R h₁ h₂
+≈-refl {xs} Sxs = ≈-coind B h₁ h₂
   where
-  R : D → D → Set
-  R xs ys = Stream xs ∧ xs ≡ ys
+  B : D → D → Set
+  B xs ys = Stream xs ∧ xs ≡ ys
 
-  h₁ : ∀ {xs ys} → R xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
-         xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ R xs' ys'
+  h₁ : ∀ {xs ys} → B xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
+         xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
   h₁ (Sxs , h) with Stream-unf Sxs
   ... | x' , xs' , prf , Sxs' =
     x' , xs' , xs' , prf , subst (λ t → t ≡ x' ∷ xs') h prf , (Sxs' , refl)
 
-  h₂ : R xs xs
+  h₂ : B xs xs
   h₂ = Sxs , refl
 
 ------------------------------------------------------------------------------

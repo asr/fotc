@@ -15,47 +15,47 @@ open import FOTC.Relation.Binary.Bisimilarity
 ------------------------------------------------------------------------------
 
 ≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
-≈-refl {xs} Sxs = ≈-coind R h₁ h₂
+≈-refl {xs} Sxs = ≈-coind B h₁ h₂
   where
-  R : D → D → Set
-  R xs ys = xs ≡ ys ∧ Stream xs
-  {-# ATP definition R #-}
+  B : D → D → Set
+  B xs ys = xs ≡ ys ∧ Stream xs
+  {-# ATP definition B #-}
 
-  postulate h₁ : ∀ {xs ys} → R xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
-                   xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ R xs' ys'
+  postulate h₁ : ∀ {xs ys} → B xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
+                   xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
   {-# ATP prove h₁ #-}
 
-  postulate h₂ : R xs xs
+  postulate h₂ : B xs xs
   {-# ATP prove h₂ #-}
 
 ≈-sym : ∀ {xs ys} → xs ≈ ys → ys ≈ xs
-≈-sym {xs} {ys} xs≈ys = ≈-coind R h₁ h₂
+≈-sym {xs} {ys} xs≈ys = ≈-coind B h₁ h₂
   where
-  R : D → D → Set
-  R xs ys = ys ≈ xs
-  {-# ATP definition R #-}
+  B : D → D → Set
+  B xs ys = ys ≈ xs
+  {-# ATP definition B #-}
 
-  postulate h₁ : R ys xs →
-                 ∃[ y' ] ∃[ ys' ] ∃[ xs' ]
-                   ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs' ∧ R ys' xs'
+  postulate
+    h₁ : B ys xs → ∃[ y' ] ∃[ ys' ] ∃[ xs' ]
+           ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs' ∧ B ys' xs'
   {-# ATP prove h₁ #-}
 
-  postulate h₂ : R ys xs
+  postulate h₂ : B ys xs
   {-# ATP prove h₂ #-}
 
 ≈-trans : ∀ {xs ys zs} → xs ≈ ys → ys ≈ zs → xs ≈ zs
-≈-trans {xs} {ys} {zs} xs≈ys ys≈zs = ≈-coind R h₁ h₂
+≈-trans {xs} {ys} {zs} xs≈ys ys≈zs = ≈-coind B h₁ h₂
   where
-  R : D → D → Set
-  R xs zs = ∃[ ys ] xs ≈ ys ∧ ys ≈ zs
-  {-# ATP definition R #-}
+  B : D → D → Set
+  B xs zs = ∃[ ys ] xs ≈ ys ∧ ys ≈ zs
+  {-# ATP definition B #-}
 
-  postulate h₁ : ∀ {xs zs} → R xs zs →
-                 ∃[ x' ] ∃[ xs' ] ∃[ zs' ]
-                   xs ≡ x' ∷ xs' ∧ zs ≡ x' ∷ zs' ∧ R xs' zs'
+  postulate
+    h₁ : ∀ {xs zs} → B xs zs → ∃[ x' ] ∃[ xs' ] ∃[ zs' ]
+           xs ≡ x' ∷ xs' ∧ zs ≡ x' ∷ zs' ∧ B xs' zs'
   {-# ATP prove h₁ #-}
 
-  postulate h₂ : R xs zs
+  postulate h₂ : B xs zs
   {-# ATP prove h₂ #-}
 
 postulate ∷-injective≈ : ∀ {x xs ys} → x ∷ xs ≈ x ∷ ys → xs ≈ ys

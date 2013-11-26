@@ -37,15 +37,15 @@ alter'-Stream = Stream-coind A h refl
   {-# ATP prove h #-}
 
 alter≈alter' : alter ≈ alter'
-alter≈alter' = ≈-coind A h₁ h₂
+alter≈alter' = ≈-coind B h₁ h₂
   where
-  A : D → D → Set
-  A xs ys = xs ≡ xs
-  {-# ATP definition A #-}
+  B : D → D → Set
+  B xs ys = xs ≡ xs
+  {-# ATP definition B #-}
 
-  postulate h₁ : A alter alter' → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
-                   alter ≡ x' ∷ xs' ∧ alter' ≡ x' ∷ ys' ∧ A xs' ys'
+  postulate h₁ : B alter alter' → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
+                   alter ≡ x' ∷ xs' ∧ alter' ≡ x' ∷ ys' ∧ B xs' ys'
   {-# ATP prove h₁ #-}
 
-  postulate h₂ : A alter alter'
+  postulate h₂ : B alter alter'
   {-# ATP prove h₂ #-}

@@ -17,45 +17,45 @@ open import FOTC.Relation.Binary.Bisimilarity
 ------------------------------------------------------------------------------
 
 ≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
-≈-refl {xs} Sxs = ≈-coind R h₁ h₂
+≈-refl {xs} Sxs = ≈-coind B h₁ h₂
   where
-  R : D → D → Set
-  R xs ys = Stream xs ∧ xs ≡ ys
+  B : D → D → Set
+  B xs ys = Stream xs ∧ xs ≡ ys
 
-  h₁ : ∀ {xs ys} → R xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
-         xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ R xs' ys'
+  h₁ : ∀ {xs ys} → B xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
+         xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
   h₁ (Sxs , refl) with Stream-unf Sxs
   ... | x' , xs' , prf , Sxs' =
     x' , xs' , xs' , prf , prf , (Sxs' , refl)
 
-  h₂ : R xs xs
+  h₂ : B xs xs
   h₂ = Sxs , refl
 
 ≈-sym : ∀ {xs ys} → xs ≈ ys → ys ≈ xs
-≈-sym {xs} {ys} xs≈ys = ≈-coind R h₁ h₂
+≈-sym {xs} {ys} xs≈ys = ≈-coind B h₁ h₂
   where
-  R : D → D → Set
-  R xs ys = ys ≈ xs
+  B : D → D → Set
+  B xs ys = ys ≈ xs
 
-  h₁ : R ys xs →
+  h₁ : B ys xs →
        ∃[ y' ] ∃[ ys' ] ∃[ xs' ]
-         ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs' ∧ R ys' xs'
-  h₁ Rxsys with ≈-unf Rxsys
+         ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs' ∧ B ys' xs'
+  h₁ Bxsys with ≈-unf Bxsys
   ... | y' , ys' , xs' , prf₁ , prf₂ , ys'≈xs' =
     y' , xs' , ys' , prf₂ , prf₁ , ys'≈xs'
 
-  h₂ : R ys xs
+  h₂ : B ys xs
   h₂ = xs≈ys
 
 ≈-trans : ∀ {xs ys zs} → xs ≈ ys → ys ≈ zs → xs ≈ zs
-≈-trans {xs} {ys} {zs} xs≈ys ys≈zs = ≈-coind R h₁ h₂
+≈-trans {xs} {ys} {zs} xs≈ys ys≈zs = ≈-coind B h₁ h₂
   where
-  R : D → D → Set
-  R xs zs = ∃[ ys ] xs ≈ ys ∧ ys ≈ zs
+  B : D → D → Set
+  B xs zs = ∃[ ys ] xs ≈ ys ∧ ys ≈ zs
 
-  h₁ : R xs zs →
+  h₁ : B xs zs →
        ∃[ x' ] ∃[ xs' ] ∃[ zs' ]
-         xs ≡ x' ∷ xs' ∧ zs ≡ x' ∷ zs' ∧ R xs' zs'
+         xs ≡ x' ∷ xs' ∧ zs ≡ x' ∷ zs' ∧ B xs' zs'
   h₁ (ys , xs≈ys , ys≈zs) with ≈-unf xs≈ys
   ... | x' , xs' , ys' , prf₁ , prf₂ , xs'≈ys' with ≈-unf ys≈zs
   ... | y' , ys'' , zs' , prf₃ , prf₄ , ys''≈zs' =
@@ -73,7 +73,7 @@ open import FOTC.Relation.Binary.Bisimilarity
     ys''≡ys' : ys'' ≡ ys'
     ys''≡ys' = ∧-proj₂ (∷-injective (trans (sym prf₃) prf₂))
 
-  h₂ : R xs zs
+  h₂ : B xs zs
   h₂ = ys , (xs≈ys , ys≈zs)
 
 ∷-injective≈ : ∀ {x xs ys} → x ∷ xs ≈ x ∷ ys → xs ≈ ys

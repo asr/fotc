@@ -123,11 +123,11 @@ thm₂ (nsucc {n} Nn) h with ≈-unf h
 -- relation.
 
 thm₃ : ∃[ n ] (Conat n ∧ f n ≈ ones)
-thm₃ =  ∞ , ∞-Conat , ≈-coind A h (refl , refl)
+thm₃ =  ∞ , ∞-Conat , ≈-coind B h (refl , refl)
   where
-  A : D → D → Set
-  A xs ys = xs ≡ xs ∧ ys ≡ ys
+  B : D → D → Set
+  B xs ys = xs ≡ xs ∧ ys ≡ ys
 
-  h : A (f ∞) ones →
-      ∃[ x' ] ∃[ xs' ] ∃[ ys' ] f ∞ ≡ x' ∷ xs' ∧ ones ≡ x' ∷ ys' ∧ A xs' ys'
-  h h' = succ₁ zero , f ∞ , ones , trans (fCong ∞-eq) (f-eq₁ ∞) , ones-eq , h'
+  h : B (f ∞) ones →
+      ∃[ x' ] ∃[ xs' ] ∃[ ys' ] f ∞ ≡ x' ∷ xs' ∧ ones ≡ x' ∷ ys' ∧ B xs' ys'
+  h Bh' = succ₁ zero , f ∞ , ones , trans (fCong ∞-eq) (f-eq₁ ∞) , ones-eq , Bh'
