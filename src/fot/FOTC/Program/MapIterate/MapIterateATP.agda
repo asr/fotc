@@ -52,20 +52,16 @@ map-iterate-Stream₂ f x = Stream-coind A h refl
 
 -- The map-iterate property.
 ≈-map-iterate : ∀ f x → map f (iterate f x) ≈ iterate f (f · x)
-≈-map-iterate f x = ≈-coind B h₁ h₂
+≈-map-iterate f x = ≈-coind B h refl
   where
-  -- Based on the relation used by (Giménez and Castéran, 2007).
   B : D → D → Set
-  B xs ys = ∃[ y ] xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y)
+  B xs ys = xs ≡ xs
   {-# ATP definition B #-}
 
   postulate
-    h₁ : B (map f (iterate f x)) (iterate f (f · x)) →
-         ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
-           map f (iterate f x) ≡ x' ∷ xs'
-           ∧ iterate f (f · x) ≡ x' ∷ ys'
-           ∧ B xs' ys'
-  {-# ATP prove h₁ #-}
-
-  postulate h₂ : B (map f (iterate f x)) (iterate f (f · x))
-  {-# ATP prove h₂ #-}
+    h : B (map f (iterate f x)) (iterate f (f · x)) →
+        ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
+          map f (iterate f x) ≡ x' ∷ xs'
+          ∧ iterate f (f · x) ≡ x' ∷ ys'
+          ∧ B xs' ys'
+  {-# ATP prove h #-}
