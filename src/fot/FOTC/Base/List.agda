@@ -14,7 +14,7 @@ infixr 8 _∷_
 
 ------------------------------------------------------------------------------
 -- List constants.
-postulate [] cons head tail null : D  -- FOTC lists.
+postulate [] cons head tail null : D  -- FOTC partial lists.
 
 -- Definitions
 abstract
