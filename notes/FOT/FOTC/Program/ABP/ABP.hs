@@ -20,7 +20,6 @@ import Control.Monad ( liftM2, replicateM )
 import Data.Stream.Infinite as S
   ( Stream( (:>) )
   , fromList
-  , repeat
   , take
   )
 
@@ -98,36 +97,6 @@ prop is os1 os2 startBit =
 
 ------------------------------------------------------------------------------
 -- Simulation
---
--- When the initial bit is False and the oracle stream os2 has only
--- Falses the ABP can transmit the first symbol (but it cannot
--- transmit the second one).
--- main ∷ IO ()
--- main = do
-
---   [g1, g2] ← replicateM 2 newStdGen
-
---   let is ∷ Stream Int
---       is = S.fromList $ randoms g1
-
---       os1, os2 ∷ Stream Bit
---       os1 = S.fromList $ randoms g2
---       os2 = S.repeat False
-
---       startBit ∷ Bit
---       startBit = False
-
---       js ∷ Stream Int
---       js = abpTransH startBit os1 os2 is
-
---       n ∷ Int
---       n = 1
-
---   print $ S.take n js
---   print $ S.take n is == S.take n js
-
-------------------------------------------------------------------------------
--- General simulation
 
 main ∷ IO ()
 main = do
