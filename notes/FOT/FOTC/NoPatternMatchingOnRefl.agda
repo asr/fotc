@@ -21,6 +21,7 @@ open import FOTC.Data.Stream
 open import FOTC.Program.McCarthy91.McCarthy91
 
 open import FOTC.Relation.Binary.Bisimilarity
+open import FOTC.Relation.Binary.Bisimilarity.PropertiesI
 
 ------------------------------------------------------------------------------
 -- From FOTC.Base.PropertiesI
