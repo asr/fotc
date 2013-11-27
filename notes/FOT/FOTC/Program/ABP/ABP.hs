@@ -64,9 +64,10 @@ corruptH (True :> os)  (x :> xs) = Ok x  :> corruptH os xs
 -- Requires the ScopedTypeVariables flag to write the type signatures
 -- of the terms defined in the where clauses.
 --
--- N.B. We use @forall@ instead of @∀@ because it generates an error
--- with HLint (the issue is from haskell-src-exts).
-abpTransH ∷ forall a. Bit → Stream Bit → Stream Bit → Stream a → Stream a
+-- N.B. @∀@ generates an error with HLint. The issue is from
+-- haskell-src-exts 1.14.0. See
+-- https://github.com/haskell-suite/haskell-src-exts/pull/59.
+abpTransH ∷ ∀ a. Bit → Stream Bit → Stream Bit → Stream a → Stream a
 abpTransH b os1 os2 is = outH b bs
   where
   as ∷ Stream (a, Bit)
