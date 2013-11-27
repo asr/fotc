@@ -1,14 +1,9 @@
+------------------------------------------------------------------------------
+-- The alternating bit protocol using higher-order functions
+------------------------------------------------------------------------------
+
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
-
--- The alternating bit protocol following Dybjer and Herbert (1989).
-
--- References:
---
--- • Dybjer, Peter and Herbert P. Sander (1989). A Functional
---   Programming Approach to the Speciﬁcation and Veriﬁcation of
---   Concurrent Systems. In: Formal Aspects of Computing 1,
---   pp. 303–319.
 
 -- Tested with random 1.0.1.1, QuickCheck 2.6 and streams 3.1.1.
 
@@ -60,38 +55,65 @@ corruptH ∷ Stream Bit → Stream a → Stream (Err a)
 corruptH (False :> os) (_ :> xs) = Error :> corruptH os xs
 corruptH (True :> os)  (x :> xs) = Ok x  :> corruptH os xs
 
+has ∷ (Stream a → Stream (Err Bit) → Stream (a, Bit)) →
+      (Stream (Err (a, Bit)) → Stream Bit) →
+      (Stream (Err (a, Bit)) → Stream a) →
+      (Stream (a, Bit) → Stream (Err (a, Bit))) →
+      (Stream Bit → Stream (Err Bit)) →
+      Stream a →
+      Stream (a, Bit)
+has f1 f2 f3 g1 g2 is = f1 is (hds f1 f2 f3 g1 g2 is)
+
+hbs ∷ (Stream a → Stream (Err Bit) → Stream (a, Bit)) →
+      (Stream (Err (a, Bit)) → Stream Bit) →
+      (Stream (Err (a, Bit)) → Stream a) →
+      (Stream (a, Bit) → Stream (Err (a, Bit))) →
+      (Stream Bit → Stream (Err Bit)) →
+      Stream a →
+      Stream (Err (a, Bit))
+hbs f1 f2 f3 g1 g2 is = g1 (has f1 f2 f3 g1 g2 is)
+
+hcs ∷ (Stream a → Stream (Err Bit) → Stream (a, Bit)) →
+      (Stream (Err (a, Bit)) → Stream Bit) →
+      (Stream (Err (a, Bit)) → Stream a) →
+      (Stream (a, Bit) → Stream (Err (a, Bit))) →
+      (Stream Bit → Stream (Err Bit)) →
+      Stream a →
+      Stream Bit
+hcs f1 f2 f3 g1 g2 is = f2 (hbs f1 f2 f3 g1 g2 is)
+
+hds ∷ (Stream a → Stream (Err Bit) → Stream (a, Bit)) →
+      (Stream (Err (a, Bit)) → Stream Bit) →
+      (Stream (Err (a, Bit)) → Stream a) →
+      (Stream (a, Bit) → Stream (Err (a, Bit))) →
+      (Stream Bit → Stream (Err Bit)) →
+      Stream a →
+      Stream (Err Bit)
+hds f1 f2 f3 g1 g2 is = g2 (hcs f1 f2 f3 g1 g2 is)
+
+transferH ∷ (Stream a → Stream (Err Bit) → Stream (a, Bit)) →
+            (Stream (Err (a, Bit)) → Stream Bit) →
+            (Stream (Err (a, Bit)) → Stream a) →
+            (Stream (a, Bit) → Stream (Err (a, Bit))) →
+            (Stream Bit → Stream (Err Bit)) →
+            Stream a →
+            Stream a
+transferH f1 f2 f3 g1 g2 is = f3 (hbs f1 f2 f3 g1 g2 is)
+
 -- The ABP transfer function.
---
--- Requires the ScopedTypeVariables flag to write the type signatures
--- of the terms defined in the where clauses.
---
--- N.B. @∀@ generates an error with HLint. The issue is from
--- haskell-src-exts 1.14.0. See
--- https://github.com/haskell-suite/haskell-src-exts/pull/59.
-abpTransH ∷ ∀ a. Bit → Stream Bit → Stream Bit → Stream a → Stream a
-abpTransH b os1 os2 is = outH b bs
-  where
-  as ∷ Stream (a, Bit)
-  as = sendH b is ds
-
-  bs ∷ Stream (Err (a, Bit))
-  bs = corruptH os1 as
-
-  cs ∷ Stream Bit
-  cs = ackH b bs
-
-  ds ∷ Stream (Err Bit)
-  ds = corruptH os2 cs
+abpTransH ∷ Bit → Stream Bit → Stream Bit → Stream a → Stream a
+abpTransH b os1 os2 is =
+  transferH (sendH b) (ackH b) (outH b) (corruptH os1) (corruptH os2) is
 
 ------------------------------------------------------------------------------
 -- Testing
 
-instance Arbitrary a ⇒ Arbitrary (Stream a) where
-  arbitrary = liftM2 (:>) arbitrary arbitrary
+-- instance Arbitrary a ⇒ Arbitrary (Stream a) where
+--   arbitrary = liftM2 (:>) arbitrary arbitrary
 
-prop ∷ Stream Int → Stream Bit → Stream Bit → Bit → Bool
-prop is os1 os2 startBit =
-  S.take 10 is == S.take 10 (abpTransH startBit os1 os2 is)
+-- prop ∷ Stream Int → Stream Bit → Stream Bit → Bit → Bool
+-- prop is os1 os2 startBit =
+--   S.take 10 is == S.take 10 (abpTransH startBit os1 os2 is)
 
 -- main ∷ IO ()
 -- main = quickCheck prop
