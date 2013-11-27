@@ -2,7 +2,6 @@
 -- The alternating bit protocol using higher-order functions
 ------------------------------------------------------------------------------
 
-{-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE UnicodeSyntax #-}
 
 -- Tested with random 1.0.1.1, QuickCheck 2.6 and streams 3.1.1.
