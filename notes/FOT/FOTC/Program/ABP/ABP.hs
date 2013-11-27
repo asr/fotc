@@ -18,10 +18,6 @@ module Main where
 import Control.Monad ( liftM2, replicateM )
 
 import Data.Stream.Infinite as S
-  ( Stream( (:>) )
-  , fromList
-  , take
-  )
 
 import System.Random ( newStdGen, random, randoms )
 
@@ -88,15 +84,44 @@ abpTransH b os1 os2 is = outH b bs
 instance Arbitrary a ⇒ Arbitrary (Stream a) where
   arbitrary = liftM2 (:>) arbitrary arbitrary
 
-prop ∷ Stream Int → Stream Bit → Stream Bit → Bit → Bool
-prop is os1 os2 startBit =
-  S.take 10 is == S.take 10 (abpTransH startBit os1 os2 is)
+prop ∷ Bit → Stream Bit → Stream Bit → Stream Int → Bool
+prop b os1 os2 is = S.take 10 is == S.take 10 (abpTransH b os1 os2 is)
 
 -- main ∷ IO ()
 -- main = quickCheck prop
 
 ------------------------------------------------------------------------------
 -- Simulation
+--
+-- When the initial bit is False and the oracle stream os2 has only
+-- Falses the ABP can transmit the first symbol (but it cannot
+-- transmit the second one).
+-- main ∷ IO ()
+-- main = do
+
+--   [g1, g2] ← replicateM 2 newStdGen
+
+--   let is ∷ Stream Int
+--       is = S.fromList $ randoms g1
+
+--       os1, os2 ∷ Stream Bit
+--       os1 = S.fromList $ randoms g2
+--       os2 = S.repeat False
+
+--       startBit ∷ Bit
+--       startBit = False
+
+--       js ∷ Stream Int
+--       js = abpTransH startBit os1 os2 is
+
+--       n ∷ Int
+--       n = 1
+
+--   print $ S.take n js
+--   print $ S.take n is == S.take n js
+
+------------------------------------------------------------------------------
+-- General simulation
 
 main ∷ IO ()
 main = do

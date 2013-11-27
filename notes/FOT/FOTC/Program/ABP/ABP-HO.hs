@@ -13,11 +13,6 @@ module Main where
 import Control.Monad ( liftM2, replicateM )
 
 import Data.Stream.Infinite as S
-  ( Stream( (:>) )
-  , fromList
-  , repeat
-  , take
-  )
 
 import System.Random ( newStdGen, random, randoms )
 
@@ -108,12 +103,11 @@ abpTransH b os1 os2 is =
 ------------------------------------------------------------------------------
 -- Testing
 
--- instance Arbitrary a ⇒ Arbitrary (Stream a) where
---   arbitrary = liftM2 (:>) arbitrary arbitrary
+instance Arbitrary a ⇒ Arbitrary (Stream a) where
+  arbitrary = liftM2 (:>) arbitrary arbitrary
 
--- prop ∷ Stream Int → Stream Bit → Stream Bit → Bit → Bool
--- prop is os1 os2 startBit =
---   S.take 10 is == S.take 10 (abpTransH startBit os1 os2 is)
+prop ∷ Bit → Stream Bit → Stream Bit → Stream Int → Bool
+prop b os1 os2 is = S.take 10 is == S.take 10 (abpTransH b os1 os2 is)
 
 -- main ∷ IO ()
 -- main = quickCheck prop
