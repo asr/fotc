@@ -7,7 +7,7 @@ module Main where
 import Control.Monad ( when, replicateM )
 
 import Data.Stream.Infinite as S
-  ( Stream( (:>) )
+  ( Stream((:>))
   , fromList
   , take
   )

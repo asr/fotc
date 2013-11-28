@@ -22,7 +22,7 @@ import Data.Stream.Infinite as S
 import System.Random ( newStdGen, random, randoms )
 
 import Test.QuickCheck
-  ( Arbitrary( arbitrary ), quickCheck )
+  ( Arbitrary(arbitrary), quickCheck )
 
 ------------------------------------------------------------------------------
 type Bit = Bool

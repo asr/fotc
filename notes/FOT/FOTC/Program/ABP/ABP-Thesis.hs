@@ -5,7 +5,7 @@
 
 module Main where
 
-import Data.Stream.Infinite ( Stream( (:>) ) )
+import Data.Stream.Infinite ( Stream((:>)) )
 
 type Bit = Bool
 
