@@ -19,24 +19,24 @@ stream-≡→≈ : ∀ {xs ys} → Stream xs → Stream ys → xs ≡ ys → xs 
 stream-≡→≈ Sxs _ refl = ≈-refl Sxs
 
 ≈→Stream₁ : ∀ {xs ys} → xs ≈ ys → Stream xs
-≈→Stream₁ {xs} {ys} h = Stream-coind A h' (ys , h)
+≈→Stream₁ {xs} {ys} h = Stream-coind A h' refl
   where
   A : D → Set
-  A ws = ∃[ zs ] ws ≈ zs
+  A ws = ws ≡ ws
 
   h' : A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
-  h' (_ , h) with ≈-unf h
-  ... | x' , xs' , zs' , prf₁ , prf₂ , prf₃ = x' , xs' , prf₁ , (zs' , prf₃)
+  h' _ with ≈-unf h
+  ... | x' , xs' , ys' , prf , _ = x' , xs' , prf , refl
 
 ≈→Stream₂ : ∀ {xs ys} → xs ≈ ys → Stream ys
-≈→Stream₂ {xs} {ys} h = Stream-coind A h' (xs , h)
+≈→Stream₂ {xs} {ys} h = Stream-coind A h' refl
   where
   A : D → Set
-  A zs = ∃[ ws ] ws ≈ zs
+  A ws = ws ≡ ws
 
-  h' : A ys → ∃[ y' ] ∃[ ys' ] ys ≡ y' ∷ ys' ∧ A ys'
-  h'  (_ , h) with ≈-unf h
-  ... | y' , ys' , zs' , prf₁ , prf₂ , prf₃ = y' , zs' , prf₂ , (ys' , prf₃)
+  h' : A ys → ∃[ x' ] ∃[ ys' ] ys ≡ x' ∷ ys' ∧ A ys'
+  h' _ with ≈-unf h
+  ... | x' , xs' , ys' , _ , prf , _ = x' , ys' , prf , refl
 
 ≈→Stream : ∀ {xs ys} → xs ≈ ys → Stream xs ∧ Stream ys
 ≈→Stream {xs} {ys} h = ≈→Stream₁ h , ≈→Stream₂ h
