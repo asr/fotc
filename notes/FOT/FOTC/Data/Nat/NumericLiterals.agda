@@ -17,8 +17,6 @@ data ℕ : Set where
   s : ℕ → ℕ
 
 {-# BUILTIN NATURAL ℕ #-}
-{-# BUILTIN ZERO    z #-}
-{-# BUILTIN SUC     s #-}
 
 toD : ℕ → D
 toD z     = zero
