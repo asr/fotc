@@ -15,35 +15,26 @@ open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 
-head-tail-Fair-helper : ∀ {os} →
-                        ∃[ ft ] ∃[ os' ] F*T ft ∧ Fair os' ∧ os ≡ ft ++ os' →
-                        os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
-head-tail-Fair-helper {os} (.(true ∷ []) , os' , f*tnil , h₁ , h₂) = prf
+head-tail-Fair : ∀ {os} → Fair os → os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
+head-tail-Fair {os} Fos with Fair-unf Fos
+... | (.(true ∷ []) , os' , f*tnil , prf , Fos') = prf₁
   where
-  postulate prf : os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
-  {-# ATP prove prf #-}
+  postulate prf₁ : os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
+  {-# ATP prove prf₁ #-}
 
-head-tail-Fair-helper {os} (.(false ∷ ft) , os' , f*tcons {ft} y , h₁ , h₂) = prf
+... | (.(false ∷ ft) , os' , f*tcons {ft} y , prf , Fos') = prf₁
   where
-  postulate prf : os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
-  {-# ATP prove prf #-}
+  postulate prf₁ : os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
+  {-# ATP prove prf₁ #-}
 
-postulate
-  head-tail-Fair : ∀ {os} → Fair os → os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
-{-# ATP prove head-tail-Fair head-tail-Fair-helper #-}
-
-tail-Fair-helper : ∀ {os} →
-                   ∃[ ft ] ∃[ os' ] F*T ft ∧ Fair os' ∧ os ≡ ft ++ os' →
-                   Fair (tail₁ os)
-tail-Fair-helper {os} (.(true ∷ []) , os' , f*tnil , Fos' , h) = prf
+tail-Fair : ∀ {os} → Fair os → Fair (tail₁ os)
+tail-Fair {os} Fos with Fair-unf Fos
+... | .(true ∷ []) , os' , f*tnil , prf , Fos' = prf₁
   where
-  postulate prf : Fair (tail₁ os)
-  {-# ATP prove prf #-}
+  postulate prf₁ : Fair (tail₁ os)
+  {-# ATP prove prf₁ #-}
 
-tail-Fair-helper {os} (.(false ∷ ft) , os' , f*tcons {ft} FTft , Fos' , h) = prf
+... | .(false ∷ ft) , os' , f*tcons {ft} FTft , prf , Fos' = prf₁
   where
-  postulate prf : Fair (tail₁ os)
-  {-# ATP prove prf Fair-pre-fixed #-}
-
-postulate tail-Fair : ∀ {os} → Fair os → Fair (tail₁ os)
-{-# ATP prove tail-Fair tail-Fair-helper #-}
+  postulate prf₁ : Fair (tail₁ os)
+  {-# ATP prove prf₁ Fair-pre-fixed #-}

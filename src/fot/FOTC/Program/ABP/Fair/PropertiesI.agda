@@ -19,13 +19,12 @@ open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 
-head-tail-Fair-helper : ∀ {os} →
-                        ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os' →
-                        os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
-head-tail-Fair-helper {os} (.(true ∷ []) , os' , f*tnil , h₁ , h₂) = inj₁ prf₃
+head-tail-Fair : ∀ {os} → Fair os → os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
+head-tail-Fair {os} Fos with Fair-unf Fos
+... | .(true ∷ []) , os' , f*tnil , prf , Fos' = inj₁ prf₃
   where
   prf₁ : os ≡ T ∷ [] ++ os'
-  prf₁ = os              ≡⟨ h₁ ⟩
+  prf₁ = os              ≡⟨ prf ⟩
          (T ∷ []) ++ os' ≡⟨ ++-∷ T [] os' ⟩
          T ∷ [] ++ os'   ∎
 
@@ -39,11 +38,11 @@ head-tail-Fair-helper {os} (.(true ∷ []) , os' , f*tnil , h₁ , h₂) = inj�
          T ∷ [] ++ os'  ≡⟨ ∷-rightCong (sym prf₂) ⟩
          T ∷ tail₁ os   ∎
 
-head-tail-Fair-helper {os} (.(false ∷ ft) , os' , f*tcons {ft} y , h₁ , h₂) =
+... | .(false ∷ ft) , os' , f*tcons {ft} FTft , prf , Fos' =
   inj₂ prf₃
   where
   prf₁ : os ≡ F ∷ ft ++ os'
-  prf₁ = os              ≡⟨ h₁ ⟩
+  prf₁ = os              ≡⟨ prf ⟩
          (F ∷ ft) ++ os' ≡⟨ ++-∷ F ft os' ⟩
          F ∷ ft ++ os'   ∎
 
@@ -57,17 +56,13 @@ head-tail-Fair-helper {os} (.(false ∷ ft) , os' , f*tcons {ft} y , h₁ , h₂
          F ∷ ft ++ os'  ≡⟨ ∷-rightCong (sym prf₂) ⟩
          F ∷ tail₁ os   ∎
 
-head-tail-Fair : ∀ {os} → Fair os → os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
-head-tail-Fair {os} Fos = head-tail-Fair-helper (Fair-unf Fos)
-
-tail-Fair-helper : ∀ {os} →
-                   ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os' →
-                   Fair (tail₁ os)
-tail-Fair-helper {os} (.(true ∷ []) , os' , f*tnil , h , Fos') =
+tail-Fair : ∀ {os} → Fair os → Fair (tail₁ os)
+tail-Fair {os} Fos with Fair-unf Fos
+... | .(true ∷ []) , os' , f*tnil , prf , Fos' =
   subst Fair (sym prf₂) Fos'
   where
   prf₁ : os ≡ T ∷ os'
-  prf₁ = os              ≡⟨ h ⟩
+  prf₁ = os              ≡⟨ prf ⟩
          (T ∷ []) ++ os' ≡⟨ ++-∷ T [] os' ⟩
          T ∷ [] ++ os'   ≡⟨ ∷-rightCong (++-leftIdentity os') ⟩
          T ∷ os'         ∎
@@ -77,11 +72,11 @@ tail-Fair-helper {os} (.(true ∷ []) , os' , f*tnil , h , Fos') =
          tail₁ (T ∷ os') ≡⟨ tail-∷ T os' ⟩
          os'             ∎
 
-tail-Fair-helper {os} (.(false ∷ ft) , os' , f*tcons {ft} FTft , h , Fos') =
+... | .(false ∷ ft) , os' , f*tcons {ft} FTft , prf , Fos' =
   subst Fair (sym prf₂) (Fair-pre-fixed (ft , os' , FTft , refl , Fos'))
   where
   prf₁ : os ≡ F ∷ ft ++ os'
-  prf₁ = os              ≡⟨ h ⟩
+  prf₁ = os              ≡⟨ prf ⟩
          (F ∷ ft) ++ os' ≡⟨ ++-∷ F ft os' ⟩
          F ∷ ft ++ os'   ∎
 
@@ -89,6 +84,3 @@ tail-Fair-helper {os} (.(false ∷ ft) , os' , f*tcons {ft} FTft , h , Fos') =
   prf₂ = tail₁ os              ≡⟨ tailCong prf₁ ⟩
          tail₁ (F ∷ ft ++ os') ≡⟨ tail-∷ F (ft ++ os') ⟩
          ft ++ os'             ∎
-
-tail-Fair : ∀ {os} → Fair os → Fair (tail₁ os)
-tail-Fair {os} Fos = tail-Fair-helper (Fair-unf Fos)
