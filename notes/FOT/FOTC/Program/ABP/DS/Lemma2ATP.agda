@@ -11,7 +11,9 @@
 -- the bit has alternated and the first item in the input stream has
 -- been removed.
 
-module FOTC.Program.ABP.Lemma2ATP where
+module FOT.FOTC.Program.ABP.DS.Lemma2ATP where
+
+open import FOT.FOTC.Program.ABP.DS.ABP
 
 open import FOTC.Base
 open import FOTC.Base.List
@@ -22,7 +24,6 @@ open import FOTC.Data.Bool.PropertiesATP
         ; not-involutive
         )
 open import FOTC.Data.List
-open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.Fair.PropertiesATP
 open import FOTC.Program.ABP.Terms
@@ -31,8 +32,8 @@ open import FOTC.Program.ABP.Terms
 -- Helper function for the ABP lemma 2
 
 module Helper where
-  -- We have these definitions outside the where clause to keep them
-  -- simple for the ATPs.
+  -- 30 November 2013. If we don't have the following definitions
+  -- outside the where clause, the ATPs cannot prove the theorems.
 
   ds^ : D → D → D
   ds^ cs' os₂^ = corrupt os₂^ · cs'

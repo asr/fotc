@@ -99,10 +99,8 @@ open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.Fair.Consistency.Axioms
 open import FOTC.Program.ABP.Fair.PropertiesATP
 open import FOTC.Program.ABP.Fair.PropertiesI
-open import FOTC.Program.ABP.Lemma1ATP
-open import FOTC.Program.ABP.Lemma1I
-open import FOTC.Program.ABP.Lemma2ATP
-open import FOTC.Program.ABP.Lemma2I
+open import FOTC.Program.ABP.LemmaATP
+open import FOTC.Program.ABP.LemmaI
 open import FOTC.Program.ABP.PropertiesI
 open import FOTC.Program.ABP.Terms
 

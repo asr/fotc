@@ -1,34 +1,35 @@
 ------------------------------------------------------------------------------
--- ABP lemma 1
+-- ABP auxiliary lemma
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- From Dybjer and Sander's paper: The first lemma states that given a
--- start state S of the ABP, we will arrive at a state S', where the
--- message has been received by the receiver, but where the
--- acknowledgement has not yet been received by the sender.
+module FOTC.Program.ABP.LemmaATP where
 
-module FOTC.Program.ABP.Lemma1ATP where
+open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
+open import FOTC.Base.PropertiesI
 open import FOTC.Base.List
+open import FOTC.Base.List.PropertiesATP
 open import FOTC.Base.Loop
 open import FOTC.Data.Bool
-open import FOTC.Data.Bool.PropertiesATP using ( x≢not-x )
+open import FOTC.Data.Bool.PropertiesATP
 open import FOTC.Data.List
+open import FOTC.Data.List.PropertiesATP
 open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.Fair.PropertiesATP
+open import FOTC.Program.ABP.PropertiesI
 open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
--- Helper function for the ABP lemma 1
+-- Helper function for the auxiliary lemma
 
 module Helper where
-  -- We have these definitions outside the where clause to keep them
-  -- simple for the ATPs.
+  -- 30 November 2013. If we don't have the following definitions
+  -- outside the where clause, the ATPs cannot prove the theorems.
 
   as^ : ∀ b i' is' ds → D
   as^ b i' is' ds = await b i' is' ds
@@ -59,26 +60,16 @@ module Helper where
            Fair os₂ →
            S b (i' ∷ is') os₁ os₂ as bs cs ds js →
            ∀ ft₁ os₁' → F*T ft₁ → Fair os₁' → os₁ ≡ ft₁ ++ os₁' →
-           ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-             Fair os₁'
-             ∧ Fair os₂'
-             ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
-             ∧ js ≡ i' ∷ js'
-  helper {b} {i'} {is'} {js = js}
-         Bb Fos₂ s .(T ∷ []) os₁' f*tnil Fos₁' os₁-eq = prf
+           ∃[ js' ] js ≡ i' ∷ js'
+  helper {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js} Bb Fos₂
+         (asS , bsS , csS , dsS , jsS)
+         .(T ∷ []) os₁' f*tnil Fos₁' os₁-eq = prf
     where
-    postulate
-      prf : ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-              Fair os₁'
-              ∧ Fair os₂'
-              ∧ (as' ≡ await b i' is' ds'
-                 ∧ bs' ≡ corrupt os₁' · as'
-                 ∧ cs' ≡ ack (not b) · bs'
-                 ∧ ds' ≡ corrupt os₂' · (b ∷ cs')
-                 ∧ js' ≡ out (not b) · bs')
-              ∧ js ≡ i' ∷ js'
+    postulate prf : ∃[ js' ] js ≡ i' ∷ js'
     {-# ATP prove prf #-}
-  helper {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js} Bb Fos₂ s
+
+  helper {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js}
+         Bb Fos₂ (asS , bsS , csS , dsS , jsS)
          .(F ∷ ft₁^) os₁' (f*tcons {ft₁^} FTft₁^) Fos₁' os₁-eq =
          helper Bb (tail-Fair Fos₂) ihS ft₁^ os₁' FTft₁^ Fos₁' refl
     where
@@ -151,16 +142,11 @@ module Helper where
 -- We proceed by induction on ft₁ : F*T using helper.
 
 open Helper
-lemma₁ : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
+lemma : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
          Bit b →
          Fair os₁ →
          Fair os₂ →
          S b (i' ∷ is') os₁ os₂ as bs cs ds js →
-         ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-           Fair os₁'
-           ∧ Fair os₂'
-           ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
-           ∧ js ≡ i' ∷ js'
-lemma₁ Bb Fos₁ Fos₂ s with Fair-unf Fos₁
-... | ft₁ , os₁' , FTft₁ , prf , Fos₁' =
-  helper Bb Fos₂ s ft₁ os₁' FTft₁ Fos₁' prf
+         ∃[ js' ] js ≡ i' ∷ js'
+lemma Bb Fos₁ Fos₂ s with Fair-unf Fos₁
+... | ft , os₁' , FTft , prf ,  Fos₁' = helper Bb Fos₂ s ft os₁' FTft Fos₁' prf

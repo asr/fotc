@@ -68,10 +68,10 @@ type_check_agsy_fot_files = \
   $(patsubst %.agda,%.type_check_agsy_fot, \
     $(shell find $(fot_path)/Agsy/ -name '*.agda' | sort))
 
-snapshot_create_fot_files = $(call my_pathsubst,snapshot_create_fot,$(fot_path))
+create_snapshot_fot_files = $(call my_pathsubst,create_snapshot_fot,$(fot_path))
 
-snapshot_compare_fot_files = \
-  $(call my_pathsubst,snapshot_compare_fot,$(fot_path))
+compare_snapshot_fot_files = \
+  $(call my_pathsubst,compare_snapshot_fot,$(fot_path))
 
 prove_fot_files = $(call my_pathsubst,prove_fot,$(fot_path))
 
@@ -115,29 +115,29 @@ type_check_fot : clean \
 ##############################################################################
 # FOT: Generated conjectures
 
-# In FOT we use the snapshot_create_fot rule.
+# In FOT we use the create_snapshot_fot rule.
 
 ##############################################################################
 # FOT: Snapshot
 
-%.snapshot_create_fot :
+%.create_snapshot_fot :
 	$(AGDA_FOT) $*.agda
 	$(APIA_FOT) --only-files --output-dir=$(snapshot_dir) $*.agda
 
-%.snapshot_compare_fot :
+%.compare_snapshot_fot :
 	@echo "Comparing $*.agda"
 	@$(AGDA_FOT) $*.agda
 	@$(APIA_FOT) -v 0 --snapshot-test \
 	             --snapshot-dir=$(snapshot_dir) $*.agda
 
-snapshot_create_fot_aux : $(snapshot_create_fot_files)
+create_snapshot_fot_aux : $(create_snapshot_fot_files)
 
-snapshot_create_fot : clean
+create_snapshot_fot : clean
 	rm -r -f $(snapshot_dir)
-	make snapshot_create_fot_aux
+	make create_snapshot_fot_aux
 	@echo "$@ succeeded!"
 
-snapshot_compare_fot : clean $(snapshot_compare_fot_files)
+compare_snapshot_fot : clean $(compare_snapshot_fot_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -216,7 +216,7 @@ agda_changed : clean
 	fi
 	cd $(std_lib_path) && darcs pull
 	make type_check_fot
-	make snapshot_compare_fot
+	make compare_snapshot_fot
 	make type_check_notes
 	make prove_notes
 	@echo "$@ succeeded!"
@@ -230,7 +230,7 @@ apia_changed : clean
 	   exit 1; \
 	fi
 	make prove_notes
-	make snapshot_compare_fot
+	make compare_snapshot_fot
 	@echo "$@ succeeded!"
 
 ##############################################################################
