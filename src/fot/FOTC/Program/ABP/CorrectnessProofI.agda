@@ -73,6 +73,10 @@ abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B h refl
 
 ------------------------------------------------------------------------------
 -- abpTransfer produces a Stream.
-abp-Stream : ∀ {b is os₁ os₂} → Bit b → Stream is → Fair os₁ → Fair os₂ →
-             Stream (abpTransfer b os₁ os₂ is)
-abp-Stream Bb Sis Fos₁ Fos₂ = ≈→Stream₂ (abpCorrect Bb Sis Fos₁ Fos₂)
+abpTransfer-Stream : ∀ {b is os₁ os₂} →
+                     Bit b →
+                     Stream is →
+                     Fair os₁ →
+                     Fair os₂ →
+                     Stream (abpTransfer b os₁ os₂ is)
+abpTransfer-Stream Bb Sis Fos₁ Fos₂ = ≈→Stream₂ (abpCorrect Bb Sis Fos₁ Fos₂)
