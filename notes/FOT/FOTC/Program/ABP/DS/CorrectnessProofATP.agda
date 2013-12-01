@@ -48,6 +48,8 @@ abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B h₁ h₂
   postulate h₂ : B is (abpTransfer b os₁ os₂ is)
   {-# ATP prove h₂ #-}
 
+------------------------------------------------------------------------------
+-- abpTransfer produces a Stream.
 postulate
   abp-Stream : ∀ {b is os₁ os₂} → Bit b → Stream is → Fair os₁ → Fair os₂ →
               Stream (abpTransfer b os₁ os₂ is)
