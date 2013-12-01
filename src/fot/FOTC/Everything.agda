@@ -21,6 +21,8 @@ open import FOTC.Data.Bool.PropertiesI
 open import FOTC.Data.Bool.Type
 
 open import FOTC.Data.Colist
+open import FOTC.Data.Colist.PropertiesATP
+open import FOTC.Data.Colist.PropertiesI
 open import FOTC.Data.Colist.Type
 open import FOTC.Data.Colist.Type.Consistency.Axioms
 
@@ -218,3 +220,4 @@ open import FOTC.Relation.Binary.Bisimilarity
 open import FOTC.Relation.Binary.Bisimilarity.Consistency.Axioms
 open import FOTC.Relation.Binary.Bisimilarity.PropertiesATP
 open import FOTC.Relation.Binary.Bisimilarity.PropertiesI
+open import FOTC.Relation.Binary.Bisimulation

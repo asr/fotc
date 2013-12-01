@@ -44,19 +44,3 @@ postulate
                  (A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs') →
                  -- Stream is greater than A.
                  A xs → Stream xs
-
--- Because a greatest post-fixed point is a fixed-point, then the
--- Stream predicate is also a pre-fixed point of the functional
--- StreamF, i.e.
---
--- StreamF Stream ≤ Stream.
-Stream-pre-fixed : ∀ {xs} →
-                   (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs') →
-                   Stream xs
-Stream-pre-fixed {xs} h = Stream-coind A h' h
-  where
-  A : D → Set
-  A ws = ∃[ w' ] ∃[ ws' ] ws ≡ w' ∷ ws' ∧ Stream ws'
-
-  h' : A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
-  h' (_ , _ , xs≡x'∷xs' , Axs') = _ , _ , xs≡x'∷xs' , Stream-unf Axs'

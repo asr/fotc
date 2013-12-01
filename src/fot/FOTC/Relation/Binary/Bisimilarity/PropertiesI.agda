@@ -15,6 +15,23 @@ open import FOTC.Data.Stream
 open import FOTC.Relation.Binary.Bisimilarity
 
 ------------------------------------------------------------------------------
+-- Because a greatest post-fixed point is a fixed-point, the
+-- bisimilarity relation _≈_ on unbounded lists is also a pre-fixed
+-- point of the bisimulation functional (see
+-- FOTC.Relation.Binary.Bisimulation).
+≈-pre-fixed : ∀ {xs ys} →
+              (∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
+                xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys') →
+              xs ≈ ys
+≈-pre-fixed {xs} {ys} h = ≈-coind B h' refl
+  where
+  B : D → D → Set
+  B xs ys = xs ≡ xs
+
+  h' : B xs ys →
+       ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
+  h' _ with h
+  ... | x' , xs' , ys' , prf₁ , prf₂ , _ = x' , xs' , ys' , prf₁ , prf₂ , refl
 
 ≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
 ≈-refl {xs} Sxs = ≈-coind B h refl

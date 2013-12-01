@@ -53,20 +53,3 @@ postulate
                 (A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
                 -- Conat is greater than A.
                 A n → Conat n
-
--- Because a greatest post-fixed point is a fixed-point, then the
--- Conat predicate is also a pre-fixed point of the functional NatF,
--- i.e,
---
--- NatF Conat ≤ Conat.
-Conat-pre-fixed : ∀ {n} →
-                  (n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')) →
-                  Conat n
-Conat-pre-fixed {n} h = Conat-coind A h' h
-  where
-  A : D → Set
-  A m = m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ Conat m')
-
-  h' : A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
-  h' (inj₁ n≡0) = inj₁ n≡0
-  h' (inj₂ (n' , n≡Sn' , An')) = inj₂ (n' , n≡Sn' , Conat-unf An')

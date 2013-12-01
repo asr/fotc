@@ -14,6 +14,21 @@ open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
+-- Because a greatest post-fixed point is a fixed-point, then the Fair
+-- predicate is also a pre-fixed point of the functional FairF, i.e.
+--
+-- FairF Fair ≤ Fair (see FOTC.Program.ABP.Fair).
+Fair-pre-fixed : ∀ {os} →
+                 (∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os') →
+                 Fair os
+Fair-pre-fixed {os} h = Fair-coind A h' refl
+  where
+  A : D → Set
+  A ws = ws ≡ ws
+  {-# ATP definition A #-}
+
+  postulate h' : A os → ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ A os'
+  {-# ATP prove h' #-}
 
 head-tail-Fair : ∀ {os} → Fair os → os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
 head-tail-Fair {os} Fos with Fair-unf Fos

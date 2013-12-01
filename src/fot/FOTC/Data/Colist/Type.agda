@@ -46,21 +46,3 @@ postulate
                  (A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')) →
                  -- Colist is greater than A.
                  A xs → Colist xs
-
--- Because a greatest post-fixed point is a fixed-point, then the
--- Colist predicate is also a pre-fixed point of the functional
--- ColistF, i.e.
---
--- ColistF Colist ≤ Colist.
-Colist-pre-fixed : ∀ {xs} →
-                   (xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs')) →
-                   Colist xs
-Colist-pre-fixed {xs} h = Colist-coind A h' h
-  where
-  A : D → Set
-  A ws = ws ≡ [] ∨ (∃[ w' ] ∃[ ws' ] ws ≡ w' ∷ ws' ∧ Colist ws')
-
-  h' : A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
-  h' (inj₁ prf) = inj₁ prf
-  h' (inj₂ (_ , _ , xs≡x'∷xs' , Axs')) =
-    inj₂ (_ , _ , xs≡x'∷xs' , Colist-unf Axs')

@@ -22,6 +22,22 @@ open import FOTC.Data.List
 open import FOTC.Data.Stream
 
 ------------------------------------------------------------------------------
+-- Because a greatest post-fixed point is a fixed-point, then the
+-- Stream predicate is also a pre-fixed point of the functional
+-- StreamF, i.e.
+--
+-- StreamF Stream ≤ Stream (see FOTC.Data.Stream.Type).
+Stream-pre-fixed : ∀ {xs} →
+                   (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs') →
+                   Stream xs
+Stream-pre-fixed {xs} h = Stream-coind A h' refl
+  where
+  A : D → Set
+  A ws = ws ≡ ws
+  {-# ATP definition A #-}
+
+  postulate h' : A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  {-# ATP prove h' #-}
 
 postulate tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 {-# ATP prove tailS #-}

@@ -56,18 +56,3 @@ postulate Fair-coind : ∀ (A : D → Set) {os} →
                          F*T ft ∧ os ≡ ft ++ os' ∧ A os') →
                        -- Fair is greater than A.
                        A os → Fair os
-
--- Because a greatest post-fixed point is a fixed-point, then the Fair
--- predicate is also a pre-fixed point of the functional FairF, i.e.
---
--- FairF Fair ≤ Fair.
-Fair-pre-fixed : ∀ {os} →
-                 (∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os') →
-                 Fair os
-Fair-pre-fixed {os} h = Fair-coind A h' h
-  where
-  A : D → Set
-  A ws = ∃[ wl ] ∃[ ws' ] F*T wl ∧ ws ≡ wl ++ ws' ∧ Fair ws'
-
-  h' : A os → ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ A os'
-  h' (_ , _ , FTft , prf , Fos') = _ , _ , FTft , prf , Fair-unf Fos'
