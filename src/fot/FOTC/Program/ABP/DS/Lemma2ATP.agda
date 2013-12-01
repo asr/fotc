@@ -11,9 +11,7 @@
 -- the bit has alternated and the first item in the input stream has
 -- been removed.
 
-module FOT.FOTC.Program.ABP.DS.Lemma2ATP where
-
-open import FOT.FOTC.Program.ABP.DS.ABP
+module FOTC.Program.ABP.DS.Lemma2ATP where
 
 open import FOTC.Base
 open import FOTC.Base.List
@@ -24,6 +22,8 @@ open import FOTC.Data.Bool.PropertiesATP
         ; not-involutive
         )
 open import FOTC.Data.List
+open import FOTC.Program.ABP.ABP
+open import FOTC.Program.ABP.DS.ABP
 open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.Fair.PropertiesATP
 open import FOTC.Program.ABP.Terms

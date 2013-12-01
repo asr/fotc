@@ -18,11 +18,7 @@
 -- N.B This module does not contain combined proofs, but it imports
 -- modules which contain combined proofs.
 
-module FOT.FOTC.Program.ABP.DS.CorrectnessProofATP where
-
-open import FOT.FOTC.Program.ABP.DS.ABP
-open import FOT.FOTC.Program.ABP.DS.Lemma1I
-open import FOT.FOTC.Program.ABP.DS.Lemma2I
+module FOTC.Program.ABP.DS.CorrectnessProofATP where
 
 open import FOTC.Base
 open import FOTC.Base.List
@@ -30,6 +26,10 @@ open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesATP using ( not-Bool )
 open import FOTC.Data.Stream
 open import FOTC.Data.Stream.Equality.PropertiesATP
+open import FOTC.Program.ABP.ABP
+open import FOTC.Program.ABP.DS.ABP
+open import FOTC.Program.ABP.DS.Lemma1I
+open import FOTC.Program.ABP.DS.Lemma2I
 open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.Terms
 open import FOTC.Relation.Binary.Bisimilarity

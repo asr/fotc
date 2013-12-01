@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- This module proves the correctness of the ABP following the
+-- This module proves the correctness of the ABP by simplifing the
 -- formalization in Dybjer and Sander (1989).
 --
 -- References:

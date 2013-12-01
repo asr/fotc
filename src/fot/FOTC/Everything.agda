@@ -95,6 +95,13 @@ open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.ABP.Consistency.Axioms
 open import FOTC.Program.ABP.CorrectnessProofATP
 open import FOTC.Program.ABP.CorrectnessProofI
+open import FOTC.Program.ABP.DS.ABP
+open import FOTC.Program.ABP.DS.CorrectnessProofATP
+open import FOTC.Program.ABP.DS.CorrectnessProofI
+open import FOTC.Program.ABP.DS.Lemma1ATP
+open import FOTC.Program.ABP.DS.Lemma1I
+open import FOTC.Program.ABP.DS.Lemma2ATP
+open import FOTC.Program.ABP.DS.Lemma2I
 open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.Fair.Consistency.Axioms
 open import FOTC.Program.ABP.Fair.PropertiesATP

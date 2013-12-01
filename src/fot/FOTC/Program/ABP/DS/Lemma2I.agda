@@ -11,12 +11,9 @@
 -- the bit has alternated and the first item in the input stream has
 -- been removed.
 
-module FOT.FOTC.Program.ABP.DS.Lemma2I where
+module FOTC.Program.ABP.DS.Lemma2I where
 
 open import Common.FOL.Relation.Binary.EqReasoning
-
-open import FOT.FOTC.Program.ABP.DS.ABP
-open import FOT.FOTC.Program.ABP.DS.PropertiesI
 
 open import FOTC.Base
 open import FOTC.Base.List
@@ -27,9 +24,11 @@ open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesI
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI
+open import FOTC.Program.ABP.ABP
+open import FOTC.Program.ABP.DS.ABP
 open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.Fair.PropertiesI
-
+open import FOTC.Program.ABP.PropertiesI
 open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------

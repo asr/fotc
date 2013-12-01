@@ -10,12 +10,9 @@
 -- message has been received by the receiver, but where the
 -- acknowledgement has not yet been received by the sender.
 
-module FOT.FOTC.Program.ABP.DS.Lemma1I where
+module FOTC.Program.ABP.DS.Lemma1I where
 
 open import Common.FOL.Relation.Binary.EqReasoning
-
-open import FOT.FOTC.Program.ABP.DS.ABP
-open import FOT.FOTC.Program.ABP.DS.PropertiesI
 
 open import FOTC.Base
 open import FOTC.Base.PropertiesI
@@ -26,9 +23,12 @@ open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesI
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI
+open import FOTC.Program.ABP.ABP
+open import FOTC.Program.ABP.DS.ABP
 open import FOTC.Program.ABP.Fair
 open import FOTC.Program.ABP.Fair.PropertiesI
 open import FOTC.Program.ABP.Terms
+open import FOTC.Program.ABP.PropertiesI
 
 ------------------------------------------------------------------------------
 -- Helper function for the ABP lemma 1
