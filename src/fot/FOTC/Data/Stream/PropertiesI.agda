@@ -48,7 +48,7 @@ streamLength {xs} Sxs = ≈N-coind R h refl
   h : R (length xs) ∞ → length xs ≡ zero ∧ ∞ ≡ zero
         ∨ (∃[ m' ] ∃[ n' ] length xs ≡ succ₁ m' ∧ ∞ ≡ succ₁ n' ∧ R m' n')
   h _ with Stream-unf Sxs
-  ... | x' , xs' , xs≡x'∷xs' , _ = inj₂ ( length xs' , ∞ , prf , ∞-eq , refl)
+  ... | x' , xs' , xs≡x'∷xs' , _ = inj₂ (length xs' , ∞ , prf , ∞-eq , refl)
     where
     prf : length xs ≡ succ₁ (length xs')
     prf = trans (lengthCong xs≡x'∷xs') (length-∷ x' xs')
