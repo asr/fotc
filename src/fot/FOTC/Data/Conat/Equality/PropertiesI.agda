@@ -27,27 +27,21 @@ open import FOTC.Data.Conat.Equality
                (m ≡ zero ∧ n ≡ zero
                  ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n')) →
                m ≈N n
-≈N-pre-fixed {m} {n} h = ≈N-coind R h' refl
+≈N-pre-fixed {m} {n} h = ≈N-coind (λ o _ → o ≡ o) h' refl
   where
-  R : D → D → Set
-  R m n = m ≡ m
-
-  h' : R m n →
+  h' : m ≡ m →
        m ≡ zero ∧ n ≡ zero
-         ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
+         ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≡ m')
   h' _ with h
   ... | inj₁ prf                         = inj₁ prf
   ... | inj₂ (m' , n' , prf₁ , prf₂ , _) = inj₂ (m' , n' , prf₁ , prf₂ , refl)
 
 ≈N-refl : ∀ {n} → Conat n → n ≈N n
-≈N-refl {n} Cn = ≈N-coind R h refl
+≈N-refl {n} Cn = ≈N-coind (λ m _ → m ≡ m) h refl
   where
-  R : D → D → Set
-  R a b = a ≡ a
-
-  h : R n n →
+  h : n ≡ n →
       n ≡ zero ∧ n ≡ zero
-        ∨ (∃[ n' ] ∃[ n'' ] n ≡ succ₁ n' ∧ n ≡ succ₁ n'' ∧ R n' n'')
+        ∨ (∃[ n' ] ∃[ n'' ] n ≡ succ₁ n' ∧ n ≡ succ₁ n'' ∧ n' ≡ n')
   h _ with Conat-unf Cn
   ... | inj₁ prf            = inj₁ (prf , prf)
   ... | inj₂ (n' , prf , _) = inj₂ (n' , n' , prf , prf , refl)

@@ -23,26 +23,18 @@ open import FOTC.Data.Stream
 Stream-pre-fixed : ∀ {xs} →
                    (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs') →
                    Stream xs
-Stream-pre-fixed {xs} h = Stream-coind A h' refl
+Stream-pre-fixed {xs} h = Stream-coind (λ ys → ys ≡ ys) h' refl
   where
-  A : D → Set
-  A ws = ws ≡ ws
-  {-# ATP definition A #-}
-
-  postulate h' : A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  postulate h' : xs ≡ xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ xs' ≡ xs'
   {-# ATP prove h' #-}
 
 postulate tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 {-# ATP prove tailS #-}
 
 streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞
-streamLength {xs} Sxs = ≈N-coind R h refl
+streamLength {xs} Sxs = ≈N-coind (λ m _ → m ≡ m)  h refl
   where
-  R : D → D → Set
-  R m n = m ≡ m
-  {-# ATP definition R #-}
-
   postulate
-    h : R (length xs) ∞ → length xs ≡ zero ∧ ∞ ≡ zero
-          ∨ (∃[ m' ] ∃[ n' ] length xs ≡ succ₁ m' ∧ ∞ ≡ succ₁ n' ∧ R m' n')
+    h : length xs ≡ length xs → length xs ≡ zero ∧ ∞ ≡ zero
+          ∨ (∃[ m ] ∃[ n ] length xs ≡ succ₁ m ∧ ∞ ≡ succ₁ n ∧ m ≡ m)
   {-# ATP prove h #-}

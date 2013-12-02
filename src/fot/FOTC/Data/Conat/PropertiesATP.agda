@@ -20,33 +20,21 @@ open import FOTC.Data.Nat
 Conat-pre-fixed : ∀ {n} →
                   (n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')) →
                   Conat n
-Conat-pre-fixed {n} h = Conat-coind A h' refl
+Conat-pre-fixed {n} h = Conat-coind (λ m → m ≡ m) h' refl
   where
-  A : D → Set
-  A m = m ≡ m
-  {-# ATP definition A #-}
-
-  postulate h' : A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
+  postulate h' : n ≡ n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ n' ≡ n')
   {-# ATP prove h' #-}
 
 0-Conat : Conat zero
-0-Conat = Conat-coind A h refl
+0-Conat = Conat-coind (λ n → n ≡ n) h refl
   where
-  A : D → Set
-  A n = n ≡ zero
-  {-# ATP definition A #-}
-
-  postulate h : A zero → zero ≡ zero ∨ (∃[ n' ] zero ≡ succ₁ n' ∧ A n')
+  postulate h : zero ≡ zero → zero ≡ zero ∨ (∃[ n ] zero ≡ succ₁ n ∧ n ≡ n)
   {-# ATP prove h #-}
 
 ∞-Conat : Conat ∞
-∞-Conat = Conat-coind A h refl
+∞-Conat = Conat-coind (λ n → n ≡ n) h refl
   where
-  A : D → Set
-  A n = n ≡ n
-  {-# ATP definition A #-}
-
-  postulate h : A ∞ → ∞ ≡ zero ∨ (∃[ n' ] ∞ ≡ succ₁ n' ∧ A n')
+  postulate h : ∞ ≡ ∞ → ∞ ≡ zero ∨ (∃[ n ] ∞ ≡ succ₁ n ∧ n ≡ n)
   {-# ATP prove h #-}
 
 N→Conat : ∀ {n} → N n → Conat n

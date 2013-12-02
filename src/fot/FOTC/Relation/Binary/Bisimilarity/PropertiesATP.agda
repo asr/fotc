@@ -21,51 +21,35 @@ open import FOTC.Relation.Binary.Bisimilarity
               (∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
                 xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys') →
               xs ≈ ys
-≈-pre-fixed {xs} {ys} h = ≈-coind B h' refl
+≈-pre-fixed {xs} {ys} h = ≈-coind (λ zs _ → zs ≡ zs) h' refl
   where
-  B : D → D → Set
-  B xs ys = xs ≡ xs
-  {-# ATP definition B #-}
-
   postulate
-    h' : B xs ys →
-         ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
+    h' : xs ≡ xs →
+         ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≡ xs'
   {-# ATP prove h' #-}
 
 ≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
-≈-refl {xs} Sxs = ≈-coind B h refl
+≈-refl {xs} Sxs = ≈-coind (λ ys _ → ys ≡ ys) h refl
   where
-  B : D → D → Set
-  B xs ys = xs ≡ xs
-  {-# ATP definition B #-}
-
   postulate
-    h : B xs xs →
-        ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ xs ≡ x' ∷ ys' ∧ B xs' xs'
+    h : xs ≡ xs →
+        ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ xs ≡ x' ∷ ys' ∧ xs' ≡ xs'
   {-# ATP prove h #-}
 
 ≈-sym : ∀ {xs ys} → xs ≈ ys → ys ≈ xs
-≈-sym {xs} {ys} xs≈ys = ≈-coind B h refl
+≈-sym {xs} {ys} xs≈ys = ≈-coind (λ zs _ → zs ≡ zs) h refl
   where
-  B : D → D → Set
-  B xs ys = xs ≡ xs
-  {-# ATP definition B #-}
-
   postulate
-    h : B ys xs →
-        ∃[ y' ] ∃[ ys' ] ∃[ xs' ] ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs' ∧ B ys' xs'
+    h : ys ≡ ys →
+        ∃[ y' ] ∃[ ys' ] ∃[ xs' ] ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs' ∧ ys' ≡ ys'
   {-# ATP prove h #-}
 
 ≈-trans : ∀ {xs ys zs} → xs ≈ ys → ys ≈ zs → xs ≈ zs
-≈-trans {xs} {ys} {zs} xs≈ys ys≈zs = ≈-coind B h refl
+≈-trans {xs} {ys} {zs} xs≈ys ys≈zs = ≈-coind (λ ws _ → ws ≡ ws) h refl
   where
-  B : D → D → Set
-  B xs zs = xs ≡ xs
-  {-# ATP definition B #-}
-
   postulate
-    h : B xs zs →
-        ∃[ x' ] ∃[ xs' ] ∃[ zs' ] xs ≡ x' ∷ xs' ∧ zs ≡ x' ∷ zs' ∧ B xs' zs'
+    h : xs ≡ xs →
+        ∃[ x' ] ∃[ xs' ] ∃[ zs' ] xs ≡ x' ∷ xs' ∧ zs ≡ x' ∷ zs' ∧ xs' ≡ xs'
   {-# ATP prove h #-}
 
 postulate ∷-injective≈ : ∀ {x xs ys} → x ∷ xs ≈ x ∷ ys → xs ≈ ys

@@ -25,12 +25,9 @@ open import FOTC.Data.Stream
 Stream-pre-fixed : ∀ {xs} →
                    (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs') →
                    Stream xs
-Stream-pre-fixed {xs} h = Stream-coind A h' refl
+Stream-pre-fixed {xs} h = Stream-coind (λ ys → ys ≡ ys) h' refl
   where
-  A : D → Set
-  A ws = ws ≡ ws
-
-  h' : A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  h' : xs ≡ xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ xs' ≡ xs'
   h' _ with h
   ... | x' , xs' , prf , _ = x' , xs' , prf , refl
 
@@ -40,13 +37,11 @@ tailS h with Stream-unf h
   subst Stream (sym (∧-proj₂ (∷-injective prf))) Sxs'
 
 streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞
-streamLength {xs} Sxs = ≈N-coind R h refl
+streamLength {xs} Sxs = ≈N-coind (λ m _ → m ≡ m) h refl
   where
-  R : D → D → Set
-  R m n = m ≡ m
 
-  h : R (length xs) ∞ → length xs ≡ zero ∧ ∞ ≡ zero
-        ∨ (∃[ m' ] ∃[ n' ] length xs ≡ succ₁ m' ∧ ∞ ≡ succ₁ n' ∧ R m' n')
+  h : length xs ≡ length xs → length xs ≡ zero ∧ ∞ ≡ zero
+        ∨ (∃[ m ] ∃[ n ] length xs ≡ succ₁ m ∧ ∞ ≡ succ₁ n ∧ m ≡ m)
   h _ with Stream-unf Sxs
   ... | x' , xs' , xs≡x'∷xs' , _ = inj₂ (length xs' , ∞ , prf , ∞-eq , refl)
     where

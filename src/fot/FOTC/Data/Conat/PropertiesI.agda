@@ -20,23 +20,17 @@ open import FOTC.Data.Nat
 Conat-pre-fixed : ∀ {n} →
                   (n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')) →
                   Conat n
-Conat-pre-fixed {n} h = Conat-coind A h' refl
+Conat-pre-fixed {n} h = Conat-coind (λ m → m ≡ m) h' refl
   where
-  A : D → Set
-  A m = m ≡ m
-
-  h' : A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
+  h' : n ≡ n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ n' ≡ n')
   h' _ with h
   ... | inj₁ prf              = inj₁ prf
   ... | inj₂ (n' , n≡Sn' , _) = inj₂ (n' , n≡Sn' , refl)
 
 ∞-Conat : Conat ∞
-∞-Conat = Conat-coind A h refl
+∞-Conat = Conat-coind (λ n → n ≡ n) h refl
   where
-  A : D → Set
-  A n = n ≡ n
-
-  h : A ∞ → ∞ ≡ zero ∨ (∃[ n' ] ∞ ≡ succ₁ n' ∧ A n')
+  h : ∞ ≡ ∞ → ∞ ≡ zero ∨ (∃[ n ] ∞ ≡ succ₁ n ∧ n ≡ n)
   h _ = inj₂ (∞ ,  ∞-eq , refl)
 
 N→Conat : ∀ {n} → N n → Conat n

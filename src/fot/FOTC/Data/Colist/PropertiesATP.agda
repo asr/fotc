@@ -20,11 +20,8 @@ open import FOTC.Data.Colist
 Colist-pre-fixed : ∀ {xs} →
                    (xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs')) →
                    Colist xs
-Colist-pre-fixed {xs} h = Colist-coind A h' refl
+Colist-pre-fixed {xs} h = Colist-coind (λ ys → ys ≡ ys) h' refl
   where
-  A : D → Set
-  A ws = ws ≡ ws
-  {-# ATP definition A #-}
-
-  postulate h' : A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
+  postulate h' : xs ≡ xs →
+                 xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ xs' ≡ xs')
   {-# ATP prove h' #-}

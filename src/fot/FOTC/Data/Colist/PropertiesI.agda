@@ -20,12 +20,9 @@ open import FOTC.Data.Colist
 Colist-pre-fixed : ∀ {xs} →
                    (xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs')) →
                    Colist xs
-Colist-pre-fixed {xs} h = Colist-coind A h' refl
+Colist-pre-fixed {xs} h = Colist-coind (λ ys → ys ≡ ys) h' refl
   where
-  A : D → Set
-  A ws = ws ≡ ws
-
-  h' : A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
+  h' : xs ≡ xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ xs' ≡ xs')
   h' _ with h
   ... | inj₁ prf                        = inj₁ prf
-  ... | inj₂ (x' , xs' , xs≡x'∷xs' , _) = inj₂ (x' , xs' , xs≡x'∷xs' , refl)
+  ... | inj₂ (x' , xs' , prf , _) = inj₂ (x' , xs' , prf , refl)
