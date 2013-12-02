@@ -20,21 +20,34 @@ open import FOTC.Data.Conat.Equality
 
 ------------------------------------------------------------------------------
 
-≈N-refl : ∀ {n} → Conat n → n ≈N n
-≈N-refl {n} Cn = ≈N-coind R h₁ h₂
+≈N-pre-fixed : ∀ {m n} →
+               (m ≡ zero ∧ n ≡ zero
+                 ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n')) →
+               m ≈N n
+≈N-pre-fixed {m} {n} h = ≈N-coind R h' refl
   where
   R : D → D → Set
-  R a b = Conat a ∧ Conat b ∧ a ≡ b
+  R m n = m ≡ m
   {-# ATP definition R #-}
 
   postulate
-    h₁ : ∀ {a b} → R a b →
-         a ≡ zero ∧ b ≡ zero
-           ∨ (∃[ a' ] ∃[ b' ] a ≡ succ₁ a' ∧ b ≡ succ₁ b' ∧ R a' b')
-  {-# ATP prove h₁ #-}
+    h' : R m n →
+         m ≡ zero ∧ n ≡ zero
+           ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
+  {-# ATP prove h' #-}
 
-  postulate h₂ : R n n
-  {-# ATP prove h₂ #-}
+≈N-refl : ∀ {n} → Conat n → n ≈N n
+≈N-refl {n} Cn = ≈N-coind R h refl
+  where
+  R : D → D → Set
+  R a b = a ≡ a
+  {-# ATP definition R #-}
+
+  postulate
+    h : R n n →
+        n ≡ zero ∧ n ≡ zero
+          ∨ (∃[ n' ] ∃[ n'' ] n ≡ succ₁ n' ∧ n ≡ succ₁ n'' ∧ R n' n'')
+  {-# ATP prove h #-}
 
 postulate ≡→≈N : ∀ {m n} → Conat m → Conat n → m ≡ n → m ≈N n
 {-# ATP prove ≡→≈N ≈N-refl #-}

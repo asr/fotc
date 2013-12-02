@@ -27,5 +27,5 @@ Colist-pre-fixed {xs} h = Colist-coind A h' refl
 
   h' : A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
   h' _ with h
-  ... | inj₁ prf = inj₁ prf
+  ... | inj₁ prf                        = inj₁ prf
   ... | inj₂ (x' , xs' , xs≡x'∷xs' , _) = inj₂ (x' , xs' , xs≡x'∷xs' , refl)

@@ -55,24 +55,3 @@ postulate
                ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')) →
              -- _≈N_ is greater than R.
              R m n → m ≈N n
-
--- Because a greatest post-fixed point is a fixed-point, then the
--- relation _≈N_ is also a pre-fixed point of the functional ≈NF, i.e.
---
--- ≈NF _≈N_ ≤ _≈N_.
-≈N-pre-fixed : ∀ {m n} →
-               (m ≡ zero ∧ n ≡ zero
-                 ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n')) →
-               m ≈N n
-≈N-pre-fixed {m} {n} h = ≈N-coind R h' h
-  where
-  R : D → D → Set
-  R m n = m ≡ zero ∧ n ≡ zero
-            ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n')
-
-  h' : R m n →
-       m ≡ zero ∧ n ≡ zero
-         ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
-  h' (inj₁ prf) = inj₁ prf
-  h' (inj₂ (m' , n' , prf₁ , prf₂ , m'≈Nn')) =
-    inj₂ (m' , n' , prf₁ , prf₂ , ≈N-unf m'≈Nn')

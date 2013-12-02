@@ -5,13 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- References:
---
--- • Sander, Herbert P. (1992). A Logic of Functional Programs with an
---   Application to Concurrency. PhD thesis. Department of Computer
---   Sciences: Chalmers University of Technology and University of
---   Gothenburg.
-
 module FOTC.Data.Stream.PropertiesATP where
 
 open import FOTC.Base
@@ -42,19 +35,14 @@ Stream-pre-fixed {xs} h = Stream-coind A h' refl
 postulate tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 {-# ATP prove tailS #-}
 
--- Adapted from (Sander 1992, p. 58).
 streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞
-streamLength {xs} Sxs = ≈N-coind R h₁ h₂
+streamLength {xs} Sxs = ≈N-coind R h refl
   where
   R : D → D → Set
-  R m n = m ≡ zero ∧ n ≡ zero ∨ (∃[ xs' ] m ≡ length xs' ∧ n ≡ ∞ ∧ Stream xs')
+  R m n = m ≡ m
   {-# ATP definition R #-}
 
   postulate
-    h₁ : ∀ {m n} → R m n →
-         m ≡ zero ∧ n ≡ zero
-           ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
-  {-# ATP prove h₁ #-}
-
-  postulate h₂ : R (length xs) ∞
-  {-# ATP prove h₂ #-}
+    h : R (length xs) ∞ → length xs ≡ zero ∧ ∞ ≡ zero
+          ∨ (∃[ m' ] ∃[ n' ] length xs ≡ succ₁ m' ∧ ∞ ≡ succ₁ n' ∧ R m' n')
+  {-# ATP prove h #-}

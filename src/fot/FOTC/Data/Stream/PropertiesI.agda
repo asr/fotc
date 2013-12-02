@@ -5,17 +5,9 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- References:
---
--- • Sander, Herbert P. (1992). A Logic of Functional Programs with an
---   Application to Concurrency. PhD thesis. Department of Computer
---   Sciences: Chalmers University of Technology and University of
---   Gothenburg.
-
 module FOTC.Data.Stream.PropertiesI where
 
 open import FOTC.Base
-open import FOTC.Base.PropertiesI
 open import FOTC.Base.List
 open import FOTC.Base.List.PropertiesI
 open import FOTC.Data.Conat
@@ -47,27 +39,16 @@ tailS h with Stream-unf h
 ... | x' , xs' , prf , Sxs' =
   subst Stream (sym (∧-proj₂ (∷-injective prf))) Sxs'
 
--- Adapted from (Sander 1992, p. 58).
 streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞
-streamLength {xs} Sxs = ≈N-coind R h₁ h₂
+streamLength {xs} Sxs = ≈N-coind R h refl
   where
   R : D → D → Set
-  R m n = m ≡ zero ∧ n ≡ zero ∨ (∃[ xs' ] m ≡ length xs' ∧ n ≡ ∞ ∧ Stream xs')
+  R m n = m ≡ m
 
-  h₁ : ∀ {m n} → R m n →
-       m ≡ zero ∧ n ≡ zero
-         ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
-  h₁ (inj₁ prf) = inj₁ prf
-  h₁ {m} {n} (inj₂ (xs' , prf₁ , prf₂ , Sxs')) with Stream-unf Sxs'
-  ... | x'' , xs'' , xs'≡x''∷xs'' , Sxs'' =
-    inj₂ (length xs'' , n , helper₁ , helper₂ , inj₂ (xs'' , refl , prf₂ , Sxs''))
-
+  h : R (length xs) ∞ → length xs ≡ zero ∧ ∞ ≡ zero
+        ∨ (∃[ m' ] ∃[ n' ] length xs ≡ succ₁ m' ∧ ∞ ≡ succ₁ n' ∧ R m' n')
+  h _ with Stream-unf Sxs
+  ... | x' , xs' , xs≡x'∷xs' , _ = inj₂ ( length xs' , ∞ , prf , ∞-eq , refl)
     where
-    helper₁ : m ≡ succ₁ (length xs'')
-    helper₁ = trans₂ prf₁ (lengthCong xs'≡x''∷xs'') (length-∷ x'' xs'')
-
-    helper₂ : n ≡ succ₁ n
-    helper₂ = trans₂ prf₂ ∞-eq (succCong (sym prf₂))
-
-  h₂ : R (length xs) ∞
-  h₂ = inj₂ (xs , refl , refl , Sxs)
+    prf : length xs ≡ succ₁ (length xs')
+    prf = trans (lengthCong xs≡x'∷xs') (length-∷ x' xs')
