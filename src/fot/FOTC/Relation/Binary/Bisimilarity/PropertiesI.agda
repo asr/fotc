@@ -41,9 +41,6 @@ open import FOTC.Relation.Binary.Bisimilarity
 ≈-sym : ∀ {xs ys} → xs ≈ ys → ys ≈ xs
 ≈-sym {xs} {ys} xs≈ys = ≈-coind (λ zs _ → zs ≡ zs) h refl
   where
-  B : D → D → Set
-  B xs ys = xs ≡ xs
-
   h : ys ≡ ys →
       ∃[ y' ] ∃[ ys' ] ∃[ xs' ] ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs' ∧ ys' ≡ ys'
   h _ with ≈-unf xs≈ys
@@ -53,9 +50,6 @@ open import FOTC.Relation.Binary.Bisimilarity
 ≈-trans : ∀ {xs ys zs} → xs ≈ ys → ys ≈ zs → xs ≈ zs
 ≈-trans {xs} {ys} {zs} xs≈ys ys≈zs = ≈-coind (λ ws _ → ws ≡ ws) h refl
   where
-  B : D → D → Set
-  B xs zs = xs ≡ xs
-
   h : xs ≡ xs →
       ∃[ x' ] ∃[ xs' ] ∃[ zs' ] xs ≡ x' ∷ xs' ∧ zs ≡ x' ∷ zs' ∧ xs' ≡ xs'
   h _ with ≈-unf xs≈ys
@@ -67,7 +61,6 @@ open import FOTC.Relation.Binary.Bisimilarity
     , prf₁
     , subst (λ t → zs ≡ t ∷ zs') y'≡x' prf₄
     , refl
-
     where
     y'≡x' : y' ≡ x'
     y'≡x' = ∧-proj₁ (∷-injective (trans (sym prf₃) prf₂))
