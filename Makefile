@@ -35,7 +35,7 @@ AGDA     = agda -v 0
 AGDA_FOT = ${AGDA} -i$(fot_path)
 
 # The defaults ATPs are e, equinox, and vampire.
-APIA = apia
+APIA = apia --check
 # APIA = apia --atp=e
 # APIA = apia --atp=equinox
 # APIA = apia --atp=ileancop
