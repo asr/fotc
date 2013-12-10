@@ -25,7 +25,7 @@ open import FOTC.Data.Nat
     is : ∀ {i} → A i → A (succ₁ i)
     is {i} ih = subst N (sym (+-Sx i n)) (nsucc ih)
 
--- Combined proof using an instance of the induction principle.
+-- Interactive proof using an instance of the induction principle.
 +-N-ind : ∀ {n} →
           N (zero + n) →
           (∀ {m} → N (m + n) → N (succ₁ m + n)) →
@@ -41,6 +41,7 @@ open import FOTC.Data.Nat
   prf₂ : ∀ {m} → N (m + n) → N (succ₁ m + n)
   prf₂ {m} ih = subst N (sym (+-Sx m n)) (nsucc ih)
 
+-- Combined proof using an instance of the induction principle.
 postulate +-N₂ : ∀ {m n} → N m → N n → N (m + n)
 {-# ATP prove +-N₂ +-N-ind #-}
 
