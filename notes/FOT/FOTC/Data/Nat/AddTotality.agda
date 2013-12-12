@@ -33,13 +33,13 @@ open import FOTC.Data.Nat
 +-N-ind {n} = N-ind (λ i → N (i + n))
 
 +-N₁ : ∀ {m n} → N m → N n → N (m + n)
-+-N₁ {n = n} Nm Nn = +-N-ind prf₁ prf₂ Nm
++-N₁ {n = n} Nm Nn = +-N-ind A0 is Nm
   where
-  prf₁ : N (zero + n)
-  prf₁ = subst N (sym (+-0x n)) Nn
+  A0 : N (zero + n)
+  A0 = subst N (sym (+-0x n)) Nn
 
-  prf₂ : ∀ {m} → N (m + n) → N (succ₁ m + n)
-  prf₂ {m} ih = subst N (sym (+-Sx m n)) (nsucc ih)
+  is : ∀ {m} → N (m + n) → N (succ₁ m + n)
+  is {m} ih = subst N (sym (+-Sx m n)) (nsucc ih)
 
 -- Combined proof using an instance of the induction principle.
 postulate +-N₂ : ∀ {m n} → N m → N n → N (m + n)
