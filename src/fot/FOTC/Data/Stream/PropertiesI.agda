@@ -31,6 +31,18 @@ Stream-pre-fixed {xs} h = Stream-coind (λ ys → ys ≡ ys) h' refl
   h' _ with h
   ... | x' , xs' , prf , _ = x' , xs' , prf , refl
 
+++-Stream : ∀ {xs ys} → Stream xs → Stream ys → Stream (xs ++ ys)
+++-Stream {xs} {ys} Sxs Sys with Stream-unf Sxs
+... | x' , xs' , prf , Sxs' = subst Stream prf₁ prf₂
+  where
+  prf₁ : x' ∷ (xs' ++ ys) ≡ xs ++ ys
+  prf₁ = trans (sym (++-∷ x' xs' ys)) (++-leftCong (sym prf))
+
+  -- TODO (15 December 2013): Why the termination checker accepts the
+  -- recursive called ++-Stream_Sxs'_Sys?
+  prf₂ : Stream (x' ∷ xs' ++ ys)
+  prf₂ = Stream-pre-fixed (x' , xs' ++ ys , refl , ++-Stream Sxs' Sys)
+
 tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 tailS h with Stream-unf h
 ... | x' , xs' , prf , Sxs' =
