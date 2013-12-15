@@ -42,6 +42,9 @@ revCong₂ refl = refl
 reverseCong : ∀ {xs ys} → xs ≡ ys → reverse xs ≡ reverse ys
 reverseCong refl = refl
 
+reverse'Cong : ∀ {xs ys} → xs ≡ ys → reverse' xs ≡ reverse' ys
+reverse'Cong refl = refl
+
 lengthCong : ∀ {xs ys} → xs ≡ ys → length xs ≡ length ys
 lengthCong refl = refl
 
@@ -70,6 +73,11 @@ rev-List {ys = ys} (lcons x {xs} Lxs) Lys =
 
 reverse-List : ∀ {xs} → List xs → List (reverse xs)
 reverse-List Lxs = rev-List Lxs lnil
+
+reverse'-List : ∀ {xs} → List xs → List (reverse' xs)
+reverse'-List lnil = subst List (sym reverse'-[]) lnil
+reverse'-List (lcons x {xs} Lxs) =
+  subst List (sym (reverse'-∷ x xs)) (++-List (reverse'-List Lxs) (lcons x lnil))
 
 -- Length properties
 
@@ -285,3 +293,47 @@ reverse-∷ x (lcons y {ys} Lys) = sym prf
     reverse (x ∷ ([] ++ (y ∷ ys)))
       ≡⟨ reverseCong (∷-rightCong (++-leftIdentity (y ∷ ys))) ⟩
     reverse (x ∷ y ∷ ys) ∎
+
+reverse'-involutive-helper : ∀ x {ys} → List ys →
+                             reverse' (ys ++ x ∷ []) ≡ x ∷ reverse' ys
+reverse'-involutive-helper x lnil =
+  reverse' ([] ++ x ∷ []) ≡⟨ reverse'Cong (++-[] (x ∷ [])) ⟩
+  reverse' (x ∷ [])       ≡⟨ reverse'-∷ x [] ⟩
+  reverse' [] ++ x ∷ []   ≡⟨ ++-leftCong reverse'-[] ⟩
+  [] ++ x ∷ []            ≡⟨ ++-[] (x ∷ []) ⟩
+  x ∷ []                  ≡⟨ ∷-rightCong (sym reverse'-[]) ⟩
+  x ∷ reverse' []         ∎
+
+reverse'-involutive-helper x (lcons y {ys} Lys) =
+  reverse' ((y ∷ ys) ++ x ∷ [])
+    ≡⟨ reverse'Cong (++-∷ y ys (x ∷ [])) ⟩
+  reverse' (y ∷ ys ++ x ∷ [])
+    ≡⟨ reverse'-∷ y (ys ++ x ∷ []) ⟩
+  reverse' (ys ++ x ∷ []) ++ y ∷ []
+    ≡⟨ ++-leftCong (reverse'-involutive-helper x Lys) ⟩
+  (x ∷ reverse' ys) ++ (y ∷ [])
+    ≡⟨ ++-∷ x (reverse' ys) (y ∷ []) ⟩
+  x ∷ (reverse' ys ++ y ∷ [])
+    ≡⟨ ∷-rightCong (sym (reverse'-∷ y ys)) ⟩
+  x ∷ reverse' (y ∷ ys) ∎
+
+-- Adapted from (Bird and Wadler, 1988 §5.4.2).
+reverse'-involutive : ∀ {xs} → List xs → reverse' (reverse' xs) ≡ xs
+reverse'-involutive lnil =
+  reverse' (reverse' []) ≡⟨ reverse'Cong reverse'-[] ⟩
+  reverse' []            ≡⟨ reverse'-[] ⟩
+  []                     ∎
+
+reverse'-involutive (lcons x {xs} Lxs) =
+  reverse' (reverse' (x ∷ xs))
+    ≡⟨ reverse'Cong (reverse'-∷ x xs) ⟩
+  reverse' (reverse' xs ++ (x ∷ []))
+    ≡⟨ reverse'-involutive-helper x (reverse'-List Lxs) ⟩
+  x ∷ reverse' (reverse' xs) ≡⟨ ∷-rightCong (reverse'-involutive Lxs) ⟩
+  x ∷ xs ∎
+
+------------------------------------------------------------------------------
+-- References
+
+-- • Bird, R. and Wadler, P. (1988). Introduction to Functional
+--   Programming. Prentice Hall International.

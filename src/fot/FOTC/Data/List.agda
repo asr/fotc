@@ -48,6 +48,11 @@ reverse xs = rev xs []
 {-# ATP definition reverse #-}
 
 postulate
+  reverse'    : D → D
+  reverse'-[] : reverse' []                ≡ []
+  reverse'-∷  : ∀ x xs → reverse' (x ∷ xs) ≡ reverse' xs ++ (x ∷ [])
+
+postulate
   replicate   : D → D → D
   replicate-0 : ∀ x → replicate zero x        ≡ []
   replicate-S : ∀ n x → replicate (succ₁ n) x ≡ x ∷ replicate n x
