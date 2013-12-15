@@ -31,6 +31,11 @@ Stream-pre-fixed {xs} h = Stream-coind (λ ys → ys ≡ ys) h' refl
   h' _ with h
   ... | x' , xs' , prf , _ = x' , xs' , prf , refl
 
+∷-Stream : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
+∷-Stream h with Stream-unf h
+... | x' , xs' , prf , Sxs' =
+  subst Stream (sym (∧-proj₂ (∷-injective prf))) Sxs'
+
 ++-Stream : ∀ {xs ys} → Stream xs → Stream ys → Stream (xs ++ ys)
 ++-Stream {xs} {ys} Sxs Sys with Stream-unf Sxs
 ... | x' , xs' , prf , Sxs' = subst Stream prf₁ prf₂
@@ -42,11 +47,6 @@ Stream-pre-fixed {xs} h = Stream-coind (λ ys → ys ≡ ys) h' refl
   -- recursive called ++-Stream_Sxs'_Sys?
   prf₂ : Stream (x' ∷ xs' ++ ys)
   prf₂ = Stream-pre-fixed (x' , xs' ++ ys , refl , ++-Stream Sxs' Sys)
-
-tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
-tailS h with Stream-unf h
-... | x' , xs' , prf , Sxs' =
-  subst Stream (sym (∧-proj₂ (∷-injective prf))) Sxs'
 
 streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞
 streamLength {xs} Sxs = ≈N-coind (λ m _ → m ≡ m) h refl

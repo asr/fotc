@@ -28,8 +28,8 @@ Stream-pre-fixed {xs} h = Stream-coind (λ ys → ys ≡ ys) h' refl
   postulate h' : xs ≡ xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ xs' ≡ xs'
   {-# ATP prove h' #-}
 
-postulate tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
-{-# ATP prove tailS #-}
+postulate ∷-Stream : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
+{-# ATP prove ∷-Stream #-}
 
 streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞
 streamLength {xs} Sxs = ≈N-coind (λ m _ → m ≡ m)  h refl
