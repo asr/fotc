@@ -50,10 +50,10 @@ APIA_FOT = ${APIA} -i$(fot_path)
 # Auxiliary functions
 
 my_pathsubst = $(patsubst %.agda,%.$(1), \
-	     	 $(shell find $(2) \( ! -path '*/Consistency/*' \) -name '*.agda' \
-		 	 | xargs grep -L 'The ATPs could not prove the theorem' \
-			 | xargs grep -l 'ATP prove' \
-		  	 | sort))
+	     	 $(shell find $(2) \( ! -path '*/Consistency/*' \) \
+                              \( -name '*.agda' -and ! -name 'UnprovedATP.agda' \) \
+                         | xargs grep -l 'ATP prove' \
+                         | sort))
 
 ##############################################################################
 # Files

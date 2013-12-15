@@ -23,6 +23,6 @@ open import PA.Axiomatic.Mendelson.PropertiesATP
   {-# ATP prove A0 +-leftCong #-}
 
   -- 25 November 2013: Vampire 0.6 proves the theorem using a time out
-  -- of (300 sec).
+  -- of 300 sec.
   postulate is : ∀ i → A i → A (succ i)
-  -- {-# ATP prove is +-leftCong #-}
+  {-# ATP prove is +-leftCong #-}
