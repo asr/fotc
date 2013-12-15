@@ -154,14 +154,14 @@ reverse-∷-forest {x} Tx fnil =
      ≡⟨ ++-leftCong (sym (rev-[] [])) ⟩
   rev [] [] ++ x ∷ [] ∎
 
-reverse-∷-forest {x} Tx (fcons {y} {ys} Ty Fys) = sym
-  ( reverse (y ∷ ys) ++ x ∷ []
-      ≡⟨ ++-rightCong (sym (reverse-[x]≡[x] x)) ⟩
-    (reverse (y ∷ ys) ++ reverse (x ∷ []))
-      ≡⟨ sym (reverse-++-commute-forest (fcons Tx fnil) (fcons Ty Fys)) ⟩
-    reverse ((x ∷ []) ++ (y ∷ ys))
-      ≡⟨ reverseCong (++-∷ x [] (y ∷ ys)) ⟩
-    reverse (x ∷ ([] ++ (y ∷ ys)))
-      ≡⟨ reverseCong (∷-rightCong (++-leftIdentity (y ∷ ys))) ⟩
-    reverse (x ∷ y ∷ ys) ∎
+reverse-∷-forest {x} Tx (fcons {y} {ys} Ty Fys) = sym (
+  reverse (y ∷ ys) ++ x ∷ []
+    ≡⟨ ++-rightCong (sym (reverse-[x]≡[x] x)) ⟩
+  (reverse (y ∷ ys) ++ reverse (x ∷ []))
+    ≡⟨ sym (reverse-++-commute-forest (fcons Tx fnil) (fcons Ty Fys)) ⟩
+  reverse ((x ∷ []) ++ (y ∷ ys))
+     ≡⟨ reverseCong (++-∷ x [] (y ∷ ys)) ⟩
+   reverse (x ∷ ([] ++ (y ∷ ys)))
+     ≡⟨ reverseCong (∷-rightCong (++-leftIdentity (y ∷ ys))) ⟩
+   reverse (x ∷ y ∷ ys) ∎
   )

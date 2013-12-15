@@ -75,7 +75,7 @@ mirror-Tree (tree d (fcons {t} {ts} Tt Fts)) =
      h₃ = ++-Forest h₂ (fcons (mirror-Tree Tt) fnil)
 
      h₄ : Forest (reverse (mirror · t ∷ map mirror ts))
-     h₄ = subst Forest ( sym (reverse-∷' (mirror · t) (map mirror ts))) h₃
+     h₄ = subst Forest (sym (reverse-∷' (mirror · t) (map mirror ts))) h₃
 
      helper : Forest (reverse (map mirror (t ∷ ts)))
      helper = subst Forest

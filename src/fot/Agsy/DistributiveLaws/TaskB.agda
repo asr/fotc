@@ -29,7 +29,7 @@ postulate
 
 -- Properties
 
-taskB : ∀ u x y z → (x · y · (z · u)) ·
-                    (( x · y · ( z · u)) · (x · z · (y · u))) ≡
-                    x · z · (y · u)
+taskB : ∀ u x y z →
+        (x · y · (z · u)) · ((x · y · ( z · u)) · (x · z · (y · u))) ≡
+          x · z · (y · u)
 taskB u x y z = {!-t 20 -m!}  -- Agsy fails

@@ -211,12 +211,10 @@ rev-++-commute (lcons x {xs} Lxs) ys =
     ≡⟨ rev-++-commute Lxs (x ∷ ys) ⟩
   rev xs [] ++ x ∷ ys
     ≡⟨ subst (λ t → rev xs [] ++ x ∷ ys ≡ rev xs [] ++ t)
-             (sym
-               ( (x ∷ []) ++ ys
-                    ≡⟨ ++-∷ x [] ys ⟩
-                 x ∷ ([] ++ ys)
-                   ≡⟨ ∷-rightCong (++-leftIdentity ys) ⟩
-                 x ∷ ys ∎
+             (sym (
+               (x ∷ []) ++ ys  ≡⟨ ++-∷ x [] ys ⟩
+                x ∷ ([] ++ ys) ≡⟨ ∷-rightCong (++-leftIdentity ys) ⟩
+                x ∷ ys         ∎
                )
              )
              refl

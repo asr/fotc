@@ -29,9 +29,9 @@ postulate
 
 -- We test Agsy with the longest chains of equalities from
 -- DistributiveLaws.TaskB-TopDownATP.
-taskB : ∀ u x y z → (x · y · (z · u)) ·
-                    (( x · y · ( z · u)) · (x · z · (y · u))) ≡
-                    x · z · (y · u)
+taskB : ∀ u x y z →
+        (x · y · (z · u)) · ((x · y · ( z · u)) · (x · z · (y · u))) ≡
+          x · z · (y · u)
 taskB u x y z =
 -- The numbering of the proof step justifications are associated with
 -- the numbers used in DistributiveLaws.TaskB-I.

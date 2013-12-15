@@ -14,9 +14,9 @@ open import Common.FOL.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 
-prop₂ : ∀ u x y z → (x · y · (z · u)) ·
-                    (( x · y · ( z · u)) · (x · z · (y · u))) ≡
-                    x · z · (y · u)
+prop₂ : ∀ u x y z →
+        (x · y · (z · u)) · ((x · y · ( z · u)) · (x · z · (y · u))) ≡
+          x · z · (y · u)
 prop₂ u x y z =
   xy·zu · (xy·zu · xz·yu)                                         ≡⟨ j₁ ⟩
   xy·zu · (x·zu · y·zu · xz·yu)                                   ≡⟨ j₂ ⟩

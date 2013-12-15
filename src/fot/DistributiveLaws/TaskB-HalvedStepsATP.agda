@@ -16,9 +16,9 @@ open import Common.FOL.Relation.Binary.EqReasoning
 -- We prove the half of the proof steps (skipping the even ones) of
 -- DistributiveLaws.TaskB-I using the ATPs.
 
-prop₂ : ∀ u x y z → (x · y · (z · u)) ·
-                    (( x · y · ( z · u)) · (x · z · (y · u))) ≡
-                    x · z · (y · u)
+prop₂ : ∀ u x y z →
+        (x · y · (z · u)) · ((x · y · ( z · u)) · (x · z · (y · u))) ≡
+          x · z · (y · u)
 prop₂ u x y z =
 
 -- The numbering of the proof step justifications are associated with

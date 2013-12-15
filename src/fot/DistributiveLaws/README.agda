@@ -13,9 +13,9 @@ module DistributiveLaws.README where
 
 -- to prove the theorem
 --
--- ∀ u x y z → (x ∙ y ∙ (z ∙ u)) ∙
---             (( x ∙ y ∙ ( z ∙ u)) ∙ (x ∙ z ∙ (y ∙ u))) ≡
---             x ∙ z ∙ (y ∙ u).
+-- ∀ u x y z →
+-- (x ∙ y ∙ (z ∙ u)) ∙ ((x ∙ y ∙ ( z ∙ u)) ∙ (x ∙ z ∙ (y ∙ u))) ≡
+--   x ∙ z ∙ (y ∙ u).
 
 ------------------------------------------------------------------------------
 -- The axioms
