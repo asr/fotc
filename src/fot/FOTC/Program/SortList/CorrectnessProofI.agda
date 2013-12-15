@@ -9,11 +9,6 @@
 -- by converting it into an ordered tree and then back to a list
 -- (Burstall 1969, p. 45).
 
--- References:
---
--- • Burstall, R. M. (1969). Proving properties of programs by
---   structural induction. In: The Computer Journal 12.1, pp. 41–48.
-
 module FOTC.Program.SortList.CorrectnessProofI where
 
 open import FOTC.Base
@@ -29,3 +24,9 @@ sortCorrect {is} Lis =
   subst OrdList
         refl
         (flatten-OrdList (makeTree-Tree Lis) (makeTree-OrdTree Lis))
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Burstall, R. M. (1969). Proving properties of programs by
+--   structural induction. In: The Computer Journal 12.1, pp. 41–48.

@@ -5,12 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- References:
---
--- • Bertot, Yves and Castéran, Pierre (2004). Interactive Theorem
---   Proving and Program Development. Coq’Art: The Calculus of
---   Inductive Constructions. Springer.
-
 module FOT.FOTC.Program.Mirror.Induction.InductionPrinciples where
 
 open import FOTC.Base
@@ -34,3 +28,10 @@ Forest-ind : (A : D → Set) →
              ∀ {ts} → Forest ts → A ts
 Forest-ind A Anil h fnil           = Anil
 Forest-ind A Anil h (fcons Tt Fts) = h Tt Fts (Forest-ind A Anil h Fts)
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Bertot, Yves and Castéran, Pierre (2004). Interactive Theorem
+--   Proving and Program Development. Coq’Art: The Calculus of
+--   Inductive Constructions. Springer.

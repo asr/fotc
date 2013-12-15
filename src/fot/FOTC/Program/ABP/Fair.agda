@@ -5,13 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- References:
---
--- • Dybjer, Peter and Sander, Herbert P. (1989). A Functional
---   Programming Approach to the Speciﬁcation and Veriﬁcation of
---   Concurrent Systems. In: Formal Aspects of Computing 1,
---   pp. 303–319.
-
 module FOTC.Program.ABP.Fair where
 
 open import FOTC.Base
@@ -56,3 +49,11 @@ postulate Fair-coind : ∀ (A : D → Set) {os} →
                          F*T ft ∧ os ≡ ft ++ os' ∧ A os') →
                        -- Fair is greater than A.
                        A os → Fair os
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Dybjer, Peter and Sander, Herbert P. (1989). A Functional
+--   Programming Approach to the Speciﬁcation and Veriﬁcation of
+--   Concurrent Systems. In: Formal Aspects of Computing 1,
+--   pp. 303–319.

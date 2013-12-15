@@ -36,14 +36,6 @@ postulate
 -- Axiom of induction:
 -- φ(0) → (∀n.φ(n) → φ(succ n)) → ∀n.φ(n), for any formulae φ
 
--- References:
---
--- • Machover, Moshé (1996). Set theory, Logic and their
---   Limitations. Cambridge University Press.
-
--- • Hájek, Petr and Pudlák, Pavel (1998). Metamathematics of
---   First-Order Arithmetic. 2nd printing. Springer.
-
 postulate
   PA₁ : ∀ {n} → zero ≢ succ n
   PA₂ : ∀ {m n} → succ m ≡ succ n → m ≡ n
@@ -57,3 +49,12 @@ postulate
 -- translate it to TPTP.
 postulate
   ℕ-ind : (A : ℕ → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Machover, Moshé (1996). Set theory, Logic and their
+--   Limitations. Cambridge University Press.
+
+-- • Hájek, Petr and Pudlák, Pavel (1998). Metamathematics of
+--   First-Order Arithmetic. 2nd printing. Springer.

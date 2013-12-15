@@ -25,12 +25,6 @@ equality.
 
 -}
 
--- References:
---
--- • Barthe, Gilles, Capretta, Venanzio and Pons, Olivier
---   (2003). Setoids in type theory. In: Journal of Functional
---   Programming 13.2, pp. 261–293.
-
 module FOTC where
 
 module Aczel-CA where
@@ -155,3 +149,10 @@ module LeibnizEquality where
   cong  : ∀ {x x' y y'} → x ≡ x' → y ≡ y' → x · y ≡ x' · y'
   cong {x} {x'} {y} {y'} h₁ h₂ A Axx' =
     h₂ (λ z → A (x' · z)) (h₁ (λ z → A (z · y)) Axx')
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Barthe, Gilles, Capretta, Venanzio and Pons, Olivier
+--   (2003). Setoids in type theory. In: Journal of Functional
+--   Programming 13.2, pp. 261–293.

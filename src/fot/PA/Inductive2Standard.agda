@@ -19,14 +19,6 @@
 -- Axiom of induction:
 -- φ(0) → (∀n.φ(n) → φ(succ n)) → ∀n.φ(n), for any formulae φ
 
--- References:
---
--- • Machover, Moshé (1996). Set theory, Logic and their
---   Limitations. Cambridge University Press.
-
--- • Hájek, Petr and Pudlák, Pavel (1998). Metamathematics of
---   First-Order Arithmetic. 2nd printing. Springer.
-
 module PA.Inductive2Standard where
 
 open import PA.Inductive.Base
@@ -50,3 +42,12 @@ PA₅ n = refl
 
 PA₆ : ∀ m n → succ m * n ≡ n + m * n
 PA₆ m n = refl
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Machover, Moshé (1996). Set theory, Logic and their
+--   Limitations. Cambridge University Press.
+
+-- • Hájek, Petr and Pudlák, Pavel (1998). Metamathematics of
+--   First-Order Arithmetic. 2nd printing. Springer.

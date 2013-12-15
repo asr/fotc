@@ -5,11 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- References:
---
--- • Rosén, D. (2012). Proving Equational Haskell Properties Using
---   Automated Theorem Provers. MA thesis. University of Gothenburg.
-
 module SK where
 
 -- We add 3 to the fixities of the standard library.
@@ -38,3 +33,9 @@ id x = x
 -- polymorphic. See (Rosén 2012, p. 24).
 postulate thm : ∀ x → S · K · K · x ≡ id x
 {-# ATP prove thm #-}
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Rosén, D. (2012). Proving Equational Haskell Properties Using
+--   Automated Theorem Provers. MA thesis. University of Gothenburg.

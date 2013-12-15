@@ -5,13 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- References:
---
--- • Sander, Herbert P. (1992). A Logic of Functional Programs with an
---   Application to Concurrency. PhD thesis. Department of Computer
---   Sciences: Chalmers University of Technology and University of
---   Gothenburg.
-
 module FOTC.Data.Conat.Equality where
 
 open import FOTC.Base
@@ -55,3 +48,11 @@ postulate
                ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')) →
              -- _≈N_ is greater than R.
              R m n → m ≈N n
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Sander, Herbert P. (1992). A Logic of Functional Programs with an
+--   Application to Concurrency. PhD thesis. Department of Computer
+--   Sciences: Chalmers University of Technology and University of
+--   Gothenburg.

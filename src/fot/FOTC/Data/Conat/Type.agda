@@ -9,13 +9,6 @@
 
 -- Adapted from (Sander 1992).
 
--- References:
---
--- • Sander, Herbert P. (1992). A Logic of Functional Programs with an
---   Application to Concurrency. PhD thesis. Department of Computer
---   Sciences: Chalmers University of Technology and University of
---   Gothenburg.
-
 module FOTC.Data.Conat.Type where
 
 open import FOTC.Base
@@ -53,3 +46,11 @@ postulate
                 (A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
                 -- Conat is greater than A.
                 A n → Conat n
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Sander, Herbert P. (1992). A Logic of Functional Programs with an
+--   Application to Concurrency. PhD thesis. Department of Computer
+--   Sciences: Chalmers University of Technology and University of
+--   Gothenburg.

@@ -6,13 +6,6 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 -- From (Sander, 1992, pp. 68-69).
---
--- References:
---
--- • Sander, Herbert P. (1992). A Logic of Functional Programs with an
---   Application to Concurrency. PhD thesis. Department of Computer
---   Sciences: Chalmers University of Technology and University of
---   Gothenburg.
 
 module Main where
 
@@ -39,3 +32,11 @@ type Ty a = (Stream a → Stream a → Stream a) → (Stream a → Stream a) →
 trans', hys ∷ Ty a
 trans' f1 f2 is = f2 (hys f1 f2 is)
 hys    f1 f2 is = f1 (trans' f1 f2 is) is
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Sander, Herbert P. (1992). A Logic of Functional Programs with an
+--   Application to Concurrency. PhD thesis. Department of Computer
+--   Sciences: Chalmers University of Technology and University of
+--   Gothenburg.

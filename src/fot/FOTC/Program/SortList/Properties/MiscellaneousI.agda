@@ -5,11 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- References:
---
--- • Burstall, R. M. (1969). Proving properties of programs by
---   structural induction. In: The Computer Journal 12.1, pp. 41–48.
-
 module FOTC.Program.SortList.Properties.MiscellaneousI where
 
 open import Common.FOL.Relation.Binary.EqReasoning
@@ -227,3 +222,9 @@ xs≤zs→ys≤zs→xs++ys≤zs {js = js} {ks}
     xs≤zs→ys≤zs→xs++ys≤zs LNis LNjs LNks
                           (&&-list₂-t₂ helper₁ helper₂ helper₃)
                           js≤ks
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Burstall, R. M. (1969). Proving properties of programs by
+--   structural induction. In: The Computer Journal 12.1, pp. 41–48.

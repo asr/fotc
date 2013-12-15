@@ -7,14 +7,7 @@
 
 -- This module proves the correctness of the ABP following the
 -- formalization in Dybjer and Sander (1989).
---
--- References:
---
--- • Dybjer, Peter and Sander, Herbert P. (1989). A Functional
---   Programming Approach to the Speciﬁcation and Veriﬁcation of
---   Concurrent Systems. In: Formal Aspects of Computing 1,
---   pp. 303–319.
---
+
 -- N.B This module does not contain combined proofs, but it imports
 -- modules which contain combined proofs.
 
@@ -58,3 +51,11 @@ postulate
                        Fair os₂ →
                        Stream (abpTransfer b os₁ os₂ is)
 {-# ATP prove abpTransfer-Stream ≈→Stream₂ abpCorrect #-}
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Dybjer, Peter and Sander, Herbert P. (1989). A Functional
+--   Programming Approach to the Speciﬁcation and Veriﬁcation of
+--   Concurrent Systems. In: Formal Aspects of Computing 1,
+--   pp. 303–319.

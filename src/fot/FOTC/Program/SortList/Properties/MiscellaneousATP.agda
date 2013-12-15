@@ -5,11 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- References:
---
--- • Burstall, R. M. (1969). Proving properties of programs by
---   structural induction. In: The Computer Journal 12.1, pp. 41–48.
-
 module FOTC.Program.SortList.Properties.MiscellaneousATP where
 
 open import FOTC.Base
@@ -103,3 +98,9 @@ xs≤zs→ys≤zs→xs++ys≤zs {js = js} {ks}
 
   postulate prf : ≤-Lists (is ++ js) ks → ≤-Lists ((i ∷ is) ++ js) ks
   {-# ATP prove prf &&-list₂-t helper₁ helper₂ helper₃ #-}
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Burstall, R. M. (1969). Proving properties of programs by
+--   structural induction. In: The Computer Journal 12.1, pp. 41–48.

@@ -7,13 +7,6 @@
 
 -- This module define the ABP following the presentation in Dybjer and
 -- Sander (1989).
---
--- References:
---
--- • Dybjer, Peter and Sander, Herbert P. (1989). A Functional
---   Programming Approach to the Speciﬁcation and Veriﬁcation of
---   Concurrent Systems. In: Formal Aspects of Computing 1,
---   pp. 303–319.
 
 module FOTC.Program.ABP.ABP where
 
@@ -122,3 +115,11 @@ S b is os₁ os₂ as bs cs ds js =
   ∧ ds ≡ corrupt os₂ · cs
   ∧ js ≡ out b · bs
 {-# ATP definition S #-}
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Dybjer, Peter and Sander, Herbert P. (1989). A Functional
+--   Programming Approach to the Speciﬁcation and Veriﬁcation of
+--   Concurrent Systems. In: Formal Aspects of Computing 1,
+--   pp. 303–319.

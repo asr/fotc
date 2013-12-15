@@ -5,13 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- References:
---
--- • Sander, Herbert P. (1992). A Logic of Functional Programs with an
---   Application to Concurrency. PhD thesis. Department of Computer
---   Sciences: Chalmers University of Technology and University of
---   Gothenburg.
-
 module FOT.FOTC.Data.Stream.PropertiesI where
 
 open import FOTC.Base
@@ -63,3 +56,11 @@ streamLength {xs} Sxs = ≈N-coind R h₁ h₂
 
   h₂ : R (length xs) ∞
   h₂ = inj₂ (xs , refl , refl , Sxs)
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Sander, Herbert P. (1992). A Logic of Functional Programs with an
+--   Application to Concurrency. PhD thesis. Department of Computer
+--   Sciences: Chalmers University of Technology and University of
+--   Gothenburg.

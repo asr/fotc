@@ -5,14 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- References:
---
--- • Beeson, M. J. (1986). Proving Programs and Programming
---   Proofs. In: Logic, Methodology and Philosophy of Science VII
---   (1983). Ed. by Barcan Marcus, Ruth, Dorn, George J. W. and
---   Weingartner, Paul. Vol. 114. Studies in Logic and the Foundations
---   of Mathematics. Elsevier, pp. 51–82.
-
 module FOTC.Data.Nat.PropertiesI where
 
 open import Common.FOL.Relation.Binary.EqReasoning
@@ -370,3 +362,12 @@ xy≡1→y≡1 Nm Nn h = xy≡1→x≡1 Nn Nm (trans (*-comm Nn Nm) h)
 succOnto : ∀ {n} → N n → n ≢ zero → succ₁ (pred₁ n) ≡ n
 succOnto nzero          h = ⊥-elim (h refl)
 succOnto (nsucc {n} Nn) h = succCong (pred-S n)
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Beeson, M. J. (1986). Proving Programs and Programming
+--   Proofs. In: Logic, Methodology and Philosophy of Science VII
+--   (1983). Ed. by Barcan Marcus, Ruth, Dorn, George J. W. and
+--   Weingartner, Paul. Vol. 114. Studies in Logic and the Foundations
+--   of Mathematics. Elsevier, pp. 51–82.

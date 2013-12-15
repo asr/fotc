@@ -8,14 +8,6 @@
 -- The map-iterate property (Gibbons and Hutton, 2005):
 -- map f (iterate f x) = iterate f (f · x)
 
--- References:
---
--- • Giménez, Eduardo and Casterán, Pierre (2007). A Tutorial on
---   [Co-]Inductive Types in Coq.
---
--- • Gibbons, Jeremy and Hutton, Graham (2005). Proof Methods for
---   Corecursive Programs. In: Fundamenta Informaticae XX, pp. 1–14.
-
 module FOT.FOTC.Program.MapIterate.MapIterateNonTrivialBisimulationI where
 
 open import FOTC.Base
@@ -44,3 +36,12 @@ open import FOTC.Program.MapIterate.MapIterateI
     , trans (∧-proj₁ prf) (unfoldMapIterate f y)
     , trans (∧-proj₂ prf) (iterate-eq f (f · y))
     , ((f · y) , refl , refl)
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Giménez, Eduardo and Casterán, Pierre (2007). A Tutorial on
+--   [Co-]Inductive Types in Coq.
+--
+-- • Gibbons, Jeremy and Hutton, Graham (2005). Proof Methods for
+--   Corecursive Programs. In: Fundamenta Informaticae XX, pp. 1–14.

@@ -7,12 +7,6 @@ module Functor where
 
 -- Based on (Vene, 2000).
 
--- References:
---
--- • Vene, Varmo (2000). Categorical programming with inductive and
---   coinductive types. PhD thesis. Faculty of Mathematics: University
---   of Tartu.
-
 import Prelude hiding ( pred )
 
 ------------------------------------------------------------------------------
@@ -175,3 +169,10 @@ headS xs = case out xs of
 tailS ∷ Stream a → Stream a
 tailS xs = case out xs of
              St _ xs' → xs'
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Vene, Varmo (2000). Categorical programming with inductive and
+--   coinductive types. PhD thesis. Faculty of Mathematics: University
+--   of Tartu.

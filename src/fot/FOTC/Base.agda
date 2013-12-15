@@ -15,14 +15,6 @@ FOTC                                  The logical framework (Agda)
 * Co-inductively defined predicates   * Greatest fixed-points
 -}
 
--- References:
---
--- • Aczel, Peter (1977). The Strength of MartinLöf’s Intuitionistic
---   Type Theory with One Universe. In: Proc. of the Symposium on
---   Mathematical Logic (Oulu, 1974). Ed. by Miettinen, S. and
---   Väänanen, J. Report No. 2, Department of Philosophy, University
---   of Helsinki, Helsinki, pp. 1–32.
-
 module FOTC.Base where
 
 -- We add 3 to the fixities of the standard library.
@@ -120,3 +112,12 @@ postulate
   t≢f : true ≢ false
   0≢S : ∀ {n} → zero ≢ succ₁ n
 {-# ATP axiom t≢f 0≢S #-}
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Aczel, Peter (1977). The Strength of MartinLöf’s Intuitionistic
+--   Type Theory with One Universe. In: Proc. of the Symposium on
+--   Mathematical Logic (Oulu, 1974). Ed. by Miettinen, S. and
+--   Väänanen, J. Report No. 2, Department of Philosophy, University
+--   of Helsinki, Helsinki, pp. 1–32.

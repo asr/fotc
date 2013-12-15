@@ -13,14 +13,6 @@ open import FOTC.Data.Nat
 -- We add 3 to the fixities of the standard library.
 infix 7 _∣_
 
--- References:
---
--- • Hardy, G. H. and Wright, E. M. (1975). An Introduction to the
---   Theory of Numbers. 4th ed. Oxford University Press.
---
--- • Knuth, Donald E. (1997). The Art of Computer Programming. 3rd
---   ed. Vol. 1. Fundamental Algorithms. Addison-Wesley Professional.
-
 ------------------------------------------------------------------------------
 -- The relation of divisibility (the symbol is '\mid' not '|')
 --
@@ -39,3 +31,12 @@ infix 7 _∣_
 _∣_ : D → D → Set
 m ∣ n = ∃[ k ] N k ∧ n ≡ k * m
 {-# ATP definition _∣_ #-}
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Hardy, G. H. and Wright, E. M. (1975). An Introduction to the
+--   Theory of Numbers. 4th ed. Oxford University Press.
+--
+-- • Knuth, Donald E. (1997). The Art of Computer Programming. 3rd
+--   ed. Vol. 1. Fundamental Algorithms. Addison-Wesley Professional.

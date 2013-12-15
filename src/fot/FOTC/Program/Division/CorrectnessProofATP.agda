@@ -11,16 +11,6 @@
 -- This module proves the correctness of the division program using
 -- repeated subtraction (Dybjer 1985).
 
--- References:
---
--- • Dybjer, Peter (1985). Program Veriﬁcation in a Logical Theory of
---   Constructions. In: Functional Programming Languages and Computer
---   Architecture. Ed. by Jouannaud,
---   Jean-Pierre. Vol. 201. LNCS. Appears in revised form as
---   Programming Methodology Group Report 26, University of Gothenburg
---   and Chalmers University of Technology, June 1986. Springer,
---   pp. 334–349.
-
 module FOTC.Program.Division.CorrectnessProofATP where
 
 open import FOTC.Base
@@ -76,3 +66,14 @@ divCorrect {j = j} Ni Nj j>0 = <-wfind A ih Ni
   ih : ∀ {n} → N n → (∀ {m} → N m → m < n → A m) → A n
   ih {n} Nn ah =
     case (div-x<y-correct Nn Nj) (div-x≮y-correct Nn Nj ah j>0) (x<y∨x≮y Nn Nj)
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Dybjer, Peter (1985). Program Veriﬁcation in a Logical Theory of
+--   Constructions. In: Functional Programming Languages and Computer
+--   Architecture. Ed. by Jouannaud,
+--   Jean-Pierre. Vol. 201. LNCS. Appears in revised form as
+--   Programming Methodology Group Report 26, University of Gothenburg
+--   and Chalmers University of Technology, June 1986. Springer,
+--   pp. 334–349.

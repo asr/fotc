@@ -9,11 +9,6 @@
 -- into an ordered tree and then back to a list (Burstall 1969,
 -- pp. 45-46).
 
--- References:
---
--- • Burstall, R. M. (1969). Proving properties of programs by
---   structural induction. In: The Computer Journal 12.1, pp. 41–48.
-
 module FOTC.Program.SortList.SortList where
 
 open import FOTC.Base
@@ -169,3 +164,9 @@ postulate
 sort : D → D
 sort is = flatten (makeTree is)
 {-# ATP definition sort #-}
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Burstall, R. M. (1969). Proving properties of programs by
+--   structural induction. In: The Computer Journal 12.1, pp. 41–48.

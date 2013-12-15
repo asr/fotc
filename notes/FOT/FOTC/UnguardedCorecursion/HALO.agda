@@ -5,14 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- References:
---
--- • Vytiniotis, D., Peyton Jones, S., Rosén, D. and Claessen,
---   K. (2013). HALO: Haskell to Logic thorugh Denotational
---   Semantics. In: Proceedings of the 40th annual ACM SIGPLAN-SIGACT
---   symposium on Principles of programming languages (POPL’13),
---   pp. 431–442.
-
 module FOT.FOTC.UnguardedCorecursion.HALO where
 
 open import Common.FOL.Relation.Binary.EqReasoning
@@ -131,3 +123,12 @@ thm₃ =  ∞ , ∞-Conat , ≈-coind B h (refl , refl)
   h : B (f ∞) ones →
       ∃[ x' ] ∃[ xs' ] ∃[ ys' ] f ∞ ≡ x' ∷ xs' ∧ ones ≡ x' ∷ ys' ∧ B xs' ys'
   h Bh' = succ₁ zero , f ∞ , ones , trans (fCong ∞-eq) (f-eq₁ ∞) , ones-eq , Bh'
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Vytiniotis, D., Peyton Jones, S., Rosén, D. and Claessen,
+--   K. (2013). HALO: Haskell to Logic thorugh Denotational
+--   Semantics. In: Proceedings of the 40th annual ACM SIGPLAN-SIGACT
+--   symposium on Principles of programming languages (POPL’13),
+--   pp. 431–442.

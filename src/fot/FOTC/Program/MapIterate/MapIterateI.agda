@@ -8,14 +8,6 @@
 -- The map-iterate property (Gibbons and Hutton, 2005):
 -- map f (iterate f x) = iterate f (f · x)
 
--- References:
---
--- • Giménez, Eduardo and Casterán, Pierre (2007). A Tutorial on
---   [Co-]Inductive Types in Coq.
---
--- • Gibbons, Jeremy and Hutton, Graham (2005). Proof Methods for
---   Corecursive Programs. In: Fundamenta Informaticae XX, pp. 1–14.
-
 module FOTC.Program.MapIterate.MapIterateI where
 
 open import Common.FOL.Relation.Binary.EqReasoning
@@ -65,3 +57,9 @@ map-iterate-Stream₂ f x = Stream-coind (λ xs → xs ≡ xs) h refl
         , unfoldMapIterate f x
         , iterate-eq f (f · x)
         , refl
+
+------------------------------------------------------------------------------
+-- References:
+
+-- • Gibbons, Jeremy and Hutton, Graham (2005). Proof Methods for
+--   Corecursive Programs. In: Fundamenta Informaticae XX, pp. 1–14.

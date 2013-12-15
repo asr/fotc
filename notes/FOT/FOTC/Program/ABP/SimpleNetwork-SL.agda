@@ -6,13 +6,6 @@
 {-# OPTIONS --without-K #-}
 
 -- From (Sander, 1992, pp. 68-69).
---
--- References:
---
--- • Sander, Herbert P. (1992). A Logic of Functional Programs with an
---   Application to Concurrency. PhD thesis. Department of Computer
---   Sciences: Chalmers University of Technology and University of
---   Gothenburg.
 
 module FOT.FOTC.Program.ABP.SimpleNetwork-SL where
 
@@ -42,3 +35,12 @@ Ty A = (Stream A → Stream A → Stream A) → (Stream A → Stream A) →
 trans' hys : {A : Set} → Ty A
 trans' f₁ f₂ is = f₂ (hys f₁ f₂ is)
 hys   f₁ f₂ is = f₁ (trans' f₁ f₂ is) is
+
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Sander, Herbert P. (1992). A Logic of Functional Programs with an
+--   Application to Concurrency. PhD thesis. Department of Computer
+--   Sciences: Chalmers University of Technology and University of
+--   Gothenburg.

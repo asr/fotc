@@ -8,13 +8,6 @@ module FOTC.MutualInductivePredicates where
 
 open import FOTC.Base
 
--- References:
-
--- • Blanchette, Jasmin Christian (2013). Relational analysis of
---   (co)inductive predicates, (co)algebraic datatypes, and
---   (co)recursive functions. In: Software Quality Journal 21.1,
---   pp. 101–126.
-
 ------------------------------------------------------------------------------
 -- Using mutual inductive predicates
 
@@ -144,3 +137,11 @@ module FunctionSpace where
   -- Even'→Even (inj₂ x) = {!!}
 
   -- Odd'→Odd h = {!!}
+
+------------------------------------------------------------------------------
+-- References:
+
+-- • Blanchette, Jasmin Christian (2013). Relational analysis of
+--   (co)inductive predicates, (co)algebraic datatypes, and
+--   (co)recursive functions. In: Software Quality Journal 21.1,
+--   pp. 101–126.

@@ -6,11 +6,6 @@ module FOT.Common.FOL.Existential.RequiredWitness where
 -- We need to use the existential witness in some proofs based on the
 -- non-empty domain hypothesis.
 
--- References:
---
--- • Mendelson, Elliott (1997). Introduction to Mathematical
---   Logic. 4th ed. Chapman & Hall.
-
 ------------------------------------------------------------------------------
 
 postulate
@@ -27,3 +22,9 @@ data ∃ (P : D → Set) : Set where
 -- A version of the right-to-left implication.
 l→r : {A : Set} → A → ∃ (λ _ → A)
 l→r a = ∃-intro {x = D≢∅} a
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Mendelson, Elliott (1997). Introduction to Mathematical
+--   Logic. 4th ed. Chapman & Hall.

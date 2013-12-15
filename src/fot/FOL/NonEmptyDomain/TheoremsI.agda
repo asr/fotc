@@ -10,11 +10,6 @@ module FOL.NonEmptyDomain.TheoremsI where
 -- The theorems below are valid on intuitionistic logic.
 open import FOL.Base hiding ( pem )
 
--- References:
---
--- • Mendelson, Elliott (1997). Introduction to Mathematical
---   Logic. 4th ed. Chapman & Hall.
-
 ------------------------------------------------------------------------------
 -- We postulate some formulae and propositional functions.
 postulate
@@ -56,3 +51,9 @@ postulate
   r→l : A ∨ (∃[ x ] A¹ x) → ∃[ x ] A ∨ A¹ x
   r→l (inj₁ a)         = D≢∅ , inj₁ a
   r→l (inj₂ (x , A¹x)) = x , inj₂ A¹x
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Mendelson, Elliott (1997). Introduction to Mathematical
+--   Logic. 4th ed. Chapman & Hall.

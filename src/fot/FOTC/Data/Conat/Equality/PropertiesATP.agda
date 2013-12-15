@@ -5,13 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- References:
---
--- • Sander, Herbert P. (1992). A Logic of Functional Programs with an
---   Application to Concurrency. PhD thesis. Department of Computer
---   Sciences: Chalmers University of Technology and University of
---   Gothenburg.
-
 module FOTC.Data.Conat.Equality.PropertiesATP where
 
 open import FOTC.Base
@@ -43,3 +36,11 @@ open import FOTC.Data.Conat.Equality
 
 postulate ≡→≈N : ∀ {m n} → Conat m → Conat n → m ≡ n → m ≈N n
 {-# ATP prove ≡→≈N ≈N-refl #-}
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Sander, Herbert P. (1992). A Logic of Functional Programs with an
+--   Application to Concurrency. PhD thesis. Department of Computer
+--   Sciences: Chalmers University of Technology and University of
+--   Gothenburg.

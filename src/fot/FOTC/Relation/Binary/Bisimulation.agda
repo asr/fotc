@@ -8,16 +8,6 @@
 -- In FOTC, we won't use the bisimulation functional on unbounded
 -- lists. This module is only for illustrative purposes.
 
--- References:
---
--- • Dybjer, Peter and Sander, Herbert P. (1989). A Functional
---   Programming Approach to the Speciﬁcation and Veriﬁcation of
---   Concurrent Systems. In: Formal Aspects of Computing 1,
---   pp. 303–319.
---
--- • Jacobs, Bart and Rutten, Jan (1997). A Tutorial on (Co)Algebras
---   and (Co)Induction. In: EATCS Bulletin 62, pp. 222–259.
-
 module FOTC.Relation.Binary.Bisimulation where
 
 open import FOTC.Base
@@ -60,3 +50,14 @@ gpfp = ≈-coind
 -- Bisimulation _≈_ ≤ _≈_.
 pre-fp : ∀ {xs ys} → BisimulationF _≈_ xs ys → xs ≈ ys
 pre-fp = ≈-pre-fixed
+
+----------------------------------------------------------------------------
+-- References:
+--
+-- • Dybjer, Peter and Sander, Herbert P. (1989). A Functional
+--   Programming Approach to the Speciﬁcation and Veriﬁcation of
+--   Concurrent Systems. In: Formal Aspects of Computing 1,
+--   pp. 303–319.
+--
+-- • Jacobs, Bart and Rutten, Jan (1997). A Tutorial on (Co)Algebras
+--   and (Co)Induction. In: EATCS Bulletin 62, pp. 222–259.

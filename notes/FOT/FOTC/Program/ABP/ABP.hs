@@ -3,13 +3,6 @@
 
 -- The alternating bit protocol following Dybjer and Herbert (1989).
 
--- References:
---
--- • Dybjer, Peter and Herbert P. Sander (1989). A Functional
---   Programming Approach to the Speciﬁcation and Veriﬁcation of
---   Concurrent Systems. In: Formal Aspects of Computing 1,
---   pp. 303–319.
-
 -- Tested with random 1.0.1.1, QuickCheck 2.6 and streams 3.1.1.
 
 ------------------------------------------------------------------------------
@@ -146,3 +139,11 @@ main = do
 
   print $ S.take n js
   print $ S.take n is == S.take n js
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Dybjer, Peter and Herbert P. Sander (1989). A Functional
+--   Programming Approach to the Speciﬁcation and Veriﬁcation of
+--   Concurrent Systems. In: Formal Aspects of Computing 1,
+--   pp. 303–319.

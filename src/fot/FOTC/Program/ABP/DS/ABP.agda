@@ -7,13 +7,6 @@
 
 -- This module define the auxiliary state for the ABP and the
 -- bisimulation used by Dybjer and Sander (1989).
---
--- References:
---
--- • Dybjer, Peter and Sander, Herbert P. (1989). A Functional
---   Programming Approach to the Speciﬁcation and Veriﬁcation of
---   Concurrent Systems. In: Formal Aspects of Computing 1,
---   pp. 303–319.
 
 module FOTC.Program.ABP.DS.ABP where
 
@@ -48,3 +41,11 @@ B is js = ∃[ b ] ∃[ os₁ ] ∃[ os₂ ] ∃[ as ] ∃[ bs ] ∃[ cs ] ∃[ 
             ∧ Fair os₂
             ∧ S b is os₁ os₂ as bs cs ds js
 {-# ATP definition B #-}
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Dybjer, Peter and Sander, Herbert P. (1989). A Functional
+--   Programming Approach to the Speciﬁcation and Veriﬁcation of
+--   Concurrent Systems. In: Formal Aspects of Computing 1,
+--   pp. 303–319.

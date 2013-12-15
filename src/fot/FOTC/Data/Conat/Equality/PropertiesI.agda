@@ -5,13 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- References:
---
--- • Herbert P. Sander. A logic of functional programs with an
---   application to concurrency. PhD thesis, Chalmers University of
---   Technology and University of Gothenburg, Department of Computer
---   Sciences, 1992.
-
 module FOTC.Data.Conat.Equality.PropertiesI where
 
 open import FOTC.Base
@@ -48,3 +41,11 @@ open import FOTC.Data.Conat.Equality
 
 ≡→≈N : ∀ {m n} → Conat m → Conat n → m ≡ n → m ≈N n
 ≡→≈N Cm _ refl = ≈N-refl Cm
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Sander, Herbert P. (1992). A Logic of Functional Programs with an
+--   Application to Concurrency. PhD thesis. Department of Computer
+--   Sciences: Chalmers University of Technology and University of
+--   Gothenburg.

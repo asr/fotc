@@ -17,12 +17,6 @@ module DistributiveLaws.README where
 --             (( x ∙ y ∙ ( z ∙ u)) ∙ (x ∙ z ∙ (y ∙ u))) ≡
 --             x ∙ z ∙ (y ∙ u).
 
--- References:
---
--- • Stanovský, David (2008). Distributive Groupoids are
---   Symmetrical-by-Medial: An Elementary Proof. In: Commentations
---   Mathematicae Universitatis Carolinae 49.4, pp. 541–546.
-
 ------------------------------------------------------------------------------
 -- The axioms
 open import DistributiveLaws.Base
@@ -34,3 +28,10 @@ open import DistributiveLaws.TaskB-TopDownATP
 
 -- Unproven theorem by the ATPs
 open import DistributiveLaws.TaskB.UnprovedATP
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Stanovský, David (2008). Distributive Groupoids are
+--   Symmetrical-by-Medial: An Elementary Proof. In: Commentations
+--   Mathematicae Universitatis Carolinae 49.4, pp. 541–546.

@@ -5,11 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- References:
---
--- • Mendelson, Elliott (1997). Introduction to Mathematical
---   Logic. 4th ed. Chapman & Hall.
-
 module FOL.NonEmptyDomain.TheoremsATP where
 
 open import FOL.Base
@@ -35,3 +30,9 @@ postulate ∀-erase-add : ((x : D) → A) ↔ A
 
 postulate ∃-erase-add₂ : (∃[ x ] A ∨ A¹ x) ↔ A ∨ (∃[ x ] A¹ x)
 {-# ATP prove ∃-erase-add₂ #-}
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Mendelson, Elliott (1997). Introduction to Mathematical
+--   Logic. 4th ed. Chapman & Hall.

@@ -3,14 +3,6 @@
 
 module LeibnizEquality where
 
--- References:
---
--- • Hofmann, Martin (1995). Extensional concepts in intensional type
---   theory. PhD thesis. University of Edinburgh.
-
--- • Luo, Zhaohui (1994). Computation and Reasoning. A Type Theory for
---   Computer Science. Oxford University Press.
-
 ------------------------------------------------------------------------------
 -- The identity type.
 data _≡_ {A : Set}(x : A) : A → Set where
@@ -47,3 +39,12 @@ x ≐ y = (P : _ → Set) → P x → P y
 
 ≡→≐ : {A : Set}{x y : A} → x ≡ y → x ≐ y
 ≡→≐ refl P Px = Px
+
+------------------------------------------------------------------------------
+-- References:
+--
+-- • Hofmann, Martin (1995). Extensional concepts in intensional type
+--   theory. PhD thesis. University of Edinburgh.
+
+-- • Luo, Zhaohui (1994). Computation and Reasoning. A Type Theory for
+--   Computer Science. Oxford University Press.
