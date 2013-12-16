@@ -15,6 +15,7 @@ open import FOTC.Data.Conat.Equality
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI
 open import FOTC.Data.Stream
+open import FOTC.Data.Stream.PropertiesI using ( Stream-pre-fixed )
 
 ------------------------------------------------------------------------------
 
@@ -30,6 +31,19 @@ zeros-Stream = Stream-coind A h refl
 
   h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
   h Axs = zero , zeros , trans Axs zeros-eq , refl
+
+-- ++-Stream with a diferent type.
+++-Stream : ∀ {xs ys} → Stream xs → Stream ys → Stream (xs ++ ys)
+++-Stream {xs} {ys} Sxs Sys with Stream-unf Sxs
+... | x' , xs' , prf , Sxs' = subst Stream prf₁ prf₂
+  where
+  prf₁ : x' ∷ (xs' ++ ys) ≡ xs ++ ys
+  prf₁ = trans (sym (++-∷ x' xs' ys)) (++-leftCong (sym prf))
+
+  -- TODO (15 December 2013): Why the termination checker accepts the
+  -- recursive called ++-Stream_Sxs'_Sys?
+  prf₂ : Stream (x' ∷ xs' ++ ys)
+  prf₂ = Stream-pre-fixed (x' , xs' ++ ys , refl , ++-Stream Sxs' Sys)
 
 -- A proof of streamLength using a non-trivial relation. Adapted from
 -- (Sander 1992, p. 58).

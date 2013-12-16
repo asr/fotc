@@ -12,6 +12,8 @@ open import FOTC.Base.List
 open import FOTC.Base.List.PropertiesI
 open import FOTC.Data.Conat
 open import FOTC.Data.Conat.Equality
+open import FOTC.Data.Colist
+open import FOTC.Data.Colist.PropertiesI
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI
 open import FOTC.Data.Stream
@@ -36,17 +38,50 @@ Stream-pre-fixed {xs} h = Stream-coind (λ ys → ys ≡ ys) h' refl
 ... | x' , xs' , prf , Sxs' =
   subst Stream (sym (∧-proj₂ (∷-injective prf))) Sxs'
 
-++-Stream : ∀ {xs ys} → Stream xs → Stream ys → Stream (xs ++ ys)
-++-Stream {xs} {ys} Sxs Sys with Stream-unf Sxs
-... | x' , xs' , prf , Sxs' = subst Stream prf₁ prf₂
+Stream→Colist : ∀ {xs} → Stream xs → Colist xs
+Stream→Colist Sxs with Stream-unf Sxs
+... | x' , xs' , prf , Sxs' =
+  Colist-coind
+    (λ ys → ys ≡ ys)
+    (λ _ → inj₂ (x' , xs' , prf , refl))
+    refl
+
+++-Stream : ∀ {xs ys} → Colist xs → Stream ys → Stream (xs ++ ys)
+++-Stream {xs} {ys} CLxs Sys with Colist-unf CLxs
+... | inj₁ prf = subst Stream (sym prf₁) Sys
   where
-  prf₁ : x' ∷ (xs' ++ ys) ≡ xs ++ ys
-  prf₁ = trans (sym (++-∷ x' xs' ys)) (++-leftCong (sym prf))
+  prf₁ : xs ++ ys ≡ ys
+  prf₁ = trans (++-leftCong prf) (++-[] ys)
+
+... | inj₂ (x' , xs' , prf , CLxs') = subst Stream (sym prf₁) prf₂
+  where
+  prf₁ : xs ++ ys ≡ x' ∷ (xs' ++ ys)
+  prf₁ = trans (++-leftCong prf) (++-∷ x' xs' ys)
+
+  prf₂ : Stream (x' ∷ xs' ++ ys)
+  prf₂ = Stream-coind
+           (λ zs → zs ≡ zs)
+           (λ _ → x' , xs' ++ ys , refl , refl)
+           refl
+
+-- A different proof.
+++-Stream' : ∀ {xs ys} → Colist xs → Stream ys → Stream (xs ++ ys)
+++-Stream' {xs} {ys} CLxs Sys with Colist-unf CLxs
+... | inj₁ prf = subst Stream (sym prf₁) Sys
+  where
+  prf₁ : xs ++ ys ≡ ys
+  prf₁ = trans (++-leftCong prf) (++-[] ys)
+
+... | inj₂ (x' , xs' , prf , CLxs') = subst Stream (sym prf₁) prf₂
+  where
+  prf₁ : xs ++ ys ≡ x' ∷ (xs' ++ ys)
+  prf₁ = trans (++-leftCong prf) (++-∷ x' xs' ys)
 
   -- TODO (15 December 2013): Why the termination checker accepts the
-  -- recursive called ++-Stream_Sxs'_Sys?
+  -- recursive called ++-Stream_CLxs'_Sys?
   prf₂ : Stream (x' ∷ xs' ++ ys)
-  prf₂ = Stream-pre-fixed (x' , xs' ++ ys , refl , ++-Stream Sxs' Sys)
+  prf₂ = Stream-pre-fixed
+           (x' , (xs' ++ ys) , refl , ++-Stream CLxs' Sys)
 
 streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞
 streamLength {xs} Sxs = ≈N-coind (λ m _ → m ≡ m) h refl
