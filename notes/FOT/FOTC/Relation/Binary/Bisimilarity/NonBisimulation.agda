@@ -15,5 +15,8 @@ h : ∀ {xs} → Stream xs → xs ≡ xs →
 h Sxs _ with Stream-unf Sxs
 ... | x' , xs' , xs≡x'∷xs' , _ = x' , xs' , xs' , xs≡x'∷xs' , xs≡x'∷xs' , refl
 
+-- Andrés: Is λ ys _ → ys ≡ ys a bisimulation?
+--
+-- Peter: It is just a bisimulation on the subset Stream xs.
 ≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
 ≈-refl {xs} Sxs = ≈-coind (λ ys _ → ys ≡ ys) (h Sxs) refl
