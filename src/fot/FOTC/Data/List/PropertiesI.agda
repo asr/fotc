@@ -327,7 +327,8 @@ reverse'-involutive (lcons x {xs} Lxs) =
     ≡⟨ reverse'Cong (reverse'-∷ x xs) ⟩
   reverse' (reverse' xs ++ (x ∷ []))
     ≡⟨ reverse'-involutive-helper x (reverse'-List Lxs) ⟩
-  x ∷ reverse' (reverse' xs) ≡⟨ ∷-rightCong (reverse'-involutive Lxs) ⟩
+  x ∷ reverse' (reverse' xs)
+    ≡⟨ ∷-rightCong (reverse'-involutive Lxs) ⟩
   x ∷ xs ∎
 
 ------------------------------------------------------------------------------
