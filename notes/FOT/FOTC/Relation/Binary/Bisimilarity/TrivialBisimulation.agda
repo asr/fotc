@@ -1,7 +1,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOT.FOTC.Relation.Binary.Bisimilarity.NonBisimulation where
+module FOT.FOTC.Relation.Binary.Bisimilarity.TrivialBisimulation where
 
 open import FOTC.Base
 open import FOTC.Base.List
@@ -19,4 +19,13 @@ h Sxs _ with Stream-unf Sxs
 --
 -- Peter: It is just a bisimulation on the subset Stream xs.
 ≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
-≈-refl {xs} Sxs = ≈-coind (λ ys _ → ys ≡ ys) (h Sxs) refl
+≈-refl Sxs = ≈-coind (λ ys _ → ys ≡ ys) (h Sxs) refl
+
+------------------------------------------------------------------------------
+-- Trivial binary relation, that is, R = D × D.
+R : D → D → Set
+R t _ = t ≡ t
+
+-- ∀ s t. (s, t) ∈ R.
+sRt : (s t : D) → R s t
+sRt _ _ = refl
