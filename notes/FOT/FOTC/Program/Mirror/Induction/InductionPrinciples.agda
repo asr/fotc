@@ -26,8 +26,8 @@ Forest-ind : (A : D → Set) →
              A [] →
              (∀ {t ts} → Tree t → Forest ts → A ts → A (t ∷ ts)) →
              ∀ {ts} → Forest ts → A ts
-Forest-ind A Anil h fnil           = Anil
-Forest-ind A Anil h (fcons Tt Fts) = h Tt Fts (Forest-ind A Anil h Fts)
+Forest-ind A A[] h fnil           = A[]
+Forest-ind A A[] h (fcons Tt Fts) = h Tt Fts (Forest-ind A A[] h Fts)
 
 ------------------------------------------------------------------------------
 -- References

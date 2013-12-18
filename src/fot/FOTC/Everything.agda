@@ -39,6 +39,7 @@ open import FOTC.Data.Conat.Type.Consistency.Axioms
 open import FOTC.Data.List
 open import FOTC.Data.List.Consistency.Axioms
 open import FOTC.Data.List.PropertiesATP
+open import FOTC.Data.List.PropertiesByInductionI
 open import FOTC.Data.List.PropertiesByInductionATP
 open import FOTC.Data.List.PropertiesI
 open import FOTC.Data.List.Type

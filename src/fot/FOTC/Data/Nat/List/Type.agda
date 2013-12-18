@@ -24,5 +24,5 @@ ListN-ind : (A : D → Set) →
             A [] →
             (∀ {n ns} → N n → A ns → A (n ∷ ns)) →
             ∀ {ns} → ListN ns → A ns
-ListN-ind A Anil h lnnil           = Anil
-ListN-ind A Anil h (lncons Nn Lns) = h Nn (ListN-ind A Anil h Lns)
+ListN-ind A A[] h lnnil           = A[]
+ListN-ind A A[] h (lncons Nn Lns) = h Nn (ListN-ind A A[] h Lns)
