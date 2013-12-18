@@ -49,7 +49,7 @@ pred-N₁ = N-ind₁ A A0 is
 --   A0 : A zero
 --   A0 = subst N (sym pred-0) nzero
 
---   -- We miss the hypothesis N i.
+--   -- We need the hypothesis N i.
 --   is : ∀ {i} → A i → A (succ₁ i)
 --   is {i} ih = subst N (sym (pred-S i)) {!!}
 

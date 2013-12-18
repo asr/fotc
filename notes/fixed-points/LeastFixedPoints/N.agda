@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- From N as the least fixed-point to N using data
+-- From N as the least fixed-point to N using Agda's data constructor
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -17,8 +17,6 @@ module LeastFixedPoints.N where
 
 open import FOTC.Base
 open import FOTC.Base.PropertiesI
-
--- infixl 9 _+_
 
 ------------------------------------------------------------------------------
 -- Basic definitions
@@ -57,7 +55,7 @@ cong f refl = refl
 
 -- The functor.
 NatF : (D → Set) → D → Set
-NatF P n = n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ P n')
+NatF A n = n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
 
 -- The natural numbers are the least fixed-point of NatF.
 postulate
@@ -172,7 +170,7 @@ N-ind₂ A A0 is {n} = N-least-pre-fixed A h
 
 postulate
   _+_  : D → D → D
-  +-0x : ∀ d →   zero    + d ≡ d
+  +-0x : ∀ d → zero + d      ≡ d
   +-Sx : ∀ d e → succ₁ d + e ≡ succ₁ (d + e)
 
 +-leftIdentity : ∀ n → zero + n ≡ n
@@ -195,6 +193,21 @@ postulate
     is {i} ih = subst N (sym (+-Sx i n)) (nsucc ih)
 
 ------------------------------------------------------------------------------
+-- Example: Indirect proof using N-least-pre-fixed.
+
+pred-N₁ : ∀ {n} → N n → N (pred₁ n)
+pred-N₁ = N-ind₁ A A0 is
+  where
+  A : D → Set
+  A i = N (pred₁ i)
+
+  A0 : A zero
+  A0 = subst N (sym pred-0) nzero
+
+  is : ∀ {i} → N i → A i → A (succ₁ i)
+  is {i} Ni ih = subst N (sym (pred-S i)) Ni
+
+------------------------------------------------------------------------------
 -- From/to N as a least fixed-point to/from N as data type.
 
 open import FOTC.Data.Nat.Type renaming
@@ -208,9 +221,9 @@ N'→N nzero'      = nzero
 N'→N (nsucc' Nn) = nsucc (N'→N Nn)
 
 -- Using N-ind₁.
-N-→N' : ∀ {n} → N n → N' n
-N-→N' = N-ind₁ N' nzero' (λ _ → nsucc')
+N→N' : ∀ {n} → N n → N' n
+N→N' = N-ind₁ N' nzero' (λ _ → nsucc')
 
 -- Using N-ind₂.
-N-→N'₁ : ∀ {n} → N n → N' n
-N-→N'₁ = N-ind₂ N' nzero' nsucc'
+N→N'₁ : ∀ {n} → N n → N' n
+N→N'₁ = N-ind₂ N' nzero' nsucc'
