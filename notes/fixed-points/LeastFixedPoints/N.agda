@@ -195,6 +195,9 @@ postulate
 ------------------------------------------------------------------------------
 -- Example: Indirect proof using N-least-pre-fixed.
 
+-- TODO (18 December 2013): Direct proof using of pred-N using
+-- N-least-pre-fixed.
+
 pred-N₁ : ∀ {n} → N n → N (pred₁ n)
 pred-N₁ = N-ind₁ A A0 is
   where
