@@ -67,7 +67,7 @@ x∣y→x∣z→x∣y+z (nsucc Nm) Nn No
   (λ S≡0 → ⊥-elim (S≢0 S≡0))
   , k + k' , +-N Nk Nk' , x∣y→x∣z→x∣y+z-helper Nm Nk Nk' h₁ h₂
 
--- If x divides y, and y is positive, then x ≤ y.
+-- If x divides y and y is positive, then x ≤ y.
 postulate x∣S→x≤S-ah₁ : ∀ {m n} → succ₁ n ≡ zero * succ₁ m → ⊥
 {-# ATP prove x∣S→x≤S-ah₁ #-}
 

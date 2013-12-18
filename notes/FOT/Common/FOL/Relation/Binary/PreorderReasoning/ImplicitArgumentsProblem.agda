@@ -56,7 +56,7 @@ module Thesis where
   _qed : {A : Set}{x y : A} → x ≃ y → R x y
   prf p qed = p
 
-  -- Example (no problem with implicit arguments)
+  -- Example (no problem with implicit arguments).
   test : (x y : ℕ) → R x y
   test x y =
     chain> x
@@ -92,12 +92,8 @@ module SL where
     ∎
 
 module NonWrapper where
-  -- A set of combinators without request a wrapper data type.
-
-  -- From: Shin-Cheng Mu, Hsiang-Shang Ko, and Patrick
-  -- Jansson. Algebra of programming in Agda: Dependent types for
-  -- relational program derivation. Journal of Functional Programming,
-  -- 19(5):545–579, 2009.
+  -- A set of combinators without request a wrapper data type (Mu,
+  -- S.-C., Ko, H.-S. and Jansson, P. (2009)).
 
   infixr 5 _≡⟨_⟩_
   infix  5 _∎
@@ -112,3 +108,11 @@ module NonWrapper where
   test : (x y : ℕ) → R x y
   test x y = x ≡⟨ tt ⟩
              y ∎
+
+------------------------------------------------------------------------------
+-- References
+--
+-- • Mu, S.-C., Ko, H.-S. and Jansson, P. (2009). Algebra of
+--   programming in Agda: Dependent types for relational program
+--   derivation. In: Journal of Functional Programming 19.5,
+--   pp. 545–579.

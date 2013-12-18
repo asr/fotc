@@ -161,7 +161,7 @@ module Helper where
 
 ------------------------------------------------------------------------------
 -- From Dybjer and Sander's paper: From the assumption that
--- os₂' ∈ Fair, and hence by unfolding Fair we conclude that there are
+-- os₂' ∈ Fair and hence by unfolding Fair, we conclude that there are
 -- ft₂ : F*T and os₂'' : Fair, such that os₂' = ft₂ ++ os₂''.
 --
 -- We proceed by induction on ft₂ : F*T using helper.

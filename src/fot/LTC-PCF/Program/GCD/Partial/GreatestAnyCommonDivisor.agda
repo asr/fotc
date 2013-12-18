@@ -18,7 +18,7 @@ module LTC-PCF.Program.GCD.Partial.GreatestAnyCommonDivisor
 open import LTC-PCF.Program.GCD.Partial.Definitions
 
 ---------------------------------------------------------------------------
--- Knowing that gcd is a common divisor of m and n, and that any other
+-- Knowing that gcd is a common divisor of m and n and that any other
 -- common divisor of m and n divides it, we can prove that gcd is the
 -- largest common divisor.
 

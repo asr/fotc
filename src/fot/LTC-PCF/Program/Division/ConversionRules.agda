@@ -81,7 +81,7 @@ private
 
     where
       • P is given by \m → ... m ... ≡ ... n ...,
-      • x ≡ y is given n ≡ m (actually, we use ≡-sym (m ≡ n)), and
+      • x ≡ y is given n ≡ m (actually, we use ≡-sym (m ≡ n)) and
       • P x is given by ... n ... ≡ ... n ... (i.e. ≡-refl)
     -}
 

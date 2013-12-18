@@ -47,7 +47,7 @@ map-iterate-Stream₂ f x = Stream-coind (λ xs → xs ≡ xs) h refl
   {-# ATP prove h #-}
 
 ------------------------------------------------------------------------------
--- References:
-
+-- References
+--
 -- • Gibbons, Jeremy and Hutton, Graham (2005). Proof Methods for
 --   Corecursive Programs. In: Fundamenta Informaticae XX, pp. 1–14.

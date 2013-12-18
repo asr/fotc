@@ -20,7 +20,7 @@ open import FOTC.Relation.Binary.Bisimilarity.PropertiesI
 -- post-fixed point of Bisimulation (by post-fp and gpfp).
 
 -- The bisimulation functional on unbounded lists (adapted from Dybjer
--- and Sander 1989, p. 310, and Jacobs and Rutten 1997, p. 30).
+-- and Sander 1989, p. 310 and Jacobs and Rutten 1997, p. 30).
 BisimulationF : (D → D → Set) → D → D → Set
 BisimulationF B xs ys =
   ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
@@ -52,7 +52,7 @@ pre-fp : ∀ {xs ys} → BisimulationF _≈_ xs ys → xs ≈ ys
 pre-fp = ≈-pre-fixed
 
 ----------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Dybjer, Peter and Sander, Herbert P. (1989). A Functional
 --   Programming Approach to the Speciﬁcation and Veriﬁcation of

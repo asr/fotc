@@ -125,7 +125,7 @@ thm₃ =  ∞ , ∞-Conat , ≈-coind B h (refl , refl)
   h Bh' = succ₁ zero , f ∞ , ones , trans (fCong ∞-eq) (f-eq₁ ∞) , ones-eq , Bh'
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Vytiniotis, D., Peyton Jones, S., Rosén, D. and Claessen,
 --   K. (2013). HALO: Haskell to Logic thorugh Denotational

@@ -4,7 +4,7 @@
 
 -- Code accompanying the paper Combining Interactive and Automatic
 -- Reasoning in First Order Theories of Functional Programs by Ana
--- Bove, Peter Dybjer, and Andrés Sicard-Ramírez (FoSSaCS 2012).
+-- Bove, Peter Dybjer and Andrés Sicard-Ramírez (FoSSaCS 2012).
 
 -- The code presented here does not match the paper exactly.
 
@@ -18,7 +18,7 @@ module README where
 -- out by first-order automatic theorem provers (ATPs).
 
 ------------------------------------------------------------------------------
--- Paper, prerequisites, tested versions of the ATPS, and use
+-- Paper, prerequisites, tested versions of the ATPS and use
 
 -- See https://github.com/asr/fotc/.
 

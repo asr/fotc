@@ -38,7 +38,7 @@ hys   f₁ f₂ is = f₁ (trans' f₁ f₂ is) is
 
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Sander, Herbert P. (1992). A Logic of Functional Programs with an
 --   Application to Concurrency. PhD thesis. Department of Computer

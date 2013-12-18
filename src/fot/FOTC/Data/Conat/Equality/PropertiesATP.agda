@@ -38,7 +38,7 @@ postulate ≡→≈N : ∀ {m n} → Conat m → Conat n → m ≡ n → m ≈N 
 {-# ATP prove ≡→≈N ≈N-refl #-}
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Sander, Herbert P. (1992). A Logic of Functional Programs with an
 --   Application to Concurrency. PhD thesis. Department of Computer

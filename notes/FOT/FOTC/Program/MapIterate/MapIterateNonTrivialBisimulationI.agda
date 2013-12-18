@@ -38,7 +38,7 @@ open import FOTC.Program.MapIterate.MapIterateI
     , ((f · y) , refl , refl)
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Giménez, Eduardo and Casterán, Pierre (2007). A Tutorial on
 --   [Co-]Inductive Types in Coq.

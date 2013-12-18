@@ -42,7 +42,7 @@ div-x<y-resultCorrect Ni Nj i<j = _ , Ni , i<j , div-x<y-helper Ni Nj i<j
 
 -- From that we get
 --
--- i = j * (succ (div (i ∸ j) j)) + r, and we know
+-- i = j * (succ (div (i ∸ j) j)) + r and we know
 --
 -- div i j = succ (div (i ∸ j) j) therefore we get
 --

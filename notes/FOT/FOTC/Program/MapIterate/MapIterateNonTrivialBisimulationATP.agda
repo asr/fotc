@@ -38,7 +38,7 @@ open import FOTC.Relation.Binary.Bisimilarity
   {-# ATP prove h₂ #-}
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Giménez, Eduardo and Casterán, Pierre (2007). A Tutorial on
 --   [Co-]Inductive Types in Coq.

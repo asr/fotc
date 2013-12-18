@@ -190,9 +190,9 @@ module Helper where
     ihS = as^-eq , refl , refl , refl , js-eq
 
 ------------------------------------------------------------------------------
--- From Dybjer and Sander's paper: From the assumption that
--- os₁ ∈ Fair, and hence by unfolding Fair we conclude that there are
--- ft₁ :  F*T and os₁' : Fair, such that os₁ = ft₁ ++ os₁'.
+-- From Dybjer and Sander's paper: From the assumption that os₁ ∈ Fair
+-- and hence by unfolding Fair, we conclude that there are ft₁ :  F*T
+-- and os₁' : Fair, such that os₁ = ft₁ ++ os₁'.
 --
 -- We proceed by induction on ft₁ : F*T using helper.
 

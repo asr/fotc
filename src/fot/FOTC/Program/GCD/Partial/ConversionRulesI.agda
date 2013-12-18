@@ -26,7 +26,7 @@ private
 
   -- proof₂₋₃ : ∀ m n → gcd-s₂ m n → gcd-s₃ m n.
 
-  -- The functions gcd-00, gcd-S0, gcd-0S, gcd-Sm>Sn, and gcd-Sm≯Sn
+  -- The functions gcd-00, gcd-S0, gcd-0S, gcd-Sm>Sn and gcd-Sm≯Sn
   -- show the use of the states gcd-s₁, gcd-s₂, ..., and the proofs
   -- associated with the execution steps.
 
@@ -128,7 +128,7 @@ private
 
   where
    • P is given by λ m → C [m ] ≡ C [n],
-   • x ≡ y is given n ≡ m (actually, we use sym (m ≡ n)), and
+   • x ≡ y is given n ≡ m (actually, we use sym (m ≡ n)) and
    • P x is given by C [n] ≡ C [n] (i.e. refl).
   -}
 

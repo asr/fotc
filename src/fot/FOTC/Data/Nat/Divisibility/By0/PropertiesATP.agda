@@ -51,7 +51,7 @@ x∣y→x∣z→x∣y+z : ∀ {m n o} → N m → N n → N o → m ∣ n → m 
 x∣y→x∣z→x∣y+z Nm Nn No (k , Nk , h₁) (k' , Nk' , h₂) =
   k + k' , +-N Nk Nk' , x∣y→x∣z→x∣y+z-helper Nm Nk Nk' h₁ h₂
 
--- If x divides y, and y is positive, then x ≤ y.
+-- If x divides y and y is positive, then x ≤ y.
 postulate x∣S→x≤S-helper₁ : ∀ {m n} → succ₁ n ≡ zero * m → ⊥
 {-# ATP prove x∣S→x≤S-helper₁ #-}
 

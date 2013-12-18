@@ -32,7 +32,7 @@ postulate ∃-erase-add₂ : (∃[ x ] A ∨ A¹ x) ↔ A ∨ (∃[ x ] A¹ x)
 {-# ATP prove ∃-erase-add₂ #-}
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Mendelson, Elliott (1997). Introduction to Mathematical
 --   Logic. 4th ed. Chapman & Hall.

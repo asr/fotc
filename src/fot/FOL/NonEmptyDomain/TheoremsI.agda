@@ -53,7 +53,7 @@ postulate
   r→l (inj₂ (x , A¹x)) = x , inj₂ A¹x
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Mendelson, Elliott (1997). Introduction to Mathematical
 --   Logic. 4th ed. Chapman & Hall.

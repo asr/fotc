@@ -117,7 +117,7 @@ S b is os₁ os₂ as bs cs ds js =
 {-# ATP definition S #-}
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Dybjer, Peter and Sander, Herbert P. (1989). A Functional
 --   Programming Approach to the Speciﬁcation and Veriﬁcation of

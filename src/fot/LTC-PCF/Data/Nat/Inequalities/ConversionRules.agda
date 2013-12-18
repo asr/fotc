@@ -25,7 +25,7 @@ private
   --
   -- proof₁→proof₂ : ∀ m n → lt-s₂ m n → lt-s₃ m n.
 
-  -- The terms lt-00, lt-0S, lt-S0, and lt-SS show the use of the
+  -- The terms lt-00, lt-0S, lt-S0 and lt-SS show the use of the
   -- states lt-s₁, lt-s₂, ..., and the proofs associated with the
   -- execution steps.
 
@@ -119,7 +119,7 @@ private
 
     where
       • P is given by λ t → C [m] ≡ C [t],
-      • x ≡ y is given m ≡ n, and
+      • x ≡ y is given m ≡ n and
       • P x is given by C [m] ≡ C [m] (i.e. refl).
   -}
 

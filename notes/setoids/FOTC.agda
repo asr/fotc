@@ -151,7 +151,7 @@ module LeibnizEquality where
     h₂ (λ z → A (x' · z)) (h₁ (λ z → A (z · y)) Axx')
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Barthe, Gilles, Capretta, Venanzio and Pons, Olivier
 --   (2003). Setoids in type theory. In: Journal of Functional

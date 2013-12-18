@@ -75,7 +75,7 @@ abpTransfer-Stream : ∀ {b is os₁ os₂} →
 abpTransfer-Stream Bb Sis Fos₁ Fos₂ = ≈→Stream₂ (abpCorrect Bb Sis Fos₁ Fos₂)
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Dybjer, Peter and Sander, Herbert P. (1989). A Functional
 --   Programming Approach to the Speciﬁcation and Veriﬁcation of

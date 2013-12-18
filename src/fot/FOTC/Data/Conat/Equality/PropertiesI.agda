@@ -43,7 +43,7 @@ open import FOTC.Data.Conat.Equality
 ≡→≈N Cm _ refl = ≈N-refl Cm
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Sander, Herbert P. (1992). A Logic of Functional Programs with an
 --   Application to Concurrency. PhD thesis. Department of Computer

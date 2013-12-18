@@ -114,7 +114,7 @@ postulate
 {-# ATP axiom t≢f 0≢S #-}
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Aczel, Peter (1977). The Strength of MartinLöf’s Intuitionistic
 --   Type Theory with One Universe. In: Proc. of the Symposium on

@@ -27,7 +27,7 @@ Conat→N Cn with Conat-unf Cn
   h An = inj₂ (∞ , trans An ∞-eq , refl)
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Sander, Herbert P. (1992). A Logic of Functional Programs with an
 --   Application to Concurrency. PhD thesis. Department of Computer

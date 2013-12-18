@@ -51,7 +51,7 @@ postulate
   ℕ-ind : (A : ℕ → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Machover, Moshé (1996). Set theory, Logic and their
 --   Limitations. Cambridge University Press.

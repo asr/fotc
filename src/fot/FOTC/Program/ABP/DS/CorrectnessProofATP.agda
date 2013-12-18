@@ -53,7 +53,7 @@ postulate
 {-# ATP prove abpTransfer-Stream ≈→Stream₂ abpCorrect #-}
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Dybjer, Peter and Sander, Herbert P. (1989). A Functional
 --   Programming Approach to the Speciﬁcation and Veriﬁcation of

@@ -21,7 +21,7 @@ Y₁ : (D → D) → D
 Y₁ f = Y · lam f
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Barendregt, Henk (2004). The Lambda Calculus. Its Syntax and
 --   Semantics. 2nd ed. Vol. 103. Studies in Logic and the Foundations

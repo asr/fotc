@@ -65,7 +65,7 @@ divCorrect {j = j} Ni Nj j>0 = <-wfind A ih Ni
     case (div-x<y-correct Nn Nj) (div-x≮y-correct Nn Nj ah j>0) (x<y∨x≮y Nn Nj)
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Dybjer, Peter (1985). Program Veriﬁcation in a Logical Theory of
 --   Constructions. In: Functional Programming Languages and Computer

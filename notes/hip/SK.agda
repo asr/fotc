@@ -35,7 +35,7 @@ postulate thm : ∀ x → S · K · K · x ≡ id x
 {-# ATP prove thm #-}
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Rosén, D. (2012). Proving Equational Haskell Properties Using
 --   Automated Theorem Provers. MA thesis. University of Gothenburg.

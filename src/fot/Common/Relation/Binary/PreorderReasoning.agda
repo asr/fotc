@@ -17,15 +17,21 @@ infixr 5 _∼⟨_⟩_
 infix  5 _∎
 
 ------------------------------------------------------------------------------
--- From: Shin-Cheng Mu, Hsiang-Shang Ko, and Patrick Jansson. Algebra
--- of programming in Agda: Dependent types for relational program
--- derivation. Journal of Functional Programming, 19(5):545–579, 2009.
-
+-- From (Mu, S.-C., Ko, H.-S. and Jansson, P. (2009)).
+--
 -- N.B. Unlike Ulf's thesis (and the Agda standard library) this set
--- of combinators do not need a wrapper data type.
+-- of combinators do not use a wrapper data type.
 
 _∼⟨_⟩_ : ∀ x {y z} → x ∼ y → y ∼ z → x ∼ z
 _ ∼⟨ x∼y ⟩ y∼z = trans x∼y y∼z
 
 _∎ : ∀ x → x ∼ x
 _∎ _ = refl
+
+------------------------------------------------------------------------------
+-- References
+--
+-- • Mu, S.-C., Ko, H.-S. and Jansson, P. (2009). Algebra of
+--   programming in Agda: Dependent types for relational program
+--   derivation. In: Journal of Functional Programming 19.5,
+--   pp. 545–579.

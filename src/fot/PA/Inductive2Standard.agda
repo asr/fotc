@@ -44,7 +44,7 @@ PA₆ : ∀ m n → succ m * n ≡ n + m * n
 PA₆ m n = refl
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Machover, Moshé (1996). Set theory, Logic and their
 --   Limitations. Cambridge University Press.

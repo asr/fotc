@@ -68,7 +68,7 @@ x∣y→x∣z→x∣y+z : ∀ {m n o} → N m → N n → N o → m ∣ n → m 
 x∣y→x∣z→x∣y+z Nm Nn No (k , Nk , h₁) (k' , Nk' , h₂) =
   k + k' , +-N Nk Nk' , x∣y→x∣z→x∣y+z-helper Nm Nk Nk' h₁ h₂
 
--- If x divides y, and y is positive, then x ≤ y.
+-- If x divides y and y is positive, then x ≤ y.
 x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → m ≤ succ₁ n
 x∣S→x≤S {m} Nm Nn (.zero , nzero , Sn≡0*m) =
   ⊥-elim (0≢S (trans (sym (*-leftZero m)) (sym Sn≡0*m)))

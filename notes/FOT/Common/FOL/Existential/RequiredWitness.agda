@@ -24,7 +24,7 @@ l→r : {A : Set} → A → ∃ (λ _ → A)
 l→r a = ∃-intro {x = D≢∅} a
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Mendelson, Elliott (1997). Introduction to Mathematical
 --   Logic. 4th ed. Chapman & Hall.

@@ -18,7 +18,7 @@ open import PA.Axiomatic.Standard.PropertiesATP
 open import PA.Axiomatic.Standard.PropertiesI
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Machover, Moshé (1996). Set theory, Logic and their
 --   Limitations. Cambridge University Press.

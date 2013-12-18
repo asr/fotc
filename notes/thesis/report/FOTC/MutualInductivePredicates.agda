@@ -139,8 +139,8 @@ module FunctionSpace where
   -- Odd'→Odd h = {!!}
 
 ------------------------------------------------------------------------------
--- References:
-
+-- References
+--
 -- • Blanchette, Jasmin Christian (2013). Relational analysis of
 --   (co)inductive predicates, (co)algebraic datatypes, and
 --   (co)recursive functions. In: Software Quality Journal 21.1,

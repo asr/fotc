@@ -171,7 +171,7 @@ tailS xs = case out xs of
              St _ xs' → xs'
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Vene, Varmo (2000). Categorical programming with inductive and
 --   coinductive types. PhD thesis. Faculty of Mathematics: University

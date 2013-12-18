@@ -41,7 +41,7 @@ x ≐ y = (P : _ → Set) → P x → P y
 ≡→≐ refl P Px = Px
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Hofmann, Martin (1995). Extensional concepts in intensional type
 --   theory. PhD thesis. University of Edinburgh.

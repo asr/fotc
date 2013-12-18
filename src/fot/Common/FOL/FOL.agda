@@ -8,8 +8,8 @@
 -- This module is re-exported by the "base" modules whose theories are
 -- defined on first-order logic (without equality).
 
--- The logical connectives are hard-coded in our translation,
--- i.e. the symbols ⊥, ⊤, ¬, ∧, ∨, →, and ↔ must be used.
+-- The logical connectives are hard-coded in our translation, i.e. the
+-- symbols ⊥, ⊤, ¬, ∧, ∨, → and ↔ must be used.
 --
 -- N.B. For the implication we use the Agda function type.
 --

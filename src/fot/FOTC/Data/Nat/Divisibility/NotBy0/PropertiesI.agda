@@ -78,7 +78,7 @@ x∣y→x∣z→x∣y+z {n = n} {o} (nsucc {m} Nm) Nn No
   (λ S≡0 → ⊥-elim (S≢0 S≡0))
   , k + k' , +-N Nk Nk' , x∣y→x∣z→x∣y+z-helper Nm Nk Nk' h₁ h₂
 
--- If x divides y, and y is positive, then x ≤ y.
+-- If x divides y and y is positive, then x ≤ y.
 x∣S→x≤S : ∀ {m n} → N m → N n → m ∣ (succ₁ n) → m ≤ succ₁ n
 x∣S→x≤S  nzero          Nn (0≢0 , _)                  = ⊥-elim (0≢0 refl)
 x∣S→x≤S  (nsucc {m} Nm) Nn (_ , .zero , nzero , Sn≡0*Sm) =

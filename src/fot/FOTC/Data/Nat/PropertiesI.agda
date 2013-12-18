@@ -364,7 +364,7 @@ succOnto nzero          h = ⊥-elim (h refl)
 succOnto (nsucc {n} Nn) h = succCong (pred-S n)
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Beeson, M. J. (1986). Proving Programs and Programming
 --   Proofs. In: Logic, Methodology and Philosophy of Science VII

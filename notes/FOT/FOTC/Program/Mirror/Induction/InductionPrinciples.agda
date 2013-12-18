@@ -30,7 +30,7 @@ Forest-ind A Anil h fnil           = Anil
 Forest-ind A Anil h (fcons Tt Fts) = h Tt Fts (Forest-ind A Anil h Fts)
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Bertot, Yves and Castéran, Pierre (2004). Interactive Theorem
 --   Proving and Program Development. Coq’Art: The Calculus of

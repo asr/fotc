@@ -43,7 +43,7 @@ B is js = ∃[ b ] ∃[ os₁ ] ∃[ os₂ ] ∃[ as ] ∃[ bs ] ∃[ cs ] ∃[ 
 {-# ATP definition B #-}
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Dybjer, Peter and Sander, Herbert P. (1989). A Functional
 --   Programming Approach to the Speciﬁcation and Veriﬁcation of

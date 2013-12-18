@@ -51,7 +51,7 @@ postulate Fair-coind : ∀ (A : D → Set) {os} →
                        A os → Fair os
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Dybjer, Peter and Sander, Herbert P. (1989). A Functional
 --   Programming Approach to the Speciﬁcation and Veriﬁcation of

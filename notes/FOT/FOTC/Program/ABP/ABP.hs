@@ -141,7 +141,7 @@ main = do
   print $ S.take n is == S.take n js
 
 ------------------------------------------------------------------------------
--- References:
+-- References
 --
 -- • Dybjer, Peter and Herbert P. Sander (1989). A Functional
 --   Programming Approach to the Speciﬁcation and Veriﬁcation of
