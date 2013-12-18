@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --schematic-propositional-functions #-}
+-- {-# OPTIONS --schematic-propositional-functions #-}
 {-# OPTIONS --without-K #-}
 
 module FOT.FOTC.Data.Nat.AddTotality where
@@ -12,10 +12,12 @@ open import FOTC.Base
 open import FOTC.Data.Nat
 
 ------------------------------------------------------------------------------
--- Interactive proof using the induction principle for natural numbers.
-+-N : ∀ {m n} → N m → N n → N (m + n)
-+-N {m} {n} Nm Nn = N-ind A A0 is Nm
-  where
+
+module InductionPrinciple where
+  -- Interactive proof using the induction principle for natural numbers.
+  +-N : ∀ {m n} → N m → N n → N (m + n)
+  +-N {m} {n} Nm Nn = N-ind A A0 is Nm
+    where
     A : D → Set
     A i = N (i + n)
 
@@ -25,36 +27,37 @@ open import FOTC.Data.Nat
     is : ∀ {i} → A i → A (succ₁ i)
     is {i} ih = subst N (sym (+-Sx i n)) (nsucc ih)
 
--- Interactive proof using an instance of the induction principle.
-+-N-ind : ∀ {n} →
-          N (zero + n) →
-          (∀ {m} → N (m + n) → N (succ₁ m + n)) →
-          ∀ {m} → N m → N (m + n)
-+-N-ind {n} = N-ind (λ i → N (i + n))
+  -- Combined proof using the induction principle.
+  --
+  -- The translation is
+  -- ∀ p. app₁(p,zero) →
+  --      (∀ x. app₁(n,x) → app₁(p,x) → app₁(p,appFn(succ,x))) →   -- N-ind
+  --      (∀ x. app₁(n,x) → app₁(p,x))
+  ----------------------------------------------------------------
+  -- ∀ x y. app₁(n,x) → app₁(n,y) → app₁(n,appFn(appFn(+,x),y))    -- +-N
 
-+-N₁ : ∀ {m n} → N m → N n → N (m + n)
-+-N₁ {n = n} Nm Nn = +-N-ind A0 is Nm
-  where
-  A0 : N (zero + n)
-  A0 = subst N (sym (+-0x n)) Nn
+  -- Because the ATPs don't handle induction, them cannot prove this
+  -- postulate.
+  postulate +-N' : ∀ {m n} → N m → N n → N (m + n)
+  -- {-# ATP prove +-N' N-ind #-}
 
-  is : ∀ {m} → N (m + n) → N (succ₁ m + n)
-  is {m} ih = subst N (sym (+-Sx m n)) (nsucc ih)
+module Instance where
+  -- Interactive proof using an instance of the induction principle.
+  +-N-ind : ∀ {n} →
+            N (zero + n) →
+            (∀ {m} → N (m + n) → N (succ₁ m + n)) →
+            ∀ {m} → N m → N (m + n)
+  +-N-ind {n} = N-ind (λ i → N (i + n))
 
--- Combined proof using an instance of the induction principle.
-postulate +-N₂ : ∀ {m n} → N m → N n → N (m + n)
-{-# ATP prove +-N₂ +-N-ind #-}
+  +-N : ∀ {m n} → N m → N n → N (m + n)
+  +-N {n = n} Nm Nn = +-N-ind A0 is Nm
+    where
+    A0 : N (zero + n)
+    A0 = subst N (sym (+-0x n)) Nn
 
--- Combined proof using the induction principle.
+    is : ∀ {m} → N (m + n) → N (succ₁ m + n)
+    is {m} ih = subst N (sym (+-Sx m n)) (nsucc ih)
 
--- The translation is
--- ∀ p. app₁(p,zero) →
---      (∀ x. app₁(n,x) → app₁(p,x) → app₁(p,appFn(succ,x))) →   -- N-ind
---      (∀ x. app₁(n,x) → app₁(p,x))
-----------------------------------------------------------------
--- ∀ x y. app₁(n,x) → app₁(n,y) → app₁(n,appFn(appFn(+,x),y))    -- +-N₂
-
-postulate +-N₃ : ∀ {m n} → N m → N n → N (m + n)
--- Because the ATPs don't handle induction, them cannot prove this
--- postulate.
--- {-# ATP prove +-N₃ N-ind #-}
+  -- Combined proof using an instance of the induction principle.
+  postulate +-N' : ∀ {m n} → N m → N n → N (m + n)
+  {-# ATP prove +-N' +-N-ind #-}
