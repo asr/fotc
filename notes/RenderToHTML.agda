@@ -1,7 +1,5 @@
 ------------------------------------------------------------------------------
--- Draft modules render to HTML
+-- Draft modules render to HTML (via an external Makefile)
 ------------------------------------------------------------------------------
 
 module RenderToHTML where
-
-open import Lists
