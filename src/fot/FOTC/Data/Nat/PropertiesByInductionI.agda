@@ -19,7 +19,6 @@ open import FOTC.Data.Nat
 open import FOTC.Data.Nat.UnaryNumbers
 
 ------------------------------------------------------------------------------
-
 -- Congruence properties
 
 +-leftCong : ∀ {a b c} → a ≡ b → a + c ≡ b + c
