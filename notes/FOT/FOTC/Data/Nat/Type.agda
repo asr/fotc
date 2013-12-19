@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Induction principle for N.
+-- Induction principles for the total natural numbers
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --allow-unsolved-metas #-}
