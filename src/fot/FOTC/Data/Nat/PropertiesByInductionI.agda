@@ -41,11 +41,11 @@ N→0∨S = N-ind A A0 is
   is : ∀ {i} → A i → A (succ₁ i)
   is {i} Ai = case prf₁ prf₂ Ai
     where
-    prf₁ : i ≡ zero → succ₁ i ≡ zero ∨ ∃ (λ i' → succ₁ i ≡ succ₁ i' ∧ N i')
+    prf₁ : i ≡ zero → succ₁ i ≡ zero ∨ (∃[ i' ] succ₁ i ≡ succ₁ i' ∧ N i')
     prf₁ h' = inj₂ (i , refl , (subst N (sym h') nzero))
 
-    prf₂ : ∃ (λ i' → i ≡ succ₁ i' ∧ N i') →
-           succ₁ i ≡ zero ∨ ∃ (λ i' → succ₁ i ≡ succ₁ i' ∧ N i')
+    prf₂ : ∃[ i' ] i ≡ succ₁ i' ∧ N i' →
+           succ₁ i ≡ zero ∨ (∃[ i' ] succ₁ i ≡ succ₁ i' ∧ N i')
     prf₂ (i' , prf , Ni') = inj₂ (i , refl , subst N (sym prf) (nsucc Ni'))
 
 Sx≢x : ∀ {n} → N n → succ₁ n ≢ n
