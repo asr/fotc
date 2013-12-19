@@ -12,7 +12,7 @@ $ equinox --time xxx file_name
 $ ileancop file_name time
 $ metis --time-limit xxx file_name
 $ SPASS -TPTP=1 -TimeLimit=xxx file_name
-$ vampire_lin64 -t xxx --input_file file_name
+$ vampire_lin64 -t xxx --mode casc --input_file file_name
 
 ------------------------------------------------------------------------------
 -- Messages related to the ATPs
