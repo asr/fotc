@@ -80,13 +80,10 @@ x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
        n + zero ∎
 
   is : ∀ {i} → A i → A (succ₁ i)
-  is {i} Ai = succ₁ i + n
-                ≡⟨ +-Sx i n ⟩
-              succ₁ (i + n)
-                ≡⟨ succCong Ai ⟩
-              succ₁ (n + i)
-                ≡⟨ sym (x+Sy≡S[x+y] Nn i) ⟩
-              n + succ₁ i ∎
+  is {i} Ai = succ₁ i + n   ≡⟨ +-Sx i n ⟩
+              succ₁ (i + n) ≡⟨ succCong Ai ⟩
+              succ₁ (n + i) ≡⟨ sym (x+Sy≡S[x+y] Nn i) ⟩
+              n + succ₁ i   ∎
 
 ------------------------------------------------------------------------------
 -- Approach 3: Combined proof using pattern matching
@@ -116,16 +113,17 @@ x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
   {-# ATP prove is x+Sy≡S[x+y] #-}
 
 ------------------------------------------------------------------------------
--- Approach 5: Combined proof using instance of the induction
+-- Approach 5: Combined proof using an instance of the induction
 -- principle
 
-+-comm-ind : ∀ n →
-            (zero + n ≡ n + zero) →
-            (∀ {m} → m + n ≡ n + m  → succ₁ m + n ≡ n + succ₁ m) →
-            ∀ {m} → N m → m + n ≡ n + m
-+-comm-ind n = N-ind (λ i → i + n ≡ n + i)
++-comm-ind-instance :
+  ∀ n →
+  zero + n ≡ n + zero →
+  (∀ {m} → m + n ≡ n + m → succ₁ m + n ≡ n + succ₁ m) →
+  ∀ {m} → N m → m + n ≡ n + m
++-comm-ind-instance n = N-ind (λ i → i + n ≡ n + i)
 
--- TODO (25 October 2012) Why is it not necessary the hypothesis
--- +-rightIdentity ?
+-- TODO (25 October 2012): Why is it not necessary the hypothesis
+-- +-rightIdentity?
 postulate +-comm₅ : ∀ {m n} → N m → N n → m + n ≡ n + m
-{-# ATP prove +-comm₅ +-comm-ind +-rightIdentity x+Sy≡S[x+y] #-}
+{-# ATP prove +-comm₅ +-comm-ind-instance x+Sy≡S[x+y] #-}
