@@ -25,7 +25,7 @@ module InductionPrinciple where
     A0 = subst N (sym (+-0x n)) Nn
 
     is : ∀ {i} → A i → A (succ₁ i)
-    is {i} ih = subst N (sym (+-Sx i n)) (nsucc ih)
+    is {i} Ai = subst N (sym (+-Sx i n)) (nsucc Ai)
 
   -- Combined proof using the induction principle.
   --
@@ -56,7 +56,7 @@ module Instance where
     A0 = subst N (sym (+-0x n)) Nn
 
     is : ∀ {m} → N (m + n) → N (succ₁ m + n)
-    is {m} ih = subst N (sym (+-Sx m n)) (nsucc ih)
+    is {m} Ai = subst N (sym (+-Sx m n)) (nsucc Ai)
 
   -- Combined proof using an instance of the induction principle.
   postulate +-N' : ∀ {m n} → N m → N n → N (m + n)

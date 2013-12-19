@@ -31,7 +31,7 @@ succCong refl = refl
   A0 = +-leftIdentity zero
 
   is : ∀ {i} → A i → A (succ₁ i)
-  is {i} ih = trans (+-Sx i zero) (succCong ih)
+  is {i} Ai = trans (+-Sx i zero) (succCong Ai)
 
 x+Sy≡S[x+y] : ∀ {m} → N m → ∀ n → m + succ₁ n ≡ succ₁ (m + n)
 x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
@@ -45,8 +45,8 @@ x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
        succ₁ (zero + n) ∎
 
   is : ∀ {i} → A i → A (succ₁ i)
-  is {i} ih = succ₁ i + succ₁ n     ≡⟨ +-Sx i (succ₁ n) ⟩
-              succ₁ (i + succ₁ n)   ≡⟨ succCong ih ⟩
+  is {i} Ai = succ₁ i + succ₁ n     ≡⟨ +-Sx i (succ₁ n) ⟩
+              succ₁ (i + succ₁ n)   ≡⟨ succCong Ai ⟩
               succ₁ (succ₁ (i + n)) ≡⟨ succCong (sym (+-Sx i n)) ⟩
               succ₁ (succ₁ i + n)   ∎
 
@@ -80,10 +80,10 @@ x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
        n + zero ∎
 
   is : ∀ {i} → A i → A (succ₁ i)
-  is {i} ih = succ₁ i + n
+  is {i} Ai = succ₁ i + n
                 ≡⟨ +-Sx i n ⟩
               succ₁ (i + n)
-                ≡⟨ succCong ih ⟩
+                ≡⟨ succCong Ai ⟩
               succ₁ (n + i)
                 ≡⟨ sym (x+Sy≡S[x+y] Nn i) ⟩
               n + succ₁ i ∎
@@ -125,7 +125,7 @@ x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
             ∀ {m} → N m → m + n ≡ n + m
 +-comm-ind n = N-ind (λ i → i + n ≡ n + i)
 
--- TODO. 25 October 2012. Why is it not necessary the hypothesis
+-- TODO (25 October 2012) Why is it not necessary the hypothesis
 -- +-rightIdentity ?
 postulate +-comm₅ : ∀ {m n} → N m → N n → m + n ≡ n + m
 {-# ATP prove +-comm₅ +-comm-ind +-rightIdentity x+Sy≡S[x+y] #-}

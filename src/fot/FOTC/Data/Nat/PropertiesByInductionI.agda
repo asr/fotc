@@ -58,7 +58,7 @@ Sx≢x = N-ind A A0 is
   A0 = S≢0
 
   is : ∀ {i} → A i → A (succ₁ i)
-  is {i} ih = →-trans succInjective ih
+  is {i} Ai = →-trans succInjective Ai
 
 +-leftIdentity : ∀ n → zero + n ≡ n
 +-leftIdentity n = +-0x n
@@ -73,7 +73,7 @@ Sx≢x = N-ind A A0 is
   A0 = +-leftIdentity zero
 
   is : ∀ {i} → A i → A (succ₁ i)
-  is {i} ih = trans (+-Sx i zero) (succCong ih)
+  is {i} Ai = trans (+-Sx i zero) (succCong Ai)
 
 pred-N : ∀ {n} → N n → N (pred₁ n)
 pred-N {n} Nn = case h₁ h₂ (N→0∨S Nn)
@@ -94,7 +94,7 @@ pred-N {n} Nn = case h₁ h₂ (N→0∨S Nn)
   A0 = subst N (sym (+-leftIdentity n)) Nn
 
   is : ∀ {i} → A i → A (succ₁ i)
-  is {i} ih = subst N (sym (+-Sx i n)) (nsucc ih)
+  is {i} Ai = subst N (sym (+-Sx i n)) (nsucc Ai)
 
 +-assoc : ∀ {m} → N m → ∀ n o → m + n + o ≡ m + (n + o)
 +-assoc Nm n o = N-ind A A0 is Nm
@@ -108,9 +108,9 @@ pred-N {n} Nn = case h₁ h₂ (N→0∨S Nn)
        zero + (n + o) ∎
 
   is : ∀ {i} → A i → A (succ₁ i)
-  is {i} ih = succ₁ i + n + o     ≡⟨ +-leftCong (+-Sx i n) ⟩
+  is {i} Ai = succ₁ i + n + o     ≡⟨ +-leftCong (+-Sx i n) ⟩
               succ₁ (i + n) + o   ≡⟨ +-Sx (i + n) o ⟩
-              succ₁ (i + n + o)   ≡⟨ succCong ih ⟩
+              succ₁ (i + n + o)   ≡⟨ succCong Ai ⟩
               succ₁ (i + (n + o)) ≡⟨ sym (+-Sx i (n + o)) ⟩
               succ₁ i + (n + o)   ∎
 
@@ -126,8 +126,8 @@ x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
        succ₁ (zero + n) ∎
 
   is : ∀ {i} → A i → A (succ₁ i)
-  is {i} ih = succ₁ i + succ₁ n     ≡⟨ +-Sx i (succ₁ n) ⟩
-              succ₁ (i + succ₁ n)   ≡⟨ succCong ih ⟩
+  is {i} Ai = succ₁ i + succ₁ n     ≡⟨ +-Sx i (succ₁ n) ⟩
+              succ₁ (i + succ₁ n)   ≡⟨ succCong Ai ⟩
               succ₁ (succ₁ (i + n)) ≡⟨ succCong (sym (+-Sx i n)) ⟩
               succ₁ (succ₁ i + n)   ∎
 
@@ -143,8 +143,8 @@ x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
        n + zero ∎
 
   is : ∀ {i} → A i → A (succ₁ i)
-  is {i} ih = succ₁ i + n   ≡⟨ +-Sx i n ⟩
-              succ₁ (i + n) ≡⟨ succCong ih ⟩
+  is {i} Ai = succ₁ i + n   ≡⟨ +-Sx i n ⟩
+              succ₁ (i + n) ≡⟨ succCong Ai ⟩
               succ₁ (n + i) ≡⟨ sym (x+Sy≡S[x+y] Nn i) ⟩
               n + succ₁ i   ∎
 
@@ -158,7 +158,7 @@ x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
   A0 = ∸-x0 zero
 
   is : ∀ {i} → A i → A (succ₁ i)
-  is {i} ih = zero ∸ succ₁ i   ≡⟨ ∸-xS zero i ⟩
-              pred₁ (zero ∸ i) ≡⟨ predCong ih ⟩
+  is {i} Ai = zero ∸ succ₁ i   ≡⟨ ∸-xS zero i ⟩
+              pred₁ (zero ∸ i) ≡⟨ predCong Ai ⟩
               pred₁ zero       ≡⟨ pred-0 ⟩
               zero ∎

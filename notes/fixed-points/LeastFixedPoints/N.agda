@@ -190,7 +190,7 @@ postulate
   h (inj₂ (m' , m≡Sm' , Am')) = subst N (cong (flip _+_ n) (sym m≡Sm')) (is Am')
     where
     is : ∀ {i} → A i → A (succ₁ i)
-    is {i} ih = subst N (sym (+-Sx i n)) (nsucc ih)
+    is {i} Ai = subst N (sym (+-Sx i n)) (nsucc Ai)
 
 ------------------------------------------------------------------------------
 -- Example: A proof using N-post-fixed

@@ -48,7 +48,7 @@ pred-N₁ = N-ind₁ A A0 is
   A0 = subst N (sym pred-0) nzero
 
   is : ∀ {i} → N i → A i → A (succ₁ i)
-  is {i} Ni ih = subst N (sym (pred-S i)) Ni
+  is {i} Ni Ai = subst N (sym (pred-S i)) Ni
 
 -- Proof using N-ind₂.
 -- pred-N₂ : ∀ {n} → N n → N (pred₁ n)
@@ -61,4 +61,4 @@ pred-N₁ = N-ind₁ A A0 is
 --   A0 = subst N (sym pred-0) nzero
 
 --   is : ∀ {i} → A i → A (succ₁ i)
---   is {i} ih = {!!}
+--   is {i} Ai = {!!}
