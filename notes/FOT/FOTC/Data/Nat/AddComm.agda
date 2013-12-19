@@ -60,7 +60,7 @@ x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
 ------------------------------------------------------------------------------
 -- Approach 1: Interactive proof using pattern matching
 
-module M₁ where
+module M1 where
 
   +-comm : ∀ {m n} → N m → N n → m + n ≡ n + m
   +-comm {n = n} nzero Nn =
@@ -77,7 +77,7 @@ module M₁ where
 ------------------------------------------------------------------------------
 -- Approach 2: Combined proof using pattern matching
 
-module M₂ where
+module M2 where
 
   +-comm : ∀ {m n} → N m → N n → m + n ≡ n + m
   +-comm {n = n} nzero Nn = prf
@@ -90,7 +90,7 @@ module M₂ where
 ------------------------------------------------------------------------------
 -- Approach 3: Interactive proof using the induction principle
 
-module M₃ where
+module M3 where
 
   +-comm : ∀ {m n} → N m → N n → m + n ≡ n + m
   +-comm {n = n} Nm Nn = N-ind A A0 is Nm
@@ -112,7 +112,7 @@ module M₃ where
 ------------------------------------------------------------------------------
 -- Approach 4: Combined proof using the induction principle
 
-module M₄ where
+module M4 where
 
   +-comm : ∀ {m n} → N m → N n → m + n ≡ n + m
   +-comm {n = n} Nm Nn = N-ind A A0 is Nm
@@ -131,7 +131,7 @@ module M₄ where
 -- Approach 5: Interactive proof using an instance of the induction
 -- principle
 
-module M₅ where
+module M5 where
 
   +-comm : ∀ {m n} → N m → N n → m + n ≡ n + m
   +-comm {n = n} Nm Nn = +-comm-ind-instance n A0 is Nm
@@ -151,7 +151,7 @@ module M₅ where
 -- Approach 6: Combined proof using an instance of the induction
 -- principle
 
-module M₆ where
+module M6 where
 
   -- TODO (25 October 2012): Why is it not necessary the hypothesis
   -- +-rightIdentity?
