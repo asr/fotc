@@ -193,22 +193,16 @@ postulate
     is {i} ih = subst N (sym (+-Sx i n)) (nsucc ih)
 
 ------------------------------------------------------------------------------
--- Example: Indirect proof using N-least-pre-fixed.
+-- Example: A proof using N-post-fixed
 
--- TODO (18 December 2013): Direct proof using of pred-N using
--- N-least-pre-fixed.
-
-pred-N₁ : ∀ {n} → N n → N (pred₁ n)
-pred-N₁ = N-ind₁ A A0 is
+pred-N : ∀ {n} → N n → N (pred₁ n)
+pred-N {n} Nn = case h₁ h₂ (N-post-fixed Nn)
   where
-  A : D → Set
-  A i = N (pred₁ i)
+  h₁ : n ≡ zero → N (pred₁ n)
+  h₁ n≡0 = subst N (sym (trans (predCong n≡0) pred-0)) nzero
 
-  A0 : A zero
-  A0 = subst N (sym pred-0) nzero
-
-  is : ∀ {i} → N i → A i → A (succ₁ i)
-  is {i} Ni ih = subst N (sym (pred-S i)) Ni
+  h₂ : ∃[ n' ] n ≡ succ₁ n' ∧ N n' → N (pred₁ n)
+  h₂ (n' , prf , Nn') = subst N (sym (trans (predCong prf) (pred-S n'))) Nn'
 
 ------------------------------------------------------------------------------
 -- From/to N as a least fixed-point to/from N as data type.

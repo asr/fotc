@@ -29,6 +29,25 @@ open import FOTC.Data.Nat.UnaryNumbers
 
 ------------------------------------------------------------------------------
 
+N→0∨S : ∀ {n} → N n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n')
+N→0∨S = N-ind A A0 is
+  where
+  A : D → Set
+  A i = i ≡ zero ∨ (∃[ i' ] i ≡ succ₁ i' ∧ N i')
+
+  A0 : A zero
+  A0 = inj₁ refl
+
+  is : ∀ {i} → A i → A (succ₁ i)
+  is {i} Ai = case prf₁ prf₂ Ai
+    where
+    prf₁ : i ≡ zero → succ₁ i ≡ zero ∨ ∃ (λ i' → succ₁ i ≡ succ₁ i' ∧ N i')
+    prf₁ h' = inj₂ (i , refl , (subst N (sym h') nzero))
+
+    prf₂ : ∃ (λ i' → i ≡ succ₁ i' ∧ N i') →
+           succ₁ i ≡ zero ∨ ∃ (λ i' → succ₁ i ≡ succ₁ i' ∧ N i')
+    prf₂ (i' , prf , Ni') = inj₂ (i , refl , subst N (sym prf) (nsucc Ni'))
+
 Sx≢x : ∀ {n} → N n → succ₁ n ≢ n
 Sx≢x = N-ind A A0 is
   where
@@ -55,6 +74,15 @@ Sx≢x = N-ind A A0 is
 
   is : ∀ {i} → A i → A (succ₁ i)
   is {i} ih = trans (+-Sx i zero) (succCong ih)
+
+pred-N : ∀ {n} → N n → N (pred₁ n)
+pred-N {n} Nn = case h₁ h₂ (N→0∨S Nn)
+  where
+  h₁ : n ≡ zero → N (pred₁ n)
+  h₁ n≡0 = subst N (sym (trans (predCong n≡0) pred-0)) nzero
+
+  h₂ : ∃[ n' ] n ≡ succ₁ n' ∧ N n' → N (pred₁ n)
+  h₂ (n' , prf , Nn') = subst N (sym (trans (predCong prf) (pred-S n'))) Nn'
 
 +-N : ∀ {m n} → N m → N n → N (m + n)
 +-N {n = n} Nm Nn = N-ind A A0 is Nm
