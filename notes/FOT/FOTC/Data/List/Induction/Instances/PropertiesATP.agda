@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Properties related with lists
+-- Properties related with lists using instances of the induction principle
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -24,6 +24,26 @@ lengthList-N-ind-instance = List-ind (λ as → N (length as))
 postulate lengthList-N : ∀ {xs} → List xs → N (length xs)
 {-# ATP prove lengthList-N lengthList-N-ind-instance #-}
 
+++-List-ind-instance :
+  ∀ {ys} →
+  List ([] ++ ys) →
+  (∀ x {xs} → List (xs ++ ys) → List ((x ∷ xs) ++ ys)) →
+  ∀ {xs} → List xs → List (xs ++ ys)
+++-List-ind-instance {ys} = List-ind (λ as → List (as ++ ys))
+
+postulate ++-List : ∀ {xs ys} → List xs → List ys → List (xs ++ ys)
+{-# ATP prove ++-List ++-List-ind-instance #-}
+
+map-List-ind-instance :
+  ∀ {f} →
+  List (map f []) →
+  (∀ x {xs} → List (map f xs) → List (map f (x ∷ xs))) →
+  ∀ {xs} → List xs → List (map f xs)
+map-List-ind-instance {f} = List-ind (λ as → List (map f as))
+
+postulate map-List : ∀ f {xs} → List xs → List (map f xs)
+{-# ATP prove map-List map-List-ind-instance #-}
+
 ------------------------------------------------------------------------------
 
 ++-assoc-ind-instance :
@@ -39,3 +59,17 @@ postulate lengthList-N : ∀ {xs} → List xs → N (length xs)
 postulate
   ++-assoc : ∀ {xs} → List xs → ∀ ys zs → (xs ++ ys) ++ zs ≡ xs ++ ys ++ zs
 {-# ATP prove ++-assoc ++-assoc-ind-instance #-}
+
+map-++-commute-ind-instance :
+  ∀ {f} {ys} →
+  map f ([] ++ ys) ≡ map f [] ++ map f ys →
+  (∀ x {xs} → map f (xs ++ ys) ≡ map f xs ++ map f ys →
+    map f ((x ∷ xs) ++ ys) ≡ map f (x ∷ xs) ++ map f ys) →
+  ∀ {xs} → List xs → map f (xs ++ ys) ‌≡ map f xs ++ map f ys
+map-++-commute-ind-instance {f} {ys} =
+  List-ind (λ as → map f (as ++ ys) ≡ map f as ++ map f ys)
+
+postulate
+  map-++-commute : ∀ f {xs} → List xs → ∀ ys →
+                   map f (xs ++ ys) ≡ map f xs ++ map f ys
+{-# ATP prove map-++-commute map-++-commute-ind-instance #-}
