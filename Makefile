@@ -132,12 +132,12 @@ type_check_fot : clean \
 
 create_snapshot_fot_aux : $(create_snapshot_fot_files)
 
-create_snapshot_fot : clean
+create_snapshot_fot :
 	rm -r -f $(snapshot_dir)
 	make create_snapshot_fot_aux
 	@echo "$@ succeeded!"
 
-compare_snapshot_fot : clean $(compare_snapshot_fot_files)
+compare_snapshot_fot : $(compare_snapshot_fot_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -147,7 +147,7 @@ compare_snapshot_fot : clean $(compare_snapshot_fot_files)
 	$(AGDA_FOT) $*.agda
 	$(APIA_FOT) --output-dir=$(prove_fot_dir) --time=240 $*.agda
 
-prove_fot : clean $(prove_fot_files)
+prove_fot : $(prove_fot_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -160,7 +160,7 @@ prove_fot : clean $(prove_fot_files)
            exit 1;\
         fi
 
-consistency_fot : clean $(consistency_fot_files)
+consistency_fot : $(consistency_fot_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -185,7 +185,7 @@ type_check_notes_path = \
 %.type_check_notes :
 	$(AGDA) $(type_check_notes_path) $*.agda
 
-type_check_notes : clean $(type_check_notes_files)
+type_check_notes : $(type_check_notes_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -203,7 +203,7 @@ prove_notes_path = -i$(fot_path) \
 	$(APIA) $(prove_notes_path) --output-dir=$(prove_notes_dir) \
 	        --time=240 $*.agda
 
-prove_notes : clean $(prove_notes_files)
+prove_notes : $(prove_notes_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -224,7 +224,7 @@ agda_changed : clean
 ##############################################################################
 # Test used when there is a modification to Apia
 
-apia_changed : clean
+apia_changed :
 	if [ ! -d $(snapshot_dir) ]; then \
 	   echo "Error: The directory $(snapshot_dir) does not exist"; \
 	   exit 1; \
@@ -236,7 +236,7 @@ apia_changed : clean
 ##############################################################################
 # Test used when there is a new ATP or a new version of an ATP
 
-atp_changed : clean
+atp_changed :
 	@make prove_notes
 	@make prove_fot
 	@echo "$@ succeeded!"
