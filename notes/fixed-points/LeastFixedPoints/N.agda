@@ -241,9 +241,9 @@ module Data where
   -- The induction principle for N *without* the hypothesis N n in the
   -- induction step.
   N-ind₂ : (A : D → Set) →
-          A zero →
-          (∀ {n} → A n → A (succ₁ n)) →
-          ∀ {n} → N n → A n
+           A zero →
+           (∀ {n} → A n → A (succ₁ n)) →
+           ∀ {n} → N n → A n
   N-ind₂ A A0 h nzero      = A0
   N-ind₂ A A0 h (nsucc Nn) = h (N-ind₂ A A0 h Nn)
 
