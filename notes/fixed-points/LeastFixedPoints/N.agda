@@ -59,7 +59,7 @@ module LFP where
     -- N is a pre-fixed point of NatF.
     --
     -- Peter: It corresponds to the introduction rules.
-    N-in : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n') → N n
+    N-ir : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n') → N n
 
     -- The higher-order version.
     N-in-ho : ∀ {n} → NatF N n → N n
@@ -69,15 +69,13 @@ module LFP where
     -- Peter: It corresponds to the elimination rule of an inductively
     -- defined predicate.
     N-least-pre-fixed :
-      ∀ (A : D → Set) {n} →
-      (n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n) →
-      N n → A n
+      ∀ (A : D → Set) →
+      (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n) →
+      ∀ {n} → N n → A n
 
-    -- Higher-order version (incomplete?).
+    -- Higher-order version.
     N-least-pre-fixed-ho :
-      ∀ (A : D → Set) {n} →
-      (NatF A n → A n) →
-      N n → A n
+      ∀ (A : D → Set) → (∀ {n} → NatF A n → A n) → ∀ {n} → N n → A n
 
   ----------------------------------------------------------------------------
   -- From/to N-in/N-in-ho.
@@ -90,25 +88,24 @@ module LFP where
 
   ----------------------------------------------------------------------------
   -- From/to N-least-pre-fixed/N-least-pre-fixed-ho
+
   N-least-pre-fixed' :
-    ∀ (A : D → Set) {n} →
-    (n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n) →
-    N n → A n
+    ∀ (A : D → Set) →
+    (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n) →
+    ∀ {n} → N n → A n
   N-least-pre-fixed' = N-least-pre-fixed-ho
 
   N-least-pre-fixed-ho' :
-    ∀ (A : D → Set) {n} →
-    (NatF A n → A n) →
-    N n → A n
+    ∀ (A : D → Set) → (∀ {n} → NatF A n → A n) → ∀ {n} → N n → A n
   N-least-pre-fixed-ho' = N-least-pre-fixed
 
   ----------------------------------------------------------------------------
   -- The data constructors of N.
   nzero : N zero
-  nzero = N-in (inj₁ refl)
+  nzero = N-ir (inj₁ refl)
 
   nsucc : ∀ {n} → N n → N (succ₁ n)
-  nsucc Nn = N-in (inj₂ (_ , refl , Nn))
+  nsucc Nn = N-ir (inj₂ (_ , refl , Nn))
 
   ----------------------------------------------------------------------------
   -- Because N is the least pre-fixed point of NatF (i.e. N-in and
@@ -122,7 +119,7 @@ module LFP where
     A m = m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ N m')
 
     h : ∀ {m} → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ A m') → A m
-    h (inj₁ prf)              = inj₁ prf
+    h (inj₁ m≡0)              = inj₁ m≡0
     h (inj₂ (m' , prf , Am')) = inj₂ (m' , prf , helper Am')
       where
       helper : A m' → N m'
@@ -131,40 +128,37 @@ module LFP where
 
   ----------------------------------------------------------------------------
   -- The induction principle for N *with* the hypothesis N n in the
-  -- induction step.
+  -- induction step using N-least-pre-fixed.
 
+  -- 22 December 2013. We couldn't prove N-ind₁ using
+  -- N-least-pre-fixed.
   N-ind₁ : (A : D → Set) →
            A zero →
            (∀ {n} → N n → A n → A (succ₁ n)) →
            ∀ {n} → N n → A n
   N-ind₁ A A0 is {n} Nn = N-least-pre-fixed A h Nn
     where
-    h : n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n
-    h (inj₁ prf)              = subst A (sym prf) A0
-    h (inj₂ (n' , prf , An')) = subst A (sym prf) (is helper An')
-      where
-      helper : N n'
-      helper with N-post-fixed Nn
-      ... | inj₁ n≡0 = ⊥-elim (0≢S (trans (sym n≡0) prf))
-      ... | inj₂ (m' , prf' , Nm') =
-        subst N (succInjective (trans (sym prf') prf)) Nm'
+    h : ∀ {m} → m ≡ zero ∨ (∃[ m' ]  m ≡ succ₁ m' ∧ A m') → A m
+    h (inj₁ m≡0) = subst A (sym m≡0) A0
+    h (inj₂ (m' , prf , Am')) = {!!}
 
   ----------------------------------------------------------------------------
   -- The induction principle for N *without* the hypothesis N n in the
-  -- induction step.
+  -- induction step using N-least-pre-fixed
 
   N-ind₂ : (A : D → Set) →
            A zero →
            (∀ {n} → A n → A (succ₁ n)) →
            ∀ {n} → N n → A n
-  N-ind₂ A A0 is {n} = N-least-pre-fixed A h
+  N-ind₂ A A0 is = N-least-pre-fixed A h
     where
-    h : n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n
-    h (inj₁ prf)              = subst A (sym prf) A0
-    h (inj₂ (n' , prf , An')) = subst A (sym prf) (is An')
+    h : ∀ {m} → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ A m') → A m
+    h (inj₁ m≡0)              = subst A (sym m≡0) A0
+    h (inj₂ (m' , prf , Am')) = subst A (sym prf) (is Am')
 
   ----------------------------------------------------------------------------
-  -- Example: We will use N-least-pre-fixed as the induction principle on N.
+  -- Example: We will use N-least-pre-fixed as the induction
+  -- principle on N.
 
   postulate
     _+_  : D → D → D
@@ -175,18 +169,18 @@ module LFP where
   +-leftIdentity n = +-0x n
 
   +-N : ∀ {m n} → N m → N n → N (m + n)
-  +-N {m} {n} Nm Nn = N-least-pre-fixed A h Nm
+  +-N {n = n} Nm Nn = N-least-pre-fixed A h Nm
     where
     A : D → Set
     A i = N (i + n)
 
-    h : m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ A m') → A m
-    h (inj₁ prf) = subst N (cong (flip _+_ n) (sym prf)) A0
+    h : ∀ {m} → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ A m') → A m
+    h (inj₁ m≡0) = subst N (cong (flip _+_ n) (sym m≡0)) A0
       where
       A0 : A zero
       A0 = subst N (sym (+-leftIdentity n)) Nn
-    h (inj₂ (m' , m≡Sm' , Am')) =
-      subst N (cong (flip _+_ n) (sym m≡Sm')) (is Am')
+    h (inj₂ (m' , prf , Am')) =
+      subst N (cong (flip _+_ n) (sym prf)) (is Am')
       where
       is : ∀ {i} → A i → A (succ₁ i)
       is {i} Ai = subst N (sym (+-Sx i n)) (nsucc Ai)
@@ -262,33 +256,21 @@ module Data where
   ----------------------------------------------------------------------------
   -- From N-ind₂ to N-least-pre-fixed.
 
-  N→0∨S : ∀ {n} → N n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n')
-  N→0∨S = N-ind₂ A A0 is
-    where
-    A : D → Set
-    A i = i ≡ zero ∨ (∃[ i' ] i ≡ succ₁ i' ∧ N i')
-
-    A0 : A zero
-    A0 = inj₁ refl
-
-    is : ∀ {i} → A i → A (succ₁ i)
-    is {i} Ai = case prf₁ prf₂ Ai
-      where
-      prf₁ : i ≡ zero → succ₁ i ≡ zero ∨ (∃[ i' ] succ₁ i ≡ succ₁ i' ∧ N i')
-      prf₁ h' = inj₂ (i , refl , (subst N (sym h') nzero))
-
-      prf₂ : ∃[ i' ] i ≡ succ₁ i' ∧ N i' →
-             succ₁ i ≡ zero ∨ (∃[ i' ] succ₁ i ≡ succ₁ i' ∧ N i')
-      prf₂ (i' , prf , Ni') = inj₂ (i , refl , subst N (sym prf) (nsucc Ni'))
-
   N-least-pre-fixed₂ :
-    ∀ (A : D → Set) {n} →
-    (n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n) →
-    N n → A n
-  N-least-pre-fixed₂ A {n} h Nn = case prf₁ prf₂ (N→0∨S Nn)
+    ∀ (A : D → Set) →
+    (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n) →
+    ∀ {n} → N n → A n
+  N-least-pre-fixed₂ A h = N-ind₂ A h₁ h₂
     where
-    prf₁ : n ≡ zero → A n
-    prf₁ n≡0 = h (inj₁ n≡0)
+    h₁ :  A zero
+    h₁ = h (inj₁ refl)
 
-    prf₂ : ∃[ n' ] n ≡ succ₁ n' ∧ N n' → A n
-    prf₂ (n' , prf , Nn') = h (inj₂ (n' , prf , {!!}))
+    h₂ : ∀ {m} → A m → A (succ₁ m)
+    h₂ {m} Am = h (inj₂ (m , refl , Am))
+
+------------------------------------------------------------------------------
+-- References
+--
+-- Ésik, Z. (2009). Fixed Point Theory. In: Handbook of Weighted
+-- Automata. Ed. by Droste, M., Kuich, W. and Vogler, H. Monographs in
+-- Theoretical Computer Science. An EATCS Series. Springer. Chap. 2.
