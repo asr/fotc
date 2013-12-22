@@ -366,8 +366,8 @@ succOnto (nsucc {n} Nn) h = succCong (pred-S n)
 ------------------------------------------------------------------------------
 -- References
 --
--- • Beeson, M. J. (1986). Proving Programs and Programming
---   Proofs. In: Logic, Methodology and Philosophy of Science VII
---   (1983). Ed. by Barcan Marcus, Ruth, Dorn, George J. W. and
---   Weingartner, Paul. Vol. 114. Studies in Logic and the Foundations
---   of Mathematics. Elsevier, pp. 51–82.
+-- Beeson, M. J. (1986). Proving Programs and Programming Proofs. In:
+-- Logic, Methodology and Philosophy of Science VII (1983). Ed. by
+-- Barcan Marcus, Ruth, Dorn, George J. W. and Weingartner,
+-- Paul. Vol. 114. Studies in Logic and the Foundations of
+-- Mathematics. Elsevier, pp. 51–82.

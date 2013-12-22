@@ -143,7 +143,6 @@ main = do
 ------------------------------------------------------------------------------
 -- References
 --
--- • Dybjer, Peter and Herbert P. Sander (1989). A Functional
---   Programming Approach to the Speciﬁcation and Veriﬁcation of
---   Concurrent Systems. In: Formal Aspects of Computing 1,
---   pp. 303–319.
+-- Dybjer, Peter and Herbert P. Sander (1989). A Functional
+-- Programming Approach to the Speciﬁcation and Veriﬁcation of
+-- Concurrent Systems. In: Formal Aspects of Computing 1, pp. 303–319.

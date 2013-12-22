@@ -334,5 +334,5 @@ reverse'-involutive (lcons x {xs} Lxs) =
 ------------------------------------------------------------------------------
 -- References
 
--- • Bird, R. and Wadler, P. (1988). Introduction to Functional
---   Programming. Prentice Hall International.
+-- Bird, R. and Wadler, P. (1988). Introduction to Functional
+-- Programming. Prentice Hall International.

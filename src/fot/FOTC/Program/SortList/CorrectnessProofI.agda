@@ -28,5 +28,5 @@ sortCorrect {is} Lis =
 ------------------------------------------------------------------------------
 -- References
 --
--- • Burstall, R. M. (1969). Proving properties of programs by
---   structural induction. In: The Computer Journal 12.1, pp. 41–48.
+-- Burstall, R. M. (1969). Proving properties of programs by
+-- structural induction. In: The Computer Journal 12.1, pp. 41–48.

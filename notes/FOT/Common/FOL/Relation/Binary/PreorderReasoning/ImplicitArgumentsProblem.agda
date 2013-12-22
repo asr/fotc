@@ -112,7 +112,6 @@ module NonWrapper where
 ------------------------------------------------------------------------------
 -- References
 --
--- • Mu, S.-C., Ko, H.-S. and Jansson, P. (2009). Algebra of
---   programming in Agda: Dependent types for relational program
---   derivation. In: Journal of Functional Programming 19.5,
---   pp. 545–579.
+-- Mu, S.-C., Ko, H.-S. and Jansson, P. (2009). Algebra of programming
+-- in Agda: Dependent types for relational program derivation. In:
+-- Journal of Functional Programming 19.5, pp. 545–579.

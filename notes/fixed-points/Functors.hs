@@ -173,6 +173,6 @@ tailS xs = case out xs of
 ------------------------------------------------------------------------------
 -- References
 --
--- • Vene, Varmo (2000). Categorical programming with inductive and
---   coinductive types. PhD thesis. Faculty of Mathematics: University
---   of Tartu.
+-- Vene, Varmo (2000). Categorical programming with inductive and
+-- coinductive types. PhD thesis. Faculty of Mathematics: University
+-- of Tartu.

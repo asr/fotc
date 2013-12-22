@@ -37,5 +37,5 @@ postulate thm : ∀ x → S · K · K · x ≡ id x
 ------------------------------------------------------------------------------
 -- References
 --
--- • Rosén, D. (2012). Proving Equational Haskell Properties Using
---   Automated Theorem Provers. MA thesis. University of Gothenburg.
+-- Rosén, D. (2012). Proving Equational Haskell Properties Using
+-- Automated Theorem Provers. MA thesis. University of Gothenburg.

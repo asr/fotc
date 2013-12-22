@@ -40,8 +40,8 @@ open import FOTC.Relation.Binary.Bisimilarity
 ------------------------------------------------------------------------------
 -- References
 --
--- • Giménez, Eduardo and Casterán, Pierre (2007). A Tutorial on
---   [Co-]Inductive Types in Coq.
+-- Giménez, Eduardo and Casterán, Pierre (2007). A Tutorial on
+-- [Co-]Inductive Types in Coq.
 --
--- • Gibbons, Jeremy and Hutton, Graham (2005). Proof Methods for
---   Corecursive Programs. In: Fundamenta Informaticae XX, pp. 1–14.
+-- Gibbons, Jeremy and Hutton, Graham (2005). Proof Methods for
+-- Corecursive Programs. In: Fundamenta Informaticae XX, pp. 1–14.

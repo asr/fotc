@@ -32,6 +32,6 @@ open import DistributiveLaws.TaskB.UnprovedATP
 ------------------------------------------------------------------------------
 -- References:
 --
--- • Stanovský, David (2008). Distributive Groupoids are
---   Symmetrical-by-Medial: An Elementary Proof. In: Commentations
---   Mathematicae Universitatis Carolinae 49.4, pp. 541–546.
+-- Stanovský, David (2008). Distributive Groupoids are
+-- Symmetrical-by-Medial: An Elementary Proof. In: Commentations
+-- Mathematicae Universitatis Carolinae 49.4, pp. 541–546.

@@ -43,8 +43,8 @@ x ≐ y = (P : _ → Set) → P x → P y
 ------------------------------------------------------------------------------
 -- References
 --
--- • Hofmann, Martin (1995). Extensional concepts in intensional type
---   theory. PhD thesis. University of Edinburgh.
+-- Hofmann, Martin (1995). Extensional concepts in intensional type
+-- theory. PhD thesis. University of Edinburgh.
 
--- • Luo, Zhaohui (1994). Computation and Reasoning. A Type Theory for
---   Computer Science. Oxford University Press.
+-- Luo, Zhaohui (1994). Computation and Reasoning. A Type Theory for
+-- Computer Science. Oxford University Press.

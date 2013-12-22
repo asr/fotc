@@ -26,5 +26,5 @@ l→r a = ∃-intro {x = D≢∅} a
 ------------------------------------------------------------------------------
 -- References
 --
--- • Mendelson, Elliott (1997). Introduction to Mathematical
---   Logic. 4th ed. Chapman & Hall.
+-- Mendelson, Elliott (1997). Introduction to Mathematical Logic. 4th
+-- ed. Chapman & Hall.

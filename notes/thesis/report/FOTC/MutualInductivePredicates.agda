@@ -141,7 +141,7 @@ module FunctionSpace where
 ------------------------------------------------------------------------------
 -- References
 --
--- • Blanchette, Jasmin Christian (2013). Relational analysis of
---   (co)inductive predicates, (co)algebraic datatypes, and
---   (co)recursive functions. In: Software Quality Journal 21.1,
---   pp. 101–126.
+-- Blanchette, Jasmin Christian (2013). Relational analysis of
+-- (co)inductive predicates, (co)algebraic datatypes, and
+-- (co)recursive functions. In: Software Quality Journal 21.1,
+-- pp. 101–126.

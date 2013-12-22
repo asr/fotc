@@ -32,6 +32,6 @@ Forest-ind A A[] h (fcons Tt Fts) = h Tt Fts (Forest-ind A A[] h Fts)
 ------------------------------------------------------------------------------
 -- References
 --
--- • Bertot, Yves and Castéran, Pierre (2004). Interactive Theorem
---   Proving and Program Development. Coq’Art: The Calculus of
---   Inductive Constructions. Springer.
+-- Bertot, Yves and Castéran, Pierre (2004). Interactive Theorem
+-- Proving and Program Development. Coq’Art: The Calculus of Inductive
+-- Constructions. Springer.

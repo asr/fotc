@@ -20,8 +20,8 @@ open import PA.Axiomatic.Standard.PropertiesI
 ------------------------------------------------------------------------------
 -- References
 --
--- • Machover, Moshé (1996). Set theory, Logic and their
---   Limitations. Cambridge University Press.
+-- Machover, Moshé (1996). Set theory, Logic and their
+-- Limitations. Cambridge University Press.
 
--- • Hájek, Petr and Pudlák, Pavel (1998). Metamathematics of
---   First-Order Arithmetic. 2nd printing. Springer.
+-- Hájek, Petr and Pudlák, Pavel (1998). Metamathematics of
+-- First-Order Arithmetic. 2nd printing. Springer.

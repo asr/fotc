@@ -6,9 +6,6 @@ module Functors where
 -- The carrier of the initial algebra is (up to isomorphism) a
 -- fixed-point of the functor (Vene 2000, p).
 
--- • Varmo Vene. Categorical programming with inductive and
---   coinductive types. PhD thesis, University of Taru, Estonia, 2000.
-
 ------------------------------------------------------------------------------
 
 data Bool : Set where
@@ -173,3 +170,10 @@ headS xs with out xs
 tailS : {A : Set} → Stream A → Stream A
 tailS xs with out xs
 ... | _ , xs' = xs'
+
+------------------------------------------------------------------------------
+-- References
+--
+-- Vene, Varmo (2000). Categorical programming with inductive and
+-- coinductive types. PhD thesis. Faculty of Mathematics: University
+-- of Tartu.

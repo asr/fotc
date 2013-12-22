@@ -16,12 +16,17 @@ infix 7 _∣_
 ------------------------------------------------------------------------------
 -- The relation of divisibility (the symbol is '\mid' not '|')
 --
--- It seems there is not agreement about if 0∣0, e.g.
--- • Hardy and Wright 1975, p. 1: 0∤0
--- • Knuth 1977, p. 40: 0∤0
--- • Agda standard library 0.6: 0|0
--- • Coq 8.4: 0∣0
--- • Isabelle2013-1: 0∣0
+-- It seems there is not agreement about if 0∣0:
+--
+-- Hardy and Wright 1975, p. 1: 0∤0
+--
+-- Knuth 1977, p. 40: 0∤0
+--
+--  Agda standard library 0.6: 0|0
+--
+-- Coq 8.4: 0∣0
+--
+-- Isabelle2013-2: 0∣0
 
 -- In our definition 0∣0, which is used to prove properties of the gcd
 -- as it is in GHC ≥ 7.2.1, where gcd 0 0 = 0 (see
@@ -35,8 +40,8 @@ m ∣ n = ∃[ k ] N k ∧ n ≡ k * m
 ------------------------------------------------------------------------------
 -- References:
 --
--- • Hardy, G. H. and Wright, E. M. (1975). An Introduction to the
---   Theory of Numbers. 4th ed. Oxford University Press.
+-- Hardy, G. H. and Wright, E. M. (1975). An Introduction to the
+-- Theory of Numbers. 4th ed. Oxford University Press.
 --
--- • Knuth, Donald E. (1997). The Art of Computer Programming. 3rd
---   ed. Vol. 1. Fundamental Algorithms. Addison-Wesley Professional.
+-- Knuth, Donald E. (1997). The Art of Computer Programming. 3rd
+-- ed. Vol. 1. Fundamental Algorithms. Addison-Wesley Professional.

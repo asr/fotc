@@ -50,7 +50,7 @@ postulate
 ------------------------------------------------------------------------------
 -- References
 --
--- • Sander, Herbert P. (1992). A Logic of Functional Programs with an
---   Application to Concurrency. PhD thesis. Department of Computer
---   Sciences: Chalmers University of Technology and University of
---   Gothenburg.
+-- Sander, Herbert P. (1992). A Logic of Functional Programs with an
+-- Application to Concurrency. PhD thesis. Department of Computer
+-- Sciences: Chalmers University of Technology and University of
+-- Gothenburg.

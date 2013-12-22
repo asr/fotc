@@ -117,7 +117,6 @@ abpTransfer-Stream Bb Sis Fos₁ Fos₂ = ≈→Stream₂ (abpCorrect Bb Sis Fos
 ------------------------------------------------------------------------------
 -- References
 --
--- • Dybjer, Peter and Sander, Herbert P. (1989). A Functional
---   Programming Approach to the Speciﬁcation and Veriﬁcation of
---   Concurrent Systems. In: Formal Aspects of Computing 1,
---   pp. 303–319.
+-- Dybjer, Peter and Sander, Herbert P. (1989). A Functional
+-- Programming Approach to the Speciﬁcation and Veriﬁcation of
+-- Concurrent Systems. In: Formal Aspects of Computing 1, pp. 303–319.

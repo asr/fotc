@@ -153,6 +153,6 @@ module LeibnizEquality where
 ------------------------------------------------------------------------------
 -- References
 --
--- • Barthe, Gilles, Capretta, Venanzio and Pons, Olivier
---   (2003). Setoids in type theory. In: Journal of Functional
---   Programming 13.2, pp. 261–293.
+-- Barthe, Gilles, Capretta, Venanzio and Pons, Olivier
+-- (2003). Setoids in type theory. In: Journal of Functional
+-- Programming 13.2, pp. 261–293.

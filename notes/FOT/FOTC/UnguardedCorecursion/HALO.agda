@@ -127,8 +127,8 @@ thm₃ =  ∞ , ∞-Conat , ≈-coind B h (refl , refl)
 ------------------------------------------------------------------------------
 -- References
 --
--- • Vytiniotis, D., Peyton Jones, S., Rosén, D. and Claessen,
---   K. (2013). HALO: Haskell to Logic thorugh Denotational
---   Semantics. In: Proceedings of the 40th annual ACM SIGPLAN-SIGACT
---   symposium on Principles of programming languages (POPL’13),
---   pp. 431–442.
+-- Vytiniotis, D., Peyton Jones, S., Rosén, D. and Claessen,
+-- K. (2013). HALO: Haskell to Logic thorugh Denotational
+-- Semantics. In: Proceedings of the 40th annual ACM SIGPLAN-SIGACT
+-- symposium on Principles of programming languages (POPL’13),
+-- pp. 431–442.

@@ -6,10 +6,6 @@
 {-# OPTIONS --without-K #-}
 
 -- See (Barendregt 2004, corollary 6.1.3).
---
--- • Barendregt, Henk (2004). The Lambda Calculus. Its Syntax and
---   Semantics. 2nd ed. Vol. 103. Studies in Logic and the Foundations
---   of Mathematics. 6th impression. Elsevier.
 
 module FOT.LTC-PCF.Y.Properties where
 
@@ -45,3 +41,10 @@ Y₁-eq f = Y₁ f                ≡⟨ refl ⟩
           lam f · (Y · lam f) ≡⟨ ·-rightCong refl ⟩
           lam f · Y₁ f        ≡⟨ beta f (Y₁ f) ⟩
           f (Y₁ f)            ∎
+
+------------------------------------------------------------------------------
+-- References
+--
+-- Barendregt, Henk (2004). The Lambda Calculus. Its Syntax and
+-- Semantics. 2nd ed. Vol. 103. Studies in Logic and the Foundations
+-- of Mathematics. 6th impression. Elsevier.
