@@ -69,3 +69,18 @@ Conat-coind-ho' : ∀ (A : D → Set) →
                   (∀ {n} → A n → NatF A n) →
                   ∀ {n} → A n → Conat n
 Conat-coind-ho' = Conat-coind
+
+------------------------------------------------------------------------------
+-- From Conat-coind/Conat-coind-wrong to Conat-coind-wrong/Conat-coind
+
+Conat-coind'' : ∀ (A : D → Set) →
+               (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
+               ∀ {n} → A n → Conat n
+Conat-coind'' A h An = Conat-coind-wrong A h An
+
+-- 22 December 2013: We cannot prove Conat-coind-wrong'' using
+-- Conat-coind.
+Conat-coind-wrong'' : ∀ (A : D → Set) {n} →
+                      (A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
+                      A n → Conat n
+Conat-coind-wrong'' A h An = Conat-coind A {!!} An
