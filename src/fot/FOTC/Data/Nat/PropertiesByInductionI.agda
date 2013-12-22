@@ -174,3 +174,22 @@ x+Sy≡S[x+y] Nm n = N-ind A A0 is Nm
               pred₁ (zero ∸ i) ≡⟨ predCong Ai ⟩
               pred₁ zero       ≡⟨ pred-0 ⟩
               zero ∎
+
+S∸S : ∀ {m n} → N m → N n → succ₁ m ∸ succ₁ n ≡ m ∸ n
+S∸S {m} Nm = N-ind A A0 is
+  where
+  A : D → Set
+  A i = succ₁ m ∸ succ₁ i ≡ m ∸ i
+
+  A0 : A zero
+  A0 = succ₁ m ∸ succ₁ zero   ≡⟨ ∸-xS (succ₁ m) zero ⟩
+       pred₁ (succ₁ m ∸ zero) ≡⟨ predCong (∸-x0 (succ₁ m)) ⟩
+       pred₁ (succ₁ m)        ≡⟨ pred-S m ⟩
+       m                      ≡⟨ sym (∸-x0 m) ⟩
+       m ∸ zero               ∎
+
+  is : ∀ {i} → A i → A (succ₁ i)
+  is {i} Ai = succ₁ m ∸ succ₁ (succ₁ i) ≡⟨ ∸-xS (succ₁ m) (succ₁ i) ⟩
+              pred₁ (succ₁ m ∸ succ₁ i) ≡⟨ predCong Ai ⟩
+              pred₁ (m ∸ i)             ≡⟨ sym (∸-xS m i) ⟩
+              m ∸ succ₁ i               ∎
