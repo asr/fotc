@@ -96,6 +96,18 @@ pred-N {n} Nn = case h₁ h₂ (N→0∨S Nn)
   is : ∀ {i} → A i → A (succ₁ i)
   is {i} Ai = subst N (sym (+-Sx i n)) (nsucc Ai)
 
+∸-N : ∀ {m n} → N m → N n → N (m ∸ n)
+∸-N {m} Nm Nn = N-ind A A0 is Nn
+  where
+  A : D → Set
+  A i = N (m ∸ i)
+
+  A0 : A zero
+  A0 = subst N (sym (∸-x0 m)) Nm
+
+  is : ∀ {i} → A i → A (succ₁ i)
+  is {i} Ai = subst N (sym (∸-xS m i)) (pred-N Ai)
+
 +-assoc : ∀ {m} → N m → ∀ n o → m + n + o ≡ m + (n + o)
 +-assoc Nm n o = N-ind A A0 is Nm
   where
