@@ -12,29 +12,25 @@ open import FOTC.Data.Conat
 open import FOTC.Data.Nat
 
 ------------------------------------------------------------------------------
--- Because a greatest post-fixed point is a fixed-point, then the
--- Conat predicate is also a pre-fixed point of the functional NatF,
--- i.e,
---
--- NatF Conat ≤ Conat (see FOTC.Data.Conat.Type).
-Conat-pre-fixed : ∀ {n} →
-                  (n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')) →
-                  Conat n
-Conat-pre-fixed {n} h = Conat-coind (λ m → m ≡ m) h' refl
-  where
-  postulate h' : n ≡ n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ n' ≡ n')
-  {-# ATP prove h' #-}
 
 0-Conat : Conat zero
-0-Conat = Conat-coind (λ n → n ≡ n) h refl
+0-Conat = Conat-coind A h refl
   where
-  postulate h : zero ≡ zero → zero ≡ zero ∨ (∃[ n ] zero ≡ succ₁ n ∧ n ≡ n)
+  A : D → Set
+  A n = n ≡ zero
+  {-# ATP definition A #-}
+
+  postulate h : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
   {-# ATP prove h #-}
 
 ∞-Conat : Conat ∞
-∞-Conat = Conat-coind (λ n → n ≡ n) h refl
+∞-Conat = Conat-coind A h refl
   where
-  postulate h : ∞ ≡ ∞ → ∞ ≡ zero ∨ (∃[ n ] ∞ ≡ succ₁ n ∧ n ≡ n)
+  A : D → Set
+  A n = n ≡ ∞
+  {-# ATP definition A #-}
+
+  postulate h : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
   {-# ATP prove h #-}
 
 N→Conat : ∀ {n} → N n → Conat n

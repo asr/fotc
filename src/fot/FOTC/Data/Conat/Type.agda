@@ -41,11 +41,11 @@ postulate
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
-  Conat-coind : ∀ (A : D → Set) {n} →
+  Conat-coind : ∀ (A : D → Set) →
                 -- A is post-fixed point of NatF.
-                (A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
+                (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
                 -- Conat is greater than A.
-                A n → Conat n
+                ∀ {n} → A n → Conat n
 
 ------------------------------------------------------------------------------
 -- References

@@ -17,21 +17,34 @@ open import FOTC.Data.Nat
 -- i.e,
 --
 -- NatF Conat ≤ Conat (see FOTC.Data.Conat.Type).
-Conat-pre-fixed : ∀ {n} →
-                  (n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')) →
-                  Conat n
-Conat-pre-fixed {n} h = Conat-coind (λ m → m ≡ m) h' refl
+Conat-pre-fixed : (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')) →
+                  ∀ {n} → Conat n
+Conat-pre-fixed h = Conat-coind (λ m → m ≡ m) h' refl
   where
-  h' : n ≡ n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ n' ≡ n')
+  h' : ∀ {m} → m ≡ m → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ m' ≡ m')
   h' _ with h
-  ... | inj₁ prf              = inj₁ prf
-  ... | inj₂ (n' , n≡Sn' , _) = inj₂ (n' , n≡Sn' , refl)
+  ... | inj₁ m≡0              = inj₁ m≡0
+  ... | inj₂ (m' , prf , _) = inj₂ (m' , prf , refl)
 
-∞-Conat : Conat ∞
-∞-Conat = Conat-coind (λ n → n ≡ n) h refl
+0-Conat : Conat zero
+0-Conat = Conat-coind A h refl
   where
-  h : ∞ ≡ ∞ → ∞ ≡ zero ∨ (∃[ n ] ∞ ≡ succ₁ n ∧ n ≡ n)
-  h _ = inj₂ (∞ ,  ∞-eq , refl)
+  A : D → Set
+  A n = n ≡ zero
+
+  h : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
+  h An = inj₁ An
+
+-- A different proof of ∞-Conat using a non-trivial predicate. Adapted
+-- from (Sander 1992, p. 57).
+∞-Conat : Conat ∞
+∞-Conat = Conat-coind A h refl
+  where
+  A : D → Set
+  A n = n ≡ ∞
+
+  h : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
+  h An = inj₂ (∞ , trans An ∞-eq , refl)
 
 N→Conat : ∀ {n} → N n → Conat n
 N→Conat Nn = Conat-coind N h Nn
@@ -40,7 +53,10 @@ N→Conat Nn = Conat-coind N h Nn
   h nzero          = inj₁ refl
   h (nsucc {m} Nm) = inj₂ (m , refl , Nm)
 
--- A different proof.
-N→Conat' : ∀ {n} → N n → Conat n
-N→Conat' nzero          = Conat-pre-fixed (inj₁ refl)
-N→Conat' (nsucc {n} Nn) = Conat-pre-fixed (inj₂ (n , refl , (N→Conat' Nn)))
+------------------------------------------------------------------------------
+-- References
+--
+-- Sander, Herbert P. (1992). A Logic of Functional Programs with an
+-- Application to Concurrency. PhD thesis. Department of Computer
+-- Sciences: Chalmers University of Technology and University of
+-- Gothenburg.
