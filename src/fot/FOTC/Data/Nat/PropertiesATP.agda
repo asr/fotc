@@ -111,14 +111,9 @@ S∸S {m} Nm nzero = prf
   where postulate prf : succ₁ m ∸ succ₁ zero ≡ m ∸ zero
         {-# ATP prove prf #-}
 
-S∸S nzero (nsucc {n} Nn) = prf (S∸S nzero Nn)
-  where postulate prf : succ₁ zero ∸ succ₁ n ≡ zero ∸ n →
-                        succ₁ zero ∸ succ₁ (succ₁ n) ≡ zero ∸ succ₁ n
-        {-# ATP prove prf #-}
-
-S∸S (nsucc {m} Nm) (nsucc {n} Nn) = prf (S∸S (nsucc Nm) Nn)
-  where postulate prf : succ₁ (succ₁ m) ∸ succ₁ n ≡ succ₁ m ∸ n →
-                        succ₁ (succ₁ m) ∸ succ₁ (succ₁ n) ≡ succ₁ m ∸ succ₁ n
+S∸S {m} Nm (nsucc {n} Nn) = prf (S∸S Nm Nn)
+  where postulate prf : succ₁ m ∸ succ₁ n ≡ m ∸ n →
+                        succ₁ m ∸ succ₁ (succ₁ n) ≡ m ∸ succ₁ n
         {-# ATP prove prf #-}
 
 x∸x≡0 : ∀ {n} → N n → n ∸ n ≡ zero

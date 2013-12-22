@@ -110,25 +110,17 @@ x+Sy≡S[x+y] (nsucc {m} Nm) n =
 
 S∸S : ∀ {m n} → N m → N n → succ₁ m ∸ succ₁ n ≡ m ∸ n
 S∸S {m} _ nzero =
-  succ₁ m ∸ 1'           ≡⟨ ∸-xS (succ₁ m) zero ⟩
+  succ₁ m ∸ succ₁ zero   ≡⟨ ∸-xS (succ₁ m) zero ⟩
   pred₁ (succ₁ m ∸ zero) ≡⟨ predCong (∸-x0 (succ₁ m)) ⟩
   pred₁ (succ₁ m)        ≡⟨ pred-S m ⟩
   m                      ≡⟨ sym (∸-x0 m) ⟩
   m ∸ zero               ∎
 
-S∸S nzero (nsucc {n} Nn) =
-  1' ∸ succ₁ (succ₁ n) ≡⟨ ∸-xS 1' (succ₁ n) ⟩
-  pred₁ (1' ∸ succ₁ n) ≡⟨ predCong (S∸S nzero Nn) ⟩
-  pred₁ (zero ∸ n)     ≡⟨ predCong (0∸x Nn) ⟩
-  pred₁ zero           ≡⟨ pred-0 ⟩
-  zero                 ≡⟨ sym (0∸x (nsucc Nn)) ⟩
-  zero ∸ succ₁ n       ∎
-
-S∸S (nsucc {m} Nm) (nsucc {n} Nn) =
-  succ₁ (succ₁ m) ∸ succ₁ (succ₁ n) ≡⟨ ∸-xS (succ₁ (succ₁ m)) (succ₁ n) ⟩
-  pred₁ (succ₁ (succ₁ m) ∸ succ₁ n) ≡⟨ predCong (S∸S (nsucc Nm) Nn) ⟩
-  pred₁ (succ₁ m ∸ n)               ≡⟨ sym (∸-xS (succ₁ m) n) ⟩
-  succ₁ m ∸ succ₁ n                 ∎
+S∸S {m} Nm (nsucc {n} Nn) =
+  succ₁ m ∸ succ₁ (succ₁ n) ≡⟨ ∸-xS (succ₁ m) (succ₁ n) ⟩
+  pred₁ (succ₁ m ∸ succ₁ n) ≡⟨ predCong (S∸S Nm Nn) ⟩
+  pred₁ (m ∸ n)             ≡⟨ sym (∸-xS m n) ⟩
+  m ∸ succ₁ n               ∎
 
 x∸x≡0 : ∀ {n} → N n → n ∸ n ≡ zero
 x∸x≡0 nzero      = ∸-x0 zero

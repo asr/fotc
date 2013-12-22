@@ -28,6 +28,7 @@ postulate
   ∸-x0 : ∀ n → n ∸ zero      ≡ n
   ∸-xS : ∀ m n → m ∸ succ₁ n ≡ pred₁ (m ∸ n)
 {-# ATP axiom ∸-x0 ∸-xS #-}
+
 postulate
   _*_  : D → D → D
   *-0x : ∀ n → zero * n      ≡ zero
