@@ -15,7 +15,7 @@ open import FOTC.Base.List
 open import FOTC.Data.Stream
 open import FOTC.Data.Stream.Equality.PropertiesI
 open import FOTC.Program.ABP.ABP
-open import FOTC.Program.ABP.Fair
+open import FOTC.Program.ABP.Fair.Type
 open import FOTC.Program.ABP.LemmaI
 open import FOTC.Program.ABP.Terms
 open import FOTC.Relation.Binary.Bisimilarity
@@ -78,5 +78,5 @@ abpTransfer-Stream Bb Sis Fos₁ Fos₂ = ≈→Stream₂ (abpCorrect Bb Sis Fos
 -- References
 --
 -- Dybjer, Peter and Sander, Herbert P. (1989). A Functional
--- Programming Approach to the Speciﬁcation and Veriﬁcation of
+-- Programming Approach to the Specification and Veriﬁcation of
 -- Concurrent Systems. In: Formal Aspects of Computing 1, pp. 303–319.

@@ -25,7 +25,7 @@ open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI
 open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.DS.ABP
-open import FOTC.Program.ABP.Fair
+open import FOTC.Program.ABP.Fair.Type
 open import FOTC.Program.ABP.Fair.PropertiesI
 open import FOTC.Program.ABP.Terms
 open import FOTC.Program.ABP.PropertiesI
