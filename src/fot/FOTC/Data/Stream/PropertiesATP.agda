@@ -12,7 +12,7 @@ open import FOTC.Base.List
 open import FOTC.Data.Conat
 open import FOTC.Data.Conat.Equality
 open import FOTC.Data.List
-open import FOTC.Data.Stream
+open import FOTC.Data.Stream.Type
 
 ------------------------------------------------------------------------------
 -- Because a greatest post-fixed point is a fixed-point, then the

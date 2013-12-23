@@ -5,8 +5,6 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- N.B. This module is re-exported by FOTC.Data.Stream.
-
 module FOTC.Data.Stream.Type where
 
 open import FOTC.Base

@@ -16,7 +16,7 @@ open import FOTC.Data.Colist
 open import FOTC.Data.Colist.PropertiesI
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI
-open import FOTC.Data.Stream
+open import FOTC.Data.Stream.Type
 
 -----------------------------------------------------------------------------
 -- Because a greatest post-fixed point is a fixed-point, then the

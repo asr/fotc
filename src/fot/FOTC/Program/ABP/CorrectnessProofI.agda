@@ -12,7 +12,7 @@ module FOTC.Program.ABP.CorrectnessProofI where
 
 open import FOTC.Base
 open import FOTC.Base.List
-open import FOTC.Data.Stream
+open import FOTC.Data.Stream.Type
 open import FOTC.Data.Stream.Equality.PropertiesI
 open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.Fair

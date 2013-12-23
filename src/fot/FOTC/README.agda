@@ -20,7 +20,6 @@ open import FOTC.Base.PropertiesI
 open import FOTC.Base.List
 
 -- Properties for axioms for lists, colists, streams, etc
-
 open import FOTC.Base.List.PropertiesATP
 open import FOTC.Base.List.PropertiesI
 
@@ -105,8 +104,11 @@ open import FOTC.Data.Nat.List.PropertiesI
 ------------------------------------------------------------------------------
 -- Co-inductive natural numbers
 
--- The co-inductive predicate
+-- The axioms
 open import FOTC.Data.Conat
+
+-- The co-inductive predicate
+open import FOTC.Data.Conat.Type
 
 -- Properties
 open import FOTC.Data.Conat.PropertiesATP
@@ -123,7 +125,7 @@ open import FOTC.Data.Conat.Equality.PropertiesI
 -- Streams
 
 -- The co-inductive predicate
-open import FOTC.Data.Stream
+open import FOTC.Data.Stream.Type
 
 -- Properties
 open import FOTC.Data.Stream.PropertiesATP

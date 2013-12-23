@@ -15,7 +15,7 @@ open import FOTC.Base.List.PropertiesI
 open import FOTC.Data.Conat
 open import FOTC.Data.Conat.PropertiesI
 open import FOTC.Data.Nat
-open import FOTC.Data.Stream
+open import FOTC.Data.Stream.Type
 open import FOTC.Data.Stream.Equality.PropertiesI
 open import FOTC.Relation.Binary.Bisimilarity
 open import FOTC.Relation.Binary.Bisimilarity.PropertiesI

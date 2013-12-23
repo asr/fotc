@@ -14,7 +14,7 @@ open import FOTC.Base
 open import FOTC.Base.List
 open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesI
-open import FOTC.Data.Stream
+open import FOTC.Data.Stream.Type
 open import FOTC.Data.Stream.Equality.PropertiesI
 open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.DS.ABP

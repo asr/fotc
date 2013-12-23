@@ -16,7 +16,7 @@ open import FOTC.Data.Conat.Equality
 open import FOTC.Data.List
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
-open import FOTC.Data.Stream
+open import FOTC.Data.Stream.Type
 
 open import FOTC.Program.McCarthy91.McCarthy91
 

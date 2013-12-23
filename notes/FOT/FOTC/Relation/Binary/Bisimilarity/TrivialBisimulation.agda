@@ -5,7 +5,7 @@ module FOT.FOTC.Relation.Binary.Bisimilarity.TrivialBisimulation where
 
 open import FOTC.Base
 open import FOTC.Base.List
-open import FOTC.Data.Stream
+open import FOTC.Data.Stream.Type
 open import FOTC.Relation.Binary.Bisimilarity
 
 ------------------------------------------------------------------------------

@@ -17,7 +17,7 @@ open import FOTC.Base
 open import FOTC.Base.List
 open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesATP using ( not-Bool )
-open import FOTC.Data.Stream
+open import FOTC.Data.Stream.Type
 open import FOTC.Data.Stream.Equality.PropertiesATP
 open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.DS.ABP
