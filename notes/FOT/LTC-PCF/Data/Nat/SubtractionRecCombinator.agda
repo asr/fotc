@@ -150,7 +150,7 @@ m ∸ n = rec n m (lam (λ _ → lam pred₁))
 --   m ∸ n ∎
 
 ------------------------------------------------------------------------------
--- Coq conversion rules
+-- Coq 8.4pl3 conversion rules (.../theories/Init/Peano.v):
 
 -- Fixpoint minus (n m:nat) : nat :=
 --   match n, m with

@@ -32,8 +32,8 @@ data Tree where
 ------------------------------------------------------------------------------
 -- Mutual induction for Tree and Forest
 
--- Adapted from the mutual induction principles generate from Coq 8.4
--- using the command (see Coq'Art p. 401).
+-- Adapted from the mutual induction principles generate from Coq
+-- 8.4pl3 using the command (see Coq'Art p. 401).
 --
 -- Scheme Tree_mutual_ind :=
 --   Minimality for Tree Sort Prop

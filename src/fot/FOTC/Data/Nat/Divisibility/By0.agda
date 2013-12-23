@@ -22,9 +22,9 @@ infix 7 _∣_
 --
 -- Knuth 1977, p. 40: 0∤0
 --
---  Agda standard library 0.6: 0|0
+-- Agda standard library (version 0.6): 0|0
 --
--- Coq 8.4: 0∣0
+-- Coq 8.4pl3: 0∣0
 --
 -- Isabelle2013-2: 0∣0
 

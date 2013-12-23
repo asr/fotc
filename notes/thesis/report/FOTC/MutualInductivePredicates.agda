@@ -36,16 +36,19 @@ Odd-ind : (A : D → Set) →
 Odd-ind A h (osucc En) = h En
 
 -- Mutual induction principles (from Coq)
-Even-mutual-ind : (A B : D → Set) →
-                  A zero →
-                  (∀ {n} → Odd n → B n → A (succ₁ n)) →
-                  (∀ {n} → Even n → A n → B (succ₁ n)) →
-                  ∀ {n} → Even n → A n
-Odd-mutual-ind : (A B : D → Set) →
-                 A zero →
-                 (∀ {n} → Odd n → B n → A (succ₁ n)) →
-                 (∀ {n} → Even n → A n → B (succ₁ n)) →
-                 ∀ {n} → Odd n → B n
+Even-mutual-ind :
+  (A B : D → Set) →
+  A zero →
+  (∀ {n} → Odd n → B n → A (succ₁ n)) →
+  (∀ {n} → Even n → A n → B (succ₁ n)) →
+  ∀ {n} → Even n → A n
+
+Odd-mutual-ind :
+  (A B : D → Set) →
+  A zero →
+  (∀ {n} → Odd n → B n → A (succ₁ n)) →
+  (∀ {n} → Even n → A n → B (succ₁ n)) →
+  ∀ {n} → Odd n → B n
 
 Even-mutual-ind A B A0 h₁ h₂ ezero      = A0
 Even-mutual-ind A B A0 h₁ h₂ (esucc On) = h₁ On (Odd-mutual-ind A B A0 h₁ h₂ On)

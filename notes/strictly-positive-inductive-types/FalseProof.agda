@@ -3,7 +3,7 @@
 -- {-# OPTIONS --without-K #-}  -- No accepted!
 
 -- Using a non-strictly positive type is possible to get a
--- contradiction. From Coq' Art, section 14.1.2.1.
+-- contradiction. From Coq'Art, section 14.1.2.1.
 
 module FalseProof where
 
