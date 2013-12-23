@@ -83,14 +83,30 @@ Stream→Colist Sxs with Stream-unf Sxs
   prf₂ = Stream-pre-fixed
            (x' , (xs' ++ ys) , refl , ++-Stream CLxs' Sys)
 
+-- Adapted from (Sander 1992, p. 59).
 streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞
-streamLength {xs} Sxs = ≈N-coind (λ m _ → m ≡ m) h refl
+streamLength {xs} Sxs = ≈N-coind R h₁ h₂
   where
+  R : D → D → Set
+  R m n = ∃[ xs ] Stream xs ∧ m ≡ length xs ∧ n ≡ ∞
 
-  h : length xs ≡ length xs → length xs ≡ zero ∧ ∞ ≡ zero
-        ∨ (∃[ m ] ∃[ n ] length xs ≡ succ₁ m ∧ ∞ ≡ succ₁ n ∧ m ≡ m)
-  h _ with Stream-unf Sxs
-  ... | x' , xs' , xs≡x'∷xs' , _ = inj₂ (length xs' , ∞ , prf , ∞-eq , refl)
+  h₁ : ∀ {m n} → R m n →
+       m ≡ zero ∧ n ≡ zero
+         ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
+  h₁ {m} (xs , Sxs , m=lxs , n≡∞) with Stream-unf Sxs
+  ... | x' , xs' , xs≡x'∷xs' , Sxs' =
+    inj₂ (length xs' , ∞ , helper , trans n≡∞ ∞-eq , (xs' , Sxs' , refl , refl))
     where
-    prf : length xs ≡ succ₁ (length xs')
-    prf = trans (lengthCong xs≡x'∷xs') (length-∷ x' xs')
+    helper : m ≡ succ₁ (length xs')
+    helper = trans m=lxs (trans (lengthCong xs≡x'∷xs') (length-∷ x' xs'))
+
+  h₂ : R (length xs) ∞
+  h₂ = xs , Sxs , refl , refl
+
+------------------------------------------------------------------------------
+-- References
+--
+-- Sander, Herbert P. (1992). A Logic of Functional Programs with an
+-- Application to Concurrency. PhD thesis. Department of Computer
+-- Sciences: Chalmers University of Technology and University of
+-- Gothenburg.

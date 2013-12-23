@@ -13,34 +13,21 @@ open import FOTC.Data.Conat.Equality
 
 ------------------------------------------------------------------------------
 
-≈N-pre-fixed : ∀ {m n} →
-               (m ≡ zero ∧ n ≡ zero
-                 ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n')) →
-               m ≈N n
-≈N-pre-fixed {m} {n} h = ≈N-coind (λ o _ → o ≡ o) h' refl
-  where
-  postulate
-    h' : m ≡ m →
-         m ≡ zero ∧ n ≡ zero
-           ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≡ m')
-  {-# ATP prove h' #-}
-
 ≈N-refl : ∀ {n} → Conat n → n ≈N n
-≈N-refl {n} Cn = ≈N-coind (λ m _ → m ≡ m) h refl
+≈N-refl {n} Cn = ≈N-coind R h₁ h₂
   where
+  R : D → D → Set
+  R a b = Conat a ∧ Conat b ∧ a ≡ b
+  {-# ATP definition R #-}
+
   postulate
-    h : n ≡ n →
-        n ≡ zero ∧ n ≡ zero
-          ∨ (∃[ n' ] ∃[ n'' ] n ≡ succ₁ n' ∧ n ≡ succ₁ n'' ∧ n' ≡ n')
-  {-# ATP prove h #-}
+    h₁ : ∀ {a b} → R a b →
+         a ≡ zero ∧ b ≡ zero
+           ∨ (∃[ a' ] ∃[ b' ] a ≡ succ₁ a' ∧ b ≡ succ₁ b' ∧ R a' b')
+  {-# ATP prove h₁ #-}
 
-postulate ≡→≈N : ∀ {m n} → Conat m → Conat n → m ≡ n → m ≈N n
-{-# ATP prove ≡→≈N ≈N-refl #-}
+  postulate h₂ : R n n
+  {-# ATP prove h₂ #-}
 
-------------------------------------------------------------------------------
--- References
---
--- Sander, Herbert P. (1992). A Logic of Functional Programs with an
--- Application to Concurrency. PhD thesis. Department of Computer
--- Sciences: Chalmers University of Technology and University of
--- Gothenburg.
+  postulate ≡→≈N : ∀ {m n} → Conat m → Conat n → m ≡ n → m ≈N n
+  {-# ATP prove ≡→≈N ≈N-refl #-}

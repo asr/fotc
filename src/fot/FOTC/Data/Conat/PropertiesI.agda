@@ -35,8 +35,7 @@ Conat-pre-fixed h = Conat-coind (λ m → m ≡ m) h' refl
   h : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
   h An = inj₁ An
 
--- A different proof of ∞-Conat using a non-trivial predicate. Adapted
--- from (Sander 1992, p. 57).
+-- Adapted from (Sander 1992, p. 57).
 ∞-Conat : Conat ∞
 ∞-Conat = Conat-coind A h refl
   where

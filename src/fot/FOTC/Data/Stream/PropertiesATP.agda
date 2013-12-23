@@ -31,10 +31,27 @@ Stream-pre-fixed {xs} h = Stream-coind (λ ys → ys ≡ ys) h' refl
 postulate ∷-Stream : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 {-# ATP prove ∷-Stream #-}
 
+-- Adapted from (Sander 1992, p. 59).
 streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞
-streamLength {xs} Sxs = ≈N-coind (λ m _ → m ≡ m)  h refl
+streamLength {xs} Sxs = ≈N-coind R h₁ h₂
   where
+  R : D → D → Set
+  R m n = ∃[ xs ] Stream xs ∧ m ≡ length xs ∧ n ≡ ∞
+  {-# ATP definition R #-}
+
   postulate
-    h : length xs ≡ length xs → length xs ≡ zero ∧ ∞ ≡ zero
-          ∨ (∃[ m ] ∃[ n ] length xs ≡ succ₁ m ∧ ∞ ≡ succ₁ n ∧ m ≡ m)
-  {-# ATP prove h #-}
+    h₁ : ∀ {m n} → R m n →
+         m ≡ zero ∧ n ≡ zero
+           ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
+  {-# ATP prove h₁ #-}
+
+  postulate h₂ : R (length xs) ∞
+  {-# ATP prove h₂ #-}
+
+------------------------------------------------------------------------------
+-- References
+--
+-- Sander, Herbert P. (1992). A Logic of Functional Programs with an
+-- Application to Concurrency. PhD thesis. Department of Computer
+-- Sciences: Chalmers University of Technology and University of
+-- Gothenburg.
