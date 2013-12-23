@@ -28,19 +28,11 @@ unfoldMapIterate f x =
   map f (x ∷ iterate f (f · x))     ≡⟨ map-∷ f x (iterate f (f · x)) ⟩
   f · x ∷ map f (iterate f (f · x)) ∎
 
-map-iterate-Stream₁ : ∀ f x → Stream (map f (iterate f x))
-map-iterate-Stream₁ f x = Stream-coind (λ xs → xs ≡ xs) h refl
-  where
-  h : map f (iterate f x) ≡ map f (iterate f x) →
-      ∃[ x' ]  ∃[ xs' ] map f (iterate f x) ≡ x' ∷ xs' ∧ xs' ≡ xs'
-  h _ = f · x , map f (iterate f (f · x)) , unfoldMapIterate f x , refl
+-- TODO (23 December 2013).
+-- map-iterate-Stream₁ : ∀ f x → Stream (map f (iterate f x))
 
-map-iterate-Stream₂ : ∀ f x → Stream (iterate f (f · x))
-map-iterate-Stream₂ f x = Stream-coind (λ xs → xs ≡ xs) h refl
-  where
-  h : iterate f (f · x) ≡ iterate f (f · x) →
-      ∃[ x' ] ∃[ xs' ] iterate f (f · x) ≡ x' ∷ xs' ∧ xs' ≡ xs'
-  h _ = f · x , iterate f (f · (f · x)) , iterate-eq f (f · x) , refl
+-- TODO (23 December 2013).
+-- map-iterate-Stream₂ : ∀ f x → Stream (iterate f (f · x))
 
 -- The map-iterate property.
 ≈-map-iterate : ∀ f x → map f (iterate f x) ≈ iterate f (f · x)

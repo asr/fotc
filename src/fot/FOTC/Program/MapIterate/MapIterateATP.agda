@@ -17,23 +17,6 @@ open import FOTC.Data.Stream
 open import FOTC.Relation.Binary.Bisimilarity
 
 ------------------------------------------------------------------------------
-
-map-iterate-Stream₁ : ∀ f x → Stream (map f (iterate f x))
-map-iterate-Stream₁ f x = Stream-coind (λ xs → xs ≡ xs) h refl
-  where
-  postulate
-    h : map f (iterate f x) ≡ map f (iterate f x) →
-        ∃[ x' ]  ∃[ xs' ] map f (iterate f x) ≡ x' ∷ xs' ∧ xs' ≡ xs'
-  {-# ATP prove h #-}
-
-map-iterate-Stream₂ : ∀ f x → Stream (iterate f (f · x))
-map-iterate-Stream₂ f x = Stream-coind (λ xs → xs ≡ xs) h refl
-  where
-  postulate
-    h : iterate f (f · x) ≡ iterate f (f · x) →
-        ∃[ x' ] ∃[ xs' ] iterate f (f · x) ≡ x' ∷ xs' ∧ xs' ≡ xs'
-  {-# ATP prove h #-}
-
 -- The map-iterate property.
 ≈-map-iterate : ∀ f x → map f (iterate f x) ≈ iterate f (f · x)
 ≈-map-iterate f x = ≈-coind (λ xs _ → xs ≡ xs) h refl

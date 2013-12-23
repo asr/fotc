@@ -19,15 +19,23 @@ postulate stream-≡→≈ : ∀ {xs ys} → Stream xs → Stream ys → xs ≡ 
 {-# ATP prove stream-≡→≈ ≈-refl #-}
 
 ≈→Stream₁ : ∀ {xs ys} → xs ≈ ys → Stream xs
-≈→Stream₁ {xs} {ys} h = Stream-coind (λ zs → zs ≡ zs) h' refl
+≈→Stream₁ {xs} {ys} h = Stream-coind A h' (ys , h)
   where
-  postulate h' : xs ≡ xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ xs' ≡ xs'
+  A : D → Set
+  A ws = ∃[ zs ] ws ≈ zs
+  {-# ATP definition A #-}
+
+  postulate h' : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
   {-# ATP prove h' #-}
 
 ≈→Stream₂ : ∀ {xs ys} → xs ≈ ys → Stream ys
-≈→Stream₂ {xs} {ys} h = Stream-coind (λ zs → zs ≡ zs) h' refl
+≈→Stream₂ {xs} {ys} h = Stream-coind A h' (xs , h)
   where
-  postulate h' : ys ≡ ys → ∃[ x' ] ∃[ ys' ] ys ≡ x' ∷ ys' ∧ ys' ≡ ys'
+  A : D → Set
+  A zs = ∃[ ws ] ws ≈ zs
+  {-# ATP definition A #-}
+
+  postulate h' : ∀ {ys} → A ys → ∃[ y' ] ∃[ ys' ] ys ≡ y' ∷ ys' ∧ A ys'
   {-# ATP prove h' #-}
 
 ≈→Stream : ∀ {xs ys} → xs ≈ ys → Stream xs ∧ Stream ys

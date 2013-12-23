@@ -16,15 +16,15 @@ open import FOTC.Data.Stream
 open import FOTC.Relation.Binary.Bisimilarity
 
 ------------------------------------------------------------------------------
+-- TODO (23 December 2013).
+-- alter-Stream : Stream alter
+-- alter-Stream = Stream-coind A h refl
+--   where
+--   A : D → Set
+--   A xs = xs ≡ alter
 
-alter-Stream : Stream alter
-alter-Stream = Stream-coind A h refl
-  where
-  A : D → Set
-  A xs = xs ≡ xs
-
-  h : A alter → ∃[ x' ] ∃[ xs' ] alter ≡ x' ∷ xs' ∧ A xs'
-  h _ = true , (false ∷ alter) , alter-eq , refl
+--   h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+--   h Ax = true , (false ∷ alter) , trans Ax alter-eq , {!!}
 
 alter≈alter' : alter ≈ alter'
 alter≈alter' = ≈-coind B h₁ h₂
