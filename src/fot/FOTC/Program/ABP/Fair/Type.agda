@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Program.ABP.Fair where
+module FOTC.Program.ABP.Fair.Type where
 
 open import FOTC.Base
 open import FOTC.Base.List
@@ -43,16 +43,16 @@ postulate Fair-unf : ∀ {os} → Fair os →
 -- N.B. This is an axiom schema. Because in the automatic proofs we
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
-postulate Fair-coind : ∀ (A : D → Set) {os} →
+postulate Fair-coind : ∀ (A : D → Set) →
                        -- A is post-fixed point of FairF.
-                       (A os → ∃[ ft ] ∃[ os' ]
+                       (∀ {os} → A os → ∃[ ft ] ∃[ os' ]
                          F*T ft ∧ os ≡ ft ++ os' ∧ A os') →
                        -- Fair is greater than A.
-                       A os → Fair os
+                       ∀ {os} → A os → Fair os
 
 ------------------------------------------------------------------------------
 -- References
 --
 -- Dybjer, Peter and Sander, Herbert P. (1989). A Functional
--- Programming Approach to the Speciﬁcation and Veriﬁcation of
+-- Programming Approach to the Specification and Veriﬁcation of
 -- Concurrent Systems. In: Formal Aspects of Computing 1, pp. 303–319.

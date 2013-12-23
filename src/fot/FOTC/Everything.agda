@@ -104,7 +104,7 @@ open import FOTC.Program.ABP.DS.Lemma1ATP
 open import FOTC.Program.ABP.DS.Lemma1I
 open import FOTC.Program.ABP.DS.Lemma2ATP
 open import FOTC.Program.ABP.DS.Lemma2I
-open import FOTC.Program.ABP.Fair
+open import FOTC.Program.ABP.Fair.Type
 open import FOTC.Program.ABP.Fair.Consistency.Axioms
 open import FOTC.Program.ABP.Fair.PropertiesATP
 open import FOTC.Program.ABP.Fair.PropertiesI

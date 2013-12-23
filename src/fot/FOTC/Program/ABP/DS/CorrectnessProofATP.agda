@@ -21,9 +21,9 @@ open import FOTC.Data.Stream.Type
 open import FOTC.Data.Stream.Equality.PropertiesATP
 open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.DS.ABP
-open import FOTC.Program.ABP.DS.Lemma1I
-open import FOTC.Program.ABP.DS.Lemma2I
-open import FOTC.Program.ABP.Fair
+open import FOTC.Program.ABP.DS.Lemma1ATP
+open import FOTC.Program.ABP.DS.Lemma2ATP
+open import FOTC.Program.ABP.Fair.Type
 open import FOTC.Program.ABP.Terms
 open import FOTC.Relation.Binary.Bisimilarity
 
@@ -56,5 +56,5 @@ postulate
 -- References
 --
 -- Dybjer, Peter and Sander, Herbert P. (1989). A Functional
--- Programming Approach to the Speciﬁcation and Veriﬁcation of
+-- Programming Approach to the Specification and Veriﬁcation of
 -- Concurrent Systems. In: Formal Aspects of Computing 1, pp. 303–319.

@@ -14,7 +14,7 @@ open import FOTC.Base.List
 open import FOTC.Base.List.PropertiesI
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI
-open import FOTC.Program.ABP.Fair
+open import FOTC.Program.ABP.Fair.Type
 open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
@@ -22,12 +22,12 @@ open import FOTC.Program.ABP.Terms
 -- predicate is also a pre-fixed point of the functional FairF, i.e.
 --
 -- FairF Fair ≤ Fair (see FOTC.Program.ABP.Fair).
-Fair-pre-fixed : ∀ {os} →
-                 (∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os') →
-                 Fair os
-Fair-pre-fixed {os} h = Fair-coind (λ xs → xs ≡ xs) h' refl
+Fair-pre-fixed :
+  (∀ {os} → ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os') →
+  ∀ {os} → Fair os
+Fair-pre-fixed h = Fair-coind (λ xs → xs ≡ xs) h' refl
   where
-  h' : os ≡ os → ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ os' ≡ os'
+  h' : ∀ {os} → os ≡ os → ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ os' ≡ os'
   h' _ with h
   ... | ft , os' , FTft , prf , _ = ft , os' , FTft , prf , refl
 
@@ -68,31 +68,33 @@ head-tail-Fair {os} Fos with Fair-unf Fos
          F ∷ ft ++ os'  ≡⟨ ∷-rightCong (sym prf₂) ⟩
          F ∷ tail₁ os   ∎
 
-tail-Fair : ∀ {os} → Fair os → Fair (tail₁ os)
-tail-Fair {os} Fos with Fair-unf Fos
-... | .(true ∷ []) , os' , f*tnil , prf , Fos' =
-  subst Fair (sym prf₂) Fos'
-  where
-  prf₁ : os ≡ T ∷ os'
-  prf₁ = os              ≡⟨ prf ⟩
-         (T ∷ []) ++ os' ≡⟨ ++-∷ T [] os' ⟩
-         T ∷ [] ++ os'   ≡⟨ ∷-rightCong (++-leftIdentity os') ⟩
-         T ∷ os'         ∎
+-- TODO (23 December 2013).
+postulate tail-Fair : ∀ {os} → Fair os → Fair (tail₁ os)
+-- tail-Fair : ∀ {os} → Fair os → Fair (tail₁ os)
+-- tail-Fair {os} Fos with Fair-unf Fos
+-- ... | .(true ∷ []) , os' , f*tnil , prf , Fos' =
+--   subst Fair (sym prf₂) Fos'
+--   where
+--   prf₁ : os ≡ T ∷ os'
+--   prf₁ = os              ≡⟨ prf ⟩
+--          (T ∷ []) ++ os' ≡⟨ ++-∷ T [] os' ⟩
+--          T ∷ [] ++ os'   ≡⟨ ∷-rightCong (++-leftIdentity os') ⟩
+--          T ∷ os'         ∎
 
-  prf₂ : tail₁ os ≡ os'
-  prf₂ = tail₁ os        ≡⟨ tailCong prf₁ ⟩
-         tail₁ (T ∷ os') ≡⟨ tail-∷ T os' ⟩
-         os'             ∎
+--   prf₂ : tail₁ os ≡ os'
+--   prf₂ = tail₁ os        ≡⟨ tailCong prf₁ ⟩
+--          tail₁ (T ∷ os') ≡⟨ tail-∷ T os' ⟩
+--          os'             ∎
 
-... | .(false ∷ ft) , os' , f*tcons {ft} FTft , prf , Fos' =
-  subst Fair (sym prf₂) (Fair-pre-fixed (ft , os' , FTft , refl , Fos'))
-  where
-  prf₁ : os ≡ F ∷ ft ++ os'
-  prf₁ = os              ≡⟨ prf ⟩
-         (F ∷ ft) ++ os' ≡⟨ ++-∷ F ft os' ⟩
-         F ∷ ft ++ os'   ∎
+-- ... | .(false ∷ ft) , os' , f*tcons {ft} FTft , prf , Fos' =
+--     subst Fair (sym prf₂) {!!} -- (Fair-pre-fixed (ft , os' , FTft , refl , Fos'))
+--   where
+--   prf₁ : os ≡ F ∷ ft ++ os'
+--   prf₁ = os              ≡⟨ prf ⟩
+--          (F ∷ ft) ++ os' ≡⟨ ++-∷ F ft os' ⟩
+--          F ∷ ft ++ os'   ∎
 
-  prf₂ : tail₁ os ≡ ft ++ os'
-  prf₂ = tail₁ os              ≡⟨ tailCong prf₁ ⟩
-         tail₁ (F ∷ ft ++ os') ≡⟨ tail-∷ F (ft ++ os') ⟩
-         ft ++ os'             ∎
+--   prf₂ : tail₁ os ≡ ft ++ os'
+--   prf₂ = tail₁ os              ≡⟨ tailCong prf₁ ⟩
+--          tail₁ (F ∷ ft ++ os') ≡⟨ tail-∷ F (ft ++ os') ⟩
+--          ft ++ os'             ∎

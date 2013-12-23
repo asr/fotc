@@ -23,7 +23,7 @@ Conat-pre-fixed h = Conat-coind (λ m → m ≡ m) h' refl
   where
   h' : ∀ {m} → m ≡ m → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ m' ≡ m')
   h' _ with h
-  ... | inj₁ m≡0              = inj₁ m≡0
+  ... | inj₁ m≡0            = inj₁ m≡0
   ... | inj₂ (m' , prf , _) = inj₂ (m' , prf , refl)
 
 0-Conat : Conat zero

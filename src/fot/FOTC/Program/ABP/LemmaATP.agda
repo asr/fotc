@@ -19,7 +19,7 @@ open import FOTC.Data.Bool.PropertiesATP
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesATP
 open import FOTC.Program.ABP.ABP
-open import FOTC.Program.ABP.Fair
+open import FOTC.Program.ABP.Fair.Type
 open import FOTC.Program.ABP.Fair.PropertiesATP
 open import FOTC.Program.ABP.PropertiesI
 open import FOTC.Program.ABP.Terms

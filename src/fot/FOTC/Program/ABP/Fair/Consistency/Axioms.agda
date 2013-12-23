@@ -1,18 +1,18 @@
 ------------------------------------------------------------------------------
--- Test the consistency of FOTC.Program.ABP.Fair
+-- Test the consistency of FOTC.Program.ABP.Fair.Type
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- In the module FOTC.Program.ABP.Fair we declare Agda postulates as
--- first-order logic axioms. We test if it is possible to prove an
+-- In the module FOTC.Program.ABP.Fair.Type we declare Agda postulates
+-- as first-order logic axioms. We test if it is possible to prove an
 -- unprovable theorem from these axioms.
 
 module FOTC.Program.ABP.Fair.Consistency.Axioms where
 
 open import FOTC.Base
-open import FOTC.Program.ABP.Fair
+open import FOTC.Program.ABP.Fair.Type
 
 ------------------------------------------------------------------------------
 

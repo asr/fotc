@@ -24,12 +24,11 @@ open import FOTC.Data.Stream.Type
 -- StreamF, i.e.
 --
 -- StreamF Stream ≤ Stream (see FOTC.Data.Stream.Type).
-Stream-pre-fixed : ∀ {xs} →
-                   (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs') →
-                   Stream xs
-Stream-pre-fixed {xs} h = Stream-coind (λ ys → ys ≡ ys) h' refl
+Stream-pre-fixed : (∀ {xs} → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs') →
+                   ∀ {xs} → Stream xs
+Stream-pre-fixed h = Stream-coind (λ ys → ys ≡ ys) h' refl
   where
-  h' : xs ≡ xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ xs' ≡ xs'
+  h' : ∀ {xs} → xs ≡ xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ xs' ≡ xs'
   h' _ with h
   ... | x' , xs' , prf , _ = x' , xs' , prf , refl
 
@@ -38,52 +37,21 @@ Stream-pre-fixed {xs} h = Stream-coind (λ ys → ys ≡ ys) h' refl
 ... | x' , xs' , prf , Sxs' =
   subst Stream (sym (∧-proj₂ (∷-injective prf))) Sxs'
 
--- TODO (23 December 2013).
---
--- Stream→Colist : ∀ {xs} → Stream xs → Colist xs
--- Stream→Colist Sxs with Stream-unf Sxs
--- ... | x' , xs' , prf , Sxs' =
---   Colist-coind
---     (λ ys → ys ≡ ys)
---     (λ _ → inj₂ (x' , xs' , {!!} , refl))
---     refl
-
-++-Stream : ∀ {xs ys} → Colist xs → Stream ys → Stream (xs ++ ys)
-++-Stream {xs} {ys} CLxs Sys with Colist-unf CLxs
-... | inj₁ prf = subst Stream (sym prf₁) Sys
+Stream→Colist : ∀ {xs} → Stream xs → Colist xs
+Stream→Colist {xs} Sxs = Colist-coind A h₁ h₂
   where
-  prf₁ : xs ++ ys ≡ ys
-  prf₁ = trans (++-leftCong prf) (++-[] ys)
+  A : D → Set
+  A ys = Stream ys
 
-... | inj₂ (x' , xs' , prf , CLxs') = subst Stream (sym prf₁) prf₂
-  where
-  prf₁ : xs ++ ys ≡ x' ∷ (xs' ++ ys)
-  prf₁ = trans (++-leftCong prf) (++-∷ x' xs' ys)
+  h₁ : ∀ {xs} → A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
+  h₁ Axs with Stream-unf Axs
+  ... | x' , xs' , prf , Sxs' = inj₂ (x' , xs' , prf , Sxs')
 
-  prf₂ : Stream (x' ∷ xs' ++ ys)
-  prf₂ = Stream-coind
-           (λ zs → zs ≡ zs)
-           (λ _ → x' , xs' ++ ys , refl , refl)
-           refl
+  h₂ : A xs
+  h₂ = Sxs
 
--- A different proof.
-++-Stream' : ∀ {xs ys} → Colist xs → Stream ys → Stream (xs ++ ys)
-++-Stream' {xs} {ys} CLxs Sys with Colist-unf CLxs
-... | inj₁ prf = subst Stream (sym prf₁) Sys
-  where
-  prf₁ : xs ++ ys ≡ ys
-  prf₁ = trans (++-leftCong prf) (++-[] ys)
-
-... | inj₂ (x' , xs' , prf , CLxs') = subst Stream (sym prf₁) prf₂
-  where
-  prf₁ : xs ++ ys ≡ x' ∷ (xs' ++ ys)
-  prf₁ = trans (++-leftCong prf) (++-∷ x' xs' ys)
-
-  -- TODO (15 December 2013): Why the termination checker accepts the
-  -- recursive called ++-Stream_CLxs'_Sys?
-  prf₂ : Stream (x' ∷ xs' ++ ys)
-  prf₂ = Stream-pre-fixed
-           (x' , (xs' ++ ys) , refl , ++-Stream CLxs' Sys)
+-- TODO (23 December 2013
+-- ++-Stream : ∀ {xs ys} → Colist xs → Stream ys → Stream (xs ++ ys)
 
 -- Adapted from (Sander 1992, p. 59).
 streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞

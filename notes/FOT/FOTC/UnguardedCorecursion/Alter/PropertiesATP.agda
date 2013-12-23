@@ -15,26 +15,27 @@ open import FOTC.Data.Stream.Type
 open import FOTC.Relation.Binary.Bisimilarity
 
 ------------------------------------------------------------------------------
+-- TODO (23 December 2013).
+-- alter-Stream : Stream alter
+-- alter-Stream = Stream-coind A h refl
+--   where
+--   A : D → Set
+--   A xs = xs ≡ xs
+--   {-# ATP definition A #-}
 
-alter-Stream : Stream alter
-alter-Stream = Stream-coind A h refl
-  where
-  A : D → Set
-  A xs = xs ≡ xs
-  {-# ATP definition A #-}
+--   postulate h : A alter → ∃[ x' ] ∃[ xs' ] alter ≡ x' ∷ xs' ∧ A xs'
+--   {-# ATP prove h #-}
 
-  postulate h : A alter → ∃[ x' ] ∃[ xs' ] alter ≡ x' ∷ xs' ∧ A xs'
-  {-# ATP prove h #-}
+-- TODO (23 December 2013).
+-- alter'-Stream : Stream alter'
+-- alter'-Stream = Stream-coind A h refl
+--   where
+--   A : D → Set
+--   A xs = xs ≡ xs
+--   {-# ATP definition A #-}
 
-alter'-Stream : Stream alter'
-alter'-Stream = Stream-coind A h refl
-  where
-  A : D → Set
-  A xs = xs ≡ xs
-  {-# ATP definition A #-}
-
-  postulate h : A alter' → ∃[ x' ] ∃[ xs' ] alter' ≡ x' ∷ xs' ∧ A xs'
-  {-# ATP prove h #-}
+--   postulate h : A alter' → ∃[ x' ] ∃[ xs' ] alter' ≡ x' ∷ xs' ∧ A xs'
+--   {-# ATP prove h #-}
 
 alter≈alter' : alter ≈ alter'
 alter≈alter' = ≈-coind B h₁ h₂

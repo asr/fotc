@@ -37,8 +37,8 @@ postulate
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
-  Stream-coind : ∀ (A : D → Set) {xs} →
+  Stream-coind : ∀ (A : D → Set) →
                  -- A is post-fixed point of StreamF.
-                 (A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs') →
+                 (∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs') →
                  -- Stream is greater than A.
-                 A xs → Stream xs
+                 ∀ {xs} → A xs → Stream xs

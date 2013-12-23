@@ -67,7 +67,7 @@ divCorrect {j = j} Ni Nj j>0 = <-wfind A ih Ni
 ------------------------------------------------------------------------------
 -- References
 --
--- Dybjer, Peter (1985). Program Veriﬁcation in a Logical Theory of
+-- Dybjer, Peter (1985). Program Verification in a Logical Theory of
 -- Constructions. In: Functional Programming Languages and Computer
 -- Architecture. Ed. by Jouannaud,
 -- Jean-Pierre. Vol. 201. LNCS. Appears in revised form as Programming
