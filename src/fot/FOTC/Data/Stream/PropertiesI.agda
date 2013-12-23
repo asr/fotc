@@ -38,13 +38,15 @@ Stream-pre-fixed {xs} h = Stream-coind (λ ys → ys ≡ ys) h' refl
 ... | x' , xs' , prf , Sxs' =
   subst Stream (sym (∧-proj₂ (∷-injective prf))) Sxs'
 
-Stream→Colist : ∀ {xs} → Stream xs → Colist xs
-Stream→Colist Sxs with Stream-unf Sxs
-... | x' , xs' , prf , Sxs' =
-  Colist-coind
-    (λ ys → ys ≡ ys)
-    (λ _ → inj₂ (x' , xs' , prf , refl))
-    refl
+-- TODO (23 December 2013).
+--
+-- Stream→Colist : ∀ {xs} → Stream xs → Colist xs
+-- Stream→Colist Sxs with Stream-unf Sxs
+-- ... | x' , xs' , prf , Sxs' =
+--   Colist-coind
+--     (λ ys → ys ≡ ys)
+--     (λ _ → inj₂ (x' , xs' , {!!} , refl))
+--     refl
 
 ++-Stream : ∀ {xs ys} → Colist xs → Stream ys → Stream (xs ++ ys)
 ++-Stream {xs} {ys} CLxs Sys with Colist-unf CLxs

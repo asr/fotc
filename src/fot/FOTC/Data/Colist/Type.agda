@@ -41,8 +41,9 @@ postulate
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
-  Colist-coind : ∀ (A : D → Set) {xs} →
-                 -- A is post-fixed point of ColistF.
-                 (A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')) →
-                 -- Colist is greater than A.
-                 A xs → Colist xs
+  Colist-coind :
+    ∀ (A : D → Set) →
+    -- A is post-fixed point of ColistF.
+    (∀ {xs} → A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')) →
+    -- Colist is greater than A.
+    ∀ {xs} → A xs → Colist xs
