@@ -23,13 +23,16 @@ open import FOTC.Program.ABP.Terms
 --
 -- FairF Fair ≤ Fair (see FOTC.Program.ABP.Fair).
 Fair-pre-fixed :
-  (∀ {os} → ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os') →
-  ∀ {os} → Fair os
-Fair-pre-fixed h = Fair-coind (λ xs → xs ≡ xs) h' refl
+  ∀ {os} →
+  ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os' →
+  Fair os
+Fair-pre-fixed h = Fair-coind A h' h
   where
-  h' : ∀ {os} → os ≡ os → ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ os' ≡ os'
-  h' _ with h
-  ... | ft , os' , FTft , prf , _ = ft , os' , FTft , prf , refl
+  A : D → Set
+  A os = ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os'
+
+  h' : ∀ {os} → A os → ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ A os'
+  h' (ft , os' , FTft , prf , Fos') = ft , os' , FTft , prf , Fair-unf Fos'
 
 head-tail-Fair : ∀ {os} → Fair os → os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
 head-tail-Fair {os} Fos with Fair-unf Fos
