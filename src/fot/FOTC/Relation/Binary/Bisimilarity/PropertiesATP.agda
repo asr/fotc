@@ -17,17 +17,21 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
 -- bisimilarity relation _≈_ on unbounded lists is also a pre-fixed
 -- point of the bisimulation functional (see
 -- FOTC.Relation.Binary.Bisimulation).
-≈-pre-fixed : (∀ {xs ys} → ∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
-                xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys') →
-              ∀ {xs ys} → xs ≈ ys
-≈-pre-fixed h = ≈-coind (λ zs _ → zs ≡ zs) h' refl
+≈-pre-fixed : ∀ {xs ys} →
+              ∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
+                xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys' →
+              xs ≈ ys
+≈-pre-fixed h = ≈-coind B h' h
   where
+  B : D → D → Set
+  B xs ys = ∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
+              xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys'
+  {-# ATP definition B #-}
+
   postulate
-    h' : ∀ {xs} {ys} → xs ≡ xs →
-         ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≡ xs'
-  -- TODO (23 December 2013): The translation failed because we do not
-  -- know how erase a term.
-  -- {-# ATP prove h' #-}
+    h' : ∀ {xs} {ys} → B xs ys →
+         ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
+  {-# ATP prove h' #-}
 
 ≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
 ≈-refl {xs} Sxs = ≈-coind B h₁ h₂

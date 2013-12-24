@@ -19,15 +19,20 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
 -- bisimilarity relation _≈_ on unbounded lists is also a pre-fixed
 -- point of the bisimulation functional (see
 -- FOTC.Relation.Binary.Bisimulation).
-≈-pre-fixed : (∀ {xs ys} → ∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
-                xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys') →
-              ∀ {xs ys} → xs ≈ ys
-≈-pre-fixed h = ≈-coind (λ zs _ → zs ≡ zs) h' refl
+≈-pre-fixed : ∀ {xs ys} →
+              ∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
+                xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys' →
+              xs ≈ ys
+≈-pre-fixed h = ≈-coind B h' h
   where
-  h' : ∀ {xs} {ys} → xs ≡ xs →
-       ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≡ xs'
-  h' _ with h
-  ... | x' , xs' , ys' , prf₁ , prf₂ , _ = x' , xs' , ys' , prf₁ , prf₂ , refl
+  B : D → D → Set
+  B xs ys = ∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
+              xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys'
+
+  h' : ∀ {xs} {ys} → B xs ys →
+       ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
+  h' (x' , xs' , ys' , prf₁ , prf₂ , xs'≈ys') =
+    x' , xs' , ys' , prf₁ , prf₂ , ≈-unf xs'≈ys'
 
 ≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
 ≈-refl {xs} Sxs = ≈-coind B h₁ h₂
