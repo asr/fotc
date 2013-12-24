@@ -16,18 +16,24 @@ open import FOTC.Data.Conat.Equality.Type
 -- relation _≈N_ is also a pre-fixed point of the functional ≈NatF,
 -- i.e.
 --
--- ≈NatF _≈N_ ≤ _≈N_ (see FOTC.Data.Conat.Equality).
-≈N-pre-fixed : (∀ {m n} → m ≡ zero ∧ n ≡ zero
-                 ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n')) →
-               ∀ {m n} → m ≈N n
-≈N-pre-fixed h = ≈N-coind (λ o _ → o ≡ o) h' refl
+-- ≈NatF _≈N_ ≤ _≈N_ (see FOTC.Data.Conat.Equality.Type).
+≈N-pre-fixed :
+  ∀ {m n} →
+  m ≡ zero ∧ n ≡ zero
+    ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n') →
+  m ≈N n
+≈N-pre-fixed h = ≈N-coind R h' h
   where
-  h' : ∀ {m n} → m ≡ m →
+  R : D → D → Set
+  R m n = m ≡ zero ∧ n ≡ zero
+            ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n')
+
+  h' : ∀ {m n} → R m n →
        m ≡ zero ∧ n ≡ zero
-         ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≡ m')
-  h' _ with h
-  ... | inj₁ prf                         = inj₁ prf
-  ... | inj₂ (m' , n' , prf₁ , prf₂ , _) = inj₂ (m' , n' , prf₁ , prf₂ , refl)
+         ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
+  h' (inj₁ prf) = inj₁ prf
+  h' (inj₂ (m' , n' , prf₁ , prf₂ , m'≈Nn')) =
+    inj₂ (m' , n' , prf₁ , prf₂ , ≈N-unf m'≈Nn')
 
 ≈N-refl : ∀ {n} → Conat n → n ≈N n
 ≈N-refl {n} Cn = ≈N-coind R h₁ h₂

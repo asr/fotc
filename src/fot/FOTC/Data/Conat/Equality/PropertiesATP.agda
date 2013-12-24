@@ -12,17 +12,28 @@ open import FOTC.Data.Conat
 open import FOTC.Data.Conat.Equality.Type
 
 ------------------------------------------------------------------------------
-≈N-pre-fixed : (∀ {m n} → m ≡ zero ∧ n ≡ zero
-                 ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n')) →
-               ∀ {m n} → m ≈N n
-≈N-pre-fixed h = ≈N-coind (λ o _ → o ≡ o) h' refl
+-- Because a greatest post-fixed point is a fixed-point, then the
+-- relation _≈N_ is also a pre-fixed point of the functional ≈NatF,
+-- i.e.
+--
+-- ≈NatF _≈N_ ≤ _≈N_ (see FOTC.Data.Conat.Equality.Type).
+≈N-pre-fixed :
+  ∀ {m n} →
+  m ≡ zero ∧ n ≡ zero
+    ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n') →
+  m ≈N n
+≈N-pre-fixed h = ≈N-coind R h' h
   where
-  postulate h' : ∀ {m n} → m ≡ m →
-                 m ≡ zero ∧ n ≡ zero
-                   ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≡ m')
-  -- TODO (22 December 2013): The translation failed because we do not
-  -- know how erase a term.
-  -- {-# ATP prove h' #-}
+  R : D → D → Set
+  R m n = m ≡ zero ∧ n ≡ zero
+            ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n')
+  {-# ATP definition R #-}
+
+  postulate
+    h' : ∀ {m n} → R m n →
+         m ≡ zero ∧ n ≡ zero
+           ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
+  {-# ATP prove h' #-}
 
 ≈N-refl : ∀ {n} → Conat n → n ≈N n
 ≈N-refl {n} Cn = ≈N-coind R h₁ h₂
