@@ -24,13 +24,16 @@ open import FOTC.Data.Stream.Type
 -- StreamF, i.e.
 --
 -- StreamF Stream ≤ Stream (see FOTC.Data.Stream.Type).
-Stream-pre-fixed : (∀ {xs} → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs') →
-                   ∀ {xs} → Stream xs
-Stream-pre-fixed h = Stream-coind (λ ys → ys ≡ ys) h' refl
+Stream-pre-fixed : ∀ {xs} →
+                   ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs' →
+                   Stream xs
+Stream-pre-fixed h = Stream-coind A h' h
   where
-  h' : ∀ {xs} → xs ≡ xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ xs' ≡ xs'
-  h' _ with h
-  ... | x' , xs' , prf , _ = x' , xs' , prf , refl
+  A : D → Set
+  A xs = ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs'
+
+  h' : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  h' (x' , xs' , prf , Sxs') = x' , xs' , prf , Stream-unf Sxs'
 
 ∷-Stream : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 ∷-Stream h with Stream-unf h

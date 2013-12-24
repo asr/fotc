@@ -20,14 +20,17 @@ open import FOTC.Data.Stream.Type
 -- StreamF, i.e.
 --
 -- StreamF Stream ≤ Stream (see FOTC.Data.Stream.Type).
-Stream-pre-fixed : (∀ {xs} → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs') →
-                   ∀ {xs} → Stream xs
-Stream-pre-fixed h = Stream-coind (λ ys → ys ≡ ys) h' refl
+Stream-pre-fixed : ∀ {xs} →
+                   ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs' →
+                   Stream xs
+Stream-pre-fixed h = Stream-coind A h' h
   where
-  postulate h' : ∀ {xs} → xs ≡ xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ xs' ≡ xs'
-  -- TODO (23 December 2013): The translation failed because we do not
-  -- know how erase a term.
-  -- {-# ATP prove h' #-}
+  A : D → Set
+  A xs = ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs'
+  {-# ATP definition A #-}
+
+  postulate h' : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  {-# ATP prove h' #-}
 
 postulate ∷-Stream : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 {-# ATP prove ∷-Stream #-}
