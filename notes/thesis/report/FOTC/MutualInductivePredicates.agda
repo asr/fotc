@@ -105,7 +105,7 @@ module DisjointSum where
 
   Odd'→Odd (eoodd h) = osucc (Even'→Even h)
 
-  -- TODO 03 December 2012. From EvenOdd-ind to Even-mutual-ind and
+  -- TODO (03 December 2012). From EvenOdd-ind to Even-mutual-ind and
   -- Odd-mutual-ind.
 
 module FunctionSpace where

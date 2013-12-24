@@ -61,7 +61,7 @@ postulate div-2^[x+1]-2≡2^x : ∀ {n} → N n → div (2' ^ succ₁ n) 2' ≡ 
 +∸2 (nsucc nzero)          n≢0 n≢1 = ⊥-elim (n≢1 refl)
 +∸2 (nsucc (nsucc {n} Nn)) n≢0 n≢1 = prf
   where
-  -- TODO. 06 December 2012. We do not use the ATPs because we do not
+  -- TODO (06 December 2012). We do not use the ATPs because we do not
   -- how to erase a term.
   --
   -- See the interactive proof.

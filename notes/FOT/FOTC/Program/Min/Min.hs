@@ -5,7 +5,7 @@
 
 import Prelude hiding ( min )
 
--- TODO. 04 December 2012. Why it is necessary to add the otherwise
+-- TODO (04 December 2012): Why it is necessary to add the otherwise
 -- guard?
 min ∷ (Int → Int) → Int
 min f | f 0 == 0  = 0

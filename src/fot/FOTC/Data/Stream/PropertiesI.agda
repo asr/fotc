@@ -50,7 +50,7 @@ Stream→Colist {xs} Sxs = Colist-coind A h₁ h₂
   h₂ : A xs
   h₂ = Sxs
 
--- TODO (23 December 2013
+-- TODO (23 December 2013).
 -- ++-Stream : ∀ {xs ys} → Colist xs → Stream ys → Stream (xs ++ ys)
 
 -- Adapted from (Sander 1992, p. 59).
