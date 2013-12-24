@@ -22,5 +22,5 @@ test = take 10 alter == take 10 alter'
 -- References
 --
 -- Telford, Alastair and Turner, David (1998). Ensuring the
--- Productivity of Inﬁnite Structures. Tech. rep. 14-97. Revised March
+-- Productivity of Infinite Structures. Tech. rep. 14-97. Revised March
 -- 1998. The Computing Laboratory. University of Kent.

@@ -55,7 +55,7 @@ pre-fp = ≈-pre-fixed
 -- References
 --
 -- Dybjer, Peter and Sander, Herbert P. (1989). A Functional
--- Programming Approach to the Specification and Veriﬁcation of
+-- Programming Approach to the Specification and Verification of
 -- Concurrent Systems. In: Formal Aspects of Computing 1, pp. 303–319.
 --
 -- Jacobs, Bart and Rutten, Jan (1997). A Tutorial on (Co)Algebras and

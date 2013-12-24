@@ -46,5 +46,5 @@ B is js = ∃[ b ] ∃[ os₁ ] ∃[ os₂ ] ∃[ as ] ∃[ bs ] ∃[ cs ] ∃[ 
 -- References
 --
 -- Dybjer, Peter and Sander, Herbert P. (1989). A Functional
--- Programming Approach to the Specification and Veriﬁcation of
+-- Programming Approach to the Specification and Verification of
 -- Concurrent Systems. In: Formal Aspects of Computing 1, pp. 303–319.
