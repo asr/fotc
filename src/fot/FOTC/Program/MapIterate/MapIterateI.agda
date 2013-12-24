@@ -16,6 +16,7 @@ open import FOTC.Base
 open import FOTC.Base.List
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI
+open import FOTC.Data.Stream.Type
 open import FOTC.Relation.Binary.Bisimilarity.Type
 
 ------------------------------------------------------------------------------
@@ -27,8 +28,17 @@ unfoldMapIterate f x =
   map f (x ∷ iterate f (f · x))     ≡⟨ map-∷ f x (iterate f (f · x)) ⟩
   f · x ∷ map f (iterate f (f · x)) ∎
 
--- TODO (23 December 2013).
--- map-iterate-Stream₁ : ∀ f x → Stream (map f (iterate f x))
+map-iterate-Stream : ∀ f x → Stream (map f (iterate f x))
+map-iterate-Stream f x = Stream-coind A h (x , refl)
+  where
+  A : D → Set
+  A xs = ∃[ y ] xs ≡ map f (iterate f y)
+
+  h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  h (y , prf) = f · y
+                , map f (iterate f (f · y))
+                , (trans prf ((unfoldMapIterate f y)))
+                , f · y , refl
 
 -- TODO (23 December 2013).
 -- map-iterate-Stream₂ : ∀ f x → Stream (iterate f (f · x))
