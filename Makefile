@@ -309,7 +309,7 @@ peano_install :
 
 TODO :
 	find -wholename './dist' -prune -o -print \
-	| xargs grep -I 'TODO:' \
+	| xargs grep -I 'TODO' \
 	| sort
 
 clean :
