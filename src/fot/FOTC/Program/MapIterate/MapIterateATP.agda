@@ -17,25 +17,21 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
 
 ------------------------------------------------------------------------------
 -- The map-iterate property.
--- TODO (23 December 2013).
--- ≈-map-iterate : ∀ f x → map f (iterate f x) ≈ iterate f (f · x)
--- ≈-map-iterate f x = ≈-coind B h₁ h₂
---   where
---   -- Based on the relation used by (Giménez and Castéran, 2007).
---   B : D → D → Set
---   B xs ys = ∃[ y ] xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y)
---   {-# ATP definition B #-}
+≈-map-iterate : ∀ f x → map f (iterate f x) ≈ iterate f (f · x)
+≈-map-iterate f x = ≈-coind B h₁ h₂
+  where
+  -- Based on the relation used by (Giménez and Castéran, 2007).
+  B : D → D → Set
+  B xs ys = ∃[ y ] xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y)
+  {-# ATP definition B #-}
 
---   postulate
---     h₁ : B (map f (iterate f x)) (iterate f (f · x)) →
---          ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
---            map f (iterate f x) ≡ x' ∷ xs'
---            ∧ iterate f (f · x) ≡ x' ∷ ys'
---            ∧ B xs' ys'
---   {-# ATP prove h₁ #-}
+  postulate
+    h₁ : ∀ {xs} {ys} → B xs ys →
+         ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
+  {-# ATP prove h₁ #-}
 
---   postulate h₂ : B (map f (iterate f x)) (iterate f (f · x))
---   {-# ATP prove h₂ #-}
+  postulate h₂ : B (map f (iterate f x)) (iterate f (f · x))
+  {-# ATP prove h₂ #-}
 
 ------------------------------------------------------------------------------
 -- References
