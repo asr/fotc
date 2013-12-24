@@ -14,7 +14,7 @@ open import FOTC.Base
 open import FOTC.Base.List
 open import FOTC.Data.List
 open import FOTC.Data.Stream.Type
-open import FOTC.Relation.Binary.Bisimilarity
+open import FOTC.Relation.Binary.Bisimilarity.Type
 
 ------------------------------------------------------------------------------
 -- The map-iterate property.

@@ -12,7 +12,7 @@ open import FOTC.Base.List
 open import FOTC.Base.List.PropertiesI
 open import FOTC.Base.PropertiesI
 open import FOTC.Data.Stream.Type
-open import FOTC.Relation.Binary.Bisimilarity
+open import FOTC.Relation.Binary.Bisimilarity.Type
 
 ------------------------------------------------------------------------------
 -- Because a greatest post-fixed point is a fixed-point, the

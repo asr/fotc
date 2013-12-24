@@ -216,8 +216,8 @@ open import FOTC.Program.SortList.PropertiesATP
 open import FOTC.Program.SortList.SortList
 open import FOTC.Program.SortList.SortList.Consistency.Axioms
 
-open import FOTC.Relation.Binary.Bisimilarity
+open import FOTC.Relation.Binary.Bisimilarity.Bisimulation
 open import FOTC.Relation.Binary.Bisimilarity.Consistency.Axioms
 open import FOTC.Relation.Binary.Bisimilarity.PropertiesATP
 open import FOTC.Relation.Binary.Bisimilarity.PropertiesI
-open import FOTC.Relation.Binary.Bisimulation
+open import FOTC.Relation.Binary.Bisimilarity.Type

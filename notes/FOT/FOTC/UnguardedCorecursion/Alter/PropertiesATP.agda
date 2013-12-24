@@ -12,7 +12,7 @@ open import FOT.FOTC.UnguardedCorecursion.Alter.Alter
 open import FOTC.Base
 open import FOTC.Base.List
 open import FOTC.Data.Stream.Type
-open import FOTC.Relation.Binary.Bisimilarity
+open import FOTC.Relation.Binary.Bisimilarity.Type
 
 ------------------------------------------------------------------------------
 -- TODO (23 December 2013).

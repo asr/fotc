@@ -17,7 +17,7 @@ open import FOTC.Base.List
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI
 open import FOTC.Data.Stream.Type
-open import FOTC.Relation.Binary.Bisimilarity
+open import FOTC.Relation.Binary.Bisimilarity.Type
 
 ------------------------------------------------------------------------------
 

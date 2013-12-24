@@ -22,7 +22,7 @@ open import FOTC.Program.ABP.DS.Lemma1I
 open import FOTC.Program.ABP.DS.Lemma2I
 open import FOTC.Program.ABP.Fair.Type
 open import FOTC.Program.ABP.Terms
-open import FOTC.Relation.Binary.Bisimilarity
+open import FOTC.Relation.Binary.Bisimilarity.Type
 
 ------------------------------------------------------------------------------
 -- Main theorem.

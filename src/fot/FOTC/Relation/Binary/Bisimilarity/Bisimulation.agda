@@ -8,11 +8,11 @@
 -- In FOTC, we won't use the bisimulation functional on unbounded
 -- lists. This module is only for illustrative purposes.
 
-module FOTC.Relation.Binary.Bisimulation where
+module FOTC.Relation.Binary.Bisimilarity.Bisimulation where
 
 open import FOTC.Base
 open import FOTC.Base.List
-open import FOTC.Relation.Binary.Bisimilarity
+open import FOTC.Relation.Binary.Bisimilarity.Type
 open import FOTC.Relation.Binary.Bisimilarity.PropertiesI
 
 ----------------------------------------------------------------------------

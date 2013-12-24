@@ -139,7 +139,7 @@ open import FOTC.Data.Stream.Equality.PropertiesI
 -- Bisimilary relation
 
 -- The co-inductive predicate
-open import FOTC.Relation.Binary.Bisimilarity
+open import FOTC.Relation.Binary.Bisimilarity.Type
 
 -- Properties
 open import FOTC.Relation.Binary.Bisimilarity.PropertiesATP

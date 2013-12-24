@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Relation.Binary.Bisimilarity where
+module FOTC.Relation.Binary.Bisimilarity.Type where
 
 open import FOTC.Base
 open import FOTC.Base.List

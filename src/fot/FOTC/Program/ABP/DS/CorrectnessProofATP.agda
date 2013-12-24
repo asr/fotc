@@ -25,7 +25,7 @@ open import FOTC.Program.ABP.DS.Lemma1ATP
 open import FOTC.Program.ABP.DS.Lemma2ATP
 open import FOTC.Program.ABP.Fair.Type
 open import FOTC.Program.ABP.Terms
-open import FOTC.Relation.Binary.Bisimilarity
+open import FOTC.Relation.Binary.Bisimilarity.Type
 
 ------------------------------------------------------------------------------
 -- Main theorem.
