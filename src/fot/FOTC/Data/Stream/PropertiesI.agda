@@ -53,8 +53,22 @@ Stream→Colist {xs} Sxs = Colist-coind A h₁ h₂
   h₂ : A xs
   h₂ = Sxs
 
--- TODO (23 December 2013).
--- ++-Stream : ∀ {xs ys} → Colist xs → Stream ys → Stream (xs ++ ys)
+++-Stream : ∀ {xs ys} → Colist xs → Stream ys → Stream (xs ++ ys)
+++-Stream {xs} {ys} CLxs Sys with Colist-unf CLxs
+... | inj₁ prf = subst Stream (sym prf₁) Sys
+ where
+ prf₁ : xs ++ ys ≡ ys
+ prf₁ = trans (++-leftCong prf) (++-[] ys)
+
+... | inj₂ (x' , xs' , prf , CLxs') = subst Stream (sym prf₁) prf₂
+   where
+   prf₁ : xs ++ ys ≡ x' ∷ (xs' ++ ys)
+   prf₁ = trans (++-leftCong prf) (++-∷ x' xs' ys)
+
+   -- TODO (15 December 2013): Why the termination checker accepts the
+   -- recursive called ++-Stream_CLxs'_Sys?
+   prf₂ : Stream (x' ∷ xs' ++ ys)
+   prf₂ = Stream-pre-fixed (x' , (xs' ++ ys) , refl , ++-Stream CLxs' Sys)
 
 -- Adapted from (Sander 1992, p. 59).
 streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞
