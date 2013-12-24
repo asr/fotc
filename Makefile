@@ -106,8 +106,7 @@ benchmark_files = \
 %.type_check_agsy_fot :
 	$(AGDA_FOT) -i $(std_lib_path)/src/ $*.agda
 
-type_check_fot : clean \
-                 $(type_check_fot_files) \
+type_check_fot : $(type_check_fot_files) \
                  $(type_check_agsy_fot_files)
 	$(AGDA_FOT) $(fot_path)/README.agda
 	@echo "$@ succeeded!"
