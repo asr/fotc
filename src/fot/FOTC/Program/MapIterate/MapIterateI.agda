@@ -37,11 +37,20 @@ map-iterate-Stream f x = Stream-coind A h (x , refl)
   h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
   h (y , prf) = f · y
                 , map f (iterate f (f · y))
-                , (trans prf ((unfoldMapIterate f y)))
+                , trans prf (unfoldMapIterate f y)
                 , f · y , refl
 
--- TODO (23 December 2013).
--- map-iterate-Stream₂ : ∀ f x → Stream (iterate f (f · x))
+iterate-Stream : ∀ f x → Stream (iterate f (f · x))
+iterate-Stream f x = Stream-coind A h (x , refl)
+  where
+  A : D → Set
+  A xs = ∃[ y ] xs ≡ iterate f (f · y)
+
+  h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  h (y , prf) = f · y
+                , iterate f (f · (f · y))
+                , trans prf (iterate-eq f (f · y))
+                , f · y , refl
 
 -- The map-iterate property.
 ≈-map-iterate : ∀ f x → map f (iterate f x) ≈ iterate f (f · x)
