@@ -106,6 +106,5 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
                 (sym xs≡xs')
                 (subst (_≈_ xs') (sym ys≡ys') prf₃)
 
--- TODO (23 December 2013)
--- ∷-rightCong≈ : ∀ {x xs ys} → xs ≈ ys → x ∷ xs ≈ x ∷ ys
--- ∷-rightCong≈ {x} {xs} {ys} h = ≈-pre-fixed (x , xs , ys , refl , refl , h)
+∷-rightCong≈ : ∀ {x xs ys} → xs ≈ ys → x ∷ xs ≈ x ∷ ys
+∷-rightCong≈ {x} {xs} {ys} h = ≈-pre-fixed (x , xs , ys , refl , refl , h)

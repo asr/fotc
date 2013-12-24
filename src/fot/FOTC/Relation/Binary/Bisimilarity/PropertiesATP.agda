@@ -81,6 +81,5 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
 postulate ∷-injective≈ : ∀ {x xs ys} → x ∷ xs ≈ x ∷ ys → xs ≈ ys
 {-# ATP prove ∷-injective≈ #-}
 
--- TODO (23 December 2013).
--- postulate ∷-rightCong≈ : ∀ {x xs ys} → xs ≈ ys → x ∷ xs ≈ x ∷ ys
--- {-# ATP prove ∷-rightCong≈ ≈-pre-fixed #-}
+postulate ∷-rightCong≈ : ∀ {x xs ys} → xs ≈ ys → x ∷ xs ≈ x ∷ ys
+{-# ATP prove ∷-rightCong≈ ≈-pre-fixed #-}
