@@ -307,7 +307,7 @@ peano_install :
 	cd $(peano_path) && cabal install
 
 TODO :
-	find -wholename './.git' -prune -o -print \
+	find . -type d \( -path './.git' -o -path './dist' \) -prune -o -print \
 	| xargs grep -I 'TODO' \
 	| sort
 
