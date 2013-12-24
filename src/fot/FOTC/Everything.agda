@@ -27,10 +27,10 @@ open import FOTC.Data.Colist.Type
 open import FOTC.Data.Colist.Type.Consistency.Axioms
 
 open import FOTC.Data.Conat
-open import FOTC.Data.Conat.Equality
 open import FOTC.Data.Conat.Equality.Consistency.Axioms
 open import FOTC.Data.Conat.Equality.PropertiesATP
 open import FOTC.Data.Conat.Equality.PropertiesI
+open import FOTC.Data.Conat.Equality.Type
 open import FOTC.Data.Conat.PropertiesATP
 open import FOTC.Data.Conat.PropertiesI
 open import FOTC.Data.Conat.Type

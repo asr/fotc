@@ -9,7 +9,7 @@ module FOTC.Data.Conat.Equality.PropertiesATP where
 
 open import FOTC.Base
 open import FOTC.Data.Conat
-open import FOTC.Data.Conat.Equality
+open import FOTC.Data.Conat.Equality.Type
 
 ------------------------------------------------------------------------------
 ≈N-pre-fixed : (∀ {m n} → m ≡ zero ∧ n ≡ zero

@@ -10,7 +10,7 @@ module FOTC.Data.Stream.PropertiesATP where
 open import FOTC.Base
 open import FOTC.Base.List
 open import FOTC.Data.Conat
-open import FOTC.Data.Conat.Equality
+open import FOTC.Data.Conat.Equality.Type
 open import FOTC.Data.List
 open import FOTC.Data.Stream.Type
 

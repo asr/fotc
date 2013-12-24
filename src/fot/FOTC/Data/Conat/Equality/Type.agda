@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Data.Conat.Equality where
+module FOTC.Data.Conat.Equality.Type where
 
 open import FOTC.Base
 

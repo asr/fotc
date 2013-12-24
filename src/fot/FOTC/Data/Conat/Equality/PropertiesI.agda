@@ -9,7 +9,7 @@ module FOTC.Data.Conat.Equality.PropertiesI where
 
 open import FOTC.Base
 open import FOTC.Data.Conat
-open import FOTC.Data.Conat.Equality
+open import FOTC.Data.Conat.Equality.Type
 
 ------------------------------------------------------------------------------
 -- Because a greatest post-fixed point is a fixed-point, then the

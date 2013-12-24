@@ -11,7 +11,7 @@ open import FOTC.Base
 open import FOTC.Base.List
 open import FOTC.Base.List.PropertiesI
 open import FOTC.Data.Conat
-open import FOTC.Data.Conat.Equality
+open import FOTC.Data.Conat.Equality.Type
 open import FOTC.Data.Colist
 open import FOTC.Data.Colist.PropertiesI
 open import FOTC.Data.List

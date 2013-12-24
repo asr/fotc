@@ -115,7 +115,7 @@ open import FOTC.Data.Conat.PropertiesATP
 open import FOTC.Data.Conat.PropertiesI
 
 -- Equality
-open import FOTC.Data.Conat.Equality
+open import FOTC.Data.Conat.Equality.Type
 
 -- Equality properties
 open import FOTC.Data.Conat.Equality.PropertiesATP
