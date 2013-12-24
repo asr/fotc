@@ -18,11 +18,14 @@ open import FOTC.Data.Colist
 --
 -- ColistF Colist ≤ Colist (see FOTC.Data.Colist.Type).
 Colist-pre-fixed :
-  (∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs')) →
-  ∀ {xs} → Colist xs
-Colist-pre-fixed h = Colist-coind (λ ys → ys ≡ ys) h' refl
+  ∀ {xs} →
+  xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs') →
+  Colist xs
+Colist-pre-fixed h = Colist-coind A h' h
   where
-  h' : ∀ {xs} → xs ≡ xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ xs' ≡ xs')
-  h' _ with h
-  ... | inj₁ xs≡[]                = inj₁ xs≡[]
-  ... | inj₂ (x' , xs' , prf , _) = inj₂ (x' , xs' , prf , refl)
+  A : D → Set
+  A xs =   xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs')
+
+  h' : ∀ {xs} → A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
+  h' (inj₁ xs≡[])                    = inj₁ xs≡[]
+  h' (inj₂ (x' , xs' , prf , Clxs')) = inj₂ (x' , xs' , prf , Colist-unf Clxs')

@@ -18,13 +18,15 @@ open import FOTC.Data.Colist
 --
 -- ColistF Colist ≤ Colist (see FOTC.Data.Colist.Type).
 Colist-pre-fixed :
-  (∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs')) →
-  ∀ {xs} → Colist xs
-Colist-pre-fixed h = Colist-coind (λ ys → ys ≡ ys) h' refl
+  ∀ {xs} →
+  xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs') →
+  Colist xs
+Colist-pre-fixed h = Colist-coind A h' h
   where
+  A : D → Set
+  A xs =   xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs')
+  {-# ATP definition A #-}
+
   postulate
-    h' : ∀ {xs} → xs ≡ xs →
-         xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ xs' ≡ xs')
-  -- TODO (23 December 2013): The translation failed because we do not
-  -- know how erase a term.
-  -- {-# ATP prove h' #-}
+    h' : ∀ {xs} → A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
+  {-# ATP prove h' #-}
