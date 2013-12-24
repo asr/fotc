@@ -35,8 +35,8 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
   B : D → D → Set
   B xs ys = Stream xs ∧ xs ≡ ys
 
-  h₁ : ∀ {xs ys} → B xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
-         xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
+  h₁ : ∀ {xs ys} → B xs ys →
+       ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
   h₁ (Sxs , refl) with Stream-unf Sxs
   ... | x' , xs' , prf , Sxs' =
     x' , xs' , xs' , prf , prf , (Sxs' , refl)
@@ -51,8 +51,7 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
   B xs ys = ys ≈ xs
 
   h₁ : ∀ {ys xs} → B ys xs →
-       ∃[ y' ] ∃[ ys' ] ∃[ xs' ]
-         ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs' ∧ B ys' xs'
+       ∃[ y' ] ∃[ ys' ] ∃[ xs' ] ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs' ∧ B ys' xs'
   h₁ Bxsys with ≈-unf Bxsys
   ... | y' , ys' , xs' , prf₁ , prf₂ , ys'≈xs' =
     y' , xs' , ys' , prf₂ , prf₁ , ys'≈xs'
@@ -60,34 +59,32 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
   h₂ : B ys xs
   h₂ = xs≈ys
 
--- TODO (23 December 2013).
--- ≈-trans : ∀ {xs ys zs} → xs ≈ ys → ys ≈ zs → xs ≈ zs
--- ≈-trans {xs} {ys} {zs} xs≈ys ys≈zs = ≈-coind B h₁ h₂
---   where
---   B : D → D → Set
---   B xs zs = ∃[ ys ] xs ≈ ys ∧ ys ≈ zs
+≈-trans : ∀ {xs ys zs} → xs ≈ ys → ys ≈ zs → xs ≈ zs
+≈-trans {xs} {ys} {zs} xs≈ys ys≈zs = ≈-coind B h₁ h₂
+  where
+  B : D → D → Set
+  B xs zs = ∃[ ys ] xs ≈ ys ∧ ys ≈ zs
 
---   h₁ : ∀ {xs} {zs} → B xs zs →
---        ∃[ x' ] ∃[ xs' ] ∃[ zs' ]
---          xs ≡ x' ∷ xs' ∧ zs ≡ x' ∷ zs' ∧ B xs' zs'
---   h₁ (ys , xs≈ys , ys≈zs) with ≈-unf xs≈ys
---   ... | x' , xs' , ys' , prf₁ , prf₂ , xs'≈ys' with ≈-unf ys≈zs
---   ... | y' , ys'' , zs' , prf₃ , prf₄ , ys''≈zs' =
---     x'
---     , xs'
---     , zs'
---     , prf₁
---     , subst (λ t → zs ≡ t ∷ zs') y'≡x' prf₄
---     , (ys' , (xs'≈ys' , (subst (λ t → t ≈ zs') ys''≡ys' ys''≈zs')))
---     where
---     y'≡x' : y' ≡ x'
---     y'≡x' = ∧-proj₁ (∷-injective (trans (sym prf₃) prf₂))
+  h₁ : ∀ {as} {cs} → B as cs →
+       ∃[ a' ] ∃[ as' ] ∃[ cs' ] as ≡ a' ∷ as' ∧ cs ≡ a' ∷ cs' ∧ B as' cs'
+  h₁ {cs = cs} (bs , as≈bs , bs≈cs) with ≈-unf as≈bs
+  ... | a' , as' , bs' , prf₁ , prf₂ , as'≈bs' with ≈-unf bs≈cs
+  ... | b' , bs'' , cs' , prf₃ , prf₄ , bs''≈cs' =
+    a'
+    , as'
+    , cs'
+    , prf₁
+    , subst (λ t → cs ≡ t ∷ cs') b'≡a' prf₄
+    , (bs' , as'≈bs' , subst (λ t → t ≈ cs') bs''≡bs' bs''≈cs')
+    where
+    b'≡a' : b' ≡ a'
+    b'≡a' = ∧-proj₁ (∷-injective (trans (sym prf₃) prf₂))
 
---     ys''≡ys' : ys'' ≡ ys'
---     ys''≡ys' = ∧-proj₂ (∷-injective (trans (sym prf₃) prf₂))
+    bs''≡bs' : bs'' ≡ bs'
+    bs''≡bs' = ∧-proj₂ (∷-injective (trans (sym prf₃) prf₂))
 
---   h₂ : B xs zs
---   h₂ = ys , (xs≈ys , ys≈zs)
+  h₂ : B xs zs
+  h₂ = ys , (xs≈ys , ys≈zs)
 
 ∷-injective≈ : ∀ {x xs ys} → x ∷ xs ≈ x ∷ ys → xs ≈ ys
 ∷-injective≈ {x} {xs} {ys} h with ≈-unf h
