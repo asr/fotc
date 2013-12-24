@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOT.FOTC.Program.ABP.Fair.Properties where
+module FOT.FOTC.Program.ABP.Fair.PropertiesI where
 
 open import FOTC.Base
 open import FOTC.Base.List
