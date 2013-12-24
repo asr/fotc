@@ -91,3 +91,37 @@ Conat-coind-stronger'' :
   (A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
   A n → Conat n
 Conat-coind-stronger'' A h An = Conat-coind A {!!} An
+
+------------------------------------------------------------------------------
+-- Because a greatest post-fixed point is a fixed-point, then the
+-- Conat predicate is also a pre-fixed point of the functional NatF,
+-- i.e,
+--
+-- NatF Conat ≤ Conat.
+Conat-pre-fixed : ∀ {n} →
+                  n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n') →
+                  Conat n
+Conat-pre-fixed h = Conat-coind A h' h
+  where
+  A : D → Set
+  A n = n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
+
+  h' : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
+  h' (inj₁ n≡0)              = inj₁ n≡0
+  h' (inj₂ (n' , prf , Cn')) = inj₂ (n' , prf , Conat-unf Cn')
+
+Conat-pre-fixed-ho : ∀ {n} → NatF Conat n → Conat n
+Conat-pre-fixed-ho = Conat-pre-fixed
+
+-- A different definition.
+Conat-pre-fixed' : (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')) →
+                   ∀ {n} → Conat n
+Conat-pre-fixed' h = Conat-coind (λ m → m ≡ m) h' refl
+  where
+  h' : ∀ {m} → m ≡ m → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ m' ≡ m')
+  h' _ with h
+  ... | inj₁ m≡0            = inj₁ m≡0
+  ... | inj₂ (m' , prf , _) = inj₂ (m' , prf , refl)
+
+Conat-pre-fixed-ho' : (∀ {n} → NatF Conat n) → ∀ {n} → Conat n
+Conat-pre-fixed-ho' = Conat-pre-fixed'

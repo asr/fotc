@@ -17,14 +17,17 @@ open import FOTC.Data.Nat
 -- i.e,
 --
 -- NatF Conat ≤ Conat (see FOTC.Data.Conat.Type).
-Conat-pre-fixed : (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')) →
-                  ∀ {n} → Conat n
-Conat-pre-fixed h = Conat-coind (λ m → m ≡ m) h' refl
+Conat-pre-fixed : ∀ {n} →
+                  n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n') →
+                  Conat n
+Conat-pre-fixed h = Conat-coind A h' h
   where
-  h' : ∀ {m} → m ≡ m → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ m' ≡ m')
-  h' _ with h
-  ... | inj₁ m≡0            = inj₁ m≡0
-  ... | inj₂ (m' , prf , _) = inj₂ (m' , prf , refl)
+  A : D → Set
+  A n = n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
+
+  h' : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
+  h' (inj₁ n≡0)              = inj₁ n≡0
+  h' (inj₂ (n' , prf , Cn')) = inj₂ (n' , prf , Conat-unf Cn')
 
 0-Conat : Conat zero
 0-Conat = Conat-coind A h refl
@@ -51,6 +54,11 @@ N→Conat Nn = Conat-coind N h Nn
   h : ∀ {m} → N m → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ N m')
   h nzero          = inj₁ refl
   h (nsucc {m} Nm) = inj₂ (m , refl , Nm)
+
+-- A different proof.
+N→Conat' : ∀ {n} → N n → Conat n
+N→Conat' nzero          = Conat-pre-fixed (inj₁ refl)
+N→Conat' (nsucc {n} Nn) = Conat-pre-fixed (inj₂ (n , refl , (N→Conat' Nn)))
 
 ------------------------------------------------------------------------------
 -- References

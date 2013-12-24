@@ -17,14 +17,17 @@ open import FOTC.Data.Nat
 -- i.e,
 --
 -- NatF Conat ≤ Conat (see FOTC.Data.Conat.Type).
-Conat-pre-fixed : (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')) →
-                  ∀ {n} → Conat n
-Conat-pre-fixed h = Conat-coind (λ m → m ≡ m) h' refl
+Conat-pre-fixed : ∀ {n} →
+                  n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n') →
+                  Conat n
+Conat-pre-fixed h = Conat-coind A h' h
   where
-  -- TODO (22 December 2013): The translation failed because we do not
-  -- know how erase a term.
-  postulate h' : ∀ {m} → m ≡ m → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ m' ≡ m')
-  -- {-# ATP prove h' #-}
+  A : D → Set
+  A n = n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
+  {-# ATP definition A #-}
+
+  postulate h' : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
+  {-# ATP prove h' #-}
 
 0-Conat : Conat zero
 0-Conat = Conat-coind A h refl
