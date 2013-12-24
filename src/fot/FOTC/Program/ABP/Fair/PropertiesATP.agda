@@ -44,5 +44,13 @@ head-tail-Fair {os} Fos with Fair-unf Fos
   postulate prf₁ : os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
   {-# ATP prove prf₁ #-}
 
--- TODO (23 December 2013).
-postulate tail-Fair : ∀ {os} → Fair os → Fair (tail₁ os)
+tail-Fair : ∀ {os} → Fair os → Fair (tail₁ os)
+tail-Fair {os} Fos with Fair-unf Fos
+... | .(true ∷ []) , os' , f*tnil , prf , Fos' = prf₁
+  where
+  postulate prf₁ : Fair (tail₁ os)
+  {-# ATP prove prf₁ #-}
+... | .(false ∷ ft) , os' , f*tcons {ft} FTft , prf , Fos' = prf₁
+  where
+  postulate prf₁ : Fair (tail₁ os)
+  {-# ATP prove prf₁ Fair-pre-fixed #-}

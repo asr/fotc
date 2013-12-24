@@ -71,33 +71,31 @@ head-tail-Fair {os} Fos with Fair-unf Fos
          F ∷ ft ++ os'  ≡⟨ ∷-rightCong (sym prf₂) ⟩
          F ∷ tail₁ os   ∎
 
--- TODO (23 December 2013).
-postulate tail-Fair : ∀ {os} → Fair os → Fair (tail₁ os)
--- tail-Fair : ∀ {os} → Fair os → Fair (tail₁ os)
--- tail-Fair {os} Fos with Fair-unf Fos
--- ... | .(true ∷ []) , os' , f*tnil , prf , Fos' =
---   subst Fair (sym prf₂) Fos'
---   where
---   prf₁ : os ≡ T ∷ os'
---   prf₁ = os              ≡⟨ prf ⟩
---          (T ∷ []) ++ os' ≡⟨ ++-∷ T [] os' ⟩
---          T ∷ [] ++ os'   ≡⟨ ∷-rightCong (++-leftIdentity os') ⟩
---          T ∷ os'         ∎
+tail-Fair : ∀ {os} → Fair os → Fair (tail₁ os)
+tail-Fair {os} Fos with Fair-unf Fos
+... | .(T ∷ []) , os' , f*tnil , prf , Fos' =
+  subst Fair (sym prf₂) Fos'
+  where
+  prf₁ : os ≡ T ∷ os'
+  prf₁ = os              ≡⟨ prf ⟩
+         (T ∷ []) ++ os' ≡⟨ ++-∷ T [] os' ⟩
+         T ∷ [] ++ os'   ≡⟨ ∷-rightCong (++-leftIdentity os') ⟩
+         T ∷ os'         ∎
 
---   prf₂ : tail₁ os ≡ os'
---   prf₂ = tail₁ os        ≡⟨ tailCong prf₁ ⟩
---          tail₁ (T ∷ os') ≡⟨ tail-∷ T os' ⟩
---          os'             ∎
+  prf₂ : tail₁ os ≡ os'
+  prf₂ = tail₁ os        ≡⟨ tailCong prf₁ ⟩
+         tail₁ (T ∷ os') ≡⟨ tail-∷ T os' ⟩
+         os'             ∎
 
--- ... | .(false ∷ ft) , os' , f*tcons {ft} FTft , prf , Fos' =
---     subst Fair (sym prf₂) {!!} -- (Fair-pre-fixed (ft , os' , FTft , refl , Fos'))
---   where
---   prf₁ : os ≡ F ∷ ft ++ os'
---   prf₁ = os              ≡⟨ prf ⟩
---          (F ∷ ft) ++ os' ≡⟨ ++-∷ F ft os' ⟩
---          F ∷ ft ++ os'   ∎
+... | .(F ∷ ft) , os' , f*tcons {ft} FTft , prf , Fos' =
+    subst Fair (sym prf₂) (Fair-pre-fixed (ft , os' , FTft , refl , Fos'))
+  where
+  prf₁ : os ≡ F ∷ ft ++ os'
+  prf₁ = os              ≡⟨ prf ⟩
+         (F ∷ ft) ++ os' ≡⟨ ++-∷ F ft os' ⟩
+         F ∷ ft ++ os'   ∎
 
---   prf₂ : tail₁ os ≡ ft ++ os'
---   prf₂ = tail₁ os              ≡⟨ tailCong prf₁ ⟩
---          tail₁ (F ∷ ft ++ os') ≡⟨ tail-∷ F (ft ++ os') ⟩
---          ft ++ os'             ∎
+  prf₂ : tail₁ os ≡ ft ++ os'
+  prf₂ = tail₁ os              ≡⟨ tailCong prf₁ ⟩
+         tail₁ (F ∷ ft ++ os') ≡⟨ tail-∷ F (ft ++ os') ⟩
+         ft ++ os'             ∎
