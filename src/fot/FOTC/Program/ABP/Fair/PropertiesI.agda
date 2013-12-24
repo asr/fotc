@@ -14,6 +14,7 @@ open import FOTC.Base.List
 open import FOTC.Base.List.PropertiesI
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI
+open import FOTC.Data.Stream.Type
 open import FOTC.Program.ABP.Fair.Type
 open import FOTC.Program.ABP.Terms
 
@@ -99,3 +100,18 @@ tail-Fair {os} Fos with Fair-unf Fos
   prf₂ = tail₁ os              ≡⟨ tailCong prf₁ ⟩
          tail₁ (F ∷ ft ++ os') ≡⟨ tail-∷ F (ft ++ os') ⟩
          ft ++ os'             ∎
+
+Fair→Stream : ∀ {os} → Fair os → Stream os
+Fair→Stream Fos = Stream-coind A h Fos
+  where
+  A : D → Set
+  A xs = Fair xs
+
+  h : ∀ {os} → A os → ∃[ o' ] ∃[ os' ] os ≡ o' ∷ os' ∧ A os'
+  h {os} As with head-tail-Fair As
+  ... | inj₁ prf = T , tail₁ os , prf , tail-Fair As
+  ... | inj₂ prf = F , tail₁ os , prf , tail-Fair As
+
+F*T→List : ∀ {xs} → F*T xs → List xs
+F*T→List f*tnil              = lcons true lnil
+F*T→List (f*tcons {ft} FTft) = lcons false (F*T→List FTft)
