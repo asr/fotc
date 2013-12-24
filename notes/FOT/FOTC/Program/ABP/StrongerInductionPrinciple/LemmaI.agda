@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOTC.Program.ABP.LemmaI where
+module FOT.FOTC.Program.ABP.StrongerInductionPrinciple.LemmaI where
 
 open import Common.FOL.Relation.Binary.EqReasoning
 

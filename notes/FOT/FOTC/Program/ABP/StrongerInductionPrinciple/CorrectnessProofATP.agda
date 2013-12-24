@@ -5,41 +5,51 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- This module proves the correctness of the ABP following the
--- formalization in Dybjer and Sander (1989).
+-- This module proves the correctness of the ABP by simplifing the
+-- formalization in Dybjer and Sander (1989) using a stronger (maybe
+-- invalid) co-induction principle.
 
--- N.B This module does not contain combined proofs, but it imports
--- modules which contain combined proofs.
+module FOT.FOTC.Program.ABP.StrongerInductionPrinciple.CorrectnessProofATP
+  where
 
-module FOTC.Program.ABP.DS.CorrectnessProofATP where
+open import FOT.FOTC.Relation.Binary.Bisimilarity.Type
+open import FOT.FOTC.Program.ABP.StrongerInductionPrinciple.LemmaATP
 
 open import FOTC.Base
 open import FOTC.Base.List
-open import FOTC.Data.Bool
-open import FOTC.Data.Bool.PropertiesATP using ( not-Bool )
 open import FOTC.Data.Stream.Type
 open import FOTC.Data.Stream.Equality.PropertiesATP
-open import FOTC.Program.ABP.ABP
-open import FOTC.Program.ABP.DS.ABP
-open import FOTC.Program.ABP.DS.Lemma1ATP
-open import FOTC.Program.ABP.DS.Lemma2ATP
+open import FOTC.Program.ABP.ABP hiding ( B )
 open import FOTC.Program.ABP.Fair.Type
 open import FOTC.Program.ABP.Terms
 open import FOTC.Relation.Binary.Bisimilarity.Type
 
 ------------------------------------------------------------------------------
+postulate
+  helper :
+    ∀ b i' is' os₁ os₂ →
+    S b (i' ∷ is') os₁ os₂
+      (has (send b) (ack b) (out b) (corrupt os₁) (corrupt os₂) (i' ∷ is'))
+      (hbs (send b) (ack b) (out b) (corrupt os₁) (corrupt os₂) (i' ∷ is'))
+      (hcs (send b) (ack b) (out b) (corrupt os₁) (corrupt os₂) (i' ∷ is'))
+      (hds (send b) (ack b) (out b) (corrupt os₁) (corrupt os₂) (i' ∷ is'))
+      (abpTransfer b os₁ os₂ (i' ∷ is'))
+{-# ATP prove helper #-}
+
 -- Main theorem.
 abpCorrect : ∀ {b is os₁ os₂} → Bit b → Stream is → Fair os₁ → Fair os₂ →
              is ≈ abpTransfer b os₁ os₂ is
-abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B h₁ h₂
+abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind-stronger B h refl
   where
-  postulate h₁ : ∀ {ks ls} → B ks ls →
-                 ∃[ k' ] ∃[ ks' ] ∃[ ls' ]
-                   ks ≡ k' ∷ ks' ∧ ls ≡ k' ∷ ls' ∧ B ks' ls'
-  {-# ATP prove h₁ lemma₁ lemma₂ not-Bool #-}
+  B : D → D → Set
+  B xs ys = xs ≡ xs
+  {-# ATP definition B #-}
 
-  postulate h₂ : B is (abpTransfer b os₁ os₂ is)
-  {-# ATP prove h₂ #-}
+  postulate
+    h : B is (abpTransfer b os₁ os₂ is) →
+        ∃[ i' ] ∃[ is' ] ∃[ js' ]
+          is ≡ i' ∷ is' ∧ abpTransfer b os₁ os₂ is ≡ i' ∷ js' ∧ B is' js'
+  {-# ATP prove h helper lemma #-}
 
 ------------------------------------------------------------------------------
 -- abpTransfer produces a Stream.

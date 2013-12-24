@@ -10,7 +10,7 @@
 -- message has been received by the receiver, but where the
 -- acknowledgement has not yet been received by the sender.
 
-module FOTC.Program.ABP.DS.Lemma1I where
+module FOTC.Program.ABP.Lemma1I where
 
 open import Common.FOL.Relation.Binary.EqReasoning
 
@@ -24,7 +24,6 @@ open import FOTC.Data.Bool.PropertiesI
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI
 open import FOTC.Program.ABP.ABP
-open import FOTC.Program.ABP.DS.ABP
 open import FOTC.Program.ABP.Fair.Type
 open import FOTC.Program.ABP.Fair.PropertiesI
 open import FOTC.Program.ABP.Terms

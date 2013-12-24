@@ -17,43 +17,54 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
 -- bisimilarity relation _≈_ on unbounded lists is also a pre-fixed
 -- point of the bisimulation functional (see
 -- FOTC.Relation.Binary.Bisimulation).
-≈-pre-fixed : ∀ {xs ys} →
-              (∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
+≈-pre-fixed : (∀ {xs ys} → ∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
                 xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys') →
-              xs ≈ ys
-≈-pre-fixed {xs} {ys} h = ≈-coind (λ zs _ → zs ≡ zs) h' refl
+              ∀ {xs ys} → xs ≈ ys
+≈-pre-fixed h = ≈-coind (λ zs _ → zs ≡ zs) h' refl
   where
   postulate
-    h' : xs ≡ xs →
+    h' : ∀ {xs} {ys} → xs ≡ xs →
          ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≡ xs'
-  {-# ATP prove h' #-}
+  -- TODO (23 December 2013): The translation failed because we do not
+  -- know how erase a term.
+  -- {-# ATP prove h' #-}
 
 ≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
-≈-refl {xs} Sxs = ≈-coind (λ ys _ → ys ≡ ys) h refl
+≈-refl {xs} Sxs = ≈-coind B h₁ h₂
   where
-  postulate
-    h : xs ≡ xs →
-        ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ xs ≡ x' ∷ ys' ∧ xs' ≡ xs'
-  {-# ATP prove h #-}
+  B : D → D → Set
+  B xs ys = xs ≡ ys ∧ Stream xs
+  {-# ATP definition B #-}
+
+  postulate h₁ : ∀ {xs ys} → B xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
+                   xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
+
+  {-# ATP prove h₁ #-}
+
+  postulate h₂ : B xs xs
+  {-# ATP prove h₂ #-}
 
 ≈-sym : ∀ {xs ys} → xs ≈ ys → ys ≈ xs
-≈-sym {xs} {ys} xs≈ys = ≈-coind (λ zs _ → zs ≡ zs) h refl
+≈-sym {xs} {ys} xs≈ys = ≈-coind B h₁ h₂
   where
-  postulate
-    h : ys ≡ ys →
-        ∃[ y' ] ∃[ ys' ] ∃[ xs' ] ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs' ∧ ys' ≡ ys'
-  {-# ATP prove h #-}
+  B : D → D → Set
+  B xs ys = ys ≈ xs
+  {-# ATP definition B #-}
 
-≈-trans : ∀ {xs ys zs} → xs ≈ ys → ys ≈ zs → xs ≈ zs
-≈-trans {xs} {ys} {zs} xs≈ys ys≈zs = ≈-coind (λ ws _ → ws ≡ ws) h refl
-  where
   postulate
-    h : xs ≡ xs →
-        ∃[ x' ] ∃[ xs' ] ∃[ zs' ] xs ≡ x' ∷ xs' ∧ zs ≡ x' ∷ zs' ∧ xs' ≡ xs'
-  {-# ATP prove h #-}
+    h₁ : ∀ {ys} {xs} → B ys xs → ∃[ y' ] ∃[ ys' ] ∃[ xs' ]
+           ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs' ∧ B ys' xs'
+  {-# ATP prove h₁ #-}
+
+  postulate h₂ : B ys xs
+  {-# ATP prove h₂ #-}
+
+-- TODO (23 December 2013)
+-- ≈-trans : ∀ {xs ys zs} → xs ≈ ys → ys ≈ zs → xs ≈ zs
 
 postulate ∷-injective≈ : ∀ {x xs ys} → x ∷ xs ≈ x ∷ ys → xs ≈ ys
 {-# ATP prove ∷-injective≈ #-}
 
-postulate ∷-rightCong≈ : ∀ {x xs ys} → xs ≈ ys → x ∷ xs ≈ x ∷ ys
-{-# ATP prove ∷-rightCong≈ ≈-pre-fixed #-}
+-- TODO (23 December 2013).
+-- postulate ∷-rightCong≈ : ∀ {x xs ys} → xs ≈ ys → x ∷ xs ≈ x ∷ ys
+-- {-# ATP prove ∷-rightCong≈ ≈-pre-fixed #-}

@@ -37,16 +37,17 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
 --   postulate h : A alter' → ∃[ x' ] ∃[ xs' ] alter' ≡ x' ∷ xs' ∧ A xs'
 --   {-# ATP prove h #-}
 
-alter≈alter' : alter ≈ alter'
-alter≈alter' = ≈-coind B h₁ h₂
-  where
-  B : D → D → Set
-  B xs ys = xs ≡ xs
-  {-# ATP definition B #-}
+-- TODO (23 December 2013).
+-- alter≈alter' : alter ≈ alter'
+-- alter≈alter' = ≈-coind B h₁ h₂
+--   where
+--   B : D → D → Set
+--   B xs ys = xs ≡ xs
+--   {-# ATP definition B #-}
 
-  postulate h₁ : B alter alter' → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
-                   alter ≡ x' ∷ xs' ∧ alter' ≡ x' ∷ ys' ∧ B xs' ys'
-  {-# ATP prove h₁ #-}
+--   postulate h₁ : B alter alter' → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
+--                    alter ≡ x' ∷ xs' ∧ alter' ≡ x' ∷ ys' ∧ B xs' ys'
+--   {-# ATP prove h₁ #-}
 
-  postulate h₂ : B alter alter'
-  {-# ATP prove h₂ #-}
+--   postulate h₂ : B alter alter'
+--   {-# ATP prove h₂ #-}

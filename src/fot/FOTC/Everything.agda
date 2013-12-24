@@ -97,19 +97,14 @@ open import FOTC.Program.ABP.ABP
 open import FOTC.Program.ABP.ABP.Consistency.Axioms
 open import FOTC.Program.ABP.CorrectnessProofATP
 open import FOTC.Program.ABP.CorrectnessProofI
-open import FOTC.Program.ABP.DS.ABP
-open import FOTC.Program.ABP.DS.CorrectnessProofATP
-open import FOTC.Program.ABP.DS.CorrectnessProofI
-open import FOTC.Program.ABP.DS.Lemma1ATP
-open import FOTC.Program.ABP.DS.Lemma1I
-open import FOTC.Program.ABP.DS.Lemma2ATP
-open import FOTC.Program.ABP.DS.Lemma2I
 open import FOTC.Program.ABP.Fair.Type
 open import FOTC.Program.ABP.Fair.Consistency.Axioms
 open import FOTC.Program.ABP.Fair.PropertiesATP
 open import FOTC.Program.ABP.Fair.PropertiesI
-open import FOTC.Program.ABP.LemmaATP
-open import FOTC.Program.ABP.LemmaI
+open import FOTC.Program.ABP.Lemma1ATP
+open import FOTC.Program.ABP.Lemma1I
+open import FOTC.Program.ABP.Lemma2ATP
+open import FOTC.Program.ABP.Lemma2I
 open import FOTC.Program.ABP.PropertiesI
 open import FOTC.Program.ABP.Terms
 

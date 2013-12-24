@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- The map-iterate property using a non-trivial bisimulation
+-- The map-iterate property
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -8,40 +8,38 @@
 -- The map-iterate property (Gibbons and Hutton, 2005):
 -- map f (iterate f x) = iterate f (f · x)
 
-module FOT.FOTC.Program.MapIterate.MapIterateNonTrivialBisimulationI where
+module FOT.FOTC.Program.MapIterate.MapIterateStrongerInductionPrincipleI where
+
+open import FOT.FOTC.Relation.Binary.Bisimilarity.Type
 
 open import FOTC.Base
 open import FOTC.Base.List
 open import FOTC.Data.List
+open import FOTC.Data.List.PropertiesI
+open import FOTC.Data.Stream.Type
 open import FOTC.Program.MapIterate.MapIterateI
 open import FOTC.Relation.Binary.Bisimilarity.Type
 
 ------------------------------------------------------------------------------
--- The map-iterate property.
+-- The map-iterate property using a stronger (maybe invalid) induction
+-- principle.
 ≈-map-iterate' : ∀ f x → map f (iterate f x) ≈ iterate f (f · x)
-≈-map-iterate' f x = ≈-coind B h (x , refl , refl)
+≈-map-iterate' f x = ≈-coind-stronger (λ xs _ → xs ≡ xs) h refl
   where
-  -- Based on the relation used by (Giménez and Castéran, 2007).
-  B : D → D → Set
-  B xs ys = ∃[ y ] xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y)
-
-  h : B (map f (iterate f x)) (iterate f (f · x)) → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
+  h : map f (iterate f x) ≡ map f (iterate f x) →
+      ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
         map f (iterate f x) ≡ x' ∷ xs'
         ∧ iterate f (f · x) ≡ x' ∷ ys'
-        ∧ B xs' ys'
-  h (y , prf) =
-    f · y
-    , map f (iterate f (f · y))
-    , iterate f (f · (f · y))
-    , trans (∧-proj₁ prf) (unfoldMapIterate f y)
-    , trans (∧-proj₂ prf) (iterate-eq f (f · y))
-    , ((f · y) , refl , refl)
+        ∧ xs' ≡ xs'
+  h _ = f · x
+        , map f (iterate f (f · x))
+        , iterate f (f · (f · x))
+        , unfoldMapIterate f x
+        , iterate-eq f (f · x)
+        , refl
 
 ------------------------------------------------------------------------------
 -- References
---
--- Giménez, Eduardo and Casterán, Pierre (2007). A Tutorial on
--- [Co-]Inductive Types in Coq.
 --
 -- Gibbons, Jeremy and Hutton, Graham (2005). Proof Methods for
 -- Corecursive Programs. In: Fundamenta Informaticae XX, pp. 1–14.

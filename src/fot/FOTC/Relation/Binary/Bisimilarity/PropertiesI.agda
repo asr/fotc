@@ -19,51 +19,75 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
 -- bisimilarity relation _≈_ on unbounded lists is also a pre-fixed
 -- point of the bisimulation functional (see
 -- FOTC.Relation.Binary.Bisimulation).
-≈-pre-fixed : ∀ {xs ys} →
-              (∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
+≈-pre-fixed : (∀ {xs ys} → ∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
                 xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys') →
-              xs ≈ ys
-≈-pre-fixed {xs} {ys} h = ≈-coind (λ zs _ → zs ≡ zs) h' refl
+              ∀ {xs ys} → xs ≈ ys
+≈-pre-fixed h = ≈-coind (λ zs _ → zs ≡ zs) h' refl
   where
-  h' : xs ≡ xs →
+  h' : ∀ {xs} {ys} → xs ≡ xs →
        ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≡ xs'
   h' _ with h
   ... | x' , xs' , ys' , prf₁ , prf₂ , _ = x' , xs' , ys' , prf₁ , prf₂ , refl
 
 ≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
-≈-refl {xs} Sxs = ≈-coind (λ ys _ → ys ≡ ys) h refl
+≈-refl {xs} Sxs = ≈-coind B h₁ h₂
   where
-  h : xs ≡ xs →
-      ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ xs ≡ x' ∷ ys' ∧ xs' ≡ xs'
-  h _ with Stream-unf Sxs
-  ... | x' , xs' , prf , _ = x' , xs' , xs' , prf , prf , refl
+  B : D → D → Set
+  B xs ys = Stream xs ∧ xs ≡ ys
+
+  h₁ : ∀ {xs ys} → B xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
+         xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
+  h₁ (Sxs , refl) with Stream-unf Sxs
+  ... | x' , xs' , prf , Sxs' =
+    x' , xs' , xs' , prf , prf , (Sxs' , refl)
+
+  h₂ : B xs xs
+  h₂ = Sxs , refl
 
 ≈-sym : ∀ {xs ys} → xs ≈ ys → ys ≈ xs
-≈-sym {xs} {ys} xs≈ys = ≈-coind (λ zs _ → zs ≡ zs) h refl
+≈-sym {xs} {ys} xs≈ys = ≈-coind B h₁ h₂
   where
-  h : ys ≡ ys →
-      ∃[ y' ] ∃[ ys' ] ∃[ xs' ] ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs' ∧ ys' ≡ ys'
-  h _ with ≈-unf xs≈ys
-  ... | x' , xs' , ys' , prf₁ , prf₂ , _ = x' , ys' , xs' , prf₂ , prf₁ , refl
+  B : D → D → Set
+  B xs ys = ys ≈ xs
 
+  h₁ : ∀ {ys xs} → B ys xs →
+       ∃[ y' ] ∃[ ys' ] ∃[ xs' ]
+         ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs' ∧ B ys' xs'
+  h₁ Bxsys with ≈-unf Bxsys
+  ... | y' , ys' , xs' , prf₁ , prf₂ , ys'≈xs' =
+    y' , xs' , ys' , prf₂ , prf₁ , ys'≈xs'
 
-≈-trans : ∀ {xs ys zs} → xs ≈ ys → ys ≈ zs → xs ≈ zs
-≈-trans {xs} {ys} {zs} xs≈ys ys≈zs = ≈-coind (λ ws _ → ws ≡ ws) h refl
-  where
-  h : xs ≡ xs →
-      ∃[ x' ] ∃[ xs' ] ∃[ zs' ] xs ≡ x' ∷ xs' ∧ zs ≡ x' ∷ zs' ∧ xs' ≡ xs'
-  h _ with ≈-unf xs≈ys
-  ... | x' , xs' , ys' , prf₁ , prf₂ , _ with ≈-unf ys≈zs
-  ... | y' , ys'' , zs' , prf₃ , prf₄ , _ =
-    x'
-    , xs'
-    , zs'
-    , prf₁
-    , subst (λ t → zs ≡ t ∷ zs') y'≡x' prf₄
-    , refl
-    where
-    y'≡x' : y' ≡ x'
-    y'≡x' = ∧-proj₁ (∷-injective (trans (sym prf₃) prf₂))
+  h₂ : B ys xs
+  h₂ = xs≈ys
+
+-- TODO (23 December 2013).
+-- ≈-trans : ∀ {xs ys zs} → xs ≈ ys → ys ≈ zs → xs ≈ zs
+-- ≈-trans {xs} {ys} {zs} xs≈ys ys≈zs = ≈-coind B h₁ h₂
+--   where
+--   B : D → D → Set
+--   B xs zs = ∃[ ys ] xs ≈ ys ∧ ys ≈ zs
+
+--   h₁ : ∀ {xs} {zs} → B xs zs →
+--        ∃[ x' ] ∃[ xs' ] ∃[ zs' ]
+--          xs ≡ x' ∷ xs' ∧ zs ≡ x' ∷ zs' ∧ B xs' zs'
+--   h₁ (ys , xs≈ys , ys≈zs) with ≈-unf xs≈ys
+--   ... | x' , xs' , ys' , prf₁ , prf₂ , xs'≈ys' with ≈-unf ys≈zs
+--   ... | y' , ys'' , zs' , prf₃ , prf₄ , ys''≈zs' =
+--     x'
+--     , xs'
+--     , zs'
+--     , prf₁
+--     , subst (λ t → zs ≡ t ∷ zs') y'≡x' prf₄
+--     , (ys' , (xs'≈ys' , (subst (λ t → t ≈ zs') ys''≡ys' ys''≈zs')))
+--     where
+--     y'≡x' : y' ≡ x'
+--     y'≡x' = ∧-proj₁ (∷-injective (trans (sym prf₃) prf₂))
+
+--     ys''≡ys' : ys'' ≡ ys'
+--     ys''≡ys' = ∧-proj₂ (∷-injective (trans (sym prf₃) prf₂))
+
+--   h₂ : B xs zs
+--   h₂ = ys , (xs≈ys , ys≈zs)
 
 ∷-injective≈ : ∀ {x xs ys} → x ∷ xs ≈ x ∷ ys → xs ≈ ys
 ∷-injective≈ {x} {xs} {ys} h with ≈-unf h
@@ -80,5 +104,6 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
                 (sym xs≡xs')
                 (subst (_≈_ xs') (sym ys≡ys') prf₃)
 
-∷-rightCong≈ : ∀ {x xs ys} → xs ≈ ys → x ∷ xs ≈ x ∷ ys
-∷-rightCong≈ {x} {xs} {ys} h = ≈-pre-fixed (x , xs , ys , refl , refl , h)
+-- TODO (23 December 2013)
+-- ∷-rightCong≈ : ∀ {x xs ys} → xs ≈ ys → x ∷ xs ≈ x ∷ ys
+-- ∷-rightCong≈ {x} {xs} {ys} h = ≈-pre-fixed (x , xs , ys , refl , refl , h)

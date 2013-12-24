@@ -10,7 +10,7 @@
 -- message has been received by the receiver, but where the
 -- acknowledgement has not yet been received by the sender.
 
-module FOTC.Program.ABP.DS.Lemma1ATP where
+module FOTC.Program.ABP.Lemma1ATP where
 
 open import FOTC.Base
 open import FOTC.Base.List
@@ -19,7 +19,6 @@ open import FOTC.Data.Bool
 open import FOTC.Data.Bool.PropertiesATP using ( x≢not-x )
 open import FOTC.Data.List
 open import FOTC.Program.ABP.ABP
-open import FOTC.Program.ABP.DS.ABP
 open import FOTC.Program.ABP.Fair.Type
 open import FOTC.Program.ABP.Fair.PropertiesATP
 open import FOTC.Program.ABP.Terms

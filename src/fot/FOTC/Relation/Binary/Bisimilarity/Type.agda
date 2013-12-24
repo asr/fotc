@@ -36,12 +36,12 @@ postulate
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
-  ≈-coind : ∀ (B : D → D → Set) {xs ys} →
+  ≈-coind : ∀ (B : D → D → Set) →
             -- B is a post-fixed point of the bisimulation functional.
-            (B xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
+            ( ∀ {xs ys} → B xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
               xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys') →
             -- _≈_ is greater than B.
-            B xs ys → xs ≈ ys
+            ∀ {xs ys} → B xs ys → xs ≈ ys
 
 ------------------------------------------------------------------------------
 -- Auxiliary definition.
