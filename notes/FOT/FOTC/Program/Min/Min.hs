@@ -2,14 +2,15 @@
 
 -- From (Bove, A. and Capretta, V. (2001).
 
+import Data.Peano
 import Prelude hiding ( min )
 
 -- TODO (04 December 2012): Why it is necessary to add the otherwise
 -- guard?
-min ∷ (Int → Int) → Int
+min ∷ (Nat → Nat) → Nat
 min f | f 0 == 0  = 0
-      | f 0 /= 0  = min (\n → f (n + 1)) + 1
-      | otherwise = error "Impossible"
+      | f 0 /= 0  = Succ (min (\n → f (Succ n)))
+      | otherwise = error "min impossible"
 
 ------------------------------------------------------------------------------
 -- References
