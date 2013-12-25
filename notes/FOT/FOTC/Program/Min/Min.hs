@@ -1,7 +1,6 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
--- From: Ana Bove and Venanzio Capretta. Nested general recursion and
--- partiality in type theory. vol 2152 LNCS. 2001.
+-- From (Bove, A. and Capretta, V. (2001).
 
 import Prelude hiding ( min )
 
@@ -11,3 +10,11 @@ min ∷ (Int → Int) → Int
 min f | f 0 == 0  = 0
       | f 0 /= 0  = min (\n → f (n + 1)) + 1
       | otherwise = error "Impossible"
+
+------------------------------------------------------------------------------
+-- References
+--
+-- Bove, A. and Capretta, V. (2001). Nested General Recursion and
+-- Partiality in Type Theory. In: Theorem Proving in Higher Order
+-- Logics (TPHOLs 2001). Ed. by Boulton, R. J. and Jackson,
+-- P. B. Vol. 2152. LNCS. Springer, pp. 121–135.
