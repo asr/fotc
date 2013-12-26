@@ -14,8 +14,8 @@ open import FOTC.Data.Conat
 open import FOTC.Data.Conat.Equality.Type
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI
-open import FOTC.Data.Stream.Type
 open import FOTC.Data.Stream.PropertiesI using ( Stream-pre-fixed )
+open import FOTC.Data.Stream.Type
 
 ------------------------------------------------------------------------------
 
