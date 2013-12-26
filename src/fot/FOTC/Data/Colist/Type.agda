@@ -42,7 +42,7 @@ postulate
 -- axiom.
 postulate
   Colist-coind :
-    ∀ (A : D → Set) →
+    (A : D → Set) →
     -- A is post-fixed point of ColistF.
     (∀ {xs} → A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')) →
     -- Colist is greater than A.

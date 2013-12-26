@@ -43,12 +43,13 @@ postulate ≈N-unf : ∀ {m n} → m ≈N n →
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
 postulate
-  ≈N-coind : ∀ (R : D → D → Set) →
-             -- R is a post-fixed point of the functional ≈NatF.
-             (∀ {m n} → R m n → m ≡ zero ∧ n ≡ zero
-               ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')) →
-             -- _≈N_ is greater than R.
-             ∀ {m n} → R m n → m ≈N n
+  ≈N-coind :
+    (R : D → D → Set) →
+    -- R is a post-fixed point of the functional ≈NatF.
+    (∀ {m n} → R m n → m ≡ zero ∧ n ≡ zero
+      ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')) →
+    -- _≈N_ is greater than R.
+    ∀ {m n} → R m n → m ≈N n
 
 ------------------------------------------------------------------------------
 -- References

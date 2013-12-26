@@ -43,12 +43,13 @@ postulate Fair-unf : ∀ {os} → Fair os →
 -- N.B. This is an axiom schema. Because in the automatic proofs we
 -- *must* use an instance, we do not add this postulate as an ATP
 -- axiom.
-postulate Fair-coind : ∀ (A : D → Set) →
-                       -- A is post-fixed point of FairF.
-                       (∀ {os} → A os → ∃[ ft ] ∃[ os' ]
-                         F*T ft ∧ os ≡ ft ++ os' ∧ A os') →
-                       -- Fair is greater than A.
-                       ∀ {os} → A os → Fair os
+postulate
+  Fair-coind :
+    (A : D → Set) →
+    -- A is post-fixed point of FairF.
+    (∀ {os} → A os → ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ A os') →
+    -- Fair is greater than A.
+    ∀ {os} → A os → Fair os
 
 ------------------------------------------------------------------------------
 -- References

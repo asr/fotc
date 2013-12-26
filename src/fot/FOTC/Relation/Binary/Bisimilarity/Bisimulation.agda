@@ -36,7 +36,7 @@ post-fp = ≈-unf
 -- post-fixed point of Bisimulation, i.e
  --
 -- ∀ B. B ≤ Bisimulation B ⇒ B ≤ _≈_.
-gpfp : ∀ (B : D → D → Set) →
+gpfp : (B : D → D → Set) →
        -- B is a post-fixed point of Bisimulation.
        (∀ {xs} {ys} → B xs ys → BisimulationF B xs ys) →
        -- _≈_ is greater than B.
