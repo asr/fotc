@@ -62,41 +62,41 @@ module LFP where
     N-ir : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n') → N n
 
     -- The higher-order version.
-    N-in-ho : ∀ {n} → NatF N n → N n
+    N-ir-ho : ∀ {n} → NatF N n → N n
 
     -- N is the least pre-fixed point of NatF.
     --
     -- Peter: It corresponds to the elimination rule of an inductively
     -- defined predicate.
     N-least-pre-fixed :
-      ∀ (A : D → Set) →
+      (A : D → Set) →
       (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n) →
       ∀ {n} → N n → A n
 
     -- Higher-order version.
     N-least-pre-fixed-ho :
-      ∀ (A : D → Set) → (∀ {n} → NatF A n → A n) → ∀ {n} → N n → A n
+      (A : D → Set) → (∀ {n} → NatF A n → A n) → ∀ {n} → N n → A n
 
   ----------------------------------------------------------------------------
-  -- From/to N-in/N-in-ho.
+  -- From/to N-ir/N-ir-ho.
 
-  N-in₁ : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n') → N n
-  N-in₁ = N-in-ho
+  N-ir₁ : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n') → N n
+  N-ir₁ = N-ir-ho
 
-  N-in-ho₁ : ∀ {n} → NatF N n → N n
-  N-in-ho₁ = N-in₁
+  N-ir-ho₁ : ∀ {n} → NatF N n → N n
+  N-ir-ho₁ = N-ir₁
 
   ----------------------------------------------------------------------------
   -- From/to N-least-pre-fixed/N-least-pre-fixed-ho
 
   N-least-pre-fixed' :
-    ∀ (A : D → Set) →
+    (A : D → Set) →
     (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n) →
     ∀ {n} → N n → A n
   N-least-pre-fixed' = N-least-pre-fixed-ho
 
   N-least-pre-fixed-ho' :
-    ∀ (A : D → Set) → (∀ {n} → NatF A n → A n) → ∀ {n} → N n → A n
+    (A : D → Set) → (∀ {n} → NatF A n → A n) → ∀ {n} → N n → A n
   N-least-pre-fixed-ho' = N-least-pre-fixed
 
   ----------------------------------------------------------------------------
@@ -136,11 +136,11 @@ module LFP where
            A zero →
            (∀ {n} → N n → A n → A (succ₁ n)) →
            ∀ {n} → N n → A n
-  N-ind₁ A A0 is {n} Nn = N-least-pre-fixed A h Nn
+  N-ind₁ A A0 h {n} Nn = N-least-pre-fixed A h' Nn
     where
-    h : ∀ {m} → m ≡ zero ∨ (∃[ m' ]  m ≡ succ₁ m' ∧ A m') → A m
-    h (inj₁ m≡0) = subst A (sym m≡0) A0
-    h (inj₂ (m' , prf , Am')) = {!!}
+    h' : ∀ {m} → m ≡ zero ∨ (∃[ m' ]  m ≡ succ₁ m' ∧ A m') → A m
+    h' (inj₁ m≡0) = subst A (sym m≡0) A0
+    h' (inj₂ (m' , prf , Am')) = {!!}
 
   ----------------------------------------------------------------------------
   -- The induction principle for N *without* the hypothesis N n in the
@@ -150,11 +150,11 @@ module LFP where
            A zero →
            (∀ {n} → A n → A (succ₁ n)) →
            ∀ {n} → N n → A n
-  N-ind₂ A A0 is = N-least-pre-fixed A h
+  N-ind₂ A A0 h = N-least-pre-fixed A h'
     where
-    h : ∀ {m} → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ A m') → A m
-    h (inj₁ m≡0)              = subst A (sym m≡0) A0
-    h (inj₂ (m' , prf , Am')) = subst A (sym prf) (is Am')
+    h' : ∀ {m} → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ A m') → A m
+    h' (inj₁ m≡0)              = subst A (sym m≡0) A0
+    h' (inj₂ (m' , prf , Am')) = subst A (sym prf) (h Am')
 
   ----------------------------------------------------------------------------
   -- Example: We will use N-least-pre-fixed as the induction
@@ -229,8 +229,8 @@ module Data where
            A zero →
            (∀ {n} → N n → A n → A (succ₁ n)) →
            ∀ {n} → N n → A n
-  N-ind₁ A A0 is nzero      = A0
-  N-ind₁ A A0 is (nsucc Nn) = is Nn (N-ind₁ A A0 is Nn)
+  N-ind₁ A A0 h nzero      = A0
+  N-ind₁ A A0 h (nsucc Nn) = h Nn (N-ind₁ A A0 h Nn)
 
   -- The induction principle for N *without* the hypothesis N n in the
   -- induction step.
@@ -242,10 +242,10 @@ module Data where
   N-ind₂ A A0 h (nsucc Nn) = h (N-ind₂ A A0 h Nn)
 
   ----------------------------------------------------------------------------
-  -- N-in.
+  -- N-ir.
 
-  N-in : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n') → N n
-  N-in {n} h = case prf₁ prf₂ h
+  N-ir : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n') → N n
+  N-ir {n} h = case prf₁ prf₂ h
     where
     prf₁ : n ≡ zero → N n
     prf₁ n≡0 = subst N (sym n≡0) nzero
@@ -257,7 +257,7 @@ module Data where
   -- From N-ind₂ to N-least-pre-fixed.
 
   N-least-pre-fixed₂ :
-    ∀ (A : D → Set) →
+    (A : D → Set) →
     (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n) →
     ∀ {n} → N n → A n
   N-least-pre-fixed₂ A h = N-ind₂ A h₁ h₂
