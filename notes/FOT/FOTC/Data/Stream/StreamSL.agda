@@ -2,7 +2,6 @@
 -- Definition of FOTC streams using the Agda co-inductive combinators
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --allow-unsolved-metas #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
