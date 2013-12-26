@@ -25,24 +25,12 @@ Stream-unf : ∀ {xs} → Stream xs →
 Stream-unf (consS x' {xs'} Sxs') = x' , xs' , ♭ Sxs' , refl
 
 {-# NO_TERMINATION_CHECK #-}
-Stream-coind : ∀ (A : D → Set) {xs} →
-             -- A is post-fixed point of StreamF.
-             (A xs → ∃ λ x' → ∃ λ xs' → A xs' ∧ xs ≡ x' ∷ xs') →
-             -- Stream is greater than A.
-             A xs → Stream xs
-Stream-coind A {xs} h Axs = subst Stream (sym xs≡x'∷xs') prf
+Stream-coind :
+  (A : D → Set) →
+  (∀ {xs} → A xs → ∃ λ x' → ∃ λ xs' → xs ≡ x' ∷ xs' ∧ A xs') →
+  ∀ {xs} → A xs → Stream xs
+Stream-coind A h Axs with h Axs
+... | x' , xs' , prf₁ , Axs' = subst Stream (sym prf₁) prf₂
   where
-    x' : D
-    x' = proj₁ (h Axs)
-
-    xs' : D
-    xs' = proj₁ (proj₂ (h Axs))
-
-    Axs' : A xs'
-    Axs' = proj₁ (proj₂ (proj₂ (h Axs)))
-
-    xs≡x'∷xs' : xs ≡ x' ∷ xs'
-    xs≡x'∷xs' = proj₂ (proj₂ (proj₂ (h Axs)))
-
-    prf : Stream (x' ∷ xs')
-    prf = consS x' (♯ (Stream-coind A {!!} Axs'))
+  prf₂ : Stream (x' ∷ xs')
+  prf₂ = consS x' (♯ Stream-coind A h Axs')
