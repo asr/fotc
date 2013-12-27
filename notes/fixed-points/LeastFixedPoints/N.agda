@@ -2,7 +2,6 @@
 -- Equivalence: N as the least fixed-point and N using Agda's data constructor
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --allow-unsolved-metas #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
@@ -130,17 +129,19 @@ module LFP where
   -- The induction principle for N *with* the hypothesis N n in the
   -- induction step using N-least-pre-fixed.
 
-  -- 22 December 2013. We couldn't prove N-ind₁ using
-  -- N-least-pre-fixed.
   N-ind₁ : (A : D → Set) →
            A zero →
            (∀ {n} → N n → A n → A (succ₁ n)) →
            ∀ {n} → N n → A n
-  N-ind₁ A A0 h {n} Nn = N-least-pre-fixed A h' Nn
+  N-ind₁ A A0 h Nn = ∧-proj₂ (N-least-pre-fixed B h' Nn)
     where
-    h' : ∀ {m} → m ≡ zero ∨ (∃[ m' ]  m ≡ succ₁ m' ∧ A m') → A m
-    h' (inj₁ m≡0) = subst A (sym m≡0) A0
-    h' (inj₂ (m' , prf , Am')) = {!!}
+    B : D → Set
+    B n = N n ∧ A n
+
+    h' : ∀ {m} → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ B m') → B m
+    h' (inj₁ m≡0) = subst B (sym m≡0) (nzero , A0)
+    h' (inj₂ (m' , prf , Nm' , Am')) =
+      (subst N (sym prf) (nsucc Nm')) , subst A (sym prf) (h Nm' Am')
 
   ----------------------------------------------------------------------------
   -- The induction principle for N *without* the hypothesis N n in the
