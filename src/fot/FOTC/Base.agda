@@ -47,7 +47,7 @@ postulate
 -- looking for an optimization for the ATPs.
 
 -- 2012-03-20. The definitions are inside an abstract block because
--- the conversion rules (see below) are based on them, so want to
+-- the conversion rules (see below) are based on them, so we want to
 -- avoid their expansion.
 
 abstract
@@ -66,6 +66,10 @@ abstract
   iszero₁ : D → D
   iszero₁ n = iszero · n
   -- {-# ATP definition iszero₁ #-}
+
+  -- Auxiliary theorem.
+  succ₁≡succ : ∀ n → succ₁ n ≡ succ · n
+  succ₁≡succ n = refl
 
 ------------------------------------------------------------------------------
 -- Conversion rules
