@@ -26,7 +26,7 @@ BisimulationF B xs ys =
   ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
 
 -- The bisimilarity relation _≈_ on unbounded lists is a post-fixed
--- point of Bisimulation, i.e,
+-- point of Bisimulation, i.e.
 --
 -- _≈_ ≤ Bisimulation _≈_.
 post-fp : ∀ {xs ys} → xs ≈ ys → BisimulationF _≈_ xs ys

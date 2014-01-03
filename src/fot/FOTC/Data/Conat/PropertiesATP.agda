@@ -14,7 +14,7 @@ open import FOTC.Data.Nat
 ------------------------------------------------------------------------------
 -- Because a greatest post-fixed point is a fixed-point, then the
 -- Conat predicate is also a pre-fixed point of the functional NatF,
--- i.e,
+-- i.e.
 --
 -- NatF Conat ≤ Conat (see FOTC.Data.Conat.Type).
 Conat-pre-fixed : ∀ {n} →

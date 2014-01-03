@@ -95,7 +95,7 @@ Conat-coind-stronger'' A h An = Conat-coind A {!!} An
 ------------------------------------------------------------------------------
 -- Because a greatest post-fixed point is a fixed-point, then the
 -- Conat predicate is also a pre-fixed point of the functional NatF,
--- i.e,
+-- i.e.
 --
 -- NatF Conat ≤ Conat.
 Conat-pre-fixed : ∀ {n} →
