@@ -139,8 +139,7 @@ module LFP where
     h' (inj₂ (m' , prf , Am')) = subst A (sym prf) (h Am')
 
   ----------------------------------------------------------------------------
-  -- Example: We will use N-ind as the induction
-  -- principle on N.
+  -- Example: We will use N-ind as the induction principle on N.
 
   postulate
     _+_  : D → D → D
