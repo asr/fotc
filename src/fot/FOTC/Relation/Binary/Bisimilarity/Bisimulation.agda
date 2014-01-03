@@ -36,12 +36,13 @@ post-fp = ≈-unf
 -- post-fixed point of Bisimulation, i.e.
  --
 -- ∀ B. B ≤ Bisimulation B ⇒ B ≤ _≈_.
-gpfp : (B : D → D → Set) →
-       -- B is a post-fixed point of Bisimulation.
-       (∀ {xs} {ys} → B xs ys → BisimulationF B xs ys) →
-       -- _≈_ is greater than B.
-       ∀ {xs} {ys} → B xs ys → xs ≈ ys
-gpfp = ≈-coind
+greatest-post-fp :
+  (B : D → D → Set) →
+  -- B is a post-fixed point of Bisimulation.
+  (∀ {xs} {ys} → B xs ys → BisimulationF B xs ys) →
+  -- _≈_ is greater than B.
+  ∀ {xs} {ys} → B xs ys → xs ≈ ys
+greatest-post-fp = ≈-coind
 
 -- Because a greatest post-fixed point is a fixed-point, the
 -- bisimilarity relation _≈_ on unbounded lists is also a pre-fixed
