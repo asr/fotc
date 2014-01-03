@@ -11,29 +11,6 @@ open import FOTC.Base hiding ( pred-0 ; pred-S )
 open import FOTC.Base.PropertiesI hiding ( predCong )
 
 ------------------------------------------------------------------------------
--- Basic definitions
-
--- Pre-fixed point  : d is a pre-fixed point of f if f d ≤ d
-
--- Post-fixed point : d is a post-fixed point of f if d ≤ f d
-
--- Fixed-point      : d is a fixed-point of f if f d = d
-
--- Least pre-fixed point : d is the least pre-fixed point of f if
--- 1. f d ≤ d  -- d is a pre-fixed point of f
--- 2. ∀ e. f e ≤ e ⇒ d ≤ e
-
--- Least fixed-point : d is the least fixed-point of f if
--- 1. f d = d  -- d is a fixed-point of f
--- 2. ∀ e. f e ≤ e ⇒ d ≤ e
-
--- Thm: If d is the least pre-fixed point of f, then d is the least
--- fixed-point of f (Ésik, 2009, p. 31).
-
--- Thm: If d is the greatest post-fixed point of f, then d is the greatest
--- fixed-point of f (Ésik, 2009, p. 31).
-
-------------------------------------------------------------------------------
 -- Auxiliary definitions and properties
 
 flip : {A B C : Set} → (A → B → C) → B → A → C
@@ -275,10 +252,3 @@ module Data where
 
     h₂ : ∀ {m} → A m → A (succ · m)
     h₂ {m} Am = h (inj₂ (m , refl , Am))
-
-------------------------------------------------------------------------------
--- References
---
--- Ésik, Z. (2009). Fixed Point Theory. In: Handbook of Weighted
--- Automata. Ed. by Droste, M., Kuich, W. and Vogler, H. Monographs in
--- Theoretical Computer Science. An EATCS Series. Springer. Chap. 2.
