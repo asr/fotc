@@ -33,7 +33,7 @@ postulate
                 ∃[ n' ] ∃[ ns' ] N n' ∧ StreamN ns' ∧ ns ≡ n' ∷ ns'
 {-# ATP axiom StreamN-unf #-}
 
--- StreamN is the greatest post-fixed point of StreamNF, i.e
+-- StreamN is the greatest post-fixed point of StreamNF, i.e.
 --
 -- ∀ P. P ≤ StreamNF P ⇒ P ≤ StreamN.
 --

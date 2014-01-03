@@ -30,7 +30,7 @@ postulate
   -- The higher-order version.
   Conat-unf-ho : ∀ {n} → Conat n → NatF Conat n
 
-  -- Conat is the greatest post-fixed point of NatF, i.e
+  -- Conat is the greatest post-fixed point of NatF, i.e.
   --
   -- ∀ P. P ≤ NatF P ⇒ P ≤ Conat.
   Conat-coind :
