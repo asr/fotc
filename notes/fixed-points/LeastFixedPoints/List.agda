@@ -34,7 +34,7 @@ module LFP where
     --
     -- Peter: It corresponds to the elimination rule of an inductively
     -- defined predicate.
-    List-least-pre-fixed :
+    List-ind :
       (A : D → Set) →
       (∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs') → A xs) →
       ∀ {xs} → List xs → A xs
@@ -49,11 +49,11 @@ module LFP where
 
   ----------------------------------------------------------------------------
   -- The induction principle for List.
-  List-ind : (A : D → Set) →
-             A [] →
-             (∀ x {xs} → A xs → A (x ∷ xs)) →
-             ∀ {xs} → List xs → A xs
-  List-ind A A[] is = List-least-pre-fixed A prf
+  List-ind' : (A : D → Set) →
+              A [] →
+              (∀ x {xs} → A xs → A (x ∷ xs)) →
+              ∀ {xs} → List xs → A xs
+  List-ind' A A[] is = List-ind A prf
     where
     prf : ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs') → A xs
     prf (inj₁ xs≡[])                  = subst A (sym xs≡[]) A[]

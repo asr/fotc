@@ -44,13 +44,13 @@ module LFP where
     --
     -- Peter: It corresponds to the elimination rule of an inductively
     -- defined predicate.
-    N-least-pre-fixed :
+    N-ind :
       (A : D → Set) →
       (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ A n') → A n) →
       ∀ {n} → N n → A n
 
     -- Higher-order version.
-    N-least-pre-fixed-ho :
+    N-ind-ho :
       (A : D → Set) → (∀ {n} → NatF A n → A n) → ∀ {n} → N n → A n
 
   ----------------------------------------------------------------------------
@@ -63,17 +63,17 @@ module LFP where
   N-in-ho₁ = N-in₁
 
   ----------------------------------------------------------------------------
-  -- From/to N-least-pre-fixed/N-least-pre-fixed-ho
+  -- From/to N-ind/N-ind-ho
 
-  N-least-pre-fixed' :
+  N-ind' :
     (A : D → Set) →
     (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ A n') → A n) →
     ∀ {n} → N n → A n
-  N-least-pre-fixed' = N-least-pre-fixed-ho
+  N-ind' = N-ind-ho
 
-  N-least-pre-fixed-ho' :
+  N-ind-ho' :
     (A : D → Set) → (∀ {n} → NatF A n → A n) → ∀ {n} → N n → A n
-  N-least-pre-fixed-ho' = N-least-pre-fixed
+  N-ind-ho' = N-ind
 
   ----------------------------------------------------------------------------
   -- The data constructors of N.
@@ -89,7 +89,7 @@ module LFP where
 
   -- N is a post-fixed point of NatF.
   N-post-fixed : ∀ {n} → N n → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ N n')
-  N-post-fixed = N-least-pre-fixed A h
+  N-post-fixed = N-ind A h
     where
     A : D → Set
     A m = m ≡ zero ∨ (∃[ m' ] m ≡ succ · m' ∧ N m')
@@ -104,13 +104,13 @@ module LFP where
 
   ----------------------------------------------------------------------------
   -- The induction principle for N *with* the hypothesis N n in the
-  -- induction step using N-least-pre-fixed.
+  -- induction step using N-ind.
 
   N-ind₁ : (A : D → Set) →
            A zero →
            (∀ {n} → N n → A n → A (succ · n)) →
            ∀ {n} → N n → A n
-  N-ind₁ A A0 h Nn = ∧-proj₂ (N-least-pre-fixed B h' Nn)
+  N-ind₁ A A0 h Nn = ∧-proj₂ (N-ind B h' Nn)
     where
     B : D → Set
     B n = N n ∧ A n
@@ -122,20 +122,20 @@ module LFP where
 
   ----------------------------------------------------------------------------
   -- The induction principle for N *without* the hypothesis N n in the
-  -- induction step using N-least-pre-fixed
+  -- induction step using N-ind
 
   N-ind₂ : (A : D → Set) →
            A zero →
            (∀ {n} → A n → A (succ · n)) →
            ∀ {n} → N n → A n
-  N-ind₂ A A0 h = N-least-pre-fixed A h'
+  N-ind₂ A A0 h = N-ind A h'
     where
     h' : ∀ {m} → m ≡ zero ∨ (∃[ m' ] m ≡ succ · m' ∧ A m') → A m
     h' (inj₁ m≡0)              = subst A (sym m≡0) A0
     h' (inj₂ (m' , prf , Am')) = subst A (sym prf) (h Am')
 
   ----------------------------------------------------------------------------
-  -- Example: We will use N-least-pre-fixed as the induction
+  -- Example: We will use N-ind as the induction
   -- principle on N.
 
   postulate
@@ -147,7 +147,7 @@ module LFP where
   +-leftIdentity n = +-0x n
 
   +-N : ∀ {m n} → N m → N n → N (m + n)
-  +-N {n = n} Nm Nn = N-least-pre-fixed A h Nm
+  +-N {n = n} Nm Nn = N-ind A h Nm
     where
     A : D → Set
     A i = N (i + n)
@@ -239,13 +239,13 @@ module Data where
     prf₂ (n' , prf , Nn') = subst N (sym prf) (nsucc Nn')
 
   ----------------------------------------------------------------------------
-  -- From N-ind₂ to N-least-pre-fixed.
+  -- From N-ind₂ to N-ind.
 
-  N-least-pre-fixed₂ :
+  N-ind' :
     (A : D → Set) →
     (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ A n') → A n) →
     ∀ {n} → N n → A n
-  N-least-pre-fixed₂ A h = N-ind₂ A h₁ h₂
+  N-ind' A h = N-ind₂ A h₁ h₂
     where
     h₁ :  A zero
     h₁ = h (inj₁ refl)
