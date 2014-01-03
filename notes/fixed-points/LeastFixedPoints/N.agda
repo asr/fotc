@@ -58,10 +58,10 @@ module LFP where
     -- N is a pre-fixed point of NatF.
     --
     -- Peter: It corresponds to the introduction rules.
-    N-ir : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ N n') → N n
+    N-in : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ N n') → N n
 
     -- The higher-order version.
-    N-ir-ho : ∀ {n} → NatF N n → N n
+    N-in-ho : ∀ {n} → NatF N n → N n
 
     -- N is the least pre-fixed point of NatF.
     --
@@ -77,13 +77,13 @@ module LFP where
       (A : D → Set) → (∀ {n} → NatF A n → A n) → ∀ {n} → N n → A n
 
   ----------------------------------------------------------------------------
-  -- From/to N-ir/N-ir-ho.
+  -- From/to N-in/N-in-ho.
 
-  N-ir₁ : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ N n') → N n
-  N-ir₁ = N-ir-ho
+  N-in₁ : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ N n') → N n
+  N-in₁ = N-in-ho
 
-  N-ir-ho₁ : ∀ {n} → NatF N n → N n
-  N-ir-ho₁ = N-ir₁
+  N-in-ho₁ : ∀ {n} → NatF N n → N n
+  N-in-ho₁ = N-in₁
 
   ----------------------------------------------------------------------------
   -- From/to N-least-pre-fixed/N-least-pre-fixed-ho
@@ -101,10 +101,10 @@ module LFP where
   ----------------------------------------------------------------------------
   -- The data constructors of N.
   nzero : N zero
-  nzero = N-ir (inj₁ refl)
+  nzero = N-in (inj₁ refl)
 
   nsucc : ∀ {n} → N n → N (succ · n)
-  nsucc Nn = N-ir (inj₂ (_ , refl , Nn))
+  nsucc Nn = N-in (inj₂ (_ , refl , Nn))
 
   ----------------------------------------------------------------------------
   -- Because N is the least pre-fixed point of NatF (i.e. N-in and
@@ -250,10 +250,10 @@ module Data where
   N-ind₂ A A0 h (nsucc Nn) = h (N-ind₂ A A0 h Nn)
 
   ----------------------------------------------------------------------------
-  -- N-ir.
+  -- N-in.
 
-  N-ir : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ N n') → N n
-  N-ir {n} h = case prf₁ prf₂ h
+  N-in : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ N n') → N n
+  N-in {n} h = case prf₁ prf₂ h
     where
     prf₁ : n ≡ zero → N n
     prf₁ n≡0 = subst N (sym n≡0) nzero

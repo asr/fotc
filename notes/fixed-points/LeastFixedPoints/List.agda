@@ -27,7 +27,7 @@ module LFP where
     -- List is a pre-fixed point of ListF.
     --
     -- Peter: It corresponds to the introduction rules.
-    List-ir : ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ List xs') →
+    List-in : ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ List xs') →
               List xs
 
     -- List is the least pre-fixed point of ListF.
@@ -42,10 +42,10 @@ module LFP where
   ----------------------------------------------------------------------------
   -- The data constructors of List.
   lnil : List []
-  lnil = List-ir (inj₁ refl)
+  lnil = List-in (inj₁ refl)
 
   lcons : ∀ x {xs} → List xs → List (x ∷ xs)
-  lcons x {xs} Lxs = List-ir (inj₂ (x , xs , refl , Lxs))
+  lcons x {xs} Lxs = List-in (inj₂ (x , xs , refl , Lxs))
 
   ----------------------------------------------------------------------------
   -- The induction principle for List.
@@ -84,11 +84,11 @@ module Data where
   List-ind A A[] h (lcons x Lxs) = h x (List-ind A A[] h Lxs)
 
   ----------------------------------------------------------------------------
-  -- List-ir
+  -- List-in
 
-  List-ir : ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ List xs') →
+  List-in : ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ List xs') →
             List xs
-  List-ir {xs} h = case prf₁ prf₂ h
+  List-in {xs} h = case prf₁ prf₂ h
     where
     prf₁ : xs ≡ [] → List xs
     prf₁ xs≡[] = subst List (sym xs≡[]) lnil

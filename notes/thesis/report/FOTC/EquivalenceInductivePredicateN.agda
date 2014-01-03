@@ -21,11 +21,11 @@ module Constant where
 
     postulate
       N         : D → Set
-      N-ir-ho   : ∀ {n} → NatF N n → N n
+      N-in-ho   : ∀ {n} → NatF N n → N n
       N-ind'-ho : (A : D → Set) → (∀ {n} → NatF A n → A n) → ∀ {n} → N n → A n
 
-    N-ir : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ N n') → N n
-    N-ir = N-ir-ho
+    N-in : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ N n') → N n
+    N-in = N-in-ho
 
     N-ind' : (A : D → Set) →
              (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ A n') → A n) →
@@ -36,10 +36,10 @@ module Constant where
     -- The data constructors of N using data.
 
     nzero : N zero
-    nzero = N-ir (inj₁ refl)
+    nzero = N-in (inj₁ refl)
 
     nsucc : ∀ {n} → N n → N (succ · n)
-    nsucc Nn = N-ir (inj₂ (_ , refl , Nn))
+    nsucc Nn = N-in (inj₂ (_ , refl , Nn))
 
     --------------------------------------------------------------------------
     -- The induction principle of N using data.
@@ -69,8 +69,8 @@ module Constant where
 
     --------------------------------------------------------------------------
     -- The introduction rule of N using LFP.
-    N-ir : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ N n') → N n
-    N-ir {n} h = case prf₁ prf₂ h
+    N-in : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ N n') → N n
+    N-in {n} h = case prf₁ prf₂ h
       where
       prf₁ : n ≡ zero → N n
       prf₁ n≡0 = subst N (sym n≡0) nzero
@@ -104,11 +104,11 @@ module UnaryFunction where
 
     postulate
       N         : D → Set
-      N-ir-ho   : ∀ {n} → NatF N n → N n
+      N-in-ho   : ∀ {n} → NatF N n → N n
       N-ind'-ho : (A : D → Set) → (∀ {n} → NatF A n → A n) → ∀ {n} → N n → A n
 
-    N-ir : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n') → N n
-    N-ir = N-ir-ho
+    N-in : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n') → N n
+    N-in = N-in-ho
 
     N-ind' : (A : D → Set) →
              (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n) →
@@ -119,10 +119,10 @@ module UnaryFunction where
     -- The data constructors of N using data.
 
     nzero : N zero
-    nzero = N-ir (inj₁ refl)
+    nzero = N-in (inj₁ refl)
 
     nsucc : ∀ {n} → N n → N (succ₁ n)
-    nsucc Nn = N-ir (inj₂ (_ , refl , Nn))
+    nsucc Nn = N-in (inj₂ (_ , refl , Nn))
 
     --------------------------------------------------------------------------
     -- The induction principle of N using data.
@@ -152,8 +152,8 @@ module UnaryFunction where
 
     --------------------------------------------------------------------------
     -- The introduction rule of N using LFP.
-    N-ir : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n') → N n
-    N-ir {n} h = case prf₁ prf₂ h
+    N-in : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n') → N n
+    N-in {n} h = case prf₁ prf₂ h
       where
       prf₁ : n ≡ zero → N n
       prf₁ n≡0 = subst N (sym n≡0) nzero
