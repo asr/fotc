@@ -102,6 +102,10 @@ module LFP where
       helper (inj₁ prf')                = subst N (sym prf') nzero
       helper (inj₂ (m'' , prf' , Am'')) = subst N (sym prf') (nsucc Am'')
 
+  -- Higher-order version.
+  N-unf-ho : ∀ {n} → N n → NatF N n
+  N-unf-ho = N-unf
+
   ----------------------------------------------------------------------------
   -- The induction principle for N *with* the hypothesis N n in the
   -- induction step using N-ind.
