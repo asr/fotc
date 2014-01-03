@@ -88,8 +88,8 @@ module LFP where
   -- N-ind), we can proof that N is also a post-fixed point of NatF.
 
   -- N is a post-fixed point of NatF.
-  N-post-fixed : ∀ {n} → N n → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ N n')
-  N-post-fixed = N-ind A h
+  N-unf : ∀ {n} → N n → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ N n')
+  N-unf = N-ind A h
     where
     A : D → Set
     A m = m ≡ zero ∨ (∃[ m' ] m ≡ succ · m' ∧ N m')
@@ -164,7 +164,7 @@ module LFP where
       is {i} Ai = subst N (sym (+-Sx i n)) (nsucc Ai)
 
   ----------------------------------------------------------------------------
-  -- Example: A proof using N-post-fixed.
+  -- Example: A proof using N-unf.
 
   postulate
     pred-0 : pred · zero             ≡ zero
@@ -174,7 +174,7 @@ module LFP where
   predCong refl = refl
 
   pred-N : ∀ {n} → N n → N (pred · n)
-  pred-N {n} Nn = case h₁ h₂ (N-post-fixed Nn)
+  pred-N {n} Nn = case h₁ h₂ (N-unf Nn)
     where
     h₁ : n ≡ zero → N (pred · n)
     h₁ n≡0 = subst N (sym (trans (predCong n≡0) pred-0)) nzero
