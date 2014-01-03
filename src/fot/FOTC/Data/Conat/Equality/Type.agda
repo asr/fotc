@@ -35,7 +35,7 @@ postulate ≈N-unf : ∀ {m n} → m ≈N n →
                    ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n')
 {-# ATP axiom ≈N-unf #-}
 
--- The relation _N≈_ is the greatest post-fixed point of _N≈_, i.e
+-- The relation _N≈_ is the greatest post-fixed point of _N≈_, i.e.
 --
 -- ∀ R. R ≤ ≈NatF R ⇒ R ≤ _N≈_.
 --

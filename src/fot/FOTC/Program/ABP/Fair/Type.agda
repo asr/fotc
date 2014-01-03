@@ -36,7 +36,7 @@ postulate Fair-unf : ∀ {os} → Fair os →
                      ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os'
 {-# ATP axiom Fair-unf #-}
 
--- Fair is the greatest post-fixed point of FairF, i.e
+-- Fair is the greatest post-fixed point of FairF, i.e.
 --
 -- ∀ A. A ≤ FairF A ⇒ A ≤ Fair.
 --

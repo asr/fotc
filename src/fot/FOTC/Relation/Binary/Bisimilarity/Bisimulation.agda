@@ -33,7 +33,7 @@ post-fp : ∀ {xs ys} → xs ≈ ys → BisimulationF _≈_ xs ys
 post-fp = ≈-unf
 
 -- The bisimilarity relation _≈_ on unbounded lists is the greatest
--- post-fixed point of Bisimulation, i.e
+-- post-fixed point of Bisimulation, i.e.
  --
 -- ∀ B. B ≤ Bisimulation B ⇒ B ≤ _≈_.
 gpfp : (B : D → D → Set) →

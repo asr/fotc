@@ -29,7 +29,7 @@ postulate
   Stream-unf : ∀ {xs} → Stream xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs'
 {-# ATP axiom Stream-unf #-}
 
--- Stream is the greatest post-fixed point of StreamF, i.e
+-- Stream is the greatest post-fixed point of StreamF, i.e.
 --
 -- ∀ A. A ≤ StreamF A ⇒ A ≤ Stream.
 --

@@ -33,7 +33,7 @@ postulate
                xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs')
 {-# ATP axiom Colist-unf #-}
 
--- Colist is the greatest post-fixed point of ColistF, i.e
+-- Colist is the greatest post-fixed point of ColistF, i.e.
 --
 -- ∀ A. A ≤ ColistF A ⇒ A ≤ Colist.
 --

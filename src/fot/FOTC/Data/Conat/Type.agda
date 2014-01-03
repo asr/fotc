@@ -33,7 +33,7 @@ postulate
   Conat-unf : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
 {-# ATP axiom Conat-unf #-}
 
--- Conat is the greatest post-fixed point of NatF, i.e
+-- Conat is the greatest post-fixed point of NatF, i.e.
 --
 -- ∀ A. A ≤ NatF A ⇒ A ≤ Conat.
 --
