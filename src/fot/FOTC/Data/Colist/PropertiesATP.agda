@@ -17,11 +17,11 @@ open import FOTC.Data.Colist
 -- ColistF, i.e.
 --
 -- ColistF Colist ≤ Colist (see FOTC.Data.Colist.Type).
-Colist-pre-fixed :
+Colist-in :
   ∀ {xs} →
   xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs') →
   Colist xs
-Colist-pre-fixed h = Colist-coind A h' h
+Colist-in h = Colist-coind A h' h
   where
   A : D → Set
   A xs =   xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs')

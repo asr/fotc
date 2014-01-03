@@ -17,10 +17,10 @@ open import FOTC.Data.Nat
 -- i.e.
 --
 -- NatF Conat ≤ Conat (see FOTC.Data.Conat.Type).
-Conat-pre-fixed : ∀ {n} →
-                  n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n') →
-                  Conat n
-Conat-pre-fixed h = Conat-coind A h' h
+Conat-in : ∀ {n} →
+           n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n') →
+           Conat n
+Conat-in h = Conat-coind A h' h
   where
   A : D → Set
   A n = n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
@@ -57,8 +57,8 @@ N→Conat Nn = Conat-coind N h Nn
 
 -- A different proof.
 N→Conat' : ∀ {n} → N n → Conat n
-N→Conat' nzero          = Conat-pre-fixed (inj₁ refl)
-N→Conat' (nsucc {n} Nn) = Conat-pre-fixed (inj₂ (n , refl , (N→Conat' Nn)))
+N→Conat' nzero          = Conat-in (inj₁ refl)
+N→Conat' (nsucc {n} Nn) = Conat-in (inj₂ (n , refl , (N→Conat' Nn)))
 
 ------------------------------------------------------------------------------
 -- References

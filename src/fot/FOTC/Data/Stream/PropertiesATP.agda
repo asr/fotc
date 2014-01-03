@@ -20,10 +20,10 @@ open import FOTC.Data.Stream.Type
 -- StreamF, i.e.
 --
 -- StreamF Stream ≤ Stream (see FOTC.Data.Stream.Type).
-Stream-pre-fixed : ∀ {xs} →
-                   ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs' →
-                   Stream xs
-Stream-pre-fixed h = Stream-coind A h' h
+Stream-in : ∀ {xs} →
+            ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs' →
+            Stream xs
+Stream-in h = Stream-coind A h' h
   where
   A : D → Set
   A xs = ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs'

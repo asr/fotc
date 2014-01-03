@@ -98,10 +98,10 @@ Conat-coind-stronger'' A h An = Conat-coind A {!!} An
 -- i.e.
 --
 -- NatF Conat ≤ Conat.
-Conat-pre-fixed : ∀ {n} →
-                  n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n') →
-                  Conat n
-Conat-pre-fixed h = Conat-coind A h' h
+Conat-in : ∀ {n} →
+           n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n') →
+           Conat n
+Conat-in h = Conat-coind A h' h
   where
   A : D → Set
   A n = n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
@@ -110,18 +110,18 @@ Conat-pre-fixed h = Conat-coind A h' h
   h' (inj₁ n≡0)              = inj₁ n≡0
   h' (inj₂ (n' , prf , Cn')) = inj₂ (n' , prf , Conat-unf Cn')
 
-Conat-pre-fixed-ho : ∀ {n} → NatF Conat n → Conat n
-Conat-pre-fixed-ho = Conat-pre-fixed
+Conat-in-ho : ∀ {n} → NatF Conat n → Conat n
+Conat-in-ho = Conat-in
 
 -- A different definition.
-Conat-pre-fixed' : (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')) →
-                   ∀ {n} → Conat n
-Conat-pre-fixed' h = Conat-coind (λ m → m ≡ m) h' refl
+Conat-in' : (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')) →
+            ∀ {n} → Conat n
+Conat-in' h = Conat-coind (λ m → m ≡ m) h' refl
   where
   h' : ∀ {m} → m ≡ m → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ m' ≡ m')
   h' _ with h
   ... | inj₁ m≡0            = inj₁ m≡0
   ... | inj₂ (m' , prf , _) = inj₂ (m' , prf , refl)
 
-Conat-pre-fixed-ho' : (∀ {n} → NatF Conat n) → ∀ {n} → Conat n
-Conat-pre-fixed-ho' = Conat-pre-fixed'
+Conat-in-ho' : (∀ {n} → NatF Conat n) → ∀ {n} → Conat n
+Conat-in-ho' = Conat-in'

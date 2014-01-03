@@ -53,10 +53,10 @@ postulate
 -- StreamNF, i.e.
 --
 -- StreamNF StreamN ≤ StreamN.
-StreamN-pre-fixed : ∀ {ns} →
-                    (∃[ n' ] ∃[ ns' ] N n' ∧ StreamN ns' ∧ ns ≡ n' ∷ ns') →
-                    StreamN ns
-StreamN-pre-fixed {ns} h = StreamN-coind A h' h
+StreamN-in : ∀ {ns} →
+             ∃[ n' ] ∃[ ns' ] N n' ∧ StreamN ns' ∧ ns ≡ n' ∷ ns' →
+             StreamN ns
+StreamN-in {ns} h = StreamN-coind A h' h
   where
   A : D → Set
   A ns = ∃[ n' ] ∃[ ns' ] N n' ∧ StreamN ns' ∧ ns ≡ n' ∷ ns'

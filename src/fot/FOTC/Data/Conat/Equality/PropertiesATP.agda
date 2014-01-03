@@ -17,12 +17,12 @@ open import FOTC.Data.Conat.Equality.Type
 -- i.e.
 --
 -- ≈NatF _≈N_ ≤ _≈N_ (see FOTC.Data.Conat.Equality.Type).
-≈N-pre-fixed :
+≈N-in :
   ∀ {m n} →
   m ≡ zero ∧ n ≡ zero
     ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n') →
   m ≈N n
-≈N-pre-fixed h = ≈N-coind R h' h
+≈N-in h = ≈N-coind R h' h
   where
   R : D → D → Set
   R m n = m ≡ zero ∧ n ≡ zero

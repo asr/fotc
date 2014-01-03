@@ -17,11 +17,11 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
 -- bisimilarity relation _≈_ on unbounded lists is also a pre-fixed
 -- point of the bisimulation functional (see
 -- FOTC.Relation.Binary.Bisimulation).
-≈-pre-fixed : ∀ {xs ys} →
-              ∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
-                xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys' →
-              xs ≈ ys
-≈-pre-fixed h = ≈-coind B h' h
+≈-in : ∀ {xs ys} →
+       ∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
+         xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys' →
+       xs ≈ ys
+≈-in h = ≈-coind B h' h
   where
   B : D → D → Set
   B xs ys = ∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
@@ -82,4 +82,4 @@ postulate ∷-injective≈ : ∀ {x xs ys} → x ∷ xs ≈ x ∷ ys → xs ≈ 
 {-# ATP prove ∷-injective≈ #-}
 
 postulate ∷-rightCong≈ : ∀ {x xs ys} → xs ≈ ys → x ∷ xs ≈ x ∷ ys
-{-# ATP prove ∷-rightCong≈ ≈-pre-fixed #-}
+{-# ATP prove ∷-rightCong≈ ≈-in #-}

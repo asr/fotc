@@ -101,13 +101,13 @@ module FOT.FOTC.UnguardedCorecursion.HALO where
 --   ys'≡ones = ∧-proj₂ (∷-injective (trans (sym prf₂) ones-eq))
 
 --   helper : x' ∷ f n ≈ x' ∷ ones
---   helper = ≈-pre-fixed ( x'
---                        , xs'
---                        , ys'
---                        , ∷-rightCong (sym xs'≡fn)
---                        , ∷-rightCong (sym ys'≡ones)
---                        , prf₃
---                        )
+--   helper = ≈-in ( x'
+--                 , xs'
+--                 , ys'
+--                 , ∷-rightCong (sym xs'≡fn)
+--                 , ∷-rightCong (sym ys'≡ones)
+--                 , prf₃
+--                 )
 
 -- ------------------------------------------------------------------------------
 -- -- A proof of the negation of (1) adding the Conat totality hypothesis

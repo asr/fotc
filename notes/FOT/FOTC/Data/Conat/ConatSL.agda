@@ -21,11 +21,11 @@ Conat-unf : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] Conat n' ∧ n ≡
 Conat-unf cozero          = inj₁ refl
 Conat-unf (cosucc {n} Cn) = inj₂ (n , ♭ Cn , refl)
 
-Conat-pre-fixed : ∀ {n} →
-                  (n ≡ zero ∨ (∃[ n' ] Conat n' ∧ n ≡ succ₁ n')) →
-                  Conat n
-Conat-pre-fixed (inj₁ h) = subst Conat (sym h) cozero
-Conat-pre-fixed (inj₂ (n , Cn , h)) = subst Conat (sym h) (cosucc (♯ Cn))
+Conat-in : ∀ {n} →
+           n ≡ zero ∨ (∃[ n' ] Conat n' ∧ n ≡ succ₁ n') →
+           Conat n
+Conat-in (inj₁ h) = subst Conat (sym h) cozero
+Conat-in (inj₂ (n , Cn , h)) = subst Conat (sym h) (cosucc (♯ Cn))
 
 Conat-coind : ∀ (A : D → Set) {n} →
               (A n → n ≡ zero ∨ (∃[ n' ] A n' ∧ n ≡ succ₁ n')) →

@@ -24,10 +24,10 @@ open import FOTC.Data.Stream.Type
 -- StreamF, i.e.
 --
 -- StreamF Stream ≤ Stream (see FOTC.Data.Stream.Type).
-Stream-pre-fixed : ∀ {xs} →
-                   ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs' →
-                   Stream xs
-Stream-pre-fixed h = Stream-coind A h' h
+Stream-in : ∀ {xs} →
+            ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs' →
+            Stream xs
+Stream-in h = Stream-coind A h' h
   where
   A : D → Set
   A xs = ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs'
@@ -68,7 +68,7 @@ Stream→Colist {xs} Sxs = Colist-coind A h₁ h₂
    -- TODO (15 December 2013): Why the termination checker accepts the
    -- recursive called ++-Stream_CLxs'_Sys?
    prf₂ : Stream (x' ∷ xs' ++ ys)
-   prf₂ = Stream-pre-fixed (x' , (xs' ++ ys) , refl , ++-Stream CLxs' Sys)
+   prf₂ = Stream-in (x' , (xs' ++ ys) , refl , ++-Stream CLxs' Sys)
 
 -- Adapted from (Sander 1992, p. 59).
 streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞

@@ -23,11 +23,11 @@ open import FOTC.Program.ABP.Terms
 -- predicate is also a pre-fixed point of the functional FairF, i.e.
 --
 -- FairF Fair ≤ Fair (see FOTC.Program.ABP.Fair).
-Fair-pre-fixed :
+Fair-in :
   ∀ {os} →
   ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os' →
   Fair os
-Fair-pre-fixed h = Fair-coind A h' h
+Fair-in h = Fair-coind A h' h
   where
   A : D → Set
   A os = ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os'
@@ -89,7 +89,7 @@ tail-Fair {os} Fos with Fair-unf Fos
          os'             ∎
 
 ... | .(F ∷ ft) , os' , f*tcons {ft} FTft , prf , Fos' =
-    subst Fair (sym prf₂) (Fair-pre-fixed (ft , os' , FTft , refl , Fos'))
+    subst Fair (sym prf₂) (Fair-in (ft , os' , FTft , refl , Fos'))
   where
   prf₁ : os ≡ F ∷ ft ++ os'
   prf₁ = os              ≡⟨ prf ⟩

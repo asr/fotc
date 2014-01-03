@@ -49,7 +49,7 @@ gpfp = ≈-coind
 --
 -- Bisimulation _≈_ ≤ _≈_.
 pre-fp : ∀ {xs} {ys} → BisimulationF _≈_ xs ys → xs ≈ ys
-pre-fp = ≈-pre-fixed
+pre-fp = ≈-in
 
 ----------------------------------------------------------------------------
 -- References

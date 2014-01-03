@@ -14,7 +14,7 @@ open import FOTC.Data.Conat
 open import FOTC.Data.Conat.Equality.Type
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI
-open import FOTC.Data.Stream.PropertiesI using ( Stream-pre-fixed )
+open import FOTC.Data.Stream.PropertiesI using ( Stream-in )
 open import FOTC.Data.Stream.Type
 
 ------------------------------------------------------------------------------
@@ -43,4 +43,4 @@ zeros-Stream = Stream-coind A h refl
   -- TODO (15 December 2013): Why the termination checker accepts the
   -- recursive called ++-Stream_Sxs'_Sys?
   prf₂ : Stream (x' ∷ xs' ++ ys)
-  prf₂ = Stream-pre-fixed (x' , xs' ++ ys , refl , ++-Stream Sxs' Sys)
+  prf₂ = Stream-in (x' , xs' ++ ys , refl , ++-Stream Sxs' Sys)
