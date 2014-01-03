@@ -67,10 +67,6 @@ abstract
   iszero₁ n = iszero · n
   -- {-# ATP definition iszero₁ #-}
 
-  -- Auxiliary theorem.
-  succ₁≡succ : ∀ n → succ₁ n ≡ succ · n
-  succ₁≡succ n = refl
-
 ------------------------------------------------------------------------------
 -- Conversion rules
 

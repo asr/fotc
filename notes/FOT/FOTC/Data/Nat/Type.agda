@@ -7,13 +7,17 @@
 
 module FOT.FOTC.Data.Nat.Type where
 
-open import FOTC.Base
+open import FOTC.Base hiding ( succ₁ )
 
 ------------------------------------------------------------------------------
+-- We define succ₁ outside an abstract block.
 
-module ConstantsAndFunctions where
+succ₁ : D → D
+succ₁ n = succ · n
 
-  -- N using 0-ary constants (i.e. succ)
+module ConstantAndUnaryFunction where
+
+  -- N using 0-ary constant (i.e. succ)
   data N : D → Set where
     nzero : N zero
     nsucc : ∀ {n} → N n → N (succ · n)
@@ -25,7 +29,7 @@ module ConstantsAndFunctions where
   N-ind A A0 h nzero      = A0
   N-ind A A0 h (nsucc Nn) = h (N-ind A A0 h Nn)
 
-  -- N using unary functions (i.e. succ₁)
+  -- N using unary function (i.e. succ₁)
   data N₁ : D → Set where
     nzero₁ : N₁ zero
     nsucc₁ : ∀ {n} → N₁ n → N₁ (succ₁ n)
@@ -42,11 +46,11 @@ module ConstantsAndFunctions where
 
   N→N₁ : ∀ {n} → N n → N₁ n
   N→N₁ nzero          = nzero₁
-  N→N₁ (nsucc {n} Nn) = subst N₁ (succ₁≡succ n) (nsucc₁ (N→N₁ Nn))
+  N→N₁ (nsucc {n} Nn) = nsucc₁ (N→N₁ Nn)
 
   N₁→N : ∀ {n} → N₁ n → N n
-  N₁→N nzero₁          = nzero
-  N₁→N (nsucc₁ {n} N₁n) = subst N (sym (succ₁≡succ n)) (nsucc (N₁→N N₁n))
+  N₁→N nzero₁           = nzero
+  N₁→N (nsucc₁ {n} N₁n) = nsucc (N₁→N N₁n)
 
   ----------------------------------------------------------------------------
   -- From N-ind → N-ind₁.
@@ -57,7 +61,7 @@ module ConstantsAndFunctions where
   N-ind₁' A A0 h Nn₁ = N-ind A A0 h' (N₁→N Nn₁)
     where
     h' : ∀ {n} → A n → A (succ · n)
-    h' {n} An = subst A (succ₁≡succ n) (h An)
+    h' {n} An = h An
 
   ----------------------------------------------------------------------------
   -- From N-ind₁ → N-ind.
@@ -68,7 +72,7 @@ module ConstantsAndFunctions where
   N-ind' A A0 h Nn = N-ind₁ A A0 h' (N→N₁ Nn)
     where
     h' : ∀ {n} → A n → A (succ₁ n)
-    h' {n} An = subst A (sym (succ₁≡succ n)) (h An)
+    h' {n} An = h An
 
 ------------------------------------------------------------------------------
 
@@ -119,7 +123,7 @@ module AdditionalHypotheis where
     B0 = nzero , A0
 
     h' : ∀ {m} → B m → B (succ₁ m)
-    h' (Nm , Am) = (nsucc Nm) , (h Nm Am)
+    h' (Nm , Am) = nsucc Nm , h Nm Am
 
 ------------------------------------------------------------------------------
 -- References
