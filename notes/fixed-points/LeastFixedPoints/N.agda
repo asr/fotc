@@ -7,8 +7,8 @@
 
 module LeastFixedPoints.N where
 
-open import FOTC.Base hiding ( pred-0 ; pred-S )
-open import FOTC.Base.PropertiesI hiding ( predCong )
+open import FOTC.Base
+open import FOTC.Base.PropertiesI
 
 ------------------------------------------------------------------------------
 -- Auxiliary definitions and properties
@@ -26,7 +26,7 @@ module LFP where
 
   -- The functor.
   NatF : (D → Set) → D → Set
-  NatF A n = n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ A n')
+  NatF A n = n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
 
   -- The natural numbers are the least fixed-point of NatF.
   postulate
@@ -35,7 +35,7 @@ module LFP where
     -- N is a pre-fixed point of NatF.
     --
     -- Peter: It corresponds to the introduction rules.
-    N-in : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ N n') → N n
+    N-in : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n') → N n
 
     -- The higher-order version.
     N-in-ho : ∀ {n} → NatF N n → N n
@@ -46,7 +46,7 @@ module LFP where
     -- defined predicate.
     N-ind :
       (A : D → Set) →
-      (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ A n') → A n) →
+      (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n) →
       ∀ {n} → N n → A n
 
     -- Higher-order version.
@@ -56,7 +56,7 @@ module LFP where
   ----------------------------------------------------------------------------
   -- From/to N-in/N-in-ho.
 
-  N-in₁ : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ N n') → N n
+  N-in₁ : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n') → N n
   N-in₁ = N-in-ho
 
   N-in-ho₁ : ∀ {n} → NatF N n → N n
@@ -67,7 +67,7 @@ module LFP where
 
   N-ind' :
     (A : D → Set) →
-    (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ A n') → A n) →
+    (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n) →
     ∀ {n} → N n → A n
   N-ind' = N-ind-ho
 
@@ -80,7 +80,7 @@ module LFP where
   nzero : N zero
   nzero = N-in (inj₁ refl)
 
-  nsucc : ∀ {n} → N n → N (succ · n)
+  nsucc : ∀ {n} → N n → N (succ₁ n)
   nsucc Nn = N-in (inj₂ (_ , refl , Nn))
 
   ----------------------------------------------------------------------------
@@ -88,13 +88,13 @@ module LFP where
   -- N-ind), we can proof that N is also a post-fixed point of NatF.
 
   -- N is a post-fixed point of NatF.
-  N-unf : ∀ {n} → N n → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ N n')
+  N-unf : ∀ {n} → N n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n')
   N-unf = N-ind A h
     where
     A : D → Set
-    A m = m ≡ zero ∨ (∃[ m' ] m ≡ succ · m' ∧ N m')
+    A m = m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ N m')
 
-    h : ∀ {m} → m ≡ zero ∨ (∃[ m' ] m ≡ succ · m' ∧ A m') → A m
+    h : ∀ {m} → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ A m') → A m
     h (inj₁ m≡0)              = inj₁ m≡0
     h (inj₂ (m' , prf , Am')) = inj₂ (m' , prf , helper Am')
       where
@@ -108,14 +108,14 @@ module LFP where
 
   N-ind₁ : (A : D → Set) →
            A zero →
-           (∀ {n} → N n → A n → A (succ · n)) →
+           (∀ {n} → N n → A n → A (succ₁ n)) →
            ∀ {n} → N n → A n
   N-ind₁ A A0 h Nn = ∧-proj₂ (N-ind B h' Nn)
     where
     B : D → Set
     B n = N n ∧ A n
 
-    h' : ∀ {m} → m ≡ zero ∨ (∃[ m' ] m ≡ succ · m' ∧ B m') → B m
+    h' : ∀ {m} → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ B m') → B m
     h' (inj₁ m≡0) = subst B (sym m≡0) (nzero , A0)
     h' (inj₂ (m' , prf , Nm' , Am')) =
       (subst N (sym prf) (nsucc Nm')) , subst A (sym prf) (h Nm' Am')
@@ -126,11 +126,11 @@ module LFP where
 
   N-ind₂ : (A : D → Set) →
            A zero →
-           (∀ {n} → A n → A (succ · n)) →
+           (∀ {n} → A n → A (succ₁ n)) →
            ∀ {n} → N n → A n
   N-ind₂ A A0 h = N-ind A h'
     where
-    h' : ∀ {m} → m ≡ zero ∨ (∃[ m' ] m ≡ succ · m' ∧ A m') → A m
+    h' : ∀ {m} → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ A m') → A m
     h' (inj₁ m≡0)              = subst A (sym m≡0) A0
     h' (inj₂ (m' , prf , Am')) = subst A (sym prf) (h Am')
 
@@ -140,8 +140,8 @@ module LFP where
 
   postulate
     _+_  : D → D → D
-    +-0x : ∀ d → zero + d         ≡ d
-    +-Sx : ∀ d e → (succ · d) + e ≡ succ · (d + e)
+    +-0x : ∀ d → zero + d        ≡ d
+    +-Sx : ∀ d e → (succ₁ d) + e ≡ succ₁ (d + e)
 
   +-leftIdentity : ∀ n → zero + n ≡ n
   +-leftIdentity n = +-0x n
@@ -152,7 +152,7 @@ module LFP where
     A : D → Set
     A i = N (i + n)
 
-    h : ∀ {m} → m ≡ zero ∨ (∃[ m' ] m ≡ succ · m' ∧ A m') → A m
+    h : ∀ {m} → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ A m') → A m
     h (inj₁ m≡0) = subst N (cong (flip _+_ n) (sym m≡0)) A0
       where
       A0 : A zero
@@ -160,26 +160,19 @@ module LFP where
     h (inj₂ (m' , prf , Am')) =
       subst N (cong (flip _+_ n) (sym prf)) (is Am')
       where
-      is : ∀ {i} → A i → A (succ · i)
+      is : ∀ {i} → A i → A (succ₁ i)
       is {i} Ai = subst N (sym (+-Sx i n)) (nsucc Ai)
 
   ----------------------------------------------------------------------------
   -- Example: A proof using N-unf.
 
-  postulate
-    pred-0 : pred · zero             ≡ zero
-    pred-S : ∀ n → pred · (succ · n) ≡ n
-
-  predCong : ∀ {m n} → m ≡ n → pred · m ≡ pred · n
-  predCong refl = refl
-
-  pred-N : ∀ {n} → N n → N (pred · n)
+  pred-N : ∀ {n} → N n → N (pred₁ n)
   pred-N {n} Nn = case h₁ h₂ (N-unf Nn)
     where
-    h₁ : n ≡ zero → N (pred · n)
+    h₁ : n ≡ zero → N (pred₁ n)
     h₁ n≡0 = subst N (sym (trans (predCong n≡0) pred-0)) nzero
 
-    h₂ : ∃[ n' ] n ≡ succ · n' ∧ N n' → N (pred · n)
+    h₂ : ∃[ n' ] n ≡ succ₁ n' ∧ N n' → N (pred₁ n)
     h₂ (n' , prf , Nn') = subst N (sym (trans (predCong prf) (pred-S n'))) Nn'
 
   ----------------------------------------------------------------------------
@@ -187,7 +180,7 @@ module LFP where
 
   data N' : D → Set where
     nzero' : N' zero
-    nsucc' : ∀ {n} → N' n → N' (succ · n)
+    nsucc' : ∀ {n} → N' n → N' (succ₁ n)
 
   N'→N : ∀ {n} → N' n → N n
   N'→N nzero'      = nzero
@@ -206,13 +199,13 @@ module Data where
 
   data N : D → Set where
     nzero : N zero
-    nsucc : ∀ {n} → N n → N (succ · n)
+    nsucc : ∀ {n} → N n → N (succ₁ n)
 
   -- The induction principle for N *with* the hypothesis N n in the
   -- induction step.
   N-ind₁ : (A : D → Set) →
            A zero →
-           (∀ {n} → N n → A n → A (succ · n)) →
+           (∀ {n} → N n → A n → A (succ₁ n)) →
            ∀ {n} → N n → A n
   N-ind₁ A A0 h nzero      = A0
   N-ind₁ A A0 h (nsucc Nn) = h Nn (N-ind₁ A A0 h Nn)
@@ -221,7 +214,7 @@ module Data where
   -- induction step.
   N-ind₂ : (A : D → Set) →
            A zero →
-           (∀ {n} → A n → A (succ · n)) →
+           (∀ {n} → A n → A (succ₁ n)) →
            ∀ {n} → N n → A n
   N-ind₂ A A0 h nzero      = A0
   N-ind₂ A A0 h (nsucc Nn) = h (N-ind₂ A A0 h Nn)
@@ -229,13 +222,13 @@ module Data where
   ----------------------------------------------------------------------------
   -- N-in.
 
-  N-in : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ N n') → N n
+  N-in : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n') → N n
   N-in {n} h = case prf₁ prf₂ h
     where
     prf₁ : n ≡ zero → N n
     prf₁ n≡0 = subst N (sym n≡0) nzero
 
-    prf₂ : ∃[ n' ] n ≡ succ · n' ∧ N n' → N n
+    prf₂ : ∃[ n' ] n ≡ succ₁ n' ∧ N n' → N n
     prf₂ (n' , prf , Nn') = subst N (sym prf) (nsucc Nn')
 
   ----------------------------------------------------------------------------
@@ -243,12 +236,12 @@ module Data where
 
   N-ind' :
     (A : D → Set) →
-    (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ A n') → A n) →
+    (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n) →
     ∀ {n} → N n → A n
   N-ind' A h = N-ind₂ A h₁ h₂
     where
     h₁ :  A zero
     h₁ = h (inj₁ refl)
 
-    h₂ : ∀ {m} → A m → A (succ · m)
+    h₂ : ∀ {m} → A m → A (succ₁ m)
     h₂ {m} Am = h (inj₂ (m , refl , Am))
