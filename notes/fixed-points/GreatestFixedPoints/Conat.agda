@@ -34,7 +34,7 @@ postulate
   --
   -- ∀ P. P ≤ NatF P ⇒ P ≤ Conat.
   Conat-coind :
-    ∀ (A : D → Set) →
+    (A : D → Set) →
     -- A is post-fixed point of ConatF.
     (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
     -- Conat is greater than A.
@@ -42,12 +42,12 @@ postulate
 
   -- The higher-order version.
   Conat-coind-ho :
-    ∀ (A : D → Set) → (∀ {n} → A n → NatF A n) → ∀ {n} → A n → Conat n
+    (A : D → Set) → (∀ {n} → A n → NatF A n) → ∀ {n} → A n → Conat n
 
   -- 22 December 2013. This is a stronger induction principle. If we
-  -- use it, we can use the trivial A = λ x → x ≡ x in the
-  -- proofs. Unfortunately, we don't have a justification for this
-  -- principle.
+  -- use it, we can use the trivial predicate A = λ x → x ≡ x in the
+  -- proofs. Unfortunately, we don't have a justification/proof for
+  -- this principle.
   Conat-coind-stronger :
     ∀ (A : D → Set) {n} →
     (A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
@@ -66,20 +66,20 @@ Conat-unf-ho' = Conat-unf
 -- Conat-coind and Conat-coind-ho are equivalents
 
 Conat-coind' :
-  ∀ (A : D → Set) →
+  (A : D → Set) →
   (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
   ∀ {n} → A n → Conat n
 Conat-coind' = Conat-coind-ho
 
 Conat-coind-ho' :
-  ∀ (A : D → Set) → (∀ {n} → A n → NatF A n) → ∀ {n} → A n → Conat n
+  (A : D → Set) → (∀ {n} → A n → NatF A n) → ∀ {n} → A n → Conat n
 Conat-coind-ho' = Conat-coind
 
 ------------------------------------------------------------------------------
 -- From Conat-coind/Conat-coind-stronger to Conat-coind-stronger/Conat-coind
 
 Conat-coind'' :
-  ∀ (A : D → Set) →
+  (A : D → Set) →
   (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
   ∀ {n} → A n → Conat n
 Conat-coind'' A h An = Conat-coind-stronger A h An
