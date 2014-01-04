@@ -6,7 +6,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOT.FOTC.Data.Conat.ConatSL where
+module FOT.FOTC.Data.Conat.TypeSL where
 
 open import FOTC.Base
 open import Coinduction
@@ -35,7 +35,7 @@ Conat-coind A h {n} An = Conat-in (case prf₁ prf₂ (h An))
   prf₁ : n ≡ zero → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
   prf₁ n≡0 = inj₁ n≡0
 
-  prf₂ : ∃[ n' ] n ≡ succ₁ n' ∧ A n'  →
+  prf₂ : ∃[ n' ] n ≡ succ₁ n' ∧ A n' →
          n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
   prf₂ (n' , prf , An') = inj₂ (n' , prf , {!!})
 
