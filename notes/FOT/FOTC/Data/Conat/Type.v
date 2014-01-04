@@ -21,16 +21,19 @@ Qed.
 
 Theorem Conat_in : ∀ {n}, n = zero ∨ (∃ n', n = succ₁ n' ∧ Conat n') → Conat n.
 intros n h.
-case h.
+elim h.
+clear h.
 intro prf.
 subst.
 apply cozero.
-intros h'.
-elim h'.
-intros n'.
-intro prf.
-case prf.
-intros prf' Cn'.
+clear h.
+intros h.
+elim h.
+clear h.
+intros n' h.
+elim h.
+clear h.
+intros prf Cn'.
 subst.
 apply (cosucc Cn').
 Qed.
