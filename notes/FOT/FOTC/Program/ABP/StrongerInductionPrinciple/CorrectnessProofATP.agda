@@ -39,7 +39,7 @@ postulate
 -- Main theorem.
 abpCorrect : ∀ {b is os₁ os₂} → Bit b → Stream is → Fair os₁ → Fair os₂ →
              is ≈ abpTransfer b os₁ os₂ is
-abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind-stronger B h refl
+abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-stronger-coind B h refl
   where
   B : D → D → Set
   B xs ys = xs ≡ xs

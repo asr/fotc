@@ -14,7 +14,7 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
 ------------------------------------------------------------------------------
 -- A stronger (maybe invalid) principle for ≈-coind.
 postulate
-  ≈-coind-stronger :
+  ≈-stronger-coind :
     ∀ (B : D → D → Set) {xs ys} →
     (B xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
       xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys') →

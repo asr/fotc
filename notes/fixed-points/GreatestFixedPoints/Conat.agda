@@ -48,7 +48,7 @@ postulate
   -- use it, we can use the trivial predicate A = λ x → x ≡ x in the
   -- proofs. Unfortunately, we don't have a justification/proof for
   -- this principle.
-  Conat-coind-stronger :
+  Conat-stronger-coind :
     ∀ (A : D → Set) {n} →
     (A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
     A n → Conat n
@@ -74,23 +74,6 @@ Conat-coind' = Conat-coind-ho
 Conat-coind-ho' :
   (A : D → Set) → (∀ {n} → A n → NatF A n) → ∀ {n} → A n → Conat n
 Conat-coind-ho' = Conat-coind
-
-------------------------------------------------------------------------------
--- From Conat-coind/Conat-coind-stronger to Conat-coind-stronger/Conat-coind
-
-Conat-coind'' :
-  (A : D → Set) →
-  (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
-  ∀ {n} → A n → Conat n
-Conat-coind'' A h An = Conat-coind-stronger A h An
-
--- 22 December 2013: We cannot prove Conat-coind-stronger using
--- Conat-coind.
-Conat-coind-stronger'' :
-  ∀ (A : D → Set) {n} →
-  (A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
-  A n → Conat n
-Conat-coind-stronger'' A h An = Conat-coind A {!!} An
 
 ------------------------------------------------------------------------------
 -- Because a greatest post-fixed point is a fixed-point, then the
@@ -125,3 +108,27 @@ Conat-in' h = Conat-coind (λ m → m ≡ m) h' refl
 
 Conat-in-ho' : (∀ {n} → NatF Conat n) → ∀ {n} → Conat n
 Conat-in-ho' = Conat-in'
+
+------------------------------------------------------------------------------
+-- From Conat-coind/Conat-stronger-coind to Conat-stronger-coind/Conat-coind
+
+Conat-coind'' :
+  (A : D → Set) →
+  (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
+  ∀ {n} → A n → Conat n
+Conat-coind'' A h An = Conat-stronger-coind A h An
+
+-- 22 December 2013: We cannot prove Conat-stronger-coind using
+-- Conat-coind.
+Conat-stronger-coind'' :
+  ∀ (A : D → Set) {n} →
+  (A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
+  A n → Conat n
+Conat-stronger-coind'' A {n} h An = Conat-in (case prf₁ prf₂ (h An))
+  where
+  prf₁ : n ≡ zero → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
+  prf₁ n≡0 = inj₁ n≡0
+
+  prf₂ : ∃[ n' ] n ≡ succ₁ n' ∧ A n' →
+         n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
+  prf₂ (n' , prf , An') = inj₂ (n' , prf , {!!})

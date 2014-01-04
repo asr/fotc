@@ -23,7 +23,7 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
 -- The map-iterate property using a stronger (maybe invalid) induction
 -- principle.
 ≈-map-iterate : ∀ f x → map f (iterate f x) ≈ iterate f (f · x)
-≈-map-iterate f x = ≈-coind-stronger (λ xs _ → xs ≡ xs) h refl
+≈-map-iterate f x = ≈-stronger-coind (λ xs _ → xs ≡ xs) h refl
   where
   postulate
     h : map f (iterate f x) ≡ map f (iterate f x) →
