@@ -37,3 +37,20 @@ intros prf Cn'.
 subst.
 apply (cosucc Cn').
 Qed.
+
+(* Theorem Conat_coind : *)
+(*   ∀ (A : D → Prop), *)
+(*     (∀ {n}, A n → n = zero ∨ (∃ n', n = succ₁ n' ∧ A n')) → *)
+(*     ∀ {n}, A n → Conat n. *)
+(* intros A h n An. *)
+(* elim (h n An). *)
+(* intro prf. *)
+(* subst. *)
+(* apply cozero. *)
+(* intro prf. *)
+(* elim prf; clear prf. *)
+(* intros n' prf. *)
+(* elim prf; clear prf. *)
+(* intros prf An'. *)
+(* subst. *)
+(* apply cosucc. *)
