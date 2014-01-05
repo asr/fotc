@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- The FOTC types without use data, i.e. using Agda as a logical framework
+-- The FOTC types without using data, i.e. using Agda as a logical framework
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -14,6 +14,7 @@ open import FOTC.Base.PropertiesI
 
 ------------------------------------------------------------------------------
 -- The existential proyections.
+
 ∃-proj₁ : ∀ {A} → ∃ A → D
 ∃-proj₁ (x , _) = x
 
@@ -77,7 +78,7 @@ module Inductive where
 
   -- The FOTC lists type.
   data List : D → Set where
-    lnil  :                      List []
+    lnil  : List []
     lcons : ∀ x {xs} → List xs → List (x ∷ xs)
 
   -- Example.
@@ -86,7 +87,7 @@ module Inductive where
 
   -- The FOTC list of natural numbers type.
   data ListN : D → Set where
-    lnnil  :                             ListN []
+    lnnil  : ListN []
     lncons : ∀ {n ns} → N n → ListN ns → ListN (n ∷ ns)
 
   -- Example.
@@ -101,14 +102,14 @@ module LFP where
   postulate
     -- Least fixed-points correspond to inductively defined types.
     --
-    -- N.B. We cannot write LFP in first-order logic. We should use an
+    -- N.B. We cannot write μ in first-order logic. We should use an
     -- instance instead.
-    LFP : ((D → Set) → D → Set) → D → Set
+    μ : ((D → Set) → D → Set) → D → Set
 
     -- In FOTC, we cannot use the equality on predicates, i.e. we
     -- cannot write
     --
-    -- (f : (D → Set) → D → Set) → f (LFP f) ≡ LFP f  (1)
+    -- (f : (D → Set) → D → Set) → f (μ f) ≡ μ f  (1)
     --
     -- because the type of the equality is
     --
@@ -116,13 +117,13 @@ module LFP where
     --
     -- therefore we postulate both directions of the conversion rule (1).
 
-    LFP₁ : (f : (D → Set) → D → Set)(d : D) → LFP f d → f (LFP f) d
-    LFP₂ : (f : (D → Set) → D → Set)(d : D) → f (LFP f) d → LFP f d
+    -- LFP₁ : (f : (D → Set) → D → Set)(d : D) → μ f d → f (μ f) d
+    μ-in : (f : (D → Set) → D → Set)(d : D) → f (μ f) d → μ f d
 
 ------------------------------------------------------------------------------
 -- The greatest fixed-point operator.
 
--- N.B. At the moment, the definitions of LFP and GFP are the same.
+-- N.B. At the moment, the definitions of μ and ν are the same.
 
 module GFP where
 
@@ -130,10 +131,10 @@ module GFP where
     -- Greatest fixed-points correspond to co-inductively defined
     -- types.
 
-    GFP : ((D → Set) → D → Set) → D → Set
+    ν : ((D → Set) → D → Set) → D → Set
 
-    GFP₁ : (f : (D → Set) → D → Set)(d : D) → GFP f d → f (GFP f) d
-    GFP₂ : (f : (D → Set) → D → Set)(d : D) → f (GFP f) d → GFP f d
+    ν-out : (f : (D → Set) → D → Set)(d : D) → ν f d → f (ν f) d
+    GFP₂  : (f : (D → Set) → D → Set)(d : D) → f (ν f) d → ν f d
 
 ------------------------------------------------------------------------------
 -- The FOTC natural numbers type as the least fixed-point of a
@@ -145,25 +146,26 @@ module NLFP where
 
   -- Functor for the FOTC natural numbers type.
 
-  -- From Peter: NatF if D was an inductive type
+  -- From Peter: NatF if D was an inductive type.
+  --
   -- NatF : (D → Set) → D → Set
   -- NatF X zero      = ⊤
   -- NatF X (succ₁ n) = X n
 
   -- From Peter: NatF in pure predicate logic.
   NatF : (D → Set) → D → Set
-  NatF X n = n ≡ zero ∨ (∃ λ m → n ≡ succ₁ m ∧ X m)
+  NatF X n = n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ X n')
 
-  -- The FOTC natural numbers type using LFP.
+  -- The FOTC natural numbers type using μ.
   N : D → Set
-  N = LFP NatF
+  N = μ NatF
 
   -- The data constructors of N.
   nzero : N zero
-  nzero = LFP₂ NatF zero (inj₁ refl)
+  nzero = μ-in NatF zero (inj₁ refl)
 
   nsucc : {n : D} → N n → N (succ₁ n)
-  nsucc {n} Nn = LFP₂ NatF (succ₁ n) (inj₂ (n , (refl , Nn)))
+  nsucc {n} Nn = μ-in NatF (succ₁ n) (inj₂ (n , refl , Nn))
 
   -- Example.
   [1] : D
@@ -181,18 +183,18 @@ module ListLFT where
 
   -- Functor for the FOTC lists type.
   ListF : (D → Set) → D → Set
-  ListF X ds = ds ≡ [] ∨ (∃ λ e → ∃ λ es → ds ≡ e ∷ es ∧ X es)
+  ListF X xs = xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ X xs')
 
-  -- The FOTC list type using LFP.
+  -- The FOTC list type using μ.
   List : D → Set
-  List = LFP ListF
+  List = μ ListF
 
   -- The data constructors of List.
   lnil : List []
-  lnil = LFP₂ ListF [] (inj₁ refl)
+  lnil = μ-in ListF [] (inj₁ refl)
 
   lcons : ∀ x {xs} → List xs → List (x ∷ xs)
-  lcons x {xs} Lxs = LFP₂ ListF (x ∷ xs) (inj₂ (x , xs , refl , Lxs))
+  lcons x {xs} Lxs = μ-in ListF (x ∷ xs) (inj₂ (x , xs , refl , Lxs))
 
   -- Example.
   l : List (zero ∷ true ∷ [])
@@ -209,19 +211,19 @@ module ListNLFT where
 
   -- Functor for the FOTC list of natural numbers type.
   ListNF : (D → Set) → D → Set
-  ListNF X ds = ds ≡ [] ∨ (∃ λ e → ∃ λ es → ds ≡ e ∷ es ∧ N e ∧ X es)
+  ListNF X ns = ns ≡ [] ∨ (∃[ n' ] ∃[ ns' ] ns ≡ n' ∷ ns' ∧ N n' ∧ X ns')
 
-  -- The FOTC list type using LFP.
+  -- The FOTC list type using μ.
   ListN : D → Set
-  ListN = LFP ListNF
+  ListN = μ ListNF
 
   -- The data constructors of ListN.
   lnnil : ListN []
-  lnnil = LFP₂ ListNF [] (inj₁ refl)
+  lnnil = μ-in ListNF [] (inj₁ refl)
 
   lncons : ∀ {n ns} → N n → ListN ns → ListN (n ∷ ns)
   lncons {n} {ns} Nn LNns =
-    LFP₂ ListNF (n ∷ ns) (inj₂ (n , ns , refl , Nn , LNns))
+    μ-in ListNF (n ∷ ns) (inj₂ (n , ns , refl , Nn , LNns))
 
   -- Example.
   ln : ListN (zero ∷ [1] ∷ [])
@@ -237,11 +239,11 @@ module CoList where
   -- Functor for the FOTC Colists type (the same functor that for the
   -- List type).
   ColistF : (D → Set) → D → Set
-  ColistF X ds = ds ≡ [] ∨ (∃ λ e → ∃ λ es → ds ≡ e ∷ es ∧ X es)
+  ColistF X xs = xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ X xs')
 
-  -- The FOTC Colist type using GFP.
+  -- The FOTC Colist type using ν.
   Colist : D → Set
-  Colist = GFP ColistF
+  Colist = ν ColistF
 
   -- The data constructors of Colist.
   nilCL : Colist []
@@ -261,77 +263,21 @@ module CoList where
 ------------------------------------------------------------------------------
 -- The FOTC Stream type as the greatest fixed-point of a functor.
 
-module Stream₁ where
+module Stream where
 
   open GFP
 
   -- Functor for the FOTC Stream type.
   StreamF : (D → Set) → D → Set
-  StreamF X ds = ∃ λ e → X ds
+  StreamF X xs = ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ X xs'
 
-  -- The FOTC Stream type using GFP.
+  -- The FOTC Stream type using ν.
   Stream : D → Set
-  Stream = GFP StreamF
+  Stream = ν StreamF
 
   -- The data constructor of Stream.
-  -- Using StreamF we cannot define this data constructor
-  -- consS : ∀ x xs → Stream xs → Stream (x ∷ xs)
-  -- consS x xs Sxs = GFP₂ StreamF (x ∷ xs) {!!}
-
-------------------------------------------------------------------------------
--- The FOTC Stream type as the greatest fixed-point of a functor.
-
-module Stream₂ where
-
-  open GFP
-
-  -- Functor for the FOTC Stream type.
-  StreamF : (D → Set) → D → Set
-  StreamF X ds = ∃ λ e → ∃ λ es → X es
-
-  -- The FOTC Stream type using GFP.
-  Stream : D → Set
-  Stream = GFP StreamF
-
-  -- The data constructor of Stream.
-  -- TODO: To use implicit arguments.
-  consS : ∀ x xs → Stream xs → Stream (x ∷ xs)
-  consS x xs Sxs = GFP₂ StreamF (x ∷ xs) (x , xs , Sxs)
-
-  -- TODO: Example
-  -- zerosS : Stream {!!}
-  -- zerosS = consS zero {!!} zerosS
-
-  headS : ∀ {x xs} → Stream (x ∷ xs) → D
-  headS {x} _ = x
-
-  tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
-  tailS {x} {xs} S = GFP₂ StreamF xs (x , x ∷ xs , S)
-
-  -- The functor StreamF does not link together the parts of the
-  -- stream, so I can get a stream from any stream.
-  bad : ∀ {xs ys} → Stream xs → Stream ys
-  bad {xs} {ys} S = GFP₂ StreamF ys (ys , xs , S)
-
-------------------------------------------------------------------------------
--- The FOTC Stream type as the greatest fixed-point of a functor.
-
-module Stream₃ where
-
-  open GFP
-
-  -- Functor for the FOTC Stream type.
-  StreamF : (D → Set) → D → Set
-  StreamF X ds = ∃ λ e → ∃ λ es → ds ≡ e ∷ es ∧ X es
-
-  -- The FOTC Stream type using GFP.
-  Stream : D → Set
-  Stream = GFP StreamF
-
-  -- The data constructor of Stream.
-  -- TODO: To use implicit arguments.
-  consS : ∀ x xs → Stream xs → Stream (x ∷ xs)
-  consS x xs Sxs = GFP₂ StreamF (x ∷ xs) (x , xs , refl , Sxs)
+  consS : ∀ x {xs} → Stream xs → Stream (x ∷ xs)
+  consS x {xs} Sxs = GFP₂ StreamF (x ∷ xs) (x , xs , refl , Sxs)
 
   -- TODO: Example
   -- zerosS : Stream {!!}
@@ -343,23 +289,23 @@ module Stream₃ where
   tailS : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
   tailS {x} {xs} Sx∷xs = Sxs
     where
-    unfoldS : StreamF (GFP StreamF) (x ∷ xs)
-    unfoldS = GFP₁ StreamF (x ∷ xs) Sx∷xs
+    unfoldS : StreamF (ν StreamF) (x ∷ xs)
+    unfoldS = ν-out StreamF (x ∷ xs) Sx∷xs
 
     e : D
     e = ∃-proj₁ unfoldS
 
-    Pe : ∃ λ es → x ∷ xs ≡ e ∷ es ∧ GFP StreamF es
+    Pe : ∃ λ es → x ∷ xs ≡ e ∷ es ∧ ν StreamF es
     Pe = ∃-proj₂ unfoldS
 
     es : D
     es = ∃-proj₁ Pe
 
-    Pes : x ∷ xs ≡ e ∷ es ∧ GFP StreamF es
+    Pes : x ∷ xs ≡ e ∷ es ∧ ν StreamF es
     Pes = ∃-proj₂ Pe
 
     xs≡es : xs ≡ es
     xs≡es = ∧-proj₂ (∷-injective (∧-proj₁ Pes))
 
-    Sxs : GFP StreamF xs
-    Sxs = subst (GFP StreamF) (sym xs≡es) (∧-proj₂ Pes)
+    Sxs : ν StreamF xs
+    Sxs = subst (ν StreamF) (sym xs≡es) (∧-proj₂ Pes)
