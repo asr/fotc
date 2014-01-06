@@ -161,6 +161,6 @@ lemma₁ : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
            ∧ Fair os₂'
            ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
            ∧ js ≡ i' ∷ js'
-lemma₁ Bb Fos₁ Fos₂ s with Fair-unf Fos₁
+lemma₁ Bb Fos₁ Fos₂ s with Fair-out Fos₁
 ... | ft₁ , os₁' , FTft₁ , prf , Fos₁' =
   helper Bb Fos₂ s ft₁ os₁' FTft₁ Fos₁' prf

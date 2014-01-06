@@ -17,9 +17,9 @@ data Conat : D → Set where
   cozero : Conat zero
   cosucc : ∀ {n} → (∞ (Conat n)) → Conat (succ₁ n)
 
-Conat-unf : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
-Conat-unf cozero          = inj₁ refl
-Conat-unf (cosucc {n} Cn) = inj₂ (n , refl , ♭ Cn)
+Conat-out : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
+Conat-out cozero          = inj₁ refl
+Conat-out (cosucc {n} Cn) = inj₂ (n , refl , ♭ Cn)
 
 Conat-in : ∀ {n} →
            n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n') →

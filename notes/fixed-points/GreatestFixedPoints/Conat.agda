@@ -25,10 +25,10 @@ postulate
   -- Conat is a post-fixed point of NatF, i.e.
   --
   -- Conat ≤ NatF Conat.
-  Conat-unf : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
+  Conat-out : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
 
   -- The higher-order version.
-  Conat-unf-ho : ∀ {n} → Conat n → NatF Conat n
+  Conat-out-ho : ∀ {n} → Conat n → NatF Conat n
 
   -- Conat is the greatest post-fixed point of NatF, i.e.
   --
@@ -54,13 +54,13 @@ postulate
     A n → Conat n
 
 ------------------------------------------------------------------------------
--- Conat-unf and Conat-unf-ho are equivalents
+-- Conat-out and Conat-out-ho are equivalents
 
-Conat-unf' : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
-Conat-unf' = Conat-unf-ho
+Conat-out' : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
+Conat-out' = Conat-out-ho
 
-Conat-unf-ho' : ∀ {n} → Conat n → NatF Conat n
-Conat-unf-ho' = Conat-unf
+Conat-out-ho' : ∀ {n} → Conat n → NatF Conat n
+Conat-out-ho' = Conat-out
 
 ------------------------------------------------------------------------------
 -- Conat-coind and Conat-coind-ho are equivalents
@@ -91,7 +91,7 @@ Conat-in h = Conat-coind A h' h
 
   h' : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
   h' (inj₁ n≡0)              = inj₁ n≡0
-  h' (inj₂ (n' , prf , Cn')) = inj₂ (n' , prf , Conat-unf Cn')
+  h' (inj₂ (n' , prf , Cn')) = inj₂ (n' , prf , Conat-out Cn')
 
 Conat-in-ho : ∀ {n} → NatF Conat n → Conat n
 Conat-in-ho = Conat-in

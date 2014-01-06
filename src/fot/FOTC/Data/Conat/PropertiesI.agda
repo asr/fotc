@@ -27,7 +27,7 @@ Conat-in h = Conat-coind A h' h
 
   h' : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
   h' (inj₁ n≡0)              = inj₁ n≡0
-  h' (inj₂ (n' , prf , Cn')) = inj₂ (n' , prf , Conat-unf Cn')
+  h' (inj₂ (n' , prf , Cn')) = inj₂ (n' , prf , Conat-out Cn')
 
 0-Conat : Conat zero
 0-Conat = Conat-coind A h refl

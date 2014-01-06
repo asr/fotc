@@ -15,7 +15,7 @@ infix 7 _≈_ _≉_
 
 ------------------------------------------------------------------------------
 -- The bisimilarity relation _≈_ on unbounded lists is the greatest
--- fixed-point (by ≈-unf and ≈-coind) of the bisimulation functional
+-- fixed-point (by ≈-out and ≈-coind) of the bisimulation functional
 -- (FOTC.Relation.Binary.Bisimulation).
 
 -- The bisimilarity relation on unbounded lists.
@@ -24,9 +24,9 @@ postulate _≈_ : D → D → Set
 -- The bisimilarity relation _≈_ on unbounded lists is a post-fixed
 -- point of the bisimulation functional (FOTC.Relation.Binary.Bisimulation).
 postulate
-  ≈-unf : ∀ {xs ys} → xs ≈ ys →
+  ≈-out : ∀ {xs ys} → xs ≈ ys →
           ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys'
-{-# ATP axiom ≈-unf #-}
+{-# ATP axiom ≈-out #-}
 
 -- The bisimilarity relation _≈_ on unbounded lists is the greatest
 -- post-fixed point of the bisimulation functional (see

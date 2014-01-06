@@ -33,7 +33,7 @@ open import FOTC.Data.Conat.Equality.Type
          ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
   h' (inj₁ prf) = inj₁ prf
   h' (inj₂ (m' , n' , prf₁ , prf₂ , m'≈Nn')) =
-    inj₂ (m' , n' , prf₁ , prf₂ , ≈N-unf m'≈Nn')
+    inj₂ (m' , n' , prf₁ , prf₂ , ≈N-out m'≈Nn')
 
 ≈N-refl : ∀ {n} → Conat n → n ≈N n
 ≈N-refl {n} Cn = ≈N-coind R h₁ h₂
@@ -44,7 +44,7 @@ open import FOTC.Data.Conat.Equality.Type
   h₁ : ∀ {a b} → R a b →
        a ≡ zero ∧ b ≡ zero
          ∨ (∃[ a' ] ∃[ b' ] a ≡ succ₁ a' ∧ b ≡ succ₁ b' ∧ R a' b')
-  h₁ (Ca , Cb , h) with Conat-unf Ca
+  h₁ (Ca , Cb , h) with Conat-out Ca
   ... | inj₁ prf              = inj₁ (prf , trans (sym h) prf)
   ... | inj₂ (a' , prf , Ca') =
     inj₂ (a' , a' , prf , trans (sym h) prf , (Ca' , Ca' , refl))

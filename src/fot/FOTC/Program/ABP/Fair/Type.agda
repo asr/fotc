@@ -25,16 +25,16 @@ data F*T : D → Set where
 -- FairF : (D → Set) → D → Set
 -- FairF A os = ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ A os'
 
--- Fair is the greatest fixed of FairF (by Fair-unf and Fair-coind).
+-- Fair is the greatest fixed of FairF (by Fair-out and Fair-coind).
 
 postulate Fair : D → Set
 
 -- Fair a is post-fixed point of FairF, i.e.
 --
 -- Fair ≤ FairF Fair.
-postulate Fair-unf : ∀ {os} → Fair os →
+postulate Fair-out : ∀ {os} → Fair os →
                      ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os'
-{-# ATP axiom Fair-unf #-}
+{-# ATP axiom Fair-out #-}
 
 -- Fair is the greatest post-fixed point of FairF, i.e.
 --

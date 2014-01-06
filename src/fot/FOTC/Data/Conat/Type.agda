@@ -21,7 +21,7 @@ open import FOTC.Base
 -- NatF : (D → Set) → D → Set
 -- NatF A n = n = zero ∨ (∃[ n' ] n = succ n' ∧ A n')
 
--- Conat is the greatest fixed-point of NatF (by Conat-unf and
+-- Conat is the greatest fixed-point of NatF (by Conat-out and
 -- Conat-coind).
 
 postulate Conat : D → Set
@@ -30,8 +30,8 @@ postulate Conat : D → Set
 --
 -- Conat ≤ NatF Conat.
 postulate
-  Conat-unf : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
-{-# ATP axiom Conat-unf #-}
+  Conat-out : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
+{-# ATP axiom Conat-out #-}
 
 -- Conat is the greatest post-fixed point of NatF, i.e.
 --

@@ -34,7 +34,7 @@ zeros-Stream = Stream-coind A h refl
 
 -- ++-Stream with a diferent type.
 ++-Stream : ∀ {xs ys} → Stream xs → Stream ys → Stream (xs ++ ys)
-++-Stream {xs} {ys} Sxs Sys with Stream-unf Sxs
+++-Stream {xs} {ys} Sxs Sys with Stream-out Sxs
 ... | x' , xs' , prf , Sxs' = subst Stream prf₁ prf₂
   where
   prf₁ : x' ∷ (xs' ++ ys) ≡ xs ++ ys

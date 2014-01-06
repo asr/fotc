@@ -30,7 +30,7 @@ BisimulationF B xs ys =
 --
 -- _≈_ ≤ Bisimulation _≈_.
 post-fp : ∀ {xs ys} → xs ≈ ys → BisimulationF _≈_ xs ys
-post-fp = ≈-unf
+post-fp = ≈-out
 
 -- The bisimilarity relation _≈_ on unbounded lists is the greatest
 -- post-fixed point of Bisimulation, i.e.

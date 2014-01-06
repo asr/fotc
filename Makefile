@@ -169,7 +169,7 @@ type_check_notes_path = \
   -i$(fot_path) \
   -i $(std_lib_path)/src/ \
   -i$(notes_path) \
-  -i$(notes_path)/co-induction-principles \
+  -i$(notes_path)/co-data \
   -i$(notes_path)/discrimination-rules \
   -i$(notes_path)/fixed-points \
   -i$(notes_path)/hip \

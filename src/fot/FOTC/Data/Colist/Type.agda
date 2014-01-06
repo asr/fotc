@@ -19,7 +19,7 @@ open import FOTC.Base.List
 -- ColistF : (D → Set) → D → Set
 -- ColistF A xs = xs ≡ [] ∨ ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
 
--- Colist is the greatest fixed-point of ColistF (by Colist-unf and
+-- Colist is the greatest fixed-point of ColistF (by Colist-out and
 -- Colist-coind).
 
 postulate
@@ -29,9 +29,9 @@ postulate
 -- Colist is a post-fixed point of ColistF, i.e.
 --
 -- Colist ≤ ColistF Colist.
-  Colist-unf : ∀ {xs} → Colist xs →
+  Colist-out : ∀ {xs} → Colist xs →
                xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs')
-{-# ATP axiom Colist-unf #-}
+{-# ATP axiom Colist-out #-}
 
 -- Colist is the greatest post-fixed point of ColistF, i.e.
 --

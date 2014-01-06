@@ -28,4 +28,4 @@ Colist-in h = Colist-coind A h' h
 
   h' : ∀ {xs} → A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
   h' (inj₁ xs≡[])                    = inj₁ xs≡[]
-  h' (inj₂ (x' , xs' , prf , Clxs')) = inj₂ (x' , xs' , prf , Colist-unf Clxs')
+  h' (inj₂ (x' , xs' , prf , Clxs')) = inj₂ (x' , xs' , prf , Colist-out Clxs')

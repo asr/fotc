@@ -33,7 +33,7 @@ Fair-in h = Fair-coind A h' h
   {-# ATP prove h' #-}
 
 head-tail-Fair : ∀ {os} → Fair os → os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
-head-tail-Fair {os} Fos with Fair-unf Fos
+head-tail-Fair {os} Fos with Fair-out Fos
 ... | (.(true ∷ []) , os' , f*tnil , prf , Fos') = prf₁
   where
   postulate prf₁ : os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
@@ -45,7 +45,7 @@ head-tail-Fair {os} Fos with Fair-unf Fos
   {-# ATP prove prf₁ #-}
 
 tail-Fair : ∀ {os} → Fair os → Fair (tail₁ os)
-tail-Fair {os} Fos with Fair-unf Fos
+tail-Fair {os} Fos with Fair-out Fos
 ... | .(true ∷ []) , os' , f*tnil , prf , Fos' = prf₁
   where
   postulate prf₁ : Fair (tail₁ os)

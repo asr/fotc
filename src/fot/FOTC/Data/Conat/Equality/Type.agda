@@ -21,7 +21,7 @@ infix 7 _≈N_
 -- (m ≡ zero ∧ n ≡ zero) ∨ (∃[ m' ] ∃[ n' ] m ≡ succ m' ∧ n ≡ succ n' ∧ R m' n')
 
 -- The relation _≈N_ is the greatest post-fixed point of the
--- functional ≈NatF (by ≈N-unf and ≈N-coind).
+-- functional ≈NatF (by ≈N-out and ≈N-coind).
 
 -- The equality on Conat.
 postulate _≈N_ : D → D → Set
@@ -30,10 +30,10 @@ postulate _≈N_ : D → D → Set
 -- i.e.
 --
 -- _≈N_ ≤ ≈NatF _≈N_.
-postulate ≈N-unf : ∀ {m n} → m ≈N n →
+postulate ≈N-out : ∀ {m n} → m ≈N n →
                    m ≡ zero ∧ n ≡ zero
                    ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n')
-{-# ATP axiom ≈N-unf #-}
+{-# ATP axiom ≈N-out #-}
 
 -- The relation _N≈_ is the greatest post-fixed point of _N≈_, i.e.
 --

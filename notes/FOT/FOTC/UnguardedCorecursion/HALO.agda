@@ -82,7 +82,7 @@ module FOT.FOTC.UnguardedCorecursion.HALO where
 -- -- propositional equality by the bisimilarity relation.
 
 -- thm₂ : ∀ {n} → N n → f n ≉ ones
--- thm₂ nzero h with ≈-unf h
+-- thm₂ nzero h with ≈-out h
 -- ... | x' , xs' , ys' , prf₁ , prf₂ , prf₃ = 0≢S (trans (sym x'≡0) x'≡1)
 --   where
 --   x'≡0 : x' ≡ zero
@@ -91,7 +91,7 @@ module FOT.FOTC.UnguardedCorecursion.HALO where
 --   x'≡1 : x' ≡ succ₁ zero
 --   x'≡1 = ∧-proj₁ (∷-injective (trans (sym prf₂) ones-eq))
 
--- thm₂ (nsucc {n} Nn) h with ≈-unf h
+-- thm₂ (nsucc {n} Nn) h with ≈-out h
 -- ... | x' , xs' , ys' , prf₁ , prf₂ , prf₃ = thm₂ Nn (∷-injective≈ helper)
 --   where
 --   xs'≡fn : xs' ≡ f n

@@ -33,10 +33,10 @@ Stream-in h = Stream-coind A h' h
   A xs = ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs'
 
   h' : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
-  h' (x' , xs' , prf , Sxs') = x' , xs' , prf , Stream-unf Sxs'
+  h' (x' , xs' , prf , Sxs') = x' , xs' , prf , Stream-out Sxs'
 
 ∷-Stream : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
-∷-Stream h with Stream-unf h
+∷-Stream h with Stream-out h
 ... | x' , xs' , prf , Sxs' =
   subst Stream (sym (∧-proj₂ (∷-injective prf))) Sxs'
 
@@ -47,14 +47,14 @@ Stream→Colist {xs} Sxs = Colist-coind A h₁ h₂
   A ys = Stream ys
 
   h₁ : ∀ {xs} → A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
-  h₁ Axs with Stream-unf Axs
+  h₁ Axs with Stream-out Axs
   ... | x' , xs' , prf , Sxs' = inj₂ (x' , xs' , prf , Sxs')
 
   h₂ : A xs
   h₂ = Sxs
 
 ++-Stream : ∀ {xs ys} → Colist xs → Stream ys → Stream (xs ++ ys)
-++-Stream {xs} {ys} CLxs Sys with Colist-unf CLxs
+++-Stream {xs} {ys} CLxs Sys with Colist-out CLxs
 ... | inj₁ prf = subst Stream (sym prf₁) Sys
  where
  prf₁ : xs ++ ys ≡ ys
@@ -80,7 +80,7 @@ streamLength {xs} Sxs = ≈N-coind R h₁ h₂
   h₁ : ∀ {m n} → R m n →
        m ≡ zero ∧ n ≡ zero
          ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
-  h₁ {m} (xs , Sxs , m=lxs , n≡∞) with Stream-unf Sxs
+  h₁ {m} (xs , Sxs , m=lxs , n≡∞) with Stream-out Sxs
   ... | x' , xs' , xs≡x'∷xs' , Sxs' =
     inj₂ (length xs' , ∞ , helper , trans n≡∞ ∞-eq , (xs' , Sxs' , refl , refl))
     where

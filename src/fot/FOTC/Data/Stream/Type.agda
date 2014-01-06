@@ -17,7 +17,7 @@ open import FOTC.Base.List
 -- StreamF : (D → Set) → D → Set
 -- StreamF A xs = ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
 
--- Stream is the greatest fixed-point of StreamF (by Stream-unf and
+-- Stream is the greatest fixed-point of StreamF (by Stream-out and
 -- Stream-coind).
 
 postulate Stream : D → Set
@@ -26,8 +26,8 @@ postulate
 -- Stream is a post-fixed point of StreamF, i.e.
 --
 -- Stream ≤ StreamF Stream.
-  Stream-unf : ∀ {xs} → Stream xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs'
-{-# ATP axiom Stream-unf #-}
+  Stream-out : ∀ {xs} → Stream xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs'
+{-# ATP axiom Stream-out #-}
 
 -- Stream is the greatest post-fixed point of StreamF, i.e.
 --

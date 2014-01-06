@@ -25,7 +25,7 @@ stream-≡→≈ Sxs _ refl = ≈-refl Sxs
    A ws = ∃[ zs ] ws ≈ zs
 
    h' : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
-   h' (_ , Axs) with ≈-unf Axs
+   h' (_ , Axs) with ≈-out Axs
    ... | x' , xs' , zs' , prf₁ , prf₂ , prf₃ = x' , xs' , prf₁ , (zs' , prf₃)
 
 ≈→Stream₂ : ∀ {xs ys} → xs ≈ ys → Stream ys
@@ -35,7 +35,7 @@ stream-≡→≈ Sxs _ refl = ≈-refl Sxs
    A zs = ∃[ ws ] ws ≈ zs
 
    h' : ∀ {ys} → A ys → ∃[ y' ] ∃[ ys' ] ys ≡ y' ∷ ys' ∧ A ys'
-   h'  (_ , Ays) with ≈-unf Ays
+   h'  (_ , Ays) with ≈-out Ays
    ... | y' , ys' , zs' , prf₁ , prf₂ , prf₃ = y' , zs' , prf₂ , (ys' , prf₃)
 
 ≈→Stream : ∀ {xs ys} → xs ≈ ys → Stream xs ∧ Stream ys

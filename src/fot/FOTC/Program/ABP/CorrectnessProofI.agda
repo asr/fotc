@@ -32,7 +32,7 @@ abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B h₁ h₂
   h₁ : ∀ {ks ls} → B ks ls →
        ∃[ k' ] ∃[ ks' ] ∃[ ls' ] ks ≡ k' ∷ ks' ∧ ls ≡ k' ∷ ls' ∧ B ks' ls'
   h₁ {ks} {ls} (b , os₁ , os₂ , as , bs , cs , ds , Sks , Bb , Fos₁ , Fos₂ , h)
-     with Stream-unf Sks
+     with Stream-out Sks
   ... | (k' , ks' , ks≡k'∷ks' , Sks') =
     k' , ks' , ls' , ks≡k'∷ks' , ls≡k'∷ls' , Bks'ls'
     where

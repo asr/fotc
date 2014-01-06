@@ -33,10 +33,10 @@ Fair-in h = Fair-coind A h' h
   A os = ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os'
 
   h' : ∀ {os} → A os → ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ A os'
-  h' (ft , os' , FTft , prf , Fos') = ft , os' , FTft , prf , Fair-unf Fos'
+  h' (ft , os' , FTft , prf , Fos') = ft , os' , FTft , prf , Fair-out Fos'
 
 head-tail-Fair : ∀ {os} → Fair os → os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
-head-tail-Fair {os} Fos with Fair-unf Fos
+head-tail-Fair {os} Fos with Fair-out Fos
 ... | .(true ∷ []) , os' , f*tnil , prf , Fos' = inj₁ prf₃
   where
   prf₁ : os ≡ T ∷ [] ++ os'
@@ -73,7 +73,7 @@ head-tail-Fair {os} Fos with Fair-unf Fos
          F ∷ tail₁ os   ∎
 
 tail-Fair : ∀ {os} → Fair os → Fair (tail₁ os)
-tail-Fair {os} Fos with Fair-unf Fos
+tail-Fair {os} Fos with Fair-out Fos
 ... | .(T ∷ []) , os' , f*tnil , prf , Fos' =
   subst Fair (sym prf₂) Fos'
   where

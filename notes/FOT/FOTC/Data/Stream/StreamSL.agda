@@ -19,9 +19,9 @@ data D : Set where
 data Stream : D → Set where
   consS : ∀ x {xs} → ∞ (Stream xs) → Stream (x ∷ xs)
 
-Stream-unf : ∀ {xs} → Stream xs →
+Stream-out : ∀ {xs} → Stream xs →
              ∃ λ x' → ∃ λ xs' → Stream xs' ∧ xs ≡ x' ∷ xs'
-Stream-unf (consS x' {xs'} Sxs') = x' , xs' , ♭ Sxs' , refl
+Stream-out (consS x' {xs'} Sxs') = x' , xs' , ♭ Sxs' , refl
 
 {-# NO_TERMINATION_CHECK #-}
 Stream-coind :

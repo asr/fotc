@@ -20,7 +20,7 @@ open import FOTC.Data.Nat.Type
 -- StreamNF : (D → Set) → D → Set
 -- StreamNF P ns = ∃[ n' ] ∃[ ns' ] N n' ∧ P ns' ∧ ns ≡ n' ∷ ns'
 
--- Stream is the greatest fixed-point of StreamF (by Stream-unf and
+-- Stream is the greatest fixed-point of StreamF (by Stream-out and
 -- Stream-coind).
 
 postulate StreamN : D → Set
@@ -29,9 +29,9 @@ postulate
 -- StreamN is a post-fixed point of StreamNF, i.e.
 --
 -- StreamN ≤ StreamNF StreamN.
-  StreamN-unf : ∀ {ns} → StreamN ns →
+  StreamN-out : ∀ {ns} → StreamN ns →
                 ∃[ n' ] ∃[ ns' ] N n' ∧ StreamN ns' ∧ ns ≡ n' ∷ ns'
-{-# ATP axiom StreamN-unf #-}
+{-# ATP axiom StreamN-out #-}
 
 -- StreamN is the greatest post-fixed point of StreamNF, i.e.
 --
@@ -62,4 +62,4 @@ StreamN-in {ns} h = StreamN-coind A h' h
   A ns = ∃[ n' ] ∃[ ns' ] N n' ∧ StreamN ns' ∧ ns ≡ n' ∷ ns'
 
   h' : A ns → ∃[ n' ] ∃[ ns' ] N n' ∧ A ns' ∧ ns ≡ n' ∷ ns'
-  h' (_ , _ , Nn' , SNns' , prf) = _ , _ , Nn' , (StreamN-unf SNns') , prf
+  h' (_ , _ , Nn' , SNns' , prf) = _ , _ , Nn' , (StreamN-out SNns') , prf

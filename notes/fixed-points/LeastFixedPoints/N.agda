@@ -88,8 +88,8 @@ module LFP where
   -- N-ind), we can proof that N is also a post-fixed point of NatF.
 
   -- N is a post-fixed point of NatF.
-  N-unf : ∀ {n} → N n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n')
-  N-unf = N-ind A h
+  N-out : ∀ {n} → N n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n')
+  N-out = N-ind A h
     where
     A : D → Set
     A m = m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ N m')
@@ -103,8 +103,8 @@ module LFP where
       helper (inj₂ (m'' , prf' , Am'')) = subst N (sym prf') (nsucc Am'')
 
   -- Higher-order version.
-  N-unf-ho : ∀ {n} → N n → NatF N n
-  N-unf-ho = N-unf
+  N-out-ho : ∀ {n} → N n → NatF N n
+  N-out-ho = N-out
 
   ----------------------------------------------------------------------------
   -- The induction principle for N *with* the hypothesis N n in the
@@ -167,10 +167,10 @@ module LFP where
       is {i} Ai = subst N (sym (+-Sx i n)) (nsucc Ai)
 
   ----------------------------------------------------------------------------
-  -- Example: A proof using N-unf.
+  -- Example: A proof using N-out.
 
   pred-N : ∀ {n} → N n → N (pred₁ n)
-  pred-N {n} Nn = case h₁ h₂ (N-unf Nn)
+  pred-N {n} Nn = case h₁ h₂ (N-out Nn)
     where
     h₁ : n ≡ zero → N (pred₁ n)
     h₁ n≡0 = subst N (sym (trans (predCong n≡0) pred-0)) nzero

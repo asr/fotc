@@ -18,7 +18,7 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
 
 {-# NO_TERMINATION_CHECK #-}
 ≈→≡ : ∀ {xs ys} → xs ≈ ys → xs ≡ ys
-≈→≡ {xs} {ys} h with ≈-unf h
+≈→≡ {xs} {ys} h with ≈-out h
 ... | x' , xs' , ys' , prf₁ , prf₂ , prf₃ =
   xs       ≡⟨ prf₁ ⟩
   x' ∷ xs' ≡⟨ ∷-rightCong (≈→≡ prf₃) ⟩
