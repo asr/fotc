@@ -95,7 +95,7 @@ unit = Wrap (MkIdF unit)  -- Non-structural recursion.
 idUnit ∷ Unit → Unit
 idUnit u = u
 
--- The conaturals type is a greatest fixed-point.
+-- The conat type is a greatest fixed-point.
 type Conat = Nu NatF
 
 instance Eq Conat where
@@ -120,13 +120,11 @@ inftyC = succC inftyC
 data ConatPlusOne = One | MkConat Conat
                     deriving Show
 
--- TODO: The conat destructor.
+-- The pred function is the conat destructor.
 pred ∷ Conat → ConatPlusOne
-pred cn
-  | cn == inftyC = MkConat inftyC
-  | otherwise    = case out cn of
-                     Z   → One
-                     S x → MkConat x
+pred cn = case out cn of
+            Z   → One
+            S x → MkConat x
 
 -- The colist type is a greatest fixed-point.
 type Colist a = Nu (ListF a)

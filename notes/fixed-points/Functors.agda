@@ -109,7 +109,7 @@ Unit = ν IdF
 -- unit : Nu IdF
 -- unit = Wrap IdF {!unit!}
 
--- The conaturals type is a greatest fixed-point.
+-- The conat type is a greatest fixed-point.
 Conat : Set
 Conat = ν NatF
 
@@ -123,7 +123,7 @@ succC cn = Wrap (inr cn)
 -- ∞C : Conat
 -- ∞C = succC {!∞C!}
 
--- TODO: The conat destructor.
+-- The pred function is the conat destructor.
 pred : Conat → ⊤ + Conat
 pred cn with out cn
 ... | inl _ = inl <>
