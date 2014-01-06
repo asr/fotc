@@ -1,26 +1,26 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
+-- Based on (Vene, 2000).
+
 module Functors where
 
--- The carrier of the initial algebra is (up to isomorphism) a
--- fixed-point of the functor (Vene 2000, p).
-
-------------------------------------------------------------------------------
+infixr 1 _+_
+infixr 2 _×_
 
 data Bool : Set where
   false true : Bool
 
-data _⊎_  (A B : Set) : Set where
-  inl : A → A ⊎ B
-  inr : B → A ⊎ B
+data _+_  (A B : Set) : Set where
+  inl : A → A + B
+  inr : B → A + B
 
 data _×_ (A B : Set) : Set where
   _,_ : A → B → A × B
 
 -- The terminal object.
-data One : Set where
-   one : One
+data ⊤ : Set where
+   <> : ⊤
 
 postulate
   -- The least fixed-point.
@@ -59,11 +59,11 @@ IdF X = X
 
 -- The (co)natural numbers functor.
 NatF : Set → Set
-NatF X = One ⊎ X
+NatF X = ⊤ + X
 
 -- The (co)list functor.
 ListF : Set → Set → Set
-ListF A X = One ⊎ (A × X)
+ListF A X = ⊤ + A × X
 
 -- The stream functor.
 StreamF : Set → Set → Set
@@ -82,7 +82,7 @@ N = μ NatF
 
 -- The data constructors for the natural numbers.
 zero : N
-zero = In (inl one)
+zero = In (inl <>)
 
 succ : N → N
 succ n = In (inr n)
@@ -93,7 +93,7 @@ List A = μ (ListF A)
 
 -- The data constructors for List.
 nil : {A : Set} → List A
-nil = In (inl one)
+nil = In (inl <>)
 
 cons : {A : Set} → A → List A → List A
 cons x xs = In (inr (x , xs))
@@ -114,7 +114,7 @@ Conat : Set
 Conat = ν NatF
 
 zeroC : Conat
-zeroC = Wrap (inl one)
+zeroC = Wrap (inl <>)
 
 succC : Conat → Conat
 succC cn = Wrap (inr cn)
@@ -124,9 +124,9 @@ succC cn = Wrap (inr cn)
 -- ∞C = succC {!∞C!}
 
 -- TODO: The conat destructor.
-pred : Conat → One ⊎ Conat
+pred : Conat → ⊤ + Conat
 pred cn with out cn
-... | inl _ = inl one
+... | inl _ = inl <>
 ... | inr x = inr x
 
 -- The colist type is a greatest fixed-point.
@@ -135,7 +135,7 @@ Colist A = ν (ListF A)
 
 -- The colist data constructors.
 nilCL : {A : Set} → Colist A
-nilCL = Wrap (inl one)
+nilCL = Wrap (inl <>)
 
 consCL : {A : Set} → A → Colist A → Colist A
 consCL x xs = Wrap (inr (x , xs))
