@@ -21,10 +21,12 @@ Coℕ-build h a with h a
 ... | inj₂ a' = succ (♯ (Coℕ-build h a'))
 
 -- Adapted from Coℕ-build.
-Coℕ-coind : {A : Coℕ → Set} → (∀ {n} → A n → ⊤ ⊎ A n) → ∀ {n} → A n → Coℕ
-Coℕ-coind h An with h An
-... | inj₁ tt = zero
-... | inj₂ An' = succ (♯ (Coℕ-build h An'))
+Coℕ-coind : (A : Coℕ → Set) →
+            (∀ {n} → A n → ⊤ ⊎ A (succ (♯ n))) →
+            ∀ {n} → A n → Coℕ
+Coℕ-coind A h An with h An
+... | inj₁ tt  = zero
+... | inj₂ An' = succ (♯ (Coℕ-coind A h An'))
 
 ------------------------------------------------------------------------------
 -- References
