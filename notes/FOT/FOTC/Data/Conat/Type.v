@@ -8,7 +8,7 @@ CoInductive Conat : D → Prop :=
   | cozero : Conat zero
   | cosucc : ∀ {n}, Conat n → Conat (succ₁ n).
 
-Theorem Conat_unf : ∀ {n}, Conat n → n = zero ∨ (∃ n', n = succ₁ n' ∧ Conat n').
+Theorem Conat_out : ∀ {n}, Conat n → n = zero ∨ (∃ n', n = succ₁ n' ∧ Conat n').
 intros n Cn.
 case Cn.
 left.
