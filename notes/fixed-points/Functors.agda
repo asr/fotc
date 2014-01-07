@@ -173,8 +173,22 @@ tailS : {A : Set} → Stream A → Stream A
 tailS xs with out xs
 ... | _ , xs' = xs'
 
+-- From (Leclerc and Paulin-Mohring 1994, p. 195).
+{-# NO_TERMINATION_CHECK #-}
+Stream-build :
+  {A X : Set} →
+  (X → StreamF A X) →
+  X → Stream A
+Stream-build f x with f x
+... | a , x' = Wrap (a , Stream-build f x')
+
 ------------------------------------------------------------------------------
 -- References
+--
+-- Leclerc, F. and Paulin-Mohring, C. (1994). Programming with Streams
+-- in Coq. A case study : the Sieve of Eratosthenes. In: Types for
+-- Proofs and Programs (TYPES ’93). Ed. by Barendregt, H. and Nipkow,
+-- T. Vol. 806. LNCS. Springer, pp. 191–212.
 --
 -- Vene, Varmo (2000). Categorical programming with inductive and
 -- coinductive types. PhD thesis. Faculty of Mathematics: University
