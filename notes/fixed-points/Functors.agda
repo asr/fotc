@@ -174,6 +174,9 @@ tailS xs with out xs
 ... | _ , xs' = xs'
 
 -- From (Leclerc and Paulin-Mohring 1994, p. 195).
+--
+-- TODO (07 January 2014): Agda doesn't accept the definition of
+-- Stream-build.
 {-# NO_TERMINATION_CHECK #-}
 Stream-build :
   {A X : Set} →
