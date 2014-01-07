@@ -182,11 +182,29 @@ Stream-build :
   {A X : Set} →
   (X → StreamF A X) →
   X → Stream A
-Stream-build f x with f x
-... | a , x' = Wrap (a , Stream-build f x')
+Stream-build h x with h x
+... | a , x' = Wrap (a , Stream-build h x')
+
+-- From (Giménez, 1995, p. 40).
+--
+-- TODO (07 January 2014): Agda doesn't accept the definition of
+-- Stream-corec.
+{-# NO_TERMINATION_CHECK #-}
+Stream-corec :
+  {A X : Set} →
+  (X → (A × (Stream A + X))) →
+  X → Stream A
+Stream-corec h x with h x
+... | a , inl xs = Wrap (a , xs)
+... | a , inr x' = Wrap (a , (Stream-corec h x'))
 
 ------------------------------------------------------------------------------
 -- References
+--
+-- Giménez, E. (1995). Codifying guarded deﬁnitions with recursive
+-- schemes. In: Types for Proofs and Programs (TYPES ’94). Ed. by
+-- Dybjer, P., Nordström, B. and Smith, J. Vol. 996. LNCS. Springer,
+-- pp. 39–59.
 --
 -- Leclerc, F. and Paulin-Mohring, C. (1994). Programming with Streams
 -- in Coq. A case study : the Sieve of Eratosthenes. In: Types for
