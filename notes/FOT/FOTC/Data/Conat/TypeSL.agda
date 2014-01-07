@@ -41,10 +41,10 @@ Conat-coind A h {n} An = Conat-in (case prf₁ prf₂ (h An))
   prf₂ (n' , prf , An') = inj₂ (n' , prf , {!!})
 
 postulate
-  inf    : D
-  inf-eq : inf ≡ succ₁ inf
-{-# ATP axiom inf-eq #-}
+  ∞D    : D
+  ∞-eq : ∞D ≡ succ₁ ∞D
 
+-- TODO (06 January 2014): Agda doesn't accept the proof of Conat ∞.
 {-# NO_TERMINATION_CHECK #-}
-inf-Conat : Conat inf
-inf-Conat = subst Conat (sym inf-eq) (cosucc (♯ inf-Conat))
+∞-Conat : Conat ∞D
+∞-Conat = subst Conat (sym ∞-eq) (cosucc (♯ ∞-Conat))
