@@ -2,7 +2,6 @@
 -- Definition of FOTC Conat using Agda's co-inductive combinators
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --allow-unsolved-metas #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
@@ -15,7 +14,7 @@ open import Coinduction
 
 data Conat : D → Set where
   cozero : Conat zero
-  cosucc : ∀ {n} → (∞ (Conat n)) → Conat (succ₁ n)
+  cosucc : ∀ {n} → ∞ (Conat n) → Conat (succ₁ n)
 
 Conat-out : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
 Conat-out cozero          = inj₁ refl
