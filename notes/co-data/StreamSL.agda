@@ -19,13 +19,13 @@ infixr 5 _∷_
 data Stream (A : Set) : Set where
   _∷_ : A → ∞ (Stream A) → Stream A
 
--- From (Leclerc and Paulin-Mohring 1994, p. 195).
-Stream-build : {A X : Set} → (X → (A × X)) → X → Stream A
+-- Adapted from (Leclerc and Paulin-Mohring 1994, p. 195).
+Stream-build : {A X : Set} → (X → A × X) → X → Stream A
 Stream-build h x with h x
 ... | a , x' = a ∷ ♯ (Stream-build h x')
 
 -- From (Giménez, 1995, p. 40).
-Stream-corec : {A X : Set} → (X → (A × (Stream A ⊎ X))) → X → Stream A
+Stream-corec : {A X : Set} → (X → A × (Stream A ⊎ X)) → X → Stream A
 Stream-corec h x with h x
 ... | a , inj₁ xs = a ∷ ♯ xs
 ... | a , inj₂ x' = a ∷ ♯ (Stream-corec h x')

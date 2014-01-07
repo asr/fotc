@@ -129,6 +129,8 @@ pred cn with out cn
 ... | inl _ = inl <>
 ... | inr x = inr x
 
+
+
 -- The colist type is a greatest fixed-point.
 Colist : Set → Set
 Colist A = ν (ListF A)
