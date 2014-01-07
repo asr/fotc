@@ -15,9 +15,11 @@ open import Coinduction
 infixr 5 _∷_
 
 data Streamℕ : Set where
-  _∷_ : (x : ℕ) (xs : ∞ (Streamℕ)) → Streamℕ
+  _∷_ : ℕ → ∞ Streamℕ → Streamℕ
 
--- 26 December 2013. From
+-- From
 -- https://groups.google.com/forum/#!topic/homotopytypetheory/Ev-9i2Va4_Q.
-Stream-coind : {A : Set} → (A → ℕ) → (A → A) → A → Streamℕ
-Stream-coind f g a = f a ∷ ♯ (Stream-coind f g a)
+--
+-- TODO (26 December 2013): We aren't using the function A → A.
+Streamℕ-coind : {A : Set} → (A → ℕ) → (A → A) → A → Streamℕ
+Streamℕ-coind f g a = f a ∷ ♯ (Streamℕ-coind f g a)
