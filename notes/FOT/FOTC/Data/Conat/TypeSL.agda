@@ -38,7 +38,7 @@ Conat-coind-helper A h An with h An
 -- 07 January 2014. Agda bug? We couldn't directly prove Conat-coind
 -- because Agda's termination checker doesn't accept the proof, but it
 -- accepts the proof of Conat-coind-helper. The only difference is the
--- *position* of the universal quantifier ∀ {n}.
+-- *position* of the universal quantifier ∀ {n}. See Agda issue 1014.
 Conat-coind : (A : D → Set) →
               (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
               ∀ {n} → A n → Conat n
