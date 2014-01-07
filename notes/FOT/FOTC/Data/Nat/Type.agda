@@ -17,7 +17,7 @@ succ₁ n = succ · n
 
 module ConstantAndUnaryFunction where
 
-  -- N using 0-ary constant (i.e. succ)
+  -- N using the constant succ.
   data N : D → Set where
     nzero : N zero
     nsucc : ∀ {n} → N n → N (succ · n)
@@ -29,7 +29,7 @@ module ConstantAndUnaryFunction where
   N-ind A A0 h nzero      = A0
   N-ind A A0 h (nsucc Nn) = h (N-ind A A0 h Nn)
 
-  -- N using unary function (i.e. succ₁)
+  -- N using the unary function succ₁.
   data N₁ : D → Set where
     nzero₁ : N₁ zero
     nsucc₁ : ∀ {n} → N₁ n → N₁ (succ₁ n)
