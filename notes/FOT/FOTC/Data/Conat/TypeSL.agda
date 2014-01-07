@@ -2,6 +2,7 @@
 -- Definition of FOTC Conat using Agda's co-inductive combinators
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --allow-unsolved-metas #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
@@ -43,6 +44,16 @@ Conat-coind : (A : D → Set) →
               (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
               ∀ {n} → A n → Conat n
 Conat-coind A h An = Conat-coind-helper A h An
+
+-- TODO (07 January 2014): We couldn't prove Conat-stronger-coind.
+Conat-stronger-coind :
+  ∀ (A : D → Set) {n} →
+  (A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
+  A n → Conat n
+Conat-stronger-coind A h An with h An
+... | inj₁ n≡0 = subst Conat (sym n≡0) cozero
+... | inj₂ (n' , prf , An') =
+  subst Conat (sym prf) (cosucc (♯ (Conat-coind A {!!} An')))
 
 postulate
   ∞D    : D

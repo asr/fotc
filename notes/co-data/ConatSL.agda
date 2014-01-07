@@ -28,6 +28,14 @@ Coℕ-coind A h An with h An
 ... | inj₁ tt  = zero
 ... | inj₂ An' = succ (♯ (Coℕ-coind A h An'))
 
+-- TODO (07 January 2014): Is it proof correct?
+Coℕ-stronger-coind : ∀ (A : Coℕ → Set) {n} →
+                     (A n → ⊤ ⊎ A (succ (♯ n))) →
+                     A n → Coℕ
+Coℕ-stronger-coind A h An with h An
+... | inj₁ tt  = zero
+... | inj₂ An' = succ (♯ (Coℕ-stronger-coind A h An))
+
 ------------------------------------------------------------------------------
 -- References
 --
