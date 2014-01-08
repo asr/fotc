@@ -12,6 +12,7 @@ peano_path = src/peano
 
 # Agda standard library path.
 std_lib_path = ~/agda-upstream/std-lib
+# std_lib_path = /home/asr/src/agdas/std-lib/lib-0.7
 
 # Notes path.
 notes_path = notes
@@ -295,6 +296,15 @@ benchmark :
 hlint :
 	find -name '*.hs' | xargs hlint
 	@echo "$@ succeeded!"
+
+##############################################################################
+# ATP stuff
+
+add_ATP_stuff :
+	src/utils/sed/add-ATP-stuff.bash
+
+remove_ATP_stuff :
+	src/utils/sed/remove-ATP-stuff.bash
 
 ##############################################################################
 # Others
