@@ -100,9 +100,7 @@ reverse-++-commute-forest (fcons {x} {xs} Tx Fxs) (fcons {y} {ys} Ty Fys) =
                                            reverse xs →
                   reverse ((x ∷ xs) ++ y ∷ ys) ≡ reverse (y ∷ ys) ++
                                                  reverse (x ∷ xs)
-  {-# ATP prove prf reverse-Forest ++-Forest rev-++-commute-forest
-                    ++-assoc-forest
-  #-}
+  {-# ATP prove prf reverse-Forest ++-Forest rev-++-commute-forest ++-assoc-forest #-}
 
 reverse-∷-forest : ∀ {x ys} → Tree x → Forest ys →
                    reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])

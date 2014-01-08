@@ -52,18 +52,13 @@ toTree-OrdTree {item} Nitem (tnode {t₁} {i} {t₂} Tt₁ Ni Tt₂) OTtnode =
                    OrdTree t₂ →
                    i > item →
                    OrdTree (toTree · item · node t₁ i t₂)
-  {-# ATP prove prf₁ &&-list₄-t x>y→x≰y
-                     le-ItemTree-Bool le-TreeItem-Bool ordTree-Bool
-                     toTree-OrdTree-helper₁
-  #-}
+  {-# ATP prove prf₁ &&-list₄-t x>y→x≰y le-ItemTree-Bool le-TreeItem-Bool ordTree-Bool toTree-OrdTree-helper₁ #-}
 
   postulate prf₂ : ordTree (toTree · item · t₂) ≡ true →
                    OrdTree t₁ →
                    i ≤ item →
                    OrdTree (toTree · item · node t₁ i t₂)
-  {-# ATP prove prf₂ &&-list₄-t  le-ItemTree-Bool le-TreeItem-Bool
-                     ordTree-Bool toTree-OrdTree-helper₂
-  #-}
+  {-# ATP prove prf₂ &&-list₄-t  le-ItemTree-Bool le-TreeItem-Bool ordTree-Bool toTree-OrdTree-helper₂ #-}
 
 ------------------------------------------------------------------------------
 -- Burstall's lemma: ord(maketree(is)).
@@ -101,9 +96,7 @@ makeTree-OrdTree (lncons {i} {is} Ni Lis) = prf (makeTree-OrdTree Lis)
                                         (le-Lists-Bool LNis LNjs)
                                         (trans (sym (le-Lists-∷ i is js)) i∷is≤js))))
   where postulate lemma : OrdList (is ++ js) → OrdList (i ∷ is ++ js)
-        {-# ATP prove lemma &&-list₂-t ++-OrdList-helper
-                            le-ItemList-Bool le-Lists-Bool ordList-Bool
-        #-}
+        {-# ATP prove lemma &&-list₂-t ++-OrdList-helper le-ItemList-Bool le-Lists-Bool ordList-Bool #-}
 
 ------------------------------------------------------------------------------
 -- Burstall's lemma: If t is ordered then (flatten t) is ordered.

@@ -36,9 +36,7 @@ flatten-OrdList-helper (ttip {i₁} Ni₁) Tt₁ tnil OTt = prf
 flatten-OrdList-helper {i = i} (ttip {i₁} Ni₁) Ni (ttip {i₂} Ni₂) OTt = prf
   where
   postulate lemma : i₁ ≤ i₂
-  {-# ATP prove lemma ≤-trans &&-list₄-t
-                      le-ItemTree-Bool le-TreeItem-Bool ordTree-Bool
-  #-}
+  {-# ATP prove lemma ≤-trans &&-list₄-t le-ItemTree-Bool le-TreeItem-Bool ordTree-Bool #-}
 
   postulate prf : ≤-Lists (flatten (tip i₁)) (flatten (tip i₂))
   {-# ATP prove prf lemma #-}
@@ -80,11 +78,7 @@ flatten-OrdList-helper {i = i} (ttip {i₁} Ni₁) Ni
     ≤-ItemTree-i-t₂₁ = &&-list₂-t₁ helper₆ helper₇ helper₈
 
     postulate OT : OrdTree (node (tip i₁) i t₂₁)
-    {-# ATP prove OT ≤-TreeItem-tip-i₁-i
-                     ≤-ItemTree-i-t₂₁
-                     OrdTree-tip-i₁
-                     OrdTree-t₂₁
-    #-}
+    {-# ATP prove OT ≤-TreeItem-tip-i₁-i ≤-ItemTree-i-t₂₁ OrdTree-tip-i₁ OrdTree-t₂₁ #-}
 
   lemma₂ : ≤-Lists (flatten (tip i₁)) (flatten t₂₂)
   lemma₂ = flatten-OrdList-helper (ttip Ni₁) Ni Tt₂₂ OT
@@ -99,11 +93,7 @@ flatten-OrdList-helper {i = i} (ttip {i₁} Ni₁) Ni
     ≤-ItemTree-i-t₂₂ = &&-list₂-t₂ helper₆ helper₇ helper₈
 
     postulate OT : OrdTree (node (tip i₁) i t₂₂)
-    {-# ATP prove OT ≤-TreeItem-tip-i₁-i
-                     ≤-ItemTree-i-t₂₂
-                     OrdTree-tip-i₁
-                     OrdTree-t₂₂
-    #-}
+    {-# ATP prove OT ≤-TreeItem-tip-i₁-i ≤-ItemTree-i-t₂₂ OrdTree-tip-i₁ OrdTree-t₂₂ #-}
 
   postulate prf : ≤-Lists (flatten (tip i₁)) (flatten (node t₂₁ i₂ t₂₂))
   {-# ATP prove prf xs≤ys→xs≤zs→xs≤ys++zs flatten-ListN lemma₁ lemma₂ #-}
@@ -128,21 +118,13 @@ flatten-OrdList-helper {i = i} (tnode {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
   lemma₁ = flatten-OrdList-helper Tt₁₁ Ni tnil OT
     where
     postulate OT : OrdTree (node t₁₁ i nil)
-    {-# ATP prove OT leftSubTree-OrdTree
-                     &&-list₂-t &&-list₄-t
-                     helper₁ helper₂ helper₃ helper₄ helper₅ helper₆
-                     helper₇ helper₈
-    #-}
+    {-# ATP prove OT leftSubTree-OrdTree &&-list₂-t &&-list₄-t helper₁ helper₂ helper₃ helper₄ helper₅ helper₆ helper₇ helper₈ #-}
 
   lemma₂ : ≤-Lists (flatten t₁₂) (flatten nil)
   lemma₂ = flatten-OrdList-helper Tt₁₂ Ni tnil OT
     where
     postulate OT : OrdTree (node t₁₂ i nil)
-    {-# ATP prove OT rightSubTree-OrdTree
-                     &&-list₄-t
-                     helper₁ helper₂ helper₃ helper₄ helper₅ helper₆
-                     helper₇ helper₈
-    #-}
+    {-# ATP prove OT rightSubTree-OrdTree &&-list₄-t helper₁ helper₂ helper₃ helper₄ helper₅ helper₆ helper₇ helper₈ #-}
 
   postulate prf : ≤-Lists (flatten (node t₁₁ i₁ t₁₂)) (flatten nil)
   {-# ATP prove prf xs≤zs→ys≤zs→xs++ys≤zs flatten-ListN lemma₁ lemma₂ #-}
@@ -167,21 +149,13 @@ flatten-OrdList-helper {i = i} (tnode {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
   lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (ttip Ni₂) OT
     where
     postulate OT : OrdTree (node t₁₁ i (tip i₂))
-    {-# ATP prove OT leftSubTree-OrdTree
-                     &&-list₂-t &&-list₄-t
-                     helper₁ helper₂ helper₃ helper₄ helper₅ helper₆
-                     helper₇ helper₈
-    #-}
+    {-# ATP prove OT leftSubTree-OrdTree &&-list₂-t &&-list₄-t helper₁ helper₂ helper₃ helper₄ helper₅ helper₆ helper₇ helper₈ #-}
 
   lemma₂ : ≤-Lists (flatten t₁₂) (flatten (tip i₂))
   lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (ttip Ni₂) OT
     where
     postulate OT : OrdTree (node t₁₂ i (tip i₂))
-    {-# ATP prove OT rightSubTree-OrdTree
-                     &&-list₂-t &&-list₄-t
-                     helper₁ helper₂ helper₃ helper₄ helper₅ helper₆
-                     helper₇ helper₈
-    #-}
+    {-# ATP prove OT rightSubTree-OrdTree &&-list₂-t &&-list₄-t helper₁ helper₂ helper₃ helper₄ helper₅ helper₆ helper₇ helper₈ #-}
 
   postulate prf : ≤-Lists (flatten (node t₁₁ i₁ t₁₂)) (flatten (tip i₂))
   {-# ATP prove prf xs≤zs→ys≤zs→xs++ys≤zs flatten-ListN lemma₁ lemma₂ #-}
@@ -207,21 +181,13 @@ flatten-OrdList-helper {i = i} (tnode {t₁₁} {i₁} {t₁₂} Tt₁₁ Ni₁ 
   lemma₁ = flatten-OrdList-helper Tt₁₁ Ni (tnode Tt₂₁ Ni₂ Tt₂₂) OT
     where
     postulate OT : OrdTree (node t₁₁ i (node t₂₁ i₂ t₂₂))
-    {-# ATP prove OT leftSubTree-OrdTree
-                     &&-list₂-t &&-list₄-t
-                     helper₁ helper₂ helper₃ helper₄ helper₅ helper₆
-                     helper₇ helper₈
-    #-}
+    {-# ATP prove OT leftSubTree-OrdTree &&-list₂-t &&-list₄-t helper₁ helper₂ helper₃ helper₄ helper₅ helper₆ helper₇ helper₈ #-}
 
   lemma₂ : ≤-Lists (flatten t₁₂) (flatten (node t₂₁ i₂ t₂₂))
   lemma₂ = flatten-OrdList-helper Tt₁₂ Ni (tnode Tt₂₁ Ni₂ Tt₂₂) OT
     where
     postulate OT : OrdTree (node t₁₂ i (node t₂₁ i₂ t₂₂))
-    {-# ATP prove OT rightSubTree-OrdTree
-                     &&-list₂-t &&-list₄-t
-                     helper₁ helper₂ helper₃ helper₄ helper₅ helper₆
-                     helper₇ helper₈
-    #-}
+    {-# ATP prove OT rightSubTree-OrdTree &&-list₂-t &&-list₄-t helper₁ helper₂ helper₃ helper₄ helper₅ helper₆ helper₇ helper₈ #-}
 
   postulate prf : ≤-Lists (flatten (node t₁₁ i₁ t₁₂))
                   (flatten (node t₂₁ i₂ t₂₂))

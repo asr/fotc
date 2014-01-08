@@ -29,8 +29,7 @@ postulate x>100→x<f₉₁-x+11 : ∀ {n} → N n → n > 100' → n < f₉₁ 
 
 -- Case n ≡ 100 can be proved automatically
 postulate f₉₁-100 : f₉₁ 100' ≡ 91'
-{-# ATP prove f₉₁-100 100+11>100 100+11∸10>100 101≡100+11∸10 91≡100+11∸10∸10
-#-}
+{-# ATP prove f₉₁-100 100+11>100 100+11∸10>100 101≡100+11∸10 91≡100+11∸10∸10 #-}
 
 postulate  f₉₁x+11<f₉₁x+11 : ∀ n →
                              n ≯ 100' →

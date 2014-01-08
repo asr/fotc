@@ -74,9 +74,7 @@ xs≤ys→xs≤zs→xs≤ys++zs {js = js} {ks} (lncons {i} {is} Ni LNis)
   helper₆ = trans (sym (le-Lists-∷ i is ks)) i∷is≤ks
 
   postulate prf : ≤-Lists is (js ++ ks) → ≤-Lists (i ∷ is) (js ++ ks)
-  {-# ATP prove prf x≤ys→x≤zs→x≤ys++zs &&-list₂-t
-                    helper₁ helper₂ helper₃ helper₄ helper₅ helper₆
-  #-}
+  {-# ATP prove prf x≤ys→x≤zs→x≤ys++zs &&-list₂-t helper₁ helper₂ helper₃ helper₄ helper₅ helper₆ #-}
 
 xs≤zs→ys≤zs→xs++ys≤zs : ∀ {is js ks} → ListN is → ListN js → ListN ks →
                         ≤-Lists is ks →

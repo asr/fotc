@@ -25,9 +25,7 @@ helper nzero = prf
 helper (nsucc {n} Nn) = prf
   -- 18 December 2012: The ATPs could not prove the theorem (240 sec).
   where postulate prf : collatz (2' ^ succ₁ (succ₁ n)) ≡ collatz (2' ^ succ₁ n)
-        {-# ATP prove prf +∸2 ^-N 2-N 2^x≢0 2^[x+1]≢1 div-2^[x+1]-2≡2^x
-                      x-Even→SSx-Even ∸-N ∸-Even 2^[x+1]-Even 2-Even
-         #-}
+        {-# ATP prove prf +∸2 ^-N 2-N 2^x≢0 2^[x+1]≢1 div-2^[x+1]-2≡2^x x-Even→SSx-Even ∸-N ∸-Even 2^[x+1]-Even 2-Even #-}
 
 collatz-2^x : ∀ {n} → N n → collatz (2' ^ n) ≡ 1'
 collatz-2^x nzero = prf

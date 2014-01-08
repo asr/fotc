@@ -101,6 +101,4 @@ postulate x+1≤x∸10+11 : ∀ {n} → N n → n + 1' ≤ (n ∸ 10') + 11'
 {-# ATP prove x+1≤x∸10+11 x≤y+x∸y 10-N 11-N +-N ∸-N +-comm #-}
 
 postulate x≤89→x+11≯100 : ∀ {n} → N n → n ≤ 89' → n + 11' ≯ 100'
-{-# ATP prove x≤89→x+11≯100 x≤y→x≯y x≤y→x+k≤y+k x+11-N 89-N 100-N
-              100≡89+11
-#-}
+{-# ATP prove x≤89→x+11≯100 x≤y→x≯y x≤y→x+k≤y+k x+11-N 89-N 100-N 100≡89+11 #-}

@@ -51,6 +51,4 @@ helper (fcons {t} {ts} Tt Fts) =
           mirror · (mirror · t) ≡ t →
           reverse (map mirror (reverse (map mirror ts))) ≡ ts →
           reverse (map mirror (reverse (map mirror (t ∷ ts)))) ≡ t ∷ ts
-  {-# ATP prove prf reverse-∷-forest mirror-Tree map-Forest
-                    reverse-++-commute-forest reverse-Forest reverse-[x]≡[x]
-  #-}
+  {-# ATP prove prf reverse-∷-forest mirror-Tree map-Forest reverse-++-commute-forest reverse-Forest reverse-[x]≡[x] #-}
