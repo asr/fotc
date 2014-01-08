@@ -2,11 +2,9 @@
 -- Properties related with the totality of the rose tree type
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --injective-type-constructors #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 -- {-# OPTIONS --without-K #-}  -- No accepted!
-
--- {-# OPTIONS --no-termination-check #-}
-{-# OPTIONS --injective-type-constructors #-}
 
 module FOT.FOTC.Program.Mirror.Tree.TotalityNonTerminationI where
 

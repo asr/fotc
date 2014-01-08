@@ -1,27 +1,33 @@
-{-# OPTIONS --no-termination-check #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
 module FOT.FOTC.Program.McCarthy91.WF-Relation.Induction.NonAcc.TerminationCheckIssue
   where
 
-open import Data.Nat
+data ℕ : Set where
+  zero : ℕ
+  succ : ℕ → ℕ
+
+{-# BUILTIN NATURAL ℕ #-}
 
 postulate someℕ : ℕ
 
+{-# NO_TERMINATION_CHECK #-}
 foo : ℕ → ℕ → ℕ
-foo n       zero    = 10
-foo zero    (suc m) = foo zero someℕ
-foo (suc n) (suc m) = foo n (suc m)
+foo n        zero    = 10
+foo zero     (succ m) = foo zero someℕ
+foo (succ n) (succ m) = foo n (succ m)
 
+{-# NO_TERMINATION_CHECK #-}
 bar : ℕ → ℕ → ℕ
-bar n       zero    = 10
-bar zero    (suc m) = bar m someℕ
-bar (suc n) (suc m) = bar n (suc m)
+bar n        zero    = 10
+bar zero     (succ m) = bar m someℕ
+bar (succ n) (succ m) = bar n (succ m)
 
+{-# NO_TERMINATION_CHECK #-}
 foobar : ℕ → ℕ → ℕ
 foobar n zero = 10
-foobar zero (suc m) with someℕ
-... | zero  = 10
-... | suc o = foobar m (suc o)
-foobar (suc n) (suc m) = foobar n (suc m)
+foobar zero (succ m) with someℕ
+... | zero   = 10
+... | succ o = foobar m (succ o)
+foobar (succ n) (succ m) = foobar n (succ m)
