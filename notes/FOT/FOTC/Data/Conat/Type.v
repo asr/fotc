@@ -38,28 +38,17 @@ subst.
 apply (cosucc Cn').
 Qed.
 
-(* Theorem Conat_coind : *)
-(*   ∀ (A : D → Prop), *)
-(*     (∀ {n}, A n → n = zero ∨ (∃ n', n = succ n' ∧ A n')) → *)
-(*     ∀ {n}, A n → Conat n. *)
-(* intros A h n An. *)
-(* elim (h n An). *)
-(* intro prf. *)
-(* subst. *)
-(* apply cozero. *)
-(* intro prf. *)
-(* elim prf; clear prf. *)
-(* intros n' prf. *)
-(* elim prf; clear prf. *)
-(* intros prf An'. *)
-(* subst. *)
-(* apply cosucc. *)
-
-(* CoFixpoint *)
-(*   Conat_coind (A : D → Prop) *)
-(*               (h : ∀ n, A n → n = zero ∨ (∃ n', n = succ n' ∧ A n')) *)
-(*               (n : D) (An : A n ) : Conat n := *)
-(*   match h n An with *)
-(*      | or_introl prf => ... *)
-(*      | or_intror prf => ... *)
-(*   end. *)
+CoFixpoint Conat_coind (A : D → Prop)
+                       (h : ∀ n, A n → n = zero ∨ (∃ n', n = succ n' ∧ A n'))
+                       {n : D} (An : A n) : Conat n :=
+match h n An with
+  | or_introl prf => match eq_sym prf with eq_refl => cozero end
+  | or_intror prf =>
+    match prf with ex_intro n' Pn' =>
+      match Pn' with conj prf' An' =>
+        match eq_sym prf' with eq_refl =>
+          cosucc (Conat_coind A h An')
+        end
+      end
+    end
+end.
