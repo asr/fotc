@@ -11,7 +11,6 @@
 module FOT.FOTC.Program.MapIterate.MapIterateSL where
 
 open import Coinduction
-
 open import Data.Stream
 open import Relation.Binary.PropositionalEquality
 
@@ -19,4 +18,4 @@ open import Relation.Binary.PropositionalEquality
 
 map-iterate : ∀ {A} (f : A → A) (x : A) →
               map f (iterate f x) ≈ iterate f (f x)
-map-iterate f x = refl ∷ ♯ map-iterate f (f x)
+map-iterate f x = f x ∷ ♯ map-iterate f (f x)
