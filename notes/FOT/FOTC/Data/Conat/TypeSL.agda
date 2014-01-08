@@ -4,7 +4,7 @@
 
 {-# OPTIONS --allow-unsolved-metas #-}
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+-- {-# OPTIONS --without-K #-}
 
 module FOT.FOTC.Data.Conat.TypeSL where
 
@@ -27,23 +27,13 @@ Conat-in : ∀ {n} →
 Conat-in (inj₁ n≡0)              = subst Conat (sym n≡0) cozero
 Conat-in (inj₂ (n' , prf , Cn')) = subst Conat (sym prf) (cosucc (♯ Cn'))
 
-Conat-coind-helper :
-  ∀ (A : D → Set) {n} →
-  (∀ {m} → A m → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ A m')) →
-  A n → Conat n
-Conat-coind-helper A h An with h An
-... | inj₁ n≡0 = subst Conat (sym n≡0) cozero
-... | inj₂ (n' , prf , An') =
-  subst Conat (sym prf) (cosucc (♯ (Conat-coind-helper A h An')))
-
--- 07 January 2014. Agda bug? We couldn't directly prove Conat-coind
--- because Agda's termination checker doesn't accept the proof, but it
--- accepts the proof of Conat-coind-helper. The only difference is the
--- *position* of the universal quantifier ∀ {n}. See Agda issue 1014.
+-- 08 January 2014. Fails with --without-K.
 Conat-coind : (A : D → Set) →
               (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
               ∀ {n} → A n → Conat n
-Conat-coind A h An = Conat-coind-helper A h An
+Conat-coind A h An with h An
+... | inj₁ refl = cozero
+... | inj₂ (n' , refl , An') = cosucc (♯ (Conat-coind A h An'))
 
 -- TODO (07 January 2014): We couldn't prove Conat-stronger-coind.
 Conat-stronger-coind :
