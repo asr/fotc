@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Testing the co-induction principle for streams
+-- Streams using the standard library
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module StreamSL where
+module Stream.StreamSL where
 
 open import Data.Nat
 open import Data.Product

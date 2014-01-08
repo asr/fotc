@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOT.FOTC.Data.Stream.StreamSL where
+module FOT.FOTC.Data.Stream.TypeSL where
 
 open import Data.Product renaming ( _×_ to _∧_ )
 open import Coinduction

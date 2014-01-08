@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOT.FOTC.Data.Stream.PropertiesSL where
+module Stream.PropertiesSL where
 
 open import Data.Nat
 open import Data.Stream

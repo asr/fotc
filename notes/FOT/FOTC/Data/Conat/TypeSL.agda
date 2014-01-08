@@ -8,8 +8,8 @@
 
 module FOT.FOTC.Data.Conat.TypeSL where
 
-open import FOTC.Base
 open import Coinduction
+open import FOTC.Base
 
 ------------------------------------------------------------------------------
 

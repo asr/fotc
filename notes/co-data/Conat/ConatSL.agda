@@ -1,7 +1,11 @@
+------------------------------------------------------------------------------
+-- Co-inductive natural numbers using the standard library
+------------------------------------------------------------------------------
+
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module ConatSL where
+module Conat.ConatSL where
 
 open import Data.Product
 open import Data.Sum

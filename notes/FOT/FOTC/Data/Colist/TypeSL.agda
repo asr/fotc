@@ -6,12 +6,12 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOT.FOTC.Data.Colist.PredicateColistSL where
+module FOT.FOTC.Data.Colist.TypeSL where
+
+open import Coinduction
 
 open import FOTC.Base
 open import FOTC.Base.List
-
-open import Coinduction
 
 ------------------------------------------------------------------------------
 
