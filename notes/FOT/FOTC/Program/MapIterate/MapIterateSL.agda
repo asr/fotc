@@ -16,6 +16,8 @@ open import Relation.Binary.PropositionalEquality
 
 ------------------------------------------------------------------------------
 
+-- 08 January 2014. This code doesn't type check with the Agda
+-- standard library version 0.7 because the type of _≈_ changed.
 map-iterate : ∀ {A} (f : A → A) (x : A) →
               map f (iterate f x) ≈ iterate f (f x)
-map-iterate f x = f x ∷ ♯ map-iterate f (f x)
+map-iterate f x = refl ∷ ♯ map-iterate f (f x)
