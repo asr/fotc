@@ -49,7 +49,7 @@ postulate
   ∞D    : D
   ∞-eq : ∞D ≡ succ₁ ∞D
 
--- TODO (06 January 2014): Agda doesn't accept the proof of Conat ∞.
+-- TODO (06 January 2014): Agda doesn't accept the proof of Conat ∞D.
 {-# NO_TERMINATION_CHECK #-}
 ∞-Conat : Conat ∞D
 ∞-Conat = subst Conat (sym ∞-eq) (cosucc (♯ ∞-Conat))
