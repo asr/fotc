@@ -1,5 +1,5 @@
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+-- {-# OPTIONS --without-K #-}
 
 module FOT.FOTC.Data.Conat.PropertiesI where
 
@@ -10,8 +10,10 @@ open import FOTC.Data.Nat
 
 ------------------------------------------------------------------------------
 
+-- 09 January 2014. Doesn't type check with --without-K.
+--
 {-# NO_TERMINATION_CHECK #-}
 Conat→N : ∀ {n} → Conat n → N n
 Conat→N Cn with Conat-out Cn
-... | inj₁ prf              = subst N (sym prf) nzero
-... | inj₂ (n' , prf , Cn') = subst N (sym prf) (nsucc (Conat→N Cn'))
+... | inj₁ prf               = subst N (sym prf) nzero
+... | inj₂ (n' , refl , Cn') = nsucc (Conat→N Cn')
