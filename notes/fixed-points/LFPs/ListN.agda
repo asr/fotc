@@ -14,7 +14,7 @@
 --
 -- using the representation of ListN as the least fixed-point.
 
-module LeastFixedPoints.ListN where
+module LFPs.ListN where
 
 open import FOTC.Base
 open import FOTC.Base.List

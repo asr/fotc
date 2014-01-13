@@ -5,7 +5,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module LeastFixedPoints.List where
+module LFPs.List where
 
 open import FOTC.Base
 open import FOTC.Base.List

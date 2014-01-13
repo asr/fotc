@@ -6,7 +6,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module GreatestFixedPoints.Conat where
+module GFPs.Conat where
 
 open import FOTC.Base
 open import FOTC.Base.PropertiesI

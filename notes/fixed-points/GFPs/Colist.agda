@@ -6,7 +6,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module GreatestFixedPoints.Colist where
+module GFPs.Colist where
 
 open import FOTC.Base
 open import FOTC.Base.List
