@@ -48,10 +48,18 @@ postulate
   -- use it, we can use the trivial predicate A = λ x → x ≡ x in the
   -- proofs. Unfortunately, we don't have a justification/proof for
   -- this principle.
-  Conat-stronger-coind :
+  Conat-stronger-coind₁ :
     ∀ (A : D → Set) {n} →
     (A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
     A n → Conat n
+
+  -- Other stronger co-induction principle
+  --
+  -- Adapted from (Paulson, 1997. p. 16).
+  Conat-stronger-coind₂ :
+    (A : D → Set) →
+    (∀ {n} → A n → (n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) ∨ Conat n) →
+    ∀ {n} → A n → Conat n
 
 ------------------------------------------------------------------------------
 -- Conat-out and Conat-out-ho are equivalents
@@ -111,21 +119,21 @@ Conat-in-ho' : (∀ {n} → NatF Conat n) → ∀ {n} → Conat n
 Conat-in-ho' = Conat-in'
 
 ------------------------------------------------------------------------------
--- From Conat-coind/Conat-stronger-coind to Conat-stronger-coind/Conat-coind
+-- From Conat-coind/Conat-stronger-coind₁ to Conat-stronger-coind₁/Conat-coind
 
 Conat-coind'' :
   (A : D → Set) →
   (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
   ∀ {n} → A n → Conat n
-Conat-coind'' A h An = Conat-stronger-coind A h An
+Conat-coind'' A h An = Conat-stronger-coind₁ A h An
 
--- 22 December 2013: We cannot prove Conat-stronger-coind using
+-- 22 December 2013: We couln't prove Conat-stronger-coind₁ using
 -- Conat-coind.
-Conat-stronger-coind'' :
+Conat-stronger-coind₁' :
   ∀ (A : D → Set) {n} →
   (A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
   A n → Conat n
-Conat-stronger-coind'' A {n} h An = Conat-in (case prf₁ prf₂ (h An))
+Conat-stronger-coind₁' A {n} h An = Conat-in (case prf₁ prf₂ (h An))
   where
   prf₁ : n ≡ zero → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
   prf₁ n≡0 = inj₁ n≡0
@@ -133,3 +141,21 @@ Conat-stronger-coind'' A {n} h An = Conat-in (case prf₁ prf₂ (h An))
   prf₂ : ∃[ n' ] n ≡ succ₁ n' ∧ A n' →
          n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
   prf₂ (n' , prf , An') = inj₂ (n' , prf , {!!})
+
+------------------------------------------------------------------------------
+-- From Conat-stronger-coind₂ to Conat-stronger-coind₁
+
+-- 13 January 2014: We couln't prove Conat-stronger-coind₁ using
+-- Conat-stronger-coind₂.
+Conat-stronger-coind₁'' :
+  ∀ (A : D → Set) {n} →
+  (A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
+  A n → Conat n
+Conat-stronger-coind₁'' A h An = Conat-stronger-coind₂ A {!!} An
+
+------------------------------------------------------------------------------
+-- References
+--
+-- Paulson, L. C. (1997). Mechanizing Coinduction and Corecursion in
+-- Higher-order Logic. In: Journal of Logic and Computation 7.2,
+-- pp. 175–204.
