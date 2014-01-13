@@ -87,6 +87,12 @@ zero = In (inl <>)
 succ : N → N
 succ n = In (inr n)
 
+N-ind : (A : N → Set) →
+        A zero →
+        (∀ n → A n → A (succ n)) →
+        ∀ n → A n
+N-ind A A0 h n = {!!}
+
 -- The list type is a least fixed-point.
 List : Set → Set
 List A = μ (ListF A)
@@ -97,6 +103,12 @@ nil = In (inl <>)
 
 cons : {A : Set} → A → List A → List A
 cons x xs = In (inr (x , xs))
+
+List-ind : {A : Set}(B : List A → Set) →
+           B nil →
+           (∀ {x} (xs : List A) → B xs → B (cons x xs)) →
+           (xs : List A) → B xs
+List-ind B Bnil h xs = {!!}
 
 ------------------------------------------------------------------------------
 -- Types as greatest fixed-points

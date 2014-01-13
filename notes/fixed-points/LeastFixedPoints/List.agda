@@ -17,8 +17,8 @@ module LFP where
   -- List is a least fixed-point of a functor
 
   -- The functor.
-  -- ListF : (D → Set) → D → Set
-  -- ListF P xs = xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ P xs')
+  ListF : (D → Set) → D → Set
+  ListF A xs = xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
 
   -- List is the least fixed-point of ListF.
   postulate
@@ -30,6 +30,9 @@ module LFP where
     List-in : ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ List xs') →
               List xs
 
+    -- Higher-order version.
+    List-in-ho : {xs : D} → ListF List xs → List xs
+
     -- List is the least pre-fixed point of ListF.
     --
     -- Peter: It corresponds to the elimination rule of an inductively
@@ -38,6 +41,37 @@ module LFP where
       (A : D → Set) →
       (∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs') → A xs) →
       ∀ {xs} → List xs → A xs
+
+    -- Higher-order version.
+    List-ind-ho :
+      (A : D → Set) →
+      (∀ {xs} → ListF A xs → A xs) →
+      ∀ {xs} → List xs → A xs
+
+  ----------------------------------------------------------------------------
+  -- From/to L-in/L-in-ho to/from L-in-ho/L-in.
+
+  List-in-fo : ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ List xs') →
+               List xs
+  List-in-fo = List-in-ho
+
+  List-in-ho' : {xs : D} → ListF List xs → List xs
+  List-in-ho' = List-in-ho
+
+  ----------------------------------------------------------------------------
+  -- From/to L-ind/L-ind-ho to/from L-ind-ho/L-ind.
+
+  List-ind-fo :
+    (A : D → Set) →
+    (∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs') → A xs) →
+    ∀ {xs} → List xs → A xs
+  List-ind-fo = List-ind-ho
+
+  List-ind-ho' :
+    (A : D → Set) →
+    (∀ {xs} → ListF A xs → A xs) →
+    ∀ {xs} → List xs → A xs
+  List-ind-ho' = List-ind
 
   ----------------------------------------------------------------------------
   -- The data constructors of List.
@@ -48,7 +82,7 @@ module LFP where
   lcons x {xs} Lxs = List-in (inj₂ (x , xs , refl , Lxs))
 
   ----------------------------------------------------------------------------
-  -- The induction principle for List.
+  -- The type theoretical induction principle for List.
   List-ind' : (A : D → Set) →
               A [] →
               (∀ x {xs} → A xs → A (x ∷ xs)) →
@@ -97,13 +131,13 @@ module Data where
     prf₂ (x' , xs' , prf , Lxs') =  subst List (sym prf) (lcons x' Lxs')
 
   ----------------------------------------------------------------------------
-  -- List-least-pre-fixed
+  -- The fixed-point induction principle for List.
 
-  List-least-pre-fixed :
+  List-ind' :
     (A : D → Set) →
     (∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs') → A xs) →
     ∀ {xs} → List xs → A xs
-  List-least-pre-fixed A h Lxs = List-ind A h₁ h₂ Lxs
+  List-ind' A h Lxs = List-ind A h₁ h₂ Lxs
     where
     h₁ : A []
     h₁ = h (inj₁ refl)
