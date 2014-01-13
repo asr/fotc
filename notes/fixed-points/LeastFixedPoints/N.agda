@@ -32,7 +32,9 @@ module LFP where
   postulate
     N : D → Set
 
-    -- N is a pre-fixed point of NatF.
+    -- N is a pre-fixed point of NatF, i.e.
+    --
+    -- NatF N ≤ N.
     --
     -- Peter: It corresponds to the introduction rules.
     N-in : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n') → N n
@@ -40,7 +42,9 @@ module LFP where
     -- The higher-order version.
     N-in-ho : ∀ {n} → NatF N n → N n
 
-    -- N is the least pre-fixed point of NatF.
+    -- N is the least pre-fixed point of NatF, i.e.
+    --
+    -- ∀ A. NatF A ≤ A ⇒ N ≤ A.
     --
     -- Peter: It corresponds to the elimination rule of an inductively
     -- defined predicate.
@@ -54,7 +58,7 @@ module LFP where
       (A : D → Set) → (∀ {n} → NatF A n → A n) → ∀ {n} → N n → A n
 
   ----------------------------------------------------------------------------
-  -- From/to N-in/N-in-ho.
+  -- N-in and N-in-ho are equivalents
 
   N-in₁ : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n') → N n
   N-in₁ = N-in-ho
@@ -63,13 +67,13 @@ module LFP where
   N-in-ho₁ = N-in₁
 
   ----------------------------------------------------------------------------
-  -- From/to N-ind/N-ind-ho
+  -- N-ind and N-ind-ho are equivalents
 
-  N-ind' :
+  N-ind-fo :
     (A : D → Set) →
     (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n) →
     ∀ {n} → N n → A n
-  N-ind' = N-ind-ho
+  N-ind-fo = N-ind-ho
 
   N-ind-ho' :
     (A : D → Set) → (∀ {n} → NatF A n → A n) → ∀ {n} → N n → A n
@@ -102,7 +106,7 @@ module LFP where
       helper (inj₁ prf')                = subst N (sym prf') nzero
       helper (inj₂ (m'' , prf' , Am'')) = subst N (sym prf') (nsucc Am'')
 
-  -- Higher-order version.
+  -- The higher-order version.
   N-out-ho : ∀ {n} → N n → NatF N n
   N-out-ho = N-out
 

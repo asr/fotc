@@ -20,20 +20,24 @@ module LFP where
   ListF : (D → Set) → D → Set
   ListF A xs = xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
 
-  -- List is the least fixed-point of ListF.
+  -- List is the least fixed-point of ListF. i.e.
   postulate
     List : D → Set
 
-    -- List is a pre-fixed point of ListF.
+    -- List is a pre-fixed point of ListF, i.e.
+    --
+    -- ListF List ≤ List.
     --
     -- Peter: It corresponds to the introduction rules.
     List-in : ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ List xs') →
               List xs
 
-    -- Higher-order version.
+    -- The higher-order version.
     List-in-ho : {xs : D} → ListF List xs → List xs
 
-    -- List is the least pre-fixed point of ListF.
+    -- List is the least pre-fixed point of ListF, i.e.
+    --
+    -- ∀ A. ListF A ≤ A ⇒ List ≤ A.
     --
     -- Peter: It corresponds to the elimination rule of an inductively
     -- defined predicate.
@@ -49,7 +53,7 @@ module LFP where
       ∀ {xs} → List xs → A xs
 
   ----------------------------------------------------------------------------
-  -- From/to L-in/L-in-ho to/from L-in-ho/L-in.
+  -- List-in and List-in-ho are equivalents
 
   List-in-fo : ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ List xs') →
                List xs
@@ -59,7 +63,7 @@ module LFP where
   List-in-ho' = List-in-ho
 
   ----------------------------------------------------------------------------
-  -- From/to L-ind/L-ind-ho to/from L-ind-ho/L-ind.
+  -- List-ind and List-ind-ho are equivalents
 
   List-ind-fo :
     (A : D → Set) →

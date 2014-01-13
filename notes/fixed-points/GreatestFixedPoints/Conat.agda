@@ -32,7 +32,7 @@ postulate
 
   -- Conat is the greatest post-fixed point of NatF, i.e.
   --
-  -- ∀ P. P ≤ NatF P ⇒ P ≤ Conat.
+  -- ∀ A. A ≤ NatF A ⇒ A ≤ Conat.
   Conat-coind :
     (A : D → Set) →
     -- A is post-fixed point of ConatF.
@@ -56,8 +56,8 @@ postulate
 ------------------------------------------------------------------------------
 -- Conat-out and Conat-out-ho are equivalents
 
-Conat-out' : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
-Conat-out' = Conat-out-ho
+Conat-out-fo : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
+Conat-out-fo = Conat-out-ho
 
 Conat-out-ho' : ∀ {n} → Conat n → NatF Conat n
 Conat-out-ho' = Conat-out
@@ -65,11 +65,11 @@ Conat-out-ho' = Conat-out
 ------------------------------------------------------------------------------
 -- Conat-coind and Conat-coind-ho are equivalents
 
-Conat-coind' :
+Conat-coind-fo :
   (A : D → Set) →
   (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
   ∀ {n} → A n → Conat n
-Conat-coind' = Conat-coind-ho
+Conat-coind-fo = Conat-coind-ho
 
 Conat-coind-ho' :
   (A : D → Set) → (∀ {n} → A n → NatF A n) → ∀ {n} → A n → Conat n
@@ -93,6 +93,7 @@ Conat-in h = Conat-coind A h' h
   h' (inj₁ n≡0)              = inj₁ n≡0
   h' (inj₂ (n' , prf , Cn')) = inj₂ (n' , prf , Conat-out Cn')
 
+-- The higher-order version.
 Conat-in-ho : ∀ {n} → NatF Conat n → Conat n
 Conat-in-ho = Conat-in
 
