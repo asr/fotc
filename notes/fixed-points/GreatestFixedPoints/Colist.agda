@@ -2,6 +2,7 @@
 -- Co-lists
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --allow-unsolved-metas #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
@@ -99,6 +100,17 @@ Colist-coind-stronger :
     ∨ Colist xs) →
   ∀ {xs} → A xs → Colist xs
 Colist-coind-stronger = Colist-coind-stronger-ho
+
+-- 13 January 2014. As expected, we cannot prove
+-- Colist-coind-stronger-ho from Colist-coind-stronger.
+Colist-coind-stronger-ho' :
+  (A : D → Set) →
+  (∀ {xs} → A xs → ColistF A xs ∨ Colist xs) →
+  ∀ {xs} → A xs → Colist xs
+Colist-coind-stronger-ho' A h {xs} Axs = case prf (λ h' → h') (h Axs)
+  where
+  prf : ColistF A xs → Colist xs
+  prf h' = Colist-coind-ho A {!!} Axs
 
 ------------------------------------------------------------------------------
 -- References
