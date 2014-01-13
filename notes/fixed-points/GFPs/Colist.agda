@@ -102,7 +102,7 @@ Colist-coind-stronger :
 Colist-coind-stronger = Colist-coind-stronger-ho
 
 -- 13 January 2014. As expected, we cannot prove
--- Colist-coind-stronger-ho from Colist-coind-stronger.
+-- Colist-coind-stronger-ho from Colist-coind-ho.
 Colist-coind-stronger-ho' :
   (A : D → Set) →
   (∀ {xs} → A xs → ColistF A xs ∨ Colist xs) →
