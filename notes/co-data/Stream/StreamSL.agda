@@ -45,7 +45,7 @@ Streamℕ-coind f g a = f a ∷ ♯ (Streamℕ-coind f g a)
 ------------------------------------------------------------------------------
 -- References
 --
--- Giménez, E. (1995). Codifying guarded deﬁnitions with recursive
+-- Giménez, E. (1995). Codifying guarded definitions with recursive
 -- schemes. In: Types for Proofs and Programs (TYPES ’94). Ed. by
 -- Dybjer, P., Nordström, B. and Smith, J. Vol. 996. LNCS. Springer,
 -- pp. 39–59.

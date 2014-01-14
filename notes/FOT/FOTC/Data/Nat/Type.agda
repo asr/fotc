@@ -129,7 +129,7 @@ module AdditionalHypotheis where
 -- References
 --
 -- Martin-Löf, P. (1971). Hauptsatz for the Intuitionistic Theory of
--- Iterated Inductive Deﬁnitions. In: Proceedings of the Second
+-- Iterated Inductive Definitions. In: Proceedings of the Second
 -- Scandinavian Logic Symposium. Ed. by Fenstad,
 -- J. E. Vol. 63. Studies in Logic and the Foundations of
 -- Mathematics. North-Holland Publishing Company, pp. 179–216.
