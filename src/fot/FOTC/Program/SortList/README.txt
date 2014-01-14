@@ -7,4 +7,4 @@ list by converting it into an ordered tree and then back to a list
 (Burstall 1969).
 
 Burstall, R. M. (1969). Proving properties of programs by structural
-induction. In: The Computer Journal 12.1, pp. 41–48.
+induction. The Computer Journal 12.1, pp. 41–48.

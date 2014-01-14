@@ -157,5 +157,5 @@ Conat-stronger-coind₁'' A h An = Conat-stronger-coind₂ A {!!} An
 -- References
 --
 -- Paulson, L. C. (1997). Mechanizing Coinduction and Corecursion in
--- Higher-order Logic. In: Journal of Logic and Computation 7.2,
+-- Higher-order Logic. Journal of Logic and Computation 7.2,
 -- pp. 175–204.

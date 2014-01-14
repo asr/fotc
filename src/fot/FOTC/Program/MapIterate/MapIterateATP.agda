@@ -40,4 +40,4 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
 -- [Co-]Inductive Types in Coq.
 --
 -- Gibbons, Jeremy and Hutton, Graham (2005). Proof Methods for
--- Corecursive Programs. In: Fundamenta Informaticae XX, pp. 1–14.
+-- Corecursive Programs. Fundamenta Informaticae XX, pp. 1–14.

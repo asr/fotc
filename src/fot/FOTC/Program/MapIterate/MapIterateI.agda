@@ -77,4 +77,4 @@ iterate-Stream f x = Stream-coind A h (x , refl)
 -- [Co-]Inductive Types in Coq.
 --
 -- Gibbons, Jeremy and Hutton, Graham (2005). Proof Methods for
--- Corecursive Programs. In: Fundamenta Informaticae XX, pp. 1–14.
+-- Corecursive Programs. Fundamenta Informaticae XX, pp. 1–14.

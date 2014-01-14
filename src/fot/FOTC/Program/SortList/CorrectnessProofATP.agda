@@ -26,4 +26,4 @@ postulate sortCorrect : ∀ {is} → ListN is → OrdList (sort is)
 -- References
 --
 -- Burstall, R. M. (1969). Proving properties of programs by
--- structural induction. In: The Computer Journal 12.1, pp. 41–48.
+-- structural induction. The Computer Journal 12.1, pp. 41–48.
