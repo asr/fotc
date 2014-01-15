@@ -10,7 +10,8 @@ module Main where
 
 import Control.Monad ( replicateM )
 
-import Data.Stream as S
+import Data.Stream ( (<:>), Stream(Cons) )
+import qualified Data.Stream as S
 
 import System.Random ( newStdGen, random, randoms )
 

@@ -6,11 +6,8 @@ module Main where
 
 import Control.Monad ( when, replicateM )
 
-import Data.Stream.Infinite as S
-  ( Stream((:>))
-  , fromList
-  , take
-  )
+import Data.Stream.Infinite ( Stream((:>)) )
+import qualified Data.Stream.Infinite as S
 
 -- import Test.QuickCheck
 --   ( Arbitrary(arbitrary)

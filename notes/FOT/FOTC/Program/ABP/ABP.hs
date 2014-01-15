@@ -10,7 +10,8 @@ module Main where
 
 import Control.Monad ( liftM2, replicateM )
 
-import Data.Stream.Infinite as S
+import Data.Stream.Infinite ( Stream((:>)) )
+import qualified Data.Stream.Infinite as S
 
 import System.Random ( newStdGen, random, randoms )
 
