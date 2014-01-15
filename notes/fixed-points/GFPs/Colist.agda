@@ -15,25 +15,25 @@ open import FOTC.Base.List
 -- Colist is a greatest fixed-point of a functor
 
 -- The functor.
-ColistF : (D → Set) → D → Set
-ColistF A xs = xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
+ListF : (D → Set) → D → Set
+ListF A xs = xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
 
--- Colist is the greatest fixed-point of ColistF.
+-- Colist is the greatest fixed-point of ListF.
 postulate
   Colist : D → Set
 
-  -- Colist is a post-fixed point of ColistF, i.e.
+  -- Colist is a post-fixed point of ListF, i.e.
   --
-  -- Colist ≤ ColistF Colist.
-  Colist-out-ho : ∀ {n} → Colist n → ColistF Colist n
+  -- Colist ≤ ListF Colist.
+  Colist-out-ho : ∀ {n} → Colist n → ListF Colist n
 
-  -- Colist is the greatest post-fixed point of ColistF, i.e.
+  -- Colist is the greatest post-fixed point of ListF, i.e.
   --
-  -- ∀ A. A ≤ ColistF A ⇒ A ≤ Colist.
+  -- ∀ A. A ≤ ListF A ⇒ A ≤ Colist.
   Colist-coind-ho :
     (A : D → Set) →
-    -- A is post-fixed point of ColistF.
-    (∀ {xs} → A xs → ColistF A xs) →
+    -- A is post-fixed point of ListF.
+    (∀ {xs} → A xs → ListF A xs) →
     -- Colist is greater than A.
     ∀ {xs} → A xs → Colist xs
 
@@ -53,17 +53,17 @@ Colist-coind = Colist-coind-ho
 
 ------------------------------------------------------------------------------
 -- Because a greatest post-fixed point is a fixed-point, then the
--- Colist predicate is also a pre-fixed point of the functional
--- ColistF, i.e.
+-- Colist predicate is also a pre-fixed point of the functional ListF,
+-- i.e.
 --
--- ColistF Colist ≤ Colist.
-Colist-in-ho : ∀ {xs} → ColistF Colist xs → Colist xs
+-- ListF Colist ≤ Colist.
+Colist-in-ho : ∀ {xs} → ListF Colist xs → Colist xs
 Colist-in-ho h = Colist-coind-ho A h' h
   where
   A : D → Set
-  A xs = ColistF Colist xs
+  A xs = ListF Colist xs
 
-  h' : ∀ {xs} → A xs → ColistF A xs
+  h' : ∀ {xs} → A xs → ListF A xs
   h' (inj₁ xs≡0) = inj₁ xs≡0
   h' (inj₂ (x' , xs' , prf , CLxs' )) =
     inj₂ (x' , xs' , prf , Colist-out CLxs')
@@ -82,12 +82,12 @@ Colist-in = Colist-in-ho
 postulate
   Colist-coind-stronger-ho :
     (A : D → Set) →
-    (∀ {xs} → A xs → ColistF A xs ∨ Colist xs) →
+    (∀ {xs} → A xs → ListF A xs ∨ Colist xs) →
     ∀ {xs} → A xs → Colist xs
 
 Colist-coind-ho' :
   (A : D → Set) →
-  (∀ {xs} → A xs → ColistF A xs) →
+  (∀ {xs} → A xs → ListF A xs) →
   ∀ {xs} → A xs → Colist xs
 Colist-coind-ho' A h Axs =
   Colist-coind-stronger-ho A (λ Ays → inj₁ (h Ays)) Axs
@@ -102,14 +102,14 @@ Colist-coind-stronger :
 Colist-coind-stronger = Colist-coind-stronger-ho
 
 -- 13 January 2014. As expected, we cannot prove
--- Colist-coind-stronger-ho from Colist-coind-stronger.
+-- Colist-coind-stronger-ho from Colist-coind-ho.
 Colist-coind-stronger-ho' :
   (A : D → Set) →
-  (∀ {xs} → A xs → ColistF A xs ∨ Colist xs) →
+  (∀ {xs} → A xs → ListF A xs ∨ Colist xs) →
   ∀ {xs} → A xs → Colist xs
 Colist-coind-stronger-ho' A h {xs} Axs = case prf (λ h' → h') (h Axs)
   where
-  prf : ColistF A xs → Colist xs
+  prf : ListF A xs → Colist xs
   prf h' = Colist-coind-ho A {!!} Axs
 
 ------------------------------------------------------------------------------
