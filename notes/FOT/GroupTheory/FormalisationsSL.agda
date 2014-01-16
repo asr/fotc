@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Proving that two group theory formalizations are equivalents
+-- Proving that two group theory formalisations are equivalents
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -33,7 +33,7 @@
 -- [3] Coq implementation
 --     (http://coq.inria.fr/pylons/contribs/files/GroupTheory/v8.3/GroupTheory.g1.html)
 
-module FOT.GroupTheory.GroupTheoryFormalizations where
+module FOT.GroupTheory.FormalisationsSL where
 
 open import Data.Product
 open import Relation.Binary.PropositionalEquality
