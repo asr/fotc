@@ -2,8 +2,8 @@
 -- Proving properties without using pattern matching on refl
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-pattern-matching #-}
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
 
 module FOT.PA.Inductive.NoPatternMatchingOnRefl where
 
