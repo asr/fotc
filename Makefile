@@ -215,7 +215,10 @@ agda_changed : clean
 	   echo "Error: The directory $(snapshot_dir) does not exist"; \
 	   exit 1; \
 	fi
-	if ! (cd $(std_lib_path) && darcs pull); then \
+	if ! (cd $(std_lib_path) && \
+              git fetch && \
+              git checkout master && \
+              git merge origin/master); then \
            echo "Warning: Failed pulling for the Agda standard library"; \
 	fi
 	make type_check_fot
