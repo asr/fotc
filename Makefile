@@ -50,11 +50,12 @@ APIA_FOT = ${APIA} -i$(fot_path)
 ##############################################################################
 # Auxiliary functions
 
-my_pathsubst = $(patsubst %.agda,%.$(1), \
-	     	 $(shell find $(2) \( ! -path '*/Consistency/*' \) \
-                              \( -name '*.agda' -and ! -name 'UnprovedATP.agda' \) \
-                         | xargs grep -l 'ATP prove' \
-                         | sort))
+my_pathsubst = \
+  $(patsubst %.agda, %.$(1), \
+    $(shell find $(2) \( ! -path '*/Consistency/*' \) \
+                      \( -name '*.agda' -and ! -name 'UnprovedATP.agda' \) \
+            | xargs grep -l 'ATP prove' \
+            | sort))
 
 ##############################################################################
 # Files
@@ -62,36 +63,38 @@ my_pathsubst = $(patsubst %.agda,%.$(1), \
 # FOT
 
 type_check_fot_files = \
-  $(patsubst %.agda,%.type_check_fot, \
+  $(patsubst %.agda, %.type_check_fot, \
     $(shell find $(fot_path) -name 'Everything.agda' | sort))
 
 type_check_agsy_fot_files = \
-  $(patsubst %.agda,%.type_check_agsy_fot, \
+  $(patsubst %.agda, %.type_check_agsy_fot, \
     $(shell find $(fot_path)/Agsy/ -name '*.agda' | sort))
 
-create_snapshot_fot_files = $(call my_pathsubst,create_snapshot_fot,$(fot_path))
+create_snapshot_fot_files = \
+  $(call my_pathsubst, create_snapshot_fot, $(fot_path))
 
 compare_snapshot_fot_files = \
-  $(call my_pathsubst,compare_snapshot_fot,$(fot_path))
+  $(call my_pathsubst, compare_snapshot_fot, $(fot_path))
 
-prove_fot_files = $(call my_pathsubst,prove_fot,$(fot_path))
+prove_fot_files = $(call my_pathsubst, prove_fot, $(fot_path))
 
 consistency_fot_files = \
-  $(patsubst %.agda,%.consistency_fot, \
+  $(patsubst %.agda, %.consistency_fot, \
     $(shell find $(fot_path) -path '*/Consistency/*' -name '*.agda' | sort))
 
 # Notes
 
 type_check_notes_files = \
-  $(patsubst %.agda,%.type_check_notes, \
+  $(patsubst %.agda, %.type_check_notes, \
     $(shell find $(notes_path) -name '*.agda' | sort))
 
-prove_notes_files = $(call my_pathsubst,prove_notes,$(notes_path))
+prove_notes_files = $(call my_pathsubst, prove_notes, $(notes_path))
 
 # Others
 
-coq_type_check_files = $(patsubst %.v,%.coq_type_check, \
-	               $(shell find -name '*.v' | sort))
+coq_type_check_files = \
+  $(patsubst %.v, %.coq_type_check, \
+    $(shell find -name '*.v' | sort))
 
 benchmark_files = \
   $(fot_path)/FOTC/Base/PropertiesATP.benchmark \
