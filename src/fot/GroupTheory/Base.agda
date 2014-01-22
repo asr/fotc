@@ -21,10 +21,19 @@ postulate
   _·_ : G → G → G  -- The binary operation.
   _⁻¹ : G → G      -- The inverse function.
 
-  -- We choose a mininal set of axioms. See for example Saunders Mac
-  -- Lane and Garret Birkhoff. Algebra. AMS Chelsea Publishing, 3rd
-  -- edition, 1999. exercises 5-7, p. 50-51.
+  -- We choose a non-redundant set of axioms. See for example (Mac
+  -- Lane and Garret 1999, exercises 5-7, p. 50-51, or Hodges 1993,
+  -- p. 37).
   assoc         : ∀ a b c → a · b · c ≡ a · (b · c)
   leftIdentity  : ∀ a → ε · a         ≡ a
   leftInverse   : ∀ a → a ⁻¹ · a      ≡ ε
 {-# ATP axiom assoc leftIdentity leftInverse #-}
+
+------------------------------------------------------------------------------
+-- References
+--
+-- Hodges, W. (1993). Model Theory. Vol. 42. Encyclopedia of
+-- Mathematics and its Applications. Cambridge University Press.
+--
+-- Mac Lane, S. and Birkhof, G. (1999). Algebra. 3rd ed. AMS Chelsea
+-- Publishing.
