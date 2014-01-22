@@ -41,8 +41,8 @@ leftCancellation {a} {b} {c} h =
 
 -- A different proof without using congruence.
 leftCancellation' : ∀ {a b c} → a · b ≡ a · c → b ≡ c
--- Paper proof (Saunders Mac Lane and Garret Birkhoff. Algebra. AMS
--- Chelsea Publishing, 3rd edition, 1999. p. 48)
+-- Paper proof (Mac Lane and Garret Birkhoff 1999. p. 48):
+--
 -- 1. a⁻¹(ab) = a⁻¹(ac)  (hypothesis ab = ac)
 -- 2. a⁻¹a(b) = a⁻¹a(c)  (associative axiom)
 -- 3. εb      = εc       (left-inverse axiom for a⁻¹)
@@ -57,8 +57,7 @@ leftCancellation' {a} {b} {c} h =
   ε · c          ≡⟨ leftIdentity c ⟩
   c              ∎
 
--- Saunders Mac Lane and Garret Birkhoff. Algebra. AMS Chelsea
--- Publishing, 3rd edition, 1999. p. 50, exercise 6.
+-- Mac Lane and Garret Birkhoff (1999) p. 50, exercise 6.
 rightIdentity : ∀ a → a · ε ≡ a
 rightIdentity a = leftCancellation prf
   where
@@ -69,8 +68,7 @@ rightIdentity a = leftCancellation prf
         ε              ≡⟨ sym (leftInverse a) ⟩
         a ⁻¹ · a       ∎
 
--- Saunders Mac Lane and Garret Birkhoff. Algebra. AMS Chelsea
--- Publishing, 3rd edition, 1999. p. 50, exercise 6.
+-- Mac Lane and Garret Birkhoff (1999) p. 50, exercise 6.
 rightInverse : ∀ a → a · a ⁻¹ ≡ ε
 rightInverse a = leftCancellation prf
   where
@@ -84,6 +82,7 @@ rightInverse a = leftCancellation prf
 rightCancellation : ∀ {a b c} → b · a ≡ c · a → b ≡ c
 rightCancellation {a} {b} {c} h =
 -- Paper proof:
+--
 -- 1. (ba)a⁻¹ = (ca)a⁻¹  (hypothesis ab = ac)
 -- 2. (b)aa⁻¹ = (c)aa⁻¹  (associative axiom)
 -- 3. bε      = cε       (right-inverse axiom for a⁻¹)
@@ -114,8 +113,7 @@ x≡[xy]y⁻¹ a b = a              ≡⟨ sym (rightIdentity a) ⟩
                 a · b · b ⁻¹   ∎
 
 rightIdentityUnique : ∀ r → (∀ a → a · r ≡ a) → r ≡ ε
--- Paper proof (Saunders Mac Lane and Garret Birkhoff. Algebra. AMS
--- Chelsea Publishing, 3rd edition, 1999. p. 48):
+-- Paper proof (Saunders Mac Lane and Garret 1999. p. 48):
 --
 -- 1. r  = εr (ε is an identity)
 -- 2. εr = r  (hypothesis)
@@ -151,6 +149,7 @@ rightInverseUnique : ∀ {a} → ∃[ r ] (a · r ≡ ε) ∧
                                     (∀ r' → a · r' ≡ ε → r ≡ r')
 rightInverseUnique {a} =
 -- Paper proof:
+--
 -- 1.   We know that (a⁻¹) is a right inverse for a.
 -- 2.   Let's suppose there is other right inverse r for a, i.e. ar ≡ ε, then
 -- 2.1. aa⁻¹ = ε  (right-inverse axiom)
@@ -180,6 +179,7 @@ leftInverseUnique : ∀ {a} → ∃[ l ] (l · a ≡ ε) ∧
                                    (∀ l' → l' · a ≡ ε → l ≡ l')
 leftInverseUnique {a} =
 -- Paper proof:
+--
 -- 1.   We know that (a⁻¹) is a left inverse for a.
 -- 2.   Let's suppose there is other right inverse l for a, i.e. la ≡ ε, then
 -- 2.1. a⁻¹a = ε  (left-inverse axiom)
@@ -207,6 +207,7 @@ leftInverseUnique' {a} {l} la≡ε = rightCancellation a⁻¹a≡la
 
 ⁻¹-involutive : ∀ a → a ⁻¹ ⁻¹ ≡ a
 -- Paper proof:
+--
 -- 1. a⁻¹a = ε  (left-inverse axiom)
 -- 2. The previous equation states that a is the unique right
 -- inverse (a⁻¹)⁻¹ of a⁻¹.
@@ -214,6 +215,7 @@ leftInverseUnique' {a} {l} la≡ε = rightCancellation a⁻¹a≡la
 
 identityInverse : ε ⁻¹ ≡ ε
 -- Paper proof:
+--
 -- 1. εε = ε  (left/right-identity axiom)
 -- 2. The previous equation states that ε is the unique left/right
 -- inverse ε⁻¹ of ε.
@@ -221,11 +223,12 @@ identityInverse = rightInverseUnique' (leftIdentity ε)
 
 inverseDistribution : ∀ a b → (a · b) ⁻¹ ≡ b ⁻¹ · a ⁻¹
 -- Paper proof:
--- (b⁻¹a⁻¹)(ab) = b⁻¹(a⁻¹(ab))  (associative axiom)
---              = b⁻¹(a⁻¹a)b    (associative axiom)
---              = b⁻¹(εb)       (left-inverse axiom)
---              = b⁻¹b          (left-identity axiom)
---              = ε             (left-inverse axiom)
+--
+-- (b⁻¹a⁻¹)(ab) = b⁻¹(a⁻¹(ab)) (associative axiom)
+--              = b⁻¹(a⁻¹a)b   (associative axiom)
+--              = b⁻¹(εb)      (left-inverse axiom)
+--              = b⁻¹b         (left-identity axiom)
+--              = ε            (left-inverse axiom)
 -- Therefore, b⁻¹a⁻¹ is the unique left inverse of ab.
 inverseDistribution a b = leftInverseUnique' b⁻¹a⁻¹[ab]≡ε
   where
@@ -247,6 +250,7 @@ inverseDistribution a b = leftInverseUnique' b⁻¹a⁻¹[ab]≡ε
 -- commutative. From: TPTP 6.0.0 problem GRP/GRP001-2.p.
 x²≡ε→comm : (∀ a → a · a ≡ ε) → ∀ {b c d} → b · c ≡ d → c · b ≡ d
 -- Paper proof:
+--
 -- 1. d(bc)  = dd  (hypothesis bc = d)
 -- 2. d(bc)  = ε   (hypothesis dd = ε)
 -- 3. d(bc)c = c   (by 2)
@@ -283,3 +287,9 @@ x²≡ε→comm h {b} {c} {d} bc≡d = sym d≡cb
          d · (b · b) ≡⟨ sym (assoc d b b) ⟩
          d · b · b   ≡⟨ ·-leftCong db≡c ⟩
          c · b       ∎
+
+------------------------------------------------------------------------------
+-- References
+--
+-- Mac Lane, S. and Birkhof, G. (1999). Algebra. 3rd ed. AMS Chelsea
+-- Publishing.
