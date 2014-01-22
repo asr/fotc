@@ -71,12 +71,12 @@ type_check_agsy_fot_files = \
     $(shell find $(fot_path)/Agsy/ -name '*.agda' | sort))
 
 create_snapshot_fot_files = \
-  $(call my_pathsubst, create_snapshot_fot, $(fot_path))
+  $(call my_pathsubst,create_snapshot_fot,$(fot_path))
 
 compare_snapshot_fot_files = \
-  $(call my_pathsubst, compare_snapshot_fot, $(fot_path))
+  $(call my_pathsubst,compare_snapshot_fot,$(fot_path))
 
-prove_fot_files = $(call my_pathsubst, prove_fot, $(fot_path))
+prove_fot_files = $(call my_pathsubst,prove_fot,$(fot_path))
 
 consistency_fot_files = \
   $(patsubst %.agda, %.consistency_fot, \
@@ -88,7 +88,7 @@ type_check_notes_files = \
   $(patsubst %.agda, %.type_check_notes, \
     $(shell find $(notes_path) -name '*.agda' | sort))
 
-prove_notes_files = $(call my_pathsubst, prove_notes, $(notes_path))
+prove_notes_files = $(call my_pathsubst,prove_notes,$(notes_path))
 
 # Others
 
