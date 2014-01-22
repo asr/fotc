@@ -14,7 +14,7 @@ open import GroupTheory.Base
 --
 -- There are two definitions for the group commutator:
 --
--- • [a,b] = aba⁻¹b⁻¹ (Saunders Mac Lane and Garret 1999, p. 418).
+-- • [a,b] = aba⁻¹b⁻¹ (Mac Lane and Garret 1999, p. 418).
 --
 -- • [a,b] = a⁻¹b⁻¹ab (Kurosh 1960, p. 99).
 --

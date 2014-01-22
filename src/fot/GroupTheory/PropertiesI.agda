@@ -113,7 +113,7 @@ x≡[xy]y⁻¹ a b = a              ≡⟨ sym (rightIdentity a) ⟩
                 a · b · b ⁻¹   ∎
 
 rightIdentityUnique : ∀ r → (∀ a → a · r ≡ a) → r ≡ ε
--- Paper proof (Saunders Mac Lane and Garret 1999. p. 48):
+-- Paper proof (Mac Lane and Garret 1999. p. 48):
 --
 -- 1. r  = εr (ε is an identity)
 -- 2. εr = r  (hypothesis)
