@@ -222,7 +222,7 @@ agda_changed : clean
               git fetch && \
               git checkout master && \
               git merge origin/master); then \
-           echo "Warning: Failed pulling for the Agda standard library"; \
+           echo "Warning: Failed pulling the Agda standard library"; \
 	fi
 	make type_check_fot
 	make compare_snapshot_fot
