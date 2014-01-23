@@ -115,10 +115,10 @@ benchmark_files = \
 	$(AGDA_FOT) -i $(std_lib_path)/src/ $*.agda
 
 type_check_agsy_fot : $(type_check_agsy_fot_files)
-	$(AGDA_FOT) $(fot_path)/README.agda
 	@echo "$@ succeeded!"
 
-type_check_fot : $(type_check_agsy_fot_files)
+type_check_fot : $(type_check_fot_files)
+	make type_check_agsy_fot
 	$(AGDA_FOT) $(fot_path)/README.agda
 	@echo "$@ succeeded!"
 
@@ -226,7 +226,6 @@ agda_changed : clean
 	   exit 1; \
 	fi
 	make type_check_fot
-	make type_check_agsy_fot
 	make compare_snapshot_fot
 	make type_check_notes
 	make prove_notes
@@ -255,6 +254,7 @@ std_lib_changed :
            echo "Warning: Failed pulling the Agda standard library"; \
            exit 1; \
 	fi
+	make type_check_agsy_fot
 	make std_lib_changed_aux
 	@echo "$@ succeeded!"
 
