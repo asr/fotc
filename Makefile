@@ -88,6 +88,10 @@ type_check_notes_files = \
   $(patsubst %.agda, %.type_check_notes, \
     $(shell find $(notes_path) -name '*.agda' | sort))
 
+std_lib_changed_files = \
+  $(patsubst %.agda, %.std_lib_changed, \
+    $(shell find $(notes_path) -name '*SL.agda' | sort))
+
 prove_notes_files = $(call my_pathsubst,prove_notes,$(notes_path))
 
 # Others
@@ -110,8 +114,11 @@ benchmark_files = \
 %.type_check_agsy_fot :
 	$(AGDA_FOT) -i $(std_lib_path)/src/ $*.agda
 
-type_check_fot : $(type_check_fot_files) \
-                 $(type_check_agsy_fot_files)
+type_check_agsy_fot : $(type_check_agsy_fot_files)
+	$(AGDA_FOT) $(fot_path)/README.agda
+	@echo "$@ succeeded!"
+
+type_check_fot : $(type_check_agsy_fot_files)
 	$(AGDA_FOT) $(fot_path)/README.agda
 	@echo "$@ succeeded!"
 
@@ -218,16 +225,37 @@ agda_changed : clean
 	   echo "Error: The directory $(snapshot_dir) does not exist"; \
 	   exit 1; \
 	fi
+	make type_check_fot
+	make type_check_agsy_fot
+	make compare_snapshot_fot
+	make type_check_notes
+	make prove_notes
+	@echo "$@ succeeded!"
+
+##############################################################################
+# Test used when there is a modification to the Agda standard library
+
+std_lib_changed_path = \
+  -i$(fot_path) \
+  -i $(std_lib_path)/src/ \
+  -i$(notes_path) \
+  -i$(notes_path)/co-data \
+  -i$(notes_path)/k-axiom
+
+%.std_lib_changed :
+	$(AGDA) $(std_lib_changed_path) $*.agda
+
+std_lib_changed_aux : $(std_lib_changed_files)
+
+std_lib_changed :
 	if ! (cd $(std_lib_path) && \
               git fetch && \
               git checkout master && \
               git merge origin/master); then \
            echo "Warning: Failed pulling the Agda standard library"; \
+           exit 1; \
 	fi
-	make type_check_fot
-	make compare_snapshot_fot
-	make type_check_notes
-	make prove_notes
+	make std_lib_changed_aux
 	@echo "$@ succeeded!"
 
 ##############################################################################
