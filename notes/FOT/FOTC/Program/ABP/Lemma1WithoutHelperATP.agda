@@ -50,110 +50,110 @@ os₂^ os₂ = tail₁ os₂
 {-# ATP definition os₂^ #-}
 
 -- Helper function for the ABP lemma 1
--- module Helper where
---   -- 30 November 2013. If we don't have the following definitions
---   -- outside the where clause, the ATPs cannot prove the theorems.
+module Helper where
+  -- 30 November 2013. If we don't have the following definitions
+  -- outside the where clause, the ATPs cannot prove the theorems.
 
---   helper : ∀ b i' is' os₁ os₂ as bs cs ds js →
---            Bit b →
---            Fair os₂ →
---            S b (i' ∷ is') os₁ os₂ as bs cs ds js →
---            ∀ ft₁ os₁' → F*T ft₁ → Fair os₁' → os₁ ≡ ft₁ ++ os₁' →
---            ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
---              Fair os₁'
---              ∧ Fair os₂'
---              ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
---              ∧ js ≡ i' ∷ js'
---   helper b i' is' os₁ os₂ as bs cs ds js
---          Bb Fos₂ s .(T ∷ []) os₁' f*tnil Fos₁' os₁-eq = prf
---     where
---     postulate
---       prf : ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
---               Fair os₁'
---               ∧ Fair os₂'
---               ∧ (as' ≡ await b i' is' ds'
---                  ∧ bs' ≡ corrupt os₁' · as'
---                  ∧ cs' ≡ ack (not b) · bs'
---                  ∧ ds' ≡ corrupt os₂' · (b ∷ cs')
---                  ∧ js' ≡ out (not b) · bs')
---               ∧ js ≡ i' ∷ js'
---     {-# ATP prove prf #-}
+  helper : ∀ b i' is' os₁ os₂ as bs cs ds js →
+           Bit b →
+           Fair os₂ →
+           S b (i' ∷ is') os₁ os₂ as bs cs ds js →
+           ∀ ft₁ os₁' → F*T ft₁ → Fair os₁' → os₁ ≡ ft₁ ++ os₁' →
+           ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
+             Fair os₁'
+             ∧ Fair os₂'
+             ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
+             ∧ js ≡ i' ∷ js'
+  helper b i' is' os₁ os₂ as bs cs ds js
+         Bb Fos₂ s .(T ∷ []) os₁' f*tnil Fos₁' os₁-eq = prf
+    where
+    postulate
+      prf : ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
+              Fair os₁'
+              ∧ Fair os₂'
+              ∧ (as' ≡ await b i' is' ds'
+                 ∧ bs' ≡ corrupt os₁' · as'
+                 ∧ cs' ≡ ack (not b) · bs'
+                 ∧ ds' ≡ corrupt os₂' · (b ∷ cs')
+                 ∧ js' ≡ out (not b) · bs')
+              ∧ js ≡ i' ∷ js'
+    {-# ATP prove prf #-}
 
---   -- TODO (25 January 2014): Why Agda cannot refine using the helper
---   -- function? Agda bug?
---   helper b i' is' os₁ os₂ as bs cs ds js Bb Fos₂ s
---          .(F ∷ ft₁^) os₁' (f*tcons {ft₁^} FTft₁^) Fos₁' os₁-eq =
---          helper b i' is'
---                 (ft₁^ ++ os₁')
---                 (tail₁ os₂)
---                 (await b i' is' ds)
---                 (corrupt (ft₁^ ++ os₁') · await b i' is' ds)
---                 (ack b · (corrupt (ft₁^ ++ os₁') · await b i' is' ds))
---                 (corrupt (tail₁ os₂) ·
---                    (ack b · (corrupt (ft₁^ ++ os₁') · await b i' is' ds)))
---                 js
---                 Bb (tail-Fair Fos₂) ihS ft₁^ os₁' FTft₁^ Fos₁' refl
---     where
---     postulate os₁-eq-helper : os₁ ≡ F ∷ os₁^ os₁' ft₁^
---     {-# ATP prove os₁-eq-helper #-}
+  -- TODO (25 January 2014): Why Agda cannot refine using the helper
+  -- function? Agda bug?
+  helper b i' is' os₁ os₂ as bs cs ds js Bb Fos₂ s
+         .(F ∷ ft₁^) os₁' (f*tcons {ft₁^} FTft₁^) Fos₁' os₁-eq =
+         helper b i' is'
+                (ft₁^ ++ os₁')
+                (tail₁ os₂)
+                (await b i' is' ds)
+                (corrupt (ft₁^ ++ os₁') · await b i' is' ds)
+                (ack b · (corrupt (ft₁^ ++ os₁') · await b i' is' ds))
+                (corrupt (tail₁ os₂) ·
+                   (ack b · (corrupt (ft₁^ ++ os₁') · await b i' is' ds)))
+                js
+                Bb (tail-Fair Fos₂) ihS ft₁^ os₁' FTft₁^ Fos₁' refl
+    where
+    postulate os₁-eq-helper : os₁ ≡ F ∷ os₁^ os₁' ft₁^
+    {-# ATP prove os₁-eq-helper #-}
 
---     postulate as-eq : as ≡ < i' , b > ∷ (as^ b i' is' ds)
---     {-# ATP prove as-eq #-}
+    postulate as-eq : as ≡ < i' , b > ∷ (as^ b i' is' ds)
+    {-# ATP prove as-eq #-}
 
---     postulate bs-eq : bs ≡ error ∷ (bs^ b i' is' ds (os₁^ os₁' ft₁^))
---     {-# ATP prove bs-eq os₁-eq-helper as-eq #-}
+    postulate bs-eq : bs ≡ error ∷ (bs^ b i' is' ds (os₁^ os₁' ft₁^))
+    {-# ATP prove bs-eq os₁-eq-helper as-eq #-}
 
---     postulate cs-eq : cs ≡ not b ∷ cs^ b i' is' ds (os₁^ os₁' ft₁^)
---     {-# ATP prove cs-eq bs-eq #-}
+    postulate cs-eq : cs ≡ not b ∷ cs^ b i' is' ds (os₁^ os₁' ft₁^)
+    {-# ATP prove cs-eq bs-eq #-}
 
---     postulate
---       ds-eq-helper₁ :
---         os₂ ≡ T ∷ tail₁ os₂ →
---         ds ≡ ok (not b) ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
---     {-# ATP prove ds-eq-helper₁ cs-eq #-}
+    postulate
+      ds-eq-helper₁ :
+        os₂ ≡ T ∷ tail₁ os₂ →
+        ds ≡ ok (not b) ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
+    {-# ATP prove ds-eq-helper₁ cs-eq #-}
 
---     postulate
---       ds-eq-helper₂ : os₂ ≡ F ∷ tail₁ os₂ →
---                       ds ≡ error ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
---     {-# ATP prove ds-eq-helper₂ cs-eq #-}
+    postulate
+      ds-eq-helper₂ : os₂ ≡ F ∷ tail₁ os₂ →
+                      ds ≡ error ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
+    {-# ATP prove ds-eq-helper₂ cs-eq #-}
 
---     ds-eq : ds ≡ ok (not b) ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
---             ∨ ds ≡ error ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
---     ds-eq = case (λ h → inj₁ (ds-eq-helper₁ h))
---                  (λ h → inj₂ (ds-eq-helper₂ h))
---                  (head-tail-Fair Fos₂)
+    ds-eq : ds ≡ ok (not b) ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
+            ∨ ds ≡ error ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
+    ds-eq = case (λ h → inj₁ (ds-eq-helper₁ h))
+                 (λ h → inj₂ (ds-eq-helper₂ h))
+                 (head-tail-Fair Fos₂)
 
---     postulate
---       as^-eq-helper₁ :
---         ds ≡ ok (not b) ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂) →
---         as^ b i' is' ds ≡
---           send b · (i' ∷ is') · ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
---     {-# ATP prove as^-eq-helper₁ x≢not-x #-}
+    postulate
+      as^-eq-helper₁ :
+        ds ≡ ok (not b) ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂) →
+        as^ b i' is' ds ≡
+          send b · (i' ∷ is') · ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
+    {-# ATP prove as^-eq-helper₁ x≢not-x #-}
 
---     postulate
---       as^-eq-helper₂ :
---         ds ≡ error ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂) →
---         as^ b i' is' ds ≡
---           send b · (i' ∷ is') · ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
---     {-# ATP prove as^-eq-helper₂ #-}
+    postulate
+      as^-eq-helper₂ :
+        ds ≡ error ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂) →
+        as^ b i' is' ds ≡
+          send b · (i' ∷ is') · ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
+    {-# ATP prove as^-eq-helper₂ #-}
 
---     as^-eq : as^ b i' is' ds ≡
---              send b · (i' ∷ is') · ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
---     as^-eq = case as^-eq-helper₁ as^-eq-helper₂ ds-eq
+    as^-eq : as^ b i' is' ds ≡
+             send b · (i' ∷ is') · ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
+    as^-eq = case as^-eq-helper₁ as^-eq-helper₂ ds-eq
 
---     postulate js-eq : js ≡ out b · bs^ b i' is' ds (os₁^ os₁' ft₁^)
---     {-# ATP prove js-eq bs-eq #-}
+    postulate js-eq : js ≡ out b · bs^ b i' is' ds (os₁^ os₁' ft₁^)
+    {-# ATP prove js-eq bs-eq #-}
 
---     ihS : S b
---             (i' ∷ is')
---             (os₁^ os₁' ft₁^)
---             (os₂^ os₂)
---             (as^ b i' is' ds)
---             (bs^ b i' is' ds (os₁^ os₁' ft₁^))
---             (cs^ b i' is' ds (os₁^ os₁' ft₁^))
---             (ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂))
---             js
---     ihS = as^-eq , refl , refl , refl , js-eq
+    ihS : S b
+            (i' ∷ is')
+            (os₁^ os₁' ft₁^)
+            (os₂^ os₂)
+            (as^ b i' is' ds)
+            (bs^ b i' is' ds (os₁^ os₁' ft₁^))
+            (cs^ b i' is' ds (os₁^ os₁' ft₁^))
+            (ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂))
+            js
+    ihS = as^-eq , refl , refl , refl , js-eq
 
 ------------------------------------------------------------------------------
 -- From Dybjer and Sander's paper: From the assumption that os₁ ∈ Fair
@@ -162,103 +162,102 @@ os₂^ os₂ = tail₁ os₂
 --
 -- We proceed by induction on ft₁ : F*T using helper.
 
--- open Helper
-lemma₁ : ∀ b i' is' os₁ os₂ as bs cs ds js →
-         Bit b →
-         Fair os₁ →
-         Fair os₂ →
-         S b (i' ∷ is') os₁ os₂ as bs cs ds js →
-         ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-           Fair os₁'
-           ∧ Fair os₂'
-           ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
-           ∧ js ≡ i' ∷ js'
-lemma₁ b i' is' os₁ os₂ as bs cs ds js Bb Fos₁ Fos₂ s with Fair-out Fos₁
-... | .(true ∷ []) , os₁' , f*tnil , os₁≡ft₁++os₁' , Fos₁' = prf
-  where
-  postulate
-    prf : ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-            Fair os₁'
-            ∧ Fair os₂'
-            ∧ (as' ≡ await b i' is' ds'
-              ∧ bs' ≡ corrupt os₁' · as'
-              ∧ cs' ≡ ack (not b) · bs'
-              ∧ ds' ≡ corrupt os₂' · (b ∷ cs')
-              ∧ js' ≡ out (not b) · bs')
-            ∧ js ≡ i' ∷ js'
-  {-# ATP prove prf #-}
+-- lemma₁ : ∀ b i' is' os₁ os₂ as bs cs ds js →
+--          Bit b →
+--          Fair os₁ →
+--          Fair os₂ →
+--          S b (i' ∷ is') os₁ os₂ as bs cs ds js →
+--          ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
+--            Fair os₁'
+--            ∧ Fair os₂'
+--            ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
+--            ∧ js ≡ i' ∷ js'
+-- lemma₁ b i' is' os₁ os₂ as bs cs ds js Bb Fos₁ Fos₂ s with Fair-out Fos₁
+-- ... | .(true ∷ []) , os₁' , f*tnil , os₁≡ft₁++os₁' , Fos₁' = prf
+--   where
+--   postulate
+--     prf : ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
+--             Fair os₁'
+--             ∧ Fair os₂'
+--             ∧ (as' ≡ await b i' is' ds'
+--               ∧ bs' ≡ corrupt os₁' · as'
+--               ∧ cs' ≡ ack (not b) · bs'
+--               ∧ ds' ≡ corrupt os₂' · (b ∷ cs')
+--               ∧ js' ≡ out (not b) · bs')
+--             ∧ js ≡ i' ∷ js'
+--   {-# ATP prove prf #-}
 
-... | .(F ∷ ft₁^) , os₁' , f*tcons {ft₁^} FTft₁ , os₁≡ft₁++os₁' , Fos₁' =
-  lemma₁ b i' is'
-         (ft₁^ ++ os₁')
-         (tail₁ os₂)
-         (await b i' is' ds)
-         (corrupt (ft₁^ ++ os₁') · await b i' is' ds)
-         (ack b · (corrupt (ft₁^ ++ os₁') · await b i' is' ds))
-         (corrupt (tail₁ os₂) ·
-           (ack b · (corrupt (ft₁^ ++ os₁') · await b i' is' ds)))
-         js Bb ft₁^++-os₁'-Fair ((tail-Fair Fos₂)) ihS
-     where
-     ft₁^++-os₁'-Fair : Fair (ft₁^ ++ os₁')
-     ft₁^++-os₁'-Fair = Fair-in (ft₁^ , os₁' , FTft₁ , refl , Fos₁')
+-- ... | .(F ∷ ft₁^) , os₁' , f*tcons {ft₁^} FTft₁ , os₁≡ft₁++os₁' , Fos₁' =
+--   lemma₁ b i' is'
+--          (ft₁^ ++ os₁')
+--          (tail₁ os₂)
+--          (await b i' is' ds)
+--          (corrupt (ft₁^ ++ os₁') · await b i' is' ds)
+--          (ack b · (corrupt (ft₁^ ++ os₁') · await b i' is' ds))
+--          (corrupt (tail₁ os₂) ·
+--            (ack b · (corrupt (ft₁^ ++ os₁') · await b i' is' ds)))
+--          js Bb ft₁^++-os₁'-Fair ((tail-Fair Fos₂)) ihS
+--      where
+--      ft₁^++-os₁'-Fair : Fair (ft₁^ ++ os₁')
+--      ft₁^++-os₁'-Fair = Fair-in (ft₁^ , os₁' , FTft₁ , refl , Fos₁')
 
-     postulate os₁-eq-helper : os₁ ≡ F ∷ os₁^ os₁' ft₁^
-     {-# ATP prove os₁-eq-helper #-}
+--      postulate os₁-eq-helper : os₁ ≡ F ∷ os₁^ os₁' ft₁^
+--      {-# ATP prove os₁-eq-helper #-}
 
-     postulate as-eq : as ≡ < i' , b > ∷ (as^ b i' is' ds)
-     {-# ATP prove as-eq #-}
+--      postulate as-eq : as ≡ < i' , b > ∷ (as^ b i' is' ds)
+--      {-# ATP prove as-eq #-}
 
-     postulate bs-eq : bs ≡ error ∷ (bs^ b i' is' ds (os₁^ os₁' ft₁^))
-     {-# ATP prove bs-eq os₁-eq-helper as-eq #-}
+--      postulate bs-eq : bs ≡ error ∷ (bs^ b i' is' ds (os₁^ os₁' ft₁^))
+--      {-# ATP prove bs-eq os₁-eq-helper as-eq #-}
 
-     postulate cs-eq : cs ≡ not b ∷ cs^ b i' is' ds (os₁^ os₁' ft₁^)
-     {-# ATP prove cs-eq bs-eq #-}
+--      postulate cs-eq : cs ≡ not b ∷ cs^ b i' is' ds (os₁^ os₁' ft₁^)
+--      {-# ATP prove cs-eq bs-eq #-}
 
-     postulate
-       ds-eq-helper₁ :
-         os₂ ≡ T ∷ tail₁ os₂ →
-         ds ≡ ok (not b) ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
-     {-# ATP prove ds-eq-helper₁ cs-eq #-}
+--      postulate
+--        ds-eq-helper₁ :
+--          os₂ ≡ T ∷ tail₁ os₂ →
+--          ds ≡ ok (not b) ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
+--      {-# ATP prove ds-eq-helper₁ cs-eq #-}
 
-     postulate
-       ds-eq-helper₂ : os₂ ≡ F ∷ tail₁ os₂ →
-                       ds ≡ error ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
-     {-# ATP prove ds-eq-helper₂ cs-eq #-}
+--      postulate
+--        ds-eq-helper₂ : os₂ ≡ F ∷ tail₁ os₂ →
+--                        ds ≡ error ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
+--      {-# ATP prove ds-eq-helper₂ cs-eq #-}
 
-     ds-eq : ds ≡ ok (not b) ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
-             ∨ ds ≡ error ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
-     ds-eq = case (λ h → inj₁ (ds-eq-helper₁ h))
-                  (λ h → inj₂ (ds-eq-helper₂ h))
-                  (head-tail-Fair Fos₂)
+--      ds-eq : ds ≡ ok (not b) ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
+--              ∨ ds ≡ error ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
+--      ds-eq = case (λ h → inj₁ (ds-eq-helper₁ h))
+--                   (λ h → inj₂ (ds-eq-helper₂ h))
+--                   (head-tail-Fair Fos₂)
 
-     postulate
-       as^-eq-helper₁ :
-         ds ≡ ok (not b) ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂) →
-         as^ b i' is' ds ≡
-           send b · (i' ∷ is') · ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
-     {-# ATP prove as^-eq-helper₁ x≢not-x #-}
+--      postulate
+--        as^-eq-helper₁ :
+--          ds ≡ ok (not b) ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂) →
+--          as^ b i' is' ds ≡
+--            send b · (i' ∷ is') · ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
+--      {-# ATP prove as^-eq-helper₁ x≢not-x #-}
 
-     postulate
-       as^-eq-helper₂ :
-         ds ≡ error ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂) →
-         as^ b i' is' ds ≡
-           send b · (i' ∷ is') · ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
-     {-# ATP prove as^-eq-helper₂ #-}
+--      postulate
+--        as^-eq-helper₂ :
+--          ds ≡ error ∷ ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂) →
+--          as^ b i' is' ds ≡
+--            send b · (i' ∷ is') · ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
+--      {-# ATP prove as^-eq-helper₂ #-}
 
-     as^-eq : as^ b i' is' ds ≡
-              send b · (i' ∷ is') · ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
-     as^-eq = case as^-eq-helper₁ as^-eq-helper₂ ds-eq
+--      as^-eq : as^ b i' is' ds ≡
+--               send b · (i' ∷ is') · ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂)
+--      as^-eq = case as^-eq-helper₁ as^-eq-helper₂ ds-eq
 
-     postulate js-eq : js ≡ out b · bs^ b i' is' ds (os₁^ os₁' ft₁^)
-     {-# ATP prove js-eq bs-eq #-}
+--      postulate js-eq : js ≡ out b · bs^ b i' is' ds (os₁^ os₁' ft₁^)
+--      {-# ATP prove js-eq bs-eq #-}
 
-     ihS : S b
-             (i' ∷ is')
-             (os₁^ os₁' ft₁^)
-             (os₂^ os₂)
-             (as^ b i' is' ds)
-             (bs^ b i' is' ds (os₁^ os₁' ft₁^))
-             (cs^ b i' is' ds (os₁^ os₁' ft₁^))
-             (ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂))
-             js
-     ihS = as^-eq , refl , refl , refl , js-eq
+--      ihS : S b
+--              (i' ∷ is')
+--              (os₁^ os₁' ft₁^)
+--              (os₂^ os₂)
+--              (as^ b i' is' ds)
+--              (bs^ b i' is' ds (os₁^ os₁' ft₁^))
+--              (cs^ b i' is' ds (os₁^ os₁' ft₁^))
+--              (ds^ b i' is' ds (os₁^ os₁' ft₁^) (os₂^ os₂))
+--              js
+--      ihS = as^-eq , refl , refl , refl , js-eq
