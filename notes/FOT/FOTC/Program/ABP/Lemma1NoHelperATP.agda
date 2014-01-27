@@ -58,6 +58,10 @@ os₂^ os₂ = tail₁ os₂
 --
 -- We proceed by induction on ft₁ : F*T using helper.
 
+-- 26 January 2014. Pattern matching after a @with@ it is not accepted
+-- by the termination checker. See Agda issue 59, comment 18.
+
+{-# NO_TERMINATION_CHECK #-}
 lemma₁ : ∀ b i' is' os₁ os₂ as bs cs ds js →
          Bit b →
          Fair os₁ →
