@@ -30,210 +30,204 @@ open import FOTC.Program.ABP.Terms
 open import FOTC.Program.ABP.PropertiesI
 
 ------------------------------------------------------------------------------
--- Helper function for the ABP lemma 1
+-- Helper function for the lemma 1.
+helper : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
+         Bit b →
+         Fair os₂ →
+         S b (i' ∷ is') os₁ os₂ as bs cs ds js →
+         ∀ ft₁ os₁' → F*T ft₁ → Fair os₁' → os₁ ≡ ft₁ ++ os₁' →
+         ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
+           Fair os₁'
+           ∧ Fair os₂'
+           ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
+           ∧ js ≡ i' ∷ js'
+-- 2012-02-29. The existential witnesses could be avoid not using
+-- the auxiliary proofs inside the where clause.
+helper {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js} Bb Fos₂
+       (asS , bsS , csS , dsS , jsS)
+       .(T ∷ []) os₁' f*tnil Fos₁' os₁-eq =
+       os₁' , os₂' , as' , bs' , cs' , ds' , js'
+       , Fos₁' , Fos₂
+       , (refl , refl , refl , ds'-eq , refl)
+       , js-eq
+  where
+  os₁-eq-helper : os₁ ≡ T ∷ os₁'
+  os₁-eq-helper = os₁              ≡⟨ os₁-eq ⟩
+                  (T ∷ []) ++ os₁' ≡⟨ ++-∷ T [] os₁' ⟩
+                  T ∷ ([] ++ os₁') ≡⟨ ∷-rightCong (++-leftIdentity os₁') ⟩
+                  T ∷ os₁'         ∎
 
-module Helper where
+  as' : D
+  as' = await b i' is' ds
 
-  helper : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
-           Bit b →
-           Fair os₂ →
-           S b (i' ∷ is') os₁ os₂ as bs cs ds js →
-           ∀ ft₁ os₁' → F*T ft₁ → Fair os₁' → os₁ ≡ ft₁ ++ os₁' →
-           ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-             Fair os₁'
-             ∧ Fair os₂'
-             ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
-             ∧ js ≡ i' ∷ js'
-  -- 2012-02-29. The existential witnesses could be avoid not using
-  -- the auxiliary proofs inside the where clause.
-  helper {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js} Bb Fos₂
-         (asS , bsS , csS , dsS , jsS)
-         .(T ∷ []) os₁' f*tnil Fos₁' os₁-eq =
-         os₁' , os₂' , as' , bs' , cs' , ds' , js'
-         , Fos₁' , Fos₂
-         , (refl , refl , refl , ds'-eq , refl)
-         , js-eq
+  as-eq : as ≡ < i' , b > ∷ as'
+  as-eq = trans asS (send-eq b i' is' ds)
 
-    where
-    os₁-eq-helper : os₁ ≡ T ∷ os₁'
-    os₁-eq-helper = os₁              ≡⟨ os₁-eq ⟩
-                    (T ∷ []) ++ os₁' ≡⟨ ++-∷ T [] os₁' ⟩
-                    T ∷ ([] ++ os₁') ≡⟨ ∷-rightCong (++-leftIdentity os₁') ⟩
-                    T ∷ os₁'         ∎
+  bs' : D
+  bs' = corrupt os₁' · as'
 
-    as' : D
-    as' = await b i' is' ds
+  bs-eq : bs ≡ ok < i' , b > ∷ bs'
+  bs-eq =
+    bs
+      ≡⟨ bsS ⟩
+    corrupt os₁ · as
+      ≡⟨ ·-rightCong as-eq ⟩
+    corrupt os₁ · (< i' , b > ∷ as')
+      ≡⟨ ·-leftCong (corruptCong os₁-eq-helper) ⟩
+    corrupt (T ∷ os₁') · (< i' , b > ∷ as')
+      ≡⟨ corrupt-T os₁' < i' , b > as' ⟩
+    ok < i' , b > ∷ corrupt os₁' · as'
+      ≡⟨ refl ⟩
+    ok < i' , b > ∷ bs' ∎
 
-    as-eq : as ≡ < i' , b > ∷ as'
-    as-eq = trans asS (send-eq b i' is' ds)
+  cs' : D
+  cs' = ack (not b) · bs'
 
-    bs' : D
-    bs' = corrupt os₁' · as'
+  cs-eq : cs ≡ b ∷ cs'
+  cs-eq = cs                            ≡⟨ csS ⟩
+          ack b · bs                    ≡⟨ ·-rightCong bs-eq ⟩
+          ack b · (ok < i' , b > ∷ bs') ≡⟨ ack-ok≡ b b i' bs' refl ⟩
+          b ∷ ack (not b) · bs'         ≡⟨ refl ⟩
+          b ∷ cs'                       ∎
 
-    bs-eq : bs ≡ ok < i' , b > ∷ bs'
-    bs-eq =
-     bs ≡⟨ bsS ⟩
-      corrupt os₁ · as
-        ≡⟨ ·-rightCong as-eq ⟩
-      corrupt os₁ · (< i' , b > ∷ as')
-        ≡⟨ ·-leftCong (corruptCong os₁-eq-helper) ⟩
-      corrupt (T ∷ os₁') · (< i' , b > ∷ as')
-        ≡⟨ corrupt-T os₁' < i' , b > as' ⟩
-      ok < i' , b > ∷ corrupt os₁' · as'
-        ≡⟨ refl ⟩
-      ok < i' , b > ∷ bs' ∎
+  js' : D
+  js' = out (not b) · bs'
 
-    cs' : D
-    cs' = ack (not b) · bs'
+  js-eq : js ≡ i' ∷ js'
+  js-eq = js                            ≡⟨ jsS ⟩
+          out b · bs                    ≡⟨ ·-rightCong bs-eq ⟩
+          out b · (ok < i' , b > ∷ bs') ≡⟨ out-ok≡ b b i' bs' refl ⟩
+          i' ∷ out (not b) · bs'        ≡⟨ refl ⟩
+          i' ∷ js'                      ∎
 
-    cs-eq : cs ≡ b ∷ cs'
-    cs-eq = cs                            ≡⟨ csS ⟩
-            ack b · bs                    ≡⟨ ·-rightCong bs-eq ⟩
-            ack b · (ok < i' , b > ∷ bs') ≡⟨ ack-ok≡ b b i' bs' refl ⟩
-            b ∷ ack (not b) · bs'         ≡⟨ refl ⟩
-            b ∷ cs'                       ∎
+  ds' : D
+  ds' = ds
 
-    js' : D
-    js' = out (not b) · bs'
+  os₂' : D
+  os₂' = os₂
 
-    js-eq : js ≡ i' ∷ js'
-    js-eq = js                            ≡⟨ jsS ⟩
-            out b · bs                    ≡⟨ ·-rightCong bs-eq ⟩
-            out b · (ok < i' , b > ∷ bs') ≡⟨ out-ok≡ b b i' bs' refl ⟩
-            i' ∷ out (not b) · bs'        ≡⟨ refl ⟩
-            i' ∷ js'                      ∎
+  ds'-eq : ds' ≡ corrupt os₂ · (b ∷ ack (not b) ·
+                   (corrupt os₁' · (await b i' is' ds)))
+  ds'-eq =
+    ds'
+      ≡⟨ dsS ⟩
+    corrupt os₂ · cs
+      ≡⟨ ·-rightCong cs-eq ⟩
+    corrupt os₂ · (b ∷ cs')
+      ≡⟨ refl ⟩
+    corrupt os₂ · (b ∷ ack (not b) · (corrupt os₁' · (await b i' is' ds))) ∎
 
-    ds' : D
-    ds' = ds
+helper {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js}
+       Bb Fos₂ (asS , bsS , csS , dsS , jsS)
+       .(F ∷ ft₁^) os₁' (f*tcons {ft₁^} FTft₁^) Fos₁' os₁-eq =
+       helper Bb (tail-Fair Fos₂) ihS ft₁^  os₁' FTft₁^ Fos₁' refl
+  where
+  os₁^ : D
+  os₁^ = ft₁^ ++ os₁'
 
-    os₂' : D
-    os₂' = os₂
+  os₂^ : D
+  os₂^ = tail₁ os₂
 
-    ds'-eq : ds' ≡ corrupt os₂ · (b ∷ ack (not b) ·
-                     (corrupt os₁' · (await b i' is' ds)))
-    ds'-eq =
-      ds'
-        ≡⟨ dsS ⟩
-      corrupt os₂ · cs
-        ≡⟨ ·-rightCong cs-eq ⟩
-      corrupt os₂ · (b ∷ cs')
-        ≡⟨ refl ⟩
-      corrupt os₂ · (b ∷ ack (not b) · (corrupt os₁' · (await b i' is' ds))) ∎
+  os₁-eq-helper : os₁ ≡ F ∷ os₁^
+  os₁-eq-helper = os₁                ≡⟨ os₁-eq ⟩
+                  (F ∷ ft₁^) ++ os₁' ≡⟨ ++-∷ F ft₁^ os₁' ⟩
+                  F ∷ ft₁^ ++ os₁'   ≡⟨ refl ⟩
+                  F ∷ os₁^           ∎
 
-  helper {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js}
-         Bb Fos₂ (asS , bsS , csS , dsS , jsS)
-         .(F ∷ ft₁^) os₁' (f*tcons {ft₁^} FTft₁^) Fos₁' os₁-eq =
-         helper Bb (tail-Fair Fos₂) ihS ft₁^  os₁' FTft₁^ Fos₁' refl
+  as^ : D
+  as^ = await b i' is' ds
 
-    where
-    os₁^ : D
-    os₁^ = ft₁^ ++ os₁'
+  as-eq : as ≡ < i' , b > ∷ as^
+  as-eq = trans asS (send-eq b i' is' ds)
 
-    os₂^ : D
-    os₂^ = tail₁ os₂
+  bs^ : D
+  bs^ = corrupt os₁^ · as^
 
-    os₁-eq-helper : os₁ ≡ F ∷ os₁^
-    os₁-eq-helper = os₁                ≡⟨ os₁-eq ⟩
-                    (F ∷ ft₁^) ++ os₁' ≡⟨ ++-∷ F ft₁^ os₁' ⟩
-                    F ∷ ft₁^ ++ os₁'   ≡⟨ refl ⟩
-                    F ∷ os₁^           ∎
+  bs-eq : bs ≡ error ∷ bs^
+  bs-eq =
+    bs
+      ≡⟨ bsS ⟩
+    corrupt os₁ · as
+      ≡⟨ ·-rightCong as-eq ⟩
+    corrupt os₁ · (< i' , b > ∷ as^)
+      ≡⟨ ·-leftCong (corruptCong os₁-eq-helper) ⟩
+    corrupt (F ∷ os₁^) · (< i' , b > ∷ as^)
+      ≡⟨ corrupt-F os₁^ < i' , b > as^ ⟩
+    error ∷ corrupt os₁^ · as^
+      ≡⟨ refl ⟩
+    error ∷ bs^ ∎
 
-    as^ : D
-    as^ = await b i' is' ds
+  cs^ : D
+  cs^ = ack b · bs^
 
-    as-eq : as ≡ < i' , b > ∷ as^
-    as-eq = trans asS (send-eq b i' is' ds)
+  cs-eq : cs ≡ not b ∷ cs^
+  cs-eq = cs                    ≡⟨ csS ⟩
+          ack b · bs            ≡⟨ ·-rightCong bs-eq ⟩
+          ack b · (error ∷ bs^) ≡⟨ ack-error b bs^ ⟩
+          not b ∷ ack b · bs^   ≡⟨ refl ⟩
+          not b ∷ cs^           ∎
 
-    bs^ : D
-    bs^ = corrupt os₁^ · as^
+  ds^ : D
+  ds^ = corrupt os₂^ · cs^
 
-    bs-eq : bs ≡ error ∷ bs^
-    bs-eq =
-      bs
-        ≡⟨ bsS ⟩
-      corrupt os₁ · as
-        ≡⟨ ·-rightCong as-eq ⟩
-      corrupt os₁ · (< i' , b > ∷ as^)
-        ≡⟨ ·-leftCong (corruptCong os₁-eq-helper) ⟩
-      corrupt (F ∷ os₁^) · (< i' , b > ∷ as^)
-        ≡⟨ corrupt-F os₁^ < i' , b > as^ ⟩
-      error ∷ corrupt os₁^ · as^
-        ≡⟨ refl ⟩
-      error ∷ bs^ ∎
+  ds-eq-helper₁ : os₂ ≡ T ∷ tail₁ os₂ → ds ≡ ok (not b) ∷ ds^
+  ds-eq-helper₁ h =
+    ds                                 ≡⟨ dsS ⟩
+    corrupt os₂ · cs                   ≡⟨ ·-rightCong cs-eq ⟩
+    corrupt os₂ · (not b ∷ cs^)        ≡⟨ ·-leftCong (corruptCong h) ⟩
+    corrupt (T ∷ os₂^) · (not b ∷ cs^) ≡⟨ corrupt-T os₂^ (not b) cs^ ⟩
+    ok (not b) ∷ corrupt os₂^ · cs^    ≡⟨ refl ⟩
+    ok (not b) ∷ ds^                   ∎
 
-    cs^ : D
-    cs^ = ack b · bs^
+  ds-eq-helper₂ : os₂ ≡ F ∷ tail₁ os₂ → ds ≡ error ∷ ds^
+  ds-eq-helper₂ h =
+    ds                                 ≡⟨ dsS ⟩
+    corrupt os₂ · cs                   ≡⟨ ·-rightCong cs-eq ⟩
+    corrupt os₂ · (not b ∷ cs^)        ≡⟨ ·-leftCong (corruptCong h) ⟩
+    corrupt (F ∷ os₂^) · (not b ∷ cs^) ≡⟨ corrupt-F os₂^ (not b) cs^ ⟩
+    error ∷ corrupt os₂^ · cs^         ≡⟨ refl ⟩
+    error ∷ ds^                        ∎
 
-    cs-eq : cs ≡ not b ∷ cs^
-    cs-eq = cs                    ≡⟨ csS ⟩
-            ack b · bs            ≡⟨ ·-rightCong bs-eq ⟩
-            ack b · (error ∷ bs^) ≡⟨ ack-error b bs^ ⟩
-            not b ∷ ack b · bs^   ≡⟨ refl ⟩
-            not b ∷ cs^           ∎
+  ds-eq : ds ≡ ok (not b) ∷ ds^ ∨ ds ≡ error ∷ ds^
+  ds-eq = case (λ h → inj₁ (ds-eq-helper₁ h))
+               (λ h → inj₂ (ds-eq-helper₂ h))
+               (head-tail-Fair Fos₂)
 
-    ds^ : D
-    ds^ = corrupt os₂^ · cs^
+  as^-eq-helper₁ : ds ≡ ok (not b) ∷ ds^ → as^ ≡ send b · (i' ∷ is') · ds^
+  as^-eq-helper₁ h =
+    await b i' is' ds
+      ≡⟨ awaitCong₄ h ⟩
+    await b i' is' (ok (not b) ∷ ds^)
+      ≡⟨ await-ok≢ b (not b) i' is' ds^ (x≢not-x Bb) ⟩
+    < i' , b > ∷ await b i' is' ds^
+      ≡⟨ sym (send-eq b i' is' ds^) ⟩
+    send b · (i' ∷ is') · ds^ ∎
 
-    ds-eq-helper₁ : os₂ ≡ T ∷ tail₁ os₂ → ds ≡ ok (not b) ∷ ds^
-    ds-eq-helper₁ h =
-      ds                                 ≡⟨ dsS ⟩
-      corrupt os₂ · cs                   ≡⟨ ·-rightCong cs-eq ⟩
-      corrupt os₂ · (not b ∷ cs^)        ≡⟨ ·-leftCong (corruptCong h) ⟩
-      corrupt (T ∷ os₂^) · (not b ∷ cs^) ≡⟨ corrupt-T os₂^ (not b) cs^ ⟩
-      ok (not b) ∷ corrupt os₂^ · cs^    ≡⟨ refl ⟩
-      ok (not b) ∷ ds^                   ∎
+  as^-eq-helper₂ : ds ≡ error ∷ ds^ → as^ ≡ send b · (i' ∷ is') · ds^
+  as^-eq-helper₂ h =
+    await b i' is' ds               ≡⟨ awaitCong₄ h ⟩
+    await b i' is' (error ∷ ds^)    ≡⟨ await-error b i' is' ds^ ⟩
+    < i' , b > ∷ await b i' is' ds^ ≡⟨ sym (send-eq b i' is' ds^) ⟩
+    send b · (i' ∷ is') · ds^       ∎
 
-    ds-eq-helper₂ : os₂ ≡ F ∷ tail₁ os₂ → ds ≡ error ∷ ds^
-    ds-eq-helper₂ h =
-      ds                                 ≡⟨ dsS ⟩
-      corrupt os₂ · cs                   ≡⟨ ·-rightCong cs-eq ⟩
-      corrupt os₂ · (not b ∷ cs^)        ≡⟨ ·-leftCong (corruptCong h) ⟩
-      corrupt (F ∷ os₂^) · (not b ∷ cs^) ≡⟨ corrupt-F os₂^ (not b) cs^ ⟩
-      error ∷ corrupt os₂^ · cs^         ≡⟨ refl ⟩
-      error ∷ ds^                        ∎
+  as^-eq : as^ ≡ send b · (i' ∷ is') · ds^
+  as^-eq = case as^-eq-helper₁ as^-eq-helper₂ ds-eq
 
-    ds-eq : ds ≡ ok (not b) ∷ ds^ ∨ ds ≡ error ∷ ds^
-    ds-eq = case (λ h → inj₁ (ds-eq-helper₁ h))
-                 (λ h → inj₂ (ds-eq-helper₂ h))
-                 (head-tail-Fair Fos₂)
+  js-eq : js ≡ out b · bs^
+  js-eq = js                    ≡⟨ jsS ⟩
+          out b · bs            ≡⟨ ·-rightCong bs-eq ⟩
+          out b · (error ∷ bs^) ≡⟨ out-error b bs^ ⟩
+          out b · bs^           ∎
 
-    as^-eq-helper₁ : ds ≡ ok (not b) ∷ ds^ → as^ ≡ send b · (i' ∷ is') · ds^
-    as^-eq-helper₁ h =
-      await b i' is' ds
-        ≡⟨ awaitCong₄ h ⟩
-      await b i' is' (ok (not b) ∷ ds^)
-        ≡⟨ await-ok≢ b (not b) i' is' ds^ (x≢not-x Bb) ⟩
-      < i' , b > ∷ await b i' is' ds^
-        ≡⟨ sym (send-eq b i' is' ds^) ⟩
-      send b · (i' ∷ is') · ds^ ∎
+  ihS : S b (i' ∷ is') os₁^ os₂^ as^ bs^ cs^ ds^ js
+  ihS = as^-eq , refl , refl , refl , js-eq
 
-    as^-eq-helper₂ : ds ≡ error ∷ ds^ → as^ ≡ send b · (i' ∷ is') · ds^
-    as^-eq-helper₂ h =
-      await b i' is' ds               ≡⟨ awaitCong₄ h ⟩
-      await b i' is' (error ∷ ds^)    ≡⟨ await-error b i' is' ds^ ⟩
-      < i' , b > ∷ await b i' is' ds^ ≡⟨ sym (send-eq b i' is' ds^) ⟩
-      send b · (i' ∷ is') · ds^     ∎
-
-    as^-eq : as^ ≡ send b · (i' ∷ is') · ds^
-    as^-eq = case as^-eq-helper₁ as^-eq-helper₂ ds-eq
-
-    js-eq : js ≡ out b · bs^
-    js-eq = js                    ≡⟨ jsS ⟩
-            out b · bs            ≡⟨ ·-rightCong bs-eq ⟩
-            out b · (error ∷ bs^) ≡⟨ out-error b bs^ ⟩
-            out b · bs^ ∎
-
-    ihS : S b (i' ∷ is') os₁^ os₂^ as^ bs^ cs^ ds^ js
-    ihS = as^-eq , refl , refl , refl , js-eq
-
-------------------------------------------------------------------------------
 -- From Dybjer and Sander's paper: From the assumption that os₁ ∈ Fair
 -- and hence by unfolding Fair, we conclude that there are ft₁ :  F*T
 -- and os₁' : Fair, such that os₁ = ft₁ ++ os₁'.
 --
 -- We proceed by induction on ft₁ : F*T using helper.
 
-open Helper
 lemma₁ : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
          Bit b →
          Fair os₁ →
