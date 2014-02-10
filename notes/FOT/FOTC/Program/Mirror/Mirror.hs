@@ -1,7 +1,7 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
 ------------------------------------------------------------------------------
--- Using mutual data types
+-- Using mutually recursive data types
 data Tree a   = Tree a (Forest a)
 data Forest a = Fnil | Fcons (Tree a) (Forest a)
 
