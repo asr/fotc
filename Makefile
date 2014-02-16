@@ -11,7 +11,7 @@ fot_path   = src/fot
 peano_path = src/peano
 
 # Agda standard library path.
-std_lib_path = ~/agda-upstream/std-lib
+std_lib_path = /home/asr/agda-upstream/std-lib
 # std_lib_path = /home/asr/src/agdas/std-lib/lib-0.7
 
 # Notes path.
@@ -112,7 +112,7 @@ benchmark_files = \
 	$(AGDA_FOT) $*.agda
 
 %.type_check_agsy_fot :
-	$(AGDA_FOT) -i $(std_lib_path)/src/ $*.agda
+	$(AGDA_FOT) -i$(std_lib_path)/src/ $*.agda
 
 type_check_agsy_fot : $(type_check_agsy_fot_files)
 	@echo "$@ succeeded!"
@@ -178,7 +178,7 @@ consistency_fot : $(consistency_fot_files)
 
 type_check_notes_path = \
   -i$(fot_path) \
-  -i $(std_lib_path)/src/ \
+  -i$(std_lib_path)/src/ \
   -i$(notes_path) \
   -i$(notes_path)/co-data \
   -i$(notes_path)/discrimination-rules \
@@ -236,7 +236,7 @@ agda_changed : clean
 
 std_lib_changed_path = \
   -i$(fot_path) \
-  -i $(std_lib_path)/src/ \
+  -i$(std_lib_path)/src/ \
   -i$(notes_path) \
   -i$(notes_path)/co-data \
   -i$(notes_path)/k-axiom
