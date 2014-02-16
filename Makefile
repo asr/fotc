@@ -247,13 +247,6 @@ std_lib_changed_path = \
 std_lib_changed_aux : $(std_lib_changed_files)
 
 std_lib_changed :
-	if ! (cd $(std_lib_path) && \
-              git fetch && \
-              git checkout master && \
-              git merge origin/master); then \
-           echo "Warning: Failed pulling the Agda standard library"; \
-           exit 1; \
-	fi
 	make type_check_agsy_fot
 	make std_lib_changed_aux
 	@echo "$@ succeeded!"
