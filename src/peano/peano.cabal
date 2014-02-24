@@ -5,7 +5,7 @@ cabal-version: >= 1.8
 author:        Andrés Sicard-Ramírez
 license:       MIT
 license-file:  LICENSE
-maintainer:    Andrés Sicard-Ramírez <andres.sicard.ramirez@gmail.com>
+maintainer:    Andrés Sicard-Ramírez <asr@eafit.edu.co>
 category:      Data
 synopsis:      Peano natural numbers
 tested-with:   GHC == 7.6.3
