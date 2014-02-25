@@ -44,3 +44,12 @@ open import FOL.Base hiding ( D≢∅ ; pem )
 
   r⇒l : P ∧ Q ∨ P ∧ R ⇒ P ∧ (Q ∨ R)
   r⇒l = fun r→l
+
+DM : {P Q : Set} → ¬ (P ∨ Q) ↔ ¬ P ∧ ¬ Q
+DM {P} {Q} = l→r , r→l
+  where
+  l→r : ¬ (P ∨ Q) → ¬ P ∧ ¬ Q
+  l→r h = (λ p → h (inj₁ p)) , (λ q → h (inj₂ q))
+
+  r→l : ¬ P ∧ ¬ Q → ¬ (P ∨ Q)
+  r→l (¬p , ¬q) p∨q = case ¬p ¬q p∨q

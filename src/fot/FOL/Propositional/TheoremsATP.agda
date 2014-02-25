@@ -66,7 +66,7 @@ postulate
 {-# ATP prove ⊥E' #-}
 
 ------------------------------------------------------------------------------
--- Boolean laws
+-- Boolean laws (there are some non-intuitionistic laws)
 
 postulate
   ∧-ident : P ∧ ⊤       ↔ P
@@ -82,8 +82,8 @@ postulate
   ∨-assoc : (P ∨ Q) ∨ R ↔ P ∨ Q ∨ R
   ∧∨-dist : P ∧ (Q ∨ R) ↔ P ∧ Q ∨ P ∧ R
   ∨∧-dist : P ∨ Q ∧ R   ↔ (P ∨ Q) ∧ (P ∨ R)
-  DM₁     : ¬ (P ∧ Q)   ↔ ¬ P ∨ ¬ Q
-  DM₂     : ¬ (P ∨ Q)   ↔ ¬ P ∧ ¬ Q
+  DM₁     : ¬ (P ∨ Q)   ↔ ¬ P ∧ ¬ Q
+  DM₂     : ¬ (P ∧ Q)   ↔ ¬ P ∨ ¬ Q
   abs₁    : P ∨ P ∧ Q   ↔ P
   abs₂    : P ∧ (P ∨ Q) ↔ P
   ∧-neg   : P ∧ ¬ P     ↔ ⊥
@@ -151,7 +151,6 @@ postulate
 {-# ATP prove i₅ #-}
 {-# ATP prove i₆ #-}
 {-# ATP prove i₇ #-}
-
 
 ------------------------------------------------------------------------------
 -- Some non-intuitionistic theorems
