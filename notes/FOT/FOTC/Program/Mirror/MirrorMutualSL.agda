@@ -42,10 +42,10 @@ reverse []       = []
 reverse (a ∷ ts) = reverse ts ++ a ∷ []
 
 postulate
-  map-++-commute     : {A B : Set}(f : Tree A → Tree B)(xs ys : Forest A) →
-                       map f (xs ++ ys) ≡ map f xs ++ map f ys
-  reverse-++-commute : {A : Set}(xs ys : Forest A) →
-                       reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
+  map-++     : {A B : Set}(f : Tree A → Tree B)(xs ys : Forest A) →
+               map f (xs ++ ys) ≡ map f xs ++ map f ys
+  reverse-++ : {A : Set}(xs ys : Forest A) →
+               reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
 
 ------------------------------------------------------------------------------
 -- The mirror function.
@@ -73,14 +73,14 @@ helper (t ∷ ts) =
   begin
     reverse (map mirror (reverse (map mirror ts) ++ mirror t ∷ []))
      ≡⟨ cong reverse
-             (map-++-commute mirror (reverse (map mirror ts)) (mirror t ∷ []))
+             (map-++ mirror (reverse (map mirror ts)) (mirror t ∷ []))
      ⟩
     reverse (map mirror (reverse (map mirror ts)) ++
             (map mirror (mirror t ∷ [])))
       ≡⟨ subst (λ x → (reverse (map mirror (reverse (map mirror ts)) ++
                                     (map mirror (mirror t ∷ [])))) ≡ x)
-               (reverse-++-commute (map mirror (reverse (map mirror ts)))
-                                   (map mirror (mirror t ∷ [])))
+               (reverse-++ (map mirror (reverse (map mirror ts)))
+                           (map mirror (mirror t ∷ [])))
                refl
       ⟩
     reverse (map mirror (mirror t ∷ [])) ++

@@ -93,13 +93,12 @@ postulate lg-xs≡∞→lg-x∷xs≡∞ : ∀ x xs → length xs ≡ ∞ → len
 
 -- Map properties
 
-map-++-commute : ∀ f {xs} → List xs → ∀ ys →
-                 map f (xs ++ ys) ≡ map f xs ++ map f ys
-map-++-commute f lnil ys = prf
+map-++ : ∀ f {xs} → List xs → ∀ ys → map f (xs ++ ys) ≡ map f xs ++ map f ys
+map-++ f lnil ys = prf
   where postulate prf : map f ([] ++ ys) ≡ map f [] ++ map f ys
         {-# ATP prove prf #-}
 
-map-++-commute f (lcons x {xs} Lxs) ys = prf (map-++-commute f Lxs ys)
+map-++ f (lcons x {xs} Lxs) ys = prf (map-++ f Lxs ys)
   where postulate prf : map f (xs ++ ys) ≡ map f xs ++ map f ys →
                         map f ((x ∷ xs) ++ ys) ≡ map f (x ∷ xs) ++ map f ys
         {-# ATP prove prf #-}
@@ -109,36 +108,35 @@ map-++-commute f (lcons x {xs} Lxs) ys = prf (map-++-commute f Lxs ys)
 postulate reverse-[x]≡[x] : ∀ x → reverse (x ∷ []) ≡ x ∷ []
 {-# ATP prove reverse-[x]≡[x] #-}
 
-rev-++-commute : ∀ {xs} → List xs → ∀ ys → rev xs ys ≡ rev xs [] ++ ys
-rev-++-commute lnil ys = prf
+rev-++ : ∀ {xs} → List xs → ∀ ys → rev xs ys ≡ rev xs [] ++ ys
+rev-++ lnil ys = prf
   where postulate prf : rev [] ys ≡ rev [] [] ++ ys
         {-# ATP prove prf #-}
-rev-++-commute (lcons x {xs} Lxs) ys =
-  prf (rev-++-commute Lxs (x ∷ ys)) (rev-++-commute Lxs (x ∷ []))
+rev-++ (lcons x {xs} Lxs) ys = prf (rev-++ Lxs (x ∷ ys)) (rev-++ Lxs (x ∷ []))
   where postulate prf : rev xs (x ∷ ys) ≡ rev xs [] ++ x ∷ ys →
                         rev xs (x ∷ []) ≡ rev xs [] ++ x ∷ [] →
                         rev (x ∷ xs) ys ≡ rev (x ∷ xs) [] ++ ys
         {-# ATP prove prf ++-assoc rev-List #-}
 
-reverse-++-commute : ∀ {xs ys} → List xs → List ys →
-                     reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
-reverse-++-commute {ys = ys} lnil Lys = prf
+reverse-++ : ∀ {xs ys} → List xs → List ys →
+             reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
+reverse-++ {ys = ys} lnil Lys = prf
   where postulate prf : reverse ([] ++ ys) ≡ reverse ys ++ reverse []
         {-# ATP prove prf ++-rightIdentity reverse-List #-}
 
-reverse-++-commute (lcons x {xs} Lxs) lnil = prf
+reverse-++ (lcons x {xs} Lxs) lnil = prf
   where
   postulate prf : reverse ((x ∷ xs) ++ []) ≡ reverse [] ++ reverse (x ∷ xs)
   {-# ATP prove prf ++-rightIdentity #-}
 
-reverse-++-commute (lcons x {xs} Lxs) (lcons y {ys} Lys) =
-  prf (reverse-++-commute Lxs (lcons y Lys))
+reverse-++ (lcons x {xs} Lxs) (lcons y {ys} Lys) =
+  prf (reverse-++ Lxs (lcons y Lys))
   where
   postulate prf : reverse (xs ++ y ∷ ys) ≡ reverse (y ∷ ys) ++
                                            reverse xs →
                   reverse ((x ∷ xs) ++ y ∷ ys) ≡ reverse (y ∷ ys) ++
                                                  reverse (x ∷ xs)
-  {-# ATP prove prf reverse-List ++-List rev-++-commute ++-assoc #-}
+  {-# ATP prove prf reverse-List ++-List rev-++ ++-assoc #-}
 
 reverse-∷ : ∀ x {ys} → List ys →
             reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])
@@ -148,7 +146,7 @@ reverse-∷ x lnil = prf
 
 reverse-∷ x (lcons y {ys} Lys) = prf
   where postulate prf : reverse (x ∷ y ∷ ys) ≡ reverse (y ∷ ys) ++ x ∷ []
-        {-# ATP prove prf reverse-[x]≡[x] reverse-++-commute #-}
+        {-# ATP prove prf reverse-[x]≡[x] reverse-++ #-}
 
 reverse-involutive : ∀ {xs} → List xs → reverse (reverse xs) ≡ xs
 reverse-involutive lnil = prf
@@ -159,4 +157,4 @@ reverse-involutive (lcons x {xs} Lxs) = prf (reverse-involutive Lxs)
   where
   postulate prf : reverse (reverse xs) ≡ xs →
                   reverse (reverse (x ∷ xs)) ≡ x ∷ xs
-  {-# ATP prove prf rev-List reverse-++-commute ++-List ++-rightIdentity #-}
+  {-# ATP prove prf rev-List reverse-++ ++-List ++-rightIdentity #-}

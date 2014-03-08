@@ -48,10 +48,10 @@ open import FOTC.Program.Mirror.Type
     ≡⟨ sym (++-∷ x xs (ys ++ zs)) ⟩
   (x ∷ xs) ++ ys ++ zs ∎
 
-map-++-commute-forest : ∀ f {xs} → (∀ {x} → Tree x → Tree (f · x)) →
-                        Forest xs → ∀ ys →
-                        map f (xs ++ ys) ≡ map f xs ++ map f ys
-map-++-commute-forest f h fnil ys =
+map-++-forest : ∀ f {xs} → (∀ {x} → Tree x → Tree (f · x)) →
+                Forest xs → ∀ ys →
+                map f (xs ++ ys) ≡ map f xs ++ map f ys
+map-++-forest f h fnil ys =
   map f ([] ++ ys)
     ≡⟨ mapCong₂ (++-leftIdentity ys) ⟩
   map f ys
@@ -60,37 +60,37 @@ map-++-commute-forest f h fnil ys =
      ≡⟨ ++-leftCong (sym (map-[] f)) ⟩
   map f [] ++ map f ys ∎
 
-map-++-commute-forest f h (fcons {x} {xs} Tx Fxs) ys =
+map-++-forest f h (fcons {x} {xs} Tx Fxs) ys =
   map f ((x ∷ xs) ++ ys)
     ≡⟨ mapCong₂ (++-∷ x xs ys) ⟩
   map f (x ∷ xs ++ ys)
     ≡⟨ map-∷ f x (xs ++ ys) ⟩
   f · x ∷ map f (xs ++ ys)
-    ≡⟨ ∷-rightCong (map-++-commute-forest f h Fxs ys) ⟩
+    ≡⟨ ∷-rightCong (map-++-forest f h Fxs ys) ⟩
   f · x ∷ (map f xs ++ map f ys)
     ≡⟨ sym (++-∷ (f · x) (map f xs) (map f ys)) ⟩
   (f · x ∷ map f xs) ++ map f ys
      ≡⟨ ++-leftCong (sym (map-∷ f x xs)) ⟩
   map f (x ∷ xs) ++ map f ys ∎
 
-rev-++-commute-forest : ∀ {xs} → Forest xs → ∀ ys → rev xs ys ≡ rev xs [] ++ ys
-rev-++-commute-forest fnil ys =
+rev-++-forest : ∀ {xs} → Forest xs → ∀ ys → rev xs ys ≡ rev xs [] ++ ys
+rev-++-forest fnil ys =
   rev [] ys       ≡⟨ rev-[] ys ⟩
   ys              ≡⟨ sym (++-leftIdentity ys) ⟩
   [] ++ ys        ≡⟨ ++-leftCong (sym (rev-[] [])) ⟩
   rev [] [] ++ ys ∎
 
-rev-++-commute-forest (fcons {x} {xs} Tx Fxs) ys =
+rev-++-forest (fcons {x} {xs} Tx Fxs) ys =
   rev (x ∷ xs) ys
     ≡⟨ rev-∷ x xs ys ⟩
   rev xs (x ∷ ys)
-    ≡⟨ rev-++-commute-forest Fxs (x ∷ ys) ⟩
+    ≡⟨ rev-++-forest Fxs (x ∷ ys) ⟩
   rev xs [] ++ x ∷ ys
     ≡⟨ ++-rightCong prf ⟩
   rev xs [] ++ (x ∷ []) ++ ys
     ≡⟨ sym (++-assoc-forest (rev-Forest Fxs fnil) (x ∷ []) ys) ⟩
   (rev xs [] ++ (x ∷ [])) ++ ys
-    ≡⟨ ++-leftCong (sym (rev-++-commute-forest Fxs (x ∷ []))) ⟩
+    ≡⟨ ++-leftCong (sym (rev-++-forest Fxs (x ∷ []))) ⟩
   rev xs (x ∷ []) ++ ys
     ≡⟨ ++-leftCong (sym (rev-∷ x xs [])) ⟩
   rev (x ∷ xs) [] ++ ys ∎
@@ -99,9 +99,9 @@ rev-++-commute-forest (fcons {x} {xs} Tx Fxs) ys =
                 x ∷ ([] ++ ys) ≡⟨ sym (++-∷ x [] ys) ⟩
                 (x ∷ []) ++ ys ∎
 
-reverse-++-commute-forest : ∀ {xs ys} → Forest xs → Forest ys →
-                            reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
-reverse-++-commute-forest {ys = ys} fnil Fys =
+reverse-++-forest : ∀ {xs ys} → Forest xs → Forest ys →
+                    reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
+reverse-++-forest {ys = ys} fnil Fys =
   reverse ([] ++ ys)
     ≡⟨ reverseCong (++-leftIdentity ys) ⟩
   reverse ys
@@ -110,7 +110,7 @@ reverse-++-commute-forest {ys = ys} fnil Fys =
     ≡⟨ ++-rightCong (sym (rev-[] [])) ⟩
   reverse ys ++ reverse [] ∎
 
-reverse-++-commute-forest (fcons {x} {xs} Tx Fxs) fnil =
+reverse-++-forest (fcons {x} {xs} Tx Fxs) fnil =
   reverse ((x ∷ xs) ++ [])
     ≡⟨ reverseCong (++-rightIdentity-forest (fcons Tx Fxs)) ⟩
   reverse (x ∷ xs)
@@ -119,24 +119,24 @@ reverse-++-commute-forest (fcons {x} {xs} Tx Fxs) fnil =
      ≡⟨ ++-leftCong (sym (rev-[] [])) ⟩
   reverse [] ++ reverse (x ∷ xs) ∎
 
-reverse-++-commute-forest (fcons {x} {xs} Tx Fxs) (fcons {y} {ys} Ty Fys) =
+reverse-++-forest (fcons {x} {xs} Tx Fxs) (fcons {y} {ys} Ty Fys) =
   rev ((x ∷ xs) ++ y ∷ ys) []
     ≡⟨ revCong₁ (++-∷ x xs (y ∷ ys)) ⟩
   rev (x ∷ (xs ++ y ∷ ys)) []
     ≡⟨ rev-∷ x (xs ++ y ∷ ys) [] ⟩
   rev (xs ++ y ∷ ys) (x ∷ [])
-    ≡⟨ rev-++-commute-forest (++-Forest Fxs (fcons Ty Fys)) (x ∷ []) ⟩
+    ≡⟨ rev-++-forest (++-Forest Fxs (fcons Ty Fys)) (x ∷ []) ⟩
   rev (xs ++ y ∷ ys) [] ++ (x ∷ [])
     ≡⟨ ++-leftCong refl ⟩
   reverse (xs ++ y ∷ ys) ++ (x ∷ [])
-    ≡⟨ ++-leftCong (reverse-++-commute-forest Fxs (fcons Ty Fys)) ⟩
+    ≡⟨ ++-leftCong (reverse-++-forest Fxs (fcons Ty Fys)) ⟩
   (reverse (y ∷ ys) ++ reverse xs) ++ x ∷ []
     ≡⟨ ++-assoc-forest (reverse-Forest (fcons Ty Fys))
                        (reverse xs)
                        (x ∷ [])
     ⟩
   reverse (y ∷ ys) ++ rev xs [] ++ x ∷ []
-    ≡⟨ ++-rightCong (sym (rev-++-commute-forest Fxs (x ∷ []))) ⟩
+    ≡⟨ ++-rightCong (sym (rev-++-forest Fxs (x ∷ []))) ⟩
   reverse (y ∷ ys) ++ rev xs (x ∷ [])
     ≡⟨ ++-rightCong (sym (rev-∷ x xs [])) ⟩
   reverse (y ∷ ys) ++ reverse (x ∷ xs) ∎
@@ -158,7 +158,7 @@ reverse-∷-forest {x} Tx (fcons {y} {ys} Ty Fys) = sym (
   reverse (y ∷ ys) ++ x ∷ []
     ≡⟨ ++-rightCong (sym (reverse-[x]≡[x] x)) ⟩
   (reverse (y ∷ ys) ++ reverse (x ∷ []))
-    ≡⟨ sym (reverse-++-commute-forest (fcons Tx fnil) (fcons Ty Fys)) ⟩
+    ≡⟨ sym (reverse-++-forest (fcons Tx fnil) (fcons Ty Fys)) ⟩
   reverse ((x ∷ []) ++ (y ∷ ys))
      ≡⟨ reverseCong (++-∷ x [] (y ∷ ys)) ⟩
    reverse (x ∷ ([] ++ (y ∷ ys)))

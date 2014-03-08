@@ -94,7 +94,7 @@ helper (fcons {t} {ts} Tt Fts) =
                                        (map-Forest mirror mirror-Tree Fts)))
     ⟩
   reverse (map mirror (reverse (map mirror ts) ++ (mirror · t ∷ [])))
-    ≡⟨ reverseCong (map-++-commute-forest
+    ≡⟨ reverseCong (map-++-forest
                      mirror
                      mirror-Tree
                        (reverse-Forest (map-Forest mirror mirror-Tree Fts))
@@ -105,7 +105,7 @@ helper (fcons {t} {ts} Tt Fts) =
           (map mirror (mirror · t ∷ [])))
     ≡⟨ subst (λ x → (reverse (map mirror (reverse (map mirror ts)) ++
                                          (map mirror (mirror · t ∷ [])))) ≡ x)
-             (reverse-++-commute-forest
+             (reverse-++-forest
                (map-Forest mirror mirror-Tree
                            (reverse-Forest
                            (map-Forest mirror mirror-Tree Fts)))

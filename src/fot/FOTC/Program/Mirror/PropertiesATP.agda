@@ -36,10 +36,10 @@ helper fnil = prf
         {-# ATP prove prf #-}
 
 helper (fcons {t} {ts} Tt Fts) =
-  prf (map-++-commute-forest mirror
-                      mirror-Tree
-                      (reverse-Forest (map-Forest mirror mirror-Tree Fts))
-                      (mirror · t ∷ []))
+  prf (map-++-forest mirror
+                     mirror-Tree
+                     (reverse-Forest (map-Forest mirror mirror-Tree Fts))
+                     (mirror · t ∷ []))
       (mirror-involutive Tt)
       (helper Fts)
   where
@@ -51,4 +51,4 @@ helper (fcons {t} {ts} Tt Fts) =
           mirror · (mirror · t) ≡ t →
           reverse (map mirror (reverse (map mirror ts))) ≡ ts →
           reverse (map mirror (reverse (map mirror (t ∷ ts)))) ≡ t ∷ ts
-  {-# ATP prove prf reverse-∷-forest mirror-Tree map-Forest reverse-++-commute-forest reverse-Forest reverse-[x]≡[x] #-}
+  {-# ATP prove prf reverse-∷-forest mirror-Tree map-Forest reverse-++-forest reverse-Forest reverse-[x]≡[x] #-}

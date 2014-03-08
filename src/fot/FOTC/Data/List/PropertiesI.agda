@@ -169,18 +169,17 @@ lg-xs≡∞→lg-x∷xs≡∞ x xs h =
 
 -- Map properties
 
-map-++-commute : ∀ f {xs} → List xs → ∀ ys →
-                 map f (xs ++ ys) ≡ map f xs ++ map f ys
-map-++-commute f lnil ys =
+map-++ : ∀ f {xs} → List xs → ∀ ys → map f (xs ++ ys) ≡ map f xs ++ map f ys
+map-++ f lnil ys =
   map f ([] ++ ys)     ≡⟨ mapCong₂ (++-leftIdentity ys) ⟩
   map f ys             ≡⟨ sym (++-leftIdentity (map f ys)) ⟩
   [] ++ map f ys       ≡⟨ ++-leftCong (sym (map-[] f)) ⟩
   map f [] ++ map f ys ∎
 
-map-++-commute f (lcons x {xs} Lxs) ys =
+map-++ f (lcons x {xs} Lxs) ys =
   map f ((x ∷ xs) ++ ys)         ≡⟨ mapCong₂ (++-∷ x xs ys) ⟩
   map f (x ∷ xs ++ ys)           ≡⟨ map-∷ f x (xs ++ ys) ⟩
-  f · x ∷ map f (xs ++ ys)       ≡⟨ ∷-rightCong (map-++-commute f Lxs ys) ⟩
+  f · x ∷ map f (xs ++ ys)       ≡⟨ ∷-rightCong (map-++ f Lxs ys) ⟩
   f · x ∷ (map f xs ++ map f ys) ≡⟨ sym (++-∷ (f · x) (map f xs) (map f ys)) ⟩
   (f · x ∷ map f xs) ++ map f ys ≡⟨ ++-leftCong (sym (map-∷ f x xs)) ⟩
   map f (x ∷ xs) ++ map f ys     ∎
@@ -197,18 +196,18 @@ reverse-[x]≡[x] x =
   rev [] (x ∷ []) ≡⟨ rev-[] (x ∷ []) ⟩
   x ∷ []          ∎
 
-rev-++-commute : ∀ {xs} → List xs → ∀ ys → rev xs ys ≡ rev xs [] ++ ys
-rev-++-commute lnil ys =
+rev-++ : ∀ {xs} → List xs → ∀ ys → rev xs ys ≡ rev xs [] ++ ys
+rev-++ lnil ys =
   rev [] ys       ≡⟨ rev-[] ys ⟩
   ys              ≡⟨ sym (++-leftIdentity ys) ⟩
   [] ++ ys        ≡⟨ ++-leftCong (sym (rev-[] [])) ⟩
   rev [] [] ++ ys ∎
 
-rev-++-commute (lcons x {xs} Lxs) ys =
+rev-++ (lcons x {xs} Lxs) ys =
   rev (x ∷ xs) ys
     ≡⟨ rev-∷ x xs ys ⟩
   rev xs (x ∷ ys)
-    ≡⟨ rev-++-commute Lxs (x ∷ ys) ⟩
+    ≡⟨ rev-++ Lxs (x ∷ ys) ⟩
   rev xs [] ++ x ∷ ys
     ≡⟨ subst (λ t → rev xs [] ++ x ∷ ys ≡ rev xs [] ++ t)
              (sym (
@@ -222,20 +221,20 @@ rev-++-commute (lcons x {xs} Lxs) ys =
   rev xs [] ++ (x ∷ []) ++ ys
     ≡⟨ sym (++-assoc (rev-List Lxs lnil) (x ∷ []) ys) ⟩
   (rev xs [] ++ (x ∷ [])) ++ ys
-    ≡⟨ ++-leftCong (sym (rev-++-commute Lxs (x ∷ []))) ⟩
+    ≡⟨ ++-leftCong (sym (rev-++ Lxs (x ∷ []))) ⟩
   rev xs (x ∷ []) ++ ys
     ≡⟨ ++-leftCong (sym (rev-∷ x xs [])) ⟩
   rev (x ∷ xs) [] ++ ys ∎
 
-reverse-++-commute : ∀ {xs ys} → List xs → List ys →
-                     reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
-reverse-++-commute {ys = ys} lnil Lys =
+reverse-++ : ∀ {xs ys} → List xs → List ys →
+             reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
+reverse-++ {ys = ys} lnil Lys =
   reverse ([] ++ ys)       ≡⟨ reverseCong (++-leftIdentity ys) ⟩
   reverse ys               ≡⟨ sym (++-rightIdentity (reverse-List Lys)) ⟩
   reverse ys ++ []         ≡⟨ ++-rightCong (sym (rev-[] [])) ⟩
   reverse ys ++ reverse [] ∎
 
-reverse-++-commute (lcons x {xs} Lxs) lnil =
+reverse-++ (lcons x {xs} Lxs) lnil =
   reverse ((x ∷ xs) ++ [])
     ≡⟨ reverseCong (++-rightIdentity (lcons x Lxs)) ⟩
   reverse (x ∷ xs)
@@ -244,7 +243,7 @@ reverse-++-commute (lcons x {xs} Lxs) lnil =
      ≡⟨ ++-leftCong (sym (rev-[] [])) ⟩
   reverse [] ++ reverse (x ∷ xs) ∎
 
-reverse-++-commute (lcons x {xs} Lxs) (lcons y {ys} Lys) =
+reverse-++ (lcons x {xs} Lxs) (lcons y {ys} Lys) =
   reverse ((x ∷ xs) ++ y ∷ ys)
     ≡⟨ refl ⟩
   rev ((x ∷ xs) ++ y ∷ ys) []
@@ -252,17 +251,17 @@ reverse-++-commute (lcons x {xs} Lxs) (lcons y {ys} Lys) =
   rev (x ∷ (xs ++ y ∷ ys)) []
     ≡⟨ rev-∷ x (xs ++ y ∷ ys) [] ⟩
   rev (xs ++ y ∷ ys) (x ∷ [])
-    ≡⟨ rev-++-commute (++-List Lxs (lcons y Lys)) (x ∷ []) ⟩
+    ≡⟨ rev-++ (++-List Lxs (lcons y Lys)) (x ∷ []) ⟩
   rev (xs ++ y ∷ ys) [] ++ (x ∷ [])
     ≡⟨ refl ⟩
   reverse (xs ++ y ∷ ys) ++ (x ∷ [])
-    ≡⟨ ++-leftCong (reverse-++-commute Lxs (lcons y Lys)) ⟩
+    ≡⟨ ++-leftCong (reverse-++ Lxs (lcons y Lys)) ⟩
   (reverse (y ∷ ys) ++ reverse xs) ++ x ∷ []
     ≡⟨ ++-assoc (reverse-List (lcons y Lys)) (reverse xs) (x ∷ []) ⟩
   reverse (y ∷ ys) ++ reverse xs ++ x ∷ []
     ≡⟨ refl ⟩
   reverse (y ∷ ys) ++ rev xs [] ++ x ∷ []
-    ≡⟨ ++-rightCong (sym (rev-++-commute Lxs (x ∷ []))) ⟩
+    ≡⟨ ++-rightCong (sym (rev-++ Lxs (x ∷ []))) ⟩
   reverse (y ∷ ys) ++ rev xs (x ∷ [])
     ≡⟨ ++-rightCong (sym (rev-∷ x xs [])) ⟩
   reverse (y ∷ ys) ++ rev (x ∷ xs) []
@@ -285,7 +284,7 @@ reverse-∷ x (lcons y {ys} Lys) = sym prf
     reverse (y ∷ ys) ++ x ∷ []
       ≡⟨ ++-rightCong (sym (reverse-[x]≡[x] x)) ⟩
     (reverse (y ∷ ys) ++ reverse (x ∷ []))
-      ≡⟨ sym (reverse-++-commute (lcons x lnil) (lcons y Lys)) ⟩
+      ≡⟨ sym (reverse-++ (lcons x lnil) (lcons y Lys)) ⟩
     reverse ((x ∷ []) ++ (y ∷ ys))
       ≡⟨ reverseCong (++-∷ x [] (y ∷ ys)) ⟩
     reverse (x ∷ ([] ++ (y ∷ ys)))

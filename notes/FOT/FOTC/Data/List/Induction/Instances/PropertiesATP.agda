@@ -60,16 +60,16 @@ postulate
   ++-assoc : ∀ {xs} → List xs → ∀ ys zs → (xs ++ ys) ++ zs ≡ xs ++ ys ++ zs
 {-# ATP prove ++-assoc ++-assoc-ind-instance #-}
 
-map-++-commute-ind-instance :
+map-++-ind-instance :
   ∀ {f} {ys} →
   map f ([] ++ ys) ≡ map f [] ++ map f ys →
   (∀ x {xs} → map f (xs ++ ys) ≡ map f xs ++ map f ys →
     map f ((x ∷ xs) ++ ys) ≡ map f (x ∷ xs) ++ map f ys) →
   ∀ {xs} → List xs → map f (xs ++ ys) ‌≡ map f xs ++ map f ys
-map-++-commute-ind-instance {f} {ys} =
+map-++-ind-instance {f} {ys} =
   List-ind (λ as → map f (as ++ ys) ≡ map f as ++ map f ys)
 
 postulate
-  map-++-commute : ∀ f {xs} → List xs → ∀ ys →
-                   map f (xs ++ ys) ≡ map f xs ++ map f ys
-{-# ATP prove map-++-commute map-++-commute-ind-instance #-}
+  map-++ : ∀ f {xs} → List xs → ∀ ys →
+           map f (xs ++ ys) ≡ map f xs ++ map f ys
+{-# ATP prove map-++ map-++-ind-instance #-}
