@@ -19,5 +19,5 @@ open import Data.Nat
 
 {-# NO_TERMINATION_CHECK #-}
 Coℕ→ℕ : Coℕ → ℕ
-Coℕ→ℕ zero     = zero
+Coℕ→ℕ zero    = zero
 Coℕ→ℕ (suc n) = suc (Coℕ→ℕ (♭ n))
