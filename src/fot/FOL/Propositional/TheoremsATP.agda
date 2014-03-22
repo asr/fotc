@@ -133,8 +133,8 @@ postulate
 ------------------------------------------------------------------------------
 -- Some intuitionistic theorems
 
-postulate →-contrapositive : (P → Q) → ¬ Q → ¬ P
-{-# ATP prove →-contrapositive #-}
+postulate →-transposition : (P → Q) → ¬ Q → ¬ P
+{-# ATP prove →-transposition #-}
 
 postulate
   i₁ : P → Q → P
@@ -155,8 +155,8 @@ postulate
 ------------------------------------------------------------------------------
 -- Some non-intuitionistic theorems
 
-postulate ←-contrapositive : (¬ Q → ¬ P) → P → Q
-{-# ATP prove ←-contrapositive #-}
+postulate ←-transposition : (¬ Q → ¬ P) → P → Q
+{-# ATP prove ←-transposition #-}
 
 postulate
   ni₁ : ((P → Q) → P) → P

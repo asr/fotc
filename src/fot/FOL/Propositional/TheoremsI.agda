@@ -14,8 +14,8 @@ open import FOL.Base hiding ( D≢∅ ; pem )
 ------------------------------------------------------------------------------
 -- Boolean laws
 
-→-contrapositive : {P Q : Set} → (P → Q) → ¬ Q → ¬ P
-→-contrapositive p→q ¬q p = ¬q (p→q p)
+→-transposition : {P Q : Set} → (P → Q) → ¬ Q → ¬ P
+→-transposition p→q ¬q p = ¬q (p→q p)
 
 ∧∨-dist : {P Q R : Set} → P ∧ (Q ∨ R) ↔ P ∧ Q ∨ P ∧ R
 ∧∨-dist {P} {Q} {R} = l→r , r→l
