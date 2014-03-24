@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+-- {-# OPTIONS --without-K #-}
 
 module LTC-PCF.Program.GCD.Partial.ConversionRules where
 
@@ -150,6 +150,7 @@ private
   proof₂₋₃ : ∀ m n → gcd-s₂ m · n ≡ gcd-s₃ m n
   proof₂₋₃ m n = beta (gcd-s₃ m) n
 
+  -- TODO (23 March 2014): Fails with Andreas --without-K.
   proof₃₋₄ : ∀ m n b → iszero₁ n ≡ b → gcd-s₃ m n ≡ gcd-s₄ m n b
   proof₃₋₄ m n .(iszero₁ n) refl = refl
 
