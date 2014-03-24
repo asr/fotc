@@ -50,41 +50,41 @@ corruptH ∷ Stream Bit → Stream a → Stream (Err a)
 corruptH (False :> os) (_ :> xs) = Error :> corruptH os xs
 corruptH (True :> os)  (x :> xs) = Ok x  :> corruptH os xs
 
-has ∷ (Stream a → Stream (Err Bit) → Stream (a, Bit)) →
-      (Stream (Err (a, Bit)) → Stream Bit) →
-      (Stream (Err (a, Bit)) → Stream a) →
-      (Stream (a, Bit) → Stream (Err (a, Bit))) →
-      (Stream Bit → Stream (Err Bit)) →
-      Stream a →
-      Stream (a, Bit)
-has f1 f2 f3 g1 g2 is = f1 is (hds f1 f2 f3 g1 g2 is)
+hasH ∷ (Stream a → Stream (Err Bit) → Stream (a, Bit)) →
+       (Stream (Err (a, Bit)) → Stream Bit) →
+       (Stream (Err (a, Bit)) → Stream a) →
+       (Stream (a, Bit) → Stream (Err (a, Bit))) →
+       (Stream Bit → Stream (Err Bit)) →
+       Stream a →
+       Stream (a, Bit)
+hasH f1 f2 f3 g1 g2 is = f1 is (hdsH f1 f2 f3 g1 g2 is)
 
-hbs ∷ (Stream a → Stream (Err Bit) → Stream (a, Bit)) →
-      (Stream (Err (a, Bit)) → Stream Bit) →
-      (Stream (Err (a, Bit)) → Stream a) →
-      (Stream (a, Bit) → Stream (Err (a, Bit))) →
-      (Stream Bit → Stream (Err Bit)) →
-      Stream a →
-      Stream (Err (a, Bit))
-hbs f1 f2 f3 g1 g2 is = g1 (has f1 f2 f3 g1 g2 is)
+hbsH ∷ (Stream a → Stream (Err Bit) → Stream (a, Bit)) →
+       (Stream (Err (a, Bit)) → Stream Bit) →
+       (Stream (Err (a, Bit)) → Stream a) →
+       (Stream (a, Bit) → Stream (Err (a, Bit))) →
+       (Stream Bit → Stream (Err Bit)) →
+       Stream a →
+       Stream (Err (a, Bit))
+hbsH f1 f2 f3 g1 g2 is = g1 (hasH f1 f2 f3 g1 g2 is)
 
-hcs ∷ (Stream a → Stream (Err Bit) → Stream (a, Bit)) →
-      (Stream (Err (a, Bit)) → Stream Bit) →
-      (Stream (Err (a, Bit)) → Stream a) →
-      (Stream (a, Bit) → Stream (Err (a, Bit))) →
-      (Stream Bit → Stream (Err Bit)) →
-      Stream a →
-      Stream Bit
-hcs f1 f2 f3 g1 g2 is = f2 (hbs f1 f2 f3 g1 g2 is)
+hcsH ∷ (Stream a → Stream (Err Bit) → Stream (a, Bit)) →
+       (Stream (Err (a, Bit)) → Stream Bit) →
+       (Stream (Err (a, Bit)) → Stream a) →
+       (Stream (a, Bit) → Stream (Err (a, Bit))) →
+       (Stream Bit → Stream (Err Bit)) →
+       Stream a →
+       Stream Bit
+hcsH f1 f2 f3 g1 g2 is = f2 (hbsH f1 f2 f3 g1 g2 is)
 
-hds ∷ (Stream a → Stream (Err Bit) → Stream (a, Bit)) →
-      (Stream (Err (a, Bit)) → Stream Bit) →
-      (Stream (Err (a, Bit)) → Stream a) →
-      (Stream (a, Bit) → Stream (Err (a, Bit))) →
-      (Stream Bit → Stream (Err Bit)) →
-      Stream a →
-      Stream (Err Bit)
-hds f1 f2 f3 g1 g2 is = g2 (hcs f1 f2 f3 g1 g2 is)
+hdsH ∷ (Stream a → Stream (Err Bit) → Stream (a, Bit)) →
+       (Stream (Err (a, Bit)) → Stream Bit) →
+       (Stream (Err (a, Bit)) → Stream a) →
+       (Stream (a, Bit) → Stream (Err (a, Bit))) →
+       (Stream Bit → Stream (Err Bit)) →
+       Stream a →
+       Stream (Err Bit)
+hdsH f1 f2 f3 g1 g2 is = g2 (hcsH f1 f2 f3 g1 g2 is)
 
 transferH ∷ (Stream a → Stream (Err Bit) → Stream (a, Bit)) →
             (Stream (Err (a, Bit)) → Stream Bit) →
@@ -93,7 +93,7 @@ transferH ∷ (Stream a → Stream (Err Bit) → Stream (a, Bit)) →
             (Stream Bit → Stream (Err Bit)) →
             Stream a →
             Stream a
-transferH f1 f2 f3 g1 g2 is = f3 (hbs f1 f2 f3 g1 g2 is)
+transferH f1 f2 f3 g1 g2 is = f3 (hbsH f1 f2 f3 g1 g2 is)
 
 -- The ABP transfer function.
 abpTransH ∷ Bit → Stream Bit → Stream Bit → Stream a → Stream a

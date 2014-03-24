@@ -45,7 +45,7 @@ corruptH (True :> os)  (x :> xs) = Ok x  :> corruptH os xs
 -- haskell-src-exts 1.14.0. See
 -- https://github.com/haskell-suite/haskell-src-exts/pull/59.
 abpTransH ∷ ∀ a. Bit → Stream Bit → Stream Bit → Stream a → Stream a
-abpTransH b os1 os2 is = outH b bs
+abpTransH b os1 os2 is = js
   where
   as ∷ Stream (a, Bit)
   as = sendH b is ds
@@ -58,3 +58,6 @@ abpTransH b os1 os2 is = outH b bs
 
   ds ∷ Stream (Err Bit)
   ds = corruptH os2 cs
+
+  js ∷ Stream a
+  js = outH b bs
