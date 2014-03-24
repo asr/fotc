@@ -7,8 +7,6 @@
 
 module LTC-PCF.Program.GCD.Total.CommonDivisor where
 
-open import Common.Function
-
 open import LTC-PCF.Base
 open import LTC-PCF.Base.Properties
 open import LTC-PCF.Data.Nat

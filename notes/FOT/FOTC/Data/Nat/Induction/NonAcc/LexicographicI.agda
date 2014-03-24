@@ -13,8 +13,6 @@
 
 module FOT.FOTC.Data.Nat.Induction.NonAcc.LexicographicI where
 
-open import Common.Function
-
 open import FOTC.Base
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.Inequalities.EliminationPropertiesI

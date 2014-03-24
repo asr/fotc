@@ -20,5 +20,5 @@ module Common.Function where
 
 -- N.B. The function is not first-order, so it cannot be used with
 -- types/terms which will be translated to FOL.
-flip : {A : Set} → (A → A → A) → A → A → A
-flip f y x = f x y
+-- flip : {A : Set} → (A → A → A) → A → A → A
+-- flip f y x = f x y

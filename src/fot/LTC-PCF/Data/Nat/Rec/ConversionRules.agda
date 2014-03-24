@@ -8,7 +8,6 @@
 module LTC-PCF.Data.Nat.Rec.ConversionRules where
 
 open import Common.FOL.Relation.Binary.EqReasoning
-open import Common.Function
 
 open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat.Rec

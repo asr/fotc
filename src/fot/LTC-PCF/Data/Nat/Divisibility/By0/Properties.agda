@@ -8,7 +8,6 @@
 module LTC-PCF.Data.Nat.Divisibility.By0.Properties where
 
 open import Common.FOL.Relation.Binary.EqReasoning
-open import Common.Function
 
 open import LTC-PCF.Base
 open import LTC-PCF.Base.Properties
