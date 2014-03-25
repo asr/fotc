@@ -35,7 +35,7 @@ Fair-in h = Fair-coind A h' h
 
 head-tail-Fair : ∀ {os} → Fair os → os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
 head-tail-Fair {os} Fos with Fair-out Fos
-... | .(true ∷ []) , os' , f*tnil , h , Fos' = inj₁ prf₃
+... | .(T ∷ []) , os' , f*tnil , h , Fos' = inj₁ prf₃
   where
   prf₁ : os ≡ T ∷ [] ++ os'
   prf₁ = os              ≡⟨ h ⟩
@@ -52,7 +52,7 @@ head-tail-Fair {os} Fos with Fair-out Fos
          T ∷ [] ++ os'  ≡⟨ ∷-rightCong (sym prf₂) ⟩
          T ∷ tail₁ os   ∎
 
-... | .(false ∷ ft) , os' , f*tcons {ft} FTft , h , Fos' =
+... | .(F ∷ ft) , os' , f*tcons {ft} FTft , h , Fos' =
   inj₂ prf₃
   where
   prf₁ : os ≡ F ∷ ft ++ os'
@@ -111,5 +111,5 @@ Fair→Stream Fos = Stream-coind A h Fos
   ... | inj₂ prf = F , tail₁ os , prf , tail-Fair As
 
 F*T→List : ∀ {xs} → F*T xs → List xs
-F*T→List f*tnil              = lcons true lnil
-F*T→List (f*tcons {ft} FTft) = lcons false (F*T→List FTft)
+F*T→List f*tnil              = lcons T lnil
+F*T→List (f*tcons {ft} FTft) = lcons F (F*T→List FTft)

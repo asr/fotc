@@ -50,10 +50,10 @@ helper {b} {i'} {is'} {os₁'} {os₂'} {as'} {bs'} {cs'} {ds'} {js'}
   where
   os₂'-eq-helper : os₂' ≡ T ∷ os₂''
   os₂'-eq-helper =
-    os₂'                 ≡⟨ os₂'-eq ⟩
-    (true ∷ []) ++ os₂'' ≡⟨ ++-∷ true [] os₂'' ⟩
-    true ∷ [] ++ os₂''   ≡⟨ ∷-rightCong (++-leftIdentity os₂'') ⟩
-    true ∷ os₂''         ∎
+    os₂'              ≡⟨ os₂'-eq ⟩
+    (T ∷ []) ++ os₂'' ≡⟨ ++-∷ T [] os₂'' ⟩
+    T ∷ [] ++ os₂''   ≡⟨ ∷-rightCong (++-leftIdentity os₂'') ⟩
+    T ∷ os₂''         ∎
 
   ds'' : D
   ds'' = corrupt os₂'' · cs'

@@ -174,3 +174,12 @@ module UnaryFunction where
 
       h₂ : ∀ {m} → A m → A (succ₁ m)
       h₂ {m} Am = h (inj₂ (m , refl , Am))
+
+module EsikProposition2Dot1 where
+
+  postulate
+    N : D → Set
+
+    N-ind' : (A : D → Set) →
+             (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n) →
+             ∀ {n} → N n → A n

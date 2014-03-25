@@ -32,23 +32,23 @@ Fair-in h = Fair-coind A h' h
 
 head-tail-Fair : ∀ {os} → Fair os → os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
 head-tail-Fair {os} Fos with Fair-out Fos
-... | (.(true ∷ []) , os' , f*tnil , h , Fos') = prf
+... | (.(T ∷ []) , os' , f*tnil , h , Fos') = prf
   where
   postulate prf : os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
   {-# ATP prove prf #-}
 
-... | (.(false ∷ ft) , os' , f*tcons {ft} y , h , Fos') = prf
+... | (.(F ∷ ft) , os' , f*tcons {ft} y , h , Fos') = prf
   where
   postulate prf : os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
   {-# ATP prove prf #-}
 
 tail-Fair : ∀ {os} → Fair os → Fair (tail₁ os)
 tail-Fair {os} Fos with Fair-out Fos
-... | .(true ∷ []) , os' , f*tnil , h , Fos' = prf
+... | .(T ∷ []) , os' , f*tnil , h , Fos' = prf
   where
   postulate prf : Fair (tail₁ os)
   {-# ATP prove prf #-}
-... | .(false ∷ ft) , os' , f*tcons {ft} FTft , h , Fos' = prf
+... | .(F ∷ ft) , os' , f*tcons {ft} FTft , h , Fos' = prf
   where
   postulate prf : Fair (tail₁ os)
   {-# ATP prove prf Fair-in #-}
