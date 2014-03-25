@@ -37,7 +37,7 @@ head-tail-Fair {os} Fos with Fair-out Fos
   postulate prf : os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
   {-# ATP prove prf #-}
 
-... | (.(F ∷ ft) , os' , f*tcons {ft} y , h , Fos') = prf
+... | (.(F ∷ ft) , os' , f*tcons {ft} FTft , h , Fos') = prf
   where
   postulate prf : os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
   {-# ATP prove prf #-}
