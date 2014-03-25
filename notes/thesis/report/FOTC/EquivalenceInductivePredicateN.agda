@@ -33,7 +33,7 @@ module Constant where
     N-ind' = N-ind'-ho
 
     --------------------------------------------------------------------------
-    -- The data constructors of N using data.
+    -- The data constructors of N using LFP.
 
     nzero : N zero
     nzero = N-in (inj₁ refl)
@@ -42,7 +42,7 @@ module Constant where
     nsucc Nn = N-in (inj₂ (_ , refl , Nn))
 
     --------------------------------------------------------------------------
-    -- The induction principle of N using data.
+    -- The induction principle of N using LFP.
     N-ind : (A : D → Set) →
             A zero →
             (∀ {n} → A n → A (succ · n)) →
@@ -68,7 +68,7 @@ module Constant where
     N-ind A A0 h (nsucc Nn) = h (N-ind A A0 h Nn)
 
     --------------------------------------------------------------------------
-    -- The introduction rule of N using LFP.
+    -- The introduction rule of N using data.
     N-in : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ N n') → N n
     N-in {n} h = case prf₁ prf₂ h
       where
@@ -79,7 +79,7 @@ module Constant where
       prf₂ (n' , prf , Nn') = subst N (sym prf) (nsucc Nn')
 
     --------------------------------------------------------------------------
-    -- The induction principle for N using LFP.
+    -- The induction principle for N using data.
     N-ind' :
       (A : D → Set) →
       (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ · n' ∧ A n') → A n) →
@@ -116,7 +116,7 @@ module UnaryFunction where
     N-ind' = N-ind'-ho
 
     --------------------------------------------------------------------------
-    -- The data constructors of N using data.
+    -- The data constructors of N using LFP.
 
     nzero : N zero
     nzero = N-in (inj₁ refl)
@@ -125,7 +125,7 @@ module UnaryFunction where
     nsucc Nn = N-in (inj₂ (_ , refl , Nn))
 
     --------------------------------------------------------------------------
-    -- The induction principle of N using data.
+    -- The induction principle of N using LFP.
     N-ind : (A : D → Set) →
             A zero →
             (∀ {n} → A n → A (succ₁ n)) →
@@ -151,7 +151,7 @@ module UnaryFunction where
     N-ind A A0 h (nsucc Nn) = h (N-ind A A0 h Nn)
 
     --------------------------------------------------------------------------
-    -- The introduction rule of N using LFP.
+    -- The introduction rule of N using data.
     N-in : ∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n') → N n
     N-in {n} h = case prf₁ prf₂ h
       where
@@ -162,7 +162,7 @@ module UnaryFunction where
       prf₂ (n' , prf , Nn') = subst N (sym prf) (nsucc Nn')
 
     --------------------------------------------------------------------------
-    -- The induction principle for N using LFP.
+    -- The induction principle for N using data.
     N-ind' :
       (A : D → Set) →
       (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n') → A n) →
