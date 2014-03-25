@@ -50,47 +50,29 @@ corruptH ∷ Stream Bit → Stream a → Stream (Err a)
 corruptH (False :> os) (_ :> xs) = Error :> corruptH os xs
 corruptH (True :> os)  (x :> xs) = Ok x  :> corruptH os xs
 
-hasH ∷ (Stream a → Stream (Err Bit) → Stream (a, Bit)) →
-       (Stream (Err (a, Bit)) → Stream Bit) →
-       (Stream (Err (a, Bit)) → Stream a) →
-       (Stream (a, Bit) → Stream (Err (a, Bit))) →
-       (Stream Bit → Stream (Err Bit)) →
-       Stream a →
+type SendTy a     = Stream a → Stream (Err Bit) → Stream (a, Bit)
+type AckTy a      = Stream (Err (a, Bit)) → Stream Bit
+type OutTy a      = Stream (Err (a, Bit)) → Stream a
+type CorruptTy1 a = Stream (a, Bit) → Stream (Err (a, Bit))
+type CorruptTy2   = Stream Bit → Stream (Err Bit)
+
+hasH ∷ SendTy a → AckTy a → OutTy a → CorruptTy1 a → CorruptTy2 → Stream a →
        Stream (a, Bit)
 hasH f1 f2 f3 g1 g2 is = f1 is (hdsH f1 f2 f3 g1 g2 is)
 
-hbsH ∷ (Stream a → Stream (Err Bit) → Stream (a, Bit)) →
-       (Stream (Err (a, Bit)) → Stream Bit) →
-       (Stream (Err (a, Bit)) → Stream a) →
-       (Stream (a, Bit) → Stream (Err (a, Bit))) →
-       (Stream Bit → Stream (Err Bit)) →
-       Stream a →
+hbsH ∷ SendTy a → AckTy a → OutTy a → CorruptTy1 a → CorruptTy2 → Stream a →
        Stream (Err (a, Bit))
 hbsH f1 f2 f3 g1 g2 is = g1 (hasH f1 f2 f3 g1 g2 is)
 
-hcsH ∷ (Stream a → Stream (Err Bit) → Stream (a, Bit)) →
-       (Stream (Err (a, Bit)) → Stream Bit) →
-       (Stream (Err (a, Bit)) → Stream a) →
-       (Stream (a, Bit) → Stream (Err (a, Bit))) →
-       (Stream Bit → Stream (Err Bit)) →
-       Stream a →
+hcsH ∷ SendTy a → AckTy a → OutTy a → CorruptTy1 a → CorruptTy2 → Stream a →
        Stream Bit
 hcsH f1 f2 f3 g1 g2 is = f2 (hbsH f1 f2 f3 g1 g2 is)
 
-hdsH ∷ (Stream a → Stream (Err Bit) → Stream (a, Bit)) →
-       (Stream (Err (a, Bit)) → Stream Bit) →
-       (Stream (Err (a, Bit)) → Stream a) →
-       (Stream (a, Bit) → Stream (Err (a, Bit))) →
-       (Stream Bit → Stream (Err Bit)) →
-       Stream a →
+hdsH ∷ SendTy a → AckTy a → OutTy a → CorruptTy1 a → CorruptTy2 → Stream a →
        Stream (Err Bit)
 hdsH f1 f2 f3 g1 g2 is = g2 (hcsH f1 f2 f3 g1 g2 is)
 
-transferH ∷ (Stream a → Stream (Err Bit) → Stream (a, Bit)) →
-            (Stream (Err (a, Bit)) → Stream Bit) →
-            (Stream (Err (a, Bit)) → Stream a) →
-            (Stream (a, Bit) → Stream (Err (a, Bit))) →
-            (Stream Bit → Stream (Err Bit)) →
+transferH ∷ SendTy a → AckTy a → OutTy a → CorruptTy1 a → CorruptTy2 →
             Stream a →
             Stream a
 transferH f1 f2 f3 g1 g2 is = f3 (hbsH f1 f2 f3 g1 g2 is)
