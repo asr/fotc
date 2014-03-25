@@ -23,10 +23,8 @@ open import FOTC.Program.ABP.Terms
 -- predicate is also a pre-fixed point of the functional FairF, i.e.
 --
 -- FairF Fair ≤ Fair (see FOTC.Program.ABP.Fair).
-Fair-in :
-  ∀ {os} →
-  ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os' →
-  Fair os
+Fair-in : ∀ {os} → ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os' →
+          Fair os
 Fair-in h = Fair-coind A h' h
   where
   A : D → Set
@@ -37,10 +35,10 @@ Fair-in h = Fair-coind A h' h
 
 head-tail-Fair : ∀ {os} → Fair os → os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
 head-tail-Fair {os} Fos with Fair-out Fos
-... | .(true ∷ []) , os' , f*tnil , prf , Fos' = inj₁ prf₃
+... | .(true ∷ []) , os' , f*tnil , h , Fos' = inj₁ prf₃
   where
   prf₁ : os ≡ T ∷ [] ++ os'
-  prf₁ = os              ≡⟨ prf ⟩
+  prf₁ = os              ≡⟨ h ⟩
          (T ∷ []) ++ os' ≡⟨ ++-∷ T [] os' ⟩
          T ∷ [] ++ os'   ∎
 
@@ -54,11 +52,11 @@ head-tail-Fair {os} Fos with Fair-out Fos
          T ∷ [] ++ os'  ≡⟨ ∷-rightCong (sym prf₂) ⟩
          T ∷ tail₁ os   ∎
 
-... | .(false ∷ ft) , os' , f*tcons {ft} FTft , prf , Fos' =
+... | .(false ∷ ft) , os' , f*tcons {ft} FTft , h , Fos' =
   inj₂ prf₃
   where
   prf₁ : os ≡ F ∷ ft ++ os'
-  prf₁ = os              ≡⟨ prf ⟩
+  prf₁ = os              ≡⟨ h ⟩
          (F ∷ ft) ++ os' ≡⟨ ++-∷ F ft os' ⟩
          F ∷ ft ++ os'   ∎
 
@@ -74,11 +72,11 @@ head-tail-Fair {os} Fos with Fair-out Fos
 
 tail-Fair : ∀ {os} → Fair os → Fair (tail₁ os)
 tail-Fair {os} Fos with Fair-out Fos
-... | .(T ∷ []) , os' , f*tnil , prf , Fos' =
+... | .(T ∷ []) , os' , f*tnil , h , Fos' =
   subst Fair (sym prf₂) Fos'
   where
   prf₁ : os ≡ T ∷ os'
-  prf₁ = os              ≡⟨ prf ⟩
+  prf₁ = os              ≡⟨ h ⟩
          (T ∷ []) ++ os' ≡⟨ ++-∷ T [] os' ⟩
          T ∷ [] ++ os'   ≡⟨ ∷-rightCong (++-leftIdentity os') ⟩
          T ∷ os'         ∎
@@ -88,11 +86,11 @@ tail-Fair {os} Fos with Fair-out Fos
          tail₁ (T ∷ os') ≡⟨ tail-∷ T os' ⟩
          os'             ∎
 
-... | .(F ∷ ft) , os' , f*tcons {ft} FTft , prf , Fos' =
+... | .(F ∷ ft) , os' , f*tcons {ft} FTft , h , Fos' =
     subst Fair (sym prf₂) (Fair-in (ft , os' , FTft , refl , Fos'))
   where
   prf₁ : os ≡ F ∷ ft ++ os'
-  prf₁ = os              ≡⟨ prf ⟩
+  prf₁ = os              ≡⟨ h ⟩
          (F ∷ ft) ++ os' ≡⟨ ++-∷ F ft os' ⟩
          F ∷ ft ++ os'   ∎
 
