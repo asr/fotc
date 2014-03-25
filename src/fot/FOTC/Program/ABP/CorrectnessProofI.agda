@@ -25,9 +25,9 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
 
 ------------------------------------------------------------------------------
 -- Main theorem.
-abpCorrect : ∀ {b is os₁ os₂} → Bit b → Stream is → Fair os₁ → Fair os₂ →
+abpCorrect : ∀ {b os₁ os₂ is} → Bit b → Fair os₁ → Fair os₂ → Stream is →
              is ≈ abpTransfer b os₁ os₂ is
-abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B h₁ h₂
+abpCorrect {b} {os₁} {os₂} {is} Bb Fos₁ Fos₂ Sis = ≈-coind B h₁ h₂
   where
   h₁ : ∀ {ks ls} → B ks ls →
        ∃[ k' ] ∃[ ks' ] ∃[ ls' ] ks ≡ k' ∷ ks' ∧ ls ≡ k' ∷ ls' ∧ B ks' ls'
@@ -105,13 +105,13 @@ abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-coind B h₁ h₂
 
 ------------------------------------------------------------------------------
 -- abpTransfer produces a Stream.
-abpTransfer-Stream : ∀ {b is os₁ os₂} →
+abpTransfer-Stream : ∀ {b os₁ os₂ is} →
                      Bit b →
-                     Stream is →
                      Fair os₁ →
                      Fair os₂ →
+                     Stream is →
                      Stream (abpTransfer b os₁ os₂ is)
-abpTransfer-Stream Bb Sis Fos₁ Fos₂ = ≈→Stream₂ (abpCorrect Bb Sis Fos₁ Fos₂)
+abpTransfer-Stream Bb Fos₁ Fos₂ Sis = ≈→Stream₂ (abpCorrect Bb Fos₁ Fos₂ Sis)
 
 ------------------------------------------------------------------------------
 -- References
