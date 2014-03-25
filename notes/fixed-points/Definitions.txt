@@ -19,7 +19,7 @@
 -- fixed-point of f (Ésik, 2009, p. 31).
 
 -- Thm: If d is the greatest post-fixed point of f, then d is the greatest
--- fixed-point of f (Ésik, 2009, p. 31).
+-- fixed-point of f (Ésik, 2009, p. 31, proposition 2.1).
 
 ------------------------------------------------------------------------------
 -- References
