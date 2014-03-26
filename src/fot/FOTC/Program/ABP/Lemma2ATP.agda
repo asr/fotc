@@ -121,6 +121,7 @@ helper {b} {i'} {is'} {os₁'} {os₂'} {as'} {bs'} {cs'} {ds'} {js'}
     ds^-eq : ds^ cs' (os₂^ ft₂ os₂'') ≡
              corrupt (os₂^ ft₂ os₂'') ·
                (b ∷ cs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂''))
+  {-# ATP prove ds^-eq cs'-eq #-}
 
   ihS' : S' b i' is'
             (os₁^ os₁')
