@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- ABP lemma 1
+-- ABP Lemma 1
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -30,7 +30,7 @@ open import FOTC.Program.ABP.Terms
 open import FOTC.Program.ABP.PropertiesI
 
 ------------------------------------------------------------------------------
--- Helper function for the lemma 1.
+-- Helper function for Lemma 1.
 helper : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
          Bit b →
          Fair os₂ →

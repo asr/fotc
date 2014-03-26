@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- ABP lemma 1
+-- ABP Lemma 1
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -51,7 +51,7 @@ os₂^ : D → D
 os₂^ os₂ = tail₁ os₂
 {-# ATP definition os₂^ #-}
 
--- Helper function for the lemma 1.
+-- Helper function for Lemma 1.
 helper : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
          Bit b →
          Fair os₂ →

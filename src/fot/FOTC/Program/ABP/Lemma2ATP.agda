@@ -1,12 +1,12 @@
 ------------------------------------------------------------------------------
--- ABP lemma 2
+-- ABP Lemma 2
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
 -- From Dybjer and Sander's paper: The second lemma states that given
--- a state of the latter kind (see lemma 1) we will arrive at a new
+-- a state of the latter kind (see Lemma 1) we will arrive at a new
 -- start state, which is identical to the old start state except that
 -- the bit has alternated and the first item in the input stream has
 -- been removed.
@@ -55,7 +55,7 @@ os₂^ : D → D → D
 os₂^ ft₂ os₂'' = ft₂ ++ os₂''
 {-# ATP definition os₂^ #-}
 
--- Helper function for the lemma 2.
+-- Helper function for Lemma 2.
 helper : ∀ {b i' is' os₁' os₂' as' bs' cs' ds' js'} →
          Bit b →
          Fair os₁' →
