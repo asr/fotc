@@ -94,22 +94,9 @@ helper {b} {i'} {is'} {os₁'} {os₂'} {as'} {bs'} {cs'} {ds'} {js'}
   {-# ATP prove as'-eq #-}
 
   postulate
-    bs'-eq-helper₁ :
-      os₁' ≡ T ∷ tail₁ os₁' →
-      bs' ≡ ok < i' , b > ∷ bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'')
-  {-# ATP prove bs'-eq-helper₁ as'-eq #-}
-
-  postulate
-    bs'-eq-helper₂ :
-      os₁' ≡ F ∷ tail₁ os₁' →
-      bs' ≡ error ∷ bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'')
-  {-# ATP prove bs'-eq-helper₂ as'-eq #-}
-
-  bs'-eq : bs' ≡ ok < i' , b > ∷ bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'')
-             ∨ bs' ≡ error ∷ bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'')
-  bs'-eq = case (λ h → inj₁ (bs'-eq-helper₁ h))
-                (λ h → inj₂ (bs'-eq-helper₂ h))
-                (head-tail-Fair Fos₁')
+    bs'-eq : bs' ≡ ok < i' , b > ∷ bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'')
+               ∨ bs' ≡ error ∷ bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'')
+  {-# ATP prove bs'-eq as'-eq head-tail-Fair #-}
 
   postulate
     cs'-eq-helper₁ :
@@ -127,19 +114,8 @@ helper {b} {i'} {is'} {os₁'} {os₂'} {as'} {bs'} {cs'} {ds'} {js'}
   cs'-eq = case cs'-eq-helper₁ cs'-eq-helper₂ bs'-eq
 
   postulate
-    js'-eq-helper₁ :
-      bs' ≡ ok < i' , b > ∷ bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'') →
-      js' ≡ out (not b) · bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'')
-  {-# ATP prove js'-eq-helper₁ not-x≢x #-}
-
-  postulate
-    js'-eq-helper₂ :
-      bs' ≡ error ∷ bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'') →
-      js' ≡ out (not b) · bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'')
-  {-# ATP prove js'-eq-helper₂ #-}
-
-  js'-eq : js' ≡ out (not b) · bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'')
-  js'-eq = case js'-eq-helper₁ js'-eq-helper₂ bs'-eq
+    js'-eq : js' ≡ out (not b) · bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'')
+  {-# ATP prove js'-eq not-x≢x bs'-eq #-}
 
   postulate
     ds^-eq : ds^ cs' (os₂^ ft₂ os₂'') ≡
