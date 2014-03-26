@@ -17,13 +17,10 @@ Bit : D → Set
 Bit b = Bool b
 {-# ATP definition Bit #-}
 
-F : D
+F T : D
 F = false
-{-# ATP definition F #-}
-
-T : D
 T = true
-{-# ATP definition T #-}
+{-# ATP definition F T #-}
 
 postulate
   <_,_> : D → D → D
