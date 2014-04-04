@@ -39,11 +39,11 @@ private
   -- First argument application.
   lt-s₂ : D → D
   lt-s₂ m = lam (λ n →
-               if (iszero₁ n)
-                 then false
-                 else (if (iszero₁ m)
-                         then true
-                         else (fix lth · pred₁ m · pred₁ n)))
+              if (iszero₁ n)
+                then false
+                else (if (iszero₁ m)
+                        then true
+                        else (fix lth · pred₁ m · pred₁ n)))
 
 
   -- Second argument application.
