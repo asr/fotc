@@ -35,8 +35,20 @@ Stream-in h = Stream-coind A h' h
   h' : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
   h' (x' , xs' , prf , Sxs') = x' , xs' , prf , Stream-out Sxs'
 
+foo : ∀ {xs} → Stream xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs'
+foo Sxs = Stream-out Sxs
+
 ∷-Stream : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
-∷-Stream h with Stream-out h
+∷-Stream {x} {xs} h = ∷-Stream-helper (Stream-out h)
+  where
+  ∷-Stream-helper : ∃[ x' ] ∃[ xs' ] x ∷ xs ≡ x' ∷ xs' ∧ Stream xs' →
+                    Stream xs
+  ∷-Stream-helper (x' , xs' , prf , Sxs') =
+    subst Stream (sym (∧-proj₂ (∷-injective prf))) Sxs'
+
+-- Version using Agda with constructor.
+∷-Stream' : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
+∷-Stream' h with Stream-out h
 ... | x' , xs' , prf , Sxs' =
   subst Stream (sym (∧-proj₂ (∷-injective prf))) Sxs'
 
