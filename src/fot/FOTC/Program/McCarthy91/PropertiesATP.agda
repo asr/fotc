@@ -110,9 +110,20 @@ f₉₁-x≯100 = ◁-wfind A h
     f₉₁-m≯89 = f₉₁-x≯100-helper m 91' m≯100
                                 (f₉₁-m+11 (x≤89→x+11≯100 Nm m≤89))
                                 f₉₁-91
+
 -- The function always terminates.
 f₉₁-N : ∀ {n} → N n → N (f₉₁ n)
-f₉₁-N {n} Nn with x>y∨x≯y Nn 100-N
+f₉₁-N {n} Nn = case prf₁ prf₂ (x>y∨x≯y Nn 100-N)
+  where
+  prf₁ : n > 100' → N (f₉₁ n)
+  prf₁ n>100 = subst N (sym (f₉₁-x>100 n n>100)) (∸-N Nn 10-N)
+
+  prf₂ : n ≯ 100' → N (f₉₁ n)
+  prf₂ n≯100 = subst N (sym (f₉₁-x≯100 Nn n≯100)) 91-N
+
+-- The function always terminates (using Agda with constructor).
+f₉₁-N' : ∀ {n} → N n → N (f₉₁ n)
+f₉₁-N' {n} Nn with x>y∨x≯y Nn 100-N
 ... | inj₁ n>100 = subst N (sym (f₉₁-x>100 n n>100)) (∸-N Nn 10-N)
 ... | inj₂ n≯100 = subst N (sym (f₉₁-x≯100 Nn n≯100)) 91-N
 
