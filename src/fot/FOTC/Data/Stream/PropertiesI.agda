@@ -75,6 +75,35 @@ streamLength {xs} Sxs = ≈N-coind R h₁ h₂
   h₁ : ∀ {m n} → R m n →
        m ≡ zero ∧ n ≡ zero
          ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
+  h₁ {m} {n} (xs , Sxs , m=lxs , n≡∞) = helper₁ (Stream-out Sxs)
+    where
+    helper₁ : (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs') →
+              m ≡ zero ∧ n ≡ zero
+                ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
+    helper₁ (x' , xs' , xs≡x'∷xs' , Sxs') =
+      inj₂ (length xs'
+           , ∞
+           , helper₂
+           , trans n≡∞ ∞-eq
+           , (xs' , Sxs' , refl , refl))
+        where
+        helper₂ : m ≡ succ₁ (length xs')
+        helper₂ = trans m=lxs (trans (lengthCong xs≡x'∷xs') (length-∷ x' xs'))
+
+  h₂ : R (length xs) ∞
+  h₂ = xs , Sxs , refl , refl
+
+-- Adapted from (Sander 1992, p. 59). Version using Agda with
+-- constructor.
+streamLength' : ∀ {xs} → Stream xs → length xs ≈N ∞
+streamLength' {xs} Sxs = ≈N-coind R h₁ h₂
+  where
+  R : D → D → Set
+  R m n = ∃[ xs ] Stream xs ∧ m ≡ length xs ∧ n ≡ ∞
+
+  h₁ : ∀ {m n} → R m n →
+       m ≡ zero ∧ n ≡ zero
+         ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
   h₁ {m} (xs , Sxs , m=lxs , n≡∞) with Stream-out Sxs
   ... | x' , xs' , xs≡x'∷xs' , Sxs' =
     inj₂ (length xs' , ∞ , helper , trans n≡∞ ∞-eq , (xs' , Sxs' , refl , refl))
