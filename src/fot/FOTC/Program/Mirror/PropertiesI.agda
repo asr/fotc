@@ -15,7 +15,7 @@ open import FOTC.Base.List.PropertiesI
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI
 open import FOTC.Program.Mirror.Type
-open import FOTC.Program.Mirror.Forest.PropertiesI
+open import FOTC.Program.Mirror.Forest.PropertiesI as ForestP
 open import FOTC.Program.Mirror.Forest.TotalityI
 open import FOTC.Program.Mirror.Mirror
 open import FOTC.Program.Mirror.Tree.TotalityI
@@ -90,11 +90,11 @@ helper (fcons {t} {ts} Tt Fts) =
     ≡⟨ reverseCong (mapCong₂ (reverseCong (map-∷ mirror t ts))) ⟩
   reverse (map mirror (reverse (mirror · t ∷ map mirror ts)))
     ≡⟨ reverseCong (mapCong₂
-                     (reverse-∷-forest (mirror-Tree Tt)
-                                       (map-Forest mirror mirror-Tree Fts)))
+                     (ForestP.reverse-∷ (mirror-Tree Tt)
+                                        (map-Forest mirror mirror-Tree Fts)))
     ⟩
   reverse (map mirror (reverse (map mirror ts) ++ (mirror · t ∷ [])))
-    ≡⟨ reverseCong (map-++-forest
+    ≡⟨ reverseCong (ForestP.map-++
                      mirror
                      mirror-Tree
                        (reverse-Forest (map-Forest mirror mirror-Tree Fts))
@@ -105,7 +105,7 @@ helper (fcons {t} {ts} Tt Fts) =
           (map mirror (mirror · t ∷ [])))
     ≡⟨ subst (λ x → (reverse (map mirror (reverse (map mirror ts)) ++
                                          (map mirror (mirror · t ∷ [])))) ≡ x)
-             (reverse-++-forest
+             (ForestP.reverse-++
                (map-Forest mirror mirror-Tree
                            (reverse-Forest
                            (map-Forest mirror mirror-Tree Fts)))

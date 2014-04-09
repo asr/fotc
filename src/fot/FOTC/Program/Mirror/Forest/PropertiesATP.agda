@@ -24,30 +24,29 @@ open import FOTC.Program.Mirror.Type
 
 ------------------------------------------------------------------------------
 
-++-rightIdentity-forest : ∀ {xs} → Forest xs → xs ++ [] ≡ xs
-++-rightIdentity-forest fnil = ++-leftIdentity []
-++-rightIdentity-forest (fcons {x} {xs} Tx Fxs) =
-  prf (++-rightIdentity-forest Fxs)
+++-rightIdentity : ∀ {xs} → Forest xs → xs ++ [] ≡ xs
+++-rightIdentity fnil = ++-leftIdentity []
+++-rightIdentity (fcons {x} {xs} Tx Fxs) =
+  prf (++-rightIdentity Fxs)
   where postulate prf : xs ++ [] ≡ xs → (x ∷ xs) ++ [] ≡ x ∷ xs
         {-# ATP prove prf #-}
 
-++-assoc-forest :
-  ∀ {xs} → Forest xs → ∀ ys zs → (xs ++ ys) ++ zs ≡ xs ++ (ys ++ zs)
-++-assoc-forest fnil ys zs = prf
+++-assoc : ∀ {xs} → Forest xs → ∀ ys zs → (xs ++ ys) ++ zs ≡ xs ++ (ys ++ zs)
+++-assoc fnil ys zs = prf
   where postulate prf : ([] ++ ys) ++ zs ≡ [] ++ ys ++ zs
         {-# ATP prove prf #-}
 
-++-assoc-forest (fcons {x} {xs} Tx Fxs) ys zs = prf (++-assoc-forest Fxs ys zs)
+++-assoc (fcons {x} {xs} Tx Fxs) ys zs = prf (++-assoc Fxs ys zs)
   where postulate prf : (xs ++ ys) ++ zs ≡ xs ++ ys ++ zs →
                         ((x ∷ xs) ++ ys) ++ zs ≡ (x ∷ xs) ++ ys ++ zs
         {-# ATP prove prf #-}
 
 -- We don't use an automatic proof, because it is necessary to erase a
 -- proof term which we don't know how to erase.
-map-++-forest : ∀ f {xs} → (∀ {x} → Tree x → Tree (f · x)) →
-                Forest xs → ∀ ys →
-                map f (xs ++ ys) ≡ map f xs ++ map f ys
-map-++-forest f h fnil ys =
+map-++ : ∀ f {xs} → (∀ {x} → Tree x → Tree (f · x)) →
+         Forest xs →
+         ∀ ys → map f (xs ++ ys) ≡ map f xs ++ map f ys
+map-++ f h fnil ys =
   map f ([] ++ ys)
     ≡⟨ mapCong₂ (++-leftIdentity ys) ⟩
   map f ys
@@ -56,58 +55,58 @@ map-++-forest f h fnil ys =
      ≡⟨ ++-leftCong (sym (map-[] f)) ⟩
   map f [] ++ map f ys ∎
 
-map-++-forest f h (fcons {x} {xs} Tx Fxs) ys =
+map-++ f h (fcons {x} {xs} Tx Fxs) ys =
   map f ((x ∷ xs) ++ ys)
     ≡⟨ mapCong₂ (++-∷ x xs ys) ⟩
   map f (x ∷ xs ++ ys)
     ≡⟨ map-∷ f x (xs ++ ys) ⟩
   f · x ∷ map f (xs ++ ys)
-    ≡⟨ ∷-rightCong (map-++-forest f h Fxs ys) ⟩
+    ≡⟨ ∷-rightCong (map-++ f h Fxs ys) ⟩
   f · x ∷ (map f xs ++ map f ys)
     ≡⟨ sym (++-∷ (f · x) (map f xs) (map f ys)) ⟩
   (f · x ∷ map f xs) ++ map f ys
      ≡⟨ ++-leftCong (sym (map-∷ f x xs)) ⟩
   map f (x ∷ xs) ++ map f ys ∎
 
-rev-++-forest : ∀ {xs} → Forest xs → ∀ ys → rev xs ys ≡ rev xs [] ++ ys
-rev-++-forest fnil ys = prf
+rev-++ : ∀ {xs} → Forest xs → ∀ ys → rev xs ys ≡ rev xs [] ++ ys
+rev-++ fnil ys = prf
   where postulate prf : rev [] ys ≡ rev [] [] ++ ys
         {-# ATP prove prf #-}
 
-rev-++-forest (fcons {x} {xs} Tx Fxs) ys =
-  prf (rev-++-forest Fxs (x ∷ ys))
-      (rev-++-forest Fxs (x ∷ []))
+rev-++ (fcons {x} {xs} Tx Fxs) ys =
+  prf (rev-++ Fxs (x ∷ ys))
+      (rev-++ Fxs (x ∷ []))
   where postulate prf : rev xs (x ∷ ys) ≡ rev xs [] ++ x ∷ ys →
                         rev xs (x ∷ []) ≡ rev xs [] ++ x ∷ [] →
                         rev (x ∷ xs) ys ≡ rev (x ∷ xs) [] ++ ys
-        {-# ATP prove prf ++-assoc-forest rev-Forest #-}
+        {-# ATP prove prf ++-assoc rev-Forest #-}
 
-reverse-++-forest : ∀ {xs ys} → Forest xs → Forest ys →
-                     reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
-reverse-++-forest {ys = ys} fnil Fys = prf
+reverse-++ : ∀ {xs ys} → Forest xs → Forest ys →
+             reverse (xs ++ ys) ≡ reverse ys ++ reverse xs
+reverse-++ {ys = ys} fnil Fys = prf
   where postulate prf : reverse ([] ++ ys) ≡ reverse ys ++ reverse []
-        {-# ATP prove prf ++-rightIdentity-forest reverse-Forest #-}
+        {-# ATP prove prf ++-rightIdentity reverse-Forest #-}
 
-reverse-++-forest (fcons {x} {xs} Tx Fxs) fnil = prf
+reverse-++ (fcons {x} {xs} Tx Fxs) fnil = prf
   where
   postulate prf : reverse ((x ∷ xs) ++ []) ≡ reverse [] ++ reverse (x ∷ xs)
-  {-# ATP prove prf ++-rightIdentity-forest #-}
+  {-# ATP prove prf ++-rightIdentity #-}
 
-reverse-++-forest (fcons {x} {xs} Tx Fxs) (fcons {y} {ys} Ty Fys) =
-  prf (reverse-++-forest Fxs (fcons Ty Fys))
+reverse-++ (fcons {x} {xs} Tx Fxs) (fcons {y} {ys} Ty Fys) =
+  prf (reverse-++ Fxs (fcons Ty Fys))
   where
   postulate prf : reverse (xs ++ y ∷ ys) ≡ reverse (y ∷ ys) ++
                                            reverse xs →
                   reverse ((x ∷ xs) ++ y ∷ ys) ≡ reverse (y ∷ ys) ++
                                                  reverse (x ∷ xs)
-  {-# ATP prove prf reverse-Forest ++-Forest rev-++-forest ++-assoc-forest #-}
+  {-# ATP prove prf reverse-Forest ++-Forest rev-++ ++-assoc #-}
 
-reverse-∷-forest : ∀ {x ys} → Tree x → Forest ys →
-                   reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])
-reverse-∷-forest {x} Tx fnil = prf
+reverse-∷ : ∀ {x ys} → Tree x → Forest ys →
+            reverse (x ∷ ys) ≡ reverse ys ++ (x ∷ [])
+reverse-∷ {x} Tx fnil = prf
   where postulate prf : reverse (x ∷ []) ≡ reverse [] ++ x ∷ []
         {-# ATP prove prf #-}
 
-reverse-∷-forest {x} Tx (fcons {y} {ys} Ty Fys) = prf
+reverse-∷ {x} Tx (fcons {y} {ys} Ty Fys) = prf
   where postulate prf : reverse (x ∷ y ∷ ys) ≡ reverse (y ∷ ys) ++ x ∷ []
-        {-# ATP prove prf reverse-[x]≡[x] reverse-++-forest #-}
+        {-# ATP prove prf reverse-[x]≡[x] reverse-++ #-}
