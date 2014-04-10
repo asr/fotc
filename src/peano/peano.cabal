@@ -17,7 +17,7 @@ library
 
   build-depends:
     base         >= 4.2     && < 4.7
-    , QuickCheck >= 2.5.1.1 && < 2.7
+    , QuickCheck >= 2.5.1.1 && < 2.7.4
 
   if impl(ghc == 7.6.2) || impl(ghc == 7.6.3)
      ghc-options:
