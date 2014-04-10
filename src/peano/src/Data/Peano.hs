@@ -18,9 +18,11 @@ module Data.Peano
   )
 where
 
+import Control.Monad ( liftM )
+
 import Test.QuickCheck
   ( Arbitrary(arbitrary)
-  , NonNegative(NonNegative)
+  , oneof
   )
 
 -----------------------------------------------------------------------------
@@ -94,9 +96,15 @@ instance Integral Nat where
 instance Show Nat where
   show = show . nat2Integer
 
--- QuickCheck instance.
+-- QuickCheck instance. Adapted from the list instance in [Claessen
+-- and Hughes, 2000].
 instance Arbitrary Nat where
-  arbitrary = (fromInteger . unNN) `fmap` arbitrary
-    where
-    unNN ∷ NonNegative Integer → Integer
-    unNN (NonNegative x) = x
+  arbitrary = oneof [return Zero, liftM Succ arbitrary]
+
+------------------------------------------------------------------------------
+-- References:
+
+-- Claessen, Koen and Hughes, John (2000). QuickCheck: A Lightweight
+-- Tool for Random Testing of Haskell programs. In: Proceedings of the
+-- fifth ACM SIGPLAN International Conference on Functional Programming
+-- (ICFP ’00), pp. 268–279.
