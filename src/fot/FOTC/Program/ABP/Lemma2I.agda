@@ -32,16 +32,16 @@ open import FOTC.Program.ABP.Terms
 
 ------------------------------------------------------------------------------
 -- Helper function for Lemma 2.
-helper : ∀ {b i' is' os₁' os₂' as' bs' cs' ds' js'} →
-         Bit b →
-         Fair os₁' →
-         S' b i' is' os₁' os₂' as' bs' cs' ds' js' →
-         ∀ ft₂ os₂'' → F*T ft₂ → Fair os₂'' → os₂' ≡ ft₂ ++ os₂'' →
-         ∃[ os₁'' ] ∃[ os₂'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
-           Fair os₁''
-           ∧ Fair os₂''
-           ∧ S (not b) is' os₁'' os₂'' as'' bs'' cs'' ds'' js'
-helper {b} {i'} {is'} {os₁'} {os₂'} {as'} {bs'} {cs'} {ds'} {js'}
+helper₂ : ∀ {b i' is' os₁' os₂' as' bs' cs' ds' js'} →
+          Bit b →
+          Fair os₁' →
+          S' b i' is' os₁' os₂' as' bs' cs' ds' js' →
+          ∀ ft₂ os₂'' → F*T ft₂ → Fair os₂'' → os₂' ≡ ft₂ ++ os₂'' →
+          ∃[ os₁'' ] ∃[ os₂'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
+            Fair os₁''
+            ∧ Fair os₂''
+            ∧ S (not b) is' os₁'' os₂'' as'' bs'' cs'' ds'' js'
+helper₂ {b} {i'} {is'} {os₁'} {os₂'} {as'} {bs'} {cs'} {ds'} {js'}
        Bb Fos₁' (as'S' , bs'S' , cs'S' , ds'S' , js'S')
        .(T ∷ []) os₂'' f*tnil Fos₂'' os₂'-eq =
        os₁' , os₂'' , as'' , bs'' , cs'' , ds''
@@ -94,10 +94,10 @@ helper {b} {i'} {is'} {os₁'} {os₂'} {as'} {bs'} {cs'} {ds'} {js'}
   js'-eq : js' ≡ out (not b) · bs''
   js'-eq = js'S'
 
-helper {b} {i'} {is'} {os₁'} {os₂'} {as'} {bs'} {cs'} {ds'} {js'}
-       Bb Fos₁' (as'S' , bs'S' , cs'S' , ds'S' , js'S')
-       .(F ∷ ft₂) os₂'' (f*tcons {ft₂} FTft₂) Fos₂'' os₂'-eq =
-       helper Bb (tail-Fair Fos₁') ihS' ft₂ os₂'' FTft₂ Fos₂'' refl
+helper₂ {b} {i'} {is'} {os₁'} {os₂'} {as'} {bs'} {cs'} {ds'} {js'}
+        Bb Fos₁' (as'S' , bs'S' , cs'S' , ds'S' , js'S')
+        .(F ∷ ft₂) os₂'' (f*tcons {ft₂} FTft₂) Fos₂'' os₂'-eq =
+        helper₂ Bb (tail-Fair Fos₁') ihS' ft₂ os₂'' FTft₂ Fos₂'' refl
   where
   os₁^ : D
   os₁^ = tail₁ os₁'
@@ -241,6 +241,13 @@ lemma₂ : ∀ {b i' is' os₁' os₂' as' bs' cs' ds' js'} →
          Fair os₁''
          ∧ Fair os₂''
          ∧ S (not b) is' os₁'' os₂'' as'' bs'' cs'' ds'' js'
-lemma₂ Bb Fos₁' Fos₂' s' with Fair-out Fos₂'
-... | ft₂ , os₂'' , FTft₂ , prf , Fos₂'' =
-  helper Bb Fos₁' s' ft₂ os₂'' FTft₂ Fos₂'' prf
+lemma₂ {b} {is' = is'} {os₂' = os₂'} {js' = js'} Bb Fos₁' Fos₂' s' =
+  helper₁ (Fair-out Fos₂')
+  where
+  helper₁ : (∃[ ft₂ ] ∃[ os₂'' ] F*T ft₂ ∧ os₂' ≡ ft₂ ++ os₂'' ∧ Fair os₂'') →
+            ∃[ os₁'' ] ∃[ os₂'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
+              Fair os₁''
+              ∧ Fair os₂''
+              ∧ S (not b) is' os₁'' os₂'' as'' bs'' cs'' ds'' js'
+  helper₁ (ft₂ , os₂'' , FTft₂ , os₂'-eq , Fos₂'') =
+    helper₂ Bb Fos₁' s' ft₂ os₂'' FTft₂ Fos₂'' os₂'-eq

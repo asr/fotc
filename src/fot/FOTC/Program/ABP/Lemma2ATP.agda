@@ -56,16 +56,16 @@ os₂^ ft₂ os₂'' = ft₂ ++ os₂''
 {-# ATP definition os₂^ #-}
 
 -- Helper function for Lemma 2.
-helper : ∀ {b i' is' os₁' os₂' as' bs' cs' ds' js'} →
-         Bit b →
-         Fair os₁' →
-         S' b i' is' os₁' os₂' as' bs' cs' ds' js' →
-         ∀ ft₂ os₂'' → F*T ft₂ → Fair os₂'' → os₂' ≡ ft₂ ++ os₂'' →
-         ∃[ os₁'' ] ∃[ os₂'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
-           Fair os₁''
-           ∧ Fair os₂''
-           ∧ S (not b) is' os₁'' os₂'' as'' bs'' cs'' ds'' js'
-helper {b} {i'} {is'} {js' = js'} Bb Fos₁' s'
+helper₂ : ∀ {b i' is' os₁' os₂' as' bs' cs' ds' js'} →
+          Bit b →
+          Fair os₁' →
+          S' b i' is' os₁' os₂' as' bs' cs' ds' js' →
+          ∀ ft₂ os₂'' → F*T ft₂ → Fair os₂'' → os₂' ≡ ft₂ ++ os₂'' →
+          ∃[ os₁'' ] ∃[ os₂'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
+            Fair os₁''
+            ∧ Fair os₂''
+            ∧ S (not b) is' os₁'' os₂'' as'' bs'' cs'' ds'' js'
+helper₂ {b} {i'} {is'} {js' = js'} Bb Fos₁' s'
        .(T ∷ []) os₂'' f*tnil Fos₂'' os₂'-eq = prf
   where
   postulate
@@ -79,10 +79,10 @@ helper {b} {i'} {is'} {js' = js'} Bb Fos₁' s'
           ∧ js'  ≡ out (not b) · bs''
   {-# ATP prove prf #-}
 
-helper {b} {i'} {is'} {os₁'} {os₂'} {as'} {bs'} {cs'} {ds'} {js'}
-       Bb Fos₁' s'
-       .(F ∷ ft₂) os₂'' (f*tcons {ft₂} FTft₂) Fos₂'' os₂'-eq =
-       helper Bb (tail-Fair Fos₁') ihS' ft₂ os₂'' FTft₂ Fos₂'' refl
+helper₂ {b} {i'} {is'} {os₁'} {os₂'} {as'} {bs'} {cs'} {ds'} {js'}
+        Bb Fos₁' s'
+        .(F ∷ ft₂) os₂'' (f*tcons {ft₂} FTft₂) Fos₂'' os₂'-eq =
+        helper₂ Bb (tail-Fair Fos₁') ihS' ft₂ os₂'' FTft₂ Fos₂'' refl
   where
   postulate os₂'-eq-helper : os₂' ≡ F ∷ os₂^ ft₂ os₂''
   {-# ATP prove os₂'-eq-helper #-}
@@ -148,6 +148,13 @@ lemma₂ : ∀ {b i' is' os₁' os₂' as' bs' cs' ds' js'} →
            Fair os₁''
            ∧ Fair os₂''
            ∧ S (not b) is' os₁'' os₂'' as'' bs'' cs'' ds'' js'
-lemma₂ Bb Fos₁' Fos₂' s' with Fair-out Fos₂'
-... | ft , os₁'' , FTft , prf , Fos₁'' =
-  helper Bb Fos₁' s' ft os₁'' FTft Fos₁'' prf
+lemma₂ {b} {is' = is'} {os₂' = os₂'} {js' = js'} Bb Fos₁' Fos₂' s' =
+  helper₁ (Fair-out Fos₂')
+  where
+  helper₁ : (∃[ ft₂ ] ∃[ os₂'' ] F*T ft₂ ∧ os₂' ≡ ft₂ ++ os₂'' ∧ Fair os₂'') →
+            ∃[ os₁'' ] ∃[ os₂'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
+              Fair os₁''
+              ∧ Fair os₂''
+              ∧ S (not b) is' os₁'' os₂'' as'' bs'' cs'' ds'' js'
+  helper₁ (ft₂ , os₂'' , FTft₂ , os₂'-eq , Fos₂'') =
+    helper₂ Bb Fos₁' s' ft₂ os₂'' FTft₂ Fos₂'' os₂'-eq

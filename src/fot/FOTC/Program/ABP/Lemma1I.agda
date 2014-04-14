@@ -238,8 +238,7 @@ lemma₁ : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
            ∧ Fair os₂'
            ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
            ∧ js ≡ i' ∷ js'
-lemma₁ {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js} Bb Fos₁ Fos₂ s =
-  helper₁ (Fair-out Fos₁)
+lemma₁ {b} {i'} {is'} {os₁} {js = js} Bb Fos₁ Fos₂ s = helper₁ (Fair-out Fos₁)
   where
   helper₁ : (∃[ ft ] ∃[ os₁' ] F*T ft ∧ os₁ ≡ ft ++ os₁' ∧ Fair os₁') →
             ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
@@ -247,5 +246,5 @@ lemma₁ {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js} Bb Fos₁ Fos�
               ∧ Fair os₂'
               ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
               ∧ js ≡ i' ∷ js'
-  helper₁ (ft , os₁' , FTft , prf ,  Fos₁') =
-    helper₂ Bb Fos₂ s ft os₁' FTft Fos₁' prf
+  helper₁ (ft , os₁' , FTft , os₁-eq ,  Fos₁') =
+    helper₂ Bb Fos₂ s ft os₁' FTft Fos₁' os₁-eq
