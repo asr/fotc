@@ -52,17 +52,17 @@ os₂^ os₂ = tail₁ os₂
 {-# ATP definition os₂^ #-}
 
 -- Helper function for Lemma 1.
-helper : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
-         Bit b →
-         Fair os₂ →
-         S b (i' ∷ is') os₁ os₂ as bs cs ds js →
-         ∀ ft₁ os₁' → F*T ft₁ → Fair os₁' → os₁ ≡ ft₁ ++ os₁' →
-         ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-           Fair os₁'
-           ∧ Fair os₂'
-           ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
-           ∧ js ≡ i' ∷ js'
-helper {b} {i'} {is'} {js = js}
+helper₂ : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
+          Bit b →
+          Fair os₂ →
+          S b (i' ∷ is') os₁ os₂ as bs cs ds js →
+          ∀ ft₁ os₁' → F*T ft₁ → Fair os₁' → os₁ ≡ ft₁ ++ os₁' →
+          ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
+            Fair os₁'
+            ∧ Fair os₂'
+            ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
+            ∧ js ≡ i' ∷ js'
+helper₂ {b} {i'} {is'} {js = js}
        Bb Fos₂ s .(T ∷ []) os₁' f*tnil Fos₁' os₁-eq = prf
   where
   postulate
@@ -77,9 +77,9 @@ helper {b} {i'} {is'} {js = js}
             ∧ js ≡ i' ∷ js'
   {-# ATP prove prf #-}
 
-helper {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js} Bb Fos₂ s
+helper₂ {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js} Bb Fos₂ s
        .(F ∷ ft₁^) os₁' (f*tcons {ft₁^} FTft₁^) Fos₁' os₁-eq =
-  helper Bb (tail-Fair Fos₂) ihS ft₁^ os₁' FTft₁^ Fos₁' refl
+  helper₂ Bb (tail-Fair Fos₂) ihS ft₁^ os₁' FTft₁^ Fos₁' refl
   where
   postulate os₁-eq-helper : os₁ ≡ F ∷ os₁^ os₁' ft₁^
   {-# ATP prove os₁-eq-helper #-}
@@ -146,6 +146,14 @@ lemma₁ : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
            ∧ Fair os₂'
            ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
            ∧ js ≡ i' ∷ js'
-lemma₁ Bb Fos₁ Fos₂ s with Fair-out Fos₁
-... | ft₁ , os₁' , FTft₁ , prf , Fos₁' =
-  helper Bb Fos₂ s ft₁ os₁' FTft₁ Fos₁' prf
+lemma₁ {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js} Bb Fos₁ Fos₂ s =
+  helper₁ (Fair-out Fos₁)
+  where
+  helper₁ : (∃[ ft ] ∃[ os₁' ] F*T ft ∧ os₁ ≡ ft ++ os₁' ∧ Fair os₁') →
+            ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
+              Fair os₁'
+              ∧ Fair os₂'
+              ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
+              ∧ js ≡ i' ∷ js'
+  helper₁ (ft , os₁' , FTft , prf ,  Fos₁') =
+    helper₂ Bb Fos₂ s ft os₁' FTft Fos₁' prf

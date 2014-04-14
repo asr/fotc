@@ -31,25 +31,25 @@ open import FOTC.Program.ABP.PropertiesI
 
 ------------------------------------------------------------------------------
 -- Helper function for Lemma 1.
-helper : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
-         Bit b →
-         Fair os₂ →
-         S b (i' ∷ is') os₁ os₂ as bs cs ds js →
-         ∀ ft₁ os₁' → F*T ft₁ → Fair os₁' → os₁ ≡ ft₁ ++ os₁' →
-         ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-           Fair os₁'
-           ∧ Fair os₂'
-           ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
-           ∧ js ≡ i' ∷ js'
+helper₂ : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
+          Bit b →
+          Fair os₂ →
+          S b (i' ∷ is') os₁ os₂ as bs cs ds js →
+          ∀ ft₁ os₁' → F*T ft₁ → Fair os₁' → os₁ ≡ ft₁ ++ os₁' →
+          ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
+            Fair os₁'
+            ∧ Fair os₂'
+            ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
+            ∧ js ≡ i' ∷ js'
 -- 2012-02-29. The existential witnesses could be avoid not using
 -- the auxiliary proofs inside the where clause.
-helper {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js} Bb Fos₂
-       (asS , bsS , csS , dsS , jsS)
-       .(T ∷ []) os₁' f*tnil Fos₁' os₁-eq =
-       os₁' , os₂' , as' , bs' , cs' , ds' , js'
-       , Fos₁' , Fos₂
-       , (refl , refl , refl , ds'-eq , refl)
-       , js-eq
+helper₂ {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js} Bb Fos₂
+        (asS , bsS , csS , dsS , jsS)
+        .(T ∷ []) os₁' f*tnil Fos₁' os₁-eq =
+        os₁' , os₂' , as' , bs' , cs' , ds' , js'
+        , Fos₁' , Fos₂
+        , (refl , refl , refl , ds'-eq , refl)
+        , js-eq
   where
   os₁-eq-helper : os₁ ≡ T ∷ os₁'
   os₁-eq-helper = os₁              ≡⟨ os₁-eq ⟩
@@ -117,10 +117,10 @@ helper {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js} Bb Fos₂
       ≡⟨ refl ⟩
     corrupt os₂ · (b ∷ ack (not b) · (corrupt os₁' · (await b i' is' ds))) ∎
 
-helper {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js}
-       Bb Fos₂ (asS , bsS , csS , dsS , jsS)
-       .(F ∷ ft₁^) os₁' (f*tcons {ft₁^} FTft₁^) Fos₁' os₁-eq =
-       helper Bb (tail-Fair Fos₂) ihS ft₁^  os₁' FTft₁^ Fos₁' refl
+helper₂ {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js}
+        Bb Fos₂ (asS , bsS , csS , dsS , jsS)
+        .(F ∷ ft₁^) os₁' (f*tcons {ft₁^} FTft₁^) Fos₁' os₁-eq =
+        helper₂ Bb (tail-Fair Fos₂) ihS ft₁^  os₁' FTft₁^ Fos₁' refl
   where
   os₁^ : D
   os₁^ = ft₁^ ++ os₁'
@@ -238,5 +238,14 @@ lemma₁ : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
            ∧ Fair os₂'
            ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
            ∧ js ≡ i' ∷ js'
-lemma₁ Bb Fos₁ Fos₂ s with Fair-out Fos₁
-... | ft , os₁' , FTft , prf ,  Fos₁' = helper Bb Fos₂ s ft os₁' FTft Fos₁' prf
+lemma₁ {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js} Bb Fos₁ Fos₂ s =
+  helper₁ (Fair-out Fos₁)
+  where
+  helper₁ : (∃[ ft ] ∃[ os₁' ] F*T ft ∧ os₁ ≡ ft ++ os₁' ∧ Fair os₁') →
+            ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
+              Fair os₁'
+              ∧ Fair os₂'
+              ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
+              ∧ js ≡ i' ∷ js'
+  helper₁ (ft , os₁' , FTft , prf ,  Fos₁') =
+    helper₂ Bb Fos₂ s ft os₁' FTft Fos₁' prf
