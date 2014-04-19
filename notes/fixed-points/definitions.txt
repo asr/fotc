@@ -9,17 +9,17 @@
 
 -- Least pre-fixed point : d is the least pre-fixed point of f if
 -- 1. f d ≤ d  -- d is a pre-fixed point of f
--- 2. ∀ e. f e ≤ e ⇒ d ≤ e
+-- 2. ∀ x. f x ≤ x ⇒ d ≤ x
 
 -- Least fixed-point : d is the least fixed-point of f if
 -- 1. f d = d  -- d is a fixed-point of f
--- 2. ∀ e. f e ≤ e ⇒ d ≤ e
+-- 2. ∀ x. f x = e ⇒ d ≤ x
 
 -- Thm: If d is the least pre-fixed point of f, then d is the least
--- fixed-point of f (Ésik, 2009, p. 31).
+-- fixed-point of f (Ésik, 2009, proposition 2.1, p. 31).
 
 -- Thm: If d is the greatest post-fixed point of f, then d is the greatest
--- fixed-point of f (Ésik, 2009, p. 31, proposition 2.1).
+-- fixed-point of f (Ésik, 2009, proposition 2.1, p. 31).
 
 ------------------------------------------------------------------------------
 -- References
