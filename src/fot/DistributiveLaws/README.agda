@@ -4,22 +4,14 @@
 
 module DistributiveLaws.README where
 
--- We prove some properties of Stanovský (2008).  Let _·_ be a
--- left-associative binary operation which satifies the left and right
--- distributive axioms:
+-- Let _·_ be a left-associative binary operation which satifies the
+-- left and right distributive axioms:
 --
 -- ∀ x y z → x ∙ (y ∙ z) ≡ (x ∙ y) ∙ (x ∙ z)
 -- ∀ x y z → (x ∙ y) ∙ z ≡ (x ∙ z) ∙ (y ∙ z).
 
--- Task A (to prove the Lemma₅)
---
--- ∀ x y → (x · y ) · x ≡ x · (y · x).
-
--- Task B (to prove Proposition 2)
---
--- ∀ u x y z →
--- (x ∙ y ∙ (z ∙ u)) ∙ ((x ∙ y ∙ ( z ∙ u)) ∙ (x ∙ z ∙ (y ∙ u))) ≡
---   x ∙ z ∙ (y ∙ u).
+-- We prove some properties of Stanovský (2008): Lemma 4, Task A
+-- (Lemma₅) and Task B (Proposition 2).
 
 ------------------------------------------------------------------------------
 -- The axioms
@@ -30,6 +22,7 @@ open import DistributiveLaws.TaskA-ATP
 open import DistributiveLaws.TaskB-HalvedStepsATP
 open import DistributiveLaws.TaskB-I
 open import DistributiveLaws.TaskB-TopDownATP
+open import DistributiveLaws.Lemma4-ATP
 
 -- Unproven theorem by the ATPs
 open import DistributiveLaws.TaskB.UnprovedATP

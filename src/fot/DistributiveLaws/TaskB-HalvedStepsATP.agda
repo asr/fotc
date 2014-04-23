@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- Example using distributive laws on a binary operation
+-- Distributive laws on a binary operation: Task B
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}

@@ -1,18 +1,19 @@
 ------------------------------------------------------------------------------
--- Distributive laws on a binary operation: Task B
+-- Distributive laws on a binary operation: Lemma 4
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module DistributiveLaws.TaskB.UnprovedATP where
+module DistributiveLaws.Lemma4-ATP where
 
 open import DistributiveLaws.Base
 
 ------------------------------------------------------------------------------
--- 31 July 2013: The ATPs could not prove the theorem (240 sec).
 postulate
-  prop₂ : ∀ u x y z →
-          (x · y · (z · u)) · ((x · y · ( z · u)) · (x · z · (y · u))) ≡
-            x · z · (y · u)
-{-# ATP prove prop₂ #-}
+  lemma-4a : ∀ x y z → ((x · x ) · y) · z ≡ (x · y) · z
+{-# ATP prove lemma-4a #-}
+
+postulate
+  lemma-4b : ∀ x y z → (x · (y · (z · z))) ≡ x · (y · z)
+{-# ATP prove lemma-4b #-}

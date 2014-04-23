@@ -14,3 +14,4 @@ open import DistributiveLaws.TaskB-I
 open import DistributiveLaws.TaskB-AllStepsATP
 open import DistributiveLaws.TaskB-HalvedStepsATP
 open import DistributiveLaws.TaskB-TopDownATP
+open import DistributiveLaws.Lemma4-ATP
