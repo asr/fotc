@@ -11,7 +11,7 @@ module DistributiveLaws.README where
 -- ∀ x y z → (x ∙ y) ∙ z ≡ (x ∙ z) ∙ (y ∙ z).
 
 -- We prove some properties of Stanovský (2008): Task B
--- (Proposition 2), Lemma 4, Task A (Lemma 5) and Lemma 6.
+-- (Proposition 2), Lemma 3, Lemma 4, Task A (Lemma 5) and Lemma 6.
 
 ------------------------------------------------------------------------------
 -- The axioms
@@ -22,6 +22,7 @@ open import DistributiveLaws.TaskA-ATP
 open import DistributiveLaws.TaskB-HalvedStepsATP
 open import DistributiveLaws.TaskB-I
 open import DistributiveLaws.TaskB-TopDownATP
+open import DistributiveLaws.Lemma3-ATP
 open import DistributiveLaws.Lemma4-ATP
 open import DistributiveLaws.Lemma6-ATP
 
