@@ -13,7 +13,6 @@ open import DistributiveLaws.PropertiesI
 open import Common.FOL.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
-
 prop₂ : ∀ u x y z →
         (x · y · (z · u)) · ((x · y · ( z · u)) · (x · z · (y · u))) ≡
           x · z · (y · u)
@@ -21,6 +20,8 @@ prop₂ u x y z =
   xy·zu · (xy·zu · xz·yu)                                         ≡⟨ j₁ ⟩
   xy·zu · (x·zu · y·zu · xz·yu)                                   ≡⟨ j₂ ⟩
   xy·zu · (x·zu · xz·yu · (y·zu · xz·yu))                         ≡⟨ j₃ ⟩
+-- Note: The paper proof has a typo in the third proof step:
+-- xy·zu · (xz·xu · xz·yu · (z·zu · xz·yu))
   xy·zu · (xz·xu · xz·yu · (y·zu · xz·yu))                        ≡⟨ j₄ ⟩
   xy·zu · (xz · xu·yu · (y·zu · xz·yu))                           ≡⟨ j₅ ⟩
   xy·zu · (xz · xyu · (y·zu · xz·yu))                             ≡⟨ j₆ ⟩
