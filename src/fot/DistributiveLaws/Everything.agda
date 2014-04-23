@@ -15,3 +15,4 @@ open import DistributiveLaws.TaskB-AllStepsATP
 open import DistributiveLaws.TaskB-HalvedStepsATP
 open import DistributiveLaws.TaskB-TopDownATP
 open import DistributiveLaws.Lemma4-ATP
+open import DistributiveLaws.Lemma6-ATP
