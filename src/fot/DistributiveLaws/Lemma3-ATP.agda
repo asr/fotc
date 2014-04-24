@@ -10,6 +10,6 @@ module DistributiveLaws.Lemma3-ATP where
 open import DistributiveLaws.Base
 
 ------------------------------------------------------------------------------
-postulate
-  lemma₃ : ∀ x y z → (x · y) · (z · z) ≡ (x · y) · z
+
+postulate lemma₃ : ∀ x y z → (x · y) · (z · z) ≡ (x · y) · z
 {-# ATP prove lemma₃ #-}
