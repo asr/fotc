@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Distributive laws on a binary operation: Task B
+-- Distributive laws on a binary operation: Proposition 2a
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module DistributiveLaws.TaskB-TopDownATP where
+module DistributiveLaws.Proposition2a-TopDownATP where
 
 open import DistributiveLaws.Base
 
@@ -13,13 +13,14 @@ open import Common.FOL.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
 -- We found the longest chains of equalities from
--- DistributiveLaws.TaskB-I which are prove by the ATPs, following a
--- top-down approach.
+-- DistributiveLaws.Proposition2a-I which are prove by the ATPs,
+-- following a top-down approach.
 
-prop₂ : ∀ u x y z → (x · y · (z · u)) ·
-                    (( x · y · ( z · u)) · (x · z · (y · u))) ≡
-                    x · z · (y · u)
-prop₂ u x y z =
+proposition2a :
+  ∀ u x y z →
+  (x · y · (z · u)) · ((x · y · (z · u)) · (x · z · (y · u))) ≡
+    x · z · (y · u)
+proposition2a u x y z =
 
 -- The numbering of the proof step justifications are associated with
 -- the numbers used in DistributiveLaws.TaskB-I.
