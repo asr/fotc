@@ -18,6 +18,7 @@ module DistributiveLaws.README where
 open import DistributiveLaws.Base
 
 -- The interactive and combined proofs
+open import DistributiveLaws.TaskB-AllStepsATP
 open import DistributiveLaws.TaskB-HalvedStepsATP
 open import DistributiveLaws.TaskB-I
 open import DistributiveLaws.TaskB-TopDownATP
