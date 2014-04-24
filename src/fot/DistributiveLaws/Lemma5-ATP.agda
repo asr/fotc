@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------------
--- Distributive laws on a binary operation: Task A
+-- Distributive laws on a binary operation: Lemma 5 (Task A)
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module DistributiveLaws.TaskA-ATP where
+module DistributiveLaws.Lemma5-ATP where
 
 open import DistributiveLaws.Base
 
