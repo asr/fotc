@@ -1,0 +1,21 @@
+include('axioms.tptp').
+
+% Lemma 4b Stanovský (2008).
+
+fof(lemma_4b, conjecture,
+  ! [X,Y,Z] : mult(X,mult(Y,mult(Z,Z))) = mult(X,mult(Y,Z))).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% $ eprover --version
+% E 1.8-001 Gopaldhara
+
+% $ eprover --auto --memory-limit=Auto --tstp-format lemma4b.tptp
+% ...
+% # Proof found!
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% References
+%
+% Stanovský, David (2008). Distributive Groupoids are
+% Symmetrical-by-Medial: An Elementary Proof. Commentations
+% Mathematicae Universitatis Carolinae 49.4, pp. 541–546.

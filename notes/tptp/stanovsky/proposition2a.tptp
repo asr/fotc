@@ -1,0 +1,40 @@
+include('axioms.tptp').
+
+% Proposition 2a Stanovský (2008).
+
+fof(proposition2a, conjecture,
+  ![U,X,Y,Z] :
+    mult(mult(mult(X,Y),mult(Z,U)),
+         mult(mult(mult(X,Y),mult(Z,U)),mult(mult(X,Z),mult(Y,U)))) =
+    mult(mult(X,Z), mult(Y,U))).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The ATPs couldn't prove the theorem using a time out of 5 min.
+
+% Eprover E 1.8-001 Gopaldhara
+% $ eprover --auto --cpu-limit=300 --memory-limit=Auto --tstp-format proposition2a.tptp
+% ...
+% eprover: CPU time limit exceeded, terminating
+
+% Equinox, version 5.0alpha, 2010-06-29.
+% $ equinox --time 300 proposition2a.tptp
+% +++ RESULT: Timeout
+
+% metis 2.3 (release 20120927)
+% $ metis --time-limit 300 proposition2a.tptp
+% SZS status Unknown for proposition2a.tptp
+
+% SPASS V 3.7
+% $ SPASS -TPTP=1 -TimeLimit=300 proposition2a.tptp
+% SPASS beiseite: Ran out of time. SPASS was killed.
+
+% Vampire 0.6 (revision 903)
+% $ vampire_lin64 -t 300 --mode casc --input_file proposition2a.tptp
+% % Proof not found in time 300.100 s
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% References
+%
+% Stanovský, David (2008). Distributive Groupoids are
+% Symmetrical-by-Medial: An Elementary Proof. Commentations
+% Mathematicae Universitatis Carolinae 49.4, pp. 541–546.

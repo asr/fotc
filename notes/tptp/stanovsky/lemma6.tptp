@@ -1,0 +1,23 @@
+include('axioms.tptp').
+
+% Lemma 6 Stanovský (2008).
+
+fof(lemma6, conjecture,
+ ! [U,X,Y,Z] :
+   mult(mult(mult(X,Y),mult(Z,U)),mult(mult(X,Y),mult(Z,U))) =
+   mult(mult(X,Y),mult(Z,U))).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% $ eprover --version
+% E 1.8-001 Gopaldhara
+
+% $ eprover --auto --memory-limit=Auto --tstp-format lemma6.tptp
+% ...
+% # Proof found!
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% References
+%
+% Stanovský, David (2008). Distributive Groupoids are
+% Symmetrical-by-Medial: An Elementary Proof. Commentations
+% Mathematicae Universitatis Carolinae 49.4, pp. 541–546.
