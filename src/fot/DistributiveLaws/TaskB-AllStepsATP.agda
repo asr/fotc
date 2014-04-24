@@ -1,25 +1,25 @@
 ------------------------------------------------------------------------------
--- Distributive laws on a binary operation: Proposition 2a
+-- Distributive laws on a binary operation: Task B
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module DistributiveLaws.Proposition2a-AllStepsATP where
+module DistributiveLaws.TaskB-AllStepsATP where
 
 open import DistributiveLaws.Base
 
 open import Common.FOL.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
+
 -- We prove all the proof steps of DistributiveLaws.TaskB-I using the
 -- ATPs.
 
-proposition2a :
-  ∀ u x y z →
-  (x · y · (z · u)) · ((x · y · (z · u)) · (x · z · (y · u))) ≡
-    x · z · (y · u)
-proposition2a u x y z =
+prop₂ : ∀ u x y z →
+        (x · y · (z · u)) · ((x · y · (z · u)) · (x · z · (y · u))) ≡
+          x · z · (y · u)
+prop₂ u x y z =
   xy·zu · (xy·zu · xz·yu)                                         ≡⟨ j₁ ⟩
   xy·zu · (x·zu · y·zu · xz·yu)                                   ≡⟨ j₂ ⟩
   xy·zu · (x·zu · xz·yu · (y·zu · xz·yu))                         ≡⟨ j₃ ⟩

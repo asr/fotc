@@ -1,28 +1,28 @@
 ------------------------------------------------------------------------------
--- Distributive laws on a binary operation: Proposition 2a
+-- Distributive laws on a binary operation: Task B
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module DistributiveLaws.Proposition2a-HalvedStepsATP where
+module DistributiveLaws.TaskB-HalvedStepsATP where
 
 open import DistributiveLaws.Base
 
 open import Common.FOL.Relation.Binary.EqReasoning
 
 ------------------------------------------------------------------------------
--- We prove the half of the proof steps (skipping the even ones) of
--- DistributiveLaws.Proposition2a-I using the ATPs.
 
-proposition2a :
-  ∀ u x y z →
-  (x · y · (z · u)) · ((x · y · (z · u)) · (x · z · (y · u))) ≡
-    x · z · (y · u)
-proposition2a u x y z =
+-- We prove the half of the proof steps (skipping the even ones) of
+-- DistributiveLaws.TaskB-I using the ATPs.
+
+prop₂ : ∀ u x y z →
+        (x · y · (z · u)) · ((x · y · (z · u)) · (x · z · (y · u))) ≡
+          x · z · (y · u)
+prop₂ u x y z =
 
 -- The numbering of the proof step justifications are associated with
--- the numbers used in DistributiveLaws.Proposition2a-I.
+-- the numbers used in DistributiveLaws.TaskB-I.
 
   xy·zu · (xy·zu · xz·yu)                                       ≡⟨ j₁₋₃ ⟩
   xy·zu · (x·zu · xz·yu · (y·zu · xz·yu))                       ≡⟨ j₃₋₅ ⟩
