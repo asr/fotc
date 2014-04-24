@@ -11,5 +11,5 @@ open import DistributiveLaws.Base
 
 ------------------------------------------------------------------------------
 postulate
-  lemma₅ : ∀ x y → (x · y ) · x ≡ x · (y · x)
+  lemma₅ : ∀ x y → (x · y) · x ≡ x · (y · x)
 {-# ATP prove lemma₅ #-}
