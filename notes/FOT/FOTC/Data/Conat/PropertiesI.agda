@@ -1,5 +1,5 @@
 {-# OPTIONS --no-universe-polymorphism #-}
--- {-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K #-}
 
 module FOT.FOTC.Data.Conat.PropertiesI where
 
@@ -9,8 +9,7 @@ open import FOTC.Data.Conat.PropertiesI
 open import FOTC.Data.Nat
 
 ------------------------------------------------------------------------------
-
--- 09 January 2014. Doesn't type check with --without-K.
+-- 25 April 2014, Failed with --without-K.
 --
 {-# NO_TERMINATION_CHECK #-}
 Conat→N : ∀ {n} → Conat n → N n

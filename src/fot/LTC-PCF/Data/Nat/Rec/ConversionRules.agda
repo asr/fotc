@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
--- {-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K #-}
 
 module LTC-PCF.Data.Nat.Rec.ConversionRules where
 
@@ -98,7 +98,7 @@ private
   proof₃₋₄ n a f = beta (rec-s₄ n a) f
 
   -- Cases iszero₁ n ≡ b using that proof.
-  -- TODO (23 March 2014): Fails with Andreas --without-K.
+  -- 25 April 2014. Failed with Andreas' --without-K.
   proof₄₋₅ : ∀ n a f b → iszero₁ n ≡ b → rec-s₄ n a f ≡ rec-s₅ n a f b
   proof₄₋₅ n a f .(iszero₁ n) refl = refl
 

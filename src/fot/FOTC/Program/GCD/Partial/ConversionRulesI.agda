@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
--- {-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K #-}
 
 module FOTC.Program.GCD.Partial.ConversionRulesI where
 
@@ -135,7 +135,7 @@ private
   proof₀₋₁ : ∀ m n → gcd m n ≡ gcd-s₁ m n
   proof₀₋₁ = gcd-eq
 
-  -- TODO (23 March 2014): Fails with Andreas --without-K.
+  -- 25 April 2014. Failed with Andreas' --without-K.
   proof₁₋₂ : ∀ m n b → iszero₁ n ≡ b → gcd-s₁ m n ≡ gcd-s₂ m n b
   proof₁₋₂ m n .(iszero₁ n) refl = refl
 

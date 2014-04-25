@@ -35,18 +35,12 @@ S∣0 n = S≢0 , zero , nzero , sym (*-leftZero (succ₁ n))
   S≢0 , 1' , 1-N , sym (*-leftIdentity (nsucc Nn))
 
 -- If x divides y and z then x divides y ∸ z.
---
--- 29 August 2013. Could this proof use pattern matching on _≡_? See
--- Agda issue 865.
 x∣y→x∣z→x∣y∸z-helper : ∀ {m n o k k'} → N m → N k → N k' →
                        n ≡ k * succ₁ m →
                        o ≡ k' * succ₁ m →
                        n ∸ o ≡ (k ∸ k') * succ₁ m
-x∣y→x∣z→x∣y∸z-helper {m} {n} {o} {k} {k'} Nm Nk Nk' h₁ h₂ =
-  n ∸ o                          ≡⟨ ∸-leftCong h₁ ⟩
-  k * succ₁ m ∸ o                ≡⟨ ∸-rightCong h₂ ⟩
-  (k * succ₁ m) ∸ (k' * succ₁ m) ≡⟨ sym (*∸-leftDistributive Nk Nk' (nsucc Nm)) ⟩
-  (k ∸ k') * succ₁ m             ∎
+x∣y→x∣z→x∣y∸z-helper Nm Nk Nk' refl refl =
+  sym (*∸-leftDistributive Nk Nk' (nsucc Nm))
 
 x∣y→x∣z→x∣y∸z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n ∸ o
 x∣y→x∣z→x∣y∸z nzero Nn No (0≢0 , _) m∣o = ⊥-elim (0≢0 refl)
@@ -57,18 +51,12 @@ x∣y→x∣z→x∣y∸z (nsucc {m} Nm) Nn No
   , k ∸ k' , ∸-N Nk Nk' , x∣y→x∣z→x∣y∸z-helper Nm Nk Nk' h₁ h₂
 
 -- If x divides y and z then x divides y + z.
---
--- 29 August 2013. Could this proof use pattern matching on _≡_? See
--- Agda issue 865.
 x∣y→x∣z→x∣y+z-helper : ∀ {m n o k k'} → N m → N k → N k' →
                        n ≡ k * succ₁ m →
                        o ≡ k' * succ₁ m →
                        n + o ≡ (k + k') * succ₁ m
-x∣y→x∣z→x∣y+z-helper {m} {n} {o} {k} {k'} Nm Nk Nk' h₁ h₂ =
-  n + o                          ≡⟨ +-leftCong h₁ ⟩
-  k * succ₁ m + o                ≡⟨ +-rightCong h₂ ⟩
-  (k * succ₁ m) + (k' * succ₁ m) ≡⟨ sym (*+-leftDistributive Nk Nk' (nsucc Nm)) ⟩
-  (k + k') * succ₁ m             ∎
+x∣y→x∣z→x∣y+z-helper Nm Nk Nk' refl refl =
+  sym (*+-leftDistributive Nk Nk' (nsucc Nm))
 
 x∣y→x∣z→x∣y+z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n + o
 x∣y→x∣z→x∣y+z             nzero          Nn No (0≢0 , _) m∣o = ⊥-elim (0≢0 refl)

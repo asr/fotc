@@ -4,7 +4,7 @@
 
 {-# OPTIONS --allow-unsolved-metas #-}
 {-# OPTIONS --no-universe-polymorphism #-}
--- {-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K #-}
 
 module FOT.FOTC.Data.Conat.TypeSL where
 
@@ -27,7 +27,7 @@ Conat-in : ∀ {n} →
 Conat-in (inj₁ n≡0)              = subst Conat (sym n≡0) cozero
 Conat-in (inj₂ (n' , prf , Cn')) = subst Conat (sym prf) (cosucc (♯ Cn'))
 
--- 08 January 2014. Fails with --without-K.
+-- 25 April 2014. Failed with --without-K.
 Conat-coind : (A : D → Set) →
               (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
               ∀ {n} → A n → Conat n

@@ -4,7 +4,7 @@
 
 {-# OPTIONS --allow-unsolved-metas #-}
 {-# OPTIONS --no-universe-polymorphism #-}
--- {-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K #-}
 
 module FOT.FOTC.Program.Collatz.CollatzSL where
 
@@ -36,7 +36,7 @@ collatz n with isEven n
 ... | true  = collatz ⌊ n /2⌋
 ... | false = collatz (3 * n + 1)
 
--- TODO (23 March 2014): Fails with Andreas --without-K.
+-- 25 April 2014: Failed with Andreas' --without-K.
 xy≡0→x≡0∨y≡0 : (m n : ℕ) → m * n ≡ zero → m ≡ zero ⊎ n ≡ zero
 xy≡0→x≡0∨y≡0 zero     n        h = inj₁ refl
 xy≡0→x≡0∨y≡0 (succ m) zero     h = inj₂ refl

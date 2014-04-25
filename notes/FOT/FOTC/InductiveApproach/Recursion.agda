@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
--- {-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K #-}
 
 -- Andrés: From our discussion about the inductive approach, can I
 -- conclude that it is possible to rewrite the proofs using pattern

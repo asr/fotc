@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
--- {-# OPTIONS --without-K #-}  -- No accepted!
+{-# OPTIONS --without-K #-}
 
 module FOT.FOTC.Program.QuickSort.QuickSortBC where
 

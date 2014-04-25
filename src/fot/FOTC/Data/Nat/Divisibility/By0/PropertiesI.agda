@@ -34,35 +34,22 @@ S∣0 n = zero , nzero , sym (*-leftZero (succ₁ n))
 
 -- If x divides y and z then x divides y ∸ z.
 --
--- 29 August 2013. Could this proof use pattern matching on _≡_? See
--- Agda issue 865.
 x∣y→x∣z→x∣y∸z-helper : ∀ {m n o k k'} → N m → N k → N k' →
                        n ≡ k * m →
                        o ≡ k' * m →
                        n ∸ o ≡ (k ∸ k') * m
-x∣y→x∣z→x∣y∸z-helper {m} {n} {o} {k} {k'} Nm Nk Nk' h₁ h₂ =
-  n ∸ o              ≡⟨ ∸-leftCong h₁ ⟩
-  k * m ∸ o          ≡⟨ ∸-rightCong h₂ ⟩
-  (k * m) ∸ (k' * m) ≡⟨ sym (*∸-leftDistributive Nk Nk' Nm) ⟩
-  (k ∸ k') * m       ∎
+x∣y→x∣z→x∣y∸z-helper Nm Nk Nk' refl refl = sym (*∸-leftDistributive Nk Nk' Nm)
 
 x∣y→x∣z→x∣y∸z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n ∸ o
 x∣y→x∣z→x∣y∸z Nm Nn No (k , Nk , h₁) (k' , Nk' , h₂) =
   k ∸ k' , ∸-N Nk Nk' , x∣y→x∣z→x∣y∸z-helper Nm Nk Nk' h₁ h₂
 
 -- If x divides y and z then x divides y + z.
---
--- 29 August 2013. Could this proof use pattern matching on _≡_? See
--- Agda issue 865.
 x∣y→x∣z→x∣y+z-helper : ∀ {m n o k k'} → N m → N k → N k' →
                        n ≡ k * m →
                        o ≡ k' * m →
                        n + o ≡ (k + k') * m
-x∣y→x∣z→x∣y+z-helper {m} {n} {o} {k} {k'} Nm Nk Nk' h₁ h₂ =
-  n + o              ≡⟨ +-leftCong h₁ ⟩
-  k * m + o          ≡⟨ +-rightCong h₂ ⟩
-  (k * m) + (k' * m) ≡⟨ sym (*+-leftDistributive Nk Nk' Nm) ⟩
-  (k + k') * m       ∎
+x∣y→x∣z→x∣y+z-helper Nm Nk Nk' refl refl = sym (*+-leftDistributive Nk Nk' Nm)
 
 x∣y→x∣z→x∣y+z : ∀ {m n o} → N m → N n → N o → m ∣ n → m ∣ o → m ∣ n + o
 x∣y→x∣z→x∣y+z Nm Nn No (k , Nk , h₁) (k' , Nk' , h₂) =
