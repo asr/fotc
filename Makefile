@@ -188,7 +188,7 @@ type_check_notes_path = \
   -i$(notes_path)/papers/paper-2011/ \
   -i$(notes_path)/README \
   -i$(notes_path)/setoids \
-  -i$(notes_path)/strict-application \
+  -i$(notes_path)/strict-evaluation \
   -i$(notes_path)/strictly-positive-inductive-types \
   -i$(notes_path)/thesis/report \
   -i$(notes_path)/type-classes
@@ -295,6 +295,8 @@ fot_changed :
 
 git_pre_commit :
 	fix-whitespace --check
+	make type_check_fot
+	make type_check_notes
 	@echo "$@ succeeded!"
 
 ##############################################################################
