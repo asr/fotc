@@ -5,11 +5,11 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
-module FOT.FOTC.UnguardedCorecursion.HALO where
+module NonAdmissible where
 
 -- open import Common.FOL.Relation.Binary.EqReasoning
 
--- open import FOTC.Base
+open import FOTC.Base
 -- open import FOTC.Base.List
 -- open import FOTC.Base.List.PropertiesI
 -- open import FOTC.Data.Conat
@@ -31,10 +31,11 @@ module FOT.FOTC.UnguardedCorecursion.HALO where
 --   ones    : D
 --   ones-eq : ones ≡ succ₁ zero ∷ ones
 
--- postulate
---   f     : D → D
---   f-eq₁ : ∀ n → f (succ₁ n) ≡ succ₁ zero ∷ f n
---   f-eq₂ : f zero ≡ zero ∷ []
+postulate
+  f     : D → D
+  f-0 : f zero ≡ ones
+  f-S : ∀ n → f (succ₁ n) ≡ zero ∷ f n
+
 
 -- ------------------------------------------------------------------------------
 -- -- Auxiliary properties
