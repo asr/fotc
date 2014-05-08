@@ -66,8 +66,8 @@ Stream→Colist {xs} Sxs = Colist-coind A h₁ h₂
   h₂ = Sxs
 
 -- Adapted from (Sander 1992, p. 59).
-streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞
-streamLength {xs} Sxs = ≈N-coind R h₁ h₂
+streamLength : ∀ {xs} → Stream xs → length xs ≈ ∞
+streamLength {xs} Sxs = ≈-coind R h₁ h₂
   where
   R : D → D → Set
   R m n = ∃[ xs ] Stream xs ∧ m ≡ length xs ∧ n ≡ ∞
@@ -95,8 +95,8 @@ streamLength {xs} Sxs = ≈N-coind R h₁ h₂
 
 -- Adapted from (Sander 1992, p. 59). Version using Agda with
 -- constructor.
-streamLength' : ∀ {xs} → Stream xs → length xs ≈N ∞
-streamLength' {xs} Sxs = ≈N-coind R h₁ h₂
+streamLength' : ∀ {xs} → Stream xs → length xs ≈ ∞
+streamLength' {xs} Sxs = ≈-coind R h₁ h₂
   where
   R : D → D → Set
   R m n = ∃[ xs ] Stream xs ∧ m ≡ length xs ∧ n ≡ ∞

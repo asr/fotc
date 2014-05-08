@@ -13,20 +13,19 @@ open import FOTC.Data.Conat.Equality.Type
 
 ------------------------------------------------------------------------------
 -- Because a greatest post-fixed point is a fixed-point, then the
--- relation _≈N_ is also a pre-fixed point of the functional ≈NatF,
--- i.e.
+-- relation _≈N_ is also a pre-fixed point of the functional ≈-F, i.e.
 --
--- ≈NatF _≈N_ ≤ _≈N_ (see FOTC.Data.Conat.Equality.Type).
-≈N-in :
+-- ≈-F _≈_ ≤ _≈_ (see FOTC.Data.Conat.Equality.Type).
+≈-in :
   ∀ {m n} →
   m ≡ zero ∧ n ≡ zero
-    ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n') →
-  m ≈N n
-≈N-in h = ≈N-coind R h' h
+    ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈ n') →
+  m ≈ n
+≈-in h = ≈-coind R h' h
   where
   R : D → D → Set
   R m n = m ≡ zero ∧ n ≡ zero
-            ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈N n')
+            ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈ n')
   {-# ATP definition R #-}
 
   postulate
@@ -35,8 +34,8 @@ open import FOTC.Data.Conat.Equality.Type
            ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
   {-# ATP prove h' #-}
 
-≈N-refl : ∀ {n} → Conat n → n ≈N n
-≈N-refl {n} Cn = ≈N-coind R h₁ h₂
+≈-refl : ∀ {n} → Conat n → n ≈ n
+≈-refl {n} Cn = ≈-coind R h₁ h₂
   where
   R : D → D → Set
   R a b = Conat a ∧ Conat b ∧ a ≡ b
@@ -51,5 +50,5 @@ open import FOTC.Data.Conat.Equality.Type
   postulate h₂ : R n n
   {-# ATP prove h₂ #-}
 
-  postulate ≡→≈N : ∀ {m n} → Conat m → Conat n → m ≡ n → m ≈N n
-  {-# ATP prove ≡→≈N ≈N-refl #-}
+  postulate ≡→≈ : ∀ {m n} → Conat m → Conat n → m ≡ n → m ≈ n
+  {-# ATP prove ≡→≈ ≈-refl #-}

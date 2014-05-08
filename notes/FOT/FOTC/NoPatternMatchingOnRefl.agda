@@ -13,6 +13,10 @@ open import FOTC.Base.List
 open import FOTC.Data.Bool
 open import FOTC.Data.Conat
 open import FOTC.Data.Conat.Equality.Type
+  renaming
+    ( _≈_ to _≈N_
+    ; ≈-coind to ≈N-coind
+    )
 open import FOTC.Data.List
 open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
@@ -112,8 +116,8 @@ notCong {a} h = subst (λ t → not a ≡ not t) h refl
   h₂ : R n n
   h₂ = Cn , Cn , refl
 
-≡→≈N : ∀ {m n} → Conat m → Conat n → m ≡ n → m ≈N n
-≡→≈N {m} Cm _ h = subst (_≈N_ m) h (≈N-refl Cm)
+≡→≈ : ∀ {m n} → Conat m → Conat n → m ≡ n → m ≈N n
+≡→≈ {m} Cm _ h = subst (_≈N_ m) h (≈N-refl Cm)
 
 ------------------------------------------------------------------------------
 -- FOTC.Data.List.PropertiesI

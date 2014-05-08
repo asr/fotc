@@ -36,8 +36,8 @@ postulate ∷-Stream : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 {-# ATP prove ∷-Stream #-}
 
 -- Adapted from (Sander 1992, p. 59).
-streamLength : ∀ {xs} → Stream xs → length xs ≈N ∞
-streamLength {xs} Sxs = ≈N-coind R h₁ h₂
+streamLength : ∀ {xs} → Stream xs → length xs ≈ ∞
+streamLength {xs} Sxs = ≈-coind R h₁ h₂
   where
   R : D → D → Set
   R m n = ∃[ xs ] Stream xs ∧ m ≡ length xs ∧ n ≡ ∞
