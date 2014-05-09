@@ -10,38 +10,33 @@ module NonAdmissible where
 -- open import Common.FOL.Relation.Binary.EqReasoning
 
 open import FOTC.Base
--- open import FOTC.Base.List
--- open import FOTC.Base.List.PropertiesI
--- open import FOTC.Data.Conat
--- open import FOTC.Data.Conat.PropertiesI
+open import FOTC.Base.List
+open import FOTC.Base.List.PropertiesI
+open import FOTC.Data.Conat
+open import FOTC.Data.Conat.PropertiesI
 -- open import FOTC.Data.Nat
--- open import FOTC.Data.Stream.Type
+open import FOTC.Data.Stream
 -- open import FOTC.Data.Stream.Equality.PropertiesI
 -- open import FOTC.Relation.Binary.Bisimilarity.PropertiesI
--- open import FOTC.Relation.Binary.Bisimilarity.Type
+open import FOTC.Relation.Binary.Bisimilarity.Type
 
--- ------------------------------------------------------------------------------
--- -- The HALO paper states the property
--- --
--- -- ∀ x . f x ≠ ones (1)
--- --
--- -- cannot be proved because it is a non-admissible one.
-
--- postulate
---   ones    : D
---   ones-eq : ones ≡ succ₁ zero ∷ ones
+------------------------------------------------------------------------------
+-- The HALO paper states the property
+--
+-- ∀ x . f x ≠ ones  (1)
+--
+-- shouldn't be proved because it is a non-admissible one.
 
 postulate
-  f     : D → D
-  f-0 : f zero ≡ ones
-  f-S : ∀ n → f (succ₁ n) ≡ zero ∷ f n
+  f   : D → D
+  f-0 : f zero ≡ zero ∷ []
+  f-S : ∀ n → f (succ₁ n) ≡ succ₁ zero ∷ f n
 
+------------------------------------------------------------------------------
+-- Auxiliary properties
 
--- ------------------------------------------------------------------------------
--- -- Auxiliary properties
-
--- fCong : ∀ {m n} → m ≡ n → f m ≡ f n
--- fCong refl = refl
+fCong : ∀ {m n} → m ≡ n → f m ≡ f n
+fCong refl = refl
 
 -- succ-∞-Conat : Conat (succ₁ ∞)
 -- succ-∞-Conat = subst Conat ∞-eq ∞-Conat
@@ -64,14 +59,22 @@ postulate
 --   h : A (f ∞) → ∃[ x' ] ∃[ xs' ] f ∞ ≡ x' ∷ xs' ∧ A xs'
 --   h Af∞ = succ₁ zero , f ∞ , trans (fCong ∞-eq) (f-eq₁ ∞) , Af∞
 
--- ------------------------------------------------------------------------------
--- -- A proof of (1) adding the N totality hypothesis.
+------------------------------------------------------------------------------
+-- A proof of (1)
 
--- thm₁ : ∀ {n} → N n → f n ≢ ones
--- thm₁ nzero h = 0≢S (∧-proj₁ (∷-injective helper))
---   where
---   helper : zero ∷ [] ≡ succ₁ zero ∷ ones
---   helper = trans₂ (sym f-eq₂) h ones-eq
+thm : ∀ {n} → Conat n → f n ≢ ones
+thm Cn h with Conat-out Cn
+thm Cn h | inj₁ n≡0 = 0≢S (∧-proj₁ (∷-injective helper))
+  where
+  helper : zero ∷ [] ≡ succ₁ zero ∷ ones
+  helper = trans₂ (sym (subst (λ x → f x ≡ zero ∷ []) (sym n≡0) f-0)) h ones-eq
+
+-- thm Cn h | inj₂ (n' , n≡Sn' , Cn') = {!!}
+
+ -- 0≢S (∧-proj₁ (∷-injective helper))
+ --  where
+ --  helper : zero ∷ [] ≡ succ₁ zero ∷ ones
+ --  helper = trans₂ (sym f-eq₂) h ones-eq
 
 -- thm₁ (nsucc {n} Nn) h = thm₁ Nn (∧-proj₂ (∷-injective helper))
 --   where
@@ -110,10 +113,10 @@ postulate
 --                 , prf₃
 --                 )
 
--- ------------------------------------------------------------------------------
--- -- A proof of the negation of (1) adding the Conat totality hypothesis
--- -- and replacing the propositional equality by the bisimilarity
--- -- relation.
+------------------------------------------------------------------------------
+-- A proof of the negation of (1) adding the Conat totality hypothesis
+-- and replacing the propositional equality by the bisimilarity
+-- relation.
 
 -- thm₃ : ∃[ n ] (Conat n ∧ f n ≈ ones)
 -- thm₃ =  ∞ , ∞-Conat , ≈-coind B h (refl , refl)
@@ -123,7 +126,7 @@ postulate
 
 --   h : B (f ∞) ones →
 --       ∃[ x' ] ∃[ xs' ] ∃[ ys' ] f ∞ ≡ x' ∷ xs' ∧ ones ≡ x' ∷ ys' ∧ B xs' ys'
---   h Bh' = succ₁ zero , f ∞ , ones , trans (fCong ∞-eq) (f-eq₁ ∞) , ones-eq , Bh'
+--   h Bh' = succ₁ zero , f ∞ , ones , trans (fCong ∞-eq) (f-S ∞) , ones-eq , Bh'
 
 ------------------------------------------------------------------------------
 -- References
