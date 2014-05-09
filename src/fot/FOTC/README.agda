@@ -104,7 +104,7 @@ open import FOTC.Data.Nat.List.PropertiesI
 ------------------------------------------------------------------------------
 -- Co-inductive natural numbers
 
--- The axioms
+-- Some axioms
 open import FOTC.Data.Conat
 
 -- The co-inductive predicate
@@ -123,6 +123,9 @@ open import FOTC.Data.Conat.Equality.PropertiesI
 
 ------------------------------------------------------------------------------
 -- Streams
+
+-- Some axioms
+open import FOTC.Data.Stream
 
 -- The co-inductive predicate
 open import FOTC.Data.Stream.Type
