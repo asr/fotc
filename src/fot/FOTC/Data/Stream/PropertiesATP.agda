@@ -12,7 +12,7 @@ open import FOTC.Base.List
 open import FOTC.Data.Conat
 open import FOTC.Data.Conat.Equality.Type
 open import FOTC.Data.List
-open import FOTC.Data.Stream.Type
+open import FOTC.Data.Stream
 
 ------------------------------------------------------------------------------
 -- Because a greatest post-fixed point is a fixed-point, then the
@@ -31,6 +31,26 @@ Stream-in h = Stream-coind A h' h
 
   postulate h' : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
   {-# ATP prove h' #-}
+
+zeros-Stream : Stream zeros
+zeros-Stream = Stream-coind A h refl
+  where
+  A : D → Set
+  A xs = xs ≡ zeros
+  {-# ATP definition A #-}
+
+  postulate h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  {-# ATP prove h #-}
+
+ones-Stream : Stream ones
+ones-Stream = Stream-coind A h refl
+  where
+  A : D → Set
+  A xs = xs ≡ ones
+  {-# ATP definition A #-}
+
+  postulate h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  {-# ATP prove h #-}
 
 postulate ∷-Stream : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 {-# ATP prove ∷-Stream #-}

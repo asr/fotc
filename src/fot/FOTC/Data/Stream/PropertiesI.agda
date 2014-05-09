@@ -16,7 +16,7 @@ open import FOTC.Data.Colist
 open import FOTC.Data.Colist.PropertiesI
 open import FOTC.Data.List
 open import FOTC.Data.List.PropertiesI
-open import FOTC.Data.Stream.Type
+open import FOTC.Data.Stream
 
 -----------------------------------------------------------------------------
 -- Because a greatest post-fixed point is a fixed-point, then the
@@ -35,8 +35,23 @@ Stream-in h = Stream-coind A h' h
   h' : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
   h' (x' , xs' , prf , Sxs') = x' , xs' , prf , Stream-out Sxs'
 
-foo : ∀ {xs} → Stream xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs'
-foo Sxs = Stream-out Sxs
+zeros-Stream : Stream zeros
+zeros-Stream = Stream-coind A h refl
+  where
+  A : D → Set
+  A xs = xs ≡ zeros
+
+  h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  h Axs = zero , zeros , trans Axs zeros-eq , refl
+
+ones-Stream : Stream ones
+ones-Stream = Stream-coind A h refl
+  where
+  A : D → Set
+  A xs = xs ≡ ones
+
+  h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  h Axs = succ₁ zero , ones , trans Axs ones-eq , refl
 
 ∷-Stream : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 ∷-Stream {x} {xs} h = ∷-Stream-helper (Stream-out h)
