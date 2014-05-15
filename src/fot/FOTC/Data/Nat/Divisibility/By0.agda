@@ -24,7 +24,7 @@ infix 7 _∣_
 --
 -- Agda standard library (version 0.6): 0|0
 --
--- Coq 8.4pl3: 0∣0
+-- Coq 8.4pl4: 0∣0
 --
 -- Isabelle2013-2: 0∣0
 
