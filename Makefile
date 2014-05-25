@@ -76,6 +76,8 @@ create_snapshot_fot_files = \
 compare_snapshot_fot_files = \
   $(call my_pathsubst,compare_snapshot_fot,$(fot_path))
 
+only_fot_files = $(call my_pathsubst,only_fot,$(fot_path))
+
 prove_fot_files = $(call my_pathsubst,prove_fot,$(fot_path))
 
 consistency_fot_files = \
@@ -148,6 +150,16 @@ create_snapshot_fot :
 	@echo "$@ succeeded!"
 
 compare_snapshot_fot : $(compare_snapshot_fot_files)
+	@echo "$@ succeeded!"
+
+##############################################################################
+# FOT: Only files
+
+%.only_fot :
+	$(AGDA_FOT) $*.agda
+	$(APIA_FOT) --only-files --output-dir=$(prove_fot_dir) $*.agda
+
+only_fot : $(only_fot_files)
 	@echo "$@ succeeded!"
 
 ##############################################################################
