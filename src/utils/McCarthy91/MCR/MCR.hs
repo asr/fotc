@@ -19,13 +19,13 @@ mcr m n = (101 ∸ m) < (101 ∸ n)
 -- Some properties of the relation MCR
 
 prop1 ∷ Nat → Nat → Property
-prop1 m n = mcr (Succ m) (Succ n) ==> mcr m n
+prop1 m n = mcr (S m) (S n) ==> mcr m n
 
 prop2 ∷ Nat → Nat → Property
-prop2 m n = mcr m n ==> mcr (Succ m) (Succ n)
+prop2 m n = mcr m n ==> mcr (S m) (S n)
 
 prop3 ∷ Nat → Nat → Property
-prop3 m n = m > 95 && n > 95 && mcr m n ==> mcr (Succ m) (Succ n)
+prop3 m n = m > 95 && n > 95 && mcr m n ==> mcr (S m) (S n)
 
 prop4 ∷ Nat → Nat → Bool
 prop4 m n = mcr m n == (n < m && n < 101)

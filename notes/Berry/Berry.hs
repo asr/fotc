@@ -13,18 +13,18 @@ loop = loop
 -- Warning: Pattern match(es) are non-exhaustive
 --          In an equation for `f':
 --          Patterns not matched:
---            Zero (Succ (Succ _)) _
---            Zero Zero Zero
---            Zero Zero (Succ (Succ _))
---            (Succ (Succ _)) (Succ _) _
+--            Z (S (S _)) _
+--            Z Z Z
+--            Z Z (S (S _))
+--            (S (S _)) (S _) _
 --            ...
 
 f ∷ Nat → Nat → Nat → Nat
-f Zero        (Succ Zero) _           = Succ Zero
-f (Succ Zero) _           Zero        = Succ (Succ Zero)
-f _           Zero        (Succ Zero) = Succ (Succ (Succ Zero))
+f Z     (S Z) _     = S Z
+f (S Z) _     Z     = S (S Z)
+f _     Z     (S Z) = S (S (S Z))
 
 -- Tests:
--- f Zero        (Succ Zero) loop = Succ Zero
--- f (Succ Zero) loop Zero        = Succ (Succ Zero)
--- f loop        Zero (Succ Zero) = *** Non-terminating ***
+-- f Z        (S Z) loop = S Z
+-- f (S Z) loop Z        = S (S Z)
+-- f loop        Z (S Z) = *** Non-terminating ***

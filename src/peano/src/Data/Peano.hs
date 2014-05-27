@@ -14,7 +14,7 @@
 
 module Data.Peano
   ( (∸)
-  , Nat(Zero, Succ)
+  , Nat(Z, S)
   )
 where
 
@@ -27,42 +27,43 @@ import Test.QuickCheck
 
 -----------------------------------------------------------------------------
 -- From http://byorgey.wordpress.com/2010/11/:
+--
 -- Note that the auto-derived Ord instance have exactly the right
--- behavior due to the fact that we happened to list the Zero
--- constructor first.
+-- behavior due to the fact that we happened to list the Z constructor
+-- first.
 
 -- | Peano natural numbers.
-data Nat = Zero | Succ Nat
+data Nat = Z | S Nat
          deriving (Eq, Ord)
 
 nat2Integer ∷ Nat → Integer
-nat2Integer Zero     = 0
-nat2Integer (Succ n) = 1 + nat2Integer n
+nat2Integer Z     = 0
+nat2Integer (S n) = 1 + nat2Integer n
 
 nat2Int ∷ Nat → Int
-nat2Int Zero     = 0
-nat2Int (Succ n) = 1 + nat2Int n
+nat2Int Z     = 0
+nat2Int (S n) = 1 + nat2Int n
 
 -- Adapted from http://byorgey.wordpress.com/2010/11/.
 instance Num Nat where
-  Zero   + n = n
-  Succ m + n = Succ (m + n)
+  Z   + n = n
+  S m + n = S (m + n)
 
-  Zero   * _ = Zero
-  Succ m * n = n + m * n
+  Z   * _ = Z
+  S m * n = n + m * n
 
-  m      - Zero   = m
-  Zero   - Succ _ = Zero
-  Succ m - Succ n = m - n
+  m   - Z   = m
+  Z   - S _ = Z
+  S m - S n = m - n
 
   abs    _ = error "abs"
   negate _ = error "negate"
   signum n = n
 
-  fromInteger 0 = Zero
+  fromInteger 0 = Z
   fromInteger n = if n < 0
                   then error "fromInteger: negative value"
-                  else Succ (fromInteger (n - 1))
+                  else S (fromInteger (n - 1))
 
 -- | Truncated subtraction.
 (∸) ∷ Nat → Nat → Nat
@@ -74,9 +75,9 @@ instance Real Nat where
 instance Enum Nat where
   fromEnum = fromEnum . nat2Int
 
-  toEnum 0 = Zero
+  toEnum 0 = Z
   toEnum n = if n > 0
-             then Succ (toEnum (n - 1))
+             then S (toEnum (n - 1))
              else error "toEnum: negative value"
 
 instance Integral Nat where
@@ -99,7 +100,7 @@ instance Show Nat where
 -- QuickCheck instance. Adapted from the list instance in [Claessen
 -- and Hughes, 2000].
 instance Arbitrary Nat where
-  arbitrary = oneof [return Zero, liftM Succ arbitrary]
+  arbitrary = oneof [return Z, liftM S arbitrary]
 
 ------------------------------------------------------------------------------
 -- References:

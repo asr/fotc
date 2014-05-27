@@ -10,7 +10,7 @@ import Prelude hiding ( min )
 -- https://ghc.haskell.org/trac/ghc/ticket/29.
 min ∷ (Nat → Nat) → Nat
 min f | f 0 == 0  = 0
-      | f 0 /= 0  = Succ (min (\n → f (Succ n)))
+      | f 0 /= 0  = S (min (\n → f (S n)))
       | otherwise = error "min impossible"
 
 ------------------------------------------------------------------------------
