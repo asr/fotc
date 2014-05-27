@@ -1,5 +1,3 @@
--- Tested with GHC 7.6.3.
-
 {-# LANGUAGE UnicodeSyntax #-}
 
 header ∷ IO ()

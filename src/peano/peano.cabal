@@ -8,7 +8,7 @@ license-file:  LICENSE
 maintainer:    Andrés Sicard-Ramírez <asr@eafit.edu.co>
 category:      Data
 synopsis:      Peano natural numbers
-tested-with:   GHC == 7.6.3
+tested-with:   GHC == 7.8.2
 description:   Peano natural numbers and some instances.
 
 library
@@ -16,10 +16,10 @@ library
   hs-source-dirs: src
 
   build-depends:
-    base         >= 4.2     && < 4.7
+    base         >= 4.2     && < 4.8
     , QuickCheck >= 2.5.1.1 && < 2.7.4
 
-  if impl(ghc == 7.6.2) || impl(ghc == 7.6.3)
+  if impl(ghc >= 7.6)
      ghc-options:
        -Wall
        -fwarn-auto-orphans
