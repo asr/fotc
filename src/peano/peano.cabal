@@ -16,8 +16,8 @@ library
   hs-source-dirs: src
 
   build-depends:
-    base         >= 4.2     && < 4.8
-    , QuickCheck >= 2.5.1.1 && < 2.7.4
+    base         >= 4.2 && < 4.8
+    , QuickCheck >= 2.7.5 && < 2.8
 
   if impl(ghc >= 7.6)
      ghc-options:
