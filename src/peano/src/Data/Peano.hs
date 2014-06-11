@@ -14,7 +14,9 @@
 
 module Data.Peano
   ( (∸)
+  , int2Nat
   , Nat(Z, S)
+  , nat2Int
   )
 where
 
@@ -43,6 +45,11 @@ nat2Integer (S n) = 1 + nat2Integer n
 nat2Int ∷ Nat → Int
 nat2Int Z     = 0
 nat2Int (S n) = 1 + nat2Int n
+
+int2Nat ∷ Int → Nat
+int2Nat n | n < 0 = error "int2Nat: negative argument"
+int2Nat 0         = Z
+int2Nat n         = S $ int2Nat (n - 1)
 
 -- Adapted from http://byorgey.wordpress.com/2010/11/.
 instance Num Nat where
