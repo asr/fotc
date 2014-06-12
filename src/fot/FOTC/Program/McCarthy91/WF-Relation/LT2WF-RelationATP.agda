@@ -69,6 +69,9 @@ open import FOTC.Program.McCarthy91.WF-Relation
   {-# ATP prove Sm<k #-}
   {-# ATP prove k∸n<k∸m S∸S #-}
 
+-- 12 June 2014. Requires the non-termination flag when using
+-- --without-K. See Agda issue 1023.
+{-# NO_TERMINATION_CHECK #-}
 <→◁ : ∀ {n m} → N n → N m → m ≯ 100' → m < n → n ◁ m
 <→◁ nzero          Nm    p h = ⊥-elim (x<0→⊥ Nm h)
 <→◁ (nsucc {n} Nn) nzero p h = prfS0

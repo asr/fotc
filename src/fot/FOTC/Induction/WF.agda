@@ -44,6 +44,9 @@ module Subrelation {P        : D → Set}
                    (<⇒<'     : ∀ {x y} → P x → x < y → x <' y)
                    where
 
+  -- 12 June 2014. Requires the non-termination flag when using
+  -- --without-K. See Agda issue 1023.
+  {-# NO_TERMINATION_CHECK #-}
   accessible : Acc P _<'_ ⊆ Acc P _<_
   accessible (acc h) = acc (λ Py y<x → accessible (h Py (<⇒<' Py y<x)))
 

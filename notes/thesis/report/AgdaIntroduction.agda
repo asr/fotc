@@ -63,12 +63,19 @@ magic : {A : Set} → Fin zero → A
 magic ()
 
 -- The with constructor
+--
+-- 12 June 2014. Requires the non-termination flag when using
+-- --without-K. See Agda issue 1023.
+{-# NO_TERMINATION_CHECK #-}
 filter : {A : Set} → (A → Bool) → List A → List A
 filter p [] = []
 filter p (x ∷ xs) with p x
 ... | true  = x ∷ filter p xs
 ... | false = filter p xs
 
+-- 12 June 2014. Requires the non-termination flag when using
+-- --without-K. See Agda issue 1023.
+{-# NO_TERMINATION_CHECK #-}
 filter' : {A : Set} → (A → Bool) → List A → List A
 filter' p [] = []
 filter' p (x ∷ xs) with p x
