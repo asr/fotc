@@ -11,7 +11,7 @@ fot_path   = src/fot
 peano_path = src/peano
 
 # Agda standard library path.
-agda_stdlib_path = /home/asr/src/agda-stdlib/agda-stdlib
+agda_stdlib_path = /home/asr/src/agda-stdlib/agda-stdlib-upstream
 # agda_stdlib_path = /home/asr/src/agdas/std-lib/lib-0.7
 
 # Notes path.
