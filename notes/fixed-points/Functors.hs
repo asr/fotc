@@ -1,6 +1,5 @@
 {-# LANGUAGE ExistentialQuantification #-}
-{-# LANGUAGE FlexibleInstances         #-}
-{-# LANGUAGE TypeSynonymInstances      #-}
+{-# LANGUAGE FlexibleInstances         #-}  -- Implies TypeSynonymInstances.
 {-# LANGUAGE UnicodeSyntax             #-}
 
 module Functor where
