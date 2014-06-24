@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE UnicodeSyntax #-}
+{-# LANGUAGE UnicodeSyntax       #-}
 
 -- From (Sander, 1992, pp. 68-69).
 

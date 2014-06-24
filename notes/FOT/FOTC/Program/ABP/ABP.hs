@@ -1,5 +1,5 @@
 {-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE UnicodeSyntax #-}
+{-# LANGUAGE UnicodeSyntax       #-}
 
 -- The alternating bit protocol following Dybjer and Herbert (1989).
 
