@@ -46,9 +46,6 @@ Z = < inl _ >
 S : NAT → NAT
 S n = < inr n >
 
--- 12 June 2014. Requires the non-termination flag when using
--- --without-K. See Agda issue 1023.
-{-# NO_TERMINATION_CHECK #-}
 _+_ : NAT → NAT → NAT
 m + < inl _ > = m
 m + < inr n > = S (m + n)

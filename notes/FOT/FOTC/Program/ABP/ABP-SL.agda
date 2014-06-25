@@ -25,8 +25,8 @@ data Err (A : Set) : Set where
 
 -- The mutual sender functions.
 --
--- 12 June 2014. Requires the non-termination flag when using
--- --without-K. See Agda issue 1023.
+-- 25 June 2014. Requires the non-termination flag when using
+-- --without-K. See Agda issue 1214.
 {-# NO_TERMINATION_CHECK #-}
 sendA  : {A : Set} → Bit → Stream A → Stream (Err Bit) → Stream (A × Bool)
 awaitA : {A : Set} → Bit → Stream A → Stream (Err Bit) → Stream (A × Bit)
@@ -40,8 +40,8 @@ awaitA b (i ∷ is) (error ∷ ds) = (i , b) ∷ ♯ (awaitA b (i ∷ is) (♭ d
 
 -- The receiver functions.
 --
--- 12 June 2014. Requires the non-termination flag when using
--- --without-K. See Agda issue 1023.
+-- 25 June 2014. Requires the non-termination flag when using
+-- --without-K. See Agda issue 1214.
 {-# NO_TERMINATION_CHECK #-}
 ackA : {A : Set} → Bit → Stream (Err (A × Bit)) → Stream Bit
 ackA b (ok (_ , b') ∷ bs) with b ≟ b'

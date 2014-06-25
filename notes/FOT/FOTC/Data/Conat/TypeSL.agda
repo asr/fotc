@@ -27,8 +27,8 @@ Conat-in : ∀ {n} →
 Conat-in (inj₁ n≡0)              = subst Conat (sym n≡0) cozero
 Conat-in (inj₂ (n' , prf , Cn')) = subst Conat (sym prf) (cosucc (♯ Cn'))
 
--- 12 June 2014. Requires the non-termination flag when using
--- --without-K. See Agda issue 1023.
+-- 25 June 2014. Requires the non-termination flag when using
+-- --without-K. See Agda issue 1214.
 {-# NO_TERMINATION_CHECK #-}
 Conat-coind : (A : D → Set) →
               (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
