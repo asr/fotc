@@ -32,10 +32,10 @@ library
        -fwarn-tabs
        -Werror
 
-test-suite test
+test-suite test1
   type:           detailed-0.9
   hs-source-dirs: test
-  test-module:    Num
+  test-module:    Tests
 
   build-depends:
     base >= 4.2 && < 4.8

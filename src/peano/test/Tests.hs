@@ -1,8 +1,6 @@
--- Testing Num properties of Data.Peano.Nat.
-
 {-# LANGUAGE UnicodeSyntax #-}
 
-module Num where
+module Tests where
 
 import Data.Peano                        ( Nat )
 import Distribution.TestSuite.QuickCheck ( Test, testProperty )
