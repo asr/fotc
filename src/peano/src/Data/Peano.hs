@@ -14,9 +14,9 @@
 
 module Data.Peano
   ( (∸)
-  , int2Nat
+  , int2nat
   , Nat(Z, S)
-  , nat2Int
+  , nat2int
   )
 where
 
@@ -26,6 +26,12 @@ import Test.QuickCheck
   ( Arbitrary(arbitrary)
   , oneof
   )
+
+-----------------------------------------------------------------------------
+-- Auxiliary functions
+
+mapTuple ∷ (a → b) → (a, a) → (b, b)
+mapTuple f (a1, a2) = (f a1, f a2)
 
 -----------------------------------------------------------------------------
 -- From http://byorgey.wordpress.com/2010/11/:
@@ -38,18 +44,23 @@ import Test.QuickCheck
 data Nat = Z | S Nat
          deriving (Eq, Ord)
 
-nat2Integer ∷ Nat → Integer
-nat2Integer Z     = 0
-nat2Integer (S n) = 1 + nat2Integer n
+nat2integer ∷ Nat → Integer
+nat2integer Z     = 0
+nat2integer (S n) = 1 + nat2integer n
 
-nat2Int ∷ Nat → Int
-nat2Int Z     = 0
-nat2Int (S n) = 1 + nat2Int n
+nat2int ∷ Nat → Int
+nat2int Z     = 0
+nat2int (S n) = 1 + nat2int n
 
-int2Nat ∷ Int → Nat
-int2Nat n | n < 0 = error "int2Nat: negative argument"
-int2Nat 0         = Z
-int2Nat n         = S $ int2Nat (n - 1)
+int2nat ∷ Int → Nat
+int2nat n | n < 0 = error "int2Nat: negative argument"
+int2nat 0         = Z
+int2nat n         = S $ int2nat (n - 1)
+
+integer2nat ∷ Integer → Nat
+integer2nat n | n < 0 = error "integer2Nat: negative argument"
+integer2nat 0         = Z
+integer2nat n         = S $ integer2nat (n - 1)
 
 -- Adapted from http://byorgey.wordpress.com/2010/11/.
 instance Num Nat where
@@ -83,10 +94,10 @@ instance Num Nat where
 (∸) = (-)
 
 instance Real Nat where
-  toRational = toRational . nat2Integer
+  toRational = toRational . nat2integer
 
 instance Enum Nat where
-  fromEnum = fromEnum . nat2Int
+  fromEnum = fromEnum . nat2int
 
   toEnum 0 = Z
   toEnum n = if n > 0
@@ -94,21 +105,15 @@ instance Enum Nat where
              else error "toEnum: negative value"
 
 instance Integral Nat where
-  quotRem m n = (f , s)
-    where
-    r ∷ (Int, Int)
-    r = quotRem (nat2Int m) (nat2Int n)
+  quotRem m n = mapTuple integer2nat $ quotRem (nat2integer m) (nat2integer n)
 
-    f ∷ Nat
-    f = toEnum (fst r)
+  -- TODO (07 July 2014). Why is this definition necessary?
+  divMod m n = mapTuple integer2nat $ divMod (nat2integer m) (nat2integer n)
 
-    s ∷ Nat
-    s = toEnum (snd r)
-
-  toInteger = nat2Integer
+  toInteger = nat2integer
 
 instance Show Nat where
-  show = show . nat2Integer
+  show = show . nat2integer
 
 -- QuickCheck instance. Adapted from the list instance in [Claessen
 -- and Hughes, 2000].
