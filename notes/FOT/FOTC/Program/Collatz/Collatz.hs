@@ -1,6 +1,6 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
-import Data.Peano
+import Data.Peano ( Nat )
 
 collatz ∷ Nat → Nat
 collatz 0 = 1
