@@ -31,3 +31,15 @@ library
        -fwarn-monomorphism-restriction
        -fwarn-tabs
        -Werror
+
+test-suite test
+  type:           detailed-0.9
+  hs-source-dirs: test
+  test-module:    Num
+
+  build-depends:
+    base >= 4.2 && < 4.8
+    , Cabal >= 1.20 && < 1.21
+    , cabal-test-quickcheck >= 0.1.2 && < 0.2
+    , peano >= 0.1 && < 0.2
+    , QuickCheck >= 2.7.5 && < 2.8

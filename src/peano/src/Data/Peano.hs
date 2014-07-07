@@ -63,9 +63,12 @@ instance Num Nat where
   Z   - S _ = Z
   S m - S n = m - n
 
-  abs    _ = error "abs"
+  abs n = n
+
   negate _ = error "negate"
-  signum n = n
+
+  signum Z     = 0
+  signum (S _) = 1
 
   fromInteger 0 = Z
   fromInteger n = if n < 0
