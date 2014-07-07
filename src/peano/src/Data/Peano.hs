@@ -65,7 +65,10 @@ instance Num Nat where
 
   abs n = n
 
-  negate _ = error "negate"
+  -- In the @Integral@ class, @div@ is defined via @divMod@ which uses
+  -- @negate@. See
+  -- http://www.haskell.org/ghc/docs/7.8.2/html/libraries/base-4.7.0.0/src/GHC-Real.html#div.
+  negate n = n
 
   signum Z     = 0
   signum (S _) = 1
