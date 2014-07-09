@@ -270,8 +270,8 @@ apia_changed :
 	   echo "Error: The directory $(snapshot_dir) does not exist"; \
 	   exit 1; \
 	fi
-	make prove_notes
 	make compare_snapshot_fot
+	make prove_notes
 	@echo "$@ succeeded!"
 
 ##############################################################################
