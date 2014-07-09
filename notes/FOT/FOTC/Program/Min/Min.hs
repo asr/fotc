@@ -1,6 +1,6 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
--- From (Bove, A. and Capretta, V. (2001).
+-- From Bove, A. and Capretta, V. (2001).
 
 import Data.Peano
 import Prelude hiding ( min )
