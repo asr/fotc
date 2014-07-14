@@ -23,11 +23,12 @@ natEq zero  zero         = true
 natEq (succ m) (succ n)  = natEq m n
 natEq _     _            = false
 
-eqInstanceBool : Eq Bool
-eqInstanceBool = record { equal = boolEq }
+instance
+  eqInstanceBool : Eq Bool
+  eqInstanceBool = record { equal = boolEq }
 
-eqInstanceℕ : Eq ℕ
-eqInstanceℕ = record { equal = natEq }
+  eqInstanceℕ : Eq ℕ
+  eqInstanceℕ = record { equal = natEq }
 
 test : Bool
 test = equal 5 3 ∨ equal true false

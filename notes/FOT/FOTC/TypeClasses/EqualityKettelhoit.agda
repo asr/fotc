@@ -31,11 +31,12 @@ nEq nzero      nzero      = Bool true
 nEq (nsucc Nm) (nsucc Nn) = Bool true
 nEq _          _          = Bool false
 
-eqInstanceBool : Eq Bool
-eqInstanceBool = record { equal = boolEq }
+instance
+  eqInstanceBool : Eq Bool
+  eqInstanceBool = record { equal = boolEq }
 
-eqInstanceN : Eq N
-eqInstanceN = record { equal = nEq }
+  eqInstanceN : Eq N
+  eqInstanceN = record { equal = nEq }
 
 test₁ : Set
 test₁ = equal nzero (nsucc nzero)

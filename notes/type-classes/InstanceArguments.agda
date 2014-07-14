@@ -23,11 +23,12 @@ natEq _     _            = false
 record Eq (t : Set) : Set where
   field equal : t → t → Bool
 
-eqInstanceBool : Eq Bool
-eqInstanceBool = record { equal = boolEq }
+instance
+  eqInstanceBool : Eq Bool
+  eqInstanceBool = record { equal = boolEq }
 
-eqInstanceℕ : Eq ℕ
-eqInstanceℕ = record { equal = natEq }
+  eqInstanceℕ : Eq ℕ
+  eqInstanceℕ = record { equal = natEq }
 
 equal : {t : Set} → {{eqT : Eq t}} → t → t → Bool
 equal {{eqT}} = Eq.equal eqT
