@@ -1,7 +1,3 @@
-# Tested with:
-# GNU Make 3.81 and
-# GNU bash, version 4.2.8(1)-release (x86_64-pc-linux-gnu)
-
 SHELL := /bin/bash
 
 ##############################################################################
