@@ -3,7 +3,7 @@
 
 -- The alternating bit protocol following Dybjer and Herbert (1989).
 
--- Tested with QuickCheck 2.7.5, random 1.0.1.1 and streams 3.2.
+-- Tested with QuickCheck 2.7.6, random 1.0.1.1 and streams 3.2.
 
 ------------------------------------------------------------------------------
 module Main where
@@ -84,8 +84,8 @@ instance Arbitrary a ⇒ Arbitrary (Stream a) where
 prop ∷ Bit → Stream Bit → Stream Bit → Stream Int → Bool
 prop b os1 os2 is = S.take 10 is == S.take 10 (abpTransH b os1 os2 is)
 
--- main ∷ IO ()
--- main = quickCheck prop
+runTest ∷ IO ()
+runTest = quickCheck prop
 
 ------------------------------------------------------------------------------
 -- Simulation

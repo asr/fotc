@@ -2,7 +2,7 @@
 
 -- We test some properties of the relation MCR with QuickCheck.
 
--- Tested QuickCheck 2.7.5.
+-- Tested QuickCheck 2.7.6.
 
 module Main ( main ) where
 
@@ -35,5 +35,5 @@ main = do
   quickCheck prop1   -- Passed
   quickCheck prop2   -- Passed
   quickCheck prop3   -- Gave up
-  quickCheckWith (stdArgs { maxDiscardRatio = 100 }) prop3  -- Failed
+  quickCheckWith (stdArgs { maxDiscardRatio = 100 }) prop3  -- Gave up
   quickCheck prop4  -- Passed
