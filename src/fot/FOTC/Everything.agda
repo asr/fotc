@@ -175,6 +175,7 @@ open import FOTC.Program.McCarthy91.WF-Relation.LT2WF-RelationATP
 open import FOTC.Program.McCarthy91.WF-Relation.PropertiesATP
 open import FOTC.Program.McCarthy91.WF-Relation.Induction.Acc.WF-ATP
 
+open import FOTC.Program.Mirror.Example
 open import FOTC.Program.Mirror.Forest.PropertiesATP
 open import FOTC.Program.Mirror.Forest.PropertiesI
 open import FOTC.Program.Mirror.Forest.TotalityATP
@@ -186,7 +187,6 @@ open import FOTC.Program.Mirror.PropertiesI
 open import FOTC.Program.Mirror.Tree.TotalityATP
 open import FOTC.Program.Mirror.Tree.TotalityI
 open import FOTC.Program.Mirror.Type
-open import FOTC.Program.Mirror.Type.Example
 
 open import FOTC.Program.Nest.Nest
 open import FOTC.Program.Nest.Nest.Consistency.Axioms

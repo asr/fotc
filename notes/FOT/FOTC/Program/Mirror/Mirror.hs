@@ -2,8 +2,11 @@
 
 ------------------------------------------------------------------------------
 -- Using mutually recursive data types
-data Tree a   = Tree a (Forest a)
+data Tree a = Tree a (Forest a)
+              deriving Eq
+
 data Forest a = Fnil | Fcons (Tree a) (Forest a)
+              deriving Eq
 
 --       1
 --    / / \ \
@@ -35,8 +38,13 @@ reverseForest ts = revForest ts Fnil
 mirrorTree ∷ Tree a → Tree a
 mirrorTree (Tree t ts) = Tree t (reverseForest (mapForest mirrorTree ts))
 
+testTree :: Bool
+testTree = tTree == mirrorTree (mirrorTree (tTree))
+
+------------------------------------------------------------------------------
 -- Using a single data type
 data RoseTree a = RoseTree a [RoseTree a]
+                deriving Eq
 
 --       1
 --    / / \ \
@@ -55,3 +63,6 @@ tRoseTree = RoseTree 1 [ RoseTree 2 [ RoseTree 6 []
 
 mirrorRoseTree ∷ RoseTree a → RoseTree a
 mirrorRoseTree (RoseTree a ts) = RoseTree a (reverse (map mirrorRoseTree ts))
+
+testRoseTree :: Bool
+testRoseTree = tRoseTree == mirrorRoseTree (mirrorRoseTree (tRoseTree))
