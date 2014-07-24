@@ -186,6 +186,7 @@ open import FOTC.Program.Mirror.PropertiesI
 open import FOTC.Program.Mirror.Tree.TotalityATP
 open import FOTC.Program.Mirror.Tree.TotalityI
 open import FOTC.Program.Mirror.Type
+open import FOTC.Program.Mirror.Type.Example
 
 open import FOTC.Program.Nest.Nest
 open import FOTC.Program.Nest.Nest.Consistency.Axioms
