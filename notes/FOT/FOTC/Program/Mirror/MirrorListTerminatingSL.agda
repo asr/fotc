@@ -30,5 +30,5 @@ mirror       : {A : Set} → Tree A → Tree A
 mirrorBranch : {A : Set} → List (Tree A) → List (Tree A)
 
 mirror       (tree a ts) = tree a (reverse (mirrorBranch ts))
-mirrorBranch []           = []
-mirrorBranch (t ∷ ts)     = mirror t ∷ mirrorBranch ts
+mirrorBranch []          = []
+mirrorBranch (t ∷ ts)    = mirror t ∷ mirrorBranch ts
