@@ -28,7 +28,7 @@ pred-N (nsucc {n} Nn) = prf
   where postulate prf : N (zero + n)
         {-# ATP prove prf #-}
 +-N {n = n} (nsucc {m} Nm) Nn = prf (+-N Nm Nn)
-  where postulate prf : N (m + n) →  N (succ₁ m + n)
+  where postulate prf : N (m + n) → N (succ₁ m + n)
         {-# ATP prove prf #-}
 
 ∸-N : ∀ {m n} → N m → N n → N (m ∸ n)

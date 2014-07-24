@@ -71,7 +71,7 @@ postulate div-2^[x+1]-2≡2^x : ∀ {n} → N n → div (2' ^ succ₁ n) 2' ≡ 
 2^x≢0 : ∀ {n} → N n → 2' ^ n ≢ zero
 2^x≢0 nzero          h = ⊥-elim (0≢S (trans (sym h) (^-0 2')))
 2^x≢0 (nsucc {n} Nn) h = prf (2^x≢0 Nn)
-  where postulate prf : 2' ^ n ≢ zero →  ⊥
+  where postulate prf : 2' ^ n ≢ zero → ⊥
         {-# ATP prove prf xy≡0→x≡0∨y≡0 ^-N #-}
 
 postulate 2^[x+1]≢1 : ∀ {n} → N n → 2' ^ succ₁ n ≢ 1'

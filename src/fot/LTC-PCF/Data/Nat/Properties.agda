@@ -104,7 +104,7 @@ pred-N (nsucc {n} Nn) = subst N (sym (pred-S n)) Nn
 ∸-N {m} Nm nzero          = subst N (sym (∸-x0 m)) Nm
 ∸-N {m} Nm (nsucc {n} Nn) = subst N (sym (∸-xS m n)) (pred-N (∸-N Nm Nn))
 
-+-assoc : ∀ {m} → N m →  ∀ n o → m + n + o ≡ m + (n + o)
++-assoc : ∀ {m} → N m → ∀ n o → m + n + o ≡ m + (n + o)
 +-assoc nzero n o =
   zero + n + o   ≡⟨ +-leftCong (+-leftIdentity n) ⟩
   n + o          ≡⟨ sym (+-leftIdentity (n + o)) ⟩

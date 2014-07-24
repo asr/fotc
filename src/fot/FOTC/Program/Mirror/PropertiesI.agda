@@ -131,8 +131,8 @@ helper (fcons {t} {ts} Tt Fts) =
   (mirror · (mirror · t) ∷ []) ++ n₁
     ≡⟨ ++-∷ (mirror · (mirror · t)) [] n₁ ⟩
   mirror · (mirror · t) ∷ [] ++ n₁
-    ≡⟨ subst (λ x →  mirror · (mirror · t) ∷ [] ++ n₁ ≡
-                     mirror · (mirror · t) ∷ x)
+    ≡⟨ subst (λ x → mirror · (mirror · t) ∷ [] ++ n₁ ≡
+                    mirror · (mirror · t) ∷ x)
              (++-leftIdentity n₁)
              refl
     ⟩
