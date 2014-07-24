@@ -7,14 +7,7 @@
 
 module FOT.FOTC.Program.Mirror.MirrorListTerminatingSL where
 
-open import Data.List as List hiding ( reverse )
-
-------------------------------------------------------------------------------
--- Auxiliary functions
-
-reverse : {A : Set} → List A → List A
-reverse []       = []
-reverse (x ∷ xs) = reverse xs ++ x ∷ []
+open import Data.List
 
 ------------------------------------------------------------------------------
 -- The rose tree type.
