@@ -18,7 +18,7 @@ postulate commutatorInverse : ∀ a b → [ a , b ] · [ b , a ] ≡ ε
 {-# ATP prove commutatorInverse #-}
 
 -- If the commutator is associative, then commutator of any two
--- elements lies in the center of the group, i.e. a ⟦b,c⟧ = ⟦b,c⟧ a.
+-- elements lies in the center of the group, i.e. a [b,c] = [b,c] a.
 -- From: TPTP 6.6.0 problem GRP/GRP024-5.p.
 postulate commutatorAssocCenter : (∀ a b c → commutatorAssoc a b c) →
                                   (∀ a b c → a · [ b , c ] ≡ [ b , c ] · a)
