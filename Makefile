@@ -332,7 +332,7 @@ benchmark :
 # Hlint test
 
 hlint :
-	find -name '*.hs' | xargs hlint
+	find -name '*.hs' | xargs hlint --color=never
 	@echo "$@ succeeded!"
 
 ##############################################################################
