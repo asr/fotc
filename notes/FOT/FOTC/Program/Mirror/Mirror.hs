@@ -43,8 +43,8 @@ testTree = tTree == mirrorTree (mirrorTree tTree)
 
 ------------------------------------------------------------------------------
 -- Using a single data type
-data RoseTree a = RoseTree a [RoseTree a]
-                deriving Eq
+data Rose a = Rose a [Rose a]
+              deriving Eq
 
 --       1
 --    / / \ \
@@ -52,17 +52,17 @@ data RoseTree a = RoseTree a [RoseTree a]
 --  / \
 -- 6   7
 
-tRoseTree ∷ RoseTree Int
-tRoseTree = RoseTree 1 [ RoseTree 2 [ RoseTree 6 []
-                                    , RoseTree 7 []
-                                    ]
-                       , RoseTree 3 []
-                       , RoseTree 4 []
-                       , RoseTree 5 []
-                       ]
+tRose ∷ Rose Int
+tRose = Rose 1 [ Rose 2 [ Rose 6 []
+                        , Rose 7 []
+                        ]
+               , Rose 3 []
+               , Rose 4 []
+               , Rose 5 []
+               ]
 
-mirrorRoseTree ∷ RoseTree a → RoseTree a
-mirrorRoseTree (RoseTree a ts) = RoseTree a (reverse (map mirrorRoseTree ts))
+mirrorRose ∷ Rose a → Rose a
+mirrorRose (Rose a ts) = Rose a (reverse (map mirrorRose ts))
 
-testRoseTree :: Bool
-testRoseTree = tRoseTree == mirrorRoseTree (mirrorRoseTree tRoseTree)
+testRose :: Bool
+testRose = tRose == mirrorRose (mirrorRose tRose)
