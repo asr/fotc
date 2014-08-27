@@ -39,7 +39,7 @@ mirrorTree ∷ Tree a → Tree a
 mirrorTree (Tree t ts) = Tree t (reverseForest (mapForest mirrorTree ts))
 
 testTree :: Bool
-testTree = tTree == mirrorTree (mirrorTree (tTree))
+testTree = tTree == mirrorTree (mirrorTree tTree)
 
 ------------------------------------------------------------------------------
 -- Using a single data type
@@ -65,4 +65,4 @@ mirrorRoseTree ∷ RoseTree a → RoseTree a
 mirrorRoseTree (RoseTree a ts) = RoseTree a (reverse (map mirrorRoseTree ts))
 
 testRoseTree :: Bool
-testRoseTree = tRoseTree == mirrorRoseTree (mirrorRoseTree (tRoseTree))
+testRoseTree = tRoseTree == mirrorRoseTree (mirrorRoseTree tRoseTree)
