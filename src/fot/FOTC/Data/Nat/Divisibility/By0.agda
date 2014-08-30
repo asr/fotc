@@ -26,7 +26,7 @@ infix 7 _∣_
 --
 -- Coq 8.4pl4: 0∣0
 --
--- Isabelle2013-2: 0∣0
+-- Isabelle2014: 0∣0
 
 -- In our definition 0∣0, which is used to prove properties of the gcd
 -- as it is in GHC ≥ 7.2.1, where gcd 0 0 = 0 (see

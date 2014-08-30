@@ -1,4 +1,6 @@
-(* In Isabelle, zero divides zero *)
+(* Tested with Isabelle2014 *)
+
+(* Zero divides zero *)
 
 theory ZeroDividesZero
 imports Nat Rings
@@ -16,3 +18,4 @@ unfolding dvd_def
 apply (rule exI)
 apply simp
 done
+end

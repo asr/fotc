@@ -185,10 +185,10 @@ m ∸ n = rec n m (lam (λ _ → lam pred₁))
 --   m ∸ n ∎
 
 ------------------------------------------------------------------------------
--- Isabelle2013-1 conversion rules (from Nat.thy)
+-- Isabelle2014 conversion rules (from src/HOL/Nat.thy)
 
 -- primrec minus_nat where
---   diff_0 [code]: "m - 0 = (m :: nat)"
+--   diff_0 [code]: "m - 0 = (m\<Colon>nat)"
 -- | diff_Suc: "m - Suc n = (case m - n of 0 => 0 | Suc k => k)"
 
 ∸-x0-isabelle : ∀ n → n ∸ zero ≡ n
