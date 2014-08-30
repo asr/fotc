@@ -57,6 +57,10 @@ outA b (ok (i , b') ∷ bs) with b ≟ b'
 outA b (error ∷ bs) = outA b (♭ bs)
 
 -- Model the fair unreliable tranmission channel.
+--
+-- 29 August 2014 Requires the non-termination flag when using
+-- --without-K after the release of Agda 2.4.2. See issue 1264.
+{-# NO_TERMINATION_CHECK #-}
 corruptA : {A : Set} → Stream Bit → Stream A → Stream (Err A)
 corruptA (true ∷ os)  (_ ∷ xs) = error ∷ ♯ (corruptA (♭ os) (♭ xs))
 corruptA (false ∷ os) (x ∷ xs) = ok x ∷ ♯ (corruptA (♭ os) (♭ xs))
