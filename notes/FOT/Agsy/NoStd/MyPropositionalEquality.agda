@@ -9,7 +9,8 @@
 
 module FOT.Agsy.NoStd.MyPropositionalEquality where
 
--- We add 3 to the fixities of the standard library.
+-- We add 3 to the fixities of the Agda standard library 0.6 (see
+-- Relation/Binary/Core.agda).
 infix 7 _≡_
 
 ------------------------------------------------------------------------------
@@ -29,14 +30,16 @@ cong : {A B : Set} (f : A → B) → ∀ {x y} → x ≡ y → f x ≡ f y
 cong f refl = refl
 
 module ≡-Reasoning where
-  -- We add 3 to the fixities of the standard library.
+  -- We add 3 to the fixities of the Agda standard library 0.6 (see
+  -- Relation/Binary/PreorderReasoning.agda).
   infix  7 _≃_
   infix  4 begin_
   infixr 5 _≡⟨_⟩_
   infix  5 _∎
 
   ----------------------------------------------------------------------------
-  -- Adapted from the standard library (Relation.Binary.PreorderReasoning).
+  -- Adapted from the Agda standard library 0.6 (see
+  -- Relation/Binary/PreorderReasoning.agda).
   private
     data _≃_ {A : Set}(x y : A) : Set where
       prf : x ≡ y → x ≃ y

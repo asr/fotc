@@ -7,7 +7,7 @@
 
 module Common.Function where
 
--- The same fixity used in the standard library.
+-- From Funcion.agda (Agda standard library 0.6).
 -- infixr 0 _$_
 
 ------------------------------------------------------------------------------

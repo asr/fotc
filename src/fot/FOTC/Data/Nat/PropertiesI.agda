@@ -37,7 +37,8 @@ open import FOTC.Data.Nat.UnaryNumbers.TotalityI
 *-rightCong refl = refl
 
 ------------------------------------------------------------------------------
--- Some proofs are based on the proofs in the standard library.
+-- Some proofs are based on the proofs in the Agda standard
+-- library 0.6.
 
 Sx≢x : ∀ {n} → N n → succ₁ n ≢ n
 Sx≢x nzero h      = ⊥-elim (0≢S (sym h))

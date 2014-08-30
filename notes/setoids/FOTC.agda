@@ -31,9 +31,10 @@ module Aczel-CA where
   -- From Peter's slides
   -- http://www.cse.chalmers.se/~peterd/slides/Amagasaki.pdf
 
-  -- We add 3 to the fixities of the standard library.
-  infixl 9 _·_  -- The symbol is '\cdot'.
-  infix 7  _≐_
+  -- We add 3 to the fixities of the Agda standard library 0.6 (see
+  -- Algebra.agda and Relation/Binary/Core.agda).
+  infixl 9 _·_
+  infix  7 _≐_
 
   data D : Set where
     K S : D

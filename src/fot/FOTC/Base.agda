@@ -17,9 +17,12 @@ FOTC                                  The logical framework (Agda)
 
 module FOTC.Base where
 
--- We add 3 to the fixities of the standard library.
-infixl 9 _·_  -- The symbol is '\cdot'.
-infix  8 if_then_else_
+-- We add 3 to the fixities of the Agda standard library 0.6 (see
+-- Algebra.agda).
+infixl 9 _·_
+-- We add 8 to the fixity of the Agda standard library 0.6 (see
+-- Data/Bool.agda).
+infix 8 if_then_else_
 
 ------------------------------------------------------------------------------
 -- First-order logic with equality.

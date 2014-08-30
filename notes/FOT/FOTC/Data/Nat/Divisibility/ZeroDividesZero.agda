@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- In the standard library zero divides zero
+-- In the Agda standard library zero divides zero
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}

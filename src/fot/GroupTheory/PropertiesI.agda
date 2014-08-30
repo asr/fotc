@@ -96,16 +96,16 @@ rightCancellation {a} {b} {c} h =
   c · ε          ≡⟨ rightIdentity c ⟩
   c              ∎
 
--- Adapted from the Agda standard library v0.6 (see
--- Algebra.Props.Group.right-helper).
+-- Adapted from the Agda standard library 0.6 (see
+-- Algebra.Properties.Group.right-helper).
 y≡x⁻¹[xy] : ∀ a b → b ≡ a ⁻¹ · (a · b)
 y≡x⁻¹[xy] a b = b              ≡⟨ sym (leftIdentity b) ⟩
                 ε · b          ≡⟨ ·-leftCong (sym (leftInverse a)) ⟩
                 a ⁻¹ · a · b   ≡⟨ assoc (a ⁻¹) a b ⟩
                 a ⁻¹ · (a · b) ∎
 
--- Adapted from the Agda standard library v0.6 (see
--- Algebra.Props.Group.left-helper).
+-- Adapted from the Agda standard library 0.6 (see
+-- Algebra.Properties.Group.left-helper).
 x≡[xy]y⁻¹ : ∀ a b → a ≡ (a · b) · b ⁻¹
 x≡[xy]y⁻¹ a b = a              ≡⟨ sym (rightIdentity a) ⟩
                 a · ε          ≡⟨ ·-rightCong (sym (rightInverse b)) ⟩
@@ -120,9 +120,9 @@ rightIdentityUnique : ∀ r → (∀ a → a · r ≡ a) → r ≡ ε
 -- 3. r  = ε  (transitivity)
 rightIdentityUnique r h = trans (sym (leftIdentity r)) (h ε)
 
--- A more appropiate version to be used in the proofs.
--- Adapted from the Agda standard library v0.6 (see
--- Algebra.Props.Group.right-identity-unique).
+-- A more appropiate version to be used in the proofs. Adapted from
+-- the Agda standard library 0.6 (see
+-- Algebra.Properties.Group.right-identity-unique).
 rightIdentityUnique' : ∀ a r → a · r ≡ a → r ≡ ε
 rightIdentityUnique' a r h = r              ≡⟨ y≡x⁻¹[xy] a r ⟩
                              a ⁻¹ · (a · r) ≡⟨ ·-rightCong h ⟩
@@ -136,9 +136,9 @@ leftIdentityUnique : ∀ l → (∀ a → l · a ≡ a) → l ≡ ε
 -- 3. l  = e  (transitivity)
 leftIdentityUnique l h = trans (sym (rightIdentity l)) (h ε)
 
--- A more appropiate version to be used in the proofs.
--- Adapted from the Agda standard library v0.6 (see
--- Algebra.Props.Group.left-identity-unique).
+-- A more appropiate version to be used in the proofs. Adapted from
+-- the Agda standard library 0.6 (see
+-- Algebra.Properties.Group.left-identity-unique).
 leftIdentityUnique' : ∀ a l → l · a ≡ a → l ≡ ε
 leftIdentityUnique' a l h = l            ≡⟨ x≡[xy]y⁻¹ l a ⟩
                             l · a · a ⁻¹ ≡⟨ ·-leftCong h ⟩

@@ -10,7 +10,8 @@ module LTC-PCF.Data.Nat.Divisibility.By0 where
 open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat
 
--- We add 3 to the fixities of the standard library.
+-- We add 3 to the fixities of the Agda standard library 0.6 (see
+-- Data.Nat.Divisibility).
 infix 7 _∣_
 
 ------------------------------------------------------------------------------

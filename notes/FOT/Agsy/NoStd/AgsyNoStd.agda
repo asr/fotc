@@ -10,7 +10,7 @@
 
 module FOT.Agsy.NoStd.AgsyNoStd where
 
--- The equational reasoning from the standard library.
+-- The equational reasoning from the Agda standard library 0.6.
 -- open import Relation.Binary.PropositionalEquality
 -- open ≡-Reasoning
 
@@ -18,7 +18,8 @@ module FOT.Agsy.NoStd.AgsyNoStd where
 open import FOT.Agsy.NoStd.MyPropositionalEquality
 open ≡-Reasoning
 
--- We add 3 to the fixities of the standard library.
+-- We add 3 to the fixities of the Agda standard library 0.6 (see
+-- Data/Nat.agda).
 infixl 9 _+_
 
 ------------------------------------------------------------------------------

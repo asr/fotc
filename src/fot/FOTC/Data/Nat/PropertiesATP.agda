@@ -48,7 +48,8 @@ pred-N (nsucc {n} Nn) = prf
         {-# ATP prove prf +-N #-}
 
 ------------------------------------------------------------------------------
--- Some proofs are based on the proofs in the standard library.
+-- Some proofs are based on the proofs in the Agda standard
+-- library_0.6.
 
 Sx≢x : ∀ {n} → N n → succ₁ n ≢ n
 Sx≢x nzero h = prf

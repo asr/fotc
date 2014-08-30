@@ -14,7 +14,8 @@ postulate D : Set
 module ∃₁ where
   -- Type theoretical version
 
-  -- We add 3 to the fixities of the standard library.
+  -- We add 3 to the fixities of the Agda standard library 0.6 (see
+  -- Data/Product.agda).
   infixr 7 _,_
 
   -- The existential quantifier type on D.
@@ -42,7 +43,8 @@ module ∃₁ where
 module ∃₂ where
   -- First-order logic version
 
-  -- We add 3 to the fixities of the standard library.
+  -- We add 3 to the fixities of the Agda standard library 0.6 (see
+  -- Data/Product.agda).
   infixr 7 _,_
 
   -- The existential quantifier type on D.

@@ -7,9 +7,10 @@
 
 module GroupTheory.Base where
 
--- We add 3 to the fixities of the standard library.
+ -- We add 3 to the fixities of the Agda standard library 0.6 (see
+ -- Algebra.agda).
 infix  11 _⁻¹
-infixl 10 _·_  -- The symbol is '\cdot'.
+infixl 10 _·_
 
 ------------------------------------------------------------------------------
 -- First-order logic with equality.

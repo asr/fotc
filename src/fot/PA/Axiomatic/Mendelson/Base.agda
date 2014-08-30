@@ -15,7 +15,8 @@
 
 module PA.Axiomatic.Mendelson.Base where
 
--- We add 3 to the fixities of the standard library.
+-- We add 3 to the fixities of the Agda standard library 0.6 (see
+-- Data/Nat.agda and Relation/Binary/Core.agda).
 infixl 10 _*_
 infixl 9  _+_
 infix  7  _≈_ _≉_

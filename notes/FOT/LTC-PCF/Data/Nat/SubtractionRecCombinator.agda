@@ -26,7 +26,8 @@ _∸_ : D → D → D
 m ∸ n = rec n m (lam (λ _ → lam pred₁))
 
 ------------------------------------------------------------------------------
--- Conversion rules (from the Agda standard library)
+-- Conversion rules from the Agda standard library 0.6 (see
+-- Data/Nat.agda).
 
 ∸-x0 : ∀ n → n ∸ zero ≡ n
 ∸-x0 n = rec zero n _ ≡⟨ rec-0 n ⟩
@@ -116,8 +117,8 @@ m ∸ n = rec n m (lam (λ _ → lam pred₁))
   succ₁ m ∸ succ₁ n ∎
 
 ------------------------------------------------------------------------------
--- Conversion rules from the Agda standard library without totality
--- hypotheses.
+-- Conversion rules from the Agda standard library 0.6 (see
+-- Data/Nat.agda) without totality hypotheses.
 
 -- We could not prove this property.
 -- ∸-0S₁ : ∀ n → zero ∸ succ₁ n ≡ zero
@@ -222,9 +223,9 @@ m ∸ n = rec n m (lam (λ _ → lam pred₁))
 -- _∸_ : D → D → D
 -- m ∸ n = rec n m (lam (λ _ → lam pred₁))
 
--- you get the equations obtained by the special case (instantiate a and
--- f according to the def of subtraction)! This has nothing to do a
--- priori with Agda's standard library.
+-- you get the equations obtained by the special case (instantiate a
+-- and f according to the def of subtraction)!  This has nothing to do
+-- a priori with the Agda standard library.
 
 ∸-x0-peter : ∀ n → n ∸ zero ≡ n
 ∸-x0-peter n = rec zero n _ ≡⟨ rec-0 n ⟩

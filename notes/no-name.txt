@@ -35,13 +35,12 @@ open import Common.FOL.Relation.Binary.EqReasoning
 -- Tested and adapted messages
 ------------------------------------------------------------------------------
 
--- Adapted from the Agda standard library v0.6 (see
-   ModuleName.FunctionName).
+-- Adapted from the Agda standard library 0.6 (see ModuleName.FunctionName).
 
 -- Tested with apia on .
 -- Tested with FOT on .
 -- Tested with the development version of Agda on .
--- Tested with the development version of the standard library on .
+-- Tested with the development version of the Agda standard library on .
 
 ------------------------------------------------------------------------------
 -- Finding the proofs using pattern matching on the existential quantifier

@@ -27,8 +27,7 @@
 --  in Logic and the Foundations of Mathematics. North-Holland, 3rd
 --  edition, 3rd impression 1992.
 
--- [2] Agda standard library implementation
---     (http://www.cse.chalmers.se/~nad/listings/lib-0.6/Algebra.Structures.html#1884)
+-- [2] Agda standard library 0.6 (see Algebra/Structures.agda)
 
 -- [3] Coq implementation
 --     (http://coq.inria.fr/pylons/contribs/files/GroupTheory/v8.3/GroupTheory.g1.html)

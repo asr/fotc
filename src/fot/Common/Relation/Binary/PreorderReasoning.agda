@@ -12,15 +12,16 @@ module Common.Relation.Binary.PreorderReasoning
   (trans : ∀ {x y z} → x ∼ y → y ∼ z → x ∼ z)
   where
 
--- We add 3 to the fixities of the standard library.
+-- We add 3 to the fixities of the Agda standard library 0.6 (see
+-- Relation.Binary.PreorderReasoning).
 infixr 5 _∼⟨_⟩_
 infix  5 _∎
 
 ------------------------------------------------------------------------------
 -- From (Mu, S.-C., Ko, H.-S. and Jansson, P. (2009)).
 --
--- N.B. Unlike Ulf's thesis (and the Agda standard library) this set
--- of combinators do not use a wrapper data type.
+-- N.B. Unlike Ulf's thesis (and the Agda standard library 0.6) this
+-- set of combinators do not use a wrapper data type.
 
 _∼⟨_⟩_ : ∀ x {y z} → x ∼ y → y ∼ z → x ∼ z
 _ ∼⟨ x∼y ⟩ y∼z = trans x∼y y∼z

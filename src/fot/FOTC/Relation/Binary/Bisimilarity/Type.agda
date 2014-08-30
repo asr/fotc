@@ -10,7 +10,8 @@ module FOTC.Relation.Binary.Bisimilarity.Type where
 open import FOTC.Base
 open import FOTC.Base.List
 
--- We add 3 to the fixities of the standard library.
+-- We add 3 to the fixities of the Agda standard library 0.6 (see
+-- Data/Stream.agda).
 infix 7 _≈_ _≉_
 
 ------------------------------------------------------------------------------

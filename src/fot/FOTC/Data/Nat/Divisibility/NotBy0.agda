@@ -10,7 +10,8 @@ module FOTC.Data.Nat.Divisibility.NotBy0 where
 open import FOTC.Base
 open import FOTC.Data.Nat
 
--- We add 3 to the fixities of the standard library.
+-- We add 3 to the fixities of the Agda standard library 0.6 (see
+-- Data/Nat/Divisibility.agda).
 infix 7 _∣_
 
 ------------------------------------------------------------------------------

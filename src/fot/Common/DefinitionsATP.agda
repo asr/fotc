@@ -10,7 +10,8 @@ module Common.DefinitionsATP where
 open import Common.FOL.FOL using ( ¬_ ; D )
 open import Common.FOL.Relation.Binary.PropositionalEquality using ( _≡_ )
 
--- We add 3 to the fixities of the standard library.
+-- We add 3 to the fixities of the Agda standard library 0.6 (see
+-- Relation/Binary/Core.agda).
 infix 7 _≢_
 
 ------------------------------------------------------------------------------

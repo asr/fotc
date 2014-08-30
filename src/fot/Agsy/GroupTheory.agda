@@ -6,7 +6,7 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Tested with the development version of the standard library on
+-- Tested with the development version of the Agda standard library on
 -- 02 February 2012.
 
 module Agsy.GroupTheory where
@@ -16,9 +16,10 @@ open import Data.Product
 open import Relation.Binary.PropositionalEquality
 open ≡-Reasoning
 
--- We add 3 to the fixities of the standard library.
+-- We add 3 to the fixities of the Agda standard library 0.6 (see
+-- Algebra.agda)
 infix  11 _⁻¹
-infixl 10 _·_  -- The symbol is '\cdot'
+infixl 10 _·_
 
 ------------------------------------------------------------------------------
 -- Group theory axioms

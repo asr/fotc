@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
--- The ABP using Agda standard library
+-- The ABP using the Agda standard library
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
