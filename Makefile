@@ -28,7 +28,7 @@ prove_notes_dir = /tmp/prove_notes
 ##############################################################################
 # Variables
 
-AGDA     = agda -v 0 --no-sized-types --universe-polymorphism
+AGDA     = agda -v 0 --no-sized-types
 AGDA_FOT = ${AGDA} -i$(fot_path)
 
 # The defaults ATPs are E, Equinox and Vampire.
