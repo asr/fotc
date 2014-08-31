@@ -20,9 +20,7 @@ module FOTC.Base where
 -- We add 3 to the fixities of the Agda standard library 0.6 (see
 -- Algebra.agda).
 infixl 9 _·_
--- We add 8 to the fixity of the Agda standard library 0.6 (see
--- Data/Bool.agda).
-infix 8 if_then_else_
+infix  3 if_then_else_
 
 ------------------------------------------------------------------------------
 -- First-order logic with equality.
@@ -87,8 +85,8 @@ abstract
 -- if-true  : ∀ t {t'} → if · true  · t · t' ≡ t
 -- if-false : ∀ {t} t' → if · false · t · t' ≡ t'
 postulate
-  if-true  : ∀ t {t'} → if true then t else t'  ≡ t
-  if-false : ∀ {t} t' → if false then t else t' ≡ t'
+  if-true  : ∀ t {t'} → (if true then t else t')  ≡ t
+  if-false : ∀ {t} t' → (if false then t else t') ≡ t'
 {-# ATP axiom if-true if-false #-}
 
 -- Conversion rules for pred.

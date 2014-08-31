@@ -84,13 +84,13 @@ private
     -- From div-s₁ to div-s₂ using the proof i<j.
     proof₁₋₂ : ∀ i j → i < j → div-s₁ i j ≡ div-s₂ i j
     proof₁₋₂ i j i<j =
-      subst (λ t → if t
-                     then zero
-                     else succ₁ (div (i ∸ j) j)
+      subst (λ t → (if t
+                      then zero
+                      else succ₁ (div (i ∸ j) j))
                    ≡
-                   if true
-                     then zero
-                     else succ₁ (div (i ∸ j) j)
+                   (if true
+                      then zero
+                      else succ₁ (div (i ∸ j) j))
             )
             (sym i<j)
             refl
@@ -98,13 +98,13 @@ private
     -- From div-s₁ to div-s₃ using the proof i≮j.
     proof₁₋₃ : ∀ i j → i ≮ j → div-s₁ i j ≡ div-s₃ i j
     proof₁₋₃ i j i≮j =
-      subst (λ t → if t
-                     then zero
-                     else succ₁ (div (i ∸ j) j)
+      subst (λ t → (if t
+                      then zero
+                      else succ₁ (div (i ∸ j) j))
                    ≡
-                   if false
-                     then zero
-                     else succ₁ (div (i ∸ j) j)
+                   (if false
+                      then zero
+                      else succ₁ (div (i ∸ j) j))
             )
             (sym i≮j)
             refl

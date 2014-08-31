@@ -27,8 +27,9 @@ postulate
 postulate
   filter    : D → D → D
   filter-[] : ∀ f → filter f [] ≡ []
-  filter-∷  : ∀ f d ds → filter f (d ∷ ds) ≡
-              if f · d then d ∷ filter f (d ∷ ds) else filter f (d ∷ ds)
+  filter-∷  : ∀ f d ds →
+              filter f (d ∷ ds) ≡
+              (if f · d then d ∷ filter f (d ∷ ds) else filter f (d ∷ ds))
 
 postulate filter-List : ∀ f {xs} → List xs → List (filter f xs)
 

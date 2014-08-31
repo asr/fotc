@@ -120,16 +120,16 @@ private
     -- From div-s₃ to div-s₄ using the proof i<j.
     proof₃_₄ : ∀ i j → i < j → div-s₃ i j ≡ div-s₄ i j
     proof₃_₄ i j i<j =
-      subst (λ t → if t then zero else succ₁ ((fix divh) · (i ∸ j) · j) ≡
-                   if true then zero else succ₁ ((fix divh) · (i ∸ j) · j))
+      subst (λ t → (if t then zero else succ₁ ((fix divh) · (i ∸ j) · j)) ≡
+                   (if true then zero else succ₁ ((fix divh) · (i ∸ j) · j)))
             (sym i<j)
             refl
 
     -- From div-s₃ to div-s₅ using the proof i≮j.
     proof₃₋₅ : ∀ i j → i ≮ j → div-s₃ i j ≡ div-s₅ i j
     proof₃₋₅ i j i≮j =
-      subst (λ t → if t then zero else succ₁ ((fix divh) · (i ∸ j) · j) ≡
-                   if false then zero else succ₁ ((fix divh) · (i ∸ j) · j))
+      subst (λ t → (if t then zero else succ₁ ((fix divh) · (i ∸ j) · j)) ≡
+                   (if false then zero else succ₁ ((fix divh) · (i ∸ j) · j)))
             (sym i≮j)
             refl
 

@@ -137,14 +137,14 @@ postulate
   toTree      : D
   toTree-nil  : ∀ item → toTree · item · nil ≡ tip item
   toTree-tip  : ∀ item i → toTree · item · (tip i) ≡
-                if (le i item)
-                  then (node (tip i) item (tip item))
-                  else (node (tip item) i (tip i))
+                (if (le i item)
+                   then (node (tip i) item (tip item))
+                   else (node (tip item) i (tip i)))
   toTree-node : ∀ item t₁ i t₂ →
                 toTree · item · (node t₁ i t₂) ≡
-                if (le i item)
-                  then (node t₁ i (toTree · item · t₂))
-                  else (node (toTree · item · t₁) i t₂)
+                (if (le i item)
+                   then (node t₁ i (toTree · item · t₂))
+                   else (node (toTree · item · t₁) i t₂))
 {-# ATP axiom toTree-nil toTree-tip toTree-node #-}
 
 -- The function makeTree converts a list to a tree.

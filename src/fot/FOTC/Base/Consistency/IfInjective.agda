@@ -12,7 +12,7 @@ open import FOTC.Base
 ------------------------------------------------------------------------------
 
 postulate ifInjective : ∀ {b b' t t'} →
-                        if b then t else t' ≡ if b' then t else t' → b ≡ b'
+                        (if b then t else t') ≡ (if b' then t else t') → b ≡ b'
 {-# ATP prove ifInjective #-}
 
 true≡false : true ≡ false

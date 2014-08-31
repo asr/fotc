@@ -31,8 +31,8 @@ iter₀-ListN f (nsucc {n} Nn) h =
   prf : iter₀ f (succ₁ n) ≡ succ₁ n ∷ iter₀ f (f · (succ₁ n))
   prf = iter₀ f (succ₁ n)
           ≡⟨ iter₀-eq f (succ₁ n) ⟩
-        if (iszero₁ (succ₁ n)) then [] else (succ₁ n ∷ iter₀ f (f · (succ₁ n)))
+        (if (iszero₁ (succ₁ n)) then [] else (succ₁ n ∷ iter₀ f (f · (succ₁ n))))
           ≡⟨ ifCong₁ (iszero-S n) ⟩
-        if false then [] else (succ₁ n ∷ iter₀ f (f · (succ₁ n)))
+        (if false then [] else (succ₁ n ∷ iter₀ f (f · (succ₁ n))))
           ≡⟨ if-false (succ₁ n ∷ iter₀ f (f · (succ₁ n))) ⟩
         succ₁ n ∷ iter₀ f (f · (succ₁ n)) ∎

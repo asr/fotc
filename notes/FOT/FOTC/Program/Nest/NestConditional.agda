@@ -16,7 +16,7 @@ open import FOTC.Base
 -- The nest function.
 postulate
   nest    : D → D
-  nest-eq : ∀ n → nest n ≡ if (iszero₁ n)
-                             then zero
-                             else (nest (nest (pred₁ n)))
+  nest-eq : ∀ n → nest n ≡ (if (iszero₁ n)
+                              then zero
+                              else (nest (nest (pred₁ n))))
 {-# ATP axiom nest-eq #-}

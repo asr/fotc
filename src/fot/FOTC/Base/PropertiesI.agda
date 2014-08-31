@@ -29,13 +29,16 @@ succCong refl = refl
 predCong : ∀ {m n} → m ≡ n → pred₁ m ≡ pred₁ n
 predCong refl = refl
 
-ifCong₁ : ∀ {b b' t t'} → b ≡ b' → if b then t else t' ≡ if b' then t else t'
+ifCong₁ : ∀ {b b' t t'} → b ≡ b' →
+          (if b then t else t') ≡ (if b' then t else t')
 ifCong₁ refl = refl
 
-ifCong₂ : ∀ {b t₁ t₂ t} → t₁ ≡ t₂ → if b then t₁ else t ≡ if b then t₂ else t
+ifCong₂ : ∀ {b t₁ t₂ t} → t₁ ≡ t₂ →
+          (if b then t₁ else t) ≡ (if b then t₂ else t)
 ifCong₂ refl = refl
 
-ifCong₃ : ∀ {b t t₁ t₂} → t₁ ≡ t₂ → if b then t else t₁ ≡ if b then t else t₂
+ifCong₃ : ∀ {b t t₁ t₂} → t₁ ≡ t₂ →
+          (if b then t else t₁) ≡ (if b then t else t₂)
 ifCong₃ refl = refl
 
 ------------------------------------------------------------------------------

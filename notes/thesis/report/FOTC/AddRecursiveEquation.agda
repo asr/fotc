@@ -13,7 +13,7 @@ open import FOTC.Base
 
 postulate
   _+_  : D → D → D
-  +-eq : ∀ m n → m + n ≡ if (iszero₁ m) then n else succ₁ (pred₁ m + n)
+  +-eq : ∀ m n → m + n ≡ (if (iszero₁ m) then n else succ₁ (pred₁ m + n))
 {-# ATP axiom +-eq #-}
 
 postulate

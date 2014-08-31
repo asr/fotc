@@ -23,8 +23,8 @@ iter₀-0 : ∀ f → iter₀ f zero ≡ []
 iter₀-0 f =
   iter₀ f zero
     ≡⟨ iter₀-eq f zero ⟩
-  if (iszero₁ zero) then [] else (zero ∷ iter₀ f (f · zero))
+  (if (iszero₁ zero) then [] else (zero ∷ iter₀ f (f · zero)))
     ≡⟨ ifCong₁ iszero-0 ⟩
-  if true then [] else (zero ∷ iter₀ f (f · zero))
+  (if true then [] else (zero ∷ iter₀ f (f · zero)))
     ≡⟨ if-true [] ⟩
   [] ∎

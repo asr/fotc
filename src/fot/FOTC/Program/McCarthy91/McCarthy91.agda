@@ -16,5 +16,5 @@ open import FOTC.Data.Nat.UnaryNumbers
 -- The McCarthy 91 function.
 postulate
   f₉₁    : D → D
-  f₉₁-eq : ∀ n → f₉₁ n ≡ if (gt n 100') then n ∸ 10' else f₉₁ (f₉₁ (n + 11'))
+  f₉₁-eq : ∀ n → f₉₁ n ≡ (if (gt n 100') then n ∸ 10' else f₉₁ (f₉₁ (n + 11')))
 {-# ATP axiom f₉₁-eq #-}
