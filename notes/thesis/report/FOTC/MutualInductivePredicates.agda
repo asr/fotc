@@ -56,7 +56,8 @@ Even-mutual-ind A B A0 h₁ h₂ (esucc On) = h₁ On (Odd-mutual-ind A B A0 h�
 Odd-mutual-ind A B A0 h₁ h₂ (osucc En) = h₂ En (Even-mutual-ind A B A0 h₁ h₂ En)
 
 module DisjointSum where
-  -- Using a single inductive predicate on D × D (see Blanchette).
+  -- Using a single inductive predicate on D × D (see
+  -- Blanchette (2013)).
 
   _+_ : Set → Set → Set
   _+_ = _∨_
