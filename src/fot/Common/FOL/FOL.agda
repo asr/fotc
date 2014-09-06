@@ -18,7 +18,7 @@
 
 module Common.FOL.FOL where
 
--- We add 3 to the fixities of the Agda standard library 0.6 (see
+-- We add 3 to the fixities of the Agda standard library 0.8.1 (see
 -- Data/Product.agda, Data/Sum.agda and Relation/Nullary/Core.agda).
 infixr 7 _,_
 infix  6 ¬_

@@ -1,5 +1,6 @@
 ------------------------------------------------------------------------------
--- Example of a nested recursive function using the standard library
+-- Example of a nested recursive function using the Agda standard
+-- library
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}

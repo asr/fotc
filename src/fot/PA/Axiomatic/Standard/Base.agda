@@ -7,7 +7,7 @@
 
 module PA.Axiomatic.Standard.Base where
 
--- We add 3 to the fixities of the Agda standard library 0.6 (see
+-- We add 3 to the fixities of the Agda standard library 0.8.1 (see
 -- Data/Nat.agda).
 infixl 10 _*_
 infixl 9  _+_

@@ -16,7 +16,7 @@ open import Data.Product
 open import Relation.Binary.PropositionalEquality
 open ≡-Reasoning
 
--- We add 3 to the fixities of the Agda standard library 0.6 (see
+-- We add 3 to the fixities of the Agda standard library 0.8.1 (see
 -- Algebra.agda)
 infix  11 _⁻¹
 infixl 10 _·_

@@ -7,7 +7,7 @@
 
 module Common.Function where
 
--- From Funcion.agda (Agda standard library 0.6).
+-- From Funcion.agda (Agda standard library 0.8.1).
 -- infixr 0 _$_
 
 ------------------------------------------------------------------------------

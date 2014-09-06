@@ -14,7 +14,7 @@ postulate D : Set
 module ∃₁ where
   -- Type theoretical version
 
-  -- We add 3 to the fixities of the Agda standard library 0.6 (see
+  -- We add 3 to the fixities of the Agda standard library 0.8.1 (see
   -- Data/Product.agda).
   infixr 7 _,_
 
@@ -43,7 +43,7 @@ module ∃₁ where
 module ∃₂ where
   -- First-order logic version
 
-  -- We add 3 to the fixities of the Agda standard library 0.6 (see
+  -- We add 3 to the fixities of the Agda standard library 0.8.1 (see
   -- Data/Product.agda).
   infixr 7 _,_
 

@@ -12,7 +12,7 @@ open import Common.FOL.Relation.Binary.EqReasoning
 open import LTC-PCF.Base
 open import LTC-PCF.Base.Properties
 
--- We add 3 to the fixities of the Agda standard library 0.6 (see
+-- We add 3 to the fixities of the Agda standard library 0.8.1 (see
 -- Data/Nat.agda).
 infixl 9 _∸_
 
@@ -31,7 +31,7 @@ _∸_ : D → D → D
 _∸_ m n = fix ∸-helper · m · n
 
 ------------------------------------------------------------------------------
--- Conversion rules from the Agda standard library 0.6 (see
+-- Conversion rules from the Agda standard library 0.8.1 (see
 -- Data/Nat.agda) without use induction.
 
 private

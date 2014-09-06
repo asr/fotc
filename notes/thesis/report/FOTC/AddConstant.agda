@@ -8,7 +8,7 @@
 module FOTC.AddConstant where
 
 ------------------------------------------------------------------------------
--- We add 3 to the fixities of the Agda standard library 0.6 (see
+-- We add 3 to the fixities of the Agda standard library 0.8.1 (see
 -- Algebra.agda and Relation/Binary/Core.agda).
 infixl 9 _·_
 infix  7 _≡_

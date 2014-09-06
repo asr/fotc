@@ -38,26 +38,26 @@ x≢Sx {succ n} h = x≢Sx (P₃ h)
 +-leftIdentity : ∀ n → zero + n ≡ n
 +-leftIdentity n = refl
 
--- Adapted from the Agda standard library 0.6 (see
--- Data.Nat.Properties.+-rightIdentity).
+-- Adapted from the Agda standard library 0.8.1 (see
+-- Data.Nat.Properties.Simple.+-rightIdentity).
 +-rightIdentity : ∀ n → n + zero ≡ n
 +-rightIdentity zero     = refl
 +-rightIdentity (succ n) = succCong (+-rightIdentity n)
 
--- Adapted from the Agda standard library_0.6 (see
--- Data.Nat.Properties.+-assoc).
+-- Adapted from the Agda standard library_0.8.1 (see
+-- Data.Nat.Properties.Simple.+-assoc).
 +-assoc : ∀ m n o → m + n + o ≡ m + (n + o)
 +-assoc zero     _ _ = refl
 +-assoc (succ m) n o = succCong (+-assoc m n o)
 
--- Adapted from the Agda standard library 0.6 (see
--- Data.Nat.Properties.m+1+n≡1+m+n).
+-- Adapted from the Agda standard library 0.8.1 (see
+-- Data.Nat.Properties.Simple.+-suc).
 x+Sy≡S[x+y] : ∀ m n → m + succ n ≡ succ (m + n)
 x+Sy≡S[x+y] zero     _ = refl
 x+Sy≡S[x+y] (succ m) n = succCong (x+Sy≡S[x+y] m n)
 
--- Adapted from the Agda standard library 0.6 (see
--- Data.Nat.Properties.+-comm).
+-- Adapted from the Agda standard library 0.8.1 (see
+-- Data.Nat.Properties.Simple.+-comm).
 +-comm : ∀ m n → m + n ≡ n + m
 +-comm zero     n = sym (+-rightIdentity n)
 +-comm (succ m) n = succ (m + n) ≡⟨ succCong (+-comm m n) ⟩

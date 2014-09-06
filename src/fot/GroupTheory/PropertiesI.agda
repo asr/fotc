@@ -96,7 +96,7 @@ rightCancellation {a} {b} {c} h =
   c · ε          ≡⟨ rightIdentity c ⟩
   c              ∎
 
--- Adapted from the Agda standard library 0.6 (see
+-- Adapted from the Agda standard library 0.8.1 (see
 -- Algebra.Properties.Group.right-helper).
 y≡x⁻¹[xy] : ∀ a b → b ≡ a ⁻¹ · (a · b)
 y≡x⁻¹[xy] a b = b              ≡⟨ sym (leftIdentity b) ⟩
@@ -104,7 +104,7 @@ y≡x⁻¹[xy] a b = b              ≡⟨ sym (leftIdentity b) ⟩
                 a ⁻¹ · a · b   ≡⟨ assoc (a ⁻¹) a b ⟩
                 a ⁻¹ · (a · b) ∎
 
--- Adapted from the Agda standard library 0.6 (see
+-- Adapted from the Agda standard library 0.8.1 (see
 -- Algebra.Properties.Group.left-helper).
 x≡[xy]y⁻¹ : ∀ a b → a ≡ (a · b) · b ⁻¹
 x≡[xy]y⁻¹ a b = a              ≡⟨ sym (rightIdentity a) ⟩
@@ -121,7 +121,7 @@ rightIdentityUnique : ∀ r → (∀ a → a · r ≡ a) → r ≡ ε
 rightIdentityUnique r h = trans (sym (leftIdentity r)) (h ε)
 
 -- A more appropiate version to be used in the proofs. Adapted from
--- the Agda standard library 0.6 (see
+-- the Agda standard library 0.8.1 (see
 -- Algebra.Properties.Group.right-identity-unique).
 rightIdentityUnique' : ∀ a r → a · r ≡ a → r ≡ ε
 rightIdentityUnique' a r h = r              ≡⟨ y≡x⁻¹[xy] a r ⟩
@@ -137,7 +137,7 @@ leftIdentityUnique : ∀ l → (∀ a → l · a ≡ a) → l ≡ ε
 leftIdentityUnique l h = trans (sym (rightIdentity l)) (h ε)
 
 -- A more appropiate version to be used in the proofs. Adapted from
--- the Agda standard library 0.6 (see
+-- the Agda standard library 0.8.1 (see
 -- Algebra.Properties.Group.left-identity-unique).
 leftIdentityUnique' : ∀ a l → l · a ≡ a → l ≡ ε
 leftIdentityUnique' a l h = l            ≡⟨ x≡[xy]y⁻¹ l a ⟩

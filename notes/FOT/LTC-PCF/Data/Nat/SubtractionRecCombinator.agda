@@ -17,7 +17,8 @@ open import LTC-PCF.Data.Nat.Rec.ConversionRules
 open import LTC-PCF.Data.Nat.Type
 open import LTC-PCF.Data.Nat.UnaryNumbers
 
--- We add 3 to the fixities of the standard library.
+-- We add 3 to the fixities of the Agda standard library 0.8.1 (see
+-- Data/Nat.agda).
 infixl 9 _∸_
 
 ------------------------------------------------------------------------------
@@ -26,7 +27,7 @@ _∸_ : D → D → D
 m ∸ n = rec n m (lam (λ _ → lam pred₁))
 
 ------------------------------------------------------------------------------
--- Conversion rules from the Agda standard library 0.6 (see
+-- Conversion rules from the Agda standard library 0.8.1 (see
 -- Data/Nat.agda).
 
 ∸-x0 : ∀ n → n ∸ zero ≡ n
@@ -117,7 +118,7 @@ m ∸ n = rec n m (lam (λ _ → lam pred₁))
   succ₁ m ∸ succ₁ n ∎
 
 ------------------------------------------------------------------------------
--- Conversion rules from the Agda standard library 0.6 (see
+-- Conversion rules from the Agda standard library 0.8.1 (see
 -- Data/Nat.agda) without totality hypotheses.
 
 -- We could not prove this property.

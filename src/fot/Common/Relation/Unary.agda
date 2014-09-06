@@ -5,11 +5,11 @@
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K #-}
 
--- Adapted from the standard library.
+-- Adapted from the Agda standard library.
 
 module Common.Relation.Unary where
 
--- We add 3 to the fixities of the Agda standard library 0.6 (see
+-- We add 3 to the fixities of the Agda standard library 0.8.1 (see
 -- Relation/Unary.agda).
 infix 7 _∈_ _⊆_
 

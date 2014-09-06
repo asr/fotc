@@ -7,7 +7,7 @@
 
 -- Adapted from
 -- http://www.iis.sinica.edu.tw/~scm/2008/well-founded-recursion-and-accessibility/
--- and the Agda standard library 0.6.
+-- and the Agda standard library 0.8.1.
 
 module FOT.FOTC.Data.Nat.Induction.Acc.WF-I where
 

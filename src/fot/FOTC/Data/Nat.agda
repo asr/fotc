@@ -7,8 +7,8 @@
 
 module FOTC.Data.Nat where
 
--- We add 3 to the fixities of the Agda standard library 0.6 (see
--- Data.Nat.agda).
+-- We add 3 to the fixities of the Agda standard library 0.8.1 (see
+-- Data/Nat.agda).
 infixl 10 _*_
 infixl 9  _+_ _∸_
 

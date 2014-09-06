@@ -7,7 +7,7 @@
 
 module LTC-PCF.Data.Bool where
 
--- We add 3 to the fixities of the Agda standard library 0.6 (see
+-- We add 3 to the fixities of the Agda standard library 0.8.1 (see
 -- Data/Bool.agda).
 infixr 9 _&&_
 

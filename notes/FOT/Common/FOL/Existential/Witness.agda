@@ -59,7 +59,7 @@ module NonWitness₁ where
 
 module NonWitness₂ where
 
-  -- We add 3 to the fixities of the Agda standard library 0.6 (see
+  -- We add 3 to the fixities of the Agda standard library 0.8.1 (see
   -- Relation/Nullary/Core.agda).
   infix 6 ¬_
 

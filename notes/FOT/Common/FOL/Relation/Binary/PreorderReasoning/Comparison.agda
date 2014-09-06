@@ -52,7 +52,7 @@ module Thesis where
     qed
 
 module SL where
-  -- Adapted from the Agda standard library 0.6 (see
+  -- Adapted from the Agda standard library 0.8.1 (see
   -- Relation/Binary/PreorderReasoning.agda).
 
   infix  7 _≃_

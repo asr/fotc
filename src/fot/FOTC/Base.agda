@@ -17,8 +17,8 @@ FOTC                                  The logical framework (Agda)
 
 module FOTC.Base where
 
--- We add 3 to the fixities of the Agda standard library 0.6 (see
--- Algebra.agda).
+-- We add 3 to the fixities of the Agda standard library 0.8.1 (see
+-- Algebra.agda and Data/Bool.agda).
 infixl 9 _·_
 infix  3 if_then_else_
 
