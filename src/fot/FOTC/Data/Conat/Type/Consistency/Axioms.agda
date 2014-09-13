@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 -- In the module FOTC.Data.Conat.Type we declare Agda postulates as
 -- first-order logic axioms. We test if it is possible to prove an

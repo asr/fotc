@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 module LTC-PCF.Program.GCD.Total.Definitions where
 

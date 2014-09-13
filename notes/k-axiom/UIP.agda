@@ -1,5 +1,5 @@
 {-# OPTIONS --no-universe-polymorphism #-}
--- {-# OPTIONS --without-K #-}
+-- {-# OPTIONS --without-K                #-}
 
 -- [1] Hofmann, Martin and Thomas Streicher (1998). “The groupoid
 --     interpretation on type theory”. In: Twenty-five Years of

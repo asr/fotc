@@ -1,5 +1,5 @@
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 module FOT.FOTC.Program.McCarthy91.WF-Relation.Induction.NonAcc.TerminationCheckIssue
   where

@@ -1,5 +1,5 @@
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 -- Based on (Vene, 2000).
 

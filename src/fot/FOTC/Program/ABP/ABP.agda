@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 -- This module define the ABP following the presentation in Dybjer and
 -- Sander (1989).

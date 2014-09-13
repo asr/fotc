@@ -1,5 +1,5 @@
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 -- Type classes following Kettelhoit's approach.
 

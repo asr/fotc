@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 -- Adapted from the Agda standard library.
 

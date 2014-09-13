@@ -1,5 +1,5 @@
 {-# OPTIONS --no-universe-polymorphism #-}
--- {-# OPTIONS --without-K #-}  -- No accepted!
+-- {-# OPTIONS --without-K                #-}  -- No accepted!
 
 module K-FOTC where
 

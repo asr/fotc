@@ -2,7 +2,7 @@
 -- Testing the --without-K flag
 ------------------------------------------------------------------------------
 
--- {-# OPTIONS --without-K #-}
+-- {-# OPTIONS --without-K                #-}
 
 module WithoutK where
 

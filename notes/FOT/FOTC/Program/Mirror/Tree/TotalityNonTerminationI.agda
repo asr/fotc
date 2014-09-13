@@ -4,7 +4,7 @@
 
 {-# OPTIONS --injective-type-constructors #-}
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 module FOT.FOTC.Program.Mirror.Tree.TotalityNonTerminationI where
 

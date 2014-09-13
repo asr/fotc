@@ -4,7 +4,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 module FOT.FOTC.Program.QuickSort.DomainPredicate where
 

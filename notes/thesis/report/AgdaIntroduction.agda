@@ -1,5 +1,5 @@
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 {-# OPTIONS --no-coverage-check #-}
 
 module AgdaIntroduction where

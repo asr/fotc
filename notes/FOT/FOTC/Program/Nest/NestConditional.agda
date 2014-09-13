@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 -- From: Ana Bove and Venanzio Capretta. Nested general recursion and
 -- partiality in type theory. Vol. 2152 of LNCS. 2001.

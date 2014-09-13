@@ -1,5 +1,5 @@
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 -- We can use a propositional equality parametrized on Set instead of
 -- using two "different" equalities on D and M.

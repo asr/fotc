@@ -4,7 +4,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 -- From: Bove, A. and Capretta, V. (2001). Nested General Recursion
 -- and Partiality in Type Theory. In: Theorem Proving in Higher Order

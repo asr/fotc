@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 -- From Dybjer and Sander's paper: The first lemma states that given a
 -- start state S of the ABP, we will arrive at a state S', where the

@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 -- The map-iterate property (Gibbons and Hutton, 2005):
 -- map f (iterate f x) = iterate f (f · x)

@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 -- Peter: If you take away the proof objects (as you do when you go to
 -- predicate logic) the K axiom doesn't give you any extra power.

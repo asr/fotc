@@ -2,10 +2,10 @@
 -- Examples of translation of logical schemata
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --no-universe-polymorphism          #-}
 {-# OPTIONS --schematic-propositional-functions #-}
-{-# OPTIONS --schematic-propositional-symbols #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --schematic-propositional-symbols   #-}
+{-# OPTIONS --without-K                         #-}
 
 module FOL.SchemataATP where
 

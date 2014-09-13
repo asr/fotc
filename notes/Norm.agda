@@ -1,5 +1,5 @@
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 -- From: Peter Dybjer. Comparing integrated and external logics of
 -- functional programs. Science of Computer Programming, 14:59–79,

@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 -- We prove that group theory axioms based on the signature (G, ·, ε,)
 -- (see for example [p. 39, 1]), i.e.

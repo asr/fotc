@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 -- In the module FOTC.Data.List we declare Agda postulates as FOL
 -- axioms. We test if it is possible to prove an unprovable theorem

@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 -- In FOTC, we won't use the bisimulation functional on unbounded
 -- lists. This module is only for illustrative purposes.

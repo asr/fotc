@@ -2,9 +2,9 @@
 -- Well-founded induction on the lexicographic order on natural numbers
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --allow-unsolved-metas #-}
+{-# OPTIONS --allow-unsolved-metas     #-}
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 -- From the thesis: The induction principle $\Conid{Lexi-wfind}$ is
 -- proved by well-founded induction on the usual order $\Conid{LT}$ on

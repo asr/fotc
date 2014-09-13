@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 -- From Dybjer and Sander's paper: The second lemma states that given
 -- a state of the latter kind (see Lemma 1) we will arrive at a new

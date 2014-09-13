@@ -3,7 +3,7 @@
 ---------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 open import FOTC.Base
 open import FOTC.Data.Nat.Type

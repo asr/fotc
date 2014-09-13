@@ -2,8 +2,8 @@
 -- Testing subst using an implicit arguments for the propositional function.
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --allow-unsolved-metas #-}
-{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --allow-unsolved-metas              #-}
+{-# OPTIONS --no-universe-polymorphism          #-}
 {-# OPTIONS --schematic-propositional-functions #-}
 
 module FOT.FOL.ImplicitArgumentSubst where

@@ -2,9 +2,9 @@
 -- Reasoning about a function without a termination proof
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --allow-unsolved-metas #-}
+{-# OPTIONS --allow-unsolved-metas     #-}
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 module FOT.FOTC.Program.Collatz.CollatzSL where
 

@@ -3,7 +3,7 @@
 ---------------------------------------------------------------------------
 
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 open import LTC-PCF.Base
 open import LTC-PCF.Data.Nat.Divisibility.NotBy0

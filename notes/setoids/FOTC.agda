@@ -4,7 +4,7 @@
 
 {-# OPTIONS --no-positivity-check #-}
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 {-
 

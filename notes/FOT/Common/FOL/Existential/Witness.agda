@@ -1,5 +1,5 @@
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 -- Thm: (∃x)A(x), (∀x)(A(x) ⇒ B(x)) ⊢ (∃x)B(x)
 

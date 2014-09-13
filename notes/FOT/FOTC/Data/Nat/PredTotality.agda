@@ -2,9 +2,9 @@
 -- Totality of predecessor function
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --allow-unsolved-metas #-}
+{-# OPTIONS --allow-unsolved-metas     #-}
 {-# OPTIONS --no-universe-polymorphism #-}
-{-# OPTIONS --without-K #-}
+{-# OPTIONS --without-K                #-}
 
 module FOT.FOTC.Data.Nat.PredTotality where
 
