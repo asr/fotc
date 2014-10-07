@@ -22,7 +22,7 @@ open import FOTC.Program.McCarthy91.WF-Relation.PropertiesATP
 ----------------------------------------------------------------------------
 -- Adapted from FOTC.Data.Nat.Induction.WellFoundedI.wfInd-LT₁.
 
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 ◁-wfind : (P : D → Set) →
           (∀ {n} → N n → (∀ {m} → N m → m ◁ n → P m) → P n) →
           ∀ {n} → N n → P n

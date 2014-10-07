@@ -177,7 +177,7 @@ tailS xs with out xs
 --
 -- TODO (07 January 2014): Agda doesn't accept the definition of
 -- Stream-build.
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 Stream-build :
   {A X : Set} →
   (X → StreamF A X) →
@@ -189,7 +189,7 @@ Stream-build h x with h x
 --
 -- TODO (07 January 2014): Agda doesn't accept the definition of
 -- Stream-corec.
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 Stream-corec :
   {A X : Set} →
   (X → (A × (Stream A + X))) →

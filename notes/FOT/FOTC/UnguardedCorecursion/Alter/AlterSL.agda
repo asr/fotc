@@ -16,6 +16,6 @@ open import Coinduction
 alter : Stream Bool
 alter = true ∷ ♯ (false ∷ ♯ alter)
 
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 alter' : Stream Bool
 alter' = true ∷ ♯ (map not alter')

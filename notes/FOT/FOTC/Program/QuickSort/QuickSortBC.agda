@@ -33,7 +33,7 @@ m ≤′? n with m ≤? n
 
 -- Non-terminating quicksort.
 
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 qsNT : List ℕ → List ℕ
 qsNT []       = []
 qsNT (x ∷ xs) = qsNT (filter (λ y → ⌊ y ≤′? x ⌋) xs) ++
@@ -74,10 +74,11 @@ wf-⟪′ = InvImg.well-founded <-well-founded
 --                    ∀ xs → P xs
 
 -- The quicksort algorithm is total.
---
--- 25 June 2014. Requires the non-termination flag when using
--- --without-K. See Agda issue 1214.
-{-# NO_TERMINATION_CHECK #-}
+
+-- 25 June 2014. Requires the TERMINATING flag when
+-- using--without-K. See Agda issue 1214.
+
+{-# TERMINATING #-}
 filter-length : {A : Set}(P : A → Bool) → ∀ xs →
                 length (filter P xs) ≤′ length xs
 filter-length P []       = ≤′-refl

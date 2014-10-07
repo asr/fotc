@@ -40,7 +40,7 @@ postulate reverse-∷' : ∀ x ys → reverse (x ∷ ys) ≡ reverse ys ++ (x �
 -- postulates (i.e. D, _∷_, etc). In particular, x is not structurally
 -- smaller than x ∷ xs.
 
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 mirror-Tree : ∀ {t} → Tree t → Tree (mirror · t)
 mirror-Tree (tree d fnil) =
   subst Tree (sym (mirror-eq d [])) (tree d helper₂)

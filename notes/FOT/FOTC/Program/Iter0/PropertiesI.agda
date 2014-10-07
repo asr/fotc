@@ -20,7 +20,7 @@ open import FOTC.Program.Iter0.PropertiesI
 
 ------------------------------------------------------------------------------
 
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 iter₀-ListN : ∀ f {n} → N n → (∀ {n} → N n → N (f · n)) → ListN (iter₀ f n)
 iter₀-ListN f nzero h = subst ListN (sym (iter₀-0 f)) lnnil
 iter₀-ListN f (nsucc {n} Nn) h =

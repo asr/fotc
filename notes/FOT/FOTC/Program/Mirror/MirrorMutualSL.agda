@@ -50,7 +50,7 @@ postulate
 ------------------------------------------------------------------------------
 -- The mirror function.
 
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 mirror : {A : Set} → Tree A → Tree A
 mirror (tree a ts) = tree a (reverse (map mirror ts))
 

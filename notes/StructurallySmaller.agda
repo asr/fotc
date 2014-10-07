@@ -10,7 +10,7 @@ succ m + n = succ (m + n)
 
 -- Foo is not structurally recursive even though zero + n normalises
 -- to n.
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 foo : ℕ → ℕ
 foo zero     = zero
 foo (succ n) = foo (zero + n)

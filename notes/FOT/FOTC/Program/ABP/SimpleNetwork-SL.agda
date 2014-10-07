@@ -18,7 +18,7 @@ postulate
   f₁ : {A : Set} → Stream A → Stream A → Stream A
   f₂ : {A : Set} → Stream A → Stream A
 
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 trans : {A : Set} → Stream A → Stream A
 trans {A} is = os
   where
@@ -31,7 +31,7 @@ Ty : Set → Set
 Ty A = (Stream A → Stream A → Stream A) → (Stream A → Stream A) →
        Stream A → Stream A
 
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 trans' hys : {A : Set} → Ty A
 trans' f₁ f₂ is = f₂ (hys f₁ f₂ is)
 hys   f₁ f₂ is = f₁ (trans' f₁ f₂ is) is

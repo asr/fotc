@@ -9,19 +9,19 @@ open import FOTC.Program.Mirror.Type
 
 ------------------------------------------------------------------------------
 
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 foo : ∀ {ts} → Tree ts → D
 foo (tree d fnil)           = d
 foo (tree d (fcons Tt Fts)) = foo (tree d Fts)
 
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 bar : ∀ {ts} → Tree ts → D
 bar (tree d fnil)           = d
 bar (tree d (fcons Tt Fts)) = helper (bar Tt) (bar (tree d Fts))
   where
   postulate helper : D → D → D
 
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 bar₁ : ∀ ts → Tree ts → D
 bar₁ .(node d []) (tree d fnil) = d
 bar₁ .(node d (t ∷ ts)) (tree d (fcons {t} {ts} Tt Fts))

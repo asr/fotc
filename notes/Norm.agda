@@ -18,7 +18,7 @@ data Exp : Set where
   if : Exp → Exp → Exp → Exp
 
 -- Agda doesn't recognize the termination of the function.
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 norm : Exp → Exp
 norm (at a)              = at a
 norm (if (at a) y z)     = if (at a) (norm y) (norm z)

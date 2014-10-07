@@ -2,7 +2,7 @@ module StrictApplication where
 
 open import Data.Nat
 
-{-# NO_TERMINATION_CHECK #-}
+{-# NON_TERMINATING #-}
 loop : ℕ
 loop = loop
 

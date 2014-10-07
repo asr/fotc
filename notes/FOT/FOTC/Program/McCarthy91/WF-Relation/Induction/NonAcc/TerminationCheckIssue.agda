@@ -12,19 +12,19 @@ data ℕ : Set where
 
 postulate someℕ : ℕ
 
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 foo : ℕ → ℕ → ℕ
 foo n        zero    = 10
 foo zero     (succ m) = foo zero someℕ
 foo (succ n) (succ m) = foo n (succ m)
 
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 bar : ℕ → ℕ → ℕ
 bar n        zero    = 10
 bar zero     (succ m) = bar m someℕ
 bar (succ n) (succ m) = bar n (succ m)
 
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 foobar : ℕ → ℕ → ℕ
 foobar n zero = 10
 foobar zero (succ m) with someℕ

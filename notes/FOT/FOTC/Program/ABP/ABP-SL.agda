@@ -24,10 +24,11 @@ data Err (A : Set) : Set where
   error : Err A
 
 -- The mutual sender functions.
---
--- 25 June 2014. Requires the non-termination flag when using
+
+-- 25 June 2014. Requires the TERMINATING flag when using
 -- --without-K. See Agda issue 1214.
-{-# NO_TERMINATION_CHECK #-}
+
+{-# TERMINATING #-}
 sendA  : {A : Set} → Bit → Stream A → Stream (Err Bit) → Stream (A × Bool)
 awaitA : {A : Set} → Bit → Stream A → Stream (Err Bit) → Stream (A × Bit)
 
@@ -39,17 +40,18 @@ awaitA b (i ∷ is) (ok b' ∷ ds) with b ≟ b'
 awaitA b (i ∷ is) (error ∷ ds) = (i , b) ∷ ♯ (awaitA b (i ∷ is) (♭ ds))
 
 -- The receiver functions.
---
--- 25 June 2014. Requires the non-termination flag when using
+
+-- 25 June 2014. Requires the TERMINATING flag when using
 -- --without-K. See Agda issue 1214.
-{-# NO_TERMINATION_CHECK #-}
+
+{-# TERMINATING #-}
 ackA : {A : Set} → Bit → Stream (Err (A × Bit)) → Stream Bit
 ackA b (ok (_ , b') ∷ bs) with b ≟ b'
 ... | yes p = b ∷ ♯ (ackA (not b) (♭ bs))
 ... | no ¬p = not b ∷ ♯ (ackA b (♭ bs))
 ackA b (error ∷ bs) = not b ∷ ♯ (ackA b (♭ bs))
 
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 outA : {A : Set} → Bit → Stream (Err (A × Bit)) → Stream A
 outA b (ok (i , b') ∷ bs) with b ≟ b'
 ... | yes p = i ∷ ♯ (outA (not b) (♭ bs))
@@ -62,7 +64,7 @@ corruptA (true ∷ os)  (_ ∷ xs) = error ∷ ♯ (corruptA (♭ os) (♭ xs))
 corruptA (false ∷ os) (x ∷ xs) = ok x ∷ ♯ (corruptA (♭ os) (♭ xs))
 
 -- The ABP transfer function.
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 abpTransA : {A : Set} → Bit → Stream Bit → Stream Bit → Stream A → Stream A
 abpTransA {A} b os₁ os₂ is = outA b bs
   where

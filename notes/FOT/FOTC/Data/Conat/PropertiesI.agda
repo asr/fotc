@@ -11,7 +11,7 @@ open import FOTC.Data.Nat
 ------------------------------------------------------------------------------
 -- 25 April 2014, Failed with --without-K.
 --
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 Conat→N : ∀ {n} → Conat n → N n
 Conat→N Cn with Conat-out Cn
 ... | inj₁ prf               = subst N (sym prf) nzero

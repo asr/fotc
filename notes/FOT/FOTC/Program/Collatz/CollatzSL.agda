@@ -28,7 +28,7 @@ isEven 0               = true
 isEven 1               = false
 isEven (succ (succ n)) = isEven n
 
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 collatz : ℕ → ℕ
 collatz zero        = 1
 collatz (succ zero) = 1

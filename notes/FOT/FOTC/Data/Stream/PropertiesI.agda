@@ -17,7 +17,7 @@ open import FOTC.Data.Stream.Type
 
 ------------------------------------------------------------------------------
 
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 ++-Stream : ∀ {xs ys} → Colist xs → Stream ys → Stream (xs ++ ys)
 ++-Stream {xs} {ys} CLxs Sys with Colist-out CLxs
 ... | inj₁ prf = subst Stream (sym prf₁) Sys
@@ -34,7 +34,7 @@ open import FOTC.Data.Stream.Type
    prf₂ = Stream-in (x' , (xs' ++ ys) , refl , ++-Stream CLxs' Sys)
 
 -- ++-Stream with a diferent type.
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 ++-Stream' : ∀ {xs ys} → Stream xs → Stream ys → Stream (xs ++ ys)
 ++-Stream' {xs} {ys} Sxs Sys with Stream-out Sxs
 ... | x' , xs' , prf , Sxs' = subst Stream prf₁ prf₂

@@ -15,14 +15,13 @@ open import Data.Nat renaming (suc to succ)
 open import Relation.Binary.PropositionalEquality
 
 ------------------------------------------------------------------------------
--- The non-terminating function.
-{-# NO_TERMINATION_CHECK #-}
+
+{-# TERMINATING #-}
 nest : ℕ → ℕ
 nest 0        = 0
 nest (succ n) = nest (nest n)
 
--- The non-terminating property.
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 nest-x≡0 : ∀ n → nest n ≡ zero
 nest-x≡0 zero     = refl
 nest-x≡0 (succ n) = nest-x≡0 (nest n)

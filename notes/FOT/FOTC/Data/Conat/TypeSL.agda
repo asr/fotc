@@ -27,9 +27,10 @@ Conat-in : ∀ {n} →
 Conat-in (inj₁ n≡0)              = subst Conat (sym n≡0) cozero
 Conat-in (inj₂ (n' , prf , Cn')) = subst Conat (sym prf) (cosucc (♯ Cn'))
 
--- 25 June 2014. Requires the non-termination flag when using
+-- 25 June 2014. Requires the TERMINATING flag when using
 -- --without-K. See Agda issue 1214.
-{-# NO_TERMINATION_CHECK #-}
+
+{-# TERMINATING #-}
 Conat-coind : (A : D → Set) →
               (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
               ∀ {n} → A n → Conat n
@@ -52,6 +53,6 @@ postulate
   ∞-eq : ∞D ≡ succ₁ ∞D
 
 -- TODO (06 January 2014): Agda doesn't accept the proof of Conat ∞D.
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 ∞-Conat : Conat ∞D
 ∞-Conat = subst Conat (sym ∞-eq) (cosucc (♯ ∞-Conat))

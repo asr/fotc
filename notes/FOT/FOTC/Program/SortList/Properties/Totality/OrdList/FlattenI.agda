@@ -29,7 +29,7 @@ open import FOTC.Program.SortList.SortList
 
 ------------------------------------------------------------------------------
 
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 flatten-OrdList-helper : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ →
                          OrdTree (node t₁ i t₂) →
                          ≤-Lists (flatten t₁) (flatten t₂)

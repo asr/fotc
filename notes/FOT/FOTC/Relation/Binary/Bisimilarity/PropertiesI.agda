@@ -16,7 +16,7 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
 
 ------------------------------------------------------------------------------
 
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 ≈→≡ : ∀ {xs ys} → xs ≈ ys → xs ≡ ys
 ≈→≡ {xs} {ys} h with ≈-out h
 ... | x' , xs' , ys' , prf₁ , prf₂ , prf₃ =

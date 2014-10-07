@@ -12,7 +12,7 @@ open import Relation.Nullary
 
 ------------------------------------------------------------------------------
 
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 gcd : ℕ → ℕ → ℕ
 gcd 0       0       = 0
 gcd (suc m) 0       = suc m

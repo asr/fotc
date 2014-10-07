@@ -26,7 +26,7 @@ module NDTO = DecTotalOrder decTotalOrder
 ------------------------------------------------------------------------------
 -- The original non-terminating function.
 
-{-# NO_TERMINATION_CHECK #-}
+{-# TERMINATING #-}
 nestI : ℕ → ℕ
 nestI 0        = 0
 nestI (succ n) = nestI (nestI n)
