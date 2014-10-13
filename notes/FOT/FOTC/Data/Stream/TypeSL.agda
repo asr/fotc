@@ -23,7 +23,7 @@ Stream-out : ∀ {xs} → Stream xs →
              ∃ λ x' → ∃ λ xs' → Stream xs' ∧ xs ≡ x' ∷ xs'
 Stream-out (consS x' {xs'} Sxs') = x' , xs' , ♭ Sxs' , refl
 
-{-# NO_TERMINATION_CHECK #-}
+{-# NON_TERMINATING #-}
 Stream-coind :
   (A : D → Set) →
   (∀ {xs} → A xs → ∃ λ x' → ∃ λ xs' → xs ≡ x' ∷ xs' ∧ A xs') →

@@ -16,7 +16,7 @@ open import Relation.Binary.PropositionalEquality
 -- Note: Although the function is partial the problem is that it is
 -- rejected by Agda's termination checker.
 
-{-# NO_TERMINATION_CHECK #-}
+{-# NON_TERMINATING #-}
 min : (ℕ → ℕ) → ℕ
 min f with f 0
 ... | 0      = 0
