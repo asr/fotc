@@ -2,6 +2,7 @@
 -- Test the consistency of FOTC.Program.Collatz.Data.Nat
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

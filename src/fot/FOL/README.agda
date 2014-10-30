@@ -2,6 +2,10 @@
 -- First-order logic
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K                #-}
+
 module FOL.README where
 
 -- Formalization of first-order logic using Agda's inductive notions.

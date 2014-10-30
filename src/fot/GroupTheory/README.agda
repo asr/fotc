@@ -2,6 +2,10 @@
 -- Group theory
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K                #-}
+
 module GroupTheory.README where
 
 -- Theory of groups using Agda postulates for the group axioms.

@@ -2,6 +2,10 @@
 -- First-Order Theory of Combinators (FOTC)
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K                #-}
+
 module FOTC.README where
 
 -- Formalization of (a version of) Azcel's First-Order Theory of

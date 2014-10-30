@@ -2,7 +2,8 @@
 -- Using setoids for formalizing FOTC
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --no-positivity-check #-}
+{-# OPTIONS --no-positivity-check      #-}
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

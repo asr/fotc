@@ -2,6 +2,7 @@
 -- Inductive PA arithmetic properties using Agsy
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

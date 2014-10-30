@@ -2,6 +2,7 @@
 -- Well-founded induction on the relation _◁_
 ----------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

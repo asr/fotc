@@ -2,6 +2,7 @@
 -- Definition of the gcd of two natural numbers using the Euclid's algorithm
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

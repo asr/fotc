@@ -3,6 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --no-pattern-matching #-}
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 
 module FOT.GroupTheory.NoPatternMatchingOnRefl where

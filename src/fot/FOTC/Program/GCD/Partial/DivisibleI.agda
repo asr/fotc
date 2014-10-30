@@ -2,6 +2,7 @@
 -- The gcd is divisible by any common divisor (using equational reasoning)
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

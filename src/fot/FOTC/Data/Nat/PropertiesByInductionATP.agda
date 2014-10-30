@@ -2,6 +2,7 @@
 -- Arithmetic properties (using induction on the FOTC natural numbers type)
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

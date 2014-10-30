@@ -2,6 +2,7 @@
 -- FOTC combinators for lists, colists, streams, etc.
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

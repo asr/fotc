@@ -2,6 +2,10 @@
 -- Distributive laws on a binary operation (Stanovský example)
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K                #-}
+
 module DistributiveLaws.README where
 
 -- Let _·_ be a left-associative binary operation which satifies the

@@ -2,6 +2,7 @@
 -- Testing a proof done using Hip (Haskell Inductive Prover)
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

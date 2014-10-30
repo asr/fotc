@@ -2,6 +2,7 @@
 -- From ListP as the least fixed-point to ListP using data
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

@@ -2,6 +2,10 @@
 -- All the Peano arithmetic modules
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K                #-}
+
 module PA.Everything where
 
 open import PA.Axiomatic.Mendelson.Base

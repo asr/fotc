@@ -2,6 +2,10 @@
 -- FOT (First-Order Theories)
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K                #-}
+
 -- Code accompanying the paper Combining Interactive and Automatic
 -- Reasoning in First Order Theories of Functional Programs by Ana
 -- Bove, Peter Dybjer and Andrés Sicard-Ramírez (FoSSaCS 2012).

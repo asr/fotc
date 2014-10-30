@@ -2,6 +2,7 @@
 -- Test the consistency of FOTC.Program.ABP.Fair.Type
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

@@ -2,6 +2,8 @@
 -- Definition of mutual inductive predicates
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
+{-# OPTIONS --without-K                #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 
 module FOTC.MutualInductivePredicates where

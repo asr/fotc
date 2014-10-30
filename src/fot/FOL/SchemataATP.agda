@@ -2,6 +2,7 @@
 -- Examples of translation of logical schemata
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types                    #-}
 {-# OPTIONS --no-universe-polymorphism          #-}
 {-# OPTIONS --schematic-propositional-functions #-}
 {-# OPTIONS --schematic-propositional-symbols   #-}

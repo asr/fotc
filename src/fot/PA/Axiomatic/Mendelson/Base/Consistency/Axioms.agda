@@ -2,6 +2,7 @@
 -- Test the consistency of PA.Axiomatic.Mendelson.Base
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

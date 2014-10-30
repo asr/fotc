@@ -2,6 +2,10 @@
 -- All the common modules
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K                #-}
+
 module Common.Everything where
 
 open import Common.DefinitionsATP

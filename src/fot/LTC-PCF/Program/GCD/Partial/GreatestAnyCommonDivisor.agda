@@ -2,6 +2,7 @@
 -- The gcd is greatest that any common divisor
 ---------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

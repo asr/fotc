@@ -2,6 +2,7 @@
 -- Testing Agsy arithmetic properties used by the McCarthy 91 function
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

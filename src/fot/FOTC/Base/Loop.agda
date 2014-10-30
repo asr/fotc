@@ -2,6 +2,10 @@
 -- FOTC looping (error) combinator
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K                #-}
+
 module FOTC.Base.Loop where
 
 open import FOTC.Base

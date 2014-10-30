@@ -1,6 +1,7 @@
+{-# OPTIONS --no-coverage-check #-}
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
-{-# OPTIONS --no-coverage-check #-}
 
 module AgdaIntroduction where
 

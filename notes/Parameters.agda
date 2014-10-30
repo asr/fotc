@@ -1,3 +1,7 @@
+{-# OPTIONS --no-sized-types           #-}
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K                #-}
+
 module Parameters where
 
 data List (A : Set) : Set where

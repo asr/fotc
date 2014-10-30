@@ -2,6 +2,10 @@
 -- First-order Peano arithmetic
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K                #-}
+
 module PA.Inductive.README where
 
 -- Formalization of first-order Peano arithmetic using Agda data types

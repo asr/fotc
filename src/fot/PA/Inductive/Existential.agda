@@ -2,6 +2,10 @@
 -- Existential quantifier on the inductive PA universe
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K                #-}
+
 module PA.Inductive.Existential where
 
 ------------------------------------------------------------------------------

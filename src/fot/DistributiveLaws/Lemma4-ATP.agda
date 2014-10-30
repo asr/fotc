@@ -2,6 +2,7 @@
 -- Distributive laws on a binary operation: Lemma 4
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

@@ -2,6 +2,10 @@
 -- Logical Theory of Constructions for PCF (LTC-PCF)
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K                #-}
+
 module LTC-PCF.README where
 
 -- Code accompanying the paper "Embedding a Logical Theory of

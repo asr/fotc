@@ -2,6 +2,7 @@
 -- Example of a partial function using the Bove-Capretta method
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

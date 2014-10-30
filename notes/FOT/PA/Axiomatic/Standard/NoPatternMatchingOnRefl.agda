@@ -2,7 +2,8 @@
 -- Proving properties without using pattern matching on refl
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --no-pattern-matching #-}
+{-# OPTIONS --no-pattern-matching      #-}
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 
 module FOT.PA.Axiomatic.Standard.NoPatternMatchingOnRefl where

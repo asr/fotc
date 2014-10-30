@@ -2,6 +2,7 @@
 -- Test the consistency of FOTC.Data.Nat.Inequalities
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

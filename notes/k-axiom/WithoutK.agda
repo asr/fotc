@@ -2,6 +2,8 @@
 -- Testing the --without-K flag
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
+{-# OPTIONS --no-universe-polymorphism #-}
 -- {-# OPTIONS --without-K                #-}
 
 module WithoutK where
