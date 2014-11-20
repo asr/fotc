@@ -28,7 +28,8 @@ Conat-in h = Conat-coind A h' h
   {-# ATP definition A #-}
 
   postulate h' : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
-  {-# ATP prove h' #-}
+  -- TODO (20 November 2014). See Apia issue 15.
+  -- {-# ATP prove h' #-}
 
 0-Conat : Conat zero
 0-Conat = Conat-coind A h refl

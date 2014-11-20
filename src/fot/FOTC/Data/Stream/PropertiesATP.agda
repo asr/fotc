@@ -31,7 +31,8 @@ Stream-in h = Stream-coind A h' h
   {-# ATP definition A #-}
 
   postulate h' : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
-  {-# ATP prove h' #-}
+  -- TODO (20 November 2014). See Apia issue 15.
+  -- {-# ATP prove h' #-}
 
 zeros-Stream : Stream zeros
 zeros-Stream = Stream-coind A h refl

@@ -29,7 +29,8 @@ Fair-in h = Fair-coind A h' h
 
   postulate
     h' : ∀ {os} → A os → ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ A os'
-  {-# ATP prove h' #-}
+  -- TODO (20 November 2014). See Apia issue 15.
+  -- {-# ATP prove h' #-}
 
 head-tail-Fair : ∀ {os} → Fair os → os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
 head-tail-Fair {os} Fos with Fair-out Fos

@@ -30,4 +30,5 @@ Colist-in h = Colist-coind A h' h
 
   postulate
     h' : ∀ {xs} → A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
-  {-# ATP prove h' #-}
+  -- TODO (20 November 2014). See Apia issue 15.
+  -- {-# ATP prove h' #-}

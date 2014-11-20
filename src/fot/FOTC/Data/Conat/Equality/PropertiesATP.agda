@@ -33,7 +33,8 @@ open import FOTC.Data.Conat.Equality.Type
     h' : ∀ {m n} → R m n →
          m ≡ zero ∧ n ≡ zero
            ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
-  {-# ATP prove h' #-}
+  -- TODO (20 November 2014). See Apia issue 15.
+  -- {-# ATP prove h' #-}
 
 ≈-refl : ∀ {n} → Conat n → n ≈ n
 ≈-refl {n} Cn = ≈-coind R h₁ h₂
@@ -46,10 +47,13 @@ open import FOTC.Data.Conat.Equality.Type
     h₁ : ∀ {a b} → R a b →
          a ≡ zero ∧ b ≡ zero
            ∨ (∃[ a' ] ∃[ b' ] a ≡ succ₁ a' ∧ b ≡ succ₁ b' ∧ R a' b')
-  {-# ATP prove h₁ #-}
+  -- TODO (20 November 2014). See Apia issue 15.
+  -- {-# ATP prove h₁ #-}
 
   postulate h₂ : R n n
-  {-# ATP prove h₂ #-}
+  -- TODO (20 November 2014). See Apia issue 15.
+  -- {-# ATP prove h₂ #-}
 
   postulate ≡→≈ : ∀ {m n} → Conat m → Conat n → m ≡ n → m ≈ n
-  {-# ATP prove ≡→≈ ≈-refl #-}
+  -- TODO (20 November 2014). See Apia issue 15.
+  -- {-# ATP prove ≡→≈ ≈-refl #-}
