@@ -109,10 +109,11 @@ Conat-in-ho = Conat-in
 -- A different definition.
 Conat-in' : (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')) →
             ∀ {n} → Conat n
-Conat-in' h = Conat-coind (λ m → m ≡ m) h' refl
+Conat-in' h = Conat-coind (λ m → m ≡ m) (h' h) refl
   where
-  h' : ∀ {m} → m ≡ m → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ m' ≡ m')
-  h' _ with h
+  h' : (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')) →
+       ∀ {m} → m ≡ m → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ m' ≡ m')
+  h' h'' {m} _ with (h'' {m})
   ... | inj₁ m≡0            = inj₁ m≡0
   ... | inj₂ (m' , prf , _) = inj₂ (m' , prf , refl)
 
