@@ -66,7 +66,7 @@ map-++-ind-instance :
   map f ([] ++ ys) ≡ map f [] ++ map f ys →
   (∀ x {xs} → map f (xs ++ ys) ≡ map f xs ++ map f ys →
     map f ((x ∷ xs) ++ ys) ≡ map f (x ∷ xs) ++ map f ys) →
-  ∀ {xs} → List xs → map f (xs ++ ys) ‌≡ map f xs ++ map f ys
+  ∀ {xs} → List xs → map f (xs ++ ys) ≡ map f xs ++ map f ys
 map-++-ind-instance {f} {ys} =
   List-ind (λ as → map f (as ++ ys) ≡ map f as ++ map f ys)
 
