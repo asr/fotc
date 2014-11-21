@@ -6,6 +6,7 @@
 {-# OPTIONS --no-sized-types                    #-}
 {-# OPTIONS --no-universe-polymorphism          #-}
 {-# OPTIONS --schematic-propositional-functions #-}
+{-# OPTIONS --without-K                         #-}
 
 module FOT.FOL.ImplicitArgumentSubst where
 
