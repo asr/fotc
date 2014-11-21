@@ -32,8 +32,7 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
   postulate
     h' : ∀ {xs} {ys} → B xs ys →
          ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
-  -- TODO (20 November 2014). See Apia issue 15.
-  -- {-# ATP prove h' #-}
+  {-# ATP prove h' #-}
 
 ≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
 ≈-refl {xs} Sxs = ≈-coind B h₁ h₂
