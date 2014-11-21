@@ -2,6 +2,7 @@
 -- Properties for the equality on streams
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

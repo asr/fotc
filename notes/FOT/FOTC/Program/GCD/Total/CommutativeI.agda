@@ -2,6 +2,7 @@
 -- The gcd is commutative
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

@@ -2,6 +2,7 @@
 -- Note on the equality type class using instance arguments
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

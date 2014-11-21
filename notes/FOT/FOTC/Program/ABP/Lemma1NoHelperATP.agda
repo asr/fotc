@@ -2,6 +2,7 @@
 -- ABP Lemma 1
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

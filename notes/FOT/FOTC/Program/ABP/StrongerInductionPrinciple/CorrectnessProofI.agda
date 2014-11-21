@@ -2,6 +2,7 @@
 -- The alternating bit protocol (ABP) is correct
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 

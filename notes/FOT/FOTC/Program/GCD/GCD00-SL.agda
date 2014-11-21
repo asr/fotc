@@ -2,6 +2,7 @@
 -- In the Agda standard library, gcd 0 0 = 0.
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
 
