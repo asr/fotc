@@ -24,4 +24,5 @@ open import PA.Inductive.PropertiesByInduction
   A0 = sym (+-rightIdentity n)
 
   postulate is : ∀ i → A i → A (succ i)
-  {-# ATP prove is x+Sy≡S[x+y] #-}
+  -- TODO (21 November 2014). See Apia issue 16
+  -- {-# ATP prove is x+Sy≡S[x+y] #-}

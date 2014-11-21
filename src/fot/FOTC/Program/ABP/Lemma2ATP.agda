@@ -116,7 +116,8 @@ helper₂ {b} {i'} {is'} {os₁'} {os₂'} {as'} {bs'} {cs'} {ds'} {js'}
 
   postulate
     js'-eq : js' ≡ out (not b) · bs^ b i' is' cs' (os₁^ os₁') (os₂^ ft₂ os₂'')
-  {-# ATP prove js'-eq not-x≢x bs'-eq #-}
+  -- TODO (21 November 2014). See Apia issue 16
+  -- {-# ATP prove js'-eq not-x≢x bs'-eq #-}
 
   postulate
     ds^-eq : ds^ cs' (os₂^ ft₂ os₂'') ≡
