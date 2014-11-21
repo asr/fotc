@@ -2,6 +2,7 @@
 -- Test the consistency of FOTC.Program.Mirror.Mirror
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --exact-split              #-}
 {-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}

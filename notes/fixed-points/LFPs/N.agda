@@ -2,6 +2,7 @@
 -- Equivalence: N as the least fixed-point and N using Agda's data constructor
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --exact-split              #-}
 {-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}

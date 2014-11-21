@@ -2,6 +2,7 @@
 -- The rec definition using the fixed-point combinator
 ---------------------------------------------------------------------------
 
+{-# OPTIONS --exact-split              #-}
 {-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}

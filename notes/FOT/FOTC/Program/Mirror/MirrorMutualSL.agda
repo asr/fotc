@@ -2,6 +2,7 @@
 -- Proving mirror (mirror t) = t using mutual data types
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --exact-split              #-}
 {-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}

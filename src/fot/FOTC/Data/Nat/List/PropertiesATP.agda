@@ -2,6 +2,7 @@
 -- Properties related with lists of natural numbers
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --exact-split              #-}
 {-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}

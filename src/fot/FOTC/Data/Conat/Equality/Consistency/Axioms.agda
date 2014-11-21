@@ -2,6 +2,7 @@
 -- Test the consistency of FOTC.Data.Conat.Equality.Type
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --exact-split              #-}
 {-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}

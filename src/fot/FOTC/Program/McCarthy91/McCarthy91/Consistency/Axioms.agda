@@ -2,6 +2,7 @@
 -- Test the consistency of FOTC.Program.McCarthy91.McCarthy91
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --exact-split              #-}
 {-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}

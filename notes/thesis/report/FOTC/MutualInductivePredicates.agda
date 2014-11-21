@@ -2,6 +2,7 @@
 -- Definition of mutual inductive predicates
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --exact-split              #-}
 {-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --without-K                #-}
 {-# OPTIONS --no-universe-polymorphism #-}

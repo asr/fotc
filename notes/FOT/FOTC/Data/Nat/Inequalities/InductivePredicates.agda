@@ -2,6 +2,8 @@
 -- Testing some inductive predicates for inequalities
 ------------------------------------------------------------------------------
 
+-- TODO (21 November 2014).
+-- {-# OPTIONS --exact-split              #-}
 {-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}

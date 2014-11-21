@@ -2,6 +2,7 @@
 -- Distributive laws on a binary operation: Lemma 5 (Task A)
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --exact-split              #-}
 {-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}

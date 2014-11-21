@@ -2,6 +2,7 @@
 -- Non-intuitionistic logic theorems
 ------------------------------------------------------------------------------
 
+{-# OPTIONS --exact-split                       #-}
 {-# OPTIONS --no-sized-types                    #-}
 {-# OPTIONS --no-universe-polymorphism          #-}
 {-# OPTIONS --schematic-propositional-functions #-}
