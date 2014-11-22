@@ -1,5 +1,4 @@
--- TODO (21 November 2014).
--- {-# OPTIONS --exact-split              #-}
+{-# OPTIONS --exact-split              #-}
 {-# OPTIONS --no-coverage-check        #-}
 {-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
@@ -59,7 +58,8 @@ map f (x ∷ xs) = f x ∷ map f xs
 
 f : ℕ → ℕ
 f zero = zero
-f _ = succ zero
+{-# CATCHALL #-}
+f _    = succ zero
 
 -- The absurd pattern
 magic : {A : Set} → Fin zero → A

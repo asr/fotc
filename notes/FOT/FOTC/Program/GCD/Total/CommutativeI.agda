@@ -2,8 +2,7 @@
 -- The gcd is commutative
 ------------------------------------------------------------------------------
 
--- TODO (21 November 2014).
--- {-# OPTIONS --exact-split              #-}
+{-# OPTIONS --exact-split              #-}
 {-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
@@ -48,6 +47,7 @@ Comm t t' = gcd t t' ≡ gcd t' t
 
 x>y→y≯x : ∀ {m n} → N m → N n → m > n → n ≯ m
 x>y→y≯x nzero          Nn             0>n   = ⊥-elim (0>x→⊥ Nn 0>n)
+{-# CATCHALL #-}
 x>y→y≯x Nm             nzero          _     = 0≯x Nm
 x>y→y≯x (nsucc {m} Nm) (nsucc {n} Nn) Sm>Sn =
   trans (lt-SS m n) (x>y→y≯x Nm Nn (trans (sym (lt-SS n m)) Sm>Sn))

@@ -2,8 +2,7 @@
 -- Testing some inductive predicates for inequalities
 ------------------------------------------------------------------------------
 
--- TODO (21 November 2014).
--- {-# OPTIONS --exact-split              #-}
+{-# OPTIONS --exact-split              #-}
 {-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
@@ -76,6 +75,7 @@ module m₂ where
     ⊥-elim (t≢f (trans (sym h) (trans (lt-SS zero zero) lt-00)))
   le→≤ (nsucc (nsucc {m} Nm)) nzero h =
     ⊥-elim (t≢f (trans (sym h) (trans (lt-SS (succ₁ m) zero) (lt-S0 m))))
+  {-# CATCHALL #-}
   le→≤ (nsucc {m} Nm) (nsucc {n} Nn) h =
     s≤s Nm Nn (le→≤ Nm Nn (trans (sym (lt-SS m (succ₁ n))) h))
 

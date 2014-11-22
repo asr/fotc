@@ -2,8 +2,7 @@
 -- Testing an alternative definition of subtraction
 ------------------------------------------------------------------------------
 
--- TODO (21 November 2014).
--- {-# OPTIONS --exact-split              #-}
+{-# OPTIONS --exact-split              #-}
 {-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
@@ -22,6 +21,7 @@ suc m ∸₁ suc n = m ∸₁ n
 -- Second definition.
 _∸₂_ : ℕ → ℕ → ℕ
 m     ∸₂ zero  = m
+{-# CATCHALL #-}
 zero  ∸₂ n     = zero
 suc m ∸₂ suc n = m ∸₂ n
 

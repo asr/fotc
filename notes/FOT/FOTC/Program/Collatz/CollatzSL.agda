@@ -3,8 +3,7 @@
 ------------------------------------------------------------------------------
 
 {-# OPTIONS --allow-unsolved-metas     #-}
--- TODO (21 November 2014).
--- {-# OPTIONS --exact-split              #-}
+{-# OPTIONS --exact-split              #-}
 {-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
@@ -35,6 +34,7 @@ isEven (succ (succ n)) = isEven n
 collatz : ℕ → ℕ
 collatz zero        = 1
 collatz (succ zero) = 1
+{-# CATCHALL #-}
 collatz n with isEven n
 ... | true  = collatz ⌊ n /2⌋
 ... | false = collatz (3 * n + 1)

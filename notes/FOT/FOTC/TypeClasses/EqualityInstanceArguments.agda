@@ -2,8 +2,7 @@
 -- Note on the equality type class using instance arguments
 ------------------------------------------------------------------------------
 
--- TODO (21 November 2014).
--- {-# OPTIONS --exact-split              #-}
+{-# OPTIONS --exact-split              #-}
 {-# OPTIONS --no-sized-types           #-}
 {-# OPTIONS --no-universe-polymorphism #-}
 {-# OPTIONS --without-K                #-}
@@ -32,11 +31,13 @@ equal {{eqT}} = Eq.equal eqT
 boolEq : ∀ {b₁ b₂} → Bool b₁ → Bool b₂ → Set
 boolEq btrue  btrue  = Bool true
 boolEq bfalse bfalse = Bool true
+{-# CATCHALL #-}
 boolEq _      _      = Bool false
 
 nEq : ∀ {m n} → N m → N n → Set
 nEq nzero      nzero      = Bool true
 nEq (nsucc Nm) (nsucc Nn) = Bool true
+{-# CATCHALL #-}
 nEq _          _          = Bool false
 
 instance
