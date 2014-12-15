@@ -47,4 +47,4 @@ thm₂ (nsucc {n} Nn) = prf (thm₂ Nn)
                   ((2' ^ succ₁ n) ∸ 1') + 1' + ((2' ^ succ₁ n) ∸ 1') ≡
                   2' ^ (succ₁ n + 1') ∸ 1'
   -- 09 December 2014: The ATPs could not prove the theorem (240 sec).
-  {-# ATP prove prf #-}
+  -- {-# ATP prove prf #-}
