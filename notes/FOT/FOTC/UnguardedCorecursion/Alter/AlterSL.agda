@@ -9,7 +9,7 @@
 
 module FOT.FOTC.UnguardedCorecursion.Alter.AlterSL where
 
-open import Data.Bool
+open import Data.Bool.Minimal
 open import Data.Stream
 open import Coinduction
 

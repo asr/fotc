@@ -8,7 +8,7 @@
 
 module InstanceArguments where
 
-open import Data.Bool
+open import Data.Bool.Minimal
 open import Data.Nat hiding ( equal ) renaming ( suc to succ )
 
 -- Note: Agda doesn't have a primitive function primBoolEquality.

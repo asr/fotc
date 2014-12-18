@@ -9,7 +9,7 @@
 
 module FOT.FOTC.Program.QuickSort.QuickSortBC where
 
-open import Data.Bool
+open import Data.Bool.Minimal
 open import Data.List
 open import Data.Nat
 open import Data.Nat.Properties

@@ -5,7 +5,7 @@
 
 module DiscriminationRules where
 
-open import Data.Bool
+open import Data.Bool.Minimal
 open import Data.List
 open import Data.Nat
 open import Relation.Binary.PropositionalEquality

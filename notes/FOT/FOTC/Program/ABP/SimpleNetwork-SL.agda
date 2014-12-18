@@ -11,7 +11,7 @@
 
 module FOT.FOTC.Program.ABP.SimpleNetwork-SL where
 
-open import Data.Bool
+open import Data.Bool.Minimal
 open import Data.Stream
 
 ------------------------------------------------------------------------------
