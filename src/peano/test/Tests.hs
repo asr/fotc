@@ -7,7 +7,7 @@ import Distribution.TestSuite.QuickCheck ( Test, testProperty )
 import Test.QuickCheck                   ( (==>), Property )
 
 -- From:
--- https://www.haskell.org/ghc/docs/7.8.3/html/libraries/base-4.7.0.1/Prelude.html#t:Num
+-- https://downloads.haskell.org/~ghc/7.8.4/docs/html/libraries/base-4.7.0.2/Prelude.html#v:signum
 prop_signum ∷ Nat → Bool
 prop_signum x = abs x * signum x == x
 

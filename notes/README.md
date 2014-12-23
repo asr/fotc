@@ -5,4 +5,4 @@ and/or Apia corresponding to the date of the last commit.
 
 Coq files: Coq 8.4pl5.
 
-Haskell files: GHC 7.8.3.
+Haskell files: GHC 7.8.4.

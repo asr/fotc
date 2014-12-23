@@ -78,7 +78,7 @@ instance Num Nat where
 
   -- In the @Integral@ class, @div@ is defined via @divMod@ which uses
   -- @negate@. See
-  -- https://www.haskell.org/ghc/docs/7.8.3/html/libraries/base-4.7.0.1/src/GHC-Real.html#div
+  -- https://downloads.haskell.org/~ghc/7.8.4/docs/html/libraries/base-4.7.0.2/src/GHC-Real.html#div
   negate n = n
 
   signum Z     = 0
