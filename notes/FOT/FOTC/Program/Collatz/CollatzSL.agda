@@ -10,7 +10,7 @@
 
 module FOT.FOTC.Program.Collatz.CollatzSL where
 
-open import Data.Bool.Minimal
+open import Data.Bool.Base
 open import Data.Empty
 open import Data.Nat renaming ( suc to succ )
 open import Data.Nat.Properties

@@ -7,7 +7,7 @@
 
 module Kettelhoit where
 
-open import Data.Bool.Minimal
+open import Data.Bool.Base
 open import Data.Nat hiding ( equal ) renaming ( suc to succ )
 
 record Eq (A : Set) : Set where
