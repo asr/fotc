@@ -161,7 +161,7 @@ module ER
   where
 
   infixr 5 _∼⟨_⟩_
-  infix  5 _∎
+  infix  6 _∎
 
   _∼⟨_⟩_ : ∀ x {y z} → x ∼ y → y ∼ z → x ∼ z
   _ ∼⟨ x∼y ⟩ y∼z = ∼-trans x∼y y∼z

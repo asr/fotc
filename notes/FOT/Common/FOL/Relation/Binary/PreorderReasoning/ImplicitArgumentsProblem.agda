@@ -42,7 +42,7 @@ module Thesis where
   -- From Ulf's thesis (p. 112).
 
   infix  7 _≃_
-  infix  5 chain>_
+  infix  6 chain>_
   infixl 5 _===_by_
   infix  4 _qed
 
@@ -72,7 +72,7 @@ module SL where
   infix  7 _≃_
   infix  4 begin_
   infixr 5 _≡⟨_⟩_
-  infix  5 _∎
+  infix  6 _∎
 
   data _≃_ {A : Set}(x y : A) : Set where
     prf : R x y → x ≃ y
@@ -99,7 +99,7 @@ module NonWrapper where
   -- S.-C., Ko, H.-S. and Jansson, P. (2009)).
 
   infixr 5 _≡⟨_⟩_
-  infix  5 _∎
+  infix  6 _∎
 
   _≡⟨_⟩_ : {A : Set}(x : A){y z : A} → R x y → R y z → R x z
   _≡⟨_⟩_ x {y} {z} x≡y y≡z = R-trans {x = x} {y} {z} x≡y y≡z

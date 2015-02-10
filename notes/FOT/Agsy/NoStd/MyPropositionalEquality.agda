@@ -37,7 +37,7 @@ module ≡-Reasoning where
   infix  7 _≃_
   infix  4 begin_
   infixr 5 _≡⟨_⟩_
-  infix  5 _∎
+  infix  6 _∎
 
   ----------------------------------------------------------------------------
   -- Adapted from the Agda standard library 0.8.1 (see

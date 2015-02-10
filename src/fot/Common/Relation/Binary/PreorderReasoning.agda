@@ -17,7 +17,7 @@ module Common.Relation.Binary.PreorderReasoning
 -- We add 3 to the fixities of the Agda standard library 0.8.1 (see
 -- Relation.Binary.PreorderReasoning).
 infixr 5 _∼⟨_⟩_
-infix  5 _∎
+infix  6 _∎
 
 ------------------------------------------------------------------------------
 -- From (Mu, S.-C., Ko, H.-S. and Jansson, P. (2009)).

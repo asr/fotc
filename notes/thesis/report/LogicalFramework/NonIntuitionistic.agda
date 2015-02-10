@@ -5,6 +5,10 @@
 
 module LogicalFramework.NonIntuitionistic where
 
+infix  6 ¬_
+infixr 5 _∧_
+infixr 4 _∨_
+
 postulate
   ⊥      : Set
   ⊥-elim : {A : Set} → ⊥ → A
