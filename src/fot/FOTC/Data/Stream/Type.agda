@@ -28,7 +28,7 @@ postulate
 -- Stream is a post-fixed point of StreamF, i.e.
 --
 -- Stream ≤ StreamF Stream.
-  Stream-out : ∀ {xs} → Stream xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs'
+  Stream-out : ∀ {xs} → Stream xs → ∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ Stream xs')
 {-# ATP axiom Stream-out #-}
 
 -- Stream is the greatest post-fixed point of StreamF, i.e.
@@ -42,6 +42,6 @@ postulate
   Stream-coind :
     (A : D → Set) →
     -- A is post-fixed point of StreamF.
-    (∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs') →
+    (∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs')) →
     -- Stream is greater than A.
     ∀ {xs} → A xs → Stream xs

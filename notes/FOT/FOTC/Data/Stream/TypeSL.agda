@@ -15,6 +15,10 @@ open import Relation.Binary.PropositionalEquality
 
 ------------------------------------------------------------------------------
 
+-- We add 3 to the fixities of the Agda standard library 0.8.1 (see
+-- Data/List.agda).
+infixr 8 _∷_
+
 data D : Set where
   _∷_ : D → D → D
 

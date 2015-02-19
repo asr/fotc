@@ -38,7 +38,7 @@ postulate
   --
   -- Peter: It corresponds to the introduction rules.
   ListN-in : ∀ {ns} →
-             ns ≡ [] ∨ (∃[ n' ] ∃[ ns' ] N n' ∧ ns ≡ n' ∷ ns' ∧ ListN ns') →
+             ns ≡ [] ∨ (∃[ n' ] ∃[ ns' ] (N n' ∧ ns ≡ n' ∷ ns' ∧ ListN ns')) →
              ListN ns
 
   -- ListN is the least pre-fixed point of ListFN.
@@ -47,7 +47,7 @@ postulate
   -- defined predicate.
   ListN-ind :
     (A : D → Set) →
-    (∀ {ns} → ns ≡ [] ∨ (∃[ n' ] ∃[ ns' ] N n' ∧ ns ≡ n' ∷ ns' ∧ A ns') → A ns) →
+    (∀ {ns} → ns ≡ [] ∨ (∃[ n' ] ∃[ ns' ] (N n' ∧ ns ≡ n' ∷ ns' ∧ A ns')) → A ns) →
     ∀ {ns} → ListN ns → A ns
 
 ------------------------------------------------------------------------------
@@ -66,7 +66,7 @@ ListN-ind' : (A : D → Set) →
              ∀ {ns} → ListN ns → A ns
 ListN-ind' A A[] is = ListN-ind A prf
   where
-  prf : ∀ {ns} → ns ≡ [] ∨ (∃[ n' ] ∃[ ns' ] N n' ∧ ns ≡ n' ∷ ns'  ∧ A ns') →
+  prf : ∀ {ns} → ns ≡ [] ∨ (∃[ n' ] ∃[ ns' ] (N n' ∧ ns ≡ n' ∷ ns'  ∧ A ns')) →
         A ns
   prf (inj₁ ns≡[])                        = subst A (sym ns≡[]) A[]
   prf (inj₂ (n' , ns' , Nn' , h₁ , Ans')) = subst A (sym h₁) (is n' Nn' Ans')

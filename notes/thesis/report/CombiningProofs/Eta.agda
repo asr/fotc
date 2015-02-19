@@ -13,5 +13,5 @@ postulate
 syntax ∃ (λ x → e) = ∃[ x ] e
 
 postulate
-  t₁ : ∀ d → ∃[ e ] d ≡ e
+  t₁ : ∀ d → ∃[ e ] (d ≡ e)
   t₂ : ∀ d → ∃ (_≡_ d)

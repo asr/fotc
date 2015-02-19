@@ -23,15 +23,15 @@ open import FOTC.Data.Stream
 --
 -- StreamF Stream ≤ Stream (see FOTC.Data.Stream.Type).
 Stream-in : ∀ {xs} →
-            ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs' →
+            ∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ Stream xs') →
             Stream xs
 Stream-in h = Stream-coind A h' h
   where
   A : D → Set
-  A xs = ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs'
+  A xs = ∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ Stream xs')
   {-# ATP definition A #-}
 
-  postulate h' : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  postulate h' : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs')
   {-# ATP prove h' #-}
 
 zeros-Stream : Stream zeros
@@ -41,7 +41,7 @@ zeros-Stream = Stream-coind A h refl
   A xs = xs ≡ zeros
   {-# ATP definition A #-}
 
-  postulate h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  postulate h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs')
   {-# ATP prove h #-}
 
 ones-Stream : Stream ones
@@ -51,7 +51,7 @@ ones-Stream = Stream-coind A h refl
   A xs = xs ≡ ones
   {-# ATP definition A #-}
 
-  postulate h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  postulate h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs')
   {-# ATP prove h #-}
 
 postulate ∷-Stream : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
@@ -62,13 +62,13 @@ streamLength : ∀ {xs} → Stream xs → length xs ≈ ∞
 streamLength {xs} Sxs = ≈-coind R h₁ h₂
   where
   R : D → D → Set
-  R m n = ∃[ xs ] Stream xs ∧ m ≡ length xs ∧ n ≡ ∞
+  R m n = ∃[ xs ] (Stream xs ∧ m ≡ length xs ∧ n ≡ ∞)
   {-# ATP definition R #-}
 
   postulate
     h₁ : ∀ {m n} → R m n →
          m ≡ zero ∧ n ≡ zero
-           ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
+           ∨ (∃[ m' ] ∃[ n' ] (m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n'))
   {-# ATP prove h₁ #-}
 
   postulate h₂ : R (length xs) ∞

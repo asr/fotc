@@ -112,7 +112,7 @@ notCong {a} h = subst (λ t → not a ≡ not t) h refl
 
   h₁ : ∀ {a b} → R a b →
        a ≡ zero ∧ b ≡ zero
-         ∨ (∃[ a' ] ∃[ b' ] a ≡ succ₁ a' ∧ b ≡ succ₁ b' ∧ R a' b')
+         ∨ (∃[ a' ] ∃[ b' ] (a ≡ succ₁ a' ∧ b ≡ succ₁ b' ∧ R a' b'))
   h₁ (Ca , Cb , h) with Conat-out Ca
   ... | inj₁ prf              = inj₁ (prf , trans (sym h) prf)
   ... | inj₂ (a' , prf , Ca') =

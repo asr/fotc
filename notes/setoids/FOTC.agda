@@ -115,7 +115,8 @@ module FOTC where
 
 module LeibnizEquality where
 
-  infix 7 _≡_
+  infixl 9 _·_
+  infix  7 _≡_
 
   data D : Set where
     _·_ : D → D → D

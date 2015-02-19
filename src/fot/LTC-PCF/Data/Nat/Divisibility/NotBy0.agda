@@ -27,4 +27,4 @@ infix 7 _∣_
 
 -- Note that @k@ should be a total natural number.
 _∣_ : D → D → Set
-m ∣ n = (m ≢ zero) ∧ (∃[ k ] N k ∧ n ≡ k * m)
+m ∣ n = (m ≢ zero) ∧ (∃[ k ] (N k ∧ n ≡ k * m))

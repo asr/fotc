@@ -56,9 +56,9 @@ postulate
 
 -- Generalization of De Morgan's laws.
 postulate
-  gDM₁ : ¬ (∀ x → A¹ x) ↔ (∃[ x ] ¬ (A¹ x))
+  gDM₁ : ¬ (∀ x → A¹ x) ↔ (∃[ x ] (¬ (A¹ x)))
   gDM₂ : ¬ (∃ A¹)       ↔ (∀ x → ¬ (A¹ x))
-  gDM₃ : (∀ x → A¹ x)   ↔ ¬ (∃[ x ] ¬ (A¹ x))
+  gDM₃ : (∀ x → A¹ x)   ↔ ¬ (∃[ x ] (¬ (A¹ x)))
   gDM₄ : ∃ A¹           ↔ ¬ (∀ x → ¬ (A¹ x))
 {-# ATP prove gDM₁ #-}
 {-# ATP prove gDM₂ #-}
@@ -74,13 +74,13 @@ postulate
 
 -- Quantification over a variable that does not occur can be erased or
 -- added.
-postulate ∃-erase-add : (∃[ x ] A ∧ A¹ x) ↔ A ∧ (∃[ x ] A¹ x)
+postulate ∃-erase-add : (∃[ x ] (A ∧ A¹ x)) ↔ A ∧ (∃[ x ] A¹ x)
 {-# ATP prove ∃-erase-add #-}
 
 -- Distributes laws for the quantifiers.
 postulate
   ∀-dist : (∀ x → A¹ x ∧ B¹ x) ↔ ((∀ x → A¹ x) ∧ (∀ x → B¹ x))
-  ∃-dist : (∃[ x ] A¹ x ∨ B¹ x) ↔ (∃ A¹ ∨ ∃ B¹)
+  ∃-dist : (∃[ x ] (A¹ x ∨ B¹ x)) ↔ (∃ A¹ ∨ ∃ B¹)
 {-# ATP prove ∀-dist #-}
 {-# ATP prove ∃-dist #-}
 
@@ -92,13 +92,13 @@ postulate ∃∀ : ∃[ x ] (∀ y → A² x y) → ∀ y → ∃[ x ] A² x y
 -- ∃ in terms of ∀ and ¬.
 postulate
   ∃→¬∀¬ : ∃[ x ] A¹ x → ¬ (∀ {x} → ¬ A¹ x)
-  ∃¬→¬∀ : ∃[ x ] ¬ A¹ x → ¬ (∀ {x} → A¹ x)
+  ∃¬→¬∀ : ∃[ x ] (¬ A¹ x) → ¬ (∀ {x} → A¹ x)
 {-# ATP prove ∃→¬∀¬ #-}
 {-# ATP prove ∃¬→¬∀ #-}
 
 -- ∀ in terms of ∃ and ¬.
 postulate
-  ∀→¬∃¬ : (∀ {x} → A¹ x) → ¬ (∃[ x ] ¬ A¹ x)
+  ∀→¬∃¬ : (∀ {x} → A¹ x) → ¬ (∃[ x ] (¬ A¹ x))
   ∀¬→¬∃ : (∀ {x} → ¬ A¹ x) → ¬ (∃[ x ] A¹ x)
 {-# ATP prove ∀→¬∃¬ #-}
 {-# ATP prove ∀¬→¬∃ #-}

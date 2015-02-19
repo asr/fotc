@@ -156,7 +156,7 @@ module NLFP where
 
   -- From Peter: NatF in pure predicate logic.
   NatF : (D → Set) → D → Set
-  NatF X n = n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ X n')
+  NatF X n = n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ X n'))
 
   -- The FOTC natural numbers type using μ.
   N : D → Set
@@ -185,7 +185,7 @@ module ListLFT where
 
   -- Functor for the FOTC lists type.
   ListF : (D → Set) → D → Set
-  ListF X xs = xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ X xs')
+  ListF X xs = xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ X xs'))
 
   -- The FOTC list type using μ.
   List : D → Set
@@ -213,7 +213,7 @@ module ListNLFT where
 
   -- Functor for the FOTC list of natural numbers type.
   ListNF : (D → Set) → D → Set
-  ListNF X ns = ns ≡ [] ∨ (∃[ n' ] ∃[ ns' ] ns ≡ n' ∷ ns' ∧ N n' ∧ X ns')
+  ListNF X ns = ns ≡ [] ∨ (∃[ n' ] ∃[ ns' ] (ns ≡ n' ∷ ns' ∧ N n' ∧ X ns'))
 
   -- The FOTC list type using μ.
   ListN : D → Set
@@ -241,7 +241,7 @@ module CoList where
   -- Functor for the FOTC Colists type (the same functor that for the
   -- List type).
   ColistF : (D → Set) → D → Set
-  ColistF X xs = xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ X xs')
+  ColistF X xs = xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ X xs'))
 
   -- The FOTC Colist type using ν.
   Colist : D → Set
@@ -271,7 +271,7 @@ module Stream where
 
   -- Functor for the FOTC Stream type.
   StreamF : (D → Set) → D → Set
-  StreamF X xs = ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ X xs'
+  StreamF X xs = ∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ X xs')
 
   -- The FOTC Stream type using ν.
   Stream : D → Set

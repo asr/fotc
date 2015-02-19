@@ -24,9 +24,9 @@ stream-≡→≈ Sxs _ refl = ≈-refl Sxs
 ≈→Stream₁ {xs} {ys} h = Stream-coind A h' (ys , h)
    where
    A : D → Set
-   A ws = ∃[ zs ] ws ≈ zs
+   A ws = ∃[ zs ] (ws ≈ zs)
 
-   h' : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+   h' : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs')
    h' (_ , Axs) with ≈-out Axs
    ... | x' , xs' , zs' , prf₁ , prf₂ , prf₃ = x' , xs' , prf₁ , (zs' , prf₃)
 
@@ -34,9 +34,9 @@ stream-≡→≈ Sxs _ refl = ≈-refl Sxs
 ≈→Stream₂ {xs} {ys} h = Stream-coind A h' (xs , h)
    where
    A : D → Set
-   A zs = ∃[ ws ] ws ≈ zs
+   A zs = ∃[ ws ] (ws ≈ zs)
 
-   h' : ∀ {ys} → A ys → ∃[ y' ] ∃[ ys' ] ys ≡ y' ∷ ys' ∧ A ys'
+   h' : ∀ {ys} → A ys → ∃[ y' ] ∃[ ys' ] (ys ≡ y' ∷ ys' ∧ A ys')
    h'  (_ , Ays) with ≈-out Ays
    ... | y' , ys' , zs' , prf₁ , prf₂ , prf₃ = y' , zs' , prf₂ , (ys' , prf₃)
 

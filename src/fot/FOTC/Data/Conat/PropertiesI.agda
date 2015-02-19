@@ -20,14 +20,14 @@ open import FOTC.Data.Nat
 --
 -- NatF Conat ≤ Conat (see FOTC.Data.Conat.Type).
 Conat-in : ∀ {n} →
-           n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n') →
+           n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ Conat n')) →
            Conat n
 Conat-in h = Conat-coind A h' h
   where
   A : D → Set
-  A n = n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
+  A n = n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ Conat n'))
 
-  h' : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
+  h' : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ A n'))
   h' (inj₁ n≡0)              = inj₁ n≡0
   h' (inj₂ (n' , prf , Cn')) = inj₂ (n' , prf , Conat-out Cn')
 
@@ -37,7 +37,7 @@ Conat-in h = Conat-coind A h' h
   A : D → Set
   A n = n ≡ zero
 
-  h : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
+  h : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ A n'))
   h An = inj₁ An
 
 -- Adapted from (Sander 1992, p. 57).
@@ -47,13 +47,13 @@ Conat-in h = Conat-coind A h' h
   A : D → Set
   A n = n ≡ ∞
 
-  h : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
+  h : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ A n'))
   h An = inj₂ (∞ , trans An ∞-eq , refl)
 
 N→Conat : ∀ {n} → N n → Conat n
 N→Conat Nn = Conat-coind N h Nn
   where
-  h : ∀ {m} → N m → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ N m')
+  h : ∀ {m} → N m → m ≡ zero ∨ (∃[ m' ] (m ≡ succ₁ m' ∧ N m'))
   h nzero          = inj₁ refl
   h (nsucc {m} Nm) = inj₂ (m , refl , Nm)
 

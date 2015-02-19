@@ -21,13 +21,13 @@ open import FOTC.Data.Colist
 -- ColistF Colist ≤ Colist (see FOTC.Data.Colist.Type).
 Colist-in :
   ∀ {xs} →
-  xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs') →
+  xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ Colist xs')) →
   Colist xs
 Colist-in h = Colist-coind A h' h
   where
   A : D → Set
-  A xs =   xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs')
+  A xs =   xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ Colist xs'))
 
-  h' : ∀ {xs} → A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
+  h' : ∀ {xs} → A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs'))
   h' (inj₁ xs≡[])                    = inj₁ xs≡[]
   h' (inj₂ (x' , xs' , prf , Clxs')) = inj₂ (x' , xs' , prf , Colist-out Clxs')

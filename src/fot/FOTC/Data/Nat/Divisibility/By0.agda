@@ -37,7 +37,7 @@ infix 7 _∣_
 
 -- Note that @k@ should be a total natural number.
 _∣_ : D → D → Set
-m ∣ n = ∃[ k ] N k ∧ n ≡ k * m
+m ∣ n = ∃[ k ] (N k ∧ n ≡ k * m)
 {-# ATP definition _∣_ #-}
 
 ------------------------------------------------------------------------------

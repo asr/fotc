@@ -38,7 +38,7 @@ postulate
   -- Peter: It corresponds to the introduction rules.
   ListP-in :
     (A : D → Set) →
-    ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A x' ∧ xs ≡ x' ∷ xs' ∧ ListP A xs') →
+    ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (A x' ∧ xs ≡ x' ∷ xs' ∧ ListP A xs')) →
     ListP A xs
 
   -- ListP is the least pre-fixed point of ListPF.
@@ -47,7 +47,7 @@ postulate
   -- defined predicate.
   ListP-ind :
     (A B : D → Set) →
-    (∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A x' ∧ xs ≡ x' ∷ xs' ∧ B xs') → B xs) →
+    (∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (A x' ∧ xs ≡ x' ∷ xs' ∧ B xs')) → B xs) →
     ∀ {xs} → ListP A xs → B xs
 
 ------------------------------------------------------------------------------
@@ -67,7 +67,7 @@ ListP-ind' : (A B : D → Set) →
 ListP-ind' A B B[] is = ListP-ind A B prf
   where
   prf : ∀ {xs} →
-        xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] A x' ∧ xs ≡ x' ∷ xs' ∧ B xs') →
+        xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (A x' ∧ xs ≡ x' ∷ xs' ∧ B xs')) →
         B xs
   prf (inj₁ xs≡[])                        = subst B (sym xs≡[]) B[]
   prf (inj₂ (x' , xs' , Ax' , h₁ , Bxs')) = subst B (sym h₁) (is x' Ax' Bxs')

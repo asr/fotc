@@ -32,7 +32,7 @@ postulate
 --
 -- StreamN ≤ StreamNF StreamN.
   StreamN-out : ∀ {ns} → StreamN ns →
-                ∃[ n' ] ∃[ ns' ] N n' ∧ StreamN ns' ∧ ns ≡ n' ∷ ns'
+                ∃[ n' ] ∃[ ns' ] (N n' ∧ StreamN ns' ∧ ns ≡ n' ∷ ns')
 {-# ATP axiom StreamN-out #-}
 
 -- StreamN is the greatest post-fixed point of StreamNF, i.e.
@@ -46,7 +46,7 @@ postulate
   StreamN-coind :
     ∀ (A : D → Set) {ns} →
     -- A is post-fixed point of StreamNF.
-    (A ns → ∃[ n' ] ∃[ ns' ] N n' ∧ A ns' ∧ ns ≡ n' ∷ ns') →
+    (A ns → ∃[ n' ] ∃[ ns' ] (N n' ∧ A ns' ∧ ns ≡ n' ∷ ns')) →
     -- StreamN is greater than A.
     A ns → StreamN ns
 
@@ -56,12 +56,12 @@ postulate
 --
 -- StreamNF StreamN ≤ StreamN.
 StreamN-in : ∀ {ns} →
-             ∃[ n' ] ∃[ ns' ] N n' ∧ StreamN ns' ∧ ns ≡ n' ∷ ns' →
+             ∃[ n' ] ∃[ ns' ] (N n' ∧ StreamN ns' ∧ ns ≡ n' ∷ ns') →
              StreamN ns
 StreamN-in {ns} h = StreamN-coind A h' h
   where
   A : D → Set
-  A ns = ∃[ n' ] ∃[ ns' ] N n' ∧ StreamN ns' ∧ ns ≡ n' ∷ ns'
+  A ns = ∃[ n' ] ∃[ ns' ] (N n' ∧ StreamN ns' ∧ ns ≡ n' ∷ ns')
 
-  h' : A ns → ∃[ n' ] ∃[ ns' ] N n' ∧ A ns' ∧ ns ≡ n' ∷ ns'
+  h' : A ns → ∃[ n' ] ∃[ ns' ] (N n' ∧ A ns' ∧ ns ≡ n' ∷ ns')
   h' (_ , _ , Nn' , SNns' , prf) = _ , _ , Nn' , (StreamN-out SNns') , prf

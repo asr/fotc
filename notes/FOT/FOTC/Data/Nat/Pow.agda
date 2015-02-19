@@ -17,6 +17,8 @@ open import FOTC.Data.Nat.UnaryNumbers.TotalityATP
 
 ------------------------------------------------------------------------------
 
+infixr 11 _^_
+
 postulate
   _^_ : D → D → D
   ^-0 : ∀ n → n ^ zero      ≡ 1'

@@ -67,24 +67,24 @@ gDM₂ = l→r , r→l
   r→l : (∀ {x} → ¬ (A¹ x)) → ¬ (∃ A¹)
   r→l h (x , A¹x) = h A¹x
 
-gDM₂' : ¬ (∃ A¹) ⇔ (⋀[ x ] ¬ (A¹ x))
+gDM₂' : ¬ (∃ A¹) ⇔ (⋀[ x ] (¬ (A¹ x)))
 gDM₂' = fun l→r , fun r→l
   where
-  l→r : ¬ (∃ A¹) → ⋀[ x ] ¬ A¹ x
+  l→r : ¬ (∃ A¹) → ⋀[ x ] (¬ A¹ x)
   l→r h = dfun (λ d A¹d → h (d , A¹d))
 
-  r→l : ⋀[ x ] ¬ A¹ x → ¬ ∃ A¹
+  r→l : ⋀[ x ] (¬ A¹ x) → ¬ ∃ A¹
   r→l (dfun f) (x , A¹x) = f x A¹x
 
 -- Quantification over a variable that does not occur can be erased or
 -- added.
-∃-erase-add : (∃[ x ] A ∧ A¹ x) ↔ A ∧ (∃[ x ] A¹ x)
+∃-erase-add : (∃[ x ] (A ∧ A¹ x)) ↔ A ∧ (∃[ x ] A¹ x)
 ∃-erase-add = l→r , r→l
   where
-  l→r : ∃[ x ] A ∧ A¹ x → A ∧ (∃[ x ] A¹ x)
+  l→r : ∃[ x ] (A ∧ A¹ x) → A ∧ (∃[ x ] A¹ x)
   l→r (x , a , A¹x) = a , x , A¹x
 
-  r→l : A ∧ (∃[ x ] A¹ x) → ∃[ x ] A ∧ A¹ x
+  r→l : A ∧ (∃[ x ] A¹ x) → ∃[ x ] (A ∧ A¹ x)
   r→l (a , x , A¹x) = x , a , A¹x
 
 -- Interchange of quantifiers.
@@ -96,11 +96,11 @@ gDM₂' = fun l→r , fun r→l
 ∃→¬∀¬ : ∃[ x ] A¹ x → ¬ (∀ {x} → ¬ A¹ x)
 ∃→¬∀¬ (_ , A¹x) h = h A¹x
 
-∃¬→¬∀ : ∃[ x ] ¬ A¹ x → ¬ (∀ {x} → A¹ x)
+∃¬→¬∀ : ∃[ x ] (¬ A¹ x) → ¬ (∀ {x} → A¹ x)
 ∃¬→¬∀ (_ , h₁) h₂ = h₁ h₂
 
 -- ∀ in terms of ∃ and ¬.
-∀→¬∃¬ : (∀ {x} → A¹ x) → ¬ (∃[ x ] ¬ A¹ x)
+∀→¬∃¬ : (∀ {x} → A¹ x) → ¬ (∃[ x ] (¬ A¹ x))
 ∀→¬∃¬ h₁ (_ ,  h₂) = h₂ h₁
 
 ∀¬→¬∃ : (∀ {x} → ¬ A¹ x) → ¬ (∃[ x ] A¹ x)

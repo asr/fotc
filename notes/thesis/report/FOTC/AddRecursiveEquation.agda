@@ -13,6 +13,8 @@ open import FOTC.Base
 
 ------------------------------------------------------------------------------
 
+infixl 9 _+_
+
 postulate
   _+_  : D → D → D
   +-eq : ∀ m n → m + n ≡ (if (iszero₁ m) then n else succ₁ (pred₁ m + n))

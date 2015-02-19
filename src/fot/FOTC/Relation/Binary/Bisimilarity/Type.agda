@@ -28,7 +28,7 @@ postulate _≈_ : D → D → Set
 -- point of the bisimulation functional (FOTC.Relation.Binary.Bisimulation).
 postulate
   ≈-out : ∀ {xs ys} → xs ≈ ys →
-          ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys'
+          ∃[ x' ] ∃[ xs' ] ∃[ ys' ] (xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys')
 {-# ATP axiom ≈-out #-}
 
 -- The bisimilarity relation _≈_ on unbounded lists is the greatest
@@ -43,7 +43,7 @@ postulate
     (B : D → D → Set) →
     -- B is a post-fixed point of the bisimulation functional.
     (∀ {xs ys} → B xs ys →
-      ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys') →
+      ∃[ x' ] ∃[ xs' ] ∃[ ys' ] (xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys')) →
     -- _≈_ is greater than B.
     ∀ {xs ys} → B xs ys → xs ≈ ys
 

@@ -36,7 +36,7 @@ abpCorrect {b} {os₁} {os₂} {is} Bb Fos₁ Fos₂ Sis = ≈-coind B h₁ h₂
   where
   postulate h₁ : ∀ {ks ls} → B ks ls →
                  ∃[ k' ] ∃[ ks' ] ∃[ ls' ]
-                   ks ≡ k' ∷ ks' ∧ ls ≡ k' ∷ ls' ∧ B ks' ls'
+                   (ks ≡ k' ∷ ks' ∧ ls ≡ k' ∷ ls' ∧ B ks' ls')
   {-# ATP prove h₁ lemma₁ lemma₂ not-Bool #-}
 
   postulate h₂ : B is (abpTransfer b os₁ os₂ is)

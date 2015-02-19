@@ -34,9 +34,9 @@ map-iterate-Stream : ∀ f x → Stream (map f (iterate f x))
 map-iterate-Stream f x = Stream-coind A h (x , refl)
   where
   A : D → Set
-  A xs = ∃[ y ] xs ≡ map f (iterate f y)
+  A xs = ∃[ y ] (xs ≡ map f (iterate f y))
 
-  h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs')
   h (y , prf) = f · y
                 , map f (iterate f (f · y))
                 , trans prf (unfoldMapIterate f y)
@@ -46,9 +46,9 @@ iterate-Stream : ∀ f x → Stream (iterate f (f · x))
 iterate-Stream f x = Stream-coind A h (x , refl)
   where
   A : D → Set
-  A xs = ∃[ y ] xs ≡ iterate f (f · y)
+  A xs = ∃[ y ] (xs ≡ iterate f (f · y))
 
-  h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs')
   h (y , prf) = f · y
                 , iterate f (f · (f · y))
                 , trans prf (iterate-eq f (f · y))
@@ -60,10 +60,10 @@ iterate-Stream f x = Stream-coind A h (x , refl)
   where
   -- Based on the relation used by (Giménez and Castéran, 2007).
   B : D → D → Set
-  B xs ys = ∃[ y ] xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y)
+  B xs ys = ∃[ y ] (xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y))
 
   h : ∀ {xs} {ys} → B xs ys →
-      ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
+      ∃[ x' ] ∃[ xs' ] ∃[ ys' ] (xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys')
   h (y , prf₁ , prf₂) =
       f · y
     , map f (iterate f (f · y))

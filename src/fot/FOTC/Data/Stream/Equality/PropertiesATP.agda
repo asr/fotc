@@ -24,20 +24,20 @@ postulate stream-≡→≈ : ∀ {xs ys} → Stream xs → Stream ys → xs ≡ 
 ≈→Stream₁ {xs} {ys} h = Stream-coind A h' (ys , h)
   where
   A : D → Set
-  A ws = ∃[ zs ] ws ≈ zs
+  A ws = ∃[ zs ] (ws ≈ zs)
   {-# ATP definition A #-}
 
-  postulate h' : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
+  postulate h' : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs')
   {-# ATP prove h' #-}
 
 ≈→Stream₂ : ∀ {xs ys} → xs ≈ ys → Stream ys
 ≈→Stream₂ {xs} {ys} h = Stream-coind A h' (xs , h)
   where
   A : D → Set
-  A zs = ∃[ ws ] ws ≈ zs
+  A zs = ∃[ ws ] (ws ≈ zs)
   {-# ATP definition A #-}
 
-  postulate h' : ∀ {ys} → A ys → ∃[ y' ] ∃[ ys' ] ys ≡ y' ∷ ys' ∧ A ys'
+  postulate h' : ∀ {ys} → A ys → ∃[ y' ] ∃[ ys' ] (ys ≡ y' ∷ ys' ∧ A ys')
   {-# ATP prove h' #-}
 
 ≈→Stream : ∀ {xs ys} → xs ≈ ys → Stream xs ∧ Stream ys

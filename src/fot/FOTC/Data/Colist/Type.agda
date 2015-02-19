@@ -32,7 +32,7 @@ postulate
 --
 -- Colist ≤ ColistF Colist.
   Colist-out : ∀ {xs} → Colist xs →
-               xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs')
+               xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ Colist xs'))
 {-# ATP axiom Colist-out #-}
 
 -- Colist is the greatest post-fixed point of ColistF, i.e.
@@ -46,6 +46,6 @@ postulate
   Colist-coind :
     (A : D → Set) →
     -- A is post-fixed point of ColistF.
-    (∀ {xs} → A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')) →
+    (∀ {xs} → A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs'))) →
     -- Colist is greater than A.
     ∀ {xs} → A xs → Colist xs

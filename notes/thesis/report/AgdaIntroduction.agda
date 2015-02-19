@@ -6,8 +6,10 @@
 
 module AgdaIntroduction where
 
-infixr 5 _∷_ _++_
-infix  4 _≡_
+infixl 10 _*_
+infixl 9  _+_
+infixr 5  _∷_ _++_
+infix  4  _≡_
 
 -- Dependent function types
 id : (A : Set) → A → A

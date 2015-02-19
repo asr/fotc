@@ -16,5 +16,5 @@ open import FOTC.Data.Nat.Inequalities
 ------------------------------------------------------------------------------
 -- Specification: The division is total and the result is correct.
 divSpec : D → D → D → Set
-divSpec i j q = N q ∧ (∃[ r ] N r ∧ r < j ∧ i ≡ j * q + r)
+divSpec i j q = N q ∧ (∃[ r ] (N r ∧ r < j ∧ i ≡ j * q + r))
 {-# ATP definition divSpec #-}

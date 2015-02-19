@@ -19,5 +19,5 @@ postulate
   ≈-stronger-coind :
     ∀ (B : D → D → Set) {xs ys} →
     (B xs ys → ∃[ x' ] ∃[ xs' ] ∃[ ys' ]
-      xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys') →
+      (xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys')) →
     B xs ys → xs ≈ ys
