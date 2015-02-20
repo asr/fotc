@@ -5,6 +5,9 @@
 
 module CombiningProofs.Eta where
 
+infix 7 _≡_
+infix 5 ∃
+
 postulate
   D   : Set
   ∃   : (A : D → Set) → Set

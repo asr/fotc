@@ -6,8 +6,12 @@
 
 module AgdaIntroduction where
 
-infixr 5 _∷_ _++_
-infix  4 _≡_
+-- We add 3 to the fixities of the Agda standard library 0.8.1 (see
+-- Data/Nat.agda).
+infixl 10 _*_
+infixl 9  _+_
+infixr 5  _∷_ _++_
+infix  4  _≡_
 
 -- Dependent function types
 id : (A : Set) → A → A

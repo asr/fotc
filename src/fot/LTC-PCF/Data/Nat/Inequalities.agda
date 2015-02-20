@@ -13,7 +13,7 @@ open import LTC-PCF.Base
 
 -- We add 3 to the fixities of the Agda standard library 0.8.1 (see
 -- Data/Nat.Agda).
-infix 7 _<_ _≮_ _<_ _≮_ _≤_ _≰_ _≥_ _≱_
+infix 7 _<_ _≮_ _>_ _≯_ _≤_ _≰_ _≥_ _≱_
 
 ------------------------------------------------------------------------------
 -- The function terms.

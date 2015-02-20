@@ -89,7 +89,7 @@ module Aczel-CA where
 module FOTC where
 
   infixl 9 _·_  -- The symbol is '\cdot'.
-  infix 7  _≐_
+  infix  7 _≐_
 
   data D : Set where
     _·_ : D → D → D
@@ -115,7 +115,8 @@ module FOTC where
 
 module LeibnizEquality where
 
-  infix 7 _≡_
+  infixl 9 _·_
+  infix  7 _≡_
 
   data D : Set where
     _·_ : D → D → D

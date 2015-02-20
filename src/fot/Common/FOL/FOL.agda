@@ -25,6 +25,7 @@ module Common.FOL.FOL where
 infixr 7 _,_
 infix  6 ¬_
 infixr 5 _∧_
+infix  5 ∃
 infixr 4 _∨_
 infixr 2 _↔_
 

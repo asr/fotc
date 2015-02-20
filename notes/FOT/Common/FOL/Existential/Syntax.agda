@@ -5,6 +5,10 @@
 
 module FOT.Common.FOL.Existential.Syntax where
 
+-- We add 3 to the fixities of the Agda standard library 0.8.1 (see
+-- Relation.Binary.Core).
+infix 7 _≡_
+
 postulate
   D    : Set
   _≡_  : D → D → Set
@@ -12,7 +16,11 @@ postulate
   d    : D
 
 module ∃₁ where
-  infixr 4 _,_
+
+  -- We add 3 to the fixities of the Agda standard library 0.8.1 (see
+  -- Data/Product.agda, Data/Sum.agda and Relation/Nullary/Core.agda).
+  infixr 7 _,_
+  infix  5 ∃
 
   data ∃ (P : D → Set) : Set where
     _,_ : (x : D) → P x → ∃ P
@@ -32,7 +40,7 @@ module ∃₁ where
   t₄ = d , d ,  refl
 
 module ∃₂ where
-  infixr 4 _,_,_
+  infixr 7 _,_,_
 
   data ∃₂ (P : D → D → Set) : Set where
     _,_,_ : (x y : D) → P x y → ∃₂ P

@@ -11,6 +11,10 @@ module FOTC.AddRecursiveEquation where
 
 open import FOTC.Base
 
+-- We add 3 to the fixities of the Agda standard library 0.8.1 (see
+-- Data/Nat.agda).
+infixl 9 _+_
+
 ------------------------------------------------------------------------------
 
 postulate

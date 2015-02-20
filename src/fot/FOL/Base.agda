@@ -9,6 +9,7 @@
 
 module FOL.Base where
 
+infix  5 ⋀
 infixr 3 _⇒_
 infixr 2 _⇔_
 

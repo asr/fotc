@@ -9,6 +9,10 @@
 
 module PA.Inductive.Existential where
 
+-- We add 3 to the fixities of the Agda standard library 0.8.1 (see
+-- Data/Nat.agda).
+infix 5 ∃
+
 ------------------------------------------------------------------------------
 -- PA universe
 open import PA.Inductive.Base.Core

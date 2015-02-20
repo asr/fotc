@@ -24,6 +24,8 @@ cong f refl = refl
 ------------------------------------------------------------------------------
 module LFP where
 
+  infixl 9 _+_
+
   -- N is a least fixed-point of a functor
 
   -- The functor.
