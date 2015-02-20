@@ -32,7 +32,7 @@ abpCorrect : ∀ {b os₁ os₂ is} → Bit b → Fair os₁ → Fair os₂ → 
 abpCorrect {b} {os₁} {os₂} {is} Bb Fos₁ Fos₂ Sis = ≈-coind B h₁ h₂
   where
   h₁ : ∀ {ks ls} → B ks ls →
-       ∃[ k' ] ∃[ ks' ] ∃[ ls' ] (ks ≡ k' ∷ ks' ∧ ls ≡ k' ∷ ls' ∧ B ks' ls')
+       ∃[ k' ] ∃[ ks' ] ∃[ ls' ] ks ≡ k' ∷ ks' ∧ ls ≡ k' ∷ ls' ∧ B ks' ls'
   h₁ {ks} {ls} (b , os₁ , os₂ , as , bs , cs , ds , Sks , Bb , Fos₁ , Fos₂ , h)
      with Stream-out Sks
   ... | (k' , ks' , ks≡k'∷ks' , Sks') =
@@ -44,11 +44,10 @@ abpCorrect {b} {os₁} {os₂} {is} Bb Fos₁ Fos₂ Sis = ≈-coind B h₁ h₂
     S-helper h₁ h₂ = subst (λ t → S b t os₁ os₂ as bs cs ds ls) h₁ h₂
 
     S'-lemma₁ : ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ ls' ]
-                  ( Fair os₁'
-                    ∧ Fair os₂'
-                    ∧ S' b k' ks' os₁' os₂' as' bs' cs' ds' ls'
-                    ∧ ls ≡ k' ∷ ls'
-                  )
+                  Fair os₁'
+                  ∧ Fair os₂'
+                  ∧ S' b k' ks' os₁' os₂' as' bs' cs' ds' ls'
+                  ∧ ls ≡ k' ∷ ls'
     S'-lemma₁ = lemma₁ Bb Fos₁ Fos₂ (S-helper ks≡k'∷ks' h)
 
     -- Following Martin Escardo advice (see Agda mailing list, heap
@@ -67,10 +66,9 @@ abpCorrect {b} {os₁} {os₂} {is} Bb Fos₁ Fos₂ Sis = ≈-coind B h₁ h₂
     ... | _ , _ , _ , _ , _ , _ , _ , _ , _ , _ , prf = prf
 
     S-lemma₂ : ∃[ os₁'' ] ∃[ os₂'' ] ∃[ as'' ] ∃[ bs'' ] ∃[ cs'' ] ∃[ ds'' ]
-                 ( Fair os₁''
-                   ∧ Fair os₂''
-                   ∧ S (not b) ks' os₁'' os₂'' as'' bs'' cs'' ds'' ls'
-                 )
+                 Fair os₁''
+                 ∧ Fair os₂''
+                 ∧ S (not b) ks' os₁'' os₂'' as'' bs'' cs'' ds'' ls'
     S-lemma₂ with S'-lemma₁
     ... | _ , _ , _ , _ , _ , _ , _ , Fos₁' , Fos₂' , s' , _ =
       lemma₂ Bb Fos₁' Fos₂' s'

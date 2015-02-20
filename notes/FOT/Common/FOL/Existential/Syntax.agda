@@ -22,13 +22,13 @@ module ∃₁ where
   t₁ : ∃ λ x → x ≡ x
   t₁ = d , refl
 
-  t₂ : ∃[ x ] (x ≡ x)
+  t₂ : ∃[ x ] x ≡ x
   t₂ = d , refl
 
   t₃ : ∃ λ x → ∃ λ y → x ≡ y
   t₃ = d , d , refl
 
-  t₄ : ∃[ x ] ∃[ y ] (x ≡ y)
+  t₄ : ∃[ x ] ∃[ y ] x ≡ y
   t₄ = d , d ,  refl
 
 module ∃₂ where

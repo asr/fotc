@@ -133,12 +133,11 @@ S' b i' is' os₁' os₂' as' bs' cs' ds' js' =
 -- Auxiliary bisimulation.
 B : D → D → Set
 B is js = ∃[ b ] ∃[ os₁ ] ∃[ os₂ ] ∃[ as ] ∃[ bs ] ∃[ cs ] ∃[ ds ]
-            ( Stream is
-              ∧ Bit b
-              ∧ Fair os₁
-              ∧ Fair os₂
-              ∧ S b is os₁ os₂ as bs cs ds js
-            )
+            Stream is
+            ∧ Bit b
+            ∧ Fair os₁
+            ∧ Fair os₂
+            ∧ S b is os₁ os₂ as bs cs ds js
 {-# ATP definition B #-}
 
 ------------------------------------------------------------------------------

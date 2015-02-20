@@ -36,7 +36,7 @@ abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-stronger-coind B 
 
   h : B is (abpTransfer b os₁ os₂ is) →
       ∃[ i' ] ∃[ is' ] ∃[ js' ]
-        (is ≡ i' ∷ is' ∧ abpTransfer b os₁ os₂ is ≡ i' ∷ js' ∧ B is' js')
+        is ≡ i' ∷ is' ∧ abpTransfer b os₁ os₂ is ≡ i' ∷ js' ∧ B is' js'
   h _ with Stream-out Sis
   ... | i' , is' , prf₁ , Sis' with lemma Bb Fos₁ Fos₂ prf₂
     where

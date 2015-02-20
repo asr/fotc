@@ -16,13 +16,13 @@ open import FOTC.Data.Nat
 -- Totality properties
 
 N→0∨S-ind-instance :
-  zero ≡ zero ∨ (∃[ n' ] (zero ≡ succ₁ n' ∧ N n')) →
-  (∀ {n} → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ N n')) →
-    succ₁ n ≡ zero ∨ (∃[ n' ] (succ₁ n ≡ succ₁ n' ∧ N n'))) →
-  ∀ {n} → N n → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ N n'))
-N→0∨S-ind-instance = N-ind (λ i → i ≡ zero ∨ (∃[ i' ] (i ≡ succ₁ i' ∧ N i')))
+  zero ≡ zero ∨ (∃[ n' ] zero ≡ succ₁ n' ∧ N n') →
+  (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n') →
+    succ₁ n ≡ zero ∨ (∃[ n' ] succ₁ n ≡ succ₁ n' ∧ N n')) →
+  ∀ {n} → N n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n')
+N→0∨S-ind-instance = N-ind (λ i → i ≡ zero ∨ (∃[ i' ] i ≡ succ₁ i' ∧ N i'))
 
-postulate N→0∨S : ∀ {n} → N n → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ N n'))
+postulate N→0∨S : ∀ {n} → N n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ N n')
 {-# ATP prove N→0∨S N→0∨S-ind-instance #-}
 
 pred-N-ind-instance :

@@ -35,7 +35,7 @@ postulate Fair : D → Set
 --
 -- Fair ≤ FairF Fair.
 postulate Fair-out : ∀ {os} → Fair os →
-                     ∃[ ft ] ∃[ os' ] (F*T ft ∧ os ≡ ft ++ os' ∧ Fair os')
+                     ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os'
 {-# ATP axiom Fair-out #-}
 
 -- Fair is the greatest post-fixed point of FairF, i.e.
@@ -49,7 +49,7 @@ postulate
   Fair-coind :
     (A : D → Set) →
     -- A is post-fixed point of FairF.
-    (∀ {os} → A os → ∃[ ft ] ∃[ os' ] (F*T ft ∧ os ≡ ft ++ os' ∧ A os')) →
+    (∀ {os} → A os → ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ A os') →
     -- Fair is greater than A.
     ∀ {os} → A os → Fair os
 

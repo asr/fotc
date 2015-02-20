@@ -32,7 +32,7 @@ postulate Conat : D → Set
 --
 -- Conat ≤ NatF Conat.
 postulate
-  Conat-out : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ Conat n'))
+  Conat-out : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
 {-# ATP axiom Conat-out #-}
 
 -- Conat is the greatest post-fixed point of NatF, i.e.
@@ -46,7 +46,7 @@ postulate
   Conat-coind :
     (A : D → Set) →
     -- A is post-fixed point of NatF.
-    (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ A n'))) →
+    (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
     -- Conat is greater than A.
     ∀ {n} → A n → Conat n
 

@@ -39,11 +39,10 @@ helper₂ : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
           S b (i' ∷ is') os₁ os₂ as bs cs ds js →
           ∀ ft₁ os₁' → F*T ft₁ → Fair os₁' → os₁ ≡ ft₁ ++ os₁' →
           ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-            ( Fair os₁'
-              ∧ Fair os₂'
-              ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
-              ∧ js ≡ i' ∷ js'
-            )
+            Fair os₁'
+            ∧ Fair os₂'
+            ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
+            ∧ js ≡ i' ∷ js'
 -- 2012-02-29. The existential witnesses could be avoid not using
 -- the auxiliary proofs inside the where clause.
 helper₂ {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js} Bb Fos₂
@@ -237,19 +236,17 @@ lemma₁ : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
          Fair os₂ →
          S b (i' ∷ is') os₁ os₂ as bs cs ds js →
          ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-           ( Fair os₁'
-             ∧ Fair os₂'
-             ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
-             ∧ js ≡ i' ∷ js'
-           )
+           Fair os₁'
+           ∧ Fair os₂'
+           ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
+           ∧ js ≡ i' ∷ js'
 lemma₁ {b} {i'} {is'} {os₁} {js = js} Bb Fos₁ Fos₂ s = helper₁ (Fair-out Fos₁)
   where
-  helper₁ : (∃[ ft ] ∃[ os₁' ] (F*T ft ∧ os₁ ≡ ft ++ os₁' ∧ Fair os₁')) →
+  helper₁ : (∃[ ft ] ∃[ os₁' ] F*T ft ∧ os₁ ≡ ft ++ os₁' ∧ Fair os₁') →
             ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-              ( Fair os₁'
-                ∧ Fair os₂'
-                ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
-                ∧ js ≡ i' ∷ js'
-              )
+              Fair os₁'
+              ∧ Fair os₂'
+              ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
+              ∧ js ≡ i' ∷ js'
   helper₁ (ft , os₁' , FTft , os₁-eq ,  Fos₁') =
     helper₂ Bb Fos₂ s ft os₁' FTft Fos₁' os₁-eq

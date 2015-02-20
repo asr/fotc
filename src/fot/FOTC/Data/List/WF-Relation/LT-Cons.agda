@@ -15,4 +15,4 @@ open import FOTC.Base.List
 ------------------------------------------------------------------------------
 -- Well-founded relation on lists based on their structure.
 LTC : D → D → Set
-LTC xs ys = ∃[ x ] (ys ≡ x ∷ xs)
+LTC xs ys = ∃[ x ] ys ≡ x ∷ xs

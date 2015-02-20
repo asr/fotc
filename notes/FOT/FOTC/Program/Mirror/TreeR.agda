@@ -24,7 +24,6 @@ open import FOTC.Program.Mirror.Type
 -- example.
 TreeR : D → D → Set
 TreeR t₁ t₂ = ∃[ d ] ∃[ ts₁ ] ∃[ ts₂ ]
-                ( t₁ ≡ node d ts₁
-                  ∧ t₂ ≡ node d ts₂
-                  ∧ LTC ts₁ ts₂
-                )
+                 t₁ ≡ node d ts₁
+                 ∧ t₂ ≡ node d ts₂
+                 ∧ LTC ts₁ ts₂

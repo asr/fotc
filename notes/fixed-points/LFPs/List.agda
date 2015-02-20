@@ -20,7 +20,7 @@ module LFP where
 
   -- The functor.
   ListF : (D → Set) → D → Set
-  ListF A xs = xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs'))
+  ListF A xs = xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
 
   -- List is the least fixed-point of ListF. i.e.
   postulate
@@ -31,7 +31,7 @@ module LFP where
     -- ListF List ≤ List.
     --
     -- Peter: It corresponds to the introduction rules.
-    List-in : ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ List xs')) →
+    List-in : ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ List xs') →
               List xs
 
     -- The higher-order version.
@@ -45,7 +45,7 @@ module LFP where
     -- defined predicate.
     List-ind :
       (A : D → Set) →
-      (∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs')) → A xs) →
+      (∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs') → A xs) →
       ∀ {xs} → List xs → A xs
 
     -- Higher-order version.
@@ -57,7 +57,7 @@ module LFP where
   ----------------------------------------------------------------------------
   -- List-in and List-in-ho are equivalents
 
-  List-in-fo : ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ List xs')) →
+  List-in-fo : ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ List xs') →
                List xs
   List-in-fo = List-in-ho
 
@@ -69,7 +69,7 @@ module LFP where
 
   List-ind-fo :
     (A : D → Set) →
-    (∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs')) → A xs) →
+    (∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs') → A xs) →
     ∀ {xs} → List xs → A xs
   List-ind-fo = List-ind-ho
 
@@ -95,7 +95,7 @@ module LFP where
               ∀ {xs} → List xs → A xs
   List-ind' A A[] is = List-ind A prf
     where
-    prf : ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs')) → A xs
+    prf : ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs') → A xs
     prf (inj₁ xs≡[])                  = subst A (sym xs≡[]) A[]
     prf (inj₂ (x' , xs' , h₁ , Axs')) = subst A (sym h₁) (is x' Axs')
 
@@ -126,14 +126,14 @@ module Data where
   ----------------------------------------------------------------------------
   -- List-in
 
-  List-in : ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ List xs')) →
+  List-in : ∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ List xs') →
             List xs
   List-in {xs} h = case prf₁ prf₂ h
     where
     prf₁ : xs ≡ [] → List xs
     prf₁ xs≡[] = subst List (sym xs≡[]) lnil
 
-    prf₂ : ∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ List xs') → List xs
+    prf₂ : ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ List xs' → List xs
     prf₂ (x' , xs' , prf , Lxs') =  subst List (sym prf) (lcons x' Lxs')
 
   ----------------------------------------------------------------------------
@@ -141,7 +141,7 @@ module Data where
 
   List-ind' :
     (A : D → Set) →
-    (∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs')) → A xs) →
+    (∀ {xs} → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs') → A xs) →
     ∀ {xs} → List xs → A xs
   List-ind' A h Lxs = List-ind A h₁ h₂ Lxs
     where

@@ -70,26 +70,23 @@ lemma₁ : ∀ b i' is' os₁ os₂ as bs cs ds js →
          Fair os₂ →
          S b (i' ∷ is') os₁ os₂ as bs cs ds js →
          ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-           ( Fair os₁'
-             ∧ Fair os₂'
-             ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
-             ∧ js ≡ i' ∷ js'
-           )
+           Fair os₁'
+           ∧ Fair os₂'
+           ∧ S' b i' is' os₁' os₂' as' bs' cs' ds' js'
+           ∧ js ≡ i' ∷ js'
 lemma₁ b i' is' os₁ os₂ as bs cs ds js Bb Fos₁ Fos₂ s with Fair-out Fos₁
 ... | .(true ∷ []) , os₁' , f*tnil , os₁≡ft₁++os₁' , Fos₁' = prf
   where
   postulate
     prf : ∃[ os₁' ] ∃[ os₂' ] ∃[ as' ] ∃[ bs' ] ∃[ cs' ] ∃[ ds' ] ∃[ js' ]
-            ( Fair os₁'
-              ∧ Fair os₂'
-              ∧ ( as' ≡ await b i' is' ds'
-                  ∧ bs' ≡ corrupt os₁' · as'
-                  ∧ cs' ≡ ack (not b) · bs'
-                  ∧ ds' ≡ corrupt os₂' · (b ∷ cs')
-                  ∧ js' ≡ out (not b) · bs'
-                )
-              ∧ js ≡ i' ∷ js'
-            )
+            Fair os₁'
+            ∧ Fair os₂'
+            ∧ (as' ≡ await b i' is' ds'
+              ∧ bs' ≡ corrupt os₁' · as'
+              ∧ cs' ≡ ack (not b) · bs'
+              ∧ ds' ≡ corrupt os₂' · (b ∷ cs')
+              ∧ js' ≡ out (not b) · bs')
+            ∧ js ≡ i' ∷ js'
   {-# ATP prove prf #-}
 
 ... | .(F ∷ ft₁^) , os₁' , f*tcons {ft₁^} FTft₁ , os₁≡ft₁++os₁' , Fos₁' =

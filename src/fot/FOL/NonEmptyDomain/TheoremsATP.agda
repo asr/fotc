@@ -30,7 +30,7 @@ postulate ∃-erase-add₁ : (∃[ _ ] A) ↔ A
 postulate ∀-erase-add : ((x : D) → A) ↔ A
 {-# ATP prove ∀-erase-add #-}
 
-postulate ∃-erase-add₂ : (∃[ x ] (A ∨ A¹ x)) ↔ A ∨ (∃[ x ] A¹ x)
+postulate ∃-erase-add₂ : (∃[ x ] A ∨ A¹ x) ↔ A ∨ (∃[ x ] A¹ x)
 {-# ATP prove ∃-erase-add₂ #-}
 
 ------------------------------------------------------------------------------

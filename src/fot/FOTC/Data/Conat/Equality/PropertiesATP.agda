@@ -21,19 +21,19 @@ open import FOTC.Data.Conat.Equality.Type
 ≈-in :
   ∀ {m n} →
   m ≡ zero ∧ n ≡ zero
-    ∨ (∃[ m' ] ∃[ n' ] (m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈ n')) →
+    ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈ n') →
   m ≈ n
 ≈-in h = ≈-coind R h' h
   where
   R : D → D → Set
   R m n = m ≡ zero ∧ n ≡ zero
-            ∨ (∃[ m' ] ∃[ n' ] (m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈ n'))
+            ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈ n')
   {-# ATP definition R #-}
 
   postulate
     h' : ∀ {m n} → R m n →
          m ≡ zero ∧ n ≡ zero
-           ∨ (∃[ m' ] ∃[ n' ] (m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n'))
+           ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
   {-# ATP prove h' #-}
 
 ≈-refl : ∀ {n} → Conat n → n ≈ n
@@ -46,7 +46,7 @@ open import FOTC.Data.Conat.Equality.Type
   postulate
     h₁ : ∀ {a b} → R a b →
          a ≡ zero ∧ b ≡ zero
-           ∨ (∃[ a' ] ∃[ b' ] (a ≡ succ₁ a' ∧ b ≡ succ₁ b' ∧ R a' b'))
+           ∨ (∃[ a' ] ∃[ b' ] a ≡ succ₁ a' ∧ b ≡ succ₁ b' ∧ R a' b')
   {-# ATP prove h₁ #-}
 
   postulate h₂ : R n n

@@ -24,12 +24,12 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
   where
   -- Based on the relation used by (Giménez and Castéran, 2007).
   B : D → D → Set
-  B xs ys = ∃[ y ] (xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y))
+  B xs ys = ∃[ y ] xs ≡ map f (iterate f y) ∧ ys ≡ iterate f (f · y)
   {-# ATP definition B #-}
 
   postulate
     h₁ : ∀ {xs} {ys} → B xs ys →
-         ∃[ x' ] ∃[ xs' ] ∃[ ys' ] (xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys')
+         ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
   {-# ATP prove h₁ #-}
 
   postulate h₂ : B (map f (iterate f x)) (iterate f (f · x))

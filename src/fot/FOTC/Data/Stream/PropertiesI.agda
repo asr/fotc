@@ -27,14 +27,14 @@ open import FOTC.Data.Stream
 --
 -- StreamF Stream ≤ Stream (see FOTC.Data.Stream.Type).
 Stream-in : ∀ {xs} →
-            ∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ Stream xs') →
+            ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs' →
             Stream xs
 Stream-in h = Stream-coind A h' h
   where
   A : D → Set
-  A xs = ∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ Stream xs')
+  A xs = ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs'
 
-  h' : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs')
+  h' : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
   h' (x' , xs' , prf , Sxs') = x' , xs' , prf , Stream-out Sxs'
 
 zeros-Stream : Stream zeros
@@ -43,7 +43,7 @@ zeros-Stream = Stream-coind A h refl
   A : D → Set
   A xs = xs ≡ zeros
 
-  h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs')
+  h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
   h Axs = zero , zeros , trans Axs zeros-eq , refl
 
 ones-Stream : Stream ones
@@ -52,13 +52,13 @@ ones-Stream = Stream-coind A h refl
   A : D → Set
   A xs = xs ≡ ones
 
-  h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs')
+  h : ∀ {xs} → A xs → ∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'
   h Axs = succ₁ zero , ones , trans Axs ones-eq , refl
 
 ∷-Stream : ∀ {x xs} → Stream (x ∷ xs) → Stream xs
 ∷-Stream {x} {xs} h = ∷-Stream-helper (Stream-out h)
   where
-  ∷-Stream-helper : ∃[ x' ] ∃[ xs' ] (x ∷ xs ≡ x' ∷ xs' ∧ Stream xs') →
+  ∷-Stream-helper : ∃[ x' ] ∃[ xs' ] x ∷ xs ≡ x' ∷ xs' ∧ Stream xs' →
                     Stream xs
   ∷-Stream-helper (x' , xs' , prf , Sxs') =
     subst Stream (sym (∧-proj₂ (∷-injective prf))) Sxs'
@@ -75,7 +75,7 @@ Stream→Colist {xs} Sxs = Colist-coind A h₁ h₂
   A : D → Set
   A ys = Stream ys
 
-  h₁ : ∀ {xs} → A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs'))
+  h₁ : ∀ {xs} → A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
   h₁ Axs with Stream-out Axs
   ... | x' , xs' , prf , Sxs' = inj₂ (x' , xs' , prf , Sxs')
 
@@ -87,16 +87,16 @@ streamLength : ∀ {xs} → Stream xs → length xs ≈ ∞
 streamLength {xs} Sxs = ≈-coind R h₁ h₂
   where
   R : D → D → Set
-  R m n = ∃[ xs ] (Stream xs ∧ m ≡ length xs ∧ n ≡ ∞)
+  R m n = ∃[ xs ] Stream xs ∧ m ≡ length xs ∧ n ≡ ∞
 
   h₁ : ∀ {m n} → R m n →
        m ≡ zero ∧ n ≡ zero
-         ∨ (∃[ m' ] ∃[ n' ] (m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n'))
+         ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
   h₁ {m} {n} (xs , Sxs , m=lxs , n≡∞) = helper₁ (Stream-out Sxs)
     where
-    helper₁ : (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ Stream xs')) →
+    helper₁ : (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Stream xs') →
               m ≡ zero ∧ n ≡ zero
-                ∨ (∃[ m' ] ∃[ n' ] (m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n'))
+                ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
     helper₁ (x' , xs' , xs≡x'∷xs' , Sxs') =
       inj₂ (length xs'
            , ∞
@@ -116,11 +116,11 @@ streamLength' : ∀ {xs} → Stream xs → length xs ≈ ∞
 streamLength' {xs} Sxs = ≈-coind R h₁ h₂
   where
   R : D → D → Set
-  R m n = ∃[ xs ] (Stream xs ∧ m ≡ length xs ∧ n ≡ ∞)
+  R m n = ∃[ xs ] Stream xs ∧ m ≡ length xs ∧ n ≡ ∞
 
   h₁ : ∀ {m n} → R m n →
        m ≡ zero ∧ n ≡ zero
-         ∨ (∃[ m' ] ∃[ n' ] (m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n'))
+         ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')
   h₁ {m} (xs , Sxs , m=lxs , n≡∞) with Stream-out Sxs
   ... | x' , xs' , xs≡x'∷xs' , Sxs' =
     inj₂ (length xs' , ∞ , helper , trans n≡∞ ∞-eq , (xs' , Sxs' , refl , refl))

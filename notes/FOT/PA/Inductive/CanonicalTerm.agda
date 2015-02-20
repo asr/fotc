@@ -30,17 +30,17 @@ postulate pem : ∀ {A} → A ∨ ¬ A
 ¬-elim h = case (λ a → a) (λ ¬a → ⊥-elim (h ¬a)) pem
 
 -- ∃ in terms of ∀ and ¬.
-¬∃¬→∀ : {A : ℕ → Set} → ¬ (∃[ x ] (¬ A x)) → ∀ {x} → A x
+¬∃¬→∀ : {A : ℕ → Set} → ¬ (∃[ x ] ¬ A x) → ∀ {x} → A x
 ¬∃¬→∀ h {x} = ¬-elim (λ h₁ → h (x , h₁))
 
 ------------------------------------------------------------------------------
 
 -- Intuitionistic proof.
-proof₁ : ∃[ x ] (x ≢ succ x)
+proof₁ : ∃[ x ] x ≢ succ x
 proof₁ = succ zero , x≢Sx
 
 -- Non-intuitionistic proof.
-proof₂ : ∃[ x ] (x ≢ succ x)
+proof₂ : ∃[ x ] x ≢ succ x
 proof₂ = ¬-elim (λ h → x≢Sx {succ zero} (¬∃¬→∀ h))
 
 -- We can extract a canonical term from an intuitionistic proof.

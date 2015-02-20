@@ -25,14 +25,14 @@ open import FOTC.Program.ABP.Terms
 -- predicate is also a pre-fixed point of the functional FairF, i.e.
 --
 -- FairF Fair ≤ Fair (see FOTC.Program.ABP.Fair).
-Fair-in : ∀ {os} → ∃[ ft ] ∃[ os' ] (F*T ft ∧ os ≡ ft ++ os' ∧ Fair os') →
+Fair-in : ∀ {os} → ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os' →
           Fair os
 Fair-in h = Fair-coind A h' h
   where
   A : D → Set
-  A os = ∃[ ft ] ∃[ os' ] (F*T ft ∧ os ≡ ft ++ os' ∧ Fair os')
+  A os = ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ Fair os'
 
-  h' : ∀ {os} → A os → ∃[ ft ] ∃[ os' ] (F*T ft ∧ os ≡ ft ++ os' ∧ A os')
+  h' : ∀ {os} → A os → ∃[ ft ] ∃[ os' ] F*T ft ∧ os ≡ ft ++ os' ∧ A os'
   h' (ft , os' , FTft , prf , Fos') = ft , os' , FTft , prf , Fair-out Fos'
 
 head-tail-Fair : ∀ {os} → Fair os → os ≡ T ∷ tail₁ os ∨ os ≡ F ∷ tail₁ os
@@ -107,7 +107,7 @@ Fair→Stream Fos = Stream-coind A h Fos
   A : D → Set
   A xs = Fair xs
 
-  h : ∀ {os} → A os → ∃[ o' ] ∃[ os' ] (os ≡ o' ∷ os' ∧ A os')
+  h : ∀ {os} → A os → ∃[ o' ] ∃[ os' ] os ≡ o' ∷ os' ∧ A os'
   h {os} As with head-tail-Fair As
   ... | inj₁ prf = T , tail₁ os , prf , tail-Fair As
   ... | inj₂ prf = F , tail₁ os , prf , tail-Fair As

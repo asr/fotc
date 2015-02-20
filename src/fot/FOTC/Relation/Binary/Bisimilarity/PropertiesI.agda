@@ -23,16 +23,16 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
 -- FOTC.Relation.Binary.Bisimulation).
 ≈-in : ∀ {xs ys} →
        ∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
-         (xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys') →
+         xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys' →
        xs ≈ ys
 ≈-in h = ≈-coind B h' h
   where
   B : D → D → Set
   B xs ys = ∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
-              (xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys')
+              xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys'
 
   h' : ∀ {xs} {ys} → B xs ys →
-       ∃[ x' ] ∃[ xs' ] ∃[ ys' ] (xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys')
+       ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
   h' (x' , xs' , ys' , prf₁ , prf₂ , xs'≈ys') =
     x' , xs' , ys' , prf₁ , prf₂ , ≈-out xs'≈ys'
 
@@ -43,7 +43,7 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
   B xs ys = Stream xs ∧ xs ≡ ys
 
   h₁ : ∀ {xs ys} → B xs ys →
-       ∃[ x' ] ∃[ xs' ] ∃[ ys' ] (xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys')
+       ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
   h₁ (Sxs , refl) with Stream-out Sxs
   ... | x' , xs' , prf , Sxs' =
     x' , xs' , xs' , prf , prf , (Sxs' , refl)
@@ -58,7 +58,7 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
   B xs ys = ys ≈ xs
 
   h₁ : ∀ {ys xs} → B ys xs →
-       ∃[ y' ] ∃[ ys' ] ∃[ xs' ] (ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs' ∧ B ys' xs')
+       ∃[ y' ] ∃[ ys' ] ∃[ xs' ] ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs' ∧ B ys' xs'
   h₁ Bxsys with ≈-out Bxsys
   ... | y' , ys' , xs' , prf₁ , prf₂ , ys'≈xs' =
     y' , xs' , ys' , prf₂ , prf₁ , ys'≈xs'
@@ -70,10 +70,10 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
 ≈-trans {xs} {ys} {zs} xs≈ys ys≈zs = ≈-coind B h₁ h₂
   where
   B : D → D → Set
-  B xs zs = ∃[ ys ] (xs ≈ ys ∧ ys ≈ zs)
+  B xs zs = ∃[ ys ] xs ≈ ys ∧ ys ≈ zs
 
   h₁ : ∀ {as} {cs} → B as cs →
-       ∃[ a' ] ∃[ as' ] ∃[ cs' ] (as ≡ a' ∷ as' ∧ cs ≡ a' ∷ cs' ∧ B as' cs')
+       ∃[ a' ] ∃[ as' ] ∃[ cs' ] as ≡ a' ∷ as' ∧ cs ≡ a' ∷ cs' ∧ B as' cs'
   h₁ {cs = cs} (bs , as≈bs , bs≈cs) with ≈-out as≈bs
   ... | a' , as' , bs' , prf₁ , prf₂ , as'≈bs' with ≈-out bs≈cs
   ... | b' , bs'' , cs' , prf₃ , prf₄ , bs''≈cs' =

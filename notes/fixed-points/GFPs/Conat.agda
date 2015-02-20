@@ -18,7 +18,7 @@ open import FOTC.Base.PropertiesI
 
 -- The functor.
 NatF : (D → Set) → D → Set
-NatF A n = n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ A n'))
+NatF A n = n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
 
 -- The co-natural numbers are the greatest fixed-point of NatF.
 postulate
@@ -27,7 +27,7 @@ postulate
   -- Conat is a post-fixed point of NatF, i.e.
   --
   -- Conat ≤ NatF Conat.
-  Conat-out : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ Conat n'))
+  Conat-out : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
 
   -- The higher-order version.
   Conat-out-ho : ∀ {n} → Conat n → NatF Conat n
@@ -38,7 +38,7 @@ postulate
   Conat-coind :
     (A : D → Set) →
     -- A is post-fixed point of ConatF.
-    (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ A n'))) →
+    (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
     -- Conat is greater than A.
     ∀ {n} → A n → Conat n
 
@@ -52,7 +52,7 @@ postulate
   -- this principle.
   Conat-stronger-coind₁ :
     ∀ (A : D → Set) {n} →
-    (A n → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ A n'))) →
+    (A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
     A n → Conat n
 
   -- Other stronger co-induction principle
@@ -60,13 +60,13 @@ postulate
   -- Adapted from (Paulson, 1997. p. 16).
   Conat-stronger-coind₂ :
     (A : D → Set) →
-    (∀ {n} → A n → (n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ A n'))) ∨ Conat n) →
+    (∀ {n} → A n → (n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) ∨ Conat n) →
     ∀ {n} → A n → Conat n
 
 ------------------------------------------------------------------------------
 -- Conat-out and Conat-out-ho are equivalents
 
-Conat-out-fo : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ Conat n'))
+Conat-out-fo : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
 Conat-out-fo = Conat-out-ho
 
 Conat-out-ho' : ∀ {n} → Conat n → NatF Conat n
@@ -77,7 +77,7 @@ Conat-out-ho' = Conat-out
 
 Conat-coind-fo :
   (A : D → Set) →
-  (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ A n'))) →
+  (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
   ∀ {n} → A n → Conat n
 Conat-coind-fo = Conat-coind-ho
 
@@ -92,14 +92,14 @@ Conat-coind-ho' = Conat-coind
 --
 -- NatF Conat ≤ Conat.
 Conat-in : ∀ {n} →
-           n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ Conat n')) →
+           n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n') →
            Conat n
 Conat-in h = Conat-coind A h' h
   where
   A : D → Set
-  A n = n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ Conat n'))
+  A n = n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
 
-  h' : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ A n'))
+  h' : ∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')
   h' (inj₁ n≡0)              = inj₁ n≡0
   h' (inj₂ (n' , prf , Cn')) = inj₂ (n' , prf , Conat-out Cn')
 
@@ -108,12 +108,12 @@ Conat-in-ho : ∀ {n} → NatF Conat n → Conat n
 Conat-in-ho = Conat-in
 
 -- A different definition.
-Conat-in' : (∀ {n} → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ Conat n'))) →
+Conat-in' : (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')) →
             ∀ {n} → Conat n
 Conat-in' h = Conat-coind (λ m → m ≡ m) (h' h) refl
   where
-  h' : (∀ {n} → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ Conat n'))) →
-       ∀ {m} → m ≡ m → m ≡ zero ∨ (∃[ m' ] (m ≡ succ₁ m' ∧ m' ≡ m'))
+  h' : (∀ {n} → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')) →
+       ∀ {m} → m ≡ m → m ≡ zero ∨ (∃[ m' ] m ≡ succ₁ m' ∧ m' ≡ m')
   h' h'' {m} _ with (h'' {m})
   ... | inj₁ m≡0            = inj₁ m≡0
   ... | inj₂ (m' , prf , _) = inj₂ (m' , prf , refl)
@@ -126,7 +126,7 @@ Conat-in-ho' = Conat-in'
 
 Conat-coind'' :
   (A : D → Set) →
-  (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ A n'))) →
+  (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
   ∀ {n} → A n → Conat n
 Conat-coind'' A h An = Conat-stronger-coind₁ A h An
 
@@ -134,15 +134,15 @@ Conat-coind'' A h An = Conat-stronger-coind₁ A h An
 -- Conat-coind.
 Conat-stronger-coind₁' :
   ∀ (A : D → Set) {n} →
-  (A n → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ A n'))) →
+  (A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
   A n → Conat n
 Conat-stronger-coind₁' A {n} h An = Conat-in (case prf₁ prf₂ (h An))
   where
-  prf₁ : n ≡ zero → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ Conat n'))
+  prf₁ : n ≡ zero → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
   prf₁ n≡0 = inj₁ n≡0
 
-  prf₂ : ∃[ n' ] (n ≡ succ₁ n' ∧ A n') →
-         n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ Conat n'))
+  prf₂ : ∃[ n' ] n ≡ succ₁ n' ∧ A n' →
+         n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
   prf₂ (n' , prf , An') = inj₂ (n' , prf , {!!})
 
 ------------------------------------------------------------------------------
@@ -152,7 +152,7 @@ Conat-stronger-coind₁' A {n} h An = Conat-in (case prf₁ prf₂ (h An))
 -- Conat-stronger-coind₂.
 Conat-stronger-coind₁'' :
   ∀ (A : D → Set) {n} →
-  (A n → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ A n'))) →
+  (A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
   A n → Conat n
 Conat-stronger-coind₁'' A h An = Conat-stronger-coind₂ A {!!} An
 

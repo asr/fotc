@@ -43,14 +43,14 @@ postulate
   r→l : A → (x : D) → A
   r→l a _ = a
 
-∃-erase-add₂ : (∃[ x ] (A ∨ A¹ x)) ↔ A ∨ (∃[ x ] A¹ x)
+∃-erase-add₂ : (∃[ x ] A ∨ A¹ x) ↔ A ∨ (∃[ x ] A¹ x)
 ∃-erase-add₂ = l→r , r→l
   where
   l→r : ∃[ x ] (A ∨ A¹ x) → A ∨ (∃[ x ] A¹ x)
   l→r (x , inj₁ a)   = inj₁ a
   l→r (x , inj₂ A¹x) = inj₂ (x , A¹x)
 
-  r→l : A ∨ (∃[ x ] A¹ x) → ∃[ x ] (A ∨ A¹ x)
+  r→l : A ∨ (∃[ x ] A¹ x) → ∃[ x ] A ∨ A¹ x
   r→l (inj₁ a)         = D≢∅ , inj₁ a
   r→l (inj₂ (x , A¹x)) = x , inj₂ A¹x
 

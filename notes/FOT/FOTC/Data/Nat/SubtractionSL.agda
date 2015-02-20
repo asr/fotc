@@ -12,8 +12,6 @@ module FOT.FOTC.Data.Nat.SubtractionSL where
 open import Data.Nat hiding ( _∸_ )
 open import Relation.Binary.PropositionalEquality
 
-infixl 9 _∸₁_ _∸₂_
-
 -- First definition (from the Agda standard library 0.8.1).
 _∸₁_ : ℕ → ℕ → ℕ
 m     ∸₁ zero  = m

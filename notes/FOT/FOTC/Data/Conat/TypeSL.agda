@@ -19,12 +19,12 @@ data Conat : D → Set where
   cozero : Conat zero
   cosucc : ∀ {n} → ∞ (Conat n) → Conat (succ₁ n)
 
-Conat-out : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ Conat n'))
+Conat-out : ∀ {n} → Conat n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n')
 Conat-out cozero          = inj₁ refl
 Conat-out (cosucc {n} Cn) = inj₂ (n , refl , ♭ Cn)
 
 Conat-in : ∀ {n} →
-           n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ Conat n')) →
+           n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ Conat n') →
            Conat n
 Conat-in (inj₁ n≡0)              = subst Conat (sym n≡0) cozero
 Conat-in (inj₂ (n' , prf , Cn')) = subst Conat (sym prf) (cosucc (♯ Cn'))
@@ -34,7 +34,7 @@ Conat-in (inj₂ (n' , prf , Cn')) = subst Conat (sym prf) (cosucc (♯ Cn'))
 
 {-# TERMINATING #-}
 Conat-coind : (A : D → Set) →
-              (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ A n'))) →
+              (∀ {n} → A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
               ∀ {n} → A n → Conat n
 Conat-coind A h An with h An
 ... | inj₁ refl = cozero
@@ -43,7 +43,7 @@ Conat-coind A h An with h An
 -- TODO (07 January 2014): We couldn't prove Conat-stronger-coind.
 Conat-stronger-coind :
   ∀ (A : D → Set) {n} →
-  (A n → n ≡ zero ∨ (∃[ n' ] (n ≡ succ₁ n' ∧ A n'))) →
+  (A n → n ≡ zero ∨ (∃[ n' ] n ≡ succ₁ n' ∧ A n')) →
   A n → Conat n
 Conat-stronger-coind A h An with h An
 ... | inj₁ n≡0 = subst Conat (sym n≡0) cozero

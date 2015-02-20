@@ -27,5 +27,5 @@ raa : ∀ {A} → (¬ A → A) → A
 raa h = case (λ a → a) h pem
 
 -- ∃ in terms of ∀ and ¬.
-¬∃¬→∀ : {A : D → Set} → ¬ (∃[ x ] (¬ A x)) → ∀ {x} → A x
+¬∃¬→∀ : {A : D → Set} → ¬ (∃[ x ] ¬ A x) → ∀ {x} → A x
 ¬∃¬→∀ h {x} = ¬-elim (λ ah → h (x , ah))

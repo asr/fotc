@@ -35,7 +35,7 @@ postulate _≈_ : D → D → Set
 -- _≈_ ≤ ≈-F _≈_.
 postulate ≈-out : ∀ {m n} → m ≈ n →
                   m ≡ zero ∧ n ≡ zero
-                  ∨ (∃[ m' ] ∃[ n' ] (m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈ n'))
+                  ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ m' ≈ n')
 {-# ATP axiom ≈-out #-}
 
 -- The relation _N≈_ is the greatest post-fixed point of _N≈_, i.e.
@@ -50,7 +50,7 @@ postulate
     (R : D → D → Set) →
     -- R is a post-fixed point of the functional ≈-F.
     (∀ {m n} → R m n → m ≡ zero ∧ n ≡ zero
-      ∨ (∃[ m' ] ∃[ n' ] (m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n'))) →
+      ∨ (∃[ m' ] ∃[ n' ] m ≡ succ₁ m' ∧ n ≡ succ₁ n' ∧ R m' n')) →
     -- _≈_ is greater than R.
     ∀ {m n} → R m n → m ≈ n
 

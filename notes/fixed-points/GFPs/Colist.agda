@@ -18,7 +18,7 @@ open import FOTC.Base.List
 
 -- The functor.
 ListF : (D → Set) → D → Set
-ListF A xs = xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs'))
+ListF A xs = xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')
 
 -- Colist is the greatest fixed-point of ListF.
 postulate
@@ -44,12 +44,12 @@ postulate
 
 Colist-out : ∀ {xs} →
              Colist xs →
-             xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ Colist xs'))
+             xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs')
 Colist-out = Colist-out-ho
 
 Colist-coind :
   (A : D → Set) →
-  (∀ {xs} → A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs'))) →
+  (∀ {xs} → A xs → xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs')) →
   ∀ {xs} → A xs → Colist xs
 Colist-coind = Colist-coind-ho
 
@@ -72,7 +72,7 @@ Colist-in-ho h = Colist-coind-ho A h' h
 
 -- The first-order version.
 Colist-in : ∀ {xs} →
-            xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ Colist xs')) →
+            xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ Colist xs') →
             Colist xs
 Colist-in = Colist-in-ho
 
@@ -98,7 +98,7 @@ Colist-coind-ho' A h Axs =
 Colist-coind-stronger :
   (A : D → Set) →
   (∀ {xs} → A xs →
-    (xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] (xs ≡ x' ∷ xs' ∧ A xs')))
+    (xs ≡ [] ∨ (∃[ x' ] ∃[ xs' ] xs ≡ x' ∷ xs' ∧ A xs'))
     ∨ Colist xs) →
   ∀ {xs} → A xs → Colist xs
 Colist-coind-stronger = Colist-coind-stronger-ho

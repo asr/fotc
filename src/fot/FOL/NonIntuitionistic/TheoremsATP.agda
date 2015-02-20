@@ -32,5 +32,5 @@ postulate raa : ∀ {A} → (¬ A → A) → A
 {-# ATP prove raa #-}
 
 -- ∃ in terms of ∀ and ¬.
-postulate ¬∃¬→∀ : {A : D → Set} → ¬ (∃[ x ] (¬ A x)) → ∀ {x} → A x
+postulate ¬∃¬→∀ : {A : D → Set} → ¬ (∃[ x ] ¬ A x) → ∀ {x} → A x
 {-# ATP prove ¬∃¬→∀ #-}

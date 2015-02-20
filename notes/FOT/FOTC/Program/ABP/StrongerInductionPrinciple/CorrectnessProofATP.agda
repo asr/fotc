@@ -50,7 +50,7 @@ abpCorrect {b} {is} {os₁} {os₂} Bb Sis Fos₁ Fos₂ = ≈-stronger-coind B 
   postulate
     h : B is (abpTransfer b os₁ os₂ is) →
         ∃[ i' ] ∃[ is' ] ∃[ js' ]
-          (is ≡ i' ∷ is' ∧ abpTransfer b os₁ os₂ is ≡ i' ∷ js' ∧ B is' js')
+          is ≡ i' ∷ is' ∧ abpTransfer b os₁ os₂ is ≡ i' ∷ js' ∧ B is' js'
   {-# ATP prove h helper lemma #-}
 
 ------------------------------------------------------------------------------

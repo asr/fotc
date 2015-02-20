@@ -147,8 +147,8 @@ leftIdentityUnique' a l h = l            ≡⟨ x≡[xy]y⁻¹ l a ⟩
                             a · a ⁻¹     ≡⟨ rightInverse a ⟩
                             ε            ∎
 
-rightInverseUnique : ∀ {a} →
-                     ∃[ r ] ((a · r ≡ ε) ∧ (∀ r' → a · r' ≡ ε → r ≡ r'))
+rightInverseUnique : ∀ {a} → ∃[ r ] (a · r ≡ ε) ∧
+                                    (∀ r' → a · r' ≡ ε → r ≡ r')
 rightInverseUnique {a} =
 -- Paper proof:
 --
@@ -177,8 +177,8 @@ rightInverseUnique' {a} {r} ar≡ε = leftCancellation aa⁻¹≡ar
             ε        ≡⟨ sym ar≡ε ⟩
             a · r    ∎
 
-leftInverseUnique : ∀ {a} →
-                    ∃[ l ] ((l · a ≡ ε) ∧ (∀ l' → l' · a ≡ ε → l ≡ l'))
+leftInverseUnique : ∀ {a} → ∃[ l ] (l · a ≡ ε) ∧
+                                   (∀ l' → l' · a ≡ ε → l ≡ l')
 leftInverseUnique {a} =
 -- Paper proof:
 --

@@ -21,18 +21,18 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
 -- FOTC.Relation.Binary.Bisimulation).
 ≈-in : ∀ {xs ys} →
        ∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
-         (xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys') →
+         xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys' →
        xs ≈ ys
 ≈-in h = ≈-coind B h' h
   where
   B : D → D → Set
   B xs ys = ∃[ x' ]  ∃[ xs' ] ∃[ ys' ]
-              (xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys')
+              xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ xs' ≈ ys'
   {-# ATP definition B #-}
 
   postulate
     h' : ∀ {xs} {ys} → B xs ys →
-         ∃[ x' ] ∃[ xs' ] ∃[ ys' ] (xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys')
+         ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
   {-# ATP prove h' #-}
 
 ≈-refl : ∀ {xs} → Stream xs → xs ≈ xs
@@ -44,7 +44,7 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
 
   postulate
     h₁ : ∀ {xs ys} → B xs ys →
-         ∃[ x' ] ∃[ xs' ] ∃[ ys' ] (xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys')
+         ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
   {-# ATP prove h₁ #-}
 
   postulate h₂ : B xs xs
@@ -59,7 +59,7 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
 
   postulate
     h₁ : ∀ {ys} {xs} → B ys xs →
-         ∃[ y' ] ∃[ ys' ] ∃[ xs' ] (ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs' ∧ B ys' xs')
+         ∃[ y' ] ∃[ ys' ] ∃[ xs' ] ys ≡ y' ∷ ys' ∧ xs ≡ y' ∷ xs' ∧ B ys' xs'
   {-# ATP prove h₁ #-}
 
   postulate h₂ : B ys xs
@@ -69,12 +69,12 @@ open import FOTC.Relation.Binary.Bisimilarity.Type
 ≈-trans {xs} {ys} {zs} xs≈ys ys≈zs = ≈-coind B h₁ h₂
   where
   B : D → D → Set
-  B xs zs = ∃[ ys ] (xs ≈ ys ∧ ys ≈ zs)
+  B xs zs = ∃[ ys ] xs ≈ ys ∧ ys ≈ zs
   {-# ATP definition B #-}
 
   postulate
     h₁ : ∀ {as} {cs} → B as cs →
-         ∃[ a' ] ∃[ as' ] ∃[ cs' ] (as ≡ a' ∷ as' ∧ cs ≡ a' ∷ cs' ∧ B as' cs')
+         ∃[ a' ] ∃[ as' ] ∃[ cs' ] as ≡ a' ∷ as' ∧ cs ≡ a' ∷ cs' ∧ B as' cs'
   {-# ATP prove h₁ #-}
 
   postulate h₂ : B xs zs

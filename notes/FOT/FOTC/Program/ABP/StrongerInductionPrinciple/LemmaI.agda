@@ -36,7 +36,7 @@ module Helper where
            Fair os₂ →
            S b (i' ∷ is') os₁ os₂ as bs cs ds js →
            ∀ ft₁ os₁' → F*T ft₁ → Fair os₁' → os₁ ≡ ft₁ ++ os₁' →
-           ∃[ js' ] (js ≡ i' ∷ js')
+           ∃[ js' ] js ≡ i' ∷ js'
   helper {b} {i'} {is'} {os₁} {os₂} {as} {bs} {cs} {ds} {js} Bb Fos₂
          (asS , bsS , csS , dsS , jsS)
          .(T ∷ []) os₁' f*tnil Fos₁' os₁-eq = js' , js-eq
@@ -204,6 +204,6 @@ lemma : ∀ {b i' is' os₁ os₂ as bs cs ds js} →
          Fair os₁ →
          Fair os₂ →
          S b (i' ∷ is') os₁ os₂ as bs cs ds js →
-         ∃[ js' ] (js ≡ i' ∷ js')
+         ∃[ js' ] js ≡ i' ∷ js'
 lemma Bb Fos₁ Fos₂ s with Fair-out Fos₁
 ... | ft , os₁' , FTft , prf ,  Fos₁' = helper Bb Fos₂ s ft os₁' FTft Fos₁' prf

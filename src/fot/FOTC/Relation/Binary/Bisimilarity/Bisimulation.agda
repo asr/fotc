@@ -25,7 +25,7 @@ open import FOTC.Relation.Binary.Bisimilarity.PropertiesI
 -- and Sander 1989, p. 310 and Jacobs and Rutten 1997, p. 30).
 BisimulationF : (D → D → Set) → D → D → Set
 BisimulationF B xs ys =
-  ∃[ x' ] ∃[ xs' ] ∃[ ys' ] (xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys')
+  ∃[ x' ] ∃[ xs' ] ∃[ ys' ] xs ≡ x' ∷ xs' ∧ ys ≡ x' ∷ ys' ∧ B xs' ys'
 
 -- The bisimilarity relation _≈_ on unbounded lists is a post-fixed
 -- point of Bisimulation, i.e.

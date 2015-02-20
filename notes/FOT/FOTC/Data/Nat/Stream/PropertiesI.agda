@@ -27,5 +27,5 @@ zeros-StreamN = StreamN-coind A h refl
   A : D → Set
   A xs = xs ≡ zeros
 
-  h : ∀ {ns} → A ns → ∃[ n' ] ∃[ ns' ] (N n' ∧ A ns' ∧ ns ≡ n' ∷ ns')
+  h : ∀ {ns} → A ns → ∃[ n' ] ∃[ ns' ] N n' ∧ A ns' ∧ ns ≡ n' ∷ ns'
   h Ans = zero , zeros , nzero , refl , (trans Ans zeros-eq)
