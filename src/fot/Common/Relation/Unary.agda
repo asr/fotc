@@ -11,9 +11,7 @@
 
 module Common.Relation.Unary where
 
--- We add 3 to the fixities of the Agda standard library 0.8.1 (see
--- Relation/Unary.agda).
-infix 7 _∈_ _⊆_
+infix 4 _∈_ _⊆_
 
 ------------------------------------------------------------------------
 -- Unary relations

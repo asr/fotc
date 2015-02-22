@@ -9,12 +9,10 @@
 
 module FOTC.Data.Bool where
 
--- We add 3 to the fixities of the Agda standard library 0.8.1 (see
--- Data/Bool.agda).
-infixr 9 _&&_
-
 open import FOTC.Base
 open import FOTC.Data.Bool.Type public
+
+infixr 6 _&&_
 
 ------------------------------------------------------------------------------
 -- Basic functions

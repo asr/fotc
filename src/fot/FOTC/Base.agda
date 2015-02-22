@@ -19,17 +19,14 @@ FOTC                                  The logical framework (Agda)
 
 module FOTC.Base where
 
--- We add 3 to the fixities of the Agda standard library 0.8.1 (see
--- Algebra.agda and Data/Bool.agda).
-infixl 9 _·_
-infix  3 if_then_else_
-
-------------------------------------------------------------------------------
 -- First-order logic with equality.
 open import Common.FOL.FOL-Eq public
 
 -- Common definitions.
 open import Common.DefinitionsATP public
+
+infixl 7 _·_
+infix  0 if_then_else_
 
 ------------------------------------------------------------------------------
 -- The term language of FOTC

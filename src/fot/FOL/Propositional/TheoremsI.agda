@@ -44,7 +44,10 @@ open import FOL.Base hiding ( D≢∅ ; pem )
   r→l (inj₁ (p , q)) = p , inj₁ q
   r→l (inj₂ (p , r)) = p , inj₂ r
 
-  r⇒l : P ∧ Q ∨ P ∧ R ⇒ P ∧ (Q ∨ R)
+  -- TODO (21 February 2015). In r⇒l we needed parenthesis in the
+  -- antecedent, but they aren't needed in r→l. That is, the fixity of
+  -- _⇒_ should be the same than the fixity of _→_.
+  r⇒l : (P ∧ Q ∨ P ∧ R) ⇒ P ∧ (Q ∨ R)
   r⇒l = fun r→l
 
 DM : {P Q : Set} → ¬ (P ∨ Q) ↔ ¬ P ∧ ¬ Q

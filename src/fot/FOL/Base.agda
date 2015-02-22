@@ -9,9 +9,9 @@
 
 module FOL.Base where
 
-infix  5 ⋀
-infixr 3 _⇒_
-infixr 2 _⇔_
+infix  2 ⋀
+infixr 1 _⇒_
+infixr 0 _⇔_
 
 ------------------------------------------------------------------------------
 -- First-order logic (without equality).

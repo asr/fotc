@@ -12,9 +12,7 @@ module FOTC.Data.Nat.Divisibility.By0 where
 open import FOTC.Base
 open import FOTC.Data.Nat
 
--- We add 3 to the fixities of the Agda standard library 0.8.1 (see
--- Data/Nat/Divisibility.agda).
-infix 7 _∣_
+infix 4 _∣_
 
 ------------------------------------------------------------------------------
 -- The relation of divisibility (the symbol is '\mid' not '|')

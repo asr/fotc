@@ -14,10 +14,8 @@ module Common.Relation.Binary.PreorderReasoning
   (trans : ∀ {x y z} → x ∼ y → y ∼ z → x ∼ z)
   where
 
--- We add 3 to the fixities of the Agda standard library 0.8.1 (see
--- Relation.Binary.PreorderReasoning).
-infixr 5 _∼⟨_⟩_
-infix  6 _∎
+infix  3 _∎
+infixr 2 _∼⟨_⟩_
 
 ------------------------------------------------------------------------------
 -- From (Mu, S.-C., Ko, H.-S. and Jansson, P. (2009)).

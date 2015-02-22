@@ -13,9 +13,7 @@ module Common.FOL.Relation.Binary.PropositionalEquality where
 
 open import Common.FOL.FOL using ( D )
 
--- We add 3 to the fixities of the Agda standard library 0.8.1 (see
--- Relation.Binary.Core).
-infix 7 _≡_
+infix 4 _≡_
 
 ------------------------------------------------------------------------------
 -- The identity type on the universe of discourse.

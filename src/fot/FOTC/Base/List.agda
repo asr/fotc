@@ -11,9 +11,7 @@ module FOTC.Base.List where
 
 open import FOTC.Base
 
--- We add 3 to the fixities of the Agda standard library 0.8.1 (see
--- Data/List.agda).
-infixr 8 _∷_
+infixr 5 _∷_
 
 ------------------------------------------------------------------------------
 -- List constants.

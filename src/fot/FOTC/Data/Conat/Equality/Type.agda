@@ -11,9 +11,7 @@ module FOTC.Data.Conat.Equality.Type where
 
 open import FOTC.Base
 
--- We add 3 to the fixities of the Agda standard library 0.8.1 (see
--- Data/Stream.agda).
-infix 7 _≈_
+infix 4 _≈_
 
 ------------------------------------------------------------------------------
 -- Functional for the relation _≈_ (adapted from (Sander 1992,

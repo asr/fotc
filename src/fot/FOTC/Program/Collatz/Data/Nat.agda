@@ -17,7 +17,7 @@ open import FOTC.Data.Nat
 open import FOTC.Data.Nat.Inequalities
 open import FOTC.Data.Nat.UnaryNumbers
 
-infixr 12 _^_
+infixr 8 _^_
 
 ------------------------------------------------------------------------------
 

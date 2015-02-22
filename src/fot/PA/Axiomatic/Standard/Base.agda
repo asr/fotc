@@ -9,10 +9,8 @@
 
 module PA.Axiomatic.Standard.Base where
 
--- We add 3 to the fixities of the Agda standard library 0.8.1 (see
--- Data/Nat.agda).
-infixl 10 _*_
-infixl 9  _+_
+infixl 7 _*_
+infixl 6 _+_
 
 ------------------------------------------------------------------------------
 -- First-order logic with equality.

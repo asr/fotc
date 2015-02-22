@@ -9,13 +9,11 @@
 
 module FOTC.Data.List where
 
--- We add 3 to the fixities of the Agda standard library 0.8.1 (see
--- Data.List.agda).
-infixr 8 _++_
-
 open import FOTC.Base
 open import FOTC.Base.List
 open import FOTC.Data.List.Type public
+
+infixr 5 _++_
 
 ------------------------------------------------------------------------------
 -- Basic functions

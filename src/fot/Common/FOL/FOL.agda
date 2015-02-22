@@ -20,14 +20,12 @@
 
 module Common.FOL.FOL where
 
--- We add 3 to the fixities of the Agda standard library 0.8.1 (see
--- Data/Product.agda, Data/Sum.agda and Relation/Nullary/Core.agda).
-infixr 7 _,_
-infix  6 ¬_
-infixr 5 _∧_
-infix  5 ∃
-infixr 4 _∨_
-infixr 2 _↔_
+infixr 4 _,_
+infix  3 ¬_
+infixr 2 _∧_
+infix  2 ∃
+infixr 1 _∨_
+infixr 0 _↔_
 
 ----------------------------------------------------------------------------
 -- The universe of discourse/universal domain.

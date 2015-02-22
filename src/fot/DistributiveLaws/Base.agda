@@ -9,9 +9,7 @@
 
 module DistributiveLaws.Base where
 
--- We add 3 to the fixities of the Agda standard library 0.8.1 (see
--- Algebra.agda).
-infixl 10 _·_
+infixl 7 _·_
 
 ------------------------------------------------------------------------------
 -- First-order logic with equality.
