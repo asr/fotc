@@ -57,7 +57,7 @@ data _∨_ (A B : Set) : Set where
   inj₁ : A → A ∨ B
   inj₂ : B → A ∨ B
 
--- It is not strictly necessary define the eliminator [_,_] because
+-- It is not strictly necessary define the eliminator `case` because
 -- the ATPs implement it. For the same reason, it is not necessary to
 -- add it as a (general/local) hint.
 case : ∀ {A B} → {C : Set} → (A → C) → (B → C) → A ∨ B → C
