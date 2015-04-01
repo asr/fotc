@@ -16,7 +16,7 @@ library
   hs-source-dirs: src
 
   build-depends:
-    base         >= 4.2 && < 4.8
+    base         >= 4.5.0.0 && < 4.8
     , QuickCheck >= 2.8 && < 2.9
 
   if impl(ghc >= 7.6)
@@ -38,7 +38,7 @@ test-suite test1
   test-module:    Tests
 
   build-depends:
-    base >= 4.2 && < 4.8
+    base >= 4.5.0.0 && < 4.8
     , Cabal >= 1.18.1.5 && < 1.23
     , cabal-test-quickcheck >= 0.1.2 && < 0.2
     , peano >= 0.1 && < 0.2
