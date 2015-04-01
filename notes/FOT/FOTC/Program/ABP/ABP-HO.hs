@@ -4,7 +4,7 @@
 
 {-# LANGUAGE UnicodeSyntax #-}
 
--- Tested with QuickCheck 2.7.6, random 1.0.1.1 and streams 3.2.
+-- Tested with QuickCheck 2.8, random 1.0.1.1 and streams 3.2.
 
 ------------------------------------------------------------------------------
 module Main where
