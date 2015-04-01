@@ -8,7 +8,7 @@ license-file:  LICENSE
 maintainer:    Andrés Sicard-Ramírez <asr@eafit.edu.co>
 category:      Data
 synopsis:      Peano natural numbers
-tested-with:   GHC == 7.8.4
+tested-with:   GHC == 7.10.1
 description:   Peano natural numbers and some instances.
 
 library
@@ -16,7 +16,7 @@ library
   hs-source-dirs: src
 
   build-depends:
-    base         >= 4.5.0.0 && < 4.8
+    base         >= 4.5.0.0 && < 4.9
     , QuickCheck >= 2.8 && < 2.9
 
   if impl(ghc >= 7.6)
@@ -38,7 +38,7 @@ test-suite test1
   test-module:    Tests
 
   build-depends:
-    base >= 4.5.0.0 && < 4.8
+    base >= 4.5.0.0 && < 4.9
     , Cabal >= 1.18.1.5 && < 1.23
     , cabal-test-quickcheck >= 0.1.2 && < 0.2
     , peano >= 0.1 && < 0.2
@@ -47,7 +47,6 @@ test-suite test1
   if impl(ghc >= 7.6)
      ghc-options:
        -Wall
-       -fwarn-auto-orphans
        -fwarn-identities
        -fwarn-incomplete-record-updates
        -fwarn-incomplete-uni-patterns
@@ -56,3 +55,7 @@ test-suite test1
        -fwarn-monomorphism-restriction
        -fwarn-tabs
        -Werror
+
+  -- The following flag generates warnings with GHC 7.10.1.
+  if impl(ghc < 7.10)
+     ghc-options: -fwarn-auto-orphans

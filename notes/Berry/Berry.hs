@@ -25,6 +25,6 @@ f (S Z) _     Z     = S (S Z)
 f _     Z     (S Z) = S (S (S Z))
 
 -- Tests:
--- f Z        (S Z) loop = S Z
--- f (S Z) loop Z        = S (S Z)
+-- f Z        (S Z) loop = 1
+-- f (S Z) loop Z        = 2
 -- f loop        Z (S Z) = *** Non-terminating ***
