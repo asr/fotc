@@ -14,7 +14,7 @@ import Data.Peano
 ------------------------------------------------------------------------------
 -- The MCR relation.
 mcr ∷ Nat → Nat → Bool
-mcr m n = (101 ∸ m) < (101 ∸ n)
+mcr m n = (101 - m) < (101 - n)
 
 -- Some properties of the relation MCR
 
