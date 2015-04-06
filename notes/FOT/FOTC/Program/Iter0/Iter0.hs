@@ -1,5 +1,7 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
+module Iter0 where
+
 import Data.Peano
 
 iter0 ∷ (Nat → Nat) → Nat → [Nat]

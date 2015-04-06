@@ -1,5 +1,7 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
+module Rec where
+
 -- The definition of rec in LTC-PCF requires a fixed-point operator of
 -- type
 --

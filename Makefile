@@ -3,8 +3,7 @@ SHELL := /bin/bash
 ##############################################################################
 # Paths
 
-fot_path   = src/fot
-peano_path = src/peano
+fot_path = src/fot
 
 # Agda standard library path.
 agda_stdlib_path = /home/asr/src/agda-stdlib/agda-stdlib-master
@@ -96,6 +95,10 @@ prove_notes_files = $(call my_pathsubst,prove_notes,$(notes_path))
 coq_type_check_files = \
   $(patsubst %.v, %.coq_type_check, \
     $(shell find -name '*.v' | sort))
+
+peano_files = \
+  $(patsubst %.hs, %.peano, \
+    $(shell find -name '*.hs' | xargs grep -l 'import Data.\Peano' | sort))
 
 benchmark_files = \
   $(fot_path)/FOTC/Base/PropertiesATP.benchmark \
@@ -298,6 +301,22 @@ fot_changed :
 	@echo "$@ succeeded!"
 
 ##############################################################################
+# Test used when there is a modification to the Peano library.
+
+GCD = $(notes_path)/FOT/FOTC/Program/GCD/GCD
+MCR = src/utils/McCarthy91/MCR/MCR
+
+%.peano :
+	rm -f $*.hi
+	rm -f $*.o
+	ghc -Wall -Werror $*.hs
+
+peano_changed : $(peano_files)
+	rm -f $(GCD)
+	rm -f $(MCR)
+	@echo "$@ succeeded!"
+
+##############################################################################
 # Git : pre-commit test
 
 git_pre_commit :
@@ -350,9 +369,6 @@ dependency_graph :
 	$(AGDA_FOT) --dependency-graph=/tmp/dependency-graph.gv \
 	            $(fot_path)/FOTC/Program/ABP/ProofSpecificationATP.agda
 	dot -Tpdf /tmp/dependency-graph.gv > /tmp/dependency-graph.pdf
-
-peano_install :
-	cd $(peano_path) && cabal install
 
 TODO :
 	find . -type d \( -path './.git' -o -path './dist' \) -prune -o -print \

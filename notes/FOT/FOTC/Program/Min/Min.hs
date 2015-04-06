@@ -2,6 +2,8 @@
 
 -- From Bove, A. and Capretta, V. (2001).
 
+module Min where
+
 import Data.Peano
 import Prelude hiding ( min )
 

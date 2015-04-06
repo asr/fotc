@@ -1,9 +1,13 @@
+{-# OPTIONS_GHC -fno-warn-incomplete-patterns #-}
+
 {-# LANGUAGE UnicodeSyntax #-}
 
 -- From: Herbert P. Sander. A logic of functional programs with an
 -- application to concurrency. PhD thesis, Chalmers University of
 -- Technology and University of Gothenburg, Department of Computer
 -- Sciences, 1992. pp. 12-13.
+
+module Berry where
 
 import Data.Peano
 

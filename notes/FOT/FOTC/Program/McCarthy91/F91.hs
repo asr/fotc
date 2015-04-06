@@ -1,5 +1,7 @@
 {-# LANGUAGE UnicodeSyntax #-}
 
+module F91 where
+
 import Data.Peano
 
 f91 ∷ Nat → Nat
