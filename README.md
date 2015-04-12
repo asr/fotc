@@ -1,4 +1,8 @@
-# Description
+Agda formalisation of FOTC (First-Order Theory of Combinators)
+==============================================================
+
+Description
+-----------
 
 [Agda](http://wiki.portal.chalmers.se/agda/pmwiki.php) formalisation
 of FOTC (First-Order Theory of Combinators) which is a programming
@@ -13,7 +17,8 @@ that we can call off-the-shelf ATPs when proving properties of our
 programs. For this purpose we wrote the
 [Apia](https://github.com/asr/apia) program.
 
-# Related papers
+Related papers
+--------------
 
 * [Combining Interactive and Automatic Reasoning in First Order
   Theories of Functional
@@ -28,7 +33,8 @@ programs. For this purpose we wrote the
   Dybjer](http://www.cse.chalmers.se/~peterd/), and [Andrés
   Sicard-Ramírez](http://www1.eafit.edu.co/asicard/) (PLPV'09).
 
-# Prerequisites and use
+Prerequisites and use
+---------------------
 
 * The [Apia](https://github.com/asr/apia/blob/master/README.md) program
 
@@ -37,7 +43,8 @@ programs. For this purpose we wrote the
 
    It is necessary to add the path `fotc/src/fot`.
 
-# Examples in our FoSSaCS-2012 paper
+Examples in our FoSSaCS-2012 paper
+----------------------------------
 
 Please note that the code presented here does not match the paper
 exactly.
@@ -64,7 +71,8 @@ $ agda FOTC/Program/Mirror/PropertiesATP.agda
 $ apia FOTC/Program/Mirror/PropertiesATP.agda
 ````
 
-# Examples in our PLPV-2009 paper
+Examples in our PLPV-2009 paper
+-------------------------------
 
 Please note that the code presented here does not match the paper
 exactly. Also note that the code below does not require neither the
@@ -83,7 +91,8 @@ $ cd fotc/src/fot
 $ agda LTC-PCF/Program/GCD/Partial/ProofSpecification.agda
 ````
 
-# More examples
+More examples
+-------------
 
 We also have more examples related with first-order theories like
 group theory or Peano arithmetic. In addition there are more examples
