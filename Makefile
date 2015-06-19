@@ -132,13 +132,40 @@ type_check_fot : $(type_check_fot_files)
 
 %.create_snapshot_fot :
 	$(AGDA_FOT) $*.agda
-	$(APIA_FOT) --only-files --output-dir=$(snapshot_dir) $*.agda
+	@case $*.agda in \
+          "${fot_path}/FOL/NonIntuitionistic/TheoremsATP.agda" | \
+          "${fot_path}/FOL/SchemataATP.agda") \
+            $(APIA_FOT) --only-files \
+                        --output-dir=$(snapshot_dir) \
+                        --schematic-propositional-functions \
+                        --schematic-propositional-symbols  \
+                        $*.agda \
+          ;; \
+          *) \
+            $(APIA_FOT) --only-files --output-dir=$(snapshot_dir) $*.agda \
+            ;; \
+        esac
 
 %.compare_snapshot_fot :
 	@echo "Comparing $*.agda"
 	@$(AGDA_FOT) $*.agda
-	@$(APIA_FOT) -v 0 --snapshot-test \
-	             --snapshot-dir=$(snapshot_dir) $*.agda
+	@case $*.agda in \
+          "${fot_path}/FOL/NonIntuitionistic/TheoremsATP.agda" | \
+          "${fot_path}/FOL/SchemataATP.agda") \
+            $(APIA_FOT) -v 0 \
+                        --snapshot-test \
+	                --snapshot-dir=$(snapshot_dir) \
+                        --schematic-propositional-functions \
+                        --schematic-propositional-symbols  \
+                        $*.agda \
+          ;; \
+          *) \
+            $(APIA_FOT) -v 0 \
+                        --snapshot-test \
+	                --snapshot-dir=$(snapshot_dir) \
+                        $*.agda \
+            ;; \
+        esac
 
 create_snapshot_fot_aux : $(create_snapshot_fot_files)
 
@@ -155,7 +182,19 @@ compare_snapshot_fot : $(compare_snapshot_fot_files)
 
 %.only_fot :
 	$(AGDA_FOT) $*.agda
-	$(APIA_FOT) --only-files --output-dir=$(prove_fot_dir) $*.agda
+	case $*.agda in \
+          "${fot_path}/FOL/NonIntuitionistic/TheoremsATP.agda" | \
+          "${fot_path}/FOL/SchemataATP.agda") \
+            $(APIA_FOT) --only-files \
+                        --output-dir=$(prove_fot_dir) \
+                        --schematic-propositional-functions \
+                        --schematic-propositional-symbols  \
+                        $*.agda \
+          ;; \
+          *) \
+	    $(APIA_FOT) --only-files --output-dir=$(prove_fot_dir) $*.agda \
+            ;; \
+        esac
 
 only_fot : $(only_fot_files)
 	@echo "$@ succeeded!"
@@ -165,7 +204,19 @@ only_fot : $(only_fot_files)
 
 %.prove_fot :
 	$(AGDA_FOT) $*.agda
-	$(APIA_FOT) --output-dir=$(prove_fot_dir) --time=240 $*.agda
+	case $*.agda in \
+          "${fot_path}/FOL/NonIntuitionistic/TheoremsATP.agda" | \
+          "${fot_path}/FOL/SchemataATP.agda") \
+            $(APIA_FOT) --output-dir=$(prove_fot_dir) \
+	                --time=240 \
+                        --schematic-propositional-functions \
+                        --schematic-propositional-symbols  \
+                        $*.agda \
+          ;; \
+          *) \
+            $(APIA_FOT) --output-dir=$(prove_fot_dir) --time=240 $*.agda \
+            ;; \
+        esac
 
 prove_fot : $(prove_fot_files)
 	@echo "$@ succeeded!"
@@ -221,8 +272,32 @@ prove_notes_path = -i$(fot_path) \
 
 %.prove_notes :
 	$(AGDA) $(prove_notes_path) $*.agda
-	$(APIA) $(prove_notes_path) --output-dir=$(prove_notes_dir) \
-	        --time=240 $*.agda
+	case $*.agda in \
+          "${notes_path}/FOT/FOL/SchemataATP.agda" | \
+          "${notes_path}/FOT/FOL/SchemataInstances/TestATP.agda" | \
+          "${notes_path}/FOT/FOTC/Data/Bool/AndTotality.agda" | \
+          "${notes_path}/thesis/report/CombiningProofs/ForallExistSchema.agda") \
+            $(APIA_FOT) $(prove_notes_path) \
+                        --output-dir=$(prove_notes_dir) \
+	                --time=240 \
+                        --schematic-propositional-functions \
+                        $*.agda \
+          ;; \
+          "${notes_path}/papers/fossacs-2012/Examples.agda" | \
+          "${notes_path}/thesis/report/CombiningProofs/CommDisjunctionSchema.agda") \
+            $(APIA_FOT) $(prove_notes_path) \
+                        --output-dir=$(prove_notes_dir) \
+	                --time=240 \
+                        --schematic-propositional-symbols \
+                        $*.agda \
+          ;; \
+          *) \
+            $(APIA) $(prove_notes_path) \
+                    --output-dir=$(prove_notes_dir) \
+	            --time=240 \
+                    $*.agda \
+            ;; \
+        esac
 
 prove_notes : $(prove_notes_files)
 	@echo "$@ succeeded!"
@@ -331,6 +406,8 @@ git_pre_commit :
 benchmark_tag = \
   $(shell echo `date +"%Y%m%d-%H.%M"`-ghc-`ghc --numeric-version`-`hostname -s`)
 
+# TODO (19 June 2015): Pragmas/options were removed/added from/to
+# Agda/Apia.
 %.benchmark :
 	$(AGDA_FOT) $*.agda
 	$(APIA_FOT) -v 0 $*.agda \

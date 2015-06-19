@@ -2,11 +2,10 @@
 -- Totality of Boolean conjunction
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --exact-split                       #-}
-{-# OPTIONS --no-sized-types                    #-}
-{-# OPTIONS --no-universe-polymorphism          #-}
-{-# OPTIONS --schematic-propositional-functions #-}
-{-# OPTIONS --without-K                         #-}
+{-# OPTIONS --exact-split              #-}
+{-# OPTIONS --no-sized-types           #-}
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K                #-}
 
 module FOT.FOTC.Data.Bool.AndTotality where
 

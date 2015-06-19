@@ -4,9 +4,8 @@
 
 {-# OPTIONS --exact-split              #-}
 {-# OPTIONS --no-sized-types           #-}
-{-# OPTIONS --no-universe-polymorphism          #-}
--- {-# OPTIONS --schematic-propositional-functions #-}
-{-# OPTIONS --without-K                         #-}
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K                #-}
 
 module FOT.FOTC.Data.Nat.AddTotality where
 

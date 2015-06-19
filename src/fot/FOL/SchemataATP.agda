@@ -2,12 +2,10 @@
 -- Examples of translation of logical schemata
 ------------------------------------------------------------------------------
 
-{-# OPTIONS --exact-split                       #-}
-{-# OPTIONS --no-sized-types                    #-}
-{-# OPTIONS --no-universe-polymorphism          #-}
-{-# OPTIONS --schematic-propositional-functions #-}
-{-# OPTIONS --schematic-propositional-symbols   #-}
-{-# OPTIONS --without-K                         #-}
+{-# OPTIONS --exact-split              #-}
+{-# OPTIONS --no-sized-types           #-}
+{-# OPTIONS --no-universe-polymorphism #-}
+{-# OPTIONS --without-K                #-}
 
 module FOL.SchemataATP where
 
