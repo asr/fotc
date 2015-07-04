@@ -17,8 +17,12 @@ that we can call off-the-shelf ATPs when proving properties of our
 programs. For this purpose we wrote the
 [Apia](https://github.com/asr/apia) program.
 
-Related papers
+Related publications
 --------------
+
+* [Reasoning about Functional Programs by Combining Interactive and
+  Automatic Proofs](http://www1.eafit.edu.co/asr/publications.html#phd-thesis)
+  by [Andrés Sicard-Ramírez](http://www1.eafit.edu.co/asr/) (PhD thesis).
 
 * [Combining Interactive and Automatic Reasoning in First Order
   Theories of Functional
