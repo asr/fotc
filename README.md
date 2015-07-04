@@ -26,13 +26,13 @@ Related publications
 
 * [Combining Interactive and Automatic Reasoning in First Order
   Theories of Functional
-  Programs](http://www1.eafit.edu.co/asr/publications.html#FoSSaCS-2012)
+  Programs](http://www1.eafit.edu.co/asr/publications.html#fossacs-2012)
   by [Ana Bove](http://www.cse.chalmers.se/~bove/), [Peter
   Dybjer](http://www.cse.chalmers.se/~peterd/), and [Andrés
   Sicard-Ramírez](http://www1.eafit.edu.co/asr/) (FoSSaCS 2012).
 
 * [Embedding a Logical Theory of Constructions in
-  Agda](http://www1.eafit.edu.co/asr/publications.html#PLPV-2009)
+  Agda](http://www1.eafit.edu.co/asr/publications.html#plpv-2009)
   by [Ana Bove](http://www.cse.chalmers.se/~bove/), [Peter
   Dybjer](http://www.cse.chalmers.se/~peterd/), and [Andrés
   Sicard-Ramírez](http://www1.eafit.edu.co/asr/) (PLPV'09).
@@ -54,7 +54,7 @@ Please note that the code presented here does not match the paper
 exactly.
 
 You can follow these links to see the examples shown in our
-[FoSSaCS-2012 paper](http://www1.eafit.edu.co/asr/publications.html#FoSSaCS-2012):
+[FoSSaCS-2012 paper](http://www1.eafit.edu.co/asr/publications.html#fossacs-2012):
 
 * [The McCarthy's 91-function
   example](https://github.com/asr/fotc/blob/master/src/fot/FOTC/Program/McCarthy91/PropertiesATP.agda)
@@ -84,7 +84,7 @@ version modified of Agda nor the Apia program.
 You can follow
 [this link](https://github.com/asr/fotc/blob/master/src/fot/LTC-PCF/README.agda)
 to see the examples shown in our
-[PLPV-2009 paper](http://www1.eafit.edu.co/asr/publications.html#PLPV-2009).
+[PLPV-2009 paper](http://www1.eafit.edu.co/asr/publications.html#plpv-2009).
 
 You can test for example the verification of the GCD algorithm with
 the following commands:
