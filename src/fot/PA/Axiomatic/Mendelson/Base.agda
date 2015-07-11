@@ -33,8 +33,8 @@ postulate
 
 -- The PA equality.
 --
--- N.B. The symbol _≡_ should not be used because it is hard-coded by
--- Apia as the ATPs equality.
+-- N.B. We use the symbol _≈_ for avoiding to use the
+-- --no-internal-equality Apia option.
 postulate _≈_ : ℕ → ℕ → Set
 
 -- Inequality.
