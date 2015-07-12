@@ -22,16 +22,16 @@ postulate
   _+_  : D → D → D
   +-0x : ∀ n → zero + n      ≡ n
   +-Sx : ∀ m n → succ₁ m + n ≡ succ₁ (m + n)
-{-# ATP axiom +-0x +-Sx #-}
+{-# ATP axioms +-0x +-Sx #-}
 
 postulate
   _∸_  : D → D → D
   ∸-x0 : ∀ n → n ∸ zero      ≡ n
   ∸-xS : ∀ m n → m ∸ succ₁ n ≡ pred₁ (m ∸ n)
-{-# ATP axiom ∸-x0 ∸-xS #-}
+{-# ATP axioms ∸-x0 ∸-xS #-}
 
 postulate
   _*_  : D → D → D
   *-0x : ∀ n → zero * n      ≡ zero
   *-Sx : ∀ m n → succ₁ m * n ≡ n + m * n
-{-# ATP axiom *-0x *-Sx #-}
+{-# ATP axioms *-0x *-Sx #-}

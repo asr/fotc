@@ -24,7 +24,7 @@ open import FOTC.Base
 8'  = succ₁ 7'
 9'  = succ₁ 8'
 
-{-# ATP definition 0' 1' 2' 3' 4' 5' 6' 7' 8' 9' #-}
+{-# ATP definitions 0' 1' 2' 3' 4' 5' 6' 7' 8' 9' #-}
 
 10' = succ₁ 9'
 11' = succ₁ 10'

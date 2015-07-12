@@ -32,7 +32,7 @@ data Tree : D → Set where
   tnil  : Tree nil
   ttip  : ∀ {i} → N i → Tree (tip i)
   tnode : ∀ {t₁ i t₂} → Tree t₁ → N i → Tree t₂ → Tree (node t₁ i t₂)
-{-# ATP axiom tnil ttip tnode #-}
+{-# ATP axioms tnil ttip tnode #-}
 
 ------------------------------------------------------------------------------
 -- Inequalites on lists and trees
@@ -46,7 +46,7 @@ postulate
   le-ItemList-[] : ∀ item → le-ItemList item [] ≡ true
   le-ItemList-∷  : ∀ item i is →
                    le-ItemList item (i ∷ is) ≡ le item i && le-ItemList item is
-{-# ATP axiom le-ItemList-[] le-ItemList-∷ #-}
+{-# ATP axioms le-ItemList-[] le-ItemList-∷ #-}
 
 ≤-ItemList : D → D → Set
 ≤-ItemList item is = le-ItemList item is ≡ true
@@ -57,7 +57,7 @@ postulate
   le-Lists-[] : ∀ is → le-Lists [] is ≡ true
   le-Lists-∷  : ∀ i is js →
                 le-Lists (i ∷ is) js ≡ le-ItemList i js && le-Lists is js
-{-# ATP axiom le-Lists-[] le-Lists-∷ #-}
+{-# ATP axioms le-Lists-[] le-Lists-∷ #-}
 
 ≤-Lists : D → D → Set
 ≤-Lists is js = le-Lists is js ≡ true
@@ -70,7 +70,7 @@ postulate
   le-ItemTree-node : ∀ item t₁ i t₂ →
                      le-ItemTree item (node t₁ i t₂) ≡
                      le-ItemTree item t₁ && le-ItemTree item t₂
-{-# ATP axiom le-ItemTree-nil le-ItemTree-tip le-ItemTree-node #-}
+{-# ATP axioms le-ItemTree-nil le-ItemTree-tip le-ItemTree-node #-}
 
 ≤-ItemTree : D → D → Set
 ≤-ItemTree item t = le-ItemTree item t ≡ true
@@ -84,7 +84,7 @@ postulate
   le-TreeItem-node : ∀ t₁ i t₂ item →
                      le-TreeItem (node t₁ i t₂) item ≡
                      le-TreeItem t₁ item && le-TreeItem t₂ item
-{-# ATP axiom le-TreeItem-nil le-TreeItem-tip le-TreeItem-node #-}
+{-# ATP axioms le-TreeItem-nil le-TreeItem-tip le-TreeItem-node #-}
 
 ≤-TreeItem : D → D → Set
 ≤-TreeItem t item = le-TreeItem t item ≡ true
@@ -98,7 +98,7 @@ postulate
   lit    : D → D → D → D
   lit-[] : ∀ f n → lit f [] n            ≡ n
   lit-∷  : ∀ f d ds n → lit f (d ∷ ds) n ≡ f · d · (lit f ds n)
-{-# ATP axiom lit-[] lit-∷ #-}
+{-# ATP axioms lit-[] lit-∷ #-}
 
 ------------------------------------------------------------------------------
 -- Ordering functions and predicates on lists and trees
@@ -107,7 +107,7 @@ postulate
   ordList    : D → D
   ordList-[] : ordList []                ≡ true
   ordList-∷  : ∀ i is → ordList (i ∷ is) ≡ le-ItemList i is && ordList is
-{-# ATP axiom ordList-[] ordList-∷ #-}
+{-# ATP axioms ordList-[] ordList-∷ #-}
 
 OrdList : D → Set
 OrdList is = ordList is ≡ true
@@ -120,7 +120,7 @@ postulate
   ordTree-node : ∀ t₁ i t₂ →
                  ordTree (node t₁ i t₂) ≡
                  ordTree t₁ && ordTree t₂ && le-TreeItem t₁ i && le-ItemTree i t₂
-{-# ATP axiom ordTree-nil ordTree-tip ordTree-node #-}
+{-# ATP axioms ordTree-nil ordTree-tip ordTree-node #-}
 
 OrdTree : D → Set
 OrdTree t = ordTree t ≡ true
@@ -147,7 +147,7 @@ postulate
                 (if (le i item)
                    then (node t₁ i (toTree · item · t₂))
                    else (node (toTree · item · t₁) i t₂))
-{-# ATP axiom toTree-nil toTree-tip toTree-node #-}
+{-# ATP axioms toTree-nil toTree-tip toTree-node #-}
 
 -- The function makeTree converts a list to a tree.
 makeTree : D → D
@@ -160,7 +160,7 @@ postulate
   flatten-nil  : flatten nil ≡ []
   flatten-tip  : ∀ i → flatten (tip i) ≡ i ∷ []
   flatten-node : ∀ t₁ i t₂ → flatten (node t₁ i t₂) ≡ flatten t₁ ++ flatten t₂
-{-# ATP axiom flatten-nil flatten-tip flatten-node #-}
+{-# ATP axioms flatten-nil flatten-tip flatten-node #-}
 
 -- The function which sorts the list
 sort : D → D

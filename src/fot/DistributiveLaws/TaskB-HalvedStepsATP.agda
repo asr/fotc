@@ -53,7 +53,7 @@ prop₂ u x y z =
   yu = y · u
   yz = y · z
   zy = z · y
-  {-# ATP definition xz yu yz zy #-}
+  {-# ATP definitions xz yu yz zy #-}
 
   -- Three variables abbreviations
 
@@ -61,27 +61,27 @@ prop₂ u x y z =
   xzu = x · z · u
   xzy = x · z · y
   yxz = y · x · z
-  {-# ATP definition xyu xzu xzy yxz #-}
+  {-# ATP definitions xyu xzu xzy yxz #-}
 
   x·zu = x · (z · u)
   x·zy = x · (z · y)
-  {-# ATP definition x·zu x·zy #-}
+  {-# ATP definitions x·zu x·zy #-}
 
   y·xu = y · (x · u)
   y·yu = y · (y · u)
   y·zu = y · (z · u)
   y·zy = y · (z · y)
-  {-# ATP definition y·xu y·yu y·zu y·zy #-}
+  {-# ATP definitions y·xu y·yu y·zu y·zy #-}
 
   z·xu = z · (x · u)
   z·yu = z · (y · u)
-  {-# ATP definition z·xu z·yu #-}
+  {-# ATP definitions z·xu z·yu #-}
 
   -- Four variables abbreviations
 
   xu·yu = x · u · (y · u)
   xu·zu = x · u · (z · u)
-  {-# ATP definition xu·yu xu·zu #-}
+  {-# ATP definitions xu·yu xu·zu #-}
 
   xy·zu = x · y · (z · u)
   {-# ATP definition xy·zu #-}
@@ -89,14 +89,14 @@ prop₂ u x y z =
   xz·xy = x · z · (x · y)
   xz·yu = x · z · (y · u)
   xz·yz = x · z · (y · z)
-  {-# ATP definition xz·xy xz·yu xz·yz #-}
+  {-# ATP definitions xz·xy xz·yu xz·yz #-}
 
   yz·yu = y · z · (y · u)
   {-# ATP definition yz·yu #-}
 
   zy·xu = z · y · (x · u)
   zy·zu = z · y · (z · u)
-  {-# ATP definition zy·xu zy·zu #-}
+  {-# ATP definitions zy·xu zy·zu #-}
 
   -- Steps justifications
 

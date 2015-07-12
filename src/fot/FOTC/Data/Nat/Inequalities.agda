@@ -22,7 +22,7 @@ postulate
   lt-0S : ∀ n → lt zero (succ₁ n)        ≡ true
   lt-S0 : ∀ n → lt (succ₁ n) zero        ≡ false
   lt-SS : ∀ m n → lt (succ₁ m) (succ₁ n) ≡ lt m n
-{-# ATP axiom lt-00 lt-0S lt-S0 lt-SS #-}
+{-# ATP axioms lt-00 lt-0S lt-S0 lt-SS #-}
 
 le : D → D → D
 le m n = lt m (succ₁ n)

@@ -28,7 +28,7 @@ postulate
   assoc         : ∀ a b c → a · b · c ≡ a · (b · c)
   leftIdentity  : ∀ a → ε · a         ≡ a
   leftInverse   : ∀ a → a ⁻¹ · a      ≡ ε
-{-# ATP axiom assoc leftIdentity leftInverse #-}
+{-# ATP axioms assoc leftIdentity leftInverse #-}
 
 ------------------------------------------------------------------------------
 -- References

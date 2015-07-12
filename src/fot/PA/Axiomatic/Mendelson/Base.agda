@@ -63,7 +63,7 @@ postulate
   S₆ : ∀ m n → succ m + n ≈ succ (m + n)
   S₇ : ∀ n → zero * n ≈ zero
   S₈ : ∀ m n → succ m * n ≈ n + m * n
-{-# ATP axiom S₁ S₂ S₃ S₄ S₅ S₆ S₇ S₈ #-}
+{-# ATP axioms S₁ S₂ S₃ S₄ S₅ S₆ S₇ S₈ #-}
 
 -- S₉ is an axiom schema, therefore we do not translate it to TPTP.
 postulate S₉ : (A : ℕ → Set) → A zero → (∀ n → A n → A (succ n)) → ∀ n → A n

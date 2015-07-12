@@ -19,7 +19,7 @@ open import FOTC.Base
 data N : D → Set where
   nzero : N zero
   nsucc : ∀ {n} → N n → N (succ₁ n)
-{-# ATP axiom nzero nsucc #-}
+{-# ATP axioms nzero nsucc #-}
 
 -- Induction principle.
 N-ind : (A : D → Set) →

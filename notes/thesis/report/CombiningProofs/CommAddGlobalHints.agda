@@ -37,7 +37,7 @@ x+Sy≡S[x+y] m n = ℕ-ind A A0 is m
   {-# ATP prove is #-}
 
 -- Global hints
-{-# ATP hint x+Sy≡S[x+y] +-rightIdentity #-}
+{-# ATP hints x+Sy≡S[x+y] +-rightIdentity #-}
 
 +-comm : ∀ m n → m + n ≡ n + m
 +-comm m n = ℕ-ind A A0 is m

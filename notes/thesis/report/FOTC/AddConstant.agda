@@ -29,7 +29,7 @@ postulate
   pred-S   : ∀ n → pred · (succ · n) ≡ n
   iszero-0 : iszero · zero ≡ true
   iszero-S : ∀ n → iszero · (succ · n) ≡ false
-{-# ATP axiom if-true if-false pred-0 pred-S iszero-0 iszero-S #-}
+{-# ATP axioms if-true if-false pred-0 pred-S iszero-0 iszero-S #-}
 
 postulate
   +    : D

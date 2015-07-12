@@ -23,7 +23,7 @@ postulate
   _^_ : D → D → D
   ^-0 : ∀ n → n ^ zero      ≡ 1'
   ^-S : ∀ m n → m ^ succ₁ n ≡ m * m ^ n
-{-# ATP axiom ^-0 ^-S #-}
+{-# ATP axioms ^-0 ^-S #-}
 
 thm₁ : ∀ {n} → N n → 5' ≤ n → n ^ 5' ≤ 5' ^ n
 thm₁ nzero h = prf

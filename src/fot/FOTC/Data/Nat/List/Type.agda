@@ -19,7 +19,7 @@ open import FOTC.Data.Nat.Type
 data ListN : D → Set where
   lnnil  : ListN []
   lncons : ∀ {n ns} → N n → ListN ns → ListN (n ∷ ns)
-{-# ATP axiom lnnil lncons #-}
+{-# ATP axioms lnnil lncons #-}
 
 -- Induction principle.
 ListN-ind : (A : D → Set) →

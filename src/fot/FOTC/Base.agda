@@ -86,7 +86,7 @@ abstract
 postulate
   if-true  : ∀ t {t'} → (if true then t else t')  ≡ t
   if-false : ∀ {t} t' → (if false then t else t') ≡ t'
-{-# ATP axiom if-true if-false #-}
+{-# ATP axioms if-true if-false #-}
 
 -- Conversion rules for pred.
 -- pred-0 :       pred · zero     ≡ zero
@@ -94,7 +94,7 @@ postulate
 postulate
   pred-0 : pred₁ zero            ≡ zero
   pred-S : ∀ n → pred₁ (succ₁ n) ≡ n
-{-# ATP axiom pred-0 pred-S #-}
+{-# ATP axioms pred-0 pred-S #-}
 
 -- Conversion rules for iszero.
 -- iszero-0 :       iszero · zero       ≡ true
@@ -102,7 +102,7 @@ postulate
 postulate
   iszero-0 : iszero₁ zero            ≡ true
   iszero-S : ∀ n → iszero₁ (succ₁ n) ≡ false
-{-# ATP axiom iszero-0 iszero-S #-}
+{-# ATP axioms iszero-0 iszero-S #-}
 
 ------------------------------------------------------------------------------
 -- Discrimination rules
@@ -111,7 +111,7 @@ postulate
 postulate
   t≢f : true ≢ false
   0≢S : ∀ {n} → zero ≢ succ₁ n
-{-# ATP axiom t≢f 0≢S #-}
+{-# ATP axioms t≢f 0≢S #-}
 
 ------------------------------------------------------------------------------
 -- References

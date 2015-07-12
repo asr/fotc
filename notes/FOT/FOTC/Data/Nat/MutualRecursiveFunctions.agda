@@ -23,7 +23,7 @@ postulate
 
   odd-0 : odd zero            ≡ false
   odd-S : ∀ d → odd (succ₁ d) ≡ even d
-{-# ATP axiom even-0 even-S odd-0 odd-S #-}
+{-# ATP axioms even-0 even-S odd-0 odd-S #-}
 
 postulate even-2 : even 2' ≡ true
 {-# ATP prove even-2 #-}

@@ -26,4 +26,4 @@ postulate
   collatz-noteven : ∀ {n} → NotEven (succ₁ (succ₁ n)) →
                     collatz (succ₁ (succ₁ n)) ≡
                       collatz (3' * (succ₁ (succ₁ n)) + 1')
-{-# ATP axiom collatz-0 collatz-1 collatz-even collatz-noteven #-}
+{-# ATP axioms collatz-0 collatz-1 collatz-even collatz-noteven #-}

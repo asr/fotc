@@ -19,7 +19,7 @@ open import FOTC.Base.List
 data List : D → Set where
   lnil  : List []
   lcons : ∀ x {xs} → List xs → List (x ∷ xs)
-{-# ATP axiom lnil lcons #-}
+{-# ATP axioms lnil lcons #-}
 
 -- Induction principle.
 List-ind : (A : D → Set) →

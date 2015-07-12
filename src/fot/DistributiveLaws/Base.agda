@@ -25,4 +25,4 @@ postulate
 
   leftDistributive  : ∀ x y z → x · (y · z) ≡ (x · y) · (x · z)
   rightDistributive : ∀ x y z → (x · y) · z ≡ (x · z) · (y · z)
-{-# ATP axiom leftDistributive rightDistributive #-}
+{-# ATP axioms leftDistributive rightDistributive #-}

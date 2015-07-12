@@ -44,7 +44,7 @@ postulate
   PA₄ : ∀ m n → succ m + n ≡ succ (m + n)
   PA₅ : ∀ n → zero * n ≡ zero
   PA₆ : ∀ m n → succ m * n ≡ n + m * n
-{-# ATP axiom PA₁ PA₂ PA₃ PA₄ PA₅ PA₆ #-}
+{-# ATP axioms PA₁ PA₂ PA₃ PA₄ PA₅ PA₆ #-}
 
 -- The axiom of induction is an axiom schema, therefore we do not
 -- translate it to TPTP.

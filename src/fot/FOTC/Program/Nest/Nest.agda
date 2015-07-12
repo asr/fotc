@@ -20,4 +20,4 @@ postulate
   nest   : D → D
   nest-0 : nest zero            ≡ zero
   nest-S : ∀ n → nest (succ₁ n) ≡ nest (nest n)
-{-# ATP axiom nest-0 nest-S #-}
+{-# ATP axioms nest-0 nest-S #-}

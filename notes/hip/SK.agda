@@ -26,7 +26,7 @@ data _≡_ (x : D) : D → Set where
 postulate
  K-eq : ∀ x y → K · x · y ≡ x
  S-eq : ∀ x y z → S · x · y · z ≡ x · z · (y · z)
-{-# ATP axiom K-eq S-eq #-}
+{-# ATP axioms K-eq S-eq #-}
 
 id : D → D
 id x = x

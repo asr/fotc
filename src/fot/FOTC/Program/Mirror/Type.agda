@@ -25,7 +25,7 @@ data Tree   : D → Set  -- The rose tree type.
 data Forest where
   fnil  : Forest []
   fcons : ∀ {t ts} → Tree t → Forest ts → Forest (t ∷ ts)
-{-# ATP axiom fnil fcons #-}
+{-# ATP axioms fnil fcons #-}
 
 data Tree where
   tree : ∀ d {ts} → Forest ts → Tree (node d ts)

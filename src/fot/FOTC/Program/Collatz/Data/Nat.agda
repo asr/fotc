@@ -25,13 +25,13 @@ postulate
   div     : D → D → D
   div-x<y : ∀ {m n} → n ≢ 0' → m < n → div m n ≡ zero
   div-x≥y : ∀ {m n} → n ≢ 0' → m ≥ n → div m n ≡ succ₁ (div (m ∸ n) n)
-{-# ATP axiom div-x<y div-x≥y #-}
+{-# ATP axioms div-x<y div-x≥y #-}
 
 postulate
   _^_ : D → D → D
   ^-0 : ∀ n → n ^ zero      ≡ 1'
   ^-S : ∀ m n → m ^ succ₁ n ≡ m * m ^ n
-{-# ATP axiom ^-0 ^-S #-}
+{-# ATP axioms ^-0 ^-S #-}
 
 postulate
   even : D → D
@@ -42,7 +42,7 @@ postulate
 
   odd-0 : odd zero            ≡ false
   odd-S : ∀ n → odd (succ₁ n) ≡ even n
-{-# ATP axiom even-0 even-S odd-0 odd-S #-}
+{-# ATP axioms even-0 even-S odd-0 odd-S #-}
 
 Even : D → Set
 Even n = even n ≡ true
