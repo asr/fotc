@@ -31,7 +31,7 @@ pred-N-ind-instance :
   ∀ {n} → N n → N (pred₁ n)
 pred-N-ind-instance = N-ind (λ i → N (pred₁ i))
 
--- 21 March 2015. The ATPs could not prove this conjecture.
+-- 16 July 2015. The ATPs could not prove this conjecture (240 sec).
 -- postulate pred-N' : ∀ {n} → N n → N (pred₁ n)
 -- {-# ATP prove pred-N' pred-N-ind-instance #-}
 

@@ -9,9 +9,9 @@ fof(lemma6, conjecture,
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % $ eprover --version
-% E 1.8-001 Gopaldhara
+% E 1.9
 
-% $ eprover --auto --memory-limit=Auto --tstp-format lemma6.tptp
+% $ eprover --auto --memory-limit=Auto --output-level=0 --tstp-format lemma6.tptp
 % ...
 % # Proof found!
 

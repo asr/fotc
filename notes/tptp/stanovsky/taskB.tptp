@@ -11,12 +11,12 @@ fof(taskB, conjecture,
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % The ATPs couldn't prove the theorem using a time out of 5 min.
 
-% Eprover E 1.8-001 Gopaldhara
-% $ eprover --auto --cpu-limit=300 --memory-limit=Auto --tstp-format taskB.tptp
+% Eprover E 1.9
+% $ eprover --auto --cpu-limit=300 --memory-limit=Auto --output-level=0 --tstp-format taskB.tptp
 % ...
 % eprover: CPU time limit exceeded, terminating
 
-% Equinox, version 5.0alpha, 2010-06-29.
+% Equinox, version 5.0alpha, 2010-06-29
 % $ equinox --time 300 taskB.tptp
 % +++ RESULT: Timeout
 
