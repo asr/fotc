@@ -26,8 +26,8 @@ prove_notes_dir = /tmp/prove_notes
 ##############################################################################
 # Variables
 
-AGDA     = agda -v 0
-AGDA_FOT = ${AGDA} -i$(fot_path)
+AGDA = agda -v 0
+# AGDA_FOT = ${AGDA} -i$(fot_path)
 
 # The defaults ATPs are E, Equinox and Vampire.
 APIA = apia --check
@@ -109,17 +109,17 @@ benchmark_files = \
 # FOT: Type-checking
 
 %.type_check_fot :
-	$(AGDA_FOT) $*.agda
+	$(AGDA) $*.agda
 
 %.type_check_agsy_fot :
-	$(AGDA_FOT) -i$(agda_stdlib_path)/src/ $*.agda
+	$(AGDA) -i$(agda_stdlib_path)/src/ $*.agda
 
 type_check_agsy_fot : $(type_check_agsy_fot_files)
 	@echo "$@ succeeded!"
 
 type_check_fot : $(type_check_fot_files)
 	make type_check_agsy_fot
-	$(AGDA_FOT) $(fot_path)/README.agda
+	$(AGDA) $(fot_path)/README.agda
 	@echo "$@ succeeded!"
 
 ##############################################################################
@@ -131,7 +131,7 @@ type_check_fot : $(type_check_fot_files)
 # FOT: Snapshot
 
 %.create_snapshot_fot :
-	$(AGDA_FOT) $*.agda
+	$(AGDA) $*.agda
 	@case $*.agda in \
           "${fot_path}/FOL/NonIntuitionistic/TheoremsATP.agda" | \
           "${fot_path}/FOL/SchemataATP.agda") \
@@ -148,7 +148,7 @@ type_check_fot : $(type_check_fot_files)
 
 %.compare_snapshot_fot :
 	@echo "Comparing $*.agda"
-	@$(AGDA_FOT) $*.agda
+	@$(AGDA) $*.agda
 	@case $*.agda in \
           "${fot_path}/FOL/NonIntuitionistic/TheoremsATP.agda" | \
           "${fot_path}/FOL/SchemataATP.agda") \
@@ -181,7 +181,7 @@ compare_snapshot_fot : $(compare_snapshot_fot_files)
 # FOT: Only files
 
 %.only_fot :
-	$(AGDA_FOT) $*.agda
+	$(AGDA) $*.agda
 	case $*.agda in \
           "${fot_path}/FOL/NonIntuitionistic/TheoremsATP.agda" | \
           "${fot_path}/FOL/SchemataATP.agda") \
@@ -203,7 +203,7 @@ only_fot : $(only_fot_files)
 # FOT: Prove theorems
 
 %.prove_fot :
-	$(AGDA_FOT) $*.agda
+	$(AGDA) $*.agda
 	case $*.agda in \
           "${fot_path}/FOL/NonIntuitionistic/TheoremsATP.agda" | \
           "${fot_path}/FOL/SchemataATP.agda") \
@@ -225,7 +225,7 @@ prove_fot : $(prove_fot_files)
 # FOT: Consistency
 
 %.consistency_fot :
-	$(AGDA_FOT) $*.agda
+	$(AGDA) $*.agda
 	if ( $(APIA_FOT) --output-dir=$(consistency_fot_dir) \
 	                 --time=10 $*.agda ); then \
            exit 1;\
@@ -408,6 +408,7 @@ benchmark_tag = \
 
 # TODO (19 June 2015): Pragmas/options were removed/added from/to
 # Agda/Apia.
+
 %.benchmark :
 	$(AGDA_FOT) $*.agda
 	$(APIA_FOT) -v 0 $*.agda \
