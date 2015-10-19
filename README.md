@@ -6,36 +6,32 @@ Description
 
 [Agda](http://wiki.portal.chalmers.se/agda/pmwiki.php) formalisation
 of FOTC (First-Order Theory of Combinators) which is a programming
-logic for functional programs that can deal with **general
-recursion**, **higher-order functions**, **termination proofs**,
-**partial functions**, and **inductive** and **co-inductive**
-predicates. Our implementation includes a translation of Agda
-representations of formulae in FOTC into the
-[TPTP](http://www.cs.miami.edu/~tptp/) language, which is a standard
-format for input and output in automatic theorem provers (ATPs), so
-that we can call off-the-shelf ATPs when proving properties of our
-programs. For this purpose we wrote the
+logic for functional programs that can deal with *general recursion*,
+*higher-order functions*, *termination proofs*, *partial functions*,
+and *inductive* and *co-inductive* predicates. Our implementation
+includes a translation of Agda representations of formulae in FOTC
+into the [TPTP](http://www.cs.miami.edu/~tptp/) language, which is a
+standard format for input and output in automatic theorem provers
+(ATPs), so that we can call off-the-shelf ATPs when proving properties
+of our programs. For this purpose we wrote the
 [Apia](https://github.com/asr/apia) program.
 
 Related publications
 --------------
 
-* [Reasoning about Functional Programs by Combining Interactive and
-  Automatic Proofs](http://www1.eafit.edu.co/asr/publications.html#phd-thesis)
-  by [Andrés Sicard-Ramírez](http://www1.eafit.edu.co/asr/) (PhD thesis).
+* [Andrés Sicard-Ramírez](http://www1.eafit.edu.co/asr/)
+  (2015). [Reasoning about Functional Programs by Combining Interactive and Automatic Proofs](http://www1.eafit.edu.co/asr/publications.html#phd-thesis)
+  (PhD thesis).
 
-* [Combining Interactive and Automatic Reasoning in First Order
-  Theories of Functional
-  Programs](http://www1.eafit.edu.co/asr/publications.html#fossacs-2012)
-  by [Ana Bove](http://www.cse.chalmers.se/~bove/), [Peter
-  Dybjer](http://www.cse.chalmers.se/~peterd/), and [Andrés
-  Sicard-Ramírez](http://www1.eafit.edu.co/asr/) (FoSSaCS 2012).
+* [Ana Bove](http://www.cse.chalmers.se/~bove/),
+  [Peter Dybjer](http://www.cse.chalmers.se/~peterd/) and
+  [Andrés Sicard-Ramírez](http://www1.eafit.edu.co/asr/). [Combining Interactive and Automatic Reasoning in First Order Theories of Functional Programs](http://www1.eafit.edu.co/asr/publications.html#fossacs-2012)
+  (FoSSaCS 2012).
 
-* [Embedding a Logical Theory of Constructions in
-  Agda](http://www1.eafit.edu.co/asr/publications.html#plpv-2009)
-  by [Ana Bove](http://www.cse.chalmers.se/~bove/), [Peter
-  Dybjer](http://www.cse.chalmers.se/~peterd/), and [Andrés
-  Sicard-Ramírez](http://www1.eafit.edu.co/asr/) (PLPV'09).
+* [Ana Bove](http://www.cse.chalmers.se/~bove/),
+  [Peter Dybjer](http://www.cse.chalmers.se/~peterd/) and
+  [Andrés Sicard-Ramírez](http://www1.eafit.edu.co/asr/). [Embedding a Logical Theory of Constructions in Agda](http://www1.eafit.edu.co/asr/publications.html#plpv-2009)
+  (PLPV'09).
 
 Prerequisites and use
 ---------------------
