@@ -7,9 +7,7 @@
 
 -- From (Sander, 1992, pp. 68-69).
 
--- Tested with streams 3.2.
-
--- TODO (01 April 2015): streams 3.2 doesn't compile with GHC 7.10.1.
+-- Tested with streams 3.2.1.
 
 module Main where
 
