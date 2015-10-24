@@ -54,7 +54,7 @@ You can follow these links to see the examples shown in our
 
 * [The McCarthy's 91-function example](http://asr.github.io/fotc/FOTC.Program.McCarthy91.PropertiesATP.html)
 
-* [The mirror function example](asr.github.io/fotc/FOTC.Program.Mirror.PropertiesATP.html)
+* [The mirror function example](http://asr.github.io/fotc/FOTC.Program.Mirror.PropertiesATP.html)
 
 * [The alternating bit protocol example](http://asr.github.io/fotc/FOTC.Program.ABP.CorrectnessProofATP.html)
 
