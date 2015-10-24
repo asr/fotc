@@ -1,8 +1,0 @@
-The files in this directory have been tested with:
-
-Agda files: Development versions of Agda, the Agda standard library,
-and/or Apia corresponding to the date of the last commit.
-
-Coq files: Coq 8.4pl6.
-
-Haskell files: GHC 7.8.4.

@@ -52,14 +52,11 @@ exactly.
 You can follow these links to see the examples shown in our
 [FoSSaCS-2012 paper](http://www1.eafit.edu.co/asr/publications.html#fossacs-2012):
 
-* [The McCarthy's 91-function
-  example](https://github.com/asr/fotc/blob/master/src/fot/FOTC/Program/McCarthy91/PropertiesATP.agda)
+* [The McCarthy's 91-function example](http://asr.github.io/fotc/FOTC.Program.McCarthy91.PropertiesATP.html)
 
-* [The mirror function
-   example](https://github.com/asr/fotc/blob/master/src/fot/FOTC/Program/Mirror/PropertiesATP.agda)
+* [The mirror function example](http://asr.github.io/fotc/FOTC.Program.Mirror.PropertiesATP.html)
 
-* [The alternating bit protocol
-   example](https://github.com/asr/fotc/blob/master/src/fot/FOTC/Program/ABP/CorrectnessProofATP.agda)
+* [The alternating bit protocol example](http://asr.github.io/fotc/FOTC.Program.ABP.CorrectnessProofATP.html)
 
 You can test for example the proofs regarding the mirror function with
 the following commands:
@@ -78,8 +75,8 @@ exactly. Also note that the code below does not require neither the
 version modified of Agda nor the Apia program.
 
 You can follow
-[this link](https://github.com/asr/fotc/blob/master/src/fot/LTC-PCF/README.agda)
-to see the examples shown in our
+[this link](http://asr.github.io/fotc/LTC-PCF.README.html) to see the
+examples shown in our
 [PLPV-2009 paper](http://www1.eafit.edu.co/asr/publications.html#plpv-2009).
 
 You can test for example the verification of the GCD algorithm with
@@ -97,4 +94,20 @@ We also have more examples related with first-order theories like
 group theory or Peano arithmetic. In addition there are more examples
 related to the verification of functional programs. You can browse all
 the examples from the file
-[README.html](https://github.com/asr/fotc/blob/master/src/fot/README.agda).
+[README.html](http://asr.github.io/fotc/README.html).
+
+Tested with
+-----------
+The files in this repository have been tested with:
+
+Agda files: Development versions of
+[Agda](http://wiki.portal.chalmers.se/agda/pmwiki.php), the Agda
+[standard library](http://wiki.portal.chalmers.se/agda/pmwiki.php?n=Libraries.StandardLibrary),
+the [extended](https://github.com/asr/eagda/blob/master/README.md)
+version of Agda and/or
+[Apia](https://github.com/asr/apia/blob/master/README.md)
+corresponding to the date of the last commit.
+
+Coq files: [Coq](https://coq.inria.fr/) 8.4pl6.
+
+Haskell files: [GHC](https://www.haskell.org/ghc/) 7.8.4.

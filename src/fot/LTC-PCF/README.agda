@@ -18,8 +18,6 @@ module LTC-PCF.README where
 -- Formalization of (a version of) Azcel's Logical Theory of
 -- Constructions for PCF.
 
--- The code has been tested with Agda 2.3.0.1.
-
 ------------------------------------------------------------------------------
 -- The axioms
 open import LTC-PCF.Base
