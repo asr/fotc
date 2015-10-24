@@ -3,9 +3,7 @@
 
 -- The alternating bit protocol following Dybjer and Herbert (1989).
 
--- Tested with QuickCheck 2.8, random 1.1 and streams 3.2.
-
--- TODO (01 April 2015): streams 3.2 doesn't compile with GHC 7.10.1.
+-- Tested with QuickCheck 2.8, random 1.1 and streams 3.2.1.
 
 ------------------------------------------------------------------------------
 module Main where

@@ -110,4 +110,4 @@ corresponding to the date of the last commit.
 
 Coq files: [Coq](https://coq.inria.fr/) 8.4pl6.
 
-Haskell files: [GHC](https://www.haskell.org/ghc/) 7.8.4.
+Haskell files: [GHC](https://www.haskell.org/ghc/) 7.10.2
